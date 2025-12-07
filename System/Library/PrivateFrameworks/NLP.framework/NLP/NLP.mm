@@ -1,4 +1,4 @@
-uint64_t _nlpDefaultLog()
+uint64_t _nlpDefaultLog(uint64_t a1, uint64_t a2)
 {
   if (_nlpDefaultLog::token != -1)
   {
@@ -15,7 +15,7 @@ os_log_t ___nlpDefaultLog_block_invoke()
   return result;
 }
 
-uint64_t _nlpSignpostLog()
+uint64_t _nlpSignpostLog(uint64_t a1, uint64_t a2)
 {
   if (_nlpSignpostLog::token != -1)
   {
@@ -245,7 +245,7 @@ __CFArray *NLTextStructuredEventGetLocationRanges(uint64_t a1)
   v3 = *(a1 + 24);
   if (v3)
   {
-    NLTextStructuredEvent::getLocationRanges(v3, &v8);
+    NLTextStructuredEvent::getLocationRanges(&v8, v3);
     v4 = v8;
     v5 = v9;
     if (v8 != v9)
@@ -288,7 +288,7 @@ __CFArray *NLTextStructuredEventGetPeopleRanges(uint64_t a1)
   v3 = *(a1 + 24);
   if (v3)
   {
-    NLTextStructuredEvent::getPeopleRanges(v3, &v8);
+    NLTextStructuredEvent::getPeopleRanges(&v8, v3);
     v4 = v8;
     v5 = v9;
     if (v8 != v9)
@@ -441,7 +441,7 @@ void TextSlotParserWrapper::~TextSlotParserWrapper(TextSlotParserWrapper *this)
   NLAbstractOrthographyConvertor::~NLAbstractOrthographyConvertor(this);
 }
 
-void NL::SpotlightParseFormatter::SpotlightParseFormatter(void *a1, uint64_t *a2, uint64_t *a3)
+void NL::SpotlightParseFormatter::SpotlightParseFormatter(NL::SpotlightParseFormatter *a1, uint64_t *a2, uint64_t *a3)
 {
   v4 = a2[1];
   v8 = *a2;
@@ -470,28 +470,28 @@ void NL::SpotlightParseFormatter::SpotlightParseFormatter(void *a1, uint64_t *a2
     std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
 
-  a1[18] = 0;
-  a1[22] = 0;
+  *(a1 + 18) = 0;
+  *(a1 + 22) = 0;
   *a1 = &unk_28400E180;
-  a1[21] = a1 + 22;
-  a1[23] = 0;
-  a1[25] = 0;
-  a1[24] = a1 + 25;
-  a1[19] = 0;
-  a1[20] = 0;
-  a1[26] = 0;
-  a1[28] = 0;
-  a1[27] = a1 + 28;
-  a1[29] = 0;
-  a1[31] = 0;
-  a1[30] = a1 + 31;
-  a1[34] = 0;
-  a1[35] = 0;
-  a1[32] = 0;
-  a1[33] = a1 + 34;
-  a1[37] = 0;
-  a1[38] = 0;
-  a1[36] = a1 + 37;
+  *(a1 + 21) = a1 + 176;
+  *(a1 + 23) = 0;
+  *(a1 + 25) = 0;
+  *(a1 + 24) = a1 + 200;
+  *(a1 + 19) = 0;
+  *(a1 + 20) = 0;
+  *(a1 + 26) = 0;
+  *(a1 + 28) = 0;
+  *(a1 + 27) = a1 + 224;
+  *(a1 + 29) = 0;
+  *(a1 + 31) = 0;
+  *(a1 + 30) = a1 + 248;
+  *(a1 + 34) = 0;
+  *(a1 + 35) = 0;
+  *(a1 + 32) = 0;
+  *(a1 + 33) = a1 + 272;
+  *(a1 + 37) = 0;
+  *(a1 + 38) = 0;
+  *(a1 + 36) = a1 + 296;
   operator new();
 }
 
@@ -530,11 +530,11 @@ const void **std::unique_ptr<NL::SpotlightUserContext>::reset[abi:ne200100](cons
   return result;
 }
 
-void NL::SpotlightParseFormatter::loadDates(NL::SpotlightParseFormatter *this)
+void NL::SpotlightParseFormatter::loadDates(uint64_t **this)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, "SENT");
   v27 = __p;
-  v2 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 264, __p);
+  v2 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 33, __p, &std::piecewise_construct, &v27);
   MEMORY[0x2318C02F0](v2 + 56, "kMDItemUserSharedSentDate");
   if (v26 < 0)
   {
@@ -543,7 +543,7 @@ void NL::SpotlightParseFormatter::loadDates(NL::SpotlightParseFormatter *this)
 
   std::string::basic_string[abi:ne200100]<0>(__p, "MAILSENT");
   v27 = __p;
-  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 264, __p);
+  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 33, __p, &std::piecewise_construct, &v27);
   MEMORY[0x2318C02F0](v3 + 56, "com_apple_mail_dateSent");
   if (v26 < 0)
   {
@@ -552,7 +552,7 @@ void NL::SpotlightParseFormatter::loadDates(NL::SpotlightParseFormatter *this)
 
   std::string::basic_string[abi:ne200100]<0>(__p, "MAILMAILSENT");
   v27 = __p;
-  v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 264, __p);
+  v4 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 33, __p, &std::piecewise_construct, &v27);
   MEMORY[0x2318C02F0](v4 + 56, "kMDItemContentCreationDate");
   if (v26 < 0)
   {
@@ -561,7 +561,7 @@ void NL::SpotlightParseFormatter::loadDates(NL::SpotlightParseFormatter *this)
 
   std::string::basic_string[abi:ne200100]<0>(__p, "MESSAGESENT");
   v27 = __p;
-  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 264, __p);
+  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 33, __p, &std::piecewise_construct, &v27);
   MEMORY[0x2318C02F0](v5 + 56, "kMDItemContentCreationDate");
   if (v26 < 0)
   {
@@ -570,7 +570,7 @@ void NL::SpotlightParseFormatter::loadDates(NL::SpotlightParseFormatter *this)
 
   std::string::basic_string[abi:ne200100]<0>(__p, "MSGMESSAGESENT");
   v27 = __p;
-  v6 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 264, __p);
+  v6 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 33, __p, &std::piecewise_construct, &v27);
   MEMORY[0x2318C02F0](v6 + 56, "kMDItemContentCreationDate");
   if (v26 < 0)
   {
@@ -579,7 +579,7 @@ void NL::SpotlightParseFormatter::loadDates(NL::SpotlightParseFormatter *this)
 
   std::string::basic_string[abi:ne200100]<0>(__p, "RECEIVED");
   v27 = __p;
-  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 264, __p);
+  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 33, __p, &std::piecewise_construct, &v27);
   MEMORY[0x2318C02F0](v7 + 56, "kMDItemUserSharedReceivedDate");
   if (v26 < 0)
   {
@@ -588,7 +588,7 @@ void NL::SpotlightParseFormatter::loadDates(NL::SpotlightParseFormatter *this)
 
   std::string::basic_string[abi:ne200100]<0>(__p, "MAILRECEIVED");
   v27 = __p;
-  v8 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 264, __p);
+  v8 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 33, __p, &std::piecewise_construct, &v27);
   MEMORY[0x2318C02F0](v8 + 56, "com_apple_mail_dateReceived");
   if (v26 < 0)
   {
@@ -597,7 +597,7 @@ void NL::SpotlightParseFormatter::loadDates(NL::SpotlightParseFormatter *this)
 
   std::string::basic_string[abi:ne200100]<0>(__p, "MAILMAILRECEIVED");
   v27 = __p;
-  v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 264, __p);
+  v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 33, __p, &std::piecewise_construct, &v27);
   MEMORY[0x2318C02F0](v9 + 56, "com_apple_mail_dateReceived");
   if (v26 < 0)
   {
@@ -606,7 +606,7 @@ void NL::SpotlightParseFormatter::loadDates(NL::SpotlightParseFormatter *this)
 
   std::string::basic_string[abi:ne200100]<0>(__p, "MESSAGERECEIVED");
   v27 = __p;
-  v10 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 264, __p);
+  v10 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 33, __p, &std::piecewise_construct, &v27);
   MEMORY[0x2318C02F0](v10 + 56, "kMDItemDateAdded");
   if (v26 < 0)
   {
@@ -615,7 +615,7 @@ void NL::SpotlightParseFormatter::loadDates(NL::SpotlightParseFormatter *this)
 
   std::string::basic_string[abi:ne200100]<0>(__p, "MSGMESSAGERECEIVED");
   v27 = __p;
-  v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 264, __p);
+  v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 33, __p, &std::piecewise_construct, &v27);
   MEMORY[0x2318C02F0](v11 + 56, "kMDItemDateAdded");
   if (v26 < 0)
   {
@@ -624,7 +624,7 @@ void NL::SpotlightParseFormatter::loadDates(NL::SpotlightParseFormatter *this)
 
   std::string::basic_string[abi:ne200100]<0>(__p, "USERCREATED");
   v27 = __p;
-  v12 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 264, __p);
+  v12 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 33, __p, &std::piecewise_construct, &v27);
   MEMORY[0x2318C02F0](v12 + 56, "kMDItemUserCreatedDate");
   if (v26 < 0)
   {
@@ -633,7 +633,7 @@ void NL::SpotlightParseFormatter::loadDates(NL::SpotlightParseFormatter *this)
 
   std::string::basic_string[abi:ne200100]<0>(__p, "FILECREATED");
   v27 = __p;
-  v13 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 264, __p);
+  v13 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 33, __p, &std::piecewise_construct, &v27);
   MEMORY[0x2318C02F0](v13 + 56, "kMDItemContentCreationDate");
   if (v26 < 0)
   {
@@ -642,7 +642,7 @@ void NL::SpotlightParseFormatter::loadDates(NL::SpotlightParseFormatter *this)
 
   std::string::basic_string[abi:ne200100]<0>(__p, "USERMODIFIED");
   v27 = __p;
-  v14 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 264, __p);
+  v14 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 33, __p, &std::piecewise_construct, &v27);
   MEMORY[0x2318C02F0](v14 + 56, "kMDItemUserModifiedDate");
   if (v26 < 0)
   {
@@ -651,7 +651,7 @@ void NL::SpotlightParseFormatter::loadDates(NL::SpotlightParseFormatter *this)
 
   std::string::basic_string[abi:ne200100]<0>(__p, "MAILMODIFIED");
   v27 = __p;
-  v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 264, __p);
+  v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 33, __p, &std::piecewise_construct, &v27);
   MEMORY[0x2318C02F0](v15 + 56, "kMDItemUsedDate");
   if (v26 < 0)
   {
@@ -660,7 +660,7 @@ void NL::SpotlightParseFormatter::loadDates(NL::SpotlightParseFormatter *this)
 
   std::string::basic_string[abi:ne200100]<0>(__p, "FILEMODIFIED");
   v27 = __p;
-  v16 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 264, __p);
+  v16 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 33, __p, &std::piecewise_construct, &v27);
   MEMORY[0x2318C02F0](v16 + 56, "kMDItemContentModificationDate");
   if (v26 < 0)
   {
@@ -669,7 +669,7 @@ void NL::SpotlightParseFormatter::loadDates(NL::SpotlightParseFormatter *this)
 
   std::string::basic_string[abi:ne200100]<0>(__p, "USERPRINTED");
   v27 = __p;
-  v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 264, __p);
+  v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 33, __p, &std::piecewise_construct, &v27);
   MEMORY[0x2318C02F0](v17 + 56, "kMDItemUserPrintedDate");
   if (v26 < 0)
   {
@@ -678,7 +678,7 @@ void NL::SpotlightParseFormatter::loadDates(NL::SpotlightParseFormatter *this)
 
   std::string::basic_string[abi:ne200100]<0>(__p, "USERWEBVIEWED");
   v27 = __p;
-  v18 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 264, __p);
+  v18 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 33, __p, &std::piecewise_construct, &v27);
   MEMORY[0x2318C02F0](v18 + 56, "kMDItemDateAdded");
   if (v26 < 0)
   {
@@ -687,7 +687,7 @@ void NL::SpotlightParseFormatter::loadDates(NL::SpotlightParseFormatter *this)
 
   std::string::basic_string[abi:ne200100]<0>(__p, "FILEVIEWED");
   v27 = __p;
-  v19 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 264, __p);
+  v19 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 33, __p, &std::piecewise_construct, &v27);
   MEMORY[0x2318C02F0](v19 + 56, "kMDItemLastUsedDate");
   if (v26 < 0)
   {
@@ -696,7 +696,7 @@ void NL::SpotlightParseFormatter::loadDates(NL::SpotlightParseFormatter *this)
 
   std::string::basic_string[abi:ne200100]<0>(__p, "WEBVIEWED");
   v27 = __p;
-  v20 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 264, __p);
+  v20 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 33, __p, &std::piecewise_construct, &v27);
   MEMORY[0x2318C02F0](v20 + 56, "kMDItemDateAdded");
   if (v26 < 0)
   {
@@ -705,7 +705,7 @@ void NL::SpotlightParseFormatter::loadDates(NL::SpotlightParseFormatter *this)
 
   std::string::basic_string[abi:ne200100]<0>(__p, "MAILVIEWED");
   v27 = __p;
-  v21 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 264, __p);
+  v21 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 33, __p, &std::piecewise_construct, &v27);
   MEMORY[0x2318C02F0](v21 + 56, "com_apple_mail_dateLastViewed");
   if (v26 < 0)
   {
@@ -714,7 +714,7 @@ void NL::SpotlightParseFormatter::loadDates(NL::SpotlightParseFormatter *this)
 
   std::string::basic_string[abi:ne200100]<0>(__p, "MAILMAILVIEWED");
   v27 = __p;
-  v22 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 264, __p);
+  v22 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 33, __p, &std::piecewise_construct, &v27);
   MEMORY[0x2318C02F0](v22 + 56, "com_apple_mail_dateLastViewed");
   if (v26 < 0)
   {
@@ -723,7 +723,7 @@ void NL::SpotlightParseFormatter::loadDates(NL::SpotlightParseFormatter *this)
 
   std::string::basic_string[abi:ne200100]<0>(__p, "FILEDOWNLOADED");
   v27 = __p;
-  v23 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 264, __p);
+  v23 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 33, __p, &std::piecewise_construct, &v27);
   MEMORY[0x2318C02F0](v23 + 56, "kMDItemDownloadDate");
   if (v26 < 0)
   {
@@ -732,7 +732,7 @@ void NL::SpotlightParseFormatter::loadDates(NL::SpotlightParseFormatter *this)
 
   std::string::basic_string[abi:ne200100]<0>(__p, "FILEADDED");
   v27 = __p;
-  v24 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 264, __p);
+  v24 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 33, __p, &std::piecewise_construct, &v27);
   MEMORY[0x2318C02F0](v24 + 56, "kMDItemDateAdded");
   if (v26 < 0)
   {
@@ -750,24 +750,24 @@ void sub_22CD0D928(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void NL::SpotlightParseFormatter::load(uint64_t a1, int a2)
+void NL::SpotlightParseFormatter::load(uint64_t **a1, int a2)
 {
-  v4 = (a1 + 224);
-  std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::destroy(a1 + 216, *(a1 + 224));
-  *(a1 + 216) = v4;
+  v4 = (a1 + 28);
+  std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::destroy((a1 + 27), a1[28]);
+  a1[27] = v4;
   *v4 = 0;
-  v5 = *(a1 + 176);
-  *(a1 + 232) = 0;
-  std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::destroy(a1 + 168, v5);
-  *(a1 + 176) = 0;
-  *(a1 + 184) = 0;
-  *(a1 + 168) = a1 + 176;
+  v5 = a1[22];
+  a1[29] = 0;
+  std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::destroy((a1 + 21), v5);
+  a1[22] = 0;
+  a1[23] = 0;
+  a1[21] = (a1 + 22);
   std::string::basic_string[abi:ne200100]<0>(v36, "TO");
   __p[0] = v36;
-  v6 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 216, v36);
+  v6 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 27, v36, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Contact");
   v38 = __p;
-  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6 + 56, __p);
+  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v6 + 56), __p, &std::piecewise_construct, &v38);
   MEMORY[0x2318C02F0](v7 + 56, "kMDUserQueryRecipientKey");
   if (v35 < 0)
   {
@@ -781,10 +781,10 @@ void NL::SpotlightParseFormatter::load(uint64_t a1, int a2)
 
   std::string::basic_string[abi:ne200100]<0>(v36, "TO");
   __p[0] = v36;
-  v8 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 216, v36);
+  v8 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 27, v36, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "EmailAddress");
   v38 = __p;
-  v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v8 + 56, __p);
+  v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v8 + 56), __p, &std::piecewise_construct, &v38);
   MEMORY[0x2318C02F0](v9 + 56, "kMDUserQueryRecipientKey");
   if (v35 < 0)
   {
@@ -798,10 +798,10 @@ void NL::SpotlightParseFormatter::load(uint64_t a1, int a2)
 
   std::string::basic_string[abi:ne200100]<0>(v36, "SENTO");
   __p[0] = v36;
-  v10 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 216, v36);
+  v10 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 27, v36, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Contact");
   v38 = __p;
-  v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v10 + 56, __p);
+  v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v10 + 56), __p, &std::piecewise_construct, &v38);
   MEMORY[0x2318C02F0](v11 + 56, "kMDUserQueryRecipientKey");
   if (v35 < 0)
   {
@@ -815,10 +815,10 @@ void NL::SpotlightParseFormatter::load(uint64_t a1, int a2)
 
   std::string::basic_string[abi:ne200100]<0>(v36, "SENTO");
   __p[0] = v36;
-  v12 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 216, v36);
+  v12 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 27, v36, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "EmailAddress");
   v38 = __p;
-  v13 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v12 + 56, __p);
+  v13 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v12 + 56), __p, &std::piecewise_construct, &v38);
   MEMORY[0x2318C02F0](v13 + 56, "kMDUserQueryRecipientKey");
   if (v35 < 0)
   {
@@ -832,10 +832,10 @@ void NL::SpotlightParseFormatter::load(uint64_t a1, int a2)
 
   std::string::basic_string[abi:ne200100]<0>(v36, "RECIPIENT");
   __p[0] = v36;
-  v14 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 216, v36);
+  v14 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 27, v36, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Contact");
   v38 = __p;
-  v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v14 + 56, __p);
+  v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v14 + 56), __p, &std::piecewise_construct, &v38);
   MEMORY[0x2318C02F0](v15 + 56, "kMDUserQueryRecipientKey");
   if (v35 < 0)
   {
@@ -849,10 +849,10 @@ void NL::SpotlightParseFormatter::load(uint64_t a1, int a2)
 
   std::string::basic_string[abi:ne200100]<0>(v36, "RECIPIENT");
   __p[0] = v36;
-  v16 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 216, v36);
+  v16 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 27, v36, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "EmailAddress");
   v38 = __p;
-  v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v16 + 56, __p);
+  v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v16 + 56), __p, &std::piecewise_construct, &v38);
   MEMORY[0x2318C02F0](v17 + 56, "kMDUserQueryRecipientKey");
   if (v35 < 0)
   {
@@ -866,10 +866,10 @@ void NL::SpotlightParseFormatter::load(uint64_t a1, int a2)
 
   std::string::basic_string[abi:ne200100]<0>(v36, "FROM");
   __p[0] = v36;
-  v18 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 216, v36);
+  v18 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 27, v36, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Contact");
   v38 = __p;
-  v19 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v18 + 56, __p);
+  v19 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v18 + 56), __p, &std::piecewise_construct, &v38);
   MEMORY[0x2318C02F0](v19 + 56, "kMDUserQuerySenderKey");
   if (v35 < 0)
   {
@@ -883,10 +883,10 @@ void NL::SpotlightParseFormatter::load(uint64_t a1, int a2)
 
   std::string::basic_string[abi:ne200100]<0>(v36, "FROM");
   __p[0] = v36;
-  v20 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 216, v36);
+  v20 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 27, v36, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "EmailAddress");
   v38 = __p;
-  v21 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v20 + 56, __p);
+  v21 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v20 + 56), __p, &std::piecewise_construct, &v38);
   MEMORY[0x2318C02F0](v21 + 56, "kMDUserQuerySenderKey");
   if (v35 < 0)
   {
@@ -900,10 +900,10 @@ void NL::SpotlightParseFormatter::load(uint64_t a1, int a2)
 
   std::string::basic_string[abi:ne200100]<0>(v36, "SENDER");
   __p[0] = v36;
-  v22 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 216, v36);
+  v22 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 27, v36, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Contact");
   v38 = __p;
-  v23 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v22 + 56, __p);
+  v23 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v22 + 56), __p, &std::piecewise_construct, &v38);
   MEMORY[0x2318C02F0](v23 + 56, "kMDUserQuerySenderKey");
   if (v35 < 0)
   {
@@ -917,10 +917,10 @@ void NL::SpotlightParseFormatter::load(uint64_t a1, int a2)
 
   std::string::basic_string[abi:ne200100]<0>(v36, "SENDER");
   __p[0] = v36;
-  v24 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 216, v36);
+  v24 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 27, v36, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "EmailAddress");
   v38 = __p;
-  v25 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v24 + 56, __p);
+  v25 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v24 + 56), __p, &std::piecewise_construct, &v38);
   MEMORY[0x2318C02F0](v25 + 56, "kMDUserQuerySenderKey");
   if (v35 < 0)
   {
@@ -934,10 +934,10 @@ void NL::SpotlightParseFormatter::load(uint64_t a1, int a2)
 
   std::string::basic_string[abi:ne200100]<0>(v36, "KIND");
   __p[0] = v36;
-  v26 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 216, v36);
+  v26 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 27, v36, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MailKind");
   v38 = __p;
-  v27 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v26 + 56, __p);
+  v27 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v26 + 56), __p, &std::piecewise_construct, &v38);
   MEMORY[0x2318C02F0](v27 + 56, "kMDUserQueryKindKey");
   if (v35 < 0)
   {
@@ -951,10 +951,10 @@ void NL::SpotlightParseFormatter::load(uint64_t a1, int a2)
 
   std::string::basic_string[abi:ne200100]<0>(v36, "KIND");
   __p[0] = v36;
-  v28 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 216, v36);
+  v28 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 27, v36, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MessageKind");
   v38 = __p;
-  v29 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v28 + 56, __p);
+  v29 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v28 + 56), __p, &std::piecewise_construct, &v38);
   MEMORY[0x2318C02F0](v29 + 56, "kMDUserQueryKindKey");
   if (v35 < 0)
   {
@@ -968,10 +968,10 @@ void NL::SpotlightParseFormatter::load(uint64_t a1, int a2)
 
   std::string::basic_string[abi:ne200100]<0>(v36, "TITLED");
   __p[0] = v36;
-  v30 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 216, v36);
+  v30 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 27, v36, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Text");
   v38 = __p;
-  v31 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v30 + 56, __p);
+  v31 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v30 + 56), __p, &std::piecewise_construct, &v38);
   MEMORY[0x2318C02F0](v31 + 56, "kMDUserQueryTitleKey");
   if (v35 < 0)
   {
@@ -985,10 +985,10 @@ void NL::SpotlightParseFormatter::load(uint64_t a1, int a2)
 
   std::string::basic_string[abi:ne200100]<0>(v36, "ABOUT");
   __p[0] = v36;
-  v32 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 216, v36);
+  v32 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 27, v36, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Text");
   v38 = __p;
-  v33 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v32 + 56, __p);
+  v33 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v32 + 56), __p, &std::piecewise_construct, &v38);
   MEMORY[0x2318C02F0](v33 + 56, "kMDUserQueryTopicKey");
   if (v35 < 0)
   {
@@ -1054,14 +1054,14 @@ void NL::SpotlightParseFormatter::~SpotlightParseFormatter(NL::SpotlightParseFor
   JUMPOUT(0x2318C0600);
 }
 
-__CFDictionary *NL::SpotlightParseFormatter::copyDefaultParseResult(const void **this, char a2)
+__CFDictionary *NL::SpotlightParseFormatter::copyDefaultParseResult(CFStringRef *this, char a2)
 {
   NL::SpotlightParseFormatter::reset(this);
   v4 = this[3];
   v5 = MEMORY[0x277CBECE8];
-  if (v4 && (v6 = *(v4 + 13)) != 0)
+  if (v4 && (info = v4[3].info) != 0)
   {
-    Copy = CFStringCreateCopy(*MEMORY[0x277CBECE8], v6);
+    Copy = CFStringCreateCopy(*MEMORY[0x277CBECE8], info);
   }
 
   else
@@ -1076,7 +1076,7 @@ __CFDictionary *NL::SpotlightParseFormatter::copyDefaultParseResult(const void *
     goto LABEL_26;
   }
 
-  v9 = *(this[1] + 64);
+  isa_low = LOBYTE(this[1][2].isa);
   Length = CFStringGetLength(this[5]);
   v11 = 200;
   if (Length < 200)
@@ -1091,7 +1091,7 @@ __CFDictionary *NL::SpotlightParseFormatter::copyDefaultParseResult(const void *
 
   else
   {
-    v12 = v9;
+    v12 = isa_low;
   }
 
   v13 = v12 == 0;
@@ -1101,14 +1101,14 @@ __CFDictionary *NL::SpotlightParseFormatter::copyDefaultParseResult(const void *
     v14 = Length;
   }
 
-  v15.length = v9 ? v11 : v14;
+  v15.length = isa_low ? v11 : v14;
   v15.location = 0;
   v16 = CFStringCreateWithSubstring(*v5, v8, v15);
   v26 = v16;
   if (v16)
   {
     v17 = v16;
-    getUTF8StringFromCFString(v16, &v25);
+    getUTF8StringFromCFString(&v25, v16);
     escapeContent(&v25);
     std::string::basic_string[abi:ne200100]<0>(&v24, "(** = %@*cdwt)");
     std::string::basic_string[abi:ne200100]<0>(__p, "%@");
@@ -1220,14 +1220,14 @@ CFStringRef NL::SpotlightParseFormatter::copyDateRangeTerm(uint64_t a1, const vo
   return v5;
 }
 
-void sub_22CD0E7E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_22CD0E7E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
 
-void *NL::SpotlightParseFormatter::copyTermForDate(uint64_t a1, uint64_t a2, void *a3, __CFCalendar **a4, int a5, __CFDictionary *a6, int a7)
+void *NL::SpotlightParseFormatter::copyTermForDate(uint64_t a1, uint64_t a2, void *a3, __CFCalendar **a4, unsigned int a5, __CFDictionary *a6, int a7)
 {
   if (!a4)
   {
@@ -1455,9 +1455,9 @@ void *copyDisplayTermForTerms(const __CFArray *a1)
   return v6;
 }
 
-void sub_22CD0ECE4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22CD0ECE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   nlp::CFScopedPtr<__CFString const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -1589,9 +1589,9 @@ LABEL_31:
   return v4;
 }
 
-void sub_22CD0EF88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, const void *a18, const void *a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25)
+void sub_22CD0EF88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, const void *a18, const void *a19, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
-  if (a25 < 0)
+  if (a27 < 0)
   {
     operator delete(__p);
   }
@@ -1690,7 +1690,7 @@ LABEL_17:
   return 0;
 }
 
-void sub_22CD0F1A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, const void *a10, uint64_t a11, const void *a12, uint64_t a13, char a14, char *a15)
+void sub_22CD0F1A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, const void *a10, uint64_t a11, const void *a12, uint64_t a13, uint64_t a14, char *a15)
 {
   nlp::CFScopedPtr<__CFNumber const*>::reset(&a10, 0);
   nlp::CFScopedPtr<__CFNumber const*>::reset(&a12, 0);
@@ -1698,7 +1698,7 @@ void sub_22CD0F1A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *NL::SpotlightParseFormatter::copyTermForTranslation(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, __CFDictionary *a6)
+void *NL::SpotlightParseFormatter::copyTermForTranslation(uint64_t a1, const void **a2, uint64_t a3, void *a4, uint64_t a5, __CFDictionary *a6)
 {
   v11 = MEMORY[0x277CBECE8];
   if (a6 && a1 + 224 != std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::find<std::string>(a1 + 216, a2))
@@ -1808,7 +1808,7 @@ LABEL_13:
         {
           v33 = v30;
           v34 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::find<std::string>(a1 + 168, &v80.__r_.__value_.__l.__data_);
-          std::map<std::string,std::string>::map[abi:ne200100](&v78, (v34 + 56));
+          std::map<std::string,std::string>::map[abi:ne200100](v78, (v34 + 56));
           v35 = v24;
           if (*(a2 + 23) >= 0)
           {
@@ -1817,7 +1817,7 @@ LABEL_13:
 
           else
           {
-            v36 = *(a2 + 8);
+            v36 = a2[1];
           }
 
           std::string::basic_string[abi:ne200100](&v75, v36 + 1);
@@ -1875,7 +1875,7 @@ LABEL_13:
           v42->__r_.__value_.__l.__size_ = 0;
           v42->__r_.__value_.__r.__words[2] = 0;
           v42->__r_.__value_.__r.__words[0] = 0;
-          v44 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::find<std::string>(&v78, __p);
+          v44 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::find<std::string>(v78, __p);
           v24 = v35;
           if (SHIBYTE(v77) < 0)
           {
@@ -1901,7 +1901,7 @@ LABEL_13:
 
             else
             {
-              v45 = *(a2 + 8);
+              v45 = a2[1];
             }
 
             std::string::basic_string[abi:ne200100](&v75, v45 + 1);
@@ -1959,7 +1959,7 @@ LABEL_13:
             v51->__r_.__value_.__l.__size_ = 0;
             v51->__r_.__value_.__r.__words[2] = 0;
             v51->__r_.__value_.__r.__words[0] = 0;
-            v53 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::find<std::string>(&v78, __p);
+            v53 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::find<std::string>(v78, __p);
             v24 = v35;
             std::string::operator=(&v85, (v53 + 56));
             if (SHIBYTE(v77) < 0)
@@ -2016,7 +2016,7 @@ LABEL_13:
 
               else
               {
-                v58 = *(a2 + 8);
+                v58 = a2[1];
               }
 
               std::string::basic_string[abi:ne200100](&v75, v58 + 1);
@@ -2074,7 +2074,7 @@ LABEL_13:
               v64->__r_.__value_.__l.__size_ = 0;
               v64->__r_.__value_.__r.__words[2] = 0;
               v64->__r_.__value_.__r.__words[0] = 0;
-              v66 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::find<std::string>(&v78, __p);
+              v66 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::find<std::string>(v78, __p);
               v24 = v35;
               std::string::operator=(&v85, (v66 + 56));
               if (SHIBYTE(v77) < 0)
@@ -2130,7 +2130,7 @@ LABEL_13:
             }
           }
 
-          std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(&v78, v79);
+          std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v78, v79);
           v32 = v55;
           v30 = v33;
         }
@@ -2265,7 +2265,7 @@ void sub_22CD0FA24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void escapeContent(std::string *a1)
 {
   std::string::basic_string[abi:ne200100]<0>(v4, "");
-  std::string::basic_string[abi:ne200100]<0>(__p, "\\"");
+  std::string::basic_string[abi:ne200100]<0>(__p, "\");
   replaceAll(a1, v4, __p);
   if (v3 < 0)
   {
@@ -2392,7 +2392,7 @@ void sub_22CD0FEC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *NL::SpotlightParseFormatter::copyTermForEntityAndNameWithType(uint64_t a1, void *a2, int a3, const void **a4, unsigned __int8 *a5, void *a6, __CFDictionary *a7, __CFDictionary *a8, unsigned __int8 a9)
+void *NL::SpotlightParseFormatter::copyTermForEntityAndNameWithType(uint64_t a1, void *a2, unsigned int a3, const void **a4, unsigned __int8 *a5, void *a6, __CFDictionary *a7, __CFDictionary *a8, unsigned __int8 a9)
 {
   std::string::basic_string[abi:ne200100]<0>(v33, "Max");
   if (startswith(a5, v33))
@@ -2532,7 +2532,7 @@ void sub_22CD10134(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -2546,17 +2546,17 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-void NL::SpotlightParseFormatter::updateTermsWithAttributeForEntityInFormat(uint64_t a1, uint64_t a2, const __CFArray *a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7, char a8)
+void NL::SpotlightParseFormatter::updateTermsWithAttributeForEntityInFormat(uint64_t a1, uint64_t a2, const __CFArray *a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, char a8)
 {
   if (a2)
   {
@@ -2761,10 +2761,10 @@ void nlp::CFScopedPtr<__CFDictionary *>::reset(const void **a1, const void *a2)
   *a1 = a2;
 }
 
-uint64_t NL::ParseAttribute::enumerateParseNamesWithType(uint64_t result, uint64_t a2)
+void *NL::ParseAttribute::enumerateParseNamesWithType(void *result, uint64_t a2)
 {
-  v2 = *(result + 64);
-  if (*(result + 72) != v2)
+  v2 = result[8];
+  if (result[9] != v2)
   {
     v4 = result;
     v5 = 0;
@@ -3125,7 +3125,7 @@ BOOL NL::SpotlightParseFormatter::updateParseResultForIntentAtIndex(uint64_t a1,
         v101 = v52;
         if (v52)
         {
-          getUTF8StringFromCFString(v52, &v100);
+          getUTF8StringFromCFString(&v100, v52);
           escapeContent(&v100);
           std::string::basic_string[abi:ne200100]<0>(&v99, "(kMDItemSubject=%@*cwd || kMDItemTitle=%@*cwd || kMDItemTopic=%@*cwd || kMDItemTextContent=%@*cd)");
           std::string::basic_string[abi:ne200100]<0>(v97, "%@");
@@ -3327,7 +3327,7 @@ LABEL_102:
   return v32 != 0;
 }
 
-void sub_22CD11300(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, const void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, const void *a30, const void *a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, const void *a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, const void *a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, const void *a49)
+void sub_22CD11300(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, const void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, const void *a30, const void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, const void *a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, const void *a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, const void *a49)
 {
   if (*(v49 - 153) < 0)
   {
@@ -3437,7 +3437,7 @@ void ___ZN2NL23SpotlightParseFormatter33updateParseResultForIntentAtIndexENSt3__
   }
 }
 
-void sub_22CD11728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, char *a13)
+void sub_22CD11728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char *a13)
 {
   if (v13)
   {
@@ -3548,9 +3548,9 @@ void updateRankingTermsWithTerm(__CFDictionary *a1, CFArrayRef theArray, __CFArr
   }
 }
 
-void sub_22CD1195C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_22CD1195C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   nlp::CFScopedPtr<__CFNumber const*>::reset(va, 0);
   _Unwind_Resume(a1);
 }
@@ -3666,14 +3666,14 @@ void sub_22CD11BF8(_Unwind_Exception *exception_object)
 
 void NL::SpotlightParseFormatter::loadUserQueries(NLAbstractOrthographyConvertor **this)
 {
-  v57[2] = *MEMORY[0x277D85DE8];
+  v56[2] = *MEMORY[0x277D85DE8];
   if (*(this[1] + 2))
   {
     NLAbstractOrthographyConvertor::~NLAbstractOrthographyConvertor(this[18]);
   }
 
   v2 = NL::SpotlightUserContext::copyUserNames(this[18]);
-  v55 = v2;
+  v54 = v2;
   if (v2)
   {
     v3 = v2;
@@ -3681,13 +3681,13 @@ void NL::SpotlightParseFormatter::loadUserQueries(NLAbstractOrthographyConvertor
     {
       v4 = *MEMORY[0x277CBECE8];
       Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
-      v54 = Mutable;
+      v53 = Mutable;
       if (Mutable)
       {
         Count = CFSetGetCount(v3);
-        v46 = &v44;
+        v45 = &v43;
         MEMORY[0x28223BE20]();
-        v8 = (&v44 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+        v8 = (&v43 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
         if (v7 >= 0x200)
         {
           v9 = 512;
@@ -3698,7 +3698,7 @@ void NL::SpotlightParseFormatter::loadUserQueries(NLAbstractOrthographyConvertor
           v9 = v7;
         }
 
-        bzero(&v44 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), v9);
+        bzero(&v43 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0), v9);
         CFSetGetValues(v3, v8);
         if (Count >= 1)
         {
@@ -3723,50 +3723,50 @@ void NL::SpotlightParseFormatter::loadUserQueries(NLAbstractOrthographyConvertor
 
         v13 = CFStringCreateByCombiningStrings(v4, Mutable, @" || ");
         v14 = v13;
-        v53 = v13;
+        v52 = v13;
         if (v13)
         {
-          getUTF8StringFromCFString(v13, &__str);
+          getUTF8StringFromCFString(&__str, v13);
           std::operator+<char>();
-          v15 = std::string::append(&v51, ")");
+          v15 = std::string::append(&v50, ")");
           size = v15->__r_.__value_.__l.__size_;
-          v45 = v15->__r_.__value_.__r.__words[0];
-          v57[0] = size;
-          *(v57 + 7) = *(&v15->__r_.__value_.__r.__words[1] + 7);
+          v44 = v15->__r_.__value_.__r.__words[0];
+          v56[0] = size;
+          *(v56 + 7) = *(&v15->__r_.__value_.__r.__words[1] + 7);
           v17 = HIBYTE(v15->__r_.__value_.__r.__words[2]);
           v15->__r_.__value_.__l.__size_ = 0;
           v15->__r_.__value_.__r.__words[2] = 0;
           v15->__r_.__value_.__r.__words[0] = 0;
-          std::string::basic_string[abi:ne200100]<0>(v49, "MSGMESSAGESENT");
-          v47[0] = v49;
-          v18 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v49);
-          std::string::basic_string[abi:ne200100]<0>(v47, "SENDER.HasUserSent");
-          v56 = v47;
-          v19 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v18 + 56, v47);
+          std::string::basic_string[abi:ne200100]<0>(v48, "MSGMESSAGESENT");
+          v46[0] = v48;
+          v18 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v48, &std::piecewise_construct, v46);
+          std::string::basic_string[abi:ne200100]<0>(v46, "SENDER.HasUserSent");
+          v55 = v46;
+          v19 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v18 + 56), v46, &std::piecewise_construct, &v55);
           v20 = v19;
           if (*(v19 + 79) < 0)
           {
             operator delete(*(v19 + 56));
           }
 
-          v21 = v57[0];
-          *(v20 + 56) = v45;
+          v21 = v56[0];
+          *(v20 + 56) = v44;
           *(v20 + 64) = v21;
-          *(v20 + 71) = *(v57 + 7);
+          *(v20 + 71) = *(v56 + 7);
           *(v20 + 79) = v17;
-          if (v48 < 0)
+          if (v47 < 0)
           {
-            operator delete(v47[0]);
+            operator delete(v46[0]);
           }
 
-          if (v50 < 0)
+          if (v49 < 0)
           {
-            operator delete(v49[0]);
+            operator delete(v48[0]);
           }
 
-          if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v51.__r_.__value_.__l.__data_);
+            operator delete(v50.__r_.__value_.__l.__data_);
           }
 
           if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -3802,121 +3802,121 @@ void NL::SpotlightParseFormatter::loadUserQueries(NLAbstractOrthographyConvertor
           CFRelease(v14);
         }
 
-        v53 = v24;
+        v52 = v24;
         if (v24)
         {
-          getUTF8StringFromCFString(v24, &__str);
+          getUTF8StringFromCFString(&__str, v24);
           if (Count < 2)
           {
-            std::string::basic_string[abi:ne200100]<0>(&v51, "MAILRECEIVED");
-            v49[0] = &v51;
-            v39 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), &v51.__r_.__value_.__l.__data_);
-            std::string::basic_string[abi:ne200100]<0>(v49, "RECIPIENT.HasUserReceived");
-            v47[0] = v49;
-            v40 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v39 + 56, v49);
+            std::string::basic_string[abi:ne200100]<0>(&v50, "MAILRECEIVED");
+            v48[0] = &v50;
+            v39 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, &v50.__r_.__value_.__l.__data_, &std::piecewise_construct, v48);
+            std::string::basic_string[abi:ne200100]<0>(v48, "RECIPIENT.HasUserReceived");
+            v46[0] = v48;
+            v40 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v39 + 56), v48, &std::piecewise_construct, v46);
             std::string::operator=((v40 + 56), &__str);
-            if (v50 < 0)
+            if (v49 < 0)
             {
-              operator delete(v49[0]);
+              operator delete(v48[0]);
             }
 
-            if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v51.__r_.__value_.__l.__data_);
+              operator delete(v50.__r_.__value_.__l.__data_);
             }
 
-            std::string::basic_string[abi:ne200100]<0>(&v51, "MESSAGERECEIVED");
-            v49[0] = &v51;
-            v41 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), &v51.__r_.__value_.__l.__data_);
-            std::string::basic_string[abi:ne200100]<0>(v49, "RECIPIENT.HasUserReceived");
-            v47[0] = v49;
-            v42 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v41 + 56, v49);
+            std::string::basic_string[abi:ne200100]<0>(&v50, "MESSAGERECEIVED");
+            v48[0] = &v50;
+            v41 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, &v50.__r_.__value_.__l.__data_, &std::piecewise_construct, v48);
+            std::string::basic_string[abi:ne200100]<0>(v48, "RECIPIENT.HasUserReceived");
+            v46[0] = v48;
+            v42 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v41 + 56), v48, &std::piecewise_construct, v46);
             std::string::operator=((v42 + 56), &__str);
           }
 
           else
           {
             std::operator+<char>();
-            v25 = std::string::append(&v51, ")");
+            v25 = std::string::append(&v50, ")");
             v26 = v25->__r_.__value_.__r.__words[0];
-            v57[0] = v25->__r_.__value_.__l.__size_;
-            *(v57 + 7) = *(&v25->__r_.__value_.__r.__words[1] + 7);
+            v56[0] = v25->__r_.__value_.__l.__size_;
+            *(v56 + 7) = *(&v25->__r_.__value_.__r.__words[1] + 7);
             v27 = HIBYTE(v25->__r_.__value_.__r.__words[2]);
             v25->__r_.__value_.__l.__size_ = 0;
             v25->__r_.__value_.__r.__words[2] = 0;
             v25->__r_.__value_.__r.__words[0] = 0;
-            std::string::basic_string[abi:ne200100]<0>(v49, "MAILRECEIVED");
-            v47[0] = v49;
-            v28 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v49);
-            std::string::basic_string[abi:ne200100]<0>(v47, "RECIPIENT.HasUserReceived");
-            v56 = v47;
-            v29 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v28 + 56, v47);
+            std::string::basic_string[abi:ne200100]<0>(v48, "MAILRECEIVED");
+            v46[0] = v48;
+            v28 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v48, &std::piecewise_construct, v46);
+            std::string::basic_string[abi:ne200100]<0>(v46, "RECIPIENT.HasUserReceived");
+            v55 = v46;
+            v29 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v28 + 56), v46, &std::piecewise_construct, &v55);
             v30 = v29;
             if (*(v29 + 79) < 0)
             {
               operator delete(*(v29 + 56));
             }
 
-            v31 = v57[0];
+            v31 = v56[0];
             *(v30 + 56) = v26;
             *(v30 + 64) = v31;
-            *(v30 + 71) = *(v57 + 7);
+            *(v30 + 71) = *(v56 + 7);
             *(v30 + 79) = v27;
-            if (v48 < 0)
+            if (v47 < 0)
             {
-              operator delete(v47[0]);
+              operator delete(v46[0]);
             }
 
-            if (v50 < 0)
+            if (v49 < 0)
             {
-              operator delete(v49[0]);
+              operator delete(v48[0]);
             }
 
-            if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v51.__r_.__value_.__l.__data_);
+              operator delete(v50.__r_.__value_.__l.__data_);
             }
 
             std::operator+<char>();
-            v32 = std::string::append(&v51, ")");
+            v32 = std::string::append(&v50, ")");
             v33 = v32->__r_.__value_.__r.__words[0];
-            v57[0] = v32->__r_.__value_.__l.__size_;
-            *(v57 + 7) = *(&v32->__r_.__value_.__r.__words[1] + 7);
+            v56[0] = v32->__r_.__value_.__l.__size_;
+            *(v56 + 7) = *(&v32->__r_.__value_.__r.__words[1] + 7);
             v34 = HIBYTE(v32->__r_.__value_.__r.__words[2]);
             v32->__r_.__value_.__l.__size_ = 0;
             v32->__r_.__value_.__r.__words[2] = 0;
             v32->__r_.__value_.__r.__words[0] = 0;
-            std::string::basic_string[abi:ne200100]<0>(v49, "MESSAGERECEIVED");
-            v47[0] = v49;
-            v35 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v49);
-            std::string::basic_string[abi:ne200100]<0>(v47, "RECIPIENT.HasUserReceived");
-            v56 = v47;
-            v36 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v35 + 56, v47);
+            std::string::basic_string[abi:ne200100]<0>(v48, "MESSAGERECEIVED");
+            v46[0] = v48;
+            v35 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v48, &std::piecewise_construct, v46);
+            std::string::basic_string[abi:ne200100]<0>(v46, "RECIPIENT.HasUserReceived");
+            v55 = v46;
+            v36 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v35 + 56), v46, &std::piecewise_construct, &v55);
             v37 = v36;
             if (*(v36 + 79) < 0)
             {
               operator delete(*(v36 + 56));
             }
 
-            v38 = v57[0];
+            v38 = v56[0];
             *(v37 + 56) = v33;
             *(v37 + 64) = v38;
-            *(v37 + 71) = *(v57 + 7);
+            *(v37 + 71) = *(v56 + 7);
             *(v37 + 79) = v34;
-            if (v48 < 0)
+            if (v47 < 0)
             {
-              operator delete(v47[0]);
+              operator delete(v46[0]);
             }
           }
 
-          if (v50 < 0)
+          if (v49 < 0)
           {
-            operator delete(v49[0]);
+            operator delete(v48[0]);
           }
 
-          if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
+          if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v51.__r_.__value_.__l.__data_);
+            operator delete(v50.__r_.__value_.__l.__data_);
           }
 
           if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -3933,8 +3933,6 @@ void NL::SpotlightParseFormatter::loadUserQueries(NLAbstractOrthographyConvertor
 
     CFRelease(v3);
   }
-
-  v43 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22CD1230C(_Unwind_Exception *a1)
@@ -3972,28 +3970,28 @@ void sub_22CD1230C(_Unwind_Exception *a1)
 
 void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 {
-  updateNLPResultModifierTranslations((this + 21), (this + 30));
-  updateNLPUserActionTranslations((this + 21));
-  updateMailFileTypeTranslations((this + 21));
-  updateMailAttachmentTranslations((this + 21));
-  updateMailTransportTranslations((this + 21));
-  updateNLPValueTranslations((this + 21));
+  updateNLPResultModifierTranslations(this + 21, this + 30);
+  updateNLPUserActionTranslations(this + 21);
+  updateMailFileTypeTranslations(this + 21);
+  updateMailAttachmentTranslations(this + 21);
+  updateMailTransportTranslations(this + 21);
+  updateNLPValueTranslations(this + 21);
   if (NL::ParserContext::languageIsCJ(this[1]))
   {
-    updateSpotlightSenderReceiverTranslations_Tokenize((this + 21));
+    updateSpotlightSenderReceiverTranslations_Tokenize(this + 21);
   }
 
   else
   {
-    updateSpotlightSenderReceiverTranslations((this + 21));
+    updateSpotlightSenderReceiverTranslations(this + 21);
   }
 
   std::string::basic_string[abi:ne200100]<0>(v72, "CONTAINER");
   __p[0] = v72;
-  v2 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v2 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "ChatClient");
   v74 = __p;
-  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v2 + 56, __p);
+  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v2 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v3 + 56, "kMDItemContentType=com.apple.ichat.transcript");
   if (v71 < 0)
   {
@@ -4007,10 +4005,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "CONTAINER");
   __p[0] = v72;
-  v4 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v4 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MailClient");
   v74 = __p;
-  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4 + 56, __p);
+  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v4 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v5 + 56, "(kMDItemContentType=com.apple.mail.emlx || kMDItemContentType=public.email-message)");
   if (v71 < 0)
   {
@@ -4024,10 +4022,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "CONTAINER");
   __p[0] = v72;
-  v6 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v6 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MessageClient");
   v74 = __p;
-  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6 + 56, __p);
+  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v6 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v7 + 56, "(_kMDItemGroupId=1 || kMDItemContentType=com.apple.ichat.transcript)");
   if (v71 < 0)
   {
@@ -4041,10 +4039,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "FACEBOOKED");
   __p[0] = v72;
-  v8 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v8 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "FacebookImageKind");
   v74 = __p;
-  v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v8 + 56, __p);
+  v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v8 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v9 + 56, "kMDItemUserSharedSentTransport=facebook*cwd && _kMDItemGroupId=13");
   if (v71 < 0)
   {
@@ -4058,10 +4056,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "ABOUT");
   __p[0] = v72;
-  v10 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v10 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Text");
   v74 = __p;
-  v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v10 + 56, __p);
+  v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v10 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v11 + 56, "(kMDItemTextContent=%@c*cwd || kMDItemSubject=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v71 < 0)
   {
@@ -4075,10 +4073,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "ABOUT");
   __p[0] = v72;
-  v12 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v12 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "QuotedText");
   v74 = __p;
-  v13 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v12 + 56, __p);
+  v13 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v12 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v13 + 56, "(kMDItemTextContent=%@c*cwd || kMDItemSubject=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v71 < 0)
   {
@@ -4092,10 +4090,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "TOPICMOD");
   __p[0] = v72;
-  v14 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v14 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Text");
   v74 = __p;
-  v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v14 + 56, __p);
+  v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v14 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v15 + 56, "(kMDItemTextContent=%@c*cwd || kMDItemTitle=%@c*cwd || kMDItemSubject=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v71 < 0)
   {
@@ -4109,10 +4107,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "TITLED");
   __p[0] = v72;
-  v16 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v16 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Text");
   v74 = __p;
-  v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v16 + 56, __p);
+  v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v16 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v17 + 56, "(kMDItemTitle=%@c*cwd || kMDItemSubject=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v71 < 0)
   {
@@ -4126,10 +4124,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "TITLED");
   __p[0] = v72;
-  v18 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v18 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "QuotedText");
   v74 = __p;
-  v19 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v18 + 56, __p);
+  v19 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v18 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v19 + 56, "(kMDItemTitle=%@c*cwd || kMDItemSubject=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v71 < 0)
   {
@@ -4143,10 +4141,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "TITLED");
   __p[0] = v72;
-  v20 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v20 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Filename");
   v74 = __p;
-  v21 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v20 + 56, __p);
+  v21 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v20 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v21 + 56, "(kMDItemFSName=%@c*cwd || kMDItemTitle=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v71 < 0)
   {
@@ -4160,10 +4158,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "ENTITLED");
   __p[0] = v72;
-  v22 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v22 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Text");
   v74 = __p;
-  v23 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v22 + 56, __p);
+  v23 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v22 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v23 + 56, "(kMDItemTitle=%@c*cwd || kMDItemSubject=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v71 < 0)
   {
@@ -4177,10 +4175,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "ENTITLED");
   __p[0] = v72;
-  v24 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v24 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "OpenText");
   v74 = __p;
-  v25 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v24 + 56, __p);
+  v25 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v24 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v25 + 56, "(kMDItemTitle=%@c*cwd || kMDItemSubject=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v71 < 0)
   {
@@ -4194,10 +4192,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "ENTITLED");
   __p[0] = v72;
-  v26 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v26 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "QuotedText");
   v74 = __p;
-  v27 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v26 + 56, __p);
+  v27 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v26 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v27 + 56, "(kMDItemTitle=%@c*cwd || kMDItemSubject=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v71 < 0)
   {
@@ -4211,10 +4209,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "ENTITLED");
   __p[0] = v72;
-  v28 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v28 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "NameText");
   v74 = __p;
-  v29 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v28 + 56, __p);
+  v29 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v28 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v29 + 56, "(kMDItemTitle=%@c*cwd || kMDItemSubject=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v71 < 0)
   {
@@ -4228,10 +4226,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "ENTITLED");
   __p[0] = v72;
-  v30 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v30 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "DateText");
   v74 = __p;
-  v31 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v30 + 56, __p);
+  v31 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v30 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v31 + 56, "(kMDItemTitle=%@c*cwd || kMDItemSubject=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v71 < 0)
   {
@@ -4245,10 +4243,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "ENTITLED");
   __p[0] = v72;
-  v32 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v32 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Filename");
   v74 = __p;
-  v33 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v32 + 56, __p);
+  v33 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v32 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v33 + 56, "(kMDItemFSName=%@c*cwd || kMDItemTitle=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v71 < 0)
   {
@@ -4262,10 +4260,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "FILETITLED");
   __p[0] = v72;
-  v34 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v34 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Text");
   v74 = __p;
-  v35 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v34 + 56, __p);
+  v35 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v34 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v35 + 56, "(_kMDItemGroupId=5 || _kMDItemGroupId=7 || _kMDItemGroupId=10 || _kMDItemGroupId=11 || _kMDItemGroupId=12 || _kMDItemGroupId=13 || _kMDItemGroupId=14 || _kMDItemGroupId=16 || _kMDItemGroupId=18 || (_kMDItemGroupId=15 && kMDItemContentTypeTree=public.directory)) && (kMDItemTitle=%@c*cwd || kMDItemSubject=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v71 < 0)
   {
@@ -4279,10 +4277,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "FILETITLED");
   __p[0] = v72;
-  v36 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v36 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "OpenText");
   v74 = __p;
-  v37 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v36 + 56, __p);
+  v37 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v36 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v37 + 56, "(_kMDItemGroupId=5 || _kMDItemGroupId=7 || _kMDItemGroupId=10 || _kMDItemGroupId=11 || _kMDItemGroupId=12 || _kMDItemGroupId=13 || _kMDItemGroupId=14 || _kMDItemGroupId=16 || _kMDItemGroupId=18 || (_kMDItemGroupId=15 && kMDItemContentTypeTree=public.directory)) && (kMDItemTitle=%@c*cwd || kMDItemSubject=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v71 < 0)
   {
@@ -4296,10 +4294,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "FILETITLED");
   __p[0] = v72;
-  v38 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v38 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "QuotedText");
   v74 = __p;
-  v39 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v38 + 56, __p);
+  v39 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v38 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v39 + 56, "(_kMDItemGroupId=5 || _kMDItemGroupId=7 || _kMDItemGroupId=10 || _kMDItemGroupId=11 || _kMDItemGroupId=12 || _kMDItemGroupId=13 || _kMDItemGroupId=14 || _kMDItemGroupId=16 || _kMDItemGroupId=18 || (_kMDItemGroupId=15 && kMDItemContentTypeTree=public.directory)) && (kMDItemTitle=%@c*cwd || kMDItemSubject=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v71 < 0)
   {
@@ -4313,10 +4311,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "FILETITLED");
   __p[0] = v72;
-  v40 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v40 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Filename");
   v74 = __p;
-  v41 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v40 + 56, __p);
+  v41 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v40 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v41 + 56, "(_kMDItemGroupId=5 || _kMDItemGroupId=7 || _kMDItemGroupId=10 || _kMDItemGroupId=11 || _kMDItemGroupId=12 || _kMDItemGroupId=13 || _kMDItemGroupId=14 || _kMDItemGroupId=16 || _kMDItemGroupId=18 || (_kMDItemGroupId=15 && kMDItemContentTypeTree=public.directory)) && (kMDItemFSName=%@c*cwd || kMDItemTitle=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v71 < 0)
   {
@@ -4330,10 +4328,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "FILENAMED");
   __p[0] = v72;
-  v42 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v42 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Filename");
   v74 = __p;
-  v43 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v42 + 56, __p);
+  v43 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v42 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v43 + 56, "(kMDItemFSName=%@c*cwd || kMDItemTitle=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v71 < 0)
   {
@@ -4347,10 +4345,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "READMOD");
   __p[0] = v72;
-  v44 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v44 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Read");
   v74 = __p;
-  v45 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v44 + 56, __p);
+  v45 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v44 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v45 + 56, "com_apple_mail_read=%@v");
   if (v71 < 0)
   {
@@ -4364,10 +4362,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "REPLYMOD");
   __p[0] = v72;
-  v46 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v46 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Reply");
   v74 = __p;
-  v47 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v46 + 56, __p);
+  v47 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v46 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v47 + 56, "com_apple_mail_repliedTo=%@v");
   if (v71 < 0)
   {
@@ -4381,10 +4379,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "REPLYMOD");
   __p[0] = v72;
-  v48 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v48 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Replied");
   v74 = __p;
-  v49 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v48 + 56, __p);
+  v49 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v48 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v49 + 56, "com_apple_mail_repliedTo=%@v");
   if (v71 < 0)
   {
@@ -4398,10 +4396,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "REPLIED");
   __p[0] = v72;
-  v50 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v50 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Reply");
   v74 = __p;
-  v51 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v50 + 56, __p);
+  v51 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v50 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v51 + 56, "com_apple_mail_repliedTo=%@v");
   if (v71 < 0)
   {
@@ -4415,10 +4413,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "REPLIED");
   __p[0] = v72;
-  v52 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v52 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Replied");
   v74 = __p;
-  v53 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v52 + 56, __p);
+  v53 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v52 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v53 + 56, "com_apple_mail_repliedTo=%@v");
   if (v71 < 0)
   {
@@ -4432,10 +4430,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "IGNOREMOD");
   __p[0] = v72;
-  v54 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v54 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "HasIgnored");
   v74 = __p;
-  v55 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v54 + 56, __p);
+  v55 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v54 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v55 + 56, "(com_apple_mail_repliedTo=0 || com_apple_mail_read=0)");
   if (v71 < 0)
   {
@@ -4449,10 +4447,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "FLAGMOD");
   __p[0] = v72;
-  v56 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v56 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "FlagColor");
   v74 = __p;
-  v57 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v56 + 56, __p);
+  v57 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v56 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v57 + 56, "com_apple_mail_flagColor=%@v");
   if (v71 < 0)
   {
@@ -4466,10 +4464,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "FLAGGED");
   __p[0] = v72;
-  v58 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v58 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "FlagColor");
   v74 = __p;
-  v59 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v58 + 56, __p);
+  v59 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v58 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v59 + 56, "com_apple_mail_flagColor=%@v");
   if (v71 < 0)
   {
@@ -4483,10 +4481,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "FLAGMOD");
   __p[0] = v72;
-  v60 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v60 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "HasFlagged");
   v74 = __p;
-  v61 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v60 + 56, __p);
+  v61 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v60 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v61 + 56, "com_apple_mail_flagged=%@v");
   if (v71 < 0)
   {
@@ -4500,10 +4498,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "FLAGMOD");
   __p[0] = v72;
-  v62 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v62 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Flag");
   v74 = __p;
-  v63 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v62 + 56, __p);
+  v63 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v62 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v63 + 56, "com_apple_mail_flagged=%@v");
   if (v71 < 0)
   {
@@ -4517,10 +4515,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "FLAGGED");
   __p[0] = v72;
-  v64 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v64 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Flag");
   v74 = __p;
-  v65 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v64 + 56, __p);
+  v65 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v64 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v65 + 56, "com_apple_mail_flagged=%@v");
   if (v71 < 0)
   {
@@ -4534,10 +4532,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "SUBJECTMOD");
   __p[0] = v72;
-  v66 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v66 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Subject");
   v74 = __p;
-  v67 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v66 + 56, __p);
+  v67 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v66 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v67 + 56, "(kMDItemSubject!=*cwd || kMDItemSubject=cwd)");
   if (v71 < 0)
   {
@@ -4551,10 +4549,10 @@ void NL::SpotlightParseFormatter::loadMailTranslations(NL::ParserContext **this)
 
   std::string::basic_string[abi:ne200100]<0>(v72, "QUOTED");
   __p[0] = v72;
-  v68 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v72);
+  v68 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v72, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "QuotedText");
   v74 = __p;
-  v69 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v68 + 56, __p);
+  v69 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v68 + 56), __p, &std::piecewise_construct, &v74);
   MEMORY[0x2318C02F0](v69 + 56, "(** = %@c*cdw)");
   if (v71 < 0)
   {
@@ -4579,17 +4577,17 @@ void sub_22CD13A24(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this)
 {
-  updateNLPValueTranslations((this + 21));
-  updateNLPResultModifierTranslations((this + 21), (this + 30));
-  updateNotesFileTypeTranslations((this + 21));
-  updateNotesAttachmentTranslations((this + 21));
-  updateSpotlightTransportTranslations((this + 21));
+  updateNLPValueTranslations(this + 21);
+  updateNLPResultModifierTranslations(this + 21, this + 30);
+  updateNotesFileTypeTranslations(this + 21);
+  updateNotesAttachmentTranslations(this + 21);
+  updateSpotlightTransportTranslations(this + 21);
   std::string::basic_string[abi:ne200100]<0>(v126, "ABOUT");
   __p[0] = v126;
-  v2 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v2 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Text");
   v128 = __p;
-  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v2 + 56, __p);
+  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v2 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v3 + 56, "(kMDItemDisplayName=%@c*cwd || kMDItemTextContent=%@c*cwd)");
   if (v125 < 0)
   {
@@ -4603,10 +4601,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "ABOUT");
   __p[0] = v126;
-  v4 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v4 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "DateText");
   v128 = __p;
-  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4 + 56, __p);
+  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v4 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v5 + 56, "(kMDItemDisplayName=%@c*cwd || kMDItemTextContent=%@c*cwd)");
   if (v125 < 0)
   {
@@ -4620,10 +4618,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "ABOUT");
   __p[0] = v126;
-  v6 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v6 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "NameText");
   v128 = __p;
-  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6 + 56, __p);
+  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v6 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v7 + 56, "(kMDItemDisplayName=%@c*cwd || kMDItemTextContent=%@c*cwd)");
   if (v125 < 0)
   {
@@ -4637,10 +4635,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "ABOUT");
   __p[0] = v126;
-  v8 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v8 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "QuotedText");
   v128 = __p;
-  v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v8 + 56, __p);
+  v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v8 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v9 + 56, "(kMDItemDisplayName=%@c*cwd || kMDItemTextContent=%@c*cwd)");
   if (v125 < 0)
   {
@@ -4654,10 +4652,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "TOPICMOD");
   __p[0] = v126;
-  v10 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v10 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Text");
   v128 = __p;
-  v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v10 + 56, __p);
+  v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v10 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v11 + 56, "(kMDItemDisplayName=%@c*cwd || kMDItemTextContent=%@c*cwd)");
   if (v125 < 0)
   {
@@ -4671,10 +4669,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "TITLED");
   __p[0] = v126;
-  v12 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v12 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Text");
   v128 = __p;
-  v13 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v12 + 56, __p);
+  v13 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v12 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v13 + 56, "kMDItemDisplayName=%@c*cwd");
   if (v125 < 0)
   {
@@ -4688,10 +4686,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "TITLED");
   __p[0] = v126;
-  v14 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v14 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "NameText");
   v128 = __p;
-  v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v14 + 56, __p);
+  v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v14 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v15 + 56, "kMDItemDisplayName=%@c*cwd");
   if (v125 < 0)
   {
@@ -4705,10 +4703,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "TITLED");
   __p[0] = v126;
-  v16 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v16 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "DateText");
   v128 = __p;
-  v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v16 + 56, __p);
+  v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v16 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v17 + 56, "kMDItemDisplayName=%@c*cwd");
   if (v125 < 0)
   {
@@ -4722,10 +4720,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "TITLED");
   __p[0] = v126;
-  v18 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v18 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "QuotedText");
   v128 = __p;
-  v19 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v18 + 56, __p);
+  v19 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v18 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v19 + 56, "kMDItemDisplayName=%@c*cwd");
   if (v125 < 0)
   {
@@ -4739,10 +4737,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "TITLED");
   __p[0] = v126;
-  v20 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v20 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Filename");
   v128 = __p;
-  v21 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v20 + 56, __p);
+  v21 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v20 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v21 + 56, "kMDItemDisplayName=%@c*cwd");
   if (v125 < 0)
   {
@@ -4756,10 +4754,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "ENTITLED");
   __p[0] = v126;
-  v22 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v22 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Text");
   v128 = __p;
-  v23 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v22 + 56, __p);
+  v23 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v22 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v23 + 56, "kMDItemDisplayName=%@c*cwd");
   if (v125 < 0)
   {
@@ -4773,10 +4771,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "ENTITLED");
   __p[0] = v126;
-  v24 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v24 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "NameText");
   v128 = __p;
-  v25 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v24 + 56, __p);
+  v25 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v24 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v25 + 56, "kMDItemDisplayName=%@c*cwd");
   if (v125 < 0)
   {
@@ -4790,10 +4788,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "ENTITLED");
   __p[0] = v126;
-  v26 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v26 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "DateText");
   v128 = __p;
-  v27 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v26 + 56, __p);
+  v27 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v26 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v27 + 56, "kMDItemDisplayName=%@c*cwd");
   if (v125 < 0)
   {
@@ -4807,10 +4805,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "ENTITLED");
   __p[0] = v126;
-  v28 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v28 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "QuotedText");
   v128 = __p;
-  v29 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v28 + 56, __p);
+  v29 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v28 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v29 + 56, "kMDItemDisplayName=%@c*cwd");
   if (v125 < 0)
   {
@@ -4824,10 +4822,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "ENTITLED");
   __p[0] = v126;
-  v30 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v30 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Filename");
   v128 = __p;
-  v31 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v30 + 56, __p);
+  v31 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v30 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v31 + 56, "kMDItemDisplayName=%@c*cwd");
   if (v125 < 0)
   {
@@ -4841,10 +4839,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "FILETITLED");
   __p[0] = v126;
-  v32 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v32 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Text");
   v128 = __p;
-  v33 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v32 + 56, __p);
+  v33 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v32 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v33 + 56, "(kMDItemAttachmentTypes=*cwd && kMDItemDisplayName=%@c*cwd)");
   if (v125 < 0)
   {
@@ -4858,10 +4856,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "FILETITLED");
   __p[0] = v126;
-  v34 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v34 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "QuotedText");
   v128 = __p;
-  v35 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v34 + 56, __p);
+  v35 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v34 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v35 + 56, "(kMDItemAttachmentTypes=*cwd && kMDItemDisplayName=%@c*cwd)");
   if (v125 < 0)
   {
@@ -4875,10 +4873,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "FILETITLED");
   __p[0] = v126;
-  v36 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v36 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Filename");
   v128 = __p;
-  v37 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v36 + 56, __p);
+  v37 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v36 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v37 + 56, "(kMDItemAttachmentTypes=*cwd && kMDItemDisplayName=%@c*cwd)");
   if (v125 < 0)
   {
@@ -4892,10 +4890,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "FILENAMED");
   __p[0] = v126;
-  v38 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v38 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Filename");
   v128 = __p;
-  v39 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v38 + 56, __p);
+  v39 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v38 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v39 + 56, "kMDItemDisplayName=%@c*cwd");
   if (v125 < 0)
   {
@@ -4909,10 +4907,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "QUOTED");
   __p[0] = v126;
-  v40 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v40 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "QuotedText");
   v128 = __p;
-  v41 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v40 + 56, __p);
+  v41 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v40 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v41 + 56, "** = %@c*cdw");
   if (v125 < 0)
   {
@@ -4926,10 +4924,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "SHATED");
   __p[0] = v126;
-  v42 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v42 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "SENDER.HasShared");
   v128 = __p;
-  v43 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v42 + 56, __p);
+  v43 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v42 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v43 + 56, "kMDItemAuthors=*cwd");
   if (v125 < 0)
   {
@@ -4943,10 +4941,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "SENT");
   __p[0] = v126;
-  v44 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v44 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "SENDER.HasShared");
   v128 = __p;
-  v45 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v44 + 56, __p);
+  v45 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v44 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v45 + 56, "kMDItemAuthors=*cwd");
   if (v125 < 0)
   {
@@ -4960,10 +4958,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "RECEIVED");
   __p[0] = v126;
-  v46 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v46 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "RECIPIENT.HasShared");
   v128 = __p;
-  v47 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v46 + 56, __p);
+  v47 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v46 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v47 + 56, "kMDItemAuthors=*cwd");
   if (v125 < 0)
   {
@@ -4977,10 +4975,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "FILECREATED");
   __p[0] = v126;
-  v48 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v48 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "SENDER.Contact");
   v128 = __p;
-  v49 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v48 + 56, __p);
+  v49 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v48 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v49 + 56, "kMDItemAuthors=%@c*cwd");
   if (v125 < 0)
   {
@@ -4994,10 +4992,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "SHARED");
   __p[0] = v126;
-  v50 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v50 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "SENDER.HasUserShared");
   v128 = __p;
-  v51 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v50 + 56, __p);
+  v51 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v50 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v51 + 56, "kMDItemAuthors=*cwd");
   if (v125 < 0)
   {
@@ -5013,10 +5011,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
   {
     std::string::basic_string[abi:ne200100]<0>(v126, "RECEIVED");
     __p[0] = v126;
-    v52 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v52 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "SENDER.Contact");
     v128 = __p;
-    v53 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v52 + 56, __p);
+    v53 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v52 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v53 + 56, "kMDItemAuthors=%@c*cwdt");
     if (v125 < 0)
     {
@@ -5030,10 +5028,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "RECEIVED");
     __p[0] = v126;
-    v54 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v54 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "SENDER.EmailAddress");
     v128 = __p;
-    v55 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v54 + 56, __p);
+    v55 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v54 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v55 + 56, "kMDItemAuthorEmailAddress=%@c*cwd");
     if (v125 < 0)
     {
@@ -5047,10 +5045,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "RECEIVED");
     __p[0] = v126;
-    v56 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v56 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "RECIPIENT.Contact");
     v128 = __p;
-    v57 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v56 + 56, __p);
+    v57 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v56 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v57 + 56, "kMDItemAuthors=%@c*cwdt");
     if (v125 < 0)
     {
@@ -5064,10 +5062,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "RECEIVED");
     __p[0] = v126;
-    v58 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v58 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "RECIPIENT.EmailAddress");
     v128 = __p;
-    v59 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v58 + 56, __p);
+    v59 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v58 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v59 + 56, "kMDItemAuthorEmailAddress=%@c*cwd");
     if (v125 < 0)
     {
@@ -5081,10 +5079,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "RECEIVED");
     __p[0] = v126;
-    v60 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v60 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "RECIPIENT.HasUserReceived");
     v128 = __p;
-    v61 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v60 + 56, __p);
+    v61 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v60 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v61 + 56, "kMDItemAuthors=*cwd");
     if (v125 < 0)
     {
@@ -5098,10 +5096,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "SENT");
     __p[0] = v126;
-    v62 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v62 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "SENDER.HasUserSent");
     v128 = __p;
-    v63 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v62 + 56, __p);
+    v63 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v62 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v63 + 56, "kMDItemAuthors=*cwd");
     if (v125 < 0)
     {
@@ -5115,10 +5113,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "SENT");
     __p[0] = v126;
-    v64 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v64 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "SENDER.Contact");
     v128 = __p;
-    v65 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v64 + 56, __p);
+    v65 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v64 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v65 + 56, "kMDItemAuthors=%@c*cwdt");
     if (v125 < 0)
     {
@@ -5132,10 +5130,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "SENT");
     __p[0] = v126;
-    v66 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v66 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "SENDER.EmailAddress");
     v128 = __p;
-    v67 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v66 + 56, __p);
+    v67 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v66 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v67 + 56, "kMDItemAuthorEmailAddress=%@c*cwd");
     if (v125 < 0)
     {
@@ -5149,10 +5147,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "SENT");
     __p[0] = v126;
-    v68 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v68 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "RECIPIENT.Contact");
     v128 = __p;
-    v69 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v68 + 56, __p);
+    v69 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v68 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v69 + 56, "kMDItemAuthors=%@c*cwdt");
     if (v125 < 0)
     {
@@ -5166,10 +5164,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "SENT");
     __p[0] = v126;
-    v70 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v70 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "RECIPIENT.EmailAddress");
     v128 = __p;
-    v71 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v70 + 56, __p);
+    v71 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v70 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v71 + 56, "kMDItemAuthorEmailAddress=%@c*cwd");
     if (v125 < 0)
     {
@@ -5183,10 +5181,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "SENTFROM");
     __p[0] = v126;
-    v72 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v72 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "Contact");
     v128 = __p;
-    v73 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v72 + 56, __p);
+    v73 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v72 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v73 + 56, "kMDItemAuthors=%@c*cwdt");
     if (v125 < 0)
     {
@@ -5200,10 +5198,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "SENTFROM");
     __p[0] = v126;
-    v74 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v74 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "EmailAddress");
     v128 = __p;
-    v75 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v74 + 56, __p);
+    v75 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v74 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v75 + 56, "kMDItemAuthorEmailAddress=%@c*cwd");
     if (v125 < 0)
     {
@@ -5217,10 +5215,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "FROMTO");
     __p[0] = v126;
-    v76 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v76 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "Contact");
     v128 = __p;
-    v77 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v76 + 56, __p);
+    v77 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v76 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v77 + 56, "kMDItemAuthors=%@c*cwdt");
     if (v125 < 0)
     {
@@ -5234,10 +5232,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "FROMTO");
     __p[0] = v126;
-    v78 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v78 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "EmailAddress");
     v128 = __p;
-    v79 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v78 + 56, __p);
+    v79 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v78 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v79 + 56, "kMDItemAuthorEmailAddress=%@c*cwd");
     if (v125 < 0)
     {
@@ -5251,10 +5249,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "AUTHORED");
     __p[0] = v126;
-    v80 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v80 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "Contact");
     v128 = __p;
-    v81 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v80 + 56, __p);
+    v81 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v80 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v81 + 56, "(kMDItemAuthors=%@c*cwdt || kMDItemAuthorEmailAddresses=%@c)");
     if (v125 < 0)
     {
@@ -5271,10 +5269,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
   {
     std::string::basic_string[abi:ne200100]<0>(v126, "RECEIVED");
     __p[0] = v126;
-    v82 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v82 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "SENDER.Contact");
     v128 = __p;
-    v83 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v82 + 56, __p);
+    v83 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v82 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v83 + 56, "kMDItemAuthors=%@c*cwd");
     if (v125 < 0)
     {
@@ -5288,10 +5286,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "RECEIVED");
     __p[0] = v126;
-    v84 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v84 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "SENDER.EmailAddress");
     v128 = __p;
-    v85 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v84 + 56, __p);
+    v85 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v84 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v85 + 56, "kMDItemAuthorEmailAddress=%@c*cwd");
     if (v125 < 0)
     {
@@ -5305,10 +5303,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "RECEIVED");
     __p[0] = v126;
-    v86 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v86 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "RECIPIENT.Contact");
     v128 = __p;
-    v87 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v86 + 56, __p);
+    v87 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v86 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v87 + 56, "kMDItemAuthors=%@c*cwd");
     if (v125 < 0)
     {
@@ -5322,10 +5320,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "RECEIVED");
     __p[0] = v126;
-    v88 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v88 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "RECIPIENT.EmailAddress");
     v128 = __p;
-    v89 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v88 + 56, __p);
+    v89 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v88 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v89 + 56, "kMDItemAuthorEmailAddress=%@c*cwd");
     if (v125 < 0)
     {
@@ -5339,10 +5337,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "RECEIVED");
     __p[0] = v126;
-    v90 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v90 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "RECIPIENT.HasUserReceived");
     v128 = __p;
-    v91 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v90 + 56, __p);
+    v91 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v90 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v91 + 56, "kMDItemAuthors=*cwd");
     if (v125 < 0)
     {
@@ -5356,10 +5354,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "RECEIVEDFROM");
     __p[0] = v126;
-    v92 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v92 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "SENDER.Contact");
     v128 = __p;
-    v93 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v92 + 56, __p);
+    v93 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v92 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v93 + 56, "kMDItemAuthors=%@c*cwd");
     if (v125 < 0)
     {
@@ -5373,10 +5371,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "RECEIVEDFROM");
     __p[0] = v126;
-    v94 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v94 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "SENDER.EmailAddress");
     v128 = __p;
-    v95 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v94 + 56, __p);
+    v95 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v94 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v95 + 56, "kMDItemAuthorEmailAddress=%@c*cwd");
     if (v125 < 0)
     {
@@ -5390,10 +5388,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "RECEIVEDFROM");
     __p[0] = v126;
-    v96 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v96 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "RECIPIENT.Contact");
     v128 = __p;
-    v97 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v96 + 56, __p);
+    v97 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v96 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v97 + 56, "kMDItemAuthors=%@c*cwd");
     if (v125 < 0)
     {
@@ -5407,10 +5405,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "RECEIVEDFROM");
     __p[0] = v126;
-    v98 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v98 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "RECIPIENT.EmailAddress");
     v128 = __p;
-    v99 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v98 + 56, __p);
+    v99 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v98 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v99 + 56, "kMDItemAuthorEmailAddress=%@c*cwd");
     if (v125 < 0)
     {
@@ -5424,10 +5422,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "RECEIVEDFROM");
     __p[0] = v126;
-    v100 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v100 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "RECIPIENT.HasUserReceived");
     v128 = __p;
-    v101 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v100 + 56, __p);
+    v101 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v100 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v101 + 56, "kMDItemAuthors=*cwd");
     if (v125 < 0)
     {
@@ -5441,10 +5439,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "SENT");
     __p[0] = v126;
-    v102 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v102 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "SENDER.HasUserSent");
     v128 = __p;
-    v103 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v102 + 56, __p);
+    v103 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v102 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v103 + 56, "kMDItemAuthors=*cwd");
     if (v125 < 0)
     {
@@ -5458,10 +5456,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "SENT");
     __p[0] = v126;
-    v104 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v104 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "SENDER.Contact");
     v128 = __p;
-    v105 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v104 + 56, __p);
+    v105 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v104 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v105 + 56, "kMDItemAuthors=%@c*cwd");
     if (v125 < 0)
     {
@@ -5475,10 +5473,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "SENT");
     __p[0] = v126;
-    v106 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v106 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "SENDER.EmailAddress");
     v128 = __p;
-    v107 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v106 + 56, __p);
+    v107 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v106 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v107 + 56, "kMDItemAuthorEmailAddress=%@c*cwd");
     if (v125 < 0)
     {
@@ -5492,10 +5490,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "SENT");
     __p[0] = v126;
-    v108 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v108 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "RECIPIENT.Contact");
     v128 = __p;
-    v109 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v108 + 56, __p);
+    v109 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v108 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v109 + 56, "kMDItemAuthors=%@c*cwd");
     if (v125 < 0)
     {
@@ -5509,10 +5507,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "SENT");
     __p[0] = v126;
-    v110 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v110 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "RECIPIENT.EmailAddress");
     v128 = __p;
-    v111 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v110 + 56, __p);
+    v111 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v110 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v111 + 56, "kMDItemAuthorEmailAddress=%@c*cwd");
     if (v125 < 0)
     {
@@ -5526,10 +5524,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "SENTFROM");
     __p[0] = v126;
-    v112 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v112 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "Contact");
     v128 = __p;
-    v113 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v112 + 56, __p);
+    v113 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v112 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v113 + 56, "kMDItemAuthors=%@c*cwd");
     if (v125 < 0)
     {
@@ -5543,10 +5541,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "SENTFROM");
     __p[0] = v126;
-    v114 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v114 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "EmailAddress");
     v128 = __p;
-    v115 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v114 + 56, __p);
+    v115 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v114 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v115 + 56, "kMDItemAuthorEmailAddress=%@c*cwd");
     if (v125 < 0)
     {
@@ -5560,10 +5558,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "FROMTO");
     __p[0] = v126;
-    v116 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v116 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "Contact");
     v128 = __p;
-    v117 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v116 + 56, __p);
+    v117 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v116 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v117 + 56, "kMDItemAuthors=%@c*cwd");
     if (v125 < 0)
     {
@@ -5577,10 +5575,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "FROMTO");
     __p[0] = v126;
-    v118 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v118 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "EmailAddress");
     v128 = __p;
-    v119 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v118 + 56, __p);
+    v119 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v118 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v119 + 56, "kMDItemAuthorEmailAddress=%@c*cwd");
     if (v125 < 0)
     {
@@ -5594,10 +5592,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
     std::string::basic_string[abi:ne200100]<0>(v126, "AUTHORED");
     __p[0] = v126;
-    v120 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+    v120 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
     std::string::basic_string[abi:ne200100]<0>(__p, "Contact");
     v128 = __p;
-    v121 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v120 + 56, __p);
+    v121 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v120 + 56), __p, &std::piecewise_construct, &v128);
     MEMORY[0x2318C02F0](v121 + 56, "(kMDItemAuthors=%@c*cwd || kMDItemAuthorEmailAddresses=%@c)");
     if (v125 < 0)
     {
@@ -5612,10 +5610,10 @@ void NL::SpotlightParseFormatter::loadNotesTranslations(NL::ParserContext **this
 
   std::string::basic_string[abi:ne200100]<0>(v126, "AUTHORED");
   __p[0] = v126;
-  v122 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v126);
+  v122 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v126, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "EmailAddress");
   v128 = __p;
-  v123 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v122 + 56, __p);
+  v123 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v122 + 56), __p, &std::piecewise_construct, &v128);
   MEMORY[0x2318C02F0](v123 + 56, "kMDItemAuthorEmailAddresses=%@c");
   if (v125 < 0)
   {
@@ -5640,28 +5638,28 @@ void sub_22CD161F0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **this)
 {
-  updateNLPUserActionTranslations((this + 21));
-  updateNLPValueTranslations((this + 21));
-  updateNLPResultModifierTranslations((this + 21), (this + 30));
-  updateSpotlightFileTypeTranslations((this + 21));
-  updateSpotlightAttachmentTranslations((this + 21));
-  updateSpotlightTransportTranslations((this + 21));
+  updateNLPUserActionTranslations(this + 21);
+  updateNLPValueTranslations(this + 21);
+  updateNLPResultModifierTranslations(this + 21, this + 30);
+  updateSpotlightFileTypeTranslations(this + 21);
+  updateSpotlightAttachmentTranslations(this + 21);
+  updateSpotlightTransportTranslations(this + 21);
   if (NL::ParserContext::languageIsCJ(this[1]))
   {
-    updateSpotlightSenderReceiverTranslations_Tokenize((this + 21));
+    updateSpotlightSenderReceiverTranslations_Tokenize(this + 21);
   }
 
   else
   {
-    updateSpotlightSenderReceiverTranslations((this + 21));
+    updateSpotlightSenderReceiverTranslations(this + 21);
   }
 
   std::string::basic_string[abi:ne200100]<0>(v88, "COMPANY");
   __p[0] = v88;
-  v2 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v2 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Bundle");
   v90 = __p;
-  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v2 + 56, __p);
+  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v2 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v3 + 56, "kMDItemCFBundleIdentifier=*%@c*cwd");
   if (v87 < 0)
   {
@@ -5675,10 +5673,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "COMPANYMOD");
   __p[0] = v88;
-  v4 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v4 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Bundle");
   v90 = __p;
-  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4 + 56, __p);
+  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v4 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v5 + 56, "kMDItemCFBundleIdentifier=*%@c*cwd");
   if (v87 < 0)
   {
@@ -5692,10 +5690,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "CONTAINER");
   __p[0] = v88;
-  v6 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v6 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "ChatClient");
   v90 = __p;
-  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6 + 56, __p);
+  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v6 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v7 + 56, "kMDItemContentType=com.apple.ichat.transcript");
   if (v87 < 0)
   {
@@ -5709,10 +5707,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "CONTAINER");
   __p[0] = v88;
-  v8 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v8 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MailClient");
   v90 = __p;
-  v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v8 + 56, __p);
+  v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v8 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v9 + 56, "(kMDItemContentType=com.apple.mail.emlx || kMDItemContentType=public.email-message)");
   if (v87 < 0)
   {
@@ -5726,10 +5724,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "CONTAINER");
   __p[0] = v88;
-  v10 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v10 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MessageClient");
   v90 = __p;
-  v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v10 + 56, __p);
+  v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v10 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v11 + 56, "(_kMDItemGroupId=1 || kMDItemContentType=com.apple.ichat.transcript)");
   if (v87 < 0)
   {
@@ -5743,10 +5741,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "FACEBOOKED");
   __p[0] = v88;
-  v12 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v12 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "FacebookImageKind");
   v90 = __p;
-  v13 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v12 + 56, __p);
+  v13 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v12 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v13 + 56, "kMDItemUserSharedSentTransport=facebook*cwd && _kMDItemGroupId=13");
   if (v87 < 0)
   {
@@ -5760,10 +5758,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "ABOUT");
   __p[0] = v88;
-  v14 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v14 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Text");
   v90 = __p;
-  v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v14 + 56, __p);
+  v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v14 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v15 + 56, "(kMDItemTextContent=%@c*cwd || kMDItemSubject=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v87 < 0)
   {
@@ -5777,10 +5775,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "ABOUT");
   __p[0] = v88;
-  v16 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v16 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "QuotedText");
   v90 = __p;
-  v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v16 + 56, __p);
+  v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v16 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v17 + 56, "(kMDItemTextContent=%@c*cwd || kMDItemSubject=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v87 < 0)
   {
@@ -5794,10 +5792,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "TOPICMOD");
   __p[0] = v88;
-  v18 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v18 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Text");
   v90 = __p;
-  v19 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v18 + 56, __p);
+  v19 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v18 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v19 + 56, "(kMDItemTextContent=%@c*cwd || kMDItemTitle=%@c*cwd || kMDItemSubject=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v87 < 0)
   {
@@ -5811,10 +5809,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "ALBUM");
   __p[0] = v88;
-  v20 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v20 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Text");
   v90 = __p;
-  v21 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v20 + 56, __p);
+  v21 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v20 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v21 + 56, "(kMDItemAlbum=%@c*cwd || kMDItemTitle=%@c*cwd)");
   if (v87 < 0)
   {
@@ -5828,10 +5826,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "ALBUM");
   __p[0] = v88;
-  v22 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v22 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "QuotedText");
   v90 = __p;
-  v23 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v22 + 56, __p);
+  v23 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v22 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v23 + 56, "(kMDItemAlbum=%@c*cwd || kMDItemTitle=%@c*cwd)");
   if (v87 < 0)
   {
@@ -5845,10 +5843,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "IMAGEALBUM");
   __p[0] = v88;
-  v24 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v24 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Text");
   v90 = __p;
-  v25 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v24 + 56, __p);
+  v25 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v24 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v25 + 56, "(kMDItemAlbum=%@c*cwd || kMDItemTitle=%@c*cwd) && _kMDItemGroupId=13");
   if (v87 < 0)
   {
@@ -5862,10 +5860,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "ALBUM");
   __p[0] = v88;
-  v26 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v26 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "ImageKind");
   v90 = __p;
-  v27 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v26 + 56, __p);
+  v27 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v26 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v27 + 56, "_kMDItemGroupId=13");
   if (v87 < 0)
   {
@@ -5879,10 +5877,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "ALBUM");
   __p[0] = v88;
-  v28 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v28 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "ImageAlbum");
   v90 = __p;
-  v29 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v28 + 56, __p);
+  v29 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v28 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v29 + 56, "_kMDItemGroupId=13");
   if (v87 < 0)
   {
@@ -5896,10 +5894,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "ALBUM");
   __p[0] = v88;
-  v30 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v30 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "ImageAlbumKind");
   v90 = __p;
-  v31 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v30 + 56, __p);
+  v31 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v30 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v31 + 56, "_kMDItemGroupId=13");
   if (v87 < 0)
   {
@@ -5913,10 +5911,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "TITLEMOD");
   __p[0] = v88;
-  v32 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v32 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Text");
   v90 = __p;
-  v33 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v32 + 56, __p);
+  v33 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v32 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v33 + 56, "(kMDItemTitle=%@c*cwd || kMDItemSubject=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd || kMDItemAlbum=%@c*cwd)");
   if (v87 < 0)
   {
@@ -5930,10 +5928,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "TITLED");
   __p[0] = v88;
-  v34 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v34 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Text");
   v90 = __p;
-  v35 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v34 + 56, __p);
+  v35 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v34 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v35 + 56, "(kMDItemTitle=%@c*cwd || kMDItemSubject=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v87 < 0)
   {
@@ -5947,10 +5945,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "TITLED");
   __p[0] = v88;
-  v36 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v36 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "QuotedText");
   v90 = __p;
-  v37 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v36 + 56, __p);
+  v37 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v36 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v37 + 56, "(kMDItemTitle=%@c*cwd || kMDItemSubject=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v87 < 0)
   {
@@ -5964,10 +5962,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "TITLED");
   __p[0] = v88;
-  v38 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v38 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Filename");
   v90 = __p;
-  v39 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v38 + 56, __p);
+  v39 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v38 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v39 + 56, "(kMDItemFSName=%@c*cwd || kMDItemTitle=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v87 < 0)
   {
@@ -5981,10 +5979,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "ENTITLED");
   __p[0] = v88;
-  v40 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v40 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Text");
   v90 = __p;
-  v41 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v40 + 56, __p);
+  v41 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v40 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v41 + 56, "(kMDItemTitle=%@c*cwd || kMDItemSubject=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v87 < 0)
   {
@@ -5998,10 +5996,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "ENTITLED");
   __p[0] = v88;
-  v42 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v42 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "QuotedText");
   v90 = __p;
-  v43 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v42 + 56, __p);
+  v43 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v42 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v43 + 56, "(kMDItemTitle=%@c*cwd || kMDItemSubject=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v87 < 0)
   {
@@ -6015,10 +6013,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "ENTITLED");
   __p[0] = v88;
-  v44 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v44 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Filename");
   v90 = __p;
-  v45 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v44 + 56, __p);
+  v45 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v44 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v45 + 56, "(kMDItemFSName=%@c*cwd || kMDItemTitle=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v87 < 0)
   {
@@ -6032,10 +6030,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "FILETITLED");
   __p[0] = v88;
-  v46 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v46 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Text");
   v90 = __p;
-  v47 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v46 + 56, __p);
+  v47 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v46 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v47 + 56, "(_kMDItemGroupId=5 || _kMDItemGroupId=7 || _kMDItemGroupId=10 || _kMDItemGroupId=11 || _kMDItemGroupId=12 || _kMDItemGroupId=13 || _kMDItemGroupId=14 || _kMDItemGroupId=16 || _kMDItemGroupId=18 || (_kMDItemGroupId=15 && kMDItemContentTypeTree=public.directory)) && (kMDItemTitle=%@c*cwd || kMDItemSubject=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v87 < 0)
   {
@@ -6049,10 +6047,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "FILETITLED");
   __p[0] = v88;
-  v48 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v48 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Filename");
   v90 = __p;
-  v49 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v48 + 56, __p);
+  v49 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v48 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v49 + 56, "(_kMDItemGroupId=5 || _kMDItemGroupId=7 || _kMDItemGroupId=10 || _kMDItemGroupId=11 || _kMDItemGroupId=12 || _kMDItemGroupId=13 || _kMDItemGroupId=14 || _kMDItemGroupId=16 || _kMDItemGroupId=18 || (_kMDItemGroupId=15 && kMDItemContentTypeTree=public.directory)) && (kMDItemFSName=%@c*cwd || kMDItemTitle=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v87 < 0)
   {
@@ -6066,10 +6064,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "FILENAMED");
   __p[0] = v88;
-  v50 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v50 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Filename");
   v90 = __p;
-  v51 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v50 + 56, __p);
+  v51 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v50 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v51 + 56, "(kMDItemFSName=%@c*cwd || kMDItemTitle=%@c*cwd || kMDItemDisplayName=%@c*cwd || com_apple_mail_attachmentNames=%@c*cwd)");
   if (v87 < 0)
   {
@@ -6083,10 +6081,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "IGNOREMOD");
   __p[0] = v88;
-  v52 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v52 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "HasIgnored");
   v90 = __p;
-  v53 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v52 + 56, __p);
+  v53 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v52 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v53 + 56, "(com_apple_mail_repliedTo=0 || com_apple_mail_read=0)");
   if (v87 < 0)
   {
@@ -6100,10 +6098,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "READMOD");
   __p[0] = v88;
-  v54 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v54 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Read");
   v90 = __p;
-  v55 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v54 + 56, __p);
+  v55 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v54 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v55 + 56, "com_apple_mail_read=%@v");
   if (v87 < 0)
   {
@@ -6117,10 +6115,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "REPLYMOD");
   __p[0] = v88;
-  v56 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v56 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Reply");
   v90 = __p;
-  v57 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v56 + 56, __p);
+  v57 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v56 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v57 + 56, "com_apple_mail_repliedTo=%@v");
   if (v87 < 0)
   {
@@ -6134,10 +6132,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "REPLYMOD");
   __p[0] = v88;
-  v58 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v58 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Replied");
   v90 = __p;
-  v59 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v58 + 56, __p);
+  v59 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v58 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v59 + 56, "com_apple_mail_repliedTo=%@v");
   if (v87 < 0)
   {
@@ -6151,10 +6149,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "REPLIED");
   __p[0] = v88;
-  v60 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v60 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Reply");
   v90 = __p;
-  v61 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v60 + 56, __p);
+  v61 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v60 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v61 + 56, "com_apple_mail_repliedTo=%@v");
   if (v87 < 0)
   {
@@ -6168,10 +6166,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "REPLIED");
   __p[0] = v88;
-  v62 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v62 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Replied");
   v90 = __p;
-  v63 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v62 + 56, __p);
+  v63 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v62 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v63 + 56, "com_apple_mail_repliedTo=%@v");
   if (v87 < 0)
   {
@@ -6185,10 +6183,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "FLAGMOD");
   __p[0] = v88;
-  v64 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v64 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "FlagColor");
   v90 = __p;
-  v65 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v64 + 56, __p);
+  v65 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v64 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v65 + 56, "com_apple_mail_flagColor=%@v");
   if (v87 < 0)
   {
@@ -6202,10 +6200,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "FLAGGED");
   __p[0] = v88;
-  v66 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v66 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "FlagColor");
   v90 = __p;
-  v67 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v66 + 56, __p);
+  v67 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v66 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v67 + 56, "com_apple_mail_flagColor=%@v");
   if (v87 < 0)
   {
@@ -6219,10 +6217,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "FLAGMOD");
   __p[0] = v88;
-  v68 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v68 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "HasFlagged");
   v90 = __p;
-  v69 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v68 + 56, __p);
+  v69 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v68 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v69 + 56, "com_apple_mail_flagged=%@v");
   if (v87 < 0)
   {
@@ -6236,10 +6234,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "FLAGGED");
   __p[0] = v88;
-  v70 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v70 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Flag");
   v90 = __p;
-  v71 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v70 + 56, __p);
+  v71 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v70 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v71 + 56, "com_apple_mail_flagged=%@v");
   if (v87 < 0)
   {
@@ -6253,10 +6251,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "TAGMOD");
   __p[0] = v88;
-  v72 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v72 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "HasTagged");
   v90 = __p;
-  v73 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v72 + 56, __p);
+  v73 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v72 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v73 + 56, "kMDItemUserTags=*cwd");
   if (v87 < 0)
   {
@@ -6270,10 +6268,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "TAGGED");
   __p[0] = v88;
-  v74 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v74 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Text");
   v90 = __p;
-  v75 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v74 + 56, __p);
+  v75 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v74 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v75 + 56, "kMDItemUserTags=%@c*cwd");
   if (v87 < 0)
   {
@@ -6287,10 +6285,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "TAGGED");
   __p[0] = v88;
-  v76 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v76 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "OpenText");
   v90 = __p;
-  v77 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v76 + 56, __p);
+  v77 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v76 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v77 + 56, "kMDItemUserTags=%@c*cwd");
   if (v87 < 0)
   {
@@ -6304,10 +6302,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "TAGGED");
   __p[0] = v88;
-  v78 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v78 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "TagColor");
   v90 = __p;
-  v79 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v78 + 56, __p);
+  v79 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v78 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v79 + 56, "kMDItemUserTags=%@v*cwd");
   if (v87 < 0)
   {
@@ -6321,10 +6319,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "QUOTED");
   __p[0] = v88;
-  v80 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v80 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "QuotedText");
   v90 = __p;
-  v81 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v80 + 56, __p);
+  v81 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v80 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v81 + 56, "(** = %@c*cdw)");
   if (v87 < 0)
   {
@@ -6338,10 +6336,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "ORIENTATION");
   __p[0] = v88;
-  v82 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v82 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Orientation");
   v90 = __p;
-  v83 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v82 + 56, __p);
+  v83 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v82 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v83 + 56, "kMDItemOrientation=%@v");
   if (v87 < 0)
   {
@@ -6355,10 +6353,10 @@ void NL::SpotlightParseFormatter::loadSpotlightTranslations(NL::ParserContext **
 
   std::string::basic_string[abi:ne200100]<0>(v88, "SUBJECTMOD");
   __p[0] = v88;
-  v84 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((this + 21), v88);
+  v84 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(this + 21, v88, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Subject");
   v90 = __p;
-  v85 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v84 + 56, __p);
+  v85 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v84 + 56), __p, &std::piecewise_construct, &v90);
   MEMORY[0x2318C02F0](v85 + 56, "(kMDItemSubject!=*cwd || kMDItemSubject=cwd)");
   if (v87 < 0)
   {
@@ -6381,14 +6379,14 @@ void sub_22CD17F20(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void updateNLPUserActionTranslations(uint64_t a1)
+void updateNLPUserActionTranslations(uint64_t **a1)
 {
   std::string::basic_string[abi:ne200100]<0>(v34, "USERPRINTED");
   __p[0] = v34;
-  v2 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34);
+  v2 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PRINTED.HasPrinted");
   v36 = __p;
-  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v2 + 56, __p);
+  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v2 + 56), __p, &std::piecewise_construct, &v36);
   MEMORY[0x2318C02F0](v3 + 56, "kMDItemUserPrintedUserHandle=*");
   if (v33 < 0)
   {
@@ -6402,10 +6400,10 @@ void updateNLPUserActionTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v34, "USERPRINTED");
   __p[0] = v34;
-  v4 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34);
+  v4 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "HasUserPrinted");
   v36 = __p;
-  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4 + 56, __p);
+  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v4 + 56), __p, &std::piecewise_construct, &v36);
   MEMORY[0x2318C02F0](v5 + 56, "kMDItemUserPrintedUserHandle=%@uid");
   if (v33 < 0)
   {
@@ -6419,10 +6417,10 @@ void updateNLPUserActionTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v34, "USERCREATED");
   __p[0] = v34;
-  v6 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34);
+  v6 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "CREATED.HasCreated");
   v36 = __p;
-  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6 + 56, __p);
+  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v6 + 56), __p, &std::piecewise_construct, &v36);
   MEMORY[0x2318C02F0](v7 + 56, "kMDItemUserCreatedUserHandle=*");
   if (v33 < 0)
   {
@@ -6436,10 +6434,10 @@ void updateNLPUserActionTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v34, "USERCREATED");
   __p[0] = v34;
-  v8 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34);
+  v8 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "HasUserCreated");
   v36 = __p;
-  v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v8 + 56, __p);
+  v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v8 + 56), __p, &std::piecewise_construct, &v36);
   MEMORY[0x2318C02F0](v9 + 56, "kMDItemUserCreatedUserHandle=%@uid");
   if (v33 < 0)
   {
@@ -6453,10 +6451,10 @@ void updateNLPUserActionTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v34, "MAILMODIFIED");
   __p[0] = v34;
-  v10 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34);
+  v10 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MODIFIED.HasModified");
   v36 = __p;
-  v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v10 + 56, __p);
+  v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v10 + 56), __p, &std::piecewise_construct, &v36);
   MEMORY[0x2318C02F0](v11 + 56, "kMDItemUserModifiedUserHandle=*");
   if (v33 < 0)
   {
@@ -6470,10 +6468,10 @@ void updateNLPUserActionTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v34, "FILEMODIFIED");
   __p[0] = v34;
-  v12 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34);
+  v12 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MODIFIED.HasModified");
   v36 = __p;
-  v13 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v12 + 56, __p);
+  v13 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v12 + 56), __p, &std::piecewise_construct, &v36);
   MEMORY[0x2318C02F0](v13 + 56, "kMDItemUserModifiedUserHandle=*");
   if (v33 < 0)
   {
@@ -6487,10 +6485,10 @@ void updateNLPUserActionTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v34, "USERMODIFIED");
   __p[0] = v34;
-  v14 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34);
+  v14 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MODIFIED.HasModified");
   v36 = __p;
-  v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v14 + 56, __p);
+  v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v14 + 56), __p, &std::piecewise_construct, &v36);
   MEMORY[0x2318C02F0](v15 + 56, "kMDItemUserModifiedUserHandle=*");
   if (v33 < 0)
   {
@@ -6504,10 +6502,10 @@ void updateNLPUserActionTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v34, "USERMODIFIED");
   __p[0] = v34;
-  v16 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34);
+  v16 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "HasUserModified");
   v36 = __p;
-  v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v16 + 56, __p);
+  v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v16 + 56), __p, &std::piecewise_construct, &v36);
   MEMORY[0x2318C02F0](v17 + 56, "kMDItemUserModifiedUserHandle=%@uid");
   if (v33 < 0)
   {
@@ -6521,10 +6519,10 @@ void updateNLPUserActionTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v34, "USERWEBVIEWED");
   __p[0] = v34;
-  v18 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34);
+  v18 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "VIEWED.HasViewed");
   v36 = __p;
-  v19 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v18 + 56, __p);
+  v19 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v18 + 56), __p, &std::piecewise_construct, &v36);
   MEMORY[0x2318C02F0](v19 + 56, "InRange(kMDItemDateAdded,0,2147483647)");
   if (v33 < 0)
   {
@@ -6538,10 +6536,10 @@ void updateNLPUserActionTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v34, "USERWEBVIEWED");
   __p[0] = v34;
-  v20 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34);
+  v20 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "VIEWED.HasUserViewed");
   v36 = __p;
-  v21 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v20 + 56, __p);
+  v21 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v20 + 56), __p, &std::piecewise_construct, &v36);
   MEMORY[0x2318C02F0](v21 + 56, "InRange(kMDItemDateAdded,0,2147483647)");
   if (v33 < 0)
   {
@@ -6555,10 +6553,10 @@ void updateNLPUserActionTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v34, "USERWEBVIEWED");
   __p[0] = v34;
-  v22 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34);
+  v22 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "VIEWED.HasDownloaded");
   v36 = __p;
-  v23 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v22 + 56, __p);
+  v23 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v22 + 56), __p, &std::piecewise_construct, &v36);
   MEMORY[0x2318C02F0](v23 + 56, "InRange(kMDItemDateAdded,0,2147483647)");
   if (v33 < 0)
   {
@@ -6572,10 +6570,10 @@ void updateNLPUserActionTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v34, "USERWEBVIEWED");
   __p[0] = v34;
-  v24 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34);
+  v24 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "DOWNLOADED.HasDownloaded");
   v36 = __p;
-  v25 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v24 + 56, __p);
+  v25 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v24 + 56), __p, &std::piecewise_construct, &v36);
   MEMORY[0x2318C02F0](v25 + 56, "InRange(kMDItemDateAdded,0,2147483647)");
   if (v33 < 0)
   {
@@ -6589,10 +6587,10 @@ void updateNLPUserActionTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v34, "USERMAILVIEWED");
   __p[0] = v34;
-  v26 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34);
+  v26 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "VIEWED.HasViewed");
   v36 = __p;
-  v27 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v26 + 56, __p);
+  v27 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v26 + 56), __p, &std::piecewise_construct, &v36);
   MEMORY[0x2318C02F0](v27 + 56, "InRange(com_apple_mail_dateLastViewed,0,2147483647)");
   if (v33 < 0)
   {
@@ -6606,10 +6604,10 @@ void updateNLPUserActionTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v34, "USERMAILVIEWED");
   __p[0] = v34;
-  v28 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34);
+  v28 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "VIEWED.HasViewed");
   v36 = __p;
-  v29 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v28 + 56, __p);
+  v29 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v28 + 56), __p, &std::piecewise_construct, &v36);
   MEMORY[0x2318C02F0](v29 + 56, "InRange(com_apple_mail_dateLastViewed,0,2147483647)");
   if (v33 < 0)
   {
@@ -6623,10 +6621,10 @@ void updateNLPUserActionTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v34, "USERDOWNLOADED");
   __p[0] = v34;
-  v30 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34);
+  v30 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v34, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "DOWNLOADED.HasDownloaded");
   v36 = __p;
-  v31 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v30 + 56, __p);
+  v31 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v30 + 56), __p, &std::piecewise_construct, &v36);
   MEMORY[0x2318C02F0](v31 + 56, "InRange(kMDItemDownloadDate,0,2147483647)");
   if (v33 < 0)
   {
@@ -6649,14 +6647,14 @@ void sub_22CD18A98(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void updateNLPValueTranslations(uint64_t a1)
+void updateNLPValueTranslations(uint64_t **a1)
 {
   std::string::basic_string[abi:ne200100]<0>(v64, "PAGECOUNT");
   __p[0] = v64;
-  v2 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v2 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PagecountValue");
   v66 = __p;
-  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v2 + 56, __p);
+  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v2 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v3 + 56, "kMDItemNumberOfPages=%@v");
   if (v63 < 0)
   {
@@ -6670,10 +6668,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "EQUALTO");
   __p[0] = v64;
-  v4 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v4 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PagecountValue");
   v66 = __p;
-  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4 + 56, __p);
+  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v4 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v5 + 56, "kMDItemNumberOfPages=%@v");
   if (v63 < 0)
   {
@@ -6687,10 +6685,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "GREATEREQUAL");
   __p[0] = v64;
-  v6 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v6 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PagecountValue");
   v66 = __p;
-  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6 + 56, __p);
+  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v6 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v7 + 56, "kMDItemNumberOfPages>=%@v");
   if (v63 < 0)
   {
@@ -6704,10 +6702,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "GREATER");
   __p[0] = v64;
-  v8 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v8 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PagecountValue");
   v66 = __p;
-  v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v8 + 56, __p);
+  v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v8 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v9 + 56, "kMDItemNumberOfPages>%@v");
   if (v63 < 0)
   {
@@ -6721,10 +6719,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "LESSEQUAL");
   __p[0] = v64;
-  v10 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v10 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PagecountValue");
   v66 = __p;
-  v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v10 + 56, __p);
+  v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v10 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v11 + 56, "kMDItemNumberOfPages<=%@v");
   if (v63 < 0)
   {
@@ -6738,10 +6736,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "LESS");
   __p[0] = v64;
-  v12 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v12 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PagecountValue");
   v66 = __p;
-  v13 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v12 + 56, __p);
+  v13 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v12 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v13 + 56, "kMDItemNumberOfPages<%@v");
   if (v63 < 0)
   {
@@ -6755,10 +6753,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "FILESIZE");
   __p[0] = v64;
-  v14 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v14 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "FilesizeValue");
   v66 = __p;
-  v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v14 + 56, __p);
+  v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v14 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v15 + 56, "(kMDItemPhysicalSize>=%@v1 && kMDItemPhysicalSize<=%@v2)");
   if (v63 < 0)
   {
@@ -6772,10 +6770,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "EQUALTO");
   __p[0] = v64;
-  v16 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v16 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "FilesizeValue");
   v66 = __p;
-  v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v16 + 56, __p);
+  v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v16 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v17 + 56, "(kMDItemPhysicalSize>=%@v1 && kMDItemPhysicalSize<=%@v2)");
   if (v63 < 0)
   {
@@ -6789,10 +6787,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "GREATEREQUAL");
   __p[0] = v64;
-  v18 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v18 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "FilesizeValue");
   v66 = __p;
-  v19 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v18 + 56, __p);
+  v19 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v18 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v19 + 56, "kMDItemPhysicalSize>=%@v");
   if (v63 < 0)
   {
@@ -6806,10 +6804,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "GREATER");
   __p[0] = v64;
-  v20 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v20 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "FilesizeValue");
   v66 = __p;
-  v21 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v20 + 56, __p);
+  v21 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v20 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v21 + 56, "kMDItemPhysicalSize>%@v");
   if (v63 < 0)
   {
@@ -6823,10 +6821,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "LESSEQUAL");
   __p[0] = v64;
-  v22 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v22 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "FilesizeValue");
   v66 = __p;
-  v23 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v22 + 56, __p);
+  v23 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v22 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v23 + 56, "kMDItemPhysicalSize<=%@v");
   if (v63 < 0)
   {
@@ -6840,10 +6838,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "LESS");
   __p[0] = v64;
-  v24 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v24 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "FilesizeValue");
   v66 = __p;
-  v25 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v24 + 56, __p);
+  v25 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v24 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v25 + 56, "kMDItemPhysicalSize<%@v");
   if (v63 < 0)
   {
@@ -6857,10 +6855,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "LASTING");
   __p[0] = v64;
-  v26 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v26 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "DurationValue");
   v66 = __p;
-  v27 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v26 + 56, __p);
+  v27 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v26 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v27 + 56, "(kMDItemDurationSeconds>=%@v1 && kMDItemDurationSeconds<=%@v2)");
   if (v63 < 0)
   {
@@ -6874,10 +6872,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "EQUALTO");
   __p[0] = v64;
-  v28 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v28 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "DurationValue");
   v66 = __p;
-  v29 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v28 + 56, __p);
+  v29 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v28 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v29 + 56, "(kMDItemDurationSeconds>=%@v1 && kMDItemDurationSeconds<=%@v2)");
   if (v63 < 0)
   {
@@ -6891,10 +6889,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "GREATEREQUAL");
   __p[0] = v64;
-  v30 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v30 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "DurationValue");
   v66 = __p;
-  v31 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v30 + 56, __p);
+  v31 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v30 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v31 + 56, "kMDItemDurationSeconds>=%@v");
   if (v63 < 0)
   {
@@ -6908,10 +6906,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "GREATER");
   __p[0] = v64;
-  v32 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v32 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "DurationValue");
   v66 = __p;
-  v33 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v32 + 56, __p);
+  v33 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v32 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v33 + 56, "kMDItemDurationSeconds>%@v");
   if (v63 < 0)
   {
@@ -6925,10 +6923,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "LESSEQUAL");
   __p[0] = v64;
-  v34 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v34 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "DurationValue");
   v66 = __p;
-  v35 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v34 + 56, __p);
+  v35 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v34 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v35 + 56, "kMDItemDurationSeconds<=%@v");
   if (v63 < 0)
   {
@@ -6942,10 +6940,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "LESS");
   __p[0] = v64;
-  v36 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v36 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "DurationValue");
   v66 = __p;
-  v37 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v36 + 56, __p);
+  v37 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v36 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v37 + 56, "kMDItemDurationSeconds<%@v");
   if (v63 < 0)
   {
@@ -6959,10 +6957,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "ALTITUDE");
   __p[0] = v64;
-  v38 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v38 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "AltitudeValue");
   v66 = __p;
-  v39 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v38 + 56, __p);
+  v39 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v38 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v39 + 56, "(kMDItemAltitude>=%@v1 && kMDItemAltitude<=%@v2)");
   if (v63 < 0)
   {
@@ -6976,10 +6974,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "EQUALTO");
   __p[0] = v64;
-  v40 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v40 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "AltitudeValue");
   v66 = __p;
-  v41 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v40 + 56, __p);
+  v41 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v40 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v41 + 56, "(kMDItemAltitude>=%@v1 && kMDItemAltitude<=%@v2)");
   if (v63 < 0)
   {
@@ -6993,10 +6991,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "GREATEREQUAL");
   __p[0] = v64;
-  v42 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v42 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "AltitudeValue");
   v66 = __p;
-  v43 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v42 + 56, __p);
+  v43 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v42 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v43 + 56, "kMDItemAltitude>=%@v");
   if (v63 < 0)
   {
@@ -7010,10 +7008,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "GREATER");
   __p[0] = v64;
-  v44 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v44 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "AltitudeValue");
   v66 = __p;
-  v45 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v44 + 56, __p);
+  v45 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v44 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v45 + 56, "kMDItemAltitude>%@v");
   if (v63 < 0)
   {
@@ -7027,10 +7025,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "LESSEQUAL");
   __p[0] = v64;
-  v46 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v46 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "AltitudeValue");
   v66 = __p;
-  v47 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v46 + 56, __p);
+  v47 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v46 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v47 + 56, "kMDItemAltitude<=%@v");
   if (v63 < 0)
   {
@@ -7044,10 +7042,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "LESS");
   __p[0] = v64;
-  v48 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v48 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "AltitudeValue");
   v66 = __p;
-  v49 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v48 + 56, __p);
+  v49 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v48 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v49 + 56, "kMDItemAltitude<%@v");
   if (v63 < 0)
   {
@@ -7061,10 +7059,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "PHOTOISO");
   __p[0] = v64;
-  v50 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v50 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "IsoValue");
   v66 = __p;
-  v51 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v50 + 56, __p);
+  v51 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v50 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v51 + 56, "kMDItemISOSpeed=%@v");
   if (v63 < 0)
   {
@@ -7078,10 +7076,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "EQUALTO");
   __p[0] = v64;
-  v52 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v52 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "IsoValue");
   v66 = __p;
-  v53 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v52 + 56, __p);
+  v53 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v52 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v53 + 56, "kMDItemISOSpeed=%@v");
   if (v63 < 0)
   {
@@ -7095,10 +7093,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "GREATEREQUAL");
   __p[0] = v64;
-  v54 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v54 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "IsoValue");
   v66 = __p;
-  v55 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v54 + 56, __p);
+  v55 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v54 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v55 + 56, "kMDItemISOSpeed>=%@v");
   if (v63 < 0)
   {
@@ -7112,10 +7110,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "GREATER");
   __p[0] = v64;
-  v56 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v56 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "IsoValue");
   v66 = __p;
-  v57 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v56 + 56, __p);
+  v57 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v56 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v57 + 56, "kMDItemISOSpeed>%@v");
   if (v63 < 0)
   {
@@ -7129,10 +7127,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "LESSEQUAL");
   __p[0] = v64;
-  v58 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v58 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "IsoValue");
   v66 = __p;
-  v59 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v58 + 56, __p);
+  v59 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v58 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v59 + 56, "kMDItemISOSpeed<=%@v");
   if (v63 < 0)
   {
@@ -7146,10 +7144,10 @@ void updateNLPValueTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v64, "LESS");
   __p[0] = v64;
-  v60 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64);
+  v60 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v64, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "IsoValue");
   v66 = __p;
-  v61 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v60 + 56, __p);
+  v61 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v60 + 56), __p, &std::piecewise_construct, &v66);
   MEMORY[0x2318C02F0](v61 + 56, "kMDItemISOSpeed<%@v");
   if (v63 < 0)
   {
@@ -7172,14 +7170,14 @@ void sub_22CD19DF0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void updateNLPResultModifierTranslations(uint64_t a1, uint64_t a2)
+void updateNLPResultModifierTranslations(uint64_t **a1, uint64_t **a2)
 {
   std::string::basic_string[abi:ne200100]<0>(v18, "COUNT");
   __p[0] = v18;
-  v4 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v18);
+  v4 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v18, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MaxCount");
   v20 = __p;
-  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4 + 56, __p);
+  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v4 + 56), __p, &std::piecewise_construct, &v20);
   MEMORY[0x2318C02F0](v5 + 56, "");
   if (v17 < 0)
   {
@@ -7193,10 +7191,10 @@ void updateNLPResultModifierTranslations(uint64_t a1, uint64_t a2)
 
   std::string::basic_string[abi:ne200100]<0>(v18, "COUNT");
   __p[0] = v18;
-  v6 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v18);
+  v6 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v18, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MinCount");
   v20 = __p;
-  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6 + 56, __p);
+  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v6 + 56), __p, &std::piecewise_construct, &v20);
   MEMORY[0x2318C02F0](v7 + 56, "");
   if (v17 < 0)
   {
@@ -7210,10 +7208,10 @@ void updateNLPResultModifierTranslations(uint64_t a1, uint64_t a2)
 
   std::string::basic_string[abi:ne200100]<0>(v18, "PERIOD");
   __p[0] = v18;
-  v8 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v18);
+  v8 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v18, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MaxTime");
   v20 = __p;
-  v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v8 + 56, __p);
+  v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v8 + 56), __p, &std::piecewise_construct, &v20);
   MEMORY[0x2318C02F0](v9 + 56, "");
   if (v17 < 0)
   {
@@ -7227,10 +7225,10 @@ void updateNLPResultModifierTranslations(uint64_t a1, uint64_t a2)
 
   std::string::basic_string[abi:ne200100]<0>(v18, "PERIOD");
   __p[0] = v18;
-  v10 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v18);
+  v10 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v18, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MinTime");
   v20 = __p;
-  v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v10 + 56, __p);
+  v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v10 + 56), __p, &std::piecewise_construct, &v20);
   MEMORY[0x2318C02F0](v11 + 56, "");
   if (v17 < 0)
   {
@@ -7244,10 +7242,10 @@ void updateNLPResultModifierTranslations(uint64_t a1, uint64_t a2)
 
   std::string::basic_string[abi:ne200100]<0>(v18, "COUNT");
   __p[0] = v18;
-  v12 = std::__tree<std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, v18);
+  v12 = std::__tree<std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, v18, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MaxCount");
   v20 = __p;
-  *(std::__tree<std::__value_type<std::string,NLSearchParseResultModifier>,std::__map_value_compare<std::string,std::__value_type<std::string,NLSearchParseResultModifier>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NLSearchParseResultModifier>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v12 + 56, __p) + 56) = 2;
+  *(std::__tree<std::__value_type<std::string,NLSearchParseResultModifier>,std::__map_value_compare<std::string,std::__value_type<std::string,NLSearchParseResultModifier>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NLSearchParseResultModifier>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v12 + 56), __p, &std::piecewise_construct, &v20) + 56) = 2;
   if (v17 < 0)
   {
     operator delete(__p[0]);
@@ -7260,10 +7258,10 @@ void updateNLPResultModifierTranslations(uint64_t a1, uint64_t a2)
 
   std::string::basic_string[abi:ne200100]<0>(v18, "COUNT");
   __p[0] = v18;
-  v13 = std::__tree<std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, v18);
+  v13 = std::__tree<std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, v18, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MinCount");
   v20 = __p;
-  *(std::__tree<std::__value_type<std::string,NLSearchParseResultModifier>,std::__map_value_compare<std::string,std::__value_type<std::string,NLSearchParseResultModifier>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NLSearchParseResultModifier>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v13 + 56, __p) + 56) = 1;
+  *(std::__tree<std::__value_type<std::string,NLSearchParseResultModifier>,std::__map_value_compare<std::string,std::__value_type<std::string,NLSearchParseResultModifier>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NLSearchParseResultModifier>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v13 + 56), __p, &std::piecewise_construct, &v20) + 56) = 1;
   if (v17 < 0)
   {
     operator delete(__p[0]);
@@ -7276,10 +7274,10 @@ void updateNLPResultModifierTranslations(uint64_t a1, uint64_t a2)
 
   std::string::basic_string[abi:ne200100]<0>(v18, "PERIOD");
   __p[0] = v18;
-  v14 = std::__tree<std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, v18);
+  v14 = std::__tree<std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, v18, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MaxTime");
   v20 = __p;
-  *(std::__tree<std::__value_type<std::string,NLSearchParseResultModifier>,std::__map_value_compare<std::string,std::__value_type<std::string,NLSearchParseResultModifier>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NLSearchParseResultModifier>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v14 + 56, __p) + 56) = 2;
+  *(std::__tree<std::__value_type<std::string,NLSearchParseResultModifier>,std::__map_value_compare<std::string,std::__value_type<std::string,NLSearchParseResultModifier>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NLSearchParseResultModifier>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v14 + 56), __p, &std::piecewise_construct, &v20) + 56) = 2;
   if (v17 < 0)
   {
     operator delete(__p[0]);
@@ -7292,10 +7290,10 @@ void updateNLPResultModifierTranslations(uint64_t a1, uint64_t a2)
 
   std::string::basic_string[abi:ne200100]<0>(v18, "PERIOD");
   __p[0] = v18;
-  v15 = std::__tree<std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, v18);
+  v15 = std::__tree<std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,NLSearchParseResultModifier>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a2, v18, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MinTime");
   v20 = __p;
-  *(std::__tree<std::__value_type<std::string,NLSearchParseResultModifier>,std::__map_value_compare<std::string,std::__value_type<std::string,NLSearchParseResultModifier>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NLSearchParseResultModifier>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v15 + 56, __p) + 56) = 1;
+  *(std::__tree<std::__value_type<std::string,NLSearchParseResultModifier>,std::__map_value_compare<std::string,std::__value_type<std::string,NLSearchParseResultModifier>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NLSearchParseResultModifier>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v15 + 56), __p, &std::piecewise_construct, &v20) + 56) = 1;
   if (v17 < 0)
   {
     operator delete(__p[0]);
@@ -7322,14 +7320,14 @@ void sub_22CD1A478(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void updateSpotlightFileTypeTranslations(uint64_t a1)
+void updateSpotlightFileTypeTranslations(uint64_t **a1)
 {
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v2 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v2 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "ChatKind");
   v152 = __p;
-  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v2 + 56, __p);
+  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v2 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v3 + 56, "kMDItemContentType=com.apple.ichat.transcript");
   if (v149 < 0)
   {
@@ -7343,10 +7341,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v4 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v4 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MailKind");
   v152 = __p;
-  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4 + 56, __p);
+  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v4 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v5 + 56, "(kMDItemContentType=com.apple.mail.emlx || kMDItemContentType=public.email-message)");
   if (v149 < 0)
   {
@@ -7360,10 +7358,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v6 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v6 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MessageKind");
   v152 = __p;
-  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6 + 56, __p);
+  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v6 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v7 + 56, "(_kMDItemGroupId=1 || kMDItemContentType=com.apple.ichat.transcript)");
   if (v149 < 0)
   {
@@ -7377,10 +7375,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v8 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v8 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "ImageKind");
   v152 = __p;
-  v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v8 + 56, __p);
+  v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v8 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v9 + 56, "_kMDItemGroupId=13");
   if (v149 < 0)
   {
@@ -7394,10 +7392,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v10 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v10 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "ImageAttachment");
   v152 = __p;
-  v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v10 + 56, __p);
+  v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v10 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v11 + 56, "(_kMDItemGroupId=13 && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -7411,10 +7409,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v12 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v12 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "JpgImageFormatKind");
   v152 = __p;
-  v13 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v12 + 56, __p);
+  v13 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v12 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v13 + 56, "kMDItemContentType=public.jpeg");
   if (v149 < 0)
   {
@@ -7428,10 +7426,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v14 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v14 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PngImageFormatKind");
   v152 = __p;
-  v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v14 + 56, __p);
+  v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v14 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v15 + 56, "kMDItemContentType=public.png");
   if (v149 < 0)
   {
@@ -7445,10 +7443,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v16 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v16 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "TiffImageFormatKind");
   v152 = __p;
-  v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v16 + 56, __p);
+  v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v16 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v17 + 56, "kMDItemContentType=public.tiff");
   if (v149 < 0)
   {
@@ -7462,10 +7460,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v18 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v18 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "GifImageFormatKind");
   v152 = __p;
-  v19 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v18 + 56, __p);
+  v19 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v18 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v19 + 56, "kMDItemContentType=com.compuserve.gif");
   if (v149 < 0)
   {
@@ -7479,10 +7477,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v20 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v20 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "JpgImageFormatAttachment");
   v152 = __p;
-  v21 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v20 + 56, __p);
+  v21 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v20 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v21 + 56, "(kMDItemContentType=public.jpeg && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -7496,10 +7494,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v22 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v22 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PngImageFormatAttachment");
   v152 = __p;
-  v23 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v22 + 56, __p);
+  v23 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v22 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v23 + 56, "(kMDItemContentType=public.png && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -7513,10 +7511,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v24 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v24 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "TiffImageFormatAttachment");
   v152 = __p;
-  v25 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v24 + 56, __p);
+  v25 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v24 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v25 + 56, "(kMDItemContentType=public.tiff && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -7530,10 +7528,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v26 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v26 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "GifImageFormatAttachment");
   v152 = __p;
-  v27 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v26 + 56, __p);
+  v27 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v26 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v27 + 56, "(kMDItemContentType=com.compuserve.gif && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -7547,10 +7545,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v28 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v28 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "AudioKind");
   v152 = __p;
-  v29 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v28 + 56, __p);
+  v29 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v28 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v29 + 56, "_kMDItemGroupId=10");
   if (v149 < 0)
   {
@@ -7564,10 +7562,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v30 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v30 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "AudioAttachment");
   v152 = __p;
-  v31 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v30 + 56, __p);
+  v31 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v30 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v31 + 56, "(_kMDItemGroupId=10 && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -7581,10 +7579,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v32 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v32 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "AiffAudioFormatKind");
   v152 = __p;
-  v33 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v32 + 56, __p);
+  v33 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v32 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v33 + 56, "kMDItemContentType=aif*cwd");
   if (v149 < 0)
   {
@@ -7598,10 +7596,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v34 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v34 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "AacAudioFormatKind");
   v152 = __p;
-  v35 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v34 + 56, __p);
+  v35 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v34 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v35 + 56, "kMDItemContentType=public.aac");
   if (v149 < 0)
   {
@@ -7615,10 +7613,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v36 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v36 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Mp3AudioFormatKind");
   v152 = __p;
-  v37 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v36 + 56, __p);
+  v37 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v36 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v37 + 56, "kMDItemContentType=public.mp3");
   if (v149 < 0)
   {
@@ -7632,10 +7630,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v38 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v38 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "AacAudioFormatAttachment");
   v152 = __p;
-  v39 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v38 + 56, __p);
+  v39 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v38 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v39 + 56, "(kMDItemContentType=public.aac && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -7649,10 +7647,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v40 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v40 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "AiffAudioFormatAttachment");
   v152 = __p;
-  v41 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v40 + 56, __p);
+  v41 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v40 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v41 + 56, "(kMDItemContentType=aif*cwd && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -7666,10 +7664,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v42 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v42 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Mp3AudioFormatAttachment");
   v152 = __p;
-  v43 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v42 + 56, __p);
+  v43 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v42 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v43 + 56, "(kMDItemContentType=public.mp3 && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -7683,10 +7681,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v44 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v44 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "VideoKind");
   v152 = __p;
-  v45 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v44 + 56, __p);
+  v45 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v44 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v45 + 56, "_kMDItemGroupId=7");
   if (v149 < 0)
   {
@@ -7700,10 +7698,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v46 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v46 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "VideoFormatKind");
   v152 = __p;
-  v47 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v46 + 56, __p);
+  v47 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v46 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v47 + 56, "(kMDItemContentType=%@c*cwd || kMDItemFSName=*%@ccwd)");
   if (v149 < 0)
   {
@@ -7717,10 +7715,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v48 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v48 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MovVideoFormatKind");
   v152 = __p;
-  v49 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v48 + 56, __p);
+  v49 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v48 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v49 + 56, "kMDItemContentType=com.apple.quicktime-movie");
   if (v149 < 0)
   {
@@ -7734,10 +7732,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v50 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v50 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Mp4VideoFormatKind");
   v152 = __p;
-  v51 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v50 + 56, __p);
+  v51 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v50 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v51 + 56, "kMDItemContentType=com.apple.m4v-video");
   if (v149 < 0)
   {
@@ -7751,10 +7749,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v52 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v52 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "VideoAttachment");
   v152 = __p;
-  v53 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v52 + 56, __p);
+  v53 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v52 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v53 + 56, "(_kMDItemGroupId=7 && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -7768,10 +7766,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v54 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v54 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "VideoFormatAttachment");
   v152 = __p;
-  v55 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v54 + 56, __p);
+  v55 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v54 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v55 + 56, "((kMDItemContentType=%@c*cwd || kMDItemFSName=*%@ccwd) && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -7785,10 +7783,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v56 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v56 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MovVideoFormatAttachment");
   v152 = __p;
-  v57 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v56 + 56, __p);
+  v57 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v56 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v57 + 56, "(kMDItemContentType=com.apple.quicktime-movie && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -7802,10 +7800,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v58 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v58 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Mp4VideoFormatAttachment");
   v152 = __p;
-  v59 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v58 + 56, __p);
+  v59 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v58 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v59 + 56, "(kMDItemContentType=com.apple.m4v-video && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -7819,10 +7817,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v60 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v60 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PresentationKind");
   v152 = __p;
-  v61 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v60 + 56, __p);
+  v61 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v60 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v61 + 56, "_kMDItemGroupId=12");
   if (v149 < 0)
   {
@@ -7836,10 +7834,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v62 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v62 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PresentationAttachment");
   v152 = __p;
-  v63 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v62 + 56, __p);
+  v63 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v62 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v63 + 56, "(_kMDItemGroupId=12 && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -7853,10 +7851,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v64 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v64 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "KeyPresentationFormatKind");
   v152 = __p;
-  v65 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v64 + 56, __p);
+  v65 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v64 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v65 + 56, "kMDItemContentType=com.apple.iwork.key*cwd");
   if (v149 < 0)
   {
@@ -7870,10 +7868,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v66 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v66 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PptPresentationFormatKind");
   v152 = __p;
-  v67 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v66 + 56, __p);
+  v67 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v66 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v67 + 56, "kMDItemContentType=com.microsoft.powerpoint.ppt*cwd");
   if (v149 < 0)
   {
@@ -7887,10 +7885,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v68 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v68 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "KeyPresentationFormatAttachment");
   v152 = __p;
-  v69 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v68 + 56, __p);
+  v69 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v68 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v69 + 56, "(kMDItemContentType=com.apple.iwork.key*cwd && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -7904,10 +7902,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v70 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v70 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PptPresentationFormatAttachment");
   v152 = __p;
-  v71 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v70 + 56, __p);
+  v71 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v70 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v71 + 56, "(kMDItemContentType=com.microsoft.powerpoint.ppt*cwd && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -7921,10 +7919,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v72 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v72 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "SpreadsheetKind");
   v152 = __p;
-  v73 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v72 + 56, __p);
+  v73 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v72 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v73 + 56, "_kMDItemGroupId=16");
   if (v149 < 0)
   {
@@ -7938,10 +7936,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v74 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v74 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "SpreadsheetAttachment");
   v152 = __p;
-  v75 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v74 + 56, __p);
+  v75 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v74 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v75 + 56, "(_kMDItemGroupId=16 && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -7955,10 +7953,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v76 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v76 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "XlsSpreadsheetFormatKind");
   v152 = __p;
-  v77 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v76 + 56, __p);
+  v77 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v76 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v77 + 56, "kMDItemContentType=com.microsoft.excel.xlscwd");
   if (v149 < 0)
   {
@@ -7972,10 +7970,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v78 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v78 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "XlsSpreadsheetFormatAttachment");
   v152 = __p;
-  v79 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v78 + 56, __p);
+  v79 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v78 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v79 + 56, "(kMDItemContentType=com.microsoft.excel.xlscwd && && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -7989,10 +7987,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v80 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v80 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "DocumentKind");
   v152 = __p;
-  v81 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v80 + 56, __p);
+  v81 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v80 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v81 + 56, "(_kMDItemGroupId=11 || _kMDItemGroupId=12 || _kMDItemGroupId=14 || _kMDItemGroupId=15 || _kMDItemGroupId=16)");
   if (v149 < 0)
   {
@@ -8006,10 +8004,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v82 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v82 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "DocumentAttachment");
   v152 = __p;
-  v83 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v82 + 56, __p);
+  v83 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v82 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v83 + 56, "((_kMDItemGroupId=11 || _kMDItemGroupId=12 || _kMDItemGroupId=14 || _kMDItemGroupId=15 || _kMDItemGroupId=16) && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -8023,10 +8021,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v84 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v84 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "IworkDocumentKind");
   v152 = __p;
-  v85 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v84 + 56, __p);
+  v85 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v84 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v85 + 56, "(kMDItemContentType=com.apple.iwork*cwd || kMDItemContentType=com.microsoft.*cwd || kMDItemContentType=org.openxmlformats*cwd)");
   if (v149 < 0)
   {
@@ -8040,10 +8038,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v86 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v86 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "IworkDocumentAttachment");
   v152 = __p;
-  v87 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v86 + 56, __p);
+  v87 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v86 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v87 + 56, "((kMDItemContentType=com.apple.iwork*cwd || kMDItemContentType=com.microsoft.*cwd || kMDItemContentType=org.openxmlformats*cwd) && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -8057,10 +8055,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v88 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v88 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PagesDocumentKind");
   v152 = __p;
-  v89 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v88 + 56, __p);
+  v89 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v88 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v89 + 56, "(kMDItemContentType=com.apple.iwork.pages.* || kMDItemContentType=com.microsoft.word.doc || kMDItemContentType=org.openxmlformats.word*cwd)");
   if (v149 < 0)
   {
@@ -8074,10 +8072,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v90 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v90 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "DocDocumentFormatKind");
   v152 = __p;
-  v91 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v90 + 56, __p);
+  v91 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v90 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v91 + 56, "(kMDItemContentType=com.microsoft.word.doc*cwd || kMDItemContentType=org.openxmlformats.word*cwd)");
   if (v149 < 0)
   {
@@ -8091,10 +8089,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v92 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v92 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PagesDocumentAttachment");
   v152 = __p;
-  v93 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v92 + 56, __p);
+  v93 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v92 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v93 + 56, "((kMDItemContentType=com.apple.iwork.pages.* || kMDItemContentType=com.microsoft.word.doc || kMDItemContentType=org.openxmlformats.word*cwd) && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -8108,10 +8106,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v94 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v94 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "DocDocumentFormatAttachment");
   v152 = __p;
-  v95 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v94 + 56, __p);
+  v95 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v94 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v95 + 56, "((kMDItemContentType=com.microsoft.word.doc*cwd || kMDItemContentType=org.openxmlformats.word*cwd) && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -8125,10 +8123,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v96 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v96 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "RtfTextFormatKind");
   v152 = __p;
-  v97 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v96 + 56, __p);
+  v97 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v96 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v97 + 56, "kMDItemContentType=public.rtf");
   if (v149 < 0)
   {
@@ -8142,10 +8140,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v98 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v98 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "TxtTextFormatKind");
   v152 = __p;
-  v99 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v98 + 56, __p);
+  v99 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v98 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v99 + 56, "(kMDItemContentType=public.plain-text || kMDItemFSName=*txtcwd)");
   if (v149 < 0)
   {
@@ -8159,10 +8157,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v100 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v100 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "RtfTextFormatAttachment");
   v152 = __p;
-  v101 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v100 + 56, __p);
+  v101 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v100 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v101 + 56, "(kMDItemContentType=public.rtf && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -8176,10 +8174,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v102 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v102 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "TxtTextFormatAttachment");
   v152 = __p;
-  v103 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v102 + 56, __p);
+  v103 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v102 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v103 + 56, "((kMDItemContentType=public.plain-text || kMDItemFSName=*txtcwd) && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -8193,10 +8191,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v104 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v104 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "FileKind");
   v152 = __p;
-  v105 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v104 + 56, __p);
+  v105 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v104 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v105 + 56, "(_kMDItemGroupId=5 || _kMDItemGroupId=7 || _kMDItemGroupId=10 || _kMDItemGroupId=11 || _kMDItemGroupId=12 || _kMDItemGroupId=13 || _kMDItemGroupId=14 || _kMDItemGroupId=16 || _kMDItemGroupId=18 || (_kMDItemGroupId=15 && kMDItemContentTypeTree=public.directory))");
   if (v149 < 0)
   {
@@ -8210,10 +8208,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v106 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v106 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "FileAttachment");
   v152 = __p;
-  v107 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v106 + 56, __p);
+  v107 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v106 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v107 + 56, "((_kMDItemGroupId=5 || _kMDItemGroupId=7 || _kMDItemGroupId=10 || _kMDItemGroupId=11 || _kMDItemGroupId=12 || _kMDItemGroupId=13 || _kMDItemGroupId=14 || _kMDItemGroupId=16 || _kMDItemGroupId=18 || (_kMDItemGroupId=15 && kMDItemContentTypeTree=public.directory)) && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -8227,10 +8225,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v108 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v108 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "TarFileFormatKind");
   v152 = __p;
-  v109 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v108 + 56, __p);
+  v109 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v108 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v109 + 56, "(kMDItemContentType=tar*cwd || kMDItemContentType=zip*cwd)");
   if (v149 < 0)
   {
@@ -8244,10 +8242,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v110 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v110 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "JavaFileFormatKind");
   v152 = __p;
-  v111 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v110 + 56, __p);
+  v111 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v110 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v111 + 56, "kMDItemContentType=com.sun.java-source");
   if (v149 < 0)
   {
@@ -8261,10 +8259,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v112 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v112 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "TarFileFormatAttachment");
   v152 = __p;
-  v113 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v112 + 56, __p);
+  v113 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v112 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v113 + 56, "((kMDItemContentType=tar*cwd || kMDItemContentType=zip*cwd) && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -8278,10 +8276,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v114 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v114 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "JavaFileFormatAttachment");
   v152 = __p;
-  v115 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v114 + 56, __p);
+  v115 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v114 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v115 + 56, "(kMDItemContentType=com.sun.java-source && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -8295,10 +8293,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v116 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v116 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "EventKind");
   v152 = __p;
-  v117 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v116 + 56, __p);
+  v117 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v116 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v117 + 56, "kMDItemContentType=public.calendar-event");
   if (v149 < 0)
   {
@@ -8312,10 +8310,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v118 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v118 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "IcsEventFormatKind");
   v152 = __p;
-  v119 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v118 + 56, __p);
+  v119 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v118 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v119 + 56, "kMDItemContentType=com.apple.ical.ics");
   if (v149 < 0)
   {
@@ -8329,10 +8327,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v120 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v120 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "EventAttachment");
   v152 = __p;
-  v121 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v120 + 56, __p);
+  v121 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v120 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v121 + 56, "(kMDItemContentType=public.calendar-event && && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -8346,10 +8344,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v122 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v122 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "IcsEventFormatAttachment");
   v152 = __p;
-  v123 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v122 + 56, __p);
+  v123 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v122 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v123 + 56, "(kMDItemContentType=com.apple.ical.ics && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -8363,10 +8361,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v124 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v124 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "ContactsKind");
   v152 = __p;
-  v125 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v124 + 56, __p);
+  v125 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v124 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v125 + 56, "kMDItemContentType=public.vcard");
   if (v149 < 0)
   {
@@ -8380,10 +8378,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v126 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v126 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "VcfContactsFormatKind");
   v152 = __p;
-  v127 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126 + 56, __p);
+  v127 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v126 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v127 + 56, "kMDItemContentType=public.vcard");
   if (v149 < 0)
   {
@@ -8397,10 +8395,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v128 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v128 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "ContactsAttachment");
   v152 = __p;
-  v129 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v128 + 56, __p);
+  v129 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v128 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v129 + 56, "(kMDItemContentType=public.vcard && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -8414,10 +8412,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v130 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v130 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "VcfContactsFormatAttachment");
   v152 = __p;
-  v131 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v130 + 56, __p);
+  v131 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v130 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v131 + 56, "(kMDItemContentType=public.vcard && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -8431,10 +8429,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v132 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v132 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PdfDocumentFormatKind");
   v152 = __p;
-  v133 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v132 + 56, __p);
+  v133 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v132 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v133 + 56, "_kMDItemGroupId=11");
   if (v149 < 0)
   {
@@ -8448,10 +8446,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v134 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v134 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PdfDocumentFormatAttachment");
   v152 = __p;
-  v135 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v134 + 56, __p);
+  v135 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v134 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v135 + 56, "(_kMDItemGroupId=11 && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -8465,10 +8463,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v136 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v136 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PassDocumentFormatKind");
   v152 = __p;
-  v137 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v136 + 56, __p);
+  v137 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v136 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v137 + 56, "kMDItemContentType=com.apple.pkpasscwd");
   if (v149 < 0)
   {
@@ -8482,10 +8480,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v138 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v138 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PassDocumentFormatAttachment");
   v152 = __p;
-  v139 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v138 + 56, __p);
+  v139 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v138 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v139 + 56, "(kMDItemContentType=com.apple.pkpasscwd && kMDItemWhereFroms=message*cwd)");
   if (v149 < 0)
   {
@@ -8499,10 +8497,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v140 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v140 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Filename");
   v152 = __p;
-  v141 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v140 + 56, __p);
+  v141 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v140 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v141 + 56, "kMDItemFSName=%@c*cwd");
   if (v149 < 0)
   {
@@ -8516,10 +8514,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v142 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v142 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "NotesKind");
   v152 = __p;
-  v143 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v142 + 56, __p);
+  v143 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v142 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v143 + 56, "(kMDItemContentType=com.apple.notes.*record || kMDItemKind=notes*cwdt)");
   if (v149 < 0)
   {
@@ -8533,10 +8531,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v144 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v144 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "ApplicationKind");
   v152 = __p;
-  v145 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v144 + 56, __p);
+  v145 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v144 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v145 + 56, "_kMDItemGroupId=8");
   if (v149 < 0)
   {
@@ -8550,10 +8548,10 @@ void updateSpotlightFileTypeTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v150, "KIND");
   __p[0] = v150;
-  v146 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150);
+  v146 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v150, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "WebsiteKind");
   v152 = __p;
-  v147 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v146 + 56, __p);
+  v147 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v146 + 56), __p, &std::piecewise_construct, &v152);
   MEMORY[0x2318C02F0](v147 + 56, "(kMDItemContentType=com.apple.safari.history || kMDItemContentType=com.apple.safari.bookmark)");
   if (v149 < 0)
   {
@@ -8576,14 +8574,14 @@ void sub_22CD1D1B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void updateSpotlightAttachmentTranslations(uint64_t a1)
+void updateSpotlightAttachmentTranslations(uint64_t **a1)
 {
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v2 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v2 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MailClient");
   v286 = __p;
-  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v2 + 56, __p);
+  v3 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v2 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v3 + 56, "(kMDItemContentType=com.apple.mail.emlx || kMDItemContentType=public.email-message)");
   if (v283 < 0)
   {
@@ -8597,10 +8595,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v4 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v4 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Attachment");
   v286 = __p;
-  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4 + 56, __p);
+  v5 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v4 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v5 + 56, "com_apple_mail_attachmentKinds=*cwd");
   if (v283 < 0)
   {
@@ -8614,10 +8612,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v6 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v6 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Attachment");
   v286 = __p;
-  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6 + 56, __p);
+  v7 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v6 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v7 + 56, "com_apple_mail_attachmentKinds=*cwd");
   if (v283 < 0)
   {
@@ -8631,10 +8629,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v8 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v8 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "HasAttached");
   v286 = __p;
-  v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v8 + 56, __p);
+  v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v8 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v9 + 56, "com_apple_mail_attachmentKinds=*cwd");
   if (v283 < 0)
   {
@@ -8648,10 +8646,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v10 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v10 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "HasAttachment");
   v286 = __p;
-  v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v10 + 56, __p);
+  v11 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v10 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v11 + 56, "com_apple_mail_attachmentKinds=*cwd");
   if (v283 < 0)
   {
@@ -8665,10 +8663,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v12 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v12 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MailAttachment");
   v286 = __p;
-  v13 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v12 + 56, __p);
+  v13 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v12 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v13 + 56, "com_apple_mail_attachmentKinds=*cwd");
   if (v283 < 0)
   {
@@ -8682,10 +8680,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v14 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v14 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "ImageKind");
   v286 = __p;
-  v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v14 + 56, __p);
+  v15 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v14 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v15 + 56, "com_apple_mail_attachmentTypes=public.image");
   if (v283 < 0)
   {
@@ -8699,10 +8697,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v16 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v16 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "GifImageFormatKind");
   v286 = __p;
-  v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v16 + 56, __p);
+  v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v16 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v17 + 56, "com_apple_mail_attachmentSpecificTypes=com.compuserve.gif");
   if (v283 < 0)
   {
@@ -8716,10 +8714,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v18 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v18 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PngImageFormatKind");
   v286 = __p;
-  v19 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v18 + 56, __p);
+  v19 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v18 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v19 + 56, "com_apple_mail_attachmentSpecificTypes=public.png");
   if (v283 < 0)
   {
@@ -8733,10 +8731,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v20 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v20 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "TiffImageFormatKind");
   v286 = __p;
-  v21 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v20 + 56, __p);
+  v21 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v20 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v21 + 56, "com_apple_mail_attachmentSpecificTypes=public.tiff");
   if (v283 < 0)
   {
@@ -8750,10 +8748,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v22 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v22 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "JpgImageFormatKind");
   v286 = __p;
-  v23 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v22 + 56, __p);
+  v23 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v22 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v23 + 56, "com_apple_mail_attachmentSpecificTypes=public.jpeg");
   if (v283 < 0)
   {
@@ -8767,10 +8765,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v24 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v24 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "ImageAttachment");
   v286 = __p;
-  v25 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v24 + 56, __p);
+  v25 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v24 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v25 + 56, "com_apple_mail_attachmentTypes=public.image");
   if (v283 < 0)
   {
@@ -8784,10 +8782,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v26 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v26 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "GifImageFormatAttachment");
   v286 = __p;
-  v27 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v26 + 56, __p);
+  v27 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v26 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v27 + 56, "com_apple_mail_attachmentSpecificTypes=com.compuserve.gif");
   if (v283 < 0)
   {
@@ -8801,10 +8799,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v28 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v28 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PngImageFormatAttachment");
   v286 = __p;
-  v29 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v28 + 56, __p);
+  v29 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v28 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v29 + 56, "com_apple_mail_attachmentSpecificTypes=public.png");
   if (v283 < 0)
   {
@@ -8818,10 +8816,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v30 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v30 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "TiffImageFormatAttachment");
   v286 = __p;
-  v31 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v30 + 56, __p);
+  v31 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v30 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v31 + 56, "com_apple_mail_attachmentSpecificTypes=public.tiff");
   if (v283 < 0)
   {
@@ -8835,10 +8833,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v32 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v32 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "JpgImageFormatAttachment");
   v286 = __p;
-  v33 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v32 + 56, __p);
+  v33 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v32 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v33 + 56, "com_apple_mail_attachmentSpecificTypes=public.jpeg");
   if (v283 < 0)
   {
@@ -8852,10 +8850,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v34 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v34 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "ImageKind");
   v286 = __p;
-  v35 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v34 + 56, __p);
+  v35 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v34 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v35 + 56, "com_apple_mail_attachmentTypes=public.image");
   if (v283 < 0)
   {
@@ -8869,10 +8867,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v36 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v36 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "GifImageFormatKind");
   v286 = __p;
-  v37 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v36 + 56, __p);
+  v37 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v36 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v37 + 56, "com_apple_mail_attachmentSpecificTypes=com.compuserve.gif");
   if (v283 < 0)
   {
@@ -8886,10 +8884,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v38 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v38 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PngImageFormatKind");
   v286 = __p;
-  v39 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v38 + 56, __p);
+  v39 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v38 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v39 + 56, "com_apple_mail_attachmentSpecificTypes=public.png");
   if (v283 < 0)
   {
@@ -8903,10 +8901,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v40 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v40 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "TiffImageFormatKind");
   v286 = __p;
-  v41 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v40 + 56, __p);
+  v41 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v40 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v41 + 56, "com_apple_mail_attachmentSpecificTypes=public.tiff");
   if (v283 < 0)
   {
@@ -8920,10 +8918,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v42 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v42 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "JpgImageFormatKind");
   v286 = __p;
-  v43 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v42 + 56, __p);
+  v43 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v42 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v43 + 56, "com_apple_mail_attachmentSpecificTypes=public.jpeg");
   if (v283 < 0)
   {
@@ -8937,10 +8935,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v44 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v44 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "ImageAttachment");
   v286 = __p;
-  v45 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v44 + 56, __p);
+  v45 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v44 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v45 + 56, "com_apple_mail_attachmentTypes=public.image");
   if (v283 < 0)
   {
@@ -8954,10 +8952,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v46 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v46 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "GifImageFormatAttachment");
   v286 = __p;
-  v47 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v46 + 56, __p);
+  v47 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v46 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v47 + 56, "com_apple_mail_attachmentSpecificTypes=com.compuserve.gif");
   if (v283 < 0)
   {
@@ -8971,10 +8969,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v48 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v48 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PngImageFormatAttachment");
   v286 = __p;
-  v49 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v48 + 56, __p);
+  v49 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v48 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v49 + 56, "com_apple_mail_attachmentSpecificTypes=public.png");
   if (v283 < 0)
   {
@@ -8988,10 +8986,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v50 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v50 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "TiffImageFormatAttachment");
   v286 = __p;
-  v51 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v50 + 56, __p);
+  v51 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v50 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v51 + 56, "com_apple_mail_attachmentSpecificTypes=public.tiff");
   if (v283 < 0)
   {
@@ -9005,10 +9003,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v52 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v52 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "JpgImageFormatAttachment");
   v286 = __p;
-  v53 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v52 + 56, __p);
+  v53 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v52 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v53 + 56, "com_apple_mail_attachmentSpecificTypes=public.jpeg");
   if (v283 < 0)
   {
@@ -9022,10 +9020,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v54 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v54 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "AudioKind");
   v286 = __p;
-  v55 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v54 + 56, __p);
+  v55 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v54 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v55 + 56, "com_apple_mail_attachmentTypes=public.audio");
   if (v283 < 0)
   {
@@ -9039,10 +9037,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v56 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v56 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "AacAudioFormatKind");
   v286 = __p;
-  v57 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v56 + 56, __p);
+  v57 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v56 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v57 + 56, "com_apple_mail_attachmentSpecificTypes=public.aac-audio");
   if (v283 < 0)
   {
@@ -9056,10 +9054,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v58 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v58 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "AiffAudioFormatKind");
   v286 = __p;
-  v59 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v58 + 56, __p);
+  v59 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v58 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v59 + 56, "com_apple_mail_attachmentSpecificTypes=public.aif*cwd");
   if (v283 < 0)
   {
@@ -9073,10 +9071,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v60 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v60 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Mp3AudioFormatKind");
   v286 = __p;
-  v61 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v60 + 56, __p);
+  v61 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v60 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v61 + 56, "com_apple_mail_attachmentSpecificTypes=public.mp3");
   if (v283 < 0)
   {
@@ -9090,10 +9088,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v62 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v62 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "AudioAttachment");
   v286 = __p;
-  v63 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v62 + 56, __p);
+  v63 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v62 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v63 + 56, "com_apple_mail_attachmentTypes=public.audio");
   if (v283 < 0)
   {
@@ -9107,10 +9105,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v64 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v64 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "AacAudioFormatAttachment");
   v286 = __p;
-  v65 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v64 + 56, __p);
+  v65 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v64 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v65 + 56, "com_apple_mail_attachmentSpecificTypes=public.aac-audio");
   if (v283 < 0)
   {
@@ -9124,10 +9122,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v66 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v66 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "AiffAudioFormatAttachment");
   v286 = __p;
-  v67 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v66 + 56, __p);
+  v67 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v66 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v67 + 56, "com_apple_mail_attachmentSpecificTypes=public.aif*cwd");
   if (v283 < 0)
   {
@@ -9141,10 +9139,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v68 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v68 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Mp3AudioFormatAttachment");
   v286 = __p;
-  v69 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v68 + 56, __p);
+  v69 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v68 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v69 + 56, "com_apple_mail_attachmentSpecificTypes=public.mp3");
   if (v283 < 0)
   {
@@ -9158,10 +9156,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v70 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v70 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "AudioKind");
   v286 = __p;
-  v71 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v70 + 56, __p);
+  v71 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v70 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v71 + 56, "com_apple_mail_attachmentTypes=public.audio");
   if (v283 < 0)
   {
@@ -9175,10 +9173,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v72 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v72 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "AacAudioFormatKind");
   v286 = __p;
-  v73 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v72 + 56, __p);
+  v73 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v72 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v73 + 56, "com_apple_mail_attachmentSpecificTypes=public.aac-audio");
   if (v283 < 0)
   {
@@ -9192,10 +9190,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v74 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v74 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "AiffAudioFormatKind");
   v286 = __p;
-  v75 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v74 + 56, __p);
+  v75 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v74 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v75 + 56, "com_apple_mail_attachmentSpecificTypes=public.aif*cwd");
   if (v283 < 0)
   {
@@ -9209,10 +9207,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v76 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v76 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Mp3AudioFormatKind");
   v286 = __p;
-  v77 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v76 + 56, __p);
+  v77 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v76 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v77 + 56, "com_apple_mail_attachmentSpecificTypes=public.mp3");
   if (v283 < 0)
   {
@@ -9226,10 +9224,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v78 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v78 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "AudioAttachment");
   v286 = __p;
-  v79 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v78 + 56, __p);
+  v79 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v78 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v79 + 56, "com_apple_mail_attachmentTypes=public.audio");
   if (v283 < 0)
   {
@@ -9243,10 +9241,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v80 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v80 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "AacAudioFormatAttachment");
   v286 = __p;
-  v81 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v80 + 56, __p);
+  v81 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v80 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v81 + 56, "com_apple_mail_attachmentSpecificTypes=public.aac-audio");
   if (v283 < 0)
   {
@@ -9260,10 +9258,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v82 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v82 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "AiffAudioFormatAttachment");
   v286 = __p;
-  v83 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v82 + 56, __p);
+  v83 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v82 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v83 + 56, "com_apple_mail_attachmentSpecificTypes=public.aif*cwd");
   if (v283 < 0)
   {
@@ -9277,10 +9275,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v84 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v84 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Mp3AudioFormatAttachment");
   v286 = __p;
-  v85 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v84 + 56, __p);
+  v85 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v84 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v85 + 56, "com_apple_mail_attachmentSpecificTypes=public.mp3");
   if (v283 < 0)
   {
@@ -9294,10 +9292,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v86 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v86 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "VideoKind");
   v286 = __p;
-  v87 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v86 + 56, __p);
+  v87 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v86 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v87 + 56, "com_apple_mail_attachmentTypes=public.movie");
   if (v283 < 0)
   {
@@ -9311,10 +9309,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v88 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v88 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MovVideoFormatKind");
   v286 = __p;
-  v89 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v88 + 56, __p);
+  v89 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v88 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v89 + 56, "com_apple_mail_attachmentSpecificTypes=com.apple.quicktime-movie");
   if (v283 < 0)
   {
@@ -9328,10 +9326,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v90 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v90 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Mp4VideoFormatKind");
   v286 = __p;
-  v91 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v90 + 56, __p);
+  v91 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v90 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v91 + 56, "com_apple_mail_attachmentSpecificTypes=com.apple.m4v-video");
   if (v283 < 0)
   {
@@ -9345,10 +9343,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v92 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v92 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "VideoAttachment");
   v286 = __p;
-  v93 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v92 + 56, __p);
+  v93 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v92 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v93 + 56, "com_apple_mail_attachmentTypes=public.movie");
   if (v283 < 0)
   {
@@ -9362,10 +9360,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v94 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v94 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MovVideoFormatAttachment");
   v286 = __p;
-  v95 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v94 + 56, __p);
+  v95 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v94 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v95 + 56, "com_apple_mail_attachmentSpecificTypes=com.apple.quicktime-movie");
   if (v283 < 0)
   {
@@ -9379,10 +9377,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v96 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v96 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Mp4VideoFormatAttachment");
   v286 = __p;
-  v97 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v96 + 56, __p);
+  v97 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v96 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v97 + 56, "com_apple_mail_attachmentSpecificTypes=com.apple.m4v-video");
   if (v283 < 0)
   {
@@ -9396,10 +9394,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v98 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v98 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "VideoKind");
   v286 = __p;
-  v99 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v98 + 56, __p);
+  v99 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v98 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v99 + 56, "com_apple_mail_attachmentTypes=public.movie");
   if (v283 < 0)
   {
@@ -9413,10 +9411,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v100 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v100 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MovVideoFormatKind");
   v286 = __p;
-  v101 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v100 + 56, __p);
+  v101 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v100 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v101 + 56, "com_apple_mail_attachmentSpecificTypes=com.apple.quicktime-movie");
   if (v283 < 0)
   {
@@ -9430,10 +9428,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v102 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v102 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Mp4VideoFormatKind");
   v286 = __p;
-  v103 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v102 + 56, __p);
+  v103 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v102 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v103 + 56, "com_apple_mail_attachmentSpecificTypes=com.apple.m4v-video");
   if (v283 < 0)
   {
@@ -9447,10 +9445,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v104 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v104 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "VideoAttachment");
   v286 = __p;
-  v105 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v104 + 56, __p);
+  v105 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v104 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v105 + 56, "com_apple_mail_attachmentTypes=public.movie");
   if (v283 < 0)
   {
@@ -9464,10 +9462,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v106 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v106 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "MovVideoFormatAttachment");
   v286 = __p;
-  v107 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v106 + 56, __p);
+  v107 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v106 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v107 + 56, "com_apple_mail_attachmentSpecificTypes=com.apple.quicktime-movie");
   if (v283 < 0)
   {
@@ -9481,10 +9479,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v108 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v108 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Mp4VideoFormatAttachment");
   v286 = __p;
-  v109 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v108 + 56, __p);
+  v109 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v108 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v109 + 56, "com_apple_mail_attachmentSpecificTypes=com.apple.m4v-video");
   if (v283 < 0)
   {
@@ -9498,10 +9496,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v110 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v110 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PresentationKind");
   v286 = __p;
-  v111 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v110 + 56, __p);
+  v111 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v110 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v111 + 56, "(com_apple_mail_attachmentTypes=public.presentation || com_apple_mail_attachmentSpecificTypes=com.apple.iwork.keynote.key || com_apple_mail_attachmentSpecificTypes=com.microsoft.powerpoint.ppt || com_apple_mail_attachmentSpecificTypes=org.openxmlformats.presentationml.presentation)");
   if (v283 < 0)
   {
@@ -9515,10 +9513,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v112 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v112 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "KeyPresentationFormatKind");
   v286 = __p;
-  v113 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v112 + 56, __p);
+  v113 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v112 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v113 + 56, "com_apple_mail_attachmentSpecificTypes=com.apple.iwork.keynote.key");
   if (v283 < 0)
   {
@@ -9532,10 +9530,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v114 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v114 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PptPresentationFormatKind");
   v286 = __p;
-  v115 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v114 + 56, __p);
+  v115 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v114 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v115 + 56, "(com_apple_mail_attachmentSpecificTypes=com.microsoft.powerpoint.ppt || com_apple_mail_attachmentSpecificTypes=org.openxmlformats.presentationml.presentation)");
   if (v283 < 0)
   {
@@ -9549,10 +9547,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v116 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v116 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PresentationAttachment");
   v286 = __p;
-  v117 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v116 + 56, __p);
+  v117 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v116 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v117 + 56, "(com_apple_mail_attachmentTypes=public.presentation || com_apple_mail_attachmentSpecificTypes=com.apple.iwork.keynote.key || com_apple_mail_attachmentSpecificTypes=com.microsoft.powerpoint.ppt || com_apple_mail_attachmentSpecificTypes=org.openxmlformats.presentationml.presentation)");
   if (v283 < 0)
   {
@@ -9566,10 +9564,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v118 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v118 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "KeyPresentationFormatAttachment");
   v286 = __p;
-  v119 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v118 + 56, __p);
+  v119 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v118 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v119 + 56, "com_apple_mail_attachmentSpecificTypes=com.apple.iwork.keynote.key");
   if (v283 < 0)
   {
@@ -9583,10 +9581,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v120 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v120 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PptPresentationFormatAttachment");
   v286 = __p;
-  v121 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v120 + 56, __p);
+  v121 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v120 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v121 + 56, "(com_apple_mail_attachmentSpecificTypes=com.microsoft.powerpoint.ppt || com_apple_mail_attachmentSpecificTypes=org.openxmlformats.presentationml.presentation)");
   if (v283 < 0)
   {
@@ -9600,10 +9598,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v122 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v122 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PresentationKind");
   v286 = __p;
-  v123 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v122 + 56, __p);
+  v123 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v122 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v123 + 56, "(com_apple_mail_attachmentTypes=public.presentation || com_apple_mail_attachmentSpecificTypes=com.apple.iwork.keynote.key || com_apple_mail_attachmentSpecificTypes=com.microsoft.powerpoint.ppt || com_apple_mail_attachmentSpecificTypes=org.openxmlformats.presentationml.presentation)");
   if (v283 < 0)
   {
@@ -9617,10 +9615,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v124 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v124 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "KeyPresentationFormatKind");
   v286 = __p;
-  v125 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v124 + 56, __p);
+  v125 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v124 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v125 + 56, "com_apple_mail_attachmentSpecificTypes=com.apple.iwork.keynote.key");
   if (v283 < 0)
   {
@@ -9634,10 +9632,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v126 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v126 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PptPresentationFormatKind");
   v286 = __p;
-  v127 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v126 + 56, __p);
+  v127 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v126 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v127 + 56, "(com_apple_mail_attachmentSpecificTypes=com.microsoft.powerpoint.ppt || com_apple_mail_attachmentSpecificTypes=org.openxmlformats.presentationml.presentation)");
   if (v283 < 0)
   {
@@ -9651,10 +9649,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v128 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v128 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PresentationAttachment");
   v286 = __p;
-  v129 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v128 + 56, __p);
+  v129 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v128 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v129 + 56, "(com_apple_mail_attachmentTypes=public.presentation || com_apple_mail_attachmentSpecificTypes=com.apple.iwork.keynote.key || com_apple_mail_attachmentSpecificTypes=com.microsoft.powerpoint.ppt || com_apple_mail_attachmentSpecificTypes=org.openxmlformats.presentationml.presentation)");
   if (v283 < 0)
   {
@@ -9668,10 +9666,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v130 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v130 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "KeyPresentationFormatAttachment");
   v286 = __p;
-  v131 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v130 + 56, __p);
+  v131 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v130 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v131 + 56, "com_apple_mail_attachmentSpecificTypes=com.apple.iwork.keynote.key");
   if (v283 < 0)
   {
@@ -9685,10 +9683,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v132 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v132 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PptPresentationFormatAttachment");
   v286 = __p;
-  v133 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v132 + 56, __p);
+  v133 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v132 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v133 + 56, "(com_apple_mail_attachmentSpecificTypes=com.microsoft.powerpoint.ppt || com_apple_mail_attachmentSpecificTypes=org.openxmlformats.presentationml.presentation)");
   if (v283 < 0)
   {
@@ -9702,10 +9700,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v134 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v134 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "SpreadsheetKind");
   v286 = __p;
-  v135 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v134 + 56, __p);
+  v135 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v134 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v135 + 56, "(com_apple_mail_attachmentTypes=public.spreadsheet || com_apple_mail_attachmentTypes==com.apple.iwork.numbers.sffnumbers || com_apple_mail_attachmentTypes==com.apple.iwork.numbers.numbers || com_apple_mail_attachmentSpecificTypes=com.microsoft.excel.xls || com_apple_mail_attachmentSpecificTypes=org.openxmlformats.spreadsheetml.sheet)");
   if (v283 < 0)
   {
@@ -9719,10 +9717,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v136 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v136 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "XlsSpreadsheetFormatKind");
   v286 = __p;
-  v137 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v136 + 56, __p);
+  v137 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v136 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v137 + 56, "(com_apple_mail_attachmentSpecificTypes=com.microsoft.excel.xls || com_apple_mail_attachmentSpecificTypes=org.openxmlformats.spreadsheetml.sheet)");
   if (v283 < 0)
   {
@@ -9736,10 +9734,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v138 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v138 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "SpreadsheetAttachment");
   v286 = __p;
-  v139 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v138 + 56, __p);
+  v139 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v138 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v139 + 56, "(com_apple_mail_attachmentTypes=public.spreadsheet || com_apple_mail_attachmentTypes==com.apple.iwork.numbers.sffnumbers || com_apple_mail_attachmentTypes==com.apple.iwork.numbers.numbers || com_apple_mail_attachmentSpecificTypes=com.microsoft.excel.xls || com_apple_mail_attachmentSpecificTypes=org.openxmlformats.spreadsheetml.sheet)");
   if (v283 < 0)
   {
@@ -9753,10 +9751,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v140 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v140 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "XlsSpreadsheetFormatAttachment");
   v286 = __p;
-  v141 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v140 + 56, __p);
+  v141 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v140 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v141 + 56, "(com_apple_mail_attachmentSpecificTypes=com.microsoft.excel.xls || com_apple_mail_attachmentSpecificTypes=org.openxmlformats.spreadsheetml.sheet)");
   if (v283 < 0)
   {
@@ -9770,10 +9768,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v142 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v142 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "SpreadsheetKind");
   v286 = __p;
-  v143 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v142 + 56, __p);
+  v143 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v142 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v143 + 56, "(com_apple_mail_attachmentTypes=public.spreadsheet || com_apple_mail_attachmentTypes==com.apple.iwork.numbers.sffnumbers || com_apple_mail_attachmentTypes==com.apple.iwork.numbers.numbers || com_apple_mail_attachmentSpecificTypes=com.microsoft.excel.xls || com_apple_mail_attachmentSpecificTypes=org.openxmlformats.spreadsheetml.sheet)");
   if (v283 < 0)
   {
@@ -9787,10 +9785,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v144 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v144 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "XlsSpreadsheetFormatKind");
   v286 = __p;
-  v145 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v144 + 56, __p);
+  v145 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v144 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v145 + 56, "(com_apple_mail_attachmentSpecificTypes=com.microsoft.excel.xls || com_apple_mail_attachmentSpecificTypes=org.openxmlformats.spreadsheetml.sheet)");
   if (v283 < 0)
   {
@@ -9804,10 +9802,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v146 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v146 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "SpreadsheetAttachment");
   v286 = __p;
-  v147 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v146 + 56, __p);
+  v147 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v146 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v147 + 56, "(com_apple_mail_attachmentTypes=public.spreadsheet || com_apple_mail_attachmentTypes==com.apple.iwork.numbers.sffnumbers || com_apple_mail_attachmentTypes==com.apple.iwork.numbers.numbers || com_apple_mail_attachmentSpecificTypes=com.microsoft.excel.xls || com_apple_mail_attachmentSpecificTypes=org.openxmlformats.spreadsheetml.sheet)");
   if (v283 < 0)
   {
@@ -9821,10 +9819,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v148 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v148 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "XlsSpreadsheetFormatAttachment");
   v286 = __p;
-  v149 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v148 + 56, __p);
+  v149 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v148 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v149 + 56, "(com_apple_mail_attachmentSpecificTypes=com.microsoft.excel.xls || com_apple_mail_attachmentSpecificTypes=org.openxmlformats.spreadsheetml.sheet)");
   if (v283 < 0)
   {
@@ -9838,10 +9836,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v150 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v150 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "DocumentKind");
   v286 = __p;
-  v151 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v150 + 56, __p);
+  v151 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v150 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v151 + 56, "(com_apple_mail_attachmentKinds=PDF*cwd || com_apple_mail_attachmentTypes=public.presentation || com_apple_mail_attachmentTypes=public.spreadsheet || com_apple_mail_attachmentTypes=com.apple.iwork*cwd || com_apple_mail_attachmentTypes=com.microsoft.word*cwd || com_apple_mail_attachmentTypes=public.plain-text || com_apple_mail_attachmentTypes=public.rtf)");
   if (v283 < 0)
   {
@@ -9855,10 +9853,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v152 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v152 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PagesDocumentKind");
   v286 = __p;
-  v153 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v152 + 56, __p);
+  v153 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v152 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v153 + 56, "(com_apple_mail_attachmentTypes=com.apple.iwork.pages.* || com_apple_mail_attachmentTypes=com.microsoft.word.doc || com_apple_mail_attachmentTypes=org.openxmlformats.word*)");
   if (v283 < 0)
   {
@@ -9872,10 +9870,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v154 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v154 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "IworkDocumentKind");
   v286 = __p;
-  v155 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v154 + 56, __p);
+  v155 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v154 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v155 + 56, "(com_apple_mail_attachmentTypes=com.apple.iwork*cwd || com_apple_mail_attachmentTypes=com.microsoft.*cwd || com_apple_mail_attachmentTypes=org.openxmlformats*cwd)");
   if (v283 < 0)
   {
@@ -9889,10 +9887,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v156 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v156 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "DocDocumentFormatKind");
   v286 = __p;
-  v157 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v156 + 56, __p);
+  v157 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v156 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v157 + 56, "(com_apple_mail_attachmentSpecificTypes=microsoft.word.doc*cwd || com_apple_mail_attachmentSpecificTypes=openxmlformats.word*cwd)");
   if (v283 < 0)
   {
@@ -9906,10 +9904,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v158 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v158 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "DocumentAttachment");
   v286 = __p;
-  v159 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v158 + 56, __p);
+  v159 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v158 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v159 + 56, "(com_apple_mail_attachmentKinds=PDF*cwd || com_apple_mail_attachmentTypes=public.presentation || com_apple_mail_attachmentTypes=public.spreadsheet || com_apple_mail_attachmentTypes=com.apple.iwork*cwd || com_apple_mail_attachmentTypes=com.microsoft.word*cwd || com_apple_mail_attachmentTypes=public.plain-text || com_apple_mail_attachmentTypes=public.rtf)");
   if (v283 < 0)
   {
@@ -9923,10 +9921,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v160 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v160 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PagesDocumentAttachment");
   v286 = __p;
-  v161 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v160 + 56, __p);
+  v161 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v160 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v161 + 56, "(com_apple_mail_attachmentTypes=com.microsoft.word.doc || com_apple_mail_attachmentTypes=com.apple.iwork.pages.*)");
   if (v283 < 0)
   {
@@ -9940,10 +9938,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v162 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v162 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "IworkDocumentAttachment");
   v286 = __p;
-  v163 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v162 + 56, __p);
+  v163 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v162 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v163 + 56, "(com_apple_mail_attachmentTypes=com.apple.iwork*cwd || com_apple_mail_attachmentTypes=com.microsoft.*cwd || com_apple_mail_attachmentTypes=org.openxmlformats*cwd)");
   if (v283 < 0)
   {
@@ -9957,10 +9955,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v164 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v164 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "DocDocumentFormatAttachment");
   v286 = __p;
-  v165 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v164 + 56, __p);
+  v165 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v164 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v165 + 56, "(com_apple_mail_attachmentSpecificTypes=microsoft.word.doc*cwd || com_apple_mail_attachmentSpecificTypes=openxmlformats.word*cwd)");
   if (v283 < 0)
   {
@@ -9974,10 +9972,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v166 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v166 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "DocumentKind");
   v286 = __p;
-  v167 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v166 + 56, __p);
+  v167 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v166 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v167 + 56, "(com_apple_mail_attachmentKinds=PDF*cwd || com_apple_mail_attachmentTypes=public.presentation || com_apple_mail_attachmentTypes=public.spreadsheet || com_apple_mail_attachmentTypes=com.apple.iwork*cwd || com_apple_mail_attachmentTypes=com.microsoft.word*cwd || com_apple_mail_attachmentTypes=public.plain-text || com_apple_mail_attachmentTypes=public.rtf)");
   if (v283 < 0)
   {
@@ -9991,10 +9989,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v168 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v168 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PagesDocumentKind");
   v286 = __p;
-  v169 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v168 + 56, __p);
+  v169 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v168 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v169 + 56, "(com_apple_mail_attachmentTypes=com.apple.iwork.pages.* || com_apple_mail_attachmentTypes=com.microsoft.word.doc || com_apple_mail_attachmentTypes=org.openxmlformats.word*)");
   if (v283 < 0)
   {
@@ -10008,10 +10006,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v170 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v170 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "IworkDocumentKind");
   v286 = __p;
-  v171 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v170 + 56, __p);
+  v171 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v170 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v171 + 56, "(com_apple_mail_attachmentTypes=com.apple.iwork*cwd || com_apple_mail_attachmentTypes=com.microsoft.*cwd || com_apple_mail_attachmentTypes=org.openxmlformats*cwd)");
   if (v283 < 0)
   {
@@ -10025,10 +10023,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v172 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v172 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "DocDocumentFormatKind");
   v286 = __p;
-  v173 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v172 + 56, __p);
+  v173 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v172 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v173 + 56, "(com_apple_mail_attachmentSpecificTypes=microsoft.word.doc*cwd || com_apple_mail_attachmentSpecificTypes=openxmlformats.word*cwd)");
   if (v283 < 0)
   {
@@ -10042,10 +10040,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v174 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v174 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "DocumentAttachment");
   v286 = __p;
-  v175 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v174 + 56, __p);
+  v175 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v174 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v175 + 56, "(com_apple_mail_attachmentKinds=PDF*cwd || com_apple_mail_attachmentTypes=public.presentation || com_apple_mail_attachmentTypes=public.spreadsheet || com_apple_mail_attachmentTypes=com.apple.iwork*cwd || com_apple_mail_attachmentTypes=com.microsoft.word*cwd || com_apple_mail_attachmentTypes=public.plain-text || com_apple_mail_attachmentTypes=public.rtf)");
   if (v283 < 0)
   {
@@ -10059,10 +10057,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v176 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v176 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PagesDocumentAttachment");
   v286 = __p;
-  v177 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v176 + 56, __p);
+  v177 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v176 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v177 + 56, "(com_apple_mail_attachmentTypes=com.microsoft.word.doc || com_apple_mail_attachmentTypes=com.apple.iwork.pages.*)");
   if (v283 < 0)
   {
@@ -10076,10 +10074,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v178 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v178 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "IworkDocumentAttachment");
   v286 = __p;
-  v179 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v178 + 56, __p);
+  v179 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v178 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v179 + 56, "(com_apple_mail_attachmentTypes=com.apple.iwork*cwd || com_apple_mail_attachmentTypes=com.microsoft.*cwd || com_apple_mail_attachmentTypes=org.openxmlformats*cwd)");
   if (v283 < 0)
   {
@@ -10093,10 +10091,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v180 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v180 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "DocDocumentFormatAttachment");
   v286 = __p;
-  v181 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v180 + 56, __p);
+  v181 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v180 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v181 + 56, "(com_apple_mail_attachmentSpecificTypes=microsoft.word.doc*cwd || com_apple_mail_attachmentSpecificTypes=openxmlformats.word*cwd)");
   if (v283 < 0)
   {
@@ -10110,10 +10108,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v182 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v182 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "RtfTextFormatKind");
   v286 = __p;
-  v183 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v182 + 56, __p);
+  v183 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v182 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v183 + 56, "(com_apple_mail_attachmentSpecificTypes=rtf*cwd || com_apple_mail_attachmentSpecificTypes=rtf*cwd)");
   if (v283 < 0)
   {
@@ -10127,10 +10125,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v184 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v184 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "RtfTextFormatAttachment");
   v286 = __p;
-  v185 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v184 + 56, __p);
+  v185 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v184 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v185 + 56, "(com_apple_mail_attachmentSpecificTypes=rtf*cwd || com_apple_mail_attachmentSpecificTypes=rtf*cwd)");
   if (v283 < 0)
   {
@@ -10144,10 +10142,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v186 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v186 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "RtfTextFormatKind");
   v286 = __p;
-  v187 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v186 + 56, __p);
+  v187 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v186 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v187 + 56, "(com_apple_mail_attachmentSpecificTypes=rtf*cwd || com_apple_mail_attachmentSpecificTypes=rtf*cwd)");
   if (v283 < 0)
   {
@@ -10161,10 +10159,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v188 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v188 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "RtfTextFormatAttachment");
   v286 = __p;
-  v189 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v188 + 56, __p);
+  v189 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v188 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v189 + 56, "(com_apple_mail_attachmentSpecificTypes=rtf*cwd || com_apple_mail_attachmentSpecificTypes=rtf*cwd)");
   if (v283 < 0)
   {
@@ -10178,10 +10176,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v190 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v190 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "TxtTextFormatKind");
   v286 = __p;
-  v191 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v190 + 56, __p);
+  v191 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v190 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v191 + 56, "com_apple_mail_attachmentSpecificTypes=public.plain-text");
   if (v283 < 0)
   {
@@ -10195,10 +10193,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v192 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v192 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "TxtTextFormatAttachment");
   v286 = __p;
-  v193 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v192 + 56, __p);
+  v193 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v192 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v193 + 56, "com_apple_mail_attachmentSpecificTypes=public.plain-text");
   if (v283 < 0)
   {
@@ -10212,10 +10210,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v194 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v194 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "TxtTextFormatKind");
   v286 = __p;
-  v195 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v194 + 56, __p);
+  v195 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v194 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v195 + 56, "com_apple_mail_attachmentSpecificTypes=public.plain-text");
   if (v283 < 0)
   {
@@ -10229,10 +10227,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v196 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v196 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "TxtTextFormatAttachment");
   v286 = __p;
-  v197 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v196 + 56, __p);
+  v197 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v196 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v197 + 56, "com_apple_mail_attachmentSpecificTypes=public.plain-text");
   if (v283 < 0)
   {
@@ -10246,10 +10244,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v198 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v198 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "FileKind");
   v286 = __p;
-  v199 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v198 + 56, __p);
+  v199 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v198 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v199 + 56, "com_apple_mail_attachmentKinds=*cwd");
   if (v283 < 0)
   {
@@ -10263,10 +10261,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v200 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v200 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "TarFileFormatKind");
   v286 = __p;
-  v201 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v200 + 56, __p);
+  v201 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v200 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v201 + 56, "(com_apple_mail_attachmentSpecificTypes=tar*cwd || com_apple_mail_attachmentSpecificTypes=zip*cwd)");
   if (v283 < 0)
   {
@@ -10280,10 +10278,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v202 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v202 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "JavaFileFormatKind");
   v286 = __p;
-  v203 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v202 + 56, __p);
+  v203 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v202 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v203 + 56, "com_apple_mail_attachmentSpecificTypes=java*cwd");
   if (v283 < 0)
   {
@@ -10297,10 +10295,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v204 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v204 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "FileAttachment");
   v286 = __p;
-  v205 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v204 + 56, __p);
+  v205 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v204 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v205 + 56, "com_apple_mail_attachmentKinds=*cwd");
   if (v283 < 0)
   {
@@ -10314,10 +10312,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v206 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v206 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "TarFileFormatAttachment");
   v286 = __p;
-  v207 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v206 + 56, __p);
+  v207 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v206 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v207 + 56, "(com_apple_mail_attachmentSpecificTypes=tar*cwd || com_apple_mail_attachmentSpecificTypes=zip*cwd)");
   if (v283 < 0)
   {
@@ -10331,10 +10329,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v208 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v208 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "JavaFileFormatAttachment");
   v286 = __p;
-  v209 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v208 + 56, __p);
+  v209 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v208 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v209 + 56, "com_apple_mail_attachmentSpecificTypes=java*cwd");
   if (v283 < 0)
   {
@@ -10348,10 +10346,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v210 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v210 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "FileKind");
   v286 = __p;
-  v211 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v210 + 56, __p);
+  v211 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v210 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v211 + 56, "com_apple_mail_attachmentKinds=*cwd");
   if (v283 < 0)
   {
@@ -10365,10 +10363,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v212 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v212 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "TarFileFormatKind");
   v286 = __p;
-  v213 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v212 + 56, __p);
+  v213 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v212 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v213 + 56, "(com_apple_mail_attachmentSpecificTypes=tar*cwd || com_apple_mail_attachmentSpecificTypes=zip*cwd)");
   if (v283 < 0)
   {
@@ -10382,10 +10380,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v214 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v214 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "JavaFileFormatKind");
   v286 = __p;
-  v215 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v214 + 56, __p);
+  v215 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v214 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v215 + 56, "com_apple_mail_attachmentSpecificTypes=java*cwd");
   if (v283 < 0)
   {
@@ -10399,10 +10397,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v216 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v216 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "FileAttachment");
   v286 = __p;
-  v217 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v216 + 56, __p);
+  v217 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v216 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v217 + 56, "com_apple_mail_attachmentKinds=*cwd");
   if (v283 < 0)
   {
@@ -10416,10 +10414,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v218 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v218 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "TarFileFormatAttachment");
   v286 = __p;
-  v219 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v218 + 56, __p);
+  v219 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v218 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v219 + 56, "(com_apple_mail_attachmentSpecificTypes=tar*cwd || com_apple_mail_attachmentSpecificTypes=zip*cwd)");
   if (v283 < 0)
   {
@@ -10433,10 +10431,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v220 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v220 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "JavaFileFormatAttachment");
   v286 = __p;
-  v221 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v220 + 56, __p);
+  v221 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v220 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v221 + 56, "com_apple_mail_attachmentSpecificTypes=java*cwd");
   if (v283 < 0)
   {
@@ -10450,10 +10448,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v222 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v222 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "EventKind");
   v286 = __p;
-  v223 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v222 + 56, __p);
+  v223 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v222 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v223 + 56, "com_apple_mail_attachmentTypes=public.calendar-eventcwd");
   if (v283 < 0)
   {
@@ -10467,10 +10465,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v224 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v224 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "IcsEventFormatKind");
   v286 = __p;
-  v225 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v224 + 56, __p);
+  v225 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v224 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v225 + 56, "com_apple_mail_attachmentSpecificTypes=*ics*cwd");
   if (v283 < 0)
   {
@@ -10484,10 +10482,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v226 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v226 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "EventAttachment");
   v286 = __p;
-  v227 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v226 + 56, __p);
+  v227 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v226 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v227 + 56, "com_apple_mail_attachmentTypes=public.calendar-eventcwd");
   if (v283 < 0)
   {
@@ -10501,10 +10499,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v228 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v228 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "IcsEventFormatAttachment");
   v286 = __p;
-  v229 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v228 + 56, __p);
+  v229 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v228 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v229 + 56, "com_apple_mail_attachmentSpecificTypes=*ics*cwd");
   if (v283 < 0)
   {
@@ -10518,10 +10516,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v230 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v230 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "EventKind");
   v286 = __p;
-  v231 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v230 + 56, __p);
+  v231 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v230 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v231 + 56, "com_apple_mail_attachmentTypes=public.calendar-eventcwd");
   if (v283 < 0)
   {
@@ -10535,10 +10533,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v232 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v232 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "IcsEventFormatKind");
   v286 = __p;
-  v233 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v232 + 56, __p);
+  v233 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v232 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v233 + 56, "com_apple_mail_attachmentSpecificTypes=*ics*cwd");
   if (v283 < 0)
   {
@@ -10552,10 +10550,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v234 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v234 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "EventAttachment");
   v286 = __p;
-  v235 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v234 + 56, __p);
+  v235 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v234 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v235 + 56, "com_apple_mail_attachmentTypes=public.calendar-eventcwd");
   if (v283 < 0)
   {
@@ -10569,10 +10567,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v236 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v236 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "IcsEventFormatAttachment");
   v286 = __p;
-  v237 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v236 + 56, __p);
+  v237 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v236 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v237 + 56, "com_apple_mail_attachmentSpecificTypes=*ics*cwd");
   if (v283 < 0)
   {
@@ -10586,10 +10584,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v238 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v238 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "ContactsKind");
   v286 = __p;
-  v239 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v238 + 56, __p);
+  v239 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v238 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v239 + 56, "com_apple_mail_attachmentSpecificTypes=public.vcard");
   if (v283 < 0)
   {
@@ -10603,10 +10601,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v240 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v240 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "VcfContactsFormatKind");
   v286 = __p;
-  v241 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v240 + 56, __p);
+  v241 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v240 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v241 + 56, "com_apple_mail_attachmentSpecificTypes=public.vcard");
   if (v283 < 0)
   {
@@ -10620,10 +10618,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v242 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v242 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "ContactsAttachment");
   v286 = __p;
-  v243 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v242 + 56, __p);
+  v243 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v242 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v243 + 56, "com_apple_mail_attachmentSpecificTypes=public.vcard");
   if (v283 < 0)
   {
@@ -10637,10 +10635,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v244 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v244 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "VcfContactsFormatAttachment");
   v286 = __p;
-  v245 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v244 + 56, __p);
+  v245 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v244 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v245 + 56, "com_apple_mail_attachmentSpecificTypes=public.vcard");
   if (v283 < 0)
   {
@@ -10654,10 +10652,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v246 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v246 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "ContactsKind");
   v286 = __p;
-  v247 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v246 + 56, __p);
+  v247 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v246 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v247 + 56, "com_apple_mail_attachmentSpecificTypes=public.vcard");
   if (v283 < 0)
   {
@@ -10671,10 +10669,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v248 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v248 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "VcfContactsFormatKind");
   v286 = __p;
-  v249 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v248 + 56, __p);
+  v249 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v248 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v249 + 56, "com_apple_mail_attachmentSpecificTypes=public.vcard");
   if (v283 < 0)
   {
@@ -10688,10 +10686,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v250 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v250 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "ContactsAttachment");
   v286 = __p;
-  v251 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v250 + 56, __p);
+  v251 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v250 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v251 + 56, "com_apple_mail_attachmentSpecificTypes=public.vcard");
   if (v283 < 0)
   {
@@ -10705,10 +10703,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v252 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v252 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "VcfContactsFormatAttachment");
   v286 = __p;
-  v253 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v252 + 56, __p);
+  v253 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v252 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v253 + 56, "com_apple_mail_attachmentSpecificTypes=public.vcard");
   if (v283 < 0)
   {
@@ -10722,10 +10720,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v254 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v254 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PassDocumentFormatKind");
   v286 = __p;
-  v255 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v254 + 56, __p);
+  v255 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v254 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v255 + 56, "com_apple_mail_attachmentTypes=com.apple.pkpasscwd");
   if (v283 < 0)
   {
@@ -10739,10 +10737,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v256 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v256 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PassDocumentFormatAttachment");
   v286 = __p;
-  v257 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v256 + 56, __p);
+  v257 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v256 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v257 + 56, "com_apple_mail_attachmentTypes=com.apple.pkpasscwd");
   if (v283 < 0)
   {
@@ -10756,10 +10754,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v258 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v258 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PassDocumentFormatKind");
   v286 = __p;
-  v259 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v258 + 56, __p);
+  v259 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v258 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v259 + 56, "com_apple_mail_attachmentTypes=com.apple.pkpasscwd");
   if (v283 < 0)
   {
@@ -10773,10 +10771,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v260 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v260 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PassDocumentFormatAttachment");
   v286 = __p;
-  v261 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v260 + 56, __p);
+  v261 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v260 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v261 + 56, "com_apple_mail_attachmentTypes=com.apple.pkpasscwd");
   if (v283 < 0)
   {
@@ -10790,10 +10788,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v262 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v262 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PdfDocumentFormatKind");
   v286 = __p;
-  v263 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v262 + 56, __p);
+  v263 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v262 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v263 + 56, "com_apple_mail_attachmentKinds=PDF*cwd");
   if (v283 < 0)
   {
@@ -10807,10 +10805,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v264 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v264 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PdfDocumentFormatAttachment");
   v286 = __p;
-  v265 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v264 + 56, __p);
+  v265 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v264 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v265 + 56, "com_apple_mail_attachmentKinds=PDF*cwd");
   if (v283 < 0)
   {
@@ -10824,10 +10822,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v266 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v266 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PdfDocumentFormatKind");
   v286 = __p;
-  v267 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v266 + 56, __p);
+  v267 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v266 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v267 + 56, "com_apple_mail_attachmentKinds=PDF*cwd");
   if (v283 < 0)
   {
@@ -10841,10 +10839,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v268 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v268 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "PdfDocumentFormatAttachment");
   v286 = __p;
-  v269 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v268 + 56, __p);
+  v269 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v268 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v269 + 56, "com_apple_mail_attachmentKinds=PDF*cwd");
   if (v283 < 0)
   {
@@ -10858,10 +10856,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v270 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v270 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Filename");
   v286 = __p;
-  v271 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v270 + 56, __p);
+  v271 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v270 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v271 + 56, "com_apple_mail_attachmentNames=%@c");
   if (v283 < 0)
   {
@@ -10875,10 +10873,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v272 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v272 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "Filename");
   v286 = __p;
-  v273 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v272 + 56, __p);
+  v273 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v272 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v273 + 56, "com_apple_mail_attachmentNames=%@c");
   if (v283 < 0)
   {
@@ -10892,10 +10890,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v274 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v274 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "BookKind");
   v286 = __p;
-  v275 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v274 + 56, __p);
+  v275 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v274 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v275 + 56, "com_apple_mail_attachmentKinds=org.idpf.epub-container");
   if (v283 < 0)
   {
@@ -10909,10 +10907,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHED");
   __p[0] = v284;
-  v276 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v276 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "BookAttachment");
   v286 = __p;
-  v277 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v276 + 56, __p);
+  v277 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v276 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v277 + 56, "com_apple_mail_attachmentKinds=org.idpf.epub-container");
   if (v283 < 0)
   {
@@ -10926,10 +10924,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v278 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v278 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "BookKind");
   v286 = __p;
-  v279 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v278 + 56, __p);
+  v279 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v278 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v279 + 56, "com_apple_mail_attachmentKinds=org.idpf.epub-container");
   if (v283 < 0)
   {
@@ -10943,10 +10941,10 @@ void updateSpotlightAttachmentTranslations(uint64_t a1)
 
   std::string::basic_string[abi:ne200100]<0>(v284, "ATTACHMOD");
   __p[0] = v284;
-  v280 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284);
+  v280 = std::__tree<std::__value_type<std::string,std::map<std::string,std::string>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::map<std::string,std::string>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::map<std::string,std::string>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1, v284, &std::piecewise_construct, __p);
   std::string::basic_string[abi:ne200100]<0>(__p, "BookAttachment");
   v286 = __p;
-  v281 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v280 + 56, __p);
+  v281 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((v280 + 56), __p, &std::piecewise_construct, &v286);
   MEMORY[0x2318C02F0](v281 + 56, "com_apple_mail_attachmentKinds=org.idpf.epub-container");
   if (v283 < 0)
   {

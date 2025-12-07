@@ -647,7 +647,7 @@ LABEL_8:
       v70 = objc_msgSend_zoneishProtectionData(self, v68, v69);
       objc_msgSend_encodeObject_forKey_(coderCopy, v71, v70, @"ZoneishProtectionData");
 
-      if (__sTestOverridesAvailable[0] == 1)
+      if (__sTestOverridesAvailable == 1)
       {
         v72 = objc_msgSend_zonePCSKeysToRemove(self, v60, v61);
         objc_msgSend_encodeObject_forKey_(coderCopy, v73, v72, @"ZonePCSKeysToRemove");
@@ -658,7 +658,7 @@ LABEL_8:
     }
   }
 
-  if (__sTestOverridesAvailable[0] == 1 && objc_msgSend_applyPCSKeysToRemoveForTesting(self, v60, v61))
+  if (__sTestOverridesAvailable == 1 && objc_msgSend_applyPCSKeysToRemoveForTesting(self, v60, v61))
   {
     v78 = objc_msgSend_applyPCSKeysToRemoveForTesting(self, v60, v61);
     objc_msgSend_encodeBool_forKey_(coderCopy, v79, v78, @"ApplyPCSKeysToRemoveForTesting");

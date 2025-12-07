@@ -1,5 +1,6 @@
 @interface CHWorkoutDetailFourColumnDownhillRunTableViewCellAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
+- (void)configureWithDownhillRun:(id)run downhillRunIndex:(int64_t)index activityType:(id)type isLastCell:(BOOL)cell formattingManager:(id)manager;
 - (void)configureWithDownhillRunsStats:(id)stats activityType:(id)type formattingManager:(id)manager;
 @end
 
@@ -53,6 +54,55 @@
   text3 = [v22 text];
   v25 = [NSString localizedStringWithFormat:v23, text3];
   [v22 setAccessibilityLabel:v25];
+}
+
+- (void)configureWithDownhillRun:(id)run downhillRunIndex:(int64_t)index activityType:(id)type isLastCell:(BOOL)cell formattingManager:(id)manager
+{
+  cellCopy = cell;
+  runCopy = run;
+  typeCopy = type;
+  managerCopy = manager;
+  v35.receiver = self;
+  v35.super_class = CHWorkoutDetailFourColumnDownhillRunTableViewCellAccessibility;
+  [(CHWorkoutDetailFourColumnDownhillRunTableViewCellAccessibility *)&v35 configureWithDownhillRun:runCopy downhillRunIndex:index activityType:typeCopy isLastCell:cellCopy formattingManager:managerCopy];
+  if (runCopy)
+  {
+    objc_opt_class();
+    v15 = [(CHWorkoutDetailFourColumnDownhillRunTableViewCellAccessibility *)self safeSwiftValueForKey:@"columnOneLabel"];
+    v16 = __UIAccessibilityCastAsClass();
+
+    v17 = accessibilityLocalizedString(@"run.number");
+    text = [v16 text];
+    v19 = [NSString localizedStringWithFormat:v17, text];
+    [v16 setAccessibilityLabel:v19];
+
+    objc_opt_class();
+    v20 = [(CHWorkoutDetailFourColumnDownhillRunTableViewCellAccessibility *)self safeSwiftValueForKey:@"columnTwoLabel"];
+    v21 = __UIAccessibilityCastAsClass();
+
+    v22 = accessibilityLocalizedString(@"time.value");
+    text2 = [v21 text];
+    v24 = [NSString localizedStringWithFormat:v22, text2];
+    [v21 setAccessibilityLabel:v24];
+
+    objc_opt_class();
+    v25 = [(CHWorkoutDetailFourColumnDownhillRunTableViewCellAccessibility *)self safeSwiftValueForKey:@"columnThreeLabel"];
+    v26 = __UIAccessibilityCastAsClass();
+
+    v27 = accessibilityLocalizedString(@"distance.value");
+    text3 = [v26 text];
+    v29 = [NSString localizedStringWithFormat:v27, text3];
+    [v26 setAccessibilityLabel:v29];
+
+    objc_opt_class();
+    v30 = [(CHWorkoutDetailFourColumnDownhillRunTableViewCellAccessibility *)self safeSwiftValueForKey:@"columnFourLabel"];
+    v31 = __UIAccessibilityCastAsClass();
+
+    v32 = accessibilityLocalizedString(@"vertical.value");
+    text4 = [v31 text];
+    v34 = [NSString localizedStringWithFormat:v32, text4];
+    [v31 setAccessibilityLabel:v34];
+  }
 }
 
 @end

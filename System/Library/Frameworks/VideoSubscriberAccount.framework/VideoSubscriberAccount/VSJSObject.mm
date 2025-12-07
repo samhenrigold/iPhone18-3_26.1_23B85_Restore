@@ -23,7 +23,7 @@
 - (VSJSObject)init
 {
   v3 = +[VSJSApp currentContext];
-  VSAssertWithMessage(v3 != 0, @"Initializing VSJSObject on a non-JS thread.");
+  VSAssertWithMessage((v3 != 0), @"Initializing VSJSObject on a non-JS thread.");
   v4 = [(VSJSObject *)self initWithContext:v3];
 
   return v4;

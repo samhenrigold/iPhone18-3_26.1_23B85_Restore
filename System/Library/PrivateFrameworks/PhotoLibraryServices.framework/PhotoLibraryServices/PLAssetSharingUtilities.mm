@@ -375,7 +375,7 @@ void __90__PLAssetSharingUtilities_exportSessionForVideoURL_library_fallbackFile
     v9 = v8;
     if (v8)
     {
-      [v8 duration];
+      objc_msgSend_duration(v8);
     }
 
     else

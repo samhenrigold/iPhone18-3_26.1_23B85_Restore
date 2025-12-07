@@ -98,7 +98,7 @@
 
   selfCopy = self;
   sub_1A445258C(v7, v6);
-  sub_1A3C33378(v7);
+  sub_1A3C33378(v7, v6);
 }
 
 - (PXSensitivityInterventionManager)init

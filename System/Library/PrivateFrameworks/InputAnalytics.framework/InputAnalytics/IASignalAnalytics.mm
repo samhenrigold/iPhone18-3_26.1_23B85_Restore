@@ -60,7 +60,7 @@ LABEL_6:
 
 + (void)sendSignal:(id)signal toChannel:(id)channel withPayload:(id)payload
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   signalCopy = signal;
   channelCopy = channel;
   payloadCopy = payload;
@@ -73,15 +73,15 @@ LABEL_6:
     objc_msgSend_timeIntervalSinceReferenceDate(v17, v18, v19);
     v21 = v20;
     v24 = objc_msgSend_description(payloadCopy, v22, v23);
-    v40 = 138478595;
-    v41 = channelCopy;
-    v42 = 2113;
-    v43 = signalCopy;
-    v44 = 2049;
-    v45 = v21;
-    v46 = 2117;
-    v47 = v24;
-    _os_log_impl(&dword_1D460F000, v14, OS_LOG_TYPE_DEFAULT, "channel:%{private}@ signal:%{private}@ timestamp:%{private}f payload:%{sensitive}@", &v40, 0x2Au);
+    v39 = 138478595;
+    v40 = channelCopy;
+    v41 = 2113;
+    v42 = signalCopy;
+    v43 = 2049;
+    v44 = v21;
+    v45 = 2117;
+    v46 = v24;
+    _os_log_impl(&dword_1D460F000, v14, OS_LOG_TYPE_DEFAULT, "channel:%{private}@ signal:%{private}@ timestamp:%{private}f payload:%{sensitive}@", &v39, 0x2Au);
   }
 
   if (objc_msgSend_xpcEnabled(IAUtility, v25, v26))
@@ -106,13 +106,11 @@ LABEL_6:
 
     objc_msgSend_reportConnectionStatusSuccessful_(IAServerStats, v35, v34 & 1);
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 + (void)sendSignal:(id)signal toChannel:(id)channel withNullableSessionID:(id)d withPayload:(id)payload
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   signalCopy = signal;
   channelCopy = channel;
   dCopy = d;
@@ -129,17 +127,17 @@ LABEL_6:
     objc_msgSend_timeIntervalSinceReferenceDate(v26, v27, v28);
     v30 = v29;
     v33 = objc_msgSend_description(payloadCopy, v31, v32);
-    v49 = 138478851;
-    v50 = channelCopy;
-    v51 = 2113;
-    v52 = signalCopy;
-    v53 = 2113;
-    v54 = v23;
-    v55 = 2049;
-    v56 = v30;
-    v57 = 2117;
-    v58 = v33;
-    _os_log_impl(&dword_1D460F000, v20, OS_LOG_TYPE_DEFAULT, "channel:%{private}@ signal:%{private}@ sessionID:%{private}@ timestamp:%{private}f payload:%{sensitive}@", &v49, 0x34u);
+    v48 = 138478851;
+    v49 = channelCopy;
+    v50 = 2113;
+    v51 = signalCopy;
+    v52 = 2113;
+    v53 = v23;
+    v54 = 2049;
+    v55 = v30;
+    v56 = 2117;
+    v57 = v33;
+    _os_log_impl(&dword_1D460F000, v20, OS_LOG_TYPE_DEFAULT, "channel:%{private}@ signal:%{private}@ sessionID:%{private}@ timestamp:%{private}f payload:%{sensitive}@", &v48, 0x34u);
   }
 
   if (objc_msgSend_xpcEnabled(IAUtility, v34, v35))
@@ -164,8 +162,6 @@ LABEL_6:
 
     objc_msgSend_reportConnectionStatusSuccessful_(IAServerStats, v44, v43 & 1);
   }
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 + (void)asyncSendSignal:(id)signal toChannel:(id)channel withNullableSessionID:(id)d withPayload:(id)payload
@@ -196,7 +192,7 @@ LABEL_6:
 
 + (void)sendSignal:(id)signal toChannel:(id)channel withNullableUniqueStringID:(id)d withPayload:(id)payload
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   signalCopy = signal;
   channelCopy = channel;
   dCopy = d;
@@ -210,17 +206,17 @@ LABEL_6:
     objc_msgSend_timeIntervalSinceReferenceDate(v20, v21, v22);
     v24 = v23;
     v27 = objc_msgSend_description(payloadCopy, v25, v26);
-    v43 = 138478851;
-    v44 = channelCopy;
-    v45 = 2113;
-    v46 = signalCopy;
-    v47 = 2113;
-    v48 = dCopy;
-    v49 = 2049;
-    v50 = v24;
-    v51 = 2117;
-    v52 = v27;
-    _os_log_impl(&dword_1D460F000, v17, OS_LOG_TYPE_DEFAULT, "channel:%{private}@ signal:%{private}@ uniqueStringId:%{private}@ timestamp:%{private}f payload:%{sensitive}@", &v43, 0x34u);
+    v42 = 138478851;
+    v43 = channelCopy;
+    v44 = 2113;
+    v45 = signalCopy;
+    v46 = 2113;
+    v47 = dCopy;
+    v48 = 2049;
+    v49 = v24;
+    v50 = 2117;
+    v51 = v27;
+    _os_log_impl(&dword_1D460F000, v17, OS_LOG_TYPE_DEFAULT, "channel:%{private}@ signal:%{private}@ uniqueStringId:%{private}@ timestamp:%{private}f payload:%{sensitive}@", &v42, 0x34u);
   }
 
   if (objc_msgSend_xpcEnabled(IAUtility, v28, v29))
@@ -245,8 +241,6 @@ LABEL_6:
 
     objc_msgSend_reportConnectionStatusSuccessful_(IAServerStats, v38, v37 & 1);
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 + (void)asyncSendSignal:(id)signal toChannel:(id)channel withNullableUniqueStringID:(id)d withPayload:(id)payload

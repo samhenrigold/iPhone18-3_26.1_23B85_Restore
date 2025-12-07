@@ -26,27 +26,21 @@
 
 - (void)setAlarmID:(id)d
 {
-  v4 = [d copy];
-  alarmID = self->super._alarmID;
-  self->super._alarmID = v4;
+  self->super._alarmID = [d copy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)setLastFireTimeOfAlertOffsetFromTravelTime:(id)time
 {
-  v4 = [time copy];
-  lastFireTimeOfAlertOffsetFromTravelTime = self->super._lastFireTimeOfAlertOffsetFromTravelTime;
-  self->super._lastFireTimeOfAlertOffsetFromTravelTime = v4;
+  self->super._lastFireTimeOfAlertOffsetFromTravelTime = [time copy];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (void)setLastTimeNotificationAdded:(id)added
 {
-  v4 = [added copy];
-  lastTimeNotificationAdded = self->super._lastTimeNotificationAdded;
-  self->super._lastTimeNotificationAdded = v4;
+  self->super._lastTimeNotificationAdded = [added copy];
 
   MEMORY[0x2821F96F8]();
 }

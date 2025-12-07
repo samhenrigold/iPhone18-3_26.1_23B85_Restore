@@ -19,7 +19,7 @@
 
 - (BOOL)stageRemovalForModelWithExternalID:(id)d error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -28,11 +28,11 @@
   {
     v10 = HMFGetLogIdentifier();
     hmbDescription = [dCopy hmbDescription];
-    v17 = 138543618;
-    v18 = v10;
-    v19 = 2112;
-    v20 = hmbDescription;
-    _os_log_impl(&dword_22AD27000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Staging removal for model with external ID: %@", &v17, 0x16u);
+    v16 = 138543618;
+    v17 = v10;
+    v18 = 2112;
+    v19 = hmbDescription;
+    _os_log_impl(&dword_22AD27000, v9, OS_LOG_TYPE_DEBUG, "%{public}@Staging removal for model with external ID: %@", &v16, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -53,13 +53,12 @@
     [(HMBLocalZoneInput *)selfCopy setStagedChangesCount:[(HMBLocalZoneInput *)selfCopy stagedChangesCount]+ 1];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v13 == 0;
 }
 
 - (BOOL)stageAdditionForModel:(id)model externalID:(id)d externalData:(id)data error:(id *)error
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   dCopy = d;
   dataCopy = data;
@@ -72,13 +71,13 @@
     hmbDescription = [dCopy hmbDescription];
     hmbDescription2 = [dataCopy hmbDescription];
     *buf = 138544130;
-    v39 = v16;
-    v40 = 2112;
-    v41 = modelCopy;
-    v42 = 2112;
-    v43 = hmbDescription;
-    v44 = 2112;
-    v45 = hmbDescription2;
+    v38 = v16;
+    v39 = 2112;
+    v40 = modelCopy;
+    v41 = 2112;
+    v42 = hmbDescription;
+    v43 = 2112;
+    v44 = hmbDescription2;
     _os_log_impl(&dword_22AD27000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Staging addition for model: %@ externalID: %@ externalData: %@", buf, 0x2Au);
   }
 
@@ -89,9 +88,9 @@
 
   localZone2 = [(HMBLocalZoneInput *)selfCopy localZone];
   modelContainer2 = [localZone2 modelContainer];
-  v37 = 0;
-  v24 = [modelContainer2 dataFromModel:modelCopy encoding:v21 storageLocation:3 updatedModelIDs:0 error:&v37];
-  v25 = v37;
+  v36 = 0;
+  v24 = [modelContainer2 dataFromModel:modelCopy encoding:v21 storageLocation:3 updatedModelIDs:0 error:&v36];
+  v25 = v36;
 
   if (v24)
   {
@@ -123,11 +122,11 @@
     {
       v33 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v39 = v33;
-      v40 = 2112;
-      v41 = modelCopy;
-      v42 = 2112;
-      v43 = v25;
+      v38 = v33;
+      v39 = 2112;
+      v40 = modelCopy;
+      v41 = 2112;
+      v42 = v25;
       _os_log_impl(&dword_22AD27000, v32, OS_LOG_TYPE_ERROR, "%{public}@Failed to encode model %@: %@", buf, 0x20u);
     }
 
@@ -145,7 +144,6 @@
     }
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v28;
 }
 

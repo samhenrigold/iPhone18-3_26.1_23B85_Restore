@@ -27,12 +27,12 @@
 
 - (_GDSManager)initWithID:(id)d locationBundlePath:(id)path
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   pathCopy = path;
-  v26.receiver = self;
-  v26.super_class = _GDSManager;
-  v9 = [(_GDSManager *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = _GDSManager;
+  v9 = [(_GDSManager *)&v25 init];
   if (v9)
   {
     v10 = os_log_create("com.apple.gds", "manager");
@@ -62,7 +62,7 @@
       {
         clientID = v9->_clientID;
         *buf = 138412290;
-        v28 = clientID;
+        v27 = clientID;
         _os_log_impl(&dword_2507E1000, v22, OS_LOG_TYPE_DEFAULT, "Registering client %@", buf, 0xCu);
       }
 
@@ -70,7 +70,6 @@
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -175,7 +174,7 @@
 
 - (id)latestBalancingAuthorityWithError:(id *)error
 {
-  v44[1] = *MEMORY[0x277D85DE8];
+  v43[1] = *MEMORY[0x277D85DE8];
   v5 = +[_GDSBalancingAuthority loadBalancingAuthorityStatus];
   if (![v5 count])
   {
@@ -186,9 +185,9 @@
     }
 
     v16 = MEMORY[0x277CCA9B8];
-    v43 = *MEMORY[0x277CCA450];
-    v44[0] = @"Failed to get latest BA. Location availability status not found";
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:&v43 count:1];
+    v42 = *MEMORY[0x277CCA450];
+    v43[0] = @"Failed to get latest BA. Location availability status not found";
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:&v42 count:1];
     *error = [v16 errorWithDomain:@"com.apple.gds" code:2 userInfo:v17];
 
     goto LABEL_17;
@@ -205,9 +204,9 @@
     }
 
     v19 = MEMORY[0x277CCA9B8];
-    v41 = *MEMORY[0x277CCA450];
-    v42 = @"Failed to get latest BA. Location availability status not found for client";
-    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+    v40 = *MEMORY[0x277CCA450];
+    v41 = @"Failed to get latest BA. Location availability status not found for client";
+    v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
     *error = [v19 errorWithDomain:@"com.apple.gds" code:1 userInfo:v20];
 
     goto LABEL_17;
@@ -221,14 +220,14 @@
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v31) = 0;
-      _os_log_impl(&dword_2507E1000, log, OS_LOG_TYPE_DEFAULT, "Location not available", &v31, 2u);
+      LOWORD(v30) = 0;
+      _os_log_impl(&dword_2507E1000, log, OS_LOG_TYPE_DEFAULT, "Location not available", &v30, 2u);
     }
 
     v22 = MEMORY[0x277CCA9B8];
-    v39 = *MEMORY[0x277CCA450];
-    v40 = @"Failed to get latest BA. Location authorization not available for client";
-    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+    v38 = *MEMORY[0x277CCA450];
+    v39 = @"Failed to get latest BA. Location authorization not available for client";
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
     *error = [v22 errorWithDomain:@"com.apple.gds" code:2 userInfo:v23];
 
 LABEL_17:
@@ -250,32 +249,30 @@ LABEL_17:
     }
 
     v13 = MEMORY[0x277CCA9B8];
-    v37 = *MEMORY[0x277CCA450];
-    v38 = @"Failed to get latest BA. Unable to find BA name";
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+    v36 = *MEMORY[0x277CCA450];
+    v37 = @"Failed to get latest BA. Unable to find BA name";
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
     *error = [v13 errorWithDomain:@"com.apple.gds" code:3 userInfo:v14];
   }
 
   AnalyticsSendEventLazy();
-  v26 = self->_log;
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v25 = self->_log;
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
-    v27 = v26;
+    v26 = v25;
     name2 = [v9 name];
     identifier = [v9 identifier];
     lastUpdatedDate = [v9 lastUpdatedDate];
-    v31 = 138412802;
-    v32 = name2;
-    v33 = 2112;
-    v34 = identifier;
-    v35 = 2112;
-    v36 = lastUpdatedDate;
-    _os_log_impl(&dword_2507E1000, v27, OS_LOG_TYPE_DEFAULT, "Balancing Authority Output Name:%@, ID:%@, Date:%@", &v31, 0x20u);
+    v30 = 138412802;
+    v31 = name2;
+    v32 = 2112;
+    v33 = identifier;
+    v34 = 2112;
+    v35 = lastUpdatedDate;
+    _os_log_impl(&dword_2507E1000, v26, OS_LOG_TYPE_DEFAULT, "Balancing Authority Output Name:%@, ID:%@, Date:%@", &v30, 0x20u);
   }
 
 LABEL_18:
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -323,7 +320,7 @@ LABEL_18:
 
 - (id)carbonIntensityHistoryForBA:(id)a from:(id)from to:(id)to
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   aCopy = a;
   fromCopy = from;
   toCopy = to;
@@ -339,19 +336,17 @@ LABEL_18:
     log = self->_log;
     if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
     {
-      v17 = 138412802;
-      v18 = aCopy;
-      v19 = 2112;
-      v20 = fromCopy;
-      v21 = 2112;
-      v22 = v11;
-      _os_log_error_impl(&dword_2507E1000, log, OS_LOG_TYPE_ERROR, "Parameters not specified BA:%@ startDate:%@ endDate:%@", &v17, 0x20u);
+      v16 = 138412802;
+      v17 = aCopy;
+      v18 = 2112;
+      v19 = fromCopy;
+      v20 = 2112;
+      v21 = v11;
+      _os_log_error_impl(&dword_2507E1000, log, OS_LOG_TYPE_ERROR, "Parameters not specified BA:%@ startDate:%@ endDate:%@", &v16, 0x20u);
     }
 
     v13 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -493,7 +488,7 @@ LABEL_18:
 
 - (id)getFakeMarginalEmissionForecast
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   fakeDataDefaults = [(_GDSManager *)self fakeDataDefaults];
   v4 = [fakeDataDefaults arrayForKey:@"fakeForecast"];
 
@@ -502,46 +497,46 @@ LABEL_18:
     currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
     v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
     v7 = [MEMORY[0x277CBEAA8] now];
-    v25 = currentCalendar;
-    v23 = [currentCalendar components:192 fromDate:v7];
-    v24 = v7;
-    v8 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeInterval:v7 sinceDate:{-fmod((objc_msgSend(v23, "second") + 60 * objc_msgSend(v23, "minute")), 900.0)}];
+    v24 = currentCalendar;
+    v22 = [currentCalendar components:192 fromDate:v7];
+    v23 = v7;
+    v8 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeInterval:v7 sinceDate:{-fmod((objc_msgSend(v22, "second") + 60 * objc_msgSend(v22, "minute")), 900.0)}];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
-    v26 = v4;
+    v25 = v4;
     v9 = v4;
-    v10 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
     if (v10)
     {
       v11 = v10;
       v12 = 0;
-      v13 = *v28;
+      v13 = *v27;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v28 != v13)
+          if (*v27 != v13)
           {
             objc_enumerationMutation(v9);
           }
 
-          v15 = *(*(&v27 + 1) + 8 * i);
+          v15 = *(*(&v26 + 1) + 8 * i);
           v16 = objc_alloc(MEMORY[0x277CBEAA8]);
           v17 = v12++;
           v18 = [v16 initWithTimeInterval:v8 sinceDate:v17 * 900.0];
           [v6 setObject:v15 forKeyedSubscript:v18];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
       while (v11);
     }
 
-    v19 = [[_GDSEmissionForecast alloc] initWithForecast:v6 generatedAt:v8 fetchedAt:v24 refetchInterval:14400.0];
-    v4 = v26;
+    v19 = [[_GDSEmissionForecast alloc] initWithForecast:v6 generatedAt:v8 fetchedAt:v23 refetchInterval:14400.0];
+    v4 = v25;
   }
 
   else
@@ -556,8 +551,6 @@ LABEL_18:
     v19 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v19;
 }
 
@@ -571,37 +564,31 @@ LABEL_18:
 
 - (void)latestBalancingAuthority
 {
-  v8 = *MEMORY[0x277D85DE8];
   userInfo = [self userInfo];
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)latestBalancingAuthorityWithError:(os_log_t)log .cold.2(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *a1;
   v4 = *(a2 + 40);
-  v6 = 138412546;
-  v7 = v3;
-  v8 = 2112;
-  v9 = v4;
-  _os_log_error_impl(&dword_2507E1000, log, OS_LOG_TYPE_ERROR, "Location availability status not found for clientID %@, bundlePath %@", &v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = v3;
+  v7 = 2112;
+  v8 = v4;
+  _os_log_error_impl(&dword_2507E1000, log, OS_LOG_TYPE_ERROR, "Location availability status not found for clientID %@, bundlePath %@", &v5, 0x16u);
 }
 
 - (void)latestMarginalEmissionForecast
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   name = [a2 name];
-  v6 = 138412290;
-  v7 = name;
-  _os_log_error_impl(&dword_2507E1000, selfCopy, OS_LOG_TYPE_ERROR, "Parameter not specified BA:%@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = name;
+  _os_log_error_impl(&dword_2507E1000, selfCopy, OS_LOG_TYPE_ERROR, "Parameter not specified BA:%@", &v5, 0xCu);
 }
 
 @end

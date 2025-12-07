@@ -15,7 +15,7 @@
     invitationIdToRecordMap = v2->_invitationIdToRecordMap;
     v2->_invitationIdToRecordMap = v4;
 
-    v6 = sub_100378D4C();
+    v6 = sub_100378D4C(KmlSharingInvitationRecordsUpdater);
     updaterQueue = v2->_updaterQueue;
     v2->_updaterQueue = v6;
 

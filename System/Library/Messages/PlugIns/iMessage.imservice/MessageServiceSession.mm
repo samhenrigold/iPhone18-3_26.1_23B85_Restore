@@ -9,6 +9,7 @@
 - (BOOL)_isRegisteredURI:(id)i;
 - (BOOL)_originalTimestampWithinAcceptableWindow:(id)window timestamp:(id)timestamp;
 - (BOOL)_richLinkPendSendingWithGUID:(id)d;
+- (BOOL)_sendCertifiedDeliveryReceiptIfPossible:(id)possible messageContext:(id)context guid:(id)guid messageWasStored:(BOOL)stored needsDeliveryReceipt:(BOOL)receipt failureReason:(id)reason;
 - (BOOL)_shouldBlackholeChatFromSender:(id)sender toRecipient:(id)recipient forAccount:(id)account;
 - (BOOL)_shouldBlackholeGroupChatFromSender:(id)sender toRecipient:(id)recipient withOtherParticipants:(id)participants forAccount:(id)account;
 - (BOOL)_shouldIgnoreMessageFromSender:(id)sender balloonBID:(id)d fromMe:(BOOL)me;
@@ -69,6 +70,7 @@
 - (void)_configurePrimaryServiceSessionWithAccount:(id)account service:(id)service;
 - (void)_deactivateServiceIfNeededForContext:(id)context;
 - (void)_deliverMessage:(id)message withContext:(id)context withBlock:(id)block;
+- (void)_didSendMessage:(id)message withContext:(id)context forceDate:(id)date fromStorage:(BOOL)storage;
 - (void)_engroupForChat:(id)chat idsAccount:(id)account completion:(id)completion;
 - (void)_enqueueBlock:(id)block withTimeout:(double)timeout description:(id)description;
 - (void)_fixParticipantsForChat:(id)chat;
@@ -79,12 +81,14 @@
 - (void)_handleFakeReceiptBlock:(id)block withContext:(id)context withMsg:(id)msg;
 - (void)_handleFileTransferUpdated:(id)updated;
 - (void)_handleIsMeToMeForMessage:(id)message withContext:(id)context;
+- (void)_handleMessageSentToSelf:(id)self chatIdentifier:(id)identifier style:(unsigned __int8)style isLocal:(BOOL)local account:(id)account;
 - (void)_handleMessageSentToSelf:(id)self withContext:(id)context isLocal:(BOOL)local;
 - (void)_handleNicknameReceived:(id)received fromIdentifier:(id)identifier withMessageItem:(id)item isSnapTrustedUser:(BOOL)user;
 - (void)_handleScheduledMessageSendFailure:(id)failure;
 - (void)_handleUpdateNotificationTimeManagerForMessage:(id)message withContext:(id)context;
 - (void)_iMessageBagLoaded:(id)loaded;
 - (void)_incrementDecryptionFailureForID:(id)d;
+- (void)_initiateTelephonyConversationForMessage:(id)message chatIdentifier:(id)identifier chatStyle:(unsigned __int8)style onSession:(id)session;
 - (void)_logCompletedMessage:(id)message withContext:(id)context;
 - (void)_nicknameFetchCompletedMessage:(id)message synchronous:(BOOL)synchronous profile:(id)profile nickNameWasInCache:(BOOL)cache nickNameDownloadError:(id)error;
 - (void)_notifyDidSendMessage:(id)message withContext:(id)context;
@@ -92,6 +96,7 @@
 - (void)_notifyOfSendMessage:(id)message withContext:(id)context;
 - (void)_primeServerBags;
 - (void)_processMessagesForRelayIfNeededMarkingAsRelayedUponSuccess:(BOOL)success;
+- (void)_reAttemptMessageDeliveryForGUID:(id)d toIdentifier:(id)identifier fromIdentifier:(id)fromIdentifier fromIDSID:(id)iD isReflection:(BOOL)reflection shouldShowError:(BOOL)error cacheFlushError:(BOOL)flushError imdAccount:(id)self0;
 - (void)_refreshGroupPhotoTTLIfNecessary:(id)necessary withContext:(id)context;
 - (void)_refreshTranscriptBackgroundTTLIfNecessary:(id)necessary withContext:(id)context;
 - (void)_registerKeepMessagesSettingReflection;
@@ -107,9 +112,11 @@
 - (void)_storeSentMessage:(id)message withContext:(id)context;
 - (void)_updateBlackholeStatusIfNeededWithMessage:(id)message withContext:(id)context;
 - (void)_updateChatProperties:(id)properties withProperties:(id)withProperties;
+- (void)_updateGlobalReadReceiptValue:(BOOL)value withVersionID:(id)d;
 - (void)_updateLastDeviceActivityForCloudKit;
 - (void)_updateNetworkOverride;
 - (void)_updateOffGridStatusIfNeededWithMessage:(id)message context:(id)context;
+- (void)_updateOrRemoveGroupPhotoForChat:(id)chat sender:(id)sender completedTransfer:(id)transfer isHidden:(BOOL)hidden;
 - (void)_updateStoredBreadcrumbIfNeeded:(id)needed onChat:(id)chat;
 - (void)_updateTransfersForAttributionInfoArray:(id)array message:(id)message;
 - (void)addAccount:(id)account;
@@ -117,13 +124,17 @@
 - (void)calculateReachabilityWithRequest:(id)request responseHandler:(id)handler;
 - (void)cancelScheduledMessageWithGUID:(id)d;
 - (void)cancelScheduledMessageWithGUID:(id)d destinations:(id)destinations cancelType:(unint64_t)type;
+- (void)closeSessionForChat:(id)chat chatGUID:(id)d didDeleteConversation:(BOOL)conversation style:(unsigned __int8)style;
 - (void)dealloc;
+- (void)didReceiveMessages:(id)messages forChat:(id)chat style:(unsigned __int8)style account:(id)account fromIDSID:(id)d completion:(id)completion;
 - (void)didReplaceMessage:(id)message newMessage:(id)newMessage;
+- (void)doneRetrievingAttachmentsForGroupPhotoForChat:(id)chat fileTransferError:(id)error success:(BOOL)success transferGuid:(id)guid sender:(id)sender isHidden:(BOOL)hidden;
 - (void)eagerUploadCancel:(id)cancel;
 - (void)eagerUploadTransfer:(id)transfer recipients:(id)recipients;
 - (void)enqueReplayMessageCallback:(id)callback;
 - (void)forwardDeliveryReceiptForMessageID:(id)d withAccount:(id)account callerURI:(id)i;
 - (void)generateTranscriptBackground:(id)background destinationURL:(id)l senderContext:(id)context resultBlock:(id)block;
+- (void)groupPhotoDownloadCompletedForChat:(id)chat fileTransferError:(id)error success:(BOOL)success transferGuid:(id)guid sender:(id)sender isHidden:(BOOL)hidden;
 - (void)groupPhotoUploadCompletedForChat:(id)chat fileTransferGuid:(id)guid callerURI:(id)i fromAccount:(id)account message:(id)message displayIDs:(id)ds additionalContext:(id)context success:(BOOL)self0 isPhotoRefresh:(BOOL)self1 error:(unsigned int)self2;
 - (void)groupPhotoUploadFailedForChat:(id)chat fileTransferGuid:(id)guid;
 - (void)handleBreadcrumbForNewSentMessageItemIfNecessary:(id)necessary withContext:(id)context;
@@ -147,24 +158,31 @@
 - (void)handler:(id)handler remoteFileResponse:(id)response;
 - (void)handler:(id)handler updateAttachments:(id)attachments toIdentifier:(id)identifier fromIdentifier:(id)fromIdentifier fromToken:(id)token timeStamp:(id)stamp fromIDSID:(id)d needsDeliveryReceipt:(id)self0 deliveryContext:(id)self1 storageContext:(id)self2 batchContext:(id)self3 fileTransferUpdates:(id)self4;
 - (void)invitePersonInfo:(id)info withMessage:(id)message toChat:(id)chat style:(unsigned __int8)style;
+- (void)joinChat:(id)chat handleInfo:(id)info style:(unsigned __int8)style groupID:(id)d lastAddressedHandle:(id)handle lastAddressedSIMID:(id)iD joinProperties:(id)properties;
+- (void)leaveChat:(id)chat style:(unsigned __int8)style;
 - (void)messageDeliveryController:(id)controller didFlushCacheForKTPeerURI:(id)i;
 - (void)messageDeliveryController:(id)controller didFlushCacheForRemoteURI:(id)i fromURI:(id)rI guid:(id)guid;
 - (void)messageDeliveryController:(id)controller serverUpdatedTimestampMessage:(id)message;
 - (void)networkMonitorDidUpdate:(id)update;
 - (void)preWarm;
+- (void)processMessageForSending:(id)sending toChat:(id)chat style:(unsigned __int8)style allowWatchdog:(BOOL)watchdog account:(id)account didReplaceMessageBlock:(id)block completionBlock:(id)completionBlock;
+- (void)processNetworkDataAvailabilityChange:(BOOL)change;
 - (void)receiveIncomingBlastdoorBackgroundCommand:(id)command for:(id)for sender:(id)sender senderContext:(id)context;
 - (void)receivedGroupPhotoUpdate:(id)update chat:(id)chat sender:(id)sender isHidden:(BOOL)hidden;
 - (void)refetchChatBackgroundIfNeededForChatIdentifier:(id)identifier chatStyle:(unsigned __int8)style;
 - (void)refreshRegistration;
 - (void)refreshServiceCapabilities;
+- (void)relayLegacySatelliteMessage:(id)message toChat:(id)chat localWatchOnly:(BOOL)only;
 - (void)removeAccount:(id)account;
 - (void)removePersonInfo:(id)info chatID:(id)d identifier:(id)identifier style:(unsigned __int8)style;
 - (void)renewTTLForScheduledAttachmentTransfer:(id)transfer;
 - (void)replayMessage:(id)message;
 - (void)requestBackgroundsFromRecentChatsIfNeeded;
+- (void)requestGroupPhotoIfNecessary:(id)necessary incomingParticipantVersion:(int64_t)version incomingGroupPhotoCreationTime:(id)time toIdentifier:(id)identifier fromIdentifier:(id)fromIdentifier messageIsFromStorage:(BOOL)storage;
 - (void)requestProperty:(id)property ofPerson:(id)person;
 - (void)requestTranscriptBackground:(id)background toIdentifier:(id)identifier fromIdentifier:(id)fromIdentifier messageIsFromStorage:(BOOL)storage;
 - (void)requestTranscriptBackgroundIfNecessary:(id)necessary incomingVersion:(unint64_t)version toIdentifier:(id)identifier fromIdentifier:(id)fromIdentifier messageIsFromStorage:(BOOL)storage;
+- (void)retryGroupPhotoUpload:(id)upload toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style account:(id)account isPhotoRefresh:(BOOL)refresh;
 - (void)retryTranscriptBackgroundUpload:(id)upload chatIdentifier:(id)identifier style:(unsigned __int8)style transferID:(id)d;
 - (void)sendBalloonPayload:(id)payload attachments:(id)attachments withMessageGUID:(id)d bundleID:(id)iD;
 - (void)sendBrandLogoUpdate:(id)update toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style account:(id)account;
@@ -174,8 +192,13 @@
 - (void)sendDeliveredQuietlyReceiptForMessage:(id)message forIncomingMessageFromIDSID:(id)d toChatGuid:(id)guid identifier:(id)identifier style:(unsigned __int8)style withWillSendToDestinationsHandler:(id)handler;
 - (void)sendDeliveryReceiptForMessageID:(id)d toID:(id)iD deliveryContext:(id)context needsDeliveryReceipt:(id)receipt callerID:(id)callerID account:(id)account;
 - (void)sendEditedMessage:(id)message previousMessage:(id)previousMessage partIndex:(int64_t)index editType:(unint64_t)type toChatIdentifier:(id)identifier style:(unsigned __int8)style account:(id)account backwardCompatabilityText:(id)self0;
+- (void)sendEditedScheduledMessage:(id)message previousMessage:(id)previousMessage partIndex:(int64_t)index editType:(unint64_t)type toChatIdentifier:(id)identifier style:(unsigned __int8)style account:(id)account;
+- (void)sendEditedScheduledMessage:(id)message previousMessage:(id)previousMessage retractingPartIndexes:(id)indexes toChatIdentifier:(id)identifier style:(unsigned __int8)style account:(id)account;
 - (void)sendGroupPhotoUpdate:(id)update toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style account:(id)account isPhotoRefresh:(BOOL)refresh;
+- (void)sendHQAttachmentsForMessage:(id)message toChatID:(id)d style:(unsigned __int8)style;
 - (void)sendLocationSharingInfo:(id)info toID:(id)d completionBlock:(id)block;
+- (void)sendMessage:(id)message toChat:(id)chat style:(unsigned __int8)style account:(id)account destinationHandles:(id)handles;
+- (void)sendMessage:(id)message toChat:(id)chat style:(unsigned __int8)style destinationHandles:(id)handles;
 - (void)sendNicknameInfoToURIs:(id)is chatGUID:(id)d;
 - (void)sendNotifyRecipientCommandForMessage:(id)message toChatGuid:(id)guid identifier:(id)identifier style:(unsigned __int8)style;
 - (void)sendPlayedReceiptForMessage:(id)message toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style;
@@ -285,9 +308,7 @@
   [(MessageServiceSession *)self _registerKeepMessagesSettingReflection];
   if (+[IMDeviceUtilities supportsFaceTime])
   {
-    v6 = [[IMDCallManager alloc] initWithServiceSession:self];
-    callManager = self->_callManager;
-    self->_callManager = v6;
+    self->_callManager = [[IMDCallManager alloc] initWithServiceSession:self];
 
     _objc_release_x1();
   }
@@ -1246,6 +1267,345 @@ LABEL_10:
     v10 = [neededCopy objectForKey:@"gR"];
     -[MessageServiceSession _updateGlobalReadReceiptValue:withVersionID:](self, "_updateGlobalReadReceiptValue:withVersionID:", [v10 BOOLValue], v6);
   }
+}
+
+- (void)_updateGlobalReadReceiptValue:(BOOL)value withVersionID:(id)d
+{
+  valueCopy = value;
+  dCopy = d;
+  readReceiptsGloballyEnabled = [(MessageServiceSession *)self readReceiptsGloballyEnabled];
+  if (IMOSLoggingEnabled())
+  {
+    v8 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    {
+      v10[0] = 67109376;
+      v10[1] = valueCopy;
+      v11 = 1024;
+      v12 = readReceiptsGloballyEnabled;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "Updating global read receipt value to: %d from: %d", v10, 0xEu);
+    }
+  }
+
+  [(MessageServiceSession *)self setGlobalReadReceiptSettingVersion:dCopy];
+  [(MessageServiceSession *)self setReadReceiptsGloballyEnabled:valueCopy];
+  DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+  CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.MobileSMS.ReadReceiptsEnabled.changed", 0, 0, 1u);
+  [(MessageServiceSession *)self overwritePerChatReadReceiptSettingsWithGlobalValue:valueCopy];
+}
+
+- (void)_reAttemptMessageDeliveryForGUID:(id)d toIdentifier:(id)identifier fromIdentifier:(id)fromIdentifier fromIDSID:(id)iD isReflection:(BOOL)reflection shouldShowError:(BOOL)error cacheFlushError:(BOOL)flushError imdAccount:(id)self0
+{
+  errorCopy = error;
+  dCopy = d;
+  identifierCopy = identifier;
+  fromIdentifierCopy = fromIdentifier;
+  iDCopy = iD;
+  accountCopy = account;
+  messageStore = [(MessageServiceSession *)self messageStore];
+  v19 = [messageStore messageWithGUID:dCopy];
+
+  v20 = IMOSLoggingEnabled();
+  if (!v19)
+  {
+    if (v20)
+    {
+      v34 = OSLogHandleForIMEventCategory();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412290;
+        v73 = dCopy;
+        _os_log_impl(&dword_0, v34, OS_LOG_TYPE_INFO, " Unable to find message with ID: %@", buf, 0xCu);
+      }
+
+      goto LABEL_23;
+    }
+
+LABEL_24:
+    v23 = 0;
+    goto LABEL_25;
+  }
+
+  if (v20)
+  {
+    v21 = OSLogHandleForIMEventCategory();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      v73 = dCopy;
+      _os_log_impl(&dword_0, v21, OS_LOG_TYPE_INFO, "Found Message with messageID: %@", buf, 0xCu);
+    }
+  }
+
+  messageStore2 = [(MessageServiceSession *)self messageStore];
+  v23 = [messageStore2 chatForMessage:v19];
+
+  v24 = IMOSLoggingEnabled();
+  if (!v23)
+  {
+    if (v24)
+    {
+      v34 = OSLogHandleForIMEventCategory();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_0, v34, OS_LOG_TYPE_INFO, " Unable to find chat for message", buf, 2u);
+      }
+
+LABEL_23:
+
+      goto LABEL_24;
+    }
+
+    goto LABEL_24;
+  }
+
+  if (v24)
+  {
+    v25 = OSLogHandleForIMEventCategory();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      v73 = v23;
+      _os_log_impl(&dword_0, v25, OS_LOG_TYPE_INFO, "Found Chat For Message Chat: %@", buf, 0xCu);
+    }
+  }
+
+  v26 = +[NSDate date];
+  time = [v19 time];
+  [v26 timeIntervalSinceDate:time];
+  v29 = v28;
+  [(MessageServiceSession *)self _messageRetryTimeout];
+  v31 = v29 > v30;
+
+  if (v31)
+  {
+    if (IMOSLoggingEnabled())
+    {
+      v32 = OSLogHandleForIMEventCategory();
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+      {
+        timeDelivered = [v19 timeDelivered];
+        *buf = 138412546;
+        v73 = dCopy;
+        v74 = 2112;
+        v75 = timeDelivered;
+        _os_log_impl(&dword_0, v32, OS_LOG_TYPE_INFO, "Message %@ originally delivered at %@ is too old to retry.", buf, 0x16u);
+      }
+    }
+
+    goto LABEL_25;
+  }
+
+  if ([v19 isFromMe])
+  {
+    v35 = [(MessageServiceSession *)self _failuresForID:fromIdentifierCopy];
+    LODWORD(v35) = v35 < [(MessageServiceSession *)self _maxFailuresAllowed];
+    v36 = IMOSLoggingEnabled();
+    if (v35)
+    {
+      if (v36)
+      {
+        v37 = OSLogHandleForIMEventCategory();
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_0, v37, OS_LOG_TYPE_INFO, " Attempting to Burn a retry to send the message", buf, 2u);
+        }
+      }
+
+      if (IMOSLoggingEnabled())
+      {
+        v38 = OSLogHandleForIMEventCategory();
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138412802;
+          v73 = v19;
+          v74 = 2112;
+          v75 = fromIdentifierCopy;
+          v76 = 2112;
+          v77 = v23;
+          _os_log_impl(&dword_0, v38, OS_LOG_TYPE_INFO, " Sending Retry for message: %@, to fromIdentifier: %@ in chat: %@ ", buf, 0x20u);
+        }
+      }
+
+      participants = [v23 participants];
+      v40 = [(MessageServiceSession *)self _URIsFromHandles:participants];
+
+      if ([v40 containsObject:fromIdentifierCopy])
+      {
+        if ([(MessageServiceSession *)self _shouldAdjustTimestampOfResentMessages])
+        {
+          [v19 setIsBeingRetried:1];
+          messageSummaryInfo = [v19 messageSummaryInfo];
+          Mutable = [messageSummaryInfo mutableCopy];
+
+          if (!Mutable)
+          {
+            Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
+          }
+
+          v43 = [NSNumber numberWithBool:1];
+          [(__CFDictionary *)Mutable setObject:v43 forKey:IMMessageSummaryInfoHasBeenRetried];
+
+          [v19 setMessageSummaryInfo:Mutable];
+          [v19 setRetryToParticipant:fromIdentifierCopy];
+          chatIdentifier = [v23 chatIdentifier];
+          -[MessageServiceSession sendMessage:toChat:style:](self, "sendMessage:toChat:style:", v19, chatIdentifier, [v23 style]);
+
+          [(MessageServiceSession *)self _incrementDecryptionFailureForID:fromIdentifierCopy];
+          goto LABEL_75;
+        }
+
+        if (IMOSLoggingEnabled())
+        {
+          v53 = OSLogHandleForIMEventCategory();
+          if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
+          {
+            *buf = 0;
+            _os_log_impl(&dword_0, v53, OS_LOG_TYPE_INFO, "Not resending message because client version is out of date", buf, 2u);
+          }
+
+LABEL_74:
+        }
+      }
+
+      else if (IMOSLoggingEnabled())
+      {
+        v53 = OSLogHandleForIMEventCategory();
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138412546;
+          v73 = fromIdentifierCopy;
+          v74 = 2112;
+          v75 = v23;
+          _os_log_impl(&dword_0, v53, OS_LOG_TYPE_INFO, " Was told to retry send a message, but the recipient is not a member of the chat for that message. fromIdentifier: %@ chat: %@", buf, 0x16u);
+        }
+
+        goto LABEL_74;
+      }
+
+LABEL_75:
+
+      goto LABEL_25;
+    }
+
+    if (v36)
+    {
+      v46 = OSLogHandleForIMEventCategory();
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_0, v46, OS_LOG_TYPE_INFO, "  Unable to automatically retry after send failure, No failure retries remain", buf, 2u);
+      }
+    }
+
+    deliveryController = [(MessageServiceSession *)self deliveryController];
+    _stripFZIDPrefix = [fromIdentifierCopy _stripFZIDPrefix];
+    v49 = [deliveryController activeDeviceForHandle:_stripFZIDPrefix];
+
+    idsDestination = [v49 idsDestination];
+    v50 = [idsDestination isEqualToString:iDCopy];
+    if (v49)
+    {
+      v51 = v50 ^ 1;
+      if (!iDCopy)
+      {
+        v51 = 0;
+      }
+
+      if (v51)
+      {
+        goto LABEL_81;
+      }
+
+      v52 = [v49 shouldDisplayRemoteDecryptionFailure] ^ 1;
+    }
+
+    else
+    {
+      v52 = 0;
+    }
+
+    if (!reflection && (v52 & 1) == 0)
+    {
+      if (IMOSLoggingEnabled())
+      {
+        v54 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138412290;
+          v73 = v49;
+          _os_log_impl(&dword_0, v54, OS_LOG_TYPE_INFO, "Found active device %@", buf, 0xCu);
+        }
+      }
+
+      participants2 = [v23 participants];
+      v56 = [participants2 count] > 1;
+
+      v57 = IMOSLoggingEnabled();
+      if (v56)
+      {
+        if (v57)
+        {
+          v58 = OSLogHandleForIMEventCategory();
+          if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
+          {
+            *buf = 138412546;
+            v73 = fromIdentifierCopy;
+            v74 = 2112;
+            v75 = dCopy;
+            _os_log_impl(&dword_0, v58, OS_LOG_TYPE_INFO, "  Querying URI %@ to see if we should show failure badge for messageID: %@", buf, 0x16u);
+          }
+        }
+
+        v61 = [NSArray arrayWithObjects:fromIdentifierCopy, 0];
+        v59 = IDSServiceNameiMessage;
+        v66[0] = _NSConcreteStackBlock;
+        v66[1] = 3221225472;
+        v66[2] = sub_BBBC;
+        v66[3] = &unk_111FF0;
+        v67 = fromIdentifierCopy;
+        selfCopy = self;
+        v69 = dCopy;
+        v71 = errorCopy;
+        v70 = accountCopy;
+        [IMIDSIDQueryController currentRemoteDevicesForDestinations:v61 service:v59 listenerID:@"MessageServiceSession" queue:&_dispatch_main_q completionBlock:v66];
+      }
+
+      else
+      {
+        if (v57)
+        {
+          v60 = OSLogHandleForIMEventCategory();
+          if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
+          {
+            *buf = 138412290;
+            v73 = dCopy;
+            _os_log_impl(&dword_0, v60, OS_LOG_TYPE_INFO, "  Showing error for 1 to 1 chat for messageID: %@", buf, 0xCu);
+          }
+        }
+
+        [(MessageServiceSession *)self didReceiveError:27 forMessageID:dCopy forceError:errorCopy account:accountCopy];
+      }
+    }
+
+LABEL_81:
+
+    goto LABEL_25;
+  }
+
+  if (IMOSLoggingEnabled())
+  {
+    v45 = OSLogHandleForIMEventCategory();
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_0, v45, OS_LOG_TYPE_INFO, "Being requested to re-send a message that wasn't sent by me", buf, 2u);
+    }
+  }
+
+LABEL_25:
 }
 
 - (void)handler:(id)handler receivedError:(id)error forMessageID:(id)d toIdentifier:(id)identifier fromIdentifier:(id)fromIdentifier fromToken:(id)token timeStamp:(id)stamp fromIDSID:(id)self0 needsDeliveryReceipt:(id)self1 deliveryContext:(id)self2 storageContext:(id)self3 batchContext:(id)self4 additionalInfo:(id)self5 shouldShowPeerErrors:(BOOL)self6
@@ -2800,20 +3160,10 @@ LABEL_14:
     v48 = +[IMLockdownManager sharedInstance];
     isInternalInstall = [v48 isInternalInstall];
 
-    if (!isInternalInstall)
-    {
-      goto LABEL_76;
-    }
-
-    v50 = +[IMDefaults sharedInstance];
-    v51 = [v50 getValueFromDomain:@"com.apple.madrid" forKey:@"numMessagesToDrop"];
-    integerValue = [v51 integerValue];
-
-    v53 = integerValue - 1;
-    if (integerValue >= 1)
+    if (isInternalInstall && (+[IMDefaults sharedInstance](IMDefaults, "sharedInstance"), v50 = objc_claimAutoreleasedReturnValue(), [v50 getValueFromDomain:@"com.apple.madrid" forKey:@"numMessagesToDrop"], v51 = objc_claimAutoreleasedReturnValue(), v52 = objc_msgSend(v51, "integerValue"), v51, v50, v53 = v52 - 1, v52 >= 1))
     {
       v54 = +[IMDefaults sharedInstance];
-      v55 = [NSNumber numberWithInteger:integerValue - 1];
+      v55 = [NSNumber numberWithInteger:v52 - 1];
       [v54 setValue:v55 forDomain:@"com.apple.madrid" forKey:@"numMessagesToDrop"];
 
       if (IMOSLoggingEnabled())
@@ -2831,7 +3181,6 @@ LABEL_14:
 
     else
     {
-LABEL_76:
       if (IMOSLoggingEnabled())
       {
         v58 = OSLogHandleForIMFoundationCategory();
@@ -3428,63 +3777,62 @@ LABEL_92:
   dictionaryCopy = dictionary;
   v4 = +[IMDRelayServiceController sharedInstance];
   deletionController = [v4 deletionController];
-  v64 = [deletionController deleteChatsForCommandDictionary:dictionaryCopy];
+  v63 = [deletionController deleteChatsForCommandDictionary:dictionaryCopy];
 
   [dictionaryCopy objectForKeyedSubscript:@"chat-clear"];
+  v75 = 0u;
   v76 = 0u;
-  v77 = 0u;
-  v74 = 0u;
-  obj = v75 = 0u;
-  v63 = [obj countByEnumeratingWithState:&v74 objects:v88 count:16];
-  if (v63)
+  v73 = 0u;
+  obj = v74 = 0u;
+  v62 = [obj countByEnumeratingWithState:&v73 objects:v87 count:16];
+  if (v62)
   {
-    v62 = *v75;
-    v60 = IMDCommandChatGroupIDKey;
+    v61 = *v74;
+    v59 = IMDCommandChatGroupIDKey;
     do
     {
       v6 = 0;
       do
       {
-        if (*v75 != v62)
+        if (*v74 != v61)
         {
           v7 = v6;
           objc_enumerationMutation(obj);
           v6 = v7;
         }
 
-        v65 = v6;
-        v8 = *(*(&v74 + 1) + 8 * v6);
+        v64 = v6;
+        v8 = *(*(&v73 + 1) + 8 * v6);
         v9 = +[NSMutableArray array];
-        v72 = 0u;
-        v73 = 0u;
-        v70 = 0u;
         v71 = 0u;
+        v72 = 0u;
+        v69 = 0u;
+        v70 = 0u;
         v10 = [v8 objectForKeyedSubscript:@"guids"];
-        v11 = [v10 countByEnumeratingWithState:&v70 objects:v87 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v69 objects:v86 count:16];
         if (v11)
         {
-          v12 = *v71;
+          v12 = *v70;
           do
           {
-            for (i = 0; i != v11; i = i + 1)
+            for (i = 0; i != v11; ++i)
             {
-              if (*v71 != v12)
+              if (*v70 != v12)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v14 = *(*(&v70 + 1) + 8 * i);
-              v15 = IMAnyServiceGUIDFromLegacyChatGUID();
+              v14 = IMAnyServiceGUIDFromLegacyChatGUID();
               chatRegistry = [(MessageServiceSession *)self chatRegistry];
-              v17 = [chatRegistry existingChatWithGUID:v15];
+              v16 = [chatRegistry existingChatWithGUID:v14];
 
-              if (v17)
+              if (v16)
               {
-                [v9 addObject:v17];
+                [v9 addObject:v16];
               }
             }
 
-            v11 = [v10 countByEnumeratingWithState:&v70 objects:v87 count:16];
+            v11 = [v10 countByEnumeratingWithState:&v69 objects:v86 count:16];
           }
 
           while (v11);
@@ -3493,118 +3841,118 @@ LABEL_92:
         if (![v9 count])
         {
           chatRegistry2 = [(MessageServiceSession *)self chatRegistry];
-          v19 = [v8 objectForKeyedSubscript:v60];
-          v20 = [chatRegistry2 existingChatsWithGroupID:v19];
+          v18 = [v8 objectForKeyedSubscript:v59];
+          v19 = [chatRegistry2 existingChatsWithGroupID:v18];
 
-          v9 = v20;
+          v9 = v19;
         }
 
         if ([v9 count])
         {
+          v20 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(v9, "count")}];
           v21 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(v9, "count")}];
-          v22 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(v9, "count")}];
-          v68 = 0u;
-          v69 = 0u;
-          v66 = 0u;
           v67 = 0u;
-          v23 = v9;
-          v24 = [v23 countByEnumeratingWithState:&v66 objects:v86 count:16];
-          if (v24)
+          v68 = 0u;
+          v65 = 0u;
+          v66 = 0u;
+          v22 = v9;
+          v23 = [v22 countByEnumeratingWithState:&v65 objects:v85 count:16];
+          if (v23)
           {
-            v25 = *v67;
+            v24 = *v66;
             do
             {
-              for (j = 0; j != v24; j = j + 1)
+              for (j = 0; j != v23; j = j + 1)
               {
-                if (*v67 != v25)
+                if (*v66 != v24)
                 {
-                  objc_enumerationMutation(v23);
+                  objc_enumerationMutation(v22);
                 }
 
-                v27 = *(*(&v66 + 1) + 8 * j);
-                chatIdentifier = [v27 chatIdentifier];
-                [v21 addObject:chatIdentifier];
+                v26 = *(*(&v65 + 1) + 8 * j);
+                chatIdentifier = [v26 chatIdentifier];
+                [v20 addObject:chatIdentifier];
 
-                serviceName = [v27 serviceName];
-                [v22 addObject:serviceName];
+                serviceName = [v26 serviceName];
+                [v21 addObject:serviceName];
 
-                style = [v27 style];
+                style = [v26 style];
               }
 
-              v31 = style;
-              v24 = [v23 countByEnumeratingWithState:&v66 objects:v86 count:16];
+              v30 = style;
+              v23 = [v22 countByEnumeratingWithState:&v65 objects:v85 count:16];
             }
 
-            while (v24);
+            while (v23);
           }
 
           else
           {
-            v31 = 45;
+            v30 = 45;
           }
 
           if (IMOSLoggingEnabled())
           {
-            v32 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+            v31 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              v79 = v21;
-              v80 = 2112;
-              v81 = v22;
-              _os_log_impl(&dword_0, v32, OS_LOG_TYPE_INFO, "clearing messages for chat IDS:%@ on services:%@", buf, 0x16u);
+              v78 = v20;
+              v79 = 2112;
+              v80 = v21;
+              _os_log_impl(&dword_0, v31, OS_LOG_TYPE_INFO, "clearing messages for chat IDS:%@ on services:%@", buf, 0x16u);
             }
           }
 
-          v33 = +[IMDMessageStore sharedInstance];
-          v34 = [v33 deleteMessagesWithChatIdentifiers:v21 style:v31 onServices:v22];
+          v32 = +[IMDMessageStore sharedInstance];
+          v33 = [v32 deleteMessagesWithChatIdentifiers:v20 style:v30 onServices:v21];
 
-          v35 = [v34 count] != 0;
+          v34 = [v33 count] != 0;
           broadcasterForChatListeners = [(MessageServiceSession *)self broadcasterForChatListeners];
-          [broadcasterForChatListeners historicalMessageGUIDsDeleted:v34 chatGUIDs:0 queryID:0];
+          [broadcasterForChatListeners historicalMessageGUIDsDeleted:v33 chatGUIDs:0 queryID:0];
 
-          v37 = [(MessageServiceSession *)self broadcasterForChatListenersWithBlackholeStatus:1];
-          [v37 historicalMessageGUIDsDeleted:v34 chatGUIDs:0 queryID:0];
+          v36 = [(MessageServiceSession *)self broadcasterForChatListenersWithBlackholeStatus:1];
+          [v36 historicalMessageGUIDsDeleted:v33 chatGUIDs:0 queryID:0];
 
-          v64 |= v35;
+          v63 |= v34;
         }
 
-        v6 = v65 + 1;
+        v6 = v64 + 1;
       }
 
-      while ((v65 + 1) != v63);
-      v63 = [obj countByEnumeratingWithState:&v74 objects:v88 count:16];
+      while ((v64 + 1) != v62);
+      v62 = [obj countByEnumeratingWithState:&v73 objects:v87 count:16];
     }
 
-    while (v63);
+    while (v62);
   }
 
-  v38 = [dictionaryCopy objectForKeyedSubscript:IMDDeleteCommandMessageGUIDArrayKey];
-  if ([v38 count])
+  v37 = [dictionaryCopy objectForKeyedSubscript:IMDDeleteCommandMessageGUIDArrayKey];
+  if ([v37 count])
   {
     if (IMOSLoggingEnabled())
     {
-      v39 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
+      v38 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
       {
-        v40 = [v38 count];
+        v39 = [v37 count];
         *buf = 134217984;
-        v79 = v40;
-        _os_log_impl(&dword_0, v39, OS_LOG_TYPE_INFO, "deleting %lu: messages", buf, 0xCu);
+        v78 = v39;
+        _os_log_impl(&dword_0, v38, OS_LOG_TYPE_INFO, "deleting %lu: messages", buf, 0xCu);
       }
     }
 
-    v41 = +[IMDRelayServiceController sharedInstance];
-    deletionController2 = [v41 deletionController];
-    v43 = [deletionController2 deleteMessagesForCommandDictionary:dictionaryCopy];
+    v40 = +[IMDRelayServiceController sharedInstance];
+    deletionController2 = [v40 deletionController];
+    v42 = [deletionController2 deleteMessagesForCommandDictionary:dictionaryCopy];
 
-    v64 |= v43;
+    v63 |= v42;
   }
 
-  v44 = [dictionaryCopy objectForKeyedSubscript:IMDDeleteCommandMessagePartMetadataArrayKey];
-  if (![v44 count])
+  v43 = [dictionaryCopy objectForKeyedSubscript:IMDDeleteCommandMessagePartMetadataArrayKey];
+  if (![v43 count])
   {
-    if ((v64 & 1) == 0)
+    if ((v63 & 1) == 0)
     {
       goto LABEL_45;
     }
@@ -3612,42 +3960,42 @@ LABEL_92:
     goto LABEL_44;
   }
 
-  v45 = +[IMDRelayServiceController sharedInstance];
-  deletionController3 = [v45 deletionController];
-  v47 = [deletionController3 deleteMessagePartsForCommandDictionary:dictionaryCopy];
+  v44 = +[IMDRelayServiceController sharedInstance];
+  deletionController3 = [v44 deletionController];
+  v46 = [deletionController3 deleteMessagePartsForCommandDictionary:dictionaryCopy];
 
-  if ((v64 | v47))
+  if ((v63 | v46))
   {
 LABEL_44:
-    v48 = +[IMDMessageStore sharedInstance];
-    [v48 rebuildUnreadMessageCount];
+    v47 = +[IMDMessageStore sharedInstance];
+    [v47 rebuildUnreadMessageCount];
   }
 
 LABEL_45:
-  v49 = [dictionaryCopy objectForKeyedSubscript:@"KeepMessages"];
-  v50 = v49;
-  if (v49)
+  v48 = [dictionaryCopy objectForKeyedSubscript:@"KeepMessages"];
+  v49 = v48;
+  if (v48)
   {
-    v51 = [v49 objectForKeyedSubscript:@"days"];
-    v52 = [v50 objectForKeyedSubscript:@"ID"];
-    v53 = [v50 objectForKeyedSubscript:@"resetPreference"];
-    v54 = IMGetDomainValueForKey();
-    if (v51 && v52)
+    v50 = [v48 objectForKeyedSubscript:@"days"];
+    v51 = [v49 objectForKeyedSubscript:@"ID"];
+    v52 = [v49 objectForKeyedSubscript:@"resetPreference"];
+    v53 = IMGetDomainValueForKey();
+    if (v50 && v51)
     {
       if (IMOSLoggingEnabled())
       {
-        v55 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
+        v54 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
         {
           *buf = 138413058;
-          v79 = v51;
-          v80 = 2112;
-          v81 = v52;
-          v82 = 2112;
-          v83 = v53;
-          v84 = 2112;
-          v85 = v54;
-          _os_log_impl(&dword_0, v55, OS_LOG_TYPE_INFO, "Updated Keep Message Defaults Days:%@ Version:%@ resettingPreference: %@ currentKeepMessagesValue %@", buf, 0x2Au);
+          v78 = v50;
+          v79 = 2112;
+          v80 = v51;
+          v81 = 2112;
+          v82 = v52;
+          v83 = 2112;
+          v84 = v53;
+          _os_log_impl(&dword_0, v54, OS_LOG_TYPE_INFO, "Updated Keep Message Defaults Days:%@ Version:%@ resettingPreference: %@ currentKeepMessagesValue %@", buf, 0x2Au);
         }
       }
 
@@ -3655,21 +4003,21 @@ LABEL_45:
       IMSetDomainValueForKey();
       DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
       CFNotificationCenterPostNotification(DarwinNotifyCenter, IMSettingsKeepMessagesChangedNotification, 0, 0, 1u);
-      if ([v53 BOOLValue] && objc_msgSend(v54, "unsignedIntegerValue"))
+      if ([v52 BOOLValue] && objc_msgSend(v53, "unsignedIntegerValue"))
       {
         if (IMOSLoggingEnabled())
         {
-          v57 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
+          v56 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_0, v57, OS_LOG_TYPE_INFO, "Received resetting keep messages preference. Writing default to show UI", buf, 2u);
+            _os_log_impl(&dword_0, v56, OS_LOG_TYPE_INFO, "Received resetting keep messages preference. Writing default to show UI", buf, 2u);
           }
         }
 
         IMSetDomainValueForKey();
-        v58 = CFNotificationCenterGetDarwinNotifyCenter();
-        CFNotificationCenterPostNotification(v58, IMSettingsKeepMessagesWasResetNotification, 0, 0, 1u);
+        v57 = CFNotificationCenterGetDarwinNotifyCenter();
+        CFNotificationCenterPostNotification(v57, IMSettingsKeepMessagesWasResetNotification, 0, 0, 1u);
       }
     }
   }
@@ -4057,6 +4405,14 @@ LABEL_45:
     v6 = +[IMDMessageStore sharedInstance];
     [v6 enumerateMessagesToRelayOnService:v5 usingBlock:&stru_112470];
   }
+}
+
+- (void)relayLegacySatelliteMessage:(id)message toChat:(id)chat localWatchOnly:(BOOL)only
+{
+  onlyCopy = only;
+  messageCopy = message;
+  v9 = [(MessageServiceSession *)self chatForChatIdentifier:chat style:45 updatingAccount:1];
+  [(MessageServiceSession *)self _relayLegacySatelliteMessage:messageCopy toChat:v9 localWatchOnly:onlyCopy];
 }
 
 - (void)_relayLegacySatelliteMessage:(id)message toChat:(id)chat localWatchOnly:(BOOL)only
@@ -5609,6 +5965,122 @@ LABEL_55:
   }
 }
 
+- (void)retryGroupPhotoUpload:(id)upload toChatID:(id)d identifier:(id)identifier style:(unsigned __int8)style account:(id)account isPhotoRefresh:(BOOL)refresh
+{
+  refreshCopy = refresh;
+  uploadCopy = upload;
+  dCopy = d;
+  identifierCopy = identifier;
+  styleCopy = style;
+  accountCopy = account;
+  if (IMOSLoggingEnabled())
+  {
+    v18 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138413314;
+      v36 = uploadCopy;
+      v37 = 2112;
+      v38 = dCopy;
+      v39 = 2112;
+      v40 = identifierCopy;
+      v41 = 1024;
+      v42 = styleCopy;
+      v43 = 2112;
+      v44 = accountCopy;
+      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_INFO, "Reuploading group photo. file transfer guid: %@ chatID: %@ chatIdentifier: %@ chat style: %c account: %@", buf, 0x30u);
+    }
+  }
+
+  v33 = identifierCopy;
+  [(MessageServiceSession *)self canonicalizeChatIdentifier:&v33 style:&styleCopy];
+  v19 = v33;
+
+  if (v19)
+  {
+    v20 = [(MessageServiceSession *)self chatForChatIdentifier:v19 style:styleCopy updatingAccount:1];
+    if (![v20 state])
+    {
+      if (IMOSLoggingEnabled())
+      {
+        v27 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+        {
+          *buf = 0;
+          _os_log_impl(&dword_0, v27, OS_LOG_TYPE_INFO, "*** Failed send group photo update because we've left the chat", buf, 2u);
+        }
+      }
+
+      goto LABEL_29;
+    }
+
+    v32 = 0;
+    v31 = _LastAddressedURIForChatLogMetricIfNeeded(v20, 0, self, &v32, 0);
+    v30 = v32;
+    v21 = IMMessageGuidFromIMFileTransferGuid();
+    groupPhotoGuid = [v20 groupPhotoGuid];
+    v23 = [uploadCopy isEqualToString:groupPhotoGuid];
+
+    if (v23)
+    {
+      v24 = +[IMDFileTransferCenter sharedInstance];
+      v25 = [v24 transferForGUID:uploadCopy];
+
+      if ([v25 transferState]== &dword_4 + 3 && [v25 error]== &dword_18 + 3)
+      {
+        [(MessageServiceSession *)self uploadGroupPhotoForChat:v20 fileTransferGUID:uploadCopy itemGUID:v21 callerURI:v31 idsAccount:v30 isPhotoRefresh:refreshCopy];
+      }
+
+      else if (IMOSLoggingEnabled())
+      {
+        v29 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138412290;
+          v36 = v25;
+          _os_log_impl(&dword_0, v29, OS_LOG_TYPE_INFO, "not retrying transfer -- it is not in recoverableErrorState or does not have group photo error %@", buf, 0xCu);
+        }
+      }
+    }
+
+    else
+    {
+      if (!IMOSLoggingEnabled())
+      {
+LABEL_28:
+
+LABEL_29:
+        goto LABEL_30;
+      }
+
+      v25 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      {
+        groupPhotoGuid2 = [v20 groupPhotoGuid];
+        *buf = 138412546;
+        v36 = uploadCopy;
+        v37 = 2112;
+        v38 = groupPhotoGuid2;
+        _os_log_impl(&dword_0, v25, OS_LOG_TYPE_INFO, "Trying to reupload group photo with wrong guid for chat. upload guid %@ chat group photo guid %@", buf, 0x16u);
+      }
+    }
+
+    goto LABEL_28;
+  }
+
+  if (IMOSLoggingEnabled())
+  {
+    v26 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_0, v26, OS_LOG_TYPE_INFO, "sendGroupPhotoUpdate early return -- no chat identifier", buf, 2u);
+    }
+  }
+
+LABEL_30:
+}
+
 - (void)generateTranscriptBackground:(id)background destinationURL:(id)l senderContext:(id)context resultBlock:(id)block
 {
   backgroundCopy = background;
@@ -5786,6 +6258,64 @@ LABEL_55:
 
     v11 = v45;
   }
+}
+
+- (void)joinChat:(id)chat handleInfo:(id)info style:(unsigned __int8)style groupID:(id)d lastAddressedHandle:(id)handle lastAddressedSIMID:(id)iD joinProperties:(id)properties
+{
+  styleCopy = style;
+  chatCopy = chat;
+  infoCopy = info;
+  dCopy = d;
+  handleCopy = handle;
+  iDCopy = iD;
+  propertiesCopy = properties;
+  if (IMOSLoggingEnabled())
+  {
+    v21 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412802;
+      v23 = chatCopy;
+      v24 = 1024;
+      v25 = styleCopy;
+      v26 = 2112;
+      v27 = infoCopy;
+      _os_log_impl(&dword_0, v21, OS_LOG_TYPE_INFO, "Request to join chat: %@  style: %c  handleInfo: %@", buf, 0x1Cu);
+    }
+  }
+
+  [(MessageServiceSession *)self _logLocalInfo];
+  [(MessageServiceSession *)self didJoinChat:chatCopy style:styleCopy displayName:0 groupID:dCopy lastAddressedHandle:handleCopy lastAddressedSIMID:iDCopy handleInfo:infoCopy];
+}
+
+- (void)leaveChat:(id)chat style:(unsigned __int8)style
+{
+  styleCopy = style;
+  chatCopy = chat;
+  if (IMOSLoggingEnabled())
+  {
+    v7 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412546;
+      v16 = chatCopy;
+      v17 = 1024;
+      v18 = styleCopy;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "Request to leave chat: %@  style: %c", buf, 0x12u);
+    }
+  }
+
+  [(MessageServiceSession *)self _logLocalInfo];
+  v8 = [(MessageServiceSession *)self chatForChatIdentifier:chatCopy style:styleCopy updatingAccount:1];
+  v14 = 0;
+  v9 = _LastAddressedURIForChatLogMetricIfNeeded(v8, 0, self, &v14, 0);
+  v10 = v14;
+  v11 = [(MessageServiceSession *)self idsServiceForIDSAccount:v10];
+  groupController = [(MessageServiceSession *)self groupController];
+  [groupController leaveChat:v8 fromID:v9 fromAccount:v10 session:self service:v11 completionBlock:&stru_1125E8];
+
+  v13 = [(MessageServiceSession *)self imdAccountForIDSAccount:v10];
+  [(MessageServiceSession *)self didLeaveChat:chatCopy style:styleCopy account:v13];
 }
 
 - (void)stageMessageWrapperBlock:(id)block
@@ -7042,34 +7572,33 @@ LABEL_13:
 {
   destinationsCopy = destinations;
   v4 = objc_alloc_init(NSMutableOrderedSet);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = destinationsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
-        v11 = IDSCopyRawAddressForDestination();
-        if ([v11 length])
+        v10 = IDSCopyRawAddressForDestination();
+        if ([v10 length])
         {
-          [v4 addObject:v11];
+          [v4 addObject:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
@@ -8108,9 +8637,9 @@ LABEL_36:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v52 = devicesCopy;
-      v53 = 2112;
-      v54 = destinationsCopy;
+      v51 = devicesCopy;
+      v52 = 2112;
+      v53 = destinationsCopy;
       _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "Sending nickname updates to my other devices %@ and peers %@", buf, 0x16u);
     }
   }
@@ -8126,87 +8655,86 @@ LABEL_36:
 
     else
     {
-      v42 = [(MessageServiceSession *)self idsServiceForIDSAccount:idsAccount];
+      v41 = [(MessageServiceSession *)self idsServiceForIDSAccount:idsAccount];
       if (IMOSLoggingEnabled())
       {
         v13 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
-          devices = [v42 devices];
+          devices = [v41 devices];
           v15 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [devices count]);
           *buf = 138412290;
-          v52 = v15;
+          v51 = v15;
           _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "Going to send nickname updates to %@ accounts", buf, 0xCu);
         }
       }
 
-      v47 = 0u;
-      v48 = 0u;
-      v45 = 0u;
       v46 = 0u;
-      devices2 = [v42 devices];
-      v17 = [devices2 countByEnumeratingWithState:&v45 objects:v59 count:16];
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      devices2 = [v41 devices];
+      v17 = [devices2 countByEnumeratingWithState:&v44 objects:v58 count:16];
       if (v17)
       {
-        v18 = *v46;
+        v18 = *v45;
         do
         {
-          for (i = 0; i != v17; i = i + 1)
+          for (i = 0; i != v17; ++i)
           {
-            if (*v46 != v18)
+            if (*v45 != v18)
             {
               objc_enumerationMutation(devices2);
             }
 
-            v20 = *(*(&v45 + 1) + 8 * i);
-            v21 = IDSCopyIDForDevice();
-            [(__CFString *)v8 addObject:v21];
+            v20 = IDSCopyIDForDevice();
+            [(__CFString *)v8 addObject:v20];
           }
 
-          v17 = [devices2 countByEnumeratingWithState:&v45 objects:v59 count:16];
+          v17 = [devices2 countByEnumeratingWithState:&v44 objects:v58 count:16];
         }
 
         while (v17);
       }
 
-      v22 = [(__CFString *)v8 count];
+      v21 = [(__CFString *)v8 count];
       devices3 = [idsAccount devices];
-      v24 = [devices3 count];
+      v23 = [devices3 count];
 
-      if (v24 == 0 || idsAccount == 0 || v22 == 0 || ([idsAccount devices], v25 = objc_claimAutoreleasedReturnValue(), v26 = v25 == 0, v25, v26))
+      if (v23 == 0 || idsAccount == 0 || v21 == 0 || ([idsAccount devices], v24 = objc_claimAutoreleasedReturnValue(), v25 = v24 == 0, v24, v25))
       {
         if (IMOSLoggingEnabled())
         {
-          v36 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+          v35 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
           {
             devices4 = [idsAccount devices];
-            v38 = devices4;
-            v39 = @"NO";
+            v37 = devices4;
+            v38 = @"NO";
             *buf = 138413058;
-            if (v24)
-            {
-              v40 = @"YES";
-            }
-
-            else
-            {
-              v40 = @"NO";
-            }
-
-            if (v22)
+            if (v23)
             {
               v39 = @"YES";
             }
 
-            v52 = v39;
-            v53 = 2112;
-            v54 = v40;
-            v55 = 2112;
-            v56 = idsAccount;
-            v57 = 2112;
-            v58 = devices4;
-            _os_log_impl(&dword_0, v36, OS_LOG_TYPE_INFO, "We did not have ids accounts to send nickname info out -- bailing {haveIDSDevicesToSendTo %@ haveTokenURISToSendTo %@ idsAccount %@ devices %@}", buf, 0x2Au);
+            else
+            {
+              v39 = @"NO";
+            }
+
+            if (v21)
+            {
+              v38 = @"YES";
+            }
+
+            v51 = v38;
+            v52 = 2112;
+            v53 = v39;
+            v54 = 2112;
+            v55 = idsAccount;
+            v56 = 2112;
+            v57 = devices4;
+            _os_log_impl(&dword_0, v35, OS_LOG_TYPE_INFO, "We did not have ids accounts to send nickname info out -- bailing {haveIDSDevicesToSendTo %@ haveTokenURISToSendTo %@ idsAccount %@ devices %@}", buf, 0x2Au);
           }
         }
 
@@ -8215,7 +8743,7 @@ LABEL_36:
       }
     }
 
-    v42 = [(MessageServiceSession *)self callerURIForIDSAccount:idsAccount];
+    v41 = [(MessageServiceSession *)self callerURIForIDSAccount:idsAccount];
     v9 = objc_alloc_init(NSMutableDictionary);
     v10 = [NSNumber numberWithUnsignedInt:70000];
     if (v10)
@@ -8228,34 +8756,34 @@ LABEL_36:
       sub_BBEE4();
     }
 
-    v27 = +[NSString stringGUID];
-    v28 = [NSNumber numberWithInteger:180];
-    v29 = IDSGetUUIDData();
-    v30 = [NSNumber numberWithDouble:IDSMaxMessageTimeout];
-    v31 = [NSMutableDictionary dictionaryWithObjectsAndKeys:IDSSendMessageOptionTopLevelDictionaryKey, &__kCFBooleanTrue, IDSSendMessageOptionSkipPayloadCheckKey, v28, IDSSendMessageOptionCommandKey, v29, IDSSendMessageOptionUUIDKey, v30, IDSSendMessageOptionTimeoutKey, &__kCFBooleanTrue, IDSSendMessageOptionWantsDeliveryStatusKey, v9, IDSSendMessageOptionDeliveryStatusContextKey, 0];
+    v26 = +[NSString stringGUID];
+    v27 = [NSNumber numberWithInteger:180];
+    v28 = IDSGetUUIDData();
+    v29 = [NSNumber numberWithDouble:IDSMaxMessageTimeout];
+    v30 = [NSMutableDictionary dictionaryWithObjectsAndKeys:IDSSendMessageOptionTopLevelDictionaryKey, &__kCFBooleanTrue, IDSSendMessageOptionSkipPayloadCheckKey, v27, IDSSendMessageOptionCommandKey, v28, IDSSendMessageOptionUUIDKey, v29, IDSSendMessageOptionTimeoutKey, &__kCFBooleanTrue, IDSSendMessageOptionWantsDeliveryStatusKey, v9, IDSSendMessageOptionDeliveryStatusContextKey, 0];
 
-    v49[0] = @"gC";
-    v32 = [NSNumber numberWithUnsignedInt:70000];
-    v49[1] = @"pID";
-    v50[0] = v32;
-    v50[1] = devicesCopy;
-    v33 = [NSDictionary dictionaryWithObjects:v50 forKeys:v49 count:2];
+    v48[0] = @"gC";
+    v31 = [NSNumber numberWithUnsignedInt:70000];
+    v48[1] = @"pID";
+    v49[0] = v31;
+    v49[1] = devicesCopy;
+    v32 = [NSDictionary dictionaryWithObjects:v49 forKeys:v48 count:2];
 
     if (IMOSLoggingEnabled())
     {
-      v34 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+      v33 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v52 = v33;
-        v53 = 2112;
-        v54 = v8;
-        _os_log_impl(&dword_0, v34, OS_LOG_TYPE_INFO, "Sending generic command to update nickname properties with message dictionary %@ to destinations %@", buf, 0x16u);
+        v51 = v32;
+        v52 = 2112;
+        v53 = v8;
+        _os_log_impl(&dword_0, v33, OS_LOG_TYPE_INFO, "Sending generic command to update nickname properties with message dictionary %@ to destinations %@", buf, 0x16u);
       }
     }
 
     deliveryController = [(MessageServiceSession *)self deliveryController];
-    [deliveryController sendMessageDictionary:v33 encryptDictionary:1 fromID:v42 fromAccount:idsAccount toURIs:v8 toGroup:0 priority:300 options:v31 willSendBlock:0 completionBlock:&stru_1127A8];
+    [deliveryController sendMessageDictionary:v32 encryptDictionary:1 fromID:v41 fromAccount:idsAccount toURIs:v8 toGroup:0 priority:300 options:v30 willSendBlock:0 completionBlock:&stru_1127A8];
 
     v12 = 1;
 LABEL_46:
@@ -8478,6 +9006,390 @@ LABEL_32:
   }
 
 LABEL_33:
+}
+
+- (void)doneRetrievingAttachmentsForGroupPhotoForChat:(id)chat fileTransferError:(id)error success:(BOOL)success transferGuid:(id)guid sender:(id)sender isHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  successCopy = success;
+  chatCopy = chat;
+  errorCopy = error;
+  guidCopy = guid;
+  senderCopy = sender;
+  if (IMOSLoggingEnabled())
+  {
+    v18 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    {
+      guid = [chatCopy guid];
+      v20 = @"NO";
+      *v36 = 138413058;
+      *&v36[4] = guid;
+      if (successCopy)
+      {
+        v21 = @"YES";
+      }
+
+      else
+      {
+        v21 = @"NO";
+      }
+
+      *&v36[14] = v21;
+      *&v36[12] = 2112;
+      if (hiddenCopy)
+      {
+        v20 = @"YES";
+      }
+
+      *&v36[22] = 2112;
+      v37 = errorCopy;
+      v38 = 2112;
+      v39 = v20;
+      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_INFO, "Finished retrieving attachments for group photo update. chatGuid %@ success %@ error %@ isHidden %@", v36, 0x2Au);
+    }
+  }
+
+  if (IMOSLoggingEnabled())
+  {
+    v22 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    {
+      *v36 = 138412290;
+      *&v36[4] = chatCopy;
+      _os_log_impl(&dword_0, v22, OS_LOG_TYPE_INFO, " => chat: %@", v36, 0xCu);
+    }
+  }
+
+  if (successCopy)
+  {
+    v23 = +[IMDFileTransferCenter sharedInstance];
+    v24 = [v23 transferForGUID:guidCopy];
+
+    if ([v24 transferState] < 6)
+    {
+      v26 = [v24 transferState] > 3;
+      v27 = IMOSLoggingEnabled();
+      if (v26)
+      {
+        if (v27)
+        {
+          v28 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+          {
+            *v36 = 138412290;
+            *&v36[4] = v24;
+            _os_log_impl(&dword_0, v28, OS_LOG_TYPE_INFO, "Transfer for group photo finalizing/finished %@", v36, 0xCu);
+          }
+        }
+
+        [(MessageServiceSession *)self groupPhotoDownloadCompletedForChat:chatCopy fileTransferError:errorCopy success:1 transferGuid:guidCopy sender:senderCopy isHidden:hiddenCopy, *v36, *&v36[8]];
+      }
+
+      else
+      {
+        if (v27)
+        {
+          v29 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+          {
+            *v36 = 138412290;
+            *&v36[4] = v24;
+            _os_log_impl(&dword_0, v29, OS_LOG_TYPE_INFO, "Transfer for group photo not yet finalizing %@", v36, 0xCu);
+          }
+        }
+
+        v30 = objc_alloc_init(NSMutableDictionary);
+        guid2 = [chatCopy guid];
+        if (guid2)
+        {
+          CFDictionarySetValue(v30, @"chat", guid2);
+        }
+
+        if (senderCopy)
+        {
+          CFDictionarySetValue(v30, @"sender", senderCopy);
+        }
+
+        v32 = [NSNumber numberWithBool:hiddenCopy, *v36, *&v36[8]];
+        if (v32)
+        {
+          CFDictionarySetValue(v30, @"isHidden", v32);
+        }
+
+        if (IMOSLoggingEnabled())
+        {
+          v33 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+          {
+            *v36 = 138412546;
+            *&v36[4] = v24;
+            *&v36[12] = 2112;
+            *&v36[14] = v30;
+            _os_log_impl(&dword_0, v33, OS_LOG_TYPE_INFO, "Adding pending group photo download %@ %@", v36, 0x16u);
+          }
+        }
+
+        pendingGroupPhotoDownloads = [(MessageServiceSession *)self pendingGroupPhotoDownloads];
+        [pendingGroupPhotoDownloads setObject:v30 forKey:guidCopy];
+      }
+    }
+
+    else if (IMOSLoggingEnabled())
+    {
+      v25 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      {
+        *v36 = 138412290;
+        *&v36[4] = v24;
+        _os_log_impl(&dword_0, v25, OS_LOG_TYPE_INFO, "Transfer for group photo in error state %@", v36, 0xCu);
+      }
+    }
+  }
+
+  else if (IMOSLoggingEnabled())
+  {
+    v35 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+    {
+      *v36 = 0;
+      _os_log_impl(&dword_0, v35, OS_LOG_TYPE_INFO, " => failed retrieving attachments for group photo change", v36, 2u);
+    }
+  }
+}
+
+- (void)_updateOrRemoveGroupPhotoForChat:(id)chat sender:(id)sender completedTransfer:(id)transfer isHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  chatCopy = chat;
+  senderCopy = sender;
+  transferCopy = transfer;
+  if (IMOSLoggingEnabled())
+  {
+    v12 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    {
+      guid = [transferCopy guid];
+      v14 = @"NO";
+      if (!guid)
+      {
+        v14 = @"YES";
+      }
+
+      *buf = 138412290;
+      v45 = v14;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_INFO, "Generating chatItem for group photo change. Was group photo removal: %@", buf, 0xCu);
+    }
+  }
+
+  v43 = [ChatAssetStatusChangeContext contextWithAssetChangeType:0 isHidden:hiddenCopy hasSensitiveContent:0];
+  guid2 = [transferCopy guid];
+  v16 = [(MessageServiceSession *)self generateAndStoreAssetChangeStatusItemForChat:chatCopy sender:senderCopy fileTransferGuid:guid2 assetStatusChange:v43];
+
+  if (v16)
+  {
+    v17 = +[IMDAttachmentStore sharedInstance];
+    guid3 = [(__CFString *)v16 guid];
+    [v17 storeAttachment:transferCopy associateWithMessageWithGUID:guid3];
+
+    attachmentController = [(MessageServiceSession *)self attachmentController];
+    guid4 = [transferCopy guid];
+    guid5 = [(__CFString *)v16 guid];
+    [attachmentController updateGroupPhoto:guid4 forChat:chatCopy messageGuid:guid5];
+
+    sender = [(__CFString *)v16 sender];
+    if (sender)
+    {
+      v23 = hiddenCopy;
+    }
+
+    else
+    {
+      v23 = 1;
+    }
+
+    if (v23)
+    {
+      v41 = 0;
+    }
+
+    else
+    {
+      v48 = @"sender";
+      sender2 = [(__CFString *)v16 sender];
+      v49 = sender2;
+      v41 = [NSDictionary dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+    }
+
+    if (IMOSLoggingEnabled())
+    {
+      v26 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+      {
+        chatIdentifier = [chatCopy chatIdentifier];
+        *buf = 138412546;
+        v45 = chatIdentifier;
+        v46 = 2112;
+        v47 = v41;
+        _os_log_impl(&dword_0, v26, OS_LOG_TYPE_INFO, "Broadcasting groupPhotoUpdatedForChatIdentifier: %@ userInfo: %@", buf, 0x16u);
+      }
+    }
+
+    broadcasterForChatListeners = [(MessageServiceSession *)self broadcasterForChatListeners];
+    chatIdentifier2 = [chatCopy chatIdentifier];
+    style = [chatCopy style];
+    account = [(MessageServiceSession *)self account];
+    accountID = [account accountID];
+    [broadcasterForChatListeners groupPhotoUpdatedForChatIdentifier:chatIdentifier2 style:style account:accountID userInfo:v41];
+
+    if (IMOSLoggingEnabled())
+    {
+      v33 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412290;
+        v45 = v16;
+        _os_log_impl(&dword_0, v33, OS_LOG_TYPE_INFO, "Broadcasting messageReceived %@", buf, 0xCu);
+      }
+    }
+
+    broadcasterForChatListeners2 = [(MessageServiceSession *)self broadcasterForChatListeners];
+    account2 = [(MessageServiceSession *)self account];
+    accountID2 = [account2 accountID];
+    chatIdentifier3 = [chatCopy chatIdentifier];
+    style2 = [chatCopy style];
+    groupID = [chatCopy groupID];
+    personCentricID = [chatCopy personCentricID];
+    [broadcasterForChatListeners2 account:accountID2 chat:chatIdentifier3 style:style2 chatProperties:0 groupID:groupID chatPersonCentricID:personCentricID messageReceived:v16];
+  }
+
+  else if (IMOSLoggingEnabled())
+  {
+    v24 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_0, v24, OS_LOG_TYPE_INFO, "Did not generate a message item, bailing early", buf, 2u);
+    }
+  }
+}
+
+- (void)groupPhotoDownloadCompletedForChat:(id)chat fileTransferError:(id)error success:(BOOL)success transferGuid:(id)guid sender:(id)sender isHidden:(BOOL)hidden
+{
+  hiddenCopy = hidden;
+  successCopy = success;
+  chatCopy = chat;
+  errorCopy = error;
+  guidCopy = guid;
+  senderCopy = sender;
+  if (IMOSLoggingEnabled())
+  {
+    v15 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    {
+      guid = [chatCopy guid];
+      v17 = @"NO";
+      *buf = 138413058;
+      *&buf[4] = guid;
+      if (successCopy)
+      {
+        v18 = @"YES";
+      }
+
+      else
+      {
+        v18 = @"NO";
+      }
+
+      *&buf[14] = v18;
+      *&buf[12] = 2112;
+      if (hiddenCopy)
+      {
+        v17 = @"YES";
+      }
+
+      *&buf[22] = 2112;
+      *&buf[24] = errorCopy;
+      LOWORD(v44[0]) = 2112;
+      *(v44 + 2) = v17;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "Group photo download completed. chatGuid %@ success %@ error %@ isHidden %@", buf, 0x2Au);
+    }
+  }
+
+  if (IMOSLoggingEnabled())
+  {
+    v19 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      *&buf[4] = chatCopy;
+      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_INFO, " => chat: %@", buf, 0xCu);
+    }
+  }
+
+  if (successCopy)
+  {
+    if (guidCopy)
+    {
+      v20 = +[IMDFileTransferCenter sharedInstance];
+      v21 = [v20 transferForGUID:guidCopy];
+
+      localURL = [v21 localURL];
+      if (localURL && (+[NSFileManager defaultManager](NSFileManager, "defaultManager"), v23 = objc_claimAutoreleasedReturnValue(), [v21 localURL], v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v24, "path"), v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v23, "fileExistsAtPath:", v25), v25, v24, v23, localURL, v26))
+      {
+        v44[0] = 0;
+        memset(buf, 0, sizeof(buf));
+        IMPreviewConstraintsZero();
+        *buf = xmmword_CE170;
+        *&buf[16] = xmmword_CE180;
+        LOWORD(v44[0]) = 0;
+        BYTE2(v44[0]) = 0;
+        localURL2 = [v21 localURL];
+        v28 = +[IMTranscodeController sharedInstance];
+        v37[0] = _NSConcreteStackBlock;
+        v37[1] = 3221225472;
+        v37[2] = sub_2DD48;
+        v37[3] = &unk_1127F0;
+        v37[4] = self;
+        v38 = chatCopy;
+        v39 = senderCopy;
+        v42 = hiddenCopy;
+        v40 = v21;
+        v41 = localURL2;
+        v35[0] = *buf;
+        v35[1] = *&buf[16];
+        v36 = v44[0];
+        v29 = localURL2;
+        [v28 replaceTransferWithSafeTransfer:v29 constraints:v35 completionBlock:v37];
+      }
+
+      else if (IMOSLoggingEnabled())
+      {
+        v30 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+        {
+          *buf = 138412290;
+          *&buf[4] = v21;
+          _os_log_impl(&dword_0, v30, OS_LOG_TYPE_INFO, " => completed transfer had nil or missing localURL: %@", buf, 0xCu);
+        }
+      }
+    }
+
+    else
+    {
+      [(MessageServiceSession *)self _updateOrRemoveGroupPhotoForChat:chatCopy sender:senderCopy completedTransfer:0 isHidden:hiddenCopy];
+    }
+  }
+
+  else if (IMOSLoggingEnabled())
+  {
+    v31 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_0, v31, OS_LOG_TYPE_INFO, " => failed retrieving attachments for group photo change", buf, 2u);
+    }
+  }
 }
 
 - (BOOL)shouldDownloadGroupPhoto:(id)photo
@@ -8869,6 +9781,27 @@ LABEL_100:
   _dictionaryToSend = [v6 _dictionaryToSend];
 
   return _dictionaryToSend;
+}
+
+- (void)requestGroupPhotoIfNecessary:(id)necessary incomingParticipantVersion:(int64_t)version incomingGroupPhotoCreationTime:(id)time toIdentifier:(id)identifier fromIdentifier:(id)fromIdentifier messageIsFromStorage:(BOOL)storage
+{
+  storageCopy = storage;
+  timeCopy = time;
+  fromIdentifierCopy = fromIdentifier;
+  identifierCopy = identifier;
+  necessaryCopy = necessary;
+  if ([timeCopy unsignedLongLongValue])
+  {
+    v17 = [NSDate __im_iMessageDateFromTimeStamp:timeCopy];
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  groupController = [(MessageServiceSession *)self groupController];
+  [groupController requestGroupPhotoIfNecessary:necessaryCopy incomingParticipantVersion:version incomingGroupPhotoCreationDate:v17 toIdentifier:identifierCopy fromIdentifier:fromIdentifierCopy messageIsFromStorage:storageCopy session:self];
 }
 
 - (id)_messageDictionaryForDeleteCommandShouldResetPreference:(BOOL)preference
@@ -9276,6 +10209,54 @@ LABEL_34:
     v31.receiver = self;
     v31.super_class = MessageServiceSession;
     [(MessageServiceSession *)&v31 updateDisplayName:v23 fromDisplayName:displayNameCopy fromID:dCopy forChatID:v24 identifier:v25 style:styleCopy messageID:messageIDCopy];
+  }
+}
+
+- (void)closeSessionForChat:(id)chat chatGUID:(id)d didDeleteConversation:(BOOL)conversation style:(unsigned __int8)style
+{
+  conversationCopy = conversation;
+  chatCopy = chat;
+  dCopy = d;
+  if (IMOSLoggingEnabled())
+  {
+    v10 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412290;
+      v31 = chatCopy;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "Request to close business session for chat identifier: %@", buf, 0xCu);
+    }
+  }
+
+  v11 = [(MessageServiceSession *)self chatForChatIdentifier:chatCopy style:45 updatingAccount:1];
+  v27 = 0;
+  v26 = _LastAddressedURIForChatLogMetricIfNeeded(v11, 0, self, &v27, 0);
+  v25 = v27;
+  v28[0] = @"sV";
+  v28[1] = @"cID";
+  v29[0] = &off_119260;
+  v29[1] = chatCopy;
+  v28[2] = @"dc";
+  v12 = [NSNumber numberWithBool:conversationCopy];
+  v29[2] = v12;
+  v13 = [NSDictionary dictionaryWithObjects:v29 forKeys:v28 count:3];
+
+  deliveryController = [(MessageServiceSession *)self deliveryController];
+  [deliveryController sendCloseSessionMessageDictionary:v13 toBusinessURI:chatCopy fromURI:v26 fromAccount:v25 completionBlock:&stru_1128A0];
+
+  [v11 deleteBIAContext];
+  if (!conversationCopy)
+  {
+    v23 = [(MessageServiceSession *)self _generateAndStoreGroupActionItemForChat:v11 sender:chatCopy];
+    broadcasterForChatListeners = [(MessageServiceSession *)self broadcasterForChatListeners];
+    account = [(MessageServiceSession *)self account];
+    accountID = [account accountID];
+    chatIdentifier = [v11 chatIdentifier];
+    style = [v11 style];
+    chatProperties = [v11 chatProperties];
+    groupID = [v11 groupID];
+    personCentricID = [v11 personCentricID];
+    [broadcasterForChatListeners account:accountID chat:chatIdentifier style:style chatProperties:chatProperties groupID:groupID chatPersonCentricID:personCentricID messageReceived:v23];
   }
 }
 
@@ -9841,6 +10822,34 @@ LABEL_18:
     }
 
     goto LABEL_18;
+  }
+}
+
+- (void)didReceiveMessages:(id)messages forChat:(id)chat style:(unsigned __int8)style account:(id)account fromIDSID:(id)d completion:(id)completion
+{
+  styleCopy = style;
+  messagesCopy = messages;
+  chatCopy = chat;
+  accountCopy = account;
+  dCopy = d;
+  completionCopy = completion;
+  v20.receiver = self;
+  v20.super_class = MessageServiceSession;
+  [(MessageServiceSession *)&v20 didReceiveMessages:messagesCopy forChat:chatCopy style:styleCopy account:accountCopy fromIDSID:dCopy completion:completionCopy];
+  if (styleCopy == 45)
+  {
+    if (IMOSLoggingEnabled())
+    {
+      v19 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      {
+        *buf = 138412290;
+        v22 = chatCopy;
+        _os_log_impl(&dword_0, v19, OS_LOG_TYPE_INFO, "Clearing downgrade markers for chat due to incoming message: %@", buf, 0xCu);
+      }
+    }
+
+    [(MessageServiceSession *)self _clearDowngradeMarkersForChat:chatCopy];
   }
 }
 
@@ -10749,6 +11758,30 @@ LABEL_47:
   [v4 preWarmMMCSForOwnerID:gUID];
 }
 
+- (void)processNetworkDataAvailabilityChange:(BOOL)change
+{
+  changeCopy = change;
+  if (IMOSLoggingEnabled())
+  {
+    v4 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    {
+      v5 = @"NO";
+      if (changeCopy)
+      {
+        v5 = @"YES";
+      }
+
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "networkDataAvailable, %@", &v7, 0xCu);
+    }
+  }
+
+  v6 = +[IMDAccountController sharedAccountController];
+  [v6 setNetworkDataAvailable:changeCopy];
+}
+
 - (void)renewTTLForScheduledAttachmentTransfer:(id)transfer
 {
   transferCopy = transfer;
@@ -11465,9 +12498,9 @@ LABEL_47:
             }
           }
 
-          broadcaster = [(MessageServiceSession *)self broadcaster];
+          v21 = [(MessageServiceSession *)self broadcaster:*v24];
           dataRepresentation = [profileCopy dataRepresentation];
-          [broadcaster updateNicknameData:dataRepresentation];
+          [v21 updateNicknameData:dataRepresentation];
         }
       }
 
@@ -11527,6 +12560,19 @@ LABEL_47:
     v19 = [NSArray arrayWithObjects:&v25 count:1];
     guid = [v7 guid];
     [chatRegistry markAsSpamForIDs:v8 style:style onServices:v19 chatID:guid queryID:0 autoReport:1];
+  }
+}
+
+- (BOOL)_sendCertifiedDeliveryReceiptIfPossible:(id)possible messageContext:(id)context guid:(id)guid messageWasStored:(BOOL)stored needsDeliveryReceipt:(BOOL)receipt failureReason:(id)reason
+{
+  if (stored)
+  {
+    return _im_sendCertifiedDeliveryReceiptIfPossible(possible, context, guid, receipt, reason, 0);
+  }
+
+  else
+  {
+    return 0;
   }
 }
 
@@ -12288,6 +13334,51 @@ LABEL_26:
   return v12;
 }
 
+- (void)_handleMessageSentToSelf:(id)self chatIdentifier:(id)identifier style:(unsigned __int8)style isLocal:(BOOL)local account:(id)account
+{
+  styleCopy = style;
+  selfCopy = self;
+  identifierCopy = identifier;
+  accountCopy = account;
+  if (!accountCopy)
+  {
+    accountCopy = [(MessageServiceSession *)self account];
+  }
+
+  if ([selfCopy isFromMe])
+  {
+    if (([selfCopy isTypingMessage] & 1) == 0)
+    {
+      handle = [selfCopy handle];
+      v15 = sub_3DE30(handle);
+
+      if (!v15)
+      {
+        if (IMOSLoggingEnabled())
+        {
+          v16 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+          {
+            *buf = 138412802;
+            v21 = selfCopy;
+            v22 = 2112;
+            v23 = identifierCopy;
+            v24 = 1024;
+            v25 = styleCopy;
+            _os_log_impl(&dword_0, v16, OS_LOG_TYPE_INFO, "Need to handle message sent to myself: %@   chat: %@  style: %d", buf, 0x1Cu);
+          }
+        }
+
+        [(MessageServiceSession *)self shouldSendReadReceiptsForChat:identifierCopy style:styleCopy];
+        v17 = selfCopy;
+        v18 = identifierCopy;
+        v19 = accountCopy;
+        im_dispatch_after();
+      }
+    }
+  }
+}
+
 - (void)handleBreadcrumbForNewSentMessageItemIfNecessary:(id)necessary withContext:(id)context
 {
   necessaryCopy = necessary;
@@ -12765,6 +13856,82 @@ LABEL_22:
   }
 }
 
+- (void)sendMessage:(id)message toChat:(id)chat style:(unsigned __int8)style destinationHandles:(id)handles
+{
+  styleCopy = style;
+  handlesCopy = handles;
+  chatCopy = chat;
+  messageCopy = message;
+  account = [(MessageServiceSession *)self account];
+  [(MessageServiceSession *)self sendMessage:messageCopy toChat:chatCopy style:styleCopy account:account destinationHandles:handlesCopy];
+}
+
+- (void)sendMessage:(id)message toChat:(id)chat style:(unsigned __int8)style account:(id)account destinationHandles:(id)handles
+{
+  styleCopy = style;
+  messageCopy = message;
+  chatCopy = chat;
+  accountCopy = account;
+  handlesCopy = handles;
+  if ([(MessageServiceSession *)self _shouldInitiateTelephonyConversationForMessage:messageCopy])
+  {
+    if (IMOSLoggingEnabled())
+    {
+      v16 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      {
+        guid = [messageCopy guid];
+        *buf = 138412290;
+        v28 = guid;
+        _os_log_impl(&dword_0, v16, OS_LOG_TYPE_INFO, "Initiating TUConversation for message %@ and not actually sending the message", buf, 0xCu);
+      }
+    }
+
+    [(MessageServiceSession *)self _initiateTelephonyConversationForMessage:messageCopy chatIdentifier:chatCopy chatStyle:styleCopy onSession:self];
+  }
+
+  else
+  {
+    v18 = [(MessageServiceSession *)self _buildSendMessageContextWithChatIdentifier:chatCopy withChatStyle:styleCopy withServiceSession:self withMessage:messageCopy destinations:handlesCopy];
+    if (v18)
+    {
+      [(MessageServiceSession *)self _notifyOfSendMessage:messageCopy withContext:v18];
+      [(MessageServiceSession *)self _startTimingMessageSend];
+      [(MessageServiceSession *)self handleBreadcrumbForNewSentMessageItemIfNecessary:messageCopy withContext:v18];
+      v19 = [(MessageServiceSession *)self _processMessageForSending:messageCopy withContext:v18];
+
+      if (v19)
+      {
+        v20 = [(MessageServiceSession *)self _processMessageForSendingToGroupIfNeeded:v19 withContext:v18];
+        if (v20)
+        {
+          [v18 setGroupMessageContext:v20];
+          [(MessageServiceSession *)self _refreshGroupPhotoTTLIfNecessary:v19 withContext:v18];
+          [(MessageServiceSession *)self _refreshTranscriptBackgroundTTLIfNecessary:v19 withContext:v18];
+          v23[0] = _NSConcreteStackBlock;
+          v23[1] = 3221225472;
+          v23[2] = sub_88E38;
+          v23[3] = &unk_114538;
+          v21 = v18;
+          v24 = v21;
+          selfCopy = self;
+          v22 = v19;
+          v26 = v22;
+          [(MessageServiceSession *)self _deliverMessage:v22 withContext:v21 withBlock:v23];
+          [(MessageServiceSession *)self _storeSentMessage:v22 withContext:v21];
+        }
+      }
+    }
+
+    else
+    {
+      v19 = messageCopy;
+    }
+
+    messageCopy = v19;
+  }
+}
+
 - (void)cancelScheduledMessageWithGUID:(id)d
 {
   dCopy = d;
@@ -12786,6 +13953,65 @@ LABEL_22:
   v14 = _LastAddressedURIForChatLogMetricIfNeeded(v13, 0, self, 0, 0);
   deliveryController = [(MessageServiceSession *)self deliveryController];
   [deliveryController cancelScheduledMessageWithGUID:dCopy fromID:v14 destinations:destinationsCopy cancelType:type];
+}
+
+- (void)sendEditedScheduledMessage:(id)message previousMessage:(id)previousMessage partIndex:(int64_t)index editType:(unint64_t)type toChatIdentifier:(id)identifier style:(unsigned __int8)style account:(id)account
+{
+  styleCopy = style;
+  identifierCopy = identifier;
+  previousMessageCopy = previousMessage;
+  messageCopy = message;
+  v20 = +[IMDMessageStore sharedInstance];
+  v18 = [(MessageServiceSession *)self chatForChatIdentifier:identifierCopy style:styleCopy];
+  v19 = [v20 storeEditedMessage:messageCopy editedPartIndex:index editType:type previousMessage:previousMessageCopy chat:v18 updatedAssociatedMessageItems:0];
+
+  [(MessageServiceSession *)self sendMessage:v19 toChat:identifierCopy style:styleCopy];
+}
+
+- (void)sendEditedScheduledMessage:(id)message previousMessage:(id)previousMessage retractingPartIndexes:(id)indexes toChatIdentifier:(id)identifier style:(unsigned __int8)style account:(id)account
+{
+  styleCopy = style;
+  identifierCopy = identifier;
+  indexesCopy = indexes;
+  previousMessageCopy = previousMessage;
+  messageCopy = message;
+  v19 = +[IMDMessageStore sharedInstance];
+  v17 = [(MessageServiceSession *)self chatForChatIdentifier:identifierCopy style:styleCopy];
+  v18 = [v19 storeEditedMessage:messageCopy editedPartIndexes:indexesCopy editType:2 previousMessage:previousMessageCopy chat:v17 updatedAssociatedMessageItems:0];
+
+  [(MessageServiceSession *)self sendMessage:v18 toChat:identifierCopy style:styleCopy];
+}
+
+- (void)sendHQAttachmentsForMessage:(id)message toChatID:(id)d style:(unsigned __int8)style
+{
+  styleCopy = style;
+  messageCopy = message;
+  dCopy = d;
+  v10 = [(MessageServiceSession *)self _buildSendMessageContextWithChatIdentifier:dCopy withChatStyle:styleCopy withServiceSession:self withMessage:messageCopy destinations:0];
+  if (v10)
+  {
+    v11 = [(MessageServiceSession *)self _processMessageForSendingToGroupIfNeeded:messageCopy withContext:v10];
+    if (v11)
+    {
+      [v10 setGroupMessageContext:v11];
+      fromURI = [v10 fromURI];
+      originalParticipantURIs = [v10 originalParticipantURIs];
+      v14 = PeopleSetByAddingMyID(fromURI, originalParticipantURIs);
+
+      deliveryController = [(MessageServiceSession *)self deliveryController];
+      groupMessageContext = [v10 groupMessageContext];
+      additionalPayload = [groupMessageContext additionalPayload];
+      fromURI2 = [v10 fromURI];
+      idsAccount = [v10 idsAccount];
+      v21[0] = _NSConcreteStackBlock;
+      v21[1] = 3221225472;
+      v21[2] = sub_89438;
+      v21[3] = &unk_112200;
+      v22 = messageCopy;
+      LOBYTE(v19) = 0;
+      [deliveryController sendHQAttachmentsForMessage:v22 context:additionalPayload fromID:fromURI2 fromAccount:idsAccount chatIdentifier:dCopy toGroup:0 originallyToParticipants:v14 canInlineAttachments:v19 recipients:v14 completionBlock:v21];
+    }
+  }
 }
 
 - (void)_notifyOfSendMessage:(id)message withContext:(id)context
@@ -12879,6 +14105,22 @@ LABEL_22:
     v4 = +[NSDate date];
     IMSetDomainValueForKey();
   }
+}
+
+- (void)_didSendMessage:(id)message withContext:(id)context forceDate:(id)date fromStorage:(BOOL)storage
+{
+  storageCopy = storage;
+  dateCopy = date;
+  contextCopy = context;
+  messageCopy = message;
+  serviceSession = [contextCopy serviceSession];
+  chat = [contextCopy chat];
+  chatIdentifier = [chat chatIdentifier];
+  chat2 = [contextCopy chat];
+
+  style = [chat2 style];
+  account = [(MessageServiceSession *)self account];
+  [serviceSession didSendMessage:messageCopy forChat:chatIdentifier style:style account:account forceDate:dateCopy itemIsComingFromStorage:storageCopy];
 }
 
 - (id)_setCallerIDOnMessage:(id)message onChat:(id)chat withIDSAccount:(id *)account withServiceSession:(id)session
@@ -13221,6 +14463,63 @@ LABEL_41:
   _Block_object_dispose(&v22, 8);
 
   return v15;
+}
+
+- (void)processMessageForSending:(id)sending toChat:(id)chat style:(unsigned __int8)style allowWatchdog:(BOOL)watchdog account:(id)account didReplaceMessageBlock:(id)block completionBlock:(id)completionBlock
+{
+  watchdogCopy = watchdog;
+  styleCopy = style;
+  sendingCopy = sending;
+  chatCopy = chat;
+  accountCopy = account;
+  blockCopy = block;
+  completionBlockCopy = completionBlock;
+  if ([sendingCopy scheduleType] == &dword_0 + 2)
+  {
+    v17 = +[NSDate date];
+    [sendingCopy setScheduledMessageLastModifiedTime:v17];
+  }
+
+  v18 = sendingCopy;
+  v32 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  selfCopy = self;
+  serviceSessionDelegates = [(MessageServiceSession *)self serviceSessionDelegates];
+  v20 = [serviceSessionDelegates countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v29 = v18;
+  if (v20)
+  {
+    v21 = v20;
+    v22 = *v33;
+    do
+    {
+      for (i = 0; i != v21; i = i + 1)
+      {
+        if (*v33 != v22)
+        {
+          objc_enumerationMutation(serviceSessionDelegates);
+        }
+
+        v24 = *(*(&v32 + 1) + 8 * i);
+        if (objc_opt_respondsToSelector())
+        {
+          v25 = [v24 processMessageForSending:v18 toChat:chatCopy style:styleCopy allowWatchdog:watchdogCopy account:accountCopy];
+
+          v18 = v25;
+        }
+      }
+
+      v21 = [serviceSessionDelegates countByEnumeratingWithState:&v32 objects:v36 count:16];
+    }
+
+    while (v21);
+  }
+
+  v31.receiver = selfCopy;
+  v31.super_class = MessageServiceSession;
+  [(MessageServiceSession *)&v31 processMessageForSending:v18 toChat:chatCopy style:styleCopy allowWatchdog:watchdogCopy account:accountCopy didReplaceMessageBlock:blockCopy completionBlock:completionBlockCopy];
 }
 
 - (id)_processMessageForSendingToGroupIfNeeded:(id)needed withContext:(id)context
@@ -14201,6 +15500,180 @@ LABEL_21:
   return isAVLessSharePlayEnabled;
 }
 
+- (void)_initiateTelephonyConversationForMessage:(id)message chatIdentifier:(id)identifier chatStyle:(unsigned __int8)style onSession:(id)session
+{
+  styleCopy = style;
+  messageCopy = message;
+  identifierCopy = identifier;
+  sessionCopy = session;
+  groupActivity = [messageCopy groupActivity];
+
+  if (groupActivity)
+  {
+    v12 = +[IMDChatRegistry sharedInstance];
+    v13 = [v12 existingiMessageChatForID:identifierCopy withChatStyle:styleCopy];
+
+    if (!v13)
+    {
+      if (IMOSLoggingEnabled())
+      {
+        v41 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
+        {
+          guid = [messageCopy guid];
+          *buf = 138412290;
+          v52 = guid;
+          _os_log_impl(&dword_0, v41, OS_LOG_TYPE_INFO, "Failed to find chat while attempting to initiate TUConversation for msg guid %@", buf, 0xCu);
+        }
+      }
+
+      goto LABEL_39;
+    }
+
+    participants = [v13 participants];
+    v48 = [participants __imArrayByApplyingBlock:&stru_114708];
+    v14 = v48;
+    if ([v48 count])
+    {
+      v15 = [v48 __imArrayByApplyingBlock:&stru_114748];
+      __imSetFromArray = [v15 __imSetFromArray];
+
+      v16 = [__imSetFromArray count];
+      participants2 = [v13 participants];
+      v18 = [participants2 count];
+
+      if (v16 == v18)
+      {
+        v19 = [__imSetFromArray count];
+        v20 = [[TUJoinConversationRequest alloc] initWithRemoteMembers:__imSetFromArray];
+        if (v19 >= 2)
+        {
+          v21 = [NSUUID alloc];
+          groupID = [v13 groupID];
+          v23 = [v21 initWithUUIDString:groupID];
+          [v20 setMessagesGroupUUID:v23];
+
+          displayName = [v13 displayName];
+          [v20 setMessagesGroupName:displayName];
+        }
+
+        v25 = [TUConversationInvitationPreference invitationPreferencesForAllHandlesWithStyles:1];
+        [v20 setInvitationPreferences:v25];
+
+        groupActivity2 = [messageCopy groupActivity];
+        [v20 setActivity:groupActivity2];
+
+        [v20 setAvMode:0];
+        [v20 setPresentationMode:1];
+        lastAddressedLocalHandle = [v13 lastAddressedLocalHandle];
+        v28 = [TUHandle normalizedHandleWithDestinationID:lastAddressedLocalHandle];
+        [v20 setCallerID:v28];
+
+        v29 = +[TUCallCenter sharedInstance];
+        [v29 launchAppForJoinRequest:v20];
+
+        if (IMOSLoggingEnabled())
+        {
+          v30 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+          {
+            *buf = 138412290;
+            v52 = v20;
+            _os_log_impl(&dword_0, v30, OS_LOG_TYPE_INFO, "Joining conversation with request %@", buf, 0xCu);
+          }
+        }
+
+        if (IMOSLoggingEnabled())
+        {
+          v31 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+          {
+            *buf = 138412290;
+            v52 = v13;
+            _os_log_impl(&dword_0, v31, OS_LOG_TYPE_INFO, "Distributing invitation message for chat %@", buf, 0xCu);
+          }
+        }
+
+        guid2 = [v13 guid];
+        [sessionCopy invitePersonInfo:&off_119680 withMessage:0 toChatID:guid2 identifier:identifierCopy style:styleCopy];
+
+        if (IMOSLoggingEnabled())
+        {
+          v33 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+          {
+            guid3 = [messageCopy guid];
+            *buf = 138412290;
+            v52 = guid3;
+            _os_log_impl(&dword_0, v33, OS_LOG_TYPE_INFO, "Message %@ being marked as sent", buf, 0xCu);
+          }
+        }
+
+        [messageCopy setFlags:{objc_msgSend(messageCopy, "flags") | 0x8000}];
+        broadcasterForChatListeners = [sessionCopy broadcasterForChatListeners];
+        account = [v13 account];
+        accountID = [account accountID];
+        groupID2 = [v13 groupID];
+        personCentricID = [v13 personCentricID];
+        [broadcasterForChatListeners account:accountID chat:identifierCopy style:styleCopy chatProperties:0 groupID:groupID2 chatPersonCentricID:personCentricID messageSent:messageCopy];
+      }
+
+      else if (IMOSLoggingEnabled())
+      {
+        v45 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+        {
+          guid4 = [messageCopy guid];
+          *buf = 138412546;
+          v52 = guid4;
+          v53 = 2112;
+          v54 = __imSetFromArray;
+          _os_log_impl(&dword_0, v45, OS_LOG_TYPE_INFO, "Failed to generate TURemoteMembers while attempting to initiate TUConversation for msg guid %@ remote members %@", buf, 0x16u);
+        }
+      }
+    }
+
+    else
+    {
+      if (!IMOSLoggingEnabled())
+      {
+LABEL_38:
+
+LABEL_39:
+        goto LABEL_40;
+      }
+
+      v43 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+      {
+        guid5 = [messageCopy guid];
+        *buf = 138412290;
+        v52 = guid5;
+        _os_log_impl(&dword_0, v43, OS_LOG_TYPE_INFO, "Failed to geenrate TUHandles while attempting to initiate TUConversation for msg guid %@", buf, 0xCu);
+      }
+    }
+
+    v14 = v48;
+    goto LABEL_38;
+  }
+
+  if (IMOSLoggingEnabled())
+  {
+    v13 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    {
+      guid6 = [messageCopy guid];
+      *buf = 138412290;
+      v52 = guid6;
+      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "Failed to find group activity while attempting to initiate TUConversation for msg guid %@", buf, 0xCu);
+    }
+
+    goto LABEL_39;
+  }
+
+LABEL_40:
+}
+
 - (id)_buildSendMessageContextWithChatIdentifier:(id)identifier withChatStyle:(unsigned __int8)style withServiceSession:(id)session withMessage:(id)message destinations:(id)destinations
 {
   styleCopy = style;
@@ -14725,78 +16198,76 @@ LABEL_26:
   refreshCopy = refresh;
   styleCopy = style;
   v12 = sub_94950(&qword_123ED0, &unk_CE4D0);
-  v13 = *(*(v12 - 8) + 64);
   __chkstk_darwin(v12 - 8);
-  v15 = &v24 - v14;
+  v14 = &v23 - v13;
   if (background)
   {
     sub_BD504();
-    v16 = sub_BD544();
-    (*(*(v16 - 8) + 56))(v15, 0, 1, v16);
+    v15 = sub_BD544();
+    (*(*(v15 - 8) + 56))(v14, 0, 1, v15);
   }
 
   else
   {
-    v17 = sub_BD544();
-    (*(*(v17 - 8) + 56))(v15, 1, 1, v17);
+    v16 = sub_BD544();
+    (*(*(v16 - 8) + 56))(v14, 1, 1, v16);
   }
 
   if (identifier)
   {
-    v18 = sub_BD8B4();
-    identifier = v19;
+    v17 = sub_BD8B4();
+    identifier = v18;
   }
 
   else
   {
-    v18 = 0;
+    v17 = 0;
   }
 
-  v20 = sub_BD8B4();
-  v22 = v21;
+  v19 = sub_BD8B4();
+  v21 = v20;
   selfCopy = self;
-  MessageServiceSession.setTranscriptBackground(_:andSendToChatIdentifier:chatStyle:transferID:isRefresh:)(v15, v18, identifier, styleCopy, v20, v22, refreshCopy);
+  MessageServiceSession.setTranscriptBackground(_:andSendToChatIdentifier:chatStyle:transferID:isRefresh:)(v14, v17, identifier, styleCopy, v19, v21, refreshCopy);
 
-  sub_75B0(v15, &qword_123ED0, &unk_CE4D0);
+  sub_75B0(v14, &qword_123ED0, &unk_CE4D0);
 }
 
 - (void)retryTranscriptBackgroundUpload:(id)upload chatIdentifier:(id)identifier style:(unsigned __int8)style transferID:(id)d
 {
   styleCopy = style;
   v10 = sub_94950(&qword_123ED0, &unk_CE4D0);
-  v11 = *(*(v10 - 8) + 64);
   __chkstk_darwin(v10 - 8);
-  v13 = &v22 - v12;
+  v12 = &v21 - v11;
   if (upload)
   {
     sub_BD504();
-    v14 = sub_BD544();
-    (*(*(v14 - 8) + 56))(v13, 0, 1, v14);
+    v13 = sub_BD544();
+    (*(*(v13 - 8) + 56))(v12, 0, 1, v13);
   }
 
   else
   {
-    v15 = sub_BD544();
-    (*(*(v15 - 8) + 56))(v13, 1, 1, v15);
+    v14 = sub_BD544();
+    (*(*(v14 - 8) + 56))(v12, 1, 1, v14);
   }
 
   if (identifier)
   {
-    v16 = sub_BD8B4();
-    identifier = v17;
+    v15 = sub_BD8B4();
+    identifier = v16;
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  v18 = sub_BD8B4();
-  v20 = v19;
+  v17 = sub_BD8B4();
+  v19 = v18;
   selfCopy = self;
-  MessageServiceSession.retryTranscriptBackgroundUpload(_:chatIdentifier:style:transferID:)(v13, v16, identifier, styleCopy, v18, v20);
+  MessageServiceSession.retryTranscriptBackgroundUpload(_:chatIdentifier:style:transferID:)(v12, v15, identifier, styleCopy, v17, v19);
 
-  sub_75B0(v13, &qword_123ED0, &unk_CE4D0);
+  sub_75B0(v12, &qword_123ED0, &unk_CE4D0);
 }
 
 - (void)receiveIncomingBlastdoorBackgroundCommand:(id)command for:(id)for sender:(id)sender senderContext:(id)context

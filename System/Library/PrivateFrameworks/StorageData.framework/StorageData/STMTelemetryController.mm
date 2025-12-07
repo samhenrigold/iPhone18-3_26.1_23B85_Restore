@@ -28,7 +28,7 @@ void __39__STMTelemetryController_getTelemetry___block_invoke(uint64_t a1, void 
     v8 = v5;
     if (!v5)
     {
-      v9 = STStorageLog();
+      v9 = STStorageLog(v7);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         __39__STMTelemetryController_getTelemetry___block_invoke_cold_1(v6, v9);
@@ -49,42 +49,42 @@ void __39__STMTelemetryController_getTelemetry___block_invoke(uint64_t a1, void 
 
   if (!connection)
   {
-    v6 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.storagedatad" options:0];
-    v7 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_287C949F0];
-    [v6 setRemoteObjectInterface:v7];
+    v7 = [objc_alloc(MEMORY[0x277CCAE80]) initWithMachServiceName:@"com.apple.storagedatad" options:0];
+    v8 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_287C949F0];
+    [v7 setRemoteObjectInterface:v8];
 
-    [v6 resume];
-    [(STMTelemetryController *)self setConnection:v6];
+    [v7 resume];
+    [(STMTelemetryController *)self setConnection:v7];
   }
 
-  v8 = STStorageLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = STStorageLog(v6);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_26BB8E000, v8, OS_LOG_TYPE_INFO, "Connecting to StorageDataService", buf, 2u);
+    _os_log_impl(&dword_26BB8E000, v9, OS_LOG_TYPE_INFO, "Connecting to StorageDataService", buf, 2u);
   }
 
   connection2 = [(STMTelemetryController *)self connection];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __65__STMTelemetryController_retrieveTelemetryWithCompletionHandler___block_invoke;
-  v15[3] = &unk_279D1D330;
-  v10 = handlerCopy;
-  v16 = v10;
-  v11 = [connection2 remoteObjectProxyWithErrorHandler:v15];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __65__STMTelemetryController_retrieveTelemetryWithCompletionHandler___block_invoke_5;
-  v13[3] = &unk_279D1D358;
-  v14 = v10;
-  v12 = v10;
-  [v11 storageInfoDict:v13];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __65__STMTelemetryController_retrieveTelemetryWithCompletionHandler___block_invoke;
+  v16[3] = &unk_279D1D330;
+  v11 = handlerCopy;
+  v17 = v11;
+  v12 = [connection2 remoteObjectProxyWithErrorHandler:v16];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __65__STMTelemetryController_retrieveTelemetryWithCompletionHandler___block_invoke_5;
+  v14[3] = &unk_279D1D358;
+  v15 = v11;
+  v13 = v11;
+  [v12 storageInfoDict:v14];
 }
 
 void __65__STMTelemetryController_retrieveTelemetryWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = STStorageLog();
+  v4 = STStorageLog(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __65__STMTelemetryController_retrieveTelemetryWithCompletionHandler___block_invoke_cold_1(v3, v4);
@@ -103,20 +103,18 @@ void __65__STMTelemetryController_retrieveTelemetryWithCompletionHandler___block
 
 void __39__STMTelemetryController_getTelemetry___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_26BB8E000, a2, OS_LOG_TYPE_ERROR, "Failed to retrieve storage telemetry: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_26BB8E000, a2, OS_LOG_TYPE_ERROR, "Failed to retrieve storage telemetry: %@", &v2, 0xCu);
 }
 
 void __65__STMTelemetryController_retrieveTelemetryWithCompletionHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_26BB8E000, a2, OS_LOG_TYPE_ERROR, "Error connecting to StorageDataService: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_26BB8E000, a2, OS_LOG_TYPE_ERROR, "Error connecting to StorageDataService: %@", &v2, 0xCu);
 }
 
 @end

@@ -16,7 +16,7 @@
   v5 = shouldAlwaysShowSecureSceneForApp__bundleIDsOfAppsToShowSecureScene;
   bundleIdentifier = [appCopy bundleIdentifier];
 
-  v7 = [v5 containsObject:bundleIdentifier];
+  v7 = objc_msgSend_containsObject_(v5);
   return v7;
 }
 

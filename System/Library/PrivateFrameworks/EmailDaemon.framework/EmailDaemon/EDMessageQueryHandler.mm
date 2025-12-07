@@ -76,7 +76,7 @@ void __28__EDMessageQueryHandler_log__block_invoke(uint64_t a1)
 
 - (EDMessageQueryHandler)initWithQuery:(id)query messagePersistence:(id)persistence hookRegistry:(id)registry remindMeNotificationController:(id)controller searchProvider:(id)provider observer:(id)observer observationIdentifier:(id)identifier observationResumer:(id)self0
 {
-  v75[1] = *MEMORY[0x1E69E9840];
+  v74[1] = *MEMORY[0x1E69E9840];
   queryCopy = query;
   persistenceCopy = persistence;
   registryCopy = registry;
@@ -92,9 +92,9 @@ void __28__EDMessageQueryHandler_log__block_invoke(uint64_t a1)
     queryCopy = v18;
   }
 
-  v74.receiver = self;
-  v74.super_class = EDMessageQueryHandler;
-  v19 = [(EDMessageRepositoryQueryHandler *)&v74 initWithQuery:queryCopy messagePersistence:persistenceCopy hookRegistry:registryCopy remindMeNotificationController:controllerCopy observer:observerCopy observationIdentifier:identifierCopy];
+  v73.receiver = self;
+  v73.super_class = EDMessageQueryHandler;
+  v19 = [(EDMessageRepositoryQueryHandler *)&v73 initWithQuery:queryCopy messagePersistence:persistenceCopy hookRegistry:registryCopy remindMeNotificationController:controllerCopy observer:observerCopy observationIdentifier:identifierCopy];
   v20 = v19;
   v21 = v19;
   if (v19)
@@ -109,12 +109,12 @@ void __28__EDMessageQueryHandler_log__block_invoke(uint64_t a1)
 
       v24 = objc_alloc(MEMORY[0x1E699B7A8]);
       v25 = v21->_resumeClientScheduler;
-      v72[0] = MEMORY[0x1E69E9820];
-      v72[1] = 3221225472;
-      v72[2] = __167__EDMessageQueryHandler_initWithQuery_messagePersistence_hookRegistry_remindMeNotificationController_searchProvider_observer_observationIdentifier_observationResumer___block_invoke;
-      v72[3] = &unk_1E8254CC8;
-      v73 = resumerCopy;
-      v26 = [v24 initWithTimeInterval:v25 scheduler:0 startAfter:v72 block:1.0];
+      v71[0] = MEMORY[0x1E69E9820];
+      v71[1] = 3221225472;
+      v71[2] = __167__EDMessageQueryHandler_initWithQuery_messagePersistence_hookRegistry_remindMeNotificationController_searchProvider_observer_observationIdentifier_observationResumer___block_invoke;
+      v71[3] = &unk_1E8254CC8;
+      v72 = resumerCopy;
+      v26 = [v24 initWithTimeInterval:v25 scheduler:0 startAfter:v71 block:1.0];
       resumeClientDebouncer = v21->_resumeClientDebouncer;
       v21->_resumeClientDebouncer = v26;
     }
@@ -149,8 +149,8 @@ void __28__EDMessageQueryHandler_log__block_invoke(uint64_t a1)
     v46 = [v43 predicateFromPredicate:predicate ignoringKeyPaths:MEMORY[0x1E695E0F0]];
 
     v47 = MEMORY[0x1E699ADA0];
-    v75[0] = *MEMORY[0x1E699A8D8];
-    v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:v75 count:1];
+    v74[0] = *MEMORY[0x1E699A8D8];
+    v48 = [MEMORY[0x1E695DEC8] arrayWithObjects:v74 count:1];
     v49 = [v47 predicateFromPredicate:v46 ignoringKeyPaths:v48];
 
     if (([v46 isEqual:v49] & 1) == 0)
@@ -196,16 +196,15 @@ void __28__EDMessageQueryHandler_log__block_invoke(uint64_t a1)
     }
   }
 
-  v64 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
 - (BOOL)start
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v13.receiver = self;
-  v13.super_class = EDMessageQueryHandler;
-  start = [(EDMessageRepositoryQueryHandler *)&v13 start];
+  v17 = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = EDMessageQueryHandler;
+  start = [(EDMessageRepositoryQueryHandler *)&v12 start];
   v4 = +[EDMessageQueryHandler log];
   v5 = v4;
   if (start)
@@ -215,14 +214,14 @@ void __28__EDMessageQueryHandler_log__block_invoke(uint64_t a1)
       query = [(EDMessageRepositoryQueryHandler *)self query];
       *buf = 134218242;
       selfCopy2 = self;
-      v16 = 2112;
-      v17 = query;
+      v15 = 2112;
+      v16 = query;
       _os_log_impl(&dword_1C61EF000, v5, OS_LOG_TYPE_DEFAULT, "%p: Starting with query '%@'", buf, 0x16u);
     }
 
-    v12.receiver = self;
-    v12.super_class = EDMessageQueryHandler;
-    [(EDMessageRepositoryQueryHandler *)&v12 start];
+    v11.receiver = self;
+    v11.super_class = EDMessageQueryHandler;
+    [(EDMessageRepositoryQueryHandler *)&v11 start];
     contentProtectionQueue = [(EDMessageQueryHandler *)self contentProtectionQueue];
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
@@ -248,11 +247,10 @@ void __28__EDMessageQueryHandler_log__block_invoke(uint64_t a1)
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return start;
 }
 
-uint64_t __30__EDMessageQueryHandler_start__block_invoke(uint64_t a1)
+void *__30__EDMessageQueryHandler_start__block_invoke(uint64_t a1)
 {
   if ((EFProtectedDataAvailable() & 1) != 0 || (result = _os_feature_enabled_impl(), result))
   {
@@ -351,7 +349,7 @@ void __31__EDMessageQueryHandler_cancel__block_invoke(uint64_t a1)
 
 - (void)_restartHelper
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   contentProtectionQueue = [(EDMessageQueryHandler *)self contentProtectionQueue];
   dispatch_assert_queue_V2(contentProtectionQueue);
 
@@ -359,15 +357,14 @@ void __31__EDMessageQueryHandler_cancel__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     currentQueryHelper = [(EDMessageQueryHandler *)self currentQueryHelper];
-    v7 = 134218240;
+    v6 = 134218240;
     selfCopy = self;
-    v9 = 2048;
-    v10 = currentQueryHelper;
-    _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_INFO, "%p: (Re-)starting the helper (old = %p).", &v7, 0x16u);
+    v8 = 2048;
+    v9 = currentQueryHelper;
+    _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_INFO, "%p: (Re-)starting the helper (old = %p).", &v6, 0x16u);
   }
 
   [(EDMessageQueryHandler *)self _createHelper];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_createHelper
@@ -461,29 +458,29 @@ void __47__EDMessageQueryHandler__queryHelperIsCurrent___block_invoke(uint64_t a
 
 - (id)_objectIDsAndUnreadObjectIDsFromMessages:(id)messages unreadObjectIDs:(id *)ds
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v7 = messagesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
+        v11 = *(*(&v18 + 1) + 8 * i);
         objectID = [v11 objectID];
         [array addObject:objectID];
         flags = [v11 flags];
@@ -495,7 +492,7 @@ void __47__EDMessageQueryHandler__queryHelperIsCurrent___block_invoke(uint64_t a
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
@@ -506,8 +503,6 @@ void __47__EDMessageQueryHandler__queryHelperIsCurrent___block_invoke(uint64_t a
     v15 = array2;
     *ds = array2;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -534,7 +529,7 @@ void __47__EDMessageQueryHandler__queryHelperIsCurrent___block_invoke(uint64_t a
 
 - (id)_messagesForInitialBatchWithMessagesFromQueryHelper:(id)helper requestedMessage:(id *)message
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   helperCopy = helper;
   _requestedItemObjectID = [(EDMessageQueryHandler *)self _requestedItemObjectID];
   if (_requestedItemObjectID)
@@ -543,17 +538,17 @@ void __47__EDMessageQueryHandler__queryHelperIsCurrent___block_invoke(uint64_t a
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v29 = _requestedItemObjectID;
+      v28 = _requestedItemObjectID;
       _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "Looking for requested message with objectID: %{public}@", buf, 0xCu);
     }
 
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __94__EDMessageQueryHandler__messagesForInitialBatchWithMessagesFromQueryHelper_requestedMessage___block_invoke;
-    v26[3] = &unk_1E8250858;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __94__EDMessageQueryHandler__messagesForInitialBatchWithMessagesFromQueryHelper_requestedMessage___block_invoke;
+    v25[3] = &unk_1E8250858;
     v9 = _requestedItemObjectID;
-    v27 = v9;
-    firstObject = [helperCopy ef_firstObjectPassingTest:v26];
+    v26 = v9;
+    firstObject = [helperCopy ef_firstObjectPassingTest:v25];
     if (firstObject)
     {
       [(EDMessageQueryHandler *)self setDidFindRequestedItemForInitialBatch:1];
@@ -562,7 +557,7 @@ void __47__EDMessageQueryHandler__queryHelperIsCurrent___block_invoke(uint64_t a
       {
         objectID = [firstObject objectID];
         *buf = 138543362;
-        v29 = objectID;
+        v28 = objectID;
         _os_log_impl(&dword_1C61EF000, v11, OS_LOG_TYPE_DEFAULT, "Found requested message in initial batch: objectID=%{public}@", buf, 0xCu);
       }
     }
@@ -573,13 +568,13 @@ void __47__EDMessageQueryHandler__queryHelperIsCurrent___block_invoke(uint64_t a
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v29 = v9;
+        v28 = v9;
         _os_log_impl(&dword_1C61EF000, v14, OS_LOG_TYPE_DEFAULT, "Requested message not in initial batch, fetching separately: %{public}@", buf, 0xCu);
       }
 
       messagePersistence = [(EDMessageRepositoryQueryHandler *)self messagePersistence];
-      v30[0] = v9;
-      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
+      v29[0] = v9;
+      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
       v17 = [messagePersistence messagesForMessageObjectIDs:v16 missedMessageObjectIDs:0];
       firstObject = [v17 firstObject];
 
@@ -595,7 +590,7 @@ void __47__EDMessageQueryHandler__queryHelperIsCurrent___block_invoke(uint64_t a
           {
             objectID3 = [firstObject objectID];
             *buf = 138543362;
-            v29 = objectID3;
+            v28 = objectID3;
             _os_log_impl(&dword_1C61EF000, v20, OS_LOG_TYPE_DEFAULT, "Successfully fetched requested message: %{public}@", buf, 0xCu);
           }
         }
@@ -648,8 +643,6 @@ void __47__EDMessageQueryHandler__queryHelperIsCurrent___block_invoke(uint64_t a
 
     v13 = helperCopy;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -708,19 +701,19 @@ uint64_t __110__EDMessageQueryHandler__messagesBeforeMessageWithObjectID_fromMes
 
 - (id)_extraInfoForMessages:(id)messages messagesToPrecache:(id)precache outObjectIDs:(id *)ds searchInfo:(id)info
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   precacheCopy = precache;
   infoCopy = info;
-  v39 = 0;
-  v32 = messagesCopy;
-  v34 = [(EDMessageQueryHandler *)self _objectIDsAndUnreadObjectIDsFromMessages:messagesCopy unreadObjectIDs:&v39];
-  v30 = v39;
+  v38 = 0;
+  v31 = messagesCopy;
+  v33 = [(EDMessageQueryHandler *)self _objectIDsAndUnreadObjectIDsFromMessages:messagesCopy unreadObjectIDs:&v38];
+  v29 = v38;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v12 = dictionary;
-  if (v30)
+  if (v29)
   {
-    [dictionary setObject:v30 forKeyedSubscript:*MEMORY[0x1E699A7E0]];
+    [dictionary setObject:v29 forKeyedSubscript:*MEMORY[0x1E699A7E0]];
   }
 
   if ([precacheCopy count])
@@ -728,18 +721,18 @@ uint64_t __110__EDMessageQueryHandler__messagesBeforeMessageWithObjectID_fromMes
     [v12 setObject:precacheCopy forKeyedSubscript:*MEMORY[0x1E699A7F0]];
   }
 
-  v31 = [(EDMessageQueryHandler *)self _messageItemIDsBySectionFromMessages:v32];
-  if ([v31 count])
+  v30 = [(EDMessageQueryHandler *)self _messageItemIDsBySectionFromMessages:v31];
+  if ([v30 count])
   {
     v13 = +[EDMessageQueryHandler log];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v42 = v31;
+      v41 = v30;
       _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_DEFAULT, "Returning section info %{public}@", buf, 0xCu);
     }
 
-    [v12 setObject:v31 forKeyedSubscript:*MEMORY[0x1E699A800]];
+    [v12 setObject:v30 forKeyedSubscript:*MEMORY[0x1E699A800]];
   }
 
   instantAnswer = [infoCopy instantAnswer];
@@ -751,31 +744,31 @@ uint64_t __110__EDMessageQueryHandler__messagesBeforeMessageWithObjectID_fromMes
   if (v16)
   {
     v17 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
-    v18 = v34;
-    v19 = [v18 countByEnumeratingWithState:&v35 objects:v40 count:16];
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v18 = v33;
+    v19 = [v18 countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v19)
     {
-      v20 = *v36;
+      v20 = *v35;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v36 != v20)
+          if (*v35 != v20)
           {
             objc_enumerationMutation(v18);
           }
 
-          v22 = *(*(&v35 + 1) + 8 * i);
+          v22 = *(*(&v34 + 1) + 8 * i);
           snippetsByObjectID2 = [infoCopy snippetsByObjectID];
           v24 = [snippetsByObjectID2 objectForKeyedSubscript:v22];
           [v17 setObject:v24 forKeyedSubscript:v22];
         }
 
-        v19 = [v18 countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v19 = [v18 countByEnumeratingWithState:&v34 objects:v39 count:16];
       }
 
       while (v19);
@@ -784,60 +777,56 @@ uint64_t __110__EDMessageQueryHandler__messagesBeforeMessageWithObjectID_fromMes
     [v12 setObject:v17 forKeyedSubscript:*MEMORY[0x1E699A7D8]];
   }
 
-  if (v29)
+  if (v28)
   {
-    v25 = v34;
-    *v29 = v34;
+    v25 = v33;
+    *v28 = v33;
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (id)_extraInfoFromLocalSearchInfoCollector:(id)collector
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   collectorCopy = collector;
   if (collectorCopy)
   {
-    v13 = 0;
-    v14 = &v13;
-    v15 = 0x3032000000;
-    v16 = __Block_byref_object_copy__26;
-    v17 = __Block_byref_object_dispose__26;
-    v18 = 0;
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x3032000000;
+    v15 = __Block_byref_object_copy__26;
+    v16 = __Block_byref_object_dispose__26;
+    v17 = 0;
     messageList = [(EDMessageQueryHandler *)self messageList];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __64__EDMessageQueryHandler__extraInfoFromLocalSearchInfoCollector___block_invoke;
-    v12[3] = &unk_1E8254D48;
-    v12[4] = &v13;
-    [messageList performWhileLocked:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __64__EDMessageQueryHandler__extraInfoFromLocalSearchInfoCollector___block_invoke;
+    v11[3] = &unk_1E8254D48;
+    v11[4] = &v12;
+    [messageList performWhileLocked:v11];
 
-    v6 = [collectorCopy localSearchInfoForMessageObjectIDs:v14[5]];
+    v6 = [collectorCopy localSearchInfoForMessageObjectIDs:v13[5]];
     v7 = +[EDMessageQueryHandler log];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218242;
       selfCopy = self;
-      v21 = 2114;
-      v22 = v6;
+      v20 = 2114;
+      v21 = v6;
       _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_DEFAULT, "%p: Returning local search info %{public}@", buf, 0x16u);
     }
 
     v8 = objc_alloc(MEMORY[0x1E695DF20]);
     v9 = [v8 initWithObjectsAndKeys:{v6, *MEMORY[0x1E699A808], 0}];
 
-    _Block_object_dispose(&v13, 8);
+    _Block_object_dispose(&v12, 8);
   }
 
   else
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -884,31 +873,31 @@ id __62__EDMessageQueryHandler__messageItemIDsBySectionFromMessages___block_invo
 
 - (id)_sortMessagesBySections:(id)sections
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   sectionsCopy = sections;
-  v5 = [sectionsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [sectionsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(sectionsCopy);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         sectionQueryHelper = [(EDMessageQueryHandler *)self sectionQueryHelper];
         [sectionQueryHelper updateSectionForItem:v8];
       }
 
-      v5 = [sectionsCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [sectionsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
@@ -927,15 +916,13 @@ id __62__EDMessageQueryHandler__messageItemIDsBySectionFromMessages___block_invo
 
   v12 = v11;
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (void)queryHelper:(id)helper didFindMessages:(id)messages searchInfo:(id)info forInitialBatch:(BOOL)batch
 {
   batchCopy = batch;
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   helperCopy = helper;
   messagesCopy = messages;
   infoCopy = info;
@@ -945,40 +932,40 @@ id __62__EDMessageQueryHandler__messageItemIDsBySectionFromMessages___block_invo
 
     if (messageList)
     {
-      v26 = 0;
-      v27 = &v26;
-      v28 = 0x2020000000;
-      v29 = 0;
+      v25 = 0;
+      v26 = &v25;
+      v27 = 0x2020000000;
+      v28 = 0;
       messageList2 = [(EDMessageQueryHandler *)self messageList];
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __80__EDMessageQueryHandler_queryHelper_didFindMessages_searchInfo_forInitialBatch___block_invoke;
-      v25[3] = &unk_1E8254D48;
-      v25[4] = &v26;
-      [messageList2 performWhileLocked:v25];
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __80__EDMessageQueryHandler_queryHelper_didFindMessages_searchInfo_forInitialBatch___block_invoke;
+      v24[3] = &unk_1E8254D48;
+      v24[4] = &v25;
+      [messageList2 performWhileLocked:v24];
 
-      if (*(v27 + 24) == 1)
+      if (*(v26 + 24) == 1)
       {
         [(EDMessageQueryHandler *)self queryHelper:helperCopy didAddMessages:messagesCopy searchInfo:infoCopy];
-        _Block_object_dispose(&v26, 8);
+        _Block_object_dispose(&v25, 8);
         goto LABEL_20;
       }
 
-      _Block_object_dispose(&v26, 8);
+      _Block_object_dispose(&v25, 8);
     }
 
     v15 = [(EDMessageQueryHandler *)self _sortMessagesBySections:messagesCopy];
 
     if (batchCopy)
     {
-      v24 = 0;
-      v16 = [(EDMessageQueryHandler *)self _messagesForInitialBatchWithMessagesFromQueryHelper:v15 requestedMessage:&v24];
-      _requestedItemObjectID = v24;
+      v23 = 0;
+      v16 = [(EDMessageQueryHandler *)self _messagesForInitialBatchWithMessagesFromQueryHelper:v15 requestedMessage:&v23];
+      _requestedItemObjectID = v23;
 
       if (_requestedItemObjectID)
       {
-        v30[0] = _requestedItemObjectID;
-        v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
+        v29[0] = _requestedItemObjectID;
+        v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
       }
 
       else
@@ -997,21 +984,21 @@ id __62__EDMessageQueryHandler__messageItemIDsBySectionFromMessages___block_invo
         [(EDMessageQueryHandler *)self _reportFoundMessages:v15 before:0 messagesToPrecache:0 searchInfo:infoCopy];
 LABEL_19:
         messageList3 = [(EDMessageQueryHandler *)self messageList];
-        v21[0] = MEMORY[0x1E69E9820];
-        v21[1] = 3221225472;
-        v21[2] = __80__EDMessageQueryHandler_queryHelper_didFindMessages_searchInfo_forInitialBatch___block_invoke_2;
-        v21[3] = &unk_1E8254D98;
+        v20[0] = MEMORY[0x1E69E9820];
+        v20[1] = 3221225472;
+        v20[2] = __80__EDMessageQueryHandler_queryHelper_didFindMessages_searchInfo_forInitialBatch___block_invoke_2;
+        v20[3] = &unk_1E8254D98;
         messagesCopy = v16;
-        v22 = messagesCopy;
-        [messageList3 performWhileLocked:v21];
+        v21 = messagesCopy;
+        [messageList3 performWhileLocked:v20];
 
         goto LABEL_20;
       }
 
       _requestedItemObjectID = [(EDMessageQueryHandler *)self _requestedItemObjectID];
-      v23 = 0;
-      v16 = [(EDMessageQueryHandler *)self _messagesBeforeMessageWithObjectID:_requestedItemObjectID fromMessagesFromQueryHelper:v15 afterRequestedMessage:&v23];
-      v18 = v23;
+      v22 = 0;
+      v16 = [(EDMessageQueryHandler *)self _messagesBeforeMessageWithObjectID:_requestedItemObjectID fromMessagesFromQueryHelper:v15 afterRequestedMessage:&v22];
+      v18 = v22;
 
       if ([v16 count])
       {
@@ -1029,8 +1016,6 @@ LABEL_19:
   }
 
 LABEL_20:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __80__EDMessageQueryHandler_queryHelper_didFindMessages_searchInfo_forInitialBatch___block_invoke(uint64_t a1, void *a2)
@@ -1041,15 +1026,15 @@ void __80__EDMessageQueryHandler_queryHelper_didFindMessages_searchInfo_forIniti
 
 - (void)_reportFoundMessages:(id)messages before:(id)before messagesToPrecache:(id)precache searchInfo:(id)info
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   beforeCopy = before;
-  v34 = 0;
-  v27 = messagesCopy;
+  v33 = 0;
+  v26 = messagesCopy;
   precacheCopy = precache;
   infoCopy = info;
-  v12 = [(EDMessageQueryHandler *)self _extraInfoForMessages:messagesCopy messagesToPrecache:precacheCopy outObjectIDs:&v34 searchInfo:?];
-  v13 = v34;
+  v12 = [(EDMessageQueryHandler *)self _extraInfoForMessages:messagesCopy messagesToPrecache:precacheCopy outObjectIDs:&v33 searchInfo:?];
+  v13 = v33;
   v14 = [v13 count];
   if (v14 > 0xA)
   {
@@ -1061,14 +1046,14 @@ void __80__EDMessageQueryHandler_queryHelper_didFindMessages_searchInfo_forIniti
       query = [(EDMessageRepositoryQueryHandler *)self query];
       *buf = 134219010;
       selfCopy2 = self;
-      v37 = 2048;
-      v38 = v14;
-      v39 = 2114;
-      v40 = v15;
-      v41 = 2114;
-      v42 = v17;
-      v43 = 2114;
-      v44 = query;
+      v36 = 2048;
+      v37 = v14;
+      v38 = 2114;
+      v39 = v15;
+      v40 = 2114;
+      v41 = v17;
+      v42 = 2114;
+      v43 = query;
       _os_log_impl(&dword_1C61EF000, v18, OS_LOG_TYPE_DEFAULT, "%p: Found %lu objectIDs starting with: %{public}@\nending with:\n%{public}@\n%{public}@", buf, 0x34u);
     }
   }
@@ -1081,12 +1066,12 @@ void __80__EDMessageQueryHandler_queryHelper_didFindMessages_searchInfo_forIniti
       query2 = [(EDMessageRepositoryQueryHandler *)self query];
       *buf = 134218754;
       selfCopy2 = self;
-      v37 = 2048;
-      v38 = v14;
-      v39 = 2114;
-      v40 = v13;
-      v41 = 2114;
-      v42 = query2;
+      v36 = 2048;
+      v37 = v14;
+      v38 = 2114;
+      v39 = v13;
+      v40 = 2114;
+      v41 = query2;
       _os_log_impl(&dword_1C61EF000, v15, OS_LOG_TYPE_DEFAULT, "%p: Found %lu objectIDs: %{public}@\n%{public}@", buf, 0x2Au);
     }
   }
@@ -1100,15 +1085,13 @@ void __80__EDMessageQueryHandler_queryHelper_didFindMessages_searchInfo_forIniti
   block[2] = __83__EDMessageQueryHandler__reportFoundMessages_before_messagesToPrecache_searchInfo___block_invoke;
   block[3] = &unk_1E8250AB8;
   block[4] = self;
-  v31 = v21;
-  v32 = beforeCopy;
-  v33 = v12;
+  v30 = v21;
+  v31 = beforeCopy;
+  v32 = v12;
   v23 = v12;
   v24 = beforeCopy;
   v25 = v21;
   dispatch_sync(resultQueue, block);
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __83__EDMessageQueryHandler__reportFoundMessages_before_messagesToPrecache_searchInfo___block_invoke(uint64_t a1)
@@ -1120,7 +1103,7 @@ void __83__EDMessageQueryHandler__reportFoundMessages_before_messagesToPrecache_
 
 - (void)queryHelperDidFindAllMessages:(id)messages localSearchInfoCollector:(id)collector
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   collectorCopy = collector;
   if ([(EDMessageQueryHandler *)self _queryHelperIsCurrent:messagesCopy])
@@ -1131,26 +1114,24 @@ void __83__EDMessageQueryHandler__reportFoundMessages_before_messagesToPrecache_
       query = [(EDMessageRepositoryQueryHandler *)self query];
       *buf = 134218242;
       selfCopy = self;
-      v20 = 2114;
-      v21 = query;
+      v19 = 2114;
+      v20 = query;
       _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "%p: Finished initial load\n%{public}@", buf, 0x16u);
     }
 
     [(EDMessageQueryHandler *)self setIsInitialized:1];
     [(EDMessageQueryHandler *)self setHasEverReconciledJournal:1];
     resultQueue = [(EDMessageQueryHandler *)self resultQueue];
-    v12 = MEMORY[0x1E69E9820];
-    v13 = 3221225472;
-    v14 = __80__EDMessageQueryHandler_queryHelperDidFindAllMessages_localSearchInfoCollector___block_invoke;
-    v15 = &unk_1E8250128;
+    v11 = MEMORY[0x1E69E9820];
+    v12 = 3221225472;
+    v13 = __80__EDMessageQueryHandler_queryHelperDidFindAllMessages_localSearchInfoCollector___block_invoke;
+    v14 = &unk_1E8250128;
     selfCopy2 = self;
-    v17 = collectorCopy;
-    dispatch_sync(resultQueue, &v12);
+    v16 = collectorCopy;
+    dispatch_sync(resultQueue, &v11);
 
-    [(EDMessageQueryHandler *)self _initializeOldestMessagesByMailbox:v12];
+    [(EDMessageQueryHandler *)self _initializeOldestMessagesByMailbox:v11];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __80__EDMessageQueryHandler_queryHelperDidFindAllMessages_localSearchInfoCollector___block_invoke(uint64_t a1)
@@ -1163,7 +1144,7 @@ void __80__EDMessageQueryHandler_queryHelperDidFindAllMessages_localSearchInfoCo
 
 - (void)queryHelperDidFailInitialLoad:(id)load localSearchInfoCollector:(id)collector
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   loadCopy = load;
   collectorCopy = collector;
   if ([(EDMessageQueryHandler *)self _queryHelperIsCurrent:loadCopy])
@@ -1177,16 +1158,14 @@ void __80__EDMessageQueryHandler_queryHelperDidFindAllMessages_localSearchInfoCo
     }
 
     resultQueue = [(EDMessageQueryHandler *)self resultQueue];
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __80__EDMessageQueryHandler_queryHelperDidFailInitialLoad_localSearchInfoCollector___block_invoke;
-    v11[3] = &unk_1E8250128;
-    v11[4] = self;
-    v12 = collectorCopy;
-    dispatch_sync(resultQueue, v11);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __80__EDMessageQueryHandler_queryHelperDidFailInitialLoad_localSearchInfoCollector___block_invoke;
+    v10[3] = &unk_1E8250128;
+    v10[4] = self;
+    v11 = collectorCopy;
+    dispatch_sync(resultQueue, v10);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __80__EDMessageQueryHandler_queryHelperDidFailInitialLoad_localSearchInfoCollector___block_invoke(uint64_t a1)
@@ -1199,7 +1178,7 @@ void __80__EDMessageQueryHandler_queryHelperDidFailInitialLoad_localSearchInfoCo
 
 - (void)queryHelper:(id)helper didAddMessages:(id)messages searchInfo:(id)info
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   helperCopy = helper;
   messagesCopy = messages;
   infoCopy = info;
@@ -1213,26 +1192,26 @@ void __80__EDMessageQueryHandler_queryHelperDidFailInitialLoad_localSearchInfoCo
     {
       v13 = objc_opt_new();
       messageList2 = [(EDMessageQueryHandler *)self messageList];
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v27[2] = __63__EDMessageQueryHandler_queryHelper_didAddMessages_searchInfo___block_invoke;
-      v27[3] = &unk_1E8254DE8;
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __63__EDMessageQueryHandler_queryHelper_didAddMessages_searchInfo___block_invoke;
+      v26[3] = &unk_1E8254DE8;
       v15 = v11;
-      v28 = v15;
+      v27 = v15;
       selfCopy = self;
-      v30 = infoCopy;
+      v29 = infoCopy;
       v16 = v13;
-      v31 = v16;
-      [messageList2 performWhileLocked:v27];
+      v30 = v16;
+      [messageList2 performWhileLocked:v26];
 
       if ([v16 count])
       {
-        v25[0] = MEMORY[0x1E69E9820];
-        v25[1] = 3221225472;
-        v25[2] = __63__EDMessageQueryHandler_queryHelper_didAddMessages_searchInfo___block_invoke_47;
-        v25[3] = &unk_1E8250858;
-        v26 = v16;
-        v17 = [v15 ef_filter:v25];
+        v24[0] = MEMORY[0x1E69E9820];
+        v24[1] = 3221225472;
+        v24[2] = __63__EDMessageQueryHandler_queryHelper_didAddMessages_searchInfo___block_invoke_47;
+        v24[3] = &unk_1E8250858;
+        v25 = v16;
+        v17 = [v15 ef_filter:v24];
 
         v11 = v17;
       }
@@ -1247,24 +1226,24 @@ void __80__EDMessageQueryHandler_queryHelperDidFailInitialLoad_localSearchInfoCo
     v19 = +[EDMessageQueryHandler log];
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
-      v21 = [v11 count];
-      v22 = [v18 count];
+      v20 = [v11 count];
+      v21 = [v18 count];
       *buf = 134218496;
       selfCopy2 = self;
-      v34 = 1024;
-      v35 = v21;
-      v36 = 1024;
-      v37 = v22;
+      v33 = 1024;
+      v34 = v20;
+      v35 = 1024;
+      v36 = v21;
       _os_log_debug_impl(&dword_1C61EF000, v19, OS_LOG_TYPE_DEBUG, "%p: Did add %u messages. %u groups.", buf, 0x18u);
     }
 
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __63__EDMessageQueryHandler_queryHelper_didAddMessages_searchInfo___block_invoke_48;
-    v23[3] = &unk_1E8254E10;
-    v23[4] = self;
-    v24 = infoCopy;
-    [v18 enumerateKeysAndObjectsUsingBlock:v23];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __63__EDMessageQueryHandler_queryHelper_didAddMessages_searchInfo___block_invoke_48;
+    v22[3] = &unk_1E8254E10;
+    v22[4] = self;
+    v23 = infoCopy;
+    [v18 enumerateKeysAndObjectsUsingBlock:v22];
     [(EDMessageQueryHandler *)self _oldestMessagesNeedUpdate];
   }
 
@@ -1272,8 +1251,6 @@ void __80__EDMessageQueryHandler_queryHelperDidFailInitialLoad_localSearchInfoCo
   {
     v11 = messagesCopy;
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __63__EDMessageQueryHandler_queryHelper_didAddMessages_searchInfo___block_invoke(uint64_t a1, void *a2)
@@ -1295,7 +1272,7 @@ void __63__EDMessageQueryHandler_queryHelper_didAddMessages_searchInfo___block_i
 
 void __63__EDMessageQueryHandler_queryHelper_didAddMessages_searchInfo___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v6 ef_mapSelector:sel_objectID];
@@ -1304,15 +1281,15 @@ void __63__EDMessageQueryHandler_queryHelper_didAddMessages_searchInfo___block_i
   {
     v9 = *(a1 + 32);
     v10 = [v9 query];
-    v18 = 134218754;
-    v19 = v9;
-    v20 = 2114;
-    v21 = v7;
-    v22 = 2114;
-    v23 = v5;
-    v24 = 2114;
-    v25 = v10;
-    _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "%p: Moving objectIDs: %{public}@ before: %{public}@\n%{public}@", &v18, 0x2Au);
+    v17 = 134218754;
+    v18 = v9;
+    v19 = 2114;
+    v20 = v7;
+    v21 = 2114;
+    v22 = v5;
+    v23 = 2114;
+    v24 = v10;
+    _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "%p: Moving objectIDs: %{public}@ before: %{public}@\n%{public}@", &v17, 0x2Au);
   }
 
   v11 = [*(a1 + 32) _extraInfoForMessages:v6 messagesToPrecache:0 outObjectIDs:0 searchInfo:*(a1 + 40)];
@@ -1334,30 +1311,29 @@ void __63__EDMessageQueryHandler_queryHelper_didAddMessages_searchInfo___block_i
   [v15 observer:v16 matchedMovedObjectIDs:v7 before:v14 extraInfo:v11];
 
   [*(a1 + 48) addObjectsFromArray:v6];
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __63__EDMessageQueryHandler_queryHelper_didAddMessages_searchInfo___block_invoke_48(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v27 = 0;
-  v7 = [*(a1 + 32) _extraInfoForMessages:v6 messagesToPrecache:0 outObjectIDs:&v27 searchInfo:*(a1 + 40)];
-  v8 = v27;
+  v26 = 0;
+  v7 = [*(a1 + 32) _extraInfoForMessages:v6 messagesToPrecache:0 outObjectIDs:&v26 searchInfo:*(a1 + 40)];
+  v8 = v26;
   v9 = +[EDMessageQueryHandler log];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = *(a1 + 32);
     v11 = [v10 query];
     *buf = 134218754;
-    v29 = v10;
-    v30 = 2114;
-    v31 = v8;
-    v32 = 2114;
-    v33 = v5;
-    v34 = 2114;
-    v35 = v11;
+    v28 = v10;
+    v29 = 2114;
+    v30 = v8;
+    v31 = 2114;
+    v32 = v5;
+    v33 = 2114;
+    v34 = v11;
     _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "%p: Adding objectIDs: %{public}@ before: %{public}@\n%{public}@", buf, 0x2Au);
   }
 
@@ -1384,15 +1360,13 @@ void __63__EDMessageQueryHandler_queryHelper_didAddMessages_searchInfo___block_i
   block[2] = __63__EDMessageQueryHandler_queryHelper_didAddMessages_searchInfo___block_invoke_49;
   block[3] = &unk_1E8250AB8;
   block[4] = *(a1 + 32);
-  v24 = v17;
-  v25 = v14;
-  v26 = v7;
+  v23 = v17;
+  v24 = v14;
+  v25 = v7;
   v19 = v7;
   v20 = v14;
   v21 = v17;
   dispatch_sync(v18, block);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __63__EDMessageQueryHandler_queryHelper_didAddMessages_searchInfo___block_invoke_49(uint64_t a1)
@@ -1404,31 +1378,31 @@ void __63__EDMessageQueryHandler_queryHelper_didAddMessages_searchInfo___block_i
 
 - (void)queryHelper:(id)helper messageFlagsDidChangeForMessages:(id)messages previousMessages:(id)previousMessages
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   if ([(EDMessageQueryHandler *)self _queryHelperIsCurrent:helper])
   {
     v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v8 = messagesCopy;
-    v9 = [v8 countByEnumeratingWithState:&v25 objects:v35 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v24 objects:v34 count:16];
     if (v9)
     {
-      v10 = *v26;
+      v10 = *v25;
       do
       {
         v11 = 0;
         do
         {
-          if (*v26 != v10)
+          if (*v25 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v12 = *(*(&v25 + 1) + 8 * v11);
+          v12 = *(*(&v24 + 1) + 8 * v11);
           v13 = objc_alloc_init(MEMORY[0x1E699AD98]);
           flags = [v12 flags];
           [v13 setFlags:flags];
@@ -1440,7 +1414,7 @@ void __63__EDMessageQueryHandler_queryHelper_didAddMessages_searchInfo___block_i
         }
 
         while (v9 != v11);
-        v9 = [v8 countByEnumeratingWithState:&v25 objects:v35 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v24 objects:v34 count:16];
       }
 
       while (v9);
@@ -1453,10 +1427,10 @@ void __63__EDMessageQueryHandler_queryHelper_didAddMessages_searchInfo___block_i
       query = [(EDMessageRepositoryQueryHandler *)self query];
       *buf = 134218498;
       selfCopy = self;
-      v31 = 2114;
-      v32 = allKeys;
-      v33 = 2114;
-      v34 = query;
+      v30 = 2114;
+      v31 = allKeys;
+      v32 = 2114;
+      v33 = query;
       _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_DEFAULT, "%p: Changing flags for objectIDs: %{public}@\n%{public}@", buf, 0x20u);
     }
 
@@ -1466,12 +1440,10 @@ void __63__EDMessageQueryHandler_queryHelper_didAddMessages_searchInfo___block_i
     block[2] = __87__EDMessageQueryHandler_queryHelper_messageFlagsDidChangeForMessages_previousMessages___block_invoke;
     block[3] = &unk_1E8250128;
     block[4] = self;
-    v24 = v7;
+    v23 = v7;
     v20 = v7;
     dispatch_sync(resultQueue, block);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __87__EDMessageQueryHandler_queryHelper_messageFlagsDidChangeForMessages_previousMessages___block_invoke(uint64_t a1)
@@ -1511,7 +1483,7 @@ void __95__EDMessageQueryHandler_queryHelper_objectIDDidChangeForMessage_oldObje
 
 - (void)queryHelper:(id)helper didUpdateMessages:(id)messages forKeyPaths:(id)paths
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   helperCopy = helper;
   messagesCopy = messages;
   pathsCopy = paths;
@@ -1530,20 +1502,20 @@ void __95__EDMessageQueryHandler_queryHelper_objectIDDidChangeForMessage_oldObje
 
     else
     {
-      v24 = [MEMORY[0x1E699AD98] changesForKeyPaths:pathsCopy ofItems:messagesCopy];
+      v23 = [MEMORY[0x1E699AD98] changesForKeyPaths:pathsCopy ofItems:messagesCopy];
       v12 = +[EDMessageQueryHandler log];
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        allKeys = [v24 allKeys];
+        allKeys = [v23 allKeys];
         query = [(EDMessageRepositoryQueryHandler *)self query];
         *buf = 134218754;
         selfCopy = self;
-        v31 = 2114;
-        v32 = pathsCopy;
-        v33 = 2114;
-        v34 = allKeys;
-        v35 = 2114;
-        v36 = query;
+        v30 = 2114;
+        v31 = pathsCopy;
+        v32 = 2114;
+        v33 = allKeys;
+        v34 = 2114;
+        v35 = query;
         _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEFAULT, "%p: Changing key paths: %{public}@ for objectIDs: %{public}@\n%{public}@", buf, 0x2Au);
       }
 
@@ -1567,12 +1539,12 @@ void __95__EDMessageQueryHandler_queryHelper_objectIDDidChangeForMessage_oldObje
       block[2] = __67__EDMessageQueryHandler_queryHelper_didUpdateMessages_forKeyPaths___block_invoke_60;
       block[3] = &unk_1E8250AB8;
       block[4] = self;
-      v19 = v24;
-      v26 = v19;
+      v19 = v23;
+      v25 = v19;
       v20 = v16;
-      v27 = v20;
+      v26 = v20;
       v21 = v17;
-      v28 = v21;
+      v27 = v21;
       dispatch_sync(resultQueue, block);
 
       if ([v20 count])
@@ -1581,8 +1553,6 @@ void __95__EDMessageQueryHandler_queryHelper_objectIDDidChangeForMessage_oldObje
       }
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __67__EDMessageQueryHandler_queryHelper_didUpdateMessages_forKeyPaths___block_invoke(uint64_t a1, void *a2)
@@ -1611,7 +1581,7 @@ void __67__EDMessageQueryHandler_queryHelper_didUpdateMessages_forKeyPaths___blo
 
 void __67__EDMessageQueryHandler_queryHelper_didUpdateMessages_forKeyPaths___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [v6 ef_mapSelector:sel_objectID];
@@ -1620,15 +1590,15 @@ void __67__EDMessageQueryHandler_queryHelper_didUpdateMessages_forKeyPaths___blo
   {
     v9 = *(a1 + 32);
     v10 = [v9 query];
-    v17 = 134218754;
-    v18 = v9;
-    v19 = 2114;
-    v20 = v7;
-    v21 = 2114;
-    v22 = v5;
-    v23 = 2114;
-    v24 = v10;
-    _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "%p: Adding objectIDs: %{public}@ before: %{public}@\n%{public}@", &v17, 0x2Au);
+    v16 = 134218754;
+    v17 = v9;
+    v18 = 2114;
+    v19 = v7;
+    v20 = 2114;
+    v21 = v5;
+    v22 = 2114;
+    v23 = v10;
+    _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "%p: Adding objectIDs: %{public}@ before: %{public}@\n%{public}@", &v16, 0x2Au);
   }
 
   v11 = [MEMORY[0x1E695DFB0] null];
@@ -1647,13 +1617,11 @@ void __67__EDMessageQueryHandler_queryHelper_didUpdateMessages_forKeyPaths___blo
   v14 = [*(a1 + 32) _getResultsObserver];
   v15 = [*(a1 + 32) observationIdentifier];
   [v14 observer:v15 matchedMovedObjectIDs:v7 before:v13 extraInfo:*(a1 + 40)];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)queryHelper:(id)helper didDeleteMessages:(id)messages
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   if ([(EDMessageQueryHandler *)self _queryHelperIsCurrent:helper])
   {
@@ -1664,27 +1632,25 @@ void __67__EDMessageQueryHandler_queryHelper_didUpdateMessages_forKeyPaths___blo
       query = [(EDMessageRepositoryQueryHandler *)self query];
       *buf = 134218498;
       selfCopy = self;
-      v21 = 2114;
-      v22 = v7;
-      v23 = 2114;
-      v24 = query;
+      v20 = 2114;
+      v21 = v7;
+      v22 = 2114;
+      v23 = query;
       _os_log_impl(&dword_1C61EF000, v8, OS_LOG_TYPE_DEFAULT, "%p: Deleting objectIDs: %{public}@\n%{public}@", buf, 0x20u);
     }
 
     resultQueue = [(EDMessageQueryHandler *)self resultQueue];
-    v13 = MEMORY[0x1E69E9820];
-    v14 = 3221225472;
-    v15 = __55__EDMessageQueryHandler_queryHelper_didDeleteMessages___block_invoke;
-    v16 = &unk_1E8250128;
+    v12 = MEMORY[0x1E69E9820];
+    v13 = 3221225472;
+    v14 = __55__EDMessageQueryHandler_queryHelper_didDeleteMessages___block_invoke;
+    v15 = &unk_1E8250128;
     selfCopy2 = self;
     v11 = v7;
-    v18 = v11;
-    dispatch_sync(resultQueue, &v13);
+    v17 = v11;
+    dispatch_sync(resultQueue, &v12);
 
-    [(EDMessageQueryHandler *)self _oldestMessagesNeedUpdate:v13];
+    [(EDMessageQueryHandler *)self _oldestMessagesNeedUpdate:v12];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __55__EDMessageQueryHandler_queryHelper_didDeleteMessages___block_invoke(uint64_t a1)
@@ -1695,6 +1661,79 @@ void __55__EDMessageQueryHandler_queryHelper_didDeleteMessages___block_invoke(ui
 }
 
 - (void)queryHelper:(id)helper conversationIDDidChangeForMessages:(id)messages fromConversationID:(int64_t)d
+{
+  v35 = *MEMORY[0x1E69E9840];
+  messagesCopy = messages;
+  if ([(EDMessageQueryHandler *)self _queryHelperIsCurrent:helper])
+  {
+    v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v8 = messagesCopy;
+    v9 = [v8 countByEnumeratingWithState:&v24 objects:v34 count:16];
+    if (v9)
+    {
+      v10 = *v25;
+      do
+      {
+        for (i = 0; i != v9; ++i)
+        {
+          if (*v25 != v10)
+          {
+            objc_enumerationMutation(v8);
+          }
+
+          v12 = *(*(&v24 + 1) + 8 * i);
+          v13 = objc_alloc_init(MEMORY[0x1E699AD98]);
+          v14 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v12, "conversationID")}];
+          [v13 setConversationID:v14];
+
+          objectID = [v12 objectID];
+          [v7 setObject:v13 forKeyedSubscript:objectID];
+        }
+
+        v9 = [v8 countByEnumeratingWithState:&v24 objects:v34 count:16];
+      }
+
+      while (v9);
+    }
+
+    v16 = +[EDMessageQueryHandler log];
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      allKeys = [v7 allKeys];
+      query = [(EDMessageRepositoryQueryHandler *)self query];
+      *buf = 134218498;
+      selfCopy = self;
+      v30 = 2114;
+      v31 = allKeys;
+      v32 = 2114;
+      v33 = query;
+      _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_DEFAULT, "%p: Changing conversationID for objectIDs: %{public}@\n%{public}@", buf, 0x20u);
+    }
+
+    resultQueue = [(EDMessageQueryHandler *)self resultQueue];
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = __91__EDMessageQueryHandler_queryHelper_conversationIDDidChangeForMessages_fromConversationID___block_invoke;
+    block[3] = &unk_1E8250128;
+    block[4] = self;
+    v23 = v7;
+    v20 = v7;
+    dispatch_sync(resultQueue, block);
+  }
+}
+
+void __91__EDMessageQueryHandler_queryHelper_conversationIDDidChangeForMessages_fromConversationID___block_invoke(uint64_t a1)
+{
+  v3 = [*(a1 + 32) _getResultsObserver];
+  v2 = [*(a1 + 32) observationIdentifier];
+  [v3 observer:v2 matchedChangesForObjectIDs:*(a1 + 40)];
+}
+
+- (void)queryHelper:(id)helper businessIDDidChangeForMessages:(id)messages fromBusinessID:(int64_t)d
 {
   v36 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
@@ -1721,81 +1760,6 @@ void __55__EDMessageQueryHandler_queryHelper_didDeleteMessages___block_invoke(ui
 
           v12 = *(*(&v25 + 1) + 8 * i);
           v13 = objc_alloc_init(MEMORY[0x1E699AD98]);
-          v14 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v12, "conversationID")}];
-          [v13 setConversationID:v14];
-
-          objectID = [v12 objectID];
-          [v7 setObject:v13 forKeyedSubscript:objectID];
-        }
-
-        v9 = [v8 countByEnumeratingWithState:&v25 objects:v35 count:16];
-      }
-
-      while (v9);
-    }
-
-    v16 = +[EDMessageQueryHandler log];
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-    {
-      allKeys = [v7 allKeys];
-      query = [(EDMessageRepositoryQueryHandler *)self query];
-      *buf = 134218498;
-      selfCopy = self;
-      v31 = 2114;
-      v32 = allKeys;
-      v33 = 2114;
-      v34 = query;
-      _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_DEFAULT, "%p: Changing conversationID for objectIDs: %{public}@\n%{public}@", buf, 0x20u);
-    }
-
-    resultQueue = [(EDMessageQueryHandler *)self resultQueue];
-    block[0] = MEMORY[0x1E69E9820];
-    block[1] = 3221225472;
-    block[2] = __91__EDMessageQueryHandler_queryHelper_conversationIDDidChangeForMessages_fromConversationID___block_invoke;
-    block[3] = &unk_1E8250128;
-    block[4] = self;
-    v24 = v7;
-    v20 = v7;
-    dispatch_sync(resultQueue, block);
-  }
-
-  v21 = *MEMORY[0x1E69E9840];
-}
-
-void __91__EDMessageQueryHandler_queryHelper_conversationIDDidChangeForMessages_fromConversationID___block_invoke(uint64_t a1)
-{
-  v3 = [*(a1 + 32) _getResultsObserver];
-  v2 = [*(a1 + 32) observationIdentifier];
-  [v3 observer:v2 matchedChangesForObjectIDs:*(a1 + 40)];
-}
-
-- (void)queryHelper:(id)helper businessIDDidChangeForMessages:(id)messages fromBusinessID:(int64_t)d
-{
-  v37 = *MEMORY[0x1E69E9840];
-  messagesCopy = messages;
-  if ([(EDMessageQueryHandler *)self _queryHelperIsCurrent:helper])
-  {
-    v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
-    v27 = 0u;
-    v8 = messagesCopy;
-    v9 = [v8 countByEnumeratingWithState:&v26 objects:v36 count:16];
-    if (v9)
-    {
-      v10 = *v27;
-      do
-      {
-        for (i = 0; i != v9; ++i)
-        {
-          if (*v27 != v10)
-          {
-            objc_enumerationMutation(v8);
-          }
-
-          v12 = *(*(&v26 + 1) + 8 * i);
-          v13 = objc_alloc_init(MEMORY[0x1E699AD98]);
           v14 = [MEMORY[0x1E696AD98] numberWithLongLong:{objc_msgSend(v12, "businessID")}];
           [v13 setBusinessID:v14];
 
@@ -1806,7 +1770,7 @@ void __91__EDMessageQueryHandler_queryHelper_conversationIDDidChangeForMessages_
           [v7 setObject:v13 forKeyedSubscript:objectID];
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v26 objects:v36 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v25 objects:v35 count:16];
       }
 
       while (v9);
@@ -1819,10 +1783,10 @@ void __91__EDMessageQueryHandler_queryHelper_conversationIDDidChangeForMessages_
       query = [(EDMessageRepositoryQueryHandler *)self query];
       *buf = 134218498;
       selfCopy = self;
-      v32 = 2114;
-      v33 = allKeys;
-      v34 = 2114;
-      v35 = query;
+      v31 = 2114;
+      v32 = allKeys;
+      v33 = 2114;
+      v34 = query;
       _os_log_impl(&dword_1C61EF000, v17, OS_LOG_TYPE_DEFAULT, "%p: Changing businessID for objectIDs: %{public}@\n%{public}@", buf, 0x20u);
     }
 
@@ -1832,12 +1796,10 @@ void __91__EDMessageQueryHandler_queryHelper_conversationIDDidChangeForMessages_
     block[2] = __83__EDMessageQueryHandler_queryHelper_businessIDDidChangeForMessages_fromBusinessID___block_invoke;
     block[3] = &unk_1E8250128;
     block[4] = self;
-    v25 = v7;
+    v24 = v7;
     v21 = v7;
     dispatch_sync(resultQueue, block);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __83__EDMessageQueryHandler_queryHelper_businessIDDidChangeForMessages_fromBusinessID___block_invoke(uint64_t a1)
@@ -1849,61 +1811,59 @@ void __83__EDMessageQueryHandler_queryHelper_businessIDDidChangeForMessages_from
 
 - (id)_createChangesForMessagesWithConversationID:(int64_t)d block:(id)block
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   blockCopy = block;
   v7 = [MEMORY[0x1E699ADA0] predicateForMessagesInConversation:d];
   currentQueryHelper = [(EDMessageQueryHandler *)self currentQueryHelper];
-  v26[0] = v7;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
-  v20 = [currentQueryHelper messagesWithAdditionalPredicates:v9 limit:0x7FFFFFFFFFFFFFFFLL];
+  v25[0] = v7;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
+  v19 = [currentQueryHelper messagesWithAdditionalPredicates:v9 limit:0x7FFFFFFFFFFFFFFFLL];
 
   v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
-  v11 = v20;
-  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v11 = v19;
+  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v12)
   {
-    v13 = *v22;
+    v13 = *v21;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v22 != v13)
+        if (*v21 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * i);
+        v15 = *(*(&v20 + 1) + 8 * i);
         v16 = blockCopy[2](blockCopy);
         objectID = [v15 objectID];
         [v10 setObject:v16 forKeyedSubscript:objectID];
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v12);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (void)queryHelper:(id)helper conversationNotificationLevelDidChangeForConversation:(int64_t)conversation conversationID:(int64_t)d
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if ([(EDMessageQueryHandler *)self _queryHelperIsCurrent:helper])
   {
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __106__EDMessageQueryHandler_queryHelper_conversationNotificationLevelDidChangeForConversation_conversationID___block_invoke;
-    v17[3] = &__block_descriptor_40_e30___EMMessageListItemChange_8__0l;
-    v17[4] = conversation;
-    v8 = [(EDMessageQueryHandler *)self _createChangesForMessagesWithConversationID:d block:v17];
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __106__EDMessageQueryHandler_queryHelper_conversationNotificationLevelDidChangeForConversation_conversationID___block_invoke;
+    v16[3] = &__block_descriptor_40_e30___EMMessageListItemChange_8__0l;
+    v16[4] = conversation;
+    v8 = [(EDMessageQueryHandler *)self _createChangesForMessagesWithConversationID:d block:v16];
     v9 = +[EDMessageQueryHandler log];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
@@ -1911,10 +1871,10 @@ void __83__EDMessageQueryHandler_queryHelper_businessIDDidChangeForMessages_from
       query = [(EDMessageRepositoryQueryHandler *)self query];
       *buf = 134218498;
       selfCopy = self;
-      v20 = 2114;
-      v21 = allKeys;
-      v22 = 2114;
-      v23 = query;
+      v19 = 2114;
+      v20 = allKeys;
+      v21 = 2114;
+      v22 = query;
       _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_DEFAULT, "%p: Changing flags for objectIDs: %{public}@\n%{public}@", buf, 0x20u);
     }
 
@@ -1924,12 +1884,10 @@ void __83__EDMessageQueryHandler_queryHelper_businessIDDidChangeForMessages_from
     block[2] = __106__EDMessageQueryHandler_queryHelper_conversationNotificationLevelDidChangeForConversation_conversationID___block_invoke_64;
     block[3] = &unk_1E8250128;
     block[4] = self;
-    v16 = v8;
+    v15 = v8;
     v13 = v8;
     dispatch_sync(resultQueue, block);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 id __106__EDMessageQueryHandler_queryHelper_conversationNotificationLevelDidChangeForConversation_conversationID___block_invoke(uint64_t a1)
@@ -2034,54 +1992,51 @@ void __58__EDMessageQueryHandler_queryHelperDidFinishRemoteSearch___block_invoke
 
 void __50__EDMessageQueryHandler__oldestMessagesNeedUpdate__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = +[EDMessageQueryHandler log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [WeakRetained mailboxes];
-    v9 = 134218240;
-    v10 = WeakRetained;
-    v11 = 1024;
-    v12 = [v4 count];
-    _os_log_impl(&dword_1C61EF000, v3, OS_LOG_TYPE_DEFAULT, "%p: Updating oldest messages for %u mailboxes", &v9, 0x12u);
+    v7 = 134218240;
+    v8 = WeakRetained;
+    v9 = 1024;
+    v10 = [v4 count];
+    _os_log_impl(&dword_1C61EF000, v3, OS_LOG_TYPE_DEFAULT, "%p: Updating oldest messages for %u mailboxes", &v7, 0x12u);
   }
 
   v5 = [WeakRetained mailboxes];
   [WeakRetained _updateOldestMessagesForMailboxes:v5 cancelationToken:*(a1 + 32)];
 
-  v6 = *(a1 + 32);
-  v7 = EFAtomicObjectReleaseIfIdentical();
-
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = EFAtomicObjectReleaseIfIdentical();
 }
 
 - (void)_updateOldestMessagesForMailboxes:(id)mailboxes cancelationToken:(id)token
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   mailboxesCopy = mailboxes;
   tokenCopy = token;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = mailboxesCopy;
-  v7 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v7 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v7)
   {
-    v20 = 0;
-    v22 = v7;
-    v23 = *v26;
+    v19 = 0;
+    v21 = v7;
+    v22 = *v25;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v26 != v23)
+      if (*v25 != v22)
       {
         objc_enumerationMutation(obj);
       }
 
-      v9 = *(*(&v25 + 1) + 8 * v8);
+      v9 = *(*(&v24 + 1) + 8 * v8);
       v10 = objc_autoreleasePoolPush();
       messagePersistence = [(EDMessageRepositoryQueryHandler *)self messagePersistence];
       v12 = [(EDMessageQueryHandler *)self _oldestItemQueryForMailbox:v9];
@@ -2100,13 +2055,13 @@ LABEL_3:
           {
             *buf = 134218242;
             selfCopy = self;
-            v31 = 2112;
-            v32 = v9;
+            v30 = 2112;
+            v31 = v9;
             _os_log_impl(&dword_1C61EF000, v18, OS_LOG_TYPE_DEFAULT, "%p: Updated oldest message for mailbox ID %@", buf, 0x16u);
           }
 
           [(NSMutableDictionary *)self->_oldestMessageIDsByMailboxObjectIDs setObject:objectID forKeyedSubscript:v9];
-          v20 = 1;
+          v19 = 1;
         }
       }
 
@@ -2116,10 +2071,10 @@ LABEL_3:
         break;
       }
 
-      if (v22 == ++v8)
+      if (v21 == ++v8)
       {
-        v22 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
-        if (v22)
+        v21 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
+        if (v21)
         {
           goto LABEL_3;
         }
@@ -2128,7 +2083,7 @@ LABEL_3:
       }
     }
 
-    if (v20)
+    if (v19)
     {
       [(EDMessageQueryHandler *)self _oldestMessagesByMailboxObjectIDsWasUpdated];
     }
@@ -2137,13 +2092,11 @@ LABEL_3:
   else
   {
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_oldestItemQueryForMailbox:(id)mailbox
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   mailboxCopy = mailbox;
   query = [(EDMessageRepositoryQueryHandler *)self query];
   predicate = [query predicate];
@@ -2155,26 +2108,23 @@ LABEL_3:
   query2 = [(EDMessageRepositoryQueryHandler *)self query];
   targetClass = [query2 targetClass];
   v13 = MEMORY[0x1E696AB28];
-  v21[0] = v7;
-  v21[1] = v8;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
+  v20[0] = v7;
+  v20[1] = v8;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
   v15 = [v13 andPredicateWithSubpredicates:v14];
-  v20 = v9;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
+  v19 = v9;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
   v17 = [v10 initWithTargetClass:targetClass predicate:v15 sortDescriptors:v16];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
 
 - (void)_oldestMessagesByMailboxObjectIDsWasUpdated
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 134217984;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 134217984;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_DEBUG, "%p: Oldest messages updated", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_DEBUG, "%p: Oldest messages updated", &v2, 0xCu);
 }
 
 void __68__EDMessageQueryHandler__oldestMessagesByMailboxObjectIDsWasUpdated__block_invoke(uint64_t a1)
@@ -2187,7 +2137,7 @@ void __68__EDMessageQueryHandler__oldestMessagesByMailboxObjectIDsWasUpdated__bl
 
 - (id)findMessagesByPreviousObjectIDForAddedMessages:(id)messages helper:(id)helper
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   helperCopy = helper;
   messageList = [(EDMessageQueryHandler *)self messageList];
@@ -2195,21 +2145,21 @@ void __68__EDMessageQueryHandler__oldestMessagesByMailboxObjectIDsWasUpdated__bl
   if (messageList)
   {
     *buf = 0;
-    v24 = buf;
-    v25 = 0x3032000000;
-    v26 = __Block_byref_object_copy__26;
-    v27 = __Block_byref_object_dispose__26;
-    v28 = 0;
+    v23 = buf;
+    v24 = 0x3032000000;
+    v25 = __Block_byref_object_copy__26;
+    v26 = __Block_byref_object_dispose__26;
+    v27 = 0;
     messageList2 = [(EDMessageQueryHandler *)self messageList];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __79__EDMessageQueryHandler_findMessagesByPreviousObjectIDForAddedMessages_helper___block_invoke;
-    v20[3] = &unk_1E8254E58;
-    v22 = buf;
-    v21 = messagesCopy;
-    [messageList2 performWhileLocked:v20];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __79__EDMessageQueryHandler_findMessagesByPreviousObjectIDForAddedMessages_helper___block_invoke;
+    v19[3] = &unk_1E8254E58;
+    v21 = buf;
+    v20 = messagesCopy;
+    [messageList2 performWhileLocked:v19];
 
-    v10 = *(v24 + 5);
+    v10 = *(v23 + 5);
     _Block_object_dispose(buf, 8);
   }
 
@@ -2238,8 +2188,6 @@ void __68__EDMessageQueryHandler__oldestMessagesByMailboxObjectIDsWasUpdated__bl
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
@@ -2254,35 +2202,35 @@ void __79__EDMessageQueryHandler_findMessagesByPreviousObjectIDForAddedMessages_
 
 + (id)findMessagesByPreviousObjectIDForAddedMessages:(id)messages messageSource:(id)source comparator:(id)comparator
 {
-  v107[1] = *MEMORY[0x1E69E9840];
+  v106[1] = *MEMORY[0x1E69E9840];
   messagesCopy = messages;
   sourceCopy = source;
   comparatorCopy = comparator;
-  v56 = messagesCopy;
+  v55 = messagesCopy;
   if ([messagesCopy count])
   {
     query = [sourceCopy query];
     sortDescriptors = [query sortDescriptors];
     if ([sortDescriptors count])
     {
-      v65 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v61 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v64 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v60 = objc_alloc_init(MEMORY[0x1E695DF70]);
       if (!comparatorCopy)
       {
         comparatorCopy = EFComparatorFromSortDescriptors();
       }
 
-      v54 = comparatorCopy;
-      v50 = [messagesCopy sortedArrayWithOptions:16 usingComparator:comparatorCopy];
-      v48 = [v50 ef_mapSelector:sel_objectID];
+      v53 = comparatorCopy;
+      v49 = [messagesCopy sortedArrayWithOptions:16 usingComparator:comparatorCopy];
+      v47 = [v49 ef_mapSelector:sel_objectID];
       aBlock[0] = MEMORY[0x1E69E9820];
       aBlock[1] = 3221225472;
       aBlock[2] = __97__EDMessageQueryHandler_findMessagesByPreviousObjectIDForAddedMessages_messageSource_comparator___block_invoke;
       aBlock[3] = &unk_1E8254EA8;
       v9 = sortDescriptors;
-      v99 = v9;
-      v49 = _Block_copy(aBlock);
-      v10 = [v50 count];
+      v98 = v9;
+      v48 = _Block_copy(aBlock);
+      v10 = [v49 count];
       if (v10 >= 290)
       {
         v11 = 290;
@@ -2293,92 +2241,92 @@ void __79__EDMessageQueryHandler_findMessagesByPreviousObjectIDForAddedMessages_
         v11 = v10;
       }
 
-      firstObject = [v50 firstObject];
-      v13 = v49[2](v49, firstObject, 1);
-      v105 = v13;
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v105 count:1];
-      v52 = [sourceCopy sortableMessagesWithAdditionalPredicates:v14 limit:v11 + 10];
+      firstObject = [v49 firstObject];
+      v13 = v48[2](v48, firstObject, 1);
+      v104 = v13;
+      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v104 count:1];
+      v51 = [sourceCopy sortableMessagesWithAdditionalPredicates:v14 limit:v11 + 10];
 
-      v15 = [MEMORY[0x1E696AD50] indexSetWithIndexesInRange:{0, objc_msgSend(v52, "count")}];
-      v94 = 0;
-      v95 = &v94;
-      v96 = 0x2020000000;
-      v97 = 0;
-      v90[0] = MEMORY[0x1E69E9820];
-      v90[1] = 3221225472;
-      v90[2] = __97__EDMessageQueryHandler_findMessagesByPreviousObjectIDForAddedMessages_messageSource_comparator___block_invoke_3;
-      v90[3] = &unk_1E8254EF8;
-      v90[4] = v52;
-      v46 = v15;
-      v91 = v46;
-      v16 = v48;
-      v92 = v16;
-      v93 = &v94;
-      v64 = _Block_copy(v90);
-      v88[0] = MEMORY[0x1E69E9820];
-      v88[1] = 3221225472;
-      v88[2] = __97__EDMessageQueryHandler_findMessagesByPreviousObjectIDForAddedMessages_messageSource_comparator___block_invoke_5;
-      v88[3] = &unk_1E8254F20;
-      v63 = v9;
-      v89 = v63;
-      v17 = _Block_copy(v88);
-      v84 = 0;
-      v85 = &v84;
-      v86 = 0x2020000000;
-      v87 = 0;
-      v81[0] = MEMORY[0x1E69E9820];
-      v81[1] = 3221225472;
-      v81[2] = __97__EDMessageQueryHandler_findMessagesByPreviousObjectIDForAddedMessages_messageSource_comparator___block_invoke_6;
-      v81[3] = &unk_1E8254F48;
-      v81[4] = v61;
-      v47 = v17;
-      v81[5] = v65;
-      v82 = v47;
-      v83 = &v84;
-      v60 = _Block_copy(v81);
-      v75 = 0;
-      v76 = &v75;
-      v77 = 0x3032000000;
-      v78 = __Block_byref_object_copy__26;
-      v79 = __Block_byref_object_dispose__26;
-      v80 = 0;
-      v70[0] = MEMORY[0x1E69E9820];
-      v70[1] = 3221225472;
-      v70[2] = __97__EDMessageQueryHandler_findMessagesByPreviousObjectIDForAddedMessages_messageSource_comparator___block_invoke_7;
-      v70[3] = &unk_1E8254F70;
-      v74 = &v75;
-      v44 = v16;
-      v71 = v44;
-      v45 = v49;
-      v73 = v45;
-      v72 = sourceCopy;
-      v59 = _Block_copy(v70);
-      v68 = 0u;
-      v69 = 0u;
-      v66 = 0u;
+      v15 = [MEMORY[0x1E696AD50] indexSetWithIndexesInRange:{0, objc_msgSend(v51, "count")}];
+      v93 = 0;
+      v94 = &v93;
+      v95 = 0x2020000000;
+      v96 = 0;
+      v89[0] = MEMORY[0x1E69E9820];
+      v89[1] = 3221225472;
+      v89[2] = __97__EDMessageQueryHandler_findMessagesByPreviousObjectIDForAddedMessages_messageSource_comparator___block_invoke_3;
+      v89[3] = &unk_1E8254EF8;
+      v89[4] = v51;
+      v45 = v15;
+      v90 = v45;
+      v16 = v47;
+      v91 = v16;
+      v92 = &v93;
+      v63 = _Block_copy(v89);
+      v87[0] = MEMORY[0x1E69E9820];
+      v87[1] = 3221225472;
+      v87[2] = __97__EDMessageQueryHandler_findMessagesByPreviousObjectIDForAddedMessages_messageSource_comparator___block_invoke_5;
+      v87[3] = &unk_1E8254F20;
+      v62 = v9;
+      v88 = v62;
+      v17 = _Block_copy(v87);
+      v83 = 0;
+      v84 = &v83;
+      v85 = 0x2020000000;
+      v86 = 0;
+      v80[0] = MEMORY[0x1E69E9820];
+      v80[1] = 3221225472;
+      v80[2] = __97__EDMessageQueryHandler_findMessagesByPreviousObjectIDForAddedMessages_messageSource_comparator___block_invoke_6;
+      v80[3] = &unk_1E8254F48;
+      v80[4] = v60;
+      v46 = v17;
+      v80[5] = v64;
+      v81 = v46;
+      v82 = &v83;
+      v59 = _Block_copy(v80);
+      v74 = 0;
+      v75 = &v74;
+      v76 = 0x3032000000;
+      v77 = __Block_byref_object_copy__26;
+      v78 = __Block_byref_object_dispose__26;
+      v79 = 0;
+      v69[0] = MEMORY[0x1E69E9820];
+      v69[1] = 3221225472;
+      v69[2] = __97__EDMessageQueryHandler_findMessagesByPreviousObjectIDForAddedMessages_messageSource_comparator___block_invoke_7;
+      v69[3] = &unk_1E8254F70;
+      v73 = &v74;
+      v43 = v16;
+      v70 = v43;
+      v44 = v48;
+      v72 = v44;
+      v71 = sourceCopy;
+      v58 = _Block_copy(v69);
       v67 = 0u;
-      obj = v50;
-      v18 = [obj countByEnumeratingWithState:&v66 objects:v104 count:16];
+      v68 = 0u;
+      v65 = 0u;
+      v66 = 0u;
+      obj = v49;
+      v18 = [obj countByEnumeratingWithState:&v65 objects:v103 count:16];
       if (v18)
       {
-        v19 = *v67;
+        v19 = *v66;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v67 != v19)
+            if (*v66 != v19)
             {
               objc_enumerationMutation(obj);
             }
 
-            v21 = *(*(&v66 + 1) + 8 * i);
-            v22 = v64[2](v64, v21);
+            v21 = *(*(&v65 + 1) + 8 * i);
+            v22 = v63[2](v63, v21);
             if (!v22)
             {
-              v22 = v60[2](v60, v21);
+              v22 = v59[2](v59, v21);
               if (!v22)
               {
-                v22 = v59[2](v59, v21);
+                v22 = v58[2](v58, v21);
               }
             }
 
@@ -2401,7 +2349,7 @@ LABEL_24:
             }
 
             null2 = [v22 objectID];
-            [v61 addObject:v22];
+            [v60 addObject:v22];
             itemID = [v21 itemID];
             collectionItemID = [null2 collectionItemID];
             if ([itemID isEqual:collectionItemID])
@@ -2409,84 +2357,82 @@ LABEL_24:
               v30 = +[EDMessageQueryHandler log];
               if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
               {
-                v32 = v76[5];
+                v32 = v75[5];
                 *buf = 134218754;
                 selfCopy2 = self;
-                v102 = 2114;
-                *v103 = v21;
-                *&v103[8] = 2114;
-                *&v103[10] = v22;
-                *&v103[18] = 2114;
-                *&v103[20] = v32;
+                v101 = 2114;
+                *v102 = v21;
+                *&v102[8] = 2114;
+                *&v102[10] = v22;
+                *&v102[18] = 2114;
+                *&v102[20] = v32;
                 _os_log_error_impl(&dword_1C61EF000, v30, OS_LOG_TYPE_ERROR, "%p: Previous message is message itself -- message: %{public}@\nprevious message: %{public}@\nexclude predicate: %{public}@", buf, 0x2Au);
               }
             }
 
 LABEL_25:
-            v31 = [v65 objectForKeyedSubscript:null2];
+            v31 = [v64 objectForKeyedSubscript:null2];
             if (!v31)
             {
               v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
-              [v65 setObject:v31 forKeyedSubscript:null2];
+              [v64 setObject:v31 forKeyedSubscript:null2];
             }
 
-            [v31 ef_insertObject:v21 usingSortDescriptors:v63];
+            [v31 ef_insertObject:v21 usingSortDescriptors:v62];
           }
 
-          v18 = [obj countByEnumeratingWithState:&v66 objects:v104 count:16];
+          v18 = [obj countByEnumeratingWithState:&v65 objects:v103 count:16];
         }
 
         while (v18);
       }
 
-      v33 = *(v95 + 6);
+      v33 = *(v94 + 6);
       v34 = [obj count];
-      v35 = *(v85 + 6);
+      v35 = *(v84 + 6);
       v36 = [obj count];
       v37 = +[EDMessageQueryHandler log];
       if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
       {
-        v42 = [v52 count];
-        v43 = [obj count];
+        v41 = [v51 count];
+        v42 = [obj count];
         *buf = 134219008;
         selfCopy2 = self;
-        v102 = 1024;
-        *v103 = v42;
-        *&v103[4] = 2048;
-        *&v103[6] = ((v33 * 100.0) / v34);
-        *&v103[14] = 2048;
-        *&v103[16] = ((v35 * 100.0) / v36);
-        *&v103[24] = 1024;
-        *&v103[26] = v43;
+        v101 = 1024;
+        *v102 = v41;
+        *&v102[4] = 2048;
+        *&v102[6] = ((v33 * 100.0) / v34);
+        *&v102[14] = 2048;
+        *&v102[16] = ((v35 * 100.0) / v36);
+        *&v102[24] = 1024;
+        *&v102[26] = v42;
         _os_log_debug_impl(&dword_1C61EF000, v37, OS_LOG_TYPE_DEBUG, "%p: Used head-list-lookup (%u entries) for %.3g%%, faster previous-message-lookup for %.3g%% of %u messages.", buf, 0x2Cu);
       }
 
-      v38 = v65;
-      _Block_object_dispose(&v75, 8);
+      v38 = v64;
+      _Block_object_dispose(&v74, 8);
 
-      _Block_object_dispose(&v84, 8);
-      _Block_object_dispose(&v94, 8);
+      _Block_object_dispose(&v83, 8);
+      _Block_object_dispose(&v93, 8);
 
-      null3 = v61;
+      null3 = v60;
     }
 
     else
     {
       null3 = [MEMORY[0x1E695DFB0] null];
-      v54 = comparatorCopy;
-      v106 = null3;
-      v107[0] = messagesCopy;
-      v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v107 forKeys:&v106 count:1];
+      v53 = comparatorCopy;
+      v105 = null3;
+      v106[0] = messagesCopy;
+      v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v106 forKeys:&v105 count:1];
     }
   }
 
   else
   {
-    v55 = comparatorCopy;
+    v54 = comparatorCopy;
     v38 = MEMORY[0x1E695E0F8];
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 
   return v38;
 }
@@ -2611,32 +2557,32 @@ uint64_t __97__EDMessageQueryHandler_findMessagesByPreviousObjectIDForAddedMessa
 
 uint64_t __97__EDMessageQueryHandler_findMessagesByPreviousObjectIDForAddedMessages_messageSource_comparator___block_invoke_5(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v7 = *(a1 + 32);
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (!v8)
   {
     v17 = 0;
     goto LABEL_15;
   }
 
-  v9 = *v21;
+  v9 = *v20;
   while (2)
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v21 != v9)
+      if (*v20 != v9)
       {
         objc_enumerationMutation(v7);
       }
 
-      v11 = *(*(&v20 + 1) + 8 * i);
+      v11 = *(*(&v19 + 1) + 8 * i);
       v12 = [v11 key];
       v13 = [v5 valueForKeyPath:v12];
 
@@ -2659,7 +2605,7 @@ LABEL_14:
       }
     }
 
-    v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     v17 = 0;
     if (v8)
     {
@@ -2671,33 +2617,32 @@ LABEL_14:
 
 LABEL_15:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 id __97__EDMessageQueryHandler_findMessagesByPreviousObjectIDForAddedMessages_messageSource_comparator___block_invoke_6(uint64_t a1, void *a2)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v24 = 0u;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v5)
   {
-    v6 = *v27;
+    v6 = *v25;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v27 != v6)
+        if (*v25 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v26 + 1) + 8 * i);
+        v8 = *(*(&v24 + 1) + 8 * i);
         if ((*(*(a1 + 48) + 16))())
         {
           v9 = *(a1 + 40);
@@ -2708,14 +2653,14 @@ id __97__EDMessageQueryHandler_findMessagesByPreviousObjectIDForAddedMessages_me
           if (v12 && ((*(*(a1 + 48) + 16))() & 1) != 0)
           {
             ++*(*(*(a1 + 56) + 8) + 24);
-            v19 = v8;
+            v18 = v8;
 
             goto LABEL_23;
           }
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v24 objects:v29 count:16];
       if (v5)
       {
         continue;
@@ -2725,37 +2670,36 @@ id __97__EDMessageQueryHandler_findMessagesByPreviousObjectIDForAddedMessages_me
     }
   }
 
-  v24 = 0u;
-  v25 = 0u;
   v22 = 0u;
   v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v13 = *(a1 + 40);
   v14 = [MEMORY[0x1E695DFB0] null];
   v4 = [v13 objectForKeyedSubscript:v14];
 
-  v15 = [v4 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v15 = [v4 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v15)
   {
-    v16 = *v23;
+    v16 = *v21;
     while (2)
     {
       for (j = 0; j != v15; ++j)
       {
-        if (*v23 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(v4);
         }
 
-        v18 = *(*(&v22 + 1) + 8 * j);
         if ((*(*(a1 + 48) + 16))())
         {
           ++*(*(*(a1 + 56) + 8) + 24);
-          v19 = [MEMORY[0x1E695DFB0] null];
+          v18 = [MEMORY[0x1E695DFB0] null];
           goto LABEL_23;
         }
       }
 
-      v15 = [v4 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v15 = [v4 countByEnumeratingWithState:&v20 objects:v28 count:16];
       if (v15)
       {
         continue;
@@ -2765,17 +2709,15 @@ id __97__EDMessageQueryHandler_findMessagesByPreviousObjectIDForAddedMessages_me
     }
   }
 
-  v19 = 0;
+  v18 = 0;
 LABEL_23:
 
-  v20 = *MEMORY[0x1E69E9840];
-
-  return v19;
+  return v18;
 }
 
 id __97__EDMessageQueryHandler_findMessagesByPreviousObjectIDForAddedMessages_messageSource_comparator___block_invoke_7(void *a1, void *a2)
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (!*(*(a1[7] + 8) + 40))
   {
@@ -2788,13 +2730,11 @@ id __97__EDMessageQueryHandler_findMessagesByPreviousObjectIDForAddedMessages_me
   v7 = (*(a1[6] + 16))();
   v8 = a1[5];
   v9 = *(*(a1[7] + 8) + 40);
-  v15[0] = v7;
-  v15[1] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+  v14[0] = v7;
+  v14[1] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
   v11 = [v8 messagesWithAdditionalPredicates:v10 limit:1];
   v12 = [v11 firstObject];
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -2829,11 +2769,10 @@ id __97__EDMessageQueryHandler_findMessagesByPreviousObjectIDForAddedMessages_me
 
 - (void)_messagesForInitialBatchWithMessagesFromQueryHelper:(uint64_t)a1 requestedMessage:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch requested message: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch requested message: %{public}@", &v2, 0xCu);
 }
 
 - (void)queryHelperDidFailInitialLoad:localSearchInfoCollector:.cold.1()

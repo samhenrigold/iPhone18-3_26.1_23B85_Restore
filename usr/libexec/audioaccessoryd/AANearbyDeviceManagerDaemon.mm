@@ -77,14 +77,14 @@
   v21 = sub_100003898;
   v22 = 0;
   obj = 0;
-  NSAppendPrintF_safe();
-  objc_storeStrong(&v22, 0);
+  NSAppendPrintF_safe(&obj, "-- AANearbyDeviceManagerDaemon --\n", *&level);
+  objc_storeStrong(&v22, obj);
   nearbyDevices = [(AANearbyDeviceManagerDaemon *)self nearbyDevices];
   v5 = v18;
   v15 = v18[5];
   v6 = [nearbyDevices count];
   cbDiscovery = [(AANearbyDeviceManagerDaemon *)self cbDiscovery];
-  NSAppendPrintF();
+  NSAppendPrintF(&v15, "Nearby Accessories: %d, %@\n", v6, cbDiscovery);
   objc_storeStrong(v5 + 5, v15);
 
   v14[0] = _NSConcreteStackBlock;
@@ -92,20 +92,20 @@
   v14[2] = sub_1000D2430;
   v14[3] = &unk_1002BB308;
   v14[4] = &v17;
-  [nearbyDevices enumerateKeysAndObjectsUsingBlock:{v14, v6, cbDiscovery}];
-  v7 = v18;
-  v13 = v18[5];
-  NSAppendPrintF();
-  objc_storeStrong(v7 + 5, v13);
+  [nearbyDevices enumerateKeysAndObjectsUsingBlock:v14];
   v8 = v18;
+  v13 = v18[5];
+  NSAppendPrintF(&v13, "\n");
+  objc_storeStrong(v8 + 5, v13);
+  v9 = v18;
   v12 = v18[5];
-  NSAppendPrintF();
-  objc_storeStrong(v8 + 5, v12);
-  v9 = v18[5];
+  NSAppendPrintF(&v12, "\n");
+  objc_storeStrong(v9 + 5, v12);
+  v10 = v18[5];
 
   _Block_object_dispose(&v17, 8);
 
-  return v9;
+  return v10;
 }
 
 - (void)activate
@@ -123,10 +123,13 @@
 {
   if (![(AANearbyDeviceManagerDaemon *)self activateCalled])
   {
-    [(AANearbyDeviceManagerDaemon *)self setActivateCalled:1];
-    if (dword_1002F7380 <= 30 && (dword_1002F7380 != -1 || _LogCategory_Initialize()))
+    v3 = [(AANearbyDeviceManagerDaemon *)self setActivateCalled:1];
+    if (dword_1002F7380 <= 30)
     {
-      sub_1001F9FE4();
+      if (dword_1002F7380 != -1 || (v3 = _LogCategory_Initialize(), v3))
+      {
+        sub_1001F9FE4(v3, v4, v5);
+      }
     }
 
     [(AANearbyDeviceManagerDaemon *)self _cbDiscoveryEnsureStarted];
@@ -150,26 +153,34 @@
 
 - (void)_invalidate
 {
-  if (dword_1002F7380 <= 30 && (dword_1002F7380 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F7380 <= 30)
   {
-    sub_1001FA000();
+    if (dword_1002F7380 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001FA000(self, a2, v2);
+    }
   }
 
-  [(AANearbyDeviceManagerDaemon *)self _cbDiscoveryEnsureStopped];
-  [(AANearbyDeviceManagerDaemon *)self _batterMonitorEnsureStopped];
-  [(AANearbyDeviceManagerDaemon *)self _notifySubscribersInvalidated];
-  [(AANearbyDeviceManagerDaemon *)self _aaPairedDeviceDiscoveryEnsureStopped];
-  self->_activateCalled = 0;
+  [(AANearbyDeviceManagerDaemon *)selfCopy _cbDiscoveryEnsureStopped];
+  [(AANearbyDeviceManagerDaemon *)selfCopy _batterMonitorEnsureStopped];
+  [(AANearbyDeviceManagerDaemon *)selfCopy _notifySubscribersInvalidated];
+  [(AANearbyDeviceManagerDaemon *)selfCopy _aaPairedDeviceDiscoveryEnsureStopped];
+  selfCopy->_activateCalled = 0;
 }
 
 - (void)_handleXPCLaunchEvent
 {
-  if (dword_1002F7380 <= 30 && (dword_1002F7380 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F7380 <= 30)
   {
-    sub_1001FA01C();
+    if (dword_1002F7380 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001FA01C(self, a2, v2);
+    }
   }
 
-  dispatchQueue = [(AANearbyDeviceManagerDaemon *)self dispatchQueue];
+  dispatchQueue = [(AANearbyDeviceManagerDaemon *)selfCopy dispatchQueue];
   xpc_set_event_stream_handler("com.apple.bluetooth.discovery", dispatchQueue, &stru_1002BB328);
 }
 
@@ -179,13 +190,16 @@
 
   if (!transaction)
   {
-    if (dword_1002F7380 <= 30 && (dword_1002F7380 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F7380 <= 30)
     {
-      sub_1001FA094();
+      if (dword_1002F7380 != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        sub_1001FA094(v4, v5, v6);
+      }
     }
 
-    v4 = os_transaction_create();
-    [(AANearbyDeviceManagerDaemon *)self setTransaction:v4];
+    v7 = os_transaction_create();
+    [(AANearbyDeviceManagerDaemon *)self setTransaction:v7];
 
     transaction2 = [(AANearbyDeviceManagerDaemon *)self transaction];
 
@@ -202,65 +216,72 @@
 
   if (transaction)
   {
-    [(AANearbyDeviceManagerDaemon *)self setTransaction:0];
-    if (dword_1002F7380 <= 30 && (dword_1002F7380 != -1 || _LogCategory_Initialize()))
+    v4 = [(AANearbyDeviceManagerDaemon *)self setTransaction:0];
+    if (dword_1002F7380 <= 30)
     {
-      sub_1001FA0D0();
+      if (dword_1002F7380 != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        sub_1001FA0D0(v4, v5, v6);
+      }
     }
   }
 }
 
 - (void)_cbDiscoveryEnsureStarted
 {
-  if (dword_1002F7380 <= 30 && (dword_1002F7380 != -1 || _LogCategory_Initialize()))
+  selfCopy = self;
+  if (dword_1002F7380 <= 30)
   {
-    sub_1001FA0EC();
+    if (dword_1002F7380 != -1 || (self = _LogCategory_Initialize(), self))
+    {
+      sub_1001FA0EC(self, a2, v2);
+    }
   }
 
-  v3 = objc_alloc_init(CBDiscovery);
-  dispatchQueue = [(AANearbyDeviceManagerDaemon *)self dispatchQueue];
-  [v3 setDispatchQueue:dispatchQueue];
+  v4 = objc_alloc_init(CBDiscovery);
+  dispatchQueue = [(AANearbyDeviceManagerDaemon *)selfCopy dispatchQueue];
+  [v4 setDispatchQueue:dispatchQueue];
 
-  [v3 setLabel:@"NearbyAudioAccessory"];
-  [v3 setDiscoveryFlags:{objc_msgSend(v3, "discoveryFlags") | 0x8000}];
-  [v3 setDiscoveryFlags:{objc_msgSend(v3, "discoveryFlags") | 0x80}];
-  [v3 setDiscoveryFlags:{objc_msgSend(v3, "discoveryFlags") | 0x100000000000}];
+  [v4 setLabel:@"NearbyAudioAccessory"];
+  [v4 setDiscoveryFlags:{objc_msgSend(v4, "discoveryFlags") | 0x8000}];
+  [v4 setDiscoveryFlags:{objc_msgSend(v4, "discoveryFlags") | 0x80}];
+  [v4 setDiscoveryFlags:{objc_msgSend(v4, "discoveryFlags") | 0x100000000000}];
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_10000327C;
+  v10[3] = &unk_1002B6DA8;
+  v10[4] = v4;
+  v10[5] = selfCopy;
+  [v4 setDeviceFoundHandler:v10];
   v9[0] = _NSConcreteStackBlock;
   v9[1] = 3221225472;
-  v9[2] = sub_10000327C;
+  v9[2] = sub_1000034BC;
   v9[3] = &unk_1002B6DA8;
-  v9[4] = v3;
-  v9[5] = self;
-  [v3 setDeviceFoundHandler:v9];
+  v9[4] = v4;
+  v9[5] = selfCopy;
+  [v4 setDeviceLostHandler:v9];
   v8[0] = _NSConcreteStackBlock;
   v8[1] = 3221225472;
-  v8[2] = sub_1000034BC;
-  v8[3] = &unk_1002B6DA8;
-  v8[4] = v3;
-  v8[5] = self;
-  [v3 setDeviceLostHandler:v8];
+  v8[2] = sub_1000D2B80;
+  v8[3] = &unk_1002B6D18;
+  v8[4] = v4;
+  v8[5] = selfCopy;
+  [v4 setInterruptionHandler:v8];
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
-  v7[2] = sub_1000D2B80;
+  v7[2] = sub_1000D2C00;
   v7[3] = &unk_1002B6D18;
-  v7[4] = v3;
-  v7[5] = self;
-  [v3 setInterruptionHandler:v7];
+  v7[4] = v4;
+  v7[5] = selfCopy;
+  [v4 setInvalidationHandler:v7];
   v6[0] = _NSConcreteStackBlock;
   v6[1] = 3221225472;
-  v6[2] = sub_1000D2C00;
-  v6[3] = &unk_1002B6D18;
-  v6[4] = v3;
-  v6[5] = self;
-  [v3 setInvalidationHandler:v6];
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = sub_1000D2CA8;
-  v5[3] = &unk_1002B68A8;
-  v5[4] = v3;
-  v5[5] = self;
-  [v3 activateWithCompletion:v5];
-  [(AANearbyDeviceManagerDaemon *)self setCbDiscovery:v3];
+  v6[2] = sub_1000D2CA8;
+  v6[3] = &unk_1002B68A8;
+  v6[4] = v4;
+  v6[5] = selfCopy;
+  [v4 activateWithCompletion:v6];
+  [(AANearbyDeviceManagerDaemon *)selfCopy setCbDiscovery:v4];
 }
 
 - (void)_cbDiscoveryEnsureStopped
@@ -269,9 +290,12 @@
 
   if (cbDiscovery)
   {
-    if (dword_1002F7380 <= 30 && (dword_1002F7380 != -1 || _LogCategory_Initialize()))
+    if (dword_1002F7380 <= 30)
     {
-      sub_1001FA268();
+      if (dword_1002F7380 != -1 || (v4 = _LogCategory_Initialize(), v4))
+      {
+        sub_1001FA268(v4, v5, v6);
+      }
     }
 
     cbDiscovery2 = [(AANearbyDeviceManagerDaemon *)self cbDiscovery];
@@ -299,7 +323,7 @@
 
   else
   {
-    sub_1001FA284();
+    sub_1001FA284(lostCopy);
   }
 }
 
@@ -316,7 +340,7 @@
     {
       if (dword_1002F7380 <= 30 && (dword_1002F7380 != -1 || _LogCategory_Initialize()))
       {
-        sub_1001FA300();
+        sub_1001FA300(deviceCopy);
       }
 
       v12 = 1;
@@ -335,14 +359,14 @@
     v12 = [(AANearbyDevice *)v11 updateWithCBDevice:deviceCopy];
     if (dword_1002F7380 <= 30 && (dword_1002F7380 != -1 || _LogCategory_Initialize()))
     {
-      sub_1001FA340();
+      sub_1001FA340(v11);
     }
   }
 
   v13 = [(AANearbyDevice *)v11 updateWithProximityPairingPayload:payloadCopy];
   if (v13 && dword_1002F7380 <= 30 && (dword_1002F7380 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001FA380();
+    sub_1001FA380(payloadCopy);
   }
 
   v14 = v12 | v13;
@@ -406,7 +430,7 @@
 
     if (dword_1002F7380 <= 10 && (dword_1002F7380 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1002F7380, "[AANearbyDeviceManagerDaemon _deviceUpdated:]", 10, "First nearby device found.");
     }
 
     [(AANearbyDeviceManagerDaemon *)selfCopy _ensureOSTransaction];
@@ -433,7 +457,7 @@
     {
       if (dword_1002F7380 <= 10 && (dword_1002F7380 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1002F7380, "[AANearbyDeviceManagerDaemon _deviceRemovedWithIdentifier:]", 10, "Last nearby device lost.");
       }
 
       v6 = selfCopy->_nearbyDevicesMap;
@@ -551,7 +575,7 @@ LABEL_16:
 
   if (dword_1002F7380 <= 30 && (dword_1002F7380 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001FA3C0();
+    sub_1001FA3C0(lostCopy);
   }
 
   batteryMonitor = [(AANearbyDeviceManagerDaemon *)self batteryMonitor];
@@ -596,7 +620,7 @@ LABEL_16:
   updatedCopy = updated;
   if (dword_1002F7380 <= 30 && (dword_1002F7380 != -1 || _LogCategory_Initialize()))
   {
-    sub_1001FA400();
+    sub_1001FA400(updatedCopy);
   }
 
   v5 = [updatedCopy copy];
@@ -920,11 +944,10 @@ LABEL_16:
   {
     if (dword_1002F7380 <= 30 && (dword_1002F7380 != -1 || _LogCategory_Initialize()))
     {
-      v10 = v7;
-      LogPrintF();
+      LogPrintF(&dword_1002F7380, "[AANearbyDeviceManagerDaemon _loadAADevicesPropertyFromPairedDeviceForDevice:]", 30, "AANearbyDevice loading properties from paired device: %@", v7);
     }
 
-    v8 = [deviceCopy updateWithPairedDevice:{v7, v10}];
+    v8 = [deviceCopy updateWithPairedDevice:v7];
   }
 
   else

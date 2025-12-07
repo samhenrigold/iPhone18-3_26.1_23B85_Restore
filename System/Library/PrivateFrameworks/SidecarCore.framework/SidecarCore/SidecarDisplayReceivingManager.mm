@@ -10,7 +10,7 @@
 
 - (void)fetchDeviceReadinessStatusWithIDSIdentifier:(id)identifier completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
   v7 = SidecarCoreLogSubsystem(OS_LOG_TYPE_DEFAULT);
@@ -18,22 +18,20 @@
   if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v17 = identifierCopy;
+    v16 = identifierCopy;
     _os_log_impl(&dword_26604C000, v8, OS_LOG_TYPE_DEFAULT, "Fetching readiness for identifier: [%{public}@]", buf, 0xCu);
   }
 
   v9 = SidecarQueue();
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __89__SidecarDisplayReceivingManager_fetchDeviceReadinessStatusWithIDSIdentifier_completion___block_invoke;
-  v13[3] = &unk_279BC34C8;
-  v14 = identifierCopy;
-  v15 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __89__SidecarDisplayReceivingManager_fetchDeviceReadinessStatusWithIDSIdentifier_completion___block_invoke;
+  v12[3] = &unk_279BC34C8;
+  v13 = identifierCopy;
+  v14 = completionCopy;
   v10 = completionCopy;
   v11 = identifierCopy;
-  dispatch_async(v9, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  dispatch_async(v9, v12);
 }
 
 void __89__SidecarDisplayReceivingManager_fetchDeviceReadinessStatusWithIDSIdentifier_completion___block_invoke(uint64_t a1)
@@ -50,52 +48,51 @@ void __89__SidecarDisplayReceivingManager_fetchDeviceReadinessStatusWithIDSIdent
 
 void __89__SidecarDisplayReceivingManager_fetchDeviceReadinessStatusWithIDSIdentifier_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
   v5 = v4;
   if (v4 && os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v8 = *(a1 + 32);
+    v7 = *(a1 + 32);
     *buf = 138543362;
-    v16 = v8;
+    v15 = v7;
     _os_log_impl(&dword_26604C000, v5, OS_LOG_TYPE_ERROR, "Encountered error while trying to fetch readiness for device with IDS identifier [%{public}@].  The error will be logged separately.", buf, 0xCu);
   }
 
   v6 = v3;
   if (v6)
   {
-    v9 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
-    if (v9)
+    v8 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
+    if (v8)
     {
-      log = v9;
-      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
-      v9 = log;
-      if (v10)
+      log = v8;
+      v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+      v8 = log;
+      if (v9)
       {
-        v11 = [v6 domain];
-        v12 = [v6 code];
-        v13 = [v6 localizedDescription];
+        v10 = [v6 domain];
+        v11 = [v6 code];
+        v12 = [v6 localizedDescription];
         *buf = 138543875;
-        v16 = v11;
-        v17 = 2048;
-        v18 = v12;
-        v19 = 2113;
-        v20 = v13;
+        v15 = v10;
+        v16 = 2048;
+        v17 = v11;
+        v18 = 2113;
+        v19 = v12;
         _os_log_impl(&dword_26604C000, log, OS_LOG_TYPE_ERROR, "%{public}@ (%ld) %{private}@", buf, 0x20u);
 
-        v9 = log;
+        v8 = log;
       }
     }
   }
 
   (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ignoreDetectionForAnchorIdentifier:(id)identifier completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
   v7 = SidecarCoreLogSubsystem(OS_LOG_TYPE_DEFAULT);
@@ -103,22 +100,20 @@ void __89__SidecarDisplayReceivingManager_fetchDeviceReadinessStatusWithIDSIdent
   if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v17 = identifierCopy;
+    v16 = identifierCopy;
     _os_log_impl(&dword_26604C000, v8, OS_LOG_TYPE_DEFAULT, "Requesting to ignore detection for identifier: [%{public}@]", buf, 0xCu);
   }
 
   v9 = SidecarQueue();
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __80__SidecarDisplayReceivingManager_ignoreDetectionForAnchorIdentifier_completion___block_invoke;
-  v13[3] = &unk_279BC34C8;
-  v14 = identifierCopy;
-  v15 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __80__SidecarDisplayReceivingManager_ignoreDetectionForAnchorIdentifier_completion___block_invoke;
+  v12[3] = &unk_279BC34C8;
+  v13 = identifierCopy;
+  v14 = completionCopy;
   v10 = completionCopy;
   v11 = identifierCopy;
-  dispatch_async(v9, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  dispatch_async(v9, v12);
 }
 
 void __80__SidecarDisplayReceivingManager_ignoreDetectionForAnchorIdentifier_completion___block_invoke(uint64_t a1)
@@ -135,52 +130,51 @@ void __80__SidecarDisplayReceivingManager_ignoreDetectionForAnchorIdentifier_com
 
 void __80__SidecarDisplayReceivingManager_ignoreDetectionForAnchorIdentifier_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
   v5 = v4;
   if (v4 && os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v8 = *(a1 + 32);
+    v7 = *(a1 + 32);
     *buf = 138543362;
-    v16 = v8;
+    v15 = v7;
     _os_log_impl(&dword_26604C000, v5, OS_LOG_TYPE_ERROR, "Encountered error while trying to ignore detection for identifier [%{public}@].  The error will be logged separately.", buf, 0xCu);
   }
 
   v6 = v3;
   if (v6)
   {
-    v9 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
-    if (v9)
+    v8 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
+    if (v8)
     {
-      log = v9;
-      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
-      v9 = log;
-      if (v10)
+      log = v8;
+      v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+      v8 = log;
+      if (v9)
       {
-        v11 = [v6 domain];
-        v12 = [v6 code];
-        v13 = [v6 localizedDescription];
+        v10 = [v6 domain];
+        v11 = [v6 code];
+        v12 = [v6 localizedDescription];
         *buf = 138543875;
-        v16 = v11;
-        v17 = 2048;
-        v18 = v12;
-        v19 = 2113;
-        v20 = v13;
+        v15 = v10;
+        v16 = 2048;
+        v17 = v11;
+        v18 = 2113;
+        v19 = v12;
         _os_log_impl(&dword_26604C000, log, OS_LOG_TYPE_ERROR, "%{public}@ (%ld) %{private}@", buf, 0x20u);
 
-        v9 = log;
+        v8 = log;
       }
     }
   }
 
   (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnectFromDeviceWithIdentifier:(id)identifier completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
   v7 = SidecarCoreLogSubsystem(OS_LOG_TYPE_DEFAULT);
@@ -188,22 +182,20 @@ void __80__SidecarDisplayReceivingManager_ignoreDetectionForAnchorIdentifier_com
   if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v17 = identifierCopy;
+    v16 = identifierCopy;
     _os_log_impl(&dword_26604C000, v8, OS_LOG_TYPE_DEFAULT, "Disconnecting the virtual display session from device with identifier: [%{public}@].", buf, 0xCu);
   }
 
   v9 = SidecarQueue();
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __80__SidecarDisplayReceivingManager_disconnectFromDeviceWithIdentifier_completion___block_invoke;
-  v13[3] = &unk_279BC34C8;
-  v14 = identifierCopy;
-  v15 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __80__SidecarDisplayReceivingManager_disconnectFromDeviceWithIdentifier_completion___block_invoke;
+  v12[3] = &unk_279BC34C8;
+  v13 = identifierCopy;
+  v14 = completionCopy;
   v10 = completionCopy;
   v11 = identifierCopy;
-  dispatch_async(v9, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  dispatch_async(v9, v12);
 }
 
 void __80__SidecarDisplayReceivingManager_disconnectFromDeviceWithIdentifier_completion___block_invoke(uint64_t a1)
@@ -220,52 +212,51 @@ void __80__SidecarDisplayReceivingManager_disconnectFromDeviceWithIdentifier_com
 
 void __80__SidecarDisplayReceivingManager_disconnectFromDeviceWithIdentifier_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
   v5 = v4;
   if (v4 && os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v8 = *(a1 + 32);
+    v7 = *(a1 + 32);
     *buf = 138543362;
-    v16 = v8;
+    v15 = v7;
     _os_log_impl(&dword_26604C000, v5, OS_LOG_TYPE_ERROR, "Encountered error while trying to disconnect the virtual display session from device with identifier: [%{public}@]. The error will be logged separately.", buf, 0xCu);
   }
 
   v6 = v3;
   if (v6)
   {
-    v9 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
-    if (v9)
+    v8 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
+    if (v8)
     {
-      log = v9;
-      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
-      v9 = log;
-      if (v10)
+      log = v8;
+      v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+      v8 = log;
+      if (v9)
       {
-        v11 = [v6 domain];
-        v12 = [v6 code];
-        v13 = [v6 localizedDescription];
+        v10 = [v6 domain];
+        v11 = [v6 code];
+        v12 = [v6 localizedDescription];
         *buf = 138543875;
-        v16 = v11;
-        v17 = 2048;
-        v18 = v12;
-        v19 = 2113;
-        v20 = v13;
+        v15 = v10;
+        v16 = 2048;
+        v17 = v11;
+        v18 = 2113;
+        v19 = v12;
         _os_log_impl(&dword_26604C000, log, OS_LOG_TYPE_ERROR, "%{public}@ (%ld) %{private}@", buf, 0x20u);
 
-        v9 = log;
+        v8 = log;
       }
     }
   }
 
   (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestConnectionFromDeviceWithIdentifier:(id)identifier completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   completionCopy = completion;
   v7 = SidecarCoreLogSubsystem(OS_LOG_TYPE_DEFAULT);
@@ -273,22 +264,20 @@ void __80__SidecarDisplayReceivingManager_disconnectFromDeviceWithIdentifier_com
   if (v7 && os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v17 = identifierCopy;
+    v16 = identifierCopy;
     _os_log_impl(&dword_26604C000, v8, OS_LOG_TYPE_DEFAULT, "Requesting that device with identifier [%{public}@] open a virtual display session with this device.", buf, 0xCu);
   }
 
   v9 = SidecarQueue();
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __87__SidecarDisplayReceivingManager_requestConnectionFromDeviceWithIdentifier_completion___block_invoke;
-  v13[3] = &unk_279BC34C8;
-  v14 = identifierCopy;
-  v15 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __87__SidecarDisplayReceivingManager_requestConnectionFromDeviceWithIdentifier_completion___block_invoke;
+  v12[3] = &unk_279BC34C8;
+  v13 = identifierCopy;
+  v14 = completionCopy;
   v10 = completionCopy;
   v11 = identifierCopy;
-  dispatch_async(v9, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  dispatch_async(v9, v12);
 }
 
 void __87__SidecarDisplayReceivingManager_requestConnectionFromDeviceWithIdentifier_completion___block_invoke(uint64_t a1)
@@ -305,47 +294,46 @@ void __87__SidecarDisplayReceivingManager_requestConnectionFromDeviceWithIdentif
 
 void __87__SidecarDisplayReceivingManager_requestConnectionFromDeviceWithIdentifier_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
   v5 = v4;
   if (v4 && os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v8 = *(a1 + 32);
+    v7 = *(a1 + 32);
     *buf = 138543362;
-    v16 = v8;
+    v15 = v7;
     _os_log_impl(&dword_26604C000, v5, OS_LOG_TYPE_ERROR, "Encountered error while trying to request that device with identifier [%{public}@] open a virtual display session with this device.  The error will be logged separately.", buf, 0xCu);
   }
 
   v6 = v3;
   if (v6)
   {
-    v9 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
-    if (v9)
+    v8 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
+    if (v8)
     {
-      log = v9;
-      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
-      v9 = log;
-      if (v10)
+      log = v8;
+      v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+      v8 = log;
+      if (v9)
       {
-        v11 = [v6 domain];
-        v12 = [v6 code];
-        v13 = [v6 localizedDescription];
+        v10 = [v6 domain];
+        v11 = [v6 code];
+        v12 = [v6 localizedDescription];
         *buf = 138543875;
-        v16 = v11;
-        v17 = 2048;
-        v18 = v12;
-        v19 = 2113;
-        v20 = v13;
+        v15 = v10;
+        v16 = 2048;
+        v17 = v11;
+        v18 = 2113;
+        v19 = v12;
         _os_log_impl(&dword_26604C000, log, OS_LOG_TYPE_ERROR, "%{public}@ (%ld) %{private}@", buf, 0x20u);
 
-        v9 = log;
+        v8 = log;
       }
     }
   }
 
   (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchSendingDeviceSessionStatesWithCompletion:(id)completion
@@ -382,7 +370,7 @@ void __80__SidecarDisplayReceivingManager_fetchSendingDeviceSessionStatesWithCom
 
 void __80__SidecarDisplayReceivingManager_fetchSendingDeviceSessionStatesWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
   v5 = v4;
@@ -395,26 +383,26 @@ void __80__SidecarDisplayReceivingManager_fetchSendingDeviceSessionStatesWithCom
   v6 = v3;
   if (v6)
   {
-    v10 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
-    if (v10)
+    v9 = SidecarCoreLogSubsystem(OS_LOG_TYPE_ERROR);
+    if (v9)
     {
-      log = v10;
-      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
-      v10 = log;
-      if (v11)
+      log = v9;
+      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+      v9 = log;
+      if (v10)
       {
-        v12 = [v6 domain];
-        v13 = [v6 code];
-        v14 = [v6 localizedDescription];
+        v11 = [v6 domain];
+        v12 = [v6 code];
+        v13 = [v6 localizedDescription];
         *buf = 138543875;
-        v17 = v12;
-        v18 = 2048;
-        v19 = v13;
-        v20 = 2113;
-        v21 = v14;
+        v16 = v11;
+        v17 = 2048;
+        v18 = v12;
+        v19 = 2113;
+        v20 = v13;
         _os_log_impl(&dword_26604C000, log, OS_LOG_TYPE_ERROR, "%{public}@ (%ld) %{private}@", buf, 0x20u);
 
-        v10 = log;
+        v9 = log;
       }
     }
   }
@@ -422,8 +410,6 @@ void __80__SidecarDisplayReceivingManager_fetchSendingDeviceSessionStatesWithCom
   v7 = *(a1 + 32);
   v8 = [MEMORY[0x277CBEA60] array];
   (*(v7 + 16))(v7, v8, v6);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

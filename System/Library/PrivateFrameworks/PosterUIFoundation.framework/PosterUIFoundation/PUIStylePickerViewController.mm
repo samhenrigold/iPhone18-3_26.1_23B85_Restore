@@ -608,38 +608,42 @@ LABEL_7:
   previewTextString = [v7 previewTextString];
 
   v9 = +[PUITextLayoutConfiguration maximumVerticalTextCharacters];
-  if (PUITextLayoutIsVertical(layoutCopy) && [previewTextString length] > v9)
+  if (PUITextLayoutIsVertical(layoutCopy))
   {
-    v10 = MEMORY[0x1E696AEC0];
-    v11 = PUIBundle();
-    v12 = [v11 localizedStringForKey:@"CANNOT_CHANGE_LAYOUT_EXPLANATION" value:&stru_1F1C6DED8 table:0];
-    v13 = [v10 stringWithFormat:v12, v9];
+    v10 = [previewTextString length];
+    if (v10 > v9)
+    {
+      v11 = MEMORY[0x1E696AEC0];
+      v12 = PUIBundle(v10);
+      v13 = [v12 localizedStringForKey:@"CANNOT_CHANGE_LAYOUT_EXPLANATION" value:&stru_1F1C6DED8 table:0];
+      v14 = [v11 stringWithFormat:v13, v9];
 
-    v14 = MEMORY[0x1E69DC650];
-    v15 = PUIBundle();
-    v16 = [v15 localizedStringForKey:@"CANNOT_CHANGE_LAYOUT" value:&stru_1F1C6DED8 table:0];
-    v17 = [v14 alertControllerWithTitle:v16 message:v13 preferredStyle:1];
+      v15 = MEMORY[0x1E69DC650];
+      v17 = PUIBundle(v16);
+      v18 = [v17 localizedStringForKey:@"CANNOT_CHANGE_LAYOUT" value:&stru_1F1C6DED8 table:0];
+      v19 = [v15 alertControllerWithTitle:v18 message:v14 preferredStyle:1];
 
-    v18 = MEMORY[0x1E69DC648];
-    v19 = PUIBundle();
-    v20 = [v19 localizedStringForKey:@"CANNOT_CHANGE_LAYOUT_DISMISS_ACTION" value:&stru_1F1C6DED8 table:0];
-    v21 = [v18 actionWithTitle:v20 style:0 handler:0];
+      v20 = MEMORY[0x1E69DC648];
+      v22 = PUIBundle(v21);
+      v23 = [v22 localizedStringForKey:@"CANNOT_CHANGE_LAYOUT_DISMISS_ACTION" value:&stru_1F1C6DED8 table:0];
+      v24 = [v20 actionWithTitle:v23 style:0 handler:0];
 
-    [v17 addAction:v21];
-    [(PUIStylePickerViewController *)self presentViewController:v17 animated:1 completion:0];
+      [v19 addAction:v24];
+      [(PUIStylePickerViewController *)self presentViewController:v19 animated:1 completion:0];
 
-    layoutCopy = 0;
+      layoutCopy = 0;
+    }
   }
 
   textLayoutPickerComponentViewController = [(PUIStylePickerViewController *)self textLayoutPickerComponentViewController];
   [textLayoutPickerComponentViewController setSelectedLayout:layoutCopy];
 
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __105__PUIStylePickerViewController_textLayoutPickerComponentViewController_didSelectTextLayout_userSelected___block_invoke;
-  v23[3] = &__block_descriptor_40_e39_v16__0__PUIStylePickerSelectionChange_8l;
-  v23[4] = layoutCopy;
-  [(PUIStylePickerViewController *)self _notifyChangeHandlersOfChange:v23];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __105__PUIStylePickerViewController_textLayoutPickerComponentViewController_didSelectTextLayout_userSelected___block_invoke;
+  v26[3] = &__block_descriptor_40_e39_v16__0__PUIStylePickerSelectionChange_8l;
+  v26[4] = layoutCopy;
+  [(PUIStylePickerViewController *)self _notifyChangeHandlersOfChange:v26];
 }
 
 void __105__PUIStylePickerViewController_textLayoutPickerComponentViewController_didSelectTextLayout_userSelected___block_invoke(uint64_t a1, void *a2)

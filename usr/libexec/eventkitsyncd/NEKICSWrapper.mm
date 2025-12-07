@@ -1,4 +1,6 @@
 @interface NEKICSWrapper
++ (id)wrapperForChangeType:(int)type calendarItem:(id)item needsInvite:(id)invite eventStore:(id)store;
++ (id)wrapperForChangeType:(int)type reminder:(id)reminder oldListIdentifier:(id)identifier store:(id)store;
 + (void)setAllPropertiesForItem:(id)item identifier:(id)identifier wrapper:(id)wrapper needsInvite:(id)invite eventStore:(id)store calendar:(id)calendar;
 + (void)setAllPropertiesForReminder:(id)reminder identifier:(id)identifier wrapper:(id)wrapper store:(id)store list:(id)list oldListIdentifier:(id)listIdentifier;
 + (void)setMinimalPropertiesForItem:(id)item identifier:(id)identifier wrapper:(id)wrapper;
@@ -12,6 +14,7 @@
 - (BOOL)locationChangedForIdentifier:(id)identifier;
 - (BOOL)timeChangedForIdentifier:(id)identifier;
 - (BOOL)titleChangedForIdentifier:(id)identifier;
+- (NEKICSWrapper)initWithStoreType:(int64_t)type nekChangeType:(int)changeType;
 - (NSData)ICSData;
 - (NSDictionary)startDateMap;
 - (id)ICSWrapperMetadata;
@@ -31,10 +34,14 @@
 - (int64_t)objectTypeForCalendarItemWithIdentifier:(id)identifier;
 - (unint64_t)entityTypeForCalendarItemWithIdentifier:(id)identifier;
 - (void)enumerateCalendarItemIdentifiersUsingBlock:(id)block;
+- (void)setAttendeeComment:(BOOL)comment forIdentifier:(id)identifier;
 - (void)setAttendeeStatus:(int64_t)status forIdentifier:(id)identifier;
+- (void)setAttendeeStatusFlag:(BOOL)flag forIdentifier:(id)identifier;
+- (void)setDateChanged:(BOOL)changed forIdentifier:(id)identifier;
 - (void)setExternalID:(id)d forIdentifier:(id)identifier;
 - (void)setICSData:(id)data;
 - (void)setInvitationStatus:(unint64_t)status forIdentifier:(id)identifier;
+- (void)setLocationChanged:(BOOL)changed forIdentifier:(id)identifier;
 - (void)setLocationPredictionState:(int64_t)state forIdentifier:(id)identifier;
 - (void)setMetadata:(id)metadata forCalendarItemIdentifier:(id)identifier;
 - (void)setProperInvitationStatus:(unint64_t)status forIdentifier:(id)identifier;
@@ -43,6 +50,8 @@
 - (void)setSelfOrganizerEmail:(id)email forIdentifier:(id)identifier;
 - (void)setSelfOrganizerUUID:(id)d forIdentifier:(id)identifier;
 - (void)setStartDate:(id)date forIdentifier:(id)identifier;
+- (void)setTimeChanged:(BOOL)changed forIdentifier:(id)identifier;
+- (void)setTitleChanged:(BOOL)changed forIdentifier:(id)identifier;
 @end
 
 @implementation NEKICSWrapper
@@ -53,6 +62,26 @@
   allValues = [properties allValues];
 
   return allValues;
+}
+
+- (NEKICSWrapper)initWithStoreType:(int64_t)type nekChangeType:(int)changeType
+{
+  v11.receiver = self;
+  v11.super_class = NEKICSWrapper;
+  v4 = [(NEKWrapper *)&v11 initWithStoreType:type nekChangeType:*&changeType];
+  if (v4)
+  {
+    v5 = +[NSUUID UUID];
+    uUIDString = [v5 UUIDString];
+    syncId = v4->_syncId;
+    v4->_syncId = uUIDString;
+
+    v8 = objc_alloc_init(NSMutableDictionary);
+    properties = v4->_properties;
+    v4->_properties = v8;
+  }
+
+  return v4;
 }
 
 - (NSData)ICSData
@@ -215,12 +244,26 @@ LABEL_9:
   return startDateMap;
 }
 
+- (void)setDateChanged:(BOOL)changed forIdentifier:(id)identifier
+{
+  changedCopy = changed;
+  v5 = [(NEKICSWrapper *)self settablePropertiesForCalendarItemIdentifier:identifier];
+  [v5 setDateChanged:changedCopy];
+}
+
 - (BOOL)dateChangedForIdentifier:(id)identifier
 {
   v3 = [(NEKICSWrapper *)self propertiesForCalendarItemIdentifier:identifier];
   dateChanged = [v3 dateChanged];
 
   return dateChanged;
+}
+
+- (void)setTimeChanged:(BOOL)changed forIdentifier:(id)identifier
+{
+  changedCopy = changed;
+  v5 = [(NEKICSWrapper *)self settablePropertiesForCalendarItemIdentifier:identifier];
+  [v5 setTimeChanged:changedCopy];
 }
 
 - (BOOL)timeChangedForIdentifier:(id)identifier
@@ -231,6 +274,13 @@ LABEL_9:
   return timeChanged;
 }
 
+- (void)setTitleChanged:(BOOL)changed forIdentifier:(id)identifier
+{
+  changedCopy = changed;
+  v5 = [(NEKICSWrapper *)self settablePropertiesForCalendarItemIdentifier:identifier];
+  [v5 setTitleChanged:changedCopy];
+}
+
 - (BOOL)titleChangedForIdentifier:(id)identifier
 {
   v3 = [(NEKICSWrapper *)self propertiesForCalendarItemIdentifier:identifier];
@@ -239,12 +289,26 @@ LABEL_9:
   return titleChanged;
 }
 
+- (void)setLocationChanged:(BOOL)changed forIdentifier:(id)identifier
+{
+  changedCopy = changed;
+  v5 = [(NEKICSWrapper *)self settablePropertiesForCalendarItemIdentifier:identifier];
+  [v5 setLocationChanged:changedCopy];
+}
+
 - (BOOL)locationChangedForIdentifier:(id)identifier
 {
   v3 = [(NEKICSWrapper *)self propertiesForCalendarItemIdentifier:identifier];
   locationChanged = [v3 locationChanged];
 
   return locationChanged;
+}
+
+- (void)setAttendeeComment:(BOOL)comment forIdentifier:(id)identifier
+{
+  commentCopy = comment;
+  v5 = [(NEKICSWrapper *)self settablePropertiesForCalendarItemIdentifier:identifier];
+  [v5 setAttendeeComment:commentCopy];
 }
 
 - (BOOL)attendeeCommentForIdentifier:(id)identifier
@@ -390,6 +454,13 @@ LABEL_9:
   attendeeStatus = [v3 attendeeStatus];
 
   return attendeeStatus;
+}
+
+- (void)setAttendeeStatusFlag:(BOOL)flag forIdentifier:(id)identifier
+{
+  flagCopy = flag;
+  v5 = [(NEKICSWrapper *)self settablePropertiesForCalendarItemIdentifier:identifier];
+  [v5 setAttendeeStatusFlag:flagCopy];
 }
 
 - (BOOL)attendeeStatusFlagForIdentifier:(id)identifier
@@ -538,6 +609,146 @@ LABEL_5:
 LABEL_6:
 
   return v12;
+}
+
++ (id)wrapperForChangeType:(int)type reminder:(id)reminder oldListIdentifier:(id)identifier store:(id)store
+{
+  v8 = *&type;
+  reminderCopy = reminder;
+  identifierCopy = identifier;
+  storeCopy = store;
+  [reminderCopy alarms];
+  v51 = 0u;
+  v52 = 0u;
+  v53 = 0u;
+  v11 = v54 = 0u;
+  v12 = [v11 countByEnumeratingWithState:&v51 objects:v56 count:16];
+  if (v12)
+  {
+    v13 = v12;
+    v14 = *v52;
+    while (2)
+    {
+      for (i = 0; i != v13; i = i + 1)
+      {
+        if (*v52 != v14)
+        {
+          objc_enumerationMutation(v11);
+        }
+
+        v16 = *(*(&v51 + 1) + 8 * i);
+        trigger = [v16 trigger];
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          trigger2 = [v16 trigger];
+          structuredLocation = [trigger2 structuredLocation];
+
+          if (structuredLocation)
+          {
+            ct_green_tea_logger_create();
+            v21 = getCTGreenTeaOsLogHandle();
+            v22 = v21;
+            if (v21 && os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+            {
+              *buf = 0;
+              _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "Read in location for a reminder", buf, 2u);
+            }
+
+            ct_green_tea_logger_destroy();
+            v20 = 1;
+            goto LABEL_18;
+          }
+        }
+
+        else
+        {
+        }
+      }
+
+      v13 = [v11 countByEnumeratingWithState:&v51 objects:v56 count:16];
+      if (v13)
+      {
+        continue;
+      }
+
+      break;
+    }
+
+    v20 = 0;
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+LABEL_18:
+
+  v23 = [[NEKICSWrapper alloc] initWithStoreType:1 nekChangeType:v8];
+  list = [reminderCopy list];
+  v25 = [[NEKCalendarID alloc] initWithList:list];
+  [(NEKICSWrapper *)v23 setCalendarIdentifier:v25];
+
+  [(NEKICSWrapper *)v23 setCalendarItemCount:1];
+  store = [list store];
+  v55 = reminderCopy;
+  v26 = [NSArray arrayWithObjects:&v55 count:1];
+  v48 = list;
+  [self setPropertiesForWrapper:v23 withReminders:v26 oldListIdentifier:identifierCopy sendAllProperties:1 store:storeCopy list:list];
+
+  v27 = [REMExporting icsTodoFromReminder:reminderCopy exportingOption:REMICSExportingEventKitSync];
+  v28 = objc_alloc_init(ICSCalendar);
+  v29 = v27;
+  v30 = v28;
+  v31 = objc_alloc_init(ICSCalendar);
+  if (v31)
+  {
+    [v31 setX_calendarserver_access:{objc_msgSend(v30, "x_calendarserver_access")}];
+    *buf = v29;
+    v32 = [NSArray arrayWithObjects:buf count:1];
+    [v31 setComponents:v32 options:2];
+
+    v33 = v31;
+    v46 = v29;
+    v34 = v20;
+    v35 = reminderCopy;
+    v36 = objc_autoreleasePoolPush();
+    v37 = [[ICSDocument alloc] initWithCalendar:v33];
+    v38 = [v37 ICSDataWithOptions:68];
+
+    v39 = v36;
+    reminderCopy = v35;
+    v20 = v34;
+    v29 = v46;
+    objc_autoreleasePoolPop(v39);
+  }
+
+  else
+  {
+    v38 = 0;
+  }
+
+  v40 = *(qword_1000D18B0 + 8);
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
+  {
+    sub_10006EDA0(v40, v38);
+  }
+
+  [(NEKICSWrapper *)v23 setICSData:v38];
+
+  daCalendarItemUniqueIdentifier = [reminderCopy daCalendarItemUniqueIdentifier];
+  [(NEKICSWrapper *)v23 setSyncId:daCalendarItemUniqueIdentifier];
+
+  title = [reminderCopy title];
+  string = [title string];
+  title = v23->_title;
+  v23->_title = string;
+
+  [(NEKICSWrapper *)v23 setIsReminderWithLocation:v20];
+  -[NEKICSWrapper setDisplayOrder:](v23, "setDisplayOrder:", [reminderCopy icsDisplayOrder]);
+
+  return v23;
 }
 
 + (void)setAllPropertiesForReminder:(id)reminder identifier:(id)identifier wrapper:(id)wrapper store:(id)store list:(id)list oldListIdentifier:(id)listIdentifier
@@ -728,6 +939,300 @@ LABEL_21:
 
     while (v43);
   }
+}
+
++ (id)wrapperForChangeType:(int)type calendarItem:(id)item needsInvite:(id)invite eventStore:(id)store
+{
+  v8 = *&type;
+  itemCopy = item;
+  inviteCopy = invite;
+  storeCopy = store;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v12 = itemCopy;
+    uniqueId = [v12 uniqueId];
+    if ([v12 isDetached])
+    {
+      originalItem = [v12 originalItem];
+      if (originalItem)
+      {
+        v15 = originalItem;
+        uniqueId2 = [originalItem uniqueId];
+        v17 = *(qword_1000D18A8 + 8);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138543618;
+          v82 = uniqueId;
+          v83 = 2112;
+          v84 = uniqueId2;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "wrapperForCalendarItem: Entity with identifier %{public}@ is detached, master identifier is %@", buf, 0x16u);
+        }
+
+        v18 = v15;
+
+        v19 = 0;
+        itemCopy = v18;
+        goto LABEL_32;
+      }
+
+      v29 = *(qword_1000D18A8 + 8);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138543362;
+        v82 = uniqueId;
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Entity with identifier %{public}@ is detached, but can't get master", buf, 0xCu);
+      }
+    }
+
+    else if ([v12 hasRecurrenceRules])
+    {
+      v12 = v12;
+      v26 = *(qword_1000D18A8 + 8);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138543362;
+        v82 = uniqueId;
+        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Entity with identifier %{public}@ is master for a recurring series", buf, 0xCu);
+      }
+
+      v19 = 0;
+      v18 = v12;
+      goto LABEL_30;
+    }
+
+    v19 = 0;
+    v18 = 0;
+LABEL_30:
+    itemCopy = v12;
+LABEL_32:
+
+    goto LABEL_33;
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    [itemCopy alarms];
+    v75 = 0u;
+    v76 = 0u;
+    v77 = 0u;
+    uniqueId = v78 = 0u;
+    v20 = [uniqueId countByEnumeratingWithState:&v75 objects:v80 count:16];
+    if (v20)
+    {
+      v21 = v20;
+      v22 = inviteCopy;
+      v23 = *v76;
+      while (2)
+      {
+        for (i = 0; i != v21; i = i + 1)
+        {
+          if (*v76 != v23)
+          {
+            objc_enumerationMutation(uniqueId);
+          }
+
+          structuredLocation = [*(*(&v75 + 1) + 8 * i) structuredLocation];
+
+          if (structuredLocation)
+          {
+            ct_green_tea_logger_create();
+            v27 = getCTGreenTeaOsLogHandle();
+            v28 = v27;
+            if (v27 && os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+            {
+              *buf = 0;
+              _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "Read in location for a reminder", buf, 2u);
+            }
+
+            ct_green_tea_logger_destroy();
+            v18 = 0;
+            v19 = 1;
+            goto LABEL_26;
+          }
+        }
+
+        v21 = [uniqueId countByEnumeratingWithState:&v75 objects:v80 count:16];
+        if (v21)
+        {
+          continue;
+        }
+
+        break;
+      }
+
+      v19 = 0;
+      v18 = 0;
+LABEL_26:
+      v12 = uniqueId;
+      inviteCopy = v22;
+    }
+
+    else
+    {
+      v19 = 0;
+      v18 = 0;
+      v12 = uniqueId;
+    }
+
+    goto LABEL_32;
+  }
+
+  v19 = 0;
+  v18 = 0;
+LABEL_33:
+  v30 = [[NEKICSWrapper alloc] initWithStoreType:0 nekChangeType:v8];
+  calendar = [itemCopy calendar];
+  v32 = [[NEKCalendarID alloc] initWithCalendar:calendar];
+  [(NEKICSWrapper *)v30 setCalendarIdentifier:v32];
+
+  [(NEKICSWrapper *)v30 setCalendarItemCount:1];
+  eventStore = [calendar eventStore];
+  v79 = itemCopy;
+  v33 = [NSArray arrayWithObjects:&v79 count:1];
+  v73 = inviteCopy;
+  v71 = calendar;
+  [self setPropertiesForWrapper:v30 withCalendarItems:0 needsInvite:? sendAllProperties:? eventStore:? calendar:? originalEvent:?];
+  v34 = +[NEKEnvironment instance];
+  recordMap = [v34 recordMap];
+
+  objectID = [itemCopy objectID];
+  v69 = recordMap;
+  v37 = [recordMap identifierForRecordID:objectID];
+
+  eks_compoundIdentifier = [itemCopy eks_compoundIdentifier];
+  v39 = eks_compoundIdentifier;
+  if (eks_compoundIdentifier)
+  {
+    if (v37)
+    {
+      if (([eks_compoundIdentifier isEqualToString:v37] & 1) == 0)
+      {
+        v40 = *(qword_1000D18A8 + 8);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138543618;
+          v82 = v37;
+          v83 = 2114;
+          v84 = v39;
+          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "CalendarItem remap detected: %{public}@ => %{public}@", buf, 0x16u);
+        }
+      }
+    }
+  }
+
+  v72 = v39;
+  if (v30 && v37)
+  {
+    v41 = v19;
+    v42 = v18;
+    selfCopy = self;
+    v44 = v30;
+    v45 = [v37 componentsSeparatedByString:@"::"];
+    if ([v45 count] == 2)
+    {
+      v46 = [v45 objectAtIndexedSubscript:0];
+      [(NEKICSWrapper *)v44 setOldIdentifier:v46];
+
+      v47 = [v72 componentsSeparatedByString:@"::"];
+
+      v48 = [v47 objectAtIndexedSubscript:0];
+      [(NEKICSWrapper *)v44 setNuevoIdentifier:v48];
+
+      v45 = v47;
+    }
+
+    self = selfCopy;
+    v18 = v42;
+    v19 = v41;
+  }
+
+  if (v18)
+  {
+    detachedItems = [v18 detachedItems];
+    allObjects = [detachedItems allObjects];
+
+    if ([allObjects count])
+    {
+      v68 = v19;
+      selfCopy2 = self;
+      v52 = *(qword_1000D18A8 + 8);
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+      {
+        v53 = v52;
+        uniqueIdentifier = [v18 uniqueIdentifier];
+        v55 = [allObjects count];
+        *buf = 138543618;
+        v82 = uniqueIdentifier;
+        v83 = 1024;
+        LODWORD(v84) = v55;
+        _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "Handling detached events for %{public}@, count=%d", buf, 0x12u);
+      }
+
+      [selfCopy2 setPropertiesForWrapper:v30 withCalendarItems:allObjects needsInvite:v73 sendAllProperties:1 eventStore:0 calendar:0 originalEvent:v18];
+      v19 = v68;
+    }
+  }
+
+  v56 = +[NEKCapabilities instance];
+  canUseLzfse = [v56 canUseLzfse];
+
+  if (canUseLzfse)
+  {
+    v58 = 130;
+  }
+
+  else
+  {
+    v58 = 2;
+  }
+
+  v59 = [eventStore ICSDataForCalendarItems:v33 options:v58];
+  if (canUseLzfse)
+  {
+    if (os_variant_has_internal_diagnostics())
+    {
+      v60 = *(qword_1000D18B0 + 8);
+      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+      {
+        v61 = v60;
+        v62 = [v59 base64EncodedStringWithOptions:0];
+        *buf = 138412290;
+        v82 = v62;
+        _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "LZFSE ICS: <<!%@!>>", buf, 0xCu);
+      }
+    }
+
+    [(NEKICSWrapper *)v30 setLzfseICSData:v59];
+  }
+
+  else
+  {
+    v63 = *(qword_1000D18B0 + 8);
+    if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
+    {
+      sub_10006EDA0(v63, v59);
+    }
+
+    [(NEKICSWrapper *)v30 setICSData:v59];
+  }
+
+  v64 = sub_1000624F8(itemCopy);
+  [(NEKICSWrapper *)v30 setSyncId:v64];
+
+  title = [itemCopy title];
+  title = v30->_title;
+  v30->_title = title;
+
+  [(NEKICSWrapper *)v30 setIsReminderWithLocation:v19];
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    -[NEKICSWrapper setDisplayOrder:](v30, "setDisplayOrder:", [itemCopy displayOrder]);
+  }
+
+  return v30;
 }
 
 + (void)setAllPropertiesForItem:(id)item identifier:(id)identifier wrapper:(id)wrapper needsInvite:(id)invite eventStore:(id)store calendar:(id)calendar

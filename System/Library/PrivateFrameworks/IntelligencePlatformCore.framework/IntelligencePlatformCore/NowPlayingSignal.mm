@@ -1,8 +1,19 @@
 @interface NowPlayingSignal
+- (NSSet)featureNames;
 - (id)featureValueForName:(id)name;
 @end
 
 @implementation NowPlayingSignal
+
+- (NSSet)featureNames
+{
+
+  sub_1C4A49EDC();
+
+  v2 = sub_1C4F01AA8();
+
+  return v2;
+}
 
 - (id)featureValueForName:(id)name
 {

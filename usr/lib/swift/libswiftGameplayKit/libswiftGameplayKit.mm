@@ -37,12 +37,12 @@ GKPolygonObstacle __swiftcall GKPolygonObstacle.init(points:)(Swift::OpaquePoint
   return v3;
 }
 
-id GKEntity.component<A>(ofType:)()
+id GKEntity.component<A>(ofType:)(uint64_t a1, uint64_t a2)
 {
-  result = [v0 componentForClass_];
+  result = [v2 componentForClass_];
   if (result)
   {
-    v2 = result;
+    v4 = result;
     result = swift_dynamicCastUnknownClass();
     if (!result)
     {
@@ -54,19 +54,19 @@ id GKEntity.component<A>(ofType:)()
   return result;
 }
 
-id GKEntity.removeComponent<A>(ofType:)()
+id GKEntity.removeComponent<A>(ofType:)(uint64_t a1)
 {
   ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
 
-  return [v0 removeComponentForClass_];
+  return [v1 removeComponentForClass_];
 }
 
-uint64_t GKStateMachine.state<A>(forClass:)()
+uint64_t GKStateMachine.state<A>(forClass:)(uint64_t a1, uint64_t a2)
 {
   swift_getMetatypeMetadata();
-  v1 = [v0 performSelector:sel_stateForClass_ withObject:_bridgeAnythingToObjectiveC<A>(_:)()];
+  v3 = [v2 performSelector:sel_stateForClass_ withObject:_bridgeAnythingToObjectiveC<A>(_:)()];
   swift_unknownObjectRelease();
-  if (!v1)
+  if (!v3)
   {
     return 0;
   }
@@ -237,7 +237,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }

@@ -3,7 +3,7 @@
 
 @implementation CASupportsAnimationForKey
 
-uint64_t ___CASupportsAnimationForKey_block_invoke()
+void *___CASupportsAnimationForKey_block_invoke()
 {
   v0 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v1 = qword_1EA9947A0;

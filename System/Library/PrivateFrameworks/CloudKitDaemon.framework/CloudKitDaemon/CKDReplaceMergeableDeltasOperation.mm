@@ -123,11 +123,11 @@
   v5 = *MEMORY[0x277CBC840];
   if (os_log_type_enabled(*MEMORY[0x277CBC840], OS_LOG_TYPE_DEBUG))
   {
-    v20 = v5;
-    v23 = objc_msgSend_replaceDeltasRequests(self, v21, v22);
+    v19 = v5;
+    v22 = objc_msgSend_replaceDeltasRequests(self, v20, v21);
     LODWORD(location[0]) = 138412290;
-    *(location + 4) = v23;
-    _os_log_debug_impl(&dword_22506F000, v20, OS_LOG_TYPE_DEBUG, "Will replace deltas with requests: %@", location, 0xCu);
+    *(location + 4) = v22;
+    _os_log_debug_impl(&dword_22506F000, v19, OS_LOG_TYPE_DEBUG, "Will replace deltas with requests: %@", location, 0xCu);
   }
 
   v6 = [CKDReplaceMergeableDeltasURLRequest alloc];
@@ -136,35 +136,33 @@
 
   objc_initWeak(location, self);
   objc_initWeak(&from, v11);
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = sub_2251CE158;
-  v30[3] = &unk_2785493F8;
-  objc_copyWeak(&v31, location);
-  objc_msgSend_setPerReplacementCompletionBlock_(v11, v12, v30);
-  v24 = MEMORY[0x277D85DD0];
-  v25 = 3221225472;
-  v26 = sub_2251CE240;
-  v27 = &unk_278548748;
-  objc_copyWeak(&v28, location);
-  objc_copyWeak(&v29, &from);
-  objc_msgSend_setCompletionBlock_(v11, v13, &v24);
-  objc_msgSend_setRequest_(self, v14, v11, v24, v25, v26, v27);
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = sub_2251CE158;
+  v29[3] = &unk_2785493F8;
+  objc_copyWeak(&v30, location);
+  objc_msgSend_setPerReplacementCompletionBlock_(v11, v12, v29);
+  v23 = MEMORY[0x277D85DD0];
+  v24 = 3221225472;
+  v25 = sub_2251CE240;
+  v26 = &unk_278548748;
+  objc_copyWeak(&v27, location);
+  objc_copyWeak(&v28, &from);
+  objc_msgSend_setCompletionBlock_(v11, v13, &v23);
+  objc_msgSend_setRequest_(self, v14, v11, v23, v24, v25, v26);
   v17 = objc_msgSend_container(self, v15, v16);
   objc_msgSend_performRequest_(v17, v18, v11);
 
-  objc_destroyWeak(&v29);
   objc_destroyWeak(&v28);
-  objc_destroyWeak(&v31);
+  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v30);
   objc_destroyWeak(&from);
   objc_destroyWeak(location);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleReplaceDeltasRequest:(id)request result:(id)result
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   resultCopy = result;
   v10 = objc_msgSend_perReplacementCompletionBlock(self, v8, v9);
@@ -182,7 +180,7 @@
       if (os_log_type_enabled(*MEMORY[0x277CBC840], OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v42 = requestCopy;
+        v41 = requestCopy;
         _os_log_debug_impl(&dword_22506F000, v13, OS_LOG_TYPE_DEBUG, "Successfully replaced deltas with request %@", buf, 0xCu);
       }
 
@@ -211,9 +209,9 @@
     if (os_log_type_enabled(*MEMORY[0x277CBC840], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v42 = requestCopy;
-      v43 = 2112;
-      v44 = v35;
+      v41 = requestCopy;
+      v42 = 2112;
+      v43 = v35;
       _os_log_error_impl(&dword_22506F000, v36, OS_LOG_TYPE_ERROR, "Failed to replace deltas for request %@: %@", buf, 0x16u);
     }
 
@@ -235,15 +233,13 @@ LABEL_17:
     v18 = v17;
     v21 = objc_msgSend_operationID(self, v19, v20);
     *buf = 138412290;
-    v42 = v21;
+    v41 = v21;
     _os_log_impl(&dword_22506F000, v18, OS_LOG_TYPE_INFO, "No per-request completion block for operation %@", buf, 0xCu);
 
     goto LABEL_17;
   }
 
 LABEL_18:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 @end

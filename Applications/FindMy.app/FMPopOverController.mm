@@ -24,8 +24,9 @@
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_100272224(disappear);
+  sub_100272224(disappearCopy, selfCopy);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear

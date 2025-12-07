@@ -59,7 +59,7 @@
   return v6;
 }
 
-uint64_t __45__CSAudioSessionController_getAudioSessionID__block_invoke(uint64_t a1)
+void *__45__CSAudioSessionController_getAudioSessionID__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _getAudioSessionID];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -87,43 +87,26 @@ uint64_t __45__CSAudioSessionController_getAudioSessionID__block_invoke(uint64_t
 
 - (BOOL)_createXPCClientConnectionIfNeeded
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
-  if (self->_xpcClient)
+  if (self->_xpcClient || (v3 = -[CSXPCClient initWithType:]([CSXPCClient alloc], "initWithType:", 2), xpcClient = self->_xpcClient, self->_xpcClient = v3, xpcClient, -[CSAudioSessionController setSessionInfoProvider:](self, "setSessionInfoProvider:", self->_xpcClient), -[CSAudioSessionController sessionInfoProvider](self, "sessionInfoProvider"), v5 = objc_claimAutoreleasedReturnValue(), [v5 registerObserver:self], v5, -[CSXPCClient setDelegate:](self->_xpcClient, "setDelegate:", self), -[CSXPCClient connect](self->_xpcClient, "connect"), self->_xpcClient))
   {
-    goto LABEL_3;
-  }
-
-  v3 = [[CSXPCClient alloc] initWithType:2];
-  xpcClient = self->_xpcClient;
-  self->_xpcClient = v3;
-
-  [(CSAudioSessionController *)self setSessionInfoProvider:self->_xpcClient];
-  sessionInfoProvider = [(CSAudioSessionController *)self sessionInfoProvider];
-  [sessionInfoProvider registerObserver:self];
-
-  [(CSXPCClient *)self->_xpcClient setDelegate:self];
-  [(CSXPCClient *)self->_xpcClient connect];
-  if (self->_xpcClient)
-  {
-LABEL_3:
     LOBYTE(v6) = 1;
   }
 
   else
   {
-    v8 = *MEMORY[0x277D015B0];
+    v7 = *MEMORY[0x277D015B0];
     v6 = os_log_type_enabled(*MEMORY[0x277D015B0], OS_LOG_TYPE_ERROR);
     if (v6)
     {
-      v10 = 136315138;
-      v11 = "[CSAudioSessionController _createXPCClientConnectionIfNeeded]";
-      _os_log_error_impl(&dword_222E4D000, v8, OS_LOG_TYPE_ERROR, "%s audioProvider not exist", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[CSAudioSessionController _createXPCClientConnectionIfNeeded]";
+      _os_log_error_impl(&dword_222E4D000, v7, OS_LOG_TYPE_ERROR, "%s audioProvider not exist", &v9, 0xCu);
       LOBYTE(v6) = 0;
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -141,55 +124,53 @@ LABEL_3:
 
 void __80__CSAudioSessionController_coreSpeechDaemonStateMonitor_didReceiveStateChanged___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (*(a1 + 40) == 1)
   {
     v2 = *MEMORY[0x277D015B0];
     if (os_log_type_enabled(*MEMORY[0x277D015B0], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v16 = "[CSAudioSessionController coreSpeechDaemonStateMonitor:didReceiveStateChanged:]_block_invoke";
+      v15 = "[CSAudioSessionController coreSpeechDaemonStateMonitor:didReceiveStateChanged:]_block_invoke";
       _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s CoreSpeech Daemon reset notification", buf, 0xCu);
     }
 
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v3 = *(*(a1 + 32) + 24);
-    v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v11;
+      v6 = *v10;
       do
       {
         v7 = 0;
         do
         {
-          if (*v11 != v6)
+          if (*v10 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v10 + 1) + 8 * v7);
+          v8 = *(*(&v9 + 1) + 8 * v7);
           if (objc_opt_respondsToSelector())
           {
-            [v8 audioSessionController:*(a1 + 32) didReceiveAudioSessionOwnerResetNotification:{0, v10}];
+            [v8 audioSessionController:*(a1 + 32) didReceiveAudioSessionOwnerResetNotification:{0, v9}];
           }
 
           ++v7;
         }
 
         while (v5 != v7);
-        v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v5);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)CSXPCClient:(id)client didDisconnect:(BOOL)disconnect
@@ -205,38 +186,38 @@ void __80__CSAudioSessionController_coreSpeechDaemonStateMonitor_didReceiveState
 
 uint64_t __54__CSAudioSessionController_CSXPCClient_didDisconnect___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v17 = *MEMORY[0x277D85DE8];
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v2 = *(*(a1 + 32) + 24);
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v17 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v16 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * v6);
+        v7 = *(*(&v10 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
-          [v7 audioSessionController:*(a1 + 32) didReceiveAudioSessionOwnerLostNotification:{0, v11}];
+          [v7 audioSessionController:*(a1 + 32) didReceiveAudioSessionOwnerLostNotification:{0, v10}];
         }
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v17 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v16 count:16];
     }
 
     while (v4);
@@ -246,18 +227,16 @@ uint64_t __54__CSAudioSessionController_CSXPCClient_didDisconnect___block_invoke
   if (os_log_type_enabled(*MEMORY[0x277D015B0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "[CSAudioSessionController CSXPCClient:didDisconnect:]_block_invoke";
+    v15 = "[CSAudioSessionController CSXPCClient:didDisconnect:]_block_invoke";
     _os_log_impl(&dword_222E4D000, v8, OS_LOG_TYPE_DEFAULT, "%s reset sessionInfoProvider since xpcClient disconnected", buf, 0xCu);
   }
 
-  result = [*(a1 + 32) _teardownXPCClientIfNeeded];
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _teardownXPCClientIfNeeded];
 }
 
 - (void)_teardownXPCClientIfNeeded
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   xpcClient = self->_xpcClient;
   if (xpcClient)
@@ -265,9 +244,9 @@ uint64_t __54__CSAudioSessionController_CSXPCClient_didDisconnect___block_invoke
     v4 = *MEMORY[0x277D015B0];
     if (os_log_type_enabled(*MEMORY[0x277D015B0], OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136315138;
-      v9 = "[CSAudioSessionController _teardownXPCClientIfNeeded]";
-      _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_DEFAULT, "%s ", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = "[CSAudioSessionController _teardownXPCClientIfNeeded]";
+      _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_DEFAULT, "%s ", &v7, 0xCu);
       xpcClient = self->_xpcClient;
     }
 
@@ -280,8 +259,6 @@ uint64_t __54__CSAudioSessionController_CSXPCClient_didDisconnect___block_invoke
 
     [(CSAudioSessionController *)self setSessionInfoProvider:self->_xpcClient];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_audioRouteChanged:(id)changed
@@ -300,36 +277,36 @@ uint64_t __54__CSAudioSessionController_CSXPCClient_didDisconnect___block_invoke
 
 void __47__CSAudioSessionController__audioRouteChanged___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015B0];
   if (os_log_type_enabled(*MEMORY[0x277D015B0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[CSAudioSessionController _audioRouteChanged:]_block_invoke";
+    v17 = "[CSAudioSessionController _audioRouteChanged:]_block_invoke";
     _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v3 = *(*(a1 + 32) + 24);
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * v7);
+        v8 = *(*(&v11 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
           v9 = *(a1 + 32);
@@ -341,13 +318,11 @@ void __47__CSAudioSessionController__audioRouteChanged___block_invoke(uint64_t a
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_mediaServicesWereReset:(id)reset
@@ -366,36 +341,36 @@ void __47__CSAudioSessionController__audioRouteChanged___block_invoke(uint64_t a
 
 uint64_t __52__CSAudioSessionController__mediaServicesWereReset___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015B0];
   if (os_log_type_enabled(*MEMORY[0x277D015B0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v19 = "[CSAudioSessionController _mediaServicesWereReset:]_block_invoke";
+    v18 = "[CSAudioSessionController _mediaServicesWereReset:]_block_invoke";
     _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v3 = *(*(a1 + 32) + 24);
-  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       v7 = 0;
       do
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * v7);
+        v8 = *(*(&v12 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
           v9 = *(a1 + 32);
@@ -407,16 +382,14 @@ uint64_t __52__CSAudioSessionController__mediaServicesWereReset___block_invoke(u
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
   }
 
   [*(a1 + 32) _registerInterruptionNotification];
-  result = [*(a1 + 32) _registerAudioRouteChangeNotification];
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _registerAudioRouteChangeNotification];
 }
 
 - (void)_mediaServicesWereLost:(id)lost
@@ -435,36 +408,36 @@ uint64_t __52__CSAudioSessionController__mediaServicesWereReset___block_invoke(u
 
 void __51__CSAudioSessionController__mediaServicesWereLost___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015B0];
   if (os_log_type_enabled(*MEMORY[0x277D015B0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[CSAudioSessionController _mediaServicesWereLost:]_block_invoke";
+    v17 = "[CSAudioSessionController _mediaServicesWereLost:]_block_invoke";
     _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v3 = *(*(a1 + 32) + 24);
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * v7);
+        v8 = *(*(&v11 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
           v9 = *(a1 + 32);
@@ -476,13 +449,11 @@ void __51__CSAudioSessionController__mediaServicesWereLost___block_invoke(uint64
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleInterruption:(id)interruption
@@ -501,36 +472,36 @@ void __51__CSAudioSessionController__mediaServicesWereLost___block_invoke(uint64
 
 void __48__CSAudioSessionController__handleInterruption___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015B0];
   if (os_log_type_enabled(*MEMORY[0x277D015B0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[CSAudioSessionController _handleInterruption:]_block_invoke";
+    v17 = "[CSAudioSessionController _handleInterruption:]_block_invoke";
     _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v3 = *(*(a1 + 32) + 24);
-  v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       v7 = 0;
       do
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v12 + 1) + 8 * v7);
+        v8 = *(*(&v11 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
           v9 = *(a1 + 32);
@@ -542,75 +513,66 @@ void __48__CSAudioSessionController__handleInterruption___block_invoke(uint64_t 
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerAudioRouteChangeNotification
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015B0];
   if (os_log_type_enabled(*MEMORY[0x277D015B0], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "[CSAudioSessionController _registerAudioRouteChangeNotification]";
-    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s Start Monitoring : AudioSession notification from corespeechd", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[CSAudioSessionController _registerAudioRouteChangeNotification]";
+    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s Start Monitoring : AudioSession notification from corespeechd", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerInterruptionNotification
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015B0];
   if (os_log_type_enabled(*MEMORY[0x277D015B0], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "[CSAudioSessionController _registerInterruptionNotification]";
-    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s Start Monitoring : AudioSession notification from corespeechd", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[CSAudioSessionController _registerInterruptionNotification]";
+    _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s Start Monitoring : AudioSession notification from corespeechd", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopMonitoring
+{
+  v6 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D015B0];
+  if (os_log_type_enabled(*MEMORY[0x277D015B0], OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = 136315138;
+    v5 = "[CSAudioSessionController _stopMonitoring]";
+    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s Stop Monitoring : AudioSession notification from corespeechd", &v4, 0xCu);
+  }
+
+  [(CSAudioSessionController *)self setShouldKeepConnection:0];
+}
+
+- (void)_startMonitoring
 {
   v7 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D015B0];
   if (os_log_type_enabled(*MEMORY[0x277D015B0], OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315138;
-    v6 = "[CSAudioSessionController _stopMonitoring]";
-    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s Stop Monitoring : AudioSession notification from corespeechd", &v5, 0xCu);
-  }
-
-  [(CSAudioSessionController *)self setShouldKeepConnection:0];
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_startMonitoring
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = *MEMORY[0x277D015B0];
-  if (os_log_type_enabled(*MEMORY[0x277D015B0], OS_LOG_TYPE_DEFAULT))
-  {
-    v6 = 136315138;
-    v7 = "[CSAudioSessionController _startMonitoring]";
-    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s Start Monitoring : AudioSession notification from corespeechd", &v6, 0xCu);
+    v6 = "[CSAudioSessionController _startMonitoring]";
+    _os_log_impl(&dword_222E4D000, v3, OS_LOG_TYPE_DEFAULT, "%s Start Monitoring : AudioSession notification from corespeechd", &v5, 0xCu);
   }
 
   [(CSAudioSessionController *)self setShouldKeepConnection:1];
   [(CSAudioSessionController *)self _createXPCClientConnectionIfNeeded];
   v4 = +[CSCoreSpeechDaemonStateMonitor sharedInstance];
   [v4 addObserver:self];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioSessionInfoProvider:(id)provider didReceiveAudioSessionMediaServicesWereResetNotificationWithUserInfo:(id)info
@@ -629,52 +591,50 @@ void __48__CSAudioSessionController__handleInterruption___block_invoke(uint64_t 
 
 void __122__CSAudioSessionController_audioSessionInfoProvider_didReceiveAudioSessionMediaServicesWereResetNotificationWithUserInfo___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015B0];
   if (os_log_type_enabled(*MEMORY[0x277D015B0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "[CSAudioSessionController audioSessionInfoProvider:didReceiveAudioSessionMediaServicesWereResetNotificationWithUserInfo:]_block_invoke";
+    v15 = "[CSAudioSessionController audioSessionInfoProvider:didReceiveAudioSessionMediaServicesWereResetNotificationWithUserInfo:]_block_invoke";
     _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v3 = *(*(a1 + 32) + 24);
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
+        v8 = *(*(&v9 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
-          [v8 audioSessionController:*(a1 + 32) didReceiveAudioSessionMediaServicesWereResetNotificationWithUserInfo:{*(a1 + 40), v10}];
+          [v8 audioSessionController:*(a1 + 32) didReceiveAudioSessionMediaServicesWereResetNotificationWithUserInfo:{*(a1 + 40), v9}];
         }
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioSessionInfoProvider:(id)provider didReceiveAudioSessionMediaServicesWereLostNotificationWithUserInfo:(id)info
@@ -693,52 +653,50 @@ void __122__CSAudioSessionController_audioSessionInfoProvider_didReceiveAudioSes
 
 void __121__CSAudioSessionController_audioSessionInfoProvider_didReceiveAudioSessionMediaServicesWereLostNotificationWithUserInfo___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015B0];
   if (os_log_type_enabled(*MEMORY[0x277D015B0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "[CSAudioSessionController audioSessionInfoProvider:didReceiveAudioSessionMediaServicesWereLostNotificationWithUserInfo:]_block_invoke";
+    v15 = "[CSAudioSessionController audioSessionInfoProvider:didReceiveAudioSessionMediaServicesWereLostNotificationWithUserInfo:]_block_invoke";
     _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v3 = *(*(a1 + 32) + 24);
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
+        v8 = *(*(&v9 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
-          [v8 audioSessionController:*(a1 + 32) didReceiveAudioSessionMediaServicesWereLostNotificationWithUserInfo:{*(a1 + 40), v10}];
+          [v8 audioSessionController:*(a1 + 32) didReceiveAudioSessionMediaServicesWereLostNotificationWithUserInfo:{*(a1 + 40), v9}];
         }
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioSessionInfoProvider:(id)provider didReceiveAudioSessionRouteChangeNotificationWithUserInfo:(id)info
@@ -757,52 +715,50 @@ void __121__CSAudioSessionController_audioSessionInfoProvider_didReceiveAudioSes
 
 void __111__CSAudioSessionController_audioSessionInfoProvider_didReceiveAudioSessionRouteChangeNotificationWithUserInfo___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015B0];
   if (os_log_type_enabled(*MEMORY[0x277D015B0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "[CSAudioSessionController audioSessionInfoProvider:didReceiveAudioSessionRouteChangeNotificationWithUserInfo:]_block_invoke";
+    v15 = "[CSAudioSessionController audioSessionInfoProvider:didReceiveAudioSessionRouteChangeNotificationWithUserInfo:]_block_invoke";
     _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v3 = *(*(a1 + 32) + 24);
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
+        v8 = *(*(&v9 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
-          [v8 audioSessionController:*(a1 + 32) didReceiveAudioSessionRouteChangeNotificationWithUserInfo:{*(a1 + 40), v10}];
+          [v8 audioSessionController:*(a1 + 32) didReceiveAudioSessionRouteChangeNotificationWithUserInfo:{*(a1 + 40), v9}];
         }
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioSessionInfoProvider:(id)provider didReceiveAudioSessionInterruptionNotificationWithUserInfo:(id)info
@@ -821,52 +777,50 @@ void __111__CSAudioSessionController_audioSessionInfoProvider_didReceiveAudioSes
 
 void __112__CSAudioSessionController_audioSessionInfoProvider_didReceiveAudioSessionInterruptionNotificationWithUserInfo___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D015B0];
   if (os_log_type_enabled(*MEMORY[0x277D015B0], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "[CSAudioSessionController audioSessionInfoProvider:didReceiveAudioSessionInterruptionNotificationWithUserInfo:]_block_invoke";
+    v15 = "[CSAudioSessionController audioSessionInfoProvider:didReceiveAudioSessionInterruptionNotificationWithUserInfo:]_block_invoke";
     _os_log_impl(&dword_222E4D000, v2, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v3 = *(*(a1 + 32) + 24);
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
+        v8 = *(*(&v9 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
-          [v8 audioSessionController:*(a1 + 32) didReceiveAudioSessionInterruptionNotificationWithUserInfo:{*(a1 + 40), v10}];
+          [v8 audioSessionController:*(a1 + 32) didReceiveAudioSessionInterruptionNotificationWithUserInfo:{*(a1 + 40), v9}];
         }
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getAudioSessionIDWithCompletion:(id)completion
@@ -912,7 +866,7 @@ uint64_t __60__CSAudioSessionController_getAudioSessionIDWithCompletion___block_
   }
 }
 
-uint64_t __47__CSAudioSessionController_unregisterObserver___block_invoke(uint64_t a1)
+void *__47__CSAudioSessionController_unregisterObserver___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 24) removeObject:*(a1 + 40)];
   result = [*(*(a1 + 32) + 24) count];
@@ -943,7 +897,7 @@ uint64_t __47__CSAudioSessionController_unregisterObserver___block_invoke(uint64
   }
 }
 
-uint64_t __45__CSAudioSessionController_registerObserver___block_invoke(uint64_t a1)
+void *__45__CSAudioSessionController_registerObserver___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 24) addObject:*(a1 + 40)];
   result = [*(*(a1 + 32) + 24) count];
@@ -959,23 +913,22 @@ uint64_t __45__CSAudioSessionController_registerObserver___block_invoke(uint64_t
 
 - (void)dealloc
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D015B0];
   if (os_log_type_enabled(*MEMORY[0x277D015B0], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     v5 = [objc_opt_class() description];
     *buf = 136315394;
-    v9 = "[CSAudioSessionController dealloc]";
-    v10 = 2114;
-    v11 = v5;
+    v8 = "[CSAudioSessionController dealloc]";
+    v9 = 2114;
+    v10 = v5;
     _os_log_impl(&dword_222E4D000, v4, OS_LOG_TYPE_DEFAULT, "%s %{public}@ deallocated", buf, 0x16u);
   }
 
-  v7.receiver = self;
-  v7.super_class = CSAudioSessionController;
-  [(CSAudioSessionController *)&v7 dealloc];
-  v6 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = CSAudioSessionController;
+  [(CSAudioSessionController *)&v6 dealloc];
 }
 
 - (CSAudioSessionController)initWithEndpointId:(id)id

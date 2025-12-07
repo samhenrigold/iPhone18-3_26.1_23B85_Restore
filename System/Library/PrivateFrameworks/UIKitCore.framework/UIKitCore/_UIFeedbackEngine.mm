@@ -144,7 +144,7 @@
   }
 
   [v8 addObserver:v9 selector:v6 name:v7 object:v10];
-  if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_EnableFeedbackEngineStateVisualization, @"EnableFeedbackEngineStateVisualization") & 1) == 0 && byte_1ED48AD9C)
+  if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_EnableFeedbackEngineStateVisualization, @"EnableFeedbackEngineStateVisualization") && byte_1ED48AD9C)
   {
     v16 = +[_UIFeedbackVisualizer sharedVisualizer];
     [v16 addEngine:v2];
@@ -1522,7 +1522,7 @@ LABEL_24:
   feedbackCopy = feedback;
   [objc_opt_class() _internalQueue];
 
-  if ((_UIInternalPreferenceUsesDefault_0(&_MergedGlobals_933, @"EnableFeedbackVisualization") & 1) == 0 && byte_1ED48ADA4)
+  if (!_UIInternalPreferenceUsesDefault_0(&_MergedGlobals_933, @"EnableFeedbackVisualization") && byte_1ED48ADA4)
   {
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
@@ -1540,7 +1540,7 @@ LABEL_24:
   feedbackCopy = feedback;
   [objc_opt_class() _internalQueue];
 
-  if ((_UIInternalPreferenceUsesDefault_0(&_MergedGlobals_933, @"EnableFeedbackVisualization") & 1) == 0 && byte_1ED48ADA4)
+  if (!_UIInternalPreferenceUsesDefault_0(&_MergedGlobals_933, @"EnableFeedbackVisualization") && byte_1ED48ADA4)
   {
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;

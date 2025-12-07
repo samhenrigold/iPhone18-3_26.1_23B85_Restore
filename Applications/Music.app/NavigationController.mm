@@ -61,7 +61,7 @@ LABEL_3:
   isa = [(NavigationController *)&v5 viewControllers];
   if (!isa)
   {
-    sub_100009F78(0, &qword_101183D40);
+    sub_100009F78(0, &qword_101183D40, UIViewController_ptr);
     static Array._unconditionallyBridgeFromObjectiveC(_:)();
     isa = Array._bridgeToObjectiveC()().super.isa;
   }
@@ -137,7 +137,7 @@ LABEL_3:
 
 - (void)setViewControllers:(id)controllers
 {
-  sub_100009F78(0, &qword_101183D40);
+  sub_100009F78(0, &qword_101183D40, UIViewController_ptr);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
   sub_1007966E4(v4);

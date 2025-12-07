@@ -137,7 +137,7 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance GameSav
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance GameSaveFF()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance GameSaveFF(uint64_t a1)
 {
   Hasher.init(_seed:)();
   MEMORY[0x23EE6BC50](0);
@@ -182,63 +182,57 @@ uint64_t protocol witness for static _ObjectiveCBridgeable._unconditionallyBridg
 
 uint64_t protocol witness for Hashable.hashValue.getter in conformance NSProgressUserInfoKey()
 {
-  v1 = *v0;
-  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v3 = MEMORY[0x23EE6B770](v2);
+  v0 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v1 = MEMORY[0x23EE6B770](v0);
 
-  return v3;
+  return v1;
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NSProgressUserInfoKey()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NSProgressUserInfoKey(uint64_t a1)
 {
-  v1 = *v0;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NSProgressUserInfoKey()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NSProgressUserInfoKey(uint64_t a1)
 {
-  v1 = *v0;
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v2 = Hasher._finalize()();
+  v1 = Hasher._finalize()();
 
-  return v2;
+  return v1;
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance NSProgressUserInfoKey(uint64_t *a1, uint64_t *a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance NSProgressUserInfoKey(void *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v6 = v5;
-  if (v4 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v6 == v7)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
-    v9 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v9 & 1;
+  return v7 & 1;
 }
 
 uint64_t _sSo21NSProgressUserInfoKeyaSYSCSY8rawValue03RawF0QzvgTW_0@<X0>(uint64_t *a1@<X8>)
 {
-  v3 = *v1;
   result = static String._unconditionallyBridgeFromObjectiveC(_:)();
   *a1 = result;
-  a1[1] = v5;
+  a1[1] = v3;
   return result;
 }
 
 uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance NSURLResourceKey(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NSURLResourceKey and conformance NSURLResourceKey(&lazy protocol witness table cache variable for type NSURLResourceKey and conformance NSURLResourceKey, type metadata accessor for NSURLResourceKey);
-  v3 = lazy protocol witness table accessor for type NSURLResourceKey and conformance NSURLResourceKey(&lazy protocol witness table cache variable for type NSURLResourceKey and conformance NSURLResourceKey, type metadata accessor for NSURLResourceKey);
+  v2 = lazy protocol witness table accessor for type NSURLResourceKey and conformance NSURLResourceKey(&lazy protocol witness table cache variable for type NSURLResourceKey and conformance NSURLResourceKey, type metadata accessor for NSURLResourceKey, &protocol conformance descriptor for NSURLResourceKey);
+  v3 = lazy protocol witness table accessor for type NSURLResourceKey and conformance NSURLResourceKey(&lazy protocol witness table cache variable for type NSURLResourceKey and conformance NSURLResourceKey, type metadata accessor for NSURLResourceKey, &protocol conformance descriptor for NSURLResourceKey);
   v4 = MEMORY[0x277D837E0];
 
   return MEMORY[0x2821FD8C8](a1, v2, v3, v4);
@@ -246,8 +240,8 @@ uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHa
 
 uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance NSProgressUserInfoKey(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NSURLResourceKey and conformance NSURLResourceKey(&lazy protocol witness table cache variable for type NSProgressUserInfoKey and conformance NSProgressUserInfoKey, type metadata accessor for NSProgressUserInfoKey);
-  v3 = lazy protocol witness table accessor for type NSURLResourceKey and conformance NSURLResourceKey(&lazy protocol witness table cache variable for type NSProgressUserInfoKey and conformance NSProgressUserInfoKey, type metadata accessor for NSProgressUserInfoKey);
+  v2 = lazy protocol witness table accessor for type NSURLResourceKey and conformance NSURLResourceKey(&lazy protocol witness table cache variable for type NSProgressUserInfoKey and conformance NSProgressUserInfoKey, type metadata accessor for NSProgressUserInfoKey, &protocol conformance descriptor for NSProgressUserInfoKey);
+  v3 = lazy protocol witness table accessor for type NSURLResourceKey and conformance NSURLResourceKey(&lazy protocol witness table cache variable for type NSProgressUserInfoKey and conformance NSProgressUserInfoKey, type metadata accessor for NSProgressUserInfoKey, &protocol conformance descriptor for NSProgressUserInfoKey);
   v4 = MEMORY[0x277D837E0];
 
   return MEMORY[0x2821FD8C8](a1, v2, v3, v4);
@@ -263,26 +257,26 @@ uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance NS
 
 uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance NSKeyValueChangeKey(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NSURLResourceKey and conformance NSURLResourceKey(&lazy protocol witness table cache variable for type NSKeyValueChangeKey and conformance NSKeyValueChangeKey, type metadata accessor for NSKeyValueChangeKey);
-  v3 = lazy protocol witness table accessor for type NSURLResourceKey and conformance NSURLResourceKey(&lazy protocol witness table cache variable for type NSKeyValueChangeKey and conformance NSKeyValueChangeKey, type metadata accessor for NSKeyValueChangeKey);
+  v2 = lazy protocol witness table accessor for type NSURLResourceKey and conformance NSURLResourceKey(&lazy protocol witness table cache variable for type NSKeyValueChangeKey and conformance NSKeyValueChangeKey, type metadata accessor for NSKeyValueChangeKey, &protocol conformance descriptor for NSKeyValueChangeKey);
+  v3 = lazy protocol witness table accessor for type NSURLResourceKey and conformance NSURLResourceKey(&lazy protocol witness table cache variable for type NSKeyValueChangeKey and conformance NSKeyValueChangeKey, type metadata accessor for NSKeyValueChangeKey, &protocol conformance descriptor for NSKeyValueChangeKey);
   v4 = MEMORY[0x277D837E0];
 
   return MEMORY[0x2821FD8C8](a1, v2, v3, v4);
 }
 
-void type metadata accessor for CFErrorRef(uint64_t a1, unint64_t *a2)
+void type metadata accessor for CFErrorRef(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
   }
 }
 
-uint64_t lazy protocol witness table accessor for type NSURLResourceKey and conformance NSURLResourceKey(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type NSURLResourceKey and conformance NSURLResourceKey(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -343,7 +337,7 @@ uint64_t specialized static EntitlementsUtils.getEntitledContainerIdentifiers(fo
     objc_opt_self();
     if (swift_dynamicCastObjCClass())
     {
-      v18[0] = 0;
+      v17[0] = 0;
       static Array._conditionallyBridgeFromObjectiveC(_:result:)();
     }
 
@@ -372,14 +366,14 @@ uint64_t specialized static EntitlementsUtils.getEntitledContainerIdentifiers(fo
     {
       v8 = swift_slowAlloc();
       v9 = swift_slowAlloc();
-      v18[0] = v9;
+      v17[0] = v9;
       *v8 = 136315394;
-      *(v8 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000023, 0x800000023898BCF0, v18);
+      *(v8 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000023, 0x800000023898BCF0, v17);
       *(v8 + 12) = 2082;
-      v18[2] = v4;
+      v17[2] = v4;
       __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo10CFErrorRefaSgMd, "j#");
       v10 = Optional.debugDescription.getter();
-      v12 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v11, v18);
+      v12 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v11, v17);
 
       *(v8 + 14) = v12;
       _os_log_impl(&dword_238952000, v6, v7, "Couldn't lookup %s: %{public}s", v8, 0x16u);
@@ -393,9 +387,7 @@ uint64_t specialized static EntitlementsUtils.getEntitledContainerIdentifiers(fo
     }
   }
 
-  result = 0;
-  v17 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
@@ -403,7 +395,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -411,7 +402,7 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   return result;
 }
 
-uint64_t partial apply for specialized closure #1 in Sequence<>.contains(_:)(void *a1)
+uint64_t partial apply for specialized closure #1 in Sequence<>.contains(_:)(uint64_t *a1)
 {
   v2 = *(v1 + 16);
   if (*a1 == *v2 && a1[1] == v2[1])
@@ -425,15 +416,17 @@ uint64_t partial apply for specialized closure #1 in Sequence<>.contains(_:)(voi
   }
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance GameSaveSyncedDirectoryError()
@@ -444,11 +437,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance GameSav
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance GameSaveSyncedDirectoryError()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance GameSaveSyncedDirectoryError(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x23EE6BC50](v1);
+  MEMORY[0x23EE6BC50](v2);
   return Hasher._finalize()();
 }
 
@@ -474,10 +467,9 @@ id MyObserver.__deallocating_deinit()
 uint64_t GameSaveSyncedDirectory.State.description.getter()
 {
   v1 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1);
-  v4 = &v7 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of GameSaveSyncedDirectory.State(v0, v4);
+  v3 = &v6 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of GameSaveSyncedDirectory.State(v0, v3);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload <= 2)
   {
@@ -485,20 +477,20 @@ uint64_t GameSaveSyncedDirectory.State.description.getter()
     {
       if (EnumCaseMultiPayload == 1)
       {
-        outlined destroy of GameSaveSyncedDirectory.State(v4, type metadata accessor for GameSaveSyncedDirectory.State);
+        outlined destroy of GameSaveSyncedDirectory.State(v3, type metadata accessor for GameSaveSyncedDirectory.State);
         return 0x656E696C66666FLL;
       }
 
       else
       {
-        outlined destroy of GameSaveSyncedDirectory.State(v4, type metadata accessor for GameSaveSyncedDirectory.State);
+        outlined destroy of GameSaveSyncedDirectory.State(v3, type metadata accessor for GameSaveSyncedDirectory.State);
         return 0x6C61636F6CLL;
       }
     }
 
     else
     {
-      outlined destroy of GameSaveSyncedDirectory.State(v4, type metadata accessor for GameSaveSyncedDirectory.State);
+      outlined destroy of GameSaveSyncedDirectory.State(v3, type metadata accessor for GameSaveSyncedDirectory.State);
       return 0x7964616572;
     }
   }
@@ -518,13 +510,13 @@ uint64_t GameSaveSyncedDirectory.State.description.getter()
 
   else if (EnumCaseMultiPayload == 3)
   {
-    outlined destroy of GameSaveSyncedDirectory.State(v4, type metadata accessor for GameSaveSyncedDirectory.State);
+    outlined destroy of GameSaveSyncedDirectory.State(v3, type metadata accessor for GameSaveSyncedDirectory.State);
     return 0x7463696C666E6F63;
   }
 
   else
   {
-    outlined destroy of GameSaveSyncedDirectory.State(v4, type metadata accessor for GameSaveSyncedDirectory.State);
+    outlined destroy of GameSaveSyncedDirectory.State(v3, type metadata accessor for GameSaveSyncedDirectory.State);
     return 0x726F727265;
   }
 }
@@ -533,8 +525,8 @@ BOOL GameSaveSyncedDirectory.State.hasSameStateAs(_:)(uint64_t a1)
 {
   v2 = v1;
   v31 = a1;
-  v3 = *(*(type metadata accessor for GameSaveSyncedDirectory.State(0) - 8) + 64);
-  v4 = (MEMORY[0x28223BE20])();
+  v3 = type metadata accessor for GameSaveSyncedDirectory.State(0);
+  v4 = MEMORY[0x28223BE20](v3);
   v6 = &v30 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = MEMORY[0x28223BE20](v4);
   v9 = &v30 - v8;
@@ -619,7 +611,6 @@ BOOL GameSaveSyncedDirectory.State.hasSameStateAs(_:)(uint64_t a1)
 uint64_t GameSaveSyncedDirectory.Version.localizedNameOfSavingComputer.getter()
 {
   v1 = *(v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localizedNameOfSavingComputer);
-  v2 = *(v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localizedNameOfSavingComputer + 8);
 
   return v1;
 }
@@ -628,11 +619,10 @@ uint64_t key path setter for GameSaveSyncedDirectory.Version.modifiedDate : Game
 {
   v4 = type metadata accessor for Date();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20]();
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v5 + 16))(v8, a1, v4);
-  return (*(v5 + 40))(*a2 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v8, v4);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v5 + 16))(v7, a1, v4);
+  return (*(v5 + 40))(*a2 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v7, v4);
 }
 
 uint64_t GameSaveSyncedDirectory.Version.modifiedDate.getter@<X0>(uint64_t a1@<X8>)
@@ -655,37 +645,35 @@ uint64_t GameSaveSyncedDirectory.Version.modifiedDate.setter(uint64_t a1)
 
 uint64_t GameSaveSyncedDirectory.Version.url.getter()
 {
-  v1 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v3 = &v18 - v2;
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  MEMORY[0x28223BE20](v1 - 8);
+  v3 = &v16 - v2;
   v4 = type metadata accessor for UTType();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20]();
-  v8 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for URL();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20]();
-  v13 = &v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = *(v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_version);
-  if (v14)
+  MEMORY[0x28223BE20](v4);
+  v7 = &v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for URL();
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = &v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = *(v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_version);
+  if (v12)
   {
-    v15 = v14;
-    v16 = [v15 URL];
+    v13 = v12;
+    v14 = [v13 URL];
     static URL._unconditionallyBridgeFromObjectiveC(_:)();
 
     static UTType.directory.getter();
     URL.appendingPathComponent(_:conformingTo:)();
 
-    v3 = v13;
+    v3 = v11;
 LABEL_5:
-    (*(v5 + 8))(v8, v4);
-    return (*(v10 + 8))(v3, v9);
+    (*(v5 + 8))(v7, v4);
+    return (*(v9 + 8))(v3, v8);
   }
 
   outlined init with copy of URL?(v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localURL, v3, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  result = (*(v10 + 48))(v3, 1, v9);
+  result = (*(v9 + 48))(v3, 1, v8);
   if (result != 1)
   {
     static UTType.directory.getter();
@@ -701,247 +689,240 @@ uint64_t GameSaveSyncedDirectory.Version.description.getter()
 {
   v1 = type metadata accessor for Date();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  MEMORY[0x28223BE20]();
-  v5 = v20 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for URL();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20]();
-  v10 = v20 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20[0] = 0;
-  v20[1] = 0xE000000000000000;
+  MEMORY[0x28223BE20](v1);
+  v4 = v18 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for URL();
+  v6 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5);
+  v8 = v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18[0] = 0;
+  v18[1] = 0xE000000000000000;
   _StringGuts.grow(_:)(98);
   MEMORY[0x23EE6B750](0x203A6C7275, 0xE500000000000000);
   GameSaveSyncedDirectory.Version.url.getter();
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
-  v11 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x23EE6B750](v11);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
+  v9 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x23EE6B750](v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v6 + 8))(v8, v5);
   MEMORY[0x23EE6B750](0xD000000000000011, 0x800000023898BD60);
   if (*(v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_isLiveVersion))
   {
-    v12 = 1702195828;
+    v10 = 1702195828;
   }
 
   else
   {
-    v12 = 0x65736C6166;
+    v10 = 0x65736C6166;
   }
 
   if (*(v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_isLiveVersion))
   {
-    v13 = 0xE400000000000000;
+    v11 = 0xE400000000000000;
   }
 
   else
   {
-    v13 = 0xE500000000000000;
+    v11 = 0xE500000000000000;
   }
+
+  MEMORY[0x23EE6B750](v10, v11);
+
+  MEMORY[0x23EE6B750](0xD000000000000021, 0x800000023898BD80);
+  v12 = *(v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localizedNameOfSavingComputer);
+  v13 = *(v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localizedNameOfSavingComputer + 8);
 
   MEMORY[0x23EE6B750](v12, v13);
 
-  MEMORY[0x23EE6B750](0xD000000000000021, 0x800000023898BD80);
-  v14 = *(v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localizedNameOfSavingComputer);
-  v15 = *(v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localizedNameOfSavingComputer + 8);
-
-  MEMORY[0x23EE6B750](v14, v15);
-
   MEMORY[0x23EE6B750](0xD000000000000010, 0x800000023898BDB0);
-  (*(v2 + 16))(v5, v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v1);
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578]);
-  v16 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x23EE6B750](v16);
+  (*(v2 + 16))(v4, v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v1);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type Date and conformance Date, MEMORY[0x277CC9578], MEMORY[0x277CC95B8]);
+  v14 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x23EE6B750](v14);
 
-  (*(v2 + 8))(v5, v1);
+  (*(v2 + 8))(v4, v1);
   MEMORY[0x23EE6B750](0xD000000000000011, 0x800000023898BDD0);
-  v17 = *(v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_computerSymbol);
-  v18 = *(v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_computerSymbol + 8);
+  v15 = *(v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_computerSymbol);
+  v16 = *(v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_computerSymbol + 8);
 
-  MEMORY[0x23EE6B750](v17, v18);
+  MEMORY[0x23EE6B750](v15, v16);
 
-  return v20[0];
+  return v18[0];
 }
 
 char *GameSaveSyncedDirectory.Version.init(liveFileURL:version:lastEditorDeviceName:devices:)(uint64_t a1, void *a2, uint64_t countAndFlagsBits, void *a4, unint64_t a5)
 {
-  v74 = a5;
-  v71 = a4;
+  v72 = a5;
+  v69 = a4;
   v9 = type metadata accessor for UTType();
-  v64 = *(v9 - 8);
-  v65 = v9;
-  v10 = *(v64 + 64);
+  v62 = *(v9 - 8);
+  v63 = v9;
   MEMORY[0x28223BE20](v9);
-  v63 = &v62 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v13 = *(*(v12 - 8) + 64);
-  v14 = MEMORY[0x28223BE20](v12 - 8);
-  v66 = &v62 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v14);
-  v73 = &v62 - v16;
-  v72 = type metadata accessor for Date();
-  v17 = *(v72 - 8);
-  v18 = *(v17 + 64);
-  MEMORY[0x28223BE20](v72);
-  v20 = &v62 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_version;
-  v22 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localURL;
-  v23 = type metadata accessor for URL();
-  v24 = *(v23 - 8);
-  (*(v24 + 56))(v5 + v22, 1, 1, v23);
-  v67 = v24;
-  v68 = v23;
-  (*(v24 + 16))(v5 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_liveFileURL, a1, v23);
-  *(v5 + v21) = a2;
-  v25 = a2;
+  v61 = &v60 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  v12 = MEMORY[0x28223BE20](v11 - 8);
+  v64 = &v60 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v12);
+  v71 = &v60 - v14;
+  v70 = type metadata accessor for Date();
+  v15 = *(v70 - 8);
+  MEMORY[0x28223BE20](v70);
+  v17 = &v60 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_version;
+  v19 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localURL;
+  v20 = type metadata accessor for URL();
+  v21 = *(v20 - 8);
+  (*(v21 + 56))(v5 + v19, 1, 1, v20);
+  v65 = v21;
+  v66 = v20;
+  (*(v21 + 16))(v5 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_liveFileURL, a1, v20);
+  *(v5 + v18) = a2;
+  v22 = a2;
   *(v5 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_isLiveVersion) = 0;
-  v70 = a1;
-  if (a2 && (v26 = a2, (v27 = [v26 localizedNameOfSavingComputer]) != 0))
+  v68 = a1;
+  if (a2 && (v23 = a2, (v24 = [v23 localizedNameOfSavingComputer]) != 0))
   {
-    v28 = v27;
+    v25 = v24;
     countAndFlagsBits = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    object = v29;
+    object = v26;
 
-    v31 = (v5 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localizedNameOfSavingComputer);
-    *v31 = countAndFlagsBits;
-    v31[1] = object;
-    v32 = v20;
-    v34 = v72;
-    v33 = v73;
+    v28 = (v5 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localizedNameOfSavingComputer);
+    *v28 = countAndFlagsBits;
+    v28[1] = object;
+    v29 = v17;
+    v31 = v70;
+    v30 = v71;
   }
 
   else
   {
-    v33 = v73;
-    v32 = v20;
-    if (v71)
+    v30 = v71;
+    v29 = v17;
+    if (v69)
     {
-      object = v71;
-      v34 = v72;
+      object = v69;
+      v31 = v70;
     }
 
     else
     {
-      v34 = v72;
+      v31 = v70;
       if (one-time initialization token for bundleForGameSave != -1)
       {
         swift_once();
       }
 
-      v75._object = 0x800000023898C2B0;
-      v35._countAndFlagsBits = 0x7665442073696854;
-      v35._object = 0xEB00000000656369;
-      v36._countAndFlagsBits = 0;
-      v36._object = 0xE000000000000000;
-      v75._countAndFlagsBits = 0xD00000000000003DLL;
-      v37 = NSLocalizedString(_:tableName:bundle:value:comment:)(v35, countAndFlagsBits, static GameSaveSyncedDirectory.bundleForGameSave, v36, v75);
-      countAndFlagsBits = v37._countAndFlagsBits;
-      object = v37._object;
+      v73._object = 0x800000023898C2B0;
+      v32._countAndFlagsBits = 0x7665442073696854;
+      v32._object = 0xEB00000000656369;
+      v33._countAndFlagsBits = 0;
+      v33._object = 0xE000000000000000;
+      v73._countAndFlagsBits = 0xD00000000000003DLL;
+      v34 = NSLocalizedString(_:tableName:bundle:value:comment:)(v32, countAndFlagsBits, static GameSaveSyncedDirectory.bundleForGameSave, v33, v73);
+      countAndFlagsBits = v34._countAndFlagsBits;
+      object = v34._object;
     }
 
-    v38 = (v5 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localizedNameOfSavingComputer);
-    *v38 = countAndFlagsBits;
-    v38[1] = object;
-    if (!v25)
+    v35 = (v5 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localizedNameOfSavingComputer);
+    *v35 = countAndFlagsBits;
+    v35[1] = object;
+    if (!v22)
     {
-      (*(v17 + 56))(v33, 1, 1, v34);
+      (*(v15 + 56))(v30, 1, 1, v31);
 
       goto LABEL_17;
     }
 
-    v26 = v25;
+    v23 = v22;
   }
 
-  v39 = [v26 modificationDate];
-  v40 = v66;
-  if (v39)
+  v36 = [v23 modificationDate];
+  v37 = v64;
+  if (v36)
   {
-    v41 = v39;
+    v38 = v36;
     static Date._unconditionallyBridgeFromObjectiveC(_:)();
 
-    (*(v17 + 56))(v40, 0, 1, v34);
+    (*(v15 + 56))(v37, 0, 1, v31);
   }
 
   else
   {
-    (*(v17 + 56))(v66, 1, 1, v34);
+    (*(v15 + 56))(v64, 1, 1, v31);
   }
 
-  outlined init with take of URL?(v40, v33, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  if ((*(v17 + 48))(v33, 1, v34) != 1)
+  outlined init with take of URL?(v37, v30, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+  if ((*(v15 + 48))(v30, 1, v31) != 1)
   {
-    (*(v17 + 32))(v32, v33, v34);
+    (*(v15 + 32))(v29, v30, v31);
     goto LABEL_19;
   }
 
 LABEL_17:
   Date.init()();
-  if ((*(v17 + 48))(v33, 1, v34) != 1)
+  if ((*(v15 + 48))(v30, 1, v31) != 1)
   {
-    outlined destroy of URL?(v33, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+    outlined destroy of URL?(v30, &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   }
 
 LABEL_19:
-  (*(v17 + 32))(v5 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v32, v34);
-  v42 = v74;
-  v69 = v25;
-  if (v74 >> 62)
+  (*(v15 + 32))(v5 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v29, v31);
+  v39 = v72;
+  v67 = v22;
+  if (v72 >> 62)
   {
     goto LABEL_40;
   }
 
-  for (i = *((v74 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = MEMORY[0x23EE6BAE0](v61))
+  for (i = *((v72 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = MEMORY[0x23EE6BAE0](v59))
   {
-    v73 = v5;
-    v5 = v74;
+    v71 = v5;
+    v5 = v72;
     if (!i)
     {
       break;
     }
 
-    v44 = 0;
+    v41 = 0;
     while (1)
     {
       if ((v5 & 0xC000000000000001) != 0)
       {
-        v45 = MEMORY[0x23EE6BA40](v44, v5);
+        v42 = MEMORY[0x23EE6BA40](v41, v5);
       }
 
       else
       {
-        if (v44 >= *((v5 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        if (v41 >= *((v5 & 0xFFFFFFFFFFFFFF8) + 0x10))
         {
           goto LABEL_39;
         }
 
-        v45 = *(v5 + 8 * v44 + 32);
+        v42 = *(v5 + 8 * v41 + 32);
       }
 
-      v46 = v45;
-      v47 = v44 + 1;
-      if (__OFADD__(v44, 1))
+      v43 = v42;
+      v44 = v41 + 1;
+      if (__OFADD__(v41, 1))
       {
         break;
       }
 
-      v48 = &v45[OBJC_IVAR___DeviceInfo_name];
-      v49 = *&v45[OBJC_IVAR___DeviceInfo_name];
-      v50 = *v48 == countAndFlagsBits && *(v48 + 1) == object;
-      if (v50 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+      v45 = *&v42[OBJC_IVAR___DeviceInfo_name] == countAndFlagsBits && *&v42[OBJC_IVAR___DeviceInfo_name + 8] == object;
+      if (v45 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
       {
 
-        (*(v67 + 8))(v70, v68);
+        (*(v65 + 8))(v68, v66);
 
-        v56 = *&v46[OBJC_IVAR___DeviceInfo_symbol];
-        v58 = *&v46[OBJC_IVAR___DeviceInfo_symbol + 8];
+        v54 = *&v43[OBJC_IVAR___DeviceInfo_symbol];
+        v56 = *&v43[OBJC_IVAR___DeviceInfo_symbol + 8];
 
-        v53 = v73;
+        v51 = v71;
         goto LABEL_37;
       }
 
-      ++v44;
-      if (v47 == i)
+      ++v41;
+      if (v44 == i)
       {
         goto LABEL_35;
       }
@@ -951,100 +932,97 @@ LABEL_19:
 LABEL_39:
     __break(1u);
 LABEL_40:
-    if (v42 < 0)
+    if (v39 < 0)
     {
-      v61 = v42;
+      v59 = v39;
     }
 
     else
     {
-      v61 = v42 & 0xFFFFFFFFFFFFFF8;
+      v59 = v39 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
 LABEL_35:
 
-  v51 = v63;
+  v46 = v61;
   static UTType._currentDevice.getter();
-  UTType.identifier.getter();
-  (*(v64 + 8))(v51, v65);
+  v47 = UTType.identifier.getter();
+  v49 = v48;
+  (*(v62 + 8))(v46, v63);
   type metadata accessor for UIAlertController(0, &lazy cache variable for type metadata for ISSymbol, 0x277D1B1D8);
-  v52 = @nonobjc ISSymbol.__allocating_init(forTypeIdentifier:)();
-  v53 = v73;
-  v54 = v52;
-  v55 = [v52 name];
+  v50 = @nonobjc ISSymbol.__allocating_init(forTypeIdentifier:)(v47, v49);
+  v51 = v71;
+  v52 = v50;
+  v53 = [v50 name];
 
-  v56 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v58 = v57;
+  v54 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v56 = v55;
 
-  (*(v67 + 8))(v70, v68);
+  (*(v65 + 8))(v68, v66);
 LABEL_37:
-  v59 = &v53[OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_computerSymbol];
-  *v59 = v56;
-  v59[1] = v58;
-  return v53;
+  v57 = &v51[OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_computerSymbol];
+  *v57 = v54;
+  v57[1] = v56;
+  return v51;
 }
 
-id @nonobjc ISSymbol.__allocating_init(forTypeIdentifier:)()
+id @nonobjc ISSymbol.__allocating_init(forTypeIdentifier:)(uint64_t a1, uint64_t a2)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v0 = MEMORY[0x23EE6B6E0]();
+  v7[1] = *MEMORY[0x277D85DE8];
+  v2 = MEMORY[0x23EE6B6E0](a1);
 
-  v6[0] = 0;
-  v1 = [swift_getObjCClassFromMetadata() symbolForTypeIdentifier:v0 error:v6];
+  v7[0] = 0;
+  v3 = [swift_getObjCClassFromMetadata() symbolForTypeIdentifier:v2 error:v7];
 
-  if (v1)
+  if (v3)
   {
-    v2 = v6[0];
+    v4 = v7[0];
   }
 
   else
   {
-    v3 = v6[0];
+    v5 = v7[0];
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
   }
 
-  v4 = *MEMORY[0x277D85DE8];
-  return v1;
+  return v3;
 }
 
 void GameSaveSyncedDirectory.Version.resolve()()
 {
   v2 = v1;
   v3 = v0;
-  v106[1] = *MEMORY[0x277D85DE8];
+  v102[1] = *MEMORY[0x277D85DE8];
   v4 = type metadata accessor for UTType();
-  v100 = *(v4 - 1);
-  v101 = v4;
-  v5 = *(v100 + 64);
+  v96 = *(v4 - 1);
+  v97 = v4;
   MEMORY[0x28223BE20](v4);
-  v7 = &v98 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  v10 = MEMORY[0x28223BE20](v8 - 8);
-  v102 = (&v98 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x28223BE20](v10);
-  v13 = &v98 - v12;
-  v14 = type metadata accessor for URL();
-  v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
-  v17 = MEMORY[0x28223BE20](v14);
-  v105 = &v98 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = MEMORY[0x28223BE20](v17);
-  v104 = &v98 - v20;
-  MEMORY[0x28223BE20](v19);
-  v22 = &v98 - v21;
-  outlined init with copy of URL?(v3 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localURL, v13, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v23 = (*(v15 + 48))(v13, 1, v14);
-  v24 = &unk_27DF44000;
-  v103 = v3;
-  if (v23 != 1)
+  v6 = &v94 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v8 = MEMORY[0x28223BE20](v7 - 8);
+  v98 = (&v94 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x28223BE20](v8);
+  v11 = &v94 - v10;
+  v12 = type metadata accessor for URL();
+  v13 = *(v12 - 8);
+  v14 = MEMORY[0x28223BE20](v12);
+  v101 = &v94 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = MEMORY[0x28223BE20](v14);
+  v100 = &v94 - v17;
+  MEMORY[0x28223BE20](v16);
+  v19 = &v94 - v18;
+  outlined init with copy of URL?(v3 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localURL, v11, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v20 = (*(v13 + 48))(v11, 1, v12);
+  v21 = &unk_27DF44000;
+  v99 = v3;
+  if (v20 != 1)
   {
-    v35 = *(v15 + 32);
-    v99 = v22;
-    v35(v22, v13, v14);
+    v32 = *(v13 + 32);
+    v95 = v19;
+    v32(v19, v11, v12);
     if (one-time initialization token for common == -1)
     {
       goto LABEL_7;
@@ -1053,9 +1031,9 @@ void GameSaveSyncedDirectory.Version.resolve()()
     goto LABEL_36;
   }
 
-  v101 = v1;
-  outlined destroy of URL?(v13, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  if ((*(v3 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_isLiveVersion) & 1) != 0 || (v25 = *(v3 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_version)) == 0)
+  v97 = v1;
+  outlined destroy of URL?(v11, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  if ((*(v3 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_isLiveVersion) & 1) != 0 || (v22 = *(v3 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_version)) == 0)
   {
     while (1)
     {
@@ -1064,104 +1042,104 @@ void GameSaveSyncedDirectory.Version.resolve()()
 LABEL_17:
         v2 = objc_opt_self();
         v3 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_liveFileURL;
-        v7 = v103;
-        v76 = v105;
-        v102 = *(v15 + 16);
-        v102(v105, &v103[OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_liveFileURL], v14);
-        URL._bridgeToObjectiveC()(v77);
-        v79 = v78;
-        v100 = *(v15 + 8);
-        (v100)(v76, v14);
-        v106[0] = 0;
-        v104 = v2;
-        v80 = [v2 removeOtherVersionsOfItemAtURL:v79 error:v106];
+        v6 = v99;
+        v73 = v101;
+        v98 = *(v13 + 16);
+        v98(v101, &v99[OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_liveFileURL], v12);
+        URL._bridgeToObjectiveC()(v74);
+        v76 = v75;
+        v96 = *(v13 + 8);
+        (v96)(v73, v12);
+        v102[0] = 0;
+        v100 = v2;
+        v77 = [v2 removeOtherVersionsOfItemAtURL:v76 error:v102];
 
-        v81 = v106[0];
-        if (!v80)
+        v78 = v102[0];
+        if (!v77)
         {
-          v90 = v106[0];
+          v87 = v102[0];
           _convertNSErrorToError(_:)();
 
           swift_willThrow();
-          goto LABEL_42;
+          return;
         }
 
-        v102(v76, &v7[v3], v14);
+        v98(v73, &v6[v3], v12);
+        v79 = v78;
+        URL._bridgeToObjectiveC()(v80);
         v82 = v81;
-        URL._bridgeToObjectiveC()(v83);
-        v85 = v84;
-        (v100)(v76, v14);
-        v86 = [v104 unresolvedConflictVersionsOfItemAtURL_];
+        (v96)(v73, v12);
+        v83 = [v100 unresolvedConflictVersionsOfItemAtURL_];
 
-        if (!v86)
+        if (!v83)
         {
-          goto LABEL_42;
+          return;
         }
 
         type metadata accessor for UIAlertController(0, &lazy cache variable for type metadata for NSFileVersion, 0x277CCAA18);
-        v87 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+        v84 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-        if (v87 >> 62)
+        if (v84 >> 62)
         {
-          if (v87 < 0)
+          if (v84 < 0)
           {
-            v96 = v87;
+            v93 = v84;
           }
 
           else
           {
-            v96 = v87 & 0xFFFFFFFFFFFFFF8;
+            v93 = v84 & 0xFFFFFFFFFFFFFF8;
           }
 
-          v14 = MEMORY[0x23EE6BAE0](v96);
-          if (!v14)
+          v12 = MEMORY[0x23EE6BAE0](v93);
+          if (!v12)
           {
 LABEL_41:
 
-            goto LABEL_42;
+            return;
           }
         }
 
         else
         {
-          v14 = *((v87 & 0xFFFFFFFFFFFFFF8) + 0x10);
-          if (!v14)
+          v12 = *((v84 & 0xFFFFFFFFFFFFFF8) + 0x10);
+          if (!v12)
           {
             goto LABEL_41;
           }
         }
 
-        v88 = 0;
-        v15 = v87 & 0xC000000000000001;
-        v24 = (v87 & 0xFFFFFFFFFFFFFF8);
+        v85 = 0;
+        v13 = v84 & 0xC000000000000001;
+        v21 = (v84 & 0xFFFFFFFFFFFFFF8);
         while (1)
         {
-          if (v15)
+          if (v13)
           {
-            v89 = MEMORY[0x23EE6BA40](v88, v87);
+            v86 = MEMORY[0x23EE6BA40](v85, v84);
           }
 
           else
           {
-            if (v88 >= *((v87 & 0xFFFFFFFFFFFFFF8) + 0x10))
+            if (v85 >= *((v84 & 0xFFFFFFFFFFFFFF8) + 0x10))
             {
               goto LABEL_35;
             }
 
-            v89 = *(v87 + 8 * v88 + 32);
+            v86 = *(v84 + 8 * v85 + 32);
           }
 
-          v7 = v89;
-          v3 = v88 + 1;
-          if (__OFADD__(v88, 1))
+          v6 = v86;
+          v3 = v85 + 1;
+          if (__OFADD__(v85, 1))
           {
             break;
           }
 
-          [v89 setResolved_];
+          [v86 setResolved_];
 
-          ++v88;
-          if (v3 == v14)
+          ++v85;
+          if (v3 == v12)
           {
             goto LABEL_41;
           }
@@ -1173,157 +1151,155 @@ LABEL_35:
 LABEL_36:
         swift_once();
 LABEL_7:
-        v36 = type metadata accessor for Logger();
-        v98 = __swift_project_value_buffer(v36, static Logger.common);
-        v37 = Logger.logObject.getter();
-        v38 = static os_log_type_t.default.getter();
-        v39 = v2;
-        if (os_log_type_enabled(v37, v38))
+        v33 = type metadata accessor for Logger();
+        v94 = __swift_project_value_buffer(v33, static Logger.common);
+        v34 = Logger.logObject.getter();
+        v35 = static os_log_type_t.default.getter();
+        v36 = v2;
+        if (os_log_type_enabled(v34, v35))
         {
-          v40 = swift_slowAlloc();
-          *v40 = 0;
-          _os_log_impl(&dword_238952000, v37, v38, "Resolving local version as main version", v40, 2u);
-          v41 = v40;
-          v39 = v2;
-          v24 = &unk_27DF44000;
-          MEMORY[0x23EE6C260](v41, -1, -1);
+          v37 = swift_slowAlloc();
+          *v37 = 0;
+          _os_log_impl(&dword_238952000, v34, v35, "Resolving local version as main version", v37, 2u);
+          v38 = v37;
+          v36 = v2;
+          v21 = &unk_27DF44000;
+          MEMORY[0x23EE6C260](v38, -1, -1);
         }
 
-        v42 = v105;
-        (*(v15 + 16))(v105, v3 + v24[34], v14);
+        v39 = v101;
+        (*(v13 + 16))(v101, v3 + v21[34], v12);
         static UTType.directory.getter();
-        v43 = v15;
-        v44 = v104;
+        v40 = v13;
+        v41 = v100;
         URL.appendingPathComponent(_:conformingTo:)();
-        (*(v100 + 8))(v7, v101);
-        v100 = v43;
-        v45 = *(v43 + 8);
-        v45(v42, v14);
-        v101 = objc_opt_self();
-        v46 = [v101 defaultManager];
-        v47 = v102;
-        v48 = v99;
-        v49 = v39;
+        (*(v96 + 8))(v6, v97);
+        v96 = v40;
+        v42 = *(v40 + 8);
+        v42(v39, v12);
+        v97 = objc_opt_self();
+        v43 = [v97 defaultManager];
+        v44 = v98;
+        v45 = v95;
+        v46 = v36;
         NSFileManager.replaceItemAt(_:withItemAt:backupItemName:options:)();
-        if (v39)
+        if (v36)
         {
           break;
         }
 
-        v101 = 0;
+        v97 = 0;
 
-        outlined destroy of URL?(v47, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-        v45(v44, v14);
-        v45(v48, v14);
-        v15 = v100;
+        outlined destroy of URL?(v44, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+        v42(v41, v12);
+        v42(v45, v12);
+        v13 = v96;
       }
 
-      v102 = v45;
+      v98 = v42;
 
-      v50 = v39;
-      v51 = Logger.logObject.getter();
-      v52 = static os_log_type_t.error.getter();
+      v47 = v36;
+      v48 = Logger.logObject.getter();
+      v49 = static os_log_type_t.error.getter();
 
-      if (os_log_type_enabled(v51, v52))
+      if (os_log_type_enabled(v48, v49))
       {
-        v53 = swift_slowAlloc();
-        v54 = swift_slowAlloc();
-        *v53 = 138412290;
-        v55 = v49;
-        v56 = _swift_stdlib_bridgeErrorToNSError();
-        *(v53 + 4) = v56;
-        *v54 = v56;
-        _os_log_impl(&dword_238952000, v51, v52, "Got error %@ replacing local version with live one", v53, 0xCu);
-        outlined destroy of URL?(v54, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-        MEMORY[0x23EE6C260](v54, -1, -1);
-        MEMORY[0x23EE6C260](v53, -1, -1);
+        v50 = swift_slowAlloc();
+        v51 = swift_slowAlloc();
+        *v50 = 138412290;
+        v52 = v46;
+        v53 = _swift_stdlib_bridgeErrorToNSError();
+        *(v50 + 4) = v53;
+        *v51 = v53;
+        _os_log_impl(&dword_238952000, v48, v49, "Got error %@ replacing local version with live one", v50, 0xCu);
+        outlined destroy of URL?(v51, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+        MEMORY[0x23EE6C260](v51, -1, -1);
+        MEMORY[0x23EE6C260](v50, -1, -1);
       }
 
       else
       {
       }
 
-      v15 = v100;
-      v57 = v101;
-      v58 = [v101 defaultManager];
-      v59 = v104;
-      URL._bridgeToObjectiveC()(v60);
-      v62 = v61;
-      v106[0] = 0;
-      v63 = [v58 removeItemAtURL:v61 error:v106];
+      v13 = v96;
+      v54 = v97;
+      v55 = [v97 defaultManager];
+      v56 = v100;
+      URL._bridgeToObjectiveC()(v57);
+      v59 = v58;
+      v102[0] = 0;
+      v60 = [v55 removeItemAtURL:v58 error:v102];
 
-      if (!v63)
+      if (!v60)
       {
         break;
       }
 
-      v64 = v106[0];
-      v65 = [v57 defaultManager];
-      v66 = v99;
+      v61 = v102[0];
+      v62 = [v54 defaultManager];
+      v63 = v95;
+      URL._bridgeToObjectiveC()(v64);
+      v66 = v65;
       URL._bridgeToObjectiveC()(v67);
       v69 = v68;
-      URL._bridgeToObjectiveC()(v70);
-      v72 = v71;
-      v106[0] = 0;
-      v73 = [v65 moveItemAtURL:v69 toURL:v71 error:v106];
+      v102[0] = 0;
+      v70 = [v62 moveItemAtURL:v66 toURL:v68 error:v102];
 
-      if (!v73)
+      if (!v70)
       {
-        v94 = v106[0];
+        v91 = v102[0];
         _convertNSErrorToError(_:)();
 
         swift_willThrow();
-        v92 = v102;
-        (v102)(v59, v14);
-        v93 = v66;
+        v89 = v98;
+        (v98)(v56, v12);
+        v90 = v63;
         goto LABEL_32;
       }
 
-      v74 = v106[0];
-      v75 = v102;
-      (v102)(v59, v14);
-      v75(v66, v14);
-      v101 = 0;
+      v71 = v102[0];
+      v72 = v98;
+      (v98)(v56, v12);
+      v72(v63, v12);
+      v97 = 0;
     }
 
-    v91 = v106[0];
+    v88 = v102[0];
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
-    v92 = v102;
-    (v102)(v59, v14);
-    v93 = v99;
+    v89 = v98;
+    (v98)(v56, v12);
+    v90 = v95;
 LABEL_32:
-    v92(v93, v14);
-    goto LABEL_42;
+    v89(v90, v12);
+    return;
   }
 
-  v26 = v105;
-  (*(v15 + 16))(v105, v3 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_liveFileURL, v14);
-  v27 = v25;
-  URL._bridgeToObjectiveC()(v28);
-  v30 = v29;
-  v31 = *(v15 + 8);
-  v31(v26, v14);
-  v106[0] = 0;
-  v32 = [v27 replaceItemAtURL:v30 options:0 error:v106];
+  v23 = v101;
+  (*(v13 + 16))(v101, v3 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_liveFileURL, v12);
+  v24 = v22;
+  URL._bridgeToObjectiveC()(v25);
+  v27 = v26;
+  v28 = *(v13 + 8);
+  v28(v23, v12);
+  v102[0] = 0;
+  v29 = [v24 replaceItemAtURL:v27 options:0 error:v102];
 
-  v33 = v106[0];
-  if (v32)
+  v30 = v102[0];
+  if (v29)
   {
     static URL._unconditionallyBridgeFromObjectiveC(_:)();
-    v34 = v33;
+    v31 = v30;
 
-    v31(v26, v14);
+    v28(v23, v12);
     goto LABEL_17;
   }
 
-  v95 = v106[0];
+  v92 = v102[0];
   _convertNSErrorToError(_:)();
 
   swift_willThrow();
-LABEL_42:
-  v97 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t GameSaveSyncedDirectory.Version.deinit()
@@ -1333,12 +1309,10 @@ uint64_t GameSaveSyncedDirectory.Version.deinit()
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
 
   outlined destroy of URL?(v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localURL, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v3 = *(v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localizedNameOfSavingComputer + 8);
 
-  v4 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate;
-  v5 = type metadata accessor for Date();
-  (*(*(v5 - 8) + 8))(v0 + v4, v5);
-  v6 = *(v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_computerSymbol + 8);
+  v3 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate;
+  v4 = type metadata accessor for Date();
+  (*(*(v4 - 8) + 8))(v0 + v3, v4);
 
   return v0;
 }
@@ -1350,23 +1324,21 @@ uint64_t GameSaveSyncedDirectory.Version.__deallocating_deinit()
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
 
   outlined destroy of URL?(v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localURL, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v3 = *(v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localizedNameOfSavingComputer + 8);
 
-  v4 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate;
-  v5 = type metadata accessor for Date();
-  (*(*(v5 - 8) + 8))(v0 + v4, v5);
-  v6 = *(v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_computerSymbol + 8);
+  v3 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate;
+  v4 = type metadata accessor for Date();
+  (*(*(v4 - 8) + 8))(v0 + v3, v4);
 
-  v7 = *(*v0 + 48);
-  v8 = *(*v0 + 52);
+  v5 = *(*v0 + 48);
+  v6 = *(*v0 + 52);
 
-  return MEMORY[0x2821FE8D8](v0, v7, v8);
+  return MEMORY[0x2821FE8D8](v0, v5, v6);
 }
 
 uint64_t GameSaveSyncedDirectory._state.getter@<X0>(uint64_t a1@<X8>)
 {
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   return outlined init with copy of GameSaveSyncedDirectory.State(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, a1);
@@ -1376,7 +1348,7 @@ uint64_t key path getter for GameSaveSyncedDirectory._state : GameSaveSyncedDire
 {
   v3 = *a1;
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   return outlined init with copy of GameSaveSyncedDirectory.State(v3 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, a2);
@@ -1384,8 +1356,8 @@ uint64_t key path getter for GameSaveSyncedDirectory._state : GameSaveSyncedDire
 
 uint64_t key path setter for GameSaveSyncedDirectory._state : GameSaveSyncedDirectory(uint64_t a1, uint64_t *a2)
 {
-  v4 = *(*(type metadata accessor for GameSaveSyncedDirectory.State(0) - 8) + 64);
-  MEMORY[0x28223BE20]();
+  v4 = type metadata accessor for GameSaveSyncedDirectory.State(0);
+  MEMORY[0x28223BE20](v4 - 8);
   v6 = &v9[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
   outlined init with copy of GameSaveSyncedDirectory.State(a1, v6);
   v7 = *a2;
@@ -1393,7 +1365,7 @@ uint64_t key path setter for GameSaveSyncedDirectory._state : GameSaveSyncedDire
   v10 = v7;
   v11 = v6;
   v12 = v7;
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
   return outlined destroy of GameSaveSyncedDirectory.State(v6, type metadata accessor for GameSaveSyncedDirectory.State);
@@ -1405,64 +1377,61 @@ id key path getter for GameSaveSyncedDirectory.state : GameSaveSyncedDirectory@<
   v4 = *(*a1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
   [v4 lock];
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   outlined init with copy of GameSaveSyncedDirectory.State(v3 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, a2);
   return [v4 unlock];
 }
 
-uint64_t key path setter for GameSaveSyncedDirectory.state : GameSaveSyncedDirectory(uint64_t a1, uint64_t *a2)
+uint64_t key path setter for GameSaveSyncedDirectory.state : GameSaveSyncedDirectory(uint64_t a1)
 {
-  v4 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of GameSaveSyncedDirectory.State(a1, v7);
-  v8 = *a2;
-  return GameSaveSyncedDirectory.state.setter(v7);
+  v2 = type metadata accessor for GameSaveSyncedDirectory.State(0);
+  MEMORY[0x28223BE20](v2 - 8);
+  v4 = &v6 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of GameSaveSyncedDirectory.State(a1, v4);
+  return GameSaveSyncedDirectory.state.setter(v4);
 }
 
 uint64_t GameSaveSyncedDirectory.state.setter(uint64_t a1)
 {
   v3 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v4 = *(*(v3 - 8) + 64);
-  v5 = MEMORY[0x28223BE20](v3 - 8);
-  v7 = &v14[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x28223BE20](v5);
-  v9 = &v14[-v8];
+  v4 = MEMORY[0x28223BE20](v3 - 8);
+  v6 = &v13[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  MEMORY[0x28223BE20](v4);
+  v8 = &v13[-v7];
   swift_getKeyPath();
-  v17 = v1;
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  v16 = v1;
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  outlined init with copy of GameSaveSyncedDirectory.State(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v9);
-  v10 = *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
-  [v10 lock];
-  outlined init with copy of GameSaveSyncedDirectory.State(a1, v7);
+  outlined init with copy of GameSaveSyncedDirectory.State(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v8);
+  v9 = *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
+  [v9 lock];
+  outlined init with copy of GameSaveSyncedDirectory.State(a1, v6);
   swift_getKeyPath();
-  v15 = v1;
-  v16 = v7;
-  v17 = v1;
+  v14 = v1;
+  v15 = v6;
+  v16 = v1;
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-  outlined destroy of GameSaveSyncedDirectory.State(v7, type metadata accessor for GameSaveSyncedDirectory.State);
-  [v10 unlock];
-  v11 = *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_onStateChange);
-  if (v11)
+  outlined destroy of GameSaveSyncedDirectory.State(v6, type metadata accessor for GameSaveSyncedDirectory.State);
+  [v9 unlock];
+  v10 = *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_onStateChange);
+  if (v10)
   {
-    v12 = *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_onStateChange + 8);
+    v11 = *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_onStateChange + 8);
 
     if (!GameSaveSyncedDirectory.State.hasSameStateAs(_:)(a1))
     {
-      v11(a1);
+      v10(a1);
     }
 
-    outlined consume of (@escaping @callee_guaranteed (@in_guaranteed GameSaveSyncedDirectory.State) -> ())?(v11);
+    outlined consume of (@escaping @callee_guaranteed (@in_guaranteed GameSaveSyncedDirectory.State) -> ())?(v10, v11);
   }
 
   outlined destroy of GameSaveSyncedDirectory.State(a1, type metadata accessor for GameSaveSyncedDirectory.State);
-  return outlined destroy of GameSaveSyncedDirectory.State(v9, type metadata accessor for GameSaveSyncedDirectory.State);
+  return outlined destroy of GameSaveSyncedDirectory.State(v8, type metadata accessor for GameSaveSyncedDirectory.State);
 }
 
 id GameSaveSyncedDirectory.state.getter@<X0>(uint64_t a1@<X8>)
@@ -1470,7 +1439,7 @@ id GameSaveSyncedDirectory.state.getter@<X0>(uint64_t a1@<X8>)
   v3 = *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
   [v3 lock];
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   outlined init with copy of GameSaveSyncedDirectory.State(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, a1);
@@ -1496,34 +1465,34 @@ void GameSaveSyncedDirectory.progress.setter(void *a1)
   {
     KeyPath = swift_getKeyPath();
     MEMORY[0x28223BE20](KeyPath);
-    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
   }
 }
 
-uint64_t GameSaveSyncedDirectory.alertPresentedState.getter@<X0>(void *a1@<X1>, uint64_t *a2@<X2>, uint64_t *a3@<X3>, uint64_t a4@<X8>)
+uint64_t GameSaveSyncedDirectory.alertPresentedState.getter@<X0>(void *a2@<X1>, uint64_t *a3@<X2>, uint64_t *a4@<X3>, uint64_t a5@<X8>)
 {
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  return outlined init with copy of URL?(v4 + *a1, a4, a2, a3);
+  return outlined init with copy of URL?(v5 + *a2, a5, a3, a4);
 }
 
-uint64_t key path getter for GameSaveSyncedDirectory.alertPresentedState : GameSaveSyncedDirectory@<X0>(uint64_t *a1@<X0>, void *a2@<X4>, uint64_t *a3@<X5>, uint64_t *a4@<X6>, uint64_t a5@<X8>)
+uint64_t key path getter for GameSaveSyncedDirectory.alertPresentedState : GameSaveSyncedDirectory@<X0>(uint64_t *a1@<X0>, void *a3@<X4>, uint64_t *a4@<X5>, uint64_t *a5@<X6>, uint64_t a6@<X8>)
 {
-  v9 = *a1;
+  v10 = *a1;
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  return outlined init with copy of URL?(v9 + *a2, a5, a3, a4);
+  return outlined init with copy of URL?(v10 + *a3, a6, a4, a5);
 }
 
 id GameSaveSyncedDirectory.progress.getter(uint64_t a1, void *a2)
 {
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   v4 = *(v2 + *a2);
@@ -1531,17 +1500,17 @@ id GameSaveSyncedDirectory.progress.getter(uint64_t a1, void *a2)
   return v4;
 }
 
-id key path getter for GameSaveSyncedDirectory.progress : GameSaveSyncedDirectory@<X0>(uint64_t *a1@<X0>, void *a2@<X4>, void *a3@<X8>)
+id key path getter for GameSaveSyncedDirectory.progress : GameSaveSyncedDirectory@<X0>(uint64_t *a1@<X0>, void *a3@<X4>, void *a4@<X8>)
 {
-  v5 = *a1;
+  v6 = *a1;
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v6 = *(v5 + *a2);
-  *a3 = v6;
+  v7 = *(v6 + *a3);
+  *a4 = v7;
 
-  return v6;
+  return v7;
 }
 
 void GameSaveSyncedDirectory.gameSyncedDirectoryPresenter.setter(void *a1)
@@ -1549,7 +1518,7 @@ void GameSaveSyncedDirectory.gameSyncedDirectoryPresenter.setter(void *a1)
   v2 = v1;
   v4 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__gameSyncedDirectoryPresenter;
   v5 = *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__gameSyncedDirectoryPresenter);
-  type metadata accessor for GameSyncedDirectoryHolder();
+  type metadata accessor for GameSyncedDirectoryHolder(0);
   v6 = v5;
   v7 = static NSObject.== infix(_:_:)();
 
@@ -1563,7 +1532,7 @@ void GameSaveSyncedDirectory.gameSyncedDirectoryPresenter.setter(void *a1)
   {
     KeyPath = swift_getKeyPath();
     MEMORY[0x28223BE20](KeyPath);
-    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
   }
 }
@@ -1584,7 +1553,7 @@ void GameSaveSyncedDirectory.remoteProgressObserver.setter(void *a1)
 LABEL_6:
     KeyPath = swift_getKeyPath();
     MEMORY[0x28223BE20](KeyPath);
-    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
     return;
@@ -1613,10 +1582,9 @@ LABEL_8:
 uint64_t GameSaveSyncedDirectory.accountSigningInObserver.getter()
 {
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v1 = *(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__accountSigningInObserver);
   return swift_unknownObjectRetain();
 }
 
@@ -1624,7 +1592,7 @@ uint64_t key path getter for GameSaveSyncedDirectory.accountSigningInObserver : 
 {
   v3 = *a1;
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   *a2 = *(v3 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__accountSigningInObserver);
@@ -1647,7 +1615,7 @@ void GameSaveSyncedDirectory.lastResponse.setter(void *a1)
 LABEL_6:
     KeyPath = swift_getKeyPath();
     MEMORY[0x28223BE20](KeyPath);
-    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
     return;
@@ -1658,7 +1626,7 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  type metadata accessor for GameSyncedDirectoryResponse();
+  type metadata accessor for GameSyncedDirectoryResponse(0);
   v6 = v5;
   v7 = a1;
   v8 = static NSObject.== infix(_:_:)();
@@ -1676,11 +1644,10 @@ LABEL_8:
 uint64_t GameSaveSyncedDirectory.id.getter()
 {
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   v1 = *(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__containerIdentifier);
-  v2 = *(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__containerIdentifier + 8);
 
   return v1;
 }
@@ -1689,7 +1656,7 @@ uint64_t key path getter for GameSaveSyncedDirectory.containerIdentifier : GameS
 {
   v3 = *a1;
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   v4 = *(v3 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__containerIdentifier + 8);
@@ -1697,20 +1664,19 @@ uint64_t key path getter for GameSaveSyncedDirectory.containerIdentifier : GameS
   a2[1] = v4;
 }
 
-uint64_t sub_2389588FC(uint64_t *a1, uint64_t *a2)
+uint64_t sub_2389588FC(uint64_t *a1)
 {
-  v2 = *a1;
-  v3 = a1[1];
-  v4 = *a2;
+  v1 = *a1;
+  v2 = a1[1];
 
-  return GameSaveSyncedDirectory.containerIdentifier.setter(v2, v3);
+  return GameSaveSyncedDirectory.containerIdentifier.setter(v1, v2);
 }
 
 uint64_t GameSaveSyncedDirectory.containerIdentifier.setter(uint64_t a1, uint64_t a2)
 {
   v5 = (v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__containerIdentifier);
   v6 = *(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__containerIdentifier) == a1 && *(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__containerIdentifier + 8) == a2;
-  if (v6 || (v7 = *(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__containerIdentifier + 8), (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0))
+  if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
     *v5 = a1;
     v5[1] = a2;
@@ -1720,7 +1686,7 @@ uint64_t GameSaveSyncedDirectory.containerIdentifier.setter(uint64_t a1, uint64_
   {
     KeyPath = swift_getKeyPath();
     MEMORY[0x28223BE20](KeyPath);
-    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
   }
 }
@@ -1735,7 +1701,7 @@ uint64_t GameSaveSyncedDirectory.init(containerIdentifier:)(uint64_t a1, uint64_
   v7 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__continuation;
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
   (*(*(v8 - 8) + 56))(v2 + v7, 1, 1, v8);
-  *(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__gameSyncedDirectoryPresenter) = [objc_allocWithZone(type metadata accessor for GameSyncedDirectoryHolder()) init];
+  *(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__gameSyncedDirectoryPresenter) = [objc_allocWithZone(type metadata accessor for GameSyncedDirectoryHolder(0)) init];
   *(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__remoteProgressObserver) = 0;
   *(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__accountSigningInObserver) = 0;
   *(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__lastResponse) = 0;
@@ -1759,18 +1725,18 @@ uint64_t GameSaveSyncedDirectory.init(containerIdentifier:)(uint64_t a1, uint64_
   return v2;
 }
 
-void *GameSaveSyncedDirectory.directorySyncStartTime.setter(void *result, double a2)
+void *GameSaveSyncedDirectory.directorySyncStartTime.setter(void *result, uint64_t a2, uint64_t a3, double a4)
 {
-  if (*(v2 + *result) == a2)
+  if (*(v4 + *result) == a4)
   {
-    *(v2 + *result) = a2;
+    *(v4 + *result) = a4;
   }
 
   else
   {
     KeyPath = swift_getKeyPath();
     MEMORY[0x28223BE20](KeyPath);
-    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
   }
 
@@ -1787,7 +1753,7 @@ uint64_t GameSaveSyncedDirectory.init(error:)(uint64_t a1)
   v5 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__continuation;
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
   (*(*(v6 - 8) + 56))(v1 + v5, 1, 1, v6);
-  *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__gameSyncedDirectoryPresenter) = [objc_allocWithZone(type metadata accessor for GameSyncedDirectoryHolder()) init];
+  *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__gameSyncedDirectoryPresenter) = [objc_allocWithZone(type metadata accessor for GameSyncedDirectoryHolder(0)) init];
   *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__remoteProgressObserver) = 0;
   *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__accountSigningInObserver) = 0;
   *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__lastResponse) = 0;
@@ -1827,329 +1793,314 @@ void *one-time initialization function for loadedDirectorys()
 uint64_t static GameSaveSyncedDirectory._openDirectory(containerIdentifier:fetchLatestData:)(uint64_t a1, uint64_t a2, char a3)
 {
   v6 = type metadata accessor for CocoaError.Code();
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x28223BE20](v6 - 8);
-  v8 = type metadata accessor for CocoaError();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v8);
-  v12 = &v39[-1] - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v39[3] = &type metadata for GameSaveFF;
-  v39[4] = lazy protocol witness table accessor for type GameSaveFF and conformance GameSaveFF();
-  v13 = isFeatureEnabled(_:)();
-  __swift_destroy_boxed_opaque_existential_0(v39);
-  if ((v13 & 1) == 0)
+  v7 = type metadata accessor for CocoaError();
+  v8 = *(v7 - 8);
+  MEMORY[0x28223BE20](v7);
+  v10 = &v31[-1] - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v31[3] = &type metadata for GameSaveFF;
+  v31[4] = lazy protocol witness table accessor for type GameSaveFF and conformance GameSaveFF();
+  v11 = isFeatureEnabled(_:)();
+  __swift_destroy_boxed_opaque_existential_0(v31);
+  if ((v11 & 1) == 0)
   {
     if (one-time initialization token for common != -1)
     {
       swift_once();
     }
 
-    v20 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v20, static Logger.common);
-    v21 = Logger.logObject.getter();
-    v22 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v21, v22))
+    v18 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v18, static Logger.common);
+    v19 = Logger.logObject.getter();
+    v20 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v19, v20))
     {
-      v23 = swift_slowAlloc();
-      *v23 = 0;
-      _os_log_impl(&dword_238952000, v21, v22, "Feature is disabled", v23, 2u);
-      MEMORY[0x23EE6C260](v23, -1, -1);
+      v21 = swift_slowAlloc();
+      *v21 = 0;
+      _os_log_impl(&dword_238952000, v19, v20, "Feature is disabled", v21, 2u);
+      MEMORY[0x23EE6C260](v21, -1, -1);
     }
 
     MEMORY[0x23EE6AD60]();
     _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0gq5Tf4g_n(MEMORY[0x277D84F90]);
-    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type CocoaError and conformance CocoaError, MEMORY[0x277CC8620]);
+    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type CocoaError and conformance CocoaError, MEMORY[0x277CC8620], MEMORY[0x277CC8618]);
     _BridgedStoredNSError.init(_:userInfo:)();
-    v24 = CocoaError._nsError.getter();
-    (*(v9 + 8))(v12, v8);
-    v25 = type metadata accessor for GameSaveSyncedDirectory(0);
-    v26 = *(v25 + 48);
-    v27 = *(v25 + 52);
+    v22 = CocoaError._nsError.getter();
+    (*(v8 + 8))(v10, v7);
+    type metadata accessor for GameSaveSyncedDirectory(0);
     swift_allocObject();
-    v28 = v24;
-    return GameSaveSyncedDirectory.init(error:)(v28);
+    v23 = v22;
+    return GameSaveSyncedDirectory.init(error:)(v23);
   }
 
-  v14 = specialized static GameSaveSyncedDirectory._resolveContainerIdentifier(_:)(a1, a2);
-  if (!v15)
+  v12 = specialized static GameSaveSyncedDirectory._resolveContainerIdentifier(_:)(a1, a2);
+  if (!v13)
   {
     if (one-time initialization token for common != -1)
     {
       swift_once();
     }
 
-    v29 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v29, static Logger.common);
-    v30 = Logger.logObject.getter();
-    v31 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v30, v31))
+    v24 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v24, static Logger.common);
+    v25 = Logger.logObject.getter();
+    v26 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v25, v26))
     {
-      v32 = swift_slowAlloc();
-      *v32 = 0;
-      _os_log_impl(&dword_238952000, v30, v31, "Can't request Game Synced Directory without a valid containerIdentifier", v32, 2u);
-      MEMORY[0x23EE6C260](v32, -1, -1);
+      v27 = swift_slowAlloc();
+      *v27 = 0;
+      _os_log_impl(&dword_238952000, v25, v26, "Can't request Game Synced Directory without a valid containerIdentifier", v27, 2u);
+      MEMORY[0x23EE6C260](v27, -1, -1);
     }
 
     lazy protocol witness table accessor for type GameSaveSyncedDirectoryError and conformance GameSaveSyncedDirectoryError();
-    v33 = swift_allocError();
-    *v34 = 3;
-    v35 = type metadata accessor for GameSaveSyncedDirectory(0);
-    v36 = *(v35 + 48);
-    v37 = *(v35 + 52);
+    v28 = swift_allocError();
+    *v29 = 3;
+    type metadata accessor for GameSaveSyncedDirectory(0);
     swift_allocObject();
-    v28 = v33;
-    return GameSaveSyncedDirectory.init(error:)(v28);
+    v23 = v28;
+    return GameSaveSyncedDirectory.init(error:)(v23);
   }
 
-  v16 = v14;
-  v17 = v15;
+  v14 = v12;
+  v15 = v13;
   if (one-time initialization token for loadedDirectorysLock != -1)
   {
     swift_once();
   }
 
-  v18 = static GameSaveSyncedDirectory.loadedDirectorysLock;
+  v16 = static GameSaveSyncedDirectory.loadedDirectorysLock;
   [static GameSaveSyncedDirectory.loadedDirectorysLock lock];
-  closure #1 in static GameSaveSyncedDirectory._openDirectory(containerIdentifier:fetchLatestData:)(v16, v17, a3 & 1, v39);
+  closure #1 in static GameSaveSyncedDirectory._openDirectory(containerIdentifier:fetchLatestData:)(v14, v15, a3 & 1, v31);
 
-  [v18 unlock];
-  return v39[0];
+  [v16 unlock];
+  return v31[0];
 }
 
 void closure #1 in static GameSaveSyncedDirectory._openDirectory(containerIdentifier:fetchLatestData:)(uint64_t a1@<X1>, unint64_t a2@<X2>, int a3@<W3>, uint64_t *a4@<X8>)
 {
-  v40 = a3;
+  v36 = a3;
   v8 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v9 = *(*(v8 - 8) + 64);
-  v10 = MEMORY[0x28223BE20](v8);
-  v12 = &v37 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v10);
-  v14 = &v37 - v13;
+  v9 = MEMORY[0x28223BE20](v8);
+  v11 = &v33 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v13 = &v33 - v12;
   if (one-time initialization token for loadedDirectorys != -1)
   {
     swift_once();
   }
 
-  v15 = static GameSaveSyncedDirectory.loadedDirectorys;
+  v14 = static GameSaveSyncedDirectory.loadedDirectorys;
   if (!*(static GameSaveSyncedDirectory.loadedDirectorys + 2))
   {
     goto LABEL_7;
   }
 
-  v16 = specialized __RawDictionaryStorage.find<A>(_:)(a1, a2);
-  if ((v17 & 1) == 0)
+  v15 = specialized __RawDictionaryStorage.find<A>(_:)(a1, a2);
+  if ((v16 & 1) == 0)
   {
     goto LABEL_7;
   }
 
-  v38 = a4;
-  v39 = v4;
-  v18 = *(v15[7] + 8 * v16);
-  v19 = *(v18 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
+  v34 = a4;
+  v35 = v4;
+  v17 = *(v14[7] + 8 * v15);
+  v18 = *(v17 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
 
-  [v19 lock];
+  [v18 lock];
   swift_getKeyPath();
-  v41 = v18;
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  v37 = v17;
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  outlined init with copy of GameSaveSyncedDirectory.State(v18 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v14);
-  [v19 unlock];
-  outlined init with take of GameSaveSyncedDirectory.State(v14, v12);
+  outlined init with copy of GameSaveSyncedDirectory.State(v17 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v13);
+  [v18 unlock];
+  outlined init with take of GameSaveSyncedDirectory.State(v13, v11);
   if (swift_getEnumCaseMultiPayload() == 6)
   {
 
-    a4 = v38;
+    a4 = v34;
 LABEL_7:
     if (one-time initialization token for common != -1)
     {
       swift_once();
     }
 
-    v20 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v20, static Logger.common);
+    v19 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v19, static Logger.common);
 
-    v21 = Logger.logObject.getter();
-    v22 = static os_log_type_t.default.getter();
+    v20 = Logger.logObject.getter();
+    v21 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v21, v22))
+    if (os_log_type_enabled(v20, v21))
     {
-      v23 = swift_slowAlloc();
-      v24 = a4;
-      v25 = swift_slowAlloc();
-      v41 = v25;
-      *v23 = 136315138;
-      *(v23 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, &v41);
-      _os_log_impl(&dword_238952000, v21, v22, "Starting Game Synced Directory request for containerIdentifier %s", v23, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v25);
-      v26 = v25;
-      a4 = v24;
-      MEMORY[0x23EE6C260](v26, -1, -1);
-      MEMORY[0x23EE6C260](v23, -1, -1);
+      v22 = swift_slowAlloc();
+      v23 = a4;
+      v24 = swift_slowAlloc();
+      v37 = v24;
+      *v22 = 136315138;
+      *(v22 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, &v37);
+      _os_log_impl(&dword_238952000, v20, v21, "Starting Game Synced Directory request for containerIdentifier %s", v22, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v24);
+      v25 = v24;
+      a4 = v23;
+      MEMORY[0x23EE6C260](v25, -1, -1);
+      MEMORY[0x23EE6C260](v22, -1, -1);
     }
 
-    v27 = type metadata accessor for GameSaveSyncedDirectory(0);
-    v28 = *(v27 + 48);
-    v29 = *(v27 + 52);
+    type metadata accessor for GameSaveSyncedDirectory(0);
     swift_allocObject();
 
-    v18 = GameSaveSyncedDirectory.init(containerIdentifier:)(a1, a2);
-    if (v40)
+    v17 = GameSaveSyncedDirectory.init(containerIdentifier:)(a1, a2);
+    if (v36)
     {
-      v30 = 2;
+      v26 = 2;
     }
 
     else
     {
-      v30 = 0;
+      v26 = 0;
     }
 
-    GameSaveSyncedDirectory.startSyncing(mode:)(v30);
+    GameSaveSyncedDirectory.startSyncing(mode:)(v26);
 
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v41 = static GameSaveSyncedDirectory.loadedDirectorys;
+    v37 = static GameSaveSyncedDirectory.loadedDirectorys;
     static GameSaveSyncedDirectory.loadedDirectorys = 0x8000000000000000;
-    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v18, a1, a2, isUniquelyReferenced_nonNull_native);
+    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v17, a1, a2, isUniquelyReferenced_nonNull_native);
 
-    static GameSaveSyncedDirectory.loadedDirectorys = v41;
+    static GameSaveSyncedDirectory.loadedDirectorys = v37;
     goto LABEL_15;
   }
 
-  outlined destroy of GameSaveSyncedDirectory.State(v12, type metadata accessor for GameSaveSyncedDirectory.State);
+  outlined destroy of GameSaveSyncedDirectory.State(v11, type metadata accessor for GameSaveSyncedDirectory.State);
   if (one-time initialization token for common != -1)
   {
     swift_once();
   }
 
-  v32 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v32, static Logger.common);
+  v28 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v28, static Logger.common);
 
-  v33 = Logger.logObject.getter();
-  v34 = static os_log_type_t.default.getter();
+  v29 = Logger.logObject.getter();
+  v30 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v33, v34))
+  if (os_log_type_enabled(v29, v30))
   {
-    v35 = swift_slowAlloc();
-    v36 = swift_slowAlloc();
-    v41 = v36;
-    *v35 = 136315138;
-    *(v35 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, &v41);
-    _os_log_impl(&dword_238952000, v33, v34, "Returning an existing directory for containerIdentifier %s", v35, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v36);
-    MEMORY[0x23EE6C260](v36, -1, -1);
-    MEMORY[0x23EE6C260](v35, -1, -1);
+    v31 = swift_slowAlloc();
+    v32 = swift_slowAlloc();
+    v37 = v32;
+    *v31 = 136315138;
+    *(v31 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, &v37);
+    _os_log_impl(&dword_238952000, v29, v30, "Returning an existing directory for containerIdentifier %s", v31, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v32);
+    MEMORY[0x23EE6C260](v32, -1, -1);
+    MEMORY[0x23EE6C260](v31, -1, -1);
   }
 
-  a4 = v38;
+  a4 = v34;
 LABEL_15:
-  *a4 = v18;
+  *a4 = v17;
 }
 
 uint64_t GameSaveSyncedDirectory.moveToLocalState()()
 {
   v1 = type metadata accessor for CocoaError.Code();
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v3 = type metadata accessor for CocoaError();
-  v23 = *(v3 - 8);
-  v4 = *(v23 + 64);
-  MEMORY[0x28223BE20](v3);
-  v6 = &v23 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7);
-  v10 = (&v23 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11 - 8);
-  v14 = &v23 - v13;
-  v15 = type metadata accessor for URL();
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v15);
-  v19 = &v23 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v24 = v0;
-  GameSaveSyncedDirectory.getAndCreateLocalURL()(v14);
-  if ((*(v16 + 48))(v14, 1, v15) == 1)
+  v2 = type metadata accessor for CocoaError();
+  v18 = *(v2 - 8);
+  MEMORY[0x28223BE20](v2);
+  v4 = &v18 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for GameSaveSyncedDirectory.State(0);
+  MEMORY[0x28223BE20](v5);
+  v7 = (&v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = &v18 - v9;
+  v11 = type metadata accessor for URL();
+  v12 = *(v11 - 8);
+  MEMORY[0x28223BE20](v11);
+  v14 = &v18 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = v0;
+  GameSaveSyncedDirectory.getAndCreateLocalURL()(v10);
+  if ((*(v12 + 48))(v10, 1, v11) == 1)
   {
-    v20 = outlined destroy of URL?(v14, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    MEMORY[0x23EE6AD70](v20);
+    v15 = outlined destroy of URL?(v10, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    MEMORY[0x23EE6AD70](v15);
     _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0gq5Tf4g_n(MEMORY[0x277D84F90]);
-    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type CocoaError and conformance CocoaError, MEMORY[0x277CC8620]);
+    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type CocoaError and conformance CocoaError, MEMORY[0x277CC8620], MEMORY[0x277CC8618]);
     _BridgedStoredNSError.init(_:userInfo:)();
-    v21 = CocoaError._nsError.getter();
-    (*(v23 + 8))(v6, v3);
-    *v10 = v21;
+    v16 = CocoaError._nsError.getter();
+    (*(v18 + 8))(v4, v2);
+    *v7 = v16;
     swift_storeEnumTagMultiPayload();
-    GameSaveSyncedDirectory._moveToState(_:)(v10);
-    GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v10);
-    return outlined destroy of GameSaveSyncedDirectory.State(v10, type metadata accessor for GameSaveSyncedDirectory.State);
+    GameSaveSyncedDirectory._moveToState(_:)(v7);
+    GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v7);
+    return outlined destroy of GameSaveSyncedDirectory.State(v7, type metadata accessor for GameSaveSyncedDirectory.State);
   }
 
   else
   {
-    (*(v16 + 32))(v19, v14, v15);
-    (*(v16 + 16))(v10, v19, v15);
+    (*(v12 + 32))(v14, v10, v11);
+    (*(v12 + 16))(v7, v14, v11);
     swift_storeEnumTagMultiPayload();
-    GameSaveSyncedDirectory._moveToState(_:)(v10);
-    GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v10);
-    outlined destroy of GameSaveSyncedDirectory.State(v10, type metadata accessor for GameSaveSyncedDirectory.State);
-    return (*(v16 + 8))(v19, v15);
+    GameSaveSyncedDirectory._moveToState(_:)(v7);
+    GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v7);
+    outlined destroy of GameSaveSyncedDirectory.State(v7, type metadata accessor for GameSaveSyncedDirectory.State);
+    return (*(v12 + 8))(v14, v11);
   }
 }
 
 void GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(uint64_t a1)
 {
   v3 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3);
-  v6 = &aBlock - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &aBlock - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   Current = CFAbsoluteTimeGetCurrent();
   swift_getKeyPath();
   aBlock = v1;
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v8 = *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__directorySyncStartTime);
-  outlined init with copy of GameSaveSyncedDirectory.State(a1, v6);
+  v7 = *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__directorySyncStartTime);
+  outlined init with copy of GameSaveSyncedDirectory.State(a1, v5);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload >= 5)
   {
-    outlined destroy of GameSaveSyncedDirectory.State(v6, type metadata accessor for GameSaveSyncedDirectory.State);
+    outlined destroy of GameSaveSyncedDirectory.State(v5, type metadata accessor for GameSaveSyncedDirectory.State);
   }
 
   else
   {
-    v10 = EnumCaseMultiPayload;
-    outlined destroy of GameSaveSyncedDirectory.State(v6, type metadata accessor for GameSaveSyncedDirectory.State);
-    v11 = MEMORY[0x23EE6B6E0](0xD000000000000021, 0x800000023898C590);
-    v12 = swift_allocObject();
-    *(v12 + 16) = v10;
-    v21 = partial apply for closure #1 in GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:);
-    v22 = v12;
+    v9 = EnumCaseMultiPayload;
+    outlined destroy of GameSaveSyncedDirectory.State(v5, type metadata accessor for GameSaveSyncedDirectory.State);
+    v10 = MEMORY[0x23EE6B6E0](0xD000000000000021, 0x800000023898C590);
+    v11 = swift_allocObject();
+    *(v11 + 16) = v9;
+    v20 = partial apply for closure #1 in GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:);
+    v21 = v11;
     aBlock = MEMORY[0x277D85DD0];
-    v18 = 1107296256;
-    v19 = thunk for @escaping @callee_guaranteed () -> (@owned [String : NSObject]?);
-    v20 = &block_descriptor_339;
-    v13 = _Block_copy(&aBlock);
+    v17 = 1107296256;
+    v18 = thunk for @escaping @callee_guaranteed () -> (@owned [String : NSObject]?);
+    v19 = &block_descriptor_339;
+    v12 = _Block_copy(&aBlock);
 
     AnalyticsSendEventLazy();
-    _Block_release(v13);
+    _Block_release(v12);
 
-    v14 = MEMORY[0x23EE6B6E0](0xD00000000000001BLL, 0x800000023898C5E0);
-    v15 = swift_allocObject();
-    *(v15 + 16) = Current - v8;
-    v21 = partial apply for closure #2 in GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:);
-    v22 = v15;
+    v13 = MEMORY[0x23EE6B6E0](0xD00000000000001BLL, 0x800000023898C5E0);
+    v14 = swift_allocObject();
+    *(v14 + 16) = Current - v7;
+    v20 = partial apply for closure #2 in GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:);
+    v21 = v14;
     aBlock = MEMORY[0x277D85DD0];
-    v18 = 1107296256;
-    v19 = thunk for @escaping @callee_guaranteed () -> (@owned [String : NSObject]?);
-    v20 = &block_descriptor_345;
-    v16 = _Block_copy(&aBlock);
+    v17 = 1107296256;
+    v18 = thunk for @escaping @callee_guaranteed () -> (@owned [String : NSObject]?);
+    v19 = &block_descriptor_345;
+    v15 = _Block_copy(&aBlock);
 
     AnalyticsSendEventLazy();
-    _Block_release(v16);
+    _Block_release(v15);
   }
 }
 
@@ -2186,157 +2137,154 @@ unint64_t closure #2 in GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:
 uint64_t GameSaveSyncedDirectory._moveToState(_:)(uint64_t a1)
 {
   v2 = v1;
-  v63 = a1;
-  v67 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
-  v65 = *(v67 - 8);
-  v3 = *(v65 + 64);
-  MEMORY[0x28223BE20](v67);
-  v5 = &v56 - v4;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  v8 = MEMORY[0x28223BE20](v6 - 8);
-  v62 = &v56 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = MEMORY[0x28223BE20](v8);
-  v59 = &v56 - v11;
-  MEMORY[0x28223BE20](v10);
-  v66 = &v56 - v12;
-  v13 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  v61 = &v56 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = MEMORY[0x28223BE20](v15);
-  v60 = &v56 - v18;
-  v19 = MEMORY[0x28223BE20](v17);
-  v21 = &v56 - v20;
-  v22 = MEMORY[0x28223BE20](v19);
-  v24 = &v56 - v23;
-  MEMORY[0x28223BE20](v22);
-  v26 = &v56 - v25;
-  v27 = *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
-  [v27 lock];
+  v60 = a1;
+  v64 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
+  v62 = *(v64 - 8);
+  MEMORY[0x28223BE20](v64);
+  v4 = &v53 - v3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
+  v6 = MEMORY[0x28223BE20](v5 - 8);
+  v59 = &v53 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = MEMORY[0x28223BE20](v6);
+  v56 = &v53 - v9;
+  MEMORY[0x28223BE20](v8);
+  v63 = &v53 - v10;
+  v11 = type metadata accessor for GameSaveSyncedDirectory.State(0);
+  v12 = MEMORY[0x28223BE20](v11);
+  v58 = &v53 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = MEMORY[0x28223BE20](v12);
+  v57 = &v53 - v15;
+  v16 = MEMORY[0x28223BE20](v14);
+  v18 = &v53 - v17;
+  v19 = MEMORY[0x28223BE20](v16);
+  v21 = &v53 - v20;
+  MEMORY[0x28223BE20](v19);
+  v23 = &v53 - v22;
+  v24 = *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
+  [v24 lock];
   swift_getKeyPath();
-  v28 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___observationRegistrar;
-  v68 = v2;
-  v29 = lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
-  v58 = v28;
+  v25 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___observationRegistrar;
+  v65 = v2;
+  v26 = lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
+  v55 = v25;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  outlined init with copy of GameSaveSyncedDirectory.State(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v26);
-  v64 = v27;
-  [v27 unlock];
-  outlined init with take of GameSaveSyncedDirectory.State(v26, v24);
+  outlined init with copy of GameSaveSyncedDirectory.State(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v23);
+  v61 = v24;
+  [v24 unlock];
+  outlined init with take of GameSaveSyncedDirectory.State(v23, v21);
   result = swift_getEnumCaseMultiPayload();
   if (result == 6)
   {
     return result;
   }
 
-  outlined destroy of GameSaveSyncedDirectory.State(v24, type metadata accessor for GameSaveSyncedDirectory.State);
+  outlined destroy of GameSaveSyncedDirectory.State(v21, type metadata accessor for GameSaveSyncedDirectory.State);
   if (one-time initialization token for common != -1)
   {
     swift_once();
   }
 
-  v31 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v31, static Logger.common);
-  outlined init with copy of GameSaveSyncedDirectory.State(v63, v21);
-  v32 = Logger.logObject.getter();
-  v33 = static os_log_type_t.default.getter();
-  v34 = os_log_type_enabled(v32, v33);
-  v56 = v29;
-  v57 = v5;
-  if (v34)
+  v28 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v28, static Logger.common);
+  outlined init with copy of GameSaveSyncedDirectory.State(v60, v18);
+  v29 = Logger.logObject.getter();
+  v30 = static os_log_type_t.default.getter();
+  v31 = os_log_type_enabled(v29, v30);
+  v53 = v26;
+  v54 = v4;
+  if (v31)
   {
-    v35 = swift_slowAlloc();
-    v36 = swift_slowAlloc();
-    v68 = v36;
-    *v35 = 136315138;
-    v37 = GameSaveSyncedDirectory.State.description.getter();
-    v39 = v38;
-    outlined destroy of GameSaveSyncedDirectory.State(v21, type metadata accessor for GameSaveSyncedDirectory.State);
-    v40 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v37, v39, &v68);
-    v41 = v65;
+    v32 = swift_slowAlloc();
+    v33 = swift_slowAlloc();
+    v65 = v33;
+    *v32 = 136315138;
+    v34 = GameSaveSyncedDirectory.State.description.getter();
+    v36 = v35;
+    outlined destroy of GameSaveSyncedDirectory.State(v18, type metadata accessor for GameSaveSyncedDirectory.State);
+    v37 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v34, v36, &v65);
+    v38 = v62;
 
-    *(v35 + 4) = v40;
-    _os_log_impl(&dword_238952000, v32, v33, "Moving to state %s", v35, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v36);
-    MEMORY[0x23EE6C260](v36, -1, -1);
-    MEMORY[0x23EE6C260](v35, -1, -1);
+    *(v32 + 4) = v37;
+    _os_log_impl(&dword_238952000, v29, v30, "Moving to state %s", v32, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v33);
+    MEMORY[0x23EE6C260](v33, -1, -1);
+    MEMORY[0x23EE6C260](v32, -1, -1);
   }
 
   else
   {
 
-    outlined destroy of GameSaveSyncedDirectory.State(v21, type metadata accessor for GameSaveSyncedDirectory.State);
-    v41 = v65;
+    outlined destroy of GameSaveSyncedDirectory.State(v18, type metadata accessor for GameSaveSyncedDirectory.State);
+    v38 = v62;
   }
 
-  v42 = *(v41 + 56);
-  v42(v66, 1, 1, v67);
-  [v64 lock];
-  v43 = v63;
-  v44 = v60;
-  outlined init with copy of GameSaveSyncedDirectory.State(v63, v60);
-  GameSaveSyncedDirectory.state.setter(v44);
-  v45 = v43;
-  v46 = v61;
-  outlined init with copy of GameSaveSyncedDirectory.State(v45, v61);
+  v39 = *(v38 + 56);
+  v39(v63, 1, 1, v64);
+  [v61 lock];
+  v40 = v60;
+  v41 = v57;
+  outlined init with copy of GameSaveSyncedDirectory.State(v60, v57);
+  GameSaveSyncedDirectory.state.setter(v41);
+  v42 = v40;
+  v43 = v58;
+  outlined init with copy of GameSaveSyncedDirectory.State(v42, v58);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload >= 5)
   {
     if (EnumCaseMultiPayload == 5)
     {
-      outlined destroy of GameSaveSyncedDirectory.State(v46, type metadata accessor for GameSaveSyncedDirectory.State);
-      v51 = v57;
-      v48 = v66;
+      outlined destroy of GameSaveSyncedDirectory.State(v43, type metadata accessor for GameSaveSyncedDirectory.State);
+      v48 = v54;
+      v45 = v63;
       goto LABEL_10;
     }
   }
 
   else
   {
-    outlined destroy of GameSaveSyncedDirectory.State(v46, type metadata accessor for GameSaveSyncedDirectory.State);
+    outlined destroy of GameSaveSyncedDirectory.State(v43, type metadata accessor for GameSaveSyncedDirectory.State);
   }
 
   swift_getKeyPath();
-  v68 = v2;
+  v65 = v2;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v48 = v66;
-  outlined destroy of URL?(v66, &_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
-  outlined init with copy of URL?(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__continuation, v48, &_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
-  v49 = v59;
-  v42(v59, 1, 1, v67);
+  v45 = v63;
+  outlined destroy of URL?(v63, &_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
+  outlined init with copy of URL?(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__continuation, v45, &_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
+  v46 = v56;
+  v39(v56, 1, 1, v64);
   KeyPath = swift_getKeyPath();
   MEMORY[0x28223BE20](KeyPath);
-  *(&v56 - 2) = v2;
-  *(&v56 - 1) = v49;
-  v68 = v2;
+  *(&v53 - 2) = v2;
+  *(&v53 - 1) = v46;
+  v65 = v2;
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-  outlined destroy of URL?(v49, &_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
-  v51 = v57;
+  outlined destroy of URL?(v46, &_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
+  v48 = v54;
 LABEL_10:
-  [v64 unlock];
-  v52 = v62;
-  outlined init with copy of URL?(v48, v62, &_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
-  v53 = v65;
-  if ((*(v65 + 48))(v52, 1, v67) == 1)
+  [v61 unlock];
+  v49 = v59;
+  outlined init with copy of URL?(v45, v59, &_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
+  v50 = v62;
+  if ((*(v62 + 48))(v49, 1, v64) == 1)
   {
-    outlined destroy of URL?(v48, &_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
-    v48 = v52;
+    outlined destroy of URL?(v45, &_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
+    v45 = v49;
   }
 
   else
   {
-    v54 = v52;
-    v55 = v67;
-    (*(v53 + 32))(v51, v54, v67);
+    v51 = v49;
+    v52 = v64;
+    (*(v50 + 32))(v48, v51, v64);
     CheckedContinuation.resume(returning:)();
-    (*(v53 + 8))(v51, v55);
+    (*(v50 + 8))(v48, v52);
   }
 
-  return outlined destroy of URL?(v48, &_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
+  return outlined destroy of URL?(v45, &_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
 }
 
 id one-time initialization function for connectionLock()
@@ -2352,99 +2300,91 @@ void thunk for @escaping @callee_guaranteed (@guaranteed Error) -> ()(uint64_t a
 }
 
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4();
+  v4 = a2;
+  v3();
 }
 
 uint64_t GameSaveSyncedDirectory.getLocalURL()@<X0>(uint64_t a1@<X8>)
 {
-  v48[1] = *MEMORY[0x277D85DE8];
+  v41[1] = *MEMORY[0x277D85DE8];
   v3 = type metadata accessor for URL();
-  v47 = *(v3 - 8);
-  v4 = *(v47 + 64);
-  v5 = MEMORY[0x28223BE20](v3);
-  v7 = &v43 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = MEMORY[0x28223BE20](v5);
-  v10 = &v43 - v9;
-  MEMORY[0x28223BE20](v8);
-  v12 = &v43 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13 - 8);
-  v17 = &v43 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v15);
-  v19 = &v43 - v18;
+  v40 = *(v3 - 8);
+  v4 = MEMORY[0x28223BE20](v3);
+  v6 = &v36 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = MEMORY[0x28223BE20](v4);
+  v9 = &v36 - v8;
+  MEMORY[0x28223BE20](v7);
+  v11 = &v36 - v10;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v13 = MEMORY[0x28223BE20](v12 - 8);
+  v15 = &v36 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v13);
+  v17 = &v36 - v16;
   if (_xpc_runtime_is_app_sandboxed())
   {
-    v20 = [objc_opt_self() defaultManager];
-    v48[0] = 0;
-    v21 = [v20 URLForDirectory:14 inDomain:1 appropriateForURL:0 create:1 error:v48];
+    v18 = [objc_opt_self() defaultManager];
+    v41[0] = 0;
+    v19 = [v18 URLForDirectory:14 inDomain:1 appropriateForURL:0 create:1 error:v41];
 
-    v22 = v48[0];
-    if (v21)
+    v20 = v41[0];
+    if (v19)
     {
       static URL._unconditionallyBridgeFromObjectiveC(_:)();
-      v23 = v22;
+      v21 = v20;
 
-      v24 = 0;
+      v22 = 0;
     }
 
     else
     {
-      v32 = v48[0];
-      v33 = _convertNSErrorToError(_:)();
+      v29 = v41[0];
+      v30 = _convertNSErrorToError(_:)();
 
       swift_willThrow();
-      v24 = 1;
+      v22 = 1;
     }
 
-    v46 = *(v47 + 56);
-    v46(v19, v24, 1, v3);
-    outlined init with copy of URL?(v19, v17, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    if ((*(v47 + 48))(v17, 1, v3) == 1)
+    v39 = *(v40 + 56);
+    v39(v17, v22, 1, v3);
+    outlined init with copy of URL?(v17, v15, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    if ((*(v40 + 48))(v15, 1, v3) == 1)
     {
-      outlined destroy of URL?(v19, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
       outlined destroy of URL?(v17, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-      v34 = a1;
-      v35 = 1;
+      outlined destroy of URL?(v15, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+      v31 = a1;
+      v32 = 1;
     }
 
     else
     {
-      v44 = v12;
-      v36 = v1;
+      v37 = v11;
       URL.appendingPathComponent(_:)();
-      v45 = a1;
-      v37 = *(v47 + 8);
-      v47 += 8;
-      v37(v17, v3);
+      v38 = a1;
+      v33 = *(v40 + 8);
+      v40 += 8;
+      v33(v15, v3);
       swift_getKeyPath();
-      v48[0] = v1;
-      lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+      v41[0] = v1;
+      lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
       ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-      v38 = *&v1[OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__containerIdentifier];
-      v39 = *&v36[OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__containerIdentifier + 8];
-
       URL.appendingPathComponent(_:)();
 
-      v37(v7, v3);
-      v40 = v44;
+      v33(v6, v3);
+      v34 = v37;
       URL.appendingPathComponent(_:)();
-      v37(v10, v3);
-      v41 = v45;
+      v33(v9, v3);
+      v35 = v38;
       URL.appendingPathComponent(_:)();
-      v37(v40, v3);
-      outlined destroy of URL?(v19, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-      v34 = v41;
-      v35 = 0;
+      v33(v34, v3);
+      outlined destroy of URL?(v17, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+      v31 = v35;
+      v32 = 0;
     }
 
-    result = (v46)(v34, v35, 1, v3);
-    v42 = *MEMORY[0x277D85DE8];
+    return (v39)(v31, v32, 1, v3);
   }
 
   else
@@ -2454,293 +2394,278 @@ uint64_t GameSaveSyncedDirectory.getLocalURL()@<X0>(uint64_t a1@<X8>)
       swift_once();
     }
 
-    v25 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v25, static Logger.common);
-    v26 = Logger.logObject.getter();
-    v27 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v26, v27))
+    v23 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v23, static Logger.common);
+    v24 = Logger.logObject.getter();
+    v25 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v24, v25))
     {
-      v28 = swift_slowAlloc();
-      *v28 = 0;
-      _os_log_impl(&dword_238952000, v26, v27, "App is not sandboxed, we can't return a local URL for the directory", v28, 2u);
-      MEMORY[0x23EE6C260](v28, -1, -1);
+      v26 = swift_slowAlloc();
+      *v26 = 0;
+      _os_log_impl(&dword_238952000, v24, v25, "App is not sandboxed, we can't return a local URL for the directory", v26, 2u);
+      MEMORY[0x23EE6C260](v26, -1, -1);
     }
 
-    v29 = *(v47 + 56);
-    v30 = *MEMORY[0x277D85DE8];
+    v27 = *(v40 + 56);
 
-    return v29(a1, 1, 1, v3);
+    return v27(a1, 1, 1, v3);
   }
-
-  return result;
 }
 
 id GameSaveSyncedDirectory.getAndCreateLocalURL()@<X0>(char *a1@<X8>)
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v5 = v23 - v4;
-  v6 = type metadata accessor for URL();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
-  v10 = v23 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  GameSaveSyncedDirectory.getLocalURL()(v5);
-  if ((*(v7 + 48))(v5, 1, v6) == 1)
+  v4 = v19 - v3;
+  v5 = type metadata accessor for URL();
+  v6 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5);
+  v8 = v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  GameSaveSyncedDirectory.getLocalURL()(v4);
+  if ((*(v6 + 48))(v4, 1, v5) == 1)
   {
-    outlined destroy of URL?(v5, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-LABEL_8:
-    result = (*(v7 + 56))(a1, 1, 1, v6);
-    v22 = *MEMORY[0x277D85DE8];
-    return result;
+    outlined destroy of URL?(v4, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    return (*(v6 + 56))(a1, 1, 1, v5);
   }
 
-  v11 = *(v7 + 32);
-  v11(v10, v5, v6);
-  v12 = [objc_opt_self() defaultManager];
-  URL._bridgeToObjectiveC()(v13);
-  v15 = v14;
-  v24[0] = 0;
-  v16 = [v12 createDirectoryAtURL:v14 withIntermediateDirectories:1 attributes:0 error:v24];
+  v9 = *(v6 + 32);
+  v9(v8, v4, v5);
+  v10 = [objc_opt_self() defaultManager];
+  URL._bridgeToObjectiveC()(v11);
+  v13 = v12;
+  v20[0] = 0;
+  v14 = [v10 createDirectoryAtURL:v12 withIntermediateDirectories:1 attributes:0 error:v20];
 
-  v23[0] = v24[0];
-  if (!v16)
+  v19[0] = v20[0];
+  if (!v14)
   {
-    v20 = v23[0];
-    v21 = _convertNSErrorToError(_:)();
+    v17 = v19[0];
+    v18 = _convertNSErrorToError(_:)();
 
     swift_willThrow();
-    (*(v7 + 8))(v10, v6);
+    (*(v6 + 8))(v8, v5);
 
-    goto LABEL_8;
+    return (*(v6 + 56))(a1, 1, 1, v5);
   }
 
-  v11(a1, v10, v6);
-  (*(v7 + 56))(a1, 0, 1, v6);
-  v17 = *MEMORY[0x277D85DE8];
-  v18 = v23[0];
+  v9(a1, v8, v5);
+  (*(v6 + 56))(a1, 0, 1, v5);
+  v15 = v19[0];
 
-  return v18;
+  return v15;
 }
 
 void GameSaveSyncedDirectory.startSyncing(mode:)(uint64_t a1)
 {
   v2 = v1;
   v4 = type metadata accessor for CocoaError.Code();
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v6 = type metadata accessor for CocoaError();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
-  v10 = &v49 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11);
-  v14 = (&v49 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v51 = &type metadata for GameSaveFF;
-  v52 = lazy protocol witness table accessor for type GameSaveFF and conformance GameSaveFF();
-  v15 = isFeatureEnabled(_:)();
+  v5 = type metadata accessor for CocoaError();
+  v6 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5);
+  v8 = &v46 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for GameSaveSyncedDirectory.State(0);
+  MEMORY[0x28223BE20](v9);
+  v11 = (&v46 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v48 = &type metadata for GameSaveFF;
+  v49 = lazy protocol witness table accessor for type GameSaveFF and conformance GameSaveFF();
+  v12 = isFeatureEnabled(_:)();
   __swift_destroy_boxed_opaque_existential_0(aBlock);
-  if ((v15 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
     if (one-time initialization token for common != -1)
     {
       swift_once();
     }
 
-    v42 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v42, static Logger.common);
-    v43 = Logger.logObject.getter();
-    v44 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v43, v44))
+    v39 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v39, static Logger.common);
+    v40 = Logger.logObject.getter();
+    v41 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v40, v41))
     {
-      v45 = swift_slowAlloc();
-      *v45 = 0;
-      _os_log_impl(&dword_238952000, v43, v44, "Feature is disabled", v45, 2u);
-      MEMORY[0x23EE6C260](v45, -1, -1);
+      v42 = swift_slowAlloc();
+      *v42 = 0;
+      _os_log_impl(&dword_238952000, v40, v41, "Feature is disabled", v42, 2u);
+      MEMORY[0x23EE6C260](v42, -1, -1);
     }
 
     MEMORY[0x23EE6AD60]();
     _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_ypTt0gq5Tf4g_n(MEMORY[0x277D84F90]);
-    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type CocoaError and conformance CocoaError, MEMORY[0x277CC8620]);
+    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type CocoaError and conformance CocoaError, MEMORY[0x277CC8620], MEMORY[0x277CC8618]);
     _BridgedStoredNSError.init(_:userInfo:)();
-    v46 = CocoaError._nsError.getter();
-    (*(v7 + 8))(v10, v6);
-    *v14 = v46;
+    v43 = CocoaError._nsError.getter();
+    (*(v6 + 8))(v8, v5);
+    *v11 = v43;
     goto LABEL_14;
   }
 
-  v16 = specialized static GameSaveSyncedDirectory.getGameSaveDaemonProxy(_:)(partial apply for closure #1 in GameSaveSyncedDirectory.startSyncing(mode:), v2);
+  v13 = specialized static GameSaveSyncedDirectory.getGameSaveDaemonProxy(_:)(partial apply for closure #1 in GameSaveSyncedDirectory.startSyncing(mode:), v2);
 
-  if (!v16)
+  if (!v13)
   {
     lazy protocol witness table accessor for type GameSaveSyncedDirectoryError and conformance GameSaveSyncedDirectoryError();
-    v47 = swift_allocError();
-    *v48 = 0;
-    *v14 = v47;
+    v44 = swift_allocError();
+    *v45 = 0;
+    *v11 = v44;
 LABEL_14:
     swift_storeEnumTagMultiPayload();
-    GameSaveSyncedDirectory._moveToState(_:)(v14);
-    GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v14);
-    outlined destroy of GameSaveSyncedDirectory.State(v14, type metadata accessor for GameSaveSyncedDirectory.State);
+    GameSaveSyncedDirectory._moveToState(_:)(v11);
+    GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v11);
+    outlined destroy of GameSaveSyncedDirectory.State(v11, type metadata accessor for GameSaveSyncedDirectory.State);
     return;
   }
 
-  v17 = one-time initialization token for common;
+  v14 = one-time initialization token for common;
   swift_unknownObjectRetain();
-  if (v17 != -1)
+  if (v14 != -1)
   {
     swift_once();
   }
 
-  v18 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v18, static Logger.common);
-  v19 = Logger.logObject.getter();
-  v20 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v19, v20))
+  v15 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v15, static Logger.common);
+  v16 = Logger.logObject.getter();
+  v17 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v16, v17))
   {
-    v21 = swift_slowAlloc();
-    *v21 = 0;
-    _os_log_impl(&dword_238952000, v19, v20, "Calling getSyncedDirectory", v21, 2u);
-    MEMORY[0x23EE6C260](v21, -1, -1);
+    v18 = swift_slowAlloc();
+    *v18 = 0;
+    _os_log_impl(&dword_238952000, v16, v17, "Calling getSyncedDirectory", v18, 2u);
+    MEMORY[0x23EE6C260](v18, -1, -1);
   }
 
   swift_getKeyPath();
   aBlock[0] = v2;
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v23 = *(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__containerIdentifier);
-  v22 = *(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__containerIdentifier + 8);
-  v24 = type metadata accessor for GameSyncedDirectoryRequest();
-  v25 = objc_allocWithZone(v24);
-  *&v25[OBJC_IVAR___GameSyncedDirectoryRequest_mode] = a1;
-  v26 = &v25[OBJC_IVAR___GameSyncedDirectoryRequest_containerIdentifier];
-  *v26 = v23;
-  *(v26 + 1) = v22;
-  v54.receiver = v25;
-  v54.super_class = v24;
+  v20 = *(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__containerIdentifier);
+  v19 = *(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__containerIdentifier + 8);
+  v21 = type metadata accessor for GameSyncedDirectoryRequest();
+  v22 = objc_allocWithZone(v21);
+  *&v22[OBJC_IVAR___GameSyncedDirectoryRequest_mode] = a1;
+  v23 = &v22[OBJC_IVAR___GameSyncedDirectoryRequest_containerIdentifier];
+  *v23 = v20;
+  *(v23 + 1) = v19;
+  v51.receiver = v22;
+  v51.super_class = v21;
 
-  v27 = objc_msgSendSuper2(&v54, sel_init);
-  v28 = swift_allocObject();
-  *(v28 + 16) = v2;
-  *(v28 + 24) = v16;
-  v52 = partial apply for closure #2 in GameSaveSyncedDirectory.startSyncing(mode:);
-  v53 = v28;
+  v24 = objc_msgSendSuper2(&v51, sel_init);
+  v25 = swift_allocObject();
+  *(v25 + 16) = v2;
+  *(v25 + 24) = v13;
+  v49 = partial apply for closure #2 in GameSaveSyncedDirectory.startSyncing(mode:);
+  v50 = v25;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed (@guaranteed GameSyncedDirectoryResponse?, @guaranteed Error?) -> ();
-  v51 = &block_descriptor_246;
-  v29 = _Block_copy(aBlock);
+  v48 = &block_descriptor_246;
+  v26 = _Block_copy(aBlock);
 
   swift_unknownObjectRetain();
 
-  v30 = [v16 getSyncedDirectoryWithRequest:v27 completion:v29];
-  _Block_release(v29);
+  v27 = [v13 getSyncedDirectoryWithRequest:v24 completion:v26];
+  _Block_release(v26);
 
   swift_getKeyPath();
   aBlock[0] = v2;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v31 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__progress;
-  [*(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__progress) addChild:v30 withPendingUnitCount:80];
+  v28 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__progress;
+  [*(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__progress) addChild:v27 withPendingUnitCount:80];
   swift_getKeyPath();
   aBlock[0] = v2;
-  v32 = v30;
+  v29 = v27;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v33 = *(v2 + v31);
-  v34 = type metadata accessor for RemoteProgressObserver();
-  v35 = objc_allocWithZone(v34);
-  *&v35[OBJC_IVAR____TtC8GameSave22RemoteProgressObserver_remoteProgress] = v32;
-  *&v35[OBJC_IVAR____TtC8GameSave22RemoteProgressObserver_localProgress] = v33;
-  v49.receiver = v35;
-  v49.super_class = v34;
-  v36 = v33;
-  v37 = v32;
-  v38 = v36;
-  v39 = objc_msgSendSuper2(&v49, sel_init);
-  v40 = MEMORY[0x23EE6B6E0](0xD000000000000011, 0x800000023898C250);
-  [v37 addObserver:v39 forKeyPath:v40 options:1 context:0];
+  v30 = *(v2 + v28);
+  v31 = type metadata accessor for RemoteProgressObserver();
+  v32 = objc_allocWithZone(v31);
+  *&v32[OBJC_IVAR____TtC8GameSave22RemoteProgressObserver_remoteProgress] = v29;
+  *&v32[OBJC_IVAR____TtC8GameSave22RemoteProgressObserver_localProgress] = v30;
+  v46.receiver = v32;
+  v46.super_class = v31;
+  v33 = v30;
+  v34 = v29;
+  v35 = v33;
+  v36 = objc_msgSendSuper2(&v46, sel_init);
+  v37 = MEMORY[0x23EE6B6E0](0xD000000000000011, 0x800000023898C250);
+  [v34 addObserver:v36 forKeyPath:v37 options:1 context:0];
 
-  v41 = MEMORY[0x23EE6B6E0](0xD000000000000011, 0x800000023898C250);
-  [v39 observeValueForKeyPath:v41 ofObject:v37 change:0 context:0];
+  v38 = MEMORY[0x23EE6B6E0](0xD000000000000011, 0x800000023898C250);
+  [v36 observeValueForKeyPath:v38 ofObject:v34 change:0 context:0];
 
-  GameSaveSyncedDirectory.remoteProgressObserver.setter(v39);
+  GameSaveSyncedDirectory.remoteProgressObserver.setter(v36);
   swift_unknownObjectRelease_n();
 }
 
 uint64_t closure #1 in GameSaveSyncedDirectory.startSyncing(mode:)(void *a1)
 {
   v2 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2);
-  v5 = (&v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
-  *v5 = a1;
+  v4 = (&v7 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
+  *v4 = a1;
   swift_storeEnumTagMultiPayload();
-  v6 = a1;
-  GameSaveSyncedDirectory._moveToState(_:)(v5);
-  GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v5);
-  return outlined destroy of GameSaveSyncedDirectory.State(v5, type metadata accessor for GameSaveSyncedDirectory.State);
+  v5 = a1;
+  GameSaveSyncedDirectory._moveToState(_:)(v4);
+  GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v4);
+  return outlined destroy of GameSaveSyncedDirectory.State(v4, type metadata accessor for GameSaveSyncedDirectory.State);
 }
 
 void closure #2 in GameSaveSyncedDirectory.startSyncing(mode:)(void *a1, void *a2, char *a3, uint64_t a4)
 {
   v8 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x28223BE20](v8);
-  v11 = (&v54 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v13 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12 - 8);
-  v15 = &v54 - v14;
+  v10 = (&v52 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
+  MEMORY[0x28223BE20](v11 - 8);
+  v13 = &v52 - v12;
   if (!a1)
   {
     if (a2)
     {
-      v32 = a2;
+      v30 = a2;
     }
 
     else
     {
       lazy protocol witness table accessor for type GameSaveSyncedDirectoryError and conformance GameSaveSyncedDirectoryError();
-      v32 = swift_allocError();
-      *v36 = 2;
+      v30 = swift_allocError();
+      *v34 = 2;
     }
 
-    v37 = a2;
+    v35 = a2;
     if (one-time initialization token for common != -1)
     {
       swift_once();
     }
 
-    v38 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v38, static Logger.common);
-    v39 = v32;
-    v40 = Logger.logObject.getter();
-    v41 = static os_log_type_t.default.getter();
+    v36 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v36, static Logger.common);
+    v37 = v30;
+    v38 = Logger.logObject.getter();
+    v39 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v40, v41))
+    if (os_log_type_enabled(v38, v39))
     {
-      v42 = swift_slowAlloc();
-      v43 = swift_slowAlloc();
-      *v42 = 138412290;
-      v44 = v32;
-      v45 = _swift_stdlib_bridgeErrorToNSError();
-      *(v42 + 4) = v45;
-      *v43 = v45;
-      _os_log_impl(&dword_238952000, v40, v41, "Got nil url. Error: %@", v42, 0xCu);
-      outlined destroy of URL?(v43, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      MEMORY[0x23EE6C260](v43, -1, -1);
-      MEMORY[0x23EE6C260](v42, -1, -1);
+      v40 = swift_slowAlloc();
+      v41 = swift_slowAlloc();
+      *v40 = 138412290;
+      v42 = v30;
+      v43 = _swift_stdlib_bridgeErrorToNSError();
+      *(v40 + 4) = v43;
+      *v41 = v43;
+      _os_log_impl(&dword_238952000, v38, v39, "Got nil url. Error: %@", v40, 0xCu);
+      outlined destroy of URL?(v41, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      MEMORY[0x23EE6C260](v41, -1, -1);
+      MEMORY[0x23EE6C260](v40, -1, -1);
     }
 
     swift_getKeyPath();
-    v57 = a3;
-    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+    v55 = a3;
+    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
     ObservationRegistrar.access<A, B>(_:keyPath:)();
 
     [*&a3[OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__progress] setCompletedUnitCount_];
@@ -2749,8 +2674,8 @@ void closure #2 in GameSaveSyncedDirectory.startSyncing(mode:)(void *a1, void *a
       goto LABEL_24;
     }
 
-    v57 = a2;
-    v46 = a2;
+    v55 = a2;
+    v44 = a2;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
     type metadata accessor for UIAlertController(0, &lazy cache variable for type metadata for NSError, 0x277CCA9B8);
     if ((swift_dynamicCast() & 1) == 0)
@@ -2758,36 +2683,36 @@ void closure #2 in GameSaveSyncedDirectory.startSyncing(mode:)(void *a1, void *a
       goto LABEL_24;
     }
 
-    v47 = v59;
-    v48 = [v59 domain];
-    v49 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v51 = v50;
+    v45 = v57;
+    v46 = [v57 domain];
+    v47 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v49 = v48;
 
-    if (v49 == 0xD000000000000013 && 0x800000023898C270 == v51)
+    if (v47 == 0xD000000000000013 && 0x800000023898C270 == v49)
     {
     }
 
     else
     {
-      v52 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v50 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-      if ((v52 & 1) == 0)
+      if ((v50 & 1) == 0)
       {
 LABEL_23:
 
 LABEL_24:
-        *v11 = v32;
+        *v10 = v30;
         swift_storeEnumTagMultiPayload();
-        v53 = v32;
-        GameSaveSyncedDirectory._moveToState(_:)(v11);
-        GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v11);
+        v51 = v30;
+        GameSaveSyncedDirectory._moveToState(_:)(v10);
+        GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v10);
 
-        outlined destroy of GameSaveSyncedDirectory.State(v11, type metadata accessor for GameSaveSyncedDirectory.State);
+        outlined destroy of GameSaveSyncedDirectory.State(v10, type metadata accessor for GameSaveSyncedDirectory.State);
         return;
       }
     }
 
-    if ([v47 code] == 1)
+    if ([v45 code] == 1)
     {
       GameSaveSyncedDirectory.moveToLocalState()();
 
@@ -2797,70 +2722,70 @@ LABEL_24:
     goto LABEL_23;
   }
 
-  v16 = one-time initialization token for common;
-  v17 = a1;
-  if (v16 != -1)
+  v14 = one-time initialization token for common;
+  v15 = a1;
+  if (v14 != -1)
   {
     swift_once();
   }
 
-  v18 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v18, static Logger.common);
-  v19 = v17;
-  v20 = Logger.logObject.getter();
-  v21 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v20, v21))
+  v16 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v16, static Logger.common);
+  v17 = v15;
+  v18 = Logger.logObject.getter();
+  v19 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v18, v19))
   {
-    v22 = swift_slowAlloc();
-    v23 = swift_slowAlloc();
-    v55 = swift_slowAlloc();
-    v56 = a3;
-    v59 = v55;
-    *v22 = 138412802;
-    v24 = *&v19[OBJC_IVAR___GameSyncedDirectoryResponse_gameSavedDataFolderURL];
-    *(v22 + 4) = v24;
-    *v23 = v24;
-    *(v22 + 12) = 1024;
-    v25 = v19[OBJC_IVAR___GameSyncedDirectoryResponse_isOnline];
-    v26 = v24;
+    v20 = swift_slowAlloc();
+    v21 = swift_slowAlloc();
+    v53 = swift_slowAlloc();
+    v54 = a3;
+    v57 = v53;
+    *v20 = 138412802;
+    v22 = *&v17[OBJC_IVAR___GameSyncedDirectoryResponse_gameSavedDataFolderURL];
+    *(v20 + 4) = v22;
+    *v21 = v22;
+    *(v20 + 12) = 1024;
+    v23 = v17[OBJC_IVAR___GameSyncedDirectoryResponse_isOnline];
+    v24 = v22;
 
-    *(v22 + 14) = v25;
-    *(v22 + 18) = 2080;
-    v27 = v19[OBJC_IVAR___GameSyncedDirectoryResponse_numberOfConflicts + 8];
-    v57 = *&v19[OBJC_IVAR___GameSyncedDirectoryResponse_numberOfConflicts];
-    v58 = v27;
+    *(v20 + 14) = v23;
+    *(v20 + 18) = 2080;
+    v25 = v17[OBJC_IVAR___GameSyncedDirectoryResponse_numberOfConflicts + 8];
+    v55 = *&v17[OBJC_IVAR___GameSyncedDirectoryResponse_numberOfConflicts];
+    v56 = v25;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSiSgMd, &_sSiSgMR);
-    v28 = String.init<A>(describing:)();
-    v30 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v28, v29, &v59);
+    v26 = String.init<A>(describing:)();
+    v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v26, v27, &v57);
 
-    *(v22 + 20) = v30;
-    _os_log_impl(&dword_238952000, v20, v21, "Got url: %@. Is online: %{BOOL}d. Number of conflicts: %s", v22, 0x1Cu);
-    outlined destroy of URL?(v23, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-    MEMORY[0x23EE6C260](v23, -1, -1);
-    v31 = v55;
-    __swift_destroy_boxed_opaque_existential_0(v55);
-    a3 = v56;
-    MEMORY[0x23EE6C260](v31, -1, -1);
-    MEMORY[0x23EE6C260](v22, -1, -1);
+    *(v20 + 20) = v28;
+    _os_log_impl(&dword_238952000, v18, v19, "Got url: %@. Is online: %{BOOL}d. Number of conflicts: %s", v20, 0x1Cu);
+    outlined destroy of URL?(v21, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+    MEMORY[0x23EE6C260](v21, -1, -1);
+    v29 = v53;
+    __swift_destroy_boxed_opaque_existential_0(v53);
+    a3 = v54;
+    MEMORY[0x23EE6C260](v29, -1, -1);
+    MEMORY[0x23EE6C260](v20, -1, -1);
   }
 
   else
   {
   }
 
-  v33 = v19;
+  v31 = v17;
   GameSaveSyncedDirectory.lastResponse.setter(a1);
-  v34 = type metadata accessor for TaskPriority();
-  (*(*(v34 - 8) + 56))(v15, 1, 1, v34);
-  v35 = swift_allocObject();
-  v35[2] = 0;
-  v35[3] = 0;
-  v35[4] = a3;
-  v35[5] = v33;
-  v35[6] = a4;
+  v32 = type metadata accessor for TaskPriority();
+  (*(*(v32 - 8) + 56))(v13, 1, 1, v32);
+  v33 = swift_allocObject();
+  v33[2] = 0;
+  v33[3] = 0;
+  v33[4] = a3;
+  v33[5] = v31;
+  v33[6] = a4;
 
   swift_unknownObjectRetain();
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v15, &async function pointer to partial apply for closure #1 in closure #2 in GameSaveSyncedDirectory.startSyncing(mode:), v35);
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v13, &async function pointer to partial apply for closure #1 in closure #2 in GameSaveSyncedDirectory.startSyncing(mode:), v33);
 }
 
 uint64_t closure #1 in closure #2 in GameSaveSyncedDirectory.startSyncing(mode:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -2876,72 +2801,70 @@ uint64_t closure #1 in closure #2 in GameSaveSyncedDirectory.startSyncing(mode:)
 uint64_t _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x28223BE20](v9 - 8);
-  v12 = v27 - v11;
-  outlined init with copy of URL?(a3, v27 - v11, &_sScPSgMd, &_sScPSgMR);
-  v13 = type metadata accessor for TaskPriority();
-  v14 = *(v13 - 8);
-  v15 = (*(v14 + 48))(v12, 1, v13);
+  v11 = v25 - v10;
+  outlined init with copy of URL?(a3, v25 - v10, &_sScPSgMd, &_sScPSgMR);
+  v12 = type metadata accessor for TaskPriority();
+  v13 = *(v12 - 8);
+  v14 = (*(v13 + 48))(v11, 1, v12);
 
-  if (v15 == 1)
+  if (v14 == 1)
   {
-    outlined destroy of URL?(v12, &_sScPSgMd, &_sScPSgMR);
+    outlined destroy of URL?(v11, &_sScPSgMd, &_sScPSgMR);
   }
 
   else
   {
     TaskPriority.rawValue.getter();
-    (*(v14 + 8))(v12, v13);
+    (*(v13 + 8))(v11, v12);
   }
 
-  v17 = *(a5 + 16);
-  v16 = *(a5 + 24);
+  v15 = *(a5 + 16);
   swift_unknownObjectRetain();
 
-  if (v17)
+  if (v15)
   {
     swift_getObjectType();
-    v18 = dispatch thunk of Actor.unownedExecutor.getter();
-    v20 = v19;
+    v16 = dispatch thunk of Actor.unownedExecutor.getter();
+    v18 = v17;
     swift_unknownObjectRelease();
     if (a2)
     {
 LABEL_6:
-      v21 = String.utf8CString.getter() + 32;
-      v22 = swift_allocObject();
-      *(v22 + 16) = a4;
-      *(v22 + 24) = a5;
+      v19 = String.utf8CString.getter() + 32;
+      v20 = swift_allocObject();
+      *(v20 + 16) = a4;
+      *(v20 + 24) = a5;
 
-      if (v20 | v18)
+      if (v18 | v16)
       {
-        v28[0] = 0;
-        v28[1] = 0;
-        v23 = v28;
-        v28[2] = v18;
-        v28[3] = v20;
+        v26[0] = 0;
+        v26[1] = 0;
+        v21 = v26;
+        v26[2] = v16;
+        v26[3] = v18;
       }
 
       else
       {
-        v23 = 0;
+        v21 = 0;
       }
 
-      v27[1] = 7;
-      v27[2] = v23;
-      v27[3] = v21;
-      v25 = swift_task_create();
+      v25[1] = 7;
+      v25[2] = v21;
+      v25[3] = v19;
+      v23 = swift_task_create();
 
       outlined destroy of URL?(a3, &_sScPSgMd, &_sScPSgMR);
 
-      return v25;
+      return v23;
     }
   }
 
   else
   {
+    v16 = 0;
     v18 = 0;
-    v20 = 0;
     if (a2)
     {
       goto LABEL_6;
@@ -2949,15 +2872,15 @@ LABEL_6:
   }
 
   outlined destroy of URL?(a3, &_sScPSgMd, &_sScPSgMR);
-  v24 = swift_allocObject();
-  *(v24 + 16) = a4;
-  *(v24 + 24) = a5;
-  if (v20 | v18)
+  v22 = swift_allocObject();
+  *(v22 + 16) = a4;
+  *(v22 + 24) = a5;
+  if (v18 | v16)
   {
-    v28[4] = 0;
-    v28[5] = 0;
-    v28[6] = v18;
-    v28[7] = v20;
+    v26[4] = 0;
+    v26[5] = 0;
+    v26[6] = v16;
+    v26[7] = v18;
   }
 
   return swift_task_create();
@@ -2966,72 +2889,70 @@ LABEL_6:
 uint64_t _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCSb_Tt2g5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v10 = *(*(v9 - 8) + 64);
   MEMORY[0x28223BE20](v9 - 8);
-  v12 = v27 - v11;
-  outlined init with copy of URL?(a3, v27 - v11, &_sScPSgMd, &_sScPSgMR);
-  v13 = type metadata accessor for TaskPriority();
-  v14 = *(v13 - 8);
-  v15 = (*(v14 + 48))(v12, 1, v13);
+  v11 = v25 - v10;
+  outlined init with copy of URL?(a3, v25 - v10, &_sScPSgMd, &_sScPSgMR);
+  v12 = type metadata accessor for TaskPriority();
+  v13 = *(v12 - 8);
+  v14 = (*(v13 + 48))(v11, 1, v12);
 
-  if (v15 == 1)
+  if (v14 == 1)
   {
-    outlined destroy of URL?(v12, &_sScPSgMd, &_sScPSgMR);
+    outlined destroy of URL?(v11, &_sScPSgMd, &_sScPSgMR);
   }
 
   else
   {
     TaskPriority.rawValue.getter();
-    (*(v14 + 8))(v12, v13);
+    (*(v13 + 8))(v11, v12);
   }
 
-  v17 = *(a5 + 16);
-  v16 = *(a5 + 24);
+  v15 = *(a5 + 16);
   swift_unknownObjectRetain();
 
-  if (v17)
+  if (v15)
   {
     swift_getObjectType();
-    v18 = dispatch thunk of Actor.unownedExecutor.getter();
-    v20 = v19;
+    v16 = dispatch thunk of Actor.unownedExecutor.getter();
+    v18 = v17;
     swift_unknownObjectRelease();
     if (a2)
     {
 LABEL_6:
-      v21 = String.utf8CString.getter() + 32;
-      v22 = swift_allocObject();
-      *(v22 + 16) = a4;
-      *(v22 + 24) = a5;
+      v19 = String.utf8CString.getter() + 32;
+      v20 = swift_allocObject();
+      *(v20 + 16) = a4;
+      *(v20 + 24) = a5;
 
-      if (v20 | v18)
+      if (v18 | v16)
       {
-        v28[0] = 0;
-        v28[1] = 0;
-        v23 = v28;
-        v28[2] = v18;
-        v28[3] = v20;
+        v26[0] = 0;
+        v26[1] = 0;
+        v21 = v26;
+        v26[2] = v16;
+        v26[3] = v18;
       }
 
       else
       {
-        v23 = 0;
+        v21 = 0;
       }
 
-      v27[1] = 7;
-      v27[2] = v23;
-      v27[3] = v21;
-      v25 = swift_task_create();
+      v25[1] = 7;
+      v25[2] = v21;
+      v25[3] = v19;
+      v23 = swift_task_create();
 
       outlined destroy of URL?(a3, &_sScPSgMd, &_sScPSgMR);
 
-      return v25;
+      return v23;
     }
   }
 
   else
   {
+    v16 = 0;
     v18 = 0;
-    v20 = 0;
     if (a2)
     {
       goto LABEL_6;
@@ -3039,15 +2960,15 @@ LABEL_6:
   }
 
   outlined destroy of URL?(a3, &_sScPSgMd, &_sScPSgMR);
-  v24 = swift_allocObject();
-  *(v24 + 16) = a4;
-  *(v24 + 24) = a5;
-  if (v20 | v18)
+  v22 = swift_allocObject();
+  *(v22 + 16) = a4;
+  *(v22 + 24) = a5;
+  if (v18 | v16)
   {
-    v28[4] = 0;
-    v28[5] = 0;
-    v28[6] = v18;
-    v28[7] = v20;
+    v26[4] = 0;
+    v26[5] = 0;
+    v26[6] = v16;
+    v26[7] = v18;
   }
 
   return swift_task_create();
@@ -3055,68 +2976,61 @@ LABEL_6:
 
 void thunk for @escaping @callee_guaranteed (@guaranteed GameSyncedDirectoryResponse?, @guaranteed Error?) -> ()(uint64_t a1, void *a2, void *a3)
 {
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
+  v5 = *(a1 + 32);
 
-  v8 = a2;
-  v7 = a3;
-  v6(a2, a3);
+  v7 = a2;
+  v6 = a3;
+  v5(a2, a3);
 }
 
 uint64_t GameSaveSyncedDirectory.moveToLoadedState(response:)(uint64_t a1)
 {
   v2 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2);
-  v5 = &v16 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for URL();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
-  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = [objc_opt_self() standardUserDefaults];
-  v12 = MEMORY[0x23EE6B6E0](0xD000000000000041, 0x800000023898BDF0);
-  [v11 removeObjectForKey_];
+  v4 = &v13 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for URL();
+  v6 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5);
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = [objc_opt_self() standardUserDefaults];
+  v10 = MEMORY[0x23EE6B6E0](0xD000000000000041, 0x800000023898BDF0);
+  [v9 removeObjectForKey_];
 
-  v13 = [*(a1 + OBJC_IVAR___GameSyncedDirectoryResponse_gameSavedDataFolderURL) url];
+  v11 = [*(a1 + OBJC_IVAR___GameSyncedDirectoryResponse_gameSavedDataFolderURL) url];
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v14 = *(a1 + OBJC_IVAR___GameSyncedDirectoryResponse_isOnline);
-  (*(v7 + 16))(v5, v10, v6);
+  (*(v6 + 16))(v4, v8, v5);
   swift_storeEnumTagMultiPayload();
-  GameSaveSyncedDirectory._moveToState(_:)(v5);
-  GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v5);
-  outlined destroy of GameSaveSyncedDirectory.State(v5, type metadata accessor for GameSaveSyncedDirectory.State);
-  return (*(v7 + 8))(v10, v6);
+  GameSaveSyncedDirectory._moveToState(_:)(v4);
+  GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v4);
+  outlined destroy of GameSaveSyncedDirectory.State(v4, type metadata accessor for GameSaveSyncedDirectory.State);
+  return (*(v6 + 8))(v8, v5);
 }
 
 uint64_t closure #1 in GameSaveSyncedDirectory.checkForConflicts(_:_:)@<X0>(void **a1@<X0>, uint64_t a2@<X1>, unint64_t a3@<X2>, char **a4@<X8>)
 {
-  v24 = a4;
+  v20 = a4;
   v7 = type metadata accessor for URL();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  v10 = MEMORY[0x28223BE20](v7);
-  v12 = &v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v10);
-  v14 = &v23 - v13;
-  v15 = *a1;
-  v16 = *(v8 + 16);
-  v16(&v23 - v13, a2, v7);
-  v16(v12, v14, v7);
-  v17 = type metadata accessor for GameSaveSyncedDirectory.Version(0);
-  v18 = *(v17 + 48);
-  v19 = *(v17 + 52);
+  v9 = MEMORY[0x28223BE20](v7);
+  v11 = &v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v13 = &v19 - v12;
+  v14 = *a1;
+  v15 = *(v8 + 16);
+  v15(&v19 - v12, a2, v7);
+  v15(v11, v13, v7);
+  type metadata accessor for GameSaveSyncedDirectory.Version(0);
   swift_allocObject();
-  v20 = v15;
+  v16 = v14;
 
-  v21 = GameSaveSyncedDirectory.Version.init(liveFileURL:version:lastEditorDeviceName:devices:)(v12, v15, 0, 0, a3);
-  result = (*(v8 + 8))(v14, v7);
-  *v24 = v21;
+  v17 = GameSaveSyncedDirectory.Version.init(liveFileURL:version:lastEditorDeviceName:devices:)(v11, v14, 0, 0, a3);
+  result = (*(v8 + 8))(v13, v7);
+  *v20 = v17;
   return result;
 }
 
-uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSaySo13NSFileVersionCG_8GameSave0fG15SyncedDirectoryC0E0Cs5NeverOTg5(void (*a1)(void **__return_ptr, id *), uint64_t a2, uint64_t a3)
+uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSaySo13NSFileVersionCG_8GameSave0fG15SyncedDirectoryC0E0Cs5NeverOTg5(void (*a1)(void **__return_ptr, id *), uint64_t a2, unint64_t a3)
 {
   v5 = v3;
   if (a3 >> 62)
@@ -3124,7 +3038,7 @@ uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSaySo
     goto LABEL_17;
   }
 
-  for (i = *((a3 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = MEMORY[0x23EE6BAE0](v13))
+  for (i = *((a3 & 0xFFFFFFFFFFFFFF8) + 0x10); ; i = MEMORY[0x23EE6BAE0](v12))
   {
     result = MEMORY[0x277D84F90];
     if (!i)
@@ -3132,7 +3046,7 @@ uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSaySo
       break;
     }
 
-    v17 = MEMORY[0x277D84F90];
+    v16 = MEMORY[0x277D84F90];
     specialized ContiguousArray.reserveCapacity(_:)();
     if (i < 0)
     {
@@ -3167,8 +3081,8 @@ LABEL_22:
       }
 
       v4 = v11;
-      v15 = v11;
-      a1(&v16, &v15);
+      v14 = v11;
+      a1(&v15, &v14);
       if (v5)
       {
         goto LABEL_22;
@@ -3176,15 +3090,14 @@ LABEL_22:
 
       v5 = 0;
 
-      v4 = v16;
+      v4 = v15;
       specialized ContiguousArray._makeUniqueAndReserveCapacityIfNotUnique()();
-      v12 = *(v17 + 16);
       specialized ContiguousArray._reserveCapacityAssumingUniqueBuffer(oldCount:)();
       specialized ContiguousArray._appendElementAssumeUniqueAndCapacity(_:newElement:)();
       specialized ContiguousArray._endMutation()();
       if (v10 == i)
       {
-        return v17;
+        return v16;
       }
     }
 
@@ -3192,14 +3105,14 @@ LABEL_22:
 LABEL_16:
     __break(1u);
 LABEL_17:
-    if (a3 < 0)
+    if ((a3 & 0x8000000000000000) != 0)
     {
-      v13 = a3;
+      v12 = a3;
     }
 
     else
     {
-      v13 = a3 & 0xFFFFFFFFFFFFFF8;
+      v12 = a3 & 0xFFFFFFFFFFFFFF8;
     }
   }
 
@@ -3209,9 +3122,7 @@ LABEL_17:
 uint64_t GameSaveSyncedDirectory.triggerPendingUpload()()
 {
   v1[4] = v0;
-  v2 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v1[5] = v2;
-  v3 = *(*(v2 - 8) + 64) + 15;
+  v1[5] = type metadata accessor for GameSaveSyncedDirectory.State(0);
   v1[6] = swift_task_alloc();
   v1[7] = swift_task_alloc();
 
@@ -3222,12 +3133,11 @@ uint64_t GameSaveSyncedDirectory.triggerPendingUpload()()
   v1 = v0[6];
   v2 = v0[7];
   v3 = v0[4];
-  v13 = v0[5];
   v4 = *(v3 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
   [v4 lock];
   swift_getKeyPath();
   v0[2] = v3;
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   outlined init with copy of GameSaveSyncedDirectory.State(v3 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v2);
@@ -3237,12 +3147,10 @@ uint64_t GameSaveSyncedDirectory.triggerPendingUpload()()
   outlined destroy of GameSaveSyncedDirectory.State(v1, type metadata accessor for GameSaveSyncedDirectory.State);
   if (EnumCaseMultiPayload > 1)
   {
-    v11 = v0[6];
-    v10 = v0[7];
 
-    v12 = v0[1];
+    v10 = v0[1];
 
-    return v12(0);
+    return v10(0);
   }
 
   else
@@ -3266,348 +3174,326 @@ uint64_t GameSaveSyncedDirectory.triggerPendingUpload()()
 
 uint64_t GameSaveSyncedDirectory.triggerPendingUpload()(uint64_t a1)
 {
-  v3 = *v1;
-  v4 = *(*v1 + 72);
-  v5 = *(*v1 + 64);
-  v10 = *v1;
+  v3 = *(*v1 + 64);
+  v6 = *v1;
 
-  v6 = *(v3 + 56);
-  v7 = *(v3 + 48);
+  v4 = *(v6 + 8);
 
-  v8 = *(v10 + 8);
-
-  return v8(a1);
+  return v4(a1);
 }
 
-uint64_t GameSaveSyncedDirectory.resolveConflicts(with:)(unsigned int (*a1)(void, void, void))
+uint64_t GameSaveSyncedDirectory.resolveConflicts(with:)(char *a1)
 {
-  v86 = a1;
-  v90[1] = *MEMORY[0x277D85DE8];
+  v77 = a1;
+  v81[1] = *MEMORY[0x277D85DE8];
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
-  v85 = v77 - v4;
-  v89 = type metadata accessor for URL();
-  v84 = *(v89 - 8);
-  v5 = *(v84 + 64);
-  MEMORY[0x28223BE20](v89);
-  v81 = v77 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  v9 = MEMORY[0x28223BE20](v7 - 8);
-  v82 = v77 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = MEMORY[0x28223BE20](v9);
-  v88 = v77 - v12;
-  MEMORY[0x28223BE20](v11);
-  v83 = v77 - v13;
-  v14 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v15 = *(*(v14 - 8) + 64);
-  v16 = MEMORY[0x28223BE20](v14);
-  v87 = (v77 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v18 = MEMORY[0x28223BE20](v16);
-  v20 = (v77 - v19);
-  v21 = MEMORY[0x28223BE20](v18);
-  v23 = v77 - v22;
-  MEMORY[0x28223BE20](v21);
-  v25 = v77 - v24;
-  v26 = *&v1[OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock];
-  [v26 lock];
+  v76 = v68 - v3;
+  v80 = type metadata accessor for URL();
+  v75 = *(v80 - 8);
+  MEMORY[0x28223BE20](v80);
+  v72 = v68 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v6 = MEMORY[0x28223BE20](v5 - 8);
+  v73 = v68 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = MEMORY[0x28223BE20](v6);
+  v79 = v68 - v9;
+  MEMORY[0x28223BE20](v8);
+  v74 = v68 - v10;
+  v11 = type metadata accessor for GameSaveSyncedDirectory.State(0);
+  v12 = MEMORY[0x28223BE20](v11);
+  v78 = (v68 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v14 = MEMORY[0x28223BE20](v12);
+  v16 = (v68 - v15);
+  v17 = MEMORY[0x28223BE20](v14);
+  v19 = v68 - v18;
+  MEMORY[0x28223BE20](v17);
+  v21 = v68 - v20;
+  v22 = *&v1[OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock];
+  [v22 lock];
   swift_getKeyPath();
-  v27 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___observationRegistrar;
-  v90[0] = v1;
-  v28 = lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  v23 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___observationRegistrar;
+  v81[0] = v1;
+  v24 = lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v29 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state;
-  outlined init with copy of GameSaveSyncedDirectory.State(&v1[OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state], v25);
-  [v26 unlock];
-  outlined init with take of GameSaveSyncedDirectory.State(v25, v23);
+  v25 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state;
+  outlined init with copy of GameSaveSyncedDirectory.State(&v1[OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state], v21);
+  [v22 unlock];
+  outlined init with take of GameSaveSyncedDirectory.State(v21, v19);
   result = swift_getEnumCaseMultiPayload();
-  if (result == 6)
+  if (result != 6)
   {
-    goto LABEL_43;
-  }
+    outlined destroy of GameSaveSyncedDirectory.State(v19, type metadata accessor for GameSaveSyncedDirectory.State);
+    [v22 lock];
+    swift_getKeyPath();
+    v81[0] = v1;
+    v70 = v24;
+    ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  outlined destroy of GameSaveSyncedDirectory.State(v23, type metadata accessor for GameSaveSyncedDirectory.State);
-  [v26 lock];
-  swift_getKeyPath();
-  v90[0] = v1;
-  v79 = v28;
-  ObservationRegistrar.access<A, B>(_:keyPath:)();
+    v69 = v1;
+    outlined init with copy of GameSaveSyncedDirectory.State(&v1[v25], v16);
+    [v22 0x278A5B178];
+    if (swift_getEnumCaseMultiPayload() != 3)
+    {
+      return outlined destroy of GameSaveSyncedDirectory.State(v16, type metadata accessor for GameSaveSyncedDirectory.State);
+    }
 
-  v78 = v1;
-  outlined init with copy of GameSaveSyncedDirectory.State(&v1[v29], v20);
-  [v26 0x278A5B178];
-  if (swift_getEnumCaseMultiPayload() != 3)
-  {
-    result = outlined destroy of GameSaveSyncedDirectory.State(v20, type metadata accessor for GameSaveSyncedDirectory.State);
-    goto LABEL_43;
-  }
-
-  v31 = v27;
-  v80 = *v20;
-  if (one-time initialization token for common != -1)
-  {
+    v27 = v23;
+    v71 = *v16;
+    if (one-time initialization token for common != -1)
+    {
 LABEL_30:
-    swift_once();
-  }
+      swift_once();
+    }
 
-  v32 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v32, static Logger.common);
-  v33 = v86;
+    v28 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v28, static Logger.common);
+    v29 = v77;
 
-  v34 = Logger.logObject.getter();
-  v35 = static os_log_type_t.default.getter();
+    v30 = Logger.logObject.getter();
+    v31 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v34, v35))
-  {
-    v36 = swift_slowAlloc();
-    v37 = v31;
-    v38 = swift_slowAlloc();
-    v90[0] = v38;
-    *v36 = 136315138;
-    v39 = GameSaveSyncedDirectory.Version.description.getter();
-    v41 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v39, v40, v90);
-
-    *(v36 + 4) = v41;
-    _os_log_impl(&dword_238952000, v34, v35, "resolving conflict %s", v36, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v38);
-    v42 = v38;
-    v31 = v37;
-    MEMORY[0x23EE6C260](v42, -1, -1);
-    MEMORY[0x23EE6C260](v36, -1, -1);
-  }
-
-  v43 = v78;
-  swift_getKeyPath();
-  v90[0] = v43;
-  ObservationRegistrar.access<A, B>(_:keyPath:)();
-
-  v44 = *&v43[OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__lastResponse];
-  if (v44)
-  {
-    v45 = (v44 + OBJC_IVAR___GameSyncedDirectoryResponse_directorySandboxExtension);
-    v46 = *v45;
-    v47 = v45[1];
-    String.utf8CString.getter();
-  }
-
-  v48 = sandbox_extension_consume();
-  swift_unknownObjectRelease();
-  GameSaveSyncedDirectory.Version.resolve()();
-  v50 = v83;
-  outlined init with copy of URL?(v33 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localURL, v83, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v86 = *(v84 + 48);
-  if (v86(v50, 1, v89) == 1)
-  {
-    outlined destroy of URL?(v50, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    v51 = v80;
-    v77[2] = v31;
-    v77[3] = v14;
-    v78 = v48;
-    v77[1] = 0;
-    if (v80 >> 62)
+    if (os_log_type_enabled(v30, v31))
     {
-      v69 = v80;
-      if (v80 >= 0)
-      {
-        v51 = v80 & 0xFFFFFFFFFFFFFF8;
-      }
+      v32 = swift_slowAlloc();
+      v33 = v27;
+      v34 = swift_slowAlloc();
+      v81[0] = v34;
+      *v32 = 136315138;
+      v35 = GameSaveSyncedDirectory.Version.description.getter();
+      v37 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v35, v36, v81);
 
-      v83 = MEMORY[0x23EE6BAE0](v51);
-      v51 = v69;
-      if (v83)
+      *(v32 + 4) = v37;
+      _os_log_impl(&dword_238952000, v30, v31, "resolving conflict %s", v32, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v34);
+      v38 = v34;
+      v27 = v33;
+      MEMORY[0x23EE6C260](v38, -1, -1);
+      MEMORY[0x23EE6C260](v32, -1, -1);
+    }
+
+    v39 = v69;
+    swift_getKeyPath();
+    v81[0] = v39;
+    ObservationRegistrar.access<A, B>(_:keyPath:)();
+
+    if (*&v39[OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__lastResponse])
+    {
+      String.utf8CString.getter();
+    }
+
+    v40 = sandbox_extension_consume();
+    swift_unknownObjectRelease();
+    GameSaveSyncedDirectory.Version.resolve()();
+    v42 = v74;
+    outlined init with copy of URL?(&v29[OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localURL], v74, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    v77 = *(v75 + 48);
+    if ((v77)(v42, 1, v80) == 1)
+    {
+      outlined destroy of URL?(v42, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+      v43 = v71;
+      v68[2] = v27;
+      v68[3] = v11;
+      v69 = v40;
+      v68[1] = 0;
+      if (v71 >> 62)
       {
+        v61 = v71;
+        if (v71 >= 0)
+        {
+          v43 = v71 & 0xFFFFFFFFFFFFFF8;
+        }
+
+        v74 = MEMORY[0x23EE6BAE0](v43);
+        v43 = v61;
+        if (v74)
+        {
 LABEL_12:
-        v52 = 0;
-        v14 = v51 & 0xC000000000000001;
-        v48 = v51 & 0xFFFFFFFFFFFFFF8;
-        while (1)
-        {
-          if (v14)
+          v44 = 0;
+          v11 = v43 & 0xC000000000000001;
+          v40 = v43 & 0xFFFFFFFFFFFFFF8;
+          while (1)
           {
-            v31 = MEMORY[0x23EE6BA40](v52, v51);
-            v50 = v52 + 1;
-            if (__OFADD__(v52, 1))
+            if (v11)
             {
+              v27 = MEMORY[0x23EE6BA40](v44, v43);
+              v42 = v44 + 1;
+              if (__OFADD__(v44, 1))
+              {
 LABEL_21:
-              __break(1u);
-              goto LABEL_22;
+                __break(1u);
+                goto LABEL_22;
+              }
             }
-          }
 
-          else
-          {
-            if (v52 >= *(v48 + 16))
+            else
             {
-              __break(1u);
-              goto LABEL_30;
+              if (v44 >= *(v40 + 16))
+              {
+                __break(1u);
+                goto LABEL_30;
+              }
+
+              v27 = *(v43 + 8 * v44 + 32);
+
+              v42 = v44 + 1;
+              if (__OFADD__(v44, 1))
+              {
+                goto LABEL_21;
+              }
             }
 
-            v31 = *(v51 + 8 * v52 + 32);
-
-            v50 = v52 + 1;
-            if (__OFADD__(v52, 1))
+            v45 = v79;
+            outlined init with copy of URL?(v27 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localURL, v79, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+            if ((v77)(v45, 1, v80) != 1)
             {
-              goto LABEL_21;
+              break;
+            }
+
+            outlined destroy of URL?(v45, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+            ++v44;
+            v43 = v71;
+            if (v42 == v74)
+            {
+              goto LABEL_34;
             }
           }
 
-          v53 = v88;
-          outlined init with copy of URL?(v31 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localURL, v88, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-          if (v86(v53, 1, v89) != 1)
+          outlined destroy of URL?(v45, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+          if (!v27)
           {
-            break;
+            goto LABEL_35;
           }
 
-          outlined destroy of URL?(v53, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-          ++v52;
-          v51 = v80;
-          if (v50 == v83)
+          v47 = v73;
+          outlined init with copy of URL?(v27 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localURL, v73, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+          v48 = v80;
+          v49 = (v77)(v47, 1, v80);
+          v40 = v69;
+          v50 = v75;
+          if (v49 == 1)
           {
-            goto LABEL_34;
+
+            v46 = v78;
+            goto LABEL_36;
           }
+
+          v51 = v72;
+          (*(v75 + 32))(v72, v47, v48);
+          v52 = [objc_opt_self() defaultManager];
+          URL._bridgeToObjectiveC()(v53);
+          v55 = v54;
+          v81[0] = 0;
+          v56 = [v52 removeItemAtURL:v54 error:v81];
+
+          if (v56)
+          {
+            v57 = *(v50 + 8);
+            v58 = v81[0];
+            v57(v51, v48);
+
+            v46 = v78;
+            goto LABEL_37;
+          }
+
+          v59 = v81[0];
+          v60 = _convertNSErrorToError(_:)();
+
+          swift_willThrow();
+
+          (*(v50 + 8))(v51, v48);
+          v46 = v78;
+          *v78 = v60;
+          swift_storeEnumTagMultiPayload();
+          v41 = v60;
+          GameSaveSyncedDirectory._moveToState(_:)(v46);
+          GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v46);
+
+          goto LABEL_41;
         }
-
-        outlined destroy of URL?(v53, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-        if (!v31)
-        {
-          goto LABEL_35;
-        }
-
-        v55 = v82;
-        outlined init with copy of URL?(v31 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localURL, v82, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-        v56 = v89;
-        v57 = v86(v55, 1, v89);
-        v48 = v78;
-        v58 = v84;
-        if (v57 == 1)
-        {
-
-          v54 = v87;
-          goto LABEL_36;
-        }
-
-        v59 = v81;
-        (*(v84 + 32))(v81, v55, v56);
-        v60 = [objc_opt_self() defaultManager];
-        URL._bridgeToObjectiveC()(v61);
-        v63 = v62;
-        v90[0] = 0;
-        v64 = [v60 removeItemAtURL:v62 error:v90];
-
-        if (v64)
-        {
-          v65 = *(v58 + 8);
-          v66 = v90[0];
-          v65(v59, v56);
-
-          v54 = v87;
-          goto LABEL_37;
-        }
-
-        v67 = v90[0];
-        v68 = _convertNSErrorToError(_:)();
-
-        swift_willThrow();
-
-        (*(v58 + 8))(v59, v56);
-        v54 = v87;
-        *v87 = v68;
-        swift_storeEnumTagMultiPayload();
-        v49 = v68;
-        GameSaveSyncedDirectory._moveToState(_:)(v54);
-        GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v54);
-
-        goto LABEL_41;
       }
-    }
 
-    else
-    {
-      v83 = *((v80 & 0xFFFFFFFFFFFFFF8) + 0x10);
-      if (v83)
+      else
       {
-        goto LABEL_12;
+        v74 = *((v71 & 0xFFFFFFFFFFFFFF8) + 0x10);
+        if (v74)
+        {
+          goto LABEL_12;
+        }
       }
-    }
 
 LABEL_34:
 
 LABEL_35:
-    v55 = v82;
-    (*(v84 + 56))(v82, 1, 1, v89);
-    v54 = v87;
-    v48 = v78;
+      v47 = v73;
+      (*(v75 + 56))(v73, 1, 1, v80);
+      v46 = v78;
+      v40 = v69;
 LABEL_36:
-    outlined destroy of URL?(v55, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  }
+      outlined destroy of URL?(v47, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    }
 
-  else
-  {
+    else
+    {
 LABEL_22:
 
-    outlined destroy of URL?(v50, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    v54 = v87;
-  }
+      outlined destroy of URL?(v42, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+      v46 = v78;
+    }
 
 LABEL_37:
-  Current = CFAbsoluteTimeGetCurrent();
-  if (*&v43[OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__directorySyncStartTime] == Current)
-  {
-    *&v43[OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__directorySyncStartTime] = Current;
-  }
+    Current = CFAbsoluteTimeGetCurrent();
+    if (*&v39[OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__directorySyncStartTime] == Current)
+    {
+      *&v39[OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__directorySyncStartTime] = Current;
+    }
 
-  else
-  {
-    v71 = Current;
-    KeyPath = swift_getKeyPath();
-    MEMORY[0x28223BE20](KeyPath);
-    v77[-2] = v43;
-    *&v77[-1] = v71;
-    v90[0] = v43;
-    ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
-    v54 = v87;
-  }
+    else
+    {
+      v63 = Current;
+      KeyPath = swift_getKeyPath();
+      MEMORY[0x28223BE20](KeyPath);
+      v68[-2] = v39;
+      *&v68[-1] = v63;
+      v81[0] = v39;
+      ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
+      v46 = v78;
+    }
 
-  swift_storeEnumTagMultiPayload();
-  GameSaveSyncedDirectory._moveToState(_:)(v54);
-  GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v54);
+    swift_storeEnumTagMultiPayload();
+    GameSaveSyncedDirectory._moveToState(_:)(v46);
+    GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v46);
 LABEL_41:
-  outlined destroy of GameSaveSyncedDirectory.State(v54, type metadata accessor for GameSaveSyncedDirectory.State);
-  v73 = type metadata accessor for TaskPriority();
-  v74 = v85;
-  (*(*(v73 - 8) + 56))(v85, 1, 1, v73);
-  v75 = swift_allocObject();
-  v75[2] = 0;
-  v75[3] = 0;
-  v75[4] = v43;
+    outlined destroy of GameSaveSyncedDirectory.State(v46, type metadata accessor for GameSaveSyncedDirectory.State);
+    v65 = type metadata accessor for TaskPriority();
+    v66 = v76;
+    (*(*(v65 - 8) + 56))(v76, 1, 1, v65);
+    v67 = swift_allocObject();
+    v67[2] = 0;
+    v67[3] = 0;
+    v67[4] = v39;
 
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v74, &async function pointer to partial apply for closure #2 in GameSaveSyncedDirectory.resolveConflicts(with:), v75);
+    _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v66, &async function pointer to partial apply for closure #2 in GameSaveSyncedDirectory.resolveConflicts(with:), v67);
 
-  if (v48 != -1)
-  {
-    result = sandbox_extension_release();
+    if (v40 != -1)
+    {
+      return sandbox_extension_release();
+    }
   }
 
-LABEL_43:
-  v76 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t closure #2 in GameSaveSyncedDirectory.resolveConflicts(with:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4[5] = a4;
-  v5 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v4[6] = v5;
-  v6 = *(*(v5 - 8) + 64) + 15;
+  v4[6] = type metadata accessor for GameSaveSyncedDirectory.State(0);
   v4[7] = swift_task_alloc();
   v4[8] = swift_task_alloc();
-  v7 = type metadata accessor for ContinuousClock();
-  v4[9] = v7;
-  v8 = *(v7 - 8);
-  v4[10] = v8;
-  v9 = *(v8 + 64) + 15;
+  v5 = type metadata accessor for ContinuousClock();
+  v4[9] = v5;
+  v4[10] = *(v5 - 8);
   v4[11] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](closure #2 in GameSaveSyncedDirectory.resolveConflicts(with:), 0, 0);
@@ -3615,49 +3501,44 @@ uint64_t closure #2 in GameSaveSyncedDirectory.resolveConflicts(with:)(uint64_t 
 
 uint64_t closure #2 in GameSaveSyncedDirectory.resolveConflicts(with:)()
 {
-  v1 = *(v0 + 88);
   static Clock<>.continuous.getter();
-  v2 = swift_task_alloc();
-  *(v0 + 96) = v2;
-  *v2 = v0;
-  v2[1] = closure #2 in GameSaveSyncedDirectory.resolveConflicts(with:);
-  v3 = *(v0 + 88);
+  v1 = swift_task_alloc();
+  *(v0 + 96) = v1;
+  *v1 = v0;
+  v1[1] = closure #2 in GameSaveSyncedDirectory.resolveConflicts(with:);
 
   return specialized Clock.sleep(for:tolerance:)(100000000000000000, 0, 0, 0, 1);
 }
 
 {
   v2 = *v1;
-  v3 = *(*v1 + 96);
-  v4 = *v1;
 
-  v5 = v2[11];
-  v6 = v2[10];
-  v7 = v2[9];
+  v3 = v2[11];
+  v4 = v2[10];
+  v5 = v2[9];
   if (v0)
   {
 
-    (*(v6 + 8))(v5, v7);
-    v8 = closure #2 in GameSaveSyncedDirectory.resolveConflicts(with:);
+    (*(v4 + 8))(v3, v5);
+    v6 = closure #2 in GameSaveSyncedDirectory.resolveConflicts(with:);
   }
 
   else
   {
-    (*(v6 + 8))(v5, v7);
-    v8 = closure #2 in GameSaveSyncedDirectory.resolveConflicts(with:);
+    (*(v4 + 8))(v3, v5);
+    v6 = closure #2 in GameSaveSyncedDirectory.resolveConflicts(with:);
   }
 
-  return MEMORY[0x2822009F8](v8, 0, 0);
+  return MEMORY[0x2822009F8](v6, 0, 0);
 }
 
 {
   v1 = v0[7];
   v2 = v0[8];
   v3 = v0[5];
-  v18 = v0[6];
   swift_getKeyPath();
   v0[2] = v3;
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   v4 = *(v3 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__gameSyncedDirectoryPresenter);
@@ -3687,11 +3568,10 @@ uint64_t closure #2 in GameSaveSyncedDirectory.resolveConflicts(with:)()
     ObservationRegistrar.access<A, B>(_:keyPath:)();
 
     v10 = *(v9 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__lastResponse);
-    v11 = v0[5];
     if (v10)
     {
-      v12 = v10;
-      GameSaveSyncedDirectory.moveToLoadedState(response:)(v12);
+      v11 = v10;
+      GameSaveSyncedDirectory.moveToLoadedState(response:)(v11);
     }
 
     else
@@ -3700,72 +3580,67 @@ uint64_t closure #2 in GameSaveSyncedDirectory.resolveConflicts(with:)()
     }
   }
 
-  v13 = v0[11];
-  v14 = v0[7];
-  v15 = v0[8];
+  v12 = v0[1];
 
-  v16 = v0[1];
-
-  return v16();
+  return v12();
 }
 
 uint64_t GameSaveSyncedDirectory.retryIfSignedIn(retryBlock:)(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
-  v23[0] = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v6 = *(*(v23[0] - 8) + 64);
-  MEMORY[0x28223BE20](v23[0]);
-  v8 = (v23 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v22[0] = type metadata accessor for GameSaveSyncedDirectory.State(0);
+  MEMORY[0x28223BE20](v22[0]);
+  v7 = (v22 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
   swift_getKeyPath();
   aBlock[0] = v2;
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v9 = *(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__accountSigningInObserver);
-  if (v9)
+  v8 = *(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__accountSigningInObserver);
+  if (v8)
   {
-    v10 = objc_opt_self();
+    v9 = objc_opt_self();
     swift_unknownObjectRetain();
-    v11 = [v10 defaultCenter];
-    [v11 removeObserver_];
+    v10 = [v9 defaultCenter];
+    [v10 removeObserver_];
     swift_unknownObjectRelease();
   }
 
-  v12 = swift_allocObject();
-  *(v12 + 16) = 0;
-  v13 = [objc_opt_self() defaultCenter];
-  v14 = *MEMORY[0x277CFAB58];
-  v15 = swift_allocObject();
-  v15[2] = v12;
-  v15[3] = v3;
-  v15[4] = a1;
-  v15[5] = a2;
+  v11 = swift_allocObject();
+  *(v11 + 16) = 0;
+  v12 = [objc_opt_self() defaultCenter];
+  v13 = *MEMORY[0x277CFAB58];
+  v14 = swift_allocObject();
+  v14[2] = v11;
+  v14[3] = v3;
+  v14[4] = a1;
+  v14[5] = a2;
   aBlock[4] = partial apply for closure #1 in GameSaveSyncedDirectory.retryIfSignedIn(retryBlock:);
-  aBlock[5] = v15;
+  aBlock[5] = v14;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed @Sendable (@in_guaranteed Notification) -> ();
   aBlock[3] = &block_descriptor;
-  v16 = _Block_copy(aBlock);
+  v15 = _Block_copy(aBlock);
 
-  v17 = [v13 addObserverForName:v14 object:0 queue:0 usingBlock:v16];
-  _Block_release(v16);
+  v16 = [v12 addObserverForName:v13 object:0 queue:0 usingBlock:v15];
+  _Block_release(v15);
 
   KeyPath = swift_getKeyPath();
   MEMORY[0x28223BE20](KeyPath);
-  v23[-2] = v3;
-  v23[-1] = v17;
+  v22[-2] = v3;
+  v22[-1] = v16;
   aBlock[0] = v3;
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
   swift_unknownObjectRelease();
   [objc_opt_self() startAccountTokenChangeObserverIfNeeded];
 
-  v19 = specialized static GameSaveSyncedDirectory.getGameSaveDaemonProxy(_:)(partial apply for closure #2 in GameSaveSyncedDirectory.retryIfSignedIn(retryBlock:), v3);
+  v18 = specialized static GameSaveSyncedDirectory.getGameSaveDaemonProxy(_:)(partial apply for closure #2 in GameSaveSyncedDirectory.retryIfSignedIn(retryBlock:), v3);
 
-  if (v19)
+  if (v18)
   {
-    [v19 openICloudDriveSettingsPage];
+    [v18 openICloudDriveSettingsPage];
 
     return swift_unknownObjectRelease();
   }
@@ -3773,107 +3648,102 @@ uint64_t GameSaveSyncedDirectory.retryIfSignedIn(retryBlock:)(uint64_t a1, uint6
   else
   {
     lazy protocol witness table accessor for type GameSaveSyncedDirectoryError and conformance GameSaveSyncedDirectoryError();
-    v21 = swift_allocError();
-    *v22 = 0;
-    *v8 = v21;
+    v20 = swift_allocError();
+    *v21 = 0;
+    *v7 = v20;
     swift_storeEnumTagMultiPayload();
-    GameSaveSyncedDirectory._moveToState(_:)(v8);
-    GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v8);
-    outlined destroy of GameSaveSyncedDirectory.State(v8, type metadata accessor for GameSaveSyncedDirectory.State);
+    GameSaveSyncedDirectory._moveToState(_:)(v7);
+    GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v7);
+    outlined destroy of GameSaveSyncedDirectory.State(v7, type metadata accessor for GameSaveSyncedDirectory.State);
   }
 }
 
 void closure #1 in GameSaveSyncedDirectory.retryIfSignedIn(retryBlock:)(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t))
 {
   v7 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v8 = *(*(v7 - 8) + 64);
-  v9 = MEMORY[0x28223BE20](v7);
-  v11 = v16 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - v12;
+  v8 = MEMORY[0x28223BE20](v7);
+  v10 = v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8);
+  v12 = v15 - v11;
   if ((*(a2 + 16) & 1) == 0)
   {
-    v14 = *(a3 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
-    [v14 lock];
+    v13 = *(a3 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
+    [v13 lock];
     swift_getKeyPath();
-    v16[1] = a3;
-    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+    v15[1] = a3;
+    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
     ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-    outlined init with copy of GameSaveSyncedDirectory.State(a3 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v13);
-    [v14 unlock];
-    outlined init with take of GameSaveSyncedDirectory.State(v13, v11);
+    outlined init with copy of GameSaveSyncedDirectory.State(a3 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v12);
+    [v13 unlock];
+    outlined init with take of GameSaveSyncedDirectory.State(v12, v10);
     if (swift_getEnumCaseMultiPayload() != 6)
     {
-      v15 = outlined destroy of GameSaveSyncedDirectory.State(v11, type metadata accessor for GameSaveSyncedDirectory.State);
+      v14 = outlined destroy of GameSaveSyncedDirectory.State(v10, type metadata accessor for GameSaveSyncedDirectory.State);
       *(a2 + 16) = 1;
-      a4(v15);
+      a4(v14);
       GameSaveSyncedDirectory.retry(options:)(1);
     }
   }
 }
 
-uint64_t thunk for @escaping @callee_guaranteed @Sendable (@in_guaranteed Notification) -> ()(uint64_t a1)
+uint64_t thunk for @escaping @callee_guaranteed @Sendable (@in_guaranteed Notification) -> ()(uint64_t a1, uint64_t a2)
 {
-  v2 = type metadata accessor for Notification();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x28223BE20](v2);
-  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = *(a1 + 32);
-  v7 = *(a1 + 40);
+  v3 = type metadata accessor for Notification();
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
+  v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = *(a1 + 32);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v8(v6);
+  v7(v6);
 
-  return (*(v3 + 8))(v6, v2);
+  return (*(v4 + 8))(v6, v3);
 }
 
 uint64_t closure #2 in GameSaveSyncedDirectory.retryIfSignedIn(retryBlock:)()
 {
   v0 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v1 = *(*(v0 - 8) + 64);
   MEMORY[0x28223BE20](v0);
-  v3 = (&v7 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v2 = (&v6 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0));
   lazy protocol witness table accessor for type GameSaveSyncedDirectoryError and conformance GameSaveSyncedDirectoryError();
-  v4 = swift_allocError();
-  *v5 = 0;
-  *v3 = v4;
+  v3 = swift_allocError();
+  *v4 = 0;
+  *v2 = v3;
   swift_storeEnumTagMultiPayload();
-  GameSaveSyncedDirectory._moveToState(_:)(v3);
-  GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v3);
-  return outlined destroy of GameSaveSyncedDirectory.State(v3, type metadata accessor for GameSaveSyncedDirectory.State);
+  GameSaveSyncedDirectory._moveToState(_:)(v2);
+  GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v2);
+  return outlined destroy of GameSaveSyncedDirectory.State(v2, type metadata accessor for GameSaveSyncedDirectory.State);
 }
 
 void GameSaveSyncedDirectory.retry(options:)(uint64_t a1)
 {
   v3 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v4 = *(*(v3 - 8) + 64);
-  v5 = MEMORY[0x28223BE20](v3);
-  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = MEMORY[0x28223BE20](v5);
-  v10 = &v15 - v9;
-  MEMORY[0x28223BE20](v8);
-  v12 = &v15 - v11;
-  v13 = *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
-  [v13 lock];
+  v4 = MEMORY[0x28223BE20](v3);
+  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = MEMORY[0x28223BE20](v4);
+  v9 = &v14 - v8;
+  MEMORY[0x28223BE20](v7);
+  v11 = &v14 - v10;
+  v12 = *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
+  [v12 lock];
   swift_getKeyPath();
-  v16 = v1;
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  v15 = v1;
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  outlined init with copy of GameSaveSyncedDirectory.State(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v12);
-  [v13 unlock];
-  outlined init with take of GameSaveSyncedDirectory.State(v12, v10);
+  outlined init with copy of GameSaveSyncedDirectory.State(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v11);
+  [v12 unlock];
+  outlined init with take of GameSaveSyncedDirectory.State(v11, v9);
   if (swift_getEnumCaseMultiPayload() != 6)
   {
-    outlined destroy of GameSaveSyncedDirectory.State(v10, type metadata accessor for GameSaveSyncedDirectory.State);
-    v14 = [objc_opt_self() progressWithTotalUnitCount_];
-    GameSaveSyncedDirectory.progress.setter(v14);
+    outlined destroy of GameSaveSyncedDirectory.State(v9, type metadata accessor for GameSaveSyncedDirectory.State);
+    v13 = [objc_opt_self() progressWithTotalUnitCount_];
+    GameSaveSyncedDirectory.progress.setter(v13);
     swift_storeEnumTagMultiPayload();
-    GameSaveSyncedDirectory._moveToState(_:)(v7);
-    GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v7);
-    outlined destroy of GameSaveSyncedDirectory.State(v7, type metadata accessor for GameSaveSyncedDirectory.State);
+    GameSaveSyncedDirectory._moveToState(_:)(v6);
+    GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v6);
+    outlined destroy of GameSaveSyncedDirectory.State(v6, type metadata accessor for GameSaveSyncedDirectory.State);
     GameSaveSyncedDirectory.startSyncing(mode:)(a1);
   }
 }
@@ -3911,19 +3781,16 @@ uint64_t GameSaveSyncedDirectory._waitForDirectorySync(ui:)()
   *(v0 + 24) = v7;
   *(v7 + 16) = v5;
   *(v7 + 24) = v6;
-  v8 = *(MEMORY[0x277D859E0] + 4);
-  v9 = swift_task_alloc();
-  *(v0 + 32) = v9;
-  *v9 = v0;
-  v9[1] = GameSaveSyncedDirectory._waitForDirectorySync(ui:);
+  v8 = swift_task_alloc();
+  *(v0 + 32) = v8;
+  *v8 = v0;
+  v8[1] = GameSaveSyncedDirectory._waitForDirectorySync(ui:);
+  v9 = MEMORY[0x277D84F78] + 8;
 
-  return MEMORY[0x2822007B8]();
+  return MEMORY[0x2822007B8](v8, 0, 0, 0xD00000000000001ALL, 0x800000023898C330, partial apply for closure #1 in GameSaveSyncedDirectory._waitForDirectorySync(ui:), v7, v9);
 }
 
 {
-  v1 = *(*v0 + 32);
-  v2 = *(*v0 + 24);
-  v4 = *v0;
 
   return MEMORY[0x2822009F8](GameSaveSyncedDirectory._waitForDirectorySync(ui:), 0, 0);
 }
@@ -3932,99 +3799,98 @@ uint64_t GameSaveSyncedDirectory._waitForDirectorySync(ui:)()
   return (*(v0 + 8))();
 }
 
-id closure #1 in GameSaveSyncedDirectory._waitForDirectorySync(ui:)(uint64_t a1, uint64_t a2, int a3)
+id closure #1 in GameSaveSyncedDirectory._waitForDirectorySync(ui:)(uint64_t a1, char *a2, uint64_t a3)
 {
-  v6 = *(a2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
+  v3 = a3;
+  v6 = *&a2[OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock];
   [v6 lock];
-  closure #1 in closure #1 in GameSaveSyncedDirectory._waitForDirectorySync(ui:)(a2, a3, a1);
+  closure #1 in closure #1 in GameSaveSyncedDirectory._waitForDirectorySync(ui:)(a2, v3, a1);
 
   return [v6 unlock];
 }
 
-uint64_t closure #1 in closure #1 in GameSaveSyncedDirectory._waitForDirectorySync(ui:)(uint64_t a1, int a2, uint64_t a3)
+uint64_t closure #1 in closure #1 in GameSaveSyncedDirectory._waitForDirectorySync(ui:)(char *a1, int a2, uint64_t a3)
 {
-  v34 = a3;
-  v31 = a2;
+  v32 = a3;
+  v29 = a2;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
-  v7 = &v30 - v6;
-  v8 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v9 = *(*(v8 - 8) + 64);
+  v6 = &v28 - v5;
+  v7 = type metadata accessor for GameSaveSyncedDirectory.State(0);
+  v8 = MEMORY[0x28223BE20](v7);
+  v28 = &v28 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = MEMORY[0x28223BE20](v8);
-  v30 = &v30 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = MEMORY[0x28223BE20](v10);
-  v14 = &v30 - v13;
-  v15 = MEMORY[0x28223BE20](v12);
-  v17 = &v30 - v16;
-  MEMORY[0x28223BE20](v15);
-  v19 = &v30 - v18;
-  v20 = *(a1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
-  [v20 lock];
+  v12 = &v28 - v11;
+  v13 = MEMORY[0x28223BE20](v10);
+  v15 = &v28 - v14;
+  MEMORY[0x28223BE20](v13);
+  v17 = &v28 - v16;
+  v18 = *&a1[OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock];
+  [v18 lock];
   swift_getKeyPath();
-  v21 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___observationRegistrar;
-  v35 = a1;
-  v32 = lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
-  v33 = v21;
+  v19 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___observationRegistrar;
+  v33 = a1;
+  v30 = lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
+  v31 = v19;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v22 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state;
-  outlined init with copy of GameSaveSyncedDirectory.State(a1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v19);
-  [v20 unlock];
-  outlined init with take of GameSaveSyncedDirectory.State(v19, v17);
+  v20 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state;
+  outlined init with copy of GameSaveSyncedDirectory.State(&a1[OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state], v17);
+  [v18 unlock];
+  outlined init with take of GameSaveSyncedDirectory.State(v17, v15);
   if (swift_getEnumCaseMultiPayload() == 5)
   {
     goto LABEL_2;
   }
 
-  outlined destroy of GameSaveSyncedDirectory.State(v17, type metadata accessor for GameSaveSyncedDirectory.State);
-  if (v31)
+  outlined destroy of GameSaveSyncedDirectory.State(v15, type metadata accessor for GameSaveSyncedDirectory.State);
+  if (v29)
   {
-    [v20 lock];
+    [v18 lock];
     swift_getKeyPath();
-    v35 = a1;
+    v33 = a1;
     ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-    outlined init with copy of GameSaveSyncedDirectory.State(a1 + v22, v14);
-    [v20 0x278A5B178];
-    v27 = v30;
-    outlined init with copy of GameSaveSyncedDirectory.State(v14, v30);
+    outlined init with copy of GameSaveSyncedDirectory.State(&a1[v20], v12);
+    [v18 0x278A5B178];
+    v25 = v28;
+    outlined init with copy of GameSaveSyncedDirectory.State(v12, v28);
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
     switch(EnumCaseMultiPayload)
     {
       case 2:
-        v29 = specialized static GameSaveSyncedDirectory.shouldDismissSignedOutError()();
-        outlined destroy of GameSaveSyncedDirectory.State(v14, type metadata accessor for GameSaveSyncedDirectory.State);
-        outlined destroy of GameSaveSyncedDirectory.State(v27, type metadata accessor for GameSaveSyncedDirectory.State);
-        if ((v29 & 1) == 0)
+        v27 = specialized static GameSaveSyncedDirectory.shouldDismissSignedOutError()();
+        outlined destroy of GameSaveSyncedDirectory.State(v12, type metadata accessor for GameSaveSyncedDirectory.State);
+        outlined destroy of GameSaveSyncedDirectory.State(v25, type metadata accessor for GameSaveSyncedDirectory.State);
+        if ((v27 & 1) == 0)
         {
           goto LABEL_2;
         }
 
         break;
       case 5:
-        v27 = v14;
+        v25 = v12;
         goto LABEL_9;
       case 3:
-        outlined destroy of GameSaveSyncedDirectory.State(v14, type metadata accessor for GameSaveSyncedDirectory.State);
+        outlined destroy of GameSaveSyncedDirectory.State(v12, type metadata accessor for GameSaveSyncedDirectory.State);
 LABEL_9:
-        outlined destroy of GameSaveSyncedDirectory.State(v27, type metadata accessor for GameSaveSyncedDirectory.State);
+        outlined destroy of GameSaveSyncedDirectory.State(v25, type metadata accessor for GameSaveSyncedDirectory.State);
 LABEL_2:
-        v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
-        v24 = *(v23 - 8);
-        (*(v24 + 16))(v7, v34, v23);
-        (*(v24 + 56))(v7, 0, 1, v23);
+        v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, &_sScCyyts5NeverOGMR);
+        v22 = *(v21 - 8);
+        (*(v22 + 16))(v6, v32, v21);
+        (*(v22 + 56))(v6, 0, 1, v21);
         KeyPath = swift_getKeyPath();
         MEMORY[0x28223BE20](KeyPath);
-        *(&v30 - 2) = a1;
-        *(&v30 - 1) = v7;
-        v35 = a1;
+        *(&v28 - 2) = a1;
+        *(&v28 - 1) = v6;
+        v33 = a1;
         ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-        return outlined destroy of URL?(v7, &_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
+        return outlined destroy of URL?(v6, &_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
       default:
-        outlined destroy of GameSaveSyncedDirectory.State(v14, type metadata accessor for GameSaveSyncedDirectory.State);
-        outlined destroy of GameSaveSyncedDirectory.State(v27, type metadata accessor for GameSaveSyncedDirectory.State);
+        outlined destroy of GameSaveSyncedDirectory.State(v12, type metadata accessor for GameSaveSyncedDirectory.State);
+        outlined destroy of GameSaveSyncedDirectory.State(v25, type metadata accessor for GameSaveSyncedDirectory.State);
         break;
     }
   }
@@ -4036,28 +3902,24 @@ LABEL_2:
 uint64_t GameSaveSyncedDirectory.stateObserver.getter()
 {
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
-
-  v1 = *(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__stateObserver);
 }
 
 uint64_t key path getter for GameSaveSyncedDirectory.stateObserver : GameSaveSyncedDirectory@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v3 = *a1;
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   *a2 = *(v3 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__stateObserver);
 }
 
-uint64_t key path setter for GameSaveSyncedDirectory.accountSigningInObserver : GameSaveSyncedDirectory(uint64_t *a1, uint64_t *a2)
+uint64_t key path setter for GameSaveSyncedDirectory.accountSigningInObserver : GameSaveSyncedDirectory(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v2 = *a1;
-  v3 = *a2;
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 }
 
@@ -4077,7 +3939,7 @@ void GameSaveSyncedDirectory.window.setter(void *a1)
 LABEL_6:
     KeyPath = swift_getKeyPath();
     MEMORY[0x28223BE20](KeyPath);
-    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
     return;
@@ -4106,7 +3968,7 @@ LABEL_8:
 void *GameSaveSyncedDirectory.remoteProgressObserver.getter(uint64_t a1, void *a2)
 {
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   v4 = *(v2 + *a2);
@@ -4130,7 +3992,7 @@ void GameSaveSyncedDirectory.alert.setter(void *a1)
 LABEL_6:
     KeyPath = swift_getKeyPath();
     MEMORY[0x28223BE20](KeyPath);
-    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
     return;
@@ -4159,21 +4021,21 @@ LABEL_8:
 double GameSaveSyncedDirectory.directorySyncStartTime.getter(uint64_t a1, void *a2)
 {
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   return *(v2 + *a2);
 }
 
-double key path getter for GameSaveSyncedDirectory.directorySyncStartTime : GameSaveSyncedDirectory@<D0>(uint64_t *a1@<X0>, void *a2@<X4>, double *a3@<X8>)
+double key path getter for GameSaveSyncedDirectory.directorySyncStartTime : GameSaveSyncedDirectory@<D0>(uint64_t *a1@<X0>, void *a3@<X4>, double *a4@<X8>)
 {
-  v5 = *a1;
+  v6 = *a1;
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  result = *(v5 + *a2);
-  *a3 = result;
+  result = *(v6 + *a3);
+  *a4 = result;
   return result;
 }
 
@@ -4190,57 +4052,55 @@ Swift::Void __swiftcall GameSaveSyncedDirectory.StateObserver.cancel()()
 {
   v1 = v0;
   v2 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v3 = *(*(v2 - 8) + 64);
-  v4 = MEMORY[0x28223BE20](v2);
-  v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v4);
-  v8 = &v18 - v7;
-  v9 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver_directory;
-  v10 = *(v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver_directory);
-  v11 = *(v10 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
+  v3 = MEMORY[0x28223BE20](v2);
+  v5 = &v16 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v3);
+  v7 = &v16 - v6;
+  v8 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver_directory;
+  v9 = *(v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver_directory);
+  v10 = *(v9 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
 
-  [v11 lock];
+  [v10 lock];
   swift_getKeyPath();
-  v19 = v10;
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  v17 = v9;
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  outlined init with copy of GameSaveSyncedDirectory.State(v10 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v8);
-  [v11 unlock];
+  outlined init with copy of GameSaveSyncedDirectory.State(v9 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v7);
+  [v10 unlock];
 
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload >= 2)
   {
     if (EnumCaseMultiPayload == 2)
     {
-      v13 = [objc_opt_self() standardUserDefaults];
-      v14 = MEMORY[0x23EE6B6E0](0xD000000000000041, 0x800000023898BDF0);
-      [v13 setBool:1 forKey:v14];
+      v12 = [objc_opt_self() standardUserDefaults];
+      v13 = MEMORY[0x23EE6B6E0](0xD000000000000041, 0x800000023898BDF0);
+      [v12 setBool:1 forKey:v13];
 
-      v15 = *(v1 + v9);
-      v16 = *(v15 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
+      v14 = *(v1 + v8);
+      v15 = *(v14 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
 
-      [v16 lock];
+      [v15 lock];
       swift_getKeyPath();
-      v19 = v15;
+      v17 = v14;
       ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-      outlined init with copy of GameSaveSyncedDirectory.State(v15 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v6);
-      [v16 unlock];
-      GameSaveSyncedDirectory._moveToState(_:)(v6);
+      outlined init with copy of GameSaveSyncedDirectory.State(v14 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v5);
+      [v15 unlock];
+      GameSaveSyncedDirectory._moveToState(_:)(v5);
 
-      outlined destroy of GameSaveSyncedDirectory.State(v6, type metadata accessor for GameSaveSyncedDirectory.State);
+      outlined destroy of GameSaveSyncedDirectory.State(v5, type metadata accessor for GameSaveSyncedDirectory.State);
     }
 
     else
     {
-      v17 = *(v0 + v9);
 
       GameSaveSyncedDirectory.cancel()();
     }
   }
 
-  outlined destroy of GameSaveSyncedDirectory.State(v8, type metadata accessor for GameSaveSyncedDirectory.State);
+  outlined destroy of GameSaveSyncedDirectory.State(v7, type metadata accessor for GameSaveSyncedDirectory.State);
 }
 
 uint64_t GameSaveSyncedDirectory.StateObserver.__deallocating_deinit()
@@ -4251,82 +4111,78 @@ uint64_t GameSaveSyncedDirectory.StateObserver.__deallocating_deinit()
   v3 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver__alertAction;
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo17UIAlertControllerCSgGMd, &_s7Combine9PublishedVySo17UIAlertControllerCSgGMR);
   (*(*(v4 - 8) + 8))(v0 + v3, v4);
-  v5 = *(v0 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver_directory);
 
-  v6 = *(*v0 + 48);
-  v7 = *(*v0 + 52);
+  v5 = *(*v0 + 48);
+  v6 = *(*v0 + 52);
 
-  return MEMORY[0x2821FE8D8](v0, v6, v7);
+  return MEMORY[0x2821FE8D8](v0, v5, v6);
 }
 
-uint64_t protocol witness for ObservableObject.objectWillChange.getter in conformance GameSaveSyncedDirectory.StateObserver@<X0>(uint64_t *a1@<X8>)
+uint64_t protocol witness for ObservableObject.objectWillChange.getter in conformance GameSaveSyncedDirectory.StateObserver@<X0>(uint64_t *a2@<X8>)
 {
   type metadata accessor for GameSaveSyncedDirectory.StateObserver(0);
   result = ObservableObject<>.objectWillChange.getter();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
-uint64_t key path setter for GameSaveSyncedDirectory.continuation : GameSaveSyncedDirectory(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t *a6)
+uint64_t key path setter for GameSaveSyncedDirectory.continuation : GameSaveSyncedDirectory(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t *a6, uint64_t a7, uint64_t a8)
 {
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x28223BE20](v10 - 8);
-  v13 = &v16[-v12];
-  outlined init with copy of URL?(a1, &v16[-v12], a5, a6);
-  v14 = *a2;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+  MEMORY[0x28223BE20](v12 - 8);
+  v14 = &v17[-v13];
+  outlined init with copy of URL?(a1, &v17[-v13], a5, a6);
+  v15 = *a2;
   swift_getKeyPath();
-  v17 = v14;
-  v18 = v13;
+  v18 = v15;
   v19 = v14;
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  v20 = v15;
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-  return outlined destroy of URL?(v13, a5, a6);
+  return outlined destroy of URL?(v14, a5, a6);
 }
 
 BOOL GameSaveSyncedDirectory.checkSameAlertState(as:)()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8GameSave0aB15SyncedDirectoryC5StateOSgMd, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x28223BE20](v1 - 8);
-  v4 = &v16 - v3;
-  v5 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x28223BE20](v5);
-  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v12 = &v16 - v11;
+  v3 = &v14 - v2;
+  v4 = type metadata accessor for GameSaveSyncedDirectory.State(0);
+  v5 = *(v4 - 8);
+  v6 = MEMORY[0x28223BE20](v4);
+  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v10 = &v14 - v9;
   swift_getKeyPath();
-  v17 = v0;
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  v15 = v0;
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  outlined init with copy of URL?(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__alertPresentedState, v4, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMd, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMR);
-  if ((*(v6 + 48))(v4, 1, v5) == 1)
+  outlined init with copy of URL?(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__alertPresentedState, v3, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMd, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMR);
+  if ((*(v5 + 48))(v3, 1, v4) == 1)
   {
-    outlined destroy of URL?(v4, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMd, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMR);
+    outlined destroy of URL?(v3, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMd, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMR);
     return 0;
   }
 
   else
   {
-    outlined init with take of GameSaveSyncedDirectory.State(v4, v12);
-    v14 = *(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
-    [v14 lock];
+    outlined init with take of GameSaveSyncedDirectory.State(v3, v10);
+    v12 = *(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
+    [v12 lock];
     swift_getKeyPath();
-    v17 = v0;
+    v15 = v0;
     ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-    outlined init with copy of GameSaveSyncedDirectory.State(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v10);
-    [v14 unlock];
-    v13 = GameSaveSyncedDirectory.State.hasSameStateAs(_:)(v10);
+    outlined init with copy of GameSaveSyncedDirectory.State(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v8);
+    [v12 unlock];
+    v11 = GameSaveSyncedDirectory.State.hasSameStateAs(_:)(v8);
+    outlined destroy of GameSaveSyncedDirectory.State(v8, type metadata accessor for GameSaveSyncedDirectory.State);
     outlined destroy of GameSaveSyncedDirectory.State(v10, type metadata accessor for GameSaveSyncedDirectory.State);
-    outlined destroy of GameSaveSyncedDirectory.State(v12, type metadata accessor for GameSaveSyncedDirectory.State);
   }
 
-  return v13;
+  return v11;
 }
 
 void static GameSaveSyncedDirectory.showedDismissSignedOutError()()
@@ -4491,23 +4347,22 @@ Swift::Void __swiftcall GameSaveSyncedDirectory.drawStateUI(window:)(UIWindow *w
   v2 = v1;
   v4 = *v2;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v14 - v7;
-  v9 = type metadata accessor for TaskPriority();
-  (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
+  v7 = &v13 - v6;
+  v8 = type metadata accessor for TaskPriority();
+  (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
   type metadata accessor for MainActor();
 
-  v10 = window;
-  v11 = static MainActor.shared.getter();
-  v12 = swift_allocObject();
-  v13 = MEMORY[0x277D85700];
-  v12[2] = v11;
-  v12[3] = v13;
-  v12[4] = v2;
-  v12[5] = v10;
-  v12[6] = v4;
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v8, &closure #1 in GameSaveSyncedDirectory.drawStateUI(window:)partial apply, v12);
+  v9 = window;
+  v10 = static MainActor.shared.getter();
+  v11 = swift_allocObject();
+  v12 = MEMORY[0x277D85700];
+  v11[2] = v10;
+  v11[3] = v12;
+  v11[4] = v2;
+  v11[5] = v9;
+  v11[6] = v4;
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v7, &closure #1 in GameSaveSyncedDirectory.drawStateUI(window:)partial apply, v11);
 }
 
 uint64_t closure #1 in GameSaveSyncedDirectory.drawStateUI(window:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -4517,56 +4372,44 @@ uint64_t closure #1 in GameSaveSyncedDirectory.drawStateUI(window:)(uint64_t a1,
   v6[66] = a4;
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo17UIAlertControllerCSgGMd, &_s7Combine9PublishedVySo17UIAlertControllerCSgGMR);
   v6[69] = v7;
-  v8 = *(v7 - 8);
-  v6[70] = v8;
-  v9 = *(v8 + 64) + 15;
+  v6[70] = *(v7 - 8);
   v6[71] = swift_task_alloc();
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVy8GameSave0cD15SyncedDirectoryC7VersionCSgGMd, &_s7Combine9PublishedVy8GameSave0cD15SyncedDirectoryC7VersionCSgGMR);
-  v6[72] = v10;
-  v11 = *(v10 - 8);
-  v6[73] = v11;
-  v12 = *(v11 + 64) + 15;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVy8GameSave0cD15SyncedDirectoryC7VersionCSgGMd, &_s7Combine9PublishedVy8GameSave0cD15SyncedDirectoryC7VersionCSgGMR);
+  v6[72] = v8;
+  v6[73] = *(v8 - 8);
   v6[74] = swift_task_alloc();
-  v13 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s8GameSave0aB15SyncedDirectoryC5StateOSgMd, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8GameSave0aB15SyncedDirectoryC5StateOSgMd, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMR);
   v6[75] = swift_task_alloc();
-  v14 = type metadata accessor for DispatchWorkItemFlags();
-  v6[76] = v14;
-  v15 = *(v14 - 8);
-  v6[77] = v15;
-  v16 = *(v15 + 64) + 15;
+  v9 = type metadata accessor for DispatchWorkItemFlags();
+  v6[76] = v9;
+  v6[77] = *(v9 - 8);
   v6[78] = swift_task_alloc();
-  v17 = type metadata accessor for DispatchQoS();
-  v6[79] = v17;
-  v18 = *(v17 - 8);
-  v6[80] = v18;
-  v19 = *(v18 + 64) + 15;
+  v10 = type metadata accessor for DispatchQoS();
+  v6[79] = v10;
+  v6[80] = *(v10 - 8);
   v6[81] = swift_task_alloc();
-  v20 = type metadata accessor for DispatchTime();
-  v6[82] = v20;
-  v21 = *(v20 - 8);
-  v6[83] = v21;
-  v22 = *(v21 + 64) + 15;
+  v11 = type metadata accessor for DispatchTime();
+  v6[82] = v11;
+  v6[83] = *(v11 - 8);
   v6[84] = swift_task_alloc();
   v6[85] = swift_task_alloc();
-  v23 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v6[86] = v23;
-  v24 = *(v23 - 8);
-  v6[87] = v24;
-  v25 = *(v24 + 64) + 15;
+  v12 = type metadata accessor for GameSaveSyncedDirectory.State(0);
+  v6[86] = v12;
+  v6[87] = *(v12 - 8);
   v6[88] = swift_task_alloc();
   v6[89] = swift_task_alloc();
   v6[90] = swift_task_alloc();
   v6[91] = swift_task_alloc();
   type metadata accessor for MainActor();
   v6[92] = static MainActor.shared.getter();
-  v27 = dispatch thunk of Actor.unownedExecutor.getter();
+  v14 = dispatch thunk of Actor.unownedExecutor.getter();
 
-  return MEMORY[0x2822009F8](closure #1 in GameSaveSyncedDirectory.drawStateUI(window:), v27, v26);
+  return MEMORY[0x2822009F8](closure #1 in GameSaveSyncedDirectory.drawStateUI(window:), v14, v13);
 }
 
 id closure #1 in GameSaveSyncedDirectory.drawStateUI(window:)()
 {
-  v185 = v0;
+  v147 = v0;
   v1 = v0[91];
   v2 = v0[67];
   v3 = v0[66];
@@ -4576,7 +4419,7 @@ id closure #1 in GameSaveSyncedDirectory.drawStateUI(window:)()
   [v5 lock];
   swift_getKeyPath();
   v0[50] = v3;
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   v6 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state;
@@ -4586,124 +4429,116 @@ id closure #1 in GameSaveSyncedDirectory.drawStateUI(window:)()
   outlined destroy of GameSaveSyncedDirectory.State(v1, type metadata accessor for GameSaveSyncedDirectory.State);
   if ((v2 & 1) == 0)
   {
-    v8 = v0[66];
+    v7 = v0[66];
     swift_getKeyPath();
-    v0[65] = v8;
+    v0[65] = v7;
     ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-    v9 = *(v8 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__alert);
-    if (v9)
+    v8 = *(v7 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__alert);
+    if (v8)
     {
-      v10 = v0[92];
-      v11 = v0[67];
-      v12 = v0[66];
-      v13 = v9;
+      v9 = v0[67];
+      v10 = v0[66];
+      v11 = v8;
 
-      v14 = swift_allocObject();
-      *(v14 + 16) = v12;
-      *(v14 + 24) = v11;
+      v12 = swift_allocObject();
+      *(v12 + 16) = v10;
+      *(v12 + 24) = v9;
       v0[13] = partial apply for closure #1 in closure #1 in GameSaveSyncedDirectory.drawStateUI(window:);
-      v0[14] = v14;
+      v0[14] = v12;
       v0[9] = MEMORY[0x277D85DD0];
       v0[10] = 1107296256;
       v0[11] = thunk for @escaping @callee_guaranteed () -> ();
       v0[12] = &block_descriptor_302;
-      v15 = _Block_copy(v0 + 9);
-      v16 = v0[14];
-      v17 = v11;
+      v13 = _Block_copy(v0 + 9);
+      v14 = v9;
 
-      [v13 dismissViewControllerAnimated:0 completion:v15];
-      _Block_release(v15);
+      [v11 dismissViewControllerAnimated:0 completion:v13];
+      _Block_release(v13);
 
       goto LABEL_5;
     }
 
-    v178 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__alert;
-    v180 = v8;
-    v30 = v0[90];
-    v31 = v0[86];
-    v32 = v0[66];
+    v141 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__alert;
+    v143 = v7;
+    v17 = v0[90];
+    v18 = v0[66];
     [v5 lock];
     swift_getKeyPath();
-    v0[63] = v32;
+    v0[63] = v18;
     ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-    outlined init with copy of GameSaveSyncedDirectory.State(v3 + v6, v30);
+    outlined init with copy of GameSaveSyncedDirectory.State(v3 + v6, v17);
     [v5 unlock];
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
     if (EnumCaseMultiPayload > 3)
     {
       if (EnumCaseMultiPayload == 4)
       {
-        v57 = v0[92];
-        v58 = v0[90];
+        v36 = v0[90];
 
         goto LABEL_5;
       }
 
       if (EnumCaseMultiPayload == 5)
       {
-        v36 = v0[92];
-        v37 = v0[85];
-        v38 = v0[84];
-        v39 = v0[83];
-        v40 = v0[82];
-        v158 = v0[81];
-        v176 = v0[80];
-        v179 = v0[79];
-        v172 = v0[77];
-        v166 = v0[78];
-        v169 = v0[76];
-        v41 = v0[66];
-        v181 = *(v0 + 67);
+        v21 = v0[84];
+        v22 = v0[83];
+        v23 = v0[82];
+        v118 = v0[85];
+        v121 = v0[81];
+        v139 = v0[80];
+        v142 = v0[79];
+        v135 = v0[77];
+        v129 = v0[78];
+        v132 = v0[76];
+        v24 = v0[66];
+        v144 = *(v0 + 67);
 
         type metadata accessor for UIAlertController(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x277D85C78);
-        v163 = static OS_dispatch_queue.main.getter();
+        v126 = static OS_dispatch_queue.main.getter();
         static DispatchTime.now()();
         swift_getKeyPath();
-        v0[62] = v41;
+        v0[62] = v24;
         ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-        v42 = *(v41 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__showSyncAlertAfterTimeHeuristic);
         + infix(_:_:)();
-        v43 = *(v39 + 8);
-        v43(v38, v40);
-        v44 = swift_allocObject();
-        *(v44 + 16) = v41;
-        *(v44 + 24) = v181;
+        v25 = *(v22 + 8);
+        v25(v21, v23);
+        v26 = swift_allocObject();
+        *(v26 + 16) = v24;
+        *(v26 + 24) = v144;
         v0[25] = partial apply for closure #2 in closure #1 in GameSaveSyncedDirectory.drawStateUI(window:);
-        v0[26] = v44;
+        v0[26] = v26;
         v0[21] = MEMORY[0x277D85DD0];
         v0[22] = 1107296256;
         v0[23] = thunk for @escaping @callee_guaranteed () -> ();
         v0[24] = &block_descriptor_296;
-        v45 = _Block_copy(v0 + 21);
-        v46 = v181;
+        v27 = _Block_copy(v0 + 21);
+        v28 = v144;
 
         static DispatchQoS.unspecified.getter();
         v0[64] = MEMORY[0x277D84F90];
-        lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198]);
+        lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags, MEMORY[0x277D85198], MEMORY[0x277D851A0]);
         __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-        lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
+        lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [DispatchWorkItemFlags] and conformance [A], &_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR, MEMORY[0x277D83970]);
         dispatch thunk of SetAlgebra.init<A>(_:)();
-        MEMORY[0x23EE6B950](v37, v158, v166, v45);
-        _Block_release(v45);
+        MEMORY[0x23EE6B950](v118, v121, v129, v27);
+        _Block_release(v27);
 
-        (*(v172 + 8))(v166, v169);
-        (*(v176 + 8))(v158, v179);
-        v43(v37, v40);
-        v47 = v0[26];
+        (*(v135 + 8))(v129, v132);
+        (*(v139 + 8))(v121, v142);
+        v25(v118, v23);
 
         goto LABEL_5;
       }
 
 LABEL_15:
-      v48 = v0[92];
-      v49 = v0[90];
+      v29 = v0[90];
 
-      v50 = v49;
+      v30 = v29;
 LABEL_57:
-      outlined destroy of GameSaveSyncedDirectory.State(v50, type metadata accessor for GameSaveSyncedDirectory.State);
+      outlined destroy of GameSaveSyncedDirectory.State(v30, type metadata accessor for GameSaveSyncedDirectory.State);
       goto LABEL_5;
     }
 
@@ -4711,59 +4546,55 @@ LABEL_57:
     {
       if (EnumCaseMultiPayload == 3)
       {
-        v34 = *v0[90];
 
-        v184 = specialized Array._copyToContiguousArray()(v35);
-        specialized MutableCollection<>.sort(by:)(&v184);
-        v59 = v0[87];
-        v60 = v0[75];
-        v159 = v0[86];
-        v161 = v0[74];
-        v164 = v0[73];
-        v167 = v0[72];
-        v61 = v0[71];
-        v170 = v61;
-        v174 = v0[70];
-        v177 = v0[69];
-        v62 = v0[66];
-        v156 = v184;
+        v146 = specialized Array._copyToContiguousArray()(v20);
+        specialized MutableCollection<>.sort(by:)(&v146);
+        v37 = v0[87];
+        v38 = v0[75];
+        v122 = v0[86];
+        v124 = v0[74];
+        v127 = v0[73];
+        v130 = v0[72];
+        v133 = v0[71];
+        v137 = v0[70];
+        v140 = v0[69];
+        v39 = v0[66];
+        v119 = v146;
         [v5 lock];
         swift_getKeyPath();
-        v0[61] = v62;
+        v0[61] = v39;
         ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-        outlined init with copy of GameSaveSyncedDirectory.State(v3 + v6, v60);
+        outlined init with copy of GameSaveSyncedDirectory.State(v3 + v6, v38);
         [v5 unlock];
-        (*(v59 + 56))(v60, 0, 1, v159);
+        (*(v37 + 56))(v38, 0, 1, v122);
         swift_getKeyPath();
-        v63 = swift_task_alloc();
-        *(v63 + 16) = v62;
-        *(v63 + 24) = v60;
-        v0[60] = v62;
+        v40 = swift_task_alloc();
+        *(v40 + 16) = v39;
+        *(v40 + 24) = v38;
+        v0[60] = v39;
         ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-        outlined destroy of URL?(v60, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMd, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMR);
-        v64 = type metadata accessor for GameSaveSyncedDirectory.StateObserver(0);
-        v65 = *(v64 + 48);
-        v66 = *(v64 + 52);
-        v67 = swift_allocObject();
-        v68 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver__selectedVersion;
+        outlined destroy of URL?(v38, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMd, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMR);
+        type metadata accessor for GameSaveSyncedDirectory.StateObserver(0);
+        v41 = swift_allocObject();
+        v42 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver__selectedVersion;
         v0[51] = 0;
 
         __swift_instantiateConcreteTypeFromMangledNameV2(&_s8GameSave0aB15SyncedDirectoryC7VersionCSgMd, &_s8GameSave0aB15SyncedDirectoryC7VersionCSgMR);
         Published.init(initialValue:)();
-        (*(v164 + 32))(v67 + v68, v161, v167);
-        v69 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver__alertAction;
+        (*(v127 + 32))(v41 + v42, v124, v130);
+        v43 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver__alertAction;
         v0[48] = 0;
         __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo17UIAlertControllerCSgMd, &_sSo17UIAlertControllerCSgMR);
         Published.init(initialValue:)();
-        (*(v174 + 32))(v67 + v69, v170, v177);
-        *(v67 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver_directory) = v62;
+        (*(v137 + 32))(v41 + v43, v133, v140);
+        *(v41 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver_directory) = v39;
         swift_getKeyPath();
-        v70 = swift_task_alloc();
-        *(v70 + 16) = v62;
-        *(v70 + 24) = v67;
-        v0[46] = v62;
+        v44 = swift_task_alloc();
+        *(v44 + 16) = v39;
+        *(v44 + 24) = v41;
+        v0[46] = v39;
         ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
         if (one-time initialization token for chooseSaveDataLocalized != -1)
@@ -4776,115 +4607,112 @@ LABEL_57:
           swift_once();
         }
 
-        v71 = v0[66];
-        v72 = static GameSaveSyncedDirectory.chooseSaveDataInfoLocalized;
-        v73 = MEMORY[0x23EE6B6E0]();
-        v74 = MEMORY[0x23EE6B6E0](v72, *(&v72 + 1));
-        v75 = [objc_opt_self() alertControllerWithTitle:v73 message:v74 preferredStyle:1];
+        v45 = v0[66];
+        v46 = static GameSaveSyncedDirectory.chooseSaveDataInfoLocalized;
+        v47 = MEMORY[0x23EE6B6E0]();
+        v48 = MEMORY[0x23EE6B6E0](v46, *(&v46 + 1));
+        v49 = [objc_opt_self() alertControllerWithTitle:v47 message:v48 preferredStyle:1];
 
-        GameSaveSyncedDirectory.alert.setter(v75);
+        GameSaveSyncedDirectory.alert.setter(v49);
         swift_getKeyPath();
-        v0[44] = v71;
+        v0[44] = v45;
         ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-        v76 = *(v180 + v178);
-        if (!v76)
+        v50 = *(v143 + v141);
+        if (!v50)
         {
           goto LABEL_28;
         }
 
-        result = [v76 view];
+        result = [v50 view];
         if (result)
         {
-          v77 = result;
-          v78 = MEMORY[0x23EE6B6E0](0xD000000000000019, 0x800000023898C350);
-          [v77 setAccessibilityIdentifier_];
+          v51 = result;
+          v52 = MEMORY[0x23EE6B6E0](0xD000000000000019, 0x800000023898C350);
+          [v51 setAccessibilityIdentifier_];
 
 LABEL_28:
-          v79 = v0[66];
+          v53 = v0[66];
           swift_getKeyPath();
-          v0[45] = v79;
+          v0[45] = v53;
           ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-          v80 = *(v180 + v178);
-          if (!v80)
+          v54 = *(v143 + v141);
+          if (!v54)
           {
-            v155 = v0[92];
 
             goto LABEL_5;
           }
 
-          v81 = v80;
-          result = [v81 view];
+          v55 = v54;
+          result = [v55 view];
           if (result)
           {
-            v82 = result;
-            v83 = v0[92];
+            v56 = result;
 
-            [v82 setTranslatesAutoresizingMaskIntoConstraints_];
+            [v56 setTranslatesAutoresizingMaskIntoConstraints_];
 
             if (one-time initialization token for conflictContinueButtonTitleLocalized != -1)
             {
               swift_once();
             }
 
-            v84 = v0[66];
-            v85 = static GameSaveSyncedDirectory.conflictContinueButtonTitleLocalized;
-            v86 = *algn_27DF41F78;
+            v57 = v0[66];
+            v58 = static GameSaveSyncedDirectory.conflictContinueButtonTitleLocalized;
+            v59 = *algn_27DF41F78;
 
-            v87 = MEMORY[0x23EE6B6E0](v85, v86);
+            v60 = MEMORY[0x23EE6B6E0](v58, v59);
             v0[19] = partial apply for closure #6 in closure #1 in GameSaveSyncedDirectory.drawStateUI(window:);
-            v0[20] = v84;
+            v0[20] = v57;
             v0[15] = MEMORY[0x277D85DD0];
             v0[16] = 1107296256;
             v0[17] = thunk for @escaping @callee_guaranteed (@guaranteed UIAlertAction) -> ();
             v0[18] = &block_descriptor_282;
-            v88 = _Block_copy(v0 + 15);
-            v89 = v0[20];
+            v61 = _Block_copy(v0 + 15);
 
-            v90 = [objc_opt_self() actionWithTitle:v87 style:0 handler:v88];
-            _Block_release(v88);
+            v62 = [objc_opt_self() actionWithTitle:v60 style:0 handler:v61];
+            _Block_release(v61);
 
-            v91 = MEMORY[0x23EE6B6E0](0xD00000000000001BLL, 0x800000023898C390);
-            [v90 setAccessibilityIdentifier_];
+            v63 = MEMORY[0x23EE6B6E0](0xD00000000000001BLL, 0x800000023898C390);
+            [v62 setAccessibilityIdentifier_];
 
-            [v90 setEnabled_];
-            [v81 addAction_];
+            [v62 setEnabled_];
+            [v55 addAction_];
             swift_getKeyPath();
-            v0[47] = v84;
+            v0[47] = v57;
             ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-            if (*(v84 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__stateObserver))
+            if (*(v57 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__stateObserver))
             {
-              v183 = v0[67];
-              lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory.StateObserver and conformance GameSaveSyncedDirectory.StateObserver, type metadata accessor for GameSaveSyncedDirectory.StateObserver);
+              v145 = v0[67];
+              lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory.StateObserver and conformance GameSaveSyncedDirectory.StateObserver, type metadata accessor for GameSaveSyncedDirectory.StateObserver, &protocol conformance descriptor for GameSaveSyncedDirectory.StateObserver);
               swift_retain_n();
-              v92 = v90;
-              v93 = ObservedObject.init(wrappedValue:)();
-              v95 = v94;
-              v0[49] = v156;
+              v64 = v62;
+              v65 = ObservedObject.init(wrappedValue:)();
+              v67 = v66;
+              v0[49] = v119;
               __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8GameSave0aB15SyncedDirectoryC7VersionCGMd, &_sSay8GameSave0aB15SyncedDirectoryC7VersionCGMR);
               State.init(wrappedValue:)();
-              v96 = v0[41];
-              v97 = v0[42];
+              v68 = v0[41];
+              v69 = v0[42];
               v0[43] = 0;
               State.init(wrappedValue:)();
-              v99 = v0[39];
-              v98 = v0[40];
-              v0[2] = v93;
-              v0[3] = v95;
-              v0[4] = v96;
-              v0[5] = v97;
-              v0[6] = v99;
-              v0[7] = v98;
-              v0[8] = v92;
-              specialized GameSaveSyncedDirectory._customizeAlert<A>(_:with:)(v81, (v0 + 2));
+              v71 = v0[39];
+              v70 = v0[40];
+              v0[2] = v65;
+              v0[3] = v67;
+              v0[4] = v68;
+              v0[5] = v69;
+              v0[6] = v71;
+              v0[7] = v70;
+              v0[8] = v64;
+              specialized GameSaveSyncedDirectory._customizeAlert<A>(_:with:)(v55, v0 + 1);
 
-              v100 = [v183 rootViewController];
-              if (v100)
+              v72 = [v145 rootViewController];
+              if (v72)
               {
-                v101 = v100;
-                [v100 presentViewController:v81 animated:1 completion:0];
+                v73 = v72;
+                [v72 presentViewController:v55 animated:1 completion:0];
               }
 
               else
@@ -4912,113 +4740,107 @@ LABEL_63:
       goto LABEL_15;
     }
 
-    v173 = v0 + 89;
-    v51 = v0[89];
-    v52 = v0 + 88;
-    v53 = v0[88];
-    v54 = v0[86];
-    v55 = v0[66];
+    v136 = v0 + 89;
+    v31 = v0[89];
+    v32 = v0 + 88;
+    v33 = v0[88];
+    v34 = v0[66];
     [v5 lock];
     swift_getKeyPath();
-    v0[52] = v55;
+    v0[52] = v34;
     ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-    outlined init with copy of GameSaveSyncedDirectory.State(v3 + v6, v51);
+    outlined init with copy of GameSaveSyncedDirectory.State(v3 + v6, v31);
     [v5 unlock];
-    outlined init with copy of GameSaveSyncedDirectory.State(v51, v53);
-    v56 = swift_getEnumCaseMultiPayload();
-    if (v56 == 2)
+    outlined init with copy of GameSaveSyncedDirectory.State(v31, v33);
+    v35 = swift_getEnumCaseMultiPayload();
+    if (v35 == 2)
     {
-      v148 = *v173;
-      v149 = *v52;
-      v150 = specialized static GameSaveSyncedDirectory.shouldDismissSignedOutError()();
-      outlined destroy of GameSaveSyncedDirectory.State(v148, type metadata accessor for GameSaveSyncedDirectory.State);
-      outlined destroy of GameSaveSyncedDirectory.State(v149, type metadata accessor for GameSaveSyncedDirectory.State);
-      if (v150)
+      v113 = *v136;
+      v114 = *v32;
+      v115 = specialized static GameSaveSyncedDirectory.shouldDismissSignedOutError()();
+      outlined destroy of GameSaveSyncedDirectory.State(v113, type metadata accessor for GameSaveSyncedDirectory.State);
+      outlined destroy of GameSaveSyncedDirectory.State(v114, type metadata accessor for GameSaveSyncedDirectory.State);
+      if (v115)
       {
 LABEL_53:
-        v151 = v0[92];
 
 LABEL_56:
-        v50 = v0[90];
+        v30 = v0[90];
         goto LABEL_57;
       }
     }
 
     else
     {
-      if (v56 == 5)
+      if (v35 == 5)
       {
-        v52 = v0 + 89;
+        v32 = v0 + 89;
       }
 
       else
       {
-        if (v56 != 3)
+        if (v35 != 3)
         {
-          v152 = v0[92];
-          v153 = v0[89];
-          v154 = v0[88];
+          v116 = v0[89];
+          v117 = v0[88];
 
-          outlined destroy of GameSaveSyncedDirectory.State(v153, type metadata accessor for GameSaveSyncedDirectory.State);
-          outlined destroy of GameSaveSyncedDirectory.State(v154, type metadata accessor for GameSaveSyncedDirectory.State);
+          outlined destroy of GameSaveSyncedDirectory.State(v116, type metadata accessor for GameSaveSyncedDirectory.State);
+          outlined destroy of GameSaveSyncedDirectory.State(v117, type metadata accessor for GameSaveSyncedDirectory.State);
           goto LABEL_56;
         }
 
-        outlined destroy of GameSaveSyncedDirectory.State(*v173, type metadata accessor for GameSaveSyncedDirectory.State);
+        outlined destroy of GameSaveSyncedDirectory.State(*v136, type metadata accessor for GameSaveSyncedDirectory.State);
       }
 
-      outlined destroy of GameSaveSyncedDirectory.State(*v52, type metadata accessor for GameSaveSyncedDirectory.State);
+      outlined destroy of GameSaveSyncedDirectory.State(*v32, type metadata accessor for GameSaveSyncedDirectory.State);
     }
 
-    v102 = v0[87];
-    v103 = v0[75];
-    v157 = v0[86];
-    v160 = v0[74];
-    v162 = v0[73];
-    v165 = v0[72];
-    v104 = v0[71];
-    v168 = v104;
-    v171 = v0[70];
-    v175 = v0[69];
-    v105 = v0[66];
+    v74 = v0[87];
+    v75 = v0[75];
+    v120 = v0[86];
+    v123 = v0[74];
+    v125 = v0[73];
+    v128 = v0[72];
+    v131 = v0[71];
+    v134 = v0[70];
+    v138 = v0[69];
+    v76 = v0[66];
     [v5 lock];
     swift_getKeyPath();
-    v0[53] = v105;
+    v0[53] = v76;
     ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-    outlined init with copy of GameSaveSyncedDirectory.State(v3 + v6, v103);
+    outlined init with copy of GameSaveSyncedDirectory.State(v3 + v6, v75);
     [v5 unlock];
-    (*(v102 + 56))(v103, 0, 1, v157);
+    (*(v74 + 56))(v75, 0, 1, v120);
     swift_getKeyPath();
-    v106 = swift_task_alloc();
-    *(v106 + 16) = v105;
-    *(v106 + 24) = v103;
-    v0[54] = v105;
+    v77 = swift_task_alloc();
+    *(v77 + 16) = v76;
+    *(v77 + 24) = v75;
+    v0[54] = v76;
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-    outlined destroy of URL?(v103, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMd, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMR);
-    v107 = type metadata accessor for GameSaveSyncedDirectory.StateObserver(0);
-    v108 = *(v107 + 48);
-    v109 = *(v107 + 52);
-    v110 = swift_allocObject();
-    v111 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver__selectedVersion;
+    outlined destroy of URL?(v75, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMd, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMR);
+    type metadata accessor for GameSaveSyncedDirectory.StateObserver(0);
+    v78 = swift_allocObject();
+    v79 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver__selectedVersion;
     v0[55] = 0;
 
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s8GameSave0aB15SyncedDirectoryC7VersionCSgMd, &_s8GameSave0aB15SyncedDirectoryC7VersionCSgMR);
     Published.init(initialValue:)();
-    (*(v162 + 32))(v110 + v111, v160, v165);
-    v112 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver__alertAction;
+    (*(v125 + 32))(v78 + v79, v123, v128);
+    v80 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver__alertAction;
     v0[56] = 0;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo17UIAlertControllerCSgMd, &_sSo17UIAlertControllerCSgMR);
     Published.init(initialValue:)();
-    (*(v171 + 32))(v110 + v112, v168, v175);
-    *(v110 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver_directory) = v105;
+    (*(v134 + 32))(v78 + v80, v131, v138);
+    *(v78 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver_directory) = v76;
     swift_getKeyPath();
-    v113 = swift_task_alloc();
-    *(v113 + 16) = v105;
-    *(v113 + 24) = v110;
-    v0[57] = v105;
+    v81 = swift_task_alloc();
+    *(v81 + 16) = v76;
+    *(v81 + 24) = v78;
+    v0[57] = v76;
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
     if (one-time initialization token for turnOnICloudDriveTitleLocalized != -1)
@@ -5031,112 +4853,109 @@ LABEL_56:
       swift_once();
     }
 
-    v114 = v0[66];
-    v115 = static GameSaveSyncedDirectory.turnOnICloudDriveInfoLocalized;
-    v116 = MEMORY[0x23EE6B6E0]();
-    v117 = MEMORY[0x23EE6B6E0](v115, *(&v115 + 1));
-    v118 = [objc_opt_self() alertControllerWithTitle:v116 message:v117 preferredStyle:1];
+    v82 = v0[66];
+    v83 = static GameSaveSyncedDirectory.turnOnICloudDriveInfoLocalized;
+    v84 = MEMORY[0x23EE6B6E0]();
+    v85 = MEMORY[0x23EE6B6E0](v83, *(&v83 + 1));
+    v86 = [objc_opt_self() alertControllerWithTitle:v84 message:v85 preferredStyle:1];
 
-    GameSaveSyncedDirectory.alert.setter(v118);
+    GameSaveSyncedDirectory.alert.setter(v86);
     swift_getKeyPath();
-    v0[58] = v114;
+    v0[58] = v82;
     ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-    v119 = *(v180 + v178);
-    if (v119)
+    v87 = *(v143 + v141);
+    if (v87)
     {
-      result = [v119 view];
+      result = [v87 view];
       if (!result)
       {
         __break(1u);
         goto LABEL_62;
       }
 
-      v120 = result;
-      v121 = MEMORY[0x23EE6B6E0](0xD000000000000023, 0x800000023898C3B0);
-      [v120 setAccessibilityIdentifier_];
+      v88 = result;
+      v89 = MEMORY[0x23EE6B6E0](0xD000000000000023, 0x800000023898C3B0);
+      [v88 setAccessibilityIdentifier_];
     }
 
-    v122 = v0[66];
+    v90 = v0[66];
     swift_getKeyPath();
-    v0[59] = v122;
+    v0[59] = v90;
     ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-    v123 = *(v180 + v178);
-    if (v123)
+    v91 = *(v143 + v141);
+    if (v91)
     {
-      v124 = v123;
-      result = [v124 view];
+      v92 = v91;
+      result = [v92 view];
       if (result)
       {
-        v125 = result;
-        v126 = v0[92];
+        v93 = result;
 
-        [v125 setTranslatesAutoresizingMaskIntoConstraints_];
+        [v93 setTranslatesAutoresizingMaskIntoConstraints_];
 
         if (one-time initialization token for notNowButtonTitleLocalized != -1)
         {
           swift_once();
         }
 
-        v127 = v0[66];
-        v128 = static GameSaveSyncedDirectory.notNowButtonTitleLocalized;
-        v129 = *algn_27DF41F38;
+        v94 = v0[66];
+        v95 = static GameSaveSyncedDirectory.notNowButtonTitleLocalized;
+        v96 = *algn_27DF41F38;
 
-        v130 = MEMORY[0x23EE6B6E0](v128, v129);
+        v97 = MEMORY[0x23EE6B6E0](v95, v96);
         v0[37] = partial apply for closure #3 in closure #1 in GameSaveSyncedDirectory.drawStateUI(window:);
-        v0[38] = v127;
+        v0[38] = v94;
         v0[33] = MEMORY[0x277D85DD0];
         v0[34] = 1107296256;
         v0[35] = thunk for @escaping @callee_guaranteed (@guaranteed UIAlertAction) -> ();
         v0[36] = &block_descriptor_287;
-        v131 = _Block_copy(v0 + 33);
-        v132 = v0[38];
+        v98 = _Block_copy(v0 + 33);
 
-        v133 = objc_opt_self();
-        v134 = [v133 actionWithTitle:v130 style:0 handler:v131];
-        _Block_release(v131);
+        v99 = objc_opt_self();
+        v100 = [v99 actionWithTitle:v97 style:0 handler:v98];
+        _Block_release(v98);
 
-        v135 = MEMORY[0x23EE6B6E0](0xD00000000000001ELL, 0x800000023898C3E0);
-        [v134 setAccessibilityIdentifier_];
+        v101 = MEMORY[0x23EE6B6E0](0xD00000000000001ELL, 0x800000023898C3E0);
+        [v100 setAccessibilityIdentifier_];
 
         if (one-time initialization token for settingsButtonTitleLocalized != -1)
         {
           swift_once();
         }
 
-        v136 = v0[67];
-        v137 = v0[66];
-        v138 = static GameSaveSyncedDirectory.settingsButtonTitleLocalized;
-        v139 = *algn_27DF41F48;
+        v102 = v0[67];
+        v103 = v0[66];
+        v104 = static GameSaveSyncedDirectory.settingsButtonTitleLocalized;
+        v105 = *algn_27DF41F48;
 
-        v140 = MEMORY[0x23EE6B6E0](v138, v139);
+        v106 = MEMORY[0x23EE6B6E0](v104, v105);
         v0[31] = partial apply for closure #4 in closure #1 in GameSaveSyncedDirectory.drawStateUI(window:);
-        v0[32] = v137;
+        v0[32] = v103;
         v0[27] = MEMORY[0x277D85DD0];
         v0[28] = 1107296256;
         v0[29] = thunk for @escaping @callee_guaranteed (@guaranteed UIAlertAction) -> ();
         v0[30] = &block_descriptor_290;
-        v141 = _Block_copy(v0 + 27);
-        v142 = v0[32];
+        v107 = _Block_copy(v0 + 27);
 
-        v143 = [v133 actionWithTitle:v140 style:0 handler:v141];
-        _Block_release(v141);
+        v108 = [v99 actionWithTitle:v106 style:0 handler:v107];
+        _Block_release(v107);
 
-        v144 = MEMORY[0x23EE6B6E0](0xD000000000000017, 0x800000023898C400);
-        [v143 setAccessibilityIdentifier_];
+        v109 = MEMORY[0x23EE6B6E0](0xD000000000000017, 0x800000023898C400);
+        [v108 setAccessibilityIdentifier_];
 
-        v145 = MEMORY[0x23EE6B6E0](0xD00000000000001ELL, 0x800000023898C3E0);
-        [v134 setAccessibilityIdentifier_];
+        v110 = MEMORY[0x23EE6B6E0](0xD00000000000001ELL, 0x800000023898C3E0);
+        [v100 setAccessibilityIdentifier_];
 
-        [v124 addAction_];
-        [v124 addAction_];
-        [v124 setPreferredAction_];
-        v146 = [v136 rootViewController];
-        if (v146)
+        [v92 addAction_];
+        [v92 addAction_];
+        [v92 setPreferredAction_];
+        v111 = [v102 rootViewController];
+        if (v111)
         {
-          v147 = v146;
-          [v146 presentViewController:v124 animated:1 completion:0];
+          v112 = v111;
+          [v111 presentViewController:v92 animated:1 completion:0];
         }
 
         else
@@ -5154,33 +4973,19 @@ LABEL_62:
     goto LABEL_53;
   }
 
-  v7 = v0[92];
-
 LABEL_5:
-  v18 = v0[91];
-  v19 = v0[90];
-  v20 = v0[89];
-  v21 = v0[88];
-  v22 = v0[85];
-  v23 = v0[84];
-  v24 = v0[81];
-  v25 = v0[78];
-  v26 = v0[75];
-  v27 = v0[74];
-  v182 = v0[71];
 
-  v28 = v0[1];
+  v15 = v0[1];
 
-  return v28();
+  return v15();
 }
 
 uint64_t closure #1 in closure #1 in GameSaveSyncedDirectory.drawStateUI(window:)(uint64_t a1, UIWindow *a2)
 {
-  v12 = a2;
+  v11 = a2;
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8GameSave0aB15SyncedDirectoryC5StateOSgMd, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMR);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v11 - v5;
+  v5 = &v10 - v4;
   type metadata accessor for MainActor();
   static MainActor.shared.getter();
   dispatch thunk of Actor.unownedExecutor.getter();
@@ -5189,118 +4994,112 @@ uint64_t closure #1 in closure #1 in GameSaveSyncedDirectory.drawStateUI(window:
     swift_task_reportUnexpectedExecutor();
   }
 
-  v7 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  (*(*(v7 - 8) + 56))(v6, 1, 1, v7);
+  v6 = type metadata accessor for GameSaveSyncedDirectory.State(0);
+  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
   KeyPath = swift_getKeyPath();
   MEMORY[0x28223BE20](KeyPath);
-  *(&v11 - 2) = a1;
-  *(&v11 - 1) = v6;
-  v13 = a1;
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  *(&v10 - 2) = a1;
+  *(&v10 - 1) = v5;
+  v12 = a1;
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-  outlined destroy of URL?(v6, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMd, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMR);
+  outlined destroy of URL?(v5, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMd, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMR);
   if (*(a1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__alert))
   {
-    v9 = swift_getKeyPath();
-    MEMORY[0x28223BE20](v9);
-    *(&v11 - 2) = a1;
-    *(&v11 - 1) = 0;
-    v13 = a1;
+    v8 = swift_getKeyPath();
+    MEMORY[0x28223BE20](v8);
+    *(&v10 - 2) = a1;
+    *(&v10 - 1) = 0;
+    v12 = a1;
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
   }
 
-  GameSaveSyncedDirectory.drawStateUI(window:)(v12);
+  GameSaveSyncedDirectory.drawStateUI(window:)(v11);
 }
 
 void closure #2 in closure #1 in GameSaveSyncedDirectory.drawStateUI(window:)(char *a1, void *a2)
 {
-  v46 = a2;
+  v39 = a2;
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVySo17UIAlertControllerCSgGMd, &_s7Combine9PublishedVySo17UIAlertControllerCSgGMR);
-  v52 = *(v3 - 8);
-  v53 = v3;
-  v4 = *(v52 + 64);
+  v45 = *(v3 - 8);
+  v46 = v3;
   MEMORY[0x28223BE20](v3);
-  v51 = &v46 - v5;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVy8GameSave0cD15SyncedDirectoryC7VersionCSgGMd, &_s7Combine9PublishedVy8GameSave0cD15SyncedDirectoryC7VersionCSgGMR);
-  v49 = *(v6 - 8);
-  v50 = v6;
-  v7 = *(v49 + 64);
-  MEMORY[0x28223BE20](v6);
-  v48 = &v46 - v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8GameSave0aB15SyncedDirectoryC5StateOSgMd, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v46 - v11;
-  v13 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v47 = *(v13 - 8);
-  v14 = *(v47 + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v46 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v44 = &v39 - v4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine9PublishedVy8GameSave0cD15SyncedDirectoryC7VersionCSgGMd, &_s7Combine9PublishedVy8GameSave0cD15SyncedDirectoryC7VersionCSgGMR);
+  v42 = *(v5 - 8);
+  v43 = v5;
+  MEMORY[0x28223BE20](v5);
+  v41 = &v39 - v6;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s8GameSave0aB15SyncedDirectoryC5StateOSgMd, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMR);
+  MEMORY[0x28223BE20](v7 - 8);
+  v9 = &v39 - v8;
+  v10 = type metadata accessor for GameSaveSyncedDirectory.State(0);
+  v40 = *(v10 - 8);
+  MEMORY[0x28223BE20](v10);
+  v12 = &v39 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   type metadata accessor for MainActor();
-  v54 = static MainActor.shared.getter();
+  v47 = static MainActor.shared.getter();
   dispatch thunk of Actor.unownedExecutor.getter();
   if ((swift_task_isCurrentExecutor() & 1) == 0)
   {
     swift_task_reportUnexpectedExecutor();
   }
 
-  v17 = *&a1[OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock];
-  [v17 lock];
+  v13 = *&a1[OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock];
+  [v13 lock];
   swift_getKeyPath();
   aBlock[0] = a1;
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v18 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state;
-  outlined init with copy of GameSaveSyncedDirectory.State(&a1[OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state], v16);
-  [v17 unlock];
+  v14 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state;
+  outlined init with copy of GameSaveSyncedDirectory.State(&a1[OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state], v12);
+  [v13 unlock];
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  outlined destroy of GameSaveSyncedDirectory.State(v16, type metadata accessor for GameSaveSyncedDirectory.State);
+  outlined destroy of GameSaveSyncedDirectory.State(v12, type metadata accessor for GameSaveSyncedDirectory.State);
   if (EnumCaseMultiPayload != 5)
   {
 
     return;
   }
 
-  [v17 lock];
+  [v13 lock];
   swift_getKeyPath();
   aBlock[0] = a1;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  outlined init with copy of GameSaveSyncedDirectory.State(&a1[v18], v12);
-  [v17 unlock];
-  (*(v47 + 56))(v12, 0, 1, v13);
+  outlined init with copy of GameSaveSyncedDirectory.State(&a1[v14], v9);
+  [v13 unlock];
+  (*(v40 + 56))(v9, 0, 1, v10);
   KeyPath = swift_getKeyPath();
   MEMORY[0x28223BE20](KeyPath);
-  *(&v46 - 2) = a1;
-  *(&v46 - 1) = v12;
+  *(&v39 - 2) = a1;
+  *(&v39 - 1) = v9;
   aBlock[0] = a1;
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-  outlined destroy of URL?(v12, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMd, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMR);
-  v21 = type metadata accessor for GameSaveSyncedDirectory.StateObserver(0);
-  v22 = *(v21 + 48);
-  v23 = *(v21 + 52);
-  v24 = swift_allocObject();
-  v25 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver__selectedVersion;
+  outlined destroy of URL?(v9, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMd, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMR);
+  type metadata accessor for GameSaveSyncedDirectory.StateObserver(0);
+  v17 = swift_allocObject();
+  v18 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver__selectedVersion;
   aBlock[0] = 0;
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s8GameSave0aB15SyncedDirectoryC7VersionCSgMd, &_s8GameSave0aB15SyncedDirectoryC7VersionCSgMR);
-  v26 = v48;
+  v19 = v41;
   Published.init(initialValue:)();
-  (*(v49 + 32))(&v24[v25], v26, v50);
-  v27 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver__alertAction;
+  (*(v42 + 32))(&v17[v18], v19, v43);
+  v20 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver__alertAction;
   aBlock[0] = 0;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo17UIAlertControllerCSgMd, &_sSo17UIAlertControllerCSgMR);
-  v28 = v51;
+  v21 = v44;
   Published.init(initialValue:)();
-  (*(v52 + 32))(&v24[v27], v28, v53);
-  *&v24[OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver_directory] = a1;
-  v29 = swift_getKeyPath();
-  MEMORY[0x28223BE20](v29);
-  *(&v46 - 2) = a1;
-  *(&v46 - 1) = v24;
+  (*(v45 + 32))(&v17[v20], v21, v46);
+  *&v17[OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver_directory] = a1;
+  v22 = swift_getKeyPath();
+  MEMORY[0x28223BE20](v22);
+  *(&v39 - 2) = a1;
+  *(&v39 - 1) = v17;
   aBlock[0] = a1;
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
@@ -5309,29 +5108,29 @@ void closure #2 in closure #1 in GameSaveSyncedDirectory.drawStateUI(window:)(ch
     swift_once();
   }
 
-  v30 = MEMORY[0x23EE6B6E0](static GameSaveSyncedDirectory.syncSaveDataTitleLocalized, *(&static GameSaveSyncedDirectory.syncSaveDataTitleLocalized + 1));
-  v31 = MEMORY[0x23EE6B6E0](0, 0xE000000000000000);
-  v32 = [objc_opt_self() alertControllerWithTitle:v30 message:v31 preferredStyle:1];
+  v23 = MEMORY[0x23EE6B6E0](static GameSaveSyncedDirectory.syncSaveDataTitleLocalized, *(&static GameSaveSyncedDirectory.syncSaveDataTitleLocalized + 1));
+  v24 = MEMORY[0x23EE6B6E0](0, 0xE000000000000000);
+  v25 = [objc_opt_self() alertControllerWithTitle:v23 message:v24 preferredStyle:1];
 
-  GameSaveSyncedDirectory.alert.setter(v32);
+  GameSaveSyncedDirectory.alert.setter(v25);
   swift_getKeyPath();
   aBlock[0] = a1;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v33 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__alert;
-  v34 = *&a1[OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__alert];
-  if (v34)
+  v26 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__alert;
+  v27 = *&a1[OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__alert];
+  if (v27)
   {
-    v35 = [v34 view];
-    if (!v35)
+    v28 = [v27 view];
+    if (!v28)
     {
       __break(1u);
       return;
     }
 
-    v36 = v35;
-    v37 = MEMORY[0x23EE6B6E0](0xD000000000000017, 0x800000023898C440);
-    [v36 setAccessibilityIdentifier_];
+    v29 = v28;
+    v30 = MEMORY[0x23EE6B6E0](0xD000000000000017, 0x800000023898C440);
+    [v29 setAccessibilityIdentifier_];
   }
 
   if (one-time initialization token for syncingContinueButtonTitleLocalized != -1)
@@ -5339,39 +5138,39 @@ void closure #2 in closure #1 in GameSaveSyncedDirectory.drawStateUI(window:)(ch
     swift_once();
   }
 
-  v38 = static GameSaveSyncedDirectory.syncingContinueButtonTitleLocalized;
+  v31 = static GameSaveSyncedDirectory.syncingContinueButtonTitleLocalized;
 
-  v39 = MEMORY[0x23EE6B6E0](v38, *(&v38 + 1));
+  v32 = MEMORY[0x23EE6B6E0](v31, *(&v31 + 1));
   aBlock[4] = partial apply for closure #1 in closure #2 in closure #1 in GameSaveSyncedDirectory.drawStateUI(window:);
   aBlock[5] = a1;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed (@guaranteed UIAlertAction) -> ();
   aBlock[3] = &block_descriptor_309;
-  v40 = _Block_copy(aBlock);
+  v33 = _Block_copy(aBlock);
 
-  v41 = [objc_opt_self() actionWithTitle:v39 style:0 handler:v40];
-  _Block_release(v40);
+  v34 = [objc_opt_self() actionWithTitle:v32 style:0 handler:v33];
+  _Block_release(v33);
 
   swift_getKeyPath();
   aBlock[0] = a1;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  [*&a1[v33] addAction_];
+  [*&a1[v26] addAction_];
   swift_getKeyPath();
   aBlock[0] = a1;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v42 = *&a1[v33];
-  if (v42)
+  v35 = *&a1[v26];
+  if (v35)
   {
-    v43 = v42;
-    specialized GameSaveSyncedDirectory._customizeAlert<A>(_:with:)(v43);
-    v44 = [v46 rootViewController];
-    if (v44)
+    v36 = v35;
+    specialized GameSaveSyncedDirectory._customizeAlert<A>(_:with:)(v36);
+    v37 = [v39 rootViewController];
+    if (v37)
     {
-      v45 = v44;
-      [v44 presentViewController:v43 animated:1 completion:0];
+      v38 = v37;
+      [v37 presentViewController:v36 animated:1 completion:0];
     }
 
     else
@@ -5384,7 +5183,7 @@ void closure #2 in closure #1 in GameSaveSyncedDirectory.drawStateUI(window:)(ch
   }
 }
 
-uint64_t closure #1 in closure #2 in closure #1 in GameSaveSyncedDirectory.drawStateUI(window:)(uint64_t a1, uint64_t a2)
+uint64_t closure #1 in closure #2 in closure #1 in GameSaveSyncedDirectory.drawStateUI(window:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   type metadata accessor for MainActor();
   static MainActor.shared.getter();
@@ -5395,12 +5194,11 @@ uint64_t closure #1 in closure #2 in closure #1 in GameSaveSyncedDirectory.drawS
   }
 
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   if (*(a2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__stateObserver))
   {
-    v3 = *(a2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__stateObserver);
 
     GameSaveSyncedDirectory.StateObserver.cancel()();
   }
@@ -5418,57 +5216,52 @@ uint64_t closure #1 in closure #4 in closure #1 in GameSaveSyncedDirectory.drawS
 
 uint64_t closure #1 in closure #4 in closure #1 in GameSaveSyncedDirectory.drawStateUI(window:)()
 {
-  v2 = v0[3];
-  v1 = v0[4];
+  v1 = v0[3];
 
   swift_getKeyPath();
-  v0[2] = v2;
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  v0[2] = v1;
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v3 = *(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__stateObserver);
-  if (v3)
+  if (*(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__stateObserver))
   {
-    v4 = objc_opt_self();
+    v2 = objc_opt_self();
 
-    v5 = [v4 standardUserDefaults];
-    v6 = MEMORY[0x23EE6B6E0](0xD000000000000041, 0x800000023898BDF0);
-    [v5 setBool:1 forKey:v6];
-
-    v7 = *(v3 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver_directory);
+    v3 = [v2 standardUserDefaults];
+    v4 = MEMORY[0x23EE6B6E0](0xD000000000000041, 0x800000023898BDF0);
+    [v3 setBool:1 forKey:v4];
 
     GameSaveSyncedDirectory.retryIfSignedIn(retryBlock:)(destructiveProjectEnumData for GameSaveFF, 0);
   }
 
-  v8 = v0[1];
+  v5 = v0[1];
 
-  return v8();
+  return v5();
 }
 
 uint64_t closure #4 in closure #1 in GameSaveSyncedDirectory.drawStateUI(window:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v16 - v9;
+  v9 = &v15 - v8;
   type metadata accessor for MainActor();
   static MainActor.shared.getter();
-  v11 = MEMORY[0x277D85700];
+  v10 = MEMORY[0x277D85700];
   dispatch thunk of Actor.unownedExecutor.getter();
   if ((swift_task_isCurrentExecutor() & 1) == 0)
   {
     swift_task_reportUnexpectedExecutor();
   }
 
-  v12 = type metadata accessor for TaskPriority();
-  (*(*(v12 - 8) + 56))(v10, 1, 1, v12);
+  v11 = type metadata accessor for TaskPriority();
+  (*(*(v11 - 8) + 56))(v9, 1, 1, v11);
 
-  v13 = static MainActor.shared.getter();
-  v14 = swift_allocObject();
-  v14[2] = v13;
-  v14[3] = v11;
-  v14[4] = a2;
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v10, a5, v14);
+  v12 = static MainActor.shared.getter();
+  v13 = swift_allocObject();
+  v13[2] = v12;
+  v13[3] = v10;
+  v13[4] = a2;
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v9, a5, v13);
 }
 
 uint64_t closure #1 in closure #6 in closure #1 in GameSaveSyncedDirectory.drawStateUI(window:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -5483,34 +5276,31 @@ uint64_t closure #1 in closure #6 in closure #1 in GameSaveSyncedDirectory.drawS
 
 uint64_t closure #1 in closure #6 in closure #1 in GameSaveSyncedDirectory.drawStateUI(window:)()
 {
-  v2 = v0[3];
-  v1 = v0[4];
+  v1 = v0[3];
 
   swift_getKeyPath();
-  v0[2] = v2;
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  v0[2] = v1;
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v3 = *(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__stateObserver);
-  if (v3)
+  if (*(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__stateObserver))
   {
     swift_getKeyPath();
     swift_getKeyPath();
 
     static Published.subscript.getter();
 
-    v4 = v0[2];
-    if (v4)
+    v2 = v0[2];
+    if (v2)
     {
-      v5 = *(v3 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory13StateObserver_directory);
 
-      GameSaveSyncedDirectory.resolveConflicts(with:)(v4);
+      GameSaveSyncedDirectory.resolveConflicts(with:)(v2);
     }
   }
 
-  v6 = v0[1];
+  v3 = v0[1];
 
-  return v6();
+  return v3();
 }
 
 uint64_t GameSaveSyncedDirectory.finishSyncing(statusDisplay:)(uint64_t a1)
@@ -5518,7 +5308,7 @@ uint64_t GameSaveSyncedDirectory.finishSyncing(statusDisplay:)(uint64_t a1)
   v2[2] = a1;
   v2[3] = v1;
   v2[4] = *v1;
-  v3 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   v2[5] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](GameSaveSyncedDirectory.finishSyncing(statusDisplay:), 0, 0);
@@ -5555,204 +5345,187 @@ uint64_t GameSaveSyncedDirectory.finishSyncing(statusDisplay:)()
   v11[1] = v10;
 
   v14 = v6;
-  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed GameSaveSyncedDirectory.State) -> ())?(v12);
+  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed GameSaveSyncedDirectory.State) -> ())?(v12, v13);
   v15 = swift_task_alloc();
   v0[6] = v15;
   *v15 = v0;
   v15[1] = GameSaveSyncedDirectory.finishSyncing(statusDisplay:);
-  v16 = v0[3];
 
   return GameSaveSyncedDirectory.waitWithUI()();
 }
 
 {
-  v1 = *(*v0 + 48);
-  v2 = *(*v0 + 40);
-  v5 = *v0;
+  v3 = *v0;
 
-  v3 = *(v5 + 8);
+  v1 = *(v3 + 8);
 
-  return v3();
+  return v1();
 }
 
 uint64_t GameSaveSyncedDirectory.waitWithUI()()
 {
   v1[3] = v0;
-  v2 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   v1[4] = swift_task_alloc();
-  v3 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v1[5] = v3;
-  v4 = *(*(v3 - 8) + 64) + 15;
+  v1[5] = type metadata accessor for GameSaveSyncedDirectory.State(0);
   v1[6] = swift_task_alloc();
-  v5 = swift_task_alloc();
-  v6 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock;
-  v7 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___observationRegistrar;
-  v1[7] = v5;
-  v1[8] = v7;
+  v2 = swift_task_alloc();
+  v3 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock;
+  v4 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___observationRegistrar;
+  v1[7] = v2;
+  v1[8] = v4;
   v1[9] = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state;
-  v1[10] = *(v0 + v6);
-  v8 = swift_task_alloc();
-  v1[11] = v8;
-  *v8 = v1;
-  v8[1] = GameSaveSyncedDirectory.waitWithUI();
-  v9 = v1[3];
+  v1[10] = *(v0 + v3);
+  v5 = swift_task_alloc();
+  v1[11] = v5;
+  *v5 = v1;
+  v5[1] = GameSaveSyncedDirectory.waitWithUI();
 
   return GameSaveSyncedDirectory._waitForDirectorySync(ui:)(1);
 }
 
 {
-  v1 = *(*v0 + 88);
-  v3 = *v0;
 
   return MEMORY[0x2822009F8](GameSaveSyncedDirectory.waitWithUI(), 0, 0);
 }
 
 {
-  v1 = v0[9];
-  v2 = v0[10];
-  v3 = v0[8];
-  v5 = v0 + 7;
-  v4 = v0[7];
-  v7 = v0 + 6;
-  v6 = v0[6];
-  v26 = v1;
-  v27 = v0[5];
-  v8 = v0[3];
-  [v2 lock];
+  v1 = v0[10];
+  v3 = v0 + 7;
+  v2 = v0[7];
+  v5 = v0 + 6;
+  v4 = v0[6];
+  v21 = v0[9];
+  v6 = v0[3];
+  [v1 lock];
   swift_getKeyPath();
-  v0[2] = v8;
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  v0[2] = v6;
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  outlined init with copy of GameSaveSyncedDirectory.State(v8 + v26, v4);
-  [v2 unlock];
-  outlined init with copy of GameSaveSyncedDirectory.State(v4, v6);
+  outlined init with copy of GameSaveSyncedDirectory.State(v6 + v21, v2);
+  [v1 unlock];
+  outlined init with copy of GameSaveSyncedDirectory.State(v2, v4);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   switch(EnumCaseMultiPayload)
   {
     case 2:
-      v13 = *v5;
-      v14 = *v7;
-      v15 = specialized static GameSaveSyncedDirectory.shouldDismissSignedOutError()();
-      outlined destroy of GameSaveSyncedDirectory.State(v13, type metadata accessor for GameSaveSyncedDirectory.State);
-      outlined destroy of GameSaveSyncedDirectory.State(v14, type metadata accessor for GameSaveSyncedDirectory.State);
-      if ((v15 & 1) == 0)
+      v10 = *v3;
+      v11 = *v5;
+      v12 = specialized static GameSaveSyncedDirectory.shouldDismissSignedOutError()();
+      outlined destroy of GameSaveSyncedDirectory.State(v10, type metadata accessor for GameSaveSyncedDirectory.State);
+      outlined destroy of GameSaveSyncedDirectory.State(v11, type metadata accessor for GameSaveSyncedDirectory.State);
+      if ((v12 & 1) == 0)
       {
         goto LABEL_7;
       }
 
       break;
     case 3:
-      outlined destroy of GameSaveSyncedDirectory.State(*v5, type metadata accessor for GameSaveSyncedDirectory.State);
+      outlined destroy of GameSaveSyncedDirectory.State(*v3, type metadata accessor for GameSaveSyncedDirectory.State);
       goto LABEL_6;
     case 5:
-      v7 = v0 + 7;
+      v5 = v0 + 7;
 LABEL_6:
-      outlined destroy of GameSaveSyncedDirectory.State(*v7, type metadata accessor for GameSaveSyncedDirectory.State);
+      outlined destroy of GameSaveSyncedDirectory.State(*v5, type metadata accessor for GameSaveSyncedDirectory.State);
 LABEL_7:
-      v10 = swift_task_alloc();
-      v0[11] = v10;
-      *v10 = v0;
-      v10[1] = GameSaveSyncedDirectory.waitWithUI();
-      v11 = v0[3];
+      v8 = swift_task_alloc();
+      v0[11] = v8;
+      *v8 = v0;
+      v8[1] = GameSaveSyncedDirectory.waitWithUI();
 
       return GameSaveSyncedDirectory._waitForDirectorySync(ui:)(1);
     default:
-      v16 = *v7;
-      outlined destroy of GameSaveSyncedDirectory.State(*v5, type metadata accessor for GameSaveSyncedDirectory.State);
-      outlined destroy of GameSaveSyncedDirectory.State(v16, type metadata accessor for GameSaveSyncedDirectory.State);
+      v13 = *v5;
+      outlined destroy of GameSaveSyncedDirectory.State(*v3, type metadata accessor for GameSaveSyncedDirectory.State);
+      outlined destroy of GameSaveSyncedDirectory.State(v13, type metadata accessor for GameSaveSyncedDirectory.State);
       break;
   }
 
-  v17 = v0[6];
-  v18 = v0[7];
-  v20 = v0[3];
-  v19 = v0[4];
-  v21 = type metadata accessor for TaskPriority();
-  (*(*(v21 - 8) + 56))(v19, 1, 1, v21);
+  v15 = v0[3];
+  v14 = v0[4];
+  v16 = type metadata accessor for TaskPriority();
+  (*(*(v16 - 8) + 56))(v14, 1, 1, v16);
   type metadata accessor for MainActor();
 
-  v22 = static MainActor.shared.getter();
-  v23 = swift_allocObject();
-  v24 = MEMORY[0x277D85700];
-  v23[2] = v22;
-  v23[3] = v24;
-  v23[4] = v20;
-  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v19, &async function pointer to partial apply for closure #1 in GameSaveSyncedDirectory.waitWithUI(), v23);
+  v17 = static MainActor.shared.getter();
+  v18 = swift_allocObject();
+  v19 = MEMORY[0x277D85700];
+  v18[2] = v17;
+  v18[3] = v19;
+  v18[4] = v15;
+  _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v14, &async function pointer to partial apply for closure #1 in GameSaveSyncedDirectory.waitWithUI(), v18);
 
-  v25 = v0[1];
+  v20 = v0[1];
 
-  return v25();
+  return v20();
 }
 
 uint64_t closure #1 in GameSaveSyncedDirectory.waitWithUI()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4[6] = a4;
-  v5 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s8GameSave0aB15SyncedDirectoryC5StateOSgMd, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s8GameSave0aB15SyncedDirectoryC5StateOSgMd, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMR);
   v4[7] = swift_task_alloc();
   type metadata accessor for MainActor();
   v4[8] = static MainActor.shared.getter();
-  v7 = dispatch thunk of Actor.unownedExecutor.getter();
+  v6 = dispatch thunk of Actor.unownedExecutor.getter();
 
-  return MEMORY[0x2822009F8](closure #1 in GameSaveSyncedDirectory.waitWithUI(), v7, v6);
+  return MEMORY[0x2822009F8](closure #1 in GameSaveSyncedDirectory.waitWithUI(), v6, v5);
 }
 
 uint64_t closure #1 in GameSaveSyncedDirectory.waitWithUI()()
 {
-  v1 = v0[8];
-  v2 = v0[6];
+  v1 = v0[6];
 
   swift_getKeyPath();
-  v0[2] = v2;
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  v0[2] = v1;
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v15 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__alert;
-  v3 = *(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__alert);
-  if (v3)
+  v13 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__alert;
+  v2 = *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__alert);
+  if (v2)
   {
-    [v3 dismissViewControllerAnimated:0 completion:0];
+    [v2 dismissViewControllerAnimated:0 completion:0];
   }
 
-  v4 = v0[6];
-  v5 = v0[7];
-  v6 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  (*(*(v6 - 8) + 56))(v5, 1, 1, v6);
+  v3 = v0[6];
+  v4 = v0[7];
+  v5 = type metadata accessor for GameSaveSyncedDirectory.State(0);
+  (*(*(v5 - 8) + 56))(v4, 1, 1, v5);
   swift_getKeyPath();
-  v7 = swift_task_alloc();
-  *(v7 + 16) = v4;
-  *(v7 + 24) = v5;
-  v0[3] = v4;
+  v6 = swift_task_alloc();
+  *(v6 + 16) = v3;
+  *(v6 + 24) = v4;
+  v0[3] = v3;
   ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
-  outlined destroy of URL?(v5, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMd, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMR);
-  if (*(v2 + v15))
+  outlined destroy of URL?(v4, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMd, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMR);
+  if (*(v1 + v13))
   {
-    v8 = v0[6];
+    v7 = v0[6];
     swift_getKeyPath();
-    v9 = swift_task_alloc();
-    *(v9 + 16) = v8;
-    *(v9 + 24) = 0;
-    v0[5] = v8;
+    v8 = swift_task_alloc();
+    *(v8 + 16) = v7;
+    *(v8 + 24) = 0;
+    v0[5] = v7;
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
   }
 
-  v10 = v0[6];
-  if (*(v10 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__window))
+  v9 = v0[6];
+  if (*(v9 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__window))
   {
     swift_getKeyPath();
-    v11 = swift_task_alloc();
-    *(v11 + 16) = v10;
-    *(v11 + 24) = 0;
-    v0[4] = v10;
+    v10 = swift_task_alloc();
+    *(v10 + 16) = v9;
+    *(v10 + 24) = 0;
+    v0[4] = v9;
     ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
   }
 
-  v12 = v0[7];
+  v11 = v0[1];
 
-  v13 = v0[1];
-
-  return v13();
+  return v11();
 }
 
 uint64_t GameSaveSyncedDirectory.finishSyncing()()
@@ -5768,25 +5541,24 @@ uint64_t GameSaveSyncedDirectory.finishSyncing()()
 Swift::Void __swiftcall GameSaveSyncedDirectory.cancel()()
 {
   v1 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v2 = *(*(v1 - 8) + 64);
-  v3 = MEMORY[0x28223BE20](v1);
-  v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v3);
-  v7 = &v9 - v6;
-  v8 = *(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
-  [v8 lock];
+  v2 = MEMORY[0x28223BE20](v1);
+  v4 = &v8 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v2);
+  v6 = &v8 - v5;
+  v7 = *(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
+  [v7 lock];
   swift_getKeyPath();
-  v10 = v0;
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  v9 = v0;
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  outlined init with copy of GameSaveSyncedDirectory.State(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v7);
-  [v8 unlock];
-  outlined init with take of GameSaveSyncedDirectory.State(v7, v5);
+  outlined init with copy of GameSaveSyncedDirectory.State(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v6);
+  [v7 unlock];
+  outlined init with take of GameSaveSyncedDirectory.State(v6, v4);
   if (swift_getEnumCaseMultiPayload() == 5)
   {
     swift_getKeyPath();
-    v10 = v0;
+    v9 = v0;
     ObservationRegistrar.access<A, B>(_:keyPath:)();
 
     [*(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__progress) cancel];
@@ -5794,7 +5566,7 @@ Swift::Void __swiftcall GameSaveSyncedDirectory.cancel()()
 
   else
   {
-    outlined destroy of GameSaveSyncedDirectory.State(v5, type metadata accessor for GameSaveSyncedDirectory.State);
+    outlined destroy of GameSaveSyncedDirectory.State(v4, type metadata accessor for GameSaveSyncedDirectory.State);
   }
 }
 
@@ -5802,99 +5574,98 @@ Swift::Void __swiftcall GameSaveSyncedDirectory.close()()
 {
   v1 = v0;
   v2 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v3 = *(*(v2 - 8) + 64);
-  v4 = MEMORY[0x28223BE20](v2);
-  v6 = &v28 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = MEMORY[0x28223BE20](v4);
-  v9 = &v28 - v8;
-  MEMORY[0x28223BE20](v7);
-  v11 = &v28 - v10;
-  v12 = *(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
-  [v12 lock];
+  v3 = MEMORY[0x28223BE20](v2);
+  v5 = &v27 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = MEMORY[0x28223BE20](v3);
+  v8 = &v27 - v7;
+  MEMORY[0x28223BE20](v6);
+  v10 = &v27 - v9;
+  v11 = *(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
+  [v11 lock];
   swift_getKeyPath();
-  v29 = v0;
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  v28 = v0;
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  outlined init with copy of GameSaveSyncedDirectory.State(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v11);
-  v13 = 0x278A5B000uLL;
-  [v12 unlock];
-  outlined init with take of GameSaveSyncedDirectory.State(v11, v9);
+  outlined init with copy of GameSaveSyncedDirectory.State(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v10);
+  v12 = 0x278A5B000uLL;
+  [v11 unlock];
+  outlined init with take of GameSaveSyncedDirectory.State(v10, v8);
   if (swift_getEnumCaseMultiPayload() != 6)
   {
-    outlined destroy of GameSaveSyncedDirectory.State(v9, type metadata accessor for GameSaveSyncedDirectory.State);
+    outlined destroy of GameSaveSyncedDirectory.State(v8, type metadata accessor for GameSaveSyncedDirectory.State);
     GameSaveSyncedDirectory.cancel()();
     if (one-time initialization token for common != -1)
     {
       swift_once();
     }
 
-    v14 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v14, static Logger.common);
-    v15 = Logger.logObject.getter();
-    v16 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v15, v16))
+    v13 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v13, static Logger.common);
+    v14 = Logger.logObject.getter();
+    v15 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v14, v15))
     {
-      v17 = swift_slowAlloc();
-      *v17 = 0;
-      _os_log_impl(&dword_238952000, v15, v16, "Close GameSaveSyncedDirectory", v17, 2u);
-      MEMORY[0x23EE6C260](v17, -1, -1);
+      v16 = swift_slowAlloc();
+      *v16 = 0;
+      _os_log_impl(&dword_238952000, v14, v15, "Close GameSaveSyncedDirectory", v16, 2u);
+      MEMORY[0x23EE6C260](v16, -1, -1);
     }
 
     swift_getKeyPath();
-    v29 = v1;
+    v28 = v1;
     ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-    v18 = *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__accountSigningInObserver);
-    if (v18)
+    v17 = *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__accountSigningInObserver);
+    if (v17)
     {
-      v19 = objc_opt_self();
+      v18 = objc_opt_self();
       swift_unknownObjectRetain();
-      v20 = [v19 defaultCenter];
-      [v20 removeObserver_];
+      v19 = [v18 defaultCenter];
+      [v19 removeObserver_];
 
       KeyPath = swift_getKeyPath();
       MEMORY[0x28223BE20](KeyPath);
-      *(&v28 - 2) = v1;
-      *(&v28 - 1) = 0;
-      v29 = v1;
+      *(&v27 - 2) = v1;
+      *(&v27 - 1) = 0;
+      v28 = v1;
       ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
 
       swift_unknownObjectRelease();
-      v13 = 0x278A5B000;
+      v12 = 0x278A5B000;
     }
 
     swift_storeEnumTagMultiPayload();
-    GameSaveSyncedDirectory._moveToState(_:)(v6);
-    GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v6);
-    outlined destroy of GameSaveSyncedDirectory.State(v6, type metadata accessor for GameSaveSyncedDirectory.State);
+    GameSaveSyncedDirectory._moveToState(_:)(v5);
+    GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v5);
+    outlined destroy of GameSaveSyncedDirectory.State(v5, type metadata accessor for GameSaveSyncedDirectory.State);
     if (*(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__lastResponse))
     {
-      v22 = swift_getKeyPath();
-      MEMORY[0x28223BE20](v22);
-      *(&v28 - 2) = v1;
-      *(&v28 - 1) = 0;
-      v29 = v1;
+      v21 = swift_getKeyPath();
+      MEMORY[0x28223BE20](v21);
+      *(&v27 - 2) = v1;
+      *(&v27 - 1) = 0;
+      v28 = v1;
       ObservationRegistrar.withMutation<A, B, C>(of:keyPath:_:)();
     }
 
     swift_getKeyPath();
-    v29 = v1;
+    v28 = v1;
     ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-    v23 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__gameSyncedDirectoryPresenter;
-    v24 = *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__gameSyncedDirectoryPresenter);
-    v25 = *&v24[OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_lock];
-    v26 = v24;
-    [v25 lock];
-    closure #1 in GameSyncedDirectoryHolder.stopAccessingSecurityScopedResource()(v26);
-    [v25 *(v13 + 2040)];
+    v22 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__gameSyncedDirectoryPresenter;
+    v23 = *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__gameSyncedDirectoryPresenter);
+    v24 = *&v23[OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_lock];
+    v25 = v23;
+    [v24 lock];
+    closure #1 in GameSyncedDirectoryHolder.stopAccessingSecurityScopedResource()(v25);
+    [v24 *(v12 + 2040)];
 
     swift_getKeyPath();
-    v29 = v1;
+    v28 = v1;
     ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-    v27 = *(v1 + v23);
+    v26 = *(v1 + v22);
     GameSyncedDirectoryHolder.stopHoldingItem()();
   }
 }
@@ -5906,17 +5677,16 @@ uint64_t static GameSaveSyncedDirectory.cleanupDirectory(containerIdentifier:)(u
   *v5 = v2;
   v5[1] = static GameSaveSyncedDirectory.cleanupDirectory(containerIdentifier:);
 
-  return (specialized static GameSaveSyncedDirectory.cleanupDirectory(containerIdentifier:))(a1, a2);
+  return specialized static GameSaveSyncedDirectory.cleanupDirectory(containerIdentifier:)(a1, a2);
 }
 
 uint64_t static GameSaveSyncedDirectory.cleanupDirectory(containerIdentifier:)()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t GameSaveSyncedDirectory.runBlockWithDirectoryURL(_:)(uint64_t a1, uint64_t a2)
@@ -5924,18 +5694,14 @@ uint64_t GameSaveSyncedDirectory.runBlockWithDirectoryURL(_:)(uint64_t a1, uint6
   v3[5] = a2;
   v3[6] = v2;
   v3[4] = a1;
-  v4 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v3[7] = v4;
-  v5 = *(*(v4 - 8) + 64) + 15;
+  v3[7] = type metadata accessor for GameSaveSyncedDirectory.State(0);
   v3[8] = swift_task_alloc();
-  v6 = type metadata accessor for URL();
-  v3[9] = v6;
-  v7 = *(v6 - 8);
-  v3[10] = v7;
-  v8 = *(v7 + 64) + 15;
+  v4 = type metadata accessor for URL();
+  v3[9] = v4;
+  v3[10] = *(v4 - 8);
   v3[11] = swift_task_alloc();
   v3[12] = swift_task_alloc();
-  v9 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   v3[13] = swift_task_alloc();
   v3[14] = swift_task_alloc();
   v3[15] = swift_task_alloc();
@@ -5950,75 +5716,72 @@ uint64_t GameSaveSyncedDirectory.runBlockWithDirectoryURL(_:)()
     goto LABEL_21;
   }
 
-  v2 = v0[7];
   v1 = v0[8];
-  v3 = v0[6];
-  v4 = *(v0[10] + 56);
-  v4(v0[15], 1, 1, v0[9]);
-  v5 = *(v3 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
-  [v5 lock];
+  v2 = v0[6];
+  v3 = *(v0[10] + 56);
+  v3(v0[15], 1, 1, v0[9]);
+  v4 = *(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_lock);
+  [v4 lock];
   swift_getKeyPath();
-  v0[2] = v3;
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  v0[2] = v2;
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  outlined init with copy of GameSaveSyncedDirectory.State(v3 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v1);
-  [v5 unlock];
+  outlined init with copy of GameSaveSyncedDirectory.State(v2 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, v1);
+  [v4 unlock];
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload >= 2)
   {
     if (EnumCaseMultiPayload == 3)
     {
-      v13 = *v0[8];
-      if (v13 >> 62)
+      v12 = *v0[8];
+      if (v12 >> 62)
       {
         goto LABEL_32;
       }
 
-      for (i = *((v13 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = MEMORY[0x23EE6BAE0](v52))
+      for (i = *((v12 & 0xFFFFFFFFFFFFFF8) + 0x10); i; i = MEMORY[0x23EE6BAE0](v32))
       {
-        v15 = 0;
-        v53 = v4;
-        while ((v13 & 0xC000000000000001) != 0)
+        v14 = 0;
+        v33 = v3;
+        while ((v12 & 0xC000000000000001) != 0)
         {
-          v16 = MEMORY[0x23EE6BA40](v15, v13);
-          v4 = (v15 + 1);
-          if (__OFADD__(v15, 1))
+          v15 = MEMORY[0x23EE6BA40](v14, v12);
+          v3 = (v14 + 1);
+          if (__OFADD__(v14, 1))
           {
             goto LABEL_30;
           }
 
 LABEL_14:
-          if (*(v16 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_isLiveVersion))
+          if (*(v15 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_isLiveVersion))
           {
-            v28 = v0[15];
-            v30 = v0[9];
-            v29 = v0[10];
-            v31 = v16;
-            outlined destroy of URL?(v28, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+            v20 = v0[15];
+            v22 = v0[9];
+            v21 = v0[10];
+            v23 = v15;
+            outlined destroy of URL?(v20, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
 
-            (*(v29 + 16))(v28, v31 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_liveFileURL, v30);
+            (*(v21 + 16))(v20, v23 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_liveFileURL, v22);
 
-            v53(v28, 0, 1, v30);
+            v33(v20, 0, 1, v22);
             goto LABEL_19;
           }
 
-          ++v15;
-          if (v4 == i)
+          ++v14;
+          if (v3 == i)
           {
             goto LABEL_16;
           }
         }
 
-        if (v15 >= *((v13 & 0xFFFFFFFFFFFFFF8) + 0x10))
+        if (v14 >= *((v12 & 0xFFFFFFFFFFFFFF8) + 0x10))
         {
           goto LABEL_31;
         }
 
-        v17 = *(v13 + 8 * v15 + 32);
-
-        v4 = (v15 + 1);
-        if (!__OFADD__(v15, 1))
+        v3 = (v14 + 1);
+        if (!__OFADD__(v14, 1))
         {
           goto LABEL_14;
         }
@@ -6028,14 +5791,14 @@ LABEL_30:
 LABEL_31:
         __break(1u);
 LABEL_32:
-        if (v13 < 0)
+        if (v12 < 0)
         {
-          v52 = v13;
+          v32 = v12;
         }
 
         else
         {
-          v52 = v13 & 0xFFFFFFFFFFFFFF8;
+          v32 = v12 & 0xFFFFFFFFFFFFFF8;
         }
       }
 
@@ -6043,106 +5806,86 @@ LABEL_16:
       __break(1u);
     }
 
-    v18 = v0[15];
-    v19 = v0[8];
+    v16 = v0[15];
+    v17 = v0[8];
     lazy protocol witness table accessor for type GameSaveSyncedDirectoryError and conformance GameSaveSyncedDirectoryError();
     swift_allocError();
-    *v20 = 2;
+    *v18 = 2;
     swift_willThrow();
-    outlined destroy of URL?(v18, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    outlined destroy of GameSaveSyncedDirectory.State(v19, type metadata accessor for GameSaveSyncedDirectory.State);
-    v22 = v0[14];
-    v21 = v0[15];
-    v24 = v0[12];
-    v23 = v0[13];
-    v25 = v0[11];
-    v26 = v0[8];
+    outlined destroy of URL?(v16, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    outlined destroy of GameSaveSyncedDirectory.State(v17, type metadata accessor for GameSaveSyncedDirectory.State);
 
-    v27 = v0[1];
+    v19 = v0[1];
 LABEL_22:
 
-    return v27();
+    return v19();
   }
 
-  v8 = v0[14];
-  v7 = v0[15];
-  v9 = v0[12];
-  v10 = v4;
-  v12 = v0[9];
-  v11 = v0[10];
-  (*(v11 + 32))(v9, v0[8], v12);
+  v7 = v0[14];
+  v6 = v0[15];
+  v8 = v0[12];
+  v9 = v3;
+  v11 = v0[9];
+  v10 = v0[10];
+  (*(v10 + 32))(v8, v0[8], v11);
   URL.deletingLastPathComponent()();
-  (*(v11 + 8))(v9, v12);
-  outlined destroy of URL?(v7, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v10(v8, 0, 1, v12);
-  outlined init with take of URL?(v8, v7, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  (*(v10 + 8))(v8, v11);
+  outlined destroy of URL?(v6, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  v9(v7, 0, 1, v11);
+  outlined init with take of URL?(v7, v6, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
 LABEL_19:
-  v32 = v0[13];
-  v34 = v0[9];
-  v33 = v0[10];
-  outlined init with copy of URL?(v0[15], v32, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  if ((*(v33 + 48))(v32, 1, v34) == 1)
+  v24 = v0[13];
+  v26 = v0[9];
+  v25 = v0[10];
+  outlined init with copy of URL?(v0[15], v24, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+  if ((*(v25 + 48))(v24, 1, v26) == 1)
   {
     outlined destroy of URL?(v0[15], &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
     outlined destroy of URL?(v0[13], &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
 LABEL_21:
-    v36 = v0[14];
-    v35 = v0[15];
-    v38 = v0[12];
-    v37 = v0[13];
-    v39 = v0[11];
-    v40 = v0[8];
 
-    v27 = v0[1];
+    v19 = v0[1];
     goto LABEL_22;
   }
 
-  v42 = v0[6];
+  v28 = v0[6];
   (*(v0[10] + 32))(v0[11], v0[13], v0[9]);
   swift_getKeyPath();
-  v0[3] = v42;
+  v0[3] = v28;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v43 = *(v42 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__lastResponse);
-  if (v43)
+  if (*(v28 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__lastResponse))
   {
-    v44 = (v43 + OBJC_IVAR___GameSyncedDirectoryResponse_directorySandboxExtension);
-    v45 = *v44;
-    v46 = v44[1];
     String.utf8CString.getter();
   }
 
-  v47 = v0[4];
+  v29 = v0[4];
   v0[16] = sandbox_extension_consume();
   swift_unknownObjectRelease();
-  v54 = (v47 + *v47);
-  v48 = v47[1];
-  v49 = swift_task_alloc();
-  v0[17] = v49;
-  *v49 = v0;
-  v49[1] = GameSaveSyncedDirectory.runBlockWithDirectoryURL(_:);
-  v50 = v0[11];
-  v51 = v0[5];
+  v34 = (v29 + *v29);
+  v30 = swift_task_alloc();
+  v0[17] = v30;
+  *v30 = v0;
+  v30[1] = GameSaveSyncedDirectory.runBlockWithDirectoryURL(_:);
+  v31 = v0[11];
 
-  return v54(v50);
+  return v34(v31);
 }
 
 {
-  v2 = *(*v1 + 136);
-  v5 = *v1;
   *(*v1 + 144) = v0;
 
   if (v0)
   {
-    v3 = GameSaveSyncedDirectory.runBlockWithDirectoryURL(_:);
+    v2 = GameSaveSyncedDirectory.runBlockWithDirectoryURL(_:);
   }
 
   else
   {
-    v3 = GameSaveSyncedDirectory.runBlockWithDirectoryURL(_:);
+    v2 = GameSaveSyncedDirectory.runBlockWithDirectoryURL(_:);
   }
 
-  return MEMORY[0x2822009F8](v3, 0, 0);
+  return MEMORY[0x2822009F8](v2, 0, 0);
 }
 
 {
@@ -6153,16 +5896,10 @@ LABEL_21:
 
   (*(v0[10] + 8))(v0[11], v0[9]);
   outlined destroy of URL?(v0[15], &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v2 = v0[14];
-  v1 = v0[15];
-  v4 = v0[12];
-  v3 = v0[13];
-  v5 = v0[11];
-  v6 = v0[8];
 
-  v7 = v0[1];
+  v1 = v0[1];
 
-  return v7();
+  return v1();
 }
 
 {
@@ -6174,37 +5911,24 @@ LABEL_21:
   v1 = v0[15];
   (*(v0[10] + 8))(v0[11], v0[9]);
   outlined destroy of URL?(v1, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v2 = v0[18];
-  v4 = v0[14];
-  v3 = v0[15];
-  v6 = v0[12];
-  v5 = v0[13];
-  v7 = v0[11];
-  v8 = v0[8];
 
-  v9 = v0[1];
+  v2 = v0[1];
 
-  return v9();
+  return v2();
 }
 
 uint64_t GameSaveSyncedDirectory.deinit()
 {
   outlined destroy of GameSaveSyncedDirectory.State(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___state, type metadata accessor for GameSaveSyncedDirectory.State);
-  v1 = *(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_onStateChange + 8);
-  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed GameSaveSyncedDirectory.State) -> ())?(*(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_onStateChange));
+  outlined consume of (@escaping @callee_guaranteed (@in_guaranteed GameSaveSyncedDirectory.State) -> ())?(*(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_onStateChange), *(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory_onStateChange + 8));
 
   outlined destroy of URL?(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__continuation, &_sScCyyts5NeverOGSgMd, &_sScCyyts5NeverOGSgMR);
-  v2 = *(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__accountSigningInObserver);
   swift_unknownObjectRelease();
 
-  v3 = *(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__containerIdentifier + 8);
-
-  v4 = *(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__stateObserver);
-
   outlined destroy of URL?(v0 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__alertPresentedState, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMd, &_s8GameSave0aB15SyncedDirectoryC5StateOSgMR);
-  v5 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___observationRegistrar;
-  v6 = type metadata accessor for ObservationRegistrar();
-  (*(*(v6 - 8) + 8))(v0 + v5, v6);
+  v1 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___observationRegistrar;
+  v2 = type metadata accessor for ObservationRegistrar();
+  (*(*(v2 - 8) + 8))(v0 + v1, v2);
   return v0;
 }
 
@@ -6221,7 +5945,7 @@ uint64_t protocol witness for Identifiable.id.getter in conformance GameSaveSync
 {
   v3 = *v1;
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   v4 = *(v3 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__containerIdentifier + 8);
@@ -6229,21 +5953,18 @@ uint64_t protocol witness for Identifiable.id.getter in conformance GameSaveSync
   a1[1] = v4;
 }
 
-uint64_t key path getter for GameSaveSyncedDirectory.StateObserver.selectedVersion : GameSaveSyncedDirectory.StateObserver@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t key path getter for GameSaveSyncedDirectory.StateObserver.selectedVersion : GameSaveSyncedDirectory.StateObserver@<X0>(void *a2@<X8>)
 {
-  v3 = *a1;
   swift_getKeyPath();
   swift_getKeyPath();
   static Published.subscript.getter();
 
-  *a2 = v5;
+  *a2 = v4;
   return result;
 }
 
 uint64_t key path setter for GameSaveSyncedDirectory.StateObserver.selectedVersion : GameSaveSyncedDirectory.StateObserver(uint64_t *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
   swift_getKeyPath();
   swift_getKeyPath();
 
@@ -6260,12 +5981,11 @@ uint64_t serialize(_:at:)(uint64_t result, _BYTE **a2)
 
 unint64_t specialized __RawDictionaryStorage.find<A>(_:)(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v6 = Hasher._finalize()();
+  v4 = Hasher._finalize()();
 
-  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, a2, v6);
+  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, a2, v4);
 }
 
 unint64_t specialized __RawDictionaryStorage.find<A>(_:hashValue:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -6299,24 +6019,22 @@ unint64_t specialized __RawDictionaryStorage.find<A>(_:hashValue:)(uint64_t a1, 
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5(uint64_t a1, int *a2)
 {
-  v7 = (a2 + *a2);
-  v4 = a2[1];
-  v5 = swift_task_alloc();
-  *(v2 + 16) = v5;
-  *v5 = v2;
-  v5[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TQ0_;
+  v6 = (a2 + *a2);
+  v4 = swift_task_alloc();
+  *(v2 + 16) = v4;
+  *v4 = v2;
+  v4[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TQ0_;
 
-  return v7(a1);
+  return v6(a1);
 }
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TQ0_()
 {
-  v1 = *(*v0 + 16);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC8GameSave0hI15SyncedDirectoryC7VersionC_Tt1g5(uint64_t a1, uint64_t a2)
@@ -6353,9 +6071,9 @@ void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_
   return result;
 }
 
-uint64_t closure #1 in OSLogArguments.append(_:)(uint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(void))
+uint64_t closure #1 in OSLogArguments.append(_:)(unint64_t **a1, uint64_t a2, uint64_t *a3, uint64_t (*a4)(unint64_t **, uint64_t))
 {
-  v6 = a4();
+  v6 = a4(a1, a2);
   v8 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v6, v7, a3);
 
   v10 = *a1;
@@ -6364,7 +6082,7 @@ uint64_t closure #1 in OSLogArguments.append(_:)(uint64_t **a1, uint64_t a2, uin
   return result;
 }
 
-uint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = specialized _StringGuts._deconstructUTF8<A>(scratch:)(v11, 0, 0, 1, a1, a2);
@@ -6462,16 +6180,14 @@ LABEL_8:
   }
 }
 
-uint64_t _StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
+void *_StringGuts._allocateForDeconstruct()(uint64_t a1, unint64_t a2)
 {
-  v4 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
+  v3 = specialized _copyCollectionToContiguousArray<A>(_:)(a1, a2);
   specialized Array.append<A>(contentsOf:)(&outlined read-only object #0 of _StringGuts._allocateForDeconstruct());
-  result = v4;
-  v3 = *(v4 + 16) - 1;
-  return result;
+  return v3;
 }
 
-uint64_t specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
+void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -6568,7 +6284,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -6582,15 +6297,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v12, 1, v3);
+  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -6605,15 +6320,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -6622,12 +6337,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -6837,147 +6552,140 @@ uint64_t thunk for @escaping @callee_guaranteed () -> (@unowned Int32)@<X0>(uint
   return result;
 }
 
-uint64_t specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, char a2)
+Swift::Int specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
+  v4 = a2;
   v5 = *v2;
-  if (*(*v2 + 24) > a1)
-  {
-    v6 = *(*v2 + 24);
-  }
-
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS8GameSave0cD15SyncedDirectoryCGMd, &_ss18_DictionaryStorageCySS8GameSave0cD15SyncedDirectoryCGMR);
-  v38 = a2;
+  v34 = v4;
   result = static _DictionaryStorage.resize(original:capacity:move:)();
-  v8 = result;
+  v7 = result;
   if (*(v5 + 16))
   {
-    v36 = v3;
-    v37 = v5;
-    v9 = 0;
-    v10 = (v5 + 64);
-    v11 = 1 << *(v5 + 32);
-    if (v11 < 64)
+    v33 = v5;
+    v8 = 0;
+    v9 = (v5 + 64);
+    v10 = 1 << *(v5 + 32);
+    if (v10 < 64)
     {
-      v12 = ~(-1 << v11);
+      v11 = ~(-1 << v10);
     }
 
     else
     {
-      v12 = -1;
+      v11 = -1;
     }
 
-    v13 = v12 & *(v5 + 64);
-    v14 = (v11 + 63) >> 6;
-    v15 = result + 64;
-    while (v13)
+    v12 = v11 & *(v5 + 64);
+    v13 = (v10 + 63) >> 6;
+    v14 = result + 64;
+    while (v12)
     {
-      v18 = __clz(__rbit64(v13));
-      v13 &= v13 - 1;
-LABEL_17:
-      v21 = v18 | (v9 << 6);
-      v22 = (*(v5 + 48) + 16 * v21);
-      v23 = *v22;
-      v24 = v22[1];
-      v25 = *(*(v5 + 56) + 8 * v21);
-      if ((v38 & 1) == 0)
+      v17 = __clz(__rbit64(v12));
+      v12 &= v12 - 1;
+LABEL_15:
+      v20 = v17 | (v8 << 6);
+      v21 = (*(v5 + 48) + 16 * v20);
+      v22 = *v21;
+      v23 = v21[1];
+      v24 = *(*(v5 + 56) + 8 * v20);
+      if ((v34 & 1) == 0)
       {
-        v26 = v22[1];
       }
 
-      v27 = *(v8 + 40);
       Hasher.init(_seed:)();
       String.hash(into:)();
       result = Hasher._finalize()();
-      v28 = -1 << *(v8 + 32);
-      v29 = result & ~v28;
-      v30 = v29 >> 6;
-      if (((-1 << v29) & ~*(v15 + 8 * (v29 >> 6))) == 0)
+      v25 = -1 << *(v7 + 32);
+      v26 = result & ~v25;
+      v27 = v26 >> 6;
+      if (((-1 << v26) & ~*(v14 + 8 * (v26 >> 6))) == 0)
       {
-        v31 = 0;
-        v32 = (63 - v28) >> 6;
-        while (++v30 != v32 || (v31 & 1) == 0)
+        v28 = 0;
+        v29 = (63 - v25) >> 6;
+        while (++v27 != v29 || (v28 & 1) == 0)
         {
-          v33 = v30 == v32;
-          if (v30 == v32)
+          v30 = v27 == v29;
+          if (v27 == v29)
           {
-            v30 = 0;
+            v27 = 0;
           }
 
-          v31 |= v33;
-          v34 = *(v15 + 8 * v30);
-          if (v34 != -1)
+          v28 |= v30;
+          v31 = *(v14 + 8 * v27);
+          if (v31 != -1)
           {
-            v16 = __clz(__rbit64(~v34)) + (v30 << 6);
-            goto LABEL_9;
+            v15 = __clz(__rbit64(~v31)) + (v27 << 6);
+            goto LABEL_7;
           }
         }
 
-LABEL_37:
+LABEL_35:
         __break(1u);
         return result;
       }
 
-      v16 = __clz(__rbit64((-1 << v29) & ~*(v15 + 8 * (v29 >> 6)))) | v29 & 0x7FFFFFFFFFFFFFC0;
-LABEL_9:
-      *(v15 + ((v16 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v16;
-      v17 = (*(v8 + 48) + 16 * v16);
-      *v17 = v23;
-      v17[1] = v24;
-      *(*(v8 + 56) + 8 * v16) = v25;
-      ++*(v8 + 16);
-      v5 = v37;
+      v15 = __clz(__rbit64((-1 << v26) & ~*(v14 + 8 * (v26 >> 6)))) | v26 & 0x7FFFFFFFFFFFFFC0;
+LABEL_7:
+      *(v14 + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v15;
+      v16 = (*(v7 + 48) + 16 * v15);
+      *v16 = v22;
+      v16[1] = v23;
+      *(*(v7 + 56) + 8 * v15) = v24;
+      ++*(v7 + 16);
+      v5 = v33;
     }
 
-    v19 = v9;
+    v18 = v8;
     while (1)
     {
-      v9 = v19 + 1;
-      if (__OFADD__(v19, 1))
+      v8 = v18 + 1;
+      if (__OFADD__(v18, 1))
       {
         __break(1u);
-        goto LABEL_37;
+        goto LABEL_35;
       }
 
-      if (v9 >= v14)
+      if (v8 >= v13)
       {
         break;
       }
 
-      v20 = v10[v9];
-      ++v19;
-      if (v20)
+      v19 = v9[v8];
+      ++v18;
+      if (v19)
       {
-        v18 = __clz(__rbit64(v20));
-        v13 = (v20 - 1) & v20;
-        goto LABEL_17;
+        v17 = __clz(__rbit64(v19));
+        v12 = (v19 - 1) & v19;
+        goto LABEL_15;
       }
     }
 
-    if ((v38 & 1) == 0)
+    if ((v34 & 1) == 0)
     {
 
-      v3 = v36;
-      goto LABEL_35;
+      v3 = v2;
+      goto LABEL_33;
     }
 
-    v35 = 1 << *(v5 + 32);
-    v3 = v36;
-    if (v35 >= 64)
+    v32 = 1 << *(v5 + 32);
+    v3 = v2;
+    if (v32 >= 64)
     {
-      bzero(v10, ((v35 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
+      bzero(v9, ((v32 + 63) >> 3) & 0x1FFFFFFFFFFFFFF8);
     }
 
     else
     {
-      *v10 = -1 << v35;
+      *v9 = -1 << v32;
     }
 
     *(v5 + 16) = 0;
   }
 
-LABEL_35:
-  *v3 = v8;
+LABEL_33:
+  *v3 = v7;
   return result;
 }
 
@@ -7003,9 +6711,8 @@ uint64_t specialized _NativeDictionary.setValue(_:forKey:isUnique:)(uint64_t a1,
     if (v18 < v16 || (a4 & 1) != 0)
     {
       specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v16, a4 & 1);
-      v20 = *v5;
       v11 = specialized __RawDictionaryStorage.find<A>(_:)(a2, a3);
-      if ((v17 & 1) != (v21 & 1))
+      if ((v17 & 1) != (v20 & 1))
       {
 LABEL_18:
         result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
@@ -7022,22 +6729,20 @@ LABEL_18:
     }
   }
 
-  v22 = *v5;
+  v21 = *v5;
   if (v17)
   {
-    v23 = v22[7];
-    v24 = *(v23 + 8 * v11);
-    *(v23 + 8 * v11) = a1;
+    *(v21[7] + 8 * v11) = a1;
   }
 
-  v22[(v11 >> 6) + 8] |= 1 << v11;
-  v26 = (v22[6] + 16 * v11);
-  *v26 = a2;
-  v26[1] = a3;
-  *(v22[7] + 8 * v11) = a1;
-  v27 = v22[2];
-  v15 = __OFADD__(v27, 1);
-  v28 = v27 + 1;
+  v21[(v11 >> 6) + 8] |= 1 << v11;
+  v23 = (v21[6] + 16 * v11);
+  *v23 = a2;
+  v23[1] = a3;
+  *(v21[7] + 8 * v11) = a1;
+  v24 = v21[2];
+  v15 = __OFADD__(v24, 1);
+  v25 = v24 + 1;
   if (v15)
   {
 LABEL_17:
@@ -7045,7 +6750,7 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v22[2] = v28;
+  v21[2] = v25;
 }
 
 void *specialized _NativeDictionary.copy()()
@@ -7201,60 +6906,59 @@ LABEL_12:
 
 uint64_t specialized MutableCollection<>._insertionSort(within:sortedEnd:by:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  v36 = type metadata accessor for Date();
-  v8 = *(v36 - 8);
-  v9 = *(v8 + 64);
-  v10 = MEMORY[0x28223BE20](v36);
-  v38 = &v28 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = MEMORY[0x28223BE20](v10);
-  v37 = &v28 - v13;
-  v29 = a2;
+  v35 = type metadata accessor for Date();
+  v8 = *(v35 - 8);
+  v9 = MEMORY[0x28223BE20](v35);
+  v37 = &v27 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  result = MEMORY[0x28223BE20](v9);
+  v36 = &v27 - v12;
+  v28 = a2;
   if (a3 != a2)
   {
-    v14 = *a4;
-    v15 = type metadata accessor for MainActor();
-    v34 = (v8 + 16);
-    v35 = v15;
-    v33 = (v8 + 8);
-    v39 = v14;
-    v16 = (v14 + 8 * a3 - 8);
-    v17 = a1 - a3;
+    v13 = *a4;
+    v14 = type metadata accessor for MainActor();
+    v33 = (v8 + 16);
+    v34 = v14;
+    v32 = (v8 + 8);
+    v38 = v13;
+    v15 = (v13 + 8 * a3 - 8);
+    v16 = a1 - a3;
 LABEL_5:
-    v31 = v16;
-    v32 = a3;
-    v18 = *(v39 + 8 * a3);
-    v30 = v17;
+    v30 = v15;
+    v31 = a3;
+    v17 = *(v38 + 8 * a3);
+    v29 = v16;
     while (1)
     {
-      v19 = *v16;
+      v18 = *v15;
 
-      v41 = static MainActor.shared.getter();
+      v40 = static MainActor.shared.getter();
       dispatch thunk of Actor.unownedExecutor.getter();
       if ((swift_task_isCurrentExecutor() & 1) == 0)
       {
         swift_task_reportUnexpectedExecutor();
       }
 
-      v20 = *v34;
+      v19 = *v33;
+      v20 = v35;
       v21 = v36;
-      v22 = v37;
-      (*v34)(v37, v18 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v36);
-      v23 = v19 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate;
-      v40 = v19;
-      v24 = v38;
-      v20(v38, v23, v21);
-      LOBYTE(v20) = static Date.< infix(_:_:)();
-      v25 = *v33;
-      (*v33)(v24, v21);
-      v25(v22, v21);
+      (*v33)(v36, v17 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v35);
+      v22 = v18 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate;
+      v39 = v18;
+      v23 = v37;
+      v19(v37, v22, v20);
+      LOBYTE(v19) = static Date.< infix(_:_:)();
+      v24 = *v32;
+      (*v32)(v23, v20);
+      v24(v21, v20);
 
-      if ((v20 & 1) == 0)
+      if ((v19 & 1) == 0)
       {
 LABEL_4:
-        a3 = v32 + 1;
-        v16 = v31 + 1;
-        v17 = v30 - 1;
-        if (v32 + 1 == v29)
+        a3 = v31 + 1;
+        v15 = v30 + 1;
+        v16 = v29 - 1;
+        if (v31 + 1 == v28)
         {
           return result;
         }
@@ -7262,17 +6966,17 @@ LABEL_4:
         goto LABEL_5;
       }
 
-      if (!v39)
+      if (!v38)
       {
         break;
       }
 
-      v26 = *v16;
-      v18 = v16[1];
-      *v16 = v18;
-      v16[1] = v26;
-      --v16;
-      if (__CFADD__(v17++, 1))
+      v25 = *v15;
+      v17 = v15[1];
+      *v15 = v17;
+      v15[1] = v25;
+      --v15;
+      if (__CFADD__(v16++, 1))
       {
         goto LABEL_4;
       }
@@ -7287,16 +6991,15 @@ LABEL_4:
 uint64_t specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(char **a1, uint64_t a2, uint64_t *a3, uint64_t a4)
 {
   v6 = v4;
-  v128 = type metadata accessor for Date();
-  v10 = *(*(v128 - 8) + 64);
-  v11 = MEMORY[0x28223BE20](v128);
-  v127 = &v110 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = MEMORY[0x28223BE20](v11);
-  v126 = &v110 - v15;
-  v16 = a3[1];
-  if (v16 < 1)
+  v127 = type metadata accessor for Date();
+  v10 = MEMORY[0x28223BE20](v127);
+  v126 = &v109 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  result = MEMORY[0x28223BE20](v10);
+  v125 = &v109 - v14;
+  v15 = a3[1];
+  if (v15 < 1)
   {
-    v18 = MEMORY[0x277D84F90];
+    v17 = MEMORY[0x277D84F90];
 LABEL_96:
     v5 = *a1;
     if (!*a1)
@@ -7308,46 +7011,46 @@ LABEL_96:
     if ((result & 1) == 0)
     {
 LABEL_128:
-      result = specialized _ArrayBuffer._consumeAndCreateNew()(v18);
-      v18 = result;
+      result = specialized _ArrayBuffer._consumeAndCreateNew()(v17);
+      v17 = result;
     }
 
-    v131 = v18;
-    v106 = *(v18 + 2);
-    if (v106 >= 2)
+    v130 = v17;
+    v105 = *(v17 + 2);
+    if (v105 >= 2)
     {
       while (*a3)
       {
-        v107 = *&v18[16 * v106];
-        v108 = *&v18[16 * v106 + 24];
-        specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 8 * v107), (*a3 + 8 * *&v18[16 * v106 + 16]), (*a3 + 8 * v108), v5);
+        v106 = *&v17[16 * v105];
+        v107 = *&v17[16 * v105 + 24];
+        specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 8 * v106), (*a3 + 8 * *&v17[16 * v105 + 16]), (*a3 + 8 * v107), v5);
         if (v6)
         {
         }
 
-        if (v108 < v107)
+        if (v107 < v106)
         {
           goto LABEL_121;
         }
 
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v18 = specialized _ArrayBuffer._consumeAndCreateNew()(v18);
+          v17 = specialized _ArrayBuffer._consumeAndCreateNew()(v17);
         }
 
-        if (v106 - 2 >= *(v18 + 2))
+        if (v105 - 2 >= *(v17 + 2))
         {
           goto LABEL_122;
         }
 
-        v109 = &v18[16 * v106];
-        *v109 = v107;
-        *(v109 + 1) = v108;
-        v131 = v18;
-        result = specialized Array.remove(at:)(v106 - 1);
-        v18 = v131;
-        v106 = *(v131 + 2);
-        if (v106 <= 1)
+        v108 = &v17[16 * v105];
+        *v108 = v106;
+        *(v108 + 1) = v107;
+        v130 = v17;
+        result = specialized Array.remove(at:)(v105 - 1);
+        v17 = v130;
+        v105 = *(v130 + 2);
+        if (v105 <= 1)
         {
         }
       }
@@ -7356,187 +7059,187 @@ LABEL_128:
     }
   }
 
-  v111 = a4;
-  v17 = 0;
-  v125 = (v14 + 16);
-  v18 = MEMORY[0x277D84F90];
-  v124 = (v14 + 8);
-  v112 = a3;
-  v115 = a1;
+  v110 = a4;
+  v16 = 0;
+  v124 = (v13 + 16);
+  v17 = MEMORY[0x277D84F90];
+  v123 = (v13 + 8);
+  v111 = a3;
+  v114 = a1;
   while (1)
   {
-    v19 = v17 + 1;
-    if (v17 + 1 < v16)
+    v18 = v16 + 1;
+    if (v16 + 1 < v15)
     {
-      v121 = v17 + 1;
-      v122 = v16;
-      v113 = v18;
-      v20 = *(*a3 + 8 * v19);
-      v129 = *a3;
-      v21 = *(v129 + 8 * v17);
-      v22 = type metadata accessor for MainActor();
-      v5 = v20;
+      v120 = v16 + 1;
+      v121 = v15;
+      v112 = v17;
+      v19 = *(*a3 + 8 * v18);
+      v128 = *a3;
+      v20 = *(v128 + 8 * v16);
+      v21 = type metadata accessor for MainActor();
+      v5 = v19;
 
-      v130 = v21;
+      v129 = v20;
 
-      v23 = static MainActor.shared.getter();
+      v22 = static MainActor.shared.getter();
+      v118 = v21;
       v119 = v22;
-      v120 = v23;
       dispatch thunk of Actor.unownedExecutor.getter();
       if ((swift_task_isCurrentExecutor() & 1) == 0)
       {
         swift_task_reportUnexpectedExecutor();
       }
 
-      v24 = v126;
-      v25 = *v125;
-      v26 = v128;
-      (*v125)(v126, &v20[OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate], v128);
-      v27 = v127;
-      v118 = v25;
-      v25(v127, v130 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v26);
-      LODWORD(v123) = static Date.< infix(_:_:)();
-      a3 = v124;
-      v28 = *v124;
-      (*v124)(v27, v26);
-      v117 = v28;
-      v28(v24, v26);
+      v23 = v125;
+      v24 = *v124;
+      v25 = v127;
+      (*v124)(v125, &v19[OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate], v127);
+      v26 = v126;
+      v117 = v24;
+      v24(v126, v129 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v25);
+      LODWORD(v122) = static Date.< infix(_:_:)();
+      a3 = v123;
+      v27 = *v123;
+      (*v123)(v26, v25);
+      v116 = v27;
+      (v27)(v23, v25);
 
-      v114 = v17;
-      v29 = 8 * v17;
-      v30 = (v129 + 8 * v17 + 16);
-      v129 = v29;
-      v31 = (v29 + 8);
-      v19 = v121;
+      v113 = v16;
+      v28 = 8 * v16;
+      v29 = (v128 + 8 * v16 + 16);
+      v128 = v28;
+      v30 = (v28 + 8);
+      v18 = v120;
       do
       {
-        v38 = v19;
-        v18 = v31;
-        ++v19;
-        v116 = v38;
-        if (v19 >= v122)
+        v37 = v18;
+        v17 = v30;
+        ++v18;
+        v115 = v37;
+        if (v18 >= v121)
         {
           break;
         }
 
-        v120 = v6;
-        v121 = v19;
-        v39 = *(v30 - 1);
-        v5 = *v30;
+        v119 = v6;
+        v120 = v18;
+        v38 = *(v29 - 1);
+        v5 = *v29;
 
-        v130 = static MainActor.shared.getter();
+        v129 = static MainActor.shared.getter();
         dispatch thunk of Actor.unownedExecutor.getter();
         if ((swift_task_isCurrentExecutor() & 1) == 0)
         {
           swift_task_reportUnexpectedExecutor();
         }
 
-        v32 = v126;
-        v33 = v128;
-        v34 = v118;
-        (v118)(v126, &v5[OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate], v128);
-        v35 = v127;
-        v34(v127, v39 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v33);
-        v36 = static Date.< infix(_:_:)() & 1;
-        a3 = v117;
-        (v117)(v35, v33);
-        (a3)(v32, v33);
+        v31 = v125;
+        v32 = v127;
+        v33 = v117;
+        (v117)(v125, &v5[OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate], v127);
+        v34 = v126;
+        v33(v126, v38 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v32);
+        v35 = static Date.< infix(_:_:)() & 1;
+        a3 = v116;
+        (v116)(v34, v32);
+        (a3)(v31, v32);
 
-        ++v30;
-        v31 = v18 + 8;
-        v37 = (v123 & 1) == v36;
-        v6 = v120;
-        v19 = v121;
+        ++v29;
+        v30 = v17 + 8;
+        v36 = (v122 & 1) == v35;
+        v6 = v119;
+        v18 = v120;
       }
 
-      while (v37);
-      if (v123)
+      while (v36);
+      if (v122)
       {
-        v17 = v114;
-        if (v19 < v114)
+        v16 = v113;
+        if (v18 < v113)
         {
           goto LABEL_125;
         }
 
-        a3 = v112;
-        if (v114 >= v19)
+        a3 = v111;
+        if (v113 >= v18)
         {
-          v18 = v113;
-          a1 = v115;
+          v17 = v112;
+          a1 = v114;
         }
 
         else
         {
-          v40 = v114;
-          a1 = v115;
-          v41 = v116;
+          v39 = v113;
+          a1 = v114;
+          v40 = v115;
           do
           {
-            if (v40 != v41)
+            if (v39 != v40)
             {
-              v44 = *a3;
+              v43 = *a3;
               if (!*a3)
               {
                 goto LABEL_131;
               }
 
-              v42 = *(v44 + v129);
-              *(v44 + v129) = *&v18[v44];
-              *&v18[v44] = v42;
+              v41 = *(v43 + v128);
+              *(v43 + v128) = *&v17[v43];
+              *&v17[v43] = v41;
             }
 
-            ++v40;
-            v18 -= 8;
-            v129 += 8;
+            ++v39;
+            v17 -= 8;
+            v128 += 8;
           }
 
-          while (v40 < v41--);
-          v18 = v113;
+          while (v39 < v40--);
+          v17 = v112;
         }
       }
 
       else
       {
-        a3 = v112;
-        v18 = v113;
-        v17 = v114;
-        a1 = v115;
+        a3 = v111;
+        v17 = v112;
+        v16 = v113;
+        a1 = v114;
       }
     }
 
-    v45 = a3[1];
-    if (v19 < v45)
+    v44 = a3[1];
+    if (v18 < v44)
     {
-      if (__OFSUB__(v19, v17))
+      if (__OFSUB__(v18, v16))
       {
         goto LABEL_124;
       }
 
-      if (v19 - v17 < v111)
+      if (v18 - v16 < v110)
       {
-        if (__OFADD__(v17, v111))
+        if (__OFADD__(v16, v110))
         {
           goto LABEL_126;
         }
 
-        if (v17 + v111 >= v45)
+        if (v16 + v110 >= v44)
         {
-          v46 = a3[1];
+          v45 = a3[1];
         }
 
         else
         {
-          v46 = (v17 + v111);
+          v45 = v16 + v110;
         }
 
-        if (v46 < v17)
+        if (v45 < v16)
         {
 LABEL_127:
           __break(1u);
           goto LABEL_128;
         }
 
-        if (v19 != v46)
+        if (v18 != v45)
         {
           break;
         }
@@ -7544,7 +7247,7 @@ LABEL_127:
     }
 
 LABEL_45:
-    if (v19 < v17)
+    if (v18 < v16)
     {
       goto LABEL_123;
     }
@@ -7552,84 +7255,84 @@ LABEL_45:
     result = swift_isUniquelyReferenced_nonNull_native();
     if ((result & 1) == 0)
     {
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v18 + 2) + 1, 1, v18);
-      v18 = result;
+      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v17 + 2) + 1, 1, v17);
+      v17 = result;
     }
 
-    v61 = *(v18 + 2);
-    v60 = *(v18 + 3);
-    v62 = v61 + 1;
-    if (v61 >= v60 >> 1)
+    v60 = *(v17 + 2);
+    v59 = *(v17 + 3);
+    v61 = v60 + 1;
+    if (v60 >= v59 >> 1)
     {
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v60 > 1), v61 + 1, 1, v18);
-      v18 = result;
+      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v59 > 1), v60 + 1, 1, v17);
+      v17 = result;
     }
 
-    *(v18 + 2) = v62;
-    v63 = &v18[16 * v61];
-    *(v63 + 4) = v17;
-    *(v63 + 5) = v19;
+    *(v17 + 2) = v61;
+    v62 = &v17[16 * v60];
+    *(v62 + 4) = v16;
+    *(v62 + 5) = v18;
     v5 = *a1;
     if (!*a1)
     {
       goto LABEL_133;
     }
 
-    v17 = v19;
-    if (v61)
+    v16 = v18;
+    if (v60)
     {
       while (1)
       {
-        v64 = v62 - 1;
-        if (v62 >= 4)
+        v63 = v61 - 1;
+        if (v61 >= 4)
         {
           break;
         }
 
-        if (v62 == 3)
+        if (v61 == 3)
         {
-          v65 = *(v18 + 4);
-          v66 = *(v18 + 5);
-          v75 = __OFSUB__(v66, v65);
-          v67 = v66 - v65;
-          v68 = v75;
+          v64 = *(v17 + 4);
+          v65 = *(v17 + 5);
+          v74 = __OFSUB__(v65, v64);
+          v66 = v65 - v64;
+          v67 = v74;
 LABEL_65:
-          if (v68)
+          if (v67)
           {
             goto LABEL_112;
           }
 
-          v81 = &v18[16 * v62];
-          v83 = *v81;
-          v82 = *(v81 + 1);
-          v84 = __OFSUB__(v82, v83);
-          v85 = v82 - v83;
-          v86 = v84;
-          if (v84)
+          v80 = &v17[16 * v61];
+          v82 = *v80;
+          v81 = *(v80 + 1);
+          v83 = __OFSUB__(v81, v82);
+          v84 = v81 - v82;
+          v85 = v83;
+          if (v83)
           {
             goto LABEL_115;
           }
 
-          v87 = &v18[16 * v64 + 32];
-          v89 = *v87;
-          v88 = *(v87 + 1);
-          v75 = __OFSUB__(v88, v89);
-          v90 = v88 - v89;
-          if (v75)
+          v86 = &v17[16 * v63 + 32];
+          v88 = *v86;
+          v87 = *(v86 + 1);
+          v74 = __OFSUB__(v87, v88);
+          v89 = v87 - v88;
+          if (v74)
           {
             goto LABEL_118;
           }
 
-          if (__OFADD__(v85, v90))
+          if (__OFADD__(v84, v89))
           {
             goto LABEL_119;
           }
 
-          if (v85 + v90 >= v67)
+          if (v84 + v89 >= v66)
           {
-            if (v67 < v90)
+            if (v66 < v89)
             {
-              v64 = v62 - 2;
+              v63 = v61 - 2;
             }
 
             goto LABEL_86;
@@ -7638,36 +7341,36 @@ LABEL_65:
           goto LABEL_79;
         }
 
-        v91 = &v18[16 * v62];
-        v93 = *v91;
-        v92 = *(v91 + 1);
-        v75 = __OFSUB__(v92, v93);
-        v85 = v92 - v93;
-        v86 = v75;
+        v90 = &v17[16 * v61];
+        v92 = *v90;
+        v91 = *(v90 + 1);
+        v74 = __OFSUB__(v91, v92);
+        v84 = v91 - v92;
+        v85 = v74;
 LABEL_79:
-        if (v86)
+        if (v85)
         {
           goto LABEL_114;
         }
 
-        v94 = &v18[16 * v64];
-        v96 = *(v94 + 4);
-        v95 = *(v94 + 5);
-        v75 = __OFSUB__(v95, v96);
-        v97 = v95 - v96;
-        if (v75)
+        v93 = &v17[16 * v63];
+        v95 = *(v93 + 4);
+        v94 = *(v93 + 5);
+        v74 = __OFSUB__(v94, v95);
+        v96 = v94 - v95;
+        if (v74)
         {
           goto LABEL_117;
         }
 
-        if (v97 < v85)
+        if (v96 < v84)
         {
           goto LABEL_3;
         }
 
 LABEL_86:
-        v102 = v64 - 1;
-        if (v64 - 1 >= v62)
+        v101 = v63 - 1;
+        if (v63 - 1 >= v61)
         {
           __break(1u);
 LABEL_108:
@@ -7716,93 +7419,93 @@ LABEL_126:
           goto LABEL_130;
         }
 
-        v103 = *&v18[16 * v102 + 32];
-        v104 = *&v18[16 * v64 + 40];
-        specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 8 * v103), (*a3 + 8 * *&v18[16 * v64 + 32]), (*a3 + 8 * v104), v5);
+        v102 = *&v17[16 * v101 + 32];
+        v103 = *&v17[16 * v63 + 40];
+        specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 8 * v102), (*a3 + 8 * *&v17[16 * v63 + 32]), (*a3 + 8 * v103), v5);
         if (v6)
         {
         }
 
-        if (v104 < v103)
+        if (v103 < v102)
         {
           goto LABEL_108;
         }
 
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v18 = specialized _ArrayBuffer._consumeAndCreateNew()(v18);
+          v17 = specialized _ArrayBuffer._consumeAndCreateNew()(v17);
         }
 
-        if (v102 >= *(v18 + 2))
+        if (v101 >= *(v17 + 2))
         {
           goto LABEL_109;
         }
 
-        v105 = &v18[16 * v102];
-        *(v105 + 4) = v103;
-        *(v105 + 5) = v104;
-        v131 = v18;
-        result = specialized Array.remove(at:)(v64);
-        v18 = v131;
-        v62 = *(v131 + 2);
-        if (v62 <= 1)
+        v104 = &v17[16 * v101];
+        *(v104 + 4) = v102;
+        *(v104 + 5) = v103;
+        v130 = v17;
+        result = specialized Array.remove(at:)(v63);
+        v17 = v130;
+        v61 = *(v130 + 2);
+        if (v61 <= 1)
         {
           goto LABEL_3;
         }
       }
 
-      v69 = &v18[16 * v62 + 32];
-      v70 = *(v69 - 64);
-      v71 = *(v69 - 56);
-      v75 = __OFSUB__(v71, v70);
-      v72 = v71 - v70;
-      if (v75)
+      v68 = &v17[16 * v61 + 32];
+      v69 = *(v68 - 64);
+      v70 = *(v68 - 56);
+      v74 = __OFSUB__(v70, v69);
+      v71 = v70 - v69;
+      if (v74)
       {
         goto LABEL_110;
       }
 
-      v74 = *(v69 - 48);
-      v73 = *(v69 - 40);
-      v75 = __OFSUB__(v73, v74);
-      v67 = v73 - v74;
-      v68 = v75;
-      if (v75)
+      v73 = *(v68 - 48);
+      v72 = *(v68 - 40);
+      v74 = __OFSUB__(v72, v73);
+      v66 = v72 - v73;
+      v67 = v74;
+      if (v74)
       {
         goto LABEL_111;
       }
 
-      v76 = &v18[16 * v62];
-      v78 = *v76;
-      v77 = *(v76 + 1);
-      v75 = __OFSUB__(v77, v78);
-      v79 = v77 - v78;
-      if (v75)
+      v75 = &v17[16 * v61];
+      v77 = *v75;
+      v76 = *(v75 + 1);
+      v74 = __OFSUB__(v76, v77);
+      v78 = v76 - v77;
+      if (v74)
       {
         goto LABEL_113;
       }
 
-      v75 = __OFADD__(v67, v79);
-      v80 = v67 + v79;
-      if (v75)
+      v74 = __OFADD__(v66, v78);
+      v79 = v66 + v78;
+      if (v74)
       {
         goto LABEL_116;
       }
 
-      if (v80 >= v72)
+      if (v79 >= v71)
       {
-        v98 = &v18[16 * v64 + 32];
-        v100 = *v98;
-        v99 = *(v98 + 1);
-        v75 = __OFSUB__(v99, v100);
-        v101 = v99 - v100;
-        if (v75)
+        v97 = &v17[16 * v63 + 32];
+        v99 = *v97;
+        v98 = *(v97 + 1);
+        v74 = __OFSUB__(v98, v99);
+        v100 = v98 - v99;
+        if (v74)
         {
           goto LABEL_120;
         }
 
-        if (v67 < v101)
+        if (v66 < v100)
         {
-          v64 = v62 - 2;
+          v63 = v61 - 2;
         }
 
         goto LABEL_86;
@@ -7812,86 +7515,86 @@ LABEL_126:
     }
 
 LABEL_3:
-    v16 = a3[1];
-    a1 = v115;
-    if (v17 >= v16)
+    v15 = a3[1];
+    a1 = v114;
+    if (v16 >= v15)
     {
       goto LABEL_96;
     }
   }
 
-  v113 = v18;
-  v120 = v6;
-  v47 = *a3;
-  v122 = type metadata accessor for MainActor();
-  v123 = v47;
-  v48 = (v47 + 8 * v19 - 8);
-  v114 = v17;
-  v49 = (v17 - v19);
-  v117 = v46;
+  v112 = v17;
+  v119 = v6;
+  v46 = *a3;
+  v121 = type metadata accessor for MainActor();
+  v122 = v46;
+  v47 = (v46 + 8 * v18 - 8);
+  v113 = v16;
+  v48 = (v16 - v18);
+  v116 = v45;
 LABEL_36:
-  v121 = v19;
-  v50 = *(v123 + 8 * v19);
-  v118 = v49;
-  v119 = v48;
-  v51 = v49;
+  v120 = v18;
+  v49 = *(v122 + 8 * v18);
+  v117 = v48;
+  v118 = v47;
+  v50 = v48;
   while (1)
   {
-    v129 = v51;
-    v52 = *v48;
+    v128 = v50;
+    v51 = *v47;
 
-    v130 = static MainActor.shared.getter();
+    v129 = static MainActor.shared.getter();
     dispatch thunk of Actor.unownedExecutor.getter();
     if ((swift_task_isCurrentExecutor() & 1) == 0)
     {
       swift_task_reportUnexpectedExecutor();
     }
 
-    v53 = v126;
-    v54 = *v125;
-    v55 = v128;
-    (*v125)(v126, v50 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v128);
-    v5 = v127;
-    v54(v127, v52 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v55);
-    LOBYTE(v54) = static Date.< infix(_:_:)();
-    v56 = *v124;
-    (*v124)(v5, v55);
-    v56(v53, v55);
+    v52 = v125;
+    v53 = *v124;
+    v54 = v127;
+    (*v124)(v125, v49 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v127);
+    v5 = v126;
+    v53(v126, v51 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v54);
+    LOBYTE(v53) = static Date.< infix(_:_:)();
+    v55 = *v123;
+    (*v123)(v5, v54);
+    v55(v52, v54);
 
-    if ((v54 & 1) == 0)
+    if ((v53 & 1) == 0)
     {
 LABEL_35:
-      v19 = v121 + 1;
-      v48 = v119 + 1;
-      v49 = v118 - 1;
-      if ((v121 + 1) != v117)
+      v18 = v120 + 1;
+      v47 = v118 + 1;
+      v48 = v117 - 1;
+      if ((v120 + 1) != v116)
       {
         goto LABEL_36;
       }
 
-      v19 = v117;
-      v6 = v120;
-      a3 = v112;
-      v18 = v113;
-      v17 = v114;
-      a1 = v115;
+      v18 = v116;
+      v6 = v119;
+      a3 = v111;
+      v17 = v112;
+      v16 = v113;
+      a1 = v114;
       goto LABEL_45;
     }
 
-    v57 = v129;
-    if (!v123)
+    v56 = v128;
+    if (!v122)
     {
       break;
     }
 
-    v58 = *v48;
-    v50 = v48[1];
-    *v48 = v50;
-    v48[1] = v58;
-    --v48;
-    v59 = __CFADD__(v57, 1);
-    v51 = (v57 + 1);
-    if (v59)
+    v57 = *v47;
+    v49 = v47[1];
+    *v47 = v49;
+    v47[1] = v57;
+    --v47;
+    v58 = __CFADD__(v56, 1);
+    v50 = (v56 + 1);
+    if (v58)
     {
       goto LABEL_35;
     }
@@ -7914,39 +7617,38 @@ LABEL_134:
 uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(char *a1, char *a2, char *a3, char *a4)
 {
   v9 = type metadata accessor for Date();
-  v52 = *(v9 - 8);
-  v53 = v9;
-  v10 = *(v52 + 8);
-  v11 = MEMORY[0x28223BE20](v9);
-  v55 = &v45 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v11);
-  v54 = &v45 - v13;
-  v14 = a2 - a1 + 7;
+  v51 = *(v9 - 8);
+  v52 = v9;
+  v10 = MEMORY[0x28223BE20](v9);
+  v54 = &v44 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v10);
+  v53 = &v44 - v12;
+  v13 = a2 - a1 + 7;
   if (a2 - a1 >= 0)
   {
-    v14 = a2 - a1;
+    v13 = a2 - a1;
   }
 
-  v15 = v14 >> 3;
-  v16 = a3 - a2 + 7;
+  v14 = v13 >> 3;
+  v15 = a3 - a2 + 7;
   if (a3 - a2 >= 0)
   {
-    v16 = a3 - a2;
+    v15 = a3 - a2;
   }
 
-  v17 = v16 >> 3;
-  v58 = a4;
-  if (v15 >= v16 >> 3)
+  v16 = v15 >> 3;
+  v57 = a4;
+  if (v14 >= v15 >> 3)
   {
-    v56 = a1;
-    v18 = a4;
-    if (a4 != a2 || &a2[8 * v17] <= a4)
+    v55 = a1;
+    v17 = a4;
+    if (a4 != a2 || &a2[8 * v16] <= a4)
     {
-      memmove(a4, a2, 8 * v17);
-      v18 = v58;
+      memmove(a4, a2, 8 * v16);
+      v17 = v57;
     }
 
-    v59 = &v18[8 * v17];
+    v58 = &v17[8 * v16];
     if (a3 - a2 < 8)
     {
       a1 = a2;
@@ -7955,109 +7657,109 @@ uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(char *a1, char *a2, char
     else
     {
       a1 = a2;
-      if (a2 > v56)
+      if (a2 > v55)
       {
-        v30 = type metadata accessor for MainActor();
-        v48 = (v52 + 16);
-        v49 = v30;
-        v46 = v4;
-        v47 = (v52 + 8);
+        v29 = type metadata accessor for MainActor();
+        v47 = (v51 + 16);
+        v48 = v29;
+        v45 = v4;
+        v46 = (v51 + 8);
 LABEL_28:
-        v52 = a1;
-        v31 = a1 - 8;
-        v32 = a3 - 8;
-        v33 = v59;
-        v50 = a1 - 8;
+        v51 = a1;
+        v30 = a1 - 8;
+        v31 = a3 - 8;
+        v32 = v58;
+        v49 = a1 - 8;
         do
         {
-          v57 = v32;
-          v35 = *(v33 - 1);
-          v33 -= 8;
-          v34 = v35;
-          v36 = *v31;
+          v56 = v31;
+          v34 = *(v32 - 1);
+          v32 -= 8;
+          v33 = v34;
+          v35 = *v30;
 
-          v51 = static MainActor.shared.getter();
+          v50 = static MainActor.shared.getter();
           dispatch thunk of Actor.unownedExecutor.getter();
           if ((swift_task_isCurrentExecutor() & 1) == 0)
           {
             swift_task_reportUnexpectedExecutor();
           }
 
-          v37 = *v48;
+          v36 = *v47;
+          v37 = v52;
           v38 = v53;
+          (*v47)(v53, v33 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v52);
           v39 = v54;
-          (*v48)(v54, v34 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v53);
-          v40 = v55;
-          v37(v55, v36 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v38);
-          LOBYTE(v37) = static Date.< infix(_:_:)();
-          v41 = *v47;
-          (*v47)(v40, v38);
-          v41(v39, v38);
+          v36(v54, v35 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v37);
+          LOBYTE(v36) = static Date.< infix(_:_:)();
+          v40 = *v46;
+          (*v46)(v39, v37);
+          v40(v38, v37);
 
-          if (v37)
+          if (v36)
           {
-            a3 = v57;
-            v18 = v58;
-            v43 = v50;
-            if (v57 + 8 != v52)
+            a3 = v56;
+            v17 = v57;
+            v42 = v49;
+            if (v56 + 8 != v51)
             {
-              *v57 = *v50;
+              *v56 = *v49;
             }
 
-            if (v59 <= v18 || (a1 = v43, v43 <= v56))
+            if (v58 <= v17 || (a1 = v42, v42 <= v55))
             {
-              a1 = v43;
+              a1 = v42;
               goto LABEL_42;
             }
 
             goto LABEL_28;
           }
 
-          v42 = v57;
-          v18 = v58;
-          if (v57 + 8 != v59)
+          v41 = v56;
+          v17 = v57;
+          if (v56 + 8 != v58)
           {
-            *v57 = *v33;
+            *v56 = *v32;
           }
 
-          v32 = v42 - 8;
-          v59 = v33;
-          v31 = v50;
+          v31 = v41 - 8;
+          v58 = v32;
+          v30 = v49;
         }
 
-        while (v33 > v18);
-        v59 = v33;
-        a1 = v52;
+        while (v32 > v17);
+        v58 = v32;
+        a1 = v51;
       }
     }
   }
 
   else
   {
-    v18 = a4;
-    if (a4 != a1 || &a1[8 * v15] <= a4)
+    v17 = a4;
+    if (a4 != a1 || &a1[8 * v14] <= a4)
     {
-      memmove(a4, a1, 8 * v15);
-      v18 = v58;
+      memmove(a4, a1, 8 * v14);
+      v17 = v57;
     }
 
-    v59 = &v18[8 * v15];
+    v58 = &v17[8 * v14];
     if (a2 - a1 >= 8 && a2 < a3)
     {
-      v57 = a3;
-      v46 = v4;
-      v19 = type metadata accessor for MainActor();
-      v18 = v58;
-      v50 = v52 + 16;
-      v51 = v19;
-      v20 = (v52 + 8);
+      v56 = a3;
+      v45 = v4;
+      v18 = type metadata accessor for MainActor();
+      v17 = v57;
+      v49 = v51 + 16;
+      v50 = v18;
+      v19 = (v51 + 8);
       while (1)
       {
-        v56 = a1;
-        v52 = a2;
-        v21 = *a2;
-        v58 = v18;
-        v22 = *v18;
+        v55 = a1;
+        v51 = a2;
+        v20 = *a2;
+        v57 = v17;
+        v21 = *v17;
 
         static MainActor.shared.getter();
         dispatch thunk of Actor.unownedExecutor.getter();
@@ -8066,58 +7768,58 @@ LABEL_28:
           swift_task_reportUnexpectedExecutor();
         }
 
-        v23 = *v50;
-        v25 = v53;
-        v24 = v54;
-        (*v50)(v54, v21 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v53);
-        v26 = v55;
-        v23(v55, v22 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v25);
-        LOBYTE(v23) = static Date.< infix(_:_:)();
-        v27 = *v20;
-        (*v20)(v26, v25);
-        v27(v24, v25);
+        v22 = *v49;
+        v24 = v52;
+        v23 = v53;
+        (*v49)(v53, v20 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v52);
+        v25 = v54;
+        v22(v54, v21 + OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate, v24);
+        LOBYTE(v22) = static Date.< infix(_:_:)();
+        v26 = *v19;
+        (*v19)(v25, v24);
+        v26(v23, v24);
 
-        if ((v23 & 1) == 0)
+        if ((v22 & 1) == 0)
         {
           break;
         }
 
-        v28 = v52;
-        a2 = v52 + 8;
-        v29 = v56;
-        v18 = v58;
-        if (v56 != v52)
+        v27 = v51;
+        a2 = v51 + 8;
+        v28 = v55;
+        v17 = v57;
+        if (v55 != v51)
         {
           goto LABEL_18;
         }
 
 LABEL_19:
-        a1 = v29 + 8;
-        if (v18 >= v59 || a2 >= v57)
+        a1 = v28 + 8;
+        if (v17 >= v58 || a2 >= v56)
         {
           goto LABEL_42;
         }
       }
 
-      v28 = v58;
-      v18 = v58 + 8;
-      v29 = v56;
-      a2 = v52;
-      if (v56 == v58)
+      v27 = v57;
+      v17 = v57 + 8;
+      v28 = v55;
+      a2 = v51;
+      if (v55 == v57)
       {
         goto LABEL_19;
       }
 
 LABEL_18:
-      *v29 = *v28;
+      *v28 = *v27;
       goto LABEL_19;
     }
   }
 
 LABEL_42:
-  if (a1 != v18 || a1 >= &v18[(v59 - v18 + (v59 - v18 < 0 ? 7uLL : 0)) & 0xFFFFFFFFFFFFFFF8])
+  if (a1 != v17 || a1 >= &v17[(v58 - v17 + (v58 - v17 < 0 ? 7uLL : 0)) & 0xFFFFFFFFFFFFFFF8])
   {
-    memmove(a1, v18, 8 * ((v59 - v18) / 8));
+    memmove(a1, v17, 8 * ((v58 - v17) / 8));
   }
 
   return 1;
@@ -8144,7 +7846,6 @@ uint64_t specialized Array.remove(at:)(unint64_t a1)
     v6 = v5 - 1;
     v7 = v3 + 16 * a1;
     v8 = *(v7 + 32);
-    v9 = *(v7 + 40);
     memmove((v7 + 32), (v7 + 48), 16 * (v5 - 1 - a1));
     *(v3 + 16) = v6;
     *v1 = v3;
@@ -8154,15 +7855,15 @@ uint64_t specialized Array.remove(at:)(unint64_t a1)
   return result;
 }
 
-uint64_t specialized Array._copyToContiguousArray()(uint64_t a1)
+void *specialized Array._copyToContiguousArray()(unint64_t a1)
 {
   if (!(a1 >> 62))
   {
-    return a1 & 0xFFFFFFFFFFFFFF8;
+    return (a1 & 0xFFFFFFFFFFFFFF8);
   }
 
   v2 = a1;
-  if (a1 >= 0)
+  if ((a1 & 0x8000000000000000) == 0)
   {
     a1 &= 0xFFFFFFFFFFFFFF8uLL;
   }
@@ -8245,7 +7946,7 @@ uint64_t specialized Array._copyContents(initializing:)(uint64_t result, uint64_
       {
         if (v6 >= 1)
         {
-          lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [GameSaveSyncedDirectory.Version] and conformance [A], &_sSay8GameSave0aB15SyncedDirectoryC7VersionCGMd, &_sSay8GameSave0aB15SyncedDirectoryC7VersionCGMR);
+          lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A](&lazy protocol witness table cache variable for type [GameSaveSyncedDirectory.Version] and conformance [A], &_sSay8GameSave0aB15SyncedDirectoryC7VersionCGMd, &_sSay8GameSave0aB15SyncedDirectoryC7VersionCGMR, MEMORY[0x277D83988]);
           for (i = 0; i != v6; ++i)
           {
             __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8GameSave0aB15SyncedDirectoryC7VersionCGMd, &_sSay8GameSave0aB15SyncedDirectoryC7VersionCGMR);
@@ -8284,12 +7985,12 @@ LABEL_22:
   return result;
 }
 
-uint64_t (*specialized protocol witness for Collection.subscript.read in conformance [A](uint64_t (*result)(uint64_t *a1), unint64_t a2, uint64_t a3))(uint64_t *a1)
+uint64_t (*specialized protocol witness for Collection.subscript.read in conformance [A](uint64_t (*result)(), unint64_t a2, uint64_t a3))()
 {
   v3 = result;
   if ((a3 & 0xC000000000000001) != 0)
   {
-    v5 = MEMORY[0x23EE6BA40](a2, a3);
+    v4 = MEMORY[0x23EE6BA40](a2, a3);
     goto LABEL_5;
   }
 
@@ -8300,10 +8001,9 @@ uint64_t (*specialized protocol witness for Collection.subscript.read in conform
 
   else if (*((a3 & 0xFFFFFFFFFFFFFF8) + 0x10) > a2)
   {
-    v4 = *(a3 + 8 * a2 + 32);
 
 LABEL_5:
-    *v3 = v5;
+    *v3 = v4;
     return protocol witness for Collection.subscript.read in conformance [A]specialized ;
   }
 
@@ -8314,27 +8014,25 @@ LABEL_5:
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRSb_TG5(uint64_t a1, int *a2)
 {
   *(v2 + 16) = a1;
-  v6 = (a2 + *a2);
-  v3 = a2[1];
-  v4 = swift_task_alloc();
-  *(v2 + 24) = v4;
-  *v4 = v2;
-  v4[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRSb_TG5TQ0_;
+  v5 = (a2 + *a2);
+  v3 = swift_task_alloc();
+  *(v2 + 24) = v3;
+  *v3 = v2;
+  v3[1] = _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRSb_TG5TQ0_;
 
-  return v6(v2 + 32);
+  return v5(v2 + 32);
 }
 
 uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRSb_TG5TQ0_()
 {
   v1 = *v0;
-  v2 = *(*v0 + 24);
-  v3 = *(*v0 + 16);
-  v6 = *v0;
+  v2 = *(*v0 + 16);
+  v5 = *v0;
 
-  *v3 = *(v1 + 32);
-  v4 = *(v6 + 8);
+  *v2 = *(v1 + 32);
+  v3 = *(v5 + 8);
 
-  return v4();
+  return v3();
 }
 
 id specialized closure #1 in closure #1 in static GameSaveSyncedDirectory.getGameSaveDaemonProxy(_:)()
@@ -8387,7 +8085,7 @@ void specialized closure #2 in closure #1 in static GameSaveSyncedDirectory.getG
 uint64_t specialized static GameSaveSyncedDirectory.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
   swift_getKeyPath();
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   v5 = *(a1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__containerIdentifier);
@@ -8416,7 +8114,7 @@ uint64_t outlined init with copy of GameSaveSyncedDirectory.State(uint64_t a1, u
   return a2;
 }
 
-uint64_t lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8456,7 +8154,7 @@ void specialized RemoteProgressObserver.observeValue(forKeyPath:of:change:contex
   v1 = v0;
   v2 = [*&v0[OBJC_IVAR____TtC8GameSave22RemoteProgressObserver_remoteProgress] userInfo];
   type metadata accessor for NSProgressUserInfoKey(0);
-  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type NSProgressUserInfoKey and conformance NSProgressUserInfoKey, type metadata accessor for NSProgressUserInfoKey);
+  lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type NSProgressUserInfoKey and conformance NSProgressUserInfoKey, type metadata accessor for NSProgressUserInfoKey, &protocol conformance descriptor for NSProgressUserInfoKey);
   v3 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
 
   if (*(v3 + 16) && (v4 = specialized __RawDictionaryStorage.find<A>(_:)(*MEMORY[0x277CCAED8]), (v5 & 1) != 0))
@@ -8540,10 +8238,9 @@ uint64_t specialized static GameSaveSyncedDirectory._resolveContainerIdentifier(
       v6 = specialized static EntitlementsUtils.getEntitledContainerIdentifiers(for:logger:)(v4);
       if (v6)
       {
-        if (v6[2])
+        if (*(v6 + 16))
         {
-          a1 = v6[4];
-          v7 = v6[5];
+          a1 = *(v6 + 32);
 
           goto LABEL_11;
         }
@@ -8723,12 +8420,11 @@ uint64_t outlined init with take of GameSaveSyncedDirectory.State(uint64_t a1, u
   return a2;
 }
 
-void sub_238969C68(id *a1, uint64_t *a2)
+void sub_238969C68(id *a1)
 {
+  v1 = *a1;
   v2 = *a1;
-  v3 = *a2;
-  v4 = *a1;
-  GameSaveSyncedDirectory.lastResponse.setter(v2);
+  GameSaveSyncedDirectory.lastResponse.setter(v1);
 }
 
 uint64_t partial apply for closure #2 in GameSaveSyncedDirectory.resolveConflicts(with:)(uint64_t a1)
@@ -8760,72 +8456,70 @@ uint64_t _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSo16NSURLResourceKeya_Tt0g5Tf
     v3 = static _SetStorage.allocate(capacity:)();
     v4 = 0;
     v5 = v3 + 56;
-    v27 = v1;
-    v28 = a1 + 32;
+    v25 = v1;
+    v26 = a1 + 32;
     v6 = v1;
     while (1)
     {
-      v7 = *(v28 + 8 * v4);
-      v8 = *(v3 + 40);
+      v7 = *(v26 + 8 * v4);
       static String._unconditionallyBridgeFromObjectiveC(_:)();
       Hasher.init(_seed:)();
-      v29 = v7;
+      v27 = v7;
       String.hash(into:)();
-      v9 = Hasher._finalize()();
+      v8 = Hasher._finalize()();
 
-      v11 = -1 << *(v3 + 32);
-      v12 = v9 & ~v11;
-      v13 = v12 >> 6;
-      v14 = *(v5 + 8 * (v12 >> 6));
-      v15 = 1 << v12;
-      if (((1 << v12) & v14) == 0)
+      v10 = -1 << *(v3 + 32);
+      v11 = v8 & ~v10;
+      v12 = v11 >> 6;
+      v13 = *(v5 + 8 * (v11 >> 6));
+      v14 = 1 << v11;
+      if (((1 << v11) & v13) == 0)
       {
         goto LABEL_15;
       }
 
-      v16 = ~v11;
+      v15 = ~v10;
       do
       {
-        v17 = *(*(v3 + 48) + 8 * v12);
-        v18 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-        v20 = v19;
-        if (v18 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v20 == v21)
+        v16 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+        v18 = v17;
+        if (v16 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v18 == v19)
         {
 
 LABEL_4:
-          v6 = v27;
+          v6 = v25;
           goto LABEL_5;
         }
 
-        v23 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v21 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-        if (v23)
+        if (v21)
         {
 
           goto LABEL_4;
         }
 
-        v12 = (v12 + 1) & v16;
-        v13 = v12 >> 6;
-        v14 = *(v5 + 8 * (v12 >> 6));
-        v15 = 1 << v12;
+        v11 = (v11 + 1) & v15;
+        v12 = v11 >> 6;
+        v13 = *(v5 + 8 * (v11 >> 6));
+        v14 = 1 << v11;
       }
 
-      while (((1 << v12) & v14) != 0);
-      v6 = v27;
+      while (((1 << v11) & v13) != 0);
+      v6 = v25;
 LABEL_15:
-      *(v5 + 8 * v13) = v15 | v14;
-      *(*(v3 + 48) + 8 * v12) = v29;
-      v24 = *(v3 + 16);
-      v25 = __OFADD__(v24, 1);
-      v26 = v24 + 1;
-      if (v25)
+      *(v5 + 8 * v12) = v14 | v13;
+      *(*(v3 + 48) + 8 * v11) = v27;
+      v22 = *(v3 + 16);
+      v23 = __OFADD__(v22, 1);
+      v24 = v22 + 1;
+      if (v23)
       {
         __break(1u);
         return result;
       }
 
-      *(v3 + 16) = v26;
+      *(v3 + 16) = v24;
 LABEL_5:
       if (++v4 == v6)
       {
@@ -8839,37 +8533,28 @@ LABEL_5:
 
 uint64_t specialized GameSaveSyncedDirectory.checkForConflicts(_:_:)(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
   v2[18] = a1;
   v2[19] = v1;
-  v3 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
   v2[20] = swift_task_alloc();
-  v4 = type metadata accessor for Date();
-  v2[21] = v4;
-  v5 = *(v4 - 8);
-  v2[22] = v5;
-  v6 = *(v5 + 64) + 15;
+  v3 = type metadata accessor for Date();
+  v2[21] = v3;
+  v2[22] = *(v3 - 8);
   v2[23] = swift_task_alloc();
-  v7 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation17URLResourceValuesVSgMd, &_s10Foundation17URLResourceValuesVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation17URLResourceValuesVSgMd, &_s10Foundation17URLResourceValuesVSgMR);
   v2[24] = swift_task_alloc();
-  v8 = type metadata accessor for URLResourceValues();
-  v2[25] = v8;
-  v9 = *(v8 - 8);
-  v2[26] = v9;
-  v10 = *(v9 + 64) + 15;
+  v4 = type metadata accessor for URLResourceValues();
+  v2[25] = v4;
+  v2[26] = *(v4 - 8);
   v2[27] = swift_task_alloc();
-  v11 = type metadata accessor for GameSaveSyncedDirectory.State(0);
-  v2[28] = v11;
-  v12 = *(*(v11 - 8) + 64) + 15;
+  v2[28] = type metadata accessor for GameSaveSyncedDirectory.State(0);
   v2[29] = swift_task_alloc();
-  v13 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR) - 8) + 64) + 15;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   v2[30] = swift_task_alloc();
   v2[31] = swift_task_alloc();
-  v14 = type metadata accessor for URL();
-  v2[32] = v14;
-  v15 = *(v14 - 8);
-  v2[33] = v15;
-  v16 = *(v15 + 64) + 15;
+  v5 = type metadata accessor for URL();
+  v2[32] = v5;
+  v2[33] = *(v5 - 8);
   v2[34] = swift_task_alloc();
   v2[35] = swift_task_alloc();
   v2[36] = swift_task_alloc();
@@ -8879,32 +8564,31 @@ uint64_t specialized GameSaveSyncedDirectory.checkForConflicts(_:_:)(uint64_t a1
   v2[40] = swift_task_alloc();
   v2[41] = swift_task_alloc();
   v2[42] = swift_task_alloc();
-  v17 = *MEMORY[0x277D85DE8];
 
   return MEMORY[0x2822009F8](specialized GameSaveSyncedDirectory.checkForConflicts(_:_:), 0, 0);
 }
 
 void specialized GameSaveSyncedDirectory.checkForConflicts(_:_:)()
 {
-  v282 = v0;
+  v222 = v0;
   v1 = v0;
-  v281 = *MEMORY[0x277D85DE8];
+  v221 = *MEMORY[0x277D85DE8];
   v2 = *(v0 + 336);
-  v269 = *(v1 + 328);
+  v212 = *(v1 + 328);
   v3 = *(v1 + 264);
   v4 = *(v1 + 144);
   v5 = *(v1 + 152);
-  v256 = v4;
-  v260 = *(v1 + 256);
+  v204 = v4;
+  v206 = *(v1 + 256);
   *(v1 + 344) = v1;
   swift_getKeyPath();
   *(v1 + 352) = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory___observationRegistrar;
   *(v1 + 88) = v5;
-  *(v1 + 360) = lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory);
+  *(v1 + 360) = lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory, type metadata accessor for GameSaveSyncedDirectory, &protocol conformance descriptor for GameSaveSyncedDirectory);
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
   v6 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__gameSyncedDirectoryPresenter;
-  v264 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__gameSyncedDirectoryPresenter;
+  v209 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__gameSyncedDirectoryPresenter;
   *(v1 + 368) = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__gameSyncedDirectoryPresenter;
   v7 = *(v4 + OBJC_IVAR___GameSyncedDirectoryResponse_gameSavedDataFolderURL);
   v8 = *(v5 + v6);
@@ -8919,308 +8603,281 @@ void specialized GameSaveSyncedDirectory.checkForConflicts(_:_:)()
   v12 = v3[2];
   *(v1 + 376) = v12;
   *(v1 + 384) = (v3 + 2) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
-  v13 = v260;
-  v12(&v8[v11], v2, v260);
+  v13 = v206;
+  v12(&v8[v11], v2, v206);
   v14 = v3[7];
   *(v1 + 392) = v14;
   *(v1 + 400) = (v3 + 7) & 0xFFFFFFFFFFFFLL | 0xA0D1000000000000;
-  v14(&v8[v11], 0, 1, v260);
+  v14(&v8[v11], 0, 1, v206);
   [v10 unlock];
   v15 = v3[1];
   *(v1 + 408) = v15;
   *(v1 + 416) = (v3 + 1) & 0xFFFFFFFFFFFFLL | 0x4F8000000000000;
-  v254 = v15;
-  v15(v2, v260);
+  v202 = v15;
+  v15(v2, v206);
 
-  v16 = *(v256 + OBJC_IVAR___GameSyncedDirectoryResponse_directorySandboxExtension);
-  v17 = *(v256 + OBJC_IVAR___GameSyncedDirectoryResponse_directorySandboxExtension + 8);
   String.utf8CString.getter();
-  v252 = sandbox_extension_consume();
-  *(v1 + 424) = v252;
+  v200 = sandbox_extension_consume();
+  *(v1 + 424) = v200;
 
-  v261 = v12;
-  v12(v269, v256 + OBJC_IVAR___GameSyncedDirectoryResponse_directoryURL, v13);
+  v207 = v12;
+  v12(v212, v204 + OBJC_IVAR___GameSyncedDirectoryResponse_directoryURL, v13);
   swift_getKeyPath();
   *(v1 + 96) = v5;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v18 = *(v5 + v264);
-  v19 = *&v18[OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_lock];
-  v20 = v18;
-  [v19 lock];
-  closure #1 in GameSyncedDirectoryHolder.startHoldingItem(at:)(v20, v269);
+  v16 = *(v5 + v209);
+  v17 = *&v16[OBJC_IVAR____TtC8GameSave25GameSyncedDirectoryHolder_lock];
+  v18 = v16;
+  [v17 lock];
+  closure #1 in GameSyncedDirectoryHolder.startHoldingItem(at:)(v18, v212);
   *(v1 + 432) = 0;
-  v270 = v1 + 96;
-  v21 = *(v1 + 256);
-  v22 = *(v1 + 264);
-  v23 = *(v1 + 248);
-  v24 = *(v1 + 152);
-  [v19 unlock];
+  v213 = v1 + 96;
+  v19 = *(v1 + 256);
+  v20 = *(v1 + 264);
+  v21 = *(v1 + 248);
+  [v17 unlock];
 
-  GameSaveSyncedDirectory.getLocalURL()(v23);
-  v25 = *(v22 + 48);
-  *(v1 + 440) = v25;
-  *(v1 + 448) = (v22 + 48) & 0xFFFFFFFFFFFFLL | 0x60F0000000000000;
-  v26 = v1;
-  if (v25(v23, 1, v21) != 1)
+  GameSaveSyncedDirectory.getLocalURL()(v21);
+  v22 = *(v20 + 48);
+  *(v1 + 440) = v22;
+  *(v1 + 448) = (v20 + 48) & 0xFFFFFFFFFFFFLL | 0x60F0000000000000;
+  v23 = v1;
+  if (v22(v21, 1, v19) != 1)
   {
     (*(*(v1 + 264) + 32))(*(v1 + 320), *(v1 + 248), *(v1 + 256));
     *(v1 + 504) = 0;
-    v30 = objc_opt_self();
-    v31 = [v30 defaultManager];
+    v27 = objc_opt_self();
+    v28 = [v27 defaultManager];
     countAndFlagsBits = URL.path(percentEncoded:)(0)._countAndFlagsBits;
-    v33 = MEMORY[0x23EE6B6E0](countAndFlagsBits);
+    v30 = MEMORY[0x23EE6B6E0](countAndFlagsBits);
 
-    v34 = [v31 fileExistsAtPath:v33 isDirectory:v1 + 504];
+    v31 = [v28 fileExistsAtPath:v30 isDirectory:v1 + 504];
 
-    v29 = v1 + 96;
-    if (!v34 || *(v1 + 504) != 1)
+    v26 = v1 + 96;
+    if (!v31 || *(v1 + 504) != 1)
     {
-      v28 = v254;
-      v254(*(v1 + 320), *(v1 + 256));
-      v27 = 0;
+      v25 = v202;
+      v202(*(v1 + 320), *(v1 + 256));
+      v24 = 0;
       goto LABEL_9;
     }
 
-    v35 = (v1 + 56);
-    v36 = *(v1 + 320);
-    v37 = [v30 defaultManager];
-    v38 = NSFileManager.enumerator(at:includingPropertiesForKeys:options:errorHandler:)();
+    v32 = (v1 + 56);
+    v33 = [v27 defaultManager];
+    v34 = NSFileManager.enumerator(at:includingPropertiesForKeys:options:errorHandler:)();
 
-    v39 = v252;
-    if (v38)
+    v35 = v200;
+    if (v34)
     {
-      v40 = [v38 nextObject];
-      v41 = v26[40];
-      v42 = v26[32];
-      if (v40)
+      v36 = [v34 nextObject];
+      v37 = v23[40];
+      v38 = v23[32];
+      if (v36)
       {
         _bridgeAnyObjectToAny(_:)();
         swift_unknownObjectRelease();
 
-        v28 = v254;
-        v254(v41, v42);
+        v25 = v202;
+        v202(v37, v38);
       }
 
       else
       {
-        v28 = v254;
-        v254(v26[40], v26[32]);
+        v25 = v202;
+        v202(v23[40], v23[32]);
 
-        v279 = 0u;
-        v280 = 0u;
+        v219 = 0u;
+        v220 = 0u;
       }
 
-      v197 = v280;
-      *v35 = v279;
-      *(v270 - 24) = v197;
-      if (v26[10])
+      v157 = v220;
+      *v32 = v219;
+      *(v213 - 24) = v157;
+      if (v23[10])
       {
-        v27 = 1;
+        v24 = 1;
 LABEL_73:
-        outlined destroy of URL?(v270 - 40, &_sypSgMd, &_sypSgMR);
+        outlined destroy of URL?(v213 - 40, &_sypSgMd, &_sypSgMR);
         goto LABEL_10;
       }
     }
 
     else
     {
-      v28 = v254;
-      v254(v26[40], v26[32]);
-      *v35 = 0u;
-      *(v270 - 24) = 0u;
+      v25 = v202;
+      v202(v23[40], v23[32]);
+      *v32 = 0u;
+      *(v213 - 24) = 0u;
     }
 
-    v27 = 0;
+    v24 = 0;
     goto LABEL_73;
   }
 
   outlined destroy of URL?(*(v1 + 248), &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-  v27 = 0;
-  v28 = v254;
-  v29 = v1 + 96;
+  v24 = 0;
+  v25 = v202;
+  v26 = v1 + 96;
 LABEL_9:
-  v39 = v252;
+  v35 = v200;
 LABEL_10:
-  *(v29 + 409) = v27;
-  v43 = v26[18] + OBJC_IVAR___GameSyncedDirectoryResponse_numberOfConflicts;
-  v44 = *v43;
-  v26[57] = *v43;
-  v45 = *(v43 + 8);
-  *(v29 + 410) = v45;
-  if ((v27 & 1) == 0 && (v45 & 1) == 0 && !v44)
+  *(v26 + 409) = v24;
+  v39 = v23[18] + OBJC_IVAR___GameSyncedDirectoryResponse_numberOfConflicts;
+  v40 = *v39;
+  v23[57] = *v39;
+  v41 = *(v39 + 8);
+  *(v26 + 410) = v41;
+  if ((v24 & 1) == 0 && (v41 & 1) == 0 && !v40)
   {
     if (one-time initialization token for common != -1)
     {
       swift_once();
     }
 
-    v46 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v46, static Logger.common);
-    v47 = Logger.logObject.getter();
-    v48 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v47, v48))
+    v42 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v42, static Logger.common);
+    v43 = Logger.logObject.getter();
+    v44 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v43, v44))
     {
-      v49 = swift_slowAlloc();
-      *v49 = 0;
-      v50 = "No conflicts for for directory";
+      v45 = swift_slowAlloc();
+      *v45 = 0;
+      v46 = "No conflicts for for directory";
 LABEL_17:
-      _os_log_impl(&dword_238952000, v47, v48, v50, v49, 2u);
-      MEMORY[0x23EE6C260](v49, -1, -1);
+      _os_log_impl(&dword_238952000, v43, v44, v46, v45, 2u);
+      MEMORY[0x23EE6C260](v45, -1, -1);
       goto LABEL_18;
     }
 
     goto LABEL_18;
   }
 
-  v69 = v26[19];
+  v51 = v23[19];
   swift_getKeyPath();
-  v26[13] = v69;
+  v23[13] = v51;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v70 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__progress;
-  v26[58] = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__progress;
-  if ([*(v69 + v70) isCancelled] && (*(v26[18] + OBJC_IVAR___GameSyncedDirectoryResponse_isOnline) & 1) == 0)
+  v52 = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__progress;
+  v23[58] = OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__progress;
+  if ([*(v51 + v52) isCancelled] && (*(v23[18] + OBJC_IVAR___GameSyncedDirectoryResponse_isOnline) & 1) == 0)
   {
     if (one-time initialization token for common != -1)
     {
       swift_once();
     }
 
-    v133 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v133, static Logger.common);
-    v47 = Logger.logObject.getter();
-    v48 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v47, v48))
+    v108 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v108, static Logger.common);
+    v43 = Logger.logObject.getter();
+    v44 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v43, v44))
     {
-      v49 = swift_slowAlloc();
-      *v49 = 0;
-      v50 = "User canceled the sync";
+      v45 = swift_slowAlloc();
+      *v45 = 0;
+      v46 = "User canceled the sync";
       goto LABEL_17;
     }
 
 LABEL_18:
-    v51 = v26[41];
-    v52 = v26[32];
-    v54 = v26[18];
-    v53 = v26[19];
+    v47 = v23[41];
+    v48 = v23[32];
+    v49 = v23[18];
 
-    GameSaveSyncedDirectory.moveToLoadedState(response:)(v54);
-    v28(v51, v52);
-    v277 = v26;
-    if (v39 == -1)
+    GameSaveSyncedDirectory.moveToLoadedState(response:)(v49);
+    v25(v47, v48);
+    v217 = v23;
+    if (v35 == -1)
     {
 LABEL_20:
-      v57 = v26[41];
-      v56 = v26[42];
-      v59 = v26[39];
-      v58 = v26[40];
-      v61 = v26[37];
-      v60 = v26[38];
-      v62 = v26[35];
-      v63 = v26[36];
-      v64 = v26[34];
-      v65 = v26[31];
-      v257 = v26[30];
-      v262 = v26[29];
-      v265 = v26[27];
-      v271 = v26[24];
-      v272 = v26[23];
-      v66 = v26[20];
 
-      v67 = v277[1];
-      v68 = *MEMORY[0x277D85DE8];
+      v50 = v217[1];
 
-      v67();
+      v50();
       return;
     }
 
 LABEL_19:
-    v55 = v26[53];
     sandbox_extension_release();
     goto LABEL_20;
   }
 
-  v71 = v26[19];
+  v53 = v23[19];
   swift_getKeyPath();
-  v26[14] = v71;
+  v23[14] = v53;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v72 = *(v69 + v70);
-  v73 = MEMORY[0x23EE6B6E0](0xD000000000000018, 0x800000023898C290);
-  [v72 setLocalizedDescription_];
+  v54 = *(v51 + v52);
+  v55 = MEMORY[0x23EE6B6E0](0xD000000000000018, 0x800000023898C290);
+  [v54 setLocalizedDescription_];
 
   if (one-time initialization token for common != -1)
   {
     swift_once();
   }
 
-  v74 = v26[41];
-  v75 = v26[39];
-  v76 = v26[32];
-  v77 = type metadata accessor for Logger();
-  v26[59] = __swift_project_value_buffer(v77, static Logger.common);
-  v261(v75, v74, v76);
-  v78 = Logger.logObject.getter();
-  v79 = static os_log_type_t.default.getter();
-  v80 = os_log_type_enabled(v78, v79);
-  v81 = v26[39];
-  v82 = v26[32];
-  if (v80)
+  v56 = v23[41];
+  v57 = v23[39];
+  v58 = v23[32];
+  v59 = type metadata accessor for Logger();
+  v23[59] = __swift_project_value_buffer(v59, static Logger.common);
+  v207(v57, v56, v58);
+  v60 = Logger.logObject.getter();
+  v61 = static os_log_type_t.default.getter();
+  v62 = os_log_type_enabled(v60, v61);
+  v63 = v23[39];
+  v64 = v23[32];
+  if (v62)
   {
-    v83 = swift_slowAlloc();
-    v84 = swift_slowAlloc();
-    *&v279 = v84;
-    *v83 = 136315138;
-    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
-    v85 = dispatch thunk of CustomStringConvertible.description.getter();
-    v86 = v28;
-    v87 = v85;
-    v89 = v88;
-    v86(v81, v82);
-    v90 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v87, v89, &v279);
+    v65 = swift_slowAlloc();
+    v66 = swift_slowAlloc();
+    *&v219 = v66;
+    *v65 = 136315138;
+    lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
+    v67 = dispatch thunk of CustomStringConvertible.description.getter();
+    v68 = v25;
+    v69 = v67;
+    v71 = v70;
+    v68(v63, v64);
+    v72 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v69, v71, &v219);
 
-    *(v83 + 4) = v90;
-    _os_log_impl(&dword_238952000, v78, v79, "Checking for conflicts at %s", v83, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v84);
-    MEMORY[0x23EE6C260](v84, -1, -1);
-    MEMORY[0x23EE6C260](v83, -1, -1);
+    *(v65 + 4) = v72;
+    _os_log_impl(&dword_238952000, v60, v61, "Checking for conflicts at %s", v65, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v66);
+    MEMORY[0x23EE6C260](v66, -1, -1);
+    MEMORY[0x23EE6C260](v65, -1, -1);
   }
 
   else
   {
 
-    v28(v81, v82);
+    v25(v63, v64);
   }
 
-  v91 = v26[41];
-  v92 = objc_opt_self();
-  v26[60] = v92;
-  URL._bridgeToObjectiveC()(v93);
-  v95 = v94;
-  v96 = [v92 unresolvedConflictVersionsOfItemAtURL_];
+  v73 = objc_opt_self();
+  v23[60] = v73;
+  URL._bridgeToObjectiveC()(v74);
+  v76 = v75;
+  v77 = [v73 unresolvedConflictVersionsOfItemAtURL_];
 
-  if (!v96)
+  if (!v77)
   {
-    v123 = v26[52];
-    v124 = v26[53];
-    v125 = v26[51];
-    v126 = v26[41];
-    v127 = v26[32];
-    v129 = v26[28];
-    v128 = v26[29];
-    v130 = v26[19];
+    v101 = v23[53];
+    v102 = v23[51];
+    v103 = v23[41];
+    v104 = v23[32];
+    v105 = v23[29];
     lazy protocol witness table accessor for type GameSaveSyncedDirectoryError and conformance GameSaveSyncedDirectoryError();
-    v131 = swift_allocError();
-    *v132 = 1;
-    *v128 = v131;
+    v106 = swift_allocError();
+    *v107 = 1;
+    *v105 = v106;
     swift_storeEnumTagMultiPayload();
-    GameSaveSyncedDirectory._moveToState(_:)(v128);
-    GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v128);
-    outlined destroy of GameSaveSyncedDirectory.State(v128, type metadata accessor for GameSaveSyncedDirectory.State);
-    v125(v126, v127);
-    v277 = v26;
-    if (v124 == -1)
+    GameSaveSyncedDirectory._moveToState(_:)(v105);
+    GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v105);
+    outlined destroy of GameSaveSyncedDirectory.State(v105, type metadata accessor for GameSaveSyncedDirectory.State);
+    v102(v103, v104);
+    v217 = v23;
+    if (v101 == -1)
     {
       goto LABEL_20;
     }
@@ -9228,32 +8885,32 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v97 = *(v270 + 410);
+  v78 = *(v213 + 410);
   type metadata accessor for UIAlertController(0, &lazy cache variable for type metadata for NSFileVersion, 0x277CCAA18);
-  v98 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v79 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v99 = v98 >> 62;
-  if (v97 == 1)
+  v80 = v79 >> 62;
+  if (v78 == 1)
   {
-    v100 = v26[43];
+    v81 = v23[43];
     goto LABEL_33;
   }
 
-  if (v99)
+  if (v80)
   {
-    if (v98 < 0)
+    if (v79 < 0)
     {
-      v248 = v98;
+      v198 = v79;
     }
 
     else
     {
-      v248 = v98 & 0xFFFFFFFFFFFFFF8;
+      v198 = v79 & 0xFFFFFFFFFFFFFF8;
     }
 
-    v249 = MEMORY[0x23EE6BAE0](v248);
-    v100 = v26;
-    if (v249)
+    v199 = MEMORY[0x23EE6BAE0](v198);
+    v81 = v23;
+    if (v199)
     {
       goto LABEL_33;
     }
@@ -9261,259 +8918,242 @@ LABEL_19:
 
   else
   {
-    v100 = v26;
-    if (*((v98 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    v81 = v23;
+    if (*((v79 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
       goto LABEL_33;
     }
   }
 
-  v100 = v26;
-  if (v26[57] < 1)
+  v81 = v23;
+  if (v23[57] < 1)
   {
 LABEL_33:
-    v277 = v100;
-    if (v99)
+    v217 = v81;
+    if (v80)
     {
-      if (v98 < 0)
+      if (v79 < 0)
       {
-        v247 = v98;
+        v197 = v79;
       }
 
       else
       {
-        v247 = v98 & 0xFFFFFFFFFFFFFF8;
+        v197 = v79 & 0xFFFFFFFFFFFFFF8;
       }
 
-      v101 = MEMORY[0x23EE6BAE0](v247);
+      v82 = MEMORY[0x23EE6BAE0](v197);
     }
 
     else
     {
-      v101 = *((v98 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      v82 = *((v79 & 0xFFFFFFFFFFFFFF8) + 0x10);
     }
 
-    v102 = *(v270 + 409);
-    v103 = (v26[57] == 0) & ~*(v270 + 410);
-    if (!v101)
+    v83 = *(v213 + 409);
+    v84 = (v23[57] == 0) & ~*(v213 + 410);
+    if (!v82)
     {
-      v103 = 1;
+      v84 = 1;
     }
 
-    v104 = v26[59];
-    v106 = v26[47];
-    v105 = v26[48];
-    v107 = v26[41];
-    v108 = v26[32];
-    if (!v101 && (v102 & 1) == 0)
+    v85 = v23[47];
+    v86 = v23[41];
+    v87 = v23[32];
+    if (!v82 && (v83 & 1) == 0)
     {
-      v109 = v26[38];
+      v88 = v23[38];
 
-      v106(v109, v107, v108);
-      v110 = Logger.logObject.getter();
-      v111 = static os_log_type_t.default.getter();
-      v112 = os_log_type_enabled(v110, v111);
-      v114 = v26[51];
-      v113 = v26[52];
-      v115 = v26[38];
-      v116 = v26[32];
-      if (v112)
+      v85(v88, v86, v87);
+      v89 = Logger.logObject.getter();
+      v90 = static os_log_type_t.default.getter();
+      v91 = os_log_type_enabled(v89, v90);
+      v92 = v23[51];
+      v93 = v23[38];
+      v94 = v23[32];
+      if (v91)
       {
-        v117 = swift_slowAlloc();
-        v118 = swift_slowAlloc();
-        *&v279 = v118;
-        *v117 = 136315138;
-        lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
-        v119 = dispatch thunk of CustomStringConvertible.description.getter();
-        v121 = v120;
-        v114(v115, v116);
-        v122 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v119, v121, &v279);
+        v95 = swift_slowAlloc();
+        v96 = swift_slowAlloc();
+        *&v219 = v96;
+        *v95 = 136315138;
+        lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
+        v97 = dispatch thunk of CustomStringConvertible.description.getter();
+        v99 = v98;
+        v92(v93, v94);
+        v100 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v97, v99, &v219);
 
-        *(v117 + 4) = v122;
-        _os_log_impl(&dword_238952000, v110, v111, "No conflicts found for %s", v117, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0(v118);
-        MEMORY[0x23EE6C260](v118, -1, -1);
-        MEMORY[0x23EE6C260](v117, -1, -1);
+        *(v95 + 4) = v100;
+        _os_log_impl(&dword_238952000, v89, v90, "No conflicts found for %s", v95, 0xCu);
+        __swift_destroy_boxed_opaque_existential_0(v96);
+        MEMORY[0x23EE6C260](v96, -1, -1);
+        MEMORY[0x23EE6C260](v95, -1, -1);
       }
 
       else
       {
 
-        v114(v115, v116);
+        v92(v93, v94);
       }
 
-      v192 = v26[58];
-      v193 = v26[44];
-      v194 = v26[45];
-      v196 = v26[18];
-      v195 = v26[19];
+      v154 = v23[58];
+      v156 = v23[18];
+      v155 = v23[19];
       swift_getKeyPath();
-      v26[16] = v195;
+      v23[16] = v155;
       ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-      [*(v195 + v192) setCompletedUnitCount_];
-      GameSaveSyncedDirectory.moveToLoadedState(response:)(v196);
+      [*(v155 + v154) setCompletedUnitCount_];
+      GameSaveSyncedDirectory.moveToLoadedState(response:)(v156);
       goto LABEL_87;
     }
 
-    v273 = v102 | v103;
-    v106(v26[37], v107, v108);
-    v145 = Logger.logObject.getter();
-    v146 = static os_log_type_t.default.getter();
-    v147 = os_log_type_enabled(v145, v146);
-    v148 = v26[51];
-    v149 = v26[52];
-    v150 = v26[37];
-    v151 = v26[32];
-    if (v147)
+    v214 = v83 | v84;
+    v85(v23[37], v86, v87);
+    v116 = Logger.logObject.getter();
+    v117 = static os_log_type_t.default.getter();
+    v118 = os_log_type_enabled(v116, v117);
+    v119 = v23[51];
+    v120 = v23[37];
+    v121 = v23[32];
+    if (v118)
     {
-      v152 = swift_slowAlloc();
-      v266 = swift_slowAlloc();
-      *&v279 = v266;
-      *v152 = 136315138;
-      lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
-      v153 = dispatch thunk of CustomStringConvertible.description.getter();
-      v155 = v154;
-      v148(v150, v151);
-      v156 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v153, v155, &v279);
+      v122 = swift_slowAlloc();
+      v210 = swift_slowAlloc();
+      *&v219 = v210;
+      *v122 = 136315138;
+      lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
+      v123 = dispatch thunk of CustomStringConvertible.description.getter();
+      v125 = v124;
+      v119(v120, v121);
+      v126 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v123, v125, &v219);
 
-      *(v152 + 4) = v156;
-      _os_log_impl(&dword_238952000, v145, v146, "Found conflicts for %s", v152, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v266);
-      MEMORY[0x23EE6C260](v266, -1, -1);
-      MEMORY[0x23EE6C260](v152, -1, -1);
+      *(v122 + 4) = v126;
+      _os_log_impl(&dword_238952000, v116, v117, "Found conflicts for %s", v122, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v210);
+      MEMORY[0x23EE6C260](v210, -1, -1);
+      MEMORY[0x23EE6C260](v122, -1, -1);
     }
 
     else
     {
 
-      v148(v150, v151);
+      v119(v120, v121);
     }
 
-    v157 = v26[54];
-    v158 = v26[41];
-    if (*(v26[18] + OBJC_IVAR___GameSyncedDirectoryResponse_devices))
+    v127 = v23[54];
+    v128 = v23[41];
+    if (*(v23[18] + OBJC_IVAR___GameSyncedDirectoryResponse_devices))
     {
-      v159 = *(v26[18] + OBJC_IVAR___GameSyncedDirectoryResponse_devices);
+      v129 = *(v23[18] + OBJC_IVAR___GameSyncedDirectoryResponse_devices);
     }
 
     else
     {
-      v159 = MEMORY[0x277D84F90];
+      v129 = MEMORY[0x277D84F90];
     }
 
-    v160 = swift_task_alloc();
-    *(v160 + 16) = v158;
-    *(v160 + 24) = v159;
+    v130 = swift_task_alloc();
+    *(v130 + 16) = v128;
+    *(v130 + 24) = v129;
 
-    v161 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSaySo13NSFileVersionCG_8GameSave0fG15SyncedDirectoryC0E0Cs5NeverOTg5(partial apply for closure #1 in GameSaveSyncedDirectory.checkForConflicts(_:_:), v160, v98);
+    v131 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSaySo13NSFileVersionCG_8GameSave0fG15SyncedDirectoryC0E0Cs5NeverOTg5(partial apply for closure #1 in GameSaveSyncedDirectory.checkForConflicts(_:_:), v130, v79);
 
-    v278 = v161;
-    if (v273)
+    v218 = v131;
+    if (v214)
     {
-      v274 = v157;
-      v163 = v26[55];
-      v162 = v26[56];
-      v164 = v26[48];
-      v165 = v26[32];
-      v166 = v26[30];
-      v167 = v26[19];
-      (v26[47])(v26[36], v26[41], v165);
-      GameSaveSyncedDirectory.getLocalURL()(v166);
-      if (v163(v166, 1, v165) == 1)
+      v132 = v23[55];
+      v133 = v23[32];
+      v134 = v23[30];
+      (v23[47])(v23[36], v23[41], v133);
+      GameSaveSyncedDirectory.getLocalURL()(v134);
+      if (v132(v134, 1, v133) == 1)
       {
         goto LABEL_99;
       }
 
-      v168 = v26[49];
-      v258 = v26[50];
-      v170 = v26[47];
-      v169 = v26[48];
-      v171 = v26[42];
-      v172 = v26[36];
-      v173 = v26[32];
-      v174 = v26[30];
-      v267 = v26[24];
+      v135 = v23[49];
+      v136 = v23[47];
+      v137 = v23[42];
+      v138 = v23[36];
+      v139 = v23[32];
+      v140 = v23[30];
 
-      v170(v171, v172, v173);
-      v175 = type metadata accessor for GameSaveSyncedDirectory.Version(0);
-      v176 = *(v175 + 48);
-      v177 = *(v175 + 52);
+      v136(v137, v138, v139);
+      type metadata accessor for GameSaveSyncedDirectory.Version(0);
       swift_allocObject();
 
-      v178 = GameSaveSyncedDirectory.Version.init(liveFileURL:version:lastEditorDeviceName:devices:)(v171, 0, 0, 0, v159);
-      v179 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localURL;
+      v141 = GameSaveSyncedDirectory.Version.init(liveFileURL:version:lastEditorDeviceName:devices:)(v137, 0, 0, 0, v129);
+      v142 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localURL;
 
-      outlined destroy of URL?(v180 + v179, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-      v170(&v178[v179], v174, v173);
-      v168(&v178[v179], 0, 1, v173);
+      outlined destroy of URL?(v143 + v142, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+      v136(&v141[v142], v140, v139);
+      v135(&v141[v142], 0, 1, v139);
 
       __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo16NSURLResourceKeyaGMd, &_ss23_ContiguousArrayStorageCySo16NSURLResourceKeyaGMR);
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_238987820;
-      v182 = *MEMORY[0x277CBE7B0];
+      v145 = *MEMORY[0x277CBE7B0];
       *(inited + 32) = *MEMORY[0x277CBE7B0];
-      v183 = v182;
+      v146 = v145;
       _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSo16NSURLResourceKeya_Tt0g5Tf4g_n(inited);
       swift_setDeallocating();
       outlined destroy of GameSaveSyncedDirectory.State(inited + 32, type metadata accessor for NSURLResourceKey);
       URL.resourceValues(forKeys:)();
-      v184 = v274;
-      v186 = v26[51];
-      v185 = v26[52];
-      v268 = v26[36];
-      v187 = v26[32];
-      v275 = v26[30];
-      if (v184)
+      v147 = v127;
+      v148 = v23[51];
+      v211 = v23[36];
+      v149 = v23[32];
+      v215 = v23[30];
+      if (v147)
       {
-        v188 = v26[25];
-        v189 = v26[26];
-        v190 = v26[24];
+        v150 = v23[25];
+        v151 = v23[26];
+        v152 = v23[24];
 
-        v186(v268, v187);
-        v186(v275, v187);
-        (*(v189 + 56))(v190, 1, 1, v188);
-        v191 = outlined destroy of URL?(v190, &_s10Foundation17URLResourceValuesVSgMd, &_s10Foundation17URLResourceValuesVSgMR);
+        v148(v211, v149);
+        v148(v215, v149);
+        (*(v151 + 56))(v152, 1, 1, v150);
+        v153 = outlined destroy of URL?(v152, &_s10Foundation17URLResourceValuesVSgMd, &_s10Foundation17URLResourceValuesVSgMR);
       }
 
       else
       {
-        v253 = v159;
-        v199 = v26[26];
-        v198 = v26[27];
-        v200 = v26[24];
-        v201 = v26[25];
-        v259 = v26[22];
-        v263 = v26[21];
-        v255 = v26[20];
+        v201 = v129;
+        v159 = v23[26];
+        v158 = v23[27];
+        v160 = v23[24];
+        v161 = v23[25];
+        v205 = v23[22];
+        v208 = v23[21];
+        v203 = v23[20];
 
-        (*(v199 + 56))(v200, 0, 1, v201);
-        (*(v199 + 32))(v198, v200, v201);
+        (*(v159 + 56))(v160, 0, 1, v161);
+        (*(v159 + 32))(v158, v160, v161);
         URLResourceValues.contentModificationDate.getter();
-        (*(v199 + 8))(v198, v201);
-        v186(v268, v187);
-        v186(v275, v187);
-        if ((*(v259 + 48))(v255, 1, v263) == 1)
+        (*(v159 + 8))(v158, v161);
+        v148(v211, v149);
+        v148(v215, v149);
+        if ((*(v205 + 48))(v203, 1, v208) == 1)
         {
-          v191 = outlined destroy of URL?(v26[20], &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
+          v153 = outlined destroy of URL?(v23[20], &_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
         }
 
         else
         {
-          v203 = v26[22];
-          v202 = v26[23];
-          v204 = v26[21];
-          (*(v203 + 32))(v202, v26[20], v204);
-          v191 = (*(v203 + 40))(&v178[OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate], v202, v204);
+          v163 = v23[22];
+          v162 = v23[23];
+          v164 = v23[21];
+          (*(v163 + 32))(v162, v23[20], v164);
+          v153 = (*(v163 + 40))(&v141[OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate], v162, v164);
         }
 
-        v159 = v253;
+        v129 = v201;
       }
 
-      MEMORY[0x23EE6B780](v191);
-      if (*((v278 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v278 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      MEMORY[0x23EE6B780](v153);
+      if (*((v218 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v218 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
-        v251 = *((v278 & 0xFFFFFFFFFFFFFF8) + 0x10);
         specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
       }
 
@@ -9524,91 +9164,80 @@ LABEL_33:
     {
     }
 
-    v205 = v26[60];
-    v207 = v26[47];
-    v206 = v26[48];
-    v209 = v26[34];
-    v208 = v26[35];
-    v210 = v26[32];
-    v211 = v26[18];
-    v207(v208, v26[41], v210);
-    v212 = v211 + OBJC_IVAR___GameSyncedDirectoryResponse_lastEditorDeviceName;
-    v213 = *(v211 + OBJC_IVAR___GameSyncedDirectoryResponse_lastEditorDeviceName);
-    v214 = *(v212 + 8);
-    v207(v209, v208, v210);
+    v165 = v23[60];
+    v166 = v23[47];
+    v168 = v23[34];
+    v167 = v23[35];
+    v169 = v23[32];
+    v170 = v23[18];
+    v166(v167, v23[41], v169);
+    v171 = v170 + OBJC_IVAR___GameSyncedDirectoryResponse_lastEditorDeviceName;
+    v172 = *(v170 + OBJC_IVAR___GameSyncedDirectoryResponse_lastEditorDeviceName);
+    v173 = *(v171 + 8);
+    v166(v168, v167, v169);
 
-    URL._bridgeToObjectiveC()(v215);
-    v217 = v216;
-    v218 = [v205 currentVersionOfItemAtURL_];
+    URL._bridgeToObjectiveC()(v174);
+    v176 = v175;
+    v177 = [v165 currentVersionOfItemAtURL_];
 
-    if (v218)
+    if (v177)
     {
-      v220 = v26[51];
-      v219 = v26[52];
-      v222 = v26[34];
-      v221 = v26[35];
-      v223 = v26[32];
-      v224 = type metadata accessor for GameSaveSyncedDirectory.Version(0);
-      v225 = *(v224 + 48);
-      v226 = *(v224 + 52);
-      v276 = v224;
+      v178 = v23[51];
+      v180 = v23[34];
+      v179 = v23[35];
+      v181 = v23[32];
+      v216 = type metadata accessor for GameSaveSyncedDirectory.Version(0);
       swift_allocObject();
-      v227 = GameSaveSyncedDirectory.Version.init(liveFileURL:version:lastEditorDeviceName:devices:)(v222, v218, v213, v214, v159);
-      v228 = v220(v221, v223);
-      v227[OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_isLiveVersion] = 1;
-      MEMORY[0x23EE6B780](v228);
-      if (*((v278 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v278 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      v182 = GameSaveSyncedDirectory.Version.init(liveFileURL:version:lastEditorDeviceName:devices:)(v180, v177, v172, v173, v129);
+      v183 = v178(v179, v181);
+      v182[OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_isLiveVersion] = 1;
+      MEMORY[0x23EE6B780](v183);
+      if (*((v218 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v218 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
-        v250 = *((v278 & 0xFFFFFFFFFFFFFF8) + 0x10);
         specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
       }
 
-      v229 = v26[59];
       specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-      v230 = Logger.logObject.getter();
-      v231 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v230, v231))
+      v184 = Logger.logObject.getter();
+      v185 = static os_log_type_t.default.getter();
+      if (os_log_type_enabled(v184, v185))
       {
-        v232 = swift_slowAlloc();
-        v233 = swift_slowAlloc();
-        *&v279 = v233;
-        *v232 = 136315138;
+        v186 = swift_slowAlloc();
+        v187 = swift_slowAlloc();
+        *&v219 = v187;
+        *v186 = 136315138;
 
-        v235 = MEMORY[0x23EE6B7C0](v234, v276);
-        v237 = v236;
+        v189 = MEMORY[0x23EE6B7C0](v188, v216);
+        v191 = v190;
 
-        v238 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v235, v237, &v279);
+        v192 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v189, v191, &v219);
 
-        *(v232 + 4) = v238;
-        _os_log_impl(&dword_238952000, v230, v231, "Versions: %s", v232, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0(v233);
-        MEMORY[0x23EE6C260](v233, -1, -1);
-        MEMORY[0x23EE6C260](v232, -1, -1);
+        *(v186 + 4) = v192;
+        _os_log_impl(&dword_238952000, v184, v185, "Versions: %s", v186, 0xCu);
+        __swift_destroy_boxed_opaque_existential_0(v187);
+        MEMORY[0x23EE6C260](v187, -1, -1);
+        MEMORY[0x23EE6C260](v186, -1, -1);
       }
 
-      v239 = v26[58];
-      v240 = v26[44];
-      v241 = v26[45];
-      v243 = v26[28];
-      v242 = v26[29];
-      v244 = v26[19];
+      v193 = v23[58];
+      v194 = v23[29];
+      v195 = v23[19];
       swift_getKeyPath();
-      v26[15] = v244;
+      v23[15] = v195;
       ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-      [*(v244 + v239) setCompletedUnitCount_];
-      *v242 = v278;
+      [*(v195 + v193) setCompletedUnitCount_];
+      *v194 = v218;
       swift_storeEnumTagMultiPayload();
 
-      GameSaveSyncedDirectory._moveToState(_:)(v242);
-      GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v242);
-      outlined destroy of GameSaveSyncedDirectory.State(v242, type metadata accessor for GameSaveSyncedDirectory.State);
+      GameSaveSyncedDirectory._moveToState(_:)(v194);
+      GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v194);
+      outlined destroy of GameSaveSyncedDirectory.State(v194, type metadata accessor for GameSaveSyncedDirectory.State);
 
 LABEL_87:
-      v245 = v26[52];
-      v246 = v26[53];
-      (v26[51])(v26[41], v26[32]);
-      if (v246 == -1)
+      v196 = v23[53];
+      (v23[51])(v23[41], v23[32]);
+      if (v196 == -1)
       {
         goto LABEL_20;
       }
@@ -9622,69 +9251,60 @@ LABEL_99:
     return;
   }
 
-  v134 = v26[59];
-
-  v135 = Logger.logObject.getter();
-  v136 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v135, v136))
+  v109 = Logger.logObject.getter();
+  v110 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v109, v110))
   {
-    v137 = swift_slowAlloc();
-    *v137 = 0;
-    _os_log_impl(&dword_238952000, v135, v136, "Waiting for conflicting version to be populated...", v137, 2u);
-    MEMORY[0x23EE6C260](v137, -1, -1);
+    v111 = swift_slowAlloc();
+    *v111 = 0;
+    _os_log_impl(&dword_238952000, v109, v110, "Waiting for conflicting version to be populated...", v111, 2u);
+    MEMORY[0x23EE6C260](v111, -1, -1);
   }
 
-  v138 = v26[46];
-  v140 = v26[44];
-  v139 = v26[45];
-  v141 = v26[19];
+  v112 = v23[46];
+  v113 = v23[19];
 
   swift_getKeyPath();
-  v26[17] = v141;
+  v23[17] = v113;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v142 = *(v141 + v138);
-  v26[61] = v142;
-  v142;
-  v143 = swift_task_alloc();
-  v26[62] = v143;
-  *v143 = v26;
-  v143[1] = specialized GameSaveSyncedDirectory.checkForConflicts(_:_:);
-  v144 = *MEMORY[0x277D85DE8];
+  v114 = *(v113 + v112);
+  v23[61] = v114;
+  v114;
+  v115 = swift_task_alloc();
+  v23[62] = v115;
+  *v115 = v23;
+  v115[1] = specialized GameSaveSyncedDirectory.checkForConflicts(_:_:);
 
   GameSyncedDirectoryHolder.waitForGainedVersion()();
 }
 
 {
-  v202 = v0;
-  v201 = *MEMORY[0x277D85DE8];
+  v148 = v0;
+  v147 = *MEMORY[0x277D85DE8];
   v1 = *(v0 + 480);
-  v2 = *(v0 + 328);
-  URL._bridgeToObjectiveC()(v201);
-  v4 = v3;
-  v5 = [v1 unresolvedConflictVersionsOfItemAtURL_];
+  URL._bridgeToObjectiveC()(v147);
+  v3 = v2;
+  v4 = [v1 unresolvedConflictVersionsOfItemAtURL_];
 
-  if (!v5)
+  if (!v4)
   {
-    v10 = *(v0 + 416);
-    v11 = *(v0 + 424);
-    v12 = *(v0 + 408);
-    v13 = *(v0 + 328);
-    v14 = *(v0 + 256);
-    v16 = *(v0 + 224);
-    v15 = *(v0 + 232);
-    v17 = *(v0 + 152);
+    v9 = *(v0 + 424);
+    v10 = *(v0 + 408);
+    v11 = *(v0 + 328);
+    v12 = *(v0 + 256);
+    v13 = *(v0 + 232);
     lazy protocol witness table accessor for type GameSaveSyncedDirectoryError and conformance GameSaveSyncedDirectoryError();
-    v18 = swift_allocError();
-    *v19 = 1;
-    *v15 = v18;
+    v14 = swift_allocError();
+    *v15 = 1;
+    *v13 = v14;
     swift_storeEnumTagMultiPayload();
-    GameSaveSyncedDirectory._moveToState(_:)(v15);
-    GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v15);
-    outlined destroy of GameSaveSyncedDirectory.State(v15, type metadata accessor for GameSaveSyncedDirectory.State);
-    v12(v13, v14);
-    v198 = v0;
-    if (v11 == -1)
+    GameSaveSyncedDirectory._moveToState(_:)(v13);
+    GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v13);
+    outlined destroy of GameSaveSyncedDirectory.State(v13, type metadata accessor for GameSaveSyncedDirectory.State);
+    v10(v11, v12);
+    v144 = v0;
+    if (v9 == -1)
     {
       goto LABEL_53;
     }
@@ -9692,309 +9312,275 @@ LABEL_99:
     goto LABEL_52;
   }
 
-  v6 = *(v0 + 506);
+  v5 = *(v0 + 506);
   type metadata accessor for UIAlertController(0, &lazy cache variable for type metadata for NSFileVersion, 0x277CCAA18);
-  v7 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-  v8 = v7 >> 62;
-  if (v6 == 1)
+  v7 = v6 >> 62;
+  if (v5 == 1)
   {
-    v9 = *(v0 + 344);
+    v8 = *(v0 + 344);
     goto LABEL_13;
   }
 
-  if (v8)
+  if (v7)
   {
-    if (v7 < 0)
+    if (v6 < 0)
     {
-      v180 = v7;
+      v135 = v6;
     }
 
     else
     {
-      v180 = v7 & 0xFFFFFFFFFFFFFF8;
+      v135 = v6 & 0xFFFFFFFFFFFFFF8;
     }
 
-    v20 = MEMORY[0x23EE6BAE0](v180);
+    v16 = MEMORY[0x23EE6BAE0](v135);
   }
 
   else
   {
-    v20 = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10);
+    v16 = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
   }
 
-  if (v20)
+  if (v16)
   {
-    v21 = 1;
+    v17 = 1;
   }
 
   else
   {
-    v21 = *(v0 + 456) < 1;
+    v17 = *(v0 + 456) < 1;
   }
 
-  v9 = v0;
-  if (v21)
+  v8 = v0;
+  if (v17)
   {
 LABEL_13:
-    v198 = v9;
-    if (v8)
+    v144 = v8;
+    if (v7)
     {
-      if (v7 < 0)
+      if (v6 < 0)
       {
-        v179 = v7;
+        v134 = v6;
       }
 
       else
       {
-        v179 = v7 & 0xFFFFFFFFFFFFFF8;
+        v134 = v6 & 0xFFFFFFFFFFFFFF8;
       }
 
-      v22 = MEMORY[0x23EE6BAE0](v179);
+      v18 = MEMORY[0x23EE6BAE0](v134);
     }
 
     else
     {
-      v22 = *((v7 & 0xFFFFFFFFFFFFFF8) + 0x10);
+      v18 = *((v6 & 0xFFFFFFFFFFFFFF8) + 0x10);
     }
 
-    v23 = *(v0 + 505);
-    v24 = (*(v0 + 456) == 0) & ~*(v0 + 506);
-    if (!v22)
+    v19 = *(v0 + 505);
+    v20 = (*(v0 + 456) == 0) & ~*(v0 + 506);
+    if (!v18)
     {
-      v24 = 1;
+      v20 = 1;
     }
 
-    v25 = *(v0 + 472);
-    v27 = *(v0 + 376);
-    v26 = *(v0 + 384);
-    v28 = *(v0 + 328);
-    v29 = *(v0 + 256);
-    if (!v22 && (v23 & 1) == 0)
+    v21 = *(v0 + 376);
+    v22 = *(v0 + 328);
+    v23 = *(v0 + 256);
+    if (!v18 && (v19 & 1) == 0)
     {
-      v30 = *(v0 + 304);
+      v24 = *(v0 + 304);
 
-      v27(v30, v28, v29);
-      v31 = Logger.logObject.getter();
-      v32 = static os_log_type_t.default.getter();
-      v33 = os_log_type_enabled(v31, v32);
-      v34 = *(v0 + 408);
-      v35 = *(v0 + 416);
-      v36 = *(v0 + 304);
-      v37 = *(v0 + 256);
-      if (v33)
+      v21(v24, v22, v23);
+      v25 = Logger.logObject.getter();
+      v26 = static os_log_type_t.default.getter();
+      v27 = os_log_type_enabled(v25, v26);
+      v28 = *(v0 + 408);
+      v29 = *(v0 + 304);
+      v30 = *(v0 + 256);
+      if (v27)
       {
-        v38 = swift_slowAlloc();
-        v39 = swift_slowAlloc();
-        v200 = v39;
-        *v38 = 136315138;
-        lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
-        v40 = dispatch thunk of CustomStringConvertible.description.getter();
-        v42 = v41;
-        v34(v36, v37);
-        v43 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v40, v42, &v200);
+        v31 = swift_slowAlloc();
+        v32 = swift_slowAlloc();
+        v146 = v32;
+        *v31 = 136315138;
+        lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
+        v33 = dispatch thunk of CustomStringConvertible.description.getter();
+        v35 = v34;
+        v28(v29, v30);
+        v36 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v33, v35, &v146);
 
-        *(v38 + 4) = v43;
-        _os_log_impl(&dword_238952000, v31, v32, "No conflicts found for %s", v38, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0(v39);
-        MEMORY[0x23EE6C260](v39, -1, -1);
-        MEMORY[0x23EE6C260](v38, -1, -1);
+        *(v31 + 4) = v36;
+        _os_log_impl(&dword_238952000, v25, v26, "No conflicts found for %s", v31, 0xCu);
+        __swift_destroy_boxed_opaque_existential_0(v32);
+        MEMORY[0x23EE6C260](v32, -1, -1);
+        MEMORY[0x23EE6C260](v31, -1, -1);
       }
 
       else
       {
 
-        v34(v36, v37);
+        v28(v29, v30);
       }
 
-      v110 = *(v0 + 464);
-      v111 = *(v0 + 352);
-      v112 = *(v0 + 360);
-      v114 = *(v0 + 144);
-      v113 = *(v0 + 152);
+      v89 = *(v0 + 464);
+      v91 = *(v0 + 144);
+      v90 = *(v0 + 152);
       swift_getKeyPath();
-      *(v0 + 128) = v113;
+      *(v0 + 128) = v90;
       ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-      [*(v113 + v110) setCompletedUnitCount_];
-      GameSaveSyncedDirectory.moveToLoadedState(response:)(v114);
+      [*(v90 + v89) setCompletedUnitCount_];
+      GameSaveSyncedDirectory.moveToLoadedState(response:)(v91);
       goto LABEL_51;
     }
 
-    v44 = v23 | v24;
-    v27(*(v0 + 296), *(v0 + 328), *(v0 + 256));
-    v45 = Logger.logObject.getter();
-    v46 = static os_log_type_t.default.getter();
-    v47 = os_log_type_enabled(v45, v46);
-    v49 = *(v0 + 408);
-    v48 = *(v0 + 416);
-    v50 = *(v0 + 296);
-    v51 = *(v0 + 256);
-    if (v47)
+    v37 = v19 | v20;
+    v21(*(v0 + 296), *(v0 + 328), *(v0 + 256));
+    v38 = Logger.logObject.getter();
+    v39 = static os_log_type_t.default.getter();
+    v40 = os_log_type_enabled(v38, v39);
+    v41 = *(v0 + 408);
+    v42 = *(v0 + 296);
+    v43 = *(v0 + 256);
+    if (v40)
     {
-      v52 = swift_slowAlloc();
-      v195 = swift_slowAlloc();
-      v200 = v195;
-      *v52 = 136315138;
-      lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260]);
-      v53 = v44;
-      v54 = dispatch thunk of CustomStringConvertible.description.getter();
-      v191 = v46;
-      v56 = v55;
-      v49(v50, v51);
-      v57 = v54;
-      v44 = v53;
-      v58 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v57, v56, &v200);
+      v44 = swift_slowAlloc();
+      v142 = swift_slowAlloc();
+      v146 = v142;
+      *v44 = 136315138;
+      lazy protocol witness table accessor for type GameSaveSyncedDirectory and conformance GameSaveSyncedDirectory(&lazy protocol witness table cache variable for type URL and conformance URL, MEMORY[0x277CC9260], MEMORY[0x277CC9290]);
+      v45 = v37;
+      v46 = dispatch thunk of CustomStringConvertible.description.getter();
+      v140 = v39;
+      v48 = v47;
+      v41(v42, v43);
+      v49 = v46;
+      v37 = v45;
+      v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v49, v48, &v146);
 
-      *(v52 + 4) = v58;
-      _os_log_impl(&dword_238952000, v45, v191, "Found conflicts for %s", v52, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v195);
-      MEMORY[0x23EE6C260](v195, -1, -1);
-      MEMORY[0x23EE6C260](v52, -1, -1);
+      *(v44 + 4) = v50;
+      _os_log_impl(&dword_238952000, v38, v140, "Found conflicts for %s", v44, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v142);
+      MEMORY[0x23EE6C260](v142, -1, -1);
+      MEMORY[0x23EE6C260](v44, -1, -1);
     }
 
     else
     {
 
-      v49(v50, v51);
+      v41(v42, v43);
     }
 
-    v71 = *(v0 + 432);
-    v72 = *(v0 + 328);
+    v59 = *(v0 + 432);
+    v60 = *(v0 + 328);
     if (*(*(v0 + 144) + OBJC_IVAR___GameSyncedDirectoryResponse_devices))
     {
-      v73 = *(*(v0 + 144) + OBJC_IVAR___GameSyncedDirectoryResponse_devices);
+      v61 = *(*(v0 + 144) + OBJC_IVAR___GameSyncedDirectoryResponse_devices);
     }
 
     else
     {
-      v73 = MEMORY[0x277D84F90];
+      v61 = MEMORY[0x277D84F90];
     }
 
-    v74 = swift_task_alloc();
-    *(v74 + 16) = v72;
-    *(v74 + 24) = v73;
-    v196 = v73;
+    v62 = swift_task_alloc();
+    *(v62 + 16) = v60;
+    *(v62 + 24) = v61;
+    v143 = v61;
 
-    v75 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSaySo13NSFileVersionCG_8GameSave0fG15SyncedDirectoryC0E0Cs5NeverOTg5(partial apply for closure #1 in GameSaveSyncedDirectory.checkForConflicts(_:_:), v74, v7);
+    v63 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSaySo13NSFileVersionCG_8GameSave0fG15SyncedDirectoryC0E0Cs5NeverOTg5(partial apply for closure #1 in GameSaveSyncedDirectory.checkForConflicts(_:_:), v62, v6);
 
-    v199 = v75;
-    if (!v44)
+    v145 = v63;
+    if (!v37)
     {
 
 LABEL_45:
-      v120 = *(v0 + 480);
-      v122 = *(v0 + 376);
-      v121 = *(v0 + 384);
-      v124 = *(v0 + 272);
-      v123 = *(v0 + 280);
-      v125 = *(v0 + 256);
-      v126 = *(v0 + 144);
-      v122(v123, *(v0 + 328), v125);
-      v127 = v126 + OBJC_IVAR___GameSyncedDirectoryResponse_lastEditorDeviceName;
-      v128 = *(v126 + OBJC_IVAR___GameSyncedDirectoryResponse_lastEditorDeviceName);
-      v129 = *(v127 + 8);
-      v122(v124, v123, v125);
+      v97 = *(v0 + 480);
+      v98 = *(v0 + 376);
+      v100 = *(v0 + 272);
+      v99 = *(v0 + 280);
+      v101 = *(v0 + 256);
+      v102 = *(v0 + 144);
+      v98(v99, *(v0 + 328), v101);
+      v103 = v102 + OBJC_IVAR___GameSyncedDirectoryResponse_lastEditorDeviceName;
+      v104 = *(v102 + OBJC_IVAR___GameSyncedDirectoryResponse_lastEditorDeviceName);
+      v105 = *(v103 + 8);
+      v98(v100, v99, v101);
 
-      URL._bridgeToObjectiveC()(v130);
-      v132 = v131;
-      v133 = [v120 currentVersionOfItemAtURL_];
+      URL._bridgeToObjectiveC()(v106);
+      v108 = v107;
+      v109 = [v97 currentVersionOfItemAtURL_];
 
-      if (v133)
+      if (v109)
       {
-        v135 = *(v0 + 408);
-        v134 = *(v0 + 416);
-        v137 = *(v0 + 272);
-        v136 = *(v0 + 280);
-        v138 = *(v0 + 256);
-        v139 = type metadata accessor for GameSaveSyncedDirectory.Version(0);
-        v140 = *(v139 + 48);
-        v141 = *(v139 + 52);
+        v110 = *(v0 + 408);
+        v112 = *(v0 + 272);
+        v111 = *(v0 + 280);
+        v113 = *(v0 + 256);
+        v114 = type metadata accessor for GameSaveSyncedDirectory.Version(0);
         swift_allocObject();
-        v142 = GameSaveSyncedDirectory.Version.init(liveFileURL:version:lastEditorDeviceName:devices:)(v137, v133, v128, v129, v196);
-        v143 = v135(v136, v138);
-        v142[OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_isLiveVersion] = 1;
-        MEMORY[0x23EE6B780](v143);
-        if (*((v199 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v199 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+        v115 = GameSaveSyncedDirectory.Version.init(liveFileURL:version:lastEditorDeviceName:devices:)(v112, v109, v104, v105, v143);
+        v116 = v110(v111, v113);
+        v115[OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_isLiveVersion] = 1;
+        MEMORY[0x23EE6B780](v116);
+        if (*((v145 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v145 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
         {
-          v181 = *((v199 & 0xFFFFFFFFFFFFFF8) + 0x10);
           specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
         }
 
-        v144 = *(v0 + 472);
         specialized Array._appendElementAssumeUniqueAndCapacity(_:newElement:)();
-        v145 = Logger.logObject.getter();
-        v146 = static os_log_type_t.default.getter();
-        if (os_log_type_enabled(v145, v146))
+        v117 = Logger.logObject.getter();
+        v118 = static os_log_type_t.default.getter();
+        if (os_log_type_enabled(v117, v118))
         {
-          v147 = swift_slowAlloc();
-          v148 = swift_slowAlloc();
-          v200 = v148;
-          *v147 = 136315138;
+          v119 = swift_slowAlloc();
+          v120 = swift_slowAlloc();
+          v146 = v120;
+          *v119 = 136315138;
 
-          v150 = MEMORY[0x23EE6B7C0](v149, v139);
-          v152 = v151;
+          v122 = MEMORY[0x23EE6B7C0](v121, v114);
+          v124 = v123;
 
-          v153 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v150, v152, &v200);
+          v125 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v122, v124, &v146);
 
-          *(v147 + 4) = v153;
-          _os_log_impl(&dword_238952000, v145, v146, "Versions: %s", v147, 0xCu);
-          __swift_destroy_boxed_opaque_existential_0(v148);
-          MEMORY[0x23EE6C260](v148, -1, -1);
-          MEMORY[0x23EE6C260](v147, -1, -1);
+          *(v119 + 4) = v125;
+          _os_log_impl(&dword_238952000, v117, v118, "Versions: %s", v119, 0xCu);
+          __swift_destroy_boxed_opaque_existential_0(v120);
+          MEMORY[0x23EE6C260](v120, -1, -1);
+          MEMORY[0x23EE6C260](v119, -1, -1);
         }
 
-        v154 = *(v0 + 464);
-        v156 = *(v0 + 352);
-        v155 = *(v0 + 360);
-        v158 = *(v0 + 224);
-        v157 = *(v0 + 232);
-        v159 = *(v0 + 152);
+        v126 = *(v0 + 464);
+        v127 = *(v0 + 232);
+        v128 = *(v0 + 152);
         swift_getKeyPath();
-        *(v0 + 120) = v159;
+        *(v0 + 120) = v128;
         ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-        [*(v159 + v154) setCompletedUnitCount_];
-        *v157 = v199;
+        [*(v128 + v126) setCompletedUnitCount_];
+        *v127 = v145;
         swift_storeEnumTagMultiPayload();
 
-        GameSaveSyncedDirectory._moveToState(_:)(v157);
-        GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v157);
-        outlined destroy of GameSaveSyncedDirectory.State(v157, type metadata accessor for GameSaveSyncedDirectory.State);
+        GameSaveSyncedDirectory._moveToState(_:)(v127);
+        GameSaveSyncedDirectory.sendDirectoryTelemetryLazy(from:)(v127);
+        outlined destroy of GameSaveSyncedDirectory.State(v127, type metadata accessor for GameSaveSyncedDirectory.State);
 
 LABEL_51:
-        v160 = *(v0 + 416);
-        v161 = *(v0 + 424);
+        v129 = *(v0 + 424);
         (*(v0 + 408))(*(v0 + 328), *(v0 + 256));
-        if (v161 == -1)
+        if (v129 == -1)
         {
 LABEL_53:
-          v164 = *(v0 + 328);
-          v163 = *(v0 + 336);
-          v166 = *(v0 + 312);
-          v165 = *(v0 + 320);
-          v168 = *(v0 + 296);
-          v167 = *(v0 + 304);
-          v170 = *(v0 + 280);
-          v169 = *(v0 + 288);
-          v171 = *(v0 + 272);
-          v172 = *(v0 + 248);
-          v185 = *(v0 + 240);
-          v187 = *(v0 + 232);
-          v190 = *(v0 + 216);
-          v194 = *(v0 + 192);
-          v197 = *(v0 + 184);
-          v173 = *(v0 + 160);
 
-          v174 = *(v198 + 8);
-          v175 = *MEMORY[0x277D85DE8];
+          v130 = *(v144 + 8);
 
-          v174();
+          v130();
           return;
         }
 
 LABEL_52:
-        v162 = *(v0 + 424);
         sandbox_extension_release();
         goto LABEL_53;
       }
@@ -10005,111 +9591,100 @@ LABEL_66:
       return;
     }
 
-    v192 = v71;
-    v77 = *(v0 + 440);
-    v76 = *(v0 + 448);
-    v78 = *(v0 + 384);
-    v79 = *(v0 + 256);
-    v80 = *(v0 + 240);
-    v81 = *(v0 + 152);
-    (*(v0 + 376))(*(v0 + 288), *(v0 + 328), v79);
-    GameSaveSyncedDirectory.getLocalURL()(v80);
-    if (v77(v80, 1, v79) == 1)
+    v64 = *(v0 + 440);
+    v65 = *(v0 + 256);
+    v66 = *(v0 + 240);
+    (*(v0 + 376))(*(v0 + 288), *(v0 + 328), v65);
+    GameSaveSyncedDirectory.getLocalURL()(v66);
+    if (v64(v66, 1, v65) == 1)
     {
       goto LABEL_66;
     }
 
-    v83 = *(v0 + 392);
-    v82 = *(v0 + 400);
-    v84 = *(v0 + 376);
-    v85 = *(v0 + 384);
-    v86 = *(v0 + 336);
-    v87 = *(v0 + 288);
-    v88 = *(v0 + 256);
-    v89 = *(v0 + 240);
-    v188 = *(v0 + 192);
+    v67 = *(v0 + 392);
+    v68 = *(v0 + 376);
+    v69 = *(v0 + 336);
+    v70 = *(v0 + 288);
+    v71 = *(v0 + 256);
+    v72 = *(v0 + 240);
 
-    v84(v86, v87, v88);
-    v90 = type metadata accessor for GameSaveSyncedDirectory.Version(0);
-    v91 = *(v90 + 48);
-    v92 = *(v90 + 52);
+    v68(v69, v70, v71);
+    type metadata accessor for GameSaveSyncedDirectory.Version(0);
     swift_allocObject();
 
-    v93 = GameSaveSyncedDirectory.Version.init(liveFileURL:version:lastEditorDeviceName:devices:)(v86, 0, 0, 0, v196);
-    v94 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localURL;
+    v73 = GameSaveSyncedDirectory.Version.init(liveFileURL:version:lastEditorDeviceName:devices:)(v69, 0, 0, 0, v143);
+    v74 = OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_localURL;
 
-    outlined destroy of URL?(v95 + v94, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
-    v84(&v93[v94], v89, v88);
-    v83(&v93[v94], 0, 1, v88);
+    outlined destroy of URL?(v75 + v74, &_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
+    v68(&v73[v74], v72, v71);
+    v67(&v73[v74], 0, 1, v71);
 
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo16NSURLResourceKeyaGMd, &_ss23_ContiguousArrayStorageCySo16NSURLResourceKeyaGMR);
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_238987820;
-    v97 = *MEMORY[0x277CBE7B0];
+    v77 = *MEMORY[0x277CBE7B0];
     *(inited + 32) = *MEMORY[0x277CBE7B0];
-    v98 = v97;
+    v78 = v77;
     _sSh21_nonEmptyArrayLiteralShyxGSayxG_tcfCSo16NSURLResourceKeya_Tt0g5Tf4g_n(inited);
     swift_setDeallocating();
     outlined destroy of GameSaveSyncedDirectory.State(inited + 32, type metadata accessor for NSURLResourceKey);
     URL.resourceValues(forKeys:)();
-    v99 = v192;
-    v101 = *(v0 + 408);
-    v100 = *(v0 + 416);
-    v193 = *(v0 + 288);
-    v102 = *(v0 + 256);
-    v103 = *(v0 + 240);
-    if (v99)
+    v79 = v59;
+    v80 = *(v0 + 408);
+    v141 = *(v0 + 288);
+    v81 = *(v0 + 256);
+    v82 = *(v0 + 240);
+    if (v79)
     {
-      v104 = *(v0 + 200);
-      v105 = *(v0 + 208);
-      v106 = *(v0 + 192);
+      v83 = *(v0 + 200);
+      v84 = *(v0 + 208);
+      v85 = *(v0 + 192);
 
-      v101(v193, v102);
-      v101(v103, v102);
-      (*(v105 + 56))(v106, 1, 1, v104);
-      v107 = &_s10Foundation17URLResourceValuesVSgMd;
-      v108 = &_s10Foundation17URLResourceValuesVSgMR;
-      v109 = v106;
+      v80(v141, v81);
+      v80(v82, v81);
+      (*(v84 + 56))(v85, 1, 1, v83);
+      v86 = &_s10Foundation17URLResourceValuesVSgMd;
+      v87 = &_s10Foundation17URLResourceValuesVSgMR;
+      v88 = v85;
     }
 
     else
     {
-      v116 = *(v0 + 208);
-      v115 = *(v0 + 216);
-      v184 = *(v0 + 240);
-      v118 = *(v0 + 192);
-      v117 = *(v0 + 200);
-      v186 = *(v0 + 176);
-      v189 = *(v0 + 168);
-      v183 = *(v0 + 160);
+      v93 = *(v0 + 208);
+      v92 = *(v0 + 216);
+      v137 = *(v0 + 240);
+      v95 = *(v0 + 192);
+      v94 = *(v0 + 200);
+      v138 = *(v0 + 176);
+      v139 = *(v0 + 168);
+      v136 = *(v0 + 160);
 
-      (*(v116 + 56))(v118, 0, 1, v117);
-      (*(v116 + 32))(v115, v118, v117);
+      (*(v93 + 56))(v95, 0, 1, v94);
+      (*(v93 + 32))(v92, v95, v94);
       URLResourceValues.contentModificationDate.getter();
-      (*(v116 + 8))(v115, v117);
-      v101(v193, v102);
-      v101(v184, v102);
-      if ((*(v186 + 48))(v183, 1, v189) != 1)
+      (*(v93 + 8))(v92, v94);
+      v80(v141, v81);
+      v80(v137, v81);
+      if ((*(v138 + 48))(v136, 1, v139) != 1)
       {
-        v177 = *(v0 + 176);
-        v176 = *(v0 + 184);
-        v178 = *(v0 + 168);
-        (*(v177 + 32))(v176, *(v0 + 160), v178);
-        v119 = (*(v177 + 40))(&v93[OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate], v176, v178);
+        v132 = *(v0 + 176);
+        v131 = *(v0 + 184);
+        v133 = *(v0 + 168);
+        (*(v132 + 32))(v131, *(v0 + 160), v133);
+        v96 = (*(v132 + 40))(&v73[OBJC_IVAR____TtCC8GameSave23GameSaveSyncedDirectory7Version_modifiedDate], v131, v133);
         goto LABEL_42;
       }
 
-      v109 = *(v0 + 160);
-      v107 = &_s10Foundation4DateVSgMd;
-      v108 = &_s10Foundation4DateVSgMR;
+      v88 = *(v0 + 160);
+      v86 = &_s10Foundation4DateVSgMd;
+      v87 = &_s10Foundation4DateVSgMR;
     }
 
-    v119 = outlined destroy of URL?(v109, v107, v108);
+    v96 = outlined destroy of URL?(v88, v86, v87);
 LABEL_42:
-    MEMORY[0x23EE6B780](v119);
-    if (*((v199 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v199 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+    MEMORY[0x23EE6B780](v96);
+    if (*((v145 & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((v145 & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
     {
-      v182 = *((v199 & 0xFFFFFFFFFFFFFF8) + 0x10);
       specialized Array._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)();
     }
 
@@ -10117,35 +9692,139 @@ LABEL_42:
     goto LABEL_45;
   }
 
-  v59 = *(v0 + 472);
-
-  v60 = Logger.logObject.getter();
-  v61 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v60, v61))
+  v51 = Logger.logObject.getter();
+  v52 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v51, v52))
   {
-    v63 = swift_slowAlloc();
-    *v63 = 0;
-    _os_log_impl(&dword_238952000, v60, v61, "Waiting for conflicting version to be populated...", v63, 2u);
-    MEMORY[0x23EE6C260](v63, -1, -1);
+    v54 = swift_slowAlloc();
+    *v54 = 0;
+    _os_log_impl(&dword_238952000, v51, v52, "Waiting for conflicting version to be populated...", v54, 2u);
+    MEMORY[0x23EE6C260](v54, -1, -1);
   }
 
-  v64 = *(v0 + 360);
-  v65 = *(v0 + 368);
-  v66 = *(v0 + 352);
-  v67 = *(v0 + 152);
+  v55 = *(v0 + 368);
+  v56 = *(v0 + 152);
 
   swift_getKeyPath();
-  *(v0 + 136) = v67;
+  *(v0 + 136) = v56;
   ObservationRegistrar.access<A, B>(_:keyPath:)();
 
-  v68 = *(v67 + v65);
-  *(v0 + 488) = v68;
-  v68;
-  v69 = swift_task_alloc();
-  *(v0 + 496) = v69;
-  *v69 = v0;
-  v69[1] = specialized GameSaveSyncedDirectory.checkForConflicts(_:_:);
-  v70 = *MEMORY[0x277D85DE8];
+  v57 = *(v56 + v55);
+  *(v0 + 488) = v57;
+  v57;
+  v58 = swift_task_alloc();
+  *(v0 + 496) = v58;
+  *v58 = v0;
+  v58[1] = specialized GameSaveSyncedDirectory.checkForConflicts(_:_:);
 
   GameSyncedDirectoryHolder.waitForGainedVersion()();
+}
+
+uint64_t specialized GameSaveSyncedDirectory.checkForConflicts(_:_:)()
+{
+  v1 = *(*v0 + 488);
+
+  return MEMORY[0x2822009F8](specialized GameSaveSyncedDirectory.checkForConflicts(_:_:), 0, 0);
+}
+
+id specialized static GameSaveSyncedDirectory.shouldDismissSignedOutError()()
+{
+  v0 = [objc_opt_self() standardUserDefaults];
+  v1 = MEMORY[0x23EE6B6E0](0xD000000000000041, 0x800000023898BDF0);
+  v2 = [v0 BOOLForKey_];
+
+  if (one-time initialization token for common != -1)
+  {
+    swift_once();
+  }
+
+  v3 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v3, static Logger.common);
+  v4 = Logger.logObject.getter();
+  v5 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v4, v5))
+  {
+    v6 = swift_slowAlloc();
+    *v6 = 67109120;
+    *(v6 + 4) = v2;
+    _os_log_impl(&dword_238952000, v4, v5, "Did show iCloud Drive signed out error before: %{BOOL}d", v6, 8u);
+    MEMORY[0x23EE6C260](v6, -1, -1);
+  }
+
+  return v2;
+}
+
+uint64_t partial apply for closure #1 in GameSaveSyncedDirectory.drawStateUI(window:)(uint64_t a1)
+{
+  v4 = v1[2];
+  v5 = v1[3];
+  v6 = v1[4];
+  v7 = v1[5];
+  v8 = v1[6];
+  v9 = swift_task_alloc();
+  *(v2 + 16) = v9;
+  *v9 = v2;
+  v9[1] = GameSaveSyncedDirectory.finishSyncing();
+
+  return closure #1 in GameSaveSyncedDirectory.drawStateUI(window:)(a1, v4, v5, v6, v7, v8);
+}
+
+uint64_t outlined consume of (@escaping @callee_guaranteed (@in_guaranteed GameSaveSyncedDirectory.State) -> ())?(uint64_t result, uint64_t a2)
+{
+  if (result)
+  {
+  }
+
+  return result;
+}
+
+void partial apply for closure #1 in GameSaveSyncedDirectory.lastResponse.setter()
+{
+  v1 = *(v0 + 16);
+  v2 = *(v0 + 24);
+  v3 = *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__lastResponse);
+  *(v1 + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__lastResponse) = v2;
+  v4 = v2;
+}
+
+uint64_t partial apply for closure #1 in GameSaveSyncedDirectory.accountSigningInObserver.setter()
+{
+  return partial apply for closure #1 in GameSaveSyncedDirectory.accountSigningInObserver.setter();
+}
+
+{
+  *(*(v0 + 16) + OBJC_IVAR____TtC8GameSave23GameSaveSyncedDirectory__accountSigningInObserver) = *(v0 + 24);
+  swift_unknownObjectRetain();
+  return swift_unknownObjectRelease();
+}
+
+void specialized GameSaveSyncedDirectory._customizeAlert<A>(_:with:)(void *a1, __int128 *a2)
+{
+  v4 = type metadata accessor for UIHostingControllerSizingOptions();
+  MEMORY[0x28223BE20](v4 - 8);
+  v5 = a2[1];
+  v12 = *a2;
+  v13 = v5;
+  v14 = a2[2];
+  v15 = *(a2 + 6);
+  objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7SwiftUI19UIHostingControllerCy8GameSave18ConflictScrollViewVGMd, &_s7SwiftUI19UIHostingControllerCy8GameSave18ConflictScrollViewVGMR));
+  outlined init with copy of ConflictScrollView(a2, v11);
+  v6 = UIHostingController.init(rootView:)();
+  static UIHostingControllerSizingOptions.preferredContentSize.getter();
+  dispatch thunk of UIHostingController.sizingOptions.setter();
+  v7 = v6;
+  v8 = [v7 view];
+  if (v8)
+  {
+    v9 = v8;
+    v10 = [objc_opt_self() clearColor];
+    [v9 setBackgroundColor_];
+
+    [a1 setContentViewController_];
+  }
+
+  else
+  {
+    __break(1u);
+  }
 }

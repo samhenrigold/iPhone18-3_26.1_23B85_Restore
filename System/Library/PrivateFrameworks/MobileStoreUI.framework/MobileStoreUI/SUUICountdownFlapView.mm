@@ -306,18 +306,16 @@ LABEL_4:
 - (void)setString:(id)string
 {
   stringCopy = string;
-  string = self->_string;
-  if (!string)
+  if (!self->_string)
   {
     objc_storeStrong(&self->_string, string);
     [(UILabel *)self->_labelTop setText:self->_string];
     [(UILabel *)self->_labelBot setText:self->_string];
-    string = self->_string;
   }
 
-  if (([stringCopy isEqualToString:string] & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(stringCopy) & 1) == 0)
   {
-    v7 = self->_string;
+    v6 = self->_string;
     objc_storeStrong(&self->_string, string);
     layer = [(UIImageView *)self->_backgroundViewTransitionTop layer];
     [layer removeAllAnimations];
@@ -326,8 +324,8 @@ LABEL_4:
     [layer2 removeAllAnimations];
 
     [(UILabel *)self->_labelTop setText:self->_string];
-    [(UILabel *)self->_labelBot setText:v7];
-    [(UILabel *)self->_labelTransitionTop setText:v7];
+    [(UILabel *)self->_labelBot setText:v6];
+    [(UILabel *)self->_labelTransitionTop setText:v6];
     [(UILabel *)self->_labelTransitionBot setText:self->_string];
     [(UIImageView *)self->_backgroundViewTransitionTop setHidden:0];
     [(UIImageView *)self->_backgroundViewTransitionBot setHidden:1];
@@ -335,26 +333,26 @@ LABEL_4:
     array2 = [MEMORY[0x277CBEB18] array];
     for (i = 0; i != 11; ++i)
     {
-      v13 = MEMORY[0x277CCAE60];
-      [(SUUICountdownFlapView *)self _transformForAngle:1 isTop:(i / 10.0) * 3.14159265 * 0.5];
-      v14 = [v13 valueWithCATransform3D:v19];
-      [array addObject:v14];
+      v12 = MEMORY[0x277CCAE60];
+      objc_msgSend__transformForAngle_isTop_(self, (i / 10.0) * 3.14159265 * 0.5);
+      v13 = [v12 valueWithCATransform3D:v18];
+      [array addObject:v13];
 
-      *&v15 = i / 10.0;
-      v16 = [MEMORY[0x277CCABB0] numberWithFloat:v15];
-      [array2 addObject:v16];
+      *&v14 = i / 10.0;
+      v15 = [MEMORY[0x277CCABB0] numberWithFloat:v14];
+      [array2 addObject:v15];
     }
 
-    v17 = objc_alloc_init(MEMORY[0x277CD9EC8]);
-    [v17 setKeyPath:@"transform"];
-    [v17 setValues:array];
-    [v17 setKeyTimes:array2];
-    [v17 setRemovedOnCompletion:0];
-    [v17 setFillMode:*MEMORY[0x277CDA238]];
-    [v17 setDuration:0.200000003];
-    [v17 setDelegate:self];
+    v16 = objc_alloc_init(MEMORY[0x277CD9EC8]);
+    [v16 setKeyPath:@"transform"];
+    [v16 setValues:array];
+    [v16 setKeyTimes:array2];
+    [v16 setRemovedOnCompletion:0];
+    [v16 setFillMode:*MEMORY[0x277CDA238]];
+    [v16 setDuration:0.200000003];
+    [v16 setDelegate:self];
     layer3 = [(UIImageView *)self->_backgroundViewTransitionTop layer];
-    [layer3 addAnimation:v17 forKey:@"top"];
+    [layer3 addAnimation:v16 forKey:@"top"];
   }
 }
 
@@ -432,7 +430,7 @@ LABEL_4:
     for (i = 0; i != 11; ++i)
     {
       v11 = MEMORY[0x277CCAE60];
-      [(SUUICountdownFlapView *)self _transformForAngle:0 isTop:(1.0 - (i / 10.0)) * 3.14159265 * 0.5];
+      objc_msgSend__transformForAngle_isTop_(self, (1.0 - (i / 10.0)) * 3.14159265 * 0.5);
       v12 = [v11 valueWithCATransform3D:&v17];
       [array addObject:v12];
 

@@ -236,88 +236,88 @@
 - (void)buildSubTree
 {
   v6 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, v2, v3, v4);
-  objc_msgSend_layoutSettings(self, v7, v8, v9, v10);
-  if ((v213 & 1) == 0)
+  objc_msgSend_layoutSettings(self, v7, v8, v9);
+  if ((v212 & 1) == 0)
   {
-    v15 = [TSCHChartMainTitleLayoutItem alloc];
-    v20 = objc_msgSend_initWithParent_(v15, v16, v17, v18, v19, self);
-    objc_msgSend_setTitleElement_(self, v21, v22, v23, v24, v20);
+    v14 = [TSCHChartMainTitleLayoutItem alloc];
+    v19 = objc_msgSend_initWithParent_(v14, v15, v16, v17, v18, self);
+    objc_msgSend_setTitleElement_(self, v20, v21, v22, v23, v19);
 
-    v29 = objc_msgSend_titleElement(self, v25, v26, v27, v28);
-    objc_msgSend_addObject_(v6, v30, v31, v32, v33, v29);
+    v28 = objc_msgSend_titleElement(self, v24, v25, v26, v27);
+    objc_msgSend_addObject_(v6, v29, v30, v31, v32, v28);
   }
 
-  v34 = objc_msgSend_chartInfo(self, v11, v12, v13, v14);
-  v39 = objc_msgSend_chartType(v34, v35, v36, v37, v38);
-  isMultiData = objc_msgSend_isMultiData(v39, v40, v41, v42, v43);
+  v33 = objc_msgSend_chartInfo(self, v10, v11, v12, v13);
+  v38 = objc_msgSend_chartType(v33, v34, v35, v36, v37);
+  isMultiData = objc_msgSend_isMultiData(v38, v39, v40, v41, v42);
 
-  if (isMultiData && !v213)
+  if (isMultiData && !v212)
   {
-    v49 = [TSCHChartDataSetNameLayoutItem alloc];
-    v54 = objc_msgSend_initWithParent_(v49, v50, v51, v52, v53, self);
-    objc_msgSend_setDataSetNameElement_(self, v55, v56, v57, v58, v54);
+    v48 = [TSCHChartDataSetNameLayoutItem alloc];
+    v53 = objc_msgSend_initWithParent_(v48, v49, v50, v51, v52, self);
+    objc_msgSend_setDataSetNameElement_(self, v54, v55, v56, v57, v53);
 
-    v63 = objc_msgSend_dataSetNameElement(self, v59, v60, v61, v62);
-    objc_msgSend_addObject_(v6, v64, v65, v66, v67, v63);
+    v62 = objc_msgSend_dataSetNameElement(self, v58, v59, v60, v61);
+    objc_msgSend_addObject_(v6, v63, v64, v65, v66, v62);
   }
 
-  v68 = objc_msgSend_axisIDWithType_ordinal_(TSCHChartAxisID, v45, v46, v47, v48, 1, 1);
-  v73 = objc_alloc(objc_msgSend_p_axisLayoutItemClassForAxisID_(self, v69, v70, v71, v72, v68));
-  v78 = objc_msgSend_initWithParent_axisPosition_(v73, v74, v75, v76, v77, self, 2);
+  v67 = objc_msgSend_axisIDWithType_ordinal_(TSCHChartAxisID, v44, v45, v46, v47, 1, 1);
+  v72 = objc_alloc(objc_msgSend_p_axisLayoutItemClassForAxisID_(self, v68, v69, v70, v71, v67));
+  v77 = objc_msgSend_initWithParent_axisPosition_(v72, v73, v74, v75, v76, self, 2);
   topHorizontalAxis = self->_topHorizontalAxis;
-  self->_topHorizontalAxis = v78;
+  self->_topHorizontalAxis = v77;
 
-  objc_msgSend_setAxisID_(self->_topHorizontalAxis, v80, v81, v82, v83, v68);
-  v88 = objc_msgSend_axisIDWithType_ordinal_(TSCHChartAxisID, v84, v85, v86, v87, 1, 0);
-  objc_msgSend_setReferenceLineLabelAxisID_(self->_topHorizontalAxis, v89, v90, v91, v92, v88);
+  objc_msgSend_setAxisID_(self->_topHorizontalAxis, v79, v80, v81, v82, v67);
+  v87 = objc_msgSend_axisIDWithType_ordinal_(TSCHChartAxisID, v83, v84, v85, v86, 1, 0);
+  objc_msgSend_setReferenceLineLabelAxisID_(self->_topHorizontalAxis, v88, v89, v90, v91, v87);
 
-  objc_msgSend_addObject_(v6, v93, v94, v95, v96, self->_topHorizontalAxis);
-  v101 = objc_msgSend_axisIDWithType_ordinal_(TSCHChartAxisID, v97, v98, v99, v100, 2, 0);
+  objc_msgSend_addObject_(v6, v92, v93, v94, v95, self->_topHorizontalAxis);
+  v100 = objc_msgSend_axisIDWithType_ordinal_(TSCHChartAxisID, v96, v97, v98, v99, 2, 0);
 
-  v106 = objc_alloc(objc_msgSend_p_axisLayoutItemClassForAxisID_(self, v102, v103, v104, v105, v101));
-  v111 = objc_msgSend_initWithParent_axisPosition_(v106, v107, v108, v109, v110, self, 1);
+  v105 = objc_alloc(objc_msgSend_p_axisLayoutItemClassForAxisID_(self, v101, v102, v103, v104, v100));
+  v110 = objc_msgSend_initWithParent_axisPosition_(v105, v106, v107, v108, v109, self, 1);
   leftVerticalAxis = self->_leftVerticalAxis;
-  self->_leftVerticalAxis = v111;
+  self->_leftVerticalAxis = v110;
 
-  objc_msgSend_setAxisID_(self->_leftVerticalAxis, v113, v114, v115, v116, v101);
-  objc_msgSend_addObject_(v6, v117, v118, v119, v120, self->_leftVerticalAxis);
-  v121 = [TSCHChartBodyLayoutItem alloc];
-  v126 = objc_msgSend_initWithParent_(v121, v122, v123, v124, v125, self);
-  objc_msgSend_setBodyLayoutItem_(self, v127, v128, v129, v130, v126);
-  objc_msgSend_addObject_(v6, v131, v132, v133, v134, v126);
-  v139 = objc_msgSend_axisIDWithType_ordinal_(TSCHChartAxisID, v135, v136, v137, v138, 2, 1);
+  objc_msgSend_setAxisID_(self->_leftVerticalAxis, v112, v113, v114, v115, v100);
+  objc_msgSend_addObject_(v6, v116, v117, v118, v119, self->_leftVerticalAxis);
+  v120 = [TSCHChartBodyLayoutItem alloc];
+  v125 = objc_msgSend_initWithParent_(v120, v121, v122, v123, v124, self);
+  objc_msgSend_setBodyLayoutItem_(self, v126, v127, v128, v129, v125);
+  objc_msgSend_addObject_(v6, v130, v131, v132, v133, v125);
+  v138 = objc_msgSend_axisIDWithType_ordinal_(TSCHChartAxisID, v134, v135, v136, v137, 2, 1);
 
-  v144 = objc_alloc(objc_msgSend_p_axisLayoutItemClassForAxisID_(self, v140, v141, v142, v143, v139));
-  v149 = objc_msgSend_initWithParent_axisPosition_(v144, v145, v146, v147, v148, self, 3);
+  v143 = objc_alloc(objc_msgSend_p_axisLayoutItemClassForAxisID_(self, v139, v140, v141, v142, v138));
+  v148 = objc_msgSend_initWithParent_axisPosition_(v143, v144, v145, v146, v147, self, 3);
   rightVerticalAxis = self->_rightVerticalAxis;
-  self->_rightVerticalAxis = v149;
+  self->_rightVerticalAxis = v148;
 
-  objc_msgSend_setAxisID_(self->_rightVerticalAxis, v151, v152, v153, v154, v139);
-  v159 = objc_msgSend_axisIDWithType_ordinal_(TSCHChartAxisID, v155, v156, v157, v158, 2, 0);
-  objc_msgSend_setReferenceLineLabelAxisID_(self->_rightVerticalAxis, v160, v161, v162, v163, v159);
+  objc_msgSend_setAxisID_(self->_rightVerticalAxis, v150, v151, v152, v153, v138);
+  v158 = objc_msgSend_axisIDWithType_ordinal_(TSCHChartAxisID, v154, v155, v156, v157, 2, 0);
+  objc_msgSend_setReferenceLineLabelAxisID_(self->_rightVerticalAxis, v159, v160, v161, v162, v158);
 
-  objc_msgSend_addObject_(v6, v164, v165, v166, v167, self->_rightVerticalAxis);
-  v172 = objc_msgSend_axisIDWithType_ordinal_(TSCHChartAxisID, v168, v169, v170, v171, 1, 0);
+  objc_msgSend_addObject_(v6, v163, v164, v165, v166, self->_rightVerticalAxis);
+  v171 = objc_msgSend_axisIDWithType_ordinal_(TSCHChartAxisID, v167, v168, v169, v170, 1, 0);
 
-  v177 = objc_alloc(objc_msgSend_p_axisLayoutItemClassForAxisID_(self, v173, v174, v175, v176, v172));
-  v182 = objc_msgSend_initWithParent_axisPosition_(v177, v178, v179, v180, v181, self, 4);
+  v176 = objc_alloc(objc_msgSend_p_axisLayoutItemClassForAxisID_(self, v172, v173, v174, v175, v171));
+  v181 = objc_msgSend_initWithParent_axisPosition_(v176, v177, v178, v179, v180, self, 4);
   bottomHorizontalAxis = self->_bottomHorizontalAxis;
-  self->_bottomHorizontalAxis = v182;
+  self->_bottomHorizontalAxis = v181;
 
-  objc_msgSend_setAxisID_(self->_bottomHorizontalAxis, v184, v185, v186, v187, v172);
-  objc_msgSend_addObject_(v6, v188, v189, v190, v191, self->_bottomHorizontalAxis);
-  v192 = [_TtC8TSCharts23TSCHChartGridLayoutItem alloc];
-  v197 = objc_msgSend_initWithParent_(v192, v193, v194, v195, v196, self);
+  objc_msgSend_setAxisID_(self->_bottomHorizontalAxis, v183, v184, v185, v186, v171);
+  objc_msgSend_addObject_(v6, v187, v188, v189, v190, self->_bottomHorizontalAxis);
+  v191 = [_TtC8TSCharts23TSCHChartGridLayoutItem alloc];
+  v196 = objc_msgSend_initWithParent_(v191, v192, v193, v194, v195, self);
   gridLayoutItem = self->_gridLayoutItem;
-  self->_gridLayoutItem = v197;
+  self->_gridLayoutItem = v196;
 
-  objc_msgSend_addObject_(v6, v199, v200, v201, v202, self->_gridLayoutItem);
-  v207 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEA60], v203, v204, v205, v206, v6);
-  objc_msgSend_setChildren_(self, v208, v209, v210, v211, v207);
+  objc_msgSend_addObject_(v6, v198, v199, v200, v201, self->_gridLayoutItem);
+  v206 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEA60], v202, v203, v204, v205, v6);
+  objc_msgSend_setChildren_(self, v207, v208, v209, v210, v206);
 
-  v212.receiver = self;
-  v212.super_class = TSCHChartAreaLayoutItem;
-  [(TSCHChartLayoutItem *)&v212 buildSubTree];
+  v211.receiver = self;
+  v211.super_class = TSCHChartAreaLayoutItem;
+  [(TSCHChartLayoutItem *)&v211 buildSubTree];
 }
 
 - (void)layoutInward

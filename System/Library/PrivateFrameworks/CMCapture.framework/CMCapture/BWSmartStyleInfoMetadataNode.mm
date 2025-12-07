@@ -1,7 +1,6 @@
 @interface BWSmartStyleInfoMetadataNode
 - (BWSmartStyleInfoMetadataNode)init;
 - (uint64_t)_emptyMetadataBlockBuffer;
-- (uint64_t)init;
 - (void)_emitSmartStyleInfoBoxedMetadataForSampleBuffer:(void *)buffer metadata:(uint64_t)metadata time:;
 - (void)configurationWithID:(int64_t)d updatedFormat:(id)format didBecomeLiveForInput:(id)input;
 - (void)dealloc;
@@ -202,8 +201,8 @@
     return;
   }
 
-  v37 = 0;
-  v38 = 0;
+  v42 = 0;
+  v43 = 0;
   if ((*(metadata + 12) & 1) == 0)
   {
     Data = 0;
@@ -248,19 +247,19 @@ LABEL_23:
 LABEL_24:
     if (v8)
     {
-      sampleSizeArray = 0;
+      DataLength = 0;
       goto LABEL_26;
     }
 
     _emptyMetadataBlockBuffer = [(BWSmartStyleInfoMetadataNode *)self _emptyMetadataBlockBuffer];
     if (!_emptyMetadataBlockBuffer)
     {
-      v38 = 0;
+      v43 = 0;
       goto LABEL_26;
     }
 
     v31 = CFRetain(_emptyMetadataBlockBuffer);
-    v38 = v31;
+    v43 = v31;
     if (!v31)
     {
       goto LABEL_26;
@@ -297,30 +296,30 @@ LABEL_24:
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_8();
     LODWORD(blockBufferOut) = 0;
-LABEL_40:
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", blockBufferOut);
     goto LABEL_26;
   }
 
   v25 = v24;
   *v24 = bswap32(v23);
   *(v24 + 1) = *(self + 168);
-  v39.location = 0;
-  v39.length = v22;
-  CFDataGetBytes(Data, v39, v24 + 8);
-  v26 = CMBlockBufferCreateWithMemoryBlock(v19, v25, v23, *MEMORY[0x1E695E488], 0, 0, v23, 0, &v38);
+  v44.location = 0;
+  v44.length = v22;
+  CFDataGetBytes(Data, v44, v24 + 8);
+  v26 = CMBlockBufferCreateWithMemoryBlock(v19, v25, v23, *MEMORY[0x1E695E488], 0, 0, v23, 0, &v43);
   if (v26)
   {
     v32 = v26;
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_8();
-    LODWORD(blockBufferOut) = v32;
-    goto LABEL_40;
+    LODWORD(blockBufferOuta) = v32;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", blockBufferOuta);
+    goto LABEL_26;
   }
 
-  v27 = v38;
-  sampleSizeArray = 0;
-  if (!v38)
+  v27 = v43;
+  DataLength = 0;
+  if (!v43)
   {
     goto LABEL_26;
   }
@@ -329,18 +328,18 @@ LABEL_40:
 LABEL_18:
   memcpy(&error, MEMORY[0x1E6960CF0], sizeof(error));
   error.presentationTimeStamp = *metadata;
-  sampleSizeArray = CMBlockBufferGetDataLength(v27);
-  v29 = CMSampleBufferCreate(*v10, v38, 1u, 0, 0, *(self + 144), 1, 1, &error, 1, &sampleSizeArray, &v37);
+  DataLength = CMBlockBufferGetDataLength(v27);
+  v29 = CMSampleBufferCreate(*v10, v43, 1u, 0, 0, *(self + 144), 1, 1, &error, 1, &DataLength, &v42);
   if (v29)
   {
     v33 = v29;
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_8();
-    LODWORD(blockBufferOut) = v33;
-    FigDebugAssert3();
+    LODWORD(blockBufferOutb) = v33;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", blockBufferOutb, v37, sampleSizeArray, v39, LODWORD(error.duration.value), *&error.duration.timescale, error.duration.epoch, LODWORD(error.presentationTimeStamp.value));
   }
 
-  if (v37)
+  if (v42)
   {
     [*(self + 136) emitSampleBuffer:?];
     *(self + 153) = v28;
@@ -355,7 +354,7 @@ LABEL_18:
 LABEL_26:
   *&error.duration.value = *metadata;
   error.duration.epoch = *(metadata + 16);
-  [*(self + 136) emitDroppedSample:{+[BWDroppedSample newDroppedSampleWithReason:pts:](BWDroppedSample, "newDroppedSampleWithReason:pts:", 0x1F219BFF0, &error, blockBufferOut)}];
+  [*(self + 136) emitDroppedSample:{+[BWDroppedSample newDroppedSampleWithReason:pts:](BWDroppedSample, "newDroppedSampleWithReason:pts:", 0x1F219BFF0, &error)}];
   if (Data)
   {
 LABEL_27:
@@ -363,14 +362,14 @@ LABEL_27:
   }
 
 LABEL_28:
-  if (v38)
+  if (v43)
   {
-    CFRelease(v38);
+    CFRelease(v43);
   }
 
-  if (v37)
+  if (v42)
   {
-    CFRelease(v37);
+    CFRelease(v42);
   }
 }
 
@@ -381,39 +380,40 @@ LABEL_28:
     v1 = result;
     if (!*(result + 160))
     {
-      if (CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x1E695E480], 0, 8uLL, *MEMORY[0x1E695E480], 0, 0, 8uLL, 1u, (result + 160)))
+      v2 = CMBlockBufferCreateWithMemoryBlock(*MEMORY[0x1E695E480], 0, 8uLL, *MEMORY[0x1E695E480], 0, 0, 8uLL, 1u, (result + 160));
+      if (v2)
       {
+        v4 = v2;
         fig_log_get_emitter();
         OUTLINED_FUNCTION_1_8();
+        LODWORD(blockBufferOut) = v4;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", blockBufferOut);
       }
 
       else
       {
         dataPointerOut = 0;
-        if (!CMBlockBufferGetDataPointer(*(v1 + 160), 0, 0, 0, &dataPointerOut))
+        DataPointer = CMBlockBufferGetDataPointer(*(v1 + 160), 0, 0, 0, &dataPointerOut);
+        if (DataPointer)
         {
-          *dataPointerOut = 0x8000000;
-          return *(v1 + 160);
+          v5 = DataPointer;
+          fig_log_get_emitter();
+          OUTLINED_FUNCTION_1_8();
+          LODWORD(blockBufferOut) = v5;
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", blockBufferOut);
         }
 
-        fig_log_get_emitter();
-        OUTLINED_FUNCTION_1_8();
+        else
+        {
+          *dataPointerOut = 0x8000000;
+        }
       }
-
-      FigDebugAssert3();
     }
 
     return *(v1 + 160);
   }
 
   return result;
-}
-
-- (uint64_t)init
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_6();
-  return FigDebugAssert3();
 }
 
 @end

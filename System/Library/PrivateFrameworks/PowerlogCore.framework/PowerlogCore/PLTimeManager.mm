@@ -12,6 +12,7 @@
 - (id)currentTimeFromTimeReference:(int64_t)reference toTimeReference:(int64_t)timeReference;
 - (id)initialMonotonicTime;
 - (id)storageQueue;
+- (int)bucketTimeStampForDate:(id)date withTimeReference:(int64_t)reference withBucketInterval:(int)interval;
 - (void)getBootSessionUUID;
 - (void)initializeTimeOffsets;
 - (void)logTimeEntry;
@@ -40,10 +41,10 @@
 
 uint64_t __31__PLTimeManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  sharedInstance_instance = objc_alloc_init(objc_opt_class());
+  v1 = objc_alloc_init(objc_opt_class());
+  sharedInstance_instance = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1);
 }
 
 - (id)storageQueue
@@ -56,10 +57,10 @@ uint64_t __31__PLTimeManager_sharedInstance__block_invoke(uint64_t a1)
 
 - (PLTimeManager)init
 {
-  v22[4] = *MEMORY[0x1E69E9840];
-  v20.receiver = self;
-  v20.super_class = PLTimeManager;
-  v2 = [(PLTimeManager *)&v20 init];
+  v21[4] = *MEMORY[0x1E69E9840];
+  v19.receiver = self;
+  v19.super_class = PLTimeManager;
+  v2 = [(PLTimeManager *)&v19 init];
   if (v2)
   {
     v3 = +[PLSQLiteConnection sharedSQLiteConnection];
@@ -69,60 +70,59 @@ uint64_t __31__PLTimeManager_sharedInstance__block_invoke(uint64_t a1)
     v5 = [[PLTimeReferenceKernel alloc] initWithTimeManager:v2 entryDefinitionKey:@"kernel" timeReferenceType:2];
     v6 = [(PLTimeReferenceDynamic *)[PLTimeReferenceSystem alloc] initWithTimeManager:v2 entryDefinitionKey:@"system" timeReferenceType:1];
     v7 = [[PLTimeReferenceBaseband alloc] initWithTimeManager:v2 entryDefinitionKey:@"baseband" timeReferenceType:3];
-    v21[0] = &unk_1F5405A78;
-    v21[1] = &unk_1F5405A90;
-    v22[0] = v4;
-    v22[1] = v5;
-    v21[2] = &unk_1F5405AA8;
-    v21[3] = &unk_1F5405AC0;
-    v22[2] = v6;
-    v22[3] = v7;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:4];
+    v20[0] = &unk_1F5405A78;
+    v20[1] = &unk_1F5405A90;
+    v21[0] = v4;
+    v21[1] = v5;
+    v20[2] = &unk_1F5405AA8;
+    v20[3] = &unk_1F5405AC0;
+    v21[2] = v6;
+    v21[3] = v7;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:4];
     timeReferences = v2->_timeReferences;
     v2->_timeReferences = v8;
 
     v10 = [objc_opt_class() description];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __21__PLTimeManager_init__block_invoke;
-    v18[3] = &unk_1E85196C8;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __21__PLTimeManager_init__block_invoke;
+    v17[3] = &unk_1E85196C8;
     v11 = v2;
-    v19 = v11;
-    [(PLTimeReferenceDynamic *)v6 registerForTimeChangedCallbackWithIdentifier:v10 usingBlock:v18];
+    v18 = v11;
+    [(PLTimeReferenceDynamic *)v6 registerForTimeChangedCallbackWithIdentifier:v10 usingBlock:v17];
 
     v12 = [objc_opt_class() description];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __21__PLTimeManager_init__block_invoke_25;
-    v16[3] = &unk_1E85196C8;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __21__PLTimeManager_init__block_invoke_25;
+    v15[3] = &unk_1E85196C8;
     v13 = v11;
-    v17 = v13;
-    [(PLTimeReferenceDynamic *)v7 registerForTimeChangedCallbackWithIdentifier:v12 usingBlock:v16];
+    v16 = v13;
+    [(PLTimeReferenceDynamic *)v7 registerForTimeChangedCallbackWithIdentifier:v12 usingBlock:v15];
 
     [(PLTimeManager *)v13 getBootSessionUUID];
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
-uint64_t __21__PLTimeManager_init__block_invoke(uint64_t a1)
+uint64_t __21__PLTimeManager_init__block_invoke(uint64_t a1, double a2)
 {
-  v2 = PLLogTimeManager();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v4 = PLLogTimeManager(a1);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    __21__PLTimeManager_init__block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __21__PLTimeManager_init__block_invoke_cold_1(v4, v5, v6, v7, v8, v9, v10, v11, a2);
   }
 
   return [*(a1 + 32) logTimeEntry];
 }
 
-uint64_t __21__PLTimeManager_init__block_invoke_25(uint64_t a1)
+uint64_t __21__PLTimeManager_init__block_invoke_25(uint64_t a1, double a2)
 {
-  v2 = PLLogTimeManager();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v4 = PLLogTimeManager(a1);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    __21__PLTimeManager_init__block_invoke_25_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+    __21__PLTimeManager_init__block_invoke_25_cold_1(v4, v5, v6, v7, v8, v9, v10, v11, a2);
   }
 
   return [*(a1 + 32) logTimeEntry];
@@ -137,8 +137,8 @@ uint64_t __21__PLTimeManager_init__block_invoke_25(uint64_t a1)
 
 - (void)initializeTimeOffsets
 {
-  v45 = *MEMORY[0x1E69E9840];
-  v3 = PLLogTimeManager();
+  v44 = *MEMORY[0x1E69E9840];
+  v3 = PLLogTimeManager(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(PLTimeManager *)v3 initializeTimeOffsets];
@@ -147,7 +147,7 @@ uint64_t __21__PLTimeManager_init__block_invoke_25(uint64_t a1)
   v4 = [(PLOperator *)PLStorageOperator entryKeyForType:@"EventForward" andName:@"TimeOffset"];
   v5 = +[PowerlogCore sharedCore];
   storage = [v5 storage];
-  v34 = v4;
+  v33 = v4;
   v7 = [storage lastEntriesForKey:v4 count:3 withFilters:0];
   reverseObjectEnumerator = [v7 reverseObjectEnumerator];
   allObjects = [reverseObjectEnumerator allObjects];
@@ -166,32 +166,32 @@ uint64_t __21__PLTimeManager_init__block_invoke_25(uint64_t a1)
 
   timeReferences4 = [(PLTimeManager *)self timeReferences];
   v17 = [timeReferences4 objectForKeyedSubscript:&unk_1F5405AC0];
-  v33 = allObjects;
+  v32 = allObjects;
   [v17 initializeOffsetWithEntries:allObjects];
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   timeReferences5 = [(PLTimeManager *)self timeReferences];
   allValues = [timeReferences5 allValues];
 
-  v20 = [allValues countByEnumeratingWithState:&v39 objects:v44 count:16];
+  v20 = [allValues countByEnumeratingWithState:&v38 objects:v43 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v40;
+    v22 = *v39;
     do
     {
       v23 = 0;
       do
       {
-        if (*v40 != v22)
+        if (*v39 != v22)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v24 = *(*(&v39 + 1) + 8 * v23);
+        v24 = *(*(&v38 + 1) + 8 * v23);
         if (objc_opt_respondsToSelector())
         {
           [v24 registerForTimeChangedNotification];
@@ -201,35 +201,35 @@ uint64_t __21__PLTimeManager_init__block_invoke_25(uint64_t a1)
       }
 
       while (v21 != v23);
-      v21 = [allValues countByEnumeratingWithState:&v39 objects:v44 count:16];
+      v21 = [allValues countByEnumeratingWithState:&v38 objects:v43 count:16];
     }
 
     while (v21);
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   timeReferences6 = [(PLTimeManager *)self timeReferences];
   allValues2 = [timeReferences6 allValues];
 
-  v27 = [allValues2 countByEnumeratingWithState:&v35 objects:v43 count:16];
+  v27 = [allValues2 countByEnumeratingWithState:&v34 objects:v42 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v36;
+    v29 = *v35;
     do
     {
       v30 = 0;
       do
       {
-        if (*v36 != v29)
+        if (*v35 != v29)
         {
           objc_enumerationMutation(allValues2);
         }
 
-        v31 = *(*(&v35 + 1) + 8 * v30);
+        v31 = *(*(&v34 + 1) + 8 * v30);
         if (objc_opt_respondsToSelector())
         {
           [v31 registerForDayChangedNotification];
@@ -244,14 +244,13 @@ uint64_t __21__PLTimeManager_init__block_invoke_25(uint64_t a1)
       }
 
       while (v28 != v30);
-      v28 = [allValues2 countByEnumeratingWithState:&v35 objects:v43 count:16];
+      v28 = [allValues2 countByEnumeratingWithState:&v34 objects:v42 count:16];
     }
 
     while (v28);
   }
 
   [(PLTimeManager *)self logTimeEntry];
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initialMonotonicTime
@@ -271,19 +270,18 @@ uint64_t __21__PLTimeManager_init__block_invoke_25(uint64_t a1)
 
 void __37__PLTimeManager_initialMonotonicTime__block_invoke(uint64_t a1)
 {
-  v2 = [MEMORY[0x1E695DF00] date];
-  v3 = initialMonotonicTime_initialMonotonicTime;
-  initialMonotonicTime_initialMonotonicTime = v2;
+  v1 = [MEMORY[0x1E695DF00] date];
+  v2 = initialMonotonicTime_initialMonotonicTime;
+  initialMonotonicTime_initialMonotonicTime = v1;
 
   if (+[PLDefaults debugEnabled])
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
+    v3 = objc_opt_class();
     block = MEMORY[0x1E69E9820];
-    v12 = 3221225472;
-    v13 = __37__PLTimeManager_initialMonotonicTime__block_invoke_2;
-    v14 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v15 = v5;
+    v11 = 3221225472;
+    v12 = __37__PLTimeManager_initialMonotonicTime__block_invoke_2;
+    v13 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v14 = v3;
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_0 != -1)
     {
       dispatch_once(&PLSubmissionAnalyticsStateSuccess_block_invoke_defaultOnce_0, &block);
@@ -291,14 +289,14 @@ void __37__PLTimeManager_initialMonotonicTime__block_invoke(uint64_t a1)
 
     if (PLSubmissionAnalyticsStateSuccess_block_invoke_classDebugEnabled_0 == 1)
     {
-      v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PLTimeManager::initialMonotonicTime=%@", initialMonotonicTime_initialMonotonicTime, block, v12, v13, v14, v15];
-      v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLTimeManager.m"];
-      v8 = [v7 lastPathComponent];
-      v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeManager initialMonotonicTime]_block_invoke"];
-      [PLCoreStorage logMessage:v6 fromFile:v8 fromFunction:v9 fromLineNumber:160];
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"PLTimeManager::initialMonotonicTime=%@", initialMonotonicTime_initialMonotonicTime, block, v11, v12, v13, v14];
+      v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLTimeManager.m"];
+      v6 = [v5 lastPathComponent];
+      v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeManager initialMonotonicTime]_block_invoke"];
+      [PLCoreStorage logMessage:v4 fromFile:v6 fromFunction:v7 fromLineNumber:160];
 
-      v10 = PLLogCommon();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v9 = PLLogCommon(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
@@ -464,23 +462,23 @@ BOOL __37__PLTimeManager_initialMonotonicTime__block_invoke_2(uint64_t a1)
       v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeManager timeZoneHourBucketShift:]"];
       [PLCoreStorage logMessage:v9 fromFile:lastPathComponent fromFunction:v12 fromLineNumber:246];
 
-      v13 = PLLogCommon();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v14 = PLLogCommon(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
       }
     }
   }
 
-  v14 = -v7;
+  v15 = -v7;
   if (v7 >= shift)
   {
-    v14 = v7;
+    v15 = v7;
   }
 
-  v15 = v14 + shift;
+  v16 = v15 + shift;
 
-  return v15;
+  return v16;
 }
 
 BOOL __41__PLTimeManager_timeZoneHourBucketShift___block_invoke(uint64_t a1)
@@ -499,6 +497,173 @@ BOOL __41__PLTimeManager_timeZoneHourBucketShift___block_invoke(uint64_t a1)
   v8 = v7;
 
   return v8;
+}
+
+- (int)bucketTimeStampForDate:(id)date withTimeReference:(int64_t)reference withBucketInterval:(int)interval
+{
+  v5 = *&interval;
+  dateCopy = date;
+  [(PLTimeManager *)self hourBucketBaseSnapOffsetWithMonotonicTime:reference];
+  v10 = v9;
+  v11 = [(PLTimeManager *)self bucketNSDate:dateCopy withBucketInterval:v5];
+  [v11 timeIntervalSince1970];
+  v13 = v12;
+
+  v14 = v13;
+  v15 = (v13 - v10);
+  if (+[PLDefaults debugEnabled])
+  {
+    v16 = objc_opt_class();
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = __77__PLTimeManager_bucketTimeStampForDate_withTimeReference_withBucketInterval___block_invoke;
+    block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    block[4] = v16;
+    if (bucketTimeStampForDate_withTimeReference_withBucketInterval__defaultOnce != -1)
+    {
+      dispatch_once(&bucketTimeStampForDate_withTimeReference_withBucketInterval__defaultOnce, block);
+    }
+
+    if (bucketTimeStampForDate_withTimeReference_withBucketInterval__classDebugEnabled == 1)
+    {
+      v17 = MEMORY[0x1E696AEC0];
+      v18 = [MEMORY[0x1E696AD98] numberWithInteger:reference];
+      v19 = [v17 stringWithFormat:@"MonotonicDate %@, timeReference: %@, bucketInterval %d", dateCopy, v18, v5];
+
+      v20 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLTimeManager.m"];
+      lastPathComponent = [v20 lastPathComponent];
+      v22 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeManager bucketTimeStampForDate:withTimeReference:withBucketInterval:]"];
+      [PLCoreStorage logMessage:v19 fromFile:lastPathComponent fromFunction:v22 fromLineNumber:279];
+
+      v24 = PLLogCommon(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+      {
+        [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
+      }
+    }
+  }
+
+  v25 = v15 + v5;
+  if (+[PLDefaults debugEnabled])
+  {
+    v26 = objc_opt_class();
+    v59[0] = MEMORY[0x1E69E9820];
+    v59[1] = 3221225472;
+    v59[2] = __77__PLTimeManager_bucketTimeStampForDate_withTimeReference_withBucketInterval___block_invoke_56;
+    v59[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v59[4] = v26;
+    if (bucketTimeStampForDate_withTimeReference_withBucketInterval__defaultOnce_54 != -1)
+    {
+      dispatch_once(&bucketTimeStampForDate_withTimeReference_withBucketInterval__defaultOnce_54, v59);
+    }
+
+    if (bucketTimeStampForDate_withTimeReference_withBucketInterval__classDebugEnabled_55 == 1)
+    {
+      v27 = MEMORY[0x1E696AEC0];
+      v28 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:v14];
+      v29 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:v15];
+      v30 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:v25];
+      v31 = [v27 stringWithFormat:@"BucketTickInSameClock %@ LowerTick %@, UpperTick %@", v28, v29, v30];
+
+      v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLTimeManager.m"];
+      lastPathComponent2 = [v32 lastPathComponent];
+      v34 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeManager bucketTimeStampForDate:withTimeReference:withBucketInterval:]"];
+      [PLCoreStorage logMessage:v31 fromFile:lastPathComponent2 fromFunction:v34 fromLineNumber:281];
+
+      v36 = PLLogCommon(v35);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+      {
+        [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
+      }
+    }
+  }
+
+  [dateCopy timeIntervalSince1970];
+  v38 = v37;
+  v39 = +[PLDefaults debugEnabled];
+  if (v38 < v25)
+  {
+    if (!v39)
+    {
+      goto LABEL_30;
+    }
+
+    v40 = objc_opt_class();
+    v58[0] = MEMORY[0x1E69E9820];
+    v58[1] = 3221225472;
+    v58[2] = __77__PLTimeManager_bucketTimeStampForDate_withTimeReference_withBucketInterval___block_invoke_62;
+    v58[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v58[4] = v40;
+    if (bucketTimeStampForDate_withTimeReference_withBucketInterval__defaultOnce_60 != -1)
+    {
+      dispatch_once(&bucketTimeStampForDate_withTimeReference_withBucketInterval__defaultOnce_60, v58);
+    }
+
+    if (bucketTimeStampForDate_withTimeReference_withBucketInterval__classDebugEnabled_61 != 1)
+    {
+      goto LABEL_30;
+    }
+
+    v41 = MEMORY[0x1E696AEC0];
+    v42 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:v15];
+    v43 = [v41 stringWithFormat:@"Returning lowerTick %@", v42];
+
+    v44 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLTimeManager.m"];
+    lastPathComponent3 = [v44 lastPathComponent];
+    v46 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeManager bucketTimeStampForDate:withTimeReference:withBucketInterval:]"];
+    [PLCoreStorage logMessage:v43 fromFile:lastPathComponent3 fromFunction:v46 fromLineNumber:284];
+
+    v48 = PLLogCommon(v47);
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+    {
+      [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
+    }
+
+LABEL_29:
+
+LABEL_30:
+    v25 = v15;
+    goto LABEL_31;
+  }
+
+  if (v39)
+  {
+    v49 = objc_opt_class();
+    v57[0] = MEMORY[0x1E69E9820];
+    v57[1] = 3221225472;
+    v57[2] = __77__PLTimeManager_bucketTimeStampForDate_withTimeReference_withBucketInterval___block_invoke_68;
+    v57[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v57[4] = v49;
+    if (bucketTimeStampForDate_withTimeReference_withBucketInterval__defaultOnce_66 != -1)
+    {
+      dispatch_once(&bucketTimeStampForDate_withTimeReference_withBucketInterval__defaultOnce_66, v57);
+    }
+
+    if (bucketTimeStampForDate_withTimeReference_withBucketInterval__classDebugEnabled_67 == 1)
+    {
+      v50 = MEMORY[0x1E696AEC0];
+      v51 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSince1970:v25];
+      v43 = [v50 stringWithFormat:@"Returning upperTick %@", v51];
+
+      v52 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Storage/PLTimeManager.m"];
+      lastPathComponent4 = [v52 lastPathComponent];
+      v54 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLTimeManager bucketTimeStampForDate:withTimeReference:withBucketInterval:]"];
+      [PLCoreStorage logMessage:v43 fromFile:lastPathComponent4 fromFunction:v54 fromLineNumber:287];
+
+      v48 = PLLogCommon(v55);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEBUG))
+      {
+        [PLSubmissionFile logSubmissionResultToCAWithErrorType:withFileType:withOverrideKeys:];
+      }
+
+      v15 = v25;
+      goto LABEL_29;
+    }
+  }
+
+LABEL_31:
+
+  return v25;
 }
 
 BOOL __77__PLTimeManager_bucketTimeStampForDate_withTimeReference_withBucketInterval___block_invoke(uint64_t a1)
@@ -532,9 +697,10 @@ BOOL __77__PLTimeManager_bucketTimeStampForDate_withTimeReference_withBucketInte
 - (void)logTimeEntry
 {
   v22 = *MEMORY[0x1E69E9840];
-  if (+[PLUtilities isPowerlogHelperd](PLUtilities, "isPowerlogHelperd") || +[PLUtilities isPerfPowerMetricd](PLUtilities, "isPerfPowerMetricd") || +[PLUtilities shouldLogPreUnlockTelemetry])
+  v3 = +[PLUtilities isPowerlogHelperd];
+  if (v3 & 1) != 0 || (v3 = +[PLUtilities isPerfPowerMetricd](PLUtilities, "isPerfPowerMetricd"), (v3) || (v3 = +[PLUtilities shouldLogPreUnlockTelemetry], v3))
   {
-    dictionary = PLLogTimeManager();
+    dictionary = PLLogTimeManager(v3);
     if (os_log_type_enabled(dictionary, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -552,42 +718,40 @@ BOOL __77__PLTimeManager_bucketTimeStampForDate_withTimeReference_withBucketInte
     timeReferences = [(PLTimeManager *)self timeReferences];
     allValues = [timeReferences allValues];
 
-    v6 = [allValues countByEnumeratingWithState:&v16 objects:v21 count:16];
-    if (v6)
+    v7 = [allValues countByEnumeratingWithState:&v16 objects:v21 count:16];
+    if (v7)
     {
-      v7 = v6;
-      v8 = *v17;
+      v8 = v7;
+      v9 = *v17;
       do
       {
-        for (i = 0; i != v7; ++i)
+        for (i = 0; i != v8; ++i)
         {
-          if (*v17 != v8)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * i);
-          if ([v10 timeReferenceType])
+          v11 = *(*(&v16 + 1) + 8 * i);
+          if ([v11 timeReferenceType])
           {
-            v11 = MEMORY[0x1E696AD98];
-            [v10 offset];
-            v12 = [v11 numberWithDouble:?];
-            entryDefinitionKey = [v10 entryDefinitionKey];
-            [dictionary setObject:v12 forKeyedSubscript:entryDefinitionKey];
+            v12 = MEMORY[0x1E696AD98];
+            [v11 offset];
+            v13 = [v12 numberWithDouble:?];
+            entryDefinitionKey = [v11 entryDefinitionKey];
+            [dictionary setObject:v13 forKeyedSubscript:entryDefinitionKey];
           }
         }
 
-        v7 = [allValues countByEnumeratingWithState:&v16 objects:v21 count:16];
+        v8 = [allValues countByEnumeratingWithState:&v16 objects:v21 count:16];
       }
 
-      while (v7);
+      while (v8);
     }
 
     storageOperator = [(PLTimeManager *)self storageOperator];
     [storageOperator logEventForwardTimeOffset:dictionary];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (PLStorageOperator)storageOperator
@@ -604,18 +768,18 @@ BOOL __77__PLTimeManager_bucketTimeStampForDate_withTimeReference_withBucketInte
   return WeakRetained;
 }
 
-void __21__PLTimeManager_init__block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void __21__PLTimeManager_init__block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1D8611000, a1, a3, "PLTimeManager::system time changed: delta=%f", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = a9;
+  OUTLINED_FUNCTION_0(&dword_1D8611000, a1, a3, "PLTimeManager::system time changed: delta=%f", a5, a6, a7, a8, v9, DWORD2(v9));
 }
 
-void __21__PLTimeManager_init__block_invoke_25_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void __21__PLTimeManager_init__block_invoke_25_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0(&dword_1D8611000, a1, a3, "PLTimeManager::baseband time changed: delta=%f", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v9) = 134217984;
+  *(&v9 + 4) = a9;
+  OUTLINED_FUNCTION_0(&dword_1D8611000, a1, a3, "PLTimeManager::baseband time changed: delta=%f", a5, a6, a7, a8, v9, DWORD2(v9));
 }
 
 @end

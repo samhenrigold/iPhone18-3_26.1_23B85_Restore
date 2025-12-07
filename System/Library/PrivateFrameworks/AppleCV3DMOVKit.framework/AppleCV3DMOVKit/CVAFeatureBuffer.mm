@@ -136,19 +136,19 @@
 
 - (__CVBuffer)getPixelBufferCopy
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ((self->_bytesPerRow & 0x3F) != 0)
   {
     v3 = +[AppleCV3DMOVKitLog defaultLog];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       bytesPerRow = self->_bytesPerRow;
-      v10 = 134217984;
-      v11 = bytesPerRow;
-      _os_log_impl(&dword_24016D000, v3, OS_LOG_TYPE_ERROR, "MOVKit:CVAFeatureBuffer - ERROR - bytesPerRow %ld not multiple of 64", &v10, 0xCu);
+      v9 = 134217984;
+      v10 = bytesPerRow;
+      _os_log_impl(&dword_24016D000, v3, OS_LOG_TYPE_ERROR, "MOVKit:CVAFeatureBuffer - ERROR - bytesPerRow %ld not multiple of 64", &v9, 0xCu);
     }
 
-    result = 0;
+    return 0;
   }
 
   else
@@ -167,21 +167,20 @@
         CVBufferSetAttachments(v6, attachments, kCVAttachmentMode_ShouldPropagate);
       }
 
-      result = v6;
+      return v6;
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (CVAFeatureBuffer)initWithCoder:(id)coder
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v24.receiver = self;
-  v24.super_class = CVAFeatureBuffer;
-  v5 = [(CVAFeatureBuffer *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = CVAFeatureBuffer;
+  v5 = [(CVAFeatureBuffer *)&v23 init];
   if (v5)
   {
     v6 = objc_autoreleasePoolPush();
@@ -209,9 +208,9 @@
     if (v14)
     {
       v15 = v5->_data;
-      v23 = 0;
-      v16 = [(NSData *)v15 decompressedDataUsingAlgorithm:1 error:&v23];
-      v17 = v23;
+      v22 = 0;
+      v16 = [(NSData *)v15 decompressedDataUsingAlgorithm:1 error:&v22];
+      v17 = v22;
       if (v17)
       {
         p_super = +[AppleCV3DMOVKitLog defaultLog];
@@ -219,7 +218,7 @@
         {
           v19 = [v17 description];
           *buf = 138412290;
-          v26 = v19;
+          v25 = v19;
           _os_log_impl(&dword_24016D000, p_super, OS_LOG_TYPE_ERROR, "CVAFeatureBuffer - ERROR - %@", buf, 0xCu);
         }
       }
@@ -235,13 +234,12 @@
     objc_autoreleasePoolPop(v6);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = objc_autoreleasePoolPush();
   CVPixelBufferLockBaseAddress(self->_pixelBufferRef, 1uLL);
@@ -260,9 +258,9 @@ LABEL_7:
     self->_bytesPerRow = CVPixelBufferGetBytesPerRow(self->_pixelBufferRef);
     if (self->_compressed)
     {
-      v14 = 0;
-      v9 = [v7 compressedDataUsingAlgorithm:1 error:&v14];
-      v8 = v14;
+      v13 = 0;
+      v9 = [v7 compressedDataUsingAlgorithm:1 error:&v13];
+      v8 = v13;
       data = self->_data;
       self->_data = v9;
 
@@ -273,7 +271,7 @@ LABEL_7:
         {
           v12 = [v8 description];
           *buf = 138412290;
-          v16 = v12;
+          v15 = v12;
           _os_log_impl(&dword_24016D000, v11, OS_LOG_TYPE_ERROR, "CVAFeatureBuffer - ERROR - %@", buf, 0xCu);
         }
 
@@ -321,7 +319,6 @@ LABEL_15:
   self->_pixelBufferRef = 0;
 
   objc_autoreleasePoolPop(v5);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -355,16 +352,16 @@ LABEL_15:
 
 - (id)dictionary
 {
-  v19[10] = *MEMORY[0x277D85DE8];
+  v18[10] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:{self->_width, @"w"}];
-  v19[0] = v3;
-  v18[1] = @"h";
+  v18[0] = v3;
+  v17[1] = @"h";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:self->_height];
-  v19[1] = v4;
-  v18[2] = @"bpr";
+  v18[1] = v4;
+  v17[2] = @"bpr";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:self->_bytesPerRow];
-  v19[2] = v5;
-  v18[3] = @"d";
+  v18[2] = v5;
+  v17[3] = @"d";
   data = self->_data;
   v7 = data;
   if (!data)
@@ -378,13 +375,13 @@ LABEL_15:
     attachments = MEMORY[0x277CBEC10];
   }
 
-  v19[3] = v7;
-  v19[4] = attachments;
-  v18[4] = @"a";
-  v18[5] = @"t";
+  v18[3] = v7;
+  v18[4] = attachments;
+  v17[4] = @"a";
+  v17[5] = @"t";
   v9 = [MEMORY[0x277CCABB0] numberWithDouble:self->_timestamp];
-  v19[5] = v9;
-  v18[6] = @"sct";
+  v18[5] = v9;
+  v17[6] = @"sct";
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_syncTimestamp];
   v11 = v10;
   sourceStreamID = self->_sourceStreamID;
@@ -393,22 +390,20 @@ LABEL_15:
     sourceStreamID = &stru_28521B010;
   }
 
-  v19[6] = v10;
-  v19[7] = sourceStreamID;
-  v18[7] = @"st";
-  v18[8] = @"c";
+  v18[6] = v10;
+  v18[7] = sourceStreamID;
+  v17[7] = @"st";
+  v17[8] = @"c";
   v13 = [MEMORY[0x277CCABB0] numberWithBool:self->_compressed];
-  v19[8] = v13;
-  v18[9] = @"fi";
+  v18[8] = v13;
+  v17[9] = @"fi";
   v14 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:self->_frameId];
-  v19[9] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:10];
+  v18[9] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:10];
 
   if (!data)
   {
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

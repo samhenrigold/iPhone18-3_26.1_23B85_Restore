@@ -1,4 +1,5 @@
 @interface TSUZipReadChannel
+- (BOOL)processData:(id)data CRC:(unsigned int *)c isDone:(BOOL)done handler:(id)handler;
 - (BOOL)readFileHeaderFromData:(id)data headerLength:(unint64_t *)length error:(id *)error;
 - (TSUZipReadChannel)initWithEntry:(id)entry archive:(id)archive validateCRC:(BOOL)c;
 - (void)addBarrier:(id)barrier;
@@ -256,7 +257,7 @@ LABEL_5:
     v18 = TSUDefaultCat_log_t;
     if (os_log_type_enabled(TSUDefaultCat_log_t, OS_LOG_TYPE_ERROR))
     {
-      sub_10015D684(self, v18, v13);
+      sub_10015D684(self, v18);
     }
 
     v39[0] = @"Local file header has bad signature";
@@ -297,7 +298,7 @@ LABEL_5:
     v24 = TSUDefaultCat_log_t;
     if (os_log_type_enabled(TSUDefaultCat_log_t, OS_LOG_TYPE_ERROR))
     {
-      sub_10015D758(self, v24, v13 + 4);
+      sub_10015D758(self, v24);
     }
 
     v37[0] = @"Local file header doesn't match compression method from central directory file header";
@@ -372,6 +373,52 @@ LABEL_39:
 
   _Block_object_dispose(v15, 8);
   _Block_object_dispose(v17, 8);
+}
+
+- (BOOL)processData:(id)data CRC:(unsigned int *)c isDone:(BOOL)done handler:(id)handler
+{
+  doneCopy = done;
+  dataCopy = data;
+  handlerCopy = handler;
+  if (c && self->_validateCRC && (v20[0] = _NSConcreteStackBlock, v20[1] = 3221225472, v20[2] = sub_100094F80, v20[3] = &unk_1001CD930, v20[4] = c, dispatch_data_apply(dataCopy, v20), doneCopy) && [(TSUZipEntry *)self->_entry CRC]!= *c)
+  {
+    if (TSUDefaultCat_init_token != -1)
+    {
+      sub_10015D804();
+    }
+
+    v14 = TSUDefaultCat_log_t;
+    if (os_log_type_enabled(TSUDefaultCat_log_t, OS_LOG_TYPE_ERROR))
+    {
+      sub_10015D82C(&self->_entry, v14);
+    }
+
+    v22[0] = @"CRC does not match";
+    v21[0] = @"TSUZipArchiveErrorDescription";
+    v21[1] = @"TSUZipArchiveErrorEntryName";
+    name = [(TSUZipEntry *)self->_entry name];
+    v16 = name;
+    v17 = &stru_1001D3878;
+    if (name)
+    {
+      v17 = name;
+    }
+
+    v22[1] = v17;
+    v18 = [NSDictionary dictionaryWithObjects:v22 forKeys:v21 count:2];
+    v19 = [NSError tsu_fileReadCorruptedFileErrorWithUserInfo:v18];
+
+    [(TSUZipReadChannel *)self handleFailureWithHandler:handlerCopy error:v19];
+    v12 = 0;
+  }
+
+  else
+  {
+    handlerCopy[2](handlerCopy, doneCopy, dataCopy, 0);
+    v12 = 1;
+  }
+
+  return v12;
 }
 
 - (void)handleFailureWithHandler:(id)handler error:(id)error

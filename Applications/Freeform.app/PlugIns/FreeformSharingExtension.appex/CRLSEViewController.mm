@@ -58,7 +58,7 @@
 
     v9 = static OS_os_log.crlSharingExtension;
     v10 = sub_10007E614();
-    sub_100069E88(v9, &_mh_execute_header, v10, "Sharing Extension view controller created", 41, 2, _swiftEmptyArrayStorage);
+    sub_100069E88(v9, &_mh_execute_header, v10, "Sharing Extension view controller created", 41, 2, _swiftEmptyArrayStorage, v12.receiver, v12.super_class);
   }
 
   return v6;
@@ -67,7 +67,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1000334E0();
+  sub_1000334E0(selfCopy);
 }
 
 - (void)viewWillAppear:(BOOL)appear
@@ -84,7 +84,7 @@
 
   v5 = static OS_os_log.crlSharingExtension;
   v6 = sub_10007E614();
-  sub_100069E88(v5, &_mh_execute_header, v6, "Sharing Extension view controller viewWillAppear", 48, 2, _swiftEmptyArrayStorage);
+  sub_100069E88(v5, &_mh_execute_header, v6, "Sharing Extension view controller viewWillAppear", 48, 2, _swiftEmptyArrayStorage, v7.receiver, v7.super_class);
 }
 
 @end

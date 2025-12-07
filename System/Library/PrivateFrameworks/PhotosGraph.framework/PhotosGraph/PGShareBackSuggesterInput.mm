@@ -110,13 +110,13 @@
 
 + (id)universalDateIntervalForSuggesterInputs:(id)inputs withTimeIntervalPadding:(double)padding
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   inputsCopy = inputs;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v6 = [inputsCopy countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v6 = [inputsCopy countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (!v6)
   {
     v9 = 0;
@@ -127,17 +127,17 @@
   v7 = v6;
   v8 = 0;
   v9 = 0;
-  v10 = *v24;
+  v10 = *v23;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v24 != v10)
+      if (*v23 != v10)
       {
         objc_enumerationMutation(inputsCopy);
       }
 
-      creationDate = [*(*(&v23 + 1) + 8 * i) creationDate];
+      creationDate = [*(*(&v22 + 1) + 8 * i) creationDate];
       v13 = creationDate;
       if (v9)
       {
@@ -167,7 +167,7 @@ LABEL_8:
 LABEL_11:
     }
 
-    v7 = [inputsCopy countByEnumeratingWithState:&v23 objects:v31 count:16];
+    v7 = [inputsCopy countByEnumeratingWithState:&v22 objects:v30 count:16];
   }
 
   while (v7);
@@ -187,29 +187,27 @@ LABEL_17:
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v28 = "+[PGShareBackSuggesterInput universalDateIntervalForSuggesterInputs:withTimeIntervalPadding:]";
-    v29 = 2112;
-    v30 = inputsCopy;
+    v27 = "+[PGShareBackSuggesterInput universalDateIntervalForSuggesterInputs:withTimeIntervalPadding:]";
+    v28 = 2112;
+    v29 = inputsCopy;
     _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "%s: Start or endDate nil for %@", buf, 0x16u);
   }
 
   v18 = objc_alloc_init(MEMORY[0x277CCA970]);
 LABEL_20:
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 + (id)localDateIntervalForSuggesterInputs:(id)inputs withTimeIntervalPadding:(double)padding
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   inputsCopy = inputs;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v6 = [inputsCopy countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v6 = [inputsCopy countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (!v6)
   {
     v9 = 0;
@@ -220,17 +218,17 @@ LABEL_20:
   v7 = v6;
   v8 = 0;
   v9 = 0;
-  v10 = *v24;
+  v10 = *v23;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v24 != v10)
+      if (*v23 != v10)
       {
         objc_enumerationMutation(inputsCopy);
       }
 
-      localCreationDate = [*(*(&v23 + 1) + 8 * i) localCreationDate];
+      localCreationDate = [*(*(&v22 + 1) + 8 * i) localCreationDate];
       v13 = localCreationDate;
       if (v9)
       {
@@ -260,7 +258,7 @@ LABEL_8:
 LABEL_11:
     }
 
-    v7 = [inputsCopy countByEnumeratingWithState:&v23 objects:v31 count:16];
+    v7 = [inputsCopy countByEnumeratingWithState:&v22 objects:v30 count:16];
   }
 
   while (v7);
@@ -280,57 +278,53 @@ LABEL_17:
   if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v28 = "+[PGShareBackSuggesterInput localDateIntervalForSuggesterInputs:withTimeIntervalPadding:]";
-    v29 = 2112;
-    v30 = inputsCopy;
+    v27 = "+[PGShareBackSuggesterInput localDateIntervalForSuggesterInputs:withTimeIntervalPadding:]";
+    v28 = 2112;
+    v29 = inputsCopy;
     _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "%s: Start or endDate nil for %@", buf, 0x16u);
   }
 
   v18 = objc_alloc_init(MEMORY[0x277CCA970]);
 LABEL_20:
 
-  v21 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 + (id)suggesterInputsWithDictionaries:(id)dictionaries
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dictionariesCopy = dictionaries;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = dictionariesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = [PGShareBackSuggesterInput alloc];
-        v12 = [(PGShareBackSuggesterInput *)v11 initWithDictionary:v10, v15];
+        v12 = [(PGShareBackSuggesterInput *)v11 initWithDictionary:v10, v14];
         [v4 addObject:v12];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

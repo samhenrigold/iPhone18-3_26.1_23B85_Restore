@@ -2,6 +2,7 @@
 + (id)sharedInstance;
 - (AASettingsTelemetry)init;
 - (void)_sendSettingsChanges:(id)changes device:(id)device;
+- (void)_submitFeaturesChangeMetrics:(unsigned int)metrics forFeature:(id)feature forDevice:(id)device;
 - (void)sendSettingsChanges:(id)changes device:(id)device;
 @end
 
@@ -149,6 +150,29 @@ uint64_t __37__AASettingsTelemetry_sharedInstance__block_invoke()
   {
     [AASettingsTelemetry _sendSettingsChanges:device:];
   }
+}
+
+- (void)_submitFeaturesChangeMetrics:(unsigned int)metrics forFeature:(id)feature forDevice:(id)device
+{
+  v6 = *&metrics;
+  v16[3] = *MEMORY[0x277D85DE8];
+  v16[0] = feature;
+  v15[0] = @"FeatureName";
+  v15[1] = @"FeatureNewValue";
+  v7 = MEMORY[0x277CCABB0];
+  deviceCopy = device;
+  featureCopy = feature;
+  v10 = [v7 numberWithUnsignedInt:v6];
+  v16[1] = v10;
+  v15[2] = @"PID";
+  v11 = MEMORY[0x277CCABB0];
+  productID = [deviceCopy productID];
+
+  v13 = [v11 numberWithUnsignedInt:productID];
+  v16[2] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+
+  CUMetricsLog();
 }
 
 - (void)_sendSettingsChanges:device:.cold.1()

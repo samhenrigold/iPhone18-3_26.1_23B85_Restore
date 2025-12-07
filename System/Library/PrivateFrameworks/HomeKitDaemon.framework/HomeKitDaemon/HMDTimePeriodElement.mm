@@ -23,13 +23,11 @@
 
 - (id)serializedRegistrationForRemoteMessage
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"HMDTPN.type";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"HMDTPN.type";
   type = [objc_opt_class() type];
-  v7[0] = type;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = type;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }

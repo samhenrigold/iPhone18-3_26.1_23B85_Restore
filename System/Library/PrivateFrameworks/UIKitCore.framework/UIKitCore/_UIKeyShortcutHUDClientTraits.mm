@@ -37,7 +37,7 @@
     if (v11)
     {
       language = [v11 language];
-      [v7 setHasArabicHardwareKeyboard:{objc_msgSend(language, "isEqualToString:", @"Arabic"}];
+      [v7 setHasArabicHardwareKeyboard:objc_msgSend_isEqualToString_(language)];
 
       [v7 setGlobeKeyLabelHasGlobeSymbol:{objc_msgSend(v12, "globeKeyLabelHasGlobeSymbol")}];
     }

@@ -33,27 +33,28 @@
     fmfACAccount = [v5 fmfACAccount];
 
     v7 = [(AccountStoreFMF *)self _accountFromACAccount:fmfACAccount];
+    v8 = v7;
     if (v7)
     {
       accountsList2 = [(AccountStoreFMF *)self accountsList];
-      [accountsList2 addObject:v7];
+      [accountsList2 addObject:v8];
 
-      [(AccountStoreFMF *)self setCurrentActiveAccount:v7];
+      v7 = [(AccountStoreFMF *)self setCurrentActiveAccount:v8];
     }
 
-    v9 = sub_100002830();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = sub_100002830(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       accountsList3 = [(AccountStoreFMF *)self accountsList];
-      v14 = 134217984;
-      v15 = [accountsList3 count];
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Found %ld FMF accounts in store", &v14, 0xCu);
+      v15 = 134217984;
+      v16 = [accountsList3 count];
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Found %ld FMF accounts in store", &v15, 0xCu);
     }
 
     currentActiveAccount = [(AccountStoreFMF *)self currentActiveAccount];
-    v12 = currentActiveAccount == 0;
+    v13 = currentActiveAccount == 0;
 
-    if (!v12)
+    if (!v13)
     {
       currentActiveAccount2 = [(AccountStoreFMF *)self currentActiveAccount];
       [(AccountStoreFMF *)self _tokensForAccount:currentActiveAccount2];
@@ -66,22 +67,23 @@
   accountsList = [(AccountStoreFMF *)self accountsList];
   v4 = [accountsList copy];
 
-  if ([(AccountStoreFMF *)self refreshAuthTokens])
+  refreshAuthTokens = [(AccountStoreFMF *)self refreshAuthTokens];
+  if (refreshAuthTokens)
   {
-    v5 = sub_100002830();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = sub_100002830(refreshAuthTokens);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Looks like some auth tokens were not read successfully the last time. Re-reading them...", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Looks like some auth tokens were not read successfully the last time. Re-reading them...", buf, 2u);
     }
 
     [(AccountStoreFMF *)self setRefreshAuthTokens:0];
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_100012DD0;
-    v7[3] = &unk_10005D320;
-    v7[4] = self;
-    [v4 enumerateObjectsUsingBlock:v7];
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_100012DD0;
+    v8[3] = &unk_10005D320;
+    v8[4] = self;
+    [v4 enumerateObjectsUsingBlock:v8];
   }
 
   return v4;
@@ -119,34 +121,35 @@
   v6 = +[AppleAccountManager sharedInstance];
   fmfACAccount = [v6 fmfACAccount];
 
-  v16 = 0;
-  v8 = [v5 credentialForAccount:fmfACAccount error:&v16];
-  v9 = v16;
+  v17 = 0;
+  v8 = [v5 credentialForAccount:fmfACAccount error:&v17];
+  v9 = v17;
+  v10 = v9;
   if (!v8)
   {
-    v10 = sub_100002830();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100002830(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_100037014(fmfACAccount, v10);
+      sub_100037014(fmfACAccount, v11);
     }
   }
 
-  v11 = [v8 credentialItemForKey:ACFindMyFriendsAppTokenKey];
-  v12 = v11;
-  if (v9 || !v11)
+  v12 = [v8 credentialItemForKey:ACFindMyFriendsAppTokenKey];
+  v13 = v12;
+  if (v10 || !v12)
   {
-    v13 = sub_100002830();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100002830(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       username = [tokenCopy username];
       appAuthTokenStatus = [tokenCopy appAuthTokenStatus];
       *buf = 138412802;
-      v18 = username;
-      v19 = 2048;
-      v20 = appAuthTokenStatus;
-      v21 = 2112;
-      v22 = v9;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Could not retrieve app token for FMF account %@(%ld). Error : %@", buf, 0x20u);
+      v19 = username;
+      v20 = 2048;
+      v21 = appAuthTokenStatus;
+      v22 = 2112;
+      v23 = v10;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Could not retrieve app token for FMF account %@(%ld). Error : %@", buf, 0x20u);
     }
 
     [tokenCopy setAppAuthTokenStatus:1];
@@ -155,7 +158,7 @@
 
   else
   {
-    [tokenCopy setAppAuthToken:v11];
+    [tokenCopy setAppAuthToken:v12];
     [tokenCopy setAppAuthTokenStatus:0];
   }
 }
@@ -174,7 +177,7 @@
   v11 = v10;
   if (v9 || !v10)
   {
-    v12 = sub_100002830();
+    v12 = sub_100002830(v10);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       username = [tokenCopy username];

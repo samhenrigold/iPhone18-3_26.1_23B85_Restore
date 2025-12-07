@@ -58,25 +58,22 @@
     return mFormulaValue;
   }
 
-  mFormat = self->mFormat;
   objc_opt_class();
-  isKindOfClass = objc_opt_isKindOfClass();
-  v6 = self->mFormat;
-  if (isKindOfClass)
+  if (objc_opt_isKindOfClass())
   {
     formatString = [self->mFormat formatString];
     mValue = self->mValue;
-    v9 = sub_52308();
-    v10 = CFDateFormatterCreate(0, v9, kCFDateFormatterNoStyle, kCFDateFormatterNoStyle);
-    v11 = sub_13AF8();
-    CFDateFormatterSetProperty(v10, kCFDateFormatterTimeZone, v11);
+    v6 = sub_52308();
+    v7 = CFDateFormatterCreate(0, v6, kCFDateFormatterNoStyle, kCFDateFormatterNoStyle);
+    v8 = sub_13AF8();
+    CFDateFormatterSetProperty(v7, kCFDateFormatterTimeZone, v8);
     if (formatString)
     {
-      CFDateFormatterSetFormat(v10, formatString);
+      CFDateFormatterSetFormat(v7, formatString);
     }
 
-    mFormulaValue = CFDateFormatterCreateStringWithDate(0, v10, mValue);
-    CFRelease(v10);
+    mFormulaValue = CFDateFormatterCreateStringWithDate(0, v7, mValue);
+    CFRelease(v7);
     return mFormulaValue;
   }
 
@@ -92,25 +89,23 @@
 
   else
   {
-    v16 = self->mFormat;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v19 = self->mValue;
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         return 0;
       }
 
-      v20 = self->mValue;
+      v15 = self->mValue;
       return self->mValue;
     }
 
-    v17 = self->mFormat;
-    v18 = CFStringGetDoubleValue(self->mValue);
+    mFormat = self->mFormat;
+    v14 = CFStringGetDoubleValue(self->mValue);
 
-    return [v17 createStringFromDouble:v18];
+    return [mFormat createStringFromDouble:v14];
   }
 }
 
@@ -169,15 +164,14 @@ LABEL_12:
 - (int)readValue:(_xmlTextReader *)value
 {
   self->mValue = sub_4294C(value, qword_A35E8, "value");
-  mFormat = self->mFormat;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     System = CFLocaleGetSystem();
-    v6 = CFDateFormatterCreate(kCFAllocatorDefault, System, kCFDateFormatterShortStyle, kCFDateFormatterShortStyle);
-    CFDateFormatterSetFormat(v6, @"yyyy-MM-dd'T'HH:mm:ssZZ");
-    DateFromString = CFDateFormatterCreateDateFromString(kCFAllocatorDefault, v6, self->mValue, 0);
-    CFRelease(v6);
+    v5 = CFDateFormatterCreate(kCFAllocatorDefault, System, kCFDateFormatterShortStyle, kCFDateFormatterShortStyle);
+    CFDateFormatterSetFormat(v5, @"yyyy-MM-dd'T'HH:mm:ssZZ");
+    DateFromString = CFDateFormatterCreateDateFromString(kCFAllocatorDefault, v5, self->mValue, 0);
+    CFRelease(v5);
 
     self->mValue = DateFromString;
   }

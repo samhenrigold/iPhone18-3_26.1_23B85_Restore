@@ -44,6 +44,7 @@
 - (void)_updateMetricsForButton:(unint64_t)button stage:(unint64_t)stage phase:(unint64_t)phase;
 - (void)_updateNumberFormatterRounding;
 - (void)_updateSliderDataIfNeeded;
+- (void)_updateSliderStateAnimated:(BOOL)animated;
 - (void)addContactRecognizer:(id)recognizer;
 - (void)applyControlUpdate:(id)update;
 - (void)dismissOverlayForced:(BOOL)forced;
@@ -71,6 +72,9 @@
 - (void)systemOverlayVisibility:(id)visibility changedForReason:(int64_t)reason;
 - (void)systemOverlayVisibilityBeganHidingTimer:(id)timer;
 - (void)systemOverlayVisibilityCancelledHidingTimer:(id)timer;
+- (void)updateUIForCapturingMovieRecording:(BOOL)recording;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -231,6 +235,41 @@
   [view addGestureRecognizer:v3];
 
   [(CAMSystemOverlayViewController *)self restartControlMetrics];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v13.receiver = self;
+  v13.super_class = CAMSystemOverlayViewController;
+  [(CAMSystemOverlayViewController *)&v13 viewDidAppear:appear];
+  _buttonInteraction = [(CAMSystemOverlayViewController *)self _buttonInteraction];
+
+  if (!_buttonInteraction)
+  {
+    v5 = [_UIPhysicalButtonConfiguration _cameraShutterConfigurationsWithOptionsProvider:&stru_100055688];
+    v6 = [[_UIPhysicalButtonInteraction alloc] initWithConfigurations:v5 delegate:self];
+    [(CAMSystemOverlayViewController *)self _setPhysicalButtonInteraction:v6];
+    view = [(CAMSystemOverlayViewController *)self view];
+    [view addInteraction:v6];
+  }
+
+  _tipManager = [(CAMSystemOverlayViewController *)self _tipManager];
+  _motionController = [(CAMSystemOverlayViewController *)self _motionController];
+  [_tipManager setIsPortraitOrientation:{objc_msgSend(_motionController, "captureOrientation") == 1}];
+
+  _tipManager2 = [(CAMSystemOverlayViewController *)self _tipManager];
+  overlayView = [(CAMSystemOverlayViewController *)self overlayView];
+  tipAnchor = [overlayView tipAnchor];
+  [_tipManager2 startTipObservationForViewController:self sourceItem:tipAnchor];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = CAMSystemOverlayViewController;
+  [(CAMSystemOverlayViewController *)&v5 viewDidDisappear:disappear];
+  _tipManager = [(CAMSystemOverlayViewController *)self _tipManager];
+  [_tipManager stopTipObservation];
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(id)begin
@@ -678,6 +717,28 @@ LABEL_23:
   {
 
     [(CAMSystemOverlayViewController *)self _updateSliderStateAnimated:1];
+  }
+}
+
+- (void)updateUIForCapturingMovieRecording:(BOOL)recording
+{
+  recordingCopy = recording;
+  overlayView = [(CAMSystemOverlayViewController *)self overlayView];
+  [overlayView setSliderFeedbackDisabled:recordingCopy];
+
+  _tipManager = [(CAMSystemOverlayViewController *)self _tipManager];
+  [_tipManager setRecordingParameter:recordingCopy];
+
+  if (recordingCopy)
+  {
+    _stateMachine = [(CAMSystemOverlayViewController *)self _stateMachine];
+    currentStage = [_stateMachine currentStage];
+
+    if (currentStage == 4)
+    {
+
+      [(CAMSystemOverlayViewController *)self dismissOverlayForced:1];
+    }
   }
 }
 
@@ -1507,6 +1568,50 @@ LABEL_36:
 
   [_stateMachine setHalfPressEnabled:halfPressForOverlaySupported];
   [_stateMachine setIsSwipeEnabled:swipeForOverlaySupported];
+}
+
+- (void)_updateSliderStateAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  _overlayEnabled = [(CAMSystemOverlayViewController *)self _overlayEnabled];
+  _stateMachine = [(CAMSystemOverlayViewController *)self _stateMachine];
+  v7 = [_stateMachine isVisible] & _overlayEnabled;
+
+  overlayView = [(CAMSystemOverlayViewController *)self overlayView];
+  if ((_overlayEnabled & 1) == 0)
+  {
+    goto LABEL_4;
+  }
+
+  if (v7)
+  {
+    v8 = +[CAMOverlaySliderState presentedState];
+    goto LABEL_5;
+  }
+
+  _stateMachine2 = [(CAMSystemOverlayViewController *)self _stateMachine];
+  swipeCoachingVisible = [_stateMachine2 swipeCoachingVisible];
+
+  if (swipeCoachingVisible)
+  {
+    v8 = +[CAMOverlaySliderState coachingState];
+  }
+
+  else
+  {
+LABEL_4:
+    v8 = +[CAMOverlaySliderState hiddenState];
+  }
+
+LABEL_5:
+  v9 = v8;
+  isSliderVisible = [overlayView isSliderVisible];
+  [overlayView setSliderState:v9 animated:animatedCopy];
+  if (v7 != isSliderVisible)
+  {
+    delegate = [(CAMSystemOverlayViewController *)self delegate];
+    [delegate systemOverlayViewController:self didChangeSliderVisible:v7];
+  }
 }
 
 - (void)_currentPositionApplicatorApplyAction:(id)action

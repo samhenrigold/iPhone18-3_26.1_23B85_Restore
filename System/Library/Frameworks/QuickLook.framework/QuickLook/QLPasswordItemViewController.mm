@@ -3,6 +3,7 @@
 - (void)loadPreviewControllerWithContents:(id)contents context:(id)context completionHandler:(id)handler;
 - (void)loadView;
 - (void)previewDidAppear:(BOOL)appear;
+- (void)previewWillDisappear:(BOOL)disappear;
 - (void)userDidEnterPassword:(id)password forPasswordView:(id)view;
 @end
 
@@ -47,11 +48,18 @@ void __49__QLPasswordItemViewController_previewDidAppear___block_invoke(uint64_t
   [v1 becomeFirstResponder];
 }
 
+- (void)previewWillDisappear:(BOOL)disappear
+{
+  passwordView = [(QLPasswordItemViewController *)self passwordView];
+  passwordField = [passwordView passwordField];
+  [passwordField resignFirstResponder];
+}
+
 - (void)invalidate
 {
   completionBlock = self->_completionBlock;
   self->_completionBlock = 0;
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](self, completionBlock);
 }
 
 - (void)userDidEnterPassword:(id)password forPasswordView:(id)view

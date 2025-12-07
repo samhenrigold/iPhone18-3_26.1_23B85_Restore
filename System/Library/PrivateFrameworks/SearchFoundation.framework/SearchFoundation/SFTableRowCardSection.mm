@@ -119,6 +119,7 @@
   HIDWORD(v110[4]) = v8;
   if ((punchoutPickerTitle != 0) == (punchoutPickerTitle2 == 0))
   {
+    *(&v110[3] + 4) = 0;
     memset(v110, 0, 20);
     v10 = 0;
     v109 = 0uLL;
@@ -132,7 +133,7 @@
     v17 = 0;
     v18 = 0;
     LOBYTE(self) = 0;
-    *(&v110[2] + 4) = 1uLL;
+    *(&v110[2] + 4) = 1;
     goto LABEL_27;
   }
 
@@ -1086,11 +1087,11 @@ LABEL_82:
 
 - (SFTableRowCardSection)initWithProtobuf:(id)protobuf
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v64.receiver = self;
-  v64.super_class = SFTableRowCardSection;
-  v5 = [(SFCardSection *)&v64 init];
+  v63.receiver = self;
+  v63.super_class = SFTableRowCardSection;
+  v5 = [(SFCardSection *)&v63 init];
   if (v5)
   {
     punchoutOptions = [protobufCopy punchoutOptions];
@@ -1104,33 +1105,33 @@ LABEL_82:
       v7 = 0;
     }
 
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
     v61 = 0u;
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
     punchoutOptions2 = [protobufCopy punchoutOptions];
-    v9 = [punchoutOptions2 countByEnumeratingWithState:&v60 objects:v67 count:16];
+    v9 = [punchoutOptions2 countByEnumeratingWithState:&v59 objects:v66 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v61;
+      v11 = *v60;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v61 != v11)
+          if (*v60 != v11)
           {
             objc_enumerationMutation(punchoutOptions2);
           }
 
-          v13 = [[SFPunchout alloc] initWithProtobuf:*(*(&v60 + 1) + 8 * i)];
+          v13 = [[SFPunchout alloc] initWithProtobuf:*(*(&v59 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [punchoutOptions2 countByEnumeratingWithState:&v60 objects:v67 count:16];
+        v10 = [punchoutOptions2 countByEnumeratingWithState:&v59 objects:v66 count:16];
       }
 
       while (v10);
@@ -1202,33 +1203,33 @@ LABEL_82:
       v25 = 0;
     }
 
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
     v57 = 0u;
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
     richDatas2 = [protobufCopy richDatas];
-    v27 = [richDatas2 countByEnumeratingWithState:&v56 objects:v66 count:16];
+    v27 = [richDatas2 countByEnumeratingWithState:&v55 objects:v65 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v57;
+      v29 = *v56;
       do
       {
         for (j = 0; j != v28; ++j)
         {
-          if (*v57 != v29)
+          if (*v56 != v29)
           {
             objc_enumerationMutation(richDatas2);
           }
 
-          v31 = [[SFRichText alloc] initWithProtobuf:*(*(&v56 + 1) + 8 * j)];
+          v31 = [[SFRichText alloc] initWithProtobuf:*(*(&v55 + 1) + 8 * j)];
           if (v31)
           {
             [v25 addObject:v31];
           }
         }
 
-        v28 = [richDatas2 countByEnumeratingWithState:&v56 objects:v66 count:16];
+        v28 = [richDatas2 countByEnumeratingWithState:&v55 objects:v65 count:16];
       }
 
       while (v28);
@@ -1254,7 +1255,7 @@ LABEL_82:
     }
 
     datas = [protobufCopy datas];
-    v51 = v5;
+    v50 = v5;
     if (datas)
     {
       v39 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -1265,43 +1266,43 @@ LABEL_82:
       v39 = 0;
     }
 
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     datas2 = [protobufCopy datas];
-    v41 = [datas2 countByEnumeratingWithState:&v52 objects:v65 count:16];
+    v41 = [datas2 countByEnumeratingWithState:&v51 objects:v64 count:16];
     if (v41)
     {
       v42 = v41;
-      v43 = *v53;
+      v43 = *v52;
       do
       {
         for (k = 0; k != v42; ++k)
         {
-          if (*v53 != v43)
+          if (*v52 != v43)
           {
             objc_enumerationMutation(datas2);
           }
 
-          v45 = [[SFFormattedText alloc] initWithProtobuf:*(*(&v52 + 1) + 8 * k)];
+          v45 = [[SFFormattedText alloc] initWithProtobuf:*(*(&v51 + 1) + 8 * k)];
           if (v45)
           {
             [v39 addObject:v45];
           }
         }
 
-        v42 = [datas2 countByEnumeratingWithState:&v52 objects:v65 count:16];
+        v42 = [datas2 countByEnumeratingWithState:&v51 objects:v64 count:16];
       }
 
       while (v42);
     }
 
-    v5 = v51;
-    [(SFTableRowCardSection *)v51 setData:v39];
+    v5 = v50;
+    [(SFTableRowCardSection *)v50 setData:v39];
     if ([protobufCopy isSubHeader])
     {
-      -[SFTableRowCardSection setIsSubHeader:](v51, "setIsSubHeader:", [protobufCopy isSubHeader]);
+      -[SFTableRowCardSection setIsSubHeader:](v50, "setIsSubHeader:", [protobufCopy isSubHeader]);
     }
 
     tabGroupIdentifier = [protobufCopy tabGroupIdentifier];
@@ -1309,28 +1310,27 @@ LABEL_82:
     if (tabGroupIdentifier)
     {
       tabGroupIdentifier2 = [protobufCopy tabGroupIdentifier];
-      [(SFTableRowCardSection *)v51 setTabGroupIdentifier:tabGroupIdentifier2];
+      [(SFTableRowCardSection *)v50 setTabGroupIdentifier:tabGroupIdentifier2];
     }
 
     if ([protobufCopy reducedRowHeight])
     {
-      -[SFTableRowCardSection setReducedRowHeight:](v51, "setReducedRowHeight:", [protobufCopy reducedRowHeight]);
+      -[SFTableRowCardSection setReducedRowHeight:](v50, "setReducedRowHeight:", [protobufCopy reducedRowHeight]);
     }
 
     if ([protobufCopy verticalAlign])
     {
-      -[SFTableRowCardSection setVerticalAlign:](v51, "setVerticalAlign:", [protobufCopy verticalAlign]);
+      -[SFTableRowCardSection setVerticalAlign:](v50, "setVerticalAlign:", [protobufCopy verticalAlign]);
     }
 
     if ([protobufCopy alignRowsToHeader])
     {
-      -[SFTableRowCardSection setAlignRowsToHeader:](v51, "setAlignRowsToHeader:", [protobufCopy alignRowsToHeader]);
+      -[SFTableRowCardSection setAlignRowsToHeader:](v50, "setAlignRowsToHeader:", [protobufCopy alignRowsToHeader]);
     }
 
-    v48 = v51;
+    v48 = v50;
   }
 
-  v49 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

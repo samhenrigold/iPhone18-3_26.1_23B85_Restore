@@ -1069,7 +1069,7 @@ void __89___MPCModelStorePlaybackItemsRequestAccumulator_Modern__locked_resolveP
 {
   v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
-  if (([(_MPCAccumulatorProgressiveResult *)v5 isResolved]& 1) != 0)
+  if ([(_MPCAccumulatorProgressiveResult *)v5 isResolved])
   {
     if (![*(*(a1 + 32) + 64) numberOfItemsInSection:a3])
     {

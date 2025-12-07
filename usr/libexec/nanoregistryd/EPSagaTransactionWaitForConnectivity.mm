@@ -3,6 +3,7 @@
 - (EPTransactionDelegate)delegate;
 - (void)beginTransactionWithRoutingSlipEntry:(id)entry serviceRegistry:(id)registry;
 - (void)checkForConnectivity;
+- (void)remoteObject:(id)object isConnected:(BOOL)connected;
 - (void)setTimeout:(double)timeout;
 - (void)timeout;
 - (void)transactionDidComplete;
@@ -188,6 +189,17 @@
     delegate = [(EPSagaTransactionWaitForConnectivity *)self delegate];
     [delegate transactionDidComplete:self];
   }
+}
+
+- (void)remoteObject:(id)object isConnected:(BOOL)connected
+{
+  v5 = [(EPServiceRegistry *)self->_serviceRegistry queue:object];
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_10007379C;
+  block[3] = &unk_100175660;
+  block[4] = self;
+  dispatch_async(v5, block);
 }
 
 - (void)checkForConnectivity

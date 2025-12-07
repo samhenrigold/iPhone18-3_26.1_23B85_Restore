@@ -75,9 +75,8 @@
 void __53__MTAStopwatchViewControllerAccessibility_didAddLap___block_invoke(uint64_t a1)
 {
   v1 = *MEMORY[0x29EDC7EA8];
-  v2 = *(a1 + 32);
-  v3 = UIAXTimeStringForDuration();
-  UIAccessibilityPostNotification(v1, v3);
+  v2 = UIAXTimeStringForDuration();
+  UIAccessibilityPostNotification(v1, v2);
 }
 
 - (void)_axSetLapButtonTraitsForMode:(unint64_t)mode

@@ -151,31 +151,31 @@
 
 - (NSDictionary)cachedObjects
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v17 = 8;
+  v23 = *MEMORY[0x1E69E9840];
+  v16 = 8;
   os_unfair_lock_lock_with_options();
-  v18 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{-[NSMutableDictionary count](self->_cachedItems, "count")}];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
+  v17 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{-[NSMutableDictionary count](self->_cachedItems, "count")}];
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v3 = [(NSMutableDictionary *)self->_cachedItems copy];
-  v4 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v4)
   {
     v5 = 0;
-    v6 = *v20;
+    v6 = *v19;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v20 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v19 + 1) + 8 * i);
-        v9 = [(NSMutableDictionary *)self->_cachedItems objectForKeyedSubscript:v8, v17];
+        v8 = *(*(&v18 + 1) + 8 * i);
+        v9 = [(NSMutableDictionary *)self->_cachedItems objectForKeyedSubscript:v8, v16];
         isExpired = [v9 isExpired];
 
         cachedItems = self->_cachedItems;
@@ -188,16 +188,16 @@
         else
         {
           v12 = [(NSMutableDictionary *)cachedItems objectForKeyedSubscript:v8];
-          [v18 setObject:v12 forKeyedSubscript:v8];
+          [v17 setObject:v12 forKeyedSubscript:v8];
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v4);
 
-    os_unfair_lock_unlock((self + v17));
+    os_unfair_lock_unlock((self + v16));
     if (v5)
     {
       delegate = [(HMCache *)self delegate];
@@ -211,9 +211,7 @@
     os_unfair_lock_unlock(&self->_lock);
   }
 
-  v14 = [v18 copy];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = [v17 copy];
 
   return v14;
 }

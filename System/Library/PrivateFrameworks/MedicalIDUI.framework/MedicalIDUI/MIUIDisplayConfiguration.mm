@@ -2,6 +2,7 @@
 + (id)lockScreenConfiguration;
 + (id)standardConfiguration;
 - (MIUIDisplayConfiguration)init;
+- (MIUIDisplayConfiguration)initWithEntryPoint:(int64_t)point isEditingAvailable:(BOOL)available isDeletionAvailable:(BOOL)deletionAvailable shouldShowDonateLifeRegistrationIfAvailable:(BOOL)ifAvailable isShowWhenLockedVisible:(BOOL)visible isShareDuringEmergencyCallVisible:(BOOL)callVisible accessPoint:(int64_t)accessPoint;
 @end
 
 @implementation MIUIDisplayConfiguration
@@ -23,6 +24,31 @@
   v2 = objc_alloc_init(MIUIDisplayConfiguration);
 
   return v2;
+}
+
+- (MIUIDisplayConfiguration)initWithEntryPoint:(int64_t)point isEditingAvailable:(BOOL)available isDeletionAvailable:(BOOL)deletionAvailable shouldShowDonateLifeRegistrationIfAvailable:(BOOL)ifAvailable isShowWhenLockedVisible:(BOOL)visible isShareDuringEmergencyCallVisible:(BOOL)callVisible accessPoint:(int64_t)accessPoint
+{
+  callVisibleCopy = callVisible;
+  visibleCopy = visible;
+  ifAvailableCopy = ifAvailable;
+  deletionAvailableCopy = deletionAvailable;
+  availableCopy = available;
+  v18.receiver = self;
+  v18.super_class = MIUIDisplayConfiguration;
+  v15 = [(MIUIDisplayConfiguration *)&v18 init];
+  v16 = v15;
+  if (v15)
+  {
+    [(MIUIDisplayConfiguration *)v15 setEntryPoint:point];
+    [(MIUIDisplayConfiguration *)v16 setIsEditingAvailable:availableCopy];
+    [(MIUIDisplayConfiguration *)v16 setIsDeletionAvailable:deletionAvailableCopy];
+    [(MIUIDisplayConfiguration *)v16 setShouldShowDonateLifeRegistrationIfAvailable:ifAvailableCopy];
+    [(MIUIDisplayConfiguration *)v16 setIsShowWhenLockedVisible:visibleCopy];
+    [(MIUIDisplayConfiguration *)v16 setIsShareDuringEmergencyCallVisible:callVisibleCopy];
+    [(MIUIDisplayConfiguration *)v16 setAccessPoint:accessPoint];
+  }
+
+  return v16;
 }
 
 - (MIUIDisplayConfiguration)init

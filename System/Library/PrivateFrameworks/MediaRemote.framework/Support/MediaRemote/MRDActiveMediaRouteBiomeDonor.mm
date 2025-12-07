@@ -1,5 +1,6 @@
 @interface MRDActiveMediaRouteBiomeDonor
 - (MRDActiveMediaRouteBiomeDonor)init;
+- (id)mediaRouteEventForType:(int)type endpoint:(id)endpoint;
 - (void)_handleActiveSystemEndpointDidChangeNotification:(id)notification;
 - (void)_handleActiveSystemEndpointOutputDevicesDidChangeNotification:(id)notification;
 - (void)donateActiveEndpointOfType:(int)type;
@@ -165,6 +166,24 @@ LABEL_11:
   typeCopy = type;
   v6[4] = self;
   dispatch_async(donationQueue, v6);
+}
+
+- (id)mediaRouteEventForType:(int)type endpoint:(id)endpoint
+{
+  v4 = *&type;
+  endpointCopy = endpoint;
+  groupLeader = [endpointCopy groupLeader];
+  v7 = [groupLeader uid];
+
+  LODWORD(groupLeader) = [endpointCopy isLocalEndpoint];
+  resolvedOutputDevices = [endpointCopy resolvedOutputDevices];
+
+  v9 = [resolvedOutputDevices msv_map:&stru_1004C0018];
+  v10 = [BMMediaRoute alloc];
+  v11 = [NSNumber numberWithBool:groupLeader ^ 1];
+  v12 = [v10 initWithRouteType:v4 groupLeaderOutputDeviceID:v7 isRemoteControl:v11 outputDevices:v9];
+
+  return v12;
 }
 
 @end

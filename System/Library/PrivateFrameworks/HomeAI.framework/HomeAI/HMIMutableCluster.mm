@@ -21,19 +21,20 @@
   {
     v6 = [HMIMutableFloatArray alloc];
     data = [faceprintCopy data];
-    v8 = [(HMIMutableFloatArray *)v6 initWithData:data];
+    v8 = [(HMIMutableFloatArray *)v6 initWithData:?];
     faceCentroid = v5->_faceCentroid;
     v5->_faceCentroid = v8;
 
     v10 = [HMIMutableFloatArray alloc];
     faceCentroid = [(HMIMutableCluster *)v5 faceCentroid];
-    v12 = -[HMIMutableFloatArray initWithValue:count:](v10, "initWithValue:count:", [faceCentroid count], 0.0);
+    [faceCentroid count];
+    v12 = [HMIMutableFloatArray initWithValue:v10 count:"initWithValue:count:"];
     torsoCentroid = v5->_torsoCentroid;
     v5->_torsoCentroid = v12;
 
     v14 = MEMORY[0x277CBEB18];
     uUID = [faceprintCopy UUID];
-    v16 = [v14 arrayWithObject:uUID];
+    v16 = [v14 arrayWithObject:?];
     faceprintUUIDs = v5->_faceprintUUIDs;
     v5->_faceprintUUIDs = v16;
 
@@ -63,13 +64,14 @@
   {
     v6 = [HMIMutableFloatArray alloc];
     data = [torsoprintCopy data];
-    v8 = [(HMIMutableFloatArray *)v6 initWithData:data];
+    v8 = [(HMIMutableFloatArray *)v6 initWithData:?];
     torsoCentroid = v5->_torsoCentroid;
     v5->_torsoCentroid = v8;
 
     v10 = [HMIMutableFloatArray alloc];
     torsoCentroid = [(HMIMutableCluster *)v5 torsoCentroid];
-    v12 = -[HMIMutableFloatArray initWithValue:count:](v10, "initWithValue:count:", [torsoCentroid count], 0.0);
+    [torsoCentroid count];
+    v12 = [HMIMutableFloatArray initWithValue:v10 count:"initWithValue:count:"];
     faceCentroid = v5->_faceCentroid;
     v5->_faceCentroid = v12;
 
@@ -79,7 +81,7 @@
 
     v16 = MEMORY[0x277CBEB18];
     uUID = [torsoprintCopy UUID];
-    v18 = [v16 arrayWithObject:uUID];
+    v18 = [v16 arrayWithObject:?];
     torsoprintUUIDs = v5->_torsoprintUUIDs;
     v5->_torsoprintUUIDs = v18;
 
@@ -94,7 +96,7 @@
 
     else
     {
-      array2 = [MEMORY[0x277CBEB18] arrayWithObject:torsoprintCopy];
+      array2 = [MEMORY[0x277CBEB18] arrayWithObject:?];
     }
 
     torsoprints = v5->_torsoprints;
@@ -127,106 +129,97 @@
 
 - (void)addFaceprints:(id)faceprints
 {
-  v26 = *MEMORY[0x277D85DE8];
   faceprintsCopy = faceprints;
   v5 = [(HMIMutableFloatArray *)self->_faceCentroid copy];
-  *&v6 = [(HMIMutableCluster *)self faceCount];
-  [v5 scale:v6];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
+  [(HMIMutableCluster *)self faceCount];
+  [v5 scale:?];
   obj = faceprintsCopy;
-  v7 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
-  if (v7)
+  v6 = [obj countByEnumeratingWithState:? objects:? count:?];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v22;
+    v7 = v6;
+    v8 = MEMORY[0];
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v7; i = (i + 1))
       {
-        if (*v22 != v9)
+        if (MEMORY[0] != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * i);
-        v12 = [HMIMutableFloatArray alloc];
-        data = [v11 data];
-        v14 = [(HMIMutableFloatArray *)v12 initWithData:data];
+        v10 = *(8 * i);
+        v11 = [HMIMutableFloatArray alloc];
+        data = [v10 data];
+        v13 = [(HMIMutableFloatArray *)v11 initWithData:?];
 
-        [v5 add:v14];
+        [v5 add:?];
         faceprintUUIDs = self->_faceprintUUIDs;
-        uUID = [v11 UUID];
-        [(NSMutableArray *)faceprintUUIDs addObject:uUID];
+        uUID = [v10 UUID];
+        [(NSMutableArray *)faceprintUUIDs addObject:?];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [obj countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v8);
+    while (v7);
   }
 
-  *&v17 = 1.0 / [(HMIMutableCluster *)self faceCount];
-  v18 = [v5 floatArrayByScaling:v17];
+  [(HMIMutableCluster *)self faceCount];
+  v16 = [v5 floatArrayByScaling:?];
   faceCentroid = self->_faceCentroid;
-  self->_faceCentroid = v18;
+  self->_faceCentroid = v16;
 }
 
 - (void)addTorsoprints:(id)torsoprints
 {
-  v27 = *MEMORY[0x277D85DE8];
   torsoprintsCopy = torsoprints;
   v5 = [(HMIMutableFloatArray *)self->_torsoCentroid copy];
-  *&v6 = [(HMIMutableCluster *)self torsoCount];
-  [v5 scale:v6];
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
+  [(HMIMutableCluster *)self torsoCount];
+  [v5 scale:?];
   obj = torsoprintsCopy;
-  v7 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
-  if (v7)
+  v6 = [obj countByEnumeratingWithState:? objects:? count:?];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v23;
+    v7 = v6;
+    v8 = MEMORY[0];
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v7; i = (i + 1))
       {
-        if (*v23 != v9)
+        if (MEMORY[0] != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * i);
-        v12 = [HMIMutableFloatArray alloc];
-        data = [v11 data];
-        v14 = [(HMIMutableFloatArray *)v12 initWithData:data];
+        v10 = *(8 * i);
+        v11 = [HMIMutableFloatArray alloc];
+        data = [v10 data];
+        v13 = [(HMIMutableFloatArray *)v11 initWithData:?];
 
-        [v5 add:v14];
+        [v5 add:?];
         torsoprintUUIDs = self->_torsoprintUUIDs;
-        uUID = [v11 UUID];
-        [(NSMutableArray *)torsoprintUUIDs addObject:uUID];
+        uUID = [v10 UUID];
+        [(NSMutableArray *)torsoprintUUIDs addObject:?];
       }
 
-      v8 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v7 = [obj countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v8);
+    while (v7);
   }
 
-  *&v17 = 1.0 / [(HMIMutableCluster *)self torsoCount];
-  v18 = [v5 floatArrayByScaling:v17];
+  [(HMIMutableCluster *)self torsoCount];
+  v16 = [v5 floatArrayByScaling:?];
   torsoCentroid = self->_torsoCentroid;
-  self->_torsoCentroid = v18;
+  self->_torsoCentroid = v16;
 
-  v20 = [obj na_filter:&__block_literal_global_0];
-  [(NSMutableArray *)self->_torsoprints addObjectsFromArray:v20];
+  v18 = [obj na_filter:?];
+  [(NSMutableArray *)self->_torsoprints addObjectsFromArray:?];
   if ([(NSMutableArray *)self->_torsoprints count]>= 0x15)
   {
-    [(NSMutableArray *)self->_torsoprints removeObjectsInRange:0, [(NSMutableArray *)self->_torsoprints count]- 20];
+    [(NSMutableArray *)self->_torsoprints count];
+    [(NSMutableArray *)self->_torsoprints removeObjectsInRange:?];
   }
 }
 
@@ -248,9 +241,11 @@ uint64_t __36__HMIMutableCluster_addTorsoprints___block_invoke(uint64_t a1, void
 
 - (void)flushTorsoprints
 {
-  self->_torsoprints = [MEMORY[0x277CBEB18] array];
+  array = [MEMORY[0x277CBEB18] array];
+  torsoprints = self->_torsoprints;
+  self->_torsoprints = array;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](array, torsoprints);
 }
 
 @end

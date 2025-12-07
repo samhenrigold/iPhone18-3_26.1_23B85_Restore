@@ -43,7 +43,7 @@
 
 - (BOOL)hsDecode:(void *)decode
 {
-  HSUtil::Decoder::decodeArray(decode, v14);
+  HSUtil::Decoder::decodeArray(v14, decode);
   if (*decode)
   {
     basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSServiceDirectory.mm", v17);
@@ -61,7 +61,7 @@ LABEL_16:
   name = self->name;
   self->name = v5;
 
-  if (v14[0])
+  if (LODWORD(v14[0]))
   {
     basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSServiceDirectory.mm", v17);
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
@@ -76,7 +76,7 @@ LABEL_16:
   description = self->description;
   self->description = v7;
 
-  if (v14[0])
+  if (LODWORD(v14[0]))
   {
     basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSServiceDirectory.mm", v17);
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
@@ -91,7 +91,7 @@ LABEL_16:
   protocol = self->protocol;
   self->protocol = v9;
 
-  if (v14[0])
+  if (LODWORD(v14[0]))
   {
     basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSServiceDirectory.mm", v17);
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
@@ -103,7 +103,7 @@ LABEL_16:
   }
 
   self->version = HSUtil::Decoder::decodeUInt(v14);
-  if (v14[0])
+  if (LODWORD(v14[0]))
   {
     basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSServiceDirectory.mm", v17);
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
@@ -134,37 +134,42 @@ LABEL_17:
 
 - (void)hsDecode:.cold.1()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)hsDecode:.cold.2()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)hsDecode:.cold.3()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)hsDecode:.cold.4()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 - (void)hsDecode:.cold.5()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 @end

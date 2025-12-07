@@ -77,10 +77,10 @@ void __105__PLModelMigrationActionStaged_MoveLibraryScopeContributors_performAct
   v26 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = [v6 primitiveValueForKey:@"libraryScopeOriginators"];
-  if ([v7 count])
+  if (objc_msgSend_count(v7))
   {
     v19 = v6;
-    v8 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(v7, "count")}];
+    v8 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:objc_msgSend_count(v7)];
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;

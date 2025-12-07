@@ -1,5 +1,6 @@
 @interface MTLToolsHeap
 - (BOOL)detachBacking;
+- (BOOL)replaceBackingWithRanges:(id)ranges readOnly:(BOOL)only;
 - (NSString)label;
 - (id)_newToolsAccelerationStructure:(id)structure;
 - (id)_newToolsBuffer:(id)buffer;
@@ -272,6 +273,14 @@
   baseObject = [(MTLToolsObject *)self baseObject];
 
   return [baseObject detachBacking];
+}
+
+- (BOOL)replaceBackingWithRanges:(id)ranges readOnly:(BOOL)only
+{
+  onlyCopy = only;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  return [baseObject replaceBackingWithRanges:ranges readOnly:onlyCopy];
 }
 
 @end

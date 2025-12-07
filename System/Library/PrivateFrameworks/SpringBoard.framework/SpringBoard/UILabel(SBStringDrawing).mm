@@ -9,7 +9,7 @@
 {
   v4 = objc_alloc_init(SBStringMetrics);
   text = [self text];
-  [self frame];
+  objc_msgSend_frame(self);
   v7 = v6;
   v9 = v8;
   v11 = v10;
@@ -229,7 +229,7 @@ LABEL_53:
 {
   v41 = *MEMORY[0x277D85DE8];
   v4 = a3;
-  [self frame];
+  objc_msgSend_frame(self);
   v6 = v5;
   v8 = v7;
   v10 = v9;

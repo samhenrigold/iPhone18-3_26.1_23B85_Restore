@@ -45,7 +45,7 @@
 
 - (NSURL)accessibilityAssetURL
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E538750);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E538750, &qword_2413660E0);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v13 - v4;
   v6 = OBJC_IVAR____TtC11AssetViewer16EntityController_accessibilityAssetURL;
@@ -67,7 +67,7 @@
 
 - (void)setAccessibilityAssetURL:(id)l
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E538750);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27E538750, &qword_2413660E0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v12 - v6;
   if (l)
@@ -119,14 +119,14 @@
   selfCopy = self;
   sub_24124954C();
   v3.receiver = selfCopy;
-  v3.super_class = type metadata accessor for EntityController();
+  v3.super_class = type metadata accessor for EntityController(0);
   [(EntityController *)&v3 dealloc];
 }
 
 - (void)rotateByDeltaYaw:(float)yaw deltaPitch:(float)pitch
 {
   selfCopy = self;
-  sub_241247088(yaw, pitch);
+  sub_241247088(selfCopy, yaw, pitch);
 }
 
 - (CGRect)calculateAssetScreenBoundingRectIn:(id)in
@@ -153,7 +153,8 @@
 - (void)scaleTo:(float)to updateARScale:(BOOL)scale
 {
   selfCopy = self;
-  sub_241249F70(to);
+  v5.n128_f32[0] = to;
+  sub_241249F70(v5);
 }
 
 - (_TtC11AssetViewer16EntityController)init
@@ -176,7 +177,7 @@
 - (__n128)assetWorldPosition
 {
   selfCopy = self;
-  sub_241249AA0();
+  *&v2 = sub_241249AA0();
   v4 = v2;
 
   return v4;
@@ -193,7 +194,7 @@
 - (double)assetHeadScreenPositionForScale:(void *)scale
 {
   scaleCopy = scale;
-  v2 = sub_24124A8CC();
+  v2 = sub_24124A8CC(scaleCopy);
 
   return v2;
 }
@@ -228,9 +229,10 @@
 
 - (void)worldGestureRecognizer:(id)recognizer decelerationTranslationDelta:
 {
+  v7 = v3;
   recognizerCopy = recognizer;
   selfCopy = self;
-  sub_2412D2CA8();
+  sub_2412D2CA8(v7);
 }
 
 - (void)worldGestureRecognizerEndedTranslationDeceleration:(id)deceleration
@@ -288,15 +290,16 @@
     goto LABEL_5;
   }
 
+  v9 = *(self + OBJC_IVAR____TtC11AssetViewer16EntityController_shouldDisableGesturesHandler + 8);
   recognizerCopy2 = recognizer;
   selfCopy2 = self;
-  v11 = sub_24124AD38(v8);
-  v12 = v8(v11);
-  sub_24124B1F0(v8);
-  if ((v12 & 1) == 0)
+  v12 = sub_24124AD38(v8, v9);
+  v13 = v8(v12);
+  selfCopy = sub_24124B1F0(v8, v9);
+  if ((v13 & 1) == 0)
   {
 LABEL_5:
-    sub_241247088(yaw, pitch);
+    sub_241247088(selfCopy, yaw, pitch);
   }
 }
 
@@ -338,7 +341,7 @@ LABEL_5:
 {
   recognizerCopy = recognizer;
   selfCopy = self;
-  sub_2412D3A08(yaw);
+  sub_2412D3A08(selfCopy, yaw);
 }
 
 - (void)unifiedGestureRecognizerEndedRotation:(id)rotation
@@ -365,15 +368,17 @@ LABEL_5:
     goto LABEL_5;
   }
 
+  v7 = *(self + OBJC_IVAR____TtC11AssetViewer16EntityController_shouldDisableGesturesHandler + 8);
   recognizerCopy2 = recognizer;
   selfCopy2 = self;
-  v9 = sub_24124AD38(v6);
-  v10 = v6(v9);
-  sub_24124B1F0(v6);
-  if ((v10 & 1) == 0)
+  v10 = sub_24124AD38(v6, v7);
+  v11 = v6(v10);
+  sub_24124B1F0(v6, v7);
+  if ((v11 & 1) == 0)
   {
 LABEL_5:
-    sub_241249F70(scale);
+    v12.n128_f32[0] = scale;
+    sub_241249F70(v12);
   }
 }
 

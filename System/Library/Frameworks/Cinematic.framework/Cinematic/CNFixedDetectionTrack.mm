@@ -49,7 +49,7 @@
   _internalFixedTrack = [(CNFixedDetectionTrack *)self _internalFixedTrack];
   detection = [_internalFixedTrack detection];
 
-  if (detection && ([detection time], (v7 & 1) != 0) && (objc_msgSend(detection, "time"), (v6 & 0x10) != 0))
+  if (detection && (objc_msgSend_time(detection), (v7 & 1) != 0) && (objc_msgSend_time(detection), (v6 & 0x10) != 0))
   {
     v4 = 0;
   }

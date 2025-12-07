@@ -28,12 +28,12 @@
       v33 = 0u;
       v34 = 0u;
       v32 = 0u;
-      [v5 extent];
+      objc_msgSend_extent(v5);
       v15 = v14;
       v17 = v16;
       v19 = v18;
       v21 = v20;
-      [inputGainMap extent];
+      objc_msgSend_extent(inputGainMap);
       NUCGAffineTransformByMappingFromRectToRect(&v32, v15, v17, v19, v21, v22, v23, v24, v25);
       v31[0] = v32;
       v31[1] = v33;
@@ -49,7 +49,7 @@
     else
     {
       blackImage = [MEMORY[0x1E695F658] blackImage];
-      [inputGainMap extent];
+      objc_msgSend_extent(inputGainMap);
       _imageByRenderingToIntermediate = [blackImage imageByCroppingToRect:?];
     }
   }

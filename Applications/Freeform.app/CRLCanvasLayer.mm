@@ -729,7 +729,7 @@ LABEL_8:
     }
 
     animationCopy = v21;
-    [v21 duration];
+    objc_msgSend_duration(v21);
     v81 = v22;
     v88 = *&CGAffineTransformIdentity.c;
     v89 = *&CGAffineTransformIdentity.a;
@@ -854,7 +854,7 @@ LABEL_8:
     v112[8] = *&v86;
     v112[9] = *&y;
     v63 = objc_retainBlock(v110);
-    [(CRLCanvasLayer *)self transform];
+    objc_msgSend_transform(self);
     t2 = v117;
     if (CATransform3DEqualToTransform(&t1, &t2))
     {
@@ -1075,12 +1075,12 @@ LABEL_8:
   mViewScale = self->mViewScale;
   if (scale > 0.0 && mViewScale != scale)
   {
-    if (offset && (-[CRLCanvasLayer canvasView](self, "canvasView", mViewScale), v8 = objc_claimAutoreleasedReturnValue(), [v8 enclosingScrollView], v24 = objc_claimAutoreleasedReturnValue(), v8, v24))
+    if (offset && (-[CRLCanvasLayer canvasView](self, "canvasView", mViewScale), v8 = objc_claimAutoreleasedReturnValue(), [v8 enclosingScrollView], v25 = objc_claimAutoreleasedReturnValue(), v8, v25))
     {
-      [v24 contentOffset];
+      [v25 contentOffset];
       v10 = v9;
       v12 = v11;
-      [v24 contentSize];
+      [v25 contentSize];
       v13 = 0;
       x = v10 / v14;
       y = v12 / v16;
@@ -1088,7 +1088,7 @@ LABEL_8:
 
     else
     {
-      v24 = 0;
+      v25 = 0;
       x = CGPointZero.x;
       y = CGPointZero.y;
       v13 = 1;
@@ -1108,12 +1108,12 @@ LABEL_8:
     [(CRLCanvasLayer *)self fixFrameAndScrollView];
     if ((v13 & 1) == 0)
     {
-      [v24 contentSize];
-      [v24 setContentOffset:0 animated:{sub_100122154(x * v21, y * v22)}];
+      contentSize = [v25 contentSize];
+      [v25 setContentOffset:0 animated:{sub_100122154(contentSize, x * v22, y * v23)}];
     }
 
-    v23 = objc_loadWeakRetained(&self->mController);
-    [v23 i_viewScaleDidChange];
+    v24 = objc_loadWeakRetained(&self->mController);
+    [v24 i_viewScaleDidChange];
   }
 }
 
@@ -1159,16 +1159,16 @@ LABEL_8:
     r2_24 = top;
     if (isAnchoredAtRight)
     {
-      CGAffineTransformMakeScale(v116, -1.0, 1.0);
-      v118.origin.x = v10;
-      v118.origin.y = v12;
-      v118.size.width = v14;
-      v118.size.height = v16;
-      v119 = CGRectApplyAffineTransform(v118, v116);
-      v10 = v119.origin.x;
-      v12 = v119.origin.y;
-      v14 = v119.size.width;
-      v16 = v119.size.height;
+      CGAffineTransformMakeScale(v118, -1.0, 1.0);
+      v120.origin.x = v10;
+      v120.origin.y = v12;
+      v120.size.width = v14;
+      v120.size.height = v16;
+      v121 = CGRectApplyAffineTransform(v120, v118);
+      v10 = v121.origin.x;
+      v12 = v121.origin.y;
+      v14 = v121.size.width;
+      v16 = v121.size.height;
     }
 
     v20 = objc_loadWeakRetained(&self->mController);
@@ -1178,9 +1178,9 @@ LABEL_8:
     v26 = v25;
     v28 = v27;
 
-    v106 = v14;
-    v107 = v10;
-    v105 = v16;
+    v108 = v14;
+    v109 = v10;
+    v107 = v16;
     if (!sub_10011EF14(v22, v24, v26, v28, v10, v12, v14, v16))
     {
       v29 = +[CRLAssertionHandler _atomicIncrementAssertCount];
@@ -1192,30 +1192,30 @@ LABEL_8:
       v30 = off_1019EDA68;
       if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
       {
-        v97 = p_mUnscaledSize->width;
-        v98 = p_mUnscaledSize->height;
-        v99 = v30;
-        v117.width = v97;
-        v117.height = v98;
-        v100 = NSStringFromCGSize(v117);
-        v123.origin.x = v22;
-        v123.origin.y = v24;
-        v123.size.width = v26;
-        v123.size.height = v28;
-        v101 = NSStringFromCGRect(v123);
-        *v116 = 67110402;
-        *&v116[4] = v29;
-        *&v116[8] = 2082;
-        *&v116[10] = "[CRLCanvasLayer p_fixedScaledBoundsForScrollViewSize:viewScale:contentInset:]";
-        *&v116[18] = 2082;
-        *&v116[20] = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCanvasLayer.m";
-        *&v116[28] = 1024;
-        *&v116[30] = 891;
-        *&v116[34] = 2112;
-        *&v116[36] = v100;
-        *&v116[44] = 2112;
-        *&v116[46] = v101;
-        _os_log_error_impl(&_mh_execute_header, v99, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected canvas layer not to shrink in -growUnscaledCanvasLayerRect:, but jumped from %@ to %@, ignoring provided rect.", v116, 0x36u);
+        v99 = p_mUnscaledSize->width;
+        v100 = p_mUnscaledSize->height;
+        v101 = v30;
+        v119.width = v99;
+        v119.height = v100;
+        v102 = NSStringFromCGSize(v119);
+        v125.origin.x = v22;
+        v125.origin.y = v24;
+        v125.size.width = v26;
+        v125.size.height = v28;
+        v103 = NSStringFromCGRect(v125);
+        *v118 = 67110402;
+        *&v118[4] = v29;
+        *&v118[8] = 2082;
+        *&v118[10] = "[CRLCanvasLayer p_fixedScaledBoundsForScrollViewSize:viewScale:contentInset:]";
+        *&v118[18] = 2082;
+        *&v118[20] = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCanvasLayer.m";
+        *&v118[28] = 1024;
+        *&v118[30] = 891;
+        *&v118[34] = 2112;
+        *&v118[36] = v102;
+        *&v118[44] = 2112;
+        *&v118[46] = v103;
+        _os_log_error_impl(&_mh_execute_header, v101, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d expected canvas layer not to shrink in -growUnscaledCanvasLayerRect:, but jumped from %@ to %@, ignoring provided rect.", v118, 0x36u);
       }
 
       if (qword_101AD5A10 != -1)
@@ -1232,15 +1232,15 @@ LABEL_8:
       v32 = [NSString stringWithUTF8String:"[CRLCanvasLayer p_fixedScaledBoundsForScrollViewSize:viewScale:contentInset:]"];
       v33 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLCanvasLayer.m"];
       v34 = NSStringFromCGSize(*p_mUnscaledSize);
-      v120.origin.x = v22;
-      v120.origin.y = v24;
-      v120.size.width = v26;
-      v120.size.height = v28;
-      v35 = NSStringFromCGRect(v120);
+      v122.origin.x = v22;
+      v122.origin.y = v24;
+      v122.size.width = v26;
+      v122.size.height = v28;
+      v35 = NSStringFromCGRect(v122);
       [CRLAssertionHandler handleFailureInFunction:v32 file:v33 lineNumber:891 isFatal:0 description:"expected canvas layer not to shrink in -growUnscaledCanvasLayerRect:, but jumped from %@ to %@, ignoring provided rect.", v34, v35];
 
-      v26 = v106;
-      v22 = v107;
+      v26 = v108;
+      v22 = v109;
       v24 = v12;
       v28 = v16;
     }
@@ -1261,14 +1261,14 @@ LABEL_8:
 
       if (shouldResizeCanvasToScrollView)
       {
-        v103 = v44;
-        v104 = v41;
+        v105 = v44;
+        v106 = v41;
         r2a = v36;
         r2_8a = v38;
         v49 = objc_loadWeakRetained(&self->mController);
         canvas2 = [v49 canvas];
         [canvas2 contentsScale];
-        v102 = v51;
+        v104 = v51;
 
         v52 = sub_10011ECB4();
         v54 = v53;
@@ -1276,8 +1276,8 @@ LABEL_8:
         [enclosingScrollView scrollableAreaContentInsets];
         v59 = v54 - (v57 + v58);
         v62 = v56 - (v60 + v61);
-        v63 = sub_10011FFD8(v107, v12, v106, v105, scale);
-        v115 = v64;
+        v63 = sub_10011FFD8(v109, v12, v108, v107, scale);
+        v117 = v64;
         v65 = r2_16 + v63;
         v67 = v66 - v39;
         v69 = v68 - v42;
@@ -1286,8 +1286,8 @@ LABEL_8:
         if (v71 <= 0.0)
         {
           v70 = v67;
-          v78 = r2_24;
-          v79 = v103;
+          v79 = r2_24;
+          v80 = v105;
         }
 
         else
@@ -1303,66 +1303,68 @@ LABEL_8:
             v65 = v65 - v73;
           }
 
-          v78 = r2_24;
-          if ([(CRLCanvasLayer *)self horizontallyCenteredInScrollView])
+          horizontallyCenteredInScrollView = [(CRLCanvasLayer *)self horizontallyCenteredInScrollView];
+          v79 = r2_24;
+          if (horizontallyCenteredInScrollView)
           {
-            v65 = sub_100122128(v65 + v73 * -0.5, v102);
+            v65 = sub_100122128(horizontallyCenteredInScrollView, v65 + v73 * -0.5, v104);
           }
 
-          v79 = v103;
+          v80 = v105;
           v72 = v74;
         }
 
-        v84 = v78 + v115;
+        v85 = v79 + v117;
         if (v72 <= 0.0)
         {
           v62 = v69;
-          v86 = r2_8a;
+          v88 = r2_8a;
         }
 
         else
         {
-          v85 = v72;
-          v86 = r2_8a;
-          if ([(CRLCanvasLayer *)self verticallyCenteredInScrollView])
+          v86 = v72;
+          verticallyCenteredInScrollView = [(CRLCanvasLayer *)self verticallyCenteredInScrollView];
+          v88 = r2_8a;
+          if (verticallyCenteredInScrollView)
           {
-            v84 = sub_100122128(v84 + v85 * -0.5, v102);
+            v85 = sub_100122128(verticallyCenteredInScrollView, v85 + v86 * -0.5, v104);
           }
         }
 
-        v125.size.width = v104;
-        v121.origin.x = v65;
-        v121.origin.y = v84;
-        v121.size.width = v70;
-        v121.size.height = v62;
-        v125.origin.x = r2a;
-        v125.origin.y = v86;
-        v125.size.height = v79;
-        v122 = CGRectUnion(v121, v125);
-        v36 = v122.origin.x;
-        v38 = v122.origin.y;
-        v41 = v122.size.width;
-        v44 = v122.size.height;
+        v127.size.width = v106;
+        v123.origin.x = v65;
+        v123.origin.y = v85;
+        v123.size.width = v70;
+        v123.size.height = v62;
+        v127.origin.x = r2a;
+        v127.origin.y = v88;
+        v127.size.height = v80;
+        v124 = CGRectUnion(v123, v127);
+        v36 = v124.origin.x;
+        v38 = v124.origin.y;
+        v41 = v124.size.width;
+        v44 = v124.size.height;
       }
     }
 
-    v87 = objc_loadWeakRetained(&self->mController);
-    canvas4 = [v87 canvas];
+    v89 = objc_loadWeakRetained(&self->mController);
+    canvas4 = [v89 canvas];
     [canvas4 contentsScale];
-    x = sub_1001221E8(v36, v38, v41, v44, v89);
-    y = v90;
-    width = v91;
-    height = v92;
+    x = sub_1001221E8(v36, v38, v41, v44, v91);
+    y = v92;
+    width = v93;
+    height = v94;
   }
 
-  v93 = x;
-  v94 = y;
-  v95 = width;
-  v96 = height;
-  result.size.height = v96;
-  result.size.width = v95;
-  result.origin.y = v94;
-  result.origin.x = v93;
+  v95 = x;
+  v96 = y;
+  v97 = width;
+  v98 = height;
+  result.size.height = v98;
+  result.size.width = v97;
+  result.origin.y = v96;
+  result.origin.x = v95;
   return result;
 }
 

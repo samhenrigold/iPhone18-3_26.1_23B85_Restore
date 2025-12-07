@@ -12,6 +12,7 @@
 - (id)outputContextForOutputDevice:(id)device;
 - (id)outputContextForOutputDeviceUID:(id)d;
 - (id)outputContextForOutputDeviceUIDs:(id)ds strict:(BOOL)strict;
+- (id)outputContextForOutputDevices:(id)devices strict:(BOOL)strict;
 - (void)_handleMediaServerDeath:(id)death;
 - (void)_handleOutputContextDidAddLocalDevice:(id)device;
 - (void)_handleOutputContextDidRemoveLocalDevice:(id)device;
@@ -220,6 +221,15 @@
   v5 = [(MRDAVOutputContextManager *)self outputContextForOutputDeviceUID:v4];
 
   return v5;
+}
+
+- (id)outputContextForOutputDevices:(id)devices strict:(BOOL)strict
+{
+  strictCopy = strict;
+  v6 = [devices mr_map:&stru_1004B9268];
+  v7 = [(MRDAVOutputContextManager *)self outputContextForOutputDeviceUIDs:v6 strict:strictCopy];
+
+  return v7;
 }
 
 - (id)outputContextForOutputDeviceUID:(id)d

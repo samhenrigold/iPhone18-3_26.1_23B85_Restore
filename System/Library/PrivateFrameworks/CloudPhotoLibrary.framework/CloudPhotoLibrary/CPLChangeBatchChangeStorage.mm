@@ -8,30 +8,30 @@
 
 - (id)changesWithRelatedScopedIdentifier:(id)identifier class:(Class)class
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v6 = self->_batch;
-  v7 = [(CPLChangeBatch *)v6 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v7 = [(CPLChangeBatch *)v6 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v7)
   {
     v8 = v7;
-    v27 = 0;
-    v9 = *v29;
-    v26 = *v29;
+    v26 = 0;
+    v9 = *v28;
+    v25 = *v28;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v29 != v9)
+        if (*v28 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v28 + 1) + 8 * i);
+        v11 = *(*(&v27 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
           relatedIdentifier = [v11 relatedIdentifier];
@@ -50,7 +50,7 @@
 
             if (v20)
             {
-              v21 = v27 == 0;
+              v21 = v26 == 0;
             }
 
             else
@@ -62,18 +62,18 @@
             {
               v22 = objc_alloc_init(MEMORY[0x1E695DF70]);
               v23 = [v11 copy];
-              v27 = v22;
+              v26 = v22;
               [v22 addObject:v23];
             }
 
             v6 = v15;
             identifierCopy = v18;
-            v9 = v26;
+            v9 = v25;
           }
         }
       }
 
-      v8 = [(CPLChangeBatch *)v6 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v8 = [(CPLChangeBatch *)v6 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v8);
@@ -81,47 +81,45 @@
 
   else
   {
-    v27 = 0;
+    v26 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
-  return v27;
+  return v26;
 }
 
 - (id)changeWithScopedIdentifier:(id)identifier
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   changesPerScopedIdentifier = self->_changesPerScopedIdentifier;
   if (!changesPerScopedIdentifier)
   {
     v6 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{-[CPLChangeBatch count](self->_batch, "count")}];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v7 = self->_batch;
-    v8 = [(CPLChangeBatch *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v8 = [(CPLChangeBatch *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v19;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * i);
+          v12 = *(*(&v18 + 1) + 8 * i);
           scopedIdentifier = [v12 scopedIdentifier];
           [(NSDictionary *)v6 setObject:v12 forKeyedSubscript:scopedIdentifier];
         }
 
-        v9 = [(CPLChangeBatch *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [(CPLChangeBatch *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v9);
@@ -133,10 +131,8 @@
     changesPerScopedIdentifier = self->_changesPerScopedIdentifier;
   }
 
-  v15 = [(NSDictionary *)changesPerScopedIdentifier objectForKeyedSubscript:identifierCopy, v19];
+  v15 = [(NSDictionary *)changesPerScopedIdentifier objectForKeyedSubscript:identifierCopy, v18];
   v16 = [v15 copy];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

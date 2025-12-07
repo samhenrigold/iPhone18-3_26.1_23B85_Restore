@@ -1,6 +1,6 @@
 uint64_t DDDFAScannerScanQuery(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = a2[4];
   CFArrayRemoveAllValues(*(a1 + 32));
   if (v4 < 1)
@@ -24,18 +24,18 @@ uint64_t DDDFAScannerScanQuery(uint64_t a1, void *a2)
       else
       {
         v9 = *(v7 + 24);
-        v21 = 1;
-        v20 = 0u;
+        v20 = 1;
         v19 = 0u;
         v18 = 0u;
         v17 = 0u;
         v16 = 0u;
         v15 = 0u;
-        v14[0] = buffer;
-        v14[1] = 0;
-        v14[2] = 0;
-        DDDFAScannerFillInitialContext(a1, v5, *(v7 + 16), *(a1 + 32), 1, 1, v14);
-        DDDFAScannerComputeResultsForContextWithRebuffering(v7, v14, buffer);
+        v14 = 0u;
+        v13[0] = buffer;
+        v13[1] = 0;
+        v13[2] = 0;
+        DDDFAScannerFillInitialContext(a1, v5, *(v7 + 16), *(a1 + 32), 1, 1, v13);
+        DDDFAScannerComputeResultsForContextWithRebuffering(v7, v13, buffer);
         if (v9 >= 1)
         {
           for (i = 0; i != v9; ++i)
@@ -45,8 +45,8 @@ uint64_t DDDFAScannerScanQuery(uint64_t a1, void *a2)
               break;
             }
 
-            DDDFAScannerFillInitialContext(a1, v5, i + *(v7 + 16), *(a1 + 32), 0, 1, v14);
-            DDDFAScannerComputeResultsForContextWithRebuffering(v7, v14, buffer);
+            DDDFAScannerFillInitialContext(a1, v5, i + *(v7 + 16), *(a1 + 32), 0, 1, v13);
+            DDDFAScannerComputeResultsForContextWithRebuffering(v7, v13, buffer);
           }
         }
       }
@@ -60,16 +60,13 @@ uint64_t DDDFAScannerScanQuery(uint64_t a1, void *a2)
   DDDFAScannerPostprocessResults(a1, a2);
   if (CFArrayGetCount(*(a1 + 32)) > 0)
   {
-    v11 = 1;
+    return 1;
   }
 
   else
   {
-    v11 = v6;
+    return v6;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
-  return v11;
 }
 
 CFIndex DDDFAScannerPostprocessResults(uint64_t a1, void *a2)
@@ -382,8 +379,8 @@ uint64_t DDDFAScannerScanString(uint64_t a1, CFStringRef theString)
 
 uint64_t DDDFACacheCreateFromBundle(void *a1)
 {
-  v47 = *MEMORY[0x1E69E9840];
-  v2 = DDTypeRegister(&DDDFACacheGetTypeID_typeID);
+  v46 = *MEMORY[0x1E69E9840];
+  v2 = DDTypeRegister(&DDDFACacheGetTypeID_typeID, &kDDDFACacheContextClass);
   Instance = DDTypeCreateInstance_(0, v2, 0x50uLL);
   *(Instance + 88) = a1;
   CFRetain(a1);
@@ -406,13 +403,13 @@ uint64_t DDDFACacheCreateFromBundle(void *a1)
     }
 
     *buf = 134218752;
-    *v42 = FunctionPointerForName;
-    *&v42[8] = 2048;
-    v43 = v5;
-    *v44 = 2048;
-    *&v44[2] = v6;
-    v45 = 2048;
-    v46 = v8;
+    *v41 = FunctionPointerForName;
+    *&v41[8] = 2048;
+    v42 = v5;
+    *v43 = 2048;
+    *&v43[2] = v6;
+    v44 = 2048;
+    v45 = v8;
     v16 = "Missing function when loading DFA cache (%p, %p, %p, %p)";
     v17 = v19;
     v18 = 42;
@@ -435,9 +432,9 @@ uint64_t DDDFACacheCreateFromBundle(void *a1)
     }
 
     *buf = 67109376;
-    *v42 = 7;
-    *&v42[4] = 1024;
-    *&v42[6] = v20;
+    *v41 = 7;
+    *&v41[4] = 1024;
+    *&v41[6] = v20;
     v16 = "Could not load the DFA plugin. Version expected = %d, found = %d";
 LABEL_21:
     v17 = v21;
@@ -479,12 +476,11 @@ LABEL_26:
   {
 LABEL_67:
     CFRelease(Instance);
-    Instance = 0;
-    goto LABEL_68;
+    return 0;
   }
 
-  memset(&v39, 0, sizeof(v39));
-  if (stat(buffer, &v39))
+  memset(&v38, 0, sizeof(v38));
+  if (stat(buffer, &v38))
   {
     if (DDLogHandle_onceToken != -1)
     {
@@ -500,16 +496,16 @@ LABEL_67:
     v14 = __error();
     v15 = strerror(*v14);
     *buf = 136315394;
-    *v42 = buffer;
-    *&v42[8] = 2080;
-    v43 = v15;
+    *v41 = buffer;
+    *&v41[8] = 2080;
+    v42 = v15;
     v16 = "Could not stat %s: %s, aborting";
     v17 = v13;
     v18 = 22;
     goto LABEL_27;
   }
 
-  if (v39.st_size >= 0x1000000)
+  if (v38.st_size >= 0x1000000)
   {
     if (DDLogHandle_onceToken != -1)
     {
@@ -527,7 +523,7 @@ LABEL_67:
     goto LABEL_26;
   }
 
-  v23 = DDmmap(buffer, v39.st_size);
+  v23 = DDmmap(buffer, v38.st_size);
   if (!v23)
   {
     if (DDLogHandle_onceToken != -1)
@@ -581,9 +577,9 @@ LABEL_67:
 
     v34 = *(Instance + 26);
     *buf = 67109376;
-    *v42 = 7;
-    *&v42[4] = 1024;
-    *&v42[6] = v34;
+    *v41 = 7;
+    *&v41[4] = 1024;
+    *&v41[6] = v34;
     v16 = "Could not load DFA cache. Version expected = %d, found = %d";
     goto LABEL_21;
   }
@@ -604,9 +600,9 @@ LABEL_67:
     v35 = *(Instance + 38);
     v36 = *(Instance + 32);
     *buf = 67109376;
-    *v42 = v35;
-    *&v42[4] = 1024;
-    *&v42[6] = v36;
+    *v41 = v35;
+    *&v41[4] = 1024;
+    *&v41[6] = v36;
     v16 = "Simplified cache header sanity check failed (%d >= %d)";
     goto LABEL_21;
   }
@@ -669,21 +665,19 @@ LABEL_67:
     LODWORD(v30) = v30[3];
     v33 = *(Instance + 32);
     *buf = 67109888;
-    *v42 = v31;
-    *&v42[4] = 1024;
-    *&v42[6] = v32;
-    LOWORD(v43) = 1024;
-    *(&v43 + 2) = v30;
-    HIWORD(v43) = 1024;
-    *v44 = v33;
+    *v41 = v31;
+    *&v41[4] = 1024;
+    *&v41[6] = v32;
+    LOWORD(v42) = 1024;
+    *(&v42 + 2) = v30;
+    HIWORD(v42) = 1024;
+    *v43 = v33;
     v16 = "Simplified cache transitions sanity check failed (%d, %d, %d, %d)";
     v17 = v29;
     v18 = 26;
     goto LABEL_27;
   }
 
-LABEL_68:
-  v37 = *MEMORY[0x1E69E9840];
   return Instance;
 }
 
@@ -751,7 +745,7 @@ uint64_t _DDDFACacheCFInit(uint64_t result)
 
 uint64_t DDDFACacheCreateFromFramework()
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   BundleWithIdentifier = CFBundleGetBundleWithIdentifier(@"com.apple.datadetectorscore");
   if (!BundleWithIdentifier)
   {
@@ -760,20 +754,20 @@ uint64_t DDDFACacheCreateFromFramework()
       dispatch_once(&DDLogHandle_onceToken, &__block_literal_global_791);
     }
 
-    v9 = DDLogHandle_error_log_handle;
+    v8 = DDLogHandle_error_log_handle;
     if (!os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_19;
+      return 0;
     }
 
-    v16 = 138412290;
-    v17 = @"com.apple.datadetectorscore";
-    v10 = "Could not locate the DDCore bundle %@, aborting. It's either not here or you ran out of file descriptors.";
-    v11 = v9;
-    v12 = 12;
+    v14 = 138412290;
+    v15 = @"com.apple.datadetectorscore";
+    v9 = "Could not locate the DDCore bundle %@, aborting. It's either not here or you ran out of file descriptors.";
+    v10 = v8;
+    v11 = 12;
 LABEL_13:
-    _os_log_error_impl(&dword_1BCFDD000, v11, OS_LOG_TYPE_ERROR, v10, &v16, v12);
-    goto LABEL_19;
+    _os_log_error_impl(&dword_1BCFDD000, v10, OS_LOG_TYPE_ERROR, v9, &v14, v11);
+    return 0;
   }
 
   v1 = CFBundleCopyBuiltInPlugInsURL(BundleWithIdentifier);
@@ -784,16 +778,16 @@ LABEL_13:
       dispatch_once(&DDLogHandle_onceToken, &__block_literal_global_791);
     }
 
-    v13 = DDLogHandle_error_log_handle;
+    v12 = DDLogHandle_error_log_handle;
     if (!os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_19;
+      return 0;
     }
 
-    LOWORD(v16) = 0;
-    v10 = "Could not locate the plugins in the DDCore bundle";
-    v11 = v13;
-    v12 = 2;
+    LOWORD(v14) = 0;
+    v9 = "Could not locate the plugins in the DDCore bundle";
+    v10 = v12;
+    v11 = 2;
     goto LABEL_13;
   }
 
@@ -807,7 +801,6 @@ LABEL_13:
     CFRelease(v3);
     v6 = DDDFACacheCreateFromBundle(v5);
     CFRelease(v5);
-    v7 = *MEMORY[0x1E69E9840];
     return v6;
   }
 
@@ -816,17 +809,15 @@ LABEL_13:
     dispatch_once(&DDLogHandle_onceToken, &__block_literal_global_791);
   }
 
-  v14 = DDLogHandle_error_log_handle;
+  v13 = DDLogHandle_error_log_handle;
   if (os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
   {
-    v16 = 138412290;
-    v17 = v3;
-    _os_log_error_impl(&dword_1BCFDD000, v14, OS_LOG_TYPE_ERROR, "Could not load the plugin %@", &v16, 0xCu);
+    v14 = 138412290;
+    v15 = v3;
+    _os_log_error_impl(&dword_1BCFDD000, v13, OS_LOG_TYPE_ERROR, "Could not load the plugin %@", &v14, 0xCu);
   }
 
   CFRelease(v3);
-LABEL_19:
-  v15 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -1942,7 +1933,7 @@ LABEL_72:
   return result;
 }
 
-BOOL DDDeletionFilterBlocks_block_invoke_9(int a1, uint64_t a2, CFStringRef theString)
+BOOL DDDeletionFilterBlocks_block_invoke_9(int a1, const __CFString **a2, CFStringRef theString)
 {
   if (_typesAreEqual(theString, @"DateTime"))
   {
@@ -2051,7 +2042,7 @@ LABEL_11:
     v14 = a2;
     while (1)
     {
-      v15 = v14[7];
+      v15 = *(v14 + 56);
       if (!v15 || CFArrayGetCount(v15) != 1)
       {
         return 1;
@@ -2066,13 +2057,13 @@ LABEL_11:
           goto LABEL_12;
         }
 
-        if (_typesAreEqual(v14[8], @"RelativeDay"))
+        if (_typesAreEqual(*(v14 + 64), @"RelativeDay"))
         {
           v23 = 0;
-          v17 = v14[10];
+          v17 = *(v14 + 80);
           if (!v17)
           {
-            v17 = v14[9];
+            v17 = *(v14 + 72);
           }
 
           if (!DDFastIntegerExtraction(v17, &v23))
@@ -2244,14 +2235,14 @@ void DDGlobalFilterBlocks_block_invoke_12(int a1, CFArrayRef theArray)
   }
 }
 
-uint64_t assistantAcceptTypeWithTypeOrdered(const __CFString *a1, const __CFString *a2, uint64_t a3, uint64_t a4)
+BOOL assistantAcceptTypeWithTypeOrdered(const __CFString *a1, const __CFString *a2, uint64_t a3, uint64_t a4)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   if (_typesAreEqual(a1, @"Time"))
   {
     if (_typesAreEqual(a2, @"DateSpan") && DDResultGetSubresultWithType(a4, @"YearNumber") || _typesAreEqual(a2, @"TimeSpan"))
     {
-      goto LABEL_37;
+      return 1;
     }
 
     if (_typesAreEqual(a2, @"TimeDuration"))
@@ -2267,23 +2258,17 @@ uint64_t assistantAcceptTypeWithTypeOrdered(const __CFString *a1, const __CFStri
           {
             if (CFArrayGetCount(*(SubresultWithTypePath + 7)) == 1 && CFArrayGetCount(*(v10 + 56)) <= 2 && DDResultGetSubresultWithType(SubresultWithTypePath, @"Hours") && DDResultGetSubresultWithType(v10, @"Hours") && !DDResultGetSubresultWithType(v10, @"Minutes") && !DDResultGetSubresultWithType(v10, @"MinutesBefore"))
             {
-              goto LABEL_37;
+              return 1;
             }
           }
         }
       }
 
-      goto LABEL_33;
+      return 0;
     }
 
     v14 = @"TimeSpanWithReference";
-LABEL_32:
-    if (!_typesAreEqual(a2, v14))
-    {
-      goto LABEL_33;
-    }
-
-    goto LABEL_37;
+    return _typesAreEqual(a2, v14);
   }
 
   if (_typesAreEqual(a1, @"TimeDuration"))
@@ -2292,9 +2277,7 @@ LABEL_32:
     {
       if (!_typesAreEqual(a2, @"DateDuration"))
       {
-LABEL_33:
-        result = 0;
-        goto LABEL_38;
+        return 0;
       }
 
       v11 = *(a4 + 56);
@@ -2308,7 +2291,7 @@ LABEL_33:
       {
         if (!DDResultGetSubresultWithTypePath(a4, @"BeginDate.DateSpan.YearNumber"))
         {
-          goto LABEL_33;
+          return 0;
         }
 
         v13 = @"EndDate.DateSpan.YearNumber";
@@ -2317,42 +2300,40 @@ LABEL_33:
 
       if (!DDResultGetSubresultWithTypePath(ValueAtIndex, v13))
       {
-        goto LABEL_33;
+        return 0;
       }
     }
 
-LABEL_37:
-    result = 1;
-    goto LABEL_38;
+    return 1;
   }
 
   if (_typesAreEqual(a1, @"DateDuration"))
   {
     v14 = @"DateSpanWithReference";
-    goto LABEL_32;
+    return _typesAreEqual(a2, v14);
   }
 
   if (!_typesAreEqual(a1, @"DateTime") || !_typesAreEqual(a2, @"DateTime"))
   {
-    goto LABEL_33;
+    return 0;
   }
 
-  v30 = 0;
-  v31 = 0;
-  v28 = 0;
   v29 = 0;
-  getDateFromDateTime(a3, &v29, &v31);
-  getDateFromDateTime(a4, &v28, &v30);
-  v16 = v30;
-  v15 = v31;
-  v18 = v28;
-  v17 = v29;
-  if (v31 && v30 && v29 && v28)
+  v30 = 0;
+  v27 = 0;
+  v28 = 0;
+  getDateFromDateTime(a3, &v28, &v30);
+  getDateFromDateTime(a4, &v27, &v29);
+  v16 = v29;
+  v15 = v30;
+  v18 = v27;
+  v17 = v28;
+  if (v30 && v29 && v28 && v27)
   {
-    v19 = v28[8];
+    v19 = v27[8];
     if (v19)
     {
-      v20 = _typesAreEqual(v29[8], v19);
+      v20 = _typesAreEqual(v28[8], v19);
     }
 
     else
@@ -2360,20 +2341,20 @@ LABEL_37:
       v20 = 0;
     }
 
-    v24 = v16[8];
-    if (v24)
+    v23 = v16[8];
+    if (v23)
     {
-      v25 = _typesAreEqual(v15[8], v24);
+      v24 = _typesAreEqual(v15[8], v23);
     }
 
     else
     {
-      v25 = 0;
+      v24 = 0;
     }
 
-    v26 = v20 || assistantAcceptTypeWithTypeOrdered(v17[8], v18[8], v17, v18) != 0;
-    v27 = v25 || assistantAcceptTypeWithTypeOrdered(v15[8], v16[8], v15, v16) != 0;
-    result = v26 && v27 && (!v20 || !v25);
+    v25 = v20 || assistantAcceptTypeWithTypeOrdered(v17[8], v18[8], v17, v18) != 0;
+    v26 = v24 || assistantAcceptTypeWithTypeOrdered(v15[8], v16[8], v15, v16) != 0;
+    return v25 && v26 && (!v20 || !v24);
   }
 
   else
@@ -2383,25 +2364,23 @@ LABEL_37:
       dispatch_once(&DDLogHandle_onceToken, &__block_literal_global_791);
     }
 
-    v23 = DDLogHandle_error_log_handle;
+    v22 = DDLogHandle_error_log_handle;
     result = os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR);
     if (result)
     {
       *buf = 67109888;
-      v33 = v17 == 0;
-      v34 = 1024;
-      v35 = v18 == 0;
-      v36 = 1024;
-      v37 = v15 == 0;
-      v38 = 1024;
-      v39 = v16 == 0;
-      _os_log_error_impl(&dword_1BCFDD000, v23, OS_LOG_TYPE_ERROR, "One required component of a DateTime was NULL (dates %d-%d and times %d-%d)", buf, 0x1Au);
-      goto LABEL_33;
+      v32 = v17 == 0;
+      v33 = 1024;
+      v34 = v18 == 0;
+      v35 = 1024;
+      v36 = v15 == 0;
+      v37 = 1024;
+      v38 = v16 == 0;
+      _os_log_error_impl(&dword_1BCFDD000, v22, OS_LOG_TYPE_ERROR, "One required component of a DateTime was NULL (dates %d-%d and times %d-%d)", buf, 0x1Au);
+      return 0;
     }
   }
 
-LABEL_38:
-  v22 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2505,48 +2484,43 @@ void DDGlobalFilterBlocks_block_invoke_14(int a1, CFArrayRef theArray, uint64_t 
 
 BOOL DDAddressResultCanBeMergedWith(uint64_t a1, uint64_t a2)
 {
-  v8[8] = *MEMORY[0x1E69E9840];
-  if (!a2)
+  v7[8] = *MEMORY[0x1E69E9840];
+  if (a2)
   {
-LABEL_8:
-    result = 0;
-    goto LABEL_9;
-  }
+    result = _typesAreEqual(*(a2 + 64), @"FullAddress");
+    if (!result)
+    {
+      return result;
+    }
 
-  result = _typesAreEqual(*(a2 + 64), @"FullAddress");
-  if (result)
-  {
     v5 = 0;
-    v8[0] = @"Street";
-    v8[1] = @"StreetNumber";
-    v8[2] = @"StreetName";
-    v8[3] = @"POBox";
-    v8[4] = @"ZipCode";
-    v8[5] = @"City";
-    v8[6] = @"State";
-    v8[7] = @"Country";
+    v7[0] = @"Street";
+    v7[1] = @"StreetNumber";
+    v7[2] = @"StreetName";
+    v7[3] = @"POBox";
+    v7[4] = @"ZipCode";
+    v7[5] = @"City";
+    v7[6] = @"State";
+    v7[7] = @"Country";
     while (1)
     {
-      v6 = v8[v5];
+      v6 = v7[v5];
       if (DDResultGetSubresultWithType(a1, v6))
       {
         if (DDResultGetSubresultWithType(a2, v6))
         {
-          goto LABEL_8;
+          break;
         }
       }
 
       if (++v5 == 8)
       {
-        result = 1;
-        break;
+        return 1;
       }
     }
   }
 
-LABEL_9:
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return 0;
 }
 
 CFIndex DDGlobalFilterBlocks_block_invoke_11(int a1, CFArrayRef theArray, uint64_t a3)
@@ -2569,38 +2543,38 @@ LABEL_3:
       v7 = v5 + 1;
       v8 = CFArrayGetValueAtIndex(v3, v5 + 1);
       Count = CFArrayGetCount(v3);
-      v74 = 0;
+      v73 = 0;
       v10 = 0;
       v11 = 0;
       v12 = 0;
       v13 = 0;
       v14 = 0;
-      v71 = 0;
+      v70 = 0;
       v15 = 0;
       v16 = 0;
-      v67 = v5 + 1;
+      v66 = v5 + 1;
       idx = v5 + 2;
-      v66 = v5;
+      v65 = v5;
       if (Count > v5 + 2)
       {
 LABEL_5:
         v16 = CFArrayGetValueAtIndex(v3, idx);
-        v13 = v74;
+        v13 = v73;
         v14 = v10;
-        v71 = v11;
+        v70 = v11;
         v15 = v12;
       }
 
-      v74 = v13;
+      v73 = v13;
       v12 = v15;
       v17 = ValueAtIndex;
       while (1)
       {
-        v70 = v14;
+        v69 = v14;
         v18 = *(a3 + 56);
         v19 = v17[8];
         v20 = *(v8 + 8);
-        v76 = v17;
+        v75 = v17;
         if (v12)
         {
           v21 = 0;
@@ -2609,7 +2583,7 @@ LABEL_5:
         else
         {
           v21 = !_typesAreEqual(@"Contact", v19) || !_typesAreEqual(@"FullAddress", v20);
-          v17 = v76;
+          v17 = v75;
         }
 
         if (!resultsAreCloseEnoughToCoalesce(v18, v17, v8, v21) || !resultTypeIsCoalescibleInSignatures(v19) || !resultTypeIsCoalescibleInSignatures(v20))
@@ -2619,7 +2593,7 @@ LABEL_5:
 
         v22 = _typesAreEqual(@"Contact", v20);
         value = v8;
-        v78 = v19;
+        v77 = v19;
         if (!v12)
         {
           break;
@@ -2627,27 +2601,27 @@ LABEL_5:
 
         if (v22)
         {
-          v24 = v74;
-          v62 = v70;
+          v24 = v73;
+          v62 = v69;
           goto LABEL_134;
         }
 
         v23 = CFArrayGetCount(v12[7]);
         if (v23 < 1)
         {
-          v24 = v74;
+          v24 = v73;
           ValueAtIndex = value;
           goto LABEL_115;
         }
 
 LABEL_80:
-        v73 = v20;
+        v72 = v20;
         v48 = 0;
         v49 = 0;
         v50 = 0;
         v51 = 0;
         v52 = 0;
-        v75 = 0;
+        v74 = 0;
         v53 = 0;
         do
         {
@@ -2660,7 +2634,7 @@ LABEL_80:
           else
           {
             v54 = 0;
-            v55 = v78;
+            v55 = v77;
           }
 
           if (_typesAreEqual(@"PhoneNumber", v55))
@@ -2694,7 +2668,7 @@ LABEL_80:
 
           else if (_typesAreEqual(@"HttpURL", v55) || _typesAreEqual(@"WebURL", v55))
           {
-            ++v75;
+            ++v74;
           }
 
           ++v48;
@@ -2707,14 +2681,14 @@ LABEL_80:
           v56 = 4;
         }
 
-        if (v51 >= v56 && _typesAreEqual(@"PhoneNumber", v73))
+        if (v51 >= v56 && _typesAreEqual(@"PhoneNumber", v72))
         {
           v3 = i;
-          v7 = v67;
+          v7 = v66;
 LABEL_131:
-          v24 = v74;
+          v24 = v73;
 LABEL_132:
-          v62 = v70;
+          v62 = v69;
 LABEL_133:
           v5 = v7;
           if (!v12)
@@ -2723,12 +2697,11 @@ LABEL_133:
           }
 
 LABEL_134:
-          v12[2] = v71;
+          v12[2] = v70;
           v12[3] = v62;
-          v63 = v62;
-          v12[9] = DDScanQueryCopyRange(*(a3 + 56), v71, v62);
-          v12[4] = DDScanQueryComputeCFRangeForQueryRange(*(a3 + 56), v71, v63);
-          v12[5] = v64;
+          v12[9] = DDScanQueryCopyRange(*(a3 + 56), v70, v62);
+          v12[4] = DDScanQueryComputeCFRangeForQueryRange(*(a3 + 56), v70);
+          v12[5] = v63;
           v12[6] = v24;
 LABEL_135:
           v5 = v7;
@@ -2737,55 +2710,55 @@ LABEL_135:
 
         v57 = v50 < 1;
         v3 = i;
-        v7 = v67;
-        v24 = v74;
-        if (!v57 && _typesAreEqual(@"FullAddress", v73))
+        v7 = v66;
+        v24 = v73;
+        if (!v57 && _typesAreEqual(@"FullAddress", v72))
         {
           goto LABEL_132;
         }
 
-        if (v53 >= 1 && _typesAreEqual(@"Email", v73))
+        if (v53 >= 1 && _typesAreEqual(@"Email", v72))
         {
           goto LABEL_132;
         }
 
-        v5 = v66;
+        v5 = v65;
         ValueAtIndex = value;
-        if (v75 >= 1 && (_typesAreEqual(@"HttpURL", v73) || _typesAreEqual(@"WebURL", v73)))
+        if (v74 >= 1 && (_typesAreEqual(@"HttpURL", v72) || _typesAreEqual(@"WebURL", v72)))
         {
           goto LABEL_132;
         }
 
         if (!v12)
         {
-          v12 = DDRootResultCreate(@"SignatureBlock", v76[2], v76[3]);
-          DDResultAddSubresult(v12, v76);
-          CFArraySetValueAtIndex(i, v66, v12);
+          v12 = DDRootResultCreate(@"SignatureBlock", v75[2], v75[3]);
+          DDResultAddSubresult(v12, v75);
+          CFArraySetValueAtIndex(i, v65, v12);
           CFRelease(v12);
-          v70 = v76[3];
-          v71 = v76[2];
-          v24 = v76[6];
-          v76[6] = 0;
+          v69 = v75[3];
+          v70 = v75[2];
+          v24 = v75[6];
+          v75[6] = 0;
         }
 
 LABEL_115:
         DDResultAddSubresult(v12, ValueAtIndex);
         v11 = ValueAtIndex[2];
         v10 = ValueAtIndex[3];
-        v58 = v71 >> 16;
+        v58 = v70 >> 16;
         if (v58 >= v11 >> 16)
         {
-          v59 = v70;
-          if (v58 <= v11 >> 16 && SHIDWORD(v71) < SHIDWORD(v11))
+          v59 = v69;
+          if (v58 <= v11 >> 16 && SHIDWORD(v70) < SHIDWORD(v11))
           {
-            v11 = v71;
+            v11 = v70;
           }
         }
 
         else
         {
-          v11 = v71;
-          v59 = v70;
+          v11 = v70;
+          v59 = v69;
         }
 
         v60 = v59 >> 16;
@@ -2811,16 +2784,16 @@ LABEL_115:
         if (v5 >= CFArrayGetCount(v3) - 1)
         {
           v62 = v10;
-          v71 = v11;
+          v70 = v11;
           goto LABEL_133;
         }
 
-        v74 = v24;
+        v73 = v24;
         v8 = CFArrayGetValueAtIndex(v3, v7);
         v61 = CFArrayGetCount(v3);
         v16 = 0;
         v14 = v10;
-        v71 = v11;
+        v70 = v11;
         v17 = ValueAtIndex;
         if (v61 > idx)
         {
@@ -2833,15 +2806,15 @@ LABEL_115:
         goto LABEL_43;
       }
 
-      v25 = v76[7];
-      v72 = v20;
+      v25 = v75[7];
+      v71 = v20;
       if (v25 && (v26 = CFArrayGetCount(v25), v26 >= 1))
       {
         v27 = v26;
         v28 = 0;
         v29 = 0;
         v30 = 0;
-        v31 = v76;
+        v31 = v75;
         do
         {
           v32 = *(CFArrayGetValueAtIndex(v31[7], v29) + 8);
@@ -2856,7 +2829,7 @@ LABEL_115:
           }
 
           ++v29;
-          v31 = v76;
+          v31 = v75;
         }
 
         while (v27 != v29);
@@ -2906,20 +2879,20 @@ LABEL_115:
         break;
       }
 
-      v5 = v67;
+      v5 = v66;
     }
 
     v40 = v28 == v37;
     v3 = i;
-    v7 = v67;
+    v7 = v66;
     if (v40)
     {
       goto LABEL_135;
     }
 
-    v20 = v72;
-    v19 = v78;
-    if (!resultsAreCloseEnoughToCoalesce(v18, v76, value, 0))
+    v20 = v71;
+    v19 = v77;
+    if (!resultsAreCloseEnoughToCoalesce(v18, v75, value, 0))
     {
       goto LABEL_135;
     }
@@ -2942,7 +2915,7 @@ LABEL_43:
           }
 
 LABEL_53:
-          if ((v41 & v45) == 1 && _typesAreEqual(v78, v20))
+          if ((v41 & v45) == 1 && _typesAreEqual(v77, v20))
           {
             goto LABEL_135;
           }
@@ -2954,7 +2927,7 @@ LABEL_53:
 
           if (v45)
           {
-            if (_typesAreEqual(v78, v20) || _typesAreEqual(@"PhoneNumber", v78) && _typesAreEqual(v20, @"Email"))
+            if (_typesAreEqual(v77, v20) || _typesAreEqual(@"PhoneNumber", v77) && _typesAreEqual(v20, @"Email"))
             {
               goto LABEL_135;
             }
@@ -2964,7 +2937,7 @@ LABEL_53:
               goto LABEL_65;
             }
 
-            v46 = v78;
+            v46 = v77;
             v47 = @"Email";
           }
 
@@ -2973,7 +2946,7 @@ LABEL_53:
             if (!_typesAreEqual(v42, v20))
             {
 LABEL_65:
-              if (_typesAreEqual(v20, @"Email") && ((v41 & v45 & 1) != 0 || (v45 & 1) == 0 && (v43 || _typesAreEqual(v42, @"Email"))) || _typesAreEqual(@"HttpURL", v78) || _typesAreEqual(@"WebURL", v78))
+              if (_typesAreEqual(v20, @"Email") && ((v41 & v45 & 1) != 0 || (v45 & 1) == 0 && (v43 || _typesAreEqual(v42, @"Email"))) || _typesAreEqual(@"HttpURL", v77) || _typesAreEqual(@"WebURL", v77))
               {
                 goto LABEL_135;
               }
@@ -2996,7 +2969,7 @@ LABEL_65:
                 }
 
                 v23 = 1;
-                if (_typesAreEqual(v78, @"Email"))
+                if (_typesAreEqual(v77, @"Email"))
                 {
                   goto LABEL_135;
                 }
@@ -3010,7 +2983,7 @@ LABEL_65:
               goto LABEL_80;
             }
 
-            v46 = v78;
+            v46 = v77;
             v47 = v20;
           }
 
@@ -3327,51 +3300,51 @@ void *DDResultCreateFromDateTimeResults(const __CFArray *a1)
     return CFRetain(ValueAtIndex);
   }
 
-  v49 = 0;
-  v50 = 0;
   v48 = 0;
+  v49 = 0;
   v47 = 0;
-  if ((extractDateAndTime(ValueAtIndex, &v50, &v49, &v47 + 1, &v47, &v48) & 1) == 0)
+  v46 = 0;
+  if ((extractDateAndTime(ValueAtIndex, &v49, &v48, &v46 + 1, &v46, &v47) & 1) == 0)
   {
     return CFRetain(ValueAtIndex);
   }
 
   cf = 0;
-  v46 = 0;
-  v44 = 0;
+  v45 = 0;
   v43 = 0;
-  extractDateAndTime(v4, &v46, &cf, &v43 + 1, &v43, &v44);
-  v5 = v50;
-  if (v50)
+  v42 = 0;
+  extractDateAndTime(v4, &v45, &cf, &v42 + 1, &v42, &v43);
+  v5 = v49;
+  if (v49)
   {
-    v6 = HIBYTE(v47);
-    if (v48)
+    v6 = HIBYTE(v46);
+    if (v47)
     {
-      v7 = v48;
+      v7 = v47;
     }
 
     else
     {
-      v7 = v44;
+      v7 = v43;
     }
 
-    v8 = v50;
+    v8 = v49;
   }
 
   else
   {
-    v8 = v46;
-    v6 = HIBYTE(v43);
-    if (v46)
+    v8 = v45;
+    v6 = HIBYTE(v42);
+    if (v45)
     {
-      v11 = v44;
-      v12 = v48;
+      v11 = v43;
+      v12 = v47;
     }
 
     else
     {
-      v11 = v48;
-      v12 = v44;
+      v11 = v47;
+      v12 = v43;
     }
 
     if (v11)
@@ -3386,16 +3359,16 @@ void *DDResultCreateFromDateTimeResults(const __CFArray *a1)
   }
 
   v13 = cf;
-  if (v49)
+  if (v48)
   {
     if (cf)
     {
-      if (v50)
+      if (v49)
       {
-        v14 = v46;
-        if (v46)
+        v14 = v45;
+        if (v45)
         {
-          SubresultWithType = DDResultGetSubresultWithType(v50, @"Hours");
+          SubresultWithType = DDResultGetSubresultWithType(v49, @"Hours");
           if (SubresultWithType)
           {
             v16 = SubresultWithType;
@@ -3403,14 +3376,14 @@ void *DDResultCreateFromDateTimeResults(const __CFArray *a1)
             if (v17)
             {
               v18 = v17;
-              v51 = 0;
+              v50 = 0;
               v19 = v16[10];
               if (!v19)
               {
                 v19 = v16[9];
               }
 
-              if (DDFastIntegerExtraction(v19, &v51 + 1))
+              if (DDFastIntegerExtraction(v19, &v50 + 1))
               {
                 v20 = v18[10];
                 if (!v20)
@@ -3418,7 +3391,7 @@ void *DDResultCreateFromDateTimeResults(const __CFArray *a1)
                   v20 = v18[9];
                 }
 
-                if (DDFastIntegerExtraction(v20, &v51) && HIDWORD(v51) != v51)
+                if (DDFastIntegerExtraction(v20, &v50) && HIDWORD(v50) != v50)
                 {
                   return CFRetain(ValueAtIndex);
                 }
@@ -3428,16 +3401,16 @@ void *DDResultCreateFromDateTimeResults(const __CFArray *a1)
         }
       }
 
-      v21 = _DDResultCreateFromDatesResults(*(v49 + 7), cf);
-      if (v21 || (v21 = _DDResultCreateFromDatesResults(*(cf + 7), v49)) != 0)
+      v21 = _DDResultCreateFromDatesResults(*(v48 + 7), cf);
+      if (v21 || (v21 = _DDResultCreateFromDatesResults(*(cf + 7), v48)) != 0)
       {
         v13 = v21;
 LABEL_44:
-        v22 = &v47;
+        v22 = &v46;
         goto LABEL_45;
       }
 
-      v5 = v50;
+      v5 = v49;
     }
 
     if (v5)
@@ -3445,8 +3418,8 @@ LABEL_44:
       return CFRetain(ValueAtIndex);
     }
 
-    v13 = v49;
-    CFRetain(v49);
+    v13 = v48;
+    CFRetain(v48);
     goto LABEL_44;
   }
 
@@ -3456,7 +3429,7 @@ LABEL_44:
   }
 
   CFRetain(cf);
-  v22 = &v43;
+  v22 = &v42;
 LABEL_45:
   if (!(v8 | v7) || !v13)
   {
@@ -3542,13 +3515,12 @@ LABEL_71:
   }
 
   v9 = DDResultCreate(v23, v31, v34);
-  v35 = ValueAtIndex[9];
-  v36 = CFStringCreateWithFormat(0, 0, @"%@ --- %@", v35, v4[9]);
-  if (v36)
+  v35 = CFStringCreateWithFormat(0, 0, @"%@ --- %@", ValueAtIndex[9], v4[9]);
+  if (v35)
   {
-    v37 = v36;
-    DDResultSetMatchedString(v9, v36);
-    CFRelease(v37);
+    v36 = v35;
+    DDResultSetMatchedString(v9, v35);
+    CFRelease(v36);
   }
 
   else
@@ -3571,25 +3543,25 @@ LABEL_71:
     Copy = DDResultCreateCopy(v7);
     if (Copy)
     {
-      v39 = Copy;
-      v40 = *(Copy + 64);
+      v38 = Copy;
+      v39 = *(Copy + 64);
+      if (v39)
+      {
+        CFRelease(v39);
+      }
+
+      v38[8] = CFRetain(@"Time");
+      v40 = v38[7];
       if (v40)
       {
         CFRelease(v40);
       }
 
-      v39[8] = CFRetain(@"Time");
-      v41 = v39[7];
-      if (v41)
-      {
-        CFRelease(v41);
-      }
-
       Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
       CFArrayAppendValue(Mutable, v7);
-      v39[7] = Mutable;
-      DDResultAddSubresultSorted(v9, v39);
-      CFRelease(v39);
+      v38[7] = Mutable;
+      DDResultAddSubresultSorted(v9, v38);
+      CFRelease(v38);
     }
   }
 
@@ -3849,9 +3821,9 @@ LABEL_3:
   return [v2 containsObject:a1];
 }
 
-void sub_1BD014A4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BD014A4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3973,7 +3945,7 @@ LABEL_29:
   return v35;
 }
 
-uint64_t DDURLSchemeIsKnown(uint64_t a1)
+BOOL DDURLSchemeIsKnown(void *a1)
 {
   if (_schemeCheckingDisabled)
   {
@@ -4017,7 +3989,7 @@ uint64_t DDURLSchemeIsKnown(uint64_t a1)
   return v1;
 }
 
-uint64_t __DDURLSchemeIsKnown_block_invoke_3(void *a1)
+void *__DDURLSchemeIsKnown_block_invoke_3(void *a1)
 {
   v2 = DDURLSchemeIsKnown_sPublicSchemes;
   result = [DDURLSchemeIsKnown_sPublicSchemes containsObject:a1[4]];
@@ -4233,7 +4205,7 @@ void _DDTrieDestroy(malloc_zone_t *a1, uint64_t a2)
     do
     {
       _DDTrieDestroy(a1, v8);
-      v8 += 2;
+      v8 += 16;
       --v7;
     }
 
@@ -4243,9 +4215,9 @@ void _DDTrieDestroy(malloc_zone_t *a1, uint64_t a2)
   malloc_zone_free(a1, v4);
 }
 
-void DDLookupTrieInsertKeyWithExtra(uint64_t a1, CFStringRef theString, uint64_t a3, __int16 *a4)
+void DDLookupTrieInsertKeyWithExtra(unsigned int *a1, CFStringRef theString, uint64_t a3, __int16 *a4)
 {
-  v103 = *MEMORY[0x1E69E9840];
+  v102 = *MEMORY[0x1E69E9840];
   MutableCopy = CFStringCreateMutableCopy(0, 0, theString);
   CFStringTrimWhitespace(MutableCopy);
   CFStringFold(MutableCopy, 0x81uLL, 0);
@@ -4259,12 +4231,12 @@ LABEL_38:
       CFRelease(MutableCopy);
     }
 
-    goto LABEL_40;
+    return;
   }
 
   v9 = Length;
-  v99 = a3;
-  v100 = a4;
+  v98 = a3;
+  v99 = a4;
   v10 = 0;
   v11 = 1;
   v12 = a1;
@@ -4315,9 +4287,9 @@ LABEL_27:
           v27 = malloc_type_malloc(2 * (v9 - v10), 0x1000040BDFB0063uLL);
         }
 
-        v104.location = v10;
-        v104.length = v9 - v10;
-        CFStringGetCharacters(MutableCopy, v104, v27);
+        v103.location = v10;
+        v103.length = v9 - v10;
+        CFStringGetCharacters(MutableCopy, v103, v27);
         _DDTrieCellMakeLeafWithChars(a1, appended, v27, v9 - v10);
         if (v27 != buffer)
         {
@@ -4358,7 +4330,7 @@ LABEL_27:
       }
     }
 
-    v101 = a1;
+    v100 = a1;
     LODWORD(v25) = *appended;
     v26 = v10 + 1;
     if (*appended)
@@ -4369,35 +4341,45 @@ LABEL_27:
     --v11;
     v12 = (v20 + 16 * v21);
     ++v10;
-    v37 = v26 == v9;
-    a1 = v101;
-    if (v37)
+    v36 = v26 == v9;
+    a1 = v100;
+    if (v36)
     {
       goto LABEL_32;
     }
   }
 
-  v40 = v10;
+  v39 = v10;
   if (v26 >= v9)
   {
 LABEL_85:
-    v41 = v26;
+    v40 = v26;
   }
 
   else
   {
-    v41 = v10 + 1;
+    v40 = v10 + 1;
     if ((v25 & 0xFFC) != 0)
     {
-      v42 = appended + 6;
-      v43 = 1;
+      v41 = appended + 6;
+      v42 = 1;
       while (1)
       {
-        v41 = v10 + v43;
-        v44 = CFStringGetCharacterAtIndex(MutableCopy, v10 + v43);
-        if (v44 == 45)
+        v40 = v10 + v42;
+        v43 = CFStringGetCharacterAtIndex(MutableCopy, v10 + v42);
+        if (v43 == 45)
         {
-          v45 = 32;
+          v44 = 32;
+        }
+
+        else
+        {
+          v44 = v43;
+        }
+
+        if (v43 == 8217)
+        {
+          v45 = 39;
         }
 
         else
@@ -4405,63 +4387,53 @@ LABEL_85:
           v45 = v44;
         }
 
-        if (v44 == 8217)
-        {
-          v46 = 39;
-        }
-
-        else
-        {
-          v46 = v45;
-        }
-
         v25 = *appended;
-        v47 = appended + 4;
+        v46 = appended + 4;
         if (v25)
         {
-          v47 = v42;
-          if (v43 >= 2)
+          v46 = v41;
+          if (v42 >= 2)
           {
-            v47 = v42;
+            v46 = v41;
             if ((*appended & 0xFFEu) >= 0xE)
             {
-              v47 = (*(appended + 1) + 2 * v43 - 4);
+              v46 = (*(appended + 1) + 2 * v42 - 4);
             }
           }
         }
 
-        if (v46 != *v47)
+        if (v45 != *v46)
         {
-          v40 = v41 - 1;
-          v26 = v10 + v43;
+          v39 = v40 - 1;
+          v26 = v10 + v42;
           goto LABEL_86;
         }
 
-        if (v10 - v9 + 2 + v43 == 1)
+        if (v10 - v9 + 2 + v42 == 1)
         {
           break;
         }
 
-        ++v43;
-        v42 += 2;
-        if (v43 >= ((v25 >> 1) & 0x7FF))
+        ++v42;
+        v41 += 2;
+        if (v42 >= ((v25 >> 1) & 0x7FF))
         {
-          v26 = v10 + v43;
-          v40 = v10 + v43 - 1;
+          v26 = v10 + v42;
+          v39 = v10 + v42 - 1;
           goto LABEL_85;
         }
       }
 
-      v40 = v10 + v43;
-      v48 = 0;
-      v41 = v9;
+      v39 = v10 + v42;
+      v47 = 0;
+      v40 = v9;
       v26 = v9;
 LABEL_87:
-      v49 = (v25 >> 1) & 0x7FF;
-      if (v41 - v10 == v49)
+      v48 = (v25 >> 1) & 0x7FF;
+      if (v40 - v10 == v48)
       {
 LABEL_153:
-        a1 = v101;
+        a1 = v100;
         goto LABEL_32;
       }
 
@@ -4470,226 +4442,226 @@ LABEL_153:
   }
 
 LABEL_86:
-  v48 = v9 - v26;
+  v47 = v9 - v26;
   if (v9 == v26)
   {
     goto LABEL_87;
   }
 
-  LODWORD(v49) = (v25 >> 1) & 0x7FF;
+  LODWORD(v48) = (v25 >> 1) & 0x7FF;
 LABEL_90:
-  v50 = v40 - v10;
+  v49 = v39 - v10;
   *buffer = *appended;
   *appended = 4096;
   *(appended + 1) = 0;
-  if (v40 - v10 <= 0)
+  if (v39 - v10 <= 0)
   {
-    v56 = v50 + 1;
-    v98 = *buffer;
+    v55 = v49 + 1;
+    v97 = *buffer;
   }
 
   else
   {
-    v98 = *buffer;
-    v51 = *&buffer[4] - 4;
-    v93 = v40 - v10;
-    v94 = v49;
-    v95 = v50 + 1;
-    v52 = &buffer[3];
-    v53 = (v40 + v11);
-    v54 = 1;
+    v97 = *buffer;
+    v50 = *&buffer[4] - 4;
+    v92 = v39 - v10;
+    v93 = v48;
+    v94 = v49 + 1;
+    v51 = &buffer[3];
+    v52 = (v39 + v11);
+    v53 = 1;
     do
     {
-      v55 = &buffer[2];
+      v54 = &buffer[2];
       if (buffer[0])
       {
-        v55 = (v51 + 2 * v54);
-        if (v54 < 2)
+        v54 = (v50 + 2 * v53);
+        if (v53 < 2)
         {
-          v55 = v52;
+          v54 = v51;
         }
 
         if ((buffer[0] & 0xFFEu) < 0xE)
         {
-          v55 = v52;
+          v54 = v51;
         }
       }
 
-      appended = _DDTrieAppendChar(appended, *v55, v101, 0);
-      ++v54;
-      ++v52;
+      appended = _DDTrieAppendChar(appended, *v54, v100, 0);
+      ++v53;
+      ++v51;
     }
 
-    while (v53 != v54);
-    v56 = v95;
-    LODWORD(v49) = v94;
-    v50 = v93;
+    while (v52 != v53);
+    v55 = v94;
+    LODWORD(v48) = v93;
+    v49 = v92;
   }
 
-  v59 = (v49 - v56);
-  if (v49 <= v56)
+  v58 = (v48 - v55);
+  if (v48 <= v55)
   {
-    *appended = v98 & 0xFFFFF000 | *appended & 0xFFF;
+    *appended = v97 & 0xFFFFF000 | *appended & 0xFFF;
   }
 
   else
   {
-    if (v98)
+    if (v97)
     {
-      if (v50 < 1 || (v98 & 0xFFEu) <= 0xD)
+      if (v49 < 1 || (v97 & 0xFFEu) <= 0xD)
       {
-        v60 = &buffer[v56 + 2];
+        v59 = &buffer[v55 + 2];
       }
 
       else
       {
-        v60 = (*&buffer[4] + 2 * v56 - 4);
+        v59 = (*&buffer[4] + 2 * v55 - 4);
       }
     }
 
     else
     {
-      v60 = &buffer[2];
+      v59 = &buffer[2];
     }
 
-    v61 = _DDTrieAppendChar(appended, *v60, v101, 0);
-    v62 = v98 & 0xFFFFF000;
-    if (v59 == 1)
+    v60 = _DDTrieAppendChar(appended, *v59, v100, 0);
+    v61 = v97 & 0xFFFFF000;
+    if (v58 == 1)
     {
-      *v61 = v62;
+      *v60 = v61;
     }
 
     else
     {
-      *v61 = v62 | (2 * (v59 & 0x7FF)) | 1;
-      v63 = v56;
-      if (v59 >= 7)
+      *v60 = v61 | (2 * (v58 & 0x7FF)) | 1;
+      v62 = v55;
+      if (v58 >= 7)
       {
-        v70 = 0;
-        v71 = v98 & 0xFFE;
-        v96 = *&buffer[4];
-        v97 = v61;
-        v72 = *&buffer[4] - 4;
-        v73 = 1;
+        v69 = 0;
+        v70 = v97 & 0xFFE;
+        v95 = *&buffer[4];
+        v96 = v60;
+        v71 = *&buffer[4] - 4;
+        v72 = 1;
         do
         {
-          v74 = v73;
-          v75 = &buffer[2];
-          if (v98)
+          v73 = v72;
+          v74 = &buffer[2];
+          if (v97)
           {
-            v76 = v70 + v63;
-            if (v71 < 0xE || v76 <= 1)
+            v75 = v69 + v62;
+            if (v70 < 0xE || v75 <= 1)
             {
-              v75 = &buffer[v76 + 2];
+              v74 = &buffer[v75 + 2];
             }
 
             else
             {
-              v75 = (v72 + 2 * v76);
+              v74 = (v71 + 2 * v75);
             }
           }
 
-          v73 = 0;
-          *&v61[2 * v70 + 4] = *v75;
-          v70 = 1;
+          v72 = 0;
+          *&v60[2 * v69 + 4] = *v74;
+          v69 = 1;
         }
 
-        while ((v74 & 1) != 0);
-        MallocZoneForSons = _getMallocZoneForSons(v101);
-        v78 = malloc_type_zone_malloc(MallocZoneForSons, 2 * (v59 - 2), 0x1000040BDFB0063uLL);
-        v79 = 0;
-        *(v97 + 1) = v78;
-        v80 = (v96 + 2 * v63);
+        while ((v73 & 1) != 0);
+        MallocZoneForSons = _getMallocZoneForSons(v100);
+        v77 = malloc_type_zone_malloc(MallocZoneForSons, 2 * (v58 - 2), 0x1000040BDFB0063uLL);
+        v78 = 0;
+        *(v96 + 1) = v77;
+        v79 = (v95 + 2 * v62);
         do
         {
-          v81 = &buffer[2];
-          if (v98)
+          v80 = &buffer[2];
+          if (v97)
           {
-            v82 = v79 + v63;
-            if (v71 < 0xE || (v81 = v80, v82 < 0))
+            v81 = v78 + v62;
+            if (v70 < 0xE || (v80 = v79, v81 < 0))
             {
-              v81 = &buffer[v82 + 4];
+              v80 = &buffer[v81 + 4];
             }
           }
 
-          *(*(v97 + 1) + 2 * v79++) = *v81;
-          ++v80;
+          *(*(v96 + 1) + 2 * v78++) = *v80;
+          ++v79;
         }
 
-        while (v59 - 2 != v79);
+        while (v58 - 2 != v78);
       }
 
       else
       {
-        v64 = 0;
-        v65 = *&buffer[4] - 4;
-        v66 = (v61 + 4);
-        v67 = &buffer[v56 + 2];
-        v68 = v56;
+        v63 = 0;
+        v64 = *&buffer[4] - 4;
+        v65 = (v60 + 4);
+        v66 = &buffer[v55 + 2];
+        v67 = v55;
         do
         {
-          v69 = &buffer[2];
-          if (v98)
+          v68 = &buffer[2];
+          if (v97)
           {
-            v69 = (v65 + 2 * (v64 + v56));
-            if (v68 < 2)
+            v68 = (v64 + 2 * (v63 + v55));
+            if (v67 < 2)
             {
-              v69 = v67;
+              v68 = v66;
             }
 
-            if ((v98 & 0xFFEu) < 0xE)
+            if ((v97 & 0xFFEu) < 0xE)
             {
-              v69 = v67;
+              v68 = v66;
             }
           }
 
-          *v66++ = *v69;
-          ++v64;
+          *v65++ = *v68;
+          ++v63;
+          ++v66;
           ++v67;
-          ++v68;
-          --v59;
+          --v58;
         }
 
-        while (v59);
+        while (v58);
       }
     }
   }
 
-  if ((v98 & 0xFFEu) >= 0x201)
+  if ((v97 & 0xFFEu) >= 0x201)
   {
-    v83 = _getMallocZoneForSons(v101);
-    malloc_zone_free(v83, *&buffer[4]);
+    v82 = _getMallocZoneForSons(v100);
+    malloc_zone_free(v82, *&buffer[4]);
   }
 
-  if (v48 < 1)
-  {
-    goto LABEL_153;
-  }
-
-  v84 = CFStringGetCharacterAtIndex(MutableCopy, v26);
-  v85 = v84 == 45 ? 32 : v84;
-  v86 = v84 == 8217 ? 39 : v85;
-  v87 = (*appended & 0xFFE) == 2 && (v86 > *(*(appended + 1) + 4));
-  appended = _DDTrieAppendChar(appended, v86, v101, v87);
-  if (v48 == 1)
+  if (v47 < 1)
   {
     goto LABEL_153;
   }
 
-  v88 = buffer;
+  v83 = CFStringGetCharacterAtIndex(MutableCopy, v26);
+  v84 = v83 == 45 ? 32 : v83;
+  v85 = v83 == 8217 ? 39 : v84;
+  v86 = (*appended & 0xFFE) == 2 && (v85 > *(*(appended + 1) + 4));
+  appended = _DDTrieAppendChar(appended, v85, v100, v86);
+  if (v47 == 1)
+  {
+    goto LABEL_153;
+  }
+
+  v87 = buffer;
   if (v9 >= 33)
   {
-    v88 = malloc_type_malloc(2 * v48, 0x1000040BDFB0063uLL);
+    v87 = malloc_type_malloc(2 * v47, 0x1000040BDFB0063uLL);
   }
 
-  v105.location = v26;
-  v105.length = v48;
-  CFStringGetCharacters(MutableCopy, v105, v88);
-  a1 = v101;
-  _DDTrieCellMakeLeafWithChars(v101, appended, v88, v48);
-  if (v88 != buffer)
+  v104.location = v26;
+  v104.length = v47;
+  CFStringGetCharacters(MutableCopy, v104, v87);
+  a1 = v100;
+  _DDTrieCellMakeLeafWithChars(v100, appended, v87, v47);
+  if (v87 != buffer)
   {
-    free(v88);
+    free(v87);
   }
 
 LABEL_32:
@@ -4701,10 +4673,10 @@ LABEL_32:
   CFRelease(MutableCopy);
   if (!appended)
   {
-    goto LABEL_40;
+    return;
   }
 
-  if (v99 <= 0)
+  if (v98 <= 0)
   {
     if ((_DDLookupTrieInsertDataInTrie_alreadyLogged_28 & 1) == 0)
     {
@@ -4713,21 +4685,21 @@ LABEL_32:
         dispatch_once(&DDLogHandle_onceToken, &__block_literal_global_791);
       }
 
-      v89 = DDLogHandle_error_log_handle;
+      v88 = DDLogHandle_error_log_handle;
       if (os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
       {
         buffer[0] = 0;
-        _os_log_error_impl(&dword_1BCFDD000, v89, OS_LOG_TYPE_ERROR, "DDRequire failed: the following assertion will only be logged once", buffer, 2u);
+        _os_log_error_impl(&dword_1BCFDD000, v88, OS_LOG_TYPE_ERROR, "DDRequire failed: the following assertion will only be logged once", buffer, 2u);
       }
 
-      DDLogAssertionFailure("tokenId > 0", "/Library/Caches/com.apple.xbs/Sources/DataDetectorsCore/Sources/Lookup/DDTrie.c", v90, 713, @"non positive token");
+      DDLogAssertionFailure("tokenId > 0", "/Library/Caches/com.apple.xbs/Sources/DataDetectorsCore/Sources/Lookup/DDTrie.c", v89, 713, @"non positive token");
       _DDLookupTrieInsertDataInTrie_alreadyLogged_28 = 1;
     }
 
-    goto LABEL_40;
+    return;
   }
 
-  if (v99 >= 0x7FFFF)
+  if (v98 >= 0x7FFFF)
   {
     if ((_DDLookupTrieInsertDataInTrie_alreadyLogged_33 & 1) == 0)
     {
@@ -4736,31 +4708,31 @@ LABEL_32:
         dispatch_once(&DDLogHandle_onceToken, &__block_literal_global_791);
       }
 
-      v91 = DDLogHandle_error_log_handle;
+      v90 = DDLogHandle_error_log_handle;
       if (os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
       {
         buffer[0] = 0;
-        _os_log_error_impl(&dword_1BCFDD000, v91, OS_LOG_TYPE_ERROR, "DDRequire failed: the following assertion will only be logged once", buffer, 2u);
+        _os_log_error_impl(&dword_1BCFDD000, v90, OS_LOG_TYPE_ERROR, "DDRequire failed: the following assertion will only be logged once", buffer, 2u);
       }
 
-      DDLogAssertionFailure("tokenId < MaxData", "/Library/Caches/com.apple.xbs/Sources/DataDetectorsCore/Sources/Lookup/DDTrie.c", v92, 714, @"data too big for the trie");
+      DDLogAssertionFailure("tokenId < MaxData", "/Library/Caches/com.apple.xbs/Sources/DataDetectorsCore/Sources/Lookup/DDTrie.c", v91, 714, @"data too big for the trie");
       _DDLookupTrieInsertDataInTrie_alreadyLogged_33 = 1;
     }
 
-    goto LABEL_40;
+    return;
   }
 
   v28 = *appended;
   if ((*appended & 0x1000) == 0)
   {
 LABEL_37:
-    _DDLookupTrieNonImmediateCellAppendItem(a1, v28, v99, v100);
-    goto LABEL_40;
+    _DDLookupTrieNonImmediateCellAppendItem(a1, v28, v98, v99);
+    return;
   }
 
-  if (v100 || v28 >> 13)
+  if (v99 || v28 >> 13)
   {
-    if (v100)
+    if (v99)
     {
       goto LABEL_46;
     }
@@ -4768,105 +4740,105 @@ LABEL_37:
 
   else
   {
-    v28 |= v99 << 13;
+    v28 |= v98 << 13;
     *appended = v28;
   }
 
-  if (v28 >> 13 == v99)
+  if (v28 >> 13 == v98)
   {
-    goto LABEL_40;
+    return;
   }
 
 LABEL_46:
-  v30 = *(a1 + 24);
-  if (v30 >= 0x7FFFF)
+  v29 = a1[6];
+  if (v29 >= 0x7FFFF)
   {
     if (DDLogHandle_onceToken != -1)
     {
       dispatch_once(&DDLogHandle_onceToken, &__block_literal_global_791);
     }
 
-    v31 = DDLogHandle_error_log_handle;
+    v30 = DDLogHandle_error_log_handle;
     if (os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
     {
       buffer[0] = 0;
-      v32 = "currentExtraOffset too big";
+      v31 = "currentExtraOffset too big";
 LABEL_51:
-      _os_log_error_impl(&dword_1BCFDD000, v31, OS_LOG_TYPE_ERROR, v32, buffer, 2u);
-      goto LABEL_40;
+      _os_log_error_impl(&dword_1BCFDD000, v30, OS_LOG_TYPE_ERROR, v31, buffer, 2u);
+      return;
     }
 
-    goto LABEL_40;
+    return;
   }
 
-  v33 = *(a1 + 16);
-  if (v33)
+  v32 = *(a1 + 2);
+  if (v32)
   {
 LABEL_58:
-    v36 = v28 >> 13;
-    if (v36)
+    v35 = v28 >> 13;
+    if (v35)
     {
-      v37 = v36 == v99;
+      v36 = v35 == v98;
     }
 
     else
     {
-      v37 = 1;
+      v36 = 1;
     }
 
-    v38 = !v37;
-    if (v37)
+    v37 = !v36;
+    if (v36)
     {
-      if (v100)
+      if (v99)
       {
-        v39 = CFRetain(v100);
-        v33 = *(a1 + 16);
+        v38 = CFRetain(v99);
+        v32 = *(a1 + 2);
       }
 
       else
       {
-        v39 = 0;
+        v38 = 0;
       }
 
-      LODWORD(v36) = v99;
+      LODWORD(v35) = v98;
     }
 
     else
     {
-      v39 = 0;
+      v38 = 0;
     }
 
-    v57 = *(a1 + 24);
-    v58 = v33 + 16 * v57;
-    *v58 = 1;
-    *(v58 + 4) = v36;
-    *(v58 + 8) = v39;
-    *(a1 + 24) = v57 + 1;
-    v28 = *appended & 0xFFF | (v30 << 13);
+    v56 = a1[6];
+    v57 = v32 + 16 * v56;
+    *v57 = 1;
+    *(v57 + 4) = v35;
+    *(v57 + 8) = v38;
+    a1[6] = v56 + 1;
+    v28 = *appended & 0xFFF | (v29 << 13);
     *appended = v28;
-    if (v38)
+    if (v37)
     {
       goto LABEL_37;
     }
 
-    goto LABEL_40;
+    return;
   }
 
   *buffer = 0;
-  v34 = vm_allocate(*MEMORY[0x1E69E9A60], buffer, 0x7FFFF0uLL, 1);
-  v33 = *buffer;
-  if (v34)
+  v33 = vm_allocate(*MEMORY[0x1E69E9A60], buffer, 0x7FFFF0uLL, 1);
+  v32 = *buffer;
+  if (v33)
   {
-    v35 = 0;
+    v34 = 0;
   }
 
   else
   {
-    v35 = *buffer;
+    v34 = *buffer;
   }
 
-  *(a1 + 16) = v35;
-  if (v35)
+  *(a1 + 2) = v34;
+  if (v34)
   {
     v28 = *appended;
     goto LABEL_58;
@@ -4877,16 +4849,13 @@ LABEL_58:
     dispatch_once(&DDLogHandle_onceToken, &__block_literal_global_791);
   }
 
-  v31 = DDLogHandle_error_log_handle;
+  v30 = DDLogHandle_error_log_handle;
   if (os_log_type_enabled(DDLogHandle_error_log_handle, OS_LOG_TYPE_ERROR))
   {
     buffer[0] = 0;
-    v32 = "cannot allocate extra data vm region";
+    v31 = "cannot allocate extra data vm region";
     goto LABEL_51;
   }
-
-LABEL_40:
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 char *_DDTrieAppendChar(unsigned int *a1, __int16 a2, uint64_t a3, uint64_t a4)
@@ -5420,35 +5389,35 @@ double gotLoadHelper_x8__kMRLNeuralNetworkOptionModelURLKey(double result)
   return result;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_NaturalLanguage(double a1)
+double dlopenHelper_NaturalLanguage(double a1)
 {
   dlopen("/System/Library/Frameworks/NaturalLanguage.framework/NaturalLanguage", 0);
   atomic_store(1u, &dlopenHelperFlag_NaturalLanguage);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_CloudSubscriptionFeatures(double a1)
+double dlopenHelper_CloudSubscriptionFeatures(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/CloudSubscriptionFeatures.framework/CloudSubscriptionFeatures", 0);
   atomic_store(1u, &dlopenHelperFlag_CloudSubscriptionFeatures);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_GeoServices(double a1)
+double dlopenHelper_GeoServices(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/GeoServices.framework/GeoServices", 0);
   atomic_store(1u, &dlopenHelperFlag_GeoServices);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_LinguisticData(double a1)
+double dlopenHelper_LinguisticData(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/LinguisticData.framework/LinguisticData", 0);
   atomic_store(1u, &dlopenHelperFlag_LinguisticData);
   return a1;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_Montreal(double a1)
+double dlopenHelper_Montreal(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/Montreal.framework/Montreal", 0);
   atomic_store(1u, &dlopenHelperFlag_Montreal);

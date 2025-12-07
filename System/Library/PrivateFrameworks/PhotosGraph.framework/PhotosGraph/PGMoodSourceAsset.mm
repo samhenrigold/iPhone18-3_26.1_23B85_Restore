@@ -6,7 +6,7 @@
 
 - (id)_plistMoodIdentifiersWithGraph:(id)graph
 {
-  v43[2] = *MEMORY[0x277D85DE8];
+  v42[2] = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   options = [(PGMoodSource *)self options];
   prefetchedAssets = [options prefetchedAssets];
@@ -17,9 +17,9 @@
     librarySpecificFetchOptions = [photoLibrary librarySpecificFetchOptions];
 
     v9 = *MEMORY[0x277CD9AD0];
-    v43[0] = *MEMORY[0x277CD9B10];
-    v43[1] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
+    v42[0] = *MEMORY[0x277CD9B10];
+    v42[1] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
     [librarySpecificFetchOptions setFetchPropertySets:v10];
 
     v11 = +[PGCurationManager defaultAssetSortDescriptors];
@@ -38,12 +38,12 @@
     [options2 setPrefetchedAssets:prefetchedAssets];
   }
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v19 = prefetchedAssets;
-  v20 = [v19 countByEnumeratingWithState:&v38 objects:v42 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v37 objects:v41 count:16];
   if (!v20)
   {
 
@@ -52,22 +52,22 @@
   }
 
   v21 = v20;
-  v37 = array;
+  v36 = array;
   v22 = 0;
   v23 = 0;
   v24 = 0;
   v25 = 0;
-  v26 = *v39;
+  v26 = *v38;
   do
   {
     for (i = 0; i != v21; ++i)
     {
-      if (*v39 != v26)
+      if (*v38 != v26)
       {
         objc_enumerationMutation(v19);
       }
 
-      v28 = *(*(&v38 + 1) + 8 * i);
+      v28 = *(*(&v37 + 1) + 8 * i);
       clsPeopleCount = [v28 clsPeopleCount];
       if (clsPeopleCount)
       {
@@ -84,7 +84,7 @@
       }
     }
 
-    v21 = [v19 countByEnumeratingWithState:&v38 objects:v42 count:16];
+    v21 = [v19 countByEnumeratingWithState:&v37 objects:v41 count:16];
   }
 
   while (v21);
@@ -92,7 +92,7 @@
   if (v24 < 3)
   {
     v32 = MEMORY[0x277CBEBF8];
-    array = v37;
+    array = v36;
     goto LABEL_25;
   }
 
@@ -109,11 +109,11 @@
       v34 = @"ManySmiles";
     }
 
-    array = v37;
+    array = v36;
     goto LABEL_23;
   }
 
-  array = v37;
+  array = v36;
   if (v24 * 0.1 > v33)
   {
     v34 = @"NoSmile";
@@ -123,8 +123,6 @@ LABEL_23:
 
   v32 = array;
 LABEL_25:
-
-  v35 = *MEMORY[0x277D85DE8];
 
   return v32;
 }

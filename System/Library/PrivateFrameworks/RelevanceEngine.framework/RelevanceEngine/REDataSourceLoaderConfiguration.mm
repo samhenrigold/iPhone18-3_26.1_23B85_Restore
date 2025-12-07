@@ -20,9 +20,11 @@
 
 uint64_t __49__REDataSourceLoaderConfiguration_sharedInstance__block_invoke()
 {
-  sharedInstance_Shared = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedInstance_Shared;
+  sharedInstance_Shared = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (Class)desiredClassFromBundle:(id)bundle forKey:(id)key

@@ -14,6 +14,8 @@
 - (void)deleteExposureLogTapped:(id)tapped;
 - (void)setLastKnownStatus:(int64_t)status;
 - (void)updateMasterSwitchGroupFooterReload:(BOOL)reload;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ENUIExposureLoggingViewController
@@ -82,6 +84,24 @@
     self->_lastKnownStatus = status;
     [(ENUIExposureLoggingViewController *)self updateMasterSwitchGroupFooterReload:1];
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = ENUIExposureLoggingViewController;
+  [(ENUIExposureLoggingViewController *)&v5 viewWillAppear:appear];
+  statusChangeObserver = [(ENUIExposureLoggingViewController *)self statusChangeObserver];
+  [statusChangeObserver setActive:1];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = ENUIExposureLoggingViewController;
+  [(ENUIExposureLoggingViewController *)&v5 viewDidDisappear:disappear];
+  statusChangeObserver = [(ENUIExposureLoggingViewController *)self statusChangeObserver];
+  [statusChangeObserver setActive:0];
 }
 
 - (id)specifiers
@@ -167,7 +187,6 @@
 
   v6 = PSIDKey;
   [(PSSpecifier *)self->_deleteGroup setObject:@"DELETE_GROUP" forKeyedSubscript:PSIDKey];
-  self->_enableDeleteButton;
   v7 = ENUILocalizedString();
   [(PSSpecifier *)self->_deleteGroup setObject:v7 forKeyedSubscript:PSFooterTextGroupKey];
 

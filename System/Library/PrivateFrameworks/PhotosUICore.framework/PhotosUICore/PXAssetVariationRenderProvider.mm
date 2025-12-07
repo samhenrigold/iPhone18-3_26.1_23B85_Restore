@@ -412,7 +412,7 @@ void __69__PXAssetVariationRenderProvider__handleRenderingOperationCompleted___b
   v27 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) variationType];
   v3 = [*(a1 + 32) error];
-  v4 = [*(a1 + 32) duration];
+  v4 = objc_msgSend_duration(*(a1 + 32));
   if (v4)
   {
     v5 = [*(a1 + 40) _renderingDurationByVariationType];
@@ -668,8 +668,8 @@ void __48__PXAssetVariationRenderProvider__updateRenders__block_invoke_4(uint64_
 
       if (_analysisOperation == v5)
       {
-        duration = [v5 duration];
-        [(PXAssetVariationRenderProvider *)self _setRecipeGenerationDuration:duration];
+        v7 = objc_msgSend_duration(v5);
+        [(PXAssetVariationRenderProvider *)self _setRecipeGenerationDuration:v7];
 
         [(PXAssetVariationRenderProvider *)self _setAnalysisOperation:0];
         if (![v5 succeeded])
@@ -1193,7 +1193,7 @@ __n128 __48__PXAssetVariationRenderProvider_setTargetSize___block_invoke(uint64_
   }
 }
 
-uint64_t __48__PXAssetVariationRenderProvider_beginRendering__block_invoke(uint64_t a1)
+void *__48__PXAssetVariationRenderProvider_beginRendering__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) editSourceLoader];
   [v2 beginLoading];

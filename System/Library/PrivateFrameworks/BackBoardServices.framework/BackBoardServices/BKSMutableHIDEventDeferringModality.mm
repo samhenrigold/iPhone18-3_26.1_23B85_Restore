@@ -7,36 +7,36 @@
 
 - (void)setIdentifier:(id)identifier
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = MEMORY[0x1E696AEC0];
   v6 = objc_opt_class();
   if (!identifierCopy)
   {
-    v10 = NSStringFromClass(v6);
-    v11 = [v5 stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"identifier", v10];
+    v9 = NSStringFromClass(v6);
+    v10 = [v5 stringWithFormat:@"identifier", v9];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v12 = NSStringFromSelector(a2);
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v11 = NSStringFromSelector(a2);
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
       *buf = 138544642;
-      v26 = v12;
-      v27 = 2114;
-      v28 = v14;
-      v29 = 2048;
+      v25 = v11;
+      v26 = 2114;
+      v27 = v13;
+      v28 = 2048;
       selfCopy2 = self;
-      v31 = 2114;
-      v32 = @"BKSHIDEventDeferringModality.m";
-      v33 = 1024;
-      v34 = 171;
-      v35 = 2114;
-      v36 = v11;
+      v30 = 2114;
+      v31 = @"BKSHIDEventDeferringModality.m";
+      v32 = 1024;
+      v33 = 171;
+      v34 = 2114;
+      v35 = v10;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v11 UTF8String];
+    [v10 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18635DE60);
@@ -44,39 +44,39 @@
 
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v15 = MEMORY[0x1E696AEC0];
+    v14 = MEMORY[0x1E696AEC0];
     classForCoder = [identifierCopy classForCoder];
     if (!classForCoder)
     {
       classForCoder = objc_opt_class();
     }
 
-    v17 = NSStringFromClass(classForCoder);
-    v18 = objc_opt_class();
-    v19 = NSStringFromClass(v18);
-    v20 = [v15 stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"identifier", v17, v19];
+    v16 = NSStringFromClass(classForCoder);
+    v17 = objc_opt_class();
+    v18 = NSStringFromClass(v17);
+    v19 = [v14 stringWithFormat:@"identifier", v16, v18];
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v21 = NSStringFromSelector(a2);
-      v22 = objc_opt_class();
-      v23 = NSStringFromClass(v22);
+      v20 = NSStringFromSelector(a2);
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
       *buf = 138544642;
-      v26 = v21;
-      v27 = 2114;
-      v28 = v23;
-      v29 = 2048;
+      v25 = v20;
+      v26 = 2114;
+      v27 = v22;
+      v28 = 2048;
       selfCopy2 = self;
-      v31 = 2114;
-      v32 = @"BKSHIDEventDeferringModality.m";
-      v33 = 1024;
-      v34 = 171;
-      v35 = 2114;
-      v36 = v20;
+      v30 = 2114;
+      v31 = @"BKSHIDEventDeferringModality.m";
+      v32 = 1024;
+      v33 = 171;
+      v34 = 2114;
+      v35 = v19;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v20 UTF8String];
+    [v19 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x18635DF98);
@@ -85,8 +85,6 @@
   v7 = [identifierCopy copy];
   identifier = self->super._identifier;
   self->super._identifier = v7;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

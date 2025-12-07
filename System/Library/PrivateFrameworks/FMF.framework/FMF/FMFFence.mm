@@ -613,42 +613,42 @@ LABEL_10:
   triggerCopy = trigger;
   typeCopy = type;
   v22 = [(FMFFence *)self init];
+  v23 = v22;
   if (v22)
   {
-    v23 = LogCategory_Daemon();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v24 = LogCategory_Daemon(v22);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       v29 = 138412290;
       v30 = recipientCopy;
-      _os_log_impl(&dword_24A33F000, v23, OS_LOG_TYPE_DEFAULT, "FMFFence: initWithRecipient %@", &v29, 0xCu);
+      _os_log_impl(&dword_24A33F000, v24, OS_LOG_TYPE_DEFAULT, "FMFFence: initWithRecipient %@", &v29, 0xCu);
     }
 
-    [(FMFFence *)v22 setRecipients:recipientCopy];
-    [(FMFFence *)v22 setLocation:locationCopy];
-    [(FMFFence *)v22 setPlacemark:placemarkCopy];
-    [(FMFFence *)v22 setLabel:labelCopy];
-    [(FMFFence *)v22 setTrigger:triggerCopy];
-    [(FMFFence *)v22 setType:typeCopy];
-    [(FMFFence *)v22 setLocationType:locationType];
-    [(FMFFence *)v22 setRecurring:recurring];
+    [(FMFFence *)v23 setRecipients:recipientCopy];
+    [(FMFFence *)v23 setLocation:locationCopy];
+    [(FMFFence *)v23 setPlacemark:placemarkCopy];
+    [(FMFFence *)v23 setLabel:labelCopy];
+    [(FMFFence *)v23 setTrigger:triggerCopy];
+    [(FMFFence *)v23 setType:typeCopy];
+    [(FMFFence *)v23 setLocationType:locationType];
+    [(FMFFence *)v23 setRecurring:recurring];
     date = [MEMORY[0x277CBEAA8] date];
-    [(FMFFence *)v22 setTimestamp:date];
+    [(FMFFence *)v23 setTimestamp:date];
 
-    v25 = objc_opt_new();
-    uUIDString = [v25 UUIDString];
-    [(FMFFence *)v22 setPendingIdentifier:uUIDString];
+    v26 = objc_opt_new();
+    uUIDString = [v26 UUIDString];
+    [(FMFFence *)v23 setPendingIdentifier:uUIDString];
 
-    [(FMFFence *)v22 setActive:1];
-    [(FMFFence *)v22 setFromMe:1];
+    [(FMFFence *)v23 setActive:1];
+    [(FMFFence *)v23 setFromMe:1];
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-  return v22;
+  return v23;
 }
 
 - (FMFFence)initWithDictionary:(id)dictionary
 {
-  v136 = *MEMORY[0x277D85DE8];
+  v135 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = [(FMFFence *)self init];
   if (!v5)
@@ -660,12 +660,12 @@ LABEL_10:
   null = [MEMORY[0x277CBEB68] null];
   if (v6 == null)
   {
-    v125 = 0;
+    v124 = 0;
   }
 
   else
   {
-    v125 = [dictionaryCopy objectForKeyedSubscript:@"isOn"];
+    v124 = [dictionaryCopy objectForKeyedSubscript:@"isOn"];
   }
 
   v8 = [dictionaryCopy objectForKeyedSubscript:@"onetimeonly"];
@@ -732,30 +732,30 @@ LABEL_10:
   null5 = [MEMORY[0x277CBEB68] null];
   if (v26 == null5)
   {
-    v124 = 0;
-  }
-
-  else
-  {
-    v124 = [dictionaryCopy objectForKeyedSubscript:@"updateTimestamp"];
-  }
-
-  v28 = [dictionaryCopy objectForKeyedSubscript:@"locationType"];
-  null6 = [MEMORY[0x277CBEB68] null];
-  v122 = v13;
-  if (v28 == null6)
-  {
     v123 = 0;
   }
 
   else
   {
-    v123 = [dictionaryCopy objectForKeyedSubscript:@"locationType"];
+    v123 = [dictionaryCopy objectForKeyedSubscript:@"updateTimestamp"];
   }
 
-  v121 = v24;
+  v28 = [dictionaryCopy objectForKeyedSubscript:@"locationType"];
+  null6 = [MEMORY[0x277CBEB68] null];
+  v121 = v13;
+  if (v28 == null6)
+  {
+    v122 = 0;
+  }
 
-  -[FMFFence setActive:](v5, "setActive:", [v125 BOOLValue]);
+  else
+  {
+    v122 = [dictionaryCopy objectForKeyedSubscript:@"locationType"];
+  }
+
+  v120 = v24;
+
+  -[FMFFence setActive:](v5, "setActive:", [v124 BOOLValue]);
   v30 = [dictionaryCopy objectForKeyedSubscript:@"createdById"];
   null7 = [MEMORY[0x277CBEB68] null];
   if (v30 == null7)
@@ -904,7 +904,7 @@ LABEL_10:
 
   -[FMFFence setRecurring:](v5, "setRecurring:", [v10 BOOLValue] ^ 1);
   v62 = MEMORY[0x277CBEAA8];
-  [v124 doubleValue];
+  [v123 doubleValue];
   v64 = [v62 dateWithTimeIntervalSince1970:v63 / 1000.0];
   [(FMFFence *)v5 setTimestamp:v64];
 
@@ -921,7 +921,7 @@ LABEL_10:
     [(FMFFence *)v5 setTrigger:v67];
   }
 
-  -[FMFFence setLocationType:](v5, "setLocationType:", [v123 intValue]);
+  -[FMFFence setLocationType:](v5, "setLocationType:", [v122 intValue]);
   v68 = [dictionaryCopy objectForKeyedSubscript:@"ckRecordName"];
   null14 = [MEMORY[0x277CBEB68] null];
   if (v68 == null14)
@@ -1011,19 +1011,8 @@ LABEL_10:
   lowercaseString2 = [@"NotifyMe" lowercaseString];
   v89 = [lowercaseString isEqualToString:lowercaseString2];
 
-  if (v89)
+  if ((v89 & 1) != 0 || ([v85 lowercaseString], v90 = objc_claimAutoreleasedReturnValue(), v87 = @"NotifyOthers", objc_msgSend(@"NotifyOthers", "lowercaseString"), v91 = objc_claimAutoreleasedReturnValue(), v92 = objc_msgSend(v90, "isEqualToString:", v91), v91, v90, v92))
   {
-    goto LABEL_86;
-  }
-
-  lowercaseString3 = [v85 lowercaseString];
-  v87 = @"NotifyOthers";
-  lowercaseString4 = [@"NotifyOthers" lowercaseString];
-  v92 = [lowercaseString3 isEqualToString:lowercaseString4];
-
-  if (v92)
-  {
-LABEL_86:
     [(FMFFence *)v5 setType:v87];
   }
 
@@ -1050,7 +1039,7 @@ LABEL_86:
   [(FMFFence *)v5 setSchedule:0];
   v96 = 0;
 LABEL_92:
-  v120 = v85;
+  v119 = v85;
   v98 = [dictionaryCopy objectForKeyedSubscript:@"muteEndDate"];
   null19 = [MEMORY[0x277CBEB68] null];
   if (v98 == null19)
@@ -1099,44 +1088,43 @@ LABEL_100:
   }
 
 LABEL_103:
-  v109 = LogCategory_Daemon();
+  v109 = LogCategory_Daemon(trigger);
   if (os_log_type_enabled(v109, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [(FMFFence *)v5 identifier];
     trigger2 = [(FMFFence *)v5 trigger];
     type2 = [(FMFFence *)v5 type];
     [(FMFFence *)v5 location];
-    v119 = v96;
+    v118 = v96;
     v113 = v10;
     v115 = v114 = v25;
     timestamp2 = [(FMFFence *)v5 timestamp];
     *buf = 138413314;
-    v127 = identifier;
-    v128 = 2112;
-    v129 = trigger2;
-    v130 = 2112;
-    v131 = type2;
-    v132 = 2112;
-    v133 = v115;
-    v134 = 2112;
-    v135 = timestamp2;
+    v126 = identifier;
+    v127 = 2112;
+    v128 = trigger2;
+    v129 = 2112;
+    v130 = type2;
+    v131 = 2112;
+    v132 = v115;
+    v133 = 2112;
+    v134 = timestamp2;
     _os_log_impl(&dword_24A33F000, v109, OS_LOG_TYPE_DEFAULT, "FMFFence: Cannot initialize fence with nil value (Identifier:%@, trigger: %@, type: %@, location: %@, timestamp: %@)", buf, 0x34u);
 
     v25 = v114;
     v10 = v113;
-    v96 = v119;
+    v96 = v118;
   }
 
   v108 = 0;
 LABEL_106:
 
-  v117 = *MEMORY[0x277D85DE8];
   return v108;
 }
 
 - (FMFFence)initWithCoder:(id)coder
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(FMFFence *)self init];
   if (!v5)
@@ -1263,39 +1251,38 @@ LABEL_23:
     }
   }
 
-  v38 = LogCategory_Daemon();
+  v38 = LogCategory_Daemon(trigger);
   if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
   {
     identifier = [(FMFFence *)v5 identifier];
     [(FMFFence *)v5 trigger];
-    v40 = v48 = v7;
+    v40 = v47 = v7;
     type2 = [(FMFFence *)v5 type];
     location = [(FMFFence *)v5 location];
     [(FMFFence *)v5 timestamp];
-    v47 = v11;
+    v46 = v11;
     v44 = v43 = v6;
     *buf = 138413314;
-    v50 = identifier;
-    v51 = 2112;
-    v52 = v40;
-    v53 = 2112;
-    v54 = type2;
-    v55 = 2112;
-    v56 = location;
-    v57 = 2112;
-    v58 = v44;
+    v49 = identifier;
+    v50 = 2112;
+    v51 = v40;
+    v52 = 2112;
+    v53 = type2;
+    v54 = 2112;
+    v55 = location;
+    v56 = 2112;
+    v57 = v44;
     _os_log_impl(&dword_24A33F000, v38, OS_LOG_TYPE_DEFAULT, "FMFFence: Cannot initialize fence with nil value (Identifier:%@, trigger: %@, type: %@, location: %@, timestamp: %@)", buf, 0x34u);
 
     v6 = v43;
-    v11 = v47;
+    v11 = v46;
 
-    v7 = v48;
+    v7 = v47;
   }
 
   v37 = 0;
 LABEL_27:
 
-  v45 = *MEMORY[0x277D85DE8];
   return v37;
 }
 
@@ -1608,42 +1595,40 @@ LABEL_11:
 
 - (id)handlesForArray:(id)array
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(arrayCopy, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = arrayCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [FMFHandle handleWithId:*(*(&v13 + 1) + 8 * i), v13];
+        v10 = [FMFHandle handleWithId:*(*(&v12 + 1) + 8 * i), v12];
         if (v10)
         {
           [v4 addObject:v10];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

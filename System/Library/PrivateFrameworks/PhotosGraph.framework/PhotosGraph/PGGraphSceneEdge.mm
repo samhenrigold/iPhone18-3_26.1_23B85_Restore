@@ -10,6 +10,7 @@
 - (BOOL)hasProperties:(id)properties;
 - (BOOL)isSearchableForEvent;
 - (PGGraphSceneEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain properties:(id)properties;
+- (PGGraphSceneEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties;
 - (id)debugDescription;
 - (id)edgeDescription;
 - (id)initFromMomentNode:(id)node toSceneNode:(id)sceneNode confidence:(double)confidence isReliable:(BOOL)reliable numberOfAssets:(unint64_t)assets numberOfHighConfidenceAssets:(unint64_t)confidenceAssets numberOfSearchConfidenceAssets:(unint64_t)searchConfidenceAssets numberOfDominantSceneAssets:(unint64_t)self0;
@@ -93,28 +94,26 @@
 
 - (id)propertyDictionary
 {
-  v13[6] = *MEMORY[0x277D85DE8];
-  v12[0] = @"confidence";
+  v12[6] = *MEMORY[0x277D85DE8];
+  v11[0] = @"confidence";
   v3 = [MEMORY[0x277CCABB0] numberWithDouble:self->_confidence];
-  v13[0] = v3;
-  v12[1] = @"isReliable";
+  v12[0] = v3;
+  v11[1] = @"isReliable";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:*(self + 56) & 1];
-  v13[1] = v4;
-  v12[2] = @"numberOfAssets";
+  v12[1] = v4;
+  v11[2] = @"numberOfAssets";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(self + 10)];
-  v13[2] = v5;
-  v12[3] = @"numberOfHighConfidenceAssets";
+  v12[2] = v5;
+  v11[3] = @"numberOfHighConfidenceAssets";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(self + 11)];
-  v13[3] = v6;
-  v12[4] = @"numberOfSearchConfidenceAssets";
+  v12[3] = v6;
+  v11[4] = @"numberOfSearchConfidenceAssets";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(self + 12)];
-  v13[4] = v7;
-  v12[5] = @"numberOfDominantSceneAssets";
+  v12[4] = v7;
+  v11[5] = @"numberOfDominantSceneAssets";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(self + 13)];
-  v13[5] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:6];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[5] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:6];
 
   return v9;
 }
@@ -127,66 +126,40 @@
   {
     v6 = [v5 objectForKeyedSubscript:@"confidence"];
     v7 = v6;
-    if (v6)
+    v14 = 0;
+    if (!v6 || ([v6 doubleValue], v8 == self->_confidence))
     {
-      [v6 doubleValue];
-      if (v8 != self->_confidence)
+
+      v9 = [v5 objectForKeyedSubscript:@"isReliable"];
+      v7 = v9;
+      if (!v9 || [v9 BOOLValue] == (*(self + 56) & 1))
       {
-        goto LABEL_17;
+
+        v10 = [v5 objectForKeyedSubscript:@"numberOfAssets"];
+        v7 = v10;
+        if (!v10 || [v10 unsignedIntegerValue] == *(self + 10))
+        {
+
+          v11 = [v5 objectForKeyedSubscript:@"numberOfHighConfidenceAssets"];
+          v7 = v11;
+          if (!v11 || [v11 unsignedIntegerValue] == *(self + 11))
+          {
+
+            v12 = [v5 objectForKeyedSubscript:@"numberOfSearchConfidenceAssets"];
+            v7 = v12;
+            if (!v12 || [v12 unsignedIntegerValue] == *(self + 12))
+            {
+
+              v13 = [v5 objectForKeyedSubscript:@"numberOfDominantSceneAssets"];
+              v7 = v13;
+              if (!v13 || [v13 unsignedIntegerValue] == *(self + 13))
+              {
+                v14 = 1;
+              }
+            }
+          }
+        }
       }
-    }
-
-    v9 = [v5 objectForKeyedSubscript:@"isReliable"];
-    v7 = v9;
-    if (v9)
-    {
-      if ([v9 BOOLValue] != (*(self + 56) & 1))
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v10 = [v5 objectForKeyedSubscript:@"numberOfAssets"];
-    v7 = v10;
-    if (v10)
-    {
-      if ([v10 unsignedIntegerValue] != *(self + 10))
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v11 = [v5 objectForKeyedSubscript:@"numberOfHighConfidenceAssets"];
-    v7 = v11;
-    if (v11)
-    {
-      if ([v11 unsignedIntegerValue] != *(self + 11))
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v12 = [v5 objectForKeyedSubscript:@"numberOfSearchConfidenceAssets"];
-    v7 = v12;
-    if (v12)
-    {
-      if ([v12 unsignedIntegerValue] != *(self + 12))
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v13 = [v5 objectForKeyedSubscript:@"numberOfDominantSceneAssets"];
-    v7 = v13;
-    if (v13 && [v13 unsignedIntegerValue] != *(self + 13))
-    {
-LABEL_17:
-      v14 = 0;
-    }
-
-    else
-    {
-      v14 = 1;
     }
   }
 
@@ -196,6 +169,83 @@ LABEL_17:
   }
 
   return v14;
+}
+
+- (PGGraphSceneEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties
+{
+  domainCopy = domain;
+  labelCopy = label;
+  nodeCopy = node;
+  targetNodeCopy = targetNode;
+  propertiesCopy = properties;
+  v18 = [propertiesCopy objectForKeyedSubscript:@"confidence"];
+
+  if (v18)
+  {
+    v19 = propertiesCopy;
+  }
+
+  else
+  {
+    v19 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:propertiesCopy];
+    *&v20 = weight;
+    v21 = [MEMORY[0x277CCABB0] numberWithFloat:v20];
+    [v19 setObject:v21 forKeyedSubscript:@"confidence"];
+
+    v22 = [propertiesCopy objectForKeyedSubscript:@"hconfc"];
+
+    if (v22)
+    {
+      v23 = [propertiesCopy objectForKeyedSubscript:@"hconfc"];
+      [v19 setObject:v23 forKeyedSubscript:@"numberOfHighConfidenceAssets"];
+
+      [v19 setObject:0 forKeyedSubscript:@"hconfc"];
+    }
+
+    v24 = [propertiesCopy objectForKeyedSubscript:@"rlbl"];
+
+    if (v24)
+    {
+      v25 = [propertiesCopy objectForKeyedSubscript:@"rlbl"];
+      [v19 setObject:v25 forKeyedSubscript:@"isReliable"];
+
+      [v19 setObject:0 forKeyedSubscript:@"rlbl"];
+    }
+
+    v26 = [propertiesCopy objectForKeyedSubscript:@"sconfc"];
+
+    if (v26)
+    {
+      v27 = [propertiesCopy objectForKeyedSubscript:@"sconfc"];
+      [v19 setObject:v27 forKeyedSubscript:@"numberOfSearchConfidenceAssets"];
+
+      [v19 setObject:0 forKeyedSubscript:@"sconfc"];
+    }
+
+    v28 = [propertiesCopy objectForKeyedSubscript:@"cnt"];
+
+    if (v28)
+    {
+      v29 = [propertiesCopy objectForKeyedSubscript:@"cnt"];
+      [v19 setObject:v29 forKeyedSubscript:@"numberOfAssets"];
+
+      [v19 setObject:0 forKeyedSubscript:@"cnt"];
+    }
+
+    v30 = [propertiesCopy objectForKeyedSubscript:@"domc"];
+
+    if (v30)
+    {
+      v31 = [propertiesCopy objectForKeyedSubscript:@"domc"];
+      [v19 setObject:v31 forKeyedSubscript:@"numberOfDominantSceneAssets"];
+
+      [v19 setObject:0 forKeyedSubscript:@"domc"];
+    }
+  }
+
+  v32 = [(PGGraphSceneEdge *)self initWithLabel:labelCopy sourceNode:nodeCopy targetNode:targetNodeCopy domain:domainCopy properties:v19];
+
+  return v32;
 }
 
 - (PGGraphSceneEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain properties:(id)properties
@@ -258,93 +308,81 @@ LABEL_17:
 
 + (id)filterWithMinimumConfidence:(double)confidence
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   filter = [self filter];
-  v12 = @"confidence";
+  v11 = @"confidence";
   v5 = objc_alloc(MEMORY[0x277D22B98]);
   v6 = [MEMORY[0x277CCABB0] numberWithDouble:confidence];
   v7 = [v5 initWithComparator:6 value:v6];
-  v13[0] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v12[0] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [filter filterBySettingProperties:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 + (id)filterWithMinimumNumberOfHighConfidenceAssets:(unint64_t)assets
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   filter = [self filter];
-  v12 = @"numberOfHighConfidenceAssets";
+  v11 = @"numberOfHighConfidenceAssets";
   v5 = objc_alloc(MEMORY[0x277D22B98]);
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:assets];
   v7 = [v5 initWithComparator:6 value:v6];
-  v13[0] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v12[0] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [filter filterBySettingProperties:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 + (MAEdgeFilter)dominantSceneAssetsFilter
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   filter = [self filter];
-  v8 = @"numberOfDominantSceneAssets";
+  v7 = @"numberOfDominantSceneAssets";
   v3 = [objc_alloc(MEMORY[0x277D22B98]) initWithComparator:5 value:&unk_284482A30];
-  v9[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [filter filterBySettingProperties:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 + (MAEdgeFilter)searchConfidenceAssetsFilter
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   filter = [self filter];
-  v8 = @"numberOfSearchConfidenceAssets";
+  v7 = @"numberOfSearchConfidenceAssets";
   v3 = [objc_alloc(MEMORY[0x277D22B98]) initWithComparator:5 value:&unk_284482A30];
-  v9[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [filter filterBySettingProperties:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 + (MAEdgeFilter)highConfidenceAssetsFilter
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   filter = [self filter];
-  v8 = @"numberOfHighConfidenceAssets";
+  v7 = @"numberOfHighConfidenceAssets";
   v3 = [objc_alloc(MEMORY[0x277D22B98]) initWithComparator:5 value:&unk_284482A30];
-  v9[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [filter filterBySettingProperties:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 + (MAEdgeFilter)isReliableFilter
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   filter = [self filter];
-  v7 = @"isReliable";
-  v8[0] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v6 = @"isReliable";
+  v7[0] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   v4 = [filter filterBySettingProperties:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

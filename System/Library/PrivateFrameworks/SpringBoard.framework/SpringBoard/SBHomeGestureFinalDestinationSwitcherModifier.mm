@@ -734,7 +734,7 @@ id __65__SBHomeGestureFinalDestinationSwitcherModifier_debugDescription__block_i
 
 - (void)_applyPrototypeSettings
 {
-  v3 = SBMainScreenPointsPerMillimeter();
+  v3 = SBMainScreenPointsPerMillimeter(self, a2);
   homeGestureSettings = [(SBHomeGestureFinalDestinationSwitcherModifier *)self homeGestureSettings];
   [homeGestureSettings pauseVelocityThresholdForAppSwitcher];
   *&kPauseVelocityThresholdForAppSwitcher_0 = v3 * v4;

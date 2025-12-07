@@ -68,12 +68,12 @@ LABEL_9:
 
 - (id)description
 {
-  v0 = MEMORY[0x277CCACA8];
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  v3 = [v0 stringWithFormat:@"%@", v2];
+  v2 = MEMORY[0x277CCACA8];
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = [v2 stringWithFormat:@"%@", v4];
 
-  return v3;
+  return v5;
 }
 
 @end

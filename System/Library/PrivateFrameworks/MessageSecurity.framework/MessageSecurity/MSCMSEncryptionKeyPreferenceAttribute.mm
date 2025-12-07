@@ -14,9 +14,9 @@
   attributeCopy = attribute;
   certificatesCopy = certificates;
   contextCopy = context;
-  v31.receiver = self;
-  v31.super_class = MSCMSEncryptionKeyPreferenceAttribute;
-  v13 = [(MSCMSEncryptionKeyPreferenceAttribute *)&v31 init];
+  v32.receiver = self;
+  v32.super_class = MSCMSEncryptionKeyPreferenceAttribute;
+  v13 = [(MSCMSEncryptionKeyPreferenceAttribute *)&v32 init];
   attributeType = [attributeCopy attributeType];
   v15 = [attributeType isEqualToString:@"1.2.840.113549.1.9.16.2.11"];
 
@@ -27,48 +27,48 @@
 
     if (v17 == 1)
     {
-      memset(&v30[1], 0, 48);
+      memset(v31, 0, sizeof(v31));
       attributeValues2 = [attributeCopy attributeValues];
       v19 = [attributeValues2 objectAtIndex:0];
-      v20 = nsheim_decode_SMIMEEncryptionKeyPreference(v19);
+      v20 = nsheim_decode_SMIMEEncryptionKeyPreference(v19, v31);
 
       if (v20)
       {
         attributeValues3 = [attributeCopy attributeValues];
         v22 = [attributeValues3 objectAtIndex:0];
-        v23 = nsheim_decode_SecCMS_SMIMEEncryptionKeyPreference(v22);
+        v23 = nsheim_decode_SecCMS_SMIMEEncryptionKeyPreference(v22, v31);
 
         if (v23)
         {
-          v30[0] = 0;
-          asn1ErrorToNSError(v20, v30);
-          v24 = v30[0];
+          v30 = 0;
+          asn1ErrorToNSError(v20, &v30);
+          v24 = v30;
           v25 = [MSError MSErrorWithDomain:MSErrorASN1Domain[0] code:v20 underlyingError:v24 description:@"unable to decode Encryption Key Preference Attribute"];
 
           goto LABEL_14;
         }
       }
 
-      if (LODWORD(v30[1]) == 3 || LODWORD(v30[1]) == 2)
+      if (LODWORD(v31[0].receiver) == 3 || LODWORD(v31[0].receiver) == 2)
       {
-        CertificateBySubjectKeyID = findCertificateBySubjectKeyID(&v30[2], certificatesCopy, contextCopy, error);
+        CertificateBySubjectKeyID = findCertificateBySubjectKeyID(&v31[0].super_class, certificatesCopy, contextCopy, error);
       }
 
       else
       {
-        if (LODWORD(v30[1]) != 1)
+        if (LODWORD(v31[0].receiver) != 1)
         {
           v25 = [MSError MSErrorWithDomain:MSErrorASN1Domain[0] code:0 underlyingError:0 description:@"unknown type for Encryption Key Preference Attribute"];
           goto LABEL_14;
         }
 
-        CertificateBySubjectKeyID = findCertificateByIssuerAndSerialNumber(&v30[2], certificatesCopy, contextCopy, error);
+        CertificateBySubjectKeyID = findCertificateByIssuerAndSerialNumber(&v31[0].super_class, certificatesCopy, contextCopy, error);
       }
 
       if (CertificateBySubjectKeyID)
       {
         v13->_encryptionCertificate = CertificateBySubjectKeyID;
-        free_SMIMEEncryptionKeyPreference();
+        free_SMIMEEncryptionKeyPreference(v31);
 LABEL_17:
         v28 = v13;
         v25 = 0;
@@ -89,9 +89,9 @@ LABEL_17:
     [MSCMSEncryptionKeyPreferenceAttribute initWithAttribute:? certificates:? LAContext:? error:?];
   }
 
-  v25 = v32;
+  v25 = v33;
 LABEL_14:
-  free_SMIMEEncryptionKeyPreference();
+  free_SMIMEEncryptionKeyPreference(v31);
   if (!v25)
   {
     goto LABEL_17;
@@ -168,7 +168,7 @@ LABEL_18:
 
 - (id)encodeAttributeWithError:(id *)error
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   error = 0;
   encryptionCertificate = self->_encryptionCertificate;
   if (!encryptionCertificate)
@@ -201,22 +201,22 @@ LABEL_18:
     goto LABEL_32;
   }
 
-  v33 = 0u;
-  v32[0] = 1;
-  v32[1] = [(__CFData *)v6 length];
-  v32[2] = [(__CFData *)v6 bytes];
-  v32[3] = [(__CFData *)v8 length];
-  *&v33 = [(__CFData *)v8 bytes];
-  DWORD2(v33) = 0;
+  v32 = 0u;
+  v31[0] = 1;
+  v31[1] = [(__CFData *)v6 length];
+  v31[2] = [(__CFData *)v6 bytes];
+  v31[3] = [(__CFData *)v8 length];
+  *&v32 = [(__CFData *)v8 bytes];
+  DWORD2(v32) = 0;
   if (![(MSCMSEncryptionKeyPreferenceAttribute *)self legacyASN1Encoding])
   {
-    v31 = 0;
-    v12 = length_SMIMEEncryptionKeyPreference(v32);
+    v30 = 0;
+    v12 = length_SMIMEEncryptionKeyPreference(v31);
     v18 = [MEMORY[0x277CBEB28] dataWithLength:v12];
     if (v18)
     {
       v14 = v18;
-      v19 = encode_SMIMEEncryptionKeyPreference([v18 mutableBytes] + v12 - 1, v12, v32, &v31);
+      v19 = encode_SMIMEEncryptionKeyPreference([v18 mutableBytes] + v12 - 1, v12, v31, &v30);
       if (!v19)
       {
         goto LABEL_20;
@@ -241,16 +241,16 @@ LABEL_18:
     }
 
     v21 = MEMORY[0x277CCA9B8];
-    v35 = *MEMORY[0x277CCA450];
-    v36 = @"Failed encoding type SMIMEEncryptionKeyPreference";
+    v34 = *MEMORY[0x277CCA450];
+    v35 = @"Failed encoding type SMIMEEncryptionKeyPreference";
     v22 = MEMORY[0x277CBEAC0];
-    v23 = &v36;
-    v24 = &v35;
+    v23 = &v35;
+    v24 = &v34;
     goto LABEL_26;
   }
 
-  v31 = 0;
-  v12 = length_SecCMS_SMIMEEncryptionKeyPreference(v32);
+  v30 = 0;
+  v12 = length_SecCMS_SMIMEEncryptionKeyPreference(v31);
   v13 = [MEMORY[0x277CBEB28] dataWithLength:v12];
   if (!v13)
   {
@@ -258,7 +258,7 @@ LABEL_18:
   }
 
   v14 = v13;
-  v15 = encode_SecCMS_SMIMEEncryptionKeyPreference([v13 mutableBytes] + v12 - 1, v12, v32, &v31);
+  v15 = encode_SecCMS_SMIMEEncryptionKeyPreference([v13 mutableBytes] + v12 - 1, v12, v31, &v30);
   if (v15)
   {
     v16 = v15;
@@ -273,7 +273,7 @@ LABEL_18:
   }
 
 LABEL_20:
-  if (v12 != v31)
+  if (v12 != v30)
   {
     asn1_abort();
 LABEL_22:
@@ -282,11 +282,11 @@ LABEL_22:
     {
 LABEL_23:
       v21 = MEMORY[0x277CCA9B8];
-      v37 = *MEMORY[0x277CCA450];
-      v38[0] = @"Failed encoding type SecCMS_SMIMEEncryptionKeyPreference";
+      v36 = *MEMORY[0x277CCA450];
+      v37[0] = @"Failed encoding type SecCMS_SMIMEEncryptionKeyPreference";
       v22 = MEMORY[0x277CBEAC0];
-      v23 = v38;
-      v24 = &v37;
+      v23 = v37;
+      v24 = &v36;
 LABEL_26:
       v25 = [v22 dictionaryWithObjects:v23 forKeys:v24 count:1];
       *error = [v21 errorWithDomain:@"com.apple.HeimASN1" code:v17 userInfo:v25];
@@ -311,7 +311,6 @@ LABEL_27:
 
 LABEL_32:
 LABEL_33:
-  v29 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

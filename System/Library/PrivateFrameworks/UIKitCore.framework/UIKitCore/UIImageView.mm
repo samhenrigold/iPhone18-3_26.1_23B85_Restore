@@ -848,20 +848,20 @@ LABEL_39:
     if (compositingFilter)
     {
       type = [compositingFilter type];
-      v7 = [type isEqualToString:*v5];
+      isEqualToString = objc_msgSend_isEqualToString_(type);
     }
 
     else
     {
-      v7 = 0;
+      isEqualToString = 0;
     }
 
     _activeImage = [(UIImageView *)self _activeImage];
     v9 = [(UIImageView *)self _shouldTreatImageAsTemplate:_activeImage];
 
-    if ((v7 & 1) != 0 || !v9)
+    if ((isEqualToString & 1) != 0 || !v9)
     {
-      if (!v9 && (v7 & 1) != 0)
+      if (!v9 && (isEqualToString & 1) != 0)
       {
         [layer setCompositingFilter:0];
       }
@@ -1716,7 +1716,7 @@ LABEL_6:
   interactionCopy = interaction;
   selfCopy = self;
   _typedStorage = [(UIView *)selfCopy _typedStorage];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA937088);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA937088, &unk_18A652330);
   v8 = swift_allocObject();
   *(v8 + 16) = interaction;
   v9 = OBJC_IVAR____UITypedStorage_storage;
@@ -1738,7 +1738,7 @@ LABEL_6:
 
 - (Class)_intelligenceBaseClass
 {
-  sub_188A34624(0, &qword_1EA93F918);
+  sub_188A34624(0, &qword_1EA93F918, off_1E70E9A90);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -2221,7 +2221,7 @@ LABEL_34:
     [(UIImageView *)self _applyEffectsFromLayout:layoutCopy];
     if (layoutCopy)
     {
-      [layoutCopy contentsTransform];
+      objc_msgSend_contentsTransform(layoutCopy);
     }
 
     else
@@ -2555,7 +2555,7 @@ void __41__UIImageView__applyImageLayout_toLayer___block_invoke_3(uint64_t a1, v
         if (layoutCopy)
         {
           v88 = *&v91.d;
-          [layoutCopy symbolLayerPositionTransform];
+          objc_msgSend_symbolLayerPositionTransform(layoutCopy);
           v65 = v88;
         }
 
@@ -2706,7 +2706,7 @@ void __41__UIImageView__applyImageLayout_toLayer___block_invoke_3(uint64_t a1, v
             v20 = v6;
             [v6 addObject:v19];
             v21 = MEMORY[0x1E696B098];
-            [v18 contentsTransform];
+            objc_msgSend_contentsTransform(v18);
           }
 
           else
@@ -2781,7 +2781,7 @@ void __41__UIImageView__applyImageLayout_toLayer___block_invoke_3(uint64_t a1, v
     v33 = firstObject2;
     if (firstObject2)
     {
-      [firstObject2 CGAffineTransformValue];
+      objc_msgSend_CGAffineTransformValue(firstObject2);
     }
 
     else
@@ -2962,7 +2962,7 @@ LABEL_13:
   if (!effectsCopy)
   {
     v19 = 0;
-    v22 = 0;
+    height2 = 0;
     v61 = 0;
     v31 = 0;
 LABEL_13:
@@ -3099,7 +3099,7 @@ LABEL_32:
     v54 = v53;
     v24 = [_UIImageContentRendition renditionWithContentProvider:providerCopy color:v52 effects:v54 drawMode:v34];
 
-    if (v22)
+    if (height2)
     {
       v21 = traitCollection;
       v25 = v63;
@@ -3113,8 +3113,8 @@ LABEL_32:
         v55 = 0;
       }
 
-      v56 = [(_UIImageContentRenditionCacheKey *)width keyWithSize:_UIImageContentRenditionCacheKey unresolvedTintColor:v22 traitCollection:traitCollection bold:v55 & 1 drawMode:v61];
-      [v63 _cacheRendition:v24 forKey:v56];
+      height = [_UIImageContentRenditionCacheKey keyWithSize:height2 unresolvedTintColor:traitCollection traitCollection:v55 & 1 bold:v61 drawMode:width, height];
+      [v63 _cacheRendition:v24 forKey:height];
     }
 
     else
@@ -3130,7 +3130,7 @@ LABEL_32:
   if (*(effectsCopy + 8) != 1)
   {
     v61 = effectsCopy[3];
-    v22 = 0;
+    height2 = 0;
     v19 = 0;
 LABEL_12:
     v31 = *(effectsCopy + 3);
@@ -3142,7 +3142,7 @@ LABEL_12:
   if (!v18)
   {
     v61 = v17;
-    v22 = 0;
+    height2 = 0;
     v19 = 0;
 LABEL_11:
     *(effectsCopy + 8) = 0;
@@ -3154,9 +3154,9 @@ LABEL_11:
   v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:1];
   v20 = *(effectsCopy + 2);
   v21 = traitCollection;
-  v22 = [(_UIImageContentRenditionCacheKey *)width keyWithSize:_UIImageContentRenditionCacheKey unresolvedTintColor:v20 traitCollection:traitCollection bold:*(effectsCopy + 8) drawMode:v17];
+  height2 = [_UIImageContentRenditionCacheKey keyWithSize:v20 unresolvedTintColor:traitCollection traitCollection:*(effectsCopy + 8) bold:v17 drawMode:width, height];
 
-  v23 = [v63 _cachedRenditionForKey:v22];
+  v23 = [v63 _cachedRenditionForKey:height2];
   if (!v23)
   {
     v61 = v17;
@@ -3168,7 +3168,7 @@ LABEL_11:
     v30 = *(effectsCopy + 2);
     [(UIBackgroundConfiguration *)effectsCopy _setCustomView:?];
 
-    v22 = v30;
+    height2 = v30;
     v19 = v29;
     self = selfCopy;
     goto LABEL_11;
@@ -3568,9 +3568,9 @@ LABEL_24:
         goto LABEL_15;
       }
 
-      v16 = [v13 isEqual:v14];
+      isEqual = objc_msgSend_isEqual_(v13);
 
-      if ((v16 & 1) == 0)
+      if ((isEqual & 1) == 0)
       {
 LABEL_15:
         [(_UIImageViewStorage *)self->_storage setImage:v13];
@@ -3655,9 +3655,9 @@ LABEL_27:
   {
     if (v16 && v10)
     {
-      v11 = [(UIImage *)v16 isEqual:v10];
+      isEqual = objc_msgSend_isEqual_(v16);
 
-      if (v11)
+      if (isEqual)
       {
         goto LABEL_14;
       }
@@ -4184,10 +4184,10 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(UIImageSymbolConfiguration *)preferredSymbolConfiguration isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(preferredSymbolConfiguration, v6, v6);
 
   v8 = v9;
-  if (!v7)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     preferredSymbolConfiguration = [(UIImageView *)self _activeImage];
@@ -4220,10 +4220,10 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [overridingSymbolConfiguration isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(overridingSymbolConfiguration, v6, v6);
 
   v8 = v9;
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     overridingSymbolConfiguration = [(UIImageView *)self _activeImage];
@@ -4256,10 +4256,10 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [preferredSymbolVariant isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(preferredSymbolVariant, v6, v6);
 
   v8 = v9;
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     preferredSymbolVariant = [(UIImageView *)self _activeImage];
@@ -4375,9 +4375,9 @@ LABEL_25:
     goto LABEL_10;
   }
 
-  v8 = [(NSArray *)animationImages isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(animationImages);
 
-  if ((v8 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_10:
     animationImages = [(_UIImageViewStorage *)self->_storage animationImages];
@@ -4510,9 +4510,9 @@ LABEL_30:
 
   if (v6 && highlightedAnimationImages)
   {
-    v8 = [(NSArray *)highlightedAnimationImages isEqual:v6];
+    isEqual = objc_msgSend_isEqual_(highlightedAnimationImages);
 
-    if (v8)
+    if (isEqual)
     {
       goto LABEL_27;
     }
@@ -4737,44 +4737,17 @@ LABEL_8:
 - (BOOL)_shouldAnimatePropertyWithKey:(id)key
 {
   keyCopy = key;
-  if (-[UIImageView _animatesContents](self, "_animatesContents") && ([keyCopy isEqualToString:@"contents"] & 1) != 0 || (objc_msgSend(keyCopy, "isEqualToString:", @"contentsTransform") & 1) != 0)
+  if ([(UIImageView *)self _animatesContents]&& (objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || (objc_opt_self(), dyld_program_sdk_at_least()) && (+[_UIHDRUsageCoordinator useCALayerDynamicRange]&& (objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(keyCopy) & 1) != 0))
   {
-    goto LABEL_4;
-  }
-
-  objc_opt_self();
-  if (!dyld_program_sdk_at_least())
-  {
-LABEL_11:
-    v8.receiver = self;
-    v8.super_class = UIImageView;
-    v5 = [(UIView *)&v8 _shouldAnimatePropertyWithKey:keyCopy];
-    goto LABEL_12;
-  }
-
-  if (+[_UIHDRUsageCoordinator useCALayerDynamicRange])
-  {
-    if ([keyCopy isEqualToString:@"contentsEDRStrength"])
-    {
-      goto LABEL_4;
-    }
-
-    v6 = @"contentsCDRStrength";
+    v5 = 1;
   }
 
   else
   {
-    v6 = @"contentsMaximumDesiredEDR";
+    v7.receiver = self;
+    v7.super_class = UIImageView;
+    v5 = [(UIView *)&v7 _shouldAnimatePropertyWithKey:keyCopy];
   }
-
-  if (([keyCopy isEqualToString:v6] & 1) == 0)
-  {
-    goto LABEL_11;
-  }
-
-LABEL_4:
-  v5 = 1;
-LABEL_12:
 
   return v5;
 }
@@ -4782,7 +4755,7 @@ LABEL_12:
 - (id)_initialValueForKey:(id)key
 {
   keyCopy = key;
-  if ([@"imageDynamicRange" isEqualToString:keyCopy])
+  if (objc_msgSend_isEqualToString_(@"imageDynamicRange"))
   {
     v5 = [MEMORY[0x1E696AD98] numberWithInteger:{-[UIImageView imageDynamicRange](self, "imageDynamicRange")}];
   }
@@ -4815,7 +4788,7 @@ LABEL_12:
       animationFrames = [v5 animationFrames];
       v8 = [animationFrames count];
 
-      if ((+[_UIHDRUsageCoordinator useCALayerDynamicRange]& 1) == 0)
+      if (!+[_UIHDRUsageCoordinator useCALayerDynamicRange])
       {
         layer = [(UIView *)self layer];
         [layer setWantsExtendedDynamicRangeContent:1];
@@ -5121,9 +5094,9 @@ LABEL_16:
 
   if (image3)
   {
-    v25 = [(UIImage *)image3 isEqual:v23];
+    isEqual = objc_msgSend_isEqual_(image3);
 
-    if (!v25)
+    if (!isEqual)
     {
       goto LABEL_21;
     }
@@ -5938,12 +5911,12 @@ LABEL_14:
       v11 = 0.5;
       goto LABEL_7;
     case 3u:
-      v9 = +[UIColor blackColor];
+      v9 = objc_msgSend_blackColor(UIColor, a2);
       v10 = 5;
       v11 = 0.3;
       goto LABEL_7;
     case 2u:
-      v9 = +[UIColor blackColor];
+      v9 = objc_msgSend_blackColor(UIColor, a2);
       v10 = 5;
       v11 = 0.466666667;
 LABEL_7:
@@ -6093,15 +6066,15 @@ LABEL_7:
   v12 = imageCopy;
   if (v12)
   {
-    v13 = [assignedImageCopy isEqual:v12];
+    isEqual = objc_msgSend_isEqual_(assignedImageCopy);
     v14 = v12;
     if (currentImageCopy)
     {
       v14 = v12;
-      if (v13)
+      if (isEqual)
       {
         v14 = v12;
-        if (([currentImageCopy isEqual:v12] & 1) == 0)
+        if ((objc_msgSend_isEqual_(currentImageCopy) & 1) == 0)
         {
           v14 = currentImageCopy;
 
@@ -6330,9 +6303,9 @@ LABEL_16:
     {
       if (v15)
       {
-        v17 = [v14 isEqual:v15];
+        isEqual = objc_msgSend_isEqual_(v14);
 
-        if (v17)
+        if (isEqual)
         {
           goto LABEL_20;
         }
@@ -6382,7 +6355,7 @@ LABEL_37:
           {
             if (v24)
             {
-              v26 = [v23 isEqual:v24];
+              v26 = objc_msgSend_isEqual_(v23);
 
               highlightedImage = v27;
               if (v26)
@@ -7075,7 +7048,7 @@ LABEL_11:
   v20 = v19;
   if (v19)
   {
-    [v19 contentsTransform];
+    objc_msgSend_contentsTransform(v19);
   }
 
   else
@@ -7458,7 +7431,7 @@ void __58__UIImageView__mainQ_imageLoader_finishedWithImage_error___block_invoke
   [coderCopy encodeCGRect:@"kViewBoundsKey" forKey:?];
   [(UIView *)self center];
   [coderCopy encodeCGPoint:@"kViewCenterKey" forKey:?];
-  [(UIView *)self transform];
+  objc_msgSend_transform(self);
   [coderCopy encodeCGAffineTransform:&v5 forKey:@"kViewTransformKey"];
 }
 
@@ -7490,7 +7463,7 @@ void __58__UIImageView__mainQ_imageLoader_finishedWithImage_error___block_invoke
   {
     if (coderCopy)
     {
-      [coderCopy decodeCGAffineTransformForKey:@"kViewTransformKey"];
+      objc_msgSend_decodeCGAffineTransformForKey_(coderCopy);
     }
 
     else

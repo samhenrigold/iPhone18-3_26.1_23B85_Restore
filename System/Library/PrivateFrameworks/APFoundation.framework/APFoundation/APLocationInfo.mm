@@ -11,8 +11,8 @@
 
 - (id)jsonRepresentationWithOptions:(unint64_t)options
 {
-  v35[5] = *MEMORY[0x1E69E9840];
-  v34[0] = @"locality";
+  v34[5] = *MEMORY[0x1E69E9840];
+  v33[0] = @"locality";
   v5 = objc_msgSend_locality(self, a2, options, v3);
   v9 = v5;
   if (!v5)
@@ -20,8 +20,8 @@
     v5 = objc_msgSend_null(MEMORY[0x1E695DFB0], v6, v7, v8);
   }
 
-  v35[0] = v5;
-  v34[1] = @"administrativeArea";
+  v34[0] = v5;
+  v33[1] = @"administrativeArea";
   v13 = objc_msgSend_administrativeArea(self, v6, v7, v8, v5);
   v14 = v13;
   if (!v13)
@@ -29,8 +29,8 @@
     v14 = objc_msgSend_null(MEMORY[0x1E695DFB0], v10, v11, v12);
   }
 
-  v35[1] = v14;
-  v34[2] = @"subAdministrativeArea";
+  v34[1] = v14;
+  v33[2] = @"subAdministrativeArea";
   v18 = objc_msgSend_subAdministrativeArea(self, v10, v11, v12);
   v19 = v18;
   if (!v18)
@@ -38,8 +38,8 @@
     v19 = objc_msgSend_null(MEMORY[0x1E695DFB0], v15, v16, v17);
   }
 
-  v35[2] = v19;
-  v34[3] = @"isoCountryCode";
+  v34[2] = v19;
+  v33[3] = @"isoCountryCode";
   v23 = objc_msgSend_isoCountryCode(self, v15, v16, v17);
   v24 = v23;
   if (!v23)
@@ -47,8 +47,8 @@
     v24 = objc_msgSend_null(MEMORY[0x1E695DFB0], v20, v21, v22);
   }
 
-  v35[3] = v24;
-  v34[4] = @"postalCode";
+  v34[3] = v24;
+  v33[4] = @"postalCode";
   v28 = objc_msgSend_postalCode(self, v20, v21, v22);
   v29 = v28;
   if (!v28)
@@ -56,8 +56,8 @@
     v29 = objc_msgSend_null(MEMORY[0x1E695DFB0], v25, v26, v27);
   }
 
-  v35[4] = v29;
-  v30 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v25, v35, v34, 5);
+  v34[4] = v29;
+  v30 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v25, v34, v33, 5);
   if (!v28)
   {
   }
@@ -78,7 +78,6 @@
   {
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return @"<redacted>";
 }
 

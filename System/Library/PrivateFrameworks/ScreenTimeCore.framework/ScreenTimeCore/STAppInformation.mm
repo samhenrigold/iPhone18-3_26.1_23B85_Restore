@@ -3,7 +3,6 @@
 - (BOOL)isEqualToAppInformation:(id)information;
 - (STAppInformation)initWithBundleIdentifier:(id)identifier displayName:(id)name iconData:(id)data distributorID:(id)d distributorIsThirdParty:(BOOL)party adamID:(unint64_t)iD versionIdentifier:(unint64_t)versionIdentifier betaVersionIdentifier:(unint64_t)self0;
 - (STAppInformation)initWithCoder:(id)coder;
-- (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -100,13 +99,6 @@
 
   v12 = [NSNumber numberWithUnsignedLongLong:[(STAppInformation *)self betaVersionIdentifier]];
   [coderCopy encodeObject:v12 forKey:@"betaVersionIdentifier"];
-}
-
-- (id)copyWithZone:(_NSZone *)zone
-{
-  v4 = [objc_opt_class() allocWithZone:zone];
-  versionIdentifier = self->_versionIdentifier;
-  return [v4 initWithBundleIdentifier:self->_bundleIdentifier displayName:self->_displayName iconData:self->_iconData distributorID:self->_distributorID distributorIsThirdParty:self->_distributorIsThirdParty adamID:self->_adamID versionIdentifier:versionIdentifier betaVersionIdentifier:self->_betaVersionIdentifier];
 }
 
 - (BOOL)isEqual:(id)equal

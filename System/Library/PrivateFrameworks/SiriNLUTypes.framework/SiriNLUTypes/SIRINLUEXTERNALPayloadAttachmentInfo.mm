@@ -1,5 +1,6 @@
 @interface SIRINLUEXTERNALPayloadAttachmentInfo
 - (BOOL)isEqual:(id)equal;
+- (id)attachmentTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -86,7 +87,6 @@ LABEL_7:
 {
   if (*&self->_has)
   {
-    attachmentType = self->_attachmentType;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -144,6 +144,29 @@ LABEL_7:
   else
   {
     v4 = [typeCopy isEqualToString:@"PARTIAL"];
+  }
+
+  return v4;
+}
+
+- (id)attachmentTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"PARTIAL";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"FULL";
   }
 
   return v4;

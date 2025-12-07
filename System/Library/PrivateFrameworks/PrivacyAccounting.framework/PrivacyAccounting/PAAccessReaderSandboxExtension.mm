@@ -52,11 +52,10 @@
 
 - (void)dealloc
 {
-  handle = self->_handle;
   sandbox_extension_release();
-  v4.receiver = self;
-  v4.super_class = PAAccessReaderSandboxExtension;
-  [(PAAccessReaderSandboxExtension *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = PAAccessReaderSandboxExtension;
+  [(PAAccessReaderSandboxExtension *)&v3 dealloc];
 }
 
 @end

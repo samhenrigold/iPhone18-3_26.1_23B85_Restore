@@ -4,6 +4,7 @@
 - (void)_viewDidDisappear;
 - (void)dismiss;
 - (void)layoutViewWithCertificatePresentationRequest:(id)request;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -32,6 +33,14 @@
   [(SFCertificateViewController *)self layoutViewWithCertificatePresentationRequest:self->_presentationRequest];
 }
 
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = SFCertificateViewController;
+  [(SFCertificateViewController *)&v4 viewDidDisappear:disappear];
+  [(SFCertificateViewController *)self _viewDidDisappear];
+}
+
 - (void)_viewDidDisappear
 {
   delegate = [(SFCertificateViewController *)self delegate];
@@ -39,11 +48,11 @@
 
   if (v4)
   {
-    v5 = SFLogSFCertificateViewController();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = SFLogSFCertificateViewController(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_23AA9F000, v5, OS_LOG_TYPE_DEFAULT, "calling certificateViewControllerDidDismiss", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_23AA9F000, v6, OS_LOG_TYPE_DEFAULT, "calling certificateViewControllerDidDismiss", v8, 2u);
     }
 
     delegate2 = [(SFCertificateViewController *)self delegate];
@@ -60,7 +69,7 @@
 
 - (void)dismiss
 {
-  v3 = SFLogSFCertificateViewController();
+  v3 = SFLogSFCertificateViewController(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

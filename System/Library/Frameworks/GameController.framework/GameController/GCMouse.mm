@@ -1,6 +1,7 @@
 @interface GCMouse
 + (GCMouse)current;
 + (NSArray)mice;
+- (GCMouse)initWithName:(id)name additionalButtons:(unsigned int)buttons;
 - (GCMouseLiveInput)liveInput;
 - (NSString)debugDescription;
 - (NSString)description;
@@ -36,6 +37,34 @@
   v7 = v6;
 
   return v6;
+}
+
+- (GCMouse)initWithName:(id)name additionalButtons:(unsigned int)buttons
+{
+  v4 = *&buttons;
+  nameCopy = name;
+  v16.receiver = self;
+  v16.super_class = GCMouse;
+  v7 = [(GCMouse *)&v16 init];
+  v8 = v7;
+  if (v7)
+  {
+    objc_storeStrong(&v7->_handlerQueue, MEMORY[0x1E69E96A0]);
+    v9 = [nameCopy copy];
+    vendorName = v8->_vendorName;
+    v8->_vendorName = v9;
+
+    v11 = [GCMouseInput alloc];
+    uUID = [MEMORY[0x1E696AFB0] UUID];
+    v13 = [(GCMouseInput *)v11 initWithIdentifier:uUID additionalButtons:v4];
+    mouseInput = v8->_mouseInput;
+    v8->_mouseInput = v13;
+
+    [(GCPhysicalInputProfile *)v8->_mouseInput setDevice:v8];
+    v8->_creationSequence = atomic_fetch_add(initWithName_additionalButtons__CreationSequence, 1u);
+  }
+
+  return v8;
 }
 
 - (GCMouseLiveInput)liveInput

@@ -1,6 +1,8 @@
 @interface PRLexicon
 + (PRLexicon)lexiconWithLexicon:(const void *)lexicon;
 + (PRLexicon)lexiconWithLocalization:(id)localization unigramsPath:(id)path;
++ (PRLexicon)lexiconWithLocalization:(id)localization unigramsPath:(id)path cachedOnly:(BOOL)only;
++ (PRLexicon)lexiconWithLocalization:(id)localization unigramsPath:(id)path deltaPath:(id)deltaPath cachedOnly:(BOOL)only;
 + (PRLexicon)lexiconWithName:(id)name words:(id)words;
 - (BOOL)getProbabilityForString:(id)string probability:(double *)probability;
 - (BOOL)getProbabilityForTokenID:(unsigned int)d probability:(double *)probability;
@@ -23,13 +25,13 @@
 - (PRLexicon)initWithLocalization:(id)localization unigramsPath:(id)path deltaPath:(id)deltaPath cachedOnly:(BOOL)only
 {
   onlyCopy = only;
-  v26[1] = *MEMORY[0x1E69E9840];
-  v25 = 0;
+  v25[1] = *MEMORY[0x1E69E9840];
+  v24 = 0;
   v11 = [MEMORY[0x1E695DF58] localeWithLocaleIdentifier:?];
   if (deltaPath)
   {
-    v26[0] = deltaPath;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+    v25[0] = deltaPath;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
   }
 
   else
@@ -45,7 +47,7 @@
 
   else
   {
-    v14 = [v13 initWithObjectsAndKeys:{*MEMORY[0x1E69ABFD8], v11, *MEMORY[0x1E69ABFE8], path, *MEMORY[0x1E69ABFC8], v12, *MEMORY[0x1E69ABFD0], 0, v22, v23}];
+    v14 = [v13 initWithObjectsAndKeys:{*MEMORY[0x1E69ABFD8], v11, *MEMORY[0x1E69ABFE8], path, *MEMORY[0x1E69ABFC8], v12, *MEMORY[0x1E69ABFD0], 0, v21, v22}];
   }
 
   v15 = v14;
@@ -53,9 +55,9 @@
   if (v16)
   {
     v17 = v16;
-    v24.receiver = self;
-    v24.super_class = PRLexicon;
-    v18 = [(PRLexicon *)&v24 init];
+    v23.receiver = self;
+    v23.super_class = PRLexicon;
+    v18 = [(PRLexicon *)&v23 init];
     if (v18)
     {
       v18->_localization = [localization copy];
@@ -76,18 +78,17 @@
   {
     if (path)
     {
-      NSLog(@"Lexicon creation for %@:%@ failed: %@", localization, path, v25);
+      NSLog(@"Lexicon creation for %@:%@ failed: %@", localization, path, v24);
     }
 
     else
     {
-      NSLog(@"Lexicon creation for %@ failed: %@", localization, v25, v21);
+      NSLog(@"Lexicon creation for %@ failed: %@", localization, v24, v20);
     }
 
     v18 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -117,7 +118,7 @@
 
 - (PRLexicon)initWithName:(id)name words:(id)words
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   cf = 0;
   v7 = objc_alloc(MEMORY[0x1E695DF20]);
   v8 = [v7 initWithObjectsAndKeys:{name, *MEMORY[0x1E69ABFF8], 0}];
@@ -137,38 +138,37 @@ LABEL_14:
   }
 
   v10 = Mutable;
-  v24.receiver = self;
-  v24.super_class = PRLexicon;
-  v11 = [(PRLexicon *)&v24 init];
+  v22.receiver = self;
+  v22.super_class = PRLexicon;
+  v11 = [(PRLexicon *)&v22 init];
   v12 = v11;
   if (v11)
   {
     v11->_localization = @"External";
     v11->_name = [name copy];
     v12->_lexicon = v10;
+    v18 = 0u;
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    v23 = 0u;
-    v13 = [words countByEnumeratingWithState:&v20 objects:v26 count:16];
+    v13 = [words countByEnumeratingWithState:&v18 objects:v24 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v21;
+      v15 = *v19;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v21 != v15)
+          if (*v19 != v15)
           {
             objc_enumerationMutation(words);
           }
 
-          v17 = *(*(&v20 + 1) + 8 * i);
           LXLexiconAdd();
         }
 
-        v14 = [words countByEnumeratingWithState:&v20 objects:v26 count:16];
+        v14 = [words countByEnumeratingWithState:&v18 objects:v24 count:16];
       }
 
       while (v14);
@@ -183,8 +183,21 @@ LABEL_14:
   self = v8;
 LABEL_17:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v12;
+}
+
++ (PRLexicon)lexiconWithLocalization:(id)localization unigramsPath:(id)path deltaPath:(id)deltaPath cachedOnly:(BOOL)only
+{
+  v6 = [[self alloc] initWithLocalization:localization unigramsPath:path deltaPath:deltaPath cachedOnly:only];
+
+  return v6;
+}
+
++ (PRLexicon)lexiconWithLocalization:(id)localization unigramsPath:(id)path cachedOnly:(BOOL)only
+{
+  v5 = [[self alloc] initWithLocalization:localization unigramsPath:path cachedOnly:only];
+
+  return v5;
 }
 
 + (PRLexicon)lexiconWithLocalization:(id)localization unigramsPath:(id)path
@@ -279,9 +292,9 @@ LABEL_17:
   return v3;
 }
 
-uint64_t __30__PRLexicon_tokenIDForString___block_invoke(uint64_t a1, uint64_t a2, int a3, uint64_t a4, _BYTE *a5)
+void *__30__PRLexicon_tokenIDForString___block_invoke(uint64_t a1, uint64_t a2, int a3, uint64_t a4, _BYTE *a5)
 {
-  result = [*(a1 + 32) isEqualToString:a2];
+  result = [*(a1 + 32) isEqualToString:{a2, a4}];
   if (result)
   {
     *(*(*(a1 + 40) + 8) + 24) = a3;
@@ -293,21 +306,20 @@ uint64_t __30__PRLexicon_tokenIDForString___block_invoke(uint64_t a1, uint64_t a
 
 - (id)stringForTokenID:(unsigned int)d
 {
-  lexicon = self->_lexicon;
-  v4 = LXLexiconCopyEntryForTokenID();
-  if (v4)
+  v3 = LXLexiconCopyEntryForTokenID();
+  if (v3)
   {
-    v5 = v4;
-    v6 = LXEntryCopyString();
-    CFRelease(v5);
+    v4 = v3;
+    v5 = LXEntryCopyString();
+    CFRelease(v4);
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  return v6;
+  return v5;
 }
 
 - (BOOL)getProbabilityForString:(id)string probability:(double *)probability
@@ -339,9 +351,9 @@ uint64_t __30__PRLexicon_tokenIDForString___block_invoke(uint64_t a1, uint64_t a
   return v5;
 }
 
-uint64_t __49__PRLexicon_getProbabilityForString_probability___block_invoke(uint64_t a1, uint64_t a2, double a3, uint64_t a4, uint64_t a5, _BYTE *a6)
+void *__49__PRLexicon_getProbabilityForString_probability___block_invoke(uint64_t a1, uint64_t a2, double a3, uint64_t a4, uint64_t a5, _BYTE *a6)
 {
-  result = [*(a1 + 32) isEqualToString:a2];
+  result = [*(a1 + 32) isEqualToString:{a2, a5}];
   if (result)
   {
     *(*(*(a1 + 40) + 8) + 24) = a3;

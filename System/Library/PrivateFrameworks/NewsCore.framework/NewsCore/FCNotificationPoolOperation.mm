@@ -146,7 +146,7 @@ LABEL_7:
 
 uint64_t __47__FCNotificationPoolOperation_performOperation__block_invoke_3(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
@@ -154,11 +154,11 @@ uint64_t __47__FCNotificationPoolOperation_performOperation__block_invoke_3(uint
     v6 = *(a1 + 32);
     v7 = v5;
     v8 = [v6 shortOperationDescription];
-    v13 = 138543618;
-    v14 = v8;
-    v15 = 2048;
-    v16 = [v4 count];
-    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ will finish with %lu notification items", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v8;
+    v14 = 2048;
+    v15 = [v4 count];
+    _os_log_impl(&dword_1B63EF000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ will finish with %lu notification items", &v12, 0x16u);
   }
 
   v9 = *(a1 + 32);
@@ -175,22 +175,21 @@ uint64_t __47__FCNotificationPoolOperation_performOperation__block_invoke_3(uint
 
   [v10 finishedPerformingOperationWithError:0];
 
-  v11 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (void)operationWillFinishWithError:(id)error
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   itemHandler = [(FCNotificationPoolOperation *)self itemHandler];
 
   if (itemHandler)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     if (self)
     {
       resultNotificationItems = self->_resultNotificationItems;
@@ -202,22 +201,22 @@ uint64_t __47__FCNotificationPoolOperation_performOperation__block_invoke_3(uint
     }
 
     v7 = resultNotificationItems;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       do
       {
         v11 = 0;
         do
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * v11);
+          v12 = *(*(&v16 + 1) + 8 * v11);
           itemHandler2 = [(FCNotificationPoolOperation *)self itemHandler];
           itemHandler2[2](itemHandler2, v12);
 
@@ -225,7 +224,7 @@ uint64_t __47__FCNotificationPoolOperation_performOperation__block_invoke_3(uint
         }
 
         while (v9 != v11);
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v9);
@@ -239,23 +238,21 @@ uint64_t __47__FCNotificationPoolOperation_performOperation__block_invoke_3(uint
     completionHandler2 = [(FCNotificationPoolOperation *)self completionHandler];
     (completionHandler2)[2](completionHandler2, errorCopy);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguration___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v43[0] = MEMORY[0x1E69E9820];
-  v43[1] = 3221225472;
-  v43[2] = __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguration___block_invoke_2;
-  v43[3] = &unk_1E7C3C728;
+  v42[0] = MEMORY[0x1E69E9820];
+  v42[1] = 3221225472;
+  v42[2] = __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguration___block_invoke_2;
+  v42[3] = &unk_1E7C3C728;
   v7 = *(a1 + 40);
-  v43[4] = *(a1 + 32);
-  v44 = v7;
-  v8 = __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguration___block_invoke_2(v43);
+  v42[4] = *(a1 + 32);
+  v43 = v7;
+  v8 = __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguration___block_invoke_2(v42);
   if ([v8 count])
   {
     v9 = FCOperationLog;
@@ -265,9 +262,9 @@ void __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguratio
       v11 = v9;
       v12 = [v10 shortOperationDescription];
       *buf = 138543618;
-      v46 = v12;
-      v47 = 2114;
-      v48 = v8;
+      v45 = v12;
+      v46 = 2114;
+      v47 = v8;
       _os_log_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ will fetch from notification item list IDs: %{public}@", buf, 0x16u);
     }
 
@@ -301,12 +298,12 @@ void __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguratio
     {
     }
 
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = 3221225472;
-    v40[2] = __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguration___block_invoke_24;
-    v40[3] = &unk_1E7C36D40;
-    v40[4] = *(a1 + 32);
-    v21 = [MEMORY[0x1E695DEC8] fc_array:v40];
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguration___block_invoke_24;
+    v39[3] = &unk_1E7C36D40;
+    v39[4] = *(a1 + 32);
+    v21 = [MEMORY[0x1E695DEC8] fc_array:v39];
     [(FCCKBatchedMultiFetchQueryOperation *)v13 setRecordSpecs:v21];
 
     v22 = objc_opt_new();
@@ -315,44 +312,42 @@ void __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguratio
     newValue[2] = __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguration___block_invoke_2_29;
     newValue[3] = &unk_1E7C36D68;
     v24 = v22;
-    v39 = v24;
+    v38 = v24;
     if (v13)
     {
       objc_setProperty_nonatomic_copy(v13, v23, newValue, 448);
     }
 
-    v30 = MEMORY[0x1E69E9820];
-    v31 = 3221225472;
-    v32 = __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguration___block_invoke_3_31;
-    v33 = &unk_1E7C3C750;
+    v29 = MEMORY[0x1E69E9820];
+    v30 = 3221225472;
+    v31 = __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguration___block_invoke_3_31;
+    v32 = &unk_1E7C3C750;
     v25 = v6;
     v26 = *(a1 + 32);
-    v34 = v24;
-    v35 = v26;
-    v36 = v25;
-    v37 = v5;
+    v33 = v24;
+    v34 = v26;
+    v35 = v25;
+    v36 = v5;
     v28 = v24;
     if (v13)
     {
-      objc_setProperty_nonatomic_copy(v13, v27, &v30, 464);
+      objc_setProperty_nonatomic_copy(v13, v27, &v29, 464);
     }
 
-    [*(a1 + 32) associateChildOperation:{v13, v30, v31, v32, v33}];
+    [*(a1 + 32) associateChildOperation:{v13, v29, v30, v31, v32}];
     [(FCOperation *)v13 start];
   }
 
   else
   {
-    v41[0] = MEMORY[0x1E69E9820];
-    v41[1] = 3221225472;
-    v41[2] = __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguration___block_invoke_5;
-    v41[3] = &unk_1E7C37BC0;
-    v41[4] = *(a1 + 32);
-    v42 = v5;
-    __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguration___block_invoke_5(v41);
+    v40[0] = MEMORY[0x1E69E9820];
+    v40[1] = 3221225472;
+    v40[2] = __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguration___block_invoke_5;
+    v40[3] = &unk_1E7C37BC0;
+    v40[4] = *(a1 + 32);
+    v41 = v5;
+    __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguration___block_invoke_5(v40);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 id __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguration___block_invoke_2(uint64_t a1)
@@ -371,7 +366,6 @@ id __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguration_
   v4 = [v3 preferredContentVariant];
   if (v4 == 1)
   {
-    v6 = *(a1 + 40);
     if (objc_opt_respondsToSelector())
     {
       v4 = [*(a1 + 40) paidNotificationItemListIDs];
@@ -386,7 +380,6 @@ id __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguration_
       goto LABEL_10;
     }
 
-    v5 = *(a1 + 40);
     if (objc_opt_respondsToSelector())
     {
       v4 = [*(a1 + 40) freeNotificationItemListIDs];
@@ -402,26 +395,24 @@ LABEL_10:
 
 uint64_t __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguration___block_invoke_5(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 shortOperationDescription];
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ will end early because there are no notification item list IDs", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ will end early because there are no notification item list IDs", &v7, 0xCu);
   }
 
-  result = (*(*(a1 + 40) + 16))();
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 40) + 16))();
 }
 
 void __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguration___block_invoke_24(uint64_t a1, void *a2)
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_opt_new();
   v6 = v4;
@@ -449,8 +440,8 @@ void __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguratio
     objc_setProperty_nonatomic_copy(v6, v11, v12, 24);
   }
 
-  v40[0] = @"notificationItemIDs";
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v40 count:1];
+  v39[0] = @"notificationItemIDs";
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:1];
   if (v6)
   {
     objc_setProperty_nonatomic_copy(v6, v13, v14, 32);
@@ -483,8 +474,8 @@ void __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguratio
     objc_setProperty_nonatomic_copy(v17, v22, v23, 24);
   }
 
-  v39 = @"articleID";
-  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v39 count:1];
+  v38 = @"articleID";
+  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
   if (v17)
   {
     objc_setProperty_nonatomic_copy(v17, v24, v25, 32);
@@ -526,48 +517,46 @@ void __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguratio
   }
 
   [v3 addObject:v28];
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 void __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguration___block_invoke_3_31(uint64_t a1, uint64_t a2, void *a3)
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (!v4)
   {
     v6 = [*(a1 + 32) readOnlyArray];
     v7 = [v6 fc_dictionaryWithKeyBlock:&__block_literal_global_36_0];
     v8 = [v6 fc_dictionaryWithKeyBlock:&__block_literal_global_38_1];
-    v43 = v6;
+    v42 = v6;
     v9 = [v6 fc_arrayOfObjectsPassingTest:&__block_literal_global_41_0];
-    v48 = objc_opt_new();
+    v47 = objc_opt_new();
+    v58 = 0u;
     v59 = 0u;
     v60 = 0u;
     v61 = 0u;
-    v62 = 0u;
     obj = v9;
-    v46 = [obj countByEnumeratingWithState:&v59 objects:v70 count:16];
-    if (!v46)
+    v45 = [obj countByEnumeratingWithState:&v58 objects:v69 count:16];
+    if (!v45)
     {
       goto LABEL_31;
     }
 
-    v45 = *v60;
-    v50 = v7;
-    v51 = v8;
+    v44 = *v59;
+    v49 = v7;
+    v50 = v8;
     while (1)
     {
       v10 = 0;
       do
       {
-        if (*v60 != v45)
+        if (*v59 != v44)
         {
           objc_enumerationMutation(obj);
         }
 
-        v47 = v10;
-        v11 = *(*(&v59 + 1) + 8 * v10);
+        v46 = v10;
+        v11 = *(*(&v58 + 1) + 8 * v10);
         v12 = *(a1 + 40);
         if (v12)
         {
@@ -579,28 +568,28 @@ void __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguratio
         v15 = [v14 notificationItemListRecordSource];
         v16 = [v15 recordFromCKRecord:v11];
 
-        v57 = 0u;
-        v58 = 0u;
-        v55 = 0u;
         v56 = 0u;
-        v49 = v16;
-        v52 = [v16 notificationItemIDs];
-        v8 = v51;
-        v54 = [v52 countByEnumeratingWithState:&v55 objects:v69 count:16];
-        if (v54)
+        v57 = 0u;
+        v54 = 0u;
+        v55 = 0u;
+        v48 = v16;
+        v51 = [v16 notificationItemIDs];
+        v8 = v50;
+        v53 = [v51 countByEnumeratingWithState:&v54 objects:v68 count:16];
+        if (v53)
         {
-          v53 = *v56;
+          v52 = *v55;
           do
           {
             v17 = 0;
             do
             {
-              if (*v56 != v53)
+              if (*v55 != v52)
               {
-                objc_enumerationMutation(v52);
+                objc_enumerationMutation(v51);
               }
 
-              v18 = [v8 objectForKeyedSubscript:*(*(&v55 + 1) + 8 * v17)];
+              v18 = [v8 objectForKeyedSubscript:*(*(&v54 + 1) + 8 * v17)];
               v19 = *(a1 + 40);
               if (v19)
               {
@@ -641,20 +630,20 @@ void __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguratio
                   if (v30)
                   {
                     v38 = objc_alloc(MEMORY[0x1E69B6EC8]);
-                    v39 = [v49 notificationSource];
-                    v40 = [v49 algoID];
+                    v39 = [v48 notificationSource];
+                    v40 = [v48 algoID];
                     v31 = [v38 initWithRecord:v23 feedItem:v30 source:v39 algoID:v40];
 
-                    [v48 addObject:v31];
+                    [v47 addObject:v31];
                     a1 = v32;
-                    v7 = v50;
-                    v8 = v51;
+                    v7 = v49;
+                    v8 = v50;
                     goto LABEL_22;
                   }
 
                   a1 = v32;
-                  v7 = v50;
-                  v8 = v51;
+                  v7 = v49;
+                  v8 = v50;
                 }
 
                 else
@@ -666,43 +655,41 @@ LABEL_22:
               ++v17;
             }
 
-            while (v54 != v17);
-            v41 = [v52 countByEnumeratingWithState:&v55 objects:v69 count:16];
-            v54 = v41;
+            while (v53 != v17);
+            v41 = [v51 countByEnumeratingWithState:&v54 objects:v68 count:16];
+            v53 = v41;
           }
 
           while (v41);
         }
 
-        v10 = v47 + 1;
+        v10 = v46 + 1;
       }
 
-      while (v47 + 1 != v46);
-      v46 = [obj countByEnumeratingWithState:&v59 objects:v70 count:16];
-      if (!v46)
+      while (v46 + 1 != v45);
+      v45 = [obj countByEnumeratingWithState:&v58 objects:v69 count:16];
+      if (!v45)
       {
 LABEL_31:
 
         (*(*(a1 + 56) + 16))();
-        v5 = v43;
+        v5 = v42;
         v4 = 0;
         goto LABEL_32;
       }
     }
   }
 
-  v63 = MEMORY[0x1E69E9820];
-  v64 = 3221225472;
-  v65 = __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguration___block_invoke_4_32;
-  v66 = &unk_1E7C37778;
-  v68 = *(a1 + 48);
-  v67 = v4;
-  v68[2](v68, v67);
+  v62 = MEMORY[0x1E69E9820];
+  v63 = 3221225472;
+  v64 = __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguration___block_invoke_4_32;
+  v65 = &unk_1E7C37778;
+  v67 = *(a1 + 48);
+  v66 = v4;
+  v67[2](v67, v66);
 
-  v5 = v68;
+  v5 = v67;
 LABEL_32:
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 id __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfiguration___block_invoke_5_33(uint64_t a1, void *a2)
@@ -751,7 +738,7 @@ uint64_t __74__FCNotificationPoolOperation__promiseNotificationItemsWithConfigur
 
 void __90__FCNotificationPoolOperation__promiseSimulatedNotificationItemsFromESLWithConfiguration___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = FCOperationLog;
@@ -761,7 +748,7 @@ void __90__FCNotificationPoolOperation__promiseSimulatedNotificationItemsFromESL
     v9 = v7;
     v10 = [v8 shortOperationDescription];
     *buf = 138543362;
-    v34 = v10;
+    v33 = v10;
     _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ will simulate notification pool using global ESL inventory", buf, 0xCu);
   }
 
@@ -784,28 +771,26 @@ void __90__FCNotificationPoolOperation__promiseSimulatedNotificationItemsFromESL
   v17 = [(FCGlobalCuratedESLArticlesOperation *)v11 initWithContext:v16 configuration:v15 contentVariantProvider:v14];
 
   v18 = objc_opt_new();
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __90__FCNotificationPoolOperation__promiseSimulatedNotificationItemsFromESLWithConfiguration___block_invoke_47;
-  v31[3] = &unk_1E7C3C778;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __90__FCNotificationPoolOperation__promiseSimulatedNotificationItemsFromESLWithConfiguration___block_invoke_47;
+  v30[3] = &unk_1E7C3C778;
   v19 = v18;
-  v32 = v19;
-  [(FCGlobalCuratedESLArticlesOperation *)v17 setFeedItemHandler:v31];
-  v24 = MEMORY[0x1E69E9820];
-  v25 = 3221225472;
-  v26 = __90__FCNotificationPoolOperation__promiseSimulatedNotificationItemsFromESLWithConfiguration___block_invoke_2;
-  v27 = &unk_1E7C3C7C8;
-  v28 = v19;
-  v29 = v6;
-  v30 = v5;
+  v31 = v19;
+  [(FCGlobalCuratedESLArticlesOperation *)v17 setFeedItemHandler:v30];
+  v23 = MEMORY[0x1E69E9820];
+  v24 = 3221225472;
+  v25 = __90__FCNotificationPoolOperation__promiseSimulatedNotificationItemsFromESLWithConfiguration___block_invoke_2;
+  v26 = &unk_1E7C3C7C8;
+  v27 = v19;
+  v28 = v6;
+  v29 = v5;
   v20 = v5;
   v21 = v19;
   v22 = v6;
-  [(FCGlobalCuratedESLArticlesOperation *)v17 setCompletionHandler:&v24];
-  [*(a1 + 32) associateChildOperation:{v17, v24, v25, v26, v27}];
+  [(FCGlobalCuratedESLArticlesOperation *)v17 setCompletionHandler:&v23];
+  [*(a1 + 32) associateChildOperation:{v17, v23, v24, v25, v26}];
   [(FCOperation *)v17 start];
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __90__FCNotificationPoolOperation__promiseSimulatedNotificationItemsFromESLWithConfiguration___block_invoke_2(uint64_t a1, void *a2)

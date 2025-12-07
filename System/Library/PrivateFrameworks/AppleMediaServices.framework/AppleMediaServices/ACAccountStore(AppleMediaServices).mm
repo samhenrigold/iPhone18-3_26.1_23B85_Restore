@@ -496,7 +496,7 @@ LABEL_9:
 
 - (id)ams_fetchGrandSlamTokenForAccount:()AppleMediaServices withIdentifier:error:
 {
-  v6 = [self ams_fetchGrandSlamTokenForAccount:? withIdentifier:?];
+  v6 = [self ams_fetchGrandSlamTokenForAccount:a3 withIdentifier:a4];
   v7 = [v6 resultWithError:a5];
 
   return v7;
@@ -1470,7 +1470,7 @@ LABEL_19:
 
 - (id)ams_iTunesAccountForHomeWithIdentifier:()AppleMediaServices error:
 {
-  v5 = [self ams_mediaAccountForHomeWithIdentifier:?];
+  v5 = [self ams_mediaAccountForHomeWithIdentifier:a3];
   v6 = [v5 resultWithError:a4];
 
   return v6;
@@ -1497,7 +1497,7 @@ LABEL_19:
 
 - (uint64_t)ams_addCookiesForResponse:()AppleMediaServices account:error:
 {
-  v6 = [self ams_addCookiesForResponse:? account:?];
+  v6 = [self ams_addCookiesForResponse:a3 account:a4];
   v7 = [v6 resultWithError:a5];
 
   return v7;
@@ -1505,7 +1505,7 @@ LABEL_19:
 
 - (uint64_t)ams_addCookiesForResult:()AppleMediaServices account:error:
 {
-  v6 = [self ams_addCookiesForResult:? account:?];
+  v6 = [self ams_addCookiesForResult:a3 account:a4];
   v7 = [v6 resultWithError:a5];
 
   return v7;

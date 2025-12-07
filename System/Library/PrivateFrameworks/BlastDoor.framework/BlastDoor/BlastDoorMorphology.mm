@@ -8,9 +8,6 @@
 
 - (NSString)description
 {
-  v4 = *(&self->super.isa + OBJC_IVAR___BlastDoorMorphology_morphology);
-  v5 = *(&self->super.isa + OBJC_IVAR___BlastDoorMorphology_morphology + 2);
-  v6 = *&self->morphology[OBJC_IVAR___BlastDoorMorphology_morphology];
 
   sub_2146D9608();
   v2 = sub_2146D9588();

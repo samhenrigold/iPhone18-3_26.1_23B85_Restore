@@ -1,6 +1,8 @@
 @interface RMProtocolSynchronizationTokens
 + (id)requestWithTimestamp:(id)timestamp declarationsToken:(id)token;
+- (BOOL)loadFromDictionary:(id)dictionary serializationType:(signed __int16)type error:(id *)error;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)serializeWithType:(signed __int16)type;
 @end
 
 @implementation RMProtocolSynchronizationTokens
@@ -15,6 +17,38 @@
   [v7 setTokensDeclarationsToken:tokenCopy];
 
   return v7;
+}
+
+- (BOOL)loadFromDictionary:(id)dictionary serializationType:(signed __int16)type error:(id *)error
+{
+  typeCopy = type;
+  dictionaryCopy = dictionary;
+  if ([(RMModelPayloadBase *)self loadDateFromDictionary:dictionaryCopy usingKey:@"Timestamp" forKeyPath:@"tokensTimestamp" isRequired:1 defaultValue:0 serializationType:typeCopy error:error])
+  {
+    v9 = [(RMModelPayloadBase *)self loadStringFromDictionary:dictionaryCopy usingKey:@"DeclarationsToken" forKeyPath:@"tokensDeclarationsToken" isRequired:1 defaultValue:0 error:error];
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  return v9;
+}
+
+- (id)serializeWithType:(signed __int16)type
+{
+  typeCopy = type;
+  v5 = objc_opt_new();
+  tokensTimestamp = [(RMProtocolSynchronizationTokens *)self tokensTimestamp];
+  [(RMModelPayloadBase *)self serializeDateIntoDictionary:v5 usingKey:@"Timestamp" value:tokensTimestamp isRequired:1 defaultValue:0 serializationType:typeCopy];
+
+  tokensDeclarationsToken = [(RMProtocolSynchronizationTokens *)self tokensDeclarationsToken];
+  [(RMModelPayloadBase *)self serializeStringIntoDictionary:v5 usingKey:@"DeclarationsToken" value:tokensDeclarationsToken isRequired:1 defaultValue:0];
+
+  v8 = [v5 copy];
+
+  return v8;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

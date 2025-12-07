@@ -73,44 +73,48 @@
     v11 = swift_allocObject();
     *(v11 + 16) = v8;
     v8 = sub_2440B11B8;
-    if (!v10)
+    if (v10)
     {
-      goto LABEL_5;
-    }
-
-    goto LABEL_3;
-  }
-
-  v11 = 0;
-  if (v9)
-  {
 LABEL_3:
-    *(swift_allocObject() + 16) = v10;
-    v10 = sub_2440B11B0;
+      v12 = swift_allocObject();
+      *(v12 + 16) = v10;
+      v10 = sub_2440B11B0;
+      goto LABEL_6;
+    }
   }
 
-LABEL_5:
+  else
+  {
+    v11 = 0;
+    if (v9)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v12 = 0;
+LABEL_6:
   controllerCopy = controller;
   selfCopy = self;
   sub_2440B0B58(controller, v8, v11);
-  sub_243F7EE58(v10);
-  sub_243F7EE58(v8);
+  sub_243F7EE58(v10, v12);
+  sub_243F7EE58(v8, v11);
 }
 
 - (void)presentPassphraseViewController:(id)controller completionHandler:(id)handler reply:(id)reply
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDC0A50);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDC0A50, &qword_2440D5CB0);
   MEMORY[0x28223BE20](v6 - 8);
   v8 = &v16 - v7;
   selfCopy = self;
   v10 = sub_243F4E0C8();
-  sub_243F5F574(v10, v8, &qword_27EDC0A50);
+  sub_243F5F574(v10, v8, &qword_27EDC0A50, &qword_2440D5CB0);
   v11 = sub_2440D11E0();
   v12 = *(v11 - 8);
   if ((*(v12 + 48))(v8, 1, v11) == 1)
   {
 
-    sub_243F5EED4(v8, &qword_27EDC0A50);
+    sub_243F5EED4(v8, &qword_27EDC0A50, &qword_2440D5CB0);
   }
 
   else
@@ -131,18 +135,18 @@ LABEL_5:
 
 - (void)dismissPassphraseViewController
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDC0A50);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EDC0A50, &qword_2440D5CB0);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v13 - v4;
   selfCopy = self;
   v7 = sub_243F4E0C8();
-  sub_243F5F574(v7, v5, &qword_27EDC0A50);
+  sub_243F5F574(v7, v5, &qword_27EDC0A50, &qword_2440D5CB0);
   v8 = sub_2440D11E0();
   v9 = *(v8 - 8);
   if ((*(v9 + 48))(v5, 1, v8) == 1)
   {
 
-    sub_243F5EED4(v5, &qword_27EDC0A50);
+    sub_243F5EED4(v5, &qword_27EDC0A50, &qword_2440D5CB0);
   }
 
   else

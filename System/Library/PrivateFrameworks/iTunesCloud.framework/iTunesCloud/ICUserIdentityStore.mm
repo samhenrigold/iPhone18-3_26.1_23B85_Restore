@@ -1633,17 +1633,17 @@ void __47__ICUserIdentityStore__reloadForExternalChange__block_invoke(uint64_t a
   _Block_object_dispose(&v44, 8);
 }
 
-uint64_t __47__ICUserIdentityStore__reloadForExternalChange__block_invoke_56(uint64_t result)
+void *__47__ICUserIdentityStore__reloadForExternalChange__block_invoke_56(void *result)
 {
   v1 = result;
-  if (*(*(*(result + 40) + 8) + 24) == 1)
+  if (*(*(result[5] + 8) + 24) == 1)
   {
-    result = [*(*(result + 32) + 32) setActiveAccountHistory:*(*(result + 32) + 8)];
+    result = [*(result[4] + 32) setActiveAccountHistory:*(result[4] + 8)];
   }
 
-  if (*(*(*(v1 + 48) + 8) + 24) == 1)
+  if (*(*(v1[6] + 8) + 24) == 1)
   {
-    v2 = *(v1 + 32);
+    v2 = v1[4];
     v3 = *(v2 + 32);
     v4 = *(v2 + 16);
 

@@ -137,46 +137,46 @@ LABEL_8:
 
 - (id)dictionaryRepresentationWithLocalizer:(id)localizer
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   localizerCopy = localizer;
   v5 = MEMORY[0x1E695DF70];
   responseCodes = [(INIntentResponseCodableDescription *)self responseCodes];
   v7 = [v5 arrayWithCapacity:{objc_msgSend(responseCodes, "count")}];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   responseCodes2 = [(INIntentResponseCodableDescription *)self responseCodes];
-  v9 = [responseCodes2 countByEnumeratingWithState:&v25 objects:v31 count:16];
+  v9 = [responseCodes2 countByEnumeratingWithState:&v24 objects:v30 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v26;
+    v11 = *v25;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v26 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(responseCodes2);
         }
 
-        v13 = [*(*(&v25 + 1) + 8 * i) dictionaryRepresentationWithLocalizer:localizerCopy];
+        v13 = [*(*(&v24 + 1) + 8 * i) dictionaryRepresentationWithLocalizer:localizerCopy];
         [v7 addObject:v13];
       }
 
-      v10 = [responseCodes2 countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v10 = [responseCodes2 countByEnumeratingWithState:&v24 objects:v30 count:16];
     }
 
     while (v10);
   }
 
-  v24.receiver = self;
-  v24.super_class = INIntentResponseCodableDescription;
-  v14 = [(INCodableDescription *)&v24 dictionaryRepresentationWithLocalizer:localizerCopy];
+  v23.receiver = self;
+  v23.super_class = INIntentResponseCodableDescription;
+  v14 = [(INCodableDescription *)&v23 dictionaryRepresentationWithLocalizer:localizerCopy];
   __OutputKey = [objc_opt_class() __OutputKey];
-  v29[0] = __OutputKey;
+  v28[0] = __OutputKey;
   _outputAttributeName = [(INIntentResponseCodableDescription *)self _outputAttributeName];
   null = _outputAttributeName;
   if (!_outputAttributeName)
@@ -184,11 +184,11 @@ LABEL_8:
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[0] = null;
+  v29[0] = null;
   __CodesKey = [objc_opt_class() __CodesKey];
-  v29[1] = __CodesKey;
-  v30[1] = v7;
-  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:2];
+  v28[1] = __CodesKey;
+  v29[1] = v7;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:2];
   v20 = [v14 if_dictionaryByAddingEntriesFromDictionary:v19];
 
   if (!_outputAttributeName)
@@ -197,48 +197,46 @@ LABEL_8:
 
   if_dictionaryWithNonEmptyValues = [v20 if_dictionaryWithNonEmptyValues];
 
-  v22 = *MEMORY[0x1E69E9840];
-
   return if_dictionaryWithNonEmptyValues;
 }
 
 - (void)updateWithDictionary:(id)dictionary
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v30.receiver = self;
-  v30.super_class = INIntentResponseCodableDescription;
-  [(INCodableDescription *)&v30 updateWithDictionary:dictionaryCopy];
+  v29.receiver = self;
+  v29.super_class = INIntentResponseCodableDescription;
+  [(INCodableDescription *)&v29 updateWithDictionary:dictionaryCopy];
   __OutputKey = [objc_opt_class() __OutputKey];
   v6 = [dictionaryCopy objectForKeyedSubscript:__OutputKey];
   [(INIntentResponseCodableDescription *)self _setOutputAttributeName:v6];
 
   v7 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   __CodesKey = [objc_opt_class() __CodesKey];
-  v24 = dictionaryCopy;
+  v23 = dictionaryCopy;
   v9 = [dictionaryCopy objectForKeyedSubscript:__CodesKey];
 
   obj = v9;
-  v10 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v27;
+    v12 = *v26;
     v13 = 100;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v27 != v12)
+        if (*v26 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v26 + 1) + 8 * i);
+        v15 = *(*(&v25 + 1) + 8 * i);
         v16 = objc_alloc_init(INIntentResponseCodableCode);
         [(INIntentResponseCodableCode *)v16 _setCodableDescription:self];
         [(INIntentResponseCodableCode *)v16 updateWithDictionary:v15];
@@ -269,14 +267,13 @@ LABEL_12:
         [v7 addObject:v16];
       }
 
-      v11 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v11 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v11);
   }
 
   [(INIntentResponseCodableDescription *)self setResponseCodes:v7];
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (INCodableAttribute)outputAttribute
@@ -299,7 +296,7 @@ LABEL_12:
 
 - (id)intentResponseCodeWithCode:(int64_t)code
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   intentResponseCodableCodes = self->_intentResponseCodableCodes;
   if (!intentResponseCodableCodes)
   {
@@ -308,32 +305,32 @@ LABEL_12:
     v6 = self->_intentResponseCodableCodes;
     self->_intentResponseCodableCodes = v5;
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v7 = self->_responseCodes;
-    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v8 = [(NSArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v21;
+      v10 = *v20;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v21 != v10)
+          if (*v20 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v20 + 1) + 8 * i);
+          v12 = *(*(&v19 + 1) + 8 * i);
           v13 = self->_intentResponseCodableCodes;
           v14 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v12, "value")}];
           [(NSMutableDictionary *)v13 setObject:v12 forKeyedSubscript:v14];
         }
 
-        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v9 = [(NSArray *)v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v9);
@@ -345,8 +342,6 @@ LABEL_12:
 
   v15 = [MEMORY[0x1E696AD98] numberWithInteger:code];
   v16 = [(NSMutableDictionary *)intentResponseCodableCodes objectForKeyedSubscript:v15];
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

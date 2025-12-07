@@ -17,10 +17,12 @@
 - (int)_pairVerifyNext:(HTTPMessagePrivate *)next;
 - (int)_pairVerifyStart;
 - (int)_setupClient:(id)client;
+- (int)_startBonjourWithTimeout:(int)timeout handler:(id)handler;
 - (int)_timeoutTimerStart:(int)start block:(id)block;
 - (void)_applyConfigCompletion:(HTTPMessagePrivate *)completion;
 - (void)_findDevicePostConfigEvent:(unsigned int)event info:(id)info;
 - (void)_findDevicePreConfigEvent:(unsigned int)event info:(id)info;
+- (void)_handleError:(int)error;
 - (void)_logEnded;
 - (void)_postConfigCheckCompletion:(HTTPMessagePrivate *)completion;
 - (void)_postConfigCheckStart:(id)start;
@@ -28,6 +30,7 @@
 - (void)_postProgress:(int)progress info:(id)info;
 - (void)_postProgress:(int)progress withResponse:(id)response;
 - (void)_start;
+- (void)_stop:(int)_stop;
 - (void)_trySetupCode:(id)code;
 - (void)dealloc;
 - (void)resumePostConfig;
@@ -75,9 +78,154 @@
   return v13;
 }
 
+- (int)_startBonjourWithTimeout:(int)timeout handler:(id)handler
+{
+  v4 = *&timeout;
+  handlerCopy = handler;
+  if (!self->_supportsHAP2)
+  {
+    p_airplayBrowser = &self->_airplayBrowser;
+    if (self->_airplayBrowser)
+    {
+      BonjourBrowser_Stop();
+      CFRelease(*p_airplayBrowser);
+      *p_airplayBrowser = 0;
+    }
+
+    v8 = BonjourBrowser_Create();
+    if (v8)
+    {
+      goto LABEL_20;
+    }
+
+    BonjourBrowser_SetDispatchQueue();
+    BonjourBrowser_SetEventHandlerBlock();
+    v8 = BonjourBrowser_Start();
+    if (v8)
+    {
+      goto LABEL_20;
+    }
+
+    selfCopy = self;
+
+    p_raopBrowser = &selfCopy->_raopBrowser;
+    if (selfCopy->_raopBrowser)
+    {
+      BonjourBrowser_Stop();
+      CFRelease(*p_raopBrowser);
+      *p_raopBrowser = 0;
+    }
+
+    v8 = BonjourBrowser_Create();
+    if (v8)
+    {
+      goto LABEL_20;
+    }
+
+    BonjourBrowser_SetDispatchQueue();
+    BonjourBrowser_SetEventHandlerBlock();
+    v8 = BonjourBrowser_Start();
+    if (v8)
+    {
+      goto LABEL_20;
+    }
+
+    v14 = selfCopy;
+
+    p_mfiConfigBrowser = &v14->_mfiConfigBrowser;
+    if (v14->_mfiConfigBrowser)
+    {
+      BonjourBrowser_Stop();
+      CFRelease(*p_mfiConfigBrowser);
+      *p_mfiConfigBrowser = 0;
+    }
+
+    v8 = BonjourBrowser_Create();
+    if (v8)
+    {
+      goto LABEL_20;
+    }
+
+    BonjourBrowser_SetDispatchQueue();
+    BonjourBrowser_SetEventHandlerBlock();
+    v8 = BonjourBrowser_Start();
+    if (v8)
+    {
+      goto LABEL_20;
+    }
+  }
+
+  p_hapBrowser = &self->_hapBrowser;
+  if (self->_hapBrowser)
+  {
+    BonjourBrowser_Stop();
+    CFRelease(*p_hapBrowser);
+    *p_hapBrowser = 0;
+  }
+
+  v8 = BonjourBrowser_Create();
+  if (!v8)
+  {
+    BonjourBrowser_SetDispatchQueue();
+    BonjourBrowser_SetEventHandlerBlock();
+    v8 = BonjourBrowser_Start();
+    if (!v8)
+    {
+      selfCopy2 = self;
+
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __53__EasyConfigDevice__startBonjourWithTimeout_handler___block_invoke;
+      v17[3] = &unk_278FBEBB8;
+      v17[4] = selfCopy2;
+      v10 = [(EasyConfigDevice *)selfCopy2 _timeoutTimerStart:v4 block:v17];
+      if (!v10)
+      {
+        goto LABEL_29;
+      }
+
+      goto LABEL_21;
+    }
+  }
+
+LABEL_20:
+  v10 = v8;
+LABEL_21:
+  if (self->_airplayBrowser)
+  {
+    BonjourBrowser_Stop();
+    CFRelease(self->_airplayBrowser);
+    self->_airplayBrowser = 0;
+  }
+
+  if (self->_raopBrowser)
+  {
+    BonjourBrowser_Stop();
+    CFRelease(self->_raopBrowser);
+    self->_raopBrowser = 0;
+  }
+
+  if (self->_mfiConfigBrowser)
+  {
+    BonjourBrowser_Stop();
+    CFRelease(self->_mfiConfigBrowser);
+    self->_mfiConfigBrowser = 0;
+  }
+
+  if (self->_hapBrowser)
+  {
+    BonjourBrowser_Stop();
+    CFRelease(self->_hapBrowser);
+    self->_hapBrowser = 0;
+  }
+
+LABEL_29:
+
+  return v10;
+}
+
 - (int)_setupClient:(id)client
 {
-  v15 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   p_httpClient = &self->_httpClient;
   if (self->_httpClient)
@@ -88,30 +236,15 @@
   }
 
   DNSName = HTTPClientCreate();
-  if (DNSName)
+  if (DNSName || (HTTPClientSetDispatchQueue(), HTTPClientSetFlags(), HTTPClientSetLogging(), (DNSName = BonjourDevice_GetDNSName()) != 0))
   {
-    goto LABEL_5;
-  }
-
-  httpClient = self->_httpClient;
-  internalQueue = self->_internalQueue;
-  HTTPClientSetDispatchQueue();
-  v9 = self->_httpClient;
-  HTTPClientSetFlags();
-  v10 = self->_httpClient;
-  HTTPClientSetLogging();
-  DNSName = BonjourDevice_GetDNSName();
-  if (DNSName)
-  {
-LABEL_5:
-    v11 = DNSName;
+    v7 = DNSName;
   }
 
   else
   {
-    v14 = *p_httpClient;
-    v11 = HTTPClientSetDestination();
-    if (!v11)
+    v7 = HTTPClientSetDestination();
+    if (!v7)
     {
       goto LABEL_8;
     }
@@ -126,8 +259,7 @@ LABEL_5:
 
 LABEL_8:
 
-  v12 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v7;
 }
 
 - (void)_postProgress:(int)progress withResponse:(id)response
@@ -147,15 +279,15 @@ LABEL_8:
 
 void __47__EasyConfigDevice__postProgress_withResponse___block_invoke(uint64_t a1)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 496);
   if (v2)
   {
     v3 = *(a1 + 48);
     v4 = *(a1 + 40);
-    v15 = @"EasyConfigKey_Response";
-    v16[0] = v4;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = @"EasyConfigKey_Response";
+    v15[0] = v4;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     (*(v2 + 16))(v2, v3, v5);
   }
 
@@ -168,15 +300,13 @@ void __47__EasyConfigDevice__postProgress_withResponse___block_invoke(uint64_t a
 
   v8 = [MEMORY[0x277CCAB98] defaultCenter];
   v9 = *(a1 + 32);
-  v13[0] = @"EasyConfigKey_Progress";
+  v12[0] = @"EasyConfigKey_Progress";
   v10 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48)];
-  v13[1] = @"EasyConfigKey_Response";
-  v14[0] = v10;
-  v14[1] = *(a1 + 40);
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v12[1] = @"EasyConfigKey_Response";
+  v13[0] = v10;
+  v13[1] = *(a1 + 40);
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
   [v8 postNotificationName:@"EasyConfigDeviceProgressNotification" object:v9 userInfo:v11];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postProgress:(int)progress info:(id)info
@@ -196,7 +326,7 @@ void __47__EasyConfigDevice__postProgress_withResponse___block_invoke(uint64_t a
 
 void __39__EasyConfigDevice__postProgress_info___block_invoke(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 496);
   if (v2)
   {
@@ -212,13 +342,11 @@ void __39__EasyConfigDevice__postProgress_info___block_invoke(uint64_t a1)
 
   v5 = [MEMORY[0x277CCAB98] defaultCenter];
   v6 = *(a1 + 32);
-  v10 = @"EasyConfigKey_Progress";
+  v9 = @"EasyConfigKey_Progress";
   v7 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48)];
-  v11[0] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   [v5 postNotificationName:@"EasyConfigDeviceProgressNotification" object:v6 userInfo:v8];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postNote:(id)note info:(id)info
@@ -263,12 +391,78 @@ void __35__EasyConfigDevice__postNote_info___block_invoke(void *a1)
   findPostConfigFoundTime = self->_findPostConfigFoundTime;
   postConfigCheckStartTime = self->_postConfigCheckStartTime;
   postConfigCheckFinishTime = self->_postConfigCheckFinishTime;
-  CFAbsoluteTimeGetCurrent();
-  if (gLogCategory_EasyConfigDevice <= 50 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
+  Current = CFAbsoluteTimeGetCurrent();
+  if (gLogCategory_EasyConfigDevice <= 50)
   {
-    firstErr = self->_firstErr;
-    deviceIdentifier = self->_deviceIdentifier;
-    LogPrintF();
+    v12 = Current;
+    if (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize())
+    {
+      LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _logEnded]", 50, "Configuration of device 0x%012llX ended: FindPre=%.3f, Auth=%.3f, Apply=%.3f, FindPost=%.3f, Check=%.3f, Full=%.3f seconds, Status=%#m\n", self->_deviceIdentifier, findPreConfigFoundTime - findPreConfigStartTime, securityFinishTime - securityStartTime, applyConfigFinishTime - applyConfigStartTime, findPostConfigFoundTime - findPostConfigStartTime, postConfigCheckFinishTime - postConfigCheckStartTime, v12 - v16);
+    }
+  }
+}
+
+- (void)_handleError:(int)error
+{
+  v3 = *&error;
+  v5 = CFAbsoluteTimeGetCurrent() - self->_configStartTime;
+  if (gLogCategory_EasyConfigDevice <= 40 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
+  {
+    state = self->_state;
+    v7 = "configuring";
+    v8 = "?";
+    if (state == 3)
+    {
+      v8 = "post-configuring";
+    }
+
+    if (state != 2)
+    {
+      v7 = v8;
+    }
+
+    if (state == 1)
+    {
+      v9 = "pre-configuring";
+    }
+
+    else
+    {
+      v9 = v7;
+    }
+
+    LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _handleError:]", 40, "### Error while %s after %.0f seconds: %#m\n", v9, v5);
+  }
+
+  if (!self->_firstErr)
+  {
+    self->_firstErr = v3;
+  }
+
+  if ((self->_state - 1) <= 1)
+  {
+    if (v5 >= 120.0)
+    {
+      if (gLogCategory_EasyConfigDevice <= 60 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
+      {
+        LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _handleError:]", 60, "### Giving up on overall config after %.0f seconds\n", v5);
+      }
+    }
+
+    else
+    {
+      v10[0] = MEMORY[0x277D85DD0];
+      v10[1] = 3221225472;
+      v10[2] = __33__EasyConfigDevice__handleError___block_invoke;
+      v10[3] = &unk_278FBEBB8;
+      v10[4] = self;
+      v3 = [(EasyConfigDevice *)self _timeoutTimerStart:5 block:v10];
+    }
+  }
+
+  if (v3)
+  {
+    [(EasyConfigDevice *)self _stop:v3];
   }
 }
 
@@ -283,11 +477,10 @@ void __35__EasyConfigDevice__postNote_info___block_invoke(void *a1)
     {
       if (gLogCategory_EasyConfigDevice <= 30 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
       {
-        deviceIdentifier = self->_deviceIdentifier;
-        LogPrintF();
+        LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _postConfigCheckCompletion:]", 30, "Performed post-config check with device 0x%012llX\n", self->_deviceIdentifier);
       }
 
-      [(EasyConfigDevice *)self _postProgress:70 info:0, deviceIdentifier];
+      [(EasyConfigDevice *)self _postProgress:70 info:0];
       [(EasyConfigDevice *)self _postProgress:100 info:0];
 
       [(EasyConfigDevice *)self _stop:0];
@@ -303,8 +496,7 @@ void __35__EasyConfigDevice__postNote_info___block_invoke(void *a1)
 
   if (gLogCategory_EasyConfigDevice <= 60 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
   {
-    v8 = self->_deviceIdentifier;
-    LogPrintF();
+    LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _postConfigCheckCompletion:]", 60, "### Perform post-config check with device 0x%012llX failed: %#m\n", self->_deviceIdentifier);
   }
 
   [(EasyConfigDevice *)self _handleError:var21];
@@ -312,18 +504,17 @@ void __35__EasyConfigDevice__postNote_info___block_invoke(void *a1)
 
 - (void)_postConfigCheckStart:(id)start
 {
-  v14 = 0;
+  v9 = 0;
   startCopy = start;
   Current = CFAbsoluteTimeGetCurrent();
   self->_postConfigCheckStartTime = Current;
   self->_postConfigCheckFinishTime = Current;
   if (gLogCategory_EasyConfigDevice <= 30 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
   {
-    deviceIdentifier = self->_deviceIdentifier;
-    LogPrintF();
+    LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _postConfigCheckStart:]", 30, "Performing post-config check with device 0x%012llX\n", self->_deviceIdentifier);
   }
 
-  [(EasyConfigDevice *)self _postProgress:60 info:0, deviceIdentifier];
+  [(EasyConfigDevice *)self _postProgress:60 info:0];
   v6 = [(EasyConfigDevice *)self _setupClient:startCopy];
 
   if (!v6)
@@ -332,48 +523,42 @@ void __35__EasyConfigDevice__postNote_info___block_invoke(void *a1)
     if (!v7)
     {
       HTTPHeader_InitRequest();
-      HTTPHeader_SetField();
-      v13[5] = MEMORY[0x277D85DD0];
-      v13[6] = 3221225472;
-      v13[7] = __42__EasyConfigDevice__postConfigCheckStart___block_invoke;
-      v13[8] = &unk_278FBEC30;
-      v13[9] = self;
+      HTTPHeader_SetField((v9 + 24), "Content-Length", "0");
+      v8[5] = MEMORY[0x277D85DD0];
+      v8[6] = 3221225472;
+      v8[7] = __42__EasyConfigDevice__postConfigCheckStart___block_invoke;
+      v8[8] = &unk_278FBEC30;
+      v8[9] = self;
       HTTPMessageSetCompletionBlock();
-      v14[8512] = 1;
-      httpClient = self->_httpClient;
+      v9[8512] = 1;
       v7 = HTTPClientSendMessage();
       if (!v7)
       {
-        v13[0] = MEMORY[0x277D85DD0];
-        v13[1] = 3221225472;
-        v13[2] = __42__EasyConfigDevice__postConfigCheckStart___block_invoke_2;
-        v13[3] = &unk_278FBEBB8;
-        v13[4] = self;
-        v7 = [(EasyConfigDevice *)self _timeoutTimerStart:20 block:v13];
+        v8[0] = MEMORY[0x277D85DD0];
+        v8[1] = 3221225472;
+        v8[2] = __42__EasyConfigDevice__postConfigCheckStart___block_invoke_2;
+        v8[3] = &unk_278FBEBB8;
+        v8[4] = self;
+        v7 = [(EasyConfigDevice *)self _timeoutTimerStart:20 block:v8];
       }
     }
 
     v6 = v7;
   }
 
-  if (v14)
+  if (v9)
   {
-    CFRelease(v14);
+    CFRelease(v9);
   }
 
   if (v6)
   {
     if (gLogCategory_EasyConfigDevice <= 60 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
     {
-      v11 = self->_deviceIdentifier;
-      LogPrintF();
-      [(EasyConfigDevice *)self _handleError:v6, v11, v6];
+      LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _postConfigCheckStart:]", 60, "### Perform post-config check with device 0x%012llX start failed: %#m\n", self->_deviceIdentifier);
     }
 
-    else
-    {
-      [(EasyConfigDevice *)self _handleError:v6, v10, v12];
-    }
+    [(EasyConfigDevice *)self _handleError:v6];
   }
 }
 
@@ -400,10 +585,7 @@ void __35__EasyConfigDevice__postNote_info___block_invoke(void *a1)
     {
       if (gLogCategory_EasyConfigDevice <= 40 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
       {
-        v13 = Int64;
-        v15 = v9;
-        deviceIdentifier = self->_deviceIdentifier;
-        LogPrintF();
+        LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _findDevicePostConfigEvent:info:]", 40, "Allowing post-config device 0x%012llX with same seed %u, flags 0x%X\n", self->_deviceIdentifier, Int64, v9);
       }
 
 LABEL_21:
@@ -438,25 +620,17 @@ LABEL_21:
 
       if (gLogCategory_EasyConfigDevice <= 30 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
       {
-        configSeed = self->_configSeed;
-        v12 = self->_deviceIdentifier;
-        LogPrintF();
-        [(EasyConfigDevice *)self _postConfigCheckStart:infoCopy, v12, configSeed, Int64];
+        LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _findDevicePostConfigEvent:info:]", 30, "Found post-config device 0x%012llX (%u->%u)\n", self->_deviceIdentifier, self->_configSeed, Int64);
       }
 
-      else
-      {
-        [(EasyConfigDevice *)self _postConfigCheckStart:infoCopy, deviceIdentifier, v13, v15];
-      }
-
+      [(EasyConfigDevice *)self _postConfigCheckStart:infoCopy];
       goto LABEL_34;
     }
   }
 
   if (gLogCategory_EasyConfigDevice <= 40 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
   {
-    v11 = self->_deviceIdentifier;
-    LogPrintF();
+    LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _findDevicePostConfigEvent:info:]", 40, "Ignoring post-config device 0x%012llX with same seed %u (%@)\n", self->_deviceIdentifier, Int64, v8);
   }
 
 LABEL_34:
@@ -468,34 +642,30 @@ LABEL_34:
   Current = CFAbsoluteTimeGetCurrent();
   self->_findPostConfigStartTime = Current;
   self->_findPostConfigFoundTime = Current;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __46__EasyConfigDevice__findDevicePostConfigStart__block_invoke;
-  v9[3] = &unk_278FBEC08;
-  v9[4] = self;
-  v4 = [(EasyConfigDevice *)self _startBonjourWithTimeout:60 handler:v9];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __46__EasyConfigDevice__findDevicePostConfigStart__block_invoke;
+  v6[3] = &unk_278FBEC08;
+  v6[4] = self;
+  v4 = [(EasyConfigDevice *)self _startBonjourWithTimeout:60 handler:v6];
   if (v4)
   {
     if (gLogCategory_EasyConfigDevice <= 60 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
     {
-      deviceIdentifier = self->_deviceIdentifier;
-      v8 = v4;
-      LogPrintF();
+      LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _findDevicePostConfigStart]", 60, "### Start search for post-config device 0x%012llX failed: %#m\n", self->_deviceIdentifier);
     }
 
-    [(EasyConfigDevice *)self _handleError:v4, deviceIdentifier, v8];
-  }
-
-  else if (gLogCategory_EasyConfigDevice <= 30 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
-  {
-    v7 = self->_deviceIdentifier;
-    LogPrintF();
-    [(EasyConfigDevice *)self _postProgress:50 info:0, v7];
+    [(EasyConfigDevice *)self _handleError:v4];
   }
 
   else
   {
-    [(EasyConfigDevice *)self _postProgress:50 info:0, deviceIdentifier];
+    if (gLogCategory_EasyConfigDevice <= 30 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _findDevicePostConfigStart]", 30, "Started search for post-config device 0x%012llX\n", self->_deviceIdentifier);
+    }
+
+    [(EasyConfigDevice *)self _postProgress:50 info:0];
   }
 
   return v4;
@@ -503,11 +673,11 @@ LABEL_34:
 
 - (void)_applyConfigCompletion:(HTTPMessagePrivate *)completion
 {
-  v22 = 0;
+  v14 = 0;
   var21 = completion->var21;
   if (var21)
   {
-    v22 = var21;
+    v14 = var21;
   }
 
   else
@@ -515,24 +685,22 @@ LABEL_34:
     var12 = completion->var2.var12;
     if ((var12 - 300) <= 0xFFFFFF9B)
     {
-      v17 = var12 + 196608;
-      var21 = (v17 + 3392);
-      v22 = v17 + 3392;
-      if (v17 == -3392)
+      v13 = var12 + 196608;
+      var21 = (v13 + 3392);
+      v14 = v13 + 3392;
+      if (v13 == -3392)
       {
         return;
       }
     }
 
-    else if (!self->_mfiSAP || (v7 = completion->var6, v8 = completion->var7, var21 = MFiSAP_Decrypt(), (v22 = var21) == 0))
+    else if (!self->_mfiSAP || (var21 = MFiSAP_Decrypt(), (v14 = var21) == 0))
     {
-      var6 = completion->var6;
-      var7 = completion->var7;
       CFDictionaryGetTypeID();
       DictionaryFromTLV = CFCreateWithPlistBytes();
       if (!DictionaryFromTLV)
       {
-        DictionaryFromTLV = EasyConfigCreateDictionaryFromTLV(completion->var6, completion->var7, &v22);
+        DictionaryFromTLV = EasyConfigCreateDictionaryFromTLV(completion->var6, completion->var7, &v14);
         if (!DictionaryFromTLV)
         {
           goto LABEL_20;
@@ -545,30 +713,29 @@ LABEL_34:
       self->_applyConfigFinishTime = CFAbsoluteTimeGetCurrent();
       if (gLogCategory_EasyConfigDevice <= 30 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
       {
-        deviceIdentifier = self->_deviceIdentifier;
-        LogPrintF();
+        LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _applyConfigCompletion:]", 30, "Applied configuration to device 0x%012llX\n", self->_deviceIdentifier);
       }
 
-      [(EasyConfigDevice *)self _postProgress:40 withResponse:self->_configResponse, deviceIdentifier];
+      [(EasyConfigDevice *)self _postProgress:40 withResponse:self->_configResponse];
       if (self->_pausesAfterApply)
       {
         timeoutTimer = self->_timeoutTimer;
         if (timeoutTimer)
         {
-          v14 = timeoutTimer;
-          dispatch_source_cancel(v14);
-          v15 = self->_timeoutTimer;
+          v10 = timeoutTimer;
+          dispatch_source_cancel(v10);
+          v11 = self->_timeoutTimer;
           self->_timeoutTimer = 0;
         }
 
         if (gLogCategory_EasyConfigDevice <= 30 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _applyConfigCompletion:]", 30, "Pausing configuration process until manually resumed\n");
         }
 
 LABEL_20:
-        var21 = v22;
-        if (!v22)
+        var21 = v14;
+        if (!v14)
         {
           return;
         }
@@ -577,7 +744,7 @@ LABEL_20:
       }
 
       var21 = [(EasyConfigDevice *)self _findDevicePostConfigStart];
-      v22 = var21;
+      v14 = var21;
       if (!var21)
       {
         return;
@@ -586,31 +753,29 @@ LABEL_20:
   }
 
 LABEL_21:
-  if (gLogCategory_EasyConfigDevice <= 60 && (gLogCategory_EasyConfigDevice != -1 || (v16 = _LogCategory_Initialize(), var21 = v22, v16)))
+  if (gLogCategory_EasyConfigDevice <= 60)
   {
-    v19 = self->_deviceIdentifier;
-    v21 = var21;
-    LogPrintF();
-    [(EasyConfigDevice *)self _handleError:v22, v19, v21];
+    if (gLogCategory_EasyConfigDevice != -1 || (v12 = _LogCategory_Initialize(), var21 = v14, v12))
+    {
+      LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _applyConfigCompletion:]", 60, "### Apply configuration to device 0x%012llX failed: %#m\n", self->_deviceIdentifier);
+      var21 = v14;
+    }
   }
 
-  else
-  {
-    [(EasyConfigDevice *)self _handleError:var21, deviceIdentifier, v20];
-  }
+  [(EasyConfigDevice *)self _handleError:var21];
 }
 
 - (int)_applyConfigStart
 {
-  v21 = 0;
-  v19 = 0;
-  v20 = 0;
+  v16 = 0;
+  v14 = 0;
+  v15 = 0;
   self->_applyConfigStartTime = CFAbsoluteTimeGetCurrent();
   if (self->_supportsTLV)
   {
-    v3 = EasyConfigCreateTLVfromDictionary(self->_configuration, &v19, &v21);
+    v3 = EasyConfigCreateTLVfromDictionary(self->_configuration, &v14, &v16);
     v4 = 0;
-    if (v21)
+    if (v16)
     {
       v5 = v3;
       goto LABEL_8;
@@ -626,70 +791,65 @@ LABEL_21:
     v4 = v6;
     if (!v6)
     {
-      v21 = -6732;
+      v16 = -6732;
       goto LABEL_10;
     }
 
     [v6 bytes];
     v5 = 0;
-    v19 = [v4 length];
+    v14 = [v4 length];
     v7 = "application/octet-stream";
   }
 
-  v21 = HTTPMessageCreate();
-  if (!v21)
+  v16 = HTTPMessageCreate();
+  if (!v16)
   {
     HTTPHeader_InitRequest();
-    HTTPHeader_SetField();
-    deviceIdentifier = v7;
-    HTTPHeader_SetField();
+    HTTPHeader_SetField(v15 + 24, "Content-Length", "%zu", v14);
+    HTTPHeader_SetField(v15 + 24, "Content-Type", "%s", v7);
     if (self->_mfiSAP)
     {
-      v21 = HTTPMessageSetBodyLength();
-      if (v21)
+      v16 = HTTPMessageSetBodyLength();
+      if (v16)
       {
         goto LABEL_8;
       }
 
-      mfiSAP = self->_mfiSAP;
-      v11 = v20[1065];
-      v12 = MFiSAP_Encrypt();
+      v10 = MFiSAP_Encrypt();
     }
 
     else
     {
-      v12 = HTTPMessageSetBody();
+      v10 = HTTPMessageSetBody();
     }
 
-    v21 = v12;
-    if (!v12)
+    v16 = v10;
+    if (!v10)
     {
-      v18[5] = MEMORY[0x277D85DD0];
-      v18[6] = 3221225472;
-      v18[7] = __37__EasyConfigDevice__applyConfigStart__block_invoke;
-      v18[8] = &unk_278FBEC30;
-      v18[9] = self;
+      v13[5] = MEMORY[0x277D85DD0];
+      v13[6] = 3221225472;
+      v13[7] = __37__EasyConfigDevice__applyConfigStart__block_invoke;
+      v13[8] = &unk_278FBEC30;
+      v13[9] = self;
       HTTPMessageSetCompletionBlock();
-      *(v20 + 8512) = 1;
-      httpClient = self->_httpClient;
-      v21 = HTTPClientSendMessage();
-      if (!v21)
+      *(v15 + 8512) = 1;
+      v16 = HTTPClientSendMessage();
+      if (!v16)
       {
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = __37__EasyConfigDevice__applyConfigStart__block_invoke_2;
-        v18[3] = &unk_278FBEBB8;
-        v18[4] = self;
-        v21 = [(EasyConfigDevice *)self _timeoutTimerStart:20 block:v18, v7];
-        if (!v21)
+        v13[0] = MEMORY[0x277D85DD0];
+        v13[1] = 3221225472;
+        v13[2] = __37__EasyConfigDevice__applyConfigStart__block_invoke_2;
+        v13[3] = &unk_278FBEBB8;
+        v13[4] = self;
+        v16 = [(EasyConfigDevice *)self _timeoutTimerStart:20 block:v13];
+        if (!v16)
         {
           if (gLogCategory_EasyConfigDevice <= 30 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
           {
-            deviceIdentifier = self->_deviceIdentifier;
-            LogPrintF();
+            LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _applyConfigStart]", 30, "Applying configuration to device 0x%012llX\n", self->_deviceIdentifier);
           }
 
-          [(EasyConfigDevice *)self _postProgress:30 info:0, deviceIdentifier];
+          [(EasyConfigDevice *)self _postProgress:30 info:0];
         }
       }
     }
@@ -702,27 +862,25 @@ LABEL_8:
   }
 
 LABEL_10:
-  if (v20)
+  if (v15)
   {
-    CFRelease(v20);
+    CFRelease(v15);
   }
 
-  v8 = v21;
-  if (v21)
+  v8 = v16;
+  if (v16)
   {
     if (gLogCategory_EasyConfigDevice <= 60)
     {
-      if (gLogCategory_EasyConfigDevice != -1 || (v13 = _LogCategory_Initialize(), v8 = v21, v13))
+      if (gLogCategory_EasyConfigDevice != -1 || (v11 = _LogCategory_Initialize(), v8 = v16, v11))
       {
-        deviceIdentifier = self->_deviceIdentifier;
-        v17 = v8;
-        LogPrintF();
-        v8 = v21;
+        LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _applyConfigStart]", 60, "### Apply configuration to device 0x%012llX start failed: %#m\n", self->_deviceIdentifier);
+        v8 = v16;
       }
     }
 
-    [(EasyConfigDevice *)self _handleError:v8, deviceIdentifier, v17];
-    v9 = v21;
+    [(EasyConfigDevice *)self _handleError:v8];
+    v9 = v16;
   }
 
   else
@@ -735,67 +893,60 @@ LABEL_10:
 
 - (int)_pairVerifyNext:(HTTPMessagePrivate *)next
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if (next)
+  v8 = *MEMORY[0x277D85DE8];
+  if (!next)
   {
-    var21 = next->var21;
-    if (var21)
-    {
-      goto LABEL_7;
-    }
-
-    var12 = next->var2.var12;
-    if ((var12 - 300) <= 0xFFFFFF9B)
-    {
-      var21 = (var12 + 200000);
-      goto LABEL_7;
-    }
-
-    var6 = next->var6;
-    var7 = next->var7;
+    goto LABEL_4;
   }
 
-  pairingSession = self->_pairingSession;
-  v9 = PairingSessionExchange();
-  if (v9)
+  var21 = next->var21;
+  if (var21)
   {
-    var21 = v9;
+    goto LABEL_6;
+  }
+
+  var12 = next->var2.var12;
+  if ((var12 - 300) <= 0xFFFFFF9B)
+  {
+    var21 = (var12 + 200000);
   }
 
   else
   {
-    var21 = HTTPMessageCreate();
-    if (!var21)
+LABEL_4:
+    v6 = PairingSessionExchange();
+    if (v6)
     {
-      v13 = "pair-verify";
-      HTTPHeader_InitRequestF();
-      var21 = HTTPMessageSetBody();
-      if (!var21)
-      {
-        HTTPMessageSetCompletionBlock();
-        httpClient = self->_httpClient;
-        var21 = HTTPClientSendMessage();
-      }
-    }
-  }
-
-LABEL_7:
-  if (var21)
-  {
-    if (gLogCategory_EasyConfigDevice <= 60 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
-    {
-      deviceIdentifier = self->_deviceIdentifier;
-      LogPrintF();
-      [(EasyConfigDevice *)self _handleError:var21, deviceIdentifier, var21];
+      var21 = v6;
     }
 
     else
     {
-      [(EasyConfigDevice *)self _handleError:var21, v13, v15];
+      var21 = HTTPMessageCreate();
+      if (!var21)
+      {
+        HTTPHeader_InitRequestF(24, "HTTP/1.1", "POST", "/%s", "pair-verify");
+        var21 = HTTPMessageSetBody();
+        if (!var21)
+        {
+          HTTPMessageSetCompletionBlock();
+          var21 = HTTPClientSendMessage();
+        }
+      }
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
+LABEL_6:
+  if (var21)
+  {
+    if (gLogCategory_EasyConfigDevice <= 60 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _pairVerifyNext:]", 60, "### Pair-verify with device 0x%012llX failed: %#m\n", self->_deviceIdentifier);
+    }
+
+    [(EasyConfigDevice *)self _handleError:var21];
+  }
+
   return var21;
 }
 
@@ -803,187 +954,170 @@ LABEL_7:
 {
   if (gLogCategory_EasyConfigDevice <= 30 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
   {
-    deviceIdentifier = self->_deviceIdentifier;
-    LogPrintF();
+    LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _pairVerifyStart]", 30, "Starting pair-verify with device 0x%012llX\n", self->_deviceIdentifier);
   }
 
-  p_pairingSession = &self->_pairingSession;
   pairingSession = self->_pairingSession;
   if (pairingSession)
   {
     CFRelease(pairingSession);
-    *p_pairingSession = 0;
+    self->_pairingSession = 0;
   }
 
-  v15 = 0u;
-  memset(v16, 0, sizeof(v16));
-  v14[5] = self;
+  v9 = 0u;
+  memset(v10, 0, sizeof(v10));
+  v8[5] = self;
   if (self->_hasPairingDelegate)
   {
-    *(v16 + 8) = *&self->_pairingDelegate.copyIdentity_f;
-    *(&v16[1] + 1) = self->_pairingDelegate.savePeer_f;
+    *(v10 + 8) = *&self->_pairingDelegate.copyIdentity_f;
+    *(&v10[1] + 1) = self->_pairingDelegate.savePeer_f;
   }
 
-  v5 = PairingSessionCreate();
-  if (v5)
+  v4 = PairingSessionCreate();
+  if (v4)
   {
     goto LABEL_17;
   }
 
   if (self->_supportsHAP || self->_supportsHAP2 || self->_supportsPairSetup)
   {
-    v6 = *p_pairingSession;
-    LODWORD(deviceIdentifier) = 1;
+    LODWORD(v7) = 1;
     PairingSessionSetKeychainInfo();
   }
 
   if (self->_pairVerifyFlags)
   {
-    v7 = *p_pairingSession;
     PairingSessionSetFlags();
   }
 
-  v8 = self->_pairingSession;
   PairingSessionSetLogging();
-  v5 = [(EasyConfigDevice *)self _pairVerifyNext:0];
-  if (v5)
+  v4 = [(EasyConfigDevice *)self _pairVerifyNext:0];
+  if (v4)
   {
 LABEL_17:
-    v9 = v5;
+    v5 = v4;
   }
 
   else
   {
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __36__EasyConfigDevice__pairVerifyStart__block_invoke;
-    v14[3] = &unk_278FBEBB8;
-    v14[4] = self;
-    v9 = [(EasyConfigDevice *)self _timeoutTimerStart:20 block:v14];
-    if (!v9)
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __36__EasyConfigDevice__pairVerifyStart__block_invoke;
+    v8[3] = &unk_278FBEBB8;
+    v8[4] = self;
+    v5 = [(EasyConfigDevice *)self _timeoutTimerStart:20 block:v8];
+    if (!v5)
     {
-      return v9;
+      return v5;
     }
   }
 
   if (gLogCategory_EasyConfigDevice <= 60 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
   {
-    v12 = self->_deviceIdentifier;
-    LogPrintF();
-    [(EasyConfigDevice *)self _handleError:v9, v12, v9];
+    LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _pairVerifyStart]", 60, "### Authenticate device 0x%012llX failed: %#m\n", self->_deviceIdentifier);
   }
 
-  else
-  {
-    [(EasyConfigDevice *)self _handleError:v9, deviceIdentifier, v13];
-  }
-
-  return v9;
+  [(EasyConfigDevice *)self _handleError:v5, v7];
+  return v5;
 }
 
 - (int)_pairSetupNext:(HTTPMessagePrivate *)next
 {
-  v19 = 0;
-  v20 = 0;
-  v18 = 0;
-  v17 = 0;
-  if (next)
+  v12 = 0;
+  v13 = 0;
+  v11 = 0;
+  v10 = 0;
+  if (!next)
   {
-    var21 = next->var21;
-    if (var21)
-    {
-      goto LABEL_12;
-    }
-
-    var12 = next->var2.var12;
-    if ((var12 - 300) <= 0xFFFFFF9B)
-    {
-      var21 = (var12 + 200000);
-      goto LABEL_12;
-    }
-
-    var6 = next->var6;
-    var7 = next->var7;
+    goto LABEL_4;
   }
 
-  pairingSession = self->_pairingSession;
-  v9 = PairingSessionExchange();
-  if (v9)
+  var21 = next->var21;
+  if (var21)
   {
-    if (v9 == -6771)
-    {
-      var21 = 0;
-    }
+    goto LABEL_11;
+  }
 
-    else
-    {
-      var21 = v9;
-    }
+  var12 = next->var2.var12;
+  if ((var12 - 300) <= 0xFFFFFF9B)
+  {
+    var21 = (var12 + 200000);
   }
 
   else
   {
-    v10 = HTTPMessageCreate();
-    if (!v10)
+LABEL_4:
+    v6 = PairingSessionExchange();
+    if (v6)
     {
-      v13 = "pair-setup";
-      HTTPHeader_InitRequestF();
-      v10 = HTTPMessageSetBody();
-      if (!v10)
+      if (v6 == -6771)
       {
-        v16[5] = MEMORY[0x277D85DD0];
-        v16[6] = 3221225472;
-        v16[7] = __35__EasyConfigDevice__pairSetupNext___block_invoke;
-        v16[8] = &unk_278FBEC30;
-        v16[9] = self;
-        HTTPMessageSetCompletionBlock();
-        httpClient = self->_httpClient;
-        v10 = HTTPClientSendMessage();
-        if (!v10)
-        {
-          if (self->_timeoutTimer)
-          {
-            var21 = 0;
-            goto LABEL_12;
-          }
+        var21 = 0;
+      }
 
-          v16[0] = MEMORY[0x277D85DD0];
-          v16[1] = 3221225472;
-          v16[2] = __35__EasyConfigDevice__pairSetupNext___block_invoke_2;
-          v16[3] = &unk_278FBEBB8;
-          v16[4] = self;
-          v10 = [(EasyConfigDevice *)self _timeoutTimerStart:20 block:v16, "pair-setup"];
-        }
+      else
+      {
+        var21 = v6;
       }
     }
 
-    var21 = v10;
+    else
+    {
+      v7 = HTTPMessageCreate();
+      if (!v7)
+      {
+        HTTPHeader_InitRequestF(v10 + 24, "HTTP/1.1", "POST", "/%s", "pair-setup");
+        v7 = HTTPMessageSetBody();
+        if (!v7)
+        {
+          v9[5] = MEMORY[0x277D85DD0];
+          v9[6] = 3221225472;
+          v9[7] = __35__EasyConfigDevice__pairSetupNext___block_invoke;
+          v9[8] = &unk_278FBEC30;
+          v9[9] = self;
+          HTTPMessageSetCompletionBlock();
+          v7 = HTTPClientSendMessage();
+          if (!v7)
+          {
+            if (self->_timeoutTimer)
+            {
+              var21 = 0;
+              goto LABEL_11;
+            }
+
+            v9[0] = MEMORY[0x277D85DD0];
+            v9[1] = 3221225472;
+            v9[2] = __35__EasyConfigDevice__pairSetupNext___block_invoke_2;
+            v9[3] = &unk_278FBEBB8;
+            v9[4] = self;
+            v7 = [(EasyConfigDevice *)self _timeoutTimerStart:20 block:v9];
+          }
+        }
+      }
+
+      var21 = v7;
+    }
   }
 
-LABEL_12:
-  if (v17)
+LABEL_11:
+  if (v10)
   {
-    CFRelease(v17);
+    CFRelease(v10);
   }
 
-  if (v20)
+  if (v13)
   {
-    free(v20);
+    free(v13);
   }
 
   if (var21)
   {
     if (gLogCategory_EasyConfigDevice <= 60 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
     {
-      deviceIdentifier = self->_deviceIdentifier;
-      LogPrintF();
-      [(EasyConfigDevice *)self _handleError:var21, deviceIdentifier, var21];
+      LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _pairSetupNext:]", 60, "### Pair-setup with device 0x%012llX failed: %#m\n", self->_deviceIdentifier);
     }
 
-    else
-    {
-      [(EasyConfigDevice *)self _handleError:var21, v13, v15];
-    }
+    [(EasyConfigDevice *)self _handleError:var21];
   }
 
   return var21;
@@ -994,123 +1128,101 @@ LABEL_12:
   self->_securityStartTime = CFAbsoluteTimeGetCurrent();
   if (gLogCategory_EasyConfigDevice <= 30 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
   {
-    deviceIdentifier = self->_deviceIdentifier;
-    LogPrintF();
+    LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _pairSetupStart]", 30, "Starting pair-setup with device 0x%012llX\n", self->_deviceIdentifier);
   }
 
-  [(EasyConfigDevice *)self _postProgress:20 info:0, deviceIdentifier];
-  p_pairingSession = &self->_pairingSession;
+  [(EasyConfigDevice *)self _postProgress:20 info:0];
   pairingSession = self->_pairingSession;
   if (pairingSession)
   {
     CFRelease(pairingSession);
-    *p_pairingSession = 0;
+    self->_pairingSession = 0;
   }
 
-  if (self->_hasPairingDelegate)
+  v4 = PairingSessionCreate();
+  if (v4)
   {
-    v15 = *&self->_pairingDelegate.copyIdentity_f;
-    savePeer_f = self->_pairingDelegate.savePeer_f;
-  }
-
-  v5 = PairingSessionCreate();
-  if (v5)
-  {
-    v6 = v5;
-LABEL_18:
+    v5 = v4;
+LABEL_16:
     if (gLogCategory_EasyConfigDevice <= 60 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
     {
-      v13 = self->_deviceIdentifier;
-      LogPrintF();
-      [(EasyConfigDevice *)self _handleError:v6, v13, v6];
+      LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _pairSetupStart]", 60, "### Authenticate device 0x%012llX failed: %#m\n", self->_deviceIdentifier);
     }
 
-    else
-    {
-      [(EasyConfigDevice *)self _handleError:v6, v12, v14];
-    }
-
-    return v6;
+    [(EasyConfigDevice *)self _handleError:v5, v7];
+    return v5;
   }
 
   if (self->_supportsHAP || self->_supportsHAP2 || self->_supportsPairSetup)
   {
-    v7 = *p_pairingSession;
-    LODWORD(v12) = 1;
+    LODWORD(v7) = 1;
     PairingSessionSetKeychainInfo();
   }
 
   if (self->_pairSetupFlags)
   {
-    v8 = *p_pairingSession;
     PairingSessionSetFlags();
   }
 
-  v9 = self->_pairingSession;
   PairingSessionSetLogging();
-  v6 = [(EasyConfigDevice *)self _pairSetupNext:0];
-  if (v6)
+  v5 = [(EasyConfigDevice *)self _pairSetupNext:0];
+  if (v5)
   {
-    goto LABEL_18;
+    goto LABEL_16;
   }
 
-  return v6;
+  return v5;
 }
 
 - (int)_mfiSAPNext:(HTTPMessagePrivate *)next
 {
-  if (next)
+  if (!next)
   {
-    var21 = next->var21;
-    if (var21)
-    {
-      goto LABEL_9;
-    }
-
-    var12 = next->var2.var12;
-    if ((var12 - 300) <= 0xFFFFFF9B)
-    {
-      var21 = (var12 + 200000);
-      goto LABEL_9;
-    }
-
-    var6 = next->var6;
-    var7 = next->var7;
+    goto LABEL_4;
   }
 
-  mfiSAP = self->_mfiSAP;
-  var21 = MFiSAP_Exchange();
-  if (!var21)
+  var21 = next->var21;
+  if (var21)
   {
-    var21 = HTTPMessageCreate();
+    goto LABEL_8;
+  }
+
+  var12 = next->var2.var12;
+  if ((var12 - 300) <= 0xFFFFFF9B)
+  {
+    var21 = (var12 + 200000);
+  }
+
+  else
+  {
+LABEL_4:
+    var21 = MFiSAP_Exchange();
     if (!var21)
     {
-      HTTPHeader_InitRequest();
-      HTTPHeader_SetField();
-      var21 = HTTPMessageSetBody();
+      var21 = HTTPMessageCreate();
       if (!var21)
       {
-        HTTPMessageSetCompletionBlock();
-        httpClient = self->_httpClient;
-        var21 = HTTPClientSendMessage();
+        HTTPHeader_InitRequest();
+        HTTPHeader_SetField(24, "CSeq", "1");
+        var21 = HTTPMessageSetBody();
+        if (!var21)
+        {
+          HTTPMessageSetCompletionBlock();
+          var21 = HTTPClientSendMessage();
+        }
       }
     }
   }
 
-LABEL_9:
+LABEL_8:
   if (var21)
   {
     if (gLogCategory_EasyConfigDevice <= 60 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
     {
-      deviceIdentifier = self->_deviceIdentifier;
-      LogPrintF();
-      [(EasyConfigDevice *)self _handleError:var21, deviceIdentifier, var21];
+      LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _mfiSAPNext:]", 60, "### Authenticate device 0x%012llX failed: %#m\n", self->_deviceIdentifier);
     }
 
-    else
-    {
-      [(EasyConfigDevice *)self _handleError:var21, v11, v13];
-    }
+    [(EasyConfigDevice *)self _handleError:var21];
   }
 
   return var21;
@@ -1121,11 +1233,10 @@ LABEL_9:
   self->_securityStartTime = CFAbsoluteTimeGetCurrent();
   if (gLogCategory_EasyConfigDevice <= 30 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
   {
-    deviceIdentifier = self->_deviceIdentifier;
-    LogPrintF();
+    LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _mfiSAPStart]", 30, "Authenticating device 0x%012llX\n", self->_deviceIdentifier);
   }
 
-  [(EasyConfigDevice *)self _postProgress:20 info:0, deviceIdentifier];
+  [(EasyConfigDevice *)self _postProgress:20 info:0];
   if (self->_mfiSAP)
   {
     MFiSAP_Delete();
@@ -1140,12 +1251,12 @@ LABEL_9:
 
   else
   {
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __32__EasyConfigDevice__mfiSAPStart__block_invoke;
-    v10[3] = &unk_278FBEBB8;
-    v10[4] = self;
-    v4 = [(EasyConfigDevice *)self _timeoutTimerStart:20 block:v10];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __32__EasyConfigDevice__mfiSAPStart__block_invoke;
+    v6[3] = &unk_278FBEBB8;
+    v6[4] = self;
+    v4 = [(EasyConfigDevice *)self _timeoutTimerStart:20 block:v6];
     if (!v4)
     {
       return v4;
@@ -1154,16 +1265,10 @@ LABEL_9:
 
   if (gLogCategory_EasyConfigDevice <= 60 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
   {
-    v8 = self->_deviceIdentifier;
-    LogPrintF();
-    [(EasyConfigDevice *)self _handleError:v4, v8, v4];
+    LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _mfiSAPStart]", 60, "### Authenticate device 0x%012llX failed: %#m\n", self->_deviceIdentifier);
   }
 
-  else
-  {
-    [(EasyConfigDevice *)self _handleError:v4, v7, v9];
-  }
-
+  [(EasyConfigDevice *)self _handleError:v4];
   return v4;
 }
 
@@ -1217,29 +1322,24 @@ LABEL_8:
       }
     }
 
-    v24 = v8;
-    v25 = startCopy;
-    v22 = deviceIdentifier;
-    v23 = v7;
-    LogPrintF();
+    LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _configureStart:]", 30, "Starting configure of device 0x%012llX%s%?@\n", deviceIdentifier, v7, v8, startCopy);
   }
 
 LABEL_16:
-  v27 = 0;
+  v22 = 0;
   valueLen = 0;
   self->_configSeed = BonjourDevice_GetInt64();
-  if (v27)
+  if (v22)
   {
     self->_configSeed = BonjourDevice_GetInt64();
-    if (v27)
+    if (v22)
     {
       self->_configSeed = BonjourDevice_GetInt64();
-      if (v27)
+      if (v22)
       {
         if (gLogCategory_EasyConfigDevice <= 50 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
         {
-          v22 = self->_deviceIdentifier;
-          LogPrintF();
+          LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _configureStart:]", 50, "### No config seed for pre-config device 0x%012llX\n", self->_deviceIdentifier);
         }
 
         self->_configSeed = 1;
@@ -1274,7 +1374,7 @@ LABEL_34:
 
       v16 = 4294960581;
 LABEL_55:
-      v27 = v16;
+      v22 = v16;
       goto LABEL_46;
     }
 
@@ -1296,11 +1396,10 @@ LABEL_53:
   }
 
 LABEL_35:
-  v16 = [(EasyConfigDevice *)self _setupClient:startCopy, v22, v23, v24, v25];
-  v27 = v16;
+  v16 = [(EasyConfigDevice *)self _setupClient:startCopy];
+  v22 = v16;
   if (!v16)
   {
-    deviceInfo = self->_deviceInfo;
     if (CFDictionaryGetInt64() && (self->_supportsHAP2 || self->_supportsPairSetup || !self->_supportsMFi))
     {
       _mfiSAPStart = self->_skipPairSetup ? [(EasyConfigDevice *)self _pairVerifyStart]: [(EasyConfigDevice *)self _pairSetupStart];
@@ -1312,10 +1411,10 @@ LABEL_35:
     }
 
     v16 = _mfiSAPStart;
-    v27 = _mfiSAPStart;
+    v22 = _mfiSAPStart;
     if (!_mfiSAPStart)
     {
-      v20 = 0;
+      v19 = 0;
       goto LABEL_51;
     }
   }
@@ -1323,20 +1422,18 @@ LABEL_35:
 LABEL_46:
   if (gLogCategory_EasyConfigDevice <= 60)
   {
-    if (gLogCategory_EasyConfigDevice != -1 || (v19 = _LogCategory_Initialize(), v16 = v27, v19))
+    if (gLogCategory_EasyConfigDevice != -1 || (v18 = _LogCategory_Initialize(), v16 = v22, v18))
     {
-      v22 = self->_deviceIdentifier;
-      v23 = v16;
-      LogPrintF();
-      v16 = v27;
+      LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _configureStart:]", 60, "### Start configure of device 0x%012llX failed: %#m\n", self->_deviceIdentifier);
+      v16 = v22;
     }
   }
 
-  [(EasyConfigDevice *)self _handleError:v16, v22, v23];
-  v20 = v27;
+  [(EasyConfigDevice *)self _handleError:v16];
+  v19 = v22;
 LABEL_51:
 
-  return v20;
+  return v19;
 }
 
 - (void)_findDevicePreConfigEvent:(unsigned int)event info:(id)info
@@ -1400,34 +1497,30 @@ LABEL_51:
   Current = CFAbsoluteTimeGetCurrent();
   self->_findPreConfigStartTime = Current;
   self->_findPreConfigFoundTime = Current;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __45__EasyConfigDevice__findDevicePreConfigStart__block_invoke;
-  v9[3] = &unk_278FBEC08;
-  v9[4] = self;
-  v4 = [(EasyConfigDevice *)self _startBonjourWithTimeout:20 handler:v9];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __45__EasyConfigDevice__findDevicePreConfigStart__block_invoke;
+  v6[3] = &unk_278FBEC08;
+  v6[4] = self;
+  v4 = [(EasyConfigDevice *)self _startBonjourWithTimeout:20 handler:v6];
   if (v4)
   {
     if (gLogCategory_EasyConfigDevice <= 60 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
     {
-      deviceIdentifier = self->_deviceIdentifier;
-      v8 = v4;
-      LogPrintF();
+      LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _findDevicePreConfigStart]", 60, "### Start search for pre-config device 0x%012llX failed: %#m\n", self->_deviceIdentifier);
     }
 
-    [(EasyConfigDevice *)self _handleError:v4, deviceIdentifier, v8];
-  }
-
-  else if (gLogCategory_EasyConfigDevice <= 30 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
-  {
-    v7 = self->_deviceIdentifier;
-    LogPrintF();
-    [(EasyConfigDevice *)self _postProgress:10 info:0, v7];
+    [(EasyConfigDevice *)self _handleError:v4];
   }
 
   else
   {
-    [(EasyConfigDevice *)self _postProgress:10 info:0, deviceIdentifier];
+    if (gLogCategory_EasyConfigDevice <= 30 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _findDevicePreConfigStart]", 30, "Started search for pre-config device 0x%012llX\n", self->_deviceIdentifier);
+    }
+
+    [(EasyConfigDevice *)self _postProgress:10 info:0];
   }
 
   return v4;
@@ -1538,17 +1631,17 @@ LABEL_5:
   dispatch_async(internalQueue, block);
 }
 
-uint64_t __36__EasyConfigDevice_resumePostConfig__block_invoke(uint64_t result)
+void *__36__EasyConfigDevice_resumePostConfig__block_invoke(void *result)
 {
-  if (*(*(result + 32) + 232) == 1)
+  if (*(result[4] + 232) == 1)
   {
     v1 = result;
     if (gLogCategory_EasyConfigDevice <= 30 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice resumePostConfig]_block_invoke", 30, "Manually resuming configuration process\n");
     }
 
-    v2 = *(v1 + 32);
+    v2 = v1[4];
 
     return [v2 _findDevicePostConfigStart];
   }
@@ -1558,11 +1651,149 @@ uint64_t __36__EasyConfigDevice_resumePostConfig__block_invoke(uint64_t result)
     if (gLogCategory_EasyConfigDevice != -1 || (result = _LogCategory_Initialize(), result))
     {
 
-      return LogPrintF();
+      return LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice resumePostConfig]_block_invoke", 60, "### Manually resuming configuration process when not paused\n");
     }
   }
 
   return result;
+}
+
+- (void)_stop:(int)_stop
+{
+  v3 = *&_stop;
+  v30[1] = *MEMORY[0x277D85DE8];
+  started = self->_started;
+  self->_started = 0;
+  if (self->_firstErr)
+  {
+    if (!started)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  else
+  {
+    self->_firstErr = _stop;
+    if (!started)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  [(EasyConfigDevice *)self _logEnded];
+  v6 = 0x27EF2B000uLL;
+  if (gLogCategory_EasyConfigDevice <= 30 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _stop:]", 30, "Stopping: %#m\n", v3);
+  }
+
+  v7 = 0x277CCA000uLL;
+  if (v3)
+  {
+    v29 = @"EasyConfigKey_ReasonError";
+    v8 = MEMORY[0x277CCA9B8];
+    v9 = *MEMORY[0x277CCA590];
+    v10 = v3;
+    v27 = *MEMORY[0x277CCA450];
+    v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:DebugGetErrorString()];
+    v12 = v11;
+    v13 = @"?";
+    if (v11)
+    {
+      v13 = v11;
+    }
+
+    v28 = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+    v15 = [v8 errorWithDomain:v9 code:v3 userInfo:v14];
+    v30[0] = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+    [(EasyConfigDevice *)self _postProgress:2 info:v16];
+
+    v7 = 0x277CCA000;
+    v6 = 0x27EF2B000;
+  }
+
+  else
+  {
+    [(EasyConfigDevice *)self _postProgress:2 info:0];
+    v10 = 0;
+    v9 = *MEMORY[0x277CCA590];
+  }
+
+  v25 = @"EasyConfigKey_ReasonError";
+  v17 = [*(v7 + 2488) errorWithDomain:v9 code:v10 userInfo:0];
+  v26 = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+  [(EasyConfigDevice *)self _postNote:@"EasyConfigDeviceStoppedNotification" info:v18];
+
+  v19 = *(v6 + 1824);
+  if (v19 <= 30 && (v19 != -1 || _LogCategory_Initialize()))
+  {
+    LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _stop:]", 30, "Stopped: %#m\n", v3);
+  }
+
+LABEL_18:
+  if (self->_airplayBrowser)
+  {
+    BonjourBrowser_Stop();
+    CFRelease(self->_airplayBrowser);
+    self->_airplayBrowser = 0;
+  }
+
+  if (self->_raopBrowser)
+  {
+    BonjourBrowser_Stop();
+    CFRelease(self->_raopBrowser);
+    self->_raopBrowser = 0;
+  }
+
+  if (self->_mfiConfigBrowser)
+  {
+    BonjourBrowser_Stop();
+    CFRelease(self->_mfiConfigBrowser);
+    self->_mfiConfigBrowser = 0;
+  }
+
+  if (self->_hapBrowser)
+  {
+    BonjourBrowser_Stop();
+    CFRelease(self->_hapBrowser);
+    self->_hapBrowser = 0;
+  }
+
+  if (self->_httpClient)
+  {
+    HTTPClientInvalidate();
+    CFRelease(self->_httpClient);
+    self->_httpClient = 0;
+  }
+
+  timeoutTimer = self->_timeoutTimer;
+  if (timeoutTimer)
+  {
+    v21 = timeoutTimer;
+    dispatch_source_cancel(v21);
+    v22 = self->_timeoutTimer;
+    self->_timeoutTimer = 0;
+  }
+
+  if (self->_mfiSAP)
+  {
+    MFiSAP_Delete();
+    self->_mfiSAP = 0;
+  }
+
+  pairingSession = self->_pairingSession;
+  if (pairingSession)
+  {
+    CFRelease(pairingSession);
+    self->_pairingSession = 0;
+  }
+
+  promptForSetupCodeBlock = self->_promptForSetupCodeBlock;
+  self->_promptForSetupCodeBlock = 0;
 }
 
 - (void)stop
@@ -1582,7 +1813,7 @@ uint64_t __36__EasyConfigDevice_resumePostConfig__block_invoke(uint64_t result)
   {
     if (gLogCategory_EasyConfigDevice <= 30 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _start]", 30, "Starting\n");
     }
 
     self->_started = 1;
@@ -1602,24 +1833,11 @@ uint64_t __36__EasyConfigDevice_resumePostConfig__block_invoke(uint64_t result)
         {
           [v6 bytes];
           v7 = IEGetVendorSpecific();
-          v14 = v7;
-          if (v7 || (v7 = TLV8Get(), (v14 = v7) != 0))
+          v11 = v7;
+          if (v7 || (v7 = TLV8Get(), (v11 = v7) != 0))
           {
             v8 = v7;
-LABEL_21:
-            if (gLogCategory_EasyConfigDevice <= 60 && (gLogCategory_EasyConfigDevice != -1 || (v11 = _LogCategory_Initialize(), v8 = v14, v11)))
-            {
-              v13 = v8;
-              LogPrintF();
-              [(EasyConfigDevice *)self _stop:v14, v13];
-            }
-
-            else
-            {
-              [(EasyConfigDevice *)self _stop:v8, v12];
-            }
-
-            goto LABEL_26;
+            goto LABEL_21;
           }
 
           v8 = 4294960553;
@@ -1642,7 +1860,6 @@ LABEL_21:
       if (self->_deviceInfo)
       {
         self->_deviceIdentifier = CFDictionaryGetHardwareAddress();
-        deviceInfo = self->_deviceInfo;
         Int64 = CFDictionaryGetInt64();
         v6 = 0;
         self->_supportsHAP = (Int64 & 0x20000) != 0;
@@ -1671,13 +1888,24 @@ LABEL_21:
     }
 
 LABEL_34:
-    v14 = v8;
-    goto LABEL_21;
+    v11 = v8;
+LABEL_21:
+    if (gLogCategory_EasyConfigDevice <= 60)
+    {
+      if (gLogCategory_EasyConfigDevice != -1 || (v10 = _LogCategory_Initialize(), v8 = v11, v10))
+      {
+        LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _start]", 60, "### Start failed: %#m\n", v8);
+        v8 = v11;
+      }
+    }
+
+    [(EasyConfigDevice *)self _stop:v8];
+    goto LABEL_26;
   }
 
   if (gLogCategory_EasyConfigDevice <= 60 && (gLogCategory_EasyConfigDevice != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_EasyConfigDevice, "[EasyConfigDevice _start]", 60, "### Started while already started\n");
   }
 
   v6 = 0;

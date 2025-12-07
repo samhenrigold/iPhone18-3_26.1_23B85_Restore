@@ -21,7 +21,7 @@
   if (swift_unknownObjectWeakLoadStrong())
   {
     selfCopy = self;
-    sub_10007C424();
+    sub_10007C424(v4);
     swift_unknownObjectRelease();
   }
 }

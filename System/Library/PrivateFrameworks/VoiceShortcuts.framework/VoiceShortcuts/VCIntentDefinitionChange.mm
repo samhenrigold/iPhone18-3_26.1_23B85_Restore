@@ -32,7 +32,7 @@
 
 id __43__VCIntentDefinitionChange_readFrom_error___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 data];
   if (v4 && (v5 = v4, [v3 name], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v6))
@@ -54,19 +54,17 @@ id __43__VCIntentDefinitionChange_readFrom_error___block_invoke(uint64_t a1, voi
     {
       v14 = [v3 name];
       v15 = [*(a1 + 32) objectIdentifier];
-      v18 = 136315650;
-      v19 = "[VCIntentDefinitionChange readFrom:error:]_block_invoke";
-      v20 = 2114;
-      v21 = v14;
-      v22 = 2114;
-      v23 = v15;
-      _os_log_impl(&dword_23103C000, v13, OS_LOG_TYPE_ERROR, "%s Received file %{public}@ with empty filename or data for %{public}@, dropping", &v18, 0x20u);
+      v17 = 136315650;
+      v18 = "[VCIntentDefinitionChange readFrom:error:]_block_invoke";
+      v19 = 2114;
+      v20 = v14;
+      v21 = 2114;
+      v22 = v15;
+      _os_log_impl(&dword_23103C000, v13, OS_LOG_TYPE_ERROR, "%s Received file %{public}@ with empty filename or data for %{public}@, dropping", &v17, 0x20u);
     }
 
     v11 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -149,19 +147,19 @@ id __43__VCIntentDefinitionChange_readFrom_error___block_invoke(uint64_t a1, voi
   return v7;
 }
 
-id __42__VCIntentDefinitionChange_writeTo_error___block_invoke(uint64_t a1, void *a2)
+VCPBIntentDefinitionFile *__42__VCIntentDefinitionChange_writeTo_error___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_opt_new();
   v5 = [v3 filename];
   [v4 setName:v5];
 
-  v17 = 0;
-  v6 = [v3 mappedDataWithError:&v17];
+  v16 = 0;
+  v6 = [v3 mappedDataWithError:&v16];
 
-  v7 = v17;
-  v8 = v17;
+  v7 = v16;
+  v8 = v16;
   [v4 setData:v6];
 
   if (v8)
@@ -178,27 +176,25 @@ id __42__VCIntentDefinitionChange_writeTo_error___block_invoke(uint64_t a1, void
       v13 = [v4 name];
       v14 = [*(a1 + 32) objectIdentifier];
       *buf = 136315906;
-      v19 = "[VCIntentDefinitionChange writeTo:error:]_block_invoke";
-      v20 = 2114;
-      v21 = v13;
-      v22 = 2114;
-      v23 = v14;
-      v24 = 2114;
-      v25 = v8;
+      v18 = "[VCIntentDefinitionChange writeTo:error:]_block_invoke";
+      v19 = 2114;
+      v20 = v13;
+      v21 = 2114;
+      v22 = v14;
+      v23 = 2114;
+      v24 = v8;
       _os_log_impl(&dword_23103C000, v12, OS_LOG_TYPE_ERROR, "%s Unable to read %{public}@ when syncing intent definitions for %{public}@: %{public}@", buf, 0x2Au);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (NSString)checksum
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   checksum = self->_checksum;
   if (checksum)
   {
@@ -207,37 +203,37 @@ id __42__VCIntentDefinitionChange_writeTo_error___block_invoke(uint64_t a1, void
 
   else
   {
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x8010000000;
-    v36 = "";
-    memset(&v37, 0, sizeof(v37));
-    CC_SHA1_Init(&v37);
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x8010000000;
+    v35 = "";
+    memset(&v36, 0, sizeof(v36));
+    CC_SHA1_Init(&v36);
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     files = [(VCIntentDefinitionChange *)self files];
-    v5 = [files countByEnumeratingWithState:&v29 objects:v42 count:16];
+    v5 = [files countByEnumeratingWithState:&v28 objects:v41 count:16];
     if (v5)
     {
-      v6 = *v30;
+      v6 = *v29;
       obj = files;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v30 != v6)
+          if (*v29 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v29 + 1) + 8 * i);
+          v8 = *(*(&v28 + 1) + 8 * i);
           v9 = objc_autoreleasePoolPush();
           filename = [v8 filename];
           v11 = [filename dataUsingEncoding:4];
 
-          v12 = v34;
+          v12 = v33;
           v13 = v11;
           CC_SHA1_Update((v12 + 4), [v11 bytes], objc_msgSend(v11, "length"));
           if ([v8 representationType])
@@ -255,9 +251,9 @@ id __42__VCIntentDefinitionChange_writeTo_error___block_invoke(uint64_t a1, void
                 {
                   streamError = [inputStream streamError];
                   *buf = 136315394;
-                  v39 = "[VCIntentDefinitionChange checksum]";
-                  v40 = 2114;
-                  v41 = streamError;
+                  v38 = "[VCIntentDefinitionChange checksum]";
+                  v39 = 2114;
+                  v40 = streamError;
                   _os_log_impl(&dword_23103C000, v18, OS_LOG_TYPE_ERROR, "%s Error calculating intent definition file checksum: %{public}@", buf, 0x16u);
                 }
 
@@ -266,7 +262,7 @@ id __42__VCIntentDefinitionChange_writeTo_error___block_invoke(uint64_t a1, void
 
               else if (v16)
               {
-                CC_SHA1_Update((v34 + 4), data, v16);
+                CC_SHA1_Update((v33 + 4), data, v16);
                 v17 = 0;
               }
 
@@ -294,12 +290,12 @@ id __42__VCIntentDefinitionChange_writeTo_error___block_invoke(uint64_t a1, void
           else
           {
             inputStream = [v8 data];
-            v28[0] = MEMORY[0x277D85DD0];
-            v28[1] = 3221225472;
-            v28[2] = __36__VCIntentDefinitionChange_checksum__block_invoke;
-            v28[3] = &unk_2788FFC20;
-            v28[4] = &v33;
-            [inputStream enumerateByteRangesUsingBlock:v28];
+            v27[0] = MEMORY[0x277D85DD0];
+            v27[1] = 3221225472;
+            v27[2] = __36__VCIntentDefinitionChange_checksum__block_invoke;
+            v27[3] = &unk_2788FFC20;
+            v27[4] = &v32;
+            [inputStream enumerateByteRangesUsingBlock:v27];
             v17 = 3;
           }
 
@@ -315,7 +311,7 @@ LABEL_22:
         }
 
         files = obj;
-        v5 = [obj countByEnumeratingWithState:&v29 objects:v42 count:16];
+        v5 = [obj countByEnumeratingWithState:&v28 objects:v41 count:16];
         if (v5)
         {
           continue;
@@ -325,7 +321,7 @@ LABEL_22:
       }
     }
 
-    CC_SHA1_Final(buf, (v34 + 4));
+    CC_SHA1_Final(buf, (v33 + 4));
     v20 = [MEMORY[0x277CCAB68] stringWithCapacity:40];
     for (j = 0; j != 20; ++j)
     {
@@ -338,10 +334,8 @@ LABEL_22:
 
     v3 = self->_checksum;
 LABEL_30:
-    _Block_object_dispose(&v33, 8);
+    _Block_object_dispose(&v32, 8);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -367,7 +361,7 @@ LABEL_30:
 
 - (VCIntentDefinitionChange)initWithApplicationRecord:(id)record changeType:(int64_t)type
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   recordCopy = record;
   if (!recordCopy)
   {
@@ -396,8 +390,8 @@ LABEL_30:
 
       [v14 addObjectsFromArray:v17];
       v18 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"path" ascending:1];
-      v32[0] = v18;
-      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:1];
+      v31[0] = v18;
+      v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:1];
       [v14 sortUsingDescriptors:v19];
 
       v20 = [v14 if_compactMap:&__block_literal_global_6211];
@@ -422,7 +416,6 @@ LABEL_30:
     v12 = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

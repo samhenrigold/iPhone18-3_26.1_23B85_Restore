@@ -99,10 +99,10 @@
 
 - (void)addAdvertisingRequest:(id)request
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   clientType = [requestCopy clientType];
-  v27 = clientType;
+  v26 = clientType;
   advertisingData = [requestCopy advertisingData];
   advertisingRate = [requestCopy advertisingRate];
   enableEPAForAdvertising = [requestCopy enableEPAForAdvertising];
@@ -116,22 +116,22 @@
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218754;
-    v29 = clientType;
-    v30 = 2114;
-    v31 = advertisingData;
-    v32 = 2048;
-    v33 = advertisingRate;
-    v34 = 1024;
-    v35 = enableEPAForAdvertising;
+    v28 = clientType;
+    v29 = 2114;
+    v30 = advertisingData;
+    v31 = 2048;
+    v32 = advertisingRate;
+    v33 = 1024;
+    v34 = enableEPAForAdvertising;
     _os_log_impl(&dword_272965000, v9, OS_LOG_TYPE_DEFAULT, "Adding data of type: %ld, advData: %{public}@ advInterval: %ld EPA:%d", buf, 0x26u);
   }
 
-  v26 = [advertisingData length];
-  v10 = [MEMORY[0x277CBEB28] dataWithCapacity:v26 + 2];
-  [v10 appendBytes:&v27 length:1];
+  v25 = [advertisingData length];
+  v10 = [MEMORY[0x277CBEB28] dataWithCapacity:v25 + 2];
   [v10 appendBytes:&v26 length:1];
+  [v10 appendBytes:&v25 length:1];
   [v10 appendData:advertisingData];
-  if (v27 < 0xFu)
+  if (v26 < 0xFu)
   {
     v12 = MEMORY[0x277CBEA90];
     internalData = [(WPDAdvertisingData *)self internalData];
@@ -151,11 +151,11 @@
   }
 
   advDataPerType = [(WPDAdvertisingData *)self advDataPerType];
-  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v27];
+  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v26];
   [advDataPerType setObject:advertisingData forKeyedSubscript:v17];
 
   types = [(WPDAdvertisingData *)self types];
-  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v27];
+  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:v26];
   [types addObject:v19];
 
   if (advertisingRate < [(WPDAdvertisingData *)self advertRate])
@@ -177,15 +177,13 @@
     advertRate = [(WPDAdvertisingData *)self advertRate];
     isEnableEPAForAdvertisement = [(WPDAdvertisingData *)self isEnableEPAForAdvertisement];
     *buf = 138543874;
-    v29 = internalData5;
-    v30 = 2048;
-    v31 = advertRate;
-    v32 = 1024;
-    LODWORD(v33) = isEnableEPAForAdvertisement;
+    v28 = internalData5;
+    v29 = 2048;
+    v30 = advertRate;
+    v31 = 1024;
+    LODWORD(v32) = isEnableEPAForAdvertisement;
     _os_log_impl(&dword_272965000, v21, OS_LOG_TYPE_DEFAULT, "Current advertisement packet: %{public}@ advertRate: %ld EPA:%d", buf, 0x1Cu);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqualToData:(id)data

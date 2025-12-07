@@ -445,14 +445,12 @@ LABEL_17:
 
 - (void)_getBlendingLayerSuggestionsWithContext:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Encountered layout of unknown class: %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_1B5ED1000, a2, OS_LOG_TYPE_ERROR, "Encountered layout of unknown class: %@", &v5, 0xCu);
 }
 
 @end

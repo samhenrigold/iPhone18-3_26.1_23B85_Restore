@@ -21,12 +21,12 @@
 
 - (CGPoint)scatScreenPointForOperations
 {
-  [(SCATSimpleElement *)self scatFrame];
-  sub_1000427AC(v2, v3, v4, v5);
+  scatFrame = [(SCATSimpleElement *)self scatFrame];
+  sub_1000427AC(scatFrame, v3, v4, v5, v6, v7);
 
   AX_CGRectGetCenter();
-  result.y = v7;
-  result.x = v6;
+  result.y = v9;
+  result.x = v8;
   return result;
 }
 
@@ -67,24 +67,24 @@
 - (BOOL)scatIsOnScreen
 {
   [(SCATSimpleElement *)self frame];
-  MinX = CGRectGetMinX(v13);
+  MinX = CGRectGetMinX(v17);
   [(SCATSimpleElement *)self frame];
-  MaxX = CGRectGetMaxX(v14);
+  MaxX = CGRectGetMaxX(v18);
   [(SCATSimpleElement *)self frame];
-  MinY = CGRectGetMinY(v15);
+  MinY = CGRectGetMinY(v19);
   [(SCATSimpleElement *)self frame];
-  MaxY = CGRectGetMaxY(v16);
-  [HNDHandManager screenFrame:]_0();
-  v8 = v7;
-  [HNDHandManager screenFrame:]_0();
-  v9 = fmin(MinX, MinY);
-  v10 = MaxX <= v8;
-  if (MaxY > v11)
+  MaxY = CGRectGetMaxY(v20);
+  [HNDHandManager screenFrame:]_0(v7, v8);
+  v10 = v9;
+  [HNDHandManager screenFrame:]_0(v11, v12);
+  v13 = fmin(MinX, MinY);
+  v14 = MaxX <= v10;
+  if (MaxY > v15)
   {
-    v10 = 0;
+    v14 = 0;
   }
 
-  return v9 >= 0.0 && v10;
+  return v13 >= 0.0 && v14;
 }
 
 - (id)highestAncestorGroup

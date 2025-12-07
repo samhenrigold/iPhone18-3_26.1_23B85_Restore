@@ -1,4 +1,5 @@
 @interface ATXDeviceScreenLockStateStream
+- (id)_deviceScreenLockedPublisherWithStartDate:(id)date endDate:(id)endDate limit:(unint64_t)limit shouldReverse:(BOOL)reverse;
 - (void)_enumerateEventsForLockedState:(BOOL)state startDate:(id)date endDate:(id)endDate filterBlock:(id)block limit:(unint64_t)limit ascending:(BOOL)ascending block:(id)a9;
 @end
 
@@ -38,12 +39,13 @@
 void __117__ATXDeviceScreenLockStateStream__enumerateEventsForLockedState_startDate_endDate_filterBlock_limit_ascending_block___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  if ([v2 state])
+  v3 = [v2 state];
+  if (v3)
   {
-    v3 = __atxlog_handle_default();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = __atxlog_handle_default(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __117__ATXDeviceScreenLockStateStream__enumerateEventsForLockedState_startDate_endDate_filterBlock_limit_ascending_block___block_invoke_cold_1(v2, v3);
+      __117__ATXDeviceScreenLockStateStream__enumerateEventsForLockedState_startDate_endDate_filterBlock_limit_ascending_block___block_invoke_cold_1(v2, v4);
     }
   }
 }
@@ -71,43 +73,43 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v9 = a1 + 48;
+  v10 = a1 + 48;
   if (v4 && *(*(*(a1 + 48) + 8) + 40))
   {
-    v10 = objc_alloc(MEMORY[0x277CBEAA8]);
+    v11 = objc_alloc(MEMORY[0x277CBEAA8]);
     [*(*(*(a1 + 48) + 8) + 40) timestamp];
-    v11 = [v10 initWithTimeIntervalSinceReferenceDate:?];
-    v12 = objc_alloc(MEMORY[0x277CBEAA8]);
+    v12 = [v11 initWithTimeIntervalSinceReferenceDate:?];
+    v13 = objc_alloc(MEMORY[0x277CBEAA8]);
     [v4 timestamp];
-    v13 = [v12 initWithTimeIntervalSinceReferenceDate:?];
-    v14 = [ATXDeviceScreenLockStateEvent alloc];
+    v14 = [v13 initWithTimeIntervalSinceReferenceDate:?];
+    v15 = [ATXDeviceScreenLockStateEvent alloc];
     if (*(a1 + 56))
     {
-      v15 = v13;
+      v16 = v14;
     }
 
     else
     {
-      v15 = v11;
+      v16 = v12;
     }
 
     if (*(a1 + 56))
     {
-      v16 = v11;
+      v17 = v12;
     }
 
     else
     {
-      v16 = v13;
+      v17 = v14;
     }
 
-    v17 = [(ATXDeviceScreenLockStateEvent *)v14 initWithStartTime:v15 endTime:v16 isLocked:*(a1 + 57)];
-    v18 = *(*(a1 + 48) + 8);
-    v19 = *(v18 + 40);
-    *(v18 + 40) = 0;
+    v18 = [(ATXDeviceScreenLockStateEvent *)v15 initWithStartTime:v16 endTime:v17 isLocked:*(a1 + 57)];
+    v19 = *(*(a1 + 48) + 8);
+    v20 = *(v19 + 40);
+    *(v19 + 40) = 0;
 
-    v20 = *(a1 + 32);
-    if (!v20 || (*(v20 + 16))(v20, v17))
+    v21 = *(a1 + 32);
+    if (!v21 || (*(v21 + 16))(v21, v18))
     {
       (*(*(a1 + 40) + 16))();
     }
@@ -115,10 +117,10 @@ LABEL_3:
 
   else
   {
-    v21 = __atxlog_handle_default();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = __atxlog_handle_default(v9);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      __122__ATXCarPlayConnectedStream__enumerateEventsConnected_startDate_endDate_filterBlock_limit_ascending_shouldContinue_block___block_invoke_1_cold_1(v9, v4, v21);
+      __122__ATXCarPlayConnectedStream__enumerateEventsConnected_startDate_endDate_filterBlock_limit_ascending_shouldContinue_block___block_invoke_1_cold_1(v10, v4, v22);
     }
   }
 
@@ -127,17 +129,50 @@ LABEL_20:
   return 1;
 }
 
+- (id)_deviceScreenLockedPublisherWithStartDate:(id)date endDate:(id)endDate limit:(unint64_t)limit shouldReverse:(BOOL)reverse
+{
+  reverseCopy = reverse;
+  endDateCopy = endDate;
+  dateCopy = date;
+  v19 = BiomeLibrary();
+  device = [v19 Device];
+  screenLocked = [device ScreenLocked];
+  if (reverseCopy)
+  {
+    v13 = endDateCopy;
+  }
+
+  else
+  {
+    v13 = dateCopy;
+  }
+
+  if (reverseCopy)
+  {
+    v14 = dateCopy;
+  }
+
+  else
+  {
+    v14 = endDateCopy;
+  }
+
+  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:limit];
+  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:limit];
+  v17 = [screenLocked atx_publisherWithStartDate:v13 endDate:v14 maxEvents:v15 lastN:v16 reversed:reverseCopy];
+
+  return v17;
+}
+
 void __117__ATXDeviceScreenLockStateStream__enumerateEventsForLockedState_startDate_endDate_filterBlock_limit_ascending_block___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 136315394;
-  v6 = "[ATXDeviceScreenLockStateStream _enumerateEventsForLockedState:startDate:endDate:filterBlock:limit:ascending:block:]_block_invoke";
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "%s: error fetching latest Device.ScreenLocked event from biome %@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315394;
+  v5 = "[ATXDeviceScreenLockStateStream _enumerateEventsForLockedState:startDate:endDate:filterBlock:limit:ascending:block:]_block_invoke";
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "%s: error fetching latest Device.ScreenLocked event from biome %@", &v4, 0x16u);
 }
 
 @end

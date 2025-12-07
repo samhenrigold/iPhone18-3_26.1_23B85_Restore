@@ -697,7 +697,6 @@ LABEL_34:
   xpc_dictionary_set_BOOL(job, "BackgroundTaskAgentMessage", 1);
   valuePtr = 0;
   CFNumberGetValue(token, kCFNumberLongLongType, &valuePtr);
-  userEventAgentProvider = self->_userEventAgentProvider;
   xpc_event_provider_token_fire();
 }
 
@@ -781,7 +780,6 @@ LABEL_14:
       v4 = [[PCSimpleTimer alloc] initWithTimeInterval:+[NSString stringWithFormat:](NSString serviceIdentifier:"stringWithFormat:" target:@"BTA-%s" selector:xpc_dictionary_get_string(nextSoftDeadlineJob userInfo:{"BackgroundTaskAgentClientName")), self, "pcTimerFired:", 0, self->_nextSoftDeadlineTime}];
       self->_softTimer = v4;
       [(PCSimpleTimer *)v4 setDisableSystemWaking:1];
-      softTimer = self->_softTimer;
       [(BackgroundTaskAgentJobManager *)self userEventAgentProvider];
       xpc_event_provider_get_queue();
     }
@@ -792,8 +790,8 @@ LABEL_14:
       if (!nextHardDeadlineJob || self->_nextHardDeadlineTime > 3600.0)
       {
         Current = CFAbsoluteTimeGetCurrent();
-        v8 = @"BTA-PeriodicConditionMonitor";
-        v9 = 0.45;
+        v7 = @"BTA-PeriodicConditionMonitor";
+        v8 = 0.45;
         nextHardDeadlineTime = 3600.0;
         if (Current - *&qword_D928 < 180.0)
         {
@@ -811,44 +809,43 @@ LABEL_14:
 
     else if (!nextHardDeadlineJob)
     {
-      v8 = 0;
-      v9 = 0.0;
+      v7 = 0;
+      v8 = 0.0;
       nextHardDeadlineTime = NAN;
 LABEL_21:
       [(PCPersistentTimer *)self->_hardTimer invalidate];
 
       self->_hardTimer = 0;
-      v16 = [[PCPersistentTimer alloc] initWithTimeInterval:v8 serviceIdentifier:self target:"hardTimerFired:" selector:0 userInfo:nextHardDeadlineTime];
-      self->_hardTimer = v16;
-      [(PCPersistentTimer *)v16 setMinimumEarlyFireProportion:v9];
-      hardTimer = self->_hardTimer;
+      v15 = [[PCPersistentTimer alloc] initWithTimeInterval:v7 serviceIdentifier:self target:"hardTimerFired:" selector:0 userInfo:nextHardDeadlineTime];
+      self->_hardTimer = v15;
+      [(PCPersistentTimer *)v15 setMinimumEarlyFireProportion:v8];
       [(BackgroundTaskAgentJobManager *)self userEventAgentProvider];
       xpc_event_provider_get_queue();
     }
 
-    v11 = [NSDate dateWithTimeIntervalSinceNow:self->_nextHardDeadlineTime];
+    v10 = [NSDate dateWithTimeIntervalSinceNow:self->_nextHardDeadlineTime];
     lastFireDate = self->_lastFireDate;
-    v13 = self->_nextHardDeadlineJob;
-    if (!lastFireDate || self->_lastHardDeadlineJob != v13)
+    v12 = self->_nextHardDeadlineJob;
+    if (!lastFireDate || self->_lastHardDeadlineJob != v12)
     {
 LABEL_18:
-      self->_lastHardDeadlineJob = v13;
+      self->_lastHardDeadlineJob = v12;
 
-      self->_lastFireDate = v11;
-      v15 = v11;
-      v8 = [NSString stringWithFormat:@"BTA-%s", xpc_dictionary_get_string(self->_nextHardDeadlineJob, "BackgroundTaskAgentClientName")];
+      self->_lastFireDate = v10;
+      v14 = v10;
+      v7 = [NSString stringWithFormat:@"BTA-%s", xpc_dictionary_get_string(self->_nextHardDeadlineJob, "BackgroundTaskAgentClientName")];
       nextHardDeadlineTime = self->_nextHardDeadlineTime;
-      v9 = 1.0;
+      v8 = 1.0;
       Current = NAN;
 LABEL_19:
       qword_D928 = *&Current;
       goto LABEL_21;
     }
 
-    [(NSDate *)lastFireDate timeIntervalSinceDate:v11];
-    if (v14 > 1.0)
+    [(NSDate *)lastFireDate timeIntervalSinceDate:v10];
+    if (v13 > 1.0)
     {
-      v13 = self->_nextHardDeadlineJob;
+      v12 = self->_nextHardDeadlineJob;
       lastFireDate = self->_lastFireDate;
       goto LABEL_18;
     }

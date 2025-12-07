@@ -57,7 +57,7 @@
   sessions = self->_sessions;
   self->_sessions = v3;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v3, sessions);
 }
 
 - (void)attachAppLaunches
@@ -87,21 +87,19 @@
 
 void __47__ATXModeScoringSessionRange_attachAppLaunches__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if ([v2 state] == 1)
   {
-    v3 = __atxlog_handle_default();
+    v3 = __atxlog_handle_default(1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = [v2 error];
-      v6 = 138412290;
-      v7 = v4;
-      _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "Error: %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_impl(&dword_2263AA000, v3, OS_LOG_TYPE_DEFAULT, "Error: %@", &v5, 0xCu);
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __47__ATXModeScoringSessionRange_attachAppLaunches__block_invoke_15(uint64_t a1, void *a2)
@@ -160,42 +158,42 @@ void __47__ATXModeScoringSessionRange_attachAppLaunches__block_invoke_15(uint64_
 
 - (void)populateInitialSessionsFromScreenTransitions
 {
-  v55 = *MEMORY[0x277D85DE8];
-  v46 = objc_opt_new();
+  v54 = *MEMORY[0x277D85DE8];
+  v45 = objc_opt_new();
   v3 = objc_opt_new();
   v4 = objc_opt_new();
   startDate = self->_startDate;
   endDate = self->_endDate;
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __74__ATXModeScoringSessionRange_populateInitialSessionsFromScreenTransitions__block_invoke;
-  v52[3] = &unk_278599810;
+  v51[0] = MEMORY[0x277D85DD0];
+  v51[1] = 3221225472;
+  v51[2] = __74__ATXModeScoringSessionRange_populateInitialSessionsFromScreenTransitions__block_invoke;
+  v51[3] = &unk_278599810;
   v7 = v4;
-  v53 = v7;
-  v45 = v3;
-  [v3 enumerateDisplayOnIntervalsFromStartDate:startDate endDate:endDate block:v52];
-  v44 = v7;
+  v52 = v7;
+  v44 = v3;
+  [v3 enumerateDisplayOnIntervalsFromStartDate:startDate endDate:endDate block:v51];
+  v43 = v7;
   [v7 _pas_mappedArrayWithTransform:&__block_literal_global_21_0];
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
-  obj = v51 = 0u;
-  v8 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
+  obj = v50 = 0u;
+  v8 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v49;
+    v11 = *v48;
     while (1)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v49 != v11)
+        if (*v48 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v48 + 1) + 8 * i);
+        v13 = *(*(&v47 + 1) + 8 * i);
         if (v10)
         {
           endDate = [v10 endDate];
@@ -233,7 +231,7 @@ void __47__ATXModeScoringSessionRange_attachAppLaunches__block_invoke_15(uint64_
           [endDate4 timeIntervalSinceReferenceDate];
           v32 = [(ATXModeScoringSession *)v26 initFromStartTime:self->_modeEntityStore endTime:v29 modeEntityStore:v31];
 
-          [(NSArray *)v46 addObject:v32];
+          [(NSArray *)v45 addObject:v32];
           v33 = v13;
 
           v10 = v33;
@@ -245,7 +243,7 @@ void __47__ATXModeScoringSessionRange_attachAppLaunches__block_invoke_15(uint64_
         }
       }
 
-      v9 = [obj countByEnumeratingWithState:&v48 objects:v54 count:16];
+      v9 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
       if (!v9)
       {
         goto LABEL_17;
@@ -263,39 +261,37 @@ LABEL_17:
   [endDate5 timeIntervalSinceReferenceDate];
   v40 = [(ATXModeScoringSession *)v34 initFromStartTime:self->_modeEntityStore endTime:v37 modeEntityStore:v39];
 
-  [(NSArray *)v46 addObject:v40];
+  [(NSArray *)v45 addObject:v40];
   sessions = self->_sessions;
-  self->_sessions = v46;
-  v42 = v46;
-
-  v43 = *MEMORY[0x277D85DE8];
+  self->_sessions = v45;
+  v42 = v45;
 }
 
 - (void)coalesceSessions
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4 = objc_opt_new();
   v5 = [(NSArray *)self->_sessions _pas_filteredArrayWithTest:&__block_literal_global_25];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         if (![(ATXModeScoringSessionRange *)self _shouldCoaleseNextSession:v10 currentBuffer:v4])
         {
           v11 = [ATXModeScoringSession coalesceSessions:v4 modeEntityStore:self->_modeEntityStore];
@@ -307,7 +303,7 @@ LABEL_17:
         [v4 addObject:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -321,13 +317,11 @@ LABEL_17:
 
   sessions = self->_sessions;
   self->_sessions = v3;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldCoaleseNextSession:(id)session currentBuffer:(id)buffer
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   bufferCopy = buffer;
   if ([bufferCopy count])
@@ -346,9 +340,9 @@ LABEL_17:
 
     if (([sessionCopy hasModeWithinRank:topMode rank:v10] & 1) != 0 || (objc_msgSend(sessionCopy, "duration"), v11 < 30.0))
     {
-      v18[0] = v8;
-      v18[1] = sessionCopy;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+      v17[0] = v8;
+      v17[1] = sessionCopy;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
       v13 = [ATXModeScoringSession coalesceSessions:v12 modeEntityStore:self->_modeEntityStore];
 
       if ([v13 hasModeWithinRank:topMode rank:1])
@@ -374,7 +368,6 @@ LABEL_17:
     v15 = 1;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 

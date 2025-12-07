@@ -227,7 +227,7 @@
     v14 = 0;
   }
 
-  [(CSAudioAlertProvidingProxy *)self _sendReplyMessageWithResult:v14 event:messageCopy client:clientCopy, *v18];
+  [(CSAudioAlertProvidingProxy *)self _sendReplyMessageWithResult:v14 event:messageCopy client:clientCopy, *v18, *&v18[8]];
 }
 
 - (void)_handleAlertProvidingRequestTypePlayAlertSoundMessage:(id)message messageBody:(id)body client:(id)client
@@ -362,7 +362,7 @@
     v20 = 0;
   }
 
-  [(CSAudioAlertProvidingProxy *)self _sendReplyMessageWithResult:v20 event:messageCopy client:clientCopy, *v24, *&v24[16]];
+  [(CSAudioAlertProvidingProxy *)self _sendReplyMessageWithResult:v20 event:messageCopy client:clientCopy, *v24, *&v24[8]];
 }
 
 - (void)handleXPCMessage:(id)message messageBody:(id)body client:(id)client

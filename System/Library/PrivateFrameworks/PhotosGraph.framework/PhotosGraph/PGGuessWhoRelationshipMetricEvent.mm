@@ -47,41 +47,40 @@
 
 - (id)_readableStringByRelationshipEdgeProperty
 {
-  v6[16] = *MEMORY[0x277D85DE8];
-  v5[0] = @"rfamhol";
-  v5[1] = @"rparnam";
-  v6[0] = @"Family Holiday";
-  v6[1] = @"Parent Contact Name";
-  v5[2] = @"rfamnam";
-  v5[3] = @"gwnummmtshome";
-  v6[2] = @"Same Family Name";
-  v6[3] = @"Moments At Home";
-  v5[4] = @"rhasanniv";
-  v5[5] = @"rtop2sg";
-  v6[4] = @"Anniversary Date";
-  v6[5] = @"Top Two Person SG";
-  v5[6] = @"rlovexch";
-  v5[7] = @"rtop";
-  v6[6] = @"Love Emojis";
-  v6[7] = @"Top Person";
-  v5[8] = @"rfrndnghtout";
-  v5[9] = @"rprtnrtrip";
-  v6[8] = @"Friend Night Out";
-  v6[9] = @"Partner Trip";
-  v5[10] = @"rfrfamtrip";
-  v5[11] = @"rwkend";
-  v6[10] = @"Friends/Family Trip";
-  v6[11] = @"Weekend";
-  v5[12] = @"rwork";
-  v5[13] = @"rcal";
-  v6[12] = @"Coworkers At Work";
-  v6[13] = @"Coworker Calendar";
-  v5[14] = @"ragediff";
-  v5[15] = @"rold";
-  v6[14] = @"Age Different Than Me";
-  v6[15] = @"Parent Or Grandparent Old Enough";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:16];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[16] = *MEMORY[0x277D85DE8];
+  v4[0] = @"rfamhol";
+  v4[1] = @"rparnam";
+  v5[0] = @"Family Holiday";
+  v5[1] = @"Parent Contact Name";
+  v4[2] = @"rfamnam";
+  v4[3] = @"gwnummmtshome";
+  v5[2] = @"Same Family Name";
+  v5[3] = @"Moments At Home";
+  v4[4] = @"rhasanniv";
+  v4[5] = @"rtop2sg";
+  v5[4] = @"Anniversary Date";
+  v5[5] = @"Top Two Person SG";
+  v4[6] = @"rlovexch";
+  v4[7] = @"rtop";
+  v5[6] = @"Love Emojis";
+  v5[7] = @"Top Person";
+  v4[8] = @"rfrndnghtout";
+  v4[9] = @"rprtnrtrip";
+  v5[8] = @"Friend Night Out";
+  v5[9] = @"Partner Trip";
+  v4[10] = @"rfrfamtrip";
+  v4[11] = @"rwkend";
+  v5[10] = @"Friends/Family Trip";
+  v5[11] = @"Weekend";
+  v4[12] = @"rwork";
+  v4[13] = @"rcal";
+  v5[12] = @"Coworkers At Work";
+  v5[13] = @"Coworker Calendar";
+  v4[14] = @"ragediff";
+  v4[15] = @"rold";
+  v5[14] = @"Age Different Than Me";
+  v5[15] = @"Parent Or Grandparent Old Enough";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:16];
 
   return v2;
 }
@@ -328,7 +327,7 @@
 
 - (void)gatherMetricsWithProgressBlock:(id)block
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = _Block_copy(block);
   v5 = 0.0;
   if (!v4 || (Current = CFAbsoluteTimeGetCurrent(), Current < 0.01))
@@ -336,26 +335,26 @@
     v7 = 0;
 LABEL_4:
     manager = self->_manager;
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __68__PGGuessWhoRelationshipMetricEvent_gatherMetricsWithProgressBlock___block_invoke;
-    v11[3] = &unk_27888A3B8;
-    v11[4] = self;
-    [(PGManager *)manager performSynchronousConcurrentGraphReadUsingBlock:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __68__PGGuessWhoRelationshipMetricEvent_gatherMetricsWithProgressBlock___block_invoke;
+    v10[3] = &unk_27888A3B8;
+    v10[4] = self;
+    [(PGManager *)manager performSynchronousConcurrentGraphReadUsingBlock:v10];
     if (v4)
     {
       if (CFAbsoluteTimeGetCurrent() - v5 >= 0.01)
       {
-        v12 = 0;
-        v4[2](v4, &v12, 1.0);
-        if (v7 | v12)
+        v11 = 0;
+        v4[2](v4, &v11, 1.0);
+        if (v7 | v11)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            v14 = 232;
-            v15 = 2080;
-            v16 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGGuessWhoRelationshipMetricEvent.m";
+            v13 = 232;
+            v14 = 2080;
+            v15 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGGuessWhoRelationshipMetricEvent.m";
             v9 = MEMORY[0x277D86220];
 LABEL_12:
             _os_log_impl(&dword_22F0FC000, v9, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -368,10 +367,10 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v12 = 0;
-  v4[2](v4, &v12, 0.0);
-  v7 = v12;
-  if (v12 != 1)
+  v11 = 0;
+  v4[2](v4, &v11, 0.0);
+  v7 = v11;
+  if (v11 != 1)
   {
     v5 = Current;
     goto LABEL_4;
@@ -380,122 +379,118 @@ LABEL_12:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    v14 = 155;
-    v15 = 2080;
-    v16 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGGuessWhoRelationshipMetricEvent.m";
+    v13 = 155;
+    v14 = 2080;
+    v15 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Metrics/MetricEvents/PGGuessWhoRelationshipMetricEvent.m";
     v9 = MEMORY[0x277D86220];
     goto LABEL_12;
   }
 
 LABEL_13:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __68__PGGuessWhoRelationshipMetricEvent_gatherMetricsWithProgressBlock___block_invoke(uint64_t a1, void *a2)
 {
-  v58 = *MEMORY[0x277D85DE8];
-  v11 = a2;
-  v13 = [v11 graph];
+  v57 = *MEMORY[0x277D85DE8];
+  v10 = a2;
+  v12 = [v10 graph];
   if (PGIsAppleInternal_onceToken != -1)
   {
     dispatch_once(&PGIsAppleInternal_onceToken, &__block_literal_global_8316);
   }
 
   v2 = PGIsAppleInternal_isAppleInternal;
-  v12 = [v13 personNodesIncludingMe:0];
-  [*(a1 + 32) setNumberOfPeople:{objc_msgSend(v12, "count")}];
-  v15 = [v13 meNode];
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x2020000000;
-  v56 = 0;
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2020000000;
+  v11 = [v12 personNodesIncludingMe:0];
+  [*(a1 + 32) setNumberOfPeople:{objc_msgSend(v11, "count")}];
+  v14 = [v12 meNode];
   v52 = 0;
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x2020000000;
+  v53 = &v52;
+  v54 = 0x2020000000;
+  v55 = 0;
   v48 = 0;
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
+  v49 = &v48;
+  v50 = 0x2020000000;
+  v51 = 0;
   v44 = 0;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x2020000000;
+  v45 = &v44;
+  v46 = 0x2020000000;
+  v47 = 0;
   v40 = 0;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
+  v41 = &v40;
+  v42 = 0x2020000000;
+  v43 = 0;
   v36 = 0;
+  v37 = &v36;
+  v38 = 0x2020000000;
+  v39 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0;
   [*(a1 + 32) _inferredRelationshipKeys];
-  v31 = 0u;
-  v32 = 0u;
   v30 = 0u;
-  obj = v29 = 0u;
-  v3 = [obj countByEnumeratingWithState:&v29 objects:v57 count:16];
+  v31 = 0u;
+  v29 = 0u;
+  obj = v28 = 0u;
+  v3 = [obj countByEnumeratingWithState:&v28 objects:v56 count:16];
   if (v3)
   {
-    v4 = *v30;
+    v4 = *v29;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v30 != v4)
+        if (*v29 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v29 + 1) + 8 * i);
+        v6 = *(*(&v28 + 1) + 8 * i);
         v7 = [v6 unsignedIntegerValue];
-        v17[0] = MEMORY[0x277D85DD0];
-        v17[1] = 3221225472;
-        v17[2] = __68__PGGuessWhoRelationshipMetricEvent_gatherMetricsWithProgressBlock___block_invoke_2;
-        v17[3] = &unk_278883B80;
-        v26 = &v33;
-        v27 = v7;
-        v21 = &v53;
-        v22 = &v49;
-        v23 = &v45;
-        v24 = &v41;
-        v25 = &v37;
-        v28 = v2;
-        v8 = v15;
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __68__PGGuessWhoRelationshipMetricEvent_gatherMetricsWithProgressBlock___block_invoke_2;
+        v16[3] = &unk_278883B80;
+        v25 = &v32;
+        v26 = v7;
+        v20 = &v52;
+        v21 = &v48;
+        v22 = &v44;
+        v23 = &v40;
+        v24 = &v36;
+        v27 = v2;
+        v8 = v14;
         v9 = *(a1 + 32);
-        v18 = v8;
-        v19 = v9;
-        v20 = v6;
-        [v8 enumeratePersonNodesWithRelationship:v7 matchingQuery:2 usingBlock:v17];
+        v17 = v8;
+        v18 = v9;
+        v19 = v6;
+        [v8 enumeratePersonNodesWithRelationship:v7 matchingQuery:2 usingBlock:v16];
       }
 
-      v3 = [obj countByEnumeratingWithState:&v29 objects:v57 count:16];
+      v3 = [obj countByEnumeratingWithState:&v28 objects:v56 count:16];
     }
 
     while (v3);
   }
 
-  [*(a1 + 32) setNumberOfInferredFamilyMembers:v54[3]];
-  [*(a1 + 32) setNumberOfInferredFriends:v50[3]];
-  [*(a1 + 32) setNumberOfInferredParents:v46[3]];
-  [*(a1 + 32) setNumberOfInferredCoworkers:v42[3]];
-  [*(a1 + 32) setNumberOfInferredPartners:v38[3]];
-  [*(a1 + 32) setNumberOfInferredChildren:v34[3]];
+  [*(a1 + 32) setNumberOfInferredFamilyMembers:v53[3]];
+  [*(a1 + 32) setNumberOfInferredFriends:v49[3]];
+  [*(a1 + 32) setNumberOfInferredParents:v45[3]];
+  [*(a1 + 32) setNumberOfInferredCoworkers:v41[3]];
+  [*(a1 + 32) setNumberOfInferredPartners:v37[3]];
+  [*(a1 + 32) setNumberOfInferredChildren:v33[3]];
 
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v37, 8);
-  _Block_object_dispose(&v41, 8);
-  _Block_object_dispose(&v45, 8);
-  _Block_object_dispose(&v49, 8);
-  _Block_object_dispose(&v53, 8);
-
-  v10 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v40, 8);
+  _Block_object_dispose(&v44, 8);
+  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v52, 8);
 }
 
 void __68__PGGuessWhoRelationshipMetricEvent_gatherMetricsWithProgressBlock___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 104) - 1;
@@ -508,34 +503,34 @@ void __68__PGGuessWhoRelationshipMetricEvent_gatherMetricsWithProgressBlock___bl
   if (*(a1 + 112) == 1)
   {
     v9 = [*(a1 + 32) relationshipEdgesToPersonNode:v5 matchingQuery:1];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v10)
     {
       v11 = v10;
       v12 = 0;
-      v13 = *v20;
+      v13 = *v19;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v20 != v13)
+          if (*v19 != v13)
           {
             objc_enumerationMutation(v9);
           }
 
           v15 = *(a1 + 40);
-          v16 = [*(*(&v19 + 1) + 8 * i) label];
+          v16 = [*(*(&v18 + 1) + 8 * i) label];
           v17 = [v15 _relationshipKeyForLabel:v16];
           LOBYTE(v15) = v17 == *(a1 + 48);
 
           v12 |= v15;
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v11);
@@ -548,8 +543,6 @@ void __68__PGGuessWhoRelationshipMetricEvent_gatherMetricsWithProgressBlock___bl
 
     [*(a1 + 40) _incrementRelationshipSignalMetricsForRelationshipEdge:v6 inferredRelationshipCorrect:v12 & 1];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)payload

@@ -108,4 +108,11 @@ LABEL_8:
   return v21;
 }
 
+- (void)computeMatchingForCostMatrix:(uint64_t)a1 withRowCount:columnCount:.cold.1(uint64_t a1)
+{
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = (*(*a1 + 16))(a1);
+  OUTLINED_FUNCTION_0_0(&dword_24BC30000, v1, v2, "Bipartite matching exception: %s", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
 @end

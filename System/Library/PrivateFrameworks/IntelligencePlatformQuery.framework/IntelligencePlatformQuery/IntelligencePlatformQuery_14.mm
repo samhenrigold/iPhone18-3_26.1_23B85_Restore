@@ -1,8527 +1,1453 @@
-uint64_t specialized static PgQuery_CreateOpClassItem.== infix(_:_:)(_DWORD *a1, _DWORD *a2)
+uint64_t protocol witness for CodingKey.stringValue.getter in conformance AggregationFunction.CodingKeys()
 {
-  TypeName = type metadata accessor for PgQuery_TypeName(0);
-  v59 = *(TypeName - 8);
-  v60 = TypeName;
-  v5 = *(v59 + 64);
-  MEMORY[0x28223BE20](TypeName);
-  v57 = &v54 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_TypeNameVSgMd, &_s14BiomeSQLParser16PgQuery_TypeNameVSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
-  v58 = &v54 - v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_TypeNameVSg_ADtMd, &_s14BiomeSQLParser16PgQuery_TypeNameVSg_ADtMR);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x28223BE20](v10);
-  v13 = &v54 - v12;
-  ObjectWithArgs = type metadata accessor for PgQuery_ObjectWithArgs(0);
-  v15 = *(ObjectWithArgs - 8);
-  v16 = *(v15 + 64);
-  MEMORY[0x28223BE20](ObjectWithArgs);
-  v18 = &v54 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMd, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMR);
-  v20 = *(*(v19 - 8) + 64);
-  MEMORY[0x28223BE20](v19 - 8);
-  v22 = &v54 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSg_ADtMd, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSg_ADtMR);
-  v24 = *(*(v23 - 8) + 64);
-  MEMORY[0x28223BE20](v23);
-  v26 = &v54 - v25;
-  if (*a1 != *a2)
+  if (*v0)
   {
-    goto LABEL_20;
-  }
-
-  v54 = v13;
-  OpClassItem = type metadata accessor for PgQuery_CreateOpClassItem(0);
-  v61 = a2;
-  v28 = *(OpClassItem + 36);
-  v29 = *(v23 + 48);
-  v55 = OpClassItem;
-  v56 = a1;
-  outlined init with copy of PgQuery_Alias?(a1 + v28, v26, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMd, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMR);
-  v30 = v61 + v28;
-  v31 = v61;
-  outlined init with copy of PgQuery_Alias?(v30, &v26[v29], &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMd, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMR);
-  v32 = *(v15 + 48);
-  if (v32(v26, 1, ObjectWithArgs) != 1)
-  {
-    outlined init with copy of PgQuery_Alias?(v26, v22, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMd, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMR);
-    if (v32(&v26[v29], 1, ObjectWithArgs) != 1)
-    {
-      outlined init with take of PgQuery_OidList(&v26[v29], v18, type metadata accessor for PgQuery_ObjectWithArgs);
-      if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*v22, *v18) & 1) != 0 && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(v22 + 1), *(v18 + 1)) & 1) != 0 && v22[16] == v18[16])
-      {
-        v46 = *(ObjectWithArgs + 28);
-        type metadata accessor for UnknownStorage();
-        lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-        v47 = dispatch thunk of static Equatable.== infix(_:_:)();
-        outlined destroy of PgQuery_OidList(v18, type metadata accessor for PgQuery_ObjectWithArgs);
-        if (v47)
-        {
-          outlined destroy of PgQuery_OidList(v22, type metadata accessor for PgQuery_ObjectWithArgs);
-          goto LABEL_4;
-        }
-      }
-
-      else
-      {
-        outlined destroy of PgQuery_OidList(v18, type metadata accessor for PgQuery_ObjectWithArgs);
-      }
-
-      outlined destroy of PgQuery_OidList(v22, type metadata accessor for PgQuery_ObjectWithArgs);
-      v42 = &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMd;
-      v43 = &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMR;
-LABEL_18:
-      v44 = v26;
-LABEL_19:
-      outlined destroy of URL?(v44, v42, v43);
-LABEL_20:
-      v41 = 0;
-      return v41 & 1;
-    }
-
-    outlined destroy of PgQuery_OidList(v22, type metadata accessor for PgQuery_ObjectWithArgs);
-LABEL_12:
-    v42 = &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSg_ADtMd;
-    v43 = &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSg_ADtMR;
-    goto LABEL_18;
-  }
-
-  if (v32(&v26[v29], 1, ObjectWithArgs) != 1)
-  {
-    goto LABEL_12;
-  }
-
-LABEL_4:
-  outlined destroy of URL?(v26, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMd, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMR);
-  v33 = v56;
-  if (v56[1] != v31[1] || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(v56 + 1), *(v31 + 1)) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(v33 + 2), *(v31 + 2)) & 1) == 0)
-  {
-    goto LABEL_20;
-  }
-
-  v34 = v54;
-  v35 = v55;
-  v36 = *(v55 + 40);
-  v37 = *(v10 + 48);
-  outlined init with copy of PgQuery_Alias?(v33 + v36, v54, &_s14BiomeSQLParser16PgQuery_TypeNameVSgMd, &_s14BiomeSQLParser16PgQuery_TypeNameVSgMR);
-  outlined init with copy of PgQuery_Alias?(v61 + v36, v34 + v37, &_s14BiomeSQLParser16PgQuery_TypeNameVSgMd, &_s14BiomeSQLParser16PgQuery_TypeNameVSgMR);
-  v38 = v60;
-  v39 = *(v59 + 48);
-  if (v39(v34, 1, v60) != 1)
-  {
-    v48 = v58;
-    outlined init with copy of PgQuery_Alias?(v34, v58, &_s14BiomeSQLParser16PgQuery_TypeNameVSgMd, &_s14BiomeSQLParser16PgQuery_TypeNameVSgMR);
-    v49 = v34;
-    if (v39(v34 + v37, 1, v38) != 1)
-    {
-      v50 = v34 + v37;
-      v51 = v57;
-      outlined init with take of PgQuery_OidList(v50, v57, type metadata accessor for PgQuery_TypeName);
-      if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*v48, *v51) & 1) != 0 && *(v48 + 8) == *(v51 + 8) && *(v48 + 12) == *(v51 + 12) && *(v48 + 13) == *(v51 + 13) && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(v48 + 16), *(v51 + 16)) & 1) != 0 && *(v48 + 24) == *(v51 + 24) && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(v48 + 32), *(v51 + 32)) & 1) != 0 && *(v48 + 40) == *(v51 + 40))
-      {
-        v52 = *(v38 + 48);
-        type metadata accessor for UnknownStorage();
-        lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-        v53 = dispatch thunk of static Equatable.== infix(_:_:)();
-        outlined destroy of PgQuery_OidList(v51, type metadata accessor for PgQuery_TypeName);
-        if (v53)
-        {
-          outlined destroy of PgQuery_OidList(v48, type metadata accessor for PgQuery_TypeName);
-          v34 = v49;
-          v35 = v55;
-          goto LABEL_9;
-        }
-      }
-
-      else
-      {
-        outlined destroy of PgQuery_OidList(v51, type metadata accessor for PgQuery_TypeName);
-      }
-
-      outlined destroy of PgQuery_OidList(v48, type metadata accessor for PgQuery_TypeName);
-      v42 = &_s14BiomeSQLParser16PgQuery_TypeNameVSgMd;
-      v43 = &_s14BiomeSQLParser16PgQuery_TypeNameVSgMR;
-      v44 = v49;
-      goto LABEL_19;
-    }
-
-    outlined destroy of PgQuery_OidList(v48, type metadata accessor for PgQuery_TypeName);
-    goto LABEL_26;
-  }
-
-  if (v39(v34 + v37, 1, v38) != 1)
-  {
-LABEL_26:
-    v42 = &_s14BiomeSQLParser16PgQuery_TypeNameVSg_ADtMd;
-    v43 = &_s14BiomeSQLParser16PgQuery_TypeNameVSg_ADtMR;
-    v44 = v34;
-    goto LABEL_19;
-  }
-
-LABEL_9:
-  outlined destroy of URL?(v34, &_s14BiomeSQLParser16PgQuery_TypeNameVSgMd, &_s14BiomeSQLParser16PgQuery_TypeNameVSgMR);
-  v40 = *(v35 + 32);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v41 = dispatch thunk of static Equatable.== infix(_:_:)();
-  return v41 & 1;
-}
-
-uint64_t specialized static PgQuery_CompositeTypeStmt.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
-{
-  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
-  v5 = *(RangeVar - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](RangeVar);
-  v27 = &v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = &v25 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMR);
-  v13 = v12 - 8;
-  v14 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v25 - v15;
-  CompositeTypeStmt = type metadata accessor for PgQuery_CompositeTypeStmt(0);
-  v17 = *(CompositeTypeStmt + 24);
-  v18 = *(v13 + 56);
-  v28 = a1;
-  outlined init with copy of PgQuery_Alias?(a1 + v17, v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  outlined init with copy of PgQuery_Alias?(a2 + v17, &v16[v18], &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, RangeVar) == 1)
-  {
-    if (v19(&v16[v18], 1, RangeVar) == 1)
-    {
-      outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-      goto LABEL_8;
-    }
-
-    goto LABEL_6;
-  }
-
-  outlined init with copy of PgQuery_Alias?(v16, v11, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  if (v19(&v16[v18], 1, RangeVar) == 1)
-  {
-    outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_RangeVar);
-LABEL_6:
-    outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMR);
-LABEL_10:
-    v23 = 0;
-    return v23 & 1;
-  }
-
-  v20 = v27;
-  outlined init with take of PgQuery_OidList(&v16[v18], v27, type metadata accessor for PgQuery_RangeVar);
-  v21 = specialized static PgQuery_RangeVar.== infix(_:_:)(v11, v20);
-  outlined destroy of PgQuery_OidList(v20, type metadata accessor for PgQuery_RangeVar);
-  outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_RangeVar);
-  outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  if ((v21 & 1) == 0)
-  {
-    goto LABEL_10;
-  }
-
-LABEL_8:
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*v28, *a2) & 1) == 0)
-  {
-    goto LABEL_10;
-  }
-
-  v22 = *(CompositeTypeStmt + 20);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v23 = dispatch thunk of static Equatable.== infix(_:_:)();
-  return v23 & 1;
-}
-
-uint64_t specialized static PgQuery_AlterOperatorStmt.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
-{
-  ObjectWithArgs = type metadata accessor for PgQuery_ObjectWithArgs(0);
-  v5 = *(ObjectWithArgs - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](ObjectWithArgs);
-  v30 = &v28 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMd, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = &v28 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSg_ADtMd, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSg_ADtMR);
-  v13 = v12 - 8;
-  v14 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v28 - v15;
-  AlterOperatorStmt = type metadata accessor for PgQuery_AlterOperatorStmt(0);
-  v17 = *(AlterOperatorStmt + 24);
-  v18 = *(v13 + 56);
-  v31 = a1;
-  outlined init with copy of PgQuery_Alias?(a1 + v17, v16, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMd, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMR);
-  outlined init with copy of PgQuery_Alias?(a2 + v17, &v16[v18], &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMd, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMR);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, ObjectWithArgs) == 1)
-  {
-    if (v19(&v16[v18], 1, ObjectWithArgs) == 1)
-    {
-      goto LABEL_3;
-    }
-
-    goto LABEL_7;
-  }
-
-  outlined init with copy of PgQuery_Alias?(v16, v11, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMd, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMR);
-  if (v19(&v16[v18], 1, ObjectWithArgs) == 1)
-  {
-    outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_ObjectWithArgs);
-LABEL_7:
-    v22 = &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSg_ADtMd;
-    v23 = &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSg_ADtMR;
-LABEL_13:
-    outlined destroy of URL?(v16, v22, v23);
-    goto LABEL_14;
-  }
-
-  v24 = v30;
-  outlined init with take of PgQuery_OidList(&v16[v18], v30, type metadata accessor for PgQuery_ObjectWithArgs);
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*v11, *v24) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(v11 + 1), *(v24 + 8)) & 1) == 0 || v11[16] != *(v24 + 16))
-  {
-    outlined destroy of PgQuery_OidList(v24, type metadata accessor for PgQuery_ObjectWithArgs);
-LABEL_12:
-    outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_ObjectWithArgs);
-    v22 = &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMd;
-    v23 = &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMR;
-    goto LABEL_13;
-  }
-
-  v26 = *(ObjectWithArgs + 28);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v27 = dispatch thunk of static Equatable.== infix(_:_:)();
-  outlined destroy of PgQuery_OidList(v24, type metadata accessor for PgQuery_ObjectWithArgs);
-  if ((v27 & 1) == 0)
-  {
-    goto LABEL_12;
-  }
-
-  outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_ObjectWithArgs);
-LABEL_3:
-  outlined destroy of URL?(v16, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMd, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMR);
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*v31, *a2) & 1) == 0)
-  {
-LABEL_14:
-    v21 = 0;
-    return v21 & 1;
-  }
-
-  v20 = *(AlterOperatorStmt + 20);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v21 = dispatch thunk of static Equatable.== infix(_:_:)();
-  return v21 & 1;
-}
-
-uint64_t specialized static PgQuery_AlterOpFamilyStmt.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*a1, *a2) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v4 = *(a1 + 8) == *(a2 + 8) && *(a1 + 16) == *(a2 + 16);
-  if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || *(a1 + 24) != *(a2 + 24) || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 32), *(a2 + 32)) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v5 = *(type metadata accessor for PgQuery_AlterOpFamilyStmt(0) + 32);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static PgQuery_AlterFunctionStmt.== infix(_:_:)(uint64_t a1, uint64_t *a2)
-{
-  ObjectWithArgs = type metadata accessor for PgQuery_ObjectWithArgs(0);
-  v5 = *(ObjectWithArgs - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](ObjectWithArgs);
-  v33 = &AlterFunctionStmt - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMd, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = &AlterFunctionStmt - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSg_ADtMd, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSg_ADtMR);
-  v13 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12);
-  v15 = &AlterFunctionStmt - v14;
-  v16 = *a2;
-  v17 = *(a2 + 8);
-  ResultSetCursor.columns.modify(*a1, *(a1 + 8));
-  v19 = v18;
-  ResultSetCursor.columns.modify(v16, v17);
-  if (v19 != v20)
-  {
-    goto LABEL_15;
-  }
-
-  AlterFunctionStmt = type metadata accessor for PgQuery_AlterFunctionStmt(0);
-  v21 = *(AlterFunctionStmt + 28);
-  v22 = *(v12 + 48);
-  outlined init with copy of PgQuery_Alias?(a1 + v21, v15, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMd, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMR);
-  outlined init with copy of PgQuery_Alias?(a2 + v21, &v15[v22], &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMd, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMR);
-  v23 = *(v5 + 48);
-  if (v23(v15, 1, ObjectWithArgs) == 1)
-  {
-    if (v23(&v15[v22], 1, ObjectWithArgs) == 1)
-    {
-      goto LABEL_4;
-    }
-
-    goto LABEL_8;
-  }
-
-  outlined init with copy of PgQuery_Alias?(v15, v11, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMd, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMR);
-  if (v23(&v15[v22], 1, ObjectWithArgs) == 1)
-  {
-    outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_ObjectWithArgs);
-LABEL_8:
-    v26 = &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSg_ADtMd;
-    v27 = &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSg_ADtMR;
-LABEL_14:
-    outlined destroy of URL?(v15, v26, v27);
-    goto LABEL_15;
-  }
-
-  v28 = v33;
-  outlined init with take of PgQuery_OidList(&v15[v22], v33, type metadata accessor for PgQuery_ObjectWithArgs);
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*v11, *v28) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(v11 + 1), *(v28 + 8)) & 1) == 0 || v11[16] != *(v28 + 16))
-  {
-    outlined destroy of PgQuery_OidList(v28, type metadata accessor for PgQuery_ObjectWithArgs);
-LABEL_13:
-    outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_ObjectWithArgs);
-    v26 = &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMd;
-    v27 = &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMR;
-    goto LABEL_14;
-  }
-
-  v30 = *(ObjectWithArgs + 28);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v31 = dispatch thunk of static Equatable.== infix(_:_:)();
-  outlined destroy of PgQuery_OidList(v28, type metadata accessor for PgQuery_ObjectWithArgs);
-  if ((v31 & 1) == 0)
-  {
-    goto LABEL_13;
-  }
-
-  outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_ObjectWithArgs);
-LABEL_4:
-  outlined destroy of URL?(v15, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMd, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMR);
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 16), a2[2]) & 1) == 0)
-  {
-LABEL_15:
-    v25 = 0;
-    return v25 & 1;
-  }
-
-  v24 = *(AlterFunctionStmt + 24);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v25 = dispatch thunk of static Equatable.== infix(_:_:)();
-  return v25 & 1;
-}
-
-uint64_t specialized static PgQuery_CreateSchemaStmt.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  RoleSpec = type metadata accessor for PgQuery_RoleSpec(0);
-  v5 = *(RoleSpec - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](RoleSpec);
-  v8 = &SchemaStmt - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &SchemaStmt - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RoleSpecVSg_ADtMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &SchemaStmt - v15;
-  if ((*a1 != *a2 || *(a1 + 8) != *(a2 + 8)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-  {
-    goto LABEL_38;
-  }
-
-  v33 = v8;
-  SchemaStmt = type metadata accessor for PgQuery_CreateSchemaStmt(0);
-  v17 = *(SchemaStmt + 32);
-  v18 = *(v13 + 48);
-  outlined init with copy of PgQuery_Alias?(a1 + v17, v16, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR);
-  outlined init with copy of PgQuery_Alias?(a2 + v17, &v16[v18], &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, RoleSpec) != 1)
-  {
-    outlined init with copy of PgQuery_Alias?(v16, v12, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR);
-    if (v19(&v16[v18], 1, RoleSpec) == 1)
-    {
-      outlined destroy of PgQuery_OidList(v12, type metadata accessor for PgQuery_RoleSpec);
-      goto LABEL_11;
-    }
-
-    v24 = &v16[v18];
-    v25 = v33;
-    outlined init with take of PgQuery_OidList(v24, v33, type metadata accessor for PgQuery_RoleSpec);
-    v26 = *v12;
-    v27 = *v25;
-    if (*(v25 + 8) == 1)
-    {
-      if (v27 <= 1)
-      {
-        if (v27)
-        {
-          if (v26 != 1)
-          {
-            goto LABEL_35;
-          }
-        }
-
-        else if (v26)
-        {
-          goto LABEL_35;
-        }
-      }
-
-      else if (v27 == 2)
-      {
-        if (v26 != 2)
-        {
-          goto LABEL_35;
-        }
-      }
-
-      else if (v27 == 3)
-      {
-        if (v26 != 3)
-        {
-          goto LABEL_35;
-        }
-      }
-
-      else if (v26 != 4)
-      {
-        goto LABEL_35;
-      }
-    }
-
-    else if (v26 != v27)
-    {
-      goto LABEL_35;
-    }
-
-    v28 = *(v12 + 2) == *(v25 + 16) && *(v12 + 3) == *(v25 + 24);
-    if (v28 || (_stringCompareWithSmolCheck(_:_:expecting:)()) && *(v12 + 8) == *(v25 + 32))
-    {
-      v29 = *(RoleSpec + 28);
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v30 = dispatch thunk of static Equatable.== infix(_:_:)();
-      outlined destroy of PgQuery_OidList(v25, type metadata accessor for PgQuery_RoleSpec);
-      if (v30)
-      {
-        outlined destroy of PgQuery_OidList(v12, type metadata accessor for PgQuery_RoleSpec);
-        goto LABEL_6;
-      }
-
-      goto LABEL_36;
-    }
-
-LABEL_35:
-    outlined destroy of PgQuery_OidList(v25, type metadata accessor for PgQuery_RoleSpec);
-LABEL_36:
-    outlined destroy of PgQuery_OidList(v12, type metadata accessor for PgQuery_RoleSpec);
-    v22 = &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd;
-    v23 = &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR;
-    goto LABEL_37;
-  }
-
-  if (v19(&v16[v18], 1, RoleSpec) != 1)
-  {
-LABEL_11:
-    v22 = &_s14BiomeSQLParser16PgQuery_RoleSpecVSg_ADtMd;
-    v23 = &_s14BiomeSQLParser16PgQuery_RoleSpecVSg_ADtMR;
-LABEL_37:
-    outlined destroy of URL?(v16, v22, v23);
-LABEL_38:
-    v21 = 0;
-    return v21 & 1;
-  }
-
-LABEL_6:
-  outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR);
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 16), *(a2 + 16)) & 1) == 0 || *(a1 + 24) != *(a2 + 24))
-  {
-    goto LABEL_38;
-  }
-
-  v20 = *(SchemaStmt + 28);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v21 = dispatch thunk of static Equatable.== infix(_:_:)();
-  return v21 & 1;
-}
-
-uint64_t specialized static PgQuery_AlterRoleSetStmt.== infix(_:_:)(void *a1, void *a2)
-{
-  VariableSetStmt = type metadata accessor for PgQuery_VariableSetStmt(0);
-  v56 = *(VariableSetStmt - 8);
-  v4 = *(v56 + 64);
-  MEMORY[0x28223BE20](VariableSetStmt);
-  v53 = &v53 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser23PgQuery_VariableSetStmtVSgMd, &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8);
-  v54 = &v53 - v8;
-  v55 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser23PgQuery_VariableSetStmtVSg_ADtMd, &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSg_ADtMR);
-  v9 = *(*(v55 - 8) + 64);
-  MEMORY[0x28223BE20](v55);
-  v59 = &v53 - v10;
-  RoleSpec = type metadata accessor for PgQuery_RoleSpec(0);
-  v12 = *(RoleSpec - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](RoleSpec);
-  v60 = &v53 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR);
-  v16 = *(*(v15 - 8) + 64);
-  MEMORY[0x28223BE20](v15 - 8);
-  v18 = &v53 - v17;
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RoleSpecVSg_ADtMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSg_ADtMR);
-  v20 = v19 - 8;
-  v21 = *(*(v19 - 8) + 64);
-  MEMORY[0x28223BE20](v19);
-  v23 = &v53 - v22;
-  AlterRoleSetStmt = type metadata accessor for PgQuery_AlterRoleSetStmt(0);
-  v24 = *(AlterRoleSetStmt + 24);
-  v25 = *(v20 + 56);
-  v61 = a1;
-  outlined init with copy of PgQuery_Alias?(a1 + v24, v23, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR);
-  v62 = a2;
-  outlined init with copy of PgQuery_Alias?(a2 + v24, &v23[v25], &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR);
-  v26 = *(v12 + 48);
-  if (v26(v23, 1, RoleSpec) == 1)
-  {
-    if (v26(&v23[v25], 1, RoleSpec) == 1)
-    {
-      goto LABEL_3;
-    }
-
-    goto LABEL_11;
-  }
-
-  outlined init with copy of PgQuery_Alias?(v23, v18, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR);
-  if (v26(&v23[v25], 1, RoleSpec) == 1)
-  {
-    outlined destroy of PgQuery_OidList(v18, type metadata accessor for PgQuery_RoleSpec);
-LABEL_11:
-    v38 = &_s14BiomeSQLParser16PgQuery_RoleSpecVSg_ADtMd;
-    v39 = &_s14BiomeSQLParser16PgQuery_RoleSpecVSg_ADtMR;
-LABEL_52:
-    v46 = v23;
-    goto LABEL_53;
-  }
-
-  v40 = &v23[v25];
-  v41 = v60;
-  outlined init with take of PgQuery_OidList(v40, v60, type metadata accessor for PgQuery_RoleSpec);
-  v42 = *v18;
-  v43 = *v41;
-  if (*(v41 + 8) != 1)
-  {
-    if (v42 == v43)
-    {
-      goto LABEL_19;
-    }
-
-LABEL_50:
-    outlined destroy of PgQuery_OidList(v41, type metadata accessor for PgQuery_RoleSpec);
-    goto LABEL_51;
-  }
-
-  if (v43 <= 1)
-  {
-    if (v43)
-    {
-      if (v42 == 1)
-      {
-        goto LABEL_19;
-      }
-    }
-
-    else if (!v42)
-    {
-      goto LABEL_19;
-    }
-
-    goto LABEL_50;
-  }
-
-  if (v43 == 2)
-  {
-    if (v42 != 2)
-    {
-      goto LABEL_50;
-    }
-  }
-
-  else if (v43 == 3)
-  {
-    if (v42 != 3)
-    {
-      goto LABEL_50;
-    }
-  }
-
-  else if (v42 != 4)
-  {
-    goto LABEL_50;
-  }
-
-LABEL_19:
-  if ((*(v18 + 2) != *(v41 + 16) || *(v18 + 3) != *(v41 + 24)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || *(v18 + 8) != *(v41 + 32))
-  {
-    goto LABEL_50;
-  }
-
-  v44 = *(RoleSpec + 28);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  LOBYTE(v44) = dispatch thunk of static Equatable.== infix(_:_:)();
-  outlined destroy of PgQuery_OidList(v41, type metadata accessor for PgQuery_RoleSpec);
-  if ((v44 & 1) == 0)
-  {
-LABEL_51:
-    outlined destroy of PgQuery_OidList(v18, type metadata accessor for PgQuery_RoleSpec);
-    v38 = &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd;
-    v39 = &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR;
-    goto LABEL_52;
-  }
-
-  outlined destroy of PgQuery_OidList(v18, type metadata accessor for PgQuery_RoleSpec);
-LABEL_3:
-  outlined destroy of URL?(v23, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR);
-  v28 = v61;
-  v27 = v62;
-  if (*v61 == *v62 && v61[1] == v62[1] || (v29 = _stringCompareWithSmolCheck(_:_:expecting:)(), v30 = 0, (v29 & 1) != 0))
-  {
-    v31 = AlterRoleSetStmt;
-    v32 = *(AlterRoleSetStmt + 28);
-    v33 = *(v55 + 48);
-    v34 = v59;
-    outlined init with copy of PgQuery_Alias?(v28 + v32, v59, &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSgMd, &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSgMR);
-    outlined init with copy of PgQuery_Alias?(v27 + v32, v34 + v33, &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSgMd, &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSgMR);
-    v35 = *(v56 + 48);
-    v36 = VariableSetStmt;
-    if (v35(v34, 1, VariableSetStmt) == 1)
-    {
-      if (v35(v34 + v33, 1, v36) == 1)
-      {
-LABEL_8:
-        outlined destroy of URL?(v34, &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSgMd, &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSgMR);
-        v37 = *(v31 + 20);
-        type metadata accessor for UnknownStorage();
-        lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-        v30 = dispatch thunk of static Equatable.== infix(_:_:)();
-        return v30 & 1;
-      }
-
-      goto LABEL_27;
-    }
-
-    v45 = v54;
-    outlined init with copy of PgQuery_Alias?(v34, v54, &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSgMd, &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSgMR);
-    if (v35(v34 + v33, 1, v36) == 1)
-    {
-      outlined destroy of PgQuery_OidList(v45, type metadata accessor for PgQuery_VariableSetStmt);
-LABEL_27:
-      v38 = &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSg_ADtMd;
-      v39 = &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSg_ADtMR;
-      v46 = v34;
-LABEL_53:
-      outlined destroy of URL?(v46, v38, v39);
-      v30 = 0;
-      return v30 & 1;
-    }
-
-    v47 = v34 + v33;
-    v48 = v53;
-    outlined init with take of PgQuery_OidList(v47, v53, type metadata accessor for PgQuery_VariableSetStmt);
-    v49 = *v45;
-    v50 = *v48;
-    if (*(v48 + 8) == 1)
-    {
-      if (v50 <= 2)
-      {
-        if (v50)
-        {
-          if (v50 == 1)
-          {
-            if (v49 != 1)
-            {
-              goto LABEL_69;
-            }
-          }
-
-          else if (v49 != 2)
-          {
-            goto LABEL_69;
-          }
-        }
-
-        else if (v49)
-        {
-          goto LABEL_69;
-        }
-      }
-
-      else if (v50 > 4)
-      {
-        if (v50 == 5)
-        {
-          if (v49 != 5)
-          {
-            goto LABEL_69;
-          }
-        }
-
-        else if (v49 != 6)
-        {
-          goto LABEL_69;
-        }
-      }
-
-      else if (v50 == 3)
-      {
-        if (v49 != 3)
-        {
-          goto LABEL_69;
-        }
-      }
-
-      else if (v49 != 4)
-      {
-        goto LABEL_69;
-      }
-    }
-
-    else if (v49 != v50)
-    {
-      goto LABEL_69;
-    }
-
-    if (*(v45 + 16) == *(v48 + 16) && *(v45 + 24) == *(v48 + 24) || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(v45 + 32), *(v48 + 32)) & 1) != 0 && *(v45 + 40) == *(v48 + 40))
-    {
-      v51 = *(v36 + 32);
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      LOBYTE(v51) = dispatch thunk of static Equatable.== infix(_:_:)();
-      outlined destroy of PgQuery_OidList(v48, type metadata accessor for PgQuery_VariableSetStmt);
-      if (v51)
-      {
-        outlined destroy of PgQuery_OidList(v45, type metadata accessor for PgQuery_VariableSetStmt);
-        goto LABEL_8;
-      }
-
-      goto LABEL_70;
-    }
-
-LABEL_69:
-    outlined destroy of PgQuery_OidList(v48, type metadata accessor for PgQuery_VariableSetStmt);
-LABEL_70:
-    outlined destroy of PgQuery_OidList(v45, type metadata accessor for PgQuery_VariableSetStmt);
-    v38 = &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSgMd;
-    v39 = &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSgMR;
-    v46 = v34;
-    goto LABEL_53;
-  }
-
-  return v30 & 1;
-}
-
-uint64_t specialized static PgQuery_TransactionStmt.== infix(_:_:)(uint64_t *a1, uint64_t a2)
-{
-  v4 = *a1;
-  v5 = *a2;
-  if (*(a2 + 8) == 1)
-  {
-    if (v5 <= 4)
-    {
-      if (v5 <= 1)
-      {
-        if (v5)
-        {
-          if (v4 != 1)
-          {
-            return 0;
-          }
-        }
-
-        else if (v4)
-        {
-          return 0;
-        }
-      }
-
-      else if (v5 == 2)
-      {
-        if (v4 != 2)
-        {
-          return 0;
-        }
-      }
-
-      else if (v5 == 3)
-      {
-        if (v4 != 3)
-        {
-          return 0;
-        }
-      }
-
-      else if (v4 != 4)
-      {
-        return 0;
-      }
-    }
-
-    else if (v5 > 7)
-    {
-      if (v5 == 8)
-      {
-        if (v4 != 8)
-        {
-          return 0;
-        }
-      }
-
-      else if (v5 == 9)
-      {
-        if (v4 != 9)
-        {
-          return 0;
-        }
-      }
-
-      else if (v4 != 10)
-      {
-        return 0;
-      }
-    }
-
-    else if (v5 == 5)
-    {
-      if (v4 != 5)
-      {
-        return 0;
-      }
-    }
-
-    else if (v5 == 6)
-    {
-      if (v4 != 6)
-      {
-        return 0;
-      }
-    }
-
-    else if (v4 != 7)
-    {
-      return 0;
-    }
-  }
-
-  else if (v4 != v5)
-  {
-    return 0;
-  }
-
-  if (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(a1[2], *(a2 + 16)) & 1) != 0 && (a1[3] == *(a2 + 24) && a1[4] == *(a2 + 32) || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (a1[5] == *(a2 + 40) && a1[6] == *(a2 + 48) || (_stringCompareWithSmolCheck(_:_:expecting:)()) && *(a1 + 56) == *(a2 + 56))
-  {
-    v6 = *(type metadata accessor for PgQuery_TransactionStmt(0) + 36);
-    type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-  }
-
-  return 0;
-}
-
-uint64_t specialized static PgQuery_TableLikeClause.== infix(_:_:)(_DWORD *a1, _DWORD *a2)
-{
-  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
-  v5 = *(RangeVar - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](RangeVar);
-  v27 = &v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = &v25 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMR);
-  v13 = v12 - 8;
-  v14 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v25 - v15;
-  TableLikeClause = type metadata accessor for PgQuery_TableLikeClause(0);
-  v17 = *(TableLikeClause + 28);
-  v18 = *(v13 + 56);
-  v28 = a1;
-  outlined init with copy of PgQuery_Alias?(a1 + v17, v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  outlined init with copy of PgQuery_Alias?(a2 + v17, &v16[v18], &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, RangeVar) != 1)
-  {
-    outlined init with copy of PgQuery_Alias?(v16, v11, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-    if (v19(&v16[v18], 1, RangeVar) != 1)
-    {
-      v20 = v27;
-      outlined init with take of PgQuery_OidList(&v16[v18], v27, type metadata accessor for PgQuery_RangeVar);
-      v21 = specialized static PgQuery_RangeVar.== infix(_:_:)(v11, v20);
-      outlined destroy of PgQuery_OidList(v20, type metadata accessor for PgQuery_RangeVar);
-      outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_RangeVar);
-      outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-      if (v21)
-      {
-        goto LABEL_8;
-      }
-
-LABEL_11:
-      v23 = 0;
-      return v23 & 1;
-    }
-
-    outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_RangeVar);
-LABEL_6:
-    outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMR);
-    goto LABEL_11;
-  }
-
-  if (v19(&v16[v18], 1, RangeVar) != 1)
-  {
-    goto LABEL_6;
-  }
-
-  outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-LABEL_8:
-  if (*v28 != *a2 || v28[1] != a2[1])
-  {
-    goto LABEL_11;
-  }
-
-  v22 = *(TableLikeClause + 24);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v23 = dispatch thunk of static Equatable.== infix(_:_:)();
-  return v23 & 1;
-}
-
-uint64_t specialized static PgQuery_SortGroupClause.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  if (*a1 != *a2 || *(a1 + 4) != *(a2 + 4) || *(a1 + 8) != *(a2 + 8) || *(a1 + 12) != *(a2 + 12) || *(a1 + 13) != *(a2 + 13))
-  {
-    return 0;
-  }
-
-  v3 = *(type metadata accessor for PgQuery_SortGroupClause(0) + 36);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static PgQuery_InlineCodeBlock.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = *a1 == *a2 && *(a1 + 8) == *(a2 + 8);
-  if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || *(a1 + 16) != *(a2 + 16) || *(a1 + 20) != *(a2 + 20) || *(a1 + 21) != *(a2 + 21))
-  {
-    return 0;
-  }
-
-  v6 = *(type metadata accessor for PgQuery_InlineCodeBlock(0) + 32);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static PgQuery_CreateStatsStmt.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*a1, *a2) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 8), *(a2 + 8)) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 16), *(a2 + 16)) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 24), *(a2 + 24)) & 1) == 0 || (*(a1 + 32) != *(a2 + 32) || *(a1 + 40) != *(a2 + 40)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || *(a1 + 48) != *(a2 + 48))
-  {
-    return 0;
-  }
-
-  v5 = *(type metadata accessor for PgQuery_CreateStatsStmt(0) + 40);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static PgQuery_CreatePLangStmt.== infix(_:_:)(unsigned __int8 *a1, unsigned __int8 *a2)
-{
-  if (*a1 != *a2)
-  {
-    return 0;
-  }
-
-  v4 = *(a1 + 1) == *(a2 + 1) && *(a1 + 2) == *(a2 + 2);
-  if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 3), *(a2 + 3)) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 4), *(a2 + 4)) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 5), *(a2 + 5)) & 1) == 0 || a1[48] != a2[48])
-  {
-    return 0;
-  }
-
-  v6 = *(type metadata accessor for PgQuery_CreatePLangStmt(0) + 40);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static PgQuery_VariableSetStmt.== infix(_:_:)(uint64_t *a1, uint64_t a2)
-{
-  v4 = *a1;
-  v5 = *a2;
-  if (*(a2 + 8) == 1)
-  {
-    if (v5 <= 2)
-    {
-      if (v5)
-      {
-        if (v5 == 1)
-        {
-          if (v4 != 1)
-          {
-            return 0;
-          }
-        }
-
-        else if (v4 != 2)
-        {
-          return 0;
-        }
-      }
-
-      else if (v4)
-      {
-        return 0;
-      }
-    }
-
-    else if (v5 > 4)
-    {
-      if (v5 == 5)
-      {
-        if (v4 != 5)
-        {
-          return 0;
-        }
-      }
-
-      else if (v4 != 6)
-      {
-        return 0;
-      }
-    }
-
-    else if (v5 == 3)
-    {
-      if (v4 != 3)
-      {
-        return 0;
-      }
-    }
-
-    else if (v4 != 4)
-    {
-      return 0;
-    }
-  }
-
-  else if (v4 != v5)
-  {
-    return 0;
-  }
-
-  v6 = a1[2] == *(a2 + 16) && a1[3] == *(a2 + 24);
-  if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(a1[4], *(a2 + 32)) & 1) != 0 && *(a1 + 40) == *(a2 + 40))
-  {
-    v7 = *(type metadata accessor for PgQuery_VariableSetStmt(0) + 32);
-    type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-  }
-
-  return 0;
-}
-
-uint64_t specialized static PgQuery_AlterSystemStmt.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  VariableSetStmt = type metadata accessor for PgQuery_VariableSetStmt(0);
-  v5 = *(VariableSetStmt - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](VariableSetStmt);
-  v24[0] = v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser23PgQuery_VariableSetStmtVSgMd, &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = (v24 - v10);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser23PgQuery_VariableSetStmtVSg_ADtMd, &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSg_ADtMR);
-  v13 = v12 - 8;
-  v14 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12);
-  v16 = v24 - v15;
-  v17 = *(type metadata accessor for PgQuery_AlterSystemStmt(0) + 20);
-  v18 = *(v13 + 56);
-  v24[1] = a1;
-  outlined init with copy of PgQuery_Alias?(a1 + v17, v16, &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSgMd, &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSgMR);
-  outlined init with copy of PgQuery_Alias?(a2 + v17, &v16[v18], &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSgMd, &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSgMR);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, VariableSetStmt) == 1)
-  {
-    if (v19(&v16[v18], 1, VariableSetStmt) == 1)
-    {
-      outlined destroy of URL?(v16, &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSgMd, &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSgMR);
-LABEL_9:
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v20 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v20 & 1;
-    }
-
-    goto LABEL_6;
-  }
-
-  outlined init with copy of PgQuery_Alias?(v16, v11, &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSgMd, &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSgMR);
-  if (v19(&v16[v18], 1, VariableSetStmt) == 1)
-  {
-    outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_VariableSetStmt);
-LABEL_6:
-    outlined destroy of URL?(v16, &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSg_ADtMd, &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSg_ADtMR);
-    goto LABEL_7;
-  }
-
-  v21 = v24[0];
-  outlined init with take of PgQuery_OidList(&v16[v18], v24[0], type metadata accessor for PgQuery_VariableSetStmt);
-  v22 = specialized static PgQuery_VariableSetStmt.== infix(_:_:)(v11, v21);
-  outlined destroy of PgQuery_OidList(v21, type metadata accessor for PgQuery_VariableSetStmt);
-  outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_VariableSetStmt);
-  outlined destroy of URL?(v16, &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSgMd, &_s14BiomeSQLParser23PgQuery_VariableSetStmtVSgMR);
-  if (v22)
-  {
-    goto LABEL_9;
-  }
-
-LABEL_7:
-  v20 = 0;
-  return v20 & 1;
-}
-
-uint64_t specialized static PgQuery_VacuumRelation.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
-  v5 = *(RangeVar - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](RangeVar);
-  v27 = &v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = &v25 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMR);
-  v13 = v12 - 8;
-  v14 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v25 - v15;
-  VacuumRelation = type metadata accessor for PgQuery_VacuumRelation(0);
-  v17 = *(VacuumRelation + 28);
-  v18 = *(v13 + 56);
-  v28 = a1;
-  outlined init with copy of PgQuery_Alias?(a1 + v17, v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  outlined init with copy of PgQuery_Alias?(a2 + v17, &v16[v18], &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, RangeVar) != 1)
-  {
-    outlined init with copy of PgQuery_Alias?(v16, v11, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-    if (v19(&v16[v18], 1, RangeVar) != 1)
-    {
-      v20 = v27;
-      outlined init with take of PgQuery_OidList(&v16[v18], v27, type metadata accessor for PgQuery_RangeVar);
-      v21 = specialized static PgQuery_RangeVar.== infix(_:_:)(v11, v20);
-      outlined destroy of PgQuery_OidList(v20, type metadata accessor for PgQuery_RangeVar);
-      outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_RangeVar);
-      outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-      if (v21)
-      {
-        goto LABEL_8;
-      }
-
-LABEL_11:
-      v23 = 0;
-      return v23 & 1;
-    }
-
-    outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_RangeVar);
-LABEL_6:
-    outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMR);
-    goto LABEL_11;
-  }
-
-  if (v19(&v16[v18], 1, RangeVar) != 1)
-  {
-    goto LABEL_6;
-  }
-
-  outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-LABEL_8:
-  if (*v28 != *a2 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(v28 + 8), *(a2 + 8)) & 1) == 0)
-  {
-    goto LABEL_11;
-  }
-
-  v22 = *(VacuumRelation + 24);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v23 = dispatch thunk of static Equatable.== infix(_:_:)();
-  return v23 & 1;
-}
-
-uint64_t specialized static PgQuery_RawStmt.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), uint64_t *a4, void *a5, void *a6)
-{
-  v11 = *(a3(0) + 20);
-  v12 = *(a1 + v11);
-  v13 = *(a2 + v11);
-  if (v12 != v13)
-  {
-    v14 = *(a1 + v11);
-
-    v15 = closure #1 in static PgQuery_NextValueExpr.== infix(_:_:)(v12, v13, a4, a5, a6);
-
-    if (!v15)
-    {
-      return 0;
-    }
-  }
-
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static PgQuery_CreateRoleStmt.== infix(_:_:)(uint64_t *a1, uint64_t a2)
-{
-  v4 = *a1;
-  v5 = *a2;
-  if (*(a2 + 8) == 1)
-  {
-    if (v5 > 1)
-    {
-      if (v5 == 2)
-      {
-        if (v4 != 2)
-        {
-          return 0;
-        }
-      }
-
-      else if (v4 != 3)
-      {
-        return 0;
-      }
-    }
-
-    else if (v5)
-    {
-      if (v4 != 1)
-      {
-        return 0;
-      }
-    }
-
-    else if (v4)
-    {
-      return 0;
-    }
-  }
-
-  else if (v4 != v5)
-  {
-    return 0;
-  }
-
-  v6 = a1[2] == *(a2 + 16) && a1[3] == *(a2 + 24);
-  if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(a1[4], *(a2 + 32)))
-  {
-    v7 = *(type metadata accessor for PgQuery_CreateRoleStmt(0) + 28);
-    type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-  }
-
-  return 0;
-}
-
-uint64_t specialized static PgQuery_AlterTableStmt.== infix(_:_:)(uint64_t *a1, uint64_t a2)
-{
-  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
-  v5 = *(RangeVar - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](RangeVar);
-  v33 = &v31 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = &v31 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMR);
-  v13 = v12 - 8;
-  v14 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v31 - v15;
-  AlterTableStmt = type metadata accessor for PgQuery_AlterTableStmt(0);
-  v17 = *(AlterTableStmt + 32);
-  v18 = *(v13 + 56);
-  v34 = a1;
-  outlined init with copy of PgQuery_Alias?(a1 + v17, v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  outlined init with copy of PgQuery_Alias?(a2 + v17, &v16[v18], &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, RangeVar) == 1)
-  {
-    if (v19(&v16[v18], 1, RangeVar) == 1)
-    {
-      outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-      goto LABEL_8;
-    }
+    return 0x79546E7275746572;
   }
 
   else
   {
-    outlined init with copy of PgQuery_Alias?(v16, v11, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-    if (v19(&v16[v18], 1, RangeVar) != 1)
-    {
-      v21 = v33;
-      outlined init with take of PgQuery_OidList(&v16[v18], v33, type metadata accessor for PgQuery_RangeVar);
-      v22 = specialized static PgQuery_RangeVar.== infix(_:_:)(v11, v21);
-      outlined destroy of PgQuery_OidList(v21, type metadata accessor for PgQuery_RangeVar);
-      outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_RangeVar);
-      outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-      if ((v22 & 1) == 0)
-      {
-LABEL_11:
-        v20 = 0;
-        return v20 & 1;
-      }
-
-LABEL_8:
-      v23 = v34;
-      if (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*v34, *a2))
-      {
-        v24 = *(a2 + 8);
-        v25 = *(a2 + 16);
-        ResultSetCursor.columns.modify(v23[1], *(v23 + 16));
-        v27 = v26;
-        ResultSetCursor.columns.modify(v24, v25);
-        if (v27 == v28 && *(v23 + 17) == *(a2 + 17))
-        {
-          v30 = *(AlterTableStmt + 28);
-          type metadata accessor for UnknownStorage();
-          lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-          v20 = dispatch thunk of static Equatable.== infix(_:_:)();
-          return v20 & 1;
-        }
-      }
-
-      goto LABEL_11;
-    }
-
-    outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_RangeVar);
+    return 0x7461676572676761;
   }
-
-  outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMR);
-  v20 = 0;
-  return v20 & 1;
 }
 
-uint64_t specialized static PgQuery_RowMarkClause.== infix(_:_:)(uint64_t a1, uint64_t a2)
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance AggregationFunction.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
 {
-  if (*a1 != *a2)
+  v6 = a1 == 0x7461676572676761 && a2 == 0xEF657079546E6F69;
+  if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
-    return 0;
-  }
-
-  v2 = *(a1 + 8);
-  v3 = *(a2 + 8);
-  if (*(a2 + 16) == 1)
-  {
-    if (v3 > 2)
-    {
-      if (v3 == 3)
-      {
-        if (v2 != 3)
-        {
-          return 0;
-        }
-      }
-
-      else if (v3 == 4)
-      {
-        if (v2 != 4)
-        {
-          return 0;
-        }
-      }
-
-      else if (v2 != 5)
-      {
-        return 0;
-      }
-    }
-
-    else if (v3)
-    {
-      if (v3 == 1)
-      {
-        if (v2 != 1)
-        {
-          return 0;
-        }
-      }
-
-      else if (v2 != 2)
-      {
-        return 0;
-      }
-    }
-
-    else if (v2)
-    {
-      return 0;
-    }
-  }
-
-  else if (v2 != v3)
-  {
-    return 0;
-  }
-
-  v4 = *(a1 + 24);
-  v5 = *(a2 + 24);
-  if (*(a2 + 32) == 1)
-  {
-    if (v5 > 1)
-    {
-      if (v5 == 2)
-      {
-        if (v4 != 2)
-        {
-          return 0;
-        }
-      }
-
-      else if (v4 != 3)
-      {
-        return 0;
-      }
-    }
-
-    else if (v5)
-    {
-      if (v4 != 1)
-      {
-        return 0;
-      }
-    }
-
-    else if (v4)
-    {
-      return 0;
-    }
-  }
-
-  else if (v4 != v5)
-  {
-    return 0;
-  }
-
-  if (*(a1 + 33) == *(a2 + 33))
-  {
-    v6 = *(type metadata accessor for PgQuery_RowMarkClause(0) + 32);
-    type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-  }
-
-  return 0;
-}
-
-uint64_t specialized static PgQuery_RangeFunction.== infix(_:_:)(unsigned __int8 *a1, unsigned __int8 *a2)
-{
-  Alias = type metadata accessor for PgQuery_Alias(0);
-  v5 = *(Alias - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](Alias);
-  v8 = (&RangeFunction - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser13PgQuery_AliasVSgMd, &_s14BiomeSQLParser13PgQuery_AliasVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = (&RangeFunction - v11);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser13PgQuery_AliasVSg_ADtMd, &_s14BiomeSQLParser13PgQuery_AliasVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  v17 = &RangeFunction - v16;
-  if (*a1 != *a2)
-  {
-    goto LABEL_23;
-  }
-
-  if (a1[1] != a2[1])
-  {
-    goto LABEL_23;
-  }
-
-  if (a1[2] != a2[2])
-  {
-    goto LABEL_23;
-  }
-
-  v18 = v15;
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 1), *(a2 + 1)) & 1) == 0)
-  {
-    goto LABEL_23;
-  }
-
-  RangeFunction = type metadata accessor for PgQuery_RangeFunction(0);
-  v19 = *(RangeFunction + 40);
-  v20 = *(v18 + 48);
-  outlined init with copy of PgQuery_Alias?(&a1[v19], v17, &_s14BiomeSQLParser13PgQuery_AliasVSgMd, &_s14BiomeSQLParser13PgQuery_AliasVSgMR);
-  v32 = v20;
-  outlined init with copy of PgQuery_Alias?(&a2[v19], &v17[v20], &_s14BiomeSQLParser13PgQuery_AliasVSgMd, &_s14BiomeSQLParser13PgQuery_AliasVSgMR);
-  v21 = *(v5 + 48);
-  if (v21(v17, 1, Alias) == 1)
-  {
-    if (v21(&v17[v32], 1, Alias) == 1)
-    {
-      goto LABEL_7;
-    }
-
-    goto LABEL_11;
-  }
-
-  outlined init with copy of PgQuery_Alias?(v17, v12, &_s14BiomeSQLParser13PgQuery_AliasVSgMd, &_s14BiomeSQLParser13PgQuery_AliasVSgMR);
-  v24 = v32;
-  if (v21(&v17[v32], 1, Alias) == 1)
-  {
-    outlined destroy of PgQuery_OidList(v12, type metadata accessor for PgQuery_Alias);
-LABEL_11:
-    v25 = &_s14BiomeSQLParser13PgQuery_AliasVSg_ADtMd;
-    v26 = &_s14BiomeSQLParser13PgQuery_AliasVSg_ADtMR;
-LABEL_22:
-    outlined destroy of URL?(v17, v25, v26);
-    goto LABEL_23;
-  }
-
-  outlined init with take of PgQuery_OidList(&v17[v24], v8, type metadata accessor for PgQuery_Alias);
-  v27 = *v12 == *v8 && v12[1] == v8[1];
-  if (!v27 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(v12[2], v8[2]) & 1) == 0)
-  {
-    outlined destroy of PgQuery_OidList(v8, type metadata accessor for PgQuery_Alias);
-    goto LABEL_21;
-  }
-
-  v28 = *(Alias + 24);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v29 = dispatch thunk of static Equatable.== infix(_:_:)();
-  outlined destroy of PgQuery_OidList(v8, type metadata accessor for PgQuery_Alias);
-  if ((v29 & 1) == 0)
-  {
-LABEL_21:
-    outlined destroy of PgQuery_OidList(v12, type metadata accessor for PgQuery_Alias);
-    v25 = &_s14BiomeSQLParser13PgQuery_AliasVSgMd;
-    v26 = &_s14BiomeSQLParser13PgQuery_AliasVSgMR;
-    goto LABEL_22;
-  }
-
-  outlined destroy of PgQuery_OidList(v12, type metadata accessor for PgQuery_Alias);
-LABEL_7:
-  outlined destroy of URL?(v17, &_s14BiomeSQLParser13PgQuery_AliasVSgMd, &_s14BiomeSQLParser13PgQuery_AliasVSgMR);
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 2), *(a2 + 2)) & 1) == 0)
-  {
-LABEL_23:
-    v23 = 0;
-    return v23 & 1;
-  }
-
-  v22 = *(RangeFunction + 36);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v23 = dispatch thunk of static Equatable.== infix(_:_:)();
-  return v23 & 1;
-}
-
-uint64_t specialized static PgQuery_PartitionSpec.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = *a1 == *a2 && *(a1 + 8) == *(a2 + 8);
-  if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 16), *(a2 + 16)) & 1) == 0 || *(a1 + 24) != *(a2 + 24))
-  {
-    return 0;
-  }
-
-  v5 = *(type metadata accessor for PgQuery_PartitionSpec(0) + 28);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static PgQuery_LockingClause.== infix(_:_:)(uint64_t *a1, uint64_t a2)
-{
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*a1, *a2) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v4 = a1[1];
-  v5 = *(a2 + 8);
-  if (*(a2 + 16) == 1)
-  {
-    if (v5 > 2)
-    {
-      if (v5 == 3)
-      {
-        if (v4 != 3)
-        {
-          return 0;
-        }
-      }
-
-      else if (v5 == 4)
-      {
-        if (v4 != 4)
-        {
-          return 0;
-        }
-      }
-
-      else if (v4 != 5)
-      {
-        return 0;
-      }
-    }
-
-    else if (v5)
-    {
-      if (v5 == 1)
-      {
-        if (v4 != 1)
-        {
-          return 0;
-        }
-      }
-
-      else if (v4 != 2)
-      {
-        return 0;
-      }
-    }
-
-    else if (v4)
-    {
-      return 0;
-    }
-  }
-
-  else if (v4 != v5)
-  {
-    return 0;
-  }
-
-  v6 = a1[3];
-  v7 = *(a2 + 24);
-  if (*(a2 + 32) != 1)
-  {
-    if (v6 != v7)
-    {
-      return 0;
-    }
-
-LABEL_19:
-    v8 = *(type metadata accessor for PgQuery_LockingClause(0) + 28);
-    type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-  }
-
-  if (v7 > 1)
-  {
-    if (v7 == 2)
-    {
-      if (v6 != 2)
-      {
-        return 0;
-      }
-    }
-
-    else if (v6 != 3)
-    {
-      return 0;
-    }
-
-    goto LABEL_19;
-  }
-
-  if (v7)
-  {
-    if (v6 != 1)
-    {
-      return 0;
-    }
-
-    goto LABEL_19;
-  }
-
-  if (!v6)
-  {
-    goto LABEL_19;
-  }
-
-  return 0;
-}
-
-uint64_t specialized static PgQuery_InferenceElem.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = *(type metadata accessor for PgQuery_InferenceElem(0) + 20);
-  v5 = *(a1 + v4);
-  v6 = *(a2 + v4);
-  if (v5 != v6)
-  {
-    v7 = *(a1 + v4);
-
-    v8 = closure #1 in static PgQuery_CollateExpr.== infix(_:_:)(v5, v6, &OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_InferenceElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, &OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_InferenceElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__expr, &OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_InferenceElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__infercollid, &OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_InferenceElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inferopclass);
-
-    if (!v8)
-    {
-      return 0;
-    }
-  }
-
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static PgQuery_GrantRoleStmt.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  RoleSpec = type metadata accessor for PgQuery_RoleSpec(0);
-  v5 = *(RoleSpec - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](RoleSpec);
-  v8 = &v33 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v33 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RoleSpecVSg_ADtMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v33 - v15;
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*a1, *a2) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 8), *(a2 + 8)) & 1) == 0 || *(a1 + 16) != *(a2 + 16) || *(a1 + 17) != *(a2 + 17))
-  {
-    goto LABEL_45;
-  }
-
-  GrantRoleStmt = type metadata accessor for PgQuery_GrantRoleStmt(0);
-  v17 = *(GrantRoleStmt + 40);
-  v18 = *(v13 + 48);
-  outlined init with copy of PgQuery_Alias?(a1 + v17, v16, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR);
-  v19 = a2 + v17;
-  v20 = v18;
-  outlined init with copy of PgQuery_Alias?(v19, &v16[v18], &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR);
-  v21 = *(v5 + 48);
-  if (v21(v16, 1, RoleSpec) == 1)
-  {
-    if (v21(&v16[v20], 1, RoleSpec) == 1)
-    {
-      goto LABEL_7;
-    }
-
-    goto LABEL_14;
-  }
-
-  outlined init with copy of PgQuery_Alias?(v16, v12, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR);
-  if (v21(&v16[v20], 1, RoleSpec) == 1)
-  {
-    outlined destroy of PgQuery_OidList(v12, type metadata accessor for PgQuery_RoleSpec);
-LABEL_14:
-    v24 = &_s14BiomeSQLParser16PgQuery_RoleSpecVSg_ADtMd;
-    v25 = &_s14BiomeSQLParser16PgQuery_RoleSpecVSg_ADtMR;
-LABEL_44:
-    outlined destroy of URL?(v16, v24, v25);
-    goto LABEL_45;
-  }
-
-  outlined init with take of PgQuery_OidList(&v16[v20], v8, type metadata accessor for PgQuery_RoleSpec);
-  v26 = *v12;
-  v27 = *v8;
-  if (v8[8] != 1)
-  {
-    if (v26 == v27)
-    {
-      goto LABEL_24;
-    }
-
-LABEL_42:
-    outlined destroy of PgQuery_OidList(v8, type metadata accessor for PgQuery_RoleSpec);
-    goto LABEL_43;
-  }
-
-  if (v27 <= 1)
-  {
-    if (v27)
-    {
-      if (v26 == 1)
-      {
-        goto LABEL_24;
-      }
-    }
-
-    else if (!v26)
-    {
-      goto LABEL_24;
-    }
-
-    goto LABEL_42;
-  }
-
-  if (v27 == 2)
-  {
-    if (v26 != 2)
-    {
-      goto LABEL_42;
-    }
-  }
-
-  else if (v27 == 3)
-  {
-    if (v26 != 3)
-    {
-      goto LABEL_42;
-    }
-  }
-
-  else if (v26 != 4)
-  {
-    goto LABEL_42;
-  }
 
-LABEL_24:
-  if ((*(v12 + 2) != *(v8 + 2) || *(v12 + 3) != *(v8 + 3)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || *(v12 + 8) != *(v8 + 8))
-  {
-    goto LABEL_42;
-  }
-
-  v28 = *(RoleSpec + 28);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v29 = dispatch thunk of static Equatable.== infix(_:_:)();
-  outlined destroy of PgQuery_OidList(v8, type metadata accessor for PgQuery_RoleSpec);
-  if ((v29 & 1) == 0)
-  {
-LABEL_43:
-    outlined destroy of PgQuery_OidList(v12, type metadata accessor for PgQuery_RoleSpec);
-    v24 = &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd;
-    v25 = &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR;
-    goto LABEL_44;
-  }
-
-  outlined destroy of PgQuery_OidList(v12, type metadata accessor for PgQuery_RoleSpec);
-LABEL_7:
-  outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR);
-  v22 = *(a1 + 24);
-  v23 = *(a2 + 24);
-  if (*(a2 + 32) != 1)
-  {
-    if (v22 == v23)
-    {
-      goto LABEL_36;
-    }
-
-    goto LABEL_45;
-  }
-
-  if (!v23)
-  {
-    if (!v22)
-    {
-      goto LABEL_36;
-    }
-
-    goto LABEL_45;
-  }
-
-  if (v23 == 1)
-  {
-    if (v22 == 1)
-    {
-      goto LABEL_36;
-    }
-
-LABEL_45:
-    v31 = 0;
-    return v31 & 1;
-  }
-
-  if (v22 != 2)
-  {
-    goto LABEL_45;
-  }
-
-LABEL_36:
-  v30 = *(GrantRoleStmt + 36);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v31 = dispatch thunk of static Equatable.== infix(_:_:)();
-  return v31 & 1;
-}
-
-uint64_t specialized static PgQuery_DropOwnedStmt.== infix(_:_:)(uint64_t *a1, uint64_t a2)
-{
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*a1, *a2) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v4 = a1[1];
-  v5 = *(a2 + 8);
-  if (*(a2 + 16) == 1)
-  {
-    if (v5)
-    {
-      if (v5 == 1)
-      {
-        if (v4 != 1)
-        {
-          return 0;
-        }
-      }
-
-      else if (v4 != 2)
-      {
-        return 0;
-      }
-
-LABEL_8:
-      v6 = *(type metadata accessor for PgQuery_DropOwnedStmt(0) + 24);
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-    }
-
-    if (!v4)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  else if (v4 == v5)
-  {
-    goto LABEL_8;
-  }
-
-  return 0;
-}
-
-uint64_t specialized static PgQuery_CreateSeqStmt.== infix(_:_:)(uint64_t *a1, uint64_t a2)
-{
-  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
-  v5 = *(RangeVar - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](RangeVar);
-  v28 = &v26 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = &v26 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMR);
-  v13 = v12 - 8;
-  v14 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v26 - v15;
-  SeqStmt = type metadata accessor for PgQuery_CreateSeqStmt(0);
-  v17 = *(SeqStmt + 36);
-  v18 = *(v13 + 56);
-  v29 = a1;
-  outlined init with copy of PgQuery_Alias?(a1 + v17, v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  outlined init with copy of PgQuery_Alias?(a2 + v17, &v16[v18], &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, RangeVar) != 1)
-  {
-    outlined init with copy of PgQuery_Alias?(v16, v11, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-    if (v19(&v16[v18], 1, RangeVar) != 1)
-    {
-      v20 = v28;
-      outlined init with take of PgQuery_OidList(&v16[v18], v28, type metadata accessor for PgQuery_RangeVar);
-      v21 = specialized static PgQuery_RangeVar.== infix(_:_:)(v11, v20);
-      outlined destroy of PgQuery_OidList(v20, type metadata accessor for PgQuery_RangeVar);
-      outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_RangeVar);
-      outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-      if ((v21 & 1) == 0)
-      {
-        goto LABEL_12;
-      }
-
-      goto LABEL_8;
-    }
-
-    outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_RangeVar);
-LABEL_6:
-    outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMR);
-    goto LABEL_12;
-  }
-
-  if (v19(&v16[v18], 1, RangeVar) != 1)
-  {
-    goto LABEL_6;
-  }
-
-  outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-LABEL_8:
-  v22 = v29;
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*v29, *a2) & 1) != 0 && *(v22 + 2) == *(a2 + 8) && *(v22 + 12) == *(a2 + 12) && *(v22 + 13) == *(a2 + 13))
-  {
-    v25 = *(SeqStmt + 32);
-    type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    v23 = dispatch thunk of static Equatable.== infix(_:_:)();
-    return v23 & 1;
-  }
-
-LABEL_12:
-  v23 = 0;
-  return v23 & 1;
-}
-
-uint64_t specialized static PgQuery_AlterRoleStmt.== infix(_:_:)(uint64_t *a1, uint64_t a2)
-{
-  RoleSpec = type metadata accessor for PgQuery_RoleSpec(0);
-  v5 = *(RoleSpec - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](RoleSpec);
-  v34 = &v32 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = &v32 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RoleSpecVSg_ADtMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSg_ADtMR);
-  v13 = v12 - 8;
-  v14 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v32 - v15;
-  AlterRoleStmt = type metadata accessor for PgQuery_AlterRoleStmt(0);
-  v17 = *(AlterRoleStmt + 28);
-  v18 = *(v13 + 56);
-  v35 = a1;
-  outlined init with copy of PgQuery_Alias?(a1 + v17, v16, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR);
-  outlined init with copy of PgQuery_Alias?(a2 + v17, &v16[v18], &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, RoleSpec) != 1)
-  {
-    outlined init with copy of PgQuery_Alias?(v16, v11, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR);
-    if (v19(&v16[v18], 1, RoleSpec) == 1)
-    {
-      outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_RoleSpec);
-      goto LABEL_8;
-    }
-
-    v25 = v34;
-    outlined init with take of PgQuery_OidList(&v16[v18], v34, type metadata accessor for PgQuery_RoleSpec);
-    v26 = *v11;
-    v27 = *v25;
-    if (*(v25 + 8) == 1)
-    {
-      if (v27 <= 1)
-      {
-        if (v27)
-        {
-          if (v26 != 1)
-          {
-            goto LABEL_32;
-          }
-        }
-
-        else if (v26)
-        {
-          goto LABEL_32;
-        }
-      }
-
-      else if (v27 == 2)
-      {
-        if (v26 != 2)
-        {
-          goto LABEL_32;
-        }
-      }
-
-      else if (v27 == 3)
-      {
-        if (v26 != 3)
-        {
-          goto LABEL_32;
-        }
-      }
-
-      else if (v26 != 4)
-      {
-        goto LABEL_32;
-      }
-    }
-
-    else if (v26 != v27)
-    {
-      goto LABEL_32;
-    }
-
-    v28 = *(v11 + 2) == *(v25 + 16) && *(v11 + 3) == *(v25 + 24);
-    if (v28 || (_stringCompareWithSmolCheck(_:_:expecting:)()) && *(v11 + 8) == *(v25 + 32))
-    {
-      v29 = *(RoleSpec + 28);
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v30 = dispatch thunk of static Equatable.== infix(_:_:)();
-      outlined destroy of PgQuery_OidList(v25, type metadata accessor for PgQuery_RoleSpec);
-      if (v30)
-      {
-        outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_RoleSpec);
-        goto LABEL_3;
-      }
-
-      goto LABEL_33;
-    }
-
-LABEL_32:
-    outlined destroy of PgQuery_OidList(v25, type metadata accessor for PgQuery_RoleSpec);
-LABEL_33:
-    outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_RoleSpec);
-    v23 = &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd;
-    v24 = &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR;
-    goto LABEL_34;
-  }
-
-  if (v19(&v16[v18], 1, RoleSpec) != 1)
-  {
-LABEL_8:
-    v23 = &_s14BiomeSQLParser16PgQuery_RoleSpecVSg_ADtMd;
-    v24 = &_s14BiomeSQLParser16PgQuery_RoleSpecVSg_ADtMR;
-LABEL_34:
-    outlined destroy of URL?(v16, v23, v24);
-LABEL_35:
-    v22 = 0;
-    return v22 & 1;
-  }
-
-LABEL_3:
-  outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR);
-  v20 = v35;
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*v35, *a2) & 1) == 0 || *(v20 + 2) != *(a2 + 8))
-  {
-    goto LABEL_35;
-  }
-
-  v21 = *(AlterRoleStmt + 24);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v22 = dispatch thunk of static Equatable.== infix(_:_:)();
-  return v22 & 1;
-}
-
-uint64_t specialized static PgQuery_AlterEnumStmt.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*a1, *a2) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v4 = *(a1 + 8) == *(a2 + 8) && *(a1 + 16) == *(a2 + 16);
-  if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  v5 = *(a1 + 24) == *(a2 + 24) && *(a1 + 32) == *(a2 + 32);
-  if (!v5 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (*(a1 + 40) != *(a2 + 40) || *(a1 + 48) != *(a2 + 48)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  if (*(a1 + 56) != *(a2 + 56) || *(a1 + 57) != *(a2 + 57))
-  {
-    return 0;
-  }
-
-  v7 = *(type metadata accessor for PgQuery_AlterEnumStmt(0) + 40);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static PgQuery_TruncateStmt.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*a1, *a2) & 1) == 0 || *(a1 + 8) != *(a2 + 8))
-  {
-    return 0;
-  }
-
-  v5 = *(a1 + 16);
-  v6 = *(a2 + 16);
-  if (*(a2 + 24) != 1)
-  {
-    if (v5 == v6)
-    {
-      goto LABEL_14;
-    }
-
-    return 0;
-  }
-
-  if (!v6)
-  {
-    if (!v5)
-    {
-      goto LABEL_14;
-    }
-
-    return 0;
-  }
-
-  if (v6 == 1)
-  {
-    if (v5 == 1)
-    {
-      goto LABEL_14;
-    }
-
-    return 0;
-  }
-
-  if (v5 != 2)
-  {
-    return 0;
-  }
-
-LABEL_14:
-  v7 = *(type metadata accessor for PgQuery_TruncateStmt(0) + 28);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static PgQuery_PartitionCmd.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v52 = a2;
-  PartitionBoundSpec = type metadata accessor for PgQuery_PartitionBoundSpec(0);
-  v48 = *(PartitionBoundSpec - 8);
-  v49 = PartitionBoundSpec;
-  v4 = *(v48 + 64);
-  MEMORY[0x28223BE20](PartitionBoundSpec);
-  v44 = &v43 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser26PgQuery_PartitionBoundSpecVSgMd, &_s14BiomeSQLParser26PgQuery_PartitionBoundSpecVSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8);
-  v45 = &v43 - v8;
-  v47 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser26PgQuery_PartitionBoundSpecVSg_ADtMd, &_s14BiomeSQLParser26PgQuery_PartitionBoundSpecVSg_ADtMR);
-  v9 = *(*(v47 - 8) + 64);
-  MEMORY[0x28223BE20](v47);
-  v50 = &v43 - v10;
-  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
-  v12 = *(RangeVar - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](RangeVar);
-  v15 = &v43 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  MEMORY[0x28223BE20](v16 - 8);
-  v19 = &v43 - v18;
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMR);
-  v21 = v20 - 8;
-  v22 = *(*(v20 - 8) + 64);
-  MEMORY[0x28223BE20](v20);
-  v24 = &v43 - v23;
-  PartitionCmd = type metadata accessor for PgQuery_PartitionCmd(0);
-  v25 = *(PartitionCmd + 20);
-  v26 = *(v21 + 56);
-  v51 = a1;
-  outlined init with copy of PgQuery_Alias?(a1 + v25, v24, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  outlined init with copy of PgQuery_Alias?(v52 + v25, &v24[v26], &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v27 = *(v12 + 48);
-  if (v27(v24, 1, RangeVar) != 1)
-  {
-    outlined init with copy of PgQuery_Alias?(v24, v19, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-    if (v27(&v24[v26], 1, RangeVar) != 1)
-    {
-      outlined init with take of PgQuery_OidList(&v24[v26], v15, type metadata accessor for PgQuery_RangeVar);
-      v31 = specialized static PgQuery_RangeVar.== infix(_:_:)(v19, v15);
-      outlined destroy of PgQuery_OidList(v15, type metadata accessor for PgQuery_RangeVar);
-      outlined destroy of PgQuery_OidList(v19, type metadata accessor for PgQuery_RangeVar);
-      outlined destroy of URL?(v24, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-      if ((v31 & 1) == 0)
-      {
-        goto LABEL_15;
-      }
-
-      goto LABEL_8;
-    }
-
-    outlined destroy of PgQuery_OidList(v19, type metadata accessor for PgQuery_RangeVar);
-LABEL_6:
-    v28 = &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMd;
-    v29 = &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMR;
-    v30 = v24;
-LABEL_14:
-    outlined destroy of URL?(v30, v28, v29);
-    goto LABEL_15;
-  }
-
-  if (v27(&v24[v26], 1, RangeVar) != 1)
-  {
-    goto LABEL_6;
-  }
-
-  outlined destroy of URL?(v24, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-LABEL_8:
-  v32 = *(PartitionCmd + 24);
-  v33 = *(v47 + 48);
-  v34 = v50;
-  outlined init with copy of PgQuery_Alias?(v51 + v32, v50, &_s14BiomeSQLParser26PgQuery_PartitionBoundSpecVSgMd, &_s14BiomeSQLParser26PgQuery_PartitionBoundSpecVSgMR);
-  outlined init with copy of PgQuery_Alias?(v52 + v32, v34 + v33, &_s14BiomeSQLParser26PgQuery_PartitionBoundSpecVSgMd, &_s14BiomeSQLParser26PgQuery_PartitionBoundSpecVSgMR);
-  v35 = v49;
-  v36 = *(v48 + 48);
-  if (v36(v34, 1, v49) == 1)
-  {
-    if (v36(v34 + v33, 1, v35) == 1)
-    {
-      outlined destroy of URL?(v34, &_s14BiomeSQLParser26PgQuery_PartitionBoundSpecVSgMd, &_s14BiomeSQLParser26PgQuery_PartitionBoundSpecVSgMR);
-LABEL_18:
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v38 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v38 & 1;
-    }
-
-    goto LABEL_13;
+    v8 = 0;
   }
 
-  v37 = v45;
-  outlined init with copy of PgQuery_Alias?(v34, v45, &_s14BiomeSQLParser26PgQuery_PartitionBoundSpecVSgMd, &_s14BiomeSQLParser26PgQuery_PartitionBoundSpecVSgMR);
-  if (v36(v34 + v33, 1, v35) == 1)
+  else if (a1 == 0x79546E7275746572 && a2 == 0xEA00000000006570)
   {
-    outlined destroy of PgQuery_OidList(v37, type metadata accessor for PgQuery_PartitionBoundSpec);
-LABEL_13:
-    v28 = &_s14BiomeSQLParser26PgQuery_PartitionBoundSpecVSg_ADtMd;
-    v29 = &_s14BiomeSQLParser26PgQuery_PartitionBoundSpecVSg_ADtMR;
-    v30 = v34;
-    goto LABEL_14;
-  }
-
-  v40 = v34 + v33;
-  v41 = v44;
-  outlined init with take of PgQuery_OidList(v40, v44, type metadata accessor for PgQuery_PartitionBoundSpec);
-  v42 = specialized static PgQuery_PartitionBoundSpec.== infix(_:_:)(v37, v41);
-  outlined destroy of PgQuery_OidList(v41, type metadata accessor for PgQuery_PartitionBoundSpec);
-  outlined destroy of PgQuery_OidList(v37, type metadata accessor for PgQuery_PartitionBoundSpec);
-  outlined destroy of URL?(v34, &_s14BiomeSQLParser26PgQuery_PartitionBoundSpecVSgMd, &_s14BiomeSQLParser26PgQuery_PartitionBoundSpecVSgMR);
-  if (v42)
-  {
-    goto LABEL_18;
-  }
-
-LABEL_15:
-  v38 = 0;
-  return v38 & 1;
-}
-
-uint64_t specialized static PgQuery_CreateAmStmt.== infix(_:_:)(void *a1, void *a2)
-{
-  v4 = *a1 == *a2 && a1[1] == a2[1];
-  if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-  {
-    return 0;
-  }
 
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(a1[2], a2[2]) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v5 = a1[3] == a2[3] && a1[4] == a2[4];
-  if (!v5 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-  {
-    return 0;
-  }
-
-  v6 = *(type metadata accessor for PgQuery_CreateAmStmt(0) + 28);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static PgQuery_AlterSeqStmt.== infix(_:_:)(uint64_t *a1, uint64_t a2)
-{
-  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
-  v5 = *(RangeVar - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](RangeVar);
-  v28 = &v26 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = &v26 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMR);
-  v13 = v12 - 8;
-  v14 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v26 - v15;
-  AlterSeqStmt = type metadata accessor for PgQuery_AlterSeqStmt(0);
-  v17 = *(AlterSeqStmt + 32);
-  v18 = *(v13 + 56);
-  v29 = a1;
-  outlined init with copy of PgQuery_Alias?(a1 + v17, v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  outlined init with copy of PgQuery_Alias?(a2 + v17, &v16[v18], &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, RangeVar) == 1)
-  {
-    if (v19(&v16[v18], 1, RangeVar) == 1)
-    {
-      outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-      goto LABEL_8;
-    }
+    v8 = 1;
   }
 
   else
   {
-    outlined init with copy of PgQuery_Alias?(v16, v11, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-    if (v19(&v16[v18], 1, RangeVar) != 1)
+    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v9)
     {
-      v21 = v28;
-      outlined init with take of PgQuery_OidList(&v16[v18], v28, type metadata accessor for PgQuery_RangeVar);
-      v22 = specialized static PgQuery_RangeVar.== infix(_:_:)(v11, v21);
-      outlined destroy of PgQuery_OidList(v21, type metadata accessor for PgQuery_RangeVar);
-      outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_RangeVar);
-      outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-      if ((v22 & 1) == 0)
-      {
-LABEL_11:
-        v20 = 0;
-        return v20 & 1;
-      }
-
-LABEL_8:
-      v23 = v29;
-      if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*v29, *a2) & 1) != 0 && *(v23 + 8) == *(a2 + 8) && *(v23 + 9) == *(a2 + 9))
-      {
-        v25 = *(AlterSeqStmt + 28);
-        type metadata accessor for UnknownStorage();
-        lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-        v20 = dispatch thunk of static Equatable.== infix(_:_:)();
-        return v20 & 1;
-      }
-
-      goto LABEL_11;
+      v8 = 1;
     }
 
-    outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_RangeVar);
+    else
+    {
+      v8 = 2;
+    }
   }
 
-  outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMR);
-  v20 = 0;
-  return v20 & 1;
+  *a3 = v8;
+  return result;
 }
 
-uint64_t specialized static PgQuery_CreateFdwStmt.== infix(_:_:)(void *a1, void *a2, uint64_t (*a3)(void))
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AggregationFunction.CodingKeys(uint64_t a1)
 {
-  v6 = *a1 == *a2 && a1[1] == a2[1];
-  if (!v6 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(a1[2], a2[2]) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(a1[3], a2[3]) & 1) == 0)
-  {
-    return 0;
-  }
+  v2 = lazy protocol witness table accessor for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys();
 
-  v7 = *(a3(0) + 28);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
+  return MEMORY[0x2821FE718](a1, v2);
 }
 
-uint64_t specialized static PgQuery_ReindexStmt.== infix(_:_:)(void *a1, uint64_t a2)
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance AggregationFunction.CodingKeys(uint64_t a1)
 {
-  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
-  v5 = *(RangeVar - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](RangeVar);
-  v8 = &v29 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v29 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v29 - v15;
-  v17 = *a1;
-  v18 = *a2;
-  if (*(a2 + 8) == 1)
-  {
-    if (v18 > 2)
-    {
-      if (v18 == 3)
-      {
-        if (v17 != 3)
-        {
-          goto LABEL_32;
-        }
-      }
+  v2 = lazy protocol witness table accessor for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys();
 
-      else if (v18 == 4)
-      {
-        if (v17 != 4)
-        {
-          goto LABEL_32;
-        }
-      }
-
-      else if (v17 != 5)
-      {
-        goto LABEL_32;
-      }
-    }
-
-    else if (v18)
-    {
-      if (v18 == 1)
-      {
-        if (v17 != 1)
-        {
-          goto LABEL_32;
-        }
-      }
-
-      else if (v17 != 2)
-      {
-        goto LABEL_32;
-      }
-    }
-
-    else if (v17)
-    {
-      goto LABEL_32;
-    }
-  }
-
-  else if (v17 != v18)
-  {
-    goto LABEL_32;
-  }
-
-  ReindexStmt = type metadata accessor for PgQuery_ReindexStmt(0);
-  v20 = *(ReindexStmt + 36);
-  v21 = a1;
-  v22 = *(v13 + 48);
-  v29 = ReindexStmt;
-  v30 = v21;
-  outlined init with copy of PgQuery_Alias?(v21 + v20, v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  outlined init with copy of PgQuery_Alias?(a2 + v20, &v16[v22], &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v23 = *(v5 + 48);
-  if (v23(v16, 1, RangeVar) != 1)
-  {
-    outlined init with copy of PgQuery_Alias?(v16, v12, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-    if (v23(&v16[v22], 1, RangeVar) == 1)
-    {
-      outlined destroy of PgQuery_OidList(v12, type metadata accessor for PgQuery_RangeVar);
-      goto LABEL_17;
-    }
-
-    outlined init with take of PgQuery_OidList(&v16[v22], v8, type metadata accessor for PgQuery_RangeVar);
-    v24 = specialized static PgQuery_RangeVar.== infix(_:_:)(v12, v8);
-    outlined destroy of PgQuery_OidList(v8, type metadata accessor for PgQuery_RangeVar);
-    outlined destroy of PgQuery_OidList(v12, type metadata accessor for PgQuery_RangeVar);
-    outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-    if (v24)
-    {
-      goto LABEL_19;
-    }
-
-LABEL_32:
-    v27 = 0;
-    return v27 & 1;
-  }
-
-  if (v23(&v16[v22], 1, RangeVar) != 1)
-  {
-LABEL_17:
-    outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMR);
-    goto LABEL_32;
-  }
-
-  outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-LABEL_19:
-  v25 = v30;
-  if ((v30[2] != *(a2 + 16) || v30[3] != *(a2 + 24)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || *(v25 + 8) != *(a2 + 32) || *(v25 + 36) != *(a2 + 36))
-  {
-    goto LABEL_32;
-  }
-
-  v26 = *(v29 + 32);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v27 = dispatch thunk of static Equatable.== infix(_:_:)();
-  return v27 & 1;
+  return MEMORY[0x2821FE720](a1, v2);
 }
 
-uint64_t specialized static PgQuery_GroupingSet.== infix(_:_:)(uint64_t *a1, uint64_t a2)
+uint64_t AggregationFunction.encode(to:)(void *a1)
 {
-  v4 = *a1;
-  v5 = *a2;
-  if (*(a2 + 8) == 1)
+  v3 = v1;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV10CodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser19AggregationFunctionV10CodingKeys33_B787555787B9EFBBEFB0C9C5225A4FB7LLOGMR);
+  v6 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5);
+  v8 = &v10[-v7];
+  __swift_project_boxed_opaque_existential_0(a1, a1[3]);
+  lazy protocol witness table accessor for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys();
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  v10[15] = 0;
+  lazy protocol witness table accessor for type AggregationFunction.AggregationType and conformance AggregationFunction.AggregationType();
+  KeyedEncodingContainer.encode<A>(_:forKey:)();
+  if (!v2)
   {
-    if (v5 > 2)
-    {
-      if (v5 == 3)
-      {
-        if (v4 != 3)
-        {
-          return 0;
-        }
-      }
-
-      else if (v5 == 4)
-      {
-        if (v4 != 4)
-        {
-          return 0;
-        }
-      }
-
-      else if (v4 != 5)
-      {
-        return 0;
-      }
-    }
-
-    else if (v5)
-    {
-      if (v5 == 1)
-      {
-        if (v4 != 1)
-        {
-          return 0;
-        }
-      }
-
-      else if (v4 != 2)
-      {
-        return 0;
-      }
-    }
-
-    else if (v4)
-    {
-      return 0;
-    }
+    v10[14] = *(v3 + 193);
+    v10[13] = 1;
+    lazy protocol witness table accessor for type SQLDataType and conformance SQLDataType();
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
   }
 
-  else if (v4 != v5)
-  {
-    return 0;
-  }
-
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(a1[2], *(a2 + 16)) & 1) != 0 && *(a1 + 6) == *(a2 + 24))
-  {
-    v6 = *(type metadata accessor for PgQuery_GroupingSet(0) + 28);
-    type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-  }
-
-  return 0;
+  return (*(v6 + 8))(v8, v5);
 }
 
-uint64_t specialized static PgQuery_DiscardStmt.== infix(_:_:)(uint64_t *a1, uint64_t a2)
+uint64_t static AggregationFunction.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  if (*(a2 + 8) == 1)
+  if ((specialized static AggregationFunction.AggregationType.== infix(_:_:)(a1, a2) & 1) == 0)
   {
-    if (v3 > 1)
-    {
-      if (v3 == 2)
-      {
-        if (v2 != 2)
-        {
-          return 0;
-        }
-      }
-
-      else if (v3 == 3)
-      {
-        if (v2 != 3)
-        {
-          return 0;
-        }
-      }
-
-      else if (v2 != 4)
-      {
-        return 0;
-      }
-
-LABEL_8:
-      v4 = *(type metadata accessor for PgQuery_DiscardStmt(0) + 20);
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-    }
-
-    if (v3)
-    {
-      if (v2 != 1)
-      {
-        return 0;
-      }
-
-      goto LABEL_8;
-    }
-
-    if (!v2)
-    {
-      goto LABEL_8;
-    }
+    return 0;
   }
 
-  else if (v2 == v3)
-  {
-    goto LABEL_8;
-  }
+  v4 = *(a2 + 193);
+  v5 = *(a1 + 193);
 
-  return 0;
+  return specialized == infix<A>(_:_:)(v5, v4);
 }
 
-uint64_t specialized static PgQuery_CollateExpr.== infix(_:_:)(uint64_t a1, uint64_t a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance AggregationFunction(uint64_t a1, uint64_t a2)
 {
-  v4 = *(type metadata accessor for PgQuery_CollateExpr(0) + 20);
-  v5 = *(a1 + v4);
-  v6 = *(a2 + v4);
-  if (v5 != v6)
+  if ((specialized static AggregationFunction.AggregationType.== infix(_:_:)(a1, a2) & 1) == 0)
   {
-    v7 = *(a1 + v4);
-
-    v8 = closure #1 in static PgQuery_CollateExpr.== infix(_:_:)(v5, v6, &OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_CollateExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, &OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_CollateExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg, &OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_CollateExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__collOid, &OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_CollateExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-
-    if (!v8)
-    {
-      return 0;
-    }
+    return 0;
   }
 
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
+  v4 = *(a2 + 193);
+  v5 = *(a1 + 193);
+
+  return specialized == infix<A>(_:_:)(v5, v4);
 }
 
-uint64_t specialized static PgQuery_ClusterStmt.== infix(_:_:)(void *a1, uint64_t a2)
+uint64_t protocol witness for SQLExpressionNode.expressionString.getter in conformance SQLExpressionConst()
 {
-  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
-  v5 = *(RangeVar - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](RangeVar);
-  v28 = &v26 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = &v26 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMR);
-  v13 = v12 - 8;
-  v14 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v26 - v15;
-  ClusterStmt = type metadata accessor for PgQuery_ClusterStmt(0);
-  v17 = *(ClusterStmt + 28);
-  v18 = *(v13 + 56);
-  v29 = a1;
-  outlined init with copy of PgQuery_Alias?(a1 + v17, v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  outlined init with copy of PgQuery_Alias?(a2 + v17, &v16[v18], &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, RangeVar) != 1)
-  {
-    outlined init with copy of PgQuery_Alias?(v16, v11, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-    if (v19(&v16[v18], 1, RangeVar) != 1)
-    {
-      v20 = v28;
-      outlined init with take of PgQuery_OidList(&v16[v18], v28, type metadata accessor for PgQuery_RangeVar);
-      v21 = specialized static PgQuery_RangeVar.== infix(_:_:)(v11, v20);
-      outlined destroy of PgQuery_OidList(v20, type metadata accessor for PgQuery_RangeVar);
-      outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_RangeVar);
-      outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-      if (v21)
-      {
-        goto LABEL_8;
-      }
-
-LABEL_13:
-      v24 = 0;
-      return v24 & 1;
-    }
-
-    outlined destroy of PgQuery_OidList(v11, type metadata accessor for PgQuery_RangeVar);
-LABEL_6:
-    outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSg_ADtMR);
-    goto LABEL_13;
-  }
-
-  if (v19(&v16[v18], 1, RangeVar) != 1)
-  {
-    goto LABEL_6;
-  }
-
-  outlined destroy of URL?(v16, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-LABEL_8:
-  v22 = v29;
-  if ((*v29 != *a2 || v29[1] != *(a2 + 8)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || *(v22 + 4) != *(a2 + 16))
-  {
-    goto LABEL_13;
-  }
-
-  v23 = *(ClusterStmt + 24);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v24 = dispatch thunk of static Equatable.== infix(_:_:)();
-  return v24 & 1;
+  v1 = v0[3];
+  v2 = v0[4];
+  __swift_project_boxed_opaque_existential_0(v0, v1);
+  return (*(v2 + 8))(v1, v2);
 }
 
-uint64_t specialized static PgQuery_WithClause.== infix(_:_:)(uint64_t a1, uint64_t a2)
+uint64_t protocol witness for SQLExpressionNode.returnType.getter in conformance SQLExpressionConst()
 {
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*a1, *a2) & 1) == 0 || *(a1 + 8) != *(a2 + 8) || *(a1 + 12) != *(a2 + 12))
-  {
-    return 0;
-  }
-
-  v4 = *(type metadata accessor for PgQuery_WithClause(0) + 28);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
+  v1 = v0[3];
+  v2 = v0[4];
+  __swift_project_boxed_opaque_existential_0(v0, v1);
+  return (*(v2 + 16))(v1, v2);
 }
 
-uint64_t specialized static PgQuery_ObjectWithArgs.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+uint64_t SQLExpression.hash(into:)(uint64_t a1)
 {
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*a1, *a2) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 8), *(a2 + 8)) & 1) == 0 || *(a1 + 16) != *(a2 + 16))
-  {
-    return 0;
-  }
+  String.hash(into:)();
+  v3 = *(v1 + 72);
 
-  v7 = *(a3(0) + 28);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
+  return specialized Array<A>.hash(into:)(a1, v3);
 }
 
-uint64_t specialized static PgQuery_CreateExtensionStmt.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+Swift::Int SQLExpression.hashValue.getter()
 {
-  v6 = *a1 == *a2 && *(a1 + 8) == *(a2 + 8);
-  if (!v6 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || *(a1 + 16) != *(a2 + 16) || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 24), *(a2 + 24)) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v7 = *(a3(0) + 28);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
+  Hasher.init(_seed:)();
+  String.hash(into:)();
+  specialized Array<A>.hash(into:)(v2, *(v0 + 72));
+  return Hasher._finalize()();
 }
 
-uint64_t specialized static PgQuery_DefineStmt.== infix(_:_:)(uint64_t a1, uint64_t *a2)
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance SQLExpression()
 {
-  v4 = *a2;
-  v5 = *(a2 + 8);
-  ResultSetCursor.columns.modify(*a1, *(a1 + 8));
-  v7 = v6;
-  ResultSetCursor.columns.modify(v4, v5);
-  if (v7 != v8 || *(a1 + 9) != *(a2 + 9) || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 16), a2[2]) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 24), a2[3]) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 32), a2[4]) & 1) == 0 || *(a1 + 40) != *(a2 + 40) || *(a1 + 41) != *(a2 + 41))
-  {
-    return 0;
-  }
-
-  v10 = *(type metadata accessor for PgQuery_DefineStmt(0) + 44);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
+  Hasher.init(_seed:)();
+  String.hash(into:)();
+  specialized Array<A>.hash(into:)(v2, *(v0 + 72));
+  return Hasher._finalize()();
 }
 
-uint64_t specialized static PgQuery_PartitionBoundSpec.== infix(_:_:)(uint64_t a1, uint64_t a2)
+uint64_t protocol witness for Hashable.hash(into:) in conformance SQLExpression(uint64_t a1)
 {
-  v4 = *a1 == *a2 && *(a1 + 8) == *(a2 + 8);
-  if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || *(a1 + 16) != *(a2 + 16) || *(a1 + 20) != *(a2 + 20) || *(a1 + 24) != *(a2 + 24) || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 32), *(a2 + 32)) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 40), *(a2 + 40)) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 48), *(a2 + 48)) & 1) == 0 || *(a1 + 56) != *(a2 + 56))
-  {
-    return 0;
-  }
+  String.hash(into:)();
+  v3 = *(v1 + 72);
 
-  v5 = *(type metadata accessor for PgQuery_PartitionBoundSpec(0) + 48);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
+  return specialized Array<A>.hash(into:)(a1, v3);
 }
 
-uint64_t specialized static PgQuery_ScanToken.== infix(_:_:)(uint64_t a1, uint64_t a2)
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SQLExpression(uint64_t a1)
 {
-  if (*a1 != *a2)
-  {
-    return 0;
-  }
-
-  if (*(a1 + 4) != *(a2 + 4))
-  {
-    return 0;
-  }
-
-  v2 = *(a2 + 8);
-  v3 = *(a2 + 16);
-  v6 = PgQuery_Token.rawValue.getter(*(a1 + 8), *(a1 + 16));
-  if (v6 != PgQuery_Token.rawValue.getter(v2, v3))
-  {
-    return 0;
-  }
-
-  v7 = *(a1 + 24);
-  v8 = *(a2 + 24);
-  if (*(a2 + 32) == 1)
-  {
-    if (v8 > 1)
-    {
-      if (v8 == 2)
-      {
-        if (v7 != 2)
-        {
-          return 0;
-        }
-      }
-
-      else if (v8 == 3)
-      {
-        if (v7 != 3)
-        {
-          return 0;
-        }
-      }
-
-      else if (v7 != 4)
-      {
-        return 0;
-      }
-
-LABEL_11:
-      v9 = *(type metadata accessor for PgQuery_ScanToken(0) + 32);
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-    }
-
-    if (v8)
-    {
-      if (v7 != 1)
-      {
-        return 0;
-      }
-
-      goto LABEL_11;
-    }
-
-    if (!v7)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  else if (v7 == v8)
-  {
-    goto LABEL_11;
-  }
-
-  return 0;
+  Hasher.init(_seed:)();
+  String.hash(into:)();
+  specialized Array<A>.hash(into:)(v3, *(v1 + 72));
+  return Hasher._finalize()();
 }
 
-uint64_t specialized static PgQuery_GrantStmt.== infix(_:_:)(unsigned __int8 *a1, unsigned __int8 *a2)
+unint64_t lazy protocol witness table accessor for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys()
 {
-  if (*a1 != *a2)
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys)
   {
-    return 0;
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys);
   }
 
-  v5 = *(a1 + 1);
-  v6 = *(a2 + 1);
-  if (a2[16] == 1)
-  {
-    if (v6 > 1)
-    {
-      if (v6 == 2)
-      {
-        if (v5 != 2)
-        {
-          return 0;
-        }
-      }
-
-      else if (v5 != 3)
-      {
-        return 0;
-      }
-    }
-
-    else if (v6)
-    {
-      if (v5 != 1)
-      {
-        return 0;
-      }
-    }
-
-    else if (v5)
-    {
-      return 0;
-    }
-  }
-
-  else if (v5 != v6)
-  {
-    return 0;
-  }
-
-  v7 = *(a2 + 3);
-  v8 = a2[32];
-  ResultSetCursor.columns.modify(*(a1 + 3), a1[32]);
-  v10 = v9;
-  ResultSetCursor.columns.modify(v7, v8);
-  if (v10 != v11 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 5), *(a2 + 5)) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 6), *(a2 + 6)) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 7), *(a2 + 7)) & 1) == 0 || a1[64] != a2[64])
-  {
-    return 0;
-  }
-
-  v12 = *(a1 + 9);
-  v13 = *(a2 + 9);
-  if (a2[80] != 1)
-  {
-    if (v12 == v13)
-    {
-      goto LABEL_31;
-    }
-
-    return 0;
-  }
-
-  if (!v13)
-  {
-    if (!v12)
-    {
-      goto LABEL_31;
-    }
-
-    return 0;
-  }
-
-  if (v13 == 1)
-  {
-    if (v12 == 1)
-    {
-      goto LABEL_31;
-    }
-
-    return 0;
-  }
-
-  if (v12 != 2)
-  {
-    return 0;
-  }
-
-LABEL_31:
-  v14 = *(type metadata accessor for PgQuery_GrantStmt(0) + 48);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
+  return result;
 }
 
-uint64_t specialized static PgQuery_FetchStmt.== infix(_:_:)(uint64_t *a1, uint64_t a2)
 {
-  v2 = *a1;
-  v3 = *a2;
-  if (*(a2 + 8) == 1)
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys)
   {
-    if (v3 <= 1)
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.CodingKeys and conformance AggregationFunction.AggregationType.CodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys()
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.TOTALCodingKeys and conformance AggregationFunction.AggregationType.TOTALCodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type SQLExpression and conformance SQLExpression()
+{
+  result = lazy protocol witness table cache variable for type SQLExpression and conformance SQLExpression;
+  if (!lazy protocol witness table cache variable for type SQLExpression and conformance SQLExpression)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SQLExpression and conformance SQLExpression);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type SQLExpression and conformance SQLExpression;
+  if (!lazy protocol witness table cache variable for type SQLExpression and conformance SQLExpression)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SQLExpression and conformance SQLExpression);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys()
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.SUMCodingKeys and conformance AggregationFunction.AggregationType.SUMCodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys()
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MINCodingKeys and conformance AggregationFunction.AggregationType.MINCodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys()
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.MAXCodingKeys and conformance AggregationFunction.AggregationType.MAXCodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys()
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.GROUP_CONCATCodingKeys and conformance AggregationFunction.AggregationType.GROUP_CONCATCodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys()
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNT_STARCodingKeys and conformance AggregationFunction.AggregationType.COUNT_STARCodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys()
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.COUNTCodingKeys and conformance AggregationFunction.AggregationType.COUNTCodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys()
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType.AVGCodingKeys and conformance AggregationFunction.AggregationType.AVGCodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys()
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.CodingKeys and conformance AggregationFunction.CodingKeys);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type AggregationFunction.AggregationType and conformance AggregationFunction.AggregationType()
+{
+  result = lazy protocol witness table cache variable for type AggregationFunction.AggregationType and conformance AggregationFunction.AggregationType;
+  if (!lazy protocol witness table cache variable for type AggregationFunction.AggregationType and conformance AggregationFunction.AggregationType)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type AggregationFunction.AggregationType and conformance AggregationFunction.AggregationType);
+  }
+
+  return result;
+}
+
+uint64_t specialized Sequence.contains(where:)(uint64_t (*a1)(void *), uint64_t a2, uint64_t a3)
+{
+  v4 = *(a3 + 16);
+  if (v4)
+  {
+    v6 = v4 - 1;
+    v7 = (a3 + 40);
+    do
     {
+      v8 = *v7;
+      v12[0] = *(v7 - 1);
+      v12[1] = v8;
+
+      v9 = a1(v12);
+
       if (v3)
       {
-        if (v2 != 1)
-        {
-          return 0;
-        }
+        break;
       }
 
-      else if (v2)
-      {
-        return 0;
-      }
+      v10 = v6-- == 0;
+      v7 += 2;
     }
 
-    else if (v3 == 2)
-    {
-      if (v2 != 2)
-      {
-        return 0;
-      }
-    }
-
-    else if (v3 == 3)
-    {
-      if (v2 != 3)
-      {
-        return 0;
-      }
-    }
-
-    else if (v2 != 4)
-    {
-      return 0;
-    }
-  }
-
-  else if (v2 != v3)
-  {
-    return 0;
-  }
-
-  if (a1[2] == *(a2 + 16))
-  {
-    v4 = a1[3] == *(a2 + 24) && a1[4] == *(a2 + 32);
-    if (v4 || (v5 = a1, v6 = a1[3], v7 = a2, v8 = _stringCompareWithSmolCheck(_:_:expecting:)(), a2 = v7, v9 = v8, a1 = v5, (v9 & 1) != 0))
-    {
-      if (*(a1 + 40) == *(a2 + 40))
-      {
-        v10 = *(type metadata accessor for PgQuery_FetchStmt(0) + 32);
-        type metadata accessor for UnknownStorage();
-        lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-        return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-      }
-    }
-  }
-
-  return 0;
-}
-
-uint64_t specialized static PgQuery_TypeName.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*a1, *a2) & 1) == 0 || *(a1 + 8) != *(a2 + 8) || *(a1 + 12) != *(a2 + 12) || *(a1 + 13) != *(a2 + 13) || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 16), *(a2 + 16)) & 1) == 0 || *(a1 + 24) != *(a2 + 24) || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*(a1 + 32), *(a2 + 32)) & 1) == 0 || *(a1 + 40) != *(a2 + 40))
-  {
-    return 0;
-  }
-
-  v4 = *(type metadata accessor for PgQuery_TypeName(0) + 48);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static PgQuery_RoleSpec.== infix(_:_:)(uint64_t *a1, uint64_t a2)
-{
-  v4 = *a1;
-  v5 = *a2;
-  if (*(a2 + 8) == 1)
-  {
-    if (v5 <= 1)
-    {
-      if (v5)
-      {
-        if (v4 != 1)
-        {
-          return 0;
-        }
-      }
-
-      else if (v4)
-      {
-        return 0;
-      }
-    }
-
-    else if (v5 == 2)
-    {
-      if (v4 != 2)
-      {
-        return 0;
-      }
-    }
-
-    else if (v5 == 3)
-    {
-      if (v4 != 3)
-      {
-        return 0;
-      }
-    }
-
-    else if (v4 != 4)
-    {
-      return 0;
-    }
-  }
-
-  else if (v4 != v5)
-  {
-    return 0;
-  }
-
-  v6 = a1[2] == *(a2 + 16) && a1[3] == *(a2 + 24);
-  if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)()) && *(a1 + 8) == *(a2 + 32))
-  {
-    v7 = *(type metadata accessor for PgQuery_RoleSpec(0) + 28);
-    type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-  }
-
-  return 0;
-}
-
-uint64_t specialized static PgQuery_AlterStatsStmt.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
-{
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*a1, *a2) & 1) == 0 || *(a1 + 8) != *(a2 + 8) || *(a1 + 12) != *(a2 + 12))
-  {
-    return 0;
-  }
-
-  v7 = *(a3(0) + 28);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static PgQuery_DropStmt.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(*a1, *a2) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v4 = *(a2 + 8);
-  v5 = *(a2 + 16);
-  ResultSetCursor.columns.modify(*(a1 + 8), *(a1 + 16));
-  v7 = v6;
-  ResultSetCursor.columns.modify(v4, v5);
-  if (v7 != v8)
-  {
-    return 0;
-  }
-
-  v9 = *(a1 + 24);
-  v10 = *(a2 + 24);
-  if (*(a2 + 32) != 1)
-  {
-    if (v9 != v10)
-    {
-      return 0;
-    }
-
-    goto LABEL_13;
-  }
-
-  if (!v10)
-  {
-    if (!v9)
-    {
-      goto LABEL_13;
-    }
-
-    return 0;
-  }
-
-  if (v10 != 1)
-  {
-    if (v9 == 2)
-    {
-      goto LABEL_13;
-    }
-
-    return 0;
-  }
-
-  if (v9 != 1)
-  {
-    return 0;
-  }
-
-LABEL_13:
-  if (*(a1 + 33) != *(a2 + 33) || *(a1 + 34) != *(a2 + 34))
-  {
-    return 0;
-  }
-
-  v12 = *(type metadata accessor for PgQuery_DropStmt(0) + 36);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t specialized static PgQuery_RangeVar.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  Alias = type metadata accessor for PgQuery_Alias(0);
-  v5 = *(Alias - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](Alias);
-  v8 = &RangeVar - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser13PgQuery_AliasVSgMd, &_s14BiomeSQLParser13PgQuery_AliasVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = (&RangeVar - v11);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser13PgQuery_AliasVSg_ADtMd, &_s14BiomeSQLParser13PgQuery_AliasVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &RangeVar - v15;
-  if ((*a1 != *a2 || *(a1 + 8) != *(a2 + 8)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (*(a1 + 16) != *(a2 + 16) || *(a1 + 24) != *(a2 + 24)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (*(a1 + 32) != *(a2 + 32) || *(a1 + 40) != *(a2 + 40)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || *(a1 + 48) != *(a2 + 48) || (*(a1 + 56) != *(a2 + 56) || *(a1 + 64) != *(a2 + 64)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-  {
-    goto LABEL_30;
-  }
-
-  v29 = v8;
-  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
-  v17 = *(RangeVar + 44);
-  v18 = *(v13 + 48);
-  outlined init with copy of PgQuery_Alias?(a1 + v17, v16, &_s14BiomeSQLParser13PgQuery_AliasVSgMd, &_s14BiomeSQLParser13PgQuery_AliasVSgMR);
-  outlined init with copy of PgQuery_Alias?(a2 + v17, &v16[v18], &_s14BiomeSQLParser13PgQuery_AliasVSgMd, &_s14BiomeSQLParser13PgQuery_AliasVSgMR);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, Alias) == 1)
-  {
-    if (v19(&v16[v18], 1, Alias) == 1)
-    {
-      goto LABEL_16;
-    }
-
-    goto LABEL_20;
-  }
-
-  outlined init with copy of PgQuery_Alias?(v16, v12, &_s14BiomeSQLParser13PgQuery_AliasVSgMd, &_s14BiomeSQLParser13PgQuery_AliasVSgMR);
-  if (v19(&v16[v18], 1, Alias) == 1)
-  {
-    outlined destroy of PgQuery_OidList(v12, type metadata accessor for PgQuery_Alias);
-LABEL_20:
-    v22 = &_s14BiomeSQLParser13PgQuery_AliasVSg_ADtMd;
-    v23 = &_s14BiomeSQLParser13PgQuery_AliasVSg_ADtMR;
-LABEL_29:
-    outlined destroy of URL?(v16, v22, v23);
-    goto LABEL_30;
-  }
-
-  v24 = v29;
-  outlined init with take of PgQuery_OidList(&v16[v18], v29, type metadata accessor for PgQuery_Alias);
-  if ((*v12 != *v24 || v12[1] != v24[1]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(v12[2], v24[2]) & 1) == 0)
-  {
-    outlined destroy of PgQuery_OidList(v24, type metadata accessor for PgQuery_Alias);
-    goto LABEL_28;
-  }
-
-  v25 = *(Alias + 24);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v26 = dispatch thunk of static Equatable.== infix(_:_:)();
-  outlined destroy of PgQuery_OidList(v24, type metadata accessor for PgQuery_Alias);
-  if ((v26 & 1) == 0)
-  {
-LABEL_28:
-    outlined destroy of PgQuery_OidList(v12, type metadata accessor for PgQuery_Alias);
-    v22 = &_s14BiomeSQLParser13PgQuery_AliasVSgMd;
-    v23 = &_s14BiomeSQLParser13PgQuery_AliasVSgMR;
-    goto LABEL_29;
-  }
-
-  outlined destroy of PgQuery_OidList(v12, type metadata accessor for PgQuery_Alias);
-LABEL_16:
-  outlined destroy of URL?(v16, &_s14BiomeSQLParser13PgQuery_AliasVSgMd, &_s14BiomeSQLParser13PgQuery_AliasVSgMR);
-  if (*(a1 + 72) != *(a2 + 72))
-  {
-LABEL_30:
-    v21 = 0;
-    return v21 & 1;
-  }
-
-  v20 = *(RangeVar + 40);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v21 = dispatch thunk of static Equatable.== infix(_:_:)();
-  return v21 & 1;
-}
-
-uint64_t specialized static PgQuery_AccessPriv.== infix(_:_:)(void *a1, void *a2, uint64_t (*a3)(void))
-{
-  v6 = *a1 == *a2 && a1[1] == a2[1];
-  if (!v6 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(a1[2], a2[2]) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v7 = *(a3(0) + 24);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type PgQuery_ScanToken and conformance PgQuery_ScanToken(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t outlined init with copy of PgQuery_Node.OneOf_Node(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for PgQuery_Node.OneOf_Node(0);
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-uint64_t outlined destroy of PgQuery_OidList(uint64_t a1, uint64_t (*a2)(void))
-{
-  v3 = a2(0);
-  (*(*(v3 - 8) + 8))(a1, v3);
-  return a1;
-}
-
-uint64_t outlined init with take of PgQuery_OidList(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
-{
-  v5 = a3(0);
-  (*(*(v5 - 8) + 32))(a2, a1, v5);
-  return a2;
-}
-
-uint64_t outlined init with copy of PgQuery_Alias?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
-{
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
-  (*(*(v6 - 8) + 16))(a2, a1, v6);
-  return a2;
-}
-
-uint64_t specialized PgQuery_TableFunc._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = MEMORY[0x277D84F90];
-  *(v1 + 16) = MEMORY[0x277D84F90];
-  *(v1 + 24) = v3;
-  v4 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__docexpr;
-  v21 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__docexpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v6 = *(*(Node - 8) + 56);
-  v6(v1 + v4, 1, 1, Node);
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rowexpr;
-  v6(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rowexpr, 1, 1, Node);
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__colnames;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__colnames) = v3;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coltypes;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coltypes) = v3;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coltypmods;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coltypmods) = v3;
-  v11 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__colcollations;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__colcollations) = v3;
-  v22 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__colexprs;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__colexprs) = v3;
-  v23 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coldefexprs;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coldefexprs) = v3;
-  v24 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__notnulls;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__notnulls) = v3;
-  v26 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__ordinalitycol;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__ordinalitycol) = 0;
-  v25 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  *(v1 + 16) = *(a1 + 16);
-  *(v1 + 24) = *(a1 + 24);
-  v12 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__docexpr;
-
-  outlined assign with copy of PgQuery_Node?(a1 + v12, v1 + v21, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rowexpr, v1 + v7, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v13 = *(v1 + v8);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__colnames);
-
-  v14 = *(v1 + v9);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coltypes);
-
-  v15 = *(v1 + v10);
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coltypmods);
-
-  v16 = *(v1 + v11);
-  *(v1 + v11) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__colcollations);
-
-  v17 = *(v1 + v22);
-  *(v1 + v22) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__colexprs);
-
-  v18 = *(v1 + v23);
-  *(v1 + v23) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coldefexprs);
-
-  v19 = *(v1 + v24);
-  *(v1 + v24) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__notnulls);
-
-  *(v1 + v26) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__ordinalitycol);
-  *(v1 + v25) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_TableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_Var._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  v15 = OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v3, 1, 1, Node);
-  v14 = OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__varno;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__varno) = 0;
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__varattno;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__varattno) = 0;
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__vartype;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__vartype) = 0;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__vartypmod;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__vartypmod) = 0;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__varcollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__varcollid) = 0;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__varlevelsup;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__varlevelsup) = 0;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__varnosyn;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__varnosyn) = 0;
-  v11 = OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__varattnosyn;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__varattnosyn) = 0;
-  v12 = OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v15, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v14) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__varno);
-  *(v1 + v5) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__varattno);
-  *(v1 + v6) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__vartype);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__vartypmod);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__varcollid);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__varlevelsup);
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__varnosyn);
-  *(v1 + v11) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__varattnosyn);
-  *(v1 + v12) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser11PgQuery_VarP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_Param._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_ParamP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v3, 1, 1, Node);
-  v5 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_ParamP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__paramkind;
-  *v5 = 0;
-  *(v5 + 8) = 1;
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_ParamP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__paramid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_ParamP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__paramid) = 0;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_ParamP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__paramtype;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_ParamP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__paramtype) = 0;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_ParamP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__paramtypmod;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_ParamP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__paramtypmod) = 0;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_ParamP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__paramcollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_ParamP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__paramcollid) = 0;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_ParamP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_ParamP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_ParamP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v11 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_ParamP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__paramkind + 8);
-  *v5 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_ParamP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__paramkind);
-  *(v5 + 8) = v11;
-  *(v1 + v6) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_ParamP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__paramid);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_ParamP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__paramtype);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_ParamP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__paramtypmod);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_ParamP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__paramcollid);
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_ParamP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_Aggref._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  v28 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v5 = *(*(Node - 8) + 56);
-  v5(v1 + v3, 1, 1, Node);
-  v27 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggfnoid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggfnoid) = 0;
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggtype;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggtype) = 0;
-  v26 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggcollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggcollid) = 0;
-  v25 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inputcollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inputcollid) = 0;
-  v24 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggtranstype;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggtranstype) = 0;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggargtypes;
-  v8 = MEMORY[0x277D84F90];
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggargtypes) = MEMORY[0x277D84F90];
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggdirectargs;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggdirectargs) = v8;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args) = v8;
-  v11 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggorder;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggorder) = v8;
-  v29 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggdistinct;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggdistinct) = v8;
-  v31 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggfilter;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggfilter, 1, 1, Node);
-  v12 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggstar;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggstar) = 0;
-  v30 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggvariadic;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggvariadic) = 0;
-  v13 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggkind);
-  *v13 = 0;
-  v13[1] = 0xE000000000000000;
-  v32 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__agglevelsup;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__agglevelsup) = 0;
-  v14 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggsplit;
-  *v14 = 0;
-  *(v14 + 8) = 1;
-  v33 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v28, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v27) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggfnoid);
-  *(v1 + v6) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggtype);
-  *(v1 + v26) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggcollid);
-  *(v1 + v25) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inputcollid);
-  *(v1 + v24) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggtranstype);
-  v15 = *(v1 + v7);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggargtypes);
-
-  v16 = *(v1 + v9);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggdirectargs);
-
-  v17 = *(v1 + v10);
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args);
-
-  v18 = *(v1 + v11);
-  *(v1 + v11) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggorder);
-
-  v19 = *(v1 + v29);
-  *(v1 + v29) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggdistinct);
-
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggfilter, v1 + v31, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v12) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggstar);
-  *(v1 + v30) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggvariadic);
-  v20 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggkind + 8);
-  v21 = v13[1];
-  *v13 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggkind);
-  v13[1] = v20;
-
-  *(v1 + v32) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__agglevelsup);
-  v22 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggsplit + 8);
-  *v14 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggsplit);
-  *(v14 + 8) = v22;
-  *(v1 + v33) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_AggrefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_GroupingFunc._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_GroupingFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v3, 1, 1, Node);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_GroupingFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args;
-  v6 = MEMORY[0x277D84F90];
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_GroupingFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args) = MEMORY[0x277D84F90];
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_GroupingFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__refs;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_GroupingFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__refs) = v6;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_GroupingFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cols;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_GroupingFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cols) = v6;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_GroupingFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__agglevelsup;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_GroupingFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__agglevelsup) = 0;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_GroupingFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_GroupingFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_GroupingFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v11 = *(v1 + v5);
-  *(v1 + v5) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_GroupingFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args);
-
-  v12 = *(v1 + v7);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_GroupingFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__refs);
-
-  v13 = *(v1 + v8);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_GroupingFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cols);
-
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_GroupingFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__agglevelsup);
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_GroupingFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_WindowFunc._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  v16 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v5 = *(*(Node - 8) + 56);
-  v5(v1 + v3, 1, 1, Node);
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__winfnoid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__winfnoid) = 0;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__wintype;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__wintype) = 0;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__wincollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__wincollid) = 0;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inputcollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inputcollid) = 0;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args) = MEMORY[0x277D84F90];
-  v18 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggfilter;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggfilter, 1, 1, Node);
-  v11 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__winref;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__winref) = 0;
-  v12 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__winstar;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__winstar) = 0;
-  v13 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__winagg;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__winagg) = 0;
-  v17 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v16, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v6) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__winfnoid);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__wintype);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__wincollid);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inputcollid);
-  v14 = *(v1 + v10);
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args);
-
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggfilter, v1 + v18, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v11) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__winref);
-  *(v1 + v12) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__winstar);
-  *(v1 + v13) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__winagg);
-  *(v1 + v17) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_WindowFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_FuncExpr._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  v16 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v3, 1, 1, Node);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__funcid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__funcid) = 0;
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__funcresulttype;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__funcresulttype) = 0;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__funcretset;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__funcretset) = 0;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__funcvariadic;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__funcvariadic) = 0;
-  v9 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__funcformat;
-  *v9 = 0;
-  *(v9 + 8) = 1;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__funccollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__funccollid) = 0;
-  v11 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inputcollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inputcollid) = 0;
-  v12 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args) = MEMORY[0x277D84F90];
-  v17 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v16, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v5) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__funcid);
-  *(v1 + v6) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__funcresulttype);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__funcretset);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__funcvariadic);
-  v13 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__funcformat + 8);
-  *v9 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__funcformat);
-  *(v9 + 8) = v13;
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__funccollid);
-  *(v1 + v11) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inputcollid);
-  v14 = *(v1 + v12);
-  *(v1 + v12) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args);
-
-  *(v1 + v17) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_NamedArgExpr._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_NamedArgExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v5 = *(*(Node - 8) + 56);
-  v5(v1 + v3, 1, 1, Node);
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_NamedArgExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_NamedArgExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg, 1, 1, Node);
-  v7 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_NamedArgExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__name);
-  *v7 = 0;
-  v7[1] = 0xE000000000000000;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_NamedArgExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__argnumber;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_NamedArgExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__argnumber) = 0;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_NamedArgExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_NamedArgExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_NamedArgExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_NamedArgExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg, v1 + v6, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v10 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_NamedArgExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__name + 8);
-  v11 = v7[1];
-  *v7 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_NamedArgExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__name);
-  v7[1] = v10;
-
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_NamedArgExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__argnumber);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_NamedArgExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_OpExpr._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  v15 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v3, 1, 1, Node);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opno;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opno) = 0;
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opfuncid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opfuncid) = 0;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opresulttype;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opresulttype) = 0;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opretset;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opretset) = 0;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opcollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opcollid) = 0;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inputcollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inputcollid) = 0;
-  v11 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args) = MEMORY[0x277D84F90];
-  v12 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v15, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v5) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opno);
-  *(v1 + v6) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opfuncid);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opresulttype);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opretset);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opcollid);
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inputcollid);
-  v13 = *(v1 + v11);
-  *(v1 + v11) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args);
-
-  *(v1 + v12) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_OpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_DistinctExpr._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  v15 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v3, 1, 1, Node);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opno;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opno) = 0;
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opfuncid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opfuncid) = 0;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opresulttype;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opresulttype) = 0;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opretset;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opretset) = 0;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opcollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opcollid) = 0;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inputcollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inputcollid) = 0;
-  v11 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args) = MEMORY[0x277D84F90];
-  v12 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v15, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v5) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opno);
-  *(v1 + v6) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opfuncid);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opresulttype);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opretset);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opcollid);
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inputcollid);
-  v13 = *(v1 + v11);
-  *(v1 + v11) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args);
-
-  *(v1 + v12) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_DistinctExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_NullIfExpr._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  v15 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v3, 1, 1, Node);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opno;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opno) = 0;
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opfuncid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opfuncid) = 0;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opresulttype;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opresulttype) = 0;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opretset;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opretset) = 0;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opcollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opcollid) = 0;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inputcollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inputcollid) = 0;
-  v11 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args) = MEMORY[0x277D84F90];
-  v12 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v15, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v5) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opno);
-  *(v1 + v6) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opfuncid);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opresulttype);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opretset);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opcollid);
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inputcollid);
-  v13 = *(v1 + v11);
-  *(v1 + v11) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args);
-
-  *(v1 + v12) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_NullIfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_ScalarArrayOpExpr._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_ScalarArrayOpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v3, 1, 1, Node);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_ScalarArrayOpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opno;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_ScalarArrayOpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opno) = 0;
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_ScalarArrayOpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opfuncid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_ScalarArrayOpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opfuncid) = 0;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_ScalarArrayOpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__useOr;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_ScalarArrayOpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__useOr) = 0;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_ScalarArrayOpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inputcollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_ScalarArrayOpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inputcollid) = 0;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_ScalarArrayOpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_ScalarArrayOpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args) = MEMORY[0x277D84F90];
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_ScalarArrayOpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_ScalarArrayOpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_ScalarArrayOpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v5) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_ScalarArrayOpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opno);
-  *(v1 + v6) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_ScalarArrayOpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opfuncid);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_ScalarArrayOpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__useOr);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_ScalarArrayOpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inputcollid);
-  v11 = *(v1 + v9);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_ScalarArrayOpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args);
-
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_ScalarArrayOpExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_BoolExpr._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_BoolExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v3, 1, 1, Node);
-  v5 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_BoolExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__BOOLop;
-  *v5 = 0;
-  *(v5 + 8) = 1;
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_BoolExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_BoolExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args) = MEMORY[0x277D84F90];
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_BoolExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_BoolExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_BoolExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v8 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_BoolExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__BOOLop + 8);
-  *v5 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_BoolExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__BOOLop);
-  *(v5 + 8) = v8;
-  v9 = *(v1 + v6);
-  *(v1 + v6) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_BoolExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args);
-
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_BoolExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_SubLink._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubLinkP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v5 = *(*(Node - 8) + 56);
-  v5(v1 + v3, 1, 1, Node);
-  v6 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubLinkP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__subLinkType;
-  *v6 = 0;
-  *(v6 + 8) = 1;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubLinkP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__subLinkID;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubLinkP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__subLinkID) = 0;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubLinkP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__testexpr;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubLinkP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__testexpr, 1, 1, Node);
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubLinkP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__operName;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubLinkP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__operName) = MEMORY[0x277D84F90];
-  v14 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubLinkP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__subselect;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubLinkP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__subselect, 1, 1, Node);
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubLinkP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubLinkP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubLinkP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v11 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubLinkP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__subLinkType + 8);
-  *v6 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubLinkP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__subLinkType);
-  *(v6 + 8) = v11;
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubLinkP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__subLinkID);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubLinkP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__testexpr, v1 + v8, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v12 = *(v1 + v9);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubLinkP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__operName);
-
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubLinkP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__subselect, v1 + v14, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubLinkP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_SubPlan._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  v22 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v5 = *(*(Node - 8) + 56);
-  v5(v1 + v3, 1, 1, Node);
-  v6 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__subLinkType;
-  *v6 = 0;
-  *(v6 + 8) = 1;
-  v21 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__testexpr;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__testexpr, 1, 1, Node);
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__paramIds;
-  v8 = MEMORY[0x277D84F90];
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__paramIds) = MEMORY[0x277D84F90];
-  v23 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__planID;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__planID) = 0;
-  v9 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__planName);
-  *v9 = 0;
-  v9[1] = 0xE000000000000000;
-  v29 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__firstColType;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__firstColType) = 0;
-  v28 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__firstColTypmod;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__firstColTypmod) = 0;
-  v27 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__firstColCollation;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__firstColCollation) = 0;
-  v26 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__useHashTable;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__useHashTable) = 0;
-  v25 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__unknownEqFalse;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__unknownEqFalse) = 0;
-  v24 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__parallelSafe;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__parallelSafe) = 0;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__setParam;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__setParam) = v8;
-  v11 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__parParam;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__parParam) = v8;
-  v12 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args) = v8;
-  v31 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__startupCost;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__startupCost) = 0;
-  v30 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__perCallCost;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__perCallCost) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v22, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v13 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__subLinkType + 8);
-  *v6 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__subLinkType);
-  *(v6 + 8) = v13;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__testexpr, v1 + v21, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v14 = *(v1 + v7);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__paramIds);
-
-  *(v1 + v23) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__planID);
-  v15 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__planName + 8);
-  v16 = v9[1];
-  *v9 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__planName);
-  v9[1] = v15;
-
-  *(v1 + v29) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__firstColType);
-  *(v1 + v28) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__firstColTypmod);
-  *(v1 + v27) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__firstColCollation);
-  *(v1 + v26) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__useHashTable);
-  *(v1 + v25) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__unknownEqFalse);
-  *(v1 + v24) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__parallelSafe);
-  v17 = *(v1 + v10);
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__setParam);
-
-  v18 = *(v1 + v11);
-  *(v1 + v11) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__parParam);
-
-  v19 = *(v1 + v12);
-  *(v1 + v12) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args);
-
-  *(v1 + v31) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__startupCost);
-  *(v1 + v30) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_SubPlanP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__perCallCost);
-  return v1;
-}
-
-uint64_t specialized PgQuery_FieldSelect._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_FieldSelectP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v5 = *(*(Node - 8) + 56);
-  v5(v1 + v3, 1, 1, Node);
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_FieldSelectP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_FieldSelectP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg, 1, 1, Node);
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_FieldSelectP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__fieldnum;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_FieldSelectP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__fieldnum) = 0;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_FieldSelectP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttype;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_FieldSelectP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttype) = 0;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_FieldSelectP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttypmod;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_FieldSelectP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttypmod) = 0;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_FieldSelectP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resultcollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_FieldSelectP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resultcollid) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_FieldSelectP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_FieldSelectP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg, v1 + v6, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_FieldSelectP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__fieldnum);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_FieldSelectP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttype);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_FieldSelectP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttypmod);
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_FieldSelectP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resultcollid);
-  return v1;
-}
-
-uint64_t specialized PgQuery_FieldStore._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_FieldStoreP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v5 = *(*(Node - 8) + 56);
-  v5(v1 + v3, 1, 1, Node);
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_FieldStoreP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_FieldStoreP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg, 1, 1, Node);
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_FieldStoreP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__newvals;
-  v8 = MEMORY[0x277D84F90];
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_FieldStoreP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__newvals) = MEMORY[0x277D84F90];
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_FieldStoreP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__fieldnums;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_FieldStoreP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__fieldnums) = v8;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_FieldStoreP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttype;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_FieldStoreP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttype) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_FieldStoreP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_FieldStoreP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg, v1 + v6, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v11 = *(v1 + v7);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_FieldStoreP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__newvals);
-
-  v12 = *(v1 + v9);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_FieldStoreP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__fieldnums);
-
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_FieldStoreP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttype);
-  return v1;
-}
-
-uint64_t specialized PgQuery_RelabelType._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_RelabelTypeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  v14 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_RelabelTypeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v5 = *(*(Node - 8) + 56);
-  v5(v1 + v3, 1, 1, Node);
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_RelabelTypeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_RelabelTypeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg, 1, 1, Node);
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_RelabelTypeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttype;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_RelabelTypeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttype) = 0;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_RelabelTypeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttypmod;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_RelabelTypeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttypmod) = 0;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_RelabelTypeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resultcollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_RelabelTypeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resultcollid) = 0;
-  v10 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_RelabelTypeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__relabelformat;
-  *v10 = 0;
-  *(v10 + 8) = 1;
-  v11 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_RelabelTypeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_RelabelTypeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_RelabelTypeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v14, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_RelabelTypeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg, v1 + v6, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_RelabelTypeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttype);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_RelabelTypeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttypmod);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_RelabelTypeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resultcollid);
-  v12 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_RelabelTypeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__relabelformat + 8);
-  *v10 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_RelabelTypeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__relabelformat);
-  *(v10 + 8) = v12;
-  *(v1 + v11) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_RelabelTypeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_CoerceViaIO._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_CoerceViaIOP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v5 = *(*(Node - 8) + 56);
-  v5(v1 + v3, 1, 1, Node);
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_CoerceViaIOP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_CoerceViaIOP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg, 1, 1, Node);
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_CoerceViaIOP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttype;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_CoerceViaIOP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttype) = 0;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_CoerceViaIOP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resultcollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_CoerceViaIOP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resultcollid) = 0;
-  v9 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_CoerceViaIOP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coerceformat;
-  *v9 = 0;
-  *(v9 + 8) = 1;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_CoerceViaIOP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_CoerceViaIOP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_CoerceViaIOP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_CoerceViaIOP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg, v1 + v6, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_CoerceViaIOP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttype);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_CoerceViaIOP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resultcollid);
-  v11 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_CoerceViaIOP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coerceformat + 8);
-  *v9 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_CoerceViaIOP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coerceformat);
-  *(v9 + 8) = v11;
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_CoerceViaIOP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_ArrayCoerceExpr._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_ArrayCoerceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  v15 = OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_ArrayCoerceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v5 = *(*(Node - 8) + 56);
-  v5(v1 + v3, 1, 1, Node);
-  v14 = OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_ArrayCoerceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_ArrayCoerceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg, 1, 1, Node);
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_ArrayCoerceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__elemexpr;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_ArrayCoerceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__elemexpr, 1, 1, Node);
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_ArrayCoerceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttype;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_ArrayCoerceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttype) = 0;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_ArrayCoerceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttypmod;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_ArrayCoerceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttypmod) = 0;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_ArrayCoerceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resultcollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_ArrayCoerceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resultcollid) = 0;
-  v10 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_ArrayCoerceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coerceformat;
-  *v10 = 0;
-  *(v10 + 8) = 1;
-  v11 = OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_ArrayCoerceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_ArrayCoerceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_ArrayCoerceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v15, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_ArrayCoerceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg, v1 + v14, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_ArrayCoerceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__elemexpr, v1 + v6, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_ArrayCoerceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttype);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_ArrayCoerceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttypmod);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_ArrayCoerceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resultcollid);
-  v12 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_ArrayCoerceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coerceformat + 8);
-  *v10 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_ArrayCoerceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coerceformat);
-  *(v10 + 8) = v12;
-  *(v1 + v11) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_ArrayCoerceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_ConvertRowtypeExpr._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser26PgQuery_ConvertRowtypeExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v5 = *(*(Node - 8) + 56);
-  v5(v1 + v3, 1, 1, Node);
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser26PgQuery_ConvertRowtypeExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser26PgQuery_ConvertRowtypeExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg, 1, 1, Node);
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser26PgQuery_ConvertRowtypeExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttype;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser26PgQuery_ConvertRowtypeExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttype) = 0;
-  v8 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser26PgQuery_ConvertRowtypeExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__convertformat;
-  *v8 = 0;
-  *(v8 + 8) = 1;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser26PgQuery_ConvertRowtypeExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser26PgQuery_ConvertRowtypeExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser26PgQuery_ConvertRowtypeExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser26PgQuery_ConvertRowtypeExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg, v1 + v6, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser26PgQuery_ConvertRowtypeExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttype);
-  v10 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser26PgQuery_ConvertRowtypeExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__convertformat + 8);
-  *v8 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser26PgQuery_ConvertRowtypeExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__convertformat);
-  *(v8 + 8) = v10;
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser26PgQuery_ConvertRowtypeExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_CaseExpr._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_CaseExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v5 = *(*(Node - 8) + 56);
-  v5(v1 + v3, 1, 1, Node);
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_CaseExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__casetype;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_CaseExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__casetype) = 0;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_CaseExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__casecollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_CaseExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__casecollid) = 0;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_CaseExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_CaseExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg, 1, 1, Node);
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_CaseExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_CaseExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args) = MEMORY[0x277D84F90];
-  v13 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_CaseExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__defresult;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_CaseExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__defresult, 1, 1, Node);
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_CaseExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_CaseExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_CaseExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v6) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_CaseExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__casetype);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_CaseExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__casecollid);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_CaseExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg, v1 + v8, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v11 = *(v1 + v9);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_CaseExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args);
-
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_CaseExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__defresult, v1 + v13, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_CaseExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_ArrayExpr._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ArrayExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v3, 1, 1, Node);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ArrayExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arrayTypeid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ArrayExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arrayTypeid) = 0;
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ArrayExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arrayCollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ArrayExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arrayCollid) = 0;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ArrayExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__elementTypeid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ArrayExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__elementTypeid) = 0;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ArrayExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__elements;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ArrayExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__elements) = MEMORY[0x277D84F90];
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ArrayExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__multidims;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ArrayExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__multidims) = 0;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ArrayExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ArrayExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ArrayExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v5) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ArrayExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arrayTypeid);
-  *(v1 + v6) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ArrayExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arrayCollid);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ArrayExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__elementTypeid);
-  v11 = *(v1 + v8);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ArrayExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__elements);
-
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ArrayExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__multidims);
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ArrayExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_RowExpr._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RowExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v3, 1, 1, Node);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RowExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args;
-  v6 = MEMORY[0x277D84F90];
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RowExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args) = MEMORY[0x277D84F90];
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RowExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rowTypeid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RowExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rowTypeid) = 0;
-  v8 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RowExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rowFormat;
-  *v8 = 0;
-  *(v8 + 8) = 1;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RowExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__colnames;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RowExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__colnames) = v6;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RowExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RowExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RowExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v11 = *(v1 + v5);
-  *(v1 + v5) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RowExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args);
-
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RowExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rowTypeid);
-  v12 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RowExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rowFormat + 8);
-  *v8 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RowExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rowFormat);
-  *(v8 + 8) = v12;
-  v13 = *(v1 + v9);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RowExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__colnames);
-
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RowExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_CoalesceExpr._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_CoalesceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v3, 1, 1, Node);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_CoalesceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coalescetype;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_CoalesceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coalescetype) = 0;
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_CoalesceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coalescecollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_CoalesceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coalescecollid) = 0;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_CoalesceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_CoalesceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args) = MEMORY[0x277D84F90];
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_CoalesceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_CoalesceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_CoalesceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v5) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_CoalesceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coalescetype);
-  *(v1 + v6) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_CoalesceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coalescecollid);
-  v9 = *(v1 + v7);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_CoalesceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args);
-
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_CoalesceExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_MinMaxExpr._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_MinMaxExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v3, 1, 1, Node);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_MinMaxExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__minmaxtype;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_MinMaxExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__minmaxtype) = 0;
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_MinMaxExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__minmaxcollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_MinMaxExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__minmaxcollid) = 0;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_MinMaxExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inputcollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_MinMaxExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inputcollid) = 0;
-  v8 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_MinMaxExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__op;
-  *v8 = 0;
-  *(v8 + 8) = 1;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_MinMaxExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_MinMaxExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args) = MEMORY[0x277D84F90];
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_MinMaxExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_MinMaxExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_MinMaxExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v5) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_MinMaxExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__minmaxtype);
-  *(v1 + v6) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_MinMaxExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__minmaxcollid);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_MinMaxExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inputcollid);
-  v11 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_MinMaxExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__op + 8);
-  *v8 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_MinMaxExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__op);
-  *(v8 + 8) = v11;
-  v12 = *(v1 + v9);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_MinMaxExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args);
-
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_MinMaxExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_SQLValueFunction._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_SQLValueFunctionP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v3, 1, 1, Node);
-  v5 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_SQLValueFunctionP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__op;
-  *v5 = 0;
-  *(v5 + 8) = 1;
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_SQLValueFunctionP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__type;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_SQLValueFunctionP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__type) = 0;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_SQLValueFunctionP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__typmod;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_SQLValueFunctionP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__typmod) = 0;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_SQLValueFunctionP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_SQLValueFunctionP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_SQLValueFunctionP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v9 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_SQLValueFunctionP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__op + 8);
-  *v5 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_SQLValueFunctionP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__op);
-  *(v5 + 8) = v9;
-  *(v1 + v6) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_SQLValueFunctionP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__type);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_SQLValueFunctionP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__typmod);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_SQLValueFunctionP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_XmlExpr._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v3, 1, 1, Node);
-  v5 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__op;
-  *v5 = 0;
-  *(v5 + 8) = 1;
-  v6 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__name);
-  *v6 = 0;
-  v6[1] = 0xE000000000000000;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__namedArgs;
-  v8 = MEMORY[0x277D84F90];
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__namedArgs) = MEMORY[0x277D84F90];
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__argNames;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__argNames) = v8;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args) = v8;
-  v11 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xmloption;
-  *v11 = 0;
-  *(v11 + 8) = 1;
-  v22 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__type;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__type) = 0;
-  v21 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__typmod;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__typmod) = 0;
-  v12 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v13 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__op + 8);
-  *v5 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__op);
-  *(v5 + 8) = v13;
-  v14 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__name + 8);
-  v15 = v6[1];
-  *v6 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__name);
-  v6[1] = v14;
-
-  v16 = *(v1 + v7);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__namedArgs);
-
-  v17 = *(v1 + v9);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__argNames);
-
-  v18 = *(v1 + v10);
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args);
-
-  v19 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xmloption + 8);
-  *v11 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xmloption);
-  *(v11 + 8) = v19;
-  *(v1 + v22) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__type);
-  *(v1 + v21) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__typmod);
-  *(v1 + v12) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_XmlExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_NullTest._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_NullTestP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v5 = *(*(Node - 8) + 56);
-  v5(v1 + v3, 1, 1, Node);
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_NullTestP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_NullTestP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg, 1, 1, Node);
-  v7 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_NullTestP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__nulltesttype;
-  *v7 = 0;
-  *(v7 + 8) = 1;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_NullTestP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__argisrow;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_NullTestP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__argisrow) = 0;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_NullTestP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_NullTestP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_NullTestP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_NullTestP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg, v1 + v6, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v10 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_NullTestP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__nulltesttype + 8);
-  *v7 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_NullTestP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__nulltesttype);
-  *(v7 + 8) = v10;
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_NullTestP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__argisrow);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_NullTestP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_CoerceToDomain._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CoerceToDomainP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  v14 = OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CoerceToDomainP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v5 = *(*(Node - 8) + 56);
-  v5(v1 + v3, 1, 1, Node);
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CoerceToDomainP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CoerceToDomainP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg, 1, 1, Node);
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CoerceToDomainP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttype;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CoerceToDomainP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttype) = 0;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CoerceToDomainP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttypmod;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CoerceToDomainP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttypmod) = 0;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CoerceToDomainP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resultcollid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CoerceToDomainP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resultcollid) = 0;
-  v10 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CoerceToDomainP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coercionformat;
-  *v10 = 0;
-  *(v10 + 8) = 1;
-  v11 = OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CoerceToDomainP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CoerceToDomainP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CoerceToDomainP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v14, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CoerceToDomainP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg, v1 + v6, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CoerceToDomainP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttype);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CoerceToDomainP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resulttypmod);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CoerceToDomainP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resultcollid);
-  v12 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CoerceToDomainP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coercionformat + 8);
-  *v10 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CoerceToDomainP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coercionformat);
-  *(v10 + 8) = v12;
-  *(v1 + v11) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CoerceToDomainP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_CoerceToDomainValue._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser27PgQuery_CoerceToDomainValueP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v3, 1, 1, Node);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser27PgQuery_CoerceToDomainValueP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__typeID;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser27PgQuery_CoerceToDomainValueP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__typeID) = 0;
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser27PgQuery_CoerceToDomainValueP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__typeMod;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser27PgQuery_CoerceToDomainValueP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__typeMod) = 0;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser27PgQuery_CoerceToDomainValueP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__collation;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser27PgQuery_CoerceToDomainValueP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__collation) = 0;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser27PgQuery_CoerceToDomainValueP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser27PgQuery_CoerceToDomainValueP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser27PgQuery_CoerceToDomainValueP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v5) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser27PgQuery_CoerceToDomainValueP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__typeID);
-  *(v1 + v6) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser27PgQuery_CoerceToDomainValueP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__typeMod);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser27PgQuery_CoerceToDomainValueP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__collation);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser27PgQuery_CoerceToDomainValueP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_SetToDefault._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_SetToDefaultP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v3, 1, 1, Node);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_SetToDefaultP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__typeID;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_SetToDefaultP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__typeID) = 0;
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_SetToDefaultP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__typeMod;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_SetToDefaultP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__typeMod) = 0;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_SetToDefaultP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__collation;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_SetToDefaultP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__collation) = 0;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_SetToDefaultP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_SetToDefaultP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_SetToDefaultP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v5) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_SetToDefaultP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__typeID);
-  *(v1 + v6) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_SetToDefaultP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__typeMod);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_SetToDefaultP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__collation);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_SetToDefaultP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_CurrentOfExpr._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_CurrentOfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v3, 1, 1, Node);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_CurrentOfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cvarno;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_CurrentOfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cvarno) = 0;
-  v6 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_CurrentOfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cursorName);
-  *v6 = 0;
-  v6[1] = 0xE000000000000000;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_CurrentOfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cursorParam;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_CurrentOfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cursorParam) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_CurrentOfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v5) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_CurrentOfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cvarno);
-  v8 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_CurrentOfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cursorName + 8);
-  v9 = v6[1];
-  *v6 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_CurrentOfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cursorName);
-  v6[1] = v8;
-
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_CurrentOfExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cursorParam);
-  return v1;
-}
-
-uint64_t specialized PgQuery_TargetEntry._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_TargetEntryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  v15 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_TargetEntryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v5 = *(*(Node - 8) + 56);
-  v5(v1 + v3, 1, 1, Node);
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_TargetEntryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__expr;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_TargetEntryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__expr, 1, 1, Node);
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_TargetEntryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resno;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_TargetEntryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resno) = 0;
-  v8 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_TargetEntryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resname);
-  *v8 = 0;
-  v8[1] = 0xE000000000000000;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_TargetEntryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__ressortgroupref;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_TargetEntryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__ressortgroupref) = 0;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_TargetEntryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resorigtbl;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_TargetEntryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resorigtbl) = 0;
-  v11 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_TargetEntryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resorigcol;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_TargetEntryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resorigcol) = 0;
-  v16 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_TargetEntryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resjunk;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_TargetEntryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resjunk) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_TargetEntryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__xpr, v1 + v15, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_TargetEntryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__expr, v1 + v6, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_TargetEntryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resno);
-  v12 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_TargetEntryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resname + 8);
-  v13 = v8[1];
-  *v8 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_TargetEntryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resname);
-  v8[1] = v12;
-
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_TargetEntryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__ressortgroupref);
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_TargetEntryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resorigtbl);
-  *(v1 + v11) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_TargetEntryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resorigcol);
-  *(v1 + v16) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_TargetEntryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resjunk);
-  return v1;
-}
-
-uint64_t specialized PgQuery_JoinExpr._StorageClass.init(copying:)(uint64_t a1)
-{
-  *(v1 + 16) = 0;
-  *(v1 + 24) = 1;
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_JoinExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__larg;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v5 = *(*(Node - 8) + 56);
-  v5(v1 + v3, 1, 1, Node);
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_JoinExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rarg;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_JoinExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rarg, 1, 1, Node);
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_JoinExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__usingClause;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_JoinExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__usingClause) = MEMORY[0x277D84F90];
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_JoinExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__quals;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_JoinExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__quals, 1, 1, Node);
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_JoinExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__alias;
-  Alias = type metadata accessor for PgQuery_Alias(0);
-  (*(*(Alias - 8) + 56))(v1 + v9, 1, 1, Alias);
-  v11 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_JoinExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rtindex;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_JoinExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rtindex) = 0;
-  v12 = *(a1 + 24);
-  *(v1 + 16) = *(a1 + 16);
-  *(v1 + 24) = v12;
-  *(v1 + 25) = *(a1 + 25);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_JoinExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__larg, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_JoinExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rarg, v1 + v6, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v13 = *(v1 + v7);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_JoinExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__usingClause);
-
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_JoinExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__quals, v1 + v8, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_JoinExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__alias, v1 + v9, &_s14BiomeSQLParser13PgQuery_AliasVSgMd, &_s14BiomeSQLParser13PgQuery_AliasVSgMR);
-  *(v1 + v11) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_JoinExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rtindex);
-  return v1;
-}
-
-uint64_t specialized PgQuery_IntoClause._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_IntoClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rel;
-  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
-  (*(*(RangeVar - 8) + 56))(v1 + v3, 1, 1, RangeVar);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_IntoClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__colNames;
-  v6 = MEMORY[0x277D84F90];
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_IntoClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__colNames) = MEMORY[0x277D84F90];
-  v7 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_IntoClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__accessMethod);
-  *v7 = 0;
-  v7[1] = 0xE000000000000000;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_IntoClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__options;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_IntoClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__options) = v6;
-  v9 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_IntoClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__onCommit;
-  *v9 = 0;
-  *(v9 + 8) = 1;
-  v10 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_IntoClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__tableSpaceName);
-  *v10 = 0;
-  v10[1] = 0xE000000000000000;
-  v11 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_IntoClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__viewQuery;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v11, 1, 1, Node);
-  v13 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_IntoClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__skipData;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_IntoClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__skipData) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_IntoClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rel, v1 + v3, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v14 = *(v1 + v5);
-  *(v1 + v5) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_IntoClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__colNames);
-
-  v15 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_IntoClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__accessMethod + 8);
-  v16 = v7[1];
-  *v7 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_IntoClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__accessMethod);
-  v7[1] = v15;
-
-  v17 = *(v1 + v8);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_IntoClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__options);
-
-  v18 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_IntoClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__onCommit + 8);
-  *v9 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_IntoClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__onCommit);
-  *(v9 + 8) = v18;
-  v19 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_IntoClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__tableSpaceName + 8);
-  v20 = v10[1];
-  *v10 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_IntoClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__tableSpaceName);
-  v10[1] = v19;
-
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_IntoClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__viewQuery, v1 + v11, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v13) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_IntoClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__skipData);
-  return v1;
-}
-
-uint64_t specialized PgQuery_Query._StorageClass.init(copying:)(uint64_t a1)
-{
-  *(v1 + 16) = 0;
-  *(v1 + 24) = 1;
-  *(v1 + 32) = 0;
-  *(v1 + 40) = 1;
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__utilityStmt;
-  v44 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__utilityStmt;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v5 = *(*(Node - 8) + 56);
-  v5(v1 + v3, 1, 1, Node);
-  v43 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resultRelation;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resultRelation) = 0;
-  v42 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasAggs_p;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasAggs_p) = 0;
-  v41 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasWindowFuncs_p;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasWindowFuncs_p) = 0;
-  v40 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasTargetSrfs_p;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasTargetSrfs_p) = 0;
-  v39 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasSubLinks_p;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasSubLinks_p) = 0;
-  v38 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasDistinctOn_p;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasDistinctOn_p) = 0;
-  v37 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasRecursive_p;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasRecursive_p) = 0;
-  v36 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasModifyingCte_p;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasModifyingCte_p) = 0;
-  v35 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasForUpdate_p;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasForUpdate_p) = 0;
-  v34 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasRowSecurity_p;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasRowSecurity_p) = 0;
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cteList;
-  v7 = MEMORY[0x277D84F90];
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cteList) = MEMORY[0x277D84F90];
-  v46 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rtable;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rtable) = v7;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__jointree;
-  v48 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__jointree;
-  v9 = type metadata accessor for PgQuery_FromExpr(0);
-  (*(*(v9 - 8) + 56))(v1 + v8, 1, 1, v9);
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__targetList;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__targetList) = v7;
-  v11 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__override;
-  *v11 = 0;
-  *(v11 + 8) = 1;
-  v12 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__onConflict;
-  v47 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__onConflict;
-  v13 = type metadata accessor for PgQuery_OnConflictExpr(0);
-  (*(*(v13 - 8) + 56))(v1 + v12, 1, 1, v13);
-  v45 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__returningList;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__returningList) = v7;
-  v49 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__groupClause;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__groupClause) = v7;
-  v50 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__groupingSets;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__groupingSets) = v7;
-  v52 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__havingQual;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__havingQual, 1, 1, Node);
-  v51 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__windowClause;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__windowClause) = v7;
-  v53 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__distinctClause;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__distinctClause) = v7;
-  v54 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__sortClause;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__sortClause) = v7;
-  v57 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__limitOffset;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__limitOffset, 1, 1, Node);
-  v56 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__limitCount;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__limitCount, 1, 1, Node);
-  v14 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__limitOption;
-  *v14 = 0;
-  *(v14 + 8) = 1;
-  v55 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rowMarks;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rowMarks) = v7;
-  v58 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__setOperations;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__setOperations, 1, 1, Node);
-  v15 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__constraintDeps;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__constraintDeps) = v7;
-  v59 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__withCheckOptions;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__withCheckOptions) = v7;
-  v60 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__stmtLocation;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__stmtLocation) = 0;
-  v16 = OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__stmtLen;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__stmtLen) = 0;
-  v17 = *(a1 + 24);
-  *(v1 + 16) = *(a1 + 16);
-  *(v1 + 24) = v17;
-  v18 = *(a1 + 40);
-  *(v1 + 32) = *(a1 + 32);
-  *(v1 + 40) = v18;
-  *(v1 + 41) = *(a1 + 41);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__utilityStmt, v1 + v44, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v43) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resultRelation);
-  *(v1 + v42) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasAggs_p);
-  *(v1 + v41) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasWindowFuncs_p);
-  *(v1 + v40) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasTargetSrfs_p);
-  *(v1 + v39) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasSubLinks_p);
-  *(v1 + v38) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasDistinctOn_p);
-  *(v1 + v37) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasRecursive_p);
-  *(v1 + v36) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasModifyingCte_p);
-  *(v1 + v35) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasForUpdate_p);
-  *(v1 + v34) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__hasRowSecurity_p);
-  v19 = *(v1 + v6);
-  *(v1 + v6) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cteList);
-
-  v20 = *(v1 + v46);
-  *(v1 + v46) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rtable);
-
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__jointree, v1 + v48, &_s14BiomeSQLParser16PgQuery_FromExprVSgMd, &_s14BiomeSQLParser16PgQuery_FromExprVSgMR);
-  v21 = *(v1 + v10);
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__targetList);
-
-  v22 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__override + 8);
-  *v11 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__override);
-  *(v11 + 8) = v22;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__onConflict, v1 + v47, &_s14BiomeSQLParser22PgQuery_OnConflictExprVSgMd, &_s14BiomeSQLParser22PgQuery_OnConflictExprVSgMR);
-  v23 = *(v1 + v45);
-  *(v1 + v45) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__returningList);
-
-  v24 = *(v1 + v49);
-  *(v1 + v49) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__groupClause);
-
-  v25 = *(v1 + v50);
-  *(v1 + v50) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__groupingSets);
-
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__havingQual, v1 + v52, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v26 = *(v1 + v51);
-  *(v1 + v51) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__windowClause);
-
-  v27 = *(v1 + v53);
-  *(v1 + v53) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__distinctClause);
-
-  v28 = *(v1 + v54);
-  *(v1 + v54) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__sortClause);
-
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__limitOffset, v1 + v57, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__limitCount, v1 + v56, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v29 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__limitOption + 8);
-  *v14 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__limitOption);
-  *(v14 + 8) = v29;
-  v30 = *(v1 + v55);
-  *(v1 + v55) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rowMarks);
-
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__setOperations, v1 + v58, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v31 = *(v1 + v15);
-  *(v1 + v15) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__constraintDeps);
-
-  v32 = *(v1 + v59);
-  *(v1 + v59) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__withCheckOptions);
-
-  *(v1 + v60) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__stmtLocation);
-  *(v1 + v16) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser13PgQuery_QueryP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__stmtLen);
-  return v1;
-}
-
-uint64_t specialized PgQuery_InsertStmt._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_InsertStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__relation;
-  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
-  (*(*(RangeVar - 8) + 56))(v1 + v3, 1, 1, RangeVar);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_InsertStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cols;
-  v6 = MEMORY[0x277D84F90];
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_InsertStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cols) = MEMORY[0x277D84F90];
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_InsertStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__selectStmt;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v7, 1, 1, Node);
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_InsertStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__onConflictClause;
-  v10 = type metadata accessor for PgQuery_OnConflictClause(0);
-  (*(*(v10 - 8) + 56))(v1 + v9, 1, 1, v10);
-  v11 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_InsertStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__returningList;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_InsertStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__returningList) = v6;
-  v12 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_InsertStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__withClause;
-  v13 = type metadata accessor for PgQuery_WithClause(0);
-  (*(*(v13 - 8) + 56))(v1 + v12, 1, 1, v13);
-  v14 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_InsertStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__override;
-  *v14 = 0;
-  *(v14 + 8) = 1;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_InsertStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__relation, v1 + v3, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v15 = *(v1 + v5);
-  *(v1 + v5) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_InsertStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cols);
-
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_InsertStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__selectStmt, v1 + v7, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_InsertStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__onConflictClause, v1 + v9, &_s14BiomeSQLParser24PgQuery_OnConflictClauseVSgMd, &_s14BiomeSQLParser24PgQuery_OnConflictClauseVSgMR);
-  v16 = *(v1 + v11);
-  *(v1 + v11) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_InsertStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__returningList);
-
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_InsertStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__withClause, v1 + v12, &_s14BiomeSQLParser18PgQuery_WithClauseVSgMd, &_s14BiomeSQLParser18PgQuery_WithClauseVSgMR);
-  v17 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_InsertStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__override + 8);
-  *v14 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_InsertStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__override);
-  *(v14 + 8) = v17;
-  return v1;
-}
-
-uint64_t specialized PgQuery_AlterTableCmd._StorageClass.init(copying:)(uint64_t a1)
-{
-  *(v1 + 16) = 0;
-  *(v1 + 24) = 1;
-  *(v1 + 32) = 0;
-  *(v1 + 40) = 0xE000000000000000;
-  *(v1 + 48) = 0;
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_AlterTableCmdP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__newowner;
-  RoleSpec = type metadata accessor for PgQuery_RoleSpec(0);
-  (*(*(RoleSpec - 8) + 56))(v1 + v3, 1, 1, RoleSpec);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_AlterTableCmdP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__def;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v5, 1, 1, Node);
-  v7 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_AlterTableCmdP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__behavior;
-  *v7 = 0;
-  *(v7 + 8) = 1;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_AlterTableCmdP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__missingOk;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_AlterTableCmdP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__missingOk) = 0;
-  v9 = *(a1 + 24);
-  *(v1 + 16) = *(a1 + 16);
-  *(v1 + 24) = v9;
-  v10 = *(a1 + 40);
-  *(v1 + 32) = *(a1 + 32);
-  *(v1 + 40) = v10;
-  *(v1 + 48) = *(a1 + 48);
-  v11 = OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_AlterTableCmdP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__newowner;
-
-  outlined assign with copy of PgQuery_Node?(a1 + v11, v1 + v3, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMd, &_s14BiomeSQLParser16PgQuery_RoleSpecVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_AlterTableCmdP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__def, v1 + v5, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v12 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_AlterTableCmdP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__behavior + 8);
-  *v7 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_AlterTableCmdP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__behavior);
-  *(v7 + 8) = v12;
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_AlterTableCmdP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__missingOk);
-  return v1;
-}
-
-char *specialized PgQuery_AlterDomainStmt._StorageClass.init(copying:)(void *a1)
-{
-  v3 = MEMORY[0x277D84F90];
-  *(v1 + 2) = 0;
-  *(v1 + 3) = 0xE000000000000000;
-  *(v1 + 4) = v3;
-  *(v1 + 5) = 0;
-  *(v1 + 6) = 0xE000000000000000;
-  v4 = OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_AlterDomainStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__def;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(&v1[v4], 1, 1, Node);
-  v6 = &v1[OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_AlterDomainStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__behavior];
-  *v6 = 0;
-  v6[8] = 1;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_AlterDomainStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__missingOk;
-  v1[OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_AlterDomainStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__missingOk] = 0;
-  v8 = a1[3];
-  *(v1 + 2) = a1[2];
-  *(v1 + 3) = v8;
-  *(v1 + 4) = a1[4];
-  v9 = a1[6];
-  *(v1 + 5) = a1[5];
-  *(v1 + 6) = v9;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_AlterDomainStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__def;
-
-  outlined assign with copy of PgQuery_Node?(a1 + v10, &v1[v4], &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v11 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_AlterDomainStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__behavior + 8);
-  *v6 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_AlterDomainStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__behavior);
-  v6[8] = v11;
-  v1[v7] = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_AlterDomainStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__missingOk);
-  return v1;
-}
-
-uint64_t specialized PgQuery_CreateStmt._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__relation;
-  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
-  (*(*(RangeVar - 8) + 56))(v1 + v3, 1, 1, RangeVar);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__tableElts;
-  v6 = MEMORY[0x277D84F90];
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__tableElts) = MEMORY[0x277D84F90];
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inhRelations;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inhRelations) = v6;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__partbound;
-  v31 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__partbound;
-  PartitionBoundSpec = type metadata accessor for PgQuery_PartitionBoundSpec(0);
-  (*(*(PartitionBoundSpec - 8) + 56))(v1 + v8, 1, 1, PartitionBoundSpec);
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__partspec;
-  v30 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__partspec;
-  PartitionSpec = type metadata accessor for PgQuery_PartitionSpec(0);
-  (*(*(PartitionSpec - 8) + 56))(v1 + v10, 1, 1, PartitionSpec);
-  v12 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__ofTypename;
-  v29 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__ofTypename;
-  TypeName = type metadata accessor for PgQuery_TypeName(0);
-  (*(*(TypeName - 8) + 56))(v1 + v12, 1, 1, TypeName);
-  v14 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__constraints;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__constraints) = v6;
-  v15 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__options;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__options) = v6;
-  v16 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__oncommit;
-  *v16 = 0;
-  *(v16 + 8) = 1;
-  v17 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__tablespacename);
-  *v17 = 0;
-  v17[1] = 0xE000000000000000;
-  v18 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__accessMethod);
-  *v18 = 0;
-  v18[1] = 0xE000000000000000;
-  v32 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__ifNotExists;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__ifNotExists) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__relation, v1 + v3, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v19 = *(v1 + v5);
-  *(v1 + v5) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__tableElts);
-
-  v20 = *(v1 + v7);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inhRelations);
-
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__partbound, v1 + v31, &_s14BiomeSQLParser26PgQuery_PartitionBoundSpecVSgMd, &_s14BiomeSQLParser26PgQuery_PartitionBoundSpecVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__partspec, v1 + v30, &_s14BiomeSQLParser21PgQuery_PartitionSpecVSgMd, &_s14BiomeSQLParser21PgQuery_PartitionSpecVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__ofTypename, v1 + v29, &_s14BiomeSQLParser16PgQuery_TypeNameVSgMd, &_s14BiomeSQLParser16PgQuery_TypeNameVSgMR);
-  v21 = *(v1 + v14);
-  *(v1 + v14) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__constraints);
-
-  v22 = *(v1 + v15);
-  *(v1 + v15) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__options);
-
-  v23 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__oncommit + 8);
-  *v16 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__oncommit);
-  *(v16 + 8) = v23;
-  v24 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__tablespacename + 8);
-  v25 = v17[1];
-  *v17 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__tablespacename);
-  v17[1] = v24;
-
-  v26 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__accessMethod + 8);
-  v27 = v18[1];
-  *v18 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__accessMethod);
-  v18[1] = v26;
-
-  *(v1 + v32) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_CreateStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__ifNotExists);
-  return v1;
-}
-
-uint64_t specialized PgQuery_IndexStmt._StorageClass.init(copying:)(uint64_t a1)
-{
-  *(v1 + 16) = 0;
-  *(v1 + 24) = 0xE000000000000000;
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__relation;
-  v28 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__relation;
-  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
-  (*(*(RangeVar - 8) + 56))(v1 + v3, 1, 1, RangeVar);
-  v5 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__accessMethod);
-  *v5 = 0;
-  v5[1] = 0xE000000000000000;
-  v6 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__tableSpace);
-  *v6 = 0;
-  v6[1] = 0xE000000000000000;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__indexParams;
-  v8 = MEMORY[0x277D84F90];
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__indexParams) = MEMORY[0x277D84F90];
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__indexIncludingParams;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__indexIncludingParams) = v8;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__options;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__options) = v8;
-  v11 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__whereClause;
-  v29 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__whereClause;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v11, 1, 1, Node);
-  v13 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__excludeOpNames;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__excludeOpNames) = v8;
-  v14 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__idxcomment);
-  *v14 = 0;
-  v14[1] = 0xE000000000000000;
-  v42 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__indexOid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__indexOid) = 0;
-  v41 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__oldNode;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__oldNode) = 0;
-  v40 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__oldCreateSubid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__oldCreateSubid) = 0;
-  v39 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__oldFirstRelfilenodeSubid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__oldFirstRelfilenodeSubid) = 0;
-  v38 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__unique;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__unique) = 0;
-  v37 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__primary;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__primary) = 0;
-  v36 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__isconstraint;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__isconstraint) = 0;
-  v35 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__deferrable;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__deferrable) = 0;
-  v34 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__initdeferred;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__initdeferred) = 0;
-  v33 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__transformed;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__transformed) = 0;
-  v32 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__concurrent;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__concurrent) = 0;
-  v31 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__ifNotExists;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__ifNotExists) = 0;
-  v30 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resetDefaultTblspc;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resetDefaultTblspc) = 0;
-  v15 = *(a1 + 24);
-  *(v1 + 16) = *(a1 + 16);
-  *(v1 + 24) = v15;
-  v16 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__relation;
-
-  outlined assign with copy of PgQuery_Node?(a1 + v16, v1 + v28, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v17 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__accessMethod + 8);
-  v18 = v5[1];
-  *v5 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__accessMethod);
-  v5[1] = v17;
-
-  v19 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__tableSpace + 8);
-  v20 = v6[1];
-  *v6 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__tableSpace);
-  v6[1] = v19;
-
-  v21 = *(v1 + v7);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__indexParams);
-
-  v22 = *(v1 + v9);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__indexIncludingParams);
-
-  v23 = *(v1 + v10);
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__options);
-
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__whereClause, v1 + v29, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v24 = *(v1 + v13);
-  *(v1 + v13) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__excludeOpNames);
-
-  v25 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__idxcomment + 8);
-  v26 = v14[1];
-  *v14 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__idxcomment);
-  v14[1] = v25;
-
-  *(v1 + v42) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__indexOid);
-  *(v1 + v41) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__oldNode);
-  *(v1 + v40) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__oldCreateSubid);
-  *(v1 + v39) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__oldFirstRelfilenodeSubid);
-  *(v1 + v38) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__unique);
-  *(v1 + v37) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__primary);
-  *(v1 + v36) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__isconstraint);
-  *(v1 + v35) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__deferrable);
-  *(v1 + v34) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__initdeferred);
-  *(v1 + v33) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__transformed);
-  *(v1 + v32) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__concurrent);
-  *(v1 + v31) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__ifNotExists);
-  *(v1 + v30) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resetDefaultTblspc);
-  return v1;
-}
-
-uint64_t specialized PgQuery_RenameStmt._StorageClass.init(copying:)(uint64_t a1)
-{
-  *(v1 + 16) = 0;
-  *(v1 + 24) = 1;
-  *(v1 + 32) = 0;
-  *(v1 + 40) = 1;
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_RenameStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__relation;
-  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
-  (*(*(RangeVar - 8) + 56))(v1 + v3, 1, 1, RangeVar);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_RenameStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__object;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v5, 1, 1, Node);
-  v7 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_RenameStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__subname);
-  *v7 = 0;
-  v7[1] = 0xE000000000000000;
-  v8 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_RenameStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__newname);
-  *v8 = 0;
-  v8[1] = 0xE000000000000000;
-  v9 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_RenameStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__behavior;
-  *v9 = 0;
-  *(v9 + 8) = 1;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_RenameStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__missingOk;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_RenameStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__missingOk) = 0;
-  v11 = *(a1 + 24);
-  *(v1 + 16) = *(a1 + 16);
-  *(v1 + 24) = v11;
-  v12 = *(a1 + 40);
-  *(v1 + 32) = *(a1 + 32);
-  *(v1 + 40) = v12;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_RenameStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__relation, v1 + v3, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_RenameStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__object, v1 + v5, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v13 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_RenameStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__subname + 8);
-  v14 = v7[1];
-  *v7 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_RenameStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__subname);
-  v7[1] = v13;
-
-  v15 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_RenameStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__newname + 8);
-  v16 = v8[1];
-  *v8 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_RenameStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__newname);
-  v8[1] = v15;
-
-  v17 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_RenameStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__behavior + 8);
-  *v9 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_RenameStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__behavior);
-  *(v9 + 8) = v17;
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_RenameStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__missingOk);
-  return v1;
-}
-
-uint64_t specialized PgQuery_RuleStmt._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_RuleStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__relation;
-  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
-  (*(*(RangeVar - 8) + 56))(v1 + v3, 1, 1, RangeVar);
-  v5 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_RuleStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rulename);
-  *v5 = 0;
-  v5[1] = 0xE000000000000000;
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_RuleStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__whereClause;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v6, 1, 1, Node);
-  v8 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_RuleStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__event;
-  *v8 = 0;
-  *(v8 + 8) = 1;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_RuleStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__instead;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_RuleStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__instead) = 0;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_RuleStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__actions;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_RuleStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__actions) = MEMORY[0x277D84F90];
-  v11 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_RuleStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__replace;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_RuleStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__replace) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_RuleStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__relation, v1 + v3, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v12 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_RuleStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rulename + 8);
-  v13 = v5[1];
-  *v5 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_RuleStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rulename);
-  v5[1] = v12;
-
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_RuleStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__whereClause, v1 + v6, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v14 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_RuleStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__event + 8);
-  *v8 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_RuleStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__event);
-  *(v8 + 8) = v14;
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_RuleStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__instead);
-  v15 = *(v1 + v10);
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_RuleStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__actions);
-
-  *(v1 + v11) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_RuleStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__replace);
-  return v1;
-}
-
-uint64_t specialized PgQuery_ViewStmt._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_ViewStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__view;
-  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
-  (*(*(RangeVar - 8) + 56))(v1 + v3, 1, 1, RangeVar);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_ViewStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aliases;
-  v6 = MEMORY[0x277D84F90];
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_ViewStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aliases) = MEMORY[0x277D84F90];
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_ViewStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__query;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v7, 1, 1, Node);
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_ViewStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__replace;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_ViewStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__replace) = 0;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_ViewStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__options;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_ViewStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__options) = v6;
-  v11 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_ViewStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__withCheckOption;
-  *v11 = 0;
-  *(v11 + 8) = 1;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_ViewStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__view, v1 + v3, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v12 = *(v1 + v5);
-  *(v1 + v5) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_ViewStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aliases);
-
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_ViewStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__query, v1 + v7, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_ViewStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__replace);
-  v13 = *(v1 + v10);
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_ViewStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__options);
-
-  v14 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_ViewStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__withCheckOption + 8);
-  *v11 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_ViewStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__withCheckOption);
-  *(v11 + 8) = v14;
-  return v1;
-}
-
-uint64_t specialized PgQuery_CreateTableAsStmt._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_CreateTableAsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__query;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v3, 1, 1, Node);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_CreateTableAsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__into;
-  IntoClause = type metadata accessor for PgQuery_IntoClause(0);
-  (*(*(IntoClause - 8) + 56))(v1 + v5, 1, 1, IntoClause);
-  v7 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_CreateTableAsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__relkind;
-  *v7 = 0;
-  *(v7 + 8) = 1;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_CreateTableAsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__isSelectInto;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_CreateTableAsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__isSelectInto) = 0;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_CreateTableAsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__ifNotExists;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_CreateTableAsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__ifNotExists) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_CreateTableAsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__query, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_CreateTableAsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__into, v1 + v5, &_s14BiomeSQLParser18PgQuery_IntoClauseVSgMd, &_s14BiomeSQLParser18PgQuery_IntoClauseVSgMR);
-  v10 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_CreateTableAsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__relkind + 8);
-  *v7 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_CreateTableAsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__relkind);
-  *(v7 + 8) = v10;
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_CreateTableAsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__isSelectInto);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_CreateTableAsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__ifNotExists);
-  return v1;
-}
-
-uint64_t specialized PgQuery_CreateCastStmt._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CreateCastStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__sourcetype;
-  TypeName = type metadata accessor for PgQuery_TypeName(0);
-  v5 = *(*(TypeName - 8) + 56);
-  v5(v1 + v3, 1, 1, TypeName);
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CreateCastStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__targettype;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CreateCastStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__targettype, 1, 1, TypeName);
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CreateCastStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__func;
-  ObjectWithArgs = type metadata accessor for PgQuery_ObjectWithArgs(0);
-  (*(*(ObjectWithArgs - 8) + 56))(v1 + v7, 1, 1, ObjectWithArgs);
-  v9 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CreateCastStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__context;
-  *v9 = 0;
-  *(v9 + 8) = 1;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CreateCastStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inout;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CreateCastStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inout) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CreateCastStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__sourcetype, v1 + v3, &_s14BiomeSQLParser16PgQuery_TypeNameVSgMd, &_s14BiomeSQLParser16PgQuery_TypeNameVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CreateCastStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__targettype, v1 + v6, &_s14BiomeSQLParser16PgQuery_TypeNameVSgMd, &_s14BiomeSQLParser16PgQuery_TypeNameVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CreateCastStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__func, v1 + v7, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMd, &_s14BiomeSQLParser22PgQuery_ObjectWithArgsVSgMR);
-  v11 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CreateCastStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__context + 8);
-  *v9 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CreateCastStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__context);
-  *(v9 + 8) = v11;
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_CreateCastStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inout);
-  return v1;
-}
-
-uint64_t specialized PgQuery_AlterObjectDependsStmt._StorageClass.init(copying:)(uint64_t a1)
-{
-  *(v1 + 16) = 0;
-  *(v1 + 24) = 1;
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser30PgQuery_AlterObjectDependsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__relation;
-  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
-  (*(*(RangeVar - 8) + 56))(v1 + v3, 1, 1, RangeVar);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser30PgQuery_AlterObjectDependsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__object;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v7 = *(*(Node - 8) + 56);
-  v7(v1 + v5, 1, 1, Node);
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser30PgQuery_AlterObjectDependsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__extname;
-  v7(v1 + OBJC_IVAR____TtCV14BiomeSQLParser30PgQuery_AlterObjectDependsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__extname, 1, 1, Node);
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser30PgQuery_AlterObjectDependsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__remove;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser30PgQuery_AlterObjectDependsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__remove) = 0;
-  v10 = *(a1 + 24);
-  *(v1 + 16) = *(a1 + 16);
-  *(v1 + 24) = v10;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser30PgQuery_AlterObjectDependsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__relation, v1 + v3, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser30PgQuery_AlterObjectDependsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__object, v1 + v5, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser30PgQuery_AlterObjectDependsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__extname, v1 + v8, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser30PgQuery_AlterObjectDependsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__remove);
-  return v1;
-}
-
-uint64_t specialized PgQuery_AlterObjectSchemaStmt._StorageClass.init(copying:)(uint64_t a1)
-{
-  *(v1 + 16) = 0;
-  *(v1 + 24) = 1;
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser29PgQuery_AlterObjectSchemaStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__relation;
-  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
-  (*(*(RangeVar - 8) + 56))(v1 + v3, 1, 1, RangeVar);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser29PgQuery_AlterObjectSchemaStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__object;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v5, 1, 1, Node);
-  v7 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser29PgQuery_AlterObjectSchemaStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__newschema);
-  *v7 = 0;
-  v7[1] = 0xE000000000000000;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser29PgQuery_AlterObjectSchemaStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__missingOk;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser29PgQuery_AlterObjectSchemaStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__missingOk) = 0;
-  v9 = *(a1 + 24);
-  *(v1 + 16) = *(a1 + 16);
-  *(v1 + 24) = v9;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser29PgQuery_AlterObjectSchemaStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__relation, v1 + v3, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser29PgQuery_AlterObjectSchemaStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__object, v1 + v5, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v10 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser29PgQuery_AlterObjectSchemaStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__newschema + 8);
-  v11 = v7[1];
-  *v7 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser29PgQuery_AlterObjectSchemaStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__newschema);
-  v7[1] = v10;
-
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser29PgQuery_AlterObjectSchemaStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__missingOk);
-  return v1;
-}
-
-uint64_t specialized PgQuery_A_Expr._StorageClass.init(copying:)(uint64_t a1)
-{
-  *(v1 + 16) = 0;
-  *(v1 + 24) = 1;
-  *(v1 + 32) = MEMORY[0x277D84F90];
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_A_ExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__lexpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v5 = *(*(Node - 8) + 56);
-  v5(v1 + v3, 1, 1, Node);
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_A_ExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rexpr;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_A_ExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rexpr, 1, 1, Node);
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_A_ExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_A_ExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  v8 = *(a1 + 24);
-  *(v1 + 16) = *(a1 + 16);
-  *(v1 + 24) = v8;
-  *(v1 + 32) = *(a1 + 32);
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_A_ExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__lexpr;
-
-  outlined assign with copy of PgQuery_Node?(a1 + v9, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_A_ExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rexpr, v1 + v6, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_A_ExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-char *specialized PgQuery_FuncCall._StorageClass.init(copying:)(void *a1)
-{
-  v3 = MEMORY[0x277D84F90];
-  *(v1 + 2) = MEMORY[0x277D84F90];
-  *(v1 + 3) = v3;
-  *(v1 + 4) = v3;
-  v4 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncCallP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggFilter;
-  v16 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncCallP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggFilter;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(&v1[v4], 1, 1, Node);
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncCallP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggWithinGroup;
-  v1[OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncCallP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggWithinGroup] = 0;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncCallP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggStar;
-  v1[OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncCallP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggStar] = 0;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncCallP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggDistinct;
-  v1[OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncCallP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggDistinct] = 0;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncCallP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__funcVariadic;
-  v1[OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncCallP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__funcVariadic] = 0;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncCallP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__over;
-  v15 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncCallP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__over;
-  WindowDef = type metadata accessor for PgQuery_WindowDef(0);
-  (*(*(WindowDef - 8) + 56))(&v1[v10], 1, 1, WindowDef);
-  v12 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncCallP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *&v1[OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncCallP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location] = 0;
-  *(v1 + 2) = a1[2];
-  *(v1 + 3) = a1[3];
-  *(v1 + 4) = a1[4];
-  v13 = OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncCallP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggFilter;
-
-  outlined assign with copy of PgQuery_Node?(a1 + v13, &v1[v16], &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v1[v6] = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncCallP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggWithinGroup);
-  v1[v7] = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncCallP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggStar);
-  v1[v8] = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncCallP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__aggDistinct);
-  v1[v9] = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncCallP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__funcVariadic);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncCallP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__over, &v1[v15], &_s14BiomeSQLParser17PgQuery_WindowDefVSgMd, &_s14BiomeSQLParser17PgQuery_WindowDefVSgMR);
-  *&v1[v12] = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_FuncCallP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-char *specialized PgQuery_ResTarget._StorageClass.init(copying:)(void *a1)
-{
-  *(v1 + 2) = 0;
-  *(v1 + 3) = 0xE000000000000000;
-  *(v1 + 4) = MEMORY[0x277D84F90];
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ResTargetP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__val;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(&v1[v3], 1, 1, Node);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ResTargetP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *&v1[OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ResTargetP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location] = 0;
-  v6 = a1[3];
-  *(v1 + 2) = a1[2];
-  *(v1 + 3) = v6;
-  *(v1 + 4) = a1[4];
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ResTargetP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__val;
-
-  outlined assign with copy of PgQuery_Node?(a1 + v7, &v1[v3], &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *&v1[v5] = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ResTargetP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_SortBy._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_SortByP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v3, 1, 1, Node);
-  v5 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_SortByP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__sortbyDir;
-  *v5 = 0;
-  *(v5 + 8) = 1;
-  v6 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_SortByP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__sortbyNulls;
-  *v6 = 0;
-  *(v6 + 8) = 1;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_SortByP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__useOp;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_SortByP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__useOp) = MEMORY[0x277D84F90];
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_SortByP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_SortByP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_SortByP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v9 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_SortByP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__sortbyDir + 8);
-  *v5 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_SortByP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__sortbyDir);
-  *(v5 + 8) = v9;
-  v10 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_SortByP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__sortbyNulls + 8);
-  *v6 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_SortByP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__sortbyNulls);
-  *(v6 + 8) = v10;
-  v11 = *(v1 + v7);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_SortByP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__useOp);
-
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser14PgQuery_SortByP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_WindowDef._StorageClass.init(copying:)(uint64_t a1)
-{
-  *(v1 + 16) = 0;
-  *(v1 + 24) = 0xE000000000000000;
-  v3 = MEMORY[0x277D84F90];
-  *(v1 + 32) = 0;
-  *(v1 + 40) = 0xE000000000000000;
-  *(v1 + 48) = v3;
-  *(v1 + 56) = v3;
-  *(v1 + 64) = 0;
-  v4 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_WindowDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__startOffset;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v6 = *(*(Node - 8) + 56);
-  v6(v1 + v4, 1, 1, Node);
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_WindowDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__endOffset;
-  v6(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_WindowDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__endOffset, 1, 1, Node);
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_WindowDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_WindowDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  v9 = *(a1 + 24);
-  *(v1 + 16) = *(a1 + 16);
-  *(v1 + 24) = v9;
-  v10 = *(a1 + 40);
-  *(v1 + 32) = *(a1 + 32);
-  *(v1 + 40) = v10;
-  *(v1 + 48) = *(a1 + 48);
-  v11 = *(v1 + 56);
-  *(v1 + 56) = *(a1 + 56);
-
-  *(v1 + 64) = *(a1 + 64);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_WindowDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__startOffset, v1 + v4, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_WindowDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__endOffset, v1 + v7, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_WindowDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t outlined assign with take of PgQuery_Node?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
-{
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
-  (*(*(v6 - 8) + 40))(a2, a1, v6);
-  return a2;
-}
-
-uint64_t specialized PgQuery_RangeTableSample._StorageClass.init(copying:)(uint64_t a1)
-{
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_RangeTableSampleP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__relation;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v5 = *(*(Node - 8) + 56);
-  v5(v1 + v3, 1, 1, Node);
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_RangeTableSampleP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__method;
-  v7 = MEMORY[0x277D84F90];
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_RangeTableSampleP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__method) = MEMORY[0x277D84F90];
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_RangeTableSampleP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_RangeTableSampleP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args) = v7;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_RangeTableSampleP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__repeatable;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_RangeTableSampleP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__repeatable, 1, 1, Node);
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_RangeTableSampleP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_RangeTableSampleP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_RangeTableSampleP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__relation, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v11 = *(v1 + v6);
-  *(v1 + v6) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_RangeTableSampleP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__method);
-
-  v12 = *(v1 + v8);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_RangeTableSampleP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args);
-
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_RangeTableSampleP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__repeatable, v1 + v9, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_RangeTableSampleP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_RangeTableFunc._StorageClass.init(copying:)(uint64_t a1)
-{
-  *(v1 + 16) = 0;
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_RangeTableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__docexpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v5 = *(*(Node - 8) + 56);
-  v5(v1 + v3, 1, 1, Node);
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_RangeTableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rowexpr;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_RangeTableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rowexpr, 1, 1, Node);
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_RangeTableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__namespaces;
-  v8 = MEMORY[0x277D84F90];
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_RangeTableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__namespaces) = MEMORY[0x277D84F90];
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_RangeTableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__columns;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_RangeTableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__columns) = v8;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_RangeTableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__alias;
-  Alias = type metadata accessor for PgQuery_Alias(0);
-  (*(*(Alias - 8) + 56))(v1 + v10, 1, 1, Alias);
-  v12 = OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_RangeTableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_RangeTableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  *(v1 + 16) = *(a1 + 16);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_RangeTableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__docexpr, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_RangeTableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rowexpr, v1 + v6, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v13 = *(v1 + v7);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_RangeTableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__namespaces);
-
-  v14 = *(v1 + v9);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_RangeTableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__columns);
-
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_RangeTableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__alias, v1 + v10, &_s14BiomeSQLParser13PgQuery_AliasVSgMd, &_s14BiomeSQLParser13PgQuery_AliasVSgMR);
-  *(v1 + v12) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser22PgQuery_RangeTableFuncP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_RangeTableFuncCol._StorageClass.init(copying:)(uint64_t a1)
-{
-  *(v1 + 16) = 0;
-  *(v1 + 24) = 0xE000000000000000;
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_RangeTableFuncColP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__typeName;
-  TypeName = type metadata accessor for PgQuery_TypeName(0);
-  (*(*(TypeName - 8) + 56))(v1 + v3, 1, 1, TypeName);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_RangeTableFuncColP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__forOrdinality;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_RangeTableFuncColP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__forOrdinality) = 0;
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_RangeTableFuncColP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__isNotNull;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_RangeTableFuncColP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__isNotNull) = 0;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_RangeTableFuncColP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__colexpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v9 = *(*(Node - 8) + 56);
-  v9(v1 + v7, 1, 1, Node);
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_RangeTableFuncColP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coldefexpr;
-  v9(v1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_RangeTableFuncColP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coldefexpr, 1, 1, Node);
-  v11 = OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_RangeTableFuncColP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_RangeTableFuncColP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  v12 = *(a1 + 24);
-  *(v1 + 16) = *(a1 + 16);
-  *(v1 + 24) = v12;
-  v13 = OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_RangeTableFuncColP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__typeName;
-
-  outlined assign with copy of PgQuery_Node?(a1 + v13, v1 + v3, &_s14BiomeSQLParser16PgQuery_TypeNameVSgMd, &_s14BiomeSQLParser16PgQuery_TypeNameVSgMR);
-  *(v1 + v5) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_RangeTableFuncColP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__forOrdinality);
-  *(v1 + v6) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_RangeTableFuncColP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__isNotNull);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_RangeTableFuncColP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__colexpr, v1 + v7, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_RangeTableFuncColP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__coldefexpr, v1 + v10, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v11) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_RangeTableFuncColP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_ColumnDef._StorageClass.init(copying:)(uint64_t a1)
-{
-  *(v1 + 16) = 0;
-  *(v1 + 24) = 0xE000000000000000;
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__typeName;
-  v38 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__typeName;
-  TypeName = type metadata accessor for PgQuery_TypeName(0);
-  (*(*(TypeName - 8) + 56))(v1 + v3, 1, 1, TypeName);
-  v34 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inhcount;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inhcount) = 0;
-  v32 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__isLocal;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__isLocal) = 0;
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__isNotNull;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__isNotNull) = 0;
-  v31 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__isFromType;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__isFromType) = 0;
-  v6 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__storage);
-  *v6 = 0;
-  v6[1] = 0xE000000000000000;
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rawDefault;
-  v37 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rawDefault;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v9 = *(*(Node - 8) + 56);
-  v9(v1 + v7, 1, 1, Node);
-  v33 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cookedDefault;
-  v9(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cookedDefault, 1, 1, Node);
-  v10 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__identity);
-  *v10 = 0;
-  v10[1] = 0xE000000000000000;
-  v11 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__identitySequence;
-  v36 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__identitySequence;
-  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
-  (*(*(RangeVar - 8) + 56))(v1 + v11, 1, 1, RangeVar);
-  v13 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__generated);
-  *v13 = 0;
-  v13[1] = 0xE000000000000000;
-  v14 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__collClause;
-  v35 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__collClause;
-  CollateClause = type metadata accessor for PgQuery_CollateClause(0);
-  (*(*(CollateClause - 8) + 56))(v1 + v14, 1, 1, CollateClause);
-  v16 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__collOid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__collOid) = 0;
-  v17 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__constraints;
-  v18 = MEMORY[0x277D84F90];
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__constraints) = MEMORY[0x277D84F90];
-  v19 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__fdwoptions;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__fdwoptions) = v18;
-  v39 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  v20 = *(a1 + 24);
-  *(v1 + 16) = *(a1 + 16);
-  *(v1 + 24) = v20;
-  v21 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__typeName;
-
-  outlined assign with copy of PgQuery_Node?(a1 + v21, v1 + v38, &_s14BiomeSQLParser16PgQuery_TypeNameVSgMd, &_s14BiomeSQLParser16PgQuery_TypeNameVSgMR);
-  *(v1 + v34) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inhcount);
-  *(v1 + v32) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__isLocal);
-  *(v1 + v5) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__isNotNull);
-  *(v1 + v31) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__isFromType);
-  v22 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__storage + 8);
-  v23 = v6[1];
-  *v6 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__storage);
-  v6[1] = v22;
-
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rawDefault, v1 + v37, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cookedDefault, v1 + v33, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v24 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__identity + 8);
-  v25 = v10[1];
-  *v10 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__identity);
-  v10[1] = v24;
-
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__identitySequence, v1 + v36, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v26 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__generated + 8);
-  v27 = v13[1];
-  *v13 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__generated);
-  v13[1] = v26;
-
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__collClause, v1 + v35, &_s14BiomeSQLParser21PgQuery_CollateClauseVSgMd, &_s14BiomeSQLParser21PgQuery_CollateClauseVSgMR);
-  *(v1 + v16) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__collOid);
-  v28 = *(v1 + v17);
-  *(v1 + v17) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__constraints);
-
-  v29 = *(v1 + v19);
-  *(v1 + v19) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__fdwoptions);
-
-  *(v1 + v39) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ColumnDefP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_IndexElem._StorageClass.init(copying:)(uint64_t a1)
-{
-  *(v1 + 16) = 0;
-  *(v1 + 24) = 0xE000000000000000;
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__expr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v3, 1, 1, Node);
-  v5 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__indexcolname);
-  *v5 = 0;
-  v5[1] = 0xE000000000000000;
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__collation;
-  v7 = MEMORY[0x277D84F90];
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__collation) = MEMORY[0x277D84F90];
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opclass;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opclass) = v7;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opclassopts;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opclassopts) = v7;
-  v10 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__ordering;
-  *v10 = 0;
-  *(v10 + 8) = 1;
-  v11 = v1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__nullsOrdering;
-  *v11 = 0;
-  *(v11 + 8) = 1;
-  v12 = *(a1 + 24);
-  *(v1 + 16) = *(a1 + 16);
-  *(v1 + 24) = v12;
-  v13 = OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__expr;
-
-  outlined assign with copy of PgQuery_Node?(a1 + v13, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v14 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__indexcolname + 8);
-  v15 = v5[1];
-  *v5 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__indexcolname);
-  v5[1] = v14;
-
-  v16 = *(v1 + v6);
-  *(v1 + v6) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__collation);
-
-  v17 = *(v1 + v8);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opclass);
-
-  v18 = *(v1 + v9);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opclassopts);
-
-  v19 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__ordering + 8);
-  *v10 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__ordering);
-  *(v10 + 8) = v19;
-  v20 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__nullsOrdering + 8);
-  *v11 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_IndexElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__nullsOrdering);
-  *(v11 + 8) = v20;
-  return v1;
-}
-
-uint64_t specialized PgQuery_Constraint._StorageClass.init(copying:)(uint64_t a1)
-{
-  *(v1 + 16) = 0;
-  *(v1 + 24) = 1;
-  *(v1 + 32) = 0;
-  *(v1 + 40) = 0xE000000000000000;
-  *(v1 + 48) = 0;
-  *(v1 + 52) = 0;
-  *(v1 + 56) = 0;
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rawExpr;
-  v44 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rawExpr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v5 = *(*(Node - 8) + 56);
-  v5(v1 + v3, 1, 1, Node);
-  v6 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cookedExpr);
-  *v6 = 0;
-  v6[1] = 0xE000000000000000;
-  v7 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__generatedWhen);
-  *v7 = 0;
-  v7[1] = 0xE000000000000000;
-  v45 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__keys;
-  v8 = MEMORY[0x277D84F90];
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__keys) = MEMORY[0x277D84F90];
-  v46 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__including;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__including) = v8;
-  v47 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__exclusions;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__exclusions) = v8;
-  v48 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__options;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__options) = v8;
-  v9 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__indexname);
-  *v9 = 0;
-  v9[1] = 0xE000000000000000;
-  v49 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__indexspace);
-  *v49 = 0;
-  v49[1] = 0xE000000000000000;
-  v52 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resetDefaultTblspc;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resetDefaultTblspc) = 0;
-  v50 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__accessMethod);
-  *v50 = 0;
-  v50[1] = 0xE000000000000000;
-  v54 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__whereClause;
-  v5(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__whereClause, 1, 1, Node);
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__pktable;
-  v51 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__pktable;
-  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
-  (*(*(RangeVar - 8) + 56))(v1 + v10, 1, 1, RangeVar);
-  v12 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__fkAttrs;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__fkAttrs) = v8;
-  v53 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__pkAttrs;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__pkAttrs) = v8;
-  v13 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__fkMatchtype);
-  *v13 = 0;
-  v13[1] = 0xE000000000000000;
-  v14 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__fkUpdAction);
-  *v14 = 0;
-  v14[1] = 0xE000000000000000;
-  v55 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__fkDelAction);
-  *v55 = 0;
-  v55[1] = 0xE000000000000000;
-  v56 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__oldConpfeqop;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__oldConpfeqop) = v8;
-  v15 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__oldPktableOid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__oldPktableOid) = 0;
-  v58 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__skipValidation;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__skipValidation) = 0;
-  v57 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__initiallyValid;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__initiallyValid) = 0;
-  v16 = *(a1 + 24);
-  *(v1 + 16) = *(a1 + 16);
-  *(v1 + 24) = v16;
-  v17 = *(a1 + 40);
-  *(v1 + 32) = *(a1 + 32);
-  *(v1 + 40) = v17;
-  *(v1 + 48) = *(a1 + 48);
-  *(v1 + 49) = *(a1 + 49);
-  *(v1 + 52) = *(a1 + 52);
-  *(v1 + 56) = *(a1 + 56);
-  v18 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rawExpr;
-
-  outlined assign with copy of PgQuery_Node?(a1 + v18, v1 + v44, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v19 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cookedExpr + 8);
-  v20 = v6[1];
-  *v6 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cookedExpr);
-  v6[1] = v19;
-
-  v21 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__generatedWhen + 8);
-  v22 = v7[1];
-  *v7 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__generatedWhen);
-  v7[1] = v21;
-
-  v23 = *(v1 + v45);
-  *(v1 + v45) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__keys);
-
-  v24 = *(v1 + v46);
-  *(v1 + v46) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__including);
-
-  v25 = *(v1 + v47);
-  *(v1 + v47) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__exclusions);
-
-  v26 = *(v1 + v48);
-  *(v1 + v48) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__options);
-
-  v27 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__indexname + 8);
-  v28 = v9[1];
-  *v9 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__indexname);
-  v9[1] = v27;
-
-  v29 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__indexspace + 8);
-  v30 = v49[1];
-  *v49 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__indexspace);
-  v49[1] = v29;
-
-  *(v1 + v52) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__resetDefaultTblspc);
-  v31 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__accessMethod + 8);
-  v32 = v50[1];
-  *v50 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__accessMethod);
-  v50[1] = v31;
-
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__whereClause, v1 + v54, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__pktable, v1 + v51, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
-  v33 = v12;
-  v34 = *(v1 + v12);
-  *(v1 + v33) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__fkAttrs);
-
-  v35 = *(v1 + v53);
-  *(v1 + v53) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__pkAttrs);
-
-  v36 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__fkMatchtype + 8);
-  v37 = v13[1];
-  *v13 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__fkMatchtype);
-  v13[1] = v36;
-
-  v38 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__fkUpdAction + 8);
-  v39 = v14[1];
-  *v14 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__fkUpdAction);
-  v14[1] = v38;
-
-  v40 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__fkDelAction + 8);
-  v41 = v55[1];
-  *v55 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__fkDelAction);
-  v55[1] = v40;
-
-  v42 = *(v1 + v56);
-  *(v1 + v56) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__oldConpfeqop);
-
-  *(v1 + v15) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__oldPktableOid);
-  *(v1 + v58) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__skipValidation);
-  *(v1 + v57) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_ConstraintP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__initiallyValid);
-  return v1;
-}
-
-char *specialized PgQuery_DefElem._StorageClass.init(copying:)(void *a1)
-{
-  *(v1 + 2) = 0;
-  *(v1 + 3) = 0xE000000000000000;
-  *(v1 + 4) = 0;
-  *(v1 + 5) = 0xE000000000000000;
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_DefElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(&v1[v3], 1, 1, Node);
-  v5 = &v1[OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_DefElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__defaction];
-  *v5 = 0;
-  v5[8] = 1;
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_DefElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *&v1[OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_DefElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location] = 0;
-  v7 = a1[3];
-  *(v1 + 2) = a1[2];
-  *(v1 + 3) = v7;
-  v8 = a1[5];
-  *(v1 + 4) = a1[4];
-  *(v1 + 5) = v8;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_DefElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg;
-
-  outlined assign with copy of PgQuery_Node?(a1 + v9, &v1[v3], &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v10 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_DefElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__defaction + 8);
-  *v5 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_DefElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__defaction);
-  v5[8] = v10;
-  *&v1[v6] = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_DefElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_WithCheckOption._StorageClass.init(copying:)(uint64_t a1)
-{
-  *(v1 + 16) = 0;
-  *(v1 + 24) = 1;
-  *(v1 + 32) = 0;
-  *(v1 + 40) = 0xE000000000000000;
-  *(v1 + 48) = 0;
-  *(v1 + 56) = 0xE000000000000000;
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_WithCheckOptionP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__qual;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v3, 1, 1, Node);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_WithCheckOptionP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cascaded;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_WithCheckOptionP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cascaded) = 0;
-  v6 = *(a1 + 24);
-  *(v1 + 16) = *(a1 + 16);
-  *(v1 + 24) = v6;
-  v7 = *(a1 + 40);
-  *(v1 + 32) = *(a1 + 32);
-  *(v1 + 40) = v7;
-  v8 = *(a1 + 56);
-  *(v1 + 48) = *(a1 + 48);
-  *(v1 + 56) = v8;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_WithCheckOptionP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__qual;
-
-  outlined assign with copy of PgQuery_Node?(a1 + v9, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v5) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser23PgQuery_WithCheckOptionP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__cascaded);
-  return v1;
-}
-
-uint64_t specialized PgQuery_WindowClause._StorageClass.init(copying:)(uint64_t a1)
-{
-  *(v1 + 16) = 0;
-  *(v1 + 24) = 0xE000000000000000;
-  v3 = MEMORY[0x277D84F90];
-  *(v1 + 32) = 0;
-  *(v1 + 40) = 0xE000000000000000;
-  *(v1 + 48) = v3;
-  *(v1 + 56) = v3;
-  *(v1 + 64) = 0;
-  v4 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__startOffset;
-  v19 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__startOffset;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v6 = *(*(Node - 8) + 56);
-  v6(v1 + v4, 1, 1, Node);
-  v18 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__endOffset;
-  v6(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__endOffset, 1, 1, Node);
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__startInRangeFunc;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__startInRangeFunc) = 0;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__endInRangeFunc;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__endInRangeFunc) = 0;
-  v9 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inRangeColl;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inRangeColl) = 0;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inRangeAsc;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inRangeAsc) = 0;
-  v17 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inRangeNullsFirst;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inRangeNullsFirst) = 0;
-  v16 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__winref;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__winref) = 0;
-  v15 = OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__copiedOrder;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__copiedOrder) = 0;
-  v11 = *(a1 + 24);
-  *(v1 + 16) = *(a1 + 16);
-  *(v1 + 24) = v11;
-  v12 = *(a1 + 40);
-  *(v1 + 32) = *(a1 + 32);
-  *(v1 + 40) = v12;
-  *(v1 + 48) = *(a1 + 48);
-  v13 = *(v1 + 56);
-  *(v1 + 56) = *(a1 + 56);
-
-  *(v1 + 64) = *(a1 + 64);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__startOffset, v1 + v19, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__endOffset, v1 + v18, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__startInRangeFunc);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__endInRangeFunc);
-  *(v1 + v9) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inRangeColl);
-  *(v1 + v10) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inRangeAsc);
-  *(v1 + v17) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__inRangeNullsFirst);
-  *(v1 + v16) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__winref);
-  *(v1 + v15) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser20PgQuery_WindowClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__copiedOrder);
-  return v1;
-}
-
-uint64_t specialized PgQuery_InferClause._StorageClass.init(copying:)(uint64_t a1)
-{
-  *(v1 + 16) = MEMORY[0x277D84F90];
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_InferClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__whereClause;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v3, 1, 1, Node);
-  v5 = (v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_InferClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__conname);
-  *v5 = 0;
-  v5[1] = 0xE000000000000000;
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_InferClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_InferClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  *(v1 + 16) = *(a1 + 16);
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_InferClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__whereClause;
-
-  outlined assign with copy of PgQuery_Node?(a1 + v7, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v8 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_InferClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__conname + 8);
-  v9 = v5[1];
-  *v5 = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_InferClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__conname);
-  v5[1] = v8;
-
-  *(v1 + v6) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser19PgQuery_InferClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t specialized PgQuery_OnConflictClause._StorageClass.init(copying:)(uint64_t a1)
-{
-  *(v1 + 16) = 0;
-  *(v1 + 24) = 1;
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_OnConflictClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__infer;
-  InferClause = type metadata accessor for PgQuery_InferClause(0);
-  (*(*(InferClause - 8) + 56))(v1 + v3, 1, 1, InferClause);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_OnConflictClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__targetList;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_OnConflictClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__targetList) = MEMORY[0x277D84F90];
-  v6 = OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_OnConflictClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__whereClause;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v6, 1, 1, Node);
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_OnConflictClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_OnConflictClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  v9 = *(a1 + 24);
-  *(v1 + 16) = *(a1 + 16);
-  *(v1 + 24) = v9;
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_OnConflictClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__infer, v1 + v3, &_s14BiomeSQLParser19PgQuery_InferClauseVSgMd, &_s14BiomeSQLParser19PgQuery_InferClauseVSgMR);
-  v10 = *(v1 + v5);
-  *(v1 + v5) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_OnConflictClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__targetList);
-
-  outlined assign with copy of PgQuery_Node?(a1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_OnConflictClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__whereClause, v1 + v6, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser24PgQuery_OnConflictClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-uint64_t outlined assign with copy of PgQuery_Node?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
-{
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
-  (*(*(v6 - 8) + 24))(a2, a1, v6);
-  return a2;
-}
-
-uint64_t specialized PgQuery_PartitionElem._StorageClass.init(copying:)(uint64_t a1)
-{
-  *(v1 + 16) = 0;
-  *(v1 + 24) = 0xE000000000000000;
-  v3 = OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_PartitionElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__expr;
-  Node = type metadata accessor for PgQuery_Node(0);
-  (*(*(Node - 8) + 56))(v1 + v3, 1, 1, Node);
-  v5 = OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_PartitionElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__collation;
-  v6 = MEMORY[0x277D84F90];
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_PartitionElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__collation) = MEMORY[0x277D84F90];
-  v7 = OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_PartitionElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opclass;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_PartitionElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opclass) = v6;
-  v8 = OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_PartitionElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location;
-  *(v1 + OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_PartitionElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location) = 0;
-  v9 = *(a1 + 24);
-  *(v1 + 16) = *(a1 + 16);
-  *(v1 + 24) = v9;
-  v10 = OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_PartitionElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__expr;
-
-  outlined assign with copy of PgQuery_Node?(a1 + v10, v1 + v3, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v11 = *(v1 + v5);
-  *(v1 + v5) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_PartitionElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__collation);
-
-  v12 = *(v1 + v7);
-  *(v1 + v7) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_PartitionElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__opclass);
-
-  *(v1 + v8) = *(a1 + OBJC_IVAR____TtCV14BiomeSQLParser21PgQuery_PartitionElemP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
-  return v1;
-}
-
-unint64_t lazy protocol witness table accessor for type PgQuery_LockTupleMode and conformance PgQuery_LockTupleMode()
-{
-  result = lazy protocol witness table cache variable for type PgQuery_LockTupleMode and conformance PgQuery_LockTupleMode;
-  if (!lazy protocol witness table cache variable for type PgQuery_LockTupleMode and conformance PgQuery_LockTupleMode)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PgQuery_LockTupleMode and conformance PgQuery_LockTupleMode);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type PgQuery_LockTupleMode and conformance PgQuery_LockTupleMode;
-  if (!lazy protocol witness table cache variable for type PgQuery_LockTupleMode and conformance PgQuery_LockTupleMode)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PgQuery_LockTupleMode and conformance PgQuery_LockTupleMode);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type PgQuery_LockTupleMode and conformance PgQuery_LockTupleMode;
-  if (!lazy protocol witness table cache variable for type PgQuery_LockTupleMode and conformance PgQuery_LockTupleMode)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PgQuery_LockTupleMode and conformance PgQuery_LockTupleMode);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type PgQuery_LockTupleMode and conformance PgQuery_LockTupleMode;
-  if (!lazy protocol witness table cache variable for type PgQuery_LockTupleMode and conformance PgQuery_LockTupleMode)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PgQuery_LockTupleMode and conformance PgQuery_LockTupleMode);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type PgQuery_SetOpStrategy and conformance PgQuery_SetOpStrategy()
-{
-  result = lazy protocol witness table cache variable for type PgQuery_SetOpStrategy and conformance PgQuery_SetOpStrategy;
-  if (!lazy protocol witness table cache variable for type PgQuery_SetOpStrategy and conformance PgQuery_SetOpStrategy)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PgQuery_SetOpStrategy and conformance PgQuery_SetOpStrategy);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type PgQuery_SetOpStrategy and conformance PgQuery_SetOpStrategy;
-  if (!lazy protocol witness table cache variable for type PgQuery_SetOpStrategy and conformance PgQuery_SetOpStrategy)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PgQuery_SetOpStrategy and conformance PgQuery_SetOpStrategy);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type PgQuery_SetOpStrategy and conformance PgQuery_SetOpStrategy;
-  if (!lazy protocol witness table cache variable for type PgQuery_SetOpStrategy and conformance PgQuery_SetOpStrategy)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PgQuery_SetOpStrategy and conformance PgQuery_SetOpStrategy);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type PgQuery_SetOpStrategy and conformance PgQuery_SetOpStrategy;
-  if (!lazy protocol witness table cache variable for type PgQuery_SetOpStrategy and conformance PgQuery_SetOpStrategy)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PgQuery_SetOpStrategy and conformance PgQuery_SetOpStrategy);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type PgQuery_SetOpCmd and conformance PgQuery_SetOpCmd()
-{
-  result = lazy protocol witness table cache variable for type PgQuery_SetOpCmd and conformance PgQuery_SetOpCmd;
-  if (!lazy protocol witness table cache variable for type PgQuery_SetOpCmd and conformance PgQuery_SetOpCmd)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PgQuery_SetOpCmd and conformance PgQuery_SetOpCmd);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type PgQuery_SetOpCmd and conformance PgQuery_SetOpCmd;
-  if (!lazy protocol witness table cache variable for type PgQuery_SetOpCmd and conformance PgQuery_SetOpCmd)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PgQuery_SetOpCmd and conformance PgQuery_SetOpCmd);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type PgQuery_SetOpCmd and conformance PgQuery_SetOpCmd;
-  if (!lazy protocol witness table cache variable for type PgQuery_SetOpCmd and conformance PgQuery_SetOpCmd)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PgQuery_SetOpCmd and conformance PgQuery_SetOpCmd);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type PgQuery_SetOpCmd and conformance PgQuery_SetOpCmd;
-  if (!lazy protocol witness table cache variable for type PgQuery_SetOpCmd and conformance PgQuery_SetOpCmd)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PgQuery_SetOpCmd and conformance PgQuery_SetOpCmd);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type PgQuery_AggStrategy and conformance PgQuery_AggStrategy()
-{
-  result = lazy protocol witness table cache variable for type PgQuery_AggStrategy and conformance PgQuery_AggStrategy;
-  if (!lazy protocol witness table cache variable for type PgQuery_AggStrategy and conformance PgQuery_AggStrategy)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PgQuery_AggStrategy and conformance PgQuery_AggStrategy);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type PgQuery_AggStrategy and conformance PgQuery_AggStrategy;
-  if (!lazy protocol witness table cache variable for type PgQuery_AggStrategy and conformance PgQuery_AggStrategy)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PgQuery_AggStrategy and conformance PgQuery_AggStrategy);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type PgQuery_AggStrategy and conformance PgQuery_AggStrategy;
-  if (!lazy protocol witness table cache variable for type PgQuery_AggStrategy and conformance PgQuery_AggStrategy)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PgQuery_AggStrategy and conformance PgQuery_AggStrategy);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type PgQuery_AggStrategy and conformance PgQuery_AggStrategy;
-  if (!lazy protocol witness table cache variable for type PgQuery_AggStrategy and conformance PgQuery_AggStrategy)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PgQuery_AggStrategy and conformance PgQuery_AggStrategy);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type PgQuery_ClusterOption and conformance PgQuery_ClusterOption()
-{
-  result = lazy protocol witness table cache variable for type PgQuery_ClusterOption and conformance PgQuery_ClusterOption;
-  if (!lazy protocol witness table cache variable for type PgQuery_ClusterOption and conformance PgQuery_ClusterOption)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PgQuery_ClusterOption and conformance PgQuery_ClusterOption);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type PgQuery_ClusterOption and conformance PgQuery_ClusterOption;
-  if (!lazy protocol witness table cache variable for type PgQuery_ClusterOption and conformance PgQuery_ClusterOption)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PgQuery_ClusterOption and conformance PgQuery_ClusterOption);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type PgQuery_ClusterOption and conformance PgQuery_ClusterOption;
-  if (!lazy protocol witness table cache variable for type PgQuery_ClusterOption and conformance PgQuery_ClusterOption)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PgQuery_ClusterOption and conformance PgQuery_ClusterOption);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type PgQuery_ClusterOption and conformance PgQuery_ClusterOption;
-  if (!lazy protocol witness table cache variable for type PgQuery_ClusterOption and conformance PgQuery_ClusterOption)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PgQuery_ClusterOption and conformance PgQuery_ClusterOption);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type PgQuery_TableLikeOption and conformance PgQuery_TableLikeOption()
-{
-  result = lazy protocol witness table cache variable for type PgQuery_TableLikeOption and conformance PgQuery_TableLikeOption;
-  if (!lazy protocol witness table cache variable for type PgQuery_TableLikeOption and conformance PgQuery_TableLikeOption)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PgQuery_TableLikeOption and conformance PgQuery_TableLikeOption);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type PgQuery_TableLikeOption and conformance PgQuery_TableLikeOption;
-  if (!lazy protocol witness table cache variable for type PgQuery_TableLikeOption and conformance PgQuery_TableLikeOption)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PgQuery_TableLikeOption and conformance PgQuery_TableLikeOption);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type PgQuery_TableLikeOption and conformance PgQuery_TableLikeOption;
-  if (!lazy protocol witness table cache variable for type PgQuery_TableLikeOption and conformance PgQuery_TableLikeOption)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PgQuery_TableLikeOption and conformance PgQuery_TableLikeOption);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type PgQuery_TableLikeOption and conformance PgQuery_TableLikeOption;
-  if (!lazy protocol witness table cache variable for type PgQuery_TableLikeOption and conformance PgQuery_TableLikeOption)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type PgQuery_TableLikeOption and conformance PgQuery_TableLikeOption);
-  }
-
-  return result;
-}
-
-uint64_t specialized == infix<A>(_:_:)(unsigned __int8 a1, unsigned __int8 a2)
-{
-  v2 = a1;
-  v3 = 0xE700000000000000;
-  v4 = 1684632949;
-  if (a1 != 6)
-  {
-    v4 = 1819047278;
-  }
-
-  v5 = 1635017060;
-  if (a1 != 4)
-  {
-    v5 = 1852797802;
-  }
-
-  if (a1 <= 5u)
-  {
-    v4 = v5;
-  }
-
-  v6 = 0xE600000000000000;
-  v7 = 0x676E69727473;
-  if (a1 != 2)
-  {
-    v7 = 1702125924;
-    v6 = 0xE400000000000000;
-  }
-
-  v8 = 0x656C62756F64;
-  if (a1)
-  {
-    v3 = 0xE600000000000000;
+    while (((v9 | v10) & 1) == 0);
   }
 
   else
   {
-    v8 = 0x72656765746E69;
+    LOBYTE(v9) = 0;
   }
-
-  if (a1 > 1u)
-  {
-    v3 = v6;
-  }
-
-  else
-  {
-    v7 = v8;
-  }
-
-  if (a1 <= 3u)
-  {
-    v9 = v7;
-  }
-
-  else
-  {
-    v9 = v4;
-  }
-
-  if (v2 <= 3)
-  {
-    v10 = v3;
-  }
-
-  else
-  {
-    v10 = 0xE400000000000000;
-  }
-
-  if (a2 > 3u)
-  {
-    v11 = 0xE400000000000000;
-    if (a2 > 5u)
-    {
-      if (a2 == 6)
-      {
-        if (v9 != 1684632949)
-        {
-          goto LABEL_45;
-        }
-      }
-
-      else if (v9 != 1819047278)
-      {
-LABEL_45:
-        v12 = _stringCompareWithSmolCheck(_:_:expecting:)();
-        goto LABEL_46;
-      }
-    }
-
-    else if (a2 == 4)
-    {
-      if (v9 != 1635017060)
-      {
-        goto LABEL_45;
-      }
-    }
-
-    else if (v9 != 1852797802)
-    {
-      goto LABEL_45;
-    }
-  }
-
-  else if (a2 > 1u)
-  {
-    if (a2 == 2)
-    {
-      v11 = 0xE600000000000000;
-      if (v9 != 0x676E69727473)
-      {
-        goto LABEL_45;
-      }
-    }
-
-    else
-    {
-      v11 = 0xE400000000000000;
-      if (v9 != 1702125924)
-      {
-        goto LABEL_45;
-      }
-    }
-  }
-
-  else if (a2)
-  {
-    v11 = 0xE600000000000000;
-    if (v9 != 0x656C62756F64)
-    {
-      goto LABEL_45;
-    }
-  }
-
-  else
-  {
-    v11 = 0xE700000000000000;
-    if (v9 != 0x72656765746E69)
-    {
-      goto LABEL_45;
-    }
-  }
-
-  if (v10 != v11)
-  {
-    goto LABEL_45;
-  }
-
-  v12 = 1;
-LABEL_46:
-
-  return v12 & 1;
-}
-
-{
-  v2 = a1;
-  if (a1 <= 1u)
-  {
-    if (a1)
-    {
-      v4 = 1279346002;
-    }
-
-    else
-    {
-      v4 = 0x52454745544E49;
-    }
-
-    if (v2)
-    {
-      v3 = 0xE400000000000000;
-    }
-
-    else
-    {
-      v3 = 0xE700000000000000;
-    }
-  }
-
-  else
-  {
-    v3 = 0xE400000000000000;
-    if (a1 == 2)
-    {
-      v4 = 1415071060;
-    }
-
-    else if (a1 == 3)
-    {
-      v4 = 1112493122;
-    }
-
-    else
-    {
-      v4 = 1280070990;
-    }
-  }
-
-  if (a2 <= 1u)
-  {
-    if (a2)
-    {
-      v8 = 1279346002;
-    }
-
-    else
-    {
-      v8 = 0x52454745544E49;
-    }
-
-    if (a2)
-    {
-      v7 = 0xE400000000000000;
-    }
-
-    else
-    {
-      v7 = 0xE700000000000000;
-    }
-
-    if (v4 != v8)
-    {
-      goto LABEL_30;
-    }
-  }
-
-  else
-  {
-    v5 = 1112493122;
-    if (a2 != 3)
-    {
-      v5 = 1280070990;
-    }
-
-    if (a2 == 2)
-    {
-      v6 = 1415071060;
-    }
-
-    else
-    {
-      v6 = v5;
-    }
-
-    v7 = 0xE400000000000000;
-    if (v4 != v6)
-    {
-      goto LABEL_30;
-    }
-  }
-
-  if (v3 != v7)
-  {
-LABEL_30:
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
-    goto LABEL_31;
-  }
-
-  v9 = 1;
-LABEL_31:
 
   return v9 & 1;
 }
 
-BiomeSQLParser::SQLFunction_optional __swiftcall SQLFunction.init(rawValue:)(Swift::String rawValue)
+void _ss13_UnsafeBitsetV013withTemporaryB08capacity4bodyxSi_xABKXEtKlFZxABKXEfU_s17_NativeDictionaryVySSSiG_Tg506_ss17_gh46V6filteryAByxq_GSbx3key_q_5valuet_tKXEKFADs13_aB15VKXEfU_SS_SiTG5AHxq_Sbs5Error_pRi_zRi0_zRi__Ri0__r0_lySSSiIsgnndzo_Tf1nc_n(unint64_t *a1, uint64_t a2, void *a3, uint64_t (*a4)(void *, uint64_t *))
 {
-  v2 = v1;
-  v3 = _findStringSwitchCaseWithCache(cases:string:cache:)();
-
-  v5 = 0;
-  v6 = 80;
-  switch(v3)
+  if ((a2 & 0x8000000000000000) == 0)
   {
-    case 0:
-      goto LABEL_95;
-    case 1:
-      v5 = 1;
-      goto LABEL_95;
-    case 2:
-      v5 = 2;
-      goto LABEL_95;
-    case 3:
-      v5 = 3;
-      goto LABEL_95;
-    case 4:
-      v5 = 4;
-      goto LABEL_95;
-    case 5:
-      v5 = 5;
-      goto LABEL_95;
-    case 6:
-      v5 = 6;
-      goto LABEL_95;
-    case 7:
-      v5 = 7;
-      goto LABEL_95;
-    case 8:
-      v5 = 8;
-      goto LABEL_95;
-    case 9:
-      v5 = 9;
-      goto LABEL_95;
-    case 10:
-      v5 = 10;
-      goto LABEL_95;
-    case 11:
-      v5 = 11;
-      goto LABEL_95;
-    case 12:
-      v5 = 12;
-      goto LABEL_95;
-    case 13:
-      v5 = 13;
-      goto LABEL_95;
-    case 14:
-      v5 = 14;
-      goto LABEL_95;
-    case 15:
-      v5 = 15;
-      goto LABEL_95;
-    case 16:
-      v5 = 16;
-      goto LABEL_95;
-    case 17:
-      v5 = 17;
-      goto LABEL_95;
-    case 18:
-      v5 = 18;
-      goto LABEL_95;
-    case 19:
-      v5 = 19;
-      goto LABEL_95;
-    case 20:
-      v5 = 20;
-      goto LABEL_95;
-    case 21:
-      v5 = 21;
-      goto LABEL_95;
-    case 22:
-      v5 = 22;
-      goto LABEL_95;
-    case 23:
-      v5 = 23;
-      goto LABEL_95;
-    case 24:
-      v5 = 24;
-      goto LABEL_95;
-    case 25:
-      v5 = 25;
-      goto LABEL_95;
-    case 26:
-      v5 = 26;
-      goto LABEL_95;
-    case 27:
-      v5 = 27;
-      goto LABEL_95;
-    case 28:
-      v5 = 28;
-      goto LABEL_95;
-    case 29:
-      v5 = 29;
-      goto LABEL_95;
-    case 30:
-      v5 = 30;
-      goto LABEL_95;
-    case 31:
-      v5 = 31;
-      goto LABEL_95;
-    case 32:
-      v5 = 32;
-      goto LABEL_95;
-    case 33:
-      v5 = 33;
-      goto LABEL_95;
-    case 34:
-      v5 = 34;
-      goto LABEL_95;
-    case 35:
-      v5 = 35;
-      goto LABEL_95;
-    case 36:
-      v5 = 36;
-      goto LABEL_95;
-    case 37:
-      v5 = 37;
-      goto LABEL_95;
-    case 38:
-      v5 = 38;
-      goto LABEL_95;
-    case 39:
-      v5 = 39;
-      goto LABEL_95;
-    case 40:
-      v5 = 40;
-      goto LABEL_95;
-    case 41:
-      v5 = 41;
-      goto LABEL_95;
-    case 42:
-      v5 = 42;
-      goto LABEL_95;
-    case 43:
-      v5 = 43;
-      goto LABEL_95;
-    case 44:
-      v5 = 44;
-      goto LABEL_95;
-    case 45:
-      v5 = 45;
-      goto LABEL_95;
-    case 46:
-      v5 = 46;
-      goto LABEL_95;
-    case 47:
-      v5 = 47;
-      goto LABEL_95;
-    case 48:
-      v5 = 48;
-      goto LABEL_95;
-    case 49:
-      v5 = 49;
-      goto LABEL_95;
-    case 50:
-      v5 = 50;
-      goto LABEL_95;
-    case 51:
-      v5 = 51;
-      goto LABEL_95;
-    case 52:
-      v5 = 52;
-      goto LABEL_95;
-    case 53:
-      v5 = 53;
-      goto LABEL_95;
-    case 54:
-      v5 = 54;
-      goto LABEL_95;
-    case 55:
-      v5 = 55;
-      goto LABEL_95;
-    case 56:
-      v5 = 56;
-      goto LABEL_95;
-    case 57:
-      v5 = 57;
-      goto LABEL_95;
-    case 58:
-      v5 = 58;
-      goto LABEL_95;
-    case 59:
-      v5 = 59;
-      goto LABEL_95;
-    case 60:
-      v5 = 60;
-      goto LABEL_95;
-    case 61:
-      v5 = 61;
-      goto LABEL_95;
-    case 62:
-      v5 = 62;
-      goto LABEL_95;
-    case 63:
-      v5 = 63;
-      goto LABEL_95;
-    case 64:
-      v5 = 64;
-      goto LABEL_95;
-    case 65:
-      v5 = 65;
-      goto LABEL_95;
-    case 66:
-      v5 = 66;
-      goto LABEL_95;
-    case 67:
-      v5 = 67;
-      goto LABEL_95;
-    case 68:
-      v5 = 68;
-      goto LABEL_95;
-    case 69:
-      v5 = 69;
-      goto LABEL_95;
-    case 70:
-      v5 = 70;
-      goto LABEL_95;
-    case 71:
-      v5 = 71;
-      goto LABEL_95;
-    case 72:
-      v5 = 72;
-      goto LABEL_95;
-    case 73:
-      v5 = 73;
-      goto LABEL_95;
-    case 74:
-      v5 = 74;
-      goto LABEL_95;
-    case 75:
-      v5 = 75;
-      goto LABEL_95;
-    case 76:
-      v5 = 76;
-      goto LABEL_95;
-    case 77:
-      v5 = 77;
-      goto LABEL_95;
-    case 78:
-      v5 = 78;
-      goto LABEL_95;
-    case 79:
-      v5 = 79;
-LABEL_95:
-      v6 = v5;
-      break;
-    case 80:
-      break;
-    case 81:
-      v6 = 81;
-      break;
-    case 82:
-      v6 = 82;
-      break;
-    case 83:
-      v6 = 83;
-      break;
-    case 84:
-      v6 = 84;
-      break;
-    case 85:
-      v6 = 85;
-      break;
-    case 86:
-      v6 = 86;
-      break;
-    case 87:
-      v6 = 87;
-      break;
-    case 88:
-      v6 = 88;
-      break;
-    case 89:
-      v6 = 89;
-      break;
-    case 90:
-      v6 = 90;
-      break;
-    case 91:
-      v6 = 91;
-      break;
-    case 92:
-      v6 = 92;
-      break;
-    case 93:
-      v6 = 93;
-      break;
-    case 94:
-      v6 = 94;
-      break;
-    case 95:
-      v6 = 95;
-      break;
-    case 96:
-      v6 = 96;
-      break;
-    case 97:
-      v6 = 97;
-      break;
-    default:
-      v6 = 98;
-      break;
-  }
-
-  *v2 = v6;
-  return result;
-}
-
-uint64_t SQLFunction.rawValue.getter()
-{
-  result = 7561825;
-  switch(*v0)
-  {
-    case 1:
-      return 892497250;
-    case 2:
-      return 0x7365676E616863;
-    case 3:
-      return 1918986339;
-    case 4:
-      return 0x656373656C616F63;
-    case 5:
-      return 0x7369645F656D7563;
-    case 6:
-    case 7:
-      v3 = 1920103779;
-      goto LABEL_62;
-    case 8:
-      return 0xD000000000000011;
-    case 9:
-      return 1702125924;
-    case 0xA:
-      v2 = 1702125924;
-      goto LABEL_65;
-    case 0xB:
-      return 0x61725F65736E6564;
-    case 0xC:
-      return 0x61765F7473726966;
-    case 0xD:
-      return 0x726F6F6C66;
-    case 0xE:
-      return 0x6B6F745F33737466;
-    case 0xF:
-      return 896758886;
-    case 0x10:
-      return 0x756F735F35737466;
-    case 0x11:
-      return 1651469415;
-    case 0x12:
-      return 7890280;
-    case 0x13:
-      return 0x6867696C68676968;
-    case 0x14:
-      return 0x34353765656569;
-    case 0x15:
-    case 0x17:
-    case 0x20:
-    case 0x51:
-      return 0xD000000000000010;
-    case 0x16:
-      return 0xD000000000000011;
-    case 0x18:
-      return 0x5F34353765656569;
-    case 0x19:
-      return 0x6C6C756E6669;
-    case 0x1A:
-      return 6711657;
-    case 0x1B:
-      return 0x7274736E69;
-    case 0x1C:
-      return 1852797802;
-    case 0x1D:
-      return 0x7272615F6E6F736ALL;
-    case 0x1E:
-      return 0xD000000000000011;
-    case 0x1F:
-      return 0x7478655F6E6F736ALL;
-    case 0x21:
-      return 0xD000000000000011;
-    case 0x22:
-      return 0x736E695F6E6F736ALL;
-    case 0x23:
-      return 0x6A626F5F6E6F736ALL;
-    case 0x24:
-      return 0x7461705F6E6F736ALL;
-    case 0x25:
-      return 0x6F75715F6E6F736ALL;
-    case 0x26:
-      return 0x6D65725F6E6F736ALL;
-    case 0x27:
-      return 0x7065725F6E6F736ALL;
-    case 0x28:
-      return 0x7465735F6E6F736ALL;
-    case 0x29:
-      return 0x7079745F6E6F736ALL;
-    case 0x2A:
-      v4 = 1852797802;
-      goto LABEL_88;
-    case 0x2B:
-      return 0x61646E61696C756ALL;
-    case 0x2C:
-      return 6775148;
-    case 0x2D:
-      return 0xD000000000000011;
-    case 0x2E:
-      v4 = 1953718636;
-LABEL_88:
-      result = v4 | 0x6C61765F00000000;
-      break;
-    case 0x2F:
-      result = 1684104556;
-      break;
-    case 0x30:
-      result = 0x6874676E656CLL;
-      break;
-    case 0x31:
-      result = 1701538156;
-      break;
-    case 0x32:
-      result = 0x6F68696C656B696CLL;
-      break;
-    case 0x33:
-      result = 0x796C656B696CLL;
-      break;
-    case 0x34:
-      result = 0x7265776F6CLL;
-      break;
-    case 0x35:
-      result = 0x6D6972746CLL;
-      break;
-    case 0x36:
-      result = 0x686374616DLL;
-      break;
-    case 0x37:
-      result = 0x666E69686374616DLL;
-      break;
-    case 0x38:
-      result = 7889261;
-      break;
-    case 0x39:
-      result = 7235949;
-      break;
-    case 0x3A:
-      result = 0x756C61765F68746ELL;
-      break;
-    case 0x3B:
-      result = 0x656C69746ELL;
-      break;
-    case 0x3C:
-      result = 0x66696C6C756ELL;
-      break;
-    case 0x3D:
-      result = 0x7374657366666FLL;
-      break;
-    case 0x3E:
-      result = 0x657A696D6974706FLL;
-      break;
-    case 0x3F:
-      v3 = 1668441456;
-LABEL_62:
-      result = v3 | 0x5F746E6500000000;
-      break;
-    case 0x40:
-      result = 0x66746E697270;
-      break;
-    case 0x41:
-      result = 0x65746F7571;
-      break;
-    case 0x42:
-      result = 0x6D6F646E6172;
-      break;
-    case 0x43:
-      result = 0x6C626D6F646E6172;
-      break;
-    case 0x44:
-      result = 1802396018;
-      break;
-    case 0x45:
-      result = 0x6563616C706572;
-      break;
-    case 0x46:
-      result = 0x646E756F72;
-      break;
-    case 0x47:
-      result = 0x626D756E5F776F72;
-      break;
-    case 0x48:
-      result = 0x6568636565727472;
-      break;
-    case 0x49:
-      result = 0x7065646565727472;
-      break;
-    case 0x4A:
-      result = 0x646F6E6565727472;
-      break;
-    case 0x4B:
-      result = 0x6D69727472;
-      break;
-    case 0x4C:
-      result = 1852270963;
-      break;
-    case 0x4D:
-      result = 0x74657070696E73;
-      break;
-    case 0x4E:
-      result = 0xD000000000000018;
-      break;
-    case 0x4F:
-      result = 0xD000000000000019;
-      break;
-    case 0x50:
-      result = 0x6C5F6574696C7173;
-      break;
-    case 0x52:
-      result = 0x765F6574696C7173;
-      break;
-    case 0x53:
-      v2 = 1718776947;
-LABEL_65:
-      result = v2 | 0x656D697400000000;
-      break;
-    case 0x54:
-      result = 0x727473627573;
-      break;
-    case 0x55:
-      result = 0x6E69727473627573;
-      break;
-    case 0x56:
-      result = 1701669236;
-      break;
-    case 0x57:
-      result = 0x68635F6C61746F74;
-      break;
-    case 0x58:
-      result = 1835627124;
-      break;
-    case 0x59:
-      result = 0x666F65707974;
-      break;
-    case 0x5A:
-      result = 0x65646F63696E75;
-      break;
-    case 0x5B:
-      result = 0x6E776F6E6B6E75;
-      break;
-    case 0x5C:
-      result = 0x796C656B696C6E75;
-      break;
-    case 0x5D:
-      result = 0x7265707075;
-      break;
-    case 0x5E:
-      result = 1684632949;
-      break;
-    case 0x5F:
-      result = 0x6F6C625F64697575;
-      break;
-    case 0x60:
-      result = 0x7274735F64697575;
-      break;
-    case 0x61:
-      result = 0x626F6C626F72657ALL;
-      break;
-    default:
-      return result;
-  }
-
-  return result;
-}
-
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance SQLFunction(char *a1, char *a2)
-{
-  v10 = *a1;
-  v9 = *a2;
-  v2 = SQLFunction.rawValue.getter();
-  v4 = v3;
-  if (v2 == SQLFunction.rawValue.getter() && v4 == v5)
-  {
-    v7 = 1;
-  }
-
-  else
-  {
-    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
-  }
-
-  return v7 & 1;
-}
-
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance SQLFunction()
-{
-  v1 = *v0;
-  Hasher.init(_seed:)();
-  SQLFunction.rawValue.getter();
-  String.hash(into:)();
-
-  return Hasher._finalize()();
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance SQLFunction()
-{
-  v2 = *v0;
-  SQLFunction.rawValue.getter();
-  String.hash(into:)();
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SQLFunction()
-{
-  v1 = *v0;
-  Hasher.init(_seed:)();
-  SQLFunction.rawValue.getter();
-  String.hash(into:)();
-
-  return Hasher._finalize()();
-}
-
-uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance SQLFunction@<X0>(uint64_t *a1@<X8>)
-{
-  result = SQLFunction.rawValue.getter();
-  *a1 = result;
-  a1[1] = v3;
-  return result;
-}
-
-uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser12PgQuery_NodeV_Tt1g5(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for PgQuery_Node.OneOf_Node(0);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v8 = &v40 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v40 - v11;
-  v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSg_AFtMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSg_AFtMR);
-  v13 = *(*(v46 - 8) + 64);
-  MEMORY[0x28223BE20](v46);
-  v50 = &v40 - v14;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v15 = *(*(Node - 8) + 64);
-  v16 = MEMORY[0x28223BE20](Node);
-  v51 = &v40 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v16);
-  v47 = &v40 - v19;
-  v20 = *(a1 + 16);
-  if (v20 != *(a2 + 16))
-  {
-    return 0;
-  }
-
-  if (!v20 || a1 == a2)
-  {
-    return 1;
-  }
-
-  v43 = v12;
-  v44 = v4;
-  v40 = v8;
-  v21 = (*(v18 + 80) + 32) & ~*(v18 + 80);
-  v22 = a1 + v21;
-  v23 = a2 + v21;
-  v42 = (v5 + 48);
-  v45 = *(v18 + 72);
-  v24 = v47;
-  while (1)
-  {
-    outlined init with copy of PgQuery_RawStmt(v22, v24, type metadata accessor for PgQuery_Node);
-    v25 = v51;
-    outlined init with copy of PgQuery_RawStmt(v23, v51, type metadata accessor for PgQuery_Node);
-    v26 = *(Node + 20);
-    v27 = *(v24 + v26);
-    v28 = *(v25 + v26);
-    if (v27 == v28)
+    if (a2)
     {
-      goto LABEL_12;
+      bzero(a1, 8 * a2);
     }
 
-    v29 = OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node;
-    v30 = *(v46 + 48);
-    v31 = v50;
-    outlined init with copy of PgQuery_Alias?(v27 + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v50, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    outlined init with copy of PgQuery_Alias?(v28 + v29, v31 + v30, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    v32 = *v42;
-    v33 = v44;
-    v34 = (*v42)(v31, 1, v44);
-    v48 = v27;
-    if (v34 == 1)
+    v50 = a2;
+    v51 = 0;
+    v7 = 0;
+    v56 = a3;
+    v10 = a3[8];
+    v9 = a3 + 8;
+    v8 = v10;
+    v11 = 1 << *(v9 - 32);
+    v12 = -1;
+    if (v11 < 64)
     {
-      v35 = v32(v50 + v30, 1, v33);
-
-      if (v35 != 1)
-      {
-        goto LABEL_16;
-      }
-
-      outlined destroy of URL?(v50, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-      goto LABEL_11;
+      v12 = ~(-1 << v11);
     }
 
-    v36 = v50;
-    outlined init with copy of PgQuery_Alias?(v50, v43, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    if (v32(v36 + v30, 1, v33) == 1)
-    {
-      break;
-    }
-
-    v37 = v40;
-    outlined init with take of PgQuery_Node(v36 + v30, v40, type metadata accessor for PgQuery_Node.OneOf_Node);
-    v38 = v43;
-
-    v41 = static PgQuery_Node.OneOf_Node.== infix(_:_:)(v38, v37);
-    outlined destroy of PgQuery_RawStmt(v37, type metadata accessor for PgQuery_Node.OneOf_Node);
-    outlined destroy of PgQuery_RawStmt(v38, type metadata accessor for PgQuery_Node.OneOf_Node);
-    outlined destroy of URL?(v36, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    if ((v41 & 1) == 0)
-    {
-      goto LABEL_17;
-    }
-
-LABEL_11:
-
-    v24 = v47;
-LABEL_12:
-    type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type SQLExpressionError and conformance SQLExpressionError(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    if ((dispatch thunk of static Equatable.== infix(_:_:)() & 1) == 0)
-    {
-      goto LABEL_18;
-    }
-
-    outlined destroy of PgQuery_RawStmt(v51, type metadata accessor for PgQuery_Node);
-    outlined destroy of PgQuery_RawStmt(v24, type metadata accessor for PgQuery_Node);
-    v23 += v45;
-    v22 += v45;
-    if (!--v20)
-    {
-      return 1;
-    }
-  }
-
-  outlined destroy of PgQuery_RawStmt(v43, type metadata accessor for PgQuery_Node.OneOf_Node);
-LABEL_16:
-  outlined destroy of URL?(v50, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSg_AFtMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSg_AFtMR);
-LABEL_17:
-
-  v24 = v47;
-LABEL_18:
-  outlined destroy of PgQuery_RawStmt(v51, type metadata accessor for PgQuery_Node);
-  outlined destroy of PgQuery_RawStmt(v24, type metadata accessor for PgQuery_Node);
-  return 0;
-}
-
-uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser15PgQuery_RawStmtV_Tt1g5(uint64_t a1, uint64_t a2)
-{
-  v4 = type metadata accessor for PgQuery_Node.OneOf_Node(0);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v76 = &v68 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v78 = &v68 - v10;
-  v77 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSg_AFtMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSg_AFtMR);
-  v11 = *(*(v77 - 8) + 64);
-  MEMORY[0x28223BE20](v77);
-  v81 = &v68 - v12;
-  Node = type metadata accessor for PgQuery_Node(0);
-  v13 = *(Node - 8);
-  v14 = *(v13 + 64);
-  MEMORY[0x28223BE20](Node);
-  v86 = &v68 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  MEMORY[0x28223BE20](v16 - 8);
-  v19 = &v68 - v18;
-  v87 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeVSg_ADtMd, &_s14BiomeSQLParser12PgQuery_NodeVSg_ADtMR);
-  v20 = *(*(v87 - 8) + 64);
-  MEMORY[0x28223BE20](v87);
-  v89 = &v68 - v21;
-  RawStmt = type metadata accessor for PgQuery_RawStmt(0);
-  v22 = *(*(RawStmt - 8) + 64);
-  v23 = MEMORY[0x28223BE20](RawStmt);
-  v25 = &v68 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v23);
-  v28 = &v68 - v27;
-  v29 = *(a1 + 16);
-  if (v29 != *(a2 + 16))
-  {
-    return 0;
-  }
-
-  if (!v29 || a1 == a2)
-  {
-    return 1;
-  }
-
-  v69 = v4;
-  v30 = (*(v26 + 80) + 32) & ~*(v26 + 80);
-  v31 = a1 + v30;
-  v32 = a2 + v30;
-  v73 = (v13 + 48);
-  v74 = &v68 - v27;
-  v80 = v19;
-  v82 = *(v26 + 72);
-  v75 = v25;
-  v68 = (v5 + 48);
-  while (1)
-  {
-    outlined init with copy of PgQuery_RawStmt(v31, v28, type metadata accessor for PgQuery_RawStmt);
-    outlined init with copy of PgQuery_RawStmt(v32, v25, type metadata accessor for PgQuery_RawStmt);
-    v33 = *(RawStmt + 20);
-    v34 = *&v28[v33];
-    v35 = *&v25[v33];
-    if (v34 == v35)
-    {
-      goto LABEL_21;
-    }
-
-    v83 = v32;
-    v84 = v29;
-    v85 = v31;
-    v36 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RawStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__stmt;
-    v37 = *(v87 + 48);
-    v38 = v89;
-    v39 = v34;
-    outlined init with copy of PgQuery_Alias?(v34 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RawStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__stmt, v89, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-    outlined init with copy of PgQuery_Alias?(v35 + v36, v38 + v37, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-    v40 = *v73;
-    v41 = Node;
-    if ((*v73)(v38, 1, Node) == 1)
-    {
-      v42 = v40(v38 + v37, 1, v41);
-
-      if (v42 != 1)
-      {
-        goto LABEL_25;
-      }
-
-      outlined destroy of URL?(v38, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-      v28 = v74;
-      v25 = v75;
-      v29 = v84;
-      v31 = v85;
-      goto LABEL_19;
-    }
-
-    v79 = v35;
-    v43 = v80;
-    outlined init with copy of PgQuery_Alias?(v38, v80, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-    if (v40(v38 + v37, 1, v41) == 1)
-    {
-
-      outlined destroy of PgQuery_RawStmt(v43, type metadata accessor for PgQuery_Node);
-LABEL_25:
-      outlined destroy of URL?(v38, &_s14BiomeSQLParser12PgQuery_NodeVSg_ADtMd, &_s14BiomeSQLParser12PgQuery_NodeVSg_ADtMR);
-      v28 = v74;
-      v25 = v75;
-      goto LABEL_29;
-    }
-
-    v44 = v38 + v37;
-    v45 = v86;
-    outlined init with take of PgQuery_Node(v44, v86, type metadata accessor for PgQuery_Node);
-    v46 = *(v41 + 20);
-    v47 = *(v43 + v46);
-    v48 = *(v45 + v46);
-    if (v47 == v48)
-    {
-
-      v28 = v74;
-      v25 = v75;
-      v29 = v84;
-      v31 = v85;
-      goto LABEL_18;
-    }
-
-    v49 = OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node;
-    v50 = *(v77 + 48);
-    v51 = v81;
-    outlined init with copy of PgQuery_Alias?(v47 + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v81, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    v72 = v50;
-    outlined init with copy of PgQuery_Alias?(v48 + v49, v51 + v50, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    v71 = v47;
-    v52 = *v68;
-    v53 = v51;
-    v54 = v69;
-    v55 = (*v68)(v51, 1, v69);
-    v28 = v74;
-    v25 = v75;
-    v56 = v48;
-    v29 = v84;
-    v31 = v85;
-    v70 = v56;
-    if (v55 == 1)
-    {
-      v57 = v52(v53 + v72, 1, v54);
-
-      v58 = v53;
-      v59 = v80;
-      if (v57 != 1)
-      {
-        goto LABEL_27;
-      }
-
-      outlined destroy of URL?(v58, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-      goto LABEL_17;
-    }
-
-    outlined init with copy of PgQuery_Alias?(v53, v78, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    if (v52(v53 + v72, 1, v54) == 1)
-    {
-      break;
-    }
-
-    v60 = v76;
-    outlined init with take of PgQuery_Node(v53 + v72, v76, type metadata accessor for PgQuery_Node.OneOf_Node);
-
-    v61 = v78;
-    LODWORD(v72) = static PgQuery_Node.OneOf_Node.== infix(_:_:)(v78, v60);
-    outlined destroy of PgQuery_RawStmt(v60, type metadata accessor for PgQuery_Node.OneOf_Node);
-    outlined destroy of PgQuery_RawStmt(v61, type metadata accessor for PgQuery_Node.OneOf_Node);
-    outlined destroy of URL?(v81, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    v59 = v80;
-    if ((v72 & 1) == 0)
-    {
-      goto LABEL_28;
-    }
-
-LABEL_17:
-
-LABEL_18:
-    type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type SQLExpressionError and conformance SQLExpressionError(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    v62 = v86;
-    v63 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v64 = v80;
-    outlined destroy of PgQuery_RawStmt(v62, type metadata accessor for PgQuery_Node);
-    outlined destroy of PgQuery_RawStmt(v64, type metadata accessor for PgQuery_Node);
-    outlined destroy of URL?(v89, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-    v35 = v79;
-    if ((v63 & 1) == 0)
-    {
-      goto LABEL_29;
-    }
-
-LABEL_19:
-    if (*(v39 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RawStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__stmtLocation) != *(v35 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RawStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__stmtLocation))
-    {
-      goto LABEL_29;
-    }
-
-    v65 = *(v39 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RawStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__stmtLen);
-    v66 = *(v35 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_RawStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__stmtLen);
-
-    v32 = v83;
-    if (v65 != v66)
-    {
-      goto LABEL_30;
-    }
-
-LABEL_21:
-    type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type SQLExpressionError and conformance SQLExpressionError(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    if ((dispatch thunk of static Equatable.== infix(_:_:)() & 1) == 0)
-    {
-      goto LABEL_30;
-    }
-
-    outlined destroy of PgQuery_RawStmt(v25, type metadata accessor for PgQuery_RawStmt);
-    outlined destroy of PgQuery_RawStmt(v28, type metadata accessor for PgQuery_RawStmt);
-    v32 += v82;
-    v31 += v82;
-    if (!--v29)
-    {
-      return 1;
-    }
-  }
-
-  outlined destroy of PgQuery_RawStmt(v78, type metadata accessor for PgQuery_Node.OneOf_Node);
-  v58 = v53;
-  v59 = v80;
-LABEL_27:
-  outlined destroy of URL?(v58, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSg_AFtMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSg_AFtMR);
-LABEL_28:
-
-  outlined destroy of PgQuery_RawStmt(v86, type metadata accessor for PgQuery_Node);
-  outlined destroy of PgQuery_RawStmt(v59, type metadata accessor for PgQuery_Node);
-  outlined destroy of URL?(v89, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-LABEL_29:
-
-LABEL_30:
-  outlined destroy of PgQuery_RawStmt(v25, type metadata accessor for PgQuery_RawStmt);
-  outlined destroy of PgQuery_RawStmt(v28, type metadata accessor for PgQuery_RawStmt);
-  return 0;
-}
-
-uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser19AggregationFunctionV_Tt1g5(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 16);
-  if (v2 == *(a2 + 16))
-  {
-    if (!v2 || a1 == a2)
-    {
-      return 1;
-    }
-
-    v3 = a1 + 32;
-    v4 = a2 + 32;
-    v5 = 0x72656765746E69;
-    v6 = 0x676E69727473;
-    v7 = 0x656C62756F64;
+    v13 = v12 & v8;
+    v14 = (v11 + 63) >> 6;
     while (1)
     {
-      outlined init with copy of AggregationFunction(v3, v29);
-      outlined init with copy of AggregationFunction(v4, v27);
-      if ((specialized static AggregationFunction.AggregationType.== infix(_:_:)(v29, v27) & 1) == 0)
+      if (!v13)
       {
-        break;
-      }
-
-      if (v30 > 3u)
-      {
-        if (v30 > 5u)
+        v16 = v7;
+        while (1)
         {
-          v14 = 0xE400000000000000;
-          if (v30 == 6)
-          {
-            v13 = 1684632949;
-          }
-
-          else
-          {
-            v13 = 1819047278;
-          }
-        }
-
-        else
-        {
-          if (v30 == 4)
-          {
-            v13 = 1635017060;
-          }
-
-          else
-          {
-            v13 = 1852797802;
-          }
-
-          v14 = 0xE400000000000000;
-        }
-      }
-
-      else
-      {
-        if (v30 == 2)
-        {
-          v9 = v6;
-        }
-
-        else
-        {
-          v9 = 1702125924;
-        }
-
-        if (v30 == 2)
-        {
-          v10 = 0xE600000000000000;
-        }
-
-        else
-        {
-          v10 = 0xE400000000000000;
-        }
-
-        if (v30)
-        {
-          v11 = v7;
-        }
-
-        else
-        {
-          v11 = v5;
-        }
-
-        v12 = 0xE700000000000000;
-        if (v30)
-        {
-          v12 = 0xE600000000000000;
-        }
-
-        if (v30 <= 1u)
-        {
-          v13 = v11;
-        }
-
-        else
-        {
-          v13 = v9;
-        }
-
-        if (v30 <= 1u)
-        {
-          v14 = v12;
-        }
-
-        else
-        {
-          v14 = v10;
-        }
-      }
-
-      v15 = 1819047278;
-      if (v28 == 6)
-      {
-        v15 = 1684632949;
-      }
-
-      v16 = 1852797802;
-      if (v28 == 4)
-      {
-        v16 = 1635017060;
-      }
-
-      if (v28 <= 5u)
-      {
-        v15 = v16;
-      }
-
-      if (v28 == 2)
-      {
-        v17 = v6;
-      }
-
-      else
-      {
-        v17 = 1702125924;
-      }
-
-      if (v28 == 2)
-      {
-        v18 = 0xE600000000000000;
-      }
-
-      else
-      {
-        v18 = 0xE400000000000000;
-      }
-
-      v19 = v5;
-      if (v28)
-      {
-        v20 = v7;
-      }
-
-      else
-      {
-        v20 = v5;
-      }
-
-      v21 = 0xE700000000000000;
-      if (v28)
-      {
-        v21 = 0xE600000000000000;
-      }
-
-      if (v28 <= 1u)
-      {
-        v17 = v20;
-        v18 = v21;
-      }
-
-      if (v28 <= 3u)
-      {
-        v22 = v17;
-      }
-
-      else
-      {
-        v22 = v15;
-      }
-
-      if (v28 <= 3u)
-      {
-        v23 = v18;
-      }
-
-      else
-      {
-        v23 = 0xE400000000000000;
-      }
-
-      v24 = v7;
-      v25 = v6;
-      if (v13 == v22 && v14 == v23)
-      {
-
-        outlined destroy of AggregationFunction(v27);
-        outlined destroy of AggregationFunction(v29);
-      }
-
-      else
-      {
-        v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-        outlined destroy of AggregationFunction(v27);
-        outlined destroy of AggregationFunction(v29);
-        if ((v8 & 1) == 0)
-        {
-          return 0;
-        }
-      }
-
-      v4 += 200;
-      v3 += 200;
-      --v2;
-      v5 = v19;
-      v6 = v25;
-      v7 = v24;
-      if (!v2)
-      {
-        return 1;
-      }
-    }
-
-    outlined destroy of AggregationFunction(v27);
-    outlined destroy of AggregationFunction(v29);
-  }
-
-  return 0;
-}
-
-uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser7BindingV_Tt1g5(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a1 + 16);
-  if (v2 != *(a2 + 16))
-  {
-    return 0;
-  }
-
-  if (v2 && a1 != a2)
-  {
-    v3 = (a2 + 48);
-    v4 = (a1 + 48);
-    do
-    {
-      v6 = *v4;
-      v7 = *v3;
-      v8 = *(v4 - 2) == *(v3 - 2) && *(v4 - 1) == *(v3 - 1);
-      if (!v8 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-      {
-        return 0;
-      }
-
-      v4 += 24;
-      v9 = 1819047278;
-      if (v6 == 6)
-      {
-        v9 = 1684632949;
-      }
-
-      v10 = 1852797802;
-      if (v6 == 4)
-      {
-        v10 = 1635017060;
-      }
-
-      if (v6 <= 5)
-      {
-        v9 = v10;
-      }
-
-      v11 = 1702125924;
-      if (v6 == 2)
-      {
-        v11 = 0x676E69727473;
-        v12 = 0xE600000000000000;
-      }
-
-      else
-      {
-        v12 = 0xE400000000000000;
-      }
-
-      v13 = 0x72656765746E69;
-      if (v6)
-      {
-        v13 = 0x656C62756F64;
-      }
-
-      v14 = 0xE700000000000000;
-      if (v6)
-      {
-        v14 = 0xE600000000000000;
-      }
-
-      if (v6 <= 1)
-      {
-        v11 = v13;
-        v12 = v14;
-      }
-
-      if (v6 <= 3)
-      {
-        v15 = v11;
-      }
-
-      else
-      {
-        v15 = v9;
-      }
-
-      if (v6 <= 3)
-      {
-        v16 = v12;
-      }
-
-      else
-      {
-        v16 = 0xE400000000000000;
-      }
-
-      if (v7 > 3)
-      {
-        if (v7 > 5)
-        {
-          if (v7 == 6)
-          {
-            v17 = 0xE400000000000000;
-            if (v15 != 1684632949)
-            {
-              goto LABEL_5;
-            }
-          }
-
-          else
-          {
-            v17 = 0xE400000000000000;
-            if (v15 != 1819047278)
-            {
-              goto LABEL_5;
-            }
-          }
-        }
-
-        else if (v7 == 4)
-        {
-          v17 = 0xE400000000000000;
-          if (v15 != 1635017060)
-          {
-            goto LABEL_5;
-          }
-        }
-
-        else
-        {
-          v17 = 0xE400000000000000;
-          if (v15 != 1852797802)
-          {
-            goto LABEL_5;
-          }
-        }
-      }
-
-      else if (v7 > 1)
-      {
-        if (v7 == 2)
-        {
-          v17 = 0xE600000000000000;
-          if (v15 != 0x676E69727473)
-          {
-            goto LABEL_5;
-          }
-        }
-
-        else
-        {
-          v17 = 0xE400000000000000;
-          if (v15 != 1702125924)
-          {
-            goto LABEL_5;
-          }
-        }
-      }
-
-      else if (v7)
-      {
-        v17 = 0xE600000000000000;
-        if (v15 != 0x656C62756F64)
-        {
-          goto LABEL_5;
-        }
-      }
-
-      else
-      {
-        v17 = 0xE700000000000000;
-        if (v15 != 0x72656765746E69)
-        {
-          goto LABEL_5;
-        }
-      }
-
-      if (v16 != v17)
-      {
-LABEL_5:
-        v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-        if ((v5 & 1) == 0)
-        {
-          return 0;
-        }
-
-        goto LABEL_6;
-      }
-
-LABEL_6:
-      v3 += 24;
-      --v2;
-    }
-
-    while (v2);
-  }
-
-  return 1;
-}
-
-uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser17PgQuery_ScanTokenV_Tt1g5(uint64_t a1, uint64_t a2)
-{
-  ScanToken = type metadata accessor for PgQuery_ScanToken(0);
-  v5 = *(*(ScanToken - 8) + 64);
-  v6 = MEMORY[0x28223BE20](ScanToken);
-  v8 = &v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v6);
-  v11 = &v25 - v10;
-  v12 = *(a1 + 16);
-  if (v12 == *(a2 + 16))
-  {
-    if (!v12 || a1 == a2)
-    {
-      v23 = 1;
-      return v23 & 1;
-    }
-
-    v13 = (*(v9 + 80) + 32) & ~*(v9 + 80);
-    v14 = a1 + v13;
-    v15 = a2 + v13;
-    v16 = *(v9 + 72);
-    while (1)
-    {
-      outlined init with copy of PgQuery_RawStmt(v14, v11, type metadata accessor for PgQuery_ScanToken);
-      outlined init with copy of PgQuery_RawStmt(v15, v8, type metadata accessor for PgQuery_ScanToken);
-      if (*v11 != *v8)
-      {
-        break;
-      }
-
-      if (*(v11 + 1) != *(v8 + 1))
-      {
-        break;
-      }
-
-      v17 = *(v8 + 1);
-      v18 = v8[16];
-      v19 = PgQuery_Token.rawValue.getter(*(v11 + 1), v11[16]);
-      if (v19 != PgQuery_Token.rawValue.getter(v17, v18))
-      {
-        break;
-      }
-
-      v20 = *(v11 + 3);
-      v21 = *(v8 + 3);
-      if (v8[32] == 1)
-      {
-        if (v21 <= 1)
-        {
-          if (v21)
-          {
-            if (v20 != 1)
-            {
-              break;
-            }
-          }
-
-          else if (v20)
+          v7 = v16 + 1;
+          if (__OFADD__(v16, 1))
           {
             break;
           }
-        }
 
-        else if (v21 == 2)
-        {
-          if (v20 != 2)
+          if (v7 >= v14)
           {
-            break;
+            goto LABEL_19;
+          }
+
+          v17 = v9[v7];
+          ++v16;
+          if (v17)
+          {
+            v15 = __clz(__rbit64(v17));
+            v13 = (v17 - 1) & v17;
+            goto LABEL_14;
           }
         }
 
-        else if (v21 == 3)
-        {
-          if (v20 != 3)
-          {
-            break;
-          }
-        }
+        __break(1u);
+        goto LABEL_49;
+      }
 
-        else if (v20 != 4)
+      v15 = __clz(__rbit64(v13));
+      v13 &= v13 - 1;
+LABEL_14:
+      v18 = v15 | (v7 << 6);
+      v19 = v56[7];
+      v20 = (v56[6] + 16 * v18);
+      v21 = v20[1];
+      v57[0] = *v20;
+      v57[1] = v21;
+      v58 = *(v19 + 8 * v18);
+
+      v22 = a4(v57, &v58);
+      if (v4)
+      {
+
+        return;
+      }
+
+      v23 = v22;
+
+      if (v23)
+      {
+        *(a1 + ((v18 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v18;
+        v24 = __OFADD__(v51++, 1);
+        if (v24)
         {
           break;
         }
       }
+    }
 
-      else if (v20 != v21)
+    __break(1u);
+LABEL_19:
+    if (!v51)
+    {
+LABEL_47:
+
+      return;
+    }
+
+    v25 = v56;
+    if (v51 == v56[2])
+    {
+      return;
+    }
+
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSiGMd, &_ss18_DictionaryStorageCySSSiGMR);
+    v26 = static _DictionaryStorage.allocate(capacity:)();
+    v27 = v26;
+    if (v50)
+    {
+      v28 = a1;
+      v29 = *a1;
+    }
+
+    else
+    {
+      v29 = 0;
+      v28 = a1;
+    }
+
+    v30 = 0;
+    v31 = v26 + 64;
+    v32 = v51;
+    while (v29)
+    {
+      v33 = __clz(__rbit64(v29));
+      v52 = (v29 - 1) & v29;
+LABEL_35:
+      v36 = v33 | (v30 << 6);
+      v37 = (v25[6] + 16 * v36);
+      v38 = *v37;
+      v39 = v37[1];
+      v55 = *(v25[7] + 8 * v36);
+      Hasher.init(_seed:)();
+
+      String.hash(into:)();
+      v40 = Hasher._finalize()();
+      v41 = -1 << *(v27 + 32);
+      v42 = v40 & ~v41;
+      v43 = v42 >> 6;
+      if (((-1 << v42) & ~*(v31 + 8 * (v42 >> 6))) == 0)
+      {
+        v45 = 0;
+        v46 = (63 - v41) >> 6;
+        v28 = a1;
+        while (++v43 != v46 || (v45 & 1) == 0)
+        {
+          v47 = v43 == v46;
+          if (v43 == v46)
+          {
+            v43 = 0;
+          }
+
+          v45 |= v47;
+          v48 = *(v31 + 8 * v43);
+          if (v48 != -1)
+          {
+            v44 = __clz(__rbit64(~v48)) + (v43 << 6);
+            goto LABEL_45;
+          }
+        }
+
+        goto LABEL_50;
+      }
+
+      v44 = __clz(__rbit64((-1 << v42) & ~*(v31 + 8 * (v42 >> 6)))) | v42 & 0x7FFFFFFFFFFFFFC0;
+      v28 = a1;
+LABEL_45:
+      *(v31 + ((v44 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v44;
+      v49 = (*(v27 + 48) + 16 * v44);
+      *v49 = v38;
+      v49[1] = v39;
+      *(*(v27 + 56) + 8 * v44) = v55;
+      ++*(v27 + 16);
+      v24 = __OFSUB__(v32--, 1);
+      if (v24)
+      {
+        goto LABEL_52;
+      }
+
+      v25 = v56;
+      v29 = v52;
+      if (!v32)
+      {
+        goto LABEL_47;
+      }
+    }
+
+    v34 = v30;
+    while (1)
+    {
+      v30 = v34 + 1;
+      if (__OFADD__(v34, 1))
       {
         break;
       }
 
-      v22 = *(ScanToken + 32);
-      type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type SQLExpressionError and conformance SQLExpressionError(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v23 = dispatch thunk of static Equatable.== infix(_:_:)();
-      outlined destroy of PgQuery_RawStmt(v8, type metadata accessor for PgQuery_ScanToken);
-      outlined destroy of PgQuery_RawStmt(v11, type metadata accessor for PgQuery_ScanToken);
-      if (v23)
+      if (v30 >= v50)
       {
-        v15 += v16;
-        v14 += v16;
-        if (--v12)
-        {
-          continue;
-        }
+        goto LABEL_47;
       }
 
-      return v23 & 1;
+      v35 = v28[v30];
+      ++v34;
+      if (v35)
+      {
+        v33 = __clz(__rbit64(v35));
+        v52 = (v35 - 1) & v35;
+        goto LABEL_35;
+      }
     }
 
-    outlined destroy of PgQuery_RawStmt(v8, type metadata accessor for PgQuery_ScanToken);
-    outlined destroy of PgQuery_RawStmt(v11, type metadata accessor for PgQuery_ScanToken);
-  }
-
-  v23 = 0;
-  return v23 & 1;
-}
-
-uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZs6UInt64V_Tt1g5(uint64_t result, uint64_t a2)
-{
-  v2 = *(result + 16);
-  if (v2 != *(a2 + 16))
-  {
-    return 0;
-  }
-
-  if (!v2 || result == a2)
-  {
-    return 1;
-  }
-
-  v3 = (result + 32);
-  v4 = (a2 + 32);
-  while (v2)
-  {
-    v6 = *v3++;
-    v5 = v6;
-    v7 = *v4++;
-    result = v5 == v7;
-    if (v5 != v7 || v2-- == 1)
-    {
-      return result;
-    }
+LABEL_49:
+    __break(1u);
+LABEL_50:
+    __break(1u);
   }
 
   __break(1u);
+LABEL_52:
+  __break(1u);
+}
+
+uint64_t specialized Array<A>.hash(into:)(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a2 + 16);
+  result = MEMORY[0x259C33090](v3);
+  if (v3)
+  {
+    v5 = a2 + 48;
+    do
+    {
+      v5 += 24;
+
+      String.hash(into:)();
+      String.hash(into:)();
+
+      --v3;
+    }
+
+    while (v3);
+  }
+
   return result;
 }
 
-uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser11SQLDataTypeO_Tt1g5(uint64_t a1, uint64_t a2)
+uint64_t specialized static AggregationFunction.AggregationType.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 16);
-  if (v2 != *(a2 + 16))
+  outlined init with copy of AggregationFunction.AggregationType(a1, v46);
+  outlined init with copy of AggregationFunction.AggregationType(a2, &v48);
+  if (v47 > 3u)
   {
-    return 0;
+    if (v47 > 5u)
+    {
+      if (v47 != 6)
+      {
+        if (v60 == 7)
+        {
+          v4 = vorrq_s8(vorrq_s8(vorrq_s8(vorrq_s8(v52, v56), vorrq_s8(v54, v58)), vorrq_s8(vorrq_s8(v53, v57), vorrq_s8(v55, v59))), vorrq_s8(vorrq_s8(v48, v50), vorrq_s8(v49, v51)));
+          if (!*&vorr_s8(*v4.i8, *&vextq_s8(v4, v4, 8uLL)))
+          {
+            outlined destroy of AggregationFunction.AggregationType(v46);
+            v3 = 1;
+            return v3 & 1;
+          }
+        }
+
+LABEL_45:
+        outlined destroy of URL?(v46, &_s14BiomeSQLParser19AggregationFunctionV0C4TypeO_AEtMd, &_s14BiomeSQLParser19AggregationFunctionV0C4TypeO_AEtMR);
+        v3 = 0;
+        return v3 & 1;
+      }
+
+      outlined init with copy of AggregationFunction.AggregationType(v46, &v39);
+      if (v60 != 6)
+      {
+        goto LABEL_44;
+      }
+    }
+
+    else if (v47 == 4)
+    {
+      outlined init with copy of AggregationFunction.AggregationType(v46, &v39);
+      if (v60 != 4)
+      {
+        goto LABEL_44;
+      }
+    }
+
+    else
+    {
+      outlined init with copy of AggregationFunction.AggregationType(v46, &v39);
+      if (v60 != 5)
+      {
+        goto LABEL_44;
+      }
+    }
+
+    goto LABEL_32;
   }
 
-  if (v2 && a1 != a2)
+  if (v47 <= 1u)
   {
-    v3 = (a1 + 32);
-    v4 = (a2 + 32);
-    do
+    if (!v47)
     {
-      v6 = *v3;
-      v7 = *v4;
-      v8 = 1819047278;
-      if (v6 == 6)
+      outlined init with copy of AggregationFunction.AggregationType(v46, &v39);
+      if (!v60)
       {
-        v8 = 1684632949;
+        goto LABEL_32;
       }
 
-      v9 = 1852797802;
-      if (v6 == 4)
-      {
-        v9 = 1635017060;
-      }
+      goto LABEL_44;
+    }
 
-      if (*v3 <= 5u)
-      {
-        v8 = v9;
-      }
+    outlined init with copy of AggregationFunction.AggregationType(v46, &v39);
+    if (v60 != 1)
+    {
+LABEL_44:
+      outlined destroy of SQLExpression(&v39);
+      goto LABEL_45;
+    }
 
-      v10 = 1702125924;
-      if (v6 == 2)
-      {
-        v10 = 0x676E69727473;
-        v11 = 0xE600000000000000;
-      }
+LABEL_32:
+    v17 = v41;
+    v18 = v42;
+    v19 = v43;
+    v20 = v44;
+    v15 = v39;
+    v16 = v40;
+    v35 = v50;
+    v36 = v51;
+    v37 = v52;
+    v38 = v53;
+    v33 = v48;
+    v34 = v49;
+    if (__PAIR128__(v42, v41.u64[1]) == __PAIR128__(v51.u64[0], v50.u64[1]) || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (specialized == infix<A>(_:_:)(BYTE8(v18), v36.u8[8]) & 1) != 0 && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser19AggregationFunctionV_Tt1g5(v19.i64[0], v37.i64[0]))
+    {
+      v3 = _sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser7BindingV_Tt1g5(v19.i64[1], v37.i64[1]);
+    }
 
-      else
-      {
-        v11 = 0xE400000000000000;
-      }
+    else
+    {
+      v3 = 0;
+    }
 
-      v12 = 0x72656765746E69;
-      if (*v3)
-      {
-        v12 = 0x656C62756F64;
-      }
+    outlined destroy of SQLExpression(&v33);
+    outlined destroy of SQLExpression(&v15);
+    goto LABEL_39;
+  }
 
-      v13 = 0xE700000000000000;
-      if (*v3)
-      {
-        v13 = 0xE600000000000000;
-      }
+  if (v47 != 2)
+  {
+    outlined init with copy of AggregationFunction.AggregationType(v46, &v39);
+    if (v60 != 3)
+    {
+      goto LABEL_44;
+    }
 
-      if (*v3 <= 1u)
-      {
-        v10 = v12;
-        v11 = v13;
-      }
+    goto LABEL_32;
+  }
 
-      if (*v3 <= 3u)
-      {
-        v14 = v10;
-      }
+  outlined init with copy of AggregationFunction.AggregationType(v46, &v39);
+  if (v60 != 2)
+  {
+    outlined destroy of URL?(v45, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+    goto LABEL_44;
+  }
 
-      else
+  v35 = v41;
+  v36 = v42;
+  v37 = v43;
+  v38 = v44;
+  v33 = v39;
+  v34 = v40;
+  v29[2] = v50;
+  v30 = v51;
+  v31 = v52;
+  v32 = v53;
+  v29[0] = v48;
+  v29[1] = v49;
+  v28[2] = v45[2];
+  v28[3] = v45[3];
+  v28[4] = v45[4];
+  v28[5] = v45[5];
+  v28[0] = v45[0];
+  v28[1] = v45[1];
+  v27[2] = v56;
+  v27[3] = v57;
+  v27[4] = v58;
+  v27[5] = v59;
+  v27[0] = v54;
+  v27[1] = v55;
+  if (__PAIR128__(v42, v41.u64[1]) == __PAIR128__(v51.u64[0], v50.u64[1]) || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (specialized == infix<A>(_:_:)(v36.u8[8], v30.u8[8]) & 1) != 0 && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser19AggregationFunctionV_Tt1g5(v37.i64[0], v31.i64[0]) & 1) != 0 && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser7BindingV_Tt1g5(v37.i64[1], v31.i64[1]))
+  {
+    outlined init with copy of PgQuery_Alias?(v28, &v15, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+    outlined init with copy of PgQuery_Alias?(v27, &v21, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+    if (v16.i64[1])
+    {
+      outlined init with copy of PgQuery_Alias?(&v15, v10, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+      if (*(&v22 + 1))
       {
-        v14 = v8;
-      }
-
-      if (*v3 <= 3u)
-      {
-        v15 = v11;
-      }
-
-      else
-      {
-        v15 = 0xE400000000000000;
-      }
-
-      if (*v4 > 3u)
-      {
-        v16 = 0xE400000000000000;
-        if (*v4 > 5u)
+        v6[2] = v23;
+        v7 = v24;
+        v8 = v25;
+        v9 = v26;
+        v6[0] = v21;
+        v6[1] = v22;
+        if (v11 == __PAIR128__(v24, *(&v23 + 1)) || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (specialized == infix<A>(_:_:)(v12, BYTE8(v7)) & 1) != 0 && (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser19AggregationFunctionV_Tt1g5(v13, v8))
         {
-          if (v7 == 6)
-          {
-            if (v14 != 1684632949)
-            {
-              goto LABEL_5;
-            }
-          }
-
-          else if (v14 != 1819047278)
-          {
-            goto LABEL_5;
-          }
-        }
-
-        else if (v7 == 4)
-        {
-          if (v14 != 1635017060)
-          {
-            goto LABEL_5;
-          }
-        }
-
-        else if (v14 != 1852797802)
-        {
-          goto LABEL_5;
-        }
-      }
-
-      else if (*v4 > 1u)
-      {
-        if (v7 == 2)
-        {
-          v16 = 0xE600000000000000;
-          if (v14 != 0x676E69727473)
-          {
-            goto LABEL_5;
-          }
+          v3 = _sSasSQRzlE2eeoiySbSayxG_ABtFZ14BiomeSQLParser7BindingV_Tt1g5(v14, *(&v8 + 1));
         }
 
         else
         {
-          v16 = 0xE400000000000000;
-          if (v14 != 1702125924)
-          {
-            goto LABEL_5;
-          }
-        }
-      }
-
-      else if (*v4)
-      {
-        v16 = 0xE600000000000000;
-        if (v14 != 0x656C62756F64)
-        {
-          goto LABEL_5;
-        }
-      }
-
-      else
-      {
-        v16 = 0xE700000000000000;
-        if (v14 != 0x72656765746E69)
-        {
-          goto LABEL_5;
-        }
-      }
-
-      if (v15 != v16)
-      {
-LABEL_5:
-        v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-        if ((v5 & 1) == 0)
-        {
-          return 0;
+          v3 = 0;
         }
 
-        goto LABEL_6;
+        outlined destroy of URL?(v27, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+        outlined destroy of URL?(v28, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+        outlined destroy of SQLExpression(v6);
+        outlined destroy of SQLExpression(v29);
+        outlined destroy of SQLExpression(&v33);
+        outlined destroy of SQLExpression(v10);
+        outlined destroy of URL?(&v15, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+        goto LABEL_39;
       }
 
-LABEL_6:
-      ++v3;
-      ++v4;
-      --v2;
+      outlined destroy of URL?(v27, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+      outlined destroy of URL?(v28, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+      outlined destroy of SQLExpression(v29);
+      outlined destroy of SQLExpression(&v33);
+      outlined destroy of SQLExpression(v10);
     }
 
-    while (v2);
-  }
+    else
+    {
+      outlined destroy of URL?(v27, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+      outlined destroy of URL?(v28, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+      outlined destroy of SQLExpression(v29);
+      outlined destroy of SQLExpression(&v33);
+      if (!*(&v22 + 1))
+      {
+        outlined destroy of URL?(&v15, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+        v3 = 1;
+        goto LABEL_39;
+      }
+    }
 
-  return 1;
-}
-
-uint64_t _sSa22_allocateUninitializedySayxG_SpyxGtSiFZ14BiomeSQLParser11SQLDataTypeO_Tt0g5(uint64_t result)
-{
-  if (result < 0)
-  {
-    __break(1u);
-  }
-
-  else if (result)
-  {
-    v1 = result;
-    result = static Array._allocateBufferUninitialized(minimumCapacity:)();
-    *(result + 16) = v1;
+    outlined destroy of URL?(&v15, &_s14BiomeSQLParser13SQLExpressionVSg_ADtMd, &_s14BiomeSQLParser13SQLExpressionVSg_ADtMR);
   }
 
   else
   {
-    return MEMORY[0x277D84F90];
+    outlined destroy of URL?(v27, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+    outlined destroy of URL?(v28, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+    outlined destroy of SQLExpression(v29);
+    outlined destroy of SQLExpression(&v33);
   }
 
-  return result;
+  v3 = 0;
+LABEL_39:
+  outlined destroy of AggregationFunction.AggregationType(v46);
+  return v3 & 1;
 }
 
-uint64_t _sSa13_adoptStorage_5countSayxG_SpyxGts016_ContiguousArrayB0CyxGn_SitFZ14BiomeSQLParser11SQLDataTypeO_Tt1g5(uint64_t result, uint64_t a2)
+__n128 __swift_memcpy96_8(uint64_t a1, uint64_t a2)
 {
-  *(result + 16) = a2;
-  *(result + 24) = 2 * a2;
+  v2 = *(a2 + 16);
+  *a1 = *a2;
+  *(a1 + 16) = v2;
+  result = *(a2 + 32);
+  v4 = *(a2 + 48);
+  v5 = *(a2 + 80);
+  *(a1 + 64) = *(a2 + 64);
+  *(a1 + 80) = v5;
+  *(a1 + 32) = result;
+  *(a1 + 48) = v4;
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type SQLFunction and conformance SQLFunction()
-{
-  result = lazy protocol witness table cache variable for type SQLFunction and conformance SQLFunction;
-  if (!lazy protocol witness table cache variable for type SQLFunction and conformance SQLFunction)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type SQLFunction and conformance SQLFunction);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type [SQLFunction] and conformance [A]()
-{
-  result = lazy protocol witness table cache variable for type [SQLFunction] and conformance [A];
-  if (!lazy protocol witness table cache variable for type [SQLFunction] and conformance [A])
-  {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay14BiomeSQLParser11SQLFunctionOGMd, &_sSay14BiomeSQLParser11SQLFunctionOGMR);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type [SQLFunction] and conformance [A]);
-  }
-
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for SQLFunction(unsigned __int8 *a1, unsigned int a2)
+uint64_t getEnumTagSinglePayload for SQLExpression(uint64_t a1, int a2)
 {
   if (!a2)
   {
     return 0;
   }
 
-  if (a2 < 0x9F)
+  if (a2 < 0 && *(a1 + 96))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 24);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for SQLExpression(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 88) = 0;
+    *(result + 72) = 0u;
+    *(result + 56) = 0u;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 96) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 24) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 96) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t get_enum_tag_for_layout_string_14BiomeSQLParser19AggregationFunctionV0C4TypeO(uint64_t a1)
+{
+  if ((*(a1 + 192) & 7) == 7)
+  {
+    return (*a1 + 7);
+  }
+
+  else
+  {
+    return *(a1 + 192) & 7;
+  }
+}
+
+__n128 __swift_memcpy194_8(uint64_t a1, uint64_t a2)
+{
+  *a1 = *a2;
+  v2 = *(a2 + 16);
+  v3 = *(a2 + 32);
+  v4 = *(a2 + 64);
+  *(a1 + 48) = *(a2 + 48);
+  *(a1 + 64) = v4;
+  *(a1 + 16) = v2;
+  *(a1 + 32) = v3;
+  v5 = *(a2 + 80);
+  v6 = *(a2 + 96);
+  v7 = *(a2 + 128);
+  *(a1 + 112) = *(a2 + 112);
+  *(a1 + 128) = v7;
+  *(a1 + 80) = v5;
+  *(a1 + 96) = v6;
+  result = *(a2 + 144);
+  v9 = *(a2 + 160);
+  v10 = *(a2 + 176);
+  *(a1 + 192) = *(a2 + 192);
+  *(a1 + 160) = v9;
+  *(a1 + 176) = v10;
+  *(a1 + 144) = result;
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for AggregationFunction(uint64_t a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 >= 0xF9 && *(a1 + 194))
+  {
+    return (*a1 + 249);
+  }
+
+  v3 = *(a1 + 192);
+  if (v3 <= 7)
+  {
+    v4 = -1;
+  }
+
+  else
+  {
+    v4 = v3 ^ 0xFF;
+  }
+
+  return (v4 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for AggregationFunction(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0xF8)
+  {
+    *(result + 184) = 0;
+    *(result + 168) = 0u;
+    *(result + 152) = 0u;
+    *(result + 136) = 0u;
+    *(result + 120) = 0u;
+    *(result + 104) = 0u;
+    *(result + 88) = 0u;
+    *(result + 72) = 0u;
+    *(result + 56) = 0u;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *(result + 192) = 0;
+    *result = a2 - 249;
+    if (a3 >= 0xF9)
+    {
+      *(result + 194) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0xF9)
+    {
+      *(result + 194) = 0;
+    }
+
+    if (a2)
+    {
+      *(result + 192) = -a2;
+    }
+  }
+
+  return result;
+}
+
+__n128 __swift_memcpy193_8(uint64_t a1, uint64_t a2)
+{
+  *a1 = *a2;
+  v2 = *(a2 + 16);
+  v3 = *(a2 + 32);
+  v4 = *(a2 + 64);
+  *(a1 + 48) = *(a2 + 48);
+  *(a1 + 64) = v4;
+  *(a1 + 16) = v2;
+  *(a1 + 32) = v3;
+  v5 = *(a2 + 80);
+  v6 = *(a2 + 96);
+  v7 = *(a2 + 128);
+  *(a1 + 112) = *(a2 + 112);
+  *(a1 + 128) = v7;
+  *(a1 + 80) = v5;
+  *(a1 + 96) = v6;
+  result = *(a2 + 144);
+  v9 = *(a2 + 160);
+  v10 = *(a2 + 176);
+  *(a1 + 192) = *(a2 + 192);
+  *(a1 + 160) = v9;
+  *(a1 + 176) = v10;
+  *(a1 + 144) = result;
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for AggregationFunction.AggregationType(uint64_t a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 >= 0xF9 && *(a1 + 193))
+  {
+    return (*a1 + 249);
+  }
+
+  v3 = *(a1 + 192);
+  if (v3 >= 8)
+  {
+    return (v3 ^ 0xFF) + 1;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t storeEnumTagSinglePayload for AggregationFunction.AggregationType(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0xF8)
+  {
+    *(result + 192) = 0;
+    *(result + 160) = 0u;
+    *(result + 176) = 0u;
+    *(result + 128) = 0u;
+    *(result + 144) = 0u;
+    *(result + 96) = 0u;
+    *(result + 112) = 0u;
+    *(result + 64) = 0u;
+    *(result + 80) = 0u;
+    *(result + 32) = 0u;
+    *(result + 48) = 0u;
+    *result = 0u;
+    *(result + 16) = 0u;
+    *result = a2 - 249;
+    if (a3 >= 0xF9)
+    {
+      *(result + 193) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0xF9)
+    {
+      *(result + 193) = 0;
+    }
+
+    if (a2)
+    {
+      *(result + 192) = -a2;
+    }
+  }
+
+  return result;
+}
+
+uint64_t destructiveInjectEnumTag for AggregationFunction.AggregationType(uint64_t result, unsigned int a2)
+{
+  if (a2 > 6)
+  {
+    *(result + 160) = 0u;
+    *(result + 176) = 0u;
+    *(result + 128) = 0u;
+    *(result + 144) = 0u;
+    *(result + 96) = 0u;
+    *(result + 112) = 0u;
+    *(result + 64) = 0u;
+    *(result + 80) = 0u;
+    *(result + 32) = 0u;
+    *(result + 48) = 0u;
+    *result = 0u;
+    *(result + 16) = 0u;
+    *result = a2 - 7;
+    LOBYTE(a2) = 7;
+  }
+
+  *(result + 192) = a2;
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for AggregationFunction.AggregationType.CodingKeys(unsigned __int8 *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0xF9)
   {
     goto LABEL_17;
   }
 
-  if (a2 + 97 >= 0xFFFF00)
+  if (a2 + 7 >= 0xFFFF00)
   {
     v2 = 4;
   }
@@ -8531,7 +1457,7 @@ uint64_t getEnumTagSinglePayload for SQLFunction(unsigned __int8 *a1, unsigned i
     v2 = 2;
   }
 
-  if ((a2 + 97) >> 8 < 0xFF)
+  if ((a2 + 7) >> 8 < 0xFF)
   {
     v3 = 1;
   }
@@ -8546,7 +1472,7 @@ uint64_t getEnumTagSinglePayload for SQLFunction(unsigned __int8 *a1, unsigned i
     v4 = *(a1 + 1);
     if (v4)
     {
-      return (*a1 | (v4 << 8)) - 97;
+      return (*a1 | (v4 << 8)) - 7;
     }
   }
 
@@ -8560,20 +1486,20 @@ uint64_t getEnumTagSinglePayload for SQLFunction(unsigned __int8 *a1, unsigned i
         goto LABEL_17;
       }
 
-      return (*a1 | (v4 << 8)) - 97;
+      return (*a1 | (v4 << 8)) - 7;
     }
 
     v4 = a1[1];
     if (a1[1])
     {
-      return (*a1 | (v4 << 8)) - 97;
+      return (*a1 | (v4 << 8)) - 7;
     }
   }
 
 LABEL_17:
   v6 = *a1;
-  v7 = v6 >= 0x62;
-  v8 = v6 - 98;
+  v7 = v6 >= 8;
+  v8 = v6 - 8;
   if (!v7)
   {
     v8 = -1;
@@ -8582,9 +1508,9 @@ LABEL_17:
   return (v8 + 1);
 }
 
-uint64_t storeEnumTagSinglePayload for SQLFunction(uint64_t result, unsigned int a2, unsigned int a3)
+uint64_t storeEnumTagSinglePayload for AggregationFunction.AggregationType.CodingKeys(uint64_t result, unsigned int a2, unsigned int a3)
 {
-  if (a3 + 97 >= 0xFFFF00)
+  if (a3 + 7 >= 0xFFFF00)
   {
     v3 = 4;
   }
@@ -8594,7 +1520,7 @@ uint64_t storeEnumTagSinglePayload for SQLFunction(uint64_t result, unsigned int
     v3 = 2;
   }
 
-  if ((a3 + 97) >> 8 < 0xFF)
+  if ((a3 + 7) >> 8 < 0xFF)
   {
     v4 = 1;
   }
@@ -8604,15 +1530,15 @@ uint64_t storeEnumTagSinglePayload for SQLFunction(uint64_t result, unsigned int
     v4 = v3;
   }
 
-  if (a3 < 0x9F)
+  if (a3 < 0xF9)
   {
     v4 = 0;
   }
 
-  if (a2 > 0x9E)
+  if (a2 > 0xF8)
   {
-    v5 = ((a2 - 159) >> 8) + 1;
-    *result = a2 + 97;
+    v5 = ((a2 - 249) >> 8) + 1;
+    *result = a2 + 7;
     if (v4 > 1)
     {
       if (v4 == 2)
@@ -8659,7 +1585,7 @@ uint64_t storeEnumTagSinglePayload for SQLFunction(uint64_t result, unsigned int
     }
 
 LABEL_20:
-    *result = a2 + 97;
+    *result = a2 + 7;
     return result;
   }
 
@@ -8671,1164 +1597,8486 @@ LABEL_20:
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type SQLExpressionError and conformance SQLExpressionError(unint64_t *a1, void (*a2)(uint64_t))
+_WORD *storeEnumTagSinglePayload for AggregationFunction.AggregationType.AVGCodingKeys(_WORD *result, int a2, int a3)
 {
-  result = *a1;
-  if (!result)
+  if ((a3 + 1) >= 0x10000)
   {
-    a2(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 1) < 0x100)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (!a3)
+  {
+    v4 = 0;
+  }
+
+  if (a2)
+  {
+    if (v4 > 1)
+    {
+      if (v4 == 2)
+      {
+        *result = a2;
+      }
+
+      else
+      {
+        *result = a2;
+      }
+    }
+
+    else if (v4)
+    {
+      *result = a2;
+    }
+  }
+
+  else if (v4 > 1)
+  {
+    if (v4 == 2)
+    {
+      *result = 0;
+    }
+
+    else
+    {
+      *result = 0;
+    }
+  }
+
+  else if (v4)
+  {
+    *result = 0;
   }
 
   return result;
 }
 
-uint64_t outlined init with take of PgQuery_Node(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+uint64_t getEnumTagSinglePayload for AggregationFunction.CodingKeys(unsigned __int8 *a1, unsigned int a2)
 {
-  v5 = a3(0);
-  (*(*(v5 - 8) + 32))(a2, a1, v5);
-  return a2;
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0xFF)
+  {
+    goto LABEL_17;
+  }
+
+  if (a2 + 1 >= 0xFFFF00)
+  {
+    v2 = 4;
+  }
+
+  else
+  {
+    v2 = 2;
+  }
+
+  if ((a2 + 1) >> 8 < 0xFF)
+  {
+    v3 = 1;
+  }
+
+  else
+  {
+    v3 = v2;
+  }
+
+  if (v3 == 4)
+  {
+    v4 = *(a1 + 1);
+    if (v4)
+    {
+      return (*a1 | (v4 << 8)) - 1;
+    }
+  }
+
+  else
+  {
+    if (v3 == 2)
+    {
+      v4 = *(a1 + 1);
+      if (!*(a1 + 1))
+      {
+        goto LABEL_17;
+      }
+
+      return (*a1 | (v4 << 8)) - 1;
+    }
+
+    v4 = a1[1];
+    if (a1[1])
+    {
+      return (*a1 | (v4 << 8)) - 1;
+    }
+  }
+
+LABEL_17:
+  v6 = *a1;
+  v7 = v6 >= 2;
+  v8 = v6 - 2;
+  if (!v7)
+  {
+    v8 = -1;
+  }
+
+  return (v8 + 1);
 }
 
-uint64_t outlined init with copy of PgQuery_RawStmt(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+uint64_t storeEnumTagSinglePayload for AggregationFunction.CodingKeys(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 1 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 1) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 < 0xFF)
+  {
+    v4 = 0;
+  }
+
+  if (a2 > 0xFE)
+  {
+    v5 = ((a2 - 255) >> 8) + 1;
+    *result = a2 + 1;
+    if (v4 > 1)
+    {
+      if (v4 == 2)
+      {
+        *(result + 1) = v5;
+      }
+
+      else
+      {
+        *(result + 1) = v5;
+      }
+    }
+
+    else if (v4)
+    {
+      *(result + 1) = v5;
+    }
+
+    return result;
+  }
+
+  if (v4 > 1)
+  {
+    if (v4 != 2)
+    {
+      *(result + 1) = 0;
+      if (a2)
+      {
+        goto LABEL_20;
+      }
+
+      return result;
+    }
+
+    *(result + 1) = 0;
+  }
+
+  else if (v4)
+  {
+    *(result + 1) = 0;
+    if (!a2)
+    {
+      return result;
+    }
+
+LABEL_20:
+    *result = a2 + 1;
+    return result;
+  }
+
+  if (a2)
+  {
+    goto LABEL_20;
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for SQLExpression.CodingKeys(unsigned __int8 *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0xFC)
+  {
+    goto LABEL_17;
+  }
+
+  if (a2 + 4 >= 0xFFFF00)
+  {
+    v2 = 4;
+  }
+
+  else
+  {
+    v2 = 2;
+  }
+
+  if ((a2 + 4) >> 8 < 0xFF)
+  {
+    v3 = 1;
+  }
+
+  else
+  {
+    v3 = v2;
+  }
+
+  if (v3 == 4)
+  {
+    v4 = *(a1 + 1);
+    if (v4)
+    {
+      return (*a1 | (v4 << 8)) - 4;
+    }
+  }
+
+  else
+  {
+    if (v3 == 2)
+    {
+      v4 = *(a1 + 1);
+      if (!*(a1 + 1))
+      {
+        goto LABEL_17;
+      }
+
+      return (*a1 | (v4 << 8)) - 4;
+    }
+
+    v4 = a1[1];
+    if (a1[1])
+    {
+      return (*a1 | (v4 << 8)) - 4;
+    }
+  }
+
+LABEL_17:
+  v6 = *a1;
+  v7 = v6 >= 5;
+  v8 = v6 - 5;
+  if (!v7)
+  {
+    v8 = -1;
+  }
+
+  return (v8 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for SQLExpression.CodingKeys(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 4 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 4) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 < 0xFC)
+  {
+    v4 = 0;
+  }
+
+  if (a2 > 0xFB)
+  {
+    v5 = ((a2 - 252) >> 8) + 1;
+    *result = a2 + 4;
+    if (v4 > 1)
+    {
+      if (v4 == 2)
+      {
+        *(result + 1) = v5;
+      }
+
+      else
+      {
+        *(result + 1) = v5;
+      }
+    }
+
+    else if (v4)
+    {
+      *(result + 1) = v5;
+    }
+
+    return result;
+  }
+
+  if (v4 > 1)
+  {
+    if (v4 != 2)
+    {
+      *(result + 1) = 0;
+      if (a2)
+      {
+        goto LABEL_20;
+      }
+
+      return result;
+    }
+
+    *(result + 1) = 0;
+  }
+
+  else if (v4)
+  {
+    *(result + 1) = 0;
+    if (!a2)
+    {
+      return result;
+    }
+
+LABEL_20:
+    *result = a2 + 4;
+    return result;
+  }
+
+  if (a2)
+  {
+    goto LABEL_20;
+  }
+
+  return result;
+}
+
+uint64_t type metadata accessor for SQLExpressionError(uint64_t a1)
+{
+  result = type metadata singleton initialization cache for SQLExpressionError;
+  if (!type metadata singleton initialization cache for SQLExpressionError)
+  {
+    return swift_getSingletonMetadata();
+  }
+
+  return result;
+}
+
+void type metadata completion function for SQLExpressionError(uint64_t a1)
+{
+  type metadata accessor for (node: PgQuery_Node)(319, &lazy cache variable for type metadata for (node: PgQuery_Node), type metadata accessor for PgQuery_Node);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for (node: PgQuery_Node)(319, &lazy cache variable for type metadata for (BOOLExpr: PgQuery_BoolExpr), type metadata accessor for PgQuery_BoolExpr);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for (numNotArgExprs: Int)();
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for (node: PgQuery_Node)(319, &lazy cache variable for type metadata for (aExpr: PgQuery_A_Expr), type metadata accessor for PgQuery_A_Expr);
+        if (v4 <= 0x3F)
+        {
+          type metadata accessor for (node: PgQuery_Node)(319, &lazy cache variable for type metadata for (nullTest: PgQuery_NullTest), type metadata accessor for PgQuery_NullTest);
+          if (v5 <= 0x3F)
+          {
+            type metadata accessor for (op: String, dataType: SQLDataType)(319, &lazy cache variable for type metadata for (op: String, dataType: SQLDataType), &type metadata for SQLDataType, "op dataType ");
+            if (v6 <= 0x3F)
+            {
+              type metadata accessor for (op: String, dataType: SQLDataType)(319, &lazy cache variable for type metadata for (table: String, column: String), MEMORY[0x277D837D0], "table column ");
+              if (v7 <= 0x3F)
+              {
+                type metadata accessor for (column: String)();
+                if (v8 <= 0x3F)
+                {
+                  type metadata accessor for (function: String, argTypes: [SQLDataType])(319);
+                  if (v9 <= 0x3F)
+                  {
+                    type metadata accessor for (op: String, dataType: SQLDataType)(319, &lazy cache variable for type metadata for (column: String, tokenColumn: String), MEMORY[0x277D837D0], "column tokenColumn ");
+                    if (v10 <= 0x3F)
+                    {
+                      swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+uint64_t type metadata accessor for (numNotArgExprs: Int)()
+{
+  result = lazy cache variable for type metadata for (numNotArgExprs: Int);
+  if (!lazy cache variable for type metadata for (numNotArgExprs: Int))
+  {
+    result = MEMORY[0x277D83B88];
+    atomic_store(MEMORY[0x277D83B88], &lazy cache variable for type metadata for (numNotArgExprs: Int));
+  }
+
+  return result;
+}
+
+void type metadata accessor for (node: PgQuery_Node)(uint64_t a1, unint64_t *a2, uint64_t (*a3)(void))
+{
+  if (!*a2)
+  {
+    v4 = a3(0);
+    if (!v5)
+    {
+      atomic_store(v4, a2);
+    }
+  }
+}
+
+uint64_t type metadata accessor for (column: String)()
+{
+  result = lazy cache variable for type metadata for (column: String);
+  if (!lazy cache variable for type metadata for (column: String))
+  {
+    result = MEMORY[0x277D837D0];
+    atomic_store(MEMORY[0x277D837D0], &lazy cache variable for type metadata for (column: String));
+  }
+
+  return result;
+}
+
+void type metadata accessor for (function: String, argTypes: [SQLDataType])(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for (function: String, argTypes: [SQLDataType]))
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay14BiomeSQLParser11SQLDataTypeOGMd, &_sSay14BiomeSQLParser11SQLDataTypeOGMR);
+    TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+    if (!v2)
+    {
+      atomic_store(TupleTypeMetadata2, &lazy cache variable for type metadata for (function: String, argTypes: [SQLDataType]));
+    }
+  }
+}
+
+void type metadata accessor for (op: String, dataType: SQLDataType)(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4)
+{
+  if (!*a2)
+  {
+    TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
+    if (!v6)
+    {
+      atomic_store(TupleTypeMetadata2, a2);
+    }
+  }
+}
+
+Swift::Int specialized ColumnResolver.init(schemas:)(uint64_t a1)
+{
+  v203[9] = *MEMORY[0x277D85DE8];
+  v191 = *(a1 + 16);
+  v190 = a1;
+  if (!v191)
+  {
+    v2 = MEMORY[0x277D84F98];
+LABEL_48:
+    v54 = *(v2 + 32);
+    v10 = v2;
+    v2 = (((1 << v54) + 63) >> 6);
+    if ((v54 & 0x3Fu) > 0xD)
+    {
+      goto LABEL_188;
+    }
+
+LABEL_49:
+    MEMORY[0x28223BE20](a1);
+    v56 = (&v186 - ((v55 + 15) & 0x3FFFFFFFFFFFFFF0));
+    bzero(v56, v55);
+    v57 = 0;
+    v58 = 0;
+    v59 = v10;
+    v61 = *(v10 + 64);
+    v10 += 64;
+    v60 = v61;
+    v62 = 1 << *(v10 - 32);
+    v63 = -1;
+    if (v62 < 64)
+    {
+      v63 = ~(-1 << v62);
+    }
+
+    v64 = v63 & v60;
+    v65 = (v62 + 63) >> 6;
+    while (1)
+    {
+      if (v64)
+      {
+        v66 = __clz(__rbit64(v64));
+        v64 &= v64 - 1;
+        v67 = v66 | (v58 << 6);
+      }
+
+      else
+      {
+        v68 = v58;
+        do
+        {
+          v58 = v68 + 1;
+          if (__OFADD__(v68, 1))
+          {
+            goto LABEL_182;
+          }
+
+          if (v58 >= v65)
+          {
+            goto LABEL_63;
+          }
+
+          v69 = *(v10 + 8 * v58);
+          ++v68;
+        }
+
+        while (!v69);
+        v64 = (v69 - 1) & v69;
+        v67 = __clz(__rbit64(v69)) | (v58 << 6);
+      }
+
+      if (*(*(v59 + 56) + 8 * v67) >= 2)
+      {
+        *(v56 + ((v67 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v67;
+        v21 = __OFADD__(v57++, 1);
+        if (v21)
+        {
+          break;
+        }
+      }
+    }
+
+    __break(1u);
+LABEL_63:
+    if (v57)
+    {
+      v10 = v59;
+      if (v57 == *(v59 + 16))
+      {
+
+        v70 = v59;
+      }
+
+      else
+      {
+        countAndFlagsBits = &v186;
+        v199 = v2;
+        v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSiGMd, &_ss18_DictionaryStorageCySSSiGMR);
+        v70 = static _DictionaryStorage.allocate(capacity:)();
+        v71 = 0;
+        v72 = *v56;
+        v73 = v70 + 64;
+        v74 = v59;
+        do
+        {
+          if (v72)
+          {
+            v78 = __clz(__rbit64(v72));
+            v72 &= v72 - 1;
+          }
+
+          else
+          {
+            v79 = v71;
+            do
+            {
+              v71 = v79 + 1;
+              if (__OFADD__(v79, 1))
+              {
+                goto LABEL_186;
+              }
+
+              if (v71 >= v199)
+              {
+                goto LABEL_86;
+              }
+
+              v80 = v56[v71];
+              ++v79;
+            }
+
+            while (!v80);
+            v78 = __clz(__rbit64(v80));
+            v72 = (v80 - 1) & v80;
+          }
+
+          v81 = v78 | (v71 << 6);
+          v82 = (*(v74 + 48) + 16 * v81);
+          v83 = *v82;
+          v10 = v82[1];
+          v201 = *(*(v74 + 56) + 8 * v81);
+          Hasher.init(_seed:)();
+
+          v200 = v83;
+          String.hash(into:)();
+          v2 = v203;
+          v84 = Hasher._finalize()();
+          v85 = -1 << *(v70 + 32);
+          v86 = v84 & ~v85;
+          v87 = v86 >> 6;
+          if (((-1 << v86) & ~*(v73 + 8 * (v86 >> 6))) != 0)
+          {
+            v75 = __clz(__rbit64((-1 << v86) & ~*(v73 + 8 * (v86 >> 6)))) | v86 & 0x7FFFFFFFFFFFFFC0;
+            v74 = v59;
+          }
+
+          else
+          {
+            v88 = 0;
+            v89 = (63 - v85) >> 6;
+            v74 = v59;
+            do
+            {
+              if (++v87 == v89 && (v88 & 1) != 0)
+              {
+                goto LABEL_187;
+              }
+
+              v90 = v87 == v89;
+              if (v87 == v89)
+              {
+                v87 = 0;
+              }
+
+              v88 |= v90;
+              v91 = *(v73 + 8 * v87);
+            }
+
+            while (v91 == -1);
+            v75 = __clz(__rbit64(~v91)) + (v87 << 6);
+          }
+
+          *(v73 + ((v75 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v75;
+          v76 = (*(v70 + 48) + 16 * v75);
+          v77 = v201;
+          *v76 = v200;
+          v76[1] = v10;
+          *(*(v70 + 56) + 8 * v75) = v77;
+          ++*(v70 + 16);
+          --v57;
+        }
+
+        while (v57);
+      }
+    }
+
+    else
+    {
+      v70 = MEMORY[0x277D84F98];
+    }
+
+LABEL_86:
+
+    v92 = v193;
+LABEL_87:
+    v93 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSDySSSiG_SSs5NeverOTg5181_s14BiomeSQLParser14ColumnResolver33_B787555787B9EFBBEFB0C9C5225A4FB7LLV7schemasADSayAA6SchemaVG_tKcfcS2S3key_Si5valuet_tcfu_32a168a102879cc1a6a91172b0770f0c91SSAI_SiAJtSSTf3nnnpk_nTf1cn_n(v70);
+    v188 = v92;
+
+    v94 = MEMORY[0x259C32D20](*(v93 + 16), MEMORY[0x277D837D0], MEMORY[0x277D837E0]);
+    v202 = v94;
+    v95 = *(v93 + 16);
+    if (v95)
+    {
+      v96 = 0;
+      v97 = (v93 + 40);
+      do
+      {
+        if (v96 >= *(v93 + 16))
+        {
+          goto LABEL_184;
+        }
+
+        ++v96;
+        v10 = *(v97 - 1);
+        v98 = *v97;
+
+        v2 = &v202;
+        specialized Set._Variant.insert(_:)(v203, v10, v98);
+
+        v97 += 2;
+      }
+
+      while (v95 != v96);
+      v99 = v202;
+    }
+
+    else
+    {
+      v99 = v94;
+    }
+
+    if (!v191)
+    {
+      return MEMORY[0x277D84F98];
+    }
+
+    v100 = 0;
+    v189 = v190 + 32;
+    v101 = v99 + 56;
+    v102 = MEMORY[0x277D84F98];
+    v192 = v99;
+    v193 = (v99 + 56);
+LABEL_96:
+    v103 = (v189 + 24 * v100);
+    v104 = v103[1];
+    v197 = *v103;
+    v105 = v103[2];
+    v190 = v100 + 1;
+    v106 = v105 + 64;
+    v107 = 1 << *(v105 + 32);
+    if (v107 < 64)
+    {
+      v108 = ~(-1 << v107);
+    }
+
+    else
+    {
+      v108 = -1;
+    }
+
+    v109 = v108 & *(v105 + 64);
+    v2 = ((v107 + 63) >> 6);
+    v199 = v104;
+
+    v200 = v105;
+    swift_bridgeObjectRetain_n();
+    v110 = 0;
+    v195 = v2;
+    for (i = v105 + 64; ; v106 = i)
+    {
+      if (!v109)
+      {
+        while (1)
+        {
+          v112 = v110 + 1;
+          if (__OFADD__(v110, 1))
+          {
+            break;
+          }
+
+          if (v112 >= v2)
+          {
+
+            v100 = v190;
+            if (v190 == v191)
+            {
+              return v102;
+            }
+
+            goto LABEL_96;
+          }
+
+          v109 = *(v106 + 8 * v112);
+          ++v110;
+          if (v109)
+          {
+            goto LABEL_107;
+          }
+        }
+
+LABEL_176:
+        __break(1u);
+LABEL_177:
+        __break(1u);
+        goto LABEL_178;
+      }
+
+      v112 = v110;
+LABEL_107:
+      v113 = __clz(__rbit64(v109)) | (v112 << 6);
+      v114 = (*(v200 + 48) + 16 * v113);
+      v115 = *v114;
+      object = v114[1];
+      LODWORD(v201) = *(*(v200 + 56) + v113);
+      if (!*(v99 + 16))
+      {
+        break;
+      }
+
+      Hasher.init(_seed:)();
+
+      String.hash(into:)();
+      v116 = Hasher._finalize()();
+      v117 = -1 << *(v99 + 32);
+      v118 = v116 & ~v117;
+      if (((*(v101 + ((v118 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v118) & 1) == 0)
+      {
+        goto LABEL_118;
+      }
+
+      v10 = ~v117;
+      while (1)
+      {
+        v119 = (*(v99 + 48) + 16 * v118);
+        v120 = *v119 == v115 && v119[1] == object;
+        if (v120 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+        {
+          break;
+        }
+
+        v118 = (v118 + 1) & v10;
+        if (((*(v101 + ((v118 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v118) & 1) == 0)
+        {
+          goto LABEL_118;
+        }
+      }
+
+LABEL_128:
+      v203[0] = v197;
+      v203[1] = v199;
+
+      MEMORY[0x259C32B90](46, 0xE100000000000000);
+      MEMORY[0x259C32B90](v115, object);
+
+      v134 = String.lowercased()();
+      object = v134._object;
+
+      isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+      v203[0] = v102;
+      v2 = v102;
+      v136 = specialized __RawDictionaryStorage.find<A>(_:)(v134._countAndFlagsBits, v134._object);
+      v138 = *(v102 + 16);
+      v139 = (v137 & 1) == 0;
+      v21 = __OFADD__(v138, v139);
+      v140 = v138 + v139;
+      if (v21)
+      {
+        goto LABEL_179;
+      }
+
+      v10 = v137;
+      if (*(v102 + 24) < v140)
+      {
+        specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v140, isUniquelyReferenced_nonNull_native);
+        v102 = v203[0];
+        v2 = v203[0];
+        v136 = specialized __RawDictionaryStorage.find<A>(_:)(v134._countAndFlagsBits, v134._object);
+        if ((v10 & 1) != (v141 & 1))
+        {
+          goto LABEL_195;
+        }
+
+LABEL_133:
+        v101 = v193;
+        goto LABEL_134;
+      }
+
+      if (isUniquelyReferenced_nonNull_native)
+      {
+        goto LABEL_133;
+      }
+
+      countAndFlagsBits = v136;
+      v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMd, &_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMR);
+      v144 = static _DictionaryStorage.copy(original:)();
+      v145 = *(v102 + 16);
+      v194 = v144;
+      if (v145)
+      {
+        v146 = v144;
+        v147 = (v144 + 64);
+        v2 = (v102 + 64);
+        v148 = ((1 << *(v146 + 32)) + 63) >> 6;
+        if (v146 != v102 || v147 >= &v2[v148])
+        {
+          memmove(v147, (v102 + 64), 8 * v148);
+        }
+
+        v149 = 0;
+        v194[2] = *(v102 + 16);
+        v150 = 1 << *(v102 + 32);
+        v151 = *(v102 + 64);
+        if (v150 < 64)
+        {
+          v152 = ~(-1 << v150);
+        }
+
+        else
+        {
+          v152 = -1;
+        }
+
+        v153 = v152 & v151;
+        v154 = (v150 + 63) >> 6;
+        if ((v152 & v151) != 0)
+        {
+          do
+          {
+            v155 = __clz(__rbit64(v153));
+            v153 &= v153 - 1;
+LABEL_151:
+            v158 = v155 | (v149 << 6);
+            v159 = (*(v102 + 48) + 16 * v158);
+            v161 = *v159;
+            v160 = v159[1];
+            LOBYTE(v159) = *(*(v102 + 56) + v158);
+            v162 = v194;
+            v163 = (v194[6] + 16 * v158);
+            *v163 = v161;
+            v163[1] = v160;
+            *(v162[7] + v158) = v159;
+          }
+
+          while (v153);
+        }
+
+        v156 = v149;
+        while (1)
+        {
+          v149 = v156 + 1;
+          if (__OFADD__(v156, 1))
+          {
+            goto LABEL_193;
+          }
+
+          if (v149 >= v154)
+          {
+            break;
+          }
+
+          v157 = v2[v149];
+          ++v156;
+          if (v157)
+          {
+            v155 = __clz(__rbit64(v157));
+            v153 = (v157 - 1) & v157;
+            goto LABEL_151;
+          }
+        }
+
+        v99 = v192;
+      }
+
+      v136 = countAndFlagsBits;
+      v101 = v193;
+      v102 = v194;
+LABEL_134:
+      v109 &= v109 - 1;
+      if (v10)
+      {
+        v111 = v136;
+
+        *(*(v102 + 56) + v111) = v201;
+      }
+
+      else
+      {
+        *(v102 + 8 * (v136 >> 6) + 64) |= 1 << v136;
+        *(*(v102 + 48) + 16 * v136) = v134;
+        *(*(v102 + 56) + v136) = v201;
+        v142 = *(v102 + 16);
+        v21 = __OFADD__(v142, 1);
+        v143 = v142 + 1;
+        if (v21)
+        {
+          goto LABEL_183;
+        }
+
+        *(v102 + 16) = v143;
+      }
+
+      v110 = v112;
+      v2 = v195;
+    }
+
+LABEL_118:
+    v121 = String.lowercased()();
+    v10 = v121._object;
+    v2 = v102;
+    v122 = swift_isUniquelyReferenced_nonNull_native();
+    v203[0] = v2;
+    countAndFlagsBits = v121._countAndFlagsBits;
+    v124 = specialized __RawDictionaryStorage.find<A>(_:)(v121._countAndFlagsBits, v121._object);
+    v125 = v2[2];
+    v126 = (v123 & 1) == 0;
+    v127 = v125 + v126;
+    if (__OFADD__(v125, v126))
+    {
+      goto LABEL_180;
+    }
+
+    v128 = v123;
+    v194 = v2;
+    if (v2[3] < v127)
+    {
+      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v127, v122);
+      v102 = v203[0];
+      v2 = v203[0];
+      v129 = specialized __RawDictionaryStorage.find<A>(_:)(countAndFlagsBits, v121._object);
+      if ((v128 & 1) != (v130 & 1))
+      {
+        goto LABEL_195;
+      }
+
+      v124 = v129;
+      if (v128)
+      {
+        goto LABEL_122;
+      }
+
+LABEL_125:
+      *(v102 + 8 * (v124 >> 6) + 64) |= 1 << v124;
+      v131 = (*(v102 + 48) + 16 * v124);
+      *v131 = countAndFlagsBits;
+      v131[1] = v121._object;
+      *(*(v102 + 56) + v124) = v201;
+      v132 = *(v102 + 16);
+      v21 = __OFADD__(v132, 1);
+      v133 = v132 + 1;
+      if (v21)
+      {
+        goto LABEL_185;
+      }
+
+      *(v102 + 16) = v133;
+      goto LABEL_127;
+    }
+
+    if (v122)
+    {
+      v102 = v194;
+      if ((v123 & 1) == 0)
+      {
+        goto LABEL_125;
+      }
+    }
+
+    else
+    {
+      v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMd, &_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMR);
+      v164 = v194;
+      v165 = static _DictionaryStorage.copy(original:)();
+      v166 = v164;
+      v102 = v165;
+      if (v166[2])
+      {
+        v167 = (v165 + 64);
+        v168 = (v166 + 8);
+        v169 = ((1 << *(v102 + 32)) + 63) >> 6;
+        v186 = v166 + 8;
+        if (v102 != v166 || v167 >= &v168[8 * v169])
+        {
+          memmove(v167, v168, 8 * v169);
+        }
+
+        v170 = 0;
+        v171 = v194;
+        *(v102 + 16) = v194[2];
+        v172 = 1 << *(v171 + 32);
+        v173 = v171[8];
+        if (v172 < 64)
+        {
+          v174 = ~(-1 << v172);
+        }
+
+        else
+        {
+          v174 = -1;
+        }
+
+        v175 = v174 & v173;
+        v2 = ((v172 + 63) >> 6);
+        if (!v175)
+        {
+          goto LABEL_162;
+        }
+
+        while (1)
+        {
+          v176 = __clz(__rbit64(v175));
+          for (j = (v175 - 1) & v175; ; j = (v178 - 1) & v178)
+          {
+            v179 = v176 | (v170 << 6);
+            v180 = (v194[6] + 16 * v179);
+            v182 = *v180;
+            v181 = v180[1];
+            LOBYTE(v180) = *(v194[7] + v179);
+            v183 = (*(v102 + 48) + 16 * v179);
+            *v183 = v182;
+            v183[1] = v181;
+            *(*(v102 + 56) + v179) = v180;
+
+            v175 = j;
+            if (j)
+            {
+              break;
+            }
+
+LABEL_162:
+            v177 = v170;
+            do
+            {
+              v170 = v177 + 1;
+              if (__OFADD__(v177, 1))
+              {
+                goto LABEL_194;
+              }
+
+              if (v170 >= v2)
+              {
+                goto LABEL_169;
+              }
+
+              v178 = v186[v170];
+              ++v177;
+            }
+
+            while (!v178);
+            v176 = __clz(__rbit64(v178));
+          }
+        }
+      }
+
+LABEL_169:
+
+      if ((v128 & 1) == 0)
+      {
+        goto LABEL_125;
+      }
+    }
+
+LABEL_122:
+
+    *(*(v102 + 56) + v124) = v201;
+LABEL_127:
+    v99 = v192;
+    goto LABEL_128;
+  }
+
+  v1 = 0;
+  v194 = (a1 + 32);
+  v2 = MEMORY[0x277D84F98];
+  v3 = MEMORY[0x277D84F98];
+LABEL_4:
+  v4 = &v194[3 * v1];
+  v5 = v4[2];
+  v195 = v4[1];
+  i = v1 + 1;
+  v6 = v5 + 64;
+  v7 = 1 << *(v5 + 32);
+  if (v7 < 64)
+  {
+    v8 = ~(-1 << v7);
+  }
+
+  else
+  {
+    v8 = -1;
+  }
+
+  v9 = v8 & *(v5 + 64);
+  v10 = (v7 + 63) >> 6;
+
+  v199 = v5;
+  swift_bridgeObjectRetain_n();
+  v11 = 0;
+  v197 = v5 + 64;
+  for (countAndFlagsBits = v10; ; v10 = countAndFlagsBits)
+  {
+    if (!v9)
+    {
+      while (1)
+      {
+        v12 = v11 + 1;
+        if (__OFADD__(v11, 1))
+        {
+          __break(1u);
+          goto LABEL_176;
+        }
+
+        if (v12 >= v10)
+        {
+          break;
+        }
+
+        v9 = *(v6 + 8 * v12);
+        ++v11;
+        if (v9)
+        {
+          goto LABEL_15;
+        }
+      }
+
+      v1 = i;
+      if (i == v191)
+      {
+        goto LABEL_48;
+      }
+
+      goto LABEL_4;
+    }
+
+    v12 = v11;
+LABEL_15:
+    v13 = (*(v199 + 48) + ((v12 << 10) | (16 * __clz(__rbit64(v9)))));
+    v14 = *v13;
+    v15 = v13[1];
+    v16 = v2[2];
+
+    v201 = v14;
+    if (v16)
+    {
+
+      v17 = specialized __RawDictionaryStorage.find<A>(_:)(v14, v15);
+      v19 = v18;
+
+      if (v19)
+      {
+        v20 = *(v2[7] + 8 * v17);
+      }
+
+      else
+      {
+        v20 = 0;
+      }
+
+      v14 = v201;
+      v6 = v197;
+    }
+
+    else
+    {
+      v20 = 0;
+    }
+
+    v21 = __OFADD__(v20, 1);
+    v22 = v20 + 1;
+    if (v21)
+    {
+      goto LABEL_177;
+    }
+
+    v200 = v22;
+    v23 = swift_isUniquelyReferenced_nonNull_native();
+    v203[0] = v3;
+    v2 = v3;
+    v10 = specialized __RawDictionaryStorage.find<A>(_:)(v14, v15);
+    v25 = *(v3 + 16);
+    v26 = (v24 & 1) == 0;
+    v27 = v25 + v26;
+    if (__OFADD__(v25, v26))
+    {
+      break;
+    }
+
+    object = v24;
+    if (*(v3 + 24) >= v27)
+    {
+      if ((v23 & 1) == 0)
+      {
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSSiGMd, &_ss18_DictionaryStorageCySSSiGMR);
+        v192 = static _DictionaryStorage.copy(original:)();
+        if (*(v3 + 16))
+        {
+          v35 = (v192 + 64);
+          v36 = (v3 + 64);
+          v37 = ((1 << *(v192 + 32)) + 63) >> 6;
+          v189 = v3 + 64;
+          if (v192 != v3 || v35 >= &v36[8 * v37])
+          {
+            memmove(v35, v36, 8 * v37);
+          }
+
+          v38 = 0;
+          *(v192 + 16) = *(v3 + 16);
+          v39 = 1 << *(v3 + 32);
+          v40 = *(v3 + 64);
+          if (v39 < 64)
+          {
+            v41 = ~(-1 << v39);
+          }
+
+          else
+          {
+            v41 = -1;
+          }
+
+          v42 = v41 & v40;
+          v43 = (v39 + 63) >> 6;
+          if ((v41 & v40) != 0)
+          {
+            do
+            {
+              v44 = __clz(__rbit64(v42));
+              v42 &= v42 - 1;
+LABEL_44:
+              v47 = v44 | (v38 << 6);
+              v48 = (*(v3 + 48) + 16 * v47);
+              v50 = *v48;
+              v49 = v48[1];
+              v51 = *(*(v3 + 56) + 8 * v47);
+              v52 = v192;
+              v53 = (*(v192 + 48) + 16 * v47);
+              *v53 = v50;
+              v53[1] = v49;
+              *(*(v52 + 56) + 8 * v47) = v51;
+            }
+
+            while (v42);
+          }
+
+          v45 = v38;
+          while (1)
+          {
+            v38 = v45 + 1;
+            if (__OFADD__(v45, 1))
+            {
+              __break(1u);
+LABEL_193:
+              __break(1u);
+LABEL_194:
+              __break(1u);
+            }
+
+            if (v38 >= v43)
+            {
+              break;
+            }
+
+            v46 = *(v189 + 8 * v38);
+            ++v45;
+            if (v46)
+            {
+              v44 = __clz(__rbit64(v46));
+              v42 = (v46 - 1) & v46;
+              goto LABEL_44;
+            }
+          }
+        }
+
+        v2 = v192;
+      }
+    }
+
+    else
+    {
+      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v27, v23);
+      v2 = v203[0];
+      v29 = specialized __RawDictionaryStorage.find<A>(_:)(v201, v15);
+      if ((object & 1) != (v30 & 1))
+      {
+LABEL_195:
+        KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+        __break(1u);
+        goto LABEL_196;
+      }
+
+      v10 = v29;
+      v2 = v203[0];
+    }
+
+    v9 &= v9 - 1;
+    if (object)
+    {
+
+      *(v2[7] + 8 * v10) = v200;
+    }
+
+    else
+    {
+      v2[(v10 >> 6) + 8] |= 1 << v10;
+      v31 = (v2[6] + 16 * v10);
+      v32 = v200;
+      *v31 = v201;
+      v31[1] = v15;
+      *(v2[7] + 8 * v10) = v32;
+      v33 = v2[2];
+      v21 = __OFADD__(v33, 1);
+      v34 = v33 + 1;
+      if (v21)
+      {
+        goto LABEL_181;
+      }
+
+      v2[2] = v34;
+    }
+
+    v3 = v2;
+    v11 = v12;
+  }
+
+LABEL_178:
+  __break(1u);
+LABEL_179:
+  __break(1u);
+LABEL_180:
+  __break(1u);
+LABEL_181:
+  __break(1u);
+LABEL_182:
+  __break(1u);
+LABEL_183:
+  __break(1u);
+LABEL_184:
+  __break(1u);
+LABEL_185:
+  __break(1u);
+LABEL_186:
+  __break(1u);
+LABEL_187:
+  __break(1u);
+LABEL_188:
+
+  if (swift_stdlib_isStackAllocationSafe())
+  {
+
+    goto LABEL_49;
+  }
+
+  object = swift_slowAlloc();
+
+  v92 = v193;
+  _ss13_UnsafeBitsetV013withTemporaryB08capacity4bodyxSi_xABKXEtKlFZxABKXEfU_s17_NativeDictionaryVySSSiG_Tg506_ss17_gh46V6filteryAByxq_GSbx3key_q_5valuet_tKXEKFADs13_aB15VKXEfU_SS_SiTG5AHxq_Sbs5Error_pRi_zRi0_zRi__Ri0__r0_lySSSiIsgnndzo_Tf1nc_n(object, v2, v10, closure #2 in ColumnResolver.init(schemas:));
+  v2 = v92;
+  if (!v92)
+  {
+    v70 = v185;
+
+    MEMORY[0x259C33C60](object, -1, -1);
+
+    goto LABEL_87;
+  }
+
+LABEL_196:
+
+  result = MEMORY[0x259C33C60](object, -1, -1);
+  __break(1u);
+  return result;
+}
+
+uint64_t specialized SQLExpression.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
+{
+  if (a1 == 0xD000000000000010 && 0x80000002553B6650 == a2 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 0;
+  }
+
+  else if (a1 == 0x79546E7275746572 && a2 == 0xEA00000000006570 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 1;
+  }
+
+  else if (a1 == 0xD000000000000014 && 0x80000002553B6670 == a2 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 2;
+  }
+
+  else if (a1 == 0x73676E69646E6962 && a2 == 0xE800000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 3;
+  }
+
+  else if (a1 == 7106931 && a2 == 0xE300000000000000)
+  {
+
+    return 4;
+  }
+
+  else
+  {
+    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v5)
+    {
+      return 4;
+    }
+
+    else
+    {
+      return 5;
+    }
+  }
+}
+
+uint64_t specialized AggregationFunction.AggregationType.CodingKeys.init(stringValue:)(uint64_t a1, uint64_t a2)
+{
+  v3 = a1 == 4675137 && a2 == 0xE300000000000000;
+  if (v3 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 0;
+  }
+
+  else if (a1 == 0x544E554F43 && a2 == 0xE500000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 1;
+  }
+
+  else if (a1 == 0x54535F544E554F43 && a2 == 0xEA00000000005241 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 2;
+  }
+
+  else if (a1 == 0x4F435F50554F5247 && a2 == 0xEC0000005441434ELL || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 3;
+  }
+
+  else if (a1 == 5783885 && a2 == 0xE300000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 4;
+  }
+
+  else if (a1 == 5130573 && a2 == 0xE300000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 5;
+  }
+
+  else if (a1 == 5068115 && a2 == 0xE300000000000000 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    return 6;
+  }
+
+  else if (a1 == 0x4C41544F54 && a2 == 0xE500000000000000)
+  {
+
+    return 7;
+  }
+
+  else
+  {
+    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v6)
+    {
+      return 7;
+    }
+
+    else
+    {
+      return 8;
+    }
+  }
+}
+
+unint64_t lazy protocol witness table accessor for type SQLExpressionError and conformance SQLExpressionError()
+{
+  result = lazy protocol witness table cache variable for type SQLExpressionError and conformance SQLExpressionError;
+  if (!lazy protocol witness table cache variable for type SQLExpressionError and conformance SQLExpressionError)
+  {
+    type metadata accessor for SQLExpressionError(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SQLExpressionError and conformance SQLExpressionError);
+  }
+
+  return result;
+}
+
+uint64_t partial apply for closure #1 in SQLExpressionFuncCall.init(function:schemas:columnResolver:tokenInformation:)@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t *a3@<X8>)
+{
+  result = buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)(a1, v3[2], v3[3], v3[4], v3[5], a3);
+  if (v4)
+  {
+    *a2 = v4;
+  }
+
+  return result;
+}
+
+{
+  return partial apply for closure #1 in SQLExpressioBoolExpr.init(BOOLExpr:schemas:columnResolver:tokenInformation:)(a1, a2, a3);
+}
+
+uint64_t outlined init with copy of PgQuery_Node(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 {
   v5 = a3(0);
   (*(*(v5 - 8) + 16))(a2, a1, v5);
   return a2;
 }
 
-uint64_t outlined destroy of PgQuery_RawStmt(uint64_t a1, uint64_t (*a2)(void))
+uint64_t outlined destroy of PgQuery_Node.OneOf_Node(uint64_t a1, uint64_t (*a2)(void))
 {
   v3 = a2(0);
   (*(*(v3 - 8) + 8))(a1, v3);
   return a1;
 }
 
-uint64_t SQLExpression.expressionString.getter()
+uint64_t objectdestroyTm()
 {
-  v1 = *(v0 + 40);
-  v2 = *(v0 + 48);
 
-  return v1;
+  return MEMORY[0x2821FE8E8](v0, 56, 7);
 }
 
-uint64_t SQLExpression.sql.getter()
+uint64_t outlined init with take of PgQuery_BitString(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 {
-  v1 = *(v0 + 80);
-  v2 = *(v0 + 88);
-
-  return v1;
+  v5 = a3(0);
+  (*(*(v5 - 8) + 32))(a2, a1, v5);
+  return a2;
 }
 
-uint64_t buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t *a6@<X8>)
+uint64_t partial apply for specialized closure #1 in Sequence<>.contains(_:)(uint64_t *a1)
 {
-  v357 = a1;
-  v339 = a3;
-  v340 = a5;
-  v342 = a4;
-  v345 = a2;
-  v347 = a6;
-  BitString = type metadata accessor for PgQuery_BitString(0);
-  v7 = *(*(BitString - 8) + 64);
-  MEMORY[0x28223BE20](BitString - 8);
-  v320 = &v303[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  Float = type metadata accessor for PgQuery_Float(0);
-  v10 = *(*(Float - 8) + 64);
-  MEMORY[0x28223BE20](Float - 8);
-  v319 = &v303[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  Integer = type metadata accessor for PgQuery_Integer(0);
-  v13 = *(*(Integer - 8) + 64);
-  MEMORY[0x28223BE20](Integer - 8);
-  v318 = &v303[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v16 = *(*(v15 - 8) + 64);
-  MEMORY[0x28223BE20](v15 - 8);
-  v305 = &v303[-v17];
-  ColumnRef = type metadata accessor for PgQuery_ColumnRef(0);
-  v19 = *(*(ColumnRef - 8) + 64);
-  v20 = MEMORY[0x28223BE20](ColumnRef - 8);
-  v349 = &v303[-((v21 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x28223BE20](v20);
-  v328 = &v303[-v22];
-  v317 = type metadata accessor for PgQuery_FuncCall(0);
-  v23 = *(*(v317 - 8) + 64);
-  v24 = MEMORY[0x28223BE20](v317);
-  v330 = &v303[-((v25 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x28223BE20](v24);
-  v329 = &v303[-v26];
-  NullTest = type metadata accessor for PgQuery_NullTest(0);
-  v27 = *(*(NullTest - 8) + 64);
-  v28 = MEMORY[0x28223BE20](NullTest);
-  v337 = &v303[-((v29 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x28223BE20](v28);
-  v336 = &v303[-v30];
-  BoolExpr = type metadata accessor for PgQuery_BoolExpr(0);
-  v31 = *(*(BoolExpr - 8) + 64);
-  v32 = MEMORY[0x28223BE20](BoolExpr);
-  v322 = &v303[-((v33 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x28223BE20](v32);
-  v321 = &v303[-v34];
-  A_Expr = type metadata accessor for PgQuery_A_Expr(0);
-  v36 = *(*(A_Expr - 8) + 64);
-  v37 = MEMORY[0x28223BE20](A_Expr - 8);
-  v312 = &v303[-((v38 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x28223BE20](v37);
-  v314 = &v303[-v39];
-  String = type metadata accessor for PgQuery_String(0);
-  v40 = *(*(String - 8) + 64);
-  v41 = MEMORY[0x28223BE20](String);
-  v351 = &v303[-((v42 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x28223BE20](v41);
-  v325 = &v303[-v43];
-  v44 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v45 = *(*(v44 - 8) + 64);
-  v46 = MEMORY[0x28223BE20](v44 - 8);
-  v327 = &v303[-((v47 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v48 = MEMORY[0x28223BE20](v46);
-  v308 = &v303[-v49];
-  MEMORY[0x28223BE20](v48);
-  v326 = &v303[-v50];
-  Node = type metadata accessor for PgQuery_Node(0);
-  v341 = *(Node - 8);
-  v51 = *(v341 + 64);
-  v52 = MEMORY[0x28223BE20](Node);
-  v355 = &v303[-((v53 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v54 = MEMORY[0x28223BE20](v52);
-  v309 = &v303[-v55];
-  v56 = MEMORY[0x28223BE20](v54);
-  v324 = &v303[-v57];
-  v58 = MEMORY[0x28223BE20](v56);
-  v307 = &v303[-v59];
-  MEMORY[0x28223BE20](v58);
-  v323 = &v303[-v60];
-  v61 = type metadata accessor for SQLTokenInformation(0);
-  v62 = *(*(v61 - 8) + 64);
-  v63 = MEMORY[0x28223BE20](v61 - 8);
-  v348 = &v303[-((v64 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v65 = MEMORY[0x28223BE20](v63);
-  v331 = &v303[-v66];
-  v67 = MEMORY[0x28223BE20](v65);
-  v332 = &v303[-v68];
-  v69 = MEMORY[0x28223BE20](v67);
-  v315 = &v303[-v70];
-  v71 = MEMORY[0x28223BE20](v69);
-  v311 = &v303[-v72];
-  MEMORY[0x28223BE20](v71);
-  v333 = &v303[-v73];
-  A_Const = type metadata accessor for PgQuery_A_Const(0);
-  v74 = *(*(A_Const - 8) + 64);
-  v75 = MEMORY[0x28223BE20](A_Const);
-  v334 = &v303[-((v76 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  MEMORY[0x28223BE20](v75);
-  v335 = &v303[-v77];
-  v78 = type metadata accessor for PgQuery_Node.OneOf_Node(0);
-  v79 = *(v78 - 8);
-  v80 = *(v79 + 64);
-  MEMORY[0x28223BE20](v78);
-  v343 = &v303[-((v81 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v82 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSg_AFtMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSg_AFtMR);
-  v83 = v82 - 8;
-  v84 = *(*(v82 - 8) + 64);
-  MEMORY[0x28223BE20](v82);
-  v86 = &v303[-v85];
-  v87 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  v88 = *(*(v87 - 8) + 64);
-  v89 = MEMORY[0x28223BE20](v87 - 8);
-  v350 = &v303[-((v90 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v91 = MEMORY[0x28223BE20](v89);
-  v306 = &v303[-v92];
-  v93 = MEMORY[0x28223BE20](v91);
-  v338 = &v303[-v94];
-  v95 = MEMORY[0x28223BE20](v93);
-  v344 = &v303[-v96];
-  v97 = MEMORY[0x28223BE20](v95);
-  v354 = &v303[-v98];
-  v99 = MEMORY[0x28223BE20](v97);
-  v101 = &v303[-v100];
-  MEMORY[0x28223BE20](v99);
-  v103 = &v303[-v102];
-  v104 = *&v357[*(Node + 20)];
-  v105 = OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node;
-  (*(v79 + 56))(&v303[-v102], 1, 1, v78);
-  v106 = *(v83 + 56);
-  v352 = v105;
-  v353 = v104;
-  outlined init with copy of PgQuery_Alias?(v104 + v105, v86, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  outlined init with copy of PgQuery_Alias?(v103, &v86[v106], &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  v108 = v79 + 48;
-  v107 = *(v79 + 48);
-  if ((v107)(v86, 1, v78) == 1)
+  return partial apply for specialized closure #1 in Sequence<>.contains(_:)(a1) & 1;
+}
+
+{
+  v2 = *(v1 + 16);
+  if (*a1 == *v2 && a1[1] == v2[1])
   {
-    outlined destroy of URL?(v103, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    if ((v107)(&v86[v106], 1, v78) == 1)
+    return 1;
+  }
+
+  else
+  {
+    return _stringCompareWithSmolCheck(_:_:expecting:)() & 1;
+  }
+}
+
+unint64_t lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError()
+{
+  result = lazy protocol witness table cache variable for type SQLParserError and conformance SQLParserError;
+  if (!lazy protocol witness table cache variable for type SQLParserError and conformance SQLParserError)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type SQLParserError and conformance SQLParserError);
+  }
+
+  return result;
+}
+
+__n128 __swift_memcpy40_8(uint64_t a1, uint64_t a2)
+{
+  result = *a2;
+  v3 = *(a2 + 16);
+  *(a1 + 32) = *(a2 + 32);
+  *a1 = result;
+  *(a1 + 16) = v3;
+  return result;
+}
+
+__n128 __swift_memcpy97_8(uint64_t a1, __int128 *a2)
+{
+  v2 = *a2;
+  v3 = a2[2];
+  *(a1 + 16) = a2[1];
+  *(a1 + 32) = v3;
+  *a1 = v2;
+  result = a2[3];
+  v5 = a2[4];
+  v6 = a2[5];
+  *(a1 + 96) = *(a2 + 96);
+  *(a1 + 64) = v5;
+  *(a1 + 80) = v6;
+  *(a1 + 48) = result;
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for SQLExpressionAExpr(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 97))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 64);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for SQLExpressionAExpr(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 88) = 0;
+    *(result + 72) = 0u;
+    *(result + 56) = 0u;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *(result + 96) = 0;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
     {
-      outlined destroy of URL?(v86, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-LABEL_16:
-      type metadata accessor for SQLExpressionError();
-      lazy protocol witness table accessor for type SQLExpressionError and conformance SQLExpressionError();
-      swift_allocError();
-      swift_storeEnumTagMultiPayload();
-      return swift_willThrow();
+      *(result + 97) = 1;
     }
-
-    goto LABEL_6;
   }
 
-  outlined init with copy of PgQuery_Alias?(v86, v101, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if ((v107)(&v86[v106], 1, v78) == 1)
+  else
   {
-    outlined destroy of URL?(v103, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    outlined destroy of PgQuery_Node.OneOf_Node(v101, type metadata accessor for PgQuery_Node.OneOf_Node);
-LABEL_6:
-    outlined destroy of URL?(v86, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSg_AFtMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSg_AFtMR);
-    object = v354;
-    goto LABEL_7;
-  }
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
 
-  v120 = v343;
-  outlined init with take of PgQuery_BitString(&v86[v106], v343, type metadata accessor for PgQuery_Node.OneOf_Node);
-  v304 = specialized static PgQuery_Node.OneOf_Node.== infix(_:_:)(v101, v120);
-  outlined destroy of PgQuery_Node.OneOf_Node(v120, type metadata accessor for PgQuery_Node.OneOf_Node);
-  outlined destroy of URL?(v103, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  outlined destroy of PgQuery_Node.OneOf_Node(v101, type metadata accessor for PgQuery_Node.OneOf_Node);
-  outlined destroy of URL?(v86, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  object = v354;
-  if (v304)
-  {
-    goto LABEL_16;
-  }
-
-LABEL_7:
-  outlined init with copy of PgQuery_Alias?(v353 + v352, object, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  if ((v107)(object, 1, v78) == 1)
-  {
 LABEL_8:
-    type metadata accessor for SQLExpressionError();
-    lazy protocol witness table accessor for type SQLExpressionError and conformance SQLExpressionError();
-    swift_allocError();
-    outlined init with copy of PgQuery_Node(v357, v110, type metadata accessor for PgQuery_Node);
-    swift_storeEnumTagMultiPayload();
-    swift_willThrow();
-LABEL_74:
-    v220 = object;
-    return outlined destroy of URL?(v220, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+      *(result + 64) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 97) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
   }
 
-  v111 = v344;
-  outlined init with copy of PgQuery_Alias?(object, v344, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  if (EnumCaseMultiPayload > 169)
+  return result;
+}
+
+__n128 __swift_memcpy18_8(__n128 *a1, __n128 *a2)
+{
+  result = *a2;
+  a1[1].n128_u16[0] = a2[1].n128_u16[0];
+  *a1 = result;
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for SQLExpressioBoolExpr(uint64_t *a1, int a2)
+{
+  if (!a2)
   {
-    v107 = v345;
-    if (EnumCaseMultiPayload > 221)
-    {
-      if (EnumCaseMultiPayload == 222)
-      {
-        v113 = v325;
-        outlined init with take of PgQuery_BitString(v111, v325, type metadata accessor for PgQuery_String);
-        v216 = *v113;
-        v215 = *(v113 + 1);
-        v217 = v347;
-        v347[3] = &unk_28673D7E0;
-        v217[4] = &protocol witness table for SQLExpressionString;
-        v218 = swift_allocObject();
-        *v217 = v218;
-        *(v218 + 32) = 2;
-        v219 = MEMORY[0x277D84F90];
-        *(v218 + 40) = MEMORY[0x277D84F90];
-        *(v218 + 48) = v219;
-        *(v218 + 16) = v216;
-        *(v218 + 24) = v215;
-
-        v119 = type metadata accessor for PgQuery_String;
-        goto LABEL_72;
-      }
-
-      if (EnumCaseMultiPayload == 223)
-      {
-        v113 = v320;
-        outlined init with take of PgQuery_BitString(v111, v320, type metadata accessor for PgQuery_BitString);
-        v194 = *v113;
-        v193 = *(v113 + 1);
-        v195 = v347;
-        v347[3] = &unk_28673D868;
-        v195[4] = &protocol witness table for SQLExpressionBitString;
-        v196 = swift_allocObject();
-        *v195 = v196;
-        *(v196 + 32) = 4;
-        v197 = MEMORY[0x277D84F90];
-        *(v196 + 40) = MEMORY[0x277D84F90];
-        *(v196 + 48) = v197;
-        *(v196 + 16) = v194;
-        *(v196 + 24) = v193;
-
-        v119 = type metadata accessor for PgQuery_BitString;
-        goto LABEL_72;
-      }
-
-      if (EnumCaseMultiPayload != 224)
-      {
-LABEL_76:
-        outlined destroy of PgQuery_Node.OneOf_Node(v111, type metadata accessor for PgQuery_Node.OneOf_Node);
-        goto LABEL_8;
-      }
-
-      v135 = v347;
-      v347[3] = &unk_28673D8F0;
-      v135[4] = &protocol witness table for SQLExpressionNull;
-      v136 = swift_allocObject();
-      *v135 = v136;
-      *(v136 + 16) = 1280070990;
-      *(v136 + 24) = 0xE400000000000000;
-      *(v136 + 32) = 7;
-      v137 = MEMORY[0x277D84F90];
-      *(v136 + 40) = MEMORY[0x277D84F90];
-      *(v136 + 48) = v137;
-      v138 = type metadata accessor for PgQuery_Node.OneOf_Node;
-      v139 = v111;
-LABEL_73:
-      outlined destroy of PgQuery_Node.OneOf_Node(v139, v138);
-      goto LABEL_74;
-    }
-
-    if (EnumCaseMultiPayload != 170)
-    {
-      if (EnumCaseMultiPayload != 220)
-      {
-        if (EnumCaseMultiPayload == 221)
-        {
-          v113 = v319;
-          outlined init with take of PgQuery_BitString(v111, v319, type metadata accessor for PgQuery_Float);
-          v115 = *v113;
-          v114 = *(v113 + 1);
-          v116 = v347;
-          v347[3] = &unk_28673D758;
-          v116[4] = &protocol witness table for SQLExpressionFloat;
-          v117 = swift_allocObject();
-          *v116 = v117;
-          *(v117 + 32) = 1;
-          v118 = MEMORY[0x277D84F90];
-          *(v117 + 40) = MEMORY[0x277D84F90];
-          *(v117 + 48) = v118;
-          *(v117 + 16) = v115;
-          *(v117 + 24) = v114;
-
-          v119 = type metadata accessor for PgQuery_Float;
-LABEL_72:
-          v138 = v119;
-          v139 = v113;
-          goto LABEL_73;
-        }
-
-        goto LABEL_76;
-      }
-
-      v189 = v318;
-      outlined init with take of PgQuery_BitString(v111, v318, type metadata accessor for PgQuery_Integer);
-      v190 = *v189;
-      v191 = v347;
-      v347[3] = &unk_28673D6D0;
-      v191[4] = &protocol witness table for SQLExpressionInteger;
-      *(v191 + 4) = 0;
-      v192 = MEMORY[0x277D84F90];
-      v191[1] = MEMORY[0x277D84F90];
-      v191[2] = v192;
-      *v191 = v190;
-      v138 = type metadata accessor for PgQuery_Integer;
-      v139 = v189;
-      goto LABEL_73;
-    }
-
-    v207 = v329;
-    outlined init with take of PgQuery_BitString(v111, v329, type metadata accessor for PgQuery_FuncCall);
-    v208 = v330;
-    outlined init with copy of PgQuery_Node(v207, v330, type metadata accessor for PgQuery_FuncCall);
-    v123 = v331;
-    outlined init with copy of PgQuery_Node(v340, v331, type metadata accessor for SQLTokenInformation);
-    v209 = v347;
-    v347[3] = &unk_28673D5C8;
-    v209[4] = &protocol witness table for SQLExpressionFuncCall;
-    Node = swift_allocObject();
-    *v209 = Node;
-    v144 = *&v208[*(v317 + 20)];
-    v210 = *(v144 + 16);
-    if (*(v210 + 16))
-    {
-      v211 = v309;
-      outlined init with copy of PgQuery_Node(v210 + ((*(v341 + 80) + 32) & ~*(v341 + 80)), v309, type metadata accessor for PgQuery_Node);
-      v212 = v339;
-      v213 = v342;
-      v214 = v356;
-      buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)(&v360, v211, v107, v339, v342, v123);
-      if (v214)
-      {
-        outlined destroy of PgQuery_Node.OneOf_Node(v211, type metadata accessor for PgQuery_Node);
-        outlined destroy of PgQuery_Node.OneOf_Node(v329, type metadata accessor for PgQuery_FuncCall);
-        outlined destroy of PgQuery_Node.OneOf_Node(v330, type metadata accessor for PgQuery_FuncCall);
-        outlined destroy of PgQuery_Node.OneOf_Node(v331, type metadata accessor for SQLTokenInformation);
-        __swift_deallocate_boxed_opaque_existential_1(v347);
-      }
-
-      else
-      {
-        v252 = v107;
-        outlined destroy of PgQuery_Node.OneOf_Node(v211, type metadata accessor for PgQuery_Node);
-        v253 = *(&v361 + 1);
-        v254 = v362;
-        __swift_project_boxed_opaque_existential_0(&v360, *(&v361 + 1));
-        v255 = v213;
-        v357 = (*(v254 + 8))(v253, v254);
-        v257 = v256;
-        v258 = __swift_destroy_boxed_opaque_existential_0(&v360._countAndFlagsBits);
-        v259 = *(v144 + 24);
-        MEMORY[0x28223BE20](v258);
-        *&v303[-32] = v252;
-        *&v303[-24] = v212;
-        v301 = v255;
-        v260 = v331;
-        v302 = v331;
-
-        NodeVG_AF013SQLExpressionH033_B787555787B9EFBBEFB0C9C5225A4FB7LL_psAE_pTg5 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay14BiomeSQLParser12PgQuery_NodeVG_AF013SQLExpressionH033_B787555787B9EFBBEFB0C9C5225A4FB7LL_psAE_pTg5(partial apply for closure #1 in SQLExpressionFuncCall.init(function:schemas:columnResolver:tokenInformation:), &v303[-48], v259);
-
-        v287 = v357;
-        AggregationFunction.init(functionName:args:)(v357, v257, NodeVG_AF013SQLExpressionH033_B787555787B9EFBBEFB0C9C5225A4FB7LL_psAE_pTg5, v358);
-        if (v359 != 0xFF)
-        {
-
-          v370 = v358[10];
-          v371 = v358[11];
-          v372 = v359;
-          v366 = v358[6];
-          v367 = v358[7];
-          v368 = v358[8];
-          v369 = v358[9];
-          v362 = v358[2];
-          v363 = v358[3];
-          v364 = v358[4];
-          v365 = v358[5];
-          v360 = v358[0];
-          v361 = v358[1];
-          *(&v374 + 1) = &unk_28673D4C0;
-          v375 = &protocol witness table for SQLExpressionAggregationFunction;
-          v298 = swift_allocObject();
-          *&v373 = v298;
-          outlined init with copy of AggregationFunction(&v360, v298 + 16);
-          *(v298 + 216) = 63;
-          *(v298 + 224) = 0xE100000000000000;
-          outlined destroy of AggregationFunction(&v360);
-          outlined destroy of PgQuery_Node.OneOf_Node(v330, type metadata accessor for PgQuery_FuncCall);
-        }
-
-        else
-        {
-          outlined destroy of URL?(v358, &_s14BiomeSQLParser19AggregationFunctionVSgMd, &_s14BiomeSQLParser19AggregationFunctionVSgMR);
-          *(&v361 + 1) = &unk_28673D540;
-          *&v362 = &protocol witness table for SQLExpressionNonAggregationFunction;
-          SQLExpressionNonAggregationFunction.init(functionName:argList:)(v287, v257, NodeVG_AF013SQLExpressionH033_B787555787B9EFBBEFB0C9C5225A4FB7LL_psAE_pTg5, &v360);
-          outlined destroy of PgQuery_Node.OneOf_Node(v330, type metadata accessor for PgQuery_FuncCall);
-          outlined init with take of SQLExpressionNode(&v360._countAndFlagsBits, &v373);
-        }
-
-        object = v354;
-        v299 = v374;
-        v300 = Node;
-        *(Node + 16) = v373;
-        *(v300 + 32) = v299;
-        *(v300 + 48) = v375;
-        outlined destroy of PgQuery_Node.OneOf_Node(v329, type metadata accessor for PgQuery_FuncCall);
-        outlined destroy of PgQuery_Node.OneOf_Node(v260, type metadata accessor for SQLTokenInformation);
-      }
-
-      goto LABEL_74;
-    }
-
-LABEL_132:
-    __break(1u);
-    goto LABEL_133;
+    return 0;
   }
 
-  v353 = v78;
-  v122 = v342;
-  v123 = v345;
-  if (EnumCaseMultiPayload <= 165)
+  if (a2 < 0 && *(a1 + 18))
   {
-    if (EnumCaseMultiPayload != 16)
-    {
-      if (EnumCaseMultiPayload != 37)
-      {
-        goto LABEL_76;
-      }
-
-      v140 = v336;
-      outlined init with take of PgQuery_BitString(v111, v336, type metadata accessor for PgQuery_NullTest);
-      v141 = v337;
-      outlined init with copy of PgQuery_Node(v140, v337, type metadata accessor for PgQuery_NullTest);
-      outlined init with copy of PgQuery_Node(v340, v332, type metadata accessor for SQLTokenInformation);
-      v142 = v347;
-      v347[3] = &unk_28673D438;
-      v142[4] = &protocol witness table for SQLExpressionNullTest;
-      v355 = swift_allocObject();
-      *v142 = v355;
-      BYTE1(v363) = 0;
-      v357 = *&v141[*(NullTest + 20)];
-      v143 = v327;
-      outlined init with copy of PgQuery_Alias?(&v357[OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_NullTestP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__arg], v327, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-      v107 = *(v341 + 48);
-      v108 = Node;
-      if ((v107)(v143, 1, Node) != 1)
-      {
-        object = v324;
-        outlined init with take of PgQuery_BitString(v143, v324, type metadata accessor for PgQuery_Node);
-LABEL_78:
-        v221 = v332;
-        v222 = v356;
-        buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)(v358, object, v123, v339, v342, v332);
-        if (!v222)
-        {
-          outlined destroy of PgQuery_Node.OneOf_Node(object, type metadata accessor for PgQuery_Node);
-          outlined init with take of SQLExpressionNode(v358, &v360);
-          v248 = &v357[OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_NullTestP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__nulltesttype];
-          if (v357[OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_NullTestP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__nulltesttype + 8] == 1)
-          {
-            v249 = *v248;
-            if (*v248)
-            {
-              outlined destroy of PgQuery_Node.OneOf_Node(v221, type metadata accessor for SQLTokenInformation);
-              outlined destroy of PgQuery_Node.OneOf_Node(v337, type metadata accessor for PgQuery_NullTest);
-              *(&v362 + 1) = v249;
-              LOBYTE(v363) = 1;
-              v250 = v361;
-              v251 = v355;
-              *(v355 + 16) = v360;
-              *(v251 + 32) = v250;
-              *(v251 + 48) = v362;
-              *(v251 + 64) = v363;
-              outlined destroy of PgQuery_Node.OneOf_Node(v336, type metadata accessor for PgQuery_NullTest);
-              object = v354;
-              goto LABEL_74;
-            }
-          }
-
-          type metadata accessor for SQLExpressionError();
-          lazy protocol witness table accessor for type SQLExpressionError and conformance SQLExpressionError();
-          swift_allocError();
-          v261 = v337;
-          outlined init with copy of PgQuery_Node(v337, v262, type metadata accessor for PgQuery_NullTest);
-          swift_storeEnumTagMultiPayload();
-          swift_willThrow();
-          outlined destroy of PgQuery_Node.OneOf_Node(v221, type metadata accessor for SQLTokenInformation);
-          outlined destroy of PgQuery_Node.OneOf_Node(v336, type metadata accessor for PgQuery_NullTest);
-          outlined destroy of PgQuery_Node.OneOf_Node(v261, type metadata accessor for PgQuery_NullTest);
-          __swift_destroy_boxed_opaque_existential_0(&v360._countAndFlagsBits);
-LABEL_119:
-          __swift_deallocate_boxed_opaque_existential_1(v347);
-          v220 = v354;
-          return outlined destroy of URL?(v220, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-        }
-
-        outlined destroy of PgQuery_Node.OneOf_Node(object, type metadata accessor for PgQuery_Node);
-        outlined destroy of PgQuery_Node.OneOf_Node(v221, type metadata accessor for SQLTokenInformation);
-        v223 = type metadata accessor for PgQuery_NullTest;
-        outlined destroy of PgQuery_Node.OneOf_Node(v336, type metadata accessor for PgQuery_NullTest);
-        v224 = v337;
-LABEL_118:
-        outlined destroy of PgQuery_Node.OneOf_Node(v224, v223);
-        goto LABEL_119;
-      }
-
-      object = v324;
-      UnknownStorage.init()();
-      v144 = *(v108 + 20);
-      if (one-time initialization token for defaultInstance == -1)
-      {
-LABEL_34:
-        *&object[v144] = static PgQuery_Node._StorageClass.defaultInstance;
-        v145 = v327;
-        v146 = (v107)(v327, 1, v108);
-
-        if (v146 != 1)
-        {
-          outlined destroy of URL?(v145, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-        }
-
-        goto LABEL_78;
-      }
-
-LABEL_133:
-      swift_once();
-      goto LABEL_34;
-    }
-
-    v147 = v321;
-    outlined init with take of PgQuery_BitString(v111, v321, type metadata accessor for PgQuery_BoolExpr);
-    v148 = v322;
-    outlined init with copy of PgQuery_Node(v147, v322, type metadata accessor for PgQuery_BoolExpr);
-    v149 = v315;
-    v150 = outlined init with copy of PgQuery_Node(v340, v315, type metadata accessor for SQLTokenInformation);
-    v151 = v347;
-    v347[3] = &unk_28673D3B0;
-    v151[4] = &protocol witness table for SQLExpressioBoolExpr;
-    v152 = *&v148[*(BoolExpr + 20)];
-    v153 = *(v152 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_BoolExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__args);
-    MEMORY[0x28223BE20](v150);
-    v154 = v339;
-    *&v303[-32] = v123;
-    *&v303[-24] = v154;
-    v301 = v122;
-    v302 = v149;
-
-    v155 = v356;
-    v156 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay14BiomeSQLParser12PgQuery_NodeVG_AF013SQLExpressionH033_B787555787B9EFBBEFB0C9C5225A4FB7LL_psAE_pTg5(partial apply for closure #1 in SQLExpressioBoolExpr.init(BOOLExpr:schemas:columnResolver:tokenInformation:), &v303[-48], v153);
-    if (v155)
-    {
-      outlined destroy of PgQuery_Node.OneOf_Node(v147, type metadata accessor for PgQuery_BoolExpr);
-
-      outlined destroy of PgQuery_Node.OneOf_Node(v148, type metadata accessor for PgQuery_BoolExpr);
-      outlined destroy of PgQuery_Node.OneOf_Node(v149, type metadata accessor for SQLTokenInformation);
-LABEL_115:
-      v295 = v354;
-      __swift_deallocate_boxed_opaque_existential_1(v347);
-      v220 = v295;
-      return outlined destroy of URL?(v220, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    }
-
-    v244 = v156;
-
-    v245 = (v152 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_BoolExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__BOOLop);
-    if (*(v152 + OBJC_IVAR____TtCV14BiomeSQLParser16PgQuery_BoolExprP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__BOOLop + 8) != 1)
-    {
-      goto LABEL_113;
-    }
-
-    v246 = *v245;
-    if ((*v245 - 1) < 2)
-    {
-LABEL_89:
-      outlined destroy of PgQuery_Node.OneOf_Node(v148, type metadata accessor for PgQuery_BoolExpr);
-      v247 = v347;
-      *v347 = v244;
-      v247[1] = v246;
-      *(v247 + 8) = 1;
-
-      outlined destroy of PgQuery_Node.OneOf_Node(v147, type metadata accessor for PgQuery_BoolExpr);
-      outlined destroy of PgQuery_Node.OneOf_Node(v149, type metadata accessor for SQLTokenInformation);
-
-      object = v354;
-      goto LABEL_74;
-    }
-
-    if (v246)
-    {
-      if (*(v244 + 16) == 1)
-      {
-        goto LABEL_89;
-      }
-
-      type metadata accessor for SQLExpressionError();
-      lazy protocol witness table accessor for type SQLExpressionError and conformance SQLExpressionError();
-      swift_allocError();
-      *v297 = *(v244 + 16);
-    }
-
-    else
-    {
-LABEL_113:
-      type metadata accessor for SQLExpressionError();
-      lazy protocol witness table accessor for type SQLExpressionError and conformance SQLExpressionError();
-      swift_allocError();
-      outlined init with copy of PgQuery_Node(v148, v294, type metadata accessor for PgQuery_BoolExpr);
-    }
-
-    swift_storeEnumTagMultiPayload();
-    swift_willThrow();
-    outlined destroy of PgQuery_Node.OneOf_Node(v147, type metadata accessor for PgQuery_BoolExpr);
-    outlined destroy of PgQuery_Node.OneOf_Node(v148, type metadata accessor for PgQuery_BoolExpr);
-    outlined destroy of PgQuery_Node.OneOf_Node(v149, type metadata accessor for SQLTokenInformation);
-
-    goto LABEL_115;
+    return *a1 + 0x80000000;
   }
 
-  if (EnumCaseMultiPayload == 166)
+  v2 = *a1;
+  if (*a1 >= 0xFFFFFFFF)
   {
-    v198 = v314;
-    outlined init with take of PgQuery_BitString(v111, v314, type metadata accessor for PgQuery_A_Expr);
-    v199 = v312;
-    outlined init with copy of PgQuery_Node(v198, v312, type metadata accessor for PgQuery_A_Expr);
-    v200 = v311;
-    outlined init with copy of PgQuery_Node(v340, v311, type metadata accessor for SQLTokenInformation);
-    v201 = v122;
-    v202 = v347;
-    v347[3] = &unk_28673D328;
-    v202[4] = &protocol witness table for SQLExpressionAExpr;
-    v203 = swift_allocObject();
-    *v202 = v203;
-
-    v204 = v339;
-
-    v205 = v203 + 16;
-    v206 = v356;
-    SQLExpressionAExpr.init(expr:schemas:columnResolver:tokenInformation:)(v199, v123, v204, v201, v200, v205);
-    outlined destroy of PgQuery_Node.OneOf_Node(v198, type metadata accessor for PgQuery_A_Expr);
-    if (v206)
-    {
-      __swift_deallocate_boxed_opaque_existential_1(v202);
-    }
-
-    goto LABEL_74;
+    LODWORD(v2) = -1;
   }
 
-  if (EnumCaseMultiPayload == 167)
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for SQLExpressioBoolExpr(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
   {
-    v157 = v328;
-    outlined init with take of PgQuery_BitString(v111, v328, type metadata accessor for PgQuery_ColumnRef);
-    v158 = v349;
-    outlined init with copy of PgQuery_Node(v157, v349, type metadata accessor for PgQuery_ColumnRef);
-    outlined init with copy of PgQuery_Node(v340, v348, type metadata accessor for SQLTokenInformation);
-    v159 = v347;
-    v347[3] = &unk_28673D648;
-    v159[4] = &protocol witness table for SQLExpressionColumnRef;
-    v345 = swift_allocObject();
-    *v159 = v345;
-    v160 = *v158;
-    object = *(v160 + 16);
-    countAndFlagsBits = MEMORY[0x277D84F90];
-    if (!object)
+    *(result + 16) = 0;
+    *result = a2 & 0x7FFFFFFF;
+    *(result + 8) = 0;
+    if (a3 < 0)
     {
-LABEL_49:
-      v357 = countAndFlagsBits;
-      v360._countAndFlagsBits = countAndFlagsBits;
-      v173 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
-      v350 = lazy protocol witness table accessor for type [String] and conformance [A]();
-      v351 = v173;
-      v352 = BidirectionalCollection<>.joined(separator:)();
-      v353 = v174;
-      v175 = v357;
-      v108 = 0;
-      v123 = (v357 + 40);
-      v355 = -*(v357 + 2);
-      v144 = MEMORY[0x277D84F90];
-      v176 = -1;
-      while (v355 + v176 != -1)
+      *(result + 18) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
       {
-        if (++v176 >= *(v175 + 16))
-        {
-          __break(1u);
-LABEL_127:
-          __break(1u);
-LABEL_128:
-          __break(1u);
-LABEL_129:
-          __break(1u);
-LABEL_130:
-          __break(1u);
-LABEL_131:
-          __break(1u);
-          goto LABEL_132;
-        }
-
-        v177 = *(v349 + 2);
-        v178 = v177 + v108;
-        if (__OFADD__(v177, v108))
-        {
-          goto LABEL_127;
-        }
-
-        v107 = *(v123 - 1);
-        v179 = *v123;
-
-        v180 = SQLTokenInformation.tokenName(location:)(v178);
-        v356 = v181;
-        if (v181)
-        {
-
-          outlined destroy of PgQuery_Node.OneOf_Node(v348, type metadata accessor for SQLTokenInformation);
-          outlined destroy of PgQuery_Node.OneOf_Node(v328, type metadata accessor for PgQuery_ColumnRef);
-          outlined destroy of PgQuery_Node.OneOf_Node(v349, type metadata accessor for PgQuery_ColumnRef);
-
-          goto LABEL_119;
-        }
-
-        object = v180._object;
-        isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        LODWORD(Node) = v108;
-        if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-        {
-          v186 = *(v144 + 16);
-          specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-          v144 = v187;
-        }
-
-        v108 = *(v144 + 16);
-        v183 = v144;
-        if (v108 >= *(v144 + 24) >> 1)
-        {
-          specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
-          v183 = v188;
-        }
-
-        *(v183 + 16) = v108 + 1;
-        v144 = v183;
-        *(v183 + 16 * v108 + 32) = v180;
-        v184 = String.count.getter();
-
-        if (v184 < 0xFFFFFFFF80000000)
-        {
-          goto LABEL_128;
-        }
-
-        if (v184 > 0x7FFFFFFF)
-        {
-          goto LABEL_129;
-        }
-
-        v185 = Node + v184;
-        if (__OFADD__(Node, v184))
-        {
-          goto LABEL_130;
-        }
-
-        v123 += 2;
-        v108 = (v185 + 1);
-        v175 = v357;
-        if (__OFADD__(v185, 1))
-        {
-          goto LABEL_131;
-        }
+        return result;
       }
 
-      v360._countAndFlagsBits = v144;
-      v235 = BidirectionalCollection<>.joined(separator:)();
-      v237 = v236;
-
-      v360 = String.lowercased()();
-      v358[0] = String.lowercased()();
-      v238 = type metadata accessor for Locale();
-      v239 = v305;
-      (*(*(v238 - 8) + 56))(v305, 1, 1, v238);
-      v301 = lazy protocol witness table accessor for type String and conformance String();
-      v302 = v301;
-      StringProtocol.range<A>(of:options:range:locale:)();
-      v241 = v240;
-      outlined destroy of URL?(v239, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-
-      if (v241)
-      {
-        type metadata accessor for SQLExpressionError();
-        lazy protocol witness table accessor for type SQLExpressionError and conformance SQLExpressionError();
-        swift_allocError();
-        v242 = v353;
-        *v243 = v352;
-        v243[1] = v242;
-        v243[2] = v235;
-        v243[3] = v237;
-        swift_storeEnumTagMultiPayload();
-        swift_willThrow();
-      }
-
-      else
-      {
-        v274 = String.subscript.getter();
-        v276 = v275;
-        v278 = v277;
-        v280 = v279;
-
-        v281 = MEMORY[0x259C32B00](v274, v276, v278, v280);
-        v283 = v282;
-
-        v284 = v352;
-        v285 = v353;
-        if ((specialized Set.contains(_:)(v352, v353, v342) & 1) == 0)
-        {
-          v288 = v339;
-          if (*(v339 + 16))
-          {
-            v289 = specialized __RawDictionaryStorage.find<A>(_:)(v284, v285);
-            if (v290)
-            {
-              v291 = *(*(v288 + 56) + v289);
-
-              __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy14BiomeSQLParser7BindingVGMd, &_ss23_ContiguousArrayStorageCy14BiomeSQLParser7BindingVGMR);
-              v292 = swift_allocObject();
-              *(v292 + 16) = xmmword_2552FE080;
-              *(v292 + 32) = v281;
-              *(v292 + 40) = v283;
-              *(v292 + 48) = v291;
-              outlined destroy of PgQuery_Node.OneOf_Node(v348, type metadata accessor for SQLTokenInformation);
-              outlined destroy of PgQuery_Node.OneOf_Node(v349, type metadata accessor for PgQuery_ColumnRef);
-              v293 = v345;
-              *(v345 + 16) = 63;
-              *(v293 + 24) = 0xE100000000000000;
-              *(v293 + 32) = v291;
-              *(v293 + 40) = v292;
-              *(v293 + 48) = MEMORY[0x277D84F90];
-              v273 = v328;
-              v272 = type metadata accessor for PgQuery_ColumnRef;
-              goto LABEL_107;
-            }
-          }
-        }
-
-        type metadata accessor for SQLExpressionError();
-        lazy protocol witness table accessor for type SQLExpressionError and conformance SQLExpressionError();
-        swift_allocError();
-        *v296 = v284;
-        v296[1] = v285;
-        swift_storeEnumTagMultiPayload();
-        swift_willThrow();
-      }
-
-      outlined destroy of PgQuery_Node.OneOf_Node(v348, type metadata accessor for SQLTokenInformation);
-      v223 = type metadata accessor for PgQuery_ColumnRef;
-      outlined destroy of PgQuery_Node.OneOf_Node(v328, type metadata accessor for PgQuery_ColumnRef);
-      v224 = v349;
-      goto LABEL_118;
+LABEL_8:
+      *result = (a2 - 1);
+      return result;
     }
 
-    v357 = v107;
-    v360._countAndFlagsBits = MEMORY[0x277D84F90];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, object, 0);
-    countAndFlagsBits = v360._countAndFlagsBits;
-    v162 = v160 + ((*(v341 + 80) + 32) & ~*(v341 + 80));
-    v352 = *(v341 + 72);
+    *(result + 18) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+__n128 __swift_memcpy50_8(uint64_t a1, uint64_t a2)
+{
+  result = *a2;
+  v3 = *(a2 + 16);
+  v4 = *(a2 + 32);
+  *(a1 + 48) = *(a2 + 48);
+  *(a1 + 16) = v3;
+  *(a1 + 32) = v4;
+  *a1 = result;
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for SQLExpressionNullTest(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 50))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 24);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for SQLExpressionNullTest(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 40) = 0;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *(result + 48) = 0;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 50) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 24) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 50) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+__n128 __swift_memcpy216_8(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 16);
+  *a1 = *a2;
+  *(a1 + 16) = v2;
+  v3 = *(a2 + 32);
+  v4 = *(a2 + 48);
+  v5 = *(a2 + 80);
+  *(a1 + 64) = *(a2 + 64);
+  *(a1 + 80) = v5;
+  *(a1 + 32) = v3;
+  *(a1 + 48) = v4;
+  v6 = *(a2 + 96);
+  v7 = *(a2 + 112);
+  v8 = *(a2 + 144);
+  *(a1 + 128) = *(a2 + 128);
+  *(a1 + 144) = v8;
+  *(a1 + 96) = v6;
+  *(a1 + 112) = v7;
+  result = *(a2 + 160);
+  v10 = *(a2 + 176);
+  v11 = *(a2 + 192);
+  *(a1 + 208) = *(a2 + 208);
+  *(a1 + 176) = v10;
+  *(a1 + 192) = v11;
+  *(a1 + 160) = result;
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for SQLExpressionAggregationFunction(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 216))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 208);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for SQLExpressionAggregationFunction(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 200) = 0u;
+    *(result + 184) = 0u;
+    *(result + 168) = 0u;
+    *(result + 152) = 0u;
+    *(result + 136) = 0u;
+    *(result + 120) = 0u;
+    *(result + 104) = 0u;
+    *(result + 88) = 0u;
+    *(result + 72) = 0u;
+    *(result + 56) = 0u;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 216) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 208) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 216) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for Binding(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 17))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 8);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for Binding(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 16) = 0;
+    *result = a2 & 0x7FFFFFFF;
+    *(result + 8) = 0;
+    if (a3 < 0)
+    {
+      *(result + 17) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 8) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 17) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for SQLExpressionConst(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 40))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 24);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for SQLExpressionConst(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 8) = 0u;
+    *(result + 24) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 40) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 24) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 40) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for SQLExpressionInteger(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 24))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 8);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t getEnumTagSinglePayload for SQLExpressionConstString(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 40))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 8);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for SQLExpressionConstString(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 8) = 0u;
+    *(result + 24) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 40) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 8) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 40) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+Swift::Int specialized RawRepresentable<>._rawHashValue(seed:)(uint64_t a1, unsigned __int8 a2)
+{
+  Hasher.init(_seed:)();
+  String.hash(into:)();
+
+  return Hasher._finalize()();
+}
+
+uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay14BiomeSQLParser12PgQuery_NodeVG_AF013SQLExpressionH033_B787555787B9EFBBEFB0C9C5225A4FB7LL_psAE_pTg5(void (*a1)(__int128 *__return_ptr, uint64_t, uint64_t *), uint64_t a2, uint64_t a3)
+{
+  v4 = v3;
+  v5 = *(a3 + 16);
+  v6 = MEMORY[0x277D84F90];
+  if (v5)
+  {
+    v17 = MEMORY[0x277D84F90];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v5, 0);
+    v6 = v17;
+    v9 = *(type metadata accessor for PgQuery_Node(0) - 8);
+    v10 = a3 + ((*(v9 + 80) + 32) & ~*(v9 + 80));
+    v11 = *(v9 + 72);
     while (1)
     {
-      v163 = v355;
-      outlined init with copy of PgQuery_Node(v162, v355, type metadata accessor for PgQuery_Node);
-      v164 = v350;
-      outlined init with copy of PgQuery_Alias?(*(v163 + *(Node + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v350, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-      if ((v357)(v164, 1, v353) == 1)
+      a1(v16, v10, &v15);
+      if (v4)
       {
         break;
       }
 
-      v166 = swift_getEnumCaseMultiPayload();
-      v165 = v351;
-      if (v166 != 222)
+      v4 = 0;
+      v17 = v6;
+      v13 = *(v6 + 16);
+      v12 = *(v6 + 24);
+      if (v13 >= v12 >> 1)
       {
-        outlined destroy of PgQuery_Node.OneOf_Node(v164, type metadata accessor for PgQuery_Node.OneOf_Node);
-        goto LABEL_45;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v12 > 1), v13 + 1, 1);
+        v6 = v17;
       }
 
-      v107 = v108;
-      outlined init with take of PgQuery_BitString(v164, v351, type metadata accessor for PgQuery_String);
-LABEL_46:
-      outlined destroy of PgQuery_Node.OneOf_Node(v355, type metadata accessor for PgQuery_Node);
-      v169 = v165->_countAndFlagsBits;
-      v168 = v165->_object;
-
-      outlined destroy of PgQuery_Node.OneOf_Node(v165, type metadata accessor for PgQuery_String);
-      v360._countAndFlagsBits = countAndFlagsBits;
-      v171 = *(countAndFlagsBits + 16);
-      v170 = *(countAndFlagsBits + 24);
-      if (v171 >= v170 >> 1)
+      *(v6 + 16) = v13 + 1;
+      outlined init with take of SQLExpressionNode(v16, v6 + 40 * v13 + 32);
+      v10 += v11;
+      if (!--v5)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v170 > 1, v171 + 1, 1);
-        countAndFlagsBits = v360._countAndFlagsBits;
-      }
-
-      *(countAndFlagsBits + 16) = v171 + 1;
-      v172 = countAndFlagsBits + 16 * v171;
-      *(v172 + 32) = v169;
-      *(v172 + 40) = v168;
-      v162 += v352;
-      --object;
-      v108 = v107;
-      if (!object)
-      {
-        goto LABEL_49;
+        return v6;
       }
     }
-
-    outlined destroy of URL?(v164, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    v165 = v351;
-LABEL_45:
-    v107 = v108;
-    v165->_countAndFlagsBits = 0;
-    v165->_object = 0xE000000000000000;
-    v167 = v165 + *(String + 20);
-    UnknownStorage.init()();
-    goto LABEL_46;
   }
 
-  if (EnumCaseMultiPayload != 169)
+  return v6;
+}
+
+uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay14BiomeSQLParser12PgQuery_NodeVG_AF12ResultColumnVsAE_pTg5(void (*a1)(_OWORD *__return_ptr, uint64_t, uint64_t *), uint64_t a2, uint64_t a3)
+{
+  v4 = *(a3 + 16);
+  v5 = MEMORY[0x277D84F90];
+  if (v4)
   {
-    goto LABEL_76;
+    v23 = MEMORY[0x277D84F90];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v4, 0);
+    v5 = v23;
+    v8 = *(type metadata accessor for PgQuery_Node(0) - 8);
+    v9 = a3 + ((*(v8 + 80) + 32) & ~*(v8 + 80));
+    v10 = *(v8 + 72);
+    while (1)
+    {
+      a1(v22, v9, &v21);
+      if (v3)
+      {
+        break;
+      }
+
+      v23 = v5;
+      v12 = *(v5 + 16);
+      v11 = *(v5 + 24);
+      if (v12 >= v11 >> 1)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v11 > 1), v12 + 1, 1);
+        v5 = v23;
+      }
+
+      *(v5 + 16) = v12 + 1;
+      v13 = (v5 + (v12 << 7));
+      v14 = v22[0];
+      v15 = v22[1];
+      v16 = v22[3];
+      v13[4] = v22[2];
+      v13[5] = v16;
+      v13[2] = v14;
+      v13[3] = v15;
+      v17 = v22[4];
+      v18 = v22[5];
+      v19 = v22[7];
+      v13[8] = v22[6];
+      v13[9] = v19;
+      v13[6] = v17;
+      v13[7] = v18;
+      v9 += v10;
+      if (!--v4)
+      {
+        return v5;
+      }
+    }
   }
 
-  v357 = v107;
-  v124 = v335;
-  outlined init with take of PgQuery_BitString(v111, v335, type metadata accessor for PgQuery_A_Const);
-  v125 = v334;
-  outlined init with copy of PgQuery_Node(v124, v334, type metadata accessor for PgQuery_A_Const);
-  outlined init with copy of PgQuery_Node(v340, v333, type metadata accessor for SQLTokenInformation);
-  v126 = v347;
-  v347[3] = &unk_28673D2A8;
-  v126[4] = &protocol witness table for SQLExpressionConst;
-  v127 = swift_allocObject();
-  *v126 = v127;
-  v355 = *&v125[*(A_Const + 20)];
-  v351 = v127;
-  v352 = OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_A_ConstP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__val;
-  v128 = v326;
-  outlined init with copy of PgQuery_Alias?(v355 + OBJC_IVAR____TtCV14BiomeSQLParser15PgQuery_A_ConstP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__val, v326, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  v129 = *(v341 + 48);
-  v130 = Node;
-  v341 += 48;
-  if (v129(v128, 1, Node) == 1)
+  return v5;
+}
+
+uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay14BiomeSQLParser12PgQuery_NodeVG_AF13SQLExpressionVsAE_pTg5(void (*a1)(_OWORD *__return_ptr, uint64_t, uint64_t *), uint64_t a2, uint64_t a3)
+{
+  v4 = *(a3 + 16);
+  v5 = MEMORY[0x277D84F90];
+  if (v4)
   {
-    v131 = v323;
-    UnknownStorage.init()();
-    v132 = *(v130 + 20);
-    if (one-time initialization token for defaultInstance != -1)
+    v21 = MEMORY[0x277D84F90];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v4, 0);
+    v5 = v21;
+    v8 = *(type metadata accessor for PgQuery_Node(0) - 8);
+    v9 = a3 + ((*(v8 + 80) + 32) & ~*(v8 + 80));
+    v10 = *(v8 + 72);
+    while (1)
     {
-      swift_once();
+      a1(v20, v9, &v19);
+      if (v3)
+      {
+        break;
+      }
+
+      v21 = v5;
+      v12 = *(v5 + 16);
+      v11 = *(v5 + 24);
+      if (v12 >= v11 >> 1)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v11 > 1), v12 + 1, 1);
+        v5 = v21;
+      }
+
+      *(v5 + 16) = v12 + 1;
+      v13 = (v5 + 96 * v12);
+      v14 = v20[1];
+      v13[2] = v20[0];
+      v13[3] = v14;
+      v15 = v20[2];
+      v16 = v20[3];
+      v17 = v20[5];
+      v13[6] = v20[4];
+      v13[7] = v17;
+      v13[4] = v15;
+      v13[5] = v16;
+      v9 += v10;
+      if (!--v4)
+      {
+        return v5;
+      }
+    }
+  }
+
+  return v5;
+}
+
+uint64_t specialized Set.contains(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (!*(a3 + 16))
+  {
+    return 0;
+  }
+
+  Hasher.init(_seed:)();
+  String.hash(into:)();
+  v6 = Hasher._finalize()();
+  v7 = -1 << *(a3 + 32);
+  v8 = v6 & ~v7;
+  if (((*(a3 + 56 + ((v8 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v8) & 1) == 0)
+  {
+    return 0;
+  }
+
+  v9 = ~v7;
+  while (1)
+  {
+    v10 = (*(a3 + 48) + 16 * v8);
+    v11 = *v10 == a1 && v10[1] == a2;
+    if (v11 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+    {
+      break;
     }
 
-    *&v131[v132] = static PgQuery_Node._StorageClass.defaultInstance;
-    v133 = v326;
-    v134 = v129(v326, 1, v130);
-
-    if (v134 != 1)
+    v8 = (v8 + 1) & v9;
+    if (((*(a3 + 56 + ((v8 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v8) & 1) == 0)
     {
-      outlined destroy of URL?(v133, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+      return 0;
     }
+  }
+
+  return 1;
+}
+
+Swift::String __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> SQLTokenInformation.tokenName(location:)(Swift::Int32 location)
+{
+  v2 = *&location;
+  ScanToken = type metadata accessor for PgQuery_ScanToken(0);
+  v4 = *(ScanToken - 8);
+  v5 = MEMORY[0x28223BE20](ScanToken - 8);
+  v7 = (&v29 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = MEMORY[0x28223BE20](v5);
+  v10 = &v29 - v9;
+  ParseResult = MEMORY[0x28223BE20](v8);
+  v14 = &v29 - v13;
+  v15 = *(v1 + 8);
+  v16 = *(v15 + 16);
+  if (v16)
+  {
+    v17 = 0;
+    while (1)
+    {
+      if (v17 >= *(v15 + 16))
+      {
+        __break(1u);
+        goto LABEL_11;
+      }
+
+      outlined init with copy of PgQuery_ScanResult(v15 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v17, v7, type metadata accessor for PgQuery_ScanToken);
+      if (*v7 == v2)
+      {
+        break;
+      }
+
+      ++v17;
+      ParseResult = outlined destroy of PgQuery_ParseResult(v7, type metadata accessor for PgQuery_ScanToken);
+      if (v16 == v17)
+      {
+        goto LABEL_6;
+      }
+    }
+
+    outlined init with take of PgQuery_ParseResult(v7, v10, type metadata accessor for PgQuery_ScanToken);
+    outlined init with take of PgQuery_ParseResult(v10, v14, type metadata accessor for PgQuery_ScanToken);
+    type metadata accessor for SQLTokenInformation(0);
+    v25 = String.index(_:offsetBy:)();
+    ParseResult = String.index(_:offsetBy:)();
+    if (ParseResult >> 14 >= v25 >> 14)
+    {
+      v26 = String.subscript.getter();
+      v23 = MEMORY[0x259C32B00](v26);
+      v2 = v27;
+
+      outlined destroy of PgQuery_ParseResult(v14, type metadata accessor for PgQuery_ScanToken);
+      goto LABEL_9;
+    }
+
+LABEL_11:
+    __break(1u);
   }
 
   else
   {
-    v131 = v323;
-    outlined init with take of PgQuery_BitString(v128, v323, type metadata accessor for PgQuery_Node);
+LABEL_6:
+    v18 = (v1 + *(type metadata accessor for SQLTokenInformation(0) + 20));
+    v20 = *v18;
+    v19 = v18[1];
+    v30 = 0;
+    v31 = 0xE000000000000000;
+
+    _StringGuts.grow(_:)(28);
+
+    v30 = 0xD00000000000001ALL;
+    v31 = 0x80000002553B6A20;
+    v32 = v2;
+    v21 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x259C32B90](v21);
+
+    v22 = v30;
+    v23 = v31;
+    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+    swift_allocError();
+    *v24 = v20;
+    *(v24 + 8) = v19;
+    *(v24 + 16) = v22;
+    *(v24 + 24) = v23;
+    *(v24 + 32) = 0;
+    swift_willThrow();
+LABEL_9:
+    ParseResult = v23;
+    v12 = v2;
   }
 
-  v225 = v338;
-  outlined init with copy of PgQuery_Alias?(*&v131[*(v130 + 20)] + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v338, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  outlined destroy of PgQuery_Node.OneOf_Node(v131, type metadata accessor for PgQuery_Node);
-  v226 = (v357)(v225, 1, v353);
-  v227 = v130;
-  v228 = v342;
-  if (v226 != 1)
-  {
-    v229 = v306;
-    outlined init with copy of PgQuery_Alias?(v338, v306, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    if (swift_getEnumCaseMultiPayload() == 222)
-    {
-      v230 = v325;
-      outlined init with take of PgQuery_BitString(v229, v325, type metadata accessor for PgQuery_String);
-      v232 = *v230;
-      v231 = v230[1];
-      *(&v361 + 1) = &unk_28673D220;
-      *&v362 = &protocol witness table for SQLExpressionConstString;
-      v233 = swift_allocObject();
-      v360._countAndFlagsBits = v233;
-      *(v233 + 32) = 2;
-      v234 = MEMORY[0x277D84F90];
-      *(v233 + 40) = MEMORY[0x277D84F90];
-      *(v233 + 48) = v234;
-      *(v233 + 16) = v232;
-      *(v233 + 24) = v231;
+  result._object = v12;
+  result._countAndFlagsBits = ParseResult;
+  return result;
+}
 
-      outlined destroy of PgQuery_Node.OneOf_Node(v230, type metadata accessor for PgQuery_String);
-      outlined destroy of PgQuery_Node.OneOf_Node(v333, type metadata accessor for SQLTokenInformation);
-      outlined destroy of PgQuery_Node.OneOf_Node(v334, type metadata accessor for PgQuery_A_Const);
-      goto LABEL_106;
+unint64_t SQLParserError.description.getter()
+{
+  v2 = *v0;
+  v1 = *(v0 + 8);
+  v3 = *(v0 + 16);
+  v4 = *(v0 + 24);
+  v5 = *(v0 + 32);
+  if (v5 <= 4)
+  {
+    if (*(v0 + 32) > 1u)
+    {
+      if (v5 != 2)
+      {
+        if (v5 != 3)
+        {
+          v13 = 0;
+          _StringGuts.grow(_:)(60);
+          MEMORY[0x259C32B90](0xD000000000000029, 0x80000002553B67B0);
+          MEMORY[0x259C32B90](v2, v1);
+          MEMORY[0x259C32B90](0x6120687469772022, 0xEE0022203A736772);
+          v11 = MEMORY[0x259C32CC0](v3, MEMORY[0x277D837D0]);
+          MEMORY[0x259C32B90](v11);
+
+LABEL_25:
+          v6 = 34;
+          v7 = 0xE100000000000000;
+          goto LABEL_26;
+        }
+
+        v13 = 0;
+        _StringGuts.grow(_:)(53);
+        MEMORY[0x259C32B90](0xD000000000000032, 0x80000002553B67E0);
+        goto LABEL_23;
+      }
+
+      _StringGuts.grow(_:)(42);
+
+      v13 = 0x20656C626154;
+      MEMORY[0x259C32B90](v2, v1);
+      v6 = 0xD000000000000022;
+      v7 = 0x80000002553B6820;
+LABEL_26:
+      MEMORY[0x259C32B90](v6, v7);
+      return v13;
     }
 
-    outlined destroy of PgQuery_Node.OneOf_Node(v229, type metadata accessor for PgQuery_Node.OneOf_Node);
-    v227 = Node;
+    if (!*(v0 + 32))
+    {
+      _StringGuts.grow(_:)(29);
+
+      v13 = 0xD000000000000016;
+      MEMORY[0x259C32B90](v3, v4);
+      MEMORY[0x259C32B90](657954, 0xE300000000000000);
+      goto LABEL_12;
+    }
+
+    _StringGuts.grow(_:)(29);
+
+    v8 = 0xD00000000000001ALL;
+LABEL_22:
+    v13 = v8;
+LABEL_23:
+    v9 = v2;
+    v10 = v1;
+    goto LABEL_24;
   }
 
-  v263 = v308;
-  outlined init with copy of PgQuery_Alias?(v355 + v352, v308, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-  if (v129(v263, 1, v227) == 1)
+  if (*(v0 + 32) <= 6u)
   {
-    v264 = v307;
-    UnknownStorage.init()();
-    v265 = *(v227 + 20);
-    if (one-time initialization token for defaultInstance != -1)
-    {
-      swift_once();
-    }
+    _StringGuts.grow(_:)(50);
 
-    *&v264[v265] = static PgQuery_Node._StorageClass.defaultInstance;
-    v266 = v129(v263, 1, v227);
+    v8 = 0xD00000000000002FLL;
+    goto LABEL_22;
+  }
 
-    v228 = v342;
-    if (v266 != 1)
-    {
-      outlined destroy of URL?(v263, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
-    }
+  if (v5 == 7)
+  {
+    v13 = 0;
+    _StringGuts.grow(_:)(109);
+    MEMORY[0x259C32B90](0xD00000000000005CLL, 0x80000002553B66B0);
+    MEMORY[0x259C32B90](v2, v1);
+    MEMORY[0x259C32B90](0x6F73616552202E22, 0xEC00000022203A6ELL);
+    v9 = v3;
+    v10 = v4;
+LABEL_24:
+    MEMORY[0x259C32B90](v9, v10);
+    goto LABEL_25;
+  }
+
+  if (v5 == 8)
+  {
+    _StringGuts.grow(_:)(33);
+
+    v13 = 0xD00000000000001FLL;
+LABEL_12:
+    v6 = v2;
+    v7 = v1;
+    goto LABEL_26;
+  }
+
+  if (v3 | v1 | v2 | v4)
+  {
+    return 0xD000000000000036;
   }
 
   else
   {
-    v264 = v307;
-    outlined init with take of PgQuery_BitString(v263, v307, type metadata accessor for PgQuery_Node);
+    return 0xD000000000000026;
+  }
+}
+
+BiomeSQLParser::SQLDataType_optional __swiftcall SQLDataType.init(rawValue:)(Swift::String rawValue)
+{
+  object = rawValue._object;
+  v3._countAndFlagsBits = rawValue._countAndFlagsBits;
+  v4 = v1;
+  v3._object = object;
+  v5 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of SQLDataType.init(rawValue:), v3);
+
+  v7 = 8;
+  if (v5 < 8)
+  {
+    v7 = v5;
   }
 
-  v267 = v228;
-  v268 = v333;
-  v269 = v356;
-  buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)(v358, v264, v123, v339, v267, v333);
-  v356 = v269;
-  if (!v269)
+  *v4 = v7;
+  return result;
+}
+
+uint64_t SQLDataType.rawValue.getter()
+{
+  v1 = *v0;
+  v2 = 0x72656765746E69;
+  v3 = 1684632949;
+  if (v1 != 6)
   {
-    outlined destroy of PgQuery_Node.OneOf_Node(v264, type metadata accessor for PgQuery_Node);
-    outlined destroy of PgQuery_Node.OneOf_Node(v268, type metadata accessor for SQLTokenInformation);
-    outlined destroy of PgQuery_Node.OneOf_Node(v334, type metadata accessor for PgQuery_A_Const);
-    outlined init with take of SQLExpressionNode(v358, &v360);
-LABEL_106:
-    outlined destroy of URL?(v338, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-    v270 = v361;
-    v271 = v351;
-    v351[1] = v360;
-    v271[2] = v270;
-    v271[3]._countAndFlagsBits = v362;
-    v272 = type metadata accessor for PgQuery_A_Const;
-    v273 = v335;
-LABEL_107:
-    outlined destroy of PgQuery_Node.OneOf_Node(v273, v272);
-    object = v354;
+    v3 = 1819047278;
+  }
+
+  v4 = 1635017060;
+  if (v1 != 4)
+  {
+    v4 = 1852797802;
+  }
+
+  if (*v0 <= 5u)
+  {
+    v3 = v4;
+  }
+
+  v5 = 0x676E69727473;
+  if (v1 != 2)
+  {
+    v5 = 1702125924;
+  }
+
+  if (*v0)
+  {
+    v2 = 0x656C62756F64;
+  }
+
+  if (*v0 > 1u)
+  {
+    v2 = v5;
+  }
+
+  if (*v0 <= 3u)
+  {
+    return v2;
+  }
+
+  else
+  {
+    return v3;
+  }
+}
+
+void protocol witness for RawRepresentable.rawValue.getter in conformance SQLDataType(uint64_t *a1@<X8>)
+{
+  v2 = *v1;
+  v3 = 0xE700000000000000;
+  v4 = 0x72656765746E69;
+  v5 = 1684632949;
+  if (v2 != 6)
+  {
+    v5 = 1819047278;
+  }
+
+  v6 = 1635017060;
+  if (v2 != 4)
+  {
+    v6 = 1852797802;
+  }
+
+  if (*v1 <= 5u)
+  {
+    v5 = v6;
+  }
+
+  v7 = 0xE600000000000000;
+  v8 = 0x676E69727473;
+  if (v2 != 2)
+  {
+    v8 = 1702125924;
+    v7 = 0xE400000000000000;
+  }
+
+  if (*v1)
+  {
+    v4 = 0x656C62756F64;
+    v3 = 0xE600000000000000;
+  }
+
+  if (*v1 > 1u)
+  {
+    v4 = v8;
+    v3 = v7;
+  }
+
+  if (*v1 <= 3u)
+  {
+    v9 = v4;
+  }
+
+  else
+  {
+    v9 = v5;
+  }
+
+  if (*v1 > 3u)
+  {
+    v3 = 0xE400000000000000;
+  }
+
+  *a1 = v9;
+  a1[1] = v3;
+}
+
+BiomeSQLParser::SQLRawDataType_optional __swiftcall SQLRawDataType.init(rawValue:)(Swift::String rawValue)
+{
+  object = rawValue._object;
+  v3._countAndFlagsBits = rawValue._countAndFlagsBits;
+  v4 = v1;
+  v3._object = object;
+  v5 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of SQLRawDataType.init(rawValue:), v3);
+
+  v7 = 5;
+  if (v5 < 5)
+  {
+    v7 = v5;
+  }
+
+  *v4 = v7;
+  return result;
+}
+
+uint64_t SQLRawDataType.rawValue.getter()
+{
+  v1 = *v0;
+  v2 = 0x52454745544E49;
+  v3 = 1415071060;
+  v4 = 1112493122;
+  if (v1 != 3)
+  {
+    v4 = 1280070990;
+  }
+
+  if (v1 != 2)
+  {
+    v3 = v4;
+  }
+
+  if (*v0)
+  {
+    v2 = 1279346002;
+  }
+
+  if (*v0 <= 1u)
+  {
+    return v2;
+  }
+
+  else
+  {
+    return v3;
+  }
+}
+
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance SQLRawDataType()
+{
+  Hasher.init(_seed:)();
+  String.hash(into:)();
+
+  return Hasher._finalize()();
+}
+
+uint64_t protocol witness for Hashable.hash(into:) in conformance SQLRawDataType(uint64_t a1)
+{
+  String.hash(into:)();
+}
+
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance SQLRawDataType(uint64_t a1)
+{
+  Hasher.init(_seed:)();
+  String.hash(into:)();
+
+  return Hasher._finalize()();
+}
+
+void protocol witness for RawRepresentable.rawValue.getter in conformance SQLRawDataType(uint64_t *a1@<X8>)
+{
+  v2 = *v1;
+  v3 = 0xE700000000000000;
+  v4 = 0x52454745544E49;
+  v5 = 1415071060;
+  v6 = 1112493122;
+  if (v2 != 3)
+  {
+    v6 = 1280070990;
+  }
+
+  if (v2 != 2)
+  {
+    v5 = v6;
+  }
+
+  if (*v1)
+  {
+    v4 = 1279346002;
+    v3 = 0xE400000000000000;
+  }
+
+  if (*v1 <= 1u)
+  {
+    v7 = v4;
+  }
+
+  else
+  {
+    v7 = v5;
+  }
+
+  if (*v1 > 1u)
+  {
+    v3 = 0xE400000000000000;
+  }
+
+  *a1 = v7;
+  a1[1] = v3;
+}
+
+BiomeSQLParser::DatabaseCatalog __swiftcall DatabaseCatalog.init(schemas:)(Swift::OpaquePointer schemas)
+{
+  v35 = v1;
+  v3 = *(schemas._rawValue + 2);
+  if (!v3)
+  {
+
+    v4 = MEMORY[0x277D84F90];
+    if (*(MEMORY[0x277D84F90] + 16))
+    {
+      goto LABEL_7;
+    }
+
+LABEL_19:
+    v12 = MEMORY[0x277D84F98];
+    goto LABEL_20;
+  }
+
+  v38 = MEMORY[0x277D84F90];
+  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v3, 0);
+  v4 = v38;
+  v5 = (schemas._rawValue + 48);
+  do
+  {
+    v7 = *(v5 - 2);
+    v6 = *(v5 - 1);
+    v8 = *v5;
+    v10 = *(v38 + 16);
+    v9 = *(v38 + 24);
+    swift_bridgeObjectRetain_n();
+
+    if (v10 >= v9 >> 1)
+    {
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v9 > 1), v10 + 1, 1);
+    }
+
+    *(v38 + 16) = v10 + 1;
+    v11 = (v38 + 40 * v10);
+    v11[4] = v7;
+    v11[5] = v6;
+    v11[6] = v7;
+    v11[7] = v6;
+    v11[8] = v8;
+    v5 += 3;
+    --v3;
+  }
+
+  while (v3);
+
+  if (!*(v38 + 16))
+  {
+    goto LABEL_19;
+  }
+
+LABEL_7:
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS14BiomeSQLParser6SchemaVGMd, &_ss18_DictionaryStorageCySS14BiomeSQLParser6SchemaVGMR);
+  v12 = static _DictionaryStorage.allocate(capacity:)();
+  v39 = v12;
+  v36 = *(v4 + 16);
+  if (!v36)
+  {
+LABEL_20:
+
+    *v35 = v12;
+    return result;
+  }
+
+  v13 = 0;
+  v14 = (v4 + 64);
+  while (v13 < *(v4 + 16))
+  {
+    v15 = *(v14 - 1);
+    v16 = *v14;
+    v17 = *(v14 - 3);
+    v18 = *(v14 - 2);
+    v19 = *(v14 - 4);
+
+    if (!v17)
+    {
+      goto LABEL_20;
+    }
+
+    v20 = specialized __RawDictionaryStorage.find<A>(_:)(v19, v17);
+    v22 = v12[2];
+    v23 = (v21 & 1) == 0;
+    v24 = __OFADD__(v22, v23);
+    v25 = v22 + v23;
+    if (v24)
+    {
+      goto LABEL_22;
+    }
+
+    v26 = v21;
+    if (v12[3] < v25)
+    {
+      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v25, 1);
+      v12 = v39;
+      v20 = specialized __RawDictionaryStorage.find<A>(_:)(v19, v17);
+      if ((v26 & 1) != (v27 & 1))
+      {
+        goto LABEL_26;
+      }
+    }
+
+    if (v26)
+    {
+      goto LABEL_24;
+    }
+
+    v12[(v20 >> 6) + 8] |= 1 << v20;
+    v28 = (v12[6] + 16 * v20);
+    *v28 = v19;
+    v28[1] = v17;
+    v29 = (v12[7] + 24 * v20);
+    *v29 = v18;
+    v29[1] = v15;
+    v29[2] = v16;
+    v30 = v12[2];
+    v24 = __OFADD__(v30, 1);
+    v31 = v30 + 1;
+    if (v24)
+    {
+      goto LABEL_23;
+    }
+
+    ++v13;
+    v12[2] = v31;
+    v14 += 5;
+    if (v36 == v13)
+    {
+      goto LABEL_20;
+    }
+  }
+
+  __break(1u);
+LABEL_22:
+  __break(1u);
+LABEL_23:
+  __break(1u);
+LABEL_24:
+  v33 = swift_allocError();
+  swift_willThrow();
+  v37 = v33;
+  v34 = v33;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+  if ((swift_dynamicCast() & 1) == 0)
+  {
+    goto LABEL_27;
+  }
+
+  _StringGuts.grow(_:)(30);
+  MEMORY[0x259C32B90](0xD00000000000001BLL, 0x80000002553B68D0);
+  _print_unlocked<A, B>(_:_:)();
+  MEMORY[0x259C32B90](39, 0xE100000000000000);
+  _assertionFailure(_:_:file:line:flags:)("Fatal error", 11, 2, 0, 0xE000000000000000, "Swift/NativeDictionary.swift", 28, 2, 792, 0);
+  __break(1u);
+LABEL_26:
+  KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+  __break(1u);
+LABEL_27:
+
+  result.schemas._rawValue = swift_unexpectedError();
+  __break(1u);
+  return result;
+}
+
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance DatabaseCatalog.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+{
+  if (a1 == 0x73616D65686373 && a2 == 0xE700000000000000)
+  {
+
+    v7 = 0;
+  }
+
+  else
+  {
+    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    v7 = v5 ^ 1;
+  }
+
+  *a3 = v7 & 1;
+  return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance DatabaseCatalog.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type DatabaseCatalog.CodingKeys and conformance DatabaseCatalog.CodingKeys();
+
+  return MEMORY[0x2821FE718](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance DatabaseCatalog.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type DatabaseCatalog.CodingKeys and conformance DatabaseCatalog.CodingKeys();
+
+  return MEMORY[0x2821FE720](a1, v2);
+}
+
+uint64_t DatabaseCatalog.encode(to:)(void *a1)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser15DatabaseCatalogV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser15DatabaseCatalogV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
+  v6 = v9 - v5;
+  v7 = *v1;
+  __swift_project_boxed_opaque_existential_0(a1, a1[3]);
+  lazy protocol witness table accessor for type DatabaseCatalog.CodingKeys and conformance DatabaseCatalog.CodingKeys();
+
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  v9[1] = v7;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS14BiomeSQLParser6SchemaVGMd, &_sSDySS14BiomeSQLParser6SchemaVGMR);
+  lazy protocol witness table accessor for type [String : Schema] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : Schema] and conformance <> [A : B], lazy protocol witness table accessor for type Schema and conformance Schema, MEMORY[0x277D837D8], MEMORY[0x277D83508]);
+  KeyedEncodingContainer.encode<A>(_:forKey:)();
+
+  return (*(v4 + 8))(v6, v3);
+}
+
+uint64_t DatabaseCatalog.init(from:)@<X0>(void *a1@<X0>, void *a2@<X8>)
+{
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14BiomeSQLParser15DatabaseCatalogV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedDecodingContainerVy14BiomeSQLParser15DatabaseCatalogV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
+  v6 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5);
+  v8 = v10 - v7;
+  __swift_project_boxed_opaque_existential_0(a1, a1[3]);
+  lazy protocol witness table accessor for type DatabaseCatalog.CodingKeys and conformance DatabaseCatalog.CodingKeys();
+  dispatch thunk of Decoder.container<A>(keyedBy:)();
+  if (!v2)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS14BiomeSQLParser6SchemaVGMd, &_sSDySS14BiomeSQLParser6SchemaVGMR);
+    lazy protocol witness table accessor for type [String : Schema] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : Schema] and conformance <> [A : B], lazy protocol witness table accessor for type Schema and conformance Schema, MEMORY[0x277D83808], MEMORY[0x277D83528]);
+    KeyedDecodingContainer.decode<A>(_:forKey:)();
+    (*(v6 + 8))(v8, v5);
+    *a2 = v10[1];
+  }
+
+  return __swift_destroy_boxed_opaque_existential_0(a1);
+}
+
+uint64_t specialized Collection.firstIndex(where:)(uint64_t (*a1)(uint64_t), uint64_t a2, uint64_t a3)
+{
+  v4 = *(a3 + 16);
+  if (!v4)
+  {
+    return 0;
+  }
+
+  v7 = 0;
+  v8 = *(type metadata accessor for PgQuery_ScanToken(0) - 8);
+  v9 = a3 + ((*(v8 + 80) + 32) & ~*(v8 + 80));
+  v10 = *(v8 + 72);
+  while (1)
+  {
+    v11 = a1(v9);
+    if (v3 || (v11 & 1) != 0)
+    {
+      break;
+    }
+
+    ++v7;
+    v9 += v10;
+    if (v4 == v7)
+    {
+      return 0;
+    }
+  }
+
+  return v7;
+}
+
+uint64_t Schema.tableName.getter()
+{
+  v1 = *v0;
+
+  return v1;
+}
+
+BiomeSQLParser::Schema __swiftcall Schema.init(tableName:columns:)(Swift::String tableName, Swift::OpaquePointer columns)
+{
+  *v2 = tableName;
+  *(v2 + 16) = columns;
+  result.tableName = tableName;
+  result.columns = columns;
+  return result;
+}
+
+uint64_t static Schema.lookup(rangeVar:catalog:)@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
+{
+  v3 = a1[3];
+  v4 = a1[2] & 0xFFFFFFFFFFFFLL;
+  if ((v3 & 0x2000000000000000) != 0)
+  {
+    v4 = HIBYTE(v3) & 0xF;
+  }
+
+  if (v4)
+  {
+    v5 = 0x80000002553B6CE0;
+    v6 = 1;
+    v7 = 0xD00000000000003ELL;
+  }
+
+  else
+  {
+    v9 = *a2;
+    v7 = a1[4];
+    v5 = a1[5];
+    v10 = *(*a2 + 16);
+
+    if (v10)
+    {
+      v11 = specialized __RawDictionaryStorage.find<A>(_:)(v7, v5);
+      if (v12)
+      {
+        v13 = v11;
+
+        v14 = (*(v9 + 56) + 24 * v13);
+        v15 = v14[1];
+        v16 = v14[2];
+        *a3 = *v14;
+        a3[1] = v15;
+        a3[2] = v16;
+      }
+    }
+
+    v6 = 2;
+  }
+
+  lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+  swift_allocError();
+  *v18 = v7;
+  *(v18 + 8) = v5;
+  *(v18 + 16) = 0;
+  *(v18 + 24) = 0;
+  *(v18 + 32) = v6;
+  return swift_willThrow();
+}
+
+uint64_t static Schema.JSONEach(with:)@<X0>(char *a1@<X0>, void *a2@<X8>)
+{
+  v3 = *a1;
+  v13[0] = 0x65756C6176;
+  v13[1] = 0xE500000000000000;
+  v14 = v3;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMd, &_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMR);
+  v4 = static _DictionaryStorage.allocate(capacity:)();
+
+  outlined destroy of URL?(v13, &_sSS_14BiomeSQLParser11SQLDataTypeOtMd, &_sSS_14BiomeSQLParser11SQLDataTypeOtMR);
+  v5 = specialized __RawDictionaryStorage.find<A>(_:)(0x65756C6176, 0xE500000000000000);
+  v7 = v6;
+
+  if (v7)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    v4[(v5 >> 6) + 8] |= 1 << v5;
+    v9 = (v4[6] + 16 * v5);
+    *v9 = 0x65756C6176;
+    v9[1] = 0xE500000000000000;
+    *(v4[7] + v5) = v3;
+    v10 = v4[2];
+    v11 = __OFADD__(v10, 1);
+    v12 = v10 + 1;
+    if (!v11)
+    {
+      v4[2] = v12;
+      *a2 = 0x6361655F6E6F736ALL;
+      a2[1] = 0xE900000000000068;
+      a2[2] = v4;
+      return result;
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t static Schema.== infix(_:_:)(uint64_t *a1, void *a2)
+{
+  v2 = a1[2];
+  v3 = a2[2];
+  v4 = *a1 == *a2 && a1[1] == a2[1];
+  if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  return _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_14BiomeSQLParser11SQLDataTypeOTt1g5(v2, v3);
+}
+
+uint64_t _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_14BiomeSQLParser11SQLDataTypeOTt1g5(uint64_t result, uint64_t a2)
+{
+  if (result == a2)
+  {
+    return 1;
+  }
+
+  v3 = result;
+  if (*(result + 16) != *(a2 + 16))
+  {
+    return 0;
+  }
+
+  v4 = 0;
+  v5 = result + 64;
+  v6 = 1 << *(result + 32);
+  v7 = -1;
+  if (v6 < 64)
+  {
+    v7 = ~(-1 << v6);
+  }
+
+  v8 = v7 & *(result + 64);
+  v9 = (v6 + 63) >> 6;
+  if (v8)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_10:
+  v12 = v4;
+  while (1)
+  {
+    v4 = v12 + 1;
+    if (__OFADD__(v12, 1))
+    {
+      break;
+    }
+
+    if (v4 >= v9)
+    {
+      return 1;
+    }
+
+    v13 = *(v5 + 8 * v4);
+    ++v12;
+    if (v13)
+    {
+      v11 = __clz(__rbit64(v13));
+      for (i = (v13 - 1) & v13; ; i = (v8 - 1) & v8)
+      {
+        v14 = v11 | (v4 << 6);
+        v15 = v3;
+        v16 = (*(v3 + 48) + 16 * v14);
+        v18 = *v16;
+        v17 = v16[1];
+        v19 = *(*(v3 + 56) + v14);
+        v20 = v17 == 0;
+
+        if (!v17)
+        {
+          return v20;
+        }
+
+        v21 = specialized __RawDictionaryStorage.find<A>(_:)(v18, v17);
+        v23 = v22;
+
+        if ((v23 & 1) == 0)
+        {
+          return v20;
+        }
+
+        v24 = *(*(a2 + 56) + v21);
+        if (v24 > 3)
+        {
+          v25 = 0xE400000000000000;
+          if (*(*(a2 + 56) + v21) > 5u)
+          {
+            if (v24 == 6)
+            {
+              v26 = 1684632949;
+              if (v19 <= 3)
+              {
+                goto LABEL_43;
+              }
+            }
+
+            else
+            {
+              v26 = 1819047278;
+              if (v19 <= 3)
+              {
+LABEL_43:
+                if (v19 > 1)
+                {
+                  if (v19 == 2)
+                  {
+                    v27 = 0xE600000000000000;
+                    v28 = 0x676E69727473;
+                  }
+
+                  else
+                  {
+                    v27 = 0xE400000000000000;
+                    v28 = 1702125924;
+                  }
+                }
+
+                else if (v19)
+                {
+                  v27 = 0xE600000000000000;
+                  v28 = 0x656C62756F64;
+                }
+
+                else
+                {
+                  v27 = 0xE700000000000000;
+                  v28 = 0x72656765746E69;
+                }
+
+                goto LABEL_52;
+              }
+            }
+          }
+
+          else if (v24 == 4)
+          {
+            v26 = 1635017060;
+            if (v19 <= 3)
+            {
+              goto LABEL_43;
+            }
+          }
+
+          else
+          {
+            v26 = 1852797802;
+            if (v19 <= 3)
+            {
+              goto LABEL_43;
+            }
+          }
+        }
+
+        else if (*(*(a2 + 56) + v21) > 1u)
+        {
+          if (v24 == 2)
+          {
+            v25 = 0xE600000000000000;
+            v26 = 0x676E69727473;
+            if (v19 <= 3)
+            {
+              goto LABEL_43;
+            }
+          }
+
+          else
+          {
+            v25 = 0xE400000000000000;
+            v26 = 1702125924;
+            if (v19 <= 3)
+            {
+              goto LABEL_43;
+            }
+          }
+        }
+
+        else if (*(*(a2 + 56) + v21))
+        {
+          v25 = 0xE600000000000000;
+          v26 = 0x656C62756F64;
+          if (v19 <= 3)
+          {
+            goto LABEL_43;
+          }
+        }
+
+        else
+        {
+          v25 = 0xE700000000000000;
+          v26 = 0x72656765746E69;
+          if (v19 <= 3)
+          {
+            goto LABEL_43;
+          }
+        }
+
+        v27 = 0xE400000000000000;
+        if (v19 > 5)
+        {
+          if (v19 == 6)
+          {
+            v28 = 1684632949;
+          }
+
+          else
+          {
+            v28 = 1819047278;
+          }
+        }
+
+        else if (v19 == 4)
+        {
+          v28 = 1635017060;
+        }
+
+        else
+        {
+          v28 = 1852797802;
+        }
+
+LABEL_52:
+        v3 = v15;
+        if (v26 == v28 && v25 == v27)
+        {
+
+          v8 = i;
+          if (!i)
+          {
+            goto LABEL_10;
+          }
+        }
+
+        else
+        {
+          v10 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+          v8 = i;
+          if ((v10 & 1) == 0)
+          {
+            return v20;
+          }
+
+          if (!i)
+          {
+            goto LABEL_10;
+          }
+        }
+
+LABEL_9:
+        v11 = __clz(__rbit64(v8));
+      }
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t protocol witness for CodingKey.stringValue.getter in conformance Schema.CodingKeys()
+{
+  if (*v0)
+  {
+    return 0x736E6D756C6F63;
+  }
+
+  else
+  {
+    return 0x6D614E656C626174;
+  }
+}
+
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance Schema.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
+{
+  v6 = a1 == 0x6D614E656C626174 && a2 == 0xE900000000000065;
+  if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    v8 = 0;
+  }
+
+  else if (a1 == 0x736E6D756C6F63 && a2 == 0xE700000000000000)
+  {
+
+    v8 = 1;
+  }
+
+  else
+  {
+    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v9)
+    {
+      v8 = 1;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+  }
+
+  *a3 = v8;
+  return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance Schema.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type Schema.CodingKeys and conformance Schema.CodingKeys();
+
+  return MEMORY[0x2821FE718](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance Schema.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type Schema.CodingKeys and conformance Schema.CodingKeys();
+
+  return MEMORY[0x2821FE720](a1, v2);
+}
+
+uint64_t Schema.encode(to:)(void *a1)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser6SchemaV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser6SchemaV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
+  v10 = *(v4 - 8);
+  MEMORY[0x28223BE20](v4);
+  v6 = &v8 - v5;
+  v9 = *(v1 + 16);
+  __swift_project_boxed_opaque_existential_0(a1, a1[3]);
+  lazy protocol witness table accessor for type Schema.CodingKeys and conformance Schema.CodingKeys();
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  v13 = 0;
+  KeyedEncodingContainer.encode(_:forKey:)();
+  if (!v2)
+  {
+    v11 = v9;
+    v12 = 1;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS14BiomeSQLParser11SQLDataTypeOGMd, &_sSDySS14BiomeSQLParser11SQLDataTypeOGMR);
+    lazy protocol witness table accessor for type [String : SQLDataType] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : SQLDataType] and conformance <> [A : B], lazy protocol witness table accessor for type SQLDataType and conformance SQLDataType, MEMORY[0x277D837D8], MEMORY[0x277D83508]);
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+  }
+
+  return (*(v10 + 8))(v6, v4);
+}
+
+uint64_t Schema.init(from:)@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
+{
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy14BiomeSQLParser6SchemaV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedDecodingContainerVy14BiomeSQLParser6SchemaV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
+  v6 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5);
+  v8 = v15 - v7;
+  __swift_project_boxed_opaque_existential_0(a1, a1[3]);
+  lazy protocol witness table accessor for type Schema.CodingKeys and conformance Schema.CodingKeys();
+  dispatch thunk of Decoder.container<A>(keyedBy:)();
+  if (v2)
+  {
+    return __swift_destroy_boxed_opaque_existential_0(a1);
+  }
+
+  v17 = 0;
+  v9 = KeyedDecodingContainer.decode(_:forKey:)();
+  v11 = v10;
+  v12 = v9;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySS14BiomeSQLParser11SQLDataTypeOGMd, &_sSDySS14BiomeSQLParser11SQLDataTypeOGMR);
+  v16 = 1;
+  lazy protocol witness table accessor for type [String : SQLDataType] and conformance <> [A : B](&lazy protocol witness table cache variable for type [String : SQLDataType] and conformance <> [A : B], lazy protocol witness table accessor for type SQLDataType and conformance SQLDataType, MEMORY[0x277D83808], MEMORY[0x277D83528]);
+  KeyedDecodingContainer.decode<A>(_:forKey:)();
+  (*(v6 + 8))(v8, v5);
+  v13 = v15[1];
+  *a2 = v12;
+  a2[1] = v11;
+  a2[2] = v13;
+
+  __swift_destroy_boxed_opaque_existential_0(a1);
+}
+
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Schema(uint64_t *a1, void *a2)
+{
+  v2 = a1[2];
+  v3 = a2[2];
+  v4 = *a1 == *a2 && a1[1] == a2[1];
+  if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  return _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_14BiomeSQLParser11SQLDataTypeOTt1g5(v2, v3);
+}
+
+uint64_t FromClause.init(fromClauseNodes:resources:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
+{
+  v365 = a2;
+  v352 = a3;
+  v4 = type metadata accessor for SQLTokenInformation(0);
+  MEMORY[0x28223BE20](v4 - 8);
+  v310 = &v289 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+  MEMORY[0x28223BE20](v6 - 8);
+  v316 = &v289 - v7;
+  ColumnRef = type metadata accessor for PgQuery_ColumnRef(0);
+  v8 = MEMORY[0x28223BE20](ColumnRef);
+  v311 = (&v289 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x28223BE20](v8);
+  v318 = (&v289 - v10);
+  String = type metadata accessor for PgQuery_String(0);
+  MEMORY[0x28223BE20](String);
+  v330 = (&v289 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v339 = type metadata accessor for PgQuery_FuncCall(0);
+  v12 = MEMORY[0x28223BE20](v339);
+  v314 = &v289 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = MEMORY[0x28223BE20](v12);
+  v321 = &v289 - v15;
+  v16 = MEMORY[0x28223BE20](v14);
+  v326 = &v289 - v17;
+  v18 = MEMORY[0x28223BE20](v16);
+  v328 = &v289 - v19;
+  MEMORY[0x28223BE20](v18);
+  v335 = &v289 - v20;
+  List = type metadata accessor for PgQuery_List(0);
+  v21 = MEMORY[0x28223BE20](List);
+  v23 = (&v289 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v24 = MEMORY[0x28223BE20](v21);
+  v322 = (&v289 - v25);
+  v26 = MEMORY[0x28223BE20](v24);
+  v327 = (&v289 - v27);
+  v28 = MEMORY[0x28223BE20](v26);
+  v334 = (&v289 - v29);
+  v30 = MEMORY[0x28223BE20](v28);
+  v337 = (&v289 - v31);
+  MEMORY[0x28223BE20](v30);
+  v342 = (&v289 - v32);
+  RangeFunction = type metadata accessor for PgQuery_RangeFunction(0);
+  v346 = *(RangeFunction - 8);
+  v347 = RangeFunction;
+  MEMORY[0x28223BE20](RangeFunction);
+  v344 = &v289 - ((v34 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
+  v36 = MEMORY[0x28223BE20](v35 - 8);
+  v345 = &v289 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v36);
+  v348 = &v289 - v38;
+  v362 = type metadata accessor for PgQuery_Node.OneOf_Node(0);
+  v364 = *(v362 - 8);
+  v39 = MEMORY[0x28223BE20](v362);
+  v351 = (&v289 - ((v40 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x28223BE20](v39);
+  v349 = &v289 - v41;
+  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
+  v42 = *(RangeVar - 8);
+  MEMORY[0x28223BE20](RangeVar);
+  v44 = &v289 - ((v43 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v361 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  v45 = MEMORY[0x28223BE20](v361);
+  v312 = &v289 - ((v46 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v47 = MEMORY[0x28223BE20](v45);
+  v313 = &v289 - v48;
+  v49 = MEMORY[0x28223BE20](v47);
+  v317 = &v289 - v50;
+  v51 = MEMORY[0x28223BE20](v49);
+  v319 = &v289 - v52;
+  v53 = MEMORY[0x28223BE20](v51);
+  v320 = &v289 - v54;
+  v55 = MEMORY[0x28223BE20](v53);
+  v323 = &v289 - v56;
+  v57 = MEMORY[0x28223BE20](v55);
+  v325 = &v289 - v58;
+  v59 = MEMORY[0x28223BE20](v57);
+  v329 = &v289 - v60;
+  v61 = MEMORY[0x28223BE20](v59);
+  v332 = &v289 - v62;
+  v63 = MEMORY[0x28223BE20](v61);
+  v331 = &v289 - v64;
+  v65 = MEMORY[0x28223BE20](v63);
+  v333 = &v289 - v66;
+  v67 = MEMORY[0x28223BE20](v65);
+  v336 = &v289 - v68;
+  v69 = MEMORY[0x28223BE20](v67);
+  v341 = &v289 - v70;
+  v71 = MEMORY[0x28223BE20](v69);
+  v340 = &v289 - v72;
+  v73 = MEMORY[0x28223BE20](v71);
+  v353 = &v289 - v74;
+  v75 = MEMORY[0x28223BE20](v73);
+  v360 = &v289 - v76;
+  v77 = MEMORY[0x28223BE20](v75);
+  v358 = &v289 - v78;
+  v79 = MEMORY[0x28223BE20](v77);
+  v81 = &v289 - v80;
+  MEMORY[0x28223BE20](v79);
+  v83 = &v289 - v82;
+  v84 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+  v85 = MEMORY[0x28223BE20](v84 - 8);
+  *&v355 = &v289 - ((v86 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v85);
+  v88 = &v289 - v87;
+  Node = type metadata accessor for PgQuery_Node(0);
+  v90 = *(Node - 8);
+  v91 = MEMORY[0x28223BE20](Node);
+  v92 = MEMORY[0x28223BE20](v91);
+  v93 = MEMORY[0x28223BE20](v92);
+  v94 = MEMORY[0x28223BE20](v93);
+  v95 = MEMORY[0x28223BE20](v94);
+  v96 = MEMORY[0x28223BE20](v95);
+  v97 = MEMORY[0x28223BE20](v96);
+  v98 = MEMORY[0x28223BE20](v97);
+  v99 = MEMORY[0x28223BE20](v98);
+  v100 = MEMORY[0x28223BE20](v99);
+  v338 = &v289 - v101;
+  v102 = MEMORY[0x28223BE20](v100);
+  v103 = MEMORY[0x28223BE20](v102);
+  v350 = &v289 - v104;
+  v105 = MEMORY[0x28223BE20](v103);
+  v117 = (&v289 - v113);
+  if (!*(a1 + 16))
+  {
+
+    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+    swift_allocError();
+    *v125 = 0xD00000000000002FLL;
+    *(v125 + 8) = 0x80000002553B6CB0;
+    *(v125 + 16) = 0;
+    *(v125 + 24) = 0;
+    *(v125 + 32) = 1;
+    swift_willThrow();
+    v126 = type metadata accessor for PlanResources;
+    v127 = v365;
+    return outlined destroy of PgQuery_ParseResult(v127, v126);
+  }
+
+  v307 = *(a1 + 16);
+  v308 = v44;
+  v299 = v111;
+  v300 = v112;
+  v297 = v109;
+  v298 = v110;
+  v295 = v23;
+  v296 = v108;
+  v293 = v106;
+  v294 = v107;
+  v291 = v115;
+  v292 = v116;
+  v306 = v90;
+  v301 = (*(v90 + 80) + 32) & ~*(v90 + 80);
+  v302 = v114;
+  v118 = v105;
+  v303 = a1 + v301;
+  outlined init with copy of PgQuery_ScanResult(a1 + v301, &v289 - v113, type metadata accessor for PgQuery_Node);
+  v119 = a1;
+  v309 = v42;
+  v120 = *(v42 + 56);
+  v359 = v88;
+  v120(v88, 1, 1, RangeVar);
+  v304 = v118;
+  v121 = *(v118 + 20);
+  v356 = v117;
+  outlined init with copy of PgQuery_Alias?(*(v117 + v121) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v83, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  v357 = v83;
+  outlined init with copy of PgQuery_Alias?(v83, v81, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  v123 = v364 + 48;
+  v122 = *(v364 + 48);
+  v124 = v81;
+  if (v122(v81, 1, v362) == 1)
+  {
+
+LABEL_9:
+    v135 = v365;
+    *&v380 = 0;
+    *(&v380 + 1) = 0xE000000000000000;
+    _StringGuts.grow(_:)(49);
+
+    *&v380 = 0xD00000000000002FLL;
+    *(&v380 + 1) = 0x80000002553B6C20;
+    v136 = v357;
+    outlined init with copy of PgQuery_Alias?(v357, v360, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    v137 = String.init<A>(describing:)();
+    MEMORY[0x259C32B90](v137);
+
+    v138 = v380;
+    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+    swift_allocError();
+    *v139 = v138;
+    *(v139 + 16) = 0;
+    *(v139 + 24) = 0;
+    *(v139 + 32) = 1;
+    swift_willThrow();
+    outlined destroy of PgQuery_ParseResult(v135, type metadata accessor for PlanResources);
+    outlined destroy of URL?(v136, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    outlined destroy of URL?(v359, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+    outlined destroy of PgQuery_ParseResult(v356, type metadata accessor for PgQuery_Node);
+    return outlined destroy of URL?(v124, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  }
+
+  v305 = v119;
+  v128 = v81;
+  v129 = v358;
+  outlined init with copy of PgQuery_Alias?(v128, v358, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (swift_getEnumCaseMultiPayload() != 1)
+  {
+
+    outlined destroy of PgQuery_ParseResult(v129, type metadata accessor for PgQuery_Node.OneOf_Node);
+    goto LABEL_9;
+  }
+
+  v364 = v123;
+  v130 = v359;
+  outlined destroy of URL?(v359, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+  outlined init with take of PgQuery_ParseResult(v129, v130, type metadata accessor for PgQuery_RangeVar);
+  v131 = RangeVar;
+  v120(v130, 0, 1, RangeVar);
+  outlined destroy of URL?(v124, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  v132 = v355;
+  outlined init with copy of PgQuery_Alias?(v130, v355, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+  if ((*(v309 + 48))(v132, 1, v131) == 1)
+  {
+
+    outlined destroy of URL?(v132, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+    swift_allocError();
+    *v133 = 0xD00000000000001CLL;
+    *(v133 + 8) = 0x80000002553B6C50;
+    *(v133 + 16) = 0;
+    *(v133 + 24) = 0;
+    *(v133 + 32) = 1;
+    swift_willThrow();
+    outlined destroy of PgQuery_ParseResult(v365, type metadata accessor for PlanResources);
+    outlined destroy of URL?(v357, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    v134 = v130;
+LABEL_12:
+    outlined destroy of URL?(v134, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+    v126 = type metadata accessor for PgQuery_Node;
+    v127 = v356;
+    return outlined destroy of PgQuery_ParseResult(v127, v126);
+  }
+
+  v141 = v308;
+  outlined init with take of PgQuery_ParseResult(v132, v308, type metadata accessor for PgQuery_RangeVar);
+  v142 = v365;
+  v370[0] = *v365;
+
+  v143 = v354;
+  static Schema.lookup(rangeVar:catalog:)(v141, v370, &v380);
+  v144 = v143;
+  v145 = v305;
+  if (v143)
+  {
+
+    outlined destroy of PgQuery_ParseResult(v142, type metadata accessor for PlanResources);
+
+    outlined destroy of PgQuery_ParseResult(v141, type metadata accessor for PgQuery_RangeVar);
+    outlined destroy of URL?(v357, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    v134 = v359;
+    goto LABEL_12;
+  }
+
+  v290 = v122;
+
+  v146 = v380;
+  v147 = v381;
+  v361 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy14BiomeSQLParser6SchemaVGMd, &_ss23_ContiguousArrayStorageCy14BiomeSQLParser6SchemaVGMR);
+  v148 = swift_allocObject();
+  *(v148 + 16) = xmmword_2552FE080;
+  RangeVar = v146;
+  *(v148 + 32) = v146;
+  *(v148 + 48) = v147;
+  v384 = 0u;
+  v385 = 0u;
+  v382 = 0u;
+  v383 = 0u;
+  v380 = 0u;
+  v381 = 0u;
+  v149 = *(v145 + 16);
+  v150 = v357;
+  if (v149 < v307)
+  {
+    __break(1u);
+    goto LABEL_78;
+  }
+
+  v151 = v148;
+  v152 = v290;
+  if (v307 != 2)
+  {
+
+    outlined destroy of PgQuery_ParseResult(v142, type metadata accessor for PlanResources);
+    outlined destroy of PgQuery_ParseResult(v141, type metadata accessor for PgQuery_RangeVar);
+    outlined destroy of URL?(v150, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    outlined destroy of URL?(v359, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+    result = outlined destroy of PgQuery_ParseResult(v356, type metadata accessor for PgQuery_Node);
+    goto LABEL_19;
+  }
+
+  v355 = xmmword_2552FE080;
+  v153 = v350;
+  outlined init with copy of PgQuery_ScanResult(v303 + *(v306 + 72), v350, type metadata accessor for PgQuery_Node);
+  v154 = v353;
+  outlined init with copy of PgQuery_Alias?(*(v153 + *(v304 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v353, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+
+  outlined destroy of PgQuery_ParseResult(v153, type metadata accessor for PgQuery_Node);
+  if (v152(v154, 1, v362) == 1)
+  {
+
+    outlined destroy of PgQuery_ParseResult(v365, type metadata accessor for PlanResources);
+    outlined destroy of PgQuery_ParseResult(v141, type metadata accessor for PgQuery_RangeVar);
+    outlined destroy of URL?(v357, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    outlined destroy of URL?(v359, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+    outlined destroy of PgQuery_ParseResult(v356, type metadata accessor for PgQuery_Node);
+    result = outlined destroy of URL?(v353, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+LABEL_19:
+    v155 = v352;
+    *v352 = v151;
+    v156 = v383;
+    *(v155 + 5) = v382;
+    *(v155 + 7) = v156;
+    v157 = v385;
+    *(v155 + 9) = v384;
+    *(v155 + 11) = v157;
+    v158 = v381;
+    *(v155 + 1) = v380;
+    *(v155 + 3) = v158;
+    return result;
+  }
+
+  v360 = v147;
+  v358 = *(&v146 + 1);
+  v354 = v151;
+  v350 = 0;
+  v159 = v349;
+  outlined init with take of PgQuery_ParseResult(v353, v349, type metadata accessor for PgQuery_Node.OneOf_Node);
+  v160 = v346;
+  v161 = v347;
+  v162 = *(v346 + 56);
+  v163 = v348;
+  v162(v348, 1, 1, v347);
+  outlined init with copy of PgQuery_ScanResult(v159, v351, type metadata accessor for PgQuery_Node.OneOf_Node);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  v165 = v365;
+  if (EnumCaseMultiPayload != 182)
+  {
+
+    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+    swift_allocError();
+    *v168 = 0xD000000000000030;
+    *(v168 + 8) = 0x80000002553B6C70;
+    *(v168 + 16) = 0;
+    *(v168 + 24) = 0;
+    *(v168 + 32) = 1;
+    swift_willThrow();
+
+    outlined destroy of PgQuery_ParseResult(v165, type metadata accessor for PlanResources);
+    outlined destroy of URL?(v163, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
+    outlined destroy of PgQuery_ParseResult(v159, type metadata accessor for PgQuery_Node.OneOf_Node);
+    outlined destroy of URL?(&v380, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+    outlined destroy of PgQuery_ParseResult(v308, type metadata accessor for PgQuery_RangeVar);
+    outlined destroy of URL?(v357, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    outlined destroy of URL?(v359, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+    outlined destroy of PgQuery_ParseResult(v356, type metadata accessor for PgQuery_Node);
+    v127 = v351;
+    v126 = type metadata accessor for PgQuery_Node.OneOf_Node;
+    return outlined destroy of PgQuery_ParseResult(v127, v126);
+  }
+
+  outlined destroy of URL?(v163, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
+  outlined init with take of PgQuery_ParseResult(v351, v163, type metadata accessor for PgQuery_RangeFunction);
+  v162(v163, 0, 1, v161);
+  v166 = v345;
+  outlined init with copy of PgQuery_Alias?(v163, v345, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
+  v167 = v163;
+  if ((*(v160 + 48))(v166, 1, v161) == 1)
+  {
+
+    outlined destroy of URL?(v166, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
+LABEL_28:
+    v177 = v356;
+    v178 = v359;
+    v179 = v349;
+LABEL_57:
+    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+    swift_allocError();
+    *v197 = 0xD000000000000030;
+    *(v197 + 8) = 0x80000002553B6C70;
+    *(v197 + 16) = 0;
+    *(v197 + 24) = 0;
+    *(v197 + 32) = 1;
+    swift_willThrow();
+
+    outlined destroy of PgQuery_ParseResult(v165, type metadata accessor for PlanResources);
+    outlined destroy of URL?(v167, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
+    outlined destroy of PgQuery_ParseResult(v179, type metadata accessor for PgQuery_Node.OneOf_Node);
+    outlined destroy of URL?(&v380, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+    outlined destroy of PgQuery_ParseResult(v308, type metadata accessor for PgQuery_RangeVar);
+    outlined destroy of URL?(v357, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    outlined destroy of URL?(v178, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+    v126 = type metadata accessor for PgQuery_Node;
+    v127 = v177;
+    return outlined destroy of PgQuery_ParseResult(v127, v126);
+  }
+
+  v169 = v166;
+  v170 = v344;
+  outlined init with take of PgQuery_ParseResult(v169, v344, type metadata accessor for PgQuery_RangeFunction);
+  v171 = *(v170 + 8);
+  if (*(v171 + 16) != 1)
+  {
+
+    outlined destroy of PgQuery_ParseResult(v170, type metadata accessor for PgQuery_RangeFunction);
+    goto LABEL_28;
+  }
+
+  v172 = v302;
+  outlined init with copy of PgQuery_ScanResult(v171 + v301, v302, type metadata accessor for PgQuery_Node);
+  v142 = *(v172 + *(v304 + 20));
+  v144 = OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node;
+  v173 = v340;
+  outlined init with copy of PgQuery_Alias?(v142 + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v340, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  v174 = v290(v173, 1, v362);
+  v132 = MEMORY[0x277D84F90];
+  if (v174 == 1)
+  {
+    outlined destroy of URL?(v173, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    v176 = v341;
+    v175 = v342;
+  }
+
+  else
+  {
+    v180 = swift_getEnumCaseMultiPayload() == 225;
+    v181 = v173;
+    v176 = v341;
+    v175 = v342;
+    if (v180)
+    {
+      outlined init with take of PgQuery_ParseResult(v181, v342, type metadata accessor for PgQuery_List);
+      goto LABEL_33;
+    }
+
+    outlined destroy of PgQuery_ParseResult(v181, type metadata accessor for PgQuery_Node.OneOf_Node);
+  }
+
+  *v175 = v132;
+  UnknownStorage.init()();
+LABEL_33:
+  v182 = *v175;
+
+  outlined destroy of PgQuery_ParseResult(v175, type metadata accessor for PgQuery_List);
+  v183 = *(v182 + 16);
+
+  if (v183 != 2)
+  {
+    goto LABEL_54;
+  }
+
+  outlined init with copy of PgQuery_Alias?(v142 + v144, v176, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v290(v176, 1, v362) == 1)
+  {
+    outlined destroy of URL?(v176, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  }
+
+  else
+  {
+    if (swift_getEnumCaseMultiPayload() == 225)
+    {
+      v184 = v337;
+      outlined init with take of PgQuery_ParseResult(v176, v337, type metadata accessor for PgQuery_List);
+      goto LABEL_41;
+    }
+
+    outlined destroy of PgQuery_ParseResult(v176, type metadata accessor for PgQuery_Node.OneOf_Node);
+  }
+
+  v184 = v337;
+  *v337 = v132;
+  UnknownStorage.init()();
+LABEL_41:
+  v185 = v184;
+  v186 = *v184;
+
+  outlined destroy of PgQuery_ParseResult(v185, type metadata accessor for PgQuery_List);
+  if (!*(v186 + 16))
+  {
+
+LABEL_54:
+
+    outlined destroy of PgQuery_ParseResult(v302, type metadata accessor for PgQuery_Node);
+
+    v196 = v170;
+LABEL_55:
+    outlined destroy of PgQuery_ParseResult(v196, type metadata accessor for PgQuery_RangeFunction);
+LABEL_56:
+    v165 = v365;
+    v177 = v356;
+    v178 = v359;
+    v167 = v348;
+    v179 = v349;
+    goto LABEL_57;
+  }
+
+  v187 = v338;
+  outlined init with copy of PgQuery_ScanResult(v186 + v301, v338, type metadata accessor for PgQuery_Node);
+
+  v188 = *(v187 + *(v304 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node;
+  v189 = v336;
+  outlined init with copy of PgQuery_Alias?(v188, v336, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v290(v189, 1, v362) == 1)
+  {
+    outlined destroy of URL?(v189, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+    v190 = v335;
+  }
+
+  else
+  {
+    v180 = swift_getEnumCaseMultiPayload() == 170;
+    v191 = v189;
+    v190 = v335;
+    if (v180)
+    {
+      outlined init with take of PgQuery_ParseResult(v191, v335, type metadata accessor for PgQuery_FuncCall);
+      goto LABEL_51;
+    }
+
+    outlined destroy of PgQuery_ParseResult(v191, type metadata accessor for PgQuery_Node.OneOf_Node);
+  }
+
+  UnknownStorage.init()();
+  v192 = *(v339 + 20);
+  if (one-time initialization token for defaultInstance != -1)
+  {
+    swift_once();
+  }
+
+  *(v190 + v192) = static PgQuery_FuncCall._StorageClass.defaultInstance;
+
+LABEL_51:
+  outlined destroy of PgQuery_ParseResult(v338, type metadata accessor for PgQuery_Node);
+  v193 = *(*(v190 + *(v339 + 20)) + 16);
+
+  outlined destroy of PgQuery_ParseResult(v190, type metadata accessor for PgQuery_FuncCall);
+  v194 = *(v193 + 16);
+
+  if (v194 != 1)
+  {
+    goto LABEL_54;
+  }
+
+  v195 = v333;
+  outlined init with copy of PgQuery_Alias?(v142 + v144, v333, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v290(v195, 1, v362) == 1)
+  {
+    outlined destroy of URL?(v195, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  }
+
+  else
+  {
+    if (swift_getEnumCaseMultiPayload() == 225)
+    {
+      v198 = v334;
+      outlined init with take of PgQuery_ParseResult(v195, v334, type metadata accessor for PgQuery_List);
+      goto LABEL_62;
+    }
+
+    outlined destroy of PgQuery_ParseResult(v195, type metadata accessor for PgQuery_Node.OneOf_Node);
+  }
+
+  v198 = v334;
+  *v334 = v132;
+  UnknownStorage.init()();
+LABEL_62:
+  v199 = *v198;
+
+  outlined destroy of PgQuery_ParseResult(v198, type metadata accessor for PgQuery_List);
+  if (!*(v199 + 16))
+  {
+LABEL_74:
+
+LABEL_120:
+
+    outlined destroy of PgQuery_ParseResult(v302, type metadata accessor for PgQuery_Node);
+
+    v196 = v344;
+    goto LABEL_55;
+  }
+
+  v200 = v300;
+  outlined init with copy of PgQuery_ScanResult(v199 + v301, v300, type metadata accessor for PgQuery_Node);
+
+  v201 = v331;
+  outlined init with copy of PgQuery_Alias?(*(v200 + *(v304 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v331, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v290(v201, 1, v362) == 1)
+  {
+    outlined destroy of URL?(v201, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  }
+
+  else
+  {
+    if (swift_getEnumCaseMultiPayload() == 170)
+    {
+      v202 = v328;
+      outlined init with take of PgQuery_ParseResult(v331, v328, type metadata accessor for PgQuery_FuncCall);
+      goto LABEL_71;
+    }
+
+    outlined destroy of PgQuery_ParseResult(v331, type metadata accessor for PgQuery_Node.OneOf_Node);
+  }
+
+  v202 = v328;
+  UnknownStorage.init()();
+  v203 = *(v339 + 20);
+  if (one-time initialization token for defaultInstance != -1)
+  {
+    swift_once();
+  }
+
+  *(v202 + v203) = static PgQuery_FuncCall._StorageClass.defaultInstance;
+
+LABEL_71:
+  outlined destroy of PgQuery_ParseResult(v300, type metadata accessor for PgQuery_Node);
+  v204 = *(*(v202 + *(v339 + 20)) + 16);
+
+  outlined destroy of PgQuery_ParseResult(v202, type metadata accessor for PgQuery_FuncCall);
+  if (!*(v204 + 16))
+  {
     goto LABEL_74;
   }
 
-  outlined destroy of PgQuery_Node.OneOf_Node(v264, type metadata accessor for PgQuery_Node);
-  outlined destroy of PgQuery_Node.OneOf_Node(v268, type metadata accessor for SQLTokenInformation);
-  outlined destroy of PgQuery_Node.OneOf_Node(v335, type metadata accessor for PgQuery_A_Const);
-  outlined destroy of PgQuery_Node.OneOf_Node(v334, type metadata accessor for PgQuery_A_Const);
-  outlined destroy of URL?(v338, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
-  __swift_deallocate_boxed_opaque_existential_1(v347);
-  return outlined destroy of URL?(v354, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  v205 = v299;
+  outlined init with copy of PgQuery_ScanResult(v204 + v301, v299, type metadata accessor for PgQuery_Node);
+
+  v206 = v332;
+  outlined init with copy of PgQuery_Alias?(*(v205 + *(v304 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v332, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v290(v206, 1, v362) == 1)
+  {
+    outlined destroy of URL?(v332, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+LABEL_79:
+    v207 = v330;
+    *v330 = 0;
+    v207[1] = 0xE000000000000000;
+    UnknownStorage.init()();
+    goto LABEL_80;
+  }
+
+  if (swift_getEnumCaseMultiPayload() != 222)
+  {
+LABEL_78:
+    outlined destroy of PgQuery_ParseResult(v332, type metadata accessor for PgQuery_Node.OneOf_Node);
+    goto LABEL_79;
+  }
+
+  outlined init with take of PgQuery_ParseResult(v332, v330, type metadata accessor for PgQuery_String);
+LABEL_80:
+  outlined destroy of PgQuery_ParseResult(v299, type metadata accessor for PgQuery_Node);
+  v208 = v330;
+  v210 = *v330;
+  v209 = v330[1];
+
+  outlined destroy of PgQuery_ParseResult(v208, type metadata accessor for PgQuery_String);
+  if (v210 == 0x6361655F6E6F736ALL && v209 == 0xE900000000000068)
+  {
+  }
+
+  else
+  {
+    v211 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if ((v211 & 1) == 0)
+    {
+LABEL_119:
+
+      goto LABEL_120;
+    }
+  }
+
+  v212 = v329;
+  outlined init with copy of PgQuery_Alias?(v142 + v144, v329, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v290(v212, 1, v362) == 1)
+  {
+    outlined destroy of URL?(v329, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  }
+
+  else
+  {
+    if (swift_getEnumCaseMultiPayload() == 225)
+    {
+      outlined init with take of PgQuery_ParseResult(v329, v327, type metadata accessor for PgQuery_List);
+      goto LABEL_90;
+    }
+
+    outlined destroy of PgQuery_ParseResult(v329, type metadata accessor for PgQuery_Node.OneOf_Node);
+  }
+
+  *v327 = v132;
+  UnknownStorage.init()();
+LABEL_90:
+  v213 = v327;
+  v214 = *v327;
+
+  outlined destroy of PgQuery_ParseResult(v213, type metadata accessor for PgQuery_List);
+  if (!*(v214 + 16))
+  {
+LABEL_118:
+
+    goto LABEL_119;
+  }
+
+  v215 = v298;
+  outlined init with copy of PgQuery_ScanResult(v214 + v301, v298, type metadata accessor for PgQuery_Node);
+
+  v216 = v325;
+  outlined init with copy of PgQuery_Alias?(*(v215 + *(v304 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v325, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v290(v216, 1, v362) == 1)
+  {
+    outlined destroy of URL?(v325, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  }
+
+  else
+  {
+    if (swift_getEnumCaseMultiPayload() == 170)
+    {
+      outlined init with take of PgQuery_ParseResult(v325, v326, type metadata accessor for PgQuery_FuncCall);
+      goto LABEL_99;
+    }
+
+    outlined destroy of PgQuery_ParseResult(v325, type metadata accessor for PgQuery_Node.OneOf_Node);
+  }
+
+  UnknownStorage.init()();
+  v217 = *(v339 + 20);
+  if (one-time initialization token for defaultInstance != -1)
+  {
+    swift_once();
+  }
+
+  *(v326 + v217) = static PgQuery_FuncCall._StorageClass.defaultInstance;
+
+LABEL_99:
+  outlined destroy of PgQuery_ParseResult(v298, type metadata accessor for PgQuery_Node);
+  v218 = v326;
+  v219 = *(*(v326 + *(v339 + 20)) + 24);
+
+  outlined destroy of PgQuery_ParseResult(v218, type metadata accessor for PgQuery_FuncCall);
+  v220 = *(v219 + 16);
+
+  if (v220 != 1)
+  {
+    goto LABEL_119;
+  }
+
+  v221 = v323;
+  outlined init with copy of PgQuery_Alias?(v142 + v144, v323, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v290(v221, 1, v362) == 1)
+  {
+    outlined destroy of URL?(v323, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  }
+
+  else
+  {
+    if (swift_getEnumCaseMultiPayload() == 225)
+    {
+      outlined init with take of PgQuery_ParseResult(v323, v322, type metadata accessor for PgQuery_List);
+      goto LABEL_106;
+    }
+
+    outlined destroy of PgQuery_ParseResult(v323, type metadata accessor for PgQuery_Node.OneOf_Node);
+  }
+
+  *v322 = v132;
+  UnknownStorage.init()();
+LABEL_106:
+  v222 = v322;
+  v223 = *v322;
+
+  outlined destroy of PgQuery_ParseResult(v222, type metadata accessor for PgQuery_List);
+  if (!*(v223 + 16))
+  {
+    goto LABEL_118;
+  }
+
+  v224 = v297;
+  outlined init with copy of PgQuery_ScanResult(v223 + v301, v297, type metadata accessor for PgQuery_Node);
+
+  v225 = v320;
+  outlined init with copy of PgQuery_Alias?(*(v224 + *(v304 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v320, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v290(v225, 1, v362) == 1)
+  {
+    outlined destroy of URL?(v320, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  }
+
+  else
+  {
+    if (swift_getEnumCaseMultiPayload() == 170)
+    {
+      outlined init with take of PgQuery_ParseResult(v320, v321, type metadata accessor for PgQuery_FuncCall);
+      goto LABEL_115;
+    }
+
+    outlined destroy of PgQuery_ParseResult(v320, type metadata accessor for PgQuery_Node.OneOf_Node);
+  }
+
+  UnknownStorage.init()();
+  v226 = *(v339 + 20);
+  if (one-time initialization token for defaultInstance != -1)
+  {
+    swift_once();
+  }
+
+  *(v321 + v226) = static PgQuery_FuncCall._StorageClass.defaultInstance;
+
+LABEL_115:
+  outlined destroy of PgQuery_ParseResult(v297, type metadata accessor for PgQuery_Node);
+  v227 = v321;
+  v228 = *(*(v321 + *(v339 + 20)) + 24);
+
+  outlined destroy of PgQuery_ParseResult(v227, type metadata accessor for PgQuery_FuncCall);
+  if (!*(v228 + 16))
+  {
+    goto LABEL_118;
+  }
+
+  v229 = v296;
+  outlined init with copy of PgQuery_ScanResult(v228 + v301, v296, type metadata accessor for PgQuery_Node);
+
+  v230 = v319;
+  outlined init with copy of PgQuery_Alias?(*(v229 + *(v304 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v319, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v290(v230, 1, v362) == 1)
+  {
+    outlined destroy of URL?(v319, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  }
+
+  else
+  {
+    if (swift_getEnumCaseMultiPayload() == 167)
+    {
+      outlined init with take of PgQuery_ParseResult(v319, v318, type metadata accessor for PgQuery_ColumnRef);
+      goto LABEL_125;
+    }
+
+    outlined destroy of PgQuery_ParseResult(v319, type metadata accessor for PgQuery_Node.OneOf_Node);
+  }
+
+  v231 = v318;
+  *v318 = v132;
+  *(v231 + 2) = 0;
+  UnknownStorage.init()();
+LABEL_125:
+  outlined destroy of PgQuery_ParseResult(v296, type metadata accessor for PgQuery_Node);
+  v232 = v318;
+  v233 = *v318;
+
+  outlined destroy of PgQuery_ParseResult(v232, type metadata accessor for PgQuery_ColumnRef);
+  v234 = *(v233 + 16);
+
+  if (v234 != 1)
+  {
+    goto LABEL_119;
+  }
+
+  v235 = v317;
+  outlined init with copy of PgQuery_Alias?(v142 + v144, v317, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v290(v235, 1, v362) == 1)
+  {
+    outlined destroy of URL?(v317, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  }
+
+  else
+  {
+    if (swift_getEnumCaseMultiPayload() == 225)
+    {
+      outlined init with take of PgQuery_ParseResult(v317, v295, type metadata accessor for PgQuery_List);
+      goto LABEL_132;
+    }
+
+    outlined destroy of PgQuery_ParseResult(v317, type metadata accessor for PgQuery_Node.OneOf_Node);
+  }
+
+  *v295 = v132;
+  UnknownStorage.init()();
+LABEL_132:
+  v236 = v295;
+  v237 = *v295;
+
+  outlined destroy of PgQuery_ParseResult(v236, type metadata accessor for PgQuery_List);
+  if (!*(v237 + 16))
+  {
+LABEL_144:
+
+    (*(v306 + 56))(v316, 1, 1, v304);
+LABEL_154:
+    outlined destroy of PgQuery_ParseResult(v302, type metadata accessor for PgQuery_Node);
+
+    outlined destroy of PgQuery_ParseResult(v344, type metadata accessor for PgQuery_RangeFunction);
+    outlined destroy of URL?(v316, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+    goto LABEL_56;
+  }
+
+  v238 = v294;
+  outlined init with copy of PgQuery_ScanResult(v237 + v301, v294, type metadata accessor for PgQuery_Node);
+
+  v239 = v313;
+  outlined init with copy of PgQuery_Alias?(*(v238 + *(v304 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v313, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v290(v239, 1, v362) == 1)
+  {
+    outlined destroy of URL?(v313, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  }
+
+  else
+  {
+    if (swift_getEnumCaseMultiPayload() == 170)
+    {
+      outlined init with take of PgQuery_ParseResult(v313, v314, type metadata accessor for PgQuery_FuncCall);
+      goto LABEL_141;
+    }
+
+    outlined destroy of PgQuery_ParseResult(v313, type metadata accessor for PgQuery_Node.OneOf_Node);
+  }
+
+  UnknownStorage.init()();
+  v240 = *(v339 + 20);
+  if (one-time initialization token for defaultInstance != -1)
+  {
+    swift_once();
+  }
+
+  *(v314 + v240) = static PgQuery_FuncCall._StorageClass.defaultInstance;
+
+LABEL_141:
+  outlined destroy of PgQuery_ParseResult(v294, type metadata accessor for PgQuery_Node);
+  v241 = v314;
+  v242 = *(*(v314 + *(v339 + 20)) + 24);
+
+  outlined destroy of PgQuery_ParseResult(v241, type metadata accessor for PgQuery_FuncCall);
+  if (!*(v242 + 16))
+  {
+    goto LABEL_144;
+  }
+
+  v243 = v293;
+  outlined init with copy of PgQuery_ScanResult(v242 + v301, v293, type metadata accessor for PgQuery_Node);
+
+  v244 = v312;
+  outlined init with copy of PgQuery_Alias?(*(v243 + *(v304 + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v312, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  if (v290(v244, 1, v362) == 1)
+  {
+    outlined destroy of URL?(v312, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  }
+
+  else
+  {
+    if (swift_getEnumCaseMultiPayload() == 167)
+    {
+      outlined init with take of PgQuery_ParseResult(v312, v311, type metadata accessor for PgQuery_ColumnRef);
+      goto LABEL_149;
+    }
+
+    outlined destroy of PgQuery_ParseResult(v312, type metadata accessor for PgQuery_Node.OneOf_Node);
+  }
+
+  v245 = v311;
+  *v311 = v132;
+  *(v245 + 2) = 0;
+  UnknownStorage.init()();
+LABEL_149:
+  outlined destroy of PgQuery_ParseResult(v293, type metadata accessor for PgQuery_Node);
+  v246 = v311;
+  v247 = *v311;
+
+  outlined destroy of PgQuery_ParseResult(v246, type metadata accessor for PgQuery_ColumnRef);
+  if (*(v247 + 16))
+  {
+    outlined init with copy of PgQuery_ScanResult(v247 + v301, v316, type metadata accessor for PgQuery_Node);
+    v248 = 0;
+  }
+
+  else
+  {
+    v248 = 1;
+  }
+
+  v249 = v306;
+  v250 = v316;
+  v251 = v248;
+  v252 = v304;
+  (*(v306 + 56))(v316, v251, 1, v304);
+  if ((*(v249 + 48))(v250, 1, v252) == 1)
+  {
+
+    goto LABEL_154;
+  }
+
+  v253 = v291;
+  outlined init with take of PgQuery_ParseResult(v316, v291, type metadata accessor for PgQuery_Node);
+  outlined init with copy of PgQuery_ScanResult(v253, v292, type metadata accessor for PgQuery_Node);
+  v254 = swift_allocObject();
+  *(v254 + 16) = v355;
+  v255 = v358;
+  *(v254 + 32) = RangeVar;
+  *(v254 + 40) = v255;
+  *(v254 + 48) = v360;
+  v256 = type metadata accessor for PlanResources(0);
+  outlined init with copy of PgQuery_ScanResult(v365 + *(v256 + 20), v310, type metadata accessor for SQLTokenInformation);
+
+  v258 = v350;
+  v259 = specialized ColumnResolver.init(schemas:)(v257);
+  if (!v258)
+  {
+    v261 = v259;
+    v262 = v260;
+
+    buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)(v292, v254, v261, v262, v310, v369);
+    v263 = 0x65756C6176;
+
+    outlined init with copy of VirtualTable.Module(v369, v368);
+    outlined init with copy of VirtualTable.Module(v368, v370);
+    v264 = v371;
+    v265 = v372;
+    __swift_project_boxed_opaque_existential_0(v370, v371);
+    v373 = (*(v265 + 8))(v264, v265);
+    v374 = v266;
+    v267 = v371;
+    v268 = v372;
+    __swift_project_boxed_opaque_existential_0(v370, v371);
+    (*(v268 + 16))(&v386, v267, v268);
+    v375 = v386;
+    v269 = v371;
+    v270 = v372;
+    __swift_project_boxed_opaque_existential_0(v370, v371);
+    v376 = (*(v270 + 24))(v269, v270);
+    v271 = v371;
+    v272 = v372;
+    __swift_project_boxed_opaque_existential_0(v370, v371);
+    v377 = (*(v272 + 32))(v271, v272);
+    v273 = v371;
+    v274 = v372;
+    __swift_project_boxed_opaque_existential_0(v370, v371);
+    v275 = (*(v274 + 40))(v273, v274);
+    v277 = v276;
+    __swift_destroy_boxed_opaque_existential_0(v368);
+    __swift_destroy_boxed_opaque_existential_0(v369);
+    outlined destroy of PgQuery_ParseResult(v310, type metadata accessor for SQLTokenInformation);
+    outlined destroy of PgQuery_ParseResult(v292, type metadata accessor for PgQuery_Node);
+    outlined destroy of URL?(&v380, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+    v378 = v275;
+    v379 = v277;
+    outlined init with copy of SQLExpression(v370, &v380);
+    v278 = v375;
+    v366[0] = 0x65756C6176;
+    v366[1] = 0xE500000000000000;
+    v367 = v375;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMd, &_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMR);
+    v279 = static _DictionaryStorage.allocate(capacity:)();
+
+    outlined destroy of URL?(v366, &_sSS_14BiomeSQLParser11SQLDataTypeOtMd, &_sSS_14BiomeSQLParser11SQLDataTypeOtMR);
+    v280 = specialized __RawDictionaryStorage.find<A>(_:)(0x65756C6176, 0xE500000000000000);
+    v282 = v281;
+
+    if (v282)
+    {
+      __break(1u);
+    }
+
+    else
+    {
+      v279[(v280 >> 6) + 8] |= 1 << v280;
+      v284 = (v279[6] + 16 * v280);
+      *v284 = 0x65756C6176;
+      v284[1] = 0xE500000000000000;
+      *(v279[7] + v280) = v278;
+      v285 = v279[2];
+      v286 = __OFADD__(v285, 1);
+      v283 = v285 + 1;
+      if (!v286)
+      {
+        v279[2] = v283;
+        v282 = *(v354 + 2);
+        v283 = *(v354 + 3);
+        v263 = v282 + 1;
+        if (v282 < v283 >> 1)
+        {
+LABEL_160:
+
+          outlined destroy of PgQuery_ParseResult(v365, type metadata accessor for PlanResources);
+          outlined destroy of PgQuery_ParseResult(v291, type metadata accessor for PgQuery_Node);
+          outlined destroy of URL?(v348, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
+          outlined destroy of PgQuery_ParseResult(v349, type metadata accessor for PgQuery_Node.OneOf_Node);
+          outlined destroy of PgQuery_ParseResult(v308, type metadata accessor for PgQuery_RangeVar);
+          outlined destroy of URL?(v357, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+          outlined destroy of URL?(v359, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+          outlined destroy of SQLExpression(v370);
+          v287 = v354;
+          *(v354 + 2) = v263;
+          v288 = &v287[24 * v282];
+          v151 = v287;
+          *(v288 + 4) = 0x6361655F6E6F736ALL;
+          *(v288 + 5) = 0xE900000000000068;
+          *(v288 + 6) = v279;
+          outlined destroy of PgQuery_ParseResult(v302, type metadata accessor for PgQuery_Node);
+          outlined destroy of PgQuery_ParseResult(v356, type metadata accessor for PgQuery_Node);
+          result = outlined destroy of PgQuery_ParseResult(v344, type metadata accessor for PgQuery_RangeFunction);
+          goto LABEL_19;
+        }
+
+LABEL_163:
+        v354 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v283 > 1), v263, 1, v354);
+        goto LABEL_160;
+      }
+    }
+
+    __break(1u);
+    goto LABEL_163;
+  }
+
+  swift_bridgeObjectRelease_n();
+  outlined destroy of PgQuery_ParseResult(v365, type metadata accessor for PlanResources);
+  outlined destroy of PgQuery_ParseResult(v310, type metadata accessor for SQLTokenInformation);
+  outlined destroy of PgQuery_ParseResult(v292, type metadata accessor for PgQuery_Node);
+  outlined destroy of PgQuery_ParseResult(v291, type metadata accessor for PgQuery_Node);
+  outlined destroy of URL?(v348, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMd, &_s14BiomeSQLParser21PgQuery_RangeFunctionVSgMR);
+  outlined destroy of PgQuery_ParseResult(v349, type metadata accessor for PgQuery_Node.OneOf_Node);
+  outlined destroy of URL?(&v380, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+  outlined destroy of PgQuery_ParseResult(v308, type metadata accessor for PgQuery_RangeVar);
+  outlined destroy of URL?(v357, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  outlined destroy of URL?(v359, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+  outlined destroy of PgQuery_ParseResult(v302, type metadata accessor for PgQuery_Node);
+
+  outlined destroy of PgQuery_ParseResult(v356, type metadata accessor for PgQuery_Node);
+  return outlined destroy of PgQuery_ParseResult(v344, type metadata accessor for PgQuery_RangeFunction);
 }
 
-uint64_t SQLExpression.init(rootNode:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t specialized Collection.dropFirst(_:)(uint64_t result, uint64_t a2)
 {
-  outlined init with copy of VirtualTable.Module(a1, a2);
-  v4 = *(a2 + 24);
-  v5 = *(a2 + 32);
-  __swift_project_boxed_opaque_existential_0(a2, v4);
-  *(a2 + 40) = (*(v5 + 8))(v4, v5);
-  *(a2 + 48) = v6;
-  v7 = *(a2 + 24);
-  v8 = *(a2 + 32);
-  __swift_project_boxed_opaque_existential_0(a2, v7);
-  (*(v8 + 16))(&v19, v7, v8);
-  *(a2 + 56) = v19;
-  v9 = *(a2 + 24);
-  v10 = *(a2 + 32);
-  __swift_project_boxed_opaque_existential_0(a2, v9);
-  *(a2 + 64) = (*(v10 + 24))(v9, v10);
-  v11 = *(a2 + 24);
-  v12 = *(a2 + 32);
-  __swift_project_boxed_opaque_existential_0(a2, v11);
-  *(a2 + 72) = (*(v12 + 32))(v11, v12);
-  v13 = *(a2 + 24);
-  v14 = *(a2 + 32);
-  __swift_project_boxed_opaque_existential_0(a2, v13);
-  v15 = (*(v14 + 40))(v13, v14);
-  v17 = v16;
-  result = __swift_destroy_boxed_opaque_existential_0(a1);
-  *(a2 + 80) = v15;
-  *(a2 + 88) = v17;
+  if (result < 0)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    type metadata accessor for PgQuery_ScanToken(0);
+    return a2;
+  }
+
   return result;
+}
+
+uint64_t protocol witness for CodingKey.stringValue.getter in conformance FromClause.CodingKeys()
+{
+  if (*v0)
+  {
+    return 0xD000000000000012;
+  }
+
+  else
+  {
+    return 0x73616D65686373;
+  }
+}
+
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance FromClause.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
+{
+  v6 = a1 == 0x73616D65686373 && a2 == 0xE700000000000000;
+  if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    v8 = 0;
+  }
+
+  else if (a1 == 0xD000000000000012 && 0x80000002553B6940 == a2)
+  {
+
+    v8 = 1;
+  }
+
+  else
+  {
+    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v9)
+    {
+      v8 = 1;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+  }
+
+  *a3 = v8;
+  return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance FromClause.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type FromClause.CodingKeys and conformance FromClause.CodingKeys();
+
+  return MEMORY[0x2821FE718](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance FromClause.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type FromClause.CodingKeys and conformance FromClause.CodingKeys();
+
+  return MEMORY[0x2821FE720](a1, v2);
+}
+
+uint64_t FromClause.encode(to:)(void *a1)
+{
+  v3 = v1;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser10FromClauseV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser10FromClauseV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
+  v6 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5);
+  v8 = &v10[-v7];
+  __swift_project_boxed_opaque_existential_0(a1, a1[3]);
+  lazy protocol witness table accessor for type FromClause.CodingKeys and conformance FromClause.CodingKeys();
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  v11 = *v3;
+  v10[7] = 0;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay14BiomeSQLParser6SchemaVGMd, &_sSay14BiomeSQLParser6SchemaVGMR);
+  lazy protocol witness table accessor for type [Schema] and conformance <A> [A](&lazy protocol witness table cache variable for type [Schema] and conformance <A> [A], &_sSay14BiomeSQLParser6SchemaVGMd, &_sSay14BiomeSQLParser6SchemaVGMR, lazy protocol witness table accessor for type Schema and conformance Schema);
+  KeyedEncodingContainer.encode<A>(_:forKey:)();
+  if (!v2)
+  {
+    v10[6] = 1;
+    lazy protocol witness table accessor for type SQLExpression and conformance SQLExpression();
+    KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
+  }
+
+  return (*(v6 + 8))(v8, v5);
+}
+
+uint64_t ResultColumn.alias.getter()
+{
+  v1 = *(v0 + 96);
+
+  return v1;
+}
+
+uint64_t ResultColumn.documentation.getter()
+{
+  v1 = *(v0 + 112);
+
+  return v1;
+}
+
+__n128 ResultColumn.init(expression:alias:documentation:)@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+{
+  v6 = *(a1 + 48);
+  *(a6 + 32) = *(a1 + 32);
+  *(a6 + 48) = v6;
+  v7 = *(a1 + 80);
+  *(a6 + 64) = *(a1 + 64);
+  *(a6 + 80) = v7;
+  result = *a1;
+  v9 = *(a1 + 16);
+  *a6 = *a1;
+  *(a6 + 16) = v9;
+  *(a6 + 96) = a2;
+  *(a6 + 104) = a3;
+  *(a6 + 112) = a4;
+  *(a6 + 120) = a5;
+  return result;
+}
+
+unint64_t ResultColumn.init(node:schemas:tokenInformation:)@<X0>(uint64_t a1@<X0>, void *a2@<X1>, char *a3@<X2>, uint64_t a4@<X8>)
+{
+  v185 = a3;
+  v184 = a2;
+  v176 = a4;
+  v178 = type metadata accessor for CharacterSet();
+  v167 = *(v178 - 8);
+  MEMORY[0x28223BE20](v178);
+  v177 = &v165 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  ScanToken = type metadata accessor for PgQuery_ScanToken(0);
+  v172 = *(ScanToken - 8);
+  v7 = MEMORY[0x28223BE20](ScanToken - 8);
+  v171 = &v165 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v170 = &v165 - v9;
+  v168 = type metadata accessor for SQLTokenInformation(0);
+  MEMORY[0x28223BE20](v168);
+  v173 = &v165 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+  MEMORY[0x28223BE20](v11 - 8);
+  v175 = &v165 - v12;
+  Node = type metadata accessor for PgQuery_Node(0);
+  v174 = *(Node - 8);
+  v14 = MEMORY[0x28223BE20](Node);
+  v16 = &v165 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v14);
+  v179 = &v165 - v17;
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  MEMORY[0x28223BE20](v18 - 8);
+  v169 = &v165 - v19;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtSgMd, &_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtSgMR);
+  v21 = MEMORY[0x28223BE20](v20 - 8);
+  v23 = (&v165 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x28223BE20](v21);
+  v25 = &v165 - v24;
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  MEMORY[0x28223BE20](v26 - 8);
+  v28 = &v165 - v27;
+  ResTarget = type metadata accessor for PgQuery_ResTarget(0);
+  MEMORY[0x28223BE20](ResTarget);
+  v181 = &v165 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v182 = Node;
+  v31 = *(Node + 20);
+  v183 = a1;
+  outlined init with copy of PgQuery_Alias?(*(a1 + v31) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v28, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  v32 = type metadata accessor for PgQuery_Node.OneOf_Node(0);
+  if ((*(*(v32 - 8) + 48))(v28, 1, v32) == 1)
+  {
+
+    outlined destroy of URL?(v28, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+LABEL_18:
+    v188._countAndFlagsBits = 0;
+    v188._object = 0xE000000000000000;
+    _StringGuts.grow(_:)(36);
+
+    v188._countAndFlagsBits = 0xD000000000000022;
+    v188._object = 0x80000002553B6BF0;
+    v57 = v183;
+    outlined init with copy of PgQuery_ScanResult(v183, v16, type metadata accessor for PgQuery_Node);
+    v58 = String.init<A>(describing:)();
+    MEMORY[0x259C32B90](v58);
+
+    countAndFlagsBits = v188._countAndFlagsBits;
+    object = v188._object;
+    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+    swift_allocError();
+    *v61 = countAndFlagsBits;
+    *(v61 + 8) = object;
+    *(v61 + 16) = 0;
+    *(v61 + 24) = 0;
+    *(v61 + 32) = 1;
+    swift_willThrow();
+    outlined destroy of PgQuery_ParseResult(v57, type metadata accessor for PgQuery_Node);
+    v62 = type metadata accessor for SQLTokenInformation;
+    v63 = &v201;
+    return outlined destroy of PgQuery_ParseResult(*(v63 - 32), v62);
+  }
+
+  if (swift_getEnumCaseMultiPayload() != 175)
+  {
+
+    outlined destroy of PgQuery_ParseResult(v28, type metadata accessor for PgQuery_Node.OneOf_Node);
+    goto LABEL_18;
+  }
+
+  v33 = v28;
+  v34 = v181;
+  ParseResult = outlined init with take of PgQuery_ParseResult(v33, v181, type metadata accessor for PgQuery_ResTarget);
+  v36 = *(v34 + *(ResTarget + 20));
+  v37 = *(v36 + 24);
+  v38 = *(v36 + 16) & 0xFFFFFFFFFFFFLL;
+  if ((v37 & 0x2000000000000000) != 0)
+  {
+    v38 = HIBYTE(v37) & 0xF;
+  }
+
+  v166 = *(v34 + *(ResTarget + 20));
+  if (!v38)
+  {
+    v169 = 0;
+    v64 = v176;
+    *(v176 + 96) = 0;
+    *(v64 + 104) = 0;
+    v23 = v180;
+    v47 = v185;
+    goto LABEL_21;
+  }
+
+  v39 = *(v185 + 1);
+  MEMORY[0x28223BE20](ParseResult);
+  v163 = v34;
+  result = specialized Collection.firstIndex(where:)(partial apply for closure #1 in ResultColumn.init(node:schemas:tokenInformation:), (&v165 - 4), v39);
+  if (v41)
+  {
+LABEL_93:
+    __break(1u);
+    return result;
+  }
+
+  v180 = result;
+  v188._countAndFlagsBits = specialized Collection.dropFirst(_:)(result, v39);
+  v188._object = v42;
+  v189 = v43;
+  v190 = v44;
+  v191 = v43;
+  v192 = 0;
+  v45 = v39;
+
+  while (1)
+  {
+    specialized EnumeratedSequence.Iterator.next()(v23);
+    outlined init with take of (PgQuery_RawStmt, String)(v23, v25, &_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtSgMd, &_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtSgMR);
+    v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtMd, &_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtMR);
+    if ((*(*(v46 - 8) + 48))(v25, 1, v46) == 1)
+    {
+
+      swift_unknownObjectRelease();
+      v73 = *(v166 + 16);
+      v72 = *(v166 + 24);
+      goto LABEL_29;
+    }
+
+    v47 = *v25;
+    v48 = *(v46 + 48);
+    v49 = *&v25[v48];
+    outlined destroy of PgQuery_ParseResult(&v25[v48], type metadata accessor for PgQuery_ScanToken);
+    SQLTokenInformation.tokenName(location:)(v49);
+    if (v50)
+    {
+
+      swift_unknownObjectRelease();
+      goto LABEL_31;
+    }
+
+    v51 = String.lowercased()();
+    v52 = v51._countAndFlagsBits;
+
+    v53 = String.lowercased()();
+    v54 = v53._object;
+    if (v51._countAndFlagsBits == v53._countAndFlagsBits && v51._object == v53._object)
+    {
+      break;
+    }
+
+    v56 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v56)
+    {
+      goto LABEL_33;
+    }
+  }
+
+LABEL_33:
+  v76 = v180 + v47;
+  if (__OFADD__(v180, v47))
+  {
+LABEL_86:
+    __break(1u);
+    goto LABEL_87;
+  }
+
+  v77 = __OFADD__(v76, 1);
+  v78 = v76 + 1;
+  v47 = v185;
+  if (v77)
+  {
+LABEL_87:
+    __break(1u);
+LABEL_88:
+    swift_once();
+    v65 = v182;
+LABEL_23:
+    *(v52 + v47) = static PgQuery_Node._StorageClass.defaultInstance;
+    v66 = (v54)(v45, 1, v65);
+
+    v47 = v25;
+    v67 = v173;
+    if (v66 != 1)
+    {
+      outlined destroy of URL?(v45, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+    }
+
+    goto LABEL_26;
+  }
+
+  if (v78 >= *(v45 + 16))
+  {
+
+    v84 = *(v166 + 16);
+    v83 = *(v166 + 24);
+    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+    swift_allocError();
+    *v85 = v84;
+    *(v85 + 8) = v83;
+    *(v85 + 16) = 0;
+    *(v85 + 24) = 0;
+    *(v85 + 32) = 8;
+    swift_willThrow();
+
+LABEL_41:
+    swift_unknownObjectRelease();
+    outlined destroy of PgQuery_ParseResult(v183, type metadata accessor for PgQuery_Node);
+    v75 = v47;
+    goto LABEL_42;
+  }
+
+  if (v78 < 0)
+  {
+    __break(1u);
+LABEL_90:
+    __break(1u);
+LABEL_91:
+    __break(1u);
+LABEL_92:
+    __break(1u);
+    goto LABEL_93;
+  }
+
+  SQLTokenInformation.tokenName(location:)(*(v45 + ((v172[80] + 32) & ~v172[80]) + *(v172 + 9) * v78));
+  if (v79)
+  {
+
+    goto LABEL_41;
+  }
+
+  v180 = 0;
+  swift_unknownObjectRelease();
+  v188 = String.lowercased()();
+  v108 = v166;
+  v187[0] = String.lowercased()();
+  v109 = type metadata accessor for Locale();
+  v110 = v169;
+  (*(*(v109 - 8) + 56))(v169, 1, 1, v109);
+  v163 = lazy protocol witness table accessor for type String and conformance String();
+  v164 = v163;
+  StringProtocol.range<A>(of:options:range:locale:)();
+  v112 = v111;
+  outlined destroy of URL?(v110, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+
+  if (v112)
+  {
+
+    v73 = *(v108 + 16);
+    v72 = *(v108 + 24);
+LABEL_29:
+    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+    swift_allocError();
+    *v74 = v73;
+    *(v74 + 8) = v72;
+    *(v74 + 16) = 0;
+    *(v74 + 24) = 0;
+    *(v74 + 32) = 8;
+    swift_willThrow();
+
+LABEL_31:
+    outlined destroy of PgQuery_ParseResult(v183, type metadata accessor for PgQuery_Node);
+    v75 = v185;
+LABEL_42:
+    outlined destroy of PgQuery_ParseResult(v75, type metadata accessor for SQLTokenInformation);
+    goto LABEL_43;
+  }
+
+  v113 = String.subscript.getter();
+  v115 = v114;
+  v117 = v116;
+  v119 = v118;
+
+  v120 = MEMORY[0x259C32B00](v113, v115, v117, v119);
+  v122 = v121;
+
+  v123 = v176;
+  *(v176 + 96) = v120;
+  *(v123 + 104) = v122;
+  v169 = v122;
+  v23 = v180;
+  v47 = v185;
+  v36 = v108;
+LABEL_21:
+  v45 = v175;
+  outlined init with copy of PgQuery_Alias?(v36 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ResTargetP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__val, v175, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+  v54 = *(v174 + 48);
+  v65 = v182;
+  if ((v54)(v45, 1, v182) == 1)
+  {
+    v25 = v47;
+    v52 = v179;
+    UnknownStorage.init()();
+    v47 = *(v65 + 20);
+    if (one-time initialization token for defaultInstance == -1)
+    {
+      goto LABEL_23;
+    }
+
+    goto LABEL_88;
+  }
+
+  outlined init with take of PgQuery_ParseResult(v45, v179, type metadata accessor for PgQuery_Node);
+  v67 = v173;
+LABEL_26:
+  outlined init with copy of PgQuery_ScanResult(v47, v67, type metadata accessor for SQLTokenInformation);
+  v68 = v184;
+
+  v70 = specialized ColumnResolver.init(schemas:)(v69);
+  v52 = v23;
+  if (!v23)
+  {
+    v80 = v70;
+    v81 = v71;
+
+    v82 = v179;
+    buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)(v179, v68, v80, v81, v67, &v187[0]._countAndFlagsBits);
+    v180 = 0;
+
+    outlined init with copy of VirtualTable.Module(v187, v186);
+    outlined init with copy of VirtualTable.Module(v186, &v188);
+    v86 = v190;
+    v87 = v191;
+    __swift_project_boxed_opaque_existential_0(&v188, v190);
+    v192 = (*(v87 + 8))(v86, v87);
+    v193 = v88;
+    v89 = v190;
+    v90 = v191;
+    __swift_project_boxed_opaque_existential_0(&v188, v190);
+    (*(v90 + 16))(&v199, v89, v90);
+    v194 = v199;
+    v91 = v190;
+    v92 = v191;
+    __swift_project_boxed_opaque_existential_0(&v188, v190);
+    v195 = (*(v92 + 24))(v91, v92);
+    v93 = v190;
+    v94 = v191;
+    __swift_project_boxed_opaque_existential_0(&v188, v190);
+    v196 = (*(v94 + 32))(v93, v94);
+    v95 = v190;
+    v96 = v191;
+    __swift_project_boxed_opaque_existential_0(&v188, v190);
+    v97 = (*(v96 + 40))(v95, v96);
+    v99 = v98;
+    __swift_destroy_boxed_opaque_existential_0(v186);
+    __swift_destroy_boxed_opaque_existential_0(v187);
+    outlined destroy of PgQuery_ParseResult(v67, type metadata accessor for SQLTokenInformation);
+    outlined destroy of PgQuery_ParseResult(v82, type metadata accessor for PgQuery_Node);
+    v197 = v97;
+    v198 = v99;
+    outlined init with copy of SQLExpression(&v188, v176);
+    v100 = *(v47 + 8);
+    v25 = v172;
+    v23 = v170;
+    v101 = v171;
+    v184 = *(v100 + 16);
+    if (v184)
+    {
+      v54 = 0;
+      v102 = *(v166 + OBJC_IVAR____TtCV14BiomeSQLParser17PgQuery_ResTargetP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__location);
+      while (1)
+      {
+        if (v54 >= *(v100 + 16))
+        {
+          __break(1u);
+          goto LABEL_86;
+        }
+
+        v103 = v100;
+        v45 = v100 + ((v25[80] + 32) & ~v25[80]);
+        v52 = *(v25 + 9);
+        outlined init with copy of PgQuery_ScanResult(v45 + v52 * v54, v23, type metadata accessor for PgQuery_ScanToken);
+        v104 = *v23;
+        result = outlined destroy of PgQuery_ParseResult(v23, type metadata accessor for PgQuery_ScanToken);
+        if (v104 == v102)
+        {
+          break;
+        }
+
+        ++v54;
+        v47 = v185;
+        v100 = v103;
+        if (v184 == v54)
+        {
+          goto LABEL_49;
+        }
+      }
+
+      v173 = v45;
+      v47 = v185;
+      if (*(v103 + 16) < v54)
+      {
+        goto LABEL_92;
+      }
+
+      v166 = v103;
+
+      v124 = MEMORY[0x277D84F90];
+      v125 = v173;
+      if (v54)
+      {
+        v126 = (v54 - 1);
+        v179 = (v167 + 8);
+        v127 = v54;
+        v170 = (v54 - 1);
+        while (v126 < v54)
+        {
+          outlined init with copy of PgQuery_ScanResult(&v125[--v127 * v52], v101, type metadata accessor for PgQuery_ScanToken);
+          if (*(v101 + 16) == 1)
+          {
+            v129 = *(v101 + 8);
+            if (v129 - 39 >= 0x152 && v129 - 378 >= 0x74)
+            {
+              if (v129 > 0x26)
+              {
+                goto LABEL_81;
+              }
+
+              if (((1 << v129) & 0x1FFFFFFFBFLL) == 0)
+              {
+                if (((1 << v129) & 0x6000000000) == 0)
+                {
+                  goto LABEL_81;
+                }
+
+                v172 = v124;
+                PgQuery_Token.rawValue.getter(v129, 1);
+                v130 = String.index(_:offsetBy:)();
+                result = String.index(_:offsetBy:)();
+                if (result >> 14 < v130 >> 14)
+                {
+                  goto LABEL_90;
+                }
+
+                v131 = String.subscript.getter();
+                v132 = MEMORY[0x259C32B00](v131);
+                v134 = v133;
+
+                v187[0]._countAndFlagsBits = v132;
+                v187[0]._object = v134;
+                v135 = v177;
+                static CharacterSet.whitespaces.getter();
+                v175 = lazy protocol witness table accessor for type String and conformance String();
+                v136 = StringProtocol.trimmingCharacters(in:)();
+                v138 = v137;
+                v174 = *v179;
+                (v174)(v135, v178);
+
+                v187[0]._countAndFlagsBits = 10;
+                v187[0]._object = 0xE100000000000000;
+                MEMORY[0x28223BE20](v139);
+                v163 = v187;
+                v140 = v180;
+                v141 = specialized Collection.split(maxSplits:omittingEmptySubsequences:whereSeparator:)(0x7FFFFFFFFFFFFFFFLL, 1, closure #1 in Sequence<>.contains(_:)specialized partial apply, (&v165 - 4), v136, v138);
+                v180 = v140;
+                v142 = *(v141 + 16);
+                if (v142)
+                {
+                  v199 = MEMORY[0x277D84F90];
+                  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v142, 0);
+                  v143 = v199;
+                  v169 = v141;
+                  v144 = (v141 + 56);
+                  do
+                  {
+                    v184 = v142;
+                    v146 = *(v144 - 3);
+                    v145 = *(v144 - 2);
+                    v147 = v143;
+                    v148 = *(v144 - 1);
+                    v149 = *v144;
+
+                    v187[0]._countAndFlagsBits = MEMORY[0x259C32B00](v146, v145, v148, v149);
+                    v187[0]._object = v150;
+                    v151 = v177;
+                    static CharacterSet.whitespaces.getter();
+                    v143 = v147;
+                    v152 = StringProtocol.trimmingCharacters(in:)();
+                    v182 = v153;
+
+                    (v174)(v151, v178);
+
+                    v199 = v143;
+                    v155 = *(v143 + 16);
+                    v154 = *(v143 + 24);
+                    if (v155 >= v154 >> 1)
+                    {
+                      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v154 > 1), v155 + 1, 1);
+                      v143 = v199;
+                    }
+
+                    *(v143 + 16) = v155 + 1;
+                    v156 = v143 + 16 * v155;
+                    v157 = v182;
+                    *(v156 + 32) = v152;
+                    *(v156 + 40) = v157;
+                    v144 += 4;
+                    v142 = v184 - 1;
+                  }
+
+                  while (v184 != 1);
+
+                  v101 = v171;
+                }
+
+                else
+                {
+
+                  v143 = MEMORY[0x277D84F90];
+                }
+
+                v158 = v143;
+                v159 = *(v143 + 16);
+                v124 = v172;
+                v160 = *(v172 + 2);
+                if (__OFADD__(v160, v159))
+                {
+                  goto LABEL_91;
+                }
+
+                isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+                v186[0] = v124;
+                if (!isUniquelyReferenced_nonNull_native || v160 + v159 > *(v124 + 24) >> 1)
+                {
+                  specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
+                  v124 = v128;
+                  v186[0] = v128;
+                }
+
+                v47 = v185;
+                specialized _ArrayBufferProtocol.replaceSubrange<A>(_:with:elementsOf:)(0, 0, v159, v158);
+
+                v125 = v173;
+                v126 = v170;
+              }
+            }
+          }
+
+          outlined destroy of PgQuery_ParseResult(v101, type metadata accessor for PgQuery_ScanToken);
+          if (!v127)
+          {
+            goto LABEL_82;
+          }
+        }
+
+        __break(1u);
+LABEL_81:
+        outlined destroy of PgQuery_ParseResult(v101, type metadata accessor for PgQuery_ScanToken);
+      }
+
+LABEL_82:
+
+      if (*(v124 + 16))
+      {
+        v187[0]._countAndFlagsBits = v124;
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySSGMd, &_sSaySSGMR);
+        lazy protocol witness table accessor for type [String] and conformance [A]();
+        v105 = BidirectionalCollection<>.joined(separator:)();
+        v106 = v162;
+
+        outlined destroy of SQLExpression(&v188);
+        goto LABEL_51;
+      }
+
+      outlined destroy of SQLExpression(&v188);
+    }
+
+    else
+    {
+LABEL_49:
+      outlined destroy of SQLExpression(&v188);
+    }
+
+    v105 = 0;
+    v106 = 0;
+LABEL_51:
+    outlined destroy of PgQuery_ParseResult(v183, type metadata accessor for PgQuery_Node);
+    outlined destroy of PgQuery_ParseResult(v47, type metadata accessor for SQLTokenInformation);
+    v107 = v176;
+    *(v176 + 112) = v105;
+    *(v107 + 120) = v106;
+LABEL_43:
+    v62 = type metadata accessor for PgQuery_ResTarget;
+    v63 = &v200;
+    return outlined destroy of PgQuery_ParseResult(*(v63 - 32), v62);
+  }
+
+  swift_bridgeObjectRelease_n();
+  outlined destroy of PgQuery_ParseResult(v67, type metadata accessor for SQLTokenInformation);
+  outlined destroy of PgQuery_ParseResult(v179, type metadata accessor for PgQuery_Node);
+  outlined destroy of PgQuery_ParseResult(v183, type metadata accessor for PgQuery_Node);
+  outlined destroy of PgQuery_ParseResult(v47, type metadata accessor for SQLTokenInformation);
+  outlined destroy of PgQuery_ParseResult(v181, type metadata accessor for PgQuery_ResTarget);
+}
+
+uint64_t specialized EnumeratedSequence.Iterator.next()@<X0>(uint64_t a1@<X8>)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtMd, &_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtMR);
+  result = MEMORY[0x28223BE20](v3);
+  v7 = (&v15 - v6);
+  v8 = v1[4];
+  v9 = v1[3] >> 1;
+  if (v8 == v9)
+  {
+    v10 = *(v5 + 56);
+
+    return v10(a1, 1, 1, v3);
+  }
+
+  else
+  {
+    if (v8 >= v9 || v8 < v1[2])
+    {
+      __break(1u);
+    }
+
+    else
+    {
+      v16 = v5;
+      v12 = v1[1] + *(*(type metadata accessor for PgQuery_ScanToken(0) - 8) + 72) * v8;
+      v1[4] = v8 + 1;
+      v13 = *(v3 + 48);
+      v14 = v1[5];
+      *v7 = v14;
+      result = outlined init with copy of PgQuery_ScanResult(v12, v7 + v13, type metadata accessor for PgQuery_ScanToken);
+      if (!__OFADD__(v14, 1))
+      {
+        v1[5] = v14 + 1;
+        outlined init with take of (PgQuery_RawStmt, String)(v7, a1, &_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtMd, &_sSi6offset_14BiomeSQLParser17PgQuery_ScanTokenV7elementtMR);
+        return (*(v16 + 56))(a1, 0, 1, v3);
+      }
+    }
+
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t protocol witness for CodingKey.stringValue.getter in conformance ResultColumn.CodingKeys()
+{
+  v1 = 0x7361696C61;
+  if (*v0 != 1)
+  {
+    v1 = 0x746E656D75636F64;
+  }
+
+  if (*v0)
+  {
+    return v1;
+  }
+
+  else
+  {
+    return 0x6973736572707865;
+  }
+}
+
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance ResultColumn.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
+{
+  result = specialized ResultColumn.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
+  return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance ResultColumn.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type ResultColumn.CodingKeys and conformance ResultColumn.CodingKeys();
+
+  return MEMORY[0x2821FE718](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance ResultColumn.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type ResultColumn.CodingKeys and conformance ResultColumn.CodingKeys();
+
+  return MEMORY[0x2821FE720](a1, v2);
+}
+
+uint64_t ResultColumn.encode(to:)(void *a1)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser12ResultColumnV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser12ResultColumnV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
+  v6 = &v8[-v5];
+  __swift_project_boxed_opaque_existential_0(a1, a1[3]);
+  lazy protocol witness table accessor for type ResultColumn.CodingKeys and conformance ResultColumn.CodingKeys();
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  v8[15] = 0;
+  lazy protocol witness table accessor for type SQLExpression and conformance SQLExpression();
+  KeyedEncodingContainer.encode<A>(_:forKey:)();
+  if (v1)
+  {
+    return (*(v4 + 8))(v6, v3);
+  }
+
+  v8[14] = 1;
+  KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
+  v8[13] = 2;
+  KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
+  return (*(v4 + 8))(v6, v3);
+}
+
+uint64_t SelectCore.init(select:resources:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  v384 = a2;
+  v309 = a3;
+  v4 = type metadata accessor for SQLTokenInformation(0);
+  v5 = MEMORY[0x28223BE20](v4 - 8);
+  v310 = &v297 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v5);
+  v315 = &v297 - v7;
+  Node = type metadata accessor for PgQuery_Node(0);
+  v318 = *(Node - 8);
+  v8 = MEMORY[0x28223BE20](Node);
+  v312 = &v297 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v8);
+  i = &v297 - v10;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+  v12 = MEMORY[0x28223BE20](v11 - 8);
+  v311 = &v297 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = MEMORY[0x28223BE20](v12);
+  v16 = &v297 - v15;
+  v17 = MEMORY[0x28223BE20](v14);
+  v19 = &v297 - v18;
+  MEMORY[0x28223BE20](v17);
+  v21 = &v297 - v20;
+  v22 = type metadata accessor for PlanResources(0);
+  MEMORY[0x28223BE20](v22);
+  v24 = (&v297 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v25 = *(a1 + *(type metadata accessor for PgQuery_SelectStmt(0) + 20));
+  outlined init with copy of PgQuery_ScanResult(v384, v24, type metadata accessor for PlanResources);
+
+  v27 = v319;
+  v28 = FromClause.init(fromClauseNodes:resources:)(v26, v24, &v360);
+  if (v27)
+  {
+    outlined destroy of PgQuery_ParseResult(a1, type metadata accessor for PgQuery_SelectStmt);
+    return outlined destroy of PgQuery_ParseResult(v384, type metadata accessor for PlanResources);
+  }
+
+  v307 = a1;
+  v317._countAndFlagsBits = v21;
+  v303 = v19;
+  v304 = v16;
+  v302 = v22;
+  v368[4] = v364;
+  v368[5] = v365;
+  v369 = v366;
+  v368[0] = v360;
+  v368[1] = v361;
+  v368[3] = v363;
+  v368[2] = v362;
+  v30 = v360;
+  v31 = *&v25[OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_SelectStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__targetList];
+  MEMORY[0x28223BE20](v28);
+  v32 = v384;
+  *(&v297 - 2) = v30;
+  *(&v297 - 1) = v32;
+
+  NodeVG_AF12ResultColumnVsAE_pTg5 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay14BiomeSQLParser12PgQuery_NodeVG_AF12ResultColumnVsAE_pTg5(partial apply for closure #1 in SelectCore.init(select:resources:), (&v297 - 4), v31);
+  v306 = 0;
+  isUniquelyReferenced_nonNull_native = NodeVG_AF12ResultColumnVsAE_pTg5;
+  v300 = v30;
+  v301 = v25;
+  v313 = 0;
+
+  v383 = isUniquelyReferenced_nonNull_native;
+  v35 = *(isUniquelyReferenced_nonNull_native + 16);
+  v308 = isUniquelyReferenced_nonNull_native;
+  if (v35)
+  {
+    v319 = isUniquelyReferenced_nonNull_native + 32;
+
+    v36 = 0;
+    v37 = MEMORY[0x277D84F98];
+    v38 = MEMORY[0x277D84F98];
+    countAndFlagsBits = v317._countAndFlagsBits;
+    v305 = v35;
+    while (1)
+    {
+      if (v36 >= *(isUniquelyReferenced_nonNull_native + 16))
+      {
+        __break(1u);
+        goto LABEL_138;
+      }
+
+      outlined init with copy of ResultColumn(v319 + (v36 << 7), &v360);
+      v40 = v367;
+      if (v367)
+      {
+        if (!*(v364 + 16))
+        {
+          break;
+        }
+      }
+
+      v31 = v37;
+LABEL_6:
+      ++v36;
+      outlined destroy of ResultColumn(&v360);
+      v37 = v31;
+      if (v36 == v35)
+      {
+
+        goto LABEL_40;
+      }
+    }
+
+    v35 = v366;
+    LODWORD(v317._object) = BYTE8(v363);
+
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    *&v344 = v37;
+    v42 = specialized __RawDictionaryStorage.find<A>(_:)(v35, v40);
+    v43 = *(v37 + 16);
+    v44 = (v41 & 1) == 0;
+    v45 = v43 + v44;
+    if (__OFADD__(v43, v44))
+    {
+      __break(1u);
+      goto LABEL_266;
+    }
+
+    countAndFlagsBits = v41;
+    if (*(v37 + 24) >= v45)
+    {
+      if (isUniquelyReferenced_nonNull_native)
+      {
+        v31 = v37;
+        if (v41)
+        {
+LABEL_14:
+
+          *(*(v31 + 56) + v42) = v317._object;
+LABEL_19:
+          v38 = v31;
+          isUniquelyReferenced_nonNull_native = v308;
+          countAndFlagsBits = v317._countAndFlagsBits;
+          v35 = v305;
+          goto LABEL_6;
+        }
+      }
+
+      else
+      {
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMd, &_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMR);
+        v52 = static _DictionaryStorage.copy(original:)();
+        v31 = v52;
+        if (*(v37 + 16))
+        {
+          v53 = (v52 + 64);
+          v54 = (v37 + 64);
+          v55 = ((1 << *(v31 + 32)) + 63) >> 6;
+          v298 = v37 + 64;
+          if (v31 != v37 || v53 >= &v54[8 * v55])
+          {
+            memmove(v53, v54, 8 * v55);
+          }
+
+          v56 = 0;
+          *(v31 + 16) = *(v37 + 16);
+          v57 = 1 << *(v37 + 32);
+          if (v57 < 64)
+          {
+            v58 = ~(-1 << v57);
+          }
+
+          else
+          {
+            v58 = -1;
+          }
+
+          v59 = v58 & *(v37 + 64);
+          isUniquelyReferenced_nonNull_native = (v57 + 63) >> 6;
+          if (v59)
+          {
+            do
+            {
+              v60 = __clz(__rbit64(v59));
+              *&v299 = (v59 - 1) & v59;
+LABEL_34:
+              v63 = v60 | (v56 << 6);
+              v64 = (*(v37 + 48) + 16 * v63);
+              v66 = *v64;
+              v65 = v64[1];
+              LOBYTE(v64) = *(*(v37 + 56) + v63);
+              v67 = (*(v31 + 48) + 16 * v63);
+              *v67 = v66;
+              v67[1] = v65;
+              *(*(v31 + 56) + v63) = v64;
+
+              v59 = v299;
+            }
+
+            while (v299);
+          }
+
+          v61 = v56;
+          while (1)
+          {
+            v56 = v61 + 1;
+            if (__OFADD__(v61, 1))
+            {
+              goto LABEL_326;
+            }
+
+            if (v56 >= isUniquelyReferenced_nonNull_native)
+            {
+              break;
+            }
+
+            v62 = *(v298 + 8 * v56);
+            ++v61;
+            if (v62)
+            {
+              v60 = __clz(__rbit64(v62));
+              *&v299 = (v62 - 1) & v62;
+              goto LABEL_34;
+            }
+          }
+        }
+
+        if (countAndFlagsBits)
+        {
+          goto LABEL_14;
+        }
+      }
+    }
+
+    else
+    {
+      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v45, isUniquelyReferenced_nonNull_native);
+      v31 = v344;
+      v46 = specialized __RawDictionaryStorage.find<A>(_:)(v35, v40);
+      if ((countAndFlagsBits & 1) != (v47 & 1))
+      {
+        goto LABEL_335;
+      }
+
+      v42 = v46;
+      if (countAndFlagsBits)
+      {
+        goto LABEL_14;
+      }
+    }
+
+    *(v31 + 8 * (v42 >> 6) + 64) |= 1 << v42;
+    v48 = (*(v31 + 48) + 16 * v42);
+    *v48 = v35;
+    v48[1] = v40;
+    *(*(v31 + 56) + v42) = v317._object;
+    v49 = *(v31 + 16);
+    v50 = __OFADD__(v49, 1);
+    v51 = v49 + 1;
+    if (v50)
+    {
+      __break(1u);
+LABEL_281:
+      *&v360 = v40;
+      goto LABEL_284;
+    }
+
+    *(v31 + 16) = v51;
+    goto LABEL_19;
+  }
+
+  v38 = MEMORY[0x277D84F98];
+  countAndFlagsBits = v317._countAndFlagsBits;
+LABEL_40:
+  v305 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy14BiomeSQLParser6SchemaVGMd, &_ss23_ContiguousArrayStorageCy14BiomeSQLParser6SchemaVGMR);
+  v68 = swift_allocObject();
+  v299 = xmmword_2552FE080;
+  *(v68 + 16) = xmmword_2552FE080;
+  strcpy((v68 + 32), "select_alias");
+  *(v68 + 45) = 0;
+  *(v68 + 46) = -5120;
+  *(v68 + 48) = v38;
+  *&v360 = v300;
+
+  specialized Array.append<A>(contentsOf:)(v68);
+  v319 = v360;
+  v69 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_SelectStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__whereClause;
+  v35 = v301;
+  outlined init with copy of PgQuery_Alias?(&v301[OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_SelectStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__whereClause], countAndFlagsBits, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+  v31 = v318 + 48;
+  v70 = *(v318 + 48);
+  v37 = Node;
+  v71 = v70(countAndFlagsBits, 1, Node);
+  outlined destroy of URL?(countAndFlagsBits, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+  v318 = v31;
+  v317._countAndFlagsBits = v70;
+  if (v71 == 1)
+  {
+    v375 = 0u;
+    v374 = 0u;
+    v373 = 0u;
+    v372 = 0u;
+    v371 = 0u;
+    v370 = 0u;
+    v42 = v313;
+    v37 = v384;
+    countAndFlagsBits = v308;
+    isUniquelyReferenced_nonNull_native = v319;
+  }
+
+  else
+  {
+    v76 = v303;
+    outlined init with copy of PgQuery_Alias?(&v35[v69], v303, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+    v77 = v70(v76, 1, v37);
+    v35 = v313;
+    isUniquelyReferenced_nonNull_native = v302;
+    if (v77 == 1)
+    {
+      countAndFlagsBits = i;
+      UnknownStorage.init()();
+      v36 = *(v37 + 20);
+      if (one-time initialization token for defaultInstance != -1)
+      {
+        goto LABEL_321;
+      }
+
+      goto LABEL_48;
+    }
+
+    countAndFlagsBits = i;
+    outlined init with take of PgQuery_ParseResult(v76, i, type metadata accessor for PgQuery_Node);
+    v37 = v384;
+    v31 = v315;
+LABEL_51:
+    outlined init with copy of PgQuery_ScanResult(v37 + *(isUniquelyReferenced_nonNull_native + 20), v31, type metadata accessor for SQLTokenInformation);
+    isUniquelyReferenced_nonNull_native = v319;
+
+    v81 = specialized ColumnResolver.init(schemas:)(v80);
+    if (v35)
+    {
+      v313 = v35;
+      swift_bridgeObjectRelease_n();
+      outlined destroy of PgQuery_ParseResult(v31, type metadata accessor for SQLTokenInformation);
+      outlined destroy of PgQuery_ParseResult(countAndFlagsBits, type metadata accessor for PgQuery_Node);
+      outlined destroy of PgQuery_ParseResult(v307, type metadata accessor for PgQuery_SelectStmt);
+      v86 = 0;
+      v87 = 0;
+      v88 = 0;
+      goto LABEL_65;
+    }
+
+    v84 = v81;
+    v85 = v82;
+    v42 = 0;
+
+    buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)(countAndFlagsBits, isUniquelyReferenced_nonNull_native, v84, v85, v31, &v344);
+
+    outlined init with copy of VirtualTable.Module(&v344, v357);
+    SQLExpression.init(rootNode:)(v357, &v360);
+    __swift_destroy_boxed_opaque_existential_0(&v344);
+    outlined destroy of PgQuery_ParseResult(v31, type metadata accessor for SQLTokenInformation);
+    outlined destroy of PgQuery_ParseResult(countAndFlagsBits, type metadata accessor for PgQuery_Node);
+    v372 = v362;
+    v373 = v363;
+    v374 = v364;
+    v375 = v365;
+    v370 = v360;
+    v371 = v361;
+    countAndFlagsBits = v308;
+  }
+
+  outlined init with copy of PgQuery_Alias?(&v370, &v360, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+  v36 = v307;
+  if (*(&v361 + 1))
+  {
+    v346 = v362;
+    v347 = v363;
+    v348 = v364;
+    v349 = v365;
+    v344 = v360;
+    v345 = v361;
+    v72 = v364;
+    if (*(v364 + 16))
+    {
+
+      if (*(v72 + 16))
+      {
+        outlined init with copy of AggregationFunction(v72 + 32, &v360);
+        v73 = AggregationFunction.name()();
+        outlined destroy of AggregationFunction(&v360);
+        lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+        v74 = swift_allocError();
+        *v75 = v73;
+        *(v75 + 16) = 0;
+        *(v75 + 24) = 0;
+        *(v75 + 32) = 5;
+        v313 = v74;
+        swift_willThrow();
+        outlined destroy of PgQuery_ParseResult(v36, type metadata accessor for PgQuery_SelectStmt);
+        outlined destroy of SQLExpression(&v344);
+        goto LABEL_64;
+      }
+
+      __break(1u);
+      goto LABEL_323;
+    }
+
+    v83 = outlined destroy of SQLExpression(&v344);
+  }
+
+  else
+  {
+    v83 = outlined destroy of URL?(&v360, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+  }
+
+  v89 = *&v301[OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_SelectStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__groupClause];
+  MEMORY[0x28223BE20](v83);
+  *(&v297 - 2) = isUniquelyReferenced_nonNull_native;
+  *(&v297 - 1) = v37;
+
+  NodeVG_AF13SQLExpressionVsAE_pTg5 = _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay14BiomeSQLParser12PgQuery_NodeVG_AF13SQLExpressionVsAE_pTg5(partial apply for closure #3 in SelectCore.init(select:resources:), (&v297 - 4), v89);
+  v313 = v42;
+  if (v42)
+  {
+
+    v91 = v307;
+    goto LABEL_63;
+  }
+
+  v42 = NodeVG_AF13SQLExpressionVsAE_pTg5;
+
+  v92 = v42;
+  v93 = *(v42 + 16);
+  v94 = v93 + 1;
+  v95 = 96;
+  v36 = v307;
+  while (--v94)
+  {
+    v31 = *(v42 + v95);
+    v95 += 96;
+    if (*(v31 + 16))
+    {
+
+      if (*(v31 + 16))
+      {
+        outlined init with copy of AggregationFunction(v31 + 32, &v360);
+        v96 = AggregationFunction.name()();
+        outlined destroy of AggregationFunction(&v360);
+        lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+        v97 = swift_allocError();
+        *v98 = v96;
+        *(v98 + 16) = 0;
+        *(v98 + 24) = 0;
+        *(v98 + 32) = 6;
+        v313 = v97;
+        swift_willThrow();
+        v91 = v36;
+LABEL_63:
+        outlined destroy of PgQuery_ParseResult(v91, type metadata accessor for PgQuery_SelectStmt);
+LABEL_64:
+        v87 = 0;
+        v88 = 0;
+        v86 = 1;
+        goto LABEL_65;
+      }
+
+LABEL_323:
+      __break(1u);
+LABEL_324:
+      __break(1u);
+      goto LABEL_325;
+    }
+  }
+
+  if (v93)
+  {
+    LODWORD(v315) = 0;
+    goto LABEL_82;
+  }
+
+  v100 = countAndFlagsBits + 32;
+  v101 = -*(countAndFlagsBits + 16);
+  v102 = -1;
+  while (v101 + v102 != -1)
+  {
+    if (++v102 >= *(countAndFlagsBits + 16))
+    {
+LABEL_319:
+      __break(1u);
+LABEL_320:
+      __break(1u);
+LABEL_321:
+      swift_once();
+LABEL_48:
+      *(countAndFlagsBits + v36) = static PgQuery_Node._StorageClass.defaultInstance;
+      v78 = v303;
+      v79 = (v317._countAndFlagsBits)(v303, 1, v37);
+
+      v37 = v384;
+      v31 = v315;
+      if (v79 != 1)
+      {
+        outlined destroy of URL?(v78, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+      }
+
+      goto LABEL_51;
+    }
+
+    v103 = v100 + 128;
+    outlined init with copy of ResultColumn(v100, &v360);
+    v104 = *(v364 + 16);
+    outlined destroy of ResultColumn(&v360);
+    v100 = v103;
+    v36 = v307;
+    if (v104)
+    {
+      LODWORD(v315) = 0;
+      v92 = MEMORY[0x277D84F90];
+      goto LABEL_82;
+    }
+  }
+
+  v92 = 0;
+  LODWORD(v315) = 1;
+LABEL_82:
+  v376 = v92;
+  v31 = v304;
+  v319 = *(countAndFlagsBits + 16);
+  if (v319)
+  {
+    v105 = 0;
+    v317._object = (countAndFlagsBits + 32);
+    isUniquelyReferenced_nonNull_native = MEMORY[0x277D84F98];
+    while (1)
+    {
+      if (v105 >= *(countAndFlagsBits + 16))
+      {
+        __break(1u);
+LABEL_283:
+        v42 = MEMORY[0x277D84F90];
+        v37 = *(MEMORY[0x277D84F90] + 16);
+        *&v360 = MEMORY[0x277D84F90];
+        if (v37)
+        {
+LABEL_284:
+          v264 = 0;
+          while (v264 < *(v42 + 16))
+          {
+            v265 = v264 + 1;
+
+            v31 = &v360;
+            specialized Array.append<A>(contentsOf:)(v266);
+            v264 = v265;
+            if (v37 == v265)
+            {
+              goto LABEL_287;
+            }
+          }
+
+          goto LABEL_324;
+        }
+
+LABEL_287:
+
+        v267 = v360;
+        outlined init with copy of PgQuery_Alias?(&v377, &v360, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+        if (*(&v361 + 1))
+        {
+          v268 = v364;
+
+          outlined destroy of SQLExpression(&v360);
+        }
+
+        else
+        {
+          outlined destroy of URL?(&v360, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+          v268 = MEMORY[0x277D84F90];
+        }
+
+        *&v360 = v267;
+        specialized Array.append<A>(contentsOf:)(v268);
+        v269 = v360;
+        v315 = *(v360 + 16);
+        if (!v315)
+        {
+LABEL_313:
+
+          outlined destroy of PgQuery_ParseResult(v307, type metadata accessor for PgQuery_SelectStmt);
+          outlined init with copy of SelectCore(v368, v309);
+          outlined destroy of PgQuery_ParseResult(v384, type metadata accessor for PlanResources);
+          return outlined destroy of SelectCore(v368);
+        }
+
+        v270 = 0;
+        Node = v360 + 32;
+        v271 = v319 + 56;
+        v272 = v318 + 56;
+        while (v270 < *(v269 + 16))
+        {
+          v273 = v269;
+          outlined init with copy of AggregationFunction(Node + 200 * v270, &v360);
+          v317 = AggregationFunction.name()();
+          v274 = String.lowercased()();
+          v275 = v319;
+          if (*(v319 + 16))
+          {
+            Hasher.init(_seed:)();
+            String.hash(into:)();
+            v276 = Hasher._finalize()();
+            v277 = -1 << *(v275 + 32);
+            v278 = v276 & ~v277;
+            if ((*(v271 + ((v278 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v278))
+            {
+              v279 = ~v277;
+              while (1)
+              {
+                v280 = *(v319 + 48) + 16 * v278;
+                v281 = *v280 == v274._countAndFlagsBits && *(v280 + 8) == v274._object;
+                if (v281 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+                {
+                  break;
+                }
+
+                v278 = (v278 + 1) & v279;
+                if (((*(v271 + ((v278 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v278) & 1) == 0)
+                {
+                  goto LABEL_303;
+                }
+              }
+
+              v290 = "e as any select column's name";
+              v291 = 0xD000000000000051;
+              goto LABEL_317;
+            }
+          }
+
+LABEL_303:
+
+          v282 = String.lowercased()();
+          if (*(v318 + 16))
+          {
+            v283 = v318;
+            Hasher.init(_seed:)();
+            String.hash(into:)();
+            v284 = Hasher._finalize()();
+            v285 = -1 << *(v283 + 32);
+            v286 = v284 & ~v285;
+            if ((*(v272 + ((v286 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v286))
+            {
+              v287 = ~v285;
+              do
+              {
+                v288 = *(v318 + 48) + 16 * v286;
+                v289 = *v288 == v282._countAndFlagsBits && *(v288 + 8) == v282._object;
+                if (v289 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+                {
+                  goto LABEL_316;
+                }
+
+                v286 = (v286 + 1) & v287;
+              }
+
+              while (((*(v272 + ((v286 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v286) & 1) != 0);
+            }
+          }
+
+          ++v270;
+
+          outlined destroy of AggregationFunction(&v360);
+          v269 = v273;
+          if (v270 == v315)
+          {
+            goto LABEL_313;
+          }
+        }
+
+LABEL_334:
+        __break(1u);
+LABEL_335:
+        result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+        __break(1u);
+        return result;
+      }
+
+      outlined init with copy of ResultColumn(v317._object + 128 * v105, &v360);
+      v106 = v367;
+      if (v367)
+      {
+        break;
+      }
+
+      outlined destroy of ResultColumn(&v360);
+LABEL_85:
+      if (++v105 == v319)
+      {
+        goto LABEL_117;
+      }
+    }
+
+    v35 = v366;
+    v36 = BYTE8(v363);
+
+    v107 = swift_isUniquelyReferenced_nonNull_native();
+    *&v344 = isUniquelyReferenced_nonNull_native;
+    v108 = specialized __RawDictionaryStorage.find<A>(_:)(v35, v106);
+    v110 = *(isUniquelyReferenced_nonNull_native + 16);
+    v111 = (v109 & 1) == 0;
+    v50 = __OFADD__(v110, v111);
+    v112 = v110 + v111;
+    if (v50)
+    {
+      __break(1u);
+LABEL_316:
+
+      v290 = "hema column names";
+      v291 = 0xD000000000000050;
+LABEL_317:
+      v292 = v307;
+      v293 = v290 | 0x8000000000000000;
+      lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+      v294 = swift_allocError();
+      object = v317._object;
+      *v296 = v317._countAndFlagsBits;
+      *(v296 + 8) = object;
+      *(v296 + 16) = v291;
+      *(v296 + 24) = v293;
+      *(v296 + 32) = 7;
+      v313 = v294;
+      swift_willThrow();
+      outlined destroy of AggregationFunction(&v360);
+      v259 = v292;
+      goto LABEL_270;
+    }
+
+    v37 = v109;
+    if (*(isUniquelyReferenced_nonNull_native + 24) < v112)
+    {
+      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v112, v107);
+      v113 = v344;
+      v108 = specialized __RawDictionaryStorage.find<A>(_:)(v35, v106);
+      if ((v37 & 1) != (v114 & 1))
+      {
+        goto LABEL_335;
+      }
+
+      countAndFlagsBits = v308;
+      if (v37)
+      {
+        goto LABEL_92;
+      }
+
+LABEL_95:
+      *(v113 + 8 * (v108 >> 6) + 64) |= 1 << v108;
+      v116 = (*(v113 + 48) + 16 * v108);
+      *v116 = v35;
+      v116[1] = v106;
+      *(*(v113 + 56) + v108) = v36;
+      outlined destroy of ResultColumn(&v360);
+      v117 = *(v113 + 16);
+      v50 = __OFADD__(v117, 1);
+      v118 = v117 + 1;
+      if (v50)
+      {
+        __break(1u);
+        goto LABEL_319;
+      }
+
+      *(v113 + 16) = v118;
+      goto LABEL_97;
+    }
+
+    if (v107)
+    {
+      v113 = isUniquelyReferenced_nonNull_native;
+      countAndFlagsBits = v308;
+      if ((v109 & 1) == 0)
+      {
+        goto LABEL_95;
+      }
+    }
+
+    else
+    {
+      v298 = v108;
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMd, &_ss18_DictionaryStorageCySS14BiomeSQLParser11SQLDataTypeOGMR);
+      v119 = static _DictionaryStorage.copy(original:)();
+      v113 = v119;
+      if (*(isUniquelyReferenced_nonNull_native + 16))
+      {
+        v120 = (v119 + 64);
+        v121 = 1 << *(v113 + 32);
+        v303 = (isUniquelyReferenced_nonNull_native + 64);
+        v122 = (v121 + 63) >> 6;
+        if (v113 != isUniquelyReferenced_nonNull_native || v120 >= &v303[8 * v122])
+        {
+          memmove(v120, v303, 8 * v122);
+        }
+
+        v123 = 0;
+        *(v113 + 16) = *(isUniquelyReferenced_nonNull_native + 16);
+        v124 = 1 << *(isUniquelyReferenced_nonNull_native + 32);
+        if (v124 < 64)
+        {
+          v125 = ~(-1 << v124);
+        }
+
+        else
+        {
+          v125 = -1;
+        }
+
+        i = (v125 & *(isUniquelyReferenced_nonNull_native + 64));
+        v126 = (v124 + 63) >> 6;
+        v127 = i;
+        if (!i)
+        {
+          goto LABEL_107;
+        }
+
+        while (1)
+        {
+          v128 = __clz(__rbit64(v127));
+          for (i = ((v127 - 1) & v127); ; i = ((v130 - 1) & v130))
+          {
+            v131 = v128 | (v123 << 6);
+            v132 = (*(isUniquelyReferenced_nonNull_native + 48) + 16 * v131);
+            v134 = *v132;
+            v133 = v132[1];
+            LOBYTE(v132) = *(*(isUniquelyReferenced_nonNull_native + 56) + v131);
+            v135 = (*(v113 + 48) + 16 * v131);
+            *v135 = v134;
+            v135[1] = v133;
+            *(*(v113 + 56) + v131) = v132;
+
+            v127 = i;
+            if (i)
+            {
+              break;
+            }
+
+LABEL_107:
+            v129 = v123;
+            do
+            {
+              v123 = v129 + 1;
+              if (__OFADD__(v129, 1))
+              {
+                goto LABEL_333;
+              }
+
+              if (v123 >= v126)
+              {
+                goto LABEL_114;
+              }
+
+              v130 = *&v303[8 * v123];
+              ++v129;
+            }
+
+            while (!v130);
+            v128 = __clz(__rbit64(v130));
+          }
+        }
+      }
+
+LABEL_114:
+
+      v108 = v298;
+      countAndFlagsBits = v308;
+      if ((v37 & 1) == 0)
+      {
+        goto LABEL_95;
+      }
+    }
+
+LABEL_92:
+    v115 = v108;
+
+    *(*(v113 + 56) + v115) = v36;
+    outlined destroy of ResultColumn(&v360);
+LABEL_97:
+    v37 = v384;
+    v36 = v307;
+    isUniquelyReferenced_nonNull_native = v113;
+    v31 = v304;
+    goto LABEL_85;
+  }
+
+  isUniquelyReferenced_nonNull_native = MEMORY[0x277D84F98];
+LABEL_117:
+  v136 = v301;
+  v319 = OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_SelectStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__havingClause;
+  outlined init with copy of PgQuery_Alias?(&v301[OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_SelectStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__havingClause], v31, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+  v35 = v317._countAndFlagsBits;
+  if ((v317._countAndFlagsBits)(v31, 1, Node) == 1)
+  {
+
+    outlined destroy of URL?(v31, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+    v377 = 0u;
+    v378 = 0u;
+    v379 = 0u;
+    v380 = 0u;
+    v381 = 0u;
+    v382 = 0u;
+    v42 = v313;
+  }
+
+  else
+  {
+    outlined destroy of URL?(v31, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+    v139 = swift_allocObject();
+    *(v139 + 16) = v299;
+    strcpy((v139 + 32), "select_alias");
+    *(v139 + 45) = 0;
+    *(v139 + 46) = -5120;
+    *(v139 + 48) = isUniquelyReferenced_nonNull_native;
+    *&v360 = v300;
+
+    specialized Array.append<A>(contentsOf:)(v139);
+    v31 = v360;
+    v140 = &v136[v319];
+    v141 = v311;
+    outlined init with copy of PgQuery_Alias?(v140, v311, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+    v142 = Node;
+    if ((v35)(v141, 1, Node) == 1)
+    {
+      isUniquelyReferenced_nonNull_native = v312;
+      UnknownStorage.init()();
+      v36 = *(v142 + 20);
+      v42 = v313;
+      if (one-time initialization token for defaultInstance != -1)
+      {
+        goto LABEL_328;
+      }
+
+      goto LABEL_124;
+    }
+
+    outlined init with take of PgQuery_ParseResult(v141, v312, type metadata accessor for PgQuery_Node);
+    v42 = v313;
+LABEL_127:
+    isUniquelyReferenced_nonNull_native = v310;
+    outlined init with copy of PgQuery_ScanResult(v37 + *(v302 + 20), v310, type metadata accessor for SQLTokenInformation);
+
+    v146 = specialized ColumnResolver.init(schemas:)(v145);
+    if (v42)
+    {
+      v313 = v42;
+      swift_bridgeObjectRelease_n();
+      outlined destroy of PgQuery_ParseResult(isUniquelyReferenced_nonNull_native, type metadata accessor for SQLTokenInformation);
+      outlined destroy of PgQuery_ParseResult(v312, type metadata accessor for PgQuery_Node);
+      outlined destroy of PgQuery_ParseResult(v307, type metadata accessor for PgQuery_SelectStmt);
+      v88 = 0;
+      v86 = 1;
+      v87 = 1;
+      goto LABEL_65;
+    }
+
+    v148 = v146;
+    v149 = v147;
+    v42 = 0;
+
+    v35 = v312;
+    buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)(v312, v31, v148, v149, isUniquelyReferenced_nonNull_native, &v344);
+
+    outlined init with copy of VirtualTable.Module(&v344, v357);
+    SQLExpression.init(rootNode:)(v357, &v360);
+    __swift_destroy_boxed_opaque_existential_0(&v344);
+    outlined destroy of PgQuery_ParseResult(isUniquelyReferenced_nonNull_native, type metadata accessor for SQLTokenInformation);
+    outlined destroy of PgQuery_ParseResult(v35, type metadata accessor for PgQuery_Node);
+    v379 = v362;
+    v380 = v363;
+    v381 = v364;
+    v382 = v365;
+    v377 = v360;
+    v378 = v361;
+    v36 = v307;
+  }
+
+  outlined init with copy of PgQuery_Alias?(&v377, &v360, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+  if (*(&v361 + 1))
+  {
+    v357[2] = v362;
+    v357[3] = v363;
+    v358 = v364;
+    v359 = v365;
+    v357[0] = v360;
+    v357[1] = v361;
+    if (v315)
+    {
+      lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+      v137 = swift_allocError();
+      *v138 = 0u;
+      *(v138 + 16) = 0u;
+      *(v138 + 32) = 9;
+      v313 = v137;
+      swift_willThrow();
+      outlined destroy of SQLExpression(v357);
+      outlined destroy of PgQuery_ParseResult(v36, type metadata accessor for PgQuery_SelectStmt);
+      v86 = 1;
+      v87 = 1;
+      v88 = 1;
+      goto LABEL_65;
+    }
+
+    isUniquelyReferenced_nonNull_native = v42;
+    v150 = MEMORY[0x277D84FA0];
+    *&v338 = MEMORY[0x277D84FA0];
+    v151 = *(countAndFlagsBits + 16);
+    if (v151)
+    {
+      v152 = countAndFlagsBits + 32;
+      do
+      {
+        outlined init with copy of ResultColumn(v152, &v360);
+        v153 = v367;
+        if (v367 && *(v364 + 16))
+        {
+          v154 = v366;
+
+          v31 = &v338;
+          specialized Set._Variant.insert(_:)(&v344, v154, v153);
+        }
+
+        outlined destroy of ResultColumn(&v360);
+        v152 += 128;
+        --v151;
+      }
+
+      while (v151);
+LABEL_138:
+      v150 = v338;
+    }
+
+    v36 = v358;
+    v42 = isUniquelyReferenced_nonNull_native;
+    i = *(v358 + 16);
+    if (i)
+    {
+      v155 = 0;
+      v156 = v358 + 32;
+      v318 = v150 + 56;
+      v35 = MEMORY[0x277D84F90];
+      isUniquelyReferenced_nonNull_native = 96;
+      v319 = v150;
+      v310 = v358;
+      v311 = v358 + 32;
+      while (1)
+      {
+        if (v155 >= *(v36 + 16))
+        {
+          goto LABEL_332;
+        }
+
+        v315 = v155;
+        outlined init with copy of AggregationFunction(v156 + 200 * v155, &v360);
+        outlined init with copy of AggregationFunction.AggregationType(&v360, &v344);
+        outlined destroy of AggregationFunction(&v360);
+        if (v356 > 3u)
+        {
+          break;
+        }
+
+        if (v356 <= 1u)
+        {
+          goto LABEL_156;
+        }
+
+        if (v356 != 2)
+        {
+LABEL_159:
+          v340 = v346;
+          v341 = v347;
+          v342 = v348;
+          v343 = v349;
+          v338 = v344;
+          v339 = v345;
+          outlined init with copy of SQLExpression(&v338, &v332);
+          v31 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 1, v35);
+          v182 = *(v31 + 16);
+          v181 = *(v31 + 24);
+          v317._object = (v182 + 1);
+          if (v182 >= v181 >> 1)
+          {
+            v31 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v181 > 1), v182 + 1, 1, v31);
+          }
+
+          outlined destroy of SQLExpression(&v338);
+          v168 = v31;
+          *(v31 + 16) = v317._object;
+          v183 = (v31 + 96 * v182);
+          v184 = v333;
+          v183[2] = v332;
+          v183[3] = v184;
+          v185 = v337;
+          v187 = v334;
+          v186 = v335;
+          v183[6] = v336;
+          v183[7] = v185;
+          v183[4] = v187;
+          v183[5] = v186;
+          goto LABEL_162;
+        }
+
+        v340 = v346;
+        v341 = v347;
+        v342 = v348;
+        v343 = v349;
+        v338 = v344;
+        v339 = v345;
+        v334 = v352;
+        v335 = v353;
+        v336 = v354;
+        v337 = v355;
+        v332 = v350;
+        v333 = v351;
+        outlined init with copy of SQLExpression(&v338, &v326);
+        v157 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 1, v35);
+        v159 = *(v157 + 2);
+        v158 = *(v157 + 3);
+        v31 = v159 + 1;
+        if (v159 >= v158 >> 1)
+        {
+          v157 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v158 > 1), v159 + 1, 1, v157);
+        }
+
+        *(v157 + 2) = v31;
+        v160 = &v157[96 * v159];
+        v161 = v327;
+        *(v160 + 2) = v326;
+        *(v160 + 3) = v161;
+        v162 = v328;
+        v163 = v329;
+        v164 = v331;
+        *(v160 + 6) = v330;
+        *(v160 + 7) = v164;
+        *(v160 + 4) = v162;
+        *(v160 + 5) = v163;
+        outlined init with copy of PgQuery_Alias?(&v332, &v320, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+        if (*(&v321 + 1))
+        {
+          v165 = v37;
+          v328 = v322;
+          v329 = v323;
+          v330 = v324;
+          v331 = v325;
+          v326 = v320;
+          v327 = v321;
+          outlined init with copy of SQLExpression(&v326, &v320);
+          v166 = *(v157 + 3);
+          v167 = v159 + 2;
+          if ((v159 + 2) > (v166 >> 1))
+          {
+            v157 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v166 > 1), v159 + 2, 1, v157);
+          }
+
+          v36 = v310;
+          outlined destroy of SQLExpression(&v326);
+          outlined destroy of URL?(&v332, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+          outlined destroy of SQLExpression(&v338);
+          v168 = v157;
+          *(v157 + 2) = v167;
+          isUniquelyReferenced_nonNull_native = 96;
+          v169 = (v168 + 96 * v31);
+          v170 = v321;
+          v169[2] = v320;
+          v169[3] = v170;
+          v171 = v325;
+          v173 = v322;
+          v172 = v323;
+          v169[6] = v324;
+          v169[7] = v171;
+          v169[4] = v173;
+          v169[5] = v172;
+          v37 = v165;
+LABEL_162:
+          v150 = v319;
+          goto LABEL_165;
+        }
+
+        v31 = &_s14BiomeSQLParser13SQLExpressionVSgMd;
+        outlined destroy of URL?(&v332, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+        outlined destroy of SQLExpression(&v338);
+        outlined destroy of URL?(&v320, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+        v36 = v310;
+        v168 = v157;
+        isUniquelyReferenced_nonNull_native = 96;
+LABEL_165:
+        Node = *(v168 + 16);
+        if (Node)
+        {
+          v36 = 0;
+          v188 = (v168 + 32);
+          v317._countAndFlagsBits = v168;
+          v312 = (v168 + 32);
+          while (1)
+          {
+            if (v36 >= *(v168 + 16))
+            {
+              goto LABEL_331;
+            }
+
+            v313 = v42;
+            outlined init with copy of SQLExpression(&v188[96 * v36], &v344);
+            v35 = *(&v348 + 1);
+            isUniquelyReferenced_nonNull_native = *(*(&v348 + 1) + 16);
+            if (isUniquelyReferenced_nonNull_native)
+            {
+              break;
+            }
+
+LABEL_183:
+            ++v36;
+            outlined destroy of SQLExpression(&v344);
+            v168 = v317._countAndFlagsBits;
+            v188 = v312;
+            v42 = v313;
+            v35 = MEMORY[0x277D84F90];
+            isUniquelyReferenced_nonNull_native = 96;
+            if (v36 == Node)
+            {
+
+              v36 = v310;
+              goto LABEL_186;
+            }
+          }
+
+          v42 = 0;
+          v317._object = (*(&v348 + 1) + 32);
+          while (v42 < *(v35 + 2))
+          {
+            if (*(v150 + 16))
+            {
+              v189 = (v317._object + 24 * v42);
+              v191 = *v189;
+              v190 = v189[1];
+              Hasher.init(_seed:)();
+              swift_bridgeObjectRetain_n();
+              String.hash(into:)();
+              v192 = Hasher._finalize()();
+              v193 = -1 << *(v150 + 32);
+              v31 = v192 & ~v193;
+              if ((*(v318 + ((v31 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v31))
+              {
+                v194 = ~v193;
+                do
+                {
+                  v195 = (*(v319 + 48) + 16 * v31);
+                  v196 = *v195 == v191 && v195[1] == v190;
+                  if (v196 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+                  {
+                    swift_bridgeObjectRelease_n();
+
+                    v197 = v349;
+                    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+                    v198 = swift_allocError();
+                    *v199 = v197;
+                    *(v199 + 16) = 0;
+                    *(v199 + 24) = 0;
+                    *(v199 + 32) = 3;
+                    v313 = v198;
+                    swift_willThrow();
+
+                    outlined destroy of SQLExpression(v357);
+                    outlined destroy of SQLExpression(&v344);
+                    goto LABEL_269;
+                  }
+
+                  v31 = (v31 + 1) & v194;
+                }
+
+                while (((*(v318 + ((v31 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v31) & 1) != 0);
+              }
+
+              swift_bridgeObjectRelease_n();
+              v37 = v384;
+              countAndFlagsBits = v308;
+              v150 = v319;
+            }
+
+            if (++v42 == isUniquelyReferenced_nonNull_native)
+            {
+              goto LABEL_183;
+            }
+          }
+
+LABEL_325:
+          __break(1u);
+LABEL_326:
+          __break(1u);
+LABEL_327:
+          __break(1u);
+LABEL_328:
+          swift_once();
+LABEL_124:
+          *(isUniquelyReferenced_nonNull_native + v36) = static PgQuery_Node._StorageClass.defaultInstance;
+          v143 = v311;
+          v144 = (v35)(v311, 1);
+
+          if (v144 != 1)
+          {
+            outlined destroy of URL?(v143, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+          }
+
+          goto LABEL_127;
+        }
+
+LABEL_186:
+        v155 = v315 + 1;
+        v156 = v311;
+        if (v315 + 1 == i)
+        {
+          goto LABEL_189;
+        }
+      }
+
+      if (v356 > 5u)
+      {
+        if (v356 != 6)
+        {
+          v168 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 0, 1, v35);
+          goto LABEL_165;
+        }
+      }
+
+      else if (v356 == 4)
+      {
+        goto LABEL_159;
+      }
+
+LABEL_156:
+      v340 = v346;
+      v341 = v347;
+      v342 = v348;
+      v343 = v349;
+      v338 = v344;
+      v339 = v345;
+      outlined init with copy of SQLExpression(&v338, &v332);
+      v31 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 1, v35);
+      v175 = *(v31 + 16);
+      v174 = *(v31 + 24);
+      if (v175 >= v174 >> 1)
+      {
+        v31 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v174 > 1), v175 + 1, 1, v31);
+      }
+
+      outlined destroy of SQLExpression(&v338);
+      v168 = v31;
+      *(v31 + 16) = v175 + 1;
+      v176 = (v31 + 96 * v175);
+      v177 = v333;
+      v176[2] = v332;
+      v176[3] = v177;
+      v178 = v337;
+      v180 = v334;
+      v179 = v335;
+      v176[6] = v336;
+      v176[7] = v178;
+      v176[4] = v180;
+      v176[5] = v179;
+      v150 = v319;
+      v35 = MEMORY[0x277D84F90];
+      goto LABEL_165;
+    }
+
+LABEL_189:
+
+    outlined destroy of SQLExpression(v357);
+  }
+
+  else
+  {
+    outlined destroy of URL?(&v360, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+  }
+
+  v200 = MEMORY[0x277D84FA0];
+  *&v344 = MEMORY[0x277D84FA0];
+  v201 = v300;
+  v312 = *(v300 + 16);
+  if (v312)
+  {
+    v202 = 0;
+    v203 = v300 + 32;
+    v311 = v300 + 32;
+    do
+    {
+      v313 = v42;
+      if (v202 >= *(v201 + 16))
+      {
+        goto LABEL_327;
+      }
+
+      v204 = v203 + 24 * v202;
+      v205 = *(v204 + 8);
+      v31 = *(v204 + 16);
+      i = v202 + 1;
+      v315 = v205;
+      v206 = v31 + 64;
+      v207 = 1 << *(v31 + 32);
+      if (v207 < 64)
+      {
+        v208 = ~(-1 << v207);
+      }
+
+      else
+      {
+        v208 = -1;
+      }
+
+      isUniquelyReferenced_nonNull_native = v208 & *(v31 + 64);
+      v36 = (v207 + 63) >> 6;
+
+      swift_bridgeObjectRetain_n();
+      v209 = 0;
+      Node = v36;
+      v317._countAndFlagsBits = v31 + 64;
+      v317._object = v31;
+      if (isUniquelyReferenced_nonNull_native)
+      {
+        while (1)
+        {
+LABEL_201:
+          v211 = (*(v31 + 48) + ((v209 << 10) | (16 * __clz(__rbit64(isUniquelyReferenced_nonNull_native)))));
+          v212 = v211[1];
+          v37 = v344;
+          v318 = *v211;
+          v213 = String.lowercased()();
+          v214 = *(v37 + 16);
+          v319 = v212;
+          if (v214)
+          {
+            Hasher.init(_seed:)();
+
+            String.hash(into:)();
+            v215 = Hasher._finalize()();
+            v216 = -1 << *(v37 + 32);
+            v217 = v215 & ~v216;
+            if ((*(v37 + 56 + ((v217 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v217))
+            {
+              v218 = ~v216;
+              while (1)
+              {
+                v219 = *(v37 + 48) + 16 * v217;
+                v220 = *v219 == v213._countAndFlagsBits && *(v219 + 8) == v213._object;
+                if (v220 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+                {
+                  break;
+                }
+
+                v217 = (v217 + 1) & v218;
+                if (((*(v37 + 56 + ((v217 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v217) & 1) == 0)
+                {
+                  goto LABEL_212;
+                }
+              }
+
+              lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+              v222 = swift_allocError();
+              v223 = v319;
+              *v224 = v318;
+              *(v224 + 8) = v223;
+              *(v224 + 16) = 0xD000000000000027;
+              *(v224 + 24) = 0x80000002553B6A40;
+              *(v224 + 32) = 7;
+              v313 = v222;
+              swift_willThrow();
+
+              goto LABEL_268;
+            }
+          }
+
+          else
+          {
+          }
+
+LABEL_212:
+          isUniquelyReferenced_nonNull_native &= isUniquelyReferenced_nonNull_native - 1;
+
+          v221 = String.lowercased()();
+          v35 = v221._object;
+
+          specialized Set._Variant.insert(_:)(&v360, v221._countAndFlagsBits, v221._object);
+
+          countAndFlagsBits = v308;
+          v206 = v317._countAndFlagsBits;
+          v31 = v317._object;
+          v36 = Node;
+          if (!isUniquelyReferenced_nonNull_native)
+          {
+            goto LABEL_197;
+          }
+        }
+      }
+
+      while (1)
+      {
+LABEL_197:
+        v210 = v209 + 1;
+        if (__OFADD__(v209, 1))
+        {
+          goto LABEL_320;
+        }
+
+        if (v210 >= v36)
+        {
+          break;
+        }
+
+        isUniquelyReferenced_nonNull_native = *(v206 + 8 * v210);
+        ++v209;
+        if (isUniquelyReferenced_nonNull_native)
+        {
+          v209 = v210;
+          goto LABEL_201;
+        }
+      }
+
+      v42 = v313;
+      v202 = i;
+      v201 = v300;
+      v200 = MEMORY[0x277D84FA0];
+      v203 = v311;
+    }
+
+    while (i != v312);
+    v319 = v344;
+  }
+
+  else
+  {
+    v319 = MEMORY[0x277D84FA0];
+  }
+
+  *&v357[0] = v200;
+  v31 = *(countAndFlagsBits + 16);
+  if (!v31)
+  {
+    goto LABEL_248;
+  }
+
+  v225 = 0;
+  v226 = countAndFlagsBits + 32;
+  v318 = v319 + 56;
+  Node = countAndFlagsBits + 32;
+  v317._countAndFlagsBits = v31;
+  do
+  {
+    if (v225 >= *(countAndFlagsBits + 16))
+    {
+LABEL_330:
+      __break(1u);
+LABEL_331:
+      __break(1u);
+LABEL_332:
+      __break(1u);
+LABEL_333:
+      __break(1u);
+      goto LABEL_334;
+    }
+
+    outlined init with copy of ResultColumn(v226 + (v225 << 7), &v360);
+    v36 = v367;
+    if (v367)
+    {
+      v313 = v42;
+      v227 = *&v357[0];
+      v317._object = v366;
+      v228 = String.lowercased()();
+      if (*(v227 + 16))
+      {
+        Hasher.init(_seed:)();
+
+        String.hash(into:)();
+        v229 = Hasher._finalize()();
+        v230 = -1 << *(v227 + 32);
+        v231 = v229 & ~v230;
+        if ((*(v227 + 56 + ((v231 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v231))
+        {
+          v232 = ~v230;
+          while (1)
+          {
+            v233 = *(v227 + 48) + 16 * v231;
+            v234 = *v233 == v228._countAndFlagsBits && *(v233 + 8) == v228._object;
+            if (v234 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+            {
+              break;
+            }
+
+            v231 = (v231 + 1) & v232;
+            if (((*(v227 + 56 + ((v231 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v231) & 1) == 0)
+            {
+              goto LABEL_234;
+            }
+          }
+
+          v255 = 0xD000000000000021;
+
+          v256 = "lect alias names";
+          goto LABEL_267;
+        }
+      }
+
+      else
+      {
+      }
+
+LABEL_234:
+
+      v235 = String.lowercased()();
+      v35 = v235._object;
+      v236 = v319;
+      if (*(v319 + 16))
+      {
+        Hasher.init(_seed:)();
+        String.hash(into:)();
+        v237 = Hasher._finalize()();
+        v238 = -1 << *(v236 + 32);
+        v239 = v237 & ~v238;
+        countAndFlagsBits = v308;
+        if ((*(v318 + ((v239 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v239))
+        {
+          v240 = ~v238;
+          while (1)
+          {
+            v241 = *(v319 + 48) + 16 * v239;
+            v242 = *v241 == v235._countAndFlagsBits && *(v241 + 8) == v235._object;
+            if (v242 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+            {
+              break;
+            }
+
+            v239 = (v239 + 1) & v240;
+            if (((*(v318 + ((v239 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v239) & 1) == 0)
+            {
+              goto LABEL_245;
+            }
+          }
+
+LABEL_266:
+
+          v256 = "ave the same name";
+          v255 = 0xD000000000000043;
+LABEL_267:
+
+          lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+          v257 = swift_allocError();
+          *v258 = v317._object;
+          *(v258 + 8) = v36;
+          *(v258 + 16) = v255;
+          *(v258 + 24) = v256 | 0x8000000000000000;
+          *(v258 + 32) = 7;
+          v313 = v257;
+          swift_willThrow();
+          outlined destroy of ResultColumn(&v360);
+LABEL_268:
+
+          goto LABEL_269;
+        }
+      }
+
+      else
+      {
+        countAndFlagsBits = v308;
+      }
+
+LABEL_245:
+
+      v243 = String.lowercased()();
+
+      specialized Set._Variant.insert(_:)(&v344, v243._countAndFlagsBits, v243._object);
+
+      outlined destroy of ResultColumn(&v360);
+      v42 = v313;
+      v226 = Node;
+      v31 = v317._countAndFlagsBits;
+    }
+
+    else
+    {
+      outlined destroy of ResultColumn(&v360);
+    }
+
+    ++v225;
+  }
+
+  while (v225 != v31);
+  v200 = *&v357[0];
+LABEL_248:
+  v244 = *(countAndFlagsBits + 16);
+  v318 = v200;
+  if (!v244)
+  {
+LABEL_271:
+    v313 = v42;
+    v36 = v308;
+    isUniquelyReferenced_nonNull_native = *(v308 + 16);
+    if (!isUniquelyReferenced_nonNull_native)
+    {
+      goto LABEL_283;
+    }
+
+    v40 = MEMORY[0x277D84F90];
+    *&v344 = MEMORY[0x277D84F90];
+    v31 = &v344;
+    specialized ContiguousArray.reserveCapacity(_:)(isUniquelyReferenced_nonNull_native);
+    v35 = (v36 + 32);
+    v42 = v344;
+    do
+    {
+      outlined init with copy of ResultColumn(v35, &v360);
+      v36 = v364;
+
+      outlined destroy of ResultColumn(&v360);
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        v31 = &v344;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v42 + 16) + 1, 1);
+        v42 = v344;
+      }
+
+      countAndFlagsBits = *(v42 + 16);
+      v260 = *(v42 + 24);
+      v37 = countAndFlagsBits + 1;
+      if (countAndFlagsBits >= v260 >> 1)
+      {
+        v31 = &v344;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v260 > 1), countAndFlagsBits + 1, 1);
+        v42 = v344;
+      }
+
+      *(v42 + 16) = v37;
+      *(v42 + 8 * countAndFlagsBits + 32) = v36;
+      v35 += 128;
+      --isUniquelyReferenced_nonNull_native;
+    }
+
+    while (isUniquelyReferenced_nonNull_native);
+    goto LABEL_281;
+  }
+
+  v245 = 0;
+  countAndFlagsBits += 32;
+  v246 = v200 + 56;
+  while (2)
+  {
+    if (v245 >= *(v308 + 16))
+    {
+      __break(1u);
+      goto LABEL_330;
+    }
+
+    outlined init with copy of ResultColumn(countAndFlagsBits + (v245 << 7), &v360);
+    if (v367)
+    {
+LABEL_251:
+      ++v245;
+      outlined destroy of ResultColumn(&v360);
+      if (v245 == v244)
+      {
+        goto LABEL_271;
+      }
+
+      continue;
+    }
+
+    break;
+  }
+
+  v31 = *(&v365 + 1);
+  v317._object = v365;
+  v247 = String.lowercased()();
+  v35 = v247._object;
+  v248 = *(v318 + 16);
+  v313 = v42;
+  if (!v248 || (v317._countAndFlagsBits = v31, v249 = v318, Hasher.init(_seed:)(), String.hash(into:)(), v250 = Hasher._finalize()(), v251 = -1 << *(v249 + 32), v31 = v250 & ~v251, ((*(v246 + ((v31 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v31) & 1) == 0))
+  {
+LABEL_250:
+
+    v42 = v313;
+    goto LABEL_251;
+  }
+
+  v252 = ~v251;
+  while (1)
+  {
+    v253 = *(v318 + 48) + 16 * v31;
+    v254 = *v253 == v247._countAndFlagsBits && *(v253 + 8) == v247._object;
+    if (v254 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+    {
+      break;
+    }
+
+    v31 = (v31 + 1) & v252;
+    if (((*(v246 + ((v31 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v31) & 1) == 0)
+    {
+      goto LABEL_250;
+    }
+  }
+
+  lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+  v261 = swift_allocError();
+  v262 = v317._countAndFlagsBits;
+  *v263 = v317._object;
+  *(v263 + 8) = v262;
+  *(v263 + 16) = 0xD00000000000003DLL;
+  *(v263 + 24) = 0x80000002553B6A70;
+  *(v263 + 32) = 7;
+  v313 = v261;
+  swift_willThrow();
+
+  outlined destroy of ResultColumn(&v360);
+LABEL_269:
+  v259 = v307;
+LABEL_270:
+  outlined destroy of PgQuery_ParseResult(v259, type metadata accessor for PgQuery_SelectStmt);
+  v86 = 1;
+  v87 = 1;
+  v88 = 1;
+  v37 = v384;
+LABEL_65:
+  outlined destroy of PgQuery_ParseResult(v37, type metadata accessor for PlanResources);
+  result = outlined destroy of FromClause(v368);
+  if (v86)
+  {
+    result = outlined destroy of URL?(&v370, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+  }
+
+  if (v87)
+  {
+  }
+
+  v99 = v306;
+  if (v88)
+  {
+    result = outlined destroy of URL?(&v377, &_s14BiomeSQLParser13SQLExpressionVSgMd, &_s14BiomeSQLParser13SQLExpressionVSgMR);
+  }
+
+  if (!v99)
+  {
+  }
+
+  return result;
+}
+
+unint64_t closure #1 in SelectCore.init(select:resources:)@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, void *a4@<X3>, uint64_t a5@<X8>)
+{
+  v11 = type metadata accessor for SQLTokenInformation(0);
+  MEMORY[0x28223BE20](v11 - 8);
+  v13 = &v19 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  Node = type metadata accessor for PgQuery_Node(0);
+  MEMORY[0x28223BE20](Node - 8);
+  v16 = &v19 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of PgQuery_ScanResult(a1, v16, type metadata accessor for PgQuery_Node);
+  v17 = type metadata accessor for PlanResources(0);
+  outlined init with copy of PgQuery_ScanResult(a3 + *(v17 + 20), v13, type metadata accessor for SQLTokenInformation);
+
+  result = ResultColumn.init(node:schemas:tokenInformation:)(v16, a2, v13, a5);
+  if (v5)
+  {
+    *a4 = v5;
+  }
+
+  return result;
+}
+
+uint64_t closure #3 in SelectCore.init(select:resources:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X3>, uint64_t a5@<X8>)
+{
+  v11 = type metadata accessor for SQLTokenInformation(0);
+  MEMORY[0x28223BE20](v11 - 8);
+  v13 = v23 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  Node = type metadata accessor for PgQuery_Node(0);
+  MEMORY[0x28223BE20](Node - 8);
+  v16 = v23 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of PgQuery_ScanResult(a1, v16, type metadata accessor for PgQuery_Node);
+  v17 = type metadata accessor for PlanResources(0);
+  outlined init with copy of PgQuery_ScanResult(a3 + *(v17 + 20), v13, type metadata accessor for SQLTokenInformation);
+
+  v19 = specialized ColumnResolver.init(schemas:)(v18);
+  v21 = v20;
+
+  if (v5)
+  {
+    outlined destroy of PgQuery_ParseResult(v13, type metadata accessor for SQLTokenInformation);
+    result = outlined destroy of PgQuery_ParseResult(v16, type metadata accessor for PgQuery_Node);
+    *a4 = v5;
+  }
+
+  else
+  {
+    buildSQLExpression(expressionNode:schemas:columnResolver:tokenInformation:)(v16, a2, v19, v21, v13, v24);
+
+    outlined init with copy of VirtualTable.Module(v24, v23);
+    SQLExpression.init(rootNode:)(v23, a5);
+    __swift_destroy_boxed_opaque_existential_0(v24);
+    outlined destroy of PgQuery_ParseResult(v13, type metadata accessor for SQLTokenInformation);
+    return outlined destroy of PgQuery_ParseResult(v16, type metadata accessor for PgQuery_Node);
+  }
+
+  return result;
+}
+
+uint64_t protocol witness for CodingKey.stringValue.getter in conformance SelectCore.CodingKeys()
+{
+  v1 = *v0;
+  v2 = 1836020326;
+  v3 = 0x794270756F7267;
+  v4 = 0x676E69766168;
+  if (v1 != 3)
+  {
+    v4 = 0x7463656C6573;
+  }
+
+  if (v1 != 2)
+  {
+    v3 = v4;
+  }
+
+  if (*v0)
+  {
+    v2 = 0x6572656877;
+  }
+
+  if (*v0 <= 1u)
+  {
+    return v2;
+  }
+
+  else
+  {
+    return v3;
+  }
+}
+
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance SelectCore.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
+{
+  result = specialized SelectCore.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
+  return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance SelectCore.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type SelectCore.CodingKeys and conformance SelectCore.CodingKeys();
+
+  return MEMORY[0x2821FE718](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance SelectCore.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type SelectCore.CodingKeys and conformance SelectCore.CodingKeys();
+
+  return MEMORY[0x2821FE720](a1, v2);
+}
+
+uint64_t SelectCore.encode(to:)(void *a1)
+{
+  v3 = v1;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser10SelectCoreV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser10SelectCoreV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
+  v6 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5);
+  v8 = &v10 - v7;
+  __swift_project_boxed_opaque_existential_0(a1, a1[3]);
+  lazy protocol witness table accessor for type SelectCore.CodingKeys and conformance SelectCore.CodingKeys();
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  LOBYTE(v12) = 0;
+  lazy protocol witness table accessor for type FromClause and conformance FromClause();
+  KeyedEncodingContainer.encode<A>(_:forKey:)();
+  if (!v2)
+  {
+    LOBYTE(v12) = 1;
+    lazy protocol witness table accessor for type SQLExpression and conformance SQLExpression();
+    KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
+    v12 = *(v3 + 200);
+    v11 = 2;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay14BiomeSQLParser13SQLExpressionVGMd, &_sSay14BiomeSQLParser13SQLExpressionVGMR);
+    lazy protocol witness table accessor for type [Schema] and conformance <A> [A](&lazy protocol witness table cache variable for type [SQLExpression] and conformance <A> [A], &_sSay14BiomeSQLParser13SQLExpressionVGMd, &_sSay14BiomeSQLParser13SQLExpressionVGMR, lazy protocol witness table accessor for type SQLExpression and conformance SQLExpression);
+    KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
+    LOBYTE(v12) = 3;
+    KeyedEncodingContainer.encodeIfPresent<A>(_:forKey:)();
+    v12 = *(v3 + 304);
+    v11 = 4;
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay14BiomeSQLParser12ResultColumnVGMd, &_sSay14BiomeSQLParser12ResultColumnVGMR);
+    lazy protocol witness table accessor for type [Schema] and conformance <A> [A](&lazy protocol witness table cache variable for type [ResultColumn] and conformance <A> [A], &_sSay14BiomeSQLParser12ResultColumnVGMd, &_sSay14BiomeSQLParser12ResultColumnVGMR, lazy protocol witness table accessor for type ResultColumn and conformance ResultColumn);
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+  }
+
+  return (*(v6 + 8))(v8, v5);
+}
+
+uint64_t MaterializedView.name.getter()
+{
+  v1 = *v0;
+
+  return v1;
+}
+
+void *MaterializedView.init(create:resources:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, Swift::String *a3@<X8>)
+{
+  v76 = a2;
+  v66 = a3;
+  v72 = type metadata accessor for PlanResources(0);
+  MEMORY[0x28223BE20](v72);
+  v64 = &v59 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  MEMORY[0x28223BE20](v5 - 8);
+  v74 = &v59 - v6;
+  SelectStmt = type metadata accessor for PgQuery_SelectStmt(0);
+  MEMORY[0x28223BE20](SelectStmt);
+  v63 = &v59 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+  MEMORY[0x28223BE20](v8 - 8);
+  v67 = &v59 - v9;
+  Node = type metadata accessor for PgQuery_Node(0);
+  v62 = *(Node - 8);
+  MEMORY[0x28223BE20](Node);
+  v68 = &v59 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+  MEMORY[0x28223BE20](v11 - 8);
+  v13 = &v59 - v12;
+  RangeVar = type metadata accessor for PgQuery_RangeVar(0);
+  v70 = *(RangeVar - 8);
+  v71 = RangeVar;
+  MEMORY[0x28223BE20](RangeVar);
+  v16 = &v59 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s14BiomeSQLParser18PgQuery_IntoClauseVSgMd, &_s14BiomeSQLParser18PgQuery_IntoClauseVSgMR);
+  MEMORY[0x28223BE20](v17 - 8);
+  v19 = &v59 - v18;
+  IntoClause = type metadata accessor for PgQuery_IntoClause(0);
+  v21 = *(IntoClause - 8);
+  MEMORY[0x28223BE20](IntoClause);
+  v23 = &v59 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = *(a1 + *(type metadata accessor for PgQuery_CreateTableAsStmt(0) + 20));
+  ResultSetCursor.columns.modify();
+  if (v25 != 24)
+  {
+    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+    swift_allocError();
+    *v30 = 0xD000000000000039;
+    *(v30 + 8) = 0x80000002553B69E0;
+    *(v30 + 16) = 0;
+    *(v30 + 24) = 0;
+    *(v30 + 32) = 1;
+    swift_willThrow();
+    outlined destroy of PgQuery_ParseResult(v76, type metadata accessor for PlanResources);
+    return outlined destroy of PgQuery_ParseResult(a1, type metadata accessor for PgQuery_CreateTableAsStmt);
+  }
+
+  v65 = a1;
+  outlined init with copy of PgQuery_Alias?(v24 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_CreateTableAsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__into, v19, &_s14BiomeSQLParser18PgQuery_IntoClauseVSgMd, &_s14BiomeSQLParser18PgQuery_IntoClauseVSgMR);
+  v26 = *(v21 + 48);
+  v27 = v26(v19, 1, IntoClause);
+  v60 = v24;
+  if (v27 == 1)
+  {
+    UnknownStorage.init()();
+    v28 = *(IntoClause + 20);
+    if (one-time initialization token for defaultInstance != -1)
+    {
+      v58 = *(IntoClause + 20);
+      swift_once();
+      v28 = v58;
+    }
+
+    *&v23[v28] = static PgQuery_IntoClause._StorageClass.defaultInstance;
+    v29 = v26(v19, 1, IntoClause);
+
+    if (v29 != 1)
+    {
+      outlined destroy of URL?(v19, &_s14BiomeSQLParser18PgQuery_IntoClauseVSgMd, &_s14BiomeSQLParser18PgQuery_IntoClauseVSgMR);
+    }
+  }
+
+  else
+  {
+    outlined init with take of PgQuery_ParseResult(v19, v23, type metadata accessor for PgQuery_IntoClause);
+  }
+
+  outlined init with copy of PgQuery_Alias?(*&v23[*(IntoClause + 20)] + OBJC_IVAR____TtCV14BiomeSQLParser18PgQuery_IntoClauseP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__rel, v13, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+  v32 = v71;
+  v33 = *(v70 + 48);
+  v34 = v33(v13, 1, v71);
+  v35 = v65;
+  if (v34 == 1)
+  {
+    *v16 = 0;
+    *(v16 + 1) = 0xE000000000000000;
+    *(v16 + 2) = 0;
+    *(v16 + 3) = 0xE000000000000000;
+    *(v16 + 4) = 0;
+    *(v16 + 5) = 0xE000000000000000;
+    v16[48] = 0;
+    *(v16 + 7) = 0;
+    *(v16 + 8) = 0xE000000000000000;
+    *(v16 + 18) = 0;
+    UnknownStorage.init()();
+    v36 = *(v32 + 44);
+    Alias = type metadata accessor for PgQuery_Alias(0);
+    (*(*(Alias - 8) + 56))(&v16[v36], 1, 1, Alias);
+    v38 = v33(v13, 1, v32);
+    v39 = v74;
+    v40 = v60;
+    if (v38 != 1)
+    {
+      outlined destroy of URL?(v13, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMd, &_s14BiomeSQLParser16PgQuery_RangeVarVSgMR);
+    }
+  }
+
+  else
+  {
+    outlined init with take of PgQuery_ParseResult(v13, v16, type metadata accessor for PgQuery_RangeVar);
+    v39 = v74;
+    v40 = v60;
+  }
+
+  outlined destroy of PgQuery_ParseResult(v23, type metadata accessor for PgQuery_IntoClause);
+  v41 = *(v16 + 18);
+  outlined destroy of PgQuery_ParseResult(v16, type metadata accessor for PgQuery_RangeVar);
+  v42 = v76;
+  v43 = SQLTokenInformation.tokenName(location:)(v41);
+  if (v44)
+  {
+    outlined destroy of PgQuery_ParseResult(v42, type metadata accessor for PlanResources);
+    return outlined destroy of PgQuery_ParseResult(v35, type metadata accessor for PgQuery_CreateTableAsStmt);
+  }
+
+  v45 = v67;
+  *v66 = v43;
+  object = v43._object;
+  outlined init with copy of PgQuery_Alias?(v40 + OBJC_IVAR____TtCV14BiomeSQLParser25PgQuery_CreateTableAsStmtP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__query, v45, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+  v46 = *(v62 + 48);
+  v47 = Node;
+  if ((v46)(v45, 1, Node) == 1)
+  {
+    v48 = v68;
+    UnknownStorage.init()();
+    v49 = *(v47 + 20);
+    if (one-time initialization token for defaultInstance != -1)
+    {
+      swift_once();
+    }
+
+    *(v48 + v49) = static PgQuery_Node._StorageClass.defaultInstance;
+    v50 = v67;
+    v51 = v46(v67, 1);
+
+    v39 = v74;
+    if (v51 != 1)
+    {
+      outlined destroy of URL?(v50, &_s14BiomeSQLParser12PgQuery_NodeVSgMd, &_s14BiomeSQLParser12PgQuery_NodeVSgMR);
+    }
+  }
+
+  else
+  {
+    v52 = v45;
+    v48 = v68;
+    outlined init with take of PgQuery_ParseResult(v52, v68, type metadata accessor for PgQuery_Node);
+  }
+
+  outlined init with copy of PgQuery_Alias?(*(v48 + *(Node + 20)) + OBJC_IVAR____TtCV14BiomeSQLParser12PgQuery_NodeP33_A784F7F2ED97E043416F18646CF1BF1713_StorageClass__node, v39, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+  v53 = type metadata accessor for PgQuery_Node.OneOf_Node(0);
+  v54 = (*(*(v53 - 8) + 48))(v39, 1, v53);
+  v55 = v63;
+  if (v54 == 1)
+  {
+    outlined destroy of URL?(v39, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMd, &_s14BiomeSQLParser12PgQuery_NodeV06OneOf_E0OSgMR);
+LABEL_26:
+    UnknownStorage.init()();
+    v56 = *(SelectStmt + 20);
+    if (one-time initialization token for defaultInstance != -1)
+    {
+      swift_once();
+    }
+
+    *(v55 + v56) = static PgQuery_SelectStmt._StorageClass.defaultInstance;
+
+    goto LABEL_29;
+  }
+
+  if (swift_getEnumCaseMultiPayload() != 56)
+  {
+    outlined destroy of PgQuery_ParseResult(v39, type metadata accessor for PgQuery_Node.OneOf_Node);
+    goto LABEL_26;
+  }
+
+  outlined init with take of PgQuery_ParseResult(v39, v55, type metadata accessor for PgQuery_SelectStmt);
+LABEL_29:
+  outlined destroy of PgQuery_ParseResult(v68, type metadata accessor for PgQuery_Node);
+  v57 = v64;
+  outlined init with copy of PgQuery_ScanResult(v42, v64, type metadata accessor for PlanResources);
+  SelectCore.init(select:resources:)(v55, v57, v75);
+  outlined destroy of PgQuery_ParseResult(v42, type metadata accessor for PlanResources);
+  outlined destroy of PgQuery_ParseResult(v65, type metadata accessor for PgQuery_CreateTableAsStmt);
+  return memcpy(&v66[1], v75, 0x138uLL);
+}
+
+uint64_t protocol witness for CodingKey.stringValue.getter in conformance MaterializedView.CodingKeys()
+{
+  if (*v0)
+  {
+    return 0x7463656C6573;
+  }
+
+  else
+  {
+    return 1701667182;
+  }
+}
+
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance MaterializedView.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
+{
+  v5 = a1 == 1701667182 && a2 == 0xE400000000000000;
+  if (v5 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    v8 = 0;
+  }
+
+  else if (a1 == 0x7463656C6573 && a2 == 0xE600000000000000)
+  {
+
+    v8 = 1;
+  }
+
+  else
+  {
+    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v9)
+    {
+      v8 = 1;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+  }
+
+  *a3 = v8;
+  return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance MaterializedView.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type MaterializedView.CodingKeys and conformance MaterializedView.CodingKeys();
+
+  return MEMORY[0x2821FE718](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance MaterializedView.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type MaterializedView.CodingKeys and conformance MaterializedView.CodingKeys();
+
+  return MEMORY[0x2821FE720](a1, v2);
+}
+
+uint64_t MaterializedView.encode(to:)(void *a1)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser16MaterializedViewV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser16MaterializedViewV10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
+  v4 = *(v3 - 8);
+  MEMORY[0x28223BE20](v3);
+  v6 = &v8[-v5];
+  __swift_project_boxed_opaque_existential_0(a1, a1[3]);
+  lazy protocol witness table accessor for type MaterializedView.CodingKeys and conformance MaterializedView.CodingKeys();
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  v8[15] = 0;
+  KeyedEncodingContainer.encode(_:forKey:)();
+  if (!v1)
+  {
+    v8[14] = 1;
+    lazy protocol witness table accessor for type SelectCore and conformance SelectCore();
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+  }
+
+  return (*(v4 + 8))(v6, v3);
+}
+
+uint64_t LogicalPlan.sql.getter()
+{
+  v1 = *(v0 + 336);
+
+  return v1;
+}
+
+uint64_t LogicalPlan.documentation.getter()
+{
+  v1 = *(v0 + 352);
+
+  return v1;
+}
+
+unint64_t protocol witness for CodingKey.stringValue.getter in conformance LogicalPlan.CodingKeys()
+{
+  v1 = 7106931;
+  v2 = 0xD000000000000010;
+  if (*v0 != 2)
+  {
+    v2 = 0x6F437463656C6573;
+  }
+
+  if (*v0)
+  {
+    v1 = 0x746E656D75636F64;
+  }
+
+  if (*v0 <= 1u)
+  {
+    return v1;
+  }
+
+  else
+  {
+    return v2;
+  }
+}
+
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance LogicalPlan.CodingKeys@<X0>(_BYTE *a1@<X8>, uint64_t a2@<X0>, uint64_t a3@<X1>)
+{
+  result = specialized LogicalPlan.CodingKeys.init(stringValue:)(a2, a3);
+  *a1 = result;
+  return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance LogicalPlan.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type LogicalPlan.CodingKeys and conformance LogicalPlan.CodingKeys();
+
+  return MEMORY[0x2821FE718](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance LogicalPlan.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type LogicalPlan.CodingKeys and conformance LogicalPlan.CodingKeys();
+
+  return MEMORY[0x2821FE720](a1, v2);
+}
+
+uint64_t LogicalPlan.encode(to:)(void *a1)
+{
+  v3 = v1;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser11LogicalPlanV10CodingKeysOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser11LogicalPlanV10CodingKeysOGMR);
+  v6 = *(v5 - 8);
+  MEMORY[0x28223BE20](v5);
+  v8 = &v10[-v7];
+  __swift_project_boxed_opaque_existential_0(a1, a1[3]);
+  lazy protocol witness table accessor for type LogicalPlan.CodingKeys and conformance LogicalPlan.CodingKeys();
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  outlined init with copy of LogicalPlanType(v3, v11);
+  if (v11[328] == 1)
+  {
+    memcpy(v10, v11, sizeof(v10));
+    v12 = 2;
+    lazy protocol witness table accessor for type MaterializedView and conformance MaterializedView();
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    outlined destroy of MaterializedView(v10);
+    if (!v2)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  else
+  {
+    memcpy(v10, v11, 0x138uLL);
+    v12 = 3;
+    lazy protocol witness table accessor for type SelectCore and conformance SelectCore();
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    if (!v2)
+    {
+      outlined destroy of SelectCore(v10);
+LABEL_7:
+      v11[0] = 0;
+      KeyedEncodingContainer.encode(_:forKey:)();
+      v11[0] = 1;
+      KeyedEncodingContainer.encodeIfPresent(_:forKey:)();
+      return (*(v6 + 8))(v8, v5);
+    }
+
+    outlined destroy of SelectCore(v10);
+  }
+
+  return (*(v6 + 8))(v8, v5);
+}
+
+uint64_t protocol witness for CodingKey.stringValue.getter in conformance LogicalPlanType.CodingKeys()
+{
+  if (*v0)
+  {
+    return 0xD000000000000010;
+  }
+
+  else
+  {
+    return 0x6F437463656C6573;
+  }
+}
+
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance LogicalPlanType.CodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
+{
+  v6 = a1 == 0x6F437463656C6573 && a2 == 0xEA00000000006572;
+  if (v6 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  {
+
+    v8 = 0;
+  }
+
+  else if (a1 == 0xD000000000000010 && 0x80000002553B6960 == a2)
+  {
+
+    v8 = 1;
+  }
+
+  else
+  {
+    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    if (v9)
+    {
+      v8 = 1;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+  }
+
+  *a3 = v8;
+  return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance LogicalPlanType.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type LogicalPlanType.CodingKeys and conformance LogicalPlanType.CodingKeys();
+
+  return MEMORY[0x2821FE718](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance LogicalPlanType.CodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type LogicalPlanType.CodingKeys and conformance LogicalPlanType.CodingKeys();
+
+  return MEMORY[0x2821FE720](a1, v2);
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance LogicalPlanType.MaterializedViewCodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type LogicalPlanType.MaterializedViewCodingKeys and conformance LogicalPlanType.MaterializedViewCodingKeys();
+
+  return MEMORY[0x2821FE718](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance LogicalPlanType.MaterializedViewCodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type LogicalPlanType.MaterializedViewCodingKeys and conformance LogicalPlanType.MaterializedViewCodingKeys();
+
+  return MEMORY[0x2821FE720](a1, v2);
+}
+
+uint64_t protocol witness for CodingKey.init(stringValue:) in conformance LogicalPlanType.MaterializedViewCodingKeys@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+{
+  if (a1 == 12383 && a2 == 0xE200000000000000)
+  {
+
+    v7 = 0;
+  }
+
+  else
+  {
+    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    v7 = v5 ^ 1;
+  }
+
+  *a3 = v7 & 1;
+  return result;
+}
+
+uint64_t protocol witness for CustomStringConvertible.description.getter in conformance LogicalPlanType.SelectCoreCodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type LogicalPlanType.SelectCoreCodingKeys and conformance LogicalPlanType.SelectCoreCodingKeys();
+
+  return MEMORY[0x2821FE718](a1, v2);
+}
+
+uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance LogicalPlanType.SelectCoreCodingKeys(uint64_t a1)
+{
+  v2 = lazy protocol witness table accessor for type LogicalPlanType.SelectCoreCodingKeys and conformance LogicalPlanType.SelectCoreCodingKeys();
+
+  return MEMORY[0x2821FE720](a1, v2);
+}
+
+uint64_t LogicalPlanType.encode(to:)(void *a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser15LogicalPlanTypeO26MaterializedViewCodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser15LogicalPlanTypeO26MaterializedViewCodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
+  v18 = *(v2 - 8);
+  v19 = v2;
+  MEMORY[0x28223BE20](v2);
+  v4 = &v16 - v3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser15LogicalPlanTypeO20SelectCoreCodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser15LogicalPlanTypeO20SelectCoreCodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
+  v16 = *(v5 - 8);
+  v17 = v5;
+  MEMORY[0x28223BE20](v5);
+  v7 = &v16 - v6;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy14BiomeSQLParser15LogicalPlanTypeO10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMd, &_ss22KeyedEncodingContainerVy14BiomeSQLParser15LogicalPlanTypeO10CodingKeys33_53FFB03555E1B5F278E35EF6B4945B73LLOGMR);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = &v16 - v10;
+  __swift_project_boxed_opaque_existential_0(a1, a1[3]);
+  lazy protocol witness table accessor for type LogicalPlanType.CodingKeys and conformance LogicalPlanType.CodingKeys();
+  dispatch thunk of Encoder.container<A>(keyedBy:)();
+  outlined init with copy of LogicalPlanType(v20, v22);
+  v12 = (v9 + 8);
+  if (v22[328])
+  {
+    memcpy(v21, v22, sizeof(v21));
+    v23 = 1;
+    lazy protocol witness table accessor for type LogicalPlanType.MaterializedViewCodingKeys and conformance LogicalPlanType.MaterializedViewCodingKeys();
+    KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
+    lazy protocol witness table accessor for type MaterializedView and conformance MaterializedView();
+    v13 = v19;
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    (*(v18 + 8))(v4, v13);
+    outlined destroy of MaterializedView(v21);
+  }
+
+  else
+  {
+    memcpy(v21, v22, 0x138uLL);
+    v23 = 0;
+    lazy protocol witness table accessor for type LogicalPlanType.SelectCoreCodingKeys and conformance LogicalPlanType.SelectCoreCodingKeys();
+    KeyedEncodingContainer.nestedContainer<A>(keyedBy:forKey:)();
+    lazy protocol witness table accessor for type SelectCore and conformance SelectCore();
+    v14 = v17;
+    KeyedEncodingContainer.encode<A>(_:forKey:)();
+    (*(v16 + 8))(v7, v14);
+    outlined destroy of SelectCore(v21);
+  }
+
+  return (*v12)(v11, v8);
+}
+
+void SQLParseResult.init(sql:)(unint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  ScanResult = type metadata accessor for PgQuery_ScanResult(0);
+  MEMORY[0x28223BE20](ScanResult);
+  v103 = &v88 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v107 = type metadata accessor for CharacterSet();
+  v104 = *(v107 - 8);
+  MEMORY[0x28223BE20](v107);
+  v106 = &v88 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for BinaryDecodingOptions();
+  v9 = MEMORY[0x28223BE20](v8 - 8);
+  v102 = &v88 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  ParseResult = type metadata accessor for PgQuery_ParseResult(0);
+  MEMORY[0x28223BE20](ParseResult);
+  v13 = &v88 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = type metadata accessor for SQLParseResult(0);
+  v15 = *(v14 + 28);
+  v105 = a3;
+  v16 = (a3 + v15);
+  *v16 = a1;
+  v16[1] = a2;
+  v109 = a1;
+  v17 = String.utf8CString.getter();
+  v113 = a2;
+
+  pg_query_parse_protobuf(v17 + 32, &v110);
+  v18 = v110;
+  v19 = *(&v110 + 1);
+  v20 = v111;
+
+  if (*(&v20 + 1))
+  {
+    if (**(&v20 + 1))
+    {
+      v21 = String.init(cString:)();
+      v23 = v22;
+      lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+      swift_allocError();
+      v24 = v113;
+      *v25 = v109;
+      *(v25 + 8) = v24;
+      *(v25 + 16) = v21;
+      *(v25 + 24) = v23;
+      *(v25 + 32) = 0;
+      swift_willThrow();
+LABEL_17:
+
+      return;
+    }
+
+    goto LABEL_42;
+  }
+
+  v98 = v20;
+  v99 = v14;
+  v100 = v18;
+  if (!v19)
+  {
+    goto LABEL_43;
+  }
+
+  v26 = v19;
+  v27 = v19;
+  v28 = v100;
+  v29 = specialized Data.init(bytes:count:)(v26, v100);
+  v31 = v30;
+  v112 = 0;
+  v110 = 0u;
+  v111 = 0u;
+  outlined copy of Data._Representation(v29, v30);
+  BinaryDecodingOptions.init()();
+  lazy protocol witness table accessor for type PgQuery_ParseResult and conformance PgQuery_ParseResult(&lazy protocol witness table cache variable for type PgQuery_ParseResult and conformance PgQuery_ParseResult, type metadata accessor for PgQuery_ParseResult, &protocol conformance descriptor for PgQuery_ParseResult);
+  v32 = v108;
+  Message.init(serializedData:extensions:partial:options:)();
+  if (v32)
+  {
+
+    outlined consume of Data._Representation(v29, v31);
+    goto LABEL_17;
+  }
+
+  v108 = v29;
+  v33 = v105;
+  outlined init with take of PgQuery_ParseResult(v13, v105, type metadata accessor for PgQuery_ParseResult);
+  deparse_protobuf = pg_query_deparse_protobuf(v28, v27);
+  if (v35)
+  {
+    deparse_protobuf = *v35;
+    if (*v35)
+    {
+LABEL_15:
+      v47 = String.init(cString:)();
+      v49 = v48;
+      lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+      swift_allocError();
+      v51 = v113;
+      *v50 = v109;
+      *(v50 + 8) = v51;
+      *(v50 + 16) = v47;
+      *(v50 + 24) = v49;
+LABEL_16:
+      *(v50 + 32) = 0;
+      swift_willThrow();
+      outlined consume of Data._Representation(v108, v31);
+      outlined destroy of PgQuery_ParseResult(v33, type metadata accessor for PgQuery_ParseResult);
+      goto LABEL_17;
+    }
+
+    __break(1u);
+  }
+
+  v94 = v35;
+  if (!deparse_protobuf)
+  {
+LABEL_46:
+    __break(1u);
+    goto LABEL_47;
+  }
+
+  v36 = deparse_protobuf;
+  v92 = v27;
+  v37 = objc_allocWithZone(MEMORY[0x277CCACA8]);
+  v93 = v36;
+  v38 = [v37 initWithCString:v36 encoding:4];
+  if (!v38)
+  {
+LABEL_47:
+    __break(1u);
+    goto LABEL_48;
+  }
+
+  v39 = v38;
+  v40 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v42 = v41;
+
+  v95 = v42;
+  v43 = String.utf8CString.getter();
+  pg_query_split_with_parser((v43 + 32), &v110);
+  v44 = v110;
+  v45 = DWORD2(v110);
+  v46 = v111;
+
+  if (*(&v46 + 1))
+  {
+    if (!**(&v46 + 1))
+    {
+LABEL_48:
+      __break(1u);
+LABEL_49:
+      __break(1u);
+      goto LABEL_50;
+    }
+
+    goto LABEL_15;
+  }
+
+  v96 = v40;
+  v91 = v46;
+  v97 = v44;
+  if (*(*(v33 + 8) + 16) != v45)
+  {
+
+    lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+    swift_allocError();
+    v73 = v113;
+    *v50 = v109;
+    *(v50 + 8) = v73;
+    *(v50 + 16) = 0xD000000000000042;
+    *(v50 + 24) = 0x80000002553B68F0;
+    goto LABEL_16;
+  }
+
+  if ((v45 & 0x80000000) != 0)
+  {
+LABEL_41:
+    __break(1u);
+LABEL_42:
+    __break(1u);
+LABEL_43:
+    __break(1u);
+LABEL_44:
+    __break(1u);
+LABEL_45:
+    __break(1u);
+    goto LABEL_46;
+  }
+
+  v90 = v31;
+  v89 = v45;
+  if (v45)
+  {
+    ++v104;
+    v52 = MEMORY[0x277D84F90];
+    v53 = v45;
+    v54 = v97;
+    while (v97)
+    {
+      v55 = *v54;
+      if (!*v54)
+      {
+        goto LABEL_44;
+      }
+
+      v56 = v55[1];
+      v57 = *v55;
+      v58 = String.index(_:offsetBy:)();
+      if (__OFADD__(v57, v56))
+      {
+        __break(1u);
+LABEL_40:
+        __break(1u);
+        goto LABEL_41;
+      }
+
+      if (String.index(_:offsetBy:)() >> 14 < v58 >> 14)
+      {
+        goto LABEL_40;
+      }
+
+      v59 = String.subscript.getter();
+      v60 = MEMORY[0x259C32B00](v59);
+      v62 = v61;
+
+      *&v110 = v60;
+      *(&v110 + 1) = v62;
+      v63 = v106;
+      static CharacterSet.whitespacesAndNewlines.getter();
+      lazy protocol witness table accessor for type String and conformance String();
+      v64 = StringProtocol.trimmingCharacters(in:)();
+      v65 = v63;
+      v66 = v64;
+      v68 = v67;
+      (*v104)(v65, v107);
+
+      if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+      {
+        specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
+        v52 = v71;
+      }
+
+      v69 = *(v52 + 16);
+      if (v69 >= *(v52 + 24) >> 1)
+      {
+        specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)();
+        v52 = v72;
+      }
+
+      *(v52 + 16) = v69 + 1;
+      v70 = v52 + 16 * v69;
+      *(v70 + 32) = v66;
+      *(v70 + 40) = v68;
+      ++v54;
+      if (!--v53)
+      {
+        goto LABEL_34;
+      }
+    }
+
+    goto LABEL_45;
+  }
+
+  v52 = MEMORY[0x277D84F90];
+LABEL_34:
+  *(v105 + *(v99 + 24)) = v52;
+  v74 = v109;
+  v75 = String.utf8CString.getter();
+
+  pg_query_scan(v75 + 32);
+  v76 = v110;
+  v77 = *(&v110 + 1);
+  v78 = v111;
+
+  if (*(&v78 + 1))
+  {
+    if (**(&v78 + 1))
+    {
+
+      v79 = String.init(cString:)();
+      v81 = v80;
+      lazy protocol witness table accessor for type SQLParserError and conformance SQLParserError();
+      swift_allocError();
+      v82 = v113;
+      *v83 = v74;
+      *(v83 + 8) = v82;
+      *(v83 + 16) = v79;
+      *(v83 + 24) = v81;
+      *(v83 + 32) = 0;
+      swift_willThrow();
+      outlined consume of Data._Representation(v108, v90);
+      outlined destroy of PgQuery_ParseResult(v105, type metadata accessor for PgQuery_ParseResult);
+
+      goto LABEL_17;
+    }
+
+    goto LABEL_49;
+  }
+
+  v109 = v78;
+
+  if (v77)
+  {
+
+    v84 = specialized Data.init(bytes:count:)(v77, v76);
+    v86 = v85;
+    v112 = 0;
+    v110 = 0u;
+    v111 = 0u;
+    outlined copy of Data._Representation(v84, v85);
+    BinaryDecodingOptions.init()();
+    lazy protocol witness table accessor for type PgQuery_ParseResult and conformance PgQuery_ParseResult(&lazy protocol witness table cache variable for type PgQuery_ScanResult and conformance PgQuery_ScanResult, type metadata accessor for PgQuery_ScanResult, &protocol conformance descriptor for PgQuery_ScanResult);
+    v87 = v103;
+    Message.init(serializedData:extensions:partial:options:)();
+    outlined init with take of PgQuery_ParseResult(v87, v105 + *(v99 + 20), type metadata accessor for PgQuery_ScanResult);
+    LODWORD(v110) = v76;
+    *(&v110 + 1) = v77;
+    v111 = v109;
+    pg_query_free_scan_result(&v110);
+    *&v110 = v97;
+    DWORD2(v110) = v89;
+    v111 = v91;
+    pg_query_free_split_result(&v110);
+    pg_query_free_deparse_result(v93, v94);
+    LODWORD(v110) = v100;
+    *(&v110 + 1) = v92;
+    v111 = v98;
+    pg_query_free_protobuf_parse_result(&v110);
+    outlined consume of Data._Representation(v108, v90);
+    outlined consume of Data._Representation(v84, v86);
+    return;
+  }
+
+LABEL_50:
+  __break(1u);
 }

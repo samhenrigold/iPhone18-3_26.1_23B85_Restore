@@ -185,7 +185,7 @@ LABEL_16:
 {
   if (PKPaymentSetupContextIsBridge())
   {
-    [getNPKCompanionAgentConnectionClass_0[0]() watchPaymentWebService];
+    [(objc_class *)getNPKCompanionAgentConnectionClass_0() watchPaymentWebService];
   }
 
   else
@@ -655,49 +655,49 @@ void __77__PKPeerPaymentAccountResolutionController__presentReOpenFlowWithComple
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __77__PKPeerPaymentAccountResolutionController__presentReOpenFlowWithCompletion___block_invoke_2(uint64_t a1)
+void __77__PKPeerPaymentAccountResolutionController__presentReOpenFlowWithCompletion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if (*(a1 + 64) == 1)
   {
-    v2 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(*(*(a1 + 56) + 8) + 40);
+      v4 = *(*(*(a1 + 56) + 8) + 40);
       *buf = 138412290;
-      v18 = v3;
-      _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Reseting cloud store container for zone names %@...", buf, 0xCu);
+      v19 = v4;
+      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Reseting cloud store container for zone names %@...", buf, 0xCu);
     }
 
-    v4 = objc_alloc_init(MEMORY[0x1E69B86F8]);
-    v5 = PKCurrentCloudStoreApplePayContainerName();
-    v6 = *(*(*(a1 + 56) + 8) + 40);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __77__PKPeerPaymentAccountResolutionController__presentReOpenFlowWithCompletion___block_invoke_64;
-    v15[3] = &unk_1E8017A28;
-    v15[4] = *(a1 + 32);
-    v16 = *(a1 + 48);
-    [v4 resetContainerWithIdentifier:v5 zoneNames:v6 completion:v15];
+    v5 = objc_alloc_init(MEMORY[0x1E69B86F8]);
+    v6 = PKCurrentCloudStoreApplePayContainerName();
+    v7 = *(*(*(a1 + 56) + 8) + 40);
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __77__PKPeerPaymentAccountResolutionController__presentReOpenFlowWithCompletion___block_invoke_64;
+    v16[3] = &unk_1E8017A28;
+    v16[4] = *(a1 + 32);
+    v17 = *(a1 + 48);
+    [v5 resetContainerWithIdentifier:v6 zoneNames:v7 completion:v16];
   }
 
   else
   {
-    v4 = [MEMORY[0x1E69B8F28] displayableErrorForError:*(a1 + 40)];
-    v7 = PKTitleForDisplayableError();
-    v8 = MEMORY[0x1BFB42D10](v4);
-    v9 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v7 message:v8 preferredStyle:1];
-    v10 = MEMORY[0x1E69DC648];
-    v11 = PKLocalizedString(&cfstr_OkButtonTitle.isa);
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __77__PKPeerPaymentAccountResolutionController__presentReOpenFlowWithCompletion___block_invoke_2_76;
-    v13[3] = &unk_1E8011248;
-    v14 = *(a1 + 48);
-    v12 = [v10 actionWithTitle:v11 style:0 handler:v13];
-    [v9 addAction:v12];
+    v5 = [MEMORY[0x1E69B8F28] displayableErrorForError:*(a1 + 40)];
+    v8 = PKTitleForDisplayableError();
+    v9 = MEMORY[0x1BFB42D10](v5);
+    v10 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v8 message:v9 preferredStyle:1];
+    v11 = MEMORY[0x1E69DC648];
+    v12 = PKLocalizedString(&cfstr_OkButtonTitle.isa);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __77__PKPeerPaymentAccountResolutionController__presentReOpenFlowWithCompletion___block_invoke_2_76;
+    v14[3] = &unk_1E8011248;
+    v15 = *(a1 + 48);
+    v13 = [v11 actionWithTitle:v12 style:0 handler:v14];
+    [v10 addAction:v13];
 
-    [*(a1 + 32) _presentViewController:v9];
+    [*(a1 + 32) _presentViewController:v10];
   }
 }
 
@@ -714,17 +714,17 @@ void __77__PKPeerPaymentAccountResolutionController__presentReOpenFlowWithComple
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-void __77__PKPeerPaymentAccountResolutionController__presentReOpenFlowWithCompletion___block_invoke_2_65(uint64_t a1)
+void __77__PKPeerPaymentAccountResolutionController__presentReOpenFlowWithCompletion___block_invoke_2_65(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 48);
-  v3 = PKLogFacilityTypeGetObject();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-  if (v2 == 1)
+  v3 = *(a1 + 48);
+  v4 = PKLogFacilityTypeGetObject();
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  if (v3 == 1)
   {
-    if (v4)
+    if (v5)
     {
       *buf = 0;
-      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Cloud store reset succuessful. Presenting activation flow.", buf, 2u);
+      _os_log_impl(&dword_1BD026000, v4, OS_LOG_TYPE_DEFAULT, "Cloud store reset succuessful. Presenting activation flow.", buf, 2u);
     }
 
     [*(a1 + 32) _presentActivationFlowWithCompletion:*(a1 + 40)];
@@ -732,26 +732,26 @@ void __77__PKPeerPaymentAccountResolutionController__presentReOpenFlowWithComple
 
   else
   {
-    if (v4)
+    if (v5)
     {
       *buf = 0;
-      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Error reseting the cloud store container.", buf, 2u);
+      _os_log_impl(&dword_1BD026000, v4, OS_LOG_TYPE_DEFAULT, "Error reseting the cloud store container.", buf, 2u);
     }
 
-    v5 = PKLocalizedPeerPaymentString(&cfstr_PeerPaymentAct_1.isa);
-    v6 = PKLocalizedPeerPaymentString(&cfstr_PeerPaymentAct_2.isa);
-    v7 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v5 message:v6 preferredStyle:1];
-    v8 = MEMORY[0x1E69DC648];
-    v9 = PKLocalizedString(&cfstr_OkButtonTitle.isa);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __77__PKPeerPaymentAccountResolutionController__presentReOpenFlowWithCompletion___block_invoke_75;
-    v11[3] = &unk_1E8011248;
-    v12 = *(a1 + 40);
-    v10 = [v8 actionWithTitle:v9 style:0 handler:v11];
-    [v7 addAction:v10];
+    v6 = PKLocalizedPeerPaymentString(&cfstr_PeerPaymentAct_1.isa);
+    v7 = PKLocalizedPeerPaymentString(&cfstr_PeerPaymentAct_2.isa);
+    v8 = [MEMORY[0x1E69DC650] alertControllerWithTitle:v6 message:v7 preferredStyle:1];
+    v9 = MEMORY[0x1E69DC648];
+    v10 = PKLocalizedString(&cfstr_OkButtonTitle.isa);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __77__PKPeerPaymentAccountResolutionController__presentReOpenFlowWithCompletion___block_invoke_75;
+    v12[3] = &unk_1E8011248;
+    v13 = *(a1 + 40);
+    v11 = [v9 actionWithTitle:v10 style:0 handler:v12];
+    [v8 addAction:v11];
 
-    [*(a1 + 32) _presentViewController:v7];
+    [*(a1 + 32) _presentViewController:v8];
   }
 }
 
@@ -915,11 +915,11 @@ uint64_t __71__PKPeerPaymentAccountResolutionController__peerPaymentAccountChang
 - (void)_emailSupportWithEmailAddress:(id)address
 {
   v11[1] = *MEMORY[0x1E69E9840];
-  v4 = getMFMailComposeViewControllerClass[0];
+  v4 = getMFMailComposeViewControllerClass;
   addressCopy = address;
   if ([(objc_class *)v4() canSendMail])
   {
-    v6 = objc_alloc_init(getMFMailComposeViewControllerClass[0]());
+    v6 = objc_alloc_init(getMFMailComposeViewControllerClass());
     [v6 setMailComposeDelegate:self];
     v11[0] = addressCopy;
     v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];

@@ -214,7 +214,7 @@ LABEL_11:
 
 - (id)accessibilityCustomActions
 {
-  v31[2] = *MEMORY[0x29EDCA608];
+  v30[2] = *MEMORY[0x29EDCA608];
   v3 = [(SAUIElementViewAccessibility *)self safeValueForKey:@"elementViewProvider"];
   MEMORY[0x29ED3A9D0](@"SBLockElementViewProvider");
   if (objc_opt_isKindOfClass() & 1) != 0 || (MEMORY[0x29ED3A9D0](@"SBFlashlightActivityElement"), (objc_opt_isKindOfClass()))
@@ -228,40 +228,40 @@ LABEL_11:
 
   v7 = objc_alloc(MEMORY[0x29EDC78E0]);
   v8 = accessibilityLocalizedString(@"window.expand");
-  v28[0] = MEMORY[0x29EDCA5F8];
-  v28[1] = 3221225472;
-  v28[2] = __58__SAUIElementViewAccessibility_accessibilityCustomActions__block_invoke;
-  v28[3] = &unk_29F306550;
+  v27[0] = MEMORY[0x29EDCA5F8];
+  v27[1] = 3221225472;
+  v27[2] = __58__SAUIElementViewAccessibility_accessibilityCustomActions__block_invoke;
+  v27[3] = &unk_29F306550;
   v9 = _accessibilityViewController;
-  v29 = v9;
-  v10 = [v7 initWithName:v8 actionHandler:v28];
+  v28 = v9;
+  v10 = [v7 initWithName:v8 actionHandler:v27];
 
   v11 = objc_alloc(MEMORY[0x29EDC78E0]);
   v12 = accessibilityLocalizedString(@"window.diminish");
-  v26[0] = MEMORY[0x29EDCA5F8];
-  v26[1] = 3221225472;
-  v26[2] = __58__SAUIElementViewAccessibility_accessibilityCustomActions__block_invoke_3;
-  v26[3] = &unk_29F306550;
+  v25[0] = MEMORY[0x29EDCA5F8];
+  v25[1] = 3221225472;
+  v25[2] = __58__SAUIElementViewAccessibility_accessibilityCustomActions__block_invoke_3;
+  v25[3] = &unk_29F306550;
   v13 = v9;
-  v27 = v13;
-  v14 = [v11 initWithName:v12 actionHandler:v26];
+  v26 = v13;
+  v14 = [v11 initWithName:v12 actionHandler:v25];
 
   v15 = objc_alloc(MEMORY[0x29EDC78E0]);
   v16 = accessibilityLocalizedString(@"window.dismiss");
-  v24[0] = MEMORY[0x29EDCA5F8];
-  v24[1] = 3221225472;
-  v24[2] = __58__SAUIElementViewAccessibility_accessibilityCustomActions__block_invoke_6;
-  v24[3] = &unk_29F306550;
+  v23[0] = MEMORY[0x29EDCA5F8];
+  v23[1] = 3221225472;
+  v23[2] = __58__SAUIElementViewAccessibility_accessibilityCustomActions__block_invoke_6;
+  v23[3] = &unk_29F306550;
   v17 = v13;
-  v25 = v17;
-  v18 = [v15 initWithName:v16 actionHandler:v24];
+  v24 = v17;
+  v18 = [v15 initWithName:v16 actionHandler:v23];
 
   if ([v17 safeIntForKey:@"layoutMode"] == 1 || objc_msgSend(v17, "safeIntForKey:", @"layoutMode") == 2)
   {
-    v31[0] = v10;
-    v31[1] = v18;
+    v30[0] = v10;
+    v30[1] = v18;
     v19 = MEMORY[0x29EDB8D80];
-    v20 = v31;
+    v20 = v30;
     v21 = 2;
   }
 
@@ -273,9 +273,9 @@ LABEL_11:
       goto LABEL_8;
     }
 
-    v30 = v14;
+    v29 = v14;
     v19 = MEMORY[0x29EDB8D80];
-    v20 = &v30;
+    v20 = &v29;
     v21 = 1;
   }
 
@@ -283,7 +283,6 @@ LABEL_11:
 LABEL_8:
 
 LABEL_9:
-  v22 = *MEMORY[0x29EDCA608];
 
   return v4;
 }
@@ -308,7 +307,7 @@ uint64_t __58__SAUIElementViewAccessibility_accessibilityCustomActions__block_in
   return v4;
 }
 
-uint64_t __58__SAUIElementViewAccessibility_accessibilityCustomActions__block_invoke_2(uint64_t a1)
+void *__58__SAUIElementViewAccessibility_accessibilityCustomActions__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) _expandToCustomLayoutModeFromUserActionIfPossible];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -333,7 +332,7 @@ uint64_t __58__SAUIElementViewAccessibility_accessibilityCustomActions__block_in
   return v4;
 }
 
-uint64_t __58__SAUIElementViewAccessibility_accessibilityCustomActions__block_invoke_4(uint64_t a1)
+void *__58__SAUIElementViewAccessibility_accessibilityCustomActions__block_invoke_4(uint64_t a1)
 {
   result = [*(a1 + 32) _axCollapseIfExpandedByUserInteraction];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -400,7 +399,7 @@ void __58__SAUIElementViewAccessibility_accessibilityCustomActions__block_invoke
   return v7 & 1;
 }
 
-uint64_t __58__SAUIElementViewAccessibility_accessibilityPerformEscape__block_invoke(uint64_t a1)
+void *__58__SAUIElementViewAccessibility_accessibilityPerformEscape__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _axCollapseIfExpandedByUserInteraction];
   *(*(*(a1 + 40) + 8) + 24) = result;

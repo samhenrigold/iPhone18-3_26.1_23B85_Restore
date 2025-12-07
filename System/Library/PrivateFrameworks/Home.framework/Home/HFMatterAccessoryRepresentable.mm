@@ -14,6 +14,9 @@
 - (NSString)hf_tileSize;
 - (id)hf_moveToRoom:(id)room;
 - (id)hf_setTileSize:(id)size;
+- (id)hf_updateIsFavorite:(BOOL)favorite;
+- (id)hf_updateIsVisibleInHomeStatus:(BOOL)status;
+- (id)hf_updateShowInHomeDashboard:(BOOL)dashboard;
 - (int64_t)hash;
 @end
 
@@ -28,7 +31,7 @@
 
 - (Class)hf_itemClass
 {
-  type metadata accessor for MatterAccessoryLikeItem();
+  type metadata accessor for MatterAccessoryLikeItem(0);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -66,13 +69,12 @@
   v5 = v4;
   sub_20D9EE8D0(inited);
   swift_setDeallocating();
-  v6 = *(inited + 16);
   swift_arrayDestroy();
   sub_20D9D7510(0, &qword_27C844290, 0x277CD1650);
   sub_20D9EC18C(&qword_27C843840, &qword_27C844290, 0x277CD1650);
-  v7 = sub_20DD651C4();
+  v6 = sub_20DD651C4();
 
-  return v7;
+  return v6;
 }
 
 - (BOOL)hf_isInRoom:(id)room
@@ -106,13 +108,33 @@
   return hf_serviceNameComponents;
 }
 
+- (id)hf_updateIsFavorite:(BOOL)favorite
+{
+  v3 = [*(&self->super.isa + OBJC_IVAR___HFMatterAccessoryRepresentable_accessory) hf:favorite updateIsFavorite:?];
+
+  return v3;
+}
+
+- (id)hf_updateIsVisibleInHomeStatus:(BOOL)status
+{
+  v3 = [*(&self->super.isa + OBJC_IVAR___HFMatterAccessoryRepresentable_accessory) hf:status updateIsVisibleInHomeStatus:?];
+
+  return v3;
+}
+
 - (BOOL)hf_showInHomeDashboard
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___HFMatterAccessoryRepresentable_accessory);
   selfCopy = self;
-  LOBYTE(v2) = sub_20DD65314();
+  v3 = sub_20DD65314();
 
-  return v2 & 1;
+  return v3 & 1;
+}
+
+- (id)hf_updateShowInHomeDashboard:(BOOL)dashboard
+{
+  v3 = [*(&self->super.isa + OBJC_IVAR___HFMatterAccessoryRepresentable_accessory) hf:dashboard updateShowInHomeDashboard:?];
+
+  return v3;
 }
 
 - (NSString)hf_tileSize
@@ -155,9 +177,8 @@
 {
   v3 = sub_20DD63744();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x28223BE20](v3);
-  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_20DD65AB4();
   selfCopy = self;
   sub_20DD63FA4();
@@ -165,10 +186,10 @@
   sub_20DD63714();
 
   sub_20DD63724();
-  (*(v4 + 8))(v7, v3);
-  v10 = sub_20DD65A94();
+  (*(v4 + 8))(v6, v3);
+  v9 = sub_20DD65A94();
 
-  return v10;
+  return v9;
 }
 
 - (NSString)hf_iconIdentifier

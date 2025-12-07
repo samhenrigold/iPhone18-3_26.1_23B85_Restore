@@ -42,7 +42,7 @@
 - (id)description
 {
   selfCopy = self;
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_CKPartialErrorDescription(self, a2, v2);
   v7 = objc_msgSend_userInfo(selfCopy, v5, v6);
   v9 = objc_msgSend_objectForKeyedSubscript_(v7, v8, @"ContainerID");
@@ -63,15 +63,15 @@
   }
 
   objc_msgSend_appendFormat_(v4, v19, @"; partial errors: {\n");
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   v22 = objc_msgSend_userInfo(selfCopy, v20, v21);
   v24 = objc_msgSend_objectForKeyedSubscript_(v22, v23, @"CKPartialErrors");
   v27 = objc_msgSend_allKeys(v24, v25, v26);
 
-  v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v28, &v58, v62, 16);
+  v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v28, &v57, v61, 16);
   if (!v29)
   {
 
@@ -80,19 +80,19 @@
 
   v32 = v29;
   v33 = v4;
-  v56 = 0;
+  v55 = 0;
   obj = v27;
-  v34 = *v59;
+  v34 = *v58;
   do
   {
     for (i = 0; i != v32; ++i)
     {
-      if (*v59 != v34)
+      if (*v58 != v34)
       {
         objc_enumerationMutation(obj);
       }
 
-      v36 = *(*(&v58 + 1) + 8 * i);
+      v36 = *(*(&v57 + 1) + 8 * i);
       v37 = selfCopy;
       v38 = objc_msgSend_userInfo(selfCopy, v30, v31);
       v40 = objc_msgSend_objectForKeyedSubscript_(v38, v39, @"CKPartialErrors");
@@ -103,7 +103,7 @@
       {
         if (objc_msgSend_code(v42, v43, v44) == 22)
         {
-          v56 = (v56 + 1);
+          v55 = (v55 + 1);
           selfCopy = v37;
           goto LABEL_18;
         }
@@ -133,22 +133,21 @@
 LABEL_18:
     }
 
-    v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v30, &v58, v62, 16);
+    v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v30, &v57, v61, 16);
   }
 
   while (v32);
 
   v4 = v33;
-  if (v56)
+  if (v55)
   {
-    objc_msgSend_appendFormat_(v33, v53, @"\t... %d Batch Request Failed CKErrors omitted ...\n", v56);
+    objc_msgSend_appendFormat_(v33, v53, @"\t... %d Batch Request Failed CKErrors omitted ...\n", v55);
   }
 
 LABEL_23:
   objc_msgSend_appendFormat_(v4, v53, @"}");
 LABEL_24:
   objc_msgSend_appendString_(v4, v19, @">");
-  v54 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -306,13 +305,11 @@ LABEL_18:
 
 + (void)initialize
 {
-  v7[1] = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
-  v7[0] = objc_opt_class();
-  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v4, v7, 1);
+  v6[0] = objc_opt_class();
+  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v4, v6, 1);
   sub_1886CEE50(self, v3, v5, 0, 1);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (id)errorWithCode:(int64_t)code format:(id)format
@@ -531,120 +528,117 @@ LABEL_18:
 
 + (id)secureCodableError:(id)error
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (errorCopy)
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v62 = 0u;
+    v63 = 0u;
     v64 = 0u;
     v65 = 0u;
-    v66 = 0u;
-    v67 = 0u;
     v8 = objc_msgSend_userInfo(errorCopy, v6, v7);
-    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v64, v69, 16);
+    v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v62, v67, 16);
     if (v10)
     {
       v13 = v10;
-      v14 = *v65;
-      v15 = *MEMORY[0x1E696A750];
-      v58 = *MEMORY[0x1E696A750];
-      v59 = *MEMORY[0x1E696AA08];
-      v55 = v5;
-      v56 = errorCopy;
-      v53 = *v65;
-      v54 = v8;
+      v14 = *v63;
+      v56 = *MEMORY[0x1E696A750];
+      v57 = *MEMORY[0x1E696AA08];
+      v53 = v5;
+      v54 = errorCopy;
+      v51 = *v63;
+      v52 = v8;
       do
       {
-        v16 = 0;
-        v57 = v13;
+        v15 = 0;
+        v55 = v13;
         do
         {
-          if (*v65 != v14)
+          if (*v63 != v14)
           {
             objc_enumerationMutation(v8);
           }
 
-          v17 = *(*(&v64 + 1) + 8 * v16);
-          v18 = objc_msgSend_userInfo(errorCopy, v11, v12, v53, v54);
-          v20 = objc_msgSend_objectForKeyedSubscript_(v18, v19, v17);
+          v16 = *(*(&v62 + 1) + 8 * v15);
+          v17 = objc_msgSend_userInfo(errorCopy, v11, v12, v51, v52);
+          v19 = objc_msgSend_objectForKeyedSubscript_(v17, v18, v16);
 
-          if ((objc_msgSend_isEqualToString_(v17, v21, v59) & 1) != 0 || objc_msgSend_isEqualToString_(v17, v22, @"CKFunctionError"))
+          if ((objc_msgSend_isEqualToString_(v16, v20, v57) & 1) != 0 || objc_msgSend_isEqualToString_(v16, v21, @"CKFunctionError"))
           {
-            v23 = objc_msgSend_secureCodableError_(self, v22, v20);
-            objc_msgSend_setObject_forKeyedSubscript_(v5, v24, v23, v17);
+            v22 = objc_msgSend_secureCodableError_(self, v21, v19);
+            objc_msgSend_setObject_forKeyedSubscript_(v5, v23, v22, v16);
           }
 
-          else if (objc_msgSend_isEqualToString_(v17, v22, v58))
+          else if (objc_msgSend_isEqualToString_(v16, v21, v56))
           {
-            v27 = objc_msgSend_array(MEMORY[0x1E695DF70], v25, v26);
+            v26 = objc_msgSend_array(MEMORY[0x1E695DF70], v24, v25);
+            v58 = 0u;
+            v59 = 0u;
             v60 = 0u;
             v61 = 0u;
-            v62 = 0u;
-            v63 = 0u;
-            v28 = v20;
-            v30 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v29, &v60, v68, 16);
-            if (v30)
+            v27 = v19;
+            v29 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v28, &v58, v66, 16);
+            if (v29)
             {
-              v32 = v30;
-              v33 = *v61;
+              v31 = v29;
+              v32 = *v59;
               do
               {
-                for (i = 0; i != v32; ++i)
+                for (i = 0; i != v31; ++i)
                 {
-                  if (*v61 != v33)
+                  if (*v59 != v32)
                   {
-                    objc_enumerationMutation(v28);
+                    objc_enumerationMutation(v27);
                   }
 
-                  v35 = objc_msgSend_secureCodableError_(self, v31, *(*(&v60 + 1) + 8 * i));
-                  objc_msgSend_addObject_(v27, v36, v35);
+                  v34 = objc_msgSend_secureCodableError_(self, v30, *(*(&v58 + 1) + 8 * i));
+                  objc_msgSend_addObject_(v26, v35, v34);
                 }
 
-                v32 = objc_msgSend_countByEnumeratingWithState_objects_count_(v28, v31, &v60, v68, 16);
+                v31 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v30, &v58, v66, 16);
               }
 
-              while (v32);
+              while (v31);
             }
 
-            v5 = v55;
-            objc_msgSend_setObject_forKeyedSubscript_(v55, v37, v27, v17);
+            v5 = v53;
+            objc_msgSend_setObject_forKeyedSubscript_(v53, v36, v26, v16);
 
-            errorCopy = v56;
-            v14 = v53;
-            v8 = v54;
-            v13 = v57;
+            errorCopy = v54;
+            v14 = v51;
+            v8 = v52;
+            v13 = v55;
           }
 
-          else if ((objc_opt_respondsToSelector() & 1) != 0 && objc_msgSend_supportsSecureCoding(v20, v38, v39))
+          else if ((objc_opt_respondsToSelector() & 1) != 0 && objc_msgSend_supportsSecureCoding(v19, v37, v38))
           {
-            objc_msgSend_setObject_forKeyedSubscript_(v5, v40, v20, v17);
+            objc_msgSend_setObject_forKeyedSubscript_(v5, v39, v19, v16);
           }
 
-          ++v16;
+          ++v15;
         }
 
-        while (v16 != v13);
-        v41 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v64, v69, 16);
-        v13 = v41;
+        while (v15 != v13);
+        v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v62, v67, 16);
+        v13 = v40;
       }
 
-      while (v41);
+      while (v40);
     }
 
-    v42 = [self alloc];
-    v45 = objc_msgSend_domain(errorCopy, v43, v44);
-    v48 = objc_msgSend_code(errorCopy, v46, v47);
-    v50 = objc_msgSend_initWithDomain_code_userInfo_(v42, v49, v45, v48, v5);
+    v41 = [self alloc];
+    v44 = objc_msgSend_domain(errorCopy, v42, v43);
+    v47 = objc_msgSend_code(errorCopy, v45, v46);
+    v49 = objc_msgSend_initWithDomain_code_userInfo_(v41, v48, v44, v47, v5);
   }
 
   else
   {
-    v50 = 0;
+    v49 = 0;
   }
 
-  v51 = *MEMORY[0x1E69E9840];
-
-  return v50;
+  return v49;
 }
 
 + (id)undeprecatedDescriptionForError:(id)error
@@ -756,46 +750,44 @@ LABEL_18:
 
 + (id)combinedErrorFromErrors:(id)errors topLevelErrorMessage:(id)message
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   errorsCopy = errors;
   messageCopy = message;
   v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v24 = 0;
-  v25 = &v24;
-  v26 = 0x3032000000;
-  v27 = sub_1883ED890;
-  v28 = sub_1883EF59C;
-  v29 = 0;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 1;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = sub_188563DF0;
-  v16[3] = &unk_1E70BD9F8;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = sub_1883ED890;
+  v27 = sub_1883EF59C;
+  v28 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 1;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = sub_188563DF0;
+  v15[3] = &unk_1E70BD9F8;
   v8 = v7;
-  v17 = v8;
-  v18 = &v24;
-  v19 = &v20;
-  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(errorsCopy, v9, v16);
-  if (*(v21 + 24) == 1)
+  v16 = v8;
+  v17 = &v23;
+  v18 = &v19;
+  objc_msgSend_enumerateKeysAndObjectsUsingBlock_(errorsCopy, v9, v15);
+  if (*(v20 + 24) == 1)
   {
-    v11 = v25[5];
+    v11 = v24[5];
   }
 
   else
   {
-    v30 = @"CKPartialErrors";
-    v31[0] = v8;
-    v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v10, v31, &v30, 1);
+    v29 = @"CKPartialErrors";
+    v30[0] = v8;
+    v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v10, v30, &v29, 1);
     v11 = objc_msgSend_errorWithDomain_code_userInfo_format_(CKPrettyError, v13, @"CKErrorDomain", 2, v12, @"%@", messageCopy);
   }
 
-  _Block_object_dispose(&v20, 8);
-  _Block_object_dispose(&v24, 8);
-
-  v14 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v23, 8);
 
   return v11;
 }
@@ -843,46 +835,42 @@ LABEL_12:
 
 + (id)databaseCorruptError
 {
-  v13[2] = *MEMORY[0x1E69E9840];
-  v12[0] = @"SQLCode";
+  v12[2] = *MEMORY[0x1E69E9840];
+  v11[0] = @"SQLCode";
   v3 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], a2, 11);
-  v12[1] = @"SQLExtendedCode";
-  v13[0] = v3;
+  v11[1] = @"SQLExtendedCode";
+  v12[0] = v3;
   v5 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v4, 0);
-  v13[1] = v5;
-  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v6, v13, v12, 2);
+  v12[1] = v5;
+  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v6, v12, v11, 2);
 
   v9 = objc_msgSend_errorWithDomain_code_userInfo_format_(self, v8, @"CKInternalErrorDomain", 1027, v7, @"%@", @"database corrupt");
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (id)errorForSQLite:(sqlite3 *)lite message:(id)message args:(char *)args
 {
-  v28[3] = *MEMORY[0x1E69E9840];
+  v27[3] = *MEMORY[0x1E69E9840];
   messageCopy = message;
   v9 = sqlite3_errcode(lite);
   v10 = sqlite3_extended_errcode(lite);
   v11 = sqlite3_errmsg(lite);
   v13 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], v12, v11);
-  v27[0] = @"SQLCode";
+  v26[0] = @"SQLCode";
   v15 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v14, v9);
-  v28[0] = v15;
-  v27[1] = @"SQLExtendedCode";
+  v27[0] = v15;
+  v26[1] = @"SQLExtendedCode";
   v17 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v16, v10);
-  v27[2] = @"SQLErrorMessage";
-  v28[1] = v17;
-  v28[2] = v13;
-  v19 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v18, v28, v27, 3);
+  v26[2] = @"SQLErrorMessage";
+  v27[1] = v17;
+  v27[2] = v13;
+  v19 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v18, v27, v26, 3);
 
   v20 = objc_alloc(MEMORY[0x1E696AEC0]);
   v22 = objc_msgSend_initWithFormat_arguments_(v20, v21, messageCopy, args);
 
   v24 = objc_msgSend_errorWithDomain_code_userInfo_format_(self, v23, @"CKInternalErrorDomain", 1027, v19, @"%@", v22);
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v24;
 }
@@ -912,21 +900,19 @@ LABEL_12:
 
 + (id)testError
 {
-  v15[3] = *MEMORY[0x1E69E9840];
+  v14[3] = *MEMORY[0x1E69E9840];
   v3 = objc_msgSend_stringWithUTF8String_(MEMORY[0x1E696AEC0], a2, "testing");
-  v14[0] = @"SQLCode";
+  v13[0] = @"SQLCode";
   v5 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v4, 13);
-  v15[0] = v5;
-  v14[1] = @"SQLExtendedCode";
+  v14[0] = v5;
+  v13[1] = @"SQLExtendedCode";
   v7 = objc_msgSend_numberWithInt_(MEMORY[0x1E696AD98], v6, 1);
-  v14[2] = @"SQLErrorMessage";
-  v15[1] = v7;
-  v15[2] = v3;
-  v9 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v8, v15, v14, 3);
+  v13[2] = @"SQLErrorMessage";
+  v14[1] = v7;
+  v14[2] = v3;
+  v9 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v8, v14, v13, 3);
 
   v11 = objc_msgSend_errorWithDomain_code_userInfo_format_(self, v10, @"CKInternalErrorDomain", 1027, v9, @"%@", @"test error");
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

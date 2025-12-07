@@ -30,7 +30,7 @@
 
 - (BOOL)allowsRestrictedCharacteristicsAccessViaDeveloperModeProfile
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   LODWORD(Int64) = [objc_opt_class() isDeveloperModeEnabled];
   if (Int64)
   {
@@ -44,7 +44,6 @@
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return Int64;
 }
 
@@ -101,16 +100,15 @@
     }
 
     objc_autoreleasePoolPop(v5);
-    result = 0;
+    LOBYTE(v9) = 0;
   }
 
   else
   {
-    result = v12 == 1;
+    return v12 == 1;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return result;
+  return v9;
 }
 
 @end

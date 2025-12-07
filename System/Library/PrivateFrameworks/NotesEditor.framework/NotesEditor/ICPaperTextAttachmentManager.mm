@@ -15,7 +15,7 @@
   noteCopy = note;
   viewCopy = view;
   swift_unknownObjectRetain();
-  return PaperTextAttachmentManager.init(note:textView:delegate:)(noteCopy, viewCopy);
+  return PaperTextAttachmentManager.init(note:textView:delegate:)(noteCopy, viewCopy, delegate);
 }
 
 - (void)paperKitViewDidAppear:(id)appear

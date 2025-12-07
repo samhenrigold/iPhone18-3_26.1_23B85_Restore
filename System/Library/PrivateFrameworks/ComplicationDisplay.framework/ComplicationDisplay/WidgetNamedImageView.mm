@@ -25,7 +25,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_243DAA31C();
+  sub_243DAA31C(selfCopy);
 }
 
 - (void)setImageProvider:(id)provider

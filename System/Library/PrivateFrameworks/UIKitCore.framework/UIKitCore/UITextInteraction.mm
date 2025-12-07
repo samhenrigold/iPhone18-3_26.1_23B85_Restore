@@ -1991,7 +1991,7 @@ LABEL_28:
       textInputView = [textInput2 textInputView];
     }
 
-    if ([v10 isEqual:view2] & 1) != 0 || (objc_msgSend(textInputView, "isDescendantOfView:", view2))
+    if (objc_msgSend_isEqual_(v10) & 1) != 0 || ([textInputView isDescendantOfView:view2])
     {
       v9 = 1;
     }

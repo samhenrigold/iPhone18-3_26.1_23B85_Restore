@@ -17,7 +17,7 @@
     intValue = 0;
   }
 
-  v5 = sub_100403578();
+  v5 = sub_100403578(PurchaseHistoryDAAPEncoding);
   v6 = [NSString stringWithFormat:@"(%@)", v5];
 
   v7 = [NSString stringWithFormat:@"revision-number=%u&query=%@", intValue, v6];

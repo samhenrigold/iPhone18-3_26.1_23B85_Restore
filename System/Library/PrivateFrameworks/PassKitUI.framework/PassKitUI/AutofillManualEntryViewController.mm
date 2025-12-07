@@ -41,28 +41,32 @@
 {
   v2 = sub_1BE04BD74();
   v3 = *(v2 - 8);
-  v5 = MEMORY[0x1EEE9AC00](v2, v4);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v3 + 104))(v7, *MEMORY[0x1E69B80D8], v2, v5);
+  v4 = MEMORY[0x1EEE9AC00](v2);
+  v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v3 + 104))(v6, *MEMORY[0x1E69B80D8], v2, v4);
   sub_1BE04B714();
-  (*(v3 + 8))(v7, v2);
-  v8 = sub_1BE052404();
+  v8 = v7;
+  (*(v3 + 8))(v6, v2);
+  v9 = sub_1BE052404();
+  v8, v10, v11, v12, v13, v14, v15, v16;
 
-  return v8;
+  return v9;
 }
 
 - (id)defaultHeaderViewSubTitle
 {
   v2 = sub_1BE04BD74();
   v3 = *(v2 - 8);
-  v5 = MEMORY[0x1EEE9AC00](v2, v4);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v3 + 104))(v7, *MEMORY[0x1E69B80D8], v2, v5);
+  v4 = MEMORY[0x1EEE9AC00](v2);
+  v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v3 + 104))(v6, *MEMORY[0x1E69B80D8], v2, v4);
   sub_1BE04B714();
-  (*(v3 + 8))(v7, v2);
-  v8 = sub_1BE052404();
+  v8 = v7;
+  (*(v3 + 8))(v6, v2);
+  v9 = sub_1BE052404();
+  v8, v10, v11, v12, v13, v14, v15, v16;
 
-  return v8;
+  return v9;
 }
 
 - (void)handleNextButtonTapped:(id)tapped

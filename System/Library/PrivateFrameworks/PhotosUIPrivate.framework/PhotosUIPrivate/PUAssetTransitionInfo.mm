@@ -39,7 +39,7 @@
   image = [(PUAssetTransitionInfo *)self image];
   [(PUAssetTransitionInfo *)v4 setImage:image];
 
-  [(PUAssetTransitionInfo *)self seekTime];
+  objc_msgSend_seekTime(self);
   v12 = v14;
   v13 = v15;
   [(PUAssetTransitionInfo *)v4 setSeekTime:&v12];

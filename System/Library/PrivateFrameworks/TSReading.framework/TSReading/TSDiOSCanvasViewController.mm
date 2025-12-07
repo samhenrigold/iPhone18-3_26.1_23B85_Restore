@@ -888,39 +888,39 @@ _BYTE *__81__TSDiOSCanvasViewController_viewWillTransitionToSize_withTransitionC
 
 - (CGRect)targetRectForEditMenu:(id)menu
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   x = *MEMORY[0x277CBF398];
   y = *(MEMORY[0x277CBF398] + 8);
   width = *(MEMORY[0x277CBF398] + 16);
   height = *(MEMORY[0x277CBF398] + 24);
-  v69 = 0u;
-  v70 = 0u;
-  v71 = 0u;
-  v72 = 0u;
+  v65 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v68 = 0u;
   v9 = [-[TSDEditorController currentEditors](-[TSDInteractiveCanvasController editorController](-[TSDiOSCanvasViewController interactiveCanvasController](self "interactiveCanvasController")];
-  v10 = [v9 countByEnumeratingWithState:&v69 objects:v75 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v65 objects:v71 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v70;
+    v12 = *v66;
 LABEL_3:
     v13 = 0;
     while (1)
     {
-      if (*v70 != v12)
+      if (*v66 != v12)
       {
         objc_enumerationMutation(v9);
       }
 
-      v14 = *(*(&v69 + 1) + 8 * v13);
+      v14 = *(*(&v65 + 1) + 8 * v13);
       if (objc_opt_respondsToSelector())
       {
         [v14 targetRectForEditMenu];
-        x = v77.origin.x;
-        y = v77.origin.y;
-        width = v77.size.width;
-        height = v77.size.height;
-        if (!CGRectIsNull(v77))
+        x = v73.origin.x;
+        y = v73.origin.y;
+        width = v73.size.width;
+        height = v73.size.height;
+        if (!CGRectIsNull(v73))
         {
           break;
         }
@@ -928,7 +928,7 @@ LABEL_3:
 
       if (v11 == ++v13)
       {
-        v11 = [v9 countByEnumeratingWithState:&v69 objects:v75 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v65 objects:v71 count:16];
         if (v11)
         {
           goto LABEL_3;
@@ -939,11 +939,11 @@ LABEL_3:
     }
   }
 
-  v78.origin.x = x;
-  v78.origin.y = y;
-  v78.size.width = width;
-  v78.size.height = height;
-  if (CGRectIsNull(v78))
+  v74.origin.x = x;
+  v74.origin.y = y;
+  v74.size.width = width;
+  v74.size.height = height;
+  if (CGRectIsNull(v74))
   {
     infos = [menu infos];
     if ([infos count])
@@ -953,134 +953,134 @@ LABEL_3:
       {
         v16 = -[TSDInteractiveCanvasController repForInfo:](self->mICC, "repForInfo:", [infos anyObject]);
         [v16 targetRectForEditMenu];
-        v17 = v79.origin.x;
-        v18 = v79.origin.y;
-        v19 = v79.size.width;
-        v20 = v79.size.height;
-        if (!CGRectIsNull(v79))
+        v17 = v75.origin.x;
+        v18 = v75.origin.y;
+        v19 = v75.size.width;
+        v20 = v75.size.height;
+        if (!CGRectIsNull(v75))
         {
           if (v16)
           {
-            [v16 transformToConvertNaturalToLayerRelative];
+            objc_msgSend_transformToConvertNaturalToLayerRelative(v16);
           }
 
           else
           {
-            memset(&v68, 0, sizeof(v68));
+            memset(&v64, 0, sizeof(v64));
           }
 
-          v80.origin.x = v17;
-          v80.origin.y = v18;
-          v80.size.width = v19;
-          v80.size.height = v20;
-          v81 = CGRectApplyAffineTransform(v80, &v68);
-          v31 = v81.origin.x;
-          v32 = v81.origin.y;
-          width = v81.size.width;
-          height = v81.size.height;
+          v76.origin.x = v17;
+          v76.origin.y = v18;
+          v76.size.width = v19;
+          v76.size.height = v20;
+          v77 = CGRectApplyAffineTransform(v76, &v64);
+          v27 = v77.origin.x;
+          v28 = v77.origin.y;
+          width = v77.size.width;
+          height = v77.size.height;
           [v16 layerFrameInScaledCanvas];
-          x = TSDAddPoints(v31, v32, v33);
-          y = v34;
+          x = TSDAddPoints(v27, v28, v29);
+          y = v30;
         }
       }
 
-      v82.origin.x = x;
-      v82.origin.y = y;
-      v82.size.width = width;
-      v82.size.height = height;
-      if (CGRectIsNull(v82))
+      v78.origin.x = x;
+      v78.origin.y = y;
+      v78.size.width = width;
+      v78.size.height = height;
+      if (CGRectIsNull(v78))
       {
-        v66 = 0u;
-        v67 = 0u;
-        v64 = 0u;
-        v65 = 0u;
-        v35 = [infos countByEnumeratingWithState:&v64 objects:v74 count:16];
-        if (v35)
+        v62 = 0u;
+        v63 = 0u;
+        v60 = 0u;
+        v61 = 0u;
+        v31 = [infos countByEnumeratingWithState:&v60 objects:v70 count:16];
+        if (v31)
         {
-          v36 = v35;
-          v37 = *v65;
+          v32 = v31;
+          v33 = *v61;
           do
           {
-            v38 = 0;
+            v34 = 0;
             do
             {
-              if (*v65 != v37)
+              if (*v61 != v33)
               {
                 objc_enumerationMutation(infos);
               }
 
-              v39 = *(*(&v64 + 1) + 8 * v38);
-              v60 = 0u;
-              v61 = 0u;
-              v62 = 0u;
-              v63 = 0u;
-              v40 = [(TSDInteractiveCanvasController *)self->mICC repsForInfo:v39, 0];
-              v41 = [v40 countByEnumeratingWithState:&v60 objects:v73 count:16];
-              if (v41)
+              v35 = *(*(&v60 + 1) + 8 * v34);
+              v56 = 0u;
+              v57 = 0u;
+              v58 = 0u;
+              v59 = 0u;
+              v36 = [(TSDInteractiveCanvasController *)self->mICC repsForInfo:v35, 0];
+              v37 = [v36 countByEnumeratingWithState:&v56 objects:v69 count:16];
+              if (v37)
               {
-                v42 = v41;
-                v43 = *v61;
+                v38 = v37;
+                v39 = *v57;
                 do
                 {
-                  v44 = 0;
+                  v40 = 0;
                   do
                   {
-                    if (*v61 != v43)
+                    if (*v57 != v39)
                     {
-                      objc_enumerationMutation(v40);
+                      objc_enumerationMutation(v36);
                     }
 
-                    [objc_msgSend(*(*(&v60 + 1) + 8 * v44) "layout")];
+                    [objc_msgSend(*(*(&v56 + 1) + 8 * v40) "layout")];
                     [(TSDInteractiveCanvasController *)self->mICC convertUnscaledToBoundsRect:?];
+                    v42 = v41;
+                    v44 = v43;
                     v46 = v45;
                     v48 = v47;
-                    v50 = v49;
-                    v52 = v51;
-                    v83.origin.x = x;
-                    v83.origin.y = y;
-                    v83.size.width = width;
-                    v83.size.height = height;
-                    if (CGRectIsNull(v83))
+                    v79.origin.x = x;
+                    v79.origin.y = y;
+                    v79.size.width = width;
+                    v79.size.height = height;
+                    if (CGRectIsNull(v79))
                     {
-                      height = v52;
-                      width = v50;
-                      y = v48;
-                      x = v46;
+                      height = v48;
+                      width = v46;
+                      y = v44;
+                      x = v42;
                     }
 
                     else
                     {
-                      x = TSDUnionRect(x, y, width, height, v46, v48, v50, v52);
-                      y = v53;
-                      width = v54;
-                      height = v55;
+                      x = TSDUnionRect(x, y, width, height, v42, v44, v46, v48);
+                      y = v49;
+                      width = v50;
+                      height = v51;
                     }
 
-                    ++v44;
+                    ++v40;
                   }
 
-                  while (v42 != v44);
-                  v42 = [v40 countByEnumeratingWithState:&v60 objects:v73 count:16];
+                  while (v38 != v40);
+                  v38 = [v36 countByEnumeratingWithState:&v56 objects:v69 count:16];
                 }
 
-                while (v42);
+                while (v38);
               }
 
-              ++v38;
+              ++v34;
             }
 
-            while (v38 != v36);
-            v36 = [infos countByEnumeratingWithState:&v64 objects:v74 count:16];
+            while (v34 != v32);
+            v32 = [infos countByEnumeratingWithState:&v60 objects:v70 count:16];
           }
 
-          while (v36);
+          while (v32);
         }
 
-        v84.origin.x = x;
-        v84.origin.y = y;
-        v84.size.width = width;
-        v84.size.height = height;
-        if (CGRectIsNull(v84))
+        v80.origin.x = x;
+        v80.origin.y = y;
+        v80.size.width = width;
+        v80.size.height = height;
+        if (CGRectIsNull(v80))
         {
           x = *MEMORY[0x277CBF3A0];
           y = *(MEMORY[0x277CBF3A0] + 8);
@@ -1093,24 +1093,23 @@ LABEL_3:
     else
     {
       [(UITapGestureRecognizer *)[(TSDiOSCanvasViewController *)self singleTapGestureRecognizer] locationInView:[(TSDiOSCanvasViewController *)self canvasView]];
-      v23.n128_f64[0] = TSDAddPoints(v21, v22, 0.0);
-      v24.n128_u64[0] = 1.0;
-      v25.n128_u64[0] = 1.0;
-      x = TSDRectWithOriginAndSize(v26, v23, v27, v24, v25);
-      y = v28;
-      width = v29;
-      height = v30;
+      TSDAddPoints(v21, v22, 0.0);
+      TSDRectWithOriginAndSize();
+      x = v23;
+      y = v24;
+      width = v25;
+      height = v26;
     }
   }
 
-  v56 = x;
-  v57 = y;
-  v58 = width;
-  v59 = height;
-  result.size.height = v59;
-  result.size.width = v58;
-  result.origin.y = v57;
-  result.origin.x = v56;
+  v52 = x;
+  v53 = y;
+  v54 = width;
+  v55 = height;
+  result.size.height = v55;
+  result.size.width = v54;
+  result.origin.y = v53;
+  result.origin.x = v52;
   return result;
 }
 
@@ -1192,126 +1191,137 @@ LABEL_3:
 
 - (void)p_buildMenuItems:(id)items forSelection:(id)selection
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v7 = [objc_alloc(MEMORY[0x277D75728]) initWithTitle:objc_msgSend(TSDBundle() action:{"localizedStringForKey:value:table:", @"Cut", &stru_287D36338, @"TSDrawables", sel_cutObject_}];
-  v8 = [objc_alloc(MEMORY[0x277D75728]) initWithTitle:objc_msgSend(TSDBundle() action:{"localizedStringForKey:value:table:", @"Copy", &stru_287D36338, @"TSDrawables", sel_copyObject_}];
-  v9 = [objc_alloc(MEMORY[0x277D75728]) initWithTitle:objc_msgSend(TSDBundle() action:{"localizedStringForKey:value:table:", @"Paste", &stru_287D36338, @"TSDrawables", sel_pasteObject_}];
-  v10 = [objc_alloc(MEMORY[0x277D75728]) initWithTitle:objc_msgSend(TSDBundle() action:{"localizedStringForKey:value:table:", @"Delete", &stru_287D36338, @"TSDrawables", sel_deleteObject_}];
-  [items addObject:v7];
-  [items addObject:v8];
+  v50 = *MEMORY[0x277D85DE8];
+  v7 = objc_alloc(MEMORY[0x277D75728]);
+  v9 = [v7 initWithTitle:objc_msgSend(TSDBundle(v7 action:{v8), "localizedStringForKey:value:table:", @"Cut", &stru_287D36338, @"TSDrawables", sel_cutObject_}];
+  v10 = objc_alloc(MEMORY[0x277D75728]);
+  v12 = [v10 initWithTitle:objc_msgSend(TSDBundle(v10 action:{v11), "localizedStringForKey:value:table:", @"Copy", &stru_287D36338, @"TSDrawables", sel_copyObject_}];
+  v13 = objc_alloc(MEMORY[0x277D75728]);
+  v15 = [v13 initWithTitle:objc_msgSend(TSDBundle(v13 action:{v14), "localizedStringForKey:value:table:", @"Paste", &stru_287D36338, @"TSDrawables", sel_pasteObject_}];
+  v16 = objc_alloc(MEMORY[0x277D75728]);
+  v18 = [v16 initWithTitle:objc_msgSend(TSDBundle(v16 action:{v17), "localizedStringForKey:value:table:", @"Delete", &stru_287D36338, @"TSDrawables", sel_deleteObject_}];
   [items addObject:v9];
-  [items addObject:v10];
+  [items addObject:v12];
+  [items addObject:v15];
+  [items addObject:v18];
 
   if ([selection infoCount] == 1)
   {
-    v11 = [selection containsUnlockedKindOfClass:objc_opt_class()];
+    v19 = [selection containsUnlockedKindOfClass:objc_opt_class()];
   }
 
   else
   {
-    v11 = 0;
+    v19 = 0;
   }
 
-  if ([selection unlockedInfoCount] >= 2 && (v11 & 1) == 0)
+  unlockedInfoCount = [selection unlockedInfoCount];
+  if (unlockedInfoCount >= 2 && (v19 & 1) == 0)
   {
-    v12 = [objc_alloc(MEMORY[0x277D75728]) initWithTitle:objc_msgSend(TSDBundle() action:{"localizedStringForKey:value:table:", @"Group", &stru_287D36338, @"TSDrawables", sel_group_}];
-    [items addObject:v12];
+    v22 = [objc_alloc(MEMORY[0x277D75728]) initWithTitle:objc_msgSend(TSDBundle(unlockedInfoCount action:{v21), "localizedStringForKey:value:table:", @"Group", &stru_287D36338, @"TSDrawables", sel_group_}];
+    [items addObject:v22];
   }
 
-  if (v11)
+  if (v19)
   {
-    v13 = [objc_alloc(MEMORY[0x277D75728]) initWithTitle:objc_msgSend(TSDBundle() action:{"localizedStringForKey:value:table:", @"Ungroup", &stru_287D36338, @"TSDrawables", sel_ungroup_}];
-    [items addObject:v13];
+    v23 = [objc_alloc(MEMORY[0x277D75728]) initWithTitle:objc_msgSend(TSDBundle(unlockedInfoCount action:{v21), "localizedStringForKey:value:table:", @"Ungroup", &stru_287D36338, @"TSDrawables", sel_ungroup_}];
+    [items addObject:v23];
   }
 
   if ([selection infoCount] == 1)
   {
-    v14 = -[TSDInteractiveCanvasController repForInfo:](self->mICC, "repForInfo:", [objc_msgSend(selection "infos")]);
-    if ([v14 isLocked])
+    v24 = -[TSDInteractiveCanvasController repForInfo:](self->mICC, "repForInfo:", [objc_msgSend(selection "infos")]);
+    if ([v24 isLocked])
     {
-      v15 = 0;
+      v25 = 0;
     }
 
     else
     {
-      [items addObjectsFromArray:{objc_msgSend(v14, "itemsToAddToEditMenu")}];
-      v15 = 1;
+      [items addObjectsFromArray:{objc_msgSend(v24, "itemsToAddToEditMenu")}];
+      v25 = 1;
     }
   }
 
   else
   {
-    v15 = 0;
-    v14 = 0;
+    v25 = 0;
+    v24 = 0;
   }
 
-  v16 = [(TSDEditorController *)[(TSDInteractiveCanvasController *)[(TSDiOSCanvasViewController *)self interactiveCanvasController] editorController] editorForEditAction:sel_addOrShowComment_ withSender:0];
-  if ((objc_opt_respondsToSelector() & 1) != 0 && [v16 canAddOrShowComment])
+  v26 = [(TSDEditorController *)[(TSDInteractiveCanvasController *)[(TSDiOSCanvasViewController *)self interactiveCanvasController] editorController] editorForEditAction:sel_addOrShowComment_ withSender:0];
+  if (objc_opt_respondsToSelector())
   {
-    v17 = [objc_alloc(MEMORY[0x277D75728]) initWithTitle:objc_msgSend(TSDBundle() action:{"localizedStringForKey:value:table:", @"Comment", &stru_287D36338, @"TSDrawables", sel_addOrShowComment_}];
-    [items addObject:v17];
-  }
-
-  unlockedInfoCount = [selection unlockedInfoCount];
-  if (unlockedInfoCount != [selection infoCount])
-  {
-    v19 = [objc_alloc(MEMORY[0x277D75728]) initWithTitle:objc_msgSend(TSDBundle() action:{"localizedStringForKey:value:table:", @"Unlock", &stru_287D36338, @"TSDrawables", sel_unlock_}];
-    [items addObject:v19];
-  }
-
-  if (v15)
-  {
-    v20 = [(TSDiOSCanvasViewController *)self itemsToAddToEditMenuForRep:v14];
-    if (v20)
+    canAddOrShowComment = [v26 canAddOrShowComment];
+    if (canAddOrShowComment)
     {
-      v21 = v20;
-      if ([v20 count])
+      v29 = [objc_alloc(MEMORY[0x277D75728]) initWithTitle:objc_msgSend(TSDBundle(canAddOrShowComment action:{v28), "localizedStringForKey:value:table:", @"Comment", &stru_287D36338, @"TSDrawables", sel_addOrShowComment_}];
+      [items addObject:v29];
+    }
+  }
+
+  unlockedInfoCount2 = [selection unlockedInfoCount];
+  infoCount = [selection infoCount];
+  if (unlockedInfoCount2 != infoCount)
+  {
+    v33 = [objc_alloc(MEMORY[0x277D75728]) initWithTitle:objc_msgSend(TSDBundle(infoCount action:{v32), "localizedStringForKey:value:table:", @"Unlock", &stru_287D36338, @"TSDrawables", sel_unlock_}];
+    [items addObject:v33];
+  }
+
+  if (v25)
+  {
+    v34 = [(TSDiOSCanvasViewController *)self itemsToAddToEditMenuForRep:v24];
+    if (v34)
+    {
+      v35 = v34;
+      if ([v34 count])
       {
-        [items addObjectsFromArray:v21];
+        [items addObjectsFromArray:v35];
       }
     }
   }
 
-  if ([(TSDCanvasEditorHelper *)[(TSDCanvasEditor *)[(TSDInteractiveCanvasController *)self->mICC canvasEditor] canvasEditorHelper] canPerformMaskWithShapeWithSender:0])
+  v36 = [(TSDCanvasEditorHelper *)[(TSDCanvasEditor *)[(TSDInteractiveCanvasController *)self->mICC canvasEditor] canvasEditorHelper] canPerformMaskWithShapeWithSender:0];
+  if (v36)
   {
-    v22 = [objc_alloc(MEMORY[0x277D75728]) initWithTitle:objc_msgSend(TSDBundle() action:{"localizedStringForKey:value:table:", @"Mask with Shape", &stru_287D36338, @"TSDrawables", sel_maskWithShape_}];
-    [items addObject:v22];
+    v38 = [objc_alloc(MEMORY[0x277D75728]) initWithTitle:objc_msgSend(TSDBundle(v36 action:{v37), "localizedStringForKey:value:table:", @"Mask with Shape", &stru_287D36338, @"TSDrawables", sel_maskWithShape_}];
+    [items addObject:v38];
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   currentEditors = [(TSDEditorController *)[(TSDInteractiveCanvasController *)[(TSDiOSCanvasViewController *)self interactiveCanvasController] editorController] currentEditors];
-  v24 = [currentEditors countByEnumeratingWithState:&v29 objects:v33 count:16];
-  if (v24)
+  v40 = [currentEditors countByEnumeratingWithState:&v45 objects:v49 count:16];
+  if (v40)
   {
-    v25 = v24;
-    v26 = *v30;
+    v41 = v40;
+    v42 = *v46;
     do
     {
-      v27 = 0;
+      v43 = 0;
       do
       {
-        if (*v30 != v26)
+        if (*v46 != v42)
         {
           objc_enumerationMutation(currentEditors);
         }
 
-        v28 = *(*(&v29 + 1) + 8 * v27);
+        v44 = *(*(&v45 + 1) + 8 * v43);
         if (objc_opt_respondsToSelector())
         {
-          [v28 addContextualMenuItemsToArray:items];
+          [v44 addContextualMenuItemsToArray:items];
         }
 
-        ++v27;
+        ++v43;
       }
 
-      while (v25 != v27);
-      v25 = [currentEditors countByEnumeratingWithState:&v29 objects:v33 count:16];
+      while (v41 != v43);
+      v41 = [currentEditors countByEnumeratingWithState:&v45 objects:v49 count:16];
     }
 
-    while (v25);
+    while (v41);
   }
 }
 
@@ -1695,49 +1705,50 @@ LABEL_13:
   }
 
   v22 = TSDAddPoints(v10, v12, v14);
-  v24 = TSDMultiplyPointScalar(v22, v23, 0.5);
-  v26 = v25;
+  v25 = TSDMultiplyPointScalar(v22, v23, 0.5);
+  v27 = v26;
   if (vabdd_f64(v10, v14) >= 40.0)
   {
     if (v10 >= v14)
     {
-      v27 = v10;
+      v28 = v10;
     }
 
     else
     {
-      v27 = v14;
+      v28 = v14;
     }
 
     if (v10 >= v14)
     {
-      v28 = v12;
+      v29 = v12;
     }
 
     else
     {
-      v28 = v16;
+      v29 = v16;
     }
 
     if (v10 >= v14)
     {
-      v29 = v14;
+      v30 = v14;
     }
 
     else
     {
-      v29 = v10;
+      v30 = v10;
     }
 
-    v30 = TSDSubtractPoints(v27, v28, v29);
-    v32 = TSDAngleFromDelta(v30, v31);
-    v33 = TSDDeltaFromAngle(v32 + -1.57079633);
-    v35 = TSDMultiplyPointScalar(v33, v34, 120.0);
-    TSDAddPoints(v24, v26, v35);
+    v31 = TSDSubtractPoints(v28, v29, v30);
+    v33 = TSDAngleFromDelta(v31, v32);
+    v34 = TSDDeltaFromAngle(v33 + -1.57079633);
+    v36 = TSDMultiplyPointScalar(v34, v35, 120.0);
+    v25 = TSDAddPoints(v25, v27, v36);
+    v27 = v37;
   }
 
-  self->mLastZoomHUDLocation.x = TSDRoundedPoint();
-  self->mLastZoomHUDLocation.y = v36;
+  self->mLastZoomHUDLocation.x = TSDRoundedPoint(v24, v25, v27);
+  self->mLastZoomHUDLocation.y = v38;
 }
 
 - (void)canvasZoomTrackerWillBeginFinalZoomAnimation:(id)animation
@@ -1882,21 +1893,21 @@ LABEL_9:
   v9 = objc_alloc(MEMORY[0x277D75118]);
   if (v8 == 1)
   {
-    v10 = [v9 initWithError:{objc_msgSend(errors, "objectAtIndex:", 0)}];
+    v11 = [v9 initWithError:{objc_msgSend(errors, "objectAtIndex:", 0)}];
   }
 
   else
   {
-    v10 = [v9 initWithTitle:description message:0 delegate:0 cancelButtonTitle:objc_msgSend(TSDBundle() otherButtonTitles:{"localizedStringForKey:value:table:", @"OK", &stru_287D36338, @"TSDrawables", 0}];
+    v11 = [v9 initWithTitle:description message:0 delegate:0 cancelButtonTitle:objc_msgSend(TSDBundle(v9 otherButtonTitles:{v10), "localizedStringForKey:value:table:", @"OK", &stru_287D36338, @"TSDrawables", 0}];
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __87__TSDiOSCanvasViewController_presentErrors_withLocalizedDescription_completionHandler___block_invoke;
-  v11[3] = &unk_279D493C0;
-  v11[4] = v10;
-  v11[5] = handler;
-  [v10 showWithCompletionHandler:v11];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __87__TSDiOSCanvasViewController_presentErrors_withLocalizedDescription_completionHandler___block_invoke;
+  v12[3] = &unk_279D493C0;
+  v12[4] = v11;
+  v12[5] = handler;
+  [v11 showWithCompletionHandler:v12];
 }
 
 void __87__TSDiOSCanvasViewController_presentErrors_withLocalizedDescription_completionHandler___block_invoke(uint64_t a1)

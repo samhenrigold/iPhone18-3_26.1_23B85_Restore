@@ -5,6 +5,7 @@
 - (BOOL)save:(id *)save;
 - (LivefsSettings)init;
 - (NSArray)mounts;
+- (id)addMountNamed:(id)named displayName:(id)name mountID:(unsigned int)d mountedOn:(id)on provider:(id)provider fpStorage:(id)storage domainError:(id)error how:(int)self0 isReAdd:(BOOL)self1;
 - (id)removeMountNamed:(id)named provider:(id)provider;
 - (id)updateMountEntry:(id)entry provider:(id)provider settingsDictionary:(id *)dictionary updateBlock:(id)block;
 - (void)cleanupConfigFromLastBoot;
@@ -416,6 +417,121 @@
   v7 = +[NSError errorWithDomain:code:userInfo:](NSError, "errorWithDomain:code:userInfo:", v6, [v4 longValue], v5);
 
   return v7;
+}
+
+- (id)addMountNamed:(id)named displayName:(id)name mountID:(unsigned int)d mountedOn:(id)on provider:(id)provider fpStorage:(id)storage domainError:(id)error how:(int)self0 isReAdd:(BOOL)self1
+{
+  v14 = *&d;
+  LODWORD(v44) = add;
+  HIDWORD(v44) = how;
+  namedCopy = named;
+  nameCopy = name;
+  onCopy = on;
+  providerCopy = provider;
+  storageCopy = storage;
+  errorCopy = error;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x2020000000;
+  v58 = -1;
+  v23 = [NSNumber numberWithInt:v14];
+  mounts = selfCopy->_mounts;
+  v48[0] = _NSConcreteStackBlock;
+  v48[1] = 3221225472;
+  v48[2] = sub_100029218;
+  v48[3] = &unk_1000619E8;
+  v25 = providerCopy;
+  v49 = v25;
+  v26 = onCopy;
+  v50 = v26;
+  v27 = v23;
+  v51 = v27;
+  v28 = storageCopy;
+  v52 = v28;
+  v29 = namedCopy;
+  v53 = v29;
+  v54 = &v55;
+  [(NSMutableArray *)mounts enumerateObjectsUsingBlock:v48];
+  v45 = v29;
+  if (v56[3] == -1 || (v44 & 1) != 0)
+  {
+    v36 = objc_opt_new();
+    [v36 setObject:v29 forKey:LiveFSMounterVolumeNameKey];
+    [v36 setObject:nameCopy forKey:LiveFSMounterDisplayNameKey];
+    [v36 setObject:v26 forKey:LiveFSMounterMountedOnKey];
+    [v36 setObject:v27 forKey:LiveFSMounterMountIDKey];
+    [v36 setObject:v25 forKey:LiveFSMounterVolumeProviderNameKey];
+    [v36 setObject:v28 forKey:LiveFSMounterDomainStorageKey];
+    if (errorCopy)
+    {
+      v37 = [LivefsSettings serializedError:errorCopy];
+      [v36 setObject:v37 forKey:LiveFSMounterDomainErrorKey];
+    }
+
+    if ((how & 0x80) != 0)
+    {
+      [v36 setObject:&__kCFBooleanTrue forKey:LiveFSMounterDomainHidden];
+    }
+
+    if ((how & 0x1000) != 0)
+    {
+      [v36 setObject:&__kCFBooleanTrue forKey:LiveFSMounterDomainErasable];
+    }
+
+    v38 = v56[3];
+    v39 = selfCopy->_mounts;
+    if (v38 == -1)
+    {
+      [(NSMutableArray *)v39 addObject:v36];
+    }
+
+    else
+    {
+      [(NSMutableArray *)v39 replaceObjectAtIndex:v38 withObject:v36];
+    }
+
+    if (selfCopy->_needsLoad)
+    {
+      selfCopy->_needsLoad = 0;
+    }
+
+    v47 = 0;
+    v40 = [(LivefsSettings *)selfCopy save:&v47, v44, v29];
+    v30 = v26;
+    v31 = v25;
+    v35 = nameCopy;
+    v32 = errorCopy;
+    v41 = v47;
+    v33 = v41;
+    if (v40)
+    {
+      v42 = 0;
+    }
+
+    else
+    {
+      v42 = v41;
+    }
+
+    v34 = v42;
+  }
+
+  else
+  {
+    [NSError errorWithDomain:NSCocoaErrorDomain code:516 userInfo:0];
+    v30 = v26;
+    v31 = v25;
+    v33 = v32 = errorCopy;
+    v34 = v33;
+    v35 = nameCopy;
+  }
+
+  _Block_object_dispose(&v55, 8);
+  objc_sync_exit(selfCopy);
+
+  return v34;
 }
 
 - (id)updateMountEntry:(id)entry provider:(id)provider settingsDictionary:(id *)dictionary updateBlock:(id)block

@@ -498,7 +498,7 @@ LABEL_9:
         v16 = v15;
         v18 = v17;
         view = [searchBarViewController view];
-        [view frame];
+        objc_msgSend_frame(view);
         v28.x = v16;
         v28.y = v18;
         v20 = CGRectContainsPoint(v29, v28);
@@ -844,7 +844,7 @@ LABEL_15:
   listView = [(SBHTodayViewController *)self listView];
   isEditing = [listView isEditing];
 
-  if (isEditing && (-[SBHTodayViewController listView](self, "listView"), v7 = objc_claimAutoreleasedReturnValue(), [v7 icons], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(jigglingCopy, "icon"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v8, "containsObject:", v9), v9, v8, v7, v10) && (-[SBHTodayViewController onScreenIconIndexRangeByIconListView](self, "onScreenIconIndexRangeByIconListView"), v11 = objc_claimAutoreleasedReturnValue(), -[SBHTodayViewController listView](self, "listView"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "objectForKey:", v12), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "rangeValue"), v16 = v15, v13, v12, v11, v16 != 0x7FFFFFFFFFFFFFFFLL))
+  if (isEditing && (-[SBHTodayViewController listView](self, "listView"), v7 = objc_claimAutoreleasedReturnValue(), [v7 icons], v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(jigglingCopy, "icon"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend_containsObject_(v8), v9, v8, v7, v10) && (-[SBHTodayViewController onScreenIconIndexRangeByIconListView](self, "onScreenIconIndexRangeByIconListView"), v11 = objc_claimAutoreleasedReturnValue(), -[SBHTodayViewController listView](self, "listView"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "objectForKey:", v12), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "rangeValue"), v16 = v15, v13, v12, v11, v16 != 0x7FFFFFFFFFFFFFFFLL))
   {
     view = [(SBTodayViewController *)self view];
     spotlightPresenter = [(SBTodayViewController *)self spotlightPresenter];
@@ -855,7 +855,7 @@ LABEL_15:
     [scrollView adjustedContentInset];
     v25 = v24;
 
-    [view2 frame];
+    objc_msgSend_frame(view2);
     v27 = v26;
     v29 = v28;
     v31 = v30;
@@ -875,7 +875,7 @@ LABEL_15:
     if (v45 >= v14 && v45 - v14 < v16)
     {
       v46 = v42 + v25 + v38;
-      [jigglingCopy frame];
+      objc_msgSend_frame(jigglingCopy);
       v48 = v47;
       v50 = v49;
       v52 = v51;

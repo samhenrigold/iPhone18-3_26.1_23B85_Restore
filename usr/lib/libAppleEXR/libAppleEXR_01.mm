@@ -1,4 +1,4 @@
-uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)1,(StreamType)0,(StreamType)1,(StreamType)0>(uint64_t result, unint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int32x2_t *a11, unsigned int *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+_DWORD *ExtractInterleaved4_B44<unsigned int,(StreamType)1,(StreamType)0,(StreamType)1,(StreamType)0>(_DWORD *result, unint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int32x2_t *a11, unsigned int *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
 {
   if (!result)
   {
@@ -26,8 +26,8 @@ uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)1,(StreamType)0,(Strea
     v27 = 12 * v24 + 16;
   }
 
-  v28 = *&v23 - v27;
-  if (*&v23 < v27)
+  v28 = v23 - v27;
+  if (v23 < v27)
   {
     return result;
   }
@@ -198,7 +198,7 @@ uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)1,(StreamType)0,(Strea
 
   v77 = 4 * v24;
   v78 = 4 * v25;
-  result = 16 * v24;
+  result = (16 * v24);
   v79.i64[0] = __PAIR64__(v223, v224);
   v79.i64[1] = __PAIR64__(v223, v224);
   v80 = 16 * v25;
@@ -404,7 +404,7 @@ LABEL_69:
 LABEL_133:
     a14 = v89 + a17;
     v83 = (v83 + v80);
-    v82 = (v82 + result);
+    v82 = (result + v82);
     v75 = a12[6];
     if (v70++ >= v75)
     {
@@ -585,7 +585,7 @@ LABEL_99:
         v220 = vuzp2q_s32(v192, v203);
         v221 = vuzp2q_s32(v26, v204);
         *v181 = v211;
-        v181[1] = vzip2q_s32(vuzp1q_s32(v218, v218), v79);
+        *(v181 + 16) = vzip2q_s32(vuzp1q_s32(v218, v218), v79);
         *v182 = v213;
         v182[1] = vzip2q_s32(vuzp1q_s32(v219, v219), v79);
         *v183 = v215;
@@ -598,7 +598,7 @@ LABEL_99:
           v202.i32[0] = v191.i32[2];
           v203.i32[0] = v192.i32[2];
           v204.i32[0] = v26.i32[2];
-          v181[2] = vzip1q_s32(vuzp1q_s32(v205, v205), v79);
+          *(v181 + 32) = vzip1q_s32(vuzp1q_s32(v205, v205), v79);
           v182[2] = vzip1q_s32(vuzp1q_s32(v202, v202), v79);
           v26 = vzip1q_s32(vuzp1q_s32(v204, v204), v79);
           v183[2] = vzip1q_s32(vuzp1q_s32(v203, v203), v79);
@@ -662,7 +662,7 @@ LABEL_99:
       *(v85 + 16) = vzip2q_s32(vuzp1q_s32(v172, v172), v79);
       ++v154;
       ++v153;
-      v181 = (a14 + 64);
+      v181 = a14 + 64;
       *(v85 + 32) = vzip1q_s32(vuzp1q_s32(v171, v171), v79);
       *(v85 + 48) = vzip2q_s32(vuzp1q_s32(v178, v178), v79);
       v182 = (v84 + 64);
@@ -1360,7 +1360,7 @@ LABEL_112:
       v188 = a14 + 2;
       *v85 = v187;
       v85[1] = vqtbl2q_s8(v242, xmmword_296B6EDD0);
-      v189 = &v85[2];
+      v189 = v85 + 2;
       v190 = v86 + 2;
       *v86 = vqtbl2q_s8(v253, xmmword_296B6EDD0);
       v86[1] = vqtbl2q_s8(v237, xmmword_296B6EDD0);
@@ -1392,7 +1392,7 @@ LABEL_112:
   return result;
 }
 
-uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)0,(StreamType)1,(StreamType)1,(StreamType)0>(uint64_t result, unint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int32x2_t *a11, unsigned int *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+_DWORD *ExtractInterleaved4_B44<unsigned int,(StreamType)0,(StreamType)1,(StreamType)1,(StreamType)0>(_DWORD *result, unint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
 {
   if (!result)
   {
@@ -1400,19 +1400,19 @@ uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)0,(StreamType)1,(Strea
   }
 
   v21 = result;
-  if (*&a11[1] >= a2)
+  if (*(a11 + 8) >= a2)
   {
     v22 = a2;
   }
 
   else
   {
-    v22 = a11[1];
+    v22 = *(a11 + 8);
   }
 
   AXRStreamB44<unsigned int,(StreamType)0>::AXRStreamB44(&v244, a3);
-  v23 = a11[3];
-  v24 = a11[7].u32[1];
+  v23 = *(a11 + 24);
+  v24 = *(a11 + 60);
   v25 = vmin_u32(vmls_s32(*(*(*(*(a4 + 8) + 40) + 8 * v24) + 16), *(*(a4 + 8) + 48), v23), *(*(a4 + 8) + 48)).u32[0];
   v26 = vmin_u32(vmls_s32(*(*(*(*(a5 + 8) + 40) + 8 * v24) + 16), *(*(a5 + 8) + 48), v23), *(*(a5 + 8) + 48)).u32[0];
   result = AXRStreamB44<unsigned int,(StreamType)0>::AXRStreamB44(&v243, a6);
@@ -1422,8 +1422,8 @@ uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)0,(StreamType)1,(Strea
     v28 = 12 * v25 + 16;
   }
 
-  v29 = *&v22 - v28;
-  if (*&v22 < v28)
+  v29 = v22 - v28;
+  if (v22 < v28)
   {
     return result;
   }
@@ -1432,15 +1432,15 @@ uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)0,(StreamType)1,(Strea
   v31 = a3[1];
   if (v31)
   {
-    v32 = a11[3];
-    v33 = *(*(v31 + 40) + 8 * a11[7].u32[1]);
+    v32 = *(a11 + 24);
+    v33 = *(*(v31 + 40) + 8 * *(a11 + 60));
     v34 = *(v33 + 12) - 1;
-    if (v34 >= (v32.i32[1] * v30))
+    if (v34 >= (HIDWORD(v32) * v30))
     {
-      v34 = (HIDWORD(*&a11[3]) * v30);
+      v34 = (HIDWORD(*(a11 + 24)) * v30);
     }
 
-    v35 = v33 + 8 * v32.u32[0];
+    v35 = v33 + 8 * v32;
     if (*(v31 + 104) == 1)
     {
       v36 = (*(v35 + 24) + 8 * v34);
@@ -1469,15 +1469,15 @@ uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)0,(StreamType)1,(Strea
   v40 = *(a4 + 8);
   if (v40)
   {
-    v41 = a11[3];
-    v42 = *(*(v40 + 40) + 8 * a11[7].u32[1]);
+    v41 = *(a11 + 24);
+    v42 = *(*(v40 + 40) + 8 * *(a11 + 60));
     v43 = *(v42 + 12) - 1;
-    if (v43 >= (v41.i32[1] * v30))
+    if (v43 >= (HIDWORD(v41) * v30))
     {
-      v43 = (HIDWORD(*&a11[3]) * v30);
+      v43 = (HIDWORD(*(a11 + 24)) * v30);
     }
 
-    v44 = v42 + 8 * v41.u32[0];
+    v44 = v42 + 8 * v41;
     if (*(v40 + 104) == 1)
     {
       v45 = (*(v44 + 24) + 8 * v43);
@@ -1506,15 +1506,15 @@ uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)0,(StreamType)1,(Strea
   v49 = *(a5 + 8);
   if (v49)
   {
-    v50 = a11[3];
-    v51 = *(*(v49 + 40) + 8 * a11[7].u32[1]);
+    v50 = *(a11 + 24);
+    v51 = *(*(v49 + 40) + 8 * *(a11 + 60));
     v52 = *(v51 + 12) - 1;
-    if (v52 >= (v50.i32[1] * v30))
+    if (v52 >= (HIDWORD(v50) * v30))
     {
-      v52 = (HIDWORD(*&a11[3]) * v30);
+      v52 = (HIDWORD(*(a11 + 24)) * v30);
     }
 
-    v53 = v51 + 8 * v50.u32[0];
+    v53 = v51 + 8 * v50;
     if (*(v49 + 104) == 1)
     {
       v54 = (*(v53 + 24) + 8 * v52);
@@ -1544,16 +1544,16 @@ uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)0,(StreamType)1,(Strea
   v59 = a6[1];
   if (v59)
   {
-    v60 = a11[3];
-    v61 = (v60.i32[1] * v30);
-    v62 = *(*(v59 + 40) + 8 * a11[7].u32[1]);
+    v60 = *(a11 + 24);
+    v61 = (HIDWORD(v60) * v30);
+    v62 = *(*(v59 + 40) + 8 * *(a11 + 60));
     v63 = *(v62 + 12) - 1;
     if (v63 >= v61)
     {
       v63 = v61;
     }
 
-    v64 = v62 + 8 * v60.u32[0];
+    v64 = v62 + 8 * v60;
     if (*(v59 + 104) == 1)
     {
       v65 = (*(v64 + 24) + 8 * v63);
@@ -1594,7 +1594,7 @@ uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)0,(StreamType)1,(Strea
 
   v78 = 4 * v25;
   v79 = 4 * v26;
-  result = 16 * v25;
+  result = (16 * v25);
   v80 = 16 * v26;
   v81 = &v244;
   v82 = vld1q_dup_f32(v81);
@@ -1682,7 +1682,7 @@ LABEL_69:
     }
 
     v27.i32[0] = 0;
-    v98 = (v86 + v78 + v78);
+    v98 = &v86->i8[v78 + v78];
     v99 = *(v98 + v78);
     v100 = vuzp1q_s32(v99, v84);
     v101 = *(v86 + v78);
@@ -1810,7 +1810,7 @@ LABEL_69:
 LABEL_133:
     a14 = v93 + a17;
     v87 = (v87 + v80);
-    v86 = (v86 + result);
+    v86 = (result + v86);
     v76 = a12[6];
     if (v71++ >= v76)
     {
@@ -1991,7 +1991,7 @@ LABEL_99:
         v216.i32[3] = v84.i32[1];
         v27.i32[3] = v84.i32[1];
         *v205 = v235;
-        v205[1] = vtrn2q_s32(vrev64q_s32(vuzp2q_s32(v82, v229)), v217);
+        *(v205 + 16) = vtrn2q_s32(vrev64q_s32(vuzp2q_s32(v82, v229)), v217);
         *v206 = v237;
         v206[1] = vtrn2q_s32(vrev64q_s32(vuzp2q_s32(v82, v226)), v215);
         *v207 = v239;
@@ -2005,7 +2005,7 @@ LABEL_99:
           v226.i32[0] = v82.i32[2];
           v227.i32[0] = v82.i32[2];
           v228.i32[0] = v82.i32[2];
-          v205[2] = vtrn2q_s32(vrev64q_s32(v229), v234);
+          *(v205 + 32) = vtrn2q_s32(vrev64q_s32(v229), v234);
           v206[2] = vtrn2q_s32(vrev64q_s32(v226), v236);
           v27 = vtrn2q_s32(vrev64q_s32(v228), v240);
           v207[2] = vtrn2q_s32(vrev64q_s32(v227), v238);
@@ -2030,8 +2030,8 @@ LABEL_99:
     v167 = v166 - v96 + 1;
     while (v162 <= v58 && v163 <= v58)
     {
-      v168 = (v162 + v78);
-      v169 = (v162 + v78 + v78);
+      v168 = &v162->i8[v78];
+      v169 = &v162->i8[v78 + v78];
       v170 = *(v169 + v78);
       v171 = vuzp1q_s32(v170, v84);
       v172 = vextq_s8(v170, v171, 0xCuLL);
@@ -2076,7 +2076,7 @@ LABEL_99:
       v185.i32[3] = v84.i32[1];
       *a14 = v197;
       *(a14 + 16) = v199;
-      v205 = (a14 + 64);
+      v205 = a14 + 64;
       *(a14 + 32) = v203;
       *(a14 + 48) = v195;
       v206 = (v88 + 64);
@@ -2267,7 +2267,7 @@ __int16 *ExtractInterleaved4_B44<unsigned short,(StreamType)1,(StreamType)1,(Str
     result = 0;
   }
 
-  v60 = v23 + v24 - 14;
+  v60 = (v23 + v24 - 14);
   v61 = a6[1];
   if (v61)
   {
@@ -2892,7 +2892,7 @@ LABEL_121:
   return result;
 }
 
-uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)1,(StreamType)1,(StreamType)1,(StreamType)0>(uint64_t result, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int32x2_t *a11, unsigned int *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)1,(StreamType)1,(StreamType)1,(StreamType)0>(uint64_t result, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
 {
   if (!result)
   {
@@ -2900,18 +2900,18 @@ uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)1,(StreamType)1,(Strea
   }
 
   v21 = result;
-  if (*&a11[1] >= a2)
+  if (*(a11 + 8) >= a2)
   {
     v22 = a2;
   }
 
   else
   {
-    v22 = a11[1];
+    v22 = *(a11 + 8);
   }
 
-  v23 = a11[7].u32[1];
-  v24 = a11[3];
+  v23 = *(a11 + 60);
+  v24 = *(a11 + 24);
   v25 = vmin_u32(vmls_s32(*(*(*(*(a3 + 8) + 40) + 8 * v23) + 16), *(*(a3 + 8) + 48), v24), *(*(a3 + 8) + 48)).u32[0];
   v26 = vmin_u32(vmls_s32(*(*(*(*(a4 + 8) + 40) + 8 * v23) + 16), *(*(a4 + 8) + 48), v24), *(*(a4 + 8) + 48)).u32[0];
   v27 = vmin_u32(vmls_s32(*(*(*(*(a5 + 8) + 40) + 8 * v23) + 16), *(*(a5 + 8) + 48), v24), *(*(a5 + 8) + 48)).u32[0];
@@ -2928,8 +2928,8 @@ uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)1,(StreamType)1,(Strea
     v30 = v29;
   }
 
-  v31 = *&v22 - v30;
-  if (*&v22 < v30)
+  v31 = v22 - v30;
+  if (v22 < v30)
   {
     return result;
   }
@@ -2938,15 +2938,15 @@ uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)1,(StreamType)1,(Strea
   v33 = *(a3 + 8);
   if (v33)
   {
-    v34 = a11[3];
-    v35 = *(*(v33 + 40) + 8 * a11[7].u32[1]);
+    v34 = *(a11 + 24);
+    v35 = *(*(v33 + 40) + 8 * *(a11 + 60));
     v36 = *(v35 + 12) - 1;
-    if (v36 >= (v34.i32[1] * v32))
+    if (v36 >= (HIDWORD(v34) * v32))
     {
-      v36 = (HIDWORD(*&a11[3]) * v32);
+      v36 = (HIDWORD(*(a11 + 24)) * v32);
     }
 
-    v37 = v35 + 8 * v34.u32[0];
+    v37 = v35 + 8 * v34;
     if (*(v33 + 104) == 1)
     {
       v38 = (*(v37 + 24) + 8 * v36);
@@ -2975,15 +2975,15 @@ uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)1,(StreamType)1,(Strea
   v42 = *(a4 + 8);
   if (v42)
   {
-    v43 = a11[3];
-    v44 = *(*(v42 + 40) + 8 * a11[7].u32[1]);
+    v43 = *(a11 + 24);
+    v44 = *(*(v42 + 40) + 8 * *(a11 + 60));
     v45 = *(v44 + 12) - 1;
-    if (v45 >= (v43.i32[1] * v32))
+    if (v45 >= (HIDWORD(v43) * v32))
     {
-      v45 = (HIDWORD(*&a11[3]) * v32);
+      v45 = (HIDWORD(*(a11 + 24)) * v32);
     }
 
-    v46 = v44 + 8 * v43.u32[0];
+    v46 = v44 + 8 * v43;
     if (*(v42 + 104) == 1)
     {
       v47 = (*(v46 + 24) + 8 * v45);
@@ -3012,15 +3012,15 @@ uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)1,(StreamType)1,(Strea
   v51 = *(a5 + 8);
   if (v51)
   {
-    v52 = a11[3];
-    v53 = *(*(v51 + 40) + 8 * a11[7].u32[1]);
+    v52 = *(a11 + 24);
+    v53 = *(*(v51 + 40) + 8 * *(a11 + 60));
     v54 = *(v53 + 12) - 1;
-    if (v54 >= (v52.i32[1] * v32))
+    if (v54 >= (HIDWORD(v52) * v32))
     {
-      v54 = (HIDWORD(*&a11[3]) * v32);
+      v54 = (HIDWORD(*(a11 + 24)) * v32);
     }
 
-    v55 = v53 + 8 * v52.u32[0];
+    v55 = v53 + 8 * v52;
     if (*(v51 + 104) == 1)
     {
       v56 = (*(v55 + 24) + 8 * v54);
@@ -3050,16 +3050,16 @@ uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)1,(StreamType)1,(Strea
   v61 = a6[1];
   if (v61)
   {
-    v62 = a11[3];
-    v63 = (v62.i32[1] * v32);
-    v64 = *(*(v61 + 40) + 8 * a11[7].u32[1]);
+    v62 = *(a11 + 24);
+    v63 = (HIDWORD(v62) * v32);
+    v64 = *(*(v61 + 40) + 8 * *(a11 + 60));
     v65 = *(v64 + 12) - 1;
     if (v65 >= v63)
     {
       v65 = v63;
     }
 
-    v66 = v64 + 8 * v62.u32[0];
+    v66 = v64 + 8 * v62;
     if (*(v61 + 104) == 1)
     {
       v67 = (*(v66 + 24) + 8 * v65);
@@ -3184,7 +3184,7 @@ LABEL_68:
     v28.i32[0] = 0;
     v98 = (v83 + v76 + v76);
     v99 = *(v98 + v76);
-    v100 = (v84 + v77 + v77);
+    v100 = &v84->i8[v77 + v77];
     v101 = *v100;
     v102 = *(v100 + v77);
     v103 = (v85 + v78 + v78);
@@ -3560,7 +3560,7 @@ LABEL_103:
         v237.i32[3] = v81.i32[1];
         v238.i32[3] = v81.i32[1];
         *v210 = v257;
-        v210[1] = vtrn2q_s32(vrev64q_s32(vuzp2q_s32(v227, v251)), v239);
+        *(v210 + 16) = vtrn2q_s32(vrev64q_s32(vuzp2q_s32(v227, v251)), v239);
         *v213 = v259;
         v213[1] = vtrn2q_s32(vrev64q_s32(vuzp2q_s32(v225, v248)), v236);
         *v214 = v261;
@@ -3573,7 +3573,7 @@ LABEL_103:
           v248.i32[0] = v225.i32[2];
           v249.i32[0] = v226.i32[2];
           v250.i32[0] = v28.i32[2];
-          v210[2] = vtrn2q_s32(vrev64q_s32(v251), v256);
+          *(v210 + 32) = vtrn2q_s32(vrev64q_s32(v251), v256);
           v213[2] = vtrn2q_s32(vrev64q_s32(v248), v258);
           v28 = vtrn2q_s32(vrev64q_s32(v250), v262);
           v214[2] = vtrn2q_s32(vrev64q_s32(v249), v260);
@@ -3598,7 +3598,7 @@ LABEL_103:
     v172 = v171 - v94 + 1;
     while (v166 <= v60 && v167 <= v60 && v168 <= v60)
     {
-      v173 = (v167 + v77 + v77);
+      v173 = &v167->i8[v77 + v77];
       v174 = *(v173 + v77);
       v175 = vuzp1q_s32(v174, v81);
       v176 = *v173;
@@ -3644,7 +3644,7 @@ LABEL_103:
       v201.i32[0] = *(&v178->i64[1] + v76);
       *a14 = v206;
       *(a14 + 16) = v208;
-      v210 = (a14 + 64);
+      v210 = a14 + 64;
       v211 = vtrn2q_s32(vrev64q_s32(v195), v205);
       v212 = vuzp2q_s32(v176, v81);
       *(a14 + 32) = v211;
@@ -4891,7 +4891,7 @@ LABEL_98:
   return result;
 }
 
-__int16 *ExtractInterleaved4_B44<unsigned short,(StreamType)1,(StreamType)0,(StreamType)0,(StreamType)1>(__int16 *result, unint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int32x2_t *a11, unsigned int *a12, uint64_t a13, int8x16_t *a14, uint64_t a15, int8x16_t *a16, uint64_t a17)
+int8x16_t *ExtractInterleaved4_B44<unsigned short,(StreamType)1,(StreamType)0,(StreamType)0,(StreamType)1>(int8x16_t *result, unint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int32x2_t *a11, unsigned int *a12, uint64_t a13, int8x16_t *a14, uint64_t a15, int8x16_t *a16, uint64_t a17)
 {
   if (!result)
   {
@@ -5033,7 +5033,7 @@ __int16 *ExtractInterleaved4_B44<unsigned short,(StreamType)1,(StreamType)0,(Str
     v50 = 0;
   }
 
-  v52 = v23 + v24 - 14;
+  v52 = &v23->u64[-1] + v24 - 6;
   v53 = v29[1].u32[1] - 1;
   if (v53 >= v46)
   {
@@ -5057,9 +5057,9 @@ __int16 *ExtractInterleaved4_B44<unsigned short,(StreamType)1,(StreamType)0,(Str
   }
 
   v55 = a12[2];
-  v56 = v23 + v50 > v52;
+  v56 = v23->u64 + v50 > v52;
   v217 = v56;
-  if (v23 + v40 > v52)
+  if (v23->u64 + v40 > v52)
   {
     v56 = 1;
   }
@@ -5079,8 +5079,8 @@ __int16 *ExtractInterleaved4_B44<unsigned short,(StreamType)1,(StreamType)0,(Str
   v64 = 7 * *a12;
   v215 = v59;
   v216 = 14 * v26;
-  v65 = (v23 + v35 + v64 * 2 + v216 * v55);
-  v66 = (&v23[v64] + *result + v59 * v55);
+  v65 = (v23->u16 + v35 + v64 * 2 + v216 * v55);
+  v66 = (&v23->u16[v64] + result->u32[0] + v59 * v55);
   v67 = xmmword_296B6EDE0;
   v68 = xmmword_296B6EDF0;
   v69.i64[0] = 0xE0E0E0E0E0E0E0E0;
@@ -5092,7 +5092,7 @@ __int16 *ExtractInterleaved4_B44<unsigned short,(StreamType)1,(StreamType)0,(Str
     v72 = (v71 + a17);
     if (!a16)
     {
-      result = (v71->i16 + a17);
+      result = (v71 + a17);
       goto LABEL_66;
     }
 
@@ -5118,7 +5118,7 @@ __int16 *ExtractInterleaved4_B44<unsigned short,(StreamType)1,(StreamType)0,(Str
 
     else
     {
-      result = (v71->i16 + a17);
+      result = (v71 + a17);
     }
 
     if (v55 == v57)
@@ -5146,7 +5146,7 @@ LABEL_66:
     v76 = a12[1];
     if (v76)
     {
-      v78 = v65 > v52 || v23 + v40 > v52;
+      v78 = v65 > v52 || v23->u64 + v40 > v52;
       if (v78 || v217 || v66 > v52)
       {
         return result;
@@ -5344,7 +5344,7 @@ LABEL_66:
     if (v134)
     {
 LABEL_105:
-      v175 = v23 + v40 > v52;
+      v175 = v23->u64 + v40 > v52;
       if (v132 > v52)
       {
         v175 = 1;
@@ -5546,7 +5546,7 @@ LABEL_117:
       v171 = a14 + 2;
       *v70 = v170;
       v70[1] = vqtbl2q_s8(v225, xmmword_296B6EDD0);
-      v172 = &v70[2];
+      v172 = v70 + 2;
       v173 = v71 + 2;
       *v71 = vqtbl2q_s8(v237, xmmword_296B6EDD0);
       v71[1] = vqtbl2q_s8(v220, xmmword_296B6EDD0);
@@ -5611,8 +5611,8 @@ uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)1,(StreamType)0,(Strea
     v30 = 12 * v23 + 16;
   }
 
-  v31 = *&v22 - v30;
-  if (*&v22 < v30)
+  v31 = v22 - v30;
+  if (v22 < v30)
   {
     return result;
   }
@@ -6911,7 +6911,7 @@ LABEL_117:
       a14[1] = vqtbl2q_s8(*(&v171 - 1), xmmword_296B6EF30);
       v186 = vqtbl2q_s8(*v62.i8, xmmword_296B6EF20);
       v139 += 7;
-      v187 = &a14[2];
+      v187 = a14 + 2;
       *v68 = v180;
       v68[1] = v182;
       v188 = v68 + 2;
@@ -6976,8 +6976,8 @@ uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)0,(StreamType)1,(Strea
     v33 = 12 * v24 + 16;
   }
 
-  v34 = *&v23 - v33;
-  if (*&v23 < v33)
+  v34 = v23 - v33;
+  if (v23 < v33)
   {
     return result;
   }
@@ -8409,7 +8409,7 @@ LABEL_116:
   return result;
 }
 
-uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)1,(StreamType)1,(StreamType)0,(StreamType)1>(uint64_t result, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, int32x2_t *a11, unsigned int *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)1,(StreamType)1,(StreamType)0,(StreamType)1>(uint64_t result, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, unsigned int *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
 {
   if (!result)
   {
@@ -8417,23 +8417,23 @@ uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)1,(StreamType)1,(Strea
   }
 
   v21 = result;
-  if (*&a11[1] >= a2)
+  if (*(a11 + 8) >= a2)
   {
     v22 = a2;
   }
 
   else
   {
-    v22 = a11[1];
+    v22 = *(a11 + 8);
   }
 
-  v23 = a11[3];
-  v24 = a11[7].u32[1];
+  v23 = *(a11 + 24);
+  v24 = *(a11 + 60);
   v25 = vmin_u32(vmls_s32(*(*(*(*(a3 + 8) + 40) + 8 * v24) + 16), *(*(a3 + 8) + 48), v23), *(*(a3 + 8) + 48)).u32[0];
   v26 = vmin_u32(vmls_s32(*(*(*(*(a4 + 8) + 40) + 8 * v24) + 16), *(*(a4 + 8) + 48), v23), *(*(a4 + 8) + 48)).u32[0];
   result = AXRStreamB44<unsigned int,(StreamType)0>::AXRStreamB44(v263, a5);
-  *v27.i8 = a11[3];
-  v28 = a11[7].u32[1];
+  v27.i64[0] = *(a11 + 24);
+  v28 = *(a11 + 60);
   v29 = *(a6 + 8);
   v30 = *(*&v29[5] + 8 * v28);
   v31 = v30[2];
@@ -8450,8 +8450,8 @@ uint64_t ExtractInterleaved4_B44<unsigned int,(StreamType)1,(StreamType)1,(Strea
     v34 = v33;
   }
 
-  v35 = *&v22 - v34;
-  if (*&v22 < v34)
+  v35 = v22 - v34;
+  if (v22 < v34)
   {
     return result;
   }
@@ -8680,7 +8680,7 @@ LABEL_65:
     v27.i32[0] = 0;
     v84 = (v70 + v63 + v63);
     v85 = *(v84 + v63);
-    v86 = (v71 + v64 + v64);
+    v86 = &v71->i8[v64 + v64];
     v87 = *(v86 + v64);
     v88 = (v72 + v65 + v65);
     v89 = *(v88 + v65);
@@ -9052,7 +9052,7 @@ LABEL_97:
         v225.i32[3] = v237.i32[1];
         v226.i32[3] = v238.i32[1];
         *v202 = v245;
-        v202[1] = vtrn2q_s32(vrev64q_s32(vuzp2q_s32(v215, v68)), v227);
+        *(v202 + 16) = vtrn2q_s32(vrev64q_s32(vuzp2q_s32(v215, v68)), v227);
         *v203 = v247;
         v203[1] = vtrn2q_s32(vrev64q_s32(vuzp2q_s32(v213, v68)), v224);
         *v204 = v249;
@@ -9073,7 +9073,7 @@ LABEL_97:
           v258 = vtrn2q_s32(vrev64q_s32(v256), v248);
           v259 = v68;
           v259.i32[0] = v27.i32[2];
-          v202[2] = v253;
+          *(v202 + 32) = v253;
           v203[2] = v257;
           v27 = vtrn2q_s32(vrev64q_s32(v259), v250);
           v204[2] = v258;
@@ -9098,7 +9098,7 @@ LABEL_97:
     v158 = v157 - v81 + 1;
     while (v152 <= v56 && v153 <= v56 && v154 <= v56)
     {
-      v159 = (v153 + v64 + v64);
+      v159 = &v153->i8[v64 + v64];
       v160 = *(v159 + v64);
       v161 = (v154 + v65 + v65);
       v162 = *(v161 + v65);
@@ -9150,7 +9150,7 @@ LABEL_97:
       *a14 = v197;
       *(a14 + 16) = v198;
       v201 = v68;
-      v202 = (a14 + 64);
+      v202 = a14 + 64;
       v201.i32[0] = v169.i32[2];
       *(a14 + 32) = vtrn2q_s32(vrev64q_s32(v199), v195);
       *(a14 + 48) = v194;
@@ -9306,7 +9306,7 @@ __int16 *ExtractInterleaved4_B44<unsigned short,(StreamType)0,(StreamType)0,(Str
     v49 = (*&v27[v24.u32[0] + 3] + 8 * v50);
   }
 
-  v51 = v22 + v23 - 14;
+  v51 = (v22 + v23 - 14);
   v52 = v31[1].u32[1] - 1;
   if (v52 >= v43)
   {
@@ -9330,7 +9330,7 @@ __int16 *ExtractInterleaved4_B44<unsigned short,(StreamType)0,(StreamType)0,(Str
   }
 
   v55 = a12[2];
-  v56 = v22 + v41 > v51 || (v22 + result) > v51;
+  v56 = (v22 + v41) > v51 || v22 + result > v51;
   v57 = v56;
   v217 = v57;
   v58 = a12[6];
@@ -9828,7 +9828,7 @@ LABEL_121:
       v174 = a14 + 2;
       *v71 = v173;
       v71[1] = vqtbl2q_s8(v225, xmmword_296B6EDD0);
-      v175 = &v71[2];
+      v175 = v71 + 2;
       v176 = v72 + 2;
       *v72 = vqtbl2q_s8(v237, xmmword_296B6EDD0);
       v72[1] = vqtbl2q_s8(v220, xmmword_296B6EDD0);
@@ -10432,7 +10432,7 @@ LABEL_95:
         v226 = v67;
         v226.i32[3] = v207.i32[1];
         *v184 = v214;
-        v184[1] = v223;
+        *(v184 + 16) = v223;
         *v185 = v216;
         v185[1] = v225;
         *v186 = v218;
@@ -10445,7 +10445,7 @@ LABEL_95:
           v194.i32[0] = v65.i32[2];
           v195.i32[0] = v65.i32[2];
           v23.i32[0] = v65.i32[2];
-          v184[2] = vtrn2q_s32(vrev64q_s32(v196), v213);
+          *(v184 + 32) = vtrn2q_s32(vrev64q_s32(v196), v213);
           v185[2] = vtrn2q_s32(vrev64q_s32(v194), v215);
           v23 = vtrn2q_s32(vrev64q_s32(v23), v219);
           v186[2] = vtrn2q_s32(vrev64q_s32(v195), v217);
@@ -10523,7 +10523,7 @@ LABEL_128:
       v182 = vtrn2q_s32(vrev64q_s32(v163), v176);
       v183 = vuzp1q_s32(v65, *v152);
       v167.i32[0] = v65.i32[2];
-      v184 = (a14 + 64);
+      v184 = a14 + 64;
       *a14 = v177;
       *(a14 + 16) = v180;
       *(a14 + 32) = v182;

@@ -11,251 +11,245 @@
 
 - (PPFeedback)initWithExplicitlyEngagedStrings:(id)strings explicitlyRejectedStrings:(id)rejectedStrings implicitlyEngagedStrings:(id)engagedStrings implicitlyRejectedStrings:(id)implicitlyRejectedStrings offeredStrings:(id)offeredStrings
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   stringsCopy = strings;
   rejectedStringsCopy = rejectedStrings;
   engagedStringsCopy = engagedStrings;
   implicitlyRejectedStringsCopy = implicitlyRejectedStrings;
   offeredStringsCopy = offeredStrings;
   v15 = objc_opt_new();
+  v69 = 0u;
   v70 = 0u;
   v71 = 0u;
   v72 = 0u;
-  v73 = 0u;
   v16 = stringsCopy;
-  v17 = [v16 countByEnumeratingWithState:&v70 objects:v78 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v69 objects:v77 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v71;
+    v19 = *v70;
     do
     {
       v20 = 0;
       do
       {
-        if (*v71 != v19)
+        if (*v70 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = [[PPFeedbackItem alloc] initWithItemString:*(*(&v70 + 1) + 8 * v20) itemFeedbackType:1];
+        v21 = [[PPFeedbackItem alloc] initWithItemString:*(*(&v69 + 1) + 8 * v20) itemFeedbackType:1];
         [v15 addObject:v21];
 
         ++v20;
       }
 
       while (v18 != v20);
-      v18 = [v16 countByEnumeratingWithState:&v70 objects:v78 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v69 objects:v77 count:16];
     }
 
     while (v18);
   }
 
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
   v67 = 0u;
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
   v22 = rejectedStringsCopy;
-  v23 = [v22 countByEnumeratingWithState:&v66 objects:v77 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v65 objects:v76 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v67;
+    v25 = *v66;
     do
     {
       v26 = 0;
       do
       {
-        if (*v67 != v25)
+        if (*v66 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v27 = [[PPFeedbackItem alloc] initWithItemString:*(*(&v66 + 1) + 8 * v26) itemFeedbackType:3];
+        v27 = [[PPFeedbackItem alloc] initWithItemString:*(*(&v65 + 1) + 8 * v26) itemFeedbackType:3];
         [v15 addObject:v27];
 
         ++v26;
       }
 
       while (v24 != v26);
-      v24 = [v22 countByEnumeratingWithState:&v66 objects:v77 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v65 objects:v76 count:16];
     }
 
     while (v24);
   }
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   v28 = engagedStringsCopy;
-  v29 = [v28 countByEnumeratingWithState:&v62 objects:v76 count:16];
+  v29 = [v28 countByEnumeratingWithState:&v61 objects:v75 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v63;
+    v31 = *v62;
     do
     {
       v32 = 0;
       do
       {
-        if (*v63 != v31)
+        if (*v62 != v31)
         {
           objc_enumerationMutation(v28);
         }
 
-        v33 = [[PPFeedbackItem alloc] initWithItemString:*(*(&v62 + 1) + 8 * v32) itemFeedbackType:2];
+        v33 = [[PPFeedbackItem alloc] initWithItemString:*(*(&v61 + 1) + 8 * v32) itemFeedbackType:2];
         [v15 addObject:v33];
 
         ++v32;
       }
 
       while (v30 != v32);
-      v30 = [v28 countByEnumeratingWithState:&v62 objects:v76 count:16];
+      v30 = [v28 countByEnumeratingWithState:&v61 objects:v75 count:16];
     }
 
     while (v30);
   }
 
-  v51 = v16;
+  v50 = v16;
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   v34 = implicitlyRejectedStringsCopy;
-  v35 = [v34 countByEnumeratingWithState:&v58 objects:v75 count:16];
+  v35 = [v34 countByEnumeratingWithState:&v57 objects:v74 count:16];
   if (v35)
   {
     v36 = v35;
-    v37 = *v59;
+    v37 = *v58;
     do
     {
       v38 = 0;
       do
       {
-        if (*v59 != v37)
+        if (*v58 != v37)
         {
           objc_enumerationMutation(v34);
         }
 
-        v39 = [[PPFeedbackItem alloc] initWithItemString:*(*(&v58 + 1) + 8 * v38) itemFeedbackType:4];
+        v39 = [[PPFeedbackItem alloc] initWithItemString:*(*(&v57 + 1) + 8 * v38) itemFeedbackType:4];
         [v15 addObject:v39];
 
         ++v38;
       }
 
       while (v36 != v38);
-      v36 = [v34 countByEnumeratingWithState:&v58 objects:v75 count:16];
+      v36 = [v34 countByEnumeratingWithState:&v57 objects:v74 count:16];
     }
 
     while (v36);
   }
 
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
   v55 = 0u;
+  v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   v40 = offeredStringsCopy;
-  v41 = [v40 countByEnumeratingWithState:&v54 objects:v74 count:16];
+  v41 = [v40 countByEnumeratingWithState:&v53 objects:v73 count:16];
   if (v41)
   {
     v42 = v41;
-    v43 = *v55;
+    v43 = *v54;
     do
     {
       v44 = 0;
       do
       {
-        if (*v55 != v43)
+        if (*v54 != v43)
         {
           objc_enumerationMutation(v40);
         }
 
-        v45 = [[PPFeedbackItem alloc] initWithItemString:*(*(&v54 + 1) + 8 * v44) itemFeedbackType:5];
+        v45 = [[PPFeedbackItem alloc] initWithItemString:*(*(&v53 + 1) + 8 * v44) itemFeedbackType:5];
         [v15 addObject:v45];
 
         ++v44;
       }
 
       while (v42 != v44);
-      v42 = [v40 countByEnumeratingWithState:&v54 objects:v74 count:16];
+      v42 = [v40 countByEnumeratingWithState:&v53 objects:v73 count:16];
     }
 
     while (v42);
   }
 
   v46 = [v15 copy];
-  v53.receiver = self;
-  v53.super_class = PPFeedback;
-  v47 = [(PPBaseFeedback *)&v53 initWithFeedbackItems:v46 mappingId:0];
+  v52.receiver = self;
+  v52.super_class = PPFeedback;
+  v47 = [(PPBaseFeedback *)&v52 initWithFeedbackItems:v46 mappingId:0];
 
-  v48 = *MEMORY[0x1E69E9840];
   return v47;
 }
 
 - (PPFeedback)initWithOfferedString:(id)string
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v4 = MEMORY[0x1E695DEC8];
   stringCopy2 = string;
   v6 = [v4 arrayWithObjects:&stringCopy count:1];
 
-  v7 = [(PPFeedback *)self initWithExplicitlyEngagedStrings:0 explicitlyRejectedStrings:0 implicitlyEngagedStrings:0 implicitlyRejectedStrings:0 offeredStrings:v6, stringCopy, v11];
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = [(PPFeedback *)self initWithExplicitlyEngagedStrings:0 explicitlyRejectedStrings:0 implicitlyEngagedStrings:0 implicitlyRejectedStrings:0 offeredStrings:v6, stringCopy, v10];
   return v7;
 }
 
 - (PPFeedback)initWithImplicitlyRejectedString:(id)string
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v4 = MEMORY[0x1E695DEC8];
   stringCopy2 = string;
   v6 = [v4 arrayWithObjects:&stringCopy count:1];
 
-  v7 = [(PPFeedback *)self initWithExplicitlyEngagedStrings:0 explicitlyRejectedStrings:0 implicitlyEngagedStrings:0 implicitlyRejectedStrings:v6 offeredStrings:0, stringCopy, v11];
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = [(PPFeedback *)self initWithExplicitlyEngagedStrings:0 explicitlyRejectedStrings:0 implicitlyEngagedStrings:0 implicitlyRejectedStrings:v6 offeredStrings:0, stringCopy, v10];
   return v7;
 }
 
 - (PPFeedback)initWithImplicitlyEngagedString:(id)string
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v4 = MEMORY[0x1E695DEC8];
   stringCopy2 = string;
   v6 = [v4 arrayWithObjects:&stringCopy count:1];
 
-  v7 = [(PPFeedback *)self initWithExplicitlyEngagedStrings:0 explicitlyRejectedStrings:0 implicitlyEngagedStrings:v6 implicitlyRejectedStrings:0 offeredStrings:0, stringCopy, v11];
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = [(PPFeedback *)self initWithExplicitlyEngagedStrings:0 explicitlyRejectedStrings:0 implicitlyEngagedStrings:v6 implicitlyRejectedStrings:0 offeredStrings:0, stringCopy, v10];
   return v7;
 }
 
 - (PPFeedback)initWithExplicitlyRejectedString:(id)string
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v4 = MEMORY[0x1E695DEC8];
   stringCopy2 = string;
   v6 = [v4 arrayWithObjects:&stringCopy count:1];
 
-  v7 = [(PPFeedback *)self initWithExplicitlyEngagedStrings:0 explicitlyRejectedStrings:v6 implicitlyEngagedStrings:0 implicitlyRejectedStrings:0 offeredStrings:0, stringCopy, v11];
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = [(PPFeedback *)self initWithExplicitlyEngagedStrings:0 explicitlyRejectedStrings:v6 implicitlyEngagedStrings:0 implicitlyRejectedStrings:0 offeredStrings:0, stringCopy, v10];
   return v7;
 }
 
 - (PPFeedback)initWithExplicitlyEngagedString:(id)string
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v4 = MEMORY[0x1E695DEC8];
   stringCopy2 = string;
   v6 = [v4 arrayWithObjects:&stringCopy count:1];
 
-  v7 = [(PPFeedback *)self initWithExplicitlyEngagedStrings:v6 explicitlyRejectedStrings:0 implicitlyEngagedStrings:0 implicitlyRejectedStrings:0 offeredStrings:0, stringCopy, v11];
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = [(PPFeedback *)self initWithExplicitlyEngagedStrings:v6 explicitlyRejectedStrings:0 implicitlyEngagedStrings:0 implicitlyRejectedStrings:0 offeredStrings:0, stringCopy, v10];
   return v7;
 }
 

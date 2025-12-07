@@ -22,10 +22,10 @@
 
 - (PFCloudKitStoreComparisonCache)initWithStore:(id)store otherStore:(id)otherStore
 {
-  v17[1] = *MEMORY[0x1E69E9840];
-  v15.receiver = self;
-  v15.super_class = PFCloudKitStoreComparisonCache;
-  v6 = [(PFCloudKitStoreComparisonCache *)&v15 init];
+  v16[1] = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = PFCloudKitStoreComparisonCache;
+  v6 = [(PFCloudKitStoreComparisonCache *)&v14 init];
   if (v6)
   {
     v6->_store = store;
@@ -34,8 +34,8 @@
     -[NSManagedObjectContext setPersistentStoreCoordinator:](v6->_storeMoc, "setPersistentStoreCoordinator:", [store persistentStoreCoordinator]);
     [(NSManagedObjectContext *)v6->_storeMoc _setAllowAncillaryEntities:1];
     storeMoc = v6->_storeMoc;
-    v17[0] = [store identifier];
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+    v16[0] = [store identifier];
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
     if (storeMoc)
     {
       v9 = [v8 copy];
@@ -59,7 +59,6 @@
     v6->_storeUUIDToStoreCache = objc_alloc_init(MEMORY[0x1E695DF90]);
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -74,11 +73,11 @@
 
 - (BOOL)populate:(id *)populate
 {
-  v52[1] = *MEMORY[0x1E69E9840];
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
-  v44 = 1;
+  v51[1] = *MEMORY[0x1E69E9840];
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
+  v43 = 1;
   v5 = dispatch_group_create();
   v6 = objc_alloc_init(PFCloudKitStoreComparisonCacheStoreCache);
   v7 = v6;
@@ -96,68 +95,68 @@
   }
 
   [(NSMutableDictionary *)self->_storeUUIDToStoreCache setObject:v8 forKey:[(NSPersistentStore *)self->_otherStore identifier]];
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3052000000;
-  v38 = __Block_byref_object_copy__15;
-  v39 = __Block_byref_object_dispose__15;
-  v40 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3052000000;
+  v37 = __Block_byref_object_copy__15;
+  v38 = __Block_byref_object_dispose__15;
+  v39 = 0;
   dispatch_group_enter(v5);
   storeMoc = self->_storeMoc;
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __43__PFCloudKitStoreComparisonCache_populate___block_invoke;
-  v34[3] = &unk_1E6EC2808;
-  v34[4] = v7;
-  v34[5] = self;
-  v34[7] = &v35;
-  v34[8] = &v41;
-  v34[6] = v5;
-  [(NSManagedObjectContext *)storeMoc performBlock:v34];
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3052000000;
-  v31 = __Block_byref_object_copy__15;
-  v32 = __Block_byref_object_dispose__15;
-  v33 = 0;
+  v33[0] = MEMORY[0x1E69E9820];
+  v33[1] = 3221225472;
+  v33[2] = __43__PFCloudKitStoreComparisonCache_populate___block_invoke;
+  v33[3] = &unk_1E6EC2808;
+  v33[4] = v7;
+  v33[5] = self;
+  v33[7] = &v34;
+  v33[8] = &v40;
+  v33[6] = v5;
+  [(NSManagedObjectContext *)storeMoc performBlock:v33];
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3052000000;
+  v30 = __Block_byref_object_copy__15;
+  v31 = __Block_byref_object_dispose__15;
+  v32 = 0;
   dispatch_group_enter(v5);
   otherStoreMoc = self->_otherStoreMoc;
-  v27[0] = MEMORY[0x1E69E9820];
-  v27[1] = 3221225472;
-  v27[2] = __43__PFCloudKitStoreComparisonCache_populate___block_invoke_2;
-  v27[3] = &unk_1E6EC2808;
-  v27[4] = v9;
-  v27[5] = self;
-  v27[7] = &v28;
-  v27[8] = &v41;
-  v27[6] = v5;
-  [(NSManagedObjectContext *)otherStoreMoc performBlock:v27];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __43__PFCloudKitStoreComparisonCache_populate___block_invoke_2;
+  v26[3] = &unk_1E6EC2808;
+  v26[4] = v9;
+  v26[5] = self;
+  v26[7] = &v27;
+  v26[8] = &v40;
+  v26[6] = v5;
+  [(NSManagedObjectContext *)otherStoreMoc performBlock:v26];
   v12 = dispatch_time(0, 180000000000);
   if (dispatch_group_wait(v5, v12))
   {
-    *(v42 + 24) = 0;
+    *(v41 + 24) = 0;
     v13 = MEMORY[0x1E696ABC0];
-    v51 = *MEMORY[0x1E696A588];
-    v52[0] = @"Failed to intialize caches in a reasonable amount of time.";
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v52 forKeys:&v51 count:1];
+    v50 = *MEMORY[0x1E696A588];
+    v51[0] = @"Failed to intialize caches in a reasonable amount of time.";
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:&v50 count:1];
     v15 = [v13 errorWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v14];
   }
 
   else
   {
-    if (v42[3])
+    if (v41[3])
     {
       goto LABEL_26;
     }
 
     v16 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v17 = v16;
-    if (v36[5])
+    if (v35[5])
     {
       [v16 addObject:?];
     }
 
-    if (v29[5])
+    if (v28[5])
     {
       [v17 addObject:?];
     }
@@ -180,13 +179,13 @@
     }
 
     v20 = MEMORY[0x1E696ABC0];
-    v49 = @"NSDetailedErrors";
-    v50 = v17;
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+    v48 = @"NSDetailedErrors";
+    v49 = v17;
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
     v15 = [v20 errorWithDomain:*MEMORY[0x1E696A250] code:134060 userInfo:v21];
   }
 
-  if ((v42[3] & 1) == 0)
+  if ((v41[3] & 1) == 0)
   {
     if (v15)
     {
@@ -202,9 +201,9 @@
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v46 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitStoreComparisonCache.m";
-        v47 = 1024;
-        v48 = 162;
+        v45 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitStoreComparisonCache.m";
+        v46 = 1024;
+        v47 = 162;
         _os_log_error_impl(&dword_18565F000, v22, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
       }
 
@@ -212,9 +211,9 @@
       if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v46 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitStoreComparisonCache.m";
-        v47 = 1024;
-        v48 = 162;
+        v45 = "/Library/Caches/com.apple.xbs/Sources/Persistence/PFCloudKitStoreComparisonCache.m";
+        v46 = 1024;
+        v47 = 162;
         _os_log_fault_impl(&dword_18565F000, v23, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
       }
     }
@@ -222,18 +221,17 @@
 
 LABEL_26:
 
-  v36[5] = 0;
-  v29[5] = 0;
+  v35[5] = 0;
+  v28[5] = 0;
 
-  v24 = *(v42 + 24);
-  _Block_object_dispose(&v28, 8);
-  _Block_object_dispose(&v35, 8);
-  _Block_object_dispose(&v41, 8);
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *(v41 + 24);
+  _Block_object_dispose(&v27, 8);
+  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v40, 8);
   return v24;
 }
 
-void __43__PFCloudKitStoreComparisonCache_populate___block_invoke(uint64_t *a1)
+void __43__PFCloudKitStoreComparisonCache_populate___block_invoke(void *a1)
 {
   if (([(PFCloudKitStoreComparisonCacheStoreCache *)a1[4] populateForStore:*(a1[5] + 40) inContext:(*(a1[7] + 8) + 40) error:?]& 1) == 0)
   {

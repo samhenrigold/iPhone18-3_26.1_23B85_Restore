@@ -6,7 +6,7 @@
 
 - (id)preferencesFromContext:(id)context
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = contextCopy;
   if (contextCopy)
@@ -47,13 +47,13 @@
     v10 = 0;
   }
 
-  v59 = v5;
+  v61 = v5;
 
-  v76 = 0;
-  v77 = &v76;
-  v78 = 0x3032000000;
-  v79 = __Block_byref_object_copy__15;
-  v80 = __Block_byref_object_dispose__15;
+  v78 = 0;
+  v79 = &v78;
+  v80 = 0x3032000000;
+  v81 = __Block_byref_object_copy__15;
+  v82 = __Block_byref_object_dispose__15;
   preferences = [v10 preferences];
   v12 = objc_opt_class();
   v13 = preferences;
@@ -77,8 +77,8 @@
 
   v15 = v14;
 
-  v81 = v15;
-  v16 = SBSAContextAndPreferencesRepresentAnyContentVisible(v10, v77[5]);
+  v83 = v15;
+  v16 = SBSAContextAndPreferencesRepresentAnyContentVisible(v10, v79[5]);
   isAnimatedTransitionInProgress = [v10 isAnimatedTransitionInProgress];
   activeDisplay = [v10 activeDisplay];
   cloningStyle = [v10 cloningStyle];
@@ -134,14 +134,14 @@
   if (([v10 isReachabilityActiveOrAnimating] & 1) != 0 || objc_msgSend(v10, "isAccessibilityZoomActiveAndEnabled"))
   {
     secureFlipBookElementContexts = [v10 secureFlipBookElementContexts];
-    v58 = [secureFlipBookElementContexts count] != 0;
+    v60 = [secureFlipBookElementContexts count] != 0;
 
     v35 = 3;
   }
 
   else
   {
-    v58 = 0;
+    v60 = 0;
     v35 = v25;
   }
 
@@ -165,15 +165,15 @@
     v37 = v25;
   }
 
+  v76 = 0uLL;
+  v77 = 0;
+  SBSystemApertureContainerRenderingConfigurationMake(v36, cloningStyle, alwaysShowSystemApertureInSnapshots, &v76);
   v74 = 0uLL;
   v75 = 0;
   SBSystemApertureContainerRenderingConfigurationMake(v36, cloningStyle, alwaysShowSystemApertureInSnapshots, &v74);
   v72 = 0uLL;
   v73 = 0;
-  SBSystemApertureContainerRenderingConfigurationMake(v36, cloningStyle, alwaysShowSystemApertureInSnapshots, &v72);
-  v70 = 0uLL;
-  v71 = 0;
-  SBSystemApertureContainerRenderingConfigurationMake(v37, cloningStyle, alwaysShowSystemApertureInSnapshots, &v70);
+  v38 = SBSystemApertureContainerRenderingConfigurationMake(v37, cloningStyle, alwaysShowSystemApertureInSnapshots, &v72);
   if (isClearModeEnabled)
   {
     cloningStyle = 0;
@@ -183,43 +183,43 @@
   {
     if (v36 == v37)
     {
-      v38 = SBLogSystemAperturePreferencesStackRenderingCloning();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+      v39 = SBLogSystemAperturePreferencesStackRenderingCloning(v38);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
-        v39 = SBStringFromSystemApertureContainerRenderingStyle(v36);
-        v40 = SBStringFromSystemApertureContainerCloningStyle(cloningStyle);
+        v40 = SBStringFromSystemApertureContainerRenderingStyle(v36);
+        v41 = SBStringFromSystemApertureContainerCloningStyle(cloningStyle);
         *buf = 138543618;
-        v83 = v39;
-        v84 = 2114;
         v85 = v40;
-        _os_log_impl(&dword_21ED4E000, v38, OS_LOG_TYPE_DEFAULT, "Updating curtain and container rendering style to: %{public}@, cloning style: %{public}@", buf, 0x16u);
+        v86 = 2114;
+        v87 = v41;
+        _os_log_impl(&dword_21ED4E000, v39, OS_LOG_TYPE_DEFAULT, "Updating curtain and container rendering style to: %{public}@, cloning style: %{public}@", buf, 0x16u);
       }
     }
 
     else
     {
-      v41 = SBLogSystemAperturePreferencesStackRenderingCloning();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+      v42 = SBLogSystemAperturePreferencesStackRenderingCloning(v38);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
-        v42 = SBStringFromSystemApertureContainerRenderingStyle(v37);
-        v43 = SBStringFromSystemApertureContainerCloningStyle(cloningStyle);
+        v43 = SBStringFromSystemApertureContainerRenderingStyle(v37);
+        v44 = SBStringFromSystemApertureContainerCloningStyle(cloningStyle);
         *buf = 138543618;
-        v83 = v42;
-        v84 = 2114;
         v85 = v43;
-        _os_log_impl(&dword_21ED4E000, v41, OS_LOG_TYPE_DEFAULT, "Updating curtain rendering style to: %{public}@, cloning style: %{public}@", buf, 0x16u);
+        v86 = 2114;
+        v87 = v44;
+        _os_log_impl(&dword_21ED4E000, v42, OS_LOG_TYPE_DEFAULT, "Updating curtain rendering style to: %{public}@, cloning style: %{public}@", buf, 0x16u);
       }
 
-      v38 = SBLogSystemAperturePreferencesStackRenderingCloning();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+      v39 = SBLogSystemAperturePreferencesStackRenderingCloning(v45);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
-        v44 = SBStringFromSystemApertureContainerRenderingStyle(v36);
-        v45 = SBStringFromSystemApertureContainerCloningStyle(cloningStyle);
+        v46 = SBStringFromSystemApertureContainerRenderingStyle(v36);
+        v47 = SBStringFromSystemApertureContainerCloningStyle(cloningStyle);
         *buf = 138543618;
-        v83 = v44;
-        v84 = 2114;
-        v85 = v45;
-        _os_log_impl(&dword_21ED4E000, v38, OS_LOG_TYPE_DEFAULT, "Updating container rendering style to: %{public}@, cloning style: %{public}@", buf, 0x16u);
+        v85 = v46;
+        v86 = 2114;
+        v87 = v47;
+        _os_log_impl(&dword_21ED4E000, v39, OS_LOG_TYPE_DEFAULT, "Updating container rendering style to: %{public}@, cloning style: %{public}@", buf, 0x16u);
       }
     }
   }
@@ -227,58 +227,58 @@
   self->_previousContainerRenderingStyle = v36;
   self->_previousCurtainRenderingStyle = v37;
   self->_previousCloningStyle = cloningStyle;
-  v46 = v77[5];
-  v62[0] = MEMORY[0x277D85DD0];
-  v62[1] = 3221225472;
-  v62[2] = __69__SBSARenderingAndCloningPreferencesProvider_preferencesFromContext___block_invoke;
-  v62[3] = &unk_2783ADFF0;
-  v69 = v58;
-  v62[4] = self;
-  v62[5] = &v76;
-  v62[6] = a2;
-  v63 = v72;
-  v64 = v73;
+  v48 = v79[5];
+  v64[0] = MEMORY[0x277D85DD0];
+  v64[1] = 3221225472;
+  v64[2] = __69__SBSARenderingAndCloningPreferencesProvider_preferencesFromContext___block_invoke;
+  v64[3] = &unk_2783ADFF0;
+  v71 = v60;
+  v64[4] = self;
+  v64[5] = &v78;
+  v64[6] = a2;
   v65 = v74;
   v66 = v75;
-  v68 = v71;
-  v67 = v70;
-  v47 = [v46 copyWithBlock:v62];
-  v48 = v77[5];
-  v77[5] = v47;
+  v67 = v76;
+  v68 = v77;
+  v70 = v73;
+  v69 = v72;
+  v49 = [v48 copyWithBlock:v64];
+  v50 = v79[5];
+  v79[5] = v49;
 
-  v49 = [v10 copyByUpdatingPreferences:v77[5]];
-  v61.receiver = self;
-  v61.super_class = SBSARenderingAndCloningPreferencesProvider;
-  v50 = [(SBSABasePreferencesProvider *)&v61 preferencesFromContext:v49];
-  v51 = objc_opt_class();
-  v52 = v50;
-  if (v51)
+  v51 = [v10 copyByUpdatingPreferences:v79[5]];
+  v63.receiver = self;
+  v63.super_class = SBSARenderingAndCloningPreferencesProvider;
+  v52 = [(SBSABasePreferencesProvider *)&v63 preferencesFromContext:v51];
+  v53 = objc_opt_class();
+  v54 = v52;
+  if (v53)
   {
     if (objc_opt_isKindOfClass())
     {
-      v53 = v52;
+      v55 = v54;
     }
 
     else
     {
-      v53 = 0;
+      v55 = 0;
     }
   }
 
   else
   {
-    v53 = 0;
+    v55 = 0;
   }
 
-  v54 = v53;
+  v56 = v55;
 
-  v55 = v77[5];
-  v77[5] = v54;
+  v57 = v79[5];
+  v79[5] = v56;
 
-  v56 = v77[5];
-  _Block_object_dispose(&v76, 8);
+  v58 = v79[5];
+  _Block_object_dispose(&v78, 8);
 
-  return v56;
+  return v58;
 }
 
 void __69__SBSARenderingAndCloningPreferencesProvider_preferencesFromContext___block_invoke(uint64_t a1, void *a2)
@@ -310,7 +310,7 @@ void __69__SBSARenderingAndCloningPreferencesProvider_preferencesFromContext___b
 
     if (!v7)
     {
-      __69__SBSARenderingAndCloningPreferencesProvider_preferencesFromContext___block_invoke_cold_1();
+      __69__SBSARenderingAndCloningPreferencesProvider_preferencesFromContext___block_invoke_cold_1(a1, v5);
     }
   }
 
@@ -403,7 +403,7 @@ void __69__SBSARenderingAndCloningPreferencesProvider_preferencesFromContext___b
 
     if (!v7)
     {
-      __69__SBSARenderingAndCloningPreferencesProvider_preferencesFromContext___block_invoke_2_cold_1();
+      __69__SBSARenderingAndCloningPreferencesProvider_preferencesFromContext___block_invoke_2_cold_1(a1, v5);
     }
   }
 
@@ -446,7 +446,7 @@ void __69__SBSARenderingAndCloningPreferencesProvider_preferencesFromContext___b
 
     if (!v7)
     {
-      __69__SBSARenderingAndCloningPreferencesProvider_preferencesFromContext___block_invoke_3_cold_1();
+      __69__SBSARenderingAndCloningPreferencesProvider_preferencesFromContext___block_invoke_3_cold_1(a1, v5);
     }
   }
 
@@ -469,31 +469,31 @@ void __69__SBSARenderingAndCloningPreferencesProvider_preferencesFromContext___b
   [v8 handleFailureInMethod:a2 object:a3 file:@"SBSARenderingAndCloningPreferencesProvider.m" lineNumber:28 description:{@"Unexpected class – expected '%@', got '%@'", v5, v7}];
 }
 
-void __69__SBSARenderingAndCloningPreferencesProvider_preferencesFromContext___block_invoke_cold_1()
+void __69__SBSARenderingAndCloningPreferencesProvider_preferencesFromContext___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v9 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = NSClassFromString(&cfstr_Sbsapreference_0.isa);
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  [OUTLINED_FUNCTION_0_12(v2 v3];
+  v11 = [MEMORY[0x277CCA890] currentHandler];
+  v2 = NSClassFromString(&cfstr_Sbsapreference_0.isa);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  [OUTLINED_FUNCTION_0_12(v4 v5];
 }
 
-void __69__SBSARenderingAndCloningPreferencesProvider_preferencesFromContext___block_invoke_2_cold_1()
+void __69__SBSARenderingAndCloningPreferencesProvider_preferencesFromContext___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
 {
-  v9 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = NSClassFromString(&cfstr_Sbsacontainerv.isa);
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  [OUTLINED_FUNCTION_0_12(v2 v3];
+  v11 = [MEMORY[0x277CCA890] currentHandler];
+  v2 = NSClassFromString(&cfstr_Sbsacontainerv.isa);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  [OUTLINED_FUNCTION_0_12(v4 v5];
 }
 
-void __69__SBSARenderingAndCloningPreferencesProvider_preferencesFromContext___block_invoke_3_cold_1()
+void __69__SBSARenderingAndCloningPreferencesProvider_preferencesFromContext___block_invoke_3_cold_1(uint64_t a1, uint64_t a2)
 {
-  v9 = [MEMORY[0x277CCA890] currentHandler];
-  v0 = NSClassFromString(&cfstr_Sbsacontainerv.isa);
-  v1 = objc_opt_class();
-  v2 = NSStringFromClass(v1);
-  [OUTLINED_FUNCTION_0_12(v2 v3];
+  v11 = [MEMORY[0x277CCA890] currentHandler];
+  v2 = NSClassFromString(&cfstr_Sbsacontainerv.isa);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  [OUTLINED_FUNCTION_0_12(v4 v5];
 }
 
 @end

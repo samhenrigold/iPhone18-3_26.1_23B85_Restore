@@ -55,9 +55,9 @@
 
 - (void)layoutSubviews
 {
-  v44.receiver = self;
-  v44.super_class = MRURoutingSubtitleView;
-  [(MRURoutingSubtitleView *)&v44 layoutSubviews];
+  v46.receiver = self;
+  v46.super_class = MRURoutingSubtitleView;
+  [(MRURoutingSubtitleView *)&v46 layoutSubviews];
   [(MRURoutingSubtitleView *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -75,21 +75,21 @@
 
   [(MRUEqualizerView *)self->_equalizerView sizeThatFits:v8, v10];
   v18 = v17;
-  v45.origin.x = v4;
-  v45.origin.y = v6;
-  v45.size.width = v8;
-  v45.size.height = v10;
-  MinX = CGRectGetMinX(v45);
-  v46.origin.x = v4;
-  v46.origin.y = v6;
-  v46.size.width = v8;
-  v46.size.height = v10;
-  v20 = v13 + CGRectGetMaxY(v46) - v16;
+  v47.origin.x = v4;
+  v47.origin.y = v6;
+  v47.size.width = v8;
+  v47.size.height = v10;
+  MinX = CGRectGetMinX(v47);
+  v48.origin.x = v4;
+  v48.origin.y = v6;
+  v48.size.width = v8;
+  v48.size.height = v10;
+  v20 = v13 + CGRectGetMaxY(v48) - v16;
   [(MRURoutingSubtitleView *)self bounds];
-  v40 = v20;
-  v41 = MinX;
-  v42 = v18;
-  v43 = v16;
+  v42 = v20;
+  v43 = MinX;
+  v44 = v18;
+  v45 = v16;
   MPRectByApplyingUserInterfaceLayoutDirectionInRect();
   [(MRUEqualizerView *)self->_equalizerView setFrame:?];
   if ([(UIImage *)self->_icon isSymbolImage])
@@ -109,24 +109,24 @@
     v24 = v28;
   }
 
-  v47.origin.x = v4;
-  v47.origin.y = v6;
-  v47.size.width = v8;
-  v47.size.height = v10;
-  v29 = CGRectGetMinX(v47);
-  v48.origin.x = v4;
-  v48.origin.y = v6;
-  v48.size.width = v8;
-  v48.size.height = v10;
-  v30 = (CGRectGetMaxY(v48) - v24) * 0.5;
+  v49.origin.x = v4;
+  v49.origin.y = v6;
+  v49.size.width = v8;
+  v49.size.height = v10;
+  v29 = CGRectGetMinX(v49);
+  v50.origin.x = v4;
+  v50.origin.y = v6;
+  v50.size.width = v8;
+  v50.size.height = v10;
+  v30 = (CGRectGetMaxY(v50) - v24) * 0.5;
   [(UIImageView *)self->_iconImageView setFrame:v29, v30, v22, v24];
   state = self->_state;
   if ((state - 1) < 2)
   {
-    v32 = v42;
-    v33 = v43;
-    v35 = v40;
-    v34 = v41;
+    v32 = v44;
+    v33 = v45;
+    v35 = v42;
+    v34 = v43;
 LABEL_8:
     CGRectGetWidth(*&v34);
     UIRectInset();
@@ -147,23 +147,23 @@ LABEL_8:
   }
 
 LABEL_9:
-  [(UILabel *)self->_textLabel sizeThatFits:v8, v10, *&v40, *&v41, *&v42, *&v43];
-  MRUSizeCeilToViewScale(self);
-  v49.origin.x = v4;
-  v49.origin.y = v6;
-  v49.size.width = v8;
-  v49.size.height = v10;
-  CGRectGetMinX(v49);
-  v50.origin.x = v4;
-  v50.origin.y = v6;
-  v50.size.width = v8;
-  v50.size.height = v10;
-  CGRectGetMinY(v50);
+  [(UILabel *)self->_textLabel sizeThatFits:v8, v10, *&v42, *&v43, *&v44, *&v45];
+  MRUSizeCeilToViewScale(self, v40, v41);
   v51.origin.x = v4;
   v51.origin.y = v6;
   v51.size.width = v8;
   v51.size.height = v10;
-  CGRectGetWidth(v51);
+  CGRectGetMinX(v51);
+  v52.origin.x = v4;
+  v52.origin.y = v6;
+  v52.size.width = v8;
+  v52.size.height = v10;
+  CGRectGetMinY(v52);
+  v53.origin.x = v4;
+  v53.origin.y = v6;
+  v53.size.width = v8;
+  v53.size.height = v10;
+  CGRectGetWidth(v53);
   [(MRURoutingSubtitleView *)self bounds];
   MPRectByApplyingUserInterfaceLayoutDirectionInRect();
   [(UILabel *)self->_textLabel setFrame:?];

@@ -22,11 +22,10 @@
 {
   v3 = objc_alloc(MEMORY[0x277CCACA8]);
   identifier = self->_identifier;
-  options = self->_options;
-  v6 = HKStringFromOntologyFeatureRequestOptions();
-  v7 = [v3 initWithFormat:@"(%@, %@)", identifier, v6];
+  v5 = HKStringFromOntologyFeatureRequestOptions();
+  v6 = [v3 initWithFormat:@"(%@, %@)", identifier, v5];
 
-  return v7;
+  return v6;
 }
 
 - (void)encodeWithCoder:(id)coder

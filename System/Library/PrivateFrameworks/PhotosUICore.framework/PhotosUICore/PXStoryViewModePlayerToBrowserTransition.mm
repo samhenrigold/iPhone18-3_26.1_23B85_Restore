@@ -112,7 +112,7 @@
   v64 = *MEMORY[0x1E69E9840];
   layoutCopy = layout;
   regionOfInterest = [(PXStoryViewModeTransition *)self regionOfInterest];
-  [(PXStoryViewModeTransition *)self swipeDownInteractionState];
+  objc_msgSend_swipeDownInteractionState(self);
   v15 = PXStorySwipeDownInteractionStateEqualsState(__dst, &PXStorySwipeDownInteractionStateNull);
   if (regionOfInterest && ((v16 = v15, !v15) || self->_swipeDownTracker || self->_centerOffsetAnimator || self->_completionProgressAnimator))
   {
@@ -166,7 +166,7 @@
         self->_swipeDownTracker = v37;
 
         memset(__dst, 0, 72);
-        [(PXStoryViewModeTransition *)self swipeDownInteractionState];
+        objc_msgSend_swipeDownInteractionState(self);
         aBlock[0] = MEMORY[0x1E69E9820];
         aBlock[1] = 3221225472;
         aBlock[2] = __97__PXStoryViewModePlayerToBrowserTransition_frameForClipWithInfo_proposedFrame_inViewMode_layout___block_invoke;
@@ -292,7 +292,7 @@ uint64_t __97__PXStoryViewModePlayerToBrowserTransition_frameForClipWithInfo_pro
   v18 = 0u;
   v15 = 0u;
   v16 = 0u;
-  [(PXStoryViewModeTransition *)self swipeDownInteractionState];
+  objc_msgSend_swipeDownInteractionState(self);
   v23 = 0u;
   v24 = 0u;
   v25 = 0;
@@ -374,7 +374,7 @@ void __78__PXStoryViewModePlayerToBrowserTransition_swipeDownInteractionStateDid
   timeline = [snapshotCopy timeline];
   if (snapshotCopy)
   {
-    [snapshotCopy timeRange];
+    objc_msgSend_timeRange(snapshotCopy);
   }
 
   else
@@ -402,7 +402,7 @@ void __78__PXStoryViewModePlayerToBrowserTransition_swipeDownInteractionStateDid
   return v22;
 }
 
-uint64_t __119__PXStoryViewModePlayerToBrowserTransition_initWithSourceTimelineLayoutSnapshot_assetReference_trackingClipIdentifier___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
+id *__119__PXStoryViewModePlayerToBrowserTransition_initWithSourceTimelineLayoutSnapshot_assetReference_trackingClipIdentifier___block_invoke(id *result, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   if (a2 >= 1)
   {
@@ -416,7 +416,7 @@ uint64_t __119__PXStoryViewModePlayerToBrowserTransition_initWithSourceTimelineL
     v13 = result;
     do
     {
-      result = [*(v13 + 32) addIndex:{*a5, v14, v15, v16, v17, v18, v19}];
+      result = [v13[4] addIndex:{*a5, a4, v14, v15, v16, v17, v18, v19}];
       a5 += 96;
       --v12;
     }

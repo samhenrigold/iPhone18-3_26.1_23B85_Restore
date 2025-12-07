@@ -22,7 +22,7 @@
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
   array3 = [MEMORY[0x1E695DF70] array];
-  if ([_additionalPlaceInfos count])
+  if (objc_msgSend_count(_additionalPlaceInfos))
   {
     v50 = itemCopy;
     [_asPlaceInfo name];
@@ -272,7 +272,7 @@ uint64_t __67__PLRevGeoMapItem_GEOServices__sortedAdditionalPlaceInfoComparator_
       sortedPlaceInfos = [(PLRevGeoMapItem *)v7 sortedPlaceInfos];
       LODWORD(sortedPlaceInfos) = [(NSArray *)sortedPlaceInfos isEqualToArray:sortedPlaceInfos];
 
-      if (sortedPlaceInfos && (backupPlaceInfos = self->_backupPlaceInfos, [(PLRevGeoMapItem *)v7 backupPlaceInfos], v11 = objc_claimAutoreleasedReturnValue(), LODWORD(backupPlaceInfos) = [(NSArray *)backupPlaceInfos isEqualToArray:v11], v11, backupPlaceInfos))
+      if (sortedPlaceInfos && (backupPlaceInfos = self->_backupPlaceInfos, objc_msgSend_backupPlaceInfos(v7), v11 = objc_claimAutoreleasedReturnValue(), LODWORD(backupPlaceInfos) = [(NSArray *)backupPlaceInfos isEqualToArray:v11], v11, backupPlaceInfos))
       {
         finalPlaceInfos = self->_finalPlaceInfos;
         finalPlaceInfos = [(PLRevGeoMapItem *)v7 finalPlaceInfos];

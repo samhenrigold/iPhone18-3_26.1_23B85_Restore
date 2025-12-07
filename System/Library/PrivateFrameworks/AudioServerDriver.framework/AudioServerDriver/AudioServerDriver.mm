@@ -1,6 +1,6 @@
 uint64_t ASD_HasProperty(AudioServerPlugInDriverInterface **a1, uint64_t a2, int a3, const AudioObjectPropertyAddress *a4)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = objc_autoreleasePoolPush();
   v8 = getASDPlugin(a1);
   v9 = v8;
@@ -10,50 +10,46 @@ uint64_t ASD_HasProperty(AudioServerPlugInDriverInterface **a1, uint64_t a2, int
     v11 = [v10 hasProperty:a4];
     if (a4)
     {
-      mSelector = a4->mSelector;
-      mScope = a4->mScope;
-      mElement = a4->mElement;
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
-      [v16 UTF8String];
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
+      [v13 UTF8String];
     }
 
-    v17 = v10;
+    v14 = v10;
   }
 
   else
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 136315650;
-      v21 = "!plugin";
-      v22 = 2080;
-      v23 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-      v24 = 1024;
-      v25 = 983;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v20, 0x1Cu);
+      v16 = 136315650;
+      v17 = "!plugin";
+      v18 = 2080;
+      v19 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v20 = 1024;
+      v21 = 983;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v16, 0x1Cu);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_HasProperty: ASD driver reference\n", &v20, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_HasProperty: ASD driver reference\n", &v16, 2u);
     }
 
-    v17 = 0;
+    v14 = 0;
     v11 = 0;
   }
 
   objc_autoreleasePoolPop(v7);
 
-  v18 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t ASD_GetPropertyData(AudioServerPlugInDriverInterface **a1, uint64_t a2, uint64_t a3, const AudioObjectPropertyAddress *a4, unsigned int a5, const void *a6, unsigned int a7, unsigned int *a8, void *a9)
 {
   v9 = 0;
-  v37 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v10 = 2003329396;
   if (a4 && a8)
   {
@@ -100,13 +96,9 @@ uint64_t ASD_GetPropertyData(AudioServerPlugInDriverInterface **a1, uint64_t a2,
         v10 = 560947818;
       }
 
-      mSelector = a4->mSelector;
-      mScope = a4->mScope;
-      mElement = a4->mElement;
-      v24 = *a8;
-      v25 = objc_opt_class();
-      v26 = NSStringFromClass(v25);
-      [v26 UTF8String];
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
+      [v22 UTF8String];
     }
 
     else
@@ -114,11 +106,11 @@ uint64_t ASD_GetPropertyData(AudioServerPlugInDriverInterface **a1, uint64_t a2,
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v32 = "!plugin";
-        v33 = 2080;
-        v34 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-        v35 = 1024;
-        v36 = 1104;
+        v27 = "!plugin";
+        v28 = 2080;
+        v29 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+        v30 = 1024;
+        v31 = 1104;
         _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", buf, 0x1Cu);
       }
 
@@ -140,7 +132,6 @@ uint64_t ASD_GetPropertyData(AudioServerPlugInDriverInterface **a1, uint64_t a2,
     v19 = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -162,7 +153,7 @@ id getASDPlugin(AudioServerPlugInDriverInterface **a1)
 uint64_t ASD_SetPropertyData(AudioServerPlugInDriverInterface **a1, uint64_t a2, uint64_t a3, const AudioObjectPropertyAddress *a4, unsigned int a5, const void *a6, uint64_t a7, const void *a8)
 {
   v8 = 0;
-  v35 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v9 = 2003329396;
   if (a4 && a7)
   {
@@ -210,12 +201,9 @@ uint64_t ASD_SetPropertyData(AudioServerPlugInDriverInterface **a1, uint64_t a2,
           v9 = 560947818;
         }
 
-        mSelector = a4->mSelector;
-        mScope = a4->mScope;
-        mElement = a4->mElement;
-        v23 = objc_opt_class();
-        v24 = NSStringFromClass(v23);
-        [v24 UTF8String];
+        v20 = objc_opt_class();
+        v21 = NSStringFromClass(v20);
+        [v21 UTF8String];
       }
 
       else
@@ -223,11 +211,11 @@ uint64_t ASD_SetPropertyData(AudioServerPlugInDriverInterface **a1, uint64_t a2,
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
-          v30 = "!plugin";
-          v31 = 2080;
-          v32 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-          v33 = 1024;
-          v34 = 1162;
+          v26 = "!plugin";
+          v27 = 2080;
+          v28 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+          v29 = 1024;
+          v30 = 1162;
           _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", buf, 0x1Cu);
         }
 
@@ -250,14 +238,13 @@ uint64_t ASD_SetPropertyData(AudioServerPlugInDriverInterface **a1, uint64_t a2,
     v12 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 uint64_t ASD_IsPropertySettable(AudioServerPlugInDriverInterface **a1, uint64_t a2, int a3, const AudioObjectPropertyAddress *a4, unsigned __int8 *a5)
 {
   v5 = 0;
-  v29 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v6 = 2003329396;
   if (a4)
   {
@@ -290,33 +277,29 @@ uint64_t ASD_IsPropertySettable(AudioServerPlugInDriverInterface **a1, uint64_t 
           v6 = 560947818;
         }
 
-        mSelector = a4->mSelector;
-        mScope = a4->mScope;
-        mElement = a4->mElement;
-        v18 = *a5;
-        v19 = objc_opt_class();
-        v20 = NSStringFromClass(v19);
-        [v20 UTF8String];
+        v15 = objc_opt_class();
+        v16 = NSStringFromClass(v15);
+        [v16 UTF8String];
       }
 
       else
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v23 = 136315650;
-          v24 = "!plugin";
-          v25 = 2080;
-          v26 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-          v27 = 1024;
-          v28 = 1016;
-          _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v23, 0x1Cu);
+          v18 = 136315650;
+          v19 = "!plugin";
+          v20 = 2080;
+          v21 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+          v22 = 1024;
+          v23 = 1016;
+          _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v18, 0x1Cu);
         }
 
         v6 = 560947818;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v23) = 0;
-          _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_IsPropertySettable: ASD driver reference\n", &v23, 2u);
+          LOWORD(v18) = 0;
+          _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_IsPropertySettable: ASD driver reference\n", &v18, 2u);
         }
 
         v5 = 0;
@@ -331,14 +314,13 @@ uint64_t ASD_IsPropertySettable(AudioServerPlugInDriverInterface **a1, uint64_t 
     v8 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t ASD_GetPropertyDataSize(AudioServerPlugInDriverInterface **a1, uint64_t a2, int a3, const AudioObjectPropertyAddress *a4, uint64_t a5, const void *a6, unsigned int *a7)
 {
   v7 = 0;
-  v33 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v8 = 2003329396;
   if (a4)
   {
@@ -371,13 +353,9 @@ uint64_t ASD_GetPropertyDataSize(AudioServerPlugInDriverInterface **a1, uint64_t
           v8 = 560947818;
         }
 
-        mSelector = a4->mSelector;
-        mScope = a4->mScope;
-        mElement = a4->mElement;
-        v21 = *a7;
-        v22 = objc_opt_class();
-        v23 = NSStringFromClass(v22);
-        [v23 UTF8String];
+        v18 = objc_opt_class();
+        v19 = NSStringFromClass(v18);
+        [v19 UTF8String];
       }
 
       else
@@ -385,11 +363,11 @@ uint64_t ASD_GetPropertyDataSize(AudioServerPlugInDriverInterface **a1, uint64_t
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
-          v28 = "!plugin";
-          v29 = 2080;
-          v30 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-          v31 = 1024;
-          v32 = 1061;
+          v23 = "!plugin";
+          v24 = 2080;
+          v25 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+          v26 = 1024;
+          v27 = 1061;
           _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", buf, 0x1Cu);
         }
 
@@ -412,13 +390,12 @@ uint64_t ASD_GetPropertyDataSize(AudioServerPlugInDriverInterface **a1, uint64_t
     v10 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 uint64_t ASD_RemoveDeviceClient(AudioServerPlugInDriverInterface **a1, uint64_t a2, const AudioServerPlugInClientInfo *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v6 = objc_autoreleasePoolPush();
   v7 = getASDPlugin(a1);
   v8 = v7;
@@ -441,20 +418,20 @@ uint64_t ASD_RemoveDeviceClient(AudioServerPlugInDriverInterface **a1, uint64_t 
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136315650;
-      v14 = "!plugin";
-      v15 = 2080;
-      v16 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-      v17 = 1024;
-      v18 = 832;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v13, 0x1Cu);
+      v12 = 136315650;
+      v13 = "!plugin";
+      v14 = 2080;
+      v15 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v16 = 1024;
+      v17 = 832;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v12, 0x1Cu);
     }
 
     v10 = 560947818;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_RemoveDeviceClient: ASD driver reference\n", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_RemoveDeviceClient: ASD driver reference\n", &v12, 2u);
     }
 
     v9 = 0;
@@ -462,13 +439,12 @@ uint64_t ASD_RemoveDeviceClient(AudioServerPlugInDriverInterface **a1, uint64_t 
 
   objc_autoreleasePoolPop(v6);
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t ASD_StartIO(AudioServerPlugInDriverInterface **a1, uint64_t a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v6 = objc_autoreleasePoolPush();
   v7 = getASDPlugin(a1);
   v8 = v7;
@@ -491,20 +467,20 @@ uint64_t ASD_StartIO(AudioServerPlugInDriverInterface **a1, uint64_t a2, uint64_
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136315650;
-      v14 = "!plugin";
-      v15 = 2080;
-      v16 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-      v17 = 1024;
-      v18 = 1221;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v13, 0x1Cu);
+      v12 = 136315650;
+      v13 = "!plugin";
+      v14 = 2080;
+      v15 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v16 = 1024;
+      v17 = 1221;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v12, 0x1Cu);
     }
 
     v10 = 560947818;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_StartIO: ASD driver reference\n", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_StartIO: ASD driver reference\n", &v12, 2u);
     }
 
     v9 = 0;
@@ -512,15 +488,14 @@ uint64_t ASD_StartIO(AudioServerPlugInDriverInterface **a1, uint64_t a2, uint64_
 
   objc_autoreleasePoolPop(v6);
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
-void sub_2415DB020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_2415DB020(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 80), 8);
+  _Block_object_dispose((v22 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -569,88 +544,53 @@ uint64_t ASDPluginInterfaceInfo::deviceRealtimeOperationsForObject(ASDPluginInte
 
 uint64_t ASD_GetZeroTimeStamp(AudioServerPlugInDriverInterface **a1, unsigned int a2, uint64_t a3, double *a4, unint64_t *a5, unint64_t *a6)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = *a1;
-  if (*a1)
+  if (*a1 && *(v6 + 184))
   {
-    v7 = *(v6 + 184);
-    if (v7)
+    v11 = ASDPluginInterfaceInfo::deviceRealtimeOperationsForObject(*(v6 + 184), a2);
+    if (v11)
     {
-      v12 = ASDPluginInterfaceInfo::deviceRealtimeOperationsForObject(*(v6 + 184), a2);
+      v12 = **(v11 + 16);
       if (v12)
       {
-        v13 = **(v12 + 16);
-        if (v13)
-        {
-          v14 = (*(v13 + 16))(v13, a4, a5, a6, a3);
-        }
-
-        else
-        {
-          v14 = 2003329396;
-        }
+        return (*(v12 + 16))(v12, a4, a5, a6, a3);
       }
 
       else
       {
-        v14 = 560227702;
+        return 2003329396;
       }
+    }
 
-      if (a4)
-      {
-        v15 = *a4;
-        if (a5)
-        {
-          goto LABEL_14;
-        }
-      }
-
-      else if (a5)
-      {
-LABEL_14:
-        v16 = *a5;
-        if (!a6)
-        {
-LABEL_18:
-          v18 = *(v7 + 40);
-          goto LABEL_19;
-        }
-
-LABEL_15:
-        v17 = *a6;
-        goto LABEL_18;
-      }
-
-      if (!a6)
-      {
-        goto LABEL_18;
-      }
-
-      goto LABEL_15;
+    else
+    {
+      return 560227702;
     }
   }
 
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  else
   {
-    v21 = 136315650;
-    v22 = "!pluginInterfaceInfo";
-    v23 = 2080;
-    v24 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-    v25 = 1024;
-    v26 = 1289;
-    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v21, 0x1Cu);
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = 136315650;
+      v16 = "!pluginInterfaceInfo";
+      v17 = 2080;
+      v18 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v19 = 1024;
+      v20 = 1289;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v15, 0x1Cu);
+    }
+
+    v13 = 560947818;
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_GetZeroTimeStamp: ASD driver reference\n", &v15, 2u);
+    }
   }
 
-  v14 = 560947818;
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-  {
-    LOWORD(v21) = 0;
-    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_GetZeroTimeStamp: ASD driver reference\n", &v21, 2u);
-  }
-
-LABEL_19:
-  v19 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v13;
 }
 
 uint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::table_impl::findSlotForKey(uint64_t result, unsigned int a2)
@@ -667,7 +607,7 @@ uint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceReal
     v4 = *(result + 8);
   }
 
-  v5 = (v3 + v4 - 3);
+  v5 = v3 + v4 - 3;
   v6 = 0xFFFFFFFFLL;
   v7 = 1;
   v8 = a2 % v2;
@@ -740,186 +680,159 @@ uint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceReal
 
 uint64_t ASD_WillDoIOOperation(AudioServerPlugInDriverInterface **a1, unsigned int a2, uint64_t a3, int a4, unsigned __int8 *a5, unsigned __int8 *a6)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = *a1;
-  if (*a1)
+  if (*a1 && *(v6 + 184))
   {
-    v7 = *(v6 + 184);
-    if (v7)
+    v11 = ASDPluginInterfaceInfo::deviceRealtimeOperationsForObject(*(v6 + 184), a2);
+    if (v11)
     {
-      v12 = ASDPluginInterfaceInfo::deviceRealtimeOperationsForObject(*(v6 + 184), a2);
-      if (!v12)
-      {
-        v13 = 560227702;
-        if (!a5)
-        {
-          if (!a6)
-          {
-            goto LABEL_42;
-          }
-
-          goto LABEL_41;
-        }
-
-LABEL_40:
-        v15 = *a5 == 0;
-        if (!a6)
-        {
-          goto LABEL_42;
-        }
-
-LABEL_41:
-        v15 = *a6 == 0;
-LABEL_42:
-        v16 = *(v7 + 40);
-        goto LABEL_43;
-      }
-
-      v13 = 0;
+      v12 = 0;
       *a5 = 0;
       *a6 = 1;
       if (a4 > 1886218615)
       {
         if (a4 > 1919246691)
         {
-          if (a4 != 1919513701)
+          if (a4 == 1919513701)
           {
-            if (a4 != 1919246692)
+            v13 = v11[10];
+            if (!v13)
             {
-              goto LABEL_40;
+              return 0;
             }
 
-            v14 = v12[3];
-            if (!v14)
-            {
-              goto LABEL_39;
-            }
-
-            goto LABEL_37;
+            goto LABEL_35;
           }
 
-          v14 = v12[10];
-          if (v14)
+          if (a4 == 1919246692)
           {
-            goto LABEL_37;
+            v13 = v11[3];
+            if (!v13)
+            {
+              return 0;
+            }
+
+            goto LABEL_35;
           }
         }
 
         else
         {
-          if (a4 != 1886218616)
+          if (a4 == 1886218616)
           {
-            if (a4 != 1886352756)
+            v13 = v11[8];
+            if (!v13)
             {
-              goto LABEL_40;
+              return 0;
             }
 
-            v14 = v12[6];
-            if (!v14)
-            {
-              goto LABEL_39;
-            }
-
-            goto LABEL_37;
+            goto LABEL_35;
           }
 
-          v14 = v12[8];
-          if (v14)
+          if (a4 == 1886352756)
           {
-            goto LABEL_37;
+            v13 = v11[6];
+            if (!v13)
+            {
+              return 0;
+            }
+
+            goto LABEL_35;
           }
         }
       }
 
       else if (a4 > 1835628654)
       {
-        if (a4 != 1835628655)
+        if (a4 == 1835628655)
         {
-          if (a4 != 1885957744)
+          v13 = v11[7];
+          if (!v13)
           {
-            goto LABEL_40;
+            return 0;
           }
 
-          v14 = v12[5];
-          if (!v14)
-          {
-            goto LABEL_39;
-          }
-
-          goto LABEL_37;
+          goto LABEL_35;
         }
 
-        v14 = v12[7];
-        if (v14)
+        if (a4 == 1885957744)
         {
-          goto LABEL_37;
+          v13 = v11[5];
+          if (!v13)
+          {
+            return 0;
+          }
+
+          goto LABEL_35;
         }
       }
 
       else
       {
-        if (a4 != 1667853936)
+        if (a4 == 1667853936)
         {
-          if (a4 != 1668114808)
+          v13 = v11[4];
+          if (!v13)
           {
-            goto LABEL_40;
+            return 0;
           }
 
-          v14 = v12[9];
-          if (!v14)
-          {
-            goto LABEL_39;
-          }
-
-LABEL_37:
-          if (*v14)
-          {
-            v13 = (*(*v14 + 16))(*v14, a3, a5, a6);
-            goto LABEL_40;
-          }
-
-          goto LABEL_39;
+          goto LABEL_35;
         }
 
-        v14 = v12[4];
-        if (v14)
+        if (a4 == 1668114808)
         {
-          goto LABEL_37;
+          v13 = v11[9];
+          if (!v13)
+          {
+            return 0;
+          }
+
+LABEL_35:
+          if (*v13)
+          {
+            return (*(*v13 + 16))(*v13, a3, a5, a6);
+          }
+
+          return 0;
         }
       }
+    }
 
-LABEL_39:
-      v13 = 0;
-      goto LABEL_40;
+    else
+    {
+      return 560227702;
     }
   }
 
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  else
   {
-    v19 = 136315650;
-    v20 = "!pluginInterfaceInfo";
-    v21 = 2080;
-    v22 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-    v23 = 1024;
-    v24 = 1326;
-    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v19, 0x1Cu);
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = 136315650;
+      v16 = "!pluginInterfaceInfo";
+      v17 = 2080;
+      v18 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v19 = 1024;
+      v20 = 1326;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v15, 0x1Cu);
+    }
+
+    v12 = 560947818;
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_WillDoIOOperation: ASD driver reference\n", &v15, 2u);
+    }
   }
 
-  v13 = 560947818;
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-  {
-    LOWORD(v19) = 0;
-    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_WillDoIOOperation: ASD driver reference\n", &v19, 2u);
-  }
-
-LABEL_43:
-  v17 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v12;
 }
 
 void ASD_IOThreadStateChange(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (*a1 && (v3 = *(*a1 + 40)) != 0 && (WeakRetained = objc_loadWeakRetained((v3 + 24))) != 0)
   {
     v7 = WeakRetained;
@@ -935,19 +848,19 @@ void ASD_IOThreadStateChange(uint64_t a1, uint64_t a2, uint64_t a3)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 136315650;
-        v12 = "true";
-        v13 = 2080;
-        v14 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-        v15 = 1024;
-        v16 = 1764;
-        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIf %s failed in %s at line %d goto Done. ", &v11, 0x1Cu);
+        v10 = 136315650;
+        v11 = "true";
+        v12 = 2080;
+        v13 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+        v14 = 1024;
+        v15 = 1764;
+        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIf %s failed in %s at line %d goto Done. ", &v10, 0x1Cu);
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v11) = 0;
-        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_IOThreadStateChange: Bad device object ID\n", &v11, 2u);
+        LOWORD(v10) = 0;
+        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_IOThreadStateChange: Bad device object ID\n", &v10, 2u);
       }
     }
 
@@ -958,153 +871,143 @@ void ASD_IOThreadStateChange(uint64_t a1, uint64_t a2, uint64_t a3)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315650;
-      v12 = "!plugin";
-      v13 = 2080;
-      v14 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-      v15 = 1024;
-      v16 = 1752;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIf %s failed in %s at line %d goto Done. ", &v11, 0x1Cu);
+      v10 = 136315650;
+      v11 = "!plugin";
+      v12 = 2080;
+      v13 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v14 = 1024;
+      v15 = 1752;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIf %s failed in %s at line %d goto Done. ", &v10, 0x1Cu);
     }
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v11) = 0;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_SetupForIsolatedIO: ASD driver reference\n", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_SetupForIsolatedIO: ASD driver reference\n", &v10, 2u);
     }
 
     v7 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ASD_BeginIOOperation(AudioServerPlugInDriverInterface **a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, const AudioServerPlugInIOCycleInfo *a6)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = *a1;
-  if (*a1 && (v7 = *(v6 + 184)) != 0)
+  if (*a1 && *(v6 + 184))
   {
-    v12 = ASDPluginInterfaceInfo::deviceRealtimeOperationsForObject(*(v6 + 184), a2);
-    if (v12)
+    v11 = ASDPluginInterfaceInfo::deviceRealtimeOperationsForObject(*(v6 + 184), a2);
+    if (v11)
     {
-      v13 = **(v12 + 88);
-      if (v13)
+      v12 = **(v11 + 88);
+      if (v12)
       {
-        v14 = (*(v13 + 16))(v13, a4, a5, a6, a3);
+        return (*(v12 + 16))(v12, a4, a5, a6, a3);
       }
 
       else
       {
-        v14 = 0;
+        return 0;
       }
     }
 
     else
     {
-      v14 = 560227702;
+      return 560227702;
     }
-
-    mHostTime = a6->mCurrentTime.mHostTime;
-    v16 = a6->mInputTime.mHostTime;
-    v17 = a6->mOutputTime.mHostTime;
-    v18 = *(v7 + 40);
   }
 
   else
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 136315650;
-      v22 = "!pluginInterfaceInfo";
-      v23 = 2080;
-      v24 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-      v25 = 1024;
-      v26 = 1427;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v21, 0x1Cu);
+      v15 = 136315650;
+      v16 = "!pluginInterfaceInfo";
+      v17 = 2080;
+      v18 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v19 = 1024;
+      v20 = 1427;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v15, 0x1Cu);
     }
 
-    v14 = 560947818;
+    v13 = 560947818;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_BeginIOOperation: ASD driver reference\n", &v21, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_BeginIOOperation: ASD driver reference\n", &v15, 2u);
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v13;
 }
 
 uint64_t ASD_DoIOOperation(AudioServerPlugInDriverInterface **a1, unsigned int a2, unsigned int a3, unsigned int a4, int a5, unsigned int a6, const AudioServerPlugInIOCycleInfo *a7, void *a8, void *a9)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v9 = *a1;
-  if (!*a1 || (v10 = *(v9 + 184)) == 0)
+  if (!*a1 || !*(v9 + 184))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 136315650;
-      v22 = "!pluginInterfaceInfo";
-      v23 = 2080;
-      v24 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-      v25 = 1024;
-      v26 = 1465;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v21, 0x1Cu);
+      v17 = 136315650;
+      v18 = "!pluginInterfaceInfo";
+      v19 = 2080;
+      v20 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v21 = 1024;
+      v22 = 1465;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v17, 0x1Cu);
     }
 
-    v14 = 560947818;
+    v12 = 560947818;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_DoIOOperation: ASD driver reference\n", &v21, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_DoIOOperation: ASD driver reference\n", &v17, 2u);
     }
 
-    goto LABEL_32;
+    return v12;
   }
 
-  v12 = *(v10 + 40);
-  v13 = ASDPluginInterfaceInfo::streamRealtimeOperationsForObject(*(v9 + 184), a3);
-  if (!v13)
+  v11 = ASDPluginInterfaceInfo::streamRealtimeOperationsForObject(*(v9 + 184), a3);
+  if (!v11)
   {
-    v14 = 561214578;
-    goto LABEL_32;
+    return 561214578;
   }
 
-  v14 = 1852797029;
+  v12 = 1852797029;
   if (a5 > 1886218615)
   {
     if (a5 > 1919246691)
     {
       if (a5 == 1919246692)
       {
-        v15 = 8;
+        v13 = 8;
       }
 
       else
       {
         if (a5 != 1919513701)
         {
-          goto LABEL_32;
+          return v12;
         }
 
-        v15 = 64;
+        v13 = 64;
       }
     }
 
     else if (a5 == 1886218616)
     {
-      v15 = 48;
+      v13 = 48;
     }
 
     else
     {
       if (a5 != 1886352756)
       {
-        goto LABEL_32;
+        return v12;
       }
 
-      v15 = 32;
+      v13 = 32;
     }
   }
 
@@ -1112,17 +1015,17 @@ uint64_t ASD_DoIOOperation(AudioServerPlugInDriverInterface **a1, unsigned int a
   {
     if (a5 == 1835628655)
     {
-      v15 = 40;
+      v13 = 40;
     }
 
     else
     {
       if (a5 != 1885957744)
       {
-        goto LABEL_32;
+        return v12;
       }
 
-      v15 = 24;
+      v13 = 24;
     }
   }
 
@@ -1132,29 +1035,26 @@ uint64_t ASD_DoIOOperation(AudioServerPlugInDriverInterface **a1, unsigned int a
     {
       if (a5 == 1668114808)
       {
-        v15 = 56;
+        v13 = 56;
         goto LABEL_28;
       }
 
-LABEL_32:
-      v20 = *MEMORY[0x277D85DE8];
-      return v14;
+      return v12;
     }
 
-    v15 = 16;
+    v13 = 16;
   }
 
 LABEL_28:
-  v16 = **(v13 + v15);
-  if (!v16)
+  v14 = **(v11 + v13);
+  if (!v14)
   {
-    goto LABEL_32;
+    return v12;
   }
 
-  v17 = *(v16 + 16);
-  v18 = *MEMORY[0x277D85DE8];
+  v15 = *(v14 + 16);
 
-  return v17();
+  return v15();
 }
 
 uint64_t ASDPluginInterfaceInfo::streamRealtimeOperationsForObject(ASDPluginInterfaceInfo *this, unsigned int a2)
@@ -1202,64 +1102,58 @@ uint64_t ASDPluginInterfaceInfo::streamRealtimeOperationsForObject(ASDPluginInte
 
 uint64_t ASD_EndIOOperation(AudioServerPlugInDriverInterface **a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, const AudioServerPlugInIOCycleInfo *a6)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = *a1;
-  if (*a1 && (v7 = *(v6 + 184)) != 0)
+  if (*a1 && *(v6 + 184))
   {
-    v12 = ASDPluginInterfaceInfo::deviceRealtimeOperationsForObject(*(v6 + 184), a2);
-    if (v12)
+    v11 = ASDPluginInterfaceInfo::deviceRealtimeOperationsForObject(*(v6 + 184), a2);
+    if (v11)
     {
-      v13 = **(v12 + 96);
-      if (v13)
+      v12 = **(v11 + 96);
+      if (v12)
       {
-        v14 = (*(v13 + 16))(v13, a4, a5, a6, a3);
+        return (*(v12 + 16))(v12, a4, a5, a6, a3);
       }
 
       else
       {
-        v14 = 0;
+        return 0;
       }
     }
 
     else
     {
-      v14 = 560227702;
+      return 560227702;
     }
-
-    mHostTime = a6->mCurrentTime.mHostTime;
-    v16 = a6->mInputTime.mHostTime;
-    v17 = a6->mOutputTime.mHostTime;
-    v18 = *(v7 + 40);
   }
 
   else
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 136315650;
-      v22 = "!pluginInterfaceInfo";
-      v23 = 2080;
-      v24 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-      v25 = 1024;
-      v26 = 1537;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v21, 0x1Cu);
+      v15 = 136315650;
+      v16 = "!pluginInterfaceInfo";
+      v17 = 2080;
+      v18 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v19 = 1024;
+      v20 = 1537;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v15, 0x1Cu);
     }
 
-    v14 = 560947818;
+    v13 = 560947818;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_EndIOOperation: ASD driver reference\n", &v21, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_EndIOOperation: ASD driver reference\n", &v15, 2u);
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v13;
 }
 
 uint64_t ASD_StopIO(AudioServerPlugInDriverInterface **a1, uint64_t a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v6 = objc_autoreleasePoolPush();
   v7 = getASDPlugin(a1);
   v8 = v7;
@@ -1282,20 +1176,20 @@ uint64_t ASD_StopIO(AudioServerPlugInDriverInterface **a1, uint64_t a2, uint64_t
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136315650;
-      v14 = "!plugin";
-      v15 = 2080;
-      v16 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-      v17 = 1024;
-      v18 = 1255;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v13, 0x1Cu);
+      v12 = 136315650;
+      v13 = "!plugin";
+      v14 = 2080;
+      v15 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v16 = 1024;
+      v17 = 1255;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v12, 0x1Cu);
     }
 
     v10 = 560947818;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_StopIO: ASD driver reference\n", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_StopIO: ASD driver reference\n", &v12, 2u);
     }
 
     v9 = 0;
@@ -1303,13 +1197,12 @@ uint64_t ASD_StopIO(AudioServerPlugInDriverInterface **a1, uint64_t a2, uint64_t
 
   objc_autoreleasePoolPop(v6);
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t ASD_PerformDeviceConfigurationChange(AudioServerPlugInDriverInterface **a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v8 = objc_autoreleasePoolPush();
   v9 = getASDPlugin(a1);
   v10 = v9;
@@ -1350,20 +1243,20 @@ uint64_t ASD_PerformDeviceConfigurationChange(AudioServerPlugInDriverInterface *
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 136315650;
-      v17 = "!plugin";
-      v18 = 2080;
-      v19 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-      v20 = 1024;
-      v21 = 877;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v16, 0x1Cu);
+      v15 = 136315650;
+      v16 = "!plugin";
+      v17 = 2080;
+      v18 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v19 = 1024;
+      v20 = 877;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v15, 0x1Cu);
     }
 
     v12 = 560947818;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_PerformDeviceConfigurationChange: ASD driver reference\n", &v16, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_PerformDeviceConfigurationChange: ASD driver reference\n", &v15, 2u);
     }
 
     v13 = 0;
@@ -1371,7 +1264,6 @@ uint64_t ASD_PerformDeviceConfigurationChange(AudioServerPlugInDriverInterface *
 
   objc_autoreleasePoolPop(v8);
 
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -1382,21 +1274,21 @@ void sub_2415DD2BC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t ASDSRCStreamHelper::ASDSRCStreamHelper(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, int a5)
+uint64_t ASDSRCStreamHelper::ASDSRCStreamHelper(uint64_t a1, __int128 *a2, char **a3, uint64_t *a4, int a5, int a6)
 {
-  v10 = *a2;
-  v11 = *(a2 + 16);
-  *(a1 + 32) = *(a2 + 32);
-  *a1 = v10;
-  *(a1 + 16) = v11;
+  v11 = *a2;
+  v12 = a2[1];
+  *(a1 + 32) = *(a2 + 4);
+  *a1 = v11;
+  *(a1 + 16) = v12;
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
   *(a1 + 56) = 0;
-  std::vector<CAStreamBasicDescription>::__init_with_size[abi:ne200100]<CAStreamBasicDescription*,CAStreamBasicDescription*>(a1 + 40, *a3, a3[1], 0xCCCCCCCCCCCCCCCDLL * ((a3[1] - *a3) >> 3));
+  std::vector<CAStreamBasicDescription>::__init_with_size[abi:ne200100]<CAStreamBasicDescription*,CAStreamBasicDescription*>((a1 + 40), *a3, a3[1], 0xCCCCCCCCCCCCCCCDLL * ((a3[1] - *a3) >> 3));
   *(a1 + 64) = 0;
   *(a1 + 72) = 0;
   *(a1 + 80) = 0;
-  std::vector<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks>::__init_with_size[abi:ne200100]<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks*,ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks*>(a1 + 64, *a4, a4[1], 0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 3));
+  std::vector<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks>::__init_with_size[abi:ne200100]<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks*,ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks*>((a1 + 64), *a4, a4[1], 0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 3));
   *(a1 + 136) = 0u;
   *(a1 + 160) = 0;
   *(a1 + 152) = 0;
@@ -1408,164 +1300,164 @@ uint64_t ASDSRCStreamHelper::ASDSRCStreamHelper(uint64_t a1, uint64_t a2, uint64
   *(a1 + 192) = 0;
   *(a1 + 176) = 0;
   *(a1 + 200) = 1;
-  v12 = a3[1] - *a3;
-  if (!v12)
+  v13 = a3[1] - *a3;
+  if (!v13)
   {
-    v37 = "underlyingStreamFormats.size() > 0";
-    v38 = 30;
+    v38 = "underlyingStreamFormats.size() > 0";
+    v39 = 30;
     goto LABEL_43;
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 3) != 0xCCCCCCCCCCCCCCCDLL * (v12 >> 3))
+  if (0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 3) != 0xCCCCCCCCCCCCCCCDLL * (v13 >> 3))
   {
-    v37 = "underlyingStreamIOBlocks.size() == underlyingStreamFormats.size()";
-    v38 = 31;
+    v38 = "underlyingStreamIOBlocks.size() == underlyingStreamFormats.size()";
+    v39 = 31;
     goto LABEL_43;
   }
 
   if ((*(a2 + 12) & 0x20) != 0)
   {
-    v37 = "srcFormat.IsInterleaved()";
-    v38 = 32;
+    v38 = "srcFormat.IsInterleaved()";
+    v39 = 32;
     goto LABEL_43;
   }
 
   if (*a2 == 0.0)
   {
-    v37 = "srcFormat.mSampleRate != 0";
-    v38 = 33;
+    v38 = "srcFormat.mSampleRate != 0";
+    v39 = 33;
 LABEL_43:
-    __assert_rtn("ASDSRCStreamHelper", "ASDSRCStreamHelper.mm", v38, v37);
+    __assert_rtn("ASDSRCStreamHelper", "ASDSRCStreamHelper.mm", v39, v38);
   }
 
   CAStreamBasicDescription::CAStreamBasicDescription(&inSourceFormat);
-  v42 = a2;
+  v43 = a2;
   CAStreamBasicDescription::CAStreamBasicDescription(&inDestinationFormat);
-  v13 = *a3;
-  v41 = a3[1];
-  if (*a3 != v41)
+  v14 = *a3;
+  v42 = a3[1];
+  if (*a3 != v42)
   {
     while (1)
     {
-      if ((*(v13 + 12) & 0x20) != 0)
+      if ((v14[12] & 0x20) != 0)
       {
-        v35 = 42;
-        v36 = "underlyingFmt.IsInterleaved()";
+        v36 = 42;
+        v37 = "underlyingFmt.IsInterleaved()";
         goto LABEL_38;
       }
 
-      v14 = *(v13 + 28);
-      if (!v14)
+      v15 = *(v14 + 7);
+      if (!v15)
       {
-        v35 = 43;
-        v36 = "underlyingFmt.NumberChannels() != 0";
+        v36 = 43;
+        v37 = "underlyingFmt.NumberChannels() != 0";
         goto LABEL_38;
       }
 
-      if (v14 != *(v42 + 28))
+      if (v15 != *(v43 + 7))
       {
         break;
       }
 
-      v15 = *v13;
-      if (*v13 == 0.0)
+      v16 = *v14;
+      if (*v14 == 0.0)
       {
-        v35 = 45;
-        v36 = "underlyingFmt.mSampleRate != 0";
+        v36 = 45;
+        v37 = "underlyingFmt.mSampleRate != 0";
 LABEL_38:
-        __assert_rtn("ASDSRCStreamHelper", "ASDSRCStreamHelper.mm", v35, v36);
+        __assert_rtn("ASDSRCStreamHelper", "ASDSRCStreamHelper.mm", v36, v37);
       }
 
-      v16 = *v42;
+      v17 = *v43;
       if (a5)
       {
-        v17 = *v42;
+        v18 = *v43;
       }
 
       else
       {
-        v17 = *v13;
+        v18 = *v14;
       }
 
       if (a5)
       {
-        v18 = *v13;
+        v19 = *v14;
       }
 
       else
       {
-        v18 = *v42;
+        v19 = *v43;
       }
 
-      v19 = *(a1 + 160);
-      v20 = v17 / v18;
-      if (v18 > v17)
+      v20 = *(a1 + 160);
+      v21 = v18 / v19;
+      if (v19 > v18)
       {
-        v20 = v18 / v17;
+        v21 = v19 / v18;
       }
 
-      if (v19 <= v20)
+      if (v20 <= v21)
       {
-        v19 = v20;
+        v20 = v21;
       }
 
-      *(a1 + 160) = v19;
-      if (v15 != v16)
+      *(a1 + 160) = v20;
+      if (v16 != v17)
       {
         memset(&__p, 0, 24);
         operator new();
       }
 
       *(a1 + 152) = 1;
-      v13 += 40;
-      if (v13 == v41)
+      v14 += 40;
+      if (v14 == v42)
       {
         goto LABEL_23;
       }
     }
 
-    v35 = 44;
-    v36 = "underlyingFmt.NumberChannels() == srcFormat.NumberChannels()";
+    v36 = 44;
+    v37 = "underlyingFmt.NumberChannels() == srcFormat.NumberChannels()";
     goto LABEL_38;
   }
 
 LABEL_23:
   if (a5)
   {
-    v21 = (a1 + 136);
-    v22 = *(*a3 + 32);
-    v23 = *(*a3 + 16);
+    v22 = (a1 + 136);
+    v23 = *(*a3 + 4);
+    v24 = *(*a3 + 1);
     *&inSourceFormat.mSampleRate = **a3;
-    *&inSourceFormat.mBytesPerPacket = v23;
-    *&inSourceFormat.mBitsPerChannel = v22;
-    v24 = v42;
+    *&inSourceFormat.mBytesPerPacket = v24;
+    *&inSourceFormat.mBitsPerChannel = v23;
+    v25 = v43;
   }
 
   else
   {
-    v25 = *(v42 + 16);
-    *&inSourceFormat.mSampleRate = *v42;
-    *&inSourceFormat.mBytesPerPacket = v25;
-    *&inSourceFormat.mBitsPerChannel = *(v42 + 32);
-    v21 = (a1 + 136);
-    v24 = *a3;
+    v26 = v43[1];
+    *&inSourceFormat.mSampleRate = *v43;
+    *&inSourceFormat.mBytesPerPacket = v26;
+    *&inSourceFormat.mBitsPerChannel = *(v43 + 4);
+    v22 = (a1 + 136);
+    v25 = *a3;
   }
 
-  v26 = *v24;
-  v27 = *(v24 + 16);
-  *&inDestinationFormat.mBitsPerChannel = *(v24 + 32);
-  *&inDestinationFormat.mSampleRate = v26;
-  *&inDestinationFormat.mBytesPerPacket = v27;
+  v27 = *v25;
+  v28 = v25[1];
+  *&inDestinationFormat.mBitsPerChannel = *(v25 + 4);
+  *&inDestinationFormat.mSampleRate = v27;
+  *&inDestinationFormat.mBytesPerPacket = v28;
   if (*(a1 + 152))
   {
-    v28 = AudioConverterNew(&inSourceFormat, &inDestinationFormat, v21 + 1);
-    v29 = v28;
-    if (v28)
+    v29 = AudioConverterNew(&inSourceFormat, &inDestinationFormat, v22 + 1);
+    v30 = v29;
+    if (v29)
     {
-      LOBYTE(__p.mSampleRate) = HIBYTE(v28);
-      BYTE1(__p.mSampleRate) = BYTE2(v28);
-      BYTE2(__p.mSampleRate) = BYTE1(v28);
-      *(&__p.mSampleRate + 3) = v28;
+      LOBYTE(__p.mSampleRate) = HIBYTE(v29);
+      BYTE1(__p.mSampleRate) = BYTE2(v29);
+      BYTE2(__p.mSampleRate) = BYTE1(v29);
+      *(&__p.mSampleRate + 3) = v29;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         ASDSRCStreamHelper::ASDSRCStreamHelper();
@@ -1573,7 +1465,7 @@ LABEL_23:
 
       exception = __cxa_allocate_exception(0x10uLL);
       *exception = &unk_2853449C8;
-      exception[2] = v29;
+      exception[2] = v30;
     }
   }
 
@@ -1586,31 +1478,14 @@ LABEL_23:
     __p.mBytesPerPacket = 4 * inSourceFormat.mChannelsPerFrame;
     __p.mBytesPerFrame = 4 * inSourceFormat.mChannelsPerFrame;
     __p.mBitsPerChannel = 32;
-    v31 = AudioConverterNew(&inSourceFormat, &__p, v21);
-    v32 = v31;
-    if (v31)
+    v32 = AudioConverterNew(&inSourceFormat, &__p, v22);
+    v33 = v32;
+    if (v32)
     {
-      LOBYTE(v43.mSampleRate) = HIBYTE(v31);
-      BYTE1(v43.mSampleRate) = BYTE2(v31);
-      BYTE2(v43.mSampleRate) = BYTE1(v31);
-      *(&v43.mSampleRate + 3) = v31;
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        ASDSRCStreamHelper::ASDSRCStreamHelper();
-      }
-
-      v39 = __cxa_allocate_exception(0x10uLL);
-      *v39 = &unk_2853449C8;
-      v39[2] = v32;
-    }
-
-    *&v43.mFormatID = *&__p.mFormatID;
-    *&v43.mBytesPerPacket = *&__p.mBytesPerPacket;
-    *&v43.mBitsPerChannel = *&__p.mBitsPerChannel;
-    v43.mSampleRate = inDestinationFormat.mSampleRate;
-    v33 = AudioConverterNew(&v43, &inDestinationFormat, v21 + 1);
-    if (v33)
-    {
+      LOBYTE(v44.mSampleRate) = HIBYTE(v32);
+      BYTE1(v44.mSampleRate) = BYTE2(v32);
+      BYTE2(v44.mSampleRate) = BYTE1(v32);
+      *(&v44.mSampleRate + 3) = v32;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         ASDSRCStreamHelper::ASDSRCStreamHelper();
@@ -1619,6 +1494,23 @@ LABEL_23:
       v40 = __cxa_allocate_exception(0x10uLL);
       *v40 = &unk_2853449C8;
       v40[2] = v33;
+    }
+
+    *&v44.mFormatID = *&__p.mFormatID;
+    *&v44.mBytesPerPacket = *&__p.mBytesPerPacket;
+    *&v44.mBitsPerChannel = *&__p.mBitsPerChannel;
+    v44.mSampleRate = inDestinationFormat.mSampleRate;
+    v34 = AudioConverterNew(&v44, &inDestinationFormat, v22 + 1);
+    if (v34)
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      {
+        ASDSRCStreamHelper::ASDSRCStreamHelper();
+      }
+
+      v41 = __cxa_allocate_exception(0x10uLL);
+      *v41 = &unk_2853449C8;
+      v41[2] = v34;
     }
   }
 
@@ -1639,7 +1531,7 @@ void sub_2415DE2C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::vector<RamstadSRC *>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<RamstadSRC *>>::push_back[abi:ne200100](uint64_t a1, const void **a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -1650,7 +1542,7 @@ uint64_t std::vector<std::vector<RamstadSRC *>>::push_back[abi:ne200100](uint64_
   else
   {
     std::vector<std::vector<RamstadSRC *>>::__construct_one_at_end[abi:ne200100]<std::vector<RamstadSRC *> const&>(a1, a2);
-    result = v3 + 24;
+    result = (v3 + 24);
   }
 
   *(a1 + 8) = result;
@@ -1782,269 +1674,8 @@ void ASDSRCStreamHelper::deallocateStreamingResources(ASDSRCStreamHelper *this)
 
 uint64_t ASDSRCStreamHelper::readInput(ASDSRCStreamHelper *this, uint64_t a2, const AudioServerPlugInIOCycleInfo *a3, void *a4, void *a5, unsigned int a6)
 {
-  v74 = *MEMORY[0x277D85DE8];
-  if (a4)
-  {
-    if (a3)
-    {
-      v9 = *&a3->mOutputTime.mSMPTETime.mSubframes;
-      v70 = *&a3->mOutputTime.mRateScalar;
-      v71 = v9;
-      v10 = *&a3->mMainHostTicksPerFrame;
-      v72 = *&a3->mOutputTime.mSMPTETime.mHours;
-      v73 = v10;
-      v11 = *&a3->mInputTime.mSMPTETime.mSubframes;
-      v66 = *&a3->mInputTime.mRateScalar;
-      v67 = v11;
-      v12 = *&a3->mOutputTime.mSampleTime;
-      v68 = *&a3->mInputTime.mSMPTETime.mHours;
-      v69 = v12;
-      v13 = *&a3->mCurrentTime.mSMPTETime.mSubframes;
-      v62 = *&a3->mCurrentTime.mRateScalar;
-      v63 = v13;
-      v14 = *&a3->mInputTime.mSampleTime;
-      v64 = *&a3->mCurrentTime.mSMPTETime.mHours;
-      v65 = v14;
-      v15 = *(this + 22) == a3->mInputTime.mSampleTime;
-      v16 = *&a3->mIOCycleCounter;
-      v17 = *&a3->mCurrentTime.mSampleTime;
-      *buf = *&a3->mIOCycleCounter;
-      *&buf[16] = v17;
-      if (!v15)
-      {
-        *(this + 200) = 1;
-      }
-
-      v18 = *(this + 8);
-      if (*(this + 9) != v18)
-      {
-        v19 = 0;
-        v20 = 0;
-        v50 = 4 * a2;
-        while (1)
-        {
-          v21 = *(this + 5);
-          if (0xCCCCCCCCCCCCCCCDLL * ((*(this + 6) - v21) >> 3) <= v19)
-          {
-            std::vector<CAStreamBasicDescription>::__throw_out_of_range[abi:ne200100]();
-          }
-
-          v22 = (v18 + 24 * v19);
-          if (!*v22)
-          {
-            v24 = 1937010544;
-            goto LABEL_47;
-          }
-
-          v23 = v21 + 40 * v19;
-          if (*(this + 152) == 1)
-          {
-            v24 = (*(*v22 + 16))(*v22, a2, a3, *(this + 12), 0, a6);
-            v25 = *(v23 + 24) * a2;
-            ioOutputDataSize = *(this + 6) * a2;
-            if (v25 > *(this + 27))
-            {
-              if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-              {
-                *v56 = 136315650;
-                *v57 = "inputDataSize > mBufferSize[1]";
-                *&v57[8] = 2080;
-                v58 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDSRCStreamHelper.mm";
-                v59 = 1024;
-                v60 = 227;
-                _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithFault %s failed in %s at line %d goto Exit. ", v56, 0x1Cu);
-              }
-
-              if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-              {
-                v48 = *(this + 27);
-                *v56 = 67109376;
-                *v57 = v25;
-                *&v57[4] = 1024;
-                *&v57[6] = v48;
-                _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Input data size %d exceeds driver capacity %d in SRC  readInput\n", v56, 0xEu);
-              }
-
-              if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
-              {
-                ASDSRCStreamHelper::readInput(this + 27);
-              }
-
-              goto LABEL_48;
-            }
-
-            if (AudioConverterConvertBuffer(*(this + 18), v25, *(this + 12), &ioOutputDataSize, a4))
-            {
-              v24 = 560226676;
-            }
-
-            else
-            {
-              v24 = v24;
-            }
-          }
-
-          else
-          {
-            v51 = v20;
-            v26 = *(v23 + 28);
-            LODWORD(v16) = a3->mNominalIOBufferFrameSize;
-            v27 = v16;
-            v28 = *v23;
-            v29 = *v23 * v27;
-            v30 = *this;
-            *&v29 = v29 / *this;
-            *&buf[8] = vcvtas_u32_f32(*&v29);
-            v31 = *(this + 14);
-            if (0xAAAAAAAAAAAAAAABLL * ((*(this + 15) - v31) >> 3) <= v19)
-            {
-              std::vector<CAStreamBasicDescription>::__throw_out_of_range[abi:ne200100]();
-            }
-
-            v32 = (v31 + 24 * v19);
-            if (*(this + 200) == 1)
-            {
-              *&v65 = round(v28 * a3->mInputTime.mSampleTime / v30);
-              *(this + 200) = 0;
-              v33 = *v32;
-              v34 = v32[1];
-              while (v33 != v34)
-              {
-                RamstadSRC::reset(*v33++);
-              }
-            }
-
-            else
-            {
-              *&v65 = *(this + 23) + *(this + 24);
-            }
-
-            v35 = RamstadSRC::inputSamplesForOutputSamples(**v32, a2);
-            v36 = *(this + 11);
-            v37 = (*(*v22 + 16))();
-            *(this + 24) = v35;
-            v38 = *(v23 + 24) * v35;
-            ioOutputDataSize = 4 * v26 * v35;
-            if (AudioConverterConvertBuffer(*(this + 17), v38, *(this + 11), &ioOutputDataSize, *(this + 12)))
-            {
-LABEL_46:
-              v24 = 560226676;
-              goto LABEL_47;
-            }
-
-            v52 = v37;
-            if (v26)
-            {
-              for (i = 0; i != v26; ++i)
-              {
-                if (i >= v32[1] - *v32)
-                {
-                  std::vector<CAStreamBasicDescription>::__throw_out_of_range[abi:ne200100]();
-                }
-
-                v40 = (*v32)[i];
-                if (*(v40 + 8) != 1)
-                {
-                  __assert_rtn("readInput", "ASDSRCStreamHelper.mm", 278, "src->numChannels() == 1 && Number of SRC channels is not 1");
-                }
-
-                v41 = *(this + 11);
-                v42 = *(this + 12);
-                v43 = RamstadSRC::inputSamplesForOutputSamples(v40, a2);
-                RamstadSRC::processMono(v40, (v42 + 4 * i), (v41 + 4 * i), v43, a2, v26, v26);
-                if (v44 != v43)
-                {
-                  __assert_rtn("readInput", "ASDSRCStreamHelper.mm", 284, "inputFramesConsumed == numInputFrames");
-                }
-              }
-            }
-
-            v45 = v50 * v26;
-            ioOutputDataSize = *(this + 6) * a2;
-            if (v45 > *(this + 26))
-            {
-              if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-              {
-                *v56 = 136315650;
-                *v57 = "inputDataSize > mBufferSize[0]";
-                *&v57[8] = 2080;
-                v58 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDSRCStreamHelper.mm";
-                v59 = 1024;
-                v60 = 289;
-                _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithFault %s failed in %s at line %d goto Exit. ", v56, 0x1Cu);
-              }
-
-              v24 = v52;
-              if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-              {
-                v49 = *(this + 26);
-                *v56 = 67109376;
-                *v57 = v45;
-                *&v57[4] = 1024;
-                *&v57[6] = v49;
-                _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Input data size %d exceeds driver capacity %d in SRC  readInput\n", v56, 0xEu);
-              }
-
-              if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
-              {
-                ASDSRCStreamHelper::readInput(this + 26);
-              }
-
-              goto LABEL_48;
-            }
-
-            v24 = v52;
-            if (AudioConverterConvertBuffer(*(this + 18), v45, *(this + 11), &ioOutputDataSize, a4))
-            {
-              goto LABEL_46;
-            }
-
-            v20 = v51;
-          }
-
-          v18 = *(this + 8);
-          v19 = ++v20;
-          if (0xAAAAAAAAAAAAAAABLL * ((*(this + 9) - v18) >> 3) <= v20)
-          {
-            goto LABEL_47;
-          }
-        }
-      }
-
-      v24 = 1970171760;
-LABEL_47:
-      *(this + 23) = v65;
-      *(this + 22) = a3->mInputTime.mSampleTime + a2;
-    }
-
-    else
-    {
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 136315650;
-        *&buf[4] = "NULL == ioCycleInfo";
-        *&buf[12] = 2080;
-        *&buf[14] = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDSRCStreamHelper.mm";
-        *&buf[22] = 1024;
-        *&buf[24] = 198;
-        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfNULLWithFault %s failed in %s at line %d goto Exit. ", buf, 0x1Cu);
-      }
-
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "NULL ioCycleInfo passed to SRC readInput\n", buf, 2u);
-      }
-
-      v24 = 1970171760;
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
-      {
-        ASDSRCStreamHelper::readInput();
-      }
-    }
-  }
-
-  else
+  v72 = *MEMORY[0x277D85DE8];
+  if (!a4)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
@@ -2068,54 +1699,315 @@ LABEL_47:
     {
       ASDSRCStreamHelper::readInput();
     }
+
+    return v24;
   }
 
-LABEL_48:
-  v46 = *MEMORY[0x277D85DE8];
-  return v24;
-}
-
-void sub_2415DEE00(_Unwind_Exception *a1, int a2)
-{
-  if (a2)
+  if (!a3)
   {
-    if (a2 == 3)
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v3 = __cxa_begin_catch(a1);
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      *buf = 136315650;
+      *&buf[4] = "NULL == ioCycleInfo";
+      *&buf[12] = 2080;
+      *&buf[14] = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDSRCStreamHelper.mm";
+      *&buf[22] = 1024;
+      *&buf[24] = 198;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfNULLWithFault %s failed in %s at line %d goto Exit. ", buf, 0x1Cu);
+    }
+
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "NULL ioCycleInfo passed to SRC readInput\n", buf, 2u);
+    }
+
+    v24 = 1970171760;
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
+    {
+      ASDSRCStreamHelper::readInput();
+    }
+
+    return v24;
+  }
+
+  v9 = *&a3->mOutputTime.mSMPTETime.mSubframes;
+  v68 = *&a3->mOutputTime.mRateScalar;
+  v69 = v9;
+  v10 = *&a3->mMainHostTicksPerFrame;
+  v70 = *&a3->mOutputTime.mSMPTETime.mHours;
+  v71 = v10;
+  v11 = *&a3->mInputTime.mSMPTETime.mSubframes;
+  v64 = *&a3->mInputTime.mRateScalar;
+  v65 = v11;
+  v12 = *&a3->mOutputTime.mSampleTime;
+  v66 = *&a3->mInputTime.mSMPTETime.mHours;
+  v67 = v12;
+  v13 = *&a3->mCurrentTime.mSMPTETime.mSubframes;
+  v60 = *&a3->mCurrentTime.mRateScalar;
+  v61 = v13;
+  v14 = *&a3->mInputTime.mSampleTime;
+  v62 = *&a3->mCurrentTime.mSMPTETime.mHours;
+  v63 = v14;
+  v15 = *(this + 22) == a3->mInputTime.mSampleTime;
+  v16 = *&a3->mIOCycleCounter;
+  v17 = *&a3->mCurrentTime.mSampleTime;
+  *buf = *&a3->mIOCycleCounter;
+  *&buf[16] = v17;
+  if (!v15)
+  {
+    *(this + 200) = 1;
+  }
+
+  v18 = *(this + 8);
+  if (*(this + 9) == v18)
+  {
+    v24 = 1970171760;
+LABEL_47:
+    *(this + 23) = v63;
+    *(this + 22) = a3->mInputTime.mSampleTime + a2;
+    return v24;
+  }
+
+  v19 = 0;
+  v20 = 0;
+  v48 = 4 * a2;
+  while (1)
+  {
+    v21 = *(this + 5);
+    if (0xCCCCCCCCCCCCCCCDLL * ((*(this + 6) - v21) >> 3) <= v19)
+    {
+      std::vector<CAStreamBasicDescription>::__throw_out_of_range[abi:ne200100]();
+    }
+
+    v22 = (v18 + 24 * v19);
+    if (!*v22)
+    {
+      v24 = 1937010544;
+      goto LABEL_47;
+    }
+
+    v23 = v21 + 40 * v19;
+    if (*(this + 152) == 1)
+    {
+      break;
+    }
+
+    v49 = v20;
+    v26 = *(v23 + 28);
+    LODWORD(v16) = a3->mNominalIOBufferFrameSize;
+    v27 = v16;
+    v28 = *v23;
+    v29 = *v23 * v27;
+    v30 = *this;
+    *&v29 = v29 / *this;
+    *&buf[8] = vcvtas_u32_f32(*&v29);
+    v31 = *(this + 14);
+    if (0xAAAAAAAAAAAAAAABLL * ((*(this + 15) - v31) >> 3) <= v19)
+    {
+      std::vector<CAStreamBasicDescription>::__throw_out_of_range[abi:ne200100]();
+    }
+
+    v32 = (v31 + 24 * v19);
+    if (*(this + 200) == 1)
+    {
+      *&v63 = round(v28 * a3->mInputTime.mSampleTime / v30);
+      *(this + 200) = 0;
+      v33 = *v32;
+      v34 = v32[1];
+      while (v33 != v34)
       {
-        ASDSRCStreamHelper::readInput(v3);
+        RamstadSRC::reset(*v33++);
       }
     }
 
     else
     {
-      v4 = __cxa_begin_catch(a1);
-      v5 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      if (a2 == 2)
-      {
-        if (v5)
-        {
-          ASDSRCStreamHelper::readInput(v4);
-        }
-      }
+      *&v63 = *(this + 23) + *(this + 24);
+    }
 
-      else if (v5)
+    v35 = RamstadSRC::inputSamplesForOutputSamples(**v32, a2);
+    v36 = (*(*v22 + 16))();
+    *(this + 24) = v35;
+    v37 = *(v23 + 24) * v35;
+    ioOutputDataSize = 4 * v26 * v35;
+    if (AudioConverterConvertBuffer(*(this + 17), v37, *(this + 11), &ioOutputDataSize, *(this + 12)))
+    {
+LABEL_46:
+      v24 = 560226676;
+      goto LABEL_47;
+    }
+
+    v50 = v36;
+    if (v26)
+    {
+      for (i = 0; i != v26; ++i)
       {
-        ASDSRCStreamHelper::readInput();
+        if (i >= v32[1] - *v32)
+        {
+          std::vector<CAStreamBasicDescription>::__throw_out_of_range[abi:ne200100]();
+        }
+
+        v39 = (*v32)[i];
+        if (*(v39 + 8) != 1)
+        {
+          __assert_rtn("readInput", "ASDSRCStreamHelper.mm", 278, "src->numChannels() == 1 && Number of SRC channels is not 1");
+        }
+
+        v40 = *(this + 11);
+        v41 = *(this + 12);
+        v42 = RamstadSRC::inputSamplesForOutputSamples(v39, a2);
+        RamstadSRC::processMono(v39, (v41 + 4 * i), (v40 + 4 * i), v42, a2, v26, v26);
+        if (v43 != v42)
+        {
+          __assert_rtn("readInput", "ASDSRCStreamHelper.mm", 284, "inputFramesConsumed == numInputFrames");
+        }
       }
     }
 
-    __cxa_end_catch();
-    JUMPOUT(0x2415DEB6CLL);
+    v44 = v48 * v26;
+    ioOutputDataSize = *(this + 6) * a2;
+    if (v44 > *(this + 26))
+    {
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      {
+        *v54 = 136315650;
+        *v55 = "inputDataSize > mBufferSize[0]";
+        *&v55[8] = 2080;
+        v56 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDSRCStreamHelper.mm";
+        v57 = 1024;
+        v58 = 289;
+        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithFault %s failed in %s at line %d goto Exit. ", v54, 0x1Cu);
+      }
+
+      v24 = v50;
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+      {
+        v47 = *(this + 26);
+        *v54 = 67109376;
+        *v55 = v44;
+        *&v55[4] = 1024;
+        *&v55[6] = v47;
+        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Input data size %d exceeds driver capacity %d in SRC  readInput\n", v54, 0xEu);
+      }
+
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
+      {
+        goto LABEL_54;
+      }
+
+      return v24;
+    }
+
+    v24 = v50;
+    if (AudioConverterConvertBuffer(*(this + 18), v44, *(this + 11), &ioOutputDataSize, a4))
+    {
+      goto LABEL_46;
+    }
+
+    v20 = v49;
+LABEL_30:
+    v18 = *(this + 8);
+    v19 = ++v20;
+    if (0xAAAAAAAAAAAAAAABLL * ((*(this + 9) - v18) >> 3) <= v20)
+    {
+      goto LABEL_47;
+    }
   }
 
-  _Unwind_Resume(a1);
+  v24 = (*(*v22 + 16))(*v22, a2, a3, *(this + 12), 0, a6);
+  v25 = *(v23 + 24) * a2;
+  ioOutputDataSize = *(this + 6) * a2;
+  if (v25 <= *(this + 27))
+  {
+    if (AudioConverterConvertBuffer(*(this + 18), v25, *(this + 12), &ioOutputDataSize, a4))
+    {
+      v24 = 560226676;
+    }
+
+    else
+    {
+      v24 = v24;
+    }
+
+    goto LABEL_30;
+  }
+
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *v54 = 136315650;
+    *v55 = "inputDataSize > mBufferSize[1]";
+    *&v55[8] = 2080;
+    v56 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDSRCStreamHelper.mm";
+    v57 = 1024;
+    v58 = 227;
+    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithFault %s failed in %s at line %d goto Exit. ", v54, 0x1Cu);
+  }
+
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    v46 = *(this + 27);
+    *v54 = 67109376;
+    *v55 = v25;
+    *&v55[4] = 1024;
+    *&v55[6] = v46;
+    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Input data size %d exceeds driver capacity %d in SRC  readInput\n", v54, 0xEu);
+  }
+
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
+  {
+LABEL_54:
+    ASDSRCStreamHelper::readInput();
+  }
+
+  return v24;
 }
 
-uint64_t ASDSRCStreamHelper::writeMix(ASDSRCStreamHelper *this, unsigned int a2, const AudioServerPlugInIOCycleInfo *a3, void *a4, void *a5)
+void sub_2415DEE00(_Unwind_Exception *a1, int a2)
 {
-  v79 = *MEMORY[0x277D85DE8];
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  if (a2 == 3)
+  {
+    __cxa_begin_catch(a1);
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+LABEL_4:
+      ASDSRCStreamHelper::readInput();
+    }
+  }
+
+  else
+  {
+    __cxa_begin_catch(a1);
+    v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    if (a2 == 2)
+    {
+      if (!v3)
+      {
+        goto LABEL_10;
+      }
+
+      goto LABEL_4;
+    }
+
+    if (v3)
+    {
+      ASDSRCStreamHelper::readInput();
+    }
+  }
+
+LABEL_10:
+  __cxa_end_catch();
+  JUMPOUT(0x2415DEB6CLL);
+}
+
+uint64_t ASDSRCStreamHelper::writeMix(ASDSRCStreamHelper *this, int a2, const AudioServerPlugInIOCycleInfo *a3, void *a4, void *a5)
+{
+  v76 = *MEMORY[0x277D85DE8];
   if (!a4)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
@@ -2141,7 +2033,7 @@ uint64_t ASDSRCStreamHelper::writeMix(ASDSRCStreamHelper *this, unsigned int a2,
       ASDSRCStreamHelper::writeMix();
     }
 
-    goto LABEL_69;
+    return v17;
   }
 
   v5 = a3;
@@ -2170,27 +2062,27 @@ uint64_t ASDSRCStreamHelper::writeMix(ASDSRCStreamHelper *this, unsigned int a2,
       ASDSRCStreamHelper::writeMix();
     }
 
-    goto LABEL_69;
+    return v17;
   }
 
   v8 = *&a3->mOutputTime.mSMPTETime.mSubframes;
-  v75 = *&a3->mOutputTime.mRateScalar;
-  v76 = v8;
+  v72 = *&a3->mOutputTime.mRateScalar;
+  v73 = v8;
   v9 = *&a3->mMainHostTicksPerFrame;
-  v77 = *&a3->mOutputTime.mSMPTETime.mHours;
-  v78 = v9;
+  v74 = *&a3->mOutputTime.mSMPTETime.mHours;
+  v75 = v9;
   v10 = *&a3->mInputTime.mSMPTETime.mSubframes;
-  v71 = *&a3->mInputTime.mRateScalar;
-  v72 = v10;
+  v68 = *&a3->mInputTime.mRateScalar;
+  v69 = v10;
   v11 = *&a3->mOutputTime.mSampleTime;
-  v73 = *&a3->mInputTime.mSMPTETime.mHours;
-  v74 = v11;
+  v70 = *&a3->mInputTime.mSMPTETime.mHours;
+  v71 = v11;
   v12 = *&a3->mCurrentTime.mSMPTETime.mSubframes;
-  v67 = *&a3->mCurrentTime.mRateScalar;
-  v68 = v12;
+  v64 = *&a3->mCurrentTime.mRateScalar;
+  v65 = v12;
   v13 = *&a3->mInputTime.mSampleTime;
-  v69 = *&a3->mCurrentTime.mSMPTETime.mHours;
-  v70 = v13;
+  v66 = *&a3->mCurrentTime.mSMPTETime.mHours;
+  v67 = v13;
   v14 = *(this + 22) == a3->mOutputTime.mSampleTime;
   v15 = *&a3->mIOCycleCounter;
   v16 = *&a3->mCurrentTime.mSampleTime;
@@ -2210,7 +2102,7 @@ uint64_t ASDSRCStreamHelper::writeMix(ASDSRCStreamHelper *this, unsigned int a2,
 
   v19 = 0;
   v20 = 0;
-  v55 = 4 * a2;
+  v52 = 4 * a2;
   while (1)
   {
     v21 = *(this + 5);
@@ -2237,28 +2129,28 @@ uint64_t ASDSRCStreamHelper::writeMix(ASDSRCStreamHelper *this, unsigned int a2,
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          *v61 = 136315650;
-          *v62 = "outputDataSize > mBufferSize[1]";
-          *&v62[8] = 2080;
-          v63 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDSRCStreamHelper.mm";
-          v64 = 1024;
-          v65 = 359;
-          _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithFault %s failed in %s at line %d goto Exit. ", v61, 0x1Cu);
+          *v58 = 136315650;
+          *v59 = "outputDataSize > mBufferSize[1]";
+          *&v59[8] = 2080;
+          v60 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDSRCStreamHelper.mm";
+          v61 = 1024;
+          v62 = 359;
+          _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithFault %s failed in %s at line %d goto Exit. ", v58, 0x1Cu);
         }
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v49 = *(this + 27);
-          *v61 = 67109376;
-          *v62 = ioOutputDataSize;
-          *&v62[4] = 1024;
-          *&v62[6] = v49;
-          _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Output data size %d exceeds driver capacity %d in SRC writeMix\n", v61, 0xEu);
+          v47 = *(this + 27);
+          *v58 = 67109376;
+          *v59 = ioOutputDataSize;
+          *&v59[4] = 1024;
+          *&v59[6] = v47;
+          _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Output data size %d exceeds driver capacity %d in SRC writeMix\n", v58, 0xEu);
         }
 
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
         {
-          ASDSRCStreamHelper::writeMix(&ioOutputDataSize);
+          ASDSRCStreamHelper::writeMix();
         }
 
         goto LABEL_66;
@@ -2270,78 +2162,77 @@ uint64_t ASDSRCStreamHelper::writeMix(ASDSRCStreamHelper *this, unsigned int a2,
         goto LABEL_46;
       }
 
-      v28 = *(this + 12);
       v17 = (*(*v27 + 16))();
       goto LABEL_32;
     }
 
-    v57 = v20;
-    v29 = *(this + 14);
-    if (0xAAAAAAAAAAAAAAABLL * ((*(this + 15) - v29) >> 3) <= v19)
+    v54 = v20;
+    v28 = *(this + 14);
+    if (0xAAAAAAAAAAAAAAABLL * ((*(this + 15) - v28) >> 3) <= v19)
     {
       std::vector<CAStreamBasicDescription>::__throw_out_of_range[abi:ne200100]();
     }
 
-    v56 = v23;
-    v30 = *(this + 7);
-    v31 = (v29 + 24 * v19);
+    v53 = v23;
+    v29 = *(this + 7);
+    v30 = (v28 + 24 * v19);
     LODWORD(v15) = v5->mNominalIOBufferFrameSize;
-    v32 = v15;
-    v33 = *v25;
-    v34 = *v25 * v32;
-    v35 = *this;
-    *&v34 = v34 / *this;
-    *&buf[8] = vcvtas_u32_f32(*&v34);
+    v31 = v15;
+    v32 = *v25;
+    v33 = *v25 * v31;
+    v34 = *this;
+    *&v33 = v33 / *this;
+    *&buf[8] = vcvtas_u32_f32(*&v33);
     if (*(this + 200) == 1)
     {
-      *&v74 = round(v33 * v5->mOutputTime.mSampleTime / v35);
+      *&v71 = round(v32 * v5->mOutputTime.mSampleTime / v34);
       *(this + 200) = 0;
-      v36 = *v31;
-      v37 = v31[1];
-      while (v36 != v37)
+      v35 = *v30;
+      v36 = v30[1];
+      while (v35 != v36)
       {
-        RamstadSRC::reset(*v36++);
+        RamstadSRC::reset(*v35++);
       }
     }
 
     else
     {
-      *&v74 = *(this + 23) + *(this + 24);
+      *&v71 = *(this + 23) + *(this + 24);
     }
 
-    v38 = *(this + 6) * a2;
-    ioOutputDataSize = v55 * v30;
-    if (AudioConverterConvertBuffer(*(this + 17), v38, a4, &ioOutputDataSize, *(this + 11)))
+    v37 = *(this + 6) * a2;
+    ioOutputDataSize = v52 * v29;
+    if (AudioConverterConvertBuffer(*(this + 17), v37, a4, &ioOutputDataSize, *(this + 11)))
     {
 LABEL_46:
-      v48 = 3;
+      v46 = 3;
       v17 = 560226676;
       goto LABEL_67;
     }
 
-    v58 = v17;
-    if (v30)
+    v55 = v17;
+    if (v29)
     {
-      for (i = 0; i != v30; ++i)
+      for (i = 0; i != v29; ++i)
       {
-        if (i >= v31[1] - *v31)
+        if (i >= v30[1] - *v30)
         {
           std::vector<CAStreamBasicDescription>::__throw_out_of_range[abi:ne200100]();
         }
 
-        v40 = (*v31)[i];
-        if (*(v40 + 8) != 1)
+        v39 = (*v30)[i];
+        if (*(v39 + 8) != 1)
         {
           __assert_rtn("writeMix", "ASDSRCStreamHelper.mm", 409, "src->numChannels() == 1 && Number of SRC channels is not 1");
         }
 
-        v41 = *(this + 11);
-        v42 = *(this + 12);
-        *v61 = 0;
-        v43 = RamstadSRC::outputSamplesForInputSamples(v40, a2, v61);
-        RamstadSRC::processMono(v40, (v41 + 4 * i), (v42 + 4 * i), a2, v43, v30, v30);
-        *v61 = v44;
-        if (v44 != a2)
+        v40 = *(this + 11);
+        v41 = *(this + 12);
+        *v58 = 0;
+        v42 = RamstadSRC::outputSamplesForInputSamples(v39, a2, v58);
+        RamstadSRC::processMono(v39, (v40 + 4 * i), (v41 + 4 * i), a2, v42, v29, v29);
+        *v58 = v43;
+        if (v43 != a2)
         {
           __assert_rtn("writeMix", "ASDSRCStreamHelper.mm", 416, "inputFramesConsumed == ioBufferFrameSize");
         }
@@ -2350,59 +2241,58 @@ LABEL_46:
 
     else
     {
-      v43 = 0;
+      v42 = 0;
     }
 
-    *(this + 24) = v43;
-    v45 = 4 * v30 * v43;
-    v46 = *(v25 + 24) * v43;
-    ioOutputDataSize = v46;
-    if (v45 > *(this + 27))
+    *(this + 24) = v42;
+    v44 = 4 * v29 * v42;
+    v45 = *(v25 + 24) * v42;
+    ioOutputDataSize = v45;
+    if (v44 > *(this + 27))
     {
       break;
     }
 
     v5 = a3;
-    v17 = v58;
-    if (v46 > *(this + 26))
+    v17 = v55;
+    if (v45 > *(this + 26))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        *v61 = 136315650;
-        *v62 = "outputDataSize > mBufferSize[0]";
-        *&v62[8] = 2080;
-        v63 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDSRCStreamHelper.mm";
-        v64 = 1024;
-        v65 = 424;
-        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithFault %s failed in %s at line %d goto Exit. ", v61, 0x1Cu);
+        *v58 = 136315650;
+        *v59 = "outputDataSize > mBufferSize[0]";
+        *&v59[8] = 2080;
+        v60 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDSRCStreamHelper.mm";
+        v61 = 1024;
+        v62 = 424;
+        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithFault %s failed in %s at line %d goto Exit. ", v58, 0x1Cu);
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v51 = *(this + 26);
-        *v61 = 67109376;
-        *v62 = ioOutputDataSize;
-        *&v62[4] = 1024;
-        *&v62[6] = v51;
-        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Input data size %d exceeds driver capacity %d in SRC writeMix\n", v61, 0xEu);
+        v49 = *(this + 26);
+        *v58 = 67109376;
+        *v59 = ioOutputDataSize;
+        *&v59[4] = 1024;
+        *&v59[6] = v49;
+        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Input data size %d exceeds driver capacity %d in SRC writeMix\n", v58, 0xEu);
       }
 
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
       {
-        ASDSRCStreamHelper::writeMix(&ioOutputDataSize);
+        ASDSRCStreamHelper::writeMix();
       }
 
       goto LABEL_66;
     }
 
-    if (AudioConverterConvertBuffer(*(this + 18), v45, *(this + 12), &ioOutputDataSize, *(this + 11)))
+    if (AudioConverterConvertBuffer(*(this + 18), v44, *(this + 12), &ioOutputDataSize, *(this + 11)))
     {
       goto LABEL_46;
     }
 
-    v47 = *(this + 11);
-    v17 = (*(*v56 + 16))();
-    v20 = v57;
+    v17 = (*(*v53 + 16))();
+    v20 = v54;
 LABEL_32:
     v18 = *(this + 8);
     v19 = ++v20;
@@ -2413,84 +2303,86 @@ LABEL_32:
   }
 
   v5 = a3;
-  v17 = v58;
+  v17 = v55;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    *v61 = 136315650;
-    *v62 = "inputDataSize > mBufferSize[1]";
-    *&v62[8] = 2080;
-    v63 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDSRCStreamHelper.mm";
-    v64 = 1024;
-    v65 = 423;
-    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithFault %s failed in %s at line %d goto Exit. ", v61, 0x1Cu);
+    *v58 = 136315650;
+    *v59 = "inputDataSize > mBufferSize[1]";
+    *&v59[8] = 2080;
+    v60 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/ASDSRCStreamHelper.mm";
+    v61 = 1024;
+    v62 = 423;
+    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithFault %s failed in %s at line %d goto Exit. ", v58, 0x1Cu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v50 = *(this + 27);
-    *v61 = 67109376;
-    *v62 = v45;
-    *&v62[4] = 1024;
-    *&v62[6] = v50;
-    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Input data size %d exceeds driver capacity %d in SRC writeMix\n", v61, 0xEu);
+    v48 = *(this + 27);
+    *v58 = 67109376;
+    *v59 = v44;
+    *&v59[4] = 1024;
+    *&v59[6] = v48;
+    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Input data size %d exceeds driver capacity %d in SRC writeMix\n", v58, 0xEu);
   }
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
   {
-    ASDSRCStreamHelper::writeMix(this + 27);
+    ASDSRCStreamHelper::writeMix();
   }
 
 LABEL_66:
-  v48 = 2;
+  v46 = 2;
 LABEL_67:
-  if (v48 == 3)
+  if (v46 == 3)
   {
 LABEL_68:
-    *(this + 23) = v74;
+    *(this + 23) = v71;
     *(this + 22) = v5->mOutputTime.mSampleTime + a2;
   }
 
-LABEL_69:
-  v52 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 void sub_2415DF820(_Unwind_Exception *a1, int a2)
 {
-  if (a2)
+  if (!a2)
   {
-    if (a2 == 3)
-    {
-      v3 = __cxa_begin_catch(a1);
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-      {
-        ASDSRCStreamHelper::readInput(v3);
-      }
-    }
-
-    else
-    {
-      v4 = __cxa_begin_catch(a1);
-      v5 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-      if (a2 == 2)
-      {
-        if (v5)
-        {
-          ASDSRCStreamHelper::readInput(v4);
-        }
-      }
-
-      else if (v5)
-      {
-        ASDSRCStreamHelper::readInput();
-      }
-    }
-
-    __cxa_end_catch();
-    JUMPOUT(0x2415DF770);
+    _Unwind_Resume(a1);
   }
 
-  _Unwind_Resume(a1);
+  if (a2 == 3)
+  {
+    __cxa_begin_catch(a1);
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+LABEL_4:
+      ASDSRCStreamHelper::readInput();
+    }
+  }
+
+  else
+  {
+    __cxa_begin_catch(a1);
+    v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    if (a2 == 2)
+    {
+      if (!v3)
+      {
+        goto LABEL_10;
+      }
+
+      goto LABEL_4;
+    }
+
+    if (v3)
+    {
+      ASDSRCStreamHelper::readInput();
+    }
+  }
+
+LABEL_10:
+  __cxa_end_catch();
+  JUMPOUT(0x2415DF770);
 }
 
 uint64_t ASDSRCStreamHelper::readIsolatedInput(ASDSRCStreamHelper *this, uint64_t a2, uint64_t a3, const AudioServerPlugInIOCycleInfo *a4)
@@ -2528,7 +2420,7 @@ void CAException::~CAException(std::exception *this)
   JUMPOUT(0x245CEB8C0);
 }
 
-uint64_t std::vector<CAStreamBasicDescription>::__init_with_size[abi:ne200100]<CAStreamBasicDescription*,CAStreamBasicDescription*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<CAStreamBasicDescription>::__init_with_size[abi:ne200100]<CAStreamBasicDescription*,CAStreamBasicDescription*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2550,7 +2442,7 @@ void sub_2415DFA84(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<CAStreamBasicDescription>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<CAStreamBasicDescription>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x666666666666667)
   {
@@ -2589,7 +2481,7 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   v1 = std::bad_array_new_length::bad_array_new_length(exception);
 }
 
-uint64_t std::vector<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks>::__init_with_size[abi:ne200100]<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks*,ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks>::__init_with_size[abi:ne200100]<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks*,ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2599,14 +2491,14 @@ uint64_t std::vector<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks>
   return result;
 }
 
-void sub_2415DFC88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_2415DFC88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -2727,7 +2619,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<RamstadSRC *>>(uint64
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<std::vector<RamstadSRC *>>::__construct_one_at_end[abi:ne200100]<std::vector<RamstadSRC *> const&>(uint64_t a1, uint64_t *a2)
+uint64_t *std::vector<std::vector<RamstadSRC *>>::__construct_one_at_end[abi:ne200100]<std::vector<RamstadSRC *> const&>(uint64_t a1, const void **a2)
 {
   v3 = *(a1 + 8);
   *v3 = 0;
@@ -2738,21 +2630,21 @@ uint64_t std::vector<std::vector<RamstadSRC *>>::__construct_one_at_end[abi:ne20
   return result;
 }
 
-uint64_t std::vector<std::vector<RamstadSRC *>>::__emplace_back_slow_path<std::vector<RamstadSRC *> const&>(uint64_t a1, uint64_t *a2)
+void *std::vector<std::vector<RamstadSRC *>>::__emplace_back_slow_path<std::vector<RamstadSRC *> const&>(char **a1, const void **a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<CAStreamBasicDescription>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -2776,16 +2668,16 @@ uint64_t std::vector<std::vector<RamstadSRC *>>::__emplace_back_slow_path<std::v
   *v7 = 0;
   *(v7 + 8) = 0;
   *(v7 + 16) = 0;
-  std::vector<RamstadSRC *>::__init_with_size[abi:ne200100]<RamstadSRC **,RamstadSRC **>(24 * v2, *a2, a2[1], (a2[1] - *a2) >> 3);
+  std::vector<RamstadSRC *>::__init_with_size[abi:ne200100]<RamstadSRC **,RamstadSRC **>((24 * v2), *a2, a2[1], (a2[1] - *a2) >> 3);
   v8 = v16 + 24;
-  v9 = *(a1 + 8) - *a1;
+  v9 = a1[1] - *a1;
   v10 = &v15[-v9];
   memcpy(&v15[-v9], *a1, v9);
   v11 = *a1;
   *a1 = v10;
-  *(a1 + 8) = v8;
-  v12 = *(a1 + 16);
-  *(a1 + 16) = v17;
+  a1[1] = v8;
+  v12 = a1[2];
+  a1[2] = v17;
   v16 = v11;
   v17 = v12;
   v14 = v11;
@@ -2794,14 +2686,14 @@ uint64_t std::vector<std::vector<RamstadSRC *>>::__emplace_back_slow_path<std::v
   return v8;
 }
 
-void sub_2415E0140(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2415E0140(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<RamstadSRC *>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<RamstadSRC *>::__init_with_size[abi:ne200100]<RamstadSRC **,RamstadSRC **>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<RamstadSRC *>::__init_with_size[abi:ne200100]<RamstadSRC **,RamstadSRC **>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2823,7 +2715,7 @@ void sub_2415E01B4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<RamstadSRC *>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<RamstadSRC *>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -2875,20 +2767,6 @@ std::logic_error *std::out_of_range::out_of_range[abi:ne200100](std::logic_error
 {
   result = std::logic_error::logic_error(a1, a2);
   result->__vftable = (MEMORY[0x277D828E8] + 16);
-  return result;
-}
-
-uint64_t *OUTLINED_FUNCTION_2@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
-}
-
-unsigned int *OUTLINED_FUNCTION_7@<X0>(unsigned int *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
   return result;
 }
 
@@ -3033,15 +2911,15 @@ void CAStreamBasicDescription::CAStreamBasicDescription(CAStreamBasicDescription
 
 char *CAStreamBasicDescription::AsString(CAStreamBasicDescription *this, char *a2, int a3, char a4)
 {
-  v53 = *MEMORY[0x277D85DE8];
-  CAStringForOSType(*(this + 2), v52, 24);
+  v47 = *MEMORY[0x277D85DE8];
+  CAStringForOSType(*(this + 2), v46, 24);
   if (a4)
   {
     *__str = 0;
-    v50[0] = 0;
-    if (CAStreamBasicDescription::IdentifyCommonPCMFormat(this, __str, v50) && *__str && *__str <= 5u)
+    v44[0] = 0;
+    if (CAStreamBasicDescription::IdentifyCommonPCMFormat(this, __str, v44) && *__str && *__str <= 5u)
     {
-      if (v50[0])
+      if (v44[0])
       {
         v8 = ", inter";
       }
@@ -3057,10 +2935,10 @@ char *CAStreamBasicDescription::AsString(CAStreamBasicDescription *this, char *a
       }
 
       v9 = a3;
-      v43 = *this;
-      v40 = *(this + 7);
-      v44 = off_278CE39F0[*__str - 1];
-      v45 = v8;
+      v37 = *this;
+      v36 = *(this + 7);
+      v38 = off_278CE39F0[*__str - 1];
+      v39 = v8;
       v10 = "%2d ch, %6.0f Hz, %s%s";
       goto LABEL_29;
     }
@@ -3069,22 +2947,22 @@ char *CAStreamBasicDescription::AsString(CAStreamBasicDescription *this, char *a
     if (v23 == 1718773105)
     {
       v9 = a3;
-      v43 = *this;
-      v40 = *(this + 7);
+      v37 = *this;
+      v36 = *(this + 7);
       v10 = "%2d ch, %6.0f Hz, 'freq'";
 LABEL_29:
       v24 = a2;
 LABEL_90:
-      snprintf(v24, v9, v10, v40, v43, v44, v45, v46, v47, v48, v49);
-      goto LABEL_91;
+      snprintf(v24, v9, v10, v36, v37, v38, v39, v40, v41, v42, v43);
+      return a2;
     }
 
     v11 = *(this + 7);
     if (!v11 && !v23 && *this == 0.0)
     {
       v9 = a3;
-      v43 = *this;
-      v40 = 0;
+      v37 = *this;
+      v36 = 0;
       v10 = "%2d ch, %6.0f Hz";
       goto LABEL_29;
     }
@@ -3095,7 +2973,7 @@ LABEL_90:
     v11 = *(this + 7);
   }
 
-  v12 = snprintf(a2, a3, "%2d ch, %6.0f Hz, %s (0x%08X) ", v11, *this, v52, *(this + 3));
+  v12 = snprintf(a2, a3, "%2d ch, %6.0f Hz, %s (0x%08X) ", v11, *this, v46, *(this + 3));
   v13 = (a3 - v12);
   if (v13 >= 1)
   {
@@ -3105,10 +2983,10 @@ LABEL_90:
     {
       if (v15 != 1819304813)
       {
-        v44 = *(this + 5);
-        v45 = *(this + 6);
-        v40 = *(this + 8);
-        v43 = *(this + 4);
+        v38 = *(this + 5);
+        v39 = *(this + 6);
+        v36 = *(this + 8);
+        v37 = *(this + 4);
         v10 = "%d bits/channel, %d bytes/packet, %d frames/packet, %d bytes/frame";
 LABEL_89:
         v24 = v14;
@@ -3165,27 +3043,27 @@ LABEL_66:
           __str[0] = 0;
           if ((v16 & 0x20) != 0)
           {
-            v34 = ", deinterleaved";
+            v32 = ", deinterleaved";
           }
 
           else
           {
-            v34 = "";
+            v32 = "";
           }
 
-          v30 = "";
-          v35 = "";
+          v28 = "";
+          v33 = "";
           goto LABEL_70;
         }
       }
 
-      v29 = v17 / v19;
+      v27 = v17 / v19;
       if ((v17 / v19) < 2)
       {
-        v32 = " signed";
+        v30 = " signed";
         if ((v16 & 4) == 0)
         {
-          v32 = " unsigned";
+          v30 = " unsigned";
         }
 
         if (v16)
@@ -3205,33 +3083,33 @@ LABEL_66:
 
         else
         {
-          v22 = v32;
+          v22 = v30;
         }
 
-        if (v29 != 1)
+        if (v27 != 1)
         {
           goto LABEL_66;
         }
 
-        v30 = "";
+        v28 = "";
       }
 
       else
       {
         if ((v16 & 2) != 0)
         {
-          v30 = " big-endian";
+          v28 = " big-endian";
         }
 
         else
         {
-          v30 = " little-endian";
+          v28 = " little-endian";
         }
 
-        v31 = " unsigned";
+        v29 = " unsigned";
         if ((v16 & 4) != 0)
         {
-          v31 = " signed";
+          v29 = " signed";
         }
 
         if (v16)
@@ -3251,12 +3129,12 @@ LABEL_66:
 
         else
         {
-          v22 = v31;
+          v22 = v29;
         }
       }
 
       CAStreamBasicDescription::PackednessIsSignificant(this);
-      if (v33)
+      if (v31)
       {
         if ((*(this + 12) & 8) != 0)
         {
@@ -3275,66 +3153,64 @@ LABEL_66:
       }
 
       CAStreamBasicDescription::PackednessIsSignificant(this);
-      if ((v36 & 1) != 0 || (*(this + 32) & 7) != 0)
+      if ((v34 & 1) != 0 || (*(this + 32) & 7) != 0)
       {
         v16 = *(this + 3);
         if ((v16 & 0x10) != 0)
         {
-          v35 = " high-aligned";
+          v33 = " high-aligned";
         }
 
         else
         {
-          v35 = " low-aligned";
+          v33 = " low-aligned";
         }
       }
 
       else
       {
         v16 = *(this + 3);
-        v35 = "";
+        v33 = "";
       }
 
       if ((v16 & 0x20) != 0)
       {
-        v34 = ", deinterleaved";
+        v32 = ", deinterleaved";
       }
 
       else
       {
-        v34 = "";
+        v32 = "";
       }
 
       if (__str[0])
       {
         v18 = ", ";
 LABEL_85:
-        v37 = *(this + 8);
         if (((v16 >> 7) & 0x3F) != 0)
         {
-          snprintf(v50, 0x14uLL, "%d.%d");
+          snprintf(v44, 0x14uLL, "%d.%d");
         }
 
         else
         {
-          v42 = *(this + 8);
-          snprintf(v50, 0x14uLL, "%d");
+          snprintf(v44, 0x14uLL, "%d");
         }
 
-        v48 = v35;
-        v49 = v34;
-        v46 = v18;
-        v47 = __str;
-        v44 = v22;
-        v45 = v21;
+        v42 = v33;
+        v43 = v32;
+        v40 = v18;
+        v41 = __str;
+        v38 = v22;
+        v39 = v21;
         v10 = "%s-bit%s%s %s%s%s%s%s";
-        v40 = v50;
-        v43 = v30;
+        v36 = v44;
+        v37 = v28;
         goto LABEL_89;
       }
 
 LABEL_70:
-      if (*v35)
+      if (*v33)
       {
         v18 = ", ";
       }
@@ -3342,28 +3218,23 @@ LABEL_70:
       goto LABEL_85;
     }
 
-    v25 = *(this + 3) - 1;
-    if (v25 > 3)
+    if ((*(this + 3) - 1) > 3)
     {
-      v26 = snprintf(&a2[v12], v13, "from UNKNOWN source bit depth, ");
+      v25 = snprintf(&a2[v12], v13, "from UNKNOWN source bit depth, ");
     }
 
     else
     {
-      v41 = dword_241642BA0[v25];
-      v26 = snprintf(&a2[v12], v13, "from %d-bit source, ");
+      v25 = snprintf(&a2[v12], v13, "from %d-bit source, ");
     }
 
-    v27 = (v13 - v26);
-    if (v27 >= 1)
+    v26 = (v13 - v25);
+    if (v26 >= 1)
     {
-      v28 = *(this + 5);
-      snprintf(&v14[v26], v27, "%d frames/packet");
+      snprintf(&v14[v25], v26, "%d frames/packet");
     }
   }
 
-LABEL_91:
-  v38 = *MEMORY[0x277D85DE8];
   return a2;
 }
 
@@ -3471,40 +3342,15 @@ LABEL_29:
 
 void CAStreamBasicDescription::PackednessIsSignificant(CAStreamBasicDescription *this)
 {
-  if (*(this + 2) == 1819304813)
+  if (*(this + 2) != 1819304813)
   {
-    v1 = *(this + 6);
-    if (v1)
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      if ((*(this + 12) & 0x20) != 0)
-      {
-        v2 = 1;
-      }
-
-      else
-      {
-        v2 = *(this + 7);
-        if (!v2)
-        {
-          v1 = 0;
-          goto LABEL_8;
-        }
-      }
-
-      v1 = 8 * (v1 / v2);
+      CAStreamBasicDescription::PackednessIsSignificant();
     }
 
-LABEL_8:
-    v3 = v1 != *(this + 8);
-    return;
+    __break(1u);
   }
-
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-    CAStreamBasicDescription::PackednessIsSignificant();
-  }
-
-  __break(1u);
 }
 
 _DWORD *CAStreamBasicDescription::NormalizeLinearPCMFormat(_DWORD *this, AudioStreamBasicDescription *a2)
@@ -3736,7 +3582,6 @@ uint64_t CAStreamBasicDescription::GetSimpleName(uint64_t this, AudioStreamBasic
 
       else
       {
-        v27 = 8 * (*(v8 + 6) / v16);
         return snprintf(v7, v6, "%s %d Ch %s %s %s%d/%s%d", v15, v16, "Big Endian");
       }
     }
@@ -3746,14 +3591,14 @@ uint64_t CAStreamBasicDescription::GetSimpleName(uint64_t this, AudioStreamBasic
       if ((v10 & 8) == 0)
       {
         v17 = 8 * (*(v8 + 6) / v16);
-        v24 = *(v8 + 8);
-        v25 = v13;
+        v23 = *(v8 + 8);
+        v24 = v13;
         v21 = v14;
-        v23 = v13;
+        v22 = v13;
         v19 = v15;
         v20 = *(v8 + 7);
         v18 = "%s %d Ch %s %s%d/%s%d";
-        return snprintf(v7, v6, v18, v19, v20, v21, v23, v24, v25, v17);
+        return snprintf(v7, v6, v18, v19, v20, v21, v22, v23, v24, v17);
       }
 
       return snprintf(v7, v6, "%s %d Ch %s%d");
@@ -3765,32 +3610,27 @@ uint64_t CAStreamBasicDescription::GetSimpleName(uint64_t this, AudioStreamBasic
     if ((v10 & 8) == 0)
     {
       v17 = 8 * (*(v8 + 6) / v16);
-      v24 = v13;
-      v25 = v14;
+      v23 = v13;
+      v24 = v14;
       v21 = *(v8 + 8);
-      v23 = "Big Endian";
+      v22 = "Big Endian";
       v19 = v15;
       v20 = *(v8 + 7);
       v18 = "%s %d Channel %d Bit %s %s Aligned %s in %d Bits";
-      return snprintf(v7, v6, v18, v19, v20, v21, v23, v24, v25, v17);
+      return snprintf(v7, v6, v18, v19, v20, v21, v22, v23, v24, v17);
     }
 
     return snprintf(v7, v6, "%s %d Channel %d Bit %s %s");
   }
 
+  else if ((v10 & 8) != 0)
+  {
+    return snprintf(v7, v6, "%s %d Channel %d Bit %s");
+  }
+
   else
   {
-    v22 = *(v8 + 8);
-    if ((v10 & 8) != 0)
-    {
-      return snprintf(v7, v6, "%s %d Channel %d Bit %s");
-    }
-
-    else
-    {
-      v26 = 8 * (*(v8 + 6) / v16);
-      return snprintf(v7, v6, "%s %d Channel %d Bit %s Aligned %s in %d Bits", v15);
-    }
+    return snprintf(v7, v6, "%s %d Channel %d Bit %s Aligned %s in %d Bits", v15);
   }
 }
 
@@ -4002,7 +3842,7 @@ BOOL CAStreamBasicDescription::IsEqual(CAStreamBasicDescription *this, AudioStre
   return CAStreamBasicDescription::IsEquivalent(this, a2, 3);
 }
 
-BOOL SanityCheck(const AudioStreamBasicDescription *a1)
+uint64_t SanityCheck(const AudioStreamBasicDescription *a1)
 {
   result = 0;
   if (a1->mSampleRate >= 0.0 && a1->mSampleRate < 3000000.0)
@@ -4502,7 +4342,7 @@ double CACFPreferencesGetAppFloatValue(const __CFString *a1, const __CFString *a
 
 double CASmartPreferences::InterpretFloat(const __CFString *this, _BYTE *a2, BOOL *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   valuePtr = 0.0;
   *a2 = 0;
   if (this)
@@ -4513,7 +4353,7 @@ double CASmartPreferences::InterpretFloat(const __CFString *this, _BYTE *a2, BOO
       valuePtr = CFBooleanGetValue(this);
 LABEL_6:
       *a2 = 1;
-      goto LABEL_7;
+      return valuePtr;
     }
 
     if (v5 == CFNumberGetTypeID())
@@ -4532,10 +4372,7 @@ LABEL_6:
     }
   }
 
-LABEL_7:
-  result = valuePtr;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return valuePtr;
 }
 
 uint64_t CACFPreferencesGetAppIntegerValue(const __CFString *a1, const __CFString *a2, BOOL *a3)
@@ -4563,7 +4400,7 @@ uint64_t CACFPreferencesGetAppIntegerValue(const __CFString *a1, const __CFStrin
 
 uint64_t CASmartPreferences::InterpretInteger(const __CFString *this, _BYTE *a2, BOOL *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   valuePtr = 0;
   *a2 = 0;
   if (this)
@@ -4574,7 +4411,7 @@ uint64_t CASmartPreferences::InterpretInteger(const __CFString *this, _BYTE *a2,
       valuePtr = CFBooleanGetValue(this);
 LABEL_6:
       *a2 = 1;
-      goto LABEL_7;
+      return valuePtr;
     }
 
     if (v5 == CFNumberGetTypeID())
@@ -4593,10 +4430,7 @@ LABEL_6:
     }
   }
 
-LABEL_7:
-  result = valuePtr;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return valuePtr;
 }
 
 BOOL CACFPreferencesGetAppBooleanValue(const __CFString *a1, const __CFString *a2, BOOL *a3)
@@ -4624,7 +4458,7 @@ BOOL CACFPreferencesGetAppBooleanValue(const __CFString *a1, const __CFString *a
 
 BOOL CASmartPreferences::InterpretBoolean(CASmartPreferences *this, _BYTE *a2, BOOL *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   valuePtr = 0;
   *a2 = 0;
   if (this)
@@ -4636,7 +4470,7 @@ BOOL CASmartPreferences::InterpretBoolean(CASmartPreferences *this, _BYTE *a2, B
       LODWORD(this) = CFBooleanGetValue(v4);
 LABEL_6:
       *a2 = 1;
-      goto LABEL_7;
+      return this != 0;
     }
 
     if (v5 == CFNumberGetTypeID())
@@ -4649,7 +4483,7 @@ LABEL_6:
     if (v5 != CFStringGetTypeID())
     {
       LODWORD(this) = 0;
-      goto LABEL_7;
+      return this != 0;
     }
 
     CFStringGetCString(v4, buffer, 64, 0x600u);
@@ -4657,30 +4491,30 @@ LABEL_6:
     {
       *a2 = 1;
       LODWORD(this) = valuePtr != 0;
-      goto LABEL_7;
+      return this != 0;
     }
 
-    v8 = buffer[0];
+    v7 = buffer[0];
     if (buffer[0])
     {
-      v9 = &buffer[1];
+      v8 = &buffer[1];
       do
       {
-        *(v9 - 1) = __tolower(v8);
-        v10 = *v9++;
-        v8 = v10;
+        *(v8 - 1) = __tolower(v7);
+        v9 = *v8++;
+        v7 = v9;
       }
 
-      while (v10);
+      while (v9);
     }
 
-    if (!(*buffer ^ 0x6F6E | buffer[2]) || (*buffer == 1936482662 ? (v11 = v14 == 101) : (v11 = 0), v11))
+    if (!(*buffer ^ 0x6F6E | buffer[2]) || (*buffer == 1936482662 ? (v10 = v13 == 101) : (v10 = 0), v10))
     {
       LODWORD(this) = 0;
       goto LABEL_6;
     }
 
-    if (*buffer == 7562617 || !(*buffer ^ 0x65757274 | v14))
+    if (*buffer == 7562617 || !(*buffer ^ 0x65757274 | v13))
     {
       LODWORD(this) = 1;
       *a2 = 1;
@@ -4692,15 +4526,12 @@ LABEL_6:
     }
   }
 
-LABEL_7:
-  result = this != 0;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return this != 0;
 }
 
 uint64_t CACFPreferencesGetAppFourCCValue(const __CFString *a1, const __CFString *a2, BOOL *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = CFPreferencesCopyAppValue(a1, a2);
   if (!v4)
   {
@@ -4708,7 +4539,7 @@ uint64_t CACFPreferencesGetAppFourCCValue(const __CFString *a1, const __CFString
     v9 = 0;
     if (!a3)
     {
-      goto LABEL_11;
+      return v9;
     }
 
     goto LABEL_10;
@@ -4742,8 +4573,6 @@ LABEL_10:
     *a3 = v8;
   }
 
-LABEL_11:
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -4817,7 +4646,7 @@ void CASmartPreferences::_RegisterFirstHandler(uint64_t a1, const void *a2, __CF
     v8 = *(a1 + 80);
     if (v8 >= *(a1 + 88))
     {
-      v9 = std::vector<CASmartPreferences::Pref>::__emplace_back_slow_path<__CFString const*&,__CFString const*&,std::function<BOOL ()(void const*)> &>(a1 + 72, &v11, &value, a4);
+      v9 = std::vector<CASmartPreferences::Pref>::__emplace_back_slow_path<__CFString const*&,__CFString const*&,std::function<BOOL ()(void const*)> &>((a1 + 72), &v11, &value, a4);
     }
 
     else
@@ -4866,21 +4695,21 @@ uint64_t std::function<BOOL ()(void const*)>::operator()(uint64_t a1, uint64_t a
   return (*(*v2 + 48))(v2, &v4);
 }
 
-uint64_t std::vector<CASmartPreferences::Pref>::__emplace_back_slow_path<__CFString const*&,__CFString const*&,std::function<BOOL ()(void const*)> &>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
+uint64_t std::vector<CASmartPreferences::Pref>::__emplace_back_slow_path<__CFString const*&,__CFString const*&,std::function<BOOL ()(void const*)> &>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
-  v4 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 4);
+  v4 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
   v5 = v4 + 1;
   if (v4 + 1 > 0x555555555555555)
   {
     std::vector<CAStreamBasicDescription>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 4) > v5)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 4) > v5)
   {
-    v5 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 4);
+    v5 = 0x5555555555555556 * ((a1[2] - *a1) >> 4);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 4) >= 0x2AAAAAAAAAAAAAALL)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 4) >= 0x2AAAAAAAAAAAAAALL)
   {
     v8 = 0x555555555555555;
   }
@@ -4900,14 +4729,14 @@ uint64_t std::vector<CASmartPreferences::Pref>::__emplace_back_slow_path<__CFStr
   v16 = 48 * v4;
   std::allocator<CASmartPreferences::Pref>::construct[abi:ne200100]<CASmartPreferences::Pref,__CFString const*&,__CFString const*&,std::function<BOOL ()(void const*)> &>(a1, (48 * v4), a2, a3, a4);
   v17 = 48 * v4 + 48;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v10 = 48 * v4 + *a1 - v9;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<CASmartPreferences::Pref>,CASmartPreferences::Pref*>(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
-  v12 = *(a1 + 16);
+  v12 = a1[2];
   v14 = v17;
-  *(a1 + 8) = v17;
+  *(a1 + 1) = v17;
   *&v17 = v11;
   *(&v17 + 1) = v12;
   v15 = v11;
@@ -4916,30 +4745,28 @@ uint64_t std::vector<CASmartPreferences::Pref>::__emplace_back_slow_path<__CFStr
   return v14;
 }
 
-void sub_2415E2EA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2415E2EA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CASmartPreferences::Pref>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t std::allocator<CASmartPreferences::Pref>::construct[abi:ne200100]<CASmartPreferences::Pref,__CFString const*&,__CFString const*&,std::function<BOOL ()(void const*)> &>(uint64_t a1, void *a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = *a3;
   v7 = *a4;
-  std::__function::__value_func<BOOL ()(void const*)>::__value_func[abi:ne200100](v10, a5);
+  std::__function::__value_func<BOOL ()(void const*)>::__value_func[abi:ne200100](v9, a5);
   *a2 = v6;
   a2[1] = v7;
-  std::__function::__value_func<BOOL ()(void const*)>::__value_func[abi:ne200100]((a2 + 2), v10);
-  result = std::__function::__value_func<BOOL ()(void const*)>::~__value_func[abi:ne200100](v10);
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  std::__function::__value_func<BOOL ()(void const*)>::__value_func[abi:ne200100]((a2 + 2), v9);
+  return std::__function::__value_func<BOOL ()(void const*)>::~__value_func[abi:ne200100](v9);
 }
 
-void sub_2415E2F44(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2415E2F44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(void const*)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5066,15 +4893,16 @@ void std::__throw_bad_function_call[abi:ne200100]()
   *exception = MEMORY[0x277D82888] + 16;
 }
 
-void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
-{
-
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
-}
-
-void sub_2415E3B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
   va_start(va, a8);
+
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
+}
+
+void sub_2415E3B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va, a15);
   std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5089,30 +4917,30 @@ void sub_2415E3C00(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2415E3CF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2415E3CF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<unsigned int ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2415E3E34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2415E3E34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2415E3F78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2415E3F78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2415E40BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2415E40BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5127,9 +4955,9 @@ void sub_2415E4124(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2415E4214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2415E4214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5144,9 +4972,9 @@ void sub_2415E427C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2415E436C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2415E436C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5161,9 +4989,9 @@ void sub_2415E43D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2415E44C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2415E44C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5178,9 +5006,9 @@ void sub_2415E4530(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2415E4620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2415E4620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5195,9 +5023,9 @@ void sub_2415E4688(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2415E47C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, ...)
+void sub_2415E47C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
@@ -5213,9 +5041,9 @@ void sub_2415E4854(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2415E4994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, ...)
+void sub_2415E4994(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
@@ -5231,9 +5059,9 @@ void sub_2415E4A18(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2415E4B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2415E4B10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5258,9 +5086,9 @@ void sub_2415E5224(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2415E531C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2415E531C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5275,9 +5103,9 @@ void sub_2415E53B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2415E54D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, ...)
+void sub_2415E54D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__function::__value_func<objc_object * ()(void)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
@@ -5293,45 +5121,45 @@ void sub_2415E564C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2415E5770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2415E5770(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<objc_object * ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2415E596C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2415E596C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<objc_object * ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2415E5B8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2415E5B8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<objc_object * ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2415E5DD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, ...)
+void sub_2415E5DD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_2415E5F18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2415E5F18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<unsigned int ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2415E6010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2415E6010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<unsigned int ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5641,16 +5469,12 @@ uint64_t ASDIntervalFilter::getMultiIntervalTime(ASDIntervalFilter *this)
   }
 
   pthread_mutex_lock((this + 56));
-  v2 = *(this + 4);
-  v3 = *(this + 10);
-  v4 = (v2 + 16 * ((v3 + *(this + 6) - 1) % *(this + 6)));
-  v6 = (__PAIR128__(v4[1] - *(v2 + 16 * v3 + 8), *v4) - *(v2 + 16 * v3)) >> 64;
-  v5 = *v4 - *(v2 + 16 * v3);
+  v2 = *(*(this + 4) + 16 * ((*(this + 10) + *(this + 6) - 1) % *(this + 6))) - *(*(this + 4) + 16 * *(this + 10));
   pthread_mutex_unlock((this + 56));
-  return v5;
+  return v2;
 }
 
-void ASDIntervalFilterIIR::ASDIntervalFilterIIR(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+void ASDIntervalFilterIIR::ASDIntervalFilterIIR(uint64_t a1, uint64_t a2, uint64_t a3, int a4, __int16 a5)
 {
   ASDIntervalFilter::ASDIntervalFilter(a1, a2, a3, a4);
 }
@@ -6106,7 +5930,6 @@ uint64_t ASDIntervalFilterFIR::setNewFilter(ASDIntervalFilterFIR *this, unsigned
   {
     memcpy(v11, a3, 8 * *(this + 36));
     *(this + 37) = a4;
-    v12 = *(this + 36);
     operator new[]();
   }
 
@@ -6146,7 +5969,7 @@ void ASDIntervalFilterFIR::~ASDIntervalFilterFIR(ASDIntervalFilterFIR *this)
   JUMPOUT(0x245CEB8C0);
 }
 
-uint64_t ASDIntervalFilterFIR::calculateNewTimePosition(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t ASDIntervalFilterFIR::calculateNewTimePosition(uint64_t a1, unint64_t a2, uint64_t a3)
 {
   v21 = 0u;
   v22 = 0u;
@@ -6317,24 +6140,24 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2415E93D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2415E93D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2415E96F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, void **a25)
+void sub_2415E96F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, char *a25)
 {
-  MEMORY[0x245CEB8C0](v25, 0x1020C403FC65FD6);
+  MEMORY[0x245CEB8C0](v25, 0x1020C403FC65FD6, a3, a4, a5, a6, a7, a8);
   a25 = &a22;
   std::vector<ASDDSPStreamHelper::DSPStream>::__destroy_vector::operator()[abi:ne200100](&a25);
   _Unwind_Resume(a1);
 }
 
-void sub_2415E9870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2415E9870(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6353,9 +6176,9 @@ ASDDSPStreamHelper *std::unique_ptr<ASDDSPStreamHelper>::reset[abi:ne200100](ASD
   return result;
 }
 
-void sub_2415E9A34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2415E9A34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6377,9 +6200,9 @@ void sub_2415EAB78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_2415EB154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_2415EB154(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   ASDDSPGraphHelper::~ASDDSPGraphHelper(va);
   _Unwind_Resume(a1);
@@ -6427,7 +6250,7 @@ void caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraph
           v4 = atomic_load((a1 + 8));
         }
 
-        caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::element_t::release(v7);
+        caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::element_t::release(v7, v6);
         v13 = *(a1 + 4) - 1;
         *(a1 + 4) = v13;
         if (v4)
@@ -6465,16 +6288,16 @@ void sub_2415EB3AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2415EB6A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2415EB6A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2415EC324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2415EC324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<objc_object * ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6490,9 +6313,9 @@ void sub_2415EC460(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2415EC660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2415EC660(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6581,7 +6404,7 @@ uint64_t std::unique_ptr<caulk::concurrent::guarded_lookup_hash_table<unsigned l
   *a1 = a2;
   if (result)
   {
-    caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::~guarded_lookup_hash_table(result);
+    caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::~guarded_lookup_hash_table(result, a2);
 
     JUMPOUT(0x245CEB8C0);
   }
@@ -6589,20 +6412,20 @@ uint64_t std::unique_ptr<caulk::concurrent::guarded_lookup_hash_table<unsigned l
   return result;
 }
 
-uint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::~guarded_lookup_hash_table(uint64_t a1)
+uint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::~guarded_lookup_hash_table(uint64_t a1, uint64_t a2)
 {
   if (atomic_load((a1 + 16)))
   {
     _os_assert_log();
-    v6 = _os_crash();
-    caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::~guarded_lookup_hash_table(v6);
+    _os_crash();
+    caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::~guarded_lookup_hash_table();
   }
 
-  v3 = atomic_load((a1 + 8));
-  if (v3)
+  v4 = atomic_load((a1 + 8));
+  if (v4)
   {
-    v4 = caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::table_impl::~table_impl(v3);
-    MEMORY[0x245CEB8C0](v4, 0x1060C402CF69088);
+    v5 = caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::table_impl::~table_impl(v4, a2);
+    MEMORY[0x245CEB8C0](v5, 0x1060C402CF69088);
   }
 
   std::mutex::~mutex((a1 + 48));
@@ -6611,30 +6434,30 @@ uint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPG
   return a1;
 }
 
-uint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::table_impl::~table_impl(uint64_t a1)
+uint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::table_impl::~table_impl(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 8);
-  if (v2)
+  v3 = *(a1 + 8);
+  if (v3)
   {
-    v3 = (a1 + 16);
+    v4 = (a1 + 16);
     do
     {
-      if (*v3 + 1 >= 2)
+      if (*v4 + 1 >= 2)
       {
-        caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::element_t::release(*v3);
+        caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::element_t::release(*v4, a2);
       }
 
-      ++v3;
-      --v2;
+      ++v4;
+      --v3;
     }
 
-    while (v2);
+    while (v3);
   }
 
   return a1;
 }
 
-unsigned int *caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::element_t::release(unsigned int *result)
+unsigned int *caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::element_t::release(unsigned int *result, uint64_t a2)
 {
   if ((atomic_fetch_add(result, 0xFFFF0000) & 0xFFFF0000) == 0x10000)
   {
@@ -6680,7 +6503,7 @@ uint64_t std::allocator_traits<std::allocator<std::unique_ptr<caulk::concurrent:
   *a2 = 0;
   if (result)
   {
-    caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::table_impl::~table_impl(result);
+    caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::table_impl::~table_impl(result, a2);
 
     JUMPOUT(0x245CEB8C0);
   }
@@ -6755,7 +6578,7 @@ void std::default_delete<CABufferList>::operator()[abi:ne200100](int a1, void *_
   }
 }
 
-uint64_t std::vector<ASDDSPStreamHelper::DSPStream>::__construct_one_at_end[abi:ne200100]<ASDStreamDirection,AudioStreamBasicDescription,int({block_pointer} {__strong})(unsigned int,AudioServerPlugInIOCycleInfo const*,void *,void *,unsigned int),int({block_pointer} {__strong})(unsigned int,AudioServerPlugInIOCycleInfo const*,void *,void *,unsigned int),int({block_pointer} {__strong})(unsigned long long,unsigned int,AudioServerPlugInIOCycleInfo const*)>(uint64_t a1, unsigned int *a2, AudioStreamBasicDescription *a3, void *a4, void *a5, void *a6)
+uint64_t std::vector<ASDDSPStreamHelper::DSPStream>::__construct_one_at_end[abi:ne200100]<ASDStreamDirection,AudioStreamBasicDescription,int({block_pointer} {__strong})(unsigned int,AudioServerPlugInIOCycleInfo const*,void *,void *,unsigned int),int({block_pointer} {__strong})(unsigned int,AudioServerPlugInIOCycleInfo const*,void *,void *,unsigned int),int({block_pointer} {__strong})(unsigned long long,unsigned int,AudioServerPlugInIOCycleInfo const*)>(uint64_t a1, unsigned int *a2, AudioStreamBasicDescription *a3, uint64_t *a4, void **a5, void **a6)
 {
   v10 = *(a1 + 8);
   v11 = *a2;
@@ -6765,21 +6588,21 @@ uint64_t std::vector<ASDDSPStreamHelper::DSPStream>::__construct_one_at_end[abi:
   return result;
 }
 
-uint64_t std::vector<ASDDSPStreamHelper::DSPStream>::__emplace_back_slow_path<ASDStreamDirection,AudioStreamBasicDescription,int({block_pointer} {__strong})(unsigned int,AudioServerPlugInIOCycleInfo const*,void *,void *,unsigned int),int({block_pointer} {__strong})(unsigned int,AudioServerPlugInIOCycleInfo const*,void *,void *,unsigned int),int({block_pointer} {__strong})(unsigned long long,unsigned int,AudioServerPlugInIOCycleInfo const*)>(uint64_t a1, unsigned int *a2, const AudioStreamBasicDescription *a3, void *a4, void *a5, void *a6)
+uint64_t std::vector<ASDDSPStreamHelper::DSPStream>::__emplace_back_slow_path<ASDStreamDirection,AudioStreamBasicDescription,int({block_pointer} {__strong})(unsigned int,AudioServerPlugInIOCycleInfo const*,void *,void *,unsigned int),int({block_pointer} {__strong})(unsigned int,AudioServerPlugInIOCycleInfo const*,void *,void *,unsigned int),int({block_pointer} {__strong})(unsigned long long,unsigned int,AudioServerPlugInIOCycleInfo const*)>(ASDDSPStreamHelper::DSPStream **a1, unsigned int *a2, const AudioStreamBasicDescription *a3, uint64_t *a4, void **a5, void **a6)
 {
-  v6 = 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 8) - *a1) >> 4);
+  v6 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 4);
   v7 = v6 + 1;
   if (v6 + 1 > 0x333333333333333)
   {
     std::vector<CAStreamBasicDescription>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 4) > v7)
+  if (0x999999999999999ALL * ((a1[2] - *a1) >> 4) > v7)
   {
-    v7 = 0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 4);
+    v7 = 0x999999999999999ALL * ((a1[2] - *a1) >> 4);
   }
 
-  if (0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 16) - *a1) >> 4) >= 0x199999999999999)
+  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 4) >= 0x199999999999999)
   {
     v13 = 0x333333333333333;
   }
@@ -6802,14 +6625,14 @@ uint64_t std::vector<ASDDSPStreamHelper::DSPStream>::__emplace_back_slow_path<AS
   CAStreamBasicDescription::CAStreamBasicDescription(v25, a3);
   ASDDSPStreamHelper::DSPStream::DSPStream(80 * v6, v14, v25, *a4, *a5, *a6);
   *&v23 = 80 * v6 + 80;
-  v15 = *(a1 + 8);
+  v15 = a1[1];
   v16 = (80 * v6 + *a1 - v15);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ASDDSPStreamHelper::DSPStream>,ASDDSPStreamHelper::DSPStream*>(a1, *a1, v15, v16);
   v17 = *a1;
   *a1 = v16;
-  v18 = *(a1 + 16);
+  v18 = a1[2];
   v20 = v23;
-  *(a1 + 8) = v23;
+  *(a1 + 1) = v23;
   *&v23 = v17;
   *(&v23 + 1) = v18;
   v21 = v17;
@@ -6818,9 +6641,9 @@ uint64_t std::vector<ASDDSPStreamHelper::DSPStream>::__emplace_back_slow_path<AS
   return v20;
 }
 
-void sub_2415ED938(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2415ED938(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__split_buffer<ASDDSPStreamHelper::DSPStream>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6951,7 +6774,7 @@ void ASDDSPStreamHelper::~ASDDSPStreamHelper(ASDDSPStreamHelper *this)
   }
 }
 
-uint64_t std::vector<CAStreamBasicDescription>::__init_with_size[abi:ne200100]<CAStreamBasicDescription const*,CAStreamBasicDescription const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<CAStreamBasicDescription>::__init_with_size[abi:ne200100]<CAStreamBasicDescription const*,CAStreamBasicDescription const*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7077,7 +6900,7 @@ void std::unique_lock<std::mutex>::lock[abi:ne200100](uint64_t a1)
   }
 
   std::__throw_system_error(11, "unique_lock::lock: already locked");
-  caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::rehash();
+  caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::rehash(v3);
 }
 
 unint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::rehash(unint64_t *a1, unsigned int a2)
@@ -7126,7 +6949,7 @@ unint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSP
       v18 = (8 * v12);
       v19 = (8 * v12 - 8 * v17);
       *v18 = v4;
-      v9 = v18 + 1;
+      v9 = (v18 + 1);
       memcpy(v19, v10, v11);
       v20 = a1[3];
       a1[3] = v19;
@@ -7143,7 +6966,7 @@ unint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSP
     else
     {
       *v8 = v4;
-      v9 = v8 + 1;
+      v9 = (v8 + 1);
     }
 
     a1[4] = v9;
@@ -7276,8 +7099,9 @@ uint64_t std::list<ASDDSPGraphHelper>::splice(uint64_t result, uint64_t *a2, uin
   return result;
 }
 
-BOOL caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::_addOrReplace(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+BOOL caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::_addOrReplace(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
   std::mutex::lock((a1 + 48));
   v8 = atomic_load((a1 + 8));
   v9 = *(a1 + 4) + 1;
@@ -7301,7 +7125,7 @@ BOOL caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraph
 
   v8 = caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::rehash(a1, v12);
 LABEL_6:
-  v13 = caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::table_impl::addOrReplace(v8, a2, a3, a4);
+  v13 = caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::table_impl::addOrReplace(v8, a2, a3, v4);
   if (v13)
   {
     v14 = atomic_load((a1 + 16));
@@ -7343,14 +7167,14 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2415F3EBC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+void sub_2415F3EBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
 {
   *v15 = 0;
-  (*(*v14 + 8))(v14);
+  (*(*v14 + 8))(v14, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -7364,20 +7188,20 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-void sub_2415F413C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+void sub_2415F413C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
 {
   *v15 = 0;
-  (*(*v14 + 8))(v14);
+  (*(*v14 + 8))(v14, a2, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -7389,15 +7213,15 @@ uint64_t DSPGraph::GraphFactory::createFormatMatchedGraphWithGraph(DSPGraph::Gra
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/DSP/DSPGraph_GraphFactory.cpp");
-  std::string::basic_string[abi:ne200100]<0>(&v9, "createFormatMatchedGraphWithGraph");
-  v5 = (*a1 + 408);
+  std::string::basic_string[abi:ne200100]<0>(&v11, "createFormatMatchedGraphWithGraph");
+  v7 = (*a1 + 408);
   if (*(*a1 + 431) < 0)
   {
-    v5 = *v5;
+    v7 = *v7;
   }
 
-  v6 = (*(**a1 + 16))(*a1);
-  DSPGraph::strprintf(v11, "%s %s number of graph busses must match the number of external formats.", v7, v5, v6);
+  v8 = (*(**a1 + 16))(*a1);
+  DSPGraph::strprintf(v13, "%s %s number of graph busses must match the number of external formats.", v9, v7, v8);
   result = DSPGraph::ThrowException();
   __break(1u);
   return result;
@@ -7423,16 +7247,16 @@ void sub_2415F47F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2415F553C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2415F553C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2415F5908(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, char *a29)
+void sub_2415F5908(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *__p, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, char *a29)
 {
-  MEMORY[0x245CEB8C0](v29, 0x10A0C40218B55E4);
+  MEMORY[0x245CEB8C0](v29, 0x10A0C40218B55E4, a3, a4, a5, a6, a7, a8);
   if (__p)
   {
     operator delete(__p);
@@ -7443,9 +7267,9 @@ void sub_2415F5908(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_2415F5AB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_2415F5AB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7464,14 +7288,14 @@ ASDSRCStreamHelper *std::unique_ptr<ASDSRCStreamHelper>::reset[abi:ne200100](ASD
   return result;
 }
 
-void std::vector<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks>::__base_destruct_at_end[abi:ne200100](uint64_t a1, void **a2)
+void std::vector<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks>::__base_destruct_at_end[abi:ne200100](uint64_t result, void **a2)
 {
-  for (i = *(a1 + 8); i != a2; std::allocator_traits<std::allocator<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks>>::destroy[abi:ne200100]<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks,0>(a1, i))
+  for (i = *(result + 8); i != a2; std::allocator_traits<std::allocator<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks>>::destroy[abi:ne200100]<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks,0>(result, i))
   {
     i -= 3;
   }
 
-  *(a1 + 8) = a2;
+  *(result + 8) = a2;
 }
 
 void std::allocator_traits<std::allocator<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks>>::destroy[abi:ne200100]<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks,0>(uint64_t a1, void **a2)
@@ -7479,21 +7303,21 @@ void std::allocator_traits<std::allocator<ASDSRCStreamHelper::ASDUnderlyingStrea
   v3 = *a2;
 }
 
-uint64_t std::vector<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks>::__emplace_back_slow_path<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks&>(uint64_t a1, void *a2)
+uint64_t std::vector<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks>::__emplace_back_slow_path<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks&>(uint64_t *a1, void *a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0xAAAAAAAAAAAAAAALL)
   {
     std::vector<CAStreamBasicDescription>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 3) >= 0x555555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 3) >= 0x555555555555555)
   {
     v6 = 0xAAAAAAAAAAAAAAALL;
   }
@@ -7517,14 +7341,14 @@ uint64_t std::vector<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks>
   *(v7 + 8) = MEMORY[0x245CEBEA0](a2[1]);
   *(v7 + 16) = MEMORY[0x245CEBEA0](a2[2]);
   *&v16 = v7 + 24;
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   v9 = v7 + *a1 - v8;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks>,ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks*>(a1, *a1, v8, v9);
   v10 = *a1;
   *a1 = v9;
-  v11 = *(a1 + 16);
+  v11 = a1[2];
   v13 = v16;
-  *(a1 + 8) = v16;
+  *(a1 + 1) = v16;
   *&v16 = v10;
   *(&v16 + 1) = v11;
   v14 = v10;
@@ -7533,9 +7357,9 @@ uint64_t std::vector<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks>
   return v13;
 }
 
-void sub_2415F667C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2415F667C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlocks>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -7628,47 +7452,47 @@ void std::__split_buffer<ASDSRCStreamHelper::ASDUnderlyingStreamDoIOOperationBlo
   }
 }
 
-void sub_2415F6B24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, ...)
+void sub_2415F6B24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_2415F6CC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, ...)
+void sub_2415F6CC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_2415F6E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2415F6E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2415F6FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, ...)
+void sub_2415F6FAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_2415F7118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2415F7118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void sub_2415F7650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_2415F7650(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   std::__function::__value_func<BOOL ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -7680,14 +7504,14 @@ void sub_2415F78EC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-ASDPluginInterfaceInfo *ASD_DestroyDriverInterface(ASDPluginInterfaceInfo *result)
+ASDPluginInterfaceInfo *ASD_DestroyDriverInterface(ASDPluginInterfaceInfo *result, uint64_t a2)
 {
   if (result)
   {
     result = *(result + 23);
     if (result)
     {
-      ASDPluginInterfaceInfo::~ASDPluginInterfaceInfo(result);
+      ASDPluginInterfaceInfo::~ASDPluginInterfaceInfo(result, a2);
 
       JUMPOUT(0x245CEB8C0);
     }
@@ -7696,7 +7520,7 @@ ASDPluginInterfaceInfo *ASD_DestroyDriverInterface(ASDPluginInterfaceInfo *resul
   return result;
 }
 
-void ASD_SetRealtimeOperationTableSize(uint64_t a1, unsigned int a2)
+void ASD_SetRealtimeOperationTableSize(ASDPluginInterfaceInfo *a1, uint64_t a2)
 {
   if (!*a1 || (v3 = *(*a1 + 184)) == 0)
   {
@@ -7706,41 +7530,42 @@ void ASD_SetRealtimeOperationTableSize(uint64_t a1, unsigned int a2)
   ASDPluginInterfaceInfo::setRealTimeOperationVectorSize(v3, a2);
 }
 
-void ASDPluginInterfaceInfo::setRealTimeOperationVectorSize(ASDPluginInterfaceInfo *this, unsigned int a2)
+void ASDPluginInterfaceInfo::setRealTimeOperationVectorSize(uint64_t this, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(this + 4);
-      v7 = 138412546;
-      v8 = v4;
-      v9 = 1024;
-      v10 = a2;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@: Setting realtime operation vectors to a capacity of %u elements.", &v7, 0x12u);
+      v4 = *(this + 32);
+      v6 = 138412546;
+      v7 = v4;
+      v8 = 1024;
+      v9 = a2;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@: Setting realtime operation vectors to a capacity of %u elements.", &v6, 0x12u);
     }
 
-    if (*(this + 18) > a2)
+    if (*(this + 72) > a2)
     {
       v5 = a2;
       do
       {
         ASDPluginInterfaceInfo::removeDeviceRealtimeOperations(this, v5);
-        ASDPluginInterfaceInfo::removeStreamRealtimeOperations(this, v5++);
+        ASDPluginInterfaceInfo::removeStreamRealtimeOperations(this, v5);
+        v5 = (v5 + 1);
       }
 
-      while (v5 < *(this + 18));
+      while (v5 < *(this + 72));
     }
 
-    std::vector<ASDDeviceRealTimeOperations *>::resize(this + 24, a2);
-    *(this + 27) = *(this + 24);
-    std::vector<ASDDeviceRealTimeOperations *>::resize(this + 42, a2);
-    *(this + 45) = *(this + 42);
-    *(this + 18) = a2;
+    std::vector<ASDDeviceRealTimeOperations *>::resize((this + 192), a2);
+    *(this + 216) = *(this + 192);
+    std::vector<ASDDeviceRealTimeOperations *>::resize((this + 336), a2);
+    *(this + 360) = *(this + 336);
+    *(this + 72) = a2;
   }
 
-  else if (*(this + 18))
+  else if (*(this + 72))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
@@ -7749,8 +7574,6 @@ void ASDPluginInterfaceInfo::setRealTimeOperationVectorSize(ASDPluginInterfaceIn
 
     __assert_rtn("setRealTimeOperationVectorSize", "ASDInterface.mm", 235, "0");
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void ASD_AddAudioDeviceRealTimeOperations(uint64_t a1, void *a2)
@@ -7767,41 +7590,32 @@ void ASD_AddAudioDeviceRealTimeOperations(uint64_t a1, void *a2)
   __assert_rtn("ASD_AddAudioDeviceRealTimeOperations", "ASDInterface.mm", 476, "pluginInfo");
 }
 
-BOOL ASDPluginInterfaceInfo::addDeviceRealtimeOperations(uint64_t a1, unsigned int a2, uint64_t a3)
+BOOL ASDPluginInterfaceInfo::addDeviceRealtimeOperations(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v10 = 138412546;
-    v11 = v6;
-    v12 = 1024;
-    v13 = a2;
-    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@: Adding realtime operations for device with objectID %u", &v10, 0x12u);
+    v9 = 138412546;
+    v10 = v6;
+    v11 = 1024;
+    v12 = a2;
+    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@: Adding realtime operations for device with objectID %u", &v9, 0x12u);
   }
 
   v7 = *(a1 + 72);
-  if (v7)
+  if (!v7)
   {
-    if (v7 <= a2)
-    {
-      result = 0;
-    }
-
-    else
-    {
-      *(*(a1 + 216) + 8 * a2) = a3;
-      result = 1;
-    }
+    return caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::_addOrReplace(a1 + 80, a2, a3, 0);
   }
 
-  else
+  if (v7 <= a2)
   {
-    result = caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::_addOrReplace(a1 + 80, a2, a3, 0);
+    return 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  *(*(a1 + 216) + 8 * a2) = a3;
+  return 1;
 }
 
 void ASD_RemoveAudioDeviceRealTimeOperations(uint64_t a1, void *a2)
@@ -7819,41 +7633,40 @@ void ASD_RemoveAudioDeviceRealTimeOperations(uint64_t a1, void *a2)
   }
 }
 
-void ASDPluginInterfaceInfo::removeDeviceRealtimeOperations(ASDPluginInterfaceInfo *this, unsigned int a2)
+void ASDPluginInterfaceInfo::removeDeviceRealtimeOperations(ASDPluginInterfaceInfo *this, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v12 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(this + 4);
-    v9 = 138412546;
-    v10 = v4;
-    v11 = 1024;
-    v12 = a2;
-    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@: Removing realtime operations for device with objectID %u", &v9, 0x12u);
+    v8 = 138412546;
+    v9 = v4;
+    v10 = 1024;
+    v11 = v2;
+    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@: Removing realtime operations for device with objectID %u", &v8, 0x12u);
   }
 
-  v5 = ASDPluginInterfaceInfo::deviceRealtimeOperationsForObject(this, a2);
+  v5 = ASDPluginInterfaceInfo::deviceRealtimeOperationsForObject(this, v2);
   if (v5)
   {
     v6 = v5;
     if (*(this + 18))
     {
-      *(*(this + 27) + 8 * a2) = 0;
-LABEL_7:
-
-      MEMORY[0x245CEB8C0](v6, 0x80C40FDC59921);
-      goto LABEL_8;
+      *(*(this + 27) + 8 * v2) = 0;
     }
 
-    caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::remove(this + 80, a2);
-    if (v7)
+    else
     {
-      goto LABEL_7;
+      caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::remove(this + 80, v2);
+      if (!v7)
+      {
+        return;
+      }
     }
-  }
 
-LABEL_8:
-  v8 = *MEMORY[0x277D85DE8];
+    MEMORY[0x245CEB8C0](v6, 0x80C40FDC59921);
+  }
 }
 
 void ASD_AddClockDeviceRealTimeOperations(uint64_t a1, void *a2)
@@ -7899,41 +7712,33 @@ void ASD_AddStreamRealTimeOperations(uint64_t a1, void *a2)
   __assert_rtn("ASD_AddStreamRealTimeOperations", "ASDInterface.mm", 540, "pluginInfo");
 }
 
-BOOL ASDPluginInterfaceInfo::addStreamRealtimeOperations(uint64_t a1, unsigned int a2, uint64_t a3)
+BOOL ASDPluginInterfaceInfo::addStreamRealtimeOperations(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v4 = a2;
+  v13 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v6 = *(a1 + 32);
-    v10 = 138412546;
-    v11 = v6;
-    v12 = 1024;
-    v13 = a2;
-    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@: Adding realtime operations for stream with objectID %u", &v10, 0x12u);
+    v9 = 138412546;
+    v10 = v6;
+    v11 = 1024;
+    v12 = v4;
+    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@: Adding realtime operations for stream with objectID %u", &v9, 0x12u);
   }
 
   v7 = *(a1 + 72);
-  if (v7)
+  if (!v7)
   {
-    if (v7 <= a2)
-    {
-      result = 0;
-    }
-
-    else
-    {
-      *(*(a1 + 360) + 8 * a2) = a3;
-      result = 1;
-    }
+    return caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::_addOrReplace(a1 + 224, v4, a3, 0);
   }
 
-  else
+  if (v7 <= v4)
   {
-    result = caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::_addOrReplace(a1 + 224, a2, a3, 0);
+    return 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  *(*(a1 + 360) + 8 * v4) = a3;
+  return 1;
 }
 
 void ASD_RemoveStreamRealTimeOperations(uint64_t a1, void *a2)
@@ -7951,56 +7756,55 @@ void ASD_RemoveStreamRealTimeOperations(uint64_t a1, void *a2)
   }
 }
 
-void ASDPluginInterfaceInfo::removeStreamRealtimeOperations(ASDPluginInterfaceInfo *this, unsigned int a2)
+void ASDPluginInterfaceInfo::removeStreamRealtimeOperations(ASDPluginInterfaceInfo *this, uint64_t a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v12 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(this + 4);
-    v9 = 138412546;
-    v10 = v4;
-    v11 = 1024;
-    v12 = a2;
-    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@: Removing realtime operations for stream with objectID %u", &v9, 0x12u);
+    v8 = 138412546;
+    v9 = v4;
+    v10 = 1024;
+    v11 = v2;
+    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%@: Removing realtime operations for stream with objectID %u", &v8, 0x12u);
   }
 
-  v5 = ASDPluginInterfaceInfo::streamRealtimeOperationsForObject(this, a2);
+  v5 = ASDPluginInterfaceInfo::streamRealtimeOperationsForObject(this, v2);
   if (v5)
   {
     v6 = v5;
     if (*(this + 18))
     {
-      *(*(this + 45) + 8 * a2) = 0;
-LABEL_7:
-
-      MEMORY[0x245CEB8C0](v6, 0x80C40A1CEA83ALL);
-      goto LABEL_8;
+      *(*(this + 45) + 8 * v2) = 0;
     }
 
-    caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::remove(this + 224, a2);
-    if (v7)
+    else
     {
-      goto LABEL_7;
+      caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::remove(this + 224, v2);
+      if (!v7)
+      {
+        return;
+      }
     }
-  }
 
-LABEL_8:
-  v8 = *MEMORY[0x277D85DE8];
+    MEMORY[0x245CEB8C0](v6, 0x80C40A1CEA83ALL);
+  }
 }
 
 uint64_t ASD_QueryInterface(void *a1, CFUUIDBytes a2, void **a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (!*a1 || (v3 = *(*a1 + 184)) == 0)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v22 = "!pluginInterfaceInfo";
-      v23 = 2080;
-      v24 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-      v25 = 1024;
-      v26 = 631;
+      v21 = "!pluginInterfaceInfo";
+      v22 = 2080;
+      v23 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v24 = 1024;
+      v25 = 631;
       _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", buf, 0x1Cu);
     }
 
@@ -8023,11 +7827,11 @@ uint64_t ASD_QueryInterface(void *a1, CFUUIDBytes a2, void **a3)
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v22 = "!plugin";
-      v23 = 2080;
-      v24 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-      v25 = 1024;
-      v26 = 634;
+      v21 = "!plugin";
+      v22 = 2080;
+      v23 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v24 = 1024;
+      v25 = 634;
       _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", buf, 0x1Cu);
     }
 
@@ -8049,9 +7853,9 @@ LABEL_16:
   v8 = WeakRetained;
   if (a3)
   {
-    *&v28.byte0 = v6;
-    *&v28.byte8 = v5;
-    v9 = CFUUIDCreateFromUUIDBytes(0, v28);
+    *&v27.byte0 = v6;
+    *&v27.byte8 = v5;
+    v9 = CFUUIDCreateFromUUIDBytes(0, v27);
     if (v9)
     {
       v10 = CFUUIDGetConstantUUIDWithBytes(*MEMORY[0x277CBED08], 0, 0, 0, 0, 0, 0, 0, 0, 0xC0u, 0, 0, 0, 0, 0, 0, 0x46u);
@@ -8063,8 +7867,8 @@ LABEL_16:
 
       else
       {
-        v19 = CFUUIDGetConstantUUIDWithBytes(0, 0xD9u, 0x1Fu, 0x5Fu, 0x7Cu, 0x44u, 0x8Bu, 0x45u, 0xE9u, 0x8Cu, 0xDCu, 6u, 0xE6u, 0x69u, 0x78u, 0x95u, 0xAu);
-        if (CFEqual(v9, v19))
+        v18 = CFUUIDGetConstantUUIDWithBytes(0, 0xD9u, 0x1Fu, 0x5Fu, 0x7Cu, 0x44u, 0x8Bu, 0x45u, 0xE9u, 0x8Cu, 0xDCu, 6u, 0xE6u, 0x69u, 0x78u, 0x95u, 0xAu);
+        if (CFEqual(v9, v18))
         {
           [v8 addRef];
           v12 = 56;
@@ -8072,8 +7876,8 @@ LABEL_16:
 
         else
         {
-          v20 = CFUUIDGetConstantUUIDWithBytes(0, 0xECu, 0x92u, 0xB9u, 0x78u, 0x25u, 0xB0u, 0x4Du, 0x59u, 0xA7u, 0xB7u, 0xD1u, 0x45u, 0xCEu, 0x52u, 0x72u, 0x19u);
-          if (!CFEqual(v9, v20))
+          v19 = CFUUIDGetConstantUUIDWithBytes(0, 0xECu, 0x92u, 0xB9u, 0x78u, 0x25u, 0xB0u, 0x4Du, 0x59u, 0xA7u, 0xB7u, 0xD1u, 0x45u, 0xCEu, 0x52u, 0x72u, 0x19u);
+          if (!CFEqual(v9, v19))
           {
             v13 = 2147483652;
             goto LABEL_10;
@@ -8094,11 +7898,11 @@ LABEL_10:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v22 = "theRequestedUUID == NULL";
-      v23 = 2080;
-      v24 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-      v25 = 1024;
-      v26 = 639;
+      v21 = "theRequestedUUID == NULL";
+      v22 = 2080;
+      v23 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v24 = 1024;
+      v25 = 639;
       _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", buf, 0x1Cu);
     }
 
@@ -8106,8 +7910,8 @@ LABEL_10:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v17 = MEMORY[0x277D86220];
-      v18 = "ASD_QueryInterface: failed to create the CFUUIDRef\n";
+      v16 = MEMORY[0x277D86220];
+      v17 = "ASD_QueryInterface: failed to create the CFUUIDRef\n";
       goto LABEL_30;
     }
   }
@@ -8117,11 +7921,11 @@ LABEL_10:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v22 = "outInterface == NULL";
-      v23 = 2080;
-      v24 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-      v25 = 1024;
-      v26 = 635;
+      v21 = "outInterface == NULL";
+      v22 = 2080;
+      v23 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v24 = 1024;
+      v25 = 635;
       _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", buf, 0x1Cu);
     }
 
@@ -8129,22 +7933,21 @@ LABEL_10:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v17 = MEMORY[0x277D86220];
-      v18 = "ASD_QueryInterface: no place to store the returned interface\n";
+      v16 = MEMORY[0x277D86220];
+      v17 = "ASD_QueryInterface: no place to store the returned interface\n";
 LABEL_30:
-      _os_log_impl(&dword_2415D8000, v17, OS_LOG_TYPE_DEFAULT, v18, buf, 2u);
+      _os_log_impl(&dword_2415D8000, v16, OS_LOG_TYPE_DEFAULT, v17, buf, 2u);
     }
   }
 
 LABEL_17:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 uint64_t ASD_AddRef(AudioServerPlugInDriverInterface **a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v1 = getASDPlugin(a1);
   v2 = v1;
   if (v1)
@@ -8156,31 +7959,30 @@ uint64_t ASD_AddRef(AudioServerPlugInDriverInterface **a1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315650;
-      v7 = "!plugin";
-      v8 = 2080;
-      v9 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-      v10 = 1024;
-      v11 = 683;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIf %s failed in %s at line %d goto Done. ", &v6, 0x1Cu);
+      v5 = 136315650;
+      v6 = "!plugin";
+      v7 = 2080;
+      v8 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v9 = 1024;
+      v10 = 683;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIf %s failed in %s at line %d goto Done. ", &v5, 0x1Cu);
     }
 
     v3 = 0;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v6) = 0;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_AddRef: ASD driver reference\n", &v6, 2u);
+      LOWORD(v5) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_AddRef: ASD driver reference\n", &v5, 2u);
       v3 = 0;
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 uint64_t ASD_Release(AudioServerPlugInDriverInterface **a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v1 = getASDPlugin(a1);
   v2 = v1;
   if (v1)
@@ -8192,40 +7994,39 @@ uint64_t ASD_Release(AudioServerPlugInDriverInterface **a1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315650;
-      v7 = "!plugin";
-      v8 = 2080;
-      v9 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-      v10 = 1024;
-      v11 = 703;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIf %s failed in %s at line %d goto Done. ", &v6, 0x1Cu);
+      v5 = 136315650;
+      v6 = "!plugin";
+      v7 = 2080;
+      v8 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v9 = 1024;
+      v10 = 703;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIf %s failed in %s at line %d goto Done. ", &v5, 0x1Cu);
     }
 
     v3 = 0;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v6) = 0;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_Release: ASD driver reference\n", &v6, 2u);
+      LOWORD(v5) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_Release: ASD driver reference\n", &v5, 2u);
       v3 = 0;
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 uint64_t ASD_Initialize(AudioServerPlugInDriverInterface **a1, const AudioServerPlugInHostInterface *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = getASDPlugin(a1);
   v5 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT);
   if (v4)
   {
     if (v5)
     {
-      v9 = 134217984;
-      v10 = a1;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_Initialize driver %p\n", &v9, 0xCu);
+      v8 = 134217984;
+      v9 = a1;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_Initialize driver %p\n", &v8, 0xCu);
     }
 
     [v4 halInitializeWithPluginHost:a2];
@@ -8236,30 +8037,29 @@ uint64_t ASD_Initialize(AudioServerPlugInDriverInterface **a1, const AudioServer
   {
     if (v5)
     {
-      v9 = 136315650;
-      v10 = "!plugin";
-      v11 = 2080;
-      v12 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-      v13 = 1024;
-      v14 = 731;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v9, 0x1Cu);
+      v8 = 136315650;
+      v9 = "!plugin";
+      v10 = 2080;
+      v11 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v12 = 1024;
+      v13 = 731;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v8, 0x1Cu);
     }
 
     v6 = 560947818;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_Initialize: ASD driver reference\n", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_Initialize: ASD driver reference\n", &v8, 2u);
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 uint64_t ASD_AddDeviceClient(AudioServerPlugInDriverInterface **a1, uint64_t a2, const AudioServerPlugInClientInfo *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v6 = objc_autoreleasePoolPush();
   v7 = getASDPlugin(a1);
   v8 = v7;
@@ -8282,20 +8082,20 @@ uint64_t ASD_AddDeviceClient(AudioServerPlugInDriverInterface **a1, uint64_t a2,
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 136315650;
-      v14 = "!plugin";
-      v15 = 2080;
-      v16 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-      v17 = 1024;
-      v18 = 794;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v13, 0x1Cu);
+      v12 = 136315650;
+      v13 = "!plugin";
+      v14 = 2080;
+      v15 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v16 = 1024;
+      v17 = 794;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v12, 0x1Cu);
     }
 
     v10 = 560947818;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_AddDeviceClient: ASD driver reference\n", &v13, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_AddDeviceClient: ASD driver reference\n", &v12, 2u);
     }
 
     v9 = 0;
@@ -8303,13 +8103,12 @@ uint64_t ASD_AddDeviceClient(AudioServerPlugInDriverInterface **a1, uint64_t a2,
 
   objc_autoreleasePoolPop(v6);
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t ASD_AbortDeviceConfigurationChange(AudioServerPlugInDriverInterface **a1, uint64_t a2, unint64_t a3, void *a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v7 = objc_autoreleasePoolPush();
   v8 = getASDPlugin(a1);
   v9 = v8;
@@ -8341,33 +8140,32 @@ uint64_t ASD_AbortDeviceConfigurationChange(AudioServerPlugInDriverInterface **a
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315650;
-    v16 = "!plugin";
-    v17 = 2080;
-    v18 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-    v19 = 1024;
-    v20 = 936;
-    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v15, 0x1Cu);
+    v14 = 136315650;
+    v15 = "!plugin";
+    v16 = 2080;
+    v17 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+    v18 = 1024;
+    v19 = 936;
+    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v14, 0x1Cu);
   }
 
   v11 = 560947818;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v15) = 0;
-    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_AbortDeviceConfigurationChange: ASD driver reference\n", &v15, 2u);
+    LOWORD(v14) = 0;
+    _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_AbortDeviceConfigurationChange: ASD driver reference\n", &v14, 2u);
   }
 
   v12 = 0;
 LABEL_13:
   objc_autoreleasePoolPop(v7);
 
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t ASD_IsolatedAddRef(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (*a1 && (v1 = *(*a1 + 56)) != 0)
   {
     WeakRetained = objc_loadWeakRetained((v1 + 24));
@@ -8378,31 +8176,30 @@ uint64_t ASD_IsolatedAddRef(void *a1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315650;
-      v7 = "!pluginInterfaceInfo";
-      v8 = 2080;
-      v9 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-      v10 = 1024;
-      v11 = 1576;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIf %s failed in %s at line %d goto Done. ", &v6, 0x1Cu);
+      v5 = 136315650;
+      v6 = "!pluginInterfaceInfo";
+      v7 = 2080;
+      v8 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v9 = 1024;
+      v10 = 1576;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIf %s failed in %s at line %d goto Done. ", &v5, 0x1Cu);
     }
 
     v3 = 0;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v6) = 0;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_IsolatedAddRef: ASD driver reference\n", &v6, 2u);
-      v3 = 0;
+      LOWORD(v5) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_IsolatedAddRef: ASD driver reference\n", &v5, 2u);
+      return 0;
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 uint64_t ASD_IsolatedRelease(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (*a1 && (v1 = *(*a1 + 56)) != 0)
   {
     WeakRetained = objc_loadWeakRetained((v1 + 24));
@@ -8413,31 +8210,30 @@ uint64_t ASD_IsolatedRelease(void *a1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315650;
-      v7 = "!pluginInterfaceInfo";
-      v8 = 2080;
-      v9 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-      v10 = 1024;
-      v11 = 1593;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIf %s failed in %s at line %d goto Done. ", &v6, 0x1Cu);
+      v5 = 136315650;
+      v6 = "!pluginInterfaceInfo";
+      v7 = 2080;
+      v8 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v9 = 1024;
+      v10 = 1593;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIf %s failed in %s at line %d goto Done. ", &v5, 0x1Cu);
     }
 
     v3 = 0;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v6) = 0;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_IsolatedRelease: ASD driver reference\n", &v6, 2u);
-      v3 = 0;
+      LOWORD(v5) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_IsolatedRelease: ASD driver reference\n", &v5, 2u);
+      return 0;
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 uint64_t ASD_SetupForIsolatedIO(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v9 = getASDPlugin(a1);
   if (v9)
   {
@@ -8457,20 +8253,20 @@ uint64_t ASD_SetupForIsolatedIO(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v16 = 136315650;
-          v17 = "![stream isKindOfClass:[ASDStream class]]";
-          v18 = 2080;
-          v19 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-          v20 = 1024;
-          v21 = 1624;
-          _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v16, 0x1Cu);
+          v15 = 136315650;
+          v16 = "![stream isKindOfClass:[ASDStream class]]";
+          v17 = 2080;
+          v18 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+          v19 = 1024;
+          v20 = 1624;
+          _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v15, 0x1Cu);
         }
 
         v13 = 560947818;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v16) = 0;
-          _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_SetupForIsolatedIO: Bad stream object ID\n", &v16, 2u);
+          LOWORD(v15) = 0;
+          _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_SetupForIsolatedIO: Bad stream object ID\n", &v15, 2u);
         }
       }
     }
@@ -8479,20 +8275,20 @@ uint64_t ASD_SetupForIsolatedIO(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 136315650;
-        v17 = "![device isKindOfClass:[ASDAudioDevice class]]";
-        v18 = 2080;
-        v19 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-        v20 = 1024;
-        v21 = 1619;
-        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v16, 0x1Cu);
+        v15 = 136315650;
+        v16 = "![device isKindOfClass:[ASDAudioDevice class]]";
+        v17 = 2080;
+        v18 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+        v19 = 1024;
+        v20 = 1619;
+        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v15, 0x1Cu);
       }
 
       v13 = 560947818;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v16) = 0;
-        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_SetupForIsolatedIO: Bad device object ID\n", &v16, 2u);
+        LOWORD(v15) = 0;
+        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_SetupForIsolatedIO: Bad device object ID\n", &v15, 2u);
       }
 
       v12 = 0;
@@ -8505,24 +8301,23 @@ uint64_t ASD_SetupForIsolatedIO(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t 
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 136315650;
-      v17 = "!plugin";
-      v18 = 2080;
-      v19 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-      v20 = 1024;
-      v21 = 1610;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIf %s failed in %s at line %d goto Done. ", &v16, 0x1Cu);
+      v15 = 136315650;
+      v16 = "!plugin";
+      v17 = 2080;
+      v18 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v19 = 1024;
+      v20 = 1610;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIf %s failed in %s at line %d goto Done. ", &v15, 0x1Cu);
     }
 
     v13 = 2003329396;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_SetupForIsolatedIO: ASD driver reference\n", &v16, 2u);
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_SetupForIsolatedIO: ASD driver reference\n", &v15, 2u);
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -8543,7 +8338,7 @@ id getASDPlugin(uint64_t a1)
 
 uint64_t ASD_TeardownForIsolatedIO(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v7 = getASDPlugin(a1);
   if (v7)
   {
@@ -8563,20 +8358,20 @@ uint64_t ASD_TeardownForIsolatedIO(uint64_t a1, uint64_t a2, uint64_t a3, unsign
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v14 = 136315650;
-          v15 = "![stream isKindOfClass:[ASDStream class]]";
-          v16 = 2080;
-          v17 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-          v18 = 1024;
-          v19 = 1657;
-          _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v14, 0x1Cu);
+          v13 = 136315650;
+          v14 = "![stream isKindOfClass:[ASDStream class]]";
+          v15 = 2080;
+          v16 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+          v17 = 1024;
+          v18 = 1657;
+          _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v13, 0x1Cu);
         }
 
         v11 = 560947818;
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v14) = 0;
-          _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_TeardownForIsolatedIO: Bad stream object ID\n", &v14, 2u);
+          LOWORD(v13) = 0;
+          _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_TeardownForIsolatedIO: Bad stream object ID\n", &v13, 2u);
         }
       }
     }
@@ -8585,20 +8380,20 @@ uint64_t ASD_TeardownForIsolatedIO(uint64_t a1, uint64_t a2, uint64_t a3, unsign
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 136315650;
-        v15 = "![device isKindOfClass:[ASDAudioDevice class]]";
-        v16 = 2080;
-        v17 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-        v18 = 1024;
-        v19 = 1652;
-        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v14, 0x1Cu);
+        v13 = 136315650;
+        v14 = "![device isKindOfClass:[ASDAudioDevice class]]";
+        v15 = 2080;
+        v16 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+        v17 = 1024;
+        v18 = 1652;
+        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIfWithAction %s failed in %s at line %d goto Done. ", &v13, 0x1Cu);
       }
 
       v11 = 560947818;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v14) = 0;
-        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_TeardownForIsolatedIO: Bad device object ID\n", &v14, 2u);
+        LOWORD(v13) = 0;
+        _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_TeardownForIsolatedIO: Bad device object ID\n", &v13, 2u);
       }
 
       v10 = 0;
@@ -8611,85 +8406,79 @@ uint64_t ASD_TeardownForIsolatedIO(uint64_t a1, uint64_t a2, uint64_t a3, unsign
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136315650;
-      v15 = "!plugin";
-      v16 = 2080;
-      v17 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-      v18 = 1024;
-      v19 = 1643;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIf %s failed in %s at line %d goto Done. ", &v14, 0x1Cu);
+      v13 = 136315650;
+      v14 = "!plugin";
+      v15 = 2080;
+      v16 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v17 = 1024;
+      v18 = 1643;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIf %s failed in %s at line %d goto Done. ", &v13, 0x1Cu);
     }
 
     v11 = 2003329396;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v14) = 0;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_SetupForIsolatedIO: ASD driver reference\n", &v14, 2u);
+      LOWORD(v13) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_SetupForIsolatedIO: ASD driver reference\n", &v13, 2u);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t ASD_DoIsolatedIOOperation(uint64_t *a1, int a2, unsigned int a3, uint64_t a4, int a5)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = *a1;
-  if (!*a1 || (v6 = *(v5 + 56)) == 0)
+  if (!*a1 || !*(v5 + 56))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 136315650;
-      v17 = "!pluginInterfaceInfo";
-      v18 = 2080;
-      v19 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-      v20 = 1024;
-      v21 = 1677;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIf %s failed in %s at line %d goto Done. ", &v16, 0x1Cu);
+      v12 = 136315650;
+      v13 = "!pluginInterfaceInfo";
+      v14 = 2080;
+      v15 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v16 = 1024;
+      v17 = 1677;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIf %s failed in %s at line %d goto Done. ", &v12, 0x1Cu);
     }
 
-    v10 = 1852797029;
+    v8 = 1852797029;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_DoIsolatedIOOperation: ASD driver reference\n", &v16, 2u);
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_DoIsolatedIOOperation: ASD driver reference\n", &v12, 2u);
     }
 
-    goto LABEL_14;
+    return v8;
   }
 
-  v8 = *(v6 + 40);
-  v9 = ASDPluginInterfaceInfo::streamRealtimeOperationsForObject(*(v5 + 56), a3);
-  if (!v9)
+  v7 = ASDPluginInterfaceInfo::streamRealtimeOperationsForObject(*(v5 + 56), a3);
+  if (!v7)
   {
-    v10 = 561214578;
-LABEL_14:
-    v15 = *MEMORY[0x277D85DE8];
-    return v10;
+    return 561214578;
   }
 
-  v10 = 1852797029;
+  v8 = 1852797029;
   if (a5 != 1919246692)
   {
-    goto LABEL_14;
+    return v8;
   }
 
-  v11 = **(v9 + 72);
-  if (!v11)
+  v9 = **(v7 + 72);
+  if (!v9)
   {
-    goto LABEL_14;
+    return v8;
   }
 
-  v12 = *(v11 + 16);
-  v13 = *MEMORY[0x277D85DE8];
+  v10 = *(v9 + 16);
 
-  return v12();
+  return v10();
 }
 
 uint64_t ASD_IOThreadStateChangeAddRef(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (*a1 && (v1 = *(*a1 + 40)) != 0)
   {
     WeakRetained = objc_loadWeakRetained((v1 + 24));
@@ -8700,31 +8489,30 @@ uint64_t ASD_IOThreadStateChangeAddRef(void *a1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315650;
-      v7 = "!pluginInterfaceInfo";
-      v8 = 2080;
-      v9 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-      v10 = 1024;
-      v11 = 1722;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIf %s failed in %s at line %d goto Done. ", &v6, 0x1Cu);
+      v5 = 136315650;
+      v6 = "!pluginInterfaceInfo";
+      v7 = 2080;
+      v8 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v9 = 1024;
+      v10 = 1722;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIf %s failed in %s at line %d goto Done. ", &v5, 0x1Cu);
     }
 
     v3 = 0;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v6) = 0;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_IOThreadStateChangeAddRef: ASD driver reference\n", &v6, 2u);
-      v3 = 0;
+      LOWORD(v5) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_IOThreadStateChangeAddRef: ASD driver reference\n", &v5, 2u);
+      return 0;
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 uint64_t ASD_IOThreadStateChangeRelease(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (*a1 && (v1 = *(*a1 + 40)) != 0)
   {
     WeakRetained = objc_loadWeakRetained((v1 + 24));
@@ -8735,48 +8523,47 @@ uint64_t ASD_IOThreadStateChangeRelease(void *a1)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315650;
-      v7 = "!pluginInterfaceInfo";
-      v8 = 2080;
-      v9 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
-      v10 = 1024;
-      v11 = 1739;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIf %s failed in %s at line %d goto Done. ", &v6, 0x1Cu);
+      v5 = 136315650;
+      v6 = "!pluginInterfaceInfo";
+      v7 = 2080;
+      v8 = "/Library/Caches/com.apple.xbs/Sources/AudioServerDriver/AudioServerDriver/ASDInterface.mm";
+      v9 = 1024;
+      v10 = 1739;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " AudioServerDriver assertion FailIf %s failed in %s at line %d goto Done. ", &v5, 0x1Cu);
     }
 
     v3 = 0;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v6) = 0;
-      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_IOThreadStateChangeRelease: ASD driver reference\n", &v6, 2u);
-      v3 = 0;
+      LOWORD(v5) = 0;
+      _os_log_impl(&dword_2415D8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "ASD_IOThreadStateChangeRelease: ASD driver reference\n", &v5, 2u);
+      return 0;
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
-void sub_2415FA470(_Unwind_Exception *a1)
+void sub_2415FA470(_Unwind_Exception *a1, uint64_t a2)
 {
-  v6 = v2[42];
-  if (v6)
-  {
-    v2[43] = v6;
-    operator delete(v6);
-  }
-
-  caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::~guarded_lookup_hash_table((v2 + 28));
-  v7 = v2[24];
+  v7 = v3[42];
   if (v7)
   {
-    v2[25] = v7;
+    v3[43] = v7;
     operator delete(v7);
   }
 
-  caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::~guarded_lookup_hash_table((v2 + 10));
+  caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::~guarded_lookup_hash_table((v3 + 28), a2);
+  v9 = v3[24];
+  if (v9)
+  {
+    v3[25] = v9;
+    operator delete(v9);
+  }
 
-  objc_destroyWeak(v3);
+  caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::~guarded_lookup_hash_table((v3 + 10), v8);
+
+  objc_destroyWeak(v4);
   _Unwind_Resume(a1);
 }
 
@@ -8808,20 +8595,20 @@ void ASDDriverInterface::ASDDriverInterface(ASDDriverInterface *this, ASDPluginI
   *(this + 23) = a2;
 }
 
-uint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::~guarded_lookup_hash_table(uint64_t a1)
+uint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::~guarded_lookup_hash_table(uint64_t a1, uint64_t a2)
 {
   if (atomic_load((a1 + 16)))
   {
     _os_assert_log();
-    v6 = _os_crash();
-    caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::~guarded_lookup_hash_table(v6);
+    _os_crash();
+    caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::~guarded_lookup_hash_table();
   }
 
-  v3 = atomic_load((a1 + 8));
-  if (v3)
+  v4 = atomic_load((a1 + 8));
+  if (v4)
   {
-    v4 = caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::table_impl::~table_impl(v3);
-    MEMORY[0x245CEB8C0](v4, 0x1060C402CF69088);
+    v5 = caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::table_impl::~table_impl(v4, a2);
+    MEMORY[0x245CEB8C0](v5, 0x1060C402CF69088);
   }
 
   std::mutex::~mutex((a1 + 48));
@@ -8830,30 +8617,30 @@ uint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamReal
   return a1;
 }
 
-uint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::table_impl::~table_impl(uint64_t a1)
+uint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::table_impl::~table_impl(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 8);
-  if (v2)
+  v3 = *(a1 + 8);
+  if (v3)
   {
-    v3 = (a1 + 16);
+    v4 = (a1 + 16);
     do
     {
-      if (*v3 + 1 >= 2)
+      if (*v4 + 1 >= 2)
       {
-        caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::element_t::release(*v3);
+        caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::element_t::release(*v4, a2);
       }
 
-      ++v3;
-      --v2;
+      ++v4;
+      --v3;
     }
 
-    while (v2);
+    while (v3);
   }
 
   return a1;
 }
 
-unsigned int *caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::element_t::release(unsigned int *result)
+unsigned int *caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::element_t::release(unsigned int *result, uint64_t a2)
 {
   if ((atomic_fetch_add(result, 0xFFFF0000) & 0xFFFF0000) == 0x10000)
   {
@@ -8899,7 +8686,7 @@ uint64_t std::allocator_traits<std::allocator<std::unique_ptr<caulk::concurrent:
   *a2 = 0;
   if (result)
   {
-    caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::table_impl::~table_impl(result);
+    caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::table_impl::~table_impl(result, a2);
 
     JUMPOUT(0x245CEB8C0);
   }
@@ -8907,20 +8694,20 @@ uint64_t std::allocator_traits<std::allocator<std::unique_ptr<caulk::concurrent:
   return result;
 }
 
-uint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::~guarded_lookup_hash_table(uint64_t a1)
+uint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::~guarded_lookup_hash_table(uint64_t a1, uint64_t a2)
 {
   if (atomic_load((a1 + 16)))
   {
     _os_assert_log();
-    v6 = _os_crash();
-    caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::~guarded_lookup_hash_table(v6);
+    _os_crash();
+    caulk::concurrent::guarded_lookup_hash_table<unsigned long long,ASDDSPGraphHelper *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned long long>>::~guarded_lookup_hash_table();
   }
 
-  v3 = atomic_load((a1 + 8));
-  if (v3)
+  v4 = atomic_load((a1 + 8));
+  if (v4)
   {
-    v4 = caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::table_impl::~table_impl(v3);
-    MEMORY[0x245CEB8C0](v4, 0x1060C402CF69088);
+    v5 = caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::table_impl::~table_impl(v4, a2);
+    MEMORY[0x245CEB8C0](v5, 0x1060C402CF69088);
   }
 
   std::mutex::~mutex((a1 + 48));
@@ -8929,24 +8716,24 @@ uint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceReal
   return a1;
 }
 
-uint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::table_impl::~table_impl(uint64_t a1)
+uint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::table_impl::~table_impl(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 8);
-  if (v2)
+  v3 = *(a1 + 8);
+  if (v3)
   {
-    v3 = (a1 + 16);
+    v4 = (a1 + 16);
     do
     {
-      if (*v3 + 1 >= 2)
+      if (*v4 + 1 >= 2)
       {
-        caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::element_t::release(*v3);
+        caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::element_t::release(*v4, a2);
       }
 
-      ++v3;
-      --v2;
+      ++v4;
+      --v3;
     }
 
-    while (v2);
+    while (v3);
   }
 
   return a1;
@@ -8982,7 +8769,7 @@ uint64_t std::allocator_traits<std::allocator<std::unique_ptr<caulk::concurrent:
   *a2 = 0;
   if (result)
   {
-    caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::table_impl::~table_impl(result);
+    caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::table_impl::~table_impl(result, a2);
 
     JUMPOUT(0x245CEB8C0);
   }
@@ -8990,60 +8777,60 @@ uint64_t std::allocator_traits<std::allocator<std::unique_ptr<caulk::concurrent:
   return result;
 }
 
-void ASDPluginInterfaceInfo::~ASDPluginInterfaceInfo(ASDPluginInterfaceInfo *this)
+void ASDPluginInterfaceInfo::~ASDPluginInterfaceInfo(ASDPluginInterfaceInfo *this, uint64_t a2)
 {
-  v2 = *this;
-  if (v2)
-  {
-    MEMORY[0x245CEB8C0](v2, 0xA0C40F73F3A8ELL);
-  }
-
-  v3 = *(this + 1);
+  v3 = *this;
   if (v3)
   {
-    MEMORY[0x245CEB8C0](v3, 0xA0C4086DBBAE0);
+    MEMORY[0x245CEB8C0](v3, 0xA0C40F73F3A8ELL);
   }
 
-  v4 = *(this + 2);
+  v4 = *(this + 1);
   if (v4)
   {
-    MEMORY[0x245CEB8C0](v4, 0xA0C40CE99C112);
+    MEMORY[0x245CEB8C0](v4, 0xA0C4086DBBAE0);
   }
 
-  v5 = *(this + 42);
+  v5 = *(this + 2);
   if (v5)
   {
-    *(this + 43) = v5;
-    operator delete(v5);
+    MEMORY[0x245CEB8C0](v5, 0xA0C40CE99C112);
   }
 
-  caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::~guarded_lookup_hash_table(this + 224);
-  v6 = *(this + 24);
+  v6 = *(this + 42);
   if (v6)
   {
-    *(this + 25) = v6;
+    *(this + 43) = v6;
     operator delete(v6);
   }
 
-  caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::~guarded_lookup_hash_table(this + 80);
+  caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::~guarded_lookup_hash_table(this + 224, a2);
+  v8 = *(this + 24);
+  if (v8)
+  {
+    *(this + 25) = v8;
+    operator delete(v8);
+  }
+
+  caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::~guarded_lookup_hash_table(this + 80, v7);
 
   objc_destroyWeak(this + 3);
 }
 
-void std::vector<ASDDeviceRealTimeOperations *>::resize(void *a1, unint64_t a2)
+void std::vector<ASDDeviceRealTimeOperations *>::resize(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 3;
+  v2 = (result[1] - *result) >> 3;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 8 * a2;
+      result[1] = *result + 8 * a2;
     }
   }
 
   else
   {
-    std::vector<ASDDeviceRealTimeOperations *>::__append(a1, a2 - v2);
+    std::vector<ASDDeviceRealTimeOperations *>::__append(result, a2 - v2);
   }
 }
 
@@ -9110,8 +8897,10 @@ void std::vector<ASDDeviceRealTimeOperations *>::__append(uint64_t a1, unint64_t
   }
 }
 
-BOOL caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::_addOrReplace(uint64_t a1, unsigned int a2, uint64_t a3, int a4)
+BOOL caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::_addOrReplace(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
+  v6 = a2;
   std::mutex::lock((a1 + 48));
   v8 = atomic_load((a1 + 8));
   v9 = *(a1 + 4) + 1;
@@ -9135,7 +8924,7 @@ BOOL caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRealTime
 
   v8 = caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::rehash(a1, v12);
 LABEL_6:
-  v13 = caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::table_impl::addOrReplace(v8, a2, a3, a4);
+  v13 = caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::table_impl::addOrReplace(v8, v6, a3, v4);
   if (v13)
   {
     v14 = atomic_load((a1 + 16));
@@ -9200,7 +8989,7 @@ unint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRea
       v18 = (8 * v12);
       v19 = (8 * v12 - 8 * v17);
       *v18 = v4;
-      v9 = v18 + 1;
+      v9 = (v18 + 1);
       memcpy(v19, v10, v11);
       v20 = a1[3];
       a1[3] = v19;
@@ -9217,7 +9006,7 @@ unint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRea
     else
     {
       *v8 = v4;
-      v9 = v8 + 1;
+      v9 = (v8 + 1);
     }
 
     a1[4] = v9;
@@ -9349,7 +9138,7 @@ void caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDDeviceRealTime
           v4 = atomic_load((a1 + 8));
         }
 
-        caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::element_t::release(v7);
+        caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::element_t::release(v7, v6);
         v13 = *(a1 + 4) - 1;
         *(a1 + 4) = v13;
         if (v4)
@@ -9477,7 +9266,7 @@ unint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRea
       v18 = (8 * v12);
       v19 = (8 * v12 - 8 * v17);
       *v18 = v4;
-      v9 = v18 + 1;
+      v9 = (v18 + 1);
       memcpy(v19, v10, v11);
       v20 = a1[3];
       a1[3] = v19;
@@ -9494,7 +9283,7 @@ unint64_t caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRea
     else
     {
       *v8 = v4;
-      v9 = v8 + 1;
+      v9 = (v8 + 1);
     }
 
     a1[4] = v9;
@@ -9580,7 +9369,7 @@ void caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTime
           v4 = atomic_load((a1 + 8));
         }
 
-        caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::element_t::release(v7);
+        caulk::concurrent::guarded_lookup_hash_table<unsigned int,ASDStreamRealTimeOperations *,(caulk::concurrent::guarded_lookup_hash_table_options)2,caulk::concurrent::guarded_lookup_default_hash_fn<unsigned int>>::element_t::release(v7, v6);
         v13 = *(a1 + 4) - 1;
         *(a1 + 4) = v13;
         if (v4)
@@ -9733,16 +9522,226 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_2415FE430(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
+void sub_2415FE430(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
 {
+  va_start(va, a37);
   _Block_object_dispose(&a32, 8);
-  _Block_object_dispose(&a38, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_2415FE7D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
+void sub_2415FE7D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
 {
+  va_start(va, a37);
   _Block_object_dispose(&a32, 8);
-  _Block_object_dispose(&a38, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
+}
+
+void AudioRingBuffer::AudioRingBuffer(AudioRingBuffer *this)
+{
+  *this = &unk_285344990;
+  CAStreamBasicDescription::CAStreamBasicDescription((this + 8));
+  CAStreamBasicDescription::CAStreamBasicDescription((this + 48));
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 28) = 0;
+  *(this + 13) = 0;
+  bzero(this + 120, 0x314uLL);
+  *(this + 454) = 1;
+}
+
+{
+  *this = &unk_285344990;
+  CAStreamBasicDescription::CAStreamBasicDescription((this + 8));
+  CAStreamBasicDescription::CAStreamBasicDescription((this + 48));
+  *(this + 11) = 0;
+  *(this + 12) = 0;
+  *(this + 28) = 0;
+  *(this + 13) = 0;
+  bzero(this + 120, 0x314uLL);
+  *(this + 454) = 1;
+}
+
+void AudioRingBuffer::~AudioRingBuffer(AudioRingBuffer *this)
+{
+  *this = &unk_285344990;
+  AudioRingBuffer::Deallocate(this);
+  v2 = *(this + 12);
+  if (v2)
+  {
+    free(v2);
+    *(this + 12) = 0;
+  }
+
+  v3 = *(this + 11);
+  if (v3)
+  {
+    free(v3);
+    *(this + 11) = 0;
+  }
+}
+
+{
+  AudioRingBuffer::~AudioRingBuffer(this);
+
+  JUMPOUT(0x245CEB8C0);
+}
+
+OpaqueAudioConverter *AudioRingBuffer::Deallocate(AudioRingBuffer *this)
+{
+  v2 = *(this + 13);
+  if (v2)
+  {
+    free(v2);
+    *(this + 13) = 0;
+  }
+
+  *(this + 28) = 0;
+  *(this + 15) = 0;
+  CAStreamBasicDescription::CAStreamBasicDescription(v7);
+  v3 = v7[1];
+  *(this + 8) = v7[0];
+  *(this + 24) = v3;
+  v4 = v8;
+  *(this + 5) = v8;
+  v5 = *(this + 24);
+  *(this + 3) = *(this + 8);
+  *(this + 4) = v5;
+  *(this + 10) = v4;
+  result = *(this + 16);
+  if (result)
+  {
+    result = AudioConverterDispose(result);
+    *(this + 16) = 0;
+  }
+
+  return result;
+}
+
+void AudioRingBuffer::Allocate(AudioRingBuffer *this, unsigned int a2, int a3, int a4)
+{
+  AudioRingBuffer::Deallocate(this);
+  *(this + 28) = a2;
+  *(this + 29) = a3;
+  *(this + 30) = a4;
+  *(this + 31) = a4 * a3;
+  v8 = (a4 * a3 + 8) * a2;
+  v9 = malloc_type_malloc(v8, 0x100004077774924uLL);
+  if (v8)
+  {
+    v10 = v9 == 0;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  if (v10)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v18 = std::bad_alloc::bad_alloc(exception);
+  }
+
+  v11 = v9;
+  bzero(v9, v8);
+  *(this + 13) = v11;
+  if (a2 >= 1)
+  {
+    v12 = 0;
+    v13 = *(this + 31);
+    v14 = &v11[8 * a2];
+    do
+    {
+      *(*(this + 13) + 8 * v12) = v14;
+      v14 += v13;
+      ++v12;
+    }
+
+    while (a2 != v12);
+  }
+
+  v15 = (this + 152);
+  v16 = 32;
+  do
+  {
+    *(v15 - 2) = 0;
+    *(v15 - 1) = 0;
+    *v15 = 0;
+    v15 += 6;
+    --v16;
+  }
+
+  while (v16);
+  *(this + 226) = 0;
+  *(this + 908) = 1;
+}
+
+AudioRingBuffer *AudioRingBuffer::Clear(AudioRingBuffer *this)
+{
+  v1 = (this + 152);
+  v2 = 32;
+  do
+  {
+    *(v1 - 2) = 0;
+    *(v1 - 1) = 0;
+    *v1 = 0;
+    v1 += 6;
+    --v2;
+  }
+
+  while (v2);
+  *(this + 226) = 0;
+  *(this + 908) = 1;
+  return this;
+}
+
+void AudioRingBuffer::Allocate(AudioRingBuffer *this, const CAStreamBasicDescription *a2, int a3)
+{
+  v6 = *(a2 + 6);
+  if ((*(a2 + 3) & 0x20) != 0)
+  {
+    v7 = *(a2 + 7);
+  }
+
+  else
+  {
+    v7 = 1;
+  }
+
+  AudioRingBuffer::Allocate(this, v7, v6, a3);
+  v8 = *a2;
+  v9 = *(a2 + 1);
+  *(this + 5) = *(a2 + 4);
+  *(this + 24) = v9;
+  *(this + 8) = v8;
+  v10 = *(a2 + 3);
+  if ((v10 & 0x20) != 0)
+  {
+    v11 = *(a2 + 7);
+  }
+
+  else
+  {
+    v11 = 1;
+  }
+
+  if ((v10 & 0x20) != 0)
+  {
+    v12 = 1;
+  }
+
+  else
+  {
+    v12 = *(a2 + 7);
+  }
+
+  v13 = AllocABL(v11, v12);
+  v14 = *(this + 11);
+  if (v14 != v13)
+  {
+    free(v14);
+    *(this + 11) = v13;
+  }
 }

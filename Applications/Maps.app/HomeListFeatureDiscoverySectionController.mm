@@ -14,7 +14,7 @@
   viewCopy = view;
   cellCopy = cell;
   selfCopy = self;
-  sub_100251494();
+  sub_100251494(v11);
 
   (*(v9 + 8))(v11, v8);
 }

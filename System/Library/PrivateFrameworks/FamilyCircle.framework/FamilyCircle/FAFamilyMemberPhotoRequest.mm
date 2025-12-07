@@ -83,11 +83,12 @@
 - (id)urlString
 {
   fa_photoRequestBaseURLString = [(FAFamilyMemberPhotoRequest *)self fa_photoRequestBaseURLString];
+  v4 = fa_photoRequestBaseURLString;
   familyMemberDSID = self->_familyMemberDSID;
   if (familyMemberDSID)
   {
     [MEMORY[0x1E696AEC0] stringWithFormat:@"%@?memberId=%@", fa_photoRequestBaseURLString, familyMemberDSID];
-    v6 = LABEL_5:;
+    v7 = LABEL_5:;
     goto LABEL_6;
   }
 
@@ -98,16 +99,16 @@
     goto LABEL_5;
   }
 
-  v8 = _FALogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = _FALogSystem(fa_photoRequestBaseURLString);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    [(FAFamilyMemberPhotoRequest *)v8 urlString];
+    [(FAFamilyMemberPhotoRequest *)v9 urlString];
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_6:
 
-  return v6;
+  return v7;
 }
 
 - (id)urlRequest

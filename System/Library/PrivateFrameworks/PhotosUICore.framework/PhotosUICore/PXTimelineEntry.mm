@@ -73,7 +73,7 @@
 {
   _localTimeFormatter = [(PXTimelineEntry *)self _localTimeFormatter];
   _utcTimeFormatter = [(PXTimelineEntry *)self _utcTimeFormatter];
-  startTime = [(PXTimelineEntry *)self startTime];
+  v5 = objc_msgSend_startTime(self);
   endTime = [(PXTimelineEntry *)self endTime];
   v7 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v8 = MEMORY[0x1E696AEC0];
@@ -82,13 +82,13 @@
   v11 = [v8 stringWithFormat:@"%@ <%p>:\n", v10, self];
   [v7 setObject:v11 forKeyedSubscript:@"id"];
 
-  v12 = [_localTimeFormatter stringFromDate:startTime];
+  v12 = [_localTimeFormatter stringFromDate:v5];
   [v7 setObject:v12 forKeyedSubscript:@"StartTime (Local Time)"];
 
   v13 = [_localTimeFormatter stringFromDate:endTime];
   [v7 setObject:v13 forKeyedSubscript:@"EndTime (Local Time)"];
 
-  v14 = [_utcTimeFormatter stringFromDate:startTime];
+  v14 = [_utcTimeFormatter stringFromDate:v5];
   [v7 setObject:v14 forKeyedSubscript:@"StartTime(UTC)"];
 
   v15 = [_utcTimeFormatter stringFromDate:endTime];
@@ -138,20 +138,20 @@
 - (id)description
 {
   _localTimeFormatter = [(PXTimelineEntry *)self _localTimeFormatter];
-  startTime = [(PXTimelineEntry *)self startTime];
+  v4 = objc_msgSend_startTime(self);
   endTime = [(PXTimelineEntry *)self endTime];
   v6 = MEMORY[0x1E696AD60];
   v7 = objc_opt_class();
   v8 = NSStringFromClass(v7);
   v9 = [v6 stringWithFormat:@"%@ <%p>:\n", v8, self];
 
-  v10 = [_localTimeFormatter stringFromDate:startTime];
+  v10 = [_localTimeFormatter stringFromDate:v4];
   [v9 appendFormat:@" StartTime (Local Time): %@\n", v10];
 
   v11 = [_localTimeFormatter stringFromDate:endTime];
   [v9 appendFormat:@" EndTime (Local Time): %@\n", v11];
 
-  [v9 appendFormat:@" StartTime(UTC): %@\n", startTime];
+  [v9 appendFormat:@" StartTime(UTC): %@\n", v4];
   [v9 appendFormat:@" EndTime(UTC): %@\n", endTime];
   v12 = [PXTimelineEntry descriptionForTimelineContentType:[(PXTimelineEntry *)self contentType]];
   [v9 appendFormat:@" ContentType: %@\n", v12];

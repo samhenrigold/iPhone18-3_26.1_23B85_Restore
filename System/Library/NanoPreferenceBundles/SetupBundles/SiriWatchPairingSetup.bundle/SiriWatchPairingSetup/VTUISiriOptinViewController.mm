@@ -20,103 +20,105 @@
 
 + (BOOL)wantsUnifiedFYI
 {
-  sharedPreferences = [sub_121C() sharedPreferences];
-  assistantIsEnabled = [sharedPreferences assistantIsEnabled];
+  v2 = [sub_121C(self a2)];
+  assistantIsEnabled = [v2 assistantIsEnabled];
 
   return assistantIsEnabled & shouldShowSiriOptInPage();
 }
 
 + (BOOL)controllerNeedsToRun
 {
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x2020000000;
   v2 = off_CBB8;
-  v11 = off_CBB8;
+  v13 = off_CBB8;
   if (!off_CBB8)
   {
     v3 = sub_1ED0();
-    v9[3] = dlsym(v3, "AFAssistantRestricted");
-    off_CBB8 = v9[3];
-    v2 = v9[3];
+    v11[3] = dlsym(v3, "AFAssistantRestricted");
+    off_CBB8 = v11[3];
+    v2 = v11[3];
   }
 
-  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v10, 8);
   if (!v2)
   {
     sub_4398();
   }
 
-  if (v2())
+  v4 = v2();
+  if (v4)
   {
-    v4 = 0;
+    v6 = 0;
   }
 
   else
   {
-    sharedPreferences = [sub_121C() sharedPreferences];
-    assistantIsEnabled = [sharedPreferences assistantIsEnabled];
+    v7 = [sub_121C(v4 v5)];
+    assistantIsEnabled = [v7 assistantIsEnabled];
 
-    v4 = assistantIsEnabled ^ shouldShowSiriOptInPage();
+    v6 = assistantIsEnabled ^ shouldShowSiriOptInPage();
   }
 
-  return v4 & 1;
+  return v6 & 1;
 }
 
 - (VTUISiriOptinViewController)init
 {
-  v11.receiver = self;
-  v11.super_class = VTUISiriOptinViewController;
-  v2 = [(VTUISiriOptinViewController *)&v11 init];
+  v13.receiver = self;
+  v13.super_class = VTUISiriOptinViewController;
+  v2 = [(VTUISiriOptinViewController *)&v13 init];
+  v4 = v2;
   if (v2)
   {
-    sharedPreferences = [sub_121C() sharedPreferences];
-    assistantIsEnabled = [sharedPreferences assistantIsEnabled];
+    v5 = [sub_121C(v2 v3)];
+    assistantIsEnabled = [v5 assistantIsEnabled];
 
-    v5 = BPSShouldOfferSiriForDeviceLanguage();
-    v2->_languageSupported = v5;
-    if (!assistantIsEnabled || (v5 & 1) != 0)
+    v7 = BPSShouldOfferSiriForDeviceLanguage();
+    v4->_languageSupported = v7;
+    if (!assistantIsEnabled || (v7 & 1) != 0)
     {
-      if (!v5)
+      if (!v7)
       {
-        sub_43BC();
+        sub_43BC(v7);
       }
 
-      [(VTUISiriOptinViewController *)v2 setStyle:90];
-      v6 = pbb_bridge_log();
-      if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      [(VTUISiriOptinViewController *)v4 setStyle:90];
+      v8 = pbb_bridge_log();
+      if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_10;
       }
 
-      languageSupported = v2->_languageSupported;
+      languageSupported = v4->_languageSupported;
       *buf = 67109120;
-      v13 = languageSupported;
-      v8 = "Siri disabled on Phone; Setting FYI: NO, and _languageSupported: (%d); ";
+      v15 = languageSupported;
+      v10 = "Siri disabled on Phone; Setting FYI: NO, and _languageSupported: (%d); ";
     }
 
     else
     {
-      [(VTUISiriOptinViewController *)v2 setStyle:96];
-      v6 = pbb_bridge_log();
-      if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      [(VTUISiriOptinViewController *)v4 setStyle:96];
+      v8 = pbb_bridge_log();
+      if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_10:
 
-        return v2;
+        return v4;
       }
 
-      v7 = v2->_languageSupported;
+      v9 = v4->_languageSupported;
       *buf = 67109120;
-      v13 = v7;
-      v8 = "Siri enabled on Phone; Setting FYI: (YES), and _languageSupported: (%d); ";
+      v15 = v9;
+      v10 = "Siri enabled on Phone; Setting FYI: (YES), and _languageSupported: (%d); ";
     }
 
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, v8, buf, 8u);
+    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, v10, buf, 8u);
     goto LABEL_10;
   }
 
-  return v2;
+  return v4;
 }
 
 - (id)titleString
@@ -151,7 +153,7 @@ LABEL_10:
 {
   v2 = +[BPSBridgeAppContext shared];
   activeDevice = [v2 activeDevice];
-  v4 = VTUISiriScreenStringForDevice();
+  v4 = VTUISiriScreenStringForDevice(activeDevice);
 
   return v4;
 }

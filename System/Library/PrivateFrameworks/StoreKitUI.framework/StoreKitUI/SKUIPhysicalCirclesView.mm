@@ -49,46 +49,47 @@
     [SKUIPhysicalCirclesView initWithFrame:];
   }
 
-  v21.receiver = self;
-  v21.super_class = SKUIPhysicalCirclesView;
-  height = [(SKUIPhysicalCirclesView *)&v21 initWithFrame:x, y, width, height];
+  v23.receiver = self;
+  v23.super_class = SKUIPhysicalCirclesView;
+  height = [(SKUIPhysicalCirclesView *)&v23 initWithFrame:x, y, width, height];
+  v10 = height;
   if (height)
   {
-    v9 = SKUIPhysicsKitFramework();
-    *(height + 70) = v9;
-    v10 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Pkphysicsworld.isa, v9));
-    v11 = *(height + 71);
-    *(height + 71) = v10;
+    v11 = SKUIPhysicsKitFramework(height, v9);
+    v10->_physicsKitFramework = v11;
+    v12 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Pkphysicsworld.isa, v11));
+    physicsWorld = v10->_physicsWorld;
+    v10->_physicsWorld = v12;
 
-    [*(height + 71) setContactDelegate:height];
-    [*(height + 71) setGravity:{0.0, 0.0}];
-    v12 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Pkphysicsbody.isa, *(height + 70)));
-    v13 = *(height + 64);
-    *(height + 64) = v12;
+    [(PKPhysicsWorld *)v10->_physicsWorld setContactDelegate:v10];
+    [(PKPhysicsWorld *)v10->_physicsWorld setGravity:0.0, 0.0];
+    v14 = objc_alloc_init(SKUIWeakLinkedClassForString(&cfstr_Pkphysicsbody.isa, v10->_physicsKitFramework));
+    groundBody = v10->_groundBody;
+    v10->_groundBody = v14;
 
-    [*(height + 64) setPosition:{0.0, 0.0}];
-    [*(height + 71) addBody:*(height + 64)];
-    [*(height + 64) setDynamic:0];
-    *(height + 65) = 0x7FFFFFFFFFFFFFFFLL;
-    v14 = [objc_alloc(MEMORY[0x277D75708]) initWithTarget:height action:sel__longPressAction_];
-    v15 = *(height + 66);
-    *(height + 66) = v14;
+    [(PKPhysicsBody *)v10->_groundBody setPosition:0.0, 0.0];
+    [(PKPhysicsWorld *)v10->_physicsWorld addBody:v10->_groundBody];
+    [(PKPhysicsBody *)v10->_groundBody setDynamic:0];
+    v10->_longPressCircleIndex = 0x7FFFFFFFFFFFFFFFLL;
+    v16 = [objc_alloc(MEMORY[0x277D75708]) initWithTarget:v10 action:sel__longPressAction_];
+    longPressRecognizer = v10->_longPressRecognizer;
+    v10->_longPressRecognizer = v16;
 
-    [height addGestureRecognizer:*(height + 66)];
-    v16 = [objc_alloc(MEMORY[0x277D757F8]) initWithTarget:height action:sel__panGestureAction_];
-    v17 = *(height + 69);
-    *(height + 69) = v16;
+    [(SKUIPhysicalCirclesView *)v10 addGestureRecognizer:v10->_longPressRecognizer];
+    v18 = [objc_alloc(MEMORY[0x277D757F8]) initWithTarget:v10 action:sel__panGestureAction_];
+    panRecognizer = v10->_panRecognizer;
+    v10->_panRecognizer = v18;
 
-    [height addGestureRecognizer:*(height + 69)];
-    v18 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:height action:sel__tapGestureAction_];
-    v19 = *(height + 73);
-    *(height + 73) = v18;
+    [(SKUIPhysicalCirclesView *)v10 addGestureRecognizer:v10->_panRecognizer];
+    v20 = [objc_alloc(MEMORY[0x277D75B80]) initWithTarget:v10 action:sel__tapGestureAction_];
+    tapRecognizer = v10->_tapRecognizer;
+    v10->_tapRecognizer = v20;
 
-    [height addGestureRecognizer:*(height + 73)];
-    [height setClipsToBounds:1];
+    [(SKUIPhysicalCirclesView *)v10 addGestureRecognizer:v10->_tapRecognizer];
+    [(SKUIPhysicalCirclesView *)v10 setClipsToBounds:1];
   }
 
-  return height;
+  return v10;
 }
 
 - (void)dealloc

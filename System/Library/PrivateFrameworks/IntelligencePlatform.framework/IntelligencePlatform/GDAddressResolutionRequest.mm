@@ -75,7 +75,7 @@
 
 - (GDAddressResolutionRequest)initWithCoder:(id)coder
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = objc_opt_class();
   v6 = NSStringFromSelector(sel_addressString);
@@ -94,9 +94,9 @@
     if (!error)
     {
       v10 = MEMORY[0x1E696ABC0];
-      v15 = *MEMORY[0x1E696A578];
-      v16[0] = @"GDAddressResolutionRequest addressString could not be decoded";
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v14 = *MEMORY[0x1E696A578];
+      v15[0] = @"GDAddressResolutionRequest addressString could not be decoded";
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
       v12 = [v10 errorWithDomain:@"GDErrorDomain" code:9 userInfo:v11];
       [coderCopy failWithError:v12];
     }
@@ -104,7 +104,6 @@
     selfCopy = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

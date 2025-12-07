@@ -16,7 +16,7 @@
   v4 = type metadata accessor for IndexPath();
   (*(*(v4 - 8) + 56))(self + v3, 1, 1, v4);
   v7.receiver = self;
-  v7.super_class = type metadata accessor for ScreenshotGalleryCollectionViewFlowLayout();
+  v7.super_class = type metadata accessor for ScreenshotGalleryCollectionViewFlowLayout(0);
   v5 = [(ScreenshotGalleryCollectionViewFlowLayout *)&v7 init];
   [(ScreenshotGalleryCollectionViewFlowLayout *)v5 setScrollDirection:1];
   return v5;
@@ -45,7 +45,7 @@
   }
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for ScreenshotGalleryCollectionViewFlowLayout();
+  v6.super_class = type metadata accessor for ScreenshotGalleryCollectionViewFlowLayout(0);
   [(ScreenshotGalleryCollectionViewFlowLayout *)&v6 dealloc];
 }
 
@@ -58,7 +58,7 @@
 - (void)prepareForTransitionToLayout:(id)layout
 {
   v9.receiver = self;
-  v9.super_class = type metadata accessor for ScreenshotGalleryCollectionViewFlowLayout();
+  v9.super_class = type metadata accessor for ScreenshotGalleryCollectionViewFlowLayout(0);
   layoutCopy = layout;
   v5 = v9.receiver;
   [(ScreenshotGalleryCollectionViewFlowLayout *)&v9 prepareForTransitionToLayout:layoutCopy];

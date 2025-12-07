@@ -33,7 +33,7 @@
 
   if (dword_100022470 <= 50 && (dword_100022470 != -1 || _LogCategory_Initialize()))
   {
-    sub_10000B8C0();
+    sub_10000B8C0(v2);
   }
 
   return v2;
@@ -47,40 +47,51 @@
   completionCopy = completion;
   if (dword_100022470 <= 50 && (dword_100022470 != -1 || _LogCategory_Initialize()))
   {
-    if (responseCopy)
+    if (responseCopy && !IsAppleInternalBuild())
     {
-      IsAppleInternalBuild();
+      v14 = @"#Redacted#";
     }
 
-    LogPrintF();
+    else
+    {
+      v14 = responseCopy;
+    }
+
+    LogPrintF(&dword_100022470, "[APUIBrokerHelper _handleGetInfoResponse:requestUUID:error:completion:]", 33554482, "[%{ptr}] Handling discovery broker GetInfo %'@ response error: %{error} %@", self, dCopy, errorCopy, v14);
   }
 
-  v14 = NSErrorToOSStatus();
-  if (v14)
+  v15 = NSErrorToOSStatus();
+  if (v15)
   {
-    v16 = v14;
-    sub_10000B904();
-    v15 = 0;
+    v19 = v15;
+    sub_10000B904(v15);
+    v16 = 0;
   }
 
   else
   {
-    v15 = [responseCopy objectForKeyedSubscript:@"BrokerGroupInfo"];
-    if (v15)
+    v16 = [(__CFString *)responseCopy objectForKeyedSubscript:@"BrokerGroupInfo"];
+    if (v16)
     {
       if (dword_100022470 <= 50 && (dword_100022470 != -1 || _LogCategory_Initialize()))
       {
-        IsAppleInternalBuild();
-        LogPrintF();
+        v17 = IsAppleInternalBuild();
+        v18 = @"#Redacted#";
+        if (v17)
+        {
+          v18 = v16;
+        }
+
+        LogPrintF(&dword_100022470, "[APUIBrokerHelper _handleGetInfoResponse:requestUUID:error:completion:]", 33554482, "[%{ptr}] GetInfo response - request %'@ succeeded with brokerGroupInfo %@\n", self, dCopy, v18);
       }
 
-      v16 = 0;
+      v19 = 0;
     }
 
     else
     {
       sub_10000B914();
-      v16 = -6705;
+      v19 = -6705;
     }
   }
 
@@ -91,9 +102,9 @@
     block[1] = 3221225472;
     block[2] = sub_100002E9C;
     block[3] = &unk_10001C658;
-    v20 = completionCopy;
-    v21 = v16;
-    v19 = v15;
+    v23 = completionCopy;
+    v24 = v19;
+    v22 = v16;
     dispatch_async(notificationQueue, block);
   }
 }
@@ -123,47 +134,58 @@
   completionCopy = completion;
   if (dword_100022470 <= 50 && (dword_100022470 != -1 || _LogCategory_Initialize()))
   {
-    if (responseCopy)
+    if (responseCopy && !IsAppleInternalBuild())
     {
-      IsAppleInternalBuild();
+      v14 = @"#Redacted#";
     }
 
-    LogPrintF();
+    else
+    {
+      v14 = responseCopy;
+    }
+
+    LogPrintF(&dword_100022470, "[APUIBrokerHelper _handleAuthenticationResponse:requestUUID:error:completion:]", 33554482, "[%{ptr}] Handling discovery broker authentication %'@ response error: %{error} %@", self, dCopy, errorCopy, v14);
   }
 
-  v14 = NSErrorToOSStatus();
-  if (v14)
+  v15 = NSErrorToOSStatus();
+  if (v15)
   {
-    v16 = v14;
-    sub_10000B928();
-    v15 = 0;
-    goto LABEL_15;
+    v19 = v15;
+    sub_10000B928(v15);
+    v16 = 0;
+    goto LABEL_20;
   }
 
   if (!responseCopy)
   {
     sub_10000B94C();
-    v15 = 0;
-LABEL_21:
-    v16 = -6705;
-    goto LABEL_15;
+    v16 = 0;
+LABEL_26:
+    v19 = -6705;
+    goto LABEL_20;
   }
 
-  v15 = [responseCopy objectForKeyedSubscript:@"AuthTargetReceiverDeviceID"];
-  if (!v15)
+  v16 = [(__CFString *)responseCopy objectForKeyedSubscript:@"AuthTargetReceiverDeviceID"];
+  if (!v16)
   {
     sub_10000B938();
-    goto LABEL_21;
+    goto LABEL_26;
   }
 
   if (dword_100022470 <= 50 && (dword_100022470 != -1 || _LogCategory_Initialize()))
   {
-    IsAppleInternalBuild();
-    LogPrintF();
+    v17 = IsAppleInternalBuild();
+    v18 = @"#Redacted#";
+    if (v17)
+    {
+      v18 = v16;
+    }
+
+    LogPrintF(&dword_100022470, "[APUIBrokerHelper _handleAuthenticationResponse:requestUUID:error:completion:]", 33554482, "[%{ptr}] Auth response - request %'@ succeeded with authTargetReceiverDeviceID %@\n", self, dCopy, v18);
   }
 
-  v16 = 0;
-LABEL_15:
+  v19 = 0;
+LABEL_20:
   if (completionCopy)
   {
     notificationQueue = self->_notificationQueue;
@@ -171,9 +193,9 @@ LABEL_15:
     block[1] = 3221225472;
     block[2] = sub_100003350;
     block[3] = &unk_10001C658;
-    v20 = completionCopy;
-    v21 = v16;
-    v19 = v15;
+    v23 = completionCopy;
+    v24 = v19;
+    v22 = v16;
     dispatch_async(notificationQueue, block);
   }
 }
@@ -235,12 +257,12 @@ LABEL_15:
   {
     if (dword_100022470 != -1 || (v6 = _LogCategory_Initialize(), v5 = v17, v6))
     {
-      sub_10000B970();
+      sub_10000B970(v5, self);
       v5 = v17;
     }
   }
 
-  v7 = [v5 objectForKeyedSubscript:{@"RequestType", v17}];
+  v7 = [(__CFString *)v5 objectForKeyedSubscript:@"RequestType", v17];
   if (!v7)
   {
     sub_10000BA80(self, &v18);
@@ -250,7 +272,7 @@ LABEL_20:
   }
 
   v8 = v7;
-  v9 = [v17 objectForKeyedSubscript:@"RequestUUID"];
+  v9 = [(__CFString *)v17 objectForKeyedSubscript:@"RequestUUID"];
   if (!v9)
   {
     sub_10000B9E8(self, v8, &v18);
@@ -258,12 +280,12 @@ LABEL_20:
   }
 
   v10 = v9;
-  v11 = [v17 objectForKeyedSubscript:@"Status"];
+  v11 = [(__CFString *)v17 objectForKeyedSubscript:@"Status"];
   intValue = [v11 intValue];
 
   if (intValue)
   {
-    sub_10000B9D8();
+    sub_10000B9D8(intValue);
   }
 
   selfCopy = self;

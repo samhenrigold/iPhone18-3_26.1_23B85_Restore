@@ -6,6 +6,7 @@
 - (int)_recalculatePriority;
 - (void)_setNewPriority;
 - (void)_updateForegroundDataclasses;
+- (void)appWithBundleID:(id)d isNowRunningAndVisible:(BOOL)visible;
 - (void)bumpDataclassesToUIPriority:(int64_t)priority;
 - (void)dealloc;
 - (void)requestPriority:(int)priority forClient:(id)client dataclasses:(int64_t)dataclasses;
@@ -55,20 +56,49 @@ uint64_t __34__DAPriorityManager_sharedManager__block_invoke()
 
 void __40__DAPriorityManager_appIDsToDataclasses__block_invoke()
 {
-  v4[4] = *MEMORY[0x277D85DE8];
-  v3[0] = *MEMORY[0x277CF78A0];
-  v3[1] = @"com.apple.MobileAddressBook";
-  v4[0] = &unk_285AAFC28;
-  v4[1] = &unk_285AAFC40;
-  v3[2] = @"com.apple.mobilephone";
-  v3[3] = @"com.apple.mobilenotes";
-  v4[2] = &unk_285AAFC40;
-  v4[3] = &unk_285AAFC58;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:4];
+  v3[4] = *MEMORY[0x277D85DE8];
+  v2[0] = *MEMORY[0x277CF78A0];
+  v2[1] = @"com.apple.MobileAddressBook";
+  v3[0] = &unk_285AAFC28;
+  v3[1] = &unk_285AAFC40;
+  v2[2] = @"com.apple.mobilephone";
+  v2[3] = @"com.apple.mobilenotes";
+  v3[2] = &unk_285AAFC40;
+  v3[3] = &unk_285AAFC58;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:4];
   v1 = appIDsToDataclasses_sAppIDsToDataclasses;
   appIDsToDataclasses_sAppIDsToDataclasses = v0;
+}
 
-  v2 = *MEMORY[0x277D85DE8];
+- (void)appWithBundleID:(id)d isNowRunningAndVisible:(BOOL)visible
+{
+  visibleCopy = visible;
+  v19 = *MEMORY[0x277D85DE8];
+  dCopy = d;
+  v7 = [(NSMutableDictionary *)self->_cachedAppState objectForKeyedSubscript:dCopy];
+  bOOLValue = [v7 BOOLValue];
+
+  v9 = [MEMORY[0x277CCABB0] numberWithBool:visibleCopy];
+  [(NSMutableDictionary *)self->_cachedAppState setObject:v9 forKeyedSubscript:dCopy];
+
+  if (bOOLValue != visibleCopy)
+  {
+    [(DAPriorityManager *)self _updateForegroundDataclasses];
+  }
+
+  v10 = DALoggingwithCategory();
+  v11 = *(MEMORY[0x277D03988] + 7);
+  if (os_log_type_enabled(v10, v11))
+  {
+    foregroundDataclasses = self->_foregroundDataclasses;
+    v13 = 138412802;
+    v14 = dCopy;
+    v15 = 1024;
+    v16 = visibleCopy;
+    v17 = 2048;
+    v18 = foregroundDataclasses;
+    _os_log_impl(&dword_24844D000, v10, v11, "App state changed; %@ now has foreground status: %{BOOL}i. Foreground dataclasses are 0x%lx", &v13, 0x1Cu);
+  }
 }
 
 - (void)_updateForegroundDataclasses
@@ -192,7 +222,7 @@ void __25__DAPriorityManager_init__block_invoke_2()
 
 void __45__DAPriorityManager_setupProcessStateMonitor__block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277D46FB0] descriptor];
   [v4 setValues:1];
@@ -203,53 +233,51 @@ void __45__DAPriorityManager_setupProcessStateMonitor__block_invoke(uint64_t a1,
   v7 = [v6 allKeys];
 
   v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v7, "count")}];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       v12 = 0;
       do
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v9);
         }
 
-        v13 = [MEMORY[0x277D46FA0] predicateMatchingBundleIdentifier:*(*(&v17 + 1) + 8 * v12)];
+        v13 = [MEMORY[0x277D46FA0] predicateMatchingBundleIdentifier:*(*(&v16 + 1) + 8 * v12)];
         [v8 addObject:v13];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
   }
 
   [v3 setPredicates:v8];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __45__DAPriorityManager_setupProcessStateMonitor__block_invoke_2;
-  v15[3] = &unk_278F13AC8;
-  objc_copyWeak(&v16, (a1 + 32));
-  [v3 setUpdateHandler:v15];
-  objc_destroyWeak(&v16);
-
-  v14 = *MEMORY[0x277D85DE8];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __45__DAPriorityManager_setupProcessStateMonitor__block_invoke_2;
+  v14[3] = &unk_278F13AC8;
+  objc_copyWeak(&v15, (a1 + 32));
+  [v3 setUpdateHandler:v14];
+  objc_destroyWeak(&v15);
 }
 
 void __45__DAPriorityManager_setupProcessStateMonitor__block_invoke_2(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   v8 = [v7 state];
@@ -275,13 +303,11 @@ void __45__DAPriorityManager_setupProcessStateMonitor__block_invoke_2(uint64_t a
     v16 = *(MEMORY[0x277D03988] + 3);
     if (os_log_type_enabled(WeakRetained, v16))
     {
-      v18 = 138412290;
-      v19 = v6;
-      _os_log_impl(&dword_24844D000, WeakRetained, v16, "Ignoring an update for a process (%@) without a bundle identifier", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = v6;
+      _os_log_impl(&dword_24844D000, WeakRetained, v16, "Ignoring an update for a process (%@) without a bundle identifier", &v17, 0xCu);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)stateString
@@ -384,7 +410,7 @@ void __45__DAPriorityManager_setupProcessStateMonitor__block_invoke_2(uint64_t a
 
 - (void)_setNewPriority
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _recalculatePriority = [(DAPriorityManager *)self _recalculatePriority];
   if (_recalculatePriority != self->_currentPriority)
   {
@@ -393,21 +419,19 @@ void __45__DAPriorityManager_setupProcessStateMonitor__block_invoke_2(uint64_t a
     v6 = *(MEMORY[0x277D03988] + 6);
     if (os_log_type_enabled(v5, v6))
     {
-      v8[0] = 67109120;
-      v8[1] = v4;
-      _os_log_impl(&dword_24844D000, v5, v6, "DAPERF: DAPriorityManager is changing the priority to %d", v8, 8u);
+      v7[0] = 67109120;
+      v7[1] = v4;
+      _os_log_impl(&dword_24844D000, v5, v6, "DAPERF: DAPriorityManager is changing the priority to %d", v7, 8u);
     }
 
     setpriority(4, 0, v4);
     self->_currentPriority = v4;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestPriority:(int)priority forClient:(id)client dataclasses:(int64_t)dataclasses
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   if (!clientCopy)
   {
@@ -439,13 +463,13 @@ void __45__DAPriorityManager_setupProcessStateMonitor__block_invoke_2(uint64_t a
       v15 = off_278F13B10[priority];
     }
 
-    v22 = 138412802;
-    v23 = clientCopy;
-    v24 = 2112;
-    v25 = v15;
-    v26 = 2048;
+    v21 = 138412802;
+    v22 = clientCopy;
+    v23 = 2112;
+    v24 = v15;
+    v25 = 2048;
     dataclassesCopy = dataclasses;
-    _os_log_impl(&dword_24844D000, v13, v14, "Client %@ requested priority %@ for dataclasses 0x%lx", &v22, 0x20u);
+    _os_log_impl(&dword_24844D000, v13, v14, "Client %@ requested priority %@ for dataclasses 0x%lx", &v21, 0x20u);
   }
 
   switch(priority)
@@ -478,21 +502,20 @@ LABEL_16:
   [(DAPriorityManager *)selfCopy _setNewPriority];
 
   objc_sync_exit(selfCopy);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)bumpDataclassesToUIPriority:(int64_t)priority
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v5 = DALoggingwithCategory();
   v6 = *(MEMORY[0x277D03988] + 6);
   if (os_log_type_enabled(v5, v6))
   {
-    v14 = 134217984;
+    v13 = 134217984;
     priorityCopy = priority;
-    _os_log_impl(&dword_24844D000, v5, v6, "Bumping all client priority requests for dataclasses 0x%lx to UI. Open bar, dude!", &v14, 0xCu);
+    _os_log_impl(&dword_24844D000, v5, v6, "Bumping all client priority requests for dataclasses 0x%lx to UI. Open bar, dude!", &v13, 0xCu);
   }
 
   clientsToPriorityRequests = [(DAPriorityManager *)selfCopy clientsToPriorityRequests];
@@ -516,7 +539,6 @@ LABEL_16:
 
   objc_sync_exit(selfCopy);
   [(DAPriorityManager *)selfCopy _setNewPriority];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestPriority:(uint64_t)a1 forClient:(uint64_t)a2 dataclasses:.cold.1(uint64_t a1, uint64_t a2)

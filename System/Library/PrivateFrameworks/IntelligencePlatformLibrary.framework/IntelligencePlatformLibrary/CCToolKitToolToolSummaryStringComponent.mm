@@ -222,7 +222,6 @@ LABEL_21:
         v29 = objc_opt_class();
         NSStringFromClass(v29);
         v31 = v30 = dataCopy;
-        v32 = *&v6[*v9];
         v10 = CCSkipFieldErrorForMessage();
 
         dataCopy = v30;
@@ -251,22 +250,21 @@ LABEL_28:
 LABEL_31:
   if (!*&v6[*v9])
   {
-    v36 = 1;
+    v34 = 1;
     goto LABEL_35;
   }
 
 LABEL_32:
-  v33 = objc_opt_class();
-  v10 = NSStringFromClass(v33);
-  v34 = *&v6[*v9];
-  v35 = CCInvalidBufferErrorForMessage();
+  v32 = objc_opt_class();
+  v10 = NSStringFromClass(v32);
+  v33 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_33:
-  v36 = 0;
+  v34 = 0;
 LABEL_35:
 
-  return v36;
+  return v34;
 }
 
 - (CCToolKitToolToolSummaryStringComponent)initWithKind:(id)kind kindType:(unsigned int)type error:(id *)error

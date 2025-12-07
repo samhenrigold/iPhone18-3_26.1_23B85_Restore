@@ -70,11 +70,11 @@
 
       if (v13)
       {
-        v14 = sub_100004784();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v15 = sub_100004784(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(__buf.value) = 0;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "device type is true depth: configuring depth format and frame rate", &__buf, 2u);
+          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "device type is true depth: configuring depth format and frame rate", &__buf, 2u);
         }
 
         [device lockForConfiguration:0];
@@ -83,8 +83,8 @@
         lastObject = [supportedDepthDataFormats lastObject];
         [device setActiveDepthDataFormat:lastObject];
 
-        CMTimeMake(&v26, 1, 15);
-        __buf = v26;
+        CMTimeMake(&v28, 1, 15);
+        __buf = v28;
         [device setActiveDepthDataMinFrameDuration:&__buf];
         [device unlockForConfiguration];
       }
@@ -94,12 +94,13 @@
       session3 = [(FMCameraSession *)self session];
       [session3 addOutput:session6];
 
-      if ([session6 isFaceTrackingSupported])
+      isFaceTrackingSupported = [session6 isFaceTrackingSupported];
+      if (isFaceTrackingSupported)
       {
         [session6 setFaceTrackingMetadataObjectTypesAvailable:1];
-        v28 = AVMetadataObjectTypeTrackedFaces;
-        v20 = [NSArray arrayWithObjects:&v28 count:1];
-        [session6 setMetadataObjectTypes:v20];
+        v30 = AVMetadataObjectTypeTrackedFaces;
+        v22 = [NSArray arrayWithObjects:&v30 count:1];
+        [session6 setMetadataObjectTypes:v22];
 
         [session6 setFaceTrackingMaxFaces:1];
         [session6 setFaceTrackingPlusEnabled:1];
@@ -112,8 +113,8 @@
 
       else
       {
-        v25 = sub_100004784();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+        v27 = sub_100004784(isFaceTrackingSupported);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
         {
           sub_1000058B4();
         }
@@ -125,8 +126,8 @@
 
     else
     {
-      v24 = sub_100004784();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+      v26 = sub_100004784(0);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
       {
         sub_1000058E8();
       }
@@ -138,8 +139,8 @@
 
   else
   {
-    v23 = sub_100004784();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+    v25 = sub_100004784(0);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
       sub_10000591C();
     }
@@ -184,7 +185,7 @@
   dispatch_assert_queue_V2(self->_queue);
   memset(&v7[8], 0, 48);
   *v7 = HAFacialMetricsGenerateHashForTimestamp();
-  [(FMCameraSession *)self _retrieveCmTimeForAbsoluteTimestamp:timestamp];
+  objc_msgSend__retrieveCmTimeForAbsoluteTimestamp_(self, timestamp);
   *&v7[48] = kCMTimeInvalid.epoch;
   *&v7[32] = *&kCMTimeInvalid.value;
   v5[0] = *v7;
@@ -197,7 +198,7 @@
 - (void)updateMessageSessionWithSessionStopTimestamp:(double)timestamp
 {
   dispatch_assert_queue_V2(self->_queue);
-  [(FMCameraSession *)self _retrieveCmTimeForAbsoluteTimestamp:timestamp];
+  objc_msgSend__retrieveCmTimeForAbsoluteTimestamp_(self, timestamp);
   self->_messageAppSessionStats.messageSessionStopTime = v5;
 }
 
@@ -218,12 +219,12 @@
   if (v2)
   {
     v3 = v2;
-    v4 = sub_100004784();
+    v4 = sub_100004784(v2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 0;
+      v9 = 0;
       v5 = "using true depth camera";
-      v6 = &v8;
+      v6 = &v9;
 LABEL_7:
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, v5, v6, 2u);
     }
@@ -231,13 +232,14 @@ LABEL_7:
 
   else
   {
-    v3 = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInWideAngleCamera mediaType:AVMediaTypeVideo position:2];
-    if (!v3)
+    v7 = [AVCaptureDevice defaultDeviceWithDeviceType:AVCaptureDeviceTypeBuiltInWideAngleCamera mediaType:AVMediaTypeVideo position:2];
+    v3 = v7;
+    if (!v7)
     {
       goto LABEL_9;
     }
 
-    v4 = sub_100004784();
+    v4 = sub_100004784(v7);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -263,27 +265,27 @@ LABEL_9:
     [(FMCameraSession *)self reportCameraSessionLatency];
   }
 
-  v21 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
+  v21 = 0u;
   v7 = objectsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v21;
     v11 = AVMetadataObjectTypeTrackedFaces;
 LABEL_5:
     v12 = 0;
     while (1)
     {
-      if (*v20 != v10)
+      if (*v21 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v13 = *(*(&v19 + 1) + 8 * v12);
+      v13 = *(*(&v20 + 1) + 8 * v12);
       type = [v13 type];
       v15 = [type isEqualToString:v11];
 
@@ -294,7 +296,7 @@ LABEL_5:
 
       if (v9 == ++v12)
       {
-        v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v9)
         {
           goto LABEL_5;
@@ -311,11 +313,11 @@ LABEL_5:
       goto LABEL_16;
     }
 
-    v17 = [(FMCameraSession *)self _packetFromMetrics:payload];
-    if (v17)
+    v18 = [(FMCameraSession *)self _packetFromMetrics:payload];
+    if (v18)
     {
       delegate = [(FMCameraSession *)self delegate];
-      [delegate handleFacialMetricsPacket:v17 withTimestamp:{-[FMCameraSession _machContinuousTimeForMetrics:](self, "_machContinuousTimeForMetrics:", payload)}];
+      [delegate handleFacialMetricsPacket:v18 withTimestamp:{-[FMCameraSession _machContinuousTimeForMetrics:](self, "_machContinuousTimeForMetrics:", payload)}];
     }
   }
 
@@ -324,7 +326,7 @@ LABEL_5:
 LABEL_11:
 
 LABEL_16:
-    payload = sub_100004784();
+    payload = sub_100004784(v16);
     if (os_log_type_enabled(payload, OS_LOG_TYPE_ERROR))
     {
       sub_100005950();
@@ -336,116 +338,119 @@ LABEL_16:
 {
   metricsCopy = metrics;
   dispatch_assert_queue_V2(self->_queue);
-  memset(&v36, 0, sizeof(v36));
-  [(FMCameraSession *)self _cmTimeForMetrics:metricsCopy];
-  v5 = sub_100004784();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  memset(&v40[7], 0, 24);
+  v5 = objc_msgSend__cmTimeForMetrics_(self);
+  v6 = sub_100004784(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_100005990();
   }
 
-  [(FMCameraSession *)self unlockSessionStats];
-  if (v35 && ([(FMCameraSession *)self unlockSessionStats], time = v33, [(FMCameraSession *)self unlockSessionStats], rhs = v31, lhs = v36, [(FMCameraSession *)self _isPacketWithinRangeForTimestamp:&lhs withSessionStartTime:&time andSessionStopTime:&rhs]))
+  objc_msgSend_unlockSessionStats(self);
+  if (v40[0] && (objc_msgSend_unlockSessionStats(self), time = v38, objc_msgSend_unlockSessionStats(self), rhs = v36, lhs = *&v40[7], [(FMCameraSession *)self _isPacketWithinRangeForTimestamp:&lhs withSessionStartTime:&time andSessionStopTime:&rhs]))
   {
-    [(FMCameraSession *)self unlockSessionStats];
-    rhs = v29;
-    lhs = v36;
+    objc_msgSend_unlockSessionStats(self);
+    rhs = v34;
+    lhs = *&v40[7];
     CMTimeSubtract(&time, &lhs, &rhs);
     Seconds = CMTimeGetSeconds(&time);
-    [(FMCameraSession *)self unlockSessionStats];
-    v7 = v28;
+    resetUnlockSessionId = objc_msgSend_unlockSessionStats(self);
+    v9 = v33;
   }
 
   else
   {
-    [(FMCameraSession *)self unlockSessionStats];
+    resetUnlockSessionId = objc_msgSend_unlockSessionStats(self);
     Seconds = -1.0;
-    if (v27)
+    if (v32)
     {
-      [(FMCameraSession *)self unlockSessionStats];
-      time = v26;
-      rhs = v36;
-      if (CMTimeCompare(&time, &rhs) < 0)
+      objc_msgSend_unlockSessionStats(self);
+      time = v31;
+      rhs = *&v40[7];
+      resetUnlockSessionId = CMTimeCompare(&time, &rhs);
+      if ((resetUnlockSessionId & 0x80000000) != 0)
       {
-        v8 = sub_100004784();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+        v10 = sub_100004784(resetUnlockSessionId);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           sub_1000059C4();
         }
 
-        [(FMCameraSession *)self resetUnlockSessionId];
+        resetUnlockSessionId = [(FMCameraSession *)self resetUnlockSessionId];
       }
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
-  v9 = sub_100004784();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v11 = sub_100004784(resetUnlockSessionId);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     sub_1000059F8();
   }
 
-  [(FMCameraSession *)self messageAppSessionStats];
-  if (v25 && ([(FMCameraSession *)self messageAppSessionStats], time = v24, [(FMCameraSession *)self messageAppSessionStats], rhs = v23, lhs = v36, [(FMCameraSession *)self _isPacketWithinRangeForTimestamp:&lhs withSessionStartTime:&time andSessionStopTime:&rhs]))
+  objc_msgSend_messageAppSessionStats(self);
+  if (v30 && (objc_msgSend_messageAppSessionStats(self), time = v29, objc_msgSend_messageAppSessionStats(self), rhs = v28, lhs = *&v40[7], [(FMCameraSession *)self _isPacketWithinRangeForTimestamp:&lhs withSessionStartTime:&time andSessionStopTime:&rhs]))
   {
-    [(FMCameraSession *)self messageAppSessionStats];
-    rhs = v22;
-    lhs = v36;
+    objc_msgSend_messageAppSessionStats(self);
+    rhs = v27;
+    lhs = *&v40[7];
     CMTimeSubtract(&time, &lhs, &rhs);
-    v10 = CMTimeGetSeconds(&time);
-    [(FMCameraSession *)self messageAppSessionStats];
-    v11 = v21;
+    v12 = CMTimeGetSeconds(&time);
+    resetMessageSessionId = objc_msgSend_messageAppSessionStats(self);
+    v14 = v26;
   }
 
   else
   {
-    [(FMCameraSession *)self messageAppSessionStats];
-    v10 = -1.0;
-    if (v20)
+    resetMessageSessionId = objc_msgSend_messageAppSessionStats(self);
+    v12 = -1.0;
+    if (v25)
     {
-      [(FMCameraSession *)self messageAppSessionStats];
-      time = v19;
-      rhs = v36;
-      if (CMTimeCompare(&time, &rhs) < 0)
+      objc_msgSend_messageAppSessionStats(self);
+      time = v24;
+      rhs = *&v40[7];
+      resetMessageSessionId = CMTimeCompare(&time, &rhs);
+      if ((resetMessageSessionId & 0x80000000) != 0)
       {
-        v12 = sub_100004784();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        v15 = sub_100004784(resetMessageSessionId);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           sub_100005A2C();
         }
 
-        [(FMCameraSession *)self resetMessageSessionId];
+        resetMessageSessionId = [(FMCameraSession *)self resetMessageSessionId];
       }
     }
 
-    v11 = 0;
+    v14 = 0;
   }
 
-  if (v11 | v7)
+  if (v14 | v9)
   {
-    v13 = [FMMetricsDistiller packetFromMetrics:metricsCopy withSessionId:self->_cameraSessionId andUnlockSessionId:v7 withSecondsFromStart:Seconds andMessageSessionId:v10 withSecondsFromStart:?];
-    if (v13)
+    v16 = [FMMetricsDistiller packetFromMetrics:metricsCopy withSessionId:self->_cameraSessionId andUnlockSessionId:v9 withSecondsFromStart:Seconds andMessageSessionId:v12 withSecondsFromStart:?];
+    v17 = v16;
+    if (v16)
     {
       if (!self->_metricsArePublishable)
       {
         self->_metricsArePublishable = 1;
-        v14 = sub_100004784();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v18 = sub_100004784(v16);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(time.value) = 0;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "metrics are now publishable", &time, 2u);
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "metrics are now publishable", &time, 2u);
         }
       }
 
-      v13 = v13;
-      v15 = v13;
+      v17 = v17;
+      v19 = v17;
     }
 
     else
     {
-      v16 = sub_100004784();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+      v20 = sub_100004784(0);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         sub_100005AA0();
       }
@@ -453,37 +458,37 @@ LABEL_16:
       if (self->_metricsArePublishable)
       {
         self->_metricsArePublishable = 0;
-        v17 = sub_100004784();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v22 = sub_100004784(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(time.value) = 0;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "metrics are no longer publishable", &time, 2u);
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "metrics are no longer publishable", &time, 2u);
         }
       }
 
-      v15 = 0;
+      v19 = 0;
     }
   }
 
   else
   {
-    v13 = sub_100004784();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v17 = sub_100004784(resetMessageSessionId);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_100005A60();
     }
 
-    v15 = 0;
+    v19 = 0;
   }
 
-  return v15;
+  return v19;
 }
 
 - (BOOL)_isPacketWithinRangeForTimestamp:(id *)timestamp withSessionStartTime:(id *)time andSessionStopTime:(id *)stopTime
 {
   if ((time->var2 & 1) == 0 || (timestamp->var2 & 1) == 0)
   {
-    v6 = sub_100004784();
+    v6 = sub_100004784(self);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       sub_100005AD4();
@@ -493,10 +498,11 @@ LABEL_16:
   }
 
   time1 = *time;
-  v10 = *timestamp;
-  if (CMTimeCompare(&time1, &v10) >= 1)
+  v12 = *timestamp;
+  v9 = CMTimeCompare(&time1, &v12);
+  if (v9 >= 1)
   {
-    v6 = sub_100004784();
+    v6 = sub_100004784(v9);
     if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_5:
@@ -505,26 +511,27 @@ LABEL_5:
     }
 
     LOWORD(time1.value) = 0;
-    v9 = "packet timestamp is before sessionStartTime";
+    v10 = "packet timestamp is before sessionStartTime";
 LABEL_9:
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, v9, &time1, 2u);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, v10, &time1, 2u);
     goto LABEL_5;
   }
 
   if (stopTime->var2)
   {
     time1 = *timestamp;
-    v10 = *stopTime;
-    if (CMTimeCompare(&time1, &v10) >= 1)
+    v12 = *stopTime;
+    v11 = CMTimeCompare(&time1, &v12);
+    if (v11 >= 1)
     {
-      v6 = sub_100004784();
+      v6 = sub_100004784(v11);
       if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_5;
       }
 
       LOWORD(time1.value) = 0;
-      v9 = "packet timestamp is after sessionStopTime";
+      v10 = "packet timestamp is after sessionStopTime";
       goto LABEL_9;
     }
   }
@@ -535,19 +542,19 @@ LABEL_9:
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)_cmTimeForMetrics:(SEL)metrics
 {
   v5 = a4;
-  memset(&v10, 0, sizeof(v10));
+  memset(&v11, 0, sizeof(v11));
   v6 = [v5 objectForKeyedSubscript:@"timestamp"];
-  CMTimeMakeFromDictionary(&v10, v6);
+  CMTimeMakeFromDictionary(&v11, v6);
 
-  if (v10.flags)
+  if (v11.flags)
   {
-    *retstr = v10;
+    *retstr = v11;
   }
 
   else
   {
-    v7 = sub_100004784();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100004784(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_100005B08(v5);
     }
@@ -604,52 +611,52 @@ LABEL_9:
 - (unint64_t)_machContinuousTimeForMetrics:(id)metrics
 {
   metricsCopy = metrics;
-  memset(&v16, 0, sizeof(v16));
+  memset(&v19, 0, sizeof(v19));
   v5 = [metricsCopy objectForKeyedSubscript:@"timestamp"];
-  CMTimeMakeFromDictionary(&v16, v5);
+  CMTimeMakeFromDictionary(&v19, v5);
 
-  if ((v16.flags & 1) == 0)
+  if ((v19.flags & 1) == 0)
   {
-    v6 = sub_100004784();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_100004784(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_100005B08(metricsCopy);
     }
 
 LABEL_11:
 
-    v11 = mach_continuous_time();
+    v14 = mach_continuous_time();
     goto LABEL_12;
   }
 
   start = self->_timeReference.mediaTime;
-  v13 = v16;
-  CMTimeRangeFromTimeToTime(&v14, &start, &v13);
-  start = v14.duration;
+  v16 = v19;
+  CMTimeRangeFromTimeToTime(&v17, &start, &v16);
+  start = v17.duration;
   Seconds = CMTimeGetSeconds(&start);
-  v8 = sub_100004784();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v10 = sub_100004784(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    sub_100005B98(v8, Seconds);
+    sub_100005B98(v10, Seconds);
   }
 
   if (Seconds < 0.0 || Seconds > 35.0)
   {
-    v6 = sub_100004784();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_100004784(v11);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_100005C14(v6, Seconds);
+      sub_100005C14(v7, Seconds);
     }
 
     goto LABEL_11;
   }
 
-  LODWORD(v9) = self->_timeReference.machTimebase.numer;
-  LODWORD(v10) = self->_timeReference.machTimebase.denom;
-  v11 = self->_timeReference.continuousTime + (Seconds * 1000000000.0 / v9 * v10);
+  LODWORD(v12) = self->_timeReference.machTimebase.numer;
+  LODWORD(v13) = self->_timeReference.machTimebase.denom;
+  v14 = self->_timeReference.continuousTime + (Seconds * 1000000000.0 / v12 * v13);
 LABEL_12:
 
-  return v11;
+  return v14;
 }
 
 - (void)stop

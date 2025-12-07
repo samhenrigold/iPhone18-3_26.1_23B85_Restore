@@ -60,9 +60,11 @@
 
 uint64_t __32__CNManagedConfiguration_os_log__block_invoke()
 {
-  os_log_cn_once_object_3_0 = os_log_create("com.apple.contacts.managedConfiguration", "general");
+  v0 = os_log_create("com.apple.contacts.managedConfiguration", "general");
+  v1 = os_log_cn_once_object_3_0;
+  os_log_cn_once_object_3_0 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (CNManagedConfiguration)init
@@ -167,7 +169,7 @@ uint64_t __32__CNManagedConfiguration_os_log__block_invoke()
 
 - (BOOL)canReadFromAccountWithIdentifier:(id)identifier
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (off_1EF440708(&__block_literal_global_120, identifierCopy))
   {
@@ -180,8 +182,8 @@ uint64_t __32__CNManagedConfiguration_os_log__block_invoke()
     v7 = v6;
     if (v6)
     {
-      v12[0] = v6;
-      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+      v11[0] = v6;
+      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
       v9 = [(CNManagedConfiguration *)self readableAccountsFromAccounts:v8];
 
       v5 = !off_1EF43E9E8(&__block_literal_global_5, v9);
@@ -193,13 +195,12 @@ uint64_t __32__CNManagedConfiguration_os_log__block_invoke()
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (BOOL)canWriteToAccountWithIdentifier:(id)identifier fromSourceAccountIdentifier:(id)accountIdentifier
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   accountIdentifierCopy = accountIdentifier;
   if (off_1EF440708(&__block_literal_global_120, identifierCopy))
@@ -213,8 +214,8 @@ uint64_t __32__CNManagedConfiguration_os_log__block_invoke()
     if (v9)
     {
       v10 = [(CNManagedConfiguration *)self accountManagementForIdentifier:accountIdentifierCopy];
-      v15[0] = v9;
-      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
+      v14[0] = v9;
+      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
       v12 = [(CNManagedConfiguration *)self writableAccountsFromAccounts:v11 sourceAccountManagement:v10];
 
       v8 = !off_1EF43E9E8(&__block_literal_global_5, v12);
@@ -226,7 +227,6 @@ uint64_t __32__CNManagedConfiguration_os_log__block_invoke()
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

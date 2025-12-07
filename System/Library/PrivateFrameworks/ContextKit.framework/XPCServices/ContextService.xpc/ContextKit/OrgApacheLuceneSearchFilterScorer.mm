@@ -1,6 +1,7 @@
 @interface OrgApacheLuceneSearchFilterScorer
 - (float)score;
 - (id)asTwoPhaseIterator;
+- (int)advanceWithInt:(int)int;
 - (int)docID;
 - (int)freq;
 - (int)nextDoc;
@@ -53,6 +54,17 @@
   }
 
   return [(OrgApacheLuceneSearchScorer *)in nextDoc];
+}
+
+- (int)advanceWithInt:(int)int
+{
+  in = self->in_;
+  if (!in)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [(OrgApacheLuceneSearchScorer *)in advanceWithInt:*&int];
 }
 
 - (int64_t)cost

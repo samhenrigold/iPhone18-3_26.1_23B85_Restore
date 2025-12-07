@@ -7,6 +7,7 @@
 
 - (id)VisionCore_stringPrependedWithPaddingCharacter:()VisionCore toMinimumLength:
 {
+  v5 = a3;
   v7 = [self length];
   if (a4 <= v7)
   {
@@ -15,7 +16,7 @@
 
   else
   {
-    v8 = _repeatedCharacterString(a3, a4 - v7);
+    v8 = _repeatedCharacterString(v5, a4 - v7);
     selfCopy = [v8 stringByAppendingString:self];
   }
 

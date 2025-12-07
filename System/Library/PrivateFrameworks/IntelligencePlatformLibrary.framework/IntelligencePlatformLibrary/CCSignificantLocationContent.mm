@@ -217,9 +217,9 @@ LABEL_21:
       {
         v26 = [CCSignificantLocationAddress alloc];
         v25 = CCPBReaderReadDataNoCopy();
-        v37 = 0;
-        v27 = [(CCItemMessage *)v26 initWithData:v25 error:&v37];
-        v10 = v37;
+        v35 = 0;
+        v27 = [(CCItemMessage *)v26 initWithData:v25 error:&v35];
+        v10 = v35;
         address = self->_address;
         self->_address = v27;
 
@@ -245,7 +245,6 @@ LABEL_21:
 
           v29 = objc_opt_class();
           v25 = NSStringFromClass(v29);
-          v30 = *&v6[*v9];
           v10 = CCSkipFieldErrorForMessage();
 LABEL_31:
 
@@ -281,23 +280,22 @@ LABEL_35:
   if (!*&v6[*v9])
   {
     v10 = 0;
-    v35 = 1;
+    v33 = 1;
     goto LABEL_39;
   }
 
 LABEL_36:
-  v31 = objc_opt_class();
-  v32 = NSStringFromClass(v31);
-  v33 = *&v6[*v9];
-  v34 = CCInvalidBufferErrorForMessage();
+  v30 = objc_opt_class();
+  v31 = NSStringFromClass(v30);
+  v32 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
   v10 = 0;
 LABEL_37:
-  v35 = 0;
+  v33 = 0;
 LABEL_39:
 
-  return v35;
+  return v33;
 }
 
 - (CCSignificantLocationContent)initWithPreferredName:(id)name mapItemName:(id)itemName address:(id)address error:(id *)error

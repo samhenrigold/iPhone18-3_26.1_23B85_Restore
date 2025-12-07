@@ -40,7 +40,7 @@
 
   if (v3)
   {
-    sub_274412734(0, &unk_280952AA8);
+    sub_274412734(0, &unk_280952AA8, 0x277D75650);
     v4 = sub_27463B7FC();
   }
 
@@ -62,7 +62,7 @@
 {
   dragCopy = drag;
   selfCopy = self;
-  sub_2745A110C();
+  sub_2745A110C(dragCopy, selfCopy, v5, v6, v7);
 }
 
 - (BOOL)gestureRecognizer:(id)recognizer shouldBeRequiredToFailByGestureRecognizer:(id)gestureRecognizer

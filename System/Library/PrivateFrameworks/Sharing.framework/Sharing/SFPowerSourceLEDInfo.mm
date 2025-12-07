@@ -56,55 +56,69 @@
 
 - (id)description
 {
-  NSAppendPrintF();
-  v3 = 0;
+  v14 = 0;
+  NSAppendPrintF(&v14, "SFPowerSourceLEDInfo %{ptr}", self);
+  v3 = v14;
+  v13 = v3;
   LEDState = self->_LEDState;
-  if (LEDState <= 2)
+  if (LEDState > 2)
+  {
+    v5 = "?";
+  }
+
+  else
   {
     v5 = off_1E788D9E0[LEDState];
   }
 
-  v11 = self->_LEDState;
-  NSAppendPrintF();
-  v6 = v3;
+  NSAppendPrintF(&v13, ", St %d (%s)", self->_LEDState, v5);
+  v6 = v13;
 
+  v12 = v6;
   LEDColor = self->_LEDColor;
-  if (LEDColor <= 4)
+  if (LEDColor > 4)
+  {
+    v8 = "?";
+  }
+
+  else
   {
     v8 = off_1E788D9F8[LEDColor];
   }
 
-  v12 = self->_LEDColor;
-  NSAppendPrintF();
-  v9 = v6;
+  NSAppendPrintF(&v12, ", Cl %d (%s)", self->_LEDColor, v8);
+  v9 = v12;
+  v10 = v12;
 
-  return v6;
+  return v9;
 }
 
 - (SFPowerSourceLEDInfo)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v8.receiver = self;
-  v8.super_class = SFPowerSourceLEDInfo;
-  v5 = [(SFPowerSourceLEDInfo *)&v8 init];
+  v16.receiver = self;
+  v16.super_class = SFPowerSourceLEDInfo;
+  v5 = [(SFPowerSourceLEDInfo *)&v16 init];
+  v9 = v5;
   if (v5)
   {
-    v9 = 0;
-    if (OUTLINED_FUNCTION_0_10())
+    v17 = 0;
+    v10 = OUTLINED_FUNCTION_0_10(v5, @"state", v6, v7, v8);
+    if (v10)
     {
-      v5->_LEDState = v9;
+      v9->_LEDState = v17;
     }
 
-    v9 = 0;
-    if (OUTLINED_FUNCTION_0_10())
+    v17 = 0;
+    if (OUTLINED_FUNCTION_0_10(v10, @"color", v11, v12, v13))
     {
-      v5->_LEDColor = v9;
+      v9->_LEDColor = v17;
     }
 
-    v6 = v5;
+    v14 = v9;
   }
 
-  return v5;
+  return v9;
 }
 
 @end

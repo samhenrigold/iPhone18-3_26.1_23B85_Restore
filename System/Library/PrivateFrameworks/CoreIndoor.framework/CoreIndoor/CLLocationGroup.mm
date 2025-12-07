@@ -25,95 +25,93 @@
 
 + (vector<std::string,)stringVectorFromNSArray:(id)array
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v5 = a4;
   retstr->__end_ = 0;
   retstr->__cap_ = 0;
   retstr->__begin_ = 0;
-  v39 = v5;
+  v37 = v5;
   v10 = objc_msgSend_count(v5, v6, v7, v8, v9);
   if (0xAAAAAAAAAAAAAAABLL * ((retstr->__cap_ - retstr->__begin_) >> 3) < v10)
   {
     if (v10 < 0xAAAAAAAAAAAAAABLL)
     {
-      end = retstr->__end_;
       operator new();
     }
 
     sub_245A7B094();
   }
 
-  v44 = 0u;
-  v45 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v12 = v39;
-  v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, v14, v15, v16, &v42, v46, 16);
-  if (v17)
+  v40 = 0u;
+  v41 = 0u;
+  v11 = v37;
+  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, v13, v14, v15, &v40, v44, 16);
+  if (v16)
   {
-    v18 = *v43;
+    v17 = *v41;
     do
     {
-      v19 = 0;
-      v40 = v17;
+      v18 = 0;
+      v38 = v16;
       do
       {
-        if (*v43 != v18)
+        if (*v41 != v17)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v11);
         }
 
-        v20 = *(*(&v42 + 1) + 8 * v19);
-        v21 = objc_autoreleasePoolPush();
-        v22 = v20;
-        v27 = objc_msgSend_UTF8String(v20, v23, v24, v25, v26);
-        v28 = v27;
-        v41 = v27;
-        v29 = retstr->__end_;
-        if (v29 >= retstr->__cap_)
+        v19 = *(*(&v40 + 1) + 8 * v18);
+        v20 = objc_autoreleasePoolPush();
+        v21 = v19;
+        v26 = objc_msgSend_UTF8String(v19, v22, v23, v24, v25);
+        v27 = v26;
+        v39 = v26;
+        end = retstr->__end_;
+        if (end >= retstr->__cap_)
         {
-          v32 = sub_245A80B28(retstr, &v41);
+          v31 = sub_245A80B28(retstr, &v39);
         }
 
         else
         {
-          v30 = strlen(v27);
-          if (v30 >= 0x7FFFFFFFFFFFFFF8)
+          v29 = strlen(v26);
+          if (v29 >= 0x7FFFFFFFFFFFFFF8)
           {
             sub_245A3C1B4();
           }
 
-          v31 = v30;
-          if (v30 >= 0x17)
+          v30 = v29;
+          if (v29 >= 0x17)
           {
             operator new();
           }
 
-          v29[23] = v30;
-          if (v30)
+          end[23] = v29;
+          if (v29)
           {
-            memmove(v29, v28, v30);
+            memmove(end, v27, v29);
           }
 
-          v29[v31] = 0;
-          v32 = v29 + 24;
-          v17 = v40;
+          end[v30] = 0;
+          v31 = end + 24;
+          v16 = v38;
         }
 
-        retstr->__end_ = v32;
-        objc_autoreleasePoolPop(v21);
+        retstr->__end_ = v31;
+        objc_autoreleasePoolPop(v20);
 
-        ++v19;
+        ++v18;
       }
 
-      while (v17 != v19);
-      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v33, v34, v35, v36, &v42, v46, 16);
+      while (v16 != v18);
+      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v32, v33, v34, v35, &v40, v44, 16);
     }
 
-    while (v17);
+    while (v16);
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -149,21 +147,21 @@
 
 + (void)storeAverage:(id)average ofVertices:(id)vertices
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   averageCopy = average;
   verticesCopy = vertices;
   v11 = objc_msgSend_count(verticesCopy, v7, v8, v9, v10);
   if (v11)
   {
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     v12 = verticesCopy;
-    v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, v14, v15, v16, &v40, v44, 16);
+    v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, v14, v15, v16, &v39, v43, 16);
     if (v18)
     {
-      v22 = *v41;
+      v22 = *v40;
       v23 = 0.0;
       v24 = 0.0;
       v25 = 0.0;
@@ -171,13 +169,13 @@
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v41 != v22)
+          if (*v40 != v22)
           {
             objc_enumerationMutation(v12);
           }
 
-          v27 = *(*(&v40 + 1) + 8 * i);
-          objc_msgSend_x(v27, v17, v19, v20, v21, v40);
+          v27 = *(*(&v39 + 1) + 8 * i);
+          objc_msgSend_x(v27, v17, v19, v20, v21, v39);
           v29 = v28;
           objc_msgSend_y(v27, v30, v28, v31, v32);
           v34 = v33;
@@ -187,7 +185,7 @@
           v25 = v25 + v19;
         }
 
-        v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v17, v19, v20, v21, &v40, v44, 16);
+        v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v17, v19, v20, v21, &v39, v43, 16);
       }
 
       while (v18);
@@ -202,8 +200,6 @@
 
     objc_msgSend_setFromX_y_z_(averageCopy, v38, v23 / v11, v24 / v11, v25 / v11);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (CLLocationGroup)initWithGroupId:(id)id locationIds:(id)ids center:(id)center wifiOnlyDownloadLocIdxs:(const void *)idxs locationContext:(int64_t)context andTolerance:(double)tolerance
@@ -211,65 +207,65 @@
   idCopy = id;
   idsCopy = ids;
   centerCopy = center;
-  v59.receiver = self;
-  v59.super_class = CLLocationGroup;
-  v18 = [(CLLocationGroup *)&v59 init];
+  v58.receiver = self;
+  v58.super_class = CLLocationGroup;
+  v18 = [(CLLocationGroup *)&v58 init];
   v19 = v18;
   v20 = v18;
   if (v18)
   {
     objc_storeStrong(&v18->_groupId, id);
-    objc_msgSend_stringVectorFromNSArray_(CLLocationGroup, v21, v22, v23, v24, idsCopy);
+    objc_msgSend_stringVectorFromNSArray_(CLLocationGroup, v21, v22, v23);
     p_begin = &v20->_locationIds.__begin_;
     begin = v20->_locationIds.__begin_;
     if (begin)
     {
       end = v20->_locationIds.__end_;
-      v28 = v20->_locationIds.__begin_;
+      v27 = v20->_locationIds.__begin_;
       if (end != begin)
       {
         do
         {
-          v29 = *(end - 1);
+          v28 = *(end - 1);
           end -= 3;
-          if (v29 < 0)
+          if (v28 < 0)
           {
             operator delete(*end);
           }
         }
 
         while (end != begin);
-        v28 = *p_begin;
+        v27 = *p_begin;
       }
 
       v20->_locationIds.__end_ = begin;
-      operator delete(v28);
+      operator delete(v27);
       *p_begin = 0;
       v20->_locationIds.__end_ = 0;
       v20->_locationIds.__cap_ = 0;
     }
 
-    *&v20->_locationIds.__begin_ = v57;
-    v20->_locationIds.__cap_ = v58;
-    v30 = [ECEFCoordinate alloc];
-    objc_msgSend_x(centerCopy, v31, v32, v33, v34);
-    v36 = v35;
-    objc_msgSend_y(centerCopy, v37, v35, v38, v39);
-    v41 = v40;
-    objc_msgSend_z(centerCopy, v42, v40, v43, v44);
-    v47 = objc_msgSend_initWithX_y_z_(v30, v45, v36, v41, v46);
+    *&v20->_locationIds.__begin_ = v56;
+    v20->_locationIds.__cap_ = v57;
+    v29 = [ECEFCoordinate alloc];
+    objc_msgSend_x(centerCopy, v30, v31, v32, v33);
+    v35 = v34;
+    objc_msgSend_y(centerCopy, v36, v34, v37, v38);
+    v40 = v39;
+    objc_msgSend_z(centerCopy, v41, v39, v42, v43);
+    v46 = objc_msgSend_initWithX_y_z_(v29, v44, v35, v40, v45);
     centerECEF = v20->_centerECEF;
-    v20->_centerECEF = v47;
+    v20->_centerECEF = v46;
 
-    v49 = [GeographicCoordinate alloc];
-    v54 = objc_msgSend_initFromECEFCoordinate_(v49, v50, v51, v52, v53, v20->_centerECEF);
+    v48 = [GeographicCoordinate alloc];
+    v53 = objc_msgSend_initFromECEFCoordinate_(v48, v49, v50, v51, v52, v20->_centerECEF);
     centerLatLon = v20->_centerLatLon;
-    v20->_centerLatLon = v54;
+    v20->_centerLatLon = v53;
 
     v20->_tolerance = tolerance;
     if (&v19->_wifiOnlyDownloadLocIdxs != idxs)
     {
-      sub_245A32258(&v19->_wifiOnlyDownloadLocIdxs.__tree_.__begin_node_, *idxs, idxs + 1);
+      sub_245A32258(&v19->_wifiOnlyDownloadLocIdxs, *idxs, idxs + 1);
     }
 
     v20->_locationContext = context;

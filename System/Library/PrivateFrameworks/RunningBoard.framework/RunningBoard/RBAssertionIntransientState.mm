@@ -11,21 +11,39 @@
 {
   v3 = objc_alloc(MEMORY[0x277CCACA8]);
   v4 = [objc_opt_class() description];
-  startPolicy = self->_startPolicy;
-  v6 = NSStringFromRBSDurationStartPolicy();
-  endPolicy = self->_endPolicy;
-  v8 = NSStringFromRBSDurationEndPolicy();
-  v9 = v8;
-  v10 = &stru_287507640;
-  v11 = @"susp";
+  v5 = NSStringFromRBSDurationStartPolicy();
+  v6 = NSStringFromRBSDurationEndPolicy();
+  v7 = v6;
+  v8 = &stru_287507640;
+  v9 = @"susp";
   if (!self->_suspendsOnOriginatorSuspension)
   {
-    v11 = &stru_287507640;
+    v9 = &stru_287507640;
   }
 
   if (self->_definesRelativeStartTime)
   {
-    v12 = @"drel";
+    v10 = @"drel";
+  }
+
+  else
+  {
+    v10 = &stru_287507640;
+  }
+
+  if (self->_hasHereditaryGrant)
+  {
+    v11 = @"herd";
+  }
+
+  else
+  {
+    v11 = &stru_287507640;
+  }
+
+  if (self->_hasDomainAttribute)
+  {
+    v12 = @"dom";
   }
 
   else
@@ -33,9 +51,9 @@
     v12 = &stru_287507640;
   }
 
-  if (self->_hasHereditaryGrant)
+  if (self->_terminateTargetOnOriginatorExit)
   {
-    v13 = @"herd";
+    v13 = @"term";
   }
 
   else
@@ -43,9 +61,9 @@
     v13 = &stru_287507640;
   }
 
-  if (self->_hasDomainAttribute)
+  if (self->_invalidatesSynchronously)
   {
-    v14 = @"dom";
+    v14 = @"invalSync";
   }
 
   else
@@ -53,34 +71,14 @@
     v14 = &stru_287507640;
   }
 
-  if (self->_terminateTargetOnOriginatorExit)
-  {
-    v15 = @"term";
-  }
-
-  else
-  {
-    v15 = &stru_287507640;
-  }
-
-  if (self->_invalidatesSynchronously)
-  {
-    v16 = @"invalSync";
-  }
-
-  else
-  {
-    v16 = &stru_287507640;
-  }
-
   if (self->_preventsSuspension)
   {
-    v10 = @" prevSus";
+    v8 = @" prevSus";
   }
 
-  v17 = [v3 initWithFormat:@"<%@| strt:%@ end:%@ nvld:%.2f warn:%.2f%@%@%@%@%@%@%@ runningReason:%lu legRes:%lu doms:%@ invOnConds:%@>", v4, v6, v8, *&self->_invalidationDuration, *&self->_warningDuration, v11, v12, v13, v14, v15, v16, v10, self->_runningReason, self->_legacyReason, self->_domainAttributes, self->_invalidatesOnConditions];
+  v15 = [v3 initWithFormat:@"<%@| strt:%@ end:%@ nvld:%.2f warn:%.2f%@%@%@%@%@%@%@ runningReason:%lu legRes:%lu doms:%@ invOnConds:%@>", v4, v5, v6, *&self->_invalidationDuration, *&self->_warningDuration, v9, v10, v11, v12, v13, v14, v8, self->_runningReason, self->_legacyReason, self->_domainAttributes, self->_invalidatesOnConditions];
 
-  return v17;
+  return v15;
 }
 
 - (NSMutableSet)sourceEnvironments

@@ -7,6 +7,7 @@
 - (void)internalSetEncodingWithNSString:(id)string;
 - (void)internalSetFormatterWithJavaUtilLoggingFormatter:(id)formatter;
 - (void)printInvalidPropMessageWithNSString:(id)string withNSString:(id)sString withJavaLangException:(id)exception;
+- (void)reportErrorWithNSString:(id)string withJavaLangException:(id)exception withInt:(int)int;
 - (void)setEncodingWithNSString:(id)string;
 - (void)setErrorManagerWithJavaUtilLoggingErrorManager:(id)manager;
 - (void)setFilterWithJavaUtilLoggingFilter:(id)filter;
@@ -18,7 +19,6 @@
 
 - (void)printInvalidPropMessageWithNSString:(id)string withNSString:(id)sString withJavaLangException:(id)exception
 {
-  prefix = self->prefix_;
   v10 = JreStrcat("$$C$C$", a2, string, sString, exception, v5, v6, v7, @"Invalid property value for ");
   errorMan = self->errorMan_;
   if (!errorMan)
@@ -31,7 +31,7 @@
 
 - (void)initPropertiesWithNSString:(id)string withNSString:(id)sString withNSString:(id)nSString withNSString:(id)withNSString
 {
-  LogManager = JavaUtilLoggingLogManager_getLogManager();
+  LogManager = JavaUtilLoggingLogManager_getLogManager(self, a2);
   if (!LogManager)
   {
     JreThrowNullPointerException();
@@ -41,48 +41,48 @@
   v19 = [LogManager getPropertyWithNSString:{JreStrcat("$$", v11, v12, v13, v14, v15, v16, v17, self->prefix_)}];
   if (v19)
   {
-    v20 = sub_10027FF6C(v19);
-    v21 = JavaUtilLoggingFilter_class_();
-    if (v20 && ([v21 isInstance:v20] & 1) == 0)
+    v21 = sub_10027FF6C(v19, v20);
+    v23 = JavaUtilLoggingFilter_class_(v21, v22);
+    if (v21 && ([v23 isInstance:v21] & 1) == 0)
     {
       JreThrowClassCastException();
     }
 
-    JreStrongAssign(&self->filter_, v20);
+    JreStrongAssign(&self->filter_, v21);
   }
 
   else
   {
-    v29 = sub_10027FF1C(sString);
-    v30 = JavaUtilLoggingFilter_class_();
-    if (v29 && ([v30 isInstance:v29] & 1) == 0)
+    v31 = sub_10027FF1C(sString);
+    v33 = JavaUtilLoggingFilter_class_(v31, v32);
+    if (v31 && ([v33 isInstance:v31] & 1) == 0)
     {
       goto LABEL_21;
     }
 
-    JreStrongAssign(&self->filter_, v29);
+    JreStrongAssign(&self->filter_, v31);
   }
 
-  v31 = [v18 getPropertyWithNSString:{JreStrcat("$$", v22, v23, v24, v25, v26, v27, v28, self->prefix_)}];
-  if (v31)
+  v34 = [v18 getPropertyWithNSString:{JreStrcat("$$", v24, v25, v26, v27, v28, v29, v30, self->prefix_)}];
+  if (v34)
   {
-    v32 = JavaUtilLoggingLevel_parseWithNSString_(v31);
+    v36 = JavaUtilLoggingLevel_parseWithNSString_(v34, v35);
   }
 
   else
   {
-    v32 = JavaUtilLoggingLevel_parseWithNSString_(string);
+    v36 = JavaUtilLoggingLevel_parseWithNSString_(string, v35);
   }
 
-  JreStrongAssign(&self->level_, v32);
-  v40 = [v18 getPropertyWithNSString:{JreStrcat("$$", v33, v34, v35, v36, v37, v38, v39, self->prefix_)}];
-  if (!v40)
+  JreStrongAssign(&self->level_, v36);
+  v44 = [v18 getPropertyWithNSString:{JreStrcat("$$", v37, v38, v39, v40, v41, v42, v43, self->prefix_)}];
+  if (!v44)
   {
-    v49 = sub_10027FF1C(nSString);
+    v54 = sub_10027FF1C(nSString);
     objc_opt_class();
-    if (!v49 || (objc_opt_isKindOfClass() & 1) != 0)
+    if (!v54 || (objc_opt_isKindOfClass() & 1) != 0)
     {
-      JreStrongAssign(&self->formatter_, v49);
+      JreStrongAssign(&self->formatter_, v54);
       goto LABEL_19;
     }
 
@@ -90,21 +90,21 @@ LABEL_21:
     JreThrowClassCastException();
   }
 
-  v41 = sub_10027FF6C(v40);
+  v46 = sub_10027FF6C(v44, v45);
   objc_opt_class();
-  if (v41 && (objc_opt_isKindOfClass() & 1) == 0)
+  if (v46 && (objc_opt_isKindOfClass() & 1) == 0)
   {
     JreThrowClassCastException();
   }
 
-  JreStrongAssign(&self->formatter_, v41);
+  JreStrongAssign(&self->formatter_, v46);
 LABEL_19:
-  -[JavaUtilLoggingHandler internalSetEncodingWithNSString:](self, "internalSetEncodingWithNSString:", [v18 getPropertyWithNSString:{JreStrcat("$$", v42, v43, v44, v45, v46, v47, v48, self->prefix_)}]);
+  -[JavaUtilLoggingHandler internalSetEncodingWithNSString:](self, "internalSetEncodingWithNSString:", [v18 getPropertyWithNSString:{JreStrcat("$$", v47, v48, v49, v50, v51, v52, v53, self->prefix_)}]);
 }
 
 - (id)getErrorManager
 {
-  LogManager = JavaUtilLoggingLogManager_getLogManager();
+  LogManager = JavaUtilLoggingLogManager_getLogManager(self, a2);
   if (!LogManager)
   {
     JreThrowNullPointerException();
@@ -166,6 +166,17 @@ LABEL_15:
   return [(JavaUtilLoggingFilter *)filter isLoggableWithJavaUtilLoggingLogRecord:record];
 }
 
+- (void)reportErrorWithNSString:(id)string withJavaLangException:(id)exception withInt:(int)int
+{
+  errorMan = self->errorMan_;
+  if (!errorMan)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [(JavaUtilLoggingErrorManager *)errorMan errorWithNSString:string withJavaLangException:exception withInt:*&int];
+}
+
 - (void)internalSetEncodingWithNSString:(id)string
 {
   if (string)
@@ -191,7 +202,7 @@ LABEL_15:
 
 - (void)setEncodingWithNSString:(id)string
 {
-  LogManager = JavaUtilLoggingLogManager_getLogManager();
+  LogManager = JavaUtilLoggingLogManager_getLogManager(self, a2);
   if (!LogManager)
   {
     JreThrowNullPointerException();
@@ -204,7 +215,7 @@ LABEL_15:
 
 - (void)setErrorManagerWithJavaUtilLoggingErrorManager:(id)manager
 {
-  LogManager = JavaUtilLoggingLogManager_getLogManager();
+  LogManager = JavaUtilLoggingLogManager_getLogManager(self, a2);
   if (!LogManager)
   {
     JreThrowNullPointerException();
@@ -222,7 +233,7 @@ LABEL_15:
 
 - (void)setFilterWithJavaUtilLoggingFilter:(id)filter
 {
-  LogManager = JavaUtilLoggingLogManager_getLogManager();
+  LogManager = JavaUtilLoggingLogManager_getLogManager(self, a2);
   if (!LogManager)
   {
     JreThrowNullPointerException();
@@ -248,7 +259,7 @@ LABEL_15:
 
 - (void)setFormatterWithJavaUtilLoggingFormatter:(id)formatter
 {
-  LogManager = JavaUtilLoggingLogManager_getLogManager();
+  LogManager = JavaUtilLoggingLogManager_getLogManager(self, a2);
   if (!LogManager)
   {
     JreThrowNullPointerException();
@@ -267,7 +278,7 @@ LABEL_15:
     objc_exception_throw(v6);
   }
 
-  LogManager = JavaUtilLoggingLogManager_getLogManager();
+  LogManager = JavaUtilLoggingLogManager_getLogManager(self, a2);
   if (!LogManager)
   {
     JreThrowNullPointerException();

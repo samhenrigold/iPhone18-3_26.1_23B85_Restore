@@ -41,7 +41,7 @@
 - (BDSReadingHistoryStateInfo)currentViewStateInfo
 {
   lastState = [(BDSBookWidgetReadingHistoryManager *)self lastState];
-  v3 = sub_10000DE28();
+  v3 = sub_10000DE28(lastState);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -81,27 +81,27 @@
     if (!lastState && v11)
     {
 LABEL_9:
-      v14 = sub_10000DE28();
+      v14 = sub_10000DE28(v11);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "BDSBookWidgetReadingHistoryManager - detected changes:", buf, 2u);
       }
 
-      v15 = sub_10000DE28();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 138412290;
-        v28 = lastState;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "    old = %@", buf, 0xCu);
-      }
-
-      v16 = sub_10000DE28();
+      v16 = sub_10000DE28(v15);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v28 = v12;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "    new = %@", buf, 0xCu);
+        v30 = lastState;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "    old = %@", buf, 0xCu);
+      }
+
+      v18 = sub_10000DE28(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v30 = v12;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "    new = %@", buf, 0xCu);
       }
 
       os_unfair_lock_lock(&self->_accessLock);
@@ -111,10 +111,10 @@ LABEL_9:
       block[1] = 3221225472;
       block[2] = sub_10000D410;
       block[3] = &unk_10023F720;
-      v24 = v6;
+      v26 = v6;
       selfCopy = self;
       v12 = v12;
-      v26 = v12;
+      v28 = v12;
       dispatch_async(saveQueue, block);
       os_unfair_lock_unlock(&self->_accessLock);
       if (!v9)
@@ -122,30 +122,30 @@ LABEL_9:
         goto LABEL_26;
       }
 
-      v18 = v12;
-      stateInfo = [(BDSBookWidgetReadingHistoryData *)lastState stateInfo];
-      stateInfo2 = [(BDSBookWidgetReadingHistoryData *)v18 stateInfo];
+      v20 = v12;
+      stateInfo = [lastState stateInfo];
+      stateInfo2 = [v20 stateInfo];
 
       if (!stateInfo && ([stateInfo2 isEmptyState] & 1) != 0)
       {
         goto LABEL_22;
       }
 
-      v21 = [stateInfo isEmptyState] ^ 1;
+      v23 = [stateInfo isEmptyState] ^ 1;
       if (!stateInfo)
       {
-        LOBYTE(v21) = 0;
+        LOBYTE(v23) = 0;
       }
 
-      if ((v21 & 1) != 0 || stateInfo2)
+      if ((v23 & 1) != 0 || stateInfo2)
       {
-        v22 = [stateInfo isEqual:stateInfo2];
+        v24 = [stateInfo isEqual:stateInfo2];
 
-        if (v22)
+        if (v24)
         {
 LABEL_26:
 
-          v13 = v24;
+          v13 = v26;
           goto LABEL_27;
         }
 
@@ -167,12 +167,13 @@ LABEL_22:
     v12 = 0;
   }
 
-  if (![(BDSBookWidgetReadingHistoryData *)lastState isEqual:v12])
+  v11 = [lastState isEqual:v12];
+  if ((v11 & 1) == 0)
   {
     goto LABEL_9;
   }
 
-  v13 = sub_10000DE28();
+  v13 = sub_10000DE28(v11);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

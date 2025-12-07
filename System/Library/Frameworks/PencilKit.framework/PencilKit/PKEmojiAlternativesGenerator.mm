@@ -1,10 +1,10 @@
 @interface PKEmojiAlternativesGenerator
 + (id)sharedInstance;
 - (PKEmojiAlternativesGenerator)init;
-- (uint64_t)cancelScheduledTasks;
 - (void)_connectToRemoteServiceIfNecessary;
 - (void)_generateAlternatives;
 - (void)_generateAlternativesForWebKit;
+- (void)cancelScheduledTasks;
 - (void)clearExistingAlternativesForTextInput:(void *)input;
 - (void)scheduleGenerateAlternativesForTextInput:(void *)input localeIdentifiers:;
 @end
@@ -19,9 +19,9 @@
     dispatch_once(&_MergedGlobals_174, &__block_literal_global_96);
   }
 
-  v0 = qword_1ED6A55A8;
+  v1 = qword_1ED6A55A8;
 
-  return v0;
+  return v1;
 }
 
 void __46__PKEmojiAlternativesGenerator_sharedInstance__block_invoke()
@@ -267,7 +267,7 @@ LABEL_14:
 LABEL_15:
 }
 
-- (uint64_t)cancelScheduledTasks
+- (void)cancelScheduledTasks
 {
   if (result)
   {

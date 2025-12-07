@@ -1,75 +1,76 @@
-id sub_19B4()
+id sub_19B4(uint64_t a1)
 {
   if (qword_10DB8 != -1)
   {
     sub_6B9C();
   }
 
-  v1 = qword_10DB0;
+  v2 = qword_10DB0;
 
-  return v1;
+  return v2;
 }
 
-id sub_1BEC()
+id sub_1BEC(uint64_t a1)
 {
   if (qword_10DC8 != -1)
   {
     sub_6C18();
   }
 
-  v1 = qword_10DC0;
+  v2 = qword_10DC0;
 
-  return v1;
+  return v2;
 }
 
 id sub_1C30()
 {
-  if (!HTDeveloperSettingsIsInternalBuild())
+  IsInternalBuild = HTDeveloperSettingsIsInternalBuild();
+  if (!IsInternalBuild)
   {
     return 0;
   }
 
-  v0 = sub_5878();
-  v1 = [v0 objectForKey:@"MonitorAnyApp"];
+  v1 = sub_5878(IsInternalBuild);
+  v2 = [v1 objectForKey:@"MonitorAnyApp"];
 
-  if (v1 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  if (v2 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass & 1) != 0))
   {
-    v2 = sub_58BC();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_58BC(isKindOfClass);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [v1 BOOLValue];
-      v4 = @"disabled";
-      if (v3)
+      v5 = [v2 BOOLValue];
+      v6 = @"disabled";
+      if (v5)
       {
-        v4 = @"enabled";
+        v6 = @"enabled";
       }
 
-      v8 = 138543362;
-      v9 = v4;
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "MonitorAnyApp is %{public}@", &v8, 0xCu);
+      v10 = 138543362;
+      v11 = v6;
+      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "MonitorAnyApp is %{public}@", &v10, 0xCu);
     }
 
-    v5 = [v1 BOOLValue];
+    v7 = [v2 BOOLValue];
   }
 
   else
   {
-    v6 = sub_58BC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_58BC(isKindOfClass);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v8) = 0;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "MonitorAnyApp is disabled (default value)", &v8, 2u);
+      LOWORD(v10) = 0;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "MonitorAnyApp is disabled (default value)", &v10, 2u);
     }
 
-    v5 = 0;
+    v7 = 0;
   }
 
-  return v5;
+  return v7;
 }
 
 id sub_1DA4(uint64_t a1)
 {
-  v2 = sub_19B4();
+  v2 = sub_19B4(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -125,16 +126,16 @@ int64_t sub_2DC0(id a1, NSURL *a2, NSURL *a3)
   return v14;
 }
 
-id sub_47D4()
+id sub_47D4(uint64_t a1)
 {
   if (qword_10DF8 != -1)
   {
     sub_7034();
   }
 
-  v1 = qword_10DF0;
+  v2 = qword_10DF0;
 
-  return v1;
+  return v2;
 }
 
 void sub_4A5C(_Unwind_Exception *a1)
@@ -149,10 +150,11 @@ void sub_4A80(uint64_t a1, void *a2, void *a3)
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v8 = WeakRetained;
   if (v6)
   {
-    v8 = sub_47D4();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_47D4(WeakRetained);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_70B0();
     }
@@ -160,233 +162,233 @@ void sub_4A80(uint64_t a1, void *a2, void *a3)
 
   else
   {
-    v66 = a1;
-    v9 = [*(a1 + 32) passiveTraceConfig];
-    v86 = 0;
-    v10 = [v9 fetchPerfPowerMetricMonitoredProcesses:&v86];
-    v11 = v86;
+    v69 = a1;
+    v10 = [*(a1 + 32) passiveTraceConfig];
+    v89 = 0;
+    v11 = [v10 fetchPerfPowerMetricMonitoredProcesses:&v89];
+    v12 = v89;
 
-    v62 = v11;
-    v63 = WeakRetained;
-    if (v11)
+    v65 = v12;
+    v66 = v8;
+    if (v12)
     {
-      v12 = sub_47D4();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = sub_47D4(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_6F64();
       }
 
-      v61 = &__NSArray0__struct;
-      v13 = @"Unable to lookup apps";
+      v64 = &__NSArray0__struct;
+      v15 = @"Unable to lookup apps";
     }
 
     else
     {
-      v61 = v10;
-      v13 = @"No available apps";
+      v64 = v11;
+      v15 = @"No available apps";
     }
 
-    v60 = v13;
-    v71 = objc_alloc_init(NSMutableArray);
-    v72 = objc_alloc_init(NSMutableSet);
-    v73 = objc_alloc_init(NSMutableDictionary);
-    v82 = 0u;
-    v83 = 0u;
-    v84 = 0u;
+    v63 = v15;
+    v74 = objc_alloc_init(NSMutableArray);
+    v75 = objc_alloc_init(NSMutableSet);
+    v76 = objc_alloc_init(NSMutableDictionary);
     v85 = 0u;
-    v64 = v5;
-    v14 = v5;
-    v15 = [v14 countByEnumeratingWithState:&v82 objects:v99 count:16];
-    if (v15)
+    v86 = 0u;
+    v87 = 0u;
+    v88 = 0u;
+    v67 = v5;
+    v16 = v5;
+    v17 = [v16 countByEnumeratingWithState:&v85 objects:v102 count:16];
+    if (v17)
     {
-      v16 = v15;
-      v17 = *v83;
+      v18 = v17;
+      v19 = *v86;
       do
       {
-        for (i = 0; i != v16; i = i + 1)
+        for (i = 0; i != v18; i = i + 1)
         {
-          if (*v83 != v17)
+          if (*v86 != v19)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v16);
           }
 
-          v19 = [*(*(&v82 + 1) + 8 * i) name];
-          if (v19)
+          v21 = [*(*(&v85 + 1) + 8 * i) name];
+          if (v21)
           {
-            v20 = [v73 objectForKeyedSubscript:v19];
-            v21 = v20;
-            if (!v20)
+            v22 = [v76 objectForKeyedSubscript:v21];
+            v23 = v22;
+            if (!v22)
             {
-              v20 = &off_CFE8;
+              v22 = &off_CFE8;
             }
 
-            v22 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v20 unsignedIntValue] + 1);
-            [v73 setObject:v22 forKeyedSubscript:v19];
+            v24 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v22 unsignedIntValue] + 1);
+            [v76 setObject:v24 forKeyedSubscript:v21];
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v82 objects:v99 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v85 objects:v102 count:16];
       }
 
-      while (v16);
+      while (v18);
     }
 
-    v80 = 0u;
+    v83 = 0u;
+    v84 = 0u;
     v81 = 0u;
-    v78 = 0u;
-    v79 = 0u;
-    obj = v14;
-    v23 = [obj countByEnumeratingWithState:&v78 objects:v98 count:16];
-    v24 = v66;
-    if (v23)
+    v82 = 0u;
+    obj = v16;
+    v25 = [obj countByEnumeratingWithState:&v81 objects:v101 count:16];
+    v26 = v69;
+    if (v25)
     {
-      v25 = v23;
-      v70 = *v79;
-      v69 = PSLazyIconAppID;
-      v68 = PSLazyIconLoading;
+      v27 = v25;
+      v73 = *v82;
+      v72 = PSLazyIconAppID;
+      v71 = PSLazyIconLoading;
       do
       {
-        v26 = 0;
-        v65 = v25;
+        v28 = 0;
+        v68 = v27;
         do
         {
-          if (*v79 != v70)
+          if (*v82 != v73)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v78 + 1) + 8 * v26);
-          v28 = [v27 name];
-          v29 = [v73 objectForKeyedSubscript:v28];
-          v30 = v29;
-          v31 = &off_CFE8;
-          if (v29)
-          {
-            v31 = v29;
-          }
-
+          v29 = *(*(&v81 + 1) + 8 * v28);
+          v30 = [v29 name];
+          v31 = [v76 objectForKeyedSubscript:v30];
           v32 = v31;
-
-          v33 = sub_47D4();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+          v33 = &off_CFE8;
+          if (v31)
           {
-            v43 = [v27 name];
-            v44 = [v27 bundleID];
-            v45 = [v27 bundleExecutable];
-            v46 = [v27 bundleDisplayName];
-            v47 = [v32 unsignedIntValue];
+            v33 = v31;
+          }
+
+          v34 = v33;
+
+          v36 = sub_47D4(v35);
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+          {
+            v46 = [v29 name];
+            v47 = [v29 bundleID];
+            v48 = [v29 bundleExecutable];
+            v49 = [v29 bundleDisplayName];
+            v50 = [v34 unsignedIntValue];
             *buf = 138544386;
-            v89 = v43;
-            v90 = 2114;
-            v91 = v44;
-            v92 = 2114;
-            v93 = v45;
-            v94 = 2114;
-            v95 = v46;
-            v96 = 1024;
-            v97 = v47;
-            _os_log_debug_impl(&dword_0, v33, OS_LOG_TYPE_DEBUG, "Found application: %{public}@ (%{public}@, %{public}@, %{public}@, colliding name count: %u)", buf, 0x30u);
+            v92 = v46;
+            v93 = 2114;
+            v94 = v47;
+            v95 = 2114;
+            v96 = v48;
+            v97 = 2114;
+            v98 = v49;
+            v99 = 1024;
+            v100 = v50;
+            _os_log_debug_impl(&dword_0, v36, OS_LOG_TYPE_DEBUG, "Found application: %{public}@ (%{public}@, %{public}@, %{public}@, colliding name count: %u)", buf, 0x30u);
 
-            v25 = v65;
+            v27 = v68;
           }
 
-          v34 = [v27 name];
-          if ([v32 unsignedIntValue] >= 2)
+          v37 = [v29 name];
+          if ([v34 unsignedIntValue] >= 2)
           {
-            v35 = [v27 name];
-            v36 = [v27 bundleExecutable];
-            v37 = [NSString stringWithFormat:@"%@ (%@)", v35, v36];
+            v38 = [v29 name];
+            v39 = [v29 bundleExecutable];
+            v40 = [NSString stringWithFormat:@"%@ (%@)", v38, v39];
 
-            v24 = v66;
-            v34 = v37;
+            v26 = v69;
+            v37 = v40;
           }
 
-          v38 = [PSSpecifier preferenceSpecifierNamed:v34 target:*(v24 + 32) set:"_appIsMonitoredSetter:specifier:" get:"_appIsMonitoredGetter:" detail:0 cell:6 edit:0];
-          v39 = [v27 bundleID];
-          [v38 setIdentifier:v39];
+          v41 = [PSSpecifier preferenceSpecifierNamed:v37 target:*(v26 + 32) set:"_appIsMonitoredSetter:specifier:" get:"_appIsMonitoredGetter:" detail:0 cell:6 edit:0];
+          v42 = [v29 bundleID];
+          [v41 setIdentifier:v42];
 
-          v40 = [v27 bundleExecutable];
-          [v38 setObject:v40 forKeyedSubscript:@"AppBundleExecutable"];
+          v43 = [v29 bundleExecutable];
+          [v41 setObject:v43 forKeyedSubscript:@"AppBundleExecutable"];
 
-          v41 = [v27 bundleID];
-          [v38 setObject:v41 forKeyedSubscript:v69];
+          v44 = [v29 bundleID];
+          [v41 setObject:v44 forKeyedSubscript:v72];
 
-          [v38 setObject:&__kCFBooleanTrue forKeyedSubscript:v68];
-          [*(v24 + 32) _setEnablement:v38];
-          [v71 addObject:v38];
-          v42 = [v27 bundleID];
-          [v72 addObject:v42];
+          [v41 setObject:&__kCFBooleanTrue forKeyedSubscript:v71];
+          [*(v26 + 32) _setEnablement:v41];
+          [v74 addObject:v41];
+          v45 = [v29 bundleID];
+          [v75 addObject:v45];
 
-          v26 = v26 + 1;
+          v28 = v28 + 1;
         }
 
-        while (v25 != v26);
-        v25 = [obj countByEnumeratingWithState:&v78 objects:v98 count:16];
+        while (v27 != v28);
+        v27 = [obj countByEnumeratingWithState:&v81 objects:v101 count:16];
       }
 
-      while (v25);
+      while (v27);
     }
 
-    if (![v71 count])
+    if (![v74 count])
     {
-      v48 = [PSSpecifier preferenceSpecifierNamed:v60 target:0 set:0 get:0 detail:0 cell:-1 edit:0];
-      [v71 addObject:v48];
-      [v72 addObject:v60];
+      v51 = [PSSpecifier preferenceSpecifierNamed:v63 target:0 set:0 get:0 detail:0 cell:-1 edit:0];
+      [v74 addObject:v51];
+      [v75 addObject:v63];
     }
 
-    v49 = objc_alloc_init(NSMutableSet);
-    v74 = 0u;
-    v75 = 0u;
-    v76 = 0u;
+    v52 = objc_alloc_init(NSMutableSet);
     v77 = 0u;
-    v50 = [*(v24 + 32) cachedDeveloperAppsSpecifiers];
-    v51 = [v50 countByEnumeratingWithState:&v74 objects:v87 count:16];
-    if (v51)
+    v78 = 0u;
+    v79 = 0u;
+    v80 = 0u;
+    v53 = [*(v26 + 32) cachedDeveloperAppsSpecifiers];
+    v54 = [v53 countByEnumeratingWithState:&v77 objects:v90 count:16];
+    if (v54)
     {
-      v52 = v51;
-      v53 = *v75;
+      v55 = v54;
+      v56 = *v78;
       do
       {
-        for (j = 0; j != v52; j = j + 1)
+        for (j = 0; j != v55; j = j + 1)
         {
-          if (*v75 != v53)
+          if (*v78 != v56)
           {
-            objc_enumerationMutation(v50);
+            objc_enumerationMutation(v53);
           }
 
-          v55 = *(*(&v74 + 1) + 8 * j);
-          v56 = [v55 identifier];
+          v58 = *(*(&v77 + 1) + 8 * j);
+          v59 = [v58 identifier];
 
-          if (v56)
+          if (v59)
           {
-            v57 = [v55 identifier];
-            [v49 addObject:v57];
+            v60 = [v58 identifier];
+            [v52 addObject:v60];
           }
         }
 
-        v52 = [v50 countByEnumeratingWithState:&v74 objects:v87 count:16];
+        v55 = [v53 countByEnumeratingWithState:&v77 objects:v90 count:16];
       }
 
-      while (v52);
+      while (v55);
     }
 
-    v58 = [v49 isEqualToSet:v72];
-    WeakRetained = v63;
-    v59 = [v63 cachedDeveloperAppsSpecifiers];
-    if ((v58 & 1) == 0)
+    v61 = [v52 isEqualToSet:v75];
+    v8 = v66;
+    v62 = [v66 cachedDeveloperAppsSpecifiers];
+    if ((v61 & 1) == 0)
     {
-      [v63 setCachedDeveloperAppsSpecifiers:v71];
-      if ([*(v66 + 32) isPowerProfilerPlanSelected])
+      [v66 setCachedDeveloperAppsSpecifiers:v74];
+      if ([*(v69 + 32) isPowerProfilerPlanSelected])
       {
-        [v63 removeContiguousSpecifiers:v59 animated:0];
-        [v63 insertContiguousSpecifiers:v71 afterSpecifierID:@"MONITORABLE_APPS" animated:0];
-        [*(v66 + 32) forceReloadSpecifiers];
+        [v66 removeContiguousSpecifiers:v62 animated:0];
+        [v66 insertContiguousSpecifiers:v74 afterSpecifierID:@"MONITORABLE_APPS" animated:0];
+        [*(v69 + 32) forceReloadSpecifiers];
       }
     }
 
     v6 = 0;
-    v5 = v64;
-    v8 = v62;
+    v5 = v67;
+    v9 = v65;
   }
 }
 
@@ -452,28 +454,28 @@ void sub_5834(id a1)
   _objc_release_x1();
 }
 
-id sub_5878()
+id sub_5878(uint64_t a1)
 {
   if (qword_10DD8 != -1)
   {
     sub_71CC();
   }
 
-  v1 = qword_10DD0;
+  v2 = qword_10DD0;
 
-  return v1;
+  return v2;
 }
 
-id sub_58BC()
+id sub_58BC(uint64_t a1)
 {
   if (qword_10DE8 != -1)
   {
     sub_71E0();
   }
 
-  v1 = qword_10DE0;
+  v2 = qword_10DE0;
 
-  return v1;
+  return v2;
 }
 
 void sub_5900(id a1)
@@ -504,16 +506,18 @@ void sub_59D0(id a1)
   _objc_release_x1();
 }
 
-void sub_5A14(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_5A14(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_5A3C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_5A3C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_6128(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id location)
@@ -555,15 +559,14 @@ uint64_t sub_6694()
 
 uint64_t sub_6738()
 {
-  v0 = *(*(sub_72CC() - 8) + 64);
+  sub_72CC();
   __chkstk_darwin();
-  v1 = *(*(sub_724C() - 8) + 64);
+  sub_724C();
   __chkstk_darwin();
-  v2 = sub_722C();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
+  v0 = sub_722C();
+  v1 = *(v0 - 8);
   __chkstk_darwin();
-  v6 = &v8 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = &v5 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_72AC();
   sub_729C();
   sub_728C();
@@ -579,7 +582,7 @@ uint64_t sub_6738()
   sub_69E8();
   sub_726C();
 
-  (*(v3 + 8))(v6, v2);
+  (*(v1 + 8))(v3, v0);
 }
 
 uint64_t sub_69A0(uint64_t *a1, uint64_t *a2)
@@ -587,7 +590,6 @@ uint64_t sub_69A0(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -638,7 +640,6 @@ uint64_t sub_6B54(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }

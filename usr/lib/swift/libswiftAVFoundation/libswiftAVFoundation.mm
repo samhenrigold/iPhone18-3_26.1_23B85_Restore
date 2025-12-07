@@ -1,27 +1,27 @@
-uint64_t AVAsynchronousKeyValueLoading.value<A>(of:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t AVAsynchronousKeyValueLoading.value<A>(of:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>, uint64_t a3@<X3>)
 {
-  v4 = *(*a1 + 136);
-  v5 = type metadata accessor for AVAsyncProperty.Status();
-  v6 = *(v5 - 8);
-  v7 = MEMORY[0x1EEE9AC00](v5);
-  v9 = v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7);
-  v11 = v14 - v10;
-  AVAsynchronousKeyValueLoading.status<A>(of:)(a1, (v14 - v10));
-  (*(v6 + 16))(v9, v11, v5);
+  v5 = *(*a1 + 136);
+  v6 = type metadata accessor for AVAsyncProperty.Status(0, *(*a1 + 128), v5, a3);
+  v7 = *(v6 - 8);
+  v8 = MEMORY[0x1EEE9AC00](v6);
+  v10 = v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8);
+  v12 = v15 - v11;
+  AVAsynchronousKeyValueLoading.status<A>(of:)(a1, (v15 - v11));
+  (*(v7 + 16))(v10, v12, v6);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload)
   {
     if (EnumCaseMultiPayload == 1)
     {
       swift_willThrow();
-      return (*(v6 + 8))(v11, v5);
+      return (*(v7 + 8))(v12, v6);
     }
 
     else
     {
-      v14[0] = 0;
-      v14[1] = 0xE000000000000000;
+      v15[0] = 0;
+      v15[1] = 0xE000000000000000;
       _StringGuts.grow(_:)(22);
       MEMORY[0x1CCA86740](0xD000000000000013, 0x80000001C9391F90);
       swift_getWitnessTable();
@@ -34,8 +34,8 @@ uint64_t AVAsynchronousKeyValueLoading.value<A>(of:)@<X0>(uint64_t *a1@<X0>, uin
 
   else
   {
-    (*(v6 + 8))(v11, v5);
-    return (*(*(v4 - 8) + 32))(a2, v9, v4);
+    (*(v7 + 8))(v12, v6);
+    return (*(*(v5 - 8) + 32))(a2, v10, v5);
   }
 
   return result;
@@ -43,46 +43,46 @@ uint64_t AVAsynchronousKeyValueLoading.value<A>(of:)@<X0>(uint64_t *a1@<X0>, uin
 
 uint64_t closure #1 in AVAsyncProperty<>.init(key:)(void **a1, uint64_t a2, uint64_t a3)
 {
-  v3 = *a1;
-  v4 = MEMORY[0x1CCA866B0](a2, a3);
-  v5 = [v3 valueForKey_];
+  v5 = *a1;
+  v6 = MEMORY[0x1CCA866B0](a2, a3);
+  v7 = [v5 valueForKey_];
 
-  if (v5)
+  if (v7)
   {
     _bridgeAnyObjectToAny(_:)();
     swift_unknownObjectRelease();
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd, &_sypSgMR);
   return swift_dynamicCast();
 }
 
 void AVAsynchronousKeyValueLoading.status<A>(of:)(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
 {
   v3 = v2;
-  v27 = a2;
-  v29[2] = *MEMORY[0x1E69E9840];
-  v26 = *a1;
+  v38 = a2;
+  v40[2] = *MEMORY[0x1E69E9840];
+  v37 = *a1;
   v5 = type metadata accessor for CancellationError();
-  v24 = *(v5 - 8);
+  v35 = *(v5 - 8);
   v6 = MEMORY[0x1EEE9AC00](v5);
-  v8 = &v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25 = *(v26 + 136);
-  v9 = *(v25 - 8);
+  v8 = &v35 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v36 = *(v37 + 136);
+  v9 = *(v36 - 8);
   MEMORY[0x1EEE9AC00](v6);
-  v11 = &v24 - v10;
+  v11 = &v35 - v10;
   v12 = a1[2];
   v13 = a1[3];
   v14 = MEMORY[0x1CCA866B0](v12, v13);
-  v29[0] = 0;
-  v15 = [v3 statusOfValueForKey:v14 error:v29];
+  v40[0] = 0;
+  v15 = [v3 statusOfValueForKey:v14 error:v40];
 
-  v16 = v29[0];
+  v17 = v40[0];
   if (v15 <= 1)
   {
     if (!v15 || v15 == 1)
     {
-      type metadata accessor for AVAsyncProperty.Status();
+      type metadata accessor for AVAsyncProperty.Status(0, *(v37 + 128), v36, v16);
 LABEL_18:
       swift_storeEnumTagMultiPayload();
       return;
@@ -94,53 +94,59 @@ LABEL_18:
     switch(v15)
     {
       case 2:
-        v18 = a1[4];
-        v29[0] = v3;
-        v19 = v16;
-        v18(v29);
-        (*(v9 + 32))(v27, v11, v25);
-        type metadata accessor for AVAsyncProperty.Status();
+        v20 = a1[4];
+        v40[0] = v3;
+        v21 = v17;
+        v20(v40);
+        v22 = v11;
+        v23 = v36;
+        (*(v9 + 32))(v38, v22, v36);
+        type metadata accessor for AVAsyncProperty.Status(0, *(v37 + 128), v23, v24);
         swift_storeEnumTagMultiPayload();
 
         return;
       case 3:
-        if (v29[0])
+        if (v40[0])
         {
-          v17 = v29[0];
+          v18 = v40[0];
 LABEL_17:
-          *v27 = v17;
-          type metadata accessor for AVAsyncProperty.Status();
+          v33 = v37;
+          *v38 = v18;
+          type metadata accessor for AVAsyncProperty.Status(0, *(v33 + 128), v36, v19);
           goto LABEL_18;
         }
 
-        v17 = AVLocalizedError();
-        if (v17)
+        v18 = AVLocalizedError();
+        if (v18)
         {
           goto LABEL_17;
         }
 
         goto LABEL_20;
       case 4:
-        v12 = v29[0];
+        v12 = v40[0];
         AVFall2022OSVersions();
         if (!dyld_program_sdk_at_least())
         {
           CancellationError.init()();
           lazy protocol witness table accessor for type CancellationError and conformance CancellationError();
-          v21 = swift_allocError();
-          (*(v24 + 32))(v22, v8, v5);
-          *v27 = _convertErrorToNSError(_:)();
-          type metadata accessor for AVAsyncProperty.Status();
+          v28 = swift_allocError();
+          (*(v35 + 32))(v29, v8, v5);
+          v30 = _convertErrorToNSError(_:)();
+          v31 = v37;
+          *v38 = v30;
+          type metadata accessor for AVAsyncProperty.Status(0, *(v31 + 128), v36, v32);
           swift_storeEnumTagMultiPayload();
 
           return;
         }
 
-        v20 = AVLocalizedError();
-        if (v20)
+        v25 = AVLocalizedError();
+        if (v25)
         {
-          *v27 = v20;
-          type metadata accessor for AVAsyncProperty.Status();
+          v27 = v37;
+          *v38 = v25;
+          type metadata accessor for AVAsyncProperty.Status(0, *(v27 + 128), v36, v26);
           swift_storeEnumTagMultiPayload();
 
           return;
@@ -153,12 +159,12 @@ LABEL_20:
     }
   }
 
-  v29[0] = 0;
-  v29[1] = 0xE000000000000000;
-  v23 = v16;
+  v40[0] = 0;
+  v40[1] = 0xE000000000000000;
+  v34 = v17;
   _StringGuts.grow(_:)(33);
   MEMORY[0x1CCA86740](0xD000000000000014, 0x80000001C9391F50);
-  v28 = v15;
+  v39 = v15;
   type metadata accessor for AVKeyValueStatus(0);
   _print_unlocked<A, B>(_:_:)();
   MEMORY[0x1CCA86740](0x79656B20726F6620, 0xE900000000000020);
@@ -172,16 +178,16 @@ uint64_t AVAsynchronousKeyValueLoading.load<A>(_:isolation:)()
   v1 = *(v0 + 152);
   v2 = *(v0 + 144);
 
-  AVAsynchronousKeyValueLoading.value<A>(of:)(v1, v2);
-  v3 = *(v0 + 8);
+  AVAsynchronousKeyValueLoading.value<A>(of:)(v1, v2, v3);
+  v4 = *(v0 + 8);
 
-  return v3();
+  return v4();
 }
 
 {
   v2 = v0[19];
   v1 = v0[20];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1C9390590;
   v4 = *(v2 + 24);
@@ -194,7 +200,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A>(_:isolation:)()
   v0[2] = v0;
   v0[3] = AVAsynchronousKeyValueLoading.load<A>(_:isolation:);
   v6 = swift_continuation_init();
-  v0[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd);
+  v0[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd, &_sSccyyts5NeverOGMR);
   v0[10] = MEMORY[0x1E69E9820];
   v0[11] = 1107296256;
   v0[12] = @objc completion handler block implementation for <A><A1>@escaping @callee_unowned @convention(block) @Sendable () -> () with result type ();
@@ -206,19 +212,18 @@ uint64_t AVAsynchronousKeyValueLoading.load<A>(_:isolation:)()
 }
 
 {
-  v1 = *(*v0 + 176);
-  v2 = *(*v0 + 168);
+  v1 = *(*v0 + 168);
 
-  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A>(_:isolation:), v2, v1);
+  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A>(_:isolation:), v1);
 }
 
-uint64_t type metadata completion function for AVAsyncProperty.Status()
+uint64_t type metadata completion function for AVAsyncProperty.Status(uint64_t a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    result = type metadata accessor for NSValue(319, &lazy cache variable for type metadata for NSError);
-    if (v2 <= 0x3F)
+    result = type metadata accessor for NSValue(319, &lazy cache variable for type metadata for NSError, 0x1E696ABC0);
+    if (v3 <= 0x3F)
     {
       swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
       return 0;
@@ -228,7 +233,7 @@ uint64_t type metadata completion function for AVAsyncProperty.Status()
   return result;
 }
 
-uint64_t type metadata accessor for NSValue(uint64_t a1, unint64_t *a2)
+uint64_t type metadata accessor for NSValue(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -372,7 +377,7 @@ uint64_t sub_1C9358608()
 
 uint64_t sub_1C9358650(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd, &_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMR);
   v5 = *(*(v4 - 8) + 48);
 
   return v5(a1, a2, v4);
@@ -380,7 +385,7 @@ uint64_t sub_1C9358650(uint64_t a1, uint64_t a2)
 
 uint64_t sub_1C93586C8(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd, &_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMR);
   v5 = *(*(v4 - 8) + 56);
 
   return v5(a1, a2, a2, v4);
@@ -464,43 +469,43 @@ LABEL_7:
   return v15(v16, a2, a2, v14);
 }
 
-uint64_t sub_1C9358A58(char *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1C9358A58(char *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2 == 0x7FFFFFFF)
   {
-    v4 = *a1;
+    v5 = *a1;
     if (*a1 >= 0xFFFFFFFFuLL)
     {
-      LODWORD(v4) = -1;
+      LODWORD(v5) = -1;
     }
 
-    return (v4 + 1);
+    return (v5 + 1);
   }
 
   else
   {
-    v7 = *(a3 + 16);
-    if (v7 == 1)
+    v8 = *(a3 + 16);
+    if (v8 == 1)
     {
-      TupleTypeMetadata = type metadata accessor for AVMetrics();
+      TupleTypeMetadata = type metadata accessor for AVMetrics(0, *(*(a3 + 40) & 0xFFFFFFFFFFFFFFFELL), a3, a4);
     }
 
     else
     {
       MEMORY[0x1EEE9AC00](a1);
-      if (v7)
+      if (v8)
       {
-        v11 = *(a3 + 40) & 0xFFFFFFFFFFFFFFFELL;
-        v12 = (&v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
-        v13 = v7;
+        v14 = (*(a3 + 40) & 0xFFFFFFFFFFFFFFFELL);
+        v15 = (&v18 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+        v16 = v8;
         do
         {
-          v11 += 8;
-          *v12++ = type metadata accessor for AVMetrics();
-          --v13;
+          v17 = *v14++;
+          *v15++ = type metadata accessor for AVMetrics(255, v17, v11, v12);
+          --v16;
         }
 
-        while (v13);
+        while (v16);
       }
 
       TupleTypeMetadata = swift_getTupleTypeMetadata();
@@ -510,7 +515,7 @@ uint64_t sub_1C9358A58(char *a1, uint64_t a2, uint64_t a3)
   }
 }
 
-char *sub_1C9358BA0(char *result, uint64_t a2, int a3, uint64_t a4)
+char *sub_1C9358BA0(char *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = result;
   if (a3 == 0x7FFFFFFF)
@@ -523,7 +528,7 @@ char *sub_1C9358BA0(char *result, uint64_t a2, int a3, uint64_t a4)
     v7 = *(a4 + 16);
     if (v7 == 1)
     {
-      TupleTypeMetadata = type metadata accessor for AVMetrics();
+      TupleTypeMetadata = type metadata accessor for AVMetrics(0, *(*(a4 + 40) & 0xFFFFFFFFFFFFFFFELL), a3, a4);
     }
 
     else
@@ -531,17 +536,17 @@ char *sub_1C9358BA0(char *result, uint64_t a2, int a3, uint64_t a4)
       MEMORY[0x1EEE9AC00](result);
       if (v7)
       {
-        v10 = *(a4 + 40) & 0xFFFFFFFFFFFFFFFELL;
-        v11 = (&v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
-        v12 = v7;
+        v12 = (*(a4 + 40) & 0xFFFFFFFFFFFFFFFELL);
+        v13 = (&v16 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
+        v14 = v7;
         do
         {
-          v10 += 8;
-          *v11++ = type metadata accessor for AVMetrics();
-          --v12;
+          v15 = *v12++;
+          *v13++ = type metadata accessor for AVMetrics(255, v15, v9, v10);
+          --v14;
         }
 
-        while (v12);
+        while (v14);
       }
 
       TupleTypeMetadata = swift_getTupleTypeMetadata();
@@ -566,7 +571,7 @@ uint64_t sub_1C9358CE0(char *a1, uint64_t a2, int *a3)
     return (v4 + 1);
   }
 
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSySo13AVMetricEventC_So0aB15StreamPublisher_ptGMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSySo13AVMetricEventC_So0aB15StreamPublisher_ptGMd, &_sScSySo13AVMetricEventC_So0aB15StreamPublisher_ptGMR);
   if (*(*(v8 - 8) + 84) == a2)
   {
     v9 = v8;
@@ -578,7 +583,7 @@ LABEL_9:
     return v13(&a1[v11], a2, v9);
   }
 
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMd);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMd, &_sScS12ContinuationVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMR);
   if (*(*(v12 - 8) + 84) == a2)
   {
     v9 = v12;
@@ -587,7 +592,7 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMd);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMd, &_sScS8IteratorVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMR);
   v15 = *(*(v14 - 8) + 48);
   v16 = &a1[a3[17]];
 
@@ -603,7 +608,7 @@ char *sub_1C9358E70(char *result, uint64_t a2, int a3, int *a4)
     return result;
   }
 
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSySo13AVMetricEventC_So0aB15StreamPublisher_ptGMd);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSySo13AVMetricEventC_So0aB15StreamPublisher_ptGMd, &_sScSySo13AVMetricEventC_So0aB15StreamPublisher_ptGMR);
   if (*(*(v8 - 8) + 84) == a3)
   {
     v9 = v8;
@@ -615,7 +620,7 @@ LABEL_7:
     return v13(&v5[v11], a2, a2, v9);
   }
 
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMd);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMd, &_sScS12ContinuationVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMR);
   if (*(*(v12 - 8) + 84) == a3)
   {
     v9 = v12;
@@ -624,7 +629,7 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMd);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMd, &_sScS8IteratorVySo13AVMetricEventC_So0bC15StreamPublisher_pt_GMR);
   v15 = *(*(v14 - 8) + 56);
   v16 = &v5[a4[17]];
 
@@ -680,7 +685,7 @@ uint64_t sub_1C935925C@<X0>(uint64_t *a1@<X8>)
   return result;
 }
 
-size_t sub_1C935928C@<X0>(size_t *a1@<X8>)
+void *sub_1C935928C@<X0>(uint64_t *a1@<X8>)
 {
   result = AVVideoComposition.Configuration.spatialVideoConfigurations.getter();
   *a1 = result;
@@ -738,7 +743,7 @@ uint64_t sub_1C935952C()
 
 uint64_t sub_1C9359588()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo33AVAssetWriterInputPassDescriptionC_GMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo33AVAssetWriterInputPassDescriptionC_GMd, &_sScS12ContinuationVySo33AVAssetWriterInputPassDescriptionC_GMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 24) & ~v3;
@@ -751,9 +756,9 @@ uint64_t sub_1C9359588()
 
 uint64_t sub_1C9359658()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15Synchronization5_CellVySo16os_unfair_lock_sVGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15Synchronization5_CellVySo16os_unfair_lock_sVGMd, &_s15Synchronization5_CellVySo16os_unfair_lock_sVGMR);
   (*(*(v1 - 8) + 8))(v0 + 16, v1);
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15Synchronization5_CellVySiGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15Synchronization5_CellVySiGMd, &_s15Synchronization5_CellVySiGMR);
   (*(*(v2 - 8) + 8))(v0 + 24, v2);
 
   return MEMORY[0x1EEE6BDD0](v0, 32, 7);
@@ -768,7 +773,7 @@ id sub_1C9359710@<X0>(id *a1@<X0>, _BYTE *a2@<X8>)
 
 uint64_t sub_1C9359744()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCyyts5NeverOGMd, _sScCyyts5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 24) & ~v3;
@@ -781,7 +786,7 @@ uint64_t sub_1C9359744()
 
 uint64_t sub_1C9359814(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo33AVAssetWriterInputPassDescriptionC_GMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo33AVAssetWriterInputPassDescriptionC_GMd, &_sScS8IteratorVySo33AVAssetWriterInputPassDescriptionC_GMR);
   v7 = *(v6 - 8);
   if (*(v7 + 84) == a2)
   {
@@ -804,7 +809,7 @@ uint64_t sub_1C9359814(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_1C93598DC(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 {
-  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo33AVAssetWriterInputPassDescriptionC_GMd);
+  result = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo33AVAssetWriterInputPassDescriptionC_GMd, &_sScS8IteratorVySo33AVAssetWriterInputPassDescriptionC_GMR);
   v9 = *(result - 8);
   if (*(v9 + 84) == a3)
   {
@@ -837,7 +842,7 @@ char *sub_1C93599F8@<X0>(char **a1@<X8>)
 
 uint64_t sub_1C9359A5C()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo6CMTimea_GMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo6CMTimea_GMd, "J7");
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 16) & ~v3;
@@ -849,7 +854,7 @@ uint64_t sub_1C9359A5C()
 
 uint64_t sub_1C9359B08()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo6CMTimea_GMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo6CMTimea_GMd, "J7");
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 16) & ~v3;
@@ -859,7 +864,7 @@ uint64_t sub_1C9359B08()
   return MEMORY[0x1EEE6BDD0](v0, v4 + v5, v3 | 7);
 }
 
-uint64_t sub_1C9359BA8(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1C9359BA8(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -911,7 +916,7 @@ char *sub_1C9359CF8@<X0>(char **a1@<X8>)
 
 uint64_t sub_1C9359D50()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySbs5NeverOGMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScCySbs5NeverOGMd, &_sScCySbs5NeverOGMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 16) & ~v3;
@@ -923,7 +928,7 @@ uint64_t sub_1C9359D50()
 
 uint64_t sub_1C9359DE4(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO_GMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO_GMd, &_sScS8IteratorVySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO_GMR);
   v5 = *(*(v4 - 8) + 48);
 
   return v5(a1, a2, v4);
@@ -931,7 +936,7 @@ uint64_t sub_1C9359DE4(uint64_t a1, uint64_t a2)
 
 uint64_t sub_1C9359E5C(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO_GMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO_GMd, &_sScS8IteratorVySo21AVAssetImageGeneratorC12AVFoundationE6ImagesV7ElementO_GMR);
   v5 = *(*(v4 - 8) + 56);
 
   return v5(a1, a2, a2, v4);
@@ -950,7 +955,7 @@ uint64_t sub_1C9359F24()
   v3 = (v2 + 32) & ~v2;
   v4 = *(v1 + 64);
   swift_unknownObjectRelease();
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV05startB0_So10NSProgressC8progresstMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV05startB0_So10NSProgressC8progresstMd, &_s10Foundation4DateV05startB0_So10NSProgressC8progresstMR);
   if (!(*(*(v5 - 8) + 48))(v0 + v3, 3, v5))
   {
     v6 = type metadata accessor for Date();
@@ -983,7 +988,7 @@ uint64_t sub_1C935A138()
 
 uint64_t sub_1C935A170()
 {
-  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo26AVAssetExportSessionStatusV_GMd);
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVySo26AVAssetExportSessionStatusV_GMd, &_sScS12ContinuationVySo26AVAssetExportSessionStatusV_GMR);
   v2 = *(v1 - 8);
   v3 = *(v2 + 80);
   v4 = (v3 + 16) & ~v3;
@@ -1014,7 +1019,7 @@ uint64_t sub_1C935A278()
 
 uint64_t sub_1C935A2B0(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV05startB0_So10NSProgressC8progresstMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV05startB0_So10NSProgressC8progresstMd, &_s10Foundation4DateV05startB0_So10NSProgressC8progresstMR);
   v5 = (*(*(v4 - 8) + 48))(a1, a2, v4);
   if (v5 >= 4)
   {
@@ -1039,13 +1044,13 @@ uint64_t sub_1C935A328(uint64_t a1, int a2, uint64_t a3)
     v5 = 0;
   }
 
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV05startB0_So10NSProgressC8progresstMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateV05startB0_So10NSProgressC8progresstMd, &_s10Foundation4DateV05startB0_So10NSProgressC8progresstMR);
   v7 = *(*(v6 - 8) + 56);
 
   return v7(a1, v5, a3, v6);
 }
 
-uint64_t sub_1C935A3B8(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1C935A3B8(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -1060,7 +1065,7 @@ uint64_t sub_1C935A3B8(uint64_t *a1, uint64_t a2, uint64_t a3)
 
   else
   {
-    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd);
+    v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMR);
     v9 = *(*(v8 - 8) + 48);
     v10 = a1 + *(a3 + 24);
 
@@ -1078,7 +1083,7 @@ void *sub_1C935A474(void *result, uint64_t a2, int a3, uint64_t a4)
 
   else
   {
-    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd);
+    v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMd, &_sSo20AVAssetExportSessionC12AVFoundationE14ProgressStates33_D1D93B46B4622E2FDA3EC9B1BC7A64BDLLV8IteratorV13StateInternalOSgMR);
     v8 = *(*(v7 - 8) + 56);
     v9 = v5 + *(a4 + 24);
 
@@ -1157,7 +1162,7 @@ uint64_t specialized _dictionaryUpCast<A, B, C, D>(_:)(uint64_t a1)
 {
   if (*(a1 + 16))
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCys11AnyHashableVypGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCys11AnyHashableVypGMd, &_ss18_DictionaryStorageCys11AnyHashableVypGMR);
     v2 = static _DictionaryStorage.allocate(capacity:)();
   }
 
@@ -1280,7 +1285,7 @@ unint64_t specialized _dictionaryUpCast<A, B, C, D>(_:)(uint64_t a1)
 {
   if (*(a1 + 16))
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySSypGMd, &_ss18_DictionaryStorageCySSypGMR);
     v2 = static _DictionaryStorage.allocate(capacity:)();
   }
 
@@ -1341,7 +1346,7 @@ LABEL_10:
         v17 = v28;
         _sypWOb_0(v27, &v22);
 
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8Sendable_pMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8Sendable_pMd, &_ss8Sendable_pMR);
         swift_dynamicCast();
         _sypWOb_0(&v23, v25);
         _sypWOb_0(v25, v26);
@@ -1658,21 +1663,21 @@ uint64_t storeEnumTagSinglePayload for CMTime(uint64_t result, int a2, int a3)
 
 uint64_t protocol witness for Error._domain.getter in conformance related decl e for AVError(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for AVError and conformance related decl 'e' for AVError, type metadata accessor for related decl 'e' for AVError);
+  v2 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for AVError and conformance related decl 'e' for AVError, type metadata accessor for related decl 'e' for AVError, &protocol conformance descriptor for related decl 'e' for AVError);
 
   return MEMORY[0x1EEDC6AD0](a1, v2);
 }
 
 uint64_t protocol witness for Error._code.getter in conformance related decl e for AVError(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for AVError and conformance related decl 'e' for AVError, type metadata accessor for related decl 'e' for AVError);
+  v2 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for AVError and conformance related decl 'e' for AVError, type metadata accessor for related decl 'e' for AVError, &protocol conformance descriptor for related decl 'e' for AVError);
 
   return MEMORY[0x1EEDC6AC0](a1, v2);
 }
 
 uint64_t protocol witness for Error._getEmbeddedNSError() in conformance related decl e for AVError(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for AVError and conformance related decl 'e' for AVError, type metadata accessor for related decl 'e' for AVError);
+  v2 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for AVError and conformance related decl 'e' for AVError, type metadata accessor for related decl 'e' for AVError, &protocol conformance descriptor for related decl 'e' for AVError);
 
   return MEMORY[0x1EEDC3B70](a1, v2);
 }
@@ -1704,32 +1709,32 @@ uint64_t protocol witness for static _ObjectiveCBridgeable._conditionallyBridgeF
   return v3 & 1;
 }
 
-uint64_t protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromObjectiveC(_:) in conformance AVMetadataExtraAttributeKey@<X0>(uint64_t *a1@<X8>)
+uint64_t protocol witness for static _ObjectiveCBridgeable._unconditionallyBridgeFromObjectiveC(_:) in conformance AVMetadataExtraAttributeKey@<X0>(uint64_t *a2@<X8>)
 {
-  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v3 = MEMORY[0x1CCA866B0](v2);
+  v3 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = MEMORY[0x1CCA866B0](v3);
 
-  *a1 = v3;
+  *a2 = v4;
   return result;
 }
 
 uint64_t protocol witness for CustomNSError.errorCode.getter in conformance related decl e for AVError(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for AVError and conformance related decl 'e' for AVError, type metadata accessor for related decl 'e' for AVError);
+  v2 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for AVError and conformance related decl 'e' for AVError, type metadata accessor for related decl 'e' for AVError, &protocol conformance descriptor for related decl 'e' for AVError);
 
   return MEMORY[0x1EEDC3BE0](a1, v2);
 }
 
 uint64_t protocol witness for CustomNSError.errorUserInfo.getter in conformance related decl e for AVError(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for AVError and conformance related decl 'e' for AVError, type metadata accessor for related decl 'e' for AVError);
+  v2 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for AVError and conformance related decl 'e' for AVError, type metadata accessor for related decl 'e' for AVError, &protocol conformance descriptor for related decl 'e' for AVError);
 
   return MEMORY[0x1EEDC3B98](a1, v2);
 }
 
 uint64_t protocol witness for _ObjectiveCBridgeableError.init(_bridgedNSError:) in conformance related decl e for AVError(void *a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for AVError and conformance related decl 'e' for AVError, type metadata accessor for related decl 'e' for AVError);
+  v4 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for AVError and conformance related decl 'e' for AVError, type metadata accessor for related decl 'e' for AVError, &protocol conformance descriptor for related decl 'e' for AVError);
   v5 = a1;
 
   return MEMORY[0x1EEDC3B88](v5, a2, v4);
@@ -1737,12 +1742,12 @@ uint64_t protocol witness for _ObjectiveCBridgeableError.init(_bridgedNSError:) 
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance related decl e for AVError(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for AVError and conformance related decl 'e' for AVError, type metadata accessor for related decl 'e' for AVError);
+  v4 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for AVError and conformance related decl 'e' for AVError, type metadata accessor for related decl 'e' for AVError, &protocol conformance descriptor for related decl 'e' for AVError);
 
   return MEMORY[0x1EEDC3BC8](a1, a2, v4);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance related decl e for AVError()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance related decl e for AVError(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   Hasher.init(_seed:)();
   dispatch thunk of Hashable.hash(into:)();
@@ -1751,14 +1756,14 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance rel
 
 uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance AVMetadataExtraAttributeKey(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey, type metadata accessor for AVMetadataExtraAttributeKey);
-  v3 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey, type metadata accessor for AVMetadataExtraAttributeKey);
+  v2 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey, type metadata accessor for AVMetadataExtraAttributeKey, &protocol conformance descriptor for AVMetadataExtraAttributeKey);
+  v3 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey, type metadata accessor for AVMetadataExtraAttributeKey, &protocol conformance descriptor for AVMetadataExtraAttributeKey);
   v4 = MEMORY[0x1E69E6168];
 
   return MEMORY[0x1EEE6ABA0](a1, v2, v3, v4);
 }
 
-uint64_t lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1773,15 +1778,15 @@ uint64_t lazy protocol witness table accessor for type AVMetadataExtraAttributeK
 
 uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance related decl e for AVError(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for AVError and conformance related decl 'e' for AVError, type metadata accessor for related decl 'e' for AVError);
+  v6 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type related decl 'e' for AVError and conformance related decl 'e' for AVError, type metadata accessor for related decl 'e' for AVError, &protocol conformance descriptor for related decl 'e' for AVError);
 
   return MEMORY[0x1EEDC3BA8](a1, a2, a3, v6);
 }
 
 uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance AVMediaType(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVMediaType and conformance AVMediaType, type metadata accessor for AVMediaType);
-  v3 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVMediaType and conformance AVMediaType, type metadata accessor for AVMediaType);
+  v2 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVMediaType and conformance AVMediaType, type metadata accessor for AVMediaType, &protocol conformance descriptor for AVMediaType);
+  v3 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVMediaType and conformance AVMediaType, type metadata accessor for AVMediaType, &protocol conformance descriptor for AVMediaType);
   v4 = MEMORY[0x1E69E6168];
 
   return MEMORY[0x1EEE6ABA0](a1, v2, v3, v4);
@@ -1789,8 +1794,8 @@ uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHa
 
 uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance AVFileType(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVFileType and conformance AVFileType, type metadata accessor for AVFileType);
-  v3 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVFileType and conformance AVFileType, type metadata accessor for AVFileType);
+  v2 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVFileType and conformance AVFileType, type metadata accessor for AVFileType, &protocol conformance descriptor for AVFileType);
+  v3 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVFileType and conformance AVFileType, type metadata accessor for AVFileType, &protocol conformance descriptor for AVFileType);
   v4 = MEMORY[0x1E69E6168];
 
   return MEMORY[0x1EEE6ABA0](a1, v2, v3, v4);
@@ -1798,8 +1803,8 @@ uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHa
 
 uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance AVMetadataFormat(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVMetadataFormat and conformance AVMetadataFormat, type metadata accessor for AVMetadataFormat);
-  v3 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVMetadataFormat and conformance AVMetadataFormat, type metadata accessor for AVMetadataFormat);
+  v2 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVMetadataFormat and conformance AVMetadataFormat, type metadata accessor for AVMetadataFormat, &protocol conformance descriptor for AVMetadataFormat);
+  v3 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVMetadataFormat and conformance AVMetadataFormat, type metadata accessor for AVMetadataFormat, &protocol conformance descriptor for AVMetadataFormat);
   v4 = MEMORY[0x1E69E6168];
 
   return MEMORY[0x1EEE6ABA0](a1, v2, v3, v4);
@@ -1807,8 +1812,8 @@ uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHa
 
 uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance AVMetadataKey(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVMetadataKey and conformance AVMetadataKey, type metadata accessor for AVMetadataKey);
-  v3 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVMetadataKey and conformance AVMetadataKey, type metadata accessor for AVMetadataKey);
+  v2 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVMetadataKey and conformance AVMetadataKey, type metadata accessor for AVMetadataKey, &protocol conformance descriptor for AVMetadataKey);
+  v3 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVMetadataKey and conformance AVMetadataKey, type metadata accessor for AVMetadataKey, &protocol conformance descriptor for AVMetadataKey);
   v4 = MEMORY[0x1E69E6168];
 
   return MEMORY[0x1EEE6ABA0](a1, v2, v3, v4);
@@ -1816,8 +1821,8 @@ uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHa
 
 uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance AVMediaCharacteristic(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVMediaCharacteristic and conformance AVMediaCharacteristic, type metadata accessor for AVMediaCharacteristic);
-  v3 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVMediaCharacteristic and conformance AVMediaCharacteristic, type metadata accessor for AVMediaCharacteristic);
+  v2 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVMediaCharacteristic and conformance AVMediaCharacteristic, type metadata accessor for AVMediaCharacteristic, &protocol conformance descriptor for AVMediaCharacteristic);
+  v3 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVMediaCharacteristic and conformance AVMediaCharacteristic, type metadata accessor for AVMediaCharacteristic, &protocol conformance descriptor for AVMediaCharacteristic);
   v4 = MEMORY[0x1E69E6168];
 
   return MEMORY[0x1EEE6ABA0](a1, v2, v3, v4);
@@ -1833,8 +1838,8 @@ uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance AV
 
 uint64_t protocol witness for _HasCustomAnyHashableRepresentation._toCustomAnyHashable() in conformance AVTrackAssociationType(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVTrackAssociationType and conformance AVTrackAssociationType, type metadata accessor for AVTrackAssociationType);
-  v3 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVTrackAssociationType and conformance AVTrackAssociationType, type metadata accessor for AVTrackAssociationType);
+  v2 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVTrackAssociationType and conformance AVTrackAssociationType, type metadata accessor for AVTrackAssociationType, &protocol conformance descriptor for AVTrackAssociationType);
+  v3 = lazy protocol witness table accessor for type AVMetadataExtraAttributeKey and conformance AVMetadataExtraAttributeKey(&lazy protocol witness table cache variable for type AVTrackAssociationType and conformance AVTrackAssociationType, type metadata accessor for AVTrackAssociationType, &protocol conformance descriptor for AVTrackAssociationType);
   v4 = MEMORY[0x1E69E6168];
 
   return MEMORY[0x1EEE6ABA0](a1, v2, v3, v4);
@@ -1848,7 +1853,7 @@ uint64_t protocol witness for Hashable.hashValue.getter in conformance AVMetadat
   return v1;
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance AVMetadataExtraAttributeKey()
+uint64_t protocol witness for Hashable.hash(into:) in conformance AVMetadataExtraAttributeKey(uint64_t a1)
 {
   static String._unconditionallyBridgeFromObjectiveC(_:)();
   String.hash(into:)();
@@ -1864,21 +1869,21 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AVM
   return v0;
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance AVMetadataExtraAttributeKey()
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance AVMetadataExtraAttributeKey(void *a1, uint64_t *a2)
 {
-  v0 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v2 = v1;
-  if (v0 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v2 == v3)
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = v3;
+  if (v2 == static String._unconditionallyBridgeFromObjectiveC(_:)() && v4 == v5)
   {
-    v5 = 1;
+    v7 = 1;
   }
 
   else
   {
-    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v7 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v5 & 1;
+  return v7 & 1;
 }
 
 unint64_t lazy protocol witness table accessor for type Int and conformance Int()
@@ -1893,7 +1898,7 @@ unint64_t lazy protocol witness table accessor for type Int and conformance Int(
   return result;
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -1905,9 +1910,9 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1)
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
-  v1 = *(*(a1 + 24) - 8);
+  v1 = *(a1[3] - 8);
   if ((*(v1 + 82) & 2) != 0)
   {
   }
@@ -2006,19 +2011,19 @@ uint64_t storeEnumTagSinglePayload for CMVideoDimensions(uint64_t result, int a2
   return result;
 }
 
-void type metadata accessor for CGRect(uint64_t a1, unint64_t *a2)
+void type metadata accessor for CGRect(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
   }
 }
 
-uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1)
+uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
 {
   result = *a1;
   if (!result)
@@ -2030,29 +2035,33 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1)
   return result;
 }
 
-void *static AVPartialAsyncProperty<A>.extraAttributes.getter(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void *static AVPartialAsyncProperty<A>.extraAttributes.getter(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a1);
-  type metadata accessor for AVAsyncProperty();
+  v7 = *(v4 + 96);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a1, a2);
+  type metadata accessor for AVAsyncProperty(0, v7, v8, v9);
   return AVAsyncProperty<>.init(key:)(a3, a4);
 }
 
 void *static AVPartialAsyncProperty<A>.tracks.getter()
 {
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo19AVMutableMovieTrackCGMd);
-  type metadata accessor for AVAsyncProperty();
+  v1 = *(v0 + 96);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo19AVMutableMovieTrackCGMd, &_sSaySo19AVMutableMovieTrackCGMR);
+  type metadata accessor for AVAsyncProperty(0, v1, v2, v3);
   return AVAsyncProperty<>.init(key:)(0x736B63617274, 0xE600000000000000);
 }
 
 {
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo22AVFragmentedMovieTrackCGMd);
-  type metadata accessor for AVAsyncProperty();
+  v1 = *(v0 + 96);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo22AVFragmentedMovieTrackCGMd, &_sSaySo22AVFragmentedMovieTrackCGMR);
+  type metadata accessor for AVAsyncProperty(0, v1, v2, v3);
   return AVAsyncProperty<>.init(key:)(0x736B63617274, 0xE600000000000000);
 }
 
 {
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo18AVCompositionTrackCGMd);
-  type metadata accessor for AVAsyncProperty();
+  v1 = *(v0 + 96);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo18AVCompositionTrackCGMd, &_sSaySo18AVCompositionTrackCGMR);
+  type metadata accessor for AVAsyncProperty(0, v1, v2, v3);
   return AVAsyncProperty<>.init(key:)(0x736B63617274, 0xE600000000000000);
 }
 
@@ -2061,20 +2070,23 @@ void *static AVPartialAsyncProperty<A>.tracks.getter()
 }
 
 {
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo25AVMutableCompositionTrackCGMd);
-  type metadata accessor for AVAsyncProperty();
+  v1 = *(v0 + 96);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo25AVMutableCompositionTrackCGMd, &_sSaySo25AVMutableCompositionTrackCGMR);
+  type metadata accessor for AVAsyncProperty(0, v1, v2, v3);
   return AVAsyncProperty<>.init(key:)(0x736B63617274, 0xE600000000000000);
 }
 
 {
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo22AVFragmentedAssetTrackCGMd);
-  type metadata accessor for AVAsyncProperty();
+  v1 = *(v0 + 96);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo22AVFragmentedAssetTrackCGMd, &_sSaySo22AVFragmentedAssetTrackCGMR);
+  type metadata accessor for AVAsyncProperty(0, v1, v2, v3);
   return AVAsyncProperty<>.init(key:)(0x736B63617274, 0xE600000000000000);
 }
 
 {
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo12AVMovieTrackCGMd);
-  type metadata accessor for AVAsyncProperty();
+  v1 = *(v0 + 96);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo12AVMovieTrackCGMd, &_sSaySo12AVMovieTrackCGMR);
+  type metadata accessor for AVAsyncProperty(0, v1, v2, v3);
   return AVAsyncProperty<>.init(key:)(0x736B63617274, 0xE600000000000000);
 }
 
@@ -2116,7 +2128,7 @@ Swift::Void __swiftcall AVAssetReaderOutput.RandomAccessController.resetForReadi
     v10 = v2;
   }
 
-  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for NSValue);
+  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for NSValue, 0x1E696B098);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   [v2 resetForReadingTimeRanges_];
@@ -2128,32 +2140,32 @@ uint64_t AVAssetReaderOutput.RandomAccessController.__deallocating_deinit()
   return MEMORY[0x1EEE6BDC0](v0, 24, 7);
 }
 
-uint64_t AVAssetReaderOutput.Provider.next()(uint64_t a1, uint64_t a2)
+uint64_t AVAssetReaderOutput.Provider.next()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3[2] = a1;
-  v3[3] = v2;
-  v3[4] = *(*v2 + 80);
-  v5 = type metadata accessor for Optional();
-  v3[5] = v5;
-  v3[6] = *(v5 - 8);
-  v3[7] = swift_task_alloc();
+  v4[2] = a1;
+  v4[3] = v3;
+  v4[4] = *(*v3 + 80);
+  v6 = type metadata accessor for Optional();
+  v4[5] = v6;
+  v4[6] = *(v6 - 8);
+  v4[7] = swift_task_alloc();
   if (a2)
   {
     swift_getObjectType();
-    v6 = dispatch thunk of Actor.unownedExecutor.getter();
-    v8 = v7;
+    v7 = dispatch thunk of Actor.unownedExecutor.getter();
+    v9 = v8;
   }
 
   else
   {
-    v6 = 0;
-    v8 = 0;
+    v7 = 0;
+    v9 = 0;
   }
 
-  v3[8] = v6;
-  v3[9] = v8;
+  v4[8] = v7;
+  v4[9] = v9;
 
-  return MEMORY[0x1EEE6DFA0](AVAssetReaderOutput.Provider.next(), v6, v8);
+  return MEMORY[0x1EEE6DFA0](AVAssetReaderOutput.Provider.next(), v7);
 }
 
 uint64_t AVAssetReaderOutput.Provider.next()()
@@ -2172,19 +2184,18 @@ uint64_t AVAssetReaderOutput.Provider.next()()
   v2 = *v1;
   *(*v1 + 88) = v0;
 
-  v3 = *(v2 + 72);
-  v4 = *(v2 + 64);
+  v3 = *(v2 + 64);
   if (v0)
   {
-    v5 = AVAssetReaderOutput.Provider.next();
+    v4 = AVAssetReaderOutput.Provider.next();
   }
 
   else
   {
-    v5 = AVAssetReaderOutput.Provider.next();
+    v4 = AVAssetReaderOutput.Provider.next();
   }
 
-  return MEMORY[0x1EEE6DFA0](v5, v4, v3);
+  return MEMORY[0x1EEE6DFA0](v4, v3);
 }
 
 {
@@ -2236,7 +2247,7 @@ uint64_t AVAssetReaderOutput.Provider.deinit()
 
 uint64_t outlined destroy of Any?(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd, &_sypSgMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -2263,7 +2274,7 @@ id AVAssetReader.outputProvider(for:)(void *a1)
     [v1 addOutput_];
     v4 = swift_allocObject();
     *(v4 + 16) = a1;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo19AVAssetReaderOutputC12AVFoundationE8ProviderCy_9CoreMedia19CMReadySampleBufferVySo08CMSampleJ3RefaAFE14DynamicContentOGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo19AVAssetReaderOutputC12AVFoundationE8ProviderCy_9CoreMedia19CMReadySampleBufferVySo08CMSampleJ3RefaAFE14DynamicContentOGGMd, &_sSo19AVAssetReaderOutputC12AVFoundationE8ProviderCy_9CoreMedia19CMReadySampleBufferVySo08CMSampleJ3RefaAFE14DynamicContentOGGMR);
     v5 = swift_allocObject();
     *(v5 + 16) = v1;
     *(v5 + 24) = a1;
@@ -2283,7 +2294,7 @@ uint64_t closure #1 in AVAssetReader.outputProvider(for:)(uint64_t a1, uint64_t 
 {
   *(v2 + 16) = a1;
   *(v2 + 24) = a2;
-  return MEMORY[0x1EEE6DFA0](closure #1 in AVAssetReader.outputProvider(for:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](closure #1 in AVAssetReader.outputProvider(for:), 0);
 }
 
 uint64_t closure #1 in AVAssetReader.outputProvider(for:)()
@@ -2300,7 +2311,7 @@ uint64_t closure #1 in AVAssetReader.outputProvider(for:)()
   }
 
   v2 = *(v0 + 16);
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia19CMReadySampleBufferVySo08CMSampleE3RefaAAE14DynamicContentOGMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia19CMReadySampleBufferVySo08CMSampleE3RefaAAE14DynamicContentOGMd, &_s9CoreMedia19CMReadySampleBufferVySo08CMSampleE3RefaAAE14DynamicContentOGMR);
   (*(*(v3 - 8) + 56))(v2, v1, 1, v3);
   v4 = *(v0 + 8);
 
@@ -2337,7 +2348,7 @@ id AVAssetReader.outputProviderWithRandomAccess(for:)(void *a1)
     [v1 addOutput_];
     v5 = swift_allocObject();
     *(v5 + 16) = v3;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo19AVAssetReaderOutputC12AVFoundationE8ProviderCy_9CoreMedia19CMReadySampleBufferVySo08CMSampleJ3RefaAFE14DynamicContentOGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo19AVAssetReaderOutputC12AVFoundationE8ProviderCy_9CoreMedia19CMReadySampleBufferVySo08CMSampleJ3RefaAFE14DynamicContentOGGMd, &_sSo19AVAssetReaderOutputC12AVFoundationE8ProviderCy_9CoreMedia19CMReadySampleBufferVySo08CMSampleJ3RefaAFE14DynamicContentOGGMR);
     v6 = swift_allocObject();
     *(v6 + 16) = v1;
     *(v6 + 24) = v3;
@@ -2390,7 +2401,7 @@ id AVAssetReader.outputMetadataProvider(for:)(void *a1)
     v4 = [objc_allocWithZone(MEMORY[0x1E6987E98]) initWithAssetReaderTrackOutput_];
     v5 = swift_allocObject();
     *(v5 + 16) = v4;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo19AVAssetReaderOutputC12AVFoundationE8ProviderCy_So20AVTimedMetadataGroupCGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo19AVAssetReaderOutputC12AVFoundationE8ProviderCy_So20AVTimedMetadataGroupCGMd, &_sSo19AVAssetReaderOutputC12AVFoundationE8ProviderCy_So20AVTimedMetadataGroupCGMR);
     v6 = swift_allocObject();
     *(v6 + 16) = v1;
     *(v6 + 24) = v2;
@@ -2409,7 +2420,7 @@ uint64_t closure #1 in AVAssetReader.outputMetadataProvider(for:)(uint64_t a1, u
 {
   *(v2 + 16) = a1;
   *(v2 + 24) = a2;
-  return MEMORY[0x1EEE6DFA0](closure #1 in AVAssetReader.outputMetadataProvider(for:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](closure #1 in AVAssetReader.outputMetadataProvider(for:), 0);
 }
 
 uint64_t closure #1 in AVAssetReader.outputMetadataProvider(for:)()
@@ -2452,7 +2463,7 @@ id AVAssetReader.outputMetadataProviderWithRandomAccess(for:)(void *a1)
     v5 = [objc_allocWithZone(MEMORY[0x1E6987E98]) initWithAssetReaderTrackOutput_];
     v6 = swift_allocObject();
     *(v6 + 16) = v5;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo19AVAssetReaderOutputC12AVFoundationE8ProviderCy_So20AVTimedMetadataGroupCGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo19AVAssetReaderOutputC12AVFoundationE8ProviderCy_So20AVTimedMetadataGroupCGMd, &_sSo19AVAssetReaderOutputC12AVFoundationE8ProviderCy_So20AVTimedMetadataGroupCGMR);
     v7 = swift_allocObject();
     *(v7 + 16) = v1;
     *(v7 + 24) = v3;
@@ -2487,10 +2498,10 @@ void *AVAssetReader.outputCaptionProvider(for:validationDelegate:)(void *a1, uin
       [v6 setValidationDelegate_];
     }
 
-    v8 = type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVAssetReaderOutputCaptionAdaptor);
+    v8 = type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVAssetReaderOutputCaptionAdaptor, 0x1E6987E90);
     v9 = swift_allocObject();
     *(v9 + 16) = v7;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo19AVAssetReaderOutputC12AVFoundationE8ProviderCy_So14AVCaptionGroupCGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo19AVAssetReaderOutputC12AVFoundationE8ProviderCy_So14AVCaptionGroupCGMd, &_sSo19AVAssetReaderOutputC12AVFoundationE8ProviderCy_So14AVCaptionGroupCGMR);
     v10 = swift_allocObject();
     v10[2] = v2;
     v10[3] = a1;
@@ -2511,7 +2522,7 @@ uint64_t closure #1 in AVAssetReader.outputCaptionProvider(for:validationDelegat
 {
   *(v2 + 16) = a1;
   *(v2 + 24) = a2;
-  return MEMORY[0x1EEE6DFA0](closure #1 in AVAssetReader.outputCaptionProvider(for:validationDelegate:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](closure #1 in AVAssetReader.outputCaptionProvider(for:validationDelegate:), 0);
 }
 
 uint64_t closure #1 in AVAssetReader.outputCaptionProvider(for:validationDelegate:)()
@@ -2547,11 +2558,11 @@ uint64_t AVAssetReaderOutput.Provider<>.captionsNotPresentInPreviousGroups(in:)(
   outlined init with copy of Any?(v1 + 32, v7);
   if (v8)
   {
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVAssetReaderOutputCaptionAdaptor);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVAssetReaderOutputCaptionAdaptor, 0x1E6987E90);
     if (swift_dynamicCast())
     {
       v3 = [v6 captionsNotPresentInPreviousGroupsInCaptionGroup_];
-      type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVCaption);
+      type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVCaption, 0x1E6987F50);
       v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
       return v4;
@@ -2570,7 +2581,7 @@ uint64_t AVAssetReaderOutput.Provider<>.captionsNotPresentInPreviousGroups(in:)(
 
 uint64_t outlined init with copy of Any?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd, &_sypSgMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -2586,38 +2597,34 @@ uint64_t dispatch thunk of AVAssetReaderOutput.Provider.next()(uint64_t a1, uint
   return v10(a1, a2, a3);
 }
 
-uint64_t related decl e for AVError.device.getter()
-{
-  return 0;
-}
-
+uint64_t related decl e for AVError.device.getter(uint64_t a1)
 {
   type metadata accessor for related decl 'e' for AVError(0);
   lazy protocol witness table accessor for type related decl 'e' for AVError and conformance related decl 'e' for AVError();
-  v0 = _BridgedStoredNSError.userInfo.getter();
-  v1 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  if (!*(v0 + 16))
+  v1 = _BridgedStoredNSError.userInfo.getter();
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  if (!*(v1 + 16))
   {
 
     goto LABEL_7;
   }
 
-  v3 = specialized __RawDictionaryStorage.find<A>(_:)(v1, v2);
-  v5 = v4;
+  v4 = specialized __RawDictionaryStorage.find<A>(_:)(v2, v3);
+  v6 = v5;
 
-  if ((v5 & 1) == 0)
+  if ((v6 & 1) == 0)
   {
 LABEL_7:
 
     return 0;
   }
 
-  outlined init with copy of Sendable(*(v0 + 56) + 32 * v3, v8);
+  outlined init with copy of Sendable(*(v1 + 56) + 32 * v4, v9);
 
   type metadata accessor for AVCaptureDevice();
   if (swift_dynamicCast())
   {
-    return v7;
+    return v8;
   }
 
   else
@@ -2703,37 +2710,33 @@ LABEL_7:
   return 0;
 }
 
-uint64_t related decl e for AVError.fileSize.getter()
-{
-  return related decl 'e' for AVError.fileSize.getter();
-}
-
+uint64_t related decl e for AVError.fileSize.getter(uint64_t a1, void *a2, uint64_t a3)
 {
   type metadata accessor for related decl 'e' for AVError(0);
   lazy protocol witness table accessor for type related decl 'e' for AVError and conformance related decl 'e' for AVError();
-  v0 = _BridgedStoredNSError.userInfo.getter();
-  v1 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  if (!*(v0 + 16))
+  v3 = _BridgedStoredNSError.userInfo.getter();
+  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  if (!*(v3 + 16))
   {
 
     goto LABEL_8;
   }
 
-  v3 = specialized __RawDictionaryStorage.find<A>(_:)(v1, v2);
-  v5 = v4;
+  v6 = specialized __RawDictionaryStorage.find<A>(_:)(v4, v5);
+  v8 = v7;
 
-  if ((v5 & 1) == 0)
+  if ((v8 & 1) == 0)
   {
 LABEL_8:
 
     return 0;
   }
 
-  outlined init with copy of Sendable(*(v0 + 56) + 32 * v3, v8);
+  outlined init with copy of Sendable(*(v3 + 56) + 32 * v6, v11);
 
   if (swift_dynamicCast())
   {
-    return v7;
+    return v10;
   }
 
   else
@@ -2742,33 +2745,33 @@ LABEL_8:
   }
 }
 
-uint64_t related decl e for AVError.recordingSuccessfullyFinished.getter()
+uint64_t related decl e for AVError.recordingSuccessfullyFinished.getter(uint64_t a1)
 {
   type metadata accessor for related decl 'e' for AVError(0);
   lazy protocol witness table accessor for type related decl 'e' for AVError and conformance related decl 'e' for AVError();
-  v0 = _BridgedStoredNSError.userInfo.getter();
-  v1 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  if (!*(v0 + 16))
+  v1 = _BridgedStoredNSError.userInfo.getter();
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  if (!*(v1 + 16))
   {
 
     goto LABEL_7;
   }
 
-  v3 = specialized __RawDictionaryStorage.find<A>(_:)(v1, v2);
-  v5 = v4;
+  v4 = specialized __RawDictionaryStorage.find<A>(_:)(v2, v3);
+  v6 = v5;
 
-  if ((v5 & 1) == 0)
+  if ((v6 & 1) == 0)
   {
 LABEL_7:
 
     return 2;
   }
 
-  outlined init with copy of Sendable(*(v0 + 56) + 32 * v3, v8);
+  outlined init with copy of Sendable(*(v1 + 56) + 32 * v4, v9);
 
   if (swift_dynamicCast())
   {
-    return v7;
+    return v8;
   }
 
   else
@@ -2777,33 +2780,33 @@ LABEL_7:
   }
 }
 
-uint64_t related decl e for AVError.mediaType.getter()
+uint64_t related decl e for AVError.mediaType.getter(uint64_t a1)
 {
   type metadata accessor for related decl 'e' for AVError(0);
   lazy protocol witness table accessor for type related decl 'e' for AVError and conformance related decl 'e' for AVError();
-  v0 = _BridgedStoredNSError.userInfo.getter();
-  v1 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  if (!*(v0 + 16))
+  v1 = _BridgedStoredNSError.userInfo.getter();
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  if (!*(v1 + 16))
   {
 
     goto LABEL_8;
   }
 
-  v3 = specialized __RawDictionaryStorage.find<A>(_:)(v1, v2);
-  v5 = v4;
+  v4 = specialized __RawDictionaryStorage.find<A>(_:)(v2, v3);
+  v6 = v5;
 
-  if ((v5 & 1) == 0)
+  if ((v6 & 1) == 0)
   {
 LABEL_8:
 
     return 0;
   }
 
-  outlined init with copy of Sendable(*(v0 + 56) + 32 * v3, v8);
+  outlined init with copy of Sendable(*(v1 + 56) + 32 * v4, v9);
 
   if (swift_dynamicCast())
   {
-    return v7;
+    return v8;
   }
 
   else
@@ -2812,34 +2815,38 @@ LABEL_8:
   }
 }
 
-uint64_t related decl e for AVError.mediaSubtypes.getter()
+{
+  return related decl 'e' for AVError.mediaType.getter(a1, MEMORY[0x1E69873F8], type metadata accessor for AVMediaType);
+}
+
+uint64_t related decl e for AVError.mediaSubtypes.getter(uint64_t a1)
 {
   type metadata accessor for related decl 'e' for AVError(0);
   lazy protocol witness table accessor for type related decl 'e' for AVError and conformance related decl 'e' for AVError();
-  v0 = _BridgedStoredNSError.userInfo.getter();
-  v1 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  if (!*(v0 + 16))
+  v1 = _BridgedStoredNSError.userInfo.getter();
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  if (!*(v1 + 16))
   {
 
     goto LABEL_7;
   }
 
-  v3 = specialized __RawDictionaryStorage.find<A>(_:)(v1, v2);
-  v5 = v4;
+  v4 = specialized __RawDictionaryStorage.find<A>(_:)(v2, v3);
+  v6 = v5;
 
-  if ((v5 & 1) == 0)
+  if ((v6 & 1) == 0)
   {
 LABEL_7:
 
     return 0;
   }
 
-  outlined init with copy of Sendable(*(v0 + 56) + 32 * v3, v8);
+  outlined init with copy of Sendable(*(v1 + 56) + 32 * v4, v9);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySiGMd, &_sSaySiGMR);
   if (swift_dynamicCast())
   {
-    return v7;
+    return v8;
   }
 
   else
@@ -2848,34 +2855,34 @@ LABEL_7:
   }
 }
 
-uint64_t related decl e for AVError.presentationTimeStamp.getter()
+uint64_t related decl e for AVError.presentationTimeStamp.getter(uint64_t a1)
 {
   type metadata accessor for related decl 'e' for AVError(0);
   lazy protocol witness table accessor for type related decl 'e' for AVError and conformance related decl 'e' for AVError();
-  v0 = _BridgedStoredNSError.userInfo.getter();
-  v1 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  if (!*(v0 + 16))
+  v1 = _BridgedStoredNSError.userInfo.getter();
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  if (!*(v1 + 16))
   {
 
     goto LABEL_8;
   }
 
-  v3 = specialized __RawDictionaryStorage.find<A>(_:)(v1, v2);
-  v5 = v4;
+  v4 = specialized __RawDictionaryStorage.find<A>(_:)(v2, v3);
+  v6 = v5;
 
-  if ((v5 & 1) == 0)
+  if ((v6 & 1) == 0)
   {
 LABEL_8:
 
     return 0;
   }
 
-  outlined init with copy of Sendable(*(v0 + 56) + 32 * v3, v8);
+  outlined init with copy of Sendable(*(v1 + 56) + 32 * v4, v9);
 
   type metadata accessor for CMTime(0);
   if (swift_dynamicCast())
   {
-    return v7;
+    return v8;
   }
 
   else
@@ -2884,44 +2891,44 @@ LABEL_8:
   }
 }
 
-unint64_t related decl e for AVError.persistentTrackID.getter()
+unint64_t related decl e for AVError.persistentTrackID.getter(uint64_t a1)
 {
   type metadata accessor for related decl 'e' for AVError(0);
   lazy protocol witness table accessor for type related decl 'e' for AVError and conformance related decl 'e' for AVError();
-  v0 = _BridgedStoredNSError.userInfo.getter();
-  v1 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  if (!*(v0 + 16))
+  v1 = _BridgedStoredNSError.userInfo.getter();
+  v2 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  if (!*(v1 + 16))
   {
 
     goto LABEL_7;
   }
 
-  v3 = specialized __RawDictionaryStorage.find<A>(_:)(v1, v2);
-  v5 = v4;
+  v4 = specialized __RawDictionaryStorage.find<A>(_:)(v2, v3);
+  v6 = v5;
 
-  if ((v5 & 1) == 0)
+  if ((v6 & 1) == 0)
   {
 LABEL_7:
 
-    v7 = 0;
-    v8 = 1;
-    return v7 | (v8 << 32);
+    v8 = 0;
+    v9 = 1;
+    return v8 | (v9 << 32);
   }
 
-  outlined init with copy of Sendable(*(v0 + 56) + 32 * v3, v11);
+  outlined init with copy of Sendable(*(v1 + 56) + 32 * v4, v12);
 
-  v6 = swift_dynamicCast();
-  v7 = v10;
-  v8 = v6 ^ 1;
-  if (!v6)
+  v7 = swift_dynamicCast();
+  v8 = v11;
+  v9 = v7 ^ 1;
+  if (!v7)
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  return v7 | (v8 << 32);
+  return v8 | (v9 << 32);
 }
 
-uint64_t related decl e for AVError.mediaType.getter(uint64_t a1, uint64_t a2, void (*a3)(void))
+uint64_t related decl e for AVError.mediaType.getter(uint64_t a1, void *a2, uint64_t (*a3)(void))
 {
   type metadata accessor for related decl 'e' for AVError(0);
   lazy protocol witness table accessor for type related decl 'e' for AVError and conformance related decl 'e' for AVError();
@@ -3105,7 +3112,7 @@ uint64_t AVAssetWriterInput.MetadataReceiver.append(_:)(uint64_t a1, uint64_t a2
   v4[6] = v5;
   v4[7] = v7;
 
-  return MEMORY[0x1EEE6DFA0](AVAssetWriterInput.MetadataReceiver.append(_:), v5, v7);
+  return MEMORY[0x1EEE6DFA0](AVAssetWriterInput.MetadataReceiver.append(_:), v5);
 }
 
 uint64_t AVAssetWriterInput.MetadataReceiver.append(_:)()
@@ -3127,10 +3134,9 @@ uint64_t AVAssetWriterInput.MetadataReceiver.append(_:)()
   v1 = *v0;
   v2 = *(*v0 + 64);
 
-  v3 = *(v1 + 56);
-  v4 = *(v1 + 48);
+  v3 = *(v1 + 48);
 
-  return MEMORY[0x1EEE6DFA0](AVAssetWriterInput.MetadataReceiver.append(_:), v4, v3);
+  return MEMORY[0x1EEE6DFA0](AVAssetWriterInput.MetadataReceiver.append(_:), v3);
 }
 
 {
@@ -3294,7 +3300,7 @@ Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X
 
 id AVTimedMetadataGroup.init(sampleBuffer:)(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia19CMReadySampleBufferVySo08CMSampleE3RefaAAE14DynamicContentOGMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia19CMReadySampleBufferVySo08CMSampleE3RefaAAE14DynamicContentOGMd, &_s9CoreMedia19CMReadySampleBufferVySo08CMSampleE3RefaAAE14DynamicContentOGMR);
   type metadata accessor for CMSampleBufferRef(0);
   _s9CoreMedia19CMReadySampleBufferV010withUnsafedE0yqd__qd__So08CMSampleE3RefaKYTXEKRi_d__lF();
   v3 = [objc_allocWithZone(swift_getObjCClassFromMetadata()) initWithSampleBuffer_];
@@ -3325,7 +3331,7 @@ uint64_t AVAssetWriterInput.CaptionReceiver.append(_:)(uint64_t a1, uint64_t a2,
   v4[6] = v5;
   v4[7] = v7;
 
-  return MEMORY[0x1EEE6DFA0](AVAssetWriterInput.CaptionReceiver.append(_:), v5, v7);
+  return MEMORY[0x1EEE6DFA0](AVAssetWriterInput.CaptionReceiver.append(_:), v5);
 }
 
 {
@@ -3349,7 +3355,7 @@ uint64_t AVAssetWriterInput.CaptionReceiver.append(_:)(uint64_t a1, uint64_t a2,
   v4[6] = v5;
   v4[7] = v7;
 
-  return MEMORY[0x1EEE6DFA0](AVAssetWriterInput.CaptionReceiver.append(_:), v5, v7);
+  return MEMORY[0x1EEE6DFA0](AVAssetWriterInput.CaptionReceiver.append(_:), v5);
 }
 
 uint64_t AVAssetWriterInput.CaptionReceiver.append(_:)()
@@ -3371,10 +3377,9 @@ uint64_t AVAssetWriterInput.CaptionReceiver.append(_:)()
   v1 = *v0;
   v2 = *(*v0 + 64);
 
-  v3 = *(v1 + 56);
-  v4 = *(v1 + 48);
+  v3 = *(v1 + 48);
 
-  return MEMORY[0x1EEE6DFA0](AVAssetWriterInput.CaptionReceiver.append(_:), v4, v3);
+  return MEMORY[0x1EEE6DFA0](AVAssetWriterInput.CaptionReceiver.append(_:), v3);
 }
 
 {
@@ -3422,10 +3427,9 @@ LABEL_6:
   v1 = *v0;
   v2 = *(*v0 + 64);
 
-  v3 = *(v1 + 56);
-  v4 = *(v1 + 48);
+  v3 = *(v1 + 48);
 
-  return MEMORY[0x1EEE6DFA0](AVAssetWriterInput.CaptionReceiver.append(_:), v4, v3);
+  return MEMORY[0x1EEE6DFA0](AVAssetWriterInput.CaptionReceiver.append(_:), v3);
 }
 
 {
@@ -3586,19 +3590,19 @@ uint64_t dispatch thunk of AVAssetWriterInput.CaptionReceiver.appendImmediately(
 
 uint64_t outlined init with copy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd, &_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMR);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t outlined assign with take of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(uint64_t a1, uint64_t a2)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd, &_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMR);
   (*(*(v4 - 8) + 40))(a2, a1, v4);
   return a2;
 }
 
-uint64_t type metadata accessor for AVSpatialVideoConfiguration()
+uint64_t type metadata accessor for AVSpatialVideoConfiguration(uint64_t a1)
 {
   result = type metadata singleton initialization cache for AVSpatialVideoConfiguration;
   if (!type metadata singleton initialization cache for AVSpatialVideoConfiguration)
@@ -3611,7 +3615,7 @@ uint64_t type metadata accessor for AVSpatialVideoConfiguration()
 
 uint64_t AVSpatialVideoConfiguration.horizontalFieldOfView.setter(uint64_t a1)
 {
-  result = type metadata accessor for AVSpatialVideoConfiguration();
+  result = type metadata accessor for AVSpatialVideoConfiguration(0);
   v4 = v1 + *(result + 20);
   *v4 = a1;
   *(v4 + 4) = BYTE4(a1) & 1;
@@ -3620,7 +3624,7 @@ uint64_t AVSpatialVideoConfiguration.horizontalFieldOfView.setter(uint64_t a1)
 
 uint64_t AVSpatialVideoConfiguration.cameraSystemBaseline.setter(uint64_t a1)
 {
-  result = type metadata accessor for AVSpatialVideoConfiguration();
+  result = type metadata accessor for AVSpatialVideoConfiguration(0);
   v4 = v1 + *(result + 24);
   *v4 = a1;
   *(v4 + 4) = BYTE4(a1) & 1;
@@ -3629,7 +3633,7 @@ uint64_t AVSpatialVideoConfiguration.cameraSystemBaseline.setter(uint64_t a1)
 
 uint64_t AVSpatialVideoConfiguration.disparityAdjustment.setter(uint64_t a1)
 {
-  result = type metadata accessor for AVSpatialVideoConfiguration();
+  result = type metadata accessor for AVSpatialVideoConfiguration(0);
   v4 = v1 + *(result + 28);
   *v4 = a1;
   *(v4 + 4) = BYTE4(a1) & 1;
@@ -3643,12 +3647,12 @@ void AVSpatialVideoConfiguration.init(formatDescription:)(void *a1@<X0>, uint64_
 
 void AVSpatialVideoConfiguration.init(_:)(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd, &_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMR);
   MEMORY[0x1EEE9AC00](v4 - 8);
   v6 = &v21 - v5;
   v7 = type metadata accessor for CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection();
   (*(*(v7 - 8) + 56))(a2, 1, 1, v7);
-  v8 = type metadata accessor for AVSpatialVideoConfiguration();
+  v8 = type metadata accessor for AVSpatialVideoConfiguration(0);
   v9 = a2 + v8[5];
   *v9 = 0;
   *(v9 + 4) = 1;
@@ -3702,7 +3706,7 @@ void AVSpatialVideoConfiguration.init(_:)(void *a1@<X0>, uint64_t a2@<X8>)
 id AVSpatialVideoConfiguration.configuration.getter()
 {
   v1 = v0;
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd, &_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMR);
   MEMORY[0x1EEE9AC00](v2 - 8);
   v4 = &v20 - v3;
   v5 = type metadata accessor for CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection();
@@ -3727,7 +3731,6 @@ id AVSpatialVideoConfiguration.configuration.getter()
   }
 
   v21 = 0;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSypGMd);
   static Array._conditionallyBridgeFromObjectiveC(_:result:)();
 
   if (!v21)
@@ -3744,7 +3747,7 @@ LABEL_8:
 
   (*(v6 + 8))(v8, v5);
 LABEL_9:
-  v12 = type metadata accessor for AVSpatialVideoConfiguration();
+  v12 = type metadata accessor for AVSpatialVideoConfiguration(0);
   v13 = (v1 + v12[5]);
   if ((v13[1] & 1) == 0)
   {
@@ -3773,7 +3776,7 @@ int *AVSpatialVideoConfiguration.init()@<X0>(uint64_t a1@<X8>)
 {
   v2 = type metadata accessor for CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection();
   (*(*(v2 - 8) + 56))(a1, 1, 1, v2);
-  result = type metadata accessor for AVSpatialVideoConfiguration();
+  result = type metadata accessor for AVSpatialVideoConfiguration(0);
   v4 = a1 + result[5];
   *v4 = 0;
   *(v4 + 4) = 1;
@@ -3786,16 +3789,16 @@ int *AVSpatialVideoConfiguration.init()@<X0>(uint64_t a1@<X8>)
   return result;
 }
 
-void type metadata completion function for AVSpatialVideoConfiguration()
+void type metadata completion function for AVSpatialVideoConfiguration(uint64_t a1)
 {
-  type metadata accessor for CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?();
-  if (v0 <= 0x3F)
+  type metadata accessor for CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(319);
+  if (v1 <= 0x3F)
   {
     type metadata accessor for UInt32?(319, &lazy cache variable for type metadata for UInt32?);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for UInt32?(319, &lazy cache variable for type metadata for Int32?);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -3803,15 +3806,15 @@ void type metadata completion function for AVSpatialVideoConfiguration()
   }
 }
 
-void type metadata accessor for CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?()
+void type metadata accessor for CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?)
   {
     type metadata accessor for CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?);
+      atomic_store(v1, &lazy cache variable for type metadata for CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?);
     }
   }
 }
@@ -3830,7 +3833,7 @@ void type metadata accessor for UInt32?(uint64_t a1, unint64_t *a2)
 
 uint64_t outlined destroy of CMFormatDescriptionRef.Extensions.Value.CameraCalibrationDataLensCollection?(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMd, &_sSo22CMFormatDescriptionRefa9CoreMediaE10ExtensionsV5ValueV35CameraCalibrationDataLensCollectionOSgMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -3848,19 +3851,21 @@ unint64_t lazy protocol witness table accessor for type CancellationError and co
   return result;
 }
 
-uint64_t AVAsynchronousKeyValueLoading.load<A>(_:)(uint64_t a1, uint64_t a2)
+uint64_t AVAsynchronousKeyValueLoading.load<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3[19] = a2;
-  v3[20] = v2;
-  v3[18] = a1;
-  v3[21] = *(*a2 + 136);
-  v4 = type metadata accessor for AVAsyncProperty.Status();
-  v3[22] = v4;
-  v3[23] = *(v4 - 8);
-  v3[24] = swift_task_alloc();
-  v3[25] = swift_task_alloc();
+  v5[19] = a2;
+  v5[20] = v4;
+  v5[18] = a1;
+  v6 = *(*a2 + 128);
+  v7 = *(*a2 + 136);
+  v5[21] = v7;
+  v8 = type metadata accessor for AVAsyncProperty.Status(0, v6, v7, a4);
+  v5[22] = v8;
+  v5[23] = *(v8 - 8);
+  v5[24] = swift_task_alloc();
+  v5[25] = swift_task_alloc();
 
-  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A>(_:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A>(_:), 0);
 }
 
 uint64_t AVAsynchronousKeyValueLoading.load<A>(_:)()
@@ -3869,7 +3874,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A>(_:)()
   v2 = v0[20];
   v4 = *(v1 + 16);
   v3 = *(v1 + 24);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_1C9390590;
   *(v5 + 32) = v4;
@@ -3881,7 +3886,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A>(_:)()
   v0[2] = v0;
   v0[3] = AVAsynchronousKeyValueLoading.load<A>(_:);
   v7 = swift_continuation_init();
-  v0[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd);
+  v0[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd, &_sSccyyts5NeverOGMR);
   v0[10] = MEMORY[0x1E69E9820];
   v0[11] = 1107296256;
   v0[12] = @objc completion handler block implementation for <A><A1>@escaping @callee_unowned @convention(block) @Sendable () -> () with result type ();
@@ -3894,7 +3899,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A>(_:)()
 
 {
 
-  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A>(_:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A>(_:), 0);
 }
 
 {
@@ -3941,27 +3946,27 @@ uint64_t AVAsynchronousKeyValueLoading.load<A>(_:)()
   return v11();
 }
 
-uint64_t AVAsynchronousKeyValueLoading.load<A>(_:isolation:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t AVAsynchronousKeyValueLoading.load<A>(_:isolation:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4[19] = a2;
-  v4[20] = v3;
-  v4[18] = a1;
+  v5[19] = a2;
+  v5[20] = v4;
+  v5[18] = a1;
   if (a3)
   {
     swift_getObjectType();
-    v5 = dispatch thunk of Actor.unownedExecutor.getter();
-    a3 = v6;
+    v6 = dispatch thunk of Actor.unownedExecutor.getter();
+    a3 = v7;
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  v4[21] = v5;
-  v4[22] = a3;
+  v5[21] = v6;
+  v5[22] = a3;
 
-  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A>(_:isolation:), v5, a3);
+  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A>(_:isolation:), v6);
 }
 
 uint64_t AVPartialAsyncProperty.backDeployedKey.getter()
@@ -3971,50 +3976,50 @@ uint64_t AVPartialAsyncProperty.backDeployedKey.getter()
   return v0;
 }
 
-uint64_t AVAsynchronousKeyValueLoading.load<A, B, C>(_:_:_:isolation:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7)
+uint64_t AVAsynchronousKeyValueLoading.load<A, B, C>(_:_:_:isolation:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v8[25] = v33;
-  v8[26] = v7;
-  v8[23] = a6;
-  v8[24] = v32;
-  v8[21] = a4;
-  v8[22] = a5;
-  v8[19] = a2;
-  v8[20] = a3;
-  v8[18] = a1;
-  v10 = *a4;
-  v11 = *a5;
-  v12 = swift_task_alloc();
-  v13 = *(v10 + 136);
-  v8[27] = v13;
-  *v12 = v13;
+  v9[25] = v34;
+  v9[26] = v8;
+  v9[23] = a6;
+  v9[24] = v33;
+  v9[21] = a4;
+  v9[22] = a5;
+  v9[19] = a2;
+  v9[20] = a3;
+  v9[18] = a1;
+  v11 = *a4;
+  v12 = *a5;
+  v13 = swift_task_alloc();
   v14 = *(v11 + 136);
-  v8[28] = v14;
-  v12[1] = v14;
-  if (!v32)
+  v9[27] = v14;
+  *v13 = v14;
+  v15 = *(v12 + 136);
+  v9[28] = v15;
+  v13[1] = v15;
+  if (!v33)
   {
     goto LABEL_7;
   }
 
-  v15 = v33 & 0xFFFFFFFFFFFFFFFELL;
-  if (v32 >= 6 && v12 - v15 + 16 >= 0x20)
+  v16 = v34 & 0xFFFFFFFFFFFFFFFELL;
+  if (v33 >= 6 && v13 - v16 + 16 >= 0x20)
   {
-    v16 = v32 & 0xFFFFFFFFFFFFFFFCLL;
-    v26 = (v15 + 16);
-    v27 = v12 + 4;
-    v28 = v32 & 0xFFFFFFFFFFFFFFFCLL;
+    v17 = v33 & 0xFFFFFFFFFFFFFFFCLL;
+    v27 = (v16 + 16);
+    v28 = v13 + 4;
+    v29 = v33 & 0xFFFFFFFFFFFFFFFCLL;
     do
     {
-      v29 = *v26;
-      *(v27 - 1) = *(v26 - 1);
-      *v27 = v29;
-      v26 += 2;
+      v30 = *v27;
+      *(v28 - 1) = *(v27 - 1);
+      *v28 = v30;
       v27 += 2;
-      v28 -= 4;
+      v28 += 2;
+      v29 -= 4;
     }
 
-    while (v28);
-    if (v16 == v32)
+    while (v29);
+    if (v17 == v33)
     {
       goto LABEL_7;
     }
@@ -4022,49 +4027,49 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C>(_:_:_:isolation:)(uint64_t 
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
-  v17 = v32 - v16;
-  v18 = v16;
-  v19 = (v15 + v18 * 8);
-  v20 = &v12[v18 + 2];
+  v18 = v33 - v17;
+  v19 = v17;
+  v20 = (v16 + v19 * 8);
+  v21 = &v13[v19 + 2];
   do
   {
-    v21 = *v19++;
-    *v20++ = v21;
-    --v17;
+    v22 = *v20++;
+    *v21++ = v22;
+    --v18;
   }
 
-  while (v17);
+  while (v18);
 LABEL_7:
   TupleTypeMetadata = swift_getTupleTypeMetadata();
 
-  v8[29] = TupleTypeMetadata;
-  v8[30] = *(TupleTypeMetadata - 8);
-  v8[31] = swift_task_alloc();
-  v8[32] = swift_task_alloc();
-  v8[33] = *(v14 - 8);
-  v8[34] = swift_task_alloc();
-  v8[35] = *(v13 - 8);
-  v8[36] = swift_task_alloc();
+  v9[29] = TupleTypeMetadata;
+  v9[30] = *(TupleTypeMetadata - 8);
+  v9[31] = swift_task_alloc();
+  v9[32] = swift_task_alloc();
+  v9[33] = *(v15 - 8);
+  v9[34] = swift_task_alloc();
+  v9[35] = *(v14 - 8);
+  v9[36] = swift_task_alloc();
   if (a7)
   {
     swift_getObjectType();
-    v23 = dispatch thunk of Actor.unownedExecutor.getter();
-    v25 = v24;
+    v24 = dispatch thunk of Actor.unownedExecutor.getter();
+    v26 = v25;
   }
 
   else
   {
-    v23 = 0;
-    v25 = 0;
+    v24 = 0;
+    v26 = 0;
   }
 
-  v8[37] = v23;
-  v8[38] = v25;
+  v9[37] = v24;
+  v9[38] = v26;
 
-  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C>(_:_:_:isolation:), v23, v25);
+  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C>(_:_:_:isolation:), v24);
 }
 
 uint64_t AVAsynchronousKeyValueLoading.load<A, B, C>(_:_:_:isolation:)()
@@ -4072,7 +4077,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C>(_:_:_:isolation:)()
   v1 = v0[24];
   v3 = v0[21];
   v2 = v0[22];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_1C93905A0;
   v5 = *(v3 + 24);
@@ -4119,7 +4124,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C>(_:_:_:isolation:)()
   v0[2] = v0;
   v0[3] = AVAsynchronousKeyValueLoading.load<A, B, C>(_:_:_:isolation:);
   v18 = swift_continuation_init();
-  v0[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd);
+  v0[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd, &_sSccyyts5NeverOGMR);
   v0[10] = MEMORY[0x1E69E9820];
   v0[11] = 1107296256;
   v0[12] = @objc completion handler block implementation for <A><A1>@escaping @callee_unowned @convention(block) @Sendable () -> () with result type ();
@@ -4131,88 +4136,87 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C>(_:_:_:isolation:)()
 }
 
 {
-  v1 = *(*v0 + 304);
-  v2 = *(*v0 + 296);
+  v1 = *(*v0 + 296);
 
-  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C>(_:_:_:isolation:), v2, v1);
+  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C>(_:_:_:isolation:), v1);
 }
 
 {
   v1 = *(v0 + 288);
   v2 = *(v0 + 168);
 
-  AVAsynchronousKeyValueLoading.value<A>(of:)(v2, v1);
-  AVAsynchronousKeyValueLoading.value<A>(of:)(*(v0 + 176), *(v0 + 272));
-  v5 = *(v0 + 264);
-  v4 = *(v0 + 272);
-  v6 = *(v0 + 256);
-  v7 = *(v0 + 224);
-  v8 = *(v0 + 232);
-  v9 = *(v0 + 192);
-  v10 = *(v8 + 48);
-  (*(*(v0 + 280) + 16))(v6 + *(v8 + 32), *(v0 + 288), *(v0 + 216));
-  (*(v5 + 16))(v6 + v10, v4, v7);
-  if (v9)
+  AVAsynchronousKeyValueLoading.value<A>(of:)(v2, v1, v3);
+  AVAsynchronousKeyValueLoading.value<A>(of:)(*(v0 + 176), *(v0 + 272), v4);
+  v7 = *(v0 + 264);
+  v6 = *(v0 + 272);
+  v8 = *(v0 + 256);
+  v9 = *(v0 + 224);
+  v10 = *(v0 + 232);
+  v11 = *(v0 + 192);
+  v12 = *(v10 + 48);
+  (*(*(v0 + 280) + 16))(v8 + *(v10 + 32), *(v0 + 288), *(v0 + 216));
+  (*(v7 + 16))(v8 + v12, v6, v9);
+  if (v11)
   {
-    v11 = 0;
-    v12 = 64;
+    v13 = 0;
+    v14 = 64;
     do
     {
-      v13 = *(v0 + 256);
-      v14 = *(*(v0 + 232) + v12);
+      v15 = *(v0 + 256);
+      v16 = *(*(v0 + 232) + v14);
 
-      AVAsynchronousKeyValueLoading.value<A>(of:)(v15, v13 + v14);
-      v16 = *(v0 + 192);
+      AVAsynchronousKeyValueLoading.value<A>(of:)(v17, v15 + v16, v18);
+      v19 = *(v0 + 192);
 
-      ++v11;
-      v12 += 16;
+      ++v13;
+      v14 += 16;
     }
 
-    while (v11 != v16);
+    while (v13 != v19);
   }
 
-  v17 = *(v0 + 280);
-  v18 = *(v0 + 264);
-  v19 = *(v0 + 248);
-  v20 = *(v0 + 224);
-  v21 = *(v0 + 216);
-  v22 = *(v0 + 192);
-  v24 = *(v0 + 144);
-  v23 = *(v0 + 152);
-  (*(*(v0 + 240) + 16))(v19, *(v0 + 256), *(v0 + 232));
-  v25 = *(v8 + 32);
-  v26 = *(v8 + 48);
-  (*(v17 + 32))(v24, v19 + v25, v21);
-  (*(v18 + 32))(v23, v19 + v26, v20);
-  if (v22)
+  v20 = *(v0 + 280);
+  v21 = *(v0 + 264);
+  v22 = *(v0 + 248);
+  v23 = *(v0 + 224);
+  v24 = *(v0 + 216);
+  v25 = *(v0 + 192);
+  v27 = *(v0 + 144);
+  v26 = *(v0 + 152);
+  (*(*(v0 + 240) + 16))(v22, *(v0 + 256), *(v0 + 232));
+  v28 = *(v10 + 32);
+  v29 = *(v10 + 48);
+  (*(v20 + 32))(v27, v22 + v28, v24);
+  (*(v21 + 32))(v26, v22 + v29, v23);
+  if (v25)
   {
-    v27 = 0;
-    v28 = *(v0 + 200) & 0xFFFFFFFFFFFFFFFELL;
-    v29 = 64;
+    v30 = 0;
+    v31 = *(v0 + 200) & 0xFFFFFFFFFFFFFFFELL;
+    v32 = 64;
     do
     {
-      v30 = *(v0 + 192);
-      (*(*(*(v28 + 8 * v27) - 8) + 32))(*(*(v0 + 160) + 8 * v27), *(v0 + 248) + *(*(v0 + 232) + v29));
-      ++v27;
-      v29 += 16;
+      v33 = *(v0 + 192);
+      (*(*(*(v31 + 8 * v30) - 8) + 32))(*(*(v0 + 160) + 8 * v30), *(v0 + 248) + *(*(v0 + 232) + v32));
+      ++v30;
+      v32 += 16;
     }
 
-    while (v27 != v30);
+    while (v30 != v33);
   }
 
-  v32 = *(v0 + 280);
-  v31 = *(v0 + 288);
-  v33 = *(v0 + 256);
-  v34 = *(v0 + 232);
-  v35 = *(v0 + 240);
-  v36 = *(v0 + 216);
+  v35 = *(v0 + 280);
+  v34 = *(v0 + 288);
+  v36 = *(v0 + 256);
+  v37 = *(v0 + 232);
+  v38 = *(v0 + 240);
+  v39 = *(v0 + 216);
   (*(*(v0 + 264) + 8))(*(v0 + 272), *(v0 + 224));
-  (*(v32 + 8))(v31, v36);
-  (*(v35 + 8))(v33, v34);
+  (*(v35 + 8))(v34, v39);
+  (*(v38 + 8))(v36, v37);
 
-  v37 = *(v0 + 8);
+  v40 = *(v0 + 8);
 
-  return v37();
+  return v40();
 }
 
 uint64_t AVPartialAsyncProperty.key.getter()
@@ -4309,30 +4313,30 @@ uint64_t AVAsyncProperty.deinit()
 
 uint64_t static AVAsyncProperty.Status<>.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v41 = a1;
-  v42 = a2;
+  v43 = a1;
+  v44 = a2;
   v6 = *(a4 - 8);
-  v38 = a5;
-  v39 = v6;
+  v40 = a5;
+  v41 = v6;
   v7 = MEMORY[0x1EEE9AC00](a1);
-  v37 = &v35 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v39 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v7);
-  v36 = &v35 - v9;
-  v10 = type metadata accessor for AVAsyncProperty.Status();
-  v11 = *(v10 - 8);
-  v12 = MEMORY[0x1EEE9AC00](v10);
-  v14 = (&v35 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v12);
-  v16 = &v35 - v15;
+  v38 = &v37 - v9;
+  v12 = type metadata accessor for AVAsyncProperty.Status(0, v10, v11, v11);
+  v13 = *(v12 - 8);
+  v14 = MEMORY[0x1EEE9AC00](v12);
+  v16 = (&v37 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v14);
+  v18 = &v37 - v17;
   TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-  v18 = *(TupleTypeMetadata2 - 8);
-  v19 = MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
-  v21 = &v35 - v20;
-  v22 = *(v19 + 48);
-  v40 = v11;
-  v23 = *(v11 + 16);
-  v23(&v35 - v20, v41, v10);
-  v23(&v21[v22], v42, v10);
+  v20 = *(TupleTypeMetadata2 - 8);
+  v21 = MEMORY[0x1EEE9AC00](TupleTypeMetadata2);
+  v23 = &v37 - v22;
+  v24 = *(v21 + 48);
+  v42 = v13;
+  v25 = *(v13 + 16);
+  v25(&v37 - v22, v43, v12);
+  v25(&v23[v24], v44, v12);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload > 1)
   {
@@ -4347,56 +4351,56 @@ uint64_t static AVAsyncProperty.Status<>.== infix(_:_:)(uint64_t a1, uint64_t a2
     else if (swift_getEnumCaseMultiPayload() != 3)
     {
 LABEL_13:
-      v27 = 0;
-      v10 = TupleTypeMetadata2;
+      v29 = 0;
+      v12 = TupleTypeMetadata2;
       goto LABEL_14;
     }
 
-    v27 = 1;
-    v18 = v40;
+    v29 = 1;
+    v20 = v42;
     goto LABEL_14;
   }
 
   if (!EnumCaseMultiPayload)
   {
-    v23(v16, v21, v10);
+    v25(v18, v23, v12);
     if (!swift_getEnumCaseMultiPayload())
     {
-      v29 = v39;
-      v30 = *(v39 + 32);
-      v31 = v36;
-      v30(v36, v16, a4);
-      v32 = &v21[v22];
-      v33 = v37;
-      v30(v37, v32, a4);
-      v27 = dispatch thunk of static Equatable.== infix(_:_:)();
-      v34 = *(v29 + 8);
-      v34(v33, a4);
-      v34(v31, a4);
-      v18 = v40;
+      v31 = v41;
+      v32 = *(v41 + 32);
+      v33 = v38;
+      v32(v38, v18, a4);
+      v34 = &v23[v24];
+      v35 = v39;
+      v32(v39, v34, a4);
+      v29 = dispatch thunk of static Equatable.== infix(_:_:)();
+      v36 = *(v31 + 8);
+      v36(v35, a4);
+      v36(v33, a4);
+      v20 = v42;
       goto LABEL_14;
     }
 
-    (*(v39 + 8))(v16, a4);
+    (*(v41 + 8))(v18, a4);
     goto LABEL_13;
   }
 
-  v23(v14, v21, v10);
-  v25 = *v14;
+  v25(v16, v23, v12);
+  v27 = *v16;
   if (swift_getEnumCaseMultiPayload() != 1)
   {
 
     goto LABEL_13;
   }
 
-  v26 = *&v21[v22];
-  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for NSObject);
-  v27 = static NSObject.== infix(_:_:)();
+  v28 = *&v23[v24];
+  type metadata accessor for NSValue(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
+  v29 = static NSObject.== infix(_:_:)();
 
-  v18 = v40;
+  v20 = v42;
 LABEL_14:
-  (*(v18 + 8))(v21, v10);
-  return v27 & 1;
+  (*(v20 + 8))(v23, v12);
+  return v29 & 1;
 }
 
 uint64_t AVAsyncProperty.Status.description.getter(uint64_t a1)
@@ -4460,22 +4464,25 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B>(_:_:)(uint64_t a1, uint64_t a2
   v5[20] = a3;
   v5[18] = a1;
   v6 = *a4;
-  v5[23] = *(*a3 + 136);
-  v7 = type metadata accessor for AVAsyncProperty.Status();
-  v5[24] = v7;
-  v5[25] = *(v6 + 136);
-  v8 = type metadata accessor for AVAsyncProperty.Status();
-  v5[26] = v8;
+  v7 = *(*a3 + 128);
+  v8 = *(*a3 + 136);
+  v5[23] = v8;
+  v9 = type metadata accessor for AVAsyncProperty.Status(255, v7, v8, a4);
+  v5[24] = v9;
+  v10 = *(v6 + 136);
+  v5[25] = v10;
+  v12 = type metadata accessor for AVAsyncProperty.Status(255, v7, v10, v11);
+  v5[26] = v12;
   v5[27] = swift_getTupleTypeMetadata2();
   v5[28] = swift_task_alloc();
-  v5[29] = *(v8 - 8);
+  v5[29] = *(v12 - 8);
   v5[30] = swift_task_alloc();
-  v5[31] = *(v7 - 8);
+  v5[31] = *(v9 - 8);
   v5[32] = swift_task_alloc();
   v5[33] = swift_task_alloc();
   v5[34] = swift_task_alloc();
 
-  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B>(_:_:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B>(_:_:), 0);
 }
 
 uint64_t AVAsynchronousKeyValueLoading.load<A, B>(_:_:)()
@@ -4487,7 +4494,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B>(_:_:)()
   v4 = *(v3 + 24);
   v7 = *(v1 + 16);
   v6 = *(v1 + 24);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
   v8 = swift_allocObject();
   *(v8 + 16) = xmmword_1C93905A0;
   *(v8 + 32) = v5;
@@ -4501,7 +4508,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B>(_:_:)()
   v0[2] = v0;
   v0[3] = AVAsynchronousKeyValueLoading.load<A, B>(_:_:);
   v10 = swift_continuation_init();
-  v0[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd);
+  v0[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd, &_sSccyyts5NeverOGMR);
   v0[10] = MEMORY[0x1E69E9820];
   v0[11] = 1107296256;
   v0[12] = @objc completion handler block implementation for <A><A1>@escaping @callee_unowned @convention(block) @Sendable () -> () with result type ();
@@ -4514,7 +4521,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B>(_:_:)()
 
 {
 
-  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B>(_:_:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B>(_:_:), 0);
 }
 
 {
@@ -4620,28 +4627,32 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C>(_:_:_:)(uint64_t a1, uint64
   v7[18] = a1;
   v8 = *a5;
   v9 = *a6;
-  v7[25] = *(*a4 + 136);
-  v10 = type metadata accessor for AVAsyncProperty.Status();
-  v7[26] = v10;
-  v7[27] = *(v8 + 136);
-  v11 = type metadata accessor for AVAsyncProperty.Status();
-  v7[28] = v11;
-  v7[29] = *(v9 + 136);
-  v12 = type metadata accessor for AVAsyncProperty.Status();
-  v7[30] = v12;
+  v10 = *(*a4 + 128);
+  v11 = *(*a4 + 136);
+  v7[25] = v11;
+  v12 = type metadata accessor for AVAsyncProperty.Status(255, v10, v11, a4);
+  v7[26] = v12;
+  v13 = *(v8 + 136);
+  v7[27] = v13;
+  v15 = type metadata accessor for AVAsyncProperty.Status(255, v10, v13, v14);
+  v7[28] = v15;
+  v16 = *(v9 + 136);
+  v7[29] = v16;
+  v18 = type metadata accessor for AVAsyncProperty.Status(255, v10, v16, v17);
+  v7[30] = v18;
   v7[31] = swift_getTupleTypeMetadata3();
   v7[32] = swift_task_alloc();
-  v7[33] = *(v12 - 8);
+  v7[33] = *(v18 - 8);
   v7[34] = swift_task_alloc();
-  v7[35] = *(v11 - 8);
+  v7[35] = *(v15 - 8);
   v7[36] = swift_task_alloc();
   v7[37] = swift_task_alloc();
-  v7[38] = *(v10 - 8);
+  v7[38] = *(v12 - 8);
   v7[39] = swift_task_alloc();
   v7[40] = swift_task_alloc();
   v7[41] = swift_task_alloc();
 
-  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C>(_:_:_:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C>(_:_:_:), 0);
 }
 
 uint64_t AVAsynchronousKeyValueLoading.load<A, B, C>(_:_:_:)()
@@ -4656,7 +4667,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C>(_:_:_:)()
   v6 = *(v2 + 24);
   v8 = *(v1 + 16);
   v9 = *(v1 + 24);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
   v10 = swift_allocObject();
   *(v10 + 16) = xmmword_1C93905B0;
   *(v10 + 32) = v5;
@@ -4672,7 +4683,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C>(_:_:_:)()
   v0[2] = v0;
   v0[3] = AVAsynchronousKeyValueLoading.load<A, B, C>(_:_:_:);
   v12 = swift_continuation_init();
-  v0[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd);
+  v0[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd, &_sSccyyts5NeverOGMR);
   v0[10] = MEMORY[0x1E69E9820];
   v0[11] = 1107296256;
   v0[12] = @objc completion handler block implementation for <A><A1>@escaping @callee_unowned @convention(block) @Sendable () -> () with result type ();
@@ -4685,7 +4696,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C>(_:_:_:)()
 
 {
 
-  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C>(_:_:_:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C>(_:_:_:), 0);
 }
 
 {
@@ -4847,38 +4858,43 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D>(_:_:_:_:)(uint64_t a1, u
   v10 = *a6;
   v11 = *a7;
   v12 = *a8;
-  v9[31] = *(*a5 + 136);
-  v9[18] = type metadata accessor for AVAsyncProperty.Status();
-  v9[32] = *(v10 + 136);
-  v9[19] = type metadata accessor for AVAsyncProperty.Status();
-  v9[33] = *(v11 + 136);
-  v9[20] = type metadata accessor for AVAsyncProperty.Status();
-  v9[34] = *(v12 + 136);
-  v9[21] = type metadata accessor for AVAsyncProperty.Status();
+  v13 = *(*a5 + 128);
+  v14 = *(*a5 + 136);
+  v9[31] = v14;
+  v9[18] = type metadata accessor for AVAsyncProperty.Status(255, v13, v14, a4);
+  v15 = *(v10 + 136);
+  v9[32] = v15;
+  v9[19] = type metadata accessor for AVAsyncProperty.Status(255, v13, v15, v16);
+  v17 = *(v11 + 136);
+  v9[33] = v17;
+  v9[20] = type metadata accessor for AVAsyncProperty.Status(255, v13, v17, v18);
+  v19 = *(v12 + 136);
+  v9[34] = v19;
+  v9[21] = type metadata accessor for AVAsyncProperty.Status(255, v13, v19, v20);
   v9[35] = swift_getTupleTypeMetadata();
   v9[36] = swift_task_alloc();
-  v13 = type metadata accessor for AVAsyncProperty.Status();
-  v9[37] = v13;
-  v9[38] = *(v13 - 8);
+  v22 = type metadata accessor for AVAsyncProperty.Status(0, v13, v19, v21);
+  v9[37] = v22;
+  v9[38] = *(v22 - 8);
   v9[39] = swift_task_alloc();
-  v14 = type metadata accessor for AVAsyncProperty.Status();
-  v9[40] = v14;
-  v9[41] = *(v14 - 8);
+  v24 = type metadata accessor for AVAsyncProperty.Status(0, v13, v17, v23);
+  v9[40] = v24;
+  v9[41] = *(v24 - 8);
   v9[42] = swift_task_alloc();
   v9[43] = swift_task_alloc();
-  v15 = type metadata accessor for AVAsyncProperty.Status();
-  v9[44] = v15;
-  v9[45] = *(v15 - 8);
+  v26 = type metadata accessor for AVAsyncProperty.Status(0, v13, v15, v25);
+  v9[44] = v26;
+  v9[45] = *(v26 - 8);
   v9[46] = swift_task_alloc();
   v9[47] = swift_task_alloc();
-  v16 = type metadata accessor for AVAsyncProperty.Status();
-  v9[48] = v16;
-  v9[49] = *(v16 - 8);
+  v28 = type metadata accessor for AVAsyncProperty.Status(0, v13, v14, v27);
+  v9[48] = v28;
+  v9[49] = *(v28 - 8);
   v9[50] = swift_task_alloc();
   v9[51] = swift_task_alloc();
   v9[52] = swift_task_alloc();
 
-  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C, D>(_:_:_:_:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C, D>(_:_:_:_:), 0);
 }
 
 uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D>(_:_:_:_:)()
@@ -4898,7 +4914,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D>(_:_:_:_:)()
   v11 = *(v3 + 24);
   v12 = *(v2 + 16);
   v13 = *(v2 + 24);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
   v14 = swift_allocObject();
   *(v14 + 16) = xmmword_1C93905C0;
   *(v14 + 32) = v7;
@@ -4916,7 +4932,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D>(_:_:_:_:)()
   v1[2] = v1;
   v1[3] = AVAsynchronousKeyValueLoading.load<A, B, C, D>(_:_:_:_:);
   v16 = swift_continuation_init();
-  v1[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd);
+  v1[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd, &_sSccyyts5NeverOGMR);
   v1[10] = MEMORY[0x1E69E9820];
   v1[11] = 1107296256;
   v1[12] = @objc completion handler block implementation for <A><A1>@escaping @callee_unowned @convention(block) @Sendable () -> () with result type ();
@@ -4929,7 +4945,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D>(_:_:_:_:)()
 
 {
 
-  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C, D>(_:_:_:_:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C, D>(_:_:_:_:), 0);
 }
 
 {
@@ -5134,10 +5150,10 @@ LABEL_18:
 
 uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D, E>(_:_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t *a7, uint64_t *a8)
 {
-  v9[32] = v22;
+  v9[32] = v37;
   v9[33] = v8;
   v9[30] = a8;
-  v9[31] = v21;
+  v9[31] = v36;
   v9[28] = a6;
   v9[29] = a7;
   v9[26] = a4;
@@ -5147,47 +5163,53 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D, E>(_:_:_:_:_:)(uint64_t 
   v9[23] = a1;
   v10 = *a7;
   v11 = *a8;
-  v12 = *v21;
-  v19 = *v22;
-  v9[34] = *(*a6 + 136);
-  v9[18] = type metadata accessor for AVAsyncProperty.Status();
-  v9[35] = *(v10 + 136);
-  v9[19] = type metadata accessor for AVAsyncProperty.Status();
-  v9[36] = *(v11 + 136);
-  v9[20] = type metadata accessor for AVAsyncProperty.Status();
-  v9[37] = *(v12 + 136);
-  v9[21] = type metadata accessor for AVAsyncProperty.Status();
-  v9[38] = *(v19 + 136);
-  v9[22] = type metadata accessor for AVAsyncProperty.Status();
+  v12 = *v36;
+  v33 = *v37;
+  v13 = *(*a6 + 128);
+  v34 = *(*a6 + 136);
+  v9[34] = v34;
+  v9[18] = type metadata accessor for AVAsyncProperty.Status(255, v13, v34, a4);
+  v14 = *(v10 + 136);
+  v9[35] = v14;
+  v9[19] = type metadata accessor for AVAsyncProperty.Status(255, v13, v14, v15);
+  v16 = *(v11 + 136);
+  v9[36] = v16;
+  v9[20] = type metadata accessor for AVAsyncProperty.Status(255, v13, v16, v17);
+  v18 = *(v12 + 136);
+  v9[37] = v18;
+  v9[21] = type metadata accessor for AVAsyncProperty.Status(255, v13, v18, v19);
+  v20 = *(v33 + 136);
+  v9[38] = v20;
+  v9[22] = type metadata accessor for AVAsyncProperty.Status(255, v13, v20, v21);
   v9[39] = swift_getTupleTypeMetadata();
   v9[40] = swift_task_alloc();
-  v13 = type metadata accessor for AVAsyncProperty.Status();
-  v9[41] = v13;
-  v9[42] = *(v13 - 8);
+  v23 = type metadata accessor for AVAsyncProperty.Status(0, v13, v20, v22);
+  v9[41] = v23;
+  v9[42] = *(v23 - 8);
   v9[43] = swift_task_alloc();
-  v14 = type metadata accessor for AVAsyncProperty.Status();
-  v9[44] = v14;
-  v9[45] = *(v14 - 8);
+  v25 = type metadata accessor for AVAsyncProperty.Status(0, v13, v18, v24);
+  v9[44] = v25;
+  v9[45] = *(v25 - 8);
   v9[46] = swift_task_alloc();
   v9[47] = swift_task_alloc();
-  v15 = type metadata accessor for AVAsyncProperty.Status();
-  v9[48] = v15;
-  v9[49] = *(v15 - 8);
+  v27 = type metadata accessor for AVAsyncProperty.Status(0, v13, v16, v26);
+  v9[48] = v27;
+  v9[49] = *(v27 - 8);
   v9[50] = swift_task_alloc();
   v9[51] = swift_task_alloc();
-  v16 = type metadata accessor for AVAsyncProperty.Status();
-  v9[52] = v16;
-  v9[53] = *(v16 - 8);
+  v29 = type metadata accessor for AVAsyncProperty.Status(0, v13, v14, v28);
+  v9[52] = v29;
+  v9[53] = *(v29 - 8);
   v9[54] = swift_task_alloc();
   v9[55] = swift_task_alloc();
-  v17 = type metadata accessor for AVAsyncProperty.Status();
-  v9[56] = v17;
-  v9[57] = *(v17 - 8);
+  v31 = type metadata accessor for AVAsyncProperty.Status(0, v13, v34, v30);
+  v9[56] = v31;
+  v9[57] = *(v31 - 8);
   v9[58] = swift_task_alloc();
   v9[59] = swift_task_alloc();
   v9[60] = swift_task_alloc();
 
-  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C, D, E>(_:_:_:_:_:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C, D, E>(_:_:_:_:_:), 0);
 }
 
 uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D, E>(_:_:_:_:_:)()
@@ -5210,7 +5232,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D, E>(_:_:_:_:_:)()
   v14 = *(v2 + 24);
   v19 = *(v2 + 16);
   v20 = *(v3 + 16);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
   v15 = swift_allocObject();
   *(v15 + 16) = xmmword_1C93905D0;
   *(v15 + 32) = v7;
@@ -5230,7 +5252,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D, E>(_:_:_:_:_:)()
   v1[2] = v1;
   v1[3] = AVAsynchronousKeyValueLoading.load<A, B, C, D, E>(_:_:_:_:_:);
   v17 = swift_continuation_init();
-  v1[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd);
+  v1[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd, &_sSccyyts5NeverOGMR);
   v1[10] = MEMORY[0x1E69E9820];
   v1[11] = 1107296256;
   v1[12] = @objc completion handler block implementation for <A><A1>@escaping @callee_unowned @convention(block) @Sendable () -> () with result type ();
@@ -5243,7 +5265,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D, E>(_:_:_:_:_:)()
 
 {
 
-  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C, D, E>(_:_:_:_:_:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C, D, E>(_:_:_:_:_:), 0);
 }
 
 {
@@ -5519,12 +5541,12 @@ LABEL_22:
 
 uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F>(_:_:_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t *a8)
 {
-  v9[35] = v26;
+  v9[35] = v44;
   v9[36] = v8;
-  v9[33] = v24;
-  v9[34] = v25;
+  v9[33] = v42;
+  v9[34] = v43;
   v9[31] = a8;
-  v9[32] = v23;
+  v9[32] = v41;
   v9[29] = a6;
   v9[30] = a7;
   v9[27] = a4;
@@ -5533,56 +5555,63 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F>(_:_:_:_:_:_:)(uint
   v9[26] = a3;
   v9[24] = a1;
   v10 = *a8;
-  v11 = *v23;
-  v19 = *v24;
-  v20 = *v25;
-  v21 = *v26;
-  v9[37] = *(*a7 + 136);
-  v9[18] = type metadata accessor for AVAsyncProperty.Status();
-  v9[38] = *(v10 + 136);
-  v9[19] = type metadata accessor for AVAsyncProperty.Status();
-  v9[39] = *(v11 + 136);
-  v9[20] = type metadata accessor for AVAsyncProperty.Status();
-  v9[40] = *(v19 + 136);
-  v9[21] = type metadata accessor for AVAsyncProperty.Status();
-  v9[41] = *(v20 + 136);
-  v9[22] = type metadata accessor for AVAsyncProperty.Status();
-  v9[42] = *(v21 + 136);
-  v9[23] = type metadata accessor for AVAsyncProperty.Status();
+  v11 = *v41;
+  v36 = *v42;
+  v37 = *v43;
+  v38 = *v44;
+  v12 = *(*a7 + 128);
+  v39 = *(*a7 + 136);
+  v9[37] = v39;
+  v9[18] = type metadata accessor for AVAsyncProperty.Status(255, v12, v39, a4);
+  v13 = *(v10 + 136);
+  v9[38] = v13;
+  v9[19] = type metadata accessor for AVAsyncProperty.Status(255, v12, v13, v14);
+  v15 = *(v11 + 136);
+  v9[39] = v15;
+  v9[20] = type metadata accessor for AVAsyncProperty.Status(255, v12, v15, v16);
+  v17 = *(v36 + 136);
+  v9[40] = v17;
+  v9[21] = type metadata accessor for AVAsyncProperty.Status(255, v12, v17, v18);
+  v19 = *(v37 + 136);
+  v9[41] = v19;
+  v9[22] = type metadata accessor for AVAsyncProperty.Status(255, v12, v19, v20);
+  v21 = *(v38 + 136);
+  v9[42] = v21;
+  v9[23] = type metadata accessor for AVAsyncProperty.Status(255, v12, v21, v22);
   v9[43] = swift_getTupleTypeMetadata();
   v9[44] = swift_task_alloc();
-  v12 = type metadata accessor for AVAsyncProperty.Status();
-  v9[45] = v12;
-  v9[46] = *(v12 - 8);
+  v24 = type metadata accessor for AVAsyncProperty.Status(0, v12, v21, v23);
+  v9[45] = v24;
+  v9[46] = *(v24 - 8);
   v9[47] = swift_task_alloc();
-  v13 = type metadata accessor for AVAsyncProperty.Status();
-  v9[48] = v13;
-  v9[49] = *(v13 - 8);
+  v26 = type metadata accessor for AVAsyncProperty.Status(0, v12, v19, v25);
+  v9[48] = v26;
+  v9[49] = *(v26 - 8);
   v9[50] = swift_task_alloc();
   v9[51] = swift_task_alloc();
-  v14 = type metadata accessor for AVAsyncProperty.Status();
-  v9[52] = v14;
-  v9[53] = *(v14 - 8);
+  v28 = type metadata accessor for AVAsyncProperty.Status(0, v12, v17, v27);
+  v9[52] = v28;
+  v9[53] = *(v28 - 8);
   v9[54] = swift_task_alloc();
   v9[55] = swift_task_alloc();
-  v15 = type metadata accessor for AVAsyncProperty.Status();
-  v9[56] = v15;
-  v9[57] = *(v15 - 8);
+  v30 = type metadata accessor for AVAsyncProperty.Status(0, v12, v15, v29);
+  v9[56] = v30;
+  v9[57] = *(v30 - 8);
   v9[58] = swift_task_alloc();
   v9[59] = swift_task_alloc();
-  v16 = type metadata accessor for AVAsyncProperty.Status();
-  v9[60] = v16;
-  v9[61] = *(v16 - 8);
+  v32 = type metadata accessor for AVAsyncProperty.Status(0, v12, v13, v31);
+  v9[60] = v32;
+  v9[61] = *(v32 - 8);
   v9[62] = swift_task_alloc();
   v9[63] = swift_task_alloc();
-  v17 = type metadata accessor for AVAsyncProperty.Status();
-  v9[64] = v17;
-  v9[65] = *(v17 - 8);
+  v34 = type metadata accessor for AVAsyncProperty.Status(0, v12, v39, v33);
+  v9[64] = v34;
+  v9[65] = *(v34 - 8);
   v9[66] = swift_task_alloc();
   v9[67] = swift_task_alloc();
   v9[68] = swift_task_alloc();
 
-  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F>(_:_:_:_:_:_:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F>(_:_:_:_:_:_:), 0);
 }
 
 uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F>(_:_:_:_:_:_:)()
@@ -5608,7 +5637,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F>(_:_:_:_:_:_:)()
   v15 = *(v2 + 24);
   v20 = *(v2 + 16);
   v21 = *(v3 + 16);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
   v16 = swift_allocObject();
   *(v16 + 16) = xmmword_1C93905E0;
   *(v16 + 32) = v8;
@@ -5630,7 +5659,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F>(_:_:_:_:_:_:)()
   v1[2] = v1;
   v1[3] = AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F>(_:_:_:_:_:_:);
   v18 = swift_continuation_init();
-  v1[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd);
+  v1[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd, &_sSccyyts5NeverOGMR);
   v1[10] = MEMORY[0x1E69E9820];
   v1[11] = 1107296256;
   v1[12] = @objc completion handler block implementation for <A><A1>@escaping @callee_unowned @convention(block) @Sendable () -> () with result type ();
@@ -5643,7 +5672,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F>(_:_:_:_:_:_:)()
 
 {
 
-  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F>(_:_:_:_:_:_:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F>(_:_:_:_:_:_:), 0);
 }
 
 {
@@ -5983,14 +6012,14 @@ LABEL_20:
 
 uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F, G>(_:_:_:_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9[38] = v30;
+  v9[38] = v51;
   v9[39] = v8;
-  v9[36] = v28;
-  v9[37] = v29;
-  v9[34] = v26;
-  v9[35] = v27;
+  v9[36] = v49;
+  v9[37] = v50;
+  v9[34] = v47;
+  v9[35] = v48;
   v9[32] = a8;
-  v9[33] = v25;
+  v9[33] = v46;
   v9[30] = a6;
   v9[31] = a7;
   v9[28] = a4;
@@ -5998,65 +6027,73 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F, G>(_:_:_:_:_:_:_:)
   v9[26] = a2;
   v9[27] = a3;
   v9[25] = a1;
-  v10 = *v25;
-  v11 = *v26;
-  v20 = *v27;
-  v21 = *v28;
-  v22 = *v29;
-  v23 = *v30;
-  v9[40] = *(*a8 + 136);
-  v9[18] = type metadata accessor for AVAsyncProperty.Status();
-  v9[41] = *(v10 + 136);
-  v9[19] = type metadata accessor for AVAsyncProperty.Status();
-  v9[42] = *(v11 + 136);
-  v9[20] = type metadata accessor for AVAsyncProperty.Status();
-  v9[43] = *(v20 + 136);
-  v9[21] = type metadata accessor for AVAsyncProperty.Status();
-  v9[44] = *(v21 + 136);
-  v9[22] = type metadata accessor for AVAsyncProperty.Status();
-  v9[45] = *(v22 + 136);
-  v9[23] = type metadata accessor for AVAsyncProperty.Status();
-  v9[46] = *(v23 + 136);
-  v9[24] = type metadata accessor for AVAsyncProperty.Status();
+  v10 = *v46;
+  v11 = *v47;
+  v40 = *v48;
+  v41 = *v49;
+  v42 = *v50;
+  v43 = *v51;
+  v12 = *(*a8 + 128);
+  v44 = *(*a8 + 136);
+  v9[40] = v44;
+  v9[18] = type metadata accessor for AVAsyncProperty.Status(255, v12, v44, a4);
+  v13 = *(v10 + 136);
+  v9[41] = v13;
+  v9[19] = type metadata accessor for AVAsyncProperty.Status(255, v12, v13, v14);
+  v15 = *(v11 + 136);
+  v9[42] = v15;
+  v9[20] = type metadata accessor for AVAsyncProperty.Status(255, v12, v15, v16);
+  v17 = *(v40 + 136);
+  v9[43] = v17;
+  v9[21] = type metadata accessor for AVAsyncProperty.Status(255, v12, v17, v18);
+  v19 = *(v41 + 136);
+  v9[44] = v19;
+  v9[22] = type metadata accessor for AVAsyncProperty.Status(255, v12, v19, v20);
+  v21 = *(v42 + 136);
+  v9[45] = v21;
+  v9[23] = type metadata accessor for AVAsyncProperty.Status(255, v12, v21, v22);
+  v23 = *(v43 + 136);
+  v9[46] = v23;
+  v9[24] = type metadata accessor for AVAsyncProperty.Status(255, v12, v23, v24);
   v9[47] = swift_getTupleTypeMetadata();
   v9[48] = swift_task_alloc();
-  v12 = type metadata accessor for AVAsyncProperty.Status();
-  v9[49] = v12;
-  v9[50] = *(v12 - 8);
+  v26 = type metadata accessor for AVAsyncProperty.Status(0, v12, v23, v25);
+  v9[49] = v26;
+  v9[50] = *(v26 - 8);
   v9[51] = swift_task_alloc();
-  v13 = type metadata accessor for AVAsyncProperty.Status();
-  v9[52] = v13;
-  v9[53] = *(v13 - 8);
+  v28 = type metadata accessor for AVAsyncProperty.Status(0, v12, v21, v27);
+  v9[52] = v28;
+  v9[53] = *(v28 - 8);
   v9[54] = swift_task_alloc();
   v9[55] = swift_task_alloc();
-  v14 = type metadata accessor for AVAsyncProperty.Status();
-  v9[56] = v14;
-  v9[57] = *(v14 - 8);
+  v30 = type metadata accessor for AVAsyncProperty.Status(0, v12, v19, v29);
+  v9[56] = v30;
+  v9[57] = *(v30 - 8);
   v9[58] = swift_task_alloc();
   v9[59] = swift_task_alloc();
-  v15 = type metadata accessor for AVAsyncProperty.Status();
-  v9[60] = v15;
-  v9[61] = *(v15 - 8);
+  v32 = type metadata accessor for AVAsyncProperty.Status(0, v12, v17, v31);
+  v9[60] = v32;
+  v9[61] = *(v32 - 8);
   v9[62] = swift_task_alloc();
   v9[63] = swift_task_alloc();
-  v16 = type metadata accessor for AVAsyncProperty.Status();
-  v9[64] = v16;
-  v9[65] = *(v16 - 8);
+  v34 = type metadata accessor for AVAsyncProperty.Status(0, v12, v15, v33);
+  v9[64] = v34;
+  v9[65] = *(v34 - 8);
   v9[66] = swift_task_alloc();
   v9[67] = swift_task_alloc();
-  v17 = type metadata accessor for AVAsyncProperty.Status();
-  v9[68] = v17;
-  v9[69] = *(v17 - 8);
+  v36 = type metadata accessor for AVAsyncProperty.Status(0, v12, v13, v35);
+  v9[68] = v36;
+  v9[69] = *(v36 - 8);
   v9[70] = swift_task_alloc();
   v9[71] = swift_task_alloc();
-  v18 = type metadata accessor for AVAsyncProperty.Status();
-  v9[72] = v18;
-  v9[73] = *(v18 - 8);
+  v38 = type metadata accessor for AVAsyncProperty.Status(0, v12, v44, v37);
+  v9[72] = v38;
+  v9[73] = *(v38 - 8);
   v9[74] = swift_task_alloc();
   v9[75] = swift_task_alloc();
   v9[76] = swift_task_alloc();
 
-  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F, G>(_:_:_:_:_:_:_:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F, G>(_:_:_:_:_:_:_:), 0);
 }
 
 uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F, G>(_:_:_:_:_:_:_:)()
@@ -6084,7 +6121,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F, G>(_:_:_:_:_:_:_:)
   v16 = *(v2 + 24);
   v22 = *(v2 + 16);
   v23 = *(v3 + 16);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
   v17 = swift_allocObject();
   *(v17 + 16) = xmmword_1C93905F0;
   *(v17 + 32) = v9;
@@ -6109,7 +6146,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F, G>(_:_:_:_:_:_:_:)
   v0[2] = v0;
   v0[3] = AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F, G>(_:_:_:_:_:_:_:);
   v20 = swift_continuation_init();
-  v1[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd);
+  v1[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd, &_sSccyyts5NeverOGMR);
   v1[10] = MEMORY[0x1E69E9820];
   v1[11] = 1107296256;
   v1[12] = @objc completion handler block implementation for <A><A1>@escaping @callee_unowned @convention(block) @Sendable () -> () with result type ();
@@ -6122,7 +6159,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F, G>(_:_:_:_:_:_:_:)
 
 {
 
-  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F, G>(_:_:_:_:_:_:_:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F, G>(_:_:_:_:_:_:_:), 0);
 }
 
 {
@@ -6535,16 +6572,16 @@ LABEL_22:
 
 uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F, G, H>(_:_:_:_:_:_:_:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9[41] = v34;
+  v9[41] = v58;
   v9[42] = v8;
-  v9[39] = v32;
-  v9[40] = v33;
-  v9[37] = v30;
-  v9[38] = v31;
-  v9[35] = v28;
-  v9[36] = v29;
+  v9[39] = v56;
+  v9[40] = v57;
+  v9[37] = v54;
+  v9[38] = v55;
+  v9[35] = v52;
+  v9[36] = v53;
   v9[33] = a8;
-  v9[34] = v27;
+  v9[34] = v51;
   v9[31] = a6;
   v9[32] = a7;
   v9[29] = a4;
@@ -6552,73 +6589,82 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F, G, H>(_:_:_:_:_:_:
   v9[27] = a2;
   v9[28] = a3;
   v9[26] = a1;
-  v10 = *v28;
-  v11 = *v29;
-  v21 = *v30;
-  v22 = *v31;
-  v23 = *v32;
-  v24 = *v33;
-  v25 = *v34;
-  v9[43] = *(*v27 + 136);
-  v9[10] = type metadata accessor for AVAsyncProperty.Status();
-  v9[44] = *(v10 + 136);
-  v9[11] = type metadata accessor for AVAsyncProperty.Status();
-  v9[45] = *(v11 + 136);
-  v9[12] = type metadata accessor for AVAsyncProperty.Status();
-  v9[46] = *(v21 + 136);
-  v9[13] = type metadata accessor for AVAsyncProperty.Status();
-  v9[47] = *(v22 + 136);
-  v9[14] = type metadata accessor for AVAsyncProperty.Status();
-  v9[48] = *(v23 + 136);
-  v9[15] = type metadata accessor for AVAsyncProperty.Status();
-  v9[49] = *(v24 + 136);
-  v9[16] = type metadata accessor for AVAsyncProperty.Status();
-  v9[50] = *(v25 + 136);
-  v9[17] = type metadata accessor for AVAsyncProperty.Status();
+  v10 = *v52;
+  v11 = *v53;
+  v44 = *v54;
+  v45 = *v55;
+  v46 = *v56;
+  v47 = *v57;
+  v48 = *v58;
+  v12 = *(*v51 + 128);
+  v49 = *(*v51 + 136);
+  v9[43] = v49;
+  v9[10] = type metadata accessor for AVAsyncProperty.Status(255, v12, v49, a4);
+  v13 = *(v10 + 136);
+  v9[44] = v13;
+  v9[11] = type metadata accessor for AVAsyncProperty.Status(255, v12, v13, v14);
+  v15 = *(v11 + 136);
+  v9[45] = v15;
+  v9[12] = type metadata accessor for AVAsyncProperty.Status(255, v12, v15, v16);
+  v17 = *(v44 + 136);
+  v9[46] = v17;
+  v9[13] = type metadata accessor for AVAsyncProperty.Status(255, v12, v17, v18);
+  v19 = *(v45 + 136);
+  v9[47] = v19;
+  v9[14] = type metadata accessor for AVAsyncProperty.Status(255, v12, v19, v20);
+  v21 = *(v46 + 136);
+  v9[48] = v21;
+  v9[15] = type metadata accessor for AVAsyncProperty.Status(255, v12, v21, v22);
+  v23 = *(v47 + 136);
+  v9[49] = v23;
+  v9[16] = type metadata accessor for AVAsyncProperty.Status(255, v12, v23, v24);
+  v25 = *(v48 + 136);
+  v9[50] = v25;
+  v9[17] = type metadata accessor for AVAsyncProperty.Status(255, v12, v25, v26);
   v9[51] = swift_getTupleTypeMetadata();
   v9[52] = swift_task_alloc();
-  v12 = type metadata accessor for AVAsyncProperty.Status();
-  v9[53] = v12;
-  v9[54] = *(v12 - 8);
+  v28 = type metadata accessor for AVAsyncProperty.Status(0, v12, v25, v27);
+  v9[53] = v28;
+  v9[54] = *(v28 - 8);
   v9[55] = swift_task_alloc();
-  v13 = type metadata accessor for AVAsyncProperty.Status();
-  v9[56] = v13;
-  v9[57] = *(v13 - 8);
+  v30 = type metadata accessor for AVAsyncProperty.Status(0, v12, v23, v29);
+  v9[56] = v30;
+  v9[57] = *(v30 - 8);
   v9[58] = swift_task_alloc();
   v9[59] = swift_task_alloc();
-  v14 = type metadata accessor for AVAsyncProperty.Status();
-  v9[60] = v14;
-  v9[61] = *(v14 - 8);
+  v32 = type metadata accessor for AVAsyncProperty.Status(0, v12, v21, v31);
+  v9[60] = v32;
+  v9[61] = *(v32 - 8);
   v9[62] = swift_task_alloc();
   v9[63] = swift_task_alloc();
-  v15 = type metadata accessor for AVAsyncProperty.Status();
-  v9[64] = v15;
-  v9[65] = *(v15 - 8);
+  v34 = type metadata accessor for AVAsyncProperty.Status(0, v12, v19, v33);
+  v9[64] = v34;
+  v9[65] = *(v34 - 8);
   v9[66] = swift_task_alloc();
   v9[67] = swift_task_alloc();
-  v16 = type metadata accessor for AVAsyncProperty.Status();
-  v9[68] = v16;
-  v9[69] = *(v16 - 8);
+  v36 = type metadata accessor for AVAsyncProperty.Status(0, v12, v17, v35);
+  v9[68] = v36;
+  v9[69] = *(v36 - 8);
   v9[70] = swift_task_alloc();
   v9[71] = swift_task_alloc();
-  v17 = type metadata accessor for AVAsyncProperty.Status();
-  v9[72] = v17;
-  v9[73] = *(v17 - 8);
+  v38 = type metadata accessor for AVAsyncProperty.Status(0, v12, v15, v37);
+  v9[72] = v38;
+  v9[73] = *(v38 - 8);
   v9[74] = swift_task_alloc();
   v9[75] = swift_task_alloc();
-  v18 = type metadata accessor for AVAsyncProperty.Status();
-  v9[76] = v18;
-  v9[77] = *(v18 - 8);
+  v40 = type metadata accessor for AVAsyncProperty.Status(0, v12, v13, v39);
+  v9[76] = v40;
+  v9[77] = *(v40 - 8);
   v9[78] = swift_task_alloc();
   v9[79] = swift_task_alloc();
-  v19 = type metadata accessor for AVAsyncProperty.Status();
-  v9[80] = v19;
-  v9[81] = *(v19 - 8);
+  v42 = type metadata accessor for AVAsyncProperty.Status(0, v12, v49, v41);
+  v9[80] = v42;
+  v9[81] = *(v42 - 8);
   v9[82] = swift_task_alloc();
   v9[83] = swift_task_alloc();
   v9[84] = swift_task_alloc();
 
-  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F, G, H>(_:_:_:_:_:_:_:_:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F, G, H>(_:_:_:_:_:_:_:_:), 0);
 }
 
 uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F, G, H>(_:_:_:_:_:_:_:_:)()
@@ -6650,7 +6696,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F, G, H>(_:_:_:_:_:_:
   v17 = *(v2 + 24);
   v22 = *(v2 + 16);
   v23 = *(v3 + 16);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
   v18 = swift_allocObject();
   *(v18 + 16) = xmmword_1C9390600;
   *(v18 + 32) = v29;
@@ -6676,7 +6722,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F, G, H>(_:_:_:_:_:_:
   v1[2] = v1;
   v1[3] = AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F, G, H>(_:_:_:_:_:_:_:_:);
   v20 = swift_continuation_init();
-  v1[25] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd);
+  v1[25] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccyyts5NeverOGMd, &_sSccyyts5NeverOGMR);
   v1[18] = MEMORY[0x1E69E9820];
   v1[19] = 1107296256;
   v1[20] = @objc completion handler block implementation for <A><A1>@escaping @callee_unowned @convention(block) @Sendable () -> () with result type ();
@@ -6689,7 +6735,7 @@ uint64_t AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F, G, H>(_:_:_:_:_:_:
 
 {
 
-  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F, G, H>(_:_:_:_:_:_:_:_:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVAsynchronousKeyValueLoading.load<A, B, C, D, E, F, G, H>(_:_:_:_:_:_:_:_:), 0);
 }
 
 {
@@ -7221,7 +7267,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySsGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySsGMd, &_ss23_ContiguousArrayStorageCySsGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -7299,7 +7345,7 @@ char *specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapaci
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -7523,7 +7569,7 @@ LABEL_38:
   return result;
 }
 
-uint64_t partial apply for specialized closure #1 in Collection<>.split(separator:maxSplits:omittingEmptySubsequences:)(void *a1)
+uint64_t partial apply for specialized closure #1 in Collection<>.split(separator:maxSplits:omittingEmptySubsequences:)(uint64_t *a1)
 {
   v2 = *(v1 + 16);
   if (*a1 == *v2 && a1[1] == v2[1])
@@ -7858,7 +7904,7 @@ uint64_t AVAssetWriterInput.SampleBufferReceiver.append(_:)(uint64_t a1, uint64_
   v4[6] = v5;
   v4[7] = v7;
 
-  return MEMORY[0x1EEE6DFA0](AVAssetWriterInput.SampleBufferReceiver.append(_:), v5, v7);
+  return MEMORY[0x1EEE6DFA0](AVAssetWriterInput.SampleBufferReceiver.append(_:), v5);
 }
 
 uint64_t AVAssetWriterInput.SampleBufferReceiver.append(_:)()
@@ -7880,10 +7926,9 @@ uint64_t AVAssetWriterInput.SampleBufferReceiver.append(_:)()
   v1 = *v0;
   v2 = *(*v0 + 64);
 
-  v3 = *(v1 + 56);
-  v4 = *(v1 + 48);
+  v3 = *(v1 + 48);
 
-  return MEMORY[0x1EEE6DFA0](AVAssetWriterInput.SampleBufferReceiver.append(_:), v4, v3);
+  return MEMORY[0x1EEE6DFA0](AVAssetWriterInput.SampleBufferReceiver.append(_:), v3);
 }
 
 {
@@ -7893,7 +7938,7 @@ uint64_t AVAssetWriterInput.SampleBufferReceiver.append(_:)()
   }
 
   v1 = *(v0 + 40);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia19CMReadySampleBufferVySo08CMSampleE3RefaAAE14DynamicContentOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia19CMReadySampleBufferVySo08CMSampleE3RefaAAE14DynamicContentOGMd, &_s9CoreMedia19CMReadySampleBufferVySo08CMSampleE3RefaAAE14DynamicContentOGMR);
   _s9CoreMedia19CMReadySampleBufferV010withUnsafedE0yqd__qd__So08CMSampleE3RefaKYTXEKRi_d__lF();
   if (*(v0 + 80) != 1)
   {
@@ -7922,7 +7967,7 @@ uint64_t AVAssetWriterInput.SampleBufferReceiver.appendImmediately(_:)()
     goto LABEL_7;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia19CMReadySampleBufferVySo08CMSampleE3RefaAAE14DynamicContentOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia19CMReadySampleBufferVySo08CMSampleE3RefaAAE14DynamicContentOGMd, &_s9CoreMedia19CMReadySampleBufferVySo08CMSampleE3RefaAAE14DynamicContentOGMR);
   _s9CoreMedia19CMReadySampleBufferV010withUnsafedE0yqd__qd__So08CMSampleE3RefaKYTXEKRi_d__lF();
   if ((v4 & 1) == 0)
   {
@@ -8024,7 +8069,7 @@ uint64_t dispatch thunk of AVAssetWriterInput.SampleBufferReceiver.append(_:)(ui
 uint64_t AVMetadataMachineReadableCodeObject.corners.getter()
 {
   v1 = [v0 corners];
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys11AnyHashableVypGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys11AnyHashableVypGMd, &_sSDys11AnyHashableVypGMR);
   v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
   v3 = *(v2 + 16);
@@ -8080,9 +8125,9 @@ LABEL_12:
   return result;
 }
 
-char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, int64_t a2, char a3)
+char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(char *a1, uint64_t a2, uint64_t a3)
 {
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySo7CGPointVGMd);
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySo7CGPointVGMd, &_ss23_ContiguousArrayStorageCySo7CGPointVGMR);
   *v3 = result;
   return result;
 }
@@ -8094,25 +8139,7 @@ char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacit
 }
 
 {
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCys5Int32VGMd);
-  *v3 = result;
-  return result;
-}
-
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
-  *v3 = result;
-  return result;
-}
-
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
-  *v3 = result;
-  return result;
-}
-
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCys6UInt32VGMd);
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCys5Int32VGMd, &_ss23_ContiguousArrayStorageCys5Int32VGMR);
   *v3 = result;
   return result;
 }
@@ -8130,13 +8157,7 @@ char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacit
 }
 
 {
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySo18AVCaptureFlashModeVGMd);
-  *v3 = result;
-  return result;
-}
-
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySo19AVCaptureColorSpaceVGMd);
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCys6UInt32VGMd, &_ss23_ContiguousArrayStorageCys6UInt32VGMR);
   *v3 = result;
   return result;
 }
@@ -8154,45 +8175,67 @@ char *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacit
 }
 
 {
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySNy12CoreGraphics7CGFloatVGGMd);
-  *v3 = result;
-  return result;
-}
-
-void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, int64_t a2, char a3)
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySay9CoreMedia5CMTagCGGMd, &_ss23_ContiguousArrayStorageCySay9CoreMedia5CMTagCGGMR, &_sSay9CoreMedia5CMTagCGMd);
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySo18AVCaptureFlashModeVGMd, &_ss23_ContiguousArrayStorageCySo18AVCaptureFlashModeVGMR);
   *v3 = result;
   return result;
 }
 
 {
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySDySSypGGMd, &_ss23_ContiguousArrayStorageCySDySSypGGMR, &_sSDySSypGMd);
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySo19AVCaptureColorSpaceVGMd, &_ss23_ContiguousArrayStorageCySo19AVCaptureColorSpaceVGMR);
   *v3 = result;
   return result;
 }
 
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySaySDySSSo8NSNumberCGGGMd, &_ss23_ContiguousArrayStorageCySaySDySSSo8NSNumberCGGGMR, &_sSaySDySSSo8NSNumberCGGMd);
-  *v3 = result;
-  return result;
-}
-
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySDySSSo8NSNumberCGGMd, &_ss23_ContiguousArrayStorageCySDySSSo8NSNumberCGGMR, &_sSDySSSo8NSNumberCGMd);
-  *v3 = result;
-  return result;
-}
-
-{
-  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySaySo7CGPointVGGMd, &_ss23_ContiguousArrayStorageCySaySo7CGPointVGGMR, &_sSaySo7CGPointVGMd);
-  *v3 = result;
-  return result;
-}
-
-size_t specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(size_t a1, int64_t a2, char a3)
 {
   result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySNy12CoreGraphics7CGFloatVGGMd, &_ss23_ContiguousArrayStorageCySNy12CoreGraphics7CGFloatVGGMR);
+  *v3 = result;
+  return result;
+}
+
+void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, uint64_t a2, uint64_t a3)
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySay9CoreMedia5CMTagCGGMd, &_ss23_ContiguousArrayStorageCySay9CoreMedia5CMTagCGGMR, &_sSay9CoreMedia5CMTagCGMd, &_sSay9CoreMedia5CMTagCGMR);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySaySDySSSo8NSNumberCGGGMd, &_ss23_ContiguousArrayStorageCySaySDySSSo8NSNumberCGGGMR, &_sSaySDySSSo8NSNumberCGGMd, &_sSaySDySSSo8NSNumberCGGMR);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySDySSSo8NSNumberCGGMd, &_ss23_ContiguousArrayStorageCySDySSSo8NSNumberCGGMR, &_sSDySSSo8NSNumberCGMd, &_sSDySSSo8NSNumberCGMR);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3, &_ss23_ContiguousArrayStorageCySaySo7CGPointVGGMd, &_ss23_ContiguousArrayStorageCySaySo7CGPointVGGMR, &_sSaySo7CGPointVGMd, &_sSaySo7CGPointVGMR);
   *v3 = result;
   return result;
 }
@@ -8238,7 +8281,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo11CMTimeRangeaGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo11CMTimeRangeaGMd, &_ss23_ContiguousArrayStorageCySo11CMTimeRangeaGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -8310,7 +8353,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyypGMd, &_ss23_ContiguousArrayStorageCyypGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -8388,7 +8431,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySfGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySfGMd, &_ss23_ContiguousArrayStorageCySfGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -8466,7 +8509,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -8544,7 +8587,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo13CMTimeMappingaGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo13CMTimeMappingaGMd, &_ss23_ContiguousArrayStorageCySo13CMTimeMappingaGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     *(v10 + 2) = v8;
@@ -8616,7 +8659,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo17CMVideoDimensionsaGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySo17CMVideoDimensionsaGMd, &_ss23_ContiguousArrayStorageCySo17CMVideoDimensionsaGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -8694,7 +8737,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   if (v9)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12CoreGraphics7CGFloatVGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12CoreGraphics7CGFloatVGMd, &_ss23_ContiguousArrayStorageCy12CoreGraphics7CGFloatVGMR);
     v10 = swift_allocObject();
     v11 = _swift_stdlib_malloc_size(v10);
     v12 = v11 - 32;
@@ -8732,7 +8775,7 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
   return v10;
 }
 
-size_t specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(size_t result, int64_t a2, char a3, void *a4)
+void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4)
 {
   v5 = result;
   if (a3)
@@ -8778,8 +8821,8 @@ LABEL_30:
     goto LABEL_19;
   }
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12AVFoundation27AVSpatialVideoConfigurationVGMd);
-  v10 = *(type metadata accessor for AVSpatialVideoConfiguration() - 8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy12AVFoundation27AVSpatialVideoConfigurationVGMd, &_ss23_ContiguousArrayStorageCy12AVFoundation27AVSpatialVideoConfigurationVGMR);
+  v10 = *(type metadata accessor for AVSpatialVideoConfiguration(0) - 8);
   v11 = *(v10 + 72);
   v12 = (*(v10 + 80) + 32) & ~*(v10 + 80);
   v13 = swift_allocObject();
@@ -8792,7 +8835,7 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  if (result - v12 == 0x8000000000000000 && v11 == -1)
+  if ((result - v12) == 0x8000000000000000 && v11 == -1)
   {
     goto LABEL_29;
   }
@@ -8800,7 +8843,7 @@ LABEL_29:
   v13[2] = v8;
   v13[3] = 2 * ((result - v12) / v11);
 LABEL_19:
-  v15 = *(type metadata accessor for AVSpatialVideoConfiguration() - 8);
+  v15 = *(type metadata accessor for AVSpatialVideoConfiguration(0) - 8);
   if (v5)
   {
     if (v13 < a4 || (v16 = (*(v15 + 80) + 32) & ~*(v15 + 80), v13 + v16 >= a4 + v16 + *(v15 + 72) * v8))
@@ -8824,70 +8867,70 @@ LABEL_19:
   return v13;
 }
 
-void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t a6, uint64_t *a7)
+void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(void *result, int64_t a2, char a3, void *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8)
 {
-  v9 = result;
+  v11 = result;
   if (a3)
   {
-    v10 = a4[3];
-    v11 = v10 >> 1;
-    if ((v10 >> 1) < a2)
+    v12 = a4[3];
+    v13 = v12 >> 1;
+    if ((v12 >> 1) < a2)
     {
-      if (v11 + 0x4000000000000000 < 0)
+      if (v13 + 0x4000000000000000 < 0)
       {
         __break(1u);
         return result;
       }
 
-      v11 = v10 & 0xFFFFFFFFFFFFFFFELL;
-      if ((v10 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      v13 = v12 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v12 & 0xFFFFFFFFFFFFFFFELL) <= a2)
       {
-        v11 = a2;
+        v13 = a2;
       }
     }
   }
 
   else
   {
-    v11 = a2;
+    v13 = a2;
   }
 
-  v12 = a4[2];
-  if (v11 <= v12)
+  v14 = a4[2];
+  if (v13 <= v14)
   {
-    v13 = a4[2];
+    v15 = a4[2];
   }
 
   else
   {
-    v13 = v11;
+    v15 = v13;
   }
 
-  if (v13)
+  if (v15)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(a5);
-    v14 = swift_allocObject();
-    v15 = _swift_stdlib_malloc_size(v14);
-    v16 = v15 - 32;
-    if (v15 < 32)
+    __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+    v16 = swift_allocObject();
+    v17 = _swift_stdlib_malloc_size(v16);
+    v18 = v17 - 32;
+    if (v17 < 32)
     {
-      v16 = v15 - 25;
+      v18 = v17 - 25;
     }
 
-    v14[2] = v12;
-    v14[3] = 2 * (v16 >> 3);
+    v16[2] = v14;
+    v16[3] = 2 * (v18 >> 3);
   }
 
   else
   {
-    v14 = MEMORY[0x1E69E7CC0];
+    v16 = MEMORY[0x1E69E7CC0];
   }
 
-  if (v9)
+  if (v11)
   {
-    if (v14 != a4 || v14 + 4 >= &a4[v12 + 4])
+    if (v16 != a4 || v16 + 4 >= &a4[v14 + 4])
     {
-      memmove(v14 + 4, a4 + 4, 8 * v12);
+      memmove(v16 + 4, a4 + 4, 8 * v14);
     }
 
     a4[2] = 0;
@@ -8895,79 +8938,79 @@ void *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   else
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(a7);
+    __swift_instantiateConcreteTypeFromMangledNameV2(a7, a8);
     swift_arrayInitWithCopy();
   }
 
-  return v14;
+  return v16;
 }
 
-char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(char *result, int64_t a2, char a3, char *a4, uint64_t *a5)
+char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(char *result, int64_t a2, char a3, char *a4, uint64_t *a5, uint64_t *a6)
 {
-  v6 = result;
+  v7 = result;
   if (a3)
   {
-    v7 = *(a4 + 3);
-    v8 = v7 >> 1;
-    if ((v7 >> 1) < a2)
+    v8 = *(a4 + 3);
+    v9 = v8 >> 1;
+    if ((v8 >> 1) < a2)
     {
-      if (v8 + 0x4000000000000000 < 0)
+      if (v9 + 0x4000000000000000 < 0)
       {
         __break(1u);
         return result;
       }
 
-      v8 = v7 & 0xFFFFFFFFFFFFFFFELL;
-      if ((v7 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      v9 = v8 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v8 & 0xFFFFFFFFFFFFFFFELL) <= a2)
       {
-        v8 = a2;
+        v9 = a2;
       }
     }
   }
 
   else
   {
-    v8 = a2;
+    v9 = a2;
   }
 
-  v9 = *(a4 + 2);
-  if (v8 <= v9)
+  v10 = *(a4 + 2);
+  if (v9 <= v10)
   {
-    v10 = *(a4 + 2);
+    v11 = *(a4 + 2);
   }
 
   else
   {
-    v10 = v8;
+    v11 = v9;
   }
 
-  if (v10)
+  if (v11)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(a5);
-    v11 = swift_allocObject();
-    v12 = _swift_stdlib_malloc_size(v11);
-    v13 = v12 - 32;
-    if (v12 < 32)
+    __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+    v12 = swift_allocObject();
+    v13 = _swift_stdlib_malloc_size(v12);
+    v14 = v13 - 32;
+    if (v13 < 32)
     {
-      v13 = v12 - 29;
+      v14 = v13 - 29;
     }
 
-    *(v11 + 2) = v9;
-    *(v11 + 3) = 2 * (v13 >> 2);
+    *(v12 + 2) = v10;
+    *(v12 + 3) = 2 * (v14 >> 2);
   }
 
   else
   {
-    v11 = MEMORY[0x1E69E7CC0];
+    v12 = MEMORY[0x1E69E7CC0];
   }
 
-  v14 = v11 + 32;
-  v15 = a4 + 32;
-  if (v6)
+  v15 = v12 + 32;
+  v16 = a4 + 32;
+  if (v7)
   {
-    if (v11 != a4 || v14 >= &v15[4 * v9])
+    if (v12 != a4 || v15 >= &v16[4 * v10])
     {
-      memmove(v14, v15, 4 * v9);
+      memmove(v15, v16, 4 * v10);
     }
 
     *(a4 + 2) = 0;
@@ -8975,77 +9018,77 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   else
   {
-    memcpy(v14, v15, 4 * v9);
+    memcpy(v15, v16, 4 * v10);
   }
 
-  return v11;
+  return v12;
 }
 
 {
-  v6 = result;
+  v7 = result;
   if (a3)
   {
-    v7 = *(a4 + 3);
-    v8 = v7 >> 1;
-    if ((v7 >> 1) < a2)
+    v8 = *(a4 + 3);
+    v9 = v8 >> 1;
+    if ((v8 >> 1) < a2)
     {
-      if (v8 + 0x4000000000000000 < 0)
+      if (v9 + 0x4000000000000000 < 0)
       {
         __break(1u);
         return result;
       }
 
-      v8 = v7 & 0xFFFFFFFFFFFFFFFELL;
-      if ((v7 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      v9 = v8 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v8 & 0xFFFFFFFFFFFFFFFELL) <= a2)
       {
-        v8 = a2;
+        v9 = a2;
       }
     }
   }
 
   else
   {
-    v8 = a2;
+    v9 = a2;
   }
 
-  v9 = *(a4 + 2);
-  if (v8 <= v9)
+  v10 = *(a4 + 2);
+  if (v9 <= v10)
   {
-    v10 = *(a4 + 2);
+    v11 = *(a4 + 2);
   }
 
   else
   {
-    v10 = v8;
+    v11 = v9;
   }
 
-  if (v10)
+  if (v11)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(a5);
-    v11 = swift_allocObject();
-    v12 = _swift_stdlib_malloc_size(v11);
-    v13 = v12 - 32;
-    if (v12 < 32)
+    __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+    v12 = swift_allocObject();
+    v13 = _swift_stdlib_malloc_size(v12);
+    v14 = v13 - 32;
+    if (v13 < 32)
     {
-      v13 = v12 - 25;
+      v14 = v13 - 25;
     }
 
-    *(v11 + 2) = v9;
-    *(v11 + 3) = 2 * (v13 >> 3);
+    *(v12 + 2) = v10;
+    *(v12 + 3) = 2 * (v14 >> 3);
   }
 
   else
   {
-    v11 = MEMORY[0x1E69E7CC0];
+    v12 = MEMORY[0x1E69E7CC0];
   }
 
-  v14 = v11 + 32;
-  v15 = a4 + 32;
-  if (v6)
+  v15 = v12 + 32;
+  v16 = a4 + 32;
+  if (v7)
   {
-    if (v11 != a4 || v14 >= &v15[8 * v9])
+    if (v12 != a4 || v15 >= &v16[8 * v10])
     {
-      memmove(v14, v15, 8 * v9);
+      memmove(v15, v16, 8 * v10);
     }
 
     *(a4 + 2) = 0;
@@ -9053,77 +9096,77 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   else
   {
-    memcpy(v14, v15, 8 * v9);
+    memcpy(v15, v16, 8 * v10);
   }
 
-  return v11;
+  return v12;
 }
 
 {
-  v6 = result;
+  v7 = result;
   if (a3)
   {
-    v7 = *(a4 + 3);
-    v8 = v7 >> 1;
-    if ((v7 >> 1) < a2)
+    v8 = *(a4 + 3);
+    v9 = v8 >> 1;
+    if ((v8 >> 1) < a2)
     {
-      if (v8 + 0x4000000000000000 < 0)
+      if (v9 + 0x4000000000000000 < 0)
       {
         __break(1u);
         return result;
       }
 
-      v8 = v7 & 0xFFFFFFFFFFFFFFFELL;
-      if ((v7 & 0xFFFFFFFFFFFFFFFELL) <= a2)
+      v9 = v8 & 0xFFFFFFFFFFFFFFFELL;
+      if ((v8 & 0xFFFFFFFFFFFFFFFELL) <= a2)
       {
-        v8 = a2;
+        v9 = a2;
       }
     }
   }
 
   else
   {
-    v8 = a2;
+    v9 = a2;
   }
 
-  v9 = *(a4 + 2);
-  if (v8 <= v9)
+  v10 = *(a4 + 2);
+  if (v9 <= v10)
   {
-    v10 = *(a4 + 2);
+    v11 = *(a4 + 2);
   }
 
   else
   {
-    v10 = v8;
+    v11 = v9;
   }
 
-  if (v10)
+  if (v11)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(a5);
-    v11 = swift_allocObject();
-    v12 = _swift_stdlib_malloc_size(v11);
-    v13 = v12 - 32;
-    if (v12 < 32)
+    __swift_instantiateConcreteTypeFromMangledNameV2(a5, a6);
+    v12 = swift_allocObject();
+    v13 = _swift_stdlib_malloc_size(v12);
+    v14 = v13 - 32;
+    if (v13 < 32)
     {
-      v13 = v12 - 17;
+      v14 = v13 - 17;
     }
 
-    *(v11 + 2) = v9;
-    *(v11 + 3) = 2 * (v13 >> 4);
+    *(v12 + 2) = v10;
+    *(v12 + 3) = 2 * (v14 >> 4);
   }
 
   else
   {
-    v11 = MEMORY[0x1E69E7CC0];
+    v12 = MEMORY[0x1E69E7CC0];
   }
 
-  v14 = v11 + 32;
-  v15 = a4 + 32;
-  if (v6)
+  v15 = v12 + 32;
+  v16 = a4 + 32;
+  if (v7)
   {
-    if (v11 != a4 || v14 >= &v15[16 * v9])
+    if (v12 != a4 || v15 >= &v16[16 * v10])
     {
-      memmove(v14, v15, 16 * v9);
+      memmove(v15, v16, 16 * v10);
     }
 
     *(a4 + 2) = 0;
@@ -9131,10 +9174,10 @@ char *specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:min
 
   else
   {
-    memcpy(v14, v15, 16 * v9);
+    memcpy(v15, v16, 16 * v10);
   }
 
-  return v11;
+  return v12;
 }
 
 double AVMutableMovieTrack.append(_:)@<D0>(uint64_t a1@<X8>)
@@ -9148,7 +9191,7 @@ double AVMutableMovieTrack.append(_:)@<D0>(uint64_t a1@<X8>)
   v10 = 0;
   v14 = &v11;
   v15 = &v8;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia19CMReadySampleBufferVySo08CMSampleE3RefaAAE14DynamicContentOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CoreMedia19CMReadySampleBufferVySo08CMSampleE3RefaAAE14DynamicContentOGMd, &_s9CoreMedia19CMReadySampleBufferVySo08CMSampleE3RefaAAE14DynamicContentOGMR);
   _s9CoreMedia19CMReadySampleBufferV010withUnsafedE0yqd__qd__So08CMSampleE3RefaKYTXEKRi_d__lF();
   if (!v1)
   {
@@ -9185,39 +9228,43 @@ id _sSo19AVMutableMovieTrackC12AVFoundationE6appendySo6CMTimea10decodeTime_AF012
 
 void *static AVPartialAsyncProperty<A>.duration.getter()
 {
+  v1 = *(v0 + 96);
   type metadata accessor for CMTime(255);
-  type metadata accessor for AVAsyncProperty();
+  type metadata accessor for AVAsyncProperty(0, v1, v2, v3);
   return AVAsyncProperty<>.init(key:)(0x6E6F697461727564, 0xE800000000000000);
 }
 
-void *static AVPartialAsyncProperty<A>.preferredVolume.getter()
+void *static AVPartialAsyncProperty<A>.preferredVolume.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  type metadata accessor for AVAsyncProperty();
+  type metadata accessor for AVAsyncProperty(0, *(v4 + 96), MEMORY[0x1E69E6448], a4);
   return AVAsyncProperty<>.init(key:)(0x6572726566657270, 0xEF656D756C6F5664);
 }
 
 {
-  type metadata accessor for AVAsyncProperty();
+  type metadata accessor for AVAsyncProperty(0, *(v4 + 96), MEMORY[0x1E69E6448], a4);
   return AVAsyncProperty<>.init(key:)(0x6572726566657270, 0xEF656D756C6F5664);
 }
 
 void *static AVPartialAsyncProperty<A>.preferredTransform.getter()
 {
+  v1 = *(v0 + 96);
   type metadata accessor for CGAffineTransform(255);
-  type metadata accessor for AVAsyncProperty();
+  type metadata accessor for AVAsyncProperty(0, v1, v2, v3);
   return AVAsyncProperty<>.init(key:)(0xD000000000000012, 0x80000001C93920F0);
 }
 
 {
+  v1 = *(v0 + 96);
   type metadata accessor for CGAffineTransform(255);
-  type metadata accessor for AVAsyncProperty();
+  type metadata accessor for AVAsyncProperty(0, v1, v2, v3);
   return AVAsyncProperty<>.init(key:)(0xD000000000000012, 0x80000001C93920F0);
 }
 
 void *static AVPartialAsyncProperty<A>.minimumTimeOffsetFromLive.getter()
 {
+  v1 = *(v0 + 96);
   type metadata accessor for CMTime(255);
-  type metadata accessor for AVAsyncProperty();
+  type metadata accessor for AVAsyncProperty(0, v1, v2, v3);
   return AVAsyncProperty<>.init(key:)(0xD000000000000019, 0x80000001C9392110);
 }
 
@@ -9241,21 +9288,24 @@ void *static AVPartialAsyncProperty<A>.metadata.getter()
 
 void *static AVPartialAsyncProperty<A>.availableMetadataFormats.getter()
 {
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo16AVMetadataFormataGMd);
-  type metadata accessor for AVAsyncProperty();
+  v1 = *(v0 + 96);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo16AVMetadataFormataGMd, &_sSaySo16AVMetadataFormataGMR);
+  type metadata accessor for AVAsyncProperty(0, v1, v2, v3);
   return AVAsyncProperty<>.init(key:)(0xD000000000000018, 0x80000001C9392160);
 }
 
 {
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo16AVMetadataFormataGMd);
-  type metadata accessor for AVAsyncProperty();
+  v1 = *(v0 + 96);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo16AVMetadataFormataGMd, &_sSaySo16AVMetadataFormataGMR);
+  type metadata accessor for AVAsyncProperty(0, v1, v2, v3);
   return AVAsyncProperty<>.init(key:)(0xD000000000000018, 0x80000001C9392160);
 }
 
 void *static AVPartialAsyncProperty<A>.availableChapterLocales.getter()
 {
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10Foundation6LocaleVGMd);
-  type metadata accessor for AVAsyncProperty();
+  v1 = *(v0 + 96);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSay10Foundation6LocaleVGMd, &_sSay10Foundation6LocaleVGMR);
+  type metadata accessor for AVAsyncProperty(0, v1, v2, v3);
   return AVAsyncProperty<>.init(key:)(0xD000000000000017, 0x80000001C9392180);
 }
 
@@ -9264,7 +9314,7 @@ uint64_t AVAsset.loadChapterMetadataGroups(withTitleLocale:containingItemsWithCo
   v3[20] = a2;
   v3[21] = v2;
   v3[19] = a1;
-  return MEMORY[0x1EEE6DFA0](AVAsset.loadChapterMetadataGroups(withTitleLocale:containingItemsWithCommonKeys:), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVAsset.loadChapterMetadataGroups(withTitleLocale:containingItemsWithCommonKeys:), 0);
 }
 
 uint64_t AVAsset.loadChapterMetadataGroups(withTitleLocale:containingItemsWithCommonKeys:)()
@@ -9279,7 +9329,7 @@ uint64_t AVAsset.loadChapterMetadataGroups(withTitleLocale:containingItemsWithCo
   v0[7] = v0 + 18;
   v0[3] = AVAsset.loadChapterMetadataGroups(withTitleLocale:containingItemsWithCommonKeys:);
   v4 = swift_continuation_init();
-  v0[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySaySo20AVTimedMetadataGroupCGs5Error_pGMd);
+  v0[17] = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSccySaySo20AVTimedMetadataGroupCGs5Error_pGMd, &_sSccySaySo20AVTimedMetadataGroupCGs5Error_pGMR);
   v0[10] = MEMORY[0x1E69E9820];
   v0[11] = 1107296256;
   v0[12] = @objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned NSArray?, @unowned NSError?) -> () with result type [AVTimedMetadataGroup];
@@ -9303,7 +9353,7 @@ uint64_t AVAsset.loadChapterMetadataGroups(withTitleLocale:containingItemsWithCo
     v2 = AVAsset.loadChapterMetadataGroups(withTitleLocale:containingItemsWithCommonKeys:);
   }
 
-  return MEMORY[0x1EEE6DFA0](v2, 0, 0);
+  return MEMORY[0x1EEE6DFA0](v2, 0);
 }
 
 {
@@ -9315,14 +9365,15 @@ uint64_t AVAsset.loadChapterMetadataGroups(withTitleLocale:containingItemsWithCo
   return v3(v2);
 }
 
+uint64_t AVAsset.loadChapterMetadataGroups(withTitleLocale:containingItemsWithCommonKeys:)(uint64_t a1)
 {
-  v1 = v0[23];
-  v2 = v0[22];
+  v2 = v1[23];
+  v3 = v1[22];
   swift_willThrow();
 
-  v3 = v0[1];
+  v4 = v1[1];
 
-  return v3();
+  return v4();
 }
 
 uint64_t @objc completion handler block implementation for @escaping @callee_unowned @convention(block) @Sendable (@unowned NSArray?, @unowned NSError?) -> () with result type [AVTimedMetadataGroup](uint64_t a1, uint64_t a2, void *a3)
@@ -9330,7 +9381,7 @@ uint64_t @objc completion handler block implementation for @escaping @callee_uno
   v4 = *__swift_project_boxed_opaque_existential_0((a1 + 32), *(a1 + 56));
   if (a3)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
     v5 = swift_allocError();
     *v6 = a3;
     v7 = a3;
@@ -9340,7 +9391,7 @@ uint64_t @objc completion handler block implementation for @escaping @callee_uno
 
   else
   {
-    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVTimedMetadataGroup);
+    type metadata accessor for NSValue(0, &lazy cache variable for type metadata for AVTimedMetadataGroup, 0x1E6988160);
     **(*(v4 + 64) + 40) = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
     return MEMORY[0x1EEE6DEE0](v4);
@@ -9358,40 +9409,44 @@ uint64_t block_copy_helper_1(uint64_t a1, uint64_t a2)
 
 void *static AVPartialAsyncProperty<A>.availableMediaCharacteristicsWithMediaSelectionOptions.getter()
 {
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo21AVMediaCharacteristicaGMd);
-  type metadata accessor for AVAsyncProperty();
+  v1 = *(v0 + 96);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo21AVMediaCharacteristicaGMd, &_sSaySo21AVMediaCharacteristicaGMR);
+  type metadata accessor for AVAsyncProperty(0, v1, v2, v3);
   return AVAsyncProperty<>.init(key:)(0xD000000000000036, 0x80000001C93921C0);
 }
 
 void *static AVPartialAsyncProperty<A>.preferredMediaSelection.getter()
 {
-  type metadata accessor for NSValue(255, &lazy cache variable for type metadata for AVMediaSelection);
-  type metadata accessor for AVAsyncProperty();
+  v1 = *(v0 + 96);
+  v2 = type metadata accessor for NSValue(255, &lazy cache variable for type metadata for AVMediaSelection, 0x1E6987FC8);
+  type metadata accessor for AVAsyncProperty(0, v1, v2, v3);
   return AVAsyncProperty<>.init(key:)(0xD000000000000017, 0x80000001C9392200);
 }
 
 void *static AVPartialAsyncProperty<A>.allMediaSelections.getter()
 {
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo16AVMediaSelectionCGMd);
-  type metadata accessor for AVAsyncProperty();
+  v1 = *(v0 + 96);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSaySo16AVMediaSelectionCGMd, &_sSaySo16AVMediaSelectionCGMR);
+  type metadata accessor for AVAsyncProperty(0, v1, v2, v3);
   return AVAsyncProperty<>.init(key:)(0xD000000000000012, 0x80000001C9392220);
 }
 
 void *static AVPartialAsyncProperty<A>.overallDurationHint.getter()
 {
+  v1 = *(v0 + 96);
   type metadata accessor for CMTime(255);
-  type metadata accessor for AVAsyncProperty();
+  type metadata accessor for AVAsyncProperty(0, v1, v2, v3);
   return AVAsyncProperty<>.init(key:)(0xD000000000000013, 0x80000001C93922A0);
 }
 
-void *static AVPartialAsyncProperty<A>.isPlayable.getter()
+void *static AVPartialAsyncProperty<A>.isPlayable.getter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  type metadata accessor for AVAsyncProperty();
+  type metadata accessor for AVAsyncProperty(0, *(v4 + 96), MEMORY[0x1E69E6370], a4);
   return AVAsyncProperty<>.init(key:)(0x656C626179616C70, 0xE800000000000000);
 }
 
 {
-  type metadata accessor for AVAsyncProperty();
+  type metadata accessor for AVAsyncProperty(0, *(v4 + 96), MEMORY[0x1E69E6370], a4);
   return AVAsyncProperty<>.init(key:)(0x656C626179616C70, 0xE800000000000000);
 }
 
@@ -9399,7 +9454,7 @@ id AVPlayerItemVideoOutput.init(pixelBufferAttributes:)(uint64_t a1)
 {
   v2 = objc_allocWithZone(swift_getObjCClassFromMetadata());
   MEMORY[0x1CCA86600]();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8Sendable_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss8Sendable_pMd, &_ss8Sendable_pMR);
   isa = Dictionary._bridgeToObjectiveC()().super.isa;
 
   v4 = [v2 initWithPixelBufferAttributes_];
@@ -9499,24 +9554,24 @@ id AVCaption.textCombine(at:)(uint64_t a1)
   return AVCaption.textColor(at:)(a1, &selRef_textCombineAtIndex_range_);
 }
 
-id AVCaption.ruby(at:)()
+id AVCaption.ruby(at:)(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
-  v6[0] = 0;
-  v6[1] = 0;
-  v1 = [v0 text];
+  v7[2] = *MEMORY[0x1E69E9840];
+  v7[0] = 0;
+  v7[1] = 0;
+  v2 = [v1 text];
   static String._unconditionallyBridgeFromObjectiveC(_:)();
 
   lazy protocol witness table accessor for type String and conformance String();
-  v2 = String.Index.utf16Offset<A>(in:)();
+  v3 = String.Index.utf16Offset<A>(in:)();
 
-  v3 = [v0 rubyAtIndex:v2 range:v6];
-  v4 = [v0 text];
+  v4 = [v1 rubyAtIndex:v3 range:v7];
+  v5 = [v1 text];
   static String._unconditionallyBridgeFromObjectiveC(_:)();
 
   Range<>.init(_:in:)();
 
-  return v3;
+  return v4;
 }
 
 uint64_t AVMetricEventStreamPublisher.metrics<A>(forType:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -9588,135 +9643,140 @@ uint64_t AVMetrics.SubscriberDelegate.__deallocating_deinit()
   return MEMORY[0x1EEE6BDC0](v0, v3, v4);
 }
 
-uint64_t AVMetrics.makeAsyncIterator()@<X0>(void **a1@<X8>)
+uint64_t AVMetrics.makeAsyncIterator()@<X0>(uint64_t a1@<X0>, void **a2@<X8>)
 {
-  v3 = *v1;
-  if (*(v1 + 16) == 1)
+  v4 = *v2;
+  if (*(v2 + 16) == 1)
   {
-    v4 = swift_unknownObjectRetain();
+    v5 = *(a1 + 16);
+    v6 = swift_unknownObjectRetain();
 
-    return AVMetrics.AsyncIterator.init(allMetricsForPublisher:)(v4, a1);
+    return AVMetrics.AsyncIterator.init(allMetricsForPublisher:)(v6, v5, a2);
   }
 
-  else if (*(v1 + 8))
+  else if (*(v2 + 8))
   {
+    v8 = *(a1 + 16);
     swift_unknownObjectRetain();
 
-    return AVMetrics.AsyncIterator.init(forType:publisher:)(v3, a1);
+    return AVMetrics.AsyncIterator.init(forType:publisher:)(v4, v8, a2);
   }
 
   else
   {
+    v9 = *(a1 + 16);
 
-    return AVMetrics.AsyncIterator.init()(a1);
+    return AVMetrics.AsyncIterator.init()(v9, a2);
   }
 }
 
-uint64_t AVMetrics.AsyncIterator.init(allMetricsForPublisher:)@<X0>(uint64_t a1@<X0>, void **a2@<X8>)
+uint64_t AVMetrics.AsyncIterator.init(allMetricsForPublisher:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void **a3@<X8>)
 {
-  AVMetrics.AsyncIterator.init()(a2);
-  v4 = *a2;
-  [v4 addPublisher_];
-  [v4 subscribeToAllMetricEvents];
+  AVMetrics.AsyncIterator.init()(a2, a3);
+  v5 = *a3;
+  [v5 addPublisher_];
+  [v5 subscribeToAllMetricEvents];
 
   return swift_unknownObjectRelease();
 }
 
-uint64_t AVMetrics.AsyncIterator.init(forType:publisher:)@<X0>(uint64_t a1@<X1>, void **a2@<X8>)
+uint64_t AVMetrics.AsyncIterator.init(forType:publisher:)@<X0>(uint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X8>)
 {
-  AVMetrics.AsyncIterator.init()(a2);
-  v4 = *a2;
-  [v4 addPublisher_];
-  [v4 subscribeToMetricEvent_];
+  AVMetrics.AsyncIterator.init()(a3, a4);
+  v6 = *a4;
+  [v6 addPublisher_];
+  [v6 subscribeToMetricEvent_];
 
   return swift_unknownObjectRelease();
 }
 
-uint64_t AVMetrics.AsyncIterator.init()@<X0>(void *a1@<X8>)
+uint64_t AVMetrics.AsyncIterator.init()@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  v2 = type metadata accessor for AsyncStream.Continuation();
-  v30 = *(v2 - 8);
-  v31 = v2;
-  MEMORY[0x1EEE9AC00](v2);
-  v29 = &v23 - v3;
-  v4 = type metadata accessor for AsyncStream.Continuation.BufferingPolicy();
-  v27 = *(v4 - 8);
-  v28 = v4;
+  v4 = type metadata accessor for AsyncStream.Continuation();
+  v36 = *(v4 - 8);
+  v37 = v4;
   MEMORY[0x1EEE9AC00](v4);
-  v26 = &v23 - v5;
-  v25 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
-  v6 = *(v25 - 8);
-  MEMORY[0x1EEE9AC00](v25);
-  v8 = &v23 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for OS_dispatch_queue.Attributes();
-  MEMORY[0x1EEE9AC00](v9);
-  v10 = type metadata accessor for DispatchQoS();
-  MEMORY[0x1EEE9AC00](v10 - 8);
-  v11 = [objc_opt_self() eventStream];
-  *a1 = v11;
-  v23 = type metadata accessor for NSValue(0, &lazy cache variable for type metadata for OS_dispatch_queue);
-  v24 = v11;
+  v35 = &v29 - v5;
+  v6 = type metadata accessor for AsyncStream.Continuation.BufferingPolicy();
+  v33 = *(v6 - 8);
+  v34 = v6;
+  MEMORY[0x1EEE9AC00](v6);
+  v32 = &v29 - v7;
+  v31 = type metadata accessor for OS_dispatch_queue.AutoreleaseFrequency();
+  v8 = *(v31 - 8);
+  MEMORY[0x1EEE9AC00](v31);
+  v10 = &v29 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = type metadata accessor for OS_dispatch_queue.Attributes();
+  MEMORY[0x1EEE9AC00](v11);
+  v12 = type metadata accessor for DispatchQoS();
+  MEMORY[0x1EEE9AC00](v12 - 8);
+  v13 = [objc_opt_self() eventStream];
+  *a2 = v13;
+  v29 = type metadata accessor for NSValue(0, &lazy cache variable for type metadata for OS_dispatch_queue, 0x1E69E9610);
+  v30 = v13;
   static DispatchQoS.unspecified.getter();
-  v32 = MEMORY[0x1E69E7CC0];
+  v38 = MEMORY[0x1E69E7CC0];
   lazy protocol witness table accessor for type OS_dispatch_queue.Attributes and conformance OS_dispatch_queue.Attributes();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMd, &_sSaySo17OS_dispatch_queueC8DispatchE10AttributesVGMR);
   lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A]();
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  (*(v6 + 104))(v8, *MEMORY[0x1E69E8090], v25);
-  v12 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
-  a1[2] = v12;
-  v14 = v26;
-  v13 = v27;
-  v15 = v28;
-  (*(v27 + 104))(v26, *MEMORY[0x1E69E8650], v28);
-  v16 = *(type metadata accessor for AVMetrics.AsyncIterator() + 40);
-  v17 = v12;
+  (*(v8 + 104))(v10, *MEMORY[0x1E69E8090], v31);
+  v14 = OS_dispatch_queue.init(label:qos:attributes:autoreleaseFrequency:target:)();
+  a2[2] = v14;
+  v16 = v32;
+  v15 = v33;
+  v17 = v34;
+  (*(v33 + 104))(v32, *MEMORY[0x1E69E8650], v34);
+  v20 = *(type metadata accessor for AVMetrics.AsyncIterator(0, a1, v18, v19) + 40);
+  v21 = v14;
   static AsyncStream.makeStream(of:bufferingPolicy:)();
-  (*(v13 + 8))(v14, v15);
-  type metadata accessor for AVMetrics.SubscriberDelegate();
-  v18 = a1 + v16;
-  v19 = v29;
-  (*(v30 + 16))(v29, v18, v31);
-  v20 = AVMetrics.SubscriberDelegate.__allocating_init(streamContinuation:)(v19);
-  a1[1] = v20;
-  v21 = v24;
-  [v24 setSubscriber:v20 queue:v17];
+  (*(v15 + 8))(v16, v17);
+  type metadata accessor for AVMetrics.SubscriberDelegate(0, a1, v22, v23);
+  v24 = a2 + v20;
+  v25 = v35;
+  (*(v36 + 16))(v35, v24, v37);
+  v26 = AVMetrics.SubscriberDelegate.__allocating_init(streamContinuation:)(v25);
+  a2[1] = v26;
+  v27 = v30;
+  [v30 setSubscriber:v26 queue:v21];
 
   type metadata accessor for AsyncStream();
   return AsyncStream.makeAsyncIterator()();
 }
 
-uint64_t AVMetrics.AsyncIterator.next()()
+uint64_t AVMetrics.AsyncIterator.next()(uint64_t a1)
 {
-  v1 = swift_task_alloc();
-  *(v0 + 24) = v1;
-  v2 = type metadata accessor for AsyncStream.Iterator();
-  *v1 = v0;
-  v1[1] = AVMetrics.AsyncIterator.next();
+  v2 = swift_task_alloc();
+  *(v1 + 24) = v2;
+  v3 = type metadata accessor for AsyncStream.Iterator();
+  *v2 = v1;
+  v2[1] = AVMetrics.AsyncIterator.next();
 
-  return MEMORY[0x1EEE6D9D0](v0 + 16, v2);
+  return MEMORY[0x1EEE6D9D0](v1 + 16, v3);
 }
 
+uint64_t AVMetrics.AsyncIterator.next()()
 {
 
-  return MEMORY[0x1EEE6DFA0](AVMetrics.AsyncIterator.next(), 0, 0);
+  return MEMORY[0x1EEE6DFA0](AVMetrics.AsyncIterator.next(), 0);
 }
 
 {
   return (*(v0 + 8))(*(v0 + 16));
 }
 
-uint64_t protocol witness for AsyncIteratorProtocol.next() in conformance AVMetrics<A>.AsyncIterator(uint64_t a1)
+uint64_t protocol witness for AsyncIteratorProtocol.next() in conformance AVMetrics<A>.AsyncIterator(uint64_t a1, uint64_t a2)
 {
-  *(v1 + 16) = a1;
-  v2 = swift_task_alloc();
-  *(v1 + 24) = v2;
-  *v2 = v1;
-  v2[1] = protocol witness for AsyncIteratorProtocol.next() in conformance AVMetrics<A>.AsyncIterator;
+  *(v2 + 16) = a1;
+  v4 = swift_task_alloc();
+  *(v2 + 24) = v4;
+  *v4 = v2;
+  v4[1] = protocol witness for AsyncIteratorProtocol.next() in conformance AVMetrics<A>.AsyncIterator;
 
-  return AVMetrics.AsyncIterator.next()();
+  return AVMetrics.AsyncIterator.next()(a2);
 }
 
+uint64_t protocol witness for AsyncIteratorProtocol.next() in conformance AVMetrics<A>.AsyncIterator(uint64_t a1)
 {
   v4 = *v2;
   v5 = *v2;
@@ -9768,191 +9828,92 @@ id AVMetrics.enableSubscription(forMetricEventStream:)(void *a1)
   return result;
 }
 
-uint64_t AVMetrics.chronologicalMerge<A, B>(with:_:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
+uint64_t AVMetrics.chronologicalMerge<A, B>(with:_:)@<X0>(uint64_t *a1@<X0>, uint64_t **a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
 {
   v9 = a3;
   v12 = 8 * a4;
-  v39 = a5;
-  v40 = a6;
-  v38 = a7;
+  v42 = a5;
+  v43 = a6;
+  v41 = a7;
   if (a4 == 1)
   {
-    TupleTypeMetadata = type metadata accessor for AVMetrics();
+    TupleTypeMetadata = type metadata accessor for AVMetrics(0, *(a6 & 0xFFFFFFFFFFFFFFFELL), a3, 1);
   }
 
   else
   {
-    v37 = a3;
+    v40 = a3;
     MEMORY[0x1EEE9AC00](a1);
     if (a4)
     {
-      v14 = v40 & 0xFFFFFFFFFFFFFFFELL;
-      v15 = (&v37 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
-      v16 = a4;
+      v16 = (v43 & 0xFFFFFFFFFFFFFFFELL);
+      v17 = (&v40 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
+      v18 = a4;
       do
       {
-        v14 += 8;
-        *v15++ = type metadata accessor for AVMetrics();
-        --v16;
+        v19 = *v16++;
+        *v17++ = type metadata accessor for AVMetrics(255, v19, v14, v15);
+        --v18;
       }
 
-      while (v16);
+      while (v18);
     }
 
     TupleTypeMetadata = swift_getTupleTypeMetadata();
-    v9 = v37;
+    v9 = v40;
   }
 
-  v17 = MEMORY[0x1EEE9AC00](TupleTypeMetadata);
-  v19 = &v37 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v37 = &v37;
-  v21 = *a1;
-  v20 = *(a1 + 8);
-  v22 = *(a1 + 16);
-  v23 = *(v7 + 8);
-  v24 = *(v7 + 16);
-  v43[0] = *v7;
-  v43[1] = v23;
-  v44 = v24;
-  v41[0] = v21;
-  v41[1] = v20;
-  v42 = v22;
-  v25 = MEMORY[0x1EEE9AC00](v17);
-  v26 = (&v37 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v20 = MEMORY[0x1EEE9AC00](TupleTypeMetadata);
+  v22 = &v40 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v40 = &v40;
+  v24 = *a1;
+  v23 = a1[1];
+  v25 = *(a1 + 16);
+  v26 = *(v7 + 8);
+  v27 = *(v7 + 16);
+  v46[0] = *v7;
+  v46[1] = v26;
+  v47 = v27;
+  v44[0] = v24;
+  v44[1] = v23;
+  v45 = v25;
+  v28 = MEMORY[0x1EEE9AC00](v20);
+  v29 = (&v40 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
   if (a4)
   {
-    v27 = (v25 + 32);
-    v28 = v26;
-    v29 = a4;
+    v30 = (v28 + 32);
+    v31 = v29;
+    v32 = a4;
     do
     {
       if (a4 == 1)
       {
-        v30 = 0;
+        v33 = 0;
       }
 
       else
       {
-        v30 = *v27;
+        v33 = *v30;
       }
 
-      v31 = &v19[v30];
-      v32 = *a2++;
-      v33 = *(v32 + 8);
-      v34 = *(v32 + 16);
-      *v31 = *v32;
-      *(v31 + 1) = v33;
-      v31[16] = v34;
-      *v28++ = v31;
+      v34 = &v22[v33];
+      v35 = *a2++;
+      v36 = *(v35 + 8);
+      v37 = *(v35 + 16);
+      *v34 = *v35;
+      *(v34 + 1) = v36;
+      v34[16] = v37;
+      *v31++ = v34;
       swift_unknownObjectRetain();
-      v27 += 4;
-      --v29;
+      v30 += 4;
+      --v32;
     }
 
-    while (v29);
+    while (v32);
   }
 
-  v35 = *(v9 + 16);
+  v38 = *(v9 + 16);
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
-  return AVMergedMetrics.init(chronologicallyMerging:_:_:)(v43, v41, v26, a4, v35, v39, v40, v38);
-}
-
-uint64_t AVMergedMetrics.init(chronologicallyMerging:_:_:)@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
-{
-  v11 = a4;
-  v44 = a8;
-  v45 = a3;
-  if (a4 == 1)
-  {
-    TupleTypeMetadata = type metadata accessor for AVMetrics();
-    v15 = TupleTypeMetadata;
-  }
-
-  else
-  {
-    v43 = &v42;
-    MEMORY[0x1EEE9AC00](a1);
-    v17 = (v16 + 15) & 0xFFFFFFFFFFFFFFF0;
-    if (v11)
-    {
-      v18 = a7 & 0xFFFFFFFFFFFFFFFELL;
-      v19 = (&v42 - v17);
-      v20 = v11;
-      do
-      {
-        v18 += 8;
-        *v19++ = type metadata accessor for AVMetrics();
-        --v20;
-      }
-
-      while (v20);
-    }
-
-    TupleTypeMetadata = swift_getTupleTypeMetadata();
-    v15 = TupleTypeMetadata;
-  }
-
-  v21 = *(v15 - 8);
-  MEMORY[0x1EEE9AC00](TupleTypeMetadata);
-  v23 = &v42 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v46 = v11;
-  v47 = a5;
-  v48 = a6;
-  v49 = a7;
-  v24 = type metadata accessor for AVMergedMetrics();
-  v43 = &v42;
-  v25 = *(v24 - 8);
-  MEMORY[0x1EEE9AC00](v24);
-  v27 = &v42 - v26;
-  v28 = *(a1 + 8);
-  v29 = *(a1 + 16);
-  v30 = *a2;
-  v31 = a2[1];
-  v32 = *(a2 + 16);
-  *v27 = *a1;
-  *(v27 + 1) = v28;
-  v27[16] = v29;
-  *(v27 + 3) = v30;
-  *(v27 + 4) = v31;
-  v27[40] = v32;
-  if (v11)
-  {
-    v33 = (v15 + 32);
-    v34 = v45;
-    v35 = v11;
-    do
-    {
-      if (v11 == 1)
-      {
-        v36 = 0;
-      }
-
-      else
-      {
-        v36 = *v33;
-      }
-
-      v37 = &v23[v36];
-      v38 = *v34++;
-      v39 = *(v38 + 8);
-      v40 = *(v38 + 16);
-      *v37 = *v38;
-      *(v37 + 1) = v39;
-      v37[16] = v40;
-      swift_unknownObjectRetain();
-      v33 += 4;
-      --v35;
-    }
-
-    while (v35);
-  }
-
-  (*(v21 + 32))(&v27[*(v24 + 56)], v23, v15);
-  for (result = (*(v25 + 32))(v44, v27, v24); v11; --v11)
-  {
-    result = swift_unknownObjectRelease();
-  }
-
-  return result;
+  return AVMergedMetrics.init(chronologicallyMerging:_:_:)(v46, v44, v29, a4, v38, v42, v43, v41);
 }

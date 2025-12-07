@@ -18,9 +18,10 @@
 
 - (void)audioPlayerDidFinishPlaying:(id)playing successfully:(BOOL)successfully
 {
+  successfullyCopy = successfully;
   playingCopy = playing;
   selfCopy = self;
-  sub_2FCA0(successfully);
+  sub_2FCA0(successfullyCopy);
 }
 
 - (void)audioPlayerDecodeErrorDidOccur:(id)occur error:(id)error
@@ -28,7 +29,7 @@
   occurCopy = occur;
   selfCopy = self;
   errorCopy = error;
-  sub_2FE04();
+  sub_2FE04(error);
 }
 
 @end

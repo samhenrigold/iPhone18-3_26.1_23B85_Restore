@@ -60,124 +60,124 @@ uint64_t __33__DYJavaScriptHelperContext_init__block_invoke(uint64_t a1, void *a
 
 - (id)generateJavascriptCode:(id)code softwareCounterNames:(id)names derivedCounterNames:(id)counterNames
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   string = [MEMORY[0x277CCAB68] string];
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
-  v9 = [code countByEnumeratingWithState:&v49 objects:v57 count:16];
+  v9 = [code countByEnumeratingWithState:&v48 objects:v56 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v50;
+    v11 = *v49;
     do
     {
       v12 = 0;
       do
       {
-        if (*v50 != v11)
+        if (*v49 != v11)
         {
           objc_enumerationMutation(code);
         }
 
-        [string appendFormat:@"var %@ = 0;\n", *(*(&v49 + 1) + 8 * v12++)];
+        [string appendFormat:@"var %@ = 0;\n", *(*(&v48 + 1) + 8 * v12++)];
       }
 
       while (v10 != v12);
-      v10 = [code countByEnumeratingWithState:&v49 objects:v57 count:16];
+      v10 = [code countByEnumeratingWithState:&v48 objects:v56 count:16];
     }
 
     while (v10);
   }
 
   [string appendFormat:@"function _SetRawCounterValues() {\n"];
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
-  v13 = [code countByEnumeratingWithState:&v45 objects:v56 count:16];
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v13 = [code countByEnumeratingWithState:&v44 objects:v55 count:16];
   if (v13)
   {
     v14 = v13;
     v15 = 0;
-    v16 = *v46;
+    v16 = *v45;
     do
     {
       v17 = 0;
       do
       {
-        if (*v46 != v16)
+        if (*v45 != v16)
         {
           objc_enumerationMutation(code);
         }
 
-        [string appendFormat:@"\t%@ = _RawCounterValues[%lu];\n", *(*(&v45 + 1) + 8 * v17++), v15++];
+        [string appendFormat:@"\t%@ = _RawCounterValues[%lu];\n", *(*(&v44 + 1) + 8 * v17++), v15++];
       }
 
       while (v14 != v17);
-      v14 = [code countByEnumeratingWithState:&v45 objects:v56 count:16];
+      v14 = [code countByEnumeratingWithState:&v44 objects:v55 count:16];
     }
 
     while (v14);
   }
 
   [string appendFormat:@"}\n"];
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
   v42 = 0u;
-  v18 = [names countByEnumeratingWithState:&v41 objects:v55 count:16];
+  v43 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v18 = [names countByEnumeratingWithState:&v40 objects:v54 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v42;
+    v20 = *v41;
     do
     {
       v21 = 0;
       do
       {
-        if (*v42 != v20)
+        if (*v41 != v20)
         {
           objc_enumerationMutation(names);
         }
 
-        [string appendFormat:@"var %@ = 0;\n", *(*(&v41 + 1) + 8 * v21++)];
+        [string appendFormat:@"var %@ = 0;\n", *(*(&v40 + 1) + 8 * v21++)];
       }
 
       while (v19 != v21);
-      v19 = [names countByEnumeratingWithState:&v41 objects:v55 count:16];
+      v19 = [names countByEnumeratingWithState:&v40 objects:v54 count:16];
     }
 
     while (v19);
   }
 
   [string appendFormat:@"function _SetSoftwareCounterValues() {\n"];
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
-  v22 = [names countByEnumeratingWithState:&v37 objects:v54 count:16];
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v22 = [names countByEnumeratingWithState:&v36 objects:v53 count:16];
   if (v22)
   {
     v23 = v22;
     v24 = 0;
-    v25 = *v38;
+    v25 = *v37;
     do
     {
       v26 = 0;
       do
       {
-        if (*v38 != v25)
+        if (*v37 != v25)
         {
           objc_enumerationMutation(names);
         }
 
-        [string appendFormat:@"\t%@ = _SoftwareCounterValues[%lu];\n", *(*(&v37 + 1) + 8 * v26++), v24++];
+        [string appendFormat:@"\t%@ = _SoftwareCounterValues[%lu];\n", *(*(&v36 + 1) + 8 * v26++), v24++];
       }
 
       while (v23 != v26);
-      v23 = [names countByEnumeratingWithState:&v37 objects:v54 count:16];
+      v23 = [names countByEnumeratingWithState:&v36 objects:v53 count:16];
     }
 
     while (v23);
@@ -186,37 +186,36 @@ uint64_t __33__DYJavaScriptHelperContext_init__block_invoke(uint64_t a1, void *a
   [string appendFormat:@"}\n"];
   [string appendString:@"var _DerivedCounterResult = [];\nfunction _EvaluteDerivedCounters() {\n"];
   [string appendFormat:@"\t_DerivedCounterResult = [];\n"];
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
-  v27 = [counterNames countByEnumeratingWithState:&v33 objects:v53 count:16];
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v27 = [counterNames countByEnumeratingWithState:&v32 objects:v52 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v34;
+    v29 = *v33;
     do
     {
       v30 = 0;
       do
       {
-        if (*v34 != v29)
+        if (*v33 != v29)
         {
           objc_enumerationMutation(counterNames);
         }
 
-        [string appendFormat:@"\ttry { value = %@(); if (!isFinite(value)) { value = 0; } _DerivedCounterResult.push(value); } catch(err) { ErrorLog(err); _DerivedCounterResult.push(0); }\n", *(*(&v33 + 1) + 8 * v30++)];
+        [string appendFormat:@"\ttry { value = %@(); if (!isFinite(value)) { value = 0; } _DerivedCounterResult.push(value); } catch(err) { ErrorLog(err); _DerivedCounterResult.push(0); }\n", *(*(&v32 + 1) + 8 * v30++)];
       }
 
       while (v28 != v30);
-      v28 = [counterNames countByEnumeratingWithState:&v33 objects:v53 count:16];
+      v28 = [counterNames countByEnumeratingWithState:&v32 objects:v52 count:16];
     }
 
     while (v28);
   }
 
   [string appendFormat:@"}\n"];
-  v31 = *MEMORY[0x277D85DE8];
   return string;
 }
 

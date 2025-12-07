@@ -747,90 +747,70 @@ LABEL_53:
 
 - (void)setWatchLiveTextFormat:(id)format
 {
-  v4 = [format copy];
-  watchLiveTextFormat = self->_watchLiveTextFormat;
-  self->_watchLiveTextFormat = v4;
+  self->_watchLiveTextFormat = [format copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setAddedToUpNextText:(id)text
 {
-  v4 = [text copy];
-  addedToUpNextText = self->_addedToUpNextText;
-  self->_addedToUpNextText = v4;
+  self->_addedToUpNextText = [text copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setAddToUpNextText:(id)text
 {
-  v4 = [text copy];
-  addToUpNextText = self->_addToUpNextText;
-  self->_addToUpNextText = v4;
+  self->_addToUpNextText = [text copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setInUpNextText:(id)text
 {
-  v4 = [text copy];
-  inUpNextText = self->_inUpNextText;
-  self->_inUpNextText = v4;
+  self->_inUpNextText = [text copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setPurchaseOfferTextFormat:(id)format
 {
-  v4 = [format copy];
-  purchaseOfferTextFormat = self->_purchaseOfferTextFormat;
-  self->_purchaseOfferTextFormat = v4;
+  self->_purchaseOfferTextFormat = [format copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setInstallButtonTitle:(id)title
 {
-  v4 = [title copy];
-  installButtonTitle = self->_installButtonTitle;
-  self->_installButtonTitle = v4;
+  self->_installButtonTitle = [title copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setOpenButtonTitle:(id)title
 {
-  v4 = [title copy];
-  openButtonTitle = self->_openButtonTitle;
-  self->_openButtonTitle = v4;
+  self->_openButtonTitle = [title copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setContinueInTextFormat:(id)format
 {
-  v4 = [format copy];
-  continueInTextFormat = self->_continueInTextFormat;
-  self->_continueInTextFormat = v4;
+  self->_continueInTextFormat = [format copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setSeasonEpisodeTextFormat:(id)format
 {
-  v4 = [format copy];
-  seasonEpisodeTextFormat = self->_seasonEpisodeTextFormat;
-  self->_seasonEpisodeTextFormat = v4;
+  self->_seasonEpisodeTextFormat = [format copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setWatchListIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  watchListIdentifier = self->_watchListIdentifier;
-  self->_watchListIdentifier = v4;
+  self->_watchListIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

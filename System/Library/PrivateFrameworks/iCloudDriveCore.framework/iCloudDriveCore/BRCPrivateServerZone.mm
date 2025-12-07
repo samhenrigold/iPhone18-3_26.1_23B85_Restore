@@ -98,34 +98,34 @@ id __47__BRCPrivateServerZone_itemByParentID_andName___block_invoke(uint64_t a1,
 
 - (void)_checkResultSetIsEmpty:(id)empty logToFile:(__sFILE *)file reason:(id)reason result:(BOOL *)result
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   emptyCopy = empty;
   reasonCopy = reason;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v11 = [emptyCopy enumerateObjectsOfClass:objc_opt_class()];
-  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v22;
+    v14 = *v21;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v21 + 1) + 8 * i);
+        v16 = *(*(&v20 + 1) + 8 * i);
         *result = 0;
         fprintf(file, "itemID %s %s\n", [v16 UTF8String], objc_msgSend(reasonCopy, "UTF8String"));
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v13);
@@ -140,8 +140,6 @@ id __47__BRCPrivateServerZone_itemByParentID_andName___block_invoke(uint64_t a1,
     v19 = [error2 description];
     fprintf(file, "SQL error: %s\n", [v19 UTF8String]);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)validateStructureLoggingToFile:(__sFILE *)file db:(id)db
@@ -200,15 +198,15 @@ LABEL_8:
 
 - (BOOL)validateItemsLoggingToFile:(__sFILE *)file db:(id)db
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dbCopy = db;
   fprintf(file, "server items checks (%s)\n===================\n", [(NSString *)self->super._zoneName UTF8String]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v7 = [(BRCServerZone *)self itemsEnumeratorWithDB:dbCopy];
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (!v8)
   {
 
@@ -219,21 +217,21 @@ LABEL_11:
   }
 
   v9 = v8;
-  v10 = *v17;
+  v10 = *v16;
   v11 = 1;
   do
   {
     for (i = 0; i != v9; ++i)
     {
-      if (*v17 != v10)
+      if (*v16 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v11 &= [*(*(&v16 + 1) + 8 * i) validateLoggingToFile:file];
+      v11 &= [*(*(&v15 + 1) + 8 * i) validateLoggingToFile:file];
     }
 
-    v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   }
 
   while (v9);
@@ -247,7 +245,6 @@ LABEL_11:
 LABEL_12:
   fputc(10, file);
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

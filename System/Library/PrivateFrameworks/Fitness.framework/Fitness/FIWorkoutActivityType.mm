@@ -1,6 +1,8 @@
 @interface FIWorkoutActivityType
 + (BOOL)isEffectivelyIndoorForWorkout:(id)workout;
 + (BOOL)shouldDisambiguateOnLocationType:(unint64_t)type;
++ (FIWorkoutActivityType)activityTypeWithHKWorkoutActivityTypeIdentifier:(unint64_t)identifier isIndoor:(BOOL)indoor;
++ (FIWorkoutActivityType)activityTypeWithHKWorkoutActivityTypeIdentifier:(unint64_t)identifier isIndoor:(BOOL)indoor metadata:(id)metadata;
 + (FIWorkoutActivityType)activityTypeWithWorkout:(id)workout;
 + (id)activityTypeFromUniqueIdentifier:(id)identifier;
 + (id)allActivityTypes;
@@ -13,6 +15,7 @@
 + (id)otherWorkoutActivityTypes;
 + (id)phoneAndHeartRateMonitorSupportedActivityTypes;
 + (id)phoneOnlySupportedActivityTypes;
++ (id)possibleActivityTypesForIdentifier:(unint64_t)identifier locationType:(int64_t)type swimmingLocationType:(int64_t)locationType wheelchairUser:(BOOL)user;
 + (id)swimmingOptimizedActivityTypes;
 + (id)swimmingOtherActivityTypes;
 + (id)unsupportedActivityTypesWithIsWheelchairUser:(BOOL)user isSwimmingSupported:(BOOL)supported;
@@ -24,6 +27,8 @@
 - (BOOL)supportsSafetyCheckInPrompt;
 - (BOOL)supportsWorkoutVoiceMotivationBreakthroughMoments;
 - (BOOL)supportsWorkoutVoiceMotivationProgressMoments;
+- (FIWorkoutActivityType)initWithActivityTypeIdentifier:(unint64_t)identifier isIndoor:(BOOL)indoor isPartOfMultiSport:(BOOL)sport metadata:(id)metadata;
+- (FIWorkoutActivityType)initWithActivityTypeIdentifier:(unint64_t)identifier isIndoor:(BOOL)indoor isPartOfMultiSport:(BOOL)sport metadata:(id)metadata auxiliaryTypeIdentifier:(unint64_t)typeIdentifier;
 - (FIWorkoutActivityType)initWithActivityTypeIdentifier:(unint64_t)identifier location:(int64_t)location isPartOfMultiSport:(BOOL)sport metadata:(id)metadata auxiliaryTypeIdentifier:(unint64_t)typeIdentifier;
 - (FIWorkoutActivityType)initWithCoder:(id)coder;
 - (HKQuantity)lapLength;
@@ -48,18 +53,17 @@
 {
   v3 = MEMORY[0x277CCACA8];
   localizedName = [(FIWorkoutActivityType *)self localizedName];
-  location = self->_location;
-  v6 = _HKWorkoutSessionLocationTypeName();
-  v7 = v6;
-  v8 = @"NO";
+  v5 = _HKWorkoutSessionLocationTypeName();
+  v6 = v5;
+  v7 = @"NO";
   if (self->_isPartOfMultiSport)
   {
-    v8 = @"YES";
+    v7 = @"YES";
   }
 
-  v9 = [v3 stringWithFormat:@"FIWorkoutActivityType(type=%@, location=%@, partOfMultisport=%@, metadata=%@)", localizedName, v6, v8, self->_metadata];
+  v8 = [v3 stringWithFormat:@"FIWorkoutActivityType(type=%@, location=%@, partOfMultisport=%@, metadata=%@)", localizedName, v5, v7, self->_metadata];
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)effectiveTypeIdentifier
@@ -94,7 +98,7 @@
   effectiveTypeIdentifier = [(FIWorkoutActivityType *)self effectiveTypeIdentifier];
   if (requiresDisambiguation)
   {
-    FILocalizedNameForIndoorAgnosticActivityType();
+    FILocalizedNameForIndoorAgnosticActivityType(effectiveTypeIdentifier);
   }
 
   else
@@ -142,6 +146,24 @@
   }
 
   return v7;
+}
+
++ (FIWorkoutActivityType)activityTypeWithHKWorkoutActivityTypeIdentifier:(unint64_t)identifier isIndoor:(BOOL)indoor
+{
+  indoorCopy = indoor;
+  v6 = [FIWorkoutActivityType alloc];
+  v7 = [(FIWorkoutActivityType *)v6 initWithActivityTypeIdentifier:identifier isIndoor:indoorCopy metadata:MEMORY[0x277CBEC10]];
+
+  return v7;
+}
+
++ (FIWorkoutActivityType)activityTypeWithHKWorkoutActivityTypeIdentifier:(unint64_t)identifier isIndoor:(BOOL)indoor metadata:(id)metadata
+{
+  indoorCopy = indoor;
+  metadataCopy = metadata;
+  v8 = [[FIWorkoutActivityType alloc] initWithActivityTypeIdentifier:identifier isIndoor:indoorCopy metadata:metadataCopy];
+
+  return v8;
 }
 
 + (FIWorkoutActivityType)activityTypeWithWorkout:(id)workout
@@ -200,7 +222,7 @@
   v9 = sourceRevision2;
   if (sourceRevision2)
   {
-    [sourceRevision2 operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(sourceRevision2);
   }
 
   else
@@ -231,13 +253,43 @@ LABEL_9:
   return bOOLValue;
 }
 
+- (FIWorkoutActivityType)initWithActivityTypeIdentifier:(unint64_t)identifier isIndoor:(BOOL)indoor isPartOfMultiSport:(BOOL)sport metadata:(id)metadata
+{
+  if (indoor)
+  {
+    v6 = 2;
+  }
+
+  else
+  {
+    v6 = 3;
+  }
+
+  return [(FIWorkoutActivityType *)self initWithActivityTypeIdentifier:identifier location:v6 isPartOfMultiSport:sport metadata:metadata];
+}
+
+- (FIWorkoutActivityType)initWithActivityTypeIdentifier:(unint64_t)identifier isIndoor:(BOOL)indoor isPartOfMultiSport:(BOOL)sport metadata:(id)metadata auxiliaryTypeIdentifier:(unint64_t)typeIdentifier
+{
+  if (indoor)
+  {
+    v7 = 2;
+  }
+
+  else
+  {
+    v7 = 3;
+  }
+
+  return [(FIWorkoutActivityType *)self initWithActivityTypeIdentifier:identifier location:v7 isPartOfMultiSport:sport metadata:metadata auxiliaryTypeIdentifier:typeIdentifier];
+}
+
 - (FIWorkoutActivityType)initWithActivityTypeIdentifier:(unint64_t)identifier location:(int64_t)location isPartOfMultiSport:(BOOL)sport metadata:(id)metadata auxiliaryTypeIdentifier:(unint64_t)typeIdentifier
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
-  v30.receiver = self;
-  v30.super_class = FIWorkoutActivityType;
-  v13 = [(FIWorkoutActivityType *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = FIWorkoutActivityType;
+  v13 = [(FIWorkoutActivityType *)&v29 init];
   v14 = v13;
   if (v13)
   {
@@ -249,37 +301,37 @@ LABEL_9:
     if (metadataCopy && [metadataCopy count])
     {
       v15 = *MEMORY[0x277CCC510];
-      v35[0] = *MEMORY[0x277CCC4D0];
-      v35[1] = v15;
+      v34[0] = *MEMORY[0x277CCC4D0];
+      v34[1] = v15;
       v16 = *MEMORY[0x277CCC530];
-      v35[2] = *MEMORY[0x277CCC518];
-      v35[3] = v16;
-      v35[4] = @"BackdatedStartDate";
-      v35[5] = @"PredictionSessionUUID";
-      v35[6] = @"_HKPrivateSeymourMediaType";
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:7];
+      v34[2] = *MEMORY[0x277CCC518];
+      v34[3] = v16;
+      v34[4] = @"BackdatedStartDate";
+      v34[5] = @"PredictionSessionUUID";
+      v34[6] = @"_HKPrivateSeymourMediaType";
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:7];
       v18 = metadataCopy;
       dictionary = [MEMORY[0x277CBEB38] dictionary];
+      v30 = 0u;
       v31 = 0u;
       v32 = 0u;
       v33 = 0u;
-      v34 = 0u;
       v20 = v17;
-      v21 = [(NSDictionary *)v20 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v21 = [(NSDictionary *)v20 countByEnumeratingWithState:&v30 objects:v35 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v32;
+        v23 = *v31;
         do
         {
           for (i = 0; i != v22; ++i)
           {
-            if (*v32 != v23)
+            if (*v31 != v23)
             {
               objc_enumerationMutation(v20);
             }
 
-            v25 = *(*(&v31 + 1) + 8 * i);
+            v25 = *(*(&v30 + 1) + 8 * i);
             v26 = [v18 objectForKeyedSubscript:v25];
             if (v26)
             {
@@ -287,7 +339,7 @@ LABEL_9:
             }
           }
 
-          v22 = [(NSDictionary *)v20 countByEnumeratingWithState:&v31 objects:v36 count:16];
+          v22 = [(NSDictionary *)v20 countByEnumeratingWithState:&v30 objects:v35 count:16];
         }
 
         while (v22);
@@ -304,49 +356,48 @@ LABEL_9:
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 + (id)activityTypeFromUniqueIdentifier:(id)identifier
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v4 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:{@", "}];;
   v5 = [identifierCopy componentsSeparatedByCharactersInSet:v4];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v7)
   {
-    v22 = identifierCopy;
+    v21 = identifierCopy;
     integerValue2 = 0;
-    v24 = 0;
+    v23 = 0;
     integerValue = 0;
-    v8 = *v27;
+    v8 = *v26;
     while (2)
     {
       v9 = v6;
       for (i = 0; i != v7; ++i)
       {
-        if (*v27 != v8)
+        if (*v26 != v8)
         {
           objc_enumerationMutation(v9);
         }
 
-        v11 = [*(*(&v26 + 1) + 8 * i) componentsSeparatedByString:{@"=", v22}];
+        v11 = [*(*(&v25 + 1) + 8 * i) componentsSeparatedByString:{@"=", v21}];
         if ([v11 count] != 2)
         {
           _HKInitializeLogging();
           v17 = *MEMORY[0x277CCC330];
-          identifierCopy = v22;
+          identifierCopy = v21;
           if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_ERROR))
           {
-            [(FIWorkoutActivityType *)v22 activityTypeFromUniqueIdentifier:v17];
+            [(FIWorkoutActivityType *)v21 activityTypeFromUniqueIdentifier:v17];
           }
 
           v18 = 0;
@@ -363,7 +414,7 @@ LABEL_9:
 
         if ([v12 isEqualToString:@"isIndoor"])
         {
-          LOBYTE(v24) = [v13 BOOLValue];
+          LOBYTE(v23) = [v13 BOOLValue];
         }
 
         if ([v12 isEqualToString:@"isOther"])
@@ -378,12 +429,12 @@ LABEL_9:
 
         if ([v12 isEqualToString:@"isPartOfMultiSport"])
         {
-          BYTE4(v24) = [v13 BOOLValue];
+          BYTE4(v23) = [v13 BOOLValue];
         }
       }
 
       v6 = v9;
-      v7 = [v9 countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v7 = [v9 countByEnumeratingWithState:&v25 objects:v31 count:16];
       if (v7)
       {
         continue;
@@ -394,22 +445,22 @@ LABEL_9:
 
     if (integerValue2)
     {
-      v30 = *MEMORY[0x277CCC510];
+      v29 = *MEMORY[0x277CCC510];
       v14 = [MEMORY[0x277CCABB0] numberWithInteger:?];
-      v31 = v14;
-      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
-      identifierCopy = v22;
+      v30 = v14;
+      v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+      identifierCopy = v21;
       v15 = integerValue;
-      LOBYTE(v7) = v24;
-      v16 = BYTE4(v24);
+      LOBYTE(v7) = v23;
+      v16 = BYTE4(v23);
       goto LABEL_25;
     }
 
     v9 = 0;
-    identifierCopy = v22;
+    identifierCopy = v21;
     v15 = integerValue;
-    LOBYTE(v7) = v24;
-    v16 = BYTE4(v24);
+    LOBYTE(v7) = v23;
+    v16 = BYTE4(v23);
   }
 
   else
@@ -439,8 +490,6 @@ LABEL_25:
   }
 
 LABEL_31:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -476,11 +525,11 @@ LABEL_31:
 
 - (FIWorkoutActivityType)initWithCoder:(id)coder
 {
-  v18[5] = *MEMORY[0x277D85DE8];
+  v17[5] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v17.receiver = self;
-  v17.super_class = FIWorkoutActivityType;
-  v5 = [(FIWorkoutActivityType *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = FIWorkoutActivityType;
+  v5 = [(FIWorkoutActivityType *)&v16 init];
   if (!v5)
   {
     goto LABEL_11;
@@ -510,12 +559,12 @@ LABEL_31:
   v5->_auxiliaryTypeIdentifier = v6;
 LABEL_7:
   v8 = MEMORY[0x277CBEB98];
-  v18[0] = objc_opt_class();
-  v18[1] = objc_opt_class();
-  v18[2] = objc_opt_class();
-  v18[3] = objc_opt_class();
-  v18[4] = objc_opt_class();
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:5];
+  v17[0] = objc_opt_class();
+  v17[1] = objc_opt_class();
+  v17[2] = objc_opt_class();
+  v17[3] = objc_opt_class();
+  v17[4] = objc_opt_class();
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:5];
   v10 = [v8 setWithArray:v9];
   v11 = [coderCopy decodeObjectOfClasses:v10 forKey:@"FIUIWorkoutActivityTypeMetadata"];
   metadata = v5->_metadata;
@@ -537,7 +586,6 @@ LABEL_7:
 
 LABEL_11:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -631,25 +679,24 @@ LABEL_11:
 
 + (id)gymKitCapableActivityTypes
 {
-  v13[6] = *MEMORY[0x277D85DE8];
+  v12[6] = *MEMORY[0x277D85DE8];
   v2 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:52 isIndoor:1];
-  v13[0] = v2;
+  v12[0] = v2;
   v3 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:37 isIndoor:1];
-  v13[1] = v3;
+  v12[1] = v3;
   v4 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:13 isIndoor:1];
-  v13[2] = v4;
+  v12[2] = v4;
   v5 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:44 isIndoor:1];
-  v13[3] = v5;
+  v12[3] = v5;
   v6 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:35 isIndoor:1];
-  v13[4] = v6;
+  v12[4] = v6;
   v7 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:16 isIndoor:1];
-  v13[5] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:6];
+  v12[5] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:6];
   v9 = gymKitCapableActivityTypes_activityTypes;
   gymKitCapableActivityTypes_activityTypes = v8;
 
   v10 = gymKitCapableActivityTypes_activityTypes;
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -680,50 +727,50 @@ LABEL_11:
 
 void __88__FIWorkoutActivityType_optimizedActivityTypesWithIsWheelchairUser_isSwimmingSupported___block_invoke(uint64_t a1)
 {
-  v41[21] = *MEMORY[0x277D85DE8];
-  v39 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:52 isIndoor:0];
-  v41[0] = v39;
-  v38 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:37 isIndoor:0];
-  v41[1] = v38;
-  v37 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:13 isIndoor:0];
-  v41[2] = v37;
-  v36 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:52 isIndoor:1];
-  v41[3] = v36;
-  v35 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:37 isIndoor:1];
-  v41[4] = v35;
-  v34 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:13 isIndoor:1];
-  v41[5] = v34;
-  v33 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:16 isIndoor:0];
-  v41[6] = v33;
-  v32 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:35 isIndoor:0];
-  v41[7] = v32;
-  v31 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:44 isIndoor:0];
-  v41[8] = v31;
-  v30 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:63 isIndoor:0];
-  v41[9] = v30;
-  v29 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:24 isIndoor:0];
-  v41[10] = v29;
-  v28 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:57 isIndoor:0];
-  v41[11] = v28;
-  v27 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:20 isIndoor:0];
-  v41[12] = v27;
+  v40[21] = *MEMORY[0x277D85DE8];
+  v38 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:52 isIndoor:0];
+  v40[0] = v38;
+  v37 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:37 isIndoor:0];
+  v40[1] = v37;
+  v36 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:13 isIndoor:0];
+  v40[2] = v36;
+  v35 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:52 isIndoor:1];
+  v40[3] = v35;
+  v34 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:37 isIndoor:1];
+  v40[4] = v34;
+  v33 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:13 isIndoor:1];
+  v40[5] = v33;
+  v32 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:16 isIndoor:0];
+  v40[6] = v32;
+  v31 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:35 isIndoor:0];
+  v40[7] = v31;
+  v30 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:44 isIndoor:0];
+  v40[8] = v30;
+  v29 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:63 isIndoor:0];
+  v40[9] = v29;
+  v28 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:24 isIndoor:0];
+  v40[10] = v28;
+  v27 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:57 isIndoor:0];
+  v40[11] = v27;
+  v26 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:20 isIndoor:0];
+  v40[12] = v26;
   v1 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:77 isIndoor:0];
-  v41[13] = v1;
+  v40[13] = v1;
   v2 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:80 isIndoor:0];
-  v41[14] = v2;
+  v40[14] = v2;
   v3 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:59 isIndoor:0];
-  v41[15] = v3;
+  v40[15] = v3;
   v4 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:66 isIndoor:0];
-  v41[16] = v4;
+  v40[16] = v4;
   v5 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:72 isIndoor:0];
-  v41[17] = v5;
+  v40[17] = v5;
   v6 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:65 isIndoor:0];
-  v41[18] = v6;
+  v40[18] = v6;
   v7 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:82 isIndoor:0];
-  v41[19] = v7;
+  v40[19] = v7;
   v8 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:3000 isIndoor:0];
-  v41[20] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:21];
+  v40[20] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:21];
   v10 = optimizedActivityTypesWithIsWheelchairUser_isSwimmingSupported__activityTypes;
   optimizedActivityTypesWithIsWheelchairUser_isSwimmingSupported__activityTypes = v9;
 
@@ -752,87 +799,83 @@ void __88__FIWorkoutActivityType_optimizedActivityTypesWithIsWheelchairUser_isSw
     v25 = optimizedActivityTypesWithIsWheelchairUser_isSwimmingSupported__wheelchairActivityTypes;
     optimizedActivityTypesWithIsWheelchairUser_isSwimmingSupported__wheelchairActivityTypes = v24;
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 + (id)allActivityTypes
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v2 = +[FIWorkoutActivityType otherWorkoutActivityTypes];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v29;
+    v7 = *v28;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v29 != v7)
+        if (*v28 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = +[FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:isIndoor:metadata:](FIWorkoutActivityType, "activityTypeWithHKWorkoutActivityTypeIdentifier:isIndoor:metadata:", [*(*(&v28 + 1) + 8 * i) integerValue], 0, 0);
+        v9 = +[FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:isIndoor:metadata:](FIWorkoutActivityType, "activityTypeWithHKWorkoutActivityTypeIdentifier:isIndoor:metadata:", [*(*(&v27 + 1) + 8 * i) integerValue], 0, 0);
         [v3 addObject:v9];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v6);
   }
 
-  v22 = [FIWorkoutActivityType optimizedActivityTypesWithIsWheelchairUser:1 isSwimmingSupported:FIDeviceSupportsSwimming()];
+  v21 = [FIWorkoutActivityType optimizedActivityTypesWithIsWheelchairUser:1 isSwimmingSupported:FIDeviceSupportsSwimming()];
   v10 = [v3 arrayByAddingObjectsFromArray:?];
-  v23 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v22 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v25;
+    v14 = *v24;
     do
     {
       for (j = 0; j != v13; ++j)
       {
-        if (*v25 != v14)
+        if (*v24 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v24 + 1) + 8 * j);
+        v16 = *(*(&v23 + 1) + 8 * j);
         if (+[FIWorkoutActivityType shouldDisambiguateOnLocationType:](FIWorkoutActivityType, "shouldDisambiguateOnLocationType:", [v16 effectiveTypeIdentifier]))
         {
           v17 = -[FIWorkoutActivityType initWithActivityTypeIdentifier:isIndoor:]([FIWorkoutActivityType alloc], "initWithActivityTypeIdentifier:isIndoor:", [v16 effectiveTypeIdentifier], objc_msgSend(v16, "isIndoor") ^ 1);
           if (([v11 containsObject:v17] & 1) == 0)
           {
-            [v23 addObject:v17];
+            [v22 addObject:v17];
           }
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v13);
   }
 
-  v18 = [v11 arrayByAddingObjectsFromArray:v23];
+  v18 = [v11 arrayByAddingObjectsFromArray:v22];
   v19 = [v18 mutableCopy];
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -852,28 +895,28 @@ void __88__FIWorkoutActivityType_optimizedActivityTypesWithIsWheelchairUser_isSw
 
 + (id)nonOptimizedActivityTypes
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   otherWorkoutActivityTypes = [self otherWorkoutActivityTypes];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v5 = [otherWorkoutActivityTypes countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [otherWorkoutActivityTypes countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(otherWorkoutActivityTypes);
         }
 
-        integerValue = [*(*(&v14 + 1) + 8 * i) integerValue];
+        integerValue = [*(*(&v13 + 1) + 8 * i) integerValue];
         v10 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:integerValue isIndoor:0];
         [v3 addObject:v10];
 
@@ -884,13 +927,11 @@ void __88__FIWorkoutActivityType_optimizedActivityTypesWithIsWheelchairUser_isSw
         }
       }
 
-      v6 = [otherWorkoutActivityTypes countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [otherWorkoutActivityTypes countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -928,194 +969,182 @@ void __88__FIWorkoutActivityType_optimizedActivityTypesWithIsWheelchairUser_isSw
 
 + (id)wheelchairActivityTypes
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v2 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:70 isIndoor:0];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:71 isIndoor:0];
-  v7[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v6[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
 + (id)swimmingOptimizedActivityTypes
 {
-  v14[2] = *MEMORY[0x277D85DE8];
-  v12 = *MEMORY[0x277CCC510];
-  v2 = v12;
-  v13 = &unk_285E6A668;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v13[2] = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277CCC510];
+  v2 = v11;
+  v12 = &unk_285E6A668;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
   v4 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:46 isIndoor:0 metadata:v3];
-  v14[0] = v4;
-  v10 = v2;
-  v11 = &unk_285E6A680;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v13[0] = v4;
+  v9 = v2;
+  v10 = &unk_285E6A680;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
   v6 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:46 isIndoor:0 metadata:v5];
-  v14[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v13[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
 
   return v7;
 }
 
 + (id)swimmingOtherActivityTypes
 {
-  v9[4] = *MEMORY[0x277D85DE8];
+  v8[4] = *MEMORY[0x277D85DE8];
   v2 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:53 isIndoor:0 metadata:0];
-  v9[0] = v2;
+  v8[0] = v2;
   v3 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:84 isIndoor:0 metadata:0];
-  v9[1] = v3;
+  v8[1] = v3;
   v4 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:54 isIndoor:0 metadata:0];
-  v9[2] = v4;
+  v8[2] = v4;
   v5 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:55 isIndoor:0 metadata:0];
-  v9[3] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:4];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[3] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:4];
 
   return v6;
 }
 
 + (id)phoneOnlySupportedActivityTypes
 {
-  v11[6] = *MEMORY[0x277D85DE8];
+  v10[6] = *MEMORY[0x277D85DE8];
   v2 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:52 isIndoor:0];
-  v11[0] = v2;
+  v10[0] = v2;
   v3 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:37 isIndoor:0];
-  v11[1] = v3;
+  v10[1] = v3;
   v4 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:24 isIndoor:0];
-  v11[2] = v4;
+  v10[2] = v4;
   v5 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:70 isIndoor:0];
-  v11[3] = v5;
+  v10[3] = v5;
   v6 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:71 isIndoor:0];
-  v11[4] = v6;
+  v10[4] = v6;
   v7 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:13 isIndoor:0];
-  v11[5] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:6];
-
-  v9 = *MEMORY[0x277D85DE8];
+  v10[5] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:6];
 
   return v8;
 }
 
 + (id)phoneAndHeartRateMonitorSupportedActivityTypes
 {
-  v51[44] = *MEMORY[0x277D85DE8];
-  v50 = +[FIWorkoutActivityType phoneOnlySupportedActivityTypes];
-  v49 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:52 isIndoor:1];
-  v51[0] = v49;
-  v48 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:37 isIndoor:1];
-  v51[1] = v48;
-  v47 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:16 isIndoor:0];
-  v51[2] = v47;
-  v46 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:44 isIndoor:0];
-  v51[3] = v46;
-  v45 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:13 isIndoor:1];
-  v51[4] = v45;
-  v44 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:35 isIndoor:1];
-  v51[5] = v44;
-  v43 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:63 isIndoor:0];
-  v51[6] = v43;
-  v42 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:77 isIndoor:0];
-  v51[7] = v42;
-  v41 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:65 isIndoor:0];
-  v51[8] = v41;
-  v40 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:20 isIndoor:0];
-  v51[9] = v40;
-  v39 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:59 isIndoor:0];
-  v51[10] = v39;
-  v38 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:66 isIndoor:0];
-  v51[11] = v38;
-  v37 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:57 isIndoor:0];
-  v51[12] = v37;
-  v36 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:80 isIndoor:0];
-  v51[13] = v36;
-  v35 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:72 isIndoor:0];
-  v51[14] = v35;
-  v34 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:61 isIndoor:0];
-  v51[15] = v34;
-  v33 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:67 isIndoor:0];
-  v51[16] = v33;
-  v32 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:21 isIndoor:0];
-  v51[17] = v32;
-  v31 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:60 isIndoor:0];
-  v51[18] = v31;
-  v30 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:35 isIndoor:0];
-  v51[19] = v30;
-  v29 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:31 isIndoor:0];
-  v51[20] = v29;
-  v28 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:39 isIndoor:0];
-  v51[21] = v28;
-  v27 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:2 isIndoor:0];
-  v51[22] = v27;
-  v26 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:58 isIndoor:0];
-  v51[23] = v26;
-  v25 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:8 isIndoor:0];
-  v51[24] = v25;
-  v24 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:9 isIndoor:0];
-  v51[25] = v24;
-  v23 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:11 isIndoor:0];
-  v51[26] = v23;
-  v22 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:19 isIndoor:0];
-  v51[27] = v22;
-  v21 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:76 isIndoor:0];
-  v51[28] = v21;
-  v20 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:62 isIndoor:0];
-  v51[29] = v20;
-  v19 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:74 isIndoor:0];
-  v51[30] = v19;
-  v18 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:64 isIndoor:0];
-  v51[31] = v18;
-  v16 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:29 isIndoor:0];
-  v51[32] = v16;
-  v15 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:73 isIndoor:0];
-  v51[33] = v15;
+  v50[44] = *MEMORY[0x277D85DE8];
+  v49 = +[FIWorkoutActivityType phoneOnlySupportedActivityTypes];
+  v48 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:52 isIndoor:1];
+  v50[0] = v48;
+  v47 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:37 isIndoor:1];
+  v50[1] = v47;
+  v46 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:16 isIndoor:0];
+  v50[2] = v46;
+  v45 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:44 isIndoor:0];
+  v50[3] = v45;
+  v44 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:13 isIndoor:1];
+  v50[4] = v44;
+  v43 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:35 isIndoor:1];
+  v50[5] = v43;
+  v42 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:63 isIndoor:0];
+  v50[6] = v42;
+  v41 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:77 isIndoor:0];
+  v50[7] = v41;
+  v40 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:65 isIndoor:0];
+  v50[8] = v40;
+  v39 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:20 isIndoor:0];
+  v50[9] = v39;
+  v38 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:59 isIndoor:0];
+  v50[10] = v38;
+  v37 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:66 isIndoor:0];
+  v50[11] = v37;
+  v36 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:57 isIndoor:0];
+  v50[12] = v36;
+  v35 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:80 isIndoor:0];
+  v50[13] = v35;
+  v34 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:72 isIndoor:0];
+  v50[14] = v34;
+  v33 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:61 isIndoor:0];
+  v50[15] = v33;
+  v32 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:67 isIndoor:0];
+  v50[16] = v32;
+  v31 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:21 isIndoor:0];
+  v50[17] = v31;
+  v30 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:60 isIndoor:0];
+  v50[18] = v30;
+  v29 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:35 isIndoor:0];
+  v50[19] = v29;
+  v28 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:31 isIndoor:0];
+  v50[20] = v28;
+  v27 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:39 isIndoor:0];
+  v50[21] = v27;
+  v26 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:2 isIndoor:0];
+  v50[22] = v26;
+  v25 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:58 isIndoor:0];
+  v50[23] = v25;
+  v24 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:8 isIndoor:0];
+  v50[24] = v24;
+  v23 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:9 isIndoor:0];
+  v50[25] = v23;
+  v22 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:11 isIndoor:0];
+  v50[26] = v22;
+  v21 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:19 isIndoor:0];
+  v50[27] = v21;
+  v20 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:76 isIndoor:0];
+  v50[28] = v20;
+  v19 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:62 isIndoor:0];
+  v50[29] = v19;
+  v18 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:74 isIndoor:0];
+  v50[30] = v18;
+  v17 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:64 isIndoor:0];
+  v50[31] = v17;
+  v15 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:29 isIndoor:0];
+  v50[32] = v15;
+  v14 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:73 isIndoor:0];
+  v50[33] = v14;
   v2 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:3000 isIndoor:0];
-  v51[34] = v2;
+  v50[34] = v2;
   v3 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:32 isIndoor:0];
-  v51[35] = v3;
+  v50[35] = v3;
   v4 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:38 isIndoor:0];
-  v51[36] = v4;
+  v50[36] = v4;
   v5 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:40 isIndoor:0];
-  v51[37] = v5;
+  v50[37] = v5;
   v6 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:68 isIndoor:0];
-  v51[38] = v6;
+  v50[38] = v6;
   v7 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:69 isIndoor:0];
-  v51[39] = v7;
+  v50[39] = v7;
   v8 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:49 isIndoor:0];
-  v51[40] = v8;
+  v50[40] = v8;
   v9 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:50 isIndoor:0];
-  v51[41] = v9;
+  v50[41] = v9;
   v10 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:39 isIndoor:1];
-  v51[42] = v10;
+  v50[42] = v10;
   v11 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:33 isIndoor:0];
-  v51[43] = v11;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:44];
+  v50[43] = v11;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:44];
 
-  v12 = [v50 arrayByAddingObjectsFromArray:v17];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = [v49 arrayByAddingObjectsFromArray:v16];
 
   return v12;
 }
 
 + (id)deprecatedActivityTypes
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   v2 = [FIWorkoutActivityType alloc];
   v3 = [(FIWorkoutActivityType *)v2 initWithActivityTypeIdentifier:14 isIndoor:0 metadata:MEMORY[0x277CBEC10] auxiliaryTypeIdentifier:*MEMORY[0x277CCE1E0]];
-  v11[0] = v3;
-  v9 = *MEMORY[0x277CCC510];
-  v10 = &unk_285E6A698;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v10[0] = v3;
+  v8 = *MEMORY[0x277CCC510];
+  v9 = &unk_285E6A698;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
   v5 = [FIWorkoutActivityType activityTypeWithHKWorkoutActivityTypeIdentifier:46 isIndoor:0 metadata:v4];
-  v11[1] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v10[1] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
 
   return v6;
 }
@@ -1196,6 +1225,87 @@ void __58__FIWorkoutActivityType_shouldDisambiguateOnLocationType___block_invoke
   shouldDisambiguateOnLocationType__indoorOutdoorActivityTypes = &unk_285E6B148;
 }
 
++ (id)possibleActivityTypesForIdentifier:(unint64_t)identifier locationType:(int64_t)type swimmingLocationType:(int64_t)locationType wheelchairUser:(BOOL)user
+{
+  userCopy = user;
+  v34 = *MEMORY[0x277D85DE8];
+  array = [MEMORY[0x277CBEB18] array];
+  identifierCopy = identifier;
+  IsValid = _HKWorkoutActivityTypeIsValid();
+  v11 = [self optimizedActivityTypesWithIsWheelchairUser:userCopy isSwimmingSupported:FIDeviceSupportsSwimming()];
+  v12 = [v11 mutableCopy];
+
+  nonOptimizedActivityTypes = [self nonOptimizedActivityTypes];
+  [v12 addObjectsFromArray:nonOptimizedActivityTypes];
+
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v14 = v12;
+  v15 = [v14 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  if (v15)
+  {
+    v16 = v15;
+    v17 = *v30;
+    v19 = identifier != 46 || locationType == 0;
+    do
+    {
+      for (i = 0; i != v16; ++i)
+      {
+        if (*v30 != v17)
+        {
+          objc_enumerationMutation(v14);
+        }
+
+        v21 = *(*(&v29 + 1) + 8 * i);
+        if (IsValid)
+        {
+          v22 = [*(*(&v29 + 1) + 8 * i) effectiveTypeIdentifier] == identifierCopy;
+        }
+
+        else
+        {
+          v22 = 1;
+        }
+
+        if (type == 1 || (((type != 2) ^ [v21 isIndoor]) & 1) != 0)
+        {
+          v23 = 1;
+          if (v19)
+          {
+            goto LABEL_17;
+          }
+        }
+
+        else
+        {
+          v23 = !+[FIWorkoutActivityType shouldDisambiguateOnLocationType:](FIWorkoutActivityType, "shouldDisambiguateOnLocationType:", [v21 effectiveTypeIdentifier]);
+          if (v19)
+          {
+LABEL_17:
+            v24 = 1;
+            goto LABEL_20;
+          }
+        }
+
+        v24 = [v21 swimmingLocationType] == locationType;
+LABEL_20:
+        if ((v22 & v23 & v24) == 1)
+        {
+          [array addObject:v21];
+        }
+      }
+
+      v16 = [v14 countByEnumeratingWithState:&v29 objects:v33 count:16];
+    }
+
+    while (v16);
+  }
+
+  return array;
+}
+
 + (unint64_t)mapWheelchairUserActivityType:(unint64_t)type isWheelchairUser:(BOOL)user
 {
   result = type;
@@ -1263,20 +1373,18 @@ void __58__FIWorkoutActivityType_shouldDisambiguateOnLocationType___block_invoke
 
 + (void)activityTypeFromUniqueIdentifier:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24B35E000, a2, OS_LOG_TYPE_ERROR, "Unable to parse property and value from uniqueIdentifier=%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24B35E000, a2, OS_LOG_TYPE_ERROR, "Unable to parse property and value from uniqueIdentifier=%@", &v2, 0xCu);
 }
 
 + (void)activityTypeFromUniqueIdentifier:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24B35E000, a2, OS_LOG_TYPE_ERROR, "Unable to parse property and value from uniqueIdentifier=%@. Invalid activity identifier.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24B35E000, a2, OS_LOG_TYPE_ERROR, "Unable to parse property and value from uniqueIdentifier=%@. Invalid activity identifier.", &v2, 0xCu);
 }
 
 @end

@@ -63,9 +63,9 @@
 - (GEOMapItemStorage)mapItemStorage
 {
   selfCopy = self;
-  v3 = sub_1B6296250();
+  v4 = sub_1B6296250(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (MSFavoriteItem)initWithObject:(id)object store:(id)store lazyLoad:(BOOL)load parent:(BOOL)parent
@@ -110,48 +110,47 @@
   hiddenCopy = hidden;
   selfCopy = self;
   v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
-  v23 = *(*(v22 - 8) + 64);
   MEMORY[0x1EEE9AC00](v22 - 8);
-  v25 = &v56 - v24;
+  v24 = &v55 - v23;
   if (name)
   {
-    v26 = sub_1B63BEBD4();
-    v67 = v27;
-    v68 = v26;
+    v25 = sub_1B63BEBD4();
+    v66 = v26;
+    v67 = v25;
   }
 
   else
   {
+    v66 = 0;
     v67 = 0;
-    v68 = 0;
   }
 
   if (address)
   {
-    v28 = sub_1B63BEBD4();
-    v65 = v29;
-    v66 = v28;
+    v27 = sub_1B63BEBD4();
+    v64 = v28;
+    v65 = v27;
     if (category)
     {
 LABEL_6:
-      v64 = sub_1B63BEBD4();
-      v62 = v30;
+      v63 = sub_1B63BEBD4();
+      v61 = v29;
       goto LABEL_9;
     }
   }
 
   else
   {
+    v64 = 0;
     v65 = 0;
-    v66 = 0;
     if (category)
     {
       goto LABEL_6;
     }
   }
 
-  v64 = 0;
-  v62 = 0;
+  v63 = 0;
+  v61 = 0;
 LABEL_9:
   latitudeCopy = latitude;
   longitudeCopy = longitude;
@@ -164,14 +163,149 @@ LABEL_9:
   {
     sub_1B63BE974();
 
+    v33 = sub_1B63BE994();
+    (*(*(v33 - 8) + 56))(v24, 0, 1, v33);
+  }
+
+  else
+  {
     v34 = sub_1B63BE994();
-    (*(*(v34 - 8) + 56))(v25, 0, 1, v34);
+    (*(*(v34 - 8) + 56))(v24, 1, 1, v34);
+  }
+
+  if (itemNameCopy)
+  {
+    v35 = sub_1B63BEBD4();
+    v37 = v36;
+
+    v57 = v24;
+    if (stringCopy)
+    {
+LABEL_14:
+      v38 = sub_1B63BEBD4();
+      v40 = v39;
+
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+    v35 = 0;
+    v37 = 0;
+    v57 = v24;
+    if (stringCopy)
+    {
+      goto LABEL_14;
+    }
+  }
+
+  v38 = 0;
+  v40 = 0;
+LABEL_17:
+  sourceCopy2 = source;
+  if (identifierCopy)
+  {
+    v56 = v40;
+    v42 = v38;
+    v43 = v37;
+    v44 = v35;
+    v45 = identifierCopy;
+    v46 = sub_1B63BEBD4();
+    v48 = v47;
+
+    sourceCopy2 = source;
+    v35 = v44;
+    v37 = v43;
+    v38 = v42;
+    v40 = v56;
+  }
+
+  else
+  {
+    v46 = 0;
+    v48 = 0;
+  }
+
+  HIWORD(v54) = type;
+  LOWORD(v54) = sourceCopy2;
+  v49 = muidCopy;
+  v50 = latitudeCopy;
+  v51 = longitudeCopy;
+  v52 = sub_1B62E88B0(v67, v66, hiddenCopy, latitudeCopy, longitudeCopy, v65, v64, v63, v61, v57, v35, v37, muidCopy, v38, v40, index, v46, v48, v54, version);
+
+  return v52;
+}
+
+- (MSFavoriteItem)initWithStore:(id)store customName:(id)name hidden:(BOOL)hidden latitude:(id)latitude longitude:(id)longitude mapItemAddress:(id)address mapItemCategory:(id)category mapItemLastRefreshed:(id)self0 mapItemName:(id)self1 muid:(id)self2 originatingAddressString:(id)self3 positionIndex:(int64_t)self4 shortcutIdentifier:(id)self5 source:(signed __int16)self6 type:(signed __int16)self7 version:(signed __int16)self8
+{
+  longitudeCopy = longitude;
+  hiddenCopy = hidden;
+  selfCopy = self;
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
+  MEMORY[0x1EEE9AC00](v22 - 8);
+  v24 = &v50 - v23;
+  if (name)
+  {
+    v25 = sub_1B63BEBD4();
+    v61 = v26;
+    v62 = v25;
+  }
+
+  else
+  {
+    v61 = 0;
+    v62 = 0;
+  }
+
+  if (address)
+  {
+    v27 = sub_1B63BEBD4();
+    v59 = v28;
+    v60 = v27;
+    if (category)
+    {
+LABEL_6:
+      v29 = sub_1B63BEBD4();
+      v57 = v30;
+      v58 = v29;
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+    v59 = 0;
+    v60 = 0;
+    if (category)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  v57 = 0;
+  v58 = 0;
+LABEL_9:
+  storeCopy = store;
+  latitudeCopy = latitude;
+  longitudeCopy = longitudeCopy;
+  refreshedCopy = refreshed;
+  itemNameCopy = itemName;
+  muidCopy = muid;
+  stringCopy = string;
+  identifierCopy = identifier;
+  if (refreshedCopy)
+  {
+    sub_1B63BE974();
+
+    v34 = sub_1B63BE994();
+    (*(*(v34 - 8) + 56))(v24, 0, 1, v34);
   }
 
   else
   {
     v35 = sub_1B63BE994();
-    (*(*(v35 - 8) + 56))(v25, 1, 1, v35);
+    (*(*(v35 - 8) + 56))(v24, 1, 1, v35);
   }
 
   if (itemNameCopy)
@@ -179,7 +313,7 @@ LABEL_9:
     v36 = sub_1B63BEBD4();
     v38 = v37;
 
-    v58 = v25;
+    v51 = v24;
     if (stringCopy)
     {
 LABEL_14:
@@ -194,7 +328,7 @@ LABEL_14:
   {
     v36 = 0;
     v38 = 0;
-    v58 = v25;
+    v51 = v24;
     if (stringCopy)
     {
       goto LABEL_14;
@@ -207,177 +341,39 @@ LABEL_17:
   sourceCopy2 = source;
   if (identifierCopy)
   {
-    v57 = v41;
-    v43 = v39;
-    v44 = v38;
-    v45 = v36;
-    v46 = identifierCopy;
-    v47 = sub_1B63BEBD4();
-    v49 = v48;
+    v50 = v39;
+    v43 = v38;
+    v44 = v36;
+    v45 = identifierCopy;
+    v46 = sub_1B63BEBD4();
+    v48 = v47;
 
     sourceCopy2 = source;
-    v36 = v45;
-    v38 = v44;
-    v39 = v43;
-    v41 = v57;
+    v36 = v44;
+    v38 = v43;
+    v39 = v50;
   }
 
   else
   {
-    v47 = 0;
-    v49 = 0;
+    v46 = 0;
+    v48 = 0;
   }
 
-  HIWORD(v55) = type;
-  LOWORD(v55) = sourceCopy2;
-  v50 = muidCopy;
-  v51 = latitudeCopy;
-  v52 = longitudeCopy;
-  v53 = sub_1B62E88B0(v68, v67, hiddenCopy, latitudeCopy, longitudeCopy, v66, v65, v64, v62, v58, v36, v38, muidCopy, v39, v41, index, v47, v49, v55, version);
-
-  return v53;
-}
-
-- (MSFavoriteItem)initWithStore:(id)store customName:(id)name hidden:(BOOL)hidden latitude:(id)latitude longitude:(id)longitude mapItemAddress:(id)address mapItemCategory:(id)category mapItemLastRefreshed:(id)self0 mapItemName:(id)self1 muid:(id)self2 originatingAddressString:(id)self3 positionIndex:(int64_t)self4 shortcutIdentifier:(id)self5 source:(signed __int16)self6 type:(signed __int16)self7 version:(signed __int16)self8
-{
-  longitudeCopy = longitude;
-  hiddenCopy = hidden;
-  selfCopy = self;
-  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
-  v23 = *(*(v22 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v22 - 8);
-  v25 = &v51 - v24;
-  if (name)
-  {
-    v26 = sub_1B63BEBD4();
-    v62 = v27;
-    v63 = v26;
-  }
-
-  else
-  {
-    v62 = 0;
-    v63 = 0;
-  }
-
-  if (address)
-  {
-    v28 = sub_1B63BEBD4();
-    v60 = v29;
-    v61 = v28;
-    if (category)
-    {
-LABEL_6:
-      v30 = sub_1B63BEBD4();
-      v58 = v31;
-      v59 = v30;
-      goto LABEL_9;
-    }
-  }
-
-  else
-  {
-    v60 = 0;
-    v61 = 0;
-    if (category)
-    {
-      goto LABEL_6;
-    }
-  }
-
-  v58 = 0;
-  v59 = 0;
-LABEL_9:
-  storeCopy = store;
-  latitudeCopy = latitude;
-  longitudeCopy = longitudeCopy;
-  refreshedCopy = refreshed;
-  itemNameCopy = itemName;
-  muidCopy = muid;
-  stringCopy = string;
-  identifierCopy = identifier;
-  if (refreshedCopy)
-  {
-    sub_1B63BE974();
-
-    v35 = sub_1B63BE994();
-    (*(*(v35 - 8) + 56))(v25, 0, 1, v35);
-  }
-
-  else
-  {
-    v36 = sub_1B63BE994();
-    (*(*(v36 - 8) + 56))(v25, 1, 1, v36);
-  }
-
-  if (itemNameCopy)
-  {
-    v37 = sub_1B63BEBD4();
-    v39 = v38;
-
-    v52 = v25;
-    if (stringCopy)
-    {
-LABEL_14:
-      v40 = sub_1B63BEBD4();
-      v42 = v41;
-
-      goto LABEL_17;
-    }
-  }
-
-  else
-  {
-    v37 = 0;
-    v39 = 0;
-    v52 = v25;
-    if (stringCopy)
-    {
-      goto LABEL_14;
-    }
-  }
-
-  v40 = 0;
-  v42 = 0;
-LABEL_17:
-  sourceCopy2 = source;
-  if (identifierCopy)
-  {
-    v51 = v40;
-    v44 = v39;
-    v45 = v37;
-    v46 = identifierCopy;
-    v47 = sub_1B63BEBD4();
-    v49 = v48;
-
-    sourceCopy2 = source;
-    v37 = v45;
-    v39 = v44;
-    v40 = v51;
-  }
-
-  else
-  {
-    v47 = 0;
-    v49 = 0;
-  }
-
-  return FavoriteItem.init(store:customName:hidden:latitude:longitude:mapItemAddress:mapItemCategory:mapItemLastRefreshed:mapItemName:muid:originatingAddressString:positionIndex:shortcutIdentifier:source:type:version:)(storeCopy, v63, v62, hiddenCopy, latitudeCopy, longitudeCopy, v61, v60, v59, v58, v52, v37, v39, muidCopy, v40, v42, index, v47, v49, sourceCopy2, type, version);
+  return FavoriteItem.init(store:customName:hidden:latitude:longitude:mapItemAddress:mapItemCategory:mapItemLastRefreshed:mapItemName:muid:originatingAddressString:positionIndex:shortcutIdentifier:source:type:version:)(storeCopy, v62, v61, hiddenCopy, latitudeCopy, longitudeCopy, v60, v59, v58, v57, v51, v36, v38, muidCopy, v39, v41, index, v46, v48, sourceCopy2, type, version);
 }
 
 - (void)flushChanges
 {
   v3 = OBJC_IVAR____TtC8MapsSync14MapsSyncObject__editBlocks;
   swift_beginAccess();
-  v4 = *(&self->super.super.isa + v3);
-  v5 = MEMORY[0x1E69E7CC0];
+  v4 = MEMORY[0x1E69E7CC0];
   *(&self->super.super.isa + v3) = MEMORY[0x1E69E7CC0];
   selfCopy = self;
 
-  v7 = OBJC_IVAR___MSFavoriteItem__handleChanges;
+  v6 = OBJC_IVAR___MSFavoriteItem__handleChanges;
   swift_beginAccess();
-  v8 = *(&selfCopy->super.super.isa + v7);
-  *(&selfCopy->super.super.isa + v7) = v5;
+  *(&selfCopy->super.super.isa + v6) = v4;
 }
 
 + (Class)managedClass
@@ -403,9 +399,9 @@ LABEL_17:
 - (NSNumber)latitude
 {
   selfCopy = self;
-  v3 = sub_1B62A00E0();
+  v4 = sub_1B62A00E0(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setLatitude:(id)latitude
@@ -418,9 +414,9 @@ LABEL_17:
 - (NSNumber)longitude
 {
   selfCopy = self;
-  v3 = sub_1B62A0488();
+  v4 = sub_1B62A0488(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setLongitude:(id)longitude
@@ -433,55 +429,53 @@ LABEL_17:
 - (NSDate)mapItemLastRefreshed
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v14 - v5;
+  v5 = &v13 - v4;
   selfCopy = self;
-  sub_1B62E405C(v6);
+  sub_1B62E405C(v5);
 
-  v8 = sub_1B63BE994();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  v7 = sub_1B63BE994();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    v12 = sub_1B63BE954();
-    (*(v9 + 8))(v6, v8);
-    v11 = v12;
+    v11 = sub_1B63BE954();
+    (*(v8 + 8))(v5, v7);
+    v10 = v11;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)setMapItemLastRefreshed:(id)refreshed
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EB943210, &unk_1B63C3F50);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v12 - v7;
+  v7 = &v11 - v6;
   if (refreshed)
   {
     sub_1B63BE974();
-    v9 = sub_1B63BE994();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = sub_1B63BE994();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = sub_1B63BE994();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = sub_1B63BE994();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
   selfCopy = self;
-  sub_1B62E465C(v8);
+  sub_1B62E465C(v7);
 }
 
 - (NSNumber)muid
 {
   selfCopy = self;
-  v3 = sub_1B62E5504();
+  v4 = sub_1B62E5504(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setMuid:(id)muid
@@ -627,55 +621,53 @@ LABEL_17:
 - (void)placeItemNoteWithCompletionHandler:(id)handler
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB943830, &qword_1B63C5100);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v15 - v7;
-  v9 = _Block_copy(handler);
-  v10 = swift_allocObject();
-  *(v10 + 16) = v9;
-  *(v10 + 24) = self;
-  v11 = sub_1B63BED34();
-  (*(*(v11 - 8) + 56))(v8, 1, 1, v11);
+  v7 = &v14 - v6;
+  v8 = _Block_copy(handler);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v8;
+  *(v9 + 24) = self;
+  v10 = sub_1B63BED34();
+  (*(*(v10 - 8) + 56))(v7, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = &unk_1B63C7740;
+  v11[5] = v9;
   v12 = swift_allocObject();
   v12[2] = 0;
   v12[3] = 0;
-  v12[4] = &unk_1B63C7740;
-  v12[5] = v10;
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_1B63C6420;
-  v13[5] = v12;
+  v12[4] = &unk_1B63C6420;
+  v12[5] = v11;
   selfCopy = self;
-  sub_1B63BBE9C(0, 0, v8, &unk_1B63C6428, v13);
+  sub_1B63BBE9C(0, 0, v7, &unk_1B63C6428, v12);
 }
 
 - (void)setPlaceItemNote:(NSString *)note completionHandler:(id)handler
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB943830, &qword_1B63C5100);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = &v18 - v9;
-  v11 = _Block_copy(handler);
-  v12 = swift_allocObject();
-  v12[2] = note;
-  v12[3] = v11;
-  v12[4] = self;
-  v13 = sub_1B63BED34();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v9 = &v17 - v8;
+  v10 = _Block_copy(handler);
+  v11 = swift_allocObject();
+  v11[2] = note;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = sub_1B63BED34();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_1B63C7708;
+  v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_1B63C7708;
-  v14[5] = v12;
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_1B63C5510;
-  v15[5] = v14;
+  v14[4] = &unk_1B63C5510;
+  v14[5] = v13;
   noteCopy = note;
   selfCopy = self;
-  sub_1B63BBE9C(0, 0, v10, &unk_1B63C5120, v15);
+  sub_1B63BBE9C(0, 0, v9, &unk_1B63C5120, v14);
 }
 
 @end

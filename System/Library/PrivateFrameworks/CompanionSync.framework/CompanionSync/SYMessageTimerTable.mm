@@ -117,7 +117,7 @@ uint64_t __49___SYMessageTimerTable_cancelTimerForIdentifier___block_invoke(void
   return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
-uint64_t __34___SYMessageTimerTable_timerCount__block_invoke(uint64_t a1)
+void *__34___SYMessageTimerTable_timerCount__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 32) count];
   *(*(*(a1 + 40) + 8) + 24) = result;

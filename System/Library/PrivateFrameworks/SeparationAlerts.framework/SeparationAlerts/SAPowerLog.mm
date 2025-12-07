@@ -53,55 +53,55 @@
 
 - (void)sendPowerLog
 {
-  v28[9] = *MEMORY[0x277D85DE8];
+  v27[9] = *MEMORY[0x277D85DE8];
   if (!self->_isReplay)
   {
-    v27[0] = @"timestamp";
+    v26[0] = @"timestamp";
     v3 = MEMORY[0x277CCABB0];
     startTimestamp = [(SAPowerLog *)self startTimestamp];
     [startTimestamp timeIntervalSinceReferenceDate];
-    v19 = [v3 numberWithDouble:?];
-    v28[0] = v19;
-    v27[1] = @"NumberOfVisits";
-    v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[SAPowerLog visitCount](self, "visitCount")}];
-    v28[1] = v18;
-    v27[2] = @"DurationOfVisits";
+    v18 = [v3 numberWithDouble:?];
+    v27[0] = v18;
+    v26[1] = @"NumberOfVisits";
+    v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[SAPowerLog visitCount](self, "visitCount")}];
+    v27[1] = v17;
+    v26[2] = @"DurationOfVisits";
     v4 = MEMORY[0x277CCABB0];
     [(SAPowerLog *)self totalVisitDuration];
-    v17 = [v4 numberWithDouble:?];
-    v28[2] = v17;
-    v27[3] = @"TotalGeoFence";
+    v16 = [v4 numberWithDouble:?];
+    v27[2] = v16;
+    v26[3] = @"TotalGeoFence";
     v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[SAPowerLog geofenceCount](self, "geofenceCount")}];
-    v28[3] = v5;
-    v27[4] = @"BTScanCount";
+    v27[3] = v5;
+    v26[4] = @"BTScanCount";
     v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[SAPowerLog btScanCount](self, "btScanCount")}];
-    v28[4] = v6;
-    v27[5] = @"Notifications";
+    v27[4] = v6;
+    v26[5] = @"Notifications";
     v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[SAPowerLog separationAlertsCount](self, "separationAlertsCount")}];
-    v28[5] = v7;
-    v27[6] = @"DevicesMonitored";
+    v27[5] = v7;
+    v26[6] = @"DevicesMonitored";
     v8 = MEMORY[0x277CCABB0];
     monitoredDevices = [(SAPowerLog *)self monitoredDevices];
     v10 = [v8 numberWithUnsignedInteger:{objc_msgSend(monitoredDevices, "count")}];
-    v28[6] = v10;
-    v27[7] = @"GPSAttribution";
+    v27[6] = v10;
+    v26[7] = @"GPSAttribution";
     v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[SAPowerLog gpsLocationRequestCount](self, "gpsLocationRequestCount")}];
-    v28[7] = v11;
-    v27[8] = @"WifiScanCount";
+    v27[7] = v11;
+    v26[8] = @"WifiScanCount";
     v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[SAPowerLog wifiLocationRequestCount](self, "wifiLocationRequestCount")}];
-    v28[8] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:9];
+    v27[8] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:9];
 
     v14 = v13;
     v15 = TASALog;
     if (os_log_type_enabled(TASALog, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68289283;
-      v22 = 0;
-      v23 = 2082;
-      v24 = "";
-      v25 = 2113;
-      v26 = v14;
+      v21 = 0;
+      v22 = 2082;
+      v23 = "";
+      v24 = 2113;
+      v25 = v14;
       _os_log_impl(&dword_2656EA000, v15, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#sa submitting PowerLog event, data:%{private}@}", buf, 0x1Cu);
     }
 
@@ -110,8 +110,6 @@
     CFRelease(@"SeparationAlert");
     [(SAPowerLog *)self resetStatistics];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)increaseBTScanCount

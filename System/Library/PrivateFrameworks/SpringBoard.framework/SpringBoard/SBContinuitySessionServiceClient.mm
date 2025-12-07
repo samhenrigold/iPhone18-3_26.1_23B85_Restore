@@ -508,7 +508,7 @@ void __76___SBContinuitySessionServiceClient__connectionQueue_didStopScreenRecor
   }
 }
 
-uint64_t __63___SBContinuitySessionServiceClient_appendDescriptionToStream___block_invoke(uint64_t a1)
+id __63___SBContinuitySessionServiceClient_appendDescriptionToStream___block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) appendInt:*(*(a1 + 40) + 20) withName:@"pid"];
   v3 = [*(a1 + 32) appendBool:*(*(a1 + 40) + 12) withName:@"INVALIDATED" ifEqualTo:1];
@@ -562,35 +562,35 @@ void __109___SBContinuitySessionServiceClient__connectionQueue_updatedAppearance
 {
   v1 = [OUTLINED_FUNCTION_3_26(a1) succinctDescription];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "[%{public}@] updated appearance settings - no delegate", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "[%{public}@] updated appearance settings - no delegate", v4, v5, v6, v7);
 }
 
 void __74___SBContinuitySessionServiceClient__connectionQueue_didCaptureScreenshot__block_invoke_cold_1(uint64_t a1)
 {
   v1 = [OUTLINED_FUNCTION_3_26(a1) succinctDescription];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "[%{public}@] did capture screenshot - no delegate", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "[%{public}@] did capture screenshot - no delegate", v4, v5, v6, v7);
 }
 
 void __77___SBContinuitySessionServiceClient__connectionQueue_didStartScreenRecording__block_invoke_cold_1(uint64_t a1)
 {
   v1 = [OUTLINED_FUNCTION_3_26(a1) succinctDescription];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "[%{public}@] did start screen recording - no delegate", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "[%{public}@] did start screen recording - no delegate", v4, v5, v6, v7);
 }
 
 void __96___SBContinuitySessionServiceClient__connectionQueue_clientHasAdoptedScreenCaptureNotifications__block_invoke_cold_1(uint64_t a1)
 {
   v1 = [OUTLINED_FUNCTION_3_26(a1) succinctDescription];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "[%{public}@] client has adopted screen capture notifications - no delegate", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "[%{public}@] client has adopted screen capture notifications - no delegate", v4, v5, v6, v7);
 }
 
 void __76___SBContinuitySessionServiceClient__connectionQueue_didStopScreenRecording__block_invoke_cold_1(uint64_t a1)
 {
   v1 = [OUTLINED_FUNCTION_3_26(a1) succinctDescription];
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "[%{public}@] did stop screen recording - no delegate", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_7(&dword_21ED4E000, v2, v3, "[%{public}@] did stop screen recording - no delegate", v4, v5, v6, v7);
 }
 
 @end

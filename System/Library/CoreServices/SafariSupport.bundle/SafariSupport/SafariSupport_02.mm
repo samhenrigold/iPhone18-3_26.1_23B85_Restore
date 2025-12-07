@@ -1,31 +1,3 @@
-void sub_1000623B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, char a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57)
-{
-  _Block_object_dispose(&a49, 8);
-  _Block_object_dispose(&a53, 8);
-  _Block_object_dispose(&a57, 8);
-  _Block_object_dispose((v57 - 160), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_10006240C(void *a1)
-{
-  v2 = a1[5];
-  v1 = a1[6];
-  v3 = a1[4];
-  v4 = [NSError safari_errorWithCloudBookmarksCode:3 userInfo:0];
-  (*(v1 + 16))(v1, v3, v2, v4);
-}
-
-uint64_t sub_10006248C(uint64_t a1)
-{
-  if (os_log_type_enabled(*(a1 + 32), OS_LOG_TYPE_ERROR))
-  {
-    sub_100067860();
-  }
-
-  return (*(*(a1 + 40) + 16))();
-}
-
 void sub_1000624F0(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
   v9 = a2;
@@ -460,8 +432,6 @@ void sub_100063328(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
       sub_100067D28();
     }
 
-    v8 = *(a1 + 40);
-    v9 = *(a1 + 48);
     (*(*(a1 + 80) + 16))();
   }
 
@@ -473,29 +443,29 @@ void sub_100063328(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Attempting to re-batch record save", buf, 2u);
     }
 
-    v10 = [*(*(*(a1 + 96) + 8) + 40) subarrayWithRange:{*(a1 + 104), *(a1 + 112) - *(a1 + 104)}];
-    v11 = *(a1 + 56);
-    v12 = v11[1];
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_100063520;
-    v20[3] = &unk_100134688;
-    v21 = v11;
-    v22 = v10;
-    v13 = *(a1 + 64);
-    v14 = *(a1 + 72);
-    v15 = *(a1 + 40);
-    v16 = *(a1 + 48);
-    *&v17 = v15;
-    *(&v17 + 1) = v16;
-    *&v18 = v13;
-    *(&v18 + 1) = v14;
-    v23 = v18;
-    v24 = v17;
-    v25 = *(a1 + 88);
-    v26 = *(a1 + 80);
-    v19 = v10;
-    dispatch_async(v12, v20);
+    v8 = [*(*(*(a1 + 96) + 8) + 40) subarrayWithRange:{*(a1 + 104), *(a1 + 112) - *(a1 + 104)}];
+    v9 = *(a1 + 56);
+    v10 = v9[1];
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_100063520;
+    v18[3] = &unk_100134688;
+    v19 = v9;
+    v20 = v8;
+    v11 = *(a1 + 64);
+    v12 = *(a1 + 72);
+    v13 = *(a1 + 40);
+    v14 = *(a1 + 48);
+    *&v15 = v13;
+    *(&v15 + 1) = v14;
+    *&v16 = v11;
+    *(&v16 + 1) = v12;
+    v21 = v16;
+    v22 = v15;
+    v23 = *(a1 + 88);
+    v24 = *(a1 + 80);
+    v17 = v8;
+    dispatch_async(v10, v18);
   }
 }
 
@@ -622,10 +592,8 @@ void sub_100064218(uint64_t a1)
 {
   obj = objc_retainBlock(*(a1 + 40));
   objc_sync_enter(obj);
-  v2 = *(a1 + 40);
   if ((_WBSRunOnceImpl() & 1) == 0)
   {
-    v3 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
   }
 
@@ -636,11 +604,8 @@ void sub_1000642A4(uint64_t a1)
 {
   obj = objc_retainBlock(*(a1 + 48));
   objc_sync_enter(obj);
-  v2 = *(a1 + 48);
   if ((_WBSRunOnceImpl() & 1) == 0)
   {
-    v3 = *(a1 + 40);
-    v4 = *(a1 + 32);
     (*(*(a1 + 48) + 16))();
   }
 
@@ -649,14 +614,13 @@ void sub_1000642A4(uint64_t a1)
 
 void sub_100064330(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v11 = a2;
+  v10 = a2;
   v7 = a3;
   v8 = a4;
   if (v8)
   {
     v9 = objc_retainBlock(*(a1 + 32));
     objc_sync_enter(v9);
-    v10 = *(a1 + 32);
     if ((_WBSRunOnceImpl() & 1) == 0)
     {
       (*(*(a1 + 32) + 16))();
@@ -967,7 +931,7 @@ void sub_1000654E4(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 
 void sub_10006564C(uint64_t a1)
 {
-  v2 = (a1 + 32);
+  v2 = a1 + 32;
   if (*(a1 + 32))
   {
     v3 = *(a1 + 40);
@@ -1222,7 +1186,7 @@ void sub_100066314(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 
 void sub_10006647C(uint64_t a1)
 {
-  v2 = (a1 + 32);
+  v2 = a1 + 32;
   if (*(a1 + 32))
   {
     v3 = *(a1 + 40);
@@ -1351,11 +1315,8 @@ void sub_100067200(uint64_t a1)
 {
   obj = objc_retainBlock(*(a1 + 48));
   objc_sync_enter(obj);
-  v2 = *(a1 + 48);
   if ((_WBSRunOnceImpl() & 1) == 0)
   {
-    v3 = *(a1 + 40);
-    v4 = *(a1 + 32);
     (*(*(a1 + 48) + 16))();
   }
 
@@ -1366,10 +1327,8 @@ void sub_100067288(uint64_t a1)
 {
   obj = objc_retainBlock(*(a1 + 40));
   objc_sync_enter(obj);
-  v2 = *(a1 + 40);
   if ((_WBSRunOnceImpl() & 1) == 0)
   {
-    v3 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
   }
 
@@ -1396,20 +1355,19 @@ void sub_1000673D8(uint64_t a1)
 {
   obj = objc_retainBlock(*(a1 + 40));
   objc_sync_enter(obj);
-  v2 = *(a1 + 40);
   if ((_WBSRunOnceImpl() & 1) == 0)
   {
-    v3 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
   }
 
   objc_sync_exit(obj);
 }
 
-void sub_1000676BC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000676BC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void sub_1000676D8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -1502,30 +1460,27 @@ void sub_100067D5C(void *a1, void *a2)
 
 void sub_100067EA8(uint64_t a1, void *a2, void *a3)
 {
-  v4 = *(a1 + 40);
-  v5 = a2;
-  v6 = [a3 safari_privacyPreservingDescription];
+  v4 = a2;
+  v5 = [a3 safari_privacyPreservingDescription];
   sub_1000676A4();
-  sub_1000676D8(&_mh_execute_header, v5, v7, "Could not fetch zone-wide share record for zone %{public}@, error: %{public}@", v8);
+  sub_1000676D8(&_mh_execute_header, v4, v6, "Could not fetch zone-wide share record for zone %{public}@, error: %{public}@", v7);
 }
 
 void sub_100067F54(uint64_t a1, void *a2, void *a3)
 {
-  v4 = *(a1 + 40);
-  v5 = a2;
-  v6 = [a3 safari_privacyPreservingDescription];
+  v4 = a2;
+  v5 = [a3 safari_privacyPreservingDescription];
   sub_1000676A4();
-  sub_1000676D8(&_mh_execute_header, v5, v7, "Could not fetch zone-wide share record for zone %{public}@, error: %{public}@", v8);
+  sub_1000676D8(&_mh_execute_header, v4, v6, "Could not fetch zone-wide share record for zone %{public}@, error: %{public}@", v7);
 }
 
-void sub_100068034(uint64_t *a1, void *a2)
+void sub_100068034(uint64_t a1, void *a2)
 {
-  v3 = *a1;
-  v4 = a2;
-  v5 = [sub_10000807C() safari_privacyPreservingDescription];
+  v3 = a2;
+  v4 = [sub_10000807C() safari_privacyPreservingDescription];
   sub_1000676A4();
   sub_10001A9B4();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
 void sub_10006810C(void *a1)
@@ -1604,14 +1559,13 @@ void sub_10006863C(void **a1, void *a2)
   _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
-void sub_1000686F4(uint64_t *a1, void *a2)
+void sub_1000686F4(uint64_t a1, void *a2)
 {
-  v3 = *a1;
-  v4 = a2;
-  v5 = [sub_10000807C() recordID];
+  v3 = a2;
+  v4 = [sub_10000807C() recordID];
   sub_100008064();
   sub_10001A9B4();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0xCu);
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0xCu);
 }
 
 void sub_10006878C(void **a1, void *a2)
@@ -1642,12 +1596,11 @@ void sub_100068844(void **a1, void *a2)
 
 void sub_1000688FC(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 40);
-  v4 = a2;
-  v5 = [sub_10000807C() safari_privacyPreservingDescription];
+  v3 = a2;
+  v4 = [sub_10000807C() safari_privacyPreservingDescription];
   sub_1000676A4();
   sub_10001A9B4();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
 void sub_1000689D4(void *a1)
@@ -1713,15 +1666,13 @@ void sub_100068E34(void *a1)
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-void sub_100068ECC(uint64_t a1, uint64_t *a2, void *a3)
+void sub_100068ECC(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = *(a1 + 64);
-  v5 = *a2;
-  v6 = a3;
-  v7 = [sub_10000807C() safari_privacyPreservingDescription];
+  v4 = a3;
+  v5 = [sub_10000807C() safari_privacyPreservingDescription];
   sub_1000676A4();
   sub_10001A9B4();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0x16u);
+  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
 void sub_100068F70(void *a1)
@@ -1742,15 +1693,13 @@ void sub_100069008(void *a1)
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
 }
 
-void sub_1000690A0(uint64_t a1, uint64_t *a2, void *a3)
+void sub_1000690A0(uint64_t a1, uint64_t a2, void *a3)
 {
-  v4 = *(a1 + 64);
-  v5 = *a2;
-  v6 = a3;
-  v7 = [sub_10000807C() safari_privacyPreservingDescription];
+  v4 = a3;
+  v5 = [sub_10000807C() safari_privacyPreservingDescription];
   sub_1000676A4();
   sub_10001A9B4();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0x16u);
+  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
 }
 
 void sub_100069144(void *a1)
@@ -1792,25 +1741,25 @@ void sub_10006A794(id *a1, void *a2, void *a3)
   [v7 removeObjectForKey:v8];
   if ([v9 count])
   {
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_10006A914;
-    v11[3] = &unk_1001348D0;
-    v12 = v7;
-    v13 = v5;
-    v14 = a1[4];
-    v15 = a1[5];
-    v16 = v6;
-    v17 = a1[6];
-    [v9 enumerateKeysAndObjectsUsingBlock:v11];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_10006A914;
+    v12[3] = &unk_1001348D0;
+    v13 = v7;
+    v14 = v5;
+    v15 = a1[4];
+    v16 = a1[5];
+    v17 = v6;
+    v18 = a1[6];
+    [v9 enumerateKeysAndObjectsUsingBlock:v12];
   }
 
   else
   {
-    v10 = sub_1000D23FC();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_1000D23FC(0, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_10006B424(v6, v10);
+      sub_10006B424(v6, v11);
     }
   }
 }
@@ -1828,18 +1777,18 @@ void sub_10006A914(uint64_t a1, void *a2, void *a3)
     [v8 setObject:v5 forKeyedSubscript:WBSSafariExtensionStateProfileIdentifier];
   }
 
-  v9 = [CloudExtensionState cloudExtensionStateWithDictionaryRepresentation:v8 composedIdentifier:*(a1 + 40) owningDeviceUUIDString:*(a1 + 48) cloudExtensionsRecordZoneID:*(a1 + 56)];
-  if (v9)
+  v10 = [CloudExtensionState cloudExtensionStateWithDictionaryRepresentation:v8 composedIdentifier:*(a1 + 40) owningDeviceUUIDString:*(a1 + 48) cloudExtensionsRecordZoneID:*(a1 + 56)];
+  if (v10)
   {
-    [*(a1 + 72) addObject:v9];
+    [*(a1 + 72) addObject:v10];
   }
 
   else
   {
-    v10 = sub_1000D23FC();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_1000D23FC(0, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_10006B49C(a1, v10);
+      sub_10006B49C(a1, v11);
     }
   }
 }
@@ -1876,7 +1825,7 @@ void sub_10006B9CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void sub_10006B9E8(id *a1)
 {
   WeakRetained = objc_loadWeakRetained(a1 + 7);
-  v3 = WeakRetained;
+  v4 = WeakRetained;
   if (!WeakRetained)
   {
     goto LABEL_19;
@@ -1884,64 +1833,64 @@ void sub_10006B9E8(id *a1)
 
   if (WeakRetained[152] == 1)
   {
-    v4 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(WeakRetained, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Already synchronizing; ignoring request to sync", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Already synchronizing; ignoring request to sync", buf, 2u);
     }
 
-    *(v3 + 153) = 1;
-    v45 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v48 = 0u;
-    v5 = a1[4];
-    v6 = [v5 countByEnumeratingWithState:&v45 objects:v51 count:16];
-    if (v6)
+    *(v4 + 153) = 1;
+    v67 = 0u;
+    v68 = 0u;
+    v69 = 0u;
+    v70 = 0u;
+    v6 = a1[4];
+    v7 = [v6 countByEnumeratingWithState:&v67 objects:v73 count:16];
+    if (v7)
     {
-      v7 = *v46;
+      v8 = *v68;
       do
       {
-        for (i = 0; i != v6; i = i + 1)
+        for (i = 0; i != v7; i = i + 1)
         {
-          if (*v46 != v7)
+          if (*v68 != v8)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v6);
           }
 
-          v9 = *(v3 + 3);
-          v10 = [*(*(&v45 + 1) + 8 * i) copy];
-          v11 = objc_retainBlock(v10);
-          [v9 addObject:v11];
+          v10 = *(v4 + 3);
+          v11 = [*(*(&v67 + 1) + 8 * i) copy];
+          v12 = objc_retainBlock(v11);
+          [v10 addObject:v12];
         }
 
-        v6 = [v5 countByEnumeratingWithState:&v45 objects:v51 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v67 objects:v73 count:16];
       }
 
-      while (v6);
+      while (v7);
     }
 
     goto LABEL_19;
   }
 
   WeakRetained[154] = 0;
-  v12 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v13 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(WeakRetained, v3);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Attempting to start synchronization", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Attempting to start synchronization", buf, 2u);
   }
 
-  v13 = objc_loadWeakRetained(v3 + 20);
+  v14 = objc_loadWeakRetained(v4 + 20);
 
-  if (v13)
+  if (v14)
   {
-    v14 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v17 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v15, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Discontinuing sync because a retry has already been scheduled", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "Discontinuing sync because a retry has already been scheduled", buf, 2u);
     }
 
 LABEL_18:
@@ -1949,97 +1898,100 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v15 = [[CloudBookmarkAccountPropertiesStore alloc] initWithAccountStore:*(v3 + 18) databaseCoordinator:*(v3 + 24)];
-  v16 = *(v3 + 13);
-  *(v3 + 13) = v15;
+  v18 = [[CloudBookmarkAccountPropertiesStore alloc] initWithAccountStore:*(v4 + 18) databaseCoordinator:*(v4 + 24)];
+  v19 = *(v4 + 13);
+  *(v4 + 13) = v18;
 
-  v17 = [*(v3 + 13) account];
-  v18 = v17 == 0;
+  v20 = [*(v4 + 13) account];
+  v21 = v20 == 0;
 
-  if (v18)
+  if (v21)
   {
-    v25 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    v39 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v22, v23);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Discontinuing sync because user is not signed in", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_INFO, "Discontinuing sync because user is not signed in", buf, 2u);
     }
 
     goto LABEL_18;
   }
 
-  if ([*(v3 + 24) lockForClient:@"Sync coordinator"])
+  v24 = [*(v4 + 24) lockForClient:@"Sync coordinator"];
+  if (v24)
   {
-    v19 = [v3 deviceIdentifier];
-    v20 = [v19 length] == 0;
+    v26 = [v4 deviceIdentifier];
+    v27 = [v26 length] == 0;
 
-    if (v20)
+    if (v27)
     {
-      v27 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v41 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v28, v29);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
         sub_1000703B8();
       }
 
-      [*(v3 + 24) unlockForClient:@"Sync coordinator"];
-      [v3 _scheduleRetryIfAbleWithOperationGroupForFetching:a1[5] operationGroupForSaving:a1[6] completionHandlers:a1[4]];
+      [*(v4 + 24) unlockForClient:@"Sync coordinator"];
+      [v4 _scheduleRetryIfAbleWithOperationGroupForFetching:a1[5] operationGroupForSaving:a1[6] completionHandlers:a1[4]];
     }
 
     else
     {
-      *(v3 + 21) = 0;
-      if ([*(v3 + 24) openDatabase])
+      *(v4 + 21) = 0;
+      v30 = [*(v4 + 24) openDatabase];
+      if (v30)
       {
-        v43[0] = _NSConcreteStackBlock;
-        v43[1] = 3221225472;
-        v43[2] = sub_10006C184;
-        v43[3] = &unk_100134940;
-        v43[4] = v3;
-        v44 = a1[4];
-        v21 = objc_retainBlock(v43);
-        v22 = [*(v3 + 24) localMigrationState];
-        v23 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+        v65[0] = _NSConcreteStackBlock;
+        v65[1] = 3221225472;
+        v65[2] = sub_10006C184;
+        v65[3] = &unk_100134940;
+        v65[4] = v4;
+        v66 = a1[4];
+        v32 = objc_retainBlock(v65);
+        v33 = [*(v4 + 24) localMigrationState];
+        v35 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v33, v34);
+        v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG);
+        if (v36)
         {
           sub_10007031C();
         }
 
-        if (v22 < 3)
+        if (v33 < 3)
         {
-          v24 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v38 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v36, v37);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134217984;
-            v50 = v22;
-            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Discontinuing sync since local migration has not yet completed, migration state: %lu", buf, 0xCu);
+            v72 = v33;
+            _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "Discontinuing sync since local migration has not yet completed, migration state: %lu", buf, 0xCu);
           }
 
-          (v21[2])(v21, 1, 0);
+          (v32[2])(v32, 1, 0);
           goto LABEL_63;
         }
 
-        if (v22 == -1)
+        if (v33 == -1)
         {
-          v33 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+          v51 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v36, v37);
+          if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Discontinuing sync since local migration state cannot be read", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "Discontinuing sync since local migration state cannot be read", buf, 2u);
           }
         }
 
         else
         {
-          if (v22 == 3)
+          if (v33 == 3)
           {
-            v29 = [*(v3 + 24) databaseRef];
-            v30 = [*(v3 + 24) databaseAccessor];
-            v31 = [WBBookmarkDatabaseSyncData databaseSyncDataInDatabase:v29 databaseAccessor:v30];
+            v43 = [*(v4 + 24) databaseRef];
+            v44 = [*(v4 + 24) databaseAccessor];
+            v45 = [WBBookmarkDatabaseSyncData databaseSyncDataInDatabase:v43 databaseAccessor:v44];
 
-            if (!v31)
+            if (!v45)
             {
-              v39 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-              if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+              v61 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v46, v47);
+              if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
               {
                 sub_100070384();
               }
@@ -2048,85 +2000,87 @@ LABEL_18:
             }
           }
 
-          if ([*(v3 + 13) updateAccountHashIfNeeded])
+          v48 = [*(v4 + 13) updateAccountHashIfNeeded];
+          if (v48)
           {
-            v32 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+            v50 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v48, v49);
+            if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Discontinuing sync because account hash differed", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "Discontinuing sync because account hash differed", buf, 2u);
             }
 
 LABEL_62:
-            [v3 _resetSyncData];
-            (v21[2])(v21, 5, 1);
+            [v4 _resetSyncData];
+            (v32[2])(v32, 5, 1);
             goto LABEL_63;
           }
 
-          if ([*(v3 + 13) isDataclassEnabled])
+          v52 = [*(v4 + 13) isDataclassEnabled];
+          if (v52)
           {
-            [*(v3 + 24) closeDatabaseAndSave:0];
-            v34 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+            v54 = [*(v4 + 24) closeDatabaseAndSave:0];
+            v56 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v54, v55);
+            if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Beginning synchronization", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEFAULT, "Beginning synchronization", buf, 2u);
             }
 
-            *(v3 + 152) = 1;
-            objc_storeStrong(v3 + 1, a1[5]);
-            objc_storeStrong(v3 + 2, a1[6]);
-            v35 = [a1[4] mutableCopy];
-            v36 = *(v3 + 3);
-            *(v3 + 3) = v35;
+            *(v4 + 152) = 1;
+            objc_storeStrong(v4 + 1, a1[5]);
+            objc_storeStrong(v4 + 2, a1[6]);
+            v57 = [a1[4] mutableCopy];
+            v58 = *(v4 + 3);
+            *(v4 + 3) = v57;
 
-            v37 = *(v3 + 23);
-            v40[0] = _NSConcreteStackBlock;
-            v40[1] = 3221225472;
-            v40[2] = sub_10006C1E4;
-            v40[3] = &unk_1001349E0;
-            objc_copyWeak(&v42, a1 + 7);
-            v41 = a1[5];
-            [v37 fetchCachedRemoteMigrationInfoWithCompletionHandler:v40];
+            v59 = *(v4 + 23);
+            v62[0] = _NSConcreteStackBlock;
+            v62[1] = 3221225472;
+            v62[2] = sub_10006C1E4;
+            v62[3] = &unk_1001349E0;
+            objc_copyWeak(&v64, a1 + 7);
+            v63 = a1[5];
+            [v59 fetchCachedRemoteMigrationInfoWithCompletionHandler:v62];
 
-            objc_destroyWeak(&v42);
+            objc_destroyWeak(&v64);
             goto LABEL_63;
           }
 
-          v38 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+          v60 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v52, v53);
+          if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "Discontinuing sync because bookmarks Safari sync is disabled", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "Discontinuing sync because bookmarks Safari sync is disabled", buf, 2u);
           }
         }
 
-        (v21[2])(v21, 4, 0);
+        (v32[2])(v32, 4, 0);
 LABEL_63:
 
         goto LABEL_19;
       }
 
-      v28 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v42 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v30, v31);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
         sub_1000702E8();
       }
 
-      [*(v3 + 24) unlockForClient:@"Sync coordinator"];
+      [*(v4 + 24) unlockForClient:@"Sync coordinator"];
       sub_10000306C(a1[4], 4, 0);
     }
   }
 
   else
   {
-    v26 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v40 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v24, v25);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
       sub_1000702B4();
     }
 
-    [v3 _scheduleRetryIfAbleWithOperationGroupForFetching:a1[5] operationGroupForSaving:a1[6] completionHandlers:a1[4]];
+    [v4 _scheduleRetryIfAbleWithOperationGroupForFetching:a1[5] operationGroupForSaving:a1[6] completionHandlers:a1[4]];
   }
 
 LABEL_19:
@@ -2188,32 +2142,32 @@ void sub_10006C3B8(id *a1, void *a2)
 void sub_10006C4A4(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v3 = WeakRetained;
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v4 = (a1 + 32);
+    v5 = (a1 + 32);
     if (*(a1 + 32))
     {
-      v5 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(WeakRetained, v3);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        sub_1000703EC(v4, v5);
+        sub_1000703EC(v5, v6);
       }
 
-      [v3 _didFailToSyncWithError:*v4 didOpenDatabase:0];
+      [v4 _didFailToSyncWithError:*v5 didOpenDatabase:0];
     }
 
     else
     {
-      v6 = *(WeakRetained + 23);
-      v8[0] = _NSConcreteStackBlock;
-      v8[1] = 3221225472;
-      v8[2] = sub_10006C598;
-      v8[3] = &unk_100134968;
-      v7 = *(a1 + 40);
-      v9 = *(a1 + 48);
-      v10 = v3;
-      [v6 fetchRemoteMigrationInfoInOperationGroup:v7 withCompletionHandler:v8];
+      v7 = *(WeakRetained + 23);
+      v9[0] = _NSConcreteStackBlock;
+      v9[1] = 3221225472;
+      v9[2] = sub_10006C598;
+      v9[3] = &unk_100134968;
+      v8 = *(a1 + 40);
+      v10 = *(a1 + 48);
+      v11 = v4;
+      [v7 fetchRemoteMigrationInfoInOperationGroup:v8 withCompletionHandler:v9];
     }
   }
 }
@@ -2223,7 +2177,6 @@ void sub_10006C598(uint64_t a1, void *a2, void *a3)
   v5 = a2;
   v8 = a3;
   v9 = *(a1 + 32);
-  v10 = *(a1 + 40);
   v6 = v5;
   v7 = v8;
   WBSDispatchAsyncToMainQueueWithAutoreleasePool();
@@ -2232,51 +2185,23 @@ void sub_10006C598(uint64_t a1, void *a2, void *a3)
 void sub_10006C670(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  if (v2)
+  if (v2 || (v6 = *(a1 + 40)) != 0 && *(a1 + 48) && ([v6 migratorDeviceIdentifier], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 48), "migratorDeviceIdentifier"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "isEqualToString:", v8), v8, v7, (v9 & 1) == 0) && (+[NSError safari_errorWithCloudBookmarksCode:userInfo:](NSError, "safari_errorWithCloudBookmarksCode:userInfo:", 3, 0), (v2 = objc_claimAutoreleasedReturnValue()) != 0))
   {
-    goto LABEL_2;
-  }
-
-  v5 = *(a1 + 40);
-  if (!v5)
-  {
-    goto LABEL_9;
-  }
-
-  if (!*(a1 + 48))
-  {
-    goto LABEL_9;
-  }
-
-  v6 = [v5 migratorDeviceIdentifier];
-  v7 = [*(a1 + 48) migratorDeviceIdentifier];
-  v8 = [v6 isEqualToString:v7];
-
-  if (v8)
-  {
-    goto LABEL_9;
-  }
-
-  v2 = [NSError safari_errorWithCloudBookmarksCode:3 userInfo:0];
-  if (v2)
-  {
-LABEL_2:
-    v3 = v2;
-    v4 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v4 = v2;
+    v5 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v2, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_10007047C(v4);
+      sub_10007047C(v5);
     }
 
-    [*(a1 + 56) _didFailToSyncWithError:v3 didOpenDatabase:0];
+    [*(a1 + 56) _didFailToSyncWithError:v4 didOpenDatabase:0];
   }
 
   else
   {
-LABEL_9:
-    v9 = *(a1 + 56);
+    v10 = *(a1 + 56);
 
-    [v9 _bookmarkStoreDidFinishSetUp];
+    [v10 _bookmarkStoreDidFinishSetUp];
   }
 }
 
@@ -2372,31 +2297,30 @@ id sub_10006DC38(uint64_t a1, _BYTE *a2)
   return v7;
 }
 
-id sub_10006E2FC(uint64_t a1, void *a2, void *a3)
+id sub_10006E2FC(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
-  v5 = a2;
-  v6 = a3;
+  v6 = a2;
+  v7 = a3;
   v13 = 0;
   v14 = &v13;
   v15 = 0x3032000000;
   v16 = sub_1000014D0;
   v17 = sub_10006E46C;
   v18 = 0;
-  v9 = v5;
-  v10 = *(a1 + 32);
+  v10 = v6;
   v11 = *(a1 + 40);
-  v12 = v6;
+  v12 = v7;
   WBSDispatchSyncToMainQueueWithAutoreleasePool();
-  v7 = v14[5];
+  v8 = v14[5];
 
   _Block_object_dispose(&v13, 8);
 
-  return v7;
+  return v8;
 }
 
-void sub_10006E454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10006E454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2404,26 +2328,27 @@ void sub_10006E454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_10006E474(uint64_t a1)
 {
   v2 = [*(a1 + 32) safari_recordName];
+  v4 = v2;
   if (*(a1 + 72) != 1)
   {
-    v4 = [*(a1 + 48) objectForKeyedSubscript:v2];
-    v5 = [*(*(a1 + 40) + 184) bookmarkHashGenerator];
-    v6 = *(a1 + 56);
-    v7 = [v4 configuration];
-    [v5 verifyIdentityHashInBookmarkRecord:v6 configuration:v7];
+    v6 = [*(a1 + 48) objectForKeyedSubscript:v2];
+    v7 = [*(*(a1 + 40) + 184) bookmarkHashGenerator];
+    v8 = *(a1 + 56);
+    v9 = [v6 configuration];
+    [v7 verifyIdentityHashInBookmarkRecord:v8 configuration:v9];
 
-    v8 = [v4 resultFromMergingRecord:*(a1 + 56) usingUpdater:*(a1 + 40)];
-    v9 = v8;
-    if ((v8 & 0x10) != 0)
+    v10 = [v6 resultFromMergingRecord:*(a1 + 56) usingUpdater:*(a1 + 40)];
+    v11 = v10;
+    if ((v10 & 0x10) != 0)
     {
-      v10 = [*(a1 + 40) _rebuildUndeletedBookmark:v4];
+      v12 = [*(a1 + 40) _rebuildUndeletedBookmark:v6];
 
-      [*(a1 + 48) setObject:v10 forKeyedSubscript:v2];
-      v4 = v10;
-      if ((v9 & 2) == 0)
+      [*(a1 + 48) setObject:v12 forKeyedSubscript:v4];
+      v6 = v12;
+      if ((v11 & 2) == 0)
       {
 LABEL_7:
-        if ((v9 & 4) == 0)
+        if ((v11 & 4) == 0)
         {
           goto LABEL_8;
         }
@@ -2432,16 +2357,16 @@ LABEL_7:
       }
     }
 
-    else if ((v8 & 2) == 0)
+    else if ((v10 & 2) == 0)
     {
       goto LABEL_7;
     }
 
-    [v4 updateLocalItemWithUpdater:*(a1 + 40)];
-    if ((v9 & 4) == 0)
+    [v6 updateLocalItemWithUpdater:*(a1 + 40)];
+    if ((v11 & 4) == 0)
     {
 LABEL_8:
-      if ((v9 & 8) == 0)
+      if ((v11 & 8) == 0)
       {
         goto LABEL_9;
       }
@@ -2450,32 +2375,32 @@ LABEL_8:
     }
 
 LABEL_13:
-    [*(*(a1 + 40) + 112) addMovedBookmark:v4];
-    if ((v9 & 8) == 0)
+    [*(*(a1 + 40) + 112) addMovedBookmark:v6];
+    if ((v11 & 8) == 0)
     {
 LABEL_9:
-      if ((v9 & 1) == 0)
+      if ((v11 & 1) == 0)
       {
 LABEL_10:
-        [*(*(a1 + 40) + 80) removeObject:v2];
-        [*(*(a1 + 40) + 96) removeObject:v2];
+        [*(*(a1 + 40) + 80) removeObject:v4];
+        [*(*(a1 + 40) + 96) removeObject:v4];
 LABEL_16:
 
         goto LABEL_17;
       }
 
 LABEL_15:
-      v11 = [v4 record];
-      v12 = *(*(a1 + 64) + 8);
-      v13 = *(v12 + 40);
-      *(v12 + 40) = v11;
+      v13 = [v6 record];
+      v14 = *(*(a1 + 64) + 8);
+      v15 = *(v14 + 40);
+      *(v14 + 40) = v13;
 
       goto LABEL_16;
     }
 
 LABEL_14:
-    [*(*(a1 + 40) + 112) didDeleteBookmarkWithRecordName:v2];
-    if ((v9 & 1) == 0)
+    [*(*(a1 + 40) + 112) didDeleteBookmarkWithRecordName:v4];
+    if ((v11 & 1) == 0)
     {
       goto LABEL_10;
     }
@@ -2483,37 +2408,36 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v5 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v2, v3);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_1000706CC();
   }
 
-  [*(*(a1 + 40) + 112) didDeleteBookmarkWithRecordName:v2];
-  [*(a1 + 48) removeObjectForKey:v2];
-  [*(*(a1 + 40) + 80) removeObject:v2];
-  [*(*(a1 + 40) + 96) removeObject:v2];
+  [*(*(a1 + 40) + 112) didDeleteBookmarkWithRecordName:v4];
+  [*(a1 + 48) removeObjectForKey:v4];
+  [*(*(a1 + 40) + 80) removeObject:v4];
+  [*(*(a1 + 40) + 96) removeObject:v4];
 LABEL_17:
 }
 
 void sub_10006E654(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v6 = a4;
-  v7 = *(a1 + 32);
-  v8 = *(a1 + 40);
+  v7 = *(a1 + 40);
   v5 = v6;
   WBSDispatchAsyncToMainQueueWithAutoreleasePool();
 }
 
-id sub_10006E6FC(uint64_t a1)
+id sub_10006E6FC(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 32);
+  v3 = a1 + 32;
   if (*(a1 + 32))
   {
-    v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(a1, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_100070734(v2, v3);
+      sub_100070734(v3, v4);
     }
 
     return [*(a1 + 40) _didFailToSyncWithError:*(a1 + 32) didOpenDatabase:1];
@@ -2521,7 +2445,6 @@ id sub_10006E6FC(uint64_t a1)
 
   else
   {
-    v5 = *(a1 + 48);
     v6 = *(*(a1 + 48) + 16);
 
     return v6();
@@ -2531,13 +2454,13 @@ id sub_10006E6FC(uint64_t a1)
 void sub_10006E7F8(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  v5 = v4;
+  v5 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v3, v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_1000707C4(v5);
+      sub_1000707C4(v6);
     }
 
     [*(a1 + 32) _didFailToSyncWithError:v3 didOpenDatabase:1];
@@ -2545,10 +2468,10 @@ void sub_10006E7F8(uint64_t a1, void *a2)
 
   else
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Sync coordinator finished sync down", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Sync coordinator finished sync down", v7, 2u);
     }
 
     [*(a1 + 32) _continueSyncingAfterSyncDown:1];
@@ -2558,8 +2481,7 @@ void sub_10006E7F8(uint64_t a1, void *a2)
 void sub_10006EBAC(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 40);
+  v5 = *(a1 + 40);
   v4 = v3;
   WBSDispatchAsyncToMainQueueWithAutoreleasePool();
 }
@@ -2576,8 +2498,7 @@ void sub_10006EC54(id *a1)
 void sub_10006ECD8(uint64_t a1, void *a2)
 {
   v4 = a2;
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 40);
+  v5 = *(a1 + 40);
   v3 = v4;
   WBSDispatchAsyncToMainQueueWithAutoreleasePool();
 }
@@ -2591,14 +2512,13 @@ void sub_10006ED80(uint64_t a1)
   [*(a1 + 48) addObject:v2];
 }
 
-void sub_10006EE08(uint64_t a1, void *a2, uint64_t a3, void *a4)
+void sub_10006EE08(id *a1, void *a2, uint64_t a3, void *a4)
 {
   v6 = a2;
   v9 = a4;
-  v10 = *(a1 + 32);
-  v13 = *(a1 + 56);
-  v11 = *(a1 + 40);
-  v12 = *(a1 + 48);
+  v12 = a1[7];
+  v10 = a1[5];
+  v11 = a1[6];
   v7 = v6;
   v8 = v9;
   WBSDispatchAsyncToMainQueueWithAutoreleasePool();
@@ -2631,86 +2551,86 @@ void sub_10006EF04(uint64_t a1)
 
     if (*(a1 + 32))
     {
-      v8 = *(*(a1 + 72) + 16);
+      v9 = *(*(a1 + 72) + 16);
 
-      v8();
+      v9();
     }
 
     else
     {
-      v9 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v10 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v8, 0);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
-        v10 = *(a1 + 48);
-        v11 = *(a1 + 56);
+        v11 = *(a1 + 48);
+        v12 = *(a1 + 56);
         *buf = 138543618;
-        v33 = v10;
-        v34 = 2114;
-        v35 = v11;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Did finish fetching records between server change token: %{public}@ and server change token: %{public}@", buf, 0x16u);
+        v37 = v11;
+        v38 = 2114;
+        v39 = v12;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Did finish fetching records between server change token: %{public}@ and server change token: %{public}@", buf, 0x16u);
       }
 
-      v12 = [*(*v4 + 96) count];
-      if (v12)
+      v13 = [*(*v4 + 96) count];
+      if (v13)
       {
-        v13 = v12;
-        v14 = [*(*v4 + 80) count];
-        v15 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-        v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
-        if (v13 == v14)
+        v14 = v13;
+        v15 = [*(*v4 + 80) count];
+        v17 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v15, v16);
+        v18 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
+        if (v14 == v15)
         {
-          if (v16)
+          if (v18)
           {
-            sub_100070854(a1 + 40, v13, v15);
+            sub_100070854(a1 + 40, v14, v17);
           }
         }
 
-        else if (v16)
+        else if (v18)
         {
-          v29 = *(*v4 + 96);
+          v33 = *(*v4 + 96);
           *buf = 134218498;
-          v33 = v13;
-          v34 = 2048;
-          v35 = v14;
-          v36 = 2114;
-          v37 = v29;
-          _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Did not receive %ld records on sync down out of the %ld records sent to be saved. Missing records: %{public}@", buf, 0x20u);
+          v37 = v14;
+          v38 = 2048;
+          v39 = v15;
+          v40 = 2114;
+          v41 = v33;
+          _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Did not receive %ld records on sync down out of the %ld records sent to be saved. Missing records: %{public}@", buf, 0x20u);
         }
 
-        v17 = +[NSNotificationCenter defaultCenter];
-        v18 = *v4;
-        v30 = @"bugIDs";
-        v31 = &off_10013CB48;
-        v19 = [NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1];
-        [v17 postNotificationName:@"cloudBookmarkDidDetectBug" object:v18 userInfo:v19];
+        v19 = +[NSNotificationCenter defaultCenter];
+        v20 = *v4;
+        v34 = @"bugIDs";
+        v35 = &off_10013CB48;
+        v21 = [NSDictionary dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+        [v19 postNotificationName:@"cloudBookmarkDidDetectBug" object:v20 userInfo:v21];
       }
 
-      v20 = (a1 + 64);
+      v22 = (a1 + 64);
       if ([*(*(a1 + 40) + 88) intersectsSet:*(a1 + 64)])
       {
-        [*v20 intersectSet:*(*v4 + 88)];
-        [*(*v4 + 88) minusSet:*v20];
-        v21 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        [*v22 intersectSet:*(*v4 + 88)];
+        v23 = [*(*v4 + 88) minusSet:*v22];
+        v25 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v23, v24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
-          sub_1000708E4((a1 + 64), v21);
+          sub_1000708E4((a1 + 64), v25);
         }
       }
 
       [*(*(a1 + 40) + 88) unionSet:*(*(a1 + 40) + 96)];
       [*(*(a1 + 40) + 96) removeAllObjects];
       [*(*(a1 + 40) + 80) removeAllObjects];
-      v22 = [*(*(a1 + 40) + 192) databaseRef];
-      v23 = [*(*(a1 + 40) + 192) databaseAccessor];
-      v24 = [WBBookmarkDatabaseSyncData databaseSyncDataInDatabase:v22 databaseAccessor:v23];
+      v26 = [*(*(a1 + 40) + 192) databaseRef];
+      v27 = [*(*(a1 + 40) + 192) databaseAccessor];
+      v28 = [WBBookmarkDatabaseSyncData databaseSyncDataInDatabase:v26 databaseAccessor:v27];
 
-      v25 = *(a1 + 56);
-      v26 = [*(*(a1 + 40) + 184) bookmarksRecordZoneID];
-      [v24 setLastServerChangeToken:v25 forRecordZoneID:v26];
+      v29 = *(a1 + 56);
+      v30 = [*(*(a1 + 40) + 184) bookmarksRecordZoneID];
+      [v28 setLastServerChangeToken:v29 forRecordZoneID:v30];
 
-      v27 = [*(*(a1 + 40) + 192) databaseRef];
-      v28 = [*(*(a1 + 40) + 192) databaseAccessor];
-      [v24 writeToDatabase:v27 databaseAccessor:v28];
+      v31 = [*(*(a1 + 40) + 192) databaseRef];
+      v32 = [*(*(a1 + 40) + 192) databaseAccessor];
+      [v28 writeToDatabase:v31 databaseAccessor:v32];
 
       (*(*(a1 + 72) + 16))();
     }
@@ -2743,19 +2663,19 @@ void sub_100070018(void *a1)
   (*(a1[7] + 16))();
 }
 
-void sub_100070298(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100070298(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void sub_1000703EC(uint64_t *a1, void *a2)
+void sub_1000703EC(uint64_t a1, void *a2)
 {
-  v3 = *a1;
-  v4 = a2;
-  v5 = [sub_10000807C() safari_privacyPreservingDescription];
+  v3 = a2;
+  v4 = [sub_10000807C() safari_privacyPreservingDescription];
   sub_100008064();
-  sub_100008028(&_mh_execute_header, v6, v7, "Failed to set up Bookmarks Record Zone with error: %{public}@", v8, v9, v10, v11, v12);
+  sub_100008028(&_mh_execute_header, v5, v6, "Failed to set up Bookmarks Record Zone with error: %{public}@", v7, v8, v9, v10);
 }
 
 void sub_10007047C(void *a1)
@@ -2763,7 +2683,7 @@ void sub_10007047C(void *a1)
   v2 = a1;
   v3 = [sub_10000807C() safari_privacyPreservingDescription];
   sub_100008064();
-  sub_100008028(&_mh_execute_header, v4, v5, "Failed to fetch (or received invalid) remote migration state record with error: %{public}@", v6, v7, v8, v9, v10);
+  sub_100008028(&_mh_execute_header, v4, v5, "Failed to fetch (or received invalid) remote migration state record with error: %{public}@", v6, v7, v8, v9);
 }
 
 void sub_100070574(void *a1)
@@ -2771,7 +2691,7 @@ void sub_100070574(void *a1)
   v2 = a1;
   v3 = [sub_10000807C() safari_privacyPreservingDescription];
   sub_100008064();
-  sub_100008028(&_mh_execute_header, v4, v5, "Sync coordinator failed to sync bookmarks with error: %{public}@", v6, v7, v8, v9, v10);
+  sub_100008028(&_mh_execute_header, v4, v5, "Sync coordinator failed to sync bookmarks with error: %{public}@", v6, v7, v8, v9);
 }
 
 void sub_100070638(void *a1)
@@ -2782,13 +2702,12 @@ void sub_100070638(void *a1)
   _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "Saving record batch of size: %lu", v3, 0xCu);
 }
 
-void sub_100070734(uint64_t *a1, void *a2)
+void sub_100070734(uint64_t a1, void *a2)
 {
-  v3 = *a1;
-  v4 = a2;
-  v5 = [sub_10000807C() safari_privacyPreservingDescription];
+  v3 = a2;
+  v4 = [sub_10000807C() safari_privacyPreservingDescription];
   sub_100008064();
-  sub_100008028(&_mh_execute_header, v6, v7, "Did fail to save record batch with error: %{public}@", v8, v9, v10, v11, v12);
+  sub_100008028(&_mh_execute_header, v5, v6, "Did fail to save record batch with error: %{public}@", v7, v8, v9, v10);
 }
 
 void sub_1000707C4(void *a1)
@@ -2796,7 +2715,7 @@ void sub_1000707C4(void *a1)
   v2 = a1;
   v3 = [sub_10000807C() safari_privacyPreservingDescription];
   sub_100008064();
-  sub_100008028(&_mh_execute_header, v4, v5, "Error received while syncing down: %{public}@", v6, v7, v8, v9, v10);
+  sub_100008028(&_mh_execute_header, v4, v5, "Error received while syncing down: %{public}@", v6, v7, v8, v9);
 }
 
 void sub_100070854(uint64_t a1, uint64_t a2, os_log_t log)
@@ -2811,19 +2730,22 @@ void sub_100070854(uint64_t a1, uint64_t a2, os_log_t log)
 
 void sub_1000708E4(void **a1, void *a2)
 {
-  v3 = *a1;
-  v4 = a2;
-  [v3 count];
-  v5 = *a1;
+  v2 = *a1;
+  v3 = a2;
+  [v2 count];
   sub_100008064();
-  sub_100022738(&_mh_execute_header, v6, v7, "Did receive %ld records in current sync down that were supposed to be retrieved in the previous one. Received records: %{public}@", v8, v9, v10, v11, v12);
+  sub_100022738(&_mh_execute_header, v4, v5, "Did receive %ld records in current sync down that were supposed to be retrieved in the previous one. Received records: %{public}@", v6, v7, v8, v9);
 }
 
 void sub_100070988(uint64_t a1, void *a2, uint64_t a3)
 {
-  v4 = a2;
-  v11 = sub_10001C04C(a3);
-  sub_100022738(&_mh_execute_header, v5, v6, "Merging record %{public}@ with result %{public}@ indicates that the remote record needs update despite being in sync down phase. The record should have been saved to the server before.", v7, v8, v9, v10, 2u);
+  v5 = a2;
+  v6 = sub_10001C04C(a3);
+  *v13 = 138543618;
+  *&v13[4] = a1;
+  *&v13[12] = 2114;
+  *&v13[14] = v6;
+  sub_100022738(&_mh_execute_header, v7, v8, "Merging record %{public}@ with result %{public}@ indicates that the remote record needs update despite being in sync down phase. The record should have been saved to the server before.", v9, v10, v11, v12, *v13, *&v13[8], *&v13[16]);
 }
 
 void sub_100070A38(void *a1, void *a2)
@@ -2837,79 +2759,79 @@ void sub_100070A38(void *a1, void *a2)
   _os_log_debug_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "Record %@ has MinimumAPIVersion %zd and will be deleted locally", &v6, 0x16u);
 }
 
-void sub_100070C20(uint64_t a1)
+void sub_100070C20(uint64_t a1, uint64_t a2)
 {
   if ((*(*(a1 + 32) + 129) & 1) == 0)
   {
-    v2 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v45 = 0;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Sync migration converter beginning migration", v45, 2u);
+      *v46 = 0;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Sync migration converter beginning migration", v46, 2u);
     }
 
     *(*(a1 + 32) + 129) = 1;
-    v3 = objc_retainBlock(*(a1 + 48));
-    v4 = *(a1 + 32);
-    v5 = *(v4 + 48);
-    *(v4 + 48) = v3;
+    v4 = objc_retainBlock(*(a1 + 48));
+    v5 = *(a1 + 32);
+    v6 = *(v5 + 48);
+    *(v5 + 48) = v4;
 
     *(*(a1 + 32) + 128) = 0;
-    v6 = [*(a1 + 32) databaseRef];
-    v7 = [*(a1 + 32) databaseAccessor];
-    v8 = [WBBookmarkDatabaseSyncData databaseSyncDataInDatabase:v6 databaseAccessor:v7];
+    v7 = [*(a1 + 32) databaseRef];
+    v8 = [*(a1 + 32) databaseAccessor];
+    v9 = [WBBookmarkDatabaseSyncData databaseSyncDataInDatabase:v7 databaseAccessor:v8];
 
-    [v8 setDidNotSaveRecordsAfterMigration:1];
-    v9 = [*(a1 + 32) databaseRef];
-    v10 = [*(a1 + 32) databaseAccessor];
-    [v8 writeToDatabase:v9 databaseAccessor:v10];
+    [v9 setDidNotSaveRecordsAfterMigration:1];
+    v10 = [*(a1 + 32) databaseRef];
+    v11 = [*(a1 + 32) databaseAccessor];
+    [v9 writeToDatabase:v10 databaseAccessor:v11];
 
     [*(a1 + 32) _prepareRecordsForMigration];
-    v11 = [CloudBookmarkMovedBookmarkManager alloc];
-    v12 = [*(a1 + 32) databaseRef];
-    v13 = [*(a1 + 32) databaseAccessor];
-    v14 = [(CloudBookmarkMovedBookmarkManager *)v11 initWithDatabase:v12 databaseAccessor:v13];
-    v15 = *(a1 + 32);
-    v16 = *(v15 + 56);
-    *(v15 + 56) = v14;
+    v12 = [CloudBookmarkMovedBookmarkManager alloc];
+    v13 = [*(a1 + 32) databaseRef];
+    v14 = [*(a1 + 32) databaseAccessor];
+    v15 = [(CloudBookmarkMovedBookmarkManager *)v12 initWithDatabase:v13 databaseAccessor:v14];
+    v16 = *(a1 + 32);
+    v17 = *(v16 + 56);
+    *(v16 + 56) = v15;
 
-    v17 = [CloudBookmarkPendingReferenceManager alloc];
-    v18 = [*(a1 + 32) databaseRef];
-    v19 = [*(a1 + 32) databaseAccessor];
-    v20 = [(CloudBookmarkPendingReferenceManager *)v17 initWithDatabase:v18 databaseAccessor:v19];
-    v21 = *(a1 + 32);
-    v22 = *(v21 + 64);
-    *(v21 + 64) = v20;
+    v18 = [CloudBookmarkPendingReferenceManager alloc];
+    v19 = [*(a1 + 32) databaseRef];
+    v20 = [*(a1 + 32) databaseAccessor];
+    v21 = [(CloudBookmarkPendingReferenceManager *)v18 initWithDatabase:v19 databaseAccessor:v20];
+    v22 = *(a1 + 32);
+    v23 = *(v22 + 64);
+    *(v22 + 64) = v21;
 
-    v23 = [*(a1 + 32) accountPropertiesStore];
-    v24 = [CloudBookmarkSyncMigrationFolderContentConverter alloc];
-    v25 = [*(a1 + 32) bookmarkStore];
-    v26 = [*(a1 + 32) databaseRef];
-    v27 = [*(a1 + 32) databaseAccessor];
-    v28 = [(CloudBookmarkDatabaseHandler *)v24 initWithBookmarkStore:v25 database:v26 databaseAccessor:v27 accountPropertiesStore:v23];
-    v29 = *(a1 + 32);
-    v30 = *(v29 + 72);
-    *(v29 + 72) = v28;
+    v24 = [*(a1 + 32) accountPropertiesStore];
+    v25 = [CloudBookmarkSyncMigrationFolderContentConverter alloc];
+    v26 = [*(a1 + 32) bookmarkStore];
+    v27 = [*(a1 + 32) databaseRef];
+    v28 = [*(a1 + 32) databaseAccessor];
+    v29 = [(CloudBookmarkDatabaseHandler *)v25 initWithBookmarkStore:v26 database:v27 databaseAccessor:v28 accountPropertiesStore:v24];
+    v30 = *(a1 + 32);
+    v31 = *(v30 + 72);
+    *(v30 + 72) = v29;
 
     [*(*(a1 + 32) + 72) setDelegate:?];
-    v31 = [CloudBookmarkSyncMigrationSyncDownHandler alloc];
-    v32 = [*(a1 + 32) bookmarkStore];
-    v33 = [*(a1 + 32) databaseRef];
-    v34 = [*(a1 + 32) databaseAccessor];
-    v35 = [(CloudBookmarkDatabaseHandler *)v31 initWithBookmarkStore:v32 database:v33 databaseAccessor:v34 accountPropertiesStore:v23];
-    v36 = *(a1 + 32);
-    v37 = *(v36 + 80);
-    *(v36 + 80) = v35;
+    v32 = [CloudBookmarkSyncMigrationSyncDownHandler alloc];
+    v33 = [*(a1 + 32) bookmarkStore];
+    v34 = [*(a1 + 32) databaseRef];
+    v35 = [*(a1 + 32) databaseAccessor];
+    v36 = [(CloudBookmarkDatabaseHandler *)v32 initWithBookmarkStore:v33 database:v34 databaseAccessor:v35 accountPropertiesStore:v24];
+    v37 = *(a1 + 32);
+    v38 = *(v37 + 80);
+    *(v37 + 80) = v36;
 
     [*(*(a1 + 32) + 80) setDelegate:?];
-    v38 = [CloudBookmarkSyncMigrationSaveReparentedBookmarksHandler alloc];
-    v39 = [*(a1 + 32) bookmarkStore];
-    v40 = [*(a1 + 32) databaseRef];
-    v41 = [*(a1 + 32) databaseAccessor];
-    v42 = [(CloudBookmarkDatabaseHandler *)v38 initWithBookmarkStore:v39 database:v40 databaseAccessor:v41 accountPropertiesStore:v23];
-    v43 = *(a1 + 32);
-    v44 = *(v43 + 88);
-    *(v43 + 88) = v42;
+    v39 = [CloudBookmarkSyncMigrationSaveReparentedBookmarksHandler alloc];
+    v40 = [*(a1 + 32) bookmarkStore];
+    v41 = [*(a1 + 32) databaseRef];
+    v42 = [*(a1 + 32) databaseAccessor];
+    v43 = [(CloudBookmarkDatabaseHandler *)v39 initWithBookmarkStore:v40 database:v41 databaseAccessor:v42 accountPropertiesStore:v24];
+    v44 = *(a1 + 32);
+    v45 = *(v44 + 88);
+    *(v44 + 88) = v43;
 
     [*(*(a1 + 32) + 88) setDelegate:?];
     [*(a1 + 32) _performMergingSyncDownInOperationGroup:*(a1 + 40)];
@@ -2920,22 +2842,21 @@ void sub_1000714AC(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   v6 = a3;
   v9 = a4;
-  v10 = *(a1 + 32);
-  v11 = *(a1 + 40);
+  v10 = *(a1 + 40);
   v7 = v6;
   v8 = v9;
   WBSDispatchAsyncToMainQueueWithAutoreleasePool();
 }
 
-id sub_100071580(uint64_t a1)
+id sub_100071580(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 32);
+  v3 = a1 + 32;
   if (*(a1 + 32))
   {
-    v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(a1, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_10007282C(v2, v3);
+      sub_10007282C(v3, v4);
     }
 
     return [*(a1 + 40) _migrationDidCompleteWithError:*(a1 + 32)];
@@ -2943,61 +2864,61 @@ id sub_100071580(uint64_t a1)
 
   else
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v5 = *(a1 + 48);
-    v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v6)
+    v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v6 = *(a1 + 48);
+    v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    if (v7)
     {
-      v7 = v6;
-      v8 = *v16;
+      v8 = v7;
+      v9 = *v23;
       do
       {
-        v9 = 0;
+        v10 = 0;
         do
         {
-          if (*v16 != v8)
+          if (*v23 != v9)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v6);
           }
 
-          [*(*(a1 + 40) + 56) didDeleteBookmarkWithRecordName:*(*(&v15 + 1) + 8 * v9)];
-          v9 = v9 + 1;
+          [*(*(a1 + 40) + 56) didDeleteBookmarkWithRecordName:*(*(&v22 + 1) + 8 * v10)];
+          v10 = v10 + 1;
         }
 
-        while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        while (v8 != v10);
+        v8 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
-      while (v7);
+      while (v8);
     }
 
-    v10 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v13 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Did finish merging sync down, temporarily reparent and sort records in case we have cycles or unrooted records in the hierarchy", v14, 2u);
+      *v21 = 0;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Did finish merging sync down, temporarily reparent and sort records in case we have cycles or unrooted records in the hierarchy", v21, 2u);
     }
 
     [*(*(a1 + 40) + 56) verifyAndReparentUnrootedBookmarksRememberingOriginalParents];
-    [*(*(a1 + 40) + 56) moveBookmarksIntoPlace];
-    v11 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v14 = [*(*(a1 + 40) + 56) moveBookmarksIntoPlace];
+    v16 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Did finish reparenting, perform deduplication keeping records with sync data", v14, 2u);
+      *v21 = 0;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Did finish reparenting, perform deduplication keeping records with sync data", v21, 2u);
     }
 
-    v12 = [*(a1 + 40) databaseAccessor];
-    [v12 performDeduplicationWithDatabase:objc_msgSend(*(a1 + 40) mode:{"databaseRef"), 1}];
+    v17 = [*(a1 + 40) databaseAccessor];
+    [v17 performDeduplicationWithDatabase:objc_msgSend(*(a1 + 40) mode:{"databaseRef"), 1}];
 
-    v13 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v20 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v18, v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Did finish deduplication keeping records with sync data, begin converting and saving remaining records", v14, 2u);
+      *v21 = 0;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Did finish deduplication keeping records with sync data, begin converting and saving remaining records", v21, 2u);
     }
 
     return [*(a1 + 40) _generateAndSaveRecordsInOperationGroup:*(a1 + 56)];
@@ -3008,22 +2929,21 @@ void sub_100071870(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v8 = a3;
-  v9 = *(a1 + 32);
-  v10 = *(a1 + 40);
+  v9 = *(a1 + 40);
   v6 = v5;
   v7 = v8;
   WBSDispatchAsyncToMainQueueWithAutoreleasePool();
 }
 
-id sub_100071944(uint64_t a1)
+id sub_100071944(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 32);
+  v3 = a1 + 32;
   if (*(a1 + 32))
   {
-    v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(a1, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_1000728BC(v2, v3);
+      sub_1000728BC(v3, v4);
     }
 
     return [*(a1 + 40) _migrationDidCompleteWithError:*(a1 + 32)];
@@ -3031,21 +2951,21 @@ id sub_100071944(uint64_t a1)
 
   else
   {
-    v5 = [*(a1 + 48) copy];
-    v6 = *(a1 + 40);
-    v7 = *(v6 + 96);
-    *(v6 + 96) = v5;
+    v6 = [*(a1 + 48) copy];
+    v7 = *(a1 + 40);
+    v8 = *(v7 + 96);
+    *(v7 + 96) = v6;
 
-    v8 = [*(a1 + 48) mutableCopy];
-    v9 = *(a1 + 40);
-    v10 = *(v9 + 112);
-    *(v9 + 112) = v8;
+    v9 = [*(a1 + 48) mutableCopy];
+    v10 = *(a1 + 40);
+    v11 = *(v10 + 112);
+    *(v10 + 112) = v9;
 
-    v11 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v14 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Did finish converting and saving remaining records", v12, 2u);
+      *v15 = 0;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Did finish converting and saving remaining records", v15, 2u);
     }
 
     return [*(a1 + 40) _performSyncDownInOperationGroup:*(a1 + 56)];
@@ -3059,132 +2979,132 @@ void sub_100071C04(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_100071C28(uint64_t a1, void *a2, void *a3)
+void sub_100071C28(id *a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = *(a1 + 32);
-  v8 = *(a1 + 40);
-  objc_copyWeak(&v11, (a1 + 56));
-  v9 = *(a1 + 48);
-  v10 = v5;
+  v7 = a1[5];
+  objc_copyWeak(&v10, a1 + 7);
+  v8 = a1[6];
+  v9 = v5;
   WBSDispatchAsyncToMainQueueWithAutoreleasePool();
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v10);
 }
 
-void sub_100071D34(id *a1)
+void sub_100071D34(id *a1, uint64_t a2)
 {
-  v2 = a1 + 4;
+  v3 = a1 + 4;
   if (!a1[4])
   {
     [*(a1[5] + 14) minusSet:a1[8]];
-    v4 = [*(a1[5] + 14) count];
-    if (!v4)
+    v5 = [*(a1[5] + 14) count];
+    if (!v5)
     {
 LABEL_18:
       if ([*(a1[5] + 13) intersectsSet:a1[8]])
       {
-        v19 = [a1[8] mutableCopy];
-        [v19 intersectSet:*(a1[5] + 13)];
-        [*(a1[5] + 13) minusSet:v19];
-        v20 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v21 = [a1[8] mutableCopy];
+        [v21 intersectSet:*(a1[5] + 13)];
+        v22 = [*(a1[5] + 13) minusSet:v21];
+        v24 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v22, v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          sub_100072A6C(v20, v19);
+          sub_100072A6C(v24, v21);
         }
       }
 
-      v21 = a1 + 5;
+      v25 = a1 + 5;
       [*(a1[5] + 13) unionSet:*(a1[5] + 14)];
-      v22 = *(a1[5] + 14);
-      *(*v21 + 14) = 0;
+      v26 = *(a1[5] + 14);
+      *(*v25 + 14) = 0;
 
-      v23 = *(a1[5] + 12);
-      *(*v21 + 12) = 0;
+      v27 = *(a1[5] + 12);
+      *(*v25 + 12) = 0;
 
-      v24 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v30 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v28, v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Did finish post-migration sync down", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Did finish post-migration sync down", buf, 2u);
       }
 
       [a1[5] _didFinishSyncDownInOperationGroup:a1[7]];
       return;
     }
 
-    v5 = v4;
-    v6 = [*(a1[5] + 12) count];
-    v7 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
-    if (v5 == v6)
+    v6 = v5;
+    v7 = [*(a1[5] + 12) count];
+    v9 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v7, v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+    if (v6 == v7)
     {
-      if (v8)
+      if (v10)
       {
-        v9 = *(a1[5] + 14);
+        v11 = *(a1[5] + 14);
         *buf = 134218242;
-        v42 = v5;
-        v43 = 2114;
-        v44 = v9;
-        v10 = "None of the %ld records saved to the server were retrieved on sync down. Missing records: %{public}@";
-        v11 = v7;
-        v12 = 22;
+        v51 = v6;
+        v52 = 2114;
+        v53 = v11;
+        v12 = "None of the %ld records saved to the server were retrieved on sync down. Missing records: %{public}@";
+        v13 = v9;
+        v14 = 22;
 LABEL_33:
-        _os_log_error_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, v10, buf, v12);
+        _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, v12, buf, v14);
       }
     }
 
-    else if (v8)
+    else if (v10)
     {
-      v26 = *(a1[5] + 14);
+      v34 = *(a1[5] + 14);
       *buf = 134218498;
-      v42 = v5;
-      v43 = 2048;
-      v44 = v6;
-      v45 = 2114;
-      v46 = v26;
-      v10 = "Did not receive %ld records on sync down out of the %ld records sent to be saved. Missing records: %{public}@";
-      v11 = v7;
-      v12 = 32;
+      v51 = v6;
+      v52 = 2048;
+      v53 = v7;
+      v54 = 2114;
+      v55 = v34;
+      v12 = "Did not receive %ld records on sync down out of the %ld records sent to be saved. Missing records: %{public}@";
+      v13 = v9;
+      v14 = 32;
       goto LABEL_33;
     }
 
     if (!*(a1[5] + 13))
     {
-      v13 = +[NSMutableSet set];
-      v14 = a1[5];
-      v15 = v14[13];
-      v14[13] = v13;
+      v15 = +[NSMutableSet set];
+      v16 = a1[5];
+      v17 = v16[13];
+      v16[13] = v15;
     }
 
-    v16 = +[NSNotificationCenter defaultCenter];
-    v17 = a1[5];
-    v39 = @"bugIDs";
-    v40 = &off_10013CB60;
-    v18 = [NSDictionary dictionaryWithObjects:&v40 forKeys:&v39 count:1];
-    [v16 postNotificationName:@"cloudBookmarkDidDetectBug" object:v17 userInfo:v18];
+    v18 = +[NSNotificationCenter defaultCenter];
+    v19 = a1[5];
+    v48 = @"bugIDs";
+    v49 = &off_10013CB60;
+    v20 = [NSDictionary dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+    [v18 postNotificationName:@"cloudBookmarkDidDetectBug" object:v19 userInfo:v20];
 
     goto LABEL_18;
   }
 
-  v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(a1, a2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    sub_10007294C(v2, v3);
+    sub_10007294C(v3, v4);
   }
 
-  if (([*v2 safari_isUnrecoverableCloudKitError] & 1) != 0 || (objc_msgSend(*v2, "safari_isCloudKitPartialFailureError") & 1) != 0 || (objc_msgSend(*v2, "safari_isCloudKitNonExistentRecordError") & 1) != 0 || objc_msgSend(*v2, "safari_isCloudKitBatchTooLargeError") || (objc_msgSend(*v2, "safari_isCloudKitWriteConflictError") & 1) != 0 || objc_msgSend(*v2, "safari_isAtomicWriteError"))
+  if (([*v3 safari_isUnrecoverableCloudKitError] & 1) != 0 || (objc_msgSend(*v3, "safari_isCloudKitPartialFailureError") & 1) != 0 || (objc_msgSend(*v3, "safari_isCloudKitNonExistentRecordError") & 1) != 0 || objc_msgSend(*v3, "safari_isCloudKitBatchTooLargeError") || (objc_msgSend(*v3, "safari_isCloudKitWriteConflictError") & 1) != 0 || objc_msgSend(*v3, "safari_isAtomicWriteError"))
   {
     goto LABEL_27;
   }
 
-  if ([*v2 safari_isOrContainsCloudKitMissingZoneError])
+  v31 = [*v3 safari_isOrContainsCloudKitMissingZoneError];
+  if (v31)
   {
-    v25 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v33 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v31, v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      sub_100072A28(v25);
+      sub_100072A28(v33);
     }
 
 LABEL_27:
@@ -3192,38 +3112,38 @@ LABEL_27:
     return;
   }
 
-  v27 = a1[6];
-  v28 = a1[4];
-  v31 = _NSConcreteStackBlock;
-  v32 = 3221225472;
-  v33 = sub_100072208;
-  v34 = &unk_100134990;
-  objc_copyWeak(&v38, a1 + 9);
-  v35 = a1[4];
-  v36 = a1[7];
-  v37 = a1[6];
-  v29 = [v27 scheduleRetryIfNeededForError:v28 usingBlock:&v31];
-  if (v29 != 1)
+  v35 = a1[6];
+  v36 = a1[4];
+  v40 = _NSConcreteStackBlock;
+  v41 = 3221225472;
+  v42 = sub_100072208;
+  v43 = &unk_100134990;
+  objc_copyWeak(&v47, a1 + 9);
+  v44 = a1[4];
+  v45 = a1[7];
+  v46 = a1[6];
+  v37 = [v35 scheduleRetryIfNeededForError:v36 usingBlock:&v40];
+  if (v37 != 1)
   {
-    if (v29 == 2)
+    if (v37 == 2)
     {
-      v30 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      v39 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(2, v38);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
-        sub_1000729E4(v30);
+        sub_1000729E4(v39);
       }
     }
 
-    [a1[5] _migrationDidCompleteWithError:{a1[4], v31, v32, v33, v34, v35, v36}];
+    [a1[5] _migrationDidCompleteWithError:{a1[4], v40, v41, v42, v43, v44, v45}];
   }
 
-  objc_destroyWeak(&v38);
+  objc_destroyWeak(&v47);
 }
 
 void sub_100072208(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v3 = WeakRetained;
+  v4 = WeakRetained;
   if (WeakRetained)
   {
     [WeakRetained _performSyncDownInOperationGroup:*(a1 + 40) withRetryManager:*(a1 + 48)];
@@ -3231,10 +3151,10 @@ void sub_100072208(uint64_t a1)
 
   else
   {
-    v4 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(0, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_100072B14(a1, v4);
+      sub_100072B14(a1, v5);
     }
   }
 }
@@ -3243,56 +3163,55 @@ void sub_10007249C(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_100072BA4(v7);
+      sub_100072BA4(v9);
     }
 
-    [*(a1 + 32) _migrationDidCompleteWithError:v6];
+    [*(a1 + 32) _migrationDidCompleteWithError:v8];
   }
 
   else
   {
-    v8 = [v5 copy];
-    v9 = *(a1 + 32);
-    v10 = *(v9 + 96);
-    *(v9 + 96) = v8;
+    v10 = [v5 copy];
+    v11 = *(a1 + 32);
+    v12 = *(v11 + 96);
+    *(v11 + 96) = v10;
 
-    v11 = [v5 mutableCopy];
-    v12 = *(a1 + 32);
-    v13 = *(v12 + 112);
-    *(v12 + 112) = v11;
+    v13 = [v5 mutableCopy];
+    v14 = *(a1 + 32);
+    v15 = *(v14 + 112);
+    *(v14 + 112) = v13;
 
-    v14 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v18 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v16, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Did finish reparenting unrooted records", v15, 2u);
+      *v19 = 0;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Did finish reparenting unrooted records", v19, 2u);
     }
 
     [*(a1 + 32) _performSyncDownInOperationGroup:*(a1 + 40)];
   }
 }
 
-void sub_10007282C(uint64_t *a1, void *a2)
+void sub_10007282C(uint64_t a1, void *a2)
 {
-  v3 = *a1;
-  v4 = a2;
-  v5 = [sub_10000807C() safari_privacyPreservingDescription];
+  v3 = a2;
+  v4 = [sub_10000807C() safari_privacyPreservingDescription];
   sub_100008064();
-  sub_100008028(&_mh_execute_header, v6, v7, "Did fail to perform merging sync down with error: %{public}@", v8, v9, v10, v11, v12);
+  sub_100008028(&_mh_execute_header, v5, v6, "Did fail to perform merging sync down with error: %{public}@", v7, v8, v9, v10);
 }
 
-void sub_1000728BC(uint64_t *a1, void *a2)
+void sub_1000728BC(uint64_t a1, void *a2)
 {
-  v3 = *a1;
-  v4 = a2;
-  v5 = [sub_10000807C() safari_privacyPreservingDescription];
+  v3 = a2;
+  v4 = [sub_10000807C() safari_privacyPreservingDescription];
   sub_100008064();
-  sub_100008028(&_mh_execute_header, v6, v7, "Failed to convert local records with error: %{public}@", v8, v9, v10, v11, v12);
+  sub_100008028(&_mh_execute_header, v5, v6, "Failed to convert local records with error: %{public}@", v7, v8, v9, v10);
 }
 
 void sub_10007294C(void **a1, void *a2)
@@ -3301,7 +3220,7 @@ void sub_10007294C(void **a1, void *a2)
   v3 = a2;
   v4 = [v2 safari_privacyPreservingDescription];
   sub_100008064();
-  sub_100008028(&_mh_execute_header, v5, v6, "Failed to sync down after migration: %{public}@", v7, v8, v9, v10, v11);
+  sub_100008028(&_mh_execute_header, v5, v6, "Failed to sync down after migration: %{public}@", v7, v8, v9, v10);
 }
 
 void sub_100072A6C(void *a1, void *a2)
@@ -3316,11 +3235,10 @@ void sub_100072A6C(void *a1, void *a2)
 
 void sub_100072B14(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [sub_10000807C() safari_privacyPreservingDescription];
+  v3 = a2;
+  v4 = [sub_10000807C() safari_privacyPreservingDescription];
   sub_100008064();
-  sub_100008028(&_mh_execute_header, v6, v7, "Bailing from sync down due to deallocation with error %{public}@", v8, v9, v10, v11, v12);
+  sub_100008028(&_mh_execute_header, v5, v6, "Bailing from sync down due to deallocation with error %{public}@", v7, v8, v9, v10);
 }
 
 void sub_100072BA4(void *a1)
@@ -3328,7 +3246,7 @@ void sub_100072BA4(void *a1)
   v2 = a1;
   v3 = [sub_10000807C() safari_privacyPreservingDescription];
   sub_100008064();
-  sub_100008028(&_mh_execute_header, v4, v5, "Did fail to reparent unrooted bookmarks after migration with error: %{public}@", v6, v7, v8, v9, v10);
+  sub_100008028(&_mh_execute_header, v4, v5, "Did fail to reparent unrooted bookmarks after migration with error: %{public}@", v6, v7, v8, v9);
 }
 
 CloudTabGroupSyncEvent *__cdecl sub_100072DF4(id a1, NSDictionary *a2)
@@ -3365,29 +3283,30 @@ void sub_1000735F0(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_1000736A0(uint64_t a1)
+void sub_1000736A0(uint64_t a1, uint64_t a2)
 {
-  v2 = sub_100001B78();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sub_100001B78(a1, a2);
+  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+  if (v4)
   {
-    v3 = *(a1 + 40);
-    v10 = 134217984;
-    v11 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Received PCS change notification with state %ld", &v10, 0xCu);
+    v6 = *(a1 + 40);
+    v13 = 134217984;
+    v14 = v6;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Received PCS change notification with state %ld", &v13, 0xCu);
   }
 
-  v4 = *(a1 + 40);
-  v5 = *(*(a1 + 32) + 80);
-  v6 = sub_100001B78();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  if (v5 == v4)
+  v7 = *(a1 + 40);
+  v8 = *(*(a1 + 32) + 80);
+  v9 = sub_100001B78(v4, v5);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  if (v8 == v7)
   {
-    if (v7)
+    if (v10)
     {
-      v8 = *(a1 + 40);
-      v10 = 134217984;
-      v11 = v8;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Ignoring PCS state change notification because it is the same as the current state %ld", &v10, 0xCu);
+      v11 = *(a1 + 40);
+      v13 = 134217984;
+      v14 = v11;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Ignoring PCS state change notification because it is the same as the current state %ld", &v13, 0xCu);
     }
 
     xpc_transaction_end();
@@ -3395,12 +3314,12 @@ void sub_1000736A0(uint64_t a1)
 
   else
   {
-    if (v7)
+    if (v10)
     {
-      v9 = *(a1 + 40);
-      v10 = 134217984;
-      v11 = v9;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Determining CloudTab sync coordinator in response to PCS change notification with state %ld", &v10, 0xCu);
+      v12 = *(a1 + 40);
+      v13 = 134217984;
+      v14 = v12;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Determining CloudTab sync coordinator in response to PCS change notification with state %ld", &v13, 0xCu);
     }
 
     *(*(a1 + 32) + 88) = 1;
@@ -3421,7 +3340,7 @@ uint64_t sub_100073904(uint64_t a1)
 
 void sub_100073A00(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100001B78();
+  v4 = sub_100001B78(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -3462,33 +3381,32 @@ void sub_100073B74(uint64_t a1)
   v5 = *(v4 + 64);
   *(v4 + 64) = v3;
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = v2;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(a1 + 32) + 40);
-        (*(*(*(&v12 + 1) + 8 * v10) + 16))(*(*(&v12 + 1) + 8 * v10));
+        (*(*(*(&v11 + 1) + 8 * v10) + 16))(*(*(&v11 + 1) + 8 * v10));
         v10 = v10 + 1;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
@@ -3497,7 +3415,7 @@ void sub_100073B74(uint64_t a1)
 
 void sub_100073E20(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100001B78();
+  v4 = sub_100001B78(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 40);
@@ -3546,102 +3464,103 @@ void sub_100073F94(uint64_t a1, char a2, int a3)
   dispatch_async(v4, block);
 }
 
-void sub_100074058(uint64_t a1)
+void sub_100074058(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 64);
-  v3 = *(a1 + 64);
-  if (v3 != 101)
+  v2 = a1;
+  v3 = (a1 + 64);
+  v4 = *(a1 + 64);
+  if (v4 != 101)
   {
-    v4 = sub_100001B78();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_100001B78(a1, a2);
+    a1 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    if (a1)
     {
-      sub_10007680C(v2, v4);
+      sub_10007680C(v3, v5);
     }
   }
 
-  v5 = *(a1 + 68);
-  v6 = sub_100001B78();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  if (v5 == 1)
+  v6 = *(v2 + 68);
+  v7 = sub_100001B78(a1, a2);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  if (v6 == 1)
   {
-    if (v7)
+    if (v8)
     {
       *buf = 0;
-      v8 = "CloudTabs database has PCS container sync properties";
+      v10 = "CloudTabs database has PCS container sync properties";
 LABEL_9:
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, v8, buf, 2u);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, v10, buf, 2u);
     }
   }
 
-  else if (v7)
+  else if (v8)
   {
     *buf = 0;
-    v8 = "CloudTabs database has normal container sync properties";
+    v10 = "CloudTabs database has normal container sync properties";
     goto LABEL_9;
   }
 
-  v9 = *(a1 + 69);
-  v10 = *(a1 + 68);
-  v11 = sub_100001B78();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-  if (v3 == 101 && v9 == v10)
+  v11 = *(v2 + 69);
+  v12 = *(v2 + 68);
+  v13 = sub_100001B78(v8, v9);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+  if (v4 == 101 && v11 == v12)
   {
-    if (v12)
+    if (v14)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Database should not be reset because it's using the correct container", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Database should not be reset because it's using the correct container", buf, 2u);
     }
 
-    v13 = *(a1 + 69);
-    (*(*(a1 + 40) + 16))();
-    (*(*(a1 + 48) + 16))();
+    (*(*(v2 + 40) + 16))();
+    (*(*(v2 + 48) + 16))();
   }
 
   else
   {
-    if (v12)
+    if (v14)
     {
-      v14 = *(a1 + 56);
+      v15 = *(v2 + 56);
       *buf = 134217984;
-      v22 = v14;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "CloudTabs database needs to reset because sync properties are not compatible with PCS state %ld", buf, 0xCu);
+      v23 = v15;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "CloudTabs database needs to reset because sync properties are not compatible with PCS state %ld", buf, 0xCu);
     }
 
-    [*(*(a1 + 32) + 48) setDisabled:1];
-    v15 = *(a1 + 32);
-    v16 = *(v15 + 24);
-    v17[0] = _NSConcreteStackBlock;
-    v17[1] = 3221225472;
-    v17[2] = sub_1000742A8;
-    v17[3] = &unk_100134D48;
-    v17[4] = v15;
-    v20 = *(a1 + 69);
-    v18 = *(a1 + 40);
-    v19 = *(a1 + 48);
-    [v16 deleteDatabaseWithCompletionHandler:v17];
+    [*(*(v2 + 32) + 48) setDisabled:1];
+    v16 = *(v2 + 32);
+    v17 = *(v16 + 24);
+    v18[0] = _NSConcreteStackBlock;
+    v18[1] = 3221225472;
+    v18[2] = sub_1000742A8;
+    v18[3] = &unk_100134D48;
+    v18[4] = v16;
+    v21 = *(v2 + 69);
+    v19 = *(v2 + 40);
+    v20 = *(v2 + 48);
+    [v17 deleteDatabaseWithCompletionHandler:v18];
   }
 }
 
-void sub_1000742A8(uint64_t a1)
+void sub_1000742A8(uint64_t a1, uint64_t a2)
 {
-  v2 = sub_100001B78();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sub_100001B78(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Finished resetting CloudTabs database", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Finished resetting CloudTabs database", buf, 2u);
   }
 
-  v3 = *(a1 + 32);
-  v4 = *(v3 + 8);
-  v5[0] = _NSConcreteStackBlock;
-  v5[1] = 3221225472;
-  v5[2] = sub_100074398;
-  v5[3] = &unk_100134D48;
-  v5[4] = v3;
-  v8 = *(a1 + 56);
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 48);
-  dispatch_async(v4, v5);
+  v4 = *(a1 + 32);
+  v5 = *(v4 + 8);
+  v6[0] = _NSConcreteStackBlock;
+  v6[1] = 3221225472;
+  v6[2] = sub_100074398;
+  v6[3] = &unk_100134D48;
+  v6[4] = v4;
+  v9 = *(a1 + 56);
+  v7 = *(a1 + 40);
+  v8 = *(a1 + 48);
+  dispatch_async(v5, v6);
 }
 
 void sub_100074398(uint64_t a1)
@@ -3677,17 +3596,16 @@ void sub_100074464(uint64_t a1)
   dispatch_async(v2, v4);
 }
 
-void sub_100074518(uint64_t a1)
+void sub_100074518(void *a1)
 {
-  v2 = *(a1 + 56);
-  (*(*(a1 + 40) + 16))();
-  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 112));
+  (*(a1[5] + 16))();
+  WeakRetained = objc_loadWeakRetained((a1[4] + 112));
   if (objc_opt_respondsToSelector())
   {
-    [WeakRetained cloudTabSyncArbiterDidChangeCloudKitContainer:*(a1 + 32)];
+    [WeakRetained cloudTabSyncArbiterDidChangeCloudKitContainer:a1[4]];
   }
 
-  (*(*(a1 + 48) + 16))();
+  (*(a1[6] + 16))();
 }
 
 void sub_10007463C(uint64_t a1)
@@ -3752,16 +3670,15 @@ void sub_1000748A8(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_100074960(void *a1)
+void sub_100074960(uint64_t a1)
 {
-  WeakRetained = objc_loadWeakRetained((a1[4] + 112));
+  WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 112));
   if (objc_opt_respondsToSelector())
   {
-    [WeakRetained cloudTabSyncArbiterDidChangeCloudKitContainer:a1[4]];
+    [WeakRetained cloudTabSyncArbiterDidChangeCloudKitContainer:*(a1 + 32)];
   }
 
-  v2 = a1[5];
-  (*(a1[6] + 16))();
+  (*(*(a1 + 48) + 16))();
 }
 
 void sub_100074A58(uint64_t a1)
@@ -3769,26 +3686,27 @@ void sub_100074A58(uint64_t a1)
   v2 = +[NSNotificationCenter defaultCenter];
   [v2 removeObserver:*(a1 + 32) name:CKIdentityUpdateNotification object:0];
 
-  v3 = *(a1 + 32);
-  if (*(v3 + 89))
+  v5 = *(a1 + 32);
+  if (*(v5 + 89))
   {
-    *(v3 + 89) = 0;
+    *(v5 + 89) = 0;
     *(*(a1 + 32) + 88) = 1;
-    v4 = sub_100001B78();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100001B78(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Received expected PCS identity change notification", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Received expected PCS identity change notification", buf, 2u);
     }
 
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 112));
-    if (objc_opt_respondsToSelector())
+    v8 = objc_opt_respondsToSelector();
+    if (v8)
     {
-      v6 = sub_100001B78();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_100001B78(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        *v8 = 0;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Informing delegate of a PCS identity change", v8, 2u);
+        *v12 = 0;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Informing delegate of a PCS identity change", v12, 2u);
       }
 
       [WeakRetained cloudTabSyncArbiterPCSIdentitiesDidChange:*(a1 + 32)];
@@ -3799,11 +3717,11 @@ void sub_100074A58(uint64_t a1)
 
   else
   {
-    v7 = sub_100001B78();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100001B78(v3, v4);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Ignoring PCS identity change notification because CloudTabs is not waiting for an identity update", v10, 2u);
+      *v14 = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Ignoring PCS identity change notification because CloudTabs is not waiting for an identity update", v14, 2u);
     }
 
     xpc_transaction_end();
@@ -3813,16 +3731,16 @@ void sub_100074A58(uint64_t a1)
 void sub_100074D50(uint64_t a1)
 {
   v2 = [*(a1 + 32) integerValue];
-  v3 = v2;
+  v4 = v2;
   if (v2 <= 111)
   {
     if (v2 == 110)
     {
-      v10 = sub_100001B78();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100001B78(110, v3);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Received PCS unavailable error from CloudKit. Marking PCS state needs updating", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Received PCS unavailable error from CloudKit. Marking PCS state needs updating", buf, 2u);
       }
 
       *(*(a1 + 40) + 88) = 1;
@@ -3831,16 +3749,16 @@ void sub_100074D50(uint64_t a1)
 
     if (v2 == 111)
     {
-      v4 = sub_100001B78();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = sub_100001B78(111, v3);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Received unsynced Keychain error. Observing notification to start fetching CloudTabs when PCS identities change", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Received unsynced Keychain error. Observing notification to start fetching CloudTabs when PCS identities change", buf, 2u);
       }
 
       *(*(a1 + 40) + 89) = 1;
-      v5 = +[NSNotificationCenter defaultCenter];
-      [v5 addObserver:*(a1 + 40) selector:"_pcsIdentitiesChangedNotification:" name:CKIdentityUpdateNotification object:0];
+      v6 = +[NSNotificationCenter defaultCenter];
+      [v6 addObserver:*(a1 + 40) selector:"_pcsIdentitiesChangedNotification:" name:CKIdentityUpdateNotification object:0];
 
 LABEL_21:
       (*(*(a1 + 48) + 16))();
@@ -3853,27 +3771,27 @@ LABEL_21:
   if (v2 != 112 && v2 != 5004)
   {
 LABEL_15:
-    v9 = *(*(a1 + 48) + 16);
+    v10 = *(*(a1 + 48) + 16);
 
-    v9();
+    v10();
     return;
   }
 
-  v7 = sub_100001B78();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100001B78(v2, v3);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v14 = v3;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Received unrecoverable PCS error %ld from CloudKit. Deleting the CloudTabs zone and creating a new one", buf, 0xCu);
+    v15 = v4;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Received unrecoverable PCS error %ld from CloudKit. Deleting the CloudTabs zone and creating a new one", buf, 0xCu);
   }
 
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_100074FB4;
-  v11[3] = &unk_100131520;
-  v8 = *(a1 + 40);
-  v12 = *(a1 + 48);
-  [v8 _deleteCloudTabsZoneWithCompletionHandler:v11];
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_100074FB4;
+  v12[3] = &unk_100131520;
+  v9 = *(a1 + 40);
+  v13 = *(a1 + 48);
+  [v9 _deleteCloudTabsZoneWithCompletionHandler:v12];
 }
 
 void sub_1000750A8(uint64_t a1)
@@ -4171,63 +4089,64 @@ void sub_10007680C(int *a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Failed to read whether to use PCS cloud container for syncing with sqlite error code %d", v3, 8u);
 }
 
-void sub_100076BE8(uint64_t a1)
+void sub_100076BE8(uint64_t a1, uint64_t a2)
 {
   if (*(*(a1 + 32) + 32) == 1)
   {
-    v2 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      sub_100077824(v2);
+      sub_100077824(v3);
     }
 
-    v3 = *(a1 + 48);
-    v4 = [NSError errorWithDomain:@"com.apple.Safari.CloudBookmarks" code:6 userInfo:0];
-    (*(v3 + 16))(v3, v4, &stru_100134F30);
+    v4 = *(a1 + 48);
+    v5 = [NSError errorWithDomain:@"com.apple.Safari.CloudBookmarks" code:6 userInfo:0];
+    (*(v4 + 16))(v4, v5, &stru_100134F30);
 LABEL_5:
 
     return;
   }
 
-  v5 = objc_retainBlock(*(a1 + 48));
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 24);
-  *(v6 + 24) = v5;
+  v6 = objc_retainBlock(*(a1 + 48));
+  v7 = *(a1 + 32);
+  v8 = *(v7 + 24);
+  *(v7 + 24) = v6;
 
-  v8 = [*(*(a1 + 32) + 56) lockForClient:@"Sync migration coordinator"];
-  v9 = *(a1 + 32);
-  if (v8)
+  v9 = [*(*(a1 + 32) + 56) lockForClient:@"Sync migration coordinator"];
+  v10 = *(a1 + 32);
+  if (v9)
   {
-    v9[32] = 1;
-    if ([*(*(a1 + 32) + 56) openDatabase])
+    v10[32] = 1;
+    v11 = [*(*(a1 + 32) + 56) openDatabase];
+    if (v11)
     {
       (*(*(a1 + 56) + 16))();
-      v10 = [*(*(a1 + 32) + 8) safari_primaryAppleAccount];
-      v4 = [v10 safari_accountHash];
+      v13 = [*(*(a1 + 32) + 8) safari_primaryAppleAccount];
+      v5 = [v13 safari_accountHash];
 
-      v11 = [*(*(a1 + 32) + 56) databaseAccessor];
-      [v11 setAccountHash:v4 database:{objc_msgSend(*(*(a1 + 32) + 56), "databaseRef")}];
+      v14 = [*(*(a1 + 32) + 56) databaseAccessor];
+      [v14 setAccountHash:v5 database:{objc_msgSend(*(*(a1 + 32) + 56), "databaseRef")}];
 
-      v12 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Begin performing first deduplication", buf, 2u);
-      }
-
-      v13 = [*(*(a1 + 32) + 56) databaseAccessor];
-      [v13 performDeduplicationWithDatabase:objc_msgSend(*(*(a1 + 32) + 56) mode:{"databaseRef"), 0}];
-
-      v14 = objc_alloc_init(WBBookmarkDatabaseSyncData);
-      v15 = [*(*(a1 + 32) + 56) databaseRef];
-      v16 = [*(*(a1 + 32) + 56) databaseAccessor];
-      [v14 writeToDatabase:v15 databaseAccessor:v16];
-
-      v17 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
+      v17 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v15, v16);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        *v21 = 0;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Did finish performing first deduplication", v21, 2u);
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Begin performing first deduplication", buf, 2u);
+      }
+
+      v18 = [*(*(a1 + 32) + 56) databaseAccessor];
+      [v18 performDeduplicationWithDatabase:objc_msgSend(*(*(a1 + 32) + 56) mode:{"databaseRef"), 0}];
+
+      v19 = objc_alloc_init(WBBookmarkDatabaseSyncData);
+      v20 = [*(*(a1 + 32) + 56) databaseRef];
+      v21 = [*(*(a1 + 32) + 56) databaseAccessor];
+      [v19 writeToDatabase:v20 databaseAccessor:v21];
+
+      v24 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v22, v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      {
+        *v28 = 0;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Did finish performing first deduplication", v28, 2u);
       }
 
       [*(a1 + 32) _beginMigrationAsPrimaryMigrator:*(a1 + 64) inOperationGroup:*(a1 + 40)];
@@ -4235,34 +4154,34 @@ LABEL_5:
 
     else
     {
-      v18 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v25 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v11, v12);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        sub_1000777E0(v18);
+        sub_1000777E0(v25);
       }
 
-      v19 = *(a1 + 32);
-      v4 = [NSError errorWithDomain:@"com.apple.Safari.CloudBookmarks" code:1 userInfo:0];
-      [v19 _didFinishMigrationWithError:v4];
+      v26 = *(a1 + 32);
+      v5 = [NSError errorWithDomain:@"com.apple.Safari.CloudBookmarks" code:1 userInfo:0];
+      [v26 _didFinishMigrationWithError:v5];
     }
 
     goto LABEL_5;
   }
 
-  v20 = [NSError errorWithDomain:@"com.apple.Safari.CloudBookmarks" code:1 userInfo:0];
-  [v9 _didFinishMigrationWithError:v20];
+  v27 = [NSError errorWithDomain:@"com.apple.Safari.CloudBookmarks" code:1 userInfo:0];
+  [v10 _didFinishMigrationWithError:v27];
 }
 
 void sub_1000770A0(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
+  v2 = a2;
+  v4 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v2, v3);
   v5 = v4;
-  if (v3)
+  if (v2)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_100077868(v5, v3);
+      sub_100077868(v5, v2);
     }
   }
 
@@ -4272,8 +4191,7 @@ void sub_1000770A0(uint64_t a1, void *a2)
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Migration conversion succeeded", buf, 2u);
   }
 
-  v7 = *(a1 + 32);
-  v6 = v3;
+  v6 = v2;
   WBSDispatchAsyncToMainQueueWithAutoreleasePool();
 }
 
@@ -4285,42 +4203,42 @@ void sub_10007719C(uint64_t a1)
   *(v2 + 16) = 0;
 }
 
-id sub_100077318(uint64_t a1)
+id sub_100077318(uint64_t a1, uint64_t a2)
 {
-  v2 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Sync migration post-processing handler called", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Sync migration post-processing handler called", buf, 2u);
   }
 
   result = [*(*(a1 + 32) + 56) databaseRef];
   if (result)
   {
-    v4 = *(a1 + 40);
-    if (!v4)
+    v6 = *(a1 + 40);
+    if (!v6)
     {
-      v5 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-      {
-        *v9 = 0;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Did finish migration, perform last deduplication", v9, 2u);
-      }
-
-      v6 = [*(*(a1 + 32) + 56) databaseAccessor];
-      [v6 performDeduplicationWithDatabase:objc_msgSend(*(*(a1 + 32) + 56) mode:{"databaseRef"), 2}];
-
-      v7 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
+      v7 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(0, v5);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v8 = 0;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Did finish last deduplication", v8, 2u);
+        *v13 = 0;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Did finish migration, perform last deduplication", v13, 2u);
       }
 
-      v4 = *(a1 + 40);
+      v8 = [*(*(a1 + 32) + 56) databaseAccessor];
+      [v8 performDeduplicationWithDatabase:objc_msgSend(*(*(a1 + 32) + 56) mode:{"databaseRef"), 2}];
+
+      v11 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      {
+        *v12 = 0;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Did finish last deduplication", v12, 2u);
+      }
+
+      v6 = *(a1 + 40);
     }
 
-    if (([v4 safari_isCouldNotOpenDatabaseError] & 1) == 0)
+    if (([v6 safari_isCouldNotOpenDatabaseError] & 1) == 0)
     {
       [*(*(a1 + 32) + 56) closeDatabaseAndSave:*(a1 + 40) == 0];
     }
@@ -4343,8 +4261,7 @@ void sub_100077524(uint64_t a1, uint64_t a2)
 
   else
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
+    v4 = *(a1 + 40);
     WBSDispatchAsyncToMainQueueWithAutoreleasePool();
   }
 }
@@ -4383,14 +4300,18 @@ void sub_100077868(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  sub_100008028(&_mh_execute_header, v5, v6, "Migration conversion failed with error: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  sub_100008028(&_mh_execute_header, v5, v6, "Migration conversion failed with error: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void sub_100077900(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  sub_100008028(&_mh_execute_header, v5, v6, "Sync migration coordinator did fail to migrate with error: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  sub_100008028(&_mh_execute_header, v5, v6, "Sync migration coordinator did fail to migrate with error: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void sub_100077AE8(uint64_t a1, void *a2, void *a3)
@@ -4493,34 +4414,34 @@ void sub_100079D34(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = [a3 safari_errorByAddingCloudKitPrivacyPreservingUserInfoForItemID:@"CloudTabsZoneSubscription"];
-  v7 = sub_100001B78();
-  v8 = v7;
+  v8 = sub_100001B78(v6, v7);
+  v9 = v8;
   if (v6)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_10007D344(v8);
+      sub_10007D344(v9);
     }
   }
 
-  else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Successfully fetched CloudTabs zone subscription", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Successfully fetched CloudTabs zone subscription", buf, 2u);
   }
 
-  v9 = *(*(a1 + 32) + 16);
+  v10 = *(*(a1 + 32) + 16);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100079E88;
   block[3] = &unk_100130E00;
-  v10 = *(a1 + 40);
-  v15 = v6;
-  v16 = v10;
-  v14 = v5;
-  v11 = v6;
-  v12 = v5;
-  dispatch_async(v9, block);
+  v11 = *(a1 + 40);
+  v16 = v6;
+  v17 = v11;
+  v15 = v5;
+  v12 = v6;
+  v13 = v5;
+  dispatch_async(v10, block);
 }
 
 void sub_100079E88(uint64_t a1)
@@ -4555,30 +4476,30 @@ void sub_10007A090(id *a1, void *a2, void *a3)
   if (v6 && ([v6 safari_isOrContainsCloudKitMissingZoneError] & 1) != 0)
   {
     WeakRetained = objc_loadWeakRetained(a1 + 6);
-    v9 = sub_100001B78();
-    v10 = v9;
+    v10 = sub_100001B78(WeakRetained, v9);
+    v11 = v10;
     if (WeakRetained)
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Saving CloudTabs zone subscription failed because of missing zone, attempting to create zone", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Saving CloudTabs zone subscription failed because of missing zone, attempting to create zone", buf, 2u);
       }
 
-      v12[0] = _NSConcreteStackBlock;
-      v12[1] = 3221225472;
-      v12[2] = sub_10007A214;
-      v12[3] = &unk_100130E78;
-      v11 = a1[4];
-      v14 = a1[5];
-      v12[4] = WeakRetained;
-      v13 = a1[4];
-      [WeakRetained createCloudTabsRecordZoneInOperationGroup:v11 completionHandler:v12];
+      v13[0] = _NSConcreteStackBlock;
+      v13[1] = 3221225472;
+      v13[2] = sub_10007A214;
+      v13[3] = &unk_100130E78;
+      v12 = a1[4];
+      v15 = a1[5];
+      v13[4] = WeakRetained;
+      v14 = a1[4];
+      [WeakRetained createCloudTabsRecordZoneInOperationGroup:v12 completionHandler:v13];
     }
 
     else
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         sub_10007D3D4();
       }
@@ -4596,11 +4517,11 @@ void sub_10007A090(id *a1, void *a2, void *a3)
 void sub_10007A214(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_100001B78();
-  v5 = v4;
+  v5 = sub_100001B78(v3, v4);
+  v6 = v5;
   if (v3)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10007D408();
     }
@@ -4610,15 +4531,16 @@ void sub_10007A214(void *a1, void *a2)
 
   else
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v7 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    if (v7)
     {
-      *v8 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Saving CloudTabs zone subscription after creating zone", v8, 2u);
+      *v10 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Saving CloudTabs zone subscription after creating zone", v10, 2u);
     }
 
-    v6 = a1[4];
-    v7 = [CloudTabRemoteStore _zoneID]_0();
-    [v6 _saveRecordZoneSubscriptionForZoneID:v7 subscriptionID:@"CloudTabsZoneSubscription" inOperationGroup:a1[5] operationQueue:*(a1[4] + 40) completionHandler:a1[6]];
+    v8 = a1[4];
+    v9 = [CloudTabRemoteStore _zoneID]_0(v7);
+    [v8 _saveRecordZoneSubscriptionForZoneID:v9 subscriptionID:@"CloudTabsZoneSubscription" inOperationGroup:a1[5] operationQueue:*(a1[4] + 40) completionHandler:a1[6]];
   }
 }
 
@@ -4628,30 +4550,30 @@ void sub_10007A6DC(uint64_t a1, void *a2, void *a3, void *a4)
   v8 = a3;
   v9 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  if (WeakRetained && v9 && *(a1 + 64) == 1 && ([v9 safari_isOrContainsCloudKitMissingZoneError] & 1) != 0)
+  if (WeakRetained && v9 && *(a1 + 64) == 1 && (v11 = [v9 safari_isOrContainsCloudKitMissingZoneError], (v11 & 1) != 0))
   {
-    v11 = sub_100001B78();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100001B78(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Attempting to create CloudTabs zone before retrying save", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Attempting to create CloudTabs zone before retrying save", buf, 2u);
     }
 
-    v12 = *(a1 + 32);
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_10007A8C0;
-    v13[3] = &unk_100130EF0;
-    objc_copyWeak(&v20, (a1 + 56));
-    v19 = *(a1 + 48);
-    v14 = v7;
-    v15 = v8;
-    v16 = v9;
-    v17 = *(a1 + 40);
-    v18 = *(a1 + 32);
-    [WeakRetained createCloudTabsRecordZoneInOperationGroup:v12 completionHandler:v13];
+    v14 = *(a1 + 32);
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_10007A8C0;
+    v15[3] = &unk_100130EF0;
+    objc_copyWeak(&v22, (a1 + 56));
+    v21 = *(a1 + 48);
+    v16 = v7;
+    v17 = v8;
+    v18 = v9;
+    v19 = *(a1 + 40);
+    v20 = *(a1 + 32);
+    [WeakRetained createCloudTabsRecordZoneInOperationGroup:v14 completionHandler:v15];
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v22);
   }
 
   else
@@ -4663,41 +4585,38 @@ void sub_10007A6DC(uint64_t a1, void *a2, void *a3, void *a4)
 void sub_10007A8C0(uint64_t a1, uint64_t a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 80));
-  v5 = WeakRetained;
+  v6 = WeakRetained;
   if (WeakRetained)
   {
     if (a2)
     {
-      v6 = WeakRetained[2];
-      v11[0] = _NSConcreteStackBlock;
-      v11[1] = 3221225472;
-      v11[2] = sub_10007AA2C;
-      v11[3] = &unk_100130EC8;
-      v15 = *(a1 + 72);
-      v12 = *(a1 + 32);
-      v13 = *(a1 + 40);
-      v14 = *(a1 + 48);
-      dispatch_async(v6, v11);
+      v7 = WeakRetained[2];
+      v9[0] = _NSConcreteStackBlock;
+      v9[1] = 3221225472;
+      v9[2] = sub_10007AA2C;
+      v9[3] = &unk_100130EC8;
+      v13 = *(a1 + 72);
+      v10 = *(a1 + 32);
+      v11 = *(a1 + 40);
+      v12 = *(a1 + 48);
+      dispatch_async(v7, v9);
     }
 
     else
     {
-      v10 = sub_100001B78();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v8 = sub_100001B78(WeakRetained, v5);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Retrying save after creating CloudTabsZone", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Retrying save after creating CloudTabsZone", buf, 2u);
       }
 
-      [v5 saveCloudTabsRecordBatch:*(a1 + 56) createCloudTabsZoneIfMissing:0 inOperationGroup:*(a1 + 64) completionHandler:*(a1 + 72)];
+      [v6 saveCloudTabsRecordBatch:*(a1 + 56) createCloudTabsZoneIfMissing:0 inOperationGroup:*(a1 + 64) completionHandler:*(a1 + 72)];
     }
   }
 
   else
   {
-    v7 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v9 = *(a1 + 48);
     (*(*(a1 + 72) + 16))();
   }
 }
@@ -4717,31 +4636,32 @@ void sub_10007ADE8(uint64_t a1, void *a2)
   if (![*(a1 + 40) count])
   {
     v7 = [NSError safari_errorFromErrors:*(a1 + 32)];
+    v9 = v7;
     if (v7)
     {
-      v8 = sub_100001B78();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v10 = sub_100001B78(v7, v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        sub_1000081E0(v8);
+        sub_1000081E0(v10);
       }
     }
 
-    v9 = *(*(a1 + 56) + 16);
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_10007AF30;
-    v12[3] = &unk_100130F40;
-    v10 = *(a1 + 64);
-    v13 = v7;
-    v14 = v10;
-    v11 = v7;
-    dispatch_async(v9, v12);
+    v11 = *(*(a1 + 56) + 16);
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_10007AF30;
+    v14[3] = &unk_100130F40;
+    v12 = *(a1 + 64);
+    v15 = v9;
+    v16 = v12;
+    v13 = v9;
+    dispatch_async(v11, v14);
   }
 }
 
 void sub_10007B054(uint64_t a1)
 {
-  v2 = [CloudTabRemoteStore _zoneID]_0();
+  v2 = [CloudTabRemoteStore _zoneID]_0(a1);
   v3 = [CKModifyRecordZonesOperation alloc];
   v12 = v2;
   v4 = [NSArray arrayWithObjects:&v12 count:1];
@@ -4761,37 +4681,38 @@ void sub_10007B190(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v5 = a4;
   v6 = [v5 safari_isOrContainsCloudKitMissingZoneError];
-  v7 = sub_100001B78();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-  if (!v5 || (v6 & 1) != 0)
+  v7 = v6;
+  v9 = sub_100001B78(v6, v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  if (!v5 || (v7 & 1) != 0)
   {
-    if (v8)
+    if (v10)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Successfully deleted CloudTabs zone", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Successfully deleted CloudTabs zone", buf, 2u);
     }
   }
 
-  else if (v8)
+  else if (v10)
   {
-    v9 = v7;
-    v10 = [v5 safari_privacyPreservingDescription];
+    v11 = v9;
+    v12 = [v5 safari_privacyPreservingDescription];
     *buf = 138543362;
-    v19 = v10;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Failed ot delete CloudTabs zone with error: %{public}@", buf, 0xCu);
+    v21 = v12;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Failed ot delete CloudTabs zone with error: %{public}@", buf, 0xCu);
   }
 
-  v11 = *(*(a1 + 32) + 16);
+  v13 = *(*(a1 + 32) + 16);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10007B334;
   block[3] = &unk_100132D00;
-  v12 = *(a1 + 40);
-  v17 = v6;
+  v14 = *(a1 + 40);
+  v19 = v7;
+  v17 = v5;
+  v18 = v14;
   v15 = v5;
-  v16 = v12;
-  v13 = v5;
-  dispatch_async(v11, block);
+  dispatch_async(v13, block);
 }
 
 uint64_t sub_10007B334(uint64_t a1)
@@ -4812,7 +4733,7 @@ uint64_t sub_10007B334(uint64_t a1)
 
 void sub_10007B4D4(id *a1)
 {
-  v2 = [CloudTabRemoteStore _zoneID]_0();
+  v2 = [CloudTabRemoteStore _zoneID]_0(a1);
   v3 = [CKModifyRecordZonesOperation alloc];
   v4 = [[CKRecordZone alloc] initWithZoneID:v2];
   v20 = v4;
@@ -4845,86 +4766,86 @@ void sub_10007B6A0(uint64_t a1, void *a2, void *a3, void *a4)
   v9 = a4;
   if (!v9)
   {
-    v17 = sub_100001B78();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v21 = sub_100001B78(0, v10);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Successfully created CloudTabs zone", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Successfully created CloudTabs zone", buf, 2u);
     }
 
-    v14 = 0;
+    v17 = 0;
     goto LABEL_12;
   }
 
-  v10 = v9;
-  v11 = [v9 safari_errorByAddingCloudKitPrivacyPreservingUserInfoForItemID:*(a1 + 32)];
+  v11 = v9;
+  v12 = [v9 safari_errorByAddingCloudKitPrivacyPreservingUserInfoForItemID:*(a1 + 32)];
 
-  v12 = sub_100001B78();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v15 = sub_100001B78(v13, v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    sub_10007D43C(v12, v11);
+    sub_10007D43C(v15, v12);
   }
 
-  v13 = *(a1 + 40);
-  v24[0] = _NSConcreteStackBlock;
-  v24[1] = 3221225472;
-  v24[2] = sub_10007B984;
-  v24[3] = &unk_100131210;
-  objc_copyWeak(&v29, (a1 + 72));
-  v28 = *(a1 + 64);
-  v14 = v11;
-  v25 = v14;
-  v26 = *(a1 + 48);
-  v27 = *(a1 + 40);
-  v15 = [v13 scheduleRetryIfNeededForError:v14 usingBlock:v24];
-  if (v15 != 1)
+  v16 = *(a1 + 40);
+  v28[0] = _NSConcreteStackBlock;
+  v28[1] = 3221225472;
+  v28[2] = sub_10007B984;
+  v28[3] = &unk_100131210;
+  objc_copyWeak(&v33, (a1 + 72));
+  v32 = *(a1 + 64);
+  v17 = v12;
+  v29 = v17;
+  v30 = *(a1 + 48);
+  v31 = *(a1 + 40);
+  v18 = [v16 scheduleRetryIfNeededForError:v17 usingBlock:v28];
+  if (v18 != 1)
   {
-    if (v15 == 2)
+    if (v18 == 2)
     {
-      v16 = sub_100001B78();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v20 = sub_100001B78(2, v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         sub_10007D4D4();
       }
     }
 
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v33);
 LABEL_12:
-    v18 = *(*(a1 + 56) + 16);
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_10007BA44;
-    v20[3] = &unk_100130F40;
-    v22 = *(a1 + 64);
-    v14 = v14;
-    v21 = v14;
-    dispatch_async(v18, v20);
+    v22 = *(*(a1 + 56) + 16);
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_10007BA44;
+    v24[3] = &unk_100130F40;
+    v26 = *(a1 + 64);
+    v17 = v17;
+    v25 = v17;
+    dispatch_async(v22, v24);
 
     goto LABEL_16;
   }
 
-  v19 = sub_100001B78();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v23 = sub_100001B78(1, v19);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Waiting to retry creation of CloudTabs zone", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Waiting to retry creation of CloudTabs zone", buf, 2u);
   }
 
-  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v33);
 LABEL_16:
 }
 
 void sub_10007B984(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 64));
-  v3 = sub_100001B78();
-  v4 = v3;
+  v4 = sub_100001B78(WeakRetained, v3);
+  v5 = v4;
   if (WeakRetained)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Retrying creation of CloudTabs zone", v6, 2u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Retrying creation of CloudTabs zone", v6, 2u);
     }
 
     [WeakRetained _createCloudTabsRecordZoneInOperationGroup:*(a1 + 40) withRetryManager:*(a1 + 48) completionHandler:*(a1 + 56)];
@@ -4932,12 +4853,11 @@ void sub_10007B984(uint64_t a1)
 
   else
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_10007D508();
     }
 
-    v5 = *(a1 + 32);
     (*(*(a1 + 56) + 16))();
   }
 }
@@ -4962,26 +4882,28 @@ void sub_10007BECC(void *a1, void *a2, void *a3)
   dispatch_async(v7, v12);
 }
 
-void sub_10007BFC4(uint64_t *a1)
+void sub_10007BFC4(uint64_t a1)
 {
-  v2 = a1 + 4;
-  if (([a1[4] safari_isUnrecoverableCloudKitError] & 1) != 0 || objc_msgSend(*v2, "safari_isOrContainsCloudKitMissingZoneError"))
+  v2 = (a1 + 32);
+  v3 = [*(a1 + 32) safari_isUnrecoverableCloudKitError];
+  if ((v3 & 1) != 0 || (v3 = [*v2 safari_isOrContainsCloudKitMissingZoneError], v3))
   {
-    v3 = sub_100001B78();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = sub_100001B78(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_10000843C(v2, v3);
+      sub_10000843C(v2, v5);
     }
 
 LABEL_5:
-    *(*(a1[7] + 8) + 24) = 1;
+    *(*(*(a1 + 56) + 8) + 24) = 1;
     return;
   }
 
-  if ([*v2 safari_isCloudKitBatchTooLargeError])
+  v6 = [*v2 safari_isCloudKitBatchTooLargeError];
+  if (v6)
   {
-    v4 = sub_100001B78();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v8 = sub_100001B78(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10007D53C();
     }
@@ -4989,51 +4911,53 @@ LABEL_5:
     goto LABEL_5;
   }
 
+  v9 = *v2;
   if (!*v2)
   {
     goto LABEL_14;
   }
 
-  if (a1[6])
+  if (*(a1 + 48))
   {
-    v5 = [*v2 domain];
-    v6 = [v5 isEqualToString:CKErrorDomain];
+    v10 = [v9 domain];
+    v11 = [v10 isEqualToString:CKErrorDomain];
 
-    if ((v6 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
-      v10 = sub_100001B78();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v19 = sub_100001B78(v12, v13);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        sub_100008270(v2, v10);
+        sub_100008270(v2, v19);
       }
 
       goto LABEL_5;
     }
 
-    if ([*v2 code] == 22)
+    v14 = [*v2 code];
+    if (v14 == 22)
     {
 LABEL_14:
-      v7 = a1[5];
-      v8 = a1[6];
+      v16 = *(a1 + 40);
+      v17 = *(a1 + 48);
 
-      [v7 addObject:v8];
+      [v16 addObject:v17];
       return;
     }
 
-    *(*(a1[7] + 8) + 24) = 1;
-    v11 = sub_100001B78();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    *(*(*(a1 + 56) + 8) + 24) = 1;
+    v20 = sub_100001B78(v14, v15);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      sub_1000082F8(v2, v11);
+      sub_1000082F8(v2, v20);
     }
   }
 
   else
   {
-    v9 = sub_100001B78();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v18 = sub_100001B78(v9, v7);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      sub_100008380(v2, v9);
+      sub_100008380(v2, v18);
     }
   }
 }
@@ -5077,28 +5001,29 @@ void sub_10007C150(uint64_t a1, void *a2, void *a3, void *a4)
 void sub_10007C314(uint64_t a1)
 {
   v2 = (a1 + 32);
-  if (([*(a1 + 32) safari_isUnrecoverableCloudKitError] & 1) != 0 || objc_msgSend(*v2, "safari_isOrContainsCloudKitMissingZoneError"))
+  v3 = [*(a1 + 32) safari_isUnrecoverableCloudKitError];
+  if ((v3 & 1) != 0 || (v3 = [*v2 safari_isOrContainsCloudKitMissingZoneError], v3))
   {
-    v3 = sub_100001B78();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = sub_100001B78(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_10007D5A4(v2, v3);
+      sub_10007D5A4(v2, v5);
     }
 
-    v4 = [*(a1 + 40) copy];
-    v5 = [*(a1 + 48) copy];
-    v6 = *(*(a1 + 56) + 16);
+    v6 = [*(a1 + 40) copy];
+    v7 = [*(a1 + 48) copy];
+    v8 = *(*(a1 + 56) + 16);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10007CA00;
     block[3] = &unk_100130EC8;
-    v74 = *(a1 + 104);
-    v71 = v4;
-    v72 = v5;
-    v73 = *(a1 + 32);
-    v7 = v5;
-    v8 = v4;
-    dispatch_async(v6, block);
+    v79 = *(a1 + 104);
+    v76 = v6;
+    v77 = v7;
+    v78 = *(a1 + 32);
+    v9 = v7;
+    v10 = v6;
+    dispatch_async(v8, block);
     *(*(*(a1 + 112) + 8) + 24) = 1;
 
     goto LABEL_6;
@@ -5106,38 +5031,38 @@ void sub_10007C314(uint64_t a1)
 
   if (*(a1 + 64))
   {
-    [*(a1 + 40) addObjectsFromArray:?];
+    v3 = [*(a1 + 40) addObjectsFromArray:?];
   }
 
   if (*(a1 + 72))
   {
-    [*(a1 + 48) addObjectsFromArray:?];
+    v3 = [*(a1 + 48) addObjectsFromArray:?];
   }
 
   if (*(*(*(a1 + 112) + 8) + 24) == 1)
   {
-    v9 = sub_100001B78();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = sub_100001B78(v3, v4);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_100067C5C();
     }
 
-    v10 = [*(a1 + 40) copy];
-    v11 = [*(a1 + 48) copy];
-    v12 = *(*(a1 + 56) + 16);
-    v65[0] = _NSConcreteStackBlock;
-    v65[1] = 3221225472;
-    v65[2] = sub_10007CA18;
-    v65[3] = &unk_100130EC8;
-    v69 = *(a1 + 104);
-    v66 = v10;
-    v67 = v11;
-    v68 = *(a1 + 32);
-    v13 = v11;
-    v8 = v10;
-    dispatch_async(v12, v65);
+    v12 = [*(a1 + 40) copy];
+    v13 = [*(a1 + 48) copy];
+    v14 = *(*(a1 + 56) + 16);
+    v70[0] = _NSConcreteStackBlock;
+    v70[1] = 3221225472;
+    v70[2] = sub_10007CA18;
+    v70[3] = &unk_100130EC8;
+    v74 = *(a1 + 104);
+    v71 = v12;
+    v72 = v13;
+    v73 = *(a1 + 32);
+    v15 = v13;
+    v10 = v12;
+    dispatch_async(v14, v70);
 
-    v14 = v69;
+    v16 = v74;
 LABEL_15:
 
 LABEL_6:
@@ -5146,163 +5071,164 @@ LABEL_6:
 
   if ([*v2 safari_isCloudKitBatchTooLargeError])
   {
-    v15 = [*(a1 + 80) count];
-    if (v15 > 1)
+    v17 = [*(a1 + 80) count];
+    if (v17 > 1)
     {
-      v29 = v15;
-      v30 = v15 >> 1;
-      v8 = [*(a1 + 80) subarrayWithRange:{0, v15 >> 1}];
-      v50[0] = _NSConcreteStackBlock;
-      v50[1] = 3221225472;
-      v50[2] = sub_10007CA48;
-      v50[3] = &unk_100131008;
-      v51 = *(a1 + 40);
-      v31 = *(a1 + 48);
-      v32 = *(a1 + 56);
-      v52 = v31;
-      v53 = v32;
-      v57 = *(a1 + 104);
-      v54 = *(a1 + 80);
-      v58 = v30;
-      v59 = v29;
-      v55 = *(a1 + 88);
-      v56 = *(a1 + 96);
-      v33 = objc_retainBlock(v50);
-      v34 = sub_100001B78();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      v33 = v17;
+      v34 = v17 >> 1;
+      v10 = [*(a1 + 80) subarrayWithRange:{0, v17 >> 1}];
+      v55[0] = _NSConcreteStackBlock;
+      v55[1] = 3221225472;
+      v55[2] = sub_10007CA48;
+      v55[3] = &unk_100131008;
+      v56 = *(a1 + 40);
+      v35 = *(a1 + 48);
+      v36 = *(a1 + 56);
+      v57 = v35;
+      v58 = v36;
+      v62 = *(a1 + 104);
+      v59 = *(a1 + 80);
+      v63 = v34;
+      v64 = v33;
+      v60 = *(a1 + 88);
+      v61 = *(a1 + 96);
+      v37 = objc_retainBlock(v55);
+      v39 = sub_100001B78(v37, v38);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Batch record save operation completed but we need to re-batch", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Batch record save operation completed but we need to re-batch", buf, 2u);
       }
 
-      [*(a1 + 56) _saveCloudTabsRecordBatch:v8 previouslySavedRecords:*(a1 + 40) previouslyDeletedRecordIDs:*(a1 + 48) retryManager:*(a1 + 88) inOperationGroup:*(a1 + 96) completionHandler:v33];
+      [*(a1 + 56) _saveCloudTabsRecordBatch:v10 previouslySavedRecords:*(a1 + 40) previouslyDeletedRecordIDs:*(a1 + 48) retryManager:*(a1 + 88) inOperationGroup:*(a1 + 96) completionHandler:v37];
 
       goto LABEL_6;
     }
 
-    v16 = sub_100001B78();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v19 = sub_100001B78(v17, v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_100067C28();
     }
 
-    v17 = [*(a1 + 40) copy];
-    v18 = [*(a1 + 48) copy];
-    v19 = *(*(a1 + 56) + 16);
-    v60[0] = _NSConcreteStackBlock;
-    v60[1] = 3221225472;
-    v60[2] = sub_10007CA30;
-    v60[3] = &unk_100130EC8;
-    v64 = *(a1 + 104);
-    v61 = v17;
-    v62 = v18;
-    v63 = *(a1 + 32);
-    v13 = v18;
-    v8 = v17;
-    dispatch_async(v19, v60);
+    v20 = [*(a1 + 40) copy];
+    v21 = [*(a1 + 48) copy];
+    v22 = *(*(a1 + 56) + 16);
+    v65[0] = _NSConcreteStackBlock;
+    v65[1] = 3221225472;
+    v65[2] = sub_10007CA30;
+    v65[3] = &unk_100130EC8;
+    v69 = *(a1 + 104);
+    v66 = v20;
+    v67 = v21;
+    v68 = *(a1 + 32);
+    v15 = v21;
+    v10 = v20;
+    dispatch_async(v22, v65);
 
-    v14 = v64;
+    v16 = v69;
     goto LABEL_15;
   }
 
-  v20 = *(a1 + 88);
-  v21 = *(a1 + 32);
-  v40[0] = _NSConcreteStackBlock;
-  v40[1] = 3221225472;
-  v40[2] = sub_10007CC04;
-  v40[3] = &unk_100131030;
-  objc_copyWeak(&v48, (a1 + 120));
-  v41 = *(a1 + 32);
-  v42 = *(a1 + 40);
-  v43 = *(a1 + 48);
-  v47 = *(a1 + 104);
-  v44 = *(a1 + 80);
-  v45 = *(a1 + 88);
-  v46 = *(a1 + 96);
-  v22 = [v20 scheduleRetryIfNeededForError:v21 usingBlock:v40];
-  if (v22 != 1)
+  v23 = *(a1 + 88);
+  v24 = *(a1 + 32);
+  v45[0] = _NSConcreteStackBlock;
+  v45[1] = 3221225472;
+  v45[2] = sub_10007CC04;
+  v45[3] = &unk_100131030;
+  objc_copyWeak(&v53, (a1 + 120));
+  v46 = *(a1 + 32);
+  v47 = *(a1 + 40);
+  v48 = *(a1 + 48);
+  v52 = *(a1 + 104);
+  v49 = *(a1 + 80);
+  v50 = *(a1 + 88);
+  v51 = *(a1 + 96);
+  v25 = [v23 scheduleRetryIfNeededForError:v24 usingBlock:v45];
+  if (v25 != 1)
   {
-    if (v22 == 2)
+    if (v25 == 2)
     {
-      v23 = sub_100001B78();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v27 = sub_100001B78(2, v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         sub_10007D570();
       }
     }
 
-    v24 = [*(a1 + 40) copy];
-    v25 = [*(a1 + 48) copy];
-    v26 = *(*(a1 + 56) + 16);
-    v35[0] = _NSConcreteStackBlock;
-    v35[1] = 3221225472;
-    v35[2] = sub_10007CCF4;
-    v35[3] = &unk_100130EC8;
-    v39 = *(a1 + 104);
-    v36 = v24;
-    v37 = v25;
-    v38 = *(a1 + 32);
-    v27 = v25;
-    v28 = v24;
-    dispatch_async(v26, v35);
+    v28 = [*(a1 + 40) copy];
+    v29 = [*(a1 + 48) copy];
+    v30 = *(*(a1 + 56) + 16);
+    v40[0] = _NSConcreteStackBlock;
+    v40[1] = 3221225472;
+    v40[2] = sub_10007CCF4;
+    v40[3] = &unk_100130EC8;
+    v44 = *(a1 + 104);
+    v41 = v28;
+    v42 = v29;
+    v43 = *(a1 + 32);
+    v31 = v29;
+    v32 = v28;
+    dispatch_async(v30, v40);
   }
 
-  objc_destroyWeak(&v48);
+  objc_destroyWeak(&v53);
 }
 
 void sub_10007CA48(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v5 = a4;
   v6 = [v5 safari_isCloudKitBatchTooLargeError];
-  v7 = sub_100001B78();
-  v8 = v7;
-  if (v6)
+  v7 = v6;
+  v9 = sub_100001B78(v6, v8);
+  v10 = v9;
+  if (v7)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_100067D28();
     }
 
-    v9 = [*(a1 + 32) copy];
-    v10 = [*(a1 + 40) copy];
-    v11 = *(*(a1 + 48) + 16);
+    v11 = [*(a1 + 32) copy];
+    v12 = [*(a1 + 40) copy];
+    v13 = *(*(a1 + 48) + 16);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10007CBEC;
     block[3] = &unk_100130EC8;
-    v19 = *(a1 + 80);
-    v16 = v9;
-    v17 = v10;
-    v18 = v5;
-    v12 = v10;
-    v13 = v9;
-    dispatch_async(v11, block);
+    v21 = *(a1 + 80);
+    v18 = v11;
+    v19 = v12;
+    v20 = v5;
+    v14 = v12;
+    v15 = v11;
+    dispatch_async(v13, block);
   }
 
   else
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v14 = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Attempting to re-batch record save", v14, 2u);
+      *v16 = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Attempting to re-batch record save", v16, 2u);
     }
 
-    v13 = [*(a1 + 56) subarrayWithRange:{*(a1 + 88), *(a1 + 96) - *(a1 + 88)}];
-    [*(a1 + 48) _saveCloudTabsRecordBatch:v13 previouslySavedRecords:*(a1 + 32) previouslyDeletedRecordIDs:*(a1 + 40) retryManager:*(a1 + 64) inOperationGroup:*(a1 + 72) completionHandler:*(a1 + 80)];
+    v15 = [*(a1 + 56) subarrayWithRange:{*(a1 + 88), *(a1 + 96) - *(a1 + 88)}];
+    [*(a1 + 48) _saveCloudTabsRecordBatch:v15 previouslySavedRecords:*(a1 + 32) previouslyDeletedRecordIDs:*(a1 + 40) retryManager:*(a1 + 64) inOperationGroup:*(a1 + 72) completionHandler:*(a1 + 80)];
   }
 }
 
 void sub_10007CC04(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 88));
-  v3 = sub_100001B78();
-  v4 = v3;
+  v4 = sub_100001B78(WeakRetained, v3);
+  v5 = v4;
   if (WeakRetained)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Attempting to retry batch save request", v8, 2u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Attempting to retry batch save request", v8, 2u);
     }
 
     [WeakRetained _saveCloudTabsRecordBatch:*(a1 + 56) previouslySavedRecords:*(a1 + 40) previouslyDeletedRecordIDs:*(a1 + 48) retryManager:*(a1 + 64) inOperationGroup:*(a1 + 72) completionHandler:*(a1 + 80)];
@@ -5310,14 +5236,13 @@ void sub_10007CC04(uint64_t a1)
 
   else
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_100008624(a1, v4);
+      sub_100008624(a1, v5);
     }
 
-    v5 = [*(a1 + 40) copy];
-    v6 = [*(a1 + 48) copy];
-    v7 = *(a1 + 32);
+    v6 = [*(a1 + 40) copy];
+    v7 = [*(a1 + 48) copy];
     (*(*(a1 + 80) + 16))();
   }
 }
@@ -5352,36 +5277,37 @@ void sub_10007CE3C(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 void sub_10007CF24(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 56));
+  v4 = WeakRetained;
   if (*(a1 + 32))
   {
-    v3 = sub_100001B78();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v5 = sub_100001B78(WeakRetained, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_100008A90((a1 + 32), v3);
+      sub_100008A90(a1 + 32, v5);
     }
 
-    [*(a1 + 40) _recursivelyCancelDependentOperations:WeakRetained operationQueue:*(*(a1 + 40) + 40)];
+    WeakRetained = [*(a1 + 40) _recursivelyCancelDependentOperations:v4 operationQueue:*(*(a1 + 40) + 40)];
   }
 
-  v4 = sub_100001B78();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100001B78(WeakRetained, v3);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v11 = WeakRetained;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Finished %@", buf, 0xCu);
+    v13 = v4;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Finished %@", buf, 0xCu);
   }
 
-  v5 = *(a1 + 48);
-  if (v5)
+  v7 = *(a1 + 48);
+  if (v7)
   {
-    v6 = *(*(a1 + 40) + 16);
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_10007D0B0;
-    v7[3] = &unk_100130F40;
-    v9 = v5;
-    v8 = *(a1 + 32);
-    dispatch_async(v6, v7);
+    v8 = *(*(a1 + 40) + 16);
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_10007D0B0;
+    v9[3] = &unk_100130F40;
+    v11 = v7;
+    v10 = *(a1 + 32);
+    dispatch_async(v8, v9);
   }
 }
 
@@ -5397,7 +5323,7 @@ void sub_10007D344(void *a1)
   v2 = a1;
   v3 = [sub_10000807C() safari_privacyPreservingDescription];
   sub_100008064();
-  sub_100008028(&_mh_execute_header, v4, v5, "Failed to fetch CloudTabs zone subscription by ID with error: %{public}@", v6, v7, v8, v9, v10);
+  sub_100008028(&_mh_execute_header, v4, v5, "Failed to fetch CloudTabs zone subscription by ID with error: %{public}@", v6, v7, v8, v9);
 }
 
 void sub_10007D43C(void *a1, void *a2)
@@ -5405,15 +5331,15 @@ void sub_10007D43C(void *a1, void *a2)
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
   sub_100008064();
-  sub_100008028(&_mh_execute_header, v5, v6, "Failed to create CloudTabs zone with error: %{public}@", v7, v8, v9, v10, v11);
+  sub_100008028(&_mh_execute_header, v5, v6, "Failed to create CloudTabs zone with error: %{public}@", v7, v8, v9, v10);
 }
 
-void sub_10007D5A4(uint64_t *a1, void *a2)
+void sub_10007D5A4(uint64_t a1, void *a2)
 {
   v3 = sub_100008088(a1, a2);
   v4 = [v2 safari_privacyPreservingDescription];
   sub_100008064();
-  sub_100008028(&_mh_execute_header, v5, v6, "Batch record save operation completed but failed to save records due to unrecoverable error: %{public}@", v7, v8, v9, v10, v11);
+  sub_100008028(&_mh_execute_header, v5, v6, "Batch record save operation completed but failed to save records due to unrecoverable error: %{public}@", v7, v8, v9, v10);
 }
 
 void sub_10007D66C(id a1)
@@ -5500,39 +5426,39 @@ void sub_10007E9A0(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Error reading sync events plist data: %{public}@", &v2, 0xCu);
 }
 
-void *sub_10007EAD8(void *result)
+void *sub_10007EAD8(void *result, uint64_t a2)
 {
   if ((*(result[4] + 96) & 1) == 0)
   {
-    v1 = result;
-    v2 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v2 = result;
+    v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(result, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v15 = 0;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Beginning conversion of folder contents", v15, 2u);
+      *v16 = 0;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Beginning conversion of folder contents", v16, 2u);
     }
 
-    v3 = objc_retainBlock(v1[6]);
-    v4 = v1[4];
-    v5 = *(v4 + 72);
-    *(v4 + 72) = v3;
+    v4 = objc_retainBlock(v2[6]);
+    v5 = v2[4];
+    v6 = *(v5 + 72);
+    *(v5 + 72) = v4;
 
-    *(v1[4] + 96) = 1;
-    v6 = [CloudBookmarkSyncMigrationPositionGenerator alloc];
-    v7 = [v1[4] databaseRef];
-    v8 = [v1[4] databaseAccessor];
-    v9 = [(CloudBookmarkSyncMigrationPositionGenerator *)v6 initWithDatabase:v7 databaseAccessor:v8];
-    v10 = v1[4];
-    v11 = *(v10 + 80);
-    *(v10 + 80) = v9;
+    *(v2[4] + 96) = 1;
+    v7 = [CloudBookmarkSyncMigrationPositionGenerator alloc];
+    v8 = [v2[4] databaseRef];
+    v9 = [v2[4] databaseAccessor];
+    v10 = [(CloudBookmarkSyncMigrationPositionGenerator *)v7 initWithDatabase:v8 databaseAccessor:v9];
+    v11 = v2[4];
+    v12 = *(v11 + 80);
+    *(v11 + 80) = v10;
 
-    [*(v1[4] + 80) setRootRecordName:WBSCloudBookmarkListRecordNameTopBookmark];
-    v12 = [*(v1[4] + 80) recordNameEnumerator];
-    v13 = v1[4];
-    v14 = *(v13 + 88);
-    *(v13 + 88) = v12;
+    [*(v2[4] + 80) setRootRecordName:WBSCloudBookmarkListRecordNameTopBookmark];
+    v13 = [*(v2[4] + 80) recordNameEnumerator];
+    v14 = v2[4];
+    v15 = *(v14 + 88);
+    *(v14 + 88) = v13;
 
-    return [v1[4] _generateAndSaveRemainingRecordsInOperationGroup:v1[5]];
+    return [v2[4] _generateAndSaveRemainingRecordsInOperationGroup:v2[5]];
   }
 
   return result;
@@ -5547,31 +5473,29 @@ void sub_10007EFD8(void *a1, void *a2)
   _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Did fail to migrate record hierarchy with error: %{public}@", &v5, 0xCu);
 }
 
-id sub_100080410(uint64_t a1, void *a2, void *a3)
+id sub_100080410(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
-  v5 = a2;
-  v6 = a3;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = sub_1000014E0;
-  v17 = sub_100080580;
-  v18 = 0;
-  v9 = *(a1 + 32);
+  v6 = a2;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = sub_1000014E0;
+  v16 = sub_100080580;
+  v17 = 0;
+  v9 = a3;
   v10 = v6;
-  v11 = v5;
-  v12 = *(a1 + 40);
+  v11 = *(a1 + 40);
   WBSDispatchSyncToMainQueueWithAutoreleasePool();
-  v7 = v14[5];
+  v7 = v13[5];
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v12, 8);
 
   return v7;
 }
 
-void sub_100080568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100080568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5594,8 +5518,7 @@ void sub_100080588(uint64_t a1)
 void sub_10008063C(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v6 = a4;
-  v7 = *(a1 + 32);
-  v8 = *(a1 + 40);
+  v7 = *(a1 + 40);
   v5 = v6;
   WBSDispatchAsyncToMainQueueWithAutoreleasePool();
 }
@@ -5743,108 +5666,108 @@ void sub_100081C2C(uint64_t a1, void *a2)
 void sub_100081D44(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v5 = v3;
   if (v3)
   {
-    v4 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v6 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_1000856C0(v4, v3);
+      sub_1000856C0(v6, v5);
     }
 
-    v5 = *(*(a1 + 40) + 16);
+    v7 = *(*(a1 + 40) + 16);
   }
 
   else
   {
-    v6 = *(a1 + 32);
-    v5 = *(*(a1 + 40) + 16);
+    v7 = *(*(a1 + 40) + 16);
   }
 
-  v5();
+  v7();
 }
 
 void sub_1000822BC(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  if ([v4 safari_isCloudKitErrorWithCode:111])
+  v5 = [v4 safari_isCloudKitErrorWithCode:111];
+  if (v5)
   {
-    v5 = *(*(a1 + 32) + 105);
-    v6 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-    if (v5 == 1)
+    v7 = *(*(a1 + 32) + 105);
+    v8 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(v5, v6);
+    v5 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    if (v7 == 1)
     {
-      if (v7)
+      if (v5)
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Received unsynced Keychain error, but we're already waiting for PCS identities to change.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Received unsynced Keychain error, but we're already waiting for PCS identities to change.", buf, 2u);
       }
     }
 
     else
     {
-      if (v7)
+      if (v5)
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Received unsynced Keychain error. Observing notification to start syncing Tab Groups when PCS identities change.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Received unsynced Keychain error. Observing notification to start syncing Tab Groups when PCS identities change.", buf, 2u);
       }
 
       *(*(a1 + 32) + 105) = 1;
-      v8 = +[NSNotificationCenter defaultCenter];
-      [v8 addObserver:*(a1 + 32) selector:"_pcsIdentitiesChangedNotification:" name:CKIdentityUpdateNotification object:0];
+      v9 = +[NSNotificationCenter defaultCenter];
+      [v9 addObserver:*(a1 + 32) selector:"_pcsIdentitiesChangedNotification:" name:CKIdentityUpdateNotification object:0];
     }
   }
 
-  v9 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-  v10 = v9;
+  v10 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(v5, v6);
+  v11 = v10;
   if (v4)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
-      v12 = v10;
-      v13 = [v11 configuration];
-      [v13 storeOwner];
-      v14 = WBNSStringFromCollectionStoreOwner();
-      v15 = WBSStringFromCloudBookmarksSyncResult();
-      v16 = [v4 safari_privacyPreservingDescription];
-      v17 = [*(a1 + 40) safari_logDescription];
+      v12 = *(a1 + 32);
+      v13 = v11;
+      v14 = [v12 configuration];
+      [v14 storeOwner];
+      v15 = WBNSStringFromCollectionStoreOwner();
+      v16 = WBSStringFromCloudBookmarksSyncResult();
+      v17 = [v4 safari_privacyPreservingDescription];
+      v18 = [*(a1 + 40) safari_logDescription];
       *buf = 138544130;
-      v22 = v14;
+      v22 = v15;
       v23 = 2114;
-      v24 = v15;
+      v24 = v16;
       v25 = 2114;
-      v26 = v16;
+      v26 = v17;
       v27 = 2114;
-      v28 = v17;
-      _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "••• TabGroups sync failed for manager %{public}@ with result <%{public}@>: %{public}@, %{public}@", buf, 0x2Au);
+      v28 = v18;
+      _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "••• TabGroups sync failed for manager %{public}@ with result <%{public}@>: %{public}@, %{public}@", buf, 0x2Au);
 
 LABEL_13:
     }
   }
 
-  else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = *(a1 + 32);
-    v19 = v10;
-    v13 = [v18 configuration];
-    [v13 storeOwner];
-    v14 = WBNSStringFromCollectionStoreOwner();
-    v15 = WBSStringFromCloudBookmarksSyncResult();
-    v16 = [*(a1 + 40) safari_logDescription];
+    v19 = *(a1 + 32);
+    v20 = v11;
+    v14 = [v19 configuration];
+    [v14 storeOwner];
+    v15 = WBNSStringFromCollectionStoreOwner();
+    v16 = WBSStringFromCloudBookmarksSyncResult();
+    v17 = [*(a1 + 40) safari_logDescription];
     *buf = 138543874;
-    v22 = v14;
+    v22 = v15;
     v23 = 2114;
-    v24 = v15;
+    v24 = v16;
     v25 = 2114;
-    v26 = v16;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "••• TabGroups sync finished for manager %{public}@ with result: %{public}@, %{public}@", buf, 0x20u);
+    v26 = v17;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "••• TabGroups sync finished for manager %{public}@ with result: %{public}@, %{public}@", buf, 0x20u);
 
     goto LABEL_13;
   }
 
   *(*(a1 + 32) + 128) = 0;
   (*(*(a1 + 48) + 16))();
-  v20 = *(a1 + 32);
   WBSDispatchAsyncToMainQueueWithAutoreleasePool();
 }
 
@@ -5853,34 +5776,34 @@ void sub_100082694(uint64_t a1)
   v2 = +[NSNotificationCenter defaultCenter];
   [v2 removeObserver:*(a1 + 32) name:CKIdentityUpdateNotification object:0];
 
-  v3 = *(a1 + 32);
-  if (*(v3 + 105))
+  v5 = *(a1 + 32);
+  if (*(v5 + 105))
   {
-    *(v3 + 105) = 0;
-    v4 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    *(v5 + 105) = 0;
+    v6 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(v3, v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Received expected PCS identity change notification. Syncing Tab Groups.", v9, 2u);
+      *v11 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Received expected PCS identity change notification. Syncing Tab Groups.", v11, 2u);
     }
 
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 152));
-    v6 = objc_opt_respondsToSelector();
+    v8 = objc_opt_respondsToSelector();
 
-    if (v6)
+    if (v8)
     {
-      v7 = objc_loadWeakRetained((*(a1 + 32) + 152));
-      [v7 cloudTabGroupSyncManagerPCSIdentitiesDidChange:*(a1 + 32)];
+      v9 = objc_loadWeakRetained((*(a1 + 32) + 152));
+      [v9 cloudTabGroupSyncManagerPCSIdentitiesDidChange:*(a1 + 32)];
     }
   }
 
   else
   {
-    v8 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(v3, v4);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Ignoring PCS identity change notification because Safari Tab Groups Sync is not waiting for an identity update", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Ignoring PCS identity change notification because Safari Tab Groups Sync is not waiting for an identity update", buf, 2u);
     }
   }
 }
@@ -5888,56 +5811,55 @@ void sub_100082694(uint64_t a1)
 void sub_10008297C(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  v5 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-  v6 = v5;
+  v6 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(v4, v5);
+  v7 = v6;
   if (v4)
   {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = v6;
-      v9 = [v7 configuration];
-      [v9 storeOwner];
-      v10 = WBNSStringFromCollectionStoreOwner();
-      v11 = WBSStringFromCloudBookmarksSyncResult();
-      v12 = [v4 safari_privacyPreservingDescription];
-      v13 = [*(a1 + 40) safari_logDescription];
+      v8 = *(a1 + 32);
+      v9 = v7;
+      v10 = [v8 configuration];
+      [v10 storeOwner];
+      v11 = WBNSStringFromCollectionStoreOwner();
+      v12 = WBSStringFromCloudBookmarksSyncResult();
+      v13 = [v4 safari_privacyPreservingDescription];
+      v14 = [*(a1 + 40) safari_logDescription];
       *buf = 138544130;
-      v18 = v10;
+      v18 = v11;
       v19 = 2114;
-      v20 = v11;
+      v20 = v12;
       v21 = 2114;
-      v22 = v12;
+      v22 = v13;
       v23 = 2114;
-      v24 = v13;
-      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "*•• TabGroups migration failed for manager %{public}@ with result <%{public}@>: %{public}@, %{public}@", buf, 0x2Au);
+      v24 = v14;
+      _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "*•• TabGroups migration failed for manager %{public}@ with result <%{public}@>: %{public}@, %{public}@", buf, 0x2Au);
 
 LABEL_6:
     }
   }
 
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = *(a1 + 32);
-    v15 = v6;
-    v9 = [v14 configuration];
-    [v9 storeOwner];
-    v10 = WBNSStringFromCollectionStoreOwner();
-    v11 = WBSStringFromCloudBookmarksSyncResult();
-    v12 = [*(a1 + 40) safari_logDescription];
+    v15 = *(a1 + 32);
+    v16 = v7;
+    v10 = [v15 configuration];
+    [v10 storeOwner];
+    v11 = WBNSStringFromCollectionStoreOwner();
+    v12 = WBSStringFromCloudBookmarksSyncResult();
+    v13 = [*(a1 + 40) safari_logDescription];
     *buf = 138543874;
-    v18 = v10;
+    v18 = v11;
     v19 = 2114;
-    v20 = v11;
+    v20 = v12;
     v21 = 2114;
-    v22 = v12;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "*•• TabGroups migration finished for manager %{public}@ with result: %{public}@, %{public}@", buf, 0x20u);
+    v22 = v13;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "*•• TabGroups migration finished for manager %{public}@ with result: %{public}@, %{public}@", buf, 0x20u);
 
     goto LABEL_6;
   }
 
   *(*(a1 + 32) + 104) = 0;
-  v16 = *(a1 + 32);
   WBSDispatchAsyncToMainQueueWithAutoreleasePool();
 }
 
@@ -5974,13 +5896,13 @@ void sub_100082DA4(uint64_t a1)
   }
 }
 
-void sub_100082F28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_100082F28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
-  objc_destroyWeak((v9 + 48));
+  va_start(va, a15);
+  objc_destroyWeak((v16 + 48));
   _Block_object_dispose(va, 8);
-  objc_destroyWeak((v8 + 40));
-  objc_destroyWeak((v10 - 56));
+  objc_destroyWeak((v15 + 40));
+  objc_destroyWeak((v17 - 56));
   _Unwind_Resume(a1);
 }
 
@@ -6035,73 +5957,72 @@ void sub_100083314(id *a1)
 
     if (v5)
     {
-      v6 = a1[4];
-      v7 = [objc_opt_class() _createOperationGroupWithName:@"Cloud Tab Groups Accept Shared Tab Group"];
-      v8 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v8 = [objc_opt_class() _createOperationGroupWithName:@"Cloud Tab Groups Accept Shared Tab Group"];
+      v10 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(v8, v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = a1[5];
-        v10 = v8;
-        v11 = [v9 share];
-        v12 = [v11 recordID];
-        v13 = [v12 zoneID];
-        v14 = [v13 ckShortDescription];
-        v16 = a1[5];
-        v15 = a1[6];
-        v17 = [v7 safari_logDescription];
+        v11 = a1[5];
+        v12 = v10;
+        v13 = [v11 share];
+        v14 = [v13 recordID];
+        v15 = [v14 zoneID];
+        v16 = [v15 ckShortDescription];
+        v18 = a1[5];
+        v17 = a1[6];
+        v19 = [v8 safari_logDescription];
         *buf = 138544130;
-        v38 = v14;
-        v39 = 2114;
-        v40 = v15;
-        v41 = 2112;
-        v42 = v16;
-        v43 = 2114;
-        v44 = v17;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "*•* Will accept tab group share with zone %{public}@ in profile with UUID %{public}@, metadata %@, %{public}@", buf, 0x2Au);
+        v40 = v16;
+        v41 = 2114;
+        v42 = v17;
+        v43 = 2112;
+        v44 = v18;
+        v45 = 2114;
+        v46 = v19;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "*•* Will accept tab group share with zone %{public}@ in profile with UUID %{public}@, metadata %@, %{public}@", buf, 0x2Au);
       }
 
-      v31[0] = _NSConcreteStackBlock;
-      v31[1] = 3221225472;
-      v31[2] = sub_100083748;
-      v31[3] = &unk_1001352E8;
-      v32 = a1[5];
-      v33 = a1[6];
-      v34 = v7;
-      v18 = a1[7];
-      v35 = a1[4];
-      v36 = v18;
-      v19 = v7;
-      v20 = objc_retainBlock(v31);
-      [*(a1[4] + 6) acceptTabGroupShareForShareMetadata:a1[5] inProfileWithIdentifier:a1[6] operationGroup:v19 completionHandler:v20];
+      v33[0] = _NSConcreteStackBlock;
+      v33[1] = 3221225472;
+      v33[2] = sub_100083748;
+      v33[3] = &unk_1001352E8;
+      v34 = a1[5];
+      v35 = a1[6];
+      v36 = v8;
+      v20 = a1[7];
+      v37 = a1[4];
+      v38 = v20;
+      v21 = v8;
+      v22 = objc_retainBlock(v33);
+      [*(a1[4] + 6) acceptTabGroupShareForShareMetadata:a1[5] inProfileWithIdentifier:a1[6] operationGroup:v21 completionHandler:v22];
     }
 
     else
     {
-      v22 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v24 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(v6, v7);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        sub_100085804(a1 + 5, v22);
+        sub_100085804(a1 + 5, v24);
       }
 
-      v23 = a1[7];
-      v24 = WBSCloudBookmarksErrorDomain;
-      v45 = NSLocalizedFailureReasonErrorKey;
-      v19 = [*(a1[4] + 5) container];
-      v25 = [v19 containerIdentifier];
-      v26 = [a1[5] containerIdentifier];
-      v27 = [NSString stringWithFormat:@"Only container %@ is supported, received share metadata from container %@", v25, v26];
-      v46 = v27;
-      v28 = [NSDictionary dictionaryWithObjects:&v46 forKeys:&v45 count:1];
-      v29 = [NSError errorWithDomain:v24 code:3 userInfo:v28];
-      v23[2](v23, 0, v29);
+      v25 = a1[7];
+      v26 = WBSCloudBookmarksErrorDomain;
+      v47 = NSLocalizedFailureReasonErrorKey;
+      v21 = [*(a1[4] + 5) container];
+      v27 = [v21 containerIdentifier];
+      v28 = [a1[5] containerIdentifier];
+      v29 = [NSString stringWithFormat:@"Only container %@ is supported, received share metadata from container %@", v27, v28];
+      v48 = v29;
+      v30 = [NSDictionary dictionaryWithObjects:&v48 forKeys:&v47 count:1];
+      v31 = [NSError errorWithDomain:v26 code:3 userInfo:v30];
+      v25[2](v25, 0, v31);
     }
   }
 
   else
   {
-    v21 = a1[7];
-    v30 = [NSError errorWithDomain:WBSCloudBookmarksErrorDomain code:0 userInfo:0];
-    v21[2](v21, 0);
+    v23 = a1[7];
+    v32 = [NSError errorWithDomain:WBSCloudBookmarksErrorDomain code:0 userInfo:0];
+    v23[2](v23, 0);
   }
 }
 
@@ -6109,91 +6030,91 @@ void sub_100083748(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   v6 = a3;
   v7 = a4;
-  v8 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-  v9 = v8;
+  v9 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(v7, v8);
+  v10 = v9;
   if (v6)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = v9;
-      v11 = [v6 recordID];
-      v12 = [v11 zoneID];
-      v13 = [v12 ckShortDescription];
-      v15 = *(a1 + 32);
-      v14 = *(a1 + 40);
-      v16 = [*(a1 + 48) safari_logDescription];
-      v18 = 138544130;
-      v19 = v13;
-      v20 = 2114;
-      v21 = v14;
-      v22 = 2112;
-      v23 = v15;
-      v24 = 2114;
-      v25 = v16;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "*•* Did accept tab group share with zone %{public}@ in profile with UUID %{public}@, metadata %@, %{public}@", &v18, 0x2Au);
+      v11 = v10;
+      v12 = [v6 recordID];
+      v13 = [v12 zoneID];
+      v14 = [v13 ckShortDescription];
+      v16 = *(a1 + 32);
+      v15 = *(a1 + 40);
+      v17 = [*(a1 + 48) safari_logDescription];
+      v19 = 138544130;
+      v20 = v14;
+      v21 = 2114;
+      v22 = v15;
+      v23 = 2112;
+      v24 = v16;
+      v25 = 2114;
+      v26 = v17;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "*•* Did accept tab group share with zone %{public}@ in profile with UUID %{public}@, metadata %@, %{public}@", &v19, 0x2Au);
     }
 
     [*(a1 + 56) sendSyncDidFinishNotificationWithResult:0];
-    v17 = *(*(a1 + 64) + 16);
+    v18 = *(*(a1 + 64) + 16);
   }
 
   else
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_100085898(a1, v9, v7);
+      sub_100085898(a1, v10, v7);
     }
 
-    v17 = *(*(a1 + 64) + 16);
+    v18 = *(*(a1 + 64) + 16);
   }
 
-  v17();
+  v18();
 }
 
 void sub_100083AF0(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   v7 = a3;
   v8 = a4;
-  v9 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-  v10 = v9;
+  v10 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(v8, v9);
+  v11 = v10;
   if (a2)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v11 = *(a1 + 32);
-      v12 = v10;
-      v13 = WBSStringFromCloudBookmarksSyncResult();
-      v14 = [v8 safari_privacyPreservingDescription];
-      v15 = [*(a1 + 40) safari_logDescription];
-      v21 = 138544130;
-      v22 = v11;
-      v23 = 2114;
-      v24 = v13;
-      v25 = 2114;
-      v26 = v14;
-      v27 = 2114;
-      v28 = v15;
-      _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "••* Failed to begin sharing tab group with UUID: %{public}@, result: %{public}@, error: %{public}@, %{public}@", &v21, 0x2Au);
+      v12 = *(a1 + 32);
+      v13 = v11;
+      v14 = WBSStringFromCloudBookmarksSyncResult();
+      v15 = [v8 safari_privacyPreservingDescription];
+      v16 = [*(a1 + 40) safari_logDescription];
+      v22 = 138544130;
+      v23 = v12;
+      v24 = 2114;
+      v25 = v14;
+      v26 = 2114;
+      v27 = v15;
+      v28 = 2114;
+      v29 = v16;
+      _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "••* Failed to begin sharing tab group with UUID: %{public}@, result: %{public}@, error: %{public}@, %{public}@", &v22, 0x2Au);
 
 LABEL_6:
     }
   }
 
-  else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = *(a1 + 32);
-    v17 = v10;
-    v13 = [v7 recordID];
-    v18 = [v13 zoneID];
-    v19 = [v18 ckShortDescription];
-    v20 = [*(a1 + 40) safari_logDescription];
-    v21 = 138543874;
-    v22 = v16;
-    v23 = 2114;
-    v24 = v19;
-    v25 = 2114;
-    v26 = v20;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "••* Did successfully begin sharing tab group with UUID: %{public}@, in shared zone: %{public}@, %{public}@", &v21, 0x20u);
+    v17 = *(a1 + 32);
+    v18 = v11;
+    v14 = [v7 recordID];
+    v19 = [v14 zoneID];
+    v20 = [v19 ckShortDescription];
+    v21 = [*(a1 + 40) safari_logDescription];
+    v22 = 138543874;
+    v23 = v17;
+    v24 = 2114;
+    v25 = v20;
+    v26 = 2114;
+    v27 = v21;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "••* Did successfully begin sharing tab group with UUID: %{public}@, in shared zone: %{public}@, %{public}@", &v22, 0x20u);
 
     goto LABEL_6;
   }
@@ -6204,43 +6125,44 @@ LABEL_6:
 void sub_100083DA8(uint64_t a1)
 {
   v2 = [[CloudBookmarkAccountPropertiesStore alloc] initWithAccountStore:*(*(a1 + 32) + 144)];
-  if ([(CloudBookmarkAccountPropertiesStore *)v2 isDataclassEnabled])
+  v3 = [(CloudBookmarkAccountPropertiesStore *)v2 isDataclassEnabled];
+  if (v3)
   {
-    v3 = [WBTabCollection alloc];
-    v4 = [*(a1 + 32) configuration];
-    v5 = [v3 initWithConfiguration:v4 openDatabase:1];
+    v5 = [WBTabCollection alloc];
+    v6 = [*(a1 + 32) configuration];
+    v7 = [v5 initWithConfiguration:v6 openDatabase:1];
 
-    v6 = [v5 shouldUpdatePresence];
-    v7 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_INFO);
-    if (v6)
+    v8 = [v7 shouldUpdatePresence];
+    v9 = v8;
+    v11 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(v8, v10);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_INFO);
+    if (v9)
     {
-      if (v8)
+      if (v12)
       {
-        *v13 = 0;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Will update user's presence to tab", v13, 2u);
+        *v16 = 0;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Will update user's presence to tab", v16, 2u);
       }
 
-      v9 = [*(a1 + 32) _tabRecordIDFromTabUUID:*(a1 + 40) inTabCollection:v5];
-      v10 = *(a1 + 32);
-      v11 = [objc_opt_class() _createOperationGroupWithName:@"Cloud Tab Groups Update Tab Group Presence"];
-      [*(*(a1 + 32) + 56) setPresenceToTabWithRecordID:v9 inOperationGroup:v11 completionHandler:&stru_100135330];
+      v13 = [*(a1 + 32) _tabRecordIDFromTabUUID:*(a1 + 40) inTabCollection:v7];
+      v14 = [objc_opt_class() _createOperationGroupWithName:@"Cloud Tab Groups Update Tab Group Presence"];
+      [*(*(a1 + 32) + 56) setPresenceToTabWithRecordID:v13 inOperationGroup:v14 completionHandler:&stru_100135330];
     }
 
-    else if (v8)
+    else if (v12)
     {
-      *v14 = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Skipping updating user's presence since there are no shared tab groups in the user's database", v14, 2u);
+      *v17 = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Skipping updating user's presence since there are no shared tab groups in the user's database", v17, 2u);
     }
   }
 
   else
   {
-    v12 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v15 = [CloudTabGroupSyncCoordinator _tabGroupsLog]_0(v3, v4);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Skipping updating user's presence because Safari syncing is not enabled", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Skipping updating user's presence because Safari syncing is not enabled", buf, 2u);
     }
   }
 }
@@ -6269,7 +6191,7 @@ void sub_1000856C0(void *a1, void *a2)
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
   sub_100008064();
-  sub_100008028(&_mh_execute_header, v5, v6, "Failed to delete legacy Tab Groups subscription with error: %@", v7, v8, v9, v10, v11);
+  sub_100008028(&_mh_execute_header, v5, v6, "Failed to delete legacy Tab Groups subscription with error: %@", v7, v8, v9, v10);
 }
 
 void sub_100085754(void *a1, void *a2)
@@ -6279,7 +6201,7 @@ void sub_100085754(void *a1, void *a2)
   [v4 storeOwner];
   v5 = WBNSStringFromCollectionStoreOwner();
   sub_100008064();
-  sub_100008028(&_mh_execute_header, v6, v7, "••• TabGroups sync failed for manager %{public}@ with result <Aborted>", v8, v9, v10, v11, v12);
+  sub_100008028(&_mh_execute_header, v6, v7, "••• TabGroups sync failed for manager %{public}@ with result <Aborted>", v8, v9, v10, v11);
 }
 
 void sub_100085804(void **a1, void *a2)
@@ -6288,7 +6210,7 @@ void sub_100085804(void **a1, void *a2)
   v3 = a2;
   v4 = [v2 containerIdentifier];
   sub_100008064();
-  sub_100008028(&_mh_execute_header, v5, v6, "Ignoring CKShareMetadata because it is not part of the Tab Groups container: %{public}@", v7, v8, v9, v10, v11);
+  sub_100008028(&_mh_execute_header, v5, v6, "Ignoring CKShareMetadata because it is not part of the Tab Groups container: %{public}@", v7, v8, v9, v10);
 }
 
 void sub_100085898(uint64_t a1, void *a2, void *a3)
@@ -6324,37 +6246,38 @@ void sub_1000859EC()
   _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "Tab with UUID %{public}@ and recordID %{public}@ is not in a shared tab group, ignoring", v2, 0x16u);
 }
 
-void *sub_100085C78(void *result)
+void *sub_100085C78(void *result, uint64_t a2)
 {
   if ((*(result[4] + 96) & 1) == 0)
   {
-    v1 = result;
-    v2 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v2 = result;
+    v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(result, a2);
+    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_INFO);
+    if (v4)
     {
-      *v10 = 0;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Saving reparented records", v10, 2u);
+      *v13 = 0;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Saving reparented records", v13, 2u);
     }
 
-    v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v6 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v4, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      sub_100086200(v1, v3);
+      sub_100086200(v2, v6);
     }
 
-    v4 = objc_retainBlock(*(v1 + 64));
-    v5 = *(v1 + 32);
-    v6 = *(v5 + 72);
-    *(v5 + 72) = v4;
+    v7 = objc_retainBlock(v2[8]);
+    v8 = v2[4];
+    v9 = *(v8 + 72);
+    *(v8 + 72) = v7;
 
-    *(*(v1 + 32) + 96) = 1;
-    v7 = [*(v1 + 40) mutableCopy];
-    v8 = *(v1 + 32);
-    v9 = *(v8 + 80);
-    *(v8 + 80) = v7;
+    *(v2[4] + 96) = 1;
+    v10 = [v2[5] mutableCopy];
+    v11 = v2[4];
+    v12 = *(v11 + 80);
+    *(v11 + 80) = v10;
 
-    objc_storeStrong((*(v1 + 32) + 88), *(v1 + 48));
-    return [*(v1 + 32) _generateAndSaveRemainingRecordsInOperationGroup:*(v1 + 56)];
+    objc_storeStrong((v2[4] + 88), v2[6]);
+    return [v2[4] _generateAndSaveRemainingRecordsInOperationGroup:v2[7]];
   }
 
   return result;
@@ -6424,8 +6347,7 @@ void sub_100086B38(_Unwind_Exception *a1)
 void sub_100086B70(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 40);
+  v5 = *(a1 + 40);
   v4 = v3;
   WBSDispatchAsyncToMainQueueWithAutoreleasePool();
 }
@@ -6441,8 +6363,7 @@ void sub_100086C18(uint64_t a1)
 void sub_100086C7C(uint64_t a1, void *a2)
 {
   v4 = a2;
-  v5 = *(a1 + 32);
-  v6 = *(a1 + 40);
+  v5 = *(a1 + 40);
   v3 = v4;
   WBSDispatchAsyncToMainQueueWithAutoreleasePool();
 }
@@ -6454,22 +6375,20 @@ void sub_100086D24(id *a1)
   [a1[6] addObject:v2];
 }
 
-void sub_100086D88(uint64_t a1, void *a2, void *a3, void *a4)
+void sub_100086D88(id *a1, void *a2, void *a3, void *a4)
 {
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v10 = *(a1 + 32);
-  v11 = v9;
-  v12 = *(a1 + 40);
-  objc_copyWeak(&v17, (a1 + 72));
-  v13 = *(a1 + 48);
-  v14 = *(a1 + 56);
-  v15 = v7;
-  v16 = *(a1 + 64);
+  v10 = a1[5];
+  objc_copyWeak(&v15, a1 + 9);
+  v11 = a1[6];
+  v12 = a1[7];
+  v13 = v7;
+  v14 = a1[8];
   WBSDispatchAsyncToMainQueueWithAutoreleasePool();
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v15);
 }
 
 void sub_100086EDC(uint64_t a1)
@@ -6479,85 +6398,89 @@ void sub_100086EDC(uint64_t a1)
 
   if (v3)
   {
-    v4 = *(a1 + 40);
-    if (v4)
+    v6 = *(a1 + 40);
+    if (v6)
     {
-      if (([v4 safari_isUnrecoverableCloudKitError] & 1) != 0 || (objc_msgSend(*(a1 + 40), "safari_isCloudKitPartialFailureError") & 1) != 0 || (objc_msgSend(*(a1 + 40), "safari_isCloudKitNonExistentRecordError") & 1) != 0 || objc_msgSend(*(a1 + 40), "safari_isCloudKitBatchTooLargeError") || (objc_msgSend(*(a1 + 40), "safari_isCloudKitWriteConflictError") & 1) != 0 || objc_msgSend(*(a1 + 40), "safari_isAtomicWriteError"))
+      if (([v6 safari_isUnrecoverableCloudKitError] & 1) != 0 || (objc_msgSend(*(a1 + 40), "safari_isCloudKitPartialFailureError") & 1) != 0 || (objc_msgSend(*(a1 + 40), "safari_isCloudKitNonExistentRecordError") & 1) != 0 || objc_msgSend(*(a1 + 40), "safari_isCloudKitBatchTooLargeError") || (objc_msgSend(*(a1 + 40), "safari_isCloudKitWriteConflictError") & 1) != 0 || objc_msgSend(*(a1 + 40), "safari_isAtomicWriteError"))
       {
-        v5 = *(a1 + 32);
-        v6 = *(a1 + 40);
+        v7 = *(a1 + 32);
+        v8 = *(a1 + 40);
 
-        [v5 _didFinishSyncingReceivingRecordNames:0 error:v6];
-      }
-
-      else if ([*(a1 + 40) safari_isOrContainsCloudKitMissingZoneError])
-      {
-        v21 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
-        {
-          sub_100087A3C(v21);
-        }
-
-        [*(a1 + 32) _didFinishSyncingReceivingRecordNames:0 error:*(a1 + 40)];
+        [v7 _didFinishSyncingReceivingRecordNames:0 error:v8];
       }
 
       else
       {
-        v22 = *(a1 + 48);
-        v23 = *(a1 + 40);
-        v26 = _NSConcreteStackBlock;
-        v27 = 3221225472;
-        v28 = sub_1000872CC;
-        v29 = &unk_100134990;
-        objc_copyWeak(&v33, (a1 + 88));
-        v30 = *(a1 + 40);
-        v31 = *(a1 + 56);
-        v32 = *(a1 + 48);
-        v24 = [v22 scheduleRetryIfNeededForError:v23 usingBlock:&v26];
-        if (v24 != 1)
+        v23 = [*(a1 + 40) safari_isOrContainsCloudKitMissingZoneError];
+        if (v23)
         {
-          if (v24 == 2)
+          v25 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v23, v24);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
-            v25 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
-            {
-              sub_1000879F8(v25);
-            }
+            sub_100087A3C(v25);
           }
 
-          [*(a1 + 32) _didFinishSyncingReceivingRecordNames:0 error:{*(a1 + 40), v26, v27, v28, v29, v30, v31}];
+          [*(a1 + 32) _didFinishSyncingReceivingRecordNames:0 error:*(a1 + 40)];
         }
 
-        objc_destroyWeak(&v33);
+        else
+        {
+          v26 = *(a1 + 48);
+          v27 = *(a1 + 40);
+          v31 = _NSConcreteStackBlock;
+          v32 = 3221225472;
+          v33 = sub_1000872CC;
+          v34 = &unk_100134990;
+          objc_copyWeak(&v38, (a1 + 88));
+          v35 = *(a1 + 40);
+          v36 = *(a1 + 56);
+          v37 = *(a1 + 48);
+          v28 = [v26 scheduleRetryIfNeededForError:v27 usingBlock:&v31];
+          if (v28 != 1)
+          {
+            if (v28 == 2)
+            {
+              v30 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(2, v29);
+              if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+              {
+                sub_1000879F8(v30);
+              }
+            }
+
+            [*(a1 + 32) _didFinishSyncingReceivingRecordNames:0 error:{*(a1 + 40), v31, v32, v33, v34, v35, v36}];
+          }
+
+          objc_destroyWeak(&v38);
+        }
       }
     }
 
     else
     {
-      v10 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+      v12 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(0, v5);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v11 = *(a1 + 64);
-        v12 = *(a1 + 72);
+        v13 = *(a1 + 64);
+        v14 = *(a1 + 72);
         *buf = 138543618;
-        v35 = v11;
-        v36 = 2114;
-        v37 = v12;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Did finish fetching records between server change token: %{public}@ and server change token: %{public}@", buf, 0x16u);
+        v40 = v13;
+        v41 = 2114;
+        v42 = v14;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Did finish fetching records between server change token: %{public}@ and server change token: %{public}@", buf, 0x16u);
       }
 
-      v13 = [*(a1 + 32) databaseRef];
-      v14 = [*(a1 + 32) databaseAccessor];
-      v15 = [WBBookmarkDatabaseSyncData databaseSyncDataInDatabase:v13 databaseAccessor:v14];
+      v15 = [*(a1 + 32) databaseRef];
+      v16 = [*(a1 + 32) databaseAccessor];
+      v17 = [WBBookmarkDatabaseSyncData databaseSyncDataInDatabase:v15 databaseAccessor:v16];
 
-      v16 = *(a1 + 72);
-      v17 = [*(a1 + 32) bookmarkStore];
-      v18 = [v17 bookmarksRecordZoneID];
-      [v15 setLastServerChangeToken:v16 forRecordZoneID:v18];
+      v18 = *(a1 + 72);
+      v19 = [*(a1 + 32) bookmarkStore];
+      v20 = [v19 bookmarksRecordZoneID];
+      [v17 setLastServerChangeToken:v18 forRecordZoneID:v20];
 
-      v19 = [*(a1 + 32) databaseRef];
-      v20 = [*(a1 + 32) databaseAccessor];
-      [v15 writeToDatabase:v19 databaseAccessor:v20];
+      v21 = [*(a1 + 32) databaseRef];
+      v22 = [*(a1 + 32) databaseAccessor];
+      [v17 writeToDatabase:v21 databaseAccessor:v22];
 
       [*(a1 + 32) _didFinishSyncingReceivingRecordNames:*(a1 + 80) error:0];
     }
@@ -6565,23 +6488,23 @@ void sub_100086EDC(uint64_t a1)
 
   else
   {
-    v7 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v4, v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Canceling migration sync-down because Safari sync is disabled", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Canceling migration sync-down because Safari sync is disabled", buf, 2u);
     }
 
-    v8 = *(a1 + 32);
-    v9 = [NSError safari_errorWithCloudBookmarksCode:5 userInfo:0];
-    [v8 _didFinishSyncingReceivingRecordNames:0 error:v9];
+    v10 = *(a1 + 32);
+    v11 = [NSError safari_errorWithCloudBookmarksCode:5 userInfo:0];
+    [v10 _didFinishSyncingReceivingRecordNames:0 error:v11];
   }
 }
 
 void sub_1000872CC(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v3 = WeakRetained;
+  v4 = WeakRetained;
   if (WeakRetained)
   {
     [WeakRetained _performSyncDownInOperationGroup:*(a1 + 40) withRetryManager:*(a1 + 48)];
@@ -6589,10 +6512,10 @@ void sub_1000872CC(uint64_t a1)
 
   else
   {
-    v4 = sub_100001B78();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = sub_100001B78(0, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_100087A80(a1, v4);
+      sub_100087A80(a1, v5);
     }
   }
 }
@@ -6601,15 +6524,18 @@ void sub_100087964(void *a1)
 {
   v2 = a1;
   v3 = [sub_10000807C() safari_privacyPreservingDescription];
-  sub_100008028(&_mh_execute_header, v4, v5, "Sync down handler did fail sync down with with error: %{public}@", v6, v7, v8, v9, 2u);
+  LODWORD(v10) = 138543362;
+  *(&v10 + 4) = v3;
+  sub_100008028(&_mh_execute_header, v4, v5, "Sync down handler did fail sync down with with error: %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 void sub_100087A80(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = [sub_10000807C() safari_privacyPreservingDescription];
-  sub_100008028(&_mh_execute_header, v6, v7, "Bailing out from sync down due to deallocation with error %{public}@", v8, v9, v10, v11, 2u);
+  v3 = a2;
+  v4 = [sub_10000807C() safari_privacyPreservingDescription];
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  sub_100008028(&_mh_execute_header, v5, v6, "Bailing out from sync down due to deallocation with error %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void sub_100087B14(void *a1, void *a2)
@@ -6620,7 +6546,7 @@ void sub_100087B14(void *a1, void *a2)
   v4 = sub_10000807C();
   v5 = sub_10001C04C(v4);
   sub_10001A99C();
-  sub_100022738(&_mh_execute_header, v6, v7, "Merging record %{public}@ with result %{public}@ indicates that the remote record needs update despite being in sync down phase. The record should have been saved to the server during migration.", v8, v9, v10, v11, v12);
+  sub_100022738(&_mh_execute_header, v6, v7, "Merging record %{public}@ with result %{public}@ indicates that the remote record needs update despite being in sync down phase. The record should have been saved to the server during migration.", v8, v9, v10, v11);
 }
 
 void sub_100087BC4(void *a1, void *a2)
@@ -6631,7 +6557,7 @@ void sub_100087BC4(void *a1, void *a2)
   v4 = sub_10000807C();
   v5 = sub_10001C04C(v4);
   sub_10001A99C();
-  sub_100022738(&_mh_execute_header, v6, v7, "Merging record %{public}@ with result %{public}@ indicates that the local record needs to be undeleted during migration. Migration never attempts to delete remote records before the last de-duplication phase.", v8, v9, v10, v11, v12);
+  sub_100022738(&_mh_execute_header, v6, v7, "Merging record %{public}@ with result %{public}@ indicates that the local record needs to be undeleted during migration. Migration never attempts to delete remote records before the last de-duplication phase.", v8, v9, v10, v11);
 }
 
 void sub_100087E14(uint64_t a1)
@@ -6731,48 +6657,48 @@ uint64_t sub_1000882A4(uint64_t a1)
 {
   if ([*(a1 + 32) _isDatabaseOpen])
   {
-    v19 = 0u;
-    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v2 = *(a1 + 40);
-    v3 = [v2 countByEnumeratingWithState:&v19 objects:v28 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v21 objects:v30 count:16];
     if (v3)
     {
-      v5 = *v20;
+      v5 = *v22;
       *&v4 = 138543618;
-      v18 = v4;
+      v20 = v4;
       do
       {
         v6 = 0;
         do
         {
-          if (*v20 != v5)
+          if (*v22 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v23 = *(*(&v19 + 1) + 8 * v6);
+          v25 = *(*(&v21 + 1) + 8 * v6);
           v7 = [*(a1 + 32) _database];
-          v8 = sub_10008B164(v7, 0, @"DELETE FROM cloud_extension_devices WHERE device_uuid = ?", &v23);
+          v8 = sub_10008B164(v7, 0, @"DELETE FROM cloud_extension_devices WHERE device_uuid = ?", &v25);
 
           if (v8 != 101 || ([*(a1 + 32) _database], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "changedRowCount") == 0, v9, v10))
           {
             v11 = [*(a1 + 32) _database];
-            v12 = sub_10008B164(v11, 0, @"DELETE FROM cloud_extension_states WHERE record_name = ?", &v23);
+            v12 = sub_10008B164(v11, 0, @"DELETE FROM cloud_extension_states WHERE record_name = ?", &v25);
 
             if (v12 != 101)
             {
-              v13 = sub_1000D23FC();
-              if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+              v15 = sub_1000D23FC(v13, v14);
+              if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
               {
-                v14 = [*(a1 + 32) _database];
-                v15 = [v14 lastErrorMessage];
-                *buf = v18;
-                v25 = v15;
-                v26 = 1024;
-                v27 = v12;
-                _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to delete device or extension state: %{public}@ (%d)", buf, 0x12u);
+                v16 = [*(a1 + 32) _database];
+                v17 = [v16 lastErrorMessage];
+                *buf = v20;
+                v27 = v17;
+                v28 = 1024;
+                v29 = v12;
+                _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Failed to delete device or extension state: %{public}@ (%d)", buf, 0x12u);
               }
             }
           }
@@ -6781,7 +6707,7 @@ uint64_t sub_1000882A4(uint64_t a1)
         }
 
         while (v3 != v6);
-        v3 = [v2 countByEnumeratingWithState:&v19 objects:v28 count:16];
+        v3 = [v2 countByEnumeratingWithState:&v21 objects:v30 count:16];
       }
 
       while (v3);
@@ -6792,9 +6718,9 @@ uint64_t sub_1000882A4(uint64_t a1)
 
   else
   {
-    v17 = *(*(a1 + 48) + 16);
+    v19 = *(*(a1 + 48) + 16);
 
-    return v17();
+    return v19();
   }
 }
 
@@ -7187,16 +7113,15 @@ uint64_t sub_10008F520(uint64_t a1, void *a2)
   if (v5)
   {
     v6 = [v3 profileIdentifier];
-    v7 = *(a1 + 40);
-    v8 = WBSIsEqual();
+    v7 = WBSIsEqual();
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  return v8;
+  return v7;
 }
 
 void sub_100091024(id a1)
@@ -7491,43 +7416,43 @@ void sub_100094260(uint64_t a1)
   if ([*(a1 + 32) _isDatabaseOpen])
   {
     v2 = [*(a1 + 32) _loadDevices];
-    v3 = sub_100001B78();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = sub_100001B78(v2, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 134349056;
-      v18 = [v2 count];
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "Loaded %{public}lu cloud tab devices", buf, 0xCu);
+      v19 = [v2 count];
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "Loaded %{public}lu cloud tab devices", buf, 0xCu);
     }
 
-    v14 = 0u;
     v15 = 0u;
-    v12 = 0u;
+    v16 = 0u;
     v13 = 0u;
-    v4 = v2;
-    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
-    v6 = v4;
-    if (v5)
+    v14 = 0u;
+    v5 = v2;
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v7 = v5;
+    if (v6)
     {
-      v7 = *v13;
+      v8 = *v14;
       while (2)
       {
-        for (i = 0; i != v5; i = i + 1)
+        for (i = 0; i != v6; i = i + 1)
         {
-          if (*v13 != v7)
+          if (*v14 != v8)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v5);
           }
 
-          if ([*(a1 + 32) _loadTabsForDevice:{*(*(&v12 + 1) + 8 * i), v12}] != 101)
+          if ([*(a1 + 32) _loadTabsForDevice:{*(*(&v13 + 1) + 8 * i), v13}] != 101)
           {
 
-            v6 = 0;
+            v7 = 0;
             goto LABEL_17;
           }
         }
 
-        v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
-        if (v5)
+        v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        if (v6)
         {
           continue;
         }
@@ -7535,21 +7460,21 @@ void sub_100094260(uint64_t a1)
         break;
       }
 
-      v6 = v4;
+      v7 = v5;
     }
 
 LABEL_17:
 
-    v10 = *(a1 + 40);
-    v11 = [*(a1 + 32) _loadCloseRequests];
-    (*(v10 + 16))(v10, v6, v11);
+    v11 = *(a1 + 40);
+    v12 = [*(a1 + 32) _loadCloseRequests];
+    (*(v11 + 16))(v11, v7, v12);
   }
 
   else
   {
-    v9 = *(*(a1 + 40) + 16);
+    v10 = *(*(a1 + 40) + 16);
 
-    v9();
+    v10();
   }
 }
 
@@ -7592,53 +7517,53 @@ uint64_t sub_1000947A0(uint64_t a1)
 {
   if ([*(a1 + 32) _isDatabaseOpen])
   {
-    v23 = 0u;
-    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v2 = *(a1 + 40);
-    v3 = [v2 countByEnumeratingWithState:&v23 objects:v32 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v25 objects:v34 count:16];
     if (v3)
     {
-      v5 = *v24;
+      v5 = *v26;
       *&v4 = 138543618;
-      v22 = v4;
+      v24 = v4;
       do
       {
         v6 = 0;
         do
         {
-          if (*v24 != v5)
+          if (*v26 != v5)
           {
             objc_enumerationMutation(v2);
           }
 
-          v27 = *(*(&v23 + 1) + 8 * v6);
+          v29 = *(*(&v25 + 1) + 8 * v6);
           v7 = [*(a1 + 32) _database];
-          v8 = sub_10008B164(v7, 0, @"DELETE FROM cloud_tab_devices WHERE device_uuid = ?", &v27);
+          v8 = sub_10008B164(v7, 0, @"DELETE FROM cloud_tab_devices WHERE device_uuid = ?", &v29);
 
           if (v8 != 101 || ([*(a1 + 32) _database], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "changedRowCount") == 0, v9, v10))
           {
             v11 = [*(a1 + 32) _database];
-            v12 = sub_10008B164(v11, 0, @"DELETE FROM cloud_tabs WHERE tab_uuid = ?", &v27);
+            v12 = sub_10008B164(v11, 0, @"DELETE FROM cloud_tabs WHERE tab_uuid = ?", &v29);
 
             if (v12 != 101 || ([*(a1 + 32) _database], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "changedRowCount") == 0, v13, v14))
             {
               v15 = [*(a1 + 32) _database];
-              v16 = sub_10008B164(v15, 0, @"DELETE FROM cloud_tab_close_requests WHERE close_request_uuid = ?", &v27);
+              v16 = sub_10008B164(v15, 0, @"DELETE FROM cloud_tab_close_requests WHERE close_request_uuid = ?", &v29);
 
               if (v16 != 101)
               {
-                v17 = sub_100001B78();
-                if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+                v19 = sub_100001B78(v17, v18);
+                if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
                 {
-                  v18 = [*(a1 + 32) _database];
-                  v19 = [v18 lastErrorMessage];
-                  *buf = v22;
-                  v29 = v19;
-                  v30 = 1024;
-                  v31 = v16;
-                  _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Failed to delete device, tab, or close request: %{public}@ (%d)", buf, 0x12u);
+                  v20 = [*(a1 + 32) _database];
+                  v21 = [v20 lastErrorMessage];
+                  *buf = v24;
+                  v31 = v21;
+                  v32 = 1024;
+                  v33 = v16;
+                  _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Failed to delete device, tab, or close request: %{public}@ (%d)", buf, 0x12u);
                 }
               }
             }
@@ -7648,7 +7573,7 @@ uint64_t sub_1000947A0(uint64_t a1)
         }
 
         while (v3 != v6);
-        v3 = [v2 countByEnumeratingWithState:&v23 objects:v32 count:16];
+        v3 = [v2 countByEnumeratingWithState:&v25 objects:v34 count:16];
       }
 
       while (v3);
@@ -7659,9 +7584,9 @@ uint64_t sub_1000947A0(uint64_t a1)
 
   else
   {
-    v21 = *(*(a1 + 48) + 16);
+    v23 = *(*(a1 + 48) + 16);
 
-    return v21();
+    return v23();
   }
 }
 
@@ -7802,10 +7727,9 @@ uint64_t sub_100095084(uint64_t a1)
     v3[40] = 0;
   }
 
-  v4 = *(*(a1 + 32) + 40);
-  v5 = *(*(a1 + 40) + 16);
+  v4 = *(*(a1 + 40) + 16);
 
-  return v5();
+  return v4();
 }
 
 uint64_t sub_1000951EC(uint64_t a1)
@@ -8130,12 +8054,13 @@ void sub_100099100(id a1, CKRecordID *a2, CKRecord *a3, NSError *a4)
 {
   v5 = a2;
   v6 = a4;
+  v8 = v6;
   if (v6)
   {
-    v7 = sub_1000D24F4();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v9 = sub_1000D24F4(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_1000991E4(v7, v6, v5);
+      sub_1000991E4(v9, v8, v5);
     }
   }
 }
@@ -8143,12 +8068,13 @@ void sub_100099100(id a1, CKRecordID *a2, CKRecord *a3, NSError *a4)
 void sub_10009916C(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v5 = a4;
+  v7 = v5;
   if (v5)
   {
-    v6 = sub_1000D24F4();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = sub_1000D24F4(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_10009929C(v6, v5);
+      sub_10009929C(v8, v7);
     }
   }
 
@@ -8197,45 +8123,45 @@ void sub_100099A84(uint64_t a1)
   else
   {
     v3 = [*(*(a1 + 32) + 344) createOperationGroupWithName:@"Cloud Tab Data Saving" qualityOfService:-1 xpcActivity:0];
-    v4 = sub_100001B78();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100001B78(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = v4;
-      v6 = [v3 safari_logDescription];
+      v6 = v5;
+      v7 = [v3 safari_logDescription];
       *buf = 138543362;
-      v19 = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Saving tabs for the current device to CloudKit with %{public}@", buf, 0xCu);
+      v22 = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Saving tabs for the current device to CloudKit with %{public}@", buf, 0xCu);
     }
 
-    v7 = *(a1 + 40);
-    v8 = *(a1 + 48);
-    v9 = +[CloudTabRemoteStore cloudTabsRecordZoneID];
-    v10 = +[CloudTabDevice cloudTabDeviceWithDictionaryRepresentation:deviceUUIDString:cloudTabsRecordZoneID:isManateeContainer:](CloudTabDevice, "cloudTabDeviceWithDictionaryRepresentation:deviceUUIDString:cloudTabsRecordZoneID:isManateeContainer:", v7, v8, v9, [*(*(a1 + 32) + 344) usesManateeContainer]);
+    v8 = *(a1 + 40);
+    v9 = *(a1 + 48);
+    v10 = +[CloudTabRemoteStore cloudTabsRecordZoneID];
+    v11 = +[CloudTabDevice cloudTabDeviceWithDictionaryRepresentation:deviceUUIDString:cloudTabsRecordZoneID:isManateeContainer:](CloudTabDevice, "cloudTabDeviceWithDictionaryRepresentation:deviceUUIDString:cloudTabsRecordZoneID:isManateeContainer:", v8, v9, v10, [*(*(a1 + 32) + 344) usesManateeContainer]);
 
-    if (v10)
+    if (v11)
     {
       [*(a1 + 32) _suspendSavingQueue];
-      v14[0] = _NSConcreteStackBlock;
-      v14[1] = 3221225472;
-      v14[2] = sub_100099D44;
-      v14[3] = &unk_1001315B0;
-      v14[4] = *(a1 + 32);
-      v15 = v10;
-      v17 = *(a1 + 56);
-      v16 = v3;
-      dispatch_async(&_dispatch_main_q, v14);
+      v17[0] = _NSConcreteStackBlock;
+      v17[1] = 3221225472;
+      v17[2] = sub_100099D44;
+      v17[3] = &unk_1001315B0;
+      v17[4] = *(a1 + 32);
+      v18 = v11;
+      v20 = *(a1 + 56);
+      v19 = v3;
+      dispatch_async(&_dispatch_main_q, v17);
     }
 
     else
     {
-      v11 = sub_100001B78();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_100001B78(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = v11;
-        v13 = [v3 safari_logDescription];
+        v15 = v14;
+        v16 = [v3 safari_logDescription];
         *buf = 138543362;
-        v19 = v13;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "No iCloud Tab device found to save with %{public}@", buf, 0xCu);
+        v22 = v16;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "No iCloud Tab device found to save with %{public}@", buf, 0xCu);
       }
 
       (*(*(a1 + 56) + 16))();
@@ -8332,51 +8258,52 @@ void sub_10009A46C(uint64_t a1)
   if (WeakRetained)
   {
     v4 = [WeakRetained _cloudTabStoreError];
+    v6 = v4;
     if (v4)
     {
-      v5 = sub_100001B78();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = sub_100001B78(v4, v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         sub_1000A3084();
       }
 
       [v3 _resumeFetchingQueue];
-      [v3 _handleSevereSQLiteErrorWhileMergingExistingDevice:v4 inOperationGroup:*(a1 + 32)];
+      [v3 _handleSevereSQLiteErrorWhileMergingExistingDevice:v6 inOperationGroup:*(a1 + 32)];
     }
 
     else
     {
-      [v3 _resumeFetchingQueue];
-      v6 = *(a1 + 40);
-      v7 = sub_100001B78();
-      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-      if (v6)
+      v8 = [v3 _resumeFetchingQueue];
+      v9 = *(a1 + 40);
+      v11 = sub_100001B78(v8, v10);
+      v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+      if (v9)
       {
-        if (v8)
+        if (v12)
         {
-          v9 = *(a1 + 32);
-          v10 = v7;
-          v11 = [v9 safari_logDescription];
-          v17 = 138543362;
-          v18 = v11;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Merging device with existing device in SQLite database with %{public}@", &v17, 0xCu);
+          v13 = *(a1 + 32);
+          v14 = v11;
+          v15 = [v13 safari_logDescription];
+          v21 = 138543362;
+          v22 = v15;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Merging device with existing device in SQLite database with %{public}@", &v21, 0xCu);
         }
 
-        v12 = [*(a1 + 40) updateFromCloudTabDevice:v3[9]];
-        v13 = v3[12];
-        v3[12] = v12;
+        v16 = [*(a1 + 40) updateFromCloudTabDevice:v3[9]];
+        v17 = v3[12];
+        v3[12] = v16;
 
         objc_storeStrong(v3 + 9, *(a1 + 40));
       }
 
-      else if (v8)
+      else if (v12)
       {
-        v14 = *(a1 + 32);
-        v15 = v7;
-        v16 = [v14 safari_logDescription];
-        v17 = 138543362;
-        v18 = v16;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "No existing device found in SQLite database with %{public}@", &v17, 0xCu);
+        v18 = *(a1 + 32);
+        v19 = v11;
+        v20 = [v18 safari_logDescription];
+        v21 = 138543362;
+        v22 = v20;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "No existing device found in SQLite database with %{public}@", &v21, 0xCu);
       }
 
       [v3 _continueSavingTabsForCurrentDeviceInOperationGroup:*(a1 + 32)];
@@ -8403,31 +8330,32 @@ void sub_10009AA04(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 void sub_10009AAD0(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v4 = WeakRetained;
   if (WeakRetained)
   {
     if (*(a1 + 32))
     {
-      v3 = sub_100001B78();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v5 = sub_100001B78(WeakRetained, v3);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        sub_1000A312C((a1 + 32), v3);
+        sub_1000A312C(a1 + 32, v5);
       }
 
-      objc_storeStrong(WeakRetained + 13, *(a1 + 32));
+      objc_storeStrong(v4 + 13, *(a1 + 32));
     }
 
-    v4 = sub_100001B78();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100001B78(WeakRetained, v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 40);
-      v6 = v4;
-      v7 = [v5 safari_logDescription];
-      v8 = 138543362;
-      v9 = v7;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Finished saving iCloud Tab record batch with %{public}@", &v8, 0xCu);
+      v7 = *(a1 + 40);
+      v8 = v6;
+      v9 = [v7 safari_logDescription];
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Finished saving iCloud Tab record batch with %{public}@", &v10, 0xCu);
     }
 
-    [WeakRetained _saveNextRecordBatchCreatingCloudTabsZoneIfMissing:0 inOperationGroup:*(a1 + 40)];
+    [v4 _saveNextRecordBatchCreatingCloudTabsZoneIfMissing:0 inOperationGroup:*(a1 + 40)];
   }
 }
 
@@ -8450,30 +8378,31 @@ void sub_10009AE34(uint64_t a1, void *a2)
 void sub_10009AF00(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = *(a1 + 32);
-    v4 = sub_100001B78();
-    v5 = v4;
-    if (v3)
+    v5 = *(a1 + 32);
+    v6 = sub_100001B78(WeakRetained, v3);
+    v7 = v6;
+    if (v5)
     {
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        sub_1000A31D0((a1 + 32), v5);
+        sub_1000A31D0(a1 + 32, v7);
       }
     }
 
-    else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 40);
-      v7 = v5;
-      v8 = [v6 safari_logDescription];
-      v9 = 138543362;
-      v10 = v8;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Finished deleting obsolete tab record from CloudKit with %{public}@", &v9, 0xCu);
+      v8 = *(a1 + 40);
+      v9 = v7;
+      v10 = [v8 safari_logDescription];
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Finished deleting obsolete tab record from CloudKit with %{public}@", &v11, 0xCu);
     }
 
-    [WeakRetained _continueSavingTabsForCurrentDeviceInOperationGroup:*(a1 + 40)];
+    [v4 _continueSavingTabsForCurrentDeviceInOperationGroup:*(a1 + 40)];
   }
 }
 
@@ -8496,30 +8425,31 @@ void sub_10009B1A8(uint64_t a1, void *a2)
 void sub_10009B274(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = *(a1 + 32);
-    v4 = sub_100001B78();
-    v5 = v4;
-    if (v3)
+    v5 = *(a1 + 32);
+    v6 = sub_100001B78(WeakRetained, v3);
+    v7 = v6;
+    if (v5)
     {
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        sub_1000A3274((a1 + 32), v5);
+        sub_1000A3274(a1 + 32, v7);
       }
     }
 
-    else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 40);
-      v7 = v5;
-      v8 = [v6 safari_logDescription];
-      v9 = 138543362;
-      v10 = v8;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Finished updating SQLite store from CloudKit after saving tabs with %{public}@", &v9, 0xCu);
+      v8 = *(a1 + 40);
+      v9 = v7;
+      v10 = [v8 safari_logDescription];
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Finished updating SQLite store from CloudKit after saving tabs with %{public}@", &v11, 0xCu);
     }
 
-    [WeakRetained _continueSavingTabsForCurrentDeviceInOperationGroup:*(a1 + 40)];
+    [v4 _continueSavingTabsForCurrentDeviceInOperationGroup:*(a1 + 40)];
   }
 }
 
@@ -8565,50 +8495,50 @@ void sub_10009BC54(uint64_t a1)
   else
   {
     v3 = [*(*(a1 + 32) + 344) createOperationGroupWithName:@"Cloud Tab Close Requests Saving" qualityOfService:-1 xpcActivity:0];
-    v4 = sub_100001B78();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100001B78(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = v4;
-      v6 = [v3 safari_logDescription];
+      v6 = v5;
+      v7 = [v3 safari_logDescription];
       *buf = 138543362;
-      v21 = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Saving close request to CloudKit with %{public}@", buf, 0xCu);
+      v24 = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Saving close request to CloudKit with %{public}@", buf, 0xCu);
     }
 
-    v7 = *(a1 + 40);
-    v8 = *(a1 + 48);
-    v9 = +[CloudTabRemoteStore cloudTabsRecordZoneID];
-    v10 = [CloudTabCloseRequest cloudTabCloseRequestWithWBSCloudTabCloseRequestDictionaryRepresentation:v7 closeRequestUUIDString:v8 cloudTabsRecordZoneID:v9];
+    v8 = *(a1 + 40);
+    v9 = *(a1 + 48);
+    v10 = +[CloudTabRemoteStore cloudTabsRecordZoneID];
+    v11 = [CloudTabCloseRequest cloudTabCloseRequestWithWBSCloudTabCloseRequestDictionaryRepresentation:v8 closeRequestUUIDString:v9 cloudTabsRecordZoneID:v10];
 
-    if (v10)
+    if (v11)
     {
       [*(a1 + 32) _suspendSavingQueue];
-      v16[0] = _NSConcreteStackBlock;
-      v16[1] = 3221225472;
-      v16[2] = sub_10009BF34;
-      v16[3] = &unk_1001315B0;
-      v16[4] = *(a1 + 32);
-      v17 = v10;
-      v19 = *(a1 + 56);
-      v18 = v3;
-      dispatch_async(&_dispatch_main_q, v16);
+      v19[0] = _NSConcreteStackBlock;
+      v19[1] = 3221225472;
+      v19[2] = sub_10009BF34;
+      v19[3] = &unk_1001315B0;
+      v19[4] = *(a1 + 32);
+      v20 = v11;
+      v22 = *(a1 + 56);
+      v21 = v3;
+      dispatch_async(&_dispatch_main_q, v19);
     }
 
     else
     {
-      v11 = sub_100001B78();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_100001B78(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = v11;
-        v13 = [v3 safari_logDescription];
+        v15 = v14;
+        v16 = [v3 safari_logDescription];
         *buf = 138543362;
-        v21 = v13;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "No close request found to save with %{public}@", buf, 0xCu);
+        v24 = v16;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "No close request found to save with %{public}@", buf, 0xCu);
       }
 
-      v14 = *(a1 + 56);
-      v15 = [NSError errorWithDomain:WBSCloudTabsErrorDomain code:0 userInfo:0];
-      (*(v14 + 16))(v14, v15);
+      v17 = *(a1 + 56);
+      v18 = [NSError errorWithDomain:WBSCloudTabsErrorDomain code:0 userInfo:0];
+      (*(v17 + 16))(v17, v18);
     }
   }
 }
@@ -8658,31 +8588,32 @@ void sub_10009C2F4(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 void sub_10009C3C0(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v4 = WeakRetained;
   if (WeakRetained)
   {
     if (*(a1 + 32))
     {
-      v3 = sub_100001B78();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v5 = sub_100001B78(WeakRetained, v3);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        sub_1000A3318((a1 + 32), v3);
+        sub_1000A3318(a1 + 32, v5);
       }
 
-      objc_storeStrong(WeakRetained + 17, *(a1 + 32));
+      objc_storeStrong(v4 + 17, *(a1 + 32));
     }
 
-    v4 = sub_100001B78();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100001B78(WeakRetained, v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 40);
-      v6 = v4;
-      v7 = [v5 safari_logDescription];
-      v8 = 138543362;
-      v9 = v7;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Successfully saved close request to CloudKit with %{public}@", &v8, 0xCu);
+      v7 = *(a1 + 40);
+      v8 = v6;
+      v9 = [v7 safari_logDescription];
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Successfully saved close request to CloudKit with %{public}@", &v10, 0xCu);
     }
 
-    [WeakRetained _continueSavingCloseRequestInOperationGroup:*(a1 + 40)];
+    [v4 _continueSavingCloseRequestInOperationGroup:*(a1 + 40)];
   }
 }
 
@@ -8712,30 +8643,31 @@ void sub_10009C66C(uint64_t a1, void *a2)
 void sub_10009C738(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = *(a1 + 32);
-    v4 = sub_100001B78();
-    v5 = v4;
-    if (v3)
+    v5 = *(a1 + 32);
+    v6 = sub_100001B78(WeakRetained, v3);
+    v7 = v6;
+    if (v5)
     {
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        sub_1000A33BC((a1 + 32), v5);
+        sub_1000A33BC(a1 + 32, v7);
       }
     }
 
-    else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 40);
-      v7 = v5;
-      v8 = [v6 safari_logDescription];
-      v9 = 138543362;
-      v10 = v8;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Finished updating SQLite store from CloudKit after saving close request with %{public}@", &v9, 0xCu);
+      v8 = *(a1 + 40);
+      v9 = v7;
+      v10 = [v8 safari_logDescription];
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Finished updating SQLite store from CloudKit after saving close request with %{public}@", &v11, 0xCu);
     }
 
-    [WeakRetained _continueSavingCloseRequestInOperationGroup:*(a1 + 40)];
+    [v4 _continueSavingCloseRequestInOperationGroup:*(a1 + 40)];
   }
 }
 
@@ -8781,14 +8713,14 @@ void sub_10009CBE0(uint64_t a1)
   else
   {
     v3 = [*(*(a1 + 32) + 344) createOperationGroupWithName:@"Cloud Tab Data Fetching" qualityOfService:-1 xpcActivity:0];
-    v4 = sub_100001B78();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100001B78(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = v4;
-      v6 = [v3 safari_logDescription];
+      v6 = v5;
+      v7 = [v3 safari_logDescription];
       *buf = 138543362;
-      v13 = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Fetching iCloud Tab data from CloudKit with %{public}@", buf, 0xCu);
+      v14 = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Fetching iCloud Tab data from CloudKit with %{public}@", buf, 0xCu);
     }
 
     [*(a1 + 32) _suspendFetchingQueue];
@@ -8796,11 +8728,11 @@ void sub_10009CBE0(uint64_t a1)
     block[1] = 3221225472;
     block[2] = sub_10009CDB0;
     block[3] = &unk_100130E50;
-    v7 = *(a1 + 40);
+    v8 = *(a1 + 40);
     block[4] = *(a1 + 32);
-    v10 = v3;
-    v11 = v7;
-    v8 = v3;
+    v11 = v3;
+    v12 = v8;
+    v9 = v3;
     dispatch_async(&_dispatch_main_q, block);
   }
 }
@@ -8921,45 +8853,48 @@ void sub_10009D62C(uint64_t a1, void *a2)
 void sub_10009D6F4(id *a1)
 {
   WeakRetained = objc_loadWeakRetained(a1 + 6);
+  v4 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = sub_100001B78();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100001B78(WeakRetained, v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = a1[4];
-      v5 = v3;
-      v6 = [v4 safari_logDescription];
+      v6 = a1[4];
+      v7 = v5;
+      v8 = [v6 safari_logDescription];
       *buf = 138543362;
-      v33 = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Finished reading server change token from the SQLite database with %{public}@", buf, 0xCu);
+      v44 = v8;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Finished reading server change token from the SQLite database with %{public}@", buf, 0xCu);
     }
 
-    v7 = [WeakRetained _cloudTabStoreError];
-    if (v7)
+    v9 = [v4 _cloudTabStoreError];
+    v11 = v9;
+    if (v9)
     {
-      v8 = sub_100001B78();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v12 = sub_100001B78(v9, v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        sub_1000A3460(v8, v7, a1);
+        sub_1000A3460(v12, v11, a1);
       }
 
-      [WeakRetained _handleSevereSQLiteErrorWhileFetching:v7 inOperationGroup:a1[4]];
+      [v4 _handleSevereSQLiteErrorWhileFetching:v11 inOperationGroup:a1[4]];
       goto LABEL_27;
     }
 
     if ([a1[5] length])
     {
-      v9 = [NSKeyedUnarchiver alloc];
-      v10 = a1[5];
-      v29 = 0;
-      v11 = [v9 initForReadingFromData:v10 error:&v29];
-      v12 = v29;
-      if (v12)
+      v14 = [NSKeyedUnarchiver alloc];
+      v15 = a1[5];
+      v40 = 0;
+      v16 = [v14 initForReadingFromData:v15 error:&v40];
+      v17 = v40;
+      v19 = v17;
+      if (v17)
       {
-        v13 = sub_1000D22B4();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v20 = sub_1000D22B4(v17, v18);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          [v12 safari_privacyPreservingDescription];
+          [v19 safari_privacyPreservingDescription];
           objc_claimAutoreleasedReturnValue();
           [a1[4] safari_logDescription];
           objc_claimAutoreleasedReturnValue();
@@ -8967,71 +8902,73 @@ void sub_10009D6F4(id *a1)
         }
       }
 
-      v14 = [v11 decodeObjectOfClass:objc_opt_class() forKey:NSKeyedArchiveRootObjectKey];
-      [v11 finishDecoding];
+      v21 = [v16 decodeObjectOfClass:objc_opt_class() forKey:NSKeyedArchiveRootObjectKey];
+      [v16 finishDecoding];
 
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
-      v16 = sub_100001B78();
-      v17 = v16;
-      if (isKindOfClass)
+      v23 = isKindOfClass;
+      v25 = sub_100001B78(isKindOfClass, v24);
+      v26 = v25;
+      if (v23)
       {
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
-          v18 = a1[4];
-          v19 = v17;
-          v20 = [v18 safari_logDescription];
-          *v30 = 138543362;
-          v31 = v20;
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Found server change token data in the SQLite database with %{public}@", v30, 0xCu);
+          v27 = a1[4];
+          v28 = v26;
+          v29 = [v27 safari_logDescription];
+          *v41 = 138543362;
+          v42 = v29;
+          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Found server change token data in the SQLite database with %{public}@", v41, 0xCu);
         }
 
-        v21 = v14;
-        v22 = *(WeakRetained + 35);
-        *(WeakRetained + 35) = v21;
+        v30 = v21;
+        v31 = *(v4 + 35);
+        *(v4 + 35) = v30;
       }
 
       else
       {
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v36 = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
+        if (v36)
         {
-          sub_1000A35C0(a1, v17);
+          sub_1000A35C0(a1, v26);
         }
 
-        if ((*(WeakRetained + 248) & 1) == 0)
+        if ((*(v4 + 248) & 1) == 0)
         {
-          [WeakRetained _deleteDatabaseAndRestartFetchInOperationGroup:a1[4]];
+          [v4 _deleteDatabaseAndRestartFetchInOperationGroup:a1[4]];
 
           goto LABEL_27;
         }
 
-        v27 = sub_100001B78();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+        v38 = sub_100001B78(v36, v37);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
-          sub_1000A3660(a1, v27);
+          sub_1000A3660(a1, v38);
         }
 
-        v28 = [NSError errorWithDomain:WBSCloudTabsErrorDomain code:2 userInfo:0];
-        v22 = *(WeakRetained + 30);
-        *(WeakRetained + 30) = v28;
+        v39 = [NSError errorWithDomain:WBSCloudTabsErrorDomain code:2 userInfo:0];
+        v31 = *(v4 + 30);
+        *(v4 + 30) = v39;
       }
     }
 
     else
     {
-      v23 = sub_100001B78();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v32 = sub_100001B78(0, v13);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = a1[4];
-        v25 = v23;
-        v26 = [v24 safari_logDescription];
+        v33 = a1[4];
+        v34 = v32;
+        v35 = [v33 safari_logDescription];
         *buf = 138543362;
-        v33 = v26;
-        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "No server change token found in the SQLite database with %{public}@", buf, 0xCu);
+        v44 = v35;
+        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "No server change token found in the SQLite database with %{public}@", buf, 0xCu);
       }
     }
 
-    [WeakRetained _continueFetchingTabsInOperationGroup:a1[4]];
+    [v4 _continueFetchingTabsInOperationGroup:a1[4]];
 LABEL_27:
   }
 }
@@ -9041,8 +8978,8 @@ void sub_10009DAA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   if (a2 == 1)
   {
     v14 = objc_begin_catch(exception_object);
-    v15 = sub_100001B78();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = sub_100001B78(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [v14 name];
       objc_claimAutoreleasedReturnValue();
@@ -9115,85 +9052,119 @@ void sub_10009DFBC(uint64_t a1, void *a2, uint64_t a3, void *a4)
   objc_destroyWeak(&v16);
 }
 
-void sub_10009E0B8(uint64_t a1)
+void sub_10009E0B8(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 32);
-  v3 = *(a1 + 32);
-  v4 = sub_100001B78();
-  v5 = v4;
-  if (v3)
+  v3 = (a1 + 32);
+  v4 = *(a1 + 32);
+  v5 = sub_100001B78(a1, a2);
+  v6 = v5;
+  if (v4)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      sub_1000A3700(v2, v5, a1);
+      sub_1000A3700(v3, v6, a1);
     }
 
-    if (*(a1 + 72) == 1 && [*v2 safari_isOrContainsCloudKitMissingZoneError])
+    if (*(a1 + 72) == 1 && (v7 = [*v3 safari_isOrContainsCloudKitMissingZoneError], v7))
     {
-      v6 = sub_100001B78();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_100001B78(v7, v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = *(a1 + 40);
-        v8 = v6;
-        v9 = [v7 safari_logDescription];
+        v10 = *(a1 + 40);
+        v11 = v9;
+        v12 = [v10 safari_logDescription];
         *buf = 138543362;
-        v26 = v9;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Attempting to create CloudTabs zone before retrying fetch with %{public}@", buf, 0xCu);
+        v29 = v12;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Attempting to create CloudTabs zone before retrying fetch with %{public}@", buf, 0xCu);
       }
 
-      v12 = *(a1 + 40);
-      v10 = *(a1 + 48);
-      v11 = (a1 + 40);
-      v13 = *(v10 + 344);
-      v22[0] = _NSConcreteStackBlock;
-      v22[1] = 3221225472;
-      v22[2] = sub_10009E380;
-      v22[3] = &unk_100135798;
-      objc_copyWeak(&v24, v11 + 3);
-      v23 = *v11;
-      [v13 createCloudTabsRecordZoneInOperationGroup:v12 completionHandler:v22];
+      v15 = *(a1 + 40);
+      v13 = *(a1 + 48);
+      v14 = (a1 + 40);
+      v16 = *(v13 + 344);
+      v25[0] = _NSConcreteStackBlock;
+      v25[1] = 3221225472;
+      v25[2] = sub_10009E380;
+      v25[3] = &unk_100135798;
+      objc_copyWeak(&v27, v14 + 3);
+      v26 = *v14;
+      [v16 createCloudTabsRecordZoneInOperationGroup:v15 completionHandler:v25];
 
-      objc_destroyWeak(&v24);
+      objc_destroyWeak(&v27);
     }
 
     else
     {
-      v14 = *(a1 + 48);
-      if ((*(v14 + 248) & 1) != 0 || (v15 = [v14 _shouldDeleteDatabaseForError:*(a1 + 32)], v14 = *(a1 + 48), !v15))
+      v17 = *(a1 + 48);
+      if ((*(v17 + 248) & 1) != 0 || (v18 = [v17 _shouldDeleteDatabaseForError:*(a1 + 32)], v17 = *(a1 + 48), !v18))
       {
-        objc_storeStrong((v14 + 240), *(a1 + 32));
+        objc_storeStrong((v17 + 240), *(a1 + 32));
         [*(a1 + 48) _continueFetchingTabsInOperationGroup:*(a1 + 40)];
       }
 
       else
       {
-        [v14 _deleteDatabaseAndRestartFetchInOperationGroup:*(a1 + 40)];
+        [v17 _deleteDatabaseAndRestartFetchInOperationGroup:*(a1 + 40)];
       }
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = *(a1 + 40);
-      v17 = v5;
-      v18 = [v16 safari_logDescription];
-      v19 = [*(*(a1 + 48) + 312) count];
-      v20 = [*(*(a1 + 48) + 296) count];
-      v21 = [*(*(a1 + 48) + 304) count];
+      v19 = *(a1 + 40);
+      v20 = v6;
+      v21 = [v19 safari_logDescription];
+      v22 = [*(*(a1 + 48) + 312) count];
+      v23 = [*(*(a1 + 48) + 296) count];
+      v24 = [*(*(a1 + 48) + 304) count];
       *buf = 138544130;
-      v26 = v18;
-      v27 = 2050;
-      v28 = v19;
-      v29 = 2050;
-      v30 = v20;
-      v31 = 2050;
-      v32 = v21;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Finished fetching changes from CloudKit with %{public}@, modified %{public}lu tabs, closed %{public}lu tabs and deleted %{public}lu records.", buf, 0x2Au);
+      v29 = v21;
+      v30 = 2050;
+      v31 = v22;
+      v32 = 2050;
+      v33 = v23;
+      v34 = 2050;
+      v35 = v24;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Finished fetching changes from CloudKit with %{public}@, modified %{public}lu tabs, closed %{public}lu tabs and deleted %{public}lu records.", buf, 0x2Au);
     }
 
     objc_storeStrong((*(a1 + 48) + 280), *(a1 + 56));
     [*(a1 + 48) _continueFetchingTabsInOperationGroup:*(a1 + 40)];
+  }
+}
+
+void sub_10009E380(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_10009E44C;
+  block[3] = &unk_1001339E0;
+  objc_copyWeak(&v8, (a1 + 40));
+  v6 = v3;
+  v7 = *(a1 + 32);
+  v4 = v3;
+  dispatch_async(&_dispatch_main_q, block);
+
+  objc_destroyWeak(&v8);
+}
+
+void sub_10009E44C(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 48));
+  [WeakRetained _retryFetchChangesFromCloudKitIfPossibleAfterCreatingCloudTabsZoneCompletedWithError:*(a1 + 32) inOperationGroup:*(a1 + 40)];
+}
+
+void sub_10009E6B8(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 40));
+  if (WeakRetained)
+  {
+    v3 = WeakRetained;
+    [WeakRetained[1] openDatabaseIfNecessary];
+    [v3 _continueFetchingTabsInOperationGroup:*(a1 + 32)];
+    WeakRetained = v3;
   }
 }

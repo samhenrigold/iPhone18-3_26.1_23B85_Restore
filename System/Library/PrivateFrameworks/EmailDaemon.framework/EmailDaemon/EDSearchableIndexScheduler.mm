@@ -24,6 +24,8 @@
 - (void)_periodicallyCheckForDeferralIfNecessary;
 - (void)_registerActivityForType:(id)type builder:(id)builder runner:(id)runner;
 - (void)_startScheduling;
+- (void)_stopAllIndexingBacklogComplete:(BOOL)complete;
+- (void)_stopIndexingForActivityType:(id)type shouldDeferIfPossible:(BOOL)possible;
 - (void)_stopIndexingForTaskType:(id)type requestRetry:(BOOL)retry backlogComplete:(BOOL)complete;
 - (void)_stopScheduling;
 - (void)beginIndexingForActivityType:(id)type activity:(id)activity;
@@ -247,17 +249,17 @@ LABEL_7:
 
 void __70__EDSearchableIndexScheduler__xpcCriteriaBuilderBlockForActivityType___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[EDSearchableIndexScheduler log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v11 = 138543618;
-    v12 = v5;
-    v13 = 2048;
-    v14 = 3600;
-    _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "Configuring %{public}@ actvitity with interval: %lld", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = v5;
+    v12 = 2048;
+    v13 = 3600;
+    _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "Configuring %{public}@ actvitity with interval: %lld", &v10, 0x16u);
   }
 
   xpc_dictionary_set_int64(v3, *MEMORY[0x1E69E9CB0], 3600);
@@ -275,23 +277,21 @@ void __70__EDSearchableIndexScheduler__xpcCriteriaBuilderBlockForActivityType___
   }
 
   xpc_dictionary_set_BOOL(v7, *v9, 1);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __70__EDSearchableIndexScheduler__xpcCriteriaBuilderBlockForActivityType___block_invoke_47(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = +[EDSearchableIndexScheduler log];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
-    v13 = 138543618;
-    v14 = v5;
-    v15 = 2048;
-    v16 = 64800;
-    _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "Configuring %{public}@ actvitity with interval: %lld", &v13, 0x16u);
+    v12 = 138543618;
+    v13 = v5;
+    v14 = 2048;
+    v15 = 64800;
+    _os_log_impl(&dword_1C61EF000, v4, OS_LOG_TYPE_DEFAULT, "Configuring %{public}@ actvitity with interval: %lld", &v12, 0x16u);
   }
 
   xpc_dictionary_set_int64(v3, *MEMORY[0x1E69E9CB0], 64800);
@@ -318,13 +318,11 @@ void __70__EDSearchableIndexScheduler__xpcCriteriaBuilderBlockForActivityType___
   {
     xpc_dictionary_set_BOOL(v3, *MEMORY[0x1E69E9D58], 1);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startScheduling
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = +[EDSearchableIndexScheduler log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -332,25 +330,25 @@ void __70__EDSearchableIndexScheduler__xpcCriteriaBuilderBlockForActivityType___
     _os_log_impl(&dword_1C61EF000, v3, OS_LOG_TYPE_DEFAULT, "Starting scheduling", buf, 2u);
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v4 = +[EDSearchableIndexScheduler activityTypes];
-  v5 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v5)
   {
-    v6 = *v23;
+    v6 = *v22;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v23 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v22 + 1) + 8 * i);
+        v8 = *(*(&v21 + 1) + 8 * i);
         v9 = [(EDSearchableIndexScheduler *)self _xpcCriteriaBuilderBlockForActivityType:v8];
         if (v9)
         {
@@ -359,17 +357,17 @@ void __70__EDSearchableIndexScheduler__xpcCriteriaBuilderBlockForActivityType___
           aBlock[1] = 3221225472;
           aBlock[2] = __46__EDSearchableIndexScheduler__startScheduling__block_invoke;
           aBlock[3] = &unk_1E82571D0;
-          objc_copyWeak(&v20, buf);
+          objc_copyWeak(&v19, buf);
           aBlock[4] = v8;
           v10 = _Block_copy(aBlock);
           [(EDSearchableIndexScheduler *)self _registerActivityForType:v8 builder:v9 runner:v10];
 
-          objc_destroyWeak(&v20);
+          objc_destroyWeak(&v19);
           objc_destroyWeak(buf);
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v5);
@@ -378,20 +376,20 @@ void __70__EDSearchableIndexScheduler__xpcCriteriaBuilderBlockForActivityType___
   objc_initWeak(buf, self);
   mEMORY[0x1E698E4B8] = [MEMORY[0x1E698E4B8] sharedScheduler];
   indexingStateQueue = [(EDSearchableIndexScheduler *)self indexingStateQueue];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __46__EDSearchableIndexScheduler__startScheduling__block_invoke_57;
-  v17[3] = &unk_1E82571F8;
-  objc_copyWeak(&v18, buf);
-  v13 = [mEMORY[0x1E698E4B8] registerForTaskWithIdentifier:@"com.apple.email.search.FastPass" usingQueue:indexingStateQueue launchHandler:v17];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __46__EDSearchableIndexScheduler__startScheduling__block_invoke_57;
+  v16[3] = &unk_1E82571F8;
+  objc_copyWeak(&v17, buf);
+  v13 = [mEMORY[0x1E698E4B8] registerForTaskWithIdentifier:@"com.apple.email.search.FastPass" usingQueue:indexingStateQueue launchHandler:v16];
 
   if (v13)
   {
     v14 = +[EDSearchableIndexScheduler log];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 0;
-      _os_log_impl(&dword_1C61EF000, v14, OS_LOG_TYPE_DEFAULT, "Registered search fast pass.", v16, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_1C61EF000, v14, OS_LOG_TYPE_DEFAULT, "Registered search fast pass.", v15, 2u);
     }
   }
 
@@ -404,14 +402,13 @@ void __70__EDSearchableIndexScheduler__xpcCriteriaBuilderBlockForActivityType___
     }
   }
 
-  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(buf);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __46__EDSearchableIndexScheduler__startScheduling__block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
@@ -423,7 +420,7 @@ void __46__EDSearchableIndexScheduler__startScheduling__block_invoke(uint64_t a1
       {
         v6 = *(a1 + 32);
         state = xpc_activity_get_state(v3);
-        __46__EDSearchableIndexScheduler__startScheduling__block_invoke_cold_1(v6, v9, state, v5);
+        __46__EDSearchableIndexScheduler__startScheduling__block_invoke_cold_1(v6, v8, state, v5);
       }
     }
 
@@ -434,8 +431,6 @@ void __46__EDSearchableIndexScheduler__startScheduling__block_invoke(uint64_t a1
   {
     xpc_activity_set_state(v3, 5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __46__EDSearchableIndexScheduler__startScheduling__block_invoke_57(uint64_t a1, void *a2)
@@ -536,7 +531,7 @@ void __45__EDSearchableIndexScheduler__stopScheduling__block_invoke(uint64_t a1)
 
 void __68__EDSearchableIndexScheduler_beginIndexingForActivityType_activity___block_invoke(uint64_t a1)
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) activities];
   v3 = (a1 + 40);
   v4 = [v2 objectForKeyedSubscript:*(a1 + 40)];
@@ -570,17 +565,15 @@ void __68__EDSearchableIndexScheduler_beginIndexingForActivityType_activity___bl
   [*(a1 + 32) _enableIndexingForActivityType:*(a1 + 40)];
   v12 = *(a1 + 32);
   v11 = *(a1 + 40);
-  v15 = @"activityType";
-  v16[0] = v11;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v14 = @"activityType";
+  v15[0] = v11;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   [v12 _logIndexingPowerEventWithIdentifier:@"Enabled indexing." additionalEventData:v13 usePersistentLog:1];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_beginIndexingForTaskType:(id)type task:(id)task
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   typeCopy = type;
   taskCopy = task;
   indexingStateQueue = [(EDSearchableIndexScheduler *)self indexingStateQueue];
@@ -604,24 +597,22 @@ void __68__EDSearchableIndexScheduler_beginIndexingForActivityType_activity___bl
   [tasks2 setObject:taskCopy forKeyedSubscript:typeCopy];
 
   objc_initWeak(&location, self);
-  v16 = MEMORY[0x1E69E9820];
-  v17 = 3221225472;
-  v18 = __61__EDSearchableIndexScheduler__beginIndexingForTaskType_task___block_invoke;
-  v19 = &unk_1E8250098;
-  objc_copyWeak(&v21, &location);
+  v15 = MEMORY[0x1E69E9820];
+  v16 = 3221225472;
+  v17 = __61__EDSearchableIndexScheduler__beginIndexingForTaskType_task___block_invoke;
+  v18 = &unk_1E8250098;
+  objc_copyWeak(&v20, &location);
   v13 = typeCopy;
-  v20 = v13;
-  [taskCopy setExpirationHandler:&v16];
-  [(EDSearchableIndexScheduler *)self _enableIndexingForTaskType:v13, v16, v17, v18, v19];
-  v23 = @"taskType";
-  v24[0] = v13;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+  v19 = v13;
+  [taskCopy setExpirationHandler:&v15];
+  [(EDSearchableIndexScheduler *)self _enableIndexingForTaskType:v13, v15, v16, v17, v18];
+  v22 = @"taskType";
+  v23[0] = v13;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
   [(EDSearchableIndexScheduler *)self _logIndexingPowerEventWithIdentifier:@"Enabled indexing." additionalEventData:v14 usePersistentLog:1];
 
-  objc_destroyWeak(&v21);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&location);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __61__EDSearchableIndexScheduler__beginIndexingForTaskType_task___block_invoke(uint64_t a1)
@@ -648,10 +639,33 @@ void __61__EDSearchableIndexScheduler__beginIndexingForTaskType_task___block_inv
   }
 }
 
+- (void)_stopIndexingForActivityType:(id)type shouldDeferIfPossible:(BOOL)possible
+{
+  possibleCopy = possible;
+  v11[2] = *MEMORY[0x1E69E9840];
+  typeCopy = type;
+  if (possibleCopy)
+  {
+    possibleCopy = [EDSearchableIndexScheduler isDeferrableActivityType:typeCopy];
+  }
+
+  [(EDSearchableIndexScheduler *)self _disableIndexingForActivityType:typeCopy defer:possibleCopy];
+  activities = [(EDSearchableIndexScheduler *)self activities];
+  [activities removeObjectForKey:typeCopy];
+
+  v10[0] = @"activityType";
+  v10[1] = @"deferred";
+  v11[0] = typeCopy;
+  v8 = [MEMORY[0x1E696AD98] numberWithBool:possibleCopy];
+  v11[1] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  [(EDSearchableIndexScheduler *)self _logIndexingPowerEventWithIdentifier:@"Stopped indexing." additionalEventData:v9 usePersistentLog:1];
+}
+
 - (void)_stopIndexingForTaskType:(id)type requestRetry:(BOOL)retry backlogComplete:(BOOL)complete
 {
   retryCopy = retry;
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   indexingStateQueue = [(EDSearchableIndexScheduler *)self indexingStateQueue];
   dispatch_assert_queue_V2(indexingStateQueue);
@@ -667,16 +681,16 @@ void __61__EDSearchableIndexScheduler__beginIndexingForTaskType_task___block_inv
   {
     if (retryCopy)
     {
-      v20 = 0;
-      v13 = [v11 setTaskExpiredWithRetryAfter:&v20 error:300.0];
-      v14 = v20;
+      v19 = 0;
+      v13 = [v11 setTaskExpiredWithRetryAfter:&v19 error:300.0];
+      v14 = v19;
       if (v13)
       {
         v15 = +[EDSearchableIndexScheduler log];
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v24 = typeCopy;
+          v23 = typeCopy;
           _os_log_impl(&dword_1C61EF000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ task requested more time", buf, 0xCu);
         }
       }
@@ -709,7 +723,7 @@ void __61__EDSearchableIndexScheduler__beginIndexingForTaskType_task___block_inv
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v24 = typeCopy;
+        v23 = typeCopy;
         _os_log_impl(&dword_1C61EF000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ task completed", buf, 0xCu);
       }
 
@@ -717,12 +731,10 @@ void __61__EDSearchableIndexScheduler__beginIndexingForTaskType_task___block_inv
     }
   }
 
-  v21 = @"taskType";
-  v22 = typeCopy;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+  v20 = @"taskType";
+  v21 = typeCopy;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
   [(EDSearchableIndexScheduler *)self _logIndexingPowerEventWithIdentifier:@"Stopped indexing." additionalEventData:v18 usePersistentLog:1];
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deferIndexingForActivityType:(id)type
@@ -755,7 +767,7 @@ void __61__EDSearchableIndexScheduler__beginIndexingForTaskType_task___block_inv
 
 void __57__EDSearchableIndexScheduler__deferActivitiesIfNecessary__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (xpc_activity_should_defer(v6))
@@ -763,15 +775,127 @@ void __57__EDSearchableIndexScheduler__deferActivitiesIfNecessary__block_invoke(
     v7 = +[EDSearchableIndexScheduler log];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_DEFAULT, "XPC Requested deferral of activity %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v5;
+      _os_log_impl(&dword_1C61EF000, v7, OS_LOG_TYPE_DEFAULT, "XPC Requested deferral of activity %@", &v8, 0xCu);
     }
 
     [*(a1 + 32) _stopIndexingForActivityType:v5 shouldDeferIfPossible:1];
   }
+}
 
-  v8 = *MEMORY[0x1E69E9840];
+- (void)_stopAllIndexingBacklogComplete:(BOOL)complete
+{
+  completeCopy = complete;
+  v32 = *MEMORY[0x1E69E9840];
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v5 = +[EDSearchableIndexScheduler activityTypes];
+  v6 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  if (v6)
+  {
+    v7 = *v27;
+    do
+    {
+      v8 = 0;
+      do
+      {
+        if (*v27 != v7)
+        {
+          objc_enumerationMutation(v5);
+        }
+
+        v9 = *(*(&v26 + 1) + 8 * v8);
+        state = [(EDSearchableIndexScheduler *)self state];
+        v11 = [state isIndexingEnabledForActivityType:v9];
+
+        if (v11)
+        {
+          [(EDSearchableIndexScheduler *)self _stopIndexingForActivityType:v9 shouldDeferIfPossible:0];
+        }
+
+        ++v8;
+      }
+
+      while (v6 != v8);
+      v6 = [v5 countByEnumeratingWithState:&v26 objects:v31 count:16];
+    }
+
+    while (v6);
+  }
+
+  if (completeCopy)
+  {
+    em_userDefaults = [MEMORY[0x1E695E000] em_userDefaults];
+    v13 = [em_userDefaults BOOLForKey:@"markedSemanticSearchAvailable"];
+
+    v14 = +[EDSearchableIndexScheduler log];
+    em_userDefaults2 = v14;
+    if (v13)
+    {
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      {
+        [EDSearchableIndexScheduler _stopAllIndexingBacklogComplete:];
+      }
+    }
+
+    else
+    {
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_1C61EF000, em_userDefaults2, OS_LOG_TYPE_INFO, "reportFeatureCheckpoint BGSystemTaskFeatureCheckpointAvailable for kSemanticSearchFeatureCode", buf, 2u);
+      }
+
+      if ([MEMORY[0x1E698E4A0] reportFeatureCheckpoint:50 forFeature:301 error:0])
+      {
+        em_userDefaults2 = [MEMORY[0x1E695E000] em_userDefaults];
+        [em_userDefaults2 setBool:1 forKey:@"markedSemanticSearchAvailable"];
+      }
+
+      else
+      {
+        em_userDefaults2 = +[EDSearchableIndexScheduler log];
+        if (os_log_type_enabled(em_userDefaults2, OS_LOG_TYPE_ERROR))
+        {
+          [EDSearchableIndexScheduler _stopAllIndexingBacklogComplete:];
+        }
+      }
+    }
+  }
+
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  tasks = [(EDSearchableIndexScheduler *)self tasks];
+  allKeys = [tasks allKeys];
+
+  v18 = [allKeys countByEnumeratingWithState:&v21 objects:v30 count:16];
+  if (v18)
+  {
+    v19 = *v22;
+    do
+    {
+      v20 = 0;
+      do
+      {
+        if (*v22 != v19)
+        {
+          objc_enumerationMutation(allKeys);
+        }
+
+        [(EDSearchableIndexScheduler *)self _stopIndexingForTaskType:*(*(&v21 + 1) + 8 * v20++) requestRetry:completeCopy ^ 1 backlogComplete:completeCopy];
+      }
+
+      while (v18 != v20);
+      v18 = [allKeys countByEnumeratingWithState:&v21 objects:v30 count:16];
+    }
+
+    while (v18);
+  }
 }
 
 - (void)_periodicallyCheckForDeferralIfNecessary
@@ -869,7 +993,7 @@ void __70__EDSearchableIndexScheduler__periodicallyCheckForDeferralIfNecessary__
 - (void)_disableIndexingForActivityType:(id)type defer:(BOOL)defer
 {
   deferCopy = defer;
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   state = [(EDSearchableIndexScheduler *)self state];
   v8 = [state isIndexingEnabledForActivityType:typeCopy];
@@ -895,19 +1019,17 @@ void __70__EDSearchableIndexScheduler__periodicallyCheckForDeferralIfNecessary__
         v16 = +[EDSearchableIndexScheduler log];
         if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          v18 = 138543874;
-          v19 = typeCopy;
-          v20 = 2048;
+          v17 = 138543874;
+          v18 = typeCopy;
+          v19 = 2048;
           state = xpc_activity_get_state(v14);
-          v22 = 2048;
-          v23 = v15;
-          _os_log_error_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_ERROR, "Failed to transition %{public}@ from state %ld to state %ld.", &v18, 0x20u);
+          v21 = 2048;
+          v22 = v15;
+          _os_log_error_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_ERROR, "Failed to transition %{public}@ from state %ld to state %ld.", &v17, 0x20u);
         }
       }
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_disableIndexingForTaskType:(id)type
@@ -1073,7 +1195,7 @@ void __53__EDSearchableIndexScheduler_maintenanceIndexingTime__block_invoke(uint
 - (void)_logIndexingPowerEventWithIdentifier:(id)identifier additionalEventData:(id)data usePersistentLog:(BOOL)log
 {
   logCopy = log;
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   dataCopy = data;
   state = [(EDSearchableIndexScheduler *)self state];
@@ -1090,14 +1212,14 @@ void __53__EDSearchableIndexScheduler_maintenanceIndexingTime__block_invoke(uint
     v13 = +[EDSearchableIndexScheduler log];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 138543618;
-      v18 = identifierCopy;
-      v19 = 2114;
-      v20 = v12;
+      v16 = 138543618;
+      v17 = identifierCopy;
+      v18 = 2114;
+      v19 = v12;
       v14 = v13;
       v15 = OS_LOG_TYPE_DEFAULT;
 LABEL_8:
-      _os_log_impl(&dword_1C61EF000, v14, v15, "%{public}@ : %{public}@", &v17, 0x16u);
+      _os_log_impl(&dword_1C61EF000, v14, v15, "%{public}@ : %{public}@", &v16, 0x16u);
     }
   }
 
@@ -1106,17 +1228,15 @@ LABEL_8:
     v13 = +[EDSearchableIndexScheduler log];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v17 = 138543618;
-      v18 = identifierCopy;
-      v19 = 2114;
-      v20 = v12;
+      v16 = 138543618;
+      v17 = identifierCopy;
+      v18 = 2114;
+      v19 = v12;
       v14 = v13;
       v15 = OS_LOG_TYPE_INFO;
       goto LABEL_8;
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)searchableIndexSchedulable:(id)schedulable didIndexForTime:(double)time
@@ -1158,17 +1278,17 @@ uint64_t __73__EDSearchableIndexScheduler_searchableIndexSchedulable_didIndexFor
 
 uint64_t __96__EDSearchableIndexScheduler_searchableIndexSchedulable_didIndexItemCount_lastItemDateReceived___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = +[EDSearchableIndexScheduler log];
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 48);
     v4 = *(a1 + 32);
-    v12[0] = 67109378;
-    v12[1] = v3;
-    v13 = 2112;
-    v14 = v4;
-    _os_log_impl(&dword_1C61EF000, v2, OS_LOG_TYPE_INFO, "didIndexItemCount: %d lastItemDateReceived: %@", v12, 0x12u);
+    v11[0] = 67109378;
+    v11[1] = v3;
+    v12 = 2112;
+    v13 = v4;
+    _os_log_impl(&dword_1C61EF000, v2, OS_LOG_TYPE_INFO, "didIndexItemCount: %d lastItemDateReceived: %@", v11, 0x12u);
   }
 
   v5 = [*(a1 + 40) state];
@@ -1183,7 +1303,7 @@ uint64_t __96__EDSearchableIndexScheduler_searchableIndexSchedulable_didIndexIte
 
 LABEL_8:
       [*(a1 + 40) _stopIndexingForTaskType:@"fastpass" requestRetry:0 backlogComplete:0];
-      goto LABEL_9;
+      return [*(a1 + 40) _deferActivitiesIfNecessary];
     }
 
     [*(a1 + 32) timeIntervalSinceNow];
@@ -1199,10 +1319,7 @@ LABEL_8:
   {
   }
 
-LABEL_9:
-  result = [*(a1 + 40) _deferActivitiesIfNecessary];
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) _deferActivitiesIfNecessary];
 }
 
 - (void)indexingDidResumeForSearchableIndexSchedulable:(id)schedulable
@@ -1330,32 +1447,29 @@ void __46__EDSearchableIndexScheduler__startScheduling__block_invoke_cold_1(uint
 
 void __68__EDSearchableIndexScheduler_beginIndexingForActivityType_activity___block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Attempted to begin indexing an activity type (%{public}@) that is already active - marking old ACTIVITY as DONE", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_1C61EF000, a2, OS_LOG_TYPE_ERROR, "Attempted to begin indexing an activity type (%{public}@) that is already active - marking old ACTIVITY as DONE", &v3, 0xCu);
 }
 
 - (void)_beginIndexingForTaskType:(NSObject *)a3 task:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_2_2(&dword_1C61EF000, a2, a3, "Attempted to begin indexing a task type (%{public}@) that already has a task: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138543618;
+  *&v3[4] = a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_2_2(&dword_1C61EF000, a2, a3, "Attempted to begin indexing a task type (%{public}@) that already has a task: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 - (void)_stopIndexingForTaskType:(uint64_t)a1 requestRetry:(uint64_t)a2 backlogComplete:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = a1;
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_2_2(&dword_1C61EF000, a2, a3, "%{public}@ task expired with retry failed: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138543618;
+  *&v3[4] = a1;
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_2_2(&dword_1C61EF000, a2, a3, "%{public}@ task expired with retry failed: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 @end

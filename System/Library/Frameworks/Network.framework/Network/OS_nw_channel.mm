@@ -29,16 +29,16 @@
   for (j = self[42].super.super.isa; j; j = self[42].super.super.isa)
   {
     nw_frame_free_buffer(j);
-    v10 = *(j + 2);
-    v11 = *(j + 3);
-    v12 = v10 + 3;
-    if (!v10)
+    v9 = *(j + 2);
+    v10 = *(j + 3);
+    v11 = v9 + 3;
+    if (!v9)
     {
-      v12 = self + 43;
+      v11 = self + 43;
     }
 
-    v12->super.super.isa = v11;
-    *v11 = v10;
+    v11->super.super.isa = v10;
+    *v10 = v9;
     *(j + 2) = 0;
     *(j + 3) = 0;
     os_release(j);
@@ -47,28 +47,28 @@
   isa = self[35].super.super.isa;
   if (isa)
   {
-    _nw_hash_table_release(isa, v8);
+    _nw_hash_table_release(isa);
     self[35].super.super.isa = 0;
   }
 
-  nw_channel_close(self, v8);
-  v14 = self[26].super.super.isa;
-  if (v14)
+  nw_channel_close(self);
+  v13 = self[26].super.super.isa;
+  if (v13)
   {
-    dispatch_release(v14);
+    dispatch_release(v13);
     self[26].super.super.isa = 0;
   }
 
-  v15 = self[19].super.super.isa;
-  if (v15)
+  v14 = self[19].super.super.isa;
+  if (v14)
   {
-    os_release(v15);
+    os_release(v14);
     self[19].super.super.isa = 0;
   }
 
-  v16.receiver = self;
-  v16.super_class = OS_nw_channel;
-  [(OS_nw_channel *)&v16 dealloc];
+  v15.receiver = self;
+  v15.super_class = OS_nw_channel;
+  [(OS_nw_channel *)&v15 dealloc];
 }
 
 @end

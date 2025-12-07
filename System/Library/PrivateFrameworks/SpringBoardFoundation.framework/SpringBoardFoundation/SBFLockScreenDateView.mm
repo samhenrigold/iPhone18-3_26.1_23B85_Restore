@@ -555,19 +555,23 @@ LABEL_5:
 - (void)setCustomSubtitleView:(id)view
 {
   viewCopy = view;
+  v6 = viewCopy;
   if (self->_customSubtitleView != viewCopy)
   {
-    v6 = viewCopy;
-    if ((_os_feature_enabled_impl() & 1) == 0)
+    v7 = viewCopy;
+    viewCopy = _os_feature_enabled_impl();
+    v6 = v7;
+    if ((viewCopy & 1) == 0)
     {
       objc_storeStrong(&self->_customSubtitleView, view);
-      [(SBFLockScreenDateSubtitleView *)v6 setLegibilitySettings:self->_legibilitySettings];
-      [(SBFLockScreenDateSubtitleView *)v6 setStrength:self->_subtitleLegibilityStrength];
-      [(SBFLockScreenDateView *)self _updateActiveSubtitleView];
+      [v7 setLegibilitySettings:self->_legibilitySettings];
+      [v7 setStrength:self->_subtitleLegibilityStrength];
+      viewCopy = [(SBFLockScreenDateView *)self _updateActiveSubtitleView];
+      v6 = v7;
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](viewCopy, v6);
 }
 
 - (void)_updateActiveSubtitleView
@@ -663,49 +667,49 @@ void __50__SBFLockScreenDateView__updateActiveSubtitleView__block_invoke_2(uint6
     if (subtitleAlpha > 0.0)
     {
       [(SBFLockScreenDateView *)self _subtitleViewFrameForView:self->_customSubtitleView alignmentPercent:percent];
-      v34.origin.x = v15;
-      v34.origin.y = v16;
-      v34.size.width = v17;
-      v34.size.height = v18;
-      v30.origin.x = x;
-      v30.origin.y = y;
-      v30.size.width = width;
-      v30.size.height = height;
-      v31 = CGRectUnion(v30, v34);
-      x = v31.origin.x;
-      y = v31.origin.y;
-      width = v31.size.width;
-      height = v31.size.height;
+      v35.origin.x = v15;
+      v35.origin.y = v16;
+      v35.size.width = v17;
+      v35.size.height = v18;
+      v31.origin.x = x;
+      v31.origin.y = y;
+      v31.size.width = width;
+      v31.size.height = height;
+      v32 = CGRectUnion(v31, v35);
+      x = v32.origin.x;
+      y = v32.origin.y;
+      width = v32.size.width;
+      height = v32.size.height;
     }
   }
 
   superview2 = [(SBFLockScreenDateSubtitleDateView *)self->_dateSubtitleView superview];
   if (superview2)
   {
-    v20 = self->_subtitleAlpha;
+    v21 = self->_subtitleAlpha;
 
-    if (v20 > 0.0)
+    if (v21 > 0.0)
     {
       [(SBFLockScreenDateView *)self _subtitleViewFrameForView:self->_dateSubtitleView alignmentPercent:percent];
-      v35.origin.x = v21;
-      v35.origin.y = v22;
-      v35.size.width = v23;
-      v35.size.height = v24;
-      v32.origin.x = x;
-      v32.origin.y = y;
-      v32.size.width = width;
-      v32.size.height = height;
-      CGRectUnion(v32, v35);
+      v36.origin.x = v22;
+      v36.origin.y = v23;
+      v36.size.width = v24;
+      v36.size.height = v25;
+      v33.origin.x = x;
+      v33.origin.y = y;
+      v33.size.width = width;
+      v33.size.height = height;
+      CGRectUnion(v33, v36);
     }
   }
 
-  SBFMainScreenScale();
+  SBFMainScreenScale(superview2, v20);
 
   BSRectRoundForScale();
-  result.size.height = v28;
-  result.size.width = v27;
-  result.origin.y = v26;
-  result.origin.x = v25;
+  result.size.height = v29;
+  result.size.width = v28;
+  result.origin.y = v27;
+  result.origin.x = v26;
   return result;
 }
 
@@ -1007,33 +1011,35 @@ void __50__SBFLockScreenDateView__updateActiveSubtitleView__block_invoke_2(uint6
   v13 = v12;
 
   [(SBFLockScreenDateView *)self bounds];
-  v15 = (percent + 1.0) * (v14 - v11 - v13 - v6) * 0.5;
-  v16 = 0.0;
+  v16 = (percent + 1.0) * (v15 - v11 - v13 - v6) * 0.5;
+  v17 = 0.0;
   if (self->_subtitleOnTop)
   {
     [(SBFLockScreenDateView *)self bounds];
-    v16 = CGRectGetHeight(v26) - (self->_customTimeMetrics.capHeight - self->_customTimeMetrics.descender);
+    v17 = CGRectGetHeight(v29) - (self->_customTimeMetrics.capHeight - self->_customTimeMetrics.descender);
   }
 
-  v17 = v11 + v15;
-  if (_SBFLockScreenDateViewShouldRoundFramesForAlignmentPercent())
+  v18 = v11 + v16;
+  v14.n128_f64[0] = percent;
+  ShouldRoundFramesForAlignmentPercent = _SBFLockScreenDateViewShouldRoundFramesForAlignmentPercent(v14);
+  if (ShouldRoundFramesForAlignmentPercent)
   {
-    SBFMainScreenScale();
+    SBFMainScreenScale(ShouldRoundFramesForAlignmentPercent, v20);
     BSRectRoundForScale();
-    v17 = v18;
-    v16 = v19;
-    v6 = v20;
-    v8 = v21;
+    v18 = v21;
+    v17 = v22;
+    v6 = v23;
+    v8 = v24;
   }
 
-  v22 = v17;
-  v23 = v16;
-  v24 = v6;
-  v25 = v8;
-  result.size.height = v25;
-  result.size.width = v24;
-  result.origin.y = v23;
-  result.origin.x = v22;
+  v25 = v18;
+  v26 = v17;
+  v27 = v6;
+  v28 = v8;
+  result.size.height = v28;
+  result.size.width = v27;
+  result.origin.y = v26;
+  result.origin.x = v25;
   return result;
 }
 
@@ -1152,9 +1158,11 @@ uint64_t __61__SBFLockScreenDateView__cachedGlyphInsetsTimeFontForString___block
   v1 = _cachedGlyphInsetsTimeFontForString__leadingInsetForNumber;
   _cachedGlyphInsetsTimeFontForString__leadingInsetForNumber = v0;
 
-  _cachedGlyphInsetsTimeFontForString__trailingInsetForNumber = [MEMORY[0x1E695DF90] dictionaryWithCapacity:10];
+  v2 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:10];
+  v3 = _cachedGlyphInsetsTimeFontForString__trailingInsetForNumber;
+  _cachedGlyphInsetsTimeFontForString__trailingInsetForNumber = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 - (CGRect)_subtitleViewFrameForView:(id)view alignmentPercent:(double)percent
@@ -1197,35 +1205,37 @@ uint64_t __61__SBFLockScreenDateView__cachedGlyphInsetsTimeFontForString___block
     v20 = v19;
     v22 = v21;
     [(SBUILegibilityLabel *)self->_timeLabel origin];
-    v24 = v23 + self->_customTimeMetrics.ascender - self->_customTimeMetrics.capHeight - v18 - (v20 - v22);
+    v25 = v24 + self->_customTimeMetrics.ascender - self->_customTimeMetrics.capHeight - v18 - (v20 - v22);
   }
 
   else
   {
     [(SBUILegibilityLabel *)self->_timeLabel origin];
-    v26 = v18 + v25 + self->_customTimeMetrics.ascender;
+    v27 = v18 + v26 + self->_customTimeMetrics.ascender;
     +[SBFLockScreenDateSubtitleView labelFontMetrics];
-    v24 = v26 - v27;
+    v25 = v27 - v23.n128_f64[0];
   }
 
-  if (_SBFLockScreenDateViewShouldRoundFramesForAlignmentPercent())
+  v23.n128_f64[0] = percent;
+  ShouldRoundFramesForAlignmentPercent = _SBFLockScreenDateViewShouldRoundFramesForAlignmentPercent(v23);
+  if (ShouldRoundFramesForAlignmentPercent)
   {
-    SBFMainScreenScale();
+    SBFMainScreenScale(ShouldRoundFramesForAlignmentPercent, v29);
     BSRectRoundForScale();
-    v14 = v28;
-    v24 = v29;
-    v7 = v30;
-    v9 = v31;
+    v14 = v30;
+    v25 = v31;
+    v7 = v32;
+    v9 = v33;
   }
 
-  v32 = v14;
-  v33 = v24;
-  v34 = v7;
-  v35 = v9;
-  result.size.height = v35;
-  result.size.width = v34;
-  result.origin.y = v33;
-  result.origin.x = v32;
+  v34 = v14;
+  v35 = v25;
+  v36 = v7;
+  v37 = v9;
+  result.size.height = v37;
+  result.size.width = v36;
+  result.origin.y = v35;
+  result.origin.x = v34;
   return result;
 }
 
@@ -1244,7 +1254,7 @@ uint64_t __61__SBFLockScreenDateView__cachedGlyphInsetsTimeFontForString___block
     {
       if (SBFEffectiveDeviceClass() != 2)
       {
-        v146 = 0;
+        v174 = 0;
         goto LABEL_13;
       }
     }
@@ -1254,12 +1264,12 @@ uint64_t __61__SBFLockScreenDateView__cachedGlyphInsetsTimeFontForString___block
       currentDevice = [MEMORY[0x1E69DC938] currentDevice];
       if ([currentDevice userInterfaceIdiom] != 1)
       {
-        v146 = 0x100000000;
+        v174 = 0x100000000;
         goto LABEL_13;
       }
     }
 
-    HIDWORD(v146) = v4 ^ 1;
+    HIDWORD(v174) = v4 ^ 1;
     if (SBFEffectiveHomeButtonType() == 2)
     {
       currentDevice28 = __sb__runningInSpringBoard();
@@ -1274,36 +1284,36 @@ uint64_t __61__SBFLockScreenDateView__cachedGlyphInsetsTimeFontForString___block
         [mainScreen _referenceBounds];
       }
 
-      LODWORD(v146) = currentDevice28 ^ 1;
+      LODWORD(v174) = currentDevice28 ^ 1;
       BSSizeRoundForScale();
       if (v19 == *(MEMORY[0x1E69D4380] + 288) && v18 == *(MEMORY[0x1E69D4380] + 296))
       {
-        v136 = 0;
-        v137 = 0;
-        v135 = 0;
-        v134 = 0;
-        v138 = 0;
-        v133 = 0;
-        v132 = 0;
-        v139 = 0;
-        v131 = 0;
-        v130 = 0;
-        v120 = 0;
-        v140 = 0;
-        v141 = 0;
-        v129 = 0;
-        v128 = 0;
-        v142 = 0;
-        v127 = 0;
-        v126 = 0;
-        v143 = 0;
-        v125 = 0;
-        v124 = 0;
-        v144 = 0;
-        v123 = 0;
-        v122 = 0;
-        v145 = 0;
-        v121 = 0;
+        v164 = 0;
+        v165 = 0;
+        v163 = 0;
+        v162 = 0;
+        v166 = 0;
+        v161 = 0;
+        v160 = 0;
+        v167 = 0;
+        v159 = 0;
+        v158 = 0;
+        v148 = 0;
+        v168 = 0;
+        v169 = 0;
+        v157 = 0;
+        v156 = 0;
+        v170 = 0;
+        v155 = 0;
+        v154 = 0;
+        v171 = 0;
+        v153 = 0;
+        v152 = 0;
+        v172 = 0;
+        v151 = 0;
+        v150 = 0;
+        v173 = 0;
+        v149 = 0;
         v11 = 0;
         v12 = 0;
         v13 = 0;
@@ -1315,7 +1325,7 @@ uint64_t __61__SBFLockScreenDateView__cachedGlyphInsetsTimeFontForString___block
 
     else
     {
-      LODWORD(v146) = 0;
+      LODWORD(v174) = 0;
     }
 
 LABEL_13:
@@ -1324,7 +1334,7 @@ LABEL_13:
     {
       if (SBFEffectiveDeviceClass() != 2)
       {
-        v145 = 0;
+        v173 = 0;
         goto LABEL_22;
       }
     }
@@ -1334,12 +1344,12 @@ LABEL_13:
       currentDevice2 = [MEMORY[0x1E69DC938] currentDevice];
       if ([currentDevice2 userInterfaceIdiom] != 1)
       {
-        v145 = 0x100000000;
+        v173 = 0x100000000;
         goto LABEL_22;
       }
     }
 
-    HIDWORD(v145) = v6 ^ 1;
+    HIDWORD(v173) = v6 ^ 1;
     if (SBFEffectiveHomeButtonType() == 2)
     {
       currentDevice28 = __sb__runningInSpringBoard();
@@ -1354,35 +1364,35 @@ LABEL_13:
         [mainScreen2 _referenceBounds];
       }
 
-      LODWORD(v145) = currentDevice28 ^ 1;
+      LODWORD(v173) = currentDevice28 ^ 1;
       BSSizeRoundForScale();
       if (v21 >= *(MEMORY[0x1E69D4380] + 440))
       {
-        v136 = 0;
-        v137 = 0;
-        v135 = 0;
-        v134 = 0;
-        v138 = 0;
-        v133 = 0;
-        v132 = 0;
-        v139 = 0;
-        v131 = 0;
-        v130 = 0;
-        v120 = 0;
-        v140 = 0;
-        v141 = 0;
-        v129 = 0;
-        v128 = 0;
-        v142 = 0;
-        v127 = 0;
-        v126 = 0;
-        v143 = 0;
-        v125 = 0;
-        v124 = 0;
-        v144 = 0;
-        v123 = 0;
-        v122 = 0;
-        v121 = 0;
+        v164 = 0;
+        v165 = 0;
+        v163 = 0;
+        v162 = 0;
+        v166 = 0;
+        v161 = 0;
+        v160 = 0;
+        v167 = 0;
+        v159 = 0;
+        v158 = 0;
+        v148 = 0;
+        v168 = 0;
+        v169 = 0;
+        v157 = 0;
+        v156 = 0;
+        v170 = 0;
+        v155 = 0;
+        v154 = 0;
+        v171 = 0;
+        v153 = 0;
+        v152 = 0;
+        v172 = 0;
+        v151 = 0;
+        v150 = 0;
+        v149 = 0;
         v11 = 0;
         v12 = 0;
         v13 = 0;
@@ -1394,7 +1404,7 @@ LABEL_13:
 
     else
     {
-      LODWORD(v145) = 0;
+      LODWORD(v173) = 0;
     }
 
 LABEL_22:
@@ -1403,7 +1413,7 @@ LABEL_22:
     {
       if (SBFEffectiveDeviceClass() != 2)
       {
-        v144 = 0;
+        v172 = 0;
         goto LABEL_31;
       }
     }
@@ -1413,12 +1423,12 @@ LABEL_22:
       currentDevice3 = [MEMORY[0x1E69DC938] currentDevice];
       if ([currentDevice3 userInterfaceIdiom] != 1)
       {
-        v144 = 0x100000000;
+        v172 = 0x100000000;
         goto LABEL_31;
       }
     }
 
-    HIDWORD(v144) = v7 ^ 1;
+    HIDWORD(v172) = v7 ^ 1;
     if (SBFEffectiveHomeButtonType() == 2)
     {
       currentDevice28 = __sb__runningInSpringBoard();
@@ -1433,34 +1443,34 @@ LABEL_22:
         [mainScreen3 _referenceBounds];
       }
 
-      LODWORD(v144) = currentDevice28 ^ 1;
+      LODWORD(v172) = currentDevice28 ^ 1;
       BSSizeRoundForScale();
       if (v22 >= *(MEMORY[0x1E69D4380] + 376))
       {
-        v136 = 0;
-        v137 = 0;
-        v135 = 0;
-        v134 = 0;
-        v138 = 0;
-        v133 = 0;
-        v132 = 0;
-        v139 = 0;
-        v131 = 0;
-        v130 = 0;
-        v120 = 0;
-        v140 = 0;
-        v141 = 0;
-        v129 = 0;
-        v128 = 0;
-        v142 = 0;
-        v127 = 0;
-        v126 = 0;
-        v143 = 0;
-        v125 = 0;
-        v124 = 0;
-        v122 = 0;
-        v123 = 0;
-        v121 = 0;
+        v164 = 0;
+        v165 = 0;
+        v163 = 0;
+        v162 = 0;
+        v166 = 0;
+        v161 = 0;
+        v160 = 0;
+        v167 = 0;
+        v159 = 0;
+        v158 = 0;
+        v148 = 0;
+        v168 = 0;
+        v169 = 0;
+        v157 = 0;
+        v156 = 0;
+        v170 = 0;
+        v155 = 0;
+        v154 = 0;
+        v171 = 0;
+        v153 = 0;
+        v152 = 0;
+        v150 = 0;
+        v151 = 0;
+        v149 = 0;
         v11 = 0;
         v12 = 0;
         v13 = 0;
@@ -1472,7 +1482,7 @@ LABEL_22:
 
     else
     {
-      LODWORD(v144) = 0;
+      LODWORD(v172) = 0;
     }
 
 LABEL_31:
@@ -1481,7 +1491,7 @@ LABEL_31:
     {
       if (SBFEffectiveDeviceClass() != 2)
       {
-        v143 = 0;
+        v171 = 0;
         goto LABEL_40;
       }
     }
@@ -1491,12 +1501,12 @@ LABEL_31:
       currentDevice4 = [MEMORY[0x1E69DC938] currentDevice];
       if ([currentDevice4 userInterfaceIdiom] != 1)
       {
-        v143 = 0x100000000;
+        v171 = 0x100000000;
         goto LABEL_40;
       }
     }
 
-    HIDWORD(v143) = v8 ^ 1;
+    HIDWORD(v171) = v8 ^ 1;
     currentDevice28 = __sb__runningInSpringBoard();
     if (currentDevice28)
     {
@@ -1509,33 +1519,33 @@ LABEL_31:
       [mainScreen4 _referenceBounds];
     }
 
-    LODWORD(v143) = currentDevice28 ^ 1;
+    LODWORD(v171) = currentDevice28 ^ 1;
     BSSizeRoundForScale();
     if (v9 >= *(MEMORY[0x1E69D4380] + 280))
     {
-      v136 = 0;
-      v137 = 0;
-      v135 = 0;
-      v134 = 0;
-      v138 = 0;
-      v133 = 0;
-      v132 = 0;
-      v139 = 0;
-      v131 = 0;
-      v130 = 0;
-      v120 = 0;
-      v140 = 0;
-      v141 = 0;
-      v129 = 0;
-      v128 = 0;
-      v142 = 0;
-      v127 = 0;
-      v126 = 0;
-      v124 = 0;
-      v125 = 0;
-      v122 = 0;
-      v123 = 0;
-      v121 = 0;
+      v164 = 0;
+      v165 = 0;
+      v163 = 0;
+      v162 = 0;
+      v166 = 0;
+      v161 = 0;
+      v160 = 0;
+      v167 = 0;
+      v159 = 0;
+      v158 = 0;
+      v148 = 0;
+      v168 = 0;
+      v169 = 0;
+      v157 = 0;
+      v156 = 0;
+      v170 = 0;
+      v155 = 0;
+      v154 = 0;
+      v152 = 0;
+      v153 = 0;
+      v150 = 0;
+      v151 = 0;
+      v149 = 0;
       v11 = 0;
       v12 = 0;
       v13 = 0;
@@ -1550,7 +1560,7 @@ LABEL_40:
     {
       if (SBFEffectiveDeviceClass() != 2)
       {
-        v142 = 0;
+        v170 = 0;
         goto LABEL_50;
       }
     }
@@ -1560,12 +1570,12 @@ LABEL_40:
       currentDevice5 = [MEMORY[0x1E69DC938] currentDevice];
       if ([currentDevice5 userInterfaceIdiom] != 1)
       {
-        v142 = 0x100000000;
+        v170 = 0x100000000;
         goto LABEL_50;
       }
     }
 
-    HIDWORD(v142) = v10 ^ 1;
+    HIDWORD(v170) = v10 ^ 1;
     currentDevice28 = __sb__runningInSpringBoard();
     if (currentDevice28)
     {
@@ -1578,32 +1588,32 @@ LABEL_40:
       [mainScreen5 _referenceBounds];
     }
 
-    LODWORD(v142) = currentDevice28 ^ 1;
+    LODWORD(v170) = currentDevice28 ^ 1;
     BSSizeRoundForScale();
     if (v16 >= *(MEMORY[0x1E69D4380] + 264))
     {
-      v136 = 0;
-      v137 = 0;
-      v135 = 0;
-      v134 = 0;
-      v138 = 0;
-      v133 = 0;
-      v132 = 0;
-      v139 = 0;
-      v131 = 0;
-      v130 = 0;
-      v120 = 0;
-      v140 = 0;
-      v141 = 0;
-      v129 = 0;
-      v128 = 0;
-      v126 = 0;
-      v127 = 0;
-      v124 = 0;
-      v125 = 0;
-      v122 = 0;
-      v123 = 0;
-      v121 = 0;
+      v164 = 0;
+      v165 = 0;
+      v163 = 0;
+      v162 = 0;
+      v166 = 0;
+      v161 = 0;
+      v160 = 0;
+      v167 = 0;
+      v159 = 0;
+      v158 = 0;
+      v148 = 0;
+      v168 = 0;
+      v169 = 0;
+      v157 = 0;
+      v156 = 0;
+      v154 = 0;
+      v155 = 0;
+      v152 = 0;
+      v153 = 0;
+      v150 = 0;
+      v151 = 0;
+      v149 = 0;
       v11 = 0;
       v12 = 0;
       v13 = 0;
@@ -1618,7 +1628,7 @@ LABEL_50:
     {
       if (SBFEffectiveDeviceClass() != 2)
       {
-        v141 = 0;
+        v169 = 0;
         goto LABEL_191;
       }
     }
@@ -1628,12 +1638,12 @@ LABEL_50:
       currentDevice6 = [MEMORY[0x1E69DC938] currentDevice];
       if ([currentDevice6 userInterfaceIdiom] != 1)
       {
-        v141 = 0x100000000;
+        v169 = 0x100000000;
         goto LABEL_191;
       }
     }
 
-    HIDWORD(v141) = v17 ^ 1;
+    HIDWORD(v169) = v17 ^ 1;
     currentDevice28 = __sb__runningInSpringBoard();
     if (currentDevice28)
     {
@@ -1646,31 +1656,31 @@ LABEL_50:
       [mainScreen6 _referenceBounds];
     }
 
-    LODWORD(v141) = currentDevice28 ^ 1;
+    LODWORD(v169) = currentDevice28 ^ 1;
     BSSizeRoundForScale();
     if (v29 >= *(MEMORY[0x1E69D4380] + 248))
     {
-      v136 = 0;
-      v137 = 0;
-      v135 = 0;
-      v134 = 0;
-      v138 = 0;
-      v133 = 0;
-      v132 = 0;
-      v139 = 0;
-      v131 = 0;
-      v130 = 0;
-      v120 = 0;
-      v140 = 0;
-      v128 = 0;
-      v129 = 0;
-      v126 = 0;
-      v127 = 0;
-      v124 = 0;
-      v125 = 0;
-      v122 = 0;
-      v123 = 0;
-      v121 = 0;
+      v164 = 0;
+      v165 = 0;
+      v163 = 0;
+      v162 = 0;
+      v166 = 0;
+      v161 = 0;
+      v160 = 0;
+      v167 = 0;
+      v159 = 0;
+      v158 = 0;
+      v148 = 0;
+      v168 = 0;
+      v156 = 0;
+      v157 = 0;
+      v154 = 0;
+      v155 = 0;
+      v152 = 0;
+      v153 = 0;
+      v150 = 0;
+      v151 = 0;
+      v149 = 0;
       v11 = 0;
       v12 = 0;
       v13 = 0;
@@ -1683,7 +1693,8 @@ LABEL_191:
     currentDevice28 = __sb__runningInSpringBoard();
     if (currentDevice28)
     {
-      if (SBFEffectiveDeviceClass() != 2)
+      userInterfaceIdiom = SBFEffectiveDeviceClass();
+      if (userInterfaceIdiom != 2)
       {
         goto LABEL_193;
       }
@@ -1692,19 +1703,20 @@ LABEL_191:
     else
     {
       currentDevice7 = [MEMORY[0x1E69DC938] currentDevice];
-      if ([currentDevice7 userInterfaceIdiom] != 1)
+      userInterfaceIdiom = [currentDevice7 userInterfaceIdiom];
+      if (userInterfaceIdiom != 1)
       {
 LABEL_193:
-        v140 = currentDevice28 ^ 1;
-        if (!_SBF_Private_IsD94Like())
+        v168 = currentDevice28 ^ 1;
+        if (!_SBF_Private_IsD94Like(userInterfaceIdiom, v31))
         {
 LABEL_197:
-          v139 = 0;
+          v167 = 0;
           goto LABEL_207;
         }
 
-        v30 = __sb__runningInSpringBoard();
-        if (v30)
+        v32 = __sb__runningInSpringBoard();
+        if (v32)
         {
           if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
           {
@@ -1717,12 +1729,12 @@ LABEL_197:
           currentDevice8 = [MEMORY[0x1E69DC938] currentDevice];
           if ([currentDevice8 userInterfaceIdiom])
           {
-            v139 = 0x100000000;
+            v167 = 0x100000000;
             goto LABEL_207;
           }
         }
 
-        HIDWORD(v139) = v30 ^ 1;
+        HIDWORD(v167) = v32 ^ 1;
         if (SBFEffectiveHomeButtonType() == 2)
         {
           currentDevice28 = __sb__runningInSpringBoard();
@@ -1737,29 +1749,29 @@ LABEL_197:
             [mainScreen7 _referenceBounds];
           }
 
-          LODWORD(v139) = currentDevice28 ^ 1;
+          LODWORD(v167) = currentDevice28 ^ 1;
           BSSizeRoundForScale();
-          if (v33 >= *(MEMORY[0x1E69D4380] + 200))
+          if (v37 >= *(MEMORY[0x1E69D4380] + 200))
           {
-            v136 = 0;
-            v137 = 0;
-            v135 = 0;
-            v134 = 0;
-            v138 = 0;
-            v133 = 0;
-            v132 = 0;
-            v131 = 0;
-            v129 = 0;
-            v130 = 0;
-            v120 = 0;
-            v127 = 0;
-            v128 = 0;
-            v125 = 0;
-            v126 = 0;
-            v123 = 0;
-            v124 = 0;
-            v121 = 0;
-            v122 = 0;
+            v164 = 0;
+            v165 = 0;
+            v163 = 0;
+            v162 = 0;
+            v166 = 0;
+            v161 = 0;
+            v160 = 0;
+            v159 = 0;
+            v157 = 0;
+            v158 = 0;
+            v148 = 0;
+            v155 = 0;
+            v156 = 0;
+            v153 = 0;
+            v154 = 0;
+            v151 = 0;
+            v152 = 0;
+            v149 = 0;
+            v150 = 0;
             v11 = 0;
             v12 = 0;
             v13 = 0;
@@ -1771,32 +1783,38 @@ LABEL_197:
 
         else
         {
-          LODWORD(v139) = 0;
+          LODWORD(v167) = 0;
         }
 
 LABEL_207:
         currentDevice28 = __sb__runningInSpringBoard();
         if (currentDevice28)
         {
-          if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
+          if (SBFEffectiveDeviceClass())
           {
-            v138 = 0;
-            goto LABEL_217;
+            IsD94Like = SBFEffectiveDeviceClass();
+            if (IsD94Like != 1)
+            {
+              v166 = 0;
+              goto LABEL_217;
+            }
           }
         }
 
         else
         {
           currentDevice9 = [MEMORY[0x1E69DC938] currentDevice];
-          if ([currentDevice9 userInterfaceIdiom])
+          IsD94Like = [currentDevice9 userInterfaceIdiom];
+          if (IsD94Like)
           {
-            v138 = 0x100000000;
+            v166 = 0x100000000;
             goto LABEL_217;
           }
         }
 
-        HIDWORD(v138) = currentDevice28 ^ 1;
-        if (SBFEffectiveHomeButtonType() == 2)
+        HIDWORD(v166) = currentDevice28 ^ 1;
+        IsD94Like = SBFEffectiveHomeButtonType();
+        if (IsD94Like == 2)
         {
           currentDevice28 = __sb__runningInSpringBoard();
           if (currentDevice28)
@@ -1810,9 +1828,9 @@ LABEL_207:
             [mainScreen8 _referenceBounds];
           }
 
-          LODWORD(v138) = currentDevice28 ^ 1;
-          BSSizeRoundForScale();
-          if (v31 >= *(MEMORY[0x1E69D4380] + 200))
+          LODWORD(v166) = currentDevice28 ^ 1;
+          IsD94Like = BSSizeRoundForScale();
+          if (v35 >= *(MEMORY[0x1E69D4380] + 200))
           {
             goto LABEL_221;
           }
@@ -1820,30 +1838,31 @@ LABEL_207:
 
         else
         {
-          LODWORD(v138) = 0;
+          LODWORD(v166) = 0;
         }
 
 LABEL_217:
-        if (_SBF_Private_IsD94Like())
+        IsD94Like = _SBF_Private_IsD94Like(IsD94Like, v34);
+        if (IsD94Like)
         {
-          v136 = 0;
-          v137 = 0;
-          v135 = 0;
-          v134 = 0;
-          v133 = 0;
-          v132 = 0;
-          v131 = 0;
-          v129 = 0;
-          v130 = 0;
-          v120 = 0;
-          v127 = 0;
-          v128 = 0;
-          v125 = 0;
-          v126 = 0;
-          v123 = 0;
-          v124 = 0;
-          v121 = 0;
-          v122 = 0;
+          v164 = 0;
+          v165 = 0;
+          v163 = 0;
+          v162 = 0;
+          v161 = 0;
+          v160 = 0;
+          v159 = 0;
+          v157 = 0;
+          v158 = 0;
+          v148 = 0;
+          v155 = 0;
+          v156 = 0;
+          v153 = 0;
+          v154 = 0;
+          v151 = 0;
+          v152 = 0;
+          v149 = 0;
+          v150 = 0;
           v11 = 0;
           v12 = 0;
           v13 = 0;
@@ -1853,15 +1872,15 @@ LABEL_217:
         }
 
 LABEL_221:
-        if (!_SBF_Private_IsD64Like())
+        if (!_SBF_Private_IsD64Like(IsD94Like, v34))
         {
 LABEL_225:
-          v137 = 0;
+          v165 = 0;
           goto LABEL_235;
         }
 
-        v32 = __sb__runningInSpringBoard();
-        if (v32)
+        v36 = __sb__runningInSpringBoard();
+        if (v36)
         {
           if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
           {
@@ -1874,12 +1893,12 @@ LABEL_225:
           currentDevice10 = [MEMORY[0x1E69DC938] currentDevice];
           if ([currentDevice10 userInterfaceIdiom])
           {
-            v137 = 0x100000000;
+            v165 = 0x100000000;
             goto LABEL_235;
           }
         }
 
-        HIDWORD(v137) = v32 ^ 1;
+        HIDWORD(v165) = v36 ^ 1;
         if (SBFEffectiveHomeButtonType() == 2)
         {
           currentDevice28 = __sb__runningInSpringBoard();
@@ -1894,27 +1913,27 @@ LABEL_225:
             [mainScreen9 _referenceBounds];
           }
 
-          LODWORD(v137) = currentDevice28 ^ 1;
+          LODWORD(v165) = currentDevice28 ^ 1;
           BSSizeRoundForScale();
-          if (v37 >= *(MEMORY[0x1E69D4380] + 136))
+          if (v45 >= *(MEMORY[0x1E69D4380] + 136))
           {
-            v136 = 0;
-            v135 = 0;
-            v134 = 0;
-            v133 = 0;
-            v132 = 0;
-            v131 = 0;
-            v129 = 0;
-            v130 = 0;
-            v120 = 0;
-            v127 = 0;
-            v128 = 0;
-            v125 = 0;
-            v126 = 0;
-            v123 = 0;
-            v124 = 0;
-            v121 = 0;
-            v122 = 0;
+            v164 = 0;
+            v163 = 0;
+            v162 = 0;
+            v161 = 0;
+            v160 = 0;
+            v159 = 0;
+            v157 = 0;
+            v158 = 0;
+            v148 = 0;
+            v155 = 0;
+            v156 = 0;
+            v153 = 0;
+            v154 = 0;
+            v151 = 0;
+            v152 = 0;
+            v149 = 0;
+            v150 = 0;
             v11 = 0;
             v12 = 0;
             v13 = 0;
@@ -1926,32 +1945,38 @@ LABEL_225:
 
         else
         {
-          LODWORD(v137) = 0;
+          LODWORD(v165) = 0;
         }
 
 LABEL_235:
         currentDevice28 = __sb__runningInSpringBoard();
         if (currentDevice28)
         {
-          if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
+          if (SBFEffectiveDeviceClass())
           {
-            v136 = 0;
-            goto LABEL_245;
+            userInterfaceIdiom2 = SBFEffectiveDeviceClass();
+            if (userInterfaceIdiom2 != 1)
+            {
+              v164 = 0;
+              goto LABEL_245;
+            }
           }
         }
 
         else
         {
           currentDevice11 = [MEMORY[0x1E69DC938] currentDevice];
-          if ([currentDevice11 userInterfaceIdiom])
+          userInterfaceIdiom2 = [currentDevice11 userInterfaceIdiom];
+          if (userInterfaceIdiom2)
           {
-            v136 = 0x100000000;
+            v164 = 0x100000000;
             goto LABEL_245;
           }
         }
 
-        HIDWORD(v136) = currentDevice28 ^ 1;
-        if (SBFEffectiveHomeButtonType() == 2)
+        HIDWORD(v164) = currentDevice28 ^ 1;
+        userInterfaceIdiom2 = SBFEffectiveHomeButtonType();
+        if (userInterfaceIdiom2 == 2)
         {
           currentDevice28 = __sb__runningInSpringBoard();
           if (currentDevice28)
@@ -1965,9 +1990,9 @@ LABEL_235:
             [mainScreen10 _referenceBounds];
           }
 
-          LODWORD(v136) = currentDevice28 ^ 1;
-          BSSizeRoundForScale();
-          if (v34 >= *(MEMORY[0x1E69D4380] + 136))
+          LODWORD(v164) = currentDevice28 ^ 1;
+          userInterfaceIdiom2 = BSSizeRoundForScale();
+          if (v40 >= *(MEMORY[0x1E69D4380] + 136))
           {
             goto LABEL_249;
           }
@@ -1975,28 +2000,28 @@ LABEL_235:
 
         else
         {
-          LODWORD(v136) = 0;
+          LODWORD(v164) = 0;
         }
 
 LABEL_245:
-        if (_SBF_Private_IsD64Like())
+        if (_SBF_Private_IsD64Like(userInterfaceIdiom2, v39))
         {
-          v135 = 0;
-          v134 = 0;
-          v133 = 0;
-          v132 = 0;
-          v131 = 0;
-          v129 = 0;
-          v130 = 0;
-          v120 = 0;
-          v127 = 0;
-          v128 = 0;
-          v125 = 0;
-          v126 = 0;
-          v123 = 0;
-          v124 = 0;
-          v121 = 0;
-          v122 = 0;
+          v163 = 0;
+          v162 = 0;
+          v161 = 0;
+          v160 = 0;
+          v159 = 0;
+          v157 = 0;
+          v158 = 0;
+          v148 = 0;
+          v155 = 0;
+          v156 = 0;
+          v153 = 0;
+          v154 = 0;
+          v151 = 0;
+          v152 = 0;
+          v149 = 0;
+          v150 = 0;
           v11 = 0;
           v12 = 0;
           v13 = 0;
@@ -2006,12 +2031,12 @@ LABEL_245:
         }
 
 LABEL_249:
-        v35 = __sb__runningInSpringBoard();
-        if (v35)
+        v41 = __sb__runningInSpringBoard();
+        if (v41)
         {
           if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
           {
-            v135 = 0;
+            v163 = 0;
             goto LABEL_259;
           }
         }
@@ -2021,12 +2046,12 @@ LABEL_249:
           currentDevice12 = [MEMORY[0x1E69DC938] currentDevice];
           if ([currentDevice12 userInterfaceIdiom])
           {
-            v135 = 0x100000000;
+            v163 = 0x100000000;
             goto LABEL_259;
           }
         }
 
-        HIDWORD(v135) = v35 ^ 1;
+        HIDWORD(v163) = v41 ^ 1;
         if (SBFEffectiveHomeButtonType() == 2)
         {
           currentDevice28 = __sb__runningInSpringBoard();
@@ -2041,25 +2066,25 @@ LABEL_249:
             [mainScreen11 _referenceBounds];
           }
 
-          LODWORD(v135) = currentDevice28 ^ 1;
+          LODWORD(v163) = currentDevice28 ^ 1;
           BSSizeRoundForScale();
-          if (v36 >= *(MEMORY[0x1E69D4380] + 136))
+          if (v44 >= *(MEMORY[0x1E69D4380] + 136))
           {
-            v134 = 0;
-            v133 = 0;
-            v132 = 0;
-            v131 = 0;
-            v129 = 0;
-            v130 = 0;
-            v120 = 0;
-            v127 = 0;
-            v128 = 0;
-            v125 = 0;
-            v126 = 0;
-            v123 = 0;
-            v124 = 0;
-            v121 = 0;
-            v122 = 0;
+            v162 = 0;
+            v161 = 0;
+            v160 = 0;
+            v159 = 0;
+            v157 = 0;
+            v158 = 0;
+            v148 = 0;
+            v155 = 0;
+            v156 = 0;
+            v153 = 0;
+            v154 = 0;
+            v151 = 0;
+            v152 = 0;
+            v149 = 0;
+            v150 = 0;
             v11 = 0;
             v12 = 0;
             v13 = 0;
@@ -2071,34 +2096,40 @@ LABEL_249:
 
         else
         {
-          LODWORD(v135) = 0;
+          LODWORD(v163) = 0;
         }
 
 LABEL_259:
         currentDevice28 = __sb__runningInSpringBoard();
         if (currentDevice28)
         {
-          if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
+          if (SBFEffectiveDeviceClass())
           {
-            v134 = 0;
-            HIDWORD(v133) = 0;
-            goto LABEL_269;
+            userInterfaceIdiom3 = SBFEffectiveDeviceClass();
+            if (userInterfaceIdiom3 != 1)
+            {
+              v162 = 0;
+              HIDWORD(v161) = 0;
+              goto LABEL_269;
+            }
           }
         }
 
         else
         {
           currentDevice13 = [MEMORY[0x1E69DC938] currentDevice];
-          if ([currentDevice13 userInterfaceIdiom])
+          userInterfaceIdiom3 = [currentDevice13 userInterfaceIdiom];
+          if (userInterfaceIdiom3)
           {
-            HIDWORD(v133) = 0;
-            v134 = 1;
+            HIDWORD(v161) = 0;
+            v162 = 1;
             goto LABEL_269;
           }
         }
 
-        v134 = currentDevice28 ^ 1;
-        if (SBFEffectiveHomeButtonType() == 2)
+        v162 = currentDevice28 ^ 1;
+        userInterfaceIdiom3 = SBFEffectiveHomeButtonType();
+        if (userInterfaceIdiom3 == 2)
         {
           currentDevice28 = __sb__runningInSpringBoard();
           if (currentDevice28)
@@ -2112,9 +2143,9 @@ LABEL_259:
             [mainScreen12 _referenceBounds];
           }
 
-          HIDWORD(v133) = currentDevice28 ^ 1;
-          BSSizeRoundForScale();
-          if (v38 >= *(MEMORY[0x1E69D4380] + 136))
+          HIDWORD(v161) = currentDevice28 ^ 1;
+          userInterfaceIdiom3 = BSSizeRoundForScale();
+          if (v46 >= *(MEMORY[0x1E69D4380] + 136))
           {
             goto LABEL_279;
           }
@@ -2122,26 +2153,26 @@ LABEL_259:
 
         else
         {
-          HIDWORD(v133) = 0;
+          HIDWORD(v161) = 0;
         }
 
 LABEL_269:
-        if (_SBF_Private_IsD54())
+        if (_SBF_Private_IsD54(userInterfaceIdiom3, v43))
         {
-          LODWORD(v133) = 0;
-          v132 = 0;
-          v131 = 0;
-          v129 = 0;
-          v130 = 0;
-          v120 = 0;
-          v127 = 0;
-          v128 = 0;
-          v125 = 0;
-          v126 = 0;
-          v123 = 0;
-          v124 = 0;
-          v121 = 0;
-          v122 = 0;
+          LODWORD(v161) = 0;
+          v160 = 0;
+          v159 = 0;
+          v157 = 0;
+          v158 = 0;
+          v148 = 0;
+          v155 = 0;
+          v156 = 0;
+          v153 = 0;
+          v154 = 0;
+          v151 = 0;
+          v152 = 0;
+          v149 = 0;
+          v150 = 0;
           v11 = 0;
           v12 = 0;
           v13 = 0;
@@ -2151,13 +2182,13 @@ LABEL_269:
         }
 
 LABEL_279:
-        v39 = __sb__runningInSpringBoard();
-        if (v39)
+        v47 = __sb__runningInSpringBoard();
+        if (v47)
         {
           if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
           {
-            LODWORD(v133) = 0;
-            HIDWORD(v132) = 0;
+            LODWORD(v161) = 0;
+            HIDWORD(v160) = 0;
             goto LABEL_289;
           }
         }
@@ -2167,17 +2198,17 @@ LABEL_279:
           currentDevice14 = [MEMORY[0x1E69DC938] currentDevice];
           if ([currentDevice14 userInterfaceIdiom])
           {
-            HIDWORD(v132) = 0;
-            LODWORD(v133) = 1;
+            HIDWORD(v160) = 0;
+            LODWORD(v161) = 1;
             goto LABEL_289;
           }
         }
 
-        LODWORD(v133) = v39 ^ 1;
+        LODWORD(v161) = v47 ^ 1;
         if (SBFEffectiveHomeButtonType() == 2)
         {
-          v40 = __sb__runningInSpringBoard();
-          if (v40)
+          v48 = __sb__runningInSpringBoard();
+          if (v48)
           {
             __sb__mainScreenReferenceBounds();
           }
@@ -2188,24 +2219,24 @@ LABEL_279:
             [mainScreen13 _referenceBounds];
           }
 
-          currentDevice28 = v40 ^ 1u;
-          BSSizeRoundForScale();
-          HIDWORD(v132) = currentDevice28;
-          if (v41 >= *(MEMORY[0x1E69D4380] + 120) && (_SBF_Private_IsN84OrSimilarDevice() & 1) != 0)
+          currentDevice28 = v48 ^ 1u;
+          v51 = BSSizeRoundForScale();
+          HIDWORD(v160) = currentDevice28;
+          if (v53 >= *(MEMORY[0x1E69D4380] + 120) && (_SBF_Private_IsN84OrSimilarDevice(v51, v52) & 1) != 0)
           {
-            LODWORD(v132) = 0;
-            v131 = 0;
-            v129 = 0;
-            v130 = 0;
-            v120 = 0;
-            v127 = 0;
-            v128 = 0;
-            v125 = 0;
-            v126 = 0;
-            v123 = 0;
-            v124 = 0;
-            v121 = 0;
-            v122 = 0;
+            LODWORD(v160) = 0;
+            v159 = 0;
+            v157 = 0;
+            v158 = 0;
+            v148 = 0;
+            v155 = 0;
+            v156 = 0;
+            v153 = 0;
+            v154 = 0;
+            v151 = 0;
+            v152 = 0;
+            v149 = 0;
+            v150 = 0;
             v11 = 0;
             v12 = 0;
             v13 = 0;
@@ -2217,34 +2248,40 @@ LABEL_279:
 
         else
         {
-          HIDWORD(v132) = 0;
+          HIDWORD(v160) = 0;
         }
 
 LABEL_289:
         currentDevice28 = __sb__runningInSpringBoard();
         if (currentDevice28)
         {
-          if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
+          if (SBFEffectiveDeviceClass())
           {
-            LODWORD(v132) = 0;
-            HIDWORD(v131) = 0;
-            goto LABEL_299;
+            IsD33OrSimilarDevice = SBFEffectiveDeviceClass();
+            if (IsD33OrSimilarDevice != 1)
+            {
+              LODWORD(v160) = 0;
+              HIDWORD(v159) = 0;
+              goto LABEL_299;
+            }
           }
         }
 
         else
         {
           currentDevice15 = [MEMORY[0x1E69DC938] currentDevice];
-          if ([currentDevice15 userInterfaceIdiom])
+          IsD33OrSimilarDevice = [currentDevice15 userInterfaceIdiom];
+          if (IsD33OrSimilarDevice)
           {
-            HIDWORD(v131) = 0;
-            LODWORD(v132) = 1;
+            HIDWORD(v159) = 0;
+            LODWORD(v160) = 1;
             goto LABEL_299;
           }
         }
 
-        LODWORD(v132) = currentDevice28 ^ 1;
-        if (SBFEffectiveHomeButtonType() == 2)
+        LODWORD(v160) = currentDevice28 ^ 1;
+        IsD33OrSimilarDevice = SBFEffectiveHomeButtonType();
+        if (IsD33OrSimilarDevice == 2)
         {
           currentDevice28 = __sb__runningInSpringBoard();
           if (currentDevice28)
@@ -2258,9 +2295,9 @@ LABEL_289:
             [mainScreen14 _referenceBounds];
           }
 
-          HIDWORD(v131) = currentDevice28 ^ 1;
-          BSSizeRoundForScale();
-          if (v42 >= *(MEMORY[0x1E69D4380] + 120))
+          HIDWORD(v159) = currentDevice28 ^ 1;
+          IsD33OrSimilarDevice = BSSizeRoundForScale();
+          if (v54 >= *(MEMORY[0x1E69D4380] + 120))
           {
             goto LABEL_308;
           }
@@ -2268,43 +2305,48 @@ LABEL_289:
 
         else
         {
-          HIDWORD(v131) = 0;
+          HIDWORD(v159) = 0;
         }
 
 LABEL_299:
-        if (_SBF_Private_IsD33OrSimilarDevice() && (_SBF_Private_IsN84ZoomedOrSimilarDevice() & 1) != 0)
+        IsD33OrSimilarDevice = _SBF_Private_IsD33OrSimilarDevice(IsD33OrSimilarDevice, v50);
+        if (IsD33OrSimilarDevice)
         {
-          LODWORD(v131) = 0;
-          v129 = 0;
-          v130 = 0;
-          v120 = 0;
-          v127 = 0;
-          v128 = 0;
-          v125 = 0;
-          v126 = 0;
-          v123 = 0;
-          v124 = 0;
-          v121 = 0;
-          v122 = 0;
-          v11 = 0;
-          v12 = 0;
-          v13 = 0;
-          v14 = 0;
-          v15 = 0;
-          goto LABEL_499;
+          IsD33OrSimilarDevice = _SBF_Private_IsN84ZoomedOrSimilarDevice(IsD33OrSimilarDevice, v50);
+          if (IsD33OrSimilarDevice)
+          {
+            LODWORD(v159) = 0;
+            v157 = 0;
+            v158 = 0;
+            v148 = 0;
+            v155 = 0;
+            v156 = 0;
+            v153 = 0;
+            v154 = 0;
+            v151 = 0;
+            v152 = 0;
+            v149 = 0;
+            v150 = 0;
+            v11 = 0;
+            v12 = 0;
+            v13 = 0;
+            v14 = 0;
+            v15 = 0;
+            goto LABEL_499;
+          }
         }
 
 LABEL_308:
-        if (!_SBF_Private_IsD93Like())
+        if (!_SBF_Private_IsD93Like(IsD33OrSimilarDevice, v50))
         {
 LABEL_312:
-          LODWORD(v131) = 0;
-          HIDWORD(v130) = 0;
+          LODWORD(v159) = 0;
+          HIDWORD(v158) = 0;
           goto LABEL_319;
         }
 
-        v43 = __sb__runningInSpringBoard();
-        if (v43)
+        v55 = __sb__runningInSpringBoard();
+        if (v55)
         {
           if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
           {
@@ -2317,13 +2359,13 @@ LABEL_312:
           currentDevice16 = [MEMORY[0x1E69DC938] currentDevice];
           if ([currentDevice16 userInterfaceIdiom])
           {
-            HIDWORD(v130) = 0;
-            LODWORD(v131) = 1;
+            HIDWORD(v158) = 0;
+            LODWORD(v159) = 1;
             goto LABEL_319;
           }
         }
 
-        LODWORD(v131) = v43 ^ 1;
+        LODWORD(v159) = v55 ^ 1;
         if (SBFEffectiveHomeButtonType() == 2)
         {
           currentDevice28 = __sb__runningInSpringBoard();
@@ -2338,21 +2380,21 @@ LABEL_312:
             [mainScreen15 _referenceBounds];
           }
 
-          HIDWORD(v130) = currentDevice28 ^ 1;
+          HIDWORD(v158) = currentDevice28 ^ 1;
           BSSizeRoundForScale();
-          if (v46 >= *(MEMORY[0x1E69D4380] + 184))
+          if (v60 >= *(MEMORY[0x1E69D4380] + 184))
           {
-            LODWORD(v130) = 0;
-            v120 = 0;
-            v128 = 0;
-            v129 = 0;
-            v126 = 0;
-            v127 = 0;
-            v124 = 0;
-            v125 = 0;
-            v122 = 0;
-            v123 = 0;
-            v121 = 0;
+            LODWORD(v158) = 0;
+            v148 = 0;
+            v156 = 0;
+            v157 = 0;
+            v154 = 0;
+            v155 = 0;
+            v152 = 0;
+            v153 = 0;
+            v150 = 0;
+            v151 = 0;
+            v149 = 0;
             v11 = 0;
             v12 = 0;
             v13 = 0;
@@ -2364,34 +2406,40 @@ LABEL_312:
 
         else
         {
-          HIDWORD(v130) = 0;
+          HIDWORD(v158) = 0;
         }
 
 LABEL_319:
         currentDevice28 = __sb__runningInSpringBoard();
         if (currentDevice28)
         {
-          if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
+          if (SBFEffectiveDeviceClass())
           {
-            LODWORD(v130) = 0;
-            v120 = 0;
-            goto LABEL_329;
+            IsD93Like = SBFEffectiveDeviceClass();
+            if (IsD93Like != 1)
+            {
+              LODWORD(v158) = 0;
+              v148 = 0;
+              goto LABEL_329;
+            }
           }
         }
 
         else
         {
           currentDevice17 = [MEMORY[0x1E69DC938] currentDevice];
-          if ([currentDevice17 userInterfaceIdiom])
+          IsD93Like = [currentDevice17 userInterfaceIdiom];
+          if (IsD93Like)
           {
-            v120 = 0;
-            LODWORD(v130) = 1;
+            v148 = 0;
+            LODWORD(v158) = 1;
             goto LABEL_329;
           }
         }
 
-        LODWORD(v130) = currentDevice28 ^ 1;
-        if (SBFEffectiveHomeButtonType() == 2)
+        LODWORD(v158) = currentDevice28 ^ 1;
+        IsD93Like = SBFEffectiveHomeButtonType();
+        if (IsD93Like == 2)
         {
           currentDevice28 = __sb__runningInSpringBoard();
           if (currentDevice28)
@@ -2405,9 +2453,9 @@ LABEL_319:
             [mainScreen16 _referenceBounds];
           }
 
-          v120 = currentDevice28 ^ 1;
-          BSSizeRoundForScale();
-          if (v44 >= *(MEMORY[0x1E69D4380] + 184))
+          v148 = currentDevice28 ^ 1;
+          IsD93Like = BSSizeRoundForScale();
+          if (v58 >= *(MEMORY[0x1E69D4380] + 184))
           {
             goto LABEL_333;
           }
@@ -2415,21 +2463,22 @@ LABEL_319:
 
         else
         {
-          v120 = 0;
+          v148 = 0;
         }
 
 LABEL_329:
-        if (_SBF_Private_IsD93Like())
+        IsD93Like = _SBF_Private_IsD93Like(IsD93Like, v57);
+        if (IsD93Like)
         {
-          v128 = 0;
-          v129 = 0;
-          v126 = 0;
-          v127 = 0;
-          v124 = 0;
-          v125 = 0;
-          v122 = 0;
-          v123 = 0;
-          v121 = 0;
+          v156 = 0;
+          v157 = 0;
+          v154 = 0;
+          v155 = 0;
+          v152 = 0;
+          v153 = 0;
+          v150 = 0;
+          v151 = 0;
+          v149 = 0;
           v11 = 0;
           v12 = 0;
           v13 = 0;
@@ -2439,15 +2488,15 @@ LABEL_329:
         }
 
 LABEL_333:
-        if (!_SBF_Private_IsD63Like())
+        if (!_SBF_Private_IsD63Like(IsD93Like, v57))
         {
 LABEL_337:
-          v129 = 0;
+          v157 = 0;
           goto LABEL_347;
         }
 
-        v45 = __sb__runningInSpringBoard();
-        if (v45)
+        v59 = __sb__runningInSpringBoard();
+        if (v59)
         {
           if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
           {
@@ -2460,16 +2509,16 @@ LABEL_337:
           currentDevice18 = [MEMORY[0x1E69DC938] currentDevice];
           if ([currentDevice18 userInterfaceIdiom])
           {
-            v129 = 0x100000000;
+            v157 = 0x100000000;
             goto LABEL_347;
           }
         }
 
-        HIDWORD(v129) = v45 ^ 1;
+        HIDWORD(v157) = v59 ^ 1;
         if (SBFEffectiveHomeButtonType() == 2)
         {
-          v47 = __sb__runningInSpringBoard();
-          if (v47)
+          v61 = __sb__runningInSpringBoard();
+          if (v61)
           {
             __sb__mainScreenReferenceBounds();
           }
@@ -2480,19 +2529,19 @@ LABEL_337:
             [mainScreen17 _referenceBounds];
           }
 
-          currentDevice28 = v47 ^ 1u;
+          currentDevice28 = v61 ^ 1u;
           BSSizeRoundForScale();
-          LODWORD(v129) = currentDevice28;
-          if (v50 >= *(MEMORY[0x1E69D4380] + 104))
+          LODWORD(v157) = currentDevice28;
+          if (v66 >= *(MEMORY[0x1E69D4380] + 104))
           {
-            v127 = 0;
-            v128 = 0;
-            v125 = 0;
-            v126 = 0;
-            v123 = 0;
-            v124 = 0;
-            v121 = 0;
-            v122 = 0;
+            v155 = 0;
+            v156 = 0;
+            v153 = 0;
+            v154 = 0;
+            v151 = 0;
+            v152 = 0;
+            v149 = 0;
+            v150 = 0;
             v11 = 0;
             v12 = 0;
             v13 = 0;
@@ -2504,32 +2553,38 @@ LABEL_337:
 
         else
         {
-          LODWORD(v129) = 0;
+          LODWORD(v157) = 0;
         }
 
 LABEL_347:
         currentDevice28 = __sb__runningInSpringBoard();
         if (currentDevice28)
         {
-          if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
+          if (SBFEffectiveDeviceClass())
           {
-            v128 = 0;
-            goto LABEL_357;
+            IsD63Like = SBFEffectiveDeviceClass();
+            if (IsD63Like != 1)
+            {
+              v156 = 0;
+              goto LABEL_357;
+            }
           }
         }
 
         else
         {
           currentDevice19 = [MEMORY[0x1E69DC938] currentDevice];
-          if ([currentDevice19 userInterfaceIdiom])
+          IsD63Like = [currentDevice19 userInterfaceIdiom];
+          if (IsD63Like)
           {
-            v128 = 0x100000000;
+            v156 = 0x100000000;
             goto LABEL_357;
           }
         }
 
-        HIDWORD(v128) = currentDevice28 ^ 1;
-        if (SBFEffectiveHomeButtonType() == 2)
+        HIDWORD(v156) = currentDevice28 ^ 1;
+        IsD63Like = SBFEffectiveHomeButtonType();
+        if (IsD63Like == 2)
         {
           currentDevice28 = __sb__runningInSpringBoard();
           if (currentDevice28)
@@ -2543,9 +2598,9 @@ LABEL_347:
             [mainScreen18 _referenceBounds];
           }
 
-          LODWORD(v128) = currentDevice28 ^ 1;
-          BSSizeRoundForScale();
-          if (v48 >= *(MEMORY[0x1E69D4380] + 104))
+          LODWORD(v156) = currentDevice28 ^ 1;
+          IsD63Like = BSSizeRoundForScale();
+          if (v64 >= *(MEMORY[0x1E69D4380] + 104))
           {
             goto LABEL_361;
           }
@@ -2553,19 +2608,20 @@ LABEL_347:
 
         else
         {
-          LODWORD(v128) = 0;
+          LODWORD(v156) = 0;
         }
 
 LABEL_357:
-        if (_SBF_Private_IsD63Like())
+        IsD63Like = _SBF_Private_IsD63Like(IsD63Like, v63);
+        if (IsD63Like)
         {
-          v126 = 0;
-          v127 = 0;
-          v124 = 0;
-          v125 = 0;
-          v122 = 0;
-          v123 = 0;
-          v121 = 0;
+          v154 = 0;
+          v155 = 0;
+          v152 = 0;
+          v153 = 0;
+          v150 = 0;
+          v151 = 0;
+          v149 = 0;
           v11 = 0;
           v12 = 0;
           v13 = 0;
@@ -2575,15 +2631,15 @@ LABEL_357:
         }
 
 LABEL_361:
-        if (!_SBF_Private_IsD23Like())
+        if (!_SBF_Private_IsD23Like(IsD63Like, v63))
         {
 LABEL_365:
-          v127 = 0;
+          v155 = 0;
           goto LABEL_375;
         }
 
-        v49 = __sb__runningInSpringBoard();
-        if (v49)
+        v65 = __sb__runningInSpringBoard();
+        if (v65)
         {
           if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
           {
@@ -2596,12 +2652,12 @@ LABEL_365:
           currentDevice20 = [MEMORY[0x1E69DC938] currentDevice];
           if ([currentDevice20 userInterfaceIdiom])
           {
-            v127 = 0x100000000;
+            v155 = 0x100000000;
             goto LABEL_375;
           }
         }
 
-        HIDWORD(v127) = v49 ^ 1;
+        HIDWORD(v155) = v65 ^ 1;
         if (SBFEffectiveHomeButtonType() == 2)
         {
           currentDevice28 = __sb__runningInSpringBoard();
@@ -2616,16 +2672,16 @@ LABEL_365:
             [mainScreen19 _referenceBounds];
           }
 
-          LODWORD(v127) = currentDevice28 ^ 1;
+          LODWORD(v155) = currentDevice28 ^ 1;
           BSSizeRoundForScale();
-          if (v54 >= *(MEMORY[0x1E69D4380] + 216))
+          if (v74 >= *(MEMORY[0x1E69D4380] + 216))
           {
-            v125 = 0;
-            v126 = 0;
-            v123 = 0;
-            v124 = 0;
-            v121 = 0;
-            v122 = 0;
+            v153 = 0;
+            v154 = 0;
+            v151 = 0;
+            v152 = 0;
+            v149 = 0;
+            v150 = 0;
             v11 = 0;
             v12 = 0;
             v13 = 0;
@@ -2637,32 +2693,38 @@ LABEL_365:
 
         else
         {
-          LODWORD(v127) = 0;
+          LODWORD(v155) = 0;
         }
 
 LABEL_375:
         currentDevice28 = __sb__runningInSpringBoard();
         if (currentDevice28)
         {
-          if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
+          if (SBFEffectiveDeviceClass())
           {
-            v126 = 0;
-            goto LABEL_385;
+            userInterfaceIdiom4 = SBFEffectiveDeviceClass();
+            if (userInterfaceIdiom4 != 1)
+            {
+              v154 = 0;
+              goto LABEL_385;
+            }
           }
         }
 
         else
         {
           currentDevice21 = [MEMORY[0x1E69DC938] currentDevice];
-          if ([currentDevice21 userInterfaceIdiom])
+          userInterfaceIdiom4 = [currentDevice21 userInterfaceIdiom];
+          if (userInterfaceIdiom4)
           {
-            v126 = 0x100000000;
+            v154 = 0x100000000;
             goto LABEL_385;
           }
         }
 
-        HIDWORD(v126) = currentDevice28 ^ 1;
-        if (SBFEffectiveHomeButtonType() == 2)
+        HIDWORD(v154) = currentDevice28 ^ 1;
+        userInterfaceIdiom4 = SBFEffectiveHomeButtonType();
+        if (userInterfaceIdiom4 == 2)
         {
           currentDevice28 = __sb__runningInSpringBoard();
           if (currentDevice28)
@@ -2676,9 +2738,9 @@ LABEL_375:
             [mainScreen20 _referenceBounds];
           }
 
-          LODWORD(v126) = currentDevice28 ^ 1;
-          BSSizeRoundForScale();
-          if (v51 >= *(MEMORY[0x1E69D4380] + 216))
+          LODWORD(v154) = currentDevice28 ^ 1;
+          userInterfaceIdiom4 = BSSizeRoundForScale();
+          if (v69 >= *(MEMORY[0x1E69D4380] + 216))
           {
             goto LABEL_389;
           }
@@ -2686,17 +2748,17 @@ LABEL_375:
 
         else
         {
-          LODWORD(v126) = 0;
+          LODWORD(v154) = 0;
         }
 
 LABEL_385:
-        if (_SBF_Private_IsD23Like())
+        if (_SBF_Private_IsD23Like(userInterfaceIdiom4, v68))
         {
-          v124 = 0;
-          v125 = 0;
-          v122 = 0;
-          v123 = 0;
-          v121 = 0;
+          v152 = 0;
+          v153 = 0;
+          v150 = 0;
+          v151 = 0;
+          v149 = 0;
           v11 = 0;
           v12 = 0;
           v13 = 0;
@@ -2706,12 +2768,12 @@ LABEL_385:
         }
 
 LABEL_389:
-        v52 = __sb__runningInSpringBoard();
-        if (v52)
+        v70 = __sb__runningInSpringBoard();
+        if (v70)
         {
           if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
           {
-            v125 = 0;
+            v153 = 0;
             goto LABEL_399;
           }
         }
@@ -2721,12 +2783,12 @@ LABEL_389:
           currentDevice22 = [MEMORY[0x1E69DC938] currentDevice];
           if ([currentDevice22 userInterfaceIdiom])
           {
-            v125 = 0x100000000;
+            v153 = 0x100000000;
             goto LABEL_399;
           }
         }
 
-        HIDWORD(v125) = v52 ^ 1;
+        HIDWORD(v153) = v70 ^ 1;
         if (SBFEffectiveHomeButtonType() == 2)
         {
           currentDevice28 = __sb__runningInSpringBoard();
@@ -2741,14 +2803,14 @@ LABEL_389:
             [mainScreen21 _referenceBounds];
           }
 
-          LODWORD(v125) = currentDevice28 ^ 1;
+          LODWORD(v153) = currentDevice28 ^ 1;
           BSSizeRoundForScale();
-          if (v53 >= *(MEMORY[0x1E69D4380] + 120))
+          if (v73 >= *(MEMORY[0x1E69D4380] + 120))
           {
-            v123 = 0;
-            v124 = 0;
-            v121 = 0;
-            v122 = 0;
+            v151 = 0;
+            v152 = 0;
+            v149 = 0;
+            v150 = 0;
             v11 = 0;
             v12 = 0;
             v13 = 0;
@@ -2760,32 +2822,38 @@ LABEL_389:
 
         else
         {
-          LODWORD(v125) = 0;
+          LODWORD(v153) = 0;
         }
 
 LABEL_399:
         currentDevice28 = __sb__runningInSpringBoard();
         if (currentDevice28)
         {
-          if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
+          if (SBFEffectiveDeviceClass())
           {
-            v124 = 0;
-            goto LABEL_409;
+            userInterfaceIdiom5 = SBFEffectiveDeviceClass();
+            if (userInterfaceIdiom5 != 1)
+            {
+              v152 = 0;
+              goto LABEL_409;
+            }
           }
         }
 
         else
         {
           currentDevice23 = [MEMORY[0x1E69DC938] currentDevice];
-          if ([currentDevice23 userInterfaceIdiom])
+          userInterfaceIdiom5 = [currentDevice23 userInterfaceIdiom];
+          if (userInterfaceIdiom5)
           {
-            v124 = 0x100000000;
+            v152 = 0x100000000;
             goto LABEL_409;
           }
         }
 
-        HIDWORD(v124) = currentDevice28 ^ 1;
-        if (SBFEffectiveHomeButtonType() == 2)
+        HIDWORD(v152) = currentDevice28 ^ 1;
+        userInterfaceIdiom5 = SBFEffectiveHomeButtonType();
+        if (userInterfaceIdiom5 == 2)
         {
           currentDevice28 = __sb__runningInSpringBoard();
           if (currentDevice28)
@@ -2799,9 +2867,9 @@ LABEL_399:
             [mainScreen22 _referenceBounds];
           }
 
-          LODWORD(v124) = currentDevice28 ^ 1;
-          BSSizeRoundForScale();
-          if (v55 >= *(MEMORY[0x1E69D4380] + 120))
+          LODWORD(v152) = currentDevice28 ^ 1;
+          userInterfaceIdiom5 = BSSizeRoundForScale();
+          if (v75 >= *(MEMORY[0x1E69D4380] + 120))
           {
             goto LABEL_419;
           }
@@ -2809,15 +2877,15 @@ LABEL_399:
 
         else
         {
-          LODWORD(v124) = 0;
+          LODWORD(v152) = 0;
         }
 
 LABEL_409:
-        if (_SBF_Private_IsD33OrSimilarDevice())
+        if (_SBF_Private_IsD33OrSimilarDevice(userInterfaceIdiom5, v72))
         {
-          v122 = 0;
-          v123 = 0;
-          v121 = 0;
+          v150 = 0;
+          v151 = 0;
+          v149 = 0;
           v11 = 0;
           v12 = 0;
           v13 = 0;
@@ -2827,12 +2895,12 @@ LABEL_409:
         }
 
 LABEL_419:
-        v56 = __sb__runningInSpringBoard();
-        if (v56)
+        v76 = __sb__runningInSpringBoard();
+        if (v76)
         {
           if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
           {
-            v123 = 0;
+            v151 = 0;
             goto LABEL_429;
           }
         }
@@ -2842,12 +2910,12 @@ LABEL_419:
           currentDevice24 = [MEMORY[0x1E69DC938] currentDevice];
           if ([currentDevice24 userInterfaceIdiom])
           {
-            v123 = 0x100000000;
+            v151 = 0x100000000;
             goto LABEL_429;
           }
         }
 
-        HIDWORD(v123) = v56 ^ 1;
+        HIDWORD(v151) = v76 ^ 1;
         if (SBFEffectiveHomeButtonType() == 2)
         {
           currentDevice28 = __sb__runningInSpringBoard();
@@ -2862,12 +2930,12 @@ LABEL_419:
             [mainScreen23 _referenceBounds];
           }
 
-          LODWORD(v123) = currentDevice28 ^ 1;
+          LODWORD(v151) = currentDevice28 ^ 1;
           BSSizeRoundForScale();
-          if (v57 >= *(MEMORY[0x1E69D4380] + 104))
+          if (v79 >= *(MEMORY[0x1E69D4380] + 104))
           {
-            v121 = 0;
-            v122 = 0;
+            v149 = 0;
+            v150 = 0;
             v11 = 0;
             v12 = 0;
             v13 = 0;
@@ -2879,32 +2947,38 @@ LABEL_419:
 
         else
         {
-          LODWORD(v123) = 0;
+          LODWORD(v151) = 0;
         }
 
 LABEL_429:
         currentDevice28 = __sb__runningInSpringBoard();
         if (currentDevice28)
         {
-          if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
+          if (SBFEffectiveDeviceClass())
           {
-            v122 = 0;
-            goto LABEL_439;
+            IsD53 = SBFEffectiveDeviceClass();
+            if (IsD53 != 1)
+            {
+              v150 = 0;
+              goto LABEL_439;
+            }
           }
         }
 
         else
         {
           currentDevice25 = [MEMORY[0x1E69DC938] currentDevice];
-          if ([currentDevice25 userInterfaceIdiom])
+          IsD53 = [currentDevice25 userInterfaceIdiom];
+          if (IsD53)
           {
-            v122 = 0x100000000;
+            v150 = 0x100000000;
             goto LABEL_439;
           }
         }
 
-        HIDWORD(v122) = currentDevice28 ^ 1;
-        if (SBFEffectiveHomeButtonType() == 2)
+        HIDWORD(v150) = currentDevice28 ^ 1;
+        IsD53 = SBFEffectiveHomeButtonType();
+        if (IsD53 == 2)
         {
           currentDevice28 = __sb__runningInSpringBoard();
           if (currentDevice28)
@@ -2918,9 +2992,9 @@ LABEL_429:
             [mainScreen24 _referenceBounds];
           }
 
-          LODWORD(v122) = currentDevice28 ^ 1;
-          BSSizeRoundForScale();
-          if (v58 >= *(MEMORY[0x1E69D4380] + 104))
+          LODWORD(v150) = currentDevice28 ^ 1;
+          IsD53 = BSSizeRoundForScale();
+          if (v80 >= *(MEMORY[0x1E69D4380] + 104))
           {
             goto LABEL_446;
           }
@@ -2928,14 +3002,15 @@ LABEL_429:
 
         else
         {
-          LODWORD(v122) = 0;
+          LODWORD(v150) = 0;
         }
 
 LABEL_439:
-        if (_SBF_Private_IsD53())
+        IsD53 = _SBF_Private_IsD53(IsD53, v78);
+        if (IsD53)
         {
 LABEL_452:
-          v121 = 0;
+          v149 = 0;
           v11 = 0;
           v12 = 0;
           v13 = 0;
@@ -2945,17 +3020,38 @@ LABEL_452:
         }
 
 LABEL_446:
-        if (_SBF_Private_IsD16() && (_SBF_Private_IsD52OrSimilarDevice() & 1) != 0 || _SBF_Private_IsD52ZoomedOrSimilarDevice() && (_SBF_Private_IsD16() & 1) != 0 || (_SBF_Private_IsD52OrSimilarDevice() & 1) != 0 || (_SBF_Private_IsD52ZoomedOrSimilarDevice() & 1) != 0)
+        IsD16 = _SBF_Private_IsD16(IsD53, v78);
+        if (IsD16)
+        {
+          IsD16 = _SBF_Private_IsD52OrSimilarDevice(IsD16, v82);
+          if (IsD16)
+          {
+            goto LABEL_452;
+          }
+        }
+
+        IsD52ZoomedOrSimilarDevice = _SBF_Private_IsD52ZoomedOrSimilarDevice(IsD16, v82);
+        if (IsD52ZoomedOrSimilarDevice)
+        {
+          IsD52ZoomedOrSimilarDevice = _SBF_Private_IsD16(IsD52ZoomedOrSimilarDevice, v84);
+          if (IsD52ZoomedOrSimilarDevice)
+          {
+            goto LABEL_452;
+          }
+        }
+
+        IsD52OrSimilarDevice = _SBF_Private_IsD52OrSimilarDevice(IsD52ZoomedOrSimilarDevice, v84);
+        if (IsD52OrSimilarDevice & 1) != 0 || (_SBF_Private_IsD52ZoomedOrSimilarDevice(IsD52OrSimilarDevice, v86))
         {
           goto LABEL_452;
         }
 
-        v59 = __sb__runningInSpringBoard();
-        if (v59)
+        v87 = __sb__runningInSpringBoard();
+        if (v87)
         {
           if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
           {
-            v121 = 0;
+            v149 = 0;
             goto LABEL_463;
           }
         }
@@ -2965,12 +3061,12 @@ LABEL_446:
           currentDevice26 = [MEMORY[0x1E69DC938] currentDevice];
           if ([currentDevice26 userInterfaceIdiom])
           {
-            v121 = 0x100000000;
+            v149 = 0x100000000;
             goto LABEL_463;
           }
         }
 
-        HIDWORD(v121) = v59 ^ 1;
+        HIDWORD(v149) = v87 ^ 1;
         if (SBFEffectiveHomeButtonType() == 2)
         {
           currentDevice28 = __sb__runningInSpringBoard();
@@ -2985,9 +3081,9 @@ LABEL_446:
             [mainScreen25 _referenceBounds];
           }
 
-          LODWORD(v121) = currentDevice28 ^ 1;
+          LODWORD(v149) = currentDevice28 ^ 1;
           BSSizeRoundForScale();
-          if (v63 >= *(MEMORY[0x1E69D4380] + 88))
+          if (v91 >= *(MEMORY[0x1E69D4380] + 88))
           {
             v11 = 0;
             v12 = 0;
@@ -3000,12 +3096,12 @@ LABEL_446:
 
         else
         {
-          LODWORD(v121) = 0;
+          LODWORD(v149) = 0;
         }
 
 LABEL_463:
-        v60 = __sb__runningInSpringBoard();
-        if (v60)
+        v88 = __sb__runningInSpringBoard();
+        if (v88)
         {
           if (SBFEffectiveDeviceClass() && SBFEffectiveDeviceClass() != 1)
           {
@@ -3026,7 +3122,7 @@ LABEL_463:
           }
         }
 
-        v11 = v60 ^ 1;
+        v11 = v88 ^ 1;
         if (SBFEffectiveHomeButtonType() == 2)
         {
           currentDevice28 = __sb__runningInSpringBoard();
@@ -3043,7 +3139,7 @@ LABEL_463:
 
           v12 = currentDevice28 ^ 1;
           BSSizeRoundForScale();
-          if (v64 >= *(MEMORY[0x1E69D4380] + 72))
+          if (v92 >= *(MEMORY[0x1E69D4380] + 72))
           {
             v13 = 0;
             v14 = 0;
@@ -3088,8 +3184,8 @@ LABEL_486:
             }
 
             v15 = mainScreen27 ^ 1;
-            v65 = __sb__runningInSpringBoard();
-            if (v65)
+            v93 = __sb__runningInSpringBoard();
+            if (v93)
             {
               __sb__mainScreenReferenceBounds();
             }
@@ -3101,7 +3197,7 @@ LABEL_486:
             }
 
             BSSizeRoundForScale();
-            if (v65 != 1)
+            if (v93 != 1)
             {
 
               if (v15)
@@ -3135,228 +3231,228 @@ LABEL_75:
                   if (!v11)
                   {
 LABEL_77:
-                    if (v121)
+                    if (v149)
                     {
                     }
 
-                    if (HIDWORD(v121))
+                    if (HIDWORD(v149))
                     {
                     }
 
-                    if (v122)
+                    if (v150)
                     {
                     }
 
-                    if (HIDWORD(v122))
+                    if (HIDWORD(v150))
                     {
                     }
 
-                    if (v123)
+                    if (v151)
                     {
                     }
 
-                    if (HIDWORD(v123))
+                    if (HIDWORD(v151))
                     {
                     }
 
-                    if (v124)
+                    if (v152)
                     {
                     }
 
-                    if (HIDWORD(v124))
+                    if (HIDWORD(v152))
                     {
                     }
 
-                    if (v125)
+                    if (v153)
                     {
                     }
 
-                    if (HIDWORD(v125))
+                    if (HIDWORD(v153))
                     {
                     }
 
-                    if (v126)
+                    if (v154)
                     {
                     }
 
-                    if (HIDWORD(v126))
+                    if (HIDWORD(v154))
                     {
                     }
 
-                    if (v127)
+                    if (v155)
                     {
                     }
 
-                    if (HIDWORD(v127))
+                    if (HIDWORD(v155))
                     {
                     }
 
-                    if (v128)
+                    if (v156)
                     {
                     }
 
-                    if (HIDWORD(v128))
+                    if (HIDWORD(v156))
                     {
                     }
 
-                    if (v129)
+                    if (v157)
                     {
                     }
 
-                    if (HIDWORD(v129))
+                    if (HIDWORD(v157))
                     {
                     }
 
-                    if (v120)
+                    if (v148)
                     {
                     }
 
-                    if (v130)
+                    if (v158)
                     {
                     }
 
-                    if (HIDWORD(v130))
+                    if (HIDWORD(v158))
                     {
                     }
 
-                    if (v131)
+                    if (v159)
                     {
                     }
 
-                    if (HIDWORD(v131))
+                    if (HIDWORD(v159))
                     {
                     }
 
-                    if (v132)
+                    if (v160)
                     {
                     }
 
-                    if (HIDWORD(v132))
+                    if (HIDWORD(v160))
                     {
                     }
 
-                    if (v133)
+                    if (v161)
                     {
                     }
 
-                    if (HIDWORD(v133))
+                    if (HIDWORD(v161))
                     {
                     }
 
-                    if (v134)
+                    if (v162)
                     {
                     }
 
-                    if (v135)
+                    if (v163)
                     {
                     }
 
-                    if (HIDWORD(v135))
+                    if (HIDWORD(v163))
                     {
                     }
 
-                    if (v136)
+                    if (v164)
                     {
                     }
 
-                    if (HIDWORD(v136))
+                    if (HIDWORD(v164))
                     {
                     }
 
-                    if (v137)
+                    if (v165)
                     {
                     }
 
-                    if (HIDWORD(v137))
+                    if (HIDWORD(v165))
                     {
                     }
 
-                    if (v138)
+                    if (v166)
                     {
                     }
 
-                    if (HIDWORD(v138))
+                    if (HIDWORD(v166))
                     {
                     }
 
-                    if (v139)
+                    if (v167)
                     {
                     }
 
-                    if (HIDWORD(v139))
+                    if (HIDWORD(v167))
                     {
                     }
 
-                    if (v140)
+                    if (v168)
                     {
                     }
 
-                    if (v141)
+                    if (v169)
                     {
                     }
 
-                    if (HIDWORD(v141))
+                    if (HIDWORD(v169))
                     {
                     }
 
-                    if (v142)
+                    if (v170)
                     {
                     }
 
-                    if (HIDWORD(v142))
+                    if (HIDWORD(v170))
                     {
                     }
 
-                    if (v143)
+                    if (v171)
                     {
                     }
 
-                    if (HIDWORD(v143))
+                    if (HIDWORD(v171))
                     {
                     }
 
-                    if (v144)
+                    if (v172)
                     {
                     }
 
-                    if (HIDWORD(v144))
+                    if (HIDWORD(v172))
                     {
                     }
 
-                    if (v145)
+                    if (v173)
                     {
                     }
 
-                    if (HIDWORD(v145))
+                    if (HIDWORD(v173))
                     {
                     }
 
-                    if (v146)
+                    if (v174)
                     {
                     }
 
-                    if (HIDWORD(v146))
+                    if (HIDWORD(v174))
                     {
                     }
 
-                    v148 = 0;
-                    v149 = &v148;
-                    v150 = 0x2050000000;
+                    v176 = 0;
+                    v177 = &v176;
+                    v178 = 0x2050000000;
                     v23 = getCSProminentLayoutControllerClass_softClass;
-                    v151 = getCSProminentLayoutControllerClass_softClass;
+                    v179 = getCSProminentLayoutControllerClass_softClass;
                     if (!getCSProminentLayoutControllerClass_softClass)
                     {
-                      v147[0] = MEMORY[0x1E69E9820];
-                      v147[1] = 3221225472;
-                      v147[2] = __getCSProminentLayoutControllerClass_block_invoke;
-                      v147[3] = &unk_1E807F028;
-                      v147[4] = &v148;
-                      __getCSProminentLayoutControllerClass_block_invoke(v147);
-                      v23 = v149[3];
+                      v175[0] = MEMORY[0x1E69E9820];
+                      v175[1] = 3221225472;
+                      v175[2] = __getCSProminentLayoutControllerClass_block_invoke;
+                      v175[3] = &unk_1E807F028;
+                      v175[4] = &v176;
+                      __getCSProminentLayoutControllerClass_block_invoke(v175);
+                      v23 = v177[3];
                     }
 
                     v24 = v23;
-                    _Block_object_dispose(&v148, 8);
+                    _Block_object_dispose(&v176, 8);
                     [v23 fontSizeForElementType:1 isLandscapeVariant:{(objc_msgSend(*MEMORY[0x1E69DDA98], "activeInterfaceOrientation") - 3) < 2}];
                     v26 = CTFontCreateWithNameAndOptions(@".SFSoftTime-Semibold", v25, 0, 0x20000uLL);
                     v27 = timeFont_timeFont;
@@ -3420,7 +3516,7 @@ LABEL_71:
 
         v14 = currentDevice28 ^ 1;
         BSSizeRoundForScale();
-        if (v61 >= *(MEMORY[0x1E69D4380] + 56))
+        if (v89 >= *(MEMORY[0x1E69D4380] + 56))
         {
           goto LABEL_486;
         }
@@ -3429,32 +3525,32 @@ LABEL_71:
       }
     }
 
-    v136 = 0;
-    v137 = 0;
-    v135 = 0;
-    v134 = 0;
-    v138 = 0;
-    v133 = 0;
-    v132 = 0;
-    v139 = 0;
-    v131 = 0;
-    v130 = 0;
-    v120 = 0;
-    v128 = 0;
-    v129 = 0;
-    v126 = 0;
-    v127 = 0;
-    v124 = 0;
-    v125 = 0;
-    v122 = 0;
-    v123 = 0;
-    v121 = 0;
+    v164 = 0;
+    v165 = 0;
+    v163 = 0;
+    v162 = 0;
+    v166 = 0;
+    v161 = 0;
+    v160 = 0;
+    v167 = 0;
+    v159 = 0;
+    v158 = 0;
+    v148 = 0;
+    v156 = 0;
+    v157 = 0;
+    v154 = 0;
+    v155 = 0;
+    v152 = 0;
+    v153 = 0;
+    v150 = 0;
+    v151 = 0;
+    v149 = 0;
     v11 = 0;
     v12 = 0;
     v13 = 0;
     v14 = 0;
     v15 = 0;
-    v140 = currentDevice28 ^ 1;
+    v168 = currentDevice28 ^ 1;
     goto LABEL_499;
   }
 

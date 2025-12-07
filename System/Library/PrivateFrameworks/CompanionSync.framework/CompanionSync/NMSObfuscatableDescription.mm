@@ -45,7 +45,7 @@
 - (id)_descriptionObfuscated:(BOOL)obfuscated
 {
   obfuscatedCopy = obfuscated;
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = objc_alloc_init(MEMORY[0x1E696AD60]);
   prefixString = [(NMSObfuscatableDescription *)self prefixString];
 
@@ -56,26 +56,26 @@
   }
 
   [v5 appendString:@"{\n"];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   items = [(NMSObfuscatableDescription *)self items];
-  v9 = [items countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v9 = [items countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(items);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v20 + 1) + 8 * i);
         [v5 appendString:@"    "];
         prefix = [v13 prefix];
         [v5 appendString:prefix];
@@ -105,14 +105,13 @@
         }
       }
 
-      v10 = [items countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v10 = [items countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v10);
   }
 
   [v5 appendString:@"}"];
-  v19 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

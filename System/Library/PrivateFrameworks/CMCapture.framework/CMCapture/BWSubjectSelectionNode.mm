@@ -1,7 +1,7 @@
 @interface BWSubjectSelectionNode
 + (void)initialize;
 - (BWSubjectSelectionNode)initWithOutputDimensions:(id)dimensions cameraInfoByPortType:(id)type horizontalSensorBinningFactor:(int)factor verticalSensorBinningFactor:(int)binningFactor deviceOrientationCorrectionEnabled:(BOOL)enabled portTypes:(id)types cameraHasDistortionCoefficients:(BOOL)coefficients cameraHasCalibrationValidMaxRadius:(BOOL)self0 centerStageFramingMode:(int)self1 gazeSelectionEnabled:(BOOL)self2;
-- (uint64_t)_initSubjectSelectionSession;
+- (id)_initSubjectSelectionSession;
 - (void)_addInputAndOutputWithOutputDrivingInputIndex:(uint64_t)index mapToPortType:;
 - (void)configurationWithID:(int64_t)d updatedFormat:(id)format didBecomeLiveForInput:(id)input;
 - (void)dealloc;
@@ -37,7 +37,7 @@
   v3.receiver = self;
   v3.super_class = BWSubjectSelectionNode;
   [(BWNode *)&v3 prepareForCurrentConfigurationToBecomeLive];
-  [(BWSubjectSelectionNode *)self _initSubjectSelectionSession];
+  [(BWSubjectSelectionNode *)&self->super.super.isa _initSubjectSelectionSession];
   [(BWDeviceOrientationMonitor *)self->_deviceOrientationMonitor start];
 }
 
@@ -237,9 +237,9 @@
 
 - (BWSubjectSelectionNode)initWithOutputDimensions:(id)dimensions cameraInfoByPortType:(id)type horizontalSensorBinningFactor:(int)factor verticalSensorBinningFactor:(int)binningFactor deviceOrientationCorrectionEnabled:(BOOL)enabled portTypes:(id)types cameraHasDistortionCoefficients:(BOOL)coefficients cameraHasCalibrationValidMaxRadius:(BOOL)self0 centerStageFramingMode:(int)self1 gazeSelectionEnabled:(BOOL)self2
 {
-  v79.receiver = self;
-  v79.super_class = BWSubjectSelectionNode;
-  v18 = [(BWNode *)&v79 init];
+  v78.receiver = self;
+  v78.super_class = BWSubjectSelectionNode;
+  v18 = [(BWNode *)&v78 init];
   if (v18)
   {
     v18->_videoCaptureInputsByPortType = objc_alloc_init(MEMORY[0x1E695DF90]);
@@ -265,7 +265,7 @@
       v18->_deviceOrientationCorrectionEnabled = enabled;
       v19 = objc_alloc_init(BWDeviceOrientationMonitor);
       v18->_deviceOrientationMonitor = v19;
-      v27 = OUTLINED_FUNCTION_1_2(v19, v20, v21, v22, v23, v24, v25, v26, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76, 0);
+      v27 = OUTLINED_FUNCTION_1_2(v19, v20, v21, v22, v23, v24, v25, v26, v42, v44, v46, v48, v50, v52, v54, v56, v58, v60, v62, v64, v66, v68, v70, v72, v74, v76);
       if (v27)
       {
         v28 = v27;
@@ -288,7 +288,7 @@
           }
 
           while (v28 != v31);
-          v28 = OUTLINED_FUNCTION_1_2(v33, v34, v35, v36, v37, v38, v39, v40, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77, v78);
+          v28 = OUTLINED_FUNCTION_1_2(v33, v34, v35, v36, v37, v38, v39, v40, v43, v45, v47, v49, v51, v53, v55, v57, v59, v61, v63, v65, v67, v69, v71, v73, v75, v77);
         }
 
         while (v28);
@@ -325,17 +325,17 @@
   }
 }
 
-- (uint64_t)_initSubjectSelectionSession
+- (id)_initSubjectSelectionSession
 {
   if (result)
   {
     v1 = result;
 
     v2 = [objc_alloc(MEMORY[0x1E6994580]) initWithCurrentProcessIsCameraCaptureDaemon:FigCaptureCurrentProcessIsCameracaptured() != 0];
-    *(v1 + 176) = v2;
-    [v2 setSingleSubjectSelection:*(v1 + 216) != 0];
+    v1[22] = v2;
+    [v2 setSingleSubjectSelection:*(v1 + 54) != 0];
     v3 = *(v1 + 220);
-    v4 = *(v1 + 176);
+    v4 = v1[22];
 
     return [v4 setEnableGazeSelection:v3];
   }

@@ -128,24 +128,24 @@ void __42__SFStoreBanner__setUpStoreKitProductView__block_invoke(uint64_t a1)
 
 - (void)_setUpAppStoreLockUpView
 {
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2050000000;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x2050000000;
   v3 = getASCLockupViewClass_softClass;
-  v52 = getASCLockupViewClass_softClass;
+  v53 = getASCLockupViewClass_softClass;
   if (!getASCLockupViewClass_softClass)
   {
-    v44 = MEMORY[0x1E69E9820];
-    v45 = 3221225472;
-    v46 = __getASCLockupViewClass_block_invoke;
-    v47 = &unk_1E721C5D0;
-    v48 = &v49;
-    __getASCLockupViewClass_block_invoke(&v44);
-    v3 = v50[3];
+    v45 = MEMORY[0x1E69E9820];
+    v46 = 3221225472;
+    v47 = __getASCLockupViewClass_block_invoke;
+    v48 = &unk_1E721C5D0;
+    v49 = &v50;
+    __getASCLockupViewClass_block_invoke(&v45);
+    v3 = v51[3];
   }
 
   v4 = v3;
-  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(&v50, 8);
   v5 = [v3 alloc];
   v6 = [v5 initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
   lockupView = self->_lockupView;
@@ -155,64 +155,64 @@ void __42__SFStoreBanner__setUpStoreKitProductView__block_invoke(uint64_t a1)
   blueTheme = [getASCOfferThemeClass() blueTheme];
   [(ASCLockupView *)self->_lockupView setOfferTheme:blueTheme];
 
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2050000000;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x2050000000;
   v9 = getASCLockupRequestClass_softClass;
-  v52 = getASCLockupRequestClass_softClass;
+  v53 = getASCLockupRequestClass_softClass;
   if (!getASCLockupRequestClass_softClass)
   {
-    v44 = MEMORY[0x1E69E9820];
-    v45 = 3221225472;
-    v46 = __getASCLockupRequestClass_block_invoke;
-    v47 = &unk_1E721C5D0;
-    v48 = &v49;
-    __getASCLockupRequestClass_block_invoke(&v44);
-    v9 = v50[3];
+    v45 = MEMORY[0x1E69E9820];
+    v46 = 3221225472;
+    v47 = __getASCLockupRequestClass_block_invoke;
+    v48 = &unk_1E721C5D0;
+    v49 = &v50;
+    __getASCLockupRequestClass_block_invoke(&v45);
+    v9 = v51[3];
   }
 
   v10 = v9;
-  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(&v50, 8);
   v11 = [v9 alloc];
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2050000000;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x2050000000;
   v12 = getASCAdamIDClass_softClass;
-  v52 = getASCAdamIDClass_softClass;
+  v53 = getASCAdamIDClass_softClass;
   if (!getASCAdamIDClass_softClass)
   {
-    v44 = MEMORY[0x1E69E9820];
-    v45 = 3221225472;
-    v46 = __getASCAdamIDClass_block_invoke;
-    v47 = &unk_1E721C5D0;
-    v48 = &v49;
-    __getASCAdamIDClass_block_invoke(&v44);
-    v12 = v50[3];
+    v45 = MEMORY[0x1E69E9820];
+    v46 = 3221225472;
+    v47 = __getASCAdamIDClass_block_invoke;
+    v48 = &unk_1E721C5D0;
+    v49 = &v50;
+    __getASCAdamIDClass_block_invoke(&v45);
+    v12 = v51[3];
   }
 
   v13 = v12;
-  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(&v50, 8);
   v14 = [[v12 alloc] initWithNumberValue:self->_productID];
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2020000000;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x2020000000;
   v15 = getASCLockupKindAppSymbolLoc_ptr;
-  v52 = getASCLockupKindAppSymbolLoc_ptr;
+  v53 = getASCLockupKindAppSymbolLoc_ptr;
   if (!getASCLockupKindAppSymbolLoc_ptr)
   {
-    v44 = MEMORY[0x1E69E9820];
-    v45 = 3221225472;
-    v46 = __getASCLockupKindAppSymbolLoc_block_invoke;
-    v47 = &unk_1E721C5D0;
-    v48 = &v49;
+    v45 = MEMORY[0x1E69E9820];
+    v46 = 3221225472;
+    v47 = __getASCLockupKindAppSymbolLoc_block_invoke;
+    v48 = &unk_1E721C5D0;
+    v49 = &v50;
     v16 = AppStoreComponentsLibrary();
     v17 = dlsym(v16, "ASCLockupKindApp");
-    *(v48[1] + 24) = v17;
-    getASCLockupKindAppSymbolLoc_ptr = *(v48[1] + 24);
-    v15 = v50[3];
+    *(v49[1] + 24) = v17;
+    getASCLockupKindAppSymbolLoc_ptr = *(v49[1] + 24);
+    v15 = v51[3];
   }
 
-  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(&v50, 8);
   if (!v15)
   {
     __42__SFStoreBanner__setUpStoreKitProductView__block_invoke_cold_1();
@@ -220,32 +220,33 @@ void __42__SFStoreBanner__setUpStoreKitProductView__block_invoke(uint64_t a1)
   }
 
   v18 = *v15;
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x2020000000;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x2020000000;
   v19 = getASCLockupContextStandardSymbolLoc_ptr;
-  v52 = getASCLockupContextStandardSymbolLoc_ptr;
+  v53 = getASCLockupContextStandardSymbolLoc_ptr;
   if (!getASCLockupContextStandardSymbolLoc_ptr)
   {
-    v44 = MEMORY[0x1E69E9820];
-    v45 = 3221225472;
-    v46 = __getASCLockupContextStandardSymbolLoc_block_invoke;
-    v47 = &unk_1E721C5D0;
-    v48 = &v49;
+    v45 = MEMORY[0x1E69E9820];
+    v46 = 3221225472;
+    v47 = __getASCLockupContextStandardSymbolLoc_block_invoke;
+    v48 = &unk_1E721C5D0;
+    v49 = &v50;
     v20 = AppStoreComponentsLibrary();
     v21 = dlsym(v20, "ASCLockupContextStandard");
-    *(v48[1] + 24) = v21;
-    getASCLockupContextStandardSymbolLoc_ptr = *(v48[1] + 24);
-    v19 = v50[3];
+    *(v49[1] + 24) = v21;
+    getASCLockupContextStandardSymbolLoc_ptr = *(v49[1] + 24);
+    v19 = v51[3];
   }
 
-  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(&v50, 8);
   if (!v19)
   {
 LABEL_24:
-    v43 = __42__SFStoreBanner__setUpStoreKitProductView__block_invoke_cold_1();
-    _Block_object_dispose(&v49, 8);
-    _Unwind_Resume(v43);
+    __42__SFStoreBanner__setUpStoreKitProductView__block_invoke_cold_1();
+    v44 = v43;
+    _Block_object_dispose(&v50, 8);
+    _Unwind_Resume(v44);
   }
 
   v22 = *v19;
@@ -432,7 +433,7 @@ LABEL_24:
 
   else
   {
-    IsPad = _SFDeviceIsPad();
+    IsPad = _SFDeviceIsPad(0, a2);
     v6 = 95.0;
     if (!IsPad)
     {
@@ -494,10 +495,10 @@ LABEL_6:
 - (void)productPage:(id)page didFailLoadWithError:(id)error
 {
   errorCopy = error;
-  v6 = WBS_LOG_CHANNEL_PREFIXBanners();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = WBS_LOG_CHANNEL_PREFIXBanners(errorCopy, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    [SFStoreBanner productPage:v6 didFailLoadWithError:errorCopy];
+    [SFStoreBanner productPage:v7 didFailLoadWithError:errorCopy];
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -563,25 +564,25 @@ LABEL_6:
   viewCopy = view;
   changeCopy = change;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x2020000000;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x2020000000;
   v9 = getASCAppStateWaitingSymbolLoc_ptr;
-  v39 = getASCAppStateWaitingSymbolLoc_ptr;
+  v40 = getASCAppStateWaitingSymbolLoc_ptr;
   if (!getASCAppStateWaitingSymbolLoc_ptr)
   {
-    v31 = MEMORY[0x1E69E9820];
-    v32 = 3221225472;
-    v33 = __getASCAppStateWaitingSymbolLoc_block_invoke;
-    v34 = &unk_1E721C5D0;
-    v35 = &v36;
+    v32 = MEMORY[0x1E69E9820];
+    v33 = 3221225472;
+    v34 = __getASCAppStateWaitingSymbolLoc_block_invoke;
+    v35 = &unk_1E721C5D0;
+    v36 = &v37;
     v10 = AppStoreComponentsLibrary();
-    v37[3] = dlsym(v10, "ASCAppStateWaiting");
-    getASCAppStateWaitingSymbolLoc_ptr = *(v35[1] + 24);
-    v9 = v37[3];
+    v38[3] = dlsym(v10, "ASCAppStateWaiting");
+    getASCAppStateWaitingSymbolLoc_ptr = *(v36[1] + 24);
+    v9 = v38[3];
   }
 
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v37, 8);
   if (!v9)
   {
     __42__SFStoreBanner__setUpStoreKitProductView__block_invoke_cold_1();
@@ -596,32 +597,33 @@ LABEL_6:
 
   else
   {
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x2020000000;
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x2020000000;
     v13 = getASCAppStateInstallingSymbolLoc_ptr;
-    v39 = getASCAppStateInstallingSymbolLoc_ptr;
+    v40 = getASCAppStateInstallingSymbolLoc_ptr;
     if (!getASCAppStateInstallingSymbolLoc_ptr)
     {
-      v31 = MEMORY[0x1E69E9820];
-      v32 = 3221225472;
-      v33 = __getASCAppStateInstallingSymbolLoc_block_invoke;
-      v34 = &unk_1E721C5D0;
-      v35 = &v36;
+      v32 = MEMORY[0x1E69E9820];
+      v33 = 3221225472;
+      v34 = __getASCAppStateInstallingSymbolLoc_block_invoke;
+      v35 = &unk_1E721C5D0;
+      v36 = &v37;
       v14 = AppStoreComponentsLibrary();
-      v37[3] = dlsym(v14, "ASCAppStateInstalling");
-      getASCAppStateInstallingSymbolLoc_ptr = *(v35[1] + 24);
-      v13 = v37[3];
+      v38[3] = dlsym(v14, "ASCAppStateInstalling");
+      getASCAppStateInstallingSymbolLoc_ptr = *(v36[1] + 24);
+      v13 = v38[3];
     }
 
-    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v37, 8);
     if (!v13)
     {
 LABEL_23:
-      v27 = __42__SFStoreBanner__setUpStoreKitProductView__block_invoke_cold_1();
-      _Block_object_dispose(&v36, 8);
+      __42__SFStoreBanner__setUpStoreKitProductView__block_invoke_cold_1();
+      v28 = v27;
+      _Block_object_dispose(&v37, 8);
       objc_destroyWeak(&location);
-      _Unwind_Resume(v27);
+      _Unwind_Resume(v28);
     }
 
     v12 = [changeCopy isEqualToString:*v13];
@@ -633,25 +635,25 @@ LABEL_23:
     goto LABEL_20;
   }
 
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x2020000000;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x2020000000;
   v15 = getASCAppStateOpenableSymbolLoc_ptr;
-  v39 = getASCAppStateOpenableSymbolLoc_ptr;
+  v40 = getASCAppStateOpenableSymbolLoc_ptr;
   if (!getASCAppStateOpenableSymbolLoc_ptr)
   {
-    v31 = MEMORY[0x1E69E9820];
-    v32 = 3221225472;
-    v33 = __getASCAppStateOpenableSymbolLoc_block_invoke;
-    v34 = &unk_1E721C5D0;
-    v35 = &v36;
+    v32 = MEMORY[0x1E69E9820];
+    v33 = 3221225472;
+    v34 = __getASCAppStateOpenableSymbolLoc_block_invoke;
+    v35 = &unk_1E721C5D0;
+    v36 = &v37;
     v16 = AppStoreComponentsLibrary();
-    v37[3] = dlsym(v16, "ASCAppStateOpenable");
-    getASCAppStateOpenableSymbolLoc_ptr = *(v35[1] + 24);
-    v15 = v37[3];
+    v38[3] = dlsym(v16, "ASCAppStateOpenable");
+    getASCAppStateOpenableSymbolLoc_ptr = *(v36[1] + 24);
+    v15 = v38[3];
   }
 
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(&v37, 8);
   if (!v15)
   {
 LABEL_22:
@@ -661,58 +663,58 @@ LABEL_22:
 
   if ([changeCopy isEqualToString:*v15])
   {
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x2050000000;
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x2050000000;
     v17 = getASCOfferMetadataClass_softClass;
-    v39 = getASCOfferMetadataClass_softClass;
+    v40 = getASCOfferMetadataClass_softClass;
     if (!getASCOfferMetadataClass_softClass)
     {
-      v31 = MEMORY[0x1E69E9820];
-      v32 = 3221225472;
-      v33 = __getASCOfferMetadataClass_block_invoke;
-      v34 = &unk_1E721C5D0;
-      v35 = &v36;
-      __getASCOfferMetadataClass_block_invoke(&v31);
-      v17 = v37[3];
+      v32 = MEMORY[0x1E69E9820];
+      v33 = 3221225472;
+      v34 = __getASCOfferMetadataClass_block_invoke;
+      v35 = &unk_1E721C5D0;
+      v36 = &v37;
+      __getASCOfferMetadataClass_block_invoke(&v32);
+      v17 = v38[3];
     }
 
     v18 = v17;
-    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v37, 8);
     v19 = _WBSLocalizedString();
     v20 = [v17 textMetadataWithTitle:v19 subtitle:0];
 
     objc_initWeak(&location, self);
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x2050000000;
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x2050000000;
     v21 = getASCLocalOfferClass_softClass;
-    v39 = getASCLocalOfferClass_softClass;
+    v40 = getASCLocalOfferClass_softClass;
     if (!getASCLocalOfferClass_softClass)
     {
-      v31 = MEMORY[0x1E69E9820];
-      v32 = 3221225472;
-      v33 = __getASCLocalOfferClass_block_invoke;
-      v34 = &unk_1E721C5D0;
-      v35 = &v36;
-      __getASCLocalOfferClass_block_invoke(&v31);
-      v21 = v37[3];
+      v32 = MEMORY[0x1E69E9820];
+      v33 = 3221225472;
+      v34 = __getASCLocalOfferClass_block_invoke;
+      v35 = &unk_1E721C5D0;
+      v36 = &v37;
+      __getASCLocalOfferClass_block_invoke(&v32);
+      v21 = v38[3];
     }
 
     v22 = v21;
-    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v37, 8);
     v23 = [v21 alloc];
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __46__SFStoreBanner_lockupView_appStateDidChange___block_invoke;
-    v28[3] = &unk_1E721BF08;
-    objc_copyWeak(&v29, &location);
-    v24 = [v23 initWithMetadata:v20 action:v28];
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __46__SFStoreBanner_lockupView_appStateDidChange___block_invoke;
+    v29[3] = &unk_1E721BF08;
+    objc_copyWeak(&v30, &location);
+    v24 = [v23 initWithMetadata:v20 action:v29];
     lockup = [viewCopy lockup];
     v26 = [lockup lockupWithOffer:v24];
     [viewCopy setLockup:v26];
 
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v30);
     objc_destroyWeak(&location);
   }
 
@@ -729,7 +731,9 @@ void __46__SFStoreBanner_lockupView_appStateDidChange___block_invoke(uint64_t a1
 {
   selfCopy = self;
   safari_privacyPreservingDescription = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_4(&dword_18B7AC000, v5, v6, "Failed to look up application record to open app: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = safari_privacyPreservingDescription;
+  OUTLINED_FUNCTION_0_4(&dword_18B7AC000, v5, v6, "Failed to look up application record to open app: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 - (SFAppSuggestionBannerDelegate)delegate
@@ -739,18 +743,20 @@ void __46__SFStoreBanner_lockupView_appStateDidChange___block_invoke(uint64_t a1
   return WeakRetained;
 }
 
-uint64_t __42__SFStoreBanner__setUpStoreKitProductView__block_invoke_cold_1()
+void __42__SFStoreBanner__setUpStoreKitProductView__block_invoke_cold_1()
 {
-  dlerror();
-  v0 = abort_report_np();
-  return [SFStoreBanner productPage:v0 didFailLoadWithError:?];
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  [SFStoreBanner productPage:v1 didFailLoadWithError:v2];
 }
 
 - (void)productPage:(void *)a1 didFailLoadWithError:(void *)a2 .cold.1(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0_4(&dword_18B7AC000, v5, v6, "App Store Banner failed to load and will be dismissed: %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0_4(&dword_18B7AC000, v5, v6, "App Store Banner failed to load and will be dismissed: %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

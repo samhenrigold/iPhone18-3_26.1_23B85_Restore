@@ -3,6 +3,7 @@
 + (id)disambiguationWithObjectsToDisambiguate:(id)disambiguate;
 + (id)disambiguationWithWeatherLocationsToDisambiguate:(id)disambiguate;
 + (id)successWithResolvedWeatherLocation:(id)location;
+- (WeatherLocationResolutionResult)initWithJSONDictionary:(id)dictionary forIntent:(id)intent;
 @end
 
 @implementation WeatherLocationResolutionResult
@@ -40,6 +41,13 @@
   sub_10000F074();
   v3 = sub_10000FD04();
   static WeatherLocationResolutionResult.disambiguation(with:)(v3, v4, v5, v6, v7);
+}
+
+- (WeatherLocationResolutionResult)initWithJSONDictionary:(id)dictionary forIntent:(id)intent
+{
+  v5 = sub_10000FC94();
+  intentCopy = intent;
+  return WeatherLocationResolutionResult.init(JSONDictionary:intent:)(v5, intentCopy, v7);
 }
 
 @end

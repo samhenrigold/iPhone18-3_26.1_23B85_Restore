@@ -13,14 +13,11 @@
 
 - (NSString)localeIdentifier
 {
-  v2 = (self + OBJC_IVAR___IPLanguageDiscoverySetupViewController_localeIdentifier);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_25556D6DC();
+  v2 = sub_25556D6DC();
 
-  return v5;
+  return v2;
 }
 
 - (void)setLocaleIdentifier:(id)identifier
@@ -29,7 +26,6 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR___IPLanguageDiscoverySetupViewController_localeIdentifier);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
@@ -58,7 +54,6 @@
   *(v5 + 16) = v4;
   v6 = (self + OBJC_IVAR___IPLanguageDiscoverySetupViewController_completionHandler);
   swift_beginAccess();
-  v7 = v6[1];
   *v6 = sub_255569724;
   v6[1] = v5;
 }

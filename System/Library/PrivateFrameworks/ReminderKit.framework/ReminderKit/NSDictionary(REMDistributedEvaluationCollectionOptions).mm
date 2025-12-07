@@ -8,7 +8,7 @@
 
 - (uint64_t)remdes_BOOLForKey:()REMDistributedEvaluationCollectionOptions defaultValue:
 {
-  v5 = [self objectForKey:?];
+  v5 = [self objectForKey:a3];
   if (v5 && (objc_opt_respondsToSelector() & 1) != 0)
   {
     a4 = [v5 BOOLValue];
@@ -19,7 +19,7 @@
 
 - (uint64_t)remdes_nsuintegerForKey:()REMDistributedEvaluationCollectionOptions defaultValue:
 {
-  v5 = [self objectForKey:?];
+  v5 = [self objectForKey:a3];
   if (v5 && (objc_opt_respondsToSelector() & 1) != 0)
   {
     a4 = [v5 unsignedIntegerValue];

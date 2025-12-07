@@ -29,55 +29,61 @@
 
 - (int64_t)phoneNumberAtIndex:(unint64_t)index
 {
-  v6[0] = 0;
-  v6[1] = 0;
+  v8[0] = 0;
+  v8[1] = 0;
   v4 = 16 * index;
-  if (16 * index + 16 > [(NSData *)self->_phoneNumberData length])
+  v5 = 16 * index + 16;
+  v6 = [(NSData *)self->_phoneNumberData length];
+  if (v5 > v6)
   {
-    [CXCallDirectoryLabeledPhoneNumberEntryData phoneNumberAtIndex:];
+    [CXCallDirectoryLabeledPhoneNumberEntryData phoneNumberAtIndex:v6];
     return 0;
   }
 
   else
   {
-    [(NSData *)self->_phoneNumberData getBytes:v6 range:v4, 16];
-    return v6[0];
+    [(NSData *)self->_phoneNumberData getBytes:v8 range:v4, 16];
+    return v8[0];
   }
 }
 
 - (const)utf8LabelAtIndex:(unint64_t)index length:(unsigned __int16 *)length
 {
-  v14 = 0;
-  v15 = 0;
+  v18 = 0;
+  v19 = 0;
   v6 = 16 * index;
-  if (16 * index + 16 > [(NSData *)self->_phoneNumberData length])
+  v7 = 16 * index + 16;
+  v8 = [(NSData *)self->_phoneNumberData length];
+  if (v7 > v8)
   {
-    [CXCallDirectoryLabeledPhoneNumberEntryData utf8LabelAtIndex:length:];
+    [CXCallDirectoryLabeledPhoneNumberEntryData utf8LabelAtIndex:v8 length:?];
     return 0;
   }
 
-  [(NSData *)self->_phoneNumberData getBytes:&v14 range:v6, 16];
-  v13 = 0;
-  v7 = v15;
-  v8 = v15 + 2;
-  if (v8 > [(NSData *)self->_labelData length])
+  [(NSData *)self->_phoneNumberData getBytes:&v18 range:v6, 16];
+  v17 = 0;
+  v9 = v19;
+  v10 = v19 + 2;
+  v11 = [(NSData *)self->_labelData length];
+  if (v10 > v11)
   {
-    [CXCallDirectoryLabeledPhoneNumberEntryData utf8LabelAtIndex:length:];
+    [CXCallDirectoryLabeledPhoneNumberEntryData utf8LabelAtIndex:v11 length:?];
     return 0;
   }
 
-  [(NSData *)self->_labelData getBytes:&v13 range:v7, 2];
-  v9 = v13;
-  *length = v13;
-  v10 = v9 + v15 + 2;
-  if (v10 > [(NSData *)self->_labelData length])
+  [(NSData *)self->_labelData getBytes:&v17 range:v9, 2];
+  v12 = v17;
+  *length = v17;
+  v13 = v12 + v19 + 2;
+  v14 = [(NSData *)self->_labelData length];
+  if (v13 > v14)
   {
-    [CXCallDirectoryLabeledPhoneNumberEntryData utf8LabelAtIndex:length:];
+    [CXCallDirectoryLabeledPhoneNumberEntryData utf8LabelAtIndex:v14 length:?];
     return 0;
   }
 
   bytes = [(NSData *)self->_labelData bytes];
-  return &bytes[v15 + 2];
+  return &bytes[v19 + 2];
 }
 
 - (CXCallDirectoryLabeledPhoneNumberEntryData)initWithCoder:(id)coder
@@ -116,60 +122,52 @@
   [coderCopy encodeObject:labelData forKey:v7];
 }
 
-- (void)phoneNumberAtIndex:.cold.1()
+- (void)phoneNumberAtIndex:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = CXDefaultLog();
-  if (OUTLINED_FUNCTION_3_0(v1))
+  v2 = CXDefaultLog(a1);
+  if (OUTLINED_FUNCTION_3_0(v2))
   {
+    v9 = 136315650;
     OUTLINED_FUNCTION_2_0();
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1B47F3000, v3, v4, "Assertion failure: %s in %s:%d", v5, v6, v7, v8, 2u);
+    OUTLINED_FUNCTION_1_0(&dword_1B47F3000, v3, v4, "Assertion failure: %s in %s:%d", v5, v6, v7, v8, v9);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-- (void)utf8LabelAtIndex:length:.cold.1()
+- (void)utf8LabelAtIndex:(uint64_t)a1 length:.cold.1(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = CXDefaultLog();
-  if (OUTLINED_FUNCTION_3_0(v1))
+  v2 = CXDefaultLog(a1);
+  if (OUTLINED_FUNCTION_3_0(v2))
   {
+    v9 = 136315650;
     OUTLINED_FUNCTION_2_0();
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1B47F3000, v3, v4, "Assertion failure: %s in %s:%d", v5, v6, v7, v8, 2u);
+    OUTLINED_FUNCTION_1_0(&dword_1B47F3000, v3, v4, "Assertion failure: %s in %s:%d", v5, v6, v7, v8, v9);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-- (void)utf8LabelAtIndex:length:.cold.2()
+- (void)utf8LabelAtIndex:(uint64_t)a1 length:.cold.2(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = CXDefaultLog();
-  if (OUTLINED_FUNCTION_3_0(v1))
+  v2 = CXDefaultLog(a1);
+  if (OUTLINED_FUNCTION_3_0(v2))
   {
+    v9 = 136315650;
     OUTLINED_FUNCTION_2_0();
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1B47F3000, v3, v4, "Assertion failure: %s in %s:%d", v5, v6, v7, v8, 2u);
+    OUTLINED_FUNCTION_1_0(&dword_1B47F3000, v3, v4, "Assertion failure: %s in %s:%d", v5, v6, v7, v8, v9);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-- (void)utf8LabelAtIndex:length:.cold.3()
+- (void)utf8LabelAtIndex:(uint64_t)a1 length:.cold.3(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = CXDefaultLog();
-  if (OUTLINED_FUNCTION_3_0(v1))
+  v2 = CXDefaultLog(a1);
+  if (OUTLINED_FUNCTION_3_0(v2))
   {
+    v9 = 136315650;
     OUTLINED_FUNCTION_2_0();
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1B47F3000, v3, v4, "Assertion failure: %s in %s:%d", v5, v6, v7, v8, 2u);
+    OUTLINED_FUNCTION_1_0(&dword_1B47F3000, v3, v4, "Assertion failure: %s in %s:%d", v5, v6, v7, v8, v9);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

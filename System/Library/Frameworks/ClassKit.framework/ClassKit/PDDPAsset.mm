@@ -186,7 +186,6 @@
 
   if (*&self->_has)
   {
-    contentSizeInBytes = self->_contentSizeInBytes;
     PBDataWriterWriteInt64Field();
   }
 
@@ -200,36 +199,35 @@
     PBDataWriterWriteSubmessage();
   }
 
-  v14 = 0u;
-  v15 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v6 = self->_contentMetadatas;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v7)
+  v10 = 0u;
+  v11 = 0u;
+  v5 = self->_contentMetadatas;
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v13;
+    v7 = v6;
+    v8 = *v11;
     do
     {
-      v10 = 0;
+      v9 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v11 != v8)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v12 + 1) + 8 * v10);
         PBDataWriterWriteSubmessage();
-        v10 = v10 + 1;
+        ++v9;
       }
 
-      while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      while (v7 != v9);
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
-    while (v8);
+    while (v7);
   }
 }
 
@@ -459,7 +457,6 @@
     }
   }
 
-  v12 = *(equalCopy + 96);
   if (*&self->_has)
   {
     if ((*(equalCopy + 96) & 1) == 0 || self->_contentSizeInBytes != *(equalCopy + 1))
@@ -471,7 +468,7 @@
   else if (*(equalCopy + 96))
   {
 LABEL_27:
-    v16 = 0;
+    v15 = 0;
     goto LABEL_28;
   }
 
@@ -493,17 +490,17 @@ LABEL_27:
   contentMetadatas = self->_contentMetadatas;
   if (contentMetadatas | *(equalCopy + 5))
   {
-    v16 = [(NSMutableArray *)contentMetadatas isEqual:?];
+    v15 = [(NSMutableArray *)contentMetadatas isEqual:?];
   }
 
   else
   {
-    v16 = 1;
+    v15 = 1;
   }
 
 LABEL_28:
 
-  return v16;
+  return v15;
 }
 
 - (unint64_t)hash

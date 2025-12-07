@@ -83,40 +83,38 @@
 
 - (id)MCSHA256DigestWithSalt:()MCUtilities
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [self cStringUsingEncoding:4];
   v6 = strlen(v5);
-  memset(&v10, 0, sizeof(v10));
-  CC_SHA256_Init(&v10);
+  memset(&v9, 0, sizeof(v9));
+  CC_SHA256_Init(&v9);
   if ([v4 length])
   {
-    CC_SHA256_Update(&v10, [v4 bytes], objc_msgSend(v4, "length"));
+    CC_SHA256_Update(&v9, [v4 bytes], objc_msgSend(v4, "length"));
   }
 
-  CC_SHA256_Update(&v10, v5, v6);
-  CC_SHA256_Final(md, &v10);
+  CC_SHA256_Update(&v9, v5, v6);
+  CC_SHA256_Final(md, &v9);
   v7 = [MEMORY[0x1E695DEF0] dataWithBytes:md length:32];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (uint64_t)MCHash
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = [self length];
-  v3 = v10;
+  v3 = v9;
   if (v2 >= 0x61)
   {
-    [self getCharacters:v10 range:{0, 32}];
-    [self getCharacters:&v11 range:{(v2 >> 1) - 16, 32}];
-    [self getCharacters:&v12 range:{v2 - 32, 32}];
-    v4 = &v13;
-    v5 = &v13;
+    [self getCharacters:v9 range:{0, 32}];
+    [self getCharacters:&v10 range:{(v2 >> 1) - 16, 32}];
+    [self getCharacters:&v11 range:{v2 - 32, 32}];
+    v4 = &v12;
+    v5 = &v12;
 LABEL_5:
-    v3 = v10;
+    v3 = v9;
     v6 = v2;
     do
     {
@@ -128,11 +126,11 @@ LABEL_5:
     goto LABEL_10;
   }
 
-  [self getCharacters:v10 range:{0, v2}];
-  v4 = &v10[v2];
+  [self getCharacters:v9 range:{0, v2}];
+  v4 = &v9[v2];
   if ((v2 & 0x7C) != 0)
   {
-    v5 = &v10[v2 & 0x7C];
+    v5 = &v9[v2 & 0x7C];
     goto LABEL_5;
   }
 
@@ -144,7 +142,6 @@ LABEL_10:
     v6 = 257 * v6 + v7;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return ((v6 << v2) + v6);
 }
 

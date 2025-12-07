@@ -446,43 +446,42 @@ void __47__DOCNodeThumbnail__fetchThumbnailWithOptions___block_invoke_2(uint64_t
 
 - (void)_callGenerationCompletionHandlers
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v3 = [(NSMutableArray *)selfCopy->_generationCompletionHandlers copy];
   [(NSMutableArray *)selfCopy->_generationCompletionHandlers removeAllObjects];
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v5)
   {
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        (*(*(*(&v9 + 1) + 8 * v7) + 16))(*(*(&v9 + 1) + 8 * v7));
+        (*(*(*(&v8 + 1) + 8 * v7) + 16))(*(*(&v8 + 1) + 8 * v7));
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
 
   objc_sync_exit(selfCopy);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)registerGenerationCompletionHandler:(id)handler
@@ -518,36 +517,36 @@ void __47__DOCNodeThumbnail__fetchThumbnailWithOptions___block_invoke_2(uint64_t
 
 - (void)_notifyListeners
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   listeners = [(DOCNodeThumbnail *)self listeners];
   objc_sync_enter(listeners);
   listeners2 = [(DOCNodeThumbnail *)self listeners];
   allObjects = [listeners2 allObjects];
 
   objc_sync_exit(listeners);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v6 = allObjects;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v28 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v27 count:16];
   if (v7)
   {
-    v9 = *v19;
+    v9 = *v18;
     v10 = MEMORY[0x277D062B8];
     *&v8 = 138412802;
-    v17 = v8;
+    v16 = v8;
     do
     {
       v11 = 0;
       do
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * v11);
+        v12 = *(*(&v17 + 1) + 8 * v11);
         v13 = *v10;
         if (!*v10)
         {
@@ -559,27 +558,25 @@ void __47__DOCNodeThumbnail__fetchThumbnailWithOptions___block_invoke_2(uint64_t
         {
           v14 = v13;
           v15 = objc_opt_class();
-          *buf = v17;
-          v23 = v15;
-          v24 = 2048;
-          v25 = v12;
-          v26 = 2112;
+          *buf = v16;
+          v22 = v15;
+          v23 = 2048;
+          v24 = v12;
+          v25 = 2112;
           selfCopy = self;
           _os_log_debug_impl(&dword_249CE0000, v14, OS_LOG_TYPE_DEBUG, "Notifying <%@: %p> that the thumbnail for %@ successfully loaded", buf, 0x20u);
         }
 
-        [v12 thumbnailLoaded:{self, v17, v18}];
+        [v12 thumbnailLoaded:{self, v16, v17}];
         ++v11;
       }
 
       while (v7 != v11);
-      v7 = [v6 countByEnumeratingWithState:&v18 objects:v28 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v17 objects:v27 count:16];
     }
 
     while (v7);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateNodeThumbnailIdentifierTo:(id)to
@@ -608,14 +605,13 @@ void __47__DOCNodeThumbnail__fetchThumbnailWithOptions___block_invoke_2(uint64_t
 
 void __47__DOCNodeThumbnail__fetchThumbnailWithOptions___block_invoke_2_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_error_impl(&dword_249CE0000, log, OS_LOG_TYPE_ERROR, "Failed to generate thumbnail for request %@: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_error_impl(&dword_249CE0000, log, OS_LOG_TYPE_ERROR, "Failed to generate thumbnail for request %@: %@", &v4, 0x16u);
 }
 
 @end

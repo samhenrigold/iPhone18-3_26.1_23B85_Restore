@@ -166,7 +166,6 @@ LABEL_7:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -186,7 +185,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  drxCycleLengthMs = self->_drxCycleLengthMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -201,7 +199,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  isMimoConfigured = self->_isMimoConfigured;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((has & 8) == 0)
@@ -216,12 +213,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  isDcConfigured = self->_isDcConfigured;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_6:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 
@@ -406,7 +401,6 @@ LABEL_6:
       goto LABEL_31;
     }
 
-    v6 = *(equalCopy + 25);
     if (self->_isMimoConfigured)
     {
       if ((*(equalCopy + 25) & 1) == 0)
@@ -443,7 +437,6 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  v7 = *(equalCopy + 24);
   if (self->_isDcConfigured)
   {
     if ((*(equalCopy + 24) & 1) == 0)

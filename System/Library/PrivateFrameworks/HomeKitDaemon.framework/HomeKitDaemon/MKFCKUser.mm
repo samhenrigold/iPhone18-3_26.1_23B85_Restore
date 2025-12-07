@@ -14,7 +14,7 @@
 
 - (id)_resolveSharedUserDataRootWithContext:(id)context
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v5 = +[MKFCKSharedUserDataRoot fetchRequest];
   v6 = MEMORY[0x277CCAC30];
@@ -22,9 +22,9 @@
   v8 = [v6 predicateWithFormat:@"%K == %@", @"homeModelID", homeModelID];
   [v5 setPredicate:v8];
 
-  v50 = 0;
-  v9 = [contextCopy executeFetchRequest:v5 error:&v50];
-  v10 = v50;
+  v49 = 0;
+  v9 = [contextCopy executeFetchRequest:v5 error:&v49];
+  v10 = v49;
   if (!v9)
   {
     v29 = objc_autoreleasePoolPush();
@@ -35,13 +35,13 @@
       v32 = HMFGetLogIdentifier();
       homeModelID2 = [(MKFCKUser *)selfCopy2 homeModelID];
       *buf = 138544130;
-      v53 = v32;
-      v54 = 2160;
-      v55 = 1752392040;
-      v56 = 2112;
-      v57 = homeModelID2;
-      v58 = 2114;
-      v59 = v10;
+      v52 = v32;
+      v53 = 2160;
+      v54 = 1752392040;
+      v55 = 2112;
+      v56 = homeModelID2;
+      v57 = 2114;
+      v58 = v10;
       v34 = "%{public}@Failed to fetch shared user data roots for home %{mask.hash}@: %{public}@";
       v35 = v31;
       v36 = OS_LOG_TYPE_ERROR;
@@ -67,11 +67,11 @@ LABEL_20:
       v32 = HMFGetLogIdentifier();
       homeModelID2 = [(MKFCKUser *)selfCopy2 homeModelID];
       *buf = 138543874;
-      v53 = v32;
-      v54 = 2160;
-      v55 = 1752392040;
-      v56 = 2112;
-      v57 = homeModelID2;
+      v52 = v32;
+      v53 = 2160;
+      v54 = 1752392040;
+      v55 = 2112;
+      v56 = homeModelID2;
       v34 = "%{public}@No shared user data roots for home %{mask.hash}@";
       v35 = v31;
       v36 = OS_LOG_TYPE_INFO;
@@ -83,33 +83,33 @@ LABEL_20:
   }
 
   selfCopy3 = self;
-  v41 = v10;
-  v42 = v5;
-  v43 = contextCopy;
+  v40 = v10;
+  v41 = v5;
+  v42 = contextCopy;
   hmd_coreData = [contextCopy hmd_coreData];
   container = [hmd_coreData container];
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
-  v40 = v9;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v39 = v9;
   obj = v9;
-  v13 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
+  v13 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v47;
+    v15 = *v46;
     while (2)
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v47 != v15)
+        if (*v46 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v46 + 1) + 8 * i);
+        v17 = *(*(&v45 + 1) + 8 * i);
         objectID = [v17 objectID];
         v19 = [container recordForManagedObjectID:objectID];
 
@@ -129,7 +129,7 @@ LABEL_20:
         }
       }
 
-      v14 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
+      v14 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
       if (v14)
       {
         continue;
@@ -146,20 +146,19 @@ LABEL_20:
   {
     v27 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v53 = v27;
+    v52 = v27;
     _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Failed to find associated shared data root for user", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v24);
   v28 = 0;
 LABEL_22:
-  v5 = v42;
-  contextCopy = v43;
-  v9 = v40;
-  v10 = v41;
+  v5 = v41;
+  contextCopy = v42;
+  v9 = v39;
+  v10 = v40;
 
 LABEL_23:
-  v38 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
@@ -478,7 +477,7 @@ LABEL_23:
 + (int64_t)encodeMusicTransitionStyleValue:(int64_t)value withCrossfadeEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (value < 0)
   {
     v7 = objc_autoreleasePoolPush();
@@ -487,11 +486,11 @@ LABEL_23:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v10;
-      v16 = 2048;
+      v13 = 138543618;
+      v14 = v10;
+      v15 = 2048;
       valueCopy = value;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@musicTransitionStyle should not used the 63 bit. It's currently %lld", &v14, 0x16u);
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@musicTransitionStyle should not used the 63 bit. It's currently %lld", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -503,38 +502,37 @@ LABEL_23:
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11 | value;
 }
 
 - (BOOL)exportFromLocalModel:(id)model updatedProperties:(id)properties context:(id)context
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   propertiesCopy = properties;
   contextCopy = context;
   if (([propertiesCopy hmf_isEmpty] & 1) == 0)
   {
-    *v64 = 0;
-    *&v64[8] = v64;
-    *&v64[16] = 0x2020000000;
-    LOBYTE(v65) = 1;
+    *v63 = 0;
+    *&v63[8] = v63;
+    *&v63[16] = 0x2020000000;
+    LOBYTE(v64) = 1;
     v11 = MEMORY[0x277CBEB98];
-    v63[0] = @"bulletinConditions_";
-    v63[1] = @"bulletinRegistrations_";
-    v63[2] = @"notificationRegistrations_";
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:3];
+    v62[0] = @"bulletinConditions_";
+    v62[1] = @"bulletinRegistrations_";
+    v62[2] = @"notificationRegistrations_";
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:3];
     v13 = [v11 setWithArray:v12];
 
-    v56[0] = MEMORY[0x277D85DD0];
-    v56[1] = 3221225472;
-    v56[2] = __60__MKFCKUser_exportFromLocalModel_updatedProperties_context___block_invoke;
-    v56[3] = &unk_278687A70;
+    v55[0] = MEMORY[0x277D85DD0];
+    v55[1] = 3221225472;
+    v55[2] = __60__MKFCKUser_exportFromLocalModel_updatedProperties_context___block_invoke;
+    v55[3] = &unk_278687A70;
     v14 = v13;
-    v57 = v14;
-    v58 = v64;
-    [propertiesCopy hmf_enumerateWithAutoreleasePoolUsingBlock:v56];
-    if (*(*&v64[8] + 24) == 1)
+    v56 = v14;
+    v57 = v63;
+    [propertiesCopy hmf_enumerateWithAutoreleasePoolUsingBlock:v55];
+    if (*(*&v63[8] + 24) == 1)
     {
       v15 = objc_autoreleasePoolPush();
       selfCopy = self;
@@ -543,20 +541,20 @@ LABEL_23:
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v60 = v18;
-        v61 = 2112;
-        v62 = modelCopy;
+        v59 = v18;
+        v60 = 2112;
+        v61 = modelCopy;
         _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Skipping cloud export from MKFUser %@ since all updated properties are non-cloud sync properties", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v15);
-      _Block_object_dispose(v64, 8);
+      _Block_object_dispose(v63, 8);
 LABEL_26:
       v43 = 1;
       goto LABEL_27;
     }
 
-    _Block_object_dispose(v64, 8);
+    _Block_object_dispose(v63, 8);
   }
 
   if ([(MKFCKModel *)self copyPropertiesFromLocalModel:modelCopy context:contextCopy])
@@ -585,9 +583,9 @@ LABEL_26:
       v29 = [(MKFCKUser *)self valueForKey:name];
 
       home = [(MKFCKUser *)self home];
-      v49 = [home _exportRelationshipsFromLocalModel:v27 localRelationship:v26 cloudRelationship:v25 cloudModels:v29 context:v24];
+      v48 = [home _exportRelationshipsFromLocalModel:v27 localRelationship:v26 cloudRelationship:v25 cloudModels:v29 context:v24];
 
-      if (v49)
+      if (v48)
       {
         accessCode = [v27 accessCode];
         v32 = accessCode;
@@ -616,13 +614,13 @@ LABEL_26:
               if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
               {
                 v42 = HMFGetLogIdentifier();
-                *v64 = 138543874;
-                *&v64[4] = v42;
-                *&v64[12] = 2112;
-                *&v64[14] = v37;
-                *&v64[22] = 2112;
-                v65 = selfCopy2;
-                _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_INFO, "%{public}@Linking invitation [%@] to pendingUser : [%@]", v64, 0x20u);
+                *v63 = 138543874;
+                *&v63[4] = v42;
+                *&v63[12] = 2112;
+                *&v63[14] = v37;
+                *&v63[22] = 2112;
+                v64 = selfCopy2;
+                _os_log_impl(&dword_229538000, v41, OS_LOG_TYPE_INFO, "%{public}@Linking invitation [%@] to pendingUser : [%@]", v63, 0x20u);
               }
 
               objc_autoreleasePoolPop(context);
@@ -638,13 +636,13 @@ LABEL_26:
             if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
             {
               v46 = HMFGetLogIdentifier();
-              *v64 = 138543874;
-              *&v64[4] = v46;
-              *&v64[12] = 2112;
-              *&v64[14] = v34;
-              *&v64[22] = 2112;
-              v65 = invitation;
-              _os_log_impl(&dword_229538000, v45, OS_LOG_TYPE_INFO, "%{public}@Cannot fulfill relationship between user and outgoing invitation yet: %@.invitation = %@", v64, 0x20u);
+              *v63 = 138543874;
+              *&v63[4] = v46;
+              *&v63[12] = 2112;
+              *&v63[14] = v34;
+              *&v63[22] = 2112;
+              v64 = invitation;
+              _os_log_impl(&dword_229538000, v45, OS_LOG_TYPE_INFO, "%{public}@Cannot fulfill relationship between user and outgoing invitation yet: %@.invitation = %@", v63, 0x20u);
             }
 
             objc_autoreleasePoolPop(contexta);
@@ -659,7 +657,6 @@ LABEL_26:
   v43 = 0;
 LABEL_27:
 
-  v47 = *MEMORY[0x277D85DE8];
   return v43;
 }
 
@@ -678,7 +675,7 @@ void __60__MKFCKUser_exportFromLocalModel_updatedProperties_context___block_invo
 
 - (BOOL)importIntoLocalModel:(id)model updatedProperties:(id)properties context:(id)context
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   contextCopy = context;
   if (![(MKFCKModel *)self copyPropertiesIntoLocalModel:modelCopy context:contextCopy]|| ![(MKFCKUser *)self importOwnerUserSettingsIntoLocalModel:modelCopy context:contextCopy]|| ![(MKFCKUser *)self importSharedUserSettingsIntoLocalModel:modelCopy context:contextCopy])
@@ -717,45 +714,45 @@ void __60__MKFCKUser_exportFromLocalModel_updatedProperties_context___block_invo
   v20 = v17;
   v21 = v18;
   v22 = v15;
-  v57 = v20;
+  v56 = v20;
   name = [v20 name];
   v24 = [v19 valueForKey:name];
 
   v25 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v24, "count")}];
-  v66[0] = MEMORY[0x277D85DD0];
-  v66[1] = 3221225472;
-  v66[2] = __98__MKFCKHomeObject__importRelationshipsIntoLocalModel_localRelationship_cloudRelationship_context___block_invoke;
-  v66[3] = &unk_278680DB0;
+  v65[0] = MEMORY[0x277D85DD0];
+  v65[1] = 3221225472;
+  v65[2] = __98__MKFCKHomeObject__importRelationshipsIntoLocalModel_localRelationship_cloudRelationship_context___block_invoke;
+  v65[3] = &unk_278680DB0;
   v26 = v25;
-  v67 = v26;
-  [v24 hmf_enumerateWithAutoreleasePoolUsingBlock:v66];
+  v66 = v26;
+  [v24 hmf_enumerateWithAutoreleasePoolUsingBlock:v65];
 
-  v62 = 0;
-  v63 = &v62;
-  v64 = 0x2020000000;
-  v65 = 1;
+  v61 = 0;
+  v62 = &v61;
+  v63 = 0x2020000000;
+  v64 = 1;
   name2 = [v21 name];
   v28 = [(MKFCKUser *)self valueForKey:name2];
 
   *buf = MEMORY[0x277D85DD0];
   *&buf[8] = 3221225472;
   *&buf[16] = __98__MKFCKHomeObject__importRelationshipsIntoLocalModel_localRelationship_cloudRelationship_context___block_invoke_2;
-  v69 = &unk_278673578;
+  v68 = &unk_278673578;
   v29 = v22;
-  v70 = v29;
+  v69 = v29;
   selfCopy = self;
   v30 = v26;
-  v72 = v30;
-  v73 = &v62;
+  v71 = v30;
+  v72 = &v61;
   [v28 hmf_enumerateWithAutoreleasePoolUsingBlock:buf];
-  v31 = *(v63 + 24);
+  v31 = *(v62 + 24);
   if (v31)
   {
     home = [(MKFCKUser *)self home];
     [home _maybeDeleteStaleLocalModels:v30 context:v29];
   }
 
-  _Block_object_dispose(&v62, 8);
+  _Block_object_dispose(&v61, 8);
   if (v31)
   {
     v33 = v19;
@@ -770,23 +767,23 @@ void __60__MKFCKUser_exportFromLocalModel_updatedProperties_context___block_invo
 
       if (v38)
       {
-        v51 = objc_autoreleasePoolPush();
+        v50 = objc_autoreleasePoolPush();
         selfCopy2 = self;
-        v53 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
+        v52 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
         {
-          v54 = HMFGetLogIdentifier();
+          v53 = HMFGetLogIdentifier();
           accessCode2 = [v33 accessCode];
           *buf = 138543874;
-          *&buf[4] = v54;
+          *&buf[4] = v53;
           *&buf[12] = 2112;
           *&buf[14] = accessCode2;
           *&buf[22] = 2112;
-          v69 = v33;
-          _os_log_impl(&dword_229538000, v53, OS_LOG_TYPE_INFO, "%{public}@Deleting the MKFUserAccessCode %@ for User %@", buf, 0x20u);
+          v68 = v33;
+          _os_log_impl(&dword_229538000, v52, OS_LOG_TYPE_INFO, "%{public}@Deleting the MKFUserAccessCode %@ for User %@", buf, 0x20u);
         }
 
-        objc_autoreleasePoolPop(v51);
+        objc_autoreleasePoolPop(v50);
         accessCode3 = [v33 accessCode];
         [v34 deleteObject:accessCode3];
       }
@@ -840,13 +837,12 @@ LABEL_20:
 
 LABEL_21:
 
-  v49 = *MEMORY[0x277D85DE8];
   return self;
 }
 
 - (BOOL)_importOutgoingInvitationRelationshipIntoLocalModel:(void *)model context:
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   modelCopy = model;
   if (self)
@@ -888,13 +884,13 @@ LABEL_21:
         if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           v16 = HMFGetLogIdentifier();
-          v19 = 138543874;
-          v20 = v16;
-          v21 = 2112;
-          v22 = selfCopy;
-          v23 = 2112;
-          v24 = 0;
-          _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Cannot fulfill relationship between pending user and outgoing invitation yet: %@.invitation = %@", &v19, 0x20u);
+          v18 = 138543874;
+          v19 = v16;
+          v20 = 2112;
+          v21 = selfCopy;
+          v22 = 2112;
+          v23 = 0;
+          _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Cannot fulfill relationship between pending user and outgoing invitation yet: %@.invitation = %@", &v18, 0x20u);
         }
 
         objc_autoreleasePoolPop(v13);
@@ -902,7 +898,6 @@ LABEL_21:
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return self != 0;
 }
 

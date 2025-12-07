@@ -82,7 +82,7 @@
   return v2;
 }
 
-uint64_t __58__PHPhotoLibraryCloudStatusObserverRegistrar_hasObservers__block_invoke(uint64_t a1)
+void *__58__PHPhotoLibraryCloudStatusObserverRegistrar_hasObservers__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _lock_hasCloudStatusObservers];
   *(*(*(a1 + 40) + 8) + 24) = result;

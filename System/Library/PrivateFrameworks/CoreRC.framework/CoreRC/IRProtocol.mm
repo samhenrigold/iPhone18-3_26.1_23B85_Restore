@@ -1,4 +1,6 @@
 @interface IRProtocol
++ (id)protocolWithID:(unsigned __int8)d options:(unsigned __int8)options;
++ (id)protocolWithID:(unsigned __int8)d options:(unsigned __int8)options hasRepeats:(BOOL)repeats;
 - (BOOL)isEqual:(id)equal;
 - (IRProtocol)initWithCoder:(id)coder;
 - (IRProtocol)initWithProtocolID:(unsigned __int8)d options:(unsigned __int8)options;
@@ -7,6 +9,36 @@
 @end
 
 @implementation IRProtocol
+
++ (id)protocolWithID:(unsigned __int8)d options:(unsigned __int8)options
+{
+  v4 = [[IRProtocol alloc] initWithProtocolID:d options:options];
+
+  return v4;
+}
+
++ (id)protocolWithID:(unsigned __int8)d options:(unsigned __int8)options hasRepeats:(BOOL)repeats
+{
+  optionsCopy = options;
+  if (!repeats)
+  {
+    if ((d - 1) > 0xD)
+    {
+      v6 = 0;
+    }
+
+    else
+    {
+      v6 = byte_2473D5420[(d - 1)];
+    }
+
+    optionsCopy = v6 | options;
+  }
+
+  v7 = [[IRProtocol alloc] initWithProtocolID:d options:optionsCopy];
+
+  return v7;
+}
 
 - (IRProtocol)initWithProtocolID:(unsigned __int8)d options:(unsigned __int8)options
 {

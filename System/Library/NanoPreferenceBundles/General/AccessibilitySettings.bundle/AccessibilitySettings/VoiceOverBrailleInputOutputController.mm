@@ -9,6 +9,7 @@
 - (id)specifiers;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation VoiceOverBrailleInputOutputController
@@ -51,74 +52,139 @@
   return 1;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v31[3] = *MEMORY[0x277D85DE8];
+  v30.receiver = self;
+  v30.super_class = VoiceOverBrailleInputOutputController;
+  [(AccessibilityBridgeBaseController *)&v30 viewWillAppear:appear];
+  specifier = [(VoiceOverBrailleInputOutputController *)self specifier];
+  v5 = [specifier propertyForKey:*MEMORY[0x277D3FFB8]];
+
+  if ([v5 isEqualToString:@"BrailleDisplayOutput"])
+  {
+    specifier2 = [(VoiceOverBrailleInputOutputController *)self specifier];
+    v7 = [specifier2 propertyForKey:@"BrailleDisplayInputOutputTitleKey"];
+
+    if (!v7)
+    {
+      goto LABEL_7;
+    }
+  }
+
+  else
+  {
+    v7 = @"BrailleInput";
+    if (!@"BrailleInput")
+    {
+      goto LABEL_7;
+    }
+  }
+
+  if (v5)
+  {
+    v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v9 = objc_alloc(MEMORY[0x277CCAEB8]);
+    currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+    bundleURL = [v8 bundleURL];
+    v29 = [v9 initWithKey:v7 table:@"VoiceOverSettings" locale:currentLocale bundleURL:bundleURL];
+
+    v12 = objc_alloc(MEMORY[0x277CCAEB8]);
+    currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+    bundleURL2 = [v8 bundleURL];
+    v15 = [v12 initWithKey:@"BRAILLE" table:@"VoiceOverSettings" locale:currentLocale2 bundleURL:bundleURL2];
+
+    v16 = objc_alloc(MEMORY[0x277CCAEB8]);
+    currentLocale3 = [MEMORY[0x277CBEAF8] currentLocale];
+    bundleURL3 = [v8 bundleURL];
+    v19 = [v16 initWithKey:@"VOICEOVER_TITLE" table:@"AccessibilitySettings" locale:currentLocale3 bundleURL:bundleURL3];
+
+    v20 = objc_alloc(MEMORY[0x277CCAEB8]);
+    currentLocale4 = [MEMORY[0x277CBEAF8] currentLocale];
+    bundleURL4 = [v8 bundleURL];
+    v23 = [v20 initWithKey:@"ACCESSIBILITY_TITLE" table:@"AccessibilitySettings" locale:currentLocale4 bundleURL:bundleURL4];
+
+    v24 = MEMORY[0x277CF3470];
+    v31[0] = v23;
+    v31[1] = v19;
+    v31[2] = v15;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:3];
+    v26 = MEMORY[0x277CBEBC0];
+    v27 = [MEMORY[0x277CCACA8] stringWithFormat:@"bridge:root=ACCESSIBILITY_ID&path=VOICEOVER_ID/BrailleRow/%@", v5];
+    v28 = [v26 URLWithString:v27];
+    [v24 emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"ACCESSIBILITY_ID" title:v29 localizedNavigationComponents:v25 deepLink:v28];
+  }
+
+LABEL_7:
+}
+
 - (id)specifiers
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (VOSCustomBrailleEnabled())
   {
     v3 = *(&self->super.super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
     if (!v3)
     {
-      v26 = *MEMORY[0x277D3FC48];
+      v24 = *MEMORY[0x277D3FC48];
       array = [MEMORY[0x277CBEB18] array];
       v5 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:0 target:self set:0 get:0 detail:0 cell:0 edit:0];
-      v27 = array;
+      v25 = array;
       [array addObject:v5];
       selfCopy = self;
       accessibilityDomainAccessor = [(AccessibilityBridgeBaseController *)self accessibilityDomainAccessor];
       v7 = [accessibilityDomainAccessor objectForKey:*MEMORY[0x277CE7FF0]];
 
-      v31 = 0u;
-      v32 = 0u;
       v29 = 0u;
       v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
       v8 = v7;
-      v9 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v30;
+        v11 = *v28;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v30 != v11)
+            if (*v28 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v29 + 1) + 8 * i);
-            v14 = VOSBrailleTableForRotorItem();
-            replacements = [v14 replacements];
-            v16 = [replacements count];
+            v13 = VOSBrailleTableForRotorItem();
+            replacements = [v13 replacements];
+            v15 = [replacements count];
 
-            if (!v16)
+            if (!v15)
             {
-              v17 = MEMORY[0x277D3FAD8];
-              localizedNameWithService = [v14 localizedNameWithService];
-              v19 = [v17 preferenceSpecifierNamed:localizedNameWithService target:selfCopy set:0 get:0 detail:0 cell:3 edit:0];
+              v16 = MEMORY[0x277D3FAD8];
+              localizedNameWithService = [v13 localizedNameWithService];
+              v18 = [v16 preferenceSpecifierNamed:localizedNameWithService target:selfCopy set:0 get:0 detail:0 cell:3 edit:0];
 
-              [v19 setProperty:MEMORY[0x277CBEC38] forKey:@"IsLanguage"];
-              [v19 setProperty:v14 forKey:@"Table"];
-              identifier = [v14 identifier];
-              [v19 setProperty:identifier forKey:@"TableIdentifier"];
+              [v18 setProperty:MEMORY[0x277CBEC38] forKey:@"IsLanguage"];
+              [v18 setProperty:v13 forKey:@"Table"];
+              identifier = [v13 identifier];
+              [v18 setProperty:identifier forKey:@"TableIdentifier"];
 
-              [v27 addObject:v19];
-              v5 = v19;
+              [v25 addObject:v18];
+              v5 = v18;
             }
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v29 objects:v33 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v27 objects:v31 count:16];
         }
 
         while (v10);
       }
 
-      v21 = *(&selfCopy->super.super.super.super.super.super.isa + v26);
-      *(&selfCopy->super.super.super.super.super.super.isa + v26) = v27;
-      v22 = v27;
+      v20 = *(&selfCopy->super.super.super.super.super.super.isa + v24);
+      *(&selfCopy->super.super.super.super.super.super.isa + v24) = v25;
+      v21 = v25;
 
-      v3 = *(&selfCopy->super.super.super.super.super.super.isa + v26);
+      v3 = *(&selfCopy->super.super.super.super.super.super.isa + v24);
     }
 
     preCustomBrailleSpecifiers = v3;
@@ -128,8 +194,6 @@
   {
     preCustomBrailleSpecifiers = [(VoiceOverBrailleInputOutputController *)self preCustomBrailleSpecifiers];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return preCustomBrailleSpecifiers;
 }
@@ -320,113 +384,111 @@
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   pathCopy = path;
+  v29 = 0u;
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
   visibleCells = [viewCopy visibleCells];
-  v9 = [visibleCells countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v9 = [visibleCells countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v32;
+    v11 = *v30;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v32 != v11)
+        if (*v30 != v11)
         {
           objc_enumerationMutation(visibleCells);
         }
 
-        v13 = *(*(&v31 + 1) + 8 * i);
-        v14 = __UIAccessibilitySafeClass();
-        [v14 setChecked:0];
+        v13 = __UIAccessibilitySafeClass();
+        [v13 setChecked:0];
       }
 
-      v10 = [visibleCells countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v10 = [visibleCells countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v10);
   }
 
-  v15 = [viewCopy cellForRowAtIndexPath:pathCopy];
-  v16 = __UIAccessibilitySafeClass();
+  v14 = [viewCopy cellForRowAtIndexPath:pathCopy];
+  v15 = __UIAccessibilitySafeClass();
 
-  [v16 setChecked:1];
-  v17 = [(AccessibilityBridgeBaseController *)self specifierForIndexPath:pathCopy];
+  [v15 setChecked:1];
+  v16 = [(AccessibilityBridgeBaseController *)self specifierForIndexPath:pathCopy];
   if (!VOSCustomBrailleEnabled())
   {
-    v21 = *MEMORY[0x277D3FFB8];
-    v22 = [v17 propertyForKey:*MEMORY[0x277D3FFB8]];
-    if ([v22 isEqualToString:@"SixDotBraille"])
+    v20 = *MEMORY[0x277D3FFB8];
+    v21 = [v16 propertyForKey:*MEMORY[0x277D3FFB8]];
+    if ([v21 isEqualToString:@"SixDotBraille"])
     {
-      v23 = 1;
+      v22 = 1;
     }
 
     else
     {
-      v27 = [v17 propertyForKey:v21];
-      if ([v27 isEqualToString:@"EightDotBraille"])
+      v26 = [v16 propertyForKey:v20];
+      if ([v26 isEqualToString:@"EightDotBraille"])
       {
-        v23 = 2;
+        v22 = 2;
       }
 
       else
       {
-        v23 = 3;
+        v22 = 3;
       }
     }
 
     _isDisplayInput = [(VoiceOverBrailleInputOutputController *)self _isDisplayInput];
-    v18 = [MEMORY[0x277CCABB0] numberWithInteger:v23];
+    v17 = [MEMORY[0x277CCABB0] numberWithInteger:v22];
     if (_isDisplayInput)
     {
-      [(AccessibilityBridgeBaseController *)self setGizmoAccessibilityPref:v18 forKey:*MEMORY[0x277CE7FE0]];
+      [(AccessibilityBridgeBaseController *)self setGizmoAccessibilityPref:v17 forKey:*MEMORY[0x277CE7FE0]];
 
-      v18 = [(VoiceOverBrailleInputOutputController *)self specifierForID:@"GRADE2_AUTO_TRANSLATE"];
-      v29 = [MEMORY[0x277CCABB0] numberWithBool:{-[VoiceOverBrailleInputOutputController _shouldShowAutoTranslate](self, "_shouldShowAutoTranslate")}];
-      [v18 setProperty:v29 forKey:*MEMORY[0x277D3FF38]];
+      v17 = [(VoiceOverBrailleInputOutputController *)self specifierForID:@"GRADE2_AUTO_TRANSLATE"];
+      v28 = [MEMORY[0x277CCABB0] numberWithBool:{-[VoiceOverBrailleInputOutputController _shouldShowAutoTranslate](self, "_shouldShowAutoTranslate")}];
+      [v17 setProperty:v28 forKey:*MEMORY[0x277D3FF38]];
 
-      [(VoiceOverBrailleInputOutputController *)self reloadSpecifier:v18];
+      [(VoiceOverBrailleInputOutputController *)self reloadSpecifier:v17];
       goto LABEL_23;
     }
 
-    v26 = MEMORY[0x277CE7FF8];
+    v25 = MEMORY[0x277CE7FF8];
     goto LABEL_22;
   }
 
-  v18 = [v17 propertyForKey:@"TableIdentifier"];
+  v17 = [v16 propertyForKey:@"TableIdentifier"];
   if (![(VoiceOverBrailleInputOutputController *)self _isDisplayInput])
   {
-    [(AccessibilityBridgeBaseController *)self setGizmoAccessibilityPref:v18 forKey:*MEMORY[0x277CE8000]];
+    [(AccessibilityBridgeBaseController *)self setGizmoAccessibilityPref:v17 forKey:*MEMORY[0x277CE8000]];
     accessibilityDomainAccessor = [(AccessibilityBridgeBaseController *)self accessibilityDomainAccessor];
-    v25 = [accessibilityDomainAccessor BOOLForKey:*MEMORY[0x277CE8008]];
+    v24 = [accessibilityDomainAccessor BOOLForKey:*MEMORY[0x277CE8008]];
 
-    if (!v25)
+    if (!v24)
     {
       goto LABEL_23;
     }
 
-    v26 = MEMORY[0x277CE7FE8];
+    v25 = MEMORY[0x277CE7FE8];
 LABEL_22:
-    [(AccessibilityBridgeBaseController *)self setGizmoAccessibilityPref:v18 forKey:*v26];
+    [(AccessibilityBridgeBaseController *)self setGizmoAccessibilityPref:v17 forKey:*v25];
     goto LABEL_23;
   }
 
-  [(AccessibilityBridgeBaseController *)self setGizmoAccessibilityPref:v18 forKey:*MEMORY[0x277CE7FE8]];
-  v19 = [(VoiceOverBrailleInputOutputController *)self specifierForID:@"GRADE2_AUTO_TRANSLATE"];
-  v20 = [MEMORY[0x277CCABB0] numberWithBool:{-[VoiceOverBrailleInputOutputController _shouldShowAutoTranslate](self, "_shouldShowAutoTranslate")}];
-  [v19 setProperty:v20 forKey:*MEMORY[0x277D3FF38]];
+  [(AccessibilityBridgeBaseController *)self setGizmoAccessibilityPref:v17 forKey:*MEMORY[0x277CE7FE8]];
+  v18 = [(VoiceOverBrailleInputOutputController *)self specifierForID:@"GRADE2_AUTO_TRANSLATE"];
+  v19 = [MEMORY[0x277CCABB0] numberWithBool:{-[VoiceOverBrailleInputOutputController _shouldShowAutoTranslate](self, "_shouldShowAutoTranslate")}];
+  [v18 setProperty:v19 forKey:*MEMORY[0x277D3FF38]];
 
-  [(VoiceOverBrailleInputOutputController *)self reloadSpecifier:v19];
+  [(VoiceOverBrailleInputOutputController *)self reloadSpecifier:v18];
 LABEL_23:
 
   [(VoiceOverBrailleInputOutputController *)self reload];
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 @end

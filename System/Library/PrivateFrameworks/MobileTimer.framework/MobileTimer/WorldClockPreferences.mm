@@ -41,12 +41,11 @@
 
 - (id)defaultsKeys
 {
-  v5[3] = *MEMORY[0x1E69E9840];
-  v5[0] = CitiesKey;
-  v5[1] = CitiesLastModifiedKey;
-  v5[2] = DefaultCityAddedKey;
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:3];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[3] = *MEMORY[0x1E69E9840];
+  v4[0] = CitiesKey;
+  v4[1] = CitiesLastModifiedKey;
+  v4[2] = DefaultCityAddedKey;
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:3];
 
   return v2;
 }

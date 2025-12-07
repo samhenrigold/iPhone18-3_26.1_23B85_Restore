@@ -16,7 +16,7 @@
 
 - (void)_setTimeout
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   [(FTMessageQueue *)self _clearTimeout];
   topMessage = [(FTMessageQueue *)self topMessage];
   if (topMessage)
@@ -45,16 +45,14 @@
       if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
       {
         topMessage2 = [(FTMessageQueue *)self topMessage];
-        v14 = 134218242;
-        v15 = v10;
-        v16 = 2112;
-        v17 = topMessage2;
-        _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Setting timeout for %f seconds from now  (Message: %@)", &v14, 0x16u);
+        v13 = 134218242;
+        v14 = v10;
+        v15 = 2112;
+        v16 = topMessage2;
+        _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Setting timeout for %f seconds from now  (Message: %@)", &v13, 0x16u);
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (IDSBaseMessage)topMessage
@@ -129,14 +127,14 @@
 
 - (void)_timeoutHit
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
     topMessage = [(FTMessageQueue *)self topMessage];
-    v8 = 138412290;
-    v9 = topMessage;
-    _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Queue timeout hit for message: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = topMessage;
+    _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Queue timeout hit for message: %@", &v7, 0xCu);
   }
 
   delegate = [(FTMessageQueue *)self delegate];
@@ -147,8 +145,6 @@
   {
     [(FTMessageQueue *)self _setTimeout];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAllMessages
@@ -174,7 +170,7 @@
 
 - (id)messageForUniqueID:(unint64_t)d
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if ([(IDSBaseMessage *)self->_currentMessage uniqueID]== d)
   {
     v5 = self->_currentMessage;
@@ -182,26 +178,26 @@
 
   else
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     v6 = [(NSMutableArray *)self->_queue copy];
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v14 + 1) + 8 * i);
+          v11 = *(*(&v13 + 1) + 8 * i);
           if ([v11 uniqueID] == d)
           {
             v5 = v11;
@@ -210,7 +206,7 @@
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v8)
         {
           continue;
@@ -224,7 +220,6 @@
   }
 
 LABEL_13:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

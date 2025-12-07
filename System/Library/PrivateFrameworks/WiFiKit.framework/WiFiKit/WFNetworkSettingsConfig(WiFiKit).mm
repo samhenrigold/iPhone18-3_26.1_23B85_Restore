@@ -9,7 +9,7 @@
 
 - (void)populateIPV4:()WiFiKit
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v4 = a3;
   method = [v4 method];
   if (method == 5)
@@ -25,14 +25,15 @@
     {
       v11 = WFLogForCategory(0);
       v12 = OSLogForWFLogLevel(2uLL);
-      if (WFCurrentLogLevel() >= 2 && v11)
+      v13 = v12;
+      if (WFCurrentLogLevel(v12, v14) >= 2 && v11)
       {
-        v13 = v11;
-        if (os_log_type_enabled(v13, v12))
+        v15 = v11;
+        if (os_log_type_enabled(v15, v13))
         {
-          v24 = 134217984;
+          v25 = 134217984;
           method2 = [v4 method];
-          _os_log_impl(&dword_273ECD000, v13, v12, "Unknown DHCP config method %ld", &v24, 0xCu);
+          _os_log_impl(&dword_273ECD000, v15, v13, "Unknown DHCP config method %ld", &v25, 0xCu);
         }
       }
 
@@ -113,13 +114,11 @@ LABEL_15:
 LABEL_27:
   dhcpClientID = [v4 dhcpClientID];
   [self setDhcpClientID:dhcpClientID];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)populateIPV6:()WiFiKit
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = a3;
   method = [v4 method];
   switch(method)
@@ -142,14 +141,15 @@ LABEL_7:
 
   v8 = WFLogForCategory(0);
   v9 = OSLogForWFLogLevel(2uLL);
-  if (WFCurrentLogLevel() >= 2 && v8)
+  v10 = v9;
+  if (WFCurrentLogLevel(v9, v11) >= 2 && v8)
   {
-    v10 = v8;
-    if (os_log_type_enabled(v10, v9))
+    v12 = v8;
+    if (os_log_type_enabled(v12, v10))
     {
-      v16 = 134217984;
+      v17 = 134217984;
       method2 = [v4 method];
-      _os_log_impl(&dword_273ECD000, v10, v9, "Unknown DHCP config method %ld", &v16, 0xCu);
+      _os_log_impl(&dword_273ECD000, v12, v10, "Unknown DHCP config method %ld", &v17, 0xCu);
     }
   }
 
@@ -169,8 +169,6 @@ LABEL_14:
     router2 = [v4 router];
     [self setIpv6RouterAddress:router2];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)populateDNS:()WiFiKit

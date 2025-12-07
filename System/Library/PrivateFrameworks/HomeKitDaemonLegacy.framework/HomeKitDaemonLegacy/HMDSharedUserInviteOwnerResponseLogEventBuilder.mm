@@ -16,7 +16,7 @@
 
 - (void)submit
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->super._lock);
   if (!self->super.submitted)
   {
@@ -29,18 +29,18 @@
       Property = objc_getProperty(selfCopy, v7, 112, 1);
       v10 = [objc_getProperty(selfCopy v9];
       *buf = 138543874;
-      v16 = v6;
-      v17 = 2112;
-      v18 = Property;
-      v19 = 2112;
-      v20 = v10;
+      v15 = v6;
+      v16 = 2112;
+      v17 = Property;
+      v18 = 2112;
+      v19 = v10;
       _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Submitting shared user response latency log event %@ error:%@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v3);
-    v14.receiver = selfCopy;
-    v14.super_class = HMDSharedUserInviteOwnerResponseLogEventBuilder;
-    [(HMDSharedUserInviteLogEventBuilder *)&v14 submit];
+    v13.receiver = selfCopy;
+    v13.super_class = HMDSharedUserInviteOwnerResponseLogEventBuilder;
+    [(HMDSharedUserInviteLogEventBuilder *)&v13 submit];
     WeakRetained = objc_loadWeakRetained(&selfCopy->_home);
     v12 = WeakRetained;
     if (WeakRetained)
@@ -48,8 +48,6 @@
       [WeakRetained removeSharedUserResponseEventBuilder:selfCopy];
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isReady
@@ -101,16 +99,16 @@
 
 - (void)markAddUserToHomeEnd
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v25 = 138543362;
-    v26 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markAddUserToHomeEnd", &v25, 0xCu);
+    v24 = 138543362;
+    v25 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markAddUserToHomeEnd", &v24, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -164,21 +162,20 @@
   }
 
   os_unfair_lock_unlock(&selfCopy->super._lock);
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markAddUserToHomeBegin
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markAddUserToHomeBegin", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markAddUserToHomeBegin", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -193,21 +190,20 @@
   }
 
   os_unfair_lock_unlock(&selfCopy->super._lock);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markJoiningReverseShareEnd
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v18 = 138543362;
-    v19 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markJoiningReverseShareEnd", &v18, 0xCu);
+    v17 = 138543362;
+    v18 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markJoiningReverseShareEnd", &v17, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -244,21 +240,20 @@
   }
 
   os_unfair_lock_unlock(&selfCopy->super._lock);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markJoiningReverseShareBegin
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markJoiningReverseShareBegin", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markJoiningReverseShareBegin", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -273,21 +268,20 @@
   }
 
   os_unfair_lock_unlock(&selfCopy->super._lock);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markAuthenticateUserEnd
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v18 = 138543362;
-    v19 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markAuthenticateUserEnd", &v18, 0xCu);
+    v17 = 138543362;
+    v18 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markAuthenticateUserEnd", &v17, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -324,21 +318,20 @@
   }
 
   os_unfair_lock_unlock(&selfCopy->super._lock);
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)markAuthenticateUserBegin
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markAuthenticateUserBegin", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@markAuthenticateUserBegin", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -353,7 +346,6 @@
   }
 
   os_unfair_lock_unlock(&selfCopy->super._lock);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDSharedUserInviteOwnerResponseLogEventBuilder)initWithHome:(id)home sessionIdentifier:(id)identifier invitationType:(unint64_t)type invitationAge:(double)age invitationSource:(unint64_t)source
@@ -427,12 +419,11 @@ id __128__HMDSharedUserInviteOwnerResponseLogEventBuilder_initWithHome_sessionId
 
 uint64_t __62__HMDSharedUserInviteOwnerResponseLogEventBuilder_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v14_181922;
-  logCategory__hmf_once_v14_181922 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v14_181922;
+  logCategory__hmf_once_v14_181922 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

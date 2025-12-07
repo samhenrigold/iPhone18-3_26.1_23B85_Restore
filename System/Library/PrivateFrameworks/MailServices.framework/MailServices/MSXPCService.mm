@@ -1,5 +1,6 @@
 @interface MSXPCService
 + (id)remoteProxyForXPCInterface:(id)interface connectionErrorHandler:(id)handler;
++ (id)remoteProxyForXPCInterface:(id)interface shouldLaunchMobileMail:(BOOL)mail connectionErrorHandler:(id)handler;
 - (MSXPCService)initWithRemoteObjectInterface:(id)interface;
 - (id)connection;
 - (id)newConnectionForInterface:(id)interface;
@@ -69,6 +70,18 @@
   return v7;
 }
 
++ (id)remoteProxyForXPCInterface:(id)interface shouldLaunchMobileMail:(BOOL)mail connectionErrorHandler:(id)handler
+{
+  mailCopy = mail;
+  interfaceCopy = interface;
+  handlerCopy = handler;
+  v9 = [objc_alloc(objc_opt_class()) initWithRemoteObjectInterface:interfaceCopy];
+  [v9 setShouldLaunchMobileMail:mailCopy];
+  v10 = [v9 remoteObjectProxyWithErrorHandler:handlerCopy];
+
+  return v10;
+}
+
 - (id)newConnectionForInterface:(id)interface
 {
   interfaceCopy = interface;
@@ -101,15 +114,14 @@
 
 void __50__MSXPCService_remoteObjectProxyWithErrorHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v6 = a2;
+  v5 = a2;
   v3 = *(a1 + 40);
   if (v3)
   {
-    (*(v3 + 16))(v3, v6);
+    (*(v3 + 16))(v3, v5);
   }
 
-  v4 = *(a1 + 32);
-  v5 = objc_opt_self();
+  v4 = objc_opt_self();
 }
 
 @end

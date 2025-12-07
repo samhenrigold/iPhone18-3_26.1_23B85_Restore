@@ -55,7 +55,7 @@
   locationCopy = location;
   containerCopy = container;
   viewProvider = self->_viewProvider;
-  if (!viewProvider || (-[NSTextAttachmentViewProvider location](viewProvider, "location"), v12 = objc_claimAutoreleasedReturnValue(), v13 = [v12 isEqual:locationCopy], v12, (v13 & 1) == 0))
+  if (!viewProvider || ([(NSTextAttachmentViewProvider *)viewProvider location], v12 = objc_claimAutoreleasedReturnValue(), isEqual = objc_msgSend_isEqual_(v12), v12, (isEqual & 1) == 0))
   {
     v14 = [_UISearchTokenAttachmentViewProvider alloc];
     textLayoutManager = [containerCopy textLayoutManager];

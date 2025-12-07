@@ -20,18 +20,18 @@
 
 - (MPSImageAreaMax)initWithDevice:(id)device kernelWidth:(NSUInteger)kernelWidth kernelHeight:(NSUInteger)kernelHeight
 {
-  v14.receiver = self;
-  v14.super_class = MPSImageAreaMax;
-  result = [(MPSUnaryImageKernel *)&v14 initWithDevice:device];
+  v11.receiver = self;
+  v11.super_class = MPSImageAreaMax;
+  result = [(MPSUnaryImageKernel *)&v11 initWithDevice:device];
   if (result)
   {
     result->_kernelWidth = kernelWidth;
     result->_kernelHeight = kernelHeight;
     result->info = 0;
     result->info_half = 28;
-    v13 = result;
-    objc_msgSend_initEncoder(result, v8, v9, v10, v11, v12);
-    return v13;
+    v10 = result;
+    objc_msgSend_initEncoder(result, v8, v9);
+    return v10;
   }
 
   return result;
@@ -44,44 +44,44 @@
     MTLReportFailure();
   }
 
-  return objc_msgSend_initWithDevice_kernelWidth_kernelHeight_(self, v5, device, 1, 1, v6);
+  return objc_msgSend_initWithDevice_kernelWidth_kernelHeight_(self, v5, device, 1, 1);
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   *(&self->super.super.super.isa + *MEMORY[0x277CD7358] + 2) = 1;
-  v11.receiver = self;
-  v11.super_class = MPSImageAreaMax;
-  [(MPSUnaryImageKernel *)&v11 encodeWithCoder:?];
-  objc_msgSend_encodeInt64_forKey_(coder, v5, self->_kernelWidth, @"MPSMinMax.kernelWidth", v6, v7);
-  objc_msgSend_encodeInt64_forKey_(coder, v8, self->_kernelHeight, @"MPSMinMax.kernelHeight", v9, v10);
+  v7.receiver = self;
+  v7.super_class = MPSImageAreaMax;
+  [(MPSUnaryImageKernel *)&v7 encodeWithCoder:?];
+  objc_msgSend_encodeInt64_forKey_(coder, v5, self->_kernelWidth, @"MPSMinMax.kernelWidth");
+  objc_msgSend_encodeInt64_forKey_(coder, v6, self->_kernelHeight, @"MPSMinMax.kernelHeight");
 }
 
 - (MPSImageAreaMax)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v22.receiver = self;
-  v22.super_class = MPSImageAreaMax;
-  v5 = [(MPSUnaryImageKernel *)&v22 initWithCoder:aDecoder device:device];
-  v10 = v5;
+  v13.receiver = self;
+  v13.super_class = MPSImageAreaMax;
+  v5 = [(MPSUnaryImageKernel *)&v13 initWithCoder:aDecoder device:device];
+  v7 = v5;
   if (!v5)
   {
-    return v10;
+    return v7;
   }
 
   if (*(&v5->super.super.super.isa + *MEMORY[0x277CD7358] + 2) << 16 == 0x10000)
   {
-    v5->_kernelWidth = objc_msgSend_decodeInt64ForKey_(aDecoder, v6, @"MPSMinMax.kernelWidth", v7, v8, v9);
-    v10->_kernelHeight = objc_msgSend_decodeInt64ForKey_(aDecoder, v11, @"MPSMinMax.kernelHeight", v12, v13, v14);
-    v10->info = 0;
-    v10->info_half = 28;
-    objc_msgSend_initEncoder(v10, v15, v16, v17, v18, v19);
-    return v10;
+    v5->_kernelWidth = objc_msgSend_decodeInt64ForKey_(aDecoder, v6, @"MPSMinMax.kernelWidth");
+    v7->_kernelHeight = objc_msgSend_decodeInt64ForKey_(aDecoder, v8, @"MPSMinMax.kernelHeight");
+    v7->info = 0;
+    v7->info_half = 28;
+    objc_msgSend_initEncoder(v7, v9, v10);
+    return v7;
   }
 
   if (MTLReportFailureTypeEnabled())
   {
-    v21 = objc_opt_class();
-    NSStringFromClass(v21);
+    v12 = objc_opt_class();
+    NSStringFromClass(v12);
     MTLReportFailure();
   }
 
@@ -90,18 +90,18 @@
 
 - (id)copyWithZone:(_NSZone *)zone device:(id)device
 {
-  v12.receiver = self;
-  v12.super_class = MPSImageAreaMax;
-  result = [(MPSUnaryImageKernel *)&v12 copyWithZone:zone device:device];
+  v9.receiver = self;
+  v9.super_class = MPSImageAreaMax;
+  result = [(MPSUnaryImageKernel *)&v9 copyWithZone:zone device:device];
   if (result)
   {
     *(result + 26) = self->_kernelWidth;
     *(result + 27) = self->_kernelHeight;
     *(result + 56) = self->info;
     *(result + 57) = self->info_half;
-    v11 = result;
-    objc_msgSend_initEncoder(self, v6, v7, v8, v9, v10);
-    return v11;
+    v8 = result;
+    objc_msgSend_initEncoder(self, v6, v7);
+    return v8;
   }
 
   return result;
@@ -110,12 +110,12 @@
 - (id)debugDescription
 {
   v3 = MEMORY[0x277CCACA8];
-  v22.receiver = self;
-  v22.super_class = MPSImageAreaMax;
-  v4 = [(MPSUnaryImageKernel *)&v22 debugDescription];
-  v10 = objc_msgSend_kernelWidth(self, v5, v6, v7, v8, v9);
-  v16 = objc_msgSend_kernelHeight(self, v11, v12, v13, v14, v15);
-  return objc_msgSend_stringWithFormat_(v3, v17, @"%@\n\tkernelWidth: %lu\n\tkernelHeight: %lu", v18, v19, v20, v4, v10, v16);
+  v13.receiver = self;
+  v13.super_class = MPSImageAreaMax;
+  v4 = [(MPSUnaryImageKernel *)&v13 debugDescription];
+  v7 = objc_msgSend_kernelWidth(self, v5, v6);
+  v10 = objc_msgSend_kernelHeight(self, v8, v9);
+  return objc_msgSend_stringWithFormat_(v3, v11, @"%@\n\tkernelWidth: %lu\n\tkernelHeight: %lu", v4, v7, v10);
 }
 
 - (MPSRegion)sourceRegionForDestinationSize:(SEL)size

@@ -66,30 +66,28 @@
 
 - (void)_timerFired
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = APLogForCategory(0x22uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v4 = objc_opt_class();
     v5 = v4;
     v9 = objc_msgSend_name(self, v6, v7, v8);
-    v20 = 138478083;
-    v21 = v4;
-    v22 = 2114;
-    v23 = v9;
-    _os_log_impl(&dword_1BADC1000, v3, OS_LOG_TYPE_DEBUG, "[%{private}@]: Firing backoff %{public}@ timer.", &v20, 0x16u);
+    v19 = 138478083;
+    v20 = v4;
+    v21 = 2114;
+    v22 = v9;
+    _os_log_impl(&dword_1BADC1000, v3, OS_LOG_TYPE_DEBUG, "[%{private}@]: Firing backoff %{public}@ timer.", &v19, 0x16u);
   }
 
   objc_msgSend_setHasFiredOnThisLevel_(self, v10, 1, v11);
   v15 = objc_msgSend_delegate(self, v12, v13, v14);
   objc_msgSend_backoffTimerFired(v15, v16, v17, v18);
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_getNextLevelTimeInterval
 {
-  v107 = *MEMORY[0x1E69E9840];
+  v106 = *MEMORY[0x1E69E9840];
   v5 = objc_msgSend_lock(self, a2, v2, v3);
   objc_msgSend_lock(v5, v6, v7, v8);
   if (objc_msgSend_scheduled(self, v9, v10, v11))
@@ -101,11 +99,11 @@
       v16 = objc_opt_class();
       v17 = v16;
       v21 = objc_msgSend_name(self, v18, v19, v20);
-      v103 = 138478083;
-      v104 = v16;
-      v105 = 2114;
-      v106 = v21;
-      _os_log_impl(&dword_1BADC1000, v15, OS_LOG_TYPE_ERROR, "[%{private}@]: Trying to schedule backoff %{public}@ timer twice on the same level.", &v103, 0x16u);
+      v102 = 138478083;
+      v103 = v16;
+      v104 = 2114;
+      v105 = v21;
+      _os_log_impl(&dword_1BADC1000, v15, OS_LOG_TYPE_ERROR, "[%{private}@]: Trying to schedule backoff %{public}@ timer twice on the same level.", &v102, 0x16u);
     }
 
     v22 = 0;
@@ -166,8 +164,6 @@
     objc_msgSend_unlock(v5, v98, v99, v100);
   }
 
-  v101 = *MEMORY[0x1E69E9840];
-
   return v22;
 }
 
@@ -187,18 +183,18 @@
 
 - (void)reset
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v3 = APLogForCategory(0x22uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     v4 = objc_opt_class();
     v5 = v4;
     v9 = objc_msgSend_name(self, v6, v7, v8);
-    v28 = 138478083;
-    v29 = v4;
-    v30 = 2114;
-    v31 = v9;
-    _os_log_impl(&dword_1BADC1000, v3, OS_LOG_TYPE_DEBUG, "[%{private}@]: Reset backoff %{public}@ timer.", &v28, 0x16u);
+    v27 = 138478083;
+    v28 = v4;
+    v29 = 2114;
+    v30 = v9;
+    _os_log_impl(&dword_1BADC1000, v3, OS_LOG_TYPE_DEBUG, "[%{private}@]: Reset backoff %{public}@ timer.", &v27, 0x16u);
   }
 
   v13 = objc_msgSend_lock(self, v10, v11, v12);
@@ -207,13 +203,11 @@
   objc_msgSend_setNextBackoffDate_(self, v19, v20, v21, 0.0);
   objc_msgSend_setHasFiredOnThisLevel_(self, v22, 0, v23);
   objc_msgSend_unlock(v13, v24, v25, v26);
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)scheduleNextLevelWithQueue:(id)queue
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   v8 = objc_msgSend__getNextLevelTimeInterval(self, v5, v6, v7);
   if (v8)
@@ -235,13 +229,13 @@
       v24 = objc_msgSend_dateWithTimeIntervalSince1970_(v17, v21, v22, v23);
       objc_msgSend_doubleValue(v8, v25, v26, v27);
       *buf = 138478595;
-      v39 = v11;
-      v40 = 2114;
-      v41 = v16;
-      v42 = 2114;
-      v43 = v24;
-      v44 = 2048;
-      v45 = v28;
+      v38 = v11;
+      v39 = 2114;
+      v40 = v16;
+      v41 = 2114;
+      v42 = v24;
+      v43 = 2048;
+      v44 = v28;
       _os_log_impl(&dword_1BADC1000, v10, OS_LOG_TYPE_DEBUG, "[%{private}@]: Scheduling backoff %{public}@ timer to %{public}@, adding %f seconds.", buf, 0x2Au);
     }
 
@@ -252,13 +246,12 @@
     block[1] = 3221225472;
     block[2] = sub_1BAF0FED8;
     block[3] = &unk_1E7F1CF68;
-    objc_copyWeak(&v37, buf);
+    objc_copyWeak(&v36, buf);
     dispatch_after(v33, v9, block);
-    objc_destroyWeak(&v37);
+    objc_destroyWeak(&v36);
     objc_destroyWeak(buf);
   }
 
-  v34 = *MEMORY[0x1E69E9840];
   return v8 != 0;
 }
 

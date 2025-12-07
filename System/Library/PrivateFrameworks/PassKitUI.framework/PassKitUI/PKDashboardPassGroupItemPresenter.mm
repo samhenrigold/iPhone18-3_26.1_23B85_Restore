@@ -62,7 +62,7 @@
   v9 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained referenceExternalModallyPresentedSizeForPassGroupView:self->_groupView];
+    objc_msgSend_referenceExternalModallyPresentedSizeForPassGroupView_(WeakRetained);
     if (v29 == 1.0)
     {
       v10 = v26;

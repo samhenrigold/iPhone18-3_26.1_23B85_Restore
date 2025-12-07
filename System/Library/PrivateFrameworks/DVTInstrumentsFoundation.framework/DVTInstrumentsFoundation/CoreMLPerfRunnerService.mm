@@ -40,12 +40,11 @@
 
 - (void)messageReceived:(id)received
 {
-  v7.receiver = self;
-  v7.super_class = type metadata accessor for CoreMLPerfRunnerService();
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for CoreMLPerfRunnerService();
   receivedCopy = received;
-  v5 = v7.receiver;
-  [(DTXService *)&v7 messageReceived:receivedCopy];
-  v6 = *&v5[OBJC_IVAR____TtC24DVTInstrumentsFoundation23CoreMLPerfRunnerService_messageHandler];
+  v5 = v6.receiver;
+  [(DTXService *)&v6 messageReceived:receivedCopy];
   sub_2480236A4(receivedCopy);
 }
 

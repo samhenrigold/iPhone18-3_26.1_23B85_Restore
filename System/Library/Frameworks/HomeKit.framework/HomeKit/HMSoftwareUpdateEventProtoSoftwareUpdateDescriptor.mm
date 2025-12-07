@@ -206,7 +206,6 @@ LABEL_16:
     goto LABEL_46;
   }
 
-  v5 = *(equalCopy + 100);
   if ((*&self->_has & 0x10) != 0)
   {
     if ((*(equalCopy + 100) & 0x10) == 0 || self->_status != *(equalCopy + 5))
@@ -245,7 +244,7 @@ LABEL_16:
   }
 
   has = self->_has;
-  v10 = *(equalCopy + 100);
+  v9 = *(equalCopy + 100);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 100) & 4) == 0 || self->_majorVersion != *(equalCopy + 3))
@@ -294,18 +293,18 @@ LABEL_16:
     }
 
     has = self->_has;
-    v10 = *(equalCopy + 100);
+    v9 = *(equalCopy + 100);
   }
 
   if (has)
   {
-    if ((v10 & 1) == 0 || self->_downloadSize != *(equalCopy + 1))
+    if ((v9 & 1) == 0 || self->_downloadSize != *(equalCopy + 1))
     {
       goto LABEL_46;
     }
   }
 
-  else if (v10)
+  else if (v9)
   {
     goto LABEL_46;
   }
@@ -319,27 +318,26 @@ LABEL_16:
     }
 
     has = self->_has;
-    v10 = *(equalCopy + 100);
+    v9 = *(equalCopy + 100);
   }
 
   if ((has & 0x40) == 0)
   {
-    if ((v10 & 0x40) == 0)
+    if ((v9 & 0x40) == 0)
     {
       goto LABEL_41;
     }
 
 LABEL_46:
-    v13 = 0;
+    v12 = 0;
     goto LABEL_47;
   }
 
-  if ((v10 & 0x40) == 0)
+  if ((v9 & 0x40) == 0)
   {
     goto LABEL_46;
   }
 
-  v15 = *(equalCopy + 96);
   if (self->_rampEnabled)
   {
     if ((*(equalCopy + 96) & 1) == 0)
@@ -354,20 +352,20 @@ LABEL_46:
   }
 
 LABEL_41:
-  v13 = (v10 & 2) == 0;
+  v12 = (v9 & 2) == 0;
   if ((has & 2) != 0)
   {
-    if ((v10 & 2) == 0 || self->_errorCode != *(equalCopy + 2))
+    if ((v9 & 2) == 0 || self->_errorCode != *(equalCopy + 2))
     {
       goto LABEL_46;
     }
 
-    v13 = 1;
+    v12 = 1;
   }
 
 LABEL_47:
 
-  return v13;
+  return v12;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -555,7 +553,6 @@ LABEL_13:
   toCopy = to;
   if ((*&self->_has & 0x10) != 0)
   {
-    status = self->_status;
     PBDataWriterWriteInt64Field();
   }
 
@@ -577,7 +574,6 @@ LABEL_13:
   has = self->_has;
   if ((has & 4) != 0)
   {
-    majorVersion = self->_majorVersion;
     PBDataWriterWriteInt64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -597,12 +593,10 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  minorVersion = self->_minorVersion;
   PBDataWriterWriteInt64Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_12:
-    updateVersion = self->_updateVersion;
     PBDataWriterWriteInt64Field();
   }
 
@@ -614,7 +608,6 @@ LABEL_13:
 
   if (*&self->_has)
   {
-    downloadSize = self->_downloadSize;
     PBDataWriterWriteInt64Field();
   }
 
@@ -623,17 +616,15 @@ LABEL_13:
     PBDataWriterWriteStringField();
   }
 
-  v8 = self->_has;
-  if ((v8 & 0x40) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x40) != 0)
   {
-    rampEnabled = self->_rampEnabled;
     PBDataWriterWriteBOOLField();
-    v8 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v8 & 2) != 0)
+  if ((v5 & 2) != 0)
   {
-    errorCode = self->_errorCode;
     PBDataWriterWriteInt64Field();
   }
 }

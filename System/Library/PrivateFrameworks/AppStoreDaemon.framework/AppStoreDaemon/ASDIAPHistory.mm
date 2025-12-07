@@ -74,9 +74,11 @@
 
 uint64_t __31__ASDIAPHistory_sharedInstance__block_invoke(uint64_t a1)
 {
-  _MergedGlobals_46 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = _MergedGlobals_46;
+  _MergedGlobals_46 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (ASDIAPHistory)init

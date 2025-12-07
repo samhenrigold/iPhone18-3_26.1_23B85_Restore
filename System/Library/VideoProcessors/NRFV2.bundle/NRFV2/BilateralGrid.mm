@@ -6,7 +6,9 @@
 - (int)allocateTextures;
 - (int)blurAndNormalize:(id)normalize grid_tmp_tex:(id)grid_tmp_tex;
 - (int)buildWithGuideAndConfidence:(id)confidence target:(id)target confidence:(id)a5 grid_tex:(id)grid_tex ltc_tex:(id)ltc_tex gtcRatio_tex:(id)ratio_tex gtcFinal_tex:(id)final_tex ltmROI:;
+- (int)config:(unint64_t)config height:(unint64_t)height space_sigma:(int)space_sigma range_sigma:(float)range_sigma solver:(BilateralSolverConfiguration)solver;
 - (int)setupWithConfig:(BilateralGridConfiguration *)config width:(unint64_t)width height:(unint64_t)height;
+- (int)solverBistochastize:(int)bistochastize;
 - (int)solverfilter:(__CVBuffer *)solverfilter target:(__CVBuffer *)target confidence:(__CVBuffer *)confidence output:(__CVBuffer *)output;
 - (int)solverfilterWithGuide:(id)guide target:(id)target confidence:(id)confidence ltc_tex:(id)ltc_tex gtcRatio_tex:(id)ratio_tex gtcFinal_tex:(id)final_tex ltmROI:(id)i output:;
 - (int)solverfilterWithGuide:(id)guide target:(id)target confidence:(id)confidence output:(id)output;
@@ -181,6 +183,61 @@ LABEL_7:
 LABEL_4:
 
   return v11;
+}
+
+- (int)config:(unint64_t)config height:(unint64_t)height space_sigma:(int)space_sigma range_sigma:(float)range_sigma solver:(BilateralSolverConfiguration)solver
+{
+  if (config && height)
+  {
+    var2 = solver.var2;
+    var1 = solver.var1;
+    var0 = solver.var0;
+    solver.var2 = range_sigma;
+    v11.i32[1] = 1034147594;
+    if (vmaxv_u16(vmovn_s32(vandq_s8(vceqq_s32(vdupq_n_s32(space_sigma), xmmword_2958D5B00), vceqq_f32(vdupq_lane_s32(*&solver.var2, 0), xmmword_2958D5B10)))))
+    {
+      var3 = solver.var3;
+      self->_space_sigma = space_sigma;
+      self->_range_sigma = range_sigma;
+      self->_input_width = config;
+      self->_input_height = height;
+      v14.i64[0] = config;
+      v14.i64[1] = height;
+      *v11.i32 = space_sigma;
+      v23 = solver.var2;
+      space_sigmaCopy = space_sigma;
+      __asm { FMOV            V1.2S, #-1.0 }
+
+      *&self->_grid_width = vadd_s32(vcvt_s32_f32(vdiv_f32(vadd_f32(vcvt_f32_f64(vcvtq_f64_u64(v14)), _D1), vdup_lane_s32(v11, 0))), 0x100000001);
+      v20 = 1.0 / solver.var2;
+      self->_grid_depth = ((1.0 / solver.var2) + 1);
+      v21 = objc_msgSend_contents(self->_uniforms, a2, config, height);
+      result = 0;
+      *v21 = space_sigma;
+      *(v21 + 4) = v23;
+      *(v21 + 8) = 1.0 / space_sigmaCopy;
+      *(v21 + 12) = v20;
+      *(v21 + 16) = self->_grid_depth;
+      *(v21 + 20) = var0;
+      *(v21 + 24) = var1;
+      *(v21 + 28) = var2;
+      *(v21 + 32) = var3;
+    }
+
+    else
+    {
+      sub_295879AE0(&v25);
+      return v25;
+    }
+  }
+
+  else
+  {
+    sub_295879B7C(&v26);
+    return v26;
+  }
+
+  return result;
 }
 
 - (id)allocGridTexture:(unint64_t)texture label:(id)label
@@ -746,12 +803,142 @@ LABEL_16:
 - (int)solverfilterWithGuide:(id)guide target:(id)target confidence:(id)confidence output:(id)output
 {
   v6 = objc_msgSend_solverfilterWithGuide_target_confidence_ltc_tex_gtcRatio_tex_gtcFinal_tex_ltmROI_output_(self, a2, guide, target, confidence, 0, 0, 0, 0.0, output);
+  v7 = v6;
   if (v6)
   {
-    sub_29587AB10();
+    sub_29587AB10(v6);
   }
 
-  return v6;
+  return v7;
+}
+
+- (int)solverBistochastize:(int)bistochastize
+{
+  bistochastizeCopy = bistochastize;
+  grid_width = self->_grid_width;
+  grid_height = self->_grid_height;
+  v8 = objc_msgSend_commandQueue(self->_metal, a2, *&bistochastize, v3);
+  v12 = objc_msgSend_commandBuffer(v8, v9, v10, v11);
+
+  if (!v12)
+  {
+    sub_29587ADF4(&v81);
+    goto LABEL_19;
+  }
+
+  v16 = objc_msgSend_computeCommandEncoder(v12, v13, v14, v15);
+  if (!v16)
+  {
+    sub_29587AD58(&v81);
+    goto LABEL_19;
+  }
+
+  v19 = v16;
+  v20 = (grid_width + 7) >> 3;
+  v21 = (grid_height + 7) >> 3;
+  objc_msgSend_setComputePipelineState_(v16, v17, self->_shaders->_bgBistochastizeInit, v18);
+  objc_msgSend_setTexture_atIndex_(v19, v22, self->_grid_tex, 0);
+  objc_msgSend_setTexture_atIndex_(v19, v23, self->_bistochast_m_tex, 1);
+  objc_msgSend_setTexture_atIndex_(v19, v24, self->_bistochast_n_tex, 2);
+  objc_msgSend_setBuffer_offset_atIndex_(v19, v25, self->_uniforms, 0, 0);
+  *&v81 = v20;
+  *(&v81 + 1) = v21;
+  v82 = 1;
+  v79 = vdupq_n_s64(8uLL);
+  v80 = 1;
+  objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v19, v26, &v81, &v79);
+  objc_msgSend_endEncoding(v19, v27, v28, v29);
+  if (bistochastizeCopy < 1)
+  {
+    v52 = 0;
+LABEL_10:
+    v61 = objc_msgSend_computeCommandEncoder(v12, v30, v31, v32);
+
+    if (v61)
+    {
+      objc_msgSend_setComputePipelineState_(v61, v62, self->_shaders->_bgBistochastizeFinal, v63);
+      objc_msgSend_setTexture_atIndex_(v61, v64, self->_grid_tex, 0);
+      objc_msgSend_setTexture_atIndex_(v61, v65, self->_bistochast_n_tex, 1);
+      objc_msgSend_setTexture_atIndex_(v61, v66, self->_A_tex, 2);
+      objc_msgSend_setBuffer_offset_atIndex_(v61, v67, self->_uniforms, 0, 0);
+      *&v81 = v20;
+      *(&v81 + 1) = v21;
+      v82 = 1;
+      v79 = vdupq_n_s64(8uLL);
+      v80 = 1;
+      objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v61, v68, &v81, &v79);
+      objc_msgSend_endEncoding(v61, v69, v70, v71);
+      objc_msgSend_commit(v12, v72, v73, v74);
+
+      v75 = 0;
+      goto LABEL_12;
+    }
+
+    sub_29587AB74(v52, &v81);
+LABEL_19:
+    v75 = v81;
+    goto LABEL_12;
+  }
+
+  v33 = 0;
+  v77 = vdupq_n_s64(8uLL);
+  while (1)
+  {
+    v34 = v19;
+    v35 = self->_A_tex;
+    v19 = objc_msgSend_computeCommandEncoder(v12, v36, v37, v38);
+
+    if (!v19)
+    {
+      sub_29587ACB4(v33, &v81);
+      goto LABEL_15;
+    }
+
+    objc_msgSend_setComputePipelineState_(v19, v39, self->_shaders->_bgBistochastizeIter, v40);
+    objc_msgSend_setTexture_atIndex_(v19, v41, self->_bistochast_m_tex, 0);
+    objc_msgSend_setTexture_atIndex_(v19, v42, self->_bistochast_n_tex, 1);
+    objc_msgSend_setTexture_atIndex_(v19, v43, v35, 2);
+    objc_msgSend_setBuffer_offset_atIndex_(v19, v44, self->_uniforms, 0, 0);
+    *&v81 = v20;
+    *(&v81 + 1) = v21;
+    v82 = 1;
+    v79 = v77;
+    v80 = 1;
+    objc_msgSend_dispatchThreadgroups_threadsPerThreadgroup_(v19, v45, &v81, &v79);
+    objc_msgSend_endEncoding(v19, v46, v47, v48);
+    v52 = objc_msgSend_blitCommandEncoder(v12, v49, v50, v51);
+
+    if (!v52)
+    {
+      break;
+    }
+
+    v79 = 0uLL;
+    v80 = 0;
+    grid_depth = self->_grid_depth;
+    v55 = *&self->_grid_width;
+    *&v56 = v55;
+    *(&v56 + 1) = SHIDWORD(v55);
+    v81 = v56;
+    v82 = grid_depth;
+    bistochast_n_tex = self->_bistochast_n_tex;
+    memset(v78, 0, sizeof(v78));
+    objc_msgSend_copyFromTexture_sourceSlice_sourceLevel_sourceOrigin_sourceSize_toTexture_destinationSlice_destinationLevel_destinationOrigin_(v52, v53, v35, 0, 0, &v79, &v81, bistochast_n_tex, 0, 0, v78);
+    objc_msgSend_endEncoding(v52, v58, v59, v60);
+
+    v33 = v52;
+    if (!--bistochastizeCopy)
+    {
+      goto LABEL_10;
+    }
+  }
+
+  sub_29587AC18(&v81);
+LABEL_15:
+  v75 = v81;
+
+LABEL_12:
+  return v75;
 }
 
 - (id)solverPcg:(int)pcg
@@ -1085,7 +1272,7 @@ LABEL_27:
 
 - (int)solverfilterWithGuide:(id)guide target:(id)target confidence:(id)confidence ltc_tex:(id)ltc_tex gtcRatio_tex:(id)ratio_tex gtcFinal_tex:(id)final_tex ltmROI:(id)i output:
 {
-  v39 = v9;
+  v46 = v10;
   guideCopy = guide;
   targetCopy = target;
   confidenceCopy = confidence;
@@ -1095,74 +1282,76 @@ LABEL_27:
   iCopy = i;
   if (self->_useMetalAllocator)
   {
-    Textures = objc_msgSend_allocateTextures(self, v22, v23, v24);
+    Textures = objc_msgSend_allocateTextures(self, v23, v24, v25);
     if (Textures)
     {
-      v37 = Textures;
+      v38 = Textures;
       goto LABEL_24;
     }
   }
 
-  v27 = objc_msgSend_pixelFormat(guideCopy, v22, v23, v24);
-  v29 = v27 == 10 || v27 == 25;
-  if (!v29 && v27 != 576 && v27 != 588)
+  v28 = objc_msgSend_pixelFormat(guideCopy, v23, v24, v25);
+  v30 = v28 == 10 || v28 == 25;
+  if (!v30 && v28 != 576 && v28 != 588)
   {
     sub_2957FD180();
-    FigDebugAssert3();
-    v35 = 0;
-    v37 = -1;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v43, v44, v45, v46, *(&v46 + 1), v47, v48);
+    v36 = 0;
+    v38 = -1;
     goto LABEL_19;
   }
 
-  v30 = objc_msgSend_buildWithGuideAndConfidence_target_confidence_grid_tex_ltc_tex_gtcRatio_tex_gtcFinal_tex_ltmROI_(self, v28, guideCopy, targetCopy, confidenceCopy, self->_grid_tex, ltc_texCopy, ratio_texCopy, v39, final_texCopy);
-  if (v30)
+  v31 = objc_msgSend_buildWithGuideAndConfidence_target_confidence_grid_tex_ltc_tex_gtcRatio_tex_gtcFinal_tex_ltmROI_(self, v29, guideCopy, targetCopy, confidenceCopy, self->_grid_tex, ltc_texCopy, ratio_texCopy, *&v46, final_texCopy);
+  if (v31)
   {
-    v37 = v30;
+    v38 = v31;
     sub_2957FD180();
-    FigDebugAssert3();
+    LODWORD(v41) = v40;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v41, v43, v44, v45, v46, *(&v46 + 1), v47, v48);
 LABEL_24:
-    v35 = 0;
+    v36 = 0;
     goto LABEL_19;
   }
 
   if (confidenceCopy)
   {
-    objc_msgSend_solverBistochastize_(self, v31, 10, v32);
-    v35 = objc_msgSend_solverPcg_(self, v33, 20, v34);
+    objc_msgSend_solverBistochastize_(self, v32, 10, v33);
+    v36 = objc_msgSend_solverPcg_(self, v34, 20, v35);
     if (iCopy)
     {
-      v36 = objc_msgSend_upsample_grid_tex_conf_tex_ltc_tex_gtcRatio_tex_gtcFinal_tex_ltmROI_output_(self, v22, guideCopy, v35, self->_confidence_solved_tex, ltc_texCopy, ratio_texCopy, final_texCopy, v39, iCopy);
+      v37 = objc_msgSend_upsample_grid_tex_conf_tex_ltc_tex_gtcRatio_tex_gtcFinal_tex_ltmROI_output_(self, v23, guideCopy, v36, self->_confidence_solved_tex, ltc_texCopy, ratio_texCopy, final_texCopy, *&v46, iCopy);
       goto LABEL_15;
     }
 
 LABEL_17:
-    v37 = 0;
+    v38 = 0;
     goto LABEL_19;
   }
 
-  objc_msgSend_blurAndNormalize_grid_tmp_tex_(self, v31, self->_grid_tex, self->_tmp_grid_tex);
-  v35 = self->_grid_tex;
+  objc_msgSend_blurAndNormalize_grid_tmp_tex_(self, v32, self->_grid_tex, self->_tmp_grid_tex);
+  v36 = self->_grid_tex;
   if (!iCopy)
   {
     goto LABEL_17;
   }
 
-  v36 = objc_msgSend_upsample_grid_tex_conf_tex_ltc_tex_gtcRatio_tex_gtcFinal_tex_ltmROI_output_(self, v22, guideCopy, v35, 0, ltc_texCopy, ratio_texCopy, final_texCopy, v39, iCopy);
+  v37 = objc_msgSend_upsample_grid_tex_conf_tex_ltc_tex_gtcRatio_tex_gtcFinal_tex_ltmROI_output_(self, v23, guideCopy, v36, 0, ltc_texCopy, ratio_texCopy, final_texCopy, *&v46, iCopy);
 LABEL_15:
-  v37 = v36;
-  if (v36)
+  v38 = v37;
+  if (v37)
   {
     sub_2957FD180();
-    FigDebugAssert3();
+    LODWORD(v42) = v38;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v42, v43, v44, v9, v46, *(&v46 + 1), v47, v48);
   }
 
 LABEL_19:
   if (self->_useMetalAllocator)
   {
-    objc_msgSend_releaseTextures(self, v22, v23, v24);
+    objc_msgSend_releaseTextures(self, v23, v24, v25);
   }
 
-  return v37;
+  return v38;
 }
 
 - (int)solverfilter:(__CVBuffer *)solverfilter target:(__CVBuffer *)target confidence:(__CVBuffer *)confidence output:(__CVBuffer *)output
@@ -1171,132 +1360,140 @@ LABEL_19:
   {
     input_width = self->_input_width;
     input_height = self->_input_height;
-    if (CVPixelBufferGetWidth(solverfilter) == input_width && CVPixelBufferGetHeight(solverfilter) == input_height && (v18 = self->_input_width, v17 = self->_input_height, CVPixelBufferGetWidth(target) == v18) && CVPixelBufferGetHeight(target) == v17)
+    if (CVPixelBufferGetWidth(solverfilter) == input_width && CVPixelBufferGetHeight(solverfilter) == input_height)
     {
-      if (CVPixelBufferGetPixelFormatType(solverfilter) != 875704422)
+      v18 = self->_input_width;
+      v17 = self->_input_height;
+      if (CVPixelBufferGetWidth(target) == v18 && CVPixelBufferGetHeight(target) == v17)
       {
-        sub_2957FD180();
-        FigDebugAssert3();
-        v47 = -1;
-        goto LABEL_50;
-      }
-
-      v20 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metal, v19, solverfilter, 10, 23, 0);
-      if (v20)
-      {
-        v21 = v20;
-        PixelFormatType = CVPixelBufferGetPixelFormatType(target);
-        if (PixelFormatType == 1278226536 || PixelFormatType == 1751410032 || PixelFormatType == 1751411059)
+        if (CVPixelBufferGetPixelFormatType(solverfilter) != 875704422)
         {
-          objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metal, v23, target, 25, 23, 0);
+          sub_2957FD180();
+          FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v68, v69, v70, v71, v72, v73, v74);
+          v47 = -1;
+          goto LABEL_50;
         }
 
-        else
+        v20 = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metal, v19, solverfilter, 10, 23, 0);
+        if (v20)
         {
-          objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metal, v23, target, 10, 23, 0);
-        }
-        v26 = ;
-        if (!v26)
-        {
-          sub_2957FD170();
-          FigDebugAssert3();
-          sub_2957F8880();
-          v47 = FigSignalErrorAtGM();
-          goto LABEL_49;
-        }
-
-        v28 = v26;
-        if (confidence)
-        {
-          v30 = self->_input_width;
-          v29 = self->_input_height;
-          if (CVPixelBufferGetWidth(confidence) == v30 && CVPixelBufferGetHeight(confidence) == v29)
+          v21 = v20;
+          PixelFormatType = CVPixelBufferGetPixelFormatType(target);
+          if (PixelFormatType == 1278226536 || PixelFormatType == 1751410032 || PixelFormatType == 1751411059)
           {
-            confidence = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metal, v31, confidence, 25, 23, 0);
-            if (confidence)
-            {
-              goto LABEL_23;
-            }
+            objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metal, v23, target, 25, 23, 0);
+          }
 
-            sub_2957FD160();
-            FigDebugAssert3();
+          else
+          {
+            objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metal, v23, target, 10, 23, 0);
+          }
+          v26 = ;
+          if (!v26)
+          {
+            sub_2957FD170();
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v65, v68, v69, v70, v71, v72, v73, v74);
             sub_2957F8880();
+            v47 = FigSignalErrorAtGM(v53);
+            goto LABEL_49;
           }
 
-          else
+          v28 = v26;
+          if (confidence)
           {
-            sub_2957FD160();
-            FigDebugAssert3();
-          }
-
-          v47 = FigSignalErrorAtGM();
-          goto LABEL_48;
-        }
-
-LABEL_23:
-        if (!output)
-        {
-          goto LABEL_36;
-        }
-
-        v33 = self->_input_width;
-        v32 = self->_input_height;
-        if (CVPixelBufferGetWidth(output) == v33 && CVPixelBufferGetHeight(output) == v32)
-        {
-          v34 = CVPixelBufferGetPixelFormatType(output);
-          if (v34 == 1278226536 || v34 == 1751410032 || v34 == 1751411059)
-          {
-            objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metal, v35, output, 25, 22, 0);
-          }
-
-          else
-          {
-            objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metal, v35, output, 10, 22, 0);
-          }
-          output = ;
-          if (output)
-          {
-LABEL_36:
-            v38 = objc_msgSend_buildWithGuideAndConfidence_target_confidence_grid_tex_ltc_tex_gtcRatio_tex_gtcFinal_tex_ltmROI_(self, v27, v21, v28, confidence, self->_grid_tex, 0, 0, 0.0, 0);
-            if (v38)
+            v30 = self->_input_width;
+            v29 = self->_input_height;
+            if (CVPixelBufferGetWidth(confidence) == v30 && CVPixelBufferGetHeight(confidence) == v29)
             {
-              v47 = v38;
-              sub_2957FD180();
-              FigDebugAssert3();
-              goto LABEL_46;
-            }
-
-            if (confidence)
-            {
-              objc_msgSend_solverBistochastize_(self, v39, 10, v40);
-              v44 = objc_msgSend_solverPcg_(self, v41, 20, v42);
-              if (output)
+              confidence = objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metal, v31, confidence, 25, 23, 0);
+              if (confidence)
               {
-                v45 = objc_msgSend_upsample_grid_tex_conf_tex_ltc_tex_gtcRatio_tex_gtcFinal_tex_ltmROI_output_(self, v43, v21, v44, self->_confidence_solved_tex, 0, 0, 0, 0.0, output);
-                goto LABEL_42;
+                goto LABEL_23;
               }
+
+              sub_2957FD160();
+              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v65, v68, v69, v70, v71, v72, v73, v74);
+              sub_2957F8880();
+              v55 = FigSignalErrorAtGM(v56, v57, v58, v59, 1044);
             }
 
             else
             {
-              objc_msgSend_blurAndNormalize_grid_tmp_tex_(self, v39, self->_grid_tex, self->_tmp_grid_tex);
-              v44 = self->_grid_tex;
-              if (output)
-              {
-                v45 = objc_msgSend_upsample_grid_tex_conf_tex_ltc_tex_gtcRatio_tex_gtcFinal_tex_ltmROI_output_(self, v46, v21, v44, 0, 0, 0, 0, 0.0, output);
-LABEL_42:
-                v47 = v45;
-                if (v45)
-                {
-                  sub_2957FD180();
-                  FigDebugAssert3();
-                }
-
-                goto LABEL_45;
-              }
+              sub_2957FD160();
+              FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v65, v68, v69, v70, v71, v72, v73, v74);
+              v55 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_2A18C2390, 4294954516, "(Fig)", 1042);
             }
 
-            v47 = 0;
+            v47 = v55;
+            goto LABEL_48;
+          }
+
+LABEL_23:
+          if (!output)
+          {
+            goto LABEL_36;
+          }
+
+          v33 = self->_input_width;
+          v32 = self->_input_height;
+          if (CVPixelBufferGetWidth(output) == v33 && CVPixelBufferGetHeight(output) == v32)
+          {
+            v34 = CVPixelBufferGetPixelFormatType(output);
+            if (v34 == 1278226536 || v34 == 1751410032 || v34 == 1751411059)
+            {
+              objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metal, v35, output, 25, 22, 0);
+            }
+
+            else
+            {
+              objc_msgSend_bindPixelBufferToMTL2DTexture_pixelFormat_usage_plane_(self->_metal, v35, output, 10, 22, 0);
+            }
+            output = ;
+            if (output)
+            {
+LABEL_36:
+              v38 = objc_msgSend_buildWithGuideAndConfidence_target_confidence_grid_tex_ltc_tex_gtcRatio_tex_gtcFinal_tex_ltmROI_(self, v27, v21, v28, confidence, self->_grid_tex, 0, 0, 0.0, 0);
+              if (v38)
+              {
+                v47 = v38;
+                sub_2957FD180();
+                LODWORD(v66) = v54;
+                FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v66, v68, v69, v70, v71, v72, v73, v74);
+                goto LABEL_46;
+              }
+
+              if (confidence)
+              {
+                objc_msgSend_solverBistochastize_(self, v39, 10, v40);
+                v44 = objc_msgSend_solverPcg_(self, v41, 20, v42);
+                if (output)
+                {
+                  v45 = objc_msgSend_upsample_grid_tex_conf_tex_ltc_tex_gtcRatio_tex_gtcFinal_tex_ltmROI_output_(self, v43, v21, v44, self->_confidence_solved_tex, 0, 0, 0, 0.0, output);
+                  goto LABEL_42;
+                }
+              }
+
+              else
+              {
+                objc_msgSend_blurAndNormalize_grid_tmp_tex_(self, v39, self->_grid_tex, self->_tmp_grid_tex);
+                v44 = self->_grid_tex;
+                if (output)
+                {
+                  v45 = objc_msgSend_upsample_grid_tex_conf_tex_ltc_tex_gtcRatio_tex_gtcFinal_tex_ltmROI_output_(self, v46, v21, v44, 0, 0, 0, 0, 0.0, output);
+LABEL_42:
+                  v47 = v45;
+                  if (v45)
+                  {
+                    sub_2957FD180();
+                    LODWORD(v67) = v47;
+                    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v67, v68, v69, v70, v71, v72, v73, v74);
+                  }
+
+                  goto LABEL_45;
+                }
+              }
+
+              v47 = 0;
 LABEL_45:
 
 LABEL_46:
@@ -1305,36 +1502,46 @@ LABEL_47:
 LABEL_48:
 LABEL_49:
 
-            goto LABEL_50;
+              goto LABEL_50;
+            }
+
+            sub_2957FD160();
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v65, v68, v69, v70, v71, v72, v73, v74);
+            sub_2957F8880();
+            v60 = FigSignalErrorAtGM(v61, v62, v63, v64, 1056);
           }
 
-          sub_2957FD160();
-          FigDebugAssert3();
-          sub_2957F8880();
+          else
+          {
+            sub_2957FD160();
+            FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v65, v68, v69, v70, v71, v72, v73, v74);
+            v60 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_2A18C2390, 4294954516, "(Fig)", 1050);
+          }
+
+          v47 = v60;
+          goto LABEL_47;
         }
 
-        else
-        {
-          sub_2957FD160();
-          FigDebugAssert3();
-        }
-
-        v47 = FigSignalErrorAtGM();
-        goto LABEL_47;
+        sub_2957F885C();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v65, v68, v69, v70, v71, v72, v73, v74);
+        sub_2957F8880();
+        Textures = FigSignalErrorAtGM(v49, v50, v51, v52, 1029);
       }
 
-      sub_2957F885C();
-      FigDebugAssert3();
-      sub_2957F8880();
+      else
+      {
+        sub_2957F885C();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v65, v68, v69, v70, v71, v72, v73, v74);
+        Textures = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_2A18C2390, 4294954516, "(Fig)", 1024);
+      }
     }
 
     else
     {
       sub_2957F885C();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v65, v68, v69, v70, v71, v72, v73, v74);
+      Textures = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", qword_2A18C2390, 4294954516, "(Fig)", 1023);
     }
-
-    Textures = FigSignalErrorAtGM();
   }
 
   v47 = Textures;

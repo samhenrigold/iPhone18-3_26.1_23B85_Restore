@@ -9,17 +9,18 @@
   selfCopy = self;
   if (![(MSDFMHSessionTaskInfo *)self useBAAAuthentication])
   {
-    v9.receiver = selfCopy;
-    v9.super_class = MSDFMHSessionTaskInfo;
-    LOBYTE(selfCopy) = [(MSDHubSessionTaskInfo *)&v9 addAuthHeader];
+    v10.receiver = selfCopy;
+    v10.super_class = MSDFMHSessionTaskInfo;
+    LOBYTE(selfCopy) = [(MSDHubSessionTaskInfo *)&v10 addAuthHeader];
     return selfCopy;
   }
 
   v3 = +[MSDBAAInterface sharedInstance];
-  if (([v3 generateBAACertficate:0] & 1) == 0)
+  v4 = [v3 generateBAACertficate:0];
+  if ((v4 & 1) == 0)
   {
-    v6 = sub_100063A54();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_100063A54(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1000D14BC();
     }
@@ -30,13 +31,13 @@
 
   request = [(MSDSessionTaskInfo *)selfCopy request];
   postData = [(MSDSessionTaskInfo *)selfCopy postData];
-  v8 = 0;
-  LODWORD(selfCopy) = [v3 addBAAAuthenticationHeadersToRequest:request withBody:postData error:&v8];
-  v6 = v8;
+  v9 = 0;
+  LODWORD(selfCopy) = [v3 addBAAAuthenticationHeadersToRequest:request withBody:postData error:&v9];
+  v7 = v9;
 
-  if (!selfCopy || v6)
+  if (!selfCopy || v7)
   {
-    sub_1000D14F8();
+    sub_1000D14F8(v7);
 LABEL_13:
 
     goto LABEL_6;

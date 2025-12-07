@@ -1,7 +1,7 @@
 @interface MapsSuggestionsLocationChangedTrigger
 - (MapsSuggestionsLocationChangedTrigger)initWithLocationUpdater:(id)updater;
 - (MapsSuggestionsLocationChangedTrigger)initWithLocationUpdater:(id)updater forcingLocationUpdater:(id)locationUpdater;
-- (uint64_t)stopForcingUpdate;
+- (id)stopForcingUpdate;
 - (void)_cancelLocationForceUpdate;
 - (void)_kickForceUpdateWithTime:(void *)time;
 - (void)changeMinDistance:(double)distance;
@@ -318,7 +318,7 @@ void __66__MapsSuggestionsLocationChangedTrigger__kickForceUpdateWithTime___bloc
   locationCopy = location;
   if (locationCopy)
   {
-    [(MapsSuggestionsLocationChangedTrigger *)self stopForcingUpdate];
+    [(MapsSuggestionsLocationChangedTrigger *)&self->super.super.isa stopForcingUpdate];
     [(MapsSuggestionsLocationChangedTrigger *)self _kickForceUpdateWithTime:?];
     v6 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
@@ -358,7 +358,7 @@ void __66__MapsSuggestionsLocationChangedTrigger__kickForceUpdateWithTime___bloc
   }
 }
 
-- (uint64_t)stopForcingUpdate
+- (id)stopForcingUpdate
 {
   if (result)
   {
@@ -366,10 +366,11 @@ void __66__MapsSuggestionsLocationChangedTrigger__kickForceUpdateWithTime___bloc
     v2 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
-      OUTLINED_FUNCTION_11(&dword_1C5126000, v3, v4, "Stopping forcing LocationUpdater", v5, v6, v7, v8, 0);
+      v9 = 0;
+      OUTLINED_FUNCTION_11(&dword_1C5126000, v3, v4, "Stopping forcing LocationUpdater", v5, v6, v7, v8, v9);
     }
 
-    return [*(v1 + 72) stopLocationUpdatesForDelegate:v1];
+    return [v1[9] stopLocationUpdatesForDelegate:v1];
   }
 
   return result;
@@ -380,10 +381,11 @@ void __66__MapsSuggestionsLocationChangedTrigger__kickForceUpdateWithTime___bloc
   v3 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    OUTLINED_FUNCTION_11(&dword_1C5126000, v4, v5, "Stopping Trigger", v6, v7, v8, v9, 0);
+    v10 = 0;
+    OUTLINED_FUNCTION_11(&dword_1C5126000, v4, v5, "Stopping Trigger", v6, v7, v8, v9, v10);
   }
 
-  [(MapsSuggestionsLocationChangedTrigger *)self stopForcingUpdate];
+  [(MapsSuggestionsLocationChangedTrigger *)&self->super.super.isa stopForcingUpdate];
   [(MapsSuggestionsLocationChangedTrigger *)self _cancelLocationForceUpdate];
   [(MapsSuggestionsLocationUpdater *)self->_locationUpdater stopLocationUpdatesForDelegate:self];
 }

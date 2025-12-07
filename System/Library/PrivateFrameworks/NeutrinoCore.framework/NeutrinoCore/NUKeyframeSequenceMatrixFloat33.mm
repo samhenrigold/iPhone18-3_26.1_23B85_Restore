@@ -1,36 +1,29 @@
 @interface NUKeyframeSequenceMatrixFloat33
 - (NUKeyframeSequenceMatrixFloat33)initWithCount:(unint64_t)count times:(id *)times values:(id *)values;
 - (__n128)valueOfKeyframeAtIndex:(uint64_t)index;
-- (uint64_t)sampleAtTime:(__int128 *)time;
 - (void)dealloc;
+- (void)sampleAtTime:(__int128 *)time;
 @end
 
 @implementation NUKeyframeSequenceMatrixFloat33
 
-- (uint64_t)sampleAtTime:(__int128 *)time
+- (void)sampleAtTime:(__int128 *)time
 {
-  selfCopy = self;
-  if (*(time + 12))
+  if ((*(time + 12) & 1) == 0)
   {
-    v9 = *time;
-    v10 = *(time + 2);
-    v6 = [self indexOfKeyframeAtOrBeforeTime:&v9];
-    if ([selfCopy interpolation])
-    {
-      currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      [currentHandler handleFailureInMethod:a2 object:selfCopy file:@"NUKeyframeSequence.m" lineNumber:799 description:@"Don't know how to interpolate transforms"];
-    }
-
-    self = selfCopy;
-    v4 = v6;
+    return objc_msgSend_valueOfKeyframeAtIndex_(self, a2, 0);
   }
 
-  else
+  v9 = *time;
+  v10 = *(time + 2);
+  v6 = [self indexOfKeyframeAtOrBeforeTime:&v9];
+  if ([self interpolation])
   {
-    v4 = 0;
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"NUKeyframeSequence.m" lineNumber:799 description:@"Don't know how to interpolate transforms"];
   }
 
-  return [self valueOfKeyframeAtIndex:v4];
+  return objc_msgSend_valueOfKeyframeAtIndex_(self, v7, v6);
 }
 
 - (__n128)valueOfKeyframeAtIndex:(uint64_t)index
@@ -43,7 +36,7 @@
       indexCopy = index;
     }
 
-    v6 = self[5] + 48 * (indexCopy & ~(indexCopy >> 63));
+    v6 = (self[5] + 48 * (indexCopy & ~(indexCopy >> 63)));
   }
 
   else

@@ -6,11 +6,11 @@
 
 - (double)timeIntervalSinceReferenceDate
 {
-  v3 = objc_msgSend_date(MEMORY[0x1E695DF00], a2, v2);
-  objc_msgSend_timeIntervalSinceReferenceDate(v3, v4, v5);
-  v7 = v6;
+  date = [MEMORY[0x1E695DF00] date];
+  [date timeIntervalSinceReferenceDate];
+  v4 = v3;
 
-  return v7;
+  return v4;
 }
 
 @end

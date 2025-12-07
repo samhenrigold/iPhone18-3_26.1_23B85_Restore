@@ -50,11 +50,10 @@
     [NPKProtoPassAssociatedDataRequest writeTo:];
   }
 
-  v6 = toCopy;
+  v5 = toCopy;
   PBDataWriterWriteStringField();
   if (*&self->_has)
   {
-    passRequestedData = self->_passRequestedData;
     PBDataWriterWriteUint64Field();
   }
 }

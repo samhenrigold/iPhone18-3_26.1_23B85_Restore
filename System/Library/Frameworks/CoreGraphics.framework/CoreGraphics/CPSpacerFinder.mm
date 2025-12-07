@@ -648,7 +648,7 @@ LABEL_87:
           goto LABEL_87;
         }
 
-        if ((canSeparateWordRight(v13, v79) & 1) == 0)
+        if (!canSeparateWordRight(v13, v79))
         {
           excludeSpacerFromBounds(&selfCopy3->spacerSequence, v13, *(v11 + 1), *(v11 + 2), *(v11 + 3), *(v11 + 4));
           v13 = 0;

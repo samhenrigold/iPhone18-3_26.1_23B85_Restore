@@ -1,5 +1,6 @@
 @interface _UIWaitingForShareViewController
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation _UIWaitingForShareViewController
@@ -30,6 +31,17 @@
   v16[1] = v13;
   v14 = [NSArray arrayWithObjects:v16 count:2];
   [NSLayoutConstraint activateConstraints:v14];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = _UIWaitingForShareViewController;
+  [(_UIShareOverviewController *)&v6 viewWillAppear:appear];
+  v4 = objc_opt_new();
+  [v4 configureWithTransparentBackground];
+  navigationItem = [(_UIWaitingForShareViewController *)self navigationItem];
+  [navigationItem setStandardAppearance:v4];
 }
 
 @end

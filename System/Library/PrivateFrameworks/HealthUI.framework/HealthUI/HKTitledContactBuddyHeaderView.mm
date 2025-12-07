@@ -63,7 +63,7 @@
       v18 = v17;
       _Block_object_dispose(&v47, 8);
       mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
-      [mainScreen scale];
+      objc_msgSend_scale(mainScreen);
       v21 = [v17 scopeWithPointSize:effectiveUserInterfaceLayoutDirection == 1 scale:0 rightToLeft:82.0 style:{82.0, v20}];
 
       v22 = objc_alloc_init(MEMORY[0x1E695CD58]);

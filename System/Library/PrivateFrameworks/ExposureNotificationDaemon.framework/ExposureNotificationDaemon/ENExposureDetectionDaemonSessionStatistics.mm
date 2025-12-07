@@ -23,89 +23,99 @@
 
 - (id)description
 {
+  v34 = 0;
   v3 = objc_opt_class();
-  v15 = NSStringFromClass(v3);
-  NSAppendPrintF_safe();
-  v4 = 0;
+  v4 = NSStringFromClass(v3);
+  NSAppendPrintF_safe(&v34, "%@", v4);
+  v5 = v34;
 
-  if (self->_processedFileCount)
+  processedFileCount = self->_processedFileCount;
+  if (processedFileCount)
   {
-    NSAppendPrintF_safe();
-    v5 = v4;
+    v33 = v5;
+    NSAppendPrintF_safe(&v33, ", Files %llu", processedFileCount);
+    v7 = v33;
 
-    fileKeyCount = self->_fileKeyCount;
-    NSAppendPrintF_safe();
-    v4 = v5;
+    v32 = v7;
+    NSAppendPrintF_safe(&v32, ", FileKeys %llu", self->_fileKeyCount);
+    v5 = v32;
 
-    if (self->_fileInvalidKeyCount)
+    fileInvalidKeyCount = self->_fileInvalidKeyCount;
+    if (fileInvalidKeyCount)
     {
-      fileInvalidKeyCount = self->_fileInvalidKeyCount;
-      NSAppendPrintF_safe();
-      v6 = v4;
+      v31 = v5;
+      NSAppendPrintF_safe(&v31, ", InvalidKeys %llu", fileInvalidKeyCount);
+      v9 = v31;
 
-      v4 = v6;
+      v5 = v9;
     }
   }
 
-  if (self->_invalidFileSignatureCount)
+  invalidFileSignatureCount = self->_invalidFileSignatureCount;
+  if (invalidFileSignatureCount)
   {
-    invalidFileSignatureCount = self->_invalidFileSignatureCount;
-    NSAppendPrintF_safe();
-    v7 = v4;
+    v30 = v5;
+    NSAppendPrintF_safe(&v30, ", InvalidSigs %llu", invalidFileSignatureCount);
+    v11 = v30;
 
-    v4 = v7;
+    v5 = v11;
   }
 
-  matchedKeyCount = self->_matchedKeyCount;
-  NSAppendPrintF_safe();
-  v8 = v4;
+  v29 = v5;
+  NSAppendPrintF_safe(&v29, ", Matches %llu", self->_matchedKeyCount);
+  v12 = v29;
 
-  if (self->_revokedKeyCount)
+  revokedKeyCount = self->_revokedKeyCount;
+  if (revokedKeyCount)
   {
-    revokedKeyCount = self->_revokedKeyCount;
-    NSAppendPrintF_safe();
-    v9 = v8;
+    v28 = v12;
+    NSAppendPrintF_safe(&v28, ", Revoked %llu", revokedKeyCount);
+    v14 = v28;
 
-    v8 = v9;
+    v12 = v14;
   }
 
-  if (self->_droppedKeyCount)
+  droppedKeyCount = self->_droppedKeyCount;
+  if (droppedKeyCount)
   {
-    droppedKeyCount = self->_droppedKeyCount;
-    NSAppendPrintF_safe();
-    v10 = v8;
+    v27 = v12;
+    NSAppendPrintF_safe(&v27, ", Dropped %llu", droppedKeyCount);
+    v16 = v27;
 
-    v8 = v10;
+    v12 = v16;
   }
 
-  if (self->_newCachedKeyCount)
+  newCachedKeyCount = self->_newCachedKeyCount;
+  if (newCachedKeyCount)
   {
-    newCachedKeyCount = self->_newCachedKeyCount;
-    NSAppendPrintF_safe();
-    v11 = v8;
+    v26 = v12;
+    NSAppendPrintF_safe(&v26, ", New %llu", newCachedKeyCount);
+    v18 = v26;
 
-    v8 = v11;
+    v12 = v18;
   }
 
-  if (self->_updatedCachedKeyCount)
+  updatedCachedKeyCount = self->_updatedCachedKeyCount;
+  if (updatedCachedKeyCount)
   {
-    updatedCachedKeyCount = self->_updatedCachedKeyCount;
-    NSAppendPrintF_safe();
-    v12 = v8;
+    v25 = v12;
+    NSAppendPrintF_safe(&v25, ", Updated %llu", updatedCachedKeyCount);
+    v20 = v25;
 
-    v8 = v12;
+    v12 = v20;
   }
 
   if (self->_droppedCachedKeyUpdatesCount)
   {
     droppedCachedKeyUpdatesCount = self->_droppedCachedKeyUpdatesCount;
-    NSAppendPrintF_safe();
-    v13 = v8;
+    v24 = v12;
+    NSAppendPrintF_safe(&v24, ", DroppedUpdates %llu", droppedCachedKeyUpdatesCount);
+    v21 = v24;
 
-    v8 = v13;
+    v12 = v21;
   }
 
-  return v8;
+  return v12;
 }
 
 @end

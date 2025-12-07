@@ -96,7 +96,7 @@ LABEL_15:
 LABEL_16:
       v40 = 0;
       v42 = 0xF000000000000000;
-      return REMStructuredLocation_Codable.init(title:locationUID:latitude:longitude:radius:address:routing:referenceFrameString:contactLabel:mapKitHandle:)(latitude, longitude, radius, v48, v47, v46, v45, v44, v26, v31, v33, v34, v36, v37, v39, v40, v42);
+      return REMStructuredLocation_Codable.init(title:locationUID:latitude:longitude:radius:address:routing:referenceFrameString:contactLabel:mapKitHandle:)(v48, v47, v46, v45, v44, v26, v31, v33, latitude, longitude, radius, v34, v36, v37, v39, v40, v42);
     }
   }
 
@@ -120,7 +120,7 @@ LABEL_12:
   v40 = sub_23030EA18();
   v42 = v41;
 
-  return REMStructuredLocation_Codable.init(title:locationUID:latitude:longitude:radius:address:routing:referenceFrameString:contactLabel:mapKitHandle:)(latitude, longitude, radius, v48, v47, v46, v45, v44, v26, v31, v33, v34, v36, v37, v39, v40, v42);
+  return REMStructuredLocation_Codable.init(title:locationUID:latitude:longitude:radius:address:routing:referenceFrameString:contactLabel:mapKitHandle:)(v48, v47, v46, v45, v44, v26, v31, v33, latitude, longitude, radius, v34, v36, v37, v39, v40, v42);
 }
 
 - (REMStructuredLocation_Codable)initWithTitle:(id)title

@@ -15,7 +15,7 @@
 
 - (_TtC11PosterBoard25PBFGalleryControllerState)initWithLastUsefulGalleryConfigurationPersistDate:(id)date minimumIntervalBetweenProactivePush:(double)push maximumIntervalBetweenProactivePush:(double)proactivePush proactiveInfractionCount:(unint64_t)count
 {
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD93190);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD93190, qword_21B6D8840);
   MEMORY[0x28223BE20](v10 - 8);
   v12 = &v16 - v11;
   if (date)
@@ -36,7 +36,7 @@
 
 - (NSDate)lastUsefulGalleryConfigurationPersistDate
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD93190);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD93190, qword_21B6D8840);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v14[-v4];
   v6 = *(&self->super.isa + OBJC_IVAR____TtC11PosterBoard25PBFGalleryControllerState_lock);
@@ -64,7 +64,7 @@
 
 - (void)setLastUsefulGalleryConfigurationPersistDate:(id)date
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD93190);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD93190, qword_21B6D8840);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v15[-v6];
   if (date)
@@ -81,7 +81,7 @@
   }
 
   v11 = *(&self->super.isa + OBJC_IVAR____TtC11PosterBoard25PBFGalleryControllerState_lock);
-  v12 = MEMORY[0x28223BE20](v9);
+  MEMORY[0x28223BE20](v9);
   *&v15[-16] = self;
   *&v15[-8] = v7;
   MEMORY[0x28223BE20](v12);
@@ -91,7 +91,7 @@
   os_unfair_lock_lock(v11 + 4);
   sub_21B63DA2C();
   os_unfair_lock_unlock(v11 + 4);
-  sub_21B62AA8C(v7, &qword_27CD93190);
+  sub_21B62AA8C(v7, &qword_27CD93190, qword_21B6D8840);
 }
 
 - (double)minimumIntervalBetweenProactivePush

@@ -81,56 +81,56 @@
 
 uint64_t __42__TRIExperimentHistoryDatabase_addRecord___block_invoke(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 db];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __42__TRIExperimentHistoryDatabase_addRecord___block_invoke_2;
-  v30[3] = &unk_279DDF860;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __42__TRIExperimentHistoryDatabase_addRecord___block_invoke_2;
+  v29[3] = &unk_279DDF860;
   v5 = *(a1 + 32);
-  v31 = *(a1 + 40);
+  v30 = *(a1 + 40);
   v6 = [*(*(a1 + 48) + 8) generalErrorHandlerWithOutError:0];
-  LOBYTE(v5) = [v4 prepAndRunQuery:v5 onPrep:v30 onRow:0 onError:v6];
+  LOBYTE(v5) = [v4 prepAndRunQuery:v5 onPrep:v29 onRow:0 onError:v6];
 
   if (v5)
   {
     v7 = [v3 db];
-    v24 = [v7 lastInsertRowId];
+    v23 = [v7 lastInsertRowId];
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     obj = [*(a1 + 40) namespaces];
-    v8 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
+    v8 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v27;
+      v10 = *v26;
       while (2)
       {
         v11 = 0;
         do
         {
-          if (*v27 != v10)
+          if (*v26 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v26 + 1) + 8 * v11);
+          v12 = *(*(&v25 + 1) + 8 * v11);
           v13 = objc_autoreleasePoolPush();
           v14 = v3;
           v15 = [v3 db];
-          v25[0] = MEMORY[0x277D85DD0];
-          v25[1] = 3221225472;
-          v25[2] = __42__TRIExperimentHistoryDatabase_addRecord___block_invoke_3;
-          v25[3] = &unk_279DE1538;
-          v25[4] = v12;
-          v25[5] = v24;
+          v24[0] = MEMORY[0x277D85DD0];
+          v24[1] = 3221225472;
+          v24[2] = __42__TRIExperimentHistoryDatabase_addRecord___block_invoke_3;
+          v24[3] = &unk_279DE1538;
+          v24[4] = v12;
+          v24[5] = v23;
           v16 = a1;
           v17 = [*(*(a1 + 48) + 8) generalErrorHandlerWithOutError:0];
-          v18 = [v15 prepAndRunQuery:@" INSERT INTO experimentHistoryNamespaces(    experimentHistory_rowid onPrep:name onRow:compatibilityVersion) VALUES(    :exp_rowid onError:{:name, :cv);", v25, 0, v17}];
+          v18 = [v15 prepAndRunQuery:@" INSERT INTO experimentHistoryNamespaces(    experimentHistory_rowid onPrep:name onRow:compatibilityVersion) VALUES(    :exp_rowid onError:{:name, :cv);", v24, 0, v17}];
 
           objc_autoreleasePoolPop(v13);
           if (!v18)
@@ -147,7 +147,7 @@ uint64_t __42__TRIExperimentHistoryDatabase_addRecord___block_invoke(uint64_t a1
         }
 
         while (v9 != v11);
-        v9 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
+        v9 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
         if (v9)
         {
           continue;
@@ -169,7 +169,6 @@ uint64_t __42__TRIExperimentHistoryDatabase_addRecord___block_invoke(uint64_t a1
   v20 = *v19;
 LABEL_14:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -350,61 +349,60 @@ uint64_t __80__TRIExperimentHistoryDatabase__enumerateRecordsMatchingWhereClause
   v4 = [v3 getInt64ForColumnName:"rowid" table:"experimentHistory"];
   if (v4 != *(*(a1[8] + 8) + 24))
   {
-    v5 = *(a1[9] + 8);
     (*(a1[5] + 16))();
     if (*(*(a1[9] + 8) + 24) == 1)
     {
-      v6 = *MEMORY[0x277D42698];
+      v5 = *MEMORY[0x277D42698];
       goto LABEL_14;
     }
 
-    v7 = [v3 getDoubleAsNSNumberForColumnName:"eventSecondsFromEpoch" table:"experimentHistory"];
-    if (!v7)
+    v6 = [v3 getDoubleAsNSNumberForColumnName:"eventSecondsFromEpoch" table:"experimentHistory"];
+    if (!v6)
+    {
+      v21 = [MEMORY[0x277CCA890] currentHandler];
+      [v21 handleFailureInMethod:a1[10] object:a1[4] file:@"TRIExperimentHistoryDatabase.m" lineNumber:187 description:@"nil eventSecondsFromEpoch read from NOT NULL column"];
+    }
+
+    v7 = objc_alloc(MEMORY[0x277CBEAA8]);
+    [v6 doubleValue];
+    v8 = [v7 initWithTimeIntervalSince1970:?];
+
+    v9 = [v3 getInt64ForColumnName:"eventType" table:"experimentHistory"];
+    v10 = [v3 getInt64ForColumnName:"deploymentEnvironment" table:"experimentHistory"];
+    v11 = [v3 getNSStringForColumnName:"experimentId" table:"experimentHistory"];
+    if (!v11)
     {
       v22 = [MEMORY[0x277CCA890] currentHandler];
-      [v22 handleFailureInMethod:a1[10] object:a1[4] file:@"TRIExperimentHistoryDatabase.m" lineNumber:187 description:@"nil eventSecondsFromEpoch read from NOT NULL column"];
+      [v22 handleFailureInMethod:a1[10] object:a1[4] file:@"TRIExperimentHistoryDatabase.m" lineNumber:193 description:@"nil experimentId read from NOT NULL column"];
     }
 
-    v8 = objc_alloc(MEMORY[0x277CBEAA8]);
-    [v7 doubleValue];
-    v9 = [v8 initWithTimeIntervalSince1970:?];
-
-    v10 = [v3 getInt64ForColumnName:"eventType" table:"experimentHistory"];
-    v11 = [v3 getInt64ForColumnName:"deploymentEnvironment" table:"experimentHistory"];
-    v12 = [v3 getNSStringForColumnName:"experimentId" table:"experimentHistory"];
-    if (!v12)
+    v12 = [v3 getInt64ForColumnName:"deploymentId" table:"experimentHistory"];
+    v13 = [v3 getNSStringForColumnName:"treatmentId" table:"experimentHistory"];
+    if (!v13)
     {
       v23 = [MEMORY[0x277CCA890] currentHandler];
-      [v23 handleFailureInMethod:a1[10] object:a1[4] file:@"TRIExperimentHistoryDatabase.m" lineNumber:193 description:@"nil experimentId read from NOT NULL column"];
+      [v23 handleFailureInMethod:a1[10] object:a1[4] file:@"TRIExperimentHistoryDatabase.m" lineNumber:196 description:@"nil treatmentId read from NOT NULL column"];
     }
 
-    v13 = [v3 getInt64ForColumnName:"deploymentId" table:"experimentHistory"];
-    v14 = [v3 getNSStringForColumnName:"treatmentId" table:"experimentHistory"];
-    if (!v14)
-    {
-      v24 = [MEMORY[0x277CCA890] currentHandler];
-      [v24 handleFailureInMethod:a1[10] object:a1[4] file:@"TRIExperimentHistoryDatabase.m" lineNumber:196 description:@"nil treatmentId read from NOT NULL column"];
-    }
-
-    v15 = [v3 getNSStringForColumnName:"errorOrDeactivationReason" table:"experimentHistory"];
-    v16 = objc_alloc(MEMORY[0x277D736C8]);
-    v17 = [v16 initWithEventDate:v9 eventType:v10 deploymentEnvironment:v11 experimentId:v12 deploymentId:v13 treatmentId:v14 errorOrDeactivationReason:v15 namespaces:MEMORY[0x277CBEBF8]];
+    v14 = [v3 getNSStringForColumnName:"errorOrDeactivationReason" table:"experimentHistory"];
+    v15 = objc_alloc(MEMORY[0x277D736C8]);
+    v16 = [v15 initWithEventDate:v8 eventType:v9 deploymentEnvironment:v10 experimentId:v11 deploymentId:v12 treatmentId:v13 errorOrDeactivationReason:v14 namespaces:MEMORY[0x277CBEBF8]];
     (*(a1[6] + 16))();
   }
 
-  v18 = [v3 getNSStringForColumnName:"name" table:"experimentHistoryNamespaces"];
-  if (v18)
+  v17 = [v3 getNSStringForColumnName:"name" table:"experimentHistoryNamespaces"];
+  if (v17)
   {
-    v19 = [v3 getInt64ForColumnName:"compatibilityVersion" table:"experimentHistoryNamespaces"];
-    v20 = [objc_alloc(MEMORY[0x277D73808]) initWithName:v18 compatibilityVersion:v19];
+    v18 = [v3 getInt64ForColumnName:"compatibilityVersion" table:"experimentHistoryNamespaces"];
+    v19 = [objc_alloc(MEMORY[0x277D73808]) initWithName:v17 compatibilityVersion:v18];
     (*(a1[7] + 16))();
   }
 
   *(*(a1[8] + 8) + 24) = v4;
-  v6 = *MEMORY[0x277D42690];
+  v5 = *MEMORY[0x277D42690];
 
 LABEL_14:
-  return v6;
+  return v5;
 }
 
 uint64_t __80__TRIExperimentHistoryDatabase__enumerateRecordsMatchingWhereClause_bind_block___block_invoke_5(void *a1, void *a2)
@@ -428,21 +426,20 @@ uint64_t __80__TRIExperimentHistoryDatabase__enumerateRecordsMatchingWhereClause
 
   if (v9)
   {
-    v12 = *(a1[9] + 8);
     (*(a1[8] + 16))();
-    v13 = MEMORY[0x277D42670];
-    v14 = 1;
+    v12 = MEMORY[0x277D42670];
+    v13 = 1;
   }
 
   else
   {
-    v14 = 0;
-    v13 = MEMORY[0x277D42678];
+    v13 = 0;
+    v12 = MEMORY[0x277D42678];
   }
 
-  *(*(a1[10] + 8) + 24) = v14;
+  *(*(a1[10] + 8) + 24) = v13;
 
-  return *v13;
+  return *v12;
 }
 
 - (BOOL)enumerateRecordsNewerThanDate:(id)date matchingDeploymentEnvironments:(id)environments block:(id)block

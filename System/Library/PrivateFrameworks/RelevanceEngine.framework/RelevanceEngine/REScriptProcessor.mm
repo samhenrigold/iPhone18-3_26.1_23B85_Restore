@@ -152,63 +152,63 @@ void __39__REScriptProcessor_featuresWithNames___block_invoke(uint64_t a1, void 
 
 void __39__REScriptProcessor__sharedSystemTable__block_invoke()
 {
-  v51[1] = *MEMORY[0x277D85DE8];
+  v50[1] = *MEMORY[0x277D85DE8];
   v0 = [[REScriptSymbolTable alloc] initWithParentScope:0];
   v1 = _sharedSystemTable_Table;
   _sharedSystemTable_Table = v0;
 
   v2 = _sharedSystemTable_Table;
   v3 = [[REScriptToken alloc] initWithValue:@"float" type:6 line:-1 column:-1];
-  v51[0] = @"REScriptSymbolValueTypeKey";
+  v50[0] = @"REScriptSymbolValueTypeKey";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:2];
   *dst = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:dst forKeys:v51 count:1];
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:dst forKeys:v50 count:1];
   [v2 define:v3 type:2 options:v5 error:0];
 
   v6 = _sharedSystemTable_Table;
   v7 = [[REScriptToken alloc] initWithValue:@"int" type:6 line:-1 column:-1];
-  v51[0] = @"REScriptSymbolValueTypeKey";
+  v50[0] = @"REScriptSymbolValueTypeKey";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
   *dst = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:dst forKeys:v51 count:1];
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:dst forKeys:v50 count:1];
   [v6 define:v7 type:2 options:v9 error:0];
 
   v10 = _sharedSystemTable_Table;
   v11 = [[REScriptToken alloc] initWithValue:@"string" type:6 line:-1 column:-1];
-  v51[0] = @"REScriptSymbolValueTypeKey";
+  v50[0] = @"REScriptSymbolValueTypeKey";
   v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:3];
   *dst = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:dst forKeys:v51 count:1];
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:dst forKeys:v50 count:1];
   [v10 define:v11 type:2 options:v13 error:0];
 
   v14 = _sharedSystemTable_Table;
   v15 = [[REScriptToken alloc] initWithValue:@"BOOL" type:6 line:-1 column:-1];
-  v51[0] = @"REScriptSymbolValueTypeKey";
+  v50[0] = @"REScriptSymbolValueTypeKey";
   v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:0];
   *dst = v16;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:dst forKeys:v51 count:1];
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:dst forKeys:v50 count:1];
   [v14 define:v15 type:2 options:v17 error:0];
 
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   v18 = +[REFeatureTransformer featureTransformerClasses];
-  v19 = [v18 countByEnumeratingWithState:&v44 objects:v50 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v43 objects:v49 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v45;
+    v21 = *v44;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v45 != v21)
+        if (*v44 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v23 = *(*(&v44 + 1) + 8 * i);
+        v23 = *(*(&v43 + 1) + 8 * i);
         v24 = [v23 functionName];
         if (v24)
         {
@@ -218,33 +218,33 @@ void __39__REScriptProcessor__sharedSystemTable__block_invoke()
         }
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v44 objects:v50 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v43 objects:v49 count:16];
     }
 
     while (v20);
   }
 
   v26 = objc_opt_class();
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   v27 = +[REFeature systemFeatureNames];
-  v28 = [v27 countByEnumeratingWithState:&v40 objects:v49 count:16];
+  v28 = [v27 countByEnumeratingWithState:&v39 objects:v48 count:16];
   if (v28)
   {
     v29 = v28;
-    v30 = *v41;
+    v30 = *v40;
     do
     {
       for (j = 0; j != v29; ++j)
       {
-        if (*v41 != v30)
+        if (*v40 != v30)
         {
           objc_enumerationMutation(v27);
         }
 
-        v32 = *(*(&v40 + 1) + 8 * j);
+        v32 = *(*(&v39 + 1) + 8 * j);
         v33 = [v32 stringByAppendingString:@"Feature"];
         v34 = NSSelectorFromString(v33);
         ClassMethod = class_getClassMethod(v26, v34);
@@ -268,13 +268,11 @@ void __39__REScriptProcessor__sharedSystemTable__block_invoke()
         }
       }
 
-      v29 = [v27 countByEnumeratingWithState:&v40 objects:v49 count:16];
+      v29 = [v27 countByEnumeratingWithState:&v39 objects:v48 count:16];
     }
 
     while (v29);
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_process
@@ -508,20 +506,19 @@ LABEL_25:
   }
 }
 
-uint64_t __39__REScriptProcessor__encounteredError___block_invoke()
+uint64_t __39__REScriptProcessor__encounteredError___block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = _REGetIsInternalBuild();
+  result = _REGetIsInternalBuild(a1, a2);
   _isInternalDevice_7 = result;
   return result;
 }
 
 - (void)_encounteredError:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "%@", &v2, 0xCu);
 }
 
 @end

@@ -545,7 +545,7 @@ void __68__STIntroductionController__setRestrictionsPresetForAge_storefront___bl
 
 void __68__STIntroductionController__setRestrictionsPresetForAge_storefront___block_invoke_43(uint64_t a1)
 {
-  v1 = a1 + 32;
+  v1 = (a1 + 32);
   if (*(a1 + 32))
   {
     v2 = +[STUILog childSetup];
@@ -561,6 +561,27 @@ void __68__STIntroductionController__setRestrictionsPresetForAge_storefront___bl
 
     v9();
   }
+}
+
+void __62__STIntroductionController__setRestrictionsPresetForAge_dsid___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_5(&dword_264BA2000, a2, a3, "STIntroductionController failed to fetch storefront with error: %{public}@. As fallback, passing nil to PresetRestrictionsProvider, which will use storefront of signed-in user instead of child user.", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __68__STIntroductionController__setRestrictionsPresetForAge_storefront___block_invoke_2_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_5(&dword_264BA2000, a2, a3, "STIntroductionController failed to fetch preset restrictions with error: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void __68__STIntroductionController__setRestrictionsPresetForAge_storefront___block_invoke_43_cold_1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_5(&dword_264BA2000, a2, a3, "STIntroductionController failed to fetch preset restrictions from the cache with error: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -11,7 +11,7 @@
 
 - (id)semanticClassesForCategory:(unint64_t)category responseCount:(unint64_t)count configReplies:(id)replies
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   repliesCopy = replies;
   categorySemanticClasses = [repliesCopy categorySemanticClasses];
   v10 = [categorySemanticClasses objectAtIndexedSubscript:category];
@@ -28,29 +28,29 @@
     selfCopy = self;
     countCopy = count;
     v12 = objc_opt_new();
-    v29 = repliesCopy;
+    v28 = repliesCopy;
     semanticClasses = [repliesCopy semanticClasses];
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
-    v28 = v10;
+    v27 = v10;
     v14 = v10;
-    v15 = [v14 countByEnumeratingWithState:&v30 objects:v34 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v29 objects:v33 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v31;
+      v17 = *v30;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v31 != v17)
+          if (*v30 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = *(*(&v30 + 1) + 8 * i);
+          v19 = *(*(&v29 + 1) + 8 * i);
           v20 = [semanticClasses objectAtIndexedSubscript:{objc_msgSend(v19, "unsignedIntegerValue", selfCopy)}];
           v21 = [v20 count] - 1;
 
@@ -60,7 +60,7 @@
           }
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v30 objects:v34 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
       while (v16);
@@ -70,18 +70,16 @@
     v22 = [v12 subarrayWithRange:{0, countCopy - objc_msgSend(v11, "count")}];
     v23 = [v11 arrayByAddingObjectsFromArray:v22];
 
-    v10 = v28;
-    repliesCopy = v29;
+    v10 = v27;
+    repliesCopy = v28;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v23;
 }
 
 - (id)semanticClassesForResults:(id)results scores:(id)scores numResponses:(id)responses config:(id)config
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   scoresCopy = scores;
   responsesCopy = responses;
@@ -91,7 +89,7 @@
 
   if (isPerCategory & 1) != 0 && ([configCopy replies], v16 = objc_claimAutoreleasedReturnValue(), objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), v16, (isKindOfClass))
   {
-    v41 = configCopy;
+    v40 = configCopy;
     replies = [configCopy replies];
     categoryModels = [replies categoryModels];
     v20 = [categoryModels count];
@@ -112,42 +110,42 @@
       while (v20);
     }
 
-    v40 = v23;
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = __80__SGQuickResponsesRanking_semanticClassesForResults_scores_numResponses_config___block_invoke;
-    v50[3] = &unk_278EB85F8;
-    v43 = scoresCopy;
-    v51 = scoresCopy;
+    v39 = v23;
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __80__SGQuickResponsesRanking_semanticClassesForResults_scores_numResponses_config___block_invoke;
+    v49[3] = &unk_278EB85F8;
+    v42 = scoresCopy;
+    v50 = scoresCopy;
     v25 = v21;
-    v52 = v25;
+    v51 = v25;
     selfCopy = self;
-    v39 = replies;
-    v54 = v39;
-    v42 = responsesCopy;
-    [responsesCopy enumerateObjectsUsingBlock:v50];
+    v38 = replies;
+    v53 = v38;
+    v41 = responsesCopy;
+    [responsesCopy enumerateObjectsUsingBlock:v49];
     v26 = objc_opt_new();
+    v45 = 0u;
     v46 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v49 = 0u;
-    v44 = resultsCopy;
+    v43 = resultsCopy;
     obj = resultsCopy;
-    v27 = [obj countByEnumeratingWithState:&v46 objects:v55 count:16];
+    v27 = [obj countByEnumeratingWithState:&v45 objects:v54 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v47;
+      v29 = *v46;
       do
       {
         for (i = 0; i != v28; ++i)
         {
-          if (*v47 != v29)
+          if (*v46 != v29)
           {
             objc_enumerationMutation(obj);
           }
 
-          unsignedIntegerValue = [*(*(&v46 + 1) + 8 * i) unsignedIntegerValue];
+          unsignedIntegerValue = [*(*(&v45 + 1) + 8 * i) unsignedIntegerValue];
           v32 = [v22 objectAtIndexedSubscript:unsignedIntegerValue];
           unsignedIntegerValue2 = [v32 unsignedIntegerValue];
 
@@ -160,24 +158,22 @@
           [v26 addObject:v35];
         }
 
-        v28 = [obj countByEnumeratingWithState:&v46 objects:v55 count:16];
+        v28 = [obj countByEnumeratingWithState:&v45 objects:v54 count:16];
       }
 
       while (v28);
     }
 
-    scoresCopy = v43;
-    resultsCopy = v44;
-    configCopy = v41;
-    responsesCopy = v42;
+    scoresCopy = v42;
+    resultsCopy = v43;
+    configCopy = v40;
+    responsesCopy = v41;
   }
 
   else
   {
     v26 = resultsCopy;
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 
   return v26;
 }

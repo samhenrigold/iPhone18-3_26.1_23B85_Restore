@@ -136,7 +136,7 @@ LABEL_7:
   return v3;
 }
 
-uint64_t __29__VCMediaRecorder_videoCodec__block_invoke(uint64_t a1)
+void *__29__VCMediaRecorder_videoCodec__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 192) videoCodec];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -176,7 +176,7 @@ uint64_t __29__VCMediaRecorder_videoCodec__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __28__VCMediaRecorder_imageType__block_invoke(uint64_t a1)
+void *__28__VCMediaRecorder_imageType__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 192) imageType];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -707,7 +707,7 @@ void __44__VCMediaRecorder_setMediaRecorderDelegate___block_invoke(uint64_t a1)
   return v5;
 }
 
-uint64_t __46__VCMediaRecorder_processClientRequest_error___block_invoke(uint64_t a1)
+void *__46__VCMediaRecorder_processClientRequest_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dispatchedProcessClientRequest:*(a1 + 40) error:*(a1 + 56)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -1105,7 +1105,7 @@ uint64_t __50__VCMediaRecorder_endCompletionHandlerForRequest___block_invoke(uin
   return [*(a1 + 32) dispatchedRemoveAsynchronousAudioAssertionIfNeeded];
 }
 
-uint64_t __50__VCMediaRecorder_endCompletionHandlerForRequest___block_invoke_51(uint64_t a1)
+void *__50__VCMediaRecorder_endCompletionHandlerForRequest___block_invoke_51(uint64_t a1)
 {
   v7 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
@@ -1837,7 +1837,7 @@ uint64_t __49__VCMediaRecorder_processRemoteLivePhotoRequest___block_invoke_85(u
   return [*(a1 + 32) notifyFinishWithRequest:*(a1 + 48) didSucceed:a4 == 0 fileSize:v13];
 }
 
-uint64_t __49__VCMediaRecorder_processRemoteLivePhotoRequest___block_invoke_2(uint64_t a1)
+void *__49__VCMediaRecorder_processRemoteLivePhotoRequest___block_invoke_2(uint64_t a1)
 {
   v5 = *MEMORY[0x1E69E9840];
   if (*(a1 + 80) == 1)
@@ -2390,7 +2390,7 @@ LABEL_11:
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Media recording is not supported on this platform!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Media recording is not supported on this platform!", v2, v3, v4, v5);
 }
 
 + (void)validateIncomingRequest:.cold.2()
@@ -2402,7 +2402,7 @@ LABEL_11:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d RequesteeID is nil!", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d RequesteeID is nil!", v2, v3, v4, v5);
     }
   }
 
@@ -2418,7 +2418,7 @@ LABEL_11:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d RequestDidSucceed is nil!", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d RequestDidSucceed is nil!", v2, v3, v4, v5);
     }
   }
 
@@ -2434,7 +2434,7 @@ LABEL_11:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d FileSize is nil!", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d FileSize is nil!", v2, v3, v4, v5);
     }
   }
 
@@ -2450,7 +2450,7 @@ LABEL_11:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d RequesterID is nil!", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d RequesterID is nil!", v2, v3, v4, v5);
     }
   }
 
@@ -2466,7 +2466,7 @@ LABEL_11:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d InitiatorID is nil!", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d InitiatorID is nil!", v2, v3, v4, v5);
     }
   }
 
@@ -2482,7 +2482,7 @@ LABEL_11:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d MediaType is nil!", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d MediaType is nil!", v2, v3, v4, v5);
     }
   }
 
@@ -2498,7 +2498,7 @@ LABEL_11:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d RequestTimestamp is nil!", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d RequestTimestamp is nil!", v2, v3, v4, v5);
     }
   }
 
@@ -2514,7 +2514,7 @@ LABEL_11:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d RequestState is nil!", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d RequestState is nil!", v2, v3, v4, v5);
     }
   }
 
@@ -2530,7 +2530,7 @@ LABEL_11:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d TransactionID is nil!", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d TransactionID is nil!", v2, v3, v4, v5);
     }
   }
 
@@ -2546,7 +2546,7 @@ LABEL_11:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Invalid request!", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d Invalid request!", v2, v3, v4, v5);
     }
   }
 
@@ -2562,7 +2562,7 @@ LABEL_11:
     {
       OUTLINED_FUNCTION_1_0();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d RequestMode is nil!", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_3_4(&dword_1DB56E000, v0, v1, " [%s] %s:%d RequestMode is nil!", v2, v3, v4, v5);
     }
   }
 
@@ -2595,21 +2595,21 @@ void __38__VCMediaRecorder_setUpReportingAgent__block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Reporting not available (no backends)", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Reporting not available (no backends)", v2, v3, v4, v5);
 }
 
 - (void)notifyFinishWithRequest:didSucceed:fileSize:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCMomentsRequestMode invalid", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d AVCMomentsRequestMode invalid", v2, v3, v4, v5);
 }
 
 + (void)validateNonzeroAudioRecordingLengthURL:error:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to get audio recording length for null movieURL", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to get audio recording length for null movieURL", v2, v3, v4, v5);
 }
 
 + (void)typeForRequest:.cold.1()

@@ -11,14 +11,14 @@
 {
   conversationCopy = conversation;
   selfCopy = self;
-  sub_1003CA94C();
+  sub_1003CA94C(conversationCopy);
 }
 
 - (void)removeConversation:(id)conversation
 {
   conversationCopy = conversation;
   selfCopy = self;
-  sub_1003CAFE0();
+  sub_1003CAFE0(conversationCopy);
 }
 
 - (void)removeAllConversations

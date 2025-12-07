@@ -110,12 +110,12 @@ LABEL_7:
 
 void __114__SiriAnalyticsLargeMessageStorage_enqueueLargeMessageObjectFromPath_messageWrapper_requestIdentifier_completion___block_invoke_4(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AC00] fileHandleForReadingAtPath:*(a1 + 32)];
   v3 = objc_alloc_init(MEMORY[0x1E695DF88]);
-  v27 = 0;
-  v4 = [v2 readDataUpToLength:0x8000 error:&v27];
-  v5 = v27;
+  v26 = 0;
+  v4 = [v2 readDataUpToLength:0x8000 error:&v26];
+  v5 = v26;
   v6 = v5 != 0;
   if (v4)
   {
@@ -133,9 +133,9 @@ void __114__SiriAnalyticsLargeMessageStorage_enqueueLargeMessageObjectFromPath_m
     while ([v10 length])
     {
       [v3 appendData:v10];
-      v27 = 0;
-      v4 = [v2 readDataUpToLength:0x8000 error:&v27];
-      v8 = v27;
+      v26 = 0;
+      v4 = [v2 readDataUpToLength:0x8000 error:&v26];
+      v8 = v26;
 
       v6 = v8 != 0;
       if (v4)
@@ -173,17 +173,17 @@ LABEL_18:
     v15 = [*(a1 + 40) wrapAsAnyEvent];
     v16 = [MEMORY[0x1E699C168] sharedLogger];
     v17 = *(*(a1 + 48) + 24);
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __114__SiriAnalyticsLargeMessageStorage_enqueueLargeMessageObjectFromPath_messageWrapper_requestIdentifier_completion___block_invoke_6;
-    v23[3] = &unk_1E85878C8;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __114__SiriAnalyticsLargeMessageStorage_enqueueLargeMessageObjectFromPath_messageWrapper_requestIdentifier_completion___block_invoke_6;
+    v22[3] = &unk_1E85878C8;
     v18 = *(a1 + 32);
     v19 = *(a1 + 48);
     v20 = *(a1 + 56);
-    v24 = v18;
-    v25 = v19;
-    v26 = v20;
-    [v16 reportDataUploadEvent:v15 application:v17 completion:v23];
+    v23 = v18;
+    v24 = v19;
+    v25 = v20;
+    [v16 reportDataUploadEvent:v15 application:v17 completion:v22];
 
     goto LABEL_19;
   }
@@ -196,25 +196,23 @@ LABEL_18:
   v9 = SiriAnalyticsLogContextStorage;
   if (os_log_type_enabled(SiriAnalyticsLogContextStorage, OS_LOG_TYPE_ERROR))
   {
-    v22 = *(a1 + 32);
+    v21 = *(a1 + 32);
     *buf = 136315650;
-    v29 = "[SiriAnalyticsLargeMessageStorage enqueueLargeMessageObjectFromPath:messageWrapper:requestIdentifier:completion:]_block_invoke_4";
-    v30 = 2112;
-    v31 = v22;
-    v32 = 2112;
-    v33 = v8;
+    v28 = "[SiriAnalyticsLargeMessageStorage enqueueLargeMessageObjectFromPath:messageWrapper:requestIdentifier:completion:]_block_invoke_4";
+    v29 = 2112;
+    v30 = v21;
+    v31 = 2112;
+    v32 = v8;
     _os_log_error_impl(&dword_1D9863000, v9, OS_LOG_TYPE_ERROR, "%s Error while reading file from path %@ : %@", buf, 0x20u);
   }
 
   (*(*(a1 + 56) + 16))();
 LABEL_19:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __114__SiriAnalyticsLargeMessageStorage_enqueueLargeMessageObjectFromPath_messageWrapper_requestIdentifier_completion___block_invoke_6(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -228,11 +226,11 @@ void __114__SiriAnalyticsLargeMessageStorage_enqueueLargeMessageObjectFromPath_m
     {
       v5 = *(a1 + 32);
       *buf = 136315650;
-      v15 = "[SiriAnalyticsLargeMessageStorage enqueueLargeMessageObjectFromPath:messageWrapper:requestIdentifier:completion:]_block_invoke";
-      v16 = 2112;
-      v17 = v5;
-      v18 = 2112;
-      v19 = v3;
+      v14 = "[SiriAnalyticsLargeMessageStorage enqueueLargeMessageObjectFromPath:messageWrapper:requestIdentifier:completion:]_block_invoke";
+      v15 = 2112;
+      v16 = v5;
+      v17 = 2112;
+      v18 = v3;
       _os_log_error_impl(&dword_1D9863000, v4, OS_LOG_TYPE_ERROR, "%s Error while writing file at path: %@ to FBF with error: %@", buf, 0x20u);
     }
   }
@@ -241,24 +239,22 @@ void __114__SiriAnalyticsLargeMessageStorage_enqueueLargeMessageObjectFromPath_m
   {
     v6 = *(a1 + 32);
     *buf = 136315394;
-    v15 = "[SiriAnalyticsLargeMessageStorage enqueueLargeMessageObjectFromPath:messageWrapper:requestIdentifier:completion:]_block_invoke";
-    v16 = 2112;
-    v17 = v6;
+    v14 = "[SiriAnalyticsLargeMessageStorage enqueueLargeMessageObjectFromPath:messageWrapper:requestIdentifier:completion:]_block_invoke";
+    v15 = 2112;
+    v16 = v6;
     _os_log_impl(&dword_1D9863000, v4, OS_LOG_TYPE_INFO, "%s Successfully wrote file to FBF at path: %@", buf, 0x16u);
   }
 
   v7 = *(*(a1 + 40) + 8);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __114__SiriAnalyticsLargeMessageStorage_enqueueLargeMessageObjectFromPath_messageWrapper_requestIdentifier_completion___block_invoke_7;
-  v11[3] = &unk_1E8587C90;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __114__SiriAnalyticsLargeMessageStorage_enqueueLargeMessageObjectFromPath_messageWrapper_requestIdentifier_completion___block_invoke_7;
+  v10[3] = &unk_1E8587C90;
   v8 = *(a1 + 48);
-  v12 = v3;
-  v13 = v8;
+  v11 = v3;
+  v12 = v8;
   v9 = v3;
-  dispatch_async(v7, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  dispatch_async(v7, v10);
 }
 
 - (SiriAnalyticsLargeMessageStorage)initWithApplicationIdentifier:(id)identifier processor:(id)processor runtimeQueue:(id)queue

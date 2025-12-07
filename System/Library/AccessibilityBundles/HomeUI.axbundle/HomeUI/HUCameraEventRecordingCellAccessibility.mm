@@ -20,14 +20,12 @@
 
 - (id)accessibilityCustomActions
 {
-  v8[1] = *MEMORY[0x29EDCA608];
+  v7[1] = *MEMORY[0x29EDCA608];
   v2 = objc_alloc(MEMORY[0x29EDC78E0]);
   v3 = accessibilityHomeUILocalizedString(@"scrubber.timescale.toggle");
   v4 = [v2 initWithName:v3 actionHandler:&__block_literal_global_3];
-  v8[0] = v4;
-  v5 = [MEMORY[0x29EDB8D80] arrayWithObjects:v8 count:1];
-
-  v6 = *MEMORY[0x29EDCA608];
+  v7[0] = v4;
+  v5 = [MEMORY[0x29EDB8D80] arrayWithObjects:v7 count:1];
 
   return v5;
 }

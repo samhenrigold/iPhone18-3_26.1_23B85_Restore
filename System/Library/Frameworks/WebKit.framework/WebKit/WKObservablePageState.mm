@@ -54,7 +54,7 @@
       (*(*v11 + 24))(v11);
     }
 
-    WTF::WeakHashSet<WebKit::FrameLoadStateObserver,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::add<WebKit::FrameLoadStateObserver>(*(v6->_page.m_ptr + 4) + 1120, v6->_observer.m_ptr, v14);
+    WTF::WeakHashSet<WebKit::FrameLoadStateObserver,WTF::DefaultWeakPtrImpl,(WTF::EnableWeakPtrThreadingAssertions)1>::add<WebKit::FrameLoadStateObserver>((*(v6->_page.m_ptr + 4) + 1120), v6->_observer.m_ptr, v14);
   }
 
   return v6;
@@ -152,7 +152,7 @@ LABEL_9:
 - (NSURL)URL
 {
   v2 = MEMORY[0x1E695DFF8];
-  WebKit::PageLoadState::activeURL((*(self->_page.m_ptr + 4) + 1144), &v7);
+  WebKit::PageLoadState::activeURL(&v7, (*(self->_page.m_ptr + 4) + 1144));
   v4 = [v2 _web_URLWithWTFString:&v7];
   v5 = v7;
   v7 = 0;
@@ -178,7 +178,7 @@ LABEL_9:
     v3 = 0;
   }
 
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v2 + 16));
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v2 + 16), a2);
   return v3 & 1;
 }
 
@@ -215,7 +215,7 @@ LABEL_9:
   if (v3 && atomic_fetch_add(v3 + 4, 0xFFFFFFFF) == 1)
   {
     atomic_store(1u, v3 + 4);
-    (*(*v3 + 24))(v3);
+    (*(*v3 + 24))(v3, a2);
   }
 
   v4 = *(this + 1);

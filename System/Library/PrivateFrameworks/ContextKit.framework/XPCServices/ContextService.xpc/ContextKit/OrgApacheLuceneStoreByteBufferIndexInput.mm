@@ -3,6 +3,7 @@
 - (char)readByteWithLong:(int64_t)long;
 - (id)buildSliceWithNSString:(id)string withLong:(int64_t)long withLong:(int64_t)withLong;
 - (id)clone;
+- (id)newCloneInstanceWithNSString:(id)string withJavaNioByteBufferArray:(id)array withInt:(int)int withLong:(int64_t)long;
 - (id)sliceWithNSString:(id)string withLong:(int64_t)long withLong:(int64_t)withLong;
 - (int)readInt;
 - (int)readIntWithLong:(int64_t)long;
@@ -14,6 +15,7 @@
 - (void)close;
 - (void)dealloc;
 - (void)freeBufferWithJavaNioByteBuffer:(id)buffer;
+- (void)readBytesWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (void)seekWithLong:(int64_t)long;
 - (void)unsetBuffers;
 @end
@@ -29,6 +31,17 @@
   }
 
   return [(JavaNioByteBuffer *)curBuf get];
+}
+
+- (void)readBytesWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  curBuf = self->curBuf_;
+  if (!curBuf)
+  {
+    JreThrowNullPointerException();
+  }
+
+  [(JavaNioByteBuffer *)curBuf getWithByteArray:array withInt:*&int withInt:*&withInt];
 }
 
 - (signed)readShort
@@ -233,18 +246,11 @@ LABEL_6:
 
 - (id)sliceWithNSString:(id)string withLong:(int64_t)long withLong:(int64_t)withLong
 {
-  if ((withLong | long) < 0)
+  if ((withLong | long) < 0 || withLong + long > self->length_)
   {
-    length = self->length_;
-LABEL_7:
-    v11 = JreStrcat("$$$J$J$J$@", a2, string, long, withLong, v5, v6, v7, @"slice() ");
-    v12 = new_JavaLangIllegalArgumentException_initWithNSString_(v11);
-    objc_exception_throw(v12);
-  }
-
-  if (withLong + long > self->length_)
-  {
-    goto LABEL_7;
+    v10 = JreStrcat("$$$J$J$J$@", a2, string, long, withLong, v5, v6, v7, @"slice() ");
+    v11 = new_JavaLangIllegalArgumentException_initWithNSString_(v10);
+    objc_exception_throw(v11);
   }
 
   return [OrgApacheLuceneStoreByteBufferIndexInput buildSliceWithNSString:"buildSliceWithNSString:withLong:withLong:" withLong:string withLong:?];
@@ -280,6 +286,52 @@ LABEL_7:
   }
 
   return v11;
+}
+
+- (id)newCloneInstanceWithNSString:(id)string withJavaNioByteBufferArray:(id)array withInt:(int)int withLong:(int64_t)long
+{
+  if (!array)
+  {
+    goto LABEL_11;
+  }
+
+  if (*(array + 2) == 1)
+  {
+    v11 = *(array + 3);
+    if (v11)
+    {
+      [v11 positionWithInt:*&int];
+      v12 = *(array + 2);
+      if (v12 <= 0)
+      {
+        IOSArray_throwOutOfBoundsWithMsg(v12, 0);
+      }
+
+      v13 = *(array + 3);
+      if (v13)
+      {
+        slice = [v13 slice];
+        chunkSizePower = self->chunkSizePower_;
+        cleaner = self->cleaner_;
+        clones = self->clones_;
+        v18 = [OrgApacheLuceneStoreByteBufferIndexInput_SingleBufferImpl alloc];
+        OrgApacheLuceneStoreByteBufferIndexInput_SingleBufferImpl_initWithNSString_withJavaNioByteBuffer_withLong_withInt_withOrgApacheLuceneStoreByteBufferIndexInput_BufferCleaner_withOrgApacheLuceneUtilWeakIdentityMap_(v18, string, slice, long, chunkSizePower, cleaner, clones);
+        goto LABEL_8;
+      }
+    }
+
+LABEL_11:
+    JreThrowNullPointerException();
+  }
+
+  v19 = self->chunkSizePower_;
+  v20 = self->cleaner_;
+  v21 = self->clones_;
+  v18 = [OrgApacheLuceneStoreByteBufferIndexInput_MultiBufferImpl alloc];
+  OrgApacheLuceneStoreByteBufferIndexInput_MultiBufferImpl_initWithNSString_withJavaNioByteBufferArray_withInt_withLong_withInt_withOrgApacheLuceneStoreByteBufferIndexInput_BufferCleaner_withOrgApacheLuceneUtilWeakIdentityMap_(v18, string, array, int, long, v19, v20, v21);
+LABEL_8:
+
+  return v18;
 }
 
 - (void)close

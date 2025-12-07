@@ -32,6 +32,7 @@
 - (void)hdsp_setExternalChangeDelegate:(id)delegate;
 - (void)hksp_removeObjectForKey:(id)key;
 - (void)hksp_removeObjectsForKeys:(id)keys syncToCloudKit:(BOOL)kit;
+- (void)hksp_saveDictionary:(id)dictionary syncToCloudKit:(BOOL)kit;
 - (void)hksp_setBool:(BOOL)bool forKey:(id)key;
 - (void)hksp_setFloat:(float)float forKey:(id)key;
 - (void)hksp_setInteger:(int64_t)integer forKey:(id)key;
@@ -81,7 +82,7 @@ HDSPNanoDefaults *__43__HDSPSyncedDefaults__nanoDefaultsProvider__block_invoke(u
 
 HDSPCloudDefaults *__44__HDSPSyncedDefaults__cloudDefaultsProvider__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
   v3 = [WeakRetained behavior];
   v4 = [v3 features];
@@ -99,17 +100,14 @@ HDSPCloudDefaults *__44__HDSPSyncedDefaults__cloudDefaultsProvider__block_invoke
     v9 = HKSPLogForCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(a1 + 32);
-      v14 = 138543362;
-      v15 = objc_opt_class();
-      v11 = v15;
-      _os_log_impl(&dword_269B11000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] cloud sync is disabled", &v14, 0xCu);
+      v12 = 138543362;
+      v13 = objc_opt_class();
+      v10 = v13;
+      _os_log_impl(&dword_269B11000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] cloud sync is disabled", &v12, 0xCu);
     }
 
     v8 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -210,33 +208,33 @@ void __116__HDSPSyncedDefaults_initWithEnvironment_configuration_nanoDefaultsPro
 
 - (id)hksp_dictionaryRepresentationForKeys:(id)keys
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   allDefaultValues = [(HDSPSyncedDefaultsConfiguration *)self->_configuration allDefaultValues];
   allPerGizmoKeys = [(HDSPSyncedDefaultsConfiguration *)self->_configuration allPerGizmoKeys];
-  v42 = keysCopy;
+  v41 = keysCopy;
   v6 = [keysCopy na_setByRemovingObjectsFromSet:allPerGizmoKeys];
+  v50 = 0u;
   v51 = 0u;
   v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v51 objects:v62 count:16];
-  v43 = v6;
+  v7 = [v6 countByEnumeratingWithState:&v50 objects:v61 count:16];
+  v42 = v6;
   if (v7)
   {
     v8 = v7;
-    v9 = *v52;
+    v9 = *v51;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v52 != v9)
+        if (*v51 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v51 + 1) + 8 * i);
+        v11 = *(*(&v50 + 1) + 8 * i);
         v12 = [(HKSPUserDefaults *)self->_localDefaults hksp_objectForKey:v11];
         if (v12)
         {
@@ -253,15 +251,15 @@ void __116__HDSPSyncedDefaults_initWithEnvironment_configuration_nanoDefaultsPro
             {
               v15 = objc_opt_class();
               *buf = 138543874;
-              v57 = v15;
-              v58 = 2114;
-              v59 = v13;
-              v60 = 2114;
-              v61 = v11;
+              v56 = v15;
+              v57 = 2114;
+              v58 = v13;
+              v59 = 2114;
+              v60 = v11;
               v16 = v15;
               _os_log_impl(&dword_269B11000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] loading default value %{public}@ for key: %{public}@", buf, 0x20u);
 
-              v6 = v43;
+              v6 = v42;
             }
 
             [v5 setObject:v13 forKeyedSubscript:v11];
@@ -269,40 +267,40 @@ void __116__HDSPSyncedDefaults_initWithEnvironment_configuration_nanoDefaultsPro
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v51 objects:v62 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v50 objects:v61 count:16];
     }
 
     while (v8);
   }
 
-  [v42 na_setByIntersectingWithSet:allPerGizmoKeys];
+  [v41 na_setByIntersectingWithSet:allPerGizmoKeys];
+  v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
-  obj = v50 = 0u;
-  v17 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
+  obj = v49 = 0u;
+  v17 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
   if (v17)
   {
     v18 = v17;
-    v46 = *v48;
+    v45 = *v47;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v48 != v46)
+        if (*v47 != v45)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v47 + 1) + 8 * j);
+        v20 = *(*(&v46 + 1) + 8 * j);
         v21 = HKSPLogForCategory();
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           v22 = objc_opt_class();
           *buf = 138543618;
-          v57 = v22;
-          v58 = 2114;
-          v59 = v20;
+          v56 = v22;
+          v57 = 2114;
+          v58 = v20;
           v23 = v22;
           _os_log_impl(&dword_269B11000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] loading value for per-gizmo key: %{public}@", buf, 0x16u);
         }
@@ -316,11 +314,11 @@ void __116__HDSPSyncedDefaults_initWithEnvironment_configuration_nanoDefaultsPro
           {
             v27 = objc_opt_class();
             *buf = 138543874;
-            v57 = v27;
-            v58 = 2114;
-            v59 = v24;
-            v60 = 2114;
-            v61 = v20;
+            v56 = v27;
+            v57 = 2114;
+            v58 = v24;
+            v59 = 2114;
+            v60 = v20;
             v28 = v27;
             _os_log_impl(&dword_269B11000, v25, OS_LOG_TYPE_DEFAULT, "[%{public}@] loading value %{public}@ for per-gizmo key: %{public}@", buf, 0x20u);
           }
@@ -334,9 +332,9 @@ void __116__HDSPSyncedDefaults_initWithEnvironment_configuration_nanoDefaultsPro
           {
             v29 = objc_opt_class();
             *buf = 138543618;
-            v57 = v29;
-            v58 = 2114;
-            v59 = v20;
+            v56 = v29;
+            v57 = 2114;
+            v58 = v20;
             v30 = v29;
             _os_log_impl(&dword_269B11000, v25, OS_LOG_TYPE_DEFAULT, "[%{public}@] found nil value for per-gizmo key: %{public}@", buf, 0x16u);
           }
@@ -350,11 +348,11 @@ void __116__HDSPSyncedDefaults_initWithEnvironment_configuration_nanoDefaultsPro
             {
               v34 = objc_opt_class();
               *buf = 138543874;
-              v57 = v34;
-              v58 = 2114;
-              v59 = v31;
-              v60 = 2114;
-              v61 = v20;
+              v56 = v34;
+              v57 = 2114;
+              v58 = v31;
+              v59 = 2114;
+              v60 = v20;
               v35 = v34;
               _os_log_impl(&dword_269B11000, v32, OS_LOG_TYPE_DEFAULT, "[%{public}@] loading default value %{public}@ for per-gizmo key: %{public}@", buf, 0x20u);
             }
@@ -368,9 +366,9 @@ void __116__HDSPSyncedDefaults_initWithEnvironment_configuration_nanoDefaultsPro
             {
               v36 = objc_opt_class();
               *buf = 138543618;
-              v57 = v36;
-              v58 = 2114;
-              v59 = v20;
+              v56 = v36;
+              v57 = 2114;
+              v58 = v20;
               v37 = v36;
               _os_log_impl(&dword_269B11000, v32, OS_LOG_TYPE_DEFAULT, "[%{public}@] no default value for per-gizmo key: %{public}@", buf, 0x16u);
             }
@@ -378,7 +376,7 @@ void __116__HDSPSyncedDefaults_initWithEnvironment_configuration_nanoDefaultsPro
         }
       }
 
-      v18 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
+      v18 = [obj countByEnumeratingWithState:&v46 objects:v54 count:16];
     }
 
     while (v18);
@@ -386,50 +384,89 @@ void __116__HDSPSyncedDefaults_initWithEnvironment_configuration_nanoDefaultsPro
 
   v38 = [v5 copy];
 
-  v39 = *MEMORY[0x277D85DE8];
-
   return v38;
+}
+
+- (void)hksp_saveDictionary:(id)dictionary syncToCloudKit:(BOOL)kit
+{
+  kitCopy = kit;
+  v23 = *MEMORY[0x277D85DE8];
+  dictionaryCopy = dictionary;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v7 = [dictionaryCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = *v19;
+    do
+    {
+      for (i = 0; i != v8; ++i)
+      {
+        if (*v19 != v9)
+        {
+          objc_enumerationMutation(dictionaryCopy);
+        }
+
+        v11 = *(*(&v18 + 1) + 8 * i);
+        v12 = [dictionaryCopy objectForKeyedSubscript:v11];
+        v13 = HKSPNilify();
+
+        v15[0] = MEMORY[0x277D85DD0];
+        v15[1] = 3221225472;
+        v15[2] = __57__HDSPSyncedDefaults_hksp_saveDictionary_syncToCloudKit___block_invoke;
+        v15[3] = &unk_279C7C360;
+        v16 = v13;
+        v17 = v11;
+        v14 = v13;
+        [(HDSPSyncedDefaults *)self _setDefaultForKey:v11 setBlock:v15 syncToCloudKit:kitCopy];
+      }
+
+      v8 = [dictionaryCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+    }
+
+    while (v8);
+  }
 }
 
 - (void)hksp_removeObjectsForKeys:(id)keys syncToCloudKit:(BOOL)kit
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
+  v10 = 0u;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v6 = [keysCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [keysCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v11;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(keysCopy);
         }
 
-        v11 = *(*(&v12 + 1) + 8 * i);
         [HDSPSyncedDefaults _setDefaultForKey:"_setDefaultForKey:setBlock:syncToCloudKit:" setBlock:? syncToCloudKit:?];
       }
 
-      v7 = [keysCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [keysCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setDefaultForKey:(id)key setBlock:(id)block syncToCloudKit:(BOOL)kit
 {
   kitCopy = kit;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   blockCopy = block;
   if ([(HDSPSyncedDefaultsConfiguration *)self->_configuration shouldPersistKey:keyCopy])
@@ -444,13 +481,13 @@ void __116__HDSPSyncedDefaults_initWithEnvironment_configuration_nanoDefaultsPro
     if (!sleepCloudKitSync)
     {
 LABEL_11:
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __64__HDSPSyncedDefaults__setDefaultForKey_setBlock_syncToCloudKit___block_invoke;
-      v26[3] = &unk_279C7B2D0;
-      v26[4] = self;
-      v27 = keyCopy;
-      [(HDSPSyncedDefaults *)self _withLock:v26];
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __64__HDSPSyncedDefaults__setDefaultForKey_setBlock_syncToCloudKit___block_invoke;
+      v25[3] = &unk_279C7B2D0;
+      v25[4] = self;
+      v26 = keyCopy;
+      [(HDSPSyncedDefaults *)self _withLock:v25];
 
       goto LABEL_12;
     }
@@ -466,8 +503,8 @@ LABEL_10:
       }
 
       *buf = 138543362;
-      v29 = objc_opt_class();
-      v16 = v29;
+      v28 = objc_opt_class();
+      v16 = v28;
       v17 = "[%{public}@] not syncing to CloudKit because sync disabled";
     }
 
@@ -477,17 +514,17 @@ LABEL_10:
       {
         info = [(HDSPSyncedDefaultsConfiguration *)self->_configuration info];
         cloudSyncEnabledKey = [info cloudSyncEnabledKey];
-        v21 = [keyCopy isEqualToString:cloudSyncEnabledKey];
+        v20 = [keyCopy isEqualToString:cloudSyncEnabledKey];
 
-        if (v21)
+        if (v20)
         {
-          v22 = HKSPLogForCategory();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v21 = HKSPLogForCategory();
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v29 = objc_opt_class();
-            v23 = v29;
-            _os_log_impl(&dword_269B11000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@] sync now enabled, syncing from CloudKit", buf, 0xCu);
+            v28 = objc_opt_class();
+            v22 = v28;
+            _os_log_impl(&dword_269B11000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] sync now enabled, syncing from CloudKit", buf, 0xCu);
           }
 
           [(HDSPSyncedDefaults *)self setNeedsSyncFromCloud:1];
@@ -495,15 +532,15 @@ LABEL_10:
 
         else if (kitCopy && [(HDSPSyncedDefaultsConfiguration *)self->_configuration shouldSyncKey:keyCopy])
         {
-          v24 = HKSPLogForCategory();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+          v23 = HKSPLogForCategory();
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543618;
-            v29 = objc_opt_class();
-            v30 = 2112;
-            v31 = keyCopy;
-            v25 = v29;
-            _os_log_impl(&dword_269B11000, v24, OS_LOG_TYPE_DEFAULT, "[%{public}@] syncing key to CloudKit: %@", buf, 0x16u);
+            v28 = objc_opt_class();
+            v29 = 2112;
+            v30 = keyCopy;
+            v24 = v28;
+            _os_log_impl(&dword_269B11000, v23, OS_LOG_TYPE_DEFAULT, "[%{public}@] syncing key to CloudKit: %@", buf, 0x16u);
           }
 
           blockCopy[2](blockCopy, self->_cloudDefaults);
@@ -519,8 +556,8 @@ LABEL_10:
       }
 
       *buf = 138543362;
-      v29 = objc_opt_class();
-      v16 = v29;
+      v28 = objc_opt_class();
+      v16 = v28;
       v17 = "[%{public}@] not syncing to CloudKit because initial sync needed";
     }
 
@@ -530,39 +567,35 @@ LABEL_10:
   }
 
 LABEL_12:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hdsp_forceSynchronizeWithCompletion:(id)completion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v13 = objc_opt_class();
-    v6 = v13;
+    v12 = objc_opt_class();
+    v6 = v12;
     _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] doing a full CloudKit sync", buf, 0xCu);
   }
 
   cloudDefaults = self->_cloudDefaults;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __58__HDSPSyncedDefaults_hdsp_forceSynchronizeWithCompletion___block_invoke;
-  v10[3] = &unk_279C7C3B0;
-  v10[4] = self;
-  v11 = completionCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __58__HDSPSyncedDefaults_hdsp_forceSynchronizeWithCompletion___block_invoke;
+  v9[3] = &unk_279C7C3B0;
+  v9[4] = self;
+  v10 = completionCopy;
   v8 = completionCopy;
-  [(HDSPSyncedUserDefaults *)cloudDefaults hdsp_forceSynchronizeWithCompletion:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [(HDSPSyncedUserDefaults *)cloudDefaults hdsp_forceSynchronizeWithCompletion:v9];
 }
 
 void __58__HDSPSyncedDefaults_hdsp_forceSynchronizeWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a3;
   [*(a1 + 32) setNeedsInitialSync:a2 ^ 1];
   if ((a2 ^ 1))
@@ -573,13 +606,12 @@ void __58__HDSPSyncedDefaults_hdsp_forceSynchronizeWithCompletion___block_invoke
       goto LABEL_6;
     }
 
-    v11 = *(a1 + 32);
-    v12 = 138543618;
-    v13 = objc_opt_class();
-    v14 = 2114;
-    v15 = v5;
-    v8 = v13;
-    _os_log_error_impl(&dword_269B11000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] full CloudKit sync failed: %{public}@", &v12, 0x16u);
+    v9 = 138543618;
+    v10 = objc_opt_class();
+    v11 = 2114;
+    v12 = v5;
+    v7 = v10;
+    _os_log_error_impl(&dword_269B11000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] full CloudKit sync failed: %{public}@", &v9, 0x16u);
     goto LABEL_4;
   }
 
@@ -587,40 +619,36 @@ void __58__HDSPSyncedDefaults_hdsp_forceSynchronizeWithCompletion___block_invoke
   v6 = HKSPLogForCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 32);
-    v12 = 138543362;
-    v13 = objc_opt_class();
-    v8 = v13;
-    _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] full CloudKit sync completed", &v12, 0xCu);
+    v9 = 138543362;
+    v10 = objc_opt_class();
+    v7 = v10;
+    _os_log_impl(&dword_269B11000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] full CloudKit sync completed", &v9, 0xCu);
 LABEL_4:
   }
 
 LABEL_6:
 
-  (*(*(a1 + 40) + 16))(*(a1 + 40), a2, v5, v9);
-  v10 = *MEMORY[0x277D85DE8];
+  (*(*(a1 + 40) + 16))(*(a1 + 40), a2, v5, v8);
 }
 
 - (void)hdsp_setExternalChangeDelegate:(id)delegate
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543618;
-    v9 = objc_opt_class();
-    v10 = 2114;
-    v11 = delegateCopy;
-    v6 = v9;
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] hdsp_setExternalChangeDelegate %{public}@", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = objc_opt_class();
+    v9 = 2114;
+    v10 = delegateCopy;
+    v6 = v8;
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] hdsp_setExternalChangeDelegate %{public}@", &v7, 0x16u);
   }
 
   [(HDSPSyncedDefaults *)self setDelegate:delegateCopy];
   [(HDSPSyncedUserDefaults *)self->_nanoDefaults hdsp_setExternalChangeDelegate:self];
   [(HDSPSyncedUserDefaults *)self->_cloudDefaults hdsp_setExternalChangeDelegate:self];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_defaultsForKey:(id)key
@@ -783,48 +811,43 @@ LABEL_6:
 
 uint64_t __38__HDSPSyncedDefaults_hksp_synchronize__block_invoke(uint64_t a1)
 {
-  v2 = [*(*(a1 + 32) + 48) copy];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(*(a1 + 32) + 48) copy];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (void)_hksp_synchronizeKeys:(id)keys
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   [(HDSPSyncedDefaults *)self saveDataVersion];
   [(HDSPSyncedDefaults *)self saveCloudDataVersion];
   info = [(HDSPSyncedDefaultsConfiguration *)self->_configuration info];
   dataVersionKey = [info dataVersionKey];
-  v14[0] = dataVersionKey;
+  v13[0] = dataVersionKey;
   info2 = [(HDSPSyncedDefaultsConfiguration *)self->_configuration info];
   cloudDataVersionKey = [info2 cloudDataVersionKey];
-  v14[1] = cloudDataVersionKey;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[1] = cloudDataVersionKey;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   v10 = [keysCopy setByAddingObjectsFromArray:v9];
 
   syncAccumulator = self->_syncAccumulator;
   allObjects = [v10 allObjects];
   [(HKSPAccumulator *)syncAccumulator accumulateValues:allObjects];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_throttled_synchronizeKeys:(id)keys
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v20 = objc_opt_class();
-    v21 = 2114;
-    v22 = keysCopy;
-    v6 = v20;
+    v19 = objc_opt_class();
+    v20 = 2114;
+    v21 = keysCopy;
+    v6 = v19;
     _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] synchronizing keys: %{public}@", buf, 0x16u);
   }
 
@@ -853,12 +876,12 @@ uint64_t __38__HDSPSyncedDefaults_hksp_synchronize__block_invoke(uint64_t a1)
   {
     if ([(HDSPSyncedDefaults *)self needsInitialSync])
     {
-      v18[0] = MEMORY[0x277D85DD0];
-      v18[1] = 3221225472;
-      v18[2] = __49__HDSPSyncedDefaults__throttled_synchronizeKeys___block_invoke;
-      v18[3] = &unk_279C7C0C8;
-      v18[4] = self;
-      [(HDSPSyncedDefaults *)self hdsp_forceSynchronizeWithCompletion:v18];
+      v17[0] = MEMORY[0x277D85DD0];
+      v17[1] = 3221225472;
+      v17[2] = __49__HDSPSyncedDefaults__throttled_synchronizeKeys___block_invoke;
+      v17[3] = &unk_279C7C0C8;
+      v17[4] = self;
+      [(HDSPSyncedDefaults *)self hdsp_forceSynchronizeWithCompletion:v17];
       goto LABEL_11;
     }
 
@@ -876,16 +899,14 @@ LABEL_10:
   }
 
 LABEL_11:
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __49__HDSPSyncedDefaults__throttled_synchronizeKeys___block_invoke_2;
-  v16[3] = &unk_279C7B2D0;
-  v16[4] = self;
-  v17 = keysCopy;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __49__HDSPSyncedDefaults__throttled_synchronizeKeys___block_invoke_2;
+  v15[3] = &unk_279C7B2D0;
+  v15[4] = self;
+  v16 = keysCopy;
   v14 = keysCopy;
-  [(HDSPSyncedDefaults *)self _withLock:v16];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [(HDSPSyncedDefaults *)self _withLock:v15];
 }
 
 void __49__HDSPSyncedDefaults__throttled_synchronizeKeys___block_invoke(uint64_t a1)
@@ -896,7 +917,7 @@ void __49__HDSPSyncedDefaults__throttled_synchronizeKeys___block_invoke(uint64_t
 
 - (void)saveDataVersion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   info = [(HDSPSyncedDefaultsConfiguration *)self->_configuration info];
   dataVersionKey = [info dataVersionKey];
   v5 = [(HDSPSyncedDefaults *)self hksp_integerForKey:dataVersionKey];
@@ -909,14 +930,14 @@ void __49__HDSPSyncedDefaults__throttled_synchronizeKeys___block_invoke(uint64_t
     v8 = HKSPLogForCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v26 = 138543874;
-      *&v26[4] = objc_opt_class();
-      *&v26[12] = 2048;
-      *&v26[14] = v5;
-      *&v26[22] = 2048;
-      v27 = currentDataVersion;
-      v9 = *&v26[4];
-      _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] updating stored data version from %lu to %lu", v26, 0x20u);
+      *v25 = 138543874;
+      *&v25[4] = objc_opt_class();
+      *&v25[12] = 2048;
+      *&v25[14] = v5;
+      *&v25[22] = 2048;
+      v26 = currentDataVersion;
+      v9 = *&v25[4];
+      _os_log_impl(&dword_269B11000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] updating stored data version from %lu to %lu", v25, 0x20u);
     }
 
     info3 = [(HDSPSyncedDefaultsConfiguration *)self->_configuration info];
@@ -932,77 +953,74 @@ LABEL_5:
     info3 = HKSPLogForCategory();
     if (os_log_type_enabled(info3, OS_LOG_TYPE_DEFAULT))
     {
-      *v26 = 138543874;
-      *&v26[4] = objc_opt_class();
-      *&v26[12] = 2048;
-      *&v26[14] = v5;
-      *&v26[22] = 2048;
-      v27 = currentDataVersion;
-      v12 = *&v26[4];
-      _os_log_impl(&dword_269B11000, info3, OS_LOG_TYPE_DEFAULT, "[%{public}@] not updating newer stored data version from %lu to %lu", v26, 0x20u);
+      *v25 = 138543874;
+      *&v25[4] = objc_opt_class();
+      *&v25[12] = 2048;
+      *&v25[14] = v5;
+      *&v25[22] = 2048;
+      v26 = currentDataVersion;
+      v12 = *&v25[4];
+      _os_log_impl(&dword_269B11000, info3, OS_LOG_TYPE_DEFAULT, "[%{public}@] not updating newer stored data version from %lu to %lu", v25, 0x20u);
     }
 
     goto LABEL_5;
   }
 
 LABEL_9:
-  v13 = [(HDSPSyncedDefaultsConfiguration *)self->_configuration info:*v26];
+  v13 = [(HDSPSyncedDefaultsConfiguration *)self->_configuration info:*v25];
   localDataVersionKey = [v13 localDataVersionKey];
   v15 = [(HDSPSyncedDefaults *)self hksp_integerForKey:localDataVersionKey];
 
   info4 = [(HDSPSyncedDefaultsConfiguration *)self->_configuration info];
   currentLocalDataVersion = [info4 currentLocalDataVersion];
 
-  if (v15 >= currentLocalDataVersion)
-  {
-    if (v15 <= currentLocalDataVersion)
-    {
-      goto LABEL_17;
-    }
-
-    info5 = HKSPLogForCategory();
-    if (os_log_type_enabled(info5, OS_LOG_TYPE_DEFAULT))
-    {
-      v23 = objc_opt_class();
-      *v26 = 138543874;
-      *&v26[4] = v23;
-      *&v26[12] = 2048;
-      *&v26[14] = v15;
-      *&v26[22] = 2048;
-      v27 = currentLocalDataVersion;
-      v24 = v23;
-      _os_log_impl(&dword_269B11000, info5, OS_LOG_TYPE_DEFAULT, "[%{public}@] not updating newer stored local data version from %lu to %lu", v26, 0x20u);
-    }
-  }
-
-  else
+  if (v15 < currentLocalDataVersion)
   {
     v18 = HKSPLogForCategory();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       v19 = objc_opt_class();
-      *v26 = 138543874;
-      *&v26[4] = v19;
-      *&v26[12] = 2048;
-      *&v26[14] = v15;
-      *&v26[22] = 2048;
-      v27 = currentLocalDataVersion;
+      *v25 = 138543874;
+      *&v25[4] = v19;
+      *&v25[12] = 2048;
+      *&v25[14] = v15;
+      *&v25[22] = 2048;
+      v26 = currentLocalDataVersion;
       v20 = v19;
-      _os_log_impl(&dword_269B11000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] updating stored local data version from %lu to %lu", v26, 0x20u);
+      _os_log_impl(&dword_269B11000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] updating stored local data version from %lu to %lu", v25, 0x20u);
     }
 
     info5 = [(HDSPSyncedDefaultsConfiguration *)self->_configuration info];
     localDataVersionKey2 = [info5 localDataVersionKey];
     [(HDSPSyncedDefaults *)self hksp_setInteger:currentLocalDataVersion forKey:localDataVersionKey2];
+
+LABEL_13:
+    return;
   }
 
-LABEL_17:
-  v25 = *MEMORY[0x277D85DE8];
+  if (v15 > currentLocalDataVersion)
+  {
+    info5 = HKSPLogForCategory();
+    if (os_log_type_enabled(info5, OS_LOG_TYPE_DEFAULT))
+    {
+      v23 = objc_opt_class();
+      *v25 = 138543874;
+      *&v25[4] = v23;
+      *&v25[12] = 2048;
+      *&v25[14] = v15;
+      *&v25[22] = 2048;
+      v26 = currentLocalDataVersion;
+      v24 = v23;
+      _os_log_impl(&dword_269B11000, info5, OS_LOG_TYPE_DEFAULT, "[%{public}@] not updating newer stored local data version from %lu to %lu", v25, 0x20u);
+    }
+
+    goto LABEL_13;
+  }
 }
 
 - (void)saveCloudDataVersion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_environment);
   behavior = [WeakRetained behavior];
   features = [behavior features];
@@ -1017,50 +1035,47 @@ LABEL_17:
     info2 = [(HDSPSyncedDefaultsConfiguration *)self->_configuration info];
     currentCloudDataVersion = [info2 currentCloudDataVersion];
 
-    if (v9 >= currentCloudDataVersion)
-    {
-      if (v9 <= currentCloudDataVersion)
-      {
-        goto LABEL_12;
-      }
-
-      info3 = HKSPLogForCategory();
-      if (os_log_type_enabled(info3, OS_LOG_TYPE_DEFAULT))
-      {
-        v18 = 138543874;
-        v19 = objc_opt_class();
-        v20 = 2048;
-        v21 = v9;
-        v22 = 2048;
-        v23 = currentCloudDataVersion;
-        v16 = v19;
-        _os_log_impl(&dword_269B11000, info3, OS_LOG_TYPE_DEFAULT, "[%{public}@] not updating newer stored cloud data version from %lu to %lu", &v18, 0x20u);
-      }
-    }
-
-    else
+    if (v9 < currentCloudDataVersion)
     {
       v12 = HKSPLogForCategory();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 138543874;
-        v19 = objc_opt_class();
-        v20 = 2048;
-        v21 = v9;
-        v22 = 2048;
-        v23 = currentCloudDataVersion;
-        v13 = v19;
-        _os_log_impl(&dword_269B11000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] updating stored cloud data version from %lu to %lu", &v18, 0x20u);
+        v17 = 138543874;
+        v18 = objc_opt_class();
+        v19 = 2048;
+        v20 = v9;
+        v21 = 2048;
+        v22 = currentCloudDataVersion;
+        v13 = v18;
+        _os_log_impl(&dword_269B11000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] updating stored cloud data version from %lu to %lu", &v17, 0x20u);
       }
 
       info3 = [(HDSPSyncedDefaultsConfiguration *)self->_configuration info];
       cloudDataVersionKey2 = [info3 cloudDataVersionKey];
       [(HDSPSyncedDefaults *)self hksp_setInteger:currentCloudDataVersion forKey:cloudDataVersionKey2];
+
+LABEL_8:
+      return;
+    }
+
+    if (v9 > currentCloudDataVersion)
+    {
+      info3 = HKSPLogForCategory();
+      if (os_log_type_enabled(info3, OS_LOG_TYPE_DEFAULT))
+      {
+        v17 = 138543874;
+        v18 = objc_opt_class();
+        v19 = 2048;
+        v20 = v9;
+        v21 = 2048;
+        v22 = currentCloudDataVersion;
+        v16 = v18;
+        _os_log_impl(&dword_269B11000, info3, OS_LOG_TYPE_DEFAULT, "[%{public}@] not updating newer stored cloud data version from %lu to %lu", &v17, 0x20u);
+      }
+
+      goto LABEL_8;
     }
   }
-
-LABEL_12:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncedUserDefaultsDidChangeExternally:(id)externally
@@ -1113,14 +1128,14 @@ LABEL_12:
 
 - (void)_nanoDefaultsDidReceiveExternalChange
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = objc_opt_class();
-    v4 = v10;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] _nanoDefaultsDidReceiveExternalChange", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = objc_opt_class();
+    v4 = v9;
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] _nanoDefaultsDidReceiveExternalChange", &v8, 0xCu);
   }
 
   [(HKSPUserDefaults *)self->_localDefaults hksp_synchronize];
@@ -1132,23 +1147,21 @@ LABEL_12:
   {
     [(HDSPSyncedDefaults *)self _differentialCloudKitSync];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_nanoDefaultsDidReceiveExternalChangeForKeys:(id)keys
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543618;
-    v12 = objc_opt_class();
-    v13 = 2114;
-    v14 = keysCopy;
-    v6 = v12;
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] _nanoDefaultsDidReceiveExternalChangeForKeys: %{public}@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = objc_opt_class();
+    v12 = 2114;
+    v13 = keysCopy;
+    v6 = v11;
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] _nanoDefaultsDidReceiveExternalChangeForKeys: %{public}@", &v10, 0x16u);
   }
 
   [(HKSPUserDefaults *)self->_localDefaults hksp_synchronizeKeys:keysCopy];
@@ -1160,48 +1173,44 @@ LABEL_12:
   {
     [(HDSPSyncedDefaults *)self _syncKeysToCloudKit:keysCopy];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cloudDefaultsDidReceiveExternalChange
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = objc_opt_class();
-    v4 = v7;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] _cloudDefaultsDidReceiveExternalChange", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = objc_opt_class();
+    v4 = v6;
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] _cloudDefaultsDidReceiveExternalChange", &v5, 0xCu);
   }
 
   [(HDSPSyncedDefaults *)self _differentialCloudKitSync];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cloudDefaultsDidReceiveExternalChangeForKeys:(id)keys
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543618;
-    v9 = objc_opt_class();
-    v10 = 2114;
-    v11 = keysCopy;
-    v6 = v9;
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] _cloudDefaultsDidReceiveExternalChangeForKeys: %{public}@", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = objc_opt_class();
+    v9 = 2114;
+    v10 = keysCopy;
+    v6 = v8;
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] _cloudDefaultsDidReceiveExternalChangeForKeys: %{public}@", &v7, 0x16u);
   }
 
   [(HDSPSyncedDefaults *)self _syncKeysFromCloudKit:keysCopy];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_initialCloudKitSync
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_environment);
   behavior = [WeakRetained behavior];
   features = [behavior features];
@@ -1213,10 +1222,10 @@ LABEL_12:
     v7 = HKSPLogForCategory();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 138543362;
-      v25 = objc_opt_class();
-      v8 = v25;
-      _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] performing initial sync", &v24, 0xCu);
+      v23 = 138543362;
+      v24 = objc_opt_class();
+      v8 = v24;
+      _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] performing initial sync", &v23, 0xCu);
     }
 
     cloudDefaults = self->_cloudDefaults;
@@ -1233,31 +1242,34 @@ LABEL_12:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       v18 = objc_opt_class();
-      v24 = 138543618;
-      v25 = v18;
-      v26 = 2048;
-      v27 = v12;
+      v23 = 138543618;
+      v24 = v18;
+      v25 = 2048;
+      v26 = v12;
       v19 = v18;
-      _os_log_impl(&dword_269B11000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] serverCloudKitDataVersion %lu", &v24, 0x16u);
+      _os_log_impl(&dword_269B11000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] serverCloudKitDataVersion %lu", &v23, 0x16u);
     }
 
     v20 = HKSPLogForCategory();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       v21 = objc_opt_class();
-      v24 = 138543618;
-      v25 = v21;
-      v26 = 2048;
-      v27 = v16;
+      v23 = 138543618;
+      v24 = v21;
+      v25 = 2048;
+      v26 = v16;
       v22 = v21;
-      _os_log_impl(&dword_269B11000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] localCloudKitDataVersion %lu", &v24, 0x16u);
+      _os_log_impl(&dword_269B11000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] localCloudKitDataVersion %lu", &v23, 0x16u);
     }
 
     if (v12 | v16)
     {
-      if (v12 && !v16)
+      if (v12)
       {
-        [(HDSPSyncedDefaults *)self _syncCloudKitToLocal];
+        if (!v16)
+        {
+          [(HDSPSyncedDefaults *)self _syncCloudKitToLocal];
+        }
       }
     }
 
@@ -1266,8 +1278,6 @@ LABEL_12:
       [(HDSPSyncedDefaults *)self _syncLocalToCloudKit];
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_syncLocalToCloudKit
@@ -1278,7 +1288,7 @@ LABEL_12:
 
 - (void)_syncKeysToCloudKit:(id)kit
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   kitCopy = kit;
   WeakRetained = objc_loadWeakRetained(&self->_environment);
   behavior = [WeakRetained behavior];
@@ -1290,12 +1300,12 @@ LABEL_12:
     v9 = HKSPLogForCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 138543618;
-      v24 = objc_opt_class();
-      v25 = 2114;
-      v26 = kitCopy;
-      v10 = v24;
-      _os_log_impl(&dword_269B11000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] syncing to CloudKit: %{public}@", &v23, 0x16u);
+      v22 = 138543618;
+      v23 = objc_opt_class();
+      v24 = 2114;
+      v25 = kitCopy;
+      v10 = v23;
+      _os_log_impl(&dword_269B11000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] syncing to CloudKit: %{public}@", &v22, 0x16u);
     }
 
     v11 = [(HDSPSyncedDefaults *)self hksp_dictionaryRepresentationForKeys:kitCopy];
@@ -1312,28 +1322,26 @@ LABEL_12:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v17 = objc_opt_class();
-      v23 = 138543618;
-      v24 = v17;
-      v25 = 2114;
-      v26 = v11;
+      v22 = 138543618;
+      v23 = v17;
+      v24 = 2114;
+      v25 = v11;
       v18 = v17;
-      _os_log_impl(&dword_269B11000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] updates: %{public}@", &v23, 0x16u);
+      _os_log_impl(&dword_269B11000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] updates: %{public}@", &v22, 0x16u);
     }
 
     v19 = HKSPLogForCategory();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       v20 = objc_opt_class();
-      v23 = 138543618;
-      v24 = v20;
-      v25 = 2114;
-      v26 = v15;
+      v22 = 138543618;
+      v23 = v20;
+      v24 = 2114;
+      v25 = v15;
       v21 = v20;
-      _os_log_impl(&dword_269B11000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] removes: %{public}@", &v23, 0x16u);
+      _os_log_impl(&dword_269B11000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] removes: %{public}@", &v22, 0x16u);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_syncCloudKitToLocal
@@ -1344,7 +1352,7 @@ LABEL_12:
 
 - (void)_syncKeysFromCloudKit:(id)kit
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   kitCopy = kit;
   WeakRetained = objc_loadWeakRetained(&self->_environment);
   behavior = [WeakRetained behavior];
@@ -1356,12 +1364,12 @@ LABEL_12:
     v9 = HKSPLogForCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 138543618;
-      v24 = objc_opt_class();
-      v25 = 2114;
-      v26 = kitCopy;
-      v10 = v24;
-      _os_log_impl(&dword_269B11000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] syncing from CloudKit: %{public}@", &v23, 0x16u);
+      v22 = 138543618;
+      v23 = objc_opt_class();
+      v24 = 2114;
+      v25 = kitCopy;
+      v10 = v23;
+      _os_log_impl(&dword_269B11000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] syncing from CloudKit: %{public}@", &v22, 0x16u);
     }
 
     v11 = [(HDSPSyncedUserDefaults *)self->_cloudDefaults hksp_dictionaryRepresentationForKeys:kitCopy];
@@ -1377,33 +1385,31 @@ LABEL_12:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       v17 = objc_opt_class();
-      v23 = 138543618;
-      v24 = v17;
-      v25 = 2114;
-      v26 = v11;
+      v22 = 138543618;
+      v23 = v17;
+      v24 = 2114;
+      v25 = v11;
       v18 = v17;
-      _os_log_impl(&dword_269B11000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] updates: %{public}@", &v23, 0x16u);
+      _os_log_impl(&dword_269B11000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}@] updates: %{public}@", &v22, 0x16u);
     }
 
     v19 = HKSPLogForCategory();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       v20 = objc_opt_class();
-      v23 = 138543618;
-      v24 = v20;
-      v25 = 2114;
-      v26 = v15;
+      v22 = 138543618;
+      v23 = v20;
+      v24 = 2114;
+      v25 = v15;
       v21 = v20;
-      _os_log_impl(&dword_269B11000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] removes: %{public}@", &v23, 0x16u);
+      _os_log_impl(&dword_269B11000, v19, OS_LOG_TYPE_DEFAULT, "[%{public}@] removes: %{public}@", &v22, 0x16u);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_differentialCloudKitSync
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_environment);
   behavior = [WeakRetained behavior];
   features = [behavior features];
@@ -1415,26 +1421,24 @@ LABEL_12:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v13 = objc_opt_class();
-      v8 = v13;
+      v12 = objc_opt_class();
+      v8 = v12;
       _os_log_impl(&dword_269B11000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] performing differential sync", buf, 0xCu);
     }
 
     keySets = [(HDSPSyncedDefaultsConfiguration *)self->_configuration keySets];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __47__HDSPSyncedDefaults__differentialCloudKitSync__block_invoke;
-    v11[3] = &unk_279C7C450;
-    v11[4] = self;
-    [keySets na_each:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __47__HDSPSyncedDefaults__differentialCloudKitSync__block_invoke;
+    v10[3] = &unk_279C7C450;
+    v10[4] = self;
+    [keySets na_each:v10];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_differentialCloudKitSyncForKeySet:(id)set
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   setCopy = set;
   v5 = HKSPLogForCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -1442,11 +1446,11 @@ LABEL_12:
     v6 = objc_opt_class();
     v7 = v6;
     identifier = [setCopy identifier];
-    v29 = 138543618;
-    v30 = v6;
-    v31 = 2114;
-    v32 = identifier;
-    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] looking at keySet: %{public}@", &v29, 0x16u);
+    v28 = 138543618;
+    v29 = v6;
+    v30 = 2114;
+    v31 = identifier;
+    _os_log_impl(&dword_269B11000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] looking at keySet: %{public}@", &v28, 0x16u);
   }
 
   cloudDefaults = self->_cloudDefaults;
@@ -1461,24 +1465,24 @@ LABEL_12:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     v16 = objc_opt_class();
-    v29 = 138543618;
-    v30 = v16;
-    v31 = 2114;
-    v32 = v14;
+    v28 = 138543618;
+    v29 = v16;
+    v30 = 2114;
+    v31 = v14;
     v17 = v16;
-    _os_log_impl(&dword_269B11000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] local last modified: %{public}@", &v29, 0x16u);
+    _os_log_impl(&dword_269B11000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] local last modified: %{public}@", &v28, 0x16u);
   }
 
   v18 = HKSPLogForCategory();
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     v19 = objc_opt_class();
-    v29 = 138543618;
-    v30 = v19;
-    v31 = 2114;
-    v32 = v11;
+    v28 = 138543618;
+    v29 = v19;
+    v30 = 2114;
+    v31 = v11;
     v20 = v19;
-    _os_log_impl(&dword_269B11000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] server last modified: %{public}@", &v29, 0x16u);
+    _os_log_impl(&dword_269B11000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] server last modified: %{public}@", &v28, 0x16u);
   }
 
   if ((NAEqualObjects() & 1) == 0)
@@ -1489,10 +1493,10 @@ LABEL_12:
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         v26 = objc_opt_class();
-        v29 = 138543362;
-        v30 = v26;
+        v28 = 138543362;
+        v29 = v26;
         v27 = v26;
-        _os_log_impl(&dword_269B11000, v25, OS_LOG_TYPE_DEFAULT, "[%{public}@] server modified later, syncing from CloudKit", &v29, 0xCu);
+        _os_log_impl(&dword_269B11000, v25, OS_LOG_TYPE_DEFAULT, "[%{public}@] server modified later, syncing from CloudKit", &v28, 0xCu);
       }
 
       keysToSync = [setCopy keysToSync];
@@ -1505,34 +1509,31 @@ LABEL_12:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         v22 = objc_opt_class();
-        v29 = 138543362;
-        v30 = v22;
+        v28 = 138543362;
+        v29 = v22;
         v23 = v22;
-        _os_log_impl(&dword_269B11000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] local modified later, syncing to CloudKit", &v29, 0xCu);
+        _os_log_impl(&dword_269B11000, v21, OS_LOG_TYPE_DEFAULT, "[%{public}@] local modified later, syncing to CloudKit", &v28, 0xCu);
       }
 
       keysToSync = [setCopy keysToSync];
       [(HDSPSyncedDefaults *)self _syncKeysToCloudKit:keysToSync];
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetCloudData
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = HKSPLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
-    v7 = objc_opt_class();
-    v4 = v7;
-    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] resetting", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = objc_opt_class();
+    v4 = v6;
+    _os_log_impl(&dword_269B11000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] resetting", &v5, 0xCu);
   }
 
   [(HDSPSyncedUserDefaults *)self->_cloudDefaults hksp_reset];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (HDSPSyncedUserDefaultsExternalChangeDelegate)delegate

@@ -52,17 +52,16 @@
   v3 = self + OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatMatrixWrapper__floatMatrix;
   v4 = *&self->super._floatMatrix[OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatMatrixWrapper__floatMatrix];
   v5 = *&self->super._floatMatrix[OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatMatrixWrapper__floatMatrix + 8];
-  v9 = *(&self->super.super.isa + OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatMatrixWrapper__floatMatrix);
-  *&v10 = v4;
-  *(&v10 + 1) = v5;
+  v8 = *(&self->super.super.isa + OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatMatrixWrapper__floatMatrix);
+  *&v9 = v4;
+  *(&v9 + 1) = v5;
   v6 = -scalar;
   selfCopy = self;
   swift_bridgeObjectRetain_n();
-  sub_25587FE30(v9, v6, v4, v5, &v9);
+  sub_25587FE30(v8, v6, v4, v5, &v8);
 
-  v8 = *v3;
-  *v3 = v9;
-  *(v3 + 8) = v10;
+  *v3 = v8;
+  *(v3 + 8) = v9;
 }
 
 - (void)addScalar:(float)scalar
@@ -70,33 +69,31 @@
   v4 = self + OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatMatrixWrapper__floatMatrix;
   v5 = *&self->super._floatMatrix[OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatMatrixWrapper__floatMatrix];
   v6 = *&self->super._floatMatrix[OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatMatrixWrapper__floatMatrix + 8];
-  v9 = *(&self->super.super.isa + OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatMatrixWrapper__floatMatrix);
-  *&v10 = v5;
-  *(&v10 + 1) = v6;
+  v8 = *(&self->super.super.isa + OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatMatrixWrapper__floatMatrix);
+  *&v9 = v5;
+  *(&v9 + 1) = v6;
   selfCopy = self;
   swift_bridgeObjectRetain_n();
-  sub_25587FE30(v9, scalar, v5, v6, &v9);
+  sub_25587FE30(v8, scalar, v5, v6, &v8);
 
-  v8 = *v4;
-  *v4 = v9;
-  *(v4 + 8) = v10;
+  *v4 = v8;
+  *(v4 + 8) = v9;
 }
 
 - (void)appendRow:(id)row
 {
-  (*((*MEMORY[0x277D85000] & *row) + 0x70))(&v12, self, a2);
-  v5 = v12;
+  (*((*MEMORY[0x277D85000] & *row) + 0x70))(&v11, self, a2);
+  v5 = v11;
   v6 = self + OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatMatrixWrapper__floatMatrix;
-  v10 = *(&self->super.super.isa + OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatMatrixWrapper__floatMatrix);
-  v11 = *&self->super._floatMatrix[OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatMatrixWrapper__floatMatrix];
+  v9 = *(&self->super.super.isa + OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatMatrixWrapper__floatMatrix);
+  v10 = *&self->super._floatMatrix[OBJC_IVAR____TtC17KnowledgeGraphKit20MAFloatMatrixWrapper__floatMatrix];
   rowCopy = row;
   selfCopy = self;
 
   sub_25589D300(v5);
 
-  v9 = *v6;
-  *v6 = v10;
-  *(v6 + 8) = v11;
+  *v6 = v9;
+  *(v6 + 8) = v10;
 }
 
 @end

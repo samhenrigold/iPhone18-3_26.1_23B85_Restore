@@ -14,13 +14,12 @@
 
 - (id)exportObjectForListener:(id)listener client:(id)client error:(id *)error
 {
-  v7 = *(&self->super.isa + OBJC_IVAR____TtC19HealthRecordsDaemon23DefaultDaemonXPCService_serverGenerator);
-  v6 = *&self->identifier[OBJC_IVAR____TtC19HealthRecordsDaemon23DefaultDaemonXPCService_serverGenerator];
+  v6 = *(&self->super.isa + OBJC_IVAR____TtC19HealthRecordsDaemon23DefaultDaemonXPCService_serverGenerator);
   clientCopy = client;
   selfCopy = self;
-  v10 = v7(clientCopy);
+  v9 = v6(clientCopy);
 
-  return v10;
+  return v9;
 }
 
 @end

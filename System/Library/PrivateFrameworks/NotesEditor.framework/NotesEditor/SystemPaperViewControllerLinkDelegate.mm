@@ -29,7 +29,7 @@
 
   sub_2154297CC(activitiesCopy);
 
-  sub_2151A6C9C(0, &qword_27CA5DBD0);
+  sub_2151A6C9C(0, &qword_27CA5DBD0, 0x277CCAE58);
   v4 = sub_2154A1F3C();
 
   return v4;

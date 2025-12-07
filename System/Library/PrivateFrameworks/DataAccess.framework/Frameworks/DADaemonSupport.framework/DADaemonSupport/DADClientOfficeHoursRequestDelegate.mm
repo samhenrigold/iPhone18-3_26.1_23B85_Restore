@@ -32,7 +32,7 @@
 
 - (void)_doRequestWithBlock:(id)block
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (![(DADisableableObject *)self isDisabled])
   {
@@ -42,9 +42,9 @@
 
     if (v7)
     {
-      v15 = 0;
-      v8 = blockCopy[2](blockCopy, v7, &v15);
-      v9 = v15;
+      v14 = 0;
+      v8 = blockCopy[2](blockCopy, v7, &v14);
+      v9 = v14;
       [(DADClientOfficeHoursRequestDelegate *)self setRequestID:v8];
     }
 
@@ -56,7 +56,7 @@
       {
         accountID2 = [(DADClientDelegate *)self accountID];
         *buf = 138543362;
-        v17 = accountID2;
+        v16 = accountID2;
         _os_log_impl(&dword_248524000, v10, v11, "Could not get an account with the ID %{public}@", buf, 0xCu);
       }
 
@@ -70,14 +70,12 @@
       [(DADClientOfficeHoursRequestDelegate *)self _finishedWithOfficeHours:0 error:v9 canceled:0];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishedWithOfficeHours:(id)hours error:(id)error canceled:(BOOL)canceled
 {
   canceledCopy = canceled;
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   hoursCopy = hours;
   errorCopy = error;
   if (![(DADisableableObject *)self isDisabled]&& ![(DADClientDelegate *)self finished])
@@ -89,7 +87,7 @@
     if (os_log_type_enabled(v10, v12))
     {
       *buf = 138412290;
-      v34 = errorCopy;
+      v33 = errorCopy;
       _os_log_impl(&dword_248524000, v10, v12, "DADClientOfficeHoursRequestDelegate finished with error %@", buf, 0xCu);
     }
 
@@ -120,13 +118,13 @@ LABEL_17:
       else
       {
         requestID2 = DALoggingwithCategory();
-        v29 = *(v11 + 3);
-        if (os_log_type_enabled(requestID2, v29))
+        v28 = *(v11 + 3);
+        if (os_log_type_enabled(requestID2, v28))
         {
           accountID2 = [(DADClientDelegate *)self accountID];
           *buf = 138543362;
-          v34 = accountID2;
-          _os_log_impl(&dword_248524000, requestID2, v29, "DADClientOfficeHoursRequestDelegate canceled, but could not find an account with the ID %{public}@ to cancel the request", buf, 0xCu);
+          v33 = accountID2;
+          _os_log_impl(&dword_248524000, requestID2, v28, "DADClientOfficeHoursRequestDelegate canceled, but could not find an account with the ID %{public}@ to cancel the request", buf, 0xCu);
         }
       }
     }
@@ -144,13 +142,13 @@ LABEL_16:
       }
 
       v19 = *MEMORY[0x277D03C88];
-      v32[0] = *MEMORY[0x277D03CB0];
+      v31[0] = *MEMORY[0x277D03CB0];
       v20 = [(DADClientDelegate *)self delegateID:v19];
-      v32[1] = v20;
-      v31[2] = *MEMORY[0x277D03B40];
+      v31[1] = v20;
+      v30[2] = *MEMORY[0x277D03B40];
       v21 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:errorCopy];
-      v32[2] = v21;
-      requestID2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:3];
+      v31[2] = v21;
+      requestID2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:3];
 
       if (hoursCopy)
       {
@@ -173,8 +171,6 @@ LABEL_16:
   }
 
 LABEL_18:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 @end

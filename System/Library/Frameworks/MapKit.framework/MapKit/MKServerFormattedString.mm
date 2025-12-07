@@ -827,7 +827,7 @@ LABEL_92:
                     v91 = MEMORY[0x1E696AEC0];
                     if (v203)
                     {
-                      [v203 options];
+                      objc_msgSend_options(v203);
                     }
 
                     else
@@ -3135,7 +3135,7 @@ LABEL_37:
   v18 = [MKServerFormattedStringParameters alloc];
   if (parametersCopy)
   {
-    [parametersCopy options];
+    objc_msgSend_options(parametersCopy);
   }
 
   else

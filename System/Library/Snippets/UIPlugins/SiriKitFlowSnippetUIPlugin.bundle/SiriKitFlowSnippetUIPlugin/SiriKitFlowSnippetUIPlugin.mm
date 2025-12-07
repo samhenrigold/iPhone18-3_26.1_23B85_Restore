@@ -113,7 +113,7 @@ uint64_t sub_1950(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   }
 }
 
-uint64_t type metadata accessor for AppLaunchButton()
+uint64_t type metadata accessor for AppLaunchButton(uint64_t a1)
 {
   result = qword_C108;
   if (!qword_C108)
@@ -124,16 +124,14 @@ uint64_t type metadata accessor for AppLaunchButton()
   return result;
 }
 
-uint64_t sub_1A98()
+uint64_t sub_1A98(uint64_t a1)
 {
   result = sub_5164();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v3 = *(result - 8) + 64;
     result = sub_5044();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
-      v4 = *(result - 8) + 64;
       swift_initStructMetadata();
       return 0;
     }
@@ -144,76 +142,73 @@ uint64_t sub_1A98()
 
 uint64_t sub_1B7C()
 {
-  v1 = sub_5194();
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  __chkstk_darwin();
-  v5 = &v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = [objc_allocWithZone(SAAppsLaunchApp) init];
-  v7 = v0 + *(type metadata accessor for AppLaunchButton() + 20);
+  v0 = sub_5194();
+  v1 = *(v0 - 8);
+  __chkstk_darwin(v0);
+  v3 = &v9 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = [objc_allocWithZone(SAAppsLaunchApp) init];
+  type metadata accessor for AppLaunchButton(0);
   sub_5024();
-  if (v8)
+  if (v5)
   {
-    v9 = sub_51A4();
+    v6 = sub_51A4();
   }
 
   else
   {
-    v9 = 0;
+    v6 = 0;
   }
 
-  [v6 setLaunchId:v9];
+  [v4 setLaunchId:v6];
 
   sub_5144();
-  v10 = v6;
+  v7 = v4;
   sub_5174();
 
-  return (*(v2 + 8))(v5, v1);
+  return (*(v1 + 8))(v3, v0);
 }
 
-uint64_t sub_1CD4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1CD4@<X0>(uint64_t a1@<X8>)
 {
-  v3 = a1 + *(type metadata accessor for AppLaunchButton() + 20);
+  type metadata accessor for AppLaunchButton(0);
   sub_5034();
   sub_2398();
   result = sub_5094();
-  *a2 = result;
-  *(a2 + 8) = v5;
-  *(a2 + 16) = v6 & 1;
-  *(a2 + 24) = v7;
+  *a1 = result;
+  *(a1 + 8) = v3;
+  *(a1 + 16) = v4 & 1;
+  *(a1 + 24) = v5;
   return result;
 }
 
 uint64_t sub_1D6C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = v2;
-  v21[1] = a2;
-  v21[0] = sub_5104();
-  v5 = *(v21[0] - 8);
-  v6 = *(v5 + 64);
-  v7 = (__chkstk_darwin)();
-  v9 = v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = *(a1 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v7);
-  v12 = sub_2008(&qword_C140, &unk_5450);
-  v13 = *(v12 - 8);
-  v14 = (*(v13 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin(v12);
-  v16 = v21 - v15;
-  sub_2050(v2, v21 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v17 = (*(v10 + 80) + 16) & ~*(v10 + 80);
-  v18 = swift_allocObject();
-  sub_21CC(v21 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v18 + v17);
-  v21[4] = v4;
+  v19[1] = a2;
+  v19[0] = sub_5104();
+  v5 = *(v19[0] - 8);
+  v6 = __chkstk_darwin(v19[0]);
+  v8 = v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = *(a1 - 8);
+  v10 = *(v9 + 64);
+  __chkstk_darwin(v6);
+  v11 = sub_2008(&qword_C140, &unk_5450);
+  v12 = *(v11 - 8);
+  __chkstk_darwin(v11);
+  v14 = v19 - v13;
+  sub_2050(v2, v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v15 = (*(v9 + 80) + 16) & ~*(v9 + 80);
+  v16 = swift_allocObject();
+  sub_21CC(v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v16 + v15);
+  v19[4] = v4;
   sub_50F4();
   sub_5084();
   sub_2294();
   sub_2340();
-  v19 = v21[0];
+  v17 = v19[0];
   sub_50D4();
-  (*(v5 + 8))(v9, v19);
-  return (*(v13 + 8))(v16, v12);
+  (*(v5 + 8))(v8, v17);
+  return (*(v12 + 8))(v14, v11);
 }
 
 uint64_t sub_2008(uint64_t *a1, uint64_t *a2)
@@ -221,7 +216,6 @@ uint64_t sub_2008(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -231,14 +225,14 @@ uint64_t sub_2008(uint64_t *a1, uint64_t *a2)
 
 uint64_t sub_2050(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for AppLaunchButton();
+  v4 = type metadata accessor for AppLaunchButton(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_20B4()
 {
-  v1 = (type metadata accessor for AppLaunchButton() - 8);
+  v1 = (type metadata accessor for AppLaunchButton(0) - 8);
   v2 = *(*v1 + 80);
   v3 = (v2 + 16) & ~v2;
   v4 = *(*v1 + 64);
@@ -253,16 +247,9 @@ uint64_t sub_20B4()
 
 uint64_t sub_21CC(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for AppLaunchButton();
+  v4 = type metadata accessor for AppLaunchButton(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
-}
-
-uint64_t sub_2230()
-{
-  v1 = *(type metadata accessor for AppLaunchButton() - 8);
-  v2 = v0 + ((*(v1 + 80) + 16) & ~*(v1 + 80));
-  return sub_1B7C();
 }
 
 unint64_t sub_2294()
@@ -283,7 +270,6 @@ uint64_t sub_22F8(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -440,7 +426,7 @@ uint64_t sub_29E8(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   }
 }
 
-uint64_t type metadata accessor for ConfirmationView()
+uint64_t type metadata accessor for ConfirmationView(uint64_t a1)
 {
   result = qword_C1B8;
   if (!qword_C1B8)
@@ -451,16 +437,14 @@ uint64_t type metadata accessor for ConfirmationView()
   return result;
 }
 
-uint64_t sub_2B30()
+uint64_t sub_2B30(uint64_t a1)
 {
   result = sub_5164();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v3 = *(result - 8) + 64;
     result = sub_5054();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
-      v4 = *(result - 8) + 64;
       swift_initStructMetadata();
       return 0;
     }
@@ -473,7 +457,7 @@ uint64_t sub_2C14@<X0>(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X2>, uint64_t 
 {
   v23 = a3;
   v24 = a4;
-  v6 = type metadata accessor for ConfirmationView();
+  v6 = type metadata accessor for ConfirmationView(0);
   v7 = *(v6 - 8);
   v8 = *(v7 + 64);
   __chkstk_darwin(v6 - 8);
@@ -488,7 +472,7 @@ uint64_t sub_2C14@<X0>(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X2>, uint64_t 
   v26 = a1;
   v22 = sub_2008(&qword_C140, &unk_5450);
   v28[3] = v22;
-  v14 = sub_36D4(&qword_C1F8, &qword_C140, &unk_5450);
+  v14 = sub_36D4(&qword_C1F8, &qword_C140, &unk_5450, &protocol conformance descriptor for Button<A>);
   v28[4] = v14;
   sub_344C(v28);
   v15 = v13;
@@ -508,28 +492,27 @@ uint64_t sub_2C14@<X0>(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X2>, uint64_t 
   return sub_5124();
 }
 
-uint64_t sub_2E7C()
+uint64_t sub_2E7C(uint64_t a1, uint64_t a2)
 {
-  v0 = sub_5194();
-  v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
-  __chkstk_darwin(v0);
-  v4 = &v6 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = sub_5194();
+  v3 = *(v2 - 8);
+  __chkstk_darwin(v2);
+  v5 = &v7 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_5144();
   sub_5184();
-  return (*(v1 + 8))(v4, v0);
+  return (*(v3 + 8))(v5, v2);
 }
 
-uint64_t sub_2F58@<X0>(void (*a1)(void)@<X1>, uint64_t a2@<X8>)
+uint64_t sub_2F58@<X0>(uint64_t (*a1)(void)@<X1>, uint64_t a2@<X8>)
 {
-  v4 = *(type metadata accessor for ConfirmationView() + 20);
+  type metadata accessor for ConfirmationView(0);
   a1();
   sub_2398();
   result = sub_5094();
   *a2 = result;
-  *(a2 + 8) = v6;
-  *(a2 + 16) = v7 & 1;
-  *(a2 + 24) = v8;
+  *(a2 + 8) = v5;
+  *(a2 + 16) = v6 & 1;
+  *(a2 + 24) = v7;
   return result;
 }
 
@@ -555,14 +538,14 @@ uint64_t sub_2FD4(uint64_t a1)
 
 uint64_t sub_3114(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for ConfirmationView();
+  v4 = type metadata accessor for ConfirmationView(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_3178()
 {
-  v1 = (type metadata accessor for ConfirmationView() - 8);
+  v1 = (type metadata accessor for ConfirmationView(0) - 8);
   v2 = *(*v1 + 80);
   v3 = (v2 + 16) & ~v2;
   v4 = (*(*v1 + 64) + v3 + 7) & 0xFFFFFFFFFFFFFFF8;
@@ -579,14 +562,14 @@ uint64_t sub_3178()
 
 uint64_t sub_32B4(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for ConfirmationView();
+  v4 = type metadata accessor for ConfirmationView(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_3318@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *(type metadata accessor for ConfirmationView() - 8);
+  v3 = *(type metadata accessor for ConfirmationView(0) - 8);
   v4 = (*(v3 + 80) + 16) & ~*(v3 + 80);
   v5 = (*(v3 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
   v6 = *(v1 + v5);
@@ -621,7 +604,7 @@ uint64_t *sub_344C(uint64_t *result)
 
 uint64_t sub_34B0()
 {
-  v1 = (type metadata accessor for ConfirmationView() - 8);
+  v1 = (type metadata accessor for ConfirmationView(0) - 8);
   v2 = *(*v1 + 80);
   v3 = (v2 + 16) & ~v2;
   v4 = (*(*v1 + 64) + v3 + 7) & 0xFFFFFFFFFFFFFFF8;
@@ -637,12 +620,12 @@ uint64_t sub_34B0()
 
 uint64_t sub_35E0()
 {
-  v1 = *(type metadata accessor for ConfirmationView() - 8);
-  v2 = *(v0 + ((*(v1 + 64) + ((*(v1 + 80) + 16) & ~*(v1 + 80)) + 7) & 0xFFFFFFFFFFFFFFF8));
-  return sub_2E7C();
+  v1 = *(type metadata accessor for ConfirmationView(0) - 8);
+  v2 = (*(v1 + 80) + 16) & ~*(v1 + 80);
+  return sub_2E7C(v0 + v2, *(v0 + ((*(v1 + 64) + v2 + 7) & 0xFFFFFFFFFFFFFFF8)));
 }
 
-uint64_t sub_36D4(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t sub_36D4(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -770,7 +753,7 @@ uint64_t sub_3C9C(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
   }
 }
 
-uint64_t type metadata accessor for PunchOutButton()
+uint64_t type metadata accessor for PunchOutButton(uint64_t a1)
 {
   result = qword_C268;
   if (!qword_C268)
@@ -781,16 +764,14 @@ uint64_t type metadata accessor for PunchOutButton()
   return result;
 }
 
-uint64_t sub_3DE4()
+uint64_t sub_3DE4(uint64_t a1)
 {
   result = sub_5164();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v3 = *(result - 8) + 64;
     result = sub_5014();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
-      v4 = *(result - 8) + 64;
       swift_initStructMetadata();
       return 0;
     }
@@ -802,114 +783,108 @@ uint64_t sub_3DE4()
 uint64_t sub_3EC8()
 {
   v1 = sub_5194();
-  v30 = *(v1 - 8);
-  v31 = v1;
-  v2 = *(v30 + 64);
+  v25 = *(v1 - 8);
+  v26 = v1;
   __chkstk_darwin(v1);
-  v4 = &v28 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = sub_4FE4();
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  __chkstk_darwin(v5);
-  v9 = &v28 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = sub_2008(&qword_C2A0, qword_5548);
-  v11 = *(*(v10 - 8) + 64);
-  __chkstk_darwin(v10 - 8);
-  v13 = &v28 - v12;
-  v14 = sub_4FB4();
-  v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
-  __chkstk_darwin(v14);
-  v18 = &v28 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = [objc_allocWithZone(SAUIAppPunchOut) init];
-  v20 = *(type metadata accessor for PunchOutButton() + 20);
-  v29 = v0;
+  v3 = &v23 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_4FE4();
+  v5 = *(v4 - 8);
+  __chkstk_darwin(v4);
+  v7 = &v23 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_2008(&qword_C2A0, qword_5548);
+  __chkstk_darwin(v8 - 8);
+  v10 = &v23 - v9;
+  v11 = sub_4FB4();
+  v12 = *(v11 - 8);
+  __chkstk_darwin(v11);
+  v14 = &v23 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = [objc_allocWithZone(SAUIAppPunchOut) init];
+  type metadata accessor for PunchOutButton(0);
+  v24 = v0;
   sub_4FF4();
-  if ((*(v15 + 48))(v13, 1, v14) == 1)
+  if ((*(v12 + 48))(v10, 1, v11) == 1)
   {
 
-    return sub_4784(v13);
+    return sub_4784(v10);
   }
 
   else
   {
-    (*(v15 + 32))(v18, v13, v14);
-    v22 = v19;
+    (*(v12 + 32))(v14, v10, v11);
+    v17 = v15;
     sub_4FD4();
     sub_4FC4();
-    (*(v6 + 8))(v9, v5);
-    v23 = sub_51A4();
+    (*(v5 + 8))(v7, v4);
+    v18 = sub_51A4();
 
-    [v22 setAceId:v23];
+    [v17 setAceId:v18];
 
-    sub_4FA4(v24);
-    v26 = v25;
-    [v22 setPunchOutUri:v25];
+    sub_4FA4(v19);
+    v21 = v20;
+    [v17 setPunchOutUri:v20];
 
     sub_5144();
-    v27 = v22;
+    v22 = v17;
     sub_5174();
 
-    (*(v30 + 8))(v4, v31);
-    return (*(v15 + 8))(v18, v14);
+    (*(v25 + 8))(v3, v26);
+    return (*(v12 + 8))(v14, v11);
   }
 }
 
-uint64_t sub_4230@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_4230@<X0>(uint64_t a1@<X8>)
 {
-  v3 = a1 + *(type metadata accessor for PunchOutButton() + 20);
+  type metadata accessor for PunchOutButton(0);
   sub_5004();
   sub_2398();
   result = sub_5094();
-  *a2 = result;
-  *(a2 + 8) = v5;
-  *(a2 + 16) = v6 & 1;
-  *(a2 + 24) = v7;
+  *a1 = result;
+  *(a1 + 8) = v3;
+  *(a1 + 16) = v4 & 1;
+  *(a1 + 24) = v5;
   return result;
 }
 
 uint64_t sub_42A4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = v2;
-  v21[1] = a2;
-  v21[0] = sub_5104();
-  v5 = *(v21[0] - 8);
-  v6 = *(v5 + 64);
-  v7 = __chkstk_darwin(v21[0]);
-  v9 = v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = *(a1 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v7);
-  v12 = sub_2008(&qword_C140, &unk_5450);
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  __chkstk_darwin(v12);
-  v16 = v21 - v15;
-  sub_4540(v2, v21 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v17 = (*(v10 + 80) + 16) & ~*(v10 + 80);
-  v18 = swift_allocObject();
-  sub_46BC(v21 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), v18 + v17);
-  v21[4] = v4;
+  v19[1] = a2;
+  v19[0] = sub_5104();
+  v5 = *(v19[0] - 8);
+  v6 = __chkstk_darwin(v19[0]);
+  v8 = v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = *(a1 - 8);
+  v10 = *(v9 + 64);
+  __chkstk_darwin(v6);
+  v11 = sub_2008(&qword_C140, &unk_5450);
+  v12 = *(v11 - 8);
+  __chkstk_darwin(v11);
+  v14 = v19 - v13;
+  sub_4540(v2, v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v15 = (*(v9 + 80) + 16) & ~*(v9 + 80);
+  v16 = swift_allocObject();
+  sub_46BC(v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), v16 + v15);
+  v19[4] = v4;
   sub_50F4();
   sub_5084();
   sub_2294();
   sub_2340();
-  v19 = v21[0];
+  v17 = v19[0];
   sub_50D4();
-  (*(v5 + 8))(v9, v19);
-  return (*(v13 + 8))(v16, v12);
+  (*(v5 + 8))(v8, v17);
+  return (*(v12 + 8))(v14, v11);
 }
 
 uint64_t sub_4540(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for PunchOutButton();
+  v4 = type metadata accessor for PunchOutButton(0);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_45A4()
 {
-  v1 = (type metadata accessor for PunchOutButton() - 8);
+  v1 = (type metadata accessor for PunchOutButton(0) - 8);
   v2 = *(*v1 + 80);
   v3 = (v2 + 16) & ~v2;
   v4 = *(*v1 + 64);
@@ -924,16 +899,9 @@ uint64_t sub_45A4()
 
 uint64_t sub_46BC(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for PunchOutButton();
+  v4 = type metadata accessor for PunchOutButton(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
-}
-
-uint64_t sub_4720()
-{
-  v1 = *(type metadata accessor for PunchOutButton() - 8);
-  v2 = v0 + ((*(v1 + 80) + 16) & ~*(v1 + 80));
-  return sub_3EC8();
 }
 
 uint64_t sub_4784(uint64_t a1)
@@ -952,88 +920,81 @@ uint64_t sub_4868@<X0>(uint64_t *a1@<X8>)
 
 uint64_t sub_48B4(uint64_t a1)
 {
-  v43 = a1;
-  v42 = type metadata accessor for ConfirmationView();
-  v1 = *(*(v42 - 8) + 64);
-  __chkstk_darwin(v42);
-  v40 = &v34 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v41 = sub_5054();
-  v39 = *(v41 - 8);
-  v3 = *(v39 + 64);
-  __chkstk_darwin(v41);
-  v38 = &v34 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v37 = type metadata accessor for PunchOutButton();
-  v5 = *(*(v37 - 8) + 64);
-  __chkstk_darwin(v37);
-  v7 = &v34 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = sub_5014();
-  v35 = *(v8 - 8);
-  v36 = v8;
-  v9 = *(v35 + 64);
-  __chkstk_darwin(v8);
-  v34 = &v34 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for AppLaunchButton();
-  v12 = *(*(v11 - 8) + 64);
-  __chkstk_darwin(v11);
-  v14 = &v34 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = sub_5044();
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  __chkstk_darwin(v15);
-  v19 = &v34 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = sub_5064();
-  v21 = *(v20 - 8);
-  v22 = *(v21 + 64);
-  __chkstk_darwin(v20);
-  v24 = &v34 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v21 + 16))(v24, v43, v20);
-  v25 = (*(v21 + 88))(v24, v20);
-  if (v25 == enum case for SiriKitSnippets.appLaunchButton(_:))
+  v36 = a1;
+  v35 = type metadata accessor for ConfirmationView(0);
+  __chkstk_darwin(v35);
+  v33 = &v27 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v34 = sub_5054();
+  v32 = *(v34 - 8);
+  __chkstk_darwin(v34);
+  v31 = &v27 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v30 = type metadata accessor for PunchOutButton(0);
+  __chkstk_darwin(v30);
+  v4 = &v27 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = sub_5014();
+  v28 = *(v5 - 8);
+  v29 = v5;
+  __chkstk_darwin(v5);
+  v27 = &v27 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for AppLaunchButton(0);
+  __chkstk_darwin(v7);
+  v9 = &v27 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = sub_5044();
+  v11 = *(v10 - 8);
+  __chkstk_darwin(v10);
+  v13 = &v27 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = sub_5064();
+  v15 = *(v14 - 8);
+  __chkstk_darwin(v14);
+  v17 = &v27 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v15 + 16))(v17, v36, v14);
+  v18 = (*(v15 + 88))(v17, v14);
+  if (v18 == enum case for SiriKitSnippets.appLaunchButton(_:))
   {
-    (*(v21 + 96))(v24, v20);
-    (*(v16 + 32))(v19, v24, v15);
-    (*(v16 + 16))(&v14[*(v11 + 20)], v19, v15);
+    (*(v15 + 96))(v17, v14);
+    (*(v11 + 32))(v13, v17, v10);
+    (*(v11 + 16))(&v9[*(v7 + 20)], v13, v10);
     sub_5154();
-    sub_4EFC(&qword_C358, type metadata accessor for AppLaunchButton);
-    v26 = sub_50A4();
-    sub_4F44(v14, type metadata accessor for AppLaunchButton);
-    (*(v16 + 8))(v19, v15);
-    return v26;
+    sub_4EFC(&qword_C358, type metadata accessor for AppLaunchButton, &unk_53FC);
+    v19 = sub_50A4();
+    sub_4F44(v9, type metadata accessor for AppLaunchButton);
+    (*(v11 + 8))(v13, v10);
+    return v19;
   }
 
-  if (v25 == enum case for SiriKitSnippets.punchOutButton(_:))
+  if (v18 == enum case for SiriKitSnippets.punchOutButton(_:))
   {
-    (*(v21 + 96))(v24, v20);
-    v28 = v34;
-    v27 = v35;
-    v29 = v36;
-    (*(v35 + 32))(v34, v24, v36);
-    (*(v27 + 16))(&v7[*(v37 + 20)], v28, v29);
+    (*(v15 + 96))(v17, v14);
+    v21 = v27;
+    v20 = v28;
+    v22 = v29;
+    (*(v28 + 32))(v27, v17, v29);
+    (*(v20 + 16))(&v4[*(v30 + 20)], v21, v22);
     sub_5154();
-    sub_4EFC(&qword_C350, type metadata accessor for PunchOutButton);
-    v26 = sub_50A4();
-    v30 = type metadata accessor for PunchOutButton;
-    v31 = v7;
+    sub_4EFC(&qword_C350, type metadata accessor for PunchOutButton, &unk_54EC);
+    v19 = sub_50A4();
+    v23 = type metadata accessor for PunchOutButton;
+    v24 = v4;
 LABEL_7:
-    sub_4F44(v31, v30);
-    (*(v27 + 8))(v28, v29);
-    return v26;
+    sub_4F44(v24, v23);
+    (*(v20 + 8))(v21, v22);
+    return v19;
   }
 
-  if (v25 == enum case for SiriKitSnippets.confirmationSnippet(_:))
+  if (v18 == enum case for SiriKitSnippets.confirmationSnippet(_:))
   {
-    (*(v21 + 96))(v24, v20);
-    v28 = v38;
-    v27 = v39;
-    v29 = v41;
-    (*(v39 + 32))(v38, v24, v41);
-    v32 = v40;
-    (*(v27 + 16))(&v40[*(v42 + 20)], v28, v29);
+    (*(v15 + 96))(v17, v14);
+    v21 = v31;
+    v20 = v32;
+    v22 = v34;
+    (*(v32 + 32))(v31, v17, v34);
+    v25 = v33;
+    (*(v20 + 16))(&v33[*(v35 + 20)], v21, v22);
     sub_5154();
-    sub_4EFC(&qword_C348, type metadata accessor for ConfirmationView);
-    v26 = sub_50A4();
-    v30 = type metadata accessor for ConfirmationView;
-    v31 = v32;
+    sub_4EFC(&qword_C348, type metadata accessor for ConfirmationView, "=.");
+    v19 = sub_50A4();
+    v23 = type metadata accessor for ConfirmationView;
+    v24 = v25;
     goto LABEL_7;
   }
 
@@ -1042,7 +1003,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t sub_4EFC(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_4EFC(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)

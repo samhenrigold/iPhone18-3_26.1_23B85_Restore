@@ -25,7 +25,7 @@ void sub_2334CC8D8(uint64_t a1, void *a2)
 
 id CorrectionsProfilesDigest(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 allKeys];
   v3 = [v2 mutableCopy];
@@ -39,11 +39,11 @@ id CorrectionsProfilesDigest(void *a1)
     if (os_log_type_enabled(*MEMORY[0x277CEF0D0], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v15 = "CorrectionsProfilesDigest";
-      v16 = 2112;
-      v17 = v1;
-      v18 = 2112;
-      v19 = v5;
+      v14 = "CorrectionsProfilesDigest";
+      v15 = 2112;
+      v16 = v1;
+      v17 = 2112;
+      v18 = v5;
       _os_log_error_impl(&dword_2334CB000, v6, OS_LOG_TYPE_ERROR, "%s Error creating digest for correction profiles %@: %@", buf, 0x20u);
     }
 
@@ -68,8 +68,6 @@ id CorrectionsProfilesDigest(void *a1)
       while (v8);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

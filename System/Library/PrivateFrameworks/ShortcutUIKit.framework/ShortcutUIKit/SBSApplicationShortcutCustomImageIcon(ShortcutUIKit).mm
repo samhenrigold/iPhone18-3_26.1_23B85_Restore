@@ -52,20 +52,20 @@ LABEL_8:
 
 - (id)_scui_iconImageForCachedBitmapData:()ShortcutUIKit scale:
 {
-  v2 = LICreateIconFromCachedBitmap();
-  if (v2)
+  v5 = LICreateIconFromCachedBitmap();
+  if (v5)
   {
-    v3 = v2;
-    v4 = [MEMORY[0x277D755B8] imageWithCGImage:v2 scale:0 orientation:self];
-    CGImageRelease(v3);
+    v6 = v5;
+    v7 = [MEMORY[0x277D755B8] imageWithCGImage:v5 scale:0 orientation:self];
+    CGImageRelease(v6);
   }
 
   else
   {
-    v4 = 0;
+    v7 = 0;
   }
 
-  return v4;
+  return v7;
 }
 
 @end

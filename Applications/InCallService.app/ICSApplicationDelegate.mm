@@ -422,15 +422,15 @@
 
     if (v7 > 5.0)
     {
-      v8 = sub_100004F84();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_100004F84(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v10 = 0;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Update current calls from inactive state.", v10, 2u);
+        *v11 = 0;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Update current calls from inactive state.", v11, 2u);
       }
 
-      v9 = +[TUCallCenter sharedInstance];
-      [v9 fetchCurrentCalls];
+      v10 = +[TUCallCenter sharedInstance];
+      [v10 fetchCurrentCalls];
     }
 
     [(ICSApplicationDelegate *)self setPossibleInactiveDate:0];
@@ -450,11 +450,11 @@
 
   else
   {
-    v5 = sub_100009960();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v7 = sub_100009960(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Ignoring request to dismiss Screen Sharing scene since the feature is disabled", v6, 2u);
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Ignoring request to dismiss Screen Sharing scene since the feature is disabled", v8, 2u);
     }
   }
 }
@@ -471,55 +471,55 @@
 
   if (remoteControlStatus == 2)
   {
-    v9 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v9 = isBroadcastingScreenSharing;
+    v11 = isBroadcastingScreenSharing;
   }
 
-  v10 = sub_1000314C4();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_1000314C4(v9, v10);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = @"NO";
-    if (v9)
+    v13 = @"NO";
+    if (v11)
     {
-      v12 = @"YES";
+      v14 = @"YES";
     }
 
     else
     {
-      v12 = @"NO";
+      v14 = @"NO";
     }
 
     if (isBroadcastingScreenSharing)
     {
-      v13 = @"YES";
+      v15 = @"YES";
     }
 
     else
     {
-      v13 = @"NO";
+      v15 = @"NO";
     }
 
-    *v16 = 138543874;
-    *&v16[4] = v12;
-    *&v16[12] = 2114;
-    *&v16[14] = v13;
+    *v18 = 138543874;
+    *&v18[4] = v14;
+    *&v18[12] = 2114;
+    *&v18[14] = v15;
     if (remoteControlStatus == 2)
     {
-      v11 = @"YES";
+      v13 = @"YES";
     }
 
-    *&v16[22] = 2114;
-    v17 = v11;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Screen sharing callScene setPrefersBannersHiddenFromClonedDisplay: %{public}@ (isBroadcastingScreenSharing: %{public}@ isUnderRemoteControl: %{public}@)", v16, 0x20u);
+    *&v18[22] = 2114;
+    v19 = v13;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Screen sharing callScene setPrefersBannersHiddenFromClonedDisplay: %{public}@ (isBroadcastingScreenSharing: %{public}@ isUnderRemoteControl: %{public}@)", v18, 0x20u);
   }
 
-  v14 = [(ICSApplicationDelegate *)self sceneManager:*v16];
-  callScene = [v14 callScene];
-  [callScene setPrefersBannersHiddenFromClonedDisplay:v9];
+  v16 = [(ICSApplicationDelegate *)self sceneManager:*v18];
+  callScene = [v16 callScene];
+  [callScene setPrefersBannersHiddenFromClonedDisplay:v11];
 }
 
 - (void)dismissScreenSharingBroadcasterSession
@@ -532,22 +532,22 @@
     sceneManager = [(ICSApplicationDelegate *)self sceneManager];
     screenSharingBroadcasterScene = [sceneManager screenSharingBroadcasterScene];
 
-    v7 = sub_100009960();
-    v8 = v7;
+    v11 = sub_100009960(v9, v10);
+    v12 = v11;
     if (screenSharingBroadcasterScene)
     {
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        *v12 = 0;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Dismissing Sharing Broadcasing scene.", v12, 2u);
+        *v16 = 0;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Dismissing Sharing Broadcasing scene.", v16, 2u);
       }
 
-      v9 = +[UIApplication sharedApplication];
+      v13 = +[UIApplication sharedApplication];
       session = [screenSharingBroadcasterScene session];
-      [v9 requestSceneSessionDestruction:session options:0 errorHandler:&stru_100357C08];
+      [v13 requestSceneSessionDestruction:session options:0 errorHandler:&stru_100357C08];
     }
 
-    else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_100031654();
     }
@@ -555,11 +555,11 @@
 
   else
   {
-    v11 = sub_100009960();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v15 = sub_100009960(v5, v6);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Ignoring request to dismiss Broadcaster scene since the feature is disabled", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Ignoring request to dismiss Broadcaster scene since the feature is disabled", buf, 2u);
     }
   }
 }
@@ -576,20 +576,21 @@
 
 - (void)hideCarPlayUI
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "", buf, 2u);
   }
 
-  if ([(ICSApplicationDelegate *)self shouldIgnoreCarPlayAssertionInvalidations])
+  shouldIgnoreCarPlayAssertionInvalidations = [(ICSApplicationDelegate *)self shouldIgnoreCarPlayAssertionInvalidations];
+  if (shouldIgnoreCarPlayAssertionInvalidations)
   {
-    carPlayServicesController = sub_100004F84();
+    carPlayServicesController = sub_100004F84(shouldIgnoreCarPlayAssertionInvalidations);
     if (os_log_type_enabled(carPlayServicesController, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&_mh_execute_header, carPlayServicesController, OS_LOG_TYPE_DEFAULT, "Ignoring CarPlay assertion invalidation request", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&_mh_execute_header, carPlayServicesController, OS_LOG_TYPE_DEFAULT, "Ignoring CarPlay assertion invalidation request", v6, 2u);
     }
   }
 
@@ -604,7 +605,7 @@
 {
   applicationCopy = application;
   optionsCopy = options;
-  v7 = sub_100004F84();
+  v7 = sub_100004F84(optionsCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -857,55 +858,57 @@ LABEL_34:
   applicationCopy = application;
   lCopy = l;
   optionsCopy = options;
-  v11 = sub_100004F84();
+  v11 = sub_100004F84(optionsCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v79 = applicationCopy;
-    v80 = 2112;
-    v81 = lCopy;
-    v82 = 2112;
-    v83 = optionsCopy;
+    v86 = applicationCopy;
+    v87 = 2112;
+    v88 = lCopy;
+    v89 = 2112;
+    v90 = optionsCopy;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%@, url: %@ options: %@", buf, 0x20u);
   }
 
-  v12 = sub_100004F84();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_100004F84(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     isLaunchForScreeningURL = [lCopy isLaunchForScreeningURL];
-    v14 = @"NO";
+    v15 = @"NO";
     if (isLaunchForScreeningURL)
     {
-      v14 = @"YES";
+      v15 = @"YES";
     }
 
     *buf = 138412290;
-    v79 = v14;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Are we launched for screening: %@", buf, 0xCu);
+    v86 = v15;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Are we launched for screening: %@", buf, 0xCu);
   }
 
-  v15 = +[TUCallCenter sharedInstance];
-  [v15 fetchCurrentCalls];
+  v16 = +[TUCallCenter sharedInstance];
+  [v16 fetchCurrentCalls];
 
-  if ([(__CFString *)applicationCopy applicationState])
+  applicationState = [(__CFString *)applicationCopy applicationState];
+  if (applicationState)
   {
-    v16 = sub_100004F84();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_100004F84(applicationState);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Update Inactive Date", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Update Inactive Date", buf, 2u);
     }
 
     [(ICSApplicationDelegate *)self _updateInactiveDate];
   }
 
-  if ([(ICSApplicationDelegate *)self isSOSCall:lCopy])
+  v19 = [(ICSApplicationDelegate *)self isSOSCall:lCopy];
+  if (v19)
   {
-    v17 = sub_100004F84();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_100004F84(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "SOS url detected", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "SOS url detected", buf, 2u);
     }
 
     sos_urlActivationReason = [lCopy sos_urlActivationReason];
@@ -914,30 +917,30 @@ LABEL_34:
   }
 
   scheme = [lCopy scheme];
-  v22 = [scheme isEqualToString:@"dialIntervention"];
+  v25 = [scheme isEqualToString:@"dialIntervention"];
 
-  if (v22)
+  if (v25)
   {
     featureFlags = [(PHApplicationDelegate *)self featureFlags];
     nudityDetectionEnabled = [featureFlags nudityDetectionEnabled];
 
     if (nudityDetectionEnabled)
     {
-      v73[0] = _NSConcreteStackBlock;
-      v73[1] = 3221225472;
-      v73[2] = sub_100077D48;
-      v73[3] = &unk_1003577F0;
-      v73[4] = self;
-      v74 = applicationCopy;
-      v75 = lCopy;
-      v76 = optionsCopy;
-      [(ICSApplicationDelegate *)self handleInterventionURL:v75 continueWith:v73];
+      v80[0] = _NSConcreteStackBlock;
+      v80[1] = 3221225472;
+      v80[2] = sub_100077D48;
+      v80[3] = &unk_1003577F0;
+      v80[4] = self;
+      v81 = applicationCopy;
+      v82 = lCopy;
+      v83 = optionsCopy;
+      [(ICSApplicationDelegate *)self handleInterventionURL:v82 continueWith:v80];
     }
 
     else
     {
-      v25 = sub_100004F84();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v29 = sub_100004F84(v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         sub_10025496C();
       }
@@ -958,7 +961,7 @@ LABEL_34:
     {
 
 LABEL_38:
-      if (!TUCallScreeningEnabled() || (+[TUCallCenter sharedInstance](TUCallCenter, "sharedInstance"), v30 = objc_claimAutoreleasedReturnValue(), [v30 frontmostCall], v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend(v31, "isScreening"), v31, v30, !v32))
+      if (!TUCallScreeningEnabled() || (+[TUCallCenter sharedInstance](TUCallCenter, "sharedInstance"), v34 = objc_claimAutoreleasedReturnValue(), [v34 frontmostCall], v35 = objc_claimAutoreleasedReturnValue(), v36 = objc_msgSend(v35, "isScreening"), v35, v34, !v36))
       {
         if ([(ICSApplicationDelegate *)self showSystemCallControlsURL:lCopy])
         {
@@ -971,8 +974,8 @@ LABEL_38:
       goto LABEL_23;
     }
 
-    v27 = +[TUCallCenter sharedInstance];
-    frontmostCall = [v27 frontmostCall];
+    v31 = +[TUCallCenter sharedInstance];
+    frontmostCall = [v31 frontmostCall];
     isWaitOnHoldActive = [frontmostCall isWaitOnHoldActive];
 
     if (!isWaitOnHoldActive)
@@ -987,9 +990,9 @@ LABEL_23:
     }
 
 LABEL_24:
-    v63.receiver = self;
-    v63.super_class = ICSApplicationDelegate;
-    v19 = [(PHApplicationDelegate *)&v63 application:applicationCopy openURL:lCopy options:optionsCopy];
+    v70.receiver = self;
+    v70.super_class = ICSApplicationDelegate;
+    v22 = [(PHApplicationDelegate *)&v70 application:applicationCopy openURL:lCopy options:optionsCopy];
     goto LABEL_17;
   }
 
@@ -1035,45 +1038,46 @@ LABEL_24:
 
   if ([lCopy isFaceTimeMultiwayURL])
   {
-    v33 = [[TUJoinConversationRequest alloc] initWithURL:lCopy];
-    if (!v33)
+    v37 = [[TUJoinConversationRequest alloc] initWithURL:lCopy];
+    if (!v37)
     {
       goto LABEL_24;
     }
 
-    conversationLinkURLForOpenLinkURL = v33;
+    conversationLinkURLForOpenLinkURL = v37;
     featureFlags3 = [(PHApplicationDelegate *)self featureFlags];
     nudityDetectionEnabled2 = [featureFlags3 nudityDetectionEnabled];
 
     if (nudityDetectionEnabled2)
     {
-      v69[0] = _NSConcreteStackBlock;
-      v69[1] = 3221225472;
-      v69[2] = sub_100077DC4;
-      v69[3] = &unk_100357818;
-      v70 = conversationLinkURLForOpenLinkURL;
-      v71 = optionsCopy;
+      v76[0] = _NSConcreteStackBlock;
+      v76[1] = 3221225472;
+      v76[2] = sub_100077DC4;
+      v76[3] = &unk_100357818;
+      v77 = conversationLinkURLForOpenLinkURL;
+      v78 = optionsCopy;
       selfCopy = self;
       sos_urlActivationReason = conversationLinkURLForOpenLinkURL;
-      [(ICSApplicationDelegate *)self handleInterventionWithConversationRequestIfNeeded:sos_urlActivationReason continueWith:v69];
+      [(ICSApplicationDelegate *)self handleInterventionWithConversationRequestIfNeeded:sos_urlActivationReason continueWith:v76];
 
 LABEL_15:
 LABEL_16:
-      v19 = 1;
+      v22 = 1;
       goto LABEL_17;
     }
 
-    v37 = [optionsCopy objectForKey:_UIApplicationOpenURLOptionsSourceProcessHandleKey];
+    v41 = [optionsCopy objectForKey:_UIApplicationOpenURLOptionsSourceProcessHandleKey];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v40 = ([conversationLinkURLForOpenLinkURL showUIPrompt] & 1) != 0 || -[ICSApplicationDelegate shouldShowPromptForProcessHandle:](self, "shouldShowPromptForProcessHandle:", v37);
-      [conversationLinkURLForOpenLinkURL setShowUIPrompt:v40];
-      v38 = [(ICSApplicationDelegate *)self openJoinConversationRequest:conversationLinkURLForOpenLinkURL];
+      v45 = ([conversationLinkURLForOpenLinkURL showUIPrompt] & 1) != 0 || -[ICSApplicationDelegate shouldShowPromptForProcessHandle:](self, "shouldShowPromptForProcessHandle:", v41);
+      [conversationLinkURLForOpenLinkURL setShowUIPrompt:v45];
+      v42 = [(ICSApplicationDelegate *)self openJoinConversationRequest:conversationLinkURLForOpenLinkURL];
 LABEL_70:
-      v41 = v38;
+      v46 = v42;
 
-      if (v41)
+      if (v46)
       {
         goto LABEL_16;
       }
@@ -1081,7 +1085,7 @@ LABEL_70:
       goto LABEL_24;
     }
 
-    answerRequestSourceIdentifier = sub_100004F84();
+    answerRequestSourceIdentifier = sub_100004F84(isKindOfClass);
     if (os_log_type_enabled(answerRequestSourceIdentifier, OS_LOG_TYPE_ERROR))
     {
       sub_100254904();
@@ -1095,8 +1099,8 @@ LABEL_64:
   if ([lCopy isFaceTimeOpenLinkURL])
   {
     conversationLinkURLForOpenLinkURL = [lCopy conversationLinkURLForOpenLinkURL];
-    v37 = [TUConversationLink conversationLinkForURL:conversationLinkURLForOpenLinkURL];
-    v38 = [(ICSApplicationDelegate *)self application:applicationCopy openJoinConversationRequestForConversationLink:v37 webpageURL:lCopy];
+    v41 = [TUConversationLink conversationLinkForURL:conversationLinkURLForOpenLinkURL];
+    v42 = [(ICSApplicationDelegate *)self application:applicationCopy openJoinConversationRequestForConversationLink:v41 webpageURL:lCopy];
     goto LABEL_70;
   }
 
@@ -1108,9 +1112,9 @@ LABEL_64:
   if ([lCopy isAnswerRequestURL])
   {
     conversationLinkURLForOpenLinkURL = +[TUCallCenter sharedInstance];
-    v37 = [(ICSApplicationDelegate *)self incomingVideoCallUsingCallContainer:conversationLinkURLForOpenLinkURL];
+    v41 = [(ICSApplicationDelegate *)self incomingVideoCallUsingCallContainer:conversationLinkURLForOpenLinkURL];
     answerRequestSourceIdentifier = [lCopy answerRequestSourceIdentifier];
-    [(ICSApplicationDelegate *)self handleHeadsetButtonPressForCall:v37 sourceIdentifier:answerRequestSourceIdentifier urlOptions:optionsCopy];
+    [(ICSApplicationDelegate *)self handleHeadsetButtonPressForCall:v41 sourceIdentifier:answerRequestSourceIdentifier urlOptions:optionsCopy];
     goto LABEL_64;
   }
 
@@ -1134,66 +1138,67 @@ LABEL_64:
     goto LABEL_24;
   }
 
-  if ([lCopy isLaunchForScreeningURL])
+  isLaunchForScreeningURL2 = [lCopy isLaunchForScreeningURL];
+  if (isLaunchForScreeningURL2)
   {
-    v42 = sub_100004F84();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    v48 = sub_100004F84(isLaunchForScreeningURL2);
+    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
     {
       answeringMachine = [(ICSApplicationDelegate *)self answeringMachine];
       *buf = 138412290;
-      v79 = answeringMachine;
-      _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Launched for screening %@", buf, 0xCu);
+      v86 = answeringMachine;
+      _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "Launched for screening %@", buf, 0xCu);
     }
 
     sos_urlActivationReason = [(ICSApplicationDelegate *)self answeringMachine];
-    v68[0] = _NSConcreteStackBlock;
-    v68[1] = 3221225472;
-    v68[2] = sub_100077EC4;
-    v68[3] = &unk_100357840;
-    v68[4] = self;
-    [sos_urlActivationReason openURL:lCopy completion:v68];
+    v75[0] = _NSConcreteStackBlock;
+    v75[1] = 3221225472;
+    v75[2] = sub_100077EC4;
+    v75[3] = &unk_100357840;
+    v75[4] = self;
+    [sos_urlActivationReason openURL:lCopy completion:v75];
     goto LABEL_15;
   }
 
-  v44 = +[UIApplication sharedApplication];
-  if ([v44 isRunningTest:@"PlaceOutgoingCall"])
+  v50 = +[UIApplication sharedApplication];
+  if ([v50 isRunningTest:@"PlaceOutgoingCall"])
   {
 
     goto LABEL_82;
   }
 
-  v45 = +[UIApplication sharedApplication];
-  v46 = [v45 isRunningTest:@"FaceTimePlaceOutgoingCall"];
+  v51 = +[UIApplication sharedApplication];
+  v52 = [v51 isRunningTest:@"FaceTimePlaceOutgoingCall"];
 
-  if (v46)
+  if (v52)
   {
 LABEL_82:
-    v47 = +[UIApplication sharedApplication];
-    [v47 finishedSubTest:@"applicationOpenURL" forTest:qword_1003B8808];
+    v53 = +[UIApplication sharedApplication];
+    [v53 finishedSubTest:@"applicationOpenURL" forTest:qword_1003B8808];
 
-    v48 = +[UIApplication sharedApplication];
-    v49 = qword_1003B8808;
-    v77 = @"time";
-    v50 = [NSArray arrayWithObjects:&v77 count:1];
-    [v48 startedSubTest:@"CreateDialRequest" forTest:v49 withMetrics:v50];
+    v54 = +[UIApplication sharedApplication];
+    v55 = qword_1003B8808;
+    v84 = @"time";
+    v56 = [NSArray arrayWithObjects:&v84 count:1];
+    [v54 startedSubTest:@"CreateDialRequest" forTest:v55 withMetrics:v56];
 
-    v51 = [[TUDialRequest alloc] initWithURL:lCopy];
-    v52 = sub_100004F84();
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+    v57 = [[TUDialRequest alloc] initWithURL:lCopy];
+    v58 = sub_100004F84(v57);
+    if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v79 = v51;
-      _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "Running test, made dial request: %@", buf, 0xCu);
+      v86 = v57;
+      _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "Running test, made dial request: %@", buf, 0xCu);
     }
 
-    v53 = +[UIApplication sharedApplication];
-    [v53 finishedSubTest:@"CreateDialRequest" forTest:qword_1003B8808];
+    v59 = +[UIApplication sharedApplication];
+    [v59 finishedSubTest:@"CreateDialRequest" forTest:qword_1003B8808];
 
     applicationDelegateHelper = [(ICSApplicationDelegate *)self applicationDelegateHelper];
     applicationDelegateHelper2 = [(ICSApplicationDelegate *)self applicationDelegateHelper];
-    v56 = [applicationDelegateHelper openDialRequestIfNecessary:v51 options:optionsCopy bypassUIPromptIfDefaultProvider:{objc_msgSend(applicationDelegateHelper2, "isDefaultOrTelephonyScheme:", lCopy)}];
+    v62 = [applicationDelegateHelper openDialRequestIfNecessary:v57 options:optionsCopy bypassUIPromptIfDefaultProvider:{objc_msgSend(applicationDelegateHelper2, "isDefaultOrTelephonyScheme:", lCopy)}];
 
-    if (v56)
+    if (v62)
     {
       goto LABEL_16;
     }
@@ -1201,62 +1206,62 @@ LABEL_82:
     goto LABEL_24;
   }
 
-  v57 = [[TUDialRequest alloc] initWithURL:lCopy];
+  v63 = [[TUDialRequest alloc] initWithURL:lCopy];
   featureFlags4 = [(PHApplicationDelegate *)self featureFlags];
   nudityDetectionEnabled3 = [featureFlags4 nudityDetectionEnabled];
 
   if (nudityDetectionEnabled3)
   {
-    v60 = sub_100004F84();
-    v61 = v60;
-    if (v57)
+    v67 = sub_100004F84(v66);
+    v68 = v67;
+    if (v63)
     {
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v79 = v57;
-        _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "Not running test, made dial request: %@", buf, 0xCu);
+        v86 = v63;
+        _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEFAULT, "Not running test, made dial request: %@", buf, 0xCu);
       }
 
-      v64[0] = _NSConcreteStackBlock;
-      v64[1] = 3221225472;
-      v64[2] = sub_100077F8C;
-      v64[3] = &unk_1003577F0;
-      v64[4] = self;
-      v65 = applicationCopy;
-      v66 = lCopy;
-      v67 = optionsCopy;
-      [(ICSApplicationDelegate *)self handleInterventionWithDialRequestIfNeeded:v57 continueWith:v64];
+      v71[0] = _NSConcreteStackBlock;
+      v71[1] = 3221225472;
+      v71[2] = sub_100077F8C;
+      v71[3] = &unk_1003577F0;
+      v71[4] = self;
+      v72 = applicationCopy;
+      v73 = lCopy;
+      v74 = optionsCopy;
+      [(ICSApplicationDelegate *)self handleInterventionWithDialRequestIfNeeded:v63 continueWith:v71];
 
-      v19 = 1;
+      v22 = 1;
     }
 
     else
     {
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
       {
         sub_100254894();
       }
 
-      v19 = 0;
+      v22 = 0;
     }
   }
 
   else
   {
-    v62 = sub_100004F84();
-    if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+    v69 = sub_100004F84(v66);
+    if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v79 = v57;
-      _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEFAULT, "Not running test, made dial request: %@", buf, 0xCu);
+      v86 = v63;
+      _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_DEFAULT, "Not running test, made dial request: %@", buf, 0xCu);
     }
 
-    v19 = [(ICSApplicationDelegate *)self openDialRequest:v57 application:applicationCopy url:lCopy options:optionsCopy];
+    v22 = [(ICSApplicationDelegate *)self openDialRequest:v63 application:applicationCopy url:lCopy options:optionsCopy];
   }
 
 LABEL_17:
-  return v19;
+  return v22;
 }
 
 - (BOOL)openDialRequest:(id)request application:(id)application url:(id)url options:(id)options
@@ -1321,26 +1326,27 @@ LABEL_17:
 {
   applicationCopy = application;
   activityCopy = activity;
-  v9 = sub_100004F84();
+  v9 = sub_100004F84(activityCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v56 = applicationCopy;
-    v57 = 2112;
-    v58 = activityCopy;
+    v62 = applicationCopy;
+    v63 = 2112;
+    v64 = activityCopy;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@, continueUserActivity: %@", buf, 0x16u);
   }
 
   v10 = +[TUCallCenter sharedInstance];
   [v10 fetchCurrentCalls];
 
-  if ([applicationCopy applicationState])
+  applicationState = [applicationCopy applicationState];
+  if (applicationState)
   {
-    v11 = sub_100004F84();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100004F84(applicationState);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Update Inactive Date", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Update Inactive Date", buf, 2u);
     }
 
     [(ICSApplicationDelegate *)self _updateInactiveDate];
@@ -1357,7 +1363,7 @@ LABEL_17:
       intentResponse = [TUConversationLink conversationLinkForURL:webpageURL2];
 
       webpageURL3 = [activityCopy webpageURL];
-      v17 = [(ICSApplicationDelegate *)self application:applicationCopy openJoinConversationRequestForConversationLink:intentResponse webpageURL:webpageURL3];
+      v18 = [(ICSApplicationDelegate *)self application:applicationCopy openJoinConversationRequestForConversationLink:intentResponse webpageURL:webpageURL3];
 LABEL_62:
 
       goto LABEL_63;
@@ -1372,13 +1378,13 @@ LABEL_62:
   if ([featureFlags conversationHandoffEnabled])
   {
     activityType2 = [activityCopy activityType];
-    v20 = [activityType2 isEqualToString:TUUserActivityTypeConversationHandoff];
+    v21 = [activityType2 isEqualToString:TUUserActivityTypeConversationHandoff];
 
-    if (v20)
+    if (v21)
     {
       intentResponse = +[TUCallCenter sharedInstance];
       [intentResponse continueHandoffEligibleConversation];
-      v17 = 1;
+      v18 = 1;
       goto LABEL_63;
     }
   }
@@ -1388,15 +1394,15 @@ LABEL_62:
   }
 
   activityType3 = [activityCopy activityType];
-  v22 = [activityType3 isEqualToString:TUUserActivityTypeJoinConversationRequest];
+  v23 = [activityType3 isEqualToString:TUUserActivityTypeJoinConversationRequest];
 
-  if (!v22)
+  if (!v23)
   {
     interaction = [activityCopy interaction];
     intentResponse = [interaction intentResponse];
 
     dialRequestAttachment = [activityCopy dialRequestAttachment];
-    v28 = dialRequestAttachment;
+    v30 = dialRequestAttachment;
     if (dialRequestAttachment)
     {
       webpageURL3 = dialRequestAttachment;
@@ -1409,7 +1415,7 @@ LABEL_62:
     }
 
     joinRequestAttachment = [activityCopy joinRequestAttachment];
-    v32 = joinRequestAttachment;
+    v34 = joinRequestAttachment;
     if (joinRequestAttachment)
     {
       joinRequestAttachment2 = joinRequestAttachment;
@@ -1423,32 +1429,33 @@ LABEL_62:
 
     if (webpageURL3)
     {
-      v35 = sub_100004F84();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+      v38 = sub_100004F84(v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v56 = webpageURL3;
-        _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Opening TUDialRequest from NSUserActivity attachment: %@", buf, 0xCu);
+        v62 = webpageURL3;
+        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "Opening TUDialRequest from NSUserActivity attachment: %@", buf, 0xCu);
       }
 
-      if (![webpageURL3 originatingUIType])
+      originatingUIType = [webpageURL3 originatingUIType];
+      if (!originatingUIType)
       {
-        v36 = sub_100004F84();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        v40 = sub_100004F84(originatingUIType);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Setting dialRequest originatingUIType to Siri", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Setting dialRequest originatingUIType to Siri", buf, 2u);
         }
 
         [webpageURL3 setOriginatingUIType:11];
       }
 
-      originatingUIType = [webpageURL3 originatingUIType];
-      v38 = +[BSProcessHandle processHandle];
-      v17 = [(ICSApplicationDelegate *)self openDialRequest:webpageURL3 forProcessHandle:v38];
+      originatingUIType2 = [webpageURL3 originatingUIType];
+      v42 = +[BSProcessHandle processHandle];
+      v18 = [(ICSApplicationDelegate *)self openDialRequest:webpageURL3 forProcessHandle:v42];
 
 LABEL_44:
-      if (originatingUIType == 11)
+      if (originatingUIType2 == 11)
       {
         +[TPTipsHelper donateEventOriginatedCallWithSiri];
       }
@@ -1458,49 +1465,50 @@ LABEL_44:
 
     if (joinRequestAttachment2)
     {
-      v39 = sub_100004F84();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+      v43 = sub_100004F84(v37);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v56 = joinRequestAttachment2;
-        _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "Opening TUJoinConversationRequest from NSUserActivity attachment: %@", buf, 0xCu);
+        v62 = joinRequestAttachment2;
+        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Opening TUJoinConversationRequest from NSUserActivity attachment: %@", buf, 0xCu);
       }
 
-      if (![joinRequestAttachment2 originatingUIType])
+      originatingUIType3 = [joinRequestAttachment2 originatingUIType];
+      if (!originatingUIType3)
       {
-        v40 = sub_100004F84();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+        v45 = sub_100004F84(originatingUIType3);
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Setting joinRequest originatingUIType to Siri", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Setting joinRequest originatingUIType to Siri", buf, 2u);
         }
 
         [joinRequestAttachment2 setOriginatingUIType:11];
       }
 
-      originatingUIType = [joinRequestAttachment2 originatingUIType];
-      v17 = [(ICSApplicationDelegate *)self openJoinConversationRequest:joinRequestAttachment2];
+      originatingUIType2 = [joinRequestAttachment2 originatingUIType];
+      v18 = [(ICSApplicationDelegate *)self openJoinConversationRequest:joinRequestAttachment2];
       goto LABEL_44;
     }
 
-    v41 = [[TUJoinConversationRequest alloc] initWithUserActivity:activityCopy];
-    v42 = v41;
-    if (v41)
+    v46 = [[TUJoinConversationRequest alloc] initWithUserActivity:activityCopy];
+    v47 = v46;
+    if (v46)
     {
-      remoteMembers = [v41 remoteMembers];
-      v44 = [remoteMembers count];
+      remoteMembers = [v46 remoteMembers];
+      v49 = [remoteMembers count];
 
-      if (v44 >= 2)
+      if (v49 >= 2)
       {
-        v45 = sub_100004F84();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+        v51 = sub_100004F84(v50);
+        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v56 = v42;
-          _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "More than one valid contact found. Making a group facetime call with joinRequest: %@", buf, 0xCu);
+          v62 = v47;
+          _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "More than one valid contact found. Making a group facetime call with joinRequest: %@", buf, 0xCu);
         }
 
-        v17 = [(ICSApplicationDelegate *)self openJoinConversationRequest:v42];
+        v18 = [(ICSApplicationDelegate *)self openJoinConversationRequest:v47];
         goto LABEL_60;
       }
     }
@@ -1512,11 +1520,11 @@ LABEL_44:
       if (![activityType5 isEqualToString:TUDialRequestUserActivityTypeAudioCall])
       {
         activityType6 = [activityCopy activityType];
-        v53 = [activityType6 isEqualToString:TUDialRequestUserActivityTypeVideoCall];
+        v59 = [activityType6 isEqualToString:TUDialRequestUserActivityTypeVideoCall];
 
-        if ((v53 & 1) == 0)
+        if ((v59 & 1) == 0)
         {
-          v17 = 0;
+          v18 = 0;
 LABEL_60:
 
 LABEL_61:
@@ -1524,17 +1532,17 @@ LABEL_61:
         }
 
 LABEL_55:
-        v48 = [[TUDialRequest alloc] initWithUserActivity:activityCopy];
-        v49 = v48;
-        if (v48 && [v48 isValid])
+        v54 = [[TUDialRequest alloc] initWithUserActivity:activityCopy];
+        v55 = v54;
+        if (v54 && [v54 isValid])
         {
-          v50 = +[BSProcessHandle processHandle];
-          v17 = [(ICSApplicationDelegate *)self openDialRequest:v49 forProcessHandle:v50];
+          v56 = +[BSProcessHandle processHandle];
+          v18 = [(ICSApplicationDelegate *)self openDialRequest:v55 forProcessHandle:v56];
         }
 
         else
         {
-          v17 = 0;
+          v18 = 0;
         }
 
         goto LABEL_60;
@@ -1547,27 +1555,28 @@ LABEL_55:
   userInfo = [activityCopy userInfo];
   intentResponse = [userInfo objectForKeyedSubscript:TUUserActivityJoinConversationRequestUserInfoKey];
 
-  v54 = 0;
-  v24 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:intentResponse error:&v54];
-  v25 = v54;
-  if (v24)
+  v60 = 0;
+  v25 = [NSKeyedUnarchiver unarchivedObjectOfClass:objc_opt_class() fromData:intentResponse error:&v60];
+  v26 = v60;
+  v27 = v26;
+  if (v25)
   {
-    v17 = [(ICSApplicationDelegate *)self openJoinConversationRequest:v24];
+    v18 = [(ICSApplicationDelegate *)self openJoinConversationRequest:v25];
   }
 
   else
   {
-    v29 = sub_100004F84();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v31 = sub_100004F84(v26);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       sub_100254A54();
     }
 
-    v17 = 0;
+    v18 = 0;
   }
 
 LABEL_63:
-  return v17;
+  return v18;
 }
 
 - (BOOL)application:(id)application openJoinConversationRequestForConversationLink:(id)link webpageURL:(id)l
@@ -1575,19 +1584,20 @@ LABEL_63:
   applicationCopy = application;
   linkCopy = link;
   lCopy = l;
+  v11 = lCopy;
   if (linkCopy)
   {
     objc_initWeak(&location, self);
-    v38[0] = _NSConcreteStackBlock;
-    v38[1] = 3221225472;
-    v38[2] = sub_100078E68;
-    v38[3] = &unk_100357890;
-    objc_copyWeak(&v41, &location);
-    v39 = linkCopy;
+    v44[0] = _NSConcreteStackBlock;
+    v44[1] = 3221225472;
+    v44[2] = sub_100078E68;
+    v44[3] = &unk_100357890;
+    objc_copyWeak(&v47, &location);
+    v45 = linkCopy;
     selfCopy = self;
-    v11 = objc_retainBlock(v38);
-    v12 = +[FTDeviceSupport sharedInstance];
-    faceTimeAvailable = [v12 faceTimeAvailable];
+    v12 = objc_retainBlock(v44);
+    v13 = +[FTDeviceSupport sharedInstance];
+    faceTimeAvailable = [v13 faceTimeAvailable];
 
     if (faceTimeAvailable)
     {
@@ -1598,74 +1608,75 @@ LABEL_63:
         goto LABEL_12;
       }
 
-      v18 = +[TUConversationManager supportsConversations];
+      v20 = +[TUConversationManager supportsConversations];
 
-      if (v18)
+      if (v20)
       {
 LABEL_12:
-        if ([(ICSApplicationDelegate *)self isFaceTimeLoggedIn])
+        isFaceTimeLoggedIn = [(ICSApplicationDelegate *)self isFaceTimeLoggedIn];
+        if (isFaceTimeLoggedIn)
         {
-          v19 = +[TUCallCenter sharedInstance];
-          hasCurrentCalls = [v19 hasCurrentCalls];
+          v23 = +[TUCallCenter sharedInstance];
+          hasCurrentCalls = [v23 hasCurrentCalls];
 
           if (!hasCurrentCalls)
           {
-            LODWORD(v16) = (v11[2])(v11);
+            LODWORD(v18) = (v12[2])(v12);
 LABEL_33:
 
-            objc_destroyWeak(&v41);
+            objc_destroyWeak(&v47);
             objc_destroyWeak(&location);
             goto LABEL_34;
           }
 
-          v21 = [ICSInterruptCallAlert alloc];
-          v34[0] = _NSConcreteStackBlock;
-          v34[1] = 3221225472;
-          v34[2] = sub_100079008;
-          v34[3] = &unk_100356D38;
-          v35 = v11;
-          v22 = [(ICSInterruptCallAlert *)v21 initWithCallback:v34];
-          [(ICSInterruptCallAlert *)v22 show];
+          v25 = [ICSInterruptCallAlert alloc];
+          v40[0] = _NSConcreteStackBlock;
+          v40[1] = 3221225472;
+          v40[2] = sub_100079008;
+          v40[3] = &unk_100356D38;
+          v41 = v12;
+          v26 = [(ICSInterruptCallAlert *)v25 initWithCallback:v40];
+          [(ICSInterruptCallAlert *)v26 show];
 
-          LOBYTE(v16) = 0;
-          v17 = v35;
+          LOBYTE(v18) = 0;
+          v19 = v41;
         }
 
         else
         {
-          v23 = sub_100004F84();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          v27 = sub_100004F84(isFaceTimeLoggedIn);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Cannot open FaceTime link since the user is not logged into FaceTime", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Cannot open FaceTime link since the user is not logged into FaceTime", buf, 2u);
           }
 
-          v24 = [LSApplicationRecord alloc];
-          v25 = TUPreferredFaceTimeBundleIdentifier();
-          v37 = 0;
-          v16 = [v24 initWithBundleIdentifier:v25 allowPlaceholder:0 error:&v37];
-          v17 = v37;
+          v28 = [LSApplicationRecord alloc];
+          v29 = TUPreferredFaceTimeBundleIdentifier();
+          v43 = 0;
+          v18 = [v28 initWithBundleIdentifier:v29 allowPlaceholder:0 error:&v43];
+          v19 = v43;
 
-          if (!v16)
+          if (!v18)
           {
-            v26 = sub_100004F84();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+            v31 = sub_100004F84(v30);
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
             {
-              v27 = TUPreferredFaceTimeBundleIdentifier();
-              sub_100254B3C(v27, v17, buf, v26);
+              v32 = TUPreferredFaceTimeBundleIdentifier();
+              sub_100254B3C(v32, v19, buf, v31);
             }
           }
 
-          applicationState = [v16 applicationState];
+          applicationState = [v18 applicationState];
           isInstalled = [applicationState isInstalled];
 
           if (isInstalled)
           {
-            v30 = sub_100004F84();
-            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+            v36 = sub_100004F84(v35);
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
             {
-              *v36 = 0;
-              _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Opening FaceTime application to login screen", v36, 2u);
+              *v42 = 0;
+              _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "Opening FaceTime application to login screen", v42, 2u);
             }
 
             TUOpenFaceTimeAppWithCompletion();
@@ -1673,18 +1684,18 @@ LABEL_33:
 
           else
           {
-            v31 = sub_100004F84();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+            v37 = sub_100004F84(v35);
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
             {
-              *v36 = 0;
-              _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Opening Settings application to allow user to sign into FaceTime since the FaceTime application is not installed", v36, 2u);
+              *v42 = 0;
+              _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Opening Settings application to allow user to sign into FaceTime since the FaceTime application is not installed", v42, 2u);
             }
 
-            v32 = [NSURL URLWithString:@"prefs:root=FaceTime"];
+            v38 = [NSURL URLWithString:@"prefs:root=FaceTime"];
             TUOpenSensitiveURL();
           }
 
-          LOBYTE(v16) = 1;
+          LOBYTE(v18) = 1;
         }
 
 LABEL_32:
@@ -1692,8 +1703,8 @@ LABEL_32:
         goto LABEL_33;
       }
 
-      v17 = sub_100004F84();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v19 = sub_100004F84(v21);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         sub_100254B00();
       }
@@ -1701,27 +1712,27 @@ LABEL_32:
 
     else
     {
-      v17 = sub_100004F84();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v19 = sub_100004F84(v15);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         sub_100254AC4();
       }
     }
 
-    LOBYTE(v16) = 0;
+    LOBYTE(v18) = 0;
     goto LABEL_32;
   }
 
-  v15 = sub_100004F84();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v17 = sub_100004F84(lCopy);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     sub_100254BA4();
   }
 
-  LOBYTE(v16) = 0;
+  LOBYTE(v18) = 0;
 LABEL_34:
 
-  return v16;
+  return v18;
 }
 
 - (BOOL)isFaceTimeLoggedIn
@@ -1781,23 +1792,24 @@ LABEL_13:
 - (void)setMostRecentlyDisconnectedAudioCall:(id)call
 {
   callCopy = call;
+  v6 = callCopy;
   if (self->_mostRecentlyDisconnectedAudioCall != callCopy)
   {
-    v6 = sub_100004F84();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004F84(callCopy);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      uniqueProxyIdentifierUUID = [(TUCall *)callCopy uniqueProxyIdentifierUUID];
-      v10 = 138412290;
-      v11 = uniqueProxyIdentifierUUID;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "setMostRecentlyDisconnectedAudioCall: %@", &v10, 0xCu);
+      uniqueProxyIdentifierUUID = [(TUCall *)v6 uniqueProxyIdentifierUUID];
+      v11 = 138412290;
+      v12 = uniqueProxyIdentifierUUID;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "setMostRecentlyDisconnectedAudioCall: %@", &v11, 0xCu);
     }
 
-    v8 = self->_mostRecentlyDisconnectedAudioCall;
+    v9 = self->_mostRecentlyDisconnectedAudioCall;
     objc_storeStrong(&self->_mostRecentlyDisconnectedAudioCall, call);
-    if (!callCopy)
+    if (!v6)
     {
-      v9 = +[NSNotificationCenter defaultCenter];
-      [v9 postNotificationName:@"ICSApplicationDelegateMostRecentlyDisconnectedAudioCallDidClearNotification" object:v8];
+      v10 = +[NSNotificationCenter defaultCenter];
+      [v10 postNotificationName:@"ICSApplicationDelegateMostRecentlyDisconnectedAudioCallDidClearNotification" object:v9];
     }
   }
 }
@@ -1825,7 +1837,7 @@ LABEL_13:
 - (void)showCarPlayUIWithActivation:(BOOL)activation
 {
   activationCopy = activation;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -1846,7 +1858,7 @@ LABEL_13:
 - (void)setActivationContext:(id)context
 {
   contextCopy = context;
-  v6 = sub_100004F84();
+  v6 = sub_100004F84(contextCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412290;
@@ -1889,19 +1901,19 @@ LABEL_13:
 {
   requestCopy = request;
   handlerCopy = handler;
-  v8 = sub_100004F84();
+  v8 = sub_100004F84(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    *v29 = requestCopy;
+    *v31 = requestCopy;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "'%@'", buf, 0xCu);
   }
 
-  v9 = sub_100004F84();
-  v10 = v9;
+  v10 = sub_100004F84(v9);
+  v11 = v10;
   if (!requestCopy)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_100254C14();
     }
@@ -1909,49 +1921,49 @@ LABEL_13:
     goto LABEL_20;
   }
 
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    *v29 = requestCopy;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "dialing call with dial request %@", buf, 0xCu);
+    *v31 = requestCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "dialing call with dial request %@", buf, 0xCu);
   }
 
-  v11 = +[PHInCallRootViewController dismissalAssertions];
-  v12 = [v11 count];
+  v12 = +[PHInCallRootViewController dismissalAssertions];
+  v13 = [v12 count];
 
-  if (!v12)
+  if (!v13)
   {
-    v13 = +[PHInCallUtilities sharedInstance];
-    [v13 startSuppressingInCallStatusBarForReason:@"PHSuppressInCallStatusBarForDialReason"];
+    v14 = +[PHInCallUtilities sharedInstance];
+    [v14 startSuppressingInCallStatusBarForReason:@"PHSuppressInCallStatusBarForDialReason"];
   }
 
-  v14 = +[UIApplication sharedApplication];
-  if ([v14 isRunningTest:@"PlaceOutgoingCall"])
+  v15 = +[UIApplication sharedApplication];
+  if ([v15 isRunningTest:@"PlaceOutgoingCall"])
   {
 
     goto LABEL_13;
   }
 
-  v15 = +[UIApplication sharedApplication];
-  v16 = [v15 isRunningTest:@"FaceTimePlaceOutgoingCall"];
+  v16 = +[UIApplication sharedApplication];
+  v17 = [v16 isRunningTest:@"FaceTimePlaceOutgoingCall"];
 
-  if (v16)
+  if (v17)
   {
 LABEL_13:
-    v18 = +[UIApplication sharedApplication];
-    v19 = qword_1003B8808;
-    v30 = @"time";
-    v20 = [NSArray arrayWithObjects:&v30 count:1];
-    [v18 startedSubTest:@"CreateCall" forTest:v19 withMetrics:v20];
+    v19 = +[UIApplication sharedApplication];
+    v20 = qword_1003B8808;
+    v32 = @"time";
+    v21 = [NSArray arrayWithObjects:&v32 count:1];
+    [v19 startedSubTest:@"CreateCall" forTest:v20 withMetrics:v21];
 
-    v10 = sub_1000799C0(v21, requestCopy);
-    v22 = +[UIApplication sharedApplication];
-    [v22 finishedSubTest:@"CreateCall" forTest:qword_1003B8808];
-
+    v11 = sub_1000799C0(v22, requestCopy);
     v23 = +[UIApplication sharedApplication];
-    [v23 startedSubTest:@"sbRemoteAlert" forTest:qword_1003B8808];
+    [v23 finishedSubTest:@"CreateCall" forTest:qword_1003B8808];
 
-    if (!v10)
+    v24 = +[UIApplication sharedApplication];
+    [v24 startedSubTest:@"sbRemoteAlert" forTest:qword_1003B8808];
+
+    if (!v11)
     {
       goto LABEL_17;
     }
@@ -1959,46 +1971,48 @@ LABEL_13:
     goto LABEL_16;
   }
 
-  v10 = sub_1000799C0(v17, requestCopy);
-  if (!v10)
+  status2 = sub_1000799C0(v18, requestCopy);
+  v11 = status2;
+  if (!status2)
   {
 LABEL_17:
-    v24 = sub_100004F84();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v26 = sub_100004F84(status2);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      status = [v10 status];
+      status = [v11 status];
       *buf = 67109376;
-      *v29 = v10 == 0;
-      *&v29[4] = 1024;
-      *&v29[6] = status == 6;
-      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "[WARN] cannot dial call, the call we received was nil (%d) or in the disconnected state (%d)", buf, 0xEu);
+      *v31 = v11 == 0;
+      *&v31[4] = 1024;
+      *&v31[6] = status == 6;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "[WARN] cannot dial call, the call we received was nil (%d) or in the disconnected state (%d)", buf, 0xEu);
     }
 
-    v26 = +[PHInCallUtilities sharedInstance];
-    [v26 stopSuppressingInCallStatusBarForReason:@"PHSuppressInCallStatusBarForDialReason"];
+    v28 = +[PHInCallUtilities sharedInstance];
+    [v28 stopSuppressingInCallStatusBarForReason:@"PHSuppressInCallStatusBarForDialReason"];
 
 LABEL_20:
-    v27 = 0;
+    v29 = 0;
     goto LABEL_21;
   }
 
 LABEL_16:
-  if ([v10 status]== 6)
+  status2 = [v11 status];
+  if (status2 == 6)
   {
     goto LABEL_17;
   }
 
-  if ([(ICSApplicationDelegate *)self shouldActivateSpringBoardRemoteAlertForCall:v10])
+  if ([(ICSApplicationDelegate *)self shouldActivateSpringBoardRemoteAlertForCall:v11])
   {
-    [(ICSApplicationDelegate *)self requestPresentationForCall:v10 dialRequest:requestCopy];
+    [(ICSApplicationDelegate *)self requestPresentationForCall:v11 dialRequest:requestCopy];
   }
 
-  v27 = 1;
+  v29 = 1;
 LABEL_21:
 
   if (handlerCopy)
   {
-    handlerCopy[2](handlerCopy, v27);
+    handlerCopy[2](handlerCopy, v29);
   }
 }
 
@@ -2026,12 +2040,12 @@ LABEL_21:
 - (void)initiateCallForConversationRequest:(id)request
 {
   requestCopy = request;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(requestCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     uUID = [requestCopy UUID];
     *buf = 138412290;
-    v28[0] = uUID;
+    v29[0] = uUID;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "conversationRequestUUID=%@", buf, 0xCu);
   }
 
@@ -2039,18 +2053,18 @@ LABEL_21:
   v8 = [uUID2 debugDescription];
 
   v9 = [requestCopy debugDescription];
-  v10 = sub_1000A69C8();
-  v21 = _NSConcreteStackBlock;
-  v22 = 3221225472;
-  v23 = sub_100079F38;
-  v24 = &unk_100357110;
-  v25 = v8;
-  v26 = v9;
+  v10 = sub_1000A69C8(v9);
+  v22 = _NSConcreteStackBlock;
+  v23 = 3221225472;
+  v24 = sub_100079F38;
+  v25 = &unk_100357110;
+  v26 = v8;
+  v27 = v9;
   v11 = v9;
   v12 = v8;
-  dispatch_async(v10, &v21);
+  dispatch_async(v10, &v22);
 
-  v13 = [PHInCallRootViewController dismissalAssertions:v21];
+  v13 = [PHInCallRootViewController dismissalAssertions:v22];
   v14 = [v13 count];
 
   if (!v14)
@@ -2063,21 +2077,22 @@ LABEL_21:
   v16 = +[TUCallCenter sharedInstance];
   v17 = [v16 joinConversationWithConversationRequest:requestCopy];
 
-  if ([v17 status] == 6)
+  status = [v17 status];
+  if (status == 6)
   {
-    v18 = sub_100004F84();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v19 = sub_100004F84(status);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      status = [v17 status];
+      status2 = [v17 status];
       *buf = 67109376;
-      LODWORD(v28[0]) = v17 == 0;
-      WORD2(v28[0]) = 1024;
-      *(v28 + 6) = status == 6;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "[WARN] Could not join multiway call, the call we received was nil (%d) or in the disconnected state (%d)", buf, 0xEu);
+      LODWORD(v29[0]) = v17 == 0;
+      WORD2(v29[0]) = 1024;
+      *(v29 + 6) = status2 == 6;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "[WARN] Could not join multiway call, the call we received was nil (%d) or in the disconnected state (%d)", buf, 0xEu);
     }
 
-    v20 = +[PHInCallUtilities sharedInstance];
-    [v20 stopSuppressingInCallStatusBarForReason:@"PHSuppressInCallStatusBarForDialReason"];
+    v21 = +[PHInCallUtilities sharedInstance];
+    [v21 stopSuppressingInCallStatusBarForReason:@"PHSuppressInCallStatusBarForDialReason"];
   }
 
   else if ([(ICSApplicationDelegate *)self shouldActivateSpringBoardRemoteAlertForCall:v17])
@@ -2186,22 +2201,23 @@ LABEL_21:
 
   v16 = [requestCopy originatingUIType] == 8 || objc_msgSend(requestCopy, "originatingUIType") == 9 || objc_msgSend(requestCopy, "originatingUIType") == 1;
   service = [requestCopy service];
-  v26 = [(ICSApplicationDelegate *)self isDefaultDialingApp:handleCopy];
-  v18 = sub_100004F84();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v18 = [(ICSApplicationDelegate *)self isDefaultDialingApp:handleCopy];
+  v27 = v18;
+  v19 = sub_100004F84(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     if (v11)
     {
-      v19 = @"YES";
+      v20 = @"YES";
     }
 
     else
     {
-      v19 = @"NO";
+      v20 = @"NO";
     }
 
-    v24 = requestCopy;
-    v20 = v11;
+    v25 = requestCopy;
+    v21 = v11;
     if (v16)
     {
       v11 = @"YES";
@@ -2213,18 +2229,7 @@ LABEL_21:
     }
 
     *buf = 138413058;
-    if ([(ICSApplicationDelegate *)self isDefaultCallingApp:handleCopy, v24])
-    {
-      v21 = @"YES";
-    }
-
-    else
-    {
-      v21 = @"NO";
-    }
-
-    v28 = v19;
-    if (v26)
+    if ([(ICSApplicationDelegate *)self isDefaultCallingApp:handleCopy, v25])
     {
       v22 = @"YES";
     }
@@ -2234,22 +2239,33 @@ LABEL_21:
       v22 = @"NO";
     }
 
-    v29 = 2112;
-    v30 = v11;
-    LOBYTE(v11) = v20;
-    requestCopy = v25;
-    v31 = 2112;
-    v32 = v21;
-    v33 = 2112;
-    v34 = v22;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "configureDialRequest:forProcessHandle:bypassUIPromptIfDefaultProvider: processShouldForcePrompt: (%@), isFromMobilePhone: (%@), isDefaultCallingApp: (%@), isDefaultDialingApp: (%@)", buf, 0x2Au);
+    v29 = v20;
+    if (v27)
+    {
+      v23 = @"YES";
+    }
+
+    else
+    {
+      v23 = @"NO";
+    }
+
+    v30 = 2112;
+    v31 = v11;
+    LOBYTE(v11) = v21;
+    requestCopy = v26;
+    v32 = 2112;
+    v33 = v22;
+    v34 = 2112;
+    v35 = v23;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "configureDialRequest:forProcessHandle:bypassUIPromptIfDefaultProvider: processShouldForcePrompt: (%@), isFromMobilePhone: (%@), isDefaultCallingApp: (%@), isDefaultDialingApp: (%@)", buf, 0x2Au);
   }
 
-  if ((v11 & 1) == 0 && (service != 1 || !v16) | v26 & 1 && ![(ICSApplicationDelegate *)self isAppBlockedFromBypassingPrompt:handleCopy])
+  if ((v11 & 1) == 0 && (service != 1 || !v16) | v27 & 1 && ![(ICSApplicationDelegate *)self isAppBlockedFromBypassingPrompt:handleCopy])
   {
     if (providerCopy && [(ICSApplicationDelegate *)self isDefaultCallingApp:handleCopy])
     {
-      v23 = 0;
+      v24 = 0;
       goto LABEL_35;
     }
 
@@ -2260,14 +2276,14 @@ LABEL_21:
 
     if (([requestCopy showUIPrompt] & 1) == 0)
     {
-      v23 = [(ICSApplicationDelegate *)self shouldShowPromptForProcessHandle:handleCopy];
+      v24 = [(ICSApplicationDelegate *)self shouldShowPromptForProcessHandle:handleCopy];
       goto LABEL_35;
     }
   }
 
-  v23 = 1;
+  v24 = 1;
 LABEL_35:
-  [requestCopy setShowUIPrompt:v23];
+  [requestCopy setShowUIPrompt:v24];
 LABEL_36:
   [requestCopy setProcessHandle:handleCopy];
 }
@@ -2309,38 +2325,39 @@ LABEL_36:
 {
   requestCopy = request;
   completionCopy = completion;
-  if ([requestCopy allowProviderFallback] && (objc_msgSend(requestCopy, "provider"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "isFaceTimeProvider"), v8, v9))
+  allowProviderFallback = [requestCopy allowProviderFallback];
+  if (allowProviderFallback && ([requestCopy provider], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "isFaceTimeProvider"), v9, v10))
   {
     dialRequestWithURLStripping = [requestCopy dialRequestWithURLStripping];
     handle = [dialRequestWithURLStripping handle];
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_10007A95C;
-    v16[3] = &unk_100357978;
-    v17 = dialRequestWithURLStripping;
-    v19 = completionCopy;
-    v18 = requestCopy;
-    v12 = dialRequestWithURLStripping;
-    [(ICSApplicationDelegate *)self isHandleAvailableForFaceTime:handle completion:v16];
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_10007A95C;
+    v17[3] = &unk_100357978;
+    v18 = dialRequestWithURLStripping;
+    v20 = completionCopy;
+    v19 = requestCopy;
+    v13 = dialRequestWithURLStripping;
+    [(ICSApplicationDelegate *)self isHandleAvailableForFaceTime:handle completion:v17];
   }
 
   else
   {
-    v13 = sub_100004F84();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100004F84(allowProviderFallback);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      allowProviderFallback = [requestCopy allowProviderFallback];
-      v15 = @"NO";
-      if (allowProviderFallback)
+      allowProviderFallback2 = [requestCopy allowProviderFallback];
+      v16 = @"NO";
+      if (allowProviderFallback2)
       {
-        v15 = @"YES";
+        v16 = @"YES";
       }
 
       *buf = 138412546;
-      v21 = v15;
-      v22 = 2112;
-      v23 = requestCopy;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Dial request does not allowProviderFallback (%@) or provider is not FaceTime. Returning untouched dialRequest %@", buf, 0x16u);
+      v22 = v16;
+      v23 = 2112;
+      v24 = requestCopy;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Dial request does not allowProviderFallback (%@) or provider is not FaceTime. Returning untouched dialRequest %@", buf, 0x16u);
     }
 
     (*(completionCopy + 2))(completionCopy, requestCopy);
@@ -2350,7 +2367,7 @@ LABEL_36:
 - (BOOL)shouldShowPromptForProcessHandle:(id)handle
 {
   handleCopy = handle;
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(handleCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -2408,7 +2425,7 @@ LABEL_13:
 - (BOOL)canModifyCallsForProcessHandle:(id)handle
 {
   handleCopy = handle;
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(handleCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v11 = 138412290;
@@ -2469,7 +2486,7 @@ LABEL_13:
 - (void)_willResignFromActive:(id)active
 {
   activeCopy = active;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(activeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -2483,7 +2500,7 @@ LABEL_13:
 - (void)_didBecomeActive:(id)active
 {
   activeCopy = active;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(activeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -2497,7 +2514,7 @@ LABEL_13:
 - (void)_willConnect:(id)connect
 {
   connectCopy = connect;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(connectCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -2599,7 +2616,7 @@ LABEL_13:
 - (void)audioCallStatusChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -2613,7 +2630,7 @@ LABEL_13:
 - (void)videoCallStatusChanged:(id)changed
 {
   changedCopy = changed;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(changedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;
@@ -2627,12 +2644,15 @@ LABEL_13:
 - (void)handleCallStatusChangedNotification:(id)notification
 {
   object = [notification object];
+  v5 = object;
   if (object)
   {
-    [(ICSApplicationDelegate *)self callStatusChanged:object];
+    v6 = object;
+    object = [(ICSApplicationDelegate *)self callStatusChanged:object];
+    v5 = v6;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(object, v5);
 }
 
 - (void)callStatusChanged:(id)changed
@@ -2728,15 +2748,15 @@ LABEL_21:
     connectedCallIdentifiers4 = [(ICSApplicationDelegate *)self connectedCallIdentifiers];
     v32 = [connectedCallIdentifiers4 count];
 
-    v33 = sub_100004F84();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v34 = sub_100004F84(v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
       connectedCallIdentifiers5 = [(ICSApplicationDelegate *)self connectedCallIdentifiers];
       *buf = 67109378;
-      *v97 = v32 != 0;
-      *&v97[4] = 2112;
-      *&v97[6] = connectedCallIdentifiers5;
-      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Setting scene callConnected: %d connectedCallIdentifiers: %@", buf, 0x12u);
+      *v101 = v32 != 0;
+      *&v101[4] = 2112;
+      *&v101[6] = connectedCallIdentifiers5;
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Setting scene callConnected: %d connectedCallIdentifiers: %@", buf, 0x12u);
     }
 
     currentInCallScene2 = [(ICSApplicationDelegate *)self currentInCallScene];
@@ -2746,23 +2766,23 @@ LABEL_21:
     LODWORD(currentInCallScene2) = [featureFlags2 receptionistEnabled];
 
     isScreening = [changedCopy isScreening];
-    v38 = (currentInCallScene2 ^ 1) & isScreening;
+    v39 = (currentInCallScene2 ^ 1) & isScreening;
     if ((currentInCallScene2 ^ 1) & 1) == 0 && (isScreening)
     {
       receptionistState = [changedCopy receptionistState];
       if (receptionistState <= 7)
       {
-        v38 = 0xE7u >> receptionistState;
+        v39 = 0xE7u >> receptionistState;
       }
 
       else
       {
-        v38 = 0;
+        v39 = 0;
       }
     }
 
     currentInCallScene3 = [(ICSApplicationDelegate *)self currentInCallScene];
-    [currentInCallScene3 setPrefersLockedIdleDurationOnCoversheet:v38 & 1];
+    [currentInCallScene3 setPrefersLockedIdleDurationOnCoversheet:v39 & 1];
   }
 
   if (!v8)
@@ -2770,7 +2790,7 @@ LABEL_21:
     alertCoordinator = [(ICSApplicationDelegate *)self alertCoordinator];
     if (alertCoordinator)
     {
-      v42 = alertCoordinator;
+      v43 = alertCoordinator;
       alertCoordinator2 = [(ICSApplicationDelegate *)self alertCoordinator];
       if (([alertCoordinator2 isAlertRequestPending] & 1) != 0 || objc_msgSend(changedCopy, "disconnectedReason") == 34)
       {
@@ -2782,11 +2802,11 @@ LABEL_21:
 
         if ((disconnectedReasonRequiresCallBackUI & 1) == 0)
         {
-          v59 = sub_100004F84();
-          if (os_log_type_enabled(v59, OS_LOG_TYPE_DEFAULT))
+          v61 = sub_100004F84(v60);
+          if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "No calls remaining, nil-ing out AlertCoordinator", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "No calls remaining, nil-ing out AlertCoordinator", buf, 2u);
           }
 
           [(ICSApplicationDelegate *)self setAlertCoordinator:0];
@@ -2836,12 +2856,12 @@ LABEL_50:
     goto LABEL_49;
   }
 
-  v90 = changedCopy;
+  v94 = changedCopy;
   disconnectedReason = [changedCopy disconnectedReason];
 
-  v50 = disconnectedReason == 7;
-  changedCopy = v90;
-  if (v50)
+  v51 = disconnectedReason == 7;
+  changedCopy = v94;
+  if (v51)
   {
 LABEL_51:
     if (!wasSmartHoldingTipPresented)
@@ -2853,8 +2873,8 @@ LABEL_51:
 
     if (!tTRBannerViewController)
     {
-      v54 = +[TTRBannerControllerFactory makeBannerController];
-      [(ICSApplicationDelegate *)self setTTRBannerViewController:v54];
+      v55 = +[TTRBannerControllerFactory makeBannerController];
+      [(ICSApplicationDelegate *)self setTTRBannerViewController:v55];
 
       tTRBannerViewController2 = [(ICSApplicationDelegate *)self TTRBannerViewController];
       [tTRBannerViewController2 setDelegate:self];
@@ -2867,10 +2887,10 @@ LABEL_55:
     goto LABEL_56;
   }
 
-  if ([v90 status] == 1)
+  if ([v94 status] == 1)
   {
-    v51 = +[TTRBannerControllerFactory makeBannerController];
-    [(ICSApplicationDelegate *)self setTTRBannerViewController:v51];
+    v52 = +[TTRBannerControllerFactory makeBannerController];
+    [(ICSApplicationDelegate *)self setTTRBannerViewController:v52];
 
     tTRBannerViewController4 = [(ICSApplicationDelegate *)self TTRBannerViewController];
     [tTRBannerViewController4 setDelegate:self];
@@ -2879,81 +2899,81 @@ LABEL_77:
     goto LABEL_78;
   }
 
-  if ([v90 status] == 6)
+  if ([v94 status] == 6)
   {
     tTRBannerViewController5 = [(ICSApplicationDelegate *)self TTRBannerViewController];
 
     if (tTRBannerViewController5)
     {
-      v89 = v8;
-      v61 = +[TUCallCenter sharedInstance];
-      v62 = [v61 activeConversationForCall:v90];
+      v93 = v8;
+      v63 = +[TUCallCenter sharedInstance];
+      v64 = [v63 activeConversationForCall:v94];
 
-      messagesGroupUUID = [v62 messagesGroupUUID];
-      activeRemoteParticipants = [v62 activeRemoteParticipants];
-      v64 = +[NSMutableSet setWithCapacity:](NSMutableSet, "setWithCapacity:", [activeRemoteParticipants count]);
+      messagesGroupUUID = [v64 messagesGroupUUID];
+      activeRemoteParticipants = [v64 activeRemoteParticipants];
+      v66 = +[NSMutableSet setWithCapacity:](NSMutableSet, "setWithCapacity:", [activeRemoteParticipants count]);
 
-      v93 = 0u;
-      v94 = 0u;
-      v91 = 0u;
-      v92 = 0u;
-      v88 = v62;
-      remoteMembers = [v62 remoteMembers];
-      v66 = [remoteMembers countByEnumeratingWithState:&v91 objects:v95 count:16];
-      if (v66)
+      v97 = 0u;
+      v98 = 0u;
+      v95 = 0u;
+      v96 = 0u;
+      v92 = v64;
+      remoteMembers = [v64 remoteMembers];
+      v68 = [remoteMembers countByEnumeratingWithState:&v95 objects:v99 count:16];
+      if (v68)
       {
-        v67 = v66;
-        v68 = *v92;
+        v69 = v68;
+        v70 = *v96;
         do
         {
-          for (i = 0; i != v67; i = i + 1)
+          for (i = 0; i != v69; i = i + 1)
           {
-            if (*v92 != v68)
+            if (*v96 != v70)
             {
               objc_enumerationMutation(remoteMembers);
             }
 
-            v70 = *(*(&v91 + 1) + 8 * i);
-            handle = [v70 handle];
+            v72 = *(*(&v95 + 1) + 8 * i);
+            handle = [v72 handle];
             value = [handle value];
-            v73 = [value length];
+            v75 = [value length];
 
-            if (v73)
+            if (v75)
             {
-              handle2 = [v70 handle];
+              handle2 = [v72 handle];
               value2 = [handle2 value];
-              [v64 addObject:value2];
+              [v66 addObject:value2];
             }
           }
 
-          v67 = [remoteMembers countByEnumeratingWithState:&v91 objects:v95 count:16];
+          v69 = [remoteMembers countByEnumeratingWithState:&v95 objects:v99 count:16];
         }
 
-        while (v67);
+        while (v69);
       }
 
       tTRBannerViewController6 = [(ICSApplicationDelegate *)self TTRBannerViewController];
       uUIDString = [messagesGroupUUID UUIDString];
-      [tTRBannerViewController6 buildTTRMessageBubbleRecipientsListWithGroupMessageUUID:uUIDString with:v64];
+      [tTRBannerViewController6 buildTTRMessageBubbleRecipientsListWithGroupMessageUUID:uUIDString with:v66];
 
-      changedCopy = v90;
-      [v90 callDuration];
-      if (v78 >= 900.0)
+      changedCopy = v94;
+      [v94 callDuration];
+      if (v80 >= 900.0)
       {
-        v80 = 1;
+        v82 = 1;
       }
 
       else
       {
-        remoteParticipantHandles = [v90 remoteParticipantHandles];
-        v80 = [remoteParticipantHandles count] > 0xE;
+        remoteParticipantHandles = [v94 remoteParticipantHandles];
+        v82 = [remoteParticipantHandles count] > 0xE;
       }
 
-      tTRBannerViewController4 = v88;
+      tTRBannerViewController4 = v92;
       tTRBannerViewController7 = [(ICSApplicationDelegate *)self TTRBannerViewController];
-      [tTRBannerViewController7 showTTRBannerWithFullLogArchive:v80 call:v90];
+      [tTRBannerViewController7 showTTRBannerWithFullLogArchive:v82 call:v94];
 
-      v8 = v89;
+      v8 = v93;
       goto LABEL_77;
     }
   }
@@ -2970,19 +2990,19 @@ LABEL_78:
     goto LABEL_55;
   }
 
-  v82 = +[PHInCallRootViewController dismissalAssertions];
-  v83 = [v82 containsObject:@"PHAVLessConversationDetailsViewAssertionReason"];
+  v84 = +[PHInCallRootViewController dismissalAssertions];
+  v85 = [v84 containsObject:@"PHAVLessConversationDetailsViewAssertionReason"];
 
-  if ((v83 & 1) == 0)
+  if ((v85 & 1) == 0)
   {
-    v84 = sub_100009960();
-    if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
+    v88 = sub_100009960(v86, v87);
+    if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
     {
-      v85 = v84;
+      v89 = v88;
       uniqueProxyIdentifier = [changedCopy uniqueProxyIdentifier];
       *buf = 138412290;
-      *v97 = uniqueProxyIdentifier;
-      _os_log_impl(&_mh_execute_header, v85, OS_LOG_TYPE_DEFAULT, "Call %@ disconnected, no calls remaining, still have placeholderCall that wants banner without scene in HUD, requesting scene dismissal", buf, 0xCu);
+      *v101 = uniqueProxyIdentifier;
+      _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_DEFAULT, "Call %@ disconnected, no calls remaining, still have placeholderCall that wants banner without scene in HUD, requesting scene dismissal", buf, 0xCu);
     }
 
     [(ICSApplicationDelegate *)self dismissInCallSceneSession];
@@ -3007,7 +3027,7 @@ LABEL_56:
   status = [v7 status];
   switch(status)
   {
-    case 3u:
+    case 3:
       if (![(ICSApplicationDelegate *)self shouldActivateSpringBoardRemoteAlertForCall:v7])
       {
         goto LABEL_36;
@@ -3042,14 +3062,14 @@ LABEL_56:
 
           else
           {
-            v23 = +[TUCallCenter sharedInstance];
-            if (([v23 existingCallsHaveMultipleProviders] & 1) == 0)
+            v24 = +[TUCallCenter sharedInstance];
+            if (([v24 existingCallsHaveMultipleProviders] & 1) == 0)
             {
 
               goto LABEL_36;
             }
 
-            v24 = v23;
+            v25 = v24;
             v4 = 0;
             v15 = 1;
             v16 = 1;
@@ -3098,11 +3118,11 @@ LABEL_47:
           }
         }
 
-        features = sub_100004F84();
+        features = sub_100004F84(v23);
         if (os_log_type_enabled(features, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v26 = v7;
+          v27 = v7;
           _os_log_impl(&_mh_execute_header, features, OS_LOG_TYPE_DEFAULT, "Heard a call change notification and it was sending, so InCallService will show the alert for %@", buf, 0xCu);
         }
 
@@ -3110,7 +3130,7 @@ LABEL_47:
       }
 
       goto LABEL_47;
-    case 6u:
+    case 6:
       if ([v7 isVideo])
       {
         [(ICSApplicationDelegate *)self setMostRecentlyDisconnectedVideoCall:v7];
@@ -3140,12 +3160,12 @@ LABEL_37:
       }
 
       break;
-    case 4u:
-      v9 = sub_100004F84();
+    case 4:
+      v9 = sub_100004F84(status);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v26 = v7;
+        v27 = v7;
         _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Heard a call change notification and it was ringing, so InCallService will show the alert for %@", buf, 0xCu);
       }
 
@@ -3203,42 +3223,50 @@ LABEL_38:
 
   if (isSpringBoardLocked)
   {
-    v7 = sub_100004F84();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004F84(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = objc_opt_class();
-      v9 = v8;
+      v9 = objc_opt_class();
+      v10 = v9;
       name = [notificationCopy name];
-      v14 = 138412546;
-      v15 = v8;
-      v16 = 2112;
-      v17 = name;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@ is handling %@", &v14, 0x16u);
+      v17 = 138412546;
+      v18 = v9;
+      v19 = 2112;
+      v20 = name;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@ is handling %@", &v17, 0x16u);
     }
 
     object = [notificationCopy object];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v12 = object;
-      if ([v12 isEndpointOnCurrentDevice]&& [v12 status]== 1 && [(ICSApplicationDelegate *)self shouldActivateSpringBoardRemoteAlertForCall:v12])
+      v14 = object;
+      if ([v14 isEndpointOnCurrentDevice])
       {
-        v13 = sub_100004F84();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        if ([v14 status]== 1)
         {
-          v14 = 138412290;
-          v15 = v12;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Received a TTY type change notification while SpringBoard is locked; InCallService will present a remote alert for active call %@", &v14, 0xCu);
-        }
+          v15 = [(ICSApplicationDelegate *)self shouldActivateSpringBoardRemoteAlertForCall:v14];
+          if (v15)
+          {
+            v16 = sub_100004F84(v15);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+            {
+              v17 = 138412290;
+              v18 = v14;
+              _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Received a TTY type change notification while SpringBoard is locked; InCallService will present a remote alert for active call %@", &v17, 0xCu);
+            }
 
-        [(ICSApplicationDelegate *)self requestPresentationForCall:v12 dialRequest:0];
+            [(ICSApplicationDelegate *)self requestPresentationForCall:v14 dialRequest:0];
+          }
+        }
       }
     }
 
     else
     {
-      v12 = sub_100004F84();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v14 = sub_100004F84(isKindOfClass);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_100254C50();
       }
@@ -3275,16 +3303,16 @@ LABEL_38:
     v14 = [objc_opt_class() isExpanseMessagesJoinRequest:self->_currentJoinConversationRequest];
     avUpgradedCallUUIDForDismissedScene = [(ICSApplicationDelegate *)self avUpgradedCallUUIDForDismissedScene];
     uniqueProxyIdentifierUUID = [v7 uniqueProxyIdentifierUUID];
-    v38 = [avUpgradedCallUUIDForDismissedScene isEqual:uniqueProxyIdentifierUUID];
+    v39 = [avUpgradedCallUUIDForDismissedScene isEqual:uniqueProxyIdentifierUUID];
 
     if (v14 && [v7 callStatus] == 3 && objc_msgSend(v7, "isOutgoing"))
     {
-      v37 = [v7 isSendingVideo] ^ 1;
+      v38 = [v7 isSendingVideo] ^ 1;
     }
 
     else
     {
-      v37 = 0;
+      v38 = 0;
     }
 
     provider = [v7 provider];
@@ -3309,54 +3337,45 @@ LABEL_38:
       isOutgoing = 0;
     }
 
-    if ([v7 isScreening] && (objc_msgSend(v7, "isWaitOnHoldActive") & 1) == 0)
+    isScreening = [v7 isScreening];
+    if (isScreening && (isScreening = [v7 isWaitOnHoldActive], (isScreening & 1) == 0))
     {
-      LODWORD(v21) = [v7 resolvedCallStatus] != 4 && !pillCopy;
+      isScreening = [v7 resolvedCallStatus];
+      LODWORD(v22) = isScreening != 4 && !pillCopy;
     }
 
     else
     {
-      LODWORD(v21) = 0;
+      LODWORD(v22) = 0;
     }
 
-    v22 = sub_100004F84();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v23 = sub_100004F84(isScreening);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
     {
-      v35 = v21;
-      v34 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v7 callStatus]);
-      v23 = [NSNumber numberWithBool:v14];
-      v33 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v7 isConversation]);
-      v32 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v7 isOutgoing]);
-      v31 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v7 isSendingVideo] ^ 1);
-      v21 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v7 wantsStagingArea]);
-      v30 = v21;
-      [NSNumber numberWithBool:v38];
-      v24 = v36 = v18;
+      v36 = v22;
+      v35 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v7 callStatus]);
+      v24 = [NSNumber numberWithBool:v14];
+      v34 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v7 isConversation]);
+      v33 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v7 isOutgoing]);
+      v32 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v7 isSendingVideo] ^ 1);
+      v22 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v7 wantsStagingArea]);
+      v31 = v22;
+      [NSNumber numberWithBool:v39];
+      v25 = v37 = v18;
       if (v18)
       {
-        v25 = @"YES";
+        v26 = @"YES";
       }
 
       else
       {
-        v25 = @"NO";
+        v26 = @"NO";
       }
 
-      v26 = [NSNumber numberWithBool:isOutgoing, v25];
-      v18 = v26;
+      v27 = [NSNumber numberWithBool:isOutgoing, v26];
+      v18 = v27;
       *buf = 138414850;
       if (pillCopy)
-      {
-        v27 = @"YES";
-      }
-
-      else
-      {
-        v27 = @"NO";
-      }
-
-      v40 = v34;
-      if (v35)
       {
         v28 = @"YES";
       }
@@ -3366,33 +3385,44 @@ LABEL_38:
         v28 = @"NO";
       }
 
-      v41 = 2112;
-      v42 = v23;
-      v43 = 2112;
-      v44 = v33;
-      v45 = 2112;
-      v46 = v32;
-      v47 = 2112;
-      v48 = v31;
-      v49 = 2112;
-      v50 = v21;
-      v51 = 2112;
-      v52 = v24;
-      v53 = 2112;
-      v54 = v29;
-      LOBYTE(v21) = v35;
-      v55 = 2112;
-      v56 = v26;
-      v57 = 2112;
-      v58 = v27;
-      v59 = 2112;
-      v60 = v28;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "shouldPresentDismissedForCall: callStatus:%@, isExpanseMessages:%@, isConversation:%@, isOutgoing:%@, isAudioCall:%@, wantsStagingArea:%@ avLessWantsDismised:%@ callProviderWantsDismissed:%@ isOutgoingIpadFTA:%@ tappedPill:%@ screeningWantsDismissed:%@", buf, 0x70u);
+      v41 = v35;
+      if (v36)
+      {
+        v29 = @"YES";
+      }
 
-      LOBYTE(v18) = v36;
+      else
+      {
+        v29 = @"NO";
+      }
+
+      v42 = 2112;
+      v43 = v24;
+      v44 = 2112;
+      v45 = v34;
+      v46 = 2112;
+      v47 = v33;
+      v48 = 2112;
+      v49 = v32;
+      v50 = 2112;
+      v51 = v22;
+      v52 = 2112;
+      v53 = v25;
+      v54 = 2112;
+      v55 = v30;
+      LOBYTE(v22) = v36;
+      v56 = 2112;
+      v57 = v27;
+      v58 = 2112;
+      v59 = v28;
+      v60 = 2112;
+      v61 = v29;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "shouldPresentDismissedForCall: callStatus:%@, isExpanseMessages:%@, isConversation:%@, isOutgoing:%@, isAudioCall:%@, wantsStagingArea:%@ avLessWantsDismised:%@ callProviderWantsDismissed:%@ isOutgoingIpadFTA:%@ tappedPill:%@ screeningWantsDismissed:%@", buf, 0x70u);
+
+      LOBYTE(v18) = v37;
     }
 
-    v11 = v18 | v37 | isOutgoing & !pillCopy | v38 | v21;
+    v11 = v18 | v38 | isOutgoing & !pillCopy | v39 | v22;
   }
 
   return v11 & 1;
@@ -3401,7 +3431,7 @@ LABEL_38:
 - (void)handleMenuBarTitleForCallUpgradeDowngradeNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -3415,11 +3445,11 @@ LABEL_38:
   if (isKindOfClass)
   {
     object2 = [notificationCopy object];
-    v9 = sub_100004F84();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100004F84(object2);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "handleMenuBarTitleForCallUpgradeDowngradeNotification: Call found, updating menu bar title now", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "handleMenuBarTitleForCallUpgradeDowngradeNotification: Call found, updating menu bar title now", v12, 2u);
     }
 
     [(ICSApplicationDelegate *)self updateiPadMenuBarApplicationName:object2];
@@ -3427,11 +3457,11 @@ LABEL_38:
 
   else
   {
-    object2 = sub_100004F84();
+    object2 = sub_100004F84(v8);
     if (os_log_type_enabled(object2, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&_mh_execute_header, object2, OS_LOG_TYPE_DEFAULT, "handleMenuBarTitleForCallUpgradeDowngradeNotification: Call not found, so we won't change anything", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&_mh_execute_header, object2, OS_LOG_TYPE_DEFAULT, "handleMenuBarTitleForCallUpgradeDowngradeNotification: Call not found, so we won't change anything", v11, 2u);
     }
   }
 }
@@ -3577,7 +3607,7 @@ LABEL_10:
 
   [v7 setShouldPreferContinuityDisplayForFullScreenPresentation:isOutgoing];
   v9 = MGGetProductType();
-  v10 = sub_100004F84();
+  v10 = sub_100004F84(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 134217984;
@@ -3707,12 +3737,12 @@ LABEL_10:
   pillCopy = pill;
   callCopy = call;
   requestCopy = request;
-  v10 = sub_100009960();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100009960(requestCopy, v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = callCopy;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Activating InCallService user interface for call %@", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = callCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Activating InCallService user interface for call %@", &v12, 0xCu);
   }
 
   [ICSAriadne trace:3];
@@ -3737,7 +3767,7 @@ LABEL_10:
 
   if (hasAdoptedModernInCallAPI)
   {
-    v63 = requestCopy;
+    v81 = requestCopy;
     v12 = [(ICSApplicationDelegate *)self configurationForCall:callCopy tappedPill:pillCopy];
     currentInCallScene = [(ICSApplicationDelegate *)self currentInCallScene];
     presentationMode = [currentInCallScene presentationMode];
@@ -3756,13 +3786,15 @@ LABEL_10:
 
     v17 = pillCopy && presentationMode == 1;
     preferredPresentationMode = [v12 preferredPresentationMode];
-    if ([callCopy isScreening] && objc_msgSend(callCopy, "receptionistState") == 3)
+    isScreening = [callCopy isScreening];
+    if (isScreening && (isScreening = [callCopy receptionistState], isScreening == 3))
     {
+      isScreening = [callCopy isWaitOnHoldActive];
       isSpringBoardLocked = 1;
-      if (([callCopy isWaitOnHoldActive] & 1) == 0 && !pillCopy && presentationMode != 1)
+      if ((isScreening & 1) == 0 && !pillCopy && presentationMode != 1)
       {
-        v20 = +[PHInCallUIUtilities sharedInstance];
-        isSpringBoardLocked = [v20 isSpringBoardLocked];
+        v22 = +[PHInCallUIUtilities sharedInstance];
+        isSpringBoardLocked = [v22 isSpringBoardLocked];
       }
     }
 
@@ -3771,102 +3803,103 @@ LABEL_10:
       isSpringBoardLocked = 1;
     }
 
-    v24 = hasExistingDismissedInCallScene | v17;
+    v28 = hasExistingDismissedInCallScene | v17;
     if (preferredPresentationMode)
     {
       ambientActivityController = [(ICSApplicationDelegate *)self ambientActivityController];
       [ambientActivityController requestActivityForCall:callCopy];
     }
 
-    if ((v24 & ((preferredPresentationMode != 0) | isIncomingCallBannerEnabled) & isSpringBoardLocked) == 1)
+    if ((v28 & ((preferredPresentationMode != 0) | isIncomingCallBannerEnabled) & isSpringBoardLocked) == 1)
     {
-      v26 = sub_100009960();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v30 = sub_100009960(isScreening, v20);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Already have a dismissed in-call scene. Requesting transition to full-screen", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Already have a dismissed in-call scene. Requesting transition to full-screen", buf, 2u);
       }
 
-      v27 = +[PHPIPController defaultPIPController];
-      isPipped = [v27 isPipped];
+      v31 = +[PHPIPController defaultPIPController];
+      isPipped = [v31 isPipped];
 
       if (!isPipped)
       {
-        v64 = callCopy;
+        v82 = callCopy;
         TUDispatchMainIfNecessary();
 
         goto LABEL_73;
       }
 
-      v29 = sub_100009960();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v35 = sub_100009960(v33, v34);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "InCallService is currently PIPped. Un-PIPping before going full-screen", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "InCallService is currently PIPped. Un-PIPping before going full-screen", buf, 2u);
       }
 
-      v30 = +[PHPIPController defaultPIPController];
-      if ([v30 isPIPProxyInterrupted])
+      v36 = +[PHPIPController defaultPIPController];
+      if ([v36 isPIPProxyInterrupted])
       {
         status = [callCopy status];
 
         if (status != 4)
         {
 LABEL_30:
-          v33 = +[NSNotificationCenter defaultCenter];
-          v34 = +[PHPIPController defaultPIPController];
-          [v33 postNotificationName:@"PHPIPControllerDidRequestReturnToFullScreenNotification" object:v34];
+          v41 = +[NSNotificationCenter defaultCenter];
+          v42 = +[PHPIPController defaultPIPController];
+          [v41 postNotificationName:@"PHPIPControllerDidRequestReturnToFullScreenNotification" object:v42];
 
 LABEL_42:
 LABEL_73:
 
-          requestCopy = v63;
+          requestCopy = v81;
           goto LABEL_74;
         }
 
-        v32 = sub_100009960();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+        v40 = sub_100009960(v38, v39);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "InCallService is presenting full-screen for a ringing call during a pip interrupted call", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "InCallService is presenting full-screen for a ringing call during a pip interrupted call", buf, 2u);
         }
 
-        v30 = +[PHPIPController defaultPIPController];
-        [v30 setExpectingSystemInitiatedPIPInterruptionStop:1];
+        v36 = +[PHPIPController defaultPIPController];
+        [v36 setExpectingSystemInitiatedPIPInterruptionStop:1];
       }
 
       goto LABEL_30;
     }
 
-    if ([(ICSApplicationDelegate *)self hasExistingFullScreenInCallScene])
+    hasExistingFullScreenInCallScene = [(ICSApplicationDelegate *)self hasExistingFullScreenInCallScene];
+    if (hasExistingFullScreenInCallScene)
     {
-      v37 = sub_100009960();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v47 = sub_100009960(hasExistingFullScreenInCallScene, v46);
+      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Already have a full-screen scene, assuming the status bar was tapped", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Already have a full-screen scene, assuming the status bar was tapped", buf, 2u);
       }
 
-      v38 = +[NSNotificationCenter defaultCenter];
-      [v38 postNotificationName:@"ICSStatusBarTappedNotification" object:0];
+      v48 = +[NSNotificationCenter defaultCenter];
+      [v48 postNotificationName:@"ICSStatusBarTappedNotification" object:0];
 
       featureFlags = [(PHApplicationDelegate *)self featureFlags];
-      LODWORD(v38) = [featureFlags callManagerEnabled];
+      LODWORD(v48) = [featureFlags callManagerEnabled];
 
-      if (!v38 || !pillCopy)
+      if (!v48 || !pillCopy)
       {
         goto LABEL_73;
       }
 
-      v40 = sub_100009960();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+      v52 = sub_100009960(v50, v51);
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Passing along fullscreen tap", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "Passing along fullscreen tap", buf, 2u);
       }
 
-      v33 = +[NSNotificationCenter defaultCenter];
-      [v33 postNotificationName:@"ICSStatusBarTapInFullScreenNotification" object:0];
+      v41 = +[NSNotificationCenter defaultCenter];
+      [v41 postNotificationName:@"ICSStatusBarTapInFullScreenNotification" object:0];
       goto LABEL_42;
     }
 
@@ -3875,12 +3908,16 @@ LABEL_73:
     {
     }
 
-    else if ([(ICSApplicationDelegate *)self hasActiveOrPendingInCallPresentation])
+    else
     {
-      v43 = sub_100009960();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+      hasActiveOrPendingInCallPresentation = [(ICSApplicationDelegate *)self hasActiveOrPendingInCallPresentation];
+      if (hasActiveOrPendingInCallPresentation)
       {
-        *buf = 0;
+        v57 = sub_100009960(hasActiveOrPendingInCallPresentation, v56);
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+        }
       }
     }
 
@@ -3895,19 +3932,19 @@ LABEL_56:
         goto LABEL_57;
       }
 
-      v46 = placeholderCallGroupUUID;
+      v60 = placeholderCallGroupUUID;
       callGroupUUID = [callCopy callGroupUUID];
       bannerPresentationManager2 = [(ICSApplicationDelegate *)self bannerPresentationManager];
       placeholderCallGroupUUID2 = [bannerPresentationManager2 placeholderCallGroupUUID];
-      v50 = [callGroupUUID isEqual:placeholderCallGroupUUID2];
+      v64 = [callGroupUUID isEqual:placeholderCallGroupUUID2];
 
-      if (v50)
+      if (v64)
       {
-        v51 = sub_100004F84();
-        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+        v66 = sub_100004F84(v65);
+        if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "Presenting banner scene for call that matches systemHUD's AVLess convo. Dismissing HUD.", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_DEFAULT, "Presenting banner scene for call that matches systemHUD's AVLess convo. Dismissing HUD.", buf, 2u);
         }
 
         bannerPresentationManager = [(ICSApplicationDelegate *)self bannerPresentationManager];
@@ -3920,11 +3957,11 @@ LABEL_57:
     [(ICSApplicationDelegate *)self performPresentationWithConfiguration:v12 forSceneType:0];
     if ([callCopy launchInBackground] && objc_msgSend(callCopy, "isVideo") && !objc_msgSend(v12, "preferredPresentationMode"))
     {
-      v60 = sub_100009960();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
+      v78 = sub_100009960(0, v67);
+      if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "Activating InCallService user interface for background call with initially PiPped", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "Activating InCallService user interface for background call with initially PiPped", buf, 2u);
       }
 
       [(ICSApplicationDelegate *)self requestBackgroundPiPAuthorizationOfDismissedInCallSceneForCall:callCopy];
@@ -3944,29 +3981,29 @@ LABEL_57:
       bannerPresentationManager3 = [(ICSApplicationDelegate *)self bannerPresentationManager];
       callUUID = [bannerPresentationManager3 callUUID];
       uniqueProxyIdentifierUUID = [callCopy uniqueProxyIdentifierUUID];
-      v57 = [callUUID isEqual:uniqueProxyIdentifierUUID];
+      v73 = [callUUID isEqual:uniqueProxyIdentifierUUID];
 
-      v58 = sub_100009960();
-      v59 = os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT);
-      if (v57)
+      v76 = sub_100009960(v74, v75);
+      v77 = os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT);
+      if (v73)
       {
-        if (v59)
+        if (v77)
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "Requested to present scene as dismissed, so requesting to present call controls", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "Requested to present scene as dismissed, so requesting to present call controls", buf, 2u);
         }
 
         [(ICSApplicationDelegate *)self showCallControlsForCurrentContext];
         goto LABEL_73;
       }
 
-      if (v59)
+      if (v77)
       {
-        v61 = v58;
+        v79 = v76;
         uniqueProxyIdentifierUUID2 = [callCopy uniqueProxyIdentifierUUID];
         *buf = 138412290;
-        v66 = uniqueProxyIdentifierUUID2;
-        _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, "Waiting to present banner for callUUID %@", buf, 0xCu);
+        v84 = uniqueProxyIdentifierUUID2;
+        _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_DEFAULT, "Waiting to present banner for callUUID %@", buf, 0xCu);
       }
 
       featureFlags2 = [callCopy uniqueProxyIdentifierUUID];
@@ -3977,28 +4014,29 @@ LABEL_57:
   }
 
   launchInBackground = [callCopy launchInBackground];
-  v22 = sub_100009960();
-  v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
-  if (launchInBackground)
+  v24 = launchInBackground;
+  v26 = sub_100009960(launchInBackground, v25);
+  v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
+  if (v24)
   {
-    if (v23)
+    if (v27)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Skipping SpringBoard remote alert as call requested to launchInBackground", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Skipping SpringBoard remote alert as call requested to launchInBackground", buf, 2u);
     }
   }
 
   else
   {
-    if (v23)
+    if (v27)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Activating a new SpringBoard remote alert", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Activating a new SpringBoard remote alert", buf, 2u);
     }
 
-    v35 = [(ICSApplicationDelegate *)self springBoardRemoteAlertOptionsForCall:callCopy dialRequest:requestCopy];
-    v36 = +[NSBundle mainBundle];
-    [v36 bundleIdentifier];
+    v43 = [(ICSApplicationDelegate *)self springBoardRemoteAlertOptionsForCall:callCopy dialRequest:requestCopy];
+    v44 = +[NSBundle mainBundle];
+    [v44 bundleIdentifier];
     SBSUIActivateRemoteAlert();
   }
 
@@ -4011,32 +4049,32 @@ LABEL_74:
   featureFlags = [(PHApplicationDelegate *)self featureFlags];
   screenSharingRemoteControlEnabled = [featureFlags screenSharingRemoteControlEnabled];
 
-  v7 = sub_100009960();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  v9 = sub_100009960(v7, v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
   if (screenSharingRemoteControlEnabled)
   {
-    if (v8)
+    if (v10)
     {
-      v14 = 138412290;
-      v15 = broadcasterCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Requesting presentation for screen sharing broadcaster: %@", &v14, 0xCu);
+      v16 = 138412290;
+      v17 = broadcasterCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Requesting presentation for screen sharing broadcaster: %@", &v16, 0xCu);
     }
 
     sceneManager = [(ICSApplicationDelegate *)self sceneManager];
     [sceneManager didRequestSceneOfType:2 withIdentifier:0];
 
-    v10 = objc_opt_new();
-    uiSceneSessionRole = [v10 uiSceneSessionRole];
-    v12 = [UISceneSessionActivationRequest requestWithRole:uiSceneSessionRole];
+    v12 = objc_opt_new();
+    uiSceneSessionRole = [v12 uiSceneSessionRole];
+    v14 = [UISceneSessionActivationRequest requestWithRole:uiSceneSessionRole];
 
-    v13 = +[UIApplication sharedApplication];
-    [v13 activateSceneSessionForRequest:v12 errorHandler:&stru_100357B18];
+    v15 = +[UIApplication sharedApplication];
+    [v15 activateSceneSessionForRequest:v14 errorHandler:&stru_100357B18];
   }
 
-  else if (v8)
+  else if (v10)
   {
-    LOWORD(v14) = 0;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Not requesting presentation for screen sharing broadcaster, Essonite features are disabled.", &v14, 2u);
+    LOWORD(v16) = 0;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Not requesting presentation for screen sharing broadcaster, Essonite features are disabled.", &v16, 2u);
   }
 }
 
@@ -4047,78 +4085,79 @@ LABEL_74:
 
   if (v4)
   {
-    v5 = sub_100009960();
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100009960(v5, v6);
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       return;
     }
 
-    v17 = 0;
-    v6 = "Already requested presentation from ClarityBoard, so skipping new request.";
-    v7 = &v17;
-    v8 = v5;
+    v21 = 0;
+    v8 = "Already requested presentation from ClarityBoard, so skipping new request.";
+    v9 = &v21;
+    v10 = v7;
 LABEL_7:
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, v6, v7, 2u);
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, v8, v9, 2u);
     return;
   }
 
   sceneManager2 = [(ICSApplicationDelegate *)self sceneManager];
   clarityUIScene = [sceneManager2 clarityUIScene];
 
-  v11 = sub_100009960();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  v15 = sub_100009960(v13, v14);
+  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
   if (clarityUIScene)
   {
-    if (!v12)
+    if (!v16)
     {
       return;
     }
 
     *buf = 0;
-    v6 = "Already presented by ClarityBoard, so skipping new request.";
-    v7 = buf;
-    v8 = v11;
+    v8 = "Already presented by ClarityBoard, so skipping new request.";
+    v9 = buf;
+    v10 = v15;
     goto LABEL_7;
   }
 
-  if (v12)
+  if (v16)
   {
-    *v15 = 0;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Requesting presentation from ClarityBoard.", v15, 2u);
+    *v19 = 0;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Requesting presentation from ClarityBoard.", v19, 2u);
   }
 
   sceneManager3 = [(ICSApplicationDelegate *)self sceneManager];
   [sceneManager3 didRequestSceneOfType:3 withIdentifier:0];
 
-  v14 = +[UIApplication sharedApplication];
-  [v14 requestSceneSessionActivation:0 userActivity:0 options:0 errorHandler:&stru_100357B38];
+  v18 = +[UIApplication sharedApplication];
+  [v18 requestSceneSessionActivation:0 userActivity:0 options:0 errorHandler:&stru_100357B38];
 }
 
 - (void)requestPTTPresentation:(int64_t)presentation forCall:(id)call
 {
   callCopy = call;
-  v7 = sub_100009960();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100009960(callCopy, v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  if (v9)
   {
-    v17 = 138412290;
-    v18 = callCopy;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Requesting PTT presentation for call %@", &v17, 0xCu);
+    v24 = 138412290;
+    v25 = callCopy;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Requesting PTT presentation for call %@", &v24, 0xCu);
   }
 
   if (presentation > 1)
   {
     if (presentation == 2)
     {
-      v14 = +[PHInCallUIUtilities sharedInstance];
-      isSpringBoardLocked = [v14 isSpringBoardLocked];
+      v19 = +[PHInCallUIUtilities sharedInstance];
+      isSpringBoardLocked = [v19 isSpringBoardLocked];
 
       if ((isSpringBoardLocked & 1) == 0)
       {
-        v16 = sub_100009960();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v23 = sub_100009960(v21, v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v17) = 0;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Activating PTT user interface as notice for incoming transmission if needed", &v17, 2u);
+          LOWORD(v24) = 0;
+          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Activating PTT user interface as notice for incoming transmission if needed", &v24, 2u);
         }
 
         [(ICSApplicationDelegate *)self presentDismissedPTTSceneForCall:callCopy];
@@ -4130,16 +4169,16 @@ LABEL_7:
 
     else if (presentation == 3)
     {
-      v10 = +[PHInCallUIUtilities sharedInstance];
-      isSpringBoardLocked2 = [v10 isSpringBoardLocked];
+      v13 = +[PHInCallUIUtilities sharedInstance];
+      isSpringBoardLocked2 = [v13 isSpringBoardLocked];
 
       if ((isSpringBoardLocked2 & 1) == 0)
       {
-        v12 = sub_100009960();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v17 = sub_100009960(v15, v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v17) = 0;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Activating PTT user interface as notice for acessory button events if needed", &v17, 2u);
+          LOWORD(v24) = 0;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Activating PTT user interface as notice for acessory button events if needed", &v24, 2u);
         }
 
         [(ICSApplicationDelegate *)self presentDismissedPTTSceneForCall:callCopy];
@@ -4154,11 +4193,11 @@ LABEL_7:
   {
     if (presentation == 1)
     {
-      v8 = sub_100009960();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100009960(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v17) = 0;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Activating PTT user interface as banner", &v17, 2u);
+        LOWORD(v24) = 0;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Activating PTT user interface as banner", &v24, 2u);
       }
 
       [(ICSApplicationDelegate *)self presentDismissedPTTSceneForCall:callCopy];
@@ -4170,11 +4209,11 @@ LABEL_21:
 
   else
   {
-    v13 = sub_100009960();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v18 = sub_100009960(v9, v10);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Not activating PTT user interface because presentation was unknown", &v17, 2u);
+      LOWORD(v24) = 0;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Not activating PTT user interface because presentation was unknown", &v24, 2u);
     }
   }
 }
@@ -4182,21 +4221,21 @@ LABEL_21:
 - (void)presentDismissedPTTSceneForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100009960();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100009960(callCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v7 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Activating InCallService PTT user interface as full screen scene in dismissed mode", v7, 2u);
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Activating InCallService PTT user interface as full screen scene in dismissed mode", v8, 2u);
   }
 
-  v6 = [(ICSApplicationDelegate *)self configurationForPTTSessionWithCall:callCopy preferredPresentationMode:0];
+  v7 = [(ICSApplicationDelegate *)self configurationForPTTSessionWithCall:callCopy preferredPresentationMode:0];
 
-  [(ICSApplicationDelegate *)self performPresentationWithConfiguration:v6 forSceneType:0];
+  [(ICSApplicationDelegate *)self performPresentationWithConfiguration:v7 forSceneType:0];
 }
 
 - (void)dismissPTTSessionPresentation
 {
-  v3 = sub_100009960();
+  v3 = sub_100009960(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -4232,7 +4271,7 @@ LABEL_21:
 
 - (void)bannerPresentationManagerShowFullscreenPTTCallDetailsView
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -4246,7 +4285,7 @@ LABEL_21:
 
 - (void)bannerPresentationManagerGameOverlayDidOpen
 {
-  v3 = sub_100009960();
+  v3 = sub_100009960(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -4271,26 +4310,26 @@ LABEL_21:
 - (void)requestGreenTea3PPresentationForCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100009960();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100009960(callCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = callCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Requesting GreenTea3P presentation for call %@", buf, 0xCu);
+    v15 = callCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Requesting GreenTea3P presentation for call %@", buf, 0xCu);
   }
 
   configurationForGreenTea3P = [(ICSApplicationDelegate *)self configurationForGreenTea3P];
   [(ICSApplicationDelegate *)self performPresentationWithConfiguration:configurationForGreenTea3P forSceneType:6];
   currentInCallScene = [(ICSApplicationDelegate *)self currentInCallScene];
-  if (currentInCallScene && (v8 = currentInCallScene, -[ICSApplicationDelegate currentInCallScene](self, "currentInCallScene"), v9 = objc_claimAutoreleasedReturnValue(), v10 = [v9 presentationMode], v9, v8, v10))
+  if (currentInCallScene && (v9 = currentInCallScene, -[ICSApplicationDelegate currentInCallScene](self, "currentInCallScene"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [v10 presentationMode], v10, v9, v11))
   {
     currentInCallScene2 = [(ICSApplicationDelegate *)self currentInCallScene];
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_10007F51C;
-    v12[3] = &unk_100357AF8;
-    v12[4] = self;
-    [currentInCallScene2 ics_requestTransitionToPresentationMode:0 shouldDismissCMASAlerts:0 analyticsSource:0 completion:v12];
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_10007F51C;
+    v13[3] = &unk_100357AF8;
+    v13[4] = self;
+    [currentInCallScene2 ics_requestTransitionToPresentationMode:0 shouldDismissCMASAlerts:0 analyticsSource:0 completion:v13];
   }
 
   else
@@ -4330,43 +4369,43 @@ LABEL_21:
 - (void)updatePresentationIfNecessaryForGreenTea3PCall:(id)call
 {
   callCopy = call;
-  v5 = sub_100009960();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100009960(callCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 138412290;
-    v19 = callCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Updating presentation if necessary for GreenTea3P call: %@", &v18, 0xCu);
+    v19 = 138412290;
+    v20 = callCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Updating presentation if necessary for GreenTea3P call: %@", &v19, 0xCu);
   }
 
-  v6 = +[TUCallCenter sharedInstance];
-  v7 = [v6 callsPassingTest:&stru_100357B98];
-  v8 = [v7 count];
+  v7 = +[TUCallCenter sharedInstance];
+  v8 = [v7 callsPassingTest:&stru_100357B98];
+  v9 = [v8 count];
 
-  if (!v8)
+  if (!v9)
   {
     [(ICSApplicationDelegate *)self dismissInCallSceneOfType:6];
   }
 
-  v9 = +[TUCallCenter sharedInstance];
-  frontmostAudioOrVideoCall = [v9 frontmostAudioOrVideoCall];
+  v10 = +[TUCallCenter sharedInstance];
+  frontmostAudioOrVideoCall = [v10 frontmostAudioOrVideoCall];
   provider = [frontmostAudioOrVideoCall provider];
   supportsDynamicSystemUI = [provider supportsDynamicSystemUI];
 
-  v13 = +[TUCallCenter sharedInstance];
-  frontmostAudioOrVideoCall2 = [v13 frontmostAudioOrVideoCall];
-  v15 = [(ICSApplicationDelegate *)self shouldActivateSpringBoardRemoteAlertForCall:frontmostAudioOrVideoCall2];
+  v14 = +[TUCallCenter sharedInstance];
+  frontmostAudioOrVideoCall2 = [v14 frontmostAudioOrVideoCall];
+  v16 = [(ICSApplicationDelegate *)self shouldActivateSpringBoardRemoteAlertForCall:frontmostAudioOrVideoCall2];
 
-  if ((supportsDynamicSystemUI & 1) == 0 && v15)
+  if ((supportsDynamicSystemUI & 1) == 0 && v16)
   {
-    v16 = +[TUCallCenter sharedInstance];
-    frontmostAudioOrVideoCall3 = [v16 frontmostAudioOrVideoCall];
+    v17 = +[TUCallCenter sharedInstance];
+    frontmostAudioOrVideoCall3 = [v17 frontmostAudioOrVideoCall];
     [(ICSApplicationDelegate *)self requestPresentationForCall:frontmostAudioOrVideoCall3 dialRequest:0];
   }
 }
 
 - (void)requestWaitOnHoldBannerPresentation
 {
-  v3 = sub_100009960();
+  v3 = sub_100009960(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -4517,7 +4556,7 @@ LABEL_16:
 
 - (void)requestHandoffEligibleConversationPresentation
 {
-  v3 = sub_100009960();
+  v3 = sub_100009960(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -4530,7 +4569,7 @@ LABEL_16:
 
 - (void)requestLagunaPullConversationPresentation
 {
-  v3 = sub_100009960();
+  v3 = sub_100009960(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -4547,21 +4586,21 @@ LABEL_16:
   featureFlags = [(PHApplicationDelegate *)self featureFlags];
   supportsScreenSharing = [featureFlags supportsScreenSharing];
 
-  v7 = sub_100009960();
-  v8 = v7;
+  v9 = sub_100009960(v7, v8);
+  v10 = v9;
   if (supportsScreenSharing)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10[0] = 67109120;
-      v10[1] = pCopy;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Activating InCallService user interface for Screen Sharing with initially PiPped: %i", v10, 8u);
+      v12[0] = 67109120;
+      v12[1] = pCopy;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Activating InCallService user interface for Screen Sharing with initially PiPped: %i", v12, 8u);
     }
 
     if (pCopy)
     {
-      v9 = [(ICSApplicationDelegate *)self configurationForScreenSharingInitiallyInPiP:1];
-      [(ICSApplicationDelegate *)self requestBackgroundPiPAuthorizationForSceneType:1 withConfiguration:v9];
+      v11 = [(ICSApplicationDelegate *)self configurationForScreenSharingInitiallyInPiP:1];
+      [(ICSApplicationDelegate *)self requestBackgroundPiPAuthorizationForSceneType:1 withConfiguration:v11];
     }
 
     else
@@ -4570,7 +4609,7 @@ LABEL_16:
     }
   }
 
-  else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     sub_100254DB4();
   }
@@ -4584,30 +4623,30 @@ LABEL_16:
   v7 = [sceneManager hasPendingCompletionForSceneType:0 presentationMode:2];
 
   v8 = hasExistingDismissedInCallScene ^ 1;
-  v9 = sub_100009960();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  v11 = sub_100009960(v9, v10);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
   if ((v8 & 1) != 0 || v7)
   {
-    if (v10)
+    if (v12)
     {
-      v12[0] = 67109376;
-      v12[1] = v8;
-      v13 = 1024;
-      v14 = v7;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Not requesting background PiP authorization since there isn't a dismissed in-call scene (%d) or we're in the midst of presenting a fullscreen scene (%d)", v12, 0xEu);
+      v14[0] = 67109376;
+      v14[1] = v8;
+      v15 = 1024;
+      v16 = v7;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Not requesting background PiP authorization since there isn't a dismissed in-call scene (%d) or we're in the midst of presenting a fullscreen scene (%d)", v14, 0xEu);
     }
   }
 
   else
   {
-    if (v10)
+    if (v12)
     {
-      LOWORD(v12[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Requesting background PiP authorization for dismissed in-call scene", v12, 2u);
+      LOWORD(v14[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Requesting background PiP authorization for dismissed in-call scene", v14, 2u);
     }
 
-    v11 = [ICSApplicationDelegate configurationForCall:callCopy preferredPresentationMode:0];
-    [(ICSApplicationDelegate *)self requestBackgroundPiPAuthorizationForSceneType:0 withConfiguration:v11];
+    v13 = [ICSApplicationDelegate configurationForCall:callCopy preferredPresentationMode:0];
+    [(ICSApplicationDelegate *)self requestBackgroundPiPAuthorizationForSceneType:0 withConfiguration:v13];
   }
 }
 
@@ -4631,29 +4670,29 @@ LABEL_16:
 
   if (v11)
   {
-    v12 = sub_100009960();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100009960(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = v12;
-      v14 = sub_100030C10(type);
+      v15 = v14;
+      v16 = sub_100030C10(type);
       *buf = 138543362;
-      v35 = v14;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Already have existing background authorization request for scene of type %{public}@; removing old request", buf, 0xCu);
+      v37 = v16;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Already have existing background authorization request for scene of type %{public}@; removing old request", buf, 0xCu);
     }
 
-    [(ICSApplicationDelegate *)self revokeAndRemoveBackgroundPiPAuthorizationForSceneTypeIfNeeded:type];
+    v12 = [(ICSApplicationDelegate *)self revokeAndRemoveBackgroundPiPAuthorizationForSceneTypeIfNeeded:type];
   }
 
-  v15 = sub_100009960();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v17 = sub_100009960(v12, v13);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = v15;
-    v17 = sub_100030C10(type);
+    v18 = v17;
+    v19 = sub_100030C10(type);
     *buf = 138543618;
-    v35 = v17;
-    v36 = 2114;
-    v37 = uUIDString;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Requesting background PiP authorization for %{public}@ scene with activity session identifier '%{public}@'", buf, 0x16u);
+    v37 = v19;
+    v38 = 2114;
+    v39 = uUIDString;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Requesting background PiP authorization for %{public}@ scene with activity session identifier '%{public}@'", buf, 0x16u);
   }
 
   sceneManager = [(ICSApplicationDelegate *)self sceneManager];
@@ -4661,24 +4700,24 @@ LABEL_16:
   [sceneManager didRequestSceneOfType:type withIdentifier:identifier];
 
   objc_initWeak(buf, self);
-  v20 = [PGBackgroundPIPAuthorization alloc];
-  v27 = _NSConcreteStackBlock;
-  v28 = 3221225472;
-  v29 = sub_1000803D8;
-  v30 = &unk_100357BE8;
-  objc_copyWeak(v33, buf);
-  v21 = TUBundleIdentifierInCallServiceApplication;
-  v33[1] = type;
-  v22 = uUIDString;
-  v31 = v22;
-  v23 = configurationCopy;
-  v32 = v23;
-  v24 = [v20 initWithActivitySessionIdentifier:v22 appBundleIdentifier:v21 stateTransitionHandler:&v27];
-  v25 = [(ICSApplicationDelegate *)self backgroundPIPAuthorizationForSceneType:v27];
-  v26 = [NSNumber numberWithUnsignedInteger:type];
-  [v25 setObject:v24 forKeyedSubscript:v26];
+  v22 = [PGBackgroundPIPAuthorization alloc];
+  v29 = _NSConcreteStackBlock;
+  v30 = 3221225472;
+  v31 = sub_1000803D8;
+  v32 = &unk_100357BE8;
+  objc_copyWeak(v35, buf);
+  v23 = TUBundleIdentifierInCallServiceApplication;
+  v35[1] = type;
+  v24 = uUIDString;
+  v33 = v24;
+  v25 = configurationCopy;
+  v34 = v25;
+  v26 = [v22 initWithActivitySessionIdentifier:v24 appBundleIdentifier:v23 stateTransitionHandler:&v29];
+  v27 = [(ICSApplicationDelegate *)self backgroundPIPAuthorizationForSceneType:v29];
+  v28 = [NSNumber numberWithUnsignedInteger:type];
+  [v27 setObject:v26 forKeyedSubscript:v28];
 
-  objc_destroyWeak(v33);
+  objc_destroyWeak(v35);
   objc_destroyWeak(buf);
 }
 
@@ -4690,21 +4729,21 @@ LABEL_16:
 
   if (v7)
   {
-    v8 = sub_100009960();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = sub_100009960(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v9 = v8;
-      v10 = sub_100030C10(needed);
-      v13 = 138543362;
-      v14 = v10;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Revoking and removing existing background authorization for %{public}@ scene", &v13, 0xCu);
+      v11 = v10;
+      v12 = sub_100030C10(needed);
+      v15 = 138543362;
+      v16 = v12;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Revoking and removing existing background authorization for %{public}@ scene", &v15, 0xCu);
     }
   }
 
   [v7 revoke];
   backgroundPIPAuthorizationForSceneType2 = [(ICSApplicationDelegate *)self backgroundPIPAuthorizationForSceneType];
-  v12 = [NSNumber numberWithUnsignedInteger:needed];
-  [backgroundPIPAuthorizationForSceneType2 removeObjectForKey:v12];
+  v14 = [NSNumber numberWithUnsignedInteger:needed];
+  [backgroundPIPAuthorizationForSceneType2 removeObjectForKey:v14];
 }
 
 - (void)dismissInCallSceneSession
@@ -4727,28 +4766,28 @@ LABEL_16:
   sceneManager = [(ICSApplicationDelegate *)self sceneManager];
   clarityUIScene = [sceneManager clarityUIScene];
 
-  v5 = sub_100009960();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  v7 = sub_100009960(v5, v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (clarityUIScene)
   {
-    if (v6)
+    if (v8)
     {
-      *v10 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Dismissing Assistive Access scene.", v10, 2u);
+      *v12 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Dismissing Assistive Access scene.", v12, 2u);
     }
 
-    v7 = +[UIApplication sharedApplication];
+    v9 = +[UIApplication sharedApplication];
     session = [clarityUIScene session];
-    [v7 requestSceneSessionDestruction:session options:0 errorHandler:&stru_100357C28];
+    [v9 requestSceneSessionDestruction:session options:0 errorHandler:&stru_100357C28];
 
     sceneManager2 = [(ICSApplicationDelegate *)self sceneManager];
     [sceneManager2 didDismissSceneOfType:3];
   }
 
-  else if (v6)
+  else if (v8)
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Attempted to dismiss Assistive Access scene, but none was showing.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Attempted to dismiss Assistive Access scene, but none was showing.", buf, 2u);
   }
 }
 
@@ -4762,7 +4801,7 @@ LABEL_16:
 
 - (void)requestSpringBoardPresentationForSOS
 {
-  v3 = sub_100009960();
+  v3 = sub_100009960(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -4780,30 +4819,30 @@ LABEL_16:
 
       if (currentInCallScene)
       {
-        v7 = +[PHPIPController defaultPIPController];
-        isPipped = [v7 isPipped];
+        v9 = +[PHPIPController defaultPIPController];
+        isPipped = [v9 isPipped];
 
-        v9 = sub_100009960();
-        v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+        v13 = sub_100009960(v11, v12);
+        v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
         if (isPipped)
         {
-          if (v10)
+          if (v14)
           {
-            *v15 = 0;
-            _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "InCallService is currently PIPped. Un-PIPping now, then the scene should transition to full-screen overlay after the call disconnects.", v15, 2u);
+            *v19 = 0;
+            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "InCallService is currently PIPped. Un-PIPping now, then the scene should transition to full-screen overlay after the call disconnects.", v19, 2u);
           }
 
-          v11 = +[NSNotificationCenter defaultCenter];
-          v12 = +[PHPIPController defaultPIPController];
-          [v11 postNotificationName:@"PHPIPControllerDidRequestReturnToFullScreenNotification" object:v12];
+          v15 = +[NSNotificationCenter defaultCenter];
+          v16 = +[PHPIPController defaultPIPController];
+          [v15 postNotificationName:@"PHPIPControllerDidRequestReturnToFullScreenNotification" object:v16];
         }
 
         else
         {
-          if (v10)
+          if (v14)
           {
-            *v14 = 0;
-            _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "There's an existing in-call scene, transitioning to full-screen overlay for SOS", v14, 2u);
+            *v18 = 0;
+            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "There's an existing in-call scene, transitioning to full-screen overlay for SOS", v18, 2u);
           }
 
           [(ICSApplicationDelegate *)self transitionSceneToOverlayForSOS];
@@ -4812,11 +4851,11 @@ LABEL_16:
 
       else
       {
-        v13 = sub_100009960();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v17 = sub_100009960(v7, v8);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          *v16 = 0;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "While requesting a new scene for SOS, hasActiveOrPendingInCallPresentation is YES but currentInCallScene is nil. This is likely because we already requested a scene, but it hasn't been created yet. The new scene should transition to full-screen overlay as soon as it connects.", v16, 2u);
+          *v20 = 0;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "While requesting a new scene for SOS, hasActiveOrPendingInCallPresentation is YES but currentInCallScene is nil. This is likely because we already requested a scene, but it hasn't been created yet. The new scene should transition to full-screen overlay as soon as it connects.", v20, 2u);
         }
       }
     }
@@ -4835,7 +4874,7 @@ LABEL_16:
 
 - (void)requestPresentationForScreenTime
 {
-  v3 = sub_100009960();
+  v3 = sub_100009960(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -4859,24 +4898,24 @@ LABEL_16:
   {
     currentInCallScene = [(ICSApplicationDelegate *)self currentInCallScene];
 
-    v4 = sub_100009960();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+    v6 = sub_100009960(v4, v5);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
     if (currentInCallScene)
     {
-      if (v5)
+      if (v7)
       {
-        *v7 = 0;
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "There's an existing in-call scene, transitioning to full-screen overlay for ScreenTime", v7, 2u);
+        *v9 = 0;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "There's an existing in-call scene, transitioning to full-screen overlay for ScreenTime", v9, 2u);
       }
 
       currentInCallScene2 = [(ICSApplicationDelegate *)self currentInCallScene];
       [currentInCallScene2 requestTransitionToPresentationMode:2 shouldDismissCMASAlerts:0];
     }
 
-    else if (v5)
+    else if (v7)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "While requesting a new scene for ScreenTime, hasActiveOrPendingInCallPresentation is YES but currentInCallScene is nil. This is likely because we already requested a scene, but it hasn't been created yet. The new scene should transition to full-screen overlay as soon as it connects.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "While requesting a new scene for ScreenTime, hasActiveOrPendingInCallPresentation is YES but currentInCallScene is nil. This is likely because we already requested a scene, but it hasn't been created yet. The new scene should transition to full-screen overlay as soon as it connects.", buf, 2u);
     }
   }
 
@@ -4889,7 +4928,7 @@ LABEL_16:
 
 - (void)requestSpringBoardPresentationForCallDetailsView
 {
-  v3 = sub_100009960();
+  v3 = sub_100009960(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -4904,20 +4943,21 @@ LABEL_16:
 
 - (void)requestFullScreenSpringBoardPresentationForCallDetailsView
 {
-  v3 = sub_100009960();
+  v3 = sub_100009960(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Activating InCallService user interface, in fullscreen, for call details view", buf, 2u);
   }
 
-  if ([(ICSApplicationDelegate *)self hasActiveOrPendingInCallPresentation])
+  hasActiveOrPendingInCallPresentation = [(ICSApplicationDelegate *)self hasActiveOrPendingInCallPresentation];
+  if (hasActiveOrPendingInCallPresentation)
   {
-    v4 = sub_100009960();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100009960(hasActiveOrPendingInCallPresentation, v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Already have a scene, requesting scene to be presented FullScreen", v6, 2u);
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Already have a scene, requesting scene to be presented FullScreen", v8, 2u);
     }
 
     currentInCallScene = [(ICSApplicationDelegate *)self currentInCallScene];
@@ -4943,7 +4983,7 @@ LABEL_16:
 
 - (void)activateSpringBoardRemoteAlertForSOSCall
 {
-  v3 = sub_100009960();
+  v3 = sub_100009960(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;
@@ -4973,35 +5013,39 @@ LABEL_16:
 
   if (v7 == 1)
   {
-    v8 = sub_100009960();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100009960(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v12) = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Suppressing showing scene for nil call", &v12, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Suppressing showing scene for nil call", &v16, 2u);
     }
   }
 
-  v9 = v7 ^ 1;
+  v11 = v7 ^ 1;
   if ([callCopy isEmergency])
   {
     if (PHGetEmergencyDialerPresenceTokenValue())
     {
-      if (([callCopy isRTT] & 1) == 0 && (objc_msgSend(callCopy, "isTTY") & 1) == 0)
+      if (([callCopy isRTT] & 1) == 0)
       {
-        v10 = sub_100009960();
-        v9 = 0;
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        isTTY = [callCopy isTTY];
+        if ((isTTY & 1) == 0)
         {
-          v12 = 138412290;
-          v13 = callCopy;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "suppressing showing alert for call because it's an emergency call, the emergency dialer presence token is set, and call is not RTT/TTY: %@", &v12, 0xCu);
-          v9 = 0;
+          v14 = sub_100009960(isTTY, v13);
+          v11 = 0;
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          {
+            v16 = 138412290;
+            v17 = callCopy;
+            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "suppressing showing alert for call because it's an emergency call, the emergency dialer presence token is set, and call is not RTT/TTY: %@", &v16, 0xCu);
+            v11 = 0;
+          }
         }
       }
     }
   }
 
-  return v9;
+  return v11;
 }
 
 - (id)springBoardRemoteAlertOptionsForCall:(id)call dialRequest:(id)request
@@ -5294,33 +5338,34 @@ LABEL_16:
 - (void)startSOSFlowWithActivationReason:(id)reason
 {
   reasonCopy = reason;
-  v5 = sub_10010D888();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_10010D888(reasonCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = reasonCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Starting SOS flow with activation reason %@", &v11, 0xCu);
+    v14 = 138412290;
+    v15 = reasonCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Starting SOS flow with activation reason %@", &v14, 0xCu);
   }
 
-  v6 = [[ICSActivationContext alloc] initWithReason:reasonCopy userInfo:0];
-  [(ICSApplicationDelegate *)self setActivationContext:v6];
+  v7 = [[ICSActivationContext alloc] initWithReason:reasonCopy userInfo:0];
+  [(ICSApplicationDelegate *)self setActivationContext:v7];
 
   if ([reasonCopy isEqualToString:SOSRemoteAlertActivationReasonActivatingForSOSAlertRestingScreen])
   {
-    v7 = +[TUCallCenter sharedInstance];
-    [v7 disconnectAllCallsWithNoPreflight];
-    v8 = off_100359460;
+    v8 = +[TUCallCenter sharedInstance];
+    [v8 disconnectAllCallsWithNoPreflight];
+    v9 = off_100359460;
     goto LABEL_10;
   }
 
-  if (![(ICSApplicationDelegate *)self hasOngoingEmergencyCall])
+  hasOngoingEmergencyCall = [(ICSApplicationDelegate *)self hasOngoingEmergencyCall];
+  if (!hasOngoingEmergencyCall)
   {
-    v7 = +[TUCallCenter sharedInstance];
-    [v7 disconnectAllCalls];
-    v8 = off_100359418;
+    v8 = +[TUCallCenter sharedInstance];
+    [v8 disconnectAllCalls];
+    v9 = off_100359418;
 LABEL_10:
 
-    [PHInCallRootViewController obtainDismissalAssertionForReason:*v8];
+    [PHInCallRootViewController obtainDismissalAssertionForReason:*v9];
     if ([(ICSApplicationDelegate *)self isClarityBoardActive])
     {
       [(ICSApplicationDelegate *)self requestClarityBoardPresentation];
@@ -5341,15 +5386,15 @@ LABEL_10:
     goto LABEL_13;
   }
 
-  v9 = sub_10010D888();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v12 = sub_10010D888(hasOngoingEmergencyCall, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v11) = 0;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Cancelling SOS due to ongoing emergency call", &v11, 2u);
+    LOWORD(v14) = 0;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Cancelling SOS due to ongoing emergency call", &v14, 2u);
   }
 
-  v10 = +[SOSStatusReporter sharedInstance];
-  [v10 updateSOSFlowState:6];
+  v13 = +[SOSStatusReporter sharedInstance];
+  [v13 updateSOSFlowState:6];
 
 LABEL_13:
 }
@@ -5409,27 +5454,27 @@ LABEL_12:
 - (void)startScreenTimeFlowWithURL:(id)l
 {
   lCopy = l;
-  v5 = sub_10010D80C();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_10010D80C(lCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = lCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Starting ScreenTime flow with URL %@", buf, 0xCu);
+    v16 = lCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Starting ScreenTime flow with URL %@", buf, 0xCu);
   }
 
-  v6 = [ICSActivationContext alloc];
-  v7 = SOSRemoteAlertActivationReasonActivatingForScreenTime;
+  v7 = [ICSActivationContext alloc];
+  v8 = SOSRemoteAlertActivationReasonActivatingForScreenTime;
   absoluteString = [lCopy absoluteString];
-  v13 = absoluteString;
-  v9 = [NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1];
-  v10 = [(ICSActivationContext *)v6 initWithReason:v7 userInfo:v9];
+  v14 = absoluteString;
+  v10 = [NSDictionary dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v11 = [(ICSActivationContext *)v7 initWithReason:v8 userInfo:v10];
 
-  pendingRestrictedScreenTimeRequest = [(ICSActivationContext *)v10 pendingRestrictedScreenTimeRequest];
+  pendingRestrictedScreenTimeRequest = [(ICSActivationContext *)v11 pendingRestrictedScreenTimeRequest];
 
   if (pendingRestrictedScreenTimeRequest)
   {
     [PHInCallRootViewController obtainDismissalAssertionForReason:@"PHScreenTimeAlertAssertionReason"];
-    [(ICSApplicationDelegate *)self setActivationContext:v10];
+    [(ICSApplicationDelegate *)self setActivationContext:v11];
     [(ICSApplicationDelegate *)self requestPresentationForScreenTime];
   }
 }
@@ -5457,42 +5502,43 @@ LABEL_15:
 
     if (isTelephonyProvider)
     {
-      v12 = sub_100004F84();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_100004F84(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[WARN] The localSenderIdentity and localSenderIdentityAccountUUID do not match for a telephony dial request, checking with the core telephony client", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "[WARN] The localSenderIdentity and localSenderIdentityAccountUUID do not match for a telephony dial request, checking with the core telephony client", buf, 2u);
       }
 
-      v16 = 0;
-      v13 = [(ICSApplicationDelegate *)self getEvolvedSubscriptionLabelID:uUIDString error:&v16];
-      localSenderIdentity = v16;
-      if (v13 && ([v13 isEqualToString:uUIDString] & 1) == 0)
+      v18 = 0;
+      v14 = [(ICSApplicationDelegate *)self getEvolvedSubscriptionLabelID:uUIDString error:&v18];
+      v15 = v18;
+      localSenderIdentity = v15;
+      if (v14 && (v15 = [v14 isEqualToString:uUIDString], (v15 & 1) == 0))
       {
-        v14 = [[NSUUID alloc] initWithUUIDString:v13];
-        v15 = sub_100004F84();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v16 = [[NSUUID alloc] initWithUUIDString:v14];
+        v17 = sub_100004F84(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v18 = necessaryCopy;
-          v19 = 2112;
-          v20 = v13;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[WARN] Updating dial request %@ with accountUUID: %@", buf, 0x16u);
+          v20 = necessaryCopy;
+          v21 = 2112;
+          v22 = v14;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[WARN] Updating dial request %@ with accountUUID: %@", buf, 0x16u);
         }
 
-        [necessaryCopy setLocalSenderIdentityAccountUUID:v14];
+        [necessaryCopy setLocalSenderIdentityAccountUUID:v16];
       }
 
       else
       {
-        v14 = sub_100004F84();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v16 = sub_100004F84(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v18 = uUIDString;
-          v19 = 2112;
-          v20 = localSenderIdentity;
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[WARN] Failed to get an updated labelID for %@ with error %@", buf, 0x16u);
+          v20 = uUIDString;
+          v21 = 2112;
+          v22 = localSenderIdentity;
+          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "[WARN] Failed to get an updated labelID for %@ with error %@", buf, 0x16u);
         }
       }
 
@@ -5506,52 +5552,53 @@ LABEL_16:
 - (BOOL)openThirdPartyDialRequest:(id)request
 {
   requestCopy = request;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(requestCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v31 = requestCopy;
+    v33 = requestCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "openThirdPartyDialRequest %@", buf, 0xCu);
   }
 
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3221225472;
-  v28[2] = sub_100082E9C;
-  v28[3] = &unk_100356988;
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = sub_100082E9C;
+  v30[3] = &unk_100356988;
   v6 = requestCopy;
-  v29 = v6;
-  v7 = objc_retainBlock(v28);
-  if (![v6 showUIPrompt])
+  v31 = v6;
+  v7 = objc_retainBlock(v30);
+  showUIPrompt = [v6 showUIPrompt];
+  if (!showUIPrompt)
   {
     goto LABEL_11;
   }
 
-  v8 = sub_100004F84();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_100004F84(showUIPrompt);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Dial request's showUIPrompt is set to YES, so we will show an alert", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Dial request's showUIPrompt is set to YES, so we will show an alert", buf, 2u);
   }
 
   objc_initWeak(buf, self);
-  v9 = [TPDialPromptAlert alloc];
-  v25[0] = _NSConcreteStackBlock;
-  v25[1] = 3221225472;
-  v25[2] = sub_100082EF8;
-  v25[3] = &unk_100357C50;
-  objc_copyWeak(&v27, buf);
-  v26 = v7;
-  v10 = [v9 initWithDialRequest:v6 dialAction:v25];
+  v10 = [TPDialPromptAlert alloc];
+  v27[0] = _NSConcreteStackBlock;
+  v27[1] = 3221225472;
+  v27[2] = sub_100082EF8;
+  v27[3] = &unk_100357C50;
+  objc_copyWeak(&v29, buf);
+  v28 = v7;
+  v11 = [v10 initWithDialRequest:v6 dialAction:v27];
 
-  objc_destroyWeak(&v27);
+  objc_destroyWeak(&v29);
   objc_destroyWeak(buf);
-  if (!v10)
+  if (!v11)
   {
 LABEL_11:
     (v7[2])(v7);
-    v10 = 0;
+    v11 = 0;
 LABEL_12:
-    v13 = 1;
+    v15 = 1;
     goto LABEL_13;
   }
 
@@ -5560,79 +5607,79 @@ LABEL_12:
   if (!currentAlert)
   {
     [(ICSApplicationDelegate *)self acquireLongPreventSuspensionAssertion];
-    [(ICSApplicationDelegate *)self setCurrentAlert:v10];
+    [(ICSApplicationDelegate *)self setCurrentAlert:v11];
     lastAlertPresentation = [(ICSApplicationDelegate *)self lastAlertPresentation];
 
     if (lastAlertPresentation)
     {
       lastAlertPresentation2 = [(ICSApplicationDelegate *)self lastAlertPresentation];
-      v17 = +[NSDate now];
-      [lastAlertPresentation2 timeIntervalSinceDate:v17];
-      v19 = v18;
+      v19 = +[NSDate now];
+      [lastAlertPresentation2 timeIntervalSinceDate:v19];
+      v21 = v20;
 
-      if (v19 > 1.0)
+      if (v21 > 1.0)
       {
-        v20 = 0;
+        v22 = 0;
       }
 
       else
       {
-        v20 = 1000000000;
+        v22 = 1000000000;
       }
     }
 
     else
     {
-      v20 = 0;
+      v22 = 0;
     }
 
-    v21 = dispatch_time(0, v20);
+    v23 = dispatch_time(0, v22);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100083000;
     block[3] = &unk_100357110;
-    v10 = v10;
-    v23 = v10;
+    v11 = v11;
+    v25 = v11;
     selfCopy = self;
-    dispatch_after(v21, &_dispatch_main_q, block);
+    dispatch_after(v23, &_dispatch_main_q, block);
 
     goto LABEL_12;
   }
 
-  v12 = sub_100004F84();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v14 = sub_100004F84(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v31 = v6;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[WARN] Dial request UI is already showing another alert, will drop dialRequest requiring alert %@", buf, 0xCu);
+    v33 = v6;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[WARN] Dial request UI is already showing another alert, will drop dialRequest requiring alert %@", buf, 0xCu);
   }
 
-  v13 = 0;
+  v15 = 0;
 LABEL_13:
 
-  return v13;
+  return v15;
 }
 
 - (BOOL)openSystemProviderDialRequest:(id)request
 {
   requestCopy = request;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(requestCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v172 = requestCopy;
+    v182 = requestCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "openSystemProviderDialRequest %@", buf, 0xCu);
   }
 
   [ICSAriadne trace:2];
   [(ICSApplicationDelegate *)self updateDialRequestAccountIfNecessary:requestCopy];
-  v168[0] = _NSConcreteStackBlock;
-  v168[1] = 3221225472;
-  v168[2] = sub_10008423C;
-  v168[3] = &unk_1003569B0;
+  v178[0] = _NSConcreteStackBlock;
+  v178[1] = 3221225472;
+  v178[2] = sub_10008423C;
+  v178[3] = &unk_1003569B0;
   v6 = requestCopy;
-  v169 = v6;
-  v7 = objc_retainBlock(v168);
+  v179 = v6;
+  v7 = objc_retainBlock(v178);
   provider = [v6 provider];
   if (![provider isTelephonyProvider])
   {
@@ -5646,16 +5693,16 @@ LABEL_13:
 LABEL_14:
     if (+[SOSUtilities shouldBlockNonEmergencyCalls])
     {
-      v18 = +[TUCallCenter sharedInstance];
-      v19 = [v18 _isEmergencyDialRequest:v6];
+      v19 = +[TUCallCenter sharedInstance];
+      v20 = [v19 _isEmergencyDialRequest:v6];
 
-      if ((v19 & 1) == 0)
+      if ((v20 & 1) == 0)
       {
-        v46 = sub_100004F84();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+        v50 = sub_100004F84(v21);
+        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "Dial request rejected due to SOS being active", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "Dial request rejected due to SOS being active", buf, 2u);
         }
 
         (v7[2])(v7, 0);
@@ -5663,206 +5710,215 @@ LABEL_14:
       }
     }
 
-    v20 = +[TUCallCenter sharedInstance];
-    frontmostCall = [v20 frontmostCall];
+    v22 = +[TUCallCenter sharedInstance];
+    frontmostCall = [v22 frontmostCall];
 
-    if (frontmostCall && [frontmostCall isEmergency])
+    if (frontmostCall)
     {
-      v22 = sub_100004F84();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      isEmergency = [frontmostCall isEmergency];
+      if (isEmergency)
       {
-        *buf = 0;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Dial request rejected due to active emergency call", buf, 2u);
-      }
+        v25 = sub_100004F84(isEmergency);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Dial request rejected due to active emergency call", buf, 2u);
+        }
 
-      goto LABEL_27;
+        goto LABEL_27;
+      }
     }
 
     if (!v6)
     {
 LABEL_27:
       (v7[2])(v7, 0);
-      v45 = 0;
+      v49 = 0;
 LABEL_72:
 
       goto LABEL_73;
     }
 
     senderIdentityClient = [(ICSApplicationDelegate *)self senderIdentityClient];
-    v24 = [v6 dialRequestByResolvingDialTypeUsingSenderIdentityClient:senderIdentityClient];
+    v27 = [v6 dialRequestByResolvingDialTypeUsingSenderIdentityClient:senderIdentityClient];
 
-    v164[0] = _NSConcreteStackBlock;
-    v164[1] = 3221225472;
-    v164[2] = sub_1000843B0;
-    v164[3] = &unk_100357C78;
-    v25 = v24;
-    v165 = v25;
+    v174[0] = _NSConcreteStackBlock;
+    v174[1] = 3221225472;
+    v174[2] = sub_1000843B0;
+    v174[3] = &unk_100357C78;
+    v28 = v27;
+    v175 = v28;
     selfCopy = self;
-    v26 = v7;
-    v167 = v26;
-    v27 = objc_retainBlock(v164);
-    v160[0] = _NSConcreteStackBlock;
-    v160[1] = 3221225472;
-    v160[2] = sub_100084444;
-    v160[3] = &unk_100357C78;
-    v28 = v25;
-    v161 = v28;
-    selfCopy2 = self;
-    v29 = v26;
-    v163 = v29;
-    v30 = objc_retainBlock(v160);
-    v156[0] = _NSConcreteStackBlock;
-    v156[1] = 3221225472;
-    v156[2] = sub_1000846A8;
-    v156[3] = &unk_100357CF0;
+    v29 = v7;
+    v177 = v29;
+    v30 = objc_retainBlock(v174);
+    v170[0] = _NSConcreteStackBlock;
+    v170[1] = 3221225472;
+    v170[2] = sub_100084444;
+    v170[3] = &unk_100357C78;
     v31 = v28;
-    v157 = v31;
-    v32 = v27;
-    v158 = v32;
-    v33 = v29;
-    v159 = v33;
-    v152[0] = _NSConcreteStackBlock;
-    v152[1] = 3221225472;
-    v152[2] = sub_100084A50;
-    v152[3] = &unk_100357D40;
-    v152[4] = self;
-    v34 = objc_retainBlock(v156);
-    v153 = v34;
-    v35 = v32;
-    v154 = v35;
-    v36 = v33;
-    v155 = v36;
-    v37 = objc_retainBlock(v152);
-    v144[0] = _NSConcreteStackBlock;
-    v144[1] = 3221225472;
-    v144[2] = sub_100084C44;
-    v144[3] = &unk_100357D90;
-    v6 = v31;
-    v145 = v6;
+    v171 = v31;
+    selfCopy2 = self;
+    v32 = v29;
+    v173 = v32;
+    v33 = objc_retainBlock(v170);
+    v166[0] = _NSConcreteStackBlock;
+    v166[1] = 3221225472;
+    v166[2] = sub_1000846A8;
+    v166[3] = &unk_100357CF0;
+    v34 = v31;
+    v167 = v34;
+    v35 = v30;
+    v168 = v35;
+    v36 = v32;
+    v169 = v36;
+    v162[0] = _NSConcreteStackBlock;
+    v162[1] = 3221225472;
+    v162[2] = sub_100084A50;
+    v162[3] = &unk_100357D40;
+    v162[4] = self;
+    v37 = objc_retainBlock(v166);
+    v163 = v37;
+    v38 = v35;
+    v164 = v38;
+    v39 = v36;
+    v165 = v39;
+    v40 = objc_retainBlock(v162);
+    v154[0] = _NSConcreteStackBlock;
+    v154[1] = 3221225472;
+    v154[2] = sub_100084C44;
+    v154[3] = &unk_100357D90;
+    v6 = v34;
+    v155 = v6;
     selfCopy3 = self;
-    v119 = v37;
-    v147 = v119;
-    v38 = v30;
-    v148 = v38;
-    v39 = v34;
-    v149 = v39;
-    v40 = v35;
-    v150 = v40;
-    v118 = v36;
-    v151 = v118;
-    v41 = objc_retainBlock(v144);
-    v120 = v40;
-    if ([v6 dialType] == 1 && -[ICSApplicationDelegate shouldShowAirplaneEmergencyCallAlertForDialRequest:](self, "shouldShowAirplaneEmergencyCallAlertForDialRequest:", v6))
+    v129 = v40;
+    v157 = v129;
+    v41 = v33;
+    v158 = v41;
+    v42 = v37;
+    v159 = v42;
+    v43 = v38;
+    v160 = v43;
+    v128 = v39;
+    v161 = v128;
+    v44 = objc_retainBlock(v154);
+    v130 = v43;
+    if ([v6 dialType] == 1)
     {
-      v42 = sub_100004F84();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+      v45 = [(ICSApplicationDelegate *)self shouldShowAirplaneEmergencyCallAlertForDialRequest:v6];
+      if (v45)
       {
-        *buf = 0;
-        _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Device is in airplane mode. Showing airplane mode emergency call alert", buf, 2u);
+        v46 = sub_100004F84(v45);
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "Device is in airplane mode. Showing airplane mode emergency call alert", buf, 2u);
+        }
+
+        v47 = [PHAirplaneEmergencyCallAlert alloc];
+        v149[0] = _NSConcreteStackBlock;
+        v149[1] = 3221225472;
+        v149[2] = sub_100084F28;
+        v149[3] = &unk_100357DB8;
+        v149[4] = self;
+        v150 = v6;
+        v151 = v42;
+        v152 = v43;
+        v153 = v128;
+        v48 = [(PHAirplaneEmergencyCallAlert *)v47 initWithDialAction:v149];
+
+        goto LABEL_51;
       }
-
-      v43 = [PHAirplaneEmergencyCallAlert alloc];
-      v139[0] = _NSConcreteStackBlock;
-      v139[1] = 3221225472;
-      v139[2] = sub_100084F28;
-      v139[3] = &unk_100357DB8;
-      v139[4] = self;
-      v140 = v6;
-      v141 = v39;
-      v142 = v40;
-      v143 = v118;
-      v44 = [(PHAirplaneEmergencyCallAlert *)v43 initWithDialAction:v139];
-
-      goto LABEL_51;
     }
 
-    if ((PHShouldAttemptCallWithDialRequest() & 1) == 0)
+    v51 = PHShouldAttemptCallWithDialRequest();
+    if ((v51 & 1) == 0)
     {
-      v117 = v7;
-      v60 = frontmostCall;
-      v61 = v41;
-      v62 = v39;
-      v63 = v38;
-      v64 = sub_100004F84();
-      if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+      v127 = v7;
+      v67 = frontmostCall;
+      v68 = v44;
+      v69 = v42;
+      v70 = v41;
+      v71 = sub_100004F84(v51);
+      if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
       {
         sub_100254E60();
       }
 
-      (v118[2])(v118, 0);
+      (v128[2])(v128, 0);
       provider2 = [v6 provider];
       dialType = [v6 dialType];
       localSenderIdentityUUID = [v6 localSenderIdentityUUID];
-      v44 = [PHNetworkUnavailableAlert alertWithCallProvider:provider2 dialType:dialType senderIdentityUUID:localSenderIdentityUUID];
+      v48 = [PHNetworkUnavailableAlert alertWithCallProvider:provider2 dialType:dialType senderIdentityUUID:localSenderIdentityUUID];
 
-      v38 = v63;
-      v39 = v62;
-      v41 = v61;
-      frontmostCall = v60;
-      v7 = v117;
+      v41 = v70;
+      v42 = v69;
+      v44 = v68;
+      frontmostCall = v67;
+      v7 = v127;
       goto LABEL_51;
     }
 
-    v116 = v38;
+    v126 = v41;
     provider3 = [v6 provider];
     isFaceTimeProvider = [provider3 isFaceTimeProvider];
 
     if (isFaceTimeProvider)
     {
-      v111 = v39;
-      v49 = sub_100004F84();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
+      v121 = v42;
+      v55 = sub_100004F84(v54);
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "Provider is FaceTime. Make sure we can initiate calls", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "Provider is FaceTime. Make sure we can initiate calls", buf, 2u);
       }
 
-      v50 = +[IMAccountController sharedInstance];
-      v51 = +[IMService facetimeService];
-      v52 = [v50 accountsForService:v51];
+      v56 = +[IMAccountController sharedInstance];
+      v57 = +[IMService facetimeService];
+      v58 = [v56 accountsForService:v57];
 
-      v53 = v52;
-      if ([v52 count])
+      v59 = v58;
+      if ([v58 count])
       {
-        v109 = v41;
-        v137 = 0u;
-        v138 = 0u;
-        v135 = 0u;
-        v136 = 0u;
-        v54 = v52;
-        v55 = [v54 countByEnumeratingWithState:&v135 objects:v170 count:16];
-        if (v55)
+        v119 = v44;
+        v147 = 0u;
+        v148 = 0u;
+        v145 = 0u;
+        v146 = 0u;
+        v60 = v58;
+        v61 = [v60 countByEnumeratingWithState:&v145 objects:v180 count:16];
+        if (v61)
         {
-          v56 = v55;
-          v57 = *v136;
+          v62 = v61;
+          v63 = *v146;
           while (2)
           {
-            for (i = 0; i != v56; i = i + 1)
+            for (i = 0; i != v62; i = i + 1)
             {
-              if (*v136 != v57)
+              if (*v146 != v63)
               {
-                objc_enumerationMutation(v54);
+                objc_enumerationMutation(v60);
               }
 
-              if ([*(*(&v135 + 1) + 8 * i) canSendMessages])
+              if ([*(*(&v145 + 1) + 8 * i) canSendMessages])
               {
 
-                v68 = sub_100004F84();
-                if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
+                v76 = sub_100004F84(v75);
+                if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEFAULT, "At least one account can initiate calls for open dial request", buf, 2u);
+                  _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "At least one account can initiate calls for open dial request", buf, 2u);
                 }
 
-                v40 = v120;
-                v41 = v109;
-                v53 = v52;
+                v43 = v130;
+                v44 = v119;
+                v59 = v58;
                 goto LABEL_58;
               }
             }
 
-            v56 = [v54 countByEnumeratingWithState:&v135 objects:v170 count:16];
-            if (v56)
+            v62 = [v60 countByEnumeratingWithState:&v145 objects:v180 count:16];
+            if (v62)
             {
               continue;
             }
@@ -5871,171 +5927,172 @@ LABEL_72:
           }
         }
 
-        v59 = sub_100004F84();
-        if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+        v66 = sub_100004F84(v65);
+        if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
         {
           sub_100254E9C();
         }
 
-        (v118[2])(v118, 0);
-        v44 = objc_alloc_init(PHMisconfiguredAccountAlert);
+        (v128[2])(v128, 0);
+        v48 = objc_alloc_init(PHMisconfiguredAccountAlert);
 
-        v39 = v111;
-        v38 = v116;
-        v41 = v109;
+        v42 = v121;
+        v41 = v126;
+        v44 = v119;
 LABEL_51:
-        if (!v44)
+        if (!v48)
         {
 LABEL_70:
-          v69 = v119;
+          v77 = v129;
           goto LABEL_71;
         }
 
 LABEL_52:
         [(ICSApplicationDelegate *)self acquireLongPreventSuspensionAssertion];
-        [(PHMisconfiguredAccountAlert *)v44 show];
+        [(PHMisconfiguredAccountAlert *)v48 show];
         goto LABEL_70;
       }
 
-      v68 = sub_100004F84();
-      if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
+      v76 = sub_100004F84(0);
+      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v68, OS_LOG_TYPE_DEFAULT, "No accounts found when attempting to open dial request", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "No accounts found when attempting to open dial request", buf, 2u);
       }
 
 LABEL_58:
-      v39 = v111;
+      v42 = v121;
     }
 
     if ([(ICSApplicationDelegate *)self shouldShowTelephonyAccountUnavailableAlertForDialRequest:v6])
     {
       [(ICSApplicationDelegate *)self acquireLongPreventSuspensionAssertion];
-      (v41[2])(v41);
+      (v44[2])(v44);
       goto LABEL_61;
     }
 
-    v38 = v116;
+    v41 = v126;
     if ([(ICSApplicationDelegate *)self shouldShowEmergencyCallbackModeAlertForDialRequest:v6])
     {
       [(ICSApplicationDelegate *)self acquireLongPreventSuspensionAssertion];
-      v69 = v119;
-      (v119[2])(v119, v6);
-      v44 = 0;
+      v77 = v129;
+      (v129[2])(v129, v6);
+      v48 = 0;
 LABEL_71:
 
-      v45 = 1;
+      v49 = 1;
       goto LABEL_72;
     }
 
     if ([(ICSApplicationDelegate *)self shouldShowScreenTimeAlertForDialRequest:v6])
     {
-      v116[2](v116);
+      v126[2](v126);
       goto LABEL_69;
     }
 
     if ([(ICSApplicationDelegate *)self shouldShowRTTAlertForDialRequest:v6])
     {
-      v39[2](v39);
+      v42[2](v42);
       goto LABEL_69;
     }
 
-    if ([v6 showUIPrompt])
+    showUIPrompt = [v6 showUIPrompt];
+    if (showUIPrompt)
     {
-      v71 = sub_100004F84();
-      if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+      v80 = sub_100004F84(showUIPrompt);
+      if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_DEFAULT, "Dial request's showUIPrompt is set to YES, so we will show an alert", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v80, OS_LOG_TYPE_DEFAULT, "Dial request's showUIPrompt is set to YES, so we will show an alert", buf, 2u);
       }
 
       featureFlags = [(PHApplicationDelegate *)self featureFlags];
       simLinePickerEnabled = [featureFlags simLinePickerEnabled];
 
-      v110 = v41;
+      v120 = v44;
       if (simLinePickerEnabled)
       {
-        v112 = +[TUCallCenter sharedInstance];
-        providerManager = [v112 providerManager];
+        v122 = +[TUCallCenter sharedInstance];
+        providerManager = [v122 providerManager];
         telephonyProvider = [providerManager telephonyProvider];
         prioritizedSenderIdentities = [telephonyProvider prioritizedSenderIdentities];
         array = [prioritizedSenderIdentities array];
-        v77 = [array copy];
+        v86 = [array copy];
 
-        if (v77)
+        if (v86)
         {
-          v78 = v120;
-          if ([v77 count] >= 2)
+          v87 = v130;
+          if ([v86 count] >= 2)
           {
-            v113 = [TPDialPromptAlert alloc];
-            v130[0] = _NSConcreteStackBlock;
-            v130[1] = 3221225472;
-            v130[2] = sub_100084FE8;
-            v130[3] = &unk_100357DE0;
-            v79 = &v131;
-            v80 = v6;
-            v131 = v80;
-            v81 = v77;
-            v82 = &v132;
-            v83 = v81;
-            v132 = v83;
-            v133 = v120;
-            v134 = v118;
-            v84 = v113;
-            v114 = v83;
-            v85 = [v84 initWithDialRequest:v80 dialAction:v130 availableSenderIdentities:v83];
+            v123 = [TPDialPromptAlert alloc];
+            v140[0] = _NSConcreteStackBlock;
+            v140[1] = 3221225472;
+            v140[2] = sub_100084FE8;
+            v140[3] = &unk_100357DE0;
+            v88 = &v141;
+            v89 = v6;
+            v141 = v89;
+            v90 = v86;
+            v91 = &v142;
+            v92 = v90;
+            v142 = v92;
+            v143 = v130;
+            v144 = v128;
+            v93 = v123;
+            v124 = v92;
+            v94 = [v93 initWithDialRequest:v89 dialAction:v140 availableSenderIdentities:v92];
 
             goto LABEL_93;
           }
 
-          v114 = v77;
+          v124 = v86;
 LABEL_92:
-          v97 = [TPDialPromptAlert alloc];
-          v127[0] = _NSConcreteStackBlock;
-          v127[1] = 3221225472;
-          v127[2] = sub_100085130;
-          v127[3] = &unk_100357E08;
-          v79 = &v128;
-          v128 = v78;
-          v82 = &v129;
-          v129 = v118;
-          v85 = [v97 initWithDialRequest:v6 dialAction:v127];
+          v106 = [TPDialPromptAlert alloc];
+          v137[0] = _NSConcreteStackBlock;
+          v137[1] = 3221225472;
+          v137[2] = sub_100085130;
+          v137[3] = &unk_100357E08;
+          v88 = &v138;
+          v138 = v87;
+          v91 = &v139;
+          v139 = v128;
+          v94 = [v106 initWithDialRequest:v6 dialAction:v137];
 LABEL_93:
 
-          v41 = v110;
-          if (v85)
+          v44 = v120;
+          if (v94)
           {
             [(ICSApplicationDelegate *)self acquireLongPreventSuspensionAssertion];
-            v121[0] = _NSConcreteStackBlock;
-            v121[1] = 3221225472;
-            v121[2] = sub_1000852E8;
-            v121[3] = &unk_100357E30;
-            v44 = v85;
-            v122 = v44;
-            v123 = v118;
-            v98 = objc_retainBlock(v121);
-            v99 = +[PHInCallUtilities sharedInstance];
-            [v99 requestPasscodeUnlockWithCompletion:v98];
+            v131[0] = _NSConcreteStackBlock;
+            v131[1] = 3221225472;
+            v131[2] = sub_1000852E8;
+            v131[3] = &unk_100357E30;
+            v48 = v94;
+            v132 = v48;
+            v133 = v128;
+            v107 = objc_retainBlock(v131);
+            v108 = +[PHInCallUtilities sharedInstance];
+            [v108 requestPasscodeUnlockWithCompletion:v107];
 
             goto LABEL_62;
           }
 
 LABEL_61:
-          v44 = 0;
+          v48 = 0;
 LABEL_62:
-          v38 = v116;
+          v41 = v126;
           goto LABEL_70;
         }
 
-        v78 = v120;
+        v87 = v130;
       }
 
       else
       {
-        v78 = v40;
+        v87 = v43;
       }
 
-      v114 = 0;
+      v124 = 0;
       goto LABEL_92;
     }
 
@@ -6043,8 +6100,8 @@ LABEL_62:
 
     if (!alertCoordinator)
     {
-      v87 = objc_alloc_init(_TtC13InCallService16AlertCoordinator);
-      [(ICSApplicationDelegate *)self setAlertCoordinator:v87];
+      v96 = objc_alloc_init(_TtC13InCallService16AlertCoordinator);
+      [(ICSApplicationDelegate *)self setAlertCoordinator:v96];
 
       alertCoordinator2 = [(ICSApplicationDelegate *)self alertCoordinator];
       [alertCoordinator2 startMonitoring];
@@ -6056,16 +6113,16 @@ LABEL_62:
     isStewieActive = [alertCoordinator3 isStewieActive];
     if (isStewieActive)
     {
-      v108 = alertCoordinator;
-      v89 = +[TUCallCenter sharedInstance];
-      v90 = [v89 _isEmergencyDialRequest:v6];
+      v118 = alertCoordinator;
+      v98 = +[TUCallCenter sharedInstance];
+      v99 = [v98 _isEmergencyDialRequest:v6];
 
-      if (!v90)
+      if (!v99)
       {
-        v44 = 0;
+        v48 = 0;
         LOBYTE(isStewieActive) = 0;
-        v38 = v116;
-        alertCoordinator = v108;
+        v41 = v126;
+        alertCoordinator = v118;
         goto LABEL_99;
       }
 
@@ -6073,39 +6130,39 @@ LABEL_62:
       value = [handle value];
       formattedDisplayID = [value formattedDisplayID];
 
-      v94 = +[NSBundle mainBundle];
-      v95 = v94;
+      v103 = +[NSBundle mainBundle];
+      v104 = v103;
       alertCoordinator3 = formattedDisplayID;
       if (formattedDisplayID)
       {
-        v96 = [v94 localizedStringForKey:@"ALERT_ACTION_END_STEWIE_AND_CALL_%@" value:&stru_100361FD0 table:@"Localizable-Stewie"];
-        [NSString stringWithFormat:v96, formattedDisplayID];
+        v105 = [v103 localizedStringForKey:@"ALERT_ACTION_END_STEWIE_AND_CALL_%@" value:&stru_100361FD0 table:@"Localizable-Stewie"];
+        [NSString stringWithFormat:v105, formattedDisplayID];
       }
 
       else
       {
-        v96 = [v94 localizedStringForKey:@"ALERT_ACTION_END_STEWIE_AND_CALL" value:&stru_100361FD0 table:@"Localizable-Stewie"];
-        [NSString stringWithFormat:v96, v104];
+        v105 = [v103 localizedStringForKey:@"ALERT_ACTION_END_STEWIE_AND_CALL" value:&stru_100361FD0 table:@"Localizable-Stewie"];
+        [NSString stringWithFormat:v105, v114];
       }
-      v105 = ;
+      v115 = ;
 
-      v124[0] = _NSConcreteStackBlock;
-      v124[1] = 3221225472;
-      v124[2] = sub_10008520C;
-      v124[3] = &unk_100357E08;
-      v125 = v120;
-      v126 = v118;
-      v100 = +[NSBundle mainBundle];
-      v101 = [v100 localizedStringForKey:@"ALERT_TITLE_END_STEWIE" value:&stru_100361FD0 table:@"Localizable-Stewie"];
-      v44 = [PHEmergencyEndCallAlert alertWithDialRequest:v6 dialAction:v124 title:v101 buttonTitle:v105];
+      v134[0] = _NSConcreteStackBlock;
+      v134[1] = 3221225472;
+      v134[2] = sub_10008520C;
+      v134[3] = &unk_100357E08;
+      v135 = v130;
+      v136 = v128;
+      v109 = +[NSBundle mainBundle];
+      v110 = [v109 localizedStringForKey:@"ALERT_TITLE_END_STEWIE" value:&stru_100361FD0 table:@"Localizable-Stewie"];
+      v48 = [PHEmergencyEndCallAlert alertWithDialRequest:v6 dialAction:v134 title:v110 buttonTitle:v115];
 
-      v38 = v116;
-      alertCoordinator = v108;
+      v41 = v126;
+      alertCoordinator = v118;
     }
 
     else
     {
-      v44 = 0;
+      v48 = 0;
     }
 
 LABEL_99:
@@ -6115,29 +6172,29 @@ LABEL_99:
 
       if (alertCoordinator4)
       {
-        v103 = sub_100004F84();
-        if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
+        v113 = sub_100004F84(v112);
+        if (os_log_type_enabled(v113, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v103, OS_LOG_TYPE_DEFAULT, "clean AlertCoordinator", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v113, OS_LOG_TYPE_DEFAULT, "clean AlertCoordinator", buf, 2u);
         }
 
         [(ICSApplicationDelegate *)self setAlertCoordinator:0];
       }
     }
 
-    if (v44)
+    if (v48)
     {
       goto LABEL_52;
     }
 
     if ((isStewieActive & 1) == 0)
     {
-      v120[2](v120);
+      v130[2](v130);
     }
 
 LABEL_69:
-    v44 = 0;
+    v48 = 0;
     goto LABEL_70;
   }
 
@@ -6165,26 +6222,26 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v17 = sub_100004F84();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = sub_100004F84(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v172 = processHandle;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Vertical service code cannot be dialed for process handle %@", buf, 0xCu);
+    v182 = processHandle;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Vertical service code cannot be dialed for process handle %@", buf, 0xCu);
   }
 
   (v7[2])(v7, 0);
 LABEL_31:
-  v45 = 0;
+  v49 = 0;
 LABEL_73:
 
-  return v45;
+  return v49;
 }
 
 - (BOOL)openJoinConversationRequest:(id)request
 {
   requestCopy = request;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(requestCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 138412290;
@@ -6195,116 +6252,118 @@ LABEL_73:
   [ICSAriadne trace:1];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v49 = 0x3032000000;
-  v50 = sub_100079AD4;
-  v51 = sub_100079AE4;
-  v52 = 0;
+  v53 = 0x3032000000;
+  v54 = sub_100079AD4;
+  v55 = sub_100079AE4;
+  v56 = 0;
   v6 = +[TUCallCenter sharedInstance];
   providerManager = [v6 providerManager];
   faceTimeProvider = [providerManager faceTimeProvider];
 
   v9 = [(ICSApplicationDelegate *)self shouldShowScreenTimeAlertForJoinConversationRequest:requestCopy];
+  v10 = v9;
   if (v9)
   {
-    v10 = sub_100004F84();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100004F84(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v40[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Failed to initiate a call, restricted by Screen Time.", v40, 2u);
+      LOWORD(v44[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Failed to initiate a call, restricted by Screen Time.", v44, 2u);
     }
 
-    v11 = +[ICSPreferences sharedPreferences];
-    hasAdoptedModernInCallAPI = [v11 hasAdoptedModernInCallAPI];
+    v12 = +[ICSPreferences sharedPreferences];
+    hasAdoptedModernInCallAPI = [v12 hasAdoptedModernInCallAPI];
 
     if (hasAdoptedModernInCallAPI)
     {
-      v13 = [requestCopy URL];
-      [(ICSApplicationDelegate *)self startScreenTimeFlowWithURL:v13];
+      v14 = [requestCopy URL];
+      [(ICSApplicationDelegate *)self startScreenTimeFlowWithURL:v14];
     }
 
     else
     {
-      v28 = +[SOSInCallUILauncher sharedInCallUILauncher];
-      v29 = [requestCopy URL];
-      v45[0] = _NSConcreteStackBlock;
-      v45[1] = 3221225472;
-      v45[2] = sub_1000859F8;
-      v45[3] = &unk_100357CA0;
-      v46 = &stru_100357E50;
-      [v28 launchInCallUIForReason:3 withRequestURL:v29 completion:v45];
+      v31 = +[SOSInCallUILauncher sharedInCallUILauncher];
+      v32 = [requestCopy URL];
+      v49[0] = _NSConcreteStackBlock;
+      v49[1] = 3221225472;
+      v49[2] = sub_1000859F8;
+      v49[3] = &unk_100357CA0;
+      v50 = &stru_100357E50;
+      [v31 launchInCallUIForReason:3 withRequestURL:v32 completion:v49];
 
-      v13 = v46;
+      v14 = v50;
     }
 
     goto LABEL_36;
   }
 
-  if ((PHShouldAttemptFaceTimeCall() & 1) == 0)
+  v15 = PHShouldAttemptFaceTimeCall();
+  if ((v15 & 1) == 0)
   {
-    v14 = sub_100004F84();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = sub_100004F84(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_100254E60();
     }
 
-    v15 = [PHNetworkUnavailableAlert alertWithCallProvider:faceTimeProvider dialType:0 senderIdentityUUID:0];
-    v16 = *(*(&buf + 1) + 40);
-    *(*(&buf + 1) + 40) = v15;
+    v17 = [PHNetworkUnavailableAlert alertWithCallProvider:faceTimeProvider dialType:0 senderIdentityUUID:0];
+    v18 = *(*(&buf + 1) + 40);
+    *(*(&buf + 1) + 40) = v17;
 
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterPostNotification(DarwinNotifyCenter, TUCallCenterInCallServiceDialRequestFailureNotification, 0, 0, 1u);
   }
 
-  v18 = +[IMAccountController sharedInstance];
-  v19 = +[IMService facetimeService];
-  v13 = [v18 accountsForService:v19];
+  v20 = +[IMAccountController sharedInstance];
+  v21 = +[IMService facetimeService];
+  v14 = [v20 accountsForService:v21];
 
-  if ([v13 count])
+  if ([v14 count])
   {
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
-    v42 = 0u;
-    v20 = v13;
-    v21 = [v20 countByEnumeratingWithState:&v41 objects:v47 count:16];
-    if (!v21)
+    v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
+    v22 = v14;
+    v23 = [v22 countByEnumeratingWithState:&v45 objects:v51 count:16];
+    if (!v23)
     {
 LABEL_21:
 
-      v24 = sub_100004F84();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v27 = sub_100004F84(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         sub_100254ED8();
       }
 
-      v25 = objc_alloc_init(PHMisconfiguredAccountAlert);
-      v26 = *(*(&buf + 1) + 40);
-      *(*(&buf + 1) + 40) = v25;
+      v28 = objc_alloc_init(PHMisconfiguredAccountAlert);
+      v29 = *(*(&buf + 1) + 40);
+      *(*(&buf + 1) + 40) = v28;
 
-      v27 = CFNotificationCenterGetDarwinNotifyCenter();
-      CFNotificationCenterPostNotification(v27, TUCallCenterInCallServiceDialRequestFailureNotification, 0, 0, 1u);
+      v30 = CFNotificationCenterGetDarwinNotifyCenter();
+      CFNotificationCenterPostNotification(v30, TUCallCenterInCallServiceDialRequestFailureNotification, 0, 0, 1u);
       goto LABEL_28;
     }
 
-    v22 = *v42;
+    v24 = *v46;
 LABEL_15:
-    v23 = 0;
+    v25 = 0;
     while (1)
     {
-      if (*v42 != v22)
+      if (*v46 != v24)
       {
-        objc_enumerationMutation(v20);
+        objc_enumerationMutation(v22);
       }
 
-      if ([*(*(&v41 + 1) + 8 * v23) canSendMessages])
+      if ([*(*(&v45 + 1) + 8 * v25) canSendMessages])
       {
         break;
       }
 
-      if (v21 == ++v23)
+      if (v23 == ++v25)
       {
-        v21 = [v20 countByEnumeratingWithState:&v41 objects:v47 count:16];
-        if (v21)
+        v23 = [v22 countByEnumeratingWithState:&v45 objects:v51 count:16];
+        if (v23)
         {
           goto LABEL_15;
         }
@@ -6316,52 +6375,56 @@ LABEL_15:
 
   else
   {
-    v20 = sub_100004F84();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v22 = sub_100004F84(0);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v40[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "No accounts found when attempting to join conversation", v40, 2u);
+      LOWORD(v44[0]) = 0;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "No accounts found when attempting to join conversation", v44, 2u);
     }
   }
 
 LABEL_28:
-  if (!*(*(&buf + 1) + 40) && [requestCopy showUIPrompt])
+  if (!*(*(&buf + 1) + 40))
   {
-    v30 = sub_100004F84();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    showUIPrompt = [requestCopy showUIPrompt];
+    if (showUIPrompt)
     {
-      LOWORD(v40[0]) = 0;
-      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Join request's showUIPrompt is set to YES, so we will show an alert", v40, 2u);
+      v34 = sub_100004F84(showUIPrompt);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      {
+        LOWORD(v44[0]) = 0;
+        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Join request's showUIPrompt is set to YES, so we will show an alert", v44, 2u);
+      }
+
+      objc_initWeak(v44, self);
+      v35 = [TPDialPromptAlert alloc];
+      v41[0] = _NSConcreteStackBlock;
+      v41[1] = 3221225472;
+      v41[2] = sub_100085AB8;
+      v41[3] = &unk_100357E78;
+      objc_copyWeak(&v43, v44);
+      v42 = requestCopy;
+      v36 = [v35 initWithJoinRequest:v42 dialAction:v41];
+      v37 = *(*(&buf + 1) + 40);
+      *(*(&buf + 1) + 40) = v36;
+
+      v40[0] = _NSConcreteStackBlock;
+      v40[1] = 3221225472;
+      v40[2] = sub_100085B98;
+      v40[3] = &unk_1003576A8;
+      v40[4] = &buf;
+      [(ICSApplicationDelegate *)self setProcessAssertionCompletion:v40];
+      [(ICSApplicationDelegate *)self acquireLongPreventSuspensionAssertion];
+
+      objc_destroyWeak(&v43);
+      objc_destroyWeak(v44);
     }
-
-    objc_initWeak(v40, self);
-    v31 = [TPDialPromptAlert alloc];
-    v37[0] = _NSConcreteStackBlock;
-    v37[1] = 3221225472;
-    v37[2] = sub_100085AB8;
-    v37[3] = &unk_100357E78;
-    objc_copyWeak(&v39, v40);
-    v38 = requestCopy;
-    v32 = [v31 initWithJoinRequest:v38 dialAction:v37];
-    v33 = *(*(&buf + 1) + 40);
-    *(*(&buf + 1) + 40) = v32;
-
-    v36[0] = _NSConcreteStackBlock;
-    v36[1] = 3221225472;
-    v36[2] = sub_100085B98;
-    v36[3] = &unk_1003576A8;
-    v36[4] = &buf;
-    [(ICSApplicationDelegate *)self setProcessAssertionCompletion:v36];
-    [(ICSApplicationDelegate *)self acquireLongPreventSuspensionAssertion];
-
-    objc_destroyWeak(&v39);
-    objc_destroyWeak(v40);
   }
 
-  v34 = *(*(&buf + 1) + 40);
-  if (v34)
+  v38 = *(*(&buf + 1) + 40);
+  if (v38)
   {
-    [v34 show];
+    [v38 show];
   }
 
   else
@@ -6373,7 +6436,7 @@ LABEL_28:
 LABEL_36:
 
   _Block_object_dispose(&buf, 8);
-  return v9 ^ 1;
+  return v10 ^ 1;
 }
 
 - (BOOL)openDialRequest:(id)request forProcessHandle:(id)handle bypassUIPromptIfDefaultProvider:(BOOL)provider
@@ -6381,8 +6444,7 @@ LABEL_36:
   providerCopy = provider;
   requestCopy = request;
   handleCopy = handle;
-  [(ICSApplicationDelegate *)self configureDialRequest:requestCopy forProcessHandle:handleCopy bypassUIPromptIfDefaultProvider:providerCopy];
-  v10 = sub_100004F84();
+  v10 = sub_100004F84([(ICSApplicationDelegate *)self configureDialRequest:requestCopy forProcessHandle:handleCopy bypassUIPromptIfDefaultProvider:providerCopy]);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v16 = 138412546;
@@ -6413,12 +6475,12 @@ LABEL_36:
 - (BOOL)openUserInterfaceURL:(id)l
 {
   lCopy = l;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(lCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 138412290;
-    v26 = lCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "'%@'", &v25, 0xCu);
+    v27 = 138412290;
+    v28 = lCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "'%@'", &v27, 0xCu);
   }
 
   v6 = +[TUCallCenter sharedInstance];
@@ -6502,8 +6564,8 @@ LABEL_37:
     }
 
 LABEL_28:
-    v19 = +[UIDevice currentDevice];
-    if ([v19 userInterfaceIdiom] == 1)
+    v21 = +[UIDevice currentDevice];
+    if ([v21 userInterfaceIdiom] == 1)
     {
       isShowInCallUIURL = 0;
     }
@@ -6522,7 +6584,8 @@ LABEL_28:
     goto LABEL_38;
   }
 
-  if ([lCopy isShowLagunaPullConversationURL])
+  isShowLagunaPullConversationURL = [lCopy isShowLagunaPullConversationURL];
+  if (isShowLagunaPullConversationURL)
   {
     [(ICSApplicationDelegate *)self requestLagunaPullConversationPresentation];
     goto LABEL_38;
@@ -6532,27 +6595,27 @@ LABEL_28:
   {
     if ([lCopy isShowIncomingTransmissionNoticeURL])
     {
-      v21 = 2;
+      v23 = 2;
     }
 
     else if ([lCopy isShowAccessoryButtonEventsNoticeURL])
     {
-      v21 = 3;
+      v23 = 3;
     }
 
     else
     {
-      v21 = 1;
+      v23 = 1;
     }
 
-    [(ICSApplicationDelegate *)self requestPTTPresentation:v21 forCall:frontmostBargeCall];
+    [(ICSApplicationDelegate *)self requestPTTPresentation:v23 forCall:frontmostBargeCall];
     goto LABEL_38;
   }
 
-  v24 = sub_100009960();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+  v26 = sub_100009960(isShowLagunaPullConversationURL, v20);
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
   {
-    sub_100254F14(v24);
+    sub_100254F14(v26);
   }
 
   v16 = 0;
@@ -6572,11 +6635,11 @@ LABEL_39:
   featureFlags = [(PHApplicationDelegate *)self featureFlags];
   videoMessagingEnabled = [featureFlags videoMessagingEnabled];
 
-  v7 = sub_100004F84();
-  videoMessageUUID = v7;
+  v8 = sub_100004F84(v7);
+  videoMessageUUID = v8;
   if ((videoMessagingEnabled & 1) == 0)
   {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_100254FE8();
     }
@@ -6584,54 +6647,54 @@ LABEL_39:
     goto LABEL_13;
   }
 
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = lCopy;
+    v22 = lCopy;
     _os_log_impl(&_mh_execute_header, videoMessageUUID, OS_LOG_TYPE_DEFAULT, "Opening video message playback URL '%@'", buf, 0xCu);
   }
 
   videoMessageUUID = [lCopy videoMessageUUID];
   if (!videoMessageUUID)
   {
-    v15 = sub_100004F84();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = sub_100004F84(0);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_100255024();
     }
 
 LABEL_13:
-    v14 = 0;
+    v15 = 0;
     goto LABEL_14;
   }
 
   messageStoreClient = [(ICSApplicationDelegate *)self messageStoreClient];
-  v10 = messageStoreClient == 0;
+  v11 = messageStoreClient == 0;
 
-  if (v10)
+  if (v11)
   {
-    v11 = objc_alloc_init(ICSMessageStoreClient);
-    [(ICSApplicationDelegate *)self setMessageStoreClient:v11];
+    v12 = objc_alloc_init(ICSMessageStoreClient);
+    [(ICSApplicationDelegate *)self setMessageStoreClient:v12];
   }
 
   objc_initWeak(buf, self);
   messageStoreClient2 = [(ICSApplicationDelegate *)self messageStoreClient];
   videoMessageUUID2 = [lCopy videoMessageUUID];
-  v17[0] = _NSConcreteStackBlock;
-  v17[1] = 3221225472;
-  v17[2] = sub_1000863B4;
-  v17[3] = &unk_100357EC0;
-  objc_copyWeak(&v19, buf);
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_1000863B4;
+  v18[3] = &unk_100357EC0;
+  objc_copyWeak(&v20, buf);
   videoMessageUUID = videoMessageUUID;
-  v18 = videoMessageUUID;
-  [messageStoreClient2 urlForVideoMessageWithUUID:videoMessageUUID2 completionHandler:v17];
+  v19 = videoMessageUUID;
+  [messageStoreClient2 urlForVideoMessageWithUUID:videoMessageUUID2 completionHandler:v18];
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(buf);
-  v14 = 1;
+  v15 = 1;
 LABEL_14:
 
-  return v14;
+  return v15;
 }
 
 - (void)performPresentationForVideoMessage
@@ -6646,26 +6709,26 @@ LABEL_14:
 
 - (void)acquirePreventSuspensionAssertionForDuration:(double)duration
 {
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v16) = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Asked to acquire temporary prevent suspension assertion", &v16, 2u);
+    LOWORD(v18) = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Asked to acquire temporary prevent suspension assertion", &v18, 2u);
   }
 
   processAssertion = [(ICSApplicationDelegate *)self processAssertion];
 
   if (processAssertion)
   {
-    v7 = sub_100004F84();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004F84(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       processAssertion2 = [(ICSApplicationDelegate *)self processAssertion];
-      v16 = 138412290;
-      v17 = processAssertion2;
-      v9 = "There's already an existing temporary prevent suspension assertion: %@";
+      v18 = 138412290;
+      v19 = processAssertion2;
+      v10 = "There's already an existing temporary prevent suspension assertion: %@";
 LABEL_9:
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, v9, &v16, 0xCu);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, v10, &v18, 0xCu);
 
       goto LABEL_10;
     }
@@ -6673,9 +6736,9 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v10 = [BKSProcessAssertion alloc];
-  v11 = [v10 initWithBundleIdentifier:TUBundleIdentifierInCallServiceApplication flags:15 reason:4 name:@"InCallServicePreventSuspensionAssertion"];
-  [(ICSApplicationDelegate *)self setProcessAssertion:v11];
+  v11 = [BKSProcessAssertion alloc];
+  v12 = [v11 initWithBundleIdentifier:TUBundleIdentifierInCallServiceApplication flags:15 reason:4 name:@"InCallServicePreventSuspensionAssertion"];
+  [(ICSApplicationDelegate *)self setProcessAssertion:v12];
 
   processAssertion3 = [(ICSApplicationDelegate *)self processAssertion];
   [processAssertion3 acquire];
@@ -6683,16 +6746,16 @@ LABEL_9:
   processAssertion4 = [(ICSApplicationDelegate *)self processAssertion];
   valid = [processAssertion4 valid];
 
-  v15 = sub_100004F84();
-  v7 = v15;
+  v17 = sub_100004F84(v16);
+  v8 = v17;
   if (valid)
   {
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       processAssertion2 = [(ICSApplicationDelegate *)self processAssertion];
-      v16 = 138412290;
-      v17 = processAssertion2;
-      v9 = "Acquired temporary prevent suspension assertion: %@";
+      v18 = 138412290;
+      v19 = processAssertion2;
+      v10 = "Acquired temporary prevent suspension assertion: %@";
       goto LABEL_9;
     }
 
@@ -6702,15 +6765,15 @@ LABEL_10:
     return;
   }
 
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    sub_1002550DC(self, v7);
+    sub_1002550DC(self, v8);
   }
 }
 
 - (void)invalidatePreventSuspensionAssertion
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     processAssertion = [(ICSApplicationDelegate *)self processAssertion];
@@ -6731,11 +6794,11 @@ LABEL_10:
 
   if (processAssertionTimer)
   {
-    v6 = sub_100004F84();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004F84(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "We have an existing timer -- invalidate and reschedule the invalidation", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "We have an existing timer -- invalidate and reschedule the invalidation", buf, 2u);
     }
 
     processAssertionTimer2 = [(ICSApplicationDelegate *)self processAssertionTimer];
@@ -6743,36 +6806,36 @@ LABEL_10:
   }
 
   objc_initWeak(&location, self);
-  v11 = _NSConcreteStackBlock;
-  v12 = 3221225472;
-  v13 = sub_1000869F0;
-  v14 = &unk_100356CE8;
-  objc_copyWeak(&v15, &location);
-  v8 = [NSTimer scheduledTimerWithTimeInterval:0 repeats:&v11 block:duration];
-  [(ICSApplicationDelegate *)self setProcessAssertionTimer:v8, v11, v12, v13, v14];
+  v13 = _NSConcreteStackBlock;
+  v14 = 3221225472;
+  v15 = sub_1000869F0;
+  v16 = &unk_100356CE8;
+  objc_copyWeak(&v17, &location);
+  v9 = [NSTimer scheduledTimerWithTimeInterval:0 repeats:&v13 block:duration];
+  [(ICSApplicationDelegate *)self setProcessAssertionTimer:v9, v13, v14, v15, v16];
 
-  v9 = sub_100004F84();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100004F84(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     processAssertionTimer3 = [(ICSApplicationDelegate *)self processAssertionTimer];
     *buf = 138412290;
-    v18 = processAssertionTimer3;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Scheduled prevent suspension invalidation timer: %@", buf, 0xCu);
+    v20 = processAssertionTimer3;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Scheduled prevent suspension invalidation timer: %@", buf, 0xCu);
   }
 
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
 }
 
 - (BOOL)showSystemCallControlsURL:(id)l
 {
   lCopy = l;
-  v5 = sub_10010D6C4();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_10010D6C4(lCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v27 = lCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Requested system call controls with URL: '%{public}@'", buf, 0xCu);
+    v38 = lCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Requested system call controls with URL: '%{public}@'", buf, 0xCu);
   }
 
   sceneManager = [(ICSApplicationDelegate *)self sceneManager];
@@ -6780,17 +6843,18 @@ LABEL_10:
 
   if (callScene)
   {
-    if ([(ICSApplicationDelegate *)self hasExistingFullScreenInCallScene])
+    hasExistingFullScreenInCallScene = [(ICSApplicationDelegate *)self hasExistingFullScreenInCallScene];
+    if (hasExistingFullScreenInCallScene)
     {
-      v8 = sub_100009960();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_100009960(hasExistingFullScreenInCallScene, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "System call controls requested via URL while a call is full-screen, assuming the status bar was tapped", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "System call controls requested via URL while a call is full-screen, assuming the status bar was tapped", buf, 2u);
       }
 
-      v9 = +[NSNotificationCenter defaultCenter];
-      [v9 postNotificationName:@"ICSStatusBarTappedNotification" object:0];
+      v14 = +[NSNotificationCenter defaultCenter];
+      [v14 postNotificationName:@"ICSStatusBarTappedNotification" object:0];
 
       goto LABEL_22;
     }
@@ -6798,15 +6862,15 @@ LABEL_10:
 LABEL_14:
     [(ICSApplicationDelegate *)self showCallControlsForCurrentContext];
 LABEL_22:
-    v17 = 1;
+    v26 = 1;
     goto LABEL_23;
   }
 
-  v10 = sub_10010D6C4();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v15 = sub_10010D6C4(v9, v10);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Requested to show system call controls using URL scheme; callScene is nil, will request new call scene", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Requested to show system call controls using URL scheme; callScene is nil, will request new call scene", buf, 2u);
   }
 
   bannerPresentationManager = [(ICSApplicationDelegate *)self bannerPresentationManager];
@@ -6819,12 +6883,12 @@ LABEL_22:
 
     if (!wantsBannerWithoutScene)
     {
-      objc_initWeak(buf, self);
-      v18 = sub_10010D6C4();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      inited = objc_initWeak(buf, self);
+      v29 = sub_10010D6C4(inited, v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
-        *v25 = 0;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Presenting system call controls by creating call scene since one didn't exist before", v25, 2u);
+        *v36 = 0;
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Presenting system call controls by creating call scene since one didn't exist before", v36, 2u);
       }
 
       bannerPresentationManager3 = [(ICSApplicationDelegate *)self bannerPresentationManager];
@@ -6832,38 +6896,38 @@ LABEL_22:
       [(ICSApplicationDelegate *)self requestPresentationForCall:activeCall dialRequest:0];
 
       sceneManager2 = [(ICSApplicationDelegate *)self sceneManager];
-      v23[0] = _NSConcreteStackBlock;
-      v23[1] = 3221225472;
-      v23[2] = sub_100086E44;
-      v23[3] = &unk_100357EE8;
-      objc_copyWeak(&v24, buf);
-      [sceneManager2 waitForRegistrationOfSceneWithType:0 completion:v23];
+      v34[0] = _NSConcreteStackBlock;
+      v34[1] = 3221225472;
+      v34[2] = sub_100086E44;
+      v34[3] = &unk_100357EE8;
+      objc_copyWeak(&v35, buf);
+      [sceneManager2 waitForRegistrationOfSceneWithType:0 completion:v34];
 
-      objc_destroyWeak(&v24);
+      objc_destroyWeak(&v35);
       objc_destroyWeak(buf);
       goto LABEL_22;
     }
 
-    v15 = sub_10010D6C4();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v24 = sub_10010D6C4(v22, v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Banner tracking placeholder call for conversation, do not create scene", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Banner tracking placeholder call for conversation, do not create scene", buf, 2u);
     }
 
     goto LABEL_14;
   }
 
-  v16 = sub_10010D6C4();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v25 = sub_10010D6C4(v18, v19);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
     sub_100255170();
   }
 
-  v17 = 0;
+  v26 = 0;
 LABEL_23:
 
-  return v17;
+  return v26;
 }
 
 - (void)showCallControlsForCurrentContext
@@ -6873,25 +6937,26 @@ LABEL_23:
 
   systemControlsShouldPresentAsEmbedded = [callScene systemControlsShouldPresentAsEmbedded];
   presentationMode = [callScene presentationMode];
-  v7 = sub_10010D6C4();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_10010D6C4(presentationMode, v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  if (v9)
   {
-    v8 = v7;
-    v9 = SBSInCallPresentationModeDescription();
-    v10 = v9;
-    v11 = @"NO";
+    v11 = v8;
+    v12 = SBSInCallPresentationModeDescription();
+    v13 = v12;
+    v14 = @"NO";
     *buf = 138543874;
-    v34 = callScene;
+    v40 = callScene;
     if (systemControlsShouldPresentAsEmbedded)
     {
-      v11 = @"YES";
+      v14 = @"YES";
     }
 
-    v35 = 2114;
-    v36 = v9;
-    v37 = 2112;
-    v38 = v11;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Requested to show system call controls for the current context; callScene=%{public}@ presentationMode=%{public}@; shouldShowInCallControls:%@", buf, 0x20u);
+    v41 = 2114;
+    v42 = v12;
+    v43 = 2112;
+    v44 = v14;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Requested to show system call controls for the current context; callScene=%{public}@ presentationMode=%{public}@; shouldShowInCallControls:%@", buf, 0x20u);
   }
 
   if (systemControlsShouldPresentAsEmbedded)
@@ -6904,36 +6969,36 @@ LABEL_23:
 
     else
     {
-      v16 = sub_10010D6C4();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v20 = sub_10010D6C4(v9, v10);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Presenting call controls by taking Call scene full-screen since the scene wants embedded controls and the scene isn't full-screen", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Presenting call controls by taking Call scene full-screen since the scene wants embedded controls and the scene isn't full-screen", buf, 2u);
       }
 
       objc_initWeak(buf, self);
-      v27 = _NSConcreteStackBlock;
-      v28 = 3221225472;
-      v29 = sub_1000872D0;
-      v30 = &unk_100357F10;
-      v31 = callScene;
-      objc_copyWeak(&v32, buf);
-      v17 = objc_retainBlock(&v27);
-      v18 = [PHPIPController defaultPIPController:v27];
-      v19 = [v18 pipState] == 2;
+      v33 = _NSConcreteStackBlock;
+      v34 = 3221225472;
+      v35 = sub_1000872D0;
+      v36 = &unk_100357F10;
+      v37 = callScene;
+      objc_copyWeak(&v38, buf);
+      v21 = objc_retainBlock(&v33);
+      v22 = [PHPIPController defaultPIPController:v33];
+      v23 = [v22 pipState] == 2;
 
-      if (v19)
+      if (v23)
       {
-        v20 = +[PHPIPController defaultPIPController];
-        [v20 manuallyStopPIPWithCompletion:v17];
+        v24 = +[PHPIPController defaultPIPController];
+        [v24 manuallyStopPIPWithCompletion:v21];
       }
 
       else
       {
-        (v17[2])(v17);
+        (v21[2])(v21);
       }
 
-      objc_destroyWeak(&v32);
+      objc_destroyWeak(&v38);
       objc_destroyWeak(buf);
     }
   }
@@ -6945,11 +7010,11 @@ LABEL_23:
 
     if (isSystemApertureEnabled)
     {
-      v15 = sub_100004F84();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v19 = sub_100004F84(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Ignoring request to show system HUD, because the HUD lifecycle on this device is managed by SpringBoard", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Ignoring request to show system HUD, because the HUD lifecycle on this device is managed by SpringBoard", buf, 2u);
       }
     }
 
@@ -6958,14 +7023,14 @@ LABEL_23:
       features2 = [(PHApplicationDelegate *)self features];
       isIncomingCallBannerEnabled = [features2 isIncomingCallBannerEnabled];
 
-      v23 = sub_10010D6C4();
-      v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
+      v29 = sub_10010D6C4(v27, v28);
+      v30 = os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
       if (isIncomingCallBannerEnabled)
       {
-        if (v24)
+        if (v30)
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Presenting call controls banner for current context", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Presenting call controls banner for current context", buf, 2u);
         }
 
         bannerPresentationManager2 = [(ICSApplicationDelegate *)self bannerPresentationManager];
@@ -6974,10 +7039,10 @@ LABEL_23:
 
       else
       {
-        if (v24)
+        if (v30)
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Presenting system call controls banner", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Presenting system call controls banner", buf, 2u);
         }
 
         bannerPresentationManager3 = [(ICSApplicationDelegate *)self bannerPresentationManager];
@@ -6990,12 +7055,12 @@ LABEL_23:
 - (BOOL)showScreenSharingURL:(id)l
 {
   lCopy = l;
-  v5 = sub_1000314C4();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_1000314C4(lCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138412290;
-    v17 = lCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "User requested launching Screen Sharing full screen after potential unlock with URL: %@", &v16, 0xCu);
+    v21 = 138412290;
+    v22 = lCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "User requested launching Screen Sharing full screen after potential unlock with URL: %@", &v21, 0xCu);
   }
 
   featureFlags = [(PHApplicationDelegate *)self featureFlags];
@@ -7003,8 +7068,8 @@ LABEL_23:
 
   if ((supportsScreenSharing & 1) == 0)
   {
-    v11 = sub_1000314C4();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v16 = sub_1000314C4(v9, v10);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_1002551AC();
     }
@@ -7017,15 +7082,15 @@ LABEL_23:
 
   if (isBroadcastingScreenSharing)
   {
-    v10 = sub_1000314C4();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_1000314C4(v13, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v16) = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Not presenting screen sharing scene because this device is the one sharing its screen", &v16, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Not presenting screen sharing scene because this device is the one sharing its screen", &v21, 2u);
     }
 
 LABEL_9:
-    v12 = 0;
+    v17 = 0;
     goto LABEL_14;
   }
 
@@ -7042,16 +7107,16 @@ LABEL_9:
     [(ICSApplicationDelegate *)self requestSpringBoardPresentationForScreenSharingAsPiP:0];
   }
 
-  v12 = 1;
+  v17 = 1;
 LABEL_14:
 
-  return v12;
+  return v17;
 }
 
 - (BOOL)updateForegroundAppURL:(id)l
 {
   lCopy = l;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(lCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -7068,7 +7133,7 @@ LABEL_14:
 - (BOOL)handleBackgroundLaunchURL:(id)l
 {
   lCopy = l;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(lCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -7090,7 +7155,7 @@ LABEL_14:
 - (BOOL)refreshShareableContentURL:(id)l
 {
   lCopy = l;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(lCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
@@ -7112,15 +7177,16 @@ LABEL_14:
   optionsCopy = options;
   v11 = [optionsCopy objectForKey:_UIApplicationOpenURLOptionsSourceProcessHandleKey];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && [(ICSApplicationDelegate *)self canModifyCallsForProcessHandle:v11])
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass & 1) != 0 && (isKindOfClass = [(ICSApplicationDelegate *)self canModifyCallsForProcessHandle:v11], (isKindOfClass))
   {
     [(ICSApplicationDelegate *)self handleHeadsetButtonPressForCall:callCopy sourceIdentifier:identifierCopy];
   }
 
   else
   {
-    v12 = sub_100004F84();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_100004F84(isKindOfClass);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_1002551E8();
     }
@@ -7260,8 +7326,8 @@ LABEL_14:
 
     if (v9)
     {
-      v10 = sub_1000314C4();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v12 = sub_1000314C4(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         sub_100255250();
       }
@@ -7316,23 +7382,23 @@ LABEL_14:
     [(ICSApplicationDelegate *)self updatePrefersBannersHiddenFromClonedDisplay];
     if (statusCopy)
     {
-      v14 = +[TUCallCenter sharedInstance];
-      conversationManager = [v14 conversationManager];
-      v9 = +[TUCallCenter sharedInstance];
-      v10 = +[TUCallCenter sharedInstance];
-      frontmostAudioOrVideoCall = [v10 frontmostAudioOrVideoCall];
-      v12 = [v9 activeConversationForCall:frontmostAudioOrVideoCall];
-      [conversationManager addScreenSharingType:2 forConversation:v12];
+      v16 = +[TUCallCenter sharedInstance];
+      conversationManager = [v16 conversationManager];
+      v11 = +[TUCallCenter sharedInstance];
+      v12 = +[TUCallCenter sharedInstance];
+      frontmostAudioOrVideoCall = [v12 frontmostAudioOrVideoCall];
+      v14 = [v11 activeConversationForCall:frontmostAudioOrVideoCall];
+      [conversationManager addScreenSharingType:2 forConversation:v14];
     }
   }
 
   else
   {
-    v13 = sub_1000314C4();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_1000314C4(v8, v9);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Not updating banner state for remote control, screen sharing remote control feature flag is disabled", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Not updating banner state for remote control, screen sharing remote control feature flag is disabled", buf, 2u);
     }
   }
 }
@@ -7350,26 +7416,26 @@ LABEL_14:
 
   if (bannerPresentationRequestTimer)
   {
-    v6 = sub_10010D6C4();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_10010D6C4(v6, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "requestToPresentBanner already pending, ignoring this request", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "requestToPresentBanner already pending, ignoring this request", buf, 2u);
     }
   }
 
   else
   {
     objc_initWeak(&location, self);
-    v29[0] = _NSConcreteStackBlock;
-    v29[1] = 3221225472;
-    v29[2] = sub_10008851C;
-    v29[3] = &unk_100357FB8;
-    objc_copyWeak(&v31, &location);
-    v7 = bannerCopy;
-    v30 = v7;
-    v8 = [NSTimer scheduledTimerWithTimeInterval:0 repeats:v29 block:3.0];
-    [(ICSApplicationDelegate *)self setBannerPresentationRequestTimer:v8];
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_10008851C;
+    v31[3] = &unk_100357FB8;
+    objc_copyWeak(&v33, &location);
+    v9 = bannerCopy;
+    v32 = v9;
+    v10 = [NSTimer scheduledTimerWithTimeInterval:0 repeats:v31 block:3.0];
+    [(ICSApplicationDelegate *)self setBannerPresentationRequestTimer:v10];
 
     bannerPresentationManager = [(ICSApplicationDelegate *)self bannerPresentationManager];
     wantsBannerWithoutScene = [bannerPresentationManager wantsBannerWithoutScene];
@@ -7380,31 +7446,31 @@ LABEL_14:
       [bannerPresentationRequestTimer2 invalidate];
 
       [(ICSApplicationDelegate *)self setBannerPresentationRequestTimer:0];
-      (*(v7 + 2))(v7, 0);
+      (*(v9 + 2))(v9, 0);
     }
 
     else
     {
       *buf = 0;
+      v28 = buf;
+      v29 = 0x2020000000;
+      v30 = 0;
+      v24[0] = _NSConcreteStackBlock;
+      v24[1] = 3221225472;
+      v24[2] = sub_1000885C0;
+      v24[3] = &unk_100357FE0;
       v26 = buf;
-      v27 = 0x2020000000;
-      v28 = 0;
+      v24[4] = self;
+      v25 = v9;
+      v14 = objc_retainBlock(v24);
+      sceneManager = [(ICSApplicationDelegate *)self sceneManager];
       v22[0] = _NSConcreteStackBlock;
       v22[1] = 3221225472;
-      v22[2] = sub_1000885C0;
-      v22[3] = &unk_100357FE0;
-      v24 = buf;
-      v22[4] = self;
-      v23 = v7;
-      v12 = objc_retainBlock(v22);
-      sceneManager = [(ICSApplicationDelegate *)self sceneManager];
-      v20[0] = _NSConcreteStackBlock;
-      v20[1] = 3221225472;
-      v20[2] = sub_1000886D0;
-      v20[3] = &unk_100358008;
-      v14 = v12;
-      v21 = v14;
-      [sceneManager waitForRegistrationOfSceneWithType:0 completion:v20];
+      v22[2] = sub_1000886D0;
+      v22[3] = &unk_100358008;
+      v16 = v14;
+      v23 = v16;
+      [sceneManager waitForRegistrationOfSceneWithType:0 completion:v22];
 
       features = [(PHApplicationDelegate *)self features];
       isDominoEnabled = [features isDominoEnabled];
@@ -7412,18 +7478,18 @@ LABEL_14:
       if (isDominoEnabled)
       {
         sceneManager2 = [(ICSApplicationDelegate *)self sceneManager];
-        v18[0] = _NSConcreteStackBlock;
-        v18[1] = 3221225472;
-        v18[2] = sub_1000887C0;
-        v18[3] = &unk_100356A70;
-        v19 = v14;
-        [sceneManager2 waitForRegistrationOfGenericSceneWithType:5 completion:v18];
+        v20[0] = _NSConcreteStackBlock;
+        v20[1] = 3221225472;
+        v20[2] = sub_1000887C0;
+        v20[3] = &unk_100356A70;
+        v21 = v16;
+        [sceneManager2 waitForRegistrationOfGenericSceneWithType:5 completion:v20];
       }
 
       _Block_object_dispose(buf, 8);
     }
 
-    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v33);
     objc_destroyWeak(&location);
   }
 }
@@ -7442,12 +7508,12 @@ LABEL_14:
 
     if (!presentationMode)
     {
-      v9 = sub_10010D6C4();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_10010D6C4(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138543362;
-        v11 = dCopy;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Banner presentation manager updated call UUID to %{public}@ and scene is still dismissed, requesting to show controls", &v10, 0xCu);
+        v12 = 138543362;
+        v13 = dCopy;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Banner presentation manager updated call UUID to %{public}@ and scene is still dismissed, requesting to show controls", &v12, 0xCu);
       }
 
       [(ICSApplicationDelegate *)self showCallControlsForCurrentContext];
@@ -7466,13 +7532,13 @@ LABEL_14:
     uUIDString = [dCopy UUIDString];
     v8 = [v6 callWithCallUUID:uUIDString];
 
-    if (!v8 || [v8 status] != 4)
+    if (!v8 || (v9 = [v8 status], v9 != 4))
     {
-      v9 = sub_10010D6C4();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_10010D6C4(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        *v12 = 0;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Banner presentation manager detected AVLess -> AV upgrade, requesting to present scene", v12, 2u);
+        *v14 = 0;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Banner presentation manager detected AVLess -> AV upgrade, requesting to present scene", v14, 2u);
       }
 
       [(ICSApplicationDelegate *)self setAvUpgradedCallUUIDForDismissedScene:dCopy];
@@ -7487,7 +7553,7 @@ LABEL_14:
 
 - (void)bannerPresentationManagerAVDowngradedGroupUUID:(id)d
 {
-  v4 = sub_10010D6C4();
+  v4 = sub_10010D6C4(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -7545,7 +7611,7 @@ LABEL_14:
 
 - (void)bannerPresentationManagerShowFullscreenCallDetailsView
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -7692,11 +7758,11 @@ LABEL_7:
 
     if (status != 6)
     {
-      v12 = sub_10010D6C4();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_10010D6C4(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        *v13 = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "New conversation has been added that matches frontmost call, requesting HUD to be presented", v13, 2u);
+        *v15 = 0;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "New conversation has been added that matches frontmost call, requesting HUD to be presented", v15, 2u);
       }
 
       [(ICSApplicationDelegate *)self setShouldAttemptRePresentationOfBannerOnConversationUpdate:0];
@@ -7735,44 +7801,48 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  if (fromConversationCopy && [fromConversationCopy avMode])
+  if (fromConversationCopy)
   {
-    v13 = sub_10010D6C4();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    avMode = [fromConversationCopy avMode];
+    if (avMode)
     {
-      v14 = v13;
-      currentInCallScene = [(ICSApplicationDelegate *)self currentInCallScene];
-      v22 = 138412546;
-      v23 = conversationCopy;
-      v24 = 2112;
-      v25 = currentInCallScene;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Detected transition from AV -> AVLess for conversation: %@. Dismissing currentInCallScene: %@", &v22, 0x16u);
-    }
+      v15 = sub_10010D6C4(avMode, v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      {
+        v16 = v15;
+        currentInCallScene = [(ICSApplicationDelegate *)self currentInCallScene];
+        v26 = 138412546;
+        v27 = conversationCopy;
+        v28 = 2112;
+        v29 = currentInCallScene;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Detected transition from AV -> AVLess for conversation: %@. Dismissing currentInCallScene: %@", &v26, 0x16u);
+      }
 
-    currentInCallScene2 = [(ICSApplicationDelegate *)self currentInCallScene];
-    [currentInCallScene2 requestTransitionToPresentationMode:0 shouldDismissCMASAlerts:0];
+      currentInCallScene2 = [(ICSApplicationDelegate *)self currentInCallScene];
+      [currentInCallScene2 requestTransitionToPresentationMode:0 shouldDismissCMASAlerts:0];
+    }
   }
 
   [PHInCallRootViewController obtainDismissalAssertionForReason:@"PHAVLessConversationAssertionReason"];
   [(ICSApplicationDelegate *)self requestSpringBoardPresentationForCallDetailsView];
 LABEL_14:
-  v17 = +[TUCallCenter sharedInstance];
-  conversationManager = [v17 conversationManager];
+  v19 = +[TUCallCenter sharedInstance];
+  conversationManager = [v19 conversationManager];
   avLessConversation = [conversationManager avLessConversation];
 
   if (avLessConversation)
   {
-    v20 = +[PHPIPController defaultPIPController];
-    [v20 updatePipSharePlaySessionWithConversation:conversationCopy];
+    v24 = +[PHPIPController defaultPIPController];
+    [v24 updatePipSharePlaySessionWithConversation:conversationCopy];
   }
 
   else
   {
-    v21 = sub_100009960();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v25 = sub_100009960(v22, v23);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v22) = 0;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "No AVLess conversations remaining. Removing dismissal assertion.", &v22, 2u);
+      LOWORD(v26) = 0;
+      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "No AVLess conversations remaining. Removing dismissal assertion.", &v26, 2u);
     }
 
     [PHInCallRootViewController releaseDismissalAssertionForReason:@"PHAVLessConversationDetailsViewAssertionReason"];
@@ -7814,7 +7884,7 @@ LABEL_14:
 - (void)handleAlertInvokedNotification:(id)notification
 {
   notificationCopy = notification;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(notificationCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v10 = 0;
@@ -7849,15 +7919,15 @@ LABEL_14:
 
         if (!alertCoordinator)
         {
-          v7 = sub_100004F84();
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+          v8 = sub_100004F84(v7);
+          if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
           {
-            *v10 = 0;
-            _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Emergency fallback changed and alertCoordinator not initialized. Starting monitoring to start background countdown if necessary", v10, 2u);
+            *v11 = 0;
+            _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Emergency fallback changed and alertCoordinator not initialized. Starting monitoring to start background countdown if necessary", v11, 2u);
           }
 
-          v8 = objc_alloc_init(_TtC13InCallService16AlertCoordinator);
-          [(ICSApplicationDelegate *)self setAlertCoordinator:v8];
+          v9 = objc_alloc_init(_TtC13InCallService16AlertCoordinator);
+          [(ICSApplicationDelegate *)self setAlertCoordinator:v9];
 
           alertCoordinator2 = [(ICSApplicationDelegate *)self alertCoordinator];
           [alertCoordinator2 startMonitoring];
@@ -7870,12 +7940,12 @@ LABEL_14:
 - (void)prepareForAmbientScene:(id)scene
 {
   sceneCopy = scene;
-  v5 = sub_10010D904();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_10010D904(sceneCopy, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = sceneCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Preparing for ambient scene: %@", &v7, 0xCu);
+    v8 = 138412290;
+    v9 = sceneCopy;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Preparing for ambient scene: %@", &v8, 0xCu);
   }
 
   sceneManager = [(ICSApplicationDelegate *)self sceneManager];
@@ -7896,8 +7966,8 @@ LABEL_14:
 
   else
   {
-    v6 = sub_10010D904();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = sub_10010D904(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10025530C();
     }
@@ -7956,61 +8026,66 @@ LABEL_11:
 
   if (currentSession)
   {
-    v5 = sub_100004F84();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004F84(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 0;
-      v6 = "Not handling command because we are connected to carplay";
-      v7 = &v14;
+      v18 = 0;
+      v7 = "Not handling command because we are connected to carplay";
+      v8 = &v18;
 LABEL_10:
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, v6, v7, 2u);
-    }
-  }
-
-  else if ([(ICSApplicationDelegate *)self isPresentingFullScreenCallUI])
-  {
-    v8 = +[PHInCallUIUtilities sharedInstance];
-    isSpringBoardLocked = [v8 isSpringBoardLocked];
-
-    if (isSpringBoardLocked)
-    {
-      v5 = sub_100004F84();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-      {
-        v12 = 0;
-        v6 = "Not handling command because springboard is locked";
-        v7 = &v12;
-        goto LABEL_10;
-      }
-    }
-
-    else
-    {
-      if (!+[ICSApplicationDelegate hasCarKitRoute])
-      {
-        return 1;
-      }
-
-      v5 = sub_100004F84();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-      {
-        v11 = 0;
-        v6 = "Not handling command because we are connected to a carkit route";
-        v7 = &v11;
-        goto LABEL_10;
-      }
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, v7, v8, 2u);
     }
   }
 
   else
   {
-    v5 = sub_100004F84();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    isPresentingFullScreenCallUI = [(ICSApplicationDelegate *)self isPresentingFullScreenCallUI];
+    if (isPresentingFullScreenCallUI)
     {
-      *buf = 0;
-      v6 = "Not handling command because we are not showing screening UI";
-      v7 = buf;
-      goto LABEL_10;
+      v10 = +[PHInCallUIUtilities sharedInstance];
+      isSpringBoardLocked = [v10 isSpringBoardLocked];
+
+      if (isSpringBoardLocked)
+      {
+        v6 = sub_100004F84(v12);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        {
+          v16 = 0;
+          v7 = "Not handling command because springboard is locked";
+          v8 = &v16;
+          goto LABEL_10;
+        }
+      }
+
+      else
+      {
+        v14 = +[ICSApplicationDelegate hasCarKitRoute];
+        if (!v14)
+        {
+          return 1;
+        }
+
+        v6 = sub_100004F84(v14);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        {
+          v15 = 0;
+          v7 = "Not handling command because we are connected to a carkit route";
+          v8 = &v15;
+          goto LABEL_10;
+        }
+      }
+    }
+
+    else
+    {
+      v6 = sub_100004F84(isPresentingFullScreenCallUI);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        v7 = "Not handling command because we are not showing screening UI";
+        v8 = buf;
+        goto LABEL_10;
+      }
     }
   }
 
@@ -8020,7 +8095,7 @@ LABEL_10:
 - (void)shouldHandleMRCommand:(unsigned int)command completion:(id)completion
 {
   completionCopy = completion;
-  v7 = sub_100004F84();
+  v7 = sub_100004F84(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v11[0] = 67109120;
@@ -8029,7 +8104,7 @@ LABEL_10:
   }
 
   shouldHandleBluetoothCommand = [(ICSApplicationDelegate *)self shouldHandleBluetoothCommand];
-  v9 = sub_100004F84();
+  v9 = sub_100004F84(shouldHandleBluetoothCommand);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
   if (shouldHandleBluetoothCommand)
   {
@@ -8056,7 +8131,7 @@ LABEL_10:
 {
   identifierCopy = identifier;
   completionCopy = completion;
-  v10 = sub_100004F84();
+  v10 = sub_100004F84(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v14[0] = 67109378;
@@ -8067,7 +8142,7 @@ LABEL_10:
   }
 
   shouldHandleBluetoothCommand = [(ICSApplicationDelegate *)self shouldHandleBluetoothCommand];
-  v12 = sub_100004F84();
+  v12 = sub_100004F84(shouldHandleBluetoothCommand);
   v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
   if (shouldHandleBluetoothCommand)
   {
@@ -8093,12 +8168,12 @@ LABEL_10:
 - (void)handleRedialCommandWhileScreening:(id)screening
 {
   screeningCopy = screening;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(screeningCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = 138412290;
-    v25 = screeningCopy;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Asked to handle redial %@", &v24, 0xCu);
+    v27 = 138412290;
+    v28 = screeningCopy;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Asked to handle redial %@", &v27, 0xCu);
   }
 
   v6 = +[TUCallCenter sharedInstance];
@@ -8109,75 +8184,76 @@ LABEL_10:
     [screeningCopy setPreferDefaultApp:0];
     handle = [screeningCall handle];
     value = [handle value];
-    v10 = [TUHandle normalizedHandleWithDestinationID:value];
+    v11 = [TUHandle normalizedHandleWithDestinationID:value];
 
     handle2 = [screeningCall handle];
     value2 = [handle2 value];
-    v13 = [TUHandle normalizedHandleWithDestinationID:value2];
+    v14 = [TUHandle normalizedHandleWithDestinationID:value2];
 
-    v14 = [(__CFString *)v13 isEqualToHandle:v10];
+    v15 = [(__CFString *)v14 isEqualToHandle:v11];
     shouldHandleBluetoothCommand = [(ICSApplicationDelegate *)self shouldHandleBluetoothCommand];
-    v16 = sub_100004F84();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = shouldHandleBluetoothCommand;
+    v18 = sub_100004F84(shouldHandleBluetoothCommand);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 138412546;
-      v25 = v10;
-      v26 = 2112;
-      v27 = v13;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Normalized handle from screening call %@ redial %@", &v24, 0x16u);
+      v27 = 138412546;
+      v28 = v11;
+      v29 = 2112;
+      v30 = v14;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Normalized handle from screening call %@ redial %@", &v27, 0x16u);
     }
 
-    v17 = sub_100004F84();
-    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
-    if ((shouldHandleBluetoothCommand | v14))
+    v20 = sub_100004F84(v19);
+    v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+    if ((v17 | v15))
     {
-      if (v18)
+      if (v21)
       {
-        v19 = @"NO";
-        if (shouldHandleBluetoothCommand)
+        v22 = @"NO";
+        if (v17)
         {
-          v20 = @"YES";
+          v23 = @"YES";
         }
 
         else
         {
-          v20 = @"NO";
+          v23 = @"NO";
         }
 
-        if (v14)
+        if (v15)
         {
-          v19 = @"YES";
+          v22 = @"YES";
         }
 
-        v24 = 138412546;
-        v25 = v20;
-        v26 = 2112;
-        v27 = v19;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Answering call for redial since ICS is presenting screening UI: %@ or is trying to call the same person we are screening %@", &v24, 0x16u);
+        v27 = 138412546;
+        v28 = v23;
+        v29 = 2112;
+        v30 = v22;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Answering call for redial since ICS is presenting screening UI: %@ or is trying to call the same person we are screening %@", &v27, 0x16u);
       }
 
-      v21 = +[TUCallCenter sharedInstance];
+      v24 = +[TUCallCenter sharedInstance];
       audioSourceIdentifier = [screeningCopy audioSourceIdentifier];
-      [v21 handleActionForWiredHeadsetMiddleButtonPressWithSourceIdentifier:audioSourceIdentifier allowBluetoothAnswerWithoutDowngrade:0 shouldForceDowngradeToAudio:1];
+      [v24 handleActionForWiredHeadsetMiddleButtonPressWithSourceIdentifier:audioSourceIdentifier allowBluetoothAnswerWithoutDowngrade:0 shouldForceDowngradeToAudio:1];
     }
 
     else
     {
-      if (v18)
+      if (v21)
       {
-        LOWORD(v24) = 0;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Not presenting screening UI so dialing for redial", &v24, 2u);
+        LOWORD(v27) = 0;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Not presenting screening UI so dialing for redial", &v27, 2u);
       }
 
-      v21 = +[TUCallCenter sharedInstance];
-      v23 = [v21 dialWithRequest:screeningCopy];
+      v24 = +[TUCallCenter sharedInstance];
+      v26 = [v24 dialWithRequest:screeningCopy];
     }
   }
 
   else
   {
-    v10 = sub_100004F84();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100004F84(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_100255348();
     }
@@ -8187,7 +8263,7 @@ LABEL_10:
 - (void)fetchInCallUIState:(id)state
 {
   stateCopy = state;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(stateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v13) = 0;
@@ -8215,7 +8291,7 @@ LABEL_10:
 
   v10 = v9 | isPresentingFullScreenCallUI;
   v11 = [[TUUIContext alloc] initWithState:v10];
-  v12 = sub_100004F84();
+  v12 = sub_100004F84(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 134217984;
@@ -8239,22 +8315,22 @@ LABEL_10:
 
   if (remoteControlStatus != 2)
   {
-    v11 = +[NSDate date];
-    [v11 timeIntervalSinceDate:latestRemoteControlDate];
-    v13 = v12;
+    v12 = +[NSDate date];
+    [v12 timeIntervalSinceDate:latestRemoteControlDate];
+    v14 = v13;
 
-    if (v13 < 3.0)
+    if (v14 < 3.0)
     {
       remoteControlStatus = 2;
     }
   }
 
-  v14 = sub_100004F84();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = sub_100004F84(v11);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 134217984;
-    v16 = remoteControlStatus;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Returning remote control status: %ld", &v15, 0xCu);
+    v16 = 134217984;
+    v17 = remoteControlStatus;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Returning remote control status: %ld", &v16, 0xCu);
   }
 
   statusCopy[2](statusCopy, remoteControlStatus, 0);
@@ -8263,11 +8339,11 @@ LABEL_10:
 - (void)updateiPadMenuBarApplicationName:(id)name
 {
   nameCopy = name;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(nameCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v13) = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Starting updateiPadMenuBarApplicationName", &v13, 2u);
+    LOWORD(v14) = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Starting updateiPadMenuBarApplicationName", &v14, 2u);
   }
 
   v6 = NSSelectorFromString(@"_setOverrideApplicationName:");
@@ -8276,24 +8352,24 @@ LABEL_10:
 
   if (v8)
   {
-    v9 = [(ICSApplicationDelegate *)self getMenuBarApplicationName:nameCopy];
-    v10 = sub_100004F84();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v10 = [(ICSApplicationDelegate *)self getMenuBarApplicationName:nameCopy];
+    v11 = sub_100004F84(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = v9;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "updateiPadMenuBarApplicationName NEW TITLE %@", &v13, 0xCu);
+      v14 = 138412290;
+      v15 = v10;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "updateiPadMenuBarApplicationName NEW TITLE %@", &v14, 0xCu);
     }
 
-    v11 = +[UIMenuSystem mainSystem];
-    [v11 performSelector:v6 withObject:v9];
+    v12 = +[UIMenuSystem mainSystem];
+    [v12 performSelector:v6 withObject:v10];
   }
 
-  v12 = sub_100004F84();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_100004F84(v9);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v13) = 0;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "updateiPadMenuBarApplicationName complete", &v13, 2u);
+    LOWORD(v14) = 0;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "updateiPadMenuBarApplicationName complete", &v14, 2u);
   }
 }
 
@@ -8307,22 +8383,23 @@ LABEL_10:
 
 - (void)setIsPresentingAmbient:(BOOL)ambient
 {
+  ambientCopy = ambient;
   selfCopy = self;
-  ICSApplicationDelegate.isPresentingAmbient.setter();
+  ICSApplicationDelegate.isPresentingAmbient.setter(ambientCopy);
 }
 
 - (BOOL)updateForegroundAppURL:(id)l using:(id)using
 {
   v6 = type metadata accessor for URL();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6, v8);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   usingCopy = using;
   selfCopy = self;
-  LOBYTE(self) = ICSApplicationDelegate.updateForegroundApp(url:using:)(usingCopy, v13);
+  LOBYTE(self) = ICSApplicationDelegate.updateForegroundApp(url:using:)(usingCopy, v12);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
   return self & 1;
 }
 
@@ -8330,16 +8407,16 @@ LABEL_10:
 {
   v6 = type metadata accessor for URL();
   v7 = *(v6 - 8);
-  __chkstk_darwin(v6, v8);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = _Block_copy(with);
+  __chkstk_darwin(v6);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = _Block_copy(with);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
-  v12 = swift_allocObject();
-  *(v12 + 16) = v11;
+  v11 = swift_allocObject();
+  *(v11 + 16) = v10;
   selfCopy = self;
-  ICSApplicationDelegate.handleInterventionURL(_:continueWith:)(v10, sub_1001794FC, v12);
+  ICSApplicationDelegate.handleInterventionURL(_:continueWith:)(v9, sub_1001794FC, v11);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (void)dismissAnsweredCallBannerIfNeeded
@@ -8420,7 +8497,7 @@ LABEL_10:
   selfCopy = self;
   sub_1001C688C();
 
-  sub_1000064BC(0, &qword_1003ACFE0);
+  sub_1000064BC(0, &qword_1003ACFE0, UIMenuElement_ptr);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;

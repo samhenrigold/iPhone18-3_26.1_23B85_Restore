@@ -64,20 +64,18 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    isFavorited = self->_isFavorited;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    isScreenShot = self->_isScreenShot;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -144,7 +142,6 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v7 = equalCopy[8];
   if (self->_isFavorited)
   {
     if ((equalCopy[8] & 1) == 0)

@@ -61,36 +61,35 @@ void __70__CPGameCenterUtilities_fetchOnDeviceMultiplayerBundleIDsWithHandler___
   v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = cpGameCenterLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = cpGameCenterLog(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v13 = 138412290;
-      v14 = v6;
-      _os_log_impl(&dword_1AEB26000, v7, OS_LOG_TYPE_DEFAULT, "error encountered calling fetchOnDeviceMultiplayerBundleIDsWithHandler: error: %@", &v13, 0xCu);
+      v14 = v7;
+      _os_log_impl(&dword_1AEB26000, v8, OS_LOG_TYPE_DEFAULT, "error encountered calling fetchOnDeviceMultiplayerBundleIDsWithHandler: error: %@", &v13, 0xCu);
     }
   }
 
-  v8 = cpGameCenterLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = cpGameCenterLog(v6);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v13 = 138412290;
     v14 = v5;
-    _os_log_impl(&dword_1AEB26000, v8, OS_LOG_TYPE_DEFAULT, "fetched on device multiplayer bundleIDs: %@", &v13, 0xCu);
+    _os_log_impl(&dword_1AEB26000, v9, OS_LOG_TYPE_DEFAULT, "fetched on device multiplayer bundleIDs: %@", &v13, 0xCu);
   }
 
-  v9 = [*(a1 + 32) supportedBundleIDs];
-  v10 = [MEMORY[0x1E695DFD8] setWithArray:v5];
-  [v9 unionSet:v10];
+  v10 = [*(a1 + 32) supportedBundleIDs];
+  v11 = [MEMORY[0x1E695DFD8] setWithArray:v5];
+  [v10 unionSet:v11];
 
-  v11 = *(a1 + 40);
-  if (v11)
+  v12 = *(a1 + 40);
+  if (v12)
   {
-    (*(v11 + 16))(v11, v5, v6);
+    (*(v12 + 16))(v12, v5, v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchGameCenterMultiplayerGameStatusForBundleID:(id)d handler:(id)handler
@@ -115,42 +114,41 @@ void __81__CPGameCenterUtilities_fetchGameCenterMultiplayerGameStatusForBundleID
 {
   v17 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = cpGameCenterLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = cpGameCenterLog(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v13 = 138412290;
-      v14 = v5;
-      _os_log_impl(&dword_1AEB26000, v6, OS_LOG_TYPE_DEFAULT, "error encountered calling fetchGameCenterMultiplayerGameStatusForBundleID:handler: error: %@", &v13, 0xCu);
+      v14 = v6;
+      _os_log_impl(&dword_1AEB26000, v7, OS_LOG_TYPE_DEFAULT, "error encountered calling fetchGameCenterMultiplayerGameStatusForBundleID:handler: error: %@", &v13, 0xCu);
     }
   }
 
-  v7 = cpGameCenterLog();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = cpGameCenterLog(v5);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = *(a1 + 32);
-    v9 = [MEMORY[0x1E696AD98] numberWithBool:a2];
+    v9 = *(a1 + 32);
+    v10 = [MEMORY[0x1E696AD98] numberWithBool:a2];
     v13 = 138412546;
-    v14 = v8;
+    v14 = v9;
     v15 = 2112;
-    v16 = v9;
-    _os_log_impl(&dword_1AEB26000, v7, OS_LOG_TYPE_DEFAULT, "fetched Game Center multiplayer game status for: %@, is: %@", &v13, 0x16u);
+    v16 = v10;
+    _os_log_impl(&dword_1AEB26000, v8, OS_LOG_TYPE_DEFAULT, "fetched Game Center multiplayer game status for: %@, is: %@", &v13, 0x16u);
   }
 
   if (a2)
   {
-    v10 = [*(a1 + 40) supportedBundleIDs];
-    [v10 addObject:*(a1 + 32)];
+    v11 = [*(a1 + 40) supportedBundleIDs];
+    [v11 addObject:*(a1 + 32)];
   }
 
-  v11 = *(a1 + 48);
-  if (v11)
+  v12 = *(a1 + 48);
+  if (v12)
   {
-    (*(v11 + 16))(v11, a2, v5);
+    (*(v12 + 16))(v12, a2, v6);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

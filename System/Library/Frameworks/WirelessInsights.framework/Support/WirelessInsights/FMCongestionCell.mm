@@ -205,7 +205,7 @@
   if (congestionMetric)
   {
     congestionMetric2 = [(FMCongestionCell *)self congestionMetric];
-    LOBYTE(congestionMetric) = [congestionMetric2 isCongested];
+    LOBYTE(congestionMetric) = objc_msgSend_isCongested(congestionMetric2);
   }
 
   return congestionMetric;

@@ -8,34 +8,32 @@
 
 - (unint64_t)effectiveIndex
 {
-  v6 = objc_msgSend_group(self, a2, v2, v3, v4);
+  group = [(TTSRuleReplacement *)self group];
 
-  if (v6)
+  if (group)
   {
-    v11 = objc_msgSend_group(self, v7, v8, v9, v10);
-    v16 = objc_msgSend_endIndex(v11, v12, v13, v14, v15);
+    group2 = [(TTSRuleReplacement *)self group];
+    endIndex = [group2 endIndex];
 
-    return v16;
+    return endIndex;
   }
 
   else
   {
 
-    return MEMORY[0x1EEE66B58](self, sel_index, v8, v9, v10);
+    return MEMORY[0x1EEE66B58](self, sel_index);
   }
 }
 
 - (NSString)identifier
 {
-  v6 = MEMORY[0x1E696AEC0];
-  v7 = objc_msgSend_ruleset(self, a2, v2, v3, v4);
-  v12 = objc_msgSend_identifier(v7, v8, v9, v10, v11);
-  v13 = MEMORY[0x1E696AD98];
-  v18 = objc_msgSend_originalRulesetIndex(self, v14, v15, v16, v17);
-  v22 = objc_msgSend_numberWithUnsignedInt_(v13, v19, v18, v20, v21);
-  v26 = objc_msgSend_stringWithFormat_(v6, v23, @"%@_%@", v24, v25, v12, v22);
+  v3 = MEMORY[0x1E696AEC0];
+  ruleset = [(TTSRuleReplacement *)self ruleset];
+  identifier = [ruleset identifier];
+  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:{-[TTSRuleReplacement originalRulesetIndex](self, "originalRulesetIndex")}];
+  v7 = [v3 stringWithFormat:@"%@_%@", identifier, v6];
 
-  return v26;
+  return v7;
 }
 
 - (TTSRuleset)ruleset

@@ -70,16 +70,21 @@
         shouldLog = [oSLogObject3 shouldLog];
         if ([oSLogObject3 shouldLogToDisk])
         {
-          v10 = shouldLog | 2;
+          LODWORD(v10) = shouldLog | 2;
         }
 
         else
         {
-          v10 = shouldLog;
+          LODWORD(v10) = shouldLog;
         }
 
         oSLogObject = [oSLogObject3 OSLogObject];
-        if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+        {
+          v10 = v10;
+        }
+
+        else
         {
           v10 &= 2u;
         }
@@ -88,42 +93,41 @@
         {
           v12 = objc_opt_class();
           applicationHandle = self->_applicationHandle;
-          v39 = 138412546;
-          v40 = v12;
-          v41 = 2112;
-          v42 = applicationHandle;
+          v38 = 138412546;
+          v39 = v12;
+          v40 = 2112;
+          v41 = applicationHandle;
           v14 = v12;
-          LODWORD(v35) = 22;
-          v15 = _os_log_send_and_compose_impl();
+          v15 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "%@: Skipping icon download for placeholder with icons: %@", &v38, 22);
 
           if (!v15)
           {
-LABEL_43:
+LABEL_46:
 
-            goto LABEL_44;
+            goto LABEL_47;
           }
 
-          oSLogObject = [NSString stringWithCString:v15 encoding:4, &v39, v35];
+          oSLogObject = [NSString stringWithCString:v15 encoding:4];
           free(v15);
           SSFileLog();
         }
 
-LABEL_32:
+LABEL_34:
 
-        goto LABEL_43;
+        goto LABEL_46;
       }
     }
   }
 
   if (self->_thumbnailURL)
   {
-    v38 = 0;
-    oSLogObject3 = [(LoadSoftwareThumbnailOperation *)self _artworkDataWithError:&v38];
-    v5 = v38;
+    v37 = 0;
+    oSLogObject3 = [(LoadSoftwareThumbnailOperation *)self _artworkDataWithError:&v37];
+    v5 = v37;
     [(LoadSoftwareThumbnailOperation *)self setError:v5];
     if (![oSLogObject3 length]|| v5)
     {
-      goto LABEL_43;
+      goto LABEL_46;
     }
 
     v16 = +[SSLogConfig sharedDaemonConfig];
@@ -135,16 +139,21 @@ LABEL_32:
     shouldLog2 = [v16 shouldLog];
     if ([v16 shouldLogToDisk])
     {
-      v18 = shouldLog2 | 2;
+      LODWORD(v18) = shouldLog2 | 2;
     }
 
     else
     {
-      v18 = shouldLog2;
+      LODWORD(v18) = shouldLog2;
     }
 
     oSLogObject2 = [v16 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+    {
+      v18 = v18;
+    }
+
+    else
     {
       v18 &= 2u;
     }
@@ -153,29 +162,27 @@ LABEL_32:
     {
       v20 = objc_opt_class();
       v21 = self->_applicationHandle;
-      v39 = 138412546;
-      v40 = v20;
-      v41 = 2112;
-      v42 = v21;
+      v38 = 138412546;
+      v39 = v20;
+      v40 = 2112;
+      v41 = v21;
       v22 = v20;
-      LODWORD(v35) = 22;
-      v34 = &v39;
-      v23 = _os_log_send_and_compose_impl();
+      v23 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Back with icon data for: %@", &v38, 22);
 
       if (!v23)
       {
-LABEL_29:
+LABEL_31:
 
         oSLogObject = +[ApplicationWorkspace defaultWorkspace];
         v24 = dispatch_semaphore_create(0);
         downloadID = [(DownloadHandle *)self->_applicationHandle downloadID];
-        v36[0] = _NSConcreteStackBlock;
-        v36[1] = 3221225472;
-        v36[2] = sub_100202E04;
-        v36[3] = &unk_100327110;
+        v35[0] = _NSConcreteStackBlock;
+        v35[1] = 3221225472;
+        v35[2] = sub_100202E04;
+        v35[3] = &unk_100327110;
         v26 = v24;
-        v37 = v26;
-        [oSLogObject waitForInstallOfDownloadIdentifier:downloadID completionBlock:v36];
+        v36 = v26;
+        [oSLogObject waitForInstallOfDownloadIdentifier:downloadID completionBlock:v35];
         v27 = dispatch_time(0, 60000000000);
         dispatch_semaphore_wait(v26, v27);
         if (([(LoadSoftwareThumbnailOperation *)self isCancelled]& 1) == 0)
@@ -185,16 +192,16 @@ LABEL_29:
 
         [(LoadSoftwareThumbnailOperation *)self setSuccess:1, v34];
 
-        goto LABEL_32;
+        goto LABEL_34;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v23 encoding:4, &v39, v35];
+      oSLogObject2 = [NSString stringWithCString:v23 encoding:4];
       free(v23);
       v34 = oSLogObject2;
       SSFileLog();
     }
 
-    goto LABEL_29;
+    goto LABEL_31;
   }
 
   v5 = +[SSLogConfig sharedDaemonConfig];
@@ -206,44 +213,48 @@ LABEL_29:
   shouldLog3 = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v29 = shouldLog3 | 2;
+    LODWORD(v29) = shouldLog3 | 2;
   }
 
   else
   {
-    v29 = shouldLog3;
+    LODWORD(v29) = shouldLog3;
   }
 
   oSLogObject3 = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+  {
+    v29 = v29;
+  }
+
+  else
   {
     v29 &= 2u;
   }
 
   if (!v29)
   {
-    goto LABEL_43;
+    goto LABEL_46;
   }
 
   v30 = objc_opt_class();
   v31 = self->_applicationHandle;
-  v39 = 138412546;
-  v40 = v30;
-  v41 = 2112;
-  v42 = v31;
+  v38 = 138412546;
+  v39 = v30;
+  v40 = 2112;
+  v41 = v31;
   v32 = v30;
-  LODWORD(v35) = 22;
-  v33 = _os_log_send_and_compose_impl();
+  v33 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%@: Missing URL for software download: %@", &v38, 22);
 
   if (v33)
   {
-    oSLogObject3 = [NSString stringWithCString:v33 encoding:4, &v39, v35];
+    oSLogObject3 = [NSString stringWithCString:v33 encoding:4];
     free(v33);
     SSFileLog();
-    goto LABEL_43;
+    goto LABEL_46;
   }
 
-LABEL_44:
+LABEL_47:
 }
 
 - (id)_artworkDataWithError:(id *)error

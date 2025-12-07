@@ -17,21 +17,21 @@
 
 - (_UITextFieldDesignLibraryBackgroundProvider)init
 {
-  v3 = type metadata accessor for DesignLibraryTextFieldBackgroundView();
+  v3 = type metadata accessor for DesignLibraryTextFieldBackgroundView(0);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v5 = &v13 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v14 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = *(v6 + 32);
   v8 = *MEMORY[0x1E697DC28];
   v9 = sub_18A4A4438();
   (*(*(v9 - 8) + 104))(&v5[v7], v8, v9);
   *v5 = 0;
   *(v5 + 1) = 0;
-  v10 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA93CED8));
+  v10 = objc_allocWithZone(__swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EA93CED8, &unk_18A6670D0));
   *(&self->super.super.super.isa + OBJC_IVAR____UITextFieldDesignLibraryBackgroundProvider_hostingView) = sub_1890F92E4(v5);
   v11 = type metadata accessor for _UITextFieldDesignLibraryBackgroundProvider();
-  v13.receiver = self;
-  v13.super_class = v11;
-  return [(_UITextFieldDesignLibraryBackgroundProvider *)&v13 init];
+  v14.receiver = self;
+  v14.super_class = v12;
+  return [(_UITextFieldDesignLibraryBackgroundProvider *)&v14 init];
 }
 
 - (void)traitCollectionDidChange:(id)change

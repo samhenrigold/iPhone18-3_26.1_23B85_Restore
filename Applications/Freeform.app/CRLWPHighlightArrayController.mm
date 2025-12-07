@@ -181,7 +181,7 @@
             if (sub_1001207D0(BoundingBox.origin.x, BoundingBox.origin.y, BoundingBox.size.width, BoundingBox.size.height))
             {
               [(CRLHighlightController *)v19 setViewScale:self->_viewScale];
-              [(CRLWPHighlightArrayController *)self transform];
+              objc_msgSend_transform(self);
               v31[0] = v31[3];
               v31[1] = v31[4];
               v31[2] = v31[5];

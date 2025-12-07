@@ -1,5 +1,6 @@
 @interface NPKPassbookBridgeSettingsController
 + (BOOL)shouldShowUpdateRequired;
+- (BOOL)_handleProvisioningPreflightFinishedWithSuccess:(BOOL)success displayableError:(id)error;
 - (BOOL)_shouldPresentOrPushViewController;
 - (BOOL)isPresentingViewController;
 - (BOOL)prepareHandlingURLForSpecifierID:(id)d resourceDictionary:(id)dictionary animatePush:(BOOL *)push;
@@ -29,15 +30,22 @@
 - (void)handleURL:(id)l withCompletion:(id)completion;
 - (void)pendingTransactionHandlerDidComplete:(id)complete;
 - (void)registerTableCellClass:(Class)class forCellReuseIdentifier:(id)identifier;
+- (void)requestDismissingPresentedViewControllerWithSettingsController:(id)controller animated:(BOOL)animated completion:(id)completion;
+- (void)requestResetToRootWithSettingsController:(id)controller animated:(BOOL)animated;
 - (void)settingsController:(id)controller requestShowPeerPaymentAssociatedAccountsFlowWithController:(id)withController withPresentationContext:(id)context;
 - (void)settingsController:(id)controller requestsAddCardPreflightWithCompletion:(id)completion;
 - (void)settingsController:(id)controller requestsAddLocalCardPreflightWithCompletion:(id)completion;
 - (void)settingsController:(id)controller requestsAuthenticationChallengeForAppleAccountInformation:(id)information completion:(id)completion;
+- (void)settingsController:(id)controller requestsDetailViewControllerForPass:(id)pass animated:(BOOL)animated;
 - (void)settingsController:(id)controller requestsPresentAuthorizationFlowWithRedirectURL:(id)l animated:(BOOL)animated completion:(id)completion;
 - (void)settingsController:(id)controller requestsPresentInboxMessage:(id)message animated:(BOOL)animated completion:(id)completion;
 - (void)settingsController:(id)controller requestsPresentViewController:(id)viewController animated:(BOOL)animated completion:(id)completion;
+- (void)settingsController:(id)controller requestsPushViewController:(id)viewController animated:(BOOL)animated;
+- (void)settingsController:(id)controller requestsPushViewControllers:(id)controllers animated:(BOOL)animated;
 - (void)settingsControllerRequestsPresentPrivacyWithPresenter:(id)presenter;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation NPKPassbookBridgeSettingsController
@@ -921,6 +929,47 @@ LABEL_37:
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5 = pk_Payment_log();
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+
+  if (v6)
+  {
+    v7 = pk_Payment_log();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Notice: Wallet and Apple Pay settings controller will appear", buf, 2u);
+    }
+  }
+
+  [(NPKPassbookBridgeSettingsController *)self reloadSpecifiers];
+  table = [(NPKPassbookBridgeSettingsController *)self table];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
+  {
+    table2 = [(NPKPassbookBridgeSettingsController *)self table];
+    [table2 setContext:4];
+  }
+
+  v11.receiver = self;
+  v11.super_class = NPKPassbookBridgeSettingsController;
+  [(NPKPassbookBridgeSettingsController *)&v11 viewWillAppear:appearCopy];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = NPKPassbookBridgeSettingsController;
+  [(NPKPassbookBridgeSettingsController *)&v5 viewDidAppear:appear];
+  settingsController = [(NPKPassbookBridgeSettingsController *)self settingsController];
+  [settingsController viewDidAppear];
+}
+
 - (void)settingsController:(id)controller requestsAddCardPreflightWithCompletion:(id)completion
 {
   completionCopy = completion;
@@ -1030,6 +1079,153 @@ LABEL_11:
   [splitViewController presentViewController:v26 animated:v7 completion:v25];
 
 LABEL_18:
+}
+
+- (void)settingsController:(id)controller requestsPushViewController:(id)viewController animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  viewControllerCopy = viewController;
+  v8 = pk_Payment_log();
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+
+  if (v9)
+  {
+    v10 = pk_Payment_log();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = 138412290;
+      v16 = viewControllerCopy;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Notice: Received request to push view controller %@", &v15, 0xCu);
+    }
+  }
+
+  if ([(NPKPassbookBridgeSettingsController *)self _shouldPresentOrPushViewController])
+  {
+    navigationController = [(NPKPassbookBridgeSettingsController *)self navigationController];
+    [navigationController pushViewController:viewControllerCopy animated:animatedCopy];
+
+    v12 = +[UIApplication sharedApplication];
+    if ([v12 applicationState]== &dword_0 + 2)
+    {
+      [(NPKPassbookBridgeSettingsController *)self _launchBridgeInForegroundWithCompletion:0];
+    }
+
+LABEL_11:
+
+    goto LABEL_12;
+  }
+
+  v13 = pk_Payment_log();
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+
+  if (v14)
+  {
+    v12 = pk_Payment_log();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v15) = 0;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Notice: Ignoring request to push view controller because we are not the top view controller", &v15, 2u);
+    }
+
+    goto LABEL_11;
+  }
+
+LABEL_12:
+}
+
+- (void)requestDismissingPresentedViewControllerWithSettingsController:(id)controller animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  completionCopy = completion;
+  v10 = pk_Payment_log();
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+
+  if (v11)
+  {
+    v12 = pk_Payment_log();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      if (animatedCopy)
+      {
+        v13 = @"YES";
+      }
+
+      else
+      {
+        v13 = @"NO";
+      }
+
+      v14 = objc_retainBlock(completionCopy);
+      v15 = 138412802;
+      v16 = controllerCopy;
+      v17 = 2112;
+      v18 = v13;
+      v19 = 2112;
+      v20 = v14;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Notice: Received request to dismiss presented view controller with settings controller: %@ animated: %@ completion: %@", &v15, 0x20u);
+    }
+  }
+
+  [(NPKPassbookBridgeSettingsController *)self dismissViewControllerAnimated:animatedCopy completion:completionCopy];
+}
+
+- (void)requestResetToRootWithSettingsController:(id)controller animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  v7 = pk_Payment_log();
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+
+  if (v8)
+  {
+    v9 = pk_Payment_log();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      v10 = @"NO";
+      if (animatedCopy)
+      {
+        v10 = @"YES";
+      }
+
+      v17 = 138412546;
+      v18 = controllerCopy;
+      v19 = 2112;
+      v20 = v10;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Notice: Received request to reset to navigation root: %@ animated: %@", &v17, 0x16u);
+    }
+  }
+
+  parentViewController = [(NPKPassbookBridgeSettingsController *)self parentViewController];
+  objc_opt_class();
+  isKindOfClass = objc_opt_isKindOfClass();
+
+  if (isKindOfClass)
+  {
+    selfCopy = [(NPKPassbookBridgeSettingsController *)self parentViewController];
+  }
+
+  else
+  {
+    selfCopy = self;
+  }
+
+  v14 = selfCopy;
+  navigationController = [(NPKPassbookBridgeSettingsController *)self navigationController];
+  v16 = [navigationController popToViewController:v14 animated:animatedCopy];
+}
+
+- (void)settingsController:(id)controller requestsDetailViewControllerForPass:(id)pass animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_4BAC;
+  v9[3] = &unk_2C750;
+  passCopy = pass;
+  selfCopy = self;
+  v8 = passCopy;
+  [(NPKPassbookBridgeSettingsController *)self _settingsController:controller requestsDetailViewControllerForPass:v8 animated:animatedCopy completion:v9];
 }
 
 - (void)registerTableCellClass:(Class)class forCellReuseIdentifier:(id)identifier
@@ -1197,6 +1393,21 @@ LABEL_18:
   [v12 authenticateWithContext:v9 completion:v14];
 }
 
+- (void)settingsController:(id)controller requestsPushViewControllers:(id)controllers animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  controllersCopy = controllers;
+  if ([controllersCopy count])
+  {
+    navigationController = [(NPKPassbookBridgeSettingsController *)self navigationController];
+    viewControllers = [navigationController viewControllers];
+    v9 = [viewControllers mutableCopy];
+
+    [v9 addObjectsFromArray:controllersCopy];
+    [navigationController setViewControllers:v9 animated:animatedCopy];
+  }
+}
+
 - (void)settingsController:(id)controller requestShowPeerPaymentAssociatedAccountsFlowWithController:(id)withController withPresentationContext:(id)context
 {
   contextCopy = context;
@@ -1298,6 +1509,49 @@ LABEL_18:
 
     [(NPKPassbookBridgeSettingsController *)self setBackgroundPreflightingTaskIdentifier:UIBackgroundTaskInvalid];
   }
+}
+
+- (BOOL)_handleProvisioningPreflightFinishedWithSuccess:(BOOL)success displayableError:(id)error
+{
+  successCopy = success;
+  errorCopy = error;
+  performingBackgroundPreflight = [(NPKPassbookBridgeSettingsController *)self performingBackgroundPreflight];
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_5CE0;
+  v18[3] = &unk_2C840;
+  v18[4] = self;
+  v8 = objc_retainBlock(v18);
+  if ([(NPKPassbookBridgeSettingsController *)self performingBackgroundPreflight]&& successCopy)
+  {
+    v11 = _NSConcreteStackBlock;
+    v12 = 3221225472;
+    v13 = sub_5E68;
+    v14 = &unk_2C868;
+    v17 = 1;
+    v15 = errorCopy;
+    v16 = v8;
+    [(NPKPassbookBridgeSettingsController *)self _launchBridgeInForegroundWithCompletion:&v11];
+
+    if (!performingBackgroundPreflight)
+    {
+      goto LABEL_7;
+    }
+
+    goto LABEL_6;
+  }
+
+  (v8[2])(v8, successCopy, errorCopy);
+  if (performingBackgroundPreflight)
+  {
+LABEL_6:
+    v9 = [UIApplication sharedApplication:v11];
+    LOBYTE(performingBackgroundPreflight) = [v9 applicationState] == &dword_0 + 2;
+  }
+
+LABEL_7:
+
+  return performingBackgroundPreflight;
 }
 
 - (void)_launchBridgeInForegroundWithCompletion:(id)completion

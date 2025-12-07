@@ -7,18 +7,18 @@
 
 - (_MLCGPUPooling)initWithDevice:(id)device descriptor:(id)descriptor paddingSizes:(unint64_t)sizes[4]
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   descriptorCopy = descriptor;
-  v59.receiver = self;
-  v59.super_class = _MLCGPUPooling;
-  v10 = [(_MLCGPUPooling *)&v59 init];
+  v58.receiver = self;
+  v58.super_class = _MLCGPUPooling;
+  v10 = [(_MLCGPUPooling *)&v58 init];
   v11 = v10;
   if (v10)
   {
     aSelector = a2;
-    v55 = v10;
-    v57 = [MEMORY[0x277CBEBF8] mutableCopy];
+    v54 = v10;
+    v56 = [MEMORY[0x277CBEBF8] mutableCopy];
     deviceList = [deviceCopy deviceList];
     v13 = [deviceList count];
 
@@ -26,7 +26,7 @@
     {
       v15 = 0;
       *&v14 = 138412546;
-      v53 = v14;
+      v52 = v14;
       do
       {
         deviceList2 = [deviceCopy deviceList];
@@ -108,10 +108,10 @@
             {
               v48 = NSStringFromSelector(aSelector);
               poolingType2 = [descriptorCopy poolingType];
-              *buf = v53;
-              v61 = v48;
-              v62 = 1024;
-              v63 = poolingType2;
+              *buf = v52;
+              v60 = v48;
+              v61 = 1024;
+              v62 = poolingType2;
               _os_log_error_impl(&dword_238C1D000, v42, OS_LOG_TYPE_ERROR, "%@: Unknown pooling type %d", buf, 0x12u);
             }
 
@@ -144,7 +144,7 @@
           v45 = [descriptorCopy poolingType] == 3;
           [v44 setSourceOfForwardNeededForGradient:v45];
           [v44 setResultOfForwardNeededForGradient:v45];
-          [v57 addObject:v44];
+          [v56 addObject:v44];
         }
 
         ++v15;
@@ -155,14 +155,13 @@
       while (v15 < v47);
     }
 
-    v50 = [v57 copy];
-    v11 = v55;
-    v58.receiver = v55;
-    v58.super_class = _MLCGPUPooling;
-    [(_MLCGPULayer *)&v58 setDeviceOps:v50];
+    v50 = [v56 copy];
+    v11 = v54;
+    v57.receiver = v54;
+    v57.super_class = _MLCGPUPooling;
+    [(_MLCGPULayer *)&v57 setDeviceOps:v50];
   }
 
-  v51 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

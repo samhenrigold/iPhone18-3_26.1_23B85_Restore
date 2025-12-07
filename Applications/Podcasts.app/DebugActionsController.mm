@@ -44,7 +44,7 @@
 - (void)presentDebugSettings
 {
   selfCopy = self;
-  sub_100250EA4();
+  sub_100250EA4(v2);
 }
 
 @end

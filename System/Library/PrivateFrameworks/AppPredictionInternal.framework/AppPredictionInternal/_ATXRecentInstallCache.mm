@@ -94,41 +94,40 @@ LABEL_4:
 
 - (void)_notifiedOfInstalls:(id)installs
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   installsCopy = installs;
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v6 = installsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
-        v11 = [v6 objectForKeyedSubscript:{v10, v13}];
+        v10 = *(*(&v12 + 1) + 8 * i);
+        v11 = [v6 objectForKeyedSubscript:{v10, v12}];
         [(NSMutableDictionary *)selfCopy->_recentInstallations setObject:v11 forKeyedSubscript:v10];
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
 
   objc_sync_exit(selfCopy);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifiedOfUninstalls:(id)uninstalls
@@ -153,38 +152,38 @@ LABEL_4:
 
 - (id)_allRecentlyInstalledApplicationsAfterExpirationDate:(id)date
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v5 = objc_opt_new();
-  v18 = objc_opt_new();
+  v17 = objc_opt_new();
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   obj = selfCopy->_recentInstallations;
-  v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = [(NSMutableDictionary *)selfCopy->_recentInstallations objectForKeyedSubscript:v10];
         v12 = [v11 earlierDate:dateCopy];
         v13 = [v12 isEqualToDate:dateCopy];
 
         if (v13)
         {
-          v14 = v18;
+          v14 = v17;
         }
 
         else
@@ -195,7 +194,7 @@ LABEL_4:
         [v14 addObject:v10];
       }
 
-      v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
@@ -204,9 +203,7 @@ LABEL_4:
   [(NSMutableDictionary *)selfCopy->_recentInstallations removeObjectsForKeys:v5];
   objc_sync_exit(selfCopy);
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v18;
+  return v17;
 }
 
 - (id)_getRecentInstallationsMap

@@ -1,10 +1,10 @@
 @interface ARUIHashBuilder
 + (id)builder;
 - (ARUIHashBuilder)init;
-- (uint64_t)appendFloat4x4:(double)float4x4;
 - (void)appendCGRect:(CGRect)rect;
 - (void)appendFloat2:(ARUIHashBuilder *)self;
 - (void)appendFloat4:(ARUIHashBuilder *)self;
+- (void)appendFloat4x4:(double)float4x4;
 @end
 
 @implementation ARUIHashBuilder
@@ -63,9 +63,9 @@
   [(ARUIHashBuilder *)self appendFloat:COERCE_DOUBLE(__PAIR64__(DWORD1(v5), HIDWORD(v5)))];
 }
 
-- (uint64_t)appendFloat4x4:(double)float4x4
+- (void)appendFloat4x4:(double)float4x4
 {
-  [self appendFloat4:?];
+  [self appendFloat4:a2];
   [self appendFloat4:float4x4];
   [self appendFloat4:a4];
 

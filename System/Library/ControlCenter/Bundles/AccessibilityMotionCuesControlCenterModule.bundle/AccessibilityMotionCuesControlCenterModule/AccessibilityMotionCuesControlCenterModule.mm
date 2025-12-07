@@ -16,23 +16,21 @@ uint64_t sub_29C9291A8(uint64_t a1)
 
 uint64_t sub_29C92987C(uint64_t a1)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v9 = *MEMORY[0x29EDCA608];
   v2 = AXLogMotionCues();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
-    v10[0] = 67109120;
-    v10[1] = v3;
-    _os_log_impl(&dword_29C928000, v2, OS_LOG_TYPE_DEFAULT, "CC user change: mode=%d", v10, 8u);
+    v8[0] = 67109120;
+    v8[1] = v3;
+    _os_log_impl(&dword_29C928000, v2, OS_LOG_TYPE_DEFAULT, "CC user change: mode=%d", v8, 8u);
   }
 
-  v4 = *(a1 + 40);
   _AXSSetMotionCuesMode();
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v6 = [WeakRetained module];
-  v7 = [v6 contentModuleContext];
-  [v7 dismissModule];
+  v5 = [WeakRetained module];
+  v6 = [v5 contentModuleContext];
+  [v6 dismissModule];
 
-  v8 = *MEMORY[0x29EDCA608];
   return 0;
 }

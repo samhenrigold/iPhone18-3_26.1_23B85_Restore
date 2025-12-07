@@ -50,23 +50,23 @@
       [v6 timeIntervalSince1970];
       v11 = v9 - v10;
 
-      v12 = PPSLogSignpostTestingTask();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v13 = PPSLogSignpostTestingTask(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 134217984;
-        v18 = v11;
-        _os_log_debug_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "Waiting for expiration, %f second(s) elasped...", buf, 0xCu);
+        v21 = v11;
+        _os_log_debug_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "Waiting for expiration, %f second(s) elasped...", buf, 0xCu);
       }
     }
 
     while (v11 <= 15.0);
-    v14 = PPSLogSignpostTestingTask();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v17 = PPSLogSignpostTestingTask(v14);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      sub_1000076D4(v14, v11);
+      sub_1000076D4(v17, v11);
     }
 
-    v13 = 0;
+    v16 = 0;
   }
 
   else
@@ -78,17 +78,18 @@ LABEL_9:
     }
 
     v6 = +[NSDate now];
-    *date = v6;
-    v14 = PPSLogSignpostTestingTask();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v15 = v6;
+    *date = v15;
+    v17 = PPSLogSignpostTestingTask(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      sub_100007750(v6, v14);
+      sub_100007750(v6, v17);
     }
 
-    v13 = 1;
+    v16 = 1;
   }
 
-  return v13;
+  return v16;
 }
 
 @end

@@ -8,32 +8,32 @@
 
 - (id)sk_stringArrayValueForEntitlement:()StatusKitAgent
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v1 = [self valueForEntitlement:?];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v3 = v1;
+    v11 = 0u;
     v12 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v15 = 0u;
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v13;
+      v6 = *v12;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v12 + 1) + 8 * i);
+          v8 = *(*(&v11 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -41,7 +41,7 @@
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v5);
@@ -49,8 +49,6 @@
   }
 
   v9 = [v2 copy];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

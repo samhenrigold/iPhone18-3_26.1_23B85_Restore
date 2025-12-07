@@ -29,42 +29,41 @@
 
 - (id)generateSQLStringInContext:(id)context
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if ([(NSSQLIntermediate *)self isUpdateScoped])
   {
-    [context setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"Unsupported clause (group by not allowed in updates)", 0), @"NSUnderlyingException"}];
-LABEL_20:
-    v6 = 0;
+    [context setObject:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0]), 0), @"NSUnderlyingException"}];
+    return 0;
   }
 
   else
   {
     fetchIntermediate = [(NSSQLIntermediate *)self fetchIntermediate];
     v6 = objc_alloc_init(MEMORY[0x1E696AD60]);
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     obj = self->_properties;
-    v7 = [(NSArray *)obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v7 = [(NSArray *)obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v7)
     {
       v8 = v7;
       v9 = 0;
-      v10 = *v23;
+      v10 = *v22;
       while (2)
       {
         v11 = 0;
         v12 = -v9;
-        v20 = v8 + v9;
+        v19 = v8 + v9;
         do
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v22 + 1) + 8 * v11);
+          v13 = *(*(&v21 + 1) + 8 * v11);
           if ([v13 _propertyType] == 5)
           {
             -[NSSQLFetchIntermediate addGroupByKeypath:](fetchIntermediate, [objc_msgSend(v13 "expression")]);
@@ -81,12 +80,12 @@ LABEL_20:
           v16 = [(NSSQLIntermediate *)self _generateSQLForExpression:expression allowToMany:0 inContext:context];
           if (!v16)
           {
-            if (![context valueForKey:@"NSUnderlyingException"])
+            if (!objc_msgSend_valueForKey_(context))
             {
-              [context setValue:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"Failed to generate SQL for group by property: %@", v13), 0), @"NSUnderlyingException"}];
+              [context setValue:objc_msgSend(MEMORY[0x1E695DF30] forKey:{"exceptionWithName:reason:userInfo:", *MEMORY[0x1E695D940], objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v13), 0), @"NSUnderlyingException"}];
             }
 
-            goto LABEL_20;
+            return 0;
           }
 
           v17 = v16;
@@ -101,8 +100,8 @@ LABEL_20:
         }
 
         while (v8 != v11);
-        v8 = [(NSArray *)obj countByEnumeratingWithState:&v22 objects:v26 count:16];
-        v9 = v20;
+        v8 = [(NSArray *)obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v9 = v19;
         if (v8)
         {
           continue;
@@ -113,7 +112,6 @@ LABEL_20:
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

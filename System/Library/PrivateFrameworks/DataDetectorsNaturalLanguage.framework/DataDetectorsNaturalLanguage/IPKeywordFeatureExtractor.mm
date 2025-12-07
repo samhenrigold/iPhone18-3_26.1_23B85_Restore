@@ -10,69 +10,69 @@
 
 - (id)featuresForTextString:(id)string inMessageUnit:(id)unit context:(id)context
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   unitCopy = unit;
   contextCopy = context;
   v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v40 = unitCopy;
+  v39 = unitCopy;
   bestLanguageID = [unitCopy bestLanguageID];
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
-  v34 = [&unk_285B08CB8 countByEnumeratingWithState:&v49 objects:v54 count:16];
-  if (v34)
+  v33 = [&unk_285B08CB8 countByEnumeratingWithState:&v48 objects:v53 count:16];
+  if (v33)
   {
-    v32 = *v50;
+    v31 = *v49;
     do
     {
       v9 = 0;
       do
       {
-        if (*v50 != v32)
+        if (*v49 != v31)
         {
           objc_enumerationMutation(&unk_285B08CB8);
         }
 
-        v37 = v9;
-        v10 = *(*(&v49 + 1) + 8 * v9);
+        v36 = v9;
+        v10 = *(*(&v48 + 1) + 8 * v9);
         context = objc_autoreleasePoolPush();
-        v35 = +[IPEventClassificationType taxonomyForLanguageID:clusterType:](IPEventClassificationType, "taxonomyForLanguageID:clusterType:", bestLanguageID, [v10 integerValue]);
-        v11 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v35, 0}];
+        v34 = +[IPEventClassificationType taxonomyForLanguageID:clusterType:](IPEventClassificationType, "taxonomyForLanguageID:clusterType:", bestLanguageID, [v10 integerValue]);
+        v11 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{v34, 0}];
         if ([v11 count])
         {
-          v38 = v11;
+          v37 = v11;
           do
           {
             v12 = objc_autoreleasePoolPush();
             firstObject = [v11 firstObject];
             [v11 removeObjectAtIndex:0];
-            v14 = [(IPKeywordFeatureExtractor *)self matchesForTextString:stringCopy inMessageUnit:v40 eventType:firstObject];
+            v14 = [(IPKeywordFeatureExtractor *)self matchesForTextString:stringCopy inMessageUnit:v39 eventType:firstObject];
             if ([v14 count])
             {
-              v42 = v14;
-              v43 = v12;
-              v47 = 0u;
-              v48 = 0u;
-              v45 = 0u;
+              v41 = v14;
+              v42 = v12;
               v46 = 0u;
+              v47 = 0u;
+              v44 = 0u;
+              v45 = 0u;
               obj = v14;
-              v15 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
+              v15 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
               if (v15)
               {
                 v16 = v15;
-                v17 = *v46;
+                v17 = *v45;
                 do
                 {
                   for (i = 0; i != v16; ++i)
                   {
-                    if (*v46 != v17)
+                    if (*v45 != v17)
                     {
                       objc_enumerationMutation(obj);
                     }
 
-                    v19 = *(*(&v45 + 1) + 8 * i);
+                    v19 = *(*(&v44 + 1) + 8 * i);
                     v20 = objc_autoreleasePoolPush();
                     v21 = MEMORY[0x277CCACA8];
                     matchRange = [v19 matchRange];
@@ -91,18 +91,18 @@
                     objc_autoreleasePoolPop(v20);
                   }
 
-                  v16 = [obj countByEnumeratingWithState:&v45 objects:v53 count:16];
+                  v16 = [obj countByEnumeratingWithState:&v44 objects:v52 count:16];
                 }
 
                 while (v16);
               }
 
               children = [firstObject children];
-              v11 = v38;
-              [v38 addObjectsFromArray:children];
+              v11 = v37;
+              [v37 addObjectsFromArray:children];
 
-              v14 = v42;
-              v12 = v43;
+              v14 = v41;
+              v12 = v42;
             }
 
             objc_autoreleasePoolPop(v12);
@@ -112,90 +112,88 @@
         }
 
         objc_autoreleasePoolPop(context);
-        v9 = v37 + 1;
+        v9 = v36 + 1;
       }
 
-      while (v37 + 1 != v34);
-      v34 = [&unk_285B08CB8 countByEnumeratingWithState:&v49 objects:v54 count:16];
+      while (v36 + 1 != v33);
+      v33 = [&unk_285B08CB8 countByEnumeratingWithState:&v48 objects:v53 count:16];
     }
 
-    while (v34);
+    while (v33);
   }
 
   allValues = [v8 allValues];
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return allValues;
 }
 
 - (id)matchesForTextString:(id)string inMessageUnit:(id)unit eventType:(id)type
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   unitCopy = unit;
   typeCopy = type;
   v11 = [(IPKeywordFeatureExtractor *)self matchesForTextString:stringCopy inMessageUnit:unitCopy eventType:typeCopy keywordType:2];
-  v51 = [v11 mutableCopy];
+  v50 = [v11 mutableCopy];
 
-  v45 = stringCopy;
+  v44 = stringCopy;
   selfCopy = self;
-  v43 = typeCopy;
-  v44 = unitCopy;
+  v42 = typeCopy;
+  v43 = unitCopy;
   [(IPKeywordFeatureExtractor *)self matchesForTextString:stringCopy inMessageUnit:unitCopy eventType:typeCopy keywordType:0];
+  v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
-  obj = v67 = 0u;
-  v12 = [obj countByEnumeratingWithState:&v64 objects:v71 count:16];
+  obj = v66 = 0u;
+  v12 = [obj countByEnumeratingWithState:&v63 objects:v70 count:16];
   if (v12)
   {
     v13 = v12;
-    v49 = *v65;
+    v48 = *v64;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v65 != v49)
+        if (*v64 != v48)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v64 + 1) + 8 * i);
+        v15 = *(*(&v63 + 1) + 8 * i);
+        v59 = 0u;
         v60 = 0u;
         v61 = 0u;
         v62 = 0u;
-        v63 = 0u;
-        v16 = v51;
-        v17 = [v16 countByEnumeratingWithState:&v60 objects:v70 count:16];
+        v16 = v50;
+        v17 = [v16 countByEnumeratingWithState:&v59 objects:v69 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v61;
+          v19 = *v60;
           while (2)
           {
             for (j = 0; j != v18; ++j)
             {
-              if (*v61 != v19)
+              if (*v60 != v19)
               {
                 objc_enumerationMutation(v16);
               }
 
-              v21 = *(*(&v60 + 1) + 8 * j);
+              v21 = *(*(&v59 + 1) + 8 * j);
               matchRange = [v15 matchRange];
               v24 = v23;
-              v76.location = [v21 matchRange];
-              v76.length = v25;
-              v74.location = matchRange;
-              v74.length = v24;
-              if (NSIntersectionRange(v74, v76).length)
+              v75.location = [v21 matchRange];
+              v75.length = v25;
+              v73.location = matchRange;
+              v73.length = v24;
+              if (NSIntersectionRange(v73, v75).length)
               {
 
                 goto LABEL_16;
               }
             }
 
-            v18 = [v16 countByEnumeratingWithState:&v60 objects:v70 count:16];
+            v18 = [v16 countByEnumeratingWithState:&v59 objects:v69 count:16];
             if (v18)
             {
               continue;
@@ -210,66 +208,66 @@ LABEL_16:
         ;
       }
 
-      v13 = [obj countByEnumeratingWithState:&v64 objects:v71 count:16];
+      v13 = [obj countByEnumeratingWithState:&v63 objects:v70 count:16];
     }
 
     while (v13);
   }
 
-  [(IPKeywordFeatureExtractor *)selfCopy matchesForTextString:v45 inMessageUnit:v44 eventType:v43 keywordType:1];
+  [(IPKeywordFeatureExtractor *)selfCopy matchesForTextString:v44 inMessageUnit:v43 eventType:v42 keywordType:1];
+  v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
-  v47 = v59 = 0u;
-  v26 = [v47 countByEnumeratingWithState:&v56 objects:v69 count:16];
+  v46 = v58 = 0u;
+  v26 = [v46 countByEnumeratingWithState:&v55 objects:v68 count:16];
   if (v26)
   {
     v27 = v26;
-    v50 = *v57;
+    v49 = *v56;
     do
     {
       for (k = 0; k != v27; ++k)
       {
-        if (*v57 != v50)
+        if (*v56 != v49)
         {
-          objc_enumerationMutation(v47);
+          objc_enumerationMutation(v46);
         }
 
-        v29 = *(*(&v56 + 1) + 8 * k);
+        v29 = *(*(&v55 + 1) + 8 * k);
+        v51 = 0u;
         v52 = 0u;
         v53 = 0u;
         v54 = 0u;
-        v55 = 0u;
-        v30 = v51;
-        v31 = [v30 countByEnumeratingWithState:&v52 objects:v68 count:16];
+        v30 = v50;
+        v31 = [v30 countByEnumeratingWithState:&v51 objects:v67 count:16];
         if (v31)
         {
           v32 = v31;
-          v33 = *v53;
+          v33 = *v52;
           while (2)
           {
             for (m = 0; m != v32; ++m)
             {
-              if (*v53 != v33)
+              if (*v52 != v33)
               {
                 objc_enumerationMutation(v30);
               }
 
-              v35 = *(*(&v52 + 1) + 8 * m);
+              v35 = *(*(&v51 + 1) + 8 * m);
               matchRange2 = [v29 matchRange];
               v38 = v37;
-              v77.location = [v35 matchRange];
-              v77.length = v39;
-              v75.location = matchRange2;
-              v75.length = v38;
-              if (NSIntersectionRange(v75, v77).length)
+              v76.location = [v35 matchRange];
+              v76.length = v39;
+              v74.location = matchRange2;
+              v74.length = v38;
+              if (NSIntersectionRange(v74, v76).length)
               {
 
                 goto LABEL_33;
               }
             }
 
-            v32 = [v30 countByEnumeratingWithState:&v52 objects:v68 count:16];
+            v32 = [v30 countByEnumeratingWithState:&v51 objects:v67 count:16];
             if (v32)
             {
               continue;
@@ -284,15 +282,13 @@ LABEL_33:
         ;
       }
 
-      v27 = [v47 countByEnumeratingWithState:&v56 objects:v69 count:16];
+      v27 = [v46 countByEnumeratingWithState:&v55 objects:v68 count:16];
     }
 
     while (v27);
   }
 
-  v40 = [v51 copy];
-
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = [v50 copy];
 
   return v40;
 }
@@ -349,72 +345,71 @@ LABEL_9:
 
 id __86__IPKeywordFeatureExtractor_matchesForTextString_inMessageUnit_eventType_keywordType___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) language];
   v3 = [IPRegexToolbox regexPatternForLanguageID:v2 eventVocabularyArray:*(a1 + 40)];
 
-  v13 = 0;
-  v4 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v3 options:64 error:&v13];
-  v5 = v13;
+  v14 = 0;
+  v4 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:v3 options:64 error:&v14];
+  v5 = v14;
+  v7 = v5;
   if (v5)
   {
-    v6 = _IPLogHandle;
+    v8 = _IPLogHandle;
     if (!_IPLogHandle)
     {
-      IPInitLogging();
-      v6 = _IPLogHandle;
+      IPInitLogging(v5, v6);
+      v8 = _IPLogHandle;
     }
 
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = v6;
-      v9 = [v7 language];
-      v10 = [*(a1 + 32) identifier];
+      v9 = *(a1 + 32);
+      v10 = v8;
+      v11 = [v9 language];
+      v12 = [*(a1 + 32) identifier];
       *buf = 138543874;
-      v15 = v9;
-      v16 = 2114;
-      v17 = v10;
-      v18 = 2114;
-      v19 = v3;
-      _os_log_impl(&dword_2485E4000, v8, OS_LOG_TYPE_ERROR, "Can't compile regex: [language=%{public}@ identifier=%{public}@]\n%{public}@ #EventClassification", buf, 0x20u);
+      v16 = v11;
+      v17 = 2114;
+      v18 = v12;
+      v19 = 2114;
+      v20 = v3;
+      _os_log_impl(&dword_2485E4000, v10, OS_LOG_TYPE_ERROR, "Can't compile regex: [language=%{public}@ identifier=%{public}@]\n%{public}@ #EventClassification", buf, 0x20u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)_matchingKeywordsForRegex:(id)regex inText:(id)text message:(id)message eventType:(id)type keywordType:(unint64_t)keywordType
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   regexCopy = regex;
   textCopy = text;
   typeCopy = type;
-  v36 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v34 = regexCopy;
+  v37 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v35 = regexCopy;
   [IPRegexToolbox matchingKeywordResultsForRegex:regexCopy inString:textCopy needsToLowercase:0];
-  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  obj = v42 = 0u;
-  v11 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+  v42 = 0u;
+  obj = v43 = 0u;
+  v11 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v40;
+    v13 = *v41;
     do
     {
       v14 = 0;
       do
       {
-        if (*v40 != v13)
+        if (*v41 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v39 + 1) + 8 * v14);
+        v15 = *(*(&v40 + 1) + 8 * v14);
         range = [v15 range];
         if (![IPRegexToolbox isRangeInsideQuotationMarks:range text:v17 limitToSurroundingText:textCopy, 1])
         {
@@ -426,11 +421,11 @@ id __86__IPKeywordFeatureExtractor_matchesForTextString_inMessageUnit_eventType_
           if (!v22)
           {
             range3 = [v15 range];
-            v24 = [textCopy substringWithRange:{range3, v29}];
+            v26 = [textCopy substringWithRange:{range3, v31}];
             range4 = [v15 range];
-            v27 = [IPFeatureKeyword featureKeywordWithType:keywordType string:v24 matchRange:range4, v31];
-            [v27 setTextUnit:textCopy];
-            [v36 addObject:v27];
+            v29 = [IPFeatureKeyword featureKeywordWithType:keywordType string:v26 matchRange:range4, v33];
+            [v29 setTextUnit:textCopy];
+            [v37 addObject:v29];
             goto LABEL_16;
           }
 
@@ -441,21 +436,21 @@ id __86__IPKeywordFeatureExtractor_matchesForTextString_inMessageUnit_eventType_
 
           if (IPDebuggingModeEnabled_sEnabled_0 == 1)
           {
-            v23 = _IPLogHandle;
+            v25 = _IPLogHandle;
             if (!_IPLogHandle)
             {
-              IPInitLogging();
-              v23 = _IPLogHandle;
+              IPInitLogging(v23, v24);
+              v25 = _IPLogHandle;
             }
 
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
             {
-              v24 = v23;
+              v26 = v25;
               range5 = [v15 range];
-              v27 = [textCopy substringWithRange:{range5, v26}];
+              v29 = [textCopy substringWithRange:{range5, v28}];
               *buf = 138412290;
-              v44 = v27;
-              _os_log_impl(&dword_2485E4000, v24, OS_LOG_TYPE_INFO, "      --> not counted because too close to an exclusion keyword [%@] #EventClassification", buf, 0xCu);
+              v45 = v29;
+              _os_log_impl(&dword_2485E4000, v26, OS_LOG_TYPE_INFO, "      --> not counted because too close to an exclusion keyword [%@] #EventClassification", buf, 0xCu);
 LABEL_16:
             }
           }
@@ -465,15 +460,13 @@ LABEL_16:
       }
 
       while (v12 != v14);
-      v12 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+      v12 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
     }
 
     while (v12);
   }
 
-  v32 = *MEMORY[0x277D85DE8];
-
-  return v36;
+  return v37;
 }
 
 - (id)queue

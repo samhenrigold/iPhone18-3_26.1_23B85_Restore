@@ -82,7 +82,7 @@
 {
   v33.receiver = self;
   v33.super_class = CHSWidgetMargins;
-  result = objc_msgSendSuper2(&v33, sel_init);
+  result = objc_msgSendSuper2(&v33, sel_init, a11, a12, a13, a14, a15, a16);
   if (result)
   {
     result[1] = a2;
@@ -344,13 +344,13 @@ void __58__CHSWidgetMargins_descriptionBuilderWithMultilinePrefix___block_invoke
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  CHSRectFromEdgeInsets(self->_safeAreaInsets.top, self->_safeAreaInsets.leading, self->_safeAreaInsets.bottom, self->_safeAreaInsets.trailing);
+  CHSRectFromEdgeInsets();
   [coderCopy encodeRect:@"safeAreaInsets" forKey:?];
-  CHSRectFromEdgeInsets(self->_layoutInsets.top, self->_layoutInsets.leading, self->_layoutInsets.bottom, self->_layoutInsets.trailing);
+  CHSRectFromEdgeInsets();
   [coderCopy encodeRect:@"layoutInsets" forKey:?];
-  CHSRectFromEdgeInsets(self->_contentMargins.top, self->_contentMargins.leading, self->_contentMargins.bottom, self->_contentMargins.trailing);
+  CHSRectFromEdgeInsets();
   [coderCopy encodeRect:@"contentMargins" forKey:?];
-  CHSRectFromEdgeInsets(self->_backgroundRemovedContentMargins.top, self->_backgroundRemovedContentMargins.leading, self->_backgroundRemovedContentMargins.bottom, self->_backgroundRemovedContentMargins.trailing);
+  CHSRectFromEdgeInsets();
   [coderCopy encodeRect:@"backgroundRemovedContentMargins" forKey:?];
 }
 
@@ -359,69 +359,75 @@ void __58__CHSWidgetMargins_descriptionBuilderWithMultilinePrefix___block_invoke
   coderCopy = coder;
   if ([coderCopy containsValueForKey:@"safeAreaInsets"])
   {
-    v5 = CHSEdgeInsetsFromRect([coderCopy decodeRectForKey:@"safeAreaInsets"]);
-    v31 = v7;
-    v32 = v6;
-    v30 = v8;
-    v29 = v5;
+    [coderCopy decodeRectForKey:@"safeAreaInsets"];
+    CHSEdgeInsetsFromRect();
+    v33 = v6;
+    v34 = v5;
+    v32 = v7;
+    v31 = v8;
   }
 
   else
   {
+    v33 = 0.0;
+    v34 = 0.0;
     v31 = 0.0;
     v32 = 0.0;
-    v29 = 0.0;
-    v30 = 0.0;
   }
 
   if ([coderCopy containsValueForKey:@"layoutInsets"])
   {
-    v9 = CHSEdgeInsetsFromRect([coderCopy decodeRectForKey:@"layoutInsets"]);
-    v11 = v10;
-    v13 = v12;
-    v15 = v14;
+    [coderCopy decodeRectForKey:@"layoutInsets"];
+    CHSEdgeInsetsFromRect();
+    v10 = v9;
+    v12 = v11;
+    v14 = v13;
+    v16 = v15;
   }
 
   else
   {
-    v9 = 0.0;
-    v11 = 0.0;
-    v13 = 0.0;
-    v15 = 0.0;
+    v10 = 0.0;
+    v12 = 0.0;
+    v14 = 0.0;
+    v16 = 0.0;
   }
 
   if ([coderCopy containsValueForKey:@"contentMargins"])
   {
-    v16 = CHSEdgeInsetsFromRect([coderCopy decodeRectForKey:@"contentMargins"]);
+    [coderCopy decodeRectForKey:@"contentMargins"];
+    CHSEdgeInsetsFromRect();
     v18 = v17;
     v20 = v19;
     v22 = v21;
+    v24 = v23;
   }
 
   else
   {
-    v16 = 0.0;
     v18 = 0;
     v20 = 0;
     v22 = 0;
+    v24 = 0;
   }
 
   if ([coderCopy containsValueForKey:@"backgroundRemovedContentMargins"])
   {
-    v23 = CHSEdgeInsetsFromRect([coderCopy decodeRectForKey:@"backgroundRemovedContentMargins"]);
+    [coderCopy decodeRectForKey:@"backgroundRemovedContentMargins"];
+    CHSEdgeInsetsFromRect();
   }
 
   else
   {
-    v23 = 0.0;
-    v24 = 0;
     v25 = 0;
     v26 = 0;
+    v27 = 0;
+    v28 = 0;
   }
 
-  v27 = [(CHSWidgetMargins *)self initWithSafeAreaInsets:v29 layoutInsets:v32 contentMargins:v31 backgroundRemovedContentMargins:v30, v9, v11, v13, v15, *&v16, v18, v20, v22, *&v23, v24, v25, v26];
+  v29 = [(CHSWidgetMargins *)self initWithSafeAreaInsets:v31 layoutInsets:v34 contentMargins:v33 backgroundRemovedContentMargins:v32, v10, v12, v14, v16, v18, v20, v22, v24, v25, v26, v27, v28];
 
-  return v27;
+  return v29;
 }
 
 - (void)encodeWithXPCDictionary:(id)dictionary
@@ -429,16 +435,16 @@ void __58__CHSWidgetMargins_descriptionBuilderWithMultilinePrefix___block_invoke
   dictionaryCopy = dictionary;
   if (dictionaryCopy)
   {
-    CHSRectFromEdgeInsets(self->_safeAreaInsets.top, self->_safeAreaInsets.leading, self->_safeAreaInsets.bottom, self->_safeAreaInsets.trailing);
+    CHSRectFromEdgeInsets();
     [@"safeAreaInsets" UTF8String];
     BSSerializeCGRectToXPCDictionaryWithKey();
-    CHSRectFromEdgeInsets(self->_layoutInsets.top, self->_layoutInsets.leading, self->_layoutInsets.bottom, self->_layoutInsets.trailing);
+    CHSRectFromEdgeInsets();
     [@"layoutInsets" UTF8String];
     BSSerializeCGRectToXPCDictionaryWithKey();
-    CHSRectFromEdgeInsets(self->_contentMargins.top, self->_contentMargins.leading, self->_contentMargins.bottom, self->_contentMargins.trailing);
+    CHSRectFromEdgeInsets();
     [@"contentMargins" UTF8String];
     BSSerializeCGRectToXPCDictionaryWithKey();
-    CHSRectFromEdgeInsets(self->_backgroundRemovedContentMargins.top, self->_backgroundRemovedContentMargins.leading, self->_backgroundRemovedContentMargins.bottom, self->_backgroundRemovedContentMargins.trailing);
+    CHSRectFromEdgeInsets();
     [@"backgroundRemovedContentMargins" UTF8String];
     BSSerializeCGRectToXPCDictionaryWithKey();
   }
@@ -450,27 +456,30 @@ void __58__CHSWidgetMargins_descriptionBuilderWithMultilinePrefix___block_invoke
   if (dictionaryCopy)
   {
     [@"safeAreaInsets" UTF8String];
-    v5 = BSDeserializeCGRectFromXPCDictionaryWithKey();
-    v32 = CHSEdgeInsetsFromRect(v5);
-    v33 = v6;
-    v34 = v8;
-    v35 = v7;
+    BSDeserializeCGRectFromXPCDictionaryWithKey();
+    CHSEdgeInsetsFromRect();
+    v31 = v5;
+    v32 = v6;
+    v33 = v8;
+    v34 = v7;
     [@"layoutInsets" UTF8String];
-    v9 = BSDeserializeCGRectFromXPCDictionaryWithKey();
-    v10 = CHSEdgeInsetsFromRect(v9);
+    BSDeserializeCGRectFromXPCDictionaryWithKey();
+    CHSEdgeInsetsFromRect();
+    v10 = v9;
     v12 = v11;
     v14 = v13;
     v16 = v15;
     [@"contentMargins" UTF8String];
-    v17 = BSDeserializeCGRectFromXPCDictionaryWithKey();
-    v18 = CHSEdgeInsetsFromRect(v17);
+    BSDeserializeCGRectFromXPCDictionaryWithKey();
+    CHSEdgeInsetsFromRect();
+    v18 = v17;
     v20 = v19;
     v22 = v21;
     v24 = v23;
     [@"backgroundRemovedContentMargins" UTF8String];
-    v25 = BSDeserializeCGRectFromXPCDictionaryWithKey();
-    v26 = CHSEdgeInsetsFromRect(v25);
-    self = [(CHSWidgetMargins *)self initWithSafeAreaInsets:v32 layoutInsets:v35 contentMargins:v34 backgroundRemovedContentMargins:v33, v10, v12, v14, v16, *&v18, v20, v22, v24, *&v26, v27, v28, v29];
+    BSDeserializeCGRectFromXPCDictionaryWithKey();
+    CHSEdgeInsetsFromRect();
+    self = [(CHSWidgetMargins *)self initWithSafeAreaInsets:v31 layoutInsets:v34 contentMargins:v33 backgroundRemovedContentMargins:v32, v10, v12, v14, v16, v18, v20, v22, v24, v25, v26, v27, v28];
     selfCopy = self;
   }
 

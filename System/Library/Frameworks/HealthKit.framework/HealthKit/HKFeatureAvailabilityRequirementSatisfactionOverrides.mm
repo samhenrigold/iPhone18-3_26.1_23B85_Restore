@@ -71,19 +71,19 @@ uint64_t __96__HKFeatureAvailabilityRequirementSatisfactionOverrides_initWithUse
       goto LABEL_17;
     }
 
-    _HKInitializeLogging();
-    v22 = HKLogInfrastructure();
-    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG);
+    _HKInitializeLogging(v9, v10);
+    v28 = HKLogInfrastructure(v26, v27);
+    v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG);
 
-    if (!v23)
+    if (!v29)
     {
       goto LABEL_17;
     }
 
-    v24 = HKLogInfrastructure();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v32 = HKLogInfrastructure(v30, v31);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
     {
-      [HKFeatureAvailabilityRequirementSatisfactionOverrides overriddenSatisfactionOfRequirementWithIdentifier:v24];
+      [HKFeatureAvailabilityRequirementSatisfactionOverrides overriddenSatisfactionOfRequirementWithIdentifier:v32];
     }
 
     goto LABEL_16;
@@ -99,23 +99,24 @@ uint64_t __96__HKFeatureAvailabilityRequirementSatisfactionOverrides_initWithUse
     requirementOverridableEvaluator = 0;
   }
 
-  if ((requirementOverridableEvaluator[2](requirementOverridableEvaluator, self->_featureIdentifier, identifierCopy) & 1) == 0)
+  v12 = requirementOverridableEvaluator[2](requirementOverridableEvaluator, self->_featureIdentifier, identifierCopy);
+  if ((v12 & 1) == 0)
   {
-    _HKInitializeLogging();
-    v25 = HKLogInfrastructure();
-    v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG);
+    _HKInitializeLogging(v12, v13);
+    v35 = HKLogInfrastructure(v33, v34);
+    v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG);
 
-    if (!v26)
+    if (!v36)
     {
 LABEL_17:
-      v21 = 0;
+      v25 = 0;
       goto LABEL_24;
     }
 
-    v24 = HKLogInfrastructure();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v32 = HKLogInfrastructure(v37, v38);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
     {
-      [HKFeatureAvailabilityRequirementSatisfactionOverrides overriddenSatisfactionOfRequirementWithIdentifier:v24];
+      [HKFeatureAvailabilityRequirementSatisfactionOverrides overriddenSatisfactionOfRequirementWithIdentifier:v32];
     }
 
 LABEL_16:
@@ -128,34 +129,34 @@ LABEL_16:
     goto LABEL_19;
   }
 
-  v10 = +[_HKBehavior sharedBehavior];
-  featureRequirementOverrides2 = [v10 featureRequirementOverrides];
-  v12 = [featureRequirementOverrides2 objectForKeyedSubscript:self->_featureIdentifier];
-  if (!v12)
+  v14 = +[_HKBehavior sharedBehavior];
+  featureRequirementOverrides2 = [v14 featureRequirementOverrides];
+  v16 = [featureRequirementOverrides2 objectForKeyedSubscript:self->_featureIdentifier];
+  if (!v16)
   {
 
     goto LABEL_19;
   }
 
-  v13 = v12;
-  v14 = +[_HKBehavior sharedBehavior];
-  featureRequirementOverrides3 = [v14 featureRequirementOverrides];
-  v16 = [featureRequirementOverrides3 objectForKeyedSubscript:self->_featureIdentifier];
-  v17 = [v16 objectForKeyedSubscript:identifierCopy];
+  v17 = v16;
+  v18 = +[_HKBehavior sharedBehavior];
+  featureRequirementOverrides3 = [v18 featureRequirementOverrides];
+  v20 = [featureRequirementOverrides3 objectForKeyedSubscript:self->_featureIdentifier];
+  v21 = [v20 objectForKeyedSubscript:identifierCopy];
 
-  if (!v17)
+  if (!v21)
   {
 LABEL_19:
     identifierCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_%@", self->_featureIdentifier, identifierCopy];
     featureRequirementOverrides4 = [(NSUserDefaults *)self->_userDefaults objectForKey:identifierCopy];
     if (featureRequirementOverrides4 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
     {
-      v21 = featureRequirementOverrides4;
+      v25 = featureRequirementOverrides4;
     }
 
     else
     {
-      v21 = 0;
+      v25 = 0;
     }
 
     goto LABEL_23;
@@ -163,41 +164,41 @@ LABEL_19:
 
   identifierCopy = +[_HKBehavior sharedBehavior];
   featureRequirementOverrides4 = [identifierCopy featureRequirementOverrides];
-  v20 = [featureRequirementOverrides4 objectForKeyedSubscript:self->_featureIdentifier];
-  v21 = [v20 objectForKeyedSubscript:identifierCopy];
+  v24 = [featureRequirementOverrides4 objectForKeyedSubscript:self->_featureIdentifier];
+  v25 = [v24 objectForKeyedSubscript:identifierCopy];
 
 LABEL_23:
 LABEL_24:
 
-  return v21;
+  return v25;
 }
 
 - (id)overriddenRequirementIdentifiers
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v18 = [MEMORY[0x1E695DFA8] set];
+  v22 = *MEMORY[0x1E69E9840];
+  v16 = [MEMORY[0x1E695DFA8] set];
+  v17 = 0u;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
   dictionaryRepresentation = [(NSUserDefaults *)self->_userDefaults dictionaryRepresentation];
-  v4 = [dictionaryRepresentation countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v4 = [dictionaryRepresentation countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v20;
+    v6 = *v18;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v20 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(dictionaryRepresentation);
         }
 
         featureIdentifier = self->_featureIdentifier;
         v9 = MEMORY[0x1E696AEC0];
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         featureIdentifier = [v9 stringWithFormat:@"%@_", featureIdentifier];
         LODWORD(featureIdentifier) = [v10 hasPrefix:featureIdentifier];
 
@@ -208,13 +209,9 @@ LABEL_24:
           {
             v13 = [v12 objectAtIndexedSubscript:1];
 
-            if (v13)
+            if (v13 && (*(self->_requirementOverridableEvaluator + 2))())
             {
-              v14 = self->_featureIdentifier;
-              if ((*(self->_requirementOverridableEvaluator + 2))())
-              {
-                [v18 addObject:v13];
-              }
+              [v16 addObject:v13];
             }
           }
 
@@ -226,17 +223,15 @@ LABEL_24:
         }
       }
 
-      v5 = [dictionaryRepresentation countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v5 = [dictionaryRepresentation countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
   }
 
-  v15 = [MEMORY[0x1E695DFD8] setWithSet:v18];
+  v14 = [MEMORY[0x1E695DFD8] setWithSet:v16];
 
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v15;
+  return v14;
 }
 
 - (void)overrideSatisfactionOfRequirementWithIdentifier:(id)identifier isSatisfied:(id)satisfied
@@ -254,30 +249,30 @@ LABEL_24:
 
 - (void)resetAllRequirementSatisfactionOverrides
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   dictionaryRepresentation = [(NSUserDefaults *)self->_userDefaults dictionaryRepresentation];
-  v4 = [dictionaryRepresentation countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [dictionaryRepresentation countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       v7 = 0;
       do
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(dictionaryRepresentation);
         }
 
         featureIdentifier = self->_featureIdentifier;
         v9 = MEMORY[0x1E696AEC0];
-        v10 = *(*(&v13 + 1) + 8 * v7);
+        v10 = *(*(&v12 + 1) + 8 * v7);
         featureIdentifier = [v9 stringWithFormat:@"%@_", featureIdentifier];
         LODWORD(featureIdentifier) = [v10 hasPrefix:featureIdentifier];
 
@@ -290,49 +285,45 @@ LABEL_24:
       }
 
       while (v5 != v7);
-      v5 = [dictionaryRepresentation countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [dictionaryRepresentation countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)overrideSatisfactionOfRequirementWithIdentifier:(uint64_t)a3 isSatisfied:.cold.1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = a1;
-  v14 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     a1 = *(a1 + 24);
   }
 
-  if ((*(a1 + 16))(a1, *(v5 + 16), a2))
+  v6 = (*(a1 + 16))(a1, *(v5 + 16), a2);
+  if (v6)
   {
-    v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_%@", *(v5 + 16), a2];
+    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@_%@", *(v5 + 16), a2];
     [*(v5 + 8) setObject:a3 forKey:?];
-    v6 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    _HKInitializeLogging();
-    v7 = HKLogInfrastructure();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG);
+    _HKInitializeLogging(v6, v7);
+    v10 = HKLogInfrastructure(v8, v9);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG);
 
-    if (v8)
+    if (v11)
     {
-      v9 = HKLogInfrastructure();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v14 = HKLogInfrastructure(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v13 = a2;
-        _os_log_debug_impl(&dword_19197B000, v9, OS_LOG_TYPE_DEBUG, "Override for %@ is ignored since it is not an overridable requirement.", buf, 0xCu);
+        v17 = a2;
+        _os_log_debug_impl(&dword_19197B000, v14, OS_LOG_TYPE_DEBUG, "Override for %@ is ignored since it is not an overridable requirement.", buf, 0xCu);
       }
     }
-
-    v10 = *MEMORY[0x1E69E9840];
   }
 }
 

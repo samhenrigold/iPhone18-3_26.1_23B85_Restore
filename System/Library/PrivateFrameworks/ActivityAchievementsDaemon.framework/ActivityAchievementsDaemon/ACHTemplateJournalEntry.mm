@@ -29,13 +29,12 @@
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
-  v8.receiver = self;
-  v8.super_class = ACHTemplateJournalEntry;
-  v4 = [(ACHTemplateJournalEntry *)&v8 description];
-  provenance = self->_provenance;
-  v6 = [v3 stringWithFormat:@"%@(template %@ provenance %lld action %ld)", v4, self->_template, provenance, self->_action];
+  v7.receiver = self;
+  v7.super_class = ACHTemplateJournalEntry;
+  v4 = [(ACHTemplateJournalEntry *)&v7 description];
+  v5 = [v3 stringWithFormat:@"%@(template %@ provenance %lld action %ld)", v4, self->_template, self->_provenance, self->_action];
 
-  return v6;
+  return v5;
 }
 
 + (void)applyEntries:(id)entries withProfile:(id)profile
@@ -73,43 +72,33 @@
 
 uint64_t __52__ACHTemplateJournalEntry_applyEntries_withProfile___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v22 = a2;
-  v21 = [v22 databaseForEntityClass:objc_opt_class()];
+  v30 = *MEMORY[0x277D85DE8];
+  v21 = a2;
+  v20 = [v21 databaseForEntityClass:objc_opt_class()];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = *(a1 + 32);
-  v4 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v4 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v26;
+    v6 = *v25;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v26 != v6)
+        if (*v25 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v25 + 1) + 8 * i);
+        v8 = *(*(&v24 + 1) + 8 * i);
         v9 = [v8 action];
         if (v9)
         {
-          if (v9 != 1)
-          {
-            goto LABEL_14;
-          }
-
-          v10 = [v8 template];
-          v29 = v10;
-          v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
-          v12 = [ACHTemplateEntity _removeTemplates:v11 profile:*(a1 + 40) error:a3];
-
-          if (!v12)
+          if (v9 != 1 || ([v8 template], v10 = objc_claimAutoreleasedReturnValue(), v28 = v10, objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", &v28, 1), v11 = objc_claimAutoreleasedReturnValue(), v12 = +[ACHTemplateEntity _removeTemplates:profile:error:](ACHTemplateEntity, "_removeTemplates:profile:error:", v11, *(a1 + 40), a3), v11, v10, !v12))
           {
 LABEL_14:
             v18 = 0;
@@ -120,12 +109,12 @@ LABEL_14:
         else
         {
           v13 = [v8 template];
-          v14 = ACHTemplateSyncIdentityFromTemplate(v13, [v8 useLegacySyncIdentity], *(a1 + 40), v22);
+          v14 = ACHTemplateSyncIdentityFromTemplate(v13, [v8 useLegacySyncIdentity], *(a1 + 40), v21);
 
           v15 = [v8 template];
           v16 = [v8 provenance];
           v17 = [v14 entity];
-          LODWORD(v16) = +[ACHTemplateEntity _insertTemplate:provenance:syncIdentity:database:error:](ACHTemplateEntity, "_insertTemplate:provenance:syncIdentity:database:error:", v15, v16, [v17 persistentID], v21, a3);
+          LODWORD(v16) = +[ACHTemplateEntity _insertTemplate:provenance:syncIdentity:database:error:](ACHTemplateEntity, "_insertTemplate:provenance:syncIdentity:database:error:", v15, v16, [v17 persistentID], v20, a3);
 
           if (!v16)
           {
@@ -134,7 +123,7 @@ LABEL_14:
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v5 = [obj countByEnumeratingWithState:&v24 objects:v29 count:16];
       if (v5)
       {
         continue;
@@ -147,7 +136,6 @@ LABEL_14:
   v18 = 1;
 LABEL_15:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -206,14 +194,6 @@ uint64_t __52__ACHTemplateJournalEntry_applyEntries_withProfile___block_invoke_2
 
   [coderCopy encodeInt64:self->_provenance forKey:@"provenance"];
   [coderCopy encodeBool:self->_useLegacySyncIdentity forKey:@"UseLegacySyncIdentity"];
-}
-
-+ (void)applyEntries:withProfile:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_1_0(&dword_221DDC000, v0, v1, "Error applying journal entries: %@: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -8,7 +8,7 @@
 + (id)_IF_UUIDWithString:()IconFoundationAdditions;
 + (id)_IF_nullUUID;
 + (uint64_t)_IF_UUIDWithData:()IconFoundationAdditions;
-- (uint64_t)_IF_getUUIDBytes:()IconFoundationAdditions hash64:;
+- (void)_IF_getUUIDBytes:()IconFoundationAdditions hash64:;
 @end
 
 @implementation NSUUID(IconFoundationAdditions)
@@ -121,7 +121,7 @@
   return v6;
 }
 
-- (uint64_t)_IF_getUUIDBytes:()IconFoundationAdditions hash64:
+- (void)_IF_getUUIDBytes:()IconFoundationAdditions hash64:
 {
   if (!a3)
   {

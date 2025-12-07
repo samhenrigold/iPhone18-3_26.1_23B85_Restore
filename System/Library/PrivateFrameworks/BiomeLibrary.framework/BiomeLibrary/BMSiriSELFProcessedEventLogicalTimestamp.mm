@@ -71,7 +71,7 @@
 
 - (id)jsonDictionary
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   if ([(BMSiriSELFProcessedEventLogicalTimestamp *)self hasTimestampInNanoseconds])
   {
     v3 = [MEMORY[0x1E696AD98] numberWithLongLong:{-[BMSiriSELFProcessedEventLogicalTimestamp timestampInNanoseconds](self, "timestampInNanoseconds")}];
@@ -85,23 +85,23 @@
   clockIdentifier = [(BMSiriSELFProcessedEventLogicalTimestamp *)self clockIdentifier];
   uUIDString = [clockIdentifier UUIDString];
 
-  v11[0] = @"timestampInNanoseconds";
+  v10[0] = @"timestampInNanoseconds";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = @"clockIdentifier";
-  v12[0] = null;
+  v10[1] = @"clockIdentifier";
+  v11[0] = null;
   null2 = uUIDString;
   if (!uUIDString)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = null2;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = null2;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
   if (uUIDString)
   {
     if (v3)
@@ -120,14 +120,13 @@
   }
 
 LABEL_10:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
 
 - (BMSiriSELFProcessedEventLogicalTimestamp)initWithJSONDictionary:(id)dictionary error:(id *)p_isa
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"timestampInNanoseconds"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -165,10 +164,10 @@ LABEL_22:
         {
           v20 = objc_alloc(MEMORY[0x1E696ABC0]);
           v21 = *MEMORY[0x1E698F240];
-          v28 = *MEMORY[0x1E696A578];
+          v27 = *MEMORY[0x1E696A578];
           v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"-initWithUUIDString: for %@ returned nil", @"clockIdentifier"];
-          v29 = v22;
-          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+          v28 = v22;
+          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
           *p_isa = [v20 initWithDomain:v21 code:2 userInfo:v23];
         }
 
@@ -189,10 +188,10 @@ LABEL_22:
 
     v16 = objc_alloc(MEMORY[0x1E696ABC0]);
     v17 = *MEMORY[0x1E698F240];
-    v26 = *MEMORY[0x1E696A578];
+    v25 = *MEMORY[0x1E696A578];
     v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"clockIdentifier"];
-    v27 = v18;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    v26 = v18;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
     *p_isa = [v16 initWithDomain:v17 code:2 userInfo:v19];
 
 LABEL_17:
@@ -204,10 +203,10 @@ LABEL_17:
   {
     v13 = objc_alloc(MEMORY[0x1E696ABC0]);
     v14 = *MEMORY[0x1E698F240];
-    v30 = *MEMORY[0x1E696A578];
+    v29 = *MEMORY[0x1E696A578];
     v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber", objc_opt_class(), @"timestampInNanoseconds"];
-    v31[0] = v9;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    v30[0] = v9;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
     *p_isa = [v13 initWithDomain:v14 code:2 userInfo:v15];
 
     v8 = 0;
@@ -217,7 +216,6 @@ LABEL_17:
   v8 = 0;
 LABEL_23:
 
-  v24 = *MEMORY[0x1E69E9840];
   return p_isa;
 }
 
@@ -233,18 +231,17 @@ LABEL_23:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (self->_hasTimestampInNanoseconds)
   {
-    timestampInNanoseconds = self->_timestampInNanoseconds;
     PBDataWriterWriteInt64Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_raw_clockIdentifier)
   {
     PBDataWriterWriteDataField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -414,12 +411,12 @@ LABEL_40:
 
 - (BMSiriSELFProcessedEventLogicalTimestamp)initWithTimestampInNanoseconds:(id)nanoseconds clockIdentifier:(id)identifier
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   nanosecondsCopy = nanoseconds;
   identifierCopy = identifier;
-  v14.receiver = self;
-  v14.super_class = BMSiriSELFProcessedEventLogicalTimestamp;
-  v8 = [(BMEventBase *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = BMSiriSELFProcessedEventLogicalTimestamp;
+  v8 = [(BMEventBase *)&v13 init];
   if (v8)
   {
     v8->_dataVersion = [objc_opt_class() latestDataVersion];
@@ -438,10 +435,10 @@ LABEL_40:
     v8->_timestampInNanoseconds = longLongValue;
     if (identifierCopy)
     {
-      v15[0] = 0;
-      v15[1] = 0;
-      [identifierCopy getUUIDBytes:v15];
-      v10 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v15 length:16];
+      v14[0] = 0;
+      v14[1] = 0;
+      [identifierCopy getUUIDBytes:v14];
+      v10 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v14 length:16];
       raw_clockIdentifier = v8->_raw_clockIdentifier;
       v8->_raw_clockIdentifier = v10;
     }
@@ -453,34 +450,29 @@ LABEL_40:
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 + (id)protoFields
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"timestampInNanoseconds" number:1 type:3 subMessageClass:0];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"clockIdentifier" number:2 type:14 subMessageClass:0];
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
 + (id)columns
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"timestampInNanoseconds" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:3 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"clockIdentifier" dataType:6 requestOnly:0 fieldNumber:2 protoDataType:14 convertedType:3];
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }

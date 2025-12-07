@@ -17,7 +17,7 @@
 
 - (void)addObserver:(SEL)observer name:(id)name object:(id)object
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   objectCopy = object;
   registeredNotifications = [(HMDNotificationRegistration *)self registeredNotifications];
@@ -31,13 +31,13 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = HMFGetLogIdentifier();
-      v22 = 138543618;
-      v23 = v15;
-      v24 = 2112;
-      v25 = nameCopy;
+      v21 = 138543618;
+      v22 = v15;
+      v23 = 2112;
+      v24 = nameCopy;
       v16 = "%{public}@Not Registering for notification %@";
 LABEL_6:
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, v16, &v22, 0x16u);
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, v16, &v21, 0x16u);
     }
   }
 
@@ -56,17 +56,16 @@ LABEL_6:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = HMFGetLogIdentifier();
-      v22 = 138543618;
-      v23 = v15;
-      v24 = 2112;
-      v25 = nameCopy;
+      v21 = 138543618;
+      v22 = v15;
+      v23 = 2112;
+      v24 = nameCopy;
       v16 = "%{public}@Registering for notification %@";
       goto LABEL_6;
     }
   }
 
   objc_autoreleasePoolPop(v12);
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logIdentifier
@@ -118,10 +117,9 @@ LABEL_6:
 
 void __42__HMDNotificationRegistration_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_258648;
-  logCategory__hmf_once_v1_258648 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_258648;
+  logCategory__hmf_once_v1_258648 = v0;
 }
 
 @end

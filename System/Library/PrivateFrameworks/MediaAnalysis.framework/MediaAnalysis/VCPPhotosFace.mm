@@ -613,37 +613,37 @@ LABEL_35:
   return v30;
 }
 
-id __131__VCPPhotosFace_faceFromFaceObservation_humanObservation_sourceWidth_sourceHeight_visionRequests_processingVersion_force_andError___block_invoke(uint64_t a1)
+id __131__VCPPhotosFace_faceFromFaceObservation_humanObservation_sourceWidth_sourceHeight_visionRequests_processingVersion_force_andError___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v8 = 0u;
+  v14 = *MEMORY[0x1E69E9840];
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
-  if (v2)
+  v12 = 0u;
+  v2 = *(a1 + 32);
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v3)
   {
-    v3 = *v9;
+    v4 = *v10;
     while (2)
     {
-      for (i = 0; i != v2; ++i)
+      for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v3)
+        if (*v10 != v4)
         {
-          objc_enumerationMutation(v1);
+          objc_enumerationMutation(v2);
         }
 
-        v5 = *(*(&v8 + 1) + 8 * i);
+        v6 = *(*(&v9 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
-          v6 = v5;
+          v7 = v6;
           goto LABEL_11;
         }
       }
 
-      v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
-      if (v2)
+      v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      if (v3)
       {
         continue;
       }
@@ -652,10 +652,10 @@ id __131__VCPPhotosFace_faceFromFaceObservation_humanObservation_sourceWidth_sou
     }
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_11:
 
-  return v6;
+  return v7;
 }
 
 id __131__VCPPhotosFace_faceFromFaceObservation_humanObservation_sourceWidth_sourceHeight_visionRequests_processingVersion_force_andError___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -1019,8 +1019,8 @@ LABEL_89:
               else
               {
                 [array addObject:*&v12];
-                std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(&v232, __p + 3 * v93 + 1);
-                std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(&v230, __p + 3 * v93 + 2);
+                std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(&v232, __p + 3 * v93 + 1, __p + 3 * v93 + 1);
+                std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(&v230, __p + 3 * v93 + 2, __p + 3 * v93 + 2);
                 if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
                 {
                   [observationsCopy objectAtIndexedSubscript:perFaceCopy];
@@ -1200,8 +1200,8 @@ LABEL_223:
                   }
                 }
 
-                std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(&v232, &__p);
-                std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(&v230, &v229);
+                std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(&v232, &__p, &__p);
+                std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(&v230, &v229, &v229);
 
                 break;
               }
@@ -1664,37 +1664,37 @@ LABEL_216:
   return array;
 }
 
-id __201__VCPPhotosFace_facesFromFaceObservations_humanObservations_animalObservations_sourceWidth_sourceHeight_visionRequests_blurScorePerFace_exposureScorePerFace_tooSmallFaceObservations_processingVersion___block_invoke(uint64_t a1)
+id __201__VCPPhotosFace_facesFromFaceObservations_humanObservations_animalObservations_sourceWidth_sourceHeight_visionRequests_blurScorePerFace_exposureScorePerFace_tooSmallFaceObservations_processingVersion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v8 = 0u;
+  v14 = *MEMORY[0x1E69E9840];
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
-  if (v2)
+  v12 = 0u;
+  v2 = *(a1 + 32);
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v3)
   {
-    v3 = *v9;
+    v4 = *v10;
     while (2)
     {
-      for (i = 0; i != v2; ++i)
+      for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v3)
+        if (*v10 != v4)
         {
-          objc_enumerationMutation(v1);
+          objc_enumerationMutation(v2);
         }
 
-        v5 = *(*(&v8 + 1) + 8 * i);
+        v6 = *(*(&v9 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
-          v6 = v5;
+          v7 = v6;
           goto LABEL_11;
         }
       }
 
-      v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
-      if (v2)
+      v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      if (v3)
       {
         continue;
       }
@@ -1703,10 +1703,10 @@ id __201__VCPPhotosFace_facesFromFaceObservations_humanObservations_animalObserv
     }
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_11:
 
-  return v6;
+  return v7;
 }
 
 id __201__VCPPhotosFace_facesFromFaceObservations_humanObservations_animalObservations_sourceWidth_sourceHeight_visionRequests_blurScorePerFace_exposureScorePerFace_tooSmallFaceObservations_processingVersion___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -1911,8 +1911,8 @@ LABEL_47:
                   }
                 }
 
-                std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(face, &v67);
-                std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(torsoCopy, &v66);
+                std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(face, &v67, &v67);
+                std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(torsoCopy, &v66, &v66);
 
                 break;
               }
@@ -2005,7 +2005,7 @@ LABEL_11:
         if (heightCopy)
         {
           a4 = [heightCopy objectAtIndexedSubscript:v17];
-          unk_1F4A1D7C8(a4, "doubleValue");
+          unk_1F4A1EDA0(a4, "doubleValue");
         }
 
         else
@@ -2204,37 +2204,37 @@ LABEL_23:
   return array;
 }
 
-id __127__VCPPhotosFace__peopleTorsosOnlyFromHumanObservations_matchedTorso_sourceWidth_sourceHeight_visionRequests_processingVersion___block_invoke(uint64_t a1)
+id __127__VCPPhotosFace__peopleTorsosOnlyFromHumanObservations_matchedTorso_sourceWidth_sourceHeight_visionRequests_processingVersion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v8 = 0u;
+  v14 = *MEMORY[0x1E69E9840];
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
-  if (v2)
+  v12 = 0u;
+  v2 = *(a1 + 32);
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v3)
   {
-    v3 = *v9;
+    v4 = *v10;
     while (2)
     {
-      for (i = 0; i != v2; ++i)
+      for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v3)
+        if (*v10 != v4)
         {
-          objc_enumerationMutation(v1);
+          objc_enumerationMutation(v2);
         }
 
-        v5 = *(*(&v8 + 1) + 8 * i);
+        v6 = *(*(&v9 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
-          v6 = v5;
+          v7 = v6;
           goto LABEL_11;
         }
       }
 
-      v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
-      if (v2)
+      v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      if (v3)
       {
         continue;
       }
@@ -2243,10 +2243,10 @@ id __127__VCPPhotosFace__peopleTorsosOnlyFromHumanObservations_matchedTorso_sour
     }
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_11:
 
-  return v6;
+  return v7;
 }
 
 id __127__VCPPhotosFace__peopleTorsosOnlyFromHumanObservations_matchedTorso_sourceWidth_sourceHeight_visionRequests_processingVersion___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -2419,37 +2419,37 @@ LABEL_20:
   return v21;
 }
 
-id __90__VCPPhotosFace__animalImageprintWrapperFromObservation_visionRequests_processingVersion___block_invoke(uint64_t a1)
+id __90__VCPPhotosFace__animalImageprintWrapperFromObservation_visionRequests_processingVersion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
-  v8 = 0u;
+  v14 = *MEMORY[0x1E69E9840];
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
-  if (v2)
+  v12 = 0u;
+  v2 = *(a1 + 32);
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (v3)
   {
-    v3 = *v9;
+    v4 = *v10;
     while (2)
     {
-      for (i = 0; i != v2; ++i)
+      for (i = 0; i != v3; ++i)
       {
-        if (*v9 != v3)
+        if (*v10 != v4)
         {
-          objc_enumerationMutation(v1);
+          objc_enumerationMutation(v2);
         }
 
-        v5 = *(*(&v8 + 1) + 8 * i);
+        v6 = *(*(&v9 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
-          v6 = v5;
+          v7 = v6;
           goto LABEL_11;
         }
       }
 
-      v2 = [v1 countByEnumeratingWithState:&v8 objects:v12 count:16];
-      if (v2)
+      v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      if (v3)
       {
         continue;
       }
@@ -2458,10 +2458,10 @@ id __90__VCPPhotosFace__animalImageprintWrapperFromObservation_visionRequests_pr
     }
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_11:
 
-  return v6;
+  return v7;
 }
 
 id __90__VCPPhotosFace__animalImageprintWrapperFromObservation_visionRequests_processingVersion___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -2730,8 +2730,8 @@ LABEL_23:
 
         if (!v44)
         {
-          std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(head, &v57);
-          std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(bodyCopy, &v56);
+          std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(head, &v57, &v57);
+          std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(bodyCopy, &v56, &v56);
           [array addObject:v42];
           if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
           {
@@ -2748,8 +2748,8 @@ LABEL_23:
         }
       }
 
-      std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(head, &v57);
-      std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(bodyCopy, &v56);
+      std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(head, &v57, &v57);
+      std::__tree<unsigned long>::__emplace_unique_key_args<unsigned long,unsigned long const&>(bodyCopy, &v56, &v56);
 
       goto LABEL_30;
     }
@@ -3690,7 +3690,7 @@ LABEL_26:
   v7 = result;
   while (2)
   {
-    v8 = (a2 - 8);
+    v8 = a2 - 2;
     v9 = v7;
     while (1)
     {
@@ -3708,7 +3708,7 @@ LABEL_26:
               case 3:
                 v129 = *(v9 + 24);
                 v130 = *v9;
-                v131 = *(a2 - 24);
+                v131 = *(a2 - 6);
                 if (v129 <= *v9)
                 {
                   if (v131 <= v129)
@@ -3717,14 +3717,14 @@ LABEL_26:
                   }
 
                   *(v9 + 24) = v131;
-                  *(a2 - 24) = v129;
+                  *(a2 - 6) = v129;
                   v179 = *(v9 + 32);
-                  *(v9 + 32) = *(a2 - 16);
-                  *(a2 - 16) = v179;
+                  *(v9 + 32) = *(a2 - 2);
+                  *(a2 - 2) = v179;
                   v8 = (v9 + 40);
                   v180 = *(v9 + 40);
-                  *(v9 + 40) = *(a2 - 8);
-                  *(a2 - 8) = v180;
+                  *(v9 + 40) = *(a2 - 1);
+                  *(a2 - 1) = v180;
                   v181 = *(v9 + 24);
                   v182 = *v9;
                   if (v181 <= *v9)
@@ -3747,7 +3747,7 @@ LABEL_26:
                   v193 = *(v9 + 8);
                   *(v9 + 8) = *(v9 + 32);
                   *(v9 + 32) = v193;
-                  v194 = *(a2 - 24);
+                  v194 = *(a2 - 6);
                   if (v194 <= v130)
                   {
                     return result;
@@ -3755,19 +3755,19 @@ LABEL_26:
 
                   v132 = (v9 + 40);
                   *(v9 + 24) = v194;
-                  *(a2 - 24) = v130;
-                  *(v9 + 32) = *(a2 - 16);
-                  *(a2 - 16) = v193;
+                  *(a2 - 6) = v130;
+                  *(v9 + 32) = *(a2 - 2);
+                  *(a2 - 2) = v193;
                 }
 
                 else
                 {
                   v132 = (v9 + 16);
                   *v9 = v131;
-                  *(a2 - 24) = v130;
+                  *(a2 - 6) = v130;
                   v133 = *(v9 + 8);
-                  *(v9 + 8) = *(a2 - 16);
-                  *(a2 - 16) = v133;
+                  *(v9 + 8) = *(a2 - 2);
+                  *(a2 - 2) = v133;
                 }
 
                 v195 = *v132;
@@ -3776,21 +3776,21 @@ LABEL_26:
                 return result;
               case 4:
 
-                return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,+[VCPPhotosFace facesFromFaceObservations:humanObservations:animalObservations:sourceWidth:sourceHeight:visionRequests:blurScorePerFace:exposureScorePerFace:tooSmallFaceObservations:processingVersion:]::$_0 &,std::tuple<float,unsigned long,unsigned long> *,0>(v9, v9 + 24, v9 + 48, a2 - 24);
+                return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,+[VCPPhotosFace facesFromFaceObservations:humanObservations:animalObservations:sourceWidth:sourceHeight:visionRequests:blurScorePerFace:exposureScorePerFace:tooSmallFaceObservations:processingVersion:]::$_0 &,std::tuple<float,unsigned long,unsigned long> *,0>(v9, v9 + 24, v9 + 48, (a2 - 6));
               case 5:
                 result = std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,+[VCPPhotosFace facesFromFaceObservations:humanObservations:animalObservations:sourceWidth:sourceHeight:visionRequests:blurScorePerFace:exposureScorePerFace:tooSmallFaceObservations:processingVersion:]::$_0 &,std::tuple<float,unsigned long,unsigned long> *,0>(v9, v9 + 24, v9 + 48, v9 + 72);
-                v112 = *(a2 - 24);
+                v112 = *(a2 - 6);
                 v113 = *(v9 + 72);
                 if (v112 > v113)
                 {
                   *(v9 + 72) = v112;
-                  *(a2 - 24) = v113;
+                  *(a2 - 6) = v113;
                   v114 = *(v9 + 80);
-                  *(v9 + 80) = *(a2 - 16);
-                  *(a2 - 16) = v114;
+                  *(v9 + 80) = *(a2 - 2);
+                  *(a2 - 2) = v114;
                   v115 = *(v9 + 88);
-                  *(v9 + 88) = *(a2 - 8);
-                  *(a2 - 8) = v115;
+                  *(v9 + 88) = *(a2 - 1);
+                  *(a2 - 1) = v115;
                   v116 = *(v9 + 72);
                   v117 = *(v9 + 48);
                   if (v116 > v117)
@@ -3839,18 +3839,18 @@ LABEL_26:
 
             if (v11 == 2)
             {
-              v125 = *(a2 - 24);
+              v125 = *(a2 - 6);
               v126 = *v9;
               if (v125 > *v9)
               {
                 *v9 = v125;
-                *(a2 - 24) = v126;
+                *(a2 - 6) = v126;
                 v127 = *(v9 + 8);
-                *(v9 + 8) = *(a2 - 16);
-                *(a2 - 16) = v127;
+                *(v9 + 8) = *(a2 - 2);
+                *(a2 - 2) = v127;
                 v128 = *(v9 + 16);
-                *(v9 + 16) = *(a2 - 8);
-                *(a2 - 8) = v128;
+                *(v9 + 16) = *(a2 - 1);
+                *(a2 - 1) = v128;
               }
 
               return result;
@@ -3859,7 +3859,7 @@ LABEL_26:
 
           if (v10 <= 575)
           {
-            v134 = v9 + 24;
+            v134 = (v9 + 24);
             v136 = v9 == a2 || v134 == a2;
             if (humanObservations)
             {
@@ -3903,12 +3903,12 @@ LABEL_138:
                     *(v146 + 8) = v142;
                   }
 
-                  v134 = v139 + 24;
+                  v134 = v139 + 6;
                   v137 += 24;
                   v138 = v139;
                 }
 
-                while (v139 + 24 != a2);
+                while (v139 + 6 != a2);
               }
             }
 
@@ -3941,12 +3941,12 @@ LABEL_138:
                   *(v189 - 2) = v188;
                 }
 
-                v134 = v185 + 24;
+                v134 = v185 + 6;
                 v184 += 24;
                 v7 = v185;
               }
 
-              while (v185 + 24 != a2);
+              while (v185 + 6 != a2);
             }
 
             return result;
@@ -4046,7 +4046,7 @@ LABEL_138:
                 }
 
                 while (v160 <= ((v159 - 2) >> 1));
-                if (v164 == a2 - 24)
+                if (v164 == a2 - 6)
                 {
                   *v164 = v161;
                   *(v164 + 8) = v162;
@@ -4055,12 +4055,12 @@ LABEL_138:
 
                 else
                 {
-                  *v164 = *(a2 - 24);
-                  *(v164 + 8) = *(a2 - 16);
-                  *(v164 + 16) = *(a2 - 8);
-                  *(a2 - 24) = v161;
-                  *(a2 - 16) = v162;
-                  *(a2 - 8) = v163;
+                  *v164 = *(a2 - 6);
+                  *(v164 + 8) = *(a2 - 2);
+                  *(v164 + 16) = *(a2 - 1);
+                  *(a2 - 6) = v161;
+                  *(a2 - 2) = v162;
+                  *(a2 - 1) = v163;
                   v171 = v164 - v9 + 24;
                   if (v171 >= 25)
                   {
@@ -4095,7 +4095,7 @@ LABEL_138:
                   }
                 }
 
-                a2 -= 24;
+                a2 -= 6;
               }
 
               while (v159-- > 2);
@@ -4106,14 +4106,14 @@ LABEL_138:
 
           v12 = v11 >> 1;
           v13 = v9 + 24 * (v11 >> 1);
-          v14 = *(a2 - 24);
+          v14 = *(a2 - 6);
           if (v10 >= 0xC01)
           {
             v15 = *v13;
             v16 = *v9;
             if (*v13 <= *v9)
             {
-              if (v14 <= v15 || (*v13 = v14, *(a2 - 24) = v15, v23 = *(v13 + 8), *(v13 + 8) = *(a2 - 16), *(a2 - 16) = v23, v24 = (v13 + 16), v25 = *(v13 + 16), *(v13 + 16) = *(a2 - 8), *(a2 - 8) = v25, v26 = *v9, *v13 <= *v9))
+              if (v14 <= v15 || (*v13 = v14, *(a2 - 6) = v15, v23 = *(v13 + 8), *(v13 + 8) = *(a2 - 2), *(a2 - 2) = v23, v24 = (v13 + 16), v25 = *(v13 + 16), *(v13 + 16) = *(a2 - 1), *(a2 - 1) = v25, v26 = *v9, *v13 <= *v9))
               {
 LABEL_29:
                 v36 = v9 + 24 * v12;
@@ -4121,30 +4121,30 @@ LABEL_29:
                 v37 = v36 - 24;
                 v39 = v38;
                 v40 = *(v9 + 24);
-                v41 = *(a2 - 48);
+                v41 = *(a2 - 12);
                 if (v38 <= v40)
                 {
-                  if (v41 <= v39 || (*v37 = v41, *(a2 - 48) = v39, v44 = *(v37 + 8), *(v37 + 8) = *(a2 - 40), *(a2 - 40) = v44, v46 = (v37 + 16), v45 = *(v37 + 16), *(v37 + 16) = *(a2 - 32), *(a2 - 32) = v45, v47 = *(v9 + 24), *v37 <= v47))
+                  if (v41 <= v39 || (*v37 = v41, *(a2 - 12) = v39, v44 = *(v37 + 8), *(v37 + 8) = *(a2 - 5), *(a2 - 5) = v44, v46 = (v37 + 16), v45 = *(v37 + 16), *(v37 + 16) = *(a2 - 4), *(a2 - 4) = v45, v47 = *(v9 + 24), *v37 <= v47))
                   {
 LABEL_42:
                     v56 = v12 + 1;
                     v57 = v9 + 24 * (v12 + 1);
                     v58 = *v57;
                     v59 = *(v9 + 48);
-                    v60 = *(a2 - 72);
+                    v60 = *(a2 - 18);
                     if (*v57 <= v59)
                     {
                       if (v60 > v58)
                       {
                         *v57 = v60;
-                        *(a2 - 72) = v58;
+                        *(a2 - 18) = v58;
                         v63 = *(v57 + 8);
-                        *(v57 + 8) = *(a2 - 64);
-                        *(a2 - 64) = v63;
+                        *(v57 + 8) = *(a2 - 8);
+                        *(a2 - 8) = v63;
                         v65 = (v57 + 16);
                         v64 = *(v57 + 16);
-                        *(v57 + 16) = *(a2 - 56);
-                        *(a2 - 56) = v64;
+                        *(v57 + 16) = *(a2 - 7);
+                        *(a2 - 7) = v64;
                         v58 = *v57;
                         v66 = *(v9 + 48);
                         if (*v57 > v66)
@@ -4170,12 +4170,12 @@ LABEL_51:
                       {
                         v61 = (v9 + 64);
                         *(v9 + 48) = v60;
-                        *(a2 - 72) = v59;
+                        *(a2 - 18) = v59;
                         v62 = *(v9 + 56);
-                        *(v9 + 56) = *(a2 - 64);
+                        *(v9 + 56) = *(a2 - 8);
 LABEL_50:
-                        *(a2 - 64) = v62;
-                        v65 = (a2 - 56);
+                        *(a2 - 8) = v62;
+                        v65 = a2 - 14;
                         goto LABEL_51;
                       }
 
@@ -4189,13 +4189,13 @@ LABEL_50:
                       v70 = *(v9 + 64);
                       *(v9 + 64) = v69;
                       *(v57 + 16) = v70;
-                      v71 = *(a2 - 72);
+                      v71 = *(a2 - 18);
                       if (v71 > v59)
                       {
                         *v57 = v71;
-                        *(a2 - 72) = v59;
+                        *(a2 - 18) = v59;
                         v62 = *(v57 + 8);
-                        *(v57 + 8) = *(a2 - 64);
+                        *(v57 + 8) = *(a2 - 8);
                         goto LABEL_50;
                       }
 
@@ -4303,29 +4303,29 @@ LABEL_61:
                     v53 = *(v9 + 40);
                     *(v9 + 40) = v52;
                     *(v37 + 16) = v53;
-                    v54 = *(a2 - 48);
+                    v54 = *(a2 - 12);
                     if (v54 <= v40)
                     {
                       goto LABEL_42;
                     }
 
                     *v37 = v54;
-                    *(a2 - 48) = v40;
+                    *(a2 - 12) = v40;
                     v43 = *(v37 + 8);
-                    *(v37 + 8) = *(a2 - 40);
+                    *(v37 + 8) = *(a2 - 5);
                   }
 
                   else
                   {
                     v42 = (v9 + 40);
                     *(v9 + 24) = v41;
-                    *(a2 - 48) = v40;
+                    *(a2 - 12) = v40;
                     v43 = *(v9 + 32);
-                    *(v9 + 32) = *(a2 - 40);
+                    *(v9 + 32) = *(a2 - 5);
                   }
 
-                  *(a2 - 40) = v43;
-                  v46 = (a2 - 32);
+                  *(a2 - 5) = v43;
+                  v46 = a2 - 8;
                 }
 
                 v55 = *v42;
@@ -4351,7 +4351,7 @@ LABEL_61:
                 v33 = *(v9 + 8);
                 *(v9 + 8) = *(v13 + 8);
                 *(v13 + 8) = v33;
-                v34 = *(a2 - 24);
+                v34 = *(a2 - 6);
                 if (v34 <= v16)
                 {
                   goto LABEL_29;
@@ -4359,22 +4359,22 @@ LABEL_61:
 
                 v17 = (v13 + 16);
                 *v13 = v34;
-                *(a2 - 24) = v16;
-                *(v13 + 8) = *(a2 - 16);
-                *(a2 - 16) = v33;
+                *(a2 - 6) = v16;
+                *(v13 + 8) = *(a2 - 2);
+                *(a2 - 2) = v33;
               }
 
               else
               {
                 v17 = (v9 + 16);
                 *v9 = v14;
-                *(a2 - 24) = v16;
+                *(a2 - 6) = v16;
                 v18 = *(v9 + 8);
-                *(v9 + 8) = *(a2 - 16);
-                *(a2 - 16) = v18;
+                *(v9 + 8) = *(a2 - 2);
+                *(a2 - 2) = v18;
               }
 
-              v24 = (a2 - 8);
+              v24 = a2 - 2;
             }
 
             v35 = *v17;
@@ -4390,14 +4390,14 @@ LABEL_61:
             if (v14 > v19)
             {
               *v9 = v14;
-              *(a2 - 24) = v19;
+              *(a2 - 6) = v19;
               v28 = *(v9 + 8);
-              *(v9 + 8) = *(a2 - 16);
-              *(a2 - 16) = v28;
+              *(v9 + 8) = *(a2 - 2);
+              *(a2 - 2) = v28;
               v30 = (v9 + 16);
               v29 = *(v9 + 16);
-              *(v9 + 16) = *(a2 - 8);
-              *(a2 - 8) = v29;
+              *(v9 + 16) = *(a2 - 1);
+              *(a2 - 1) = v29;
               v31 = *v13;
               if (*v9 > *v13)
               {
@@ -4421,12 +4421,12 @@ LABEL_63:
             {
               v21 = (v13 + 16);
               *v13 = v14;
-              *(a2 - 24) = v20;
+              *(a2 - 6) = v20;
               v22 = *(v13 + 8);
-              *(v13 + 8) = *(a2 - 16);
-              *(a2 - 16) = v22;
+              *(v13 + 8) = *(a2 - 2);
+              *(a2 - 2) = v22;
 LABEL_37:
-              v30 = (a2 - 8);
+              v30 = a2 - 2;
               goto LABEL_63;
             }
 
@@ -4435,14 +4435,14 @@ LABEL_37:
             v49 = *(v13 + 8);
             *(v13 + 8) = *(v9 + 8);
             *(v9 + 8) = v49;
-            v50 = *(a2 - 24);
+            v50 = *(a2 - 6);
             if (v50 > v20)
             {
               v21 = (v9 + 16);
               *v9 = v50;
-              *(a2 - 24) = v20;
-              *(v9 + 8) = *(a2 - 16);
-              *(a2 - 16) = v49;
+              *(a2 - 6) = v20;
+              *(v9 + 8) = *(a2 - 2);
+              *(a2 - 2) = v49;
               goto LABEL_37;
             }
           }
@@ -4454,7 +4454,7 @@ LABEL_37:
             break;
           }
 
-          if (v86 <= *(a2 - 24))
+          if (v86 <= *(a2 - 6))
           {
             v102 = v9 + 24;
             do
@@ -4488,8 +4488,8 @@ LABEL_37:
             v103 = a2;
             do
             {
-              v104 = *(v103 - 24);
-              v103 -= 24;
+              v104 = *(v103 - 6);
+              v103 -= 6;
             }
 
             while (v86 > v104);
@@ -4505,11 +4505,11 @@ LABEL_37:
               *v9 = v107;
               *v103 = v106;
               v108 = *(v9 + 8);
-              *(v9 + 8) = *(v103 + 8);
-              *(v103 + 8) = v108;
+              *(v9 + 8) = *(v103 + 1);
+              *(v103 + 1) = v108;
               v109 = *(v9 + 16);
-              *(v9 + 16) = *(v103 + 16);
-              *(v103 + 16) = v109;
+              *(v9 + 16) = *(v103 + 2);
+              *(v103 + 2) = v109;
               do
               {
                 v110 = *(v9 + 24);
@@ -4520,8 +4520,8 @@ LABEL_37:
               while (v86 <= v110);
               do
               {
-                v111 = *(v103 - 24);
-                v103 -= 24;
+                v111 = *(v103 - 6);
+                v103 -= 6;
                 v107 = v111;
               }
 
@@ -4638,7 +4638,7 @@ LABEL_37:
         }
 
 LABEL_87:
-        result = std::__introsort<std::_ClassicAlgPolicy,+[VCPPhotosFace facesFromFaceObservations:humanObservations:animalObservations:sourceWidth:sourceHeight:visionRequests:blurScorePerFace:exposureScorePerFace:tooSmallFaceObservations:processingVersion:]::$_0 &,std::tuple<float,unsigned long,unsigned long> *,false>(v7, v9 - 24, observations, humanObservations & 1);
+        result = std::__introsort<std::_ClassicAlgPolicy,+[VCPPhotosFace facesFromFaceObservations:humanObservations:animalObservations:sourceWidth:sourceHeight:visionRequests:blurScorePerFace:exposureScorePerFace:tooSmallFaceObservations:processingVersion:]::$_0 &,std::tuple<float,unsigned long,unsigned long> *,false>(v7, (v9 - 24), observations, humanObservations & 1);
         humanObservations = 0;
       }
 
@@ -4655,7 +4655,7 @@ LABEL_87:
       }
     }
 
-    a2 = v9 - 24;
+    a2 = (v9 - 24);
     if (!v100)
     {
       continue;

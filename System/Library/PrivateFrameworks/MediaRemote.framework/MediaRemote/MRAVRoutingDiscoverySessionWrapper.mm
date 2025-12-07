@@ -19,9 +19,13 @@
 - (void)removeOutputDevicesChangedCallback:(id)callback;
 - (void)removeOutputDevicesModifiedCallback:(id)callback;
 - (void)removeOutputDevicesRemovedCallback:(id)callback;
+- (void)setAlwaysAllowUpdates:(BOOL)updates;
+- (void)setCachedDiscoveryEnabled:(BOOL)enabled;
 - (void)setConfiguration:(id)configuration;
+- (void)setDiscoveryMode:(unsigned int)mode;
 - (void)setRoutingContextUID:(id)d;
 - (void)setSharedSession:(id)session;
+- (void)setTargetAudioSessionID:(unsigned int)d;
 - (void)transferCallbacksFromSession:(id)session toSession:(id)toSession;
 - (void)transferEndpointsAddedCallbacksFromSession:(id)session toSession:(id)toSession;
 - (void)transferEndpointsChangedCallbacksFromSession:(id)session toSession:(id)toSession;
@@ -39,14 +43,13 @@
 
 - (void)updateSharedSession
 {
-  sharedSession = self->_sharedSession;
-  v4 = [MRAVRoutingDiscoverySession sharedDiscoverySessionForClass:objc_opt_class() configuration:self->_configuration];
-  [(MRAVRoutingDiscoverySessionWrapper *)self setSharedSession:v4];
+  v3 = [MRAVRoutingDiscoverySession sharedDiscoverySessionForClass:objc_opt_class() configuration:self->_configuration];
+  [(MRAVRoutingDiscoverySessionWrapper *)self setSharedSession:v3];
 }
 
 - (MRAVRoutingDiscoverySessionWrapper)initWithSession:(id)session configuration:(id)configuration
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   objc_storeStrong(&self->_sharedSession, session);
   configurationCopy = configuration;
@@ -99,15 +102,14 @@
   if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
   {
     sharedSession = self->_sharedSession;
-    v35 = 134218242;
+    v34 = 134218242;
     selfCopy = self;
-    v37 = 2114;
-    v38 = sharedSession;
-    _os_log_impl(&dword_1A2860000, v31, OS_LOG_TYPE_INFO, "[MRAVRoutingDiscoverySessionWrapper] <%p> Init with shared session: %{public}@", &v35, 0x16u);
+    v36 = 2114;
+    v37 = sharedSession;
+    _os_log_impl(&dword_1A2860000, v31, OS_LOG_TYPE_INFO, "[MRAVRoutingDiscoverySessionWrapper] <%p> Init with shared session: %{public}@", &v34, 0x16u);
   }
 
   [(MRAVRoutingDiscoverySessionWrapper *)self updateObserversWithPreviousSession:0];
-  v33 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -120,6 +122,38 @@
   v7 = [v3 stringWithFormat:@"<%@: %p> sharedSession: %@", v5, self, sharedSession];
 
   return v7;
+}
+
+- (void)setDiscoveryMode:(unsigned int)mode
+{
+  v3 = *&mode;
+  obj = self;
+  objc_sync_enter(obj);
+  obj->_discoveryMode = v3;
+  v4 = obj->_sharedSession;
+  objc_sync_enter(v4);
+  clientDiscoveryStates = [(MRAVRoutingDiscoverySession *)obj->_sharedSession clientDiscoveryStates];
+  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v3];
+  [clientDiscoveryStates setObject:v6 forKey:obj];
+
+  [(MRAVRoutingDiscoverySessionWrapper *)obj reevaluateDiscoveryModeForSession:obj->_sharedSession];
+  objc_sync_exit(v4);
+
+  objc_sync_exit(obj);
+}
+
+- (void)setTargetAudioSessionID:(unsigned int)d
+{
+  v3 = *&d;
+  obj = self;
+  objc_sync_enter(obj);
+  if ([(MRAVRoutingDiscoverySessionConfiguration *)obj->_configuration targetAudioSessionID]!= v3)
+  {
+    [(MRAVRoutingDiscoverySessionConfiguration *)obj->_configuration setTargetAudioSessionID:v3];
+    [(MRAVRoutingDiscoverySessionWrapper *)obj updateSharedSession];
+  }
+
+  objc_sync_exit(obj);
 }
 
 - (void)setRoutingContextUID:(id)d
@@ -136,6 +170,34 @@
   }
 
   objc_sync_exit(selfCopy);
+}
+
+- (void)setAlwaysAllowUpdates:(BOOL)updates
+{
+  updatesCopy = updates;
+  obj = self;
+  objc_sync_enter(obj);
+  if ([(MRAVRoutingDiscoverySessionConfiguration *)obj->_configuration alwaysAllowUpdates]!= updatesCopy)
+  {
+    [(MRAVRoutingDiscoverySessionConfiguration *)obj->_configuration setAlwaysAllowUpdates:updatesCopy];
+    [(MRAVRoutingDiscoverySessionWrapper *)obj updateSharedSession];
+  }
+
+  objc_sync_exit(obj);
+}
+
+- (void)setCachedDiscoveryEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  obj = self;
+  objc_sync_enter(obj);
+  if ([(MRAVRoutingDiscoverySessionConfiguration *)obj->_configuration cachedDiscoveryEnabled]!= enabledCopy)
+  {
+    [(MRAVRoutingDiscoverySessionConfiguration *)obj->_configuration setCachedDiscoveryEnabled:enabledCopy];
+    [(MRAVRoutingDiscoverySessionWrapper *)obj updateSharedSession];
+  }
+
+  objc_sync_exit(obj);
 }
 
 - (void)setConfiguration:(id)configuration
@@ -574,29 +636,29 @@ void __71__MRAVRoutingDiscoverySessionWrapper_addOutputDevicesModifiedCallback__
 
 - (void)transferEndpointsChangedCallbacksFromSession:(id)session toSession:(id)toSession
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   toSessionCopy = toSession;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = self->_endpointsChangedCallbacks;
-  v6 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = [(NSMutableDictionary *)self->_endpointsTokensMap objectForKeyedSubscript:v10];
         v12 = [(NSMutableDictionary *)self->_endpointsChangedCallbacks objectForKeyedSubscript:v10];
         v13 = MEMORY[0x1A58E3570]();
@@ -606,40 +668,38 @@ void __71__MRAVRoutingDiscoverySessionWrapper_addOutputDevicesModifiedCallback__
         [(NSMutableDictionary *)self->_endpointsTokensMap setObject:v14 forKeyedSubscript:v10];
       }
 
-      v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)transferEndpointsAddedCallbacksFromSession:(id)session toSession:(id)toSession
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   toSessionCopy = toSession;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = self->_endpointsAddedCallbacks;
-  v6 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = [(NSMutableDictionary *)self->_endpointsTokensMap objectForKeyedSubscript:v10];
         v12 = [(NSMutableDictionary *)self->_endpointsAddedCallbacks objectForKeyedSubscript:v10];
         v13 = MEMORY[0x1A58E3570]();
@@ -649,40 +709,38 @@ void __71__MRAVRoutingDiscoverySessionWrapper_addOutputDevicesModifiedCallback__
         [(NSMutableDictionary *)self->_endpointsTokensMap setObject:v14 forKeyedSubscript:v10];
       }
 
-      v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)transferEndpointsRemovedCallbacksFromSession:(id)session toSession:(id)toSession
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   toSessionCopy = toSession;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = self->_endpointsRemovedCallbacks;
-  v6 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = [(NSMutableDictionary *)self->_endpointsTokensMap objectForKeyedSubscript:v10];
         v12 = [(NSMutableDictionary *)self->_endpointsRemovedCallbacks objectForKeyedSubscript:v10];
         v13 = MEMORY[0x1A58E3570]();
@@ -692,40 +750,38 @@ void __71__MRAVRoutingDiscoverySessionWrapper_addOutputDevicesModifiedCallback__
         [(NSMutableDictionary *)self->_endpointsTokensMap setObject:v14 forKeyedSubscript:v10];
       }
 
-      v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)transferEndpointsModifiedCallbacksFromSession:(id)session toSession:(id)toSession
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   toSessionCopy = toSession;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = self->_endpointsModifiedCallbacks;
-  v6 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = [(NSMutableDictionary *)self->_endpointsTokensMap objectForKeyedSubscript:v10];
         v12 = [(NSMutableDictionary *)self->_endpointsModifiedCallbacks objectForKeyedSubscript:v10];
         v13 = MEMORY[0x1A58E3570]();
@@ -735,40 +791,38 @@ void __71__MRAVRoutingDiscoverySessionWrapper_addOutputDevicesModifiedCallback__
         [(NSMutableDictionary *)self->_endpointsTokensMap setObject:v14 forKeyedSubscript:v10];
       }
 
-      v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)transferOutputDevicesChangedCallbacksFromSession:(id)session toSession:(id)toSession
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   toSessionCopy = toSession;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = self->_outputDevicesChangedCallbacks;
-  v6 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = [(NSMutableDictionary *)self->_outputDevicesTokensMap objectForKeyedSubscript:v10];
         v12 = [(NSMutableDictionary *)self->_outputDevicesChangedCallbacks objectForKeyedSubscript:v10];
         v13 = MEMORY[0x1A58E3570]();
@@ -778,40 +832,38 @@ void __71__MRAVRoutingDiscoverySessionWrapper_addOutputDevicesModifiedCallback__
         [(NSMutableDictionary *)self->_outputDevicesTokensMap setObject:v14 forKeyedSubscript:v10];
       }
 
-      v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)transferOutputDevicesAddedCallbacksFromSession:(id)session toSession:(id)toSession
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   toSessionCopy = toSession;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = self->_outputDevicesAddedCallbacks;
-  v6 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = [(NSMutableDictionary *)self->_outputDevicesTokensMap objectForKeyedSubscript:v10];
         v12 = [(NSMutableDictionary *)self->_outputDevicesAddedCallbacks objectForKeyedSubscript:v10];
         v13 = MEMORY[0x1A58E3570]();
@@ -821,40 +873,38 @@ void __71__MRAVRoutingDiscoverySessionWrapper_addOutputDevicesModifiedCallback__
         [(NSMutableDictionary *)self->_outputDevicesTokensMap setObject:v14 forKeyedSubscript:v10];
       }
 
-      v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)transferOutputDevicesRemovedCallbacksFromSession:(id)session toSession:(id)toSession
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   toSessionCopy = toSession;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = self->_outputDevicesRemovedCallbacks;
-  v6 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = [(NSMutableDictionary *)self->_outputDevicesTokensMap objectForKeyedSubscript:v10];
         v12 = [(NSMutableDictionary *)self->_outputDevicesRemovedCallbacks objectForKeyedSubscript:v10];
         v13 = MEMORY[0x1A58E3570]();
@@ -864,40 +914,38 @@ void __71__MRAVRoutingDiscoverySessionWrapper_addOutputDevicesModifiedCallback__
         [(NSMutableDictionary *)self->_outputDevicesTokensMap setObject:v14 forKeyedSubscript:v10];
       }
 
-      v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)transferOutputDevicesModifiedCallbacksFromSession:(id)session toSession:(id)toSession
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   toSessionCopy = toSession;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = self->_outputDevicesModifiedCallbacks;
-  v6 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = [(NSMutableDictionary *)self->_outputDevicesTokensMap objectForKeyedSubscript:v10];
         v12 = [(NSMutableDictionary *)self->_outputDevicesModifiedCallbacks objectForKeyedSubscript:v10];
         v13 = MEMORY[0x1A58E3570]();
@@ -907,30 +955,28 @@ void __71__MRAVRoutingDiscoverySessionWrapper_addOutputDevicesModifiedCallback__
         [(NSMutableDictionary *)self->_outputDevicesTokensMap setObject:v14 forKeyedSubscript:v10];
       }
 
-      v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [(NSMutableDictionary *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)transferCallbacksFromSession:(id)session toSession:(id)toSession
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   toSessionCopy = toSession;
   v8 = _MRLogForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    v10 = 134218498;
+    v9 = 134218498;
     selfCopy = self;
-    v12 = 2114;
-    v13 = sessionCopy;
-    v14 = 2114;
-    v15 = toSessionCopy;
-    _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_INFO, "[MRAVRoutingDiscoverySessionWrapper] <%p> Transferring callbacks from: %{public}@ to: %{public}@", &v10, 0x20u);
+    v11 = 2114;
+    v12 = sessionCopy;
+    v13 = 2114;
+    v14 = toSessionCopy;
+    _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_INFO, "[MRAVRoutingDiscoverySessionWrapper] <%p> Transferring callbacks from: %{public}@ to: %{public}@", &v9, 0x20u);
   }
 
   [(MRAVRoutingDiscoverySessionWrapper *)self transferEndpointsChangedCallbacksFromSession:sessionCopy toSession:toSessionCopy];
@@ -941,13 +987,11 @@ void __71__MRAVRoutingDiscoverySessionWrapper_addOutputDevicesModifiedCallback__
   [(MRAVRoutingDiscoverySessionWrapper *)self transferOutputDevicesAddedCallbacksFromSession:sessionCopy toSession:toSessionCopy];
   [(MRAVRoutingDiscoverySessionWrapper *)self transferOutputDevicesRemovedCallbacksFromSession:sessionCopy toSession:toSessionCopy];
   [(MRAVRoutingDiscoverySessionWrapper *)self transferOutputDevicesModifiedCallbacksFromSession:sessionCopy toSession:toSessionCopy];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateObserversWithPreviousSession:(id)session
 {
-  v103 = *MEMORY[0x1E69E9840];
+  v102 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   availableEndpoints = [sessionCopy availableEndpoints];
   v6 = availableEndpoints;
@@ -964,7 +1008,7 @@ void __71__MRAVRoutingDiscoverySessionWrapper_addOutputDevicesModifiedCallback__
 
   v9 = v8;
 
-  v60 = sessionCopy;
+  v59 = sessionCopy;
   availableOutputDevices = [sessionCopy availableOutputDevices];
   v11 = availableOutputDevices;
   if (availableOutputDevices)
@@ -977,215 +1021,213 @@ void __71__MRAVRoutingDiscoverySessionWrapper_addOutputDevicesModifiedCallback__
     v12 = v7;
   }
 
-  v62 = v12;
+  v61 = v12;
 
   availableEndpoints2 = [(MRAVRoutingDiscoverySession *)self->_sharedSession availableEndpoints];
   availableOutputDevices2 = [(MRAVRoutingDiscoverySession *)self->_sharedSession availableOutputDevices];
   v15 = _MRLogForCategory(0);
-  v61 = v9;
+  v60 = v9;
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
     *buf = 134219008;
     selfCopy = self;
-    v95 = 2048;
-    v96 = [v9 count];
-    v97 = 2048;
-    v98 = [availableEndpoints2 count];
-    v99 = 2048;
-    v100 = [v62 count];
-    v101 = 2048;
-    v102 = [availableOutputDevices2 count];
+    v94 = 2048;
+    v95 = [v9 count];
+    v96 = 2048;
+    v97 = [availableEndpoints2 count];
+    v98 = 2048;
+    v99 = [v61 count];
+    v100 = 2048;
+    v101 = [availableOutputDevices2 count];
     _os_log_impl(&dword_1A2860000, v15, OS_LOG_TYPE_INFO, "[MRAVRoutingDiscoverySessionWrapper] <%p> Notifying existing observers from %lu to %lu endpoints and from %lu to %lu output devices", buf, 0x34u);
   }
 
-  v85 = 0u;
-  v86 = 0u;
-  v83 = 0u;
   v84 = 0u;
+  v85 = 0u;
+  v82 = 0u;
+  v83 = 0u;
   v16 = self->_endpointsRemovedCallbacks;
-  v17 = [(NSMutableDictionary *)v16 countByEnumeratingWithState:&v83 objects:v92 count:16];
+  v17 = [(NSMutableDictionary *)v16 countByEnumeratingWithState:&v82 objects:v91 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v84;
+    v19 = *v83;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v84 != v19)
+        if (*v83 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = [(NSMutableDictionary *)self->_endpointsRemovedCallbacks objectForKeyedSubscript:*(*(&v83 + 1) + 8 * i)];
+        v21 = [(NSMutableDictionary *)self->_endpointsRemovedCallbacks objectForKeyedSubscript:*(*(&v82 + 1) + 8 * i)];
         (v21)[2](v21, v9);
       }
 
-      v18 = [(NSMutableDictionary *)v16 countByEnumeratingWithState:&v83 objects:v92 count:16];
+      v18 = [(NSMutableDictionary *)v16 countByEnumeratingWithState:&v82 objects:v91 count:16];
     }
 
     while (v18);
   }
 
-  v81 = 0u;
-  v82 = 0u;
-  v79 = 0u;
   v80 = 0u;
+  v81 = 0u;
+  v78 = 0u;
+  v79 = 0u;
   v22 = self->_endpointsAddedCallbacks;
-  v23 = [(NSMutableDictionary *)v22 countByEnumeratingWithState:&v79 objects:v91 count:16];
+  v23 = [(NSMutableDictionary *)v22 countByEnumeratingWithState:&v78 objects:v90 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v80;
+    v25 = *v79;
     do
     {
       for (j = 0; j != v24; ++j)
       {
-        if (*v80 != v25)
+        if (*v79 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v27 = [(NSMutableDictionary *)self->_endpointsAddedCallbacks objectForKeyedSubscript:*(*(&v79 + 1) + 8 * j)];
+        v27 = [(NSMutableDictionary *)self->_endpointsAddedCallbacks objectForKeyedSubscript:*(*(&v78 + 1) + 8 * j)];
         (v27)[2](v27, availableEndpoints2);
       }
 
-      v24 = [(NSMutableDictionary *)v22 countByEnumeratingWithState:&v79 objects:v91 count:16];
+      v24 = [(NSMutableDictionary *)v22 countByEnumeratingWithState:&v78 objects:v90 count:16];
     }
 
     while (v24);
   }
 
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
   v76 = 0u;
+  v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
   v28 = self->_endpointsChangedCallbacks;
-  v29 = [(NSMutableDictionary *)v28 countByEnumeratingWithState:&v75 objects:v90 count:16];
+  v29 = [(NSMutableDictionary *)v28 countByEnumeratingWithState:&v74 objects:v89 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v76;
+    v31 = *v75;
     do
     {
       for (k = 0; k != v30; ++k)
       {
-        if (*v76 != v31)
+        if (*v75 != v31)
         {
           objc_enumerationMutation(v28);
         }
 
-        v33 = [(NSMutableDictionary *)self->_endpointsChangedCallbacks objectForKeyedSubscript:*(*(&v75 + 1) + 8 * k)];
+        v33 = [(NSMutableDictionary *)self->_endpointsChangedCallbacks objectForKeyedSubscript:*(*(&v74 + 1) + 8 * k)];
         (v33)[2](v33, availableEndpoints2);
       }
 
-      v30 = [(NSMutableDictionary *)v28 countByEnumeratingWithState:&v75 objects:v90 count:16];
+      v30 = [(NSMutableDictionary *)v28 countByEnumeratingWithState:&v74 objects:v89 count:16];
     }
 
     while (v30);
   }
 
-  v59 = availableEndpoints2;
+  v58 = availableEndpoints2;
 
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
   v72 = 0u;
+  v73 = 0u;
+  v70 = 0u;
+  v71 = 0u;
   v34 = self->_outputDevicesRemovedCallbacks;
-  v35 = [(NSMutableDictionary *)v34 countByEnumeratingWithState:&v71 objects:v89 count:16];
+  v35 = [(NSMutableDictionary *)v34 countByEnumeratingWithState:&v70 objects:v88 count:16];
   if (v35)
   {
     v36 = v35;
-    v37 = *v72;
+    v37 = *v71;
     do
     {
       for (m = 0; m != v36; ++m)
       {
-        if (*v72 != v37)
+        if (*v71 != v37)
         {
           objc_enumerationMutation(v34);
         }
 
-        v39 = [(NSMutableDictionary *)self->_outputDevicesRemovedCallbacks objectForKeyedSubscript:*(*(&v71 + 1) + 8 * m), v59];
+        v39 = [(NSMutableDictionary *)self->_outputDevicesRemovedCallbacks objectForKeyedSubscript:*(*(&v70 + 1) + 8 * m), v58];
         configuration = [(MRAVRoutingDiscoverySessionWrapper *)self configuration];
-        v41 = [v62 resultsFromConfiguration:configuration];
+        v41 = [v61 resultsFromConfiguration:configuration];
         (v39)[2](v39, v41);
       }
 
-      v36 = [(NSMutableDictionary *)v34 countByEnumeratingWithState:&v71 objects:v89 count:16];
+      v36 = [(NSMutableDictionary *)v34 countByEnumeratingWithState:&v70 objects:v88 count:16];
     }
 
     while (v36);
   }
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
   v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
   v42 = self->_outputDevicesAddedCallbacks;
-  v43 = [(NSMutableDictionary *)v42 countByEnumeratingWithState:&v67 objects:v88 count:16];
+  v43 = [(NSMutableDictionary *)v42 countByEnumeratingWithState:&v66 objects:v87 count:16];
   if (v43)
   {
     v44 = v43;
-    v45 = *v68;
+    v45 = *v67;
     do
     {
       for (n = 0; n != v44; ++n)
       {
-        if (*v68 != v45)
+        if (*v67 != v45)
         {
           objc_enumerationMutation(v42);
         }
 
-        v47 = [(NSMutableDictionary *)self->_outputDevicesAddedCallbacks objectForKeyedSubscript:*(*(&v67 + 1) + 8 * n), v59];
+        v47 = [(NSMutableDictionary *)self->_outputDevicesAddedCallbacks objectForKeyedSubscript:*(*(&v66 + 1) + 8 * n), v58];
         configuration2 = [(MRAVRoutingDiscoverySessionWrapper *)self configuration];
         v49 = [availableOutputDevices2 resultsFromConfiguration:configuration2];
         (v47)[2](v47, v49);
       }
 
-      v44 = [(NSMutableDictionary *)v42 countByEnumeratingWithState:&v67 objects:v88 count:16];
+      v44 = [(NSMutableDictionary *)v42 countByEnumeratingWithState:&v66 objects:v87 count:16];
     }
 
     while (v44);
   }
 
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
   v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   v50 = self->_outputDevicesChangedCallbacks;
-  v51 = [(NSMutableDictionary *)v50 countByEnumeratingWithState:&v63 objects:v87 count:16];
+  v51 = [(NSMutableDictionary *)v50 countByEnumeratingWithState:&v62 objects:v86 count:16];
   if (v51)
   {
     v52 = v51;
-    v53 = *v64;
+    v53 = *v63;
     do
     {
       for (ii = 0; ii != v52; ++ii)
       {
-        if (*v64 != v53)
+        if (*v63 != v53)
         {
           objc_enumerationMutation(v50);
         }
 
-        v55 = [(NSMutableDictionary *)self->_outputDevicesChangedCallbacks objectForKeyedSubscript:*(*(&v63 + 1) + 8 * ii), v59];
+        v55 = [(NSMutableDictionary *)self->_outputDevicesChangedCallbacks objectForKeyedSubscript:*(*(&v62 + 1) + 8 * ii), v58];
         configuration3 = [(MRAVRoutingDiscoverySessionWrapper *)self configuration];
         v57 = [availableOutputDevices2 resultsFromConfiguration:configuration3];
         (v55)[2](v55, v57);
       }
 
-      v52 = [(NSMutableDictionary *)v50 countByEnumeratingWithState:&v63 objects:v87 count:16];
+      v52 = [(NSMutableDictionary *)v50 countByEnumeratingWithState:&v62 objects:v86 count:16];
     }
 
     while (v52);
   }
-
-  v58 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSharedSession:(id)session
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -1212,11 +1254,11 @@ void __71__MRAVRoutingDiscoverySessionWrapper_addOutputDevicesModifiedCallback__
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = selfCopy->_sharedSession;
-      v14 = 134218242;
-      v15 = selfCopy;
-      v16 = 2114;
-      v17 = v12;
-      _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_INFO, "[MRAVRoutingDiscoverySessionWrapper] <%p> Changed to shared session: %{public}@", &v14, 0x16u);
+      v13 = 134218242;
+      v14 = selfCopy;
+      v15 = 2114;
+      v16 = v12;
+      _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_INFO, "[MRAVRoutingDiscoverySessionWrapper] <%p> Changed to shared session: %{public}@", &v13, 0x16u);
     }
 
     [(MRAVRoutingDiscoverySessionWrapper *)selfCopy setDiscoveryMode:selfCopy->_discoveryMode];
@@ -1225,43 +1267,42 @@ void __71__MRAVRoutingDiscoverySessionWrapper_addOutputDevicesModifiedCallback__
   [(MRAVRoutingDiscoverySessionWrapper *)selfCopy updateObserversWithPreviousSession:v10];
 
   objc_sync_exit(selfCopy);
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reevaluateDiscoveryModeForSession:(id)session
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   clientDiscoveryStates = [sessionCopy clientDiscoveryStates];
   objectEnumerator = [clientDiscoveryStates objectEnumerator];
 
-  v6 = [objectEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [objectEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
     intValue = 0;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * i);
+        v11 = *(*(&v12 + 1) + 8 * i);
         if (intValue <= [v11 intValue])
         {
           intValue = [v11 intValue];
         }
       }
 
-      v7 = [objectEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [objectEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
@@ -1273,7 +1314,6 @@ void __71__MRAVRoutingDiscoverySessionWrapper_addOutputDevicesModifiedCallback__
   }
 
   [sessionCopy setDiscoveryMode:intValue];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

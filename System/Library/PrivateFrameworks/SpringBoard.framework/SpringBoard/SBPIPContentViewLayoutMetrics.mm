@@ -591,56 +591,56 @@ LABEL_21:
 
 + (id)pegasusDefaultMetrics
 {
-  v11 = 0;
+  v13 = 0;
+  v14 = 0;
   v12 = 0;
-  v10 = 0;
-  [self videoContentLandscapeSizePreferences:&v12 portraitSizePreferences:&v11 squareSizePreferences:&v10];
-  v2 = v12;
-  v3 = v11;
-  v4 = v10;
+  [self videoContentLandscapeSizePreferences:&v14 portraitSizePreferences:&v13 squareSizePreferences:&v12];
+  v2 = v14;
+  v3 = v13;
+  v4 = v12;
   v5 = [[SBPIPContentViewLayoutMetricsSizePolicy alloc] initWithSizePreferencesForLandscape:v2 portrait:v3 square:v4];
 
   v6 = [SBPIPContentViewLayoutMetrics alloc];
-  v7 = _SBPIPContentViewPaddingWhileStashed(0);
-  v8 = [(SBPIPContentViewLayoutMetrics *)v6 initWithContentTypeIdentifier:@"VideoContent" padding:v5 paddingWhileStashed:3 minimumStashedTabSize:v7 defaultCornerRadius:_SBPIPContentViewPaddingWhileStashed(1) sizePolicy:24.0 defaultPosition:96.0, 0.0];
+  v8 = _SBPIPContentViewPaddingWhileStashed(0, v7);
+  v10 = [(SBPIPContentViewLayoutMetrics *)v6 initWithContentTypeIdentifier:@"VideoContent" padding:v5 paddingWhileStashed:3 minimumStashedTabSize:v8 defaultCornerRadius:_SBPIPContentViewPaddingWhileStashed(1 sizePolicy:v9) defaultPosition:24.0, 96.0, 0.0];
 
-  return v8;
+  return v10;
 }
 
 + (id)pegasusVideoCallMetrics
 {
-  v11 = 0;
+  v13 = 0;
+  v14 = 0;
   v12 = 0;
-  v10 = 0;
-  [self videoCallLandscapeSizePreferences:&v12 portraitSizePreferences:&v11 squareSizePreferences:&v10];
-  v2 = v12;
-  v3 = v11;
-  v4 = v10;
+  [self videoCallLandscapeSizePreferences:&v14 portraitSizePreferences:&v13 squareSizePreferences:&v12];
+  v2 = v14;
+  v3 = v13;
+  v4 = v12;
   v5 = [[SBPIPContentViewLayoutMetricsSizePolicy alloc] initWithSizePreferencesForLandscape:v2 portrait:v3 square:v4];
 
   v6 = [SBPIPContentViewLayoutMetrics alloc];
-  v7 = _SBPIPContentViewPaddingWhileStashed(0);
-  v8 = [(SBPIPContentViewLayoutMetrics *)v6 initWithContentTypeIdentifier:@"VideoCall" padding:v5 paddingWhileStashed:3 minimumStashedTabSize:v7 defaultCornerRadius:_SBPIPContentViewPaddingWhileStashed(1) sizePolicy:24.0 defaultPosition:96.0, 0.0];
+  v8 = _SBPIPContentViewPaddingWhileStashed(0, v7);
+  v10 = [(SBPIPContentViewLayoutMetrics *)v6 initWithContentTypeIdentifier:@"VideoCall" padding:v5 paddingWhileStashed:3 minimumStashedTabSize:v8 defaultCornerRadius:_SBPIPContentViewPaddingWhileStashed(1 sizePolicy:v9) defaultPosition:24.0, 96.0, 0.0];
 
-  return v8;
+  return v10;
 }
 
 + (id)pegasusScreenSharingMetrics
 {
-  v11 = 0;
+  v13 = 0;
+  v14 = 0;
   v12 = 0;
-  v10 = 0;
-  [self screenSharingLandscapeSizePreferences:&v12 portraitSizePreferences:&v11 squareSizePreferences:&v10];
-  v2 = v12;
-  v3 = v11;
-  v4 = v10;
+  [self screenSharingLandscapeSizePreferences:&v14 portraitSizePreferences:&v13 squareSizePreferences:&v12];
+  v2 = v14;
+  v3 = v13;
+  v4 = v12;
   v5 = [[SBPIPContentViewLayoutMetricsSizePolicy alloc] initWithSizePreferencesForLandscape:v2 portrait:v3 square:v4];
 
   v6 = [SBPIPContentViewLayoutMetrics alloc];
-  v7 = _SBPIPContentViewPaddingWhileStashed(0);
-  v8 = [(SBPIPContentViewLayoutMetrics *)v6 initWithContentTypeIdentifier:@"ScreenSharing" padding:v5 paddingWhileStashed:3 minimumStashedTabSize:v7 defaultCornerRadius:_SBPIPContentViewPaddingWhileStashed(1) sizePolicy:24.0 defaultPosition:96.0, 0.0];
+  v8 = _SBPIPContentViewPaddingWhileStashed(0, v7);
+  v10 = [(SBPIPContentViewLayoutMetrics *)v6 initWithContentTypeIdentifier:@"ScreenSharing" padding:v5 paddingWhileStashed:3 minimumStashedTabSize:v8 defaultCornerRadius:_SBPIPContentViewPaddingWhileStashed(1 sizePolicy:v9) defaultPosition:24.0, 96.0, 0.0];
 
-  return v8;
+  return v10;
 }
 
 + (id)pegasusDefaultMicroPIPMetrics
@@ -676,10 +676,10 @@ LABEL_21:
   }
 
   v5 = [SBPIPContentViewLayoutMetrics alloc];
-  v6 = _SBPIPContentViewPaddingWhileStashed(0);
-  v7 = [(SBPIPContentViewLayoutMetrics *)v5 initWithContentTypeIdentifier:@"QNBacklink" padding:v3 paddingWhileStashed:v4 minimumStashedTabSize:1 defaultCornerRadius:v6 sizePolicy:_SBPIPContentViewPaddingWhileStashed(1) defaultPosition:24.0 prefersDefaultPosition:96.0, 0.0];
+  v7 = _SBPIPContentViewPaddingWhileStashed(0, v6);
+  v9 = [(SBPIPContentViewLayoutMetrics *)v5 initWithContentTypeIdentifier:@"QNBacklink" padding:v3 paddingWhileStashed:v4 minimumStashedTabSize:1 defaultCornerRadius:v7 sizePolicy:_SBPIPContentViewPaddingWhileStashed(1 defaultPosition:v8) prefersDefaultPosition:24.0, 96.0, 0.0];
 
-  return v7;
+  return v9;
 }
 
 + (id)pegasusMetricsForContentType:(int64_t)type
@@ -818,37 +818,37 @@ LABEL_5:
     v5 = 455.0;
   }
 
-  v10 = SBSystemNotesMaximumWindowSize();
-  v11 = SBSystemNotesMaximumWindowSize();
-  if (v10 < v12)
+  v10 = SBSystemNotesMaximumWindowSize(self, a2);
+  v13 = SBSystemNotesMaximumWindowSize(v11, v12);
+  if (v10 < v14)
   {
-    v10 = v12;
+    v10 = v14;
   }
 
-  v13 = +[SBPIPContentViewLayoutMetrics pegasusDefaultMetrics];
-  v14 = [[SBPIPContentViewLayoutSizePreferences alloc] initWithLongSideMinimumSize:v4 longSideDefaultSize:v5 longSideMaximumSize:v10 shortSideMinimumSize:v5];
-  v15 = [[SBPIPContentViewLayoutMetricsSizePolicy alloc] initWithSizePreferencesForLandscape:v14 portrait:0 square:0];
-  v16 = [SBPIPContentViewLayoutMetrics alloc];
-  [v13 padding];
-  v18 = v17;
-  [v13 paddingWhileStashed];
+  v15 = +[SBPIPContentViewLayoutMetrics pegasusDefaultMetrics];
+  v16 = [[SBPIPContentViewLayoutSizePreferences alloc] initWithLongSideMinimumSize:v4 longSideDefaultSize:v5 longSideMaximumSize:v10 shortSideMinimumSize:v5];
+  v17 = [[SBPIPContentViewLayoutMetricsSizePolicy alloc] initWithSizePreferencesForLandscape:v16 portrait:0 square:0];
+  v18 = [SBPIPContentViewLayoutMetrics alloc];
+  [v15 padding];
   v20 = v19;
-  [v13 minimumStashedTabSize];
+  [v15 paddingWhileStashed];
   v22 = v21;
+  [v15 minimumStashedTabSize];
   v24 = v23;
+  v26 = v25;
   if ([*MEMORY[0x277D76620] userInterfaceLayoutDirection] == 1)
   {
-    v25 = 1;
+    v27 = 1;
   }
 
   else
   {
-    v25 = 2;
+    v27 = 2;
   }
 
-  v26 = [(SBPIPContentViewLayoutMetrics *)v16 initWithContentTypeIdentifier:v3 padding:v15 paddingWhileStashed:v25 minimumStashedTabSize:v18 defaultCornerRadius:v20 sizePolicy:v22 defaultPosition:v24, 34.0];
+  v28 = [(SBPIPContentViewLayoutMetrics *)v18 initWithContentTypeIdentifier:v3 padding:v17 paddingWhileStashed:v27 minimumStashedTabSize:v20 defaultCornerRadius:v22 sizePolicy:v24 defaultPosition:v26, 34.0];
 
-  return v26;
+  return v28;
 }
 
 @end

@@ -108,24 +108,8 @@
   v17 = sub_1000B4020;
   v18 = sub_1000B4030;
   v19 = 0;
-  if (!identifierCopy)
+  if (!identifierCopy || (+[ML3MusicLibrary allLibraries](ML3MusicLibrary, "allLibraries"), v4 = objc_claimAutoreleasedReturnValue(), v11[0] = _NSConcreteStackBlock, v11[1] = 3221225472, v11[2] = sub_1000B4038, v11[3] = &unk_1001DD830, v12 = identifierCopy, v13 = &v14, [v4 enumerateObjectsUsingBlock:v11], v4, v12, (v5 = v15[5]) == 0))
   {
-    goto LABEL_3;
-  }
-
-  v4 = +[ML3MusicLibrary allLibraries];
-  v11[0] = _NSConcreteStackBlock;
-  v11[1] = 3221225472;
-  v11[2] = sub_1000B4038;
-  v11[3] = &unk_1001DD830;
-  v12 = identifierCopy;
-  v13 = &v14;
-  [v4 enumerateObjectsUsingBlock:v11];
-
-  v5 = v15[5];
-  if (!v5)
-  {
-LABEL_3:
     v6 = os_log_create("com.apple.amp.itunescloudd", "PlaybackPosition");
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {

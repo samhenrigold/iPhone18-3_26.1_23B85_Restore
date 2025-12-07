@@ -220,7 +220,7 @@ uint64_t __80__UIKeyboardEmojiCollectionViewAccessibility__accessibilitySortedEl
   return v11;
 }
 
-uint64_t __88__UIKeyboardEmojiCollectionViewAccessibility__accessibilityLocalizedVisibleSectionNames__block_invoke(uint64_t a1)
+void *__88__UIKeyboardEmojiCollectionViewAccessibility__accessibilityLocalizedVisibleSectionNames__block_invoke(uint64_t a1)
 {
   result = [NSClassFromString(&cfstr_Uikeyboardemoj.isa) categoryTypeForCategoryIndex:*(a1 + 40)];
   *(*(*(a1 + 32) + 8) + 24) = result;

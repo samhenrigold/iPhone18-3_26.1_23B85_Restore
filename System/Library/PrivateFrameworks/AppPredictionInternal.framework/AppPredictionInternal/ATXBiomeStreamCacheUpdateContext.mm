@@ -5,6 +5,7 @@
 - (BOOL)checkAndReportDecodingFailureIfNeededForid:(id)forid key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToATXBiomeStreamCacheUpdateContext:(id)context;
+- (id)cacheAgeForPreviousBlendingUICacheUpdateForConsumerSubType:(unsigned __int8)type;
 - (id)cacheAgeForPreviousClientModelCacheWithClientModelId:(id)id;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -61,6 +62,14 @@
   return v4;
 }
 
+- (id)cacheAgeForPreviousBlendingUICacheUpdateForConsumerSubType:(unsigned __int8)type
+{
+  v4 = [MEMORY[0x277CEBCF0] stringForConsumerSubtype:type];
+  v5 = [(NSMutableDictionary *)self->_previousBlendingModelCacheAgesByConsumerSubType valueForKey:v4];
+
+  return v5;
+}
+
 - (void)updateWithClientModelCacheUpdate:(id)update
 {
   updateCopy = update;
@@ -110,7 +119,7 @@
 
 - (BOOL)checkAndReportDecodingFailureIfNeededForid:(id)forid key:(id)key coder:(id)coder errorDomain:(id)domain errorCode:(int64_t)code
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   coderCopy = coder;
   domainCopy = domain;
@@ -127,11 +136,11 @@
     if (([coderCopy containsValueForKey:keyCopy] & 1) == 0)
     {
       v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v22 = *MEMORY[0x277CCA450];
-      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v22];
-      v23[0] = v17;
+      v21 = *MEMORY[0x277CCA450];
+      v17 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Failed to decode key %@", keyCopy, v21];
+      v22[0] = v17;
       v14 = 1;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       v19 = [v16 initWithDomain:domainCopy code:code userInfo:v18];
 
       [coderCopy failWithError:v19];
@@ -142,7 +151,6 @@
   v14 = 0;
 LABEL_7:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

@@ -94,27 +94,27 @@
     [v15 setObject:*MEMORY[0x1E696A388] forKey:*MEMORY[0x1E695D3F8]];
     v16 = self->_persistentStoreCoordinator;
     v17 = *MEMORY[0x1E695D4A8];
-    v25 = 0;
-    v18 = [(NSPersistentStoreCoordinator *)v16 addPersistentStoreWithType:v17 configuration:0 URL:v6 options:v15 error:&v25];
-    v19 = v25;
+    v36 = 0;
+    v18 = [(NSPersistentStoreCoordinator *)v16 addPersistentStoreWithType:v17 configuration:0 URL:v6 options:v15 error:&v36];
+    v19 = v36;
 
     if (!v18)
     {
       userInfo = [v19 userInfo];
-      _SLLog(v2, 3, @"Error while opening database %@, %@\n\nCreating new database...");
+      _SLLog(v2, 3, @"Error while opening database %@, %@\n\nCreating new database...", v20, v21, v22, v23, v24, v19);
 
-      [(SLDatabase *)self _removeFilesAtURL:v6 forStoreCoordinator:self->_persistentStoreCoordinator, v19, userInfo];
-      v20 = self->_persistentStoreCoordinator;
-      v24 = 0;
-      v21 = [(NSPersistentStoreCoordinator *)v20 addPersistentStoreWithType:v17 configuration:0 URL:v6 options:v15 error:&v24];
-      v19 = v24;
+      [(SLDatabase *)self _removeFilesAtURL:v6 forStoreCoordinator:self->_persistentStoreCoordinator];
+      v25 = self->_persistentStoreCoordinator;
+      v35 = 0;
+      v26 = [(NSPersistentStoreCoordinator *)v25 addPersistentStoreWithType:v17 configuration:0 URL:v6 options:v15 error:&v35];
+      v19 = v35;
 
-      if (!v21)
+      if (!v26)
       {
         [(SLDatabase *)v19 _persistentStoreCoordinator];
       }
 
-      _SLLog(v2, 3, @"Created new database successfully.");
+      _SLLog(v2, 3, @"Created new database successfully.", v27, v28, v29, v30, v31, v33);
     }
 
     v4 = self->_persistentStoreCoordinator;
@@ -168,15 +168,15 @@
 - (void)_persistentStoreCoordinator
 {
   userInfo = [self userInfo];
-  _SLLog(a2, 3, @"Second Error while creating new database %@, %@\n\n");
+  _SLLog(a2, 3, @"Second Error while creating new database %@, %@\n\n", v4, v5, v6, v7, v8, self);
 
   abort();
 }
 
 - (void)_removeFilesAtURL:(void *)a1 forStoreCoordinator:.cold.1(void *a1)
 {
-  v2 = [a1 userInfo];
-  _SLLog(v1, 3, @"Unable to recover by deleting old database! %@, %@\n\n");
+  v8 = [a1 userInfo];
+  _SLLog(v1, 3, @"Unable to recover by deleting old database! %@, %@\n\n", v3, v4, v5, v6, v7, a1);
 
   abort();
 }

@@ -24,8 +24,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v14[3] = *MEMORY[0x1E69E9840];
-  v13[0] = @"alarmSearch";
+  v13[3] = *MEMORY[0x1E69E9840];
+  v12[0] = @"alarmSearch";
   alarmSearch = [(INSearchAlarmIntent *)self alarmSearch];
   null = alarmSearch;
   if (!alarmSearch)
@@ -33,8 +33,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[0] = null;
-  v13[1] = @"alarmSearchType";
+  v13[0] = null;
+  v12[1] = @"alarmSearchType";
   alarmSearchType = [(INSearchAlarmIntent *)self alarmSearchType];
   if ((alarmSearchType - 1) > 4)
   {
@@ -47,8 +47,8 @@
   }
 
   v7 = v6;
-  v14[1] = v7;
-  v13[2] = @"alarms";
+  v13[1] = v7;
+  v12[2] = @"alarms";
   alarms = [(INSearchAlarmIntent *)self alarms];
   null2 = alarms;
   if (!alarms)
@@ -56,8 +56,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v14[2] = null2;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
+  v13[2] = null2;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:3];
   if (!alarms)
   {
   }
@@ -65,8 +65,6 @@
   if (!alarmSearch)
   {
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

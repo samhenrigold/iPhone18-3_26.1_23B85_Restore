@@ -36,27 +36,27 @@
 
 - (GKSCNNodeComponent)initWithCoder:(id)coder
 {
-  v14[12] = *MEMORY[0x277D85DE8];
+  v13[12] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v13.receiver = self;
-  v13.super_class = GKSCNNodeComponent;
-  v5 = [(GKComponent *)&v13 initWithCoder:coderCopy];
+  v12.receiver = self;
+  v12.super_class = GKSCNNodeComponent;
+  v5 = [(GKComponent *)&v12 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    v14[0] = objc_opt_class();
-    v14[1] = objc_opt_class();
-    v14[2] = objc_opt_class();
-    v14[3] = objc_opt_class();
-    v14[4] = objc_opt_class();
-    v14[5] = objc_opt_class();
-    v14[6] = objc_opt_class();
-    v14[7] = objc_opt_class();
-    v14[8] = objc_opt_class();
-    v14[9] = objc_opt_class();
-    v14[10] = objc_opt_class();
-    v14[11] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:12];
+    v13[0] = objc_opt_class();
+    v13[1] = objc_opt_class();
+    v13[2] = objc_opt_class();
+    v13[3] = objc_opt_class();
+    v13[4] = objc_opt_class();
+    v13[5] = objc_opt_class();
+    v13[6] = objc_opt_class();
+    v13[7] = objc_opt_class();
+    v13[8] = objc_opt_class();
+    v13[9] = objc_opt_class();
+    v13[10] = objc_opt_class();
+    v13[11] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:12];
     [v6 addObjectsFromArray:v7];
 
     allowedClasses = [coderCopy allowedClasses];
@@ -67,7 +67,6 @@
     v5->_serializableNodeIndexPath = v9;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

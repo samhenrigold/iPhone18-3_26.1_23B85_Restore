@@ -60,31 +60,31 @@
 
 - (unint64_t)logSizeBytes
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   requests = [(DRSRequestStats *)self requests];
-  v3 = [requests countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [requests countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(requests);
         }
 
-        v5 += [*(*(&v10 + 1) + 8 * i) totalLogSizeBytes];
+        v5 += [*(*(&v9 + 1) + 8 * i) totalLogSizeBytes];
       }
 
-      v4 = [requests countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [requests countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -95,7 +95,6 @@
     v5 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -139,7 +138,7 @@
 
 - (id)_debugDescription:(unint64_t)description
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = [&stru_2847F1D58 mutableCopy];
   if (description)
   {
@@ -161,32 +160,32 @@
   if ([objc_opt_class() childStatsClass])
   {
     v11 = [&stru_2847F1D58 mutableCopy];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     childStats = [(DRSRequestStats *)self childStats];
     allValues = [childStats allValues];
 
-    v14 = [allValues countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v14 = [allValues countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v23;
+      v16 = *v22;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v23 != v16)
+          if (*v22 != v16)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v18 = [*(*(&v22 + 1) + 8 * i) _debugDescription:description + 1];
+          v18 = [*(*(&v21 + 1) + 8 * i) _debugDescription:description + 1];
           [v11 appendString:v18];
         }
 
-        v15 = [allValues countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v15 = [allValues countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v15);
@@ -196,8 +195,6 @@
   }
 
   v19 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@%@", v5, v10];
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

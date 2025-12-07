@@ -89,7 +89,7 @@ uint64_t __51__PXNewMagazineLayoutCoordinator_currentBestLayout__block_invoke(ui
 
     if (layoutCopy)
     {
-      [layoutCopy rectAtIndex:{0, 0}];
+      objc_msgSend_rectAtIndex_(layoutCopy, 0);
     }
 
     PXSizeGetAspectRatio();

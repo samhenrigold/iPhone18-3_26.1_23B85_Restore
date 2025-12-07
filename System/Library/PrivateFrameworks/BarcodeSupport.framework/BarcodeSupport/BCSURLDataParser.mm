@@ -316,11 +316,10 @@ LABEL_52:
 
 + (void)parseString:(void *)a1 .cold.4(void *a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 134217984;
-  v3 = [a1 length];
-  _os_log_error_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "BCSURLDataParser: QR code payload, with %ld characters, is too long", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 134217984;
+  v2 = [a1 length];
+  _os_log_error_impl(&dword_241993000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "BCSURLDataParser: QR code payload, with %ld characters, is too long", &v1, 0xCu);
 }
 
 @end

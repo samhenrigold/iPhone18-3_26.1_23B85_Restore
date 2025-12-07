@@ -8,8 +8,8 @@
 
 - (int64_t)numberOfContacts
 {
-  contacts = [(CNGroupIdentity *)self contacts];
-  v3 = [contacts count];
+  v2 = objc_msgSend_contacts(self, a2);
+  v3 = [v2 count];
 
   return v3;
 }
@@ -19,9 +19,9 @@
   v4 = [CNGroupIdentity alloc];
   groupName = [(CNGroupIdentity *)self groupName];
   groupPhoto = [(CNGroupIdentity *)self groupPhoto];
-  contacts = [(CNGroupIdentity *)self contacts];
+  v7 = objc_msgSend_contacts(self);
   identifier = [(CNGroupIdentity *)self identifier];
-  v9 = [(CNGroupIdentity *)v4 initGroupWithName:groupName photo:groupPhoto contacts:contacts identifier:identifier];
+  v9 = [(CNGroupIdentity *)v4 initGroupWithName:groupName photo:groupPhoto contacts:v7 identifier:identifier];
 
   return v9;
 }

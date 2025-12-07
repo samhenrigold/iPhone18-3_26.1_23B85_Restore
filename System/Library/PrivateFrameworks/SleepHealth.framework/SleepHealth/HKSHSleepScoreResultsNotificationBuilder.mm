@@ -39,7 +39,7 @@
   if (v2)
   {
     v3 = OBJC_IVAR____TtC11SleepHealth36SleepScoreResultsNotificationBuilder_sleepScoreDaySummary;
-    if ((*(v2 + v3 + *(type metadata accessor for SleepScoreDaySummary() + 24) + 48) & 1) == 0)
+    if ((*(v2 + v3 + *(type metadata accessor for SleepScoreDaySummary(0) + 24) + 48) & 1) == 0)
     {
       return 1;
     }

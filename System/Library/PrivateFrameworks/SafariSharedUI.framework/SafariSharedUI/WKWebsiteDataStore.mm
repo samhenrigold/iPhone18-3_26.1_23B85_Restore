@@ -3,10 +3,10 @@
 
 @implementation WKWebsiteDataStore
 
-void __67__WKWebsiteDataStore_SafariSharedExtras__safari_secIdentitiesCache__block_invoke()
+void __67__WKWebsiteDataStore_SafariSharedExtras__safari_secIdentitiesCache__block_invoke(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  InstanceMethod = class_getInstanceMethod(v0, sel_removeDataOfTypes_forDataRecords_completionHandler_);
+  v1 = objc_opt_class();
+  InstanceMethod = class_getInstanceMethod(v1, sel_removeDataOfTypes_forDataRecords_completionHandler_);
   Implementation = method_getImplementation(InstanceMethod);
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
@@ -14,22 +14,22 @@ void __67__WKWebsiteDataStore_SafariSharedExtras__safari_secIdentitiesCache__blo
   aBlock[3] = &__block_descriptor_48_e39_v40__0_8__NSSet_16__NSArray_24___v___32l;
   aBlock[4] = Implementation;
   aBlock[5] = sel_removeDataOfTypes_forDataRecords_completionHandler_;
-  v3 = _Block_copy(aBlock);
-  v4 = imp_implementationWithBlock(v3);
-  method_setImplementation(InstanceMethod, v4);
+  v4 = _Block_copy(aBlock);
+  v5 = imp_implementationWithBlock(v4);
+  method_setImplementation(InstanceMethod, v5);
 
-  v5 = objc_opt_class();
-  v6 = class_getInstanceMethod(v5, sel_removeDataOfTypes_modifiedSince_completionHandler_);
-  v7 = method_getImplementation(v6);
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __67__WKWebsiteDataStore_SafariSharedExtras__safari_secIdentitiesCache__block_invoke_3;
-  v10[3] = &__block_descriptor_48_e38_v40__0_8__NSSet_16__NSDate_24___v___32l;
-  v10[4] = v7;
-  v10[5] = sel_removeDataOfTypes_modifiedSince_completionHandler_;
-  v8 = _Block_copy(v10);
-  v9 = imp_implementationWithBlock(v8);
-  method_setImplementation(v6, v9);
+  v6 = objc_opt_class();
+  v7 = class_getInstanceMethod(v6, sel_removeDataOfTypes_modifiedSince_completionHandler_);
+  v8 = method_getImplementation(v7);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __67__WKWebsiteDataStore_SafariSharedExtras__safari_secIdentitiesCache__block_invoke_3;
+  v11[3] = &__block_descriptor_48_e38_v40__0_8__NSSet_16__NSDate_24___v___32l;
+  v11[4] = v8;
+  v11[5] = sel_removeDataOfTypes_modifiedSince_completionHandler_;
+  v9 = _Block_copy(v11);
+  v10 = imp_implementationWithBlock(v9);
+  method_setImplementation(v7, v10);
 }
 
 void __117__WKWebsiteDataStore_SafariSharedExtras__safari_fetchExistingDataStoresForProfilesWithIdentifiers_completionHandler___block_invoke(uint64_t a1, void *a2)

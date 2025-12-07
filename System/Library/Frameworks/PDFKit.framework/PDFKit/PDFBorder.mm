@@ -350,109 +350,111 @@ LABEL_19:
 
 - (void)drawInRect:(CGRect)rect inContext:(CGContext *)CurrentContext
 {
-  v85 = 0uLL;
+  v75 = 0uLL;
   [(PDFBorder *)self lineWidth];
   if (v6 != 0.0)
   {
     v7 = v6;
     if (CurrentContext || (CurrentContext = PDFGraphicsGetCurrentContext()) != 0)
     {
-      v82 = v7;
+      v72 = v7;
       CGContextSaveGState(CurrentContext);
       style = [(PDFBorder *)self style];
-      CTM = CGContextGetCTM(&transform, CurrentContext);
+      CGContextGetCTM(&transform, CurrentContext);
       a = transform.a;
       b = transform.b;
       c = transform.c;
       d = transform.d;
-      v85 = *&transform.tx;
-      v86.origin.x = PDFRectToCGRect(CTM);
+      v75 = *&transform.tx;
+      PDFRectToCGRect();
       transform.a = a;
       transform.b = b;
       transform.c = c;
       transform.d = d;
-      *&transform.tx = v85;
-      v87 = CGRectApplyAffineTransform(v86, &transform);
-      v88 = CGRectIntegral(v87);
-      v14 = PDFRectFromCGRect(v88.origin.x, v88.origin.y, v88.size.width, v88.size.height);
-      v81 = v15;
+      *&transform.tx = v75;
+      v77 = CGRectApplyAffineTransform(v76, &transform);
+      CGRectIntegral(v77);
+      PDFRectFromCGRect();
+      v14 = v13;
+      v71 = v15;
       v17 = v16;
       v19 = v18;
-      v83.a = a;
-      v83.b = b;
-      v83.c = c;
-      v83.d = d;
-      *&v83.tx = v85;
-      CGAffineTransformInvert(&transform, &v83);
+      v73.a = a;
+      v73.b = b;
+      v73.c = c;
+      v73.d = d;
+      *&v73.tx = v75;
+      CGAffineTransformInvert(&transform, &v73);
       CGContextConcatCTM(CurrentContext, &transform);
       if ([(PDFBorder *)self _isRectangular])
       {
         v20 = MEMORY[0x1E69DC728];
-        v89.origin.y = v81;
-        v21 = v82;
-        v89.origin.x = v14;
-        v89.size.width = v17;
-        v89.size.height = v19;
-        v90 = PDFRectInset(v89, v82 * 0.5, v82 * 0.5);
-        bezierPath = [v20 bezierPathWithRect:{v90.origin.x, v90.origin.y, v90.size.width, v90.size.height}];
+        v78.origin.y = v71;
+        v21 = v72;
+        v78.origin.x = v14;
+        v78.size.width = v17;
+        v78.size.height = v19;
+        v79 = PDFRectInset(v78, v72 * 0.5, v72 * 0.5);
+        bezierPath = [v20 bezierPathWithRect:{v79.origin.x, v79.origin.y, v79.size.width, v79.size.height}];
       }
 
       else
       {
         [(PDFBorder *)self horizontalCornerRadius];
-        v24 = v23;
         [(PDFBorder *)self verticalCornerRadius];
-        v25 = fabs(c * v24 + a * v24);
-        v27 = fabs(c * v26 + a * v26);
         bezierPath = [MEMORY[0x1E69DC728] bezierPath];
-        v28 = v82 * 0.5 + PDFRectGetMinX(v14, v81, v17);
-        MaxY = PDFRectGetMaxY(v14, v81, v17, v19);
-        [bezierPath moveToPoint:{PDFPointMake(v28, MaxY - (v82 * 0.5 + v27))}];
-        v30 = v25;
-        v78 = PDFPointMake(v25, v27);
-        v32 = v31;
-        v79 = v17;
-        v80 = v19;
-        v33 = PDFPointMake(0.0, v27 * 0.55228);
-        v34 = v17;
-        v36 = v35;
-        v37 = PDFPointMake(v30 - 0.55228 * v30, v27);
-        PDFKitAddRelativeCurveToPoint(bezierPath, v78, v32, v33, v36, v37, v38);
-        v39 = v30;
-        v40 = PDFRectGetMaxX(v14, v81, v34) - (v82 * 0.5 + v30);
-        v41 = PDFRectGetMaxY(v14, v81, v34, v80);
-        v42 = PDFPointMake(v40, v41 - v82 * 0.5);
-        PDFKitAddLineToPoint(bezierPath, v42);
-        v43 = v39;
-        v44 = PDFPointMake(v39, -v27);
-        v46 = v45;
-        v47 = PDFPointMake(v39 * 0.55228, 0.0);
+        PDFRectGetMinX(v14, v71, v17);
+        PDFRectGetMaxY(v14, v71, v17, v19);
+        PDFPointMake();
+        [bezierPath moveToPoint:?];
+        PDFPointMake();
+        v68 = v23;
+        v25 = v24;
+        PDFPointMake();
+        v69 = v17;
+        v70 = v19;
+        v27 = v26;
+        v28 = v17;
+        v30 = v29;
+        PDFPointMake();
+        PDFKitAddRelativeCurveToPoint(bezierPath, v68, v25, v27, v30, v31, v32);
+        PDFRectGetMaxX(v14, v71, v28);
+        PDFRectGetMaxY(v14, v71, v28, v70);
+        PDFPointMake();
+        PDFKitAddLineToPoint(bezierPath, v33);
+        PDFPointMake();
+        v35 = v34;
+        v37 = v36;
+        PDFPointMake();
+        v39 = v38;
+        v41 = v40;
+        PDFPointMake();
+        PDFKitAddRelativeCurveToPoint(bezierPath, v35, v37, v39, v41, v42, v43);
+        PDFRectGetMaxX(v14, v71, v69);
+        PDFRectGetMinY(v14, v71, v69, v70);
+        PDFPointMake();
+        PDFKitAddLineToPoint(bezierPath, v44);
+        PDFPointMake();
+        v67 = v45;
+        v47 = v46;
+        PDFPointMake();
         v49 = v48;
-        v50 = PDFPointMake(v43, -(v27 - 0.55228 * v27));
-        PDFKitAddRelativeCurveToPoint(bezierPath, v44, v46, v47, v49, v50, v51);
-        v52 = PDFRectGetMaxX(v14, v81, v79) - v82 * 0.5;
-        MinY = PDFRectGetMinY(v14, v81, v79, v80);
-        v54 = PDFPointMake(v52, v82 * 0.5 + v27 + MinY);
+        v51 = v50;
+        PDFPointMake();
+        PDFKitAddRelativeCurveToPoint(bezierPath, v67, v47, v49, v51, v52, v53);
+        PDFRectGetMinX(v14, v71, v69);
+        PDFRectGetMinY(v14, v71, v69, v70);
+        PDFPointMake();
         PDFKitAddLineToPoint(bezierPath, v54);
-        v77 = PDFPointMake(-v43, -v27);
+        PDFPointMake();
         v56 = v55;
-        v57 = PDFPointMake(0.0, -(v27 * 0.55228));
-        v59 = v58;
-        v60 = PDFPointMake(-(v43 - 0.55228 * v43), -v27);
-        PDFKitAddRelativeCurveToPoint(bezierPath, v77, v56, v57, v59, v60, v61);
-        v62 = v43;
-        v63 = v82 * 0.5 + v43 + PDFRectGetMinX(v14, v81, v79);
-        v64 = PDFRectGetMinY(v14, v81, v79, v80);
-        v65 = PDFPointMake(v63, v82 * 0.5 + v64);
-        PDFKitAddLineToPoint(bezierPath, v65);
-        v66 = -v43;
-        v67 = PDFPointMake(v66, v27);
-        v69 = v68;
-        v70 = PDFPointMake(-(v62 * 0.55228), 0.0);
-        v72 = v71;
-        v73 = PDFPointMake(v66, v27 - 0.55228 * v27);
-        v21 = v82;
-        PDFKitAddRelativeCurveToPoint(bezierPath, v67, v69, v70, v72, v73, v74);
+        v58 = v57;
+        PDFPointMake();
+        v60 = v59;
+        v62 = v61;
+        PDFPointMake();
+        v21 = v72;
+        PDFKitAddRelativeCurveToPoint(bezierPath, v56, v58, v60, v62, v63, v64);
         [bezierPath closePath];
       }
 
@@ -462,16 +464,16 @@ LABEL_19:
         [bezierPath setLineDash:self->_private->dashPatternRaw count:self->_private->dashCount phase:0.0];
       }
 
-      v75 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{bezierPath, 0}];
-      v76 = [PDFAnnotationDrawing createCGPathArrayWithBezierPaths:v75];
-      if ([v75 count] && v76)
+      v65 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithObjects:{bezierPath, 0}];
+      v66 = [PDFAnnotationDrawing createCGPathArrayWithBezierPaths:v65];
+      if ([v65 count] && v66)
       {
-        if (*v76)
+        if (*v66)
         {
-          CGContextAddPath(CurrentContext, *v76);
+          CGContextAddPath(CurrentContext, *v66);
           CGContextStrokePath(CurrentContext);
-          CGPathRelease(*v76);
-          free(v76);
+          CGPathRelease(*v66);
+          free(v66);
         }
       }
 

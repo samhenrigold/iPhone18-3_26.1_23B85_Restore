@@ -24,7 +24,7 @@
 
 - (RTSourceMapsSupportHistoryEntryRoute)initWithCoder:(id)coder
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   if (([coderCopy allowsKeyedCoding] & 1) == 0)
   {
@@ -32,29 +32,28 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v12 = "[RTSourceMapsSupportHistoryEntryRoute initWithCoder:]";
-      v13 = 1024;
-      v14 = 31;
+      v11 = "[RTSourceMapsSupportHistoryEntryRoute initWithCoder:]";
+      v12 = 1024;
+      v13 = 31;
       _os_log_error_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: [aDecoder allowsKeyedCoding] (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v10.receiver = self;
-  v10.super_class = RTSourceMapsSupportHistoryEntryRoute;
-  v6 = [(RTSourceMapsSupportHistoryEntry *)&v10 initWithCoder:coderCopy];
+  v9.receiver = self;
+  v9.super_class = RTSourceMapsSupportHistoryEntryRoute;
+  v6 = [(RTSourceMapsSupportHistoryEntry *)&v9 initWithCoder:coderCopy];
   if (v6)
   {
     v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"navigationWasInterrupted"];
     v6->_navigationWasInterrupted = [v7 BOOLValue];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   if (([coderCopy allowsKeyedCoding] & 1) == 0)
   {
@@ -62,20 +61,18 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v10 = "[RTSourceMapsSupportHistoryEntryRoute encodeWithCoder:]";
-      v11 = 1024;
-      v12 = 43;
+      v9 = "[RTSourceMapsSupportHistoryEntryRoute encodeWithCoder:]";
+      v10 = 1024;
+      v11 = 43;
       _os_log_error_impl(&dword_1BF1C4000, v5, OS_LOG_TYPE_ERROR, "Invalid parameter not satisfying: [aCoder allowsKeyedCoding] (in %s:%d)", buf, 0x12u);
     }
   }
 
-  v8.receiver = self;
-  v8.super_class = RTSourceMapsSupportHistoryEntryRoute;
-  [(RTSourceMapsSupportHistoryEntry *)&v8 encodeWithCoder:coderCopy];
+  v7.receiver = self;
+  v7.super_class = RTSourceMapsSupportHistoryEntryRoute;
+  [(RTSourceMapsSupportHistoryEntry *)&v7 encodeWithCoder:coderCopy];
   v6 = [MEMORY[0x1E696AD98] numberWithBool:self->_navigationWasInterrupted];
   [coderCopy encodeObject:v6 forKey:@"navigationWasInterrupted"];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEqual:(id)equal

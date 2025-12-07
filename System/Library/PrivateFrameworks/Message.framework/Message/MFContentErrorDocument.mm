@@ -7,7 +7,7 @@
 
 - (MFContentErrorDocument)initWithMimePart:(id)part
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   partCopy = part;
   if (!partCopy)
   {
@@ -15,9 +15,9 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"MFContentErrorDocument.m" lineNumber:16 description:{@"Invalid parameter not satisfying: %@", @"mimePart"}];
   }
 
-  v19.receiver = self;
-  v19.super_class = MFContentErrorDocument;
-  v6 = [(MFContentErrorDocument *)&v19 init];
+  v18.receiver = self;
+  v18.super_class = MFContentErrorDocument;
+  v6 = [(MFContentErrorDocument *)&v18 init];
   if (v6)
   {
     v7 = MEMORY[0x1E696AEC0];
@@ -27,16 +27,15 @@
     v11 = [v7 stringWithFormat:v8, type, subtype];
 
     v12 = MEMORY[0x1E696ABC0];
-    v20 = *MEMORY[0x1E696A578];
-    v21[0] = v11;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x1E696A578];
+    v20[0] = v11;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     v14 = [v12 mf_decodeFailedErrorWithUserInfo:v13];
 
     error = v6->_error;
     v6->_error = v14;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

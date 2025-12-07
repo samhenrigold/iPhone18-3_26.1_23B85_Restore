@@ -1,5 +1,6 @@
 @interface PDDPPerson
 - (BOOL)isEqual:(id)equal;
+- (id)accountStatusAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -126,6 +127,21 @@
   {
     return 0;
   }
+}
+
+- (id)accountStatusAsString:(int)string
+{
+  if (string >= 7)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100204D88[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsAccountStatus:(id)status
@@ -474,7 +490,6 @@ LABEL_25:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    passcodeType = self->_passcodeType;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -494,12 +509,10 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  isProgressTrackingAllowed = self->_isProgressTrackingAllowed;
   PBDataWriterWriteBOOLField();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_24:
-    isFederatedAccount = self->_isFederatedAccount;
     PBDataWriterWriteBOOLField();
   }
 
@@ -514,33 +527,32 @@ LABEL_25:
     PBDataWriterWriteSubmessage();
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v7 = self->_personLinks;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
-  if (v8)
+  v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v6 = self->_personLinks;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v28;
+    v8 = v7;
+    v9 = *v21;
     do
     {
-      for (i = 0; i != v9; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v28 != v10)
+        if (*v21 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v27 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
   if (self->_emailAddress)
@@ -553,38 +565,36 @@ LABEL_25:
     PBDataWriterWriteStringField();
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v13 = self->_roleLocations;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
-  if (v14)
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v11 = self->_roleLocations;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
+  if (v12)
   {
-    v15 = v14;
-    v16 = *v24;
+    v13 = v12;
+    v14 = *v17;
     do
     {
-      for (j = 0; j != v15; j = j + 1)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v24 != v16)
+        if (*v17 != v14)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v11);
         }
 
-        v18 = *(*(&v23 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
-    while (v15);
+    while (v13);
   }
 
   if ((*&self->_has & 0x10) != 0)
   {
-    isRosterSearchAllowed = self->_isRosterSearchAllowed;
     PBDataWriterWriteBOOLField();
   }
 
@@ -595,7 +605,6 @@ LABEL_25:
 
   if (*&self->_has)
   {
-    accountStatus = self->_accountStatus;
     PBDataWriterWriteInt32Field();
   }
 
@@ -1049,7 +1058,6 @@ LABEL_5:
     }
   }
 
-  v15 = *(equalCopy + 172);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 172) & 2) == 0 || self->_passcodeType != *(equalCopy + 26))
@@ -1070,7 +1078,6 @@ LABEL_5:
       goto LABEL_72;
     }
 
-    v25 = *(equalCopy + 169);
     if (self->_isProgressTrackingAllowed)
     {
       if ((*(equalCopy + 169) & 1) == 0)
@@ -1097,7 +1104,6 @@ LABEL_5:
       goto LABEL_72;
     }
 
-    v26 = *(equalCopy + 168);
     if (self->_isFederatedAccount)
     {
       if ((*(equalCopy + 168) & 1) == 0)
@@ -1169,7 +1175,7 @@ LABEL_5:
   }
 
   has = self->_has;
-  v23 = *(equalCopy + 172);
+  v22 = *(equalCopy + 172);
   if ((has & 0x10) != 0)
   {
     if ((*(equalCopy + 172) & 0x10) == 0)
@@ -1177,7 +1183,6 @@ LABEL_5:
       goto LABEL_72;
     }
 
-    v27 = *(equalCopy + 170);
     if (self->_isRosterSearchAllowed)
     {
       if ((*(equalCopy + 170) & 1) == 0)
@@ -1206,22 +1211,22 @@ LABEL_5:
   if (![(PDDPEntityMeta *)entityMeta isEqual:?])
   {
 LABEL_72:
-    v29 = 0;
+    v25 = 0;
     goto LABEL_73;
   }
 
   has = self->_has;
-  v23 = *(equalCopy + 172);
+  v22 = *(equalCopy + 172);
 LABEL_48:
   if (has)
   {
-    if ((v23 & 1) == 0 || self->_accountStatus != *(equalCopy + 2))
+    if ((v22 & 1) == 0 || self->_accountStatus != *(equalCopy + 2))
     {
       goto LABEL_72;
     }
   }
 
-  else if (v23)
+  else if (v22)
   {
     goto LABEL_72;
   }
@@ -1229,17 +1234,17 @@ LABEL_48:
   personNumber = self->_personNumber;
   if (personNumber | *(equalCopy + 16))
   {
-    v29 = [(NSString *)personNumber isEqual:?];
+    v25 = [(NSString *)personNumber isEqual:?];
   }
 
   else
   {
-    v29 = 1;
+    v25 = 1;
   }
 
 LABEL_73:
 
-  return v29;
+  return v25;
 }
 
 - (unint64_t)hash

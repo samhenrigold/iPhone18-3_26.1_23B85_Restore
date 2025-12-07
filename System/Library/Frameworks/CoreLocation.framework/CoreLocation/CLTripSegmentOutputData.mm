@@ -33,18 +33,22 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_opt_class() allocWithZone:zone];
-  tripSegmentID = [(CLTripSegmentOutputData *)self tripSegmentID];
-  isFinalPart = [(CLTripSegmentOutputData *)self isFinalPart];
-  startDate = [(CLTripSegmentOutputData *)self startDate];
-  endDate = [(CLTripSegmentOutputData *)self endDate];
-  [(CLTripSegmentOutputData *)self duration_s];
-  v10 = v9;
-  modeOfTransport = [(CLTripSegmentOutputData *)self modeOfTransport];
-  [(CLTripSegmentOutputData *)self distance_m];
-  v13 = v12;
-  [(CLTripSegmentOutputData *)self distanceUnc_m];
-  return [v4 initWithTripSegmentID:tripSegmentID isFinalPart:isFinalPart startDate:startDate endDate:endDate duration:modeOfTransport modeOfTransport:-[CLTripSegmentOutputData tripLocations](self distance:"tripLocations") distanceUnc:v10 tripLocations:v13 routeRoads:{v14, -[CLTripSegmentOutputData routeRoads](self, "routeRoads")}];
+  v5 = objc_opt_class();
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
+  v12 = objc_msgSend_tripSegmentID(self, v9, v10, v11);
+  isFinalPart = objc_msgSend_isFinalPart(self, v13, v14, v15);
+  started = objc_msgSend_startDate(self, v17, v18, v19);
+  v24 = objc_msgSend_endDate(self, v21, v22, v23);
+  objc_msgSend_duration_s(self, v25, v26, v27);
+  v29 = v28;
+  v33 = objc_msgSend_modeOfTransport(self, v30, v31, v32);
+  objc_msgSend_distance_m(self, v34, v35, v36);
+  v38 = v37;
+  objc_msgSend_distanceUnc_m(self, v39, v40, v41);
+  v43 = v42;
+  v47 = objc_msgSend_tripLocations(self, v44, v45, v46);
+  v51 = objc_msgSend_routeRoads(self, v48, v49, v50);
+  return objc_msgSend_initWithTripSegmentID_isFinalPart_startDate_endDate_duration_modeOfTransport_distance_distanceUnc_tripLocations_routeRoads_(v8, v52, v12, isFinalPart, started, v24, v33, v47, v29, v38, v43, v51);
 }
 
 - (void)dealloc
@@ -56,43 +60,57 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  [coder encodeObject:-[CLTripSegmentOutputData tripSegmentID](self forKey:{"tripSegmentID"), @"tripSegmentID"}];
-  [coder encodeBool:-[CLTripSegmentOutputData isFinalPart](self forKey:{"isFinalPart"), @"isFinalPart"}];
-  [coder encodeInteger:-[CLTripSegmentOutputData modeOfTransport](self forKey:{"modeOfTransport"), @"modeOfTransport"}];
-  [coder encodeObject:-[CLTripSegmentOutputData startDate](self forKey:{"startDate"), @"startDate"}];
-  [coder encodeObject:-[CLTripSegmentOutputData endDate](self forKey:{"endDate"), @"endDate"}];
-  [(CLTripSegmentOutputData *)self duration_s];
-  [coder encodeDouble:@"duration" forKey:?];
-  [(CLTripSegmentOutputData *)self distance_m];
-  [coder encodeDouble:@"distance" forKey:?];
-  [(CLTripSegmentOutputData *)self distanceUnc_m];
-  [coder encodeDouble:@"distanceUnc" forKey:?];
-  [coder encodeObject:-[CLTripSegmentOutputData tripLocations](self forKey:{"tripLocations"), @"tripLocations"}];
-  routeRoads = [(CLTripSegmentOutputData *)self routeRoads];
+  v6 = objc_msgSend_tripSegmentID(self, a2, coder, v3);
+  objc_msgSend_encodeObject_forKey_(coder, v7, v6, @"tripSegmentID");
+  isFinalPart = objc_msgSend_isFinalPart(self, v8, v9, v10);
+  objc_msgSend_encodeBool_forKey_(coder, v12, isFinalPart, @"isFinalPart");
+  v16 = objc_msgSend_modeOfTransport(self, v13, v14, v15);
+  objc_msgSend_encodeInteger_forKey_(coder, v17, v16, @"modeOfTransport");
+  started = objc_msgSend_startDate(self, v18, v19, v20);
+  objc_msgSend_encodeObject_forKey_(coder, v22, started, @"startDate");
+  v26 = objc_msgSend_endDate(self, v23, v24, v25);
+  objc_msgSend_encodeObject_forKey_(coder, v27, v26, @"endDate");
+  objc_msgSend_duration_s(self, v28, v29, v30);
+  objc_msgSend_encodeDouble_forKey_(coder, v31, @"duration", v32);
+  objc_msgSend_distance_m(self, v33, v34, v35);
+  objc_msgSend_encodeDouble_forKey_(coder, v36, @"distance", v37);
+  objc_msgSend_distanceUnc_m(self, v38, v39, v40);
+  objc_msgSend_encodeDouble_forKey_(coder, v41, @"distanceUnc", v42);
+  v46 = objc_msgSend_tripLocations(self, v43, v44, v45);
+  objc_msgSend_encodeObject_forKey_(coder, v47, v46, @"tripLocations");
+  v52 = objc_msgSend_routeRoads(self, v48, v49, v50);
 
-  [coder encodeObject:routeRoads forKey:@"routeRoads"];
+  objc_msgSend_encodeObject_forKey_(coder, v51, v52, @"routeRoads");
 }
 
 - (CLTripSegmentOutputData)initWithCoder:(id)coder
 {
-  v21 = [CLTripSegmentOutputData alloc];
-  v4 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"tripSegmentID"];
-  v5 = [coder decodeBoolForKey:@"isFinalPart"];
-  v6 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"startDate"];
-  v7 = [coder decodeObjectOfClass:objc_opt_class() forKey:@"endDate"];
-  [coder decodeDoubleForKey:@"duration"];
-  v9 = v8;
-  v10 = [coder decodeIntegerForKey:@"modeOfTransport"];
-  [coder decodeDoubleForKey:@"distance"];
-  v12 = v11;
-  [coder decodeDoubleForKey:@"distanceUnc"];
-  v14 = v13;
-  v15 = MEMORY[0x1E695DFD8];
-  v16 = objc_opt_class();
-  v17 = [coder decodeObjectOfClasses:objc_msgSend(v15 forKey:{"setWithObjects:", v16, objc_opt_class(), 0), @"tripLocations"}];
-  v18 = MEMORY[0x1E695DFD8];
-  v19 = objc_opt_class();
-  return -[CLTripSegmentOutputData initWithTripSegmentID:isFinalPart:startDate:endDate:duration:modeOfTransport:distance:distanceUnc:tripLocations:routeRoads:](v21, "initWithTripSegmentID:isFinalPart:startDate:endDate:duration:modeOfTransport:distance:distanceUnc:tripLocations:routeRoads:", v4, v5, v6, v7, v10, v17, v9, v12, v14, [coder decodeObjectOfClasses:objc_msgSend(v18 forKey:{"setWithObjects:", v19, objc_opt_class(), 0), @"routeRoads"}]);
+  v49 = [CLTripSegmentOutputData alloc];
+  v4 = objc_opt_class();
+  v6 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v5, v4, @"tripSegmentID");
+  v9 = objc_msgSend_decodeBoolForKey_(coder, v7, @"isFinalPart", v8);
+  v10 = objc_opt_class();
+  v12 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v11, v10, @"startDate");
+  v13 = objc_opt_class();
+  v15 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v14, v13, @"endDate");
+  objc_msgSend_decodeDoubleForKey_(coder, v16, @"duration", v17);
+  v19 = v18;
+  v22 = objc_msgSend_decodeIntegerForKey_(coder, v20, @"modeOfTransport", v21);
+  objc_msgSend_decodeDoubleForKey_(coder, v23, @"distance", v24);
+  v26 = v25;
+  objc_msgSend_decodeDoubleForKey_(coder, v27, @"distanceUnc", v28);
+  v30 = v29;
+  v31 = MEMORY[0x1E695DFD8];
+  v32 = objc_opt_class();
+  v33 = objc_opt_class();
+  v36 = objc_msgSend_setWithObjects_(v31, v34, v32, v35, v33, 0);
+  v38 = objc_msgSend_decodeObjectOfClasses_forKey_(coder, v37, v36, @"tripLocations");
+  v39 = MEMORY[0x1E695DFD8];
+  v40 = objc_opt_class();
+  v41 = objc_opt_class();
+  v44 = objc_msgSend_setWithObjects_(v39, v42, v40, v43, v41, 0);
+  v46 = objc_msgSend_decodeObjectOfClasses_forKey_(coder, v45, v44, @"routeRoads");
+  return objc_msgSend_initWithTripSegmentID_isFinalPart_startDate_endDate_duration_modeOfTransport_distance_distanceUnc_tripLocations_routeRoads_(v49, v47, v6, v9, v12, v15, v22, v38, v19, v26, v30, v46);
 }
 
 @end

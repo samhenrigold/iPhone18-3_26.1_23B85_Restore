@@ -1,3 +1,121 @@
+uint64_t sub_1002A78CC(uint64_t a1, uint64_t a2, void *a3)
+{
+  if (off_100B60BD0)
+  {
+    v4 = off_100B60BD0(a1, a2, a3);
+    if (!v4)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  else
+  {
+    v4 = 3601;
+  }
+
+  if (sub_10000C240())
+  {
+    sub_10000AF54("VSC failed %!", v4);
+    v5 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      sub_10080F604();
+    }
+  }
+
+LABEL_8:
+  free(a3);
+  return v4;
+}
+
+uint64_t sub_1002A7970()
+{
+  if (off_100B60BE8)
+  {
+    v0 = off_100B60BE8();
+    if (!v0)
+    {
+      return v0;
+    }
+  }
+
+  else
+  {
+    v0 = 3601;
+  }
+
+  if (sub_10000C240())
+  {
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    {
+      sub_10080F604();
+    }
+  }
+
+  return v0;
+}
+
+uint64_t sub_1002A79FC()
+{
+  if (off_100B60CE8)
+  {
+    v0 = off_100B60CE8();
+    if (!v0)
+    {
+      return v0;
+    }
+  }
+
+  else
+  {
+    v0 = 3601;
+  }
+
+  if (sub_10000C240())
+  {
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    {
+      sub_10080F604();
+    }
+  }
+
+  return v0;
+}
+
+uint64_t sub_1002A7A88()
+{
+  if (off_100B60C28)
+  {
+    v0 = off_100B60C28();
+    if (!v0)
+    {
+      return v0;
+    }
+  }
+
+  else
+  {
+    v0 = 3601;
+  }
+
+  if (sub_10000C240())
+  {
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    {
+      sub_10080F604();
+    }
+  }
+
+  return v0;
+}
+
 uint64_t sub_1002A7B14()
 {
   if (off_100B60C70)
@@ -16,9 +134,9 @@ uint64_t sub_1002A7B14()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -45,9 +163,9 @@ uint64_t sub_1002A7BA0()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -74,9 +192,9 @@ uint64_t sub_1002A7C2C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -103,9 +221,9 @@ uint64_t sub_1002A7CB8()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -132,9 +250,9 @@ uint64_t sub_1002A7D44()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -161,9 +279,9 @@ uint64_t sub_1002A7DD0()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -190,9 +308,9 @@ uint64_t sub_1002A7E5C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -219,9 +337,9 @@ uint64_t sub_1002A7EE8()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -248,9 +366,9 @@ uint64_t sub_1002A7F74()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -277,9 +395,9 @@ uint64_t sub_1002A8000()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -311,9 +429,9 @@ uint64_t sub_1002A808C(unsigned __int16 *a1, uint64_t a2, uint64_t a3, uint64_t 
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v13, v14, v15, v16, v17, v18, v19, v12);
-    v20 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v12);
+    v13 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -340,9 +458,9 @@ uint64_t sub_1002A8168()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -369,9 +487,9 @@ uint64_t sub_1002A81F4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v6, v7, v8, v9, v10, v11, v12, v5);
-    v13 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v5);
+    v6 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -398,9 +516,9 @@ uint64_t sub_1002A82D0()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -427,9 +545,9 @@ uint64_t sub_1002A835C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -456,9 +574,9 @@ uint64_t sub_1002A83E8()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -485,9 +603,9 @@ uint64_t sub_1002A8474()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -514,9 +632,9 @@ uint64_t sub_1002A8500()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -543,9 +661,9 @@ uint64_t sub_1002A858C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -572,9 +690,9 @@ uint64_t sub_1002A8618()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -601,9 +719,9 @@ uint64_t sub_1002A86A4()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -630,9 +748,9 @@ uint64_t sub_1002A8730()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -641,16 +759,22 @@ uint64_t sub_1002A8730()
   return v0;
 }
 
-uint64_t sub_1002A87BC(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1002A87BC(_BYTE *a1, uint64_t a2, uint64_t a3)
 {
   v3 = a3;
-  if (*(a1 + 30) == a3)
+  if (a1[30] == a3)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Phy stats for handle %p is already %s", v5, v6, v7, v8, v9, v10, v11, a1);
-      v12 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v5 = "enabled";
+      if (!v3)
+      {
+        v5 = "disabled";
+      }
+
+      sub_10000AF54("Phy stats for handle %p is already %s", a1, v5);
+      v6 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         sub_10080F6C8();
       }
@@ -663,43 +787,59 @@ uint64_t sub_1002A87BC(uint64_t a1, uint64_t a2, uint64_t a3)
   {
     if (off_100B60AA0)
     {
-      v13 = off_100B60AA0(a1, a2, a3);
-      if (!v13)
+      v7 = off_100B60AA0(a1, a2, a3);
+      if (!v7)
       {
-        *(a1 + 30) = v3 != 0;
-        return v13;
+        a1[30] = v3 != 0;
+        return v7;
       }
     }
 
     else
     {
-      v13 = 3601;
+      v7 = 3601;
     }
 
     if (sub_10000C240())
     {
-      sub_10000AF54("VSC PhyStatsEnable failed %!", v14, v15, v16, v17, v18, v19, v20, v13);
-      v21 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("VSC PhyStatsEnable failed %!", v7);
+      v8 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
     }
   }
 
-  return v13;
+  return v7;
 }
 
-uint64_t sub_1002A88DC(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1002A88DC(_BYTE *a1, uint64_t a2, uint64_t a3)
 {
   v3 = a3;
-  if (*(a1 + 31) == a3)
+  if (a1[31] == a3)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("State of Phy stats for handle %p is already %s", v5, v6, v7, v8, v9, v10, v11, a1);
-      v12 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v5 = "disable";
+      if (v3 == 2)
+      {
+        v5 = "flush";
+      }
+
+      if ((v3 & 0xFFFFFFFB) == 1)
+      {
+        v6 = "enable";
+      }
+
+      else
+      {
+        v6 = v5;
+      }
+
+      sub_10000AF54("State of Phy stats for handle %p is already %s", a1, v6);
+      v7 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         sub_10080F6C8();
       }
@@ -712,32 +852,32 @@ uint64_t sub_1002A88DC(uint64_t a1, uint64_t a2, uint64_t a3)
   {
     if (off_100B60AA0)
     {
-      v13 = off_100B60AA0(a1, a2, a3);
-      if (!v13)
+      v8 = off_100B60AA0(a1, a2, a3);
+      if (!v8)
       {
-        *(a1 + 31) = v3;
-        *(a1 + 30) = v3 != 0;
-        return v13;
+        a1[31] = v3;
+        a1[30] = v3 != 0;
+        return v8;
       }
     }
 
     else
     {
-      v13 = 3601;
+      v8 = 3601;
     }
 
     if (sub_10000C240())
     {
-      sub_10000AF54("VSC PhyStatsEnable failed %!", v14, v15, v16, v17, v18, v19, v20, v13);
-      v21 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("VSC PhyStatsEnable failed %!", v8);
+      v9 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
     }
   }
 
-  return v13;
+  return v8;
 }
 
 uint64_t sub_1002A8A14()
@@ -758,9 +898,9 @@ uint64_t sub_1002A8A14()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -787,9 +927,9 @@ uint64_t sub_1002A8AA0()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -816,9 +956,9 @@ uint64_t sub_1002A8B2C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -845,9 +985,9 @@ uint64_t sub_1002A8BB8()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -874,9 +1014,9 @@ uint64_t sub_1002A8C44()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -903,9 +1043,9 @@ uint64_t sub_1002A8CD0()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -932,9 +1072,9 @@ uint64_t sub_1002A8D5C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -961,9 +1101,9 @@ uint64_t sub_1002A8DE8()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -990,9 +1130,9 @@ uint64_t sub_1002A8E74()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1019,9 +1159,9 @@ uint64_t sub_1002A8F00()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1048,9 +1188,9 @@ uint64_t sub_1002A8F8C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v5, v6, v7, v8, v9, v10, v11, v4);
-    v12 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v4);
+    v5 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1077,9 +1217,9 @@ uint64_t sub_1002A9080()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1106,9 +1246,9 @@ uint64_t sub_1002A910C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1135,9 +1275,9 @@ uint64_t sub_1002A91DC()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1164,9 +1304,9 @@ uint64_t sub_1002A9268()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1198,9 +1338,9 @@ uint64_t sub_1002A92F4(uint64_t a1, uint64_t a2, uint64_t a3)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("%s VSC failed %!", v7, v8, v9, v10, v11, v12, v13, "BT_VSC_EnableSetSpecialSniffTransition");
-    v14 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("%s VSC failed %!", "BT_VSC_EnableSetSpecialSniffTransition", v6);
+    v7 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1227,9 +1367,9 @@ uint64_t sub_1002A93B8()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1256,9 +1396,9 @@ uint64_t sub_1002A9444()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1285,9 +1425,9 @@ uint64_t sub_1002A94D0()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1314,9 +1454,9 @@ uint64_t sub_1002A955C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1343,9 +1483,9 @@ uint64_t sub_1002A95E8(uint64_t a1, uint64_t a2)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v3, v4, v5, v6, v7, v8, v9, v2);
-    v10 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v2);
+    v3 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1372,9 +1512,9 @@ uint64_t sub_1002A968C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1401,9 +1541,9 @@ uint64_t sub_1002A9718()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1430,9 +1570,9 @@ uint64_t sub_1002A97A4()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1459,9 +1599,9 @@ uint64_t sub_1002A9830()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1470,13 +1610,13 @@ uint64_t sub_1002A9830()
   return v0;
 }
 
-uint64_t sub_1002A98BC(unsigned int a1, __int16 a2, uint64_t a3, unsigned int a4)
+uint64_t sub_1002A98BC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if ((dword_100B603C0 - 1) > 0x7CE || (v4 = 101, (a2 & 0x8000) == 0) && a1 <= 4 && a3 && a4 <= 0xE6)
   {
     if (off_100B60D30)
     {
-      v4 = off_100B60D30();
+      v4 = off_100B60D30(a1, a2, a3, a4);
       if (!v4)
       {
         return v4;
@@ -1490,9 +1630,9 @@ uint64_t sub_1002A98BC(unsigned int a1, __int16 a2, uint64_t a3, unsigned int a4
 
     if (sub_10000C240())
     {
-      sub_10000AF54("VSC failed %!", v5, v6, v7, v8, v9, v10, v11, v4);
-      v12 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("VSC failed %!", v4);
+      v5 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -1502,7 +1642,7 @@ uint64_t sub_1002A98BC(unsigned int a1, __int16 a2, uint64_t a3, unsigned int a4
   return v4;
 }
 
-uint64_t sub_1002A9978(uint64_t a1, int a2)
+uint64_t sub_1002A9978(uint64_t a1, uint64_t a2)
 {
   if ((dword_100B603C0 - 1) <= 0x7CE && (!a1 || a2 != 250 && a2 != 210))
   {
@@ -1511,7 +1651,7 @@ uint64_t sub_1002A9978(uint64_t a1, int a2)
 
   if (off_100B60D38)
   {
-    v2 = off_100B60D38();
+    v2 = off_100B60D38(a1, a2);
     if (!v2)
     {
       return v2;
@@ -1525,9 +1665,9 @@ uint64_t sub_1002A9978(uint64_t a1, int a2)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v3, v4, v5, v6, v7, v8, v9, v2);
-    v10 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v2);
+    v3 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1536,13 +1676,13 @@ uint64_t sub_1002A9978(uint64_t a1, int a2)
   return v2;
 }
 
-uint64_t sub_1002A9A34(unsigned int a1, uint64_t a2, unsigned int a3)
+uint64_t sub_1002A9A34(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if ((dword_100B603C0 - 1) > 0x7CE || (v3 = 101, a1 <= 0x18) && a2 && a3 <= 0xCF)
   {
     if (off_100B60D40)
     {
-      v3 = off_100B60D40();
+      v3 = off_100B60D40(a1, a2, a3);
       if (!v3)
       {
         return v3;
@@ -1556,9 +1696,9 @@ uint64_t sub_1002A9A34(unsigned int a1, uint64_t a2, unsigned int a3)
 
     if (sub_10000C240())
     {
-      sub_10000AF54("VSC failed %!", v4, v5, v6, v7, v8, v9, v10, v3);
-      v11 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("VSC failed %!", v3);
+      v4 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -1586,9 +1726,9 @@ uint64_t sub_1002A9AEC()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1615,9 +1755,9 @@ uint64_t sub_1002A9B78()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1644,9 +1784,9 @@ uint64_t sub_1002A9C04()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1673,9 +1813,9 @@ uint64_t sub_1002A9C90()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1702,9 +1842,9 @@ uint64_t sub_1002A9D1C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1731,9 +1871,9 @@ uint64_t sub_1002A9DA8()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1760,9 +1900,9 @@ uint64_t sub_1002A9E34()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1789,9 +1929,9 @@ uint64_t sub_1002A9EC0()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1823,9 +1963,9 @@ uint64_t sub_1002A9F4C(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v2, v3, v4, v5, v6, v7, v8, v1);
-    v9 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v1);
+    v2 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1852,9 +1992,9 @@ uint64_t sub_1002A9FE4()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1886,9 +2026,9 @@ uint64_t sub_1002AA070(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v2, v3, v4, v5, v6, v7, v8, v1);
-    v9 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v1);
+    v2 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1920,9 +2060,9 @@ uint64_t sub_1002AA108(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v2, v3, v4, v5, v6, v7, v8, v1);
-    v9 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v1);
+    v2 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1949,9 +2089,9 @@ uint64_t sub_1002AA1A0()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -1983,9 +2123,9 @@ uint64_t sub_1002AA22C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v9, v10, v11, v12, v13, v14, v15, v8);
-    v16 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v8);
+    v9 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2017,9 +2157,9 @@ uint64_t sub_1002AA2F4(uint64_t a1, uint64_t a2)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v5, v6, v7, v8, v9, v10, v11, v4);
-    v12 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v4);
+    v5 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2051,9 +2191,9 @@ uint64_t sub_1002AA3A0(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("%s failed %!", v3, v4, v5, v6, v7, v8, v9, "BT_VSC_AddToFilterAcceptListUnified");
-    v10 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("%s failed %!", "BT_VSC_AddToFilterAcceptListUnified", v1);
+    v3 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2080,9 +2220,9 @@ uint64_t sub_1002AA44C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2112,9 +2252,9 @@ uint64_t sub_1002AA4D8(unsigned int a1, uint64_t a2)
 
     if (sub_10000C240())
     {
-      sub_10000AF54("VSC failed %!", v3, v4, v5, v6, v7, v8, v9, v2);
-      v10 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("VSC failed %!", v2);
+      v3 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -2142,9 +2282,9 @@ uint64_t sub_1002AA574()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2171,9 +2311,9 @@ uint64_t sub_1002AA600()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("%s failed %!", v1, v2, v3, v4, v5, v6, v7, "BT_VSC_SrsFwLogUTCTimeSync");
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("%s failed %!", "BT_VSC_SrsFwLogUTCTimeSync", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2200,9 +2340,9 @@ uint64_t sub_1002AA694()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("%s VSC failed %!", v1, v2, v3, v4, v5, v6, v7, "BT_VSC_SetInqPageMode");
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("%s VSC failed %!", "BT_VSC_SetInqPageMode", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2229,9 +2369,9 @@ uint64_t sub_1002AA728()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("%s VSC failed %!", v1, v2, v3, v4, v5, v6, v7, "BT_VSC_EnableUartRanging");
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("%s VSC failed %!", "BT_VSC_EnableUartRanging", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2240,16 +2380,16 @@ uint64_t sub_1002AA728()
   return v0;
 }
 
-uint64_t sub_1002AA7BC(uint64_t a1, const void *a2, unsigned int a3, uint64_t (*a4)(void, void, void, void), uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t sub_1002AA7BC(int a1, const void *a2, unsigned int a3, uint64_t (*a4)(void, void, void, void), uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v8 = sub_100251128(a1, a2, a3, a4, a5, a6, a7, a8, a5, v18);
+  v8 = sub_100251128(a1, a2, a3, a4, a5, a6, a7, a8, a5, v11);
   if (v8)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("%s failed %!", v9, v10, v11, v12, v13, v14, v15, "BT_VSC_sendRawHCIcmd");
-      v16 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("%s failed %!", "BT_VSC_sendRawHCIcmd", v8);
+      v9 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -2277,9 +2417,9 @@ uint64_t sub_1002AA840()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2306,9 +2446,9 @@ uint64_t sub_1002AA8CC()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2335,9 +2475,9 @@ uint64_t sub_1002AA958()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2364,9 +2504,9 @@ uint64_t sub_1002AA9E4()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2393,9 +2533,9 @@ uint64_t sub_1002AAA70(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v2, v3, v4, v5, v6, v7, v8, v1);
-    v9 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v1);
+    v2 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2422,9 +2562,9 @@ uint64_t sub_1002AAB04()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2451,9 +2591,9 @@ uint64_t sub_1002AAB90()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("%s VSC failed %!", v1, v2, v3, v4, v5, v6, v7, "BT_VSC_DebugAntennaAndPowerDiversityPolicy");
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("%s VSC failed %!", "BT_VSC_DebugAntennaAndPowerDiversityPolicy", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2480,9 +2620,9 @@ uint64_t sub_1002AAC24()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("%s VSC failed %!", v1, v2, v3, v4, v5, v6, v7, "BT_VSC_AntennaAndPowerDiversityPolicy");
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("%s VSC failed %!", "BT_VSC_AntennaAndPowerDiversityPolicy", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2509,9 +2649,9 @@ uint64_t sub_1002AACB8()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("%s VSC failed %!", v1, v2, v3, v4, v5, v6, v7, "BT_VSC_ConfigAntennaDiversityPolicy");
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("%s VSC failed %!", "BT_VSC_ConfigAntennaDiversityPolicy", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2538,9 +2678,9 @@ uint64_t sub_1002AAD4C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("%s VSC failed %!", v1, v2, v3, v4, v5, v6, v7, "BT_VSC_EnableBTCoreDiversity");
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("%s VSC failed %!", "BT_VSC_EnableBTCoreDiversity", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2567,9 +2707,9 @@ uint64_t sub_1002AADE0()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("%s VSC failed %!", v1, v2, v3, v4, v5, v6, v7, "BT_VSC_MrcTxbfLoggingEnable");
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("%s VSC failed %!", "BT_VSC_MrcTxbfLoggingEnable", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2596,9 +2736,9 @@ uint64_t sub_1002AAE74()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2625,9 +2765,9 @@ uint64_t sub_1002AAF00()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2654,9 +2794,9 @@ uint64_t sub_1002AAF8C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2683,9 +2823,9 @@ uint64_t sub_1002AB018()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2712,9 +2852,9 @@ uint64_t sub_1002AB0A4()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("%s VSC failed %!", v1, v2, v3, v4, v5, v6, v7, "BT_VSC_ReadPciePowerProfilingStats");
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("%s VSC failed %!", "BT_VSC_ReadPciePowerProfilingStats", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2741,9 +2881,9 @@ uint64_t sub_1002AB138()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2770,9 +2910,9 @@ uint64_t sub_1002AB1C4()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("%s VSC failed %!", v1, v2, v3, v4, v5, v6, v7, "BT_VSC_ReadEnhancedPowerStatsPerCore");
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("%s VSC failed %!", "BT_VSC_ReadEnhancedPowerStatsPerCore", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2799,9 +2939,9 @@ uint64_t sub_1002AB258()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("%s VSC failed %!", v1, v2, v3, v4, v5, v6, v7, "BT_VSC_AddToFilterAcceptListEnhancedConnectionTagging");
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("%s VSC failed %!", "BT_VSC_AddToFilterAcceptListEnhancedConnectionTagging", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2828,9 +2968,9 @@ uint64_t sub_1002AB2EC()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2859,9 +2999,9 @@ uint64_t sub_1002AB378(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
     if (sub_10000C240())
     {
-      sub_10000AF54("VSC failed %!", v22, v23, v24, v25, v26, v27, v28, v12);
-      v29 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("VSC failed %!", v12);
+      v15 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -2872,9 +3012,9 @@ uint64_t sub_1002AB378(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("BT_VSC_EnableCisLinkQualityStats failed, no connection", v13, v14, v15, v16, v17, v18, v19, v30);
-      v20 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("BT_VSC_EnableCisLinkQualityStats failed, no connection");
+      v13 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -2944,7 +3084,7 @@ uint64_t sub_1002AB568()
   return v0;
 }
 
-uint64_t sub_1002AB58C(uint64_t a1, int a2)
+uint64_t sub_1002AB58C(int *a1, uint64_t a2)
 {
   v6[1] = &v7;
   v7 = a1;
@@ -2963,9 +3103,9 @@ void sub_1002AB608(uint64_t a1)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Timer expired, but channel %p is not used any more.", v3, v4, v5, v6, v7, v8, v9, v1);
-      v10 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Timer expired, but channel %p is not used any more.", v1);
+      v3 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_8;
       }
@@ -2991,9 +3131,9 @@ LABEL_14:
         goto LABEL_23;
       }
 
-      sub_10000AF54("Timeout waiting for CONFIG_RSP", v19, v20, v21, v22, v23, v24, v25, v43);
-      v26 = sub_10000C050(0x2Fu);
-      if (!os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Timeout waiting for CONFIG_RSP");
+      v5 = sub_10000C050(0x2Fu);
+      if (!os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_23;
       }
@@ -3006,9 +3146,9 @@ LABEL_14:
       goto LABEL_23;
     }
 
-    sub_10000AF54("Timeout waiting for CONNECT_RSP", v35, v36, v37, v38, v39, v40, v41, v43);
-    v42 = sub_10000C050(0x2Fu);
-    if (!os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Timeout waiting for CONNECT_RSP");
+    v7 = sub_10000C050(0x2Fu);
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_23;
     }
@@ -3032,9 +3172,9 @@ LABEL_23:
       goto LABEL_23;
     }
 
-    sub_10000AF54("Timeout waiting for DISCONNECT_RSP", v11, v12, v13, v14, v15, v16, v17, v43);
-    v18 = sub_10000C050(0x2Fu);
-    if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Timeout waiting for DISCONNECT_RSP");
+    v4 = sub_10000C050(0x2Fu);
+    if (!os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_23;
     }
@@ -3045,9 +3185,9 @@ LABEL_23:
 LABEL_17:
   if (sub_10000C240())
   {
-    sub_10000AF54("Timeout for unknown message type!", v27, v28, v29, v30, v31, v32, v33, v43);
-    v34 = sub_10000C050(0x2Fu);
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Timeout for unknown message type!");
+    v6 = sub_10000C050(0x2Fu);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
 LABEL_8:
       sub_1000E09C0();
@@ -3055,7 +3195,7 @@ LABEL_8:
   }
 }
 
-uint64_t sub_1002AB7D0(uint64_t a1)
+uint64_t sub_1002AB7D0(int *a1)
 {
   v2 = sub_1000B12AC(a1);
   v3 = sub_10002242C(*(v2 + 84));
@@ -3063,8 +3203,9 @@ uint64_t sub_1002AB7D0(uint64_t a1)
   return v3;
 }
 
-uint64_t sub_1002AB810(_BYTE *a1, unsigned int a2, uint64_t a3, _BYTE *a4, char a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t sub_1002AB810(_BYTE *a1, uint64_t a2, int *a3, _BYTE *a4, char a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
+  v12 = a2;
   v119 = 0;
   v120 = 0;
   ptr = 0;
@@ -3099,7 +3240,7 @@ uint64_t sub_1002AB810(_BYTE *a1, unsigned int a2, uint64_t a3, _BYTE *a4, char 
         {
           if (HIBYTE(v119))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 686, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_232:
             v93 = "ByteStream_NumReadBytesAvail(bs) >= 1";
 LABEL_233:
@@ -3122,7 +3263,7 @@ LABEL_233:
           *(ptr + v53) = 4;
           if (HIBYTE(v119))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 688, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_183:
             v84 = "ByteStream_NumReadBytesAvail(bs) >= 1";
 LABEL_208:
@@ -3145,7 +3286,7 @@ LABEL_208:
           *(ptr + v54) = 9;
           if (HIBYTE(v119))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 690, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_191:
             v89 = "ByteStream_NumReadBytesAvail(bs) >= 1";
 LABEL_222:
@@ -3173,7 +3314,7 @@ LABEL_222:
           {
             if (HIBYTE(v119))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 695, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_262:
               v104 = "ByteStream_NumReadBytesAvail(bs) >= 1";
 LABEL_274:
@@ -3199,7 +3340,7 @@ LABEL_274:
           {
             if (HIBYTE(v119))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 697, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_285:
               v111 = "ByteStream_NumReadBytesAvail(bs) >= 1";
 LABEL_289:
@@ -3228,7 +3369,7 @@ LABEL_289:
           {
             if (HIBYTE(v119))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 701, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_268:
               v103 = "ByteStream_NumReadBytesAvail(bs) >= 1";
 LABEL_269:
@@ -3254,7 +3395,7 @@ LABEL_269:
           {
             if (HIBYTE(v119))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 703, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_282:
               v109 = "ByteStream_NumReadBytesAvail(bs) >= 1";
 LABEL_287:
@@ -3283,7 +3424,7 @@ LABEL_287:
           {
             if (HIBYTE(v119))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 708, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_278:
               v107 = "ByteStream_NumReadBytesAvail(bs) >= 2";
 LABEL_279:
@@ -3309,7 +3450,7 @@ LABEL_279:
           {
             if (HIBYTE(v119))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 710, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_298:
               v110 = "ByteStream_NumReadBytesAvail(bs) >= 2";
 LABEL_299:
@@ -3340,7 +3481,7 @@ LABEL_299:
           {
             if (HIBYTE(v119))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 714, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_265:
               v106 = "ByteStream_NumReadBytesAvail(bs) >= 2";
 LABEL_276:
@@ -3366,7 +3507,7 @@ LABEL_276:
           {
             if (HIBYTE(v119))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 716, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_293:
               v108 = "ByteStream_NumReadBytesAvail(bs) >= 2";
 LABEL_294:
@@ -3397,7 +3538,7 @@ LABEL_294:
           {
             if (HIBYTE(v119))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 720, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_271:
               v105 = "ByteStream_NumReadBytesAvail(bs) >= 2";
 LABEL_272:
@@ -3423,7 +3564,7 @@ LABEL_272:
           {
             if (HIBYTE(v119))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 722, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_291:
               v112 = "ByteStream_NumReadBytesAvail(bs) >= 2";
 LABEL_296:
@@ -3459,7 +3600,7 @@ LABEL_296:
         {
           if (HIBYTE(v119))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 743, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_187:
             v87 = "ByteStream_NumReadBytesAvail(bs) >= 1";
 LABEL_210:
@@ -3482,7 +3623,7 @@ LABEL_210:
           *(ptr + v33) = 3;
           if (HIBYTE(v119))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 745, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_195:
             v92 = "ByteStream_NumReadBytesAvail(bs) >= 1";
 LABEL_224:
@@ -3505,7 +3646,7 @@ LABEL_224:
           *(ptr + v34) = 22;
           if (HIBYTE(v119))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 747, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_205:
             v82 = "ByteStream_NumReadBytesAvail(bs) >= 1";
 LABEL_206:
@@ -3528,7 +3669,7 @@ LABEL_206:
           *(ptr + v35) = 0;
           if (HIBYTE(v119))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 749, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_220:
             v97 = "ByteStream_NumReadBytesAvail(bs) >= 1";
 LABEL_242:
@@ -3552,7 +3693,7 @@ LABEL_242:
           *(ptr + v36) = v37;
           if (HIBYTE(v119))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 751, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_256:
             v101 = "ByteStream_NumReadBytesAvail(bs) >= 4";
 LABEL_257:
@@ -3577,7 +3718,7 @@ LABEL_257:
           WORD2(v119) += 4;
           if (HIBYTE(v119))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 752, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_239:
             v98 = "ByteStream_NumReadBytesAvail(bs) >= 4";
 LABEL_249:
@@ -3602,7 +3743,7 @@ LABEL_249:
           WORD2(v119) += 4;
           if (HIBYTE(v119))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 753, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_244:
             v100 = "ByteStream_NumReadBytesAvail(bs) >= 4";
 LABEL_254:
@@ -3627,7 +3768,7 @@ LABEL_254:
           WORD2(v119) += 4;
           if (HIBYTE(v119))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 754, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_247:
             v102 = "ByteStream_NumReadBytesAvail(bs) >= 4";
 LABEL_259:
@@ -3653,7 +3794,7 @@ LABEL_259:
           WORD2(v119) += 4;
           if (HIBYTE(v119))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 755, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_251:
             v99 = "ByteStream_NumReadBytesAvail(bs) >= 4";
 LABEL_252:
@@ -3694,7 +3835,7 @@ LABEL_252:
 
         if (HIBYTE(v119))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 654, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_181:
           v83 = "ByteStream_NumReadBytesAvail(bs) >= 1";
 LABEL_203:
@@ -3717,7 +3858,7 @@ LABEL_203:
         *(ptr + v49) = 1;
         if (HIBYTE(v119))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 656, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_189:
           v88 = "ByteStream_NumReadBytesAvail(bs) >= 1";
 LABEL_218:
@@ -3740,7 +3881,7 @@ LABEL_218:
         *(ptr + v50) = 2;
         if (HIBYTE(v119))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 658, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_198:
           v94 = "ByteStream_NumReadBytesAvail(bs) >= 2";
 LABEL_235:
@@ -3770,7 +3911,7 @@ LABEL_235:
         {
           if (HIBYTE(v119))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 767, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_200:
             v95 = "ByteStream_NumReadBytesAvail(bs) >= 1";
 LABEL_237:
@@ -3793,7 +3934,7 @@ LABEL_237:
           *(ptr + v22) = 5;
           if (HIBYTE(v119))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 769, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_215:
             v86 = "ByteStream_NumReadBytesAvail(bs) >= 1";
 LABEL_216:
@@ -3816,7 +3957,7 @@ LABEL_216:
           *(ptr + v23) = 1;
           if (HIBYTE(v119))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 771, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_229:
             v91 = "ByteStream_NumReadBytesAvail(bs) >= 1";
 LABEL_230:
@@ -3859,7 +4000,7 @@ LABEL_146:
       v46 = WORD2(v119);
       if (HIBYTE(v119))
       {
-        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 734, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
         v47 = 0;
       }
 
@@ -3894,7 +4035,7 @@ LABEL_168:
       {
         if (HIBYTE(v119))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 670, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_212:
           v85 = "ByteStream_NumReadBytesAvail(bs) >= 1";
 LABEL_213:
@@ -3917,7 +4058,7 @@ LABEL_213:
         *(ptr + v28) = 2;
         if (HIBYTE(v119))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 672, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_226:
           v90 = "ByteStream_NumReadBytesAvail(bs) >= 1";
 LABEL_227:
@@ -3940,7 +4081,7 @@ LABEL_227:
         *(ptr + v29) = 2;
         if (HIBYTE(v119))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 674, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_179:
           v96 = "ByteStream_NumReadBytesAvail(bs) >= 2";
 LABEL_201:
@@ -3976,7 +4117,7 @@ LABEL_81:
     v61 = v120++;
     if (HIBYTE(v119))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 637, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_170:
       v80 = "ByteStream_NumReadBytesAvail(bs) >= 2";
 LABEL_173:
@@ -4008,7 +4149,7 @@ LABEL_173:
     v18 = v120++;
     if (HIBYTE(v119))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 644, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
 LABEL_175:
       v81 = "ByteStream_NumReadBytesAvail(bs) >= 1";
 LABEL_176:
@@ -4044,7 +4185,7 @@ LABEL_176:
   WORD2(v119) = 0;
   if (HIBYTE(v119))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 787, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
     goto LABEL_301;
   }
 
@@ -4073,7 +4214,7 @@ LABEL_303:
   WORD2(v119) = 6;
   if (HIBYTE(v119))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 789, "OI_STATUS OI_SendGeneric2(char *, uint8_t, L2CAPChannel *, OI_HCI_CONNECTION_HANDLE, unsigned int, ...)");
     goto LABEL_306;
   }
 
@@ -4106,7 +4247,7 @@ LABEL_308:
   }
 
   BYTE6(v119) = 15;
-  if (a2 <= 6 && ((1 << a2) & 0x54) != 0)
+  if (v12 <= 6 && ((1 << v12) & 0x54) != 0)
   {
     if (!v115)
     {
@@ -4152,7 +4293,7 @@ uint64_t sub_1002ACE2C(uint64_t *a1, __int16 a2, char a3, char a4)
     *(a1 + 6) = v10;
     if (*(a1 + 15))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 468, "OI_STATUS InitCommandPacket(OI_BYTE_STREAM *, uint16_t, uint8_t, uint8_t)");
     }
 
     else if (*(a1 + 5) - v10 > 1)
@@ -4165,7 +4306,7 @@ uint64_t sub_1002ACE2C(uint64_t *a1, __int16 a2, char a3, char a4)
         *(a1 + 6) = v11 + 2;
         if (*(a1 + 15))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 471, "OI_STATUS InitCommandPacket(OI_BYTE_STREAM *, uint16_t, uint8_t, uint8_t)");
         }
 
         else if (*(a1 + 5) > (v11 + 2))
@@ -4177,7 +4318,7 @@ uint64_t sub_1002ACE2C(uint64_t *a1, __int16 a2, char a3, char a4)
             *(v12 + (v11 + 2)) = a3;
             if (*(a1 + 15))
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 472, "OI_STATUS InitCommandPacket(OI_BYTE_STREAM *, uint16_t, uint8_t, uint8_t)");
             }
 
             else
@@ -4192,7 +4333,7 @@ uint64_t sub_1002ACE2C(uint64_t *a1, __int16 a2, char a3, char a4)
                   *(v14 + v13) = a4;
                   if (*(a1 + 15))
                   {
-                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 473, "OI_STATUS InitCommandPacket(OI_BYTE_STREAM *, uint16_t, uint8_t, uint8_t)");
                   }
 
                   else if (*(a1 + 5) - *(a1 + 6) > 1)
@@ -4295,10 +4436,10 @@ LABEL_5:
     *v8 = HIBYTE(a3);
   }
 
-  return sub_1002AB810("ad", 1u, 0, a1, a6, a6, a7, a8, a2);
+  return sub_1002AB810("ad", 1, 0, a1, a6, a6, a7, a8, a2);
 }
 
-uint64_t sub_1002AD274(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __int16 a5)
+uint64_t sub_1002AD274(uint64_t a1, uint64_t a2, int *a3, uint64_t a4, __int16 a5)
 {
   if (a3 && a1)
   {
@@ -4322,7 +4463,7 @@ uint64_t sub_1002AD274(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __int
       byte_100B61150 = v12;
       v10[153] = v12;
       v13 = *a3;
-      *(v10 + 92) = *(a3 + 4);
+      *(v10 + 92) = *(a3 + 2);
       *(v10 + 45) = v13;
       *(v10 + 21) = a2;
       *(v10 + 25) = a1;
@@ -4357,7 +4498,7 @@ void sub_1002AD378(uint64_t a1, uint64_t a2, _BYTE *a3)
   if (!qword_100B61160)
   {
 LABEL_7:
-    if (sub_10000C240() && (sub_10000AF54("Missing command tracker %:", v8, v9, v10, v11, v12, v13, v14, a2), v15 = sub_10000C050(0x2Fu), os_log_type_enabled(v15, OS_LOG_TYPE_ERROR)))
+    if (sub_10000C240() && (sub_10000AF54("Missing command tracker %:", a2), v8 = sub_10000C050(0x2Fu), os_log_type_enabled(v8, OS_LOG_TYPE_ERROR)))
     {
       sub_100815874();
       if (v5)
@@ -4384,133 +4525,133 @@ LABEL_7:
     }
   }
 
-  v44 = v6;
+  v29 = v6;
   if (!a1)
   {
-    v42 = 0;
-    v43 = 0;
+    v27 = 0;
+    v28 = 0;
     *(v6 + 160) = a3;
-    v16 = *(v6 + 152);
-    if (v16 != 8)
+    v9 = *(v6 + 152);
+    if (v9 != 8)
     {
-      if (v16 != 10)
+      if (v9 != 10)
       {
         goto LABEL_32;
       }
 
-      v17 = sub_1002ACE2C(&v42, 2, 10, *(v6 + 153));
-      if (!v17)
+      v10 = sub_1002ACE2C(&v27, 2, 10, *(v6 + 153));
+      if (!v10)
       {
-        if (HIBYTE(v43))
+        if (HIBYTE(v28))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 882, "void CommandConnectCB(OI_STATUS, OI_BD_ADDR *, OI_HCI_CONNECTION_HANDLE)");
         }
 
         else
         {
-          v18 = WORD2(v43);
-          if (WORD1(v43) - WORD2(v43) > 1)
+          v11 = WORD2(v28);
+          if (WORD1(v28) - WORD2(v28) > 1)
           {
-            if (BYTE6(v43) == 2)
+            if (BYTE6(v28) == 2)
             {
-              v19 = (v42 + WORD2(v43));
-              *v19 = *(v6 + 200);
-              v19[1] = *(v6 + 201);
-              v20 = v18 + 2;
+              v12 = (v27 + WORD2(v28));
+              *v12 = *(v6 + 200);
+              v12[1] = *(v6 + 201);
+              v13 = v11 + 2;
               goto LABEL_28;
             }
 
-            v38 = "(bs).__RWFlag == BYTESTREAM_WRITE";
+            v24 = "(bs).__RWFlag == BYTESTREAM_WRITE";
 LABEL_43:
-            sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 882, v38);
+            sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 882, v24);
           }
         }
 
-        v38 = "ByteStream_NumReadBytesAvail(bs) >= 2";
+        v24 = "ByteStream_NumReadBytesAvail(bs) >= 2";
         goto LABEL_43;
       }
 
 LABEL_29:
-      v27 = v17;
+      v20 = v10;
       if (sub_10000C240())
       {
-        sub_10000AF54("Failed to send command", v28, v29, v30, v31, v32, v33, v34, v40);
-        v35 = sub_10000C050(0x2Fu);
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Failed to send command");
+        v21 = sub_10000C050(0x2Fu);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           sub_1008148EC();
         }
       }
 
 LABEL_34:
-      sub_1002AD6D0(v6, v27);
+      sub_1002AD6D0(v6, v20);
       return;
     }
 
-    v17 = sub_1002ACE2C(&v42, *(v6 + 216) + 2, 8, *(v6 + 153));
-    if (v17)
+    v10 = sub_1002ACE2C(&v27, *(v6 + 216) + 2, 8, *(v6 + 153));
+    if (v10)
     {
       goto LABEL_29;
     }
 
-    if (HIBYTE(v43))
+    if (HIBYTE(v28))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 890, "void CommandConnectCB(OI_STATUS, OI_BD_ADDR *, OI_HCI_CONNECTION_HANDLE)");
     }
 
     else
     {
-      v21 = WORD1(v43);
-      v22 = WORD2(v43);
-      if (WORD1(v43) - WORD2(v43) > 1)
+      v14 = WORD1(v28);
+      v15 = WORD2(v28);
+      if (WORD1(v28) - WORD2(v28) > 1)
       {
-        if (BYTE6(v43) == 2)
+        if (BYTE6(v28) == 2)
         {
-          v23 = v42;
-          v24 = (v42 + WORD2(v43));
-          *v24 = *(v6 + 216);
-          v24[1] = *(v6 + 217);
-          v25 = v22 + 2;
-          v26 = *(v6 + 216);
-          if (v21 - (v22 + 2) < v26)
+          v16 = v27;
+          v17 = (v27 + WORD2(v28));
+          *v17 = *(v6 + 216);
+          v17[1] = *(v6 + 217);
+          v18 = v15 + 2;
+          v19 = *(v6 + 216);
+          if (v14 - (v15 + 2) < v19)
           {
             sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 891, "ByteStream_NumReadBytesAvail(bs) >= (tracker->data.echoData.len)");
           }
 
-          memmove((v23 + v25), *(v6 + 208), v26);
-          v20 = *(v6 + 216) + v25;
+          memmove((v16 + v18), *(v6 + 208), v19);
+          v13 = *(v6 + 216) + v18;
 LABEL_28:
-          WORD2(v43) = v20;
-          WORD1(v43) = v20;
-          BYTE6(v43) = 15;
-          v17 = sub_1002AD124(a3, &v42);
-          if (v17)
+          WORD2(v28) = v13;
+          WORD1(v28) = v13;
+          BYTE6(v28) = 15;
+          v10 = sub_1002AD124(a3, &v27);
+          if (v10)
           {
             goto LABEL_29;
           }
 
 LABEL_32:
-          v41[1] = &v44;
-          v41[0] = 8;
-          v36 = sub_1003045A0(0x2Fu);
-          v37 = sub_10002195C(sub_1002ADEE4, v41, *(v36 + 6), (v44 + 176));
-          if (!v37)
+          v26[1] = &v29;
+          v26[0] = 8;
+          v22 = sub_1003045A0(0x2Fu);
+          v23 = sub_10002195C(sub_1002ADEE4, v26, *(v22 + 6), (v29 + 176));
+          if (!v23)
           {
             return;
           }
 
-          v27 = v37;
-          v6 = v44;
+          v20 = v23;
+          v6 = v29;
           goto LABEL_34;
         }
 
-        v39 = "(bs).__RWFlag == BYTESTREAM_WRITE";
+        v25 = "(bs).__RWFlag == BYTESTREAM_WRITE";
 LABEL_45:
-        sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 890, v39);
+        sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 890, v25);
       }
     }
 
-    v39 = "ByteStream_NumReadBytesAvail(bs) >= 2";
+    v25 = "ByteStream_NumReadBytesAvail(bs) >= 2";
     goto LABEL_45;
   }
 
@@ -4579,7 +4720,7 @@ LABEL_9:
   }
 }
 
-uint64_t sub_1002AD818(uint64_t a1, uint64_t a2, uint64_t a3, __int16 a4)
+uint64_t sub_1002AD818(uint64_t a1, uint64_t a2, int *a3, __int16 a4)
 {
   if (a1 && a3)
   {
@@ -4603,7 +4744,7 @@ uint64_t sub_1002AD818(uint64_t a1, uint64_t a2, uint64_t a3, __int16 a4)
       byte_100B61150 = v10;
       v8[153] = v10;
       v11 = *a3;
-      *(v8 + 92) = *(a3 + 4);
+      *(v8 + 92) = *(a3 + 2);
       *(v8 + 45) = v11;
       *(v8 + 21) = a2;
       *(v8 + 100) = a4;
@@ -4619,9 +4760,9 @@ uint64_t sub_1002AD818(uint64_t a1, uint64_t a2, uint64_t a3, __int16 a4)
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("AllocCommandTracker() failed", v14, v15, v16, v17, v18, v19, v20, v22);
-        v21 = sub_10000C050(0x2Fu);
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("AllocCommandTracker() failed");
+        v14 = sub_10000C050(0x2Fu);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           sub_1000E09C0();
         }
@@ -4658,42 +4799,42 @@ uint64_t sub_1002AD958(unsigned int a1, uint64_t a2)
 
 void sub_1002AD9B8(_BYTE *a1, unsigned __int16 *a2, size_t size)
 {
-  v68 = 0;
+  v28 = 0;
   if (!a1[2])
   {
-    v11 = size;
+    v4 = size;
     if (size <= 3)
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("Received L2CAP header with 0 length, disc ACL", v13, v14, v15, v16, v17, v18, v19, (a1 + 48));
-        v20 = sub_10000C050(0x2Fu);
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Received L2CAP header with 0 length, disc ACL", a1 + 48);
+        v6 = sub_10000C050(0x2Fu);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           sub_10080F604();
         }
       }
 
-      sub_10023BA68((a1 + 48));
+      sub_10023BA68((a1 + 48), 19);
       return;
     }
 
-    v21 = a2;
+    v7 = a2;
     if (a2[1] + 4 == size)
     {
-      v22 = 0;
+      v8 = 0;
     }
 
     else
     {
-      v23 = sub_100007618(size, 0x7A14E641uLL);
-      if (!v23)
+      v9 = sub_100007618(size, 0x7A14E641uLL);
+      if (!v9)
       {
         if (sub_10000C240())
         {
-          sub_10000AF54("OI_SignalMan_Recv Malloc failed!", v51, v52, v53, v54, v55, v56, v57, v67);
-          v58 = sub_10000C050(0x2Fu);
-          if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("OI_SignalMan_Recv Malloc failed!");
+          v26 = sub_10000C050(0x2Fu);
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_4;
           }
@@ -4702,42 +4843,42 @@ void sub_1002AD9B8(_BYTE *a1, unsigned __int16 *a2, size_t size)
         return;
       }
 
-      v22 = v23;
-      memmove(v23, v21, v11);
-      v21 = v22;
+      v8 = v9;
+      memmove(v9, v7, v4);
+      v7 = v8;
     }
 
-    v69 = v21;
-    v70 = v11;
-    v72 = 0x10000;
-    v71 = v11;
+    v29 = v7;
+    v30 = v4;
+    v32 = 0x10000;
+    v31 = v4;
     while (1)
     {
-      v24 = v71;
-      v25 = v72;
-      if (v71 <= v72)
+      v10 = v31;
+      v11 = v32;
+      if (v31 <= v32)
       {
         break;
       }
 
-      if (BYTE2(v72) != 1)
+      if (BYTE2(v32) != 1)
       {
         sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1864, "(bs).__RWFlag == BYTESTREAM_READ");
       }
 
-      LOWORD(v72) = v72 + 1;
-      v26 = *(v69 + v25);
-      if (v71 <= (v25 + 1))
+      LOWORD(v32) = v32 + 1;
+      v12 = *(v29 + v11);
+      if (v31 <= (v11 + 1))
       {
-        HIBYTE(v72) = 1;
-        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+        HIBYTE(v32) = 1;
+        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1866, "void OI_SignalMan_Recv(OI_HCI_CONNECTION_HANDLE, uint8_t *, uint16_t)");
 LABEL_47:
-        HIBYTE(v72) = 1;
+        HIBYTE(v32) = 1;
         if (sub_10000C240())
         {
-          sub_10000AF54("OI_SignalMan_Recv - %!", v59, v60, v61, v62, v63, v64, v65, 411);
-          v66 = sub_10000C050(0x2Fu);
-          if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("OI_SignalMan_Recv - %!", 411);
+          v27 = sub_10000C050(0x2Fu);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
             sub_1000E09C0();
           }
@@ -4746,35 +4887,35 @@ LABEL_47:
         break;
       }
 
-      LOWORD(v72) = v25 + 2;
-      if (v71 - (v25 + 2) <= 1)
+      LOWORD(v32) = v11 + 2;
+      if (v31 - (v11 + 2) <= 1)
       {
         goto LABEL_47;
       }
 
-      v27 = *(v69 + v25 + 1);
-      v28 = *(v69 + v25 + 2);
-      v29 = v25 + 4;
-      LOWORD(v72) = v29;
-      if ((v26 - 18) > 0xFFFFFFEE)
+      v13 = *(v29 + v11 + 1);
+      v14 = *(v29 + v11 + 2);
+      v15 = v11 + 4;
+      LOWORD(v32) = v15;
+      if (v12 - 18 > 0xFFFFFFEE)
       {
-        if (v26 <= 0x11 && ((1 << v26) & 0x2A0AA) != 0)
+        if (v12 <= 0x11 && ((1 << v12) & 0x2A0AA) != 0)
         {
-          if (sub_10028DB10(a1, v27, &v68))
+          if (sub_10028DB10(a1, v13, &v28))
           {
             break;
           }
 
-          sub_1002AB7D0(v68);
-          v29 = v72;
-          v24 = v71;
+          sub_1002AB7D0(v28);
+          v15 = v32;
+          v10 = v31;
         }
 
-        v40 = v28 + v29;
-        if (v40 <= v24)
+        v22 = v14 + v15;
+        if (v22 <= v10)
         {
-          qword_100AE9C20[v26](&v69, v27, v28, a1);
-          if (v40 > v71)
+          qword_100AE9C20[v12](&v29, v13, v14, a1);
+          if (v22 > v31)
           {
             sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1909, "(size_t)(endSignalPos) <= (size_t)((bs).__size)");
           }
@@ -4784,20 +4925,20 @@ LABEL_47:
         {
           if (sub_10000C240())
           {
-            sub_10000AF54("%! - Signalling packet length error", v41, v42, v43, v44, v45, v46, v47, 411);
-            v48 = sub_10000C050(0x2Fu);
-            if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+            sub_10000AF54("%! - Signalling packet length error", 411);
+            v23 = sub_10000C050(0x2Fu);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
             {
-              v50 = sub_10000C0FC();
+              v25 = sub_10000C0FC();
               *buf = 136446466;
-              v74 = v50;
-              v75 = 1024;
-              v76 = 0xFFFF;
-              _os_log_error_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
+              v34 = v25;
+              v35 = 1024;
+              v36 = 0xFFFF;
+              _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
             }
           }
 
-          LOWORD(v40) = v71;
+          LOWORD(v22) = v31;
         }
       }
 
@@ -4805,53 +4946,53 @@ LABEL_47:
       {
         if (sub_10000C240())
         {
-          sub_10000AF54("Unrecognized command (%d), sending CommandReject", v30, v31, v32, v33, v34, v35, v36, v26);
-          v37 = sub_10000C050(0x2Fu);
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("Unrecognized command (%d), sending CommandReject", v12);
+          v19 = sub_10000C050(0x2Fu);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
-            v49 = sub_10000C0FC();
+            v24 = sub_10000C0FC();
             *buf = 136446466;
-            v74 = v49;
-            v75 = 1024;
-            v76 = 0xFFFF;
-            _os_log_error_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
+            v34 = v24;
+            v35 = 1024;
+            v36 = 0xFFFF;
+            _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
           }
         }
 
         *buf = 0;
-        sub_1002AB810("ad", 1u, 0, a1, v27, v34, v35, v36, 0);
-        if (HIBYTE(v72))
+        sub_1002AB810("ad", 1, 0, a1, v13, v16, v17, v18, 0);
+        if (HIBYTE(v32))
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-          v38 = 0;
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1875, "void OI_SignalMan_Recv(OI_HCI_CONNECTION_HANDLE, uint8_t *, uint16_t)");
+          v20 = 0;
         }
 
         else
         {
-          v38 = v71 - v72;
+          v20 = v31 - v32;
         }
 
-        if (v38 < v28)
+        if (v20 < v14)
         {
-          HIBYTE(v72) = 1;
+          HIBYTE(v32) = 1;
 LABEL_51:
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1861, "void OI_SignalMan_Recv(OI_HCI_CONNECTION_HANDLE, uint8_t *, uint16_t)");
           break;
         }
 
-        LOWORD(v40) = v72 + v28;
+        LOWORD(v22) = v32 + v14;
       }
 
-      LOWORD(v72) = v40;
-      if (HIBYTE(v72))
+      LOWORD(v32) = v22;
+      if (HIBYTE(v32))
       {
         goto LABEL_51;
       }
     }
 
-    if (v22)
+    if (v8)
     {
-      sub_10000C1E8(v22);
+      sub_10000C1E8(v8);
     }
 
     return;
@@ -4859,9 +5000,9 @@ LABEL_51:
 
   if (sub_10000C240())
   {
-    sub_10000AF54("Signalling channel should only be used by ACL handles.", v3, v4, v5, v6, v7, v8, v9, v67);
-    v10 = sub_10000C050(0x2Fu);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Signalling channel should only be used by ACL handles.");
+    v3 = sub_10000C050(0x2Fu);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
 LABEL_4:
       sub_1000E09C0();
@@ -4905,12 +5046,12 @@ void sub_1002ADEE4(uint64_t a1)
   }
 }
 
-void sub_1002ADF24(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+void sub_1002ADF24(uint64_t a1, int a2, int a3, uint64_t a4)
 {
-  qmemcpy(v74, "IOIOIO", sizeof(v74));
+  qmemcpy(v24, "IOIOIO", sizeof(v24));
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1017, "void SignalMan_RecvCommandReject(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v8 = 0;
   }
 
@@ -4929,10 +5070,10 @@ void sub_1002ADF24(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
     sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1020, "(*pBs).__RWFlag == BYTESTREAM_READ");
   }
 
-  v73 = 0;
+  v23 = 0;
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1020, "void SignalMan_RecvCommandReject(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
 LABEL_10:
     *(a1 + 15) = 1;
     v10 = 20297;
@@ -4950,9 +5091,9 @@ LABEL_10:
 LABEL_11:
   if (sub_10000C240())
   {
-    sub_10000AF54("Received Command Reject, identifier %d, handle %d, reason %d", v11, v12, v13, v14, v15, v16, v17, a2);
-    v18 = sub_10000C050(0x2Fu);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Received Command Reject, identifier %d, handle %d, reason %d", a2, a4, v10);
+    v11 = sub_10000C050(0x2Fu);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_1000E09C0();
     }
@@ -4967,10 +5108,10 @@ LABEL_11:
 
     if (*(a1 + 15))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-      v27 = *(a1 + 14);
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1031, "void SignalMan_RecvCommandReject(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+      v13 = *(a1 + 14);
       *(a1 + 15) = 1;
-      if (v27 != 1)
+      if (v13 != 1)
       {
         sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1032, "(*pBs).__RWFlag == BYTESTREAM_READ");
       }
@@ -4978,21 +5119,21 @@ LABEL_11:
 
     else
     {
-      v45 = *(a1 + 12);
-      if (*(a1 + 10) - v45 > 1)
+      v17 = *(a1 + 12);
+      if (*(a1 + 10) - v17 > 1)
       {
-        v74[1] = *(*a1 + v45);
-        *(a1 + 12) = v45 + 2;
-        if (*(a1 + 10) - (v45 + 2) >= 2)
+        v24[1] = *(*a1 + v17);
+        *(a1 + 12) = v17 + 2;
+        if (*(a1 + 10) - (v17 + 2) >= 2)
         {
-          v74[0] = *(*a1 + (v45 + 2));
-          *(a1 + 12) = v45 + 4;
+          v24[0] = *(*a1 + (v17 + 2));
+          *(a1 + 12) = v17 + 4;
 LABEL_42:
           if (sub_10000C240())
           {
-            sub_10000AF54("  Rejected - invalid CID, localCID %d, remoteCID %d", v46, v47, v48, v49, v50, v51, v52, v74[1]);
-            v53 = sub_10000C050(0x2Fu);
-            if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+            sub_10000AF54("  Rejected - invalid CID, localCID %d, remoteCID %d", v24[1], v24[0]);
+            v18 = sub_10000C050(0x2Fu);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_44;
             }
@@ -5009,7 +5150,7 @@ LABEL_41:
       *(a1 + 15) = 1;
     }
 
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1032, "void SignalMan_RecvCommandReject(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     goto LABEL_41;
   }
 
@@ -5022,22 +5163,22 @@ LABEL_41:
 
     if (*(a1 + 15))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1027, "void SignalMan_RecvCommandReject(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     }
 
     else
     {
-      v36 = *(a1 + 12);
-      if (*(a1 + 10) - v36 >= 2)
+      v15 = *(a1 + 12);
+      if (*(a1 + 10) - v15 >= 2)
       {
-        v74[2] = *(*a1 + v36);
-        *(a1 + 12) = v36 + 2;
+        v24[2] = *(*a1 + v15);
+        *(a1 + 12) = v15 + 2;
 LABEL_33:
         if (sub_10000C240())
         {
-          sub_10000AF54("  Rejected - MTU exceeded, max MTU = %d", v37, v38, v39, v40, v41, v42, v43, v74[2]);
-          v44 = sub_10000C050(0x2Fu);
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("  Rejected - MTU exceeded, max MTU = %d", v24[2]);
+          v16 = sub_10000C050(0x2Fu);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_44;
           }
@@ -5055,9 +5196,9 @@ LABEL_33:
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("  Rejected - unknown reason code", v28, v29, v30, v31, v32, v33, v34, v72);
-      v35 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("  Rejected - unknown reason code");
+      v14 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_44;
       }
@@ -5066,9 +5207,9 @@ LABEL_33:
 
   else if (sub_10000C240())
   {
-    sub_10000AF54("  Rejected - Command not understood", v19, v20, v21, v22, v23, v24, v25, v72);
-    v26 = sub_10000C050(0x2Fu);
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("  Rejected - Command not understood");
+    v12 = sub_10000C050(0x2Fu);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
 LABEL_44:
       sub_1000E09C0();
@@ -5080,46 +5221,46 @@ LABEL_45:
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("SignalMan_RecvCommandReject - %!", v54, v55, v56, v57, v58, v59, v60, 411);
-      v61 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("SignalMan_RecvCommandReject - %!", 411);
+      v19 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         sub_1000E09C0();
       }
     }
   }
 
-  else if (sub_10028DB10(a4, a2, &v73))
+  else if (sub_10028DB10(a4, a2, &v23))
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("No channel found for identifier %d, ignoring command reject packet", v62, v63, v64, v65, v66, v67, v68, a2);
-      v69 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("No channel found for identifier %d, ignoring command reject packet", a2);
+      v20 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         sub_1000E09C0();
       }
     }
   }
 
-  else if (*v73 == 2)
+  else if (*v23 == 2)
   {
-    v70 = sub_1000B12AC(v73);
-    if (*(a4 + 48) != *(v70 + 10) || *(a4 + 52) != *(v70 + 14))
+    v21 = sub_1000B12AC(v23);
+    if (*(a4 + 48) != *(v21 + 10) || *(a4 + 52) != *(v21 + 14))
     {
       sub_1000D660C();
     }
 
-    sub_10028EE5C(v73, 445);
+    sub_10028EE5C(v23, 445);
   }
 }
 
-void sub_1002AE404(uint64_t a1, char a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_1002AE404(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v14 = 771;
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1078, "void SignalMan_RecvConnectReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v12 = 0;
   }
 
@@ -5140,12 +5281,12 @@ void sub_1002AE404(uint64_t a1, char a2, int a3, uint64_t a4, uint64_t a5, uint6
   }
 }
 
-void sub_1002AE4DC(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void sub_1002AE4DC(uint64_t a1, int a2, int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v14 = 50529027;
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1100, "void SignalMan_RecvConnectRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v12 = 0;
   }
 
@@ -5168,10 +5309,10 @@ void sub_1002AE4DC(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, u
 
 void sub_1002AE5CC(uint64_t *a1, char a2, uint64_t a3, uint64_t a4)
 {
-  memset(v136, 0, 44);
+  memset(v87, 0, 44);
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1169, "void SignalMan_RecvConfigReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v8 = 0;
   }
 
@@ -5193,7 +5334,7 @@ void sub_1002AE5CC(uint64_t *a1, char a2, uint64_t a3, uint64_t a4)
   v9 = *(a1 + 6);
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1175, "void SignalMan_RecvConfigReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v10 = *(a1 + 14);
     *(a1 + 15) = 1;
     if (v10 != 1)
@@ -5208,7 +5349,7 @@ void sub_1002AE5CC(uint64_t *a1, char a2, uint64_t a3, uint64_t a4)
   {
     *(a1 + 15) = 1;
 LABEL_14:
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1176, "void SignalMan_RecvConfigReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v11 = 0;
     goto LABEL_15;
   }
@@ -5238,9 +5379,9 @@ LABEL_17:
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Bogus length in configuration request - must be corrupt packet", v16, v17, v18, v19, v20, v21, v22, v129);
-      v23 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Bogus length in configuration request - must be corrupt packet");
+      v16 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         sub_1008158FC();
       }
@@ -5254,29 +5395,29 @@ LABEL_17:
     v15 = 0;
   }
 
-  v24 = *(a1 + 6);
-  if (v14 > v24)
+  v17 = *(a1 + 6);
+  if (v14 > v17)
   {
-    v131 = v15;
-    v132 = v11;
-    v133 = a2;
-    v25 = 0;
-    LOBYTE(v26) = 0;
-    v27 = 0;
-    v28 = 0;
+    v82 = v15;
+    v83 = v11;
+    v84 = a2;
+    v18 = 0;
+    LOBYTE(v19) = 0;
+    v20 = 0;
+    v21 = 0;
     size = a3 - 4;
-    v135 = (a3 - 4);
-    v134 = v14;
+    v86 = (a3 - 4);
+    v85 = v14;
     while (1)
     {
       if (*(a1 + 15))
       {
-LABEL_142:
-        a2 = v133;
-        v11 = v132;
-        v80 = v27;
-        v15 = v131;
-        goto LABEL_143;
+LABEL_143:
+        a2 = v84;
+        v11 = v83;
+        v67 = v20;
+        v15 = v82;
+        goto LABEL_144;
       }
 
       if (*(a1 + 14) != 1)
@@ -5284,221 +5425,224 @@ LABEL_142:
         sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1190, "(*pBs).__RWFlag == BYTESTREAM_READ");
       }
 
-      v29 = *(a1 + 5);
-      if (v29 <= v24)
+      v22 = *(a1 + 5);
+      if (v22 <= v17)
       {
         *(a1 + 15) = 1;
-        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1191, "void SignalMan_RecvConfigReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
       }
 
       else
       {
-        v30 = *a1;
-        v31 = v24 + 1;
-        *(a1 + 6) = v31;
-        v32 = *(v30 + v24);
-        if (v29 > v31)
+        v23 = *a1;
+        v24 = v17 + 1;
+        *(a1 + 6) = v24;
+        v25 = *(v23 + v17);
+        if (v22 > v24)
         {
-          v33 = *a1;
-          *(a1 + 6) = v24 + 2;
-          v25 = *(v33 + v31);
-          v34 = 1;
+          v26 = *a1;
+          *(a1 + 6) = v17 + 2;
+          v18 = *(v26 + v24);
+          v27 = 1;
           goto LABEL_33;
         }
 
-        LOBYTE(v26) = v32;
+        LOBYTE(v19) = v25;
       }
 
-      v34 = 0;
+      v27 = 0;
       *(a1 + 15) = 1;
-      v32 = v26;
+      v25 = v19;
 LABEL_33:
-      v26 = v32 & 0x7F;
-      if ((v32 & 0x7Fu) <= 3)
+      v19 = v25 & 0x7F;
+      if (v19 <= 3)
       {
-        switch(v26)
+        switch(v19)
         {
-          case 1:
+          case 1u:
             if (*(a1 + 14) != 1)
             {
               sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1201, "(*pBs).__RWFlag == BYTESTREAM_READ");
             }
 
-            if (v34)
+            if (v27)
             {
-              v44 = *(a1 + 6);
-              if (*(a1 + 5) - v44 >= 2)
+              v37 = *(a1 + 6);
+              if (*(a1 + 5) - v37 >= 2)
               {
-                WORD2(v136[0]) = *(*a1 + v44);
-                *(a1 + 6) = v44 + 2;
+                WORD2(v87[0]) = *(*a1 + v37);
+                *(a1 + 6) = v37 + 2;
 LABEL_100:
-                LODWORD(v136[0]) |= 1u;
-                goto LABEL_123;
+                LODWORD(v87[0]) |= 1u;
+                goto LABEL_124;
               }
             }
 
             else
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1201, "void SignalMan_RecvConfigReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
             }
 
             *(a1 + 15) = 1;
             goto LABEL_100;
-          case 2:
-            LODWORD(v136[0]) |= 2u;
+          case 2u:
+            LODWORD(v87[0]) |= 2u;
             if (*(a1 + 14) != 1)
             {
               sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1205, "(*pBs).__RWFlag == BYTESTREAM_READ");
             }
 
-            if (v34)
+            if (v27)
             {
-              v43 = *(a1 + 6);
-              if (*(a1 + 5) - v43 >= 2)
+              v36 = *(a1 + 6);
+              if (*(a1 + 5) - v36 >= 2)
               {
-                WORD3(v136[0]) = *(*a1 + v43);
+                WORD3(v87[0]) = *(*a1 + v36);
 LABEL_91:
-                v62 = v43 + 2;
-LABEL_132:
-                *(a1 + 6) = v62;
-                goto LABEL_123;
+                v48 = v36 + 2;
+LABEL_133:
+                *(a1 + 6) = v48;
+                goto LABEL_124;
               }
 
-              goto LABEL_122;
+              goto LABEL_123;
             }
 
-            goto LABEL_121;
-          case 3:
-            LODWORD(v136[0]) |= 4u;
-            if (v34)
+            v56 = 1205;
+            goto LABEL_122;
+          case 3u:
+            LODWORD(v87[0]) |= 4u;
+            if (v27)
             {
-              v37 = *(a1 + 6);
-              if (*(a1 + 5) > v37)
+              v30 = *(a1 + 6);
+              if (*(a1 + 5) > v30)
               {
-                v38 = v37 + 1;
-                *(a1 + 6) = v37 + 1;
+                v31 = v30 + 1;
+                *(a1 + 6) = v30 + 1;
                 if (*(a1 + 14) != 1)
                 {
-                  goto LABEL_181;
+                  goto LABEL_182;
                 }
 
-                v39 = *(a1 + 5);
-                if (v39 > v38)
+                v32 = *(a1 + 5);
+                if (v32 > v31)
                 {
-                  v40 = *a1;
-                  v41 = v37 + 2;
-                  *(a1 + 6) = v41;
-                  BYTE8(v136[0]) = *(v40 + v38);
-                  v42 = v39 - v41;
+                  v33 = *a1;
+                  v34 = v30 + 2;
+                  *(a1 + 6) = v34;
+                  BYTE8(v87[0]) = *(v33 + v31);
+                  v35 = v32 - v34;
 LABEL_96:
-                  if (v42 < v25 - 2)
+                  if (v35 < v18 - 2)
                   {
-                    goto LABEL_122;
+                    goto LABEL_123;
                   }
 
-                  *(a1 + 6) += v25 - 2;
-                  goto LABEL_123;
+                  *(a1 + 6) += v18 - 2;
+                  goto LABEL_124;
                 }
 
 LABEL_95:
                 *(a1 + 15) = 1;
-                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-                v42 = 0;
+                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1211, "void SignalMan_RecvConfigReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+                v35 = 0;
                 goto LABEL_96;
               }
             }
 
             else
             {
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1209, "void SignalMan_RecvConfigReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
             }
 
             *(a1 + 15) = 1;
             if (*(a1 + 14) != 1)
             {
-LABEL_181:
+LABEL_182:
               sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1210, "(*pBs).__RWFlag == BYTESTREAM_READ");
             }
 
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1210, "void SignalMan_RecvConfigReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
             goto LABEL_95;
         }
       }
 
-      else if ((v32 & 0x7Fu) > 5)
+      else if ((v25 & 0x7Fu) > 5)
       {
-        if (v26 == 6)
+        if (v19 == 6)
         {
-          LODWORD(v136[0]) |= 0x20u;
+          LODWORD(v87[0]) |= 0x20u;
           if (*(a1 + 14) != 1)
           {
             sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1226, "(*pBs).__RWFlag == BYTESTREAM_READ");
           }
 
-          if (v34)
+          if (v27)
           {
-            v63 = *(a1 + 6);
-            if (*(a1 + 5) > v63)
+            v49 = *(a1 + 6);
+            if (*(a1 + 5) > v49)
             {
-              v64 = *a1;
-              v65 = v63 + 1;
-              *(a1 + 6) = v63 + 1;
-              BYTE8(v136[1]) = *(v64 + v63);
-              if (*(a1 + 5) > (v63 + 1))
+              v50 = *a1;
+              v51 = v49 + 1;
+              *(a1 + 6) = v49 + 1;
+              BYTE8(v87[1]) = *(v50 + v49);
+              if (*(a1 + 5) > (v49 + 1))
               {
-                v66 = *a1;
-                v67 = v63 + 2;
-                *(a1 + 6) = v67;
-                BYTE9(v136[1]) = *(v66 + v65);
-                if (*(a1 + 5) - v67 > 1)
+                v52 = *a1;
+                v53 = v49 + 2;
+                *(a1 + 6) = v53;
+                BYTE9(v87[1]) = *(v52 + v51);
+                if (*(a1 + 5) - v53 > 1)
                 {
-                  WORD5(v136[1]) = *(*a1 + v67);
-                  *(a1 + 6) = v67 + 2;
-                  if (*(a1 + 5) - (v67 + 2) > 3)
+                  WORD5(v87[1]) = *(*a1 + v53);
+                  *(a1 + 6) = v53 + 2;
+                  if (*(a1 + 5) - (v53 + 2) > 3)
                   {
-                    HIDWORD(v136[1]) = *(*a1 + (v67 + 2));
-                    *(a1 + 6) = v67 + 6;
-                    if (*(a1 + 5) - (v67 + 6) > 3)
+                    HIDWORD(v87[1]) = *(*a1 + (v53 + 2));
+                    *(a1 + 6) = v53 + 6;
+                    if (*(a1 + 5) - (v53 + 6) > 3)
                     {
-                      LODWORD(v136[2]) = *(*a1 + (v67 + 6));
-                      *(a1 + 6) = v67 + 10;
-                      if (*(a1 + 5) - (v67 + 10) >= 4)
+                      LODWORD(v87[2]) = *(*a1 + (v53 + 6));
+                      *(a1 + 6) = v53 + 10;
+                      if (*(a1 + 5) - (v53 + 10) >= 4)
                       {
-                        DWORD1(v136[2]) = *(*a1 + (v67 + 10));
-                        v62 = v67 + 14;
-                        goto LABEL_132;
+                        DWORD1(v87[2]) = *(*a1 + (v53 + 10));
+                        v48 = v53 + 14;
+                        goto LABEL_133;
                       }
 
-                      goto LABEL_122;
+                      goto LABEL_123;
                     }
 
                     *(a1 + 15) = 1;
-                    goto LABEL_121;
+LABEL_121:
+                    v56 = 1231;
+LABEL_122:
+                    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", v56, "void SignalMan_RecvConfigReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+LABEL_123:
+                    *(a1 + 15) = 1;
+                    goto LABEL_124;
                   }
 
                   *(a1 + 15) = 1;
 LABEL_120:
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-                  v78 = *(a1 + 14);
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1230, "void SignalMan_RecvConfigReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+                  v65 = *(a1 + 14);
                   *(a1 + 15) = 1;
-                  if (v78 != 1)
+                  if (v65 != 1)
                   {
                     sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1231, "(*pBs).__RWFlag == BYTESTREAM_READ");
                   }
 
-LABEL_121:
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-LABEL_122:
-                  *(a1 + 15) = 1;
-                  goto LABEL_123;
+                  goto LABEL_121;
                 }
 
                 *(a1 + 15) = 1;
 LABEL_119:
-                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-                v77 = *(a1 + 14);
+                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1229, "void SignalMan_RecvConfigReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+                v64 = *(a1 + 14);
                 *(a1 + 15) = 1;
-                if (v77 != 1)
+                if (v64 != 1)
                 {
                   sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1230, "(*pBs).__RWFlag == BYTESTREAM_READ");
                 }
@@ -5508,10 +5652,10 @@ LABEL_119:
 
               *(a1 + 15) = 1;
 LABEL_118:
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-              v76 = *(a1 + 14);
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1228, "void SignalMan_RecvConfigReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+              v63 = *(a1 + 14);
               *(a1 + 15) = 1;
-              if (v76 != 1)
+              if (v63 != 1)
               {
                 sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1229, "(*pBs).__RWFlag == BYTESTREAM_READ");
               }
@@ -5524,19 +5668,19 @@ LABEL_118:
 
           else
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-            v69 = *(a1 + 14);
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1226, "void SignalMan_RecvConfigReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+            v55 = *(a1 + 14);
             *(a1 + 15) = 1;
-            if (v69 != 1)
+            if (v55 != 1)
             {
               sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1227, "(*pBs).__RWFlag == BYTESTREAM_READ");
             }
           }
 
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-          v75 = *(a1 + 14);
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1227, "void SignalMan_RecvConfigReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+          v62 = *(a1 + 14);
           *(a1 + 15) = 1;
-          if (v75 != 1)
+          if (v62 != 1)
           {
             sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1228, "(*pBs).__RWFlag == BYTESTREAM_READ");
           }
@@ -5544,114 +5688,117 @@ LABEL_118:
           goto LABEL_118;
         }
 
-        if (v26 == 7)
+        if (v19 == 7)
         {
-          LODWORD(v136[0]) |= 0x40u;
+          LODWORD(v87[0]) |= 0x40u;
           if (*(a1 + 14) != 1)
           {
             sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1234, "(*pBs).__RWFlag == BYTESTREAM_READ");
           }
 
-          if (v34)
+          if (v27)
           {
-            v43 = *(a1 + 6);
-            if (*(a1 + 5) - v43 >= 2)
+            v36 = *(a1 + 6);
+            if (*(a1 + 5) - v36 >= 2)
             {
-              WORD4(v136[2]) = *(*a1 + v43);
+              WORD4(v87[2]) = *(*a1 + v36);
               goto LABEL_91;
             }
 
-            goto LABEL_122;
+            goto LABEL_123;
           }
 
-          goto LABEL_121;
+          v56 = 1234;
+          goto LABEL_122;
         }
       }
 
       else
       {
-        if (v26 == 4)
+        if (v19 == 4)
         {
-          LODWORD(v136[0]) |= 8u;
+          LODWORD(v87[0]) |= 8u;
           if (*(a1 + 14) != 1)
           {
             sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1215, "(*pBs).__RWFlag == BYTESTREAM_READ");
           }
 
-          if (v34)
+          if (v27)
           {
-            v56 = *(a1 + 6);
-            if (*(a1 + 5) > v56)
+            v42 = *(a1 + 6);
+            if (*(a1 + 5) > v42)
             {
-              v57 = *a1;
-              *(a1 + 6) = v56 + 1;
-              BYTE10(v136[0]) = *(v57 + v56);
-              if (*(a1 + 5) > (v56 + 1))
+              v43 = *a1;
+              *(a1 + 6) = v42 + 1;
+              BYTE10(v87[0]) = *(v43 + v42);
+              if (*(a1 + 5) > (v42 + 1))
               {
-                v58 = *a1;
-                v59 = v56 + 2;
-                *(a1 + 6) = v56 + 2;
-                BYTE11(v136[0]) = *(v58 + v56 + 1);
-                if (*(a1 + 5) > (v56 + 2))
+                v44 = *a1;
+                v45 = v42 + 2;
+                *(a1 + 6) = v42 + 2;
+                BYTE11(v87[0]) = *(v44 + v42 + 1);
+                if (*(a1 + 5) > (v42 + 2))
                 {
-                  v60 = *a1;
-                  v61 = v56 + 3;
-                  *(a1 + 6) = v61;
-                  BYTE12(v136[0]) = *(v60 + v59);
-                  if (*(a1 + 5) - v61 > 1)
+                  v46 = *a1;
+                  v47 = v42 + 3;
+                  *(a1 + 6) = v47;
+                  BYTE12(v87[0]) = *(v46 + v45);
+                  if (*(a1 + 5) - v47 > 1)
                   {
-                    HIWORD(v136[0]) = *(*a1 + v61);
-                    *(a1 + 6) = v61 + 2;
-                    if (*(a1 + 5) - (v61 + 2) > 1)
+                    HIWORD(v87[0]) = *(*a1 + v47);
+                    *(a1 + 6) = v47 + 2;
+                    if (*(a1 + 5) - (v47 + 2) > 1)
                     {
-                      LOWORD(v136[1]) = *(*a1 + (v61 + 2));
-                      *(a1 + 6) = v61 + 4;
-                      if (*(a1 + 5) - (v61 + 4) >= 2)
+                      LOWORD(v87[1]) = *(*a1 + (v47 + 2));
+                      *(a1 + 6) = v47 + 4;
+                      if (*(a1 + 5) - (v47 + 4) >= 2)
                       {
-                        WORD1(v136[1]) = *(*a1 + (v61 + 4));
-                        v62 = v61 + 6;
-                        goto LABEL_132;
+                        WORD1(v87[1]) = *(*a1 + (v47 + 4));
+                        v48 = v47 + 6;
+                        goto LABEL_133;
                       }
 
-                      goto LABEL_122;
+                      goto LABEL_123;
                     }
 
                     *(a1 + 15) = 1;
-                    goto LABEL_121;
+                    goto LABEL_115;
                   }
 
                   *(a1 + 15) = 1;
-                  goto LABEL_114;
+LABEL_114:
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1219, "void SignalMan_RecvConfigReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+                  v61 = *(a1 + 14);
+                  *(a1 + 15) = 1;
+                  if (v61 != 1)
+                  {
+                    sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1220, "(*pBs).__RWFlag == BYTESTREAM_READ");
+                  }
+
+LABEL_115:
+                  v56 = 1220;
+                  goto LABEL_122;
                 }
 
                 *(a1 + 15) = 1;
 LABEL_113:
-                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-                v73 = *(a1 + 14);
+                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1218, "void SignalMan_RecvConfigReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+                v60 = *(a1 + 14);
                 *(a1 + 15) = 1;
-                if (v73 != 1)
+                if (v60 != 1)
                 {
                   sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1219, "(*pBs).__RWFlag == BYTESTREAM_READ");
                 }
 
-LABEL_114:
-                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-                v74 = *(a1 + 14);
-                *(a1 + 15) = 1;
-                if (v74 != 1)
-                {
-                  sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1220, "(*pBs).__RWFlag == BYTESTREAM_READ");
-                }
-
-                goto LABEL_121;
+                goto LABEL_114;
               }
 
               *(a1 + 15) = 1;
 LABEL_112:
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-              v72 = *(a1 + 14);
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1217, "void SignalMan_RecvConfigReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+              v59 = *(a1 + 14);
               *(a1 + 15) = 1;
-              if (v72 != 1)
+              if (v59 != 1)
               {
                 sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1218, "(*pBs).__RWFlag == BYTESTREAM_READ");
               }
@@ -5664,19 +5811,19 @@ LABEL_112:
 
           else
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-            v68 = *(a1 + 14);
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1215, "void SignalMan_RecvConfigReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+            v54 = *(a1 + 14);
             *(a1 + 15) = 1;
-            if (v68 != 1)
+            if (v54 != 1)
             {
               sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1216, "(*pBs).__RWFlag == BYTESTREAM_READ");
             }
           }
 
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-          v71 = *(a1 + 14);
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1216, "void SignalMan_RecvConfigReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+          v58 = *(a1 + 14);
           *(a1 + 15) = 1;
-          if (v71 != 1)
+          if (v58 != 1)
           {
             sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1217, "(*pBs).__RWFlag == BYTESTREAM_READ");
           }
@@ -5684,90 +5831,91 @@ LABEL_112:
           goto LABEL_112;
         }
 
-        if (v26 == 5)
+        if (v19 == 5)
         {
-          LODWORD(v136[0]) |= 0x10u;
+          LODWORD(v87[0]) |= 0x10u;
           if (*(a1 + 14) != 1)
           {
             sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1223, "(*pBs).__RWFlag == BYTESTREAM_READ");
           }
 
-          if ((v34 & 1) == 0)
+          if ((v27 & 1) == 0)
           {
-            goto LABEL_121;
-          }
-
-          v35 = *(a1 + 6);
-          if (*(a1 + 5) <= v35)
-          {
+            v56 = 1223;
             goto LABEL_122;
           }
 
-          v36 = *a1;
-          *(a1 + 6) = v35 + 1;
-          BYTE4(v136[1]) = *(v36 + v35);
-          goto LABEL_123;
+          v28 = *(a1 + 6);
+          if (*(a1 + 5) <= v28)
+          {
+            goto LABEL_123;
+          }
+
+          v29 = *a1;
+          *(a1 + 6) = v28 + 1;
+          BYTE4(v87[1]) = *(v29 + v28);
+          goto LABEL_124;
         }
       }
 
-      if (v32 < 0)
+      if (v25 < 0)
       {
-        if (v34)
+        if (v27)
         {
-          v70 = *(a1 + 5) - *(a1 + 6);
+          v57 = *(a1 + 5) - *(a1 + 6);
         }
 
         else
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-          v70 = 0;
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1237, "void SignalMan_RecvConfigReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+          v57 = 0;
         }
 
-        if (v70 >= v25)
+        if (v57 >= v18)
         {
-          v62 = *(a1 + 6) + v25;
-          goto LABEL_132;
+          v48 = *(a1 + 6) + v18;
+          goto LABEL_133;
         }
 
-        goto LABEL_122;
+        goto LABEL_123;
       }
 
-      if (!v27)
+      if (!v20)
       {
-        v27 = sub_100007618(size, 0x1000040BDFB0063uLL);
-        if (!v27)
+        v20 = sub_100007618(size, 0x1000040BDFB0063uLL);
+        if (!v20)
         {
           if (sub_10000C240())
           {
-            sub_10000AF54("Unable to allocate buffer for unknown opts", v121, v122, v123, v124, v125, v126, v127, v129);
-            v128 = sub_10000C050(0x2Fu);
-            if (os_log_type_enabled(v128, OS_LOG_TYPE_ERROR))
+            sub_10000AF54("Unable to allocate buffer for unknown opts");
+            v80 = sub_10000C050(0x2Fu);
+            if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
             {
               sub_100815984();
             }
 
-            v80 = 0;
+            v67 = 0;
             v15 = 104;
           }
 
           else
           {
-            v80 = 0;
+            v67 = 0;
             v15 = 104;
           }
 
-          goto LABEL_146;
+          goto LABEL_147;
         }
       }
 
-      if (v135 < (v28 + 2 + v25))
+      if (v86 < (v21 + 2 + v18))
       {
         if (sub_10000C240())
         {
-          sub_10000AF54("Bogus length in unknown option - must be corrupt packet", v112, v113, v114, v115, v116, v117, v118, v129);
-          v119 = sub_10000C050(0x2Fu);
-          v80 = v27;
-          if (os_log_type_enabled(v119, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("Bogus length in unknown option - must be corrupt packet");
+          v78 = sub_10000C050(0x2Fu);
+          v67 = v20;
+          if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
           {
             sub_1008158FC();
           }
@@ -5775,66 +5923,66 @@ LABEL_112:
 
         else
         {
-          v80 = v27;
+          v67 = v20;
         }
 
-        goto LABEL_145;
+        goto LABEL_146;
       }
 
-      v45 = a3;
-      v27[v28] = v26;
-      v27[v28 + 1] = v25;
-      memmove(&v27[v28 + 2], (*a1 + *(a1 + 6)), v25);
-      v28 += v25 + 2;
-      v46 = sub_10000C240();
-      if (v28 > 0x5Du)
+      v38 = a3;
+      v20[v21] = v19;
+      v20[v21 + 1] = v18;
+      memmove(&v20[v21 + 2], (*a1 + *(a1 + 6)), v18);
+      v21 += v18 + 2;
+      v39 = sub_10000C240();
+      if (v21 > 0x5Du)
       {
-        if (v46)
+        if (v39)
         {
-          sub_10000AF54("Buffers can not accomedate unknownOptsLen %d, optionLen %d", v47, v48, v49, v50, v51, v52, v53, v28);
-          v120 = sub_10000C050(0x2Fu);
-          if (os_log_type_enabled(v120, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("Buffers can not accomedate unknownOptsLen %d, optionLen %d", v21, v18);
+          v79 = sub_10000C050(0x2Fu);
+          if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
           {
             sub_10080F604();
           }
         }
 
-        v80 = v27;
+        v67 = v20;
         v15 = 428;
-        goto LABEL_146;
+        goto LABEL_147;
       }
 
-      if (v46)
+      if (v39)
       {
-        sub_10000AF54("Received config request with unknown option (%d), optionLen %d, unknownOptsLen %d", v47, v48, v49, v50, v51, v52, v53, v26);
-        v54 = sub_10000C050(0x2Fu);
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Received config request with unknown option (%d), optionLen %d, unknownOptsLen %d", v19, v18, v21);
+        v40 = sub_10000C050(0x2Fu);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
-          v79 = sub_10000C0FC();
+          v66 = sub_10000C0FC();
           *buf = 136446466;
-          *&buf[4] = v79;
-          v138 = 1024;
-          v139 = 463;
-          _os_log_error_impl(&_mh_execute_header, v54, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
+          *&buf[4] = v66;
+          v89 = 1024;
+          v90 = 463;
+          _os_log_error_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
         }
       }
 
       if (*(a1 + 15))
       {
-        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-        v55 = 0;
+        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1272, "void SignalMan_RecvConfigReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+        v41 = 0;
       }
 
       else
       {
-        v55 = *(a1 + 5) - *(a1 + 6);
+        v41 = *(a1 + 5) - *(a1 + 6);
       }
 
-      a3 = v45;
-      v14 = v134;
-      if (v55 >= v25)
+      a3 = v38;
+      v14 = v85;
+      if (v41 >= v18)
       {
-        *(a1 + 6) += v25;
+        *(a1 + 6) += v18;
       }
 
       else
@@ -5842,29 +5990,29 @@ LABEL_112:
         *(a1 + 15) = 1;
       }
 
-LABEL_123:
-      v24 = *(a1 + 6);
-      if (v14 <= v24)
+LABEL_124:
+      v17 = *(a1 + 6);
+      if (v14 <= v17)
       {
-        goto LABEL_142;
+        goto LABEL_143;
       }
     }
   }
 
-  v80 = 0;
-LABEL_143:
+  v67 = 0;
+LABEL_144:
   if (a3 >= 4)
   {
     if (*(a1 + 15))
     {
-LABEL_145:
+LABEL_146:
       v15 = 411;
-      goto LABEL_146;
+      goto LABEL_147;
     }
 
-    if (!v80)
+    if (!v67)
     {
-      sub_100292C94(a4, a2, v11, v13, v136);
+      sub_100292C94(a4, a2, v11, v13, v87);
       return;
     }
 
@@ -5873,9 +6021,9 @@ LABEL_145:
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("cid %d not found", v99, v100, v101, v102, v103, v104, v105, v11);
-        v106 = sub_10000C050(0x2Fu);
-        if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("cid %d not found", v11);
+        v72 = sub_10000C050(0x2Fu);
+        if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
         {
           sub_1008148EC();
         }
@@ -5884,51 +6032,51 @@ LABEL_145:
 
     else
     {
-      v107 = *sub_1000B12AC(*buf);
-      v108 = sub_1000B12AC(*buf);
-      sub_1002AB810("aaad", 5u, 0, v107, a2, v109, v110, v111, *(v108 + 8));
+      v73 = *sub_1000B12AC(*buf);
+      v74 = sub_1000B12AC(*buf);
+      sub_1002AB810("aaad", 5, 0, v73, a2, v75, v76, v77, *(v74 + 8));
     }
 
-    goto LABEL_154;
+    goto LABEL_155;
   }
 
-LABEL_146:
+LABEL_147:
   if (sub_10000C240())
   {
-    sub_10000AF54("SignalMan_RecvConfigReq %!", v81, v82, v83, v84, v85, v86, v87, v15);
-    v88 = sub_10000C050(0x2Fu);
-    if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("SignalMan_RecvConfigReq %!", v15);
+    v68 = sub_10000C050(0x2Fu);
+    if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
   }
 
-  if (v15 != 428 || (v89 = sub_10023BA68(a4 + 48), !v89) || (v90 = v89, !sub_10000C240()) || (sub_10000AF54("Failed to forced disconnect %!", v91, v92, v93, v94, v95, v96, v97, v90), v98 = sub_10000C050(0x2Fu), !os_log_type_enabled(v98, OS_LOG_TYPE_ERROR)))
+  if (v15 != 428 || (v69 = sub_10023BA68(a4 + 48, 13), !v69) || (v70 = v69, !sub_10000C240()) || (sub_10000AF54("Failed to forced disconnect %!", v70), v71 = sub_10000C050(0x2Fu), !os_log_type_enabled(v71, OS_LOG_TYPE_ERROR)))
   {
-    if (!v80)
+    if (!v67)
     {
       return;
     }
 
-    goto LABEL_154;
+    goto LABEL_155;
   }
 
   sub_10080F604();
-  if (v80)
+  if (v67)
   {
-LABEL_154:
-    sub_10000C1E8(v80);
+LABEL_155:
+    sub_10000C1E8(v67);
   }
 }
 
 void sub_1002AF55C(uint64_t *a1, unsigned int a2, int a3, uint64_t a4)
 {
-  v73 = 0;
-  v72 = 0;
-  memset(v71, 0, 44);
+  v59 = 0;
+  v58 = 0;
+  memset(v57, 0, 44);
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1334, "void SignalMan_RecvConfigRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v8 = 0;
   }
 
@@ -5948,10 +6096,10 @@ void sub_1002AF55C(uint64_t *a1, unsigned int a2, int a3, uint64_t a4)
   }
 
   v9 = *(a1 + 6);
-  v67 = a2;
+  v53 = a2;
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1340, "void SignalMan_RecvConfigRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v10 = *(a1 + 14);
     *(a1 + 15) = 1;
     if (v10 != 1)
@@ -5966,7 +6114,7 @@ void sub_1002AF55C(uint64_t *a1, unsigned int a2, int a3, uint64_t a4)
   {
     *(a1 + 15) = 1;
 LABEL_14:
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1341, "void SignalMan_RecvConfigRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v14 = *(a1 + 14);
     *(a1 + 15) = 1;
     if (v14 != 1)
@@ -5974,18 +6122,18 @@ LABEL_14:
       sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1345, "(*pBs).__RWFlag == BYTESTREAM_READ");
     }
 
-    v65 = 0;
+    v51 = 0;
     goto LABEL_16;
   }
 
-  v65 = *(*a1 + v9);
+  v51 = *(*a1 + v9);
   *(a1 + 6) = v9 + 2;
   if (*(a1 + 5) - (v9 + 2) <= 1)
   {
     *(a1 + 15) = 1;
 LABEL_16:
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-    v64 = 0;
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1345, "void SignalMan_RecvConfigRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+    v50 = 0;
     LOWORD(v12) = *(a1 + 6);
     goto LABEL_17;
   }
@@ -5993,22 +6141,22 @@ LABEL_16:
   v11 = *(*a1 + (v9 + 2));
   LOWORD(v12) = v9 + 4;
   *(a1 + 6) = v9 + 4;
-  v64 = v11 & 1;
+  v50 = v11 & 1;
   if (*(a1 + 5) - (v9 + 4) > 1)
   {
     v13 = 0;
-    v63 = *(*a1 + (v9 + 4));
+    v49 = *(*a1 + (v9 + 4));
     LOWORD(v12) = v9 + 6;
     *(a1 + 6) = v9 + 6;
     goto LABEL_18;
   }
 
 LABEL_17:
-  v63 = 0;
+  v49 = 0;
   v13 = 1;
   *(a1 + 15) = 1;
 LABEL_18:
-  v66 = a4;
+  v52 = a4;
   v15 = v9 + a3;
   if (v9 + a3 > v12)
   {
@@ -6016,9 +6164,9 @@ LABEL_18:
     v17 = 0;
     v18 = 0;
     v19 = 0;
-    v69 = 0;
-    v70 = 0;
-    v68 = 0;
+    v55 = 0;
+    v56 = 0;
+    v54 = 0;
     while (1)
     {
       if (*(a1 + 15))
@@ -6035,7 +6183,7 @@ LABEL_18:
       if (v20 <= v12)
       {
         *(a1 + 15) = 1;
-        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1350, "void SignalMan_RecvConfigRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
       }
 
       else
@@ -6073,7 +6221,7 @@ LABEL_27:
             {
               v31 = *a1;
               *(a1 + 6) = v30 + 1;
-              HIBYTE(v72) = *(v31 + v30);
+              HIBYTE(v58) = *(v31 + v30);
               v32 = v29 - (v30 + 1);
 LABEL_65:
               if (v32 >= v16 - 1)
@@ -6086,18 +6234,18 @@ LABEL_65:
                 *(a1 + 15) = 1;
               }
 
-              v68 = &v72 + 1;
+              v54 = &v58 + 1;
               goto LABEL_95;
             }
           }
 
           else
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1372, "void SignalMan_RecvConfigRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
           }
 
           *(a1 + 15) = 1;
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1373, "void SignalMan_RecvConfigRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
           v32 = 0;
           goto LABEL_65;
         }
@@ -6122,7 +6270,7 @@ LABEL_65:
             {
               v26 = *a1;
               *(a1 + 6) = v25 + 1;
-              LOBYTE(v72) = *(v26 + v25);
+              LOBYTE(v58) = *(v26 + v25);
               v27 = v24 - (v25 + 1);
 LABEL_76:
               if (v27 >= v16 - 1)
@@ -6135,18 +6283,18 @@ LABEL_76:
                 *(a1 + 15) = 1;
               }
 
-              v19 = &v72;
+              v19 = &v58;
               goto LABEL_95;
             }
           }
 
           else
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1376, "void SignalMan_RecvConfigRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
           }
 
           *(a1 + 15) = 1;
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1377, "void SignalMan_RecvConfigRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
           v27 = 0;
           goto LABEL_76;
         }
@@ -6163,33 +6311,33 @@ LABEL_76:
           {
             v34 = *a1;
             *(a1 + 6) = v33 + 1;
-            BYTE10(v71[0]) = *(v34 + v33);
+            BYTE10(v57[0]) = *(v34 + v33);
             if (*(a1 + 5) > (v33 + 1))
             {
               v35 = *a1;
               v36 = v33 + 2;
               *(a1 + 6) = v33 + 2;
-              BYTE11(v71[0]) = *(v35 + v33 + 1);
+              BYTE11(v57[0]) = *(v35 + v33 + 1);
               if (*(a1 + 5) > (v33 + 2))
               {
                 v37 = *a1;
                 v38 = v33 + 3;
                 *(a1 + 6) = v38;
-                BYTE12(v71[0]) = *(v37 + v36);
+                BYTE12(v57[0]) = *(v37 + v36);
                 if (*(a1 + 5) - v38 > 1)
                 {
-                  HIWORD(v71[0]) = *(*a1 + v38);
+                  HIWORD(v57[0]) = *(*a1 + v38);
                   *(a1 + 6) = v38 + 2;
                   if (*(a1 + 5) - (v38 + 2) > 1)
                   {
-                    LOWORD(v71[1]) = *(*a1 + (v38 + 2));
+                    LOWORD(v57[1]) = *(*a1 + (v38 + 2));
                     *(a1 + 6) = v38 + 4;
                     if (*(a1 + 5) - (v38 + 4) >= 2)
                     {
-                      WORD1(v71[1]) = *(*a1 + (v38 + 4));
+                      WORD1(v57[1]) = *(*a1 + (v38 + 4));
                       *(a1 + 6) = v38 + 6;
 LABEL_94:
-                      v18 = v71;
+                      v18 = v57;
                       goto LABEL_95;
                     }
 
@@ -6200,16 +6348,16 @@ LABEL_93:
 
                   *(a1 + 15) = 1;
 LABEL_92:
-                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+                  sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1367, "void SignalMan_RecvConfigRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
                   goto LABEL_93;
                 }
 
                 *(a1 + 15) = 1;
 LABEL_91:
-                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-                v53 = *(a1 + 14);
+                sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1366, "void SignalMan_RecvConfigRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+                v46 = *(a1 + 14);
                 *(a1 + 15) = 1;
-                if (v53 != 1)
+                if (v46 != 1)
                 {
                   sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1367, "(*pBs).__RWFlag == BYTESTREAM_READ");
                 }
@@ -6219,10 +6367,10 @@ LABEL_91:
 
               *(a1 + 15) = 1;
 LABEL_90:
-              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-              v52 = *(a1 + 14);
+              sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1365, "void SignalMan_RecvConfigRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+              v45 = *(a1 + 14);
               *(a1 + 15) = 1;
-              if (v52 != 1)
+              if (v45 != 1)
               {
                 sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1366, "(*pBs).__RWFlag == BYTESTREAM_READ");
               }
@@ -6232,10 +6380,10 @@ LABEL_90:
 
             *(a1 + 15) = 1;
 LABEL_89:
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-            v51 = *(a1 + 14);
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1364, "void SignalMan_RecvConfigRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+            v44 = *(a1 + 14);
             *(a1 + 15) = 1;
-            if (v51 != 1)
+            if (v44 != 1)
             {
               sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1365, "(*pBs).__RWFlag == BYTESTREAM_READ");
             }
@@ -6248,19 +6396,19 @@ LABEL_89:
 
         else
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-          v49 = *(a1 + 14);
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1362, "void SignalMan_RecvConfigRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+          v42 = *(a1 + 14);
           *(a1 + 15) = 1;
-          if (v49 != 1)
+          if (v42 != 1)
           {
             sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1363, "(*pBs).__RWFlag == BYTESTREAM_READ");
           }
         }
 
-        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-        v50 = *(a1 + 14);
+        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1363, "void SignalMan_RecvConfigRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+        v43 = *(a1 + 14);
         *(a1 + 15) = 1;
-        if (v50 != 1)
+        if (v43 != 1)
         {
           sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1364, "(*pBs).__RWFlag == BYTESTREAM_READ");
         }
@@ -6275,31 +6423,31 @@ LABEL_89:
 LABEL_58:
           if (sub_10000C240())
           {
-            sub_10000AF54("rcvd config rsp with unknown option (%d) len %d, ignoring option", v40, v41, v42, v43, v44, v45, v46, v17);
-            v47 = sub_10000C050(0x2Fu);
-            if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+            sub_10000AF54("rcvd config rsp with unknown option (%d) len %d, ignoring option", v17, v16);
+            v40 = sub_10000C050(0x2Fu);
+            if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
             {
-              v54 = sub_10000C0FC();
+              v47 = sub_10000C0FC();
               *buf = 136446466;
-              v75 = v54;
-              v76 = 1024;
-              v77 = 0xFFFF;
-              _os_log_error_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
+              v61 = v47;
+              v62 = 1024;
+              v63 = 0xFFFF;
+              _os_log_error_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
             }
           }
 
           if (*(a1 + 15))
           {
-            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-            v48 = 0;
+            sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1382, "void SignalMan_RecvConfigRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+            v41 = 0;
           }
 
           else
           {
-            v48 = *(a1 + 5) - *(a1 + 6);
+            v41 = *(a1 + 5) - *(a1 + 6);
           }
 
-          if (v48 >= v16)
+          if (v41 >= v16)
           {
             *(a1 + 6) += v16;
           }
@@ -6322,17 +6470,17 @@ LABEL_58:
           v28 = *(a1 + 6);
           if (*(a1 + 5) - v28 >= 2)
           {
-            LOWORD(v73) = *(*a1 + v28);
+            LOWORD(v59) = *(*a1 + v28);
             *(a1 + 6) = v28 + 2;
 LABEL_82:
-            v70 = &v73;
+            v56 = &v59;
             goto LABEL_95;
           }
         }
 
         else
         {
-          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+          sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1357, "void SignalMan_RecvConfigRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
         }
 
         *(a1 + 15) = 1;
@@ -6346,7 +6494,7 @@ LABEL_82:
 
       if ((v23 & 1) == 0)
       {
-        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1353, "void SignalMan_RecvConfigRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
 LABEL_72:
         *(a1 + 15) = 1;
         goto LABEL_73;
@@ -6358,10 +6506,10 @@ LABEL_72:
         goto LABEL_72;
       }
 
-      HIWORD(v73) = *(*a1 + v39);
+      HIWORD(v59) = *(*a1 + v39);
       *(a1 + 6) = v39 + 2;
 LABEL_73:
-      v69 = &v73 + 2;
+      v55 = &v59 + 2;
 LABEL_95:
       v12 = *(a1 + 6);
       if (v15 <= v12)
@@ -6376,9 +6524,9 @@ LABEL_95:
     }
   }
 
-  v68 = 0;
-  v69 = 0;
-  v70 = 0;
+  v54 = 0;
+  v55 = 0;
+  v56 = 0;
   v19 = 0;
   v18 = 0;
   if (v13)
@@ -6386,9 +6534,9 @@ LABEL_95:
 LABEL_102:
     if (sub_10000C240())
     {
-      sub_10000AF54("SignalMan_RecvConfigRsp - %!", v55, v56, v57, v58, v59, v60, v61, 411);
-      v62 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("SignalMan_RecvConfigRsp - %!", 411);
+      v48 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
       {
         sub_1000E09C0();
       }
@@ -6398,7 +6546,7 @@ LABEL_102:
   else
   {
 LABEL_106:
-    sub_1002935A4(v66, v67, v65, v64, v69, v68, v70, v18, v19, v63);
+    sub_1002935A4(v52, v53, v51, v50, v55, v54, v56, v18, v19, v49);
   }
 }
 
@@ -6408,7 +6556,7 @@ void sub_1002AFEC4(uint64_t a1, uint64_t a2, int a3, _BYTE *a4, uint64_t a5, uin
   v13 = 0;
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1120, "void SignalMan_RecvDisconnectReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v12 = 0;
   }
 
@@ -6433,7 +6581,7 @@ void sub_1002AFF9C(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, u
   v13 = 771;
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1140, "void SignalMan_RecvDisconnectRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v11 = 0;
   }
 
@@ -6458,7 +6606,7 @@ void sub_1002B0074(uint64_t *a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1407, "void SignalMan_RecvEchoReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v8 = 0;
   }
 
@@ -6472,15 +6620,15 @@ void sub_1002B0074(uint64_t *a1, uint64_t a2, uint64_t a3, _BYTE *a4)
     sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1407, "cmdLen <= ByteStream_NumReadBytesAvail(*pBs)");
   }
 
-  v25 = 0;
-  v24 = 0;
-  if (sub_10023DC00(a4, &v24))
+  v17 = 0;
+  v16 = 0;
+  if (sub_10023DC00(a4, &v16))
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("getBdaddrFromHandle failed", v12, v13, v14, v15, v16, v17, v18, v23);
-      v19 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("getBdaddrFromHandle failed");
+      v12 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_1000E09C0();
       }
@@ -6494,25 +6642,25 @@ void sub_1002B0074(uint64_t *a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 
   else
   {
-    v20 = *a1;
-    v21 = *(a1 + 6);
-    if (a3 == 5 && (*(v20 + v21) == 1819308097 ? (v22 = *(v20 + v21 + 4) == 101) : (v22 = 0), v22))
+    v13 = *a1;
+    v14 = *(a1 + 6);
+    if (a3 == 5 && (*(v13 + v14) == 1819308097 ? (v15 = *(v13 + v14 + 4) == 101) : (v15 = 0), v15))
     {
-      sub_1002AB810("d", 9u, 0, a4, a2, v9, v10, v11, "Apple Computer Inc.");
+      sub_1002AB810("d", 9, 0, a4, a2, v9, v10, v11, "Apple Computer Inc.");
     }
 
     else
     {
-      sub_1002AB810("d", 9u, 0, a4, a2, v9, v10, v11, v20 + v21);
+      sub_1002AB810("d", 9, 0, a4, a2, v9, v10, v11, v13 + v14);
     }
   }
 }
 
-void sub_1002B020C(uint64_t a1, uint64_t a2, uint64_t a3)
+void sub_1002B020C(uint64_t a1, int a2, uint64_t a3)
 {
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1444, "void SignalMan_RecvEchoRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v6 = 0;
   }
 
@@ -6560,9 +6708,9 @@ void sub_1002B020C(uint64_t a1, uint64_t a2, uint64_t a3)
 LABEL_15:
     if (sub_10000C240())
     {
-      sub_10000AF54("Unexpected Echo Response (id %d)", v9, v10, v11, v12, v13, v14, v15, a2);
-      v16 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Unexpected Echo Response (id %d)", a2);
+      v9 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_100815A0C();
       }
@@ -6572,10 +6720,10 @@ LABEL_15:
 
 void sub_1002B0370(uint64_t a1, char a2, int a3, _BYTE *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v29 = 0;
+  v17 = 0;
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1471, "void SignalMan_RecvInfoReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v12 = 0;
   }
 
@@ -6596,7 +6744,7 @@ void sub_1002B0370(uint64_t a1, char a2, int a3, _BYTE *a4, uint64_t a5, uint64_
 
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1473, "void SignalMan_RecvInfoReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     goto LABEL_13;
   }
 
@@ -6607,9 +6755,9 @@ LABEL_13:
     *(a1 + 15) = 1;
     if (sub_10000C240())
     {
-      sub_10000AF54("SignalMan_RecvInfoReq - %!", v15, v16, v17, v18, v19, v20, v21, 411);
-      v22 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("SignalMan_RecvInfoReq - %!", 411);
+      v15 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_1000E09C0();
       }
@@ -6623,14 +6771,14 @@ LABEL_13:
   switch(v14)
   {
     case 3:
-      v30 = 0;
-      if (sub_10028E064(&v30))
+      v18 = 0;
+      if (sub_10028E064(&v18))
       {
         if (sub_10000C240())
         {
-          sub_10000AF54("Error retreiving the supported fixed channels", v23, v24, v25, v26, a6, a7, a8, v28);
-          v27 = sub_10000C050(0x2Fu);
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("Error retreiving the supported fixed channels");
+          v16 = sub_10000C050(0x2Fu);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             sub_1000E09C0();
           }
@@ -6640,7 +6788,7 @@ LABEL_13:
       v14 = 3;
       break;
     case 2:
-      sub_1002AB4B8(&v29);
+      sub_1002AB4B8(&v17);
       v14 = 2;
       break;
     case 1:
@@ -6649,14 +6797,14 @@ LABEL_13:
       break;
   }
 
-  sub_1002AB810("aad", 0xBu, 0, a4, a2, a6, a7, a8, v14);
+  sub_1002AB810("aad", 11, 0, a4, a2, a6, a7, a8, v14);
 }
 
-void sub_1002B05D8(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_1002B05D8(uint64_t *a1, int a2, signed int a3, uint64_t a4)
 {
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1539, "void SignalMan_RecvInfoRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v8 = 0;
   }
 
@@ -6677,7 +6825,7 @@ void sub_1002B05D8(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1542, "void SignalMan_RecvInfoRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v9 = 0;
   }
 
@@ -6693,12 +6841,18 @@ void sub_1002B05D8(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
     {
       if (*(a1 + 15))
       {
-        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+        sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1543, "void SignalMan_RecvInfoRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+        v12 = 0;
       }
 
-      sub_10000AF54("Invalid RecvInfoRsp input: cmdLen %d, NumReadBytesAvail %d.  Disconecting physical link.", v12, v13, v14, v15, v16, v17, v18, a3);
-      v27 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      else
+      {
+        v12 = *(a1 + 5) - *(a1 + 6);
+      }
+
+      sub_10000AF54("Invalid RecvInfoRsp input: cmdLen %d, NumReadBytesAvail %d.  Disconecting physical link.", a3, v12);
+      v21 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -6715,7 +6869,7 @@ void sub_1002B05D8(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1548, "void SignalMan_RecvInfoRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v11 = *(a1 + 14);
     *(a1 + 15) = 1;
     if (v11 != 1)
@@ -6723,120 +6877,120 @@ void sub_1002B05D8(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
       sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1549, "(*pBs).__RWFlag == BYTESTREAM_READ");
     }
 
-    goto LABEL_27;
-  }
-
-  v19 = *(a1 + 6);
-  if (*(a1 + 5) - v19 <= 1)
-  {
-    *(a1 + 15) = 1;
-LABEL_27:
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-    v21 = 0;
-    v20 = *a1;
-    v22 = *(a1 + 6);
     goto LABEL_28;
   }
 
-  v20 = *a1;
-  v21 = *(*a1 + v19);
-  v22 = v19 + 2;
-  *(a1 + 6) = v19 + 2;
-  if (*(a1 + 5) - (v19 + 2) < 2)
+  v13 = *(a1 + 6);
+  if (*(a1 + 5) - v13 <= 1)
   {
-LABEL_28:
     *(a1 + 15) = 1;
-    v26 = v20 + v22;
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-    v28 = 0;
+LABEL_28:
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1549, "void SignalMan_RecvInfoRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+    v15 = 0;
+    v14 = *a1;
+    v16 = *(a1 + 6);
     goto LABEL_29;
   }
 
-  v23 = *(v20 + (v19 + 2));
-  v24 = v19 + 4;
-  *(a1 + 6) = v19 + 4;
-  if (!v23)
+  v14 = *a1;
+  v15 = *(*a1 + v13);
+  v16 = v13 + 2;
+  *(a1 + 6) = v13 + 2;
+  if (*(a1 + 5) - (v13 + 2) < 2)
   {
-    v26 = v20 + v24;
-    v28 = *(a1 + 5) - v24;
 LABEL_29:
-    v23 = 0;
-    if (v28 >= v10)
+    *(a1 + 15) = 1;
+    v20 = v14 + v16;
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1554, "void SignalMan_RecvInfoRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+    v22 = 0;
+    goto LABEL_30;
+  }
+
+  v17 = *(v14 + (v13 + 2));
+  v18 = v13 + 4;
+  *(a1 + 6) = v13 + 4;
+  if (!v17)
+  {
+    v20 = v14 + v18;
+    v22 = *(a1 + 5) - v18;
+LABEL_30:
+    v17 = 0;
+    if (v22 >= v10)
     {
       *(a1 + 6) += v10;
-      v25 = 1;
+      v19 = 1;
     }
 
     else
     {
-      v25 = 1;
+      v19 = 1;
       *(a1 + 15) = 1;
     }
 
-    goto LABEL_32;
+    goto LABEL_33;
   }
 
-  v25 = 0;
-  v26 = 0;
+  v19 = 0;
+  v20 = 0;
   v10 = 0;
-LABEL_32:
-  v29 = qword_100B61160;
+LABEL_33:
+  v23 = qword_100B61160;
   if (!qword_100B61160)
   {
-    goto LABEL_41;
+    goto LABEL_42;
   }
 
-  while (*(v29 + 153) != a2)
+  while (*(v23 + 153) != a2)
   {
-    v29 = *(v29 + 192);
-    if (!v29)
+    v23 = *(v23 + 192);
+    if (!v23)
     {
-      goto LABEL_41;
+      goto LABEL_42;
     }
   }
 
-  if (*(v29 + 152) == 10)
+  if (*(v23 + 152) == 10)
   {
-    sub_10002242C(*(v29 + 176));
-    if (!*(v29 + 208))
+    sub_10002242C(*(v23 + 176));
+    if (!*(v23 + 208))
     {
       sub_1000D660C();
     }
 
     if (*(a1 + 15))
     {
-      v30 = v29;
-      v31 = 411;
+      v24 = v23;
+      v25 = 411;
     }
 
     else
     {
-      if (v25)
+      if (v19)
       {
-        v40 = 0;
+        v27 = 0;
       }
 
       else
       {
-        v40 = (v23 + 470);
+        v27 = (v17 + 470);
       }
 
-      (*(v29 + 208))(v29 + 180, *(v29 + 168), v21, v26, v10, v40);
-      v30 = v29;
-      v31 = 0;
+      (*(v23 + 208))(v23 + 180, *(v23 + 168), v15, v20, v10, v27);
+      v24 = v23;
+      v25 = 0;
     }
 
-    sub_1002AD6D0(v30, v31);
+    sub_1002AD6D0(v24, v25);
   }
 
   else
   {
-LABEL_41:
+LABEL_42:
     if (sub_10000C240())
     {
-      sub_10000AF54("Unexpected Info Response (id %d)", v32, v33, v34, v35, v36, v37, v38, a2);
-      v39 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Unexpected Info Response (id %d)", a2);
+      v26 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         sub_100815A0C();
       }
@@ -6848,7 +7002,7 @@ uint64_t sub_1002B099C(uint64_t a1, char a2, int a3, _BYTE *a4, uint64_t a5, uin
 {
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1586, "void SignalMan_RecvCreateChannelReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v12 = 0;
   }
 
@@ -6871,7 +7025,7 @@ uint64_t sub_1002B099C(uint64_t a1, char a2, int a3, _BYTE *a4, uint64_t a5, uin
 
     if (*(a1 + 15))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1589, "void SignalMan_RecvCreateChannelReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
       v13 = *(a1 + 14);
       *(a1 + 15) = 1;
       if (v13 != 1)
@@ -6882,15 +7036,15 @@ uint64_t sub_1002B099C(uint64_t a1, char a2, int a3, _BYTE *a4, uint64_t a5, uin
       goto LABEL_18;
     }
 
-    v19 = *(a1 + 12);
-    if (*(a1 + 10) - v19 <= 1)
+    v15 = *(a1 + 12);
+    if (*(a1 + 10) - v15 <= 1)
     {
       *(a1 + 15) = 1;
 LABEL_18:
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-      v20 = *(a1 + 14);
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1590, "void SignalMan_RecvCreateChannelReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+      v16 = *(a1 + 14);
       *(a1 + 15) = 1;
-      if (v20 != 1)
+      if (v16 != 1)
       {
         sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1591, "(*pBs).__RWFlag == BYTESTREAM_READ");
       }
@@ -6898,44 +7052,44 @@ LABEL_18:
       goto LABEL_19;
     }
 
-    *(a1 + 12) = v19 + 2;
-    if (*(a1 + 10) - (v19 + 2) <= 1)
+    *(a1 + 12) = v15 + 2;
+    if (*(a1 + 10) - (v15 + 2) <= 1)
     {
       *(a1 + 15) = 1;
 LABEL_19:
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1591, "void SignalMan_RecvCreateChannelReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
       goto LABEL_20;
     }
 
-    *(a1 + 12) = v19 + 4;
-    if (*(a1 + 10) <= (v19 + 4))
+    *(a1 + 12) = v15 + 4;
+    if (*(a1 + 10) <= (v15 + 4))
     {
 LABEL_20:
       *(a1 + 15) = 1;
-      return sub_1002AB810("ad", 1u, 0, a4, a2, a6, a7, a8, 0);
+      return sub_1002AB810("ad", 1, 0, a4, a2, a6, a7, a8, 0);
     }
 
-    *(a1 + 12) = v19 + 5;
+    *(a1 + 12) = v15 + 5;
   }
 
   else if (sub_10000C240())
   {
-    sub_10000AF54("Wrong command size for channel creation command", v14, v15, v16, v17, a6, a7, a8, v22);
-    v18 = sub_10000C050(0x2Fu);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Wrong command size for channel creation command");
+    v14 = sub_10000C050(0x2Fu);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_1000E09C0();
     }
   }
 
-  return sub_1002AB810("ad", 1u, 0, a4, a2, a6, a7, a8, 0);
+  return sub_1002AB810("ad", 1, 0, a4, a2, a6, a7, a8, 0);
 }
 
-void sub_1002B0BD4(uint64_t a1, uint64_t a2, int a3)
+void sub_1002B0BD4(uint64_t a1, int a2, int a3)
 {
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1618, "void SignalMan_RecvCreateChannelRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v6 = 0;
   }
 
@@ -6953,9 +7107,9 @@ void sub_1002B0BD4(uint64_t a1, uint64_t a2, int a3)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Wrong command size for channel creation response", v8, v9, v10, v11, v12, v13, v14, v29);
-      v15 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Wrong command size for channel creation response");
+      v8 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_1000E09C0();
       }
@@ -6971,7 +7125,7 @@ void sub_1002B0BD4(uint64_t a1, uint64_t a2, int a3)
 
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1621, "void SignalMan_RecvCreateChannelRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v7 = *(a1 + 14);
     *(a1 + 15) = 1;
     if (v7 != 1)
@@ -6982,15 +7136,15 @@ void sub_1002B0BD4(uint64_t a1, uint64_t a2, int a3)
     goto LABEL_19;
   }
 
-  v16 = *(a1 + 12);
-  if (*(a1 + 10) - v16 <= 1)
+  v9 = *(a1 + 12);
+  if (*(a1 + 10) - v9 <= 1)
   {
     *(a1 + 15) = 1;
 LABEL_19:
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-    v17 = *(a1 + 14);
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1622, "void SignalMan_RecvCreateChannelRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+    v10 = *(a1 + 14);
     *(a1 + 15) = 1;
-    if (v17 != 1)
+    if (v10 != 1)
     {
       sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1623, "(*pBs).__RWFlag == BYTESTREAM_READ");
     }
@@ -6998,15 +7152,15 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  *(a1 + 12) = v16 + 2;
-  if (*(a1 + 10) - (v16 + 2) <= 1)
+  *(a1 + 12) = v9 + 2;
+  if (*(a1 + 10) - (v9 + 2) <= 1)
   {
     *(a1 + 15) = 1;
 LABEL_20:
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
-    v18 = *(a1 + 14);
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1623, "void SignalMan_RecvCreateChannelRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
+    v11 = *(a1 + 14);
     *(a1 + 15) = 1;
-    if (v18 != 1)
+    if (v11 != 1)
     {
       sub_1000E78B4("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1624, "(*pBs).__RWFlag == BYTESTREAM_READ");
     }
@@ -7014,54 +7168,54 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  *(a1 + 12) = v16 + 4;
-  if (*(a1 + 10) - (v16 + 4) <= 1)
+  *(a1 + 12) = v9 + 4;
+  if (*(a1 + 10) - (v9 + 4) <= 1)
   {
     *(a1 + 15) = 1;
 LABEL_21:
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1624, "void SignalMan_RecvCreateChannelRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     goto LABEL_22;
   }
 
-  *(a1 + 12) = v16 + 6;
-  if (*(a1 + 10) - (v16 + 6) < 2)
+  *(a1 + 12) = v9 + 6;
+  if (*(a1 + 10) - (v9 + 6) < 2)
   {
 LABEL_22:
     *(a1 + 15) = 1;
     goto LABEL_23;
   }
 
-  *(a1 + 12) = v16 + 8;
+  *(a1 + 12) = v9 + 8;
 LABEL_23:
-  v19 = qword_100B61160;
+  v12 = qword_100B61160;
   if (!qword_100B61160)
   {
     goto LABEL_30;
   }
 
-  while (*(v19 + 153) != a2)
+  while (*(v12 + 153) != a2)
   {
-    v19 = *(v19 + 192);
-    if (!v19)
+    v12 = *(v12 + 192);
+    if (!v12)
     {
       goto LABEL_30;
     }
   }
 
-  if (*(v19 + 152) == 12)
+  if (*(v12 + 152) == 12)
   {
-    sub_10002242C(*(v19 + 176));
+    sub_10002242C(*(v12 + 176));
     if (*(a1 + 15))
     {
-      v20 = 411;
+      v13 = 411;
     }
 
     else
     {
-      v20 = 0;
+      v13 = 0;
     }
 
-    sub_1002AD6D0(v19, v20);
+    sub_1002AD6D0(v12, v13);
   }
 
   else
@@ -7069,9 +7223,9 @@ LABEL_23:
 LABEL_30:
     if (sub_10000C240())
     {
-      sub_10000AF54("Unexpected create channel Response (id %d)", v21, v22, v23, v24, v25, v26, v27, a2);
-      v28 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Unexpected create channel Response (id %d)", a2);
+      v14 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_100815A0C();
       }
@@ -7083,7 +7237,7 @@ uint64_t sub_1002B0EE4(uint64_t a1, char a2, int a3, _BYTE *a4, uint64_t a5, uin
 {
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1657, "void SignalMan_RecvMoveChannelReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v12 = 0;
   }
 
@@ -7106,7 +7260,7 @@ uint64_t sub_1002B0EE4(uint64_t a1, char a2, int a3, _BYTE *a4, uint64_t a5, uin
 
     if (*(a1 + 15))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1660, "void SignalMan_RecvMoveChannelReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
       v13 = *(a1 + 14);
       *(a1 + 15) = 1;
       if (v13 != 1)
@@ -7117,44 +7271,44 @@ uint64_t sub_1002B0EE4(uint64_t a1, char a2, int a3, _BYTE *a4, uint64_t a5, uin
       goto LABEL_17;
     }
 
-    v19 = *(a1 + 12);
-    if (*(a1 + 10) - v19 <= 1)
+    v15 = *(a1 + 12);
+    if (*(a1 + 10) - v15 <= 1)
     {
       *(a1 + 15) = 1;
 LABEL_17:
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1661, "void SignalMan_RecvMoveChannelReq(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
       goto LABEL_18;
     }
 
-    *(a1 + 12) = v19 + 2;
-    if (*(a1 + 10) <= (v19 + 2))
+    *(a1 + 12) = v15 + 2;
+    if (*(a1 + 10) <= (v15 + 2))
     {
 LABEL_18:
       *(a1 + 15) = 1;
-      return sub_1002AB810("ad", 1u, 0, a4, a2, a6, a7, a8, 0);
+      return sub_1002AB810("ad", 1, 0, a4, a2, a6, a7, a8, 0);
     }
 
-    *(a1 + 12) = v19 + 3;
+    *(a1 + 12) = v15 + 3;
   }
 
   else if (sub_10000C240())
   {
-    sub_10000AF54("Wrong command size for channel move command", v14, v15, v16, v17, a6, a7, a8, v21);
-    v18 = sub_10000C050(0x2Fu);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Wrong command size for channel move command");
+    v14 = sub_10000C050(0x2Fu);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_1000E09C0();
     }
   }
 
-  return sub_1002AB810("ad", 1u, 0, a4, a2, a6, a7, a8, 0);
+  return sub_1002AB810("ad", 1, 0, a4, a2, a6, a7, a8, 0);
 }
 
-void sub_1002B10B4(uint64_t a1, uint64_t a2, int a3)
+void sub_1002B10B4(uint64_t a1, int a2, int a3)
 {
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1681, "void SignalMan_RecvMoveChannelRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v6 = 0;
   }
 
@@ -7172,9 +7326,9 @@ void sub_1002B10B4(uint64_t a1, uint64_t a2, int a3)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Wrong command size for channel move response", v8, v9, v10, v11, v12, v13, v14, v27);
-      v15 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Wrong command size for channel move response");
+      v8 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_1000E09C0();
       }
@@ -7190,7 +7344,7 @@ void sub_1002B10B4(uint64_t a1, uint64_t a2, int a3)
 
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1684, "void SignalMan_RecvMoveChannelRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v7 = *(a1 + 14);
     *(a1 + 15) = 1;
     if (v7 != 1)
@@ -7201,54 +7355,54 @@ void sub_1002B10B4(uint64_t a1, uint64_t a2, int a3)
     goto LABEL_17;
   }
 
-  v16 = *(a1 + 12);
-  if (*(a1 + 10) - v16 <= 1)
+  v9 = *(a1 + 12);
+  if (*(a1 + 10) - v9 <= 1)
   {
     *(a1 + 15) = 1;
 LABEL_17:
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1685, "void SignalMan_RecvMoveChannelRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     goto LABEL_18;
   }
 
-  *(a1 + 12) = v16 + 2;
-  if (*(a1 + 10) - (v16 + 2) < 2)
+  *(a1 + 12) = v9 + 2;
+  if (*(a1 + 10) - (v9 + 2) < 2)
   {
 LABEL_18:
     *(a1 + 15) = 1;
     goto LABEL_19;
   }
 
-  *(a1 + 12) = v16 + 4;
+  *(a1 + 12) = v9 + 4;
 LABEL_19:
-  v17 = qword_100B61160;
+  v10 = qword_100B61160;
   if (!qword_100B61160)
   {
     goto LABEL_26;
   }
 
-  while (*(v17 + 153) != a2)
+  while (*(v10 + 153) != a2)
   {
-    v17 = *(v17 + 192);
-    if (!v17)
+    v10 = *(v10 + 192);
+    if (!v10)
     {
       goto LABEL_26;
     }
   }
 
-  if (*(v17 + 152) == 14)
+  if (*(v10 + 152) == 14)
   {
-    sub_10002242C(*(v17 + 176));
+    sub_10002242C(*(v10 + 176));
     if (*(a1 + 15))
     {
-      v18 = 411;
+      v11 = 411;
     }
 
     else
     {
-      v18 = 0;
+      v11 = 0;
     }
 
-    sub_1002AD6D0(v17, v18);
+    sub_1002AD6D0(v10, v11);
   }
 
   else
@@ -7256,9 +7410,9 @@ LABEL_19:
 LABEL_26:
     if (sub_10000C240())
     {
-      sub_10000AF54("Unexpected create channel Response (id %d)", v19, v20, v21, v22, v23, v24, v25, a2);
-      v26 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Unexpected create channel Response (id %d)", a2);
+      v12 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_100815A0C();
       }
@@ -7270,7 +7424,7 @@ uint64_t sub_1002B12F4(uint64_t a1, char a2, int a3, _BYTE *a4, uint64_t a5, uin
 {
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1717, "void SignalMan_RecvMoveChannelCfm(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v12 = 0;
   }
 
@@ -7293,7 +7447,7 @@ uint64_t sub_1002B12F4(uint64_t a1, char a2, int a3, _BYTE *a4, uint64_t a5, uin
 
     if (*(a1 + 15))
     {
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1719, "void SignalMan_RecvMoveChannelCfm(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
       v13 = *(a1 + 14);
       *(a1 + 15) = 1;
       if (v13 != 1)
@@ -7304,44 +7458,44 @@ uint64_t sub_1002B12F4(uint64_t a1, char a2, int a3, _BYTE *a4, uint64_t a5, uin
       goto LABEL_17;
     }
 
-    v19 = *(a1 + 12);
-    if (*(a1 + 10) - v19 <= 1)
+    v15 = *(a1 + 12);
+    if (*(a1 + 10) - v15 <= 1)
     {
       *(a1 + 15) = 1;
 LABEL_17:
-      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+      sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1720, "void SignalMan_RecvMoveChannelCfm(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
       goto LABEL_18;
     }
 
-    *(a1 + 12) = v19 + 2;
-    if (*(a1 + 10) - (v19 + 2) < 2)
+    *(a1 + 12) = v15 + 2;
+    if (*(a1 + 10) - (v15 + 2) < 2)
     {
 LABEL_18:
       *(a1 + 15) = 1;
-      return sub_1002AB810("ad", 1u, 0, a4, a2, a6, a7, a8, 0);
+      return sub_1002AB810("ad", 1, 0, a4, a2, a6, a7, a8, 0);
     }
 
-    *(a1 + 12) = v19 + 4;
+    *(a1 + 12) = v15 + 4;
   }
 
   else if (sub_10000C240())
   {
-    sub_10000AF54("Wrong command size for channel move confirmation", v14, v15, v16, v17, a6, a7, a8, v21);
-    v18 = sub_10000C050(0x2Fu);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Wrong command size for channel move confirmation");
+    v14 = sub_10000C050(0x2Fu);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_1000E09C0();
     }
   }
 
-  return sub_1002AB810("ad", 1u, 0, a4, a2, a6, a7, a8, 0);
+  return sub_1002AB810("ad", 1, 0, a4, a2, a6, a7, a8, 0);
 }
 
-void sub_1002B14C8(uint64_t a1, uint64_t a2, int a3)
+void sub_1002B14C8(uint64_t a1, int a2, int a3)
 {
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1737, "void SignalMan_RecvMoveChannelCfmRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
     v6 = 0;
   }
 
@@ -7359,9 +7513,9 @@ void sub_1002B14C8(uint64_t a1, uint64_t a2, int a3)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Wrong command size for channel move response", v7, v8, v9, v10, v11, v12, v13, v26);
-      v14 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Wrong command size for channel move response");
+      v7 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         sub_1000E09C0();
       }
@@ -7377,49 +7531,49 @@ void sub_1002B14C8(uint64_t a1, uint64_t a2, int a3)
 
   if (*(a1 + 15))
   {
-    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c");
+    sub_100303A8C("/Library/Caches/com.apple.xbs/Sources/MobileBluetooth_base/Stack/corestack/l2cap/signalman.c", 1740, "void SignalMan_RecvMoveChannelCfmRsp(OI_BYTE_STREAM *, uint8_t, uint16_t, OI_HCI_CONNECTION_HANDLE)");
 LABEL_14:
     *(a1 + 15) = 1;
     goto LABEL_15;
   }
 
-  v15 = *(a1 + 12);
-  if (*(a1 + 10) - v15 < 2)
+  v8 = *(a1 + 12);
+  if (*(a1 + 10) - v8 < 2)
   {
     goto LABEL_14;
   }
 
-  *(a1 + 12) = v15 + 2;
+  *(a1 + 12) = v8 + 2;
 LABEL_15:
-  v16 = qword_100B61160;
+  v9 = qword_100B61160;
   if (!qword_100B61160)
   {
     goto LABEL_22;
   }
 
-  while (*(v16 + 153) != a2)
+  while (*(v9 + 153) != a2)
   {
-    v16 = *(v16 + 192);
-    if (!v16)
+    v9 = *(v9 + 192);
+    if (!v9)
     {
       goto LABEL_22;
     }
   }
 
-  if (*(v16 + 152) == 16)
+  if (*(v9 + 152) == 16)
   {
-    sub_10002242C(*(v16 + 176));
+    sub_10002242C(*(v9 + 176));
     if (*(a1 + 15))
     {
-      v17 = 411;
+      v10 = 411;
     }
 
     else
     {
-      v17 = 0;
+      v10 = 0;
     }
 
-    sub_1002AD6D0(v16, v17);
+    sub_1002AD6D0(v9, v10);
   }
 
   else
@@ -7427,9 +7581,9 @@ LABEL_15:
 LABEL_22:
     if (sub_10000C240())
     {
-      sub_10000AF54("Unexpected move channel Confirmation Response (id %d)", v18, v19, v20, v21, v22, v23, v24, a2);
-      v25 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Unexpected move channel Confirmation Response (id %d)", a2);
+      v11 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_100815A0C();
       }
@@ -7447,12 +7601,12 @@ void sub_1002B16B4(int a1)
       v9 = "address change";
     }
 
-    sub_10000AF54("Advertising stopped due to %s", v2, v3, v4, v5, v6, v7, v8, v9);
+    sub_10000AF54("Advertising stopped due to %s", v9);
     v10 = sub_10000C050(0x42u);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v59 = sub_10000C0FC();
+      v47 = sub_10000C0FC();
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
     }
   }
@@ -7472,16 +7626,23 @@ void sub_1002B16B4(int a1)
     v20 = xmmword_1008A4980;
     v21 = xmmword_1008A4990;
     v22 = xmmword_1008A49A0;
-    v23 = vdupq_n_s64(0x10uLL);
+    v23 = 30285;
+    v24 = 33653;
+    v25 = 37021;
+    v26 = 40389;
+    v27 = 43757;
+    v28 = 47125;
+    v29 = 50493;
+    v30 = vdupq_n_s64(0x10uLL);
     do
     {
-      v24 = vmovn_s64(vcgeq_u64(v13, v22));
-      if (vuzp1_s8(vuzp1_s16(v24, *v13.i8), *v13.i8).u8[0])
+      v31 = vmovn_s64(vcgeq_u64(v13, v22));
+      if (vuzp1_s8(vuzp1_s16(v31, *v13.i8), *v13.i8).u8[0])
       {
         BYTE5(qword_100B61170[v12 / 8 + 417]) = 0;
       }
 
-      if (vuzp1_s8(vuzp1_s16(v24, *&v13), *&v13).i8[1])
+      if (vuzp1_s8(vuzp1_s16(v31, *&v13), *&v13).i8[1])
       {
         BYTE5(qword_100B61170[v12 / 8 + 838]) = 0;
       }
@@ -7492,13 +7653,13 @@ void sub_1002B16B4(int a1)
         BYTE5(qword_100B61170[v12 / 8 + 1680]) = 0;
       }
 
-      v25 = vmovn_s64(vcgeq_u64(v13, v20));
-      if (vuzp1_s8(*&v13, vuzp1_s16(v25, *&v13)).i32[1])
+      v32 = vmovn_s64(vcgeq_u64(v13, v20));
+      if (vuzp1_s8(*&v13, vuzp1_s16(v32, *&v13)).i32[1])
       {
         BYTE5(qword_100B61170[v12 / 8 + 2101]) = 0;
       }
 
-      if (vuzp1_s8(*&v13, vuzp1_s16(v25, *&v13)).i8[5])
+      if (vuzp1_s8(*&v13, vuzp1_s16(v32, *&v13)).i8[5])
       {
         BYTE5(qword_100B61170[v12 / 8 + 2522]) = 0;
       }
@@ -7509,13 +7670,13 @@ void sub_1002B16B4(int a1)
         BYTE5(qword_100B61170[v12 / 8 + 3364]) = 0;
       }
 
-      v26 = vmovn_s64(vcgeq_u64(v13, v18));
-      if (vuzp1_s8(vuzp1_s16(v26, *v13.i8), *v13.i8).u8[0])
+      v33 = vmovn_s64(vcgeq_u64(v13, v18));
+      if (vuzp1_s8(vuzp1_s16(v33, *v13.i8), *v13.i8).u8[0])
       {
         BYTE5(qword_100B61170[v12 / 8 + 3785]) = 0;
       }
 
-      if (vuzp1_s8(vuzp1_s16(v26, *&v13), *&v13).i8[1])
+      if (vuzp1_s8(vuzp1_s16(v33, *&v13), *&v13).i8[1])
       {
         BYTE5(qword_100B61170[v12 / 8 + 4206]) = 0;
       }
@@ -7526,13 +7687,13 @@ void sub_1002B16B4(int a1)
         BYTE5(qword_100B61170[v12 / 8 + 5048]) = 0;
       }
 
-      v27 = vmovn_s64(vcgeq_u64(v13, v16));
-      if (vuzp1_s8(*&v13, vuzp1_s16(v27, *&v13)).i32[1])
+      v34 = vmovn_s64(vcgeq_u64(v13, v16));
+      if (vuzp1_s8(*&v13, vuzp1_s16(v34, *&v13)).i32[1])
       {
         BYTE5(qword_100B61170[v12 / 8 + 5469]) = 0;
       }
 
-      if (vuzp1_s8(*&v13, vuzp1_s16(v27, *&v13)).i8[5])
+      if (vuzp1_s8(*&v13, vuzp1_s16(v34, *&v13)).i8[5])
       {
         BYTE5(qword_100B61170[v12 / 8 + 5890]) = 0;
       }
@@ -7543,27 +7704,27 @@ void sub_1002B16B4(int a1)
         BYTE5(qword_100B61170[v12 / 8 + 6732]) = 0;
       }
 
-      v20 = vaddq_s64(v20, v23);
-      v21 = vaddq_s64(v21, v23);
-      v22 = vaddq_s64(v22, v23);
-      v19 = vaddq_s64(v19, v23);
-      v18 = vaddq_s64(v18, v23);
-      v17 = vaddq_s64(v17, v23);
-      v16 = vaddq_s64(v16, v23);
+      v20 = vaddq_s64(v20, v30);
+      v21 = vaddq_s64(v21, v30);
+      v22 = vaddq_s64(v22, v30);
+      v19 = vaddq_s64(v19, v30);
+      v18 = vaddq_s64(v18, v30);
+      v17 = vaddq_s64(v17, v30);
+      v16 = vaddq_s64(v16, v30);
       v12 += 53888;
-      v15 = vaddq_s64(v15, v23);
+      v15 = vaddq_s64(v15, v30);
     }
 
     while (v14 != v12);
     if (byte_100B65339)
     {
-      v28 = sub_100018960(207, 0);
-      if (v28)
+      v35 = sub_100018960(207, 0, 33653, 37021, 40389, 43757, 47125, 50493, 0);
+      if (v35)
       {
-        v29 = v28;
+        v36 = v35;
         if (sub_10000C240())
         {
-          sub_10000AF54("Could not stop the LE advertising OI_HCI_CMD_LE_SetExtendedAdvertisingEnable returned %!", v30, v31, v32, v33, v34, v35, v36, v29);
+          sub_10000AF54("Could not stop the LE advertising OI_HCI_CMD_LE_SetExtendedAdvertisingEnable returned %!", v36, 0, 0, 0, 0);
           v37 = sub_10000C050(0x42u);
           if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
@@ -7575,37 +7736,39 @@ void sub_1002B16B4(int a1)
 
     else
     {
-      v48 = a1 ^ 1u;
-      if (v11 > v48)
+      v41 = a1 ^ 1u;
+      if (v11 > v41)
       {
         do
         {
-          if (sub_1002A48BC())
+          v42 = sub_1002A48BC();
+          if (v42)
           {
+            v43 = v42;
             if (sub_10000C240())
             {
-              sub_10000AF54("Could not stop the LE advertising for instance %d with status %!, but moving forward !", v49, v50, v51, v52, v53, v54, v55, byte_100B6533A[v48]);
-              v56 = sub_10000C050(0x42u);
-              if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+              sub_10000AF54("Could not stop the LE advertising for instance %d with status %!, but moving forward !", byte_100B6533A[v41], v43);
+              v44 = sub_10000C050(0x42u);
+              if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
               {
-                v57 = sub_10000C0FC();
+                v45 = sub_10000C0FC();
                 *buf = 136446466;
-                v59 = v57;
-                v60 = 1024;
-                v61 = 0xFFFF;
-                _os_log_error_impl(&_mh_execute_header, v56, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
+                v47 = v45;
+                v48 = 1024;
+                v49 = 0xFFFF;
+                _os_log_error_impl(&_mh_execute_header, v44, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
               }
             }
           }
 
-          ++v48;
+          ++v41;
         }
 
-        while (v48 < byte_100B65338);
+        while (v41 < byte_100B65338);
       }
     }
 
-    sub_100093054(0);
+    sub_100093054(0, v23, v24, v25, v26, v27, v28, v29);
   }
 
   else
@@ -7617,7 +7780,7 @@ void sub_1002B16B4(int a1)
         return;
       }
 
-      v38 = sub_100018960(170, sub_1002B1C48);
+      v38 = sub_100018960(170, sub_1002B1C48, v3, v4, v5, v6, v7, v8, 0);
       if (!v38)
       {
         byte_100B61E7D = 3;
@@ -7627,9 +7790,9 @@ void sub_1002B16B4(int a1)
       v39 = v38;
       if (sub_10000C240())
       {
-        sub_10000AF54("Could not stop the LE advertising : %!", v40, v41, v42, v43, v44, v45, v46, v39);
-        v47 = sub_10000C050(0x42u);
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Could not stop the LE advertising : %!", v39);
+        v40 = sub_10000C050(0x42u);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
           sub_10080F7A0();
         }
@@ -7641,62 +7804,68 @@ void sub_1002B16B4(int a1)
       byte_100B61E7D = 0;
     }
 
-    sub_1002B1C48(0);
+    sub_1002B1C48(0, v2, v3, v4, v5, v6, v7, v8);
   }
 }
 
-void sub_1002B1C48(uint64_t a1)
+void sub_1002B1C48(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   byte_100B61E7D = 0;
   if (byte_100B61169 == 1)
   {
-    v14 = v1;
-    v15 = v2;
-    *(v13 + 3) = 0;
-    v13[0] = 0;
-    sub_1000841FC(v13);
-    v3 = sub_100018960(166, sub_1002B1D58);
-    if (v3)
+    v31 = v8;
+    v32 = v9;
+    *&v30[3] = 0;
+    *v30 = 0;
+    sub_1000841FC(v30);
+    v28 = byte_100B6118C;
+    v29 = byte_100B6118D;
+    v27 = dword_100B61185;
+    v25 = byte_100B61184;
+    v26 = v30[0];
+    v24 = word_100B61182;
+    v16 = sub_100018960(166, sub_1002B1D58, v10, v11, v12, v13, v14, v15, word_100B61180);
+    if (v16)
     {
-      v4 = v3;
+      v17 = v16;
       if (sub_10000C240())
       {
-        sub_10000AF54("Failed to restart advertising : %!", v5, v6, v7, v8, v9, v10, v11, v4);
-        v12 = sub_10000C050(0x42u);
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Failed to restart advertising : %!", v17, v24, v25, v26, v27, &dword_100B61185 + 1, v28, v29);
+        v23 = sub_10000C050(0x42u);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           sub_10080F7A0();
         }
       }
 
-      sub_100092D80(v4, 0, 0);
+      sub_100092D80(v17, 0, 0, v18, v19, v20, v21, v22);
     }
   }
 
   else
   {
 
-    sub_100092D80(a1, 1, 0);
+    sub_100092D80(a1, 1, 0, a4, a5, a6, a7, a8);
   }
 }
 
-void sub_1002B1D58(uint64_t a1)
+void sub_1002B1D58(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = a1;
-  if (a1 || (v1 = sub_100018960(168, sub_1002B45C0), v1))
+  v8 = a1;
+  if (a1 || (v8 = sub_100018960(168, sub_1002B45C0, a3, a4, a5, a6, a7, a8, word_100B6118E), v8))
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("advertisingParametersCb Could not start advertising : %!", v2, v3, v4, v5, v6, v7, v8, v1);
-      v9 = sub_10000C050(0x42u);
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("advertisingParametersCb Could not start advertising : %!", v8);
+      v14 = sub_10000C050(0x42u);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
     }
 
     byte_100B61E7D = 0;
-    sub_100092D80(v1, 0, 0);
+    sub_100092D80(v8, 0, 0, v9, v10, v11, v12, v13);
   }
 }
 
@@ -7725,41 +7894,41 @@ void sub_1002B1EA4()
 {
   if (sub_10000C240())
   {
-    sub_10000AF54("Halting advertising and resetting states", v0, v1, v2, v3, v4, v5, v6, v30);
-    v7 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    sub_10000AF54("Halting advertising and resetting states");
+    v6 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v32 = sub_10000C0FC();
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
+      v18 = sub_10000C0FC();
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
     }
   }
 
   byte_100B61169 = 0;
-  v8 = byte_100B65338;
+  v7 = byte_100B65338;
   if (byte_100B65338)
   {
-    v9 = qword_100B61170;
+    v8 = qword_100B61170;
     do
     {
-      *(v9 + 3341) = 0;
-      *v9 = 0;
-      v9 += 421;
-      --v8;
+      *(v8 + 3341) = 0;
+      *v8 = 0;
+      v8 += 421;
+      --v7;
     }
 
-    while (v8);
+    while (v7);
     if (byte_100B65339)
     {
-      v10 = sub_100018960(207, 0, v1, v2, v3, v4, v5, v6, 0);
-      if (v10)
+      v9 = sub_100018960(207, 0, v0, v1, v2, v3, v4, v5, 0);
+      if (v9)
       {
-        v11 = v10;
+        v10 = v9;
         if (sub_10000C240())
         {
-          sub_10000AF54("Could not stop the LE advertising OI_HCI_CMD_LE_SetExtendedAdvertisingEnable returned %!", v12, v13, v14, v15, v16, v17, v18, v11);
-          v19 = sub_10000C050(0x42u);
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("Could not stop the LE advertising OI_HCI_CMD_LE_SetExtendedAdvertisingEnable returned %!", v10, 0, 0, 0, 0);
+          v11 = sub_10000C050(0x42u);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
           {
             sub_10080F7A0();
           }
@@ -7771,31 +7940,33 @@ void sub_1002B1EA4()
 
     else
     {
-      v20 = 0;
+      v12 = 0;
       do
       {
-        if (sub_1002A48BC())
+        v13 = sub_1002A48BC();
+        if (v13)
         {
+          v14 = v13;
           if (sub_10000C240())
           {
-            sub_10000AF54("Could not stop the LE advertising for instance %d with status %!, but moving forward !", v21, v22, v23, v24, v25, v26, v27, byte_100B6533A[v20]);
-            v28 = sub_10000C050(0x42u);
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+            sub_10000AF54("Could not stop the LE advertising for instance %d with status %!, but moving forward !", byte_100B6533A[v12], v14);
+            v15 = sub_10000C050(0x42u);
+            if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
-              v29 = sub_10000C0FC();
+              v16 = sub_10000C0FC();
               *buf = 136446466;
-              v32 = v29;
-              v33 = 1024;
-              v34 = 0xFFFF;
-              _os_log_error_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
+              v18 = v16;
+              v19 = 1024;
+              v20 = 0xFFFF;
+              _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
             }
           }
         }
 
-        ++v20;
+        ++v12;
       }
 
-      while (v20 < byte_100B65338);
+      while (v12 < byte_100B65338);
     }
   }
 
@@ -7803,27 +7974,28 @@ void sub_1002B1EA4()
   bzero(qword_100B61170, 0x41C8uLL);
 }
 
-uint64_t sub_1002B213C(int *a1, unsigned int a2, uint64_t a3)
+uint64_t sub_1002B213C(_DWORD *a1, unsigned int a2, uint64_t (*a3)(), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (byte_100B65338 <= a2)
   {
     return 120;
   }
 
-  v3 = &byte_100B65345[8 * a2 - a2];
-  v4 = *a1;
-  *(v3 + 3) = *(a1 + 3);
-  *v3 = v4;
+  v8 = &byte_100B65345[8 * a2 - a2];
+  v9 = *a1;
+  *(v8 + 3) = *(a1 + 3);
+  *v8 = v9;
   if (byte_100B65339)
   {
-    v5 = sub_100018960(203, a3);
-    if (v5)
+    v14 = a1 + 1;
+    v10 = sub_100018960(203, a3, a3, a4, a5, a6, a7, a8, byte_100B6533A[a2]);
+    if (v10)
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("OI_HCI_CMD_LE_SetAdvertisingSetRandomAddress returned %!", v6, v7, v8, v9, v10, v11, v12, v5);
-        v13 = sub_10000C050(0x42u);
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("OI_HCI_CMD_LE_SetAdvertisingSetRandomAddress returned %!", v10, v14);
+        v11 = sub_10000C050(0x42u);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
 LABEL_6:
           sub_10080F7A0();
@@ -7834,14 +8006,14 @@ LABEL_6:
 
   else
   {
-    v5 = sub_1002A4948();
-    if (v5)
+    v10 = sub_1002A4948();
+    if (v10)
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("BT_VSC_UpdateMultipleAdvInstanceAddress returned %!", v15, v16, v17, v18, v19, v20, v21, v5);
-        v22 = sub_10000C050(0x42u);
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("BT_VSC_UpdateMultipleAdvInstanceAddress returned %!", v10);
+        v13 = sub_10000C050(0x42u);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_6;
         }
@@ -7849,7 +8021,7 @@ LABEL_6:
     }
   }
 
-  return v5;
+  return v10;
 }
 
 uint64_t sub_1002B226C(uint64_t a1, unsigned int a2, unsigned int a3)
@@ -7862,9 +8034,9 @@ uint64_t sub_1002B226C(uint64_t a1, unsigned int a2, unsigned int a3)
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("BT_VSC_SetAdvPhyOptions returned %!", v4, v5, v6, v7, v8, v9, v10, v3);
-        v11 = sub_10000C050(0x42u);
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("BT_VSC_SetAdvPhyOptions returned %!", v3);
+        v4 = sub_10000C050(0x42u);
+        if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
         {
           sub_10080F7A0();
         }
@@ -7894,9 +8066,9 @@ uint64_t sub_1002B2338(uint64_t (*a1)(void, void, void))
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Already initializing", v1, v2, v3, v4, v5, v6, v7, v45);
-      v8 = sub_10000C050(0x42u);
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Already initializing");
+      v1 = sub_10000C050(0x42u);
+      if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -7914,137 +8086,137 @@ uint64_t sub_1002B2338(uint64_t (*a1)(void, void, void))
   off_100B65370 = a1;
   if (byte_100B65339 == 1)
   {
-    v12 = byte_100B61168;
+    v5 = byte_100B61168;
     byte_100B65338 = byte_100B61168;
     __memset_chk();
-    if (v12)
+    if (v5)
     {
-      v13 = vdupq_n_s64(v12 - 1);
-      v14 = xmmword_1008A4930;
-      v15 = xmmword_1008A4940;
-      v16 = xmmword_1008A4950;
-      v17 = xmmword_1008A4960;
-      v18 = xmmword_1008A4970;
-      v19 = xmmword_1008A4980;
-      v20 = xmmword_1008A4990;
-      v21 = &dword_100B65340 + 1;
-      v22 = 15;
-      v23 = xmmword_1008A49A0;
-      v24 = vdupq_n_s64(0x10uLL);
+      v6 = vdupq_n_s64(v5 - 1);
+      v7 = xmmword_1008A4930;
+      v8 = xmmword_1008A4940;
+      v9 = xmmword_1008A4950;
+      v10 = xmmword_1008A4960;
+      v11 = xmmword_1008A4970;
+      v12 = xmmword_1008A4980;
+      v13 = xmmword_1008A4990;
+      v14 = &dword_100B65340 + 1;
+      v15 = 15;
+      v16 = xmmword_1008A49A0;
+      v17 = vdupq_n_s64(0x10uLL);
       do
       {
-        v25 = v22 - 15;
-        v26 = vmovn_s64(vcgeq_u64(v13, v23));
-        if (vuzp1_s8(vuzp1_s16(v26, *v13.i8), *v13.i8).u8[0])
+        v18 = v15 - 15;
+        v19 = vmovn_s64(vcgeq_u64(v6, v16));
+        if (vuzp1_s8(vuzp1_s16(v19, *v6.i8), *v6.i8).u8[0])
         {
-          *(v21 - 7) = v25;
+          *(v14 - 7) = v18;
         }
 
-        if (vuzp1_s8(vuzp1_s16(v26, *&v13), *&v13).i8[1])
+        if (vuzp1_s8(vuzp1_s16(v19, *&v6), *&v6).i8[1])
         {
-          *(v21 - 6) = v25 | 1;
+          *(v14 - 6) = v18 | 1;
         }
 
-        if (vuzp1_s8(vuzp1_s16(*&v13, vmovn_s64(vcgeq_u64(v13, *&v20))), *&v13).i8[2])
+        if (vuzp1_s8(vuzp1_s16(*&v6, vmovn_s64(vcgeq_u64(v6, *&v13))), *&v6).i8[2])
         {
-          *(v21 - 5) = v25 | 2;
-          *(v21 - 4) = v25 | 3;
+          *(v14 - 5) = v18 | 2;
+          *(v14 - 4) = v18 | 3;
         }
 
-        v27 = vmovn_s64(vcgeq_u64(v13, v19));
-        if (vuzp1_s8(*&v13, vuzp1_s16(v27, *&v13)).i32[1])
+        v20 = vmovn_s64(vcgeq_u64(v6, v12));
+        if (vuzp1_s8(*&v6, vuzp1_s16(v20, *&v6)).i32[1])
         {
-          *(v21 - 3) = v25 | 4;
+          *(v14 - 3) = v18 | 4;
         }
 
-        if (vuzp1_s8(*&v13, vuzp1_s16(v27, *&v13)).i8[5])
+        if (vuzp1_s8(*&v6, vuzp1_s16(v20, *&v6)).i8[5])
         {
-          *(v21 - 2) = v25 | 5;
+          *(v14 - 2) = v18 | 5;
         }
 
-        if (vuzp1_s8(*&v13, vuzp1_s16(*&v13, vmovn_s64(vcgeq_u64(v13, *&v18)))).i8[6])
+        if (vuzp1_s8(*&v6, vuzp1_s16(*&v6, vmovn_s64(vcgeq_u64(v6, *&v11)))).i8[6])
         {
-          *(v21 - 1) = v25 | 6;
-          *v21 = v25 | 7;
+          *(v14 - 1) = v18 | 6;
+          *v14 = v18 | 7;
         }
 
-        v28 = vmovn_s64(vcgeq_u64(v13, v17));
-        if (vuzp1_s8(vuzp1_s16(v28, *v13.i8), *v13.i8).u8[0])
+        v21 = vmovn_s64(vcgeq_u64(v6, v10));
+        if (vuzp1_s8(vuzp1_s16(v21, *v6.i8), *v6.i8).u8[0])
         {
-          v21[1] = v25 | 8;
+          v14[1] = v18 | 8;
         }
 
-        if (vuzp1_s8(vuzp1_s16(v28, *&v13), *&v13).i8[1])
+        if (vuzp1_s8(vuzp1_s16(v21, *&v6), *&v6).i8[1])
         {
-          v21[2] = v25 | 9;
+          v14[2] = v18 | 9;
         }
 
-        if (vuzp1_s8(vuzp1_s16(*&v13, vmovn_s64(vcgeq_u64(v13, *&v16))), *&v13).i8[2])
+        if (vuzp1_s8(vuzp1_s16(*&v6, vmovn_s64(vcgeq_u64(v6, *&v9))), *&v6).i8[2])
         {
-          v21[3] = v25 | 0xA;
-          v21[4] = v25 | 0xB;
+          v14[3] = v18 | 0xA;
+          v14[4] = v18 | 0xB;
         }
 
-        v29 = vmovn_s64(vcgeq_u64(v13, v15));
-        if (vuzp1_s8(*&v13, vuzp1_s16(v29, *&v13)).i32[1])
+        v22 = vmovn_s64(vcgeq_u64(v6, v8));
+        if (vuzp1_s8(*&v6, vuzp1_s16(v22, *&v6)).i32[1])
         {
-          v21[5] = v25 | 0xC;
+          v14[5] = v18 | 0xC;
         }
 
-        if (vuzp1_s8(*&v13, vuzp1_s16(v29, *&v13)).i8[5])
+        if (vuzp1_s8(*&v6, vuzp1_s16(v22, *&v6)).i8[5])
         {
-          v21[6] = v25 | 0xD;
+          v14[6] = v18 | 0xD;
         }
 
-        if (vuzp1_s8(*&v13, vuzp1_s16(*&v13, vmovn_s64(vcgeq_u64(v13, *&v14)))).i8[6])
+        if (vuzp1_s8(*&v6, vuzp1_s16(*&v6, vmovn_s64(vcgeq_u64(v6, *&v7)))).i8[6])
         {
-          v21[7] = v25 | 0xE;
-          v21[8] = v25 | 0xF;
+          v14[7] = v18 | 0xE;
+          v14[8] = v18 | 0xF;
         }
 
-        v19 = vaddq_s64(v19, v24);
-        v20 = vaddq_s64(v20, v24);
-        v23 = vaddq_s64(v23, v24);
-        v18 = vaddq_s64(v18, v24);
-        v17 = vaddq_s64(v17, v24);
-        v16 = vaddq_s64(v16, v24);
-        v15 = vaddq_s64(v15, v24);
-        v14 = vaddq_s64(v14, v24);
-        v22 += 16;
-        v21 += 16;
+        v12 = vaddq_s64(v12, v17);
+        v13 = vaddq_s64(v13, v17);
+        v16 = vaddq_s64(v16, v17);
+        v11 = vaddq_s64(v11, v17);
+        v10 = vaddq_s64(v10, v17);
+        v9 = vaddq_s64(v9, v17);
+        v8 = vaddq_s64(v8, v17);
+        v7 = vaddq_s64(v7, v17);
+        v15 += 16;
+        v14 += 16;
       }
 
-      while (v22 - ((v12 + 15) & 0x1F0) != 15);
+      while (v15 - ((v5 + 15) & 0x1F0) != 15);
     }
 
     sub_1002D2704(0, &unk_100B65361);
-    if (!sub_100018960(208, sub_1002B2790, v30, v31, v32, v33, v34, v35, v45))
+    if (!sub_100018960(208, sub_1002B2790, v23, v24, v25, v26, v27, v28, v31))
     {
       return 0;
     }
 
     sub_1000D660C();
-    v48 = 105;
-    v47[1] = &v48;
-    v47[0] = 4;
-    v36 = sub_10002195C(sub_1002B28A8, v47, 0, 0);
-    if (!v36)
+    v33 = 105;
+    v32[1] = &v33;
+    v32[0] = 4;
+    v29 = sub_10002195C(sub_1002B28A8, v32, 0, 0);
+    if (!v29)
     {
       return 105;
     }
 
-    v9 = v36;
+    v2 = v29;
     if (sub_10000C240())
     {
-      sub_10000AF54("Could not register dispatchReadRemoteVersionInformation", v37, v38, v39, v40, v41, v42, v43, v46);
-      v44 = sub_10000C050(0x42u);
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Could not register dispatchReadRemoteVersionInformation");
+      v30 = sub_10000C050(0x42u);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
     }
 
-    return v9;
+    return v2;
   }
 
   return sub_1002A4600();
@@ -8052,7 +8224,7 @@ uint64_t sub_1002B2338(uint64_t (*a1)(void, void, void))
 
 void sub_1002B2790(int a1, unsigned int a2)
 {
-  v20 = a1;
+  v5 = a1;
   if (a1)
   {
     a2 = word_100B6537A;
@@ -8070,9 +8242,9 @@ void sub_1002B2790(int a1, unsigned int a2)
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("fControllerMaxExtendedAdvertisingPayloadSize=%d", v2, v3, v4, v5, v6, v7, v8, word_100B6537A);
-        v9 = sub_10000C050(0x42u);
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("fControllerMaxExtendedAdvertisingPayloadSize=%d", word_100B6537A);
+        v2 = sub_10000C050(0x42u);
+        if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
         {
           sub_10080F7A0();
         }
@@ -8082,13 +8254,13 @@ void sub_1002B2790(int a1, unsigned int a2)
     }
   }
 
-  v19[1] = &v20;
-  v19[0] = 4;
-  if (sub_10002195C(sub_1002B28A8, v19, 0, 0) && sub_10000C240())
+  v4[1] = &v5;
+  v4[0] = 4;
+  if (sub_10002195C(sub_1002B28A8, v4, 0, 0) && sub_10000C240())
   {
-    sub_10000AF54("Could not register dispatchReadRemoteVersionInformation", v10, v11, v12, v13, v14, v15, v16, v18);
-    v17 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Could not register dispatchReadRemoteVersionInformation");
+    v3 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10080F7A0();
     }
@@ -8151,15 +8323,15 @@ uint64_t sub_1002B2A24(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
   if (byte_100B65339)
   {
-    v8 = sub_100018960(211, nullsub_145, a3, a4, a5, a6, a7, a8, v31);
+    v8 = sub_100018960(211, nullsub_145, a3, a4, a5, a6, a7, a8, v17);
     if (v8)
     {
       v9 = v8;
       if (sub_10000C240())
       {
-        sub_10000AF54("OI_HCI_CMD_LE_ClearAdvertisingSets returned %!", v10, v11, v12, v13, v14, v15, v16, v9);
-        v17 = sub_10000C050(0x42u);
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("OI_HCI_CMD_LE_ClearAdvertisingSets returned %!", v9);
+        v10 = sub_10000C050(0x42u);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           sub_10080F7A0();
         }
@@ -8169,33 +8341,33 @@ uint64_t sub_1002B2A24(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
   else if (byte_100B61168)
   {
-    v19 = 0;
+    v12 = 0;
     do
     {
-      v20 = sub_1002A468C();
-      if (v20)
+      v13 = sub_1002A468C();
+      if (v13)
       {
-        v21 = v20;
+        v14 = v13;
         if (sub_10000C240())
         {
-          sub_10000AF54("BT_VSC_RemoveMultipleAdvInstance returned %!", v22, v23, v24, v25, v26, v27, v28, v21);
-          v29 = sub_10000C050(0x42u);
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("BT_VSC_RemoveMultipleAdvInstance returned %!", v14);
+          v15 = sub_10000C050(0x42u);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
-            v30 = sub_10000C0FC();
+            v16 = sub_10000C0FC();
             *buf = 136446466;
-            v33 = v30;
-            v34 = 1024;
-            v35 = 0xFFFF;
-            _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
+            v19 = v16;
+            v20 = 1024;
+            v21 = 0xFFFF;
+            _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
           }
         }
       }
 
-      ++v19;
+      ++v12;
     }
 
-    while (v19 < byte_100B61168);
+    while (v12 < byte_100B61168);
   }
 
   result = 0;
@@ -8236,13 +8408,13 @@ BOOL sub_1002B2C40()
 
     if (sub_10000C240())
     {
-      sub_10000AF54("ADV instance %d is in state %d", v5, v6, v7, v8, v9, v10, v11, *v1);
-      v12 = sub_10000C050(0x42u);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      sub_10000AF54("ADV instance %d is in state %d", *v1, *i);
+      v5 = sub_10000C050(0x42u);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
-        v15 = sub_10000C0FC();
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
+        v8 = sub_10000C0FC();
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
       }
     }
   }
@@ -8259,82 +8431,82 @@ BOOL sub_1002B2D70()
 {
   if (sub_10000C240())
   {
-    sub_10000AF54("LE_isPeriodicAdvStarting", v0, v1, v2, v3, v4, v5, v6, *v12);
-    v7 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    sub_10000AF54("LE_isPeriodicAdvStarting");
+    v0 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 136446210;
-      *&v12[4] = sub_10000C0FC();
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, " %{public}s", v12, 0xCu);
+      v5 = 136446210;
+      v6 = sub_10000C0FC();
+      _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, " %{public}s", &v5, 0xCu);
     }
   }
 
-  v8 = 0;
-  v9 = 0;
+  v1 = 0;
+  v2 = 0;
   do
   {
-    v10 = dword_100B653A0[420 * v9];
-    if (v8)
+    v3 = dword_100B653A0[420 * v2];
+    if (v1)
     {
       break;
     }
 
-    v8 = 1;
-    v9 = 1;
+    v1 = 1;
+    v2 = 1;
   }
 
-  while (v10 != 1);
-  return v10 == 1;
+  while (v3 != 1);
+  return v3 == 1;
 }
 
-BOOL sub_1002B2E64(uint64_t a1)
+BOOL sub_1002B2E64(int a1)
 {
   if (sub_10000C240())
   {
-    sub_10000AF54("LE_isPeriodicAdvCtxInUse advHandle=%d", v2, v3, v4, v5, v6, v7, v8, a1);
-    v9 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    sub_10000AF54("LE_isPeriodicAdvCtxInUse advHandle=%d", a1);
+    v2 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v17 = sub_10000C0FC();
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
+      v10 = sub_10000C0FC();
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
     }
   }
 
-  v10 = 0;
-  v11 = 1;
+  v3 = 0;
+  v4 = 1;
   do
   {
     while (1)
     {
-      v12 = v11;
-      v13 = &dword_100B653A0[420 * v10];
-      if (*(v13 + 6) == a1)
+      v5 = v4;
+      v6 = &dword_100B653A0[420 * v3];
+      if (*(v6 + 6) == a1)
       {
         break;
       }
 
-      v11 = 0;
+      v4 = 0;
       result = 0;
-      v10 = 1;
-      if ((v12 & 1) == 0)
+      v3 = 1;
+      if ((v5 & 1) == 0)
       {
         return result;
       }
     }
 
-    v14 = *v13;
-    result = v14 == 2;
-    if (v14 == 2)
+    v7 = *v6;
+    result = v7 == 2;
+    if (v7 == 2)
     {
       break;
     }
 
-    v11 = 0;
-    v10 = 1;
+    v4 = 0;
+    v3 = 1;
   }
 
-  while (((v12 ^ 1) & 1) == 0);
+  while (((v5 ^ 1) & 1) == 0);
   return result;
 }
 
@@ -8342,38 +8514,38 @@ _DWORD *sub_1002B2F84()
 {
   if (sub_10000C240())
   {
-    sub_10000AF54("LE_AllocatePeriodicAdvCtx", v0, v1, v2, v3, v4, v5, v6, *v21);
-    v7 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    sub_10000AF54("LE_AllocatePeriodicAdvCtx");
+    v0 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
     {
-      *v21 = 136446210;
-      *&v21[4] = sub_10000C0FC();
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, " %{public}s", v21, 0xCu);
+      v7 = 136446210;
+      v8 = sub_10000C0FC();
+      _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, " %{public}s", &v7, 0xCu);
     }
   }
 
-  v8 = 0;
-  v9 = 1;
+  v1 = 0;
+  v2 = 1;
   do
   {
-    v10 = &dword_100B653A0[420 * v8];
-    if (!*v10)
+    v3 = &dword_100B653A0[420 * v1];
+    if (!*v3)
     {
-      bzero(v10, 0x690uLL);
-      return v10;
+      bzero(v3, 0x690uLL);
+      return v3;
     }
 
-    v11 = v9;
-    v9 = 0;
-    v8 = 1;
+    v4 = v2;
+    v2 = 0;
+    v1 = 1;
   }
 
-  while ((v11 & 1) != 0);
+  while ((v4 & 1) != 0);
   if (sub_10000C240())
   {
-    sub_10000AF54("LE_AllocatePeriodicAdvCtx there is no free periodic advertisng parameter.", v12, v13, v14, v15, v16, v17, v18, *v21);
-    v19 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("LE_AllocatePeriodicAdvCtx there is no free periodic advertisng parameter.");
+    v5 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10080F7A0();
     }
@@ -8386,13 +8558,13 @@ uint64_t sub_1002B30C8(uint64_t (*a1)(void, void), uint64_t (*a2)(void, void))
 {
   if (sub_10000C240())
   {
-    sub_10000AF54("LE_InitPeriodicAdvertising", v4, v5, v6, v7, v8, v9, v10, *v13);
-    v11 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    sub_10000AF54("LE_InitPeriodicAdvertising");
+    v4 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 136446210;
-      *&v13[4] = sub_10000C0FC();
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, " %{public}s", v13, 0xCu);
+      v6 = 136446210;
+      v7 = sub_10000C0FC();
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, " %{public}s", &v6, 0xCu);
     }
   }
 
@@ -8407,44 +8579,44 @@ void sub_1002B31C0()
 {
   if (sub_10000C240())
   {
-    sub_10000AF54("LE_TerminatePeriodicAdvertising", v0, v1, v2, v3, v4, v5, v6, v21);
-    v7 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    sub_10000AF54("LE_TerminatePeriodicAdvertising");
+    v0 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v23 = sub_10000C0FC();
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
+      v8 = sub_10000C0FC();
+      _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
     }
   }
 
   if (sub_1002B338C())
   {
-    v8 = 0;
-    v9 = 1;
+    v1 = 0;
+    v2 = 1;
     do
     {
-      v10 = v9;
-      v11 = &dword_100B653A0[420 * v8];
-      if ((*v11 - 1) <= 1 && sub_1002B3458(*(v11 + 6), 1) && sub_10000C240())
+      v3 = v2;
+      v4 = &dword_100B653A0[420 * v1];
+      if ((*v4 - 1) <= 1 && sub_1002B3458(*(v4 + 6), 1) && sub_10000C240())
       {
-        sub_10000AF54("Failed to stop periodic advertising advHandle %x", v12, v13, v14, v15, v16, v17, v18, *(v11 + 6));
-        v19 = sub_10000C050(0x42u);
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Failed to stop periodic advertising advHandle %x", *(v4 + 6));
+        v5 = sub_10000C050(0x42u);
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
-          v20 = sub_10000C0FC();
+          v6 = sub_10000C0FC();
           *buf = 136446466;
-          v23 = v20;
-          v24 = 1024;
-          v25 = 0xFFFF;
-          _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
+          v8 = v6;
+          v9 = 1024;
+          v10 = 0xFFFF;
+          _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
         }
       }
 
-      v9 = 0;
-      v8 = 1;
+      v2 = 0;
+      v1 = 1;
     }
 
-    while ((v10 & 1) != 0);
+    while ((v3 & 1) != 0);
   }
 }
 
@@ -8452,20 +8624,20 @@ uint64_t sub_1002B338C()
 {
   if (sub_10000C240())
   {
-    sub_10000AF54("LE_ReturnNumPeriodicAdvStarted numPeriodicAdvStarted=%d", v0, v1, v2, v3, v4, v5, v6, byte_100B65388);
-    v7 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    sub_10000AF54("LE_ReturnNumPeriodicAdvStarted numPeriodicAdvStarted=%d", byte_100B65388);
+    v0 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v10 = sub_10000C0FC();
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
+      v3 = sub_10000C0FC();
+      _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
     }
   }
 
   return byte_100B65388;
 }
 
-uint64_t sub_1002B3458(uint64_t a1, char a2)
+uint64_t sub_1002B3458(int a1, char a2)
 {
   v4 = 0;
   v5 = 1;
@@ -8484,9 +8656,9 @@ uint64_t sub_1002B3458(uint64_t a1, char a2)
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("LE_GetPeriodicAdvCtxByAdvHandle cannot find the context advHandle=%d.", v8, v9, v10, v11, v12, v13, v14, a1);
-        v15 = sub_10000C050(0x42u);
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("LE_GetPeriodicAdvCtxByAdvHandle cannot find the context advHandle=%d.", a1);
+        v8 = sub_10000C050(0x42u);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           sub_10080F7A0();
         }
@@ -8499,13 +8671,13 @@ uint64_t sub_1002B3458(uint64_t a1, char a2)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("LE_StopPeriodicAdvertising advHandle=%d", v16, v17, v18, v19, v20, v21, v22, a1);
-    v23 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    sub_10000AF54("LE_StopPeriodicAdvertising advHandle=%d", a1);
+    v9 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v80 = sub_10000C0FC();
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
+      v29 = sub_10000C0FC();
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
     }
   }
 
@@ -8513,42 +8685,42 @@ uint64_t sub_1002B3458(uint64_t a1, char a2)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("LE_isPeriodicAdvStopping", v24, v25, v26, v27, v28, v29, v30, v78);
-      v31 = sub_10000C050(0x42u);
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      sub_10000AF54("LE_isPeriodicAdvStopping");
+      v10 = sub_10000C050(0x42u);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v32 = sub_10000C0FC();
+        v11 = sub_10000C0FC();
         *buf = 136446210;
-        v80 = v32;
-        _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
+        v29 = v11;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
       }
     }
 
-    v33 = 0;
-    v34 = 0;
+    v12 = 0;
+    v13 = 0;
     do
     {
-      v35 = dword_100B653A0[420 * v34];
-      if (v33)
+      v14 = dword_100B653A0[420 * v13];
+      if (v12)
       {
         break;
       }
 
-      v33 = 1;
-      v34 = 1;
+      v12 = 1;
+      v13 = 1;
     }
 
-    while (v35 != 3);
-    if (v35 == 3)
+    while (v14 != 3);
+    if (v14 == 3)
     {
       if (!sub_10000C240())
       {
         return 117;
       }
 
-      sub_10000AF54("LE_StopPeriodicAdvertising pending stop command", v36, v37, v38, v39, v40, v41, v42, v78);
-      v43 = sub_10000C050(0x42u);
-      if (!os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("LE_StopPeriodicAdvertising pending stop command");
+      v15 = sub_10000C050(0x42u);
+      if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         return 117;
       }
@@ -8568,9 +8740,9 @@ uint64_t sub_1002B3458(uint64_t a1, char a2)
           return 117;
         }
 
-        sub_10000AF54("No LE Periodic Advertising in progress.", v70, v71, v72, v73, v74, v75, v76, v78);
-        v77 = sub_10000C050(0x42u);
-        if (!os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("No LE Periodic Advertising in progress.");
+        v27 = sub_10000C050(0x42u);
+        if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           return 117;
         }
@@ -8582,18 +8754,18 @@ LABEL_40:
 
       if (sub_10000C240())
       {
-        sub_10000AF54("Stopping Periodic Advertising", v44, v45, v46, v47, v48, v49, v50, v78);
-        v51 = sub_10000C050(0x42u);
-        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+        sub_10000AF54("Stopping Periodic Advertising");
+        v22 = sub_10000C050(0x42u);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          v52 = sub_10000C0FC();
+          v23 = sub_10000C0FC();
           *buf = 136446210;
-          v80 = v52;
-          _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
+          v29 = v23;
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
         }
       }
 
-      result = sub_100018960(214, sub_1002B3C34, v45, v46, v47, v48, v49, v50, 0);
+      result = sub_100018960(214, sub_1002B3C34, v16, v17, v18, v19, v20, v21, 0);
       if (!result)
       {
         *v6 = 3;
@@ -8604,9 +8776,9 @@ LABEL_40:
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("Invalid periodic advertising parameters no periodicAdvStoppedCb", v62, v63, v64, v65, v66, v67, v68, v78);
-        v69 = sub_10000C050(0x42u);
-        if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Invalid periodic advertising parameters no periodicAdvStoppedCb");
+        v26 = sub_10000C050(0x42u);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           sub_10080F7A0();
         }
@@ -8620,9 +8792,9 @@ LABEL_40:
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("LE_StopPeriodicAdvertising invalid advHandle=%d", v54, v55, v56, v57, v58, v59, v60, a1);
-      v61 = sub_10000C050(0x42u);
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("LE_StopPeriodicAdvertising invalid advHandle=%d", a1);
+      v25 = sub_10000C050(0x42u);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -8638,13 +8810,13 @@ uint64_t sub_1002B3820(unsigned __int8 *a1)
 {
   if (sub_10000C240())
   {
-    sub_10000AF54("LE_StartPeriodicAdvertising advHandle=%d", v2, v3, v4, v5, v6, v7, v8, *a1);
-    v9 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    sub_10000AF54("LE_StartPeriodicAdvertising advHandle=%d", *a1);
+    v2 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v88 = sub_10000C0FC();
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
+      v24 = sub_10000C0FC();
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
     }
   }
 
@@ -8655,9 +8827,9 @@ uint64_t sub_1002B3820(unsigned __int8 *a1)
       return 117;
     }
 
-    sub_10000AF54("LE_StartPeriodicAdvertising pending start command", v10, v11, v12, v13, v14, v15, v16, v86);
-    v17 = sub_10000C050(0x42u);
-    if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("LE_StartPeriodicAdvertising pending start command");
+    v3 = sub_10000C050(0x42u);
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       return 117;
     }
@@ -8667,17 +8839,17 @@ uint64_t sub_1002B3820(unsigned __int8 *a1)
 
   if (off_100B65390)
   {
-    v19 = *a1;
-    if (v19 >= 0xF0)
+    v5 = *a1;
+    if (v5 >= 0xF0)
     {
       if (!sub_10000C240())
       {
         return 101;
       }
 
-      sub_10000AF54("Invalid periodic advertising parameters advHandle: %x", v20, v21, v22, v23, v24, v25, v26, *a1);
-      v27 = sub_10000C050(0x42u);
-      if (!os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Invalid periodic advertising parameters advHandle: %x", *a1);
+      v6 = sub_10000C050(0x42u);
+      if (!os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         return 101;
       }
@@ -8692,9 +8864,9 @@ uint64_t sub_1002B3820(unsigned __int8 *a1)
         return 101;
       }
 
-      sub_10000AF54("Invalid periodic advertising parameters periodicAdvInterval: %x", v36, v37, v38, v39, v40, v41, v42, *(a1 + 1));
-      v43 = sub_10000C050(0x42u);
-      if (!os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Invalid periodic advertising parameters periodicAdvInterval: %x", *(a1 + 1));
+      v8 = sub_10000C050(0x42u);
+      if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         return 101;
       }
@@ -8709,9 +8881,9 @@ uint64_t sub_1002B3820(unsigned __int8 *a1)
         return 101;
       }
 
-      sub_10000AF54("Invalid periodic advertising parameters periodicAdvProperty: %x", v44, v45, v46, v47, v48, v49, v50, a1[4]);
-      v51 = sub_10000C050(0x42u);
-      if (!os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Invalid periodic advertising parameters periodicAdvProperty: %x", a1[4]);
+      v9 = sub_10000C050(0x42u);
+      if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         return 101;
       }
@@ -8721,16 +8893,16 @@ LABEL_25:
       return 101;
     }
 
-    if (sub_1002B2E64(v19))
+    if (sub_1002B2E64(v5))
     {
       if (!sub_10000C240())
       {
         return 117;
       }
 
-      sub_10000AF54("LE_StartPeriodicAdvertising advHandle=%d is already started", v53, v54, v55, v56, v57, v58, v59, *a1);
-      v60 = sub_10000C050(0x42u);
-      if (!os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("LE_StartPeriodicAdvertising advHandle=%d is already started", *a1);
+      v11 = sub_10000C050(0x42u);
+      if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         return 117;
       }
@@ -8740,29 +8912,29 @@ LABEL_7:
       return 117;
     }
 
-    v61 = sub_1002B2F84();
-    if (v61)
+    v12 = sub_1002B2F84();
+    if (v12)
     {
-      v68 = v61;
-      *(v61 + 6) = *a1;
-      *(v61 + 4) = *(a1 + 1);
-      *(v61 + 10) = a1[4];
-      v69 = *(a1 + 3);
+      v19 = v12;
+      *(v12 + 6) = *a1;
+      *(v12 + 4) = *(a1 + 1);
+      *(v12 + 10) = a1[4];
+      v20 = *(a1 + 3);
       if (*(a1 + 3))
       {
-        memmove(v61 + 14, a1 + 8, v69);
-        *(v68 + 6) = *(a1 + 3);
-        *(v68 + 832) = 0;
+        memmove(v12 + 14, a1 + 8, v20);
+        *(v19 + 6) = *(a1 + 3);
+        *(v19 + 832) = 0;
       }
 
-      v18 = sub_1002B3BC0(v68, v62, v69, v63, v64, v65, v66, v67);
-      if (v18)
+      v4 = sub_1002B3BC0(v19, v13, v20, v14, v15, v16, v17, v18);
+      if (v4)
       {
         if (sub_10000C240())
         {
-          sub_10000AF54("Could not start the LE periodic advertising %!", v70, v71, v72, v73, v74, v75, v76, v18);
-          v77 = sub_10000C050(0x42u);
-          if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("Could not start the LE periodic advertising %!", v4);
+          v21 = sub_10000C050(0x42u);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             sub_10080F7A0();
           }
@@ -8774,9 +8946,9 @@ LABEL_7:
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("LE_StartPeriodicAdvertising No resource", v78, v79, v80, v81, v82, v83, v84, v86);
-        v85 = sub_10000C050(0x42u);
-        if (os_log_type_enabled(v85, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("LE_StartPeriodicAdvertising No resource");
+        v22 = sub_10000C050(0x42u);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           sub_10080F7A0();
         }
@@ -8790,9 +8962,9 @@ LABEL_7:
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Invalid periodic advertising parameters no periodicAdvStartedCb", v28, v29, v30, v31, v32, v33, v34, v86);
-      v35 = sub_10000C050(0x42u);
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Invalid periodic advertising parameters no periodicAdvStartedCb");
+      v7 = sub_10000C050(0x42u);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -8801,7 +8973,7 @@ LABEL_7:
     return 114;
   }
 
-  return v18;
+  return v4;
 }
 
 uint64_t sub_1002B3BC0(unsigned __int8 *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -8839,9 +9011,9 @@ void sub_1002B3C34(uint64_t a1)
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("LE_GetPeriodicAdvCtxStopping cannot find the context", v6, v7, v8, v9, v10, v11, v12, v39);
-        v13 = sub_10000C050(0x42u);
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("LE_GetPeriodicAdvCtxStopping cannot find the context");
+        v6 = sub_10000C050(0x42u);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           sub_10080F7A0();
         }
@@ -8855,13 +9027,13 @@ void sub_1002B3C34(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("Periodic advertising stopped %! advHandle=%d", v14, v15, v16, v17, v18, v19, v20, a1);
-    v21 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    sub_10000AF54("Periodic advertising stopped %! advHandle=%d", a1, v4[6]);
+    v7 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v41 = sub_10000C0FC();
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
+      v12 = sub_10000C0FC();
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
     }
   }
 
@@ -8869,14 +9041,14 @@ void sub_1002B3C34(uint64_t a1)
   --byte_100B65388;
   if (sub_10000C240())
   {
-    sub_10000AF54("notifyPeriodicAdvStoppped status=%d advHandle=%d", v22, v23, v24, v25, v26, v27, v28, a1);
-    v29 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    sub_10000AF54("notifyPeriodicAdvStoppped status=%d advHandle=%d", a1, v4[6]);
+    v8 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = sub_10000C0FC();
+      v9 = sub_10000C0FC();
       *buf = 136446210;
-      v41 = v30;
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
+      v12 = v9;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
     }
   }
 
@@ -8888,9 +9060,9 @@ void sub_1002B3C34(uint64_t a1)
 
   else if (sub_10000C240())
   {
-    sub_10000AF54("Could not find a callback, might be a problem ?", v31, v32, v33, v34, v35, v36, v37, v39);
-    v38 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Could not find a callback, might be a problem ?");
+    v10 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10080F7A0();
     }
@@ -8901,56 +9073,56 @@ uint64_t sub_1002B3E70()
 {
   if (sub_10000C240())
   {
-    sub_10000AF54("LE_RefreshPeriodicAdvRandomAddress", v0, v1, v2, v3, v4, v5, v6, v19);
-    v7 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    sub_10000AF54("LE_RefreshPeriodicAdvRandomAddress");
+    v6 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v21 = sub_10000C0FC();
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
+      v18 = sub_10000C0FC();
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
     }
   }
 
+  v7 = 0;
   v8 = 0;
-  v9 = 0;
-  v10 = 1;
+  v9 = 1;
   do
   {
-    v11 = v10;
-    v12 = &unk_100B653A0 + 1680 * v8;
-    if (*v12 == 2)
+    v10 = v9;
+    v11 = &dword_100B653A0[420 * v7];
+    if (*v11 == 2)
     {
-      v12[4] = 1;
-      v13 = sub_100018960(214, sub_1002B4060, v1, v2, v3, v4, v5, v6, 1);
-      if (v13)
+      *(v11 + 4) = 1;
+      v12 = sub_100018960(214, sub_1002B4060, v0, v1, v2, v3, v4, v5, 1);
+      if (v12)
       {
-        v14 = v13;
-        v12[4] = 0;
+        v13 = v12;
+        *(v11 + 4) = 0;
         if (sub_10000C240())
         {
-          sub_10000AF54("Fail to refresh random address for periodic advertising advHandle=%d", v15, v1, v2, v3, v4, v5, v6, v12[6]);
-          v16 = sub_10000C050(0x42u);
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("Fail to refresh random address for periodic advertising advHandle=%d", *(v11 + 6));
+          v14 = sub_10000C050(0x42u);
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
-            v17 = sub_10000C0FC();
+            v15 = sub_10000C0FC();
             *buf = 136446466;
-            v21 = v17;
-            v22 = 1024;
-            v23 = 0xFFFF;
-            _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
+            v18 = v15;
+            v19 = 1024;
+            v20 = 0xFFFF;
+            _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%{public}s (status=%{bluetooth:OI_STATUS}u)", buf, 0x12u);
           }
         }
 
-        v9 = v14;
+        v8 = v13;
       }
     }
 
-    v10 = 0;
-    v8 = 1;
+    v9 = 0;
+    v7 = 1;
   }
 
-  while ((v11 & 1) != 0);
-  return v9;
+  while ((v10 & 1) != 0);
+  return v8;
 }
 
 void sub_1002B4060(uint64_t a1)
@@ -8963,13 +9135,13 @@ void sub_1002B4060(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("Periodic advertising started %! advHandle=%d addressChanged=%d", v3, v4, v5, v6, v7, v8, v9, a1);
-    v10 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    sub_10000AF54("Periodic advertising started %! advHandle=%d addressChanged=%d", a1, v2[6], v2[4]);
+    v3 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v28 = sub_10000C0FC();
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
+      v7 = sub_10000C0FC();
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
     }
   }
 
@@ -8977,9 +9149,9 @@ void sub_1002B4060(uint64_t a1)
   {
     if (a1 && sub_10000C240())
     {
-      sub_10000AF54("Fail to refresh random address for periodic advertising advHandle=%d", v11, v12, v13, v14, v15, v16, v17, v2[6]);
-      v18 = sub_10000C050(0x42u);
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Fail to refresh random address for periodic advertising advHandle=%d", v2[6]);
+      v4 = sub_10000C050(0x42u);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -8994,9 +9166,9 @@ void sub_1002B4060(uint64_t a1)
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("Could not start advertising : %!", v19, v20, v21, v22, v23, v24, v25, a1);
-        v26 = sub_10000C050(0x42u);
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Could not start advertising : %!", a1);
+        v5 = sub_10000C050(0x42u);
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
           sub_10080F7A0();
         }
@@ -9017,13 +9189,13 @@ uint64_t sub_1002B4224()
 {
   if (sub_10000C240())
   {
-    sub_10000AF54("LE_GetPeriodicAdvertisingEnabled enabled=%d", v0, v1, v2, v3, v4, v5, v6, byte_100B65380);
-    v7 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    sub_10000AF54("LE_GetPeriodicAdvertisingEnabled enabled=%d", byte_100B65380);
+    v0 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v10 = sub_10000C0FC();
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
+      v3 = sub_10000C0FC();
+      _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
     }
   }
 
@@ -9035,78 +9207,75 @@ void sub_1002B42F0(char a1)
   byte_100B6536F = a1;
   if (sub_10000C240())
   {
-    sub_10000AF54("Invoking fake OI_BUSY_FAIL every %d attempts", v1, v2, v3, v4, v5, v6, v7, byte_100B6536F);
-    v8 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    sub_10000AF54("Invoking fake OI_BUSY_FAIL every %d attempts", byte_100B6536F);
+    v1 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v10 = sub_10000C0FC();
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
+      v3 = sub_10000C0FC();
+      _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
     }
   }
 }
 
-uint64_t sub_1002B43BC()
+void sub_1002B43BC()
 {
   sub_100304AF8("LE_Advertising:\n");
-  result = sub_100304AF8("gNumOfAdvHandles=%d gInitMultiAdvCb=%x currentHandle=%d tech=%d extendedAdvertisingEnabled=%d gMaxControllerSupportedAdvertisingPacketSize=%d", byte_100B65338, off_100B65370, byte_100B65344, byte_100B65339, byte_100B65378, word_100B6537A);
+  sub_100304AF8("gNumOfAdvHandles=%d gInitMultiAdvCb=%x currentHandle=%d tech=%d extendedAdvertisingEnabled=%d gMaxControllerSupportedAdvertisingPacketSize=%d", byte_100B65338, off_100B65370, byte_100B65344, byte_100B65339, byte_100B65378, word_100B6537A);
   if (byte_100B65338)
   {
-    v1 = 0;
-    v2 = &byte_100B65346;
-    v3 = qword_100B61170;
+    v0 = 0;
+    v1 = &byte_100B65346;
+    v2 = qword_100B61170;
     do
     {
-      sub_100304AF8("advertisingParams for instance %d :", v1);
-      sub_100304AF8("\tintervalMin=%d intervalMax=%d type=%d channelMap=%d state=%d", *(v3 + 8), *(v3 + 9), *(v3 + 20), *(v3 + 28), *(v3 + 3341));
-      sub_100304AF8("\tdata:%@", v3 + 4, *(v3 + 15));
-      sub_100304AF8("\tscanRsp:%@", v3 + 211, *(v3 + 843));
-      sub_100304AF8("\taddress: %: type:%d", v2, *(v2 - 1));
-      sub_100304AF8("\tprimaryPHY:%d", *(v3 + 3351));
-      sub_100304AF8("\tsecondaryPHY:%d", *(v3 + 3352));
-      sub_100304AF8("\tprimaryPhyOptions:%d", *(v3 + 3353));
-      sub_100304AF8("\tsecondaryPhyOptions:%d", *(v3 + 3354));
-      sub_100304AF8("\tuseDecisionBasedAdvPayload:%d", *(v3 + 3355));
-      sub_100304AF8("\tDBAFDecisionTypeFlags:%d", *(v3 + 3356));
-      sub_100304AF8("\tDBAFDecisionDataLength:%d", *(v3 + 3357));
-      result = sub_100304AF8("\tDBAFDecisionData:%s", v3[420]);
-      ++v1;
-      v2 += 7;
-      v3 += 421;
+      sub_100304AF8("advertisingParams for instance %d :", v0);
+      sub_100304AF8("\tintervalMin=%d intervalMax=%d type=%d channelMap=%d state=%d", *(v2 + 8), *(v2 + 9), *(v2 + 20), *(v2 + 28), *(v2 + 3341));
+      sub_100304AF8("\tdata:%@", v2 + 4, *(v2 + 15));
+      sub_100304AF8("\tscanRsp:%@", v2 + 211, *(v2 + 843));
+      sub_100304AF8("\taddress: %: type:%d", v1, *(v1 - 1));
+      sub_100304AF8("\tprimaryPHY:%d", *(v2 + 3351));
+      sub_100304AF8("\tsecondaryPHY:%d", *(v2 + 3352));
+      sub_100304AF8("\tprimaryPhyOptions:%d", *(v2 + 3353));
+      sub_100304AF8("\tsecondaryPhyOptions:%d", *(v2 + 3354));
+      sub_100304AF8("\tuseDecisionBasedAdvPayload:%d", *(v2 + 3355));
+      sub_100304AF8("\tDBAFDecisionTypeFlags:%d", *(v2 + 3356));
+      sub_100304AF8("\tDBAFDecisionDataLength:%d", *(v2 + 3357));
+      sub_100304AF8("\tDBAFDecisionData:%s", v2[420]);
+      ++v0;
+      v1 += 7;
+      v2 += 421;
     }
 
-    while (v1 < byte_100B65338);
+    while (v0 < byte_100B65338);
   }
-
-  return result;
 }
 
-void sub_1002B45C0(uint64_t a1)
+void sub_1002B45C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = a1;
+  v8 = a1;
   if (a1)
   {
 LABEL_2:
     if (sub_10000C240())
     {
-      sub_10000AF54("advertisingDataCb Could not start advertising : %!", v2, v3, v4, v5, v6, v7, v8, v10);
-      v9 = sub_10000C050(0x42u);
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("advertisingDataCb Could not start advertising : %!");
+      v14 = sub_10000C050(0x42u);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
     }
 
     byte_100B61E7D = 0;
-    sub_100092D80(v1, 0, 0);
+    sub_100092D80(v8, 0, 0, v9, v10, v11, v12, v13);
     return;
   }
 
   if (word_100B61806)
   {
-    v10 = word_100B61806;
-    v1 = sub_100018960(169, sub_1002B46CC);
-    if (!v1)
+    v8 = sub_100018960(169, sub_1002B46CC, a3, a4, a5, a6, a7, a8, word_100B61806);
+    if (!v8)
     {
       return;
     }
@@ -9114,40 +9283,40 @@ LABEL_2:
     goto LABEL_2;
   }
 
-  if (sub_100018960(169, sub_1002B46CC))
+  if (sub_100018960(169, sub_1002B46CC, a3, a4, a5, a6, a7, a8, 0))
   {
 
-    sub_1002B46CC(0);
+    sub_1002B46CC(0, v15, v16, v17, v18, v19, v20, v21);
   }
 }
 
-void sub_1002B46CC(uint64_t a1)
+void sub_1002B46CC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v1 = a1;
-  if (a1 || (v1 = sub_100018960(170, sub_1002B477C), v1))
+  v8 = a1;
+  if (a1 || (v8 = sub_100018960(170, sub_1002B477C, a3, a4, a5, a6, a7, a8, 1), v8))
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("scanResponseDataCb Could not start advertising : %!", v2, v3, v4, v5, v6, v7, v8, v1);
-      v9 = sub_10000C050(0x42u);
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("scanResponseDataCb Could not start advertising : %!", v8);
+      v14 = sub_10000C050(0x42u);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
     }
 
     byte_100B61E7D = 0;
-    sub_100092D80(v1, 0, 0);
+    sub_100092D80(v8, 0, 0, v9, v10, v11, v12, v13);
   }
 }
 
-void sub_1002B477C(uint64_t a1)
+void sub_1002B477C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a1)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("advertiseStart Could not start advertising : %!", v2, v3, v4, v5, v6, v7, v8, a1);
+      sub_10000AF54("advertiseStart Could not start advertising : %!", a1);
       v9 = sub_10000C050(0x42u);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
@@ -9157,16 +9326,16 @@ void sub_1002B477C(uint64_t a1)
   }
 
   byte_100B61E7D = 2;
-  sub_100092D80(a1, 0, 0);
+  sub_100092D80(a1, 0, 0, a4, a5, a6, a7, a8);
 }
 
-void sub_1002B480C(uint64_t a1)
+void sub_1002B480C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (a1)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Could not setAdvPhyOptions: %!", v2, v3, v4, v5, v6, v7, v8, a1);
+      sub_10000AF54("Could not setAdvPhyOptions: %!", a1);
       v9 = sub_10000C050(0x42u);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
@@ -9175,20 +9344,20 @@ void sub_1002B480C(uint64_t a1)
     }
   }
 
-  sub_1000C2730(0);
+  sub_1000C2730(0, a2, a3, a4, a5, a6, a7, a8);
 }
 
 void sub_1002B4884(void *a1)
 {
   if (sub_10000C240())
   {
-    sub_10000AF54("LE_FreePeriodicAdvCtx", v2, v3, v4, v5, v6, v7, v8, *v10);
-    v9 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    sub_10000AF54("LE_FreePeriodicAdvCtx");
+    v2 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 136446210;
-      *&v10[4] = sub_10000C0FC();
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, " %{public}s", v10, 0xCu);
+      v3 = 136446210;
+      v4 = sub_10000C0FC();
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, " %{public}s", &v3, 0xCu);
     }
   }
 
@@ -9202,13 +9371,13 @@ void sub_1002B4954(uint64_t a1, unsigned __int8 *a2)
 {
   if (sub_10000C240())
   {
-    sub_10000AF54("notifyPeriodicAdvStarted status=%d advHandle=%d", v4, v5, v6, v7, v8, v9, v10, a1);
-    v11 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    sub_10000AF54("notifyPeriodicAdvStarted status=%d advHandle=%d", a1, a2[6]);
+    v4 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v22 = sub_10000C0FC();
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
+      v7 = sub_10000C0FC();
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
     }
   }
 
@@ -9224,9 +9393,9 @@ void sub_1002B4954(uint64_t a1, unsigned __int8 *a2)
 
   else if (sub_10000C240())
   {
-    sub_10000AF54("Could not find a callback, might be a problem ?", v12, v13, v14, v15, v16, v17, v18, v20);
-    v19 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Could not find a callback, might be a problem ?");
+    v5 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10080F7A0();
     }
@@ -9235,24 +9404,24 @@ void sub_1002B4954(uint64_t a1, unsigned __int8 *a2)
 
 _DWORD *sub_1002B4A90()
 {
-  v1 = 0;
+  v0 = 0;
   for (i = 1; ; i = 0)
   {
-    result = (&unk_100B653A0 + 1680 * v1);
+    result = &dword_100B653A0[420 * v0];
     if (*result == 1)
     {
       break;
     }
 
-    v4 = i;
-    v1 = 1;
-    if ((v4 & 1) == 0)
+    v3 = i;
+    v0 = 1;
+    if ((v3 & 1) == 0)
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("LE_GetPeriodicAdvCtxStarting cannot find the context", v5, v6, v7, v8, v9, v10, v11, v0);
-        v12 = sub_10000C050(0x42u);
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("LE_GetPeriodicAdvCtxStarting cannot find the context");
+        v4 = sub_10000C050(0x42u);
+        if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
         {
           sub_10080F7A0();
         }
@@ -9275,13 +9444,13 @@ void sub_1002B4B28(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("setPeriodicAdvParamsCompleteCb status %! ", v3, v4, v5, v6, v7, v8, v9, a1);
-    v10 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    sub_10000AF54("setPeriodicAdvParamsCompleteCb status %! ", a1);
+    v3 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v29 = sub_10000C0FC();
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
+      v8 = sub_10000C0FC();
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
     }
   }
 
@@ -9290,9 +9459,9 @@ void sub_1002B4B28(uint64_t a1)
 LABEL_7:
     if (sub_10000C240())
     {
-      sub_10000AF54("Could not start periodic advertising : %!", v11, v12, v13, v14, v15, v16, v17, a1);
-      v18 = sub_10000C050(0x42u);
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Could not start periodic advertising : %!", a1);
+      v4 = sub_10000C050(0x42u);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -9316,14 +9485,14 @@ LABEL_7:
 
   if (sub_10000C240())
   {
-    sub_10000AF54("Periodic advertising data size is 0, skip setting data for adv instance %d", v19, v20, v21, v22, v23, v24, v25, v2[6]);
-    v26 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    sub_10000AF54("Periodic advertising data size is 0, skip setting data for adv instance %d", v2[6]);
+    v5 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = sub_10000C0FC();
+      v6 = sub_10000C0FC();
       *buf = 136446210;
-      v29 = v27;
-      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
+      v8 = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
     }
   }
 
@@ -9334,30 +9503,31 @@ void sub_1002B4D00(uint64_t a1, unsigned __int8 *a2)
 {
   if (sub_10000C240())
   {
-    sub_10000AF54("Set Periodic Advertising Data Complete %! advHandle=%d", v4, v5, v6, v7, v8, v9, v10, a1);
-    v11 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    sub_10000AF54("Set Periodic Advertising Data Complete %! advHandle=%d", a1, a2[6]);
+    v10 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v30 = sub_10000C0FC();
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
+      v16 = sub_10000C0FC();
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
     }
   }
 
   if (!a1)
   {
-    v20 = sub_100018960(214, sub_1002B4060, v5, v6, v7, v8, v9, v10, 1);
-    if (!v20)
+    v14 = a2[6];
+    v12 = sub_100018960(214, sub_1002B4060, v4, v5, v6, v7, v8, v9, 1);
+    if (!v12)
     {
       return;
     }
 
-    a1 = v20;
+    a1 = v12;
     if (sub_10000C240())
     {
-      sub_10000AF54("Failed to start advertising OI_HCI_CMD_LE_SetPeriodicAdvertisingEnable returned %!", v21, v22, v23, v24, v25, v26, v27, a1);
-      v28 = sub_10000C050(0x42u);
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Failed to start advertising OI_HCI_CMD_LE_SetPeriodicAdvertisingEnable returned %!", a1, v14);
+      v13 = sub_10000C050(0x42u);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -9366,9 +9536,9 @@ void sub_1002B4D00(uint64_t a1, unsigned __int8 *a2)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("Could not start peirodic advertising : %!", v12, v13, v14, v15, v16, v17, v18, a1);
-    v19 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Could not start peirodic advertising : %!", a1);
+    v11 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_10080F7A0();
     }
@@ -9388,7 +9558,7 @@ uint64_t sub_1002B4EA4(uint64_t a1)
 
   else
   {
-    v3 = *(a1 + 12) - *(a1 + 1664);
+    v3 = v2;
   }
 
   if (v2 > 0xFCu)
@@ -9413,24 +9583,25 @@ uint64_t sub_1002B4EA4(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("setPeriodicAdvDataPacket operation:%d dataLeft:%d totalDataLen:%d dataLengthThisPacket:%d position:%d", v6, v7, v8, v9, v10, v11, v12, v5);
-    v13 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    sub_10000AF54("setPeriodicAdvDataPacket operation:%d dataLeft:%d totalDataLen:%d dataLengthThisPacket:%d position:%d", v5, v2, *(a1 + 12), v3, *(a1 + 1664));
+    v12 = sub_10000C050(0x42u);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
-      v25 = sub_10000C0FC();
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
+      v18 = sub_10000C0FC();
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
     }
   }
 
-  v14 = sub_100018960(213, sub_1002B5048, v7, v8, v9, v10, v11, v12, *(a1 + 6));
-  if (v14)
+  v16 = a1 + *(a1 + 1664) + 14;
+  v13 = sub_100018960(213, sub_1002B5048, v6, v7, v8, v9, v10, v11, *(a1 + 6));
+  if (v13)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("OI_HCI_CMD_LE_SetPeriodicAdvertisingData returned %!", v15, v16, v17, v18, v19, v20, v21, v14);
-      v22 = sub_10000C050(0x42u);
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("OI_HCI_CMD_LE_SetPeriodicAdvertisingData returned %!", v13, v5, v3, v16);
+      v14 = sub_10000C050(0x42u);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -9442,159 +9613,5 @@ uint64_t sub_1002B4EA4(uint64_t a1)
     *(a1 + 1664) += v3;
   }
 
-  return v14;
-}
-
-void sub_1002B5048(uint64_t a1)
-{
-  v2 = sub_1002B4A90();
-  if (!v2)
-  {
-    sub_1000D660C();
-  }
-
-  v3 = *(v2 + 6);
-  v4 = *(v2 + 832);
-  if (sub_10000C240())
-  {
-    sub_10000AF54("setPeriodicAdvDataPacketCompleteCb dataLeft:%d status:%!", v5, v6, v7, v8, v9, v10, v11, (v3 - v4));
-    v12 = sub_10000C050(0x42u);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 136446210;
-      v14 = sub_10000C0FC();
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
-    }
-  }
-
-  if (a1 || v3 == v4 || (a1 = sub_1002B4EA4(v2), a1))
-  {
-    sub_1002B4D00(a1, v2);
-  }
-}
-
-uint64_t sub_1002B5164()
-{
-  if (qword_100B660E0)
-  {
-    return qword_100B660E0();
-  }
-
-  return result;
-}
-
-uint64_t sub_1002B5178()
-{
-  if (off_100B660F0)
-  {
-    return off_100B660F0();
-  }
-
-  return result;
-}
-
-uint64_t sub_1002B518C()
-{
-  if (off_100B660E8)
-  {
-    return off_100B660E8();
-  }
-
-  return result;
-}
-
-uint64_t sub_1002B51A0()
-{
-  xmmword_100B66100 = 0u;
-  unk_100B66110 = 0u;
-  qword_100B66120 = 0;
-  sub_1002DB89C(off_100AE9CB0);
-  if (v0)
-  {
-    v1 = v0;
-    if (sub_10000C240())
-    {
-      sub_10000AF54("Failed to add state callbacks : %!", v2, v3, v4, v5, v6, v7, v8, v1);
-      v9 = sub_10000C050(0x44u);
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-      {
-LABEL_4:
-        sub_1000E09C0();
-      }
-    }
-  }
-
-  else
-  {
-    v10 = sub_1002CE244(off_100AE9CC8);
-    if (v10)
-    {
-      v1 = v10;
-      if (sub_10000C240())
-      {
-        sub_10000AF54("Failed to add GAP connections callbacks : %!", v11, v12, v13, v14, v15, v16, v17, v1);
-        v18 = sub_10000C050(0x44u);
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_4;
-        }
-      }
-    }
-
-    else
-    {
-      dword_100B66128 = 0;
-      qword_100B66130 = 0;
-      v1 = sub_10028E64C(4, 3, 16, 3u, &xmmword_100B66100, sub_1002B6D1C);
-      if (v1 || !xmmword_100B66100)
-      {
-        if (sub_10000C240())
-        {
-          sub_10000AF54("Could not register the l2cap : %!", v19, v20, v21, v22, v23, v24, v25, v1);
-          v26 = sub_10000C050(0x44u);
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
-          {
-            sub_1000E09C0();
-          }
-        }
-      }
-
-      else
-      {
-        *sub_1000CD958(xmmword_100B66100) = 527;
-        *(sub_1000CD958(xmmword_100B66100) + 2) = -1;
-      }
-
-      if (sub_10000C240())
-      {
-        v27 = sub_1000CD958(xmmword_100B66100);
-        sub_10000AF54("ATT L2CAP channel MTU: %d", v28, v29, v30, v31, v32, v33, v34, *v27);
-        v35 = sub_10000C050(0x44u);
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 136446210;
-          v48 = sub_10000C0FC();
-          _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
-        }
-      }
-
-      qword_100B66138 = sub_1000BAE38(0, sub_1002B8F74);
-      v36 = sub_1001BC1A4();
-      if (v36)
-      {
-        v37 = v36;
-        if (sub_10000C240())
-        {
-          sub_10000AF54("ATT classic registration failed with %!", v38, v39, v40, v41, v42, v43, v44, v37);
-          v45 = sub_10000C050(0x44u);
-          if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
-          {
-            sub_1000E09C0();
-          }
-        }
-      }
-    }
-  }
-
-  return v1;
+  return v13;
 }

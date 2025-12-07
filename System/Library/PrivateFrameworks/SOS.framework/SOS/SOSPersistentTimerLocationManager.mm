@@ -73,13 +73,13 @@ uint64_t __51__SOSPersistentTimerLocationManager_sharedInstance__block_invoke()
 
 - (void)warmUpLocationRequest
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = sos_default_log();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = sos_default_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[SOSPersistentTimerLocationManager warmUpLocationRequest]";
-    _os_log_impl(&dword_264323000, v3, OS_LOG_TYPE_DEFAULT, "%s - Warming up location request", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SOSPersistentTimerLocationManager warmUpLocationRequest]";
+    _os_log_impl(&dword_264323000, v3, OS_LOG_TYPE_DEFAULT, "%s - Warming up location request", &v5, 0xCu);
   }
 
   [(SOSPersistentTimerLocationManager *)self invalidateInitialTimer];
@@ -87,13 +87,12 @@ uint64_t __51__SOSPersistentTimerLocationManager_sharedInstance__block_invoke()
   self->_lastLocation = 0;
 
   [(SOSPersistentTimerLocationManager *)self requestLocation];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestLocation
 {
   v12 = *MEMORY[0x277D85DE8];
-  v3 = sos_default_log();
+  v3 = sos_default_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 136315394;
@@ -110,35 +109,34 @@ uint64_t __51__SOSPersistentTimerLocationManager_sharedInstance__block_invoke()
   }
 
   [(SOSPersistentTimerLocationManager *)self invalidateRequestLocationsTimer];
-  if ([(SOSPersistentTimerLocationManager *)self shouldStopRequestingLocationAfterCallback])
+  shouldStopRequestingLocationAfterCallback = [(SOSPersistentTimerLocationManager *)self shouldStopRequestingLocationAfterCallback];
+  if (shouldStopRequestingLocationAfterCallback)
   {
-    v4 = sos_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sos_default_log(shouldStopRequestingLocationAfterCallback);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 136315138;
       v9 = "[SOSPersistentTimerLocationManager requestLocation]";
-      _os_log_impl(&dword_264323000, v4, OS_LOG_TYPE_DEFAULT, "%s - starting _requestLocationsTimer", &v8, 0xCu);
+      _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "%s - starting _requestLocationsTimer", &v8, 0xCu);
     }
 
-    v5 = [objc_alloc(MEMORY[0x277D3A180]) initWithTimeInterval:@"com.apple.sos.locationManager" serviceIdentifier:self target:sel__requestLocationsTimeout_ selector:0 userInfo:35.0];
+    v6 = [objc_alloc(MEMORY[0x277D3A180]) initWithTimeInterval:@"com.apple.sos.locationManager" serviceIdentifier:self target:sel__requestLocationsTimeout_ selector:0 userInfo:35.0];
     requestLocationsTimer = self->_requestLocationsTimer;
-    self->_requestLocationsTimer = v5;
+    self->_requestLocationsTimer = v6;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestLocationsTimeout:(id)timeout
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v4 = sos_default_log();
+  v10 = *MEMORY[0x277D85DE8];
+  v4 = sos_default_log(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[SOSPersistentTimerLocationManager _requestLocationsTimeout:]";
-    v9 = 2048;
-    v10 = 0x4041800000000000;
-    _os_log_impl(&dword_264323000, v4, OS_LOG_TYPE_DEFAULT, "%s - Timing out after requesting location for %f seconds", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SOSPersistentTimerLocationManager _requestLocationsTimeout:]";
+    v8 = 2048;
+    v9 = 0x4041800000000000;
+    _os_log_impl(&dword_264323000, v4, OS_LOG_TYPE_DEFAULT, "%s - Timing out after requesting location for %f seconds", &v6, 0x16u);
   }
 
   [(SOSPersistentTimerLocationManager *)self stopRequestingLocationUpdates];
@@ -147,42 +145,38 @@ uint64_t __51__SOSPersistentTimerLocationManager_sharedInstance__block_invoke()
     delegate = [(SOSPersistentTimerLocationManager *)self delegate];
     [delegate sosPersistentTimerLocationManagerTimerFired:self location:self->_lastLocation];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateRequestLocationsTimer
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = sos_default_log();
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = sos_default_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     requestLocationsTimer = self->_requestLocationsTimer;
-    v7 = 136315394;
-    v8 = "[SOSPersistentTimerLocationManager invalidateRequestLocationsTimer]";
-    v9 = 2112;
-    v10 = requestLocationsTimer;
-    _os_log_impl(&dword_264323000, v3, OS_LOG_TYPE_DEFAULT, "%s - _requestLocationsTimer: %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SOSPersistentTimerLocationManager invalidateRequestLocationsTimer]";
+    v8 = 2112;
+    v9 = requestLocationsTimer;
+    _os_log_impl(&dword_264323000, v3, OS_LOG_TYPE_DEFAULT, "%s - _requestLocationsTimer: %@", &v6, 0x16u);
   }
 
   [(PCPersistentTimer *)self->_requestLocationsTimer invalidate];
   v5 = self->_requestLocationsTimer;
   self->_requestLocationsTimer = 0;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopRequestingLocationUpdates
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = sos_default_log();
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = sos_default_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "[SOSPersistentTimerLocationManager stopRequestingLocationUpdates]";
-    v7 = 1024;
+    v4 = 136315394;
+    v5 = "[SOSPersistentTimerLocationManager stopRequestingLocationUpdates]";
+    v6 = 1024;
     isRequestingLocation = [(SOSPersistentTimerLocationManager *)self isRequestingLocation];
-    _os_log_impl(&dword_264323000, v3, OS_LOG_TYPE_DEFAULT, "%s - self.isRequestingLocation: %d", &v5, 0x12u);
+    _os_log_impl(&dword_264323000, v3, OS_LOG_TYPE_DEFAULT, "%s - self.isRequestingLocation: %d", &v4, 0x12u);
   }
 
   if ([(SOSPersistentTimerLocationManager *)self isRequestingLocation])
@@ -190,8 +184,6 @@ uint64_t __51__SOSPersistentTimerLocationManager_sharedInstance__block_invoke()
     [(SOSPersistentTimerLocationManager *)self setRequestingLocation:0];
     [(CLLocationManager *)self->_locationManager stopUpdatingLocation];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startTimer
@@ -202,29 +194,27 @@ uint64_t __51__SOSPersistentTimerLocationManager_sharedInstance__block_invoke()
   locationUpdateTimer = self->_locationUpdateTimer;
   self->_locationUpdateTimer = v3;
 
-  v5 = sos_default_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sos_default_log(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = self->_locationUpdateTimer;
+    v7 = self->_locationUpdateTimer;
     v10 = 136315394;
     v11 = "[SOSPersistentTimerLocationManager _startTimer]";
     v12 = 2112;
-    v13 = v6;
-    _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "%s - _locationUpdateTimer: %@", &v10, 0x16u);
+    v13 = v7;
+    _os_log_impl(&dword_264323000, v6, OS_LOG_TYPE_DEFAULT, "%s - _locationUpdateTimer: %@", &v10, 0x16u);
   }
 
   [(PCPersistentTimer *)self->_locationUpdateTimer setMinimumEarlyFireProportion:1.0];
-  v7 = self->_locationUpdateTimer;
+  v8 = self->_locationUpdateTimer;
   mainRunLoop = [MEMORY[0x277CBEB88] mainRunLoop];
-  [(PCPersistentTimer *)v7 scheduleInRunLoop:mainRunLoop];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [(PCPersistentTimer *)v8 scheduleInRunLoop:mainRunLoop];
 }
 
 - (void)fireAndStartTimertWithTimeInterval:(double)interval
 {
   v20 = *MEMORY[0x277D85DE8];
-  v5 = sos_default_log();
+  v5 = sos_default_log(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     lastLocation = self->_lastLocation;
@@ -256,109 +246,100 @@ uint64_t __51__SOSPersistentTimerLocationManager_sharedInstance__block_invoke()
     initalRequestTimer = self->_initalRequestTimer;
     self->_initalRequestTimer = v10;
 
-    v12 = sos_default_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = sos_default_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = self->_initalRequestTimer;
+      v14 = self->_initalRequestTimer;
       v16 = 136315394;
       v17 = "[SOSPersistentTimerLocationManager fireAndStartTimertWithTimeInterval:]";
       v18 = 2112;
-      v19 = v13;
-      _os_log_impl(&dword_264323000, v12, OS_LOG_TYPE_DEFAULT, "%s - Created _initalRequestTimer: %@", &v16, 0x16u);
+      v19 = v14;
+      _os_log_impl(&dword_264323000, v13, OS_LOG_TYPE_DEFAULT, "%s - Created _initalRequestTimer: %@", &v16, 0x16u);
     }
 
     [(PCPersistentTimer *)self->_initalRequestTimer setMinimumEarlyFireProportion:1.0];
-    v14 = self->_initalRequestTimer;
+    v15 = self->_initalRequestTimer;
     delegate = [MEMORY[0x277CBEB88] mainRunLoop];
-    [(PCPersistentTimer *)v14 scheduleInRunLoop:delegate];
+    [(PCPersistentTimer *)v15 scheduleInRunLoop:delegate];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateTimer
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = sos_default_log();
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = sos_default_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     locationUpdateTimer = self->_locationUpdateTimer;
-    v7 = 136315394;
-    v8 = "[SOSPersistentTimerLocationManager invalidateTimer]";
-    v9 = 2112;
-    v10 = locationUpdateTimer;
-    _os_log_impl(&dword_264323000, v3, OS_LOG_TYPE_DEFAULT, "%s - _locationUpdateTimer: %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SOSPersistentTimerLocationManager invalidateTimer]";
+    v8 = 2112;
+    v9 = locationUpdateTimer;
+    _os_log_impl(&dword_264323000, v3, OS_LOG_TYPE_DEFAULT, "%s - _locationUpdateTimer: %@", &v6, 0x16u);
   }
 
   [(PCPersistentTimer *)self->_locationUpdateTimer invalidate];
   v5 = self->_locationUpdateTimer;
   self->_locationUpdateTimer = 0;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateInitialTimer
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = sos_default_log();
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = sos_default_log(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     initalRequestTimer = self->_initalRequestTimer;
-    v7 = 136315394;
-    v8 = "[SOSPersistentTimerLocationManager invalidateInitialTimer]";
-    v9 = 2112;
-    v10 = initalRequestTimer;
-    _os_log_impl(&dword_264323000, v3, OS_LOG_TYPE_DEFAULT, "%s - _initalRequestTimer: %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[SOSPersistentTimerLocationManager invalidateInitialTimer]";
+    v8 = 2112;
+    v9 = initalRequestTimer;
+    _os_log_impl(&dword_264323000, v3, OS_LOG_TYPE_DEFAULT, "%s - _initalRequestTimer: %@", &v6, 0x16u);
   }
 
   [(PCPersistentTimer *)self->_initalRequestTimer invalidate];
   v5 = self->_initalRequestTimer;
   self->_initalRequestTimer = 0;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sosPersistentTimerInitialRequest:(id)request
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   requestCopy = request;
-  v5 = sos_default_log();
+  v5 = sos_default_log(requestCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[SOSPersistentTimerLocationManager _sosPersistentTimerInitialRequest:]";
-    v10 = 2112;
-    v11 = requestCopy;
-    _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "%s - _initalRequestTimer fired: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[SOSPersistentTimerLocationManager _sosPersistentTimerInitialRequest:]";
+    v9 = 2112;
+    v10 = requestCopy;
+    _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "%s - _initalRequestTimer fired: %@", &v7, 0x16u);
   }
 
   delegate = [(SOSPersistentTimerLocationManager *)self delegate];
   [delegate sosPersistentTimerLocationManagerTimerFired:self location:self->_lastLocation];
 
   [(SOSPersistentTimerLocationManager *)self invalidateInitialTimer];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sosPersistentTimerLocationManagerTic:(id)tic
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   ticCopy = tic;
-  v5 = sos_default_log();
+  v5 = sos_default_log(ticCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[SOSPersistentTimerLocationManager _sosPersistentTimerLocationManagerTic:]";
-    v10 = 2112;
-    v11 = ticCopy;
-    _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "%s - timer: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[SOSPersistentTimerLocationManager _sosPersistentTimerLocationManagerTic:]";
+    v9 = 2112;
+    v10 = ticCopy;
+    _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "%s - timer: %@", &v7, 0x16u);
   }
 
   [(SOSPersistentTimerLocationManager *)self requestLocation];
   [(SOSPersistentTimerLocationManager *)self _startTimer];
   delegate = [(SOSPersistentTimerLocationManager *)self delegate];
   [delegate sosPersistentTimerLocationManagerTimerFired:self location:self->_lastLocation];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setRequestingLocation:(BOOL)location
@@ -377,29 +358,27 @@ uint64_t __51__SOSPersistentTimerLocationManager_sharedInstance__block_invoke()
 
     else
     {
-      [(SOSPersistentTimerLocationManager *)self setForceEnableLocationAssertion:0];
+      v7 = [(SOSPersistentTimerLocationManager *)self setForceEnableLocationAssertion:0];
     }
 
-    v7 = sos_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sos_default_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       requestingLocation = self->_requestingLocation;
       v10 = 136315394;
       v11 = "[SOSPersistentTimerLocationManager setRequestingLocation:]";
       v12 = 1024;
       v13 = requestingLocation;
-      _os_log_impl(&dword_264323000, v7, OS_LOG_TYPE_DEFAULT, "%s - Updated _requestingLocation to %d", &v10, 0x12u);
+      _os_log_impl(&dword_264323000, v8, OS_LOG_TYPE_DEFAULT, "%s - Updated _requestingLocation to %d", &v10, 0x12u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setForceEnableLocationAssertion:(id)assertion
 {
   v22 = *MEMORY[0x277D85DE8];
   assertionCopy = assertion;
-  v6 = sos_default_log();
+  v6 = sos_default_log(assertionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v18 = 136315138;
@@ -422,76 +401,72 @@ uint64_t __51__SOSPersistentTimerLocationManager_sharedInstance__block_invoke()
     objc_storeStrong(&self->_forceEnableLocationAssertion, assertion);
     if (*p_forceEnableLocationAssertion)
     {
-      v10 = sos_default_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = sos_default_log(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         v18 = 136315138;
         v19 = "[SOSPersistentTimerLocationManager setForceEnableLocationAssertion:]";
-        _os_log_impl(&dword_264323000, v10, OS_LOG_TYPE_DEFAULT, "%s - Setting up new location _assertionTimer", &v18, 0xCu);
+        _os_log_impl(&dword_264323000, v11, OS_LOG_TYPE_DEFAULT, "%s - Setting up new location _assertionTimer", &v18, 0xCu);
       }
 
       [(PCPersistentTimer *)self->_assertionTimer invalidate];
-      v11 = [objc_alloc(MEMORY[0x277D3A180]) initWithTimeInterval:@"com.apple.sos.locationManager" serviceIdentifier:self target:sel__emergencyLocationAssertionTimeOut_ selector:0 userInfo:60.0];
-      v12 = self->_assertionTimer;
-      self->_assertionTimer = v11;
+      v12 = [objc_alloc(MEMORY[0x277D3A180]) initWithTimeInterval:@"com.apple.sos.locationManager" serviceIdentifier:self target:sel__emergencyLocationAssertionTimeOut_ selector:0 userInfo:60.0];
+      v13 = self->_assertionTimer;
+      self->_assertionTimer = v12;
 
       [(PCPersistentTimer *)self->_assertionTimer setMinimumEarlyFireProportion:1.0];
-      v13 = self->_assertionTimer;
+      v14 = self->_assertionTimer;
       mainRunLoop = [MEMORY[0x277CBEB88] mainRunLoop];
-      [(PCPersistentTimer *)v13 scheduleInRunLoop:mainRunLoop];
+      [(PCPersistentTimer *)v14 scheduleInRunLoop:mainRunLoop];
     }
 
-    v15 = sos_default_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = sos_default_log(v10);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = *p_forceEnableLocationAssertion;
+      v17 = *p_forceEnableLocationAssertion;
       v18 = 136315394;
       v19 = "[SOSPersistentTimerLocationManager setForceEnableLocationAssertion:]";
       v20 = 2112;
-      v21 = v16;
-      _os_log_impl(&dword_264323000, v15, OS_LOG_TYPE_DEFAULT, "%s - Created new _forceEnableLocationAssertion: %@", &v18, 0x16u);
+      v21 = v17;
+      _os_log_impl(&dword_264323000, v16, OS_LOG_TYPE_DEFAULT, "%s - Created new _forceEnableLocationAssertion: %@", &v18, 0x16u);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   locationsCopy = locations;
-  v6 = sos_default_log();
+  v6 = sos_default_log(locationsCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v10 = "[SOSPersistentTimerLocationManager locationManager:didUpdateLocations:]";
-    v11 = 2112;
-    v12 = locationsCopy;
+    v9 = "[SOSPersistentTimerLocationManager locationManager:didUpdateLocations:]";
+    v10 = 2112;
+    v11 = locationsCopy;
     _os_log_impl(&dword_264323000, v6, OS_LOG_TYPE_DEFAULT, "%s - didUpdateLocations: %@", buf, 0x16u);
   }
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __72__SOSPersistentTimerLocationManager_locationManager_didUpdateLocations___block_invoke;
-  v8[3] = &unk_279B53F30;
-  v8[4] = self;
-  [locationsCopy enumerateObjectsWithOptions:2 usingBlock:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __72__SOSPersistentTimerLocationManager_locationManager_didUpdateLocations___block_invoke;
+  v7[3] = &unk_279B53F30;
+  v7[4] = self;
+  [locationsCopy enumerateObjectsWithOptions:2 usingBlock:v7];
 }
 
 void __72__SOSPersistentTimerLocationManager_locationManager_didUpdateLocations___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v7 = a2;
-  v8 = sos_default_log();
+  v8 = sos_default_log(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136315394;
-    v16 = "[SOSPersistentTimerLocationManager locationManager:didUpdateLocations:]_block_invoke";
-    v17 = 2112;
-    v18 = v7;
-    _os_log_impl(&dword_264323000, v8, OS_LOG_TYPE_DEFAULT, "%s - location: %@", &v15, 0x16u);
+    v14 = 136315394;
+    v15 = "[SOSPersistentTimerLocationManager locationManager:didUpdateLocations:]_block_invoke";
+    v16 = 2112;
+    v17 = v7;
+    _os_log_impl(&dword_264323000, v8, OS_LOG_TYPE_DEFAULT, "%s - location: %@", &v14, 0x16u);
   }
 
   v9 = [*(a1 + 32) delegate];
@@ -520,28 +495,24 @@ void __72__SOSPersistentTimerLocationManager_locationManager_didUpdateLocations_
 
     *a4 = 1;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)locationManager:(id)manager didFailWithError:(id)error
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v5 = sos_default_log();
+  v5 = sos_default_log(errorCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = errorCopy;
-    _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "[WARN] CLLocationManager error: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = errorCopy;
+    _os_log_impl(&dword_264323000, v5, OS_LOG_TYPE_DEFAULT, "[WARN] CLLocationManager error: %@", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_emergencyLocationAssertionTimeOut:(id)out
 {
-  v4 = sos_default_log();
+  v4 = sos_default_log(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;

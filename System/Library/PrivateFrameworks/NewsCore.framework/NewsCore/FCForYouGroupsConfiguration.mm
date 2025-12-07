@@ -24,52 +24,50 @@
 
 void __54__FCForYouGroupsConfiguration__groupIdentifiersByType__block_invoke()
 {
-  v4[20] = *MEMORY[0x1E69E9840];
-  v3[0] = &unk_1F2E70980;
-  v3[1] = &unk_1F2E70998;
-  v4[0] = @"TopStories";
-  v4[1] = @"TrendingStories";
-  v3[2] = &unk_1F2E709B0;
-  v3[3] = &unk_1F2E709C8;
-  v4[2] = @"DailyBriefings";
-  v4[3] = @"SavedStories";
-  v3[4] = &unk_1F2E709E0;
-  v3[5] = &unk_1F2E709F8;
-  v4[4] = @"GreatStoriesYouMissed";
-  v4[5] = @"Editorial";
-  v3[6] = &unk_1F2E70A10;
-  v3[7] = &unk_1F2E70A28;
-  v4[6] = @"Latest";
-  v4[7] = @"Topic";
-  v3[8] = &unk_1F2E70A40;
-  v3[9] = &unk_1F2E70A58;
-  v4[8] = @"MoreFromYou";
-  v4[9] = @"NewFavorite";
-  v3[10] = &unk_1F2E70A70;
-  v3[11] = &unk_1F2E70A88;
-  v4[10] = @"PaidSubscription";
-  v4[11] = @"BestOfEdition";
-  v3[12] = &unk_1F2E70AA0;
-  v3[13] = &unk_1F2E70AB8;
-  v4[12] = @"AutoFavorite";
-  v4[13] = @"Magazines";
-  v3[14] = &unk_1F2E70AD0;
-  v3[15] = &unk_1F2E70AE8;
-  v4[14] = @"Spotlight";
-  v4[15] = @"Curated";
-  v3[16] = &unk_1F2E70B00;
-  v3[17] = &unk_1F2E70B18;
-  v4[16] = @"LocalNews";
-  v4[17] = @"AudioDailyBriefing";
-  v3[18] = &unk_1F2E70B30;
-  v3[19] = &unk_1F2E70B48;
-  v4[18] = @"MagazineTrending";
-  v4[19] = @"MySports";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:20];
+  v3[20] = *MEMORY[0x1E69E9840];
+  v2[0] = &unk_1F2E70980;
+  v2[1] = &unk_1F2E70998;
+  v3[0] = @"TopStories";
+  v3[1] = @"TrendingStories";
+  v2[2] = &unk_1F2E709B0;
+  v2[3] = &unk_1F2E709C8;
+  v3[2] = @"DailyBriefings";
+  v3[3] = @"SavedStories";
+  v2[4] = &unk_1F2E709E0;
+  v2[5] = &unk_1F2E709F8;
+  v3[4] = @"GreatStoriesYouMissed";
+  v3[5] = @"Editorial";
+  v2[6] = &unk_1F2E70A10;
+  v2[7] = &unk_1F2E70A28;
+  v3[6] = @"Latest";
+  v3[7] = @"Topic";
+  v2[8] = &unk_1F2E70A40;
+  v2[9] = &unk_1F2E70A58;
+  v3[8] = @"MoreFromYou";
+  v3[9] = @"NewFavorite";
+  v2[10] = &unk_1F2E70A70;
+  v2[11] = &unk_1F2E70A88;
+  v3[10] = @"PaidSubscription";
+  v3[11] = @"BestOfEdition";
+  v2[12] = &unk_1F2E70AA0;
+  v2[13] = &unk_1F2E70AB8;
+  v3[12] = @"AutoFavorite";
+  v3[13] = @"Magazines";
+  v2[14] = &unk_1F2E70AD0;
+  v2[15] = &unk_1F2E70AE8;
+  v3[14] = @"Spotlight";
+  v3[15] = @"Curated";
+  v2[16] = &unk_1F2E70B00;
+  v2[17] = &unk_1F2E70B18;
+  v3[16] = @"LocalNews";
+  v3[17] = @"AudioDailyBriefing";
+  v2[18] = &unk_1F2E70B30;
+  v2[19] = &unk_1F2E70B48;
+  v3[18] = @"MagazineTrending";
+  v3[19] = @"MySports";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:20];
   v1 = qword_1EDB277D8;
   qword_1EDB277D8 = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (FCForYouGroupsConfiguration)initWithJSONConfiguration:(id)configuration
@@ -118,17 +116,16 @@ void __54__FCForYouGroupsConfiguration__groupIdentifiersByType__block_invoke()
 void __57__FCForYouGroupsConfiguration_initWithJSONConfiguration___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() _groupIdentifiersByType];
-  v7[0] = MEMORY[0x1E69E9820];
-  v7[1] = 3221225472;
-  v7[2] = __57__FCForYouGroupsConfiguration_initWithJSONConfiguration___block_invoke_2;
-  v7[3] = &unk_1E7C44E70;
-  v8 = *(a1 + 40);
-  v9 = *(a1 + 32);
-  v10 = v3;
-  v6 = v3;
-  [v5 enumerateKeysAndObjectsUsingBlock:v7];
+  v4 = [objc_opt_class() _groupIdentifiersByType];
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __57__FCForYouGroupsConfiguration_initWithJSONConfiguration___block_invoke_2;
+  v6[3] = &unk_1E7C44E70;
+  v7 = *(a1 + 40);
+  v8 = *(a1 + 32);
+  v9 = v3;
+  v5 = v3;
+  [v4 enumerateKeysAndObjectsUsingBlock:v6];
 }
 
 void __57__FCForYouGroupsConfiguration_initWithJSONConfiguration___block_invoke_2(uint64_t a1, void *a2, void *a3)

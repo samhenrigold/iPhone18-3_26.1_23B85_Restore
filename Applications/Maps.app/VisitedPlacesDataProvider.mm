@@ -20,7 +20,7 @@
   if (active)
   {
     selfCopy = self;
-    sub_100460DE0();
+    sub_100460DE0(selfCopy);
   }
 }
 

@@ -94,7 +94,7 @@
 
 - (void)run
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = self->_baseOperation;
   v4 = objc_alloc_init(MEMORY[0x1E69E47B8]);
   [(ISStoreURLOperation *)v3 setDataProvider:v4];
@@ -104,8 +104,8 @@
   [v5 setRequestParameters:v6];
   [(ISStoreURLOperation *)v3 setRequestProperties:v5];
 
-  v18 = 0;
-  if (([(SULoadNetworkSectionsOperation *)self runSubOperation:v3 returningError:&v18]& 1) != 0)
+  v19 = 0;
+  if (([(SULoadNetworkSectionsOperation *)self runSubOperation:v3 returningError:&v19]& 1) != 0)
   {
     v7 = -[SUSectionsResponse initWithClientInterface:sectionsDictionary:responseType:]([SUSectionsResponse alloc], "initWithClientInterface:sectionsDictionary:responseType:", self->_clientInterface, [v4 output], 1);
     v8 = [(SULoadNetworkSectionsOperation *)self _loadArtworkForResponse:v7];
@@ -120,39 +120,44 @@
       shouldLog = [mEMORY[0x1E69D4938] shouldLog];
       if ([mEMORY[0x1E69D4938] shouldLogToDisk])
       {
-        v11 = shouldLog | 2;
+        LODWORD(v11) = shouldLog | 2;
       }
 
       else
       {
-        v11 = shouldLog;
+        LODWORD(v11) = shouldLog;
       }
 
-      if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      {
+        v11 = v11;
+      }
+
+      else
       {
         v11 &= 2u;
       }
 
       if (v11)
       {
-        v12 = objc_opt_class();
-        v19 = 138412290;
-        v20 = v12;
-        LODWORD(v17) = 12;
-        v16 = &v19;
-        v13 = _os_log_send_and_compose_impl();
-        if (v13)
+        v13 = objc_opt_class();
+        v20 = 138412290;
+        v21 = v13;
+        LODWORD(v18) = 12;
+        v14 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Artwork load failed, will not cache configuration", &v20, v18);
+        if (v14)
         {
-          v14 = v13;
-          v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:{4, &v19, v17}];
-          free(v14);
-          v16 = v15;
+          v15 = v14;
+          v16 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:4];
+          free(v15);
+          v17 = v16;
           SSFileLog();
         }
       }
     }
 
-    [(SUSectionsResponse *)v7 setCacheable:v8, v16];
+    [(SUSectionsResponse *)v7 setCacheable:v8, v17];
     -[SUSectionsResponse setStoreFrontIdentifier:](v7, "setStoreFrontIdentifier:", [objc_msgSend(MEMORY[0x1E69D48B0] "currentDevice")]);
     [(SULoadNetworkSectionsOperation *)self _setSectionsResponse:v7];
     [(SULoadNetworkSectionsOperation *)self setSuccess:1];
@@ -160,7 +165,7 @@
 
   else
   {
-    [(SULoadNetworkSectionsOperation *)self setError:v18];
+    [(SULoadNetworkSectionsOperation *)self setError:v19];
   }
 }
 
@@ -288,32 +293,32 @@ LABEL_9:
 
 - (BOOL)_loadArtworkForResponse:(id)response
 {
-  v86 = *MEMORY[0x1E69E9840];
-  v75 = 0u;
-  v76 = 0u;
+  v88 = *MEMORY[0x1E69E9840];
   v77 = 0u;
   v78 = 0u;
+  v79 = 0u;
+  v80 = 0u;
   obj = [response allSections];
-  v66 = [obj countByEnumeratingWithState:&v75 objects:v85 count:16];
-  if (v66)
+  v68 = [obj countByEnumeratingWithState:&v77 objects:v87 count:16];
+  if (v68)
   {
-    v64 = *MEMORY[0x1E69D4CA8];
-    v65 = *v76;
-    v62 = *MEMORY[0x1E69D4CB0];
-    v63 = *MEMORY[0x1E69D4CC0];
-    v61 = *MEMORY[0x1E69D4CB8];
-    v59 = 1;
+    v66 = *MEMORY[0x1E69D4CA8];
+    v67 = *v78;
+    v64 = *MEMORY[0x1E69D4CB0];
+    v65 = *MEMORY[0x1E69D4CC0];
+    v63 = *MEMORY[0x1E69D4CB8];
+    v61 = 1;
     do
     {
-      for (i = 0; i != v66; ++i)
+      for (i = 0; i != v68; ++i)
       {
-        if (*v76 != v65)
+        if (*v78 != v67)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v75 + 1) + 8 * i);
-        v6 = -[SULoadNetworkSectionsOperation _bestItemImageForImages:withImageKind:](self, "_bestItemImageForImages:withImageKind:", [v5 itemImages], v64);
+        v5 = *(*(&v77 + 1) + 8 * i);
+        v6 = -[SULoadNetworkSectionsOperation _bestItemImageForImages:withImageKind:](self, "_bestItemImageForImages:withImageKind:", [v5 itemImages], v66);
         if (v6)
         {
           v7 = [(SULoadNetworkSectionsOperation *)self _copyLoadedItemImage:v6 error:0];
@@ -326,7 +331,7 @@ LABEL_9:
           v8 = 1;
         }
 
-        v9 = -[SULoadNetworkSectionsOperation _bestItemImageForImages:withImageKind:](self, "_bestItemImageForImages:withImageKind:", [v5 itemImages], v63);
+        v9 = -[SULoadNetworkSectionsOperation _bestItemImageForImages:withImageKind:](self, "_bestItemImageForImages:withImageKind:", [v5 itemImages], v65);
         if (v9)
         {
           v10 = [(SULoadNetworkSectionsOperation *)self _copyLoadedItemImage:v9 error:0];
@@ -338,7 +343,7 @@ LABEL_9:
           [v5 setSelectedImage:v10];
         }
 
-        v11 = -[SULoadNetworkSectionsOperation _bestItemImageForImages:withImageKind:](self, "_bestItemImageForImages:withImageKind:", [v5 itemImages], v62);
+        v11 = -[SULoadNetworkSectionsOperation _bestItemImageForImages:withImageKind:](self, "_bestItemImageForImages:withImageKind:", [v5 itemImages], v64);
         if (v11)
         {
           v12 = [(SULoadNetworkSectionsOperation *)self _copyLoadedItemImage:v11 error:0];
@@ -350,7 +355,7 @@ LABEL_9:
           [v5 setMoreListImage:v12];
         }
 
-        v13 = -[SULoadNetworkSectionsOperation _bestItemImageForImages:withImageKind:](self, "_bestItemImageForImages:withImageKind:", [v5 itemImages], v61);
+        v13 = -[SULoadNetworkSectionsOperation _bestItemImageForImages:withImageKind:](self, "_bestItemImageForImages:withImageKind:", [v5 itemImages], v63);
         if (v13)
         {
           v14 = [(SULoadNetworkSectionsOperation *)self _copyLoadedItemImage:v13 error:0];
@@ -363,25 +368,25 @@ LABEL_9:
         }
 
         leftSectionButtons = [v5 leftSectionButtons];
-        v71 = 0u;
-        v72 = 0u;
         v73 = 0u;
         v74 = 0u;
-        v16 = [leftSectionButtons countByEnumeratingWithState:&v71 objects:v84 count:16];
+        v75 = 0u;
+        v76 = 0u;
+        v16 = [leftSectionButtons countByEnumeratingWithState:&v73 objects:v86 count:16];
         if (v16)
         {
           v17 = v16;
-          v18 = *v72;
+          v18 = *v74;
           do
           {
             for (j = 0; j != v17; ++j)
             {
-              if (*v72 != v18)
+              if (*v74 != v18)
               {
                 objc_enumerationMutation(leftSectionButtons);
               }
 
-              v20 = *(*(&v71 + 1) + 8 * j);
+              v20 = *(*(&v73 + 1) + 8 * j);
               imageURL = [v20 imageURL];
               if (imageURL)
               {
@@ -393,32 +398,32 @@ LABEL_9:
               }
             }
 
-            v17 = [leftSectionButtons countByEnumeratingWithState:&v71 objects:v84 count:16];
+            v17 = [leftSectionButtons countByEnumeratingWithState:&v73 objects:v86 count:16];
           }
 
           while (v17);
         }
 
         rightSectionButtons = [v5 rightSectionButtons];
-        v67 = 0u;
-        v68 = 0u;
         v69 = 0u;
         v70 = 0u;
-        v25 = [rightSectionButtons countByEnumeratingWithState:&v67 objects:v83 count:16];
+        v71 = 0u;
+        v72 = 0u;
+        v25 = [rightSectionButtons countByEnumeratingWithState:&v69 objects:v85 count:16];
         if (v25)
         {
           v26 = v25;
-          v27 = *v68;
+          v27 = *v70;
           do
           {
             for (k = 0; k != v26; ++k)
             {
-              if (*v68 != v27)
+              if (*v70 != v27)
               {
                 objc_enumerationMutation(rightSectionButtons);
               }
 
-              v29 = *(*(&v67 + 1) + 8 * k);
+              v29 = *(*(&v69 + 1) + 8 * k);
               imageURL2 = [v29 imageURL];
               if (imageURL2)
               {
@@ -430,7 +435,7 @@ LABEL_9:
               }
             }
 
-            v26 = [rightSectionButtons countByEnumeratingWithState:&v67 objects:v83 count:16];
+            v26 = [rightSectionButtons countByEnumeratingWithState:&v69 objects:v85 count:16];
           }
 
           while (v26);
@@ -439,135 +444,146 @@ LABEL_9:
         if ((v8 & 1) == 0)
         {
           mEMORY[0x1E69D4938] = [MEMORY[0x1E69D4938] sharedConfig];
-          shouldLog = [mEMORY[0x1E69D4938] shouldLog];
+          LODWORD(v34) = [mEMORY[0x1E69D4938] shouldLog];
           if ([mEMORY[0x1E69D4938] shouldLogToDisk])
           {
-            shouldLog |= 2u;
+            LODWORD(v34) = v34 | 2;
           }
 
-          if (!os_log_type_enabled([mEMORY[0x1E69D4938] OSLogObject], OS_LOG_TYPE_DEFAULT))
+          oSLogObject = [mEMORY[0x1E69D4938] OSLogObject];
+          if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
           {
-            shouldLog &= 2u;
+            v34 = v34;
           }
 
-          if (shouldLog)
+          else
           {
-            v35 = objc_opt_class();
-            v79 = 138412546;
-            v80 = v35;
-            v81 = 2112;
-            v82 = v5;
-            LODWORD(v57) = 22;
-            v56 = &v79;
-            v36 = _os_log_send_and_compose_impl();
-            if (v36)
+            v34 &= 2u;
+          }
+
+          if (v34)
+          {
+            v36 = objc_opt_class();
+            v81 = 138412546;
+            v82 = v36;
+            v83 = 2112;
+            v84 = v5;
+            LODWORD(v59) = 22;
+            v37 = _os_log_send_and_compose_impl(v34, 0, 0, 0, &dword_1C21AF000, oSLogObject, 0, "%@: Failed to load artwork for section: %@", &v81, v59);
+            if (v37)
             {
-              v37 = v36;
-              v38 = [MEMORY[0x1E696AEC0] stringWithCString:v36 encoding:{4, &v79, v57}];
-              free(v37);
-              v56 = v38;
+              v38 = v37;
+              v39 = [MEMORY[0x1E696AEC0] stringWithCString:v37 encoding:4];
+              free(v38);
+              v58 = v39;
               SSFileLog();
             }
           }
 
-          v59 = 0;
+          v61 = 0;
         }
       }
 
-      v66 = [obj countByEnumeratingWithState:&v75 objects:v85 count:16];
+      v68 = [obj countByEnumeratingWithState:&v77 objects:v87 count:16];
     }
 
-    while (v66);
+    while (v68);
   }
 
   else
   {
-    v59 = 1;
+    v61 = 1;
   }
 
   moreListImageCollection = [objc_msgSend(response moreListImageCollection];
   if (![moreListImageCollection count])
   {
-    return v59;
+    return v61;
   }
 
-  v40 = [(SULoadNetworkSectionsOperation *)self _bestItemImageForImages:moreListImageCollection withImageKind:*MEMORY[0x1E69D4CA8]];
-  if (!v40)
+  v41 = [(SULoadNetworkSectionsOperation *)self _bestItemImageForImages:moreListImageCollection withImageKind:*MEMORY[0x1E69D4CA8]];
+  if (!v41)
   {
-    v45 = [(SULoadNetworkSectionsOperation *)self _bestItemImageForImages:moreListImageCollection withImageKind:*MEMORY[0x1E69D4CC0]];
-    if (v45)
+    v46 = [(SULoadNetworkSectionsOperation *)self _bestItemImageForImages:moreListImageCollection withImageKind:*MEMORY[0x1E69D4CC0]];
+    if (v46)
     {
-      v44 = v45;
-      v42 = 1;
-LABEL_58:
-      v46 = [(SULoadNetworkSectionsOperation *)self _copyLoadedItemImage:v44 error:0];
-      [response setMoreListSelectedImage:v46];
+      v45 = v46;
+      v43 = 1;
+      goto LABEL_59;
+    }
 
-      v47 = !v42 || v46 == 0;
-      v48 = v59;
-      if (!v47)
+    return v61;
+  }
+
+  v42 = [(SULoadNetworkSectionsOperation *)self _copyLoadedItemImage:v41 error:0];
+  v43 = v42 != 0;
+  [response setMoreListImage:v42];
+
+  v44 = [(SULoadNetworkSectionsOperation *)self _bestItemImageForImages:moreListImageCollection withImageKind:*MEMORY[0x1E69D4CC0]];
+  if (!v44)
+  {
+    v49 = v61;
+    if (v42)
+    {
+      return v49;
+    }
+
+    goto LABEL_66;
+  }
+
+  v45 = v44;
+LABEL_59:
+  v47 = [(SULoadNetworkSectionsOperation *)self _copyLoadedItemImage:v45 error:0];
+  [response setMoreListSelectedImage:v47];
+
+  v48 = !v43 || v47 == 0;
+  v49 = v61;
+  if (v48)
+  {
+LABEL_66:
+    mEMORY[0x1E69D4938]2 = [MEMORY[0x1E69D4938] sharedConfig];
+    shouldLog = [mEMORY[0x1E69D4938]2 shouldLog];
+    if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
+    {
+      LODWORD(v52) = shouldLog | 2;
+    }
+
+    else
+    {
+      LODWORD(v52) = shouldLog;
+    }
+
+    oSLogObject2 = [mEMORY[0x1E69D4938]2 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
+    {
+      v52 = v52;
+    }
+
+    else
+    {
+      v52 &= 2u;
+    }
+
+    if (v52)
+    {
+      v54 = objc_opt_class();
+      v81 = 138412290;
+      v82 = v54;
+      LODWORD(v59) = 12;
+      v55 = _os_log_send_and_compose_impl(v52, 0, 0, 0, &dword_1C21AF000, oSLogObject2, 0, "%@: Failed to load artwork for more list", &v81, v59);
+      if (v55)
       {
-        return v48;
+        v56 = v55;
+        [MEMORY[0x1E696AEC0] stringWithCString:v55 encoding:4];
+        free(v56);
+        SSFileLog();
       }
-
-      goto LABEL_65;
     }
 
-    return v59;
+    return 0;
   }
 
-  v41 = [(SULoadNetworkSectionsOperation *)self _copyLoadedItemImage:v40 error:0];
-  v42 = v41 != 0;
-  [response setMoreListImage:v41];
-
-  v43 = [(SULoadNetworkSectionsOperation *)self _bestItemImageForImages:moreListImageCollection withImageKind:*MEMORY[0x1E69D4CC0]];
-  if (v43)
-  {
-    v44 = v43;
-    goto LABEL_58;
-  }
-
-  v48 = v59;
-  if (v41)
-  {
-    return v48;
-  }
-
-LABEL_65:
-  mEMORY[0x1E69D4938]2 = [MEMORY[0x1E69D4938] sharedConfig];
-  shouldLog2 = [mEMORY[0x1E69D4938]2 shouldLog];
-  if ([mEMORY[0x1E69D4938]2 shouldLogToDisk])
-  {
-    v51 = shouldLog2 | 2;
-  }
-
-  else
-  {
-    v51 = shouldLog2;
-  }
-
-  if (!os_log_type_enabled([mEMORY[0x1E69D4938]2 OSLogObject], OS_LOG_TYPE_DEFAULT))
-  {
-    v51 &= 2u;
-  }
-
-  if (v51)
-  {
-    v52 = objc_opt_class();
-    v79 = 138412290;
-    v80 = v52;
-    LODWORD(v57) = 12;
-    v53 = _os_log_send_and_compose_impl();
-    if (v53)
-    {
-      v54 = v53;
-      [MEMORY[0x1E696AEC0] stringWithCString:v53 encoding:{4, &v79, v57}];
-      free(v54);
-      SSFileLog();
-    }
-  }
-
-  return 0;
+  return v49;
 }
 
 - (void)_setSectionsResponse:(id)response

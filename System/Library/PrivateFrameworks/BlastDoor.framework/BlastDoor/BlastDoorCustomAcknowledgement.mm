@@ -32,19 +32,17 @@
 
 - (NSArray)participantDestinationIdentifiers
 {
-  v3 = type metadata accessor for CustomAcknowledgement();
-  v4 = *(*(v3 - 8) + 64);
+  v3 = type metadata accessor for CustomAcknowledgement(0);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_213FB568C(self + OBJC_IVAR___BlastDoorCustomAcknowledgement_customAcknowledgement, v6, type metadata accessor for CustomAcknowledgement);
-  if (*(v6 + 9))
+  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_213FB568C(self + OBJC_IVAR___BlastDoorCustomAcknowledgement_customAcknowledgement, v5, type metadata accessor for CustomAcknowledgement);
+  if (*(v5 + 9))
   {
-    v7 = *(v6 + 9);
 
-    sub_213FB5844(v6, type metadata accessor for CustomAcknowledgement);
-    v8 = sub_2146D98E8();
+    sub_213FB5844(v5, type metadata accessor for CustomAcknowledgement);
+    v6 = sub_2146D98E8();
 
-    return v8;
+    return v6;
   }
 
   else
@@ -59,41 +57,36 @@
 - (BlastDoorBalloonPluginPayloadWrapper)payload
 {
   v3 = type metadata accessor for BalloonPlugin.Payload(0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = self + OBJC_IVAR___BlastDoorCustomAcknowledgement_customAcknowledgement;
-  v8 = type metadata accessor for CustomAcknowledgement();
-  sub_213FB568C(&v7[*(v8 + 44)], v6, type metadata accessor for BalloonPlugin.Payload);
-  v9 = type metadata accessor for _ObjCEnumBalloonPluginPayloadWrapper(0);
-  v10 = objc_allocWithZone(v9);
-  sub_213FB568C(v6, v10 + OBJC_IVAR___BlastDoorBalloonPluginPayloadWrapper_balloonPlugin_Payload, type metadata accessor for BalloonPlugin.Payload);
-  v13.receiver = v10;
-  v13.super_class = v9;
-  v11 = [(BlastDoorCustomAcknowledgement *)&v13 init];
-  sub_213FB5844(v6, type metadata accessor for BalloonPlugin.Payload);
+  v5 = &v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = self + OBJC_IVAR___BlastDoorCustomAcknowledgement_customAcknowledgement;
+  v7 = type metadata accessor for CustomAcknowledgement(0);
+  sub_213FB568C(&v6[*(v7 + 44)], v5, type metadata accessor for BalloonPlugin.Payload);
+  v8 = type metadata accessor for _ObjCEnumBalloonPluginPayloadWrapper(0);
+  v9 = objc_allocWithZone(v8);
+  sub_213FB568C(v5, v9 + OBJC_IVAR___BlastDoorBalloonPluginPayloadWrapper_balloonPlugin_Payload, type metadata accessor for BalloonPlugin.Payload);
+  v12.receiver = v9;
+  v12.super_class = v8;
+  v10 = [(BlastDoorCustomAcknowledgement *)&v12 init];
+  sub_213FB5844(v5, type metadata accessor for BalloonPlugin.Payload);
 
-  return v11;
+  return v10;
 }
 
 - (NSAttributedString)content
 {
   v2 = self + OBJC_IVAR___BlastDoorCustomAcknowledgement_customAcknowledgement;
-  v3 = &v2[*(type metadata accessor for CustomAcknowledgement() + 52)];
-  if (*v3)
+  if (*&v2[*(type metadata accessor for CustomAcknowledgement(0) + 52)])
   {
-    v6 = *v3;
-    v7 = *(v3 + 1);
-    v8 = *(v3 + 2);
-    v4 = sub_214664BB8();
+    v3 = sub_214664BB8();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (BlastDoorCustomAcknowledgement)init

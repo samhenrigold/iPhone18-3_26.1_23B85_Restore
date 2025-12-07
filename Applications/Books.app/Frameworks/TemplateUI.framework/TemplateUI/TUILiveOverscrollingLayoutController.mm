@@ -84,7 +84,7 @@
                 v23 = v22;
                 if (v18)
                 {
-                  [v18 transform];
+                  objc_msgSend_transform(v18);
                   v25 = v43;
                   v24 = v44;
                   v27 = v45;
@@ -201,7 +201,7 @@
     v34 = v28;
     v35 = v27;
     v33 = v29;
-    [liveTransform transform];
+    objc_msgSend_transform(liveTransform);
     v29 = v33;
     v28 = v34;
     v27 = v35;
@@ -218,7 +218,7 @@
   CGAffineTransformConcat(&v39, &t1, &t2);
   if (modelCopy)
   {
-    [modelCopy transform];
+    objc_msgSend_transform(modelCopy);
   }
 
   else

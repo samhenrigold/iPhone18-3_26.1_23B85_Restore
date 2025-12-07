@@ -34,13 +34,13 @@
   v8 = v7;
   [(RCPGlobalPositionEvent *)self zPosition];
   v10 = v9;
-  [(RCPGlobalPositionEvent *)self orientation];
+  objc_msgSend_orientation(self);
   v12 = v11;
-  [(RCPGlobalPositionEvent *)self orientation];
+  objc_msgSend_orientation(self);
   v14 = v13;
-  [(RCPGlobalPositionEvent *)self orientation];
+  objc_msgSend_orientation(self);
   v16 = v15;
-  [(RCPGlobalPositionEvent *)self orientation];
+  objc_msgSend_orientation(self);
   v18 = v17;
   timestamp = [(RCPGlobalPositionEvent *)self timestamp];
   senderProperties = [(RCPGlobalPositionEvent *)self senderProperties];

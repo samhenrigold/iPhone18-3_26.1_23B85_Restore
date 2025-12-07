@@ -7,7 +7,7 @@
 
 - (void)trackEventWithScalar:(unint64_t)scalar interface:(SGMNLEventInterface_)interface actionType:(SGMNLEventActionType_)type eventType:(id)eventType languageID:(id)d daysFromStartDate:(unint64_t)date confidenceScore:(unint64_t)score significantSender:(SGMBoolOption_)self0 participantCount:(unint64_t)self1 extractionLevel:(SGMNLEventExtractionLevel_)self2 usedBubblesCount:(unint64_t)self3 titleSource:(SGMEventTitleSource_)self4 titleAdj:(SGMEventStringAdj_)self5 dateAdj:(SGMEventDateAdj_)self6 duraAdj:(SGMEventDurationAdj_)self7 locationAdj:(SGMEventLocationAdj_)self8 addedAttendeesCount:(id)self9 calendarAppUsageLevel:(id)usageLevel mailAppUsageLevel:(SGMAppUsageLevel_)appUsageLevel messagesAppUsageLevel:(SGMAppUsageLevel_)messagesAppUsageLevel
 {
-  v86[19] = *MEMORY[0x1E69E9840];
+  v85[19] = *MEMORY[0x1E69E9840];
   eventTypeCopy = eventType;
   dCopy = d;
   attendeesCountCopy = attendeesCount;
@@ -26,7 +26,7 @@
     v29 = off_1E7EFC130[interface.var0];
   }
 
-  v79 = v29;
+  v78 = v29;
   if (type.var0 >= 0xC)
   {
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
@@ -34,17 +34,17 @@
     v34 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString * _Nonnull SGMNLEventActionType_toString(SGMNLEventActionType)"];
     [currentHandler2 handleFailureInFunction:v34 file:@"SGMetricsDefines.h" lineNumber:430 description:{@"unrecognized tag %lu on SGMNLEventActionType", type.var0}];
 
-    v78 = @"ERR_UNMATCHED_TAG";
+    v77 = @"ERR_UNMATCHED_TAG";
   }
 
   else
   {
-    v78 = off_1E7EFBFC8[type.var0];
+    v77 = off_1E7EFBFC8[type.var0];
     v32 = 0x1E696A000;
   }
 
-  v81 = eventTypeCopy;
-  v80 = dCopy;
+  v80 = eventTypeCopy;
+  v79 = dCopy;
   if (sender.var0 >= 3)
   {
     v35 = 0x1E696A000uLL;
@@ -52,12 +52,12 @@
     v37 = [*(v32 + 3776) stringWithUTF8String:"NSString * _Nonnull SGMBoolOption_toString(SGMBoolOption)"];
     [currentHandler3 handleFailureInFunction:v37 file:@"SGMetricsDefines.h" lineNumber:27 description:{@"unrecognized tag %lu on SGMBoolOption", sender.var0}];
 
-    v77 = @"ERR_UNMATCHED_TAG";
+    v76 = @"ERR_UNMATCHED_TAG";
   }
 
   else
   {
-    v77 = off_1E7EFC028[sender.var0];
+    v76 = off_1E7EFC028[sender.var0];
     v35 = 0x1E696A000;
   }
 
@@ -75,7 +75,7 @@
     v38 = off_1E7EFC040[level.var0];
   }
 
-  v76 = v38;
+  v75 = v38;
   if (source.var0 >= 4)
   {
     currentHandler5 = [*(v35 + 2728) currentHandler];
@@ -90,7 +90,7 @@
     v41 = off_1E7EFC070[source.var0];
   }
 
-  v75 = v41;
+  v74 = v41;
   if (adj.var0 >= 5)
   {
     currentHandler6 = [*(v35 + 2728) currentHandler];
@@ -105,7 +105,7 @@
     v44 = off_1E7EFC090[adj.var0];
   }
 
-  v74 = v44;
+  v73 = v44;
   if (dateAdj.var0 >= 0xA)
   {
     currentHandler7 = [*(v35 + 2728) currentHandler];
@@ -120,7 +120,7 @@
     v47 = off_1E7EFBF60[dateAdj.var0];
   }
 
-  v73 = v47;
+  v72 = v47;
   if (duraAdj.var0 >= 6)
   {
     currentHandler8 = [*(v35 + 2728) currentHandler];
@@ -135,7 +135,7 @@
     v50 = off_1E7EFC0B8[duraAdj.var0];
   }
 
-  v72 = v50;
+  v71 = v50;
   if (locationAdj.var0 >= 5)
   {
     currentHandler9 = [*(v35 + 2728) currentHandler];
@@ -150,9 +150,9 @@
     v53 = off_1E7EFC0E8[locationAdj.var0];
   }
 
-  v69 = v53;
-  v71 = attendeesCountCopy;
-  v70 = usageLevelCopy;
+  v68 = v53;
+  v70 = attendeesCountCopy;
+  v69 = usageLevelCopy;
   if (appUsageLevel.var0 >= 4)
   {
     currentHandler10 = [MEMORY[0x1E696AAA8] currentHandler];
@@ -167,7 +167,7 @@
     v56 = off_1E7EFC110[appUsageLevel.var0];
   }
 
-  v68 = v56;
+  v67 = v56;
   if (messagesAppUsageLevel.var0 >= 4)
   {
     currentHandler11 = [MEMORY[0x1E696AAA8] currentHandler];
@@ -183,55 +183,53 @@
   }
 
   tracker = self->_tracker;
-  v86[0] = v79;
-  v86[1] = v78;
-  v86[2] = v81;
-  v86[3] = v80;
+  v85[0] = v78;
+  v85[1] = v77;
+  v85[2] = v80;
+  v85[3] = v79;
   v62 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:date];
-  v86[4] = v62;
+  v85[4] = v62;
   v63 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:score];
-  v86[5] = v63;
-  v86[6] = v77;
+  v85[5] = v63;
+  v85[6] = v76;
   v64 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:count];
-  v86[7] = v64;
-  v86[8] = v76;
+  v85[7] = v64;
+  v85[8] = v75;
   v65 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:bubblesCount];
-  v86[9] = v65;
-  v86[10] = v75;
-  v86[11] = v74;
-  v86[12] = v73;
-  v86[13] = v72;
-  v86[14] = v69;
-  v86[15] = v71;
-  v86[16] = v70;
-  v86[17] = v68;
-  v86[18] = v59;
-  v66 = [MEMORY[0x1E695DEC8] arrayWithObjects:v86 count:19];
+  v85[9] = v65;
+  v85[10] = v74;
+  v85[11] = v73;
+  v85[12] = v72;
+  v85[13] = v71;
+  v85[14] = v68;
+  v85[15] = v70;
+  v85[16] = v69;
+  v85[17] = v67;
+  v85[18] = v59;
+  v66 = [MEMORY[0x1E695DEC8] arrayWithObjects:v85 count:19];
   [(PETScalarEventTracker *)tracker trackEventWithPropertyValues:v66 value:scalar];
-
-  v67 = *MEMORY[0x1E69E9840];
 }
 
 - (SGMNLEventInBanner)init
 {
-  v30[19] = *MEMORY[0x1E69E9840];
-  v29.receiver = self;
-  v29.super_class = SGMNLEventInBanner;
-  v2 = [(SGMNLEventInBanner *)&v29 init];
+  v29[19] = *MEMORY[0x1E69E9840];
+  v28.receiver = self;
+  v28.super_class = SGMNLEventInBanner;
+  v2 = [(SGMNLEventInBanner *)&v28 init];
   if (v2)
   {
-    v26 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"I"];
-    v28 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"A"];
-    v27 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"T"];
-    v23 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"L"];
-    v25 = [MEMORY[0x1E69C5B40] propertyWithName:@"D" range:0 clampValues:{57, 1}];
-    v21 = [MEMORY[0x1E69C5B40] propertyWithName:@"C" range:0 clampValues:{101, 1}];
-    v22 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"S"];
-    v20 = [MEMORY[0x1E69C5B40] propertyWithName:@"P" range:0 clampValues:{100, 1}];
-    v24 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"E"];
-    v19 = [MEMORY[0x1E69C5B40] propertyWithName:@"B" range:0 clampValues:{11, 1}];
-    v18 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"TiS"];
-    v17 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"TiA"];
+    v25 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"I"];
+    v27 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"A"];
+    v26 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"T"];
+    v22 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"L"];
+    v24 = [MEMORY[0x1E69C5B40] propertyWithName:@"D" range:0 clampValues:{57, 1}];
+    v20 = [MEMORY[0x1E69C5B40] propertyWithName:@"C" range:0 clampValues:{101, 1}];
+    v21 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"S"];
+    v19 = [MEMORY[0x1E69C5B40] propertyWithName:@"P" range:0 clampValues:{100, 1}];
+    v23 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"E"];
+    v18 = [MEMORY[0x1E69C5B40] propertyWithName:@"B" range:0 clampValues:{11, 1}];
+    v17 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"TiS"];
+    v16 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"TiA"];
     v3 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"DaA"];
     v4 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"DuA"];
     v5 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"LoA"];
@@ -240,33 +238,32 @@
     v8 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"MaUL"];
     v9 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"MeUL"];
     v10 = objc_alloc(MEMORY[0x1E69C5B58]);
-    v30[0] = v26;
-    v30[1] = v28;
-    v30[2] = v27;
-    v30[3] = v23;
-    v30[4] = v25;
-    v30[5] = v21;
-    v30[6] = v22;
-    v30[7] = v20;
-    v30[8] = v24;
-    v30[9] = v19;
-    v30[10] = v18;
-    v30[11] = v17;
-    v30[12] = v3;
-    v30[13] = v4;
-    v30[14] = v5;
-    v30[15] = v6;
-    v30[16] = v7;
-    v30[17] = v8;
+    v29[0] = v25;
+    v29[1] = v27;
+    v29[2] = v26;
+    v29[3] = v22;
+    v29[4] = v24;
+    v29[5] = v20;
+    v29[6] = v21;
+    v29[7] = v19;
+    v29[8] = v23;
+    v29[9] = v18;
+    v29[10] = v17;
+    v29[11] = v16;
+    v29[12] = v3;
+    v29[13] = v4;
+    v29[14] = v5;
+    v29[15] = v6;
+    v29[16] = v7;
+    v29[17] = v8;
     v11 = v7;
-    v30[18] = v9;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:19];
+    v29[18] = v9;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:19];
     v13 = [v10 initWithFeatureId:@"Found" event:@"NLEventInBanner" registerProperties:v12 propertySubsets:MEMORY[0x1E695E0F0]];
     tracker = v2->_tracker;
     v2->_tracker = v13;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

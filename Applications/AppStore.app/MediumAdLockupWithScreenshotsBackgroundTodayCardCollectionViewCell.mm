@@ -10,7 +10,7 @@
 - (void)layoutSubviews
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for MediumAdLockupWithScreenshotsBackgroundTodayCardCollectionViewCell();
+  v4.super_class = type metadata accessor for MediumAdLockupWithScreenshotsBackgroundTodayCardCollectionViewCell(0);
   v2 = v4.receiver;
   [(BaseTodayCardCollectionViewCell *)&v4 layoutSubviews];
   v3 = sub_100344F64();
@@ -21,14 +21,14 @@
 - (void)prepareForReuse
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for MediumAdLockupWithScreenshotsBackgroundTodayCardCollectionViewCell();
+  v3.super_class = type metadata accessor for MediumAdLockupWithScreenshotsBackgroundTodayCardCollectionViewCell(0);
   v2 = v3.receiver;
   [(BaseTodayCardCollectionViewCell *)&v3 prepareForReuse];
 }
 
 - (NSArray)accessibilityElements
 {
-  sub_10002849C(&qword_1009701B0);
+  sub_10002849C(&qword_1009701B0, qword_1007B1800);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_1007B10D0;
   selfCopy = self;
@@ -59,7 +59,7 @@
   }
 
   v7.receiver = self;
-  v7.super_class = type metadata accessor for MediumAdLockupWithScreenshotsBackgroundTodayCardCollectionViewCell();
+  v7.super_class = type metadata accessor for MediumAdLockupWithScreenshotsBackgroundTodayCardCollectionViewCell(0);
   [(MediumAdLockupWithScreenshotsBackgroundTodayCardCollectionViewCell *)&v7 setAccessibilityElements:v5.super.isa];
 }
 

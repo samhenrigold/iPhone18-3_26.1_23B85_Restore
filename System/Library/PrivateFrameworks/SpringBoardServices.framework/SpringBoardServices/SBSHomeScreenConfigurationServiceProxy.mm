@@ -84,7 +84,7 @@ void __56__SBSHomeScreenConfigurationServiceProxy_makeConnection__block_invoke_2
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = SBLogHomeScreenConfiguration();
+  v3 = SBLogHomeScreenConfiguration(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138543362;
@@ -250,7 +250,7 @@ void __56__SBSHomeScreenConfigurationServiceProxy_makeConnection__block_invoke_5
 {
   v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = SBLogHomeScreenConfiguration();
+  v4 = SBLogHomeScreenConfiguration(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v6 = 138543362;

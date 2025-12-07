@@ -83,9 +83,10 @@
     [(FBSSceneComponent *)a2 setScene:?];
   }
 
+  scene = self->_scene;
   self->_scene = sceneCopy;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](sceneCopy, scene);
 }
 
 - (void)setScene:(const char *)a1 .cold.1(const char *a1, uint64_t a2)

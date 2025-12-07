@@ -1364,7 +1364,7 @@ LABEL_76:
     v18 = [(UIStatusBarForegroundView *)self->_foregroundView willChangeNavigationItemDisplayWithSystemNavigationAction:_systemNavigationAction];
     v19 = [(UIStatusBarStyleAttributes *)attributesCopy backgroundColorWithTintColor:self->_tintColor];
     v20 = v19;
-    if (self->_styleAttributes != attributesCopy || v18 || v19 != self->_lastUsedBackgroundColor && ![(UIColor *)v19 isEqual:?])
+    if (self->_styleAttributes != attributesCopy || v18 || v19 != self->_lastUsedBackgroundColor && (objc_msgSend_isEqual_(v19) & 1) == 0)
     {
       v21 = 0.0;
       if (parametersCopy)
@@ -1933,7 +1933,7 @@ void __76__UIStatusBar__prepareInterruptedAnimationCompositeViewIncludingForegro
       v43 = 0u;
       v44 = 0u;
       *buf = 0u;
-      [(UIStatusBar *)self _slideTransform];
+      objc_msgSend__slideTransform(self);
     }
 
     else
@@ -2030,7 +2030,7 @@ uint64_t __51__UIStatusBar__prepareToSetStyle_animation_forced___block_invoke(ui
   if (animation == 3)
   {
     slidingStatusBar = self->_slidingStatusBar;
-    [(UIStatusBar *)self _slideTransform];
+    objc_msgSend__slideTransform(self);
     v9 = slidingStatusBar;
   }
 
@@ -2203,9 +2203,9 @@ LABEL_7:
   if (tintColor != colorCopy)
   {
     v8 = colorCopy;
-    v7 = [(UIColor *)tintColor isEqual:colorCopy];
+    isEqual = objc_msgSend_isEqual_(tintColor, colorCopy, colorCopy);
     colorCopy = v8;
-    if (!v7)
+    if ((isEqual & 1) == 0)
     {
       objc_storeStrong(&self->_tintColor, color);
       colorCopy = v8;
@@ -2220,9 +2220,9 @@ LABEL_7:
   if (tintColor != colorCopy)
   {
     v17 = colorCopy;
-    v9 = [(UIColor *)tintColor isEqual:colorCopy];
+    isEqual = objc_msgSend_isEqual_(tintColor, colorCopy, colorCopy);
     colorCopy = v17;
-    if (!v9)
+    if ((isEqual & 1) == 0)
     {
       objc_storeStrong(&self->_tintColor, color);
       nextTintTransition = self->_nextTintTransition;
@@ -2354,7 +2354,7 @@ LABEL_7:
           if (((1 << (style + 112)) & 0x2D) != 0)
           {
             v8 = [UIStatusBarExternalStyleAttributes alloc];
-            +[UIColor blackColor];
+            objc_msgSend_blackColor(UIColor);
           }
 
           else
@@ -2551,7 +2551,7 @@ LABEL_74:
 
     else
     {
-      +[UIColor blackColor];
+      objc_msgSend_blackColor(UIColor);
     }
     v17 = ;
     v18 = v25;
@@ -2967,9 +2967,9 @@ LABEL_17:
   colorCopy = color;
   parametersCopy = parameters;
   foregroundColor = [(UIStatusBar_Base *)self foregroundColor];
-  v9 = [foregroundColor isEqual:colorCopy];
+  isEqual = objc_msgSend_isEqual_(foregroundColor);
 
-  if ((v9 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     v12.receiver = self;
     v12.super_class = UIStatusBar;
@@ -3095,7 +3095,7 @@ LABEL_6:
 - (CGRect)frameForPartWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  if ([identifierCopy isEqualToString:@"batteryPartIdentifier"])
+  if (objc_msgSend_isEqualToString_(identifierCopy))
   {
     v5 = 12;
 LABEL_5:
@@ -3108,13 +3108,13 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  if ([identifierCopy isEqualToString:@"clockPartIdentifier"])
+  if (objc_msgSend_isEqualToString_(identifierCopy))
   {
     v5 = 0;
     goto LABEL_5;
   }
 
-  if ([identifierCopy isEqualToString:@"fittingLeadingPartIdentifier"])
+  if (objc_msgSend_isEqualToString_(identifierCopy))
   {
     v22 = 0;
 LABEL_14:
@@ -3122,7 +3122,7 @@ LABEL_14:
     goto LABEL_6;
   }
 
-  if ([identifierCopy isEqualToString:@"fittingTrailingPartIdentifier"])
+  if (objc_msgSend_isEqualToString_(identifierCopy))
   {
     v22 = 1;
     goto LABEL_14;
@@ -3686,7 +3686,7 @@ uint64_t __91__UIStatusBar_Modern__initWithFrame_showForegroundView_wantsServer_
   return v4;
 }
 
-uint64_t __106__UIStatusBar_Modern__requestStyle_partStyles_legibilityStyle_foregroundColor_animationParameters_forced___block_invoke(uint64_t a1)
+void *__106__UIStatusBar_Modern__requestStyle_partStyles_legibilityStyle_foregroundColor_animationParameters_forced___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 56);
   result = [*(a1 + 32) _requestStyle];

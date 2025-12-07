@@ -83,7 +83,7 @@ void __87__PLCacheDeleteRegistration__processRemovedFiles_withCacheDeleteSupport
   v2 = PLResourceCachingGetLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(a1 + 32) count];
+    v3 = objc_msgSend_count(*(a1 + 32));
     *buf = 134217984;
     v34 = v3;
     _os_log_impl(&dword_19BF1F000, v2, OS_LOG_TYPE_DEFAULT, "Processing %ld events", buf, 0xCu);
@@ -194,7 +194,7 @@ LABEL_21:
     }
 
     v23 = [*(*(a1 + 40) + 40) objectForKeyedSubscript:*(a1 + 56)];
-    v24 = [v23 count];
+    v24 = objc_msgSend_count(v23);
 
     if (v24 >> 4 > 0x270)
     {
@@ -451,7 +451,7 @@ void __85__PLCacheDeleteRegistration_unregisterCacheDeleteSupport_withLibrarySer
   {
     [*(*(a1 + 40) + 8) setObject:0 forKeyedSubscript:v3];
     [*(*(a1 + 40) + 16) setObject:0 forKeyedSubscript:v3];
-    if ([*(*(a1 + 40) + 8) count])
+    if (objc_msgSend_count(*(*(a1 + 40) + 8)))
     {
       [*(a1 + 40) _registerResourceDirectories];
     }

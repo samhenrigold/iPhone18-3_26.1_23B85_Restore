@@ -32,11 +32,10 @@
 
 - (void)parser:(id)parser didFindCharacters:(id)characters
 {
-  v6 = sub_1E4205F14();
-  v8 = v7;
+  sub_1E4205F14();
   parserCopy = parser;
   selfCopy = self;
-  sub_1E3763910(v6, v8);
+  sub_1E3763910();
 }
 
 - (void)parserDidFindNewline:(id)newline

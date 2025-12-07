@@ -8,7 +8,7 @@
 
 + (void)gatherAllAssetAdamIDsInSeries:(NSDictionary *)series completion:(id)completion
 {
-  v7 = sub_18AFC0(&unk_341460);
+  v7 = sub_18AFC0(&unk_341460, &qword_2A58C0);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(completion);

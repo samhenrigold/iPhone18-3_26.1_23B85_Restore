@@ -8,6 +8,7 @@
 - (void)addFlipVideoURL:(id)l forAssetResourceType:(int64_t)type;
 - (void)addImageResult:(id)result;
 - (void)addVideoResult:(id)result;
+- (void)clearAdjustmentData;
 - (void)mergeInfoDictionaryFromResult:(id)result;
 @end
 
@@ -99,6 +100,13 @@
   }
 
   [(PHContentEditingInputResult *)self mergeInfoDictionaryFromResult:resultCopy];
+}
+
+- (void)clearAdjustmentData
+{
+  adjustmentData = self->_adjustmentData;
+  self->_adjustmentData = 0;
+  MEMORY[0x1EEE66BB8](self, adjustmentData);
 }
 
 - (void)addAdjustmentSecondaryDataResult:(id)result

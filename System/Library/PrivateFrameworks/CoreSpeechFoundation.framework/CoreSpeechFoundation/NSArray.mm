@@ -5,7 +5,7 @@
 
 void __35__NSArray_XPCObject___cs_xpcObject__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (objc_opt_respondsToSelector())
   {
@@ -19,22 +19,20 @@ void __35__NSArray_XPCObject___cs_xpcObject__block_invoke(uint64_t a1, void *a2)
     v6 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v8 = v6;
-      v9 = [v3 description];
-      v10 = 136315394;
-      v11 = "[NSArray(XPCObject) _cs_xpcObject]_block_invoke";
-      v12 = 2114;
-      v13 = v9;
-      _os_log_error_impl(&dword_1DDA4B000, v8, OS_LOG_TYPE_ERROR, "%s Cannot encode non-plist types into XPC object : %{public}@", &v10, 0x16u);
+      v7 = v6;
+      v8 = [v3 description];
+      v9 = 136315394;
+      v10 = "[NSArray(XPCObject) _cs_xpcObject]_block_invoke";
+      v11 = 2114;
+      v12 = v8;
+      _os_log_error_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_ERROR, "%s Cannot encode non-plist types into XPC object : %{public}@", &v9, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __44__NSArray_XPCObject___cs_initWithXPCObject___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = v4;
   if (v4)
@@ -67,11 +65,11 @@ uint64_t __44__NSArray_XPCObject___cs_initWithXPCObject___block_invoke(uint64_t 
         v10 = CSLogContextFacilityCoreSpeech;
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
         {
-          v17 = 136315138;
-          v18 = "[NSArray(XPCObject) _cs_initWithXPCObject:]_block_invoke";
+          v16 = 136315138;
+          v17 = "[NSArray(XPCObject) _cs_initWithXPCObject:]_block_invoke";
           v11 = "%s Cannot decode non-plist types of XPC object";
 LABEL_20:
-          _os_log_error_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_ERROR, v11, &v17, 0xCu);
+          _os_log_error_impl(&dword_1DDA4B000, v10, OS_LOG_TYPE_ERROR, v11, &v16, 0xCu);
           goto LABEL_28;
         }
 
@@ -95,15 +93,14 @@ LABEL_20:
   v10 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
   {
-    v17 = 136315138;
-    v18 = "[NSArray(XPCObject) _cs_initWithXPCObject:]_block_invoke";
+    v16 = 136315138;
+    v17 = "[NSArray(XPCObject) _cs_initWithXPCObject:]_block_invoke";
     v11 = "%s xpcObject value is NULL";
     goto LABEL_20;
   }
 
 LABEL_28:
 
-  v15 = *MEMORY[0x1E69E9840];
   return 1;
 }
 

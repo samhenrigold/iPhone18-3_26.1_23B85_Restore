@@ -1,5 +1,4 @@
 @interface OrgApacheLuceneIndexLeafReaderContext
-- (id)description;
 - (id)leaves;
 - (void)__javaClone;
 - (void)dealloc;
@@ -16,14 +15,6 @@
   }
 
   return self->leaves_;
-}
-
-- (id)description
-{
-  objc_loadWeak(&self->reader_);
-  v12 = *(&self->super.ordInParent_ + 1);
-  ord = self->ord_;
-  return JreStrcat("$@$I$IC", v3, v4, v5, v6, v7, v8, v9, @"LeafReaderContext(");
 }
 
 - (void)dealloc

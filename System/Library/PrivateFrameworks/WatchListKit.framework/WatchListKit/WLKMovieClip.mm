@@ -11,31 +11,31 @@
 
 + (id)movieClipsWithArray:(id)array
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if (arrayCopy)
   {
     array = [MEMORY[0x277CBEB18] array];
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v5 = arrayCopy;
-    v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v18;
+      v8 = *v17;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v17 + 1) + 8 * i);
+          v10 = *(*(&v16 + 1) + 8 * i);
           if (v10)
           {
             objc_opt_class();
@@ -43,14 +43,14 @@
             {
               v11 = v10;
               v12 = [WLKMovieClip alloc];
-              v13 = [(WLKMovieClip *)v12 initWithDictionary:v11, v17];
+              v13 = [(WLKMovieClip *)v12 initWithDictionary:v11, v16];
 
               [array addObject:v13];
             }
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v7);
@@ -63,8 +63,6 @@
   {
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -132,40 +130,39 @@
 
 - (WLKMovieClipAsset)preferredAsset
 {
-  v18[4] = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = __Block_byref_object_copy__9;
-  v16 = __Block_byref_object_dispose__9;
-  v17 = 0;
-  v18[0] = @"1080pHdVideo";
-  v18[1] = @"720pHdVideo";
-  v18[2] = @"sd480pVideo";
-  v18[3] = @"sdVideo";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __30__WLKMovieClip_preferredAsset__block_invoke;
-  v11[3] = &unk_279E605E0;
-  v11[4] = self;
-  v11[5] = &v12;
-  [v3 enumerateObjectsUsingBlock:v11];
-  v4 = v13[5];
+  v17[4] = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__9;
+  v15 = __Block_byref_object_dispose__9;
+  v16 = 0;
+  v17[0] = @"1080pHdVideo";
+  v17[1] = @"720pHdVideo";
+  v17[2] = @"sd480pVideo";
+  v17[3] = @"sdVideo";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:4];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __30__WLKMovieClip_preferredAsset__block_invoke;
+  v10[3] = &unk_279E605E0;
+  v10[4] = self;
+  v10[5] = &v11;
+  [v3 enumerateObjectsUsingBlock:v10];
+  v4 = v12[5];
   if (!v4)
   {
     assets = [(WLKMovieClip *)self assets];
     firstObject = [assets firstObject];
-    v7 = v13[5];
-    v13[5] = firstObject;
+    v7 = v12[5];
+    v12[5] = firstObject;
 
-    v4 = v13[5];
+    v4 = v12[5];
   }
 
   v8 = v4;
 
-  _Block_object_dispose(&v12, 8);
-  v9 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v11, 8);
 
   return v8;
 }

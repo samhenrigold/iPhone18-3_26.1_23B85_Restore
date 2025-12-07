@@ -9,7 +9,7 @@
 
 - (void)navigationRouteInterrupter:(id)interrupter finishedInteruptingEntryWithIdentifier:(id)identifier
 {
-  v6 = sub_1000CE6B8(&unk_101918E50);
+  v6 = sub_1000CE6B8(&unk_101918E50, &unk_1011E4770);
   __chkstk_darwin(v6 - 8);
   v8 = &v12 - v7;
   if (identifier)
@@ -30,7 +30,7 @@
   sub_100518C4C(v8);
   swift_unknownObjectRelease();
 
-  sub_100024F64(v8, &unk_101918E50);
+  sub_100024F64(v8, &unk_101918E50, &unk_1011E4770);
 }
 
 - (_TtC4Maps31NavigationProgressCapturingTask)init
@@ -44,7 +44,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  sub_100517BCC(service);
+  sub_100517BCC(service, state, toState);
 }
 
 - (void)navigationService:(id)service willEndWithReason:(unint64_t)reason

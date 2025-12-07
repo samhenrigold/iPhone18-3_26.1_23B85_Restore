@@ -30,9 +30,9 @@
       snapshot = v5->_snapshot;
       v5->_snapshot = snapshot;
 
-      v14 = +[PBUIWallpaperEffectConfiguration normal];
+      v15 = +[PBUIWallpaperEffectConfiguration normal];
       effectConfiguration = v5->_effectConfiguration;
-      v5->_effectConfiguration = v14;
+      v5->_effectConfiguration = v15;
     }
 
     self = v5;

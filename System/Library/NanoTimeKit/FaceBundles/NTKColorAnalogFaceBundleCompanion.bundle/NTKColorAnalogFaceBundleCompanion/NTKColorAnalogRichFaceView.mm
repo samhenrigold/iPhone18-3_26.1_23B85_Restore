@@ -1,4 +1,5 @@
 @interface NTKColorAnalogRichFaceView
+- (CGRect)_keylineFrameForComplicationSlot:(id)slot selected:(BOOL)selected;
 - (NTKColorAnalogRichFaceView)initWithFaceStyle:(int64_t)style forDevice:(id)device clientIdentifier:(id)identifier;
 - (id)_newLegacyViewForComplication:(id)complication family:(int64_t)family slot:(id)slot;
 - (void)_applyOption:(id)option forCustomEditMode:(int64_t)mode slot:(id)slot;
@@ -84,6 +85,32 @@
   [complicationFactory loadLayoutRules];
 
   NTKEnumerateComplicationStates();
+}
+
+- (CGRect)_keylineFrameForComplicationSlot:(id)slot selected:(BOOL)selected
+{
+  selectedCopy = selected;
+  slotCopy = slot;
+  if (([slotCopy isEqualToString:NTKComplicationSlotMonogram] & 1) != 0 || (-[NTKWhistlerAnalogFaceViewComplicationFactory keylineFrameForCornerComplicationSlot:selected:](self->_cornerComplicationFactory, "keylineFrameForCornerComplicationSlot:selected:", slotCopy, selectedCopy), x = v20.origin.x, y = v20.origin.y, width = v20.size.width, height = v20.size.height, CGRectIsEmpty(v20)))
+  {
+    v19.receiver = self;
+    v19.super_class = NTKColorAnalogRichFaceView;
+    [(NTKColorAnalogRichFaceView *)&v19 _keylineFrameForComplicationSlot:slotCopy selected:selectedCopy];
+    x = v11;
+    y = v12;
+    width = v13;
+    height = v14;
+  }
+
+  v15 = x;
+  v16 = y;
+  v17 = width;
+  v18 = height;
+  result.size.height = v18;
+  result.size.width = v17;
+  result.origin.y = v16;
+  result.origin.x = v15;
+  return result;
 }
 
 - (void)_applyOption:(id)option forCustomEditMode:(int64_t)mode slot:(id)slot

@@ -72,26 +72,26 @@
 - (THFlowTOCViewController)initWithNibName:(id)name bundle:(id)bundle
 {
   nameCopy = name;
-  v6 = THBundle();
-  v15.receiver = self;
-  v15.super_class = THFlowTOCViewController;
-  v7 = [(THFlowTOCViewController *)&v15 initWithNibName:nameCopy bundle:v6];
+  v7 = THBundle(nameCopy, v6);
+  v16.receiver = self;
+  v16.super_class = THFlowTOCViewController;
+  v8 = [(THFlowTOCViewController *)&v16 initWithNibName:nameCopy bundle:v7];
 
-  if (v7)
+  if (v8)
   {
-    v8 = objc_alloc_init(NSMutableDictionary);
-    mModelToUIMap = v7->mModelToUIMap;
-    v7->mModelToUIMap = v8;
+    v9 = objc_alloc_init(NSMutableDictionary);
+    mModelToUIMap = v8->mModelToUIMap;
+    v8->mModelToUIMap = v9;
 
-    v10 = objc_alloc_init(NSMutableDictionary);
-    mUIToModelMap = v7->mUIToModelMap;
-    v7->mUIToModelMap = v10;
+    v11 = objc_alloc_init(NSMutableDictionary);
+    mUIToModelMap = v8->mUIToModelMap;
+    v8->mUIToModelMap = v11;
 
-    v12 = +[UITraitCollection bc_allAPITraits];
-    v13 = [(THFlowTOCViewController *)v7 registerForTraitChanges:v12 withAction:"_traitCollectionDidChange:previousTraitCollection:"];
+    v13 = +[UITraitCollection bc_allAPITraits];
+    v14 = [(THFlowTOCViewController *)v8 registerForTraitChanges:v13 withAction:"_traitCollectionDidChange:previousTraitCollection:"];
   }
 
-  return v7;
+  return v8;
 }
 
 - (void)p_releaseOutlets
@@ -1178,8 +1178,8 @@ LABEL_9:
 - (id)p_displayPageNumberForTileEntry:(id)entry
 {
   entryCopy = entry;
-  v5 = THBundle();
-  v6 = [v5 localizedStringForKey:@"-" value:&stru_471858 table:0];
+  v6 = THBundle(entryCopy, v5);
+  v7 = [v6 localizedStringForKey:@"-" value:&stru_471858 table:0];
 
   if ([(THFlowTOCViewController *)self hasPaginatedData])
   {
@@ -1189,48 +1189,48 @@ LABEL_9:
   else
   {
     delegate = [(THTOCViewController *)self delegate];
-    v9 = [delegate absolutePageIndexForTileEntry:entryCopy];
+    v10 = [delegate absolutePageIndexForTileEntry:entryCopy];
 
-    if (v9 == 0x7FFFFFFFFFFFFFFFLL)
+    if (v10 == 0x7FFFFFFFFFFFFFFFLL)
     {
       goto LABEL_7;
     }
 
-    displayPageNumberValue = v9 + 1;
+    displayPageNumberValue = v10 + 1;
   }
 
   if (displayPageNumberValue != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v10 = +[NSString stringForValue:withListNumberFormat:includeFormatting:](NSString, "stringForValue:withListNumberFormat:includeFormatting:", displayPageNumberValue, [entryCopy displayPageNumberFormat], 0);
+    v11 = +[NSString stringForValue:withListNumberFormat:includeFormatting:](NSString, "stringForValue:withListNumberFormat:includeFormatting:", displayPageNumberValue, [entryCopy displayPageNumberFormat], 0);
 
-    v6 = v10;
+    v7 = v11;
   }
 
 LABEL_7:
 
-  return v6;
+  return v7;
 }
 
 - (id)p_maxAbsolutePageNumberForNodeAtTileEntry:(id)entry
 {
   entryCopy = entry;
-  v5 = THBundle();
-  v6 = [v5 localizedStringForKey:@"-" value:&stru_471858 table:0];
+  v6 = THBundle(entryCopy, v5);
+  v7 = [v6 localizedStringForKey:@"-" value:&stru_471858 table:0];
 
   if (![(THFlowTOCViewController *)self hasPaginatedData])
   {
     delegate = [(THTOCViewController *)self delegate];
-    v8 = [delegate maxAbsolutePageIndexForNodeAtTileEntry:entryCopy];
+    v9 = [delegate maxAbsolutePageIndexForNodeAtTileEntry:entryCopy];
 
-    if (v8 <= 0x7FFFFFFFFFFFFFFDLL)
+    if (v9 <= 0x7FFFFFFFFFFFFFFDLL)
     {
-      v9 = +[NSString stringForValue:withListNumberFormat:includeFormatting:](NSString, "stringForValue:withListNumberFormat:includeFormatting:", (v8 + 1), [entryCopy displayPageNumberFormat], 0);
+      v10 = +[NSString stringForValue:withListNumberFormat:includeFormatting:](NSString, "stringForValue:withListNumberFormat:includeFormatting:", (v9 + 1), [entryCopy displayPageNumberFormat], 0);
 
-      v6 = v9;
+      v7 = v10;
     }
   }
 
-  return v6;
+  return v7;
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path

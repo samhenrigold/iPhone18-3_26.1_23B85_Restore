@@ -6,7 +6,7 @@
 
 + (id)cachedInstanceForLanguageSettingValue:(id)value
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   v4 = objc_autoreleasePoolPush();
   if (!valueCopy)
@@ -25,16 +25,16 @@
       v11 = HMFGetLogIdentifier();
       v12 = objc_opt_class();
       v13 = v12;
-      v19 = 138544130;
-      v20 = v11;
-      v21 = 2112;
-      v22 = valueCopy;
-      v23 = 2112;
-      v24 = v12;
-      v25 = 2112;
-      v26 = objc_opt_class();
-      v14 = v26;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Object %@ of class %@ mismatches cache class %@:", &v19, 0x2Au);
+      v18 = 138544130;
+      v19 = v11;
+      v20 = 2112;
+      v21 = valueCopy;
+      v22 = 2112;
+      v23 = v12;
+      v24 = 2112;
+      v25 = objc_opt_class();
+      v14 = v25;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Object %@ of class %@ mismatches cache class %@:", &v18, 0x2Au);
     }
 
     goto LABEL_15;
@@ -47,14 +47,14 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v15 = HMFGetLogIdentifier();
-      v19 = 138543874;
-      v20 = v15;
-      v21 = 2112;
-      v22 = valueCopy;
-      v23 = 2112;
-      v24 = objc_opt_class();
-      v16 = v24;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Object %@ of class %@ does not conform to NSCopying protocol", &v19, 0x20u);
+      v18 = 138543874;
+      v19 = v15;
+      v20 = 2112;
+      v21 = valueCopy;
+      v22 = 2112;
+      v23 = objc_opt_class();
+      v16 = v23;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Object %@ of class %@ does not conform to NSCopying protocol", &v18, 0x20u);
     }
 
 LABEL_15:
@@ -85,8 +85,6 @@ LABEL_15:
   os_unfair_lock_unlock(&cachedInstanceForLanguageSettingValue__lock);
 LABEL_16:
   objc_autoreleasePoolPop(v4);
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

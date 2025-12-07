@@ -6,6 +6,8 @@
 - (void)_accessibilityDecrementMockSlider:(id)slider largeStep:(BOOL)step;
 - (void)_accessibilityIncrementMockSlider:(id)slider largeStep:(BOOL)step;
 - (void)layoutSubviews;
+- (void)setEndValue:(double)value notify:(BOOL)notify;
+- (void)setStartValue:(double)value notify:(BOOL)notify;
 @end
 
 @implementation PLSlalomRegionEditorAccessibility
@@ -24,6 +26,70 @@
   [validationsCopy validateClass:@"PLSlalomRegionEditor" hasInstanceVariable:@"_startHandleView" withType:"UIImageView"];
   [validationsCopy validateClass:@"PLSlalomRegionEditor" hasInstanceVariable:@"_endHandleView" withType:"UIImageView"];
   [validationsCopy validateClass:@"PLSlalomRegionEditor" hasInstanceVariable:@"_trackImageView" withType:"UIImageView"];
+}
+
+- (void)setStartValue:(double)value notify:(BOOL)notify
+{
+  notifyCopy = notify;
+  v7 = [(PLSlalomRegionEditorAccessibility *)self safeValueForKey:@"_startValue"];
+  [v7 doubleValue];
+  v9 = v8;
+
+  v22.receiver = self;
+  v22.super_class = PLSlalomRegionEditorAccessibility;
+  [(PLSlalomRegionEditorAccessibility *)&v22 setStartValue:notifyCopy notify:value];
+  v10 = [(PLSlalomRegionEditorAccessibility *)self safeValueForKey:@"_startValue"];
+  [v10 doubleValue];
+  v12 = v11;
+
+  if (v12 != v9)
+  {
+    v13 = [(PLSlalomRegionEditorAccessibility *)self _accessibilityValueForKey:@"userInfo"];
+    v14 = [v13 objectForKey:@"StartHandle"];
+
+    v15 = [(PLSlalomRegionEditorAccessibility *)self safeValueForKey:@"_maxValue"];
+    [v15 doubleValue];
+    v17 = v16;
+
+    v18 = [(PLSlalomRegionEditorAccessibility *)self safeValueForKey:@"_startValue"];
+    [v18 doubleValue];
+    v20 = v19;
+
+    v21 = _createFormatDurationString(v20, v17);
+    [v14 setAccessibilityValue:v21];
+  }
+}
+
+- (void)setEndValue:(double)value notify:(BOOL)notify
+{
+  notifyCopy = notify;
+  v7 = [(PLSlalomRegionEditorAccessibility *)self safeValueForKey:@"_endValue"];
+  [v7 doubleValue];
+  v9 = v8;
+
+  v22.receiver = self;
+  v22.super_class = PLSlalomRegionEditorAccessibility;
+  [(PLSlalomRegionEditorAccessibility *)&v22 setEndValue:notifyCopy notify:value];
+  v10 = [(PLSlalomRegionEditorAccessibility *)self safeValueForKey:@"_endValue"];
+  [v10 doubleValue];
+  v12 = v11;
+
+  if (v12 != v9)
+  {
+    v13 = [(PLSlalomRegionEditorAccessibility *)self _accessibilityValueForKey:@"userInfo"];
+    v14 = [v13 objectForKey:@"EndHandle"];
+
+    v15 = [(PLSlalomRegionEditorAccessibility *)self safeValueForKey:@"_maxValue"];
+    [v15 doubleValue];
+    v17 = v16;
+
+    v18 = [(PLSlalomRegionEditorAccessibility *)self safeValueForKey:@"_endValue"];
+    [v18 doubleValue];
+    v20 = v19;
+
+    v21 = _createFormatDurationString(v20, v17);
+    [v14 setAccessibilityValue:v21];
+  }
 }
 
 - (BOOL)continueTrackingWithTouch:(id)touch withEvent:(id)event

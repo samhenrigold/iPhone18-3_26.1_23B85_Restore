@@ -22,10 +22,9 @@
 
 - (MCMClientAuthorizes)clientIdentity
 {
-  v2 = *(self + OBJC_IVAR___MCMSandboxExtension_clientIdentity);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (BOOL)useProxiedClientForTarget
@@ -67,17 +66,19 @@
   sub_1DF2CE5BC(part, v8, v10, error);
   v13 = v12;
 
+  v10, v14, v15, v16, v17, v18, v19, v20;
   if (v13)
   {
-    v14 = sub_1DF3B0DBC();
+    v21 = sub_1DF3B0DBC();
+    v13, v22, v23, v24, v25, v26, v27, v28;
   }
 
   else
   {
-    v14 = 0;
+    v21 = 0;
   }
 
-  return v14;
+  return v21;
 }
 
 - (unint64_t)type
@@ -103,10 +104,9 @@
 
 - (MCMContainerPathCanBeTransient)containerPath
 {
-  v2 = *(self + OBJC_IVAR___MCMSandboxExtension_containerPath);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (MCMSandboxExtension)initWithClientIdentity:(id)identity containerPath:(id)path containerIdentity:(id)containerIdentity
@@ -123,26 +123,23 @@
 
 - (MCMContainerIdentityHasConfig)containerIdentity
 {
-  v2 = *(self + OBJC_IVAR___MCMSandboxExtension_containerIdentity);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (MCMContainerConfiguration)containerConfig
 {
-  v2 = *(self + OBJC_IVAR___MCMSandboxExtension_containerConfig);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (MCMEntitlements)entitlements
 {
-  v2 = *(self + OBJC_IVAR___MCMSandboxExtension_entitlements);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (unint64_t)reason
@@ -161,20 +158,20 @@
 
 - (NSString)clientTeamIdentifier
 {
-  if (*(self + OBJC_IVAR___MCMSandboxExtension_clientTeamIdentifier + 8))
+  v2 = *(self + OBJC_IVAR___MCMSandboxExtension_clientTeamIdentifier + 8);
+  if (v2)
   {
-    v2 = *(self + OBJC_IVAR___MCMSandboxExtension_clientTeamIdentifier);
-    v3 = *(self + OBJC_IVAR___MCMSandboxExtension_clientTeamIdentifier + 8);
 
-    v4 = sub_1DF3B0DBC();
+    v3 = sub_1DF3B0DBC();
+    v2, v4, v5, v6, v7, v8, v9, v10;
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (MCMSandboxExtension)init

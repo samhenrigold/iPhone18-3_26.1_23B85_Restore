@@ -8,7 +8,7 @@
 
 - (unint64_t)_processGraphUpdateInventory:(id)inventory onGraph:(id)graph photoLibrary:(id)library curationManager:(id)manager curationContext:(id)context searchComputationCache:(id)cache progressBlock:(id)block loggingConnection:(id)self0 completionBlock:(id)self1
 {
-  v100 = *MEMORY[0x277D85DE8];
+  v99 = *MEMORY[0x277D85DE8];
   inventoryCopy = inventory;
   graphCopy = graph;
   libraryCopy = library;
@@ -17,74 +17,74 @@
   cacheCopy = cache;
   blockCopy = block;
   oslog = connection;
-  v57 = blockCopy;
+  v56 = blockCopy;
   completionBlockCopy = completionBlock;
   v18 = _Block_copy(blockCopy);
-  v93 = 0;
-  v94 = &v93;
-  v95 = 0x2020000000;
-  v96 = 0;
-  v89 = 0;
-  v90 = &v89;
-  v91 = 0x2020000000;
   v92 = 0;
-  if (!v18 || (v19 = CFAbsoluteTimeGetCurrent(), v19 - v90[3] < 0.01) || (v90[3] = v19, v88 = 0, (*(v18 + 2))(v18, &v88, 0.0), v20 = *(v94 + 24) | v88, *(v94 + 24) = v20, (v20 & 1) == 0))
+  v93 = &v92;
+  v94 = 0x2020000000;
+  v95 = 0;
+  v88 = 0;
+  v89 = &v88;
+  v90 = 0x2020000000;
+  v91 = 0;
+  if (!v18 || (v19 = CFAbsoluteTimeGetCurrent(), v19 - v89[3] < 0.01) || (v89[3] = v19, v87 = 0, (*(v18 + 2))(v18, &v87, 0.0), v20 = *(v93 + 24) | v87, *(v93 + 24) = v20, (v20 & 1) == 0))
   {
-    v63 = [PGGraphSynonymSupportHelper synonymsByIndexCategoryMaskForGraph:graphCopy];
+    v62 = [PGGraphSynonymSupportHelper synonymsByIndexCategoryMaskForGraph:graphCopy];
     localeIdentifier = [graphCopy localeIdentifier];
-    v66 = [[PGSearchEntityAccumulator alloc] initWithSynonymsByCategoryMask:v63 graphLocaleIdentifier:localeIdentifier];
-    v61 = [[PGSearchKeywordComputer alloc] initWithGraph:graphCopy searchComputationCache:cacheCopy];
+    v65 = [[PGSearchEntityAccumulator alloc] initWithSynonymsByCategoryMask:v62 graphLocaleIdentifier:localeIdentifier];
+    v60 = [[PGSearchKeywordComputer alloc] initWithGraph:graphCopy searchComputationCache:cacheCopy];
     v22 = [inventoryCopy momentsToProcessForMomentUpdateTypes:31 includeMomentsToIngest:1];
     v21 = [v22 count];
     v23 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:v21];
-    v86 = 0u;
-    v87 = 0u;
-    v84 = 0u;
     v85 = 0u;
+    v86 = 0u;
+    v83 = 0u;
+    v84 = 0u;
     v24 = v22;
-    v25 = [v24 countByEnumeratingWithState:&v84 objects:v97 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v83 objects:v96 count:16];
     if (v25)
     {
-      v26 = *v85;
+      v26 = *v84;
       do
       {
         for (i = 0; i != v25; ++i)
         {
-          if (*v85 != v26)
+          if (*v84 != v26)
           {
             objc_enumerationMutation(v24);
           }
 
-          uuid = [*(*(&v84 + 1) + 8 * i) uuid];
+          uuid = [*(*(&v83 + 1) + 8 * i) uuid];
           [v23 addObject:uuid];
         }
 
-        v25 = [v24 countByEnumeratingWithState:&v84 objects:v97 count:16];
+        v25 = [v24 countByEnumeratingWithState:&v83 objects:v96 count:16];
       }
 
       while (v25);
     }
 
-    v53 = [PGGraphMomentNodeCollection momentNodesForUUIDs:v23 inGraph:graphCopy];
-    uuids = [v53 uuids];
-    v79[0] = MEMORY[0x277D85DD0];
-    v79[1] = 3221225472;
-    v79[2] = __189__PGGraphSearchEnrichmentProcessor__processGraphUpdateInventory_onGraph_photoLibrary_curationManager_curationContext_searchComputationCache_progressBlock_loggingConnection_completionBlock___block_invoke;
-    v79[3] = &unk_27888A188;
+    v52 = [PGGraphMomentNodeCollection momentNodesForUUIDs:v23 inGraph:graphCopy];
+    uuids = [v52 uuids];
+    v78[0] = MEMORY[0x277D85DD0];
+    v78[1] = 3221225472;
+    v78[2] = __189__PGGraphSearchEnrichmentProcessor__processGraphUpdateInventory_onGraph_photoLibrary_curationManager_curationContext_searchComputationCache_progressBlock_loggingConnection_completionBlock___block_invoke;
+    v78[3] = &unk_27888A188;
     v30 = v18;
-    v80 = v30;
-    v81 = &v89;
-    v82 = &v93;
-    v83 = 0x3F847AE147AE147BLL;
-    v31 = [(PGSearchKeywordComputer *)v61 assetSearchKeywordsByMomentUUIDWithEventUUIDs:uuids ofType:0 searchEntityAccumulator:v66 progressBlock:v79];
-    v54 = uuids;
-    if (*(v94 + 24) == 1)
+    v79 = v30;
+    v80 = &v88;
+    v81 = &v92;
+    v82 = 0x3F847AE147AE147BLL;
+    v31 = [(PGSearchKeywordComputer *)v60 assetSearchKeywordsByMomentUUIDWithEventUUIDs:uuids ofType:0 searchEntityAccumulator:v65 progressBlock:v78];
+    v53 = uuids;
+    if (*(v93 + 24) == 1)
     {
       if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
 LABEL_18:
         v21 = 0;
-        v34 = v53;
+        v34 = v52;
         v33 = uuids;
 LABEL_47:
 
@@ -92,9 +92,9 @@ LABEL_47:
       }
 
       *buf = 67109378;
-      *v99 = 132;
-      *&v99[4] = 2080;
-      *&v99[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphSearchEnrichmentProcessor.m";
+      *v98 = 132;
+      *&v98[4] = 2080;
+      *&v98[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphSearchEnrichmentProcessor.m";
       v32 = MEMORY[0x277D86220];
 LABEL_17:
       _os_log_impl(&dword_22F0FC000, v32, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
@@ -104,13 +104,13 @@ LABEL_17:
     if (v18)
     {
       Current = CFAbsoluteTimeGetCurrent();
-      if (Current - v90[3] >= 0.01)
+      if (Current - v89[3] >= 0.01)
       {
-        v90[3] = Current;
-        v88 = 0;
-        (*(v30 + 2))(v30, &v88, 0.1);
-        v36 = *(v94 + 24) | v88;
-        *(v94 + 24) = v36;
+        v89[3] = Current;
+        v87 = 0;
+        (*(v30 + 2))(v30, &v87, 0.1);
+        v36 = *(v93 + 24) | v87;
+        *(v93 + 24) = v36;
         if (v36)
         {
           if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
@@ -119,9 +119,9 @@ LABEL_17:
           }
 
           *buf = 67109378;
-          *v99 = 134;
-          *&v99[4] = 2080;
-          *&v99[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphSearchEnrichmentProcessor.m";
+          *v98 = 134;
+          *&v98[4] = 2080;
+          *&v98[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphSearchEnrichmentProcessor.m";
           v32 = MEMORY[0x277D86220];
           goto LABEL_17;
         }
@@ -129,44 +129,44 @@ LABEL_17:
     }
 
     v37 = MEMORY[0x277D22C80];
-    v74[0] = MEMORY[0x277D85DD0];
-    v74[1] = 3221225472;
-    v74[2] = __189__PGGraphSearchEnrichmentProcessor__processGraphUpdateInventory_onGraph_photoLibrary_curationManager_curationContext_searchComputationCache_progressBlock_loggingConnection_completionBlock___block_invoke_235;
-    v74[3] = &unk_27888A188;
+    v73[0] = MEMORY[0x277D85DD0];
+    v73[1] = 3221225472;
+    v73[2] = __189__PGGraphSearchEnrichmentProcessor__processGraphUpdateInventory_onGraph_photoLibrary_curationManager_curationContext_searchComputationCache_progressBlock_loggingConnection_completionBlock___block_invoke_235;
+    v73[3] = &unk_27888A188;
     v38 = v30;
-    v75 = v38;
-    v76 = &v89;
-    v77 = &v93;
-    v78 = 0x3F847AE147AE147BLL;
-    [v37 progressReporterWithProgressBlock:v74];
-    v51 = v73 = 0;
-    v39 = [PGSearchEntityAccumulator accumulatePersonAndPetRelationshipsFromGraph:v66 progressReporter:"accumulatePersonAndPetRelationshipsFromGraph:progressReporter:error:" error:graphCopy];
-    v52 = 0;
+    v74 = v38;
+    v75 = &v88;
+    v76 = &v92;
+    v77 = 0x3F847AE147AE147BLL;
+    [v37 progressReporterWithProgressBlock:v73];
+    v50 = v72 = 0;
+    v39 = [PGSearchEntityAccumulator accumulatePersonAndPetRelationshipsFromGraph:v65 progressReporter:"accumulatePersonAndPetRelationshipsFromGraph:progressReporter:error:" error:graphCopy];
+    v51 = 0;
     if (v18)
     {
       v40 = CFAbsoluteTimeGetCurrent();
-      if (v40 - v90[3] >= 0.01)
+      if (v40 - v89[3] >= 0.01)
       {
-        v90[3] = v40;
-        v88 = 0;
-        (*(v38 + 2))(v38, &v88, 0.5);
-        v41 = *(v94 + 24) | v88;
-        *(v94 + 24) = v41;
+        v89[3] = v40;
+        v87 = 0;
+        (*(v38 + 2))(v38, &v87, 0.5);
+        v41 = *(v93 + 24) | v87;
+        *(v93 + 24) = v41;
         if (v41)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v99 = 141;
-            *&v99[4] = 2080;
-            *&v99[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphSearchEnrichmentProcessor.m";
+            *v98 = 141;
+            *&v98[4] = 2080;
+            *&v98[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphSearchEnrichmentProcessor.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
           v21 = 0;
-          v34 = v53;
+          v34 = v52;
 LABEL_45:
-          v33 = v54;
+          v33 = v53;
 LABEL_46:
 
           goto LABEL_47;
@@ -177,39 +177,39 @@ LABEL_46:
     if (v39)
     {
       v42 = MEMORY[0x277D22C80];
-      v68[0] = MEMORY[0x277D85DD0];
-      v68[1] = 3221225472;
-      v68[2] = __189__PGGraphSearchEnrichmentProcessor__processGraphUpdateInventory_onGraph_photoLibrary_curationManager_curationContext_searchComputationCache_progressBlock_loggingConnection_completionBlock___block_invoke_236;
-      v68[3] = &unk_27888A188;
-      v69 = v38;
-      v70 = &v89;
-      v71 = &v93;
-      v72 = 0x3F847AE147AE147BLL;
-      v43 = [v42 progressReporterWithProgressBlock:v68];
+      v67[0] = MEMORY[0x277D85DD0];
+      v67[1] = 3221225472;
+      v67[2] = __189__PGGraphSearchEnrichmentProcessor__processGraphUpdateInventory_onGraph_photoLibrary_curationManager_curationContext_searchComputationCache_progressBlock_loggingConnection_completionBlock___block_invoke_236;
+      v67[3] = &unk_27888A188;
+      v68 = v38;
+      v69 = &v88;
+      v70 = &v92;
+      v71 = 0x3F847AE147AE147BLL;
+      v43 = [v42 progressReporterWithProgressBlock:v67];
       v44 = [[PGSearchEntityPersister alloc] initWithPhotoLibrary:libraryCopy];
-      v67 = 0;
-      v50 = v43;
-      v34 = v53;
-      LOBYTE(v43) = [(PGSearchEntityPersister *)v44 persistSearchEntitiesFromSearchEntityProvider:v66 progressReporter:v43 error:&v67];
-      v45 = v67;
+      v66 = 0;
+      v49 = v43;
+      v34 = v52;
+      LOBYTE(v43) = [(PGSearchEntityPersister *)v44 persistSearchEntitiesFromSearchEntityProvider:v65 progressReporter:v43 error:&v66];
+      v45 = v66;
       if ((v43 & 1) == 0 && os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        *v99 = v45;
+        *v98 = v45;
         _os_log_error_impl(&dword_22F0FC000, oslog, OS_LOG_TYPE_ERROR, "[PGGraphSearchEnrichmentProcessor] Error returned by persistSearchEntitiesFromSearchEntityProvider(): (%@)", buf, 0xCu);
       }
 
-      v33 = v54;
+      v33 = v53;
     }
 
     else
     {
-      v34 = v53;
-      v33 = v54;
+      v34 = v52;
+      v33 = v53;
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        *v99 = v52;
+        *v98 = v51;
         _os_log_error_impl(&dword_22F0FC000, oslog, OS_LOG_TYPE_ERROR, "[PGGraphSearchEnrichmentProcessor] Error returned by accumulatePersonAndPetRelationshipsFromGraph(): (%@)", buf, 0xCu);
         if (v18)
         {
@@ -224,21 +224,21 @@ LABEL_46:
     {
 LABEL_37:
       v46 = CFAbsoluteTimeGetCurrent();
-      if (v46 - v90[3] >= 0.01)
+      if (v46 - v89[3] >= 0.01)
       {
-        v90[3] = v46;
-        v88 = 0;
-        (*(v38 + 2))(v38, &v88, 1.0);
-        v47 = *(v94 + 24) | v88;
-        *(v94 + 24) = v47;
+        v89[3] = v46;
+        v87 = 0;
+        (*(v38 + 2))(v38, &v87, 1.0);
+        v47 = *(v93 + 24) | v87;
+        *(v93 + 24) = v47;
         if (v47)
         {
           if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
             *buf = 67109378;
-            *v99 = 158;
-            *&v99[4] = 2080;
-            *&v99[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphSearchEnrichmentProcessor.m";
+            *v98 = 158;
+            *&v98[4] = 2080;
+            *&v98[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphSearchEnrichmentProcessor.m";
             _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
           }
 
@@ -261,18 +261,17 @@ LABEL_43:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    *v99 = 111;
-    *&v99[4] = 2080;
-    *&v99[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphSearchEnrichmentProcessor.m";
+    *v98 = 111;
+    *&v98[4] = 2080;
+    *&v98[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphSearchEnrichmentProcessor.m";
     _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
   }
 
   v21 = 0;
 LABEL_48:
-  _Block_object_dispose(&v89, 8);
-  _Block_object_dispose(&v93, 8);
+  _Block_object_dispose(&v88, 8);
+  _Block_object_dispose(&v92, 8);
 
-  v48 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -361,7 +360,7 @@ void __189__PGGraphSearchEnrichmentProcessor__processGraphUpdateInventory_onGrap
 
 - (void)enrichDataModelWithManager:(id)manager curationContext:(id)context graphUpdateInventory:(id)inventory progressReporter:(id)reporter
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   managerCopy = manager;
   contextCopy = context;
   inventoryCopy = inventory;
@@ -380,25 +379,25 @@ void __189__PGGraphSearchEnrichmentProcessor__processGraphUpdateInventory_onGrap
 
   info = 0;
   mach_timebase_info(&info);
-  v39 = mach_absolute_time();
+  v38 = mach_absolute_time();
   v19 = reporterCopy;
   *buf = 0;
-  v54 = buf;
-  v55 = 0x2020000000;
-  v56 = 0;
+  v53 = buf;
+  v54 = 0x2020000000;
+  v55 = 0;
   v20 = [v19 isCancelledWithProgress:0.0];
-  v54[24] = v20;
+  v53[24] = v20;
   if (v20)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      *v58 = 67109378;
-      *&v58[4] = 37;
-      *&v58[8] = 2080;
-      *&v58[10] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphSearchEnrichmentProcessor.m";
+      *v57 = 67109378;
+      *&v57[4] = 37;
+      *&v57[8] = 2080;
+      *&v57[10] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphSearchEnrichmentProcessor.m";
       v21 = MEMORY[0x277D86220];
 LABEL_27:
-      _os_log_impl(&dword_22F0FC000, v21, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v58, 0x12u);
+      _os_log_impl(&dword_22F0FC000, v21, OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v57, 0x12u);
     }
   }
 
@@ -410,56 +409,56 @@ LABEL_27:
     {
       if (v23)
       {
-        *v58 = 0;
-        _os_log_impl(&dword_22F0FC000, v17, OS_LOG_TYPE_INFO, "[PGGraphSearchEnrichmentProcessor] Run search processor to donate graph data to Search enrichment", v58, 2u);
+        *v57 = 0;
+        _os_log_impl(&dword_22F0FC000, v17, OS_LOG_TYPE_INFO, "[PGGraphSearchEnrichmentProcessor] Run search processor to donate graph data to Search enrichment", v57, 2u);
       }
 
       photoLibrary = [managerCopy photoLibrary];
-      v37 = [PGSearchComputationCache persistentStoreURLWithManager:managerCopy];
-      v38 = contextCopy;
-      v25 = [[PGSearchComputationCache alloc] initWithPersistentStoreURL:v37 photoLibrary:photoLibrary];
+      v36 = [PGSearchComputationCache persistentStoreURLWithManager:managerCopy];
+      v37 = contextCopy;
+      v25 = [[PGSearchComputationCache alloc] initWithPersistentStoreURL:v36 photoLibrary:photoLibrary];
       if ([inventoryCopy isResumingFullAnalysis])
       {
         [(PGSearchComputationCache *)v25 invalidateCache];
       }
 
-      *v58 = 0;
-      *&v58[8] = v58;
-      *&v58[16] = 0x2020000000;
-      v59 = 1;
+      *v57 = 0;
+      *&v57[8] = v57;
+      *&v57[16] = 0x2020000000;
+      v58 = 1;
       curationManager = [managerCopy curationManager];
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = __117__PGGraphSearchEnrichmentProcessor_enrichDataModelWithManager_curationContext_graphUpdateInventory_progressReporter___block_invoke;
-      v41[3] = &unk_278883F68;
-      v51 = v58;
-      v42 = v17;
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __117__PGGraphSearchEnrichmentProcessor_enrichDataModelWithManager_curationContext_graphUpdateInventory_progressReporter___block_invoke;
+      v40[3] = &unk_278883F68;
+      v50 = v57;
+      v41 = v17;
       selfCopy = self;
-      v44 = inventoryCopy;
+      v43 = inventoryCopy;
       v27 = photoLibrary;
-      v45 = v27;
+      v44 = v27;
       v28 = curationManager;
-      v46 = v28;
-      v47 = v38;
+      v45 = v28;
+      v46 = v37;
       v29 = v25;
-      v48 = v29;
-      v52 = buf;
-      v49 = v19;
-      v50 = v49;
-      [managerCopy performSynchronousConcurrentGraphReadUsingBlock:v41];
-      if (*(*&v58[8] + 24) == 1)
+      v47 = v29;
+      v51 = buf;
+      v48 = v19;
+      v49 = v48;
+      [managerCopy performSynchronousConcurrentGraphReadUsingBlock:v40];
+      if (*(*&v57[8] + 24) == 1)
       {
         [(PGSearchComputationCache *)v29 save];
       }
 
-      contextCopy = v38;
-      _Block_object_dispose(v58, 8);
+      contextCopy = v37;
+      _Block_object_dispose(v57, 8);
     }
 
     else if (v23)
     {
-      *v58 = 0;
-      _os_log_impl(&dword_22F0FC000, v17, OS_LOG_TYPE_INFO, "[PGGraphSearchEnrichmentProcessor] Should not run search processor since there are no changes needed to donate to Search enrichment", v58, 2u);
+      *v57 = 0;
+      _os_log_impl(&dword_22F0FC000, v17, OS_LOG_TYPE_INFO, "[PGGraphSearchEnrichmentProcessor] Should not run search processor since there are no changes needed to donate to Search enrichment", v57, 2u);
     }
 
     v30 = mach_absolute_time();
@@ -469,28 +468,28 @@ LABEL_27:
     v34 = v33;
     if (v18 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
     {
-      *v58 = 0;
-      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v34, OS_SIGNPOST_INTERVAL_END, spid, "PGGraphSearchEnrichmentProcessor", "", v58, 2u);
+      *v57 = 0;
+      _os_signpost_emit_with_name_impl(&dword_22F0FC000, v34, OS_SIGNPOST_INTERVAL_END, spid, "PGGraphSearchEnrichmentProcessor", "", v57, 2u);
     }
 
     if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
     {
-      *v58 = 136315394;
-      *&v58[4] = "PGGraphSearchEnrichmentProcessor";
-      *&v58[12] = 2048;
-      *&v58[14] = ((((v30 - v39) * numer) / denom) / 1000000.0);
-      _os_log_impl(&dword_22F0FC000, v34, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", v58, 0x16u);
+      *v57 = 136315394;
+      *&v57[4] = "PGGraphSearchEnrichmentProcessor";
+      *&v57[12] = 2048;
+      *&v57[14] = ((((v30 - v38) * numer) / denom) / 1000000.0);
+      _os_log_impl(&dword_22F0FC000, v34, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", v57, 0x16u);
     }
 
-    if (v54[24])
+    if (v53[24])
     {
-      v54[24] = 1;
+      v53[24] = 1;
     }
 
     else
     {
       v35 = [v19 isCancelledWithProgress:1.0];
-      v54[24] = v35;
+      v53[24] = v35;
       if ((v35 & 1) == 0)
       {
         goto LABEL_28;
@@ -499,10 +498,10 @@ LABEL_27:
 
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      *v58 = 67109378;
-      *&v58[4] = 81;
-      *&v58[8] = 2080;
-      *&v58[10] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphSearchEnrichmentProcessor.m";
+      *v57 = 67109378;
+      *&v57[4] = 81;
+      *&v57[8] = 2080;
+      *&v57[10] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/Data Model Enrichment/PGGraphSearchEnrichmentProcessor.m";
       v21 = MEMORY[0x277D86220];
       goto LABEL_27;
     }
@@ -510,8 +509,6 @@ LABEL_27:
 
 LABEL_28:
   _Block_object_dispose(buf, 8);
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __117__PGGraphSearchEnrichmentProcessor_enrichDataModelWithManager_curationContext_graphUpdateInventory_progressReporter___block_invoke(uint64_t a1, void *a2)

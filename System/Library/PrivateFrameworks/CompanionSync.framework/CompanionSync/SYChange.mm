@@ -1,5 +1,6 @@
 @interface SYChange
 + (id)changeWithChangeObject:(id)object serializer:(id)serializer encodeUsingVersion:(int64_t)version;
++ (id)changeWithObject:(id)object updateType:(int)type store:(id)store;
 - (BOOL)isEqual:(id)equal;
 - (NSString)description;
 - (id)changeObjectWithSerializer:(id)serializer;
@@ -7,6 +8,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (id)objectForStore:(id)store;
+- (id)typeAsString:(int)string;
 - (int)StringAsType:(id)type;
 - (int64_t)changeType;
 - (unint64_t)hash;
@@ -16,6 +18,21 @@
 @end
 
 @implementation SYChange
+
+- (id)typeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E86CB4E0[string];
+  }
+
+  return v4;
+}
 
 - (int)StringAsType:(id)type
 {
@@ -98,8 +115,6 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  type = self->_type;
-  v7 = toCopy;
   PBDataWriterWriteInt32Field();
   if (!self->_objectId)
   {
@@ -107,7 +122,6 @@
   }
 
   PBDataWriterWriteStringField();
-  version = self->_version;
   PBDataWriterWriteUint64Field();
   if (self->_changeData)
   {
@@ -217,6 +231,46 @@
     [(SYChange *)self setSequencer:?];
     fromCopy = v5;
   }
+}
+
++ (id)changeWithObject:(id)object updateType:(int)type store:(id)store
+{
+  v6 = *&type;
+  objectCopy = object;
+  storeCopy = store;
+  syncId = [objectCopy syncId];
+
+  if (!syncId)
+  {
+    if (_sync_log_facilities_pred != -1)
+    {
+      [SYIncomingSyncAllObjectsSession _continueProcessing];
+    }
+
+    v10 = qword_1EDE73440;
+    if (os_log_type_enabled(qword_1EDE73440, OS_LOG_TYPE_FAULT))
+    {
+      [SYChange(Additions) changeWithObject:objectCopy updateType:v10 store:?];
+    }
+
+    [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D930] format:{@"SYObject %@ does not provide the required syncId!", objectCopy}];
+  }
+
+  v11 = objc_alloc_init(SYChange);
+  [(SYChange *)v11 setType:v6];
+  syncId2 = [objectCopy syncId];
+  [(SYChange *)v11 setObjectId:syncId2];
+
+  if (objectCopy)
+  {
+    if (v6 != 2 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+    {
+      v13 = [storeCopy encodeSYObject:objectCopy];
+      [(SYChange *)v11 setChangeData:v13];
+    }
+  }
+
+  return v11;
 }
 
 - (id)objectForStore:(id)store

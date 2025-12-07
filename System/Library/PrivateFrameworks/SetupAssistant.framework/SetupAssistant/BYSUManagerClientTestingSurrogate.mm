@@ -4,6 +4,8 @@
 - (BOOL)isAutomaticUpdateV2Enabled;
 - (BYSUManagerClientTestingSurrogate)initWithQueue:(id)queue clientType:(int)type;
 - (void)cancelDownload:(id)download;
+- (void)enableAutomaticDownload:(BOOL)download;
+- (void)enableAutomaticUpdateV2:(BOOL)v2;
 - (void)getMandatorySoftwareUpdateDictionary:(id)dictionary;
 - (void)scanForUpdates:(id)updates withScanResults:(id)results;
 - (void)setMandatorySoftwareUpdateDictionary:(id)dictionary;
@@ -180,6 +182,17 @@ void __74__BYSUManagerClientTestingSurrogate_getMandatorySoftwareUpdateDictionar
   return behaviorManager2;
 }
 
+- (void)enableAutomaticDownload:(BOOL)download
+{
+  downloadCopy = download;
+  v8 = objc_alloc_init(BYTestingSurrogateBehavior);
+  [(BYTestingSurrogateBehavior *)v8 setResultsAsBasicBoolean:downloadCopy];
+  behaviorManager = [(BYSUManagerClientTestingSurrogate *)self behaviorManager];
+  behaviorManager2 = [(BYSUManagerClientTestingSurrogate *)self behaviorManager];
+  domainSoftwareUpdate = [behaviorManager2 domainSoftwareUpdate];
+  [behaviorManager addBehavior:v8 withName:@"automaticDownloadEnabled" domain:domainSoftwareUpdate count:0 replacingAllOthers:1];
+}
+
 - (BOOL)isAutomaticUpdateV2Enabled
 {
   behaviorManager = [(BYSUManagerClientTestingSurrogate *)self behaviorManager];
@@ -189,6 +202,17 @@ void __74__BYSUManagerClientTestingSurrogate_getMandatorySoftwareUpdateDictionar
 
   LOBYTE(behaviorManager2) = [v6 resultsAsBasicBoolean];
   return behaviorManager2;
+}
+
+- (void)enableAutomaticUpdateV2:(BOOL)v2
+{
+  v2Copy = v2;
+  v8 = objc_alloc_init(BYTestingSurrogateBehavior);
+  [(BYTestingSurrogateBehavior *)v8 setResultsAsBasicBoolean:v2Copy];
+  behaviorManager = [(BYSUManagerClientTestingSurrogate *)self behaviorManager];
+  behaviorManager2 = [(BYSUManagerClientTestingSurrogate *)self behaviorManager];
+  domainSoftwareUpdate = [behaviorManager2 domainSoftwareUpdate];
+  [behaviorManager addBehavior:v8 withName:@"automaticUpdateV2Enabled" domain:domainSoftwareUpdate count:0 replacingAllOthers:1];
 }
 
 @end

@@ -11,10 +11,10 @@
 
 - (CHInputContextLexiconManager)init
 {
-  v112 = *MEMORY[0x1E69E9840];
-  v88.receiver = self;
-  v88.super_class = CHInputContextLexiconManager;
-  v2 = [(CHInputContextLexiconManager *)&v88 init];
+  v113 = *MEMORY[0x1E69E9840];
+  v89.receiver = self;
+  v89.super_class = CHInputContextLexiconManager;
+  v2 = [(CHInputContextLexiconManager *)&v89 init];
   v3 = v2;
   if (v2)
   {
@@ -33,9 +33,9 @@
 
     v13 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v9, @"handwritingd-transient-lexicon-%p", v10, v11, v12, v3);
     v14 = *MEMORY[0x1E69ABFF8];
-    v108 = *MEMORY[0x1E69ABFF8];
-    v109 = v13;
-    v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v15, &v109, &v108, 1, v16);
+    v109 = *MEMORY[0x1E69ABFF8];
+    v110 = v13;
+    v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v15, &v110, &v109, 1, v16);
     Transient = LXLexiconCreateTransient();
     mCFObject = v3->_transientLexicon.mCFObject;
     v3->_transientLexicon.mCFObject = Transient;
@@ -45,9 +45,9 @@
     }
 
     v24 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v18, @"handwritingd-transient-lexicon-with_custom_entries-%p", v19, v20, v21, v3);
-    v106 = v14;
-    v107 = v24;
-    v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v25, &v107, &v106, 1, v26);
+    v107 = v14;
+    v108 = v24;
+    v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v25, &v108, &v107, 1, v26);
     v28 = LXLexiconCreateTransient();
     v29 = v3->_transientLexiconWithCustomEntries.mCFObject;
     v3->_transientLexiconWithCustomEntries.mCFObject = v28;
@@ -60,9 +60,9 @@
     v3->_lastCustomLexiconEntries = 0;
 
     v35 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v31, @"handwritingd-transient-phrase-lexicon-%p", v32, v33, v34, v3);
-    v104 = v14;
-    v105 = v35;
-    v38 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v36, &v105, &v104, 1, v37);
+    v105 = v14;
+    v106 = v35;
+    v38 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v36, &v106, &v105, 1, v37);
     v39 = LXLexiconCreateTransient();
     v40 = v3->_transientPhraseLexicon.mCFObject;
     v3->_transientPhraseLexicon.mCFObject = v39;
@@ -75,179 +75,177 @@
     textReplacements = v3->_textReplacements;
     v3->_textReplacements = v41;
 
-    v94 = 0;
-    v95 = &v94;
-    v96 = 0x2050000000;
+    v95 = 0;
+    v96 = &v95;
+    v97 = 0x2050000000;
     v43 = qword_1EA84CF00;
-    v97 = qword_1EA84CF00;
-    if (qword_1EA84CF00)
+    v98 = qword_1EA84CF00;
+    if (!qword_1EA84CF00)
     {
-      goto LABEL_15;
-    }
-
-    location = MEMORY[0x1E69E9820];
-    p_location = 3221225472;
-    v91 = sub_18378BEDC;
-    v92 = &unk_1E6DDCCD0;
-    v93 = &v94;
-    v98 = 0;
-    if (!qword_1EA84CF08)
-    {
-      v99 = MEMORY[0x1E69E9820];
-      v100 = 3221225472;
-      v101 = sub_18378C030;
-      v102 = &unk_1E6DDC0E0;
-      v103 = &v98;
-      v110 = xmmword_1E6DDDF38;
-      v111 = 0;
-      qword_1EA84CF08 = _sl_dlopen();
+      location = MEMORY[0x1E69E9820];
+      p_location = 3221225472;
+      v92 = sub_18378BEDC;
+      v93 = &unk_1E6DDCCD0;
+      v94 = &v95;
+      v99 = 0;
       if (!qword_1EA84CF08)
       {
-        goto LABEL_36;
+        v100 = MEMORY[0x1E69E9820];
+        v101 = 3221225472;
+        v102 = sub_18378C030;
+        v103 = &unk_1E6DDC0E0;
+        v104 = &v99;
+        v111 = xmmword_1E6DDDF38;
+        v112 = 0;
+        qword_1EA84CF08 = _sl_dlopen();
+        if (!qword_1EA84CF08)
+        {
+          abort_report_np("%s", v99);
+          goto LABEL_38;
+        }
+
+        if (v99)
+        {
+          free(v99);
+        }
       }
 
-      if (v98)
+      Class = objc_getClass("_KSTextReplacementClientStore");
+      *(v94[1] + 24) = Class;
+      if (!*(v94[1] + 24))
       {
-        free(v98);
+        abort_report_np("Unable to find class %s", "_KSTextReplacementClientStore");
+        goto LABEL_38;
       }
+
+      qword_1EA84CF00 = *(v94[1] + 24);
+      v43 = v96[3];
     }
 
-    Class = objc_getClass("_KSTextReplacementClientStore");
-    *(v93[1] + 24) = Class;
-    if (*(v93[1] + 24))
-    {
-      qword_1EA84CF00 = *(v93[1] + 24);
-      v43 = v95[3];
-LABEL_15:
-      v45 = v43;
-      _Block_object_dispose(&v94, 8);
-      v46 = objc_alloc_init(v43);
-      textReplacementStore = v3->_textReplacementStore;
-      v3->_textReplacementStore = v46;
+    v45 = v43;
+    _Block_object_dispose(&v95, 8);
+    v46 = objc_alloc_init(v43);
+    textReplacementStore = v3->_textReplacementStore;
+    v3->_textReplacementStore = v46;
 
-      DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
-      location = 0;
-      p_location = &location;
-      v91 = 0x2020000000;
-      v49 = qword_1EA84CF10;
-      v92 = qword_1EA84CF10;
-      if (!qword_1EA84CF10)
+    DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+    location = 0;
+    p_location = &location;
+    v92 = 0x2020000000;
+    v49 = qword_1EA84CF10;
+    v93 = qword_1EA84CF10;
+    if (!qword_1EA84CF10)
+    {
+      v100 = MEMORY[0x1E69E9820];
+      v101 = 3221225472;
+      v102 = sub_18378C0A4;
+      v103 = &unk_1E6DDCCD0;
+      v104 = &location;
+      sub_18378C0A4(&v100);
+      v49 = *(p_location + 24);
+    }
+
+    _Block_object_dispose(&location, 8);
+    if (v49)
+    {
+      v50 = *v49;
+      v51 = *v49;
+      CFNotificationCenterAddObserver(DarwinNotifyCenter, v3, sub_1837895D4, v50, 0, 0);
+      sub_1837895DC(v3);
+      v52 = LMVocabularyCreate();
+      v53 = v3->_vocabulary.mCFObject;
+      v3->_vocabulary.mCFObject = v52;
+      if (v53)
       {
-        v99 = MEMORY[0x1E69E9820];
-        v100 = 3221225472;
-        v101 = sub_18378C0A4;
-        v102 = &unk_1E6DDCCD0;
-        v103 = &location;
-        sub_18378C0A4(&v99);
-        v49 = *(p_location + 24);
+        CFRelease(v53);
       }
 
-      _Block_object_dispose(&location, 8);
-      if (v49)
+      v54 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      addressBook = v3->_addressBook;
+      v3->_addressBook = v54;
+
+      if (!v3->_contactsObserverBlock)
       {
-        v50 = *v49;
-        v51 = *v49;
-        CFNotificationCenterAddObserver(DarwinNotifyCenter, v3, sub_1837895D4, v50, 0, 0);
-        sub_1837895DC(v3);
-        v52 = LMVocabularyCreate();
-        v53 = v3->_vocabulary.mCFObject;
-        v3->_vocabulary.mCFObject = v52;
-        if (v53)
+        objc_initWeak(&location, v3);
+        v100 = MEMORY[0x1E69E9820];
+        v101 = 3221225472;
+        v102 = sub_18378A1DC;
+        v103 = &unk_1E6DDDE50;
+        objc_copyWeak(&v104, &location);
+        v56 = MEMORY[0x1865E6810](&v100);
+        v57 = v3->_contactsObserverBlock;
+        v3->_contactsObserverBlock = v56;
+
+        objc_destroyWeak(&v104);
+        objc_destroyWeak(&location);
+      }
+
+      if (qword_1EA84DC48 != -1)
+      {
+        dispatch_once(&qword_1EA84DC48, &unk_1EF1BC930);
+      }
+
+      v58 = qword_1EA84DC70;
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
+      {
+        LOWORD(location) = 0;
+        _os_log_impl(&dword_18366B000, v58, OS_LOG_TYPE_DEBUG, "Adding contact update observer", &location, 2u);
+      }
+
+      v59 = sub_18378A48C();
+      v65 = objc_msgSend_sharedManager(v59, v60, v61, v62, v63, v64);
+      v70 = objc_msgSend_addContactObserver_(v65, v66, v3->_contactsObserverBlock, v67, v68, v69);
+
+      if (!v3->_namedEntityObserverBlock)
+      {
+        objc_initWeak(&location, v3);
+        v100 = MEMORY[0x1E69E9820];
+        v101 = 3221225472;
+        v102 = sub_18378AAD0;
+        v103 = &unk_1E6DDD098;
+        objc_copyWeak(&v104, &location);
+        v71 = MEMORY[0x1865E6810](&v100);
+        v72 = v3->_namedEntityObserverBlock;
+        v3->_namedEntityObserverBlock = v71;
+
+        objc_destroyWeak(&v104);
+        objc_destroyWeak(&location);
+      }
+
+      if (qword_1EA84DC48 == -1)
+      {
+        v73 = qword_1EA84DC70;
+        if (!os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
         {
-          CFRelease(v53);
-        }
-
-        v54 = objc_alloc_init(MEMORY[0x1E695DF70]);
-        addressBook = v3->_addressBook;
-        v3->_addressBook = v54;
-
-        if (!v3->_contactsObserverBlock)
-        {
-          objc_initWeak(&location, v3);
-          v99 = MEMORY[0x1E69E9820];
-          v100 = 3221225472;
-          v101 = sub_18378A1DC;
-          v102 = &unk_1E6DDDE50;
-          objc_copyWeak(&v103, &location);
-          v56 = MEMORY[0x1865E6810](&v99);
-          v57 = v3->_contactsObserverBlock;
-          v3->_contactsObserverBlock = v56;
-
-          objc_destroyWeak(&v103);
-          objc_destroyWeak(&location);
-        }
-
-        if (qword_1EA84DC48 != -1)
-        {
-          dispatch_once(&qword_1EA84DC48, &unk_1EF1BC930);
-        }
-
-        v58 = qword_1EA84DC70;
-        if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
-        {
-          LOWORD(location) = 0;
-          _os_log_impl(&dword_18366B000, v58, OS_LOG_TYPE_DEBUG, "Adding contact update observer", &location, 2u);
-        }
-
-        v59 = sub_18378A48C();
-        v65 = objc_msgSend_sharedManager(v59, v60, v61, v62, v63, v64);
-        v70 = objc_msgSend_addContactObserver_(v65, v66, v3->_contactsObserverBlock, v67, v68, v69);
-
-        if (!v3->_namedEntityObserverBlock)
-        {
-          objc_initWeak(&location, v3);
-          v99 = MEMORY[0x1E69E9820];
-          v100 = 3221225472;
-          v101 = sub_18378AAD0;
-          v102 = &unk_1E6DDD098;
-          objc_copyWeak(&v103, &location);
-          v71 = MEMORY[0x1865E6810](&v99);
-          v72 = v3->_namedEntityObserverBlock;
-          v3->_namedEntityObserverBlock = v71;
-
-          objc_destroyWeak(&v103);
-          objc_destroyWeak(&location);
-        }
-
-        if (qword_1EA84DC48 == -1)
-        {
-          v73 = qword_1EA84DC70;
-          if (!os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
-          {
 LABEL_31:
 
-            v74 = sub_18378A48C();
-            v80 = objc_msgSend_sharedManager(v74, v75, v76, v77, v78, v79);
-            v85 = objc_msgSend_addNamedEntitiesUpdateObserver_(v80, v81, v3->_namedEntityObserverBlock, v82, v83, v84);
+          v74 = sub_18378A48C();
+          v80 = objc_msgSend_sharedManager(v74, v75, v76, v77, v78, v79);
+          v85 = objc_msgSend_addNamedEntitiesUpdateObserver_(v80, v81, v3->_namedEntityObserverBlock, v82, v83, v84);
 
-            return v3;
-          }
+          return v3;
         }
-
-        else
-        {
-          dispatch_once(&qword_1EA84DC48, &unk_1EF1BC930);
-          v73 = qword_1EA84DC70;
-          if (!os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
-          {
-            goto LABEL_31;
-          }
-        }
-
-        LOWORD(location) = 0;
-        _os_log_impl(&dword_18366B000, v73, OS_LOG_TYPE_DEBUG, "Adding named entity lexicon update observer", &location, 2u);
-        goto LABEL_31;
       }
 
-      dlerror();
-      abort_report_np();
-LABEL_37:
-      __break(1u);
+      else
+      {
+        dispatch_once(&qword_1EA84DC48, &unk_1EF1BC930);
+        v73 = qword_1EA84DC70;
+        if (!os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
+        {
+          goto LABEL_31;
+        }
+      }
+
+      LOWORD(location) = 0;
+      _os_log_impl(&dword_18366B000, v73, OS_LOG_TYPE_DEBUG, "Adding named entity lexicon update observer", &location, 2u);
+      goto LABEL_31;
     }
 
-LABEL_36:
-    abort_report_np();
-    goto LABEL_37;
+    v87 = dlerror();
+    abort_report_np("%s", v87);
+LABEL_38:
+    __break(1u);
   }
 
   return v3;

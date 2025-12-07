@@ -150,7 +150,6 @@
   v4 = [dictionary copy];
   objc_storeStrong(&dictionary, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -229,7 +228,6 @@
   objc_storeStrong(&v14, 0);
   objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
   return v18 & 1;
 }
 

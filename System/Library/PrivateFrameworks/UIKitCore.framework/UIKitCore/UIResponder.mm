@@ -1100,7 +1100,7 @@ LABEL_19:
   v16 = objc_loadWeakRetained(v7 + 3);
   v17 = firstResponder;
   v18 = v16;
-  if ((([v17 _isView] & 1) != 0 || objc_msgSend(v18, "_containsResponder:", v17)) && (!objc_msgSend(v17, "_isView") || (objc_msgSend(v17, "isEqual:", v18) & 1) == 0 && objc_msgSend(v17, "isDescendantOfView:", v18)))
+  if ((([v17 _isView] & 1) != 0 || objc_msgSend(v18, "_containsResponder:", v17)) && (!objc_msgSend(v17, "_isView") || (objc_msgSend_isEqual_(v17) & 1) == 0 && objc_msgSend(v17, "isDescendantOfView:", v18)))
   {
 
 LABEL_11:
@@ -3794,7 +3794,7 @@ LABEL_13:
   _selectableText = [(UIResponder *)self _selectableText];
   if (![textCopy length])
   {
-    v11 = [_selectableText textRangeFromPosition:positionCopy toPosition:positionCopy];
+    v12 = [_selectableText textRangeFromPosition:positionCopy toPosition:positionCopy];
     goto LABEL_30;
   }
 
@@ -3802,14 +3802,16 @@ LABEL_13:
   if (v9)
   {
     v10 = [_selectableText textInRange:v9];
+    isEqualToString = objc_msgSend_isEqualToString_(v10);
   }
 
   else
   {
     v10 = 0;
+    isEqualToString = objc_msgSend_isEqualToString_(0);
   }
 
-  if (![v10 isEqualToString:textCopy])
+  if (!isEqualToString)
   {
     beginningOfDocument = [_selectableText positionFromPosition:positionCopy offset:{-objc_msgSend(textCopy, "length")}];
     if (!beginningOfDocument)
@@ -3817,37 +3819,37 @@ LABEL_13:
       beginningOfDocument = [_selectableText beginningOfDocument];
     }
 
-    v14 = [_selectableText textRangeFromPosition:beginningOfDocument toPosition:positionCopy];
+    v15 = [_selectableText textRangeFromPosition:beginningOfDocument toPosition:positionCopy];
 
-    if (v14)
+    if (v15)
     {
-      v15 = [_selectableText textInRange:v14];
+      v16 = [_selectableText textInRange:v15];
 
-      v16 = [v15 length];
-      if (v16 <= [textCopy length])
+      v17 = [v16 length];
+      if (v17 <= [textCopy length])
       {
-        v12 = v14;
-        v10 = v15;
+        v13 = v15;
+        v10 = v16;
 LABEL_25:
-        v21 = [(UIResponder *)self _normalizedStringForRangeComparison:v10];
-        v22 = [(UIResponder *)self _normalizedStringForRangeComparison:textCopy];
-        if ([v21 isEqualToString:v22])
+        v22 = [(UIResponder *)self _normalizedStringForRangeComparison:v10];
+        v23 = [(UIResponder *)self _normalizedStringForRangeComparison:textCopy];
+        if (objc_msgSend_isEqualToString_(v22))
         {
-          v11 = v12;
+          v12 = v13;
         }
 
         else
         {
-          v11 = 0;
+          v12 = 0;
         }
 
         goto LABEL_29;
       }
 
-      v17 = 0;
+      v18 = 0;
       while (1)
       {
-        v18 = beginningOfDocument;
+        v19 = beginningOfDocument;
         beginningOfDocument = [_selectableText positionFromPosition:beginningOfDocument offset:1];
 
         if (!beginningOfDocument)
@@ -3861,21 +3863,21 @@ LABEL_25:
           break;
         }
 
-        v12 = [_selectableText textRangeFromPosition:beginningOfDocument toPosition:positionCopy];
+        v13 = [_selectableText textRangeFromPosition:beginningOfDocument toPosition:positionCopy];
 
-        if (!v12)
+        if (!v13)
         {
           goto LABEL_24;
         }
 
-        v10 = [_selectableText textInRange:v12];
+        v10 = [_selectableText textInRange:v13];
 
-        v19 = [v10 length];
-        if (v19 > [textCopy length])
+        v20 = [v10 length];
+        if (v20 > [textCopy length])
         {
-          v14 = v12;
-          v15 = v10;
-          if (v17++ < 9)
+          v15 = v13;
+          v16 = v10;
+          if (v18++ < 9)
           {
             continue;
           }
@@ -3889,23 +3891,23 @@ LABEL_25:
 
     else
     {
-      v15 = v10;
+      v16 = v10;
     }
 
 LABEL_24:
 
-    v12 = 0;
+    v13 = 0;
     v10 = 0;
     goto LABEL_25;
   }
 
-  v12 = v9;
-  v11 = v12;
+  v13 = v9;
+  v12 = v13;
 LABEL_29:
 
 LABEL_30:
 
-  return v11;
+  return v12;
 }
 
 - (id)_rangeOfTextUnit:(int64_t)unit enclosingPosition:(id)position
@@ -4241,14 +4243,14 @@ LABEL_12:
   v9 = [rangeCopy end];
   v10 = [tokenizer rangeEnclosingPosition:v9 withGranularity:4 inDirection:0];
 
-  if (!v8 || !v10 || ([v8 isEmpty] & 1) != 0 || (objc_msgSend(v10, "isEmpty") & 1) != 0 || (objc_msgSend(v8, "isEqual:", v10) & 1) != 0)
+  if (!v8 || !v10 || ([v8 isEmpty] & 1) != 0 || (objc_msgSend(v10, "isEmpty") & 1) != 0 || (objc_msgSend_isEqual_(v8) & 1) != 0)
   {
     goto LABEL_9;
   }
 
   start2 = [v8 start];
   start3 = [v10 start];
-  if ([start2 isEqual:start3])
+  if (objc_msgSend_isEqual_(start2))
   {
 
 LABEL_9:
@@ -4258,9 +4260,9 @@ LABEL_9:
 
   v13 = [v8 end];
   v14 = [v10 end];
-  v28 = [v13 isEqual:v14];
+  isEqual = objc_msgSend_isEqual_(v13);
 
-  if (v28)
+  if (isEqual)
   {
     goto LABEL_9;
   }
@@ -4277,12 +4279,12 @@ LABEL_9:
 
   if (v21)
   {
-    while (([v21 isEqual:v10] & 1) == 0)
+    while ((objc_msgSend_isEqual_(v21) & 1) == 0)
     {
       v22 = [v21 end];
       v23 = [tokenizer rangeEnclosingPosition:v22 withGranularity:4 inDirection:0];
 
-      if ([v23 isEqual:v21])
+      if (objc_msgSend_isEqual_(v23))
       {
 
         break;
@@ -4654,7 +4656,7 @@ uint64_t __74__UIResponder_UITextInput_Internal___rangeOfSmartSelectionIncluding
     goto LABEL_19;
   }
 
-  if ([historyCopy anchor] == 1)
+  if (objc_msgSend_anchor(historyCopy) == 1)
   {
     cursor2 = [historyCopy cursor];
 LABEL_5:
@@ -4662,10 +4664,10 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  anchor = [historyCopy anchor];
+  v8 = objc_msgSend_anchor(historyCopy);
   cursor2 = [historyCopy cursor];
   [historyCopy setStart:cursor2];
-  if (anchor != 2)
+  if (v8 != 2)
   {
     goto LABEL_5;
   }
@@ -4678,7 +4680,7 @@ LABEL_6:
 
   if (v11 >= 1)
   {
-    if ([historyCopy anchor] == 1)
+    if (objc_msgSend_anchor(historyCopy) == 1)
     {
       v12 = 2;
     }
@@ -4696,9 +4698,9 @@ LABEL_6:
   v15 = [_selectableText textRangeFromPosition:start2 toPosition:v14];
 
   -[UIResponder _updateSelectionWithTextRange:withAffinityDownstream:](self, "_updateSelectionWithTextRange:withAffinityDownstream:", v15, [historyCopy affinityDownstream]);
-  if ([historyCopy anchor])
+  if (objc_msgSend_anchor(historyCopy))
   {
-    if ([historyCopy anchor] == 1)
+    if (objc_msgSend_anchor(historyCopy) == 1)
     {
       [_selectableText _lastRectForRange:v15];
     }
@@ -4753,12 +4755,12 @@ LABEL_19:
   v16 = [selectedTextRange2 end];
   [(UITextInputArrowKeyHistory *)v11 setEnd:v16];
 
-  anchor = [(UITextInputArrowKeyHistory *)v11 anchor];
+  v17 = objc_msgSend_anchor(v11);
   selectedTextRange3 = [_selectableText selectedTextRange];
   v19 = selectedTextRange3;
   if (v7 == 2)
   {
-    if (anchor == 1)
+    if (v17 == 1)
     {
 LABEL_7:
       start2 = [selectedTextRange3 end];
@@ -4766,7 +4768,7 @@ LABEL_7:
     }
   }
 
-  else if (anchor != 2)
+  else if (v17 != 2)
   {
     goto LABEL_7;
   }
@@ -4801,7 +4803,7 @@ LABEL_17:
   }
 
 LABEL_12:
-  if (![(UITextInputArrowKeyHistory *)v11 anchor]|| [(UIResponder *)self _isEmptySelection])
+  if (!objc_msgSend_anchor(v11) || [(UIResponder *)self _isEmptySelection])
   {
     goto LABEL_17;
   }
@@ -6924,13 +6926,6 @@ LABEL_45:
 LABEL_51:
 }
 
-uint64_t __72__UIResponder__enumerateKeyboardShortcutsInChainWithOptions_usingBlock___block_invoke()
-{
-  result = dyld_program_sdk_at_least();
-  byte_1ED4A0030 = result;
-  return result;
-}
-
 void __72__UIResponder__enumerateKeyboardShortcutsInChainWithOptions_usingBlock___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   v17 = a2;
@@ -7307,7 +7302,7 @@ void __72__UIResponder__enumerateKeyboardShortcutsInChainWithOptions_usingBlock_
   return v2;
 }
 
-uint64_t __35__UIResponder__isPinningInputViews__block_invoke(uint64_t a1, void *a2)
+void *__35__UIResponder__isPinningInputViews__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 _isPinningInputViewsOnBehalfOfResponder:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) |= result;

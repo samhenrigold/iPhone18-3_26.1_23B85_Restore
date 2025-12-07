@@ -87,87 +87,83 @@
 
 - (BOOL)respondsToSelector:(SEL)selector
 {
+  v17 = *MEMORY[0x1E69E9840];
+  v15.receiver = self;
+  v15.super_class = TFMultiDelegate;
+  if ([(TFMultiDelegate *)&v15 respondsToSelector:?])
+  {
+    return 1;
+  }
+
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  children = [(TFMultiDelegate *)self children];
+  v6 = [children countByEnumeratingWithState:&v11 objects:v16 count:16];
+  if (v6)
+  {
+    v7 = v6;
+    v8 = *v12;
+    while (2)
+    {
+      for (i = 0; i != v7; ++i)
+      {
+        if (*v12 != v8)
+        {
+          objc_enumerationMutation(children);
+        }
+
+        if (*(*(&v11 + 1) + 8 * i) && (objc_opt_respondsToSelector() & 1) != 0)
+        {
+          v4 = 1;
+          goto LABEL_14;
+        }
+      }
+
+      v7 = [children countByEnumeratingWithState:&v11 objects:v16 count:16];
+      if (v7)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v4 = 0;
+LABEL_14:
+
+  return v4;
+}
+
+- (id)methodSignatureForSelector:(SEL)selector
+{
   v18 = *MEMORY[0x1E69E9840];
   v16.receiver = self;
   v16.super_class = TFMultiDelegate;
-  if ([(TFMultiDelegate *)&v16 respondsToSelector:?])
-  {
-    v4 = 1;
-  }
-
-  else
+  v5 = [(TFMultiDelegate *)&v16 methodSignatureForSelector:?];
+  if (!v5)
   {
     v14 = 0u;
     v15 = 0u;
     v12 = 0u;
     v13 = 0u;
     children = [(TFMultiDelegate *)self children];
-    v6 = [children countByEnumeratingWithState:&v12 objects:v17 count:16];
-    if (v6)
-    {
-      v7 = v6;
-      v8 = *v13;
-      while (2)
-      {
-        for (i = 0; i != v7; ++i)
-        {
-          if (*v13 != v8)
-          {
-            objc_enumerationMutation(children);
-          }
-
-          if (*(*(&v12 + 1) + 8 * i) && (objc_opt_respondsToSelector() & 1) != 0)
-          {
-            v4 = 1;
-            goto LABEL_14;
-          }
-        }
-
-        v7 = [children countByEnumeratingWithState:&v12 objects:v17 count:16];
-        if (v7)
-        {
-          continue;
-        }
-
-        break;
-      }
-    }
-
-    v4 = 0;
-LABEL_14:
-  }
-
-  v10 = *MEMORY[0x1E69E9840];
-  return v4;
-}
-
-- (id)methodSignatureForSelector:(SEL)selector
-{
-  v19 = *MEMORY[0x1E69E9840];
-  v17.receiver = self;
-  v17.super_class = TFMultiDelegate;
-  v5 = [(TFMultiDelegate *)&v17 methodSignatureForSelector:?];
-  if (!v5)
-  {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
-    v14 = 0u;
-    children = [(TFMultiDelegate *)self children];
-    v5 = [children countByEnumeratingWithState:&v13 objects:v18 count:16];
+    v5 = [children countByEnumeratingWithState:&v12 objects:v17 count:16];
     if (v5)
     {
-      v7 = *v14;
+      v7 = *v13;
       while (2)
       {
         for (i = 0; i != v5; i = i + 1)
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(children);
           }
 
-          v9 = *(*(&v13 + 1) + 8 * i);
+          v9 = *(*(&v12 + 1) + 8 * i);
           if (v9)
           {
             v10 = [v9 methodSignatureForSelector:selector];
@@ -181,7 +177,7 @@ LABEL_14:
           }
         }
 
-        v5 = [children countByEnumeratingWithState:&v13 objects:v18 count:16];
+        v5 = [children countByEnumeratingWithState:&v12 objects:v17 count:16];
         if (v5)
         {
           continue;
@@ -194,36 +190,34 @@ LABEL_14:
 LABEL_13:
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (void)forwardInvocation:(id)invocation
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   invocationCopy = invocation;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   children = [(TFMultiDelegate *)self children];
-  v6 = [children countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [children countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(children);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * v9);
+        v10 = *(*(&v11 + 1) + 8 * v9);
         if (v10)
         {
           [invocationCopy selector];
@@ -237,13 +231,11 @@ LABEL_13:
       }
 
       while (v7 != v9);
-      v7 = [children countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [children countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -209,26 +209,26 @@
 
 - (double)_previewDistance
 {
-  [HNDHandManager screenFrame:]_0();
+  [HNDHandManager screenFrame:]_0(self, a2);
   v4 = v3;
-  [HNDHandManager screenFrame:]_0();
-  if (v4 >= v5)
+  [HNDHandManager screenFrame:]_0(v5, v6);
+  if (v4 >= v7)
   {
-    v6 = v5;
+    v8 = v7;
   }
 
   else
   {
-    v6 = v4;
+    v8 = v4;
   }
 
-  v7 = v6 * 0.5;
-  v8 = +[SCATStyleProvider sharedStyleProvider];
-  [v8 arrowHeadTipOffset];
-  v10 = v7 - v9 + -5.0;
+  v9 = v8 * 0.5;
+  v10 = +[SCATStyleProvider sharedStyleProvider];
+  [v10 arrowHeadTipOffset];
+  v12 = v9 - v11 + -5.0;
 
   [(SCATGestureDrawingViewController *)self velocity];
-  return (log(v11) + 2.30258509) / 4.60517019 * (v10 + -50.0) + 50.0;
+  return (log(v13) + 2.30258509) / 4.60517019 * (v12 + -50.0) + 50.0;
 }
 
 - (void)setVelocity:(double)velocity

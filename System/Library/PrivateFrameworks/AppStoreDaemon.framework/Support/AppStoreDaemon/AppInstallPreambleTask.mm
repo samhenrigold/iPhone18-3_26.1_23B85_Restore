@@ -256,9 +256,9 @@ LABEL_34:
 
     if (v53 == 1)
     {
-      if (sub_1003D6624())
+      if (sub_1003D6624(AppDefaultsManager))
       {
-        if (sub_10030B504() && sub_10030B58C())
+        if (sub_10030B504(Restrictions) && sub_10030B58C(Restrictions))
         {
           v54 = +[LSApplicationWorkspace defaultWorkspace];
           v55 = [v54 applicationIsInstalled:@"com.apple.AppStore"];
@@ -542,7 +542,7 @@ LABEL_83:
               _os_log_impl(&_mh_execute_header, v114, OS_LOG_TYPE_DEFAULT, "[%@] Checking for initial/prefetch downloads with key %{public}@", buf, 0x16u);
             }
 
-            v121 = sub_1003F281C();
+            v121 = sub_1003F281C(ODRDownloadManager);
             sub_1003F6C18(v121, v104);
 
 LABEL_118:

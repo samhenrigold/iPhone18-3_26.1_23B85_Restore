@@ -1,9 +1,18 @@
 @interface StoreAuthenticationViewController
 - (void)proxCardFlowDidDismiss;
 - (void)proxCardFlowWillPresent;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation StoreAuthenticationViewController
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = StoreAuthenticationViewController;
+  [(StoreAuthenticationViewController *)&v4 viewDidAppear:appear];
+  sub_100005D24(self);
+}
 
 - (void)proxCardFlowWillPresent
 {
@@ -13,7 +22,7 @@
 
 - (void)proxCardFlowDidDismiss
 {
-  v3 = sub_100002E64();
+  v3 = sub_100002E64(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     finished = self->_finished;

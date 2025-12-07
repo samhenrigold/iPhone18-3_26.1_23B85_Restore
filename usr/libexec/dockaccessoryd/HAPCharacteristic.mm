@@ -182,39 +182,29 @@ LABEL_65:
 
     metadata4 = [(HAPCharacteristic *)self metadata];
     outValueCopy = outValue;
-    if (!metadata4)
+    if (metadata4 && (v18 = metadata4, -[HAPCharacteristic metadata](self, "metadata"), v19 = objc_claimAutoreleasedReturnValue(), [v19 constraints], v20 = objc_claimAutoreleasedReturnValue(), v20, v19, v18, v20))
     {
-      goto LABEL_14;
-    }
+      metadata5 = [(HAPCharacteristic *)self metadata];
+      constraints = [metadata5 constraints];
+      minimumValue = [constraints minimumValue];
 
-    v18 = metadata4;
-    metadata5 = [(HAPCharacteristic *)self metadata];
-    constraints = [metadata5 constraints];
-
-    if (constraints)
-    {
       metadata6 = [(HAPCharacteristic *)self metadata];
       constraints2 = [metadata6 constraints];
-      minimumValue = [constraints2 minimumValue];
+      maximumValue = [constraints2 maximumValue];
 
       metadata7 = [(HAPCharacteristic *)self metadata];
       constraints3 = [metadata7 constraints];
-      maximumValue = [constraints3 maximumValue];
+      minLength = [constraints3 minLength];
 
       metadata8 = [(HAPCharacteristic *)self metadata];
       constraints4 = [metadata8 constraints];
-      minLength = [constraints4 minLength];
-
-      metadata9 = [(HAPCharacteristic *)self metadata];
-      constraints5 = [metadata9 constraints];
-      maxLength = [constraints5 maxLength];
+      maxLength = [constraints4 maxLength];
 
       v32 = minLength;
     }
 
     else
     {
-LABEL_14:
       maxLength = 0;
       v32 = 0;
       maximumValue = 0;
@@ -225,339 +215,320 @@ LABEL_14:
     {
       v33 = format;
       v34 = maximumValue;
-      v35 = NSNumber_ptr;
     }
 
     else if ([format isEqualToString:@"string"])
     {
       v33 = format;
       v34 = maximumValue;
-      v35 = NSString_ptr;
     }
 
     else if ([format isEqualToString:@"date"])
     {
       v33 = format;
       v34 = maximumValue;
-      v35 = NSDate_ptr;
     }
 
     else
     {
       v34 = maximumValue;
       v33 = format;
-      if ([format isEqualToString:@"array"])
+      if (([format isEqualToString:@"array"] & 1) == 0)
       {
-        v35 = NSArray_ptr;
-      }
-
-      else
-      {
-        if ([format isEqualToString:@"dict"])
+        if (([format isEqualToString:@"dict"] & 1) == 0 && (objc_msgSend(format, "isEqualToString:", @"data") & 1) == 0 && !objc_msgSend(format, "isEqualToString:", @"tlv8"))
         {
-          v35 = NSObject_ptr;
-        }
-
-        else
-        {
-          if (([format isEqualToString:@"data"] & 1) == 0 && !objc_msgSend(format, "isEqualToString:", @"tlv8"))
-          {
-            v37 = 0;
-            v33 = format;
+          v35 = 0;
+          v33 = format;
 LABEL_27:
-            if (([objc_opt_class() isSubclassOfClass:v37] & 1) == 0)
+          if (([objc_opt_class() isSubclassOfClass:v35] & 1) == 0)
+          {
+            v42 = [NSError errorWithDomain:@"DKErrorDomain" code:35 userInfo:0];
+            v43 = sub_10007FAA0(0);
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
             {
-              v44 = [NSError errorWithDomain:@"DKErrorDomain" code:35 userInfo:0];
-              v45 = sub_10007FAA0();
-              if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
-              {
-                v46 = sub_10007FAFC(0);
-                [(HAPCharacteristic *)self type];
-                v91 = maxLength;
-                v48 = v47 = v32;
-                *buf = 138544130;
-                v95 = v46;
-                v96 = 2112;
-                v97 = v48;
-                v98 = 2112;
-                v99 = objc_opt_class();
-                v100 = 2112;
-                objCType = v37;
-                v49 = v99;
-                _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "%{public}@### Failed to validate value for characteristic with type '%@' because the value was of class '%@' but should be '%@'", buf, 0x2Au);
+              v44 = sub_10007FAFC(0);
+              [(HAPCharacteristic *)self type];
+              v89 = maxLength;
+              v46 = v45 = v32;
+              *buf = 138544130;
+              v93 = v44;
+              v94 = 2112;
+              v95 = v46;
+              v96 = 2112;
+              v97 = objc_opt_class();
+              v98 = 2112;
+              objCType = v35;
+              v47 = v97;
+              _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_ERROR, "%{public}@### Failed to validate value for characteristic with type '%@' because the value was of class '%@' but should be '%@'", buf, 0x2Au);
 
-                v32 = v47;
-                maxLength = v91;
-              }
-
-              v38 = v34;
-              format = v33;
-              goto LABEL_64;
+              v32 = v45;
+              maxLength = v89;
             }
 
-            v38 = v34;
+            v36 = v34;
             format = v33;
-            if (!outValueCopy)
-            {
+            goto LABEL_64;
+          }
+
+          v36 = v34;
+          format = v33;
+          if (!outValueCopy)
+          {
 LABEL_47:
-              if (([format isEqualToString:@"int"] & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"float") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"int8") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"int16") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"int64") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"uint8") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"uint16") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"uint32") & 1) != 0 || objc_msgSend(format, "isEqualToString:", @"uint64"))
+            if (([format isEqualToString:@"int"] & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"float") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"int8") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"int16") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"int64") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"uint8") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"uint16") & 1) != 0 || (objc_msgSend(format, "isEqualToString:", @"uint32") & 1) != 0 || objc_msgSend(format, "isEqualToString:", @"uint64"))
+            {
+              if (minimumValue && [valueCopy compare:minimumValue] == -1)
               {
-                if (minimumValue && [valueCopy compare:minimumValue] == -1)
+                v65 = [NSError errorWithDomain:@"DKErrorDomain" code:47 userInfo:0];
+                if (outValueCopy)
                 {
-                  v67 = [NSError errorWithDomain:@"DKErrorDomain" code:47 userInfo:0];
-                  if (outValueCopy)
-                  {
-                    *outValueCopy = 0;
-                  }
+                  *outValueCopy = 0;
                 }
-
-                else
-                {
-                  v67 = 0;
-                }
-
-                if (v38 && [valueCopy compare:v38] == 1)
-                {
-                  v44 = [NSError errorWithDomain:@"DKErrorDomain" code:48 userInfo:0];
-
-                  if (outValueCopy)
-                  {
-                    *outValueCopy = 0;
-                  }
-                }
-
-                else
-                {
-                  v44 = v67;
-                }
-
-                goto LABEL_64;
-              }
-
-              if ([format isEqualToString:@"BOOL"])
-              {
-                v69 = objc_opt_class();
-                if (([v69 isSubclassOfClass:objc_opt_class()] & 1) == 0)
-                {
-                  v70 = v38;
-                  v71 = maxLength;
-                  v72 = v70;
-                  if ([v69 isSubclassOfClass:objc_opt_class()])
-                  {
-                    if ([valueCopy intValue] < 2)
-                    {
-                      v44 = 0;
-LABEL_104:
-                      v88 = v72;
-                      maxLength = v71;
-                      v38 = v88;
-                      goto LABEL_64;
-                    }
-
-                    v73 = sub_10007FAA0();
-                    if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
-                    {
-                      v74 = sub_10007FAFC(0);
-                      v75 = objc_opt_class();
-                      v76 = valueCopy;
-                      v77 = v75;
-                      *buf = 138544130;
-                      v95 = v74;
-                      v96 = 2112;
-                      v97 = valueCopy;
-                      v98 = 2112;
-                      v99 = v75;
-                      v100 = 2080;
-                      objCType = [valueCopy objCType];
-                      _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_ERROR, "%{public}@Value to be validated is expected to be either '0' or '1', instead it was '%@' - class %@  objCType %s", buf, 0x2Au);
-                    }
-                  }
-
-                  else
-                  {
-                    v83 = sub_10007FAA0();
-                    if (os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
-                    {
-                      v84 = sub_10007FAFC(0);
-                      *buf = 138543874;
-                      v95 = v84;
-                      v96 = 2112;
-                      v97 = valueCopy;
-                      v98 = 2112;
-                      v99 = v69;
-                      _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_ERROR, "%{public}@inValue not a BOOLean value %@ - class %@", buf, 0x20u);
-                    }
-                  }
-
-                  v44 = [NSError errorWithDomain:@"DKErrorDomain" code:2 userInfo:0];
-                  if (outValueCopy)
-                  {
-                    *outValueCopy = 0;
-                  }
-
-                  goto LABEL_104;
-                }
-
-LABEL_87:
-                v44 = 0;
-LABEL_64:
-                v14 = v44;
-
-                goto LABEL_65;
-              }
-
-              if (![format isEqualToString:@"string"])
-              {
-                goto LABEL_87;
-              }
-
-              v78 = valueCopy;
-              v79 = [v78 length];
-              if (v79 <= [maxLength unsignedIntValue])
-              {
-                v85 = [v78 length];
-                if (v85 >= [v32 unsignedIntValue])
-                {
-                  v44 = 0;
-LABEL_106:
-
-                  goto LABEL_64;
-                }
-
-                v86 = sub_10007FAA0();
-                if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
-                {
-                  v87 = sub_10007FAFC(0);
-                  *buf = 138543874;
-                  v95 = v87;
-                  v96 = 2048;
-                  v97 = [v78 length];
-                  v98 = 1024;
-                  LODWORD(v99) = [v32 unsignedIntValue];
-                  _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_ERROR, "%{public}@inValue string.length: %lu < minLength: %u", buf, 0x1Cu);
-                }
-
-                v82 = 50;
               }
 
               else
               {
-                v80 = sub_10007FAA0();
-                if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
-                {
-                  v81 = sub_10007FAFC(0);
-                  *buf = 138543874;
-                  v95 = v81;
-                  v96 = 2048;
-                  v97 = [v78 length];
-                  v98 = 1024;
-                  LODWORD(v99) = [maxLength unsignedIntValue];
-                  _os_log_impl(&_mh_execute_header, v80, OS_LOG_TYPE_ERROR, "%{public}@inValue string.length: %lu > maxLength: %u", buf, 0x1Cu);
-                }
-
-                v82 = 49;
+                v65 = 0;
               }
 
-              v44 = [NSError errorWithDomain:@"DKErrorDomain" code:v82 userInfo:0];
-              if (outValueCopy)
+              if (v36 && [valueCopy compare:v36] == 1)
               {
-                *outValueCopy = 0;
+                v42 = [NSError errorWithDomain:@"DKErrorDomain" code:48 userInfo:0];
+
+                if (outValueCopy)
+                {
+                  *outValueCopy = 0;
+                }
               }
 
-              goto LABEL_106;
+              else
+              {
+                v42 = v65;
+              }
+
+              goto LABEL_64;
             }
 
-            v89 = v32;
-            v90 = v34;
-            metadata10 = [(HAPCharacteristic *)self metadata];
-            constraints6 = [metadata10 constraints];
-            stepValue = [constraints6 stepValue];
-            if (stepValue)
+            if ([format isEqualToString:@"BOOL"])
             {
-              v42 = stepValue;
-              v43 = minimumValue;
-              if ([format isEqualToString:@"float"])
+              v67 = objc_opt_class();
+              if (([v67 isSubclassOfClass:objc_opt_class()] & 1) == 0)
               {
-
-LABEL_38:
-                metadata11 = [(HAPCharacteristic *)self metadata];
-                constraints7 = [metadata11 constraints];
-                stepValue2 = [constraints7 stepValue];
-                [stepValue2 doubleValue];
-                v55 = v54;
-
-                metadata12 = [(HAPCharacteristic *)self metadata];
-                constraints8 = [metadata12 constraints];
-                minimumValue2 = [constraints8 minimumValue];
-
-                if (minimumValue2)
+                v68 = v36;
+                v69 = maxLength;
+                v70 = v68;
+                if ([v67 isSubclassOfClass:objc_opt_class()])
                 {
-                  metadata13 = [(HAPCharacteristic *)self metadata];
-                  constraints9 = [metadata13 constraints];
-                  minimumValue3 = [constraints9 minimumValue];
-                  [minimumValue3 doubleValue];
-                  v63 = v62;
+                  if ([valueCopy intValue] < 2)
+                  {
+                    v42 = 0;
+LABEL_104:
+                    v86 = v70;
+                    maxLength = v69;
+                    v36 = v86;
+                    goto LABEL_64;
+                  }
+
+                  v71 = sub_10007FAA0(0);
+                  if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
+                  {
+                    v72 = sub_10007FAFC(0);
+                    v73 = objc_opt_class();
+                    v74 = valueCopy;
+                    v75 = v73;
+                    *buf = 138544130;
+                    v93 = v72;
+                    v94 = 2112;
+                    v95 = valueCopy;
+                    v96 = 2112;
+                    v97 = v73;
+                    v98 = 2080;
+                    objCType = [valueCopy objCType];
+                    _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_ERROR, "%{public}@Value to be validated is expected to be either '0' or '1', instead it was '%@' - class %@  objCType %s", buf, 0x2Au);
+                  }
                 }
 
                 else
                 {
-                  v63 = 0.0;
+                  v81 = sub_10007FAA0(0);
+                  if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
+                  {
+                    v82 = sub_10007FAFC(0);
+                    *buf = 138543874;
+                    v93 = v82;
+                    v94 = 2112;
+                    v95 = valueCopy;
+                    v96 = 2112;
+                    v97 = v67;
+                    _os_log_impl(&_mh_execute_header, v81, OS_LOG_TYPE_ERROR, "%{public}@inValue not a BOOLean value %@ - class %@", buf, 0x20u);
+                  }
                 }
 
-                [valueCopy doubleValue];
-                v66 = v63 + round((v65 - v63) / v55) * v55;
-                v32 = v89;
-                if ([format isEqualToString:@"int"])
+                v42 = [NSError errorWithDomain:@"DKErrorDomain" code:2 userInfo:0];
+                if (outValueCopy)
                 {
-                  [NSNumber numberWithInteger:v66];
+                  *outValueCopy = 0;
                 }
 
-                else
-                {
-                  [NSNumber numberWithDouble:v66];
-                }
-
-                v64 = v38 = v90;
-                goto LABEL_46;
+                goto LABEL_104;
               }
 
-              v50 = [format isEqualToString:@"int"];
+LABEL_87:
+              v42 = 0;
+LABEL_64:
+              v14 = v42;
 
-              if (v50)
+              goto LABEL_65;
+            }
+
+            if (![format isEqualToString:@"string"])
+            {
+              goto LABEL_87;
+            }
+
+            v76 = valueCopy;
+            v77 = [v76 length];
+            if (v77 <= [maxLength unsignedIntValue])
+            {
+              v83 = [v76 length];
+              if (v83 >= [v32 unsignedIntValue])
               {
-                goto LABEL_38;
+                v42 = 0;
+LABEL_106:
+
+                goto LABEL_64;
               }
+
+              v84 = sub_10007FAA0(0);
+              if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
+              {
+                v85 = sub_10007FAFC(0);
+                *buf = 138543874;
+                v93 = v85;
+                v94 = 2048;
+                v95 = [v76 length];
+                v96 = 1024;
+                LODWORD(v97) = [v32 unsignedIntValue];
+                _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_ERROR, "%{public}@inValue string.length: %lu < minLength: %u", buf, 0x1Cu);
+              }
+
+              v80 = 50;
             }
 
             else
             {
-              v43 = minimumValue;
+              v78 = sub_10007FAA0(0);
+              if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
+              {
+                v79 = sub_10007FAFC(0);
+                *buf = 138543874;
+                v93 = v79;
+                v94 = 2048;
+                v95 = [v76 length];
+                v96 = 1024;
+                LODWORD(v97) = [maxLength unsignedIntValue];
+                _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_ERROR, "%{public}@inValue string.length: %lu > maxLength: %u", buf, 0x1Cu);
+              }
+
+              v80 = 49;
             }
 
-            minimumValue = v43;
-            v64 = valueCopy;
-            v32 = v89;
-            v38 = v90;
-LABEL_46:
-            *outValueCopy = v64;
-            goto LABEL_47;
+            v42 = [NSError errorWithDomain:@"DKErrorDomain" code:v80 userInfo:0];
+            if (outValueCopy)
+            {
+              *outValueCopy = 0;
+            }
+
+            goto LABEL_106;
           }
 
-          v35 = NSData_ptr;
+          v87 = v32;
+          v88 = v34;
+          metadata9 = [(HAPCharacteristic *)self metadata];
+          constraints5 = [metadata9 constraints];
+          stepValue = [constraints5 stepValue];
+          if (stepValue)
+          {
+            v40 = stepValue;
+            v41 = minimumValue;
+            if ([format isEqualToString:@"float"])
+            {
+
+LABEL_38:
+              metadata10 = [(HAPCharacteristic *)self metadata];
+              constraints6 = [metadata10 constraints];
+              stepValue2 = [constraints6 stepValue];
+              [stepValue2 doubleValue];
+              v53 = v52;
+
+              metadata11 = [(HAPCharacteristic *)self metadata];
+              constraints7 = [metadata11 constraints];
+              minimumValue2 = [constraints7 minimumValue];
+
+              if (minimumValue2)
+              {
+                metadata12 = [(HAPCharacteristic *)self metadata];
+                constraints8 = [metadata12 constraints];
+                minimumValue3 = [constraints8 minimumValue];
+                [minimumValue3 doubleValue];
+                v61 = v60;
+              }
+
+              else
+              {
+                v61 = 0.0;
+              }
+
+              [valueCopy doubleValue];
+              v64 = v61 + round((v63 - v61) / v53) * v53;
+              v32 = v87;
+              if ([format isEqualToString:@"int"])
+              {
+                [NSNumber numberWithInteger:v64];
+              }
+
+              else
+              {
+                [NSNumber numberWithDouble:v64];
+              }
+
+              v62 = v36 = v88;
+              goto LABEL_46;
+            }
+
+            v48 = [format isEqualToString:@"int"];
+
+            if (v48)
+            {
+              goto LABEL_38;
+            }
+          }
+
+          else
+          {
+            v41 = minimumValue;
+          }
+
+          minimumValue = v41;
+          v62 = valueCopy;
+          v32 = v87;
+          v36 = v88;
+LABEL_46:
+          *outValueCopy = v62;
+          goto LABEL_47;
         }
 
         v33 = format;
       }
     }
 
-    v36 = *v35;
-    v37 = objc_opt_class();
+    v35 = objc_opt_class();
     goto LABEL_27;
   }
 
   v10 = metadata2;
-  metadata14 = [(HAPCharacteristic *)self metadata];
-  format2 = [metadata14 format];
+  metadata13 = [(HAPCharacteristic *)self metadata];
+  format2 = [metadata13 format];
 
   if (format2)
   {
@@ -608,7 +579,7 @@ LABEL_66:
   metadataCopy = metadata;
   if ((sub_10007E584(typeCopy) & 1) == 0)
   {
-    v19 = sub_10007FAA0();
+    v19 = sub_10007FAA0(0);
     if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
 LABEL_29:
@@ -628,7 +599,7 @@ LABEL_29:
   v19 = sub_10007E724(typeCopy);
   if (!v19)
   {
-    v39 = sub_10007FAA0();
+    v39 = sub_10007FAA0(0);
     if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       v40 = sub_10007FAFC(0);
@@ -648,7 +619,7 @@ LABEL_27:
 
   if ((sub_10007EA14(dCopy) & 1) == 0)
   {
-    v39 = sub_10007FAA0();
+    v39 = sub_10007FAA0(0);
     if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       v40 = sub_10007FAFC(0);
@@ -670,7 +641,7 @@ LABEL_28:
 
   if ((sub_10000FD2C(properties, response, v19) & 1) == 0)
   {
-    v39 = sub_10007FAA0();
+    v39 = sub_10007FAA0(0);
     if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       v40 = sub_10007FAFC(0);
@@ -704,7 +675,7 @@ LABEL_28:
       v20 = v21;
       if (!units)
       {
-        v45 = sub_10007FAA0();
+        v45 = sub_10007FAA0(0);
         if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
         {
           v46 = sub_10007FAFC(0);
@@ -713,7 +684,7 @@ LABEL_28:
           _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_ERROR, "%{public}@### Characteristic metadata is empty", buf, 0xCu);
         }
 
-        v47 = sub_10007FAA0();
+        v47 = sub_10007FAA0(0);
         if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
           v48 = sub_10007FAFC(0);
@@ -748,7 +719,7 @@ LABEL_28:
     if (v27)
     {
       v50 = v27;
-      v29 = sub_10007FAA0();
+      v29 = sub_10007FAA0(0);
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
       {
         v49 = sub_10007FAFC(0);
@@ -877,27 +848,8 @@ LABEL_6:
     }
 
     v6 = v5;
-    if (!v6)
+    if (!v6 || ([(HAPCharacteristic *)self instanceID], v7 = objc_claimAutoreleasedReturnValue(), [(HAPCharacteristic *)v6 instanceID], v8 = objc_claimAutoreleasedReturnValue(), v9 = sub_10007EC60(v7, v8), v8, v7, (v9 & 1) != 0) || ([(HAPCharacteristic *)self type], v10 = objc_claimAutoreleasedReturnValue(), [(HAPCharacteristic *)v6 type], v11 = objc_claimAutoreleasedReturnValue(), v12 = sub_10007EC2C(v10, v11), v11, v10, (v12 & 1) != 0) || (v13 = [(HAPCharacteristic *)self properties], v13 != [(HAPCharacteristic *)v6 properties]))
     {
-      goto LABEL_12;
-    }
-
-    instanceID = [(HAPCharacteristic *)self instanceID];
-    instanceID2 = [(HAPCharacteristic *)v6 instanceID];
-    v9 = sub_10007EC60(instanceID, instanceID2);
-
-    if (v9)
-    {
-      goto LABEL_12;
-    }
-
-    type = [(HAPCharacteristic *)self type];
-    type2 = [(HAPCharacteristic *)v6 type];
-    v12 = sub_10007EC2C(type, type2);
-
-    if ((v12 & 1) != 0 || (v13 = [(HAPCharacteristic *)self properties], v13 != [(HAPCharacteristic *)v6 properties]))
-    {
-LABEL_12:
       v20 = 0;
     }
 
@@ -1221,7 +1173,7 @@ LABEL_12:
   if (!v7)
   {
     selfCopy = self;
-    v13 = sub_10007FAA0();
+    v13 = sub_10007FAA0(selfCopy);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       v14 = sub_10007FAFC(selfCopy);
@@ -1245,7 +1197,7 @@ LABEL_12:
   if ((v11 & 1) == 0)
   {
     selfCopy2 = self;
-    v16 = sub_10007FAA0();
+    v16 = sub_10007FAA0(selfCopy2);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       v17 = sub_10007FAFC(selfCopy2);

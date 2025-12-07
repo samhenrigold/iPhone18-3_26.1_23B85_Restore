@@ -22,7 +22,7 @@ void sub_1640(id a1)
   qword_1E378 = v4;
 }
 
-uint64_t sub_21BC()
+uint64_t sub_21BC(uint64_t a1)
 {
 
   return objc_opt_class();
@@ -54,28 +54,29 @@ void sub_2F38(uint64_t a1, void *a2, void *a3)
   dispatch_async(&_dispatch_main_q, v9);
 }
 
-id sub_3024(uint64_t a1)
+id sub_3024(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  if (*(a1 + 32))
+  v5 = *(a1 + 32);
+  if (v5)
   {
-    v2 = [*(a1 + 56) _setUpHeartRhythmAvailabilityWithProfileIdentifier:?];
+    v6 = [*(a1 + 56) _setUpHeartRhythmAvailabilityWithProfileIdentifier:{v5, a4}];
   }
 
   else
   {
     _HKInitializeLogging();
-    v3 = HKLogHeartRhythm;
+    v7 = HKLogHeartRhythm;
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR))
     {
-      sub_BD0C(a1, v3);
+      sub_BD0C(a1, v7);
     }
 
-    v2 = [*(a1 + 56) _setUpHeartRhythmAvailability];
+    v6 = [*(a1 + 56) _setUpHeartRhythmAvailability];
   }
 
-  v4 = *(a1 + 56);
-  v5 = *(v4 + 168);
-  *(v4 + 168) = v2;
+  v8 = *(a1 + 56);
+  v9 = *(v8 + 168);
+  *(v8 + 168) = v6;
 
   return [*(a1 + 56) reloadSpecifiers];
 }
@@ -214,14 +215,13 @@ void sub_828C(uint64_t a1, uint64_t a2)
 
 id sub_8348(void *a1)
 {
-  v2 = a1[4];
-  v3 = [objc_opt_class() _cachedInstallStateByAppID];
-  v4 = [NSNumber numberWithInteger:a1[7]];
-  [v3 setObject:v4 forKey:a1[5]];
+  v2 = [objc_opt_class() _cachedInstallStateByAppID];
+  v3 = [NSNumber numberWithInteger:a1[7]];
+  [v2 setObject:v3 forKey:a1[5]];
 
-  v5 = a1[6];
+  v4 = a1[6];
 
-  return [v5 reloadSpecifiers];
+  return [v4 reloadSpecifiers];
 }
 
 void sub_840C(id a1)
@@ -231,10 +231,11 @@ void sub_840C(id a1)
   _objc_release_x1();
 }
 
-void sub_8BF4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_8BF4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_8C88(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -308,15 +309,14 @@ void sub_9DC0(uint64_t a1, uint64_t a2)
 
 id sub_9E78(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() _cachedInstallStateByAppID];
-  v4 = [NSNumber numberWithInteger:*(a1 + 48)];
-  [v3 setObject:v4 forKey:*(a1 + 40)];
+  v2 = [objc_opt_class() _cachedInstallStateByAppID];
+  v3 = [NSNumber numberWithInteger:*(a1 + 48)];
+  [v2 setObject:v3 forKey:*(a1 + 40)];
 
   [*(a1 + 32) updateUIWithInstallState:*(a1 + 48) forBundleID:*(a1 + 40)];
-  v5 = *(a1 + 32);
+  v4 = *(a1 + 32);
 
-  return [v5 setNeedsLayout];
+  return [v4 setNeedsLayout];
 }
 
 void sub_A07C(uint64_t a1, uint64_t a2, void *a3)
@@ -337,49 +337,48 @@ void sub_A07C(uint64_t a1, uint64_t a2, void *a3)
   dispatch_async(&_dispatch_main_q, block);
 }
 
-id sub_A15C(uint64_t a1)
+id sub_A15C(uint64_t a1, uint64_t a2)
 {
-  v2 = (a1 + 32);
-  v3 = *(a1 + 32);
+  v3 = (a1 + 32);
+  v4 = *(a1 + 32);
   _HKInitializeLogging();
-  v4 = HKLogDefault;
-  if (v3)
+  v5 = HKLogDefault;
+  if (v4)
   {
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_ERROR))
     {
-      sub_C9B8(a1, v4, v2);
+      sub_C9B8(a1, v5, v3);
     }
 
-    v5 = &off_194B0;
+    v6 = &off_194B0;
   }
 
   else
   {
     if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 40);
-      v7 = *(a1 + 64);
-      v8 = v4;
-      v9 = NSStringFromSelector(v7);
-      v10 = *(a1 + 48);
-      v11 = *(a1 + 56);
+      v7 = *(a1 + 40);
+      v8 = *(a1 + 64);
+      v9 = v5;
+      v10 = NSStringFromSelector(v8);
+      v11 = *(a1 + 48);
+      v12 = *(a1 + 56);
       v15 = 138544130;
-      v16 = v6;
+      v16 = v7;
       v17 = 2114;
-      v18 = v9;
+      v18 = v10;
       v19 = 2112;
-      v20 = v10;
+      v20 = v11;
       v21 = 2112;
-      v22 = v11;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> Scheduled installation of app with bundle identifier(%@) on watch(%@)", &v15, 0x2Au);
+      v22 = v12;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@ %{public}@] -> Scheduled installation of app with bundle identifier(%@) on watch(%@)", &v15, 0x2Au);
     }
 
-    v5 = &off_19498;
+    v6 = &off_19498;
   }
 
-  v12 = *(a1 + 40);
   v13 = [objc_opt_class() _cachedInstallStateByAppID];
-  [v13 setObject:v5 forKey:*(a1 + 48)];
+  [v13 setObject:v6 forKey:*(a1 + 48)];
 
   return [*(a1 + 40) setNeedsLayout];
 }
@@ -410,9 +409,9 @@ void sub_AF38(id a1)
   [v3 setCountLimit:50];
 }
 
-void sub_B668(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_B668(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -441,13 +440,12 @@ void sub_BC34(uint64_t a1, void *a2, const char *a3)
 
 void sub_BD0C(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 40);
-  v5 = a2;
-  v6 = [sub_8C7C() pairingID];
-  v7 = [*(a1 + 48) localizedDescription];
+  v4 = a2;
+  v5 = [sub_8C7C() pairingID];
+  v6 = [*(a1 + 48) localizedDescription];
   sub_8C60();
   sub_8C6C();
-  _os_log_error_impl(v8, v9, v10, v11, v12, 0x20u);
+  _os_log_error_impl(v7, v8, v9, v10, v11, 0x20u);
 }
 
 void sub_BDE0()
@@ -466,24 +464,31 @@ void sub_BDE0()
 void sub_BE88(void *a1)
 {
   v1 = [a1 description];
+  LODWORD(v8) = 136446466;
+  *(&v8 + 4) = "[HPRFHeartRateSettingsController specifiers]";
   sub_8C14();
-  sub_8BF4(&dword_0, v2, v3, "[%{public}s]: Failed to fetch electrocardiogram's HKFeatureStatus with error: %@", v4, v5, v6, v7, 2u);
+  sub_8BF4(&dword_0, v2, v3, "[%{public}s]: Failed to fetch electrocardiogram's HKFeatureStatus with error: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_BF1C(void *a1)
 {
   v1 = [a1 description];
+  LODWORD(v8) = 136446466;
+  *(&v8 + 4) = "[HPRFHeartRateSettingsController specifiers]";
   sub_8C14();
-  sub_8BF4(&dword_0, v2, v3, "[%{public}s]: Failed to fetch hypertension notification's HKFeatureStatus with error: %@", v4, v5, v6, v7, 2u);
+  sub_8BF4(&dword_0, v2, v3, "[%{public}s]: Failed to fetch hypertension notification's HKFeatureStatus with error: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_BFB0()
 {
   sub_8C48();
   v1 = objc_opt_class();
-  v2 = [v0 description];
+  v2 = v1;
+  v3 = [v0 description];
+  LODWORD(v10) = 138543618;
+  *(&v10 + 4) = v1;
   sub_8C14();
-  sub_8BF4(&dword_0, v3, v4, "[%{public}@]: Failed to fetch CardioFitness FeatureStatus with error: %@", v5, v6, v7, v8, 2u);
+  sub_8BF4(&dword_0, v4, v5, "[%{public}@]: Failed to fetch CardioFitness FeatureStatus with error: %@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 void sub_C05C()
@@ -492,43 +497,49 @@ void sub_C05C()
   objc_opt_class();
   sub_8C54();
   v1 = v0;
-  sub_8BF4(&dword_0, v2, v3, "[%{public}@]: Omitting IRN section; failed to determine IRN feature status: %@", v4, v5, v6, v7, v8);
+  sub_8BF4(&dword_0, v2, v3, "[%{public}@]: Omitting IRN section; failed to determine IRN feature status: %@", v4, v5, v6, v7);
 }
 
 void sub_C0EC()
 {
   sub_8C48();
   v1 = objc_opt_class();
-  v2 = [v0 description];
+  v2 = v1;
+  v3 = [v0 description];
+  LODWORD(v10) = 138412546;
+  *(&v10 + 4) = v1;
   sub_8C14();
-  sub_8BF4(&dword_0, v3, v4, "[%@]: Failed to fetch Heart Rate Notifications FeatureStatus with error: %@", v5, v6, v7, v8, 2u);
+  sub_8BF4(&dword_0, v4, v5, "[%@]: Failed to fetch Heart Rate Notifications FeatureStatus with error: %@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 void sub_C198()
 {
   sub_8C48();
   v1 = objc_opt_class();
-  v2 = [v0 description];
+  v2 = v1;
+  v3 = [v0 description];
+  LODWORD(v10) = 138412546;
+  *(&v10 + 4) = v1;
   sub_8C14();
-  sub_8BF4(&dword_0, v3, v4, "[%@]: Failed to fetch AFibBurden FeatureStatus with error: %@", v5, v6, v7, v8, 2u);
+  sub_8BF4(&dword_0, v4, v5, "[%@]: Failed to fetch AFibBurden FeatureStatus with error: %@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
-void sub_C244()
+void sub_C244(uint64_t a1)
 {
   objc_opt_class();
   sub_8C54();
-  v1 = v0;
+  v2 = v1;
   sub_8C24();
-  sub_8C88(v2, v3, v4, v5, v6);
+  sub_8C88(v3, v4, v5, v6, v7);
 }
 
-void sub_C2CC()
+void sub_C2CC(uint64_t a1)
 {
   objc_opt_class();
   sub_8C54();
-  v1 = v0;
+  v2 = v1;
   sub_8C24();
-  sub_8C88(v2, v3, v4, v5, v6);
+  sub_8C88(v3, v4, v5, v6, v7);
 }
 
 void sub_C354(uint64_t a1)
@@ -548,16 +559,16 @@ void sub_C3DC()
   sub_8C54();
   sub_8C60();
   v1 = v0;
-  sub_8BF4(&dword_0, v2, v3, "[%{public}@]: Failed to determine IRN status; reporting 'off': %{public}@", v4, v5, v6, v7, v8);
+  sub_8BF4(&dword_0, v2, v3, "[%{public}@]: Failed to determine IRN status; reporting 'off': %{public}@", v4, v5, v6, v7);
 }
 
-void sub_C468()
+void sub_C468(uint64_t a1)
 {
   objc_opt_class();
   sub_8C54();
-  v1 = v0;
+  v2 = v1;
   sub_8C24();
-  sub_8C88(v2, v3, v4, v5, v6);
+  sub_8C88(v3, v4, v5, v6, v7);
 }
 
 void sub_C4F0()
@@ -566,23 +577,25 @@ void sub_C4F0()
   objc_loadWeakRetained((v1 + 32));
   v2 = [sub_8C7C() localizedDescription];
   sub_8C30();
-  sub_8BF4(&dword_0, v3, v4, "[%{public}@] Failed to set AFibBurden enabled with error: %{public}@", v5, v6, v7, v8, v9);
+  sub_8BF4(&dword_0, v3, v4, "[%{public}@] Failed to set AFibBurden enabled with error: %{public}@", v5, v6, v7, v8);
 }
 
 void sub_C58C(void *a1)
 {
   v1 = [a1 description];
+  LODWORD(v8) = 136446466;
+  *(&v8 + 4) = "[HPRFHeartRateSettingsController aFibBurdenEnabledValueWithSpecifier:]";
   sub_8C14();
-  sub_8BF4(&dword_0, v2, v3, "[%{public}s]: Failed to fetch HKFeatureStatus with error: %@", v4, v5, v6, v7, 2u);
+  sub_8BF4(&dword_0, v2, v3, "[%{public}s]: Failed to fetch HKFeatureStatus with error: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
-void sub_C620()
+void sub_C620(uint64_t a1)
 {
   objc_opt_class();
   sub_8C54();
-  v1 = v0;
+  v2 = v1;
   sub_8C24();
-  sub_8C88(v2, v3, v4, v5, v6);
+  sub_8C88(v3, v4, v5, v6, v7);
 }
 
 void sub_C6A8()
@@ -591,23 +604,25 @@ void sub_C6A8()
   objc_loadWeakRetained((v1 + 32));
   v2 = [sub_8C7C() localizedDescription];
   sub_8C30();
-  sub_8BF4(&dword_0, v3, v4, "[%{public}@] Failed to set CardioFitness enabled with error: %{public}@", v5, v6, v7, v8, v9);
+  sub_8BF4(&dword_0, v3, v4, "[%{public}@] Failed to set CardioFitness enabled with error: %{public}@", v5, v6, v7, v8);
 }
 
 void sub_C744(void *a1)
 {
   v1 = [a1 description];
+  LODWORD(v8) = 136446466;
+  *(&v8 + 4) = "[HPRFHeartRateSettingsController cardioFitnessNotificationsEnabledValueWithSpecifier:]";
   sub_8C14();
-  sub_8BF4(&dword_0, v2, v3, "[%{public}s]: Failed to fetch HKFeatureStatus with error: %@", v4, v5, v6, v7, 2u);
+  sub_8BF4(&dword_0, v2, v3, "[%{public}s]: Failed to fetch HKFeatureStatus with error: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
-void sub_C7D8()
+void sub_C7D8(uint64_t a1)
 {
   objc_opt_class();
   sub_8C54();
-  v1 = v0;
+  v2 = v1;
   sub_8C24();
-  sub_8C88(v2, v3, v4, v5, v6);
+  sub_8C88(v3, v4, v5, v6, v7);
 }
 
 void sub_C860()
@@ -616,14 +631,16 @@ void sub_C860()
   objc_loadWeakRetained((v1 + 32));
   v2 = [sub_8C7C() localizedDescription];
   sub_8C30();
-  sub_8BF4(&dword_0, v3, v4, "[%{public}@] Failed to set hypertension notifications enabled with error: %{public}@", v5, v6, v7, v8, v9);
+  sub_8BF4(&dword_0, v3, v4, "[%{public}@] Failed to set hypertension notifications enabled with error: %{public}@", v5, v6, v7, v8);
 }
 
 void sub_C8FC(void *a1)
 {
   v1 = [a1 description];
+  LODWORD(v8) = 136446466;
+  *(&v8 + 4) = "[HPRFHeartRateSettingsController hypertensionNotificationsEnabledValueWithSpecifier:]";
   sub_8C14();
-  sub_8BF4(&dword_0, v2, v3, "[%{public}s]: Failed to fetch HKFeatureStatus with error: %@", v4, v5, v6, v7, 2u);
+  sub_8BF4(&dword_0, v2, v3, "[%{public}s]: Failed to fetch HKFeatureStatus with error: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void sub_C9B8(void *a1, void *a2, uint64_t *a3)

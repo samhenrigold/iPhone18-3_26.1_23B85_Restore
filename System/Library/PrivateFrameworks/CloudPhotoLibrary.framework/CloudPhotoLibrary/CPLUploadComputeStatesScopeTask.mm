@@ -40,7 +40,7 @@
 
 - (void)_uploadComputeStatesTaskDidFinishWithError:(id)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if ((_CPLSilentLogging & 1) == 0)
   {
@@ -60,33 +60,32 @@
   scope = [(CPLEngineScopedTask *)self scope];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy__1344;
-  v27 = __Block_byref_object_dispose__1345;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__1344;
+  v26 = __Block_byref_object_dispose__1345;
   v11 = errorCopy;
-  v28 = v11;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __78__CPLUploadComputeStatesScopeTask__uploadComputeStatesTaskDidFinishWithError___block_invoke;
-  v18[3] = &unk_1E861C570;
-  v12 = store;
-  v19 = v12;
-  selfCopy = self;
-  v23 = a2;
-  v13 = scope;
-  v21 = v13;
-  v14 = scopes;
-  v22 = v14;
+  v27 = v11;
   v17[0] = MEMORY[0x1E69E9820];
   v17[1] = 3221225472;
-  v17[2] = __78__CPLUploadComputeStatesScopeTask__uploadComputeStatesTaskDidFinishWithError___block_invoke_2_67;
-  v17[3] = &unk_1E8620A60;
-  v17[4] = self;
-  v17[5] = &buf;
-  v15 = [v12 performWriteTransactionWithBlock:v18 completionHandler:v17];
+  v17[2] = __78__CPLUploadComputeStatesScopeTask__uploadComputeStatesTaskDidFinishWithError___block_invoke;
+  v17[3] = &unk_1E861C570;
+  v12 = store;
+  v18 = v12;
+  selfCopy = self;
+  v22 = a2;
+  v13 = scope;
+  v20 = v13;
+  v14 = scopes;
+  v21 = v14;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __78__CPLUploadComputeStatesScopeTask__uploadComputeStatesTaskDidFinishWithError___block_invoke_2_67;
+  v16[3] = &unk_1E8620A60;
+  v16[4] = self;
+  v16[5] = &buf;
+  v15 = [v12 performWriteTransactionWithBlock:v17 completionHandler:v16];
 
   _Block_object_dispose(&buf, 8);
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __78__CPLUploadComputeStatesScopeTask__uploadComputeStatesTaskDidFinishWithError___block_invoke(uint64_t a1, void *a2)
@@ -126,7 +125,7 @@ void __78__CPLUploadComputeStatesScopeTask__uploadComputeStatesTaskDidFinishWith
 
 void __78__CPLUploadComputeStatesScopeTask__uploadComputeStatesTaskDidFinishWithError___block_invoke_2_67(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = a2;
   [*(a1 + 32) _deleteTempFolderForPayloads];
   v4 = *(a1 + 32);
@@ -191,7 +190,7 @@ void __78__CPLUploadComputeStatesScopeTask__uploadComputeStatesTaskDidFinishWith
         v22 = [*(a1 + 32) scope];
         v23 = [v22 scopeIdentifier];
         *buf = 138543362;
-        v34 = v23;
+        v33 = v23;
         _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_DEFAULT, "Uploading compute states for %{public}@ has been throttled, we will likely need to retry that", buf, 0xCu);
       }
     }
@@ -213,8 +212,6 @@ void __78__CPLUploadComputeStatesScopeTask__uploadComputeStatesTaskDidFinishWith
 
   [v27 taskDidFinishWithError:v28];
 LABEL_18:
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __78__CPLUploadComputeStatesScopeTask__uploadComputeStatesTaskDidFinishWithError___block_invoke_2(uint64_t a1, void *a2)
@@ -257,7 +254,7 @@ uint64_t __78__CPLUploadComputeStatesScopeTask__uploadComputeStatesTaskDidFinish
 
 void __78__CPLUploadComputeStatesScopeTask__uploadComputeStatesTaskDidFinishWithError___block_invoke_3(void *a1, void *a2, void *a3, _BYTE *a4)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = [v8 fileStorageIdentifier];
@@ -287,9 +284,9 @@ void __78__CPLUploadComputeStatesScopeTask__uploadComputeStatesTaskDidFinishWith
 
       v14 = *(*(a1[7] + 8) + 40);
       *buf = 138412546;
-      v30 = v7;
-      v31 = 2112;
-      v32 = v14;
+      v29 = v7;
+      v30 = 2112;
+      v31 = v14;
       v15 = "Failed to release file for %@: %@";
       goto LABEL_11;
     }
@@ -305,28 +302,28 @@ LABEL_13:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v22 = __CPLTaskOSLogDomain_1342();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v21 = __CPLTaskOSLogDomain_1342();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_1DC05A000, v22, OS_LOG_TYPE_ERROR, "Compute state with updated payload should have a file URL", buf, 2u);
+        _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_ERROR, "Compute state with updated payload should have a file URL", buf, 2u);
       }
     }
 
-    v23 = [MEMORY[0x1E696AAA8] currentHandler];
-    v24 = a1[8];
-    v25 = a1[5];
-    v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Upload Compute State Phase/CPLUploadComputeStatesTask.m"];
-    [v23 handleFailureInMethod:v24 object:v25 file:v26 lineNumber:653 description:@"Compute state with updated payload should have a file URL"];
+    v22 = [MEMORY[0x1E696AAA8] currentHandler];
+    v23 = a1[8];
+    v24 = a1[5];
+    v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Upload Compute State Phase/CPLUploadComputeStatesTask.m"];
+    [v22 handleFailureInMethod:v23 object:v24 file:v25 lineNumber:653 description:@"Compute state with updated payload should have a file URL"];
 
     abort();
   }
 
   v17 = a1[4];
   v18 = *(a1[7] + 8);
-  v27 = *(v18 + 40);
-  v19 = [v17 updateFileURLForComputeState:v7 error:&v27];
-  objc_storeStrong((v18 + 40), v27);
+  v26 = *(v18 + 40);
+  v19 = [v17 updateFileURLForComputeState:v7 error:&v26];
+  objc_storeStrong((v18 + 40), v26);
   *(*(a1[6] + 8) + 24) = v19;
   if (*(*(a1[6] + 8) + 24))
   {
@@ -346,9 +343,9 @@ LABEL_13:
 
   v20 = *(*(a1[7] + 8) + 40);
   *buf = 138412546;
-  v30 = v7;
-  v31 = 2112;
-  v32 = v20;
+  v29 = v7;
+  v30 = 2112;
+  v31 = v20;
   v15 = "Failed to update file for %@: %@";
 LABEL_11:
   _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_ERROR, v15, buf, 0x16u);
@@ -360,8 +357,6 @@ LABEL_12:
   }
 
 LABEL_14:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancel
@@ -416,7 +411,7 @@ uint64_t __41__CPLUploadComputeStatesScopeTask_cancel__block_invoke(uint64_t a1)
 
 void __41__CPLUploadComputeStatesScopeTask_launch__block_invoke(id *a1, uint64_t a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = [a1[4] isScopeValidInTransaction:a2];
   v4 = a1[4];
   if (v3)
@@ -426,9 +421,9 @@ void __41__CPLUploadComputeStatesScopeTask_launch__block_invoke(id *a1, uint64_t
     {
       v6 = a1[5];
       v7 = a1[6];
-      v23 = 0;
-      v8 = [v6 shouldDropAllUploadsForScope:v7 dropReason:&v23 shouldQuarantineRecords:0];
-      v9 = v23;
+      v21 = 0;
+      v8 = [v6 shouldDropAllUploadsForScope:v7 dropReason:&v21 shouldQuarantineRecords:0];
+      v9 = v21;
 
       if ((v8 & 1) == 0)
       {
@@ -446,7 +441,7 @@ void __41__CPLUploadComputeStatesScopeTask_launch__block_invoke(id *a1, uint64_t
             {
               v15 = a1[6];
               *buf = 138412290;
-              v25 = v15;
+              v23 = v15;
               _os_log_impl(&dword_1DC05A000, v14, OS_LOG_TYPE_DEFAULT, "%@ is temporarily excluded from pushing to transport - won't upload any compute states for this scope", buf, 0xCu);
             }
           }
@@ -456,16 +451,16 @@ void __41__CPLUploadComputeStatesScopeTask_launch__block_invoke(id *a1, uint64_t
 
         else
         {
-          v20 = [a1[5] sharingScopeForScope:a1[6]];
-          if (v20)
+          v18 = [a1[5] sharingScopeForScope:a1[6]];
+          if (v18)
           {
-            v21 = [a1[5] transportScopeForScope:v20];
-            if (v21)
+            v19 = [a1[5] transportScopeForScope:v18];
+            if (v19)
             {
-              [*(a1[4] + 16) addTransportScope:v21 forScope:v20];
+              [*(a1[4] + 16) addTransportScope:v19 forScope:v18];
             }
 
-            objc_storeStrong(a1[4] + 23, v20);
+            objc_storeStrong(a1[4] + 23, v18);
           }
 
           *(a1[4] + 25) = [a1[5] uploadComputeStateTaskForScope:a1[6]];
@@ -474,7 +469,6 @@ void __41__CPLUploadComputeStatesScopeTask_launch__block_invoke(id *a1, uint64_t
 
 LABEL_19:
 
-        v19 = *MEMORY[0x1E69E9840];
         return;
       }
     }
@@ -487,15 +481,15 @@ LABEL_19:
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v17 = __CPLTaskOSLogDomain_1342();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v16 = __CPLTaskOSLogDomain_1342();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = a1[6];
+        v17 = a1[6];
         *buf = 138412546;
-        v25 = v18;
-        v26 = 2112;
-        v27 = v9;
-        _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_DEFAULT, "We must drop all compute states for %@: %@", buf, 0x16u);
+        v23 = v17;
+        v24 = 2112;
+        v25 = v9;
+        _os_log_impl(&dword_1DC05A000, v16, OS_LOG_TYPE_DEFAULT, "We must drop all compute states for %@: %@", buf, 0x16u);
       }
     }
 
@@ -504,9 +498,8 @@ LABEL_19:
     goto LABEL_19;
   }
 
-  v22 = +[CPLErrors operationCancelledError];
+  v20 = +[CPLErrors operationCancelledError];
   [v4 _uploadComputeStatesTaskDidFinishWithError:?];
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_dropAllComputeStates
@@ -541,43 +534,42 @@ LABEL_19:
 
 void __56__CPLUploadComputeStatesScopeTask__dropAllComputeStates__block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([*(a1 + 32) isScopeValidInTransaction:v3] && !objc_msgSend(*(a1 + 32), "isCancelled"))
   {
-    v7 = [*(a1 + 32) session];
-    v8 = [v7 shouldDefer];
+    v6 = [*(a1 + 32) session];
+    v7 = [v6 shouldDefer];
 
-    if (!v8)
+    if (!v7)
     {
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __56__CPLUploadComputeStatesScopeTask__dropAllComputeStates__block_invoke_58;
-      v16[3] = &unk_1E861DE18;
-      v17 = *(a1 + 40);
-      v12 = *(a1 + 48);
-      v13 = *(a1 + 56);
-      v18 = v12;
-      v21 = v13;
-      v14 = v3;
-      v15 = *(a1 + 32);
-      v19 = v14;
-      v20 = v15;
-      [v14 do:v16];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __56__CPLUploadComputeStatesScopeTask__dropAllComputeStates__block_invoke_58;
+      v14[3] = &unk_1E861DE18;
+      v15 = *(a1 + 40);
+      v10 = *(a1 + 48);
+      v11 = *(a1 + 56);
+      v16 = v10;
+      v19 = v11;
+      v12 = v3;
+      v13 = *(a1 + 32);
+      v17 = v12;
+      v18 = v13;
+      [v12 do:v14];
 
       goto LABEL_5;
     }
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v9 = __CPLTaskOSLogDomain_1342();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v8 = __CPLTaskOSLogDomain_1342();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = *(a1 + 32);
         *buf = 138412290;
-        v23 = objc_opt_class();
-        v11 = v23;
-        _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEFAULT, "Session has been deferred. Stopping %@ now", buf, 0xCu);
+        v21 = objc_opt_class();
+        v9 = v21;
+        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Session has been deferred. Stopping %@ now", buf, 0xCu);
       }
     }
 
@@ -593,12 +585,11 @@ void __56__CPLUploadComputeStatesScopeTask__dropAllComputeStates__block_invoke(u
   [v3 setError:v4];
 
 LABEL_5:
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __56__CPLUploadComputeStatesScopeTask__dropAllComputeStates__block_invoke_4(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 error];
 
@@ -618,11 +609,11 @@ void __56__CPLUploadComputeStatesScopeTask__dropAllComputeStates__block_invoke_4
       {
         v8 = *(a1 + 40);
         v9 = *(*(*(a1 + 48) + 8) + 24);
-        v11 = 134218242;
-        v12 = v9;
-        v13 = 2112;
-        v14 = v8;
-        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Dropped %ld compute states for %@", &v11, 0x16u);
+        v10 = 134218242;
+        v11 = v9;
+        v12 = 2112;
+        v13 = v8;
+        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Dropped %ld compute states for %@", &v10, 0x16u);
       }
     }
 
@@ -633,8 +624,6 @@ void __56__CPLUploadComputeStatesScopeTask__dropAllComputeStates__block_invoke_4
   {
     [*(a1 + 32) _uploadComputeStatesTaskDidFinishWithError:0];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __56__CPLUploadComputeStatesScopeTask__dropAllComputeStates__block_invoke_58(uint64_t a1, uint64_t a2)
@@ -677,7 +666,7 @@ uint64_t __56__CPLUploadComputeStatesScopeTask__dropAllComputeStates__block_invo
   return v8;
 }
 
-uint64_t __56__CPLUploadComputeStatesScopeTask__dropAllComputeStates__block_invoke_2(uint64_t result, uint64_t a2)
+void *__56__CPLUploadComputeStatesScopeTask__dropAllComputeStates__block_invoke_2(void *result, uint64_t a2)
 {
   if (!a2)
   {
@@ -687,8 +676,8 @@ uint64_t __56__CPLUploadComputeStatesScopeTask__dropAllComputeStates__block_invo
     v5[1] = 3221225472;
     v5[2] = __56__CPLUploadComputeStatesScopeTask__dropAllComputeStates__block_invoke_3;
     v5[3] = &unk_1E8620678;
-    v4 = *(result + 32);
-    v5[4] = *(result + 40);
+    v4 = result[4];
+    v5[4] = result[5];
     return [v4 withThroughputReporter:v5];
   }
 
@@ -996,48 +985,48 @@ void __57__CPLUploadComputeStatesScopeTask__getNextBatchAndUpload__block_invoke_
 
 uint64_t __57__CPLUploadComputeStatesScopeTask__getNextBatchAndUpload__block_invoke_40(uint64_t a1)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) scopeIdentifier];
   v4 = [*(a1 + 48) session];
   v5 = 1;
   v6 = [v2 computeStatesToUploadWithScopeIdentifier:v3 localState:1 maximumCount:{objc_msgSend(v4, "maximumComputeStatesToUploadPerBatch")}];
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v34 objects:v40 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v33 objects:v39 count:16];
   if (v8)
   {
     v10 = v8;
     v11 = 0;
-    v12 = *v35;
+    v12 = *v34;
     v13 = &propertiesForChangeType__facesProperties;
     *&v9 = 138412290;
-    v30 = v9;
-    v31 = v7;
+    v29 = v9;
+    v30 = v7;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v35 != v12)
+        if (*v34 != v12)
         {
           objc_enumerationMutation(v7);
         }
 
-        v15 = *(*(&v34 + 1) + 8 * i);
+        v15 = *(*(&v33 + 1) + 8 * i);
         v16 = *(a1 + 56);
         v17 = [v15 itemScopedIdentifier];
         LODWORD(v16) = [v16 hasRecordWithScopedIdentifier:v17];
 
         if (v16)
         {
-          v33 = 0;
+          v32 = 0;
           v18 = *(a1 + 64);
           v19 = [v15 itemScopedIdentifier];
-          v20 = [v18 cloudScopedIdentifierForLocalScopedIdentifier:v19 isFinal:&v33];
+          v20 = [v18 cloudScopedIdentifierForLocalScopedIdentifier:v19 isFinal:&v32];
 
           if (v20 && [*(a1 + 72) hasRecordWithScopedIdentifier:v20])
           {
@@ -1049,20 +1038,20 @@ uint64_t __57__CPLUploadComputeStatesScopeTask__getNextBatchAndUpload__block_inv
                 [v15 itemScopedIdentifier];
                 v22 = v11;
                 v24 = v23 = v13;
-                *buf = v30;
-                v39 = v24;
+                *buf = v29;
+                v38 = v24;
                 _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_DEFAULT, "Setting compute state for %@ back to pending as the record is now in the cloud cache", buf, 0xCu);
 
                 v13 = v23;
                 v11 = v22;
-                v7 = v31;
+                v7 = v30;
               }
             }
 
             v25 = *(a1 + 32);
-            v32 = v11;
-            v26 = [v25 updateLocalStateForComputeState:v15 newLocalState:0 error:&v32];
-            v27 = v32;
+            v31 = v11;
+            v26 = [v25 updateLocalStateForComputeState:v15 newLocalState:0 error:&v31];
+            v27 = v31;
 
             if (!v26)
             {
@@ -1076,7 +1065,7 @@ uint64_t __57__CPLUploadComputeStatesScopeTask__getNextBatchAndUpload__block_inv
         }
       }
 
-      v10 = [v7 countByEnumeratingWithState:&v34 objects:v40 count:16];
+      v10 = [v7 countByEnumeratingWithState:&v33 objects:v39 count:16];
       if (v10)
       {
         continue;
@@ -1096,54 +1085,53 @@ uint64_t __57__CPLUploadComputeStatesScopeTask__getNextBatchAndUpload__block_inv
 
 LABEL_21:
 
-  v28 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 uint64_t __57__CPLUploadComputeStatesScopeTask__getNextBatchAndUpload__block_invoke_41(uint64_t a1, void *a2)
 {
   v3 = a1;
-  v100 = *MEMORY[0x1E69E9840];
+  v99 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
   v5 = [*(a1 + 40) scopeIdentifier];
   v6 = [*(v3 + 48) session];
   v7 = [v4 computeStatesToUploadWithScopeIdentifier:v5 localState:0 maximumCount:{objc_msgSend(v6, "maximumComputeStatesToUploadPerBatch")}];
 
-  v75 = -[CPLUploadComputeStatesAccumulator initWithCapacity:maximumPayloadRequestsBatchSize:]([CPLUploadComputeStatesAccumulator alloc], "initWithCapacity:maximumPayloadRequestsBatchSize:", [v7 count], 50);
-  v72 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v7, "count")}];
+  v74 = -[CPLUploadComputeStatesAccumulator initWithCapacity:maximumPayloadRequestsBatchSize:]([CPLUploadComputeStatesAccumulator alloc], "initWithCapacity:maximumPayloadRequestsBatchSize:", [v7 count], 50);
+  v71 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v7, "count")}];
   obj = objc_alloc_init(CPLRecordTargetMapping);
+  v90 = 0u;
   v91 = 0u;
   v92 = 0u;
   v93 = 0u;
-  v94 = 0u;
   v8 = v7;
-  v80 = [v8 countByEnumeratingWithState:&v91 objects:v99 count:16];
-  if (v80)
+  v79 = [v8 countByEnumeratingWithState:&v90 objects:v98 count:16];
+  if (v79)
   {
-    v68 = a2;
+    v67 = a2;
     v9 = 0;
-    v81 = 0;
+    v80 = 0;
     v10 = 0;
     v11 = 0;
-    v79 = *v92;
-    v69 = v3;
+    v78 = *v91;
+    v68 = v3;
 LABEL_3:
-    v74 = v10;
+    v73 = v10;
     v12 = 0;
     while (1)
     {
-      if (*v92 != v79)
+      if (*v91 != v78)
       {
         objc_enumerationMutation(v8);
       }
 
-      if (v81 > 0xA00000)
+      if (v80 > 0xA00000)
       {
-        v10 = v74;
+        v10 = v73;
         goto LABEL_44;
       }
 
-      v13 = *(*(&v91 + 1) + 8 * v12);
+      v13 = *(*(&v90 + 1) + 8 * v12);
       v14 = [v13 itemScopedIdentifier];
       if (([*(v3 + 56) hasRecordWithScopedIdentifier:v14] & 1) == 0)
       {
@@ -1153,15 +1141,15 @@ LABEL_3:
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v96 = v14;
+            v95 = v14;
             _os_log_impl(&dword_1DC05A000, v22, OS_LOG_TYPE_DEFAULT, "Dropping compute state for %@ as the record is not known from the client cache view", buf, 0xCu);
           }
         }
 
         v23 = *(v3 + 32);
-        v90 = v9;
-        v24 = [v23 removeComputeState:v13 error:&v90];
-        v25 = v90;
+        v89 = v9;
+        v24 = [v23 removeComputeState:v13 error:&v89];
+        v25 = v89;
         v26 = v9;
         v9 = v25;
 
@@ -1169,20 +1157,20 @@ LABEL_3:
         {
           if (_CPLSilentLogging)
           {
-            v64 = v68;
+            v63 = v67;
           }
 
           else
           {
-            v63 = __CPLTaskOSLogDomain_1342();
-            v64 = v68;
-            if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+            v62 = __CPLTaskOSLogDomain_1342();
+            v63 = v67;
+            if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v96 = v14;
-              v97 = 2112;
-              v98 = v9;
-              _os_log_impl(&dword_1DC05A000, v63, OS_LOG_TYPE_ERROR, "Failed to remove compute state for %@: %@", buf, 0x16u);
+              v95 = v14;
+              v96 = 2112;
+              v97 = v9;
+              _os_log_impl(&dword_1DC05A000, v62, OS_LOG_TYPE_ERROR, "Failed to remove compute state for %@: %@", buf, 0x16u);
             }
           }
 
@@ -1193,15 +1181,15 @@ LABEL_3:
         goto LABEL_39;
       }
 
-      v89 = 0;
-      v15 = [*(v3 + 64) cloudScopedIdentifierForLocalScopedIdentifier:v14 isFinal:&v89];
+      v88 = 0;
+      v15 = [*(v3 + 64) cloudScopedIdentifierForLocalScopedIdentifier:v14 isFinal:&v88];
       v16 = v15;
       if (!v15)
       {
         break;
       }
 
-      v78 = v14;
+      v77 = v14;
       v17 = *(v3 + 72);
       v18 = v15;
       v19 = [v15 copy];
@@ -1209,24 +1197,24 @@ LABEL_3:
 
       if ([v20 isDelete])
       {
-        v14 = v78;
+        v14 = v77;
         if ((_CPLSilentLogging & 1) == 0)
         {
           v21 = __CPLTaskOSLogDomain_1342();
           if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v96 = v18;
+            v95 = v18;
             _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_DEFAULT, "%@ appears to have been deleted - will need to check directly with the cloud", buf, 0xCu);
           }
         }
 
-        v77 = 0;
+        v76 = 0;
       }
 
       else
       {
-        v14 = v78;
+        v14 = v77;
         v16 = v18;
         if (!v20)
         {
@@ -1250,19 +1238,19 @@ LABEL_3:
           }
         }
 
-        v77 = v20;
-        [v72 setObject:v20 forKeyedSubscript:v16];
+        v76 = v20;
+        [v71 setObject:v20 forKeyedSubscript:v16];
       }
 
       v29 = [v13 fileStorageIdentifier];
 
-      v76 = v11;
+      v75 = v11;
       if (v29)
       {
         v30 = *(v3 + 32);
-        v87 = v9;
-        v31 = [v30 retainFileURLForComputeState:v13 error:&v87];
-        v32 = v87;
+        v86 = v9;
+        v31 = [v30 retainFileURLForComputeState:v13 error:&v86];
+        v32 = v86;
         v33 = v9;
         v9 = v32;
 
@@ -1270,31 +1258,31 @@ LABEL_3:
         {
           if (_CPLSilentLogging)
           {
-            v64 = v68;
+            v63 = v67;
           }
 
           else
           {
-            v66 = __CPLTaskOSLogDomain_1342();
-            v64 = v68;
-            if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+            v65 = __CPLTaskOSLogDomain_1342();
+            v63 = v67;
+            if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v96 = v14;
-              v97 = 2112;
-              v98 = v9;
-              _os_log_impl(&dword_1DC05A000, v66, OS_LOG_TYPE_ERROR, "Failed to find compute state payload for %@: %@", buf, 0x16u);
+              v95 = v14;
+              v96 = 2112;
+              v97 = v9;
+              _os_log_impl(&dword_1DC05A000, v65, OS_LOG_TYPE_ERROR, "Failed to find compute state payload for %@: %@", buf, 0x16u);
             }
           }
 
-          v65 = v77;
+          v64 = v76;
           goto LABEL_63;
         }
 
         v34 = *(v3 + 32);
-        v86 = v9;
-        v71 = [v34 fileSizeForComputeStatePayloadFileURL:v31 error:&v86];
-        v70 = v86;
+        v85 = v9;
+        v70 = [v34 fileSizeForComputeStatePayloadFileURL:v31 error:&v85];
+        v69 = v85;
 
         [v13 setFileURL:v31];
         v35 = [CPLRecordComputeState alloc];
@@ -1306,12 +1294,12 @@ LABEL_3:
         v41 = [(CPLRecordComputeState *)v35 initWithItemScopedIdentifier:v18 fileStorageIdentifier:v36 version:v37 fileURL:v31 adjustmentFingerprint:v39 lastUpdatedDate:v40];
 
         v8 = v38;
-        v42 = v69;
+        v42 = v68;
         v43 = v13;
-        v44 = v71;
-        [(CPLUploadComputeStatesAccumulator *)v75 addLocalComputeStateToUpload:v43 cloudComputeState:v41];
+        v44 = v70;
+        [(CPLUploadComputeStatesAccumulator *)v74 addLocalComputeStateToUpload:v43 cloudComputeState:v41];
 
-        v9 = v70;
+        v9 = v69;
       }
 
       else
@@ -1323,26 +1311,26 @@ LABEL_3:
         v53 = v42 = v3;
         v31 = [(CPLRecordComputeState *)v50 initWithItemScopedIdentifier:v18 version:v51 fileURL:0 adjustmentFingerprint:v52 lastUpdatedDate:v53];
 
-        [(CPLUploadComputeStatesAccumulator *)v75 requestPayloadForLocalComputeState:v13 cloudComputeState:v31];
+        [(CPLUploadComputeStatesAccumulator *)v74 requestPayloadForLocalComputeState:v13 cloudComputeState:v31];
         v44 = 10240;
       }
 
-      v81 += v44;
+      v80 += v44;
       v54 = [*(v42 + 96) cloudCache];
       v55 = [v54 targetForRecordWithCloudScopedIdentifier:v18];
 
       [(CPLRecordTargetMapping *)obj setTarget:v55 forRecordWithScopedIdentifier:v18];
       v3 = v42;
-      v11 = v76;
-      v14 = v78;
+      v11 = v75;
+      v14 = v77;
 LABEL_38:
 
 LABEL_39:
-      if (v80 == ++v12)
+      if (v79 == ++v12)
       {
-        v10 = v74;
-        v80 = [v8 countByEnumeratingWithState:&v91 objects:v99 count:16];
-        if (v80)
+        v10 = v73;
+        v79 = [v8 countByEnumeratingWithState:&v90 objects:v98 count:16];
+        if (v79)
         {
           goto LABEL_3;
         }
@@ -1358,15 +1346,15 @@ LABEL_39:
       if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v96 = v14;
+        v95 = v14;
         _os_log_impl(&dword_1DC05A000, v45, OS_LOG_TYPE_DEFAULT, "Putting compute state for %@ aside as the record is not in the cloud cache yet", buf, 0xCu);
       }
     }
 
     v46 = *(v3 + 32);
-    v88 = v9;
-    v47 = [v46 updateLocalStateForComputeState:v13 newLocalState:1 error:&v88];
-    v48 = v88;
+    v87 = v9;
+    v47 = [v46 updateLocalStateForComputeState:v13 newLocalState:1 error:&v87];
+    v48 = v87;
     v49 = v9;
     v9 = v48;
 
@@ -1374,31 +1362,31 @@ LABEL_39:
     {
       if (_CPLSilentLogging)
       {
-        v64 = v68;
+        v63 = v67;
       }
 
       else
       {
-        v65 = __CPLTaskOSLogDomain_1342();
-        v64 = v68;
-        if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+        v64 = __CPLTaskOSLogDomain_1342();
+        v63 = v67;
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v96 = v14;
-          v97 = 2112;
-          v98 = v9;
-          _os_log_impl(&dword_1DC05A000, v65, OS_LOG_TYPE_ERROR, "Failed to put compute state for %@ aside: %@", buf, 0x16u);
+          v95 = v14;
+          v96 = 2112;
+          v97 = v9;
+          _os_log_impl(&dword_1DC05A000, v64, OS_LOG_TYPE_ERROR, "Failed to put compute state for %@ aside: %@", buf, 0x16u);
         }
 
 LABEL_63:
       }
 
 LABEL_65:
-      if (v64)
+      if (v63)
       {
-        v67 = v9;
+        v66 = v9;
         v60 = 0;
-        *v64 = v9;
+        *v63 = v9;
       }
 
       else
@@ -1409,7 +1397,7 @@ LABEL_65:
       goto LABEL_50;
     }
 
-    ++v74;
+    ++v73;
     goto LABEL_38;
   }
 
@@ -1418,17 +1406,17 @@ LABEL_65:
   v9 = 0;
 LABEL_44:
 
-  if ([(CPLUploadComputeStatesAccumulator *)v75 hasEnqueuedComputeStatesToUpload]|| v11 || v10)
+  if ([(CPLUploadComputeStatesAccumulator *)v74 hasEnqueuedComputeStatesToUpload]|| v11 || v10)
   {
     v58 = *(v3 + 104);
-    v83[0] = MEMORY[0x1E69E9820];
-    v83[1] = 3221225472;
-    v83[2] = __57__CPLUploadComputeStatesScopeTask__getNextBatchAndUpload__block_invoke_46;
-    v83[3] = &unk_1E861BEA8;
-    v83[4] = *(v3 + 48);
-    v84 = v75;
-    v85 = v72;
-    [v58 addCleanupBlock:v83];
+    v82[0] = MEMORY[0x1E69E9820];
+    v82[1] = 3221225472;
+    v82[2] = __57__CPLUploadComputeStatesScopeTask__getNextBatchAndUpload__block_invoke_46;
+    v82[3] = &unk_1E861BEA8;
+    v82[4] = *(v3 + 48);
+    v83 = v74;
+    v84 = v71;
+    [v58 addCleanupBlock:v82];
     objc_storeStrong((*(v3 + 48) + 120), obj);
   }
 
@@ -1440,18 +1428,17 @@ LABEL_44:
   }
 
   v59 = *(v3 + 104);
-  v82[0] = MEMORY[0x1E69E9820];
-  v82[1] = 3221225472;
-  v82[2] = __57__CPLUploadComputeStatesScopeTask__getNextBatchAndUpload__block_invoke_2;
-  v82[3] = &unk_1E861BC38;
-  v82[4] = *(v3 + 48);
-  v82[5] = v10;
-  v82[6] = v11;
-  [v59 addCleanupBlock:v82];
+  v81[0] = MEMORY[0x1E69E9820];
+  v81[1] = 3221225472;
+  v81[2] = __57__CPLUploadComputeStatesScopeTask__getNextBatchAndUpload__block_invoke_2;
+  v81[3] = &unk_1E861BC38;
+  v81[4] = *(v3 + 48);
+  v81[5] = v10;
+  v81[6] = v11;
+  [v59 addCleanupBlock:v81];
   v60 = 1;
 LABEL_50:
 
-  v61 = *MEMORY[0x1E69E9840];
   return v60;
 }
 
@@ -1513,7 +1500,7 @@ void __57__CPLUploadComputeStatesScopeTask__getNextBatchAndUpload__block_invoke_
 
 - (void)_requestMissingPayloads
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   session = [(CPLEngineSyncTask *)self session];
   shouldDefer = [session shouldDefer];
@@ -1523,7 +1510,6 @@ void __57__CPLUploadComputeStatesScopeTask__getNextBatchAndUpload__block_invoke_
     v5 = +[CPLErrors sessionHasBeenDeferredError];
 LABEL_5:
     [(CPLUploadComputeStatesScopeTask *)self _uploadComputeStatesTaskDidFinishWithError:v5, v5];
-    v6 = *MEMORY[0x1E69E9840];
 
     return;
   }
@@ -1537,85 +1523,83 @@ LABEL_5:
   popNextBatchOfLocalComputeStatesNeedingPayload = [(CPLUploadComputeStatesAccumulator *)self->_computeStatesAccumulator popNextBatchOfLocalComputeStatesNeedingPayload];
   if (popNextBatchOfLocalComputeStatesNeedingPayload)
   {
-    v8 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:1];
+    v7 = [MEMORY[0x1E696AE38] progressWithTotalUnitCount:1];
     requestMissingPayloadsProgress = self->_requestMissingPayloadsProgress;
-    self->_requestMissingPayloadsProgress = v8;
+    self->_requestMissingPayloadsProgress = v7;
 
-    v34[0] = 0;
-    v34[1] = v34;
-    v34[2] = 0x2020000000;
-    v35 = 0;
-    v10 = self->_requestMissingPayloadsProgress;
+    v32[0] = 0;
+    v32[1] = v32;
+    v32[2] = 0x2020000000;
+    v33 = 0;
+    v9 = self->_requestMissingPayloadsProgress;
     session2 = [(CPLEngineSyncTask *)self session];
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __58__CPLUploadComputeStatesScopeTask__requestMissingPayloads__block_invoke;
-    v31[3] = &unk_1E861BB78;
-    v31[4] = self;
-    v12 = v10;
-    v32 = v12;
-    v33 = v34;
-    v13 = [session2 addDeferHandler:v31];
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __58__CPLUploadComputeStatesScopeTask__requestMissingPayloads__block_invoke;
+    v29[3] = &unk_1E861BB78;
+    v29[4] = self;
+    v11 = v9;
+    v30 = v11;
+    v31 = v32;
+    v12 = [session2 addDeferHandler:v29];
 
     engineLibrary = [(CPLEngineSyncTask *)self engineLibrary];
     store = [engineLibrary store];
     recordComputeStatePushQueue = [store recordComputeStatePushQueue];
-    v30 = 0;
-    v17 = [recordComputeStatePushQueue createTempUploadFolderWithError:&v30];
-    v18 = v30;
+    v28 = 0;
+    v16 = [recordComputeStatePushQueue createTempUploadFolderWithError:&v28];
+    v17 = v28;
 
-    if (v17)
+    if (v16)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v19 = __CPLTaskOSLogDomain_1342();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v18 = __CPLTaskOSLogDomain_1342();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          v20 = [popNextBatchOfLocalComputeStatesNeedingPayload count];
+          v19 = [popNextBatchOfLocalComputeStatesNeedingPayload count];
           *buf = 134217984;
-          v37 = v20;
-          _os_log_impl(&dword_1DC05A000, v19, OS_LOG_TYPE_DEFAULT, "Requesting %lu payloads to client", buf, 0xCu);
+          v35 = v19;
+          _os_log_impl(&dword_1DC05A000, v18, OS_LOG_TYPE_DEFAULT, "Requesting %lu payloads to client", buf, 0xCu);
         }
       }
 
-      v21 = self->_requestMissingPayloadsProgress;
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __58__CPLUploadComputeStatesScopeTask__requestMissingPayloads__block_invoke_27;
-      v25[3] = &unk_1E861BBC8;
-      v25[4] = self;
-      v26 = popNextBatchOfLocalComputeStatesNeedingPayload;
-      v27 = v17;
-      v28 = v13;
-      v29 = v34;
-      [(NSProgress *)v21 performAsCurrentWithPendingUnitCount:1 usingBlock:v25];
+      v20 = self->_requestMissingPayloadsProgress;
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __58__CPLUploadComputeStatesScopeTask__requestMissingPayloads__block_invoke_27;
+      v23[3] = &unk_1E861BBC8;
+      v23[4] = self;
+      v24 = popNextBatchOfLocalComputeStatesNeedingPayload;
+      v25 = v16;
+      v26 = v12;
+      v27 = v32;
+      [(NSProgress *)v20 performAsCurrentWithPendingUnitCount:1 usingBlock:v23];
     }
 
     else
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v22 = __CPLTaskOSLogDomain_1342();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v21 = __CPLTaskOSLogDomain_1342();
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v37 = v18;
-          _os_log_impl(&dword_1DC05A000, v22, OS_LOG_TYPE_ERROR, "Failed to create temp folder to get compute state payloads: %@", buf, 0xCu);
+          v35 = v17;
+          _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_ERROR, "Failed to create temp folder to get compute state payloads: %@", buf, 0xCu);
         }
       }
 
-      [(CPLUploadComputeStatesScopeTask *)self _uploadComputeStatesTaskDidFinishWithError:v18];
+      [(CPLUploadComputeStatesScopeTask *)self _uploadComputeStatesTaskDidFinishWithError:v17];
     }
 
-    _Block_object_dispose(v34, 8);
+    _Block_object_dispose(v32, 8);
   }
 
   else
   {
     [(CPLUploadComputeStatesScopeTask *)self _uploadExtractedBatch];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __58__CPLUploadComputeStatesScopeTask__requestMissingPayloads__block_invoke(uint64_t a1)
@@ -1709,7 +1693,7 @@ void __58__CPLUploadComputeStatesScopeTask__requestMissingPayloads__block_invoke
 
 void __58__CPLUploadComputeStatesScopeTask__requestMissingPayloads__block_invoke_29(uint64_t a1)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   [*(*(a1 + 32) + 152) setCompletedUnitCount:{objc_msgSend(*(*(a1 + 32) + 152), "totalUnitCount")}];
   v2 = *(a1 + 32);
   v3 = *(v2 + 152);
@@ -1721,82 +1705,79 @@ void __58__CPLUploadComputeStatesScopeTask__requestMissingPayloads__block_invoke
   if (*(*(*(a1 + 64) + 8) + 24) == 1)
   {
     v5 = *(a1 + 32);
-    v22 = +[CPLErrors sessionHasBeenDeferredError];
+    v19 = +[CPLErrors sessionHasBeenDeferredError];
     [v5 _uploadComputeStatesTaskDidFinishWithError:?];
-    v6 = *MEMORY[0x1E69E9840];
-
-    return;
   }
 
-  v7 = *(a1 + 48);
-  if (v7)
+  else
   {
-    if ((_CPLSilentLogging & 1) == 0)
+    v6 = *(a1 + 48);
+    if (v6)
     {
-      v8 = __CPLTaskOSLogDomain_1342();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      if ((_CPLSilentLogging & 1) == 0)
       {
-        v9 = [*(a1 + 48) count];
-        *buf = 134217984;
-        v26 = v9;
-        _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEFAULT, "Client provided %lu payloads", buf, 0xCu);
+        v7 = __CPLTaskOSLogDomain_1342();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        {
+          v8 = [*(a1 + 48) count];
+          *buf = 134217984;
+          v23 = v8;
+          _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Client provided %lu payloads", buf, 0xCu);
+        }
+
+        v6 = *(a1 + 48);
       }
 
-      v7 = *(a1 + 48);
+      v9 = [*(*(a1 + 32) + 168) localComputeStatesToDropAfterClientProvidedPayloadForLocalComputeStates:v6];
+      *(*(a1 + 32) + 232) += [*(a1 + 48) count];
+      if ([*(a1 + 48) count])
+      {
+        v10 = *(a1 + 32);
+        v20[0] = MEMORY[0x1E69E9820];
+        v20[1] = 3221225472;
+        v20[2] = __58__CPLUploadComputeStatesScopeTask__requestMissingPayloads__block_invoke_30;
+        v20[3] = &unk_1E8620848;
+        v21 = *(a1 + 48);
+        [v10 withThroughputReporter:v20];
+      }
+
+      [*(a1 + 32) _dropLocalComputeStates:v9];
+      [*(a1 + 32) _requestMissingPayloads];
     }
 
-    v10 = [*(*(a1 + 32) + 168) localComputeStatesToDropAfterClientProvidedPayloadForLocalComputeStates:v7];
-    *(*(a1 + 32) + 232) += [*(a1 + 48) count];
-    if ([*(a1 + 48) count])
+    else if (([*(a1 + 56) isCPLOperationDeferredError] & 1) != 0 || objc_msgSend(*(a1 + 56), "isCPLOperationCancelledError"))
     {
       v11 = *(a1 + 32);
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __58__CPLUploadComputeStatesScopeTask__requestMissingPayloads__block_invoke_30;
-      v23[3] = &unk_1E8620848;
-      v24 = *(a1 + 48);
-      [v11 withThroughputReporter:v23];
+      v12 = *(a1 + 56);
+
+      [v11 _uploadComputeStatesTaskDidFinishWithError:v12];
     }
 
-    [*(a1 + 32) _dropLocalComputeStates:v10];
-    [*(a1 + 32) _requestMissingPayloads];
-
-LABEL_13:
-    v12 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  if (([*(a1 + 56) isCPLOperationDeferredError] & 1) == 0 && !objc_msgSend(*(a1 + 56), "isCPLOperationCancelledError"))
-  {
-    if ((_CPLSilentLogging & 1) == 0)
+    else
     {
-      v16 = __CPLTaskOSLogDomain_1342();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      if ((_CPLSilentLogging & 1) == 0)
       {
-        v17 = *(a1 + 56);
-        *buf = 138412290;
-        v26 = v17;
-        _os_log_impl(&dword_1DC05A000, v16, OS_LOG_TYPE_ERROR, "Failed to request payloads for compute states - will retry later: %@", buf, 0xCu);
+        v13 = __CPLTaskOSLogDomain_1342();
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        {
+          v14 = *(a1 + 56);
+          *buf = 138412290;
+          v23 = v14;
+          _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_ERROR, "Failed to request payloads for compute states - will retry later: %@", buf, 0xCu);
+        }
       }
+
+      v15 = [*(a1 + 32) session];
+      v16 = [*(a1 + 32) scope];
+      v17 = [v16 scopeIdentifier];
+      [v15 noteSyncSessionInformation:{@"Uploading compute states for %@ needs compute state payloads from client", v17}];
+
+      v18 = [*(a1 + 32) session];
+      [v18 requestSyncStateAtEndOfSyncSession:12 reschedule:0];
+
+      [*(a1 + 32) _uploadComputeStatesTaskDidFinishWithError:0];
     }
-
-    v18 = [*(a1 + 32) session];
-    v19 = [*(a1 + 32) scope];
-    v20 = [v19 scopeIdentifier];
-    [v18 noteSyncSessionInformation:{@"Uploading compute states for %@ needs compute state payloads from client", v20}];
-
-    v21 = [*(a1 + 32) session];
-    [v21 requestSyncStateAtEndOfSyncSession:12 reschedule:0];
-
-    [*(a1 + 32) _uploadComputeStatesTaskDidFinishWithError:0];
-    goto LABEL_13;
   }
-
-  v13 = *(a1 + 32);
-  v14 = *(a1 + 56);
-  v15 = *MEMORY[0x1E69E9840];
-
-  [v13 _uploadComputeStatesTaskDidFinishWithError:v14];
 }
 
 void __58__CPLUploadComputeStatesScopeTask__requestMissingPayloads__block_invoke_30(uint64_t a1, void *a2)
@@ -1806,12 +1787,12 @@ void __58__CPLUploadComputeStatesScopeTask__requestMissingPayloads__block_invoke
   [v3 addCompletedWorkItemCount:objc_msgSend(v2 kindOfWork:{"count"), @"requested.states"}];
 }
 
-uint64_t __58__CPLUploadComputeStatesScopeTask__requestMissingPayloads__block_invoke_2(uint64_t result)
+void *__58__CPLUploadComputeStatesScopeTask__requestMissingPayloads__block_invoke_2(void *result)
 {
-  if (*(result + 32) == *(*(result + 40) + 152))
+  if (*(result + 4) == *(*(result + 5) + 152))
   {
-    *(*(*(result + 48) + 8) + 24) = 1;
-    return [*(result + 32) cancel];
+    *(*(*(result + 6) + 8) + 24) = 1;
+    return [*(result + 4) cancel];
   }
 
   return result;
@@ -1819,13 +1800,13 @@ uint64_t __58__CPLUploadComputeStatesScopeTask__requestMissingPayloads__block_in
 
 - (void)_deleteTempFolderForPayloads
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   engineLibrary = [(CPLEngineSyncTask *)self engineLibrary];
   store = [engineLibrary store];
   recordComputeStatePushQueue = [store recordComputeStatePushQueue];
-  v9 = 0;
-  v5 = [recordComputeStatePushQueue deleteTempUploadFolderWithError:&v9];
-  v6 = v9;
+  v8 = 0;
+  v5 = [recordComputeStatePushQueue deleteTempUploadFolderWithError:&v8];
+  v6 = v8;
 
   if ((v5 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
   {
@@ -1833,17 +1814,15 @@ uint64_t __58__CPLUploadComputeStatesScopeTask__requestMissingPayloads__block_in
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v11 = v6;
+      v10 = v6;
       _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_ERROR, "Failed to remove temp folder: %@", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_dropLocalComputeStates:(id)states
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   statesCopy = states;
   if ([statesCopy count])
   {
@@ -1854,7 +1833,7 @@ uint64_t __58__CPLUploadComputeStatesScopeTask__requestMissingPayloads__block_in
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v15 = statesCopy;
+        v14 = statesCopy;
         _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_DEFAULT, "Dropping %lu compute states with no payload", buf, 0xCu);
       }
     }
@@ -1862,17 +1841,15 @@ uint64_t __58__CPLUploadComputeStatesScopeTask__requestMissingPayloads__block_in
     engineLibrary = [(CPLEngineSyncTask *)self engineLibrary];
     store = [engineLibrary store];
 
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __59__CPLUploadComputeStatesScopeTask__dropLocalComputeStates___block_invoke;
-    v11[3] = &unk_1E86205B8;
-    v12 = store;
-    v13 = statesCopy;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __59__CPLUploadComputeStatesScopeTask__dropLocalComputeStates___block_invoke;
+    v10[3] = &unk_1E86205B8;
+    v11 = store;
+    v12 = statesCopy;
     v8 = store;
-    v9 = [v8 performWriteTransactionWithBlock:v11 completionHandler:&__block_literal_global_1398];
+    v9 = [v8 performWriteTransactionWithBlock:v10 completionHandler:&__block_literal_global_1398];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __59__CPLUploadComputeStatesScopeTask__dropLocalComputeStates___block_invoke(uint64_t a1, void *a2)
@@ -1892,7 +1869,7 @@ void __59__CPLUploadComputeStatesScopeTask__dropLocalComputeStates___block_invok
 
 void __59__CPLUploadComputeStatesScopeTask__dropLocalComputeStates___block_invoke_3(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = [v2 error];
 
@@ -1902,45 +1879,43 @@ void __59__CPLUploadComputeStatesScopeTask__dropLocalComputeStates___block_invok
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = [v2 error];
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_ERROR, "Failed to drop compute states with no payload: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v5;
+      _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_ERROR, "Failed to drop compute states with no payload: %@", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __59__CPLUploadComputeStatesScopeTask__dropLocalComputeStates___block_invoke_2(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v4 = *(a1 + 32);
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v20;
+    v8 = *v19;
     while (2)
     {
       v9 = 0;
       v10 = v7;
       do
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * v9);
+        v11 = *(*(&v18 + 1) + 8 * v9);
         v12 = *(a1 + 40);
-        v18 = v10;
-        v13 = [v12 removeComputeState:v11 error:&v18];
-        v7 = v18;
+        v17 = v10;
+        v13 = [v12 removeComputeState:v11 error:&v17];
+        v7 = v17;
 
         if (!v13)
         {
@@ -1965,7 +1940,7 @@ uint64_t __59__CPLUploadComputeStatesScopeTask__dropLocalComputeStates___block_i
       }
 
       while (v6 != v9);
-      v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v6)
       {
         continue;
@@ -1983,13 +1958,12 @@ uint64_t __59__CPLUploadComputeStatesScopeTask__dropLocalComputeStates___block_i
   v15 = 1;
 LABEL_15:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (void)_uploadExtractedBatch
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_queue);
   if ([(CPLUploadComputeStatesAccumulator *)self->_computeStatesAccumulator countOfCloudComputeStatesToUpload])
   {
@@ -2010,48 +1984,46 @@ LABEL_15:
       self->_transportGroup = createGroupForComputeStateUpload;
 
       Current = CFAbsoluteTimeGetCurrent();
-      v14 = self->_knownRecords;
+      v13 = self->_knownRecords;
       cloudComputeStatesToUpload = [(CPLUploadComputeStatesAccumulator *)self->_computeStatesAccumulator cloudComputeStatesToUpload];
       sharedScope = self->_sharedScope;
       targetMapping = self->_targetMapping;
       transportScopeMapping = self->_transportScopeMapping;
-      v28[0] = MEMORY[0x1E69E9820];
-      v28[1] = 3221225472;
-      v28[2] = __56__CPLUploadComputeStatesScopeTask__uploadExtractedBatch__block_invoke;
-      v28[3] = &unk_1E861BB50;
-      v28[4] = self;
-      *&v28[5] = Current;
-      v19 = [transport uploadComputeStates:cloudComputeStatesToUpload scope:scope sharedScope:sharedScope targetMapping:targetMapping transportScopeMapping:transportScopeMapping knownRecords:v14 completionHandler:v28];
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __56__CPLUploadComputeStatesScopeTask__uploadExtractedBatch__block_invoke;
+      v26[3] = &unk_1E861BB50;
+      v26[4] = self;
+      *&v26[5] = Current;
+      v18 = [transport uploadComputeStates:cloudComputeStatesToUpload scope:scope sharedScope:sharedScope targetMapping:targetMapping transportScopeMapping:transportScopeMapping knownRecords:v13 completionHandler:v26];
       uploadComputeStatesTask = self->_uploadComputeStatesTask;
-      self->_uploadComputeStatesTask = v19;
+      self->_uploadComputeStatesTask = v18;
 
-      v21 = self->_uploadComputeStatesTask;
-      if (!v21)
+      v20 = self->_uploadComputeStatesTask;
+      if (!v20)
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v23 = __CPLTaskOSLogDomain_1342();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          v21 = __CPLTaskOSLogDomain_1342();
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             cloudComputeStatesToUpload2 = [(CPLUploadComputeStatesAccumulator *)self->_computeStatesAccumulator cloudComputeStatesToUpload];
             *buf = 138412290;
-            v30 = cloudComputeStatesToUpload2;
-            _os_log_impl(&dword_1DC05A000, v23, OS_LOG_TYPE_ERROR, "Failed to create a task for %@", buf, 0xCu);
+            v28 = cloudComputeStatesToUpload2;
+            _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_ERROR, "Failed to create a task for %@", buf, 0xCu);
           }
         }
 
         currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-        v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Upload Compute State Phase/CPLUploadComputeStatesTask.m"];
+        v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/Upload Compute State Phase/CPLUploadComputeStatesTask.m"];
         cloudComputeStatesToUpload3 = [(CPLUploadComputeStatesAccumulator *)self->_computeStatesAccumulator cloudComputeStatesToUpload];
-        [currentHandler handleFailureInMethod:a2 object:self file:v26 lineNumber:151 description:{@"Failed to create a task for %@", cloudComputeStatesToUpload3}];
+        [currentHandler handleFailureInMethod:a2 object:self file:v24 lineNumber:151 description:{@"Failed to create a task for %@", cloudComputeStatesToUpload3}];
 
         abort();
       }
 
-      [(CPLEngineSyncTask *)self launchTransportTask:v21 withTransportGroup:self->_transportGroup];
+      [(CPLEngineSyncTask *)self launchTransportTask:v20 withTransportGroup:self->_transportGroup];
     }
-
-    v22 = *MEMORY[0x1E69E9840];
   }
 
   else
@@ -2061,8 +2033,6 @@ LABEL_15:
 
     knownRecords = self->_knownRecords;
     self->_knownRecords = 0;
-
-    v8 = *MEMORY[0x1E69E9840];
 
     [(CPLUploadComputeStatesScopeTask *)self _getNextBatchAndUpload];
   }
@@ -2097,7 +2067,7 @@ void __56__CPLUploadComputeStatesScopeTask__uploadExtractedBatch__block_invoke(u
 
 uint64_t __56__CPLUploadComputeStatesScopeTask__uploadExtractedBatch__block_invoke_2(uint64_t a1)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(v2 + 136);
   *(v2 + 136) = 0;
@@ -2114,16 +2084,16 @@ uint64_t __56__CPLUploadComputeStatesScopeTask__uploadExtractedBatch__block_invo
         v6 = [*(*(a1 + 32) + 168) countOfCloudComputeStatesToUpload];
         v7 = *(a1 + 40);
         *buf = 134218242;
-        v21 = v6;
-        v22 = 2112;
-        v23 = v7;
+        v20 = v6;
+        v21 = 2112;
+        v22 = v7;
         _os_log_impl(&dword_1DC05A000, v5, OS_LOG_TYPE_ERROR, "Failed to upload %lu compute states: %@", buf, 0x16u);
       }
 
       v4 = *(a1 + 40);
     }
 
-    result = [*(a1 + 32) _uploadComputeStatesTaskDidFinishWithError:v4];
+    return [*(a1 + 32) _uploadComputeStatesTaskDidFinishWithError:v4];
   }
 
   else
@@ -2134,12 +2104,12 @@ uint64_t __56__CPLUploadComputeStatesScopeTask__uploadExtractedBatch__block_invo
     if (v10)
     {
       v11 = *(a1 + 32);
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __56__CPLUploadComputeStatesScopeTask__uploadExtractedBatch__block_invoke_9;
-      v19[3] = &__block_descriptor_40_e35_v16__0__CPLSyncThroughputReporter_8l;
-      v19[4] = v10;
-      [v11 withThroughputReporter:v19];
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __56__CPLUploadComputeStatesScopeTask__uploadExtractedBatch__block_invoke_9;
+      v18[3] = &__block_descriptor_40_e35_v16__0__CPLSyncThroughputReporter_8l;
+      v18[4] = v10;
+      [v11 withThroughputReporter:v18];
     }
 
     if ((_CPLSilentLogging & 1) == 0)
@@ -2153,13 +2123,13 @@ uint64_t __56__CPLUploadComputeStatesScopeTask__uploadExtractedBatch__block_invo
         v16 = CFAbsoluteTimeGetCurrent() - *(a1 + 56);
         v17 = *(a1 + 48);
         *buf = 134218754;
-        v21 = v13;
-        v22 = 2048;
-        v23 = v15;
-        v24 = 2048;
-        v25 = v16;
-        v26 = 2114;
-        v27 = v17;
+        v20 = v13;
+        v21 = 2048;
+        v22 = v15;
+        v23 = 2048;
+        v24 = v16;
+        v25 = 2114;
+        v26 = v17;
         _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_DEFAULT, "Uploaded %lu compute states (dropped %lu) successfully in %.1fs:\n%{public}@", buf, 0x2Au);
       }
     }
@@ -2169,16 +2139,13 @@ uint64_t __56__CPLUploadComputeStatesScopeTask__uploadExtractedBatch__block_invo
       *(*(a1 + 32) + 192) = 1;
     }
 
-    result = [*(a1 + 32) _discardExtractedBatchAndGetNextBatch];
+    return [*(a1 + 32) _discardExtractedBatchAndGetNextBatch];
   }
-
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (BOOL)checkScopeIsValidInTransaction:(id)transaction
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   transactionCopy = transaction;
   session = [(CPLEngineSyncTask *)self session];
   shouldDefer = [session shouldDefer];
@@ -2190,14 +2157,14 @@ uint64_t __56__CPLUploadComputeStatesScopeTask__uploadExtractedBatch__block_invo
       v7 = __CPLTaskOSLogDomain_1342();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v14 = 138412290;
-        *&v14[4] = objc_opt_class();
-        v8 = *&v14[4];
-        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Session for %@ has been deferred", v14, 0xCu);
+        *v13 = 138412290;
+        *&v13[4] = objc_opt_class();
+        v8 = *&v13[4];
+        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_DEFAULT, "Session for %@ has been deferred", v13, 0xCu);
       }
     }
 
-    v9 = +[CPLErrors sessionHasBeenDeferredError];
+    v9 = [CPLErrors sessionHasBeenDeferredError:*v13];
     [transactionCopy setError:v9];
 
     v10 = 0;
@@ -2209,7 +2176,6 @@ uint64_t __56__CPLUploadComputeStatesScopeTask__uploadExtractedBatch__block_invo
     v10 = error == 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

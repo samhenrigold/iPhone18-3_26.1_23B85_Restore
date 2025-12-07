@@ -38,7 +38,7 @@
 + (id)configurationForClass:(Class)class usingCache:(BOOL)cache
 {
   cacheCopy = cache;
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   v7 = objc_alloc_init(class);
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -49,8 +49,8 @@
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       *buf = 138477827;
-      v70 = objc_opt_class();
-      v26 = v70;
+      v69 = objc_opt_class();
+      v26 = v69;
       _os_log_impl(&dword_1CA1CE000, v25, OS_LOG_TYPE_ERROR, "[%{private}@]: Error, class is not Subclass of APConfiguration", buf, 0xCu);
     }
 
@@ -72,9 +72,9 @@
       v56 = v55;
       v57 = NSStringFromClass(class);
       *buf = 138478083;
-      v70 = v55;
-      v71 = 2113;
-      v72 = v57;
+      v69 = v55;
+      v70 = 2113;
+      v71 = v57;
       _os_log_impl(&dword_1CA1CE000, v54, OS_LOG_TYPE_ERROR, "[%{private}@]: Error, getting path for class %{private}@", buf, 0x16u);
     }
 
@@ -102,9 +102,9 @@
     }
   }
 
-  v68 = 0;
-  v21 = objc_msgSend__loadFromJSONForClass_error_(self, v14, class, &v68);
-  v32 = v68;
+  v67 = 0;
+  v21 = objc_msgSend__loadFromJSONForClass_error_(self, v14, class, &v67);
+  v32 = v67;
   if (v32)
   {
     v36 = APLogForCategory();
@@ -115,11 +115,11 @@
       v41 = objc_msgSend_localizedFailureReason(v32, v39, v40);
       v44 = objc_msgSend_userInfo(v32, v42, v43);
       *buf = 138478339;
-      v70 = v37;
-      v71 = 2113;
-      v72 = v41;
-      v73 = 2113;
-      v74 = v44;
+      v69 = v37;
+      v70 = 2113;
+      v71 = v41;
+      v72 = 2113;
+      v73 = v44;
       _os_log_impl(&dword_1CA1CE000, v36, OS_LOG_TYPE_ERROR, "[%{private}@]: Failed to load file, error: %{private}@ %{private}@", buf, 0x20u);
     }
 
@@ -143,7 +143,6 @@ LABEL_18:
 LABEL_19:
 
 LABEL_20:
-  v66 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
@@ -183,7 +182,7 @@ LABEL_20:
 
 + (id)_loadFromJSONForClass:(Class)class error:(id *)error
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v7 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], a2, class);
   v10 = objc_msgSend_configSystemDirectoryPath(APConfigurationMediator, v8, v9);
   v13 = objc_msgSend_path(class, v11, v12);
@@ -209,8 +208,8 @@ LABEL_20:
         if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           *buf = 138477827;
-          v40 = objc_opt_class();
-          v38 = v40;
+          v39 = objc_opt_class();
+          v37 = v39;
           _os_log_impl(&dword_1CA1CE000, v33, OS_LOG_TYPE_ERROR, "[%{private}@]: Error parsing JSON file.", buf, 0xCu);
         }
 
@@ -225,8 +224,8 @@ LABEL_20:
       if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         *buf = 138477827;
-        v40 = objc_opt_class();
-        v30 = v40;
+        v39 = objc_opt_class();
+        v30 = v39;
         _os_log_impl(&dword_1CA1CE000, v29, OS_LOG_TYPE_ERROR, "[%{private}@]: Error getting data for JSON", buf, 0xCu);
       }
 
@@ -239,8 +238,6 @@ LABEL_20:
   {
     v28 = objc_msgSend__loadFromDefaultsForClass_error_(self, v19, class, error);
   }
-
-  v36 = *MEMORY[0x1E69E9840];
 
   return v28;
 }
@@ -314,30 +311,29 @@ LABEL_20:
 
 + (id)_configSystemErrorWithDescription:(id)description
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
   descriptionCopy = description;
   v5 = [v3 alloc];
-  v12 = *MEMORY[0x1E696A578];
-  v13[0] = descriptionCopy;
-  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v6, v13, &v12, 1);
+  v11 = *MEMORY[0x1E696A578];
+  v12[0] = descriptionCopy;
+  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v6, v12, &v11, 1);
 
   v9 = objc_msgSend_initWithDomain_code_userInfo_(v5, v8, @"CPConfigSystem", 0, v7);
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 + (void)_removeFileAtPath:(id)path
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AC08];
   pathCopy = path;
   v7 = objc_msgSend_defaultManager(v3, v5, v6);
-  v20 = 0;
-  objc_msgSend_removeItemAtPath_error_(v7, v8, pathCopy, &v20);
+  v19 = 0;
+  objc_msgSend_removeItemAtPath_error_(v7, v8, pathCopy, &v19);
 
-  v9 = v20;
+  v9 = v19;
   if (v9)
   {
     v10 = APLogForCategory();
@@ -348,16 +344,14 @@ LABEL_20:
       v15 = objc_msgSend_localizedFailureReason(v9, v13, v14);
       v18 = objc_msgSend_userInfo(v9, v16, v17);
       *buf = 138478339;
-      v22 = v11;
-      v23 = 2113;
-      v24 = v15;
-      v25 = 2113;
-      v26 = v18;
+      v21 = v11;
+      v22 = 2113;
+      v23 = v15;
+      v24 = 2113;
+      v25 = v18;
       _os_log_impl(&dword_1CA1CE000, v10, OS_LOG_TYPE_ERROR, "[%{private}@]: Failed delete corrupted file, error: %{private}@ %{private}@", buf, 0x20u);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 @end

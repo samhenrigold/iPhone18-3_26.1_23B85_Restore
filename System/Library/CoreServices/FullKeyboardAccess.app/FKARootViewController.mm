@@ -4,7 +4,10 @@
 - (void)_startOverridingNativeFocus;
 - (void)_stopOverridingNativeFocus;
 - (void)dismissChildViewController:(id)controller animated:(BOOL)animated;
+- (void)dismissViewControllerWithTransition:(int)transition completion:(id)completion;
+- (void)presentViewController:(id)controller animated:(BOOL)animated completion:(id)completion;
 - (void)presentViewController:(id)controller inPopoverFromRect:(CGRect)rect;
+- (void)presentViewController:(id)controller withTransition:(int)transition completion:(id)completion;
 - (void)setIsOverridingNativeFocus:(BOOL)focus;
 - (void)showChildViewController:(id)controller animated:(BOOL)animated;
 - (void)updateRequiresNativeFocus;
@@ -151,6 +154,56 @@
   [popoverPresentationController setSourceRect:?];
 
   [(FKARootViewController *)self presentViewController:controllerCopy animated:1 completion:0];
+}
+
+- (void)presentViewController:(id)controller animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10000A430;
+  v12[3] = &unk_1000288E0;
+  v12[4] = self;
+  completionCopy = completion;
+  v8 = completionCopy;
+  controllerCopy = controller;
+  v10 = objc_retainBlock(v12);
+  v11.receiver = self;
+  v11.super_class = FKARootViewController;
+  [(FKARootViewController *)&v11 presentViewController:controllerCopy animated:animatedCopy completion:v10];
+}
+
+- (void)presentViewController:(id)controller withTransition:(int)transition completion:(id)completion
+{
+  v5 = *&transition;
+  v12[0] = _NSConcreteStackBlock;
+  v12[1] = 3221225472;
+  v12[2] = sub_10000A55C;
+  v12[3] = &unk_1000288E0;
+  v12[4] = self;
+  completionCopy = completion;
+  v8 = completionCopy;
+  controllerCopy = controller;
+  v10 = objc_retainBlock(v12);
+  v11.receiver = self;
+  v11.super_class = FKARootViewController;
+  [(FKARootViewController *)&v11 presentViewController:controllerCopy withTransition:v5 completion:v10];
+}
+
+- (void)dismissViewControllerWithTransition:(int)transition completion:(id)completion
+{
+  v4 = *&transition;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_10000A66C;
+  v9[3] = &unk_1000288E0;
+  v9[4] = self;
+  completionCopy = completion;
+  v6 = completionCopy;
+  v7 = objc_retainBlock(v9);
+  v8.receiver = self;
+  v8.super_class = FKARootViewController;
+  [(FKARootViewController *)&v8 dismissViewControllerWithTransition:v4 completion:v7];
 }
 
 - (void)updateRequiresNativeFocus

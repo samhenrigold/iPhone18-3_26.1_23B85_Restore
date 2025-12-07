@@ -66,7 +66,7 @@
   equalCopy = equal;
   if (self == equalCopy)
   {
-    v20 = 1;
+    v8 = 1;
   }
 
   else
@@ -75,53 +75,34 @@
     if (objc_opt_isKindOfClass())
     {
       v5 = equalCopy;
-      initializeReadyForInteraction = self->_initializeReadyForInteraction;
-      v7 = v5->_initializeReadyForInteraction;
-      if (!BSEqualBools())
+      if (BSEqualBools() && BSEqualBools() && BSEqualBools() && BSEqualBools() && BSFloatEqualToFloat())
       {
-        goto LABEL_12;
-      }
-
-      resetDarkBootState = self->_resetDarkBootState;
-      v9 = v5->_resetDarkBootState;
-      if (!BSEqualBools())
-      {
-        goto LABEL_12;
-      }
-
-      shouldWaitForMigrator = self->_shouldWaitForMigrator;
-      v11 = v5->_shouldWaitForMigrator;
-      if (BSEqualBools() && (initializeDisplayManager = self->_initializeDisplayManager, v13 = v5->_initializeDisplayManager, BSEqualBools()) && (systemSleepInterval = self->_systemSleepInterval, v15 = v5->_systemSleepInterval, BSFloatEqualToFloat()))
-      {
-        v16 = MEMORY[0x1AC572E40](self->_registerServicesBlock);
-        v17 = MEMORY[0x1AC572E40](v5->_registerServicesBlock);
+        v6 = MEMORY[0x1AC572E40](self->_registerServicesBlock);
+        v7 = MEMORY[0x1AC572E40](v5->_registerServicesBlock);
         if (BSEqualObjects())
         {
-          independentWatchdogPortName = self->_independentWatchdogPortName;
-          v19 = v5->_independentWatchdogPortName;
-          v20 = BSEqualObjects();
+          v8 = BSEqualObjects();
         }
 
         else
         {
-          v20 = 0;
+          v8 = 0;
         }
       }
 
       else
       {
-LABEL_12:
-        v20 = 0;
+        v8 = 0;
       }
     }
 
     else
     {
-      v20 = 0;
+      v8 = 0;
     }
   }
 
-  return v20;
+  return v8;
 }
 
 - (id)mutableCopyWithZone:(_NSZone *)zone

@@ -71,7 +71,7 @@
     v19 = v7->_connection;
     if (v19)
     {
-      [(NSXPCConnection *)v19 auditToken];
+      objc_msgSend_auditToken(v19);
     }
 
     else
@@ -180,7 +180,7 @@
   connection = self->_connection;
   if (connection)
   {
-    [(NSXPCConnection *)connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   else
@@ -628,7 +628,7 @@ LABEL_18:
       }
     }
 
-    [(VCPMADServicePublicClientHandler *)self secTask];
+    objc_msgSend_secTask(self);
     v20 = [MADUserSafetySettings policyTypeForTask:*buf scanningPolicy:scanningPolicy];
     sub_100002CBC(buf);
     if (MediaAnalysisLogLevel() >= 5)

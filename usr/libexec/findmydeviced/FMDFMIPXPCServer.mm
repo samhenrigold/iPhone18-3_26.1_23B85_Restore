@@ -60,6 +60,7 @@
 - (void)scheduleDailyLocateReportXPCActivity;
 - (void)sendPairedDeviceLostModeExitAuthToken:(id)token deviceID:(id)d;
 - (void)setDailyLocateReportEnabled:(BOOL)enabled;
+- (void)setLowBatteryLocateEnabled:(BOOL)enabled usingCallback:(id)callback;
 - (void)setPhoneNumber:(id)number toAccessoryWithDiscoveryId:(id)id completion:(id)completion;
 - (void)showDailyLocateReport;
 - (void)signatureHeadersWithData:(id)data completion:(id)completion;
@@ -67,6 +68,7 @@
 - (void)soundStoppedForAccessoryIdentifier:(id)identifier;
 - (void)startLocationMonitoring:(id)monitoring;
 - (void)startLocationMonitoringWithContext:(id)context completion:(id)completion;
+- (void)startLocationMonitoringWithContext:(id)context forcePublish:(BOOL)publish completion:(id)completion;
 - (void)stopLocationMonitoring:(id)monitoring;
 - (void)stopLocationMonitoringWithContext:(id)context completion:(id)completion;
 - (void)storeOfflineFindingInfo:(id)info completion:(id)completion;
@@ -107,84 +109,85 @@
 {
   infoCopy = info;
   callbackCopy = callback;
-  v9 = sub_100002880();
+  v9 = sub_100002880(callbackCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v57 = "[FMDFMIPXPCServer enableLostModeWithInfo:usingCallback:]";
+    v61 = "[FMDFMIPXPCServer enableLostModeWithInfo:usingCallback:]";
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
   if (![(FMDFMIPXPCServer *)self _hasClientAccessEntitlement])
   {
-    v25 = NSStringFromSelector(a2);
-    v26 = [NSString stringWithFormat:@"Entitlement not found for %@", v25];
+    v28 = NSStringFromSelector(a2);
+    v29 = [NSString stringWithFormat:@"Entitlement not found for %@", v28];
 
-    v27 = sub_100002880();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v31 = sub_100002880(v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
 
     if (callbackCopy)
     {
-      v28 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v26];
-      callbackCopy[2](callbackCopy, v28);
+      v32 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v29];
+      callbackCopy[2](callbackCopy, v32);
     }
 
     goto LABEL_24;
   }
 
-  if ([infoCopy lostModeEnabled])
+  lostModeEnabled = [infoCopy lostModeEnabled];
+  if (lostModeEnabled)
   {
-    v10 = +[FMDSystemConfig sharedInstance];
-    isPasscodeSet = [v10 isPasscodeSet];
+    v11 = +[FMDSystemConfig sharedInstance];
+    isPasscodeSet = [v11 isPasscodeSet];
 
     if (isPasscodeSet)
     {
-      v12 = +[FMDLostModeManager sharedInstance];
-      lostModeEnabled = [v12 lostModeEnabled];
+      v14 = +[FMDLostModeManager sharedInstance];
+      lostModeEnabled2 = [v14 lostModeEnabled];
 
-      if (!lostModeEnabled)
+      if (!lostModeEnabled2)
       {
-        v55[0] = &__kCFBooleanTrue;
-        v54[0] = @"lostModeEnabled";
-        v54[1] = @"lostModeMessage";
+        v59[0] = &__kCFBooleanTrue;
+        v58[0] = @"lostModeEnabled";
+        v58[1] = @"lostModeMessage";
         message = [infoCopy message];
-        v46 = message;
+        v50 = message;
         if (message)
         {
-          v47 = message;
+          v51 = message;
         }
 
         else
         {
-          v47 = &stru_1002DCE08;
+          v51 = &stru_1002DCE08;
         }
 
-        v55[1] = v47;
-        v54[2] = @"lostModeOwnerNumber";
+        v59[1] = v51;
+        v58[2] = @"lostModeOwnerNumber";
         phoneNumber = [infoCopy phoneNumber];
-        v49 = phoneNumber;
+        v53 = phoneNumber;
         if (phoneNumber)
         {
-          v50 = phoneNumber;
+          v54 = phoneNumber;
         }
 
         else
         {
-          v50 = &stru_1002DCE08;
+          v54 = &stru_1002DCE08;
         }
 
-        v55[2] = v50;
-        v54[3] = @"lostModeFacetimeCapable";
-        v51 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [infoCopy facetimeCapable]);
-        v55[3] = v51;
-        v26 = [NSDictionary dictionaryWithObjects:v55 forKeys:v54 count:4];
+        v59[2] = v54;
+        v58[3] = @"lostModeFacetimeCapable";
+        v55 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [infoCopy facetimeCapable]);
+        v59[3] = v55;
+        v29 = [NSDictionary dictionaryWithObjects:v59 forKeys:v58 count:4];
 
-        [FMDPreferencesMgr setClientLostModeInfo:v26];
-        v52 = +[FMDFMIPSharedStateManager sharedInstance];
-        [v52 recalculateLostMode];
+        [FMDPreferencesMgr setClientLostModeInfo:v29];
+        v56 = +[FMDFMIPSharedStateManager sharedInstance];
+        [v56 recalculateLostMode];
 
         SBSSpringBoardServerPort();
         SBLockDevice();
@@ -198,37 +201,37 @@
         goto LABEL_24;
       }
 
-      v14 = sub_100002880();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v17 = sub_100002880(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        sub_10022C450(v14, v15, v16, v17, v18, v19, v20, v21);
+        sub_10022C450(v17, v18, v19, v20, v21, v22, v23, v24);
       }
 
       if (callbackCopy)
       {
-        v22 = @"Device is already in FMIP lost mode.";
+        v25 = @"Device is already in FMIP lost mode.";
         selfCopy3 = self;
-        v24 = 8;
+        v27 = 8;
 LABEL_23:
-        v26 = [(FMDFMIPXPCServer *)selfCopy3 _errorForCode:v24 message:v22];
-        callbackCopy[2](callbackCopy, v26);
+        v29 = [(FMDFMIPXPCServer *)selfCopy3 _errorForCode:v27 message:v25];
+        callbackCopy[2](callbackCopy, v29);
 LABEL_24:
       }
     }
 
     else
     {
-      v37 = sub_100002880();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v41 = sub_100002880(v13);
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
-        sub_10022C3D8(v37, v38, v39, v40, v41, v42, v43, v44);
+        sub_10022C3D8(v41, v42, v43, v44, v45, v46, v47, v48);
       }
 
       if (callbackCopy)
       {
-        v22 = @"Passcode is not set. Cannot enable lost mode.";
+        v25 = @"Passcode is not set. Cannot enable lost mode.";
         selfCopy3 = self;
-        v24 = 7;
+        v27 = 7;
         goto LABEL_23;
       }
     }
@@ -236,17 +239,17 @@ LABEL_24:
 
   else
   {
-    v29 = sub_100002880();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v33 = sub_100002880(lostModeEnabled);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      sub_10022C360(v29, v30, v31, v32, v33, v34, v35, v36);
+      sub_10022C360(v33, v34, v35, v36, v37, v38, v39, v40);
     }
 
     if (callbackCopy)
     {
-      v22 = @"You have passed in lostModeEnabled as NO. This is invalid";
+      v25 = @"You have passed in lostModeEnabled as NO. This is invalid";
       selfCopy3 = self;
-      v24 = 1;
+      v27 = 1;
       goto LABEL_23;
     }
   }
@@ -255,29 +258,29 @@ LABEL_24:
 - (void)disableLostModeUsingCallback:(id)callback
 {
   callbackCopy = callback;
-  v6 = sub_100002880();
+  v6 = sub_100002880(callbackCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v23 = "[FMDFMIPXPCServer disableLostModeUsingCallback:]";
+    v26 = "[FMDFMIPXPCServer disableLostModeUsingCallback:]";
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
   if (![(FMDFMIPXPCServer *)self _hasClientAccessEntitlement])
   {
-    v11 = NSStringFromSelector(a2);
-    locationTracker = [NSString stringWithFormat:@"Entitlement not found for %@", v11];
+    v12 = NSStringFromSelector(a2);
+    locationTracker = [NSString stringWithFormat:@"Entitlement not found for %@", v12];
 
-    v13 = sub_100002880();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = sub_100002880(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
 
     if (callbackCopy)
     {
-      v14 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:locationTracker];
-      callbackCopy[2](callbackCopy, v14);
+      v16 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:locationTracker];
+      callbackCopy[2](callbackCopy, v16);
     }
 
     goto LABEL_20;
@@ -288,17 +291,17 @@ LABEL_24:
 
   if (isLocked)
   {
-    v9 = sub_100002880();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100002880(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10022C504();
     }
 
     if (callbackCopy)
     {
-      v10 = @"Keybag is still locked. Cannot disable lost mode";
+      v11 = @"Keybag is still locked. Cannot disable lost mode";
 LABEL_19:
-      locationTracker = [(FMDFMIPXPCServer *)self _errorForCode:9 message:v10];
+      locationTracker = [(FMDFMIPXPCServer *)self _errorForCode:9 message:v11];
       callbackCopy[2](callbackCopy, locationTracker);
 LABEL_20:
     }
@@ -306,22 +309,22 @@ LABEL_20:
 
   else
   {
-    v15 = +[FMDFMIPManager sharedInstance];
-    lostModeInfo = [v15 lostModeInfo];
+    v17 = +[FMDFMIPManager sharedInstance];
+    lostModeInfo = [v17 lostModeInfo];
     lostModeType = [lostModeInfo lostModeType];
 
     if (lostModeType != 5 && lostModeType != 3)
     {
       [FMDPreferencesMgr setClientLostModeInfo:0];
-      v19 = +[FMDFMIPSharedStateManager sharedInstance];
-      [v19 recalculateLostMode];
+      v22 = +[FMDFMIPSharedStateManager sharedInstance];
+      [v22 recalculateLostMode];
 
-      v20 = +[FMDServiceProvider activeServiceProvider];
-      locationTracker = [v20 locationTracker];
+      v23 = +[FMDServiceProvider activeServiceProvider];
+      locationTracker = [v23 locationTracker];
 
       [locationTracker deleteLocationTrackingInfoAndStopTracking];
-      v21 = +[FMDLostModeManager sharedInstance];
-      [v21 disableLostMode];
+      v24 = +[FMDLostModeManager sharedInstance];
+      [v24 disableLostMode];
 
       if (callbackCopy)
       {
@@ -331,15 +334,15 @@ LABEL_20:
       goto LABEL_20;
     }
 
-    v18 = sub_100002880();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v21 = sub_100002880(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       sub_10022C4C8();
     }
 
     if (callbackCopy)
     {
-      v10 = @"Device is in managed lost mode. Cannot disable lost mode";
+      v11 = @"Device is in managed lost mode. Cannot disable lost mode";
       goto LABEL_19;
     }
   }
@@ -348,11 +351,11 @@ LABEL_20:
 - (void)deviceActivationDidSucceedUsingCallback:(id)callback
 {
   callbackCopy = callback;
-  v6 = sub_100002880();
+  v6 = sub_100002880(callbackCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v12 = "[FMDFMIPXPCServer deviceActivationDidSucceedUsingCallback:]";
+    v13 = "[FMDFMIPXPCServer deviceActivationDidSucceedUsingCallback:]";
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
@@ -370,16 +373,16 @@ LABEL_20:
     v7 = NSStringFromSelector(a2);
     v8 = [NSString stringWithFormat:@"Entitlement not found for %@", v7];
 
-    v9 = sub_100002880();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100002880(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
 
     if (callbackCopy)
     {
-      v10 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v8];
-      (callbackCopy)[2](callbackCopy, v10);
+      v11 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v8];
+      (callbackCopy)[2](callbackCopy, v11);
     }
   }
 }
@@ -387,11 +390,11 @@ LABEL_20:
 - (void)getLockdownShouldDisableDeviceRestoreUsingCallback:(id)callback
 {
   callbackCopy = callback;
-  v6 = sub_100002880();
+  v6 = sub_100002880(callbackCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v13 = "[FMDFMIPXPCServer getLockdownShouldDisableDeviceRestoreUsingCallback:]";
+    v14 = "[FMDFMIPXPCServer getLockdownShouldDisableDeviceRestoreUsingCallback:]";
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
@@ -411,16 +414,16 @@ LABEL_20:
     v9 = NSStringFromSelector(a2);
     fmipACAccount = [NSString stringWithFormat:@"Entitlement not found for %@", v9];
 
-    v10 = sub_100002880();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100002880(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
 
     if (callbackCopy)
     {
-      v11 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:fmipACAccount];
-      (callbackCopy)[2](callbackCopy, 0, v11);
+      v12 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:fmipACAccount];
+      (callbackCopy)[2](callbackCopy, 0, v12);
     }
   }
 }
@@ -428,11 +431,11 @@ LABEL_20:
 - (void)getLockdownShouldDisableDevicePairingUsingCallback:(id)callback
 {
   callbackCopy = callback;
-  v6 = sub_100002880();
+  v6 = sub_100002880(callbackCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v19 = "[FMDFMIPXPCServer getLockdownShouldDisableDevicePairingUsingCallback:]";
+    v20 = "[FMDFMIPXPCServer getLockdownShouldDisableDevicePairingUsingCallback:]";
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
@@ -451,9 +454,9 @@ LABEL_20:
     }
 
     [FMPreferencesUtil synchronizeDomain:kFMDPublicNotBackedUpPrefDomain];
-    v11 = [FMPreferencesUtil dictionaryForKey:@"FMIPLostModeInfo" inDomain:kFMDPublicNotBackedUpPrefDomain];
-    v10 = v11;
-    if (v11 && ([v11 objectForKeyedSubscript:@"lostModeEnabled"], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "BOOLValue"), v12, (v13 & 1) != 0))
+    v12 = [FMPreferencesUtil dictionaryForKey:@"FMIPLostModeInfo" inDomain:kFMDPublicNotBackedUpPrefDomain];
+    v11 = v12;
+    if (v12 && ([v12 objectForKeyedSubscript:@"lostModeEnabled"], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v13, "BOOLValue"), v13, (v14 & 1) != 0))
     {
       bOOLValue = 1;
       if (!callbackCopy)
@@ -464,12 +467,12 @@ LABEL_20:
 
     else
     {
-      v15 = [FMPreferencesUtil dictionaryForKey:@"ClientLostModeInfo" inDomain:kFMDPublicNotBackedUpPrefDomain];
-      v16 = v15;
-      if (v15)
+      v16 = [FMPreferencesUtil dictionaryForKey:@"ClientLostModeInfo" inDomain:kFMDPublicNotBackedUpPrefDomain];
+      v17 = v16;
+      if (v16)
       {
-        v17 = [v15 objectForKeyedSubscript:@"lostModeEnabled"];
-        bOOLValue = [v17 BOOLValue];
+        v18 = [v16 objectForKeyedSubscript:@"lostModeEnabled"];
+        bOOLValue = [v18 BOOLValue];
       }
 
       else
@@ -492,16 +495,16 @@ LABEL_20:
   v8 = NSStringFromSelector(a2);
   v7 = [NSString stringWithFormat:@"Entitlement not found for %@", v8];
 
-  v9 = sub_100002880();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  v10 = sub_100002880(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     sub_10022A1D0();
   }
 
   if (callbackCopy)
   {
-    v10 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v7];
-    (*(callbackCopy + 2))(callbackCopy, 0, v10);
+    v11 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v7];
+    (*(callbackCopy + 2))(callbackCopy, 0, v11);
     goto LABEL_20;
   }
 
@@ -511,11 +514,11 @@ LABEL_21:
 - (void)getFMIPStateUsingCallback:(id)callback
 {
   callbackCopy = callback;
-  v6 = sub_100002880();
+  v6 = sub_100002880(callbackCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v15 = "[FMDFMIPXPCServer getFMIPStateUsingCallback:]";
+    v17 = "[FMDFMIPXPCServer getFMIPStateUsingCallback:]";
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
@@ -524,12 +527,12 @@ LABEL_21:
     v7 = +[FMDServiceProvider activeServiceProvider];
     fmipState = [v7 fmipState];
 
-    v9 = sub_100002880();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100002880(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v15 = fmipState;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Returning FMIP state : %ld", buf, 0xCu);
+      v17 = fmipState;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Returning FMIP state : %ld", buf, 0xCu);
     }
 
     if (callbackCopy)
@@ -540,19 +543,19 @@ LABEL_21:
 
   else
   {
-    v10 = NSStringFromSelector(a2);
-    v11 = [NSString stringWithFormat:@"Entitlement not found for %@", v10];
+    v11 = NSStringFromSelector(a2);
+    v12 = [NSString stringWithFormat:@"Entitlement not found for %@", v11];
 
-    v12 = sub_100002880();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = sub_100002880(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
 
     if (callbackCopy)
     {
-      v13 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v11];
-      (callbackCopy)[2](callbackCopy, 4, v13);
+      v15 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v12];
+      (callbackCopy)[2](callbackCopy, 4, v15);
     }
   }
 }
@@ -560,11 +563,11 @@ LABEL_21:
 - (void)getFmipAccountUsingCallback:(id)callback
 {
   callbackCopy = callback;
-  v6 = sub_100002880();
+  v6 = sub_100002880(callbackCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v14 = "[FMDFMIPXPCServer getFmipAccountUsingCallback:]";
+    v15 = "[FMDFMIPXPCServer getFmipAccountUsingCallback:]";
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
@@ -588,8 +591,8 @@ LABEL_10:
     v11 = NSStringFromSelector(a2);
     fmipACAccount = [NSString stringWithFormat:@"Entitlement not found for %@", v11];
 
-    v12 = sub_100002880();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_100002880(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
@@ -607,13 +610,13 @@ LABEL_10:
 {
   infoCopy = info;
   callbackCopy = callback;
-  v9 = sub_100002880();
+  v9 = sub_100002880(callbackCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v16 = "[FMDFMIPXPCServer didChangeFMIPAccountInfo:usingCallback:]";
-    v17 = 2112;
-    v18 = infoCopy;
+    v17 = "[FMDFMIPXPCServer didChangeFMIPAccountInfo:usingCallback:]";
+    v18 = 2112;
+    v19 = infoCopy;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s with changeDesc %@", buf, 0x16u);
   }
 
@@ -633,16 +636,16 @@ LABEL_10:
     v11 = NSStringFromSelector(a2);
     v12 = [NSString stringWithFormat:@"Entitlement not found for %@", v11];
 
-    v13 = sub_100002880();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = sub_100002880(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
 
     if (callbackCopy)
     {
-      v14 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v12];
-      (callbackCopy)[2](callbackCopy, v14);
+      v15 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v12];
+      (callbackCopy)[2](callbackCopy, v15);
     }
   }
 }
@@ -650,12 +653,12 @@ LABEL_10:
 - (void)enableFMIPInContext:(unint64_t)context usingCallback:(id)callback
 {
   callbackCopy = callback;
-  v8 = sub_100002880();
+  v8 = sub_100002880(callbackCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v31 = "[FMDFMIPXPCServer enableFMIPInContext:usingCallback:]";
-    v32 = 2048;
+    v33 = "[FMDFMIPXPCServer enableFMIPInContext:usingCallback:]";
+    v34 = 2048;
     contextCopy = context;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s in context %lu", buf, 0x16u);
   }
@@ -685,18 +688,18 @@ LABEL_10:
           v17 = objc_alloc_init(FMDFMIPAccount);
           [(FMDFMIPAccount *)v17 applyPropertiesFromACAccount:iCloudACAccount];
           [(FMDFMIPAccount *)v17 setFmipEnableContext:context];
-          v26 = +[NSDate date];
-          [(FMDAccount *)v17 setAccountAddTime:v26];
+          v28 = +[NSDate date];
+          [(FMDAccount *)v17 setAccountAddTime:v28];
 
           dsid = [account dsid];
           [(FMDFMIPAccount *)v17 setLastLoggedInDsid:dsid];
 
-          v28 = +[FMDServiceProvider activeServiceProvider];
-          [v28 addAccount:v17];
+          v30 = +[FMDServiceProvider activeServiceProvider];
+          [v30 addAccount:v17];
         }
 
-        v29 = +[FMIPConfig sharedInstance];
-        [v29 enableFMIPLocationServices];
+        v31 = +[FMIPConfig sharedInstance];
+        [v31 enableFMIPLocationServices];
 
         if (callbackCopy)
         {
@@ -709,8 +712,8 @@ LABEL_10:
       aa_personID = [iCloudACAccount aa_personID];
       account = [NSString stringWithFormat:@"The account %@ is not provisioned for %@", aa_personID, v11];
 
-      v24 = sub_100002880();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v26 = sub_100002880(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         sub_10022A1D0();
       }
@@ -721,14 +724,14 @@ LABEL_10:
       }
 
       selfCopy2 = self;
-      v22 = 9;
+      v23 = 9;
     }
 
     else
     {
       account = [NSString stringWithFormat:@"No iCloud account found to enableFMIP"];
-      v20 = sub_100002880();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = sub_100002880(account);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         sub_10022A1D0();
       }
@@ -739,11 +742,11 @@ LABEL_10:
       }
 
       selfCopy2 = self;
-      v22 = 5;
+      v23 = 5;
     }
 
-    v25 = [(FMDFMIPXPCServer *)selfCopy2 _errorForCode:v22 message:account];
-    (callbackCopy)[2](callbackCopy, v25);
+    v27 = [(FMDFMIPXPCServer *)selfCopy2 _errorForCode:v23 message:account];
+    (callbackCopy)[2](callbackCopy, v27);
 
 LABEL_25:
     goto LABEL_26;
@@ -752,8 +755,8 @@ LABEL_25:
   v18 = NSStringFromSelector(a2);
   iCloudACAccount = [NSString stringWithFormat:@"Entitlement not found for %@", v18];
 
-  v19 = sub_100002880();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  v20 = sub_100002880(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     sub_10022A1D0();
   }
@@ -772,7 +775,7 @@ LABEL_26:
 {
   tokenCopy = token;
   callbackCopy = callback;
-  v11 = sub_100002880();
+  v11 = sub_100002880(callbackCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     v12 = "non-nil";
@@ -783,10 +786,10 @@ LABEL_26:
       v12 = "nil";
     }
 
-    v52 = 2048;
+    v54 = 2048;
     contextCopy = context;
-    v54 = 2080;
-    v55 = v12;
+    v56 = 2080;
+    v57 = v12;
     _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s in context %lu with %s token", buf, 0x20u);
   }
 
@@ -797,29 +800,30 @@ LABEL_26:
 
     if (isBuddyDone)
     {
-      v46[0] = _NSConcreteStackBlock;
-      v46[1] = 3221225472;
-      v46[2] = sub_10019F3B8;
-      v46[3] = &unk_1002D04D8;
-      v47 = tokenCopy;
+      v48[0] = _NSConcreteStackBlock;
+      v48[1] = 3221225472;
+      v48[2] = sub_10019F3B8;
+      v48[3] = &unk_1002D04D8;
+      v49 = tokenCopy;
       contextCopy2 = context;
       v15 = callbackCopy;
-      v48 = v15;
-      v16 = objc_retainBlock(v46);
-      v44[0] = _NSConcreteStackBlock;
-      v44[1] = 3221225472;
-      v44[2] = sub_10019F534;
-      v44[3] = &unk_1002CD8B0;
-      v44[4] = self;
-      v45 = v15;
-      v17 = objc_retainBlock(v44);
-      if (!+[FMDRatchetManager isFeatureEnabled])
+      v50 = v15;
+      v16 = objc_retainBlock(v48);
+      v46[0] = _NSConcreteStackBlock;
+      v46[1] = 3221225472;
+      v46[2] = sub_10019F534;
+      v46[3] = &unk_1002CD8B0;
+      v46[4] = self;
+      v47 = v15;
+      v17 = objc_retainBlock(v46);
+      v18 = +[FMDRatchetManager isFeatureEnabled];
+      if (!v18)
       {
-        v27 = sub_10017DEB4();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+        v29 = sub_10017DEB4(v18);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Ratchet not enabled. Allowing disable FMIP.", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Ratchet not enabled. Allowing disable FMIP.", buf, 2u);
         }
 
         (v16[2])(v16);
@@ -828,82 +832,82 @@ LABEL_26:
 
       if (context == 4)
       {
-        v18 = +[FMDOwnerAuthenticationManager ownerAuthenticationManagerEraseAllContentsAndSettings];
+        v19 = +[FMDOwnerAuthenticationManager ownerAuthenticationManagerEraseAllContentsAndSettings];
+        v40[0] = _NSConcreteStackBlock;
+        v40[1] = 3221225472;
+        v40[2] = sub_10019F640;
+        v40[3] = &unk_1002CE250;
+        v41 = v16;
+        [v19 setPermittedOperationBlock:v40];
         v38[0] = _NSConcreteStackBlock;
         v38[1] = 3221225472;
-        v38[2] = sub_10019F640;
+        v38[2] = sub_10019F650;
         v38[3] = &unk_1002CE250;
-        v39 = v16;
-        [v18 setPermittedOperationBlock:v38];
-        v36[0] = _NSConcreteStackBlock;
-        v36[1] = 3221225472;
-        v36[2] = sub_10019F650;
-        v36[3] = &unk_1002CE250;
-        v37 = v17;
-        [v18 setDeniedOperationBlock:v36];
-        [v18 evaluateOperation];
+        v39 = v17;
+        [v19 setDeniedOperationBlock:v38];
+        [v19 evaluateOperation];
 
-        v19 = v39;
+        v20 = v41;
       }
 
       else
       {
         if (context != 2)
         {
-          v28 = sub_10017DEB4();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+          v30 = sub_10017DEB4(v18);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 134217984;
             contextCopy3 = context;
-            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Checking ratchet for the context: %lu.", buf, 0xCu);
+            _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Checking ratchet for the context: %lu.", buf, 0xCu);
           }
 
-          v29 = +[FMDRatchetManager ratchetManagerTurnOffFMIP];
-          v33[0] = _NSConcreteStackBlock;
-          v33[1] = 3221225472;
-          v33[2] = sub_10019F660;
-          v33[3] = &unk_1002D0500;
+          v31 = +[FMDRatchetManager ratchetManagerTurnOffFMIP];
+          v35[0] = _NSConcreteStackBlock;
+          v35[1] = 3221225472;
+          v35[2] = sub_10019F660;
+          v35[3] = &unk_1002D0500;
           contextCopy4 = context;
-          v34 = v16;
-          [v29 setPermittedOperationBlock:v33];
-          v30[0] = _NSConcreteStackBlock;
-          v30[1] = 3221225472;
-          v30[2] = sub_10019F718;
-          v30[3] = &unk_1002D0500;
+          v36 = v16;
+          [v31 setPermittedOperationBlock:v35];
+          v32[0] = _NSConcreteStackBlock;
+          v32[1] = 3221225472;
+          v32[2] = sub_10019F718;
+          v32[3] = &unk_1002D0500;
           contextCopy5 = context;
-          v31 = v17;
-          [v29 setDeniedOperationBlock:v30];
-          [v29 evaluateOperation];
+          v33 = v17;
+          [v31 setDeniedOperationBlock:v32];
+          [v31 evaluateOperation];
 
           goto LABEL_28;
         }
 
-        v18 = +[FMDRatchetManager ratchetManageriCloudSignOut];
+        v19 = +[FMDRatchetManager ratchetManageriCloudSignOut];
+        v44[0] = _NSConcreteStackBlock;
+        v44[1] = 3221225472;
+        v44[2] = sub_10019F620;
+        v44[3] = &unk_1002CE250;
+        v45 = v16;
+        [v19 setPermittedOperationBlock:v44];
         v42[0] = _NSConcreteStackBlock;
         v42[1] = 3221225472;
-        v42[2] = sub_10019F620;
+        v42[2] = sub_10019F630;
         v42[3] = &unk_1002CE250;
-        v43 = v16;
-        [v18 setPermittedOperationBlock:v42];
-        v40[0] = _NSConcreteStackBlock;
-        v40[1] = 3221225472;
-        v40[2] = sub_10019F630;
-        v40[3] = &unk_1002CE250;
-        v41 = v17;
-        [v18 setDeniedOperationBlock:v40];
-        [v18 evaluateOperation];
+        v43 = v17;
+        [v19 setDeniedOperationBlock:v42];
+        [v19 evaluateOperation];
 
-        v19 = v43;
+        v20 = v45;
       }
 
 LABEL_28:
-      v21 = v47;
+      v22 = v49;
       goto LABEL_29;
     }
 
-    v21 = [NSString stringWithFormat:@"FMIP account cannot be removed till buddy is complete"];
-    v25 = sub_100002880();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v22 = [NSString stringWithFormat:@"FMIP account cannot be removed till buddy is complete"];
+    v27 = sub_100002880(v22);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
@@ -911,18 +915,18 @@ LABEL_28:
     if (callbackCopy)
     {
       selfCopy2 = self;
-      v24 = 9;
+      v26 = 9;
       goto LABEL_19;
     }
   }
 
   else
   {
-    v20 = NSStringFromSelector(a2);
-    v21 = [NSString stringWithFormat:@"Entitlement not found for %@", v20];
+    v21 = NSStringFromSelector(a2);
+    v22 = [NSString stringWithFormat:@"Entitlement not found for %@", v21];
 
-    v22 = sub_100002880();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v24 = sub_100002880(v23);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
@@ -930,10 +934,10 @@ LABEL_28:
     if (callbackCopy)
     {
       selfCopy2 = self;
-      v24 = 6;
+      v26 = 6;
 LABEL_19:
-      v26 = [(FMDFMIPXPCServer *)selfCopy2 _errorForCode:v24 message:v21];
-      (*(callbackCopy + 2))(callbackCopy, v26);
+      v28 = [(FMDFMIPXPCServer *)selfCopy2 _errorForCode:v26 message:v22];
+      (*(callbackCopy + 2))(callbackCopy, v28);
     }
   }
 
@@ -945,21 +949,21 @@ LABEL_29:
   tokenCopy = token;
   dCopy = d;
   callbackCopy = callback;
-  v12 = sub_100002880();
+  v12 = sub_100002880(callbackCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = "non-nil";
-    v28 = "[FMDFMIPXPCServer disableFMIPUsingToken:forPairedDeviceWithUDID:usingCallback:]";
+    v29 = "[FMDFMIPXPCServer disableFMIPUsingToken:forPairedDeviceWithUDID:usingCallback:]";
     *buf = 136315650;
     if (!tokenCopy)
     {
       v13 = "nil";
     }
 
-    v29 = 2112;
-    v30 = dCopy;
-    v31 = 2080;
-    v32 = v13;
+    v30 = 2112;
+    v31 = dCopy;
+    v32 = 2080;
+    v33 = v13;
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s for udid %@ with %s token", buf, 0x20u);
   }
 
@@ -974,18 +978,18 @@ LABEL_29:
       block[1] = 3221225472;
       block[2] = sub_10019FA9C;
       block[3] = &unk_1002CE278;
-      v24 = tokenCopy;
-      v25 = dCopy;
-      v26 = callbackCopy;
+      v25 = tokenCopy;
+      v26 = dCopy;
+      v27 = callbackCopy;
       dispatch_async(&_dispatch_main_q, block);
 
-      v16 = v24;
+      v16 = v25;
       goto LABEL_17;
     }
 
     v16 = [NSString stringWithFormat:@"FMIP account cannot be removed till buddy is complete"];
-    v21 = sub_100002880();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = sub_100002880(v16);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
@@ -993,7 +997,7 @@ LABEL_29:
     if (callbackCopy)
     {
       selfCopy2 = self;
-      v20 = 9;
+      v21 = 9;
       goto LABEL_16;
     }
   }
@@ -1003,8 +1007,8 @@ LABEL_29:
     v17 = NSStringFromSelector(a2);
     v16 = [NSString stringWithFormat:@"Entitlement not found for %@", v17];
 
-    v18 = sub_100002880();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = sub_100002880(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
@@ -1012,10 +1016,10 @@ LABEL_29:
     if (callbackCopy)
     {
       selfCopy2 = self;
-      v20 = 6;
+      v21 = 6;
 LABEL_16:
-      v22 = [(FMDFMIPXPCServer *)selfCopy2 _errorForCode:v20 message:v16];
-      (*(callbackCopy + 2))(callbackCopy, v22);
+      v23 = [(FMDFMIPXPCServer *)selfCopy2 _errorForCode:v21 message:v16];
+      (*(callbackCopy + 2))(callbackCopy, v23);
     }
   }
 
@@ -1027,21 +1031,21 @@ LABEL_17:
   accountCopy = account;
   dCopy = d;
   callbackCopy = callback;
-  v12 = sub_100002880();
+  v12 = sub_100002880(callbackCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = "non-nil";
-    v28 = "[FMDFMIPXPCServer disableFMIPForAccount:pairedDeviceWithUDID:usingCallback:]";
+    v29 = "[FMDFMIPXPCServer disableFMIPForAccount:pairedDeviceWithUDID:usingCallback:]";
     *buf = 136315650;
     if (!accountCopy)
     {
       v13 = "nil";
     }
 
-    v29 = 2112;
-    v30 = dCopy;
-    v31 = 2080;
-    v32 = v13;
+    v30 = 2112;
+    v31 = dCopy;
+    v32 = 2080;
+    v33 = v13;
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s for udid %@ with %s account", buf, 0x20u);
   }
 
@@ -1056,18 +1060,18 @@ LABEL_17:
       block[1] = 3221225472;
       block[2] = sub_10019FDE0;
       block[3] = &unk_1002CE278;
-      v24 = accountCopy;
-      v25 = dCopy;
-      v26 = callbackCopy;
+      v25 = accountCopy;
+      v26 = dCopy;
+      v27 = callbackCopy;
       dispatch_async(&_dispatch_main_q, block);
 
-      v16 = v24;
+      v16 = v25;
       goto LABEL_17;
     }
 
     v16 = [NSString stringWithFormat:@"FMIP account cannot be removed till buddy is complete"];
-    v21 = sub_100002880();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = sub_100002880(v16);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
@@ -1075,7 +1079,7 @@ LABEL_17:
     if (callbackCopy)
     {
       selfCopy2 = self;
-      v20 = 9;
+      v21 = 9;
       goto LABEL_16;
     }
   }
@@ -1085,8 +1089,8 @@ LABEL_17:
     v17 = NSStringFromSelector(a2);
     v16 = [NSString stringWithFormat:@"Entitlement not found for %@", v17];
 
-    v18 = sub_100002880();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = sub_100002880(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
@@ -1094,10 +1098,10 @@ LABEL_17:
     if (callbackCopy)
     {
       selfCopy2 = self;
-      v20 = 6;
+      v21 = 6;
 LABEL_16:
-      v22 = [(FMDFMIPXPCServer *)selfCopy2 _errorForCode:v20 message:v16];
-      (*(callbackCopy + 2))(callbackCopy, v22);
+      v23 = [(FMDFMIPXPCServer *)selfCopy2 _errorForCode:v21 message:v16];
+      (*(callbackCopy + 2))(callbackCopy, v23);
     }
   }
 
@@ -1108,44 +1112,44 @@ LABEL_17:
 {
   dCopy = d;
   callbackCopy = callback;
-  v9 = sub_100002880();
+  v9 = sub_100002880(callbackCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v43 = "[FMDFMIPXPCServer markAsMissingSupportedForPairedDeviceWithUDID:usingCallback:]";
-    v44 = 2112;
-    v45 = dCopy;
+    v45 = "[FMDFMIPXPCServer markAsMissingSupportedForPairedDeviceWithUDID:usingCallback:]";
+    v46 = 2112;
+    v47 = dCopy;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s for udid %@", buf, 0x16u);
   }
 
   if ([(FMDFMIPXPCServer *)self _hasClientAccessEntitlement])
   {
-    v31 = callbackCopy;
+    v33 = callbackCopy;
     v10 = +[NRPairedDeviceRegistry sharedInstance];
     getPairedDevices = [v10 getPairedDevices];
 
+    v39 = 0u;
+    v40 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v35 = 0u;
-    v36 = 0u;
     v12 = getPairedDevices;
-    v13 = [v12 countByEnumeratingWithState:&v35 objects:v41 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v37 objects:v43 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v36;
+      v15 = *v38;
       v16 = NRDevicePropertyIsPaired;
       v17 = NRDevicePropertyUDID;
 LABEL_6:
       v18 = 0;
       while (1)
       {
-        if (*v36 != v15)
+        if (*v38 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v19 = *(*(&v35 + 1) + 8 * v18);
+        v19 = *(*(&v37 + 1) + 8 * v18);
         v20 = [v19 valueForProperty:v16];
         bOOLValue = [v20 BOOLValue];
 
@@ -1165,7 +1169,7 @@ LABEL_6:
 
         if (v14 == ++v18)
         {
-          v14 = [v12 countByEnumeratingWithState:&v35 objects:v41 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v37 objects:v43 count:16];
           if (v14)
           {
             goto LABEL_6;
@@ -1175,9 +1179,9 @@ LABEL_6:
         }
       }
 
-      v27 = v19;
+      v29 = v19;
 
-      if (!v27)
+      if (!v29)
       {
         goto LABEL_21;
       }
@@ -1186,34 +1190,34 @@ LABEL_6:
       block[1] = 3221225472;
       block[2] = sub_1001A03E0;
       block[3] = &unk_1002CE228;
-      v33 = v27;
-      callbackCopy = v31;
-      v34 = v31;
-      v26 = v27;
+      v35 = v29;
+      callbackCopy = v33;
+      v36 = v33;
+      v28 = v29;
       dispatch_async(&_dispatch_main_q, block);
 
-      v28 = v33;
+      v30 = v35;
       goto LABEL_25;
     }
 
 LABEL_14:
 
 LABEL_21:
-    v29 = sub_100002880();
-    callbackCopy = v31;
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v31 = sub_100002880(v24);
+    callbackCopy = v33;
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       sub_10022A308();
     }
 
-    if (v31)
+    if (v33)
     {
-      v30 = kFMDErrorDomain;
-      v39 = NSLocalizedFailureReasonErrorKey;
-      v40 = @"No paired device with this UDID";
-      v26 = [NSDictionary dictionaryWithObjects:&v40 forKeys:&v39 count:1];
-      v28 = [NSError errorWithDomain:v30 code:1 userInfo:v26];
-      (v31)[2](v31, 0, v28);
+      v32 = kFMDErrorDomain;
+      v41 = NSLocalizedFailureReasonErrorKey;
+      v42 = @"No paired device with this UDID";
+      v28 = [NSDictionary dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+      v30 = [NSError errorWithDomain:v32 code:1 userInfo:v28];
+      (v33)[2](v33, 0, v30);
 LABEL_25:
 
       goto LABEL_26;
@@ -1222,19 +1226,19 @@ LABEL_25:
 
   else
   {
-    v24 = NSStringFromSelector(a2);
-    v12 = [NSString stringWithFormat:@"Entitlement not found for %@", v24];
+    v25 = NSStringFromSelector(a2);
+    v12 = [NSString stringWithFormat:@"Entitlement not found for %@", v25];
 
-    v25 = sub_100002880();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v27 = sub_100002880(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
 
     if (callbackCopy)
     {
-      v26 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v12];
-      (*(callbackCopy + 2))(callbackCopy, 0, v26);
+      v28 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v12];
+      (*(callbackCopy + 2))(callbackCopy, 0, v28);
 LABEL_26:
     }
   }
@@ -1245,21 +1249,21 @@ LABEL_26:
   dCopy = d;
   tokenCopy = token;
   callbackCopy = callback;
-  v12 = sub_100002880();
+  v12 = sub_100002880(callbackCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = "non-nil";
-    v23 = "[FMDFMIPXPCServer markPairedDeviceWithUDID:asMissingUsingToken:callback:]";
+    v24 = "[FMDFMIPXPCServer markPairedDeviceWithUDID:asMissingUsingToken:callback:]";
     *buf = 136315650;
     if (!tokenCopy)
     {
       v13 = "nil";
     }
 
-    v24 = 2112;
-    v25 = dCopy;
-    v26 = 2080;
-    v27 = v13;
+    v25 = 2112;
+    v26 = dCopy;
+    v27 = 2080;
+    v28 = v13;
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s for udid %@ with %s token", buf, 0x20u);
   }
 
@@ -1269,12 +1273,12 @@ LABEL_26:
     block[1] = 3221225472;
     block[2] = sub_1001A0874;
     block[3] = &unk_1002CE278;
-    v19 = dCopy;
-    v20 = tokenCopy;
-    v21 = callbackCopy;
+    v20 = dCopy;
+    v21 = tokenCopy;
+    v22 = callbackCopy;
     dispatch_async(&_dispatch_main_q, block);
 
-    v14 = v19;
+    v14 = v20;
   }
 
   else
@@ -1282,16 +1286,16 @@ LABEL_26:
     v15 = NSStringFromSelector(a2);
     v14 = [NSString stringWithFormat:@"Entitlement not found for %@", v15];
 
-    v16 = sub_100002880();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = sub_100002880(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
 
     if (callbackCopy)
     {
-      v17 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v14];
-      (*(callbackCopy + 2))(callbackCopy, v17);
+      v18 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v14];
+      (*(callbackCopy + 2))(callbackCopy, v18);
     }
   }
 }
@@ -1299,11 +1303,11 @@ LABEL_26:
 - (void)isActivationLockAllowedUsingCallback:(id)callback
 {
   callbackCopy = callback;
-  v6 = sub_100002880();
+  v6 = sub_100002880(callbackCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v14 = "[FMDFMIPXPCServer isActivationLockAllowedUsingCallback:]";
+    v15 = "[FMDFMIPXPCServer isActivationLockAllowedUsingCallback:]";
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
@@ -1323,16 +1327,16 @@ LABEL_26:
     v9 = NSStringFromSelector(a2);
     v10 = [NSString stringWithFormat:@"Entitlement not found for %@", v9];
 
-    v11 = sub_100002880();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_100002880(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
 
     if (callbackCopy)
     {
-      v12 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v10];
-      (callbackCopy)[2](callbackCopy, 0, v12);
+      v13 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v10];
+      (callbackCopy)[2](callbackCopy, 0, v13);
     }
   }
 }
@@ -1340,11 +1344,11 @@ LABEL_26:
 - (void)isActivationLockEnabledUsingCallback:(id)callback
 {
   callbackCopy = callback;
-  v6 = sub_100002880();
+  v6 = sub_100002880(callbackCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "[FMDFMIPXPCServer isActivationLockEnabledUsingCallback:]";
+    v17 = "[FMDFMIPXPCServer isActivationLockEnabledUsingCallback:]";
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
@@ -1379,16 +1383,16 @@ LABEL_13:
     v11 = NSStringFromSelector(a2);
     v12 = [NSString stringWithFormat:@"Entitlement not found for %@", v11];
 
-    v13 = sub_100002880();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = sub_100002880(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
 
     if (callbackCopy)
     {
-      v14 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v12];
-      (callbackCopy)[2](callbackCopy, 0, v14);
+      v15 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v12];
+      (callbackCopy)[2](callbackCopy, 0, v15);
     }
   }
 
@@ -1398,11 +1402,11 @@ LABEL_14:
 - (void)isActivationLockedUsingCallback:(id)callback
 {
   callbackCopy = callback;
-  v6 = sub_100002880();
+  v6 = sub_100002880(callbackCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v13 = "[FMDFMIPXPCServer isActivationLockedUsingCallback:]";
+    v14 = "[FMDFMIPXPCServer isActivationLockedUsingCallback:]";
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
@@ -1421,37 +1425,7 @@ LABEL_14:
     v9 = NSStringFromSelector(a2);
     v7 = [NSString stringWithFormat:@"Entitlement not found for %@", v9];
 
-    v10 = sub_100002880();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-    {
-      sub_10022A1D0();
-    }
-
-    if (callbackCopy)
-    {
-      v11 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v7];
-      (callbackCopy)[2](callbackCopy, 0, v11);
-    }
-  }
-}
-
-- (void)enableActivationLockUsingCallback:(id)callback
-{
-  callbackCopy = callback;
-  v6 = sub_100002880();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 136315138;
-    v24 = "[FMDFMIPXPCServer enableActivationLockUsingCallback:]";
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
-  }
-
-  if (![(FMDFMIPXPCServer *)self _hasClientAccessEntitlement])
-  {
-    v10 = NSStringFromSelector(a2);
-    v9 = [NSString stringWithFormat:@"Entitlement not found for %@", v10];
-
-    v11 = sub_100002880();
+    v11 = sub_100002880(v10);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
@@ -1459,8 +1433,38 @@ LABEL_14:
 
     if (callbackCopy)
     {
-      v12 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v9];
-      callbackCopy[2](callbackCopy, v12);
+      v12 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v7];
+      (callbackCopy)[2](callbackCopy, 0, v12);
+    }
+  }
+}
+
+- (void)enableActivationLockUsingCallback:(id)callback
+{
+  callbackCopy = callback;
+  v6 = sub_100002880(callbackCopy);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315138;
+    v26 = "[FMDFMIPXPCServer enableActivationLockUsingCallback:]";
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
+  }
+
+  if (![(FMDFMIPXPCServer *)self _hasClientAccessEntitlement])
+  {
+    v11 = NSStringFromSelector(a2);
+    v10 = [NSString stringWithFormat:@"Entitlement not found for %@", v11];
+
+    v13 = sub_100002880(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      sub_10022A1D0();
+    }
+
+    if (callbackCopy)
+    {
+      v14 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v10];
+      callbackCopy[2](callbackCopy, v14);
     }
 
     goto LABEL_14;
@@ -1475,24 +1479,24 @@ LABEL_14:
     block[1] = 3221225472;
     block[2] = sub_1001A1080;
     block[3] = &unk_1002CE250;
-    v22 = callbackCopy;
+    v24 = callbackCopy;
     dispatch_async(&_dispatch_main_q, block);
-    v9 = v22;
+    v10 = v24;
 LABEL_14:
 
     goto LABEL_15;
   }
 
-  v13 = sub_100002880();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v15 = sub_100002880(v9);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
-    sub_10022C540(v13, v14, v15, v16, v17, v18, v19, v20);
+    sub_10022C540(v15, v16, v17, v18, v19, v20, v21, v22);
   }
 
   if (callbackCopy)
   {
-    v9 = [(FMDFMIPXPCServer *)self _errorForCode:9 message:@"Activation lock is not allowed for this device"];
-    callbackCopy[2](callbackCopy, v9);
+    v10 = [(FMDFMIPXPCServer *)self _errorForCode:9 message:@"Activation lock is not allowed for this device"];
+    callbackCopy[2](callbackCopy, v10);
     goto LABEL_14;
   }
 
@@ -1513,11 +1517,11 @@ LABEL_15:
 {
   tokenCopy = token;
   callbackCopy = callback;
-  v9 = sub_100002880();
+  v9 = sub_100002880(callbackCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v21 = "[FMDFMIPXPCServer didReceiveLostModeExitAuthToken:usingCallback:]";
+    v22 = "[FMDFMIPXPCServer didReceiveLostModeExitAuthToken:usingCallback:]";
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
@@ -1541,8 +1545,8 @@ LABEL_15:
 
       else
       {
-        v19 = +[FMDServiceProvider activeServiceProvider];
-        [v19 sendLostModeExitAuthWithToken:tokenCopy];
+        v20 = +[FMDServiceProvider activeServiceProvider];
+        [v20 sendLostModeExitAuthWithToken:tokenCopy];
 
         if (!callbackCopy)
         {
@@ -1552,17 +1556,17 @@ LABEL_18:
         }
       }
 
-      v18 = 0;
+      v19 = 0;
 LABEL_17:
-      callbackCopy[2](callbackCopy, v18);
+      callbackCopy[2](callbackCopy, v19);
       goto LABEL_18;
     }
 
     if (callbackCopy)
     {
-      v17 = @"FMIP account not found";
+      v18 = @"FMIP account not found";
       selfCopy2 = self;
-      v16 = 5;
+      v17 = 5;
       goto LABEL_14;
     }
   }
@@ -1572,8 +1576,8 @@ LABEL_17:
     v13 = NSStringFromSelector(a2);
     fmipACAccount = [NSString stringWithFormat:@"Entitlement not found for %@", v13];
 
-    v14 = sub_100002880();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = sub_100002880(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
@@ -1581,11 +1585,11 @@ LABEL_17:
     if (callbackCopy)
     {
       selfCopy2 = self;
-      v16 = 6;
-      v17 = fmipACAccount;
+      v17 = 6;
+      v18 = fmipACAccount;
 LABEL_14:
-      v18 = [(FMDFMIPXPCServer *)selfCopy2 _errorForCode:v16 message:v17];
-      v12 = v18;
+      v19 = [(FMDFMIPXPCServer *)selfCopy2 _errorForCode:v17 message:v18];
+      v12 = v19;
       goto LABEL_17;
     }
   }
@@ -1598,15 +1602,15 @@ LABEL_19:
   appCopy = app;
   dCopy = d;
   callbackCopy = callback;
-  v12 = sub_100002880();
+  v12 = sub_100002880(callbackCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v28 = "[FMDFMIPXPCServer initiateLostModeExitAuthForApp:idsDeviceID:usingCallback:]";
-    v29 = 2112;
-    v30 = appCopy;
-    v31 = 2112;
-    v32 = dCopy;
+    v29 = "[FMDFMIPXPCServer initiateLostModeExitAuthForApp:idsDeviceID:usingCallback:]";
+    v30 = 2112;
+    v31 = appCopy;
+    v32 = 2112;
+    v33 = dCopy;
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s for bundleID %@, idsDeviceID %@", buf, 0x20u);
   }
 
@@ -1620,33 +1624,33 @@ LABEL_19:
       if (dCopy)
       {
         [FMDPreferencesMgr setLostModeExitAuthForPairedDeviceID:dCopy];
-        v18 = @"FMW_RENEW_CREDENTIALS_APPLE_PAY";
+        v19 = @"FMW_RENEW_CREDENTIALS_APPLE_PAY";
       }
 
       else
       {
-        v18 = @"FMIP_RENEW_CREDENTIALS_APPLE_PAY";
+        v19 = @"FMIP_RENEW_CREDENTIALS_APPLE_PAY";
       }
 
-      v19 = +[FMDServiceProvider activeServiceProvider];
-      account = [v19 account];
+      v20 = +[FMDServiceProvider activeServiceProvider];
+      account = [v20 account];
 
-      fmd_localizedString = [(__CFString *)v18 fmd_localizedString];
+      fmd_localizedString = [(__CFString *)v19 fmd_localizedString];
       username = [account username];
-      v22 = [NSString stringWithFormat:fmd_localizedString, username];
+      v23 = [NSString stringWithFormat:fmd_localizedString, username];
 
       [FMDPreferencesMgr setNeedsLostModeExitAuth:1];
       objc_initWeak(buf, self);
-      v23 = +[FMDAppleAccountManager sharedInstance];
-      v24[0] = _NSConcreteStackBlock;
-      v24[1] = 3221225472;
-      v24[2] = sub_1001A17D4;
-      v24[3] = &unk_1002D0528;
-      objc_copyWeak(&v26, buf);
-      v25 = callbackCopy;
-      [v23 forceUserAuthForiCloudAccountForApp:appCopy message:v22 really:1 withCompletion:v24];
+      v24 = +[FMDAppleAccountManager sharedInstance];
+      v25[0] = _NSConcreteStackBlock;
+      v25[1] = 3221225472;
+      v25[2] = sub_1001A17D4;
+      v25[3] = &unk_1002D0528;
+      objc_copyWeak(&v27, buf);
+      v26 = callbackCopy;
+      [v24 forceUserAuthForiCloudAccountForApp:appCopy message:v23 really:1 withCompletion:v25];
 
-      objc_destroyWeak(&v26);
+      objc_destroyWeak(&v27);
       objc_destroyWeak(buf);
     }
 
@@ -1662,8 +1666,8 @@ LABEL_19:
   v16 = NSStringFromSelector(a2);
   fmipACAccount = [NSString stringWithFormat:@"Entitlement not found for %@", v16];
 
-  v17 = sub_100002880();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  v18 = sub_100002880(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
     sub_10022A1D0();
   }
@@ -1679,11 +1683,11 @@ LABEL_15:
 - (void)lowBatteryLocateEnabledUsingCallback:(id)callback
 {
   callbackCopy = callback;
-  v6 = sub_100002880();
+  v6 = sub_100002880(callbackCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v14 = "[FMDFMIPXPCServer lowBatteryLocateEnabledUsingCallback:]";
+    v15 = "[FMDFMIPXPCServer lowBatteryLocateEnabledUsingCallback:]";
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
@@ -1704,16 +1708,97 @@ LABEL_15:
     v10 = NSStringFromSelector(a2);
     account = [NSString stringWithFormat:@"Entitlement not found for %@", v10];
 
-    v11 = sub_100002880();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_100002880(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
 
     if (callbackCopy)
     {
-      v12 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:account];
-      (callbackCopy)[2](callbackCopy, 0, v12);
+      v13 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:account];
+      (callbackCopy)[2](callbackCopy, 0, v13);
+    }
+  }
+}
+
+- (void)setLowBatteryLocateEnabled:(BOOL)enabled usingCallback:(id)callback
+{
+  enabledCopy = enabled;
+  callbackCopy = callback;
+  v8 = sub_100002880(callbackCopy);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    v9 = "NO";
+    if (enabledCopy)
+    {
+      v9 = "YES";
+    }
+
+    *buf = 136315394;
+    v31 = "[FMDFMIPXPCServer setLowBatteryLocateEnabled:usingCallback:]";
+    v32 = 2080;
+    v33 = v9;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s with enabled: %s", buf, 0x16u);
+  }
+
+  if ([(FMDFMIPXPCServer *)self _hasClientAccessEntitlement])
+  {
+    v10 = +[FMDServiceProvider activeServiceProvider];
+    account = [v10 account];
+
+    if (account)
+    {
+      [(__CFString *)account setLowBatteryLocateEnabled:enabledCopy];
+      v13 = +[FMDServiceProvider activeServiceProvider];
+      accountStore = [v13 accountStore];
+      [accountStore saveAccount:account];
+
+      if (callbackCopy)
+      {
+        callbackCopy[2](callbackCopy, 0);
+      }
+
+      v15 = +[FMDServiceProvider activeServiceProvider];
+      [v15 registerDeviceWithCause:@"LowBatteryLocateChange" force:0];
+      goto LABEL_19;
+    }
+
+    v22 = sub_100002880(v12);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    {
+      sub_10022C5B8(v22, v23, v24, v25, v26, v27, v28, v29);
+    }
+
+    if (callbackCopy)
+    {
+      v21 = @"FMIP account not found";
+      selfCopy2 = self;
+      v20 = 5;
+      goto LABEL_18;
+    }
+  }
+
+  else
+  {
+    v16 = NSStringFromSelector(a2);
+    account = [NSString stringWithFormat:@"Entitlement not found for %@", v16];
+
+    v18 = sub_100002880(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      sub_10022A1D0();
+    }
+
+    if (callbackCopy)
+    {
+      selfCopy2 = self;
+      v20 = 6;
+      v21 = account;
+LABEL_18:
+      v15 = [(FMDFMIPXPCServer *)selfCopy2 _errorForCode:v20 message:v21];
+      (callbackCopy)[2](callbackCopy, v15);
+LABEL_19:
     }
   }
 }
@@ -1722,7 +1807,7 @@ LABEL_15:
 {
   dataCopy = data;
   completionCopy = completion;
-  v9 = sub_100002880();
+  v9 = sub_100002880(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     LODWORD(buf) = 136315138;
@@ -1733,124 +1818,124 @@ LABEL_15:
   if ([(FMDFMIPXPCServer *)self _hasClientAccessEntitlement])
   {
     v10 = dataCopy;
-    v23 = +[NSUUID UUID];
-    v62[0] = 0;
-    v62[1] = v62;
-    v62[2] = 0x2020000000;
-    v63 = 0;
-    v60[0] = 0;
-    v60[1] = v60;
-    v60[2] = 0x2020000000;
-    v61 = 0;
+    v24 = +[NSUUID UUID];
+    v63[0] = 0;
+    v63[1] = v63;
+    v63[2] = 0x2020000000;
+    v64 = 0;
+    v61[0] = 0;
+    v61[1] = v61;
+    v61[2] = 0x2020000000;
+    v62 = 0;
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v65 = 0x3032000000;
-    v66 = sub_10000AAE4;
-    v67 = sub_100002B3C;
-    v68 = 0;
-    v58[0] = 0;
-    v58[1] = v58;
-    v58[2] = 0x3032000000;
-    v58[3] = sub_10000AAE4;
-    v58[4] = sub_100002B3C;
-    v59 = 0;
-    v56[0] = 0;
-    v56[1] = v56;
-    v56[2] = 0x3032000000;
-    v56[3] = sub_10000AAE4;
-    v56[4] = sub_100002B3C;
-    v57 = 0;
-    v54[0] = 0;
-    v54[1] = v54;
-    v54[2] = 0x3032000000;
-    v54[3] = sub_10000AAE4;
-    v54[4] = sub_100002B3C;
-    v55 = 0;
-    v52[0] = 0;
-    v52[1] = v52;
-    v52[2] = 0x3032000000;
-    v52[3] = sub_10000AAE4;
-    v52[4] = sub_100002B3C;
-    v53 = 0;
-    v50[0] = 0;
-    v50[1] = v50;
-    v50[2] = 0x3032000000;
-    v50[3] = sub_10000AAE4;
-    v50[4] = sub_100002B3C;
-    v51 = 0;
-    v37[0] = _NSConcreteStackBlock;
-    v37[1] = 3221225472;
-    v37[2] = sub_1001A233C;
-    v37[3] = &unk_1002D0578;
-    v22 = dispatch_queue_create("FMDFMIPXPCServer.populateHeaders", 0);
-    v38 = v22;
-    v42 = v62;
-    v43 = v60;
-    v44 = v56;
-    v45 = v50;
+    v66 = 0x3032000000;
+    v67 = sub_10000AAE4;
+    v68 = sub_100002B3C;
+    v69 = 0;
+    v59[0] = 0;
+    v59[1] = v59;
+    v59[2] = 0x3032000000;
+    v59[3] = sub_10000AAE4;
+    v59[4] = sub_100002B3C;
+    v60 = 0;
+    v57[0] = 0;
+    v57[1] = v57;
+    v57[2] = 0x3032000000;
+    v57[3] = sub_10000AAE4;
+    v57[4] = sub_100002B3C;
+    v58 = 0;
+    v55[0] = 0;
+    v55[1] = v55;
+    v55[2] = 0x3032000000;
+    v55[3] = sub_10000AAE4;
+    v55[4] = sub_100002B3C;
+    v56 = 0;
+    v53[0] = 0;
+    v53[1] = v53;
+    v53[2] = 0x3032000000;
+    v53[3] = sub_10000AAE4;
+    v53[4] = sub_100002B3C;
+    v54 = 0;
+    v51[0] = 0;
+    v51[1] = v51;
+    v51[2] = 0x3032000000;
+    v51[3] = sub_10000AAE4;
+    v51[4] = sub_100002B3C;
+    v52 = 0;
+    v38[0] = _NSConcreteStackBlock;
+    v38[1] = 3221225472;
+    v38[2] = sub_1001A233C;
+    v38[3] = &unk_1002D0578;
+    v23 = dispatch_queue_create("FMDFMIPXPCServer.populateHeaders", 0);
+    v39 = v23;
+    v43 = v63;
+    v44 = v61;
+    v45 = v57;
+    v46 = v51;
     p_buf = &buf;
     v11 = v10;
-    v47 = v58;
-    v48 = v52;
-    v49 = v54;
-    v12 = v23;
-    v39 = v12;
+    v48 = v59;
+    v49 = v53;
+    v50 = v55;
+    v12 = v24;
+    v40 = v12;
     selfCopy = self;
-    v41 = completionCopy;
-    v13 = objc_retainBlock(v37);
-    v14 = sub_100002880();
+    v42 = completionCopy;
+    v13 = objc_retainBlock(v38);
+    v14 = sub_100002880(v13);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v36 = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "signatureHeadersWithData : Will attempt Absinth signing", v36, 2u);
+      *v37 = 0;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "signatureHeadersWithData : Will attempt Absinth signing", v37, 2u);
     }
 
     v15 = +[FMDAbsintheV3SigningInterface sharedInterface];
-    v30[0] = _NSConcreteStackBlock;
-    v30[1] = 3221225472;
-    v30[2] = sub_1001A26C8;
-    v30[3] = &unk_1002D05A0;
-    v32 = v56;
-    v33 = &buf;
-    v34 = v58;
-    v35 = v62;
+    v31[0] = _NSConcreteStackBlock;
+    v31[1] = 3221225472;
+    v31[2] = sub_1001A26C8;
+    v31[3] = &unk_1002D05A0;
+    v33 = v57;
+    v34 = &buf;
+    v35 = v59;
+    v36 = v63;
     v16 = v13;
-    v31 = v16;
-    [v15 signatureForData:v11 requestUUID:v12 mode:1 cause:@"app" completion:v30];
+    v32 = v16;
+    [v15 signatureForData:v11 requestUUID:v12 mode:1 cause:@"app" completion:v31];
 
     v17 = [[FMDIdentitySigningRequest alloc] initWithData:v11];
     v18 = objc_alloc_init(FMDDeviceIdentityFactory);
-    v24[0] = _NSConcreteStackBlock;
-    v24[1] = 3221225472;
-    v24[2] = sub_1001A2988;
-    v24[3] = &unk_1002D05C8;
-    v26 = v50;
-    v27 = v52;
-    v28 = v54;
-    v29 = v60;
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_1001A2988;
+    v25[3] = &unk_1002D05C8;
+    v27 = v51;
+    v28 = v53;
+    v29 = v55;
+    v30 = v61;
     v19 = v16;
-    v25 = v19;
-    [v18 baaIdentityAttestationForSigningRequest:v17 completion:v24];
+    v26 = v19;
+    [v18 baaIdentityAttestationForSigningRequest:v17 completion:v25];
 
-    _Block_object_dispose(v50, 8);
-    _Block_object_dispose(v52, 8);
+    _Block_object_dispose(v51, 8);
+    _Block_object_dispose(v53, 8);
 
-    _Block_object_dispose(v54, 8);
-    _Block_object_dispose(v56, 8);
+    _Block_object_dispose(v55, 8);
+    _Block_object_dispose(v57, 8);
 
-    _Block_object_dispose(v58, 8);
+    _Block_object_dispose(v59, 8);
     _Block_object_dispose(&buf, 8);
 
-    _Block_object_dispose(v60, 8);
-    _Block_object_dispose(v62, 8);
+    _Block_object_dispose(v61, 8);
+    _Block_object_dispose(v63, 8);
     goto LABEL_11;
   }
 
   v20 = NSStringFromSelector(a2);
   v11 = [NSString stringWithFormat:@"Entitlement not found for %@", v20];
 
-  v21 = sub_100002880();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  v22 = sub_100002880(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
     sub_10022A1D0();
   }
@@ -1866,11 +1951,11 @@ LABEL_11:
 - (void)getAccessoriesWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v6 = sub_100002880();
+  v6 = sub_100002880(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v17 = "[FMDFMIPXPCServer getAccessoriesWithCompletion:]";
+    v18 = "[FMDFMIPXPCServer getAccessoriesWithCompletion:]";
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
@@ -1881,17 +1966,16 @@ LABEL_11:
     allAccessories = [accessoryRegistry allAccessories];
 
     +[NSMutableArray array];
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_1001A2D3C;
-    v10 = v14[3] = &unk_1002D05F0;
-    v15 = v10;
-    [allAccessories enumerateObjectsUsingBlock:v14];
-    v11 = sub_100002880();
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_1001A2D3C;
+    v10 = v15[3] = &unk_1002D05F0;
+    v16 = v10;
+    v11 = sub_100002880([allAccessories enumerateObjectsUsingBlock:v15]);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v17 = v10;
+      v18 = v10;
       _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Returning Accessories : %@", buf, 0xCu);
     }
 
@@ -1906,8 +1990,8 @@ LABEL_11:
   v12 = NSStringFromSelector(a2);
   v7 = [NSString stringWithFormat:@"Entitlement not found for %@", v12];
 
-  v13 = sub_100002880();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v14 = sub_100002880(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     sub_10022A1D0();
   }
@@ -1935,16 +2019,16 @@ LABEL_13:
     v10 = NSStringFromSelector(a2);
     v11 = [NSString stringWithFormat:@"Entitlement not found for %@", v10];
 
-    v12 = sub_10017DC94();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_10017DC94(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
 
     if (completionCopy)
     {
-      v13 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v11];
-      completionCopy[2](completionCopy, 0, v13);
+      v14 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v11];
+      completionCopy[2](completionCopy, 0, v14);
     }
   }
 }
@@ -1952,11 +2036,11 @@ LABEL_13:
 - (void)fetchAccessoryConfigurations:(id)configurations
 {
   configurationsCopy = configurations;
-  v6 = sub_100002880();
+  v6 = sub_100002880(configurationsCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v14 = "[FMDFMIPXPCServer fetchAccessoryConfigurations:]";
+    v15 = "[FMDFMIPXPCServer fetchAccessoryConfigurations:]";
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
@@ -1984,8 +2068,8 @@ LABEL_10:
   v11 = NSStringFromSelector(a2);
   v7 = [NSString stringWithFormat:@"Entitlement not found for %@", v11];
 
-  v12 = sub_100002880();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v13 = sub_100002880(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     sub_10022A1D0();
   }
@@ -2004,48 +2088,49 @@ LABEL_12:
 {
   idCopy = id;
   completionCopy = completion;
-  v9 = sub_100002880();
+  v9 = sub_100002880(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[FMDFMIPXPCServer removeAccessoryWithDiscoveryId:completion:]";
+    v20 = "[FMDFMIPXPCServer removeAccessoryWithDiscoveryId:completion:]";
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
-  if ([(FMDFMIPXPCServer *)self _hasClientAccessEntitlement])
+  _hasClientAccessEntitlement = [(FMDFMIPXPCServer *)self _hasClientAccessEntitlement];
+  if (_hasClientAccessEntitlement)
   {
-    v10 = sub_10000BE38();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_10000BE38(_hasClientAccessEntitlement);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v18 = idCopy;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "removeAccessoryWithDiscoveryId called for accessory with serialNumber %@", buf, 0xCu);
+      v20 = idCopy;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "removeAccessoryWithDiscoveryId called for accessory with serialNumber %@", buf, 0xCu);
     }
 
-    v11 = [FMDExtExtensionHelper getAccessoryProxyForId:@"com.apple.icloud.FindMyDevice.FindMyExtensionContainer.FMDMagSafeExtension" withDelegate:0];
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_1001A32E0;
-    v15[3] = &unk_1002CD770;
-    v16 = completionCopy;
-    [v11 removeAccesoryWithSerialNumber:idCopy completion:v15];
-    v12 = v16;
+    v12 = [FMDExtExtensionHelper getAccessoryProxyForId:@"com.apple.icloud.FindMyDevice.FindMyExtensionContainer.FMDMagSafeExtension" withDelegate:0];
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_1001A32E0;
+    v17[3] = &unk_1002CD770;
+    v18 = completionCopy;
+    [v12 removeAccesoryWithSerialNumber:idCopy completion:v17];
+    v13 = v18;
     goto LABEL_11;
   }
 
-  v13 = NSStringFromSelector(a2);
-  v11 = [NSString stringWithFormat:@"Entitlement not found for %@", v13];
+  v14 = NSStringFromSelector(a2);
+  v12 = [NSString stringWithFormat:@"Entitlement not found for %@", v14];
 
-  v14 = sub_100002880();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v16 = sub_100002880(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     sub_10022A1D0();
   }
 
   if (completionCopy)
   {
-    v12 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v11];
-    (*(completionCopy + 2))(completionCopy, v12);
+    v13 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v12];
+    (*(completionCopy + 2))(completionCopy, v13);
 LABEL_11:
   }
 }
@@ -2055,39 +2140,39 @@ LABEL_11:
   numberCopy = number;
   idCopy = id;
   completionCopy = completion;
-  v12 = sub_100002880();
+  v12 = sub_100002880(completionCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v49 = "[FMDFMIPXPCServer setPhoneNumber:toAccessoryWithDiscoveryId:completion:]";
+    v51 = "[FMDFMIPXPCServer setPhoneNumber:toAccessoryWithDiscoveryId:completion:]";
     _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
   if ([(FMDFMIPXPCServer *)self _hasClientAccessEntitlement])
   {
-    v40 = numberCopy;
-    v39 = +[FMDServiceProvider activeServiceProvider];
-    accessoryRegistry = [v39 accessoryRegistry];
+    v42 = numberCopy;
+    v41 = +[FMDServiceProvider activeServiceProvider];
+    accessoryRegistry = [v41 accessoryRegistry];
     [accessoryRegistry allAccessories];
-    v43 = 0u;
-    v44 = 0u;
     v45 = 0u;
-    v13 = v46 = 0u;
-    v14 = [v13 countByEnumeratingWithState:&v43 objects:v47 count:16];
+    v46 = 0u;
+    v47 = 0u;
+    v13 = v48 = 0u;
+    v14 = [v13 countByEnumeratingWithState:&v45 objects:v49 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v44;
+      v16 = *v46;
 LABEL_6:
       v17 = 0;
       while (1)
       {
-        if (*v44 != v16)
+        if (*v46 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v43 + 1) + 8 * v17);
+        v18 = *(*(&v45 + 1) + 8 * v17);
         address = [v18 address];
         v20 = [address isEqualToString:idCopy];
 
@@ -2098,7 +2183,7 @@ LABEL_6:
 
         if (v15 == ++v17)
         {
-          v15 = [v13 countByEnumeratingWithState:&v43 objects:v47 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v45 objects:v49 count:16];
           if (v15)
           {
             goto LABEL_6;
@@ -2116,40 +2201,41 @@ LABEL_6:
       }
 
       objc_opt_class();
-      if (objc_opt_isKindOfClass())
+      isKindOfClass = objc_opt_isKindOfClass();
+      if (isKindOfClass)
       {
-        v26 = idCopy;
-        v27 = +[FMDExtConfigurationRegistry sharedInstance];
-        accessoryType = [v26 accessoryType];
-        v29 = [v27 configForAccessoryType:accessoryType];
+        v28 = idCopy;
+        v29 = +[FMDExtConfigurationRegistry sharedInstance];
+        accessoryType = [v28 accessoryType];
+        v31 = [v29 configForAccessoryType:accessoryType];
 
-        v30 = [v29 flavorForFeature:@"scd"];
-        v31 = sub_10000BE38();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+        v32 = [v31 flavorForFeature:@"scd"];
+        v33 = sub_10000BE38(v32);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
         {
           sub_10022C6D4();
         }
 
-        if (v30)
+        if (v32)
         {
-          v32 = [FMDExtExtensionHelper getAccessoryControllerForFeature:@"scd" flavor:v30];
-          accessoryIdentifier = [v26 accessoryIdentifier];
+          v34 = [FMDExtExtensionHelper getAccessoryControllerForFeature:@"scd" flavor:v32];
+          accessoryIdentifier = [v28 accessoryIdentifier];
           stringValue = [accessoryIdentifier stringValue];
-          v41[0] = _NSConcreteStackBlock;
-          v41[1] = 3221225472;
-          v41[2] = sub_1001A3898;
-          v41[3] = &unk_1002CD770;
-          v42 = completionCopy;
-          numberCopy = v40;
-          [v32 setPhoneNumberForAccessoryId:stringValue phoneNumber:v40 info:0 completion:v41];
+          v43[0] = _NSConcreteStackBlock;
+          v43[1] = 3221225472;
+          v43[2] = sub_1001A3898;
+          v43[3] = &unk_1002CD770;
+          v44 = completionCopy;
+          numberCopy = v42;
+          [v34 setPhoneNumberForAccessoryId:stringValue phoneNumber:v42 info:0 completion:v43];
 
-          idCopy = v26;
+          idCopy = v28;
           goto LABEL_32;
         }
       }
 
-      v37 = sub_100002880();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      v39 = sub_100002880(isKindOfClass);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         sub_10022C748(idCopy);
       }
@@ -2163,40 +2249,40 @@ LABEL_12:
 
 LABEL_23:
       idCopy = [NSString stringWithFormat:@"Accesory not found with discovery id %@", idCopy];
-      v35 = sub_100002880();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v37 = sub_100002880(idCopy);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         sub_10022A1D0();
       }
 
       if (completionCopy)
       {
-        v36 = [(FMDFMIPXPCServer *)self _errorForCode:14 message:idCopy];
-        (*(completionCopy + 2))(completionCopy, v36);
+        v38 = [(FMDFMIPXPCServer *)self _errorForCode:14 message:idCopy];
+        (*(completionCopy + 2))(completionCopy, v38);
       }
     }
 
-    numberCopy = v40;
+    numberCopy = v42;
 LABEL_32:
-    v24 = accessoryRegistry;
+    v25 = accessoryRegistry;
 
-    v22 = v39;
+    v22 = v41;
     goto LABEL_33;
   }
 
   v21 = NSStringFromSelector(a2);
   v22 = [NSString stringWithFormat:@"Entitlement not found for %@", v21];
 
-  v23 = sub_100002880();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+  v24 = sub_100002880(v23);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
     sub_10022A1D0();
   }
 
   if (completionCopy)
   {
-    v24 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v22];
-    (*(completionCopy + 2))(completionCopy, v24);
+    v25 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v22];
+    (*(completionCopy + 2))(completionCopy, v25);
 LABEL_33:
   }
 }
@@ -2204,11 +2290,11 @@ LABEL_33:
 - (void)getConnectedAccessoriesDiscoveryIds:(id)ids
 {
   idsCopy = ids;
-  v6 = sub_100002880();
+  v6 = sub_100002880(idsCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v26 = "[FMDFMIPXPCServer getConnectedAccessoriesDiscoveryIds:]";
+    v27 = "[FMDFMIPXPCServer getConnectedAccessoriesDiscoveryIds:]";
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
@@ -2218,26 +2304,26 @@ LABEL_33:
     accessoryRegistry = [v7 accessoryRegistry];
     allAccessories = [accessoryRegistry allAccessories];
     v10 = objc_alloc_init(NSMutableArray);
-    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
     v11 = allAccessories;
-    v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v21;
+      v14 = *v22;
       do
       {
         for (i = 0; i != v13; i = i + 1)
         {
-          if (*v21 != v14)
+          if (*v22 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v20 + 1) + 8 * i);
+          v16 = *(*(&v21 + 1) + 8 * i);
           if ([v16 connectionState] == 1)
           {
             address = [v16 address];
@@ -2245,7 +2331,7 @@ LABEL_33:
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v13);
@@ -2258,8 +2344,8 @@ LABEL_33:
   v18 = NSStringFromSelector(a2);
   v7 = [NSString stringWithFormat:@"Entitlement not found for %@", v18];
 
-  v19 = sub_100002880();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+  v20 = sub_100002880(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     sub_10022A1D0();
   }
@@ -2276,11 +2362,11 @@ LABEL_18:
 {
   lockCopy = lock;
   completionCopy = completion;
-  v9 = sub_100002880();
+  v9 = sub_100002880(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v17 = "[FMDFMIPXPCServer registerDeviceForPairingLock:completion:]";
+    v18 = "[FMDFMIPXPCServer registerDeviceForPairingLock:completion:]";
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
@@ -2299,8 +2385,8 @@ LABEL_9:
   v14 = NSStringFromSelector(a2);
   v10 = [NSString stringWithFormat:@"Entitlement not found for %@", v14];
 
-  v15 = sub_100002880();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v16 = sub_100002880(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     sub_10022A1D0();
   }
@@ -2319,11 +2405,11 @@ LABEL_10:
 {
   infoCopy = info;
   completionCopy = completion;
-  v9 = sub_100002880();
+  v9 = sub_100002880(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v19 = "[FMDFMIPXPCServer updatePairingLockInfo:completion:]";
+    v20 = "[FMDFMIPXPCServer updatePairingLockInfo:completion:]";
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
@@ -2332,12 +2418,12 @@ LABEL_10:
     v10 = +[FMDServiceProvider activeServiceProvider];
     v11 = [[FMDPairingLockUpdateInfoAction alloc] initWithProvider:v10 updateRequestInfo:infoCopy];
     completionCopy[2](completionCopy, 0);
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_1001A3F8C;
-    v16[3] = &unk_1002CD868;
-    v17 = infoCopy;
-    [(FMDPairingLockUpdateInfoAction *)v11 performOnActionCompletion:v16];
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_1001A3F8C;
+    v17[3] = &unk_1002CD868;
+    v18 = infoCopy;
+    [(FMDPairingLockUpdateInfoAction *)v11 performOnActionCompletion:v17];
     v12 = +[ActionManager sharedManager];
     v13 = [v12 enqueueAction:v11];
 
@@ -2348,8 +2434,8 @@ LABEL_9:
   v14 = NSStringFromSelector(a2);
   v10 = [NSString stringWithFormat:@"Entitlement not found for %@", v14];
 
-  v15 = sub_100002880();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v16 = sub_100002880(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     sub_10022A1D0();
   }
@@ -2368,11 +2454,11 @@ LABEL_10:
 {
   withCopy = with;
   completionCopy = completion;
-  v9 = sub_100002880();
+  v9 = sub_100002880(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v17 = "[FMDFMIPXPCServer pairingCheckWith:completion:]";
+    v18 = "[FMDFMIPXPCServer pairingCheckWith:completion:]";
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
@@ -2391,8 +2477,8 @@ LABEL_9:
   v14 = NSStringFromSelector(a2);
   v10 = [NSString stringWithFormat:@"Entitlement not found for %@", v14];
 
-  v15 = sub_100002880();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+  v16 = sub_100002880(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     sub_10022A1D0();
   }
@@ -2410,11 +2496,11 @@ LABEL_10:
 - (void)soundStoppedForAccessoryIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  v6 = sub_100002880();
+  v6 = sub_100002880(identifierCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v13 = "[FMDFMIPXPCServer soundStoppedForAccessoryIdentifier:]";
+    v14 = "[FMDFMIPXPCServer soundStoppedForAccessoryIdentifier:]";
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
@@ -2432,7 +2518,7 @@ LABEL_10:
     v11 = NSStringFromSelector(a2);
     v7 = [NSString stringWithFormat:@"Entitlement not found for %@", v11];
 
-    accessoryRegistry = sub_100002880();
+    accessoryRegistry = sub_100002880(v12);
     if (os_log_type_enabled(accessoryRegistry, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
@@ -2443,11 +2529,11 @@ LABEL_10:
 - (void)playSoundWithOptions:(id)options completion:(id)completion
 {
   completionCopy = completion;
-  v7 = sub_100002880();
+  v7 = sub_100002880(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "[FMDFMIPXPCServer playSoundWithOptions:completion:]";
+    v18 = "[FMDFMIPXPCServer playSoundWithOptions:completion:]";
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
@@ -2458,46 +2544,46 @@ LABEL_10:
 
     if (lostModeIsActive)
     {
-      v10 = sub_100002880();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100002880(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Requesting a play sound message", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Requesting a play sound message", buf, 2u);
       }
 
-      v11 = objc_alloc_init(FMDMessage);
-      [(FMDMessage *)v11 setPlaySound:1];
-      [(FMDMessage *)v11 setSoundName:@"fmd_sound"];
-      [(FMDMessage *)v11 setSoundDuration:120];
-      [(FMDMessage *)v11 setIsHighPrioritySound:1];
-      [(FMDMessage *)v11 setIsFmipSound:1];
-      [(FMDMessage *)v11 setVibrate:1];
-      [(FMDMessage *)v11 activate];
+      v12 = objc_alloc_init(FMDMessage);
+      [(FMDMessage *)v12 setPlaySound:1];
+      [(FMDMessage *)v12 setSoundName:@"fmd_sound"];
+      [(FMDMessage *)v12 setSoundDuration:120];
+      [(FMDMessage *)v12 setIsHighPrioritySound:1];
+      [(FMDMessage *)v12 setIsFmipSound:1];
+      [(FMDMessage *)v12 setVibrate:1];
+      [(FMDMessage *)v12 activate];
       completionCopy[2](completionCopy, 0);
     }
 
     else
     {
-      v11 = [(FMDFMIPXPCServer *)self _errorForCode:9 message:@"Cannot play sound while not in lost mode."];
-      (completionCopy)[2](completionCopy, v11);
+      v12 = [(FMDFMIPXPCServer *)self _errorForCode:9 message:@"Cannot play sound while not in lost mode."];
+      (completionCopy)[2](completionCopy, v12);
     }
   }
 
   else
   {
-    v12 = NSStringFromSelector(a2);
-    v11 = [NSString stringWithFormat:@"Entitlement not found for %@", v12];
+    v13 = NSStringFromSelector(a2);
+    v12 = [NSString stringWithFormat:@"Entitlement not found for %@", v13];
 
-    v13 = sub_100002880();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = sub_100002880(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
 
     if (completionCopy)
     {
-      v14 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v11];
-      (completionCopy)[2](completionCopy, v14);
+      v16 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v12];
+      (completionCopy)[2](completionCopy, v16);
     }
   }
 }
@@ -2505,11 +2591,11 @@ LABEL_10:
 - (void)clearData:(unint64_t)data completion:(id)completion
 {
   completionCopy = completion;
-  v8 = sub_100002880();
+  v8 = sub_100002880(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v17 = "[FMDFMIPXPCServer clearData:completion:]";
+    v18 = "[FMDFMIPXPCServer clearData:completion:]";
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "FRAMEWORK API: %s", buf, 0xCu);
   }
 
@@ -2535,16 +2621,16 @@ LABEL_10:
     v12 = NSStringFromSelector(a2);
     v13 = [NSString stringWithFormat:@"Entitlement not found for %@", v12];
 
-    v14 = sub_100002880();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = sub_100002880(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
 
     if (completionCopy)
     {
-      v15 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v13];
-      (completionCopy)[2](completionCopy, v15);
+      v16 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v13];
+      (completionCopy)[2](completionCopy, v16);
     }
   }
 }
@@ -2564,14 +2650,14 @@ LABEL_10:
     v10 = NSStringFromSelector(a2);
     v11 = [NSString stringWithFormat:@"Entitlement not found for %@", v10];
 
-    v12 = sub_100002880();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_100002880(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
 
-    v13 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v11];
-    (*(completionCopy + 2))(completionCopy, 0, v13);
+    v14 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v11];
+    (*(completionCopy + 2))(completionCopy, 0, v14);
   }
 }
 
@@ -2585,7 +2671,7 @@ LABEL_10:
     v10 = v9;
     if (v9)
     {
-      [v9 auditToken];
+      objc_msgSend_auditToken(v9);
       v11 = xpc_copy_code_signing_identity_for_token();
       v12 = [NSString stringWithUTF8String:v11];
       free(v11);
@@ -2596,10 +2682,10 @@ LABEL_10:
       v12 = @"unknown";
     }
 
-    v15 = +[FMDServiceProvider activeServiceProvider];
-    [v15 enableRepairWithContext:contextCopy callingClient:v12 completion:completionCopy];
+    v16 = +[FMDServiceProvider activeServiceProvider];
+    [v16 enableRepairWithContext:contextCopy callingClient:v12 completion:completionCopy];
 
-    completionCopy = v15;
+    completionCopy = v16;
   }
 
   else
@@ -2607,8 +2693,8 @@ LABEL_10:
     v13 = NSStringFromSelector(a2);
     v10 = [NSString stringWithFormat:@"Entitlement not found for %@", v13];
 
-    v14 = sub_100002880();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = sub_100002880(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
@@ -2630,15 +2716,15 @@ LABEL_10:
 
       if (v7)
       {
-        v8 = sub_10017DE2C();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v9 = sub_10017DE2C(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "requireDisableLocationWithCompletion simulating failure.", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "requireDisableLocationWithCompletion simulating failure.", buf, 2u);
         }
 
-        v9 = [NSError errorWithDomain:kFMDErrorDomain code:12 userInfo:0];
-        completionCopy[2](completionCopy, -1, v9);
+        v10 = [NSError errorWithDomain:kFMDErrorDomain code:12 userInfo:0];
+        completionCopy[2](completionCopy, -1, v10);
         goto LABEL_23;
       }
     }
@@ -2647,56 +2733,56 @@ LABEL_10:
     {
     }
 
-    v13 = +[FMDServiceProvider activeServiceProvider];
-    v9 = v13;
-    if (v13)
+    v15 = +[FMDServiceProvider activeServiceProvider];
+    v10 = v15;
+    if (v15)
     {
-      v14 = [v13 fmipState] == 1 || objc_msgSend(v9, "fmipState") == 0;
-      v17 = +[FMDSystemConfig sharedInstance];
-      isFMIPLocationServicesEnabled = [v17 isFMIPLocationServicesEnabled];
+      v16 = [v15 fmipState] == 1 || objc_msgSend(v10, "fmipState") == 0;
+      v19 = +[FMDSystemConfig sharedInstance];
+      isFMIPLocationServicesEnabled = [v19 isFMIPLocationServicesEnabled];
 
-      v19 = sub_10017DE2C();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v22 = sub_10017DE2C(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218496;
-        v21 = v14 & isFMIPLocationServicesEnabled;
-        v22 = 1024;
-        v23 = v14;
-        v24 = 1024;
-        v25 = isFMIPLocationServicesEnabled & 1;
-        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "requireDisableLocationWithCompletion result %li, fmip: %i, locationService: %i.", buf, 0x18u);
+        v24 = v16 & isFMIPLocationServicesEnabled;
+        v25 = 1024;
+        v26 = v16;
+        v27 = 1024;
+        v28 = isFMIPLocationServicesEnabled & 1;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "requireDisableLocationWithCompletion result %li, fmip: %i, locationService: %i.", buf, 0x18u);
       }
 
-      completionCopy[2](completionCopy, v14 & isFMIPLocationServicesEnabled, 0);
+      completionCopy[2](completionCopy, v16 & isFMIPLocationServicesEnabled, 0);
       goto LABEL_23;
     }
 
-    v15 = sub_10017DE2C();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = sub_10017DE2C(0);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_10022C7CC();
     }
 
-    v12 = [NSError errorWithDomain:kFMDErrorDomain code:2 userInfo:0];
+    v14 = [NSError errorWithDomain:kFMDErrorDomain code:2 userInfo:0];
 LABEL_18:
-    v16 = v12;
-    completionCopy[2](completionCopy, -1, v12);
+    v18 = v14;
+    completionCopy[2](completionCopy, -1, v14);
 
     goto LABEL_23;
   }
 
-  v10 = NSStringFromSelector(a2);
-  v9 = [NSString stringWithFormat:@"Entitlement not found for %@", v10];
+  v11 = NSStringFromSelector(a2);
+  v10 = [NSString stringWithFormat:@"Entitlement not found for %@", v11];
 
-  v11 = sub_10017DE2C();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v13 = sub_10017DE2C(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     sub_10022A1D0();
   }
 
   if (completionCopy)
   {
-    v12 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v9];
+    v14 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v10];
     goto LABEL_18;
   }
 
@@ -2715,15 +2801,15 @@ LABEL_23:
 
       if (v7)
       {
-        v8 = sub_10017DE2C();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v9 = sub_10017DE2C(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "disableLocationDisplayWithCompletion simulating failure.", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "disableLocationDisplayWithCompletion simulating failure.", buf, 2u);
         }
 
-        v9 = [NSError errorWithDomain:kFMDErrorDomain code:12 userInfo:0];
-        completionCopy[2](completionCopy, v9);
+        v10 = [NSError errorWithDomain:kFMDErrorDomain code:12 userInfo:0];
+        completionCopy[2](completionCopy, v10);
         goto LABEL_19;
       }
     }
@@ -2732,46 +2818,46 @@ LABEL_23:
     {
     }
 
-    v9 = +[FMDServiceProvider activeServiceProvider];
-    if (v9)
+    v10 = +[FMDServiceProvider activeServiceProvider];
+    if (v10)
     {
-      v15[0] = _NSConcreteStackBlock;
-      v15[1] = 3221225472;
-      v15[2] = sub_1001A530C;
-      v15[3] = &unk_1002CD770;
-      v16 = completionCopy;
-      [v9 disableLocationDisplayWithCompletion:v15];
-      v13 = v16;
+      v17[0] = _NSConcreteStackBlock;
+      v17[1] = 3221225472;
+      v17[2] = sub_1001A530C;
+      v17[3] = &unk_1002CD770;
+      v18 = completionCopy;
+      [v10 disableLocationDisplayWithCompletion:v17];
+      v15 = v18;
 LABEL_18:
 
       goto LABEL_19;
     }
 
-    v14 = sub_10017DE2C();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = sub_10017DE2C(0);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_10022C7CC();
     }
 
-    v12 = [NSError errorWithDomain:kFMDErrorDomain code:2 userInfo:0];
+    v14 = [NSError errorWithDomain:kFMDErrorDomain code:2 userInfo:0];
 LABEL_17:
-    v13 = v12;
-    completionCopy[2](completionCopy, v12);
+    v15 = v14;
+    completionCopy[2](completionCopy, v14);
     goto LABEL_18;
   }
 
-  v10 = NSStringFromSelector(a2);
-  v9 = [NSString stringWithFormat:@"Entitlement not found for %@", v10];
+  v11 = NSStringFromSelector(a2);
+  v10 = [NSString stringWithFormat:@"Entitlement not found for %@", v11];
 
-  v11 = sub_10017DE2C();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v13 = sub_10017DE2C(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     sub_10022A1D0();
   }
 
   if (completionCopy)
   {
-    v12 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v9];
+    v14 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v10];
     goto LABEL_17;
   }
 
@@ -2782,7 +2868,7 @@ LABEL_19:
 {
   keyCopy = key;
   callbackCopy = callback;
-  v8 = sub_100002880();
+  v8 = sub_100002880(callbackCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -2837,24 +2923,23 @@ LABEL_19:
               v23 = [v18 valueForProperty:v40];
               v24 = [NPSDomainAccessor alloc];
               v25 = [v24 initWithDomain:kFMDWatchNotBackedUpPrefDomain pairingID:v22 pairingDataStore:v23];
-              synchronize = [v25 synchronize];
-              v27 = sub_100002880();
-              if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+              v26 = sub_100002880([v25 synchronize]);
+              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
               {
-                v28 = [v18 valueForProperty:v39];
+                v27 = [v18 valueForProperty:v39];
                 *buf = 138412290;
-                v52 = v28;
-                _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Forcing AL upgrade alert for device with udid %@", buf, 0xCu);
+                v52 = v27;
+                _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Forcing AL upgrade alert for device with udid %@", buf, 0xCu);
               }
 
               [v25 setBool:1 forKey:keyCopy];
-              synchronize2 = [v25 synchronize];
-              v30 = objc_opt_new();
-              v31 = kFMDWatchNotBackedUpPrefDomain;
+              synchronize = [v25 synchronize];
+              v29 = objc_opt_new();
+              v30 = kFMDWatchNotBackedUpPrefDomain;
               v49 = keyCopy;
-              v32 = [NSArray arrayWithObjects:&v49 count:1];
-              v33 = [NSSet setWithArray:v32];
-              [v30 synchronizeNanoDomain:v31 keys:v33];
+              v31 = [NSArray arrayWithObjects:&v49 count:1];
+              v32 = [NSSet setWithArray:v31];
+              [v29 synchronizeNanoDomain:v30 keys:v32];
 
               v16 = v21;
               v14 = v43;
@@ -2881,10 +2966,10 @@ LABEL_19:
 
   else
   {
-    v34 = NSStringFromSelector(a2);
-    v35 = [NSString stringWithFormat:@"Entitlement not found for %@", v34];
+    v33 = NSStringFromSelector(a2);
+    v34 = [NSString stringWithFormat:@"Entitlement not found for %@", v33];
 
-    v36 = sub_100002880();
+    v36 = sub_100002880(v35);
     if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
@@ -2892,7 +2977,7 @@ LABEL_19:
 
     if (callbackCopy)
     {
-      v37 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v35];
+      v37 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v34];
       (callbackCopy)[2](callbackCopy, v37);
     }
   }
@@ -2900,7 +2985,7 @@ LABEL_19:
 
 - (void)setDailyLocateReportEnabled:(BOOL)enabled
 {
-  v4 = sub_100002880();
+  v4 = sub_100002880(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136315138;
@@ -3028,9 +3113,9 @@ LABEL_19:
   [v2 fm_safelyMapKey:@"btMac" toObject:btMacAddress];
 
   v22 = +[FMDAbsintheV3SigningInterface sharedInterface];
-  v30 = 0;
-  v23 = [v22 inFieldCollectionReceipt:&v30];
-  v24 = v30;
+  v31 = 0;
+  v23 = [v22 inFieldCollectionReceipt:&v31];
+  v24 = v31;
   [v2 fm_safelyMapKey:@"ifcReceipt" toObject:v23];
 
   fm_commaSeparatedString = [v24 fm_commaSeparatedString];
@@ -3041,16 +3126,16 @@ LABEL_19:
 
   if (v23)
   {
-    v27 = [v24 description];
-    [v2 fm_safelyMapKey:@"collectionErrorDetail" toObject:v27];
+    v28 = [v24 description];
+    [v2 fm_safelyMapKey:@"collectionErrorDetail" toObject:v28];
   }
 
-  v28 = sub_100002880();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v29 = sub_100002880(v27);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v32 = v2;
-    _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Generated device identifiers %@", buf, 0xCu);
+    v33 = v2;
+    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Generated device identifiers %@", buf, 0xCu);
   }
 
   return v2;
@@ -3155,7 +3240,7 @@ LABEL_19:
 {
   dCopy = d;
   tokenCopy = token;
-  v8 = sub_100002880();
+  v8 = sub_100002880(tokenCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -3176,7 +3261,7 @@ LABEL_19:
 - (void)activationLockInfoFromDeviceWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v6 = sub_100002880();
+  v6 = sub_100002880(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -3188,8 +3273,8 @@ LABEL_19:
     v8 = NSStringFromSelector(a2);
     v7 = [NSString stringWithFormat:@"Entitlement not found for %@", v8];
 
-    v9 = sub_100002880();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100002880(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
@@ -3208,7 +3293,7 @@ LABEL_9:
 - (void)activationLockAuthInfoWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v6 = sub_100002880();
+  v6 = sub_100002880(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -3220,8 +3305,8 @@ LABEL_9:
     v9 = NSStringFromSelector(a2);
     v8 = [NSString stringWithFormat:@"Entitlement not found for %@", v9];
 
-    v10 = sub_100002880();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100002880(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
@@ -3232,8 +3317,8 @@ LABEL_9:
     }
 
     selfCopy2 = self;
-    v12 = 6;
-    v13 = v8;
+    v13 = 6;
+    v14 = v8;
     goto LABEL_14;
   }
 
@@ -3249,19 +3334,19 @@ LABEL_15:
       goto LABEL_16;
     }
 
-    v14 = sub_100002880();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_100002880(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 0;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "No Active Service Provider - cannot provide auth info", v16, 2u);
+      *v17 = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "No Active Service Provider - cannot provide auth info", v17, 2u);
     }
 
-    v13 = @"No Active FMDServiceProvider";
+    v14 = @"No Active FMDServiceProvider";
     selfCopy2 = self;
-    v12 = 12;
+    v13 = 12;
 LABEL_14:
-    v15 = [(FMDFMIPXPCServer *)selfCopy2 _errorForCode:v12 message:v13];
-    completionCopy[2](completionCopy, 0, v15);
+    v16 = [(FMDFMIPXPCServer *)selfCopy2 _errorForCode:v13 message:v14];
+    completionCopy[2](completionCopy, 0, v16);
 
     goto LABEL_15;
   }
@@ -3273,11 +3358,11 @@ LABEL_16:
 {
   withCopy = with;
   completionCopy = completion;
-  v9 = sub_100002880();
+  v9 = sub_100002880(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = withCopy;
+    v19 = withCopy;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "DAEMON API - updateMaskedAppleID %@", buf, 0xCu);
   }
 
@@ -3296,11 +3381,11 @@ LABEL_16:
 
     else if (completionCopy)
     {
-      v14 = NSStringFromSelector(a2);
-      v15 = [NSString stringWithFormat:@"No maskedAppleID specified %@", v14];
+      v15 = NSStringFromSelector(a2);
+      v16 = [NSString stringWithFormat:@"No maskedAppleID specified %@", v15];
 
-      v16 = [(FMDFMIPXPCServer *)self _errorForCode:1 message:v15];
-      (completionCopy)[2](completionCopy, v16);
+      v17 = [(FMDFMIPXPCServer *)self _errorForCode:1 message:v16];
+      (completionCopy)[2](completionCopy, v17);
     }
   }
 
@@ -3309,8 +3394,8 @@ LABEL_16:
     v11 = NSStringFromSelector(a2);
     v12 = [NSString stringWithFormat:@"Entitlement not found for %@", v11];
 
-    v13 = sub_100002880();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = sub_100002880(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
@@ -3320,7 +3405,7 @@ LABEL_16:
 - (void)clearMaskedAppleIDWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v6 = sub_100002880();
+  v6 = sub_100002880(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -3340,8 +3425,8 @@ LABEL_16:
     v8 = NSStringFromSelector(a2);
     v9 = [NSString stringWithFormat:@"Entitlement not found for %@", v8];
 
-    v10 = sub_100002880();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100002880(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
@@ -3350,7 +3435,7 @@ LABEL_16:
 
 - (void)primaryAppleAccountRemoved
 {
-  v4 = sub_100002880();
+  v4 = sub_100002880(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -3368,8 +3453,8 @@ LABEL_16:
     v6 = NSStringFromSelector(a2);
     v5 = [NSString stringWithFormat:@"Entitlement not found for %@", v6];
 
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100002880(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
@@ -3380,7 +3465,7 @@ LABEL_16:
 {
   infoCopy = info;
   completionCopy = completion;
-  v9 = sub_100002880();
+  v9 = sub_100002880(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -3398,8 +3483,8 @@ LABEL_16:
     v11 = NSStringFromSelector(a2);
     v10 = [NSString stringWithFormat:@"Entitlement not found for %@", v11];
 
-    v12 = sub_100002880();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_100002880(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
@@ -3409,7 +3494,7 @@ LABEL_16:
 - (void)fetchOfflineFindingInfoWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v6 = sub_100002880();
+  v6 = sub_100002880(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -3427,8 +3512,8 @@ LABEL_16:
     v8 = NSStringFromSelector(a2);
     v7 = [NSString stringWithFormat:@"Entitlement not found for %@", v8];
 
-    v9 = sub_100002880();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100002880(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
@@ -3438,7 +3523,7 @@ LABEL_16:
 - (void)clearOfflineFindingInfoWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v6 = sub_100002880();
+  v6 = sub_100002880(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -3456,8 +3541,8 @@ LABEL_16:
     v8 = NSStringFromSelector(a2);
     v7 = [NSString stringWithFormat:@"Entitlement not found for %@", v8];
 
-    v9 = sub_100002880();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100002880(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
@@ -3467,7 +3552,7 @@ LABEL_16:
 - (void)fetchAPNSTokenWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v6 = sub_100002880();
+  v6 = sub_100002880(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -3479,8 +3564,8 @@ LABEL_16:
     v9 = NSStringFromSelector(a2);
     v7 = [NSString stringWithFormat:@"Entitlement not found for %@", v9];
 
-    v10 = sub_100002880();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100002880(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
@@ -3512,7 +3597,7 @@ LABEL_12:
 - (void)startLocationMonitoring:(id)monitoring
 {
   monitoringCopy = monitoring;
-  v6 = sub_1000029E0();
+  v6 = sub_1000029E0(monitoringCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -3533,11 +3618,11 @@ LABEL_10:
       goto LABEL_14;
     }
 
-    v12 = sub_1000029E0();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_1000029E0(v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "No LocationMonitor while starting. Calling completion immediately", v13, 2u);
+      *v15 = 0;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "No LocationMonitor while starting. Calling completion immediately", v15, 2u);
     }
 
     monitoringCopy[2](monitoringCopy, 0);
@@ -3545,11 +3630,11 @@ LABEL_10:
 
   else
   {
-    v10 = NSStringFromSelector(a2);
-    v7 = [NSString stringWithFormat:@"Entitlement not found for %@", v10];
+    v11 = NSStringFromSelector(a2);
+    v7 = [NSString stringWithFormat:@"Entitlement not found for %@", v11];
 
-    v11 = sub_100002880();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = sub_100002880(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
@@ -3568,7 +3653,7 @@ LABEL_14:
 - (void)stopLocationMonitoring:(id)monitoring
 {
   monitoringCopy = monitoring;
-  v6 = sub_1000029E0();
+  v6 = sub_1000029E0(monitoringCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -3589,11 +3674,11 @@ LABEL_10:
       goto LABEL_14;
     }
 
-    v12 = sub_1000029E0();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_1000029E0(v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "No LocationMonitor while stopping. Calling completion immediately", v13, 2u);
+      *v15 = 0;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "No LocationMonitor while stopping. Calling completion immediately", v15, 2u);
     }
 
     monitoringCopy[2](monitoringCopy, 0);
@@ -3601,11 +3686,11 @@ LABEL_10:
 
   else
   {
-    v10 = NSStringFromSelector(a2);
-    v7 = [NSString stringWithFormat:@"Entitlement not found for %@", v10];
+    v11 = NSStringFromSelector(a2);
+    v7 = [NSString stringWithFormat:@"Entitlement not found for %@", v11];
 
-    v11 = sub_100002880();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = sub_100002880(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
@@ -3625,7 +3710,7 @@ LABEL_14:
 {
   receivedCopy = received;
   completionCopy = completion;
-  v9 = sub_100002880();
+  v9 = sub_100002880(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -3646,16 +3731,16 @@ LABEL_14:
     v12 = NSStringFromSelector(a2);
     v10 = [NSString stringWithFormat:@"Entitlement not found for %@", v12];
 
-    v13 = sub_100002880();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = sub_100002880(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
 
     if (completionCopy)
     {
-      v14 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v10];
-      (completionCopy)[2](completionCopy, v14);
+      v15 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v10];
+      (completionCopy)[2](completionCopy, v15);
     }
   }
 }
@@ -3664,11 +3749,11 @@ LABEL_14:
 {
   contextCopy = context;
   completionCopy = completion;
-  v9 = sub_1000029E0();
+  v9 = sub_1000029E0(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = contextCopy;
+    v19 = contextCopy;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "DAEMON API - startLocationMonitoringWithContext %@", buf, 0xCu);
   }
 
@@ -3686,11 +3771,11 @@ LABEL_10:
       goto LABEL_14;
     }
 
-    v15 = sub_1000029E0();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_1000029E0(v12);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "No LocationMonitor while starting with policy. Calling completion immediately", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "No LocationMonitor while starting with policy. Calling completion immediately", buf, 2u);
     }
 
     completionCopy[2](completionCopy, 0);
@@ -3698,11 +3783,11 @@ LABEL_10:
 
   else
   {
-    v13 = NSStringFromSelector(a2);
-    v10 = [NSString stringWithFormat:@"Entitlement not found for %@", v13];
+    v14 = NSStringFromSelector(a2);
+    v10 = [NSString stringWithFormat:@"Entitlement not found for %@", v14];
 
-    v14 = sub_100002880();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = sub_100002880(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
@@ -3718,15 +3803,74 @@ LABEL_10:
 LABEL_14:
 }
 
+- (void)startLocationMonitoringWithContext:(id)context forcePublish:(BOOL)publish completion:(id)completion
+{
+  publishCopy = publish;
+  contextCopy = context;
+  completionCopy = completion;
+  v11 = sub_1000029E0(completionCopy);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v21 = contextCopy;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "DAEMON API - startLocationMonitoringWithContext %@", buf, 0xCu);
+  }
+
+  if ([(FMDFMIPXPCServer *)self _hasClientAccessEntitlement])
+  {
+    v12 = +[FMDServiceProvider activeServiceProvider];
+    locationMonitor = [v12 locationMonitor];
+
+    if (locationMonitor)
+    {
+      locationMonitor2 = [v12 locationMonitor];
+      [locationMonitor2 startLocationMonitorWithContext:contextCopy forcePublish:publishCopy completion:completionCopy];
+LABEL_10:
+
+      goto LABEL_14;
+    }
+
+    v19 = sub_1000029E0(v14);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "No LocationMonitor while starting with policy. Calling completion immediately", buf, 2u);
+    }
+
+    completionCopy[2](completionCopy, 0);
+  }
+
+  else
+  {
+    v16 = NSStringFromSelector(a2);
+    v12 = [NSString stringWithFormat:@"Entitlement not found for %@", v16];
+
+    v18 = sub_100002880(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      sub_10022A1D0();
+    }
+
+    if (completionCopy)
+    {
+      locationMonitor2 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v12];
+      (completionCopy)[2](completionCopy, locationMonitor2);
+      goto LABEL_10;
+    }
+  }
+
+LABEL_14:
+}
+
 - (void)stopLocationMonitoringWithContext:(id)context completion:(id)completion
 {
   contextCopy = context;
   completionCopy = completion;
-  v9 = sub_1000029E0();
+  v9 = sub_1000029E0(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v17 = contextCopy;
+    v19 = contextCopy;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "DAEMON API - stopLocationMonitorWithContext %@", buf, 0xCu);
   }
 
@@ -3744,11 +3888,11 @@ LABEL_10:
       goto LABEL_14;
     }
 
-    v15 = sub_1000029E0();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_1000029E0(v12);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "No LocationMonitor while stopping with context. Calling completion immediately", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "No LocationMonitor while stopping with context. Calling completion immediately", buf, 2u);
     }
 
     completionCopy[2](completionCopy, 0);
@@ -3756,11 +3900,11 @@ LABEL_10:
 
   else
   {
-    v13 = NSStringFromSelector(a2);
-    v10 = [NSString stringWithFormat:@"Entitlement not found for %@", v13];
+    v14 = NSStringFromSelector(a2);
+    v10 = [NSString stringWithFormat:@"Entitlement not found for %@", v14];
 
-    v14 = sub_100002880();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = sub_100002880(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
@@ -3780,7 +3924,7 @@ LABEL_14:
 {
   completionCopy = completion;
   accessoryCopy = accessory;
-  v7 = sub_1000029E0();
+  v7 = sub_1000029E0(accessoryCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -3795,7 +3939,7 @@ LABEL_14:
 {
   completionCopy = completion;
   accessoryCopy = accessory;
-  v7 = sub_1000029E0();
+  v7 = sub_1000029E0(accessoryCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -3810,11 +3954,11 @@ LABEL_14:
 {
   payloadCopy = payload;
   completionCopy = completion;
-  v9 = sub_100002880();
+  v9 = sub_100002880(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v15 = "[FMDFMIPXPCServer simulatePushWithPayload:completion:]";
+    v16 = "[FMDFMIPXPCServer simulatePushWithPayload:completion:]";
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "DAEMON API: %s", buf, 0xCu);
   }
 
@@ -3829,16 +3973,16 @@ LABEL_14:
     v11 = NSStringFromSelector(a2);
     v10 = [NSString stringWithFormat:@"Entitlement not found for %@", v11];
 
-    v12 = sub_100002880();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_100002880(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
 
     if (completionCopy)
     {
-      v13 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v10];
-      completionCopy[2](completionCopy, v13);
+      v14 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v10];
+      completionCopy[2](completionCopy, v14);
     }
   }
 }
@@ -3847,11 +3991,11 @@ LABEL_14:
 {
   localeCopy = locale;
   replyCopy = reply;
-  v9 = sub_100002880();
+  v9 = sub_100002880(replyCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v15 = "[FMDFMIPXPCServer downloadSharedConfigurationWithLocale:reply:]";
+    v16 = "[FMDFMIPXPCServer downloadSharedConfigurationWithLocale:reply:]";
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "DAEMON API: %s", buf, 0xCu);
   }
 
@@ -3866,16 +4010,16 @@ LABEL_14:
     v11 = NSStringFromSelector(a2);
     v10 = [NSString stringWithFormat:@"Entitlement not found for %@", v11];
 
-    v12 = sub_100002880();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_100002880(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
 
     if (replyCopy)
     {
-      v13 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v10];
-      replyCopy[2](replyCopy, v13);
+      v14 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v10];
+      replyCopy[2](replyCopy, v14);
     }
   }
 }
@@ -3884,25 +4028,25 @@ LABEL_14:
 {
   numberCopy = number;
   replyCopy = reply;
-  v9 = sub_100002880();
+  v9 = sub_100002880(replyCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v18 = "[FMDFMIPXPCServer getTheftAndLossCoverageWithSerialNumber:reply:]";
+    v19 = "[FMDFMIPXPCServer getTheftAndLossCoverageWithSerialNumber:reply:]";
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "DAEMON API: %s", buf, 0xCu);
   }
 
   if ([(FMDFMIPXPCServer *)self _hasSharedConfigurationAccessEntitlement])
   {
     v10 = +[FMDSharedConfigurationManager sharedInstance];
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_1001A8684;
-    v15[3] = &unk_1002D06C8;
-    v16 = replyCopy;
-    [v10 getTheftAndLossCoverageWithSerialNumber:numberCopy completion:v15];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_1001A8684;
+    v16[3] = &unk_1002D06C8;
+    v17 = replyCopy;
+    [v10 getTheftAndLossCoverageWithSerialNumber:numberCopy completion:v16];
 
-    v11 = v16;
+    v11 = v17;
   }
 
   else
@@ -3910,16 +4054,16 @@ LABEL_14:
     v12 = NSStringFromSelector(a2);
     v11 = [NSString stringWithFormat:@"Entitlement not found for %@", v12];
 
-    v13 = sub_100002880();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = sub_100002880(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
     }
 
     if (replyCopy)
     {
-      v14 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v11];
-      (*(replyCopy + 2))(replyCopy, 0, v14);
+      v15 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v11];
+      (*(replyCopy + 2))(replyCopy, 0, v15);
     }
   }
 }
@@ -3939,7 +4083,7 @@ LABEL_14:
 {
   entryCopy = entry;
   replyCopy = reply;
-  v9 = sub_100002880();
+  v9 = sub_100002880(replyCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -3959,7 +4103,7 @@ LABEL_14:
     v10 = [NSString stringWithFormat:@"Entitlement not found for %@", v11];
 
     v12 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v10];
-    v13 = sub_100002880();
+    v13 = sub_100002880(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();
@@ -3975,7 +4119,7 @@ LABEL_14:
 - (void)clearTheftAndLossCFUWithReply:(id)reply
 {
   replyCopy = reply;
-  v6 = sub_100002880();
+  v6 = sub_100002880(replyCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -3995,7 +4139,7 @@ LABEL_14:
     v7 = [NSString stringWithFormat:@"Entitlement not found for %@", v8];
 
     v9 = [(FMDFMIPXPCServer *)self _errorForCode:6 message:v7];
-    v10 = sub_100002880();
+    v10 = sub_100002880(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10022A1D0();

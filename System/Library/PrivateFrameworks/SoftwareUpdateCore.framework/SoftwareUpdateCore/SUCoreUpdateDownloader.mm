@@ -41,16 +41,16 @@
 
 - (SUCoreUpdateDownloader)initWithDelegate:(id)delegate forUpdate:(id)update updateUUID:(id)d
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   updateCopy = update;
   dCopy = d;
   v11 = dCopy;
   if (updateCopy && dCopy)
   {
-    v45.receiver = self;
-    v45.super_class = SUCoreUpdateDownloader;
-    v12 = [(SUCoreUpdateDownloader *)&v45 init];
+    v44.receiver = self;
+    v44.super_class = SUCoreUpdateDownloader;
+    v12 = [(SUCoreUpdateDownloader *)&v44 init];
     self = v12;
     if (!v12)
     {
@@ -104,7 +104,7 @@ LABEL_18:
         {
           v28 = [MEMORY[0x277CCACA8] stringWithFormat:@"init: not creating ma for Splat"];
           *buf = 138543362;
-          v47 = v28;
+          v46 = v28;
           _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "[SUCoreUpdateDownloader] %{public}@", buf, 0xCu);
         }
       }
@@ -174,7 +174,6 @@ LABEL_13:
   selfCopy = 0;
 LABEL_19:
 
-  v39 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -246,7 +245,7 @@ void __38__SUCoreUpdateDownloader_removeUpdate__block_invoke(uint64_t a1)
 
 void __38__SUCoreUpdateDownloader_alterPolicy___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     [*(a1 + 40) setPolicy:?];
@@ -264,9 +263,9 @@ void __38__SUCoreUpdateDownloader_alterPolicy___block_invoke(uint64_t a1)
       v8 = [SUCoreMobileAsset downloadConfigSummary:v2];
       v9 = [v7 stringWithFormat:@"adjusting configuration: %@", v8];
       *buf = 138543618;
-      v14 = v6;
-      v15 = 2114;
-      v16 = v9;
+      v13 = v6;
+      v14 = 2114;
+      v15 = v9;
       _os_log_impl(&dword_23193C000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", buf, 0x16u);
     }
 
@@ -276,232 +275,228 @@ void __38__SUCoreUpdateDownloader_alterPolicy___block_invoke(uint64_t a1)
     v11 = [*(a1 + 40) maControlSplombo];
     [v11 alterDownloadOptions:v2];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_generateStateTable
 {
-  v126[6] = *MEMORY[0x277D85DE8];
-  v125[0] = @"Idle";
-  v123[0] = @"DownloadUpdate";
+  v125[6] = *MEMORY[0x277D85DE8];
+  v124[0] = @"Idle";
+  v122[0] = @"DownloadUpdate";
   v3 = *MEMORY[0x277D644B8];
-  v121[0] = *MEMORY[0x277D64800];
-  v2 = v121[0];
-  v121[1] = v3;
-  v122[0] = @"DownloadingSU";
-  v122[1] = @"DownloadSU";
-  v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v122 forKeys:v121 count:2];
-  v123[1] = @"RemoveUpdate";
-  v124[0] = v46;
-  v119[0] = v2;
-  v119[1] = v3;
-  v120[0] = @"RemovingUpdate";
-  v120[1] = @"RemoveUpdate";
-  v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v120 forKeys:v119 count:2];
-  v124[1] = v45;
-  v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v124 forKeys:v123 count:2];
-  v126[0] = v44;
-  v125[1] = @"DownloadingSU";
-  v117[0] = @"DownloadUpdate";
-  v115 = v3;
-  v116 = *MEMORY[0x277D647D0];
-  v4 = v116;
-  v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v116 forKeys:&v115 count:1];
-  v118[0] = v43;
-  v117[1] = @"RemoveUpdate";
-  v113[0] = v2;
-  v113[1] = v3;
-  v114[0] = @"RemovingUpdate";
-  v114[1] = @"RemoveUpdate";
-  v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v114 forKeys:v113 count:2];
-  v118[1] = v42;
-  v117[2] = @"DownloadSucceeded";
-  v111[0] = v2;
-  v111[1] = v3;
-  v112[0] = @"DownloadingSplat";
-  v112[1] = @"DownloadSplat";
-  v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v112 forKeys:v111 count:2];
-  v118[2] = v41;
-  v117[3] = @"DownloadFailed";
-  v109[0] = v2;
-  v109[1] = v3;
-  v110[0] = @"Idle";
-  v110[1] = @"ReportUpdateFailedToDownload";
-  v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v110 forKeys:v109 count:2];
-  v118[3] = v40;
-  v117[4] = @"DownloadProgress";
-  v107 = v3;
-  v108 = @"ReportDownloadProgress";
-  v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v108 forKeys:&v107 count:1];
-  v118[4] = v39;
-  v117[5] = @"DownloadStalled";
-  v105 = v3;
-  v106 = @"ReportDownloadStalled";
-  v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
-  v118[5] = v38;
-  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v118 forKeys:v117 count:6];
-  v126[1] = v37;
-  v125[2] = @"DownloadingSplat";
-  v103[0] = @"DownloadUpdate";
-  v101 = v3;
-  v102 = v4;
-  v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
-  v104[0] = v36;
-  v103[1] = @"RemoveUpdate";
-  v99[0] = v2;
-  v99[1] = v3;
-  v100[0] = @"RemovingUpdate";
-  v100[1] = @"RemoveUpdate";
-  v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v100 forKeys:v99 count:2];
-  v104[1] = v35;
-  v103[2] = @"DownloadSucceeded";
-  v97[0] = v2;
-  v97[1] = v3;
-  v98[0] = @"DownloadingPSUSAssets";
-  v98[1] = @"DownloadPSUSAssets";
-  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v98 forKeys:v97 count:2];
-  v104[2] = v34;
-  v103[3] = @"OperationSkipped";
-  v95[0] = v2;
-  v95[1] = v3;
-  v96[0] = @"DownloadingPSUSAssets";
-  v96[1] = @"DownloadPSUSAssets";
-  v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v96 forKeys:v95 count:2];
-  v104[3] = v33;
-  v103[4] = @"DownloadFailed";
-  v93[0] = v2;
-  v93[1] = v3;
-  v94[0] = @"Idle";
-  v94[1] = @"ReportUpdateFailedToDownload";
-  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v94 forKeys:v93 count:2];
-  v104[4] = v32;
-  v103[5] = @"DownloadProgress";
-  v91 = v3;
-  v92 = @"ReportDownloadProgress";
-  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v92 forKeys:&v91 count:1];
-  v104[5] = v31;
-  v103[6] = @"DownloadStalled";
-  v89 = v3;
-  v90 = @"ReportDownloadStalled";
-  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v90 forKeys:&v89 count:1];
-  v104[6] = v30;
-  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v104 forKeys:v103 count:7];
-  v126[2] = v29;
-  v125[3] = @"DownloadingPSUSAssets";
-  v87[0] = @"DownloadUpdate";
-  v85 = v3;
-  v86 = v4;
-  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
-  v88[0] = v28;
-  v87[1] = @"RemoveUpdate";
-  v83[0] = v2;
-  v83[1] = v3;
-  v84[0] = @"RemovingUpdate";
-  v84[1] = @"RemoveUpdate";
-  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v84 forKeys:v83 count:2];
-  v88[1] = v27;
-  v87[2] = @"DownloadSucceeded";
-  v81[0] = v2;
-  v81[1] = v3;
-  v82[0] = @"Downloaded";
-  v82[1] = @"ReportUpdateDownloaded";
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:v81 count:2];
-  v88[2] = v26;
-  v87[3] = @"OperationSkipped";
-  v79[0] = v2;
-  v79[1] = v3;
-  v80[0] = @"Downloaded";
-  v80[1] = @"ReportUpdateDownloaded";
-  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v80 forKeys:v79 count:2];
-  v88[3] = v25;
-  v87[4] = @"DownloadFailed";
-  v77[0] = v2;
-  v77[1] = v3;
-  v78[0] = @"Idle";
-  v78[1] = @"ReportUpdateFailedToDownload";
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v78 forKeys:v77 count:2];
-  v88[4] = v24;
-  v87[5] = @"DownloadProgress";
-  v75 = v3;
-  v76 = @"ReportDownloadProgress";
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
-  v88[5] = v23;
-  v87[6] = @"DownloadStalled";
-  v73 = v3;
-  v74 = @"ReportDownloadStalled";
-  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
-  v88[6] = v22;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v88 forKeys:v87 count:7];
-  v126[3] = v21;
-  v125[4] = @"Downloaded";
-  v71[0] = @"DownloadUpdate";
-  v69 = v3;
-  v70 = @"ReportUpdateDownloaded";
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
-  v72[0] = v20;
-  v71[1] = @"RemoveUpdate";
-  v67[0] = v2;
-  v67[1] = v3;
-  v68[0] = @"RemovingUpdate";
-  v68[1] = @"RemoveUpdate";
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:2];
-  v72[1] = v19;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:v71 count:2];
-  v126[4] = v18;
-  v125[5] = @"RemovingUpdate";
-  v64 = v4;
-  v65[0] = @"DownloadUpdate";
-  v63 = v3;
-  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
-  v66[0] = v17;
-  v65[1] = @"RemoveUpdate";
-  v61 = v3;
-  v62 = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
-  v66[1] = v5;
-  v65[2] = @"RemoveSucceeded";
-  v59 = v3;
-  v60 = @"CheckRemoveCompleted";
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
-  v66[2] = v6;
-  v65[3] = @"RemoveFailed";
-  v57 = v3;
-  v58 = @"CheckRemoveCompleted";
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
-  v66[3] = v7;
-  v65[4] = @"DownloadSucceeded";
-  v55 = v3;
-  v56 = @"CheckRemoveCompleted";
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
-  v66[4] = v8;
-  v65[5] = @"DownloadFailed";
-  v53 = v3;
-  v54 = @"CheckRemoveCompleted";
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
-  v66[5] = v9;
-  v65[6] = @"DownloadProgress";
-  v51 = v3;
-  v52 = v4;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
-  v66[6] = v10;
-  v65[7] = @"DownloadStalled";
-  v49 = v3;
-  v50 = v4;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
-  v66[7] = v11;
-  v65[8] = @"RemoveCompleted";
-  v47[0] = v2;
-  v47[1] = v3;
-  v48[0] = @"Idle";
-  v48[1] = @"ReportUpdateRemoved";
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:2];
-  v66[8] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v66 forKeys:v65 count:9];
-  v126[5] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v126 forKeys:v125 count:6];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v120[0] = *MEMORY[0x277D64800];
+  v2 = v120[0];
+  v120[1] = v3;
+  v121[0] = @"DownloadingSU";
+  v121[1] = @"DownloadSU";
+  v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v121 forKeys:v120 count:2];
+  v122[1] = @"RemoveUpdate";
+  v123[0] = v45;
+  v118[0] = v2;
+  v118[1] = v3;
+  v119[0] = @"RemovingUpdate";
+  v119[1] = @"RemoveUpdate";
+  v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v119 forKeys:v118 count:2];
+  v123[1] = v44;
+  v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v123 forKeys:v122 count:2];
+  v125[0] = v43;
+  v124[1] = @"DownloadingSU";
+  v116[0] = @"DownloadUpdate";
+  v114 = v3;
+  v115 = *MEMORY[0x277D647D0];
+  v4 = v115;
+  v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v115 forKeys:&v114 count:1];
+  v117[0] = v42;
+  v116[1] = @"RemoveUpdate";
+  v112[0] = v2;
+  v112[1] = v3;
+  v113[0] = @"RemovingUpdate";
+  v113[1] = @"RemoveUpdate";
+  v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v113 forKeys:v112 count:2];
+  v117[1] = v41;
+  v116[2] = @"DownloadSucceeded";
+  v110[0] = v2;
+  v110[1] = v3;
+  v111[0] = @"DownloadingSplat";
+  v111[1] = @"DownloadSplat";
+  v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v111 forKeys:v110 count:2];
+  v117[2] = v40;
+  v116[3] = @"DownloadFailed";
+  v108[0] = v2;
+  v108[1] = v3;
+  v109[0] = @"Idle";
+  v109[1] = @"ReportUpdateFailedToDownload";
+  v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v109 forKeys:v108 count:2];
+  v117[3] = v39;
+  v116[4] = @"DownloadProgress";
+  v106 = v3;
+  v107 = @"ReportDownloadProgress";
+  v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v107 forKeys:&v106 count:1];
+  v117[4] = v38;
+  v116[5] = @"DownloadStalled";
+  v104 = v3;
+  v105 = @"ReportDownloadStalled";
+  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v105 forKeys:&v104 count:1];
+  v117[5] = v37;
+  v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v117 forKeys:v116 count:6];
+  v125[1] = v36;
+  v124[2] = @"DownloadingSplat";
+  v102[0] = @"DownloadUpdate";
+  v100 = v3;
+  v101 = v4;
+  v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
+  v103[0] = v35;
+  v102[1] = @"RemoveUpdate";
+  v98[0] = v2;
+  v98[1] = v3;
+  v99[0] = @"RemovingUpdate";
+  v99[1] = @"RemoveUpdate";
+  v34 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v99 forKeys:v98 count:2];
+  v103[1] = v34;
+  v102[2] = @"DownloadSucceeded";
+  v96[0] = v2;
+  v96[1] = v3;
+  v97[0] = @"DownloadingPSUSAssets";
+  v97[1] = @"DownloadPSUSAssets";
+  v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v97 forKeys:v96 count:2];
+  v103[2] = v33;
+  v102[3] = @"OperationSkipped";
+  v94[0] = v2;
+  v94[1] = v3;
+  v95[0] = @"DownloadingPSUSAssets";
+  v95[1] = @"DownloadPSUSAssets";
+  v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v95 forKeys:v94 count:2];
+  v103[3] = v32;
+  v102[4] = @"DownloadFailed";
+  v92[0] = v2;
+  v92[1] = v3;
+  v93[0] = @"Idle";
+  v93[1] = @"ReportUpdateFailedToDownload";
+  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v93 forKeys:v92 count:2];
+  v103[4] = v31;
+  v102[5] = @"DownloadProgress";
+  v90 = v3;
+  v91 = @"ReportDownloadProgress";
+  v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v91 forKeys:&v90 count:1];
+  v103[5] = v30;
+  v102[6] = @"DownloadStalled";
+  v88 = v3;
+  v89 = @"ReportDownloadStalled";
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v89 forKeys:&v88 count:1];
+  v103[6] = v29;
+  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v103 forKeys:v102 count:7];
+  v125[2] = v28;
+  v124[3] = @"DownloadingPSUSAssets";
+  v86[0] = @"DownloadUpdate";
+  v84 = v3;
+  v85 = v4;
+  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
+  v87[0] = v27;
+  v86[1] = @"RemoveUpdate";
+  v82[0] = v2;
+  v82[1] = v3;
+  v83[0] = @"RemovingUpdate";
+  v83[1] = @"RemoveUpdate";
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v83 forKeys:v82 count:2];
+  v87[1] = v26;
+  v86[2] = @"DownloadSucceeded";
+  v80[0] = v2;
+  v80[1] = v3;
+  v81[0] = @"Downloaded";
+  v81[1] = @"ReportUpdateDownloaded";
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v81 forKeys:v80 count:2];
+  v87[2] = v25;
+  v86[3] = @"OperationSkipped";
+  v78[0] = v2;
+  v78[1] = v3;
+  v79[0] = @"Downloaded";
+  v79[1] = @"ReportUpdateDownloaded";
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v79 forKeys:v78 count:2];
+  v87[3] = v24;
+  v86[4] = @"DownloadFailed";
+  v76[0] = v2;
+  v76[1] = v3;
+  v77[0] = @"Idle";
+  v77[1] = @"ReportUpdateFailedToDownload";
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v77 forKeys:v76 count:2];
+  v87[4] = v23;
+  v86[5] = @"DownloadProgress";
+  v74 = v3;
+  v75 = @"ReportDownloadProgress";
+  v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
+  v87[5] = v22;
+  v86[6] = @"DownloadStalled";
+  v72 = v3;
+  v73 = @"ReportDownloadStalled";
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
+  v87[6] = v21;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v87 forKeys:v86 count:7];
+  v125[3] = v20;
+  v124[4] = @"Downloaded";
+  v70[0] = @"DownloadUpdate";
+  v68 = v3;
+  v69 = @"ReportUpdateDownloaded";
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
+  v71[0] = v19;
+  v70[1] = @"RemoveUpdate";
+  v66[0] = v2;
+  v66[1] = v3;
+  v67[0] = @"RemovingUpdate";
+  v67[1] = @"RemoveUpdate";
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:v66 count:2];
+  v71[1] = v18;
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v71 forKeys:v70 count:2];
+  v125[4] = v17;
+  v124[5] = @"RemovingUpdate";
+  v63 = v4;
+  v64[0] = @"DownloadUpdate";
+  v62 = v3;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
+  v65[0] = v16;
+  v64[1] = @"RemoveUpdate";
+  v60 = v3;
+  v61 = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+  v65[1] = v5;
+  v64[2] = @"RemoveSucceeded";
+  v58 = v3;
+  v59 = @"CheckRemoveCompleted";
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
+  v65[2] = v6;
+  v64[3] = @"RemoveFailed";
+  v56 = v3;
+  v57 = @"CheckRemoveCompleted";
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+  v65[3] = v7;
+  v64[4] = @"DownloadSucceeded";
+  v54 = v3;
+  v55 = @"CheckRemoveCompleted";
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+  v65[4] = v8;
+  v64[5] = @"DownloadFailed";
+  v52 = v3;
+  v53 = @"CheckRemoveCompleted";
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+  v65[5] = v9;
+  v64[6] = @"DownloadProgress";
+  v50 = v3;
+  v51 = v4;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+  v65[6] = v10;
+  v64[7] = @"DownloadStalled";
+  v48 = v3;
+  v49 = v4;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+  v65[7] = v11;
+  v64[8] = @"RemoveCompleted";
+  v46[0] = v2;
+  v46[1] = v3;
+  v47[0] = @"Idle";
+  v47[1] = @"ReportUpdateRemoved";
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:2];
+  v65[8] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v65 forKeys:v64 count:9];
+  v125[5] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v125 forKeys:v124 count:6];
 
   return v14;
 }
@@ -766,7 +761,7 @@ void __52__SUCoreUpdateDownloader_actionDownloadSplat_error___block_invoke_2(uin
 
 - (int64_t)actionDownloadPSUSAssets:(id)assets error:(id *)error
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v5 = [(SUCoreUpdateDownloader *)self downloadFSM:assets];
   extendedStateQueue = [v5 extendedStateQueue];
   dispatch_assert_queue_V2(extendedStateQueue);
@@ -798,8 +793,8 @@ LABEL_19:
       v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"[PreSUStaging] No required assets to stage"];
       *buf = 138543618;
       selfCopy3 = self;
-      v40 = 2114;
-      v41 = v13;
+      v39 = 2114;
+      v40 = v13;
       _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", buf, 0x16u);
     }
   }
@@ -823,8 +818,8 @@ LABEL_19:
     v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"[PreSUStaging] PSUS groups to stage: %@", array];
     *buf = 138543618;
     selfCopy3 = self;
-    v40 = 2114;
-    v41 = v16;
+    v39 = 2114;
+    v40 = v16;
     _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", buf, 0x16u);
   }
 
@@ -832,18 +827,18 @@ LABEL_19:
   updateDescriptor2 = [(SUCoreUpdateDownloader *)self updateDescriptor];
   -[SUCoreUpdateDownloader setTotalToWriteBytesForPhase:](self, "setTotalToWriteBytesForPhase:", -[SUCoreUpdateDownloader maxAllowedPreSUStagingOptionalSize](self, "maxAllowedPreSUStagingOptionalSize") + [updateDescriptor2 preSUStagingRequiredSize]);
 
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __57__SUCoreUpdateDownloader_actionDownloadPSUSAssets_error___block_invoke;
-  v37[3] = &unk_27892DBC0;
-  v37[4] = self;
-  v18 = MEMORY[0x2383746D0](v37);
   v36[0] = MEMORY[0x277D85DD0];
   v36[1] = 3221225472;
-  v36[2] = __57__SUCoreUpdateDownloader_actionDownloadPSUSAssets_error___block_invoke_476;
-  v36[3] = &unk_27892DBE8;
+  v36[2] = __57__SUCoreUpdateDownloader_actionDownloadPSUSAssets_error___block_invoke;
+  v36[3] = &unk_27892DBC0;
   v36[4] = self;
-  v19 = MEMORY[0x2383746D0](v36);
+  v18 = MEMORY[0x2383746D0](v36);
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __57__SUCoreUpdateDownloader_actionDownloadPSUSAssets_error___block_invoke_476;
+  v35[3] = &unk_27892DBE8;
+  v35[4] = self;
+  v19 = MEMORY[0x2383746D0](v35);
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   updateDescriptor3 = [(SUCoreUpdateDownloader *)self updateDescriptor];
   productVersion = [updateDescriptor3 productVersion];
@@ -876,8 +871,8 @@ LABEL_19:
     v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"[PreSUStaging] staging assets with attributes: %@", dictionary];
     *buf = 138543618;
     selfCopy3 = self;
-    v40 = 2114;
-    v41 = v32;
+    v39 = 2114;
+    v40 = v32;
     _os_log_impl(&dword_23193C000, oslog3, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", buf, 0x16u);
   }
 
@@ -886,7 +881,6 @@ LABEL_19:
   v33 = [MEMORY[0x277D289E0] SUCoreBorder_stageDownloadGroups:dictionary awaitingAllGroups:0 withStagingTimeout:-[SUCoreUpdateDownloader _psusStageTimeout](self reportingProgress:"_psusStageTimeout") completion:{v19, v18}];
 
 LABEL_20:
-  v34 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -907,7 +901,7 @@ void __57__SUCoreUpdateDownloader_actionDownloadPSUSAssets_error___block_invoke(
 
 void __57__SUCoreUpdateDownloader_actionDownloadPSUSAssets_error___block_invoke_2(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _trackEnd:@"stageDownloadGroups" withIdentifier:@"presustaging" withResult:objc_msgSend(*(a1 + 40) withError:{"code"), *(a1 + 40)}];
   [*(a1 + 32) _reportPSUSFinishedEvent:*(a1 + 40)];
   v2 = [[SUCoreUpdatePreSUStagingOutcome alloc] initWithError:*(a1 + 40)];
@@ -922,7 +916,7 @@ void __57__SUCoreUpdateDownloader_actionDownloadPSUSAssets_error___block_invoke_
     block[2] = __57__SUCoreUpdateDownloader_actionDownloadPSUSAssets_error___block_invoke_3;
     block[3] = &unk_27892D478;
     block[4] = *(a1 + 32);
-    v35 = v2;
+    v34 = v2;
     dispatch_async(v5, block);
   }
 
@@ -1016,12 +1010,12 @@ LABEL_17:
     if (v26 == 8119)
     {
       notify_post("com.apple.SUCore.PSUS.TimedOut");
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __57__SUCoreUpdateDownloader_actionDownloadPSUSAssets_error___block_invoke_4;
-      v33[3] = &unk_27892D228;
-      v33[4] = *(a1 + 32);
-      [MEMORY[0x277D289E0] SUCoreBorder_stagePurgeAll:v33];
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __57__SUCoreUpdateDownloader_actionDownloadPSUSAssets_error___block_invoke_4;
+      v32[3] = &unk_27892D228;
+      v32[4] = *(a1 + 32);
+      [MEMORY[0x277D289E0] SUCoreBorder_stagePurgeAll:v32];
     }
   }
 
@@ -1038,9 +1032,9 @@ LABEL_17:
     v29 = *(a1 + 32);
     v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"[PreSUStaging] %@", v20];
     *buf = 138543618;
-    v37 = v29;
-    v38 = 2114;
-    v39 = v30;
+    v36 = v29;
+    v37 = 2114;
+    v38 = v30;
     _os_log_impl(&dword_23193C000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", buf, 0x16u);
   }
 
@@ -1049,7 +1043,6 @@ LABEL_17:
   [(SUCoreUpdateDownloaderParam *)v21 postProtectedEvent:@"DownloadSucceeded" withInfo:v31];
 
 LABEL_27:
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __57__SUCoreUpdateDownloader_actionDownloadPSUSAssets_error___block_invoke_3(uint64_t a1)
@@ -1060,7 +1053,7 @@ void __57__SUCoreUpdateDownloader_actionDownloadPSUSAssets_error___block_invoke_
 
 void __57__SUCoreUpdateDownloader_actionDownloadPSUSAssets_error___block_invoke_4(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277D64460] sharedLogger];
   v5 = [v4 oslog];
@@ -1070,13 +1063,11 @@ void __57__SUCoreUpdateDownloader_actionDownloadPSUSAssets_error___block_invoke_
     v6 = *(a1 + 32);
     v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"[PreSUStaging] purge after a timeout: %@", v3];
     *buf = 138543618;
-    v10 = v6;
-    v11 = 2114;
-    v12 = v7;
+    v9 = v6;
+    v10 = 2114;
+    v11 = v7;
     _os_log_impl(&dword_23193C000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", buf, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __57__SUCoreUpdateDownloader_actionDownloadPSUSAssets_error___block_invoke_476(uint64_t a1, void *a2, void *a3)
@@ -1121,7 +1112,7 @@ void __57__SUCoreUpdateDownloader_actionDownloadPSUSAssets_error___block_invoke_
 
 - (int64_t)actionReportDownloadProgress:(id)progress error:(id *)error
 {
-  v83 = *MEMORY[0x277D85DE8];
+  v82 = *MEMORY[0x277D85DE8];
   progressCopy = progress;
   downloadFSM = [(SUCoreUpdateDownloader *)self downloadFSM];
   extendedStateQueue = [downloadFSM extendedStateQueue];
@@ -1160,12 +1151,12 @@ LABEL_20:
   v23 = v22;
 
   progressHistory = [(SUCoreUpdateDownloader *)self progressHistory];
-  v78[0] = MEMORY[0x277D85DD0];
-  v78[1] = 3221225472;
-  v78[2] = __61__SUCoreUpdateDownloader_actionReportDownloadProgress_error___block_invoke;
-  v78[3] = &__block_descriptor_40_e51_B24__0__SUCoreDownloadCheckpoint_8__NSDictionary_16l;
-  *&v78[4] = v23;
-  v25 = [MEMORY[0x277CCAC30] predicateWithBlock:v78];
+  v77[0] = MEMORY[0x277D85DD0];
+  v77[1] = 3221225472;
+  v77[2] = __61__SUCoreUpdateDownloader_actionReportDownloadProgress_error___block_invoke;
+  v77[3] = &__block_descriptor_40_e51_B24__0__SUCoreDownloadCheckpoint_8__NSDictionary_16l;
+  *&v77[4] = v23;
+  v25 = [MEMORY[0x277CCAC30] predicateWithBlock:v77];
   [progressHistory filterUsingPredicate:v25];
 
   progressHistory2 = [(SUCoreUpdateDownloader *)self progressHistory];
@@ -1222,8 +1213,8 @@ LABEL_20:
             v52 = [v50 stringWithFormat:@"[Progress] %lld/%lld bytes downloaded estimated speed: %.2lf MBps; estimated time remaining = %.2lf secs", v11, objc_msgSend(unifiedProgress7, "totalExpectedBytes"), v42 / 1000000.0, *&v47];;
             *buf = 138543618;
             selfCopy3 = self;
-            v81 = 2114;
-            v82 = v52;
+            v80 = 2114;
+            v81 = v52;
             _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", buf, 0x16u);
           }
 
@@ -1258,7 +1249,7 @@ LABEL_20:
             block[3] = &unk_27892D478;
             block[4] = self;
             progress = v64;
-            v77 = progress;
+            v76 = progress;
             dispatch_async(delegateCallBackQueue, block);
           }
 
@@ -1274,8 +1265,8 @@ LABEL_20:
               v73 = [v71 stringWithFormat:@"delegate does not respond to selector(downloadProgress:) so not reporting progress=%@", unifiedProgress14];
               *buf = 138543618;
               selfCopy3 = self;
-              v81 = 2114;
-              v82 = v73;
+              v80 = 2114;
+              v81 = v73;
               _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", buf, 0x16u);
             }
           }
@@ -1296,15 +1287,14 @@ LABEL_20:
     v32 = [MEMORY[0x277CCACA8] stringWithFormat:@"[Progress] Too few progress records to report"];
     *buf = 138543618;
     selfCopy3 = self;
-    v81 = 2114;
-    v82 = v32;
+    v80 = 2114;
+    v81 = v32;
     _os_log_impl(&dword_23193C000, oslog3, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", buf, 0x16u);
   }
 
   v18 = 0;
 LABEL_21:
 
-  v74 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -1316,7 +1306,7 @@ void __61__SUCoreUpdateDownloader_actionReportDownloadProgress_error___block_inv
 
 - (int64_t)actionReportDownloadStalled:(id)stalled error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = [(SUCoreUpdateDownloader *)self downloadFSM:stalled];
   extendedStateQueue = [v5 extendedStateQueue];
   dispatch_assert_queue_V2(extendedStateQueue);
@@ -1338,7 +1328,7 @@ void __61__SUCoreUpdateDownloader_actionReportDownloadProgress_error___block_inv
     block[2] = __60__SUCoreUpdateDownloader_actionReportDownloadStalled_error___block_invoke;
     block[3] = &unk_27892D478;
     block[4] = self;
-    v20 = v10;
+    v19 = v10;
     oslog = v10;
     dispatch_async(delegateCallBackQueue, block);
   }
@@ -1355,13 +1345,12 @@ void __61__SUCoreUpdateDownloader_actionReportDownloadProgress_error___block_inv
       v16 = [v14 stringWithFormat:@"delegate does not respond to selector(downloadStalled:) so not reporting progress=%@", unifiedProgress3];
       *buf = 138543618;
       selfCopy = self;
-      v23 = 2114;
-      v24 = v16;
+      v22 = 2114;
+      v23 = v16;
       _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", buf, 0x16u);
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1373,7 +1362,7 @@ void __60__SUCoreUpdateDownloader_actionReportDownloadStalled_error___block_invo
 
 - (int64_t)actionReportUpdateDownloaded:(id)downloaded error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = [(SUCoreUpdateDownloader *)self downloadFSM:downloaded];
   extendedStateQueue = [v5 extendedStateQueue];
   dispatch_assert_queue_V2(extendedStateQueue);
@@ -1394,7 +1383,7 @@ void __60__SUCoreUpdateDownloader_actionReportDownloadStalled_error___block_invo
     block[2] = __61__SUCoreUpdateDownloader_actionReportUpdateDownloaded_error___block_invoke;
     block[3] = &unk_27892D478;
     block[4] = self;
-    v19 = v9;
+    v18 = v9;
     dispatch_async(delegateCallBackQueue, block);
   }
 
@@ -1408,15 +1397,14 @@ void __60__SUCoreUpdateDownloader_actionReportDownloadStalled_error___block_invo
       v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"delegate does not respond to selector(downloaded:) so not reporting progress=%@", v9];
       *buf = 138543618;
       selfCopy = self;
-      v22 = 2114;
-      v23 = v15;
+      v21 = 2114;
+      v22 = v15;
       _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", buf, 0x16u);
     }
   }
 
   [(SUCoreUpdateDownloader *)self setShouldReportDownloadFailureIfCanceled:0];
 
-  v16 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1428,7 +1416,7 @@ void __61__SUCoreUpdateDownloader_actionReportUpdateDownloaded_error___block_inv
 
 - (void)_reportUpdateFailedToDownload:(id)download
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   downloadCopy = download;
   delegate = [(SUCoreUpdateDownloader *)self delegate];
   v6 = objc_opt_respondsToSelector();
@@ -1441,7 +1429,7 @@ void __61__SUCoreUpdateDownloader_actionReportUpdateDownloaded_error___block_inv
     block[2] = __56__SUCoreUpdateDownloader__reportUpdateFailedToDownload___block_invoke;
     block[3] = &unk_27892D478;
     block[4] = self;
-    v13 = downloadCopy;
+    v12 = downloadCopy;
     dispatch_async(delegateCallBackQueue, block);
   }
 
@@ -1455,13 +1443,11 @@ void __61__SUCoreUpdateDownloader_actionReportUpdateDownloaded_error___block_inv
       downloadCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"delegate does not respond to selector(downloadedFailed:) so not reporting error=%@", downloadCopy];
       *buf = 138543618;
       selfCopy = self;
-      v16 = 2114;
-      v17 = downloadCopy;
+      v15 = 2114;
+      v16 = downloadCopy;
       _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", buf, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __56__SUCoreUpdateDownloader__reportUpdateFailedToDownload___block_invoke(uint64_t a1)
@@ -1487,7 +1473,7 @@ void __56__SUCoreUpdateDownloader__reportUpdateFailedToDownload___block_invoke(u
 
 - (int64_t)actionRemoveUpdate:(id)update error:(id *)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = [(SUCoreUpdateDownloader *)self downloadFSM:update];
   extendedStateQueue = [v5 extendedStateQueue];
   dispatch_assert_queue_V2(extendedStateQueue);
@@ -1498,12 +1484,12 @@ void __56__SUCoreUpdateDownloader__reportUpdateFailedToDownload___block_invoke(u
   {
     [(SUCoreUpdateDownloader *)self _trackBegin:@"removeAsset" withIdentifier:@"su"];
     maControl2 = [(SUCoreUpdateDownloader *)self maControl];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __51__SUCoreUpdateDownloader_actionRemoveUpdate_error___block_invoke;
-    v29[3] = &unk_27892D228;
-    v29[4] = self;
-    [maControl2 removeAsset:v29];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __51__SUCoreUpdateDownloader_actionRemoveUpdate_error___block_invoke;
+    v28[3] = &unk_27892D228;
+    v28[4] = self;
+    [maControl2 removeAsset:v28];
 
     v9 = 0;
   }
@@ -1530,8 +1516,8 @@ void __56__SUCoreUpdateDownloader__reportUpdateFailedToDownload___block_invoke(u
       v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"[Splombo] No need to remove Splat (no Splat)"];
       *buf = 138543618;
       selfCopy2 = self;
-      v32 = 2114;
-      v33 = v17;
+      v31 = 2114;
+      v32 = v17;
       _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", buf, 0x16u);
     }
 
@@ -1544,12 +1530,12 @@ void __56__SUCoreUpdateDownloader__reportUpdateFailedToDownload___block_invoke(u
   {
     [(SUCoreUpdateDownloader *)self _trackBegin:@"removeAsset" withIdentifier:@"splat"];
     oslog = [(SUCoreUpdateDownloader *)self maControlSplombo];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __51__SUCoreUpdateDownloader_actionRemoveUpdate_error___block_invoke_566;
-    v28[3] = &unk_27892D228;
-    v28[4] = self;
-    [oslog removeAsset:v28];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __51__SUCoreUpdateDownloader_actionRemoveUpdate_error___block_invoke_566;
+    v27[3] = &unk_27892D228;
+    v27[4] = self;
+    [oslog removeAsset:v27];
 LABEL_9:
 
     goto LABEL_10;
@@ -1557,23 +1543,23 @@ LABEL_9:
 
   mEMORY[0x277D643F8]2 = [MEMORY[0x277D643F8] sharedCore];
   v9 = 8116;
-  v24 = [mEMORY[0x277D643F8]2 buildError:8116 underlying:0 description:@"unexpected no maControlSplombo when tyring to remove Splat"];
+  v23 = [mEMORY[0x277D643F8]2 buildError:8116 underlying:0 description:@"unexpected no maControlSplombo when tyring to remove Splat"];
 
-  [(SUCoreUpdateDownloader *)self _trackAnomaly:@"[REMOVE_SPLAT]" reason:@"unexpected no maControlSplombo when tyring to remove Splat" result:8116 error:v24];
+  [(SUCoreUpdateDownloader *)self _trackAnomaly:@"[REMOVE_SPLAT]" reason:@"unexpected no maControlSplombo when tyring to remove Splat" result:8116 error:v23];
   downloadFSM2 = [(SUCoreUpdateDownloader *)self downloadFSM];
-  v26 = [[SUCoreUpdateDownloaderParam alloc] initWithError:v24];
-  [downloadFSM2 followupEvent:@"RemoveFailed" withInfo:v26];
+  v25 = [[SUCoreUpdateDownloaderParam alloc] initWithError:v23];
+  [downloadFSM2 followupEvent:@"RemoveFailed" withInfo:v25];
 
 LABEL_10:
   if ([(SUCoreUpdateDownloader *)self _isPreSUStagingEnabled])
   {
     [(SUCoreUpdateDownloader *)self _trackBegin:@"stagePurgeAll" withIdentifier:@"presustaging"];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __51__SUCoreUpdateDownloader_actionRemoveUpdate_error___block_invoke_3;
-    v27[3] = &unk_27892D228;
-    v27[4] = self;
-    [MEMORY[0x277D289E0] SUCoreBorder_stagePurgeAll:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __51__SUCoreUpdateDownloader_actionRemoveUpdate_error___block_invoke_3;
+    v26[3] = &unk_27892D228;
+    v26[4] = self;
+    [MEMORY[0x277D289E0] SUCoreBorder_stagePurgeAll:v26];
   }
 
   else
@@ -1586,13 +1572,12 @@ LABEL_10:
       v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"[PreSUStaging] No need to remove PSUS assets (disabled)"];
       *buf = 138543618;
       selfCopy2 = self;
-      v32 = 2114;
-      v33 = v20;
+      v31 = 2114;
+      v32 = v20;
       _os_log_impl(&dword_23193C000, oslog2, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", buf, 0x16u);
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -1719,7 +1704,7 @@ void __51__SUCoreUpdateDownloader_actionRemoveUpdate_error___block_invoke_4(uint
 
 - (int64_t)actionReportUpdateRemoved:(id)removed error:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = [(SUCoreUpdateDownloader *)self downloadFSM:removed];
   extendedStateQueue = [v5 extendedStateQueue];
   dispatch_assert_queue_V2(extendedStateQueue);
@@ -1749,13 +1734,12 @@ void __51__SUCoreUpdateDownloader_actionRemoveUpdate_error___block_invoke_4(uint
       v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"delegate does not respond to selector(updateRemoved) so not reporting updateRemoved"];
       *buf = 138543618;
       selfCopy = self;
-      v16 = 2114;
-      v17 = v10;
+      v15 = 2114;
+      v16 = v10;
       _os_log_impl(&dword_23193C000, delegateCallBackQueue, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", buf, 0x16u);
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1767,7 +1751,7 @@ void __58__SUCoreUpdateDownloader_actionReportUpdateRemoved_error___block_invoke
 
 - (int64_t)actionReportUpdateFailedToRemove:(id)remove error:(id *)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   removeCopy = remove;
   downloadFSM = [(SUCoreUpdateDownloader *)self downloadFSM];
   extendedStateQueue = [downloadFSM extendedStateQueue];
@@ -1785,7 +1769,7 @@ void __58__SUCoreUpdateDownloader_actionReportUpdateRemoved_error___block_invoke
     block[2] = __65__SUCoreUpdateDownloader_actionReportUpdateFailedToRemove_error___block_invoke;
     block[3] = &unk_27892D478;
     block[4] = self;
-    v18 = removeCopy;
+    v17 = removeCopy;
     dispatch_async(delegateCallBackQueue, block);
   }
 
@@ -1801,13 +1785,12 @@ void __58__SUCoreUpdateDownloader_actionReportUpdateRemoved_error___block_invoke
       v14 = [v12 stringWithFormat:@"delegate does not respond to selector(updateRemoveFailed:) so not reporting error=%@", error];
       *buf = 138543618;
       selfCopy = self;
-      v21 = 2114;
-      v22 = v14;
+      v20 = 2114;
+      v21 = v14;
       _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", buf, 0x16u);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -1844,20 +1827,19 @@ void __65__SUCoreUpdateDownloader_actionReportUpdateFailedToRemove_error___block
 
 - (int64_t)_psusStageTimeout
 {
-  v2 = *MEMORY[0x277D29468];
-  v3 = _MSUPreferencesCopyValue();
-  if (v3)
+  v2 = _MSUPreferencesCopyValue();
+  if (v2)
   {
-    v4 = v3;
-    v5 = CFGetTypeID(v3);
-    if (v5 == CFNumberGetTypeID())
+    v3 = v2;
+    v4 = CFGetTypeID(v2);
+    if (v4 == CFNumberGetTypeID())
     {
-      integerValue = [v4 integerValue];
+      integerValue = [v3 integerValue];
 
       return integerValue;
     }
 
-    CFRelease(v4);
+    CFRelease(v3);
   }
 
   return 7200;
@@ -1974,7 +1956,7 @@ void __51__SUCoreUpdateDownloader__reportPSUSFinishedEvent___block_invoke(uint64
 
 - (void)_trackBegin:(id)begin withIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   beginCopy = begin;
   identifierCopy = identifier;
   downloadFSM = [(SUCoreUpdateDownloader *)self downloadFSM];
@@ -1995,17 +1977,15 @@ void __51__SUCoreUpdateDownloader__reportPSUSFinishedEvent___block_invoke(uint64
     identifierCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"incremented the number of pending operations (%d): %@ (%@) has begun", -[SUCoreUpdateDownloader numPendingOperations](self, "numPendingOperations"), beginCopy, identifierCopy];
     *buf = 138543618;
     selfCopy = self;
-    v19 = 2114;
-    v20 = identifierCopy;
+    v18 = 2114;
+    v19 = identifierCopy;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", buf, 0x16u);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_trackEnd:(id)end withIdentifier:(id)identifier withResult:(int64_t)result withError:(id)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   endCopy = end;
   identifierCopy = identifier;
   errorCopy = error;
@@ -2037,13 +2017,11 @@ void __51__SUCoreUpdateDownloader__reportPSUSFinishedEvent___block_invoke(uint64
       identifierCopy2 = [MEMORY[0x277CCACA8] stringWithFormat:@"decremented the number of pending operations (%d): %@ (%@) has ended", -[SUCoreUpdateDownloader numPendingOperations](self, "numPendingOperations"), endCopy, identifierCopy];
       *buf = 138543618;
       selfCopy = self;
-      v26 = 2114;
-      v27 = identifierCopy2;
+      v25 = 2114;
+      v26 = identifierCopy2;
       _os_log_impl(&dword_23193C000, identifierCopy, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", buf, 0x16u);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_trackAnomaly:(id)anomaly reason:(id)reason result:(int64_t)result error:(id)error
@@ -2079,12 +2057,12 @@ void __60__SUCoreUpdateDownloader__trackAnomaly_reason_result_error___block_invo
 
 - (BOOL)_isPreSUStagingEnabled
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   updateDescriptor = [(SUCoreUpdateDownloader *)self updateDescriptor];
   policy = [(SUCoreUpdateDownloader *)self policy];
-  v13 = 0;
-  v5 = [SUCoreScan isPreSUStagingEnabledForUpdate:updateDescriptor policy:policy reason:&v13];
-  v6 = v13;
+  v12 = 0;
+  v5 = [SUCoreScan isPreSUStagingEnabledForUpdate:updateDescriptor policy:policy reason:&v12];
+  v6 = v12;
 
   mEMORY[0x277D64460] = [MEMORY[0x277D64460] sharedLogger];
   oslog = [mEMORY[0x277D64460] oslog];
@@ -2100,18 +2078,17 @@ void __60__SUCoreUpdateDownloader__trackAnomaly_reason_result_error___block_invo
     v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"[PreSUStaging] %@: %@", v9, v6];
     *buf = 138543618;
     selfCopy = self;
-    v16 = 2114;
-    v17 = v10;
+    v15 = 2114;
+    v16 = v10;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", buf, 0x16u);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BOOL)_shouldStageOptionalPSUSAssets
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   updateDescriptor = [(SUCoreUpdateDownloader *)self updateDescriptor];
   preSUStagingOptionalSize = [updateDescriptor preSUStagingOptionalSize];
 
@@ -2126,12 +2103,12 @@ void __60__SUCoreUpdateDownloader__trackAnomaly_reason_result_error___block_invo
     }
 
     v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"[PreSUStaging] no optional assets to stage"];
-    v21 = 138543618;
+    v20 = 138543618;
     selfCopy5 = self;
-    v23 = 2114;
-    v24 = v16;
+    v22 = 2114;
+    v23 = v16;
 LABEL_16:
-    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", &v21, 0x16u);
+    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", &v20, 0x16u);
 
     goto LABEL_17;
   }
@@ -2150,10 +2127,10 @@ LABEL_16:
     }
 
     v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"[PreSUStaging] staging optional assets is disabled by server (through the update)"];
-    v21 = 138543618;
+    v20 = 138543618;
     selfCopy5 = self;
-    v23 = 2114;
-    v24 = v16;
+    v22 = 2114;
+    v23 = v16;
     goto LABEL_16;
   }
 
@@ -2171,10 +2148,10 @@ LABEL_16:
     }
 
     v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"[PreSUStaging] staging optional assets is disabled by policy"];
-    v21 = 138543618;
+    v20 = 138543618;
     selfCopy5 = self;
-    v23 = 2114;
-    v24 = v16;
+    v22 = 2114;
+    v23 = v16;
     goto LABEL_16;
   }
 
@@ -2188,10 +2165,10 @@ LABEL_16:
     if (v12)
     {
       v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"[PreSUStaging] staging optional assets is disabled because no space is allowed"];
-      v21 = 138543618;
+      v20 = 138543618;
       selfCopy5 = self;
-      v23 = 2114;
-      v24 = v16;
+      v22 = 2114;
+      v23 = v16;
       goto LABEL_16;
     }
 
@@ -2203,23 +2180,22 @@ LABEL_17:
   if (v12)
   {
     v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"[PreSUStaging] should stage optional assets"];
-    v21 = 138543618;
+    v20 = 138543618;
     selfCopy5 = self;
-    v23 = 2114;
-    v24 = v13;
-    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", &v21, 0x16u);
+    v22 = 2114;
+    v23 = v13;
+    _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", &v20, 0x16u);
   }
 
   v14 = 1;
 LABEL_18:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (void)_prepareForDownloading
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   [(SUCoreUpdateDownloader *)self setShouldReportDownloadFailureIfCanceled:1];
   policy = [(SUCoreUpdateDownloader *)self policy];
   softwareUpdateDownloadPolicy = [policy softwareUpdateDownloadPolicy];
@@ -2240,8 +2216,8 @@ LABEL_18:
     v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"[PreSUStaging] using maxAllowedPreSUStagingOptionalSize = %llu", -[SUCoreUpdateDownloader maxAllowedPreSUStagingOptionalSize](self, "maxAllowedPreSUStagingOptionalSize")];
     *buf = 138543618;
     selfCopy = self;
-    v21 = 2114;
-    v22 = v11;
+    v20 = 2114;
+    v21 = v11;
     _os_log_impl(&dword_23193C000, oslog, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}@", buf, 0x16u);
   }
 
@@ -2257,8 +2233,6 @@ LABEL_18:
 
   v17 = objc_opt_new();
   [(SUCoreUpdateDownloader *)self setProgressHistory:v17];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_skipCurrentOperationFor:(id)for
@@ -2289,46 +2263,38 @@ LABEL_18:
 
 - (void)initWithDelegate:forUpdate:updateUUID:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCACA8] stringWithFormat:@"init: invalid param, update and updateUUID must be nonnull"];
-  v4 = 138543362;
-  v5 = v0;
-  OUTLINED_FUNCTION_0_4(&dword_23193C000, v1, v2, "[SUCoreUpdateDownloader] %{public}@", &v4);
-
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = v0;
+  OUTLINED_FUNCTION_0_4(&dword_23193C000, v1, v2, "[SUCoreUpdateDownloader] %{public}@", &v3);
 }
 
 - (void)initWithDelegate:(void *)a1 forUpdate:updateUUID:.cold.2(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"init: invalid udpate descriptor, descriptor type (%ld) invalid", objc_msgSend(a1, "descriptorType")];
-  v5 = 138543362;
-  v6 = v1;
-  OUTLINED_FUNCTION_0_4(&dword_23193C000, v2, v3, "[SUCoreUpdateDownloader] %{public}@", &v5);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = v1;
+  OUTLINED_FUNCTION_0_4(&dword_23193C000, v2, v3, "[SUCoreUpdateDownloader] %{public}@", &v4);
 }
 
 - (void)initWithDelegate:(void *)a1 forUpdate:updateUUID:.cold.3(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCACA8] stringWithFormat:@"init: invalid udpate descriptor, descriptor type of splat (%ld) invalid", objc_msgSend(a1, "descriptorType")];
-  v5 = 138543362;
-  v6 = v1;
-  OUTLINED_FUNCTION_0_4(&dword_23193C000, v2, v3, "[SUCoreUpdateDownloader] %{public}@", &v5);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = v1;
+  OUTLINED_FUNCTION_0_4(&dword_23193C000, v2, v3, "[SUCoreUpdateDownloader] %{public}@", &v4);
 }
 
 - (void)initWithDelegate:forUpdate:updateUUID:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCACA8] stringWithFormat:@"init: failed to create the FSM"];
-  v4 = 138543362;
-  v5 = v0;
-  OUTLINED_FUNCTION_0_4(&dword_23193C000, v1, v2, "[SUCoreUpdateDownloader] %{public}@", &v4);
-
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = v0;
+  OUTLINED_FUNCTION_0_4(&dword_23193C000, v1, v2, "[SUCoreUpdateDownloader] %{public}@", &v3);
 }
 
 @end

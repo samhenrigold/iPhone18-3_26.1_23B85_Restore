@@ -14,6 +14,7 @@
 - (id)photoSliderViewRequestsViewModels:(id)models;
 - (unint64_t)numberOfAttributionsForPhotoSliderView:(id)view;
 - (void)_addPhotoButtonTappedWithEntryPoint:(int64_t)point presentationOptions:(id)options;
+- (void)_capturePhotoGallerySwipeUserAction:(int)action atIndex:(unint64_t)index;
 - (void)_populateRevealedAnalyticsModule:(id)module;
 - (void)_routeAlbumTapWithViewModel:(id)model;
 - (void)_routeFlatListTapWithViewModel:(id)model;
@@ -27,6 +28,7 @@
 - (void)placePhotoGallery:(id)gallery willCloseAtIndex:(unint64_t)index;
 - (void)placePhotoGalleryDidCloseAtIndex:(unint64_t)index;
 - (void)setActive:(BOOL)active;
+- (void)updateWithUserSubmittedPhotos:(BOOL)photos;
 @end
 
 @implementation MUPlacePhotoSectionController
@@ -70,6 +72,25 @@
   moduleCopy = module;
   v5 = MUPhotosRevealedModuleForProvider(photoTileProvider);
   [moduleCopy setPhotos:v5];
+}
+
+- (void)_capturePhotoGallerySwipeUserAction:(int)action atIndex:(unint64_t)index
+{
+  v5 = *&action;
+  v13[1] = *MEMORY[0x1E69E9840];
+  index = [MEMORY[0x1E696AEC0] stringWithFormat:@"%lu", index];
+  [(MUPlaceSectionController *)self captureInfoCardAction:v5 target:612 eventValue:index];
+  currentPhoto = [(MUPlacePhotoGalleryViewController *)self->_photoGalleryViewController currentPhoto];
+  attribution = [currentPhoto attribution];
+
+  if ([attribution isUserSubmitted])
+  {
+    v10 = MEMORY[0x1E69A1598];
+    v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:index];
+    v13[0] = v11;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+    [v10 captureUGCUserAction:v5 target:612 value:index photoSources:v12];
+  }
 }
 
 - (BOOL)isFirstParty
@@ -409,6 +430,15 @@ LABEL_10:
   v8 = ;
 
   return v8;
+}
+
+- (void)updateWithUserSubmittedPhotos:(BOOL)photos
+{
+  [(MUPlacePhotoSliderView *)self->_photoSliderView updatePhotoSliderViews:photos];
+  delegate = [(MUPlaceSectionController *)self delegate];
+  [delegate placeSectionControllerDidUpdateContent:self];
+
+  [(MUPlacePhotoSectionController *)self _captureSliderInstrumentationWithAction:335];
 }
 
 - (BOOL)photoSliderView:(id)view shouldShowFullWidthForModel:(id)model

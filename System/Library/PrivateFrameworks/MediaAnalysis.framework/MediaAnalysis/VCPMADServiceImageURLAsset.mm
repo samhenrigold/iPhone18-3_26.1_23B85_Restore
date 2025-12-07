@@ -57,36 +57,36 @@
 
 - (int)loadPixelBuffer:(__CVBuffer *)buffer orientation:(unsigned int *)orientation
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   value = self->_pixelBuffer.value_;
   if (!value)
   {
-    v8 = VCPSignPostLog();
+    v8 = VCPSignPostLog(0);
     v9 = os_signpost_id_generate(v8);
 
-    v10 = VCPSignPostLog();
-    v11 = v10;
-    if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+    v11 = VCPSignPostLog(v10);
+    v12 = v11;
+    if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
     {
       signpostPayload = [(VCPMADServiceImageAsset *)self signpostPayload];
-      *v19 = 138412290;
-      *&v19[4] = signpostPayload;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "VCPMADServiceImageURLAsset_Decode", "%@", v19, 0xCu);
+      *v21 = 138412290;
+      *&v21[4] = signpostPayload;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "VCPMADServiceImageURLAsset_Decode", "%@", v21, 0xCu);
     }
 
-    v13 = +[VCPImageManager sharedImageManager];
-    *v19 = [v13 pixelBufferWithFormat:875704422 fromImageURL:self->_url flushCache:1 orientation:&self->_orientation];
-    CF<__CVBuffer *>::operator=(&self->_pixelBuffer.value_, v19);
-    CF<__CVBuffer *>::~CF(v19);
+    v14 = +[VCPImageManager sharedImageManager];
+    *v21 = [v14 pixelBufferWithFormat:875704422 fromImageURL:self->_url flushCache:1 orientation:&self->_orientation];
+    CF<__CVBuffer *>::operator=(&self->_pixelBuffer.value_, v21);
+    CF<__CVBuffer *>::~CF(v21);
 
-    v14 = VCPSignPostLog();
-    v15 = v14;
-    if (v9 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v14))
+    v16 = VCPSignPostLog(v15);
+    v17 = v16;
+    if (v9 - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v16))
     {
       signpostPayload2 = [(VCPMADServiceImageAsset *)self signpostPayload];
-      *v19 = 138412290;
-      *&v19[4] = signpostPayload2;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_END, v9, "VCPMADServiceImageURLAsset_Decode", "%@", v19, 0xCu);
+      *v21 = 138412290;
+      *&v21[4] = signpostPayload2;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v17, OS_SIGNPOST_INTERVAL_END, v9, "VCPMADServiceImageURLAsset_Decode", "%@", v21, 0xCu);
     }
 
     value = self->_pixelBuffer.value_;
@@ -96,9 +96,9 @@
     }
   }
 
-  v17 = CFRetain(value);
+  v19 = CFRetain(value);
   result = 0;
-  *buffer = v17;
+  *buffer = v19;
   *orientation = self->_orientation;
   return result;
 }

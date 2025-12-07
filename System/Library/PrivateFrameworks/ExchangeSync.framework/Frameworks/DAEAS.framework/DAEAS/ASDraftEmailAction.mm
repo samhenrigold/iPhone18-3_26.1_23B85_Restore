@@ -20,7 +20,7 @@
 
 - (void)appendApplicationDataForTask:(id)task toWBXMLData:(id)data
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   changedItem = [(ASDraftEmailAction *)self changedItem];
   [dataCopy switchToCodePage:2];
@@ -48,29 +48,29 @@
 
     [dataCopy appendTag:18 withIntContent:{objc_msgSend(changedItem, "importance")}];
     [dataCopy appendTag:21 withIntContent:{objc_msgSend(changedItem, "read")}];
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     replyTo = [changedItem replyTo];
-    v18 = [replyTo countByEnumeratingWithState:&v43 objects:v48 count:16];
+    v18 = [replyTo countByEnumeratingWithState:&v42 objects:v47 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v44;
+      v20 = *v43;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v44 != v20)
+          if (*v43 != v20)
           {
             objc_enumerationMutation(replyTo);
           }
 
-          [dataCopy appendTag:25 withStringContent:*(*(&v43 + 1) + 8 * i)];
+          [dataCopy appendTag:25 withStringContent:*(*(&v42 + 1) + 8 * i)];
         }
 
-        v19 = [replyTo countByEnumeratingWithState:&v43 objects:v48 count:16];
+        v19 = [replyTo countByEnumeratingWithState:&v42 objects:v47 count:16];
       }
 
       while (v19);
@@ -91,29 +91,29 @@
   {
     [dataCopy openTag:14];
     [dataCopy switchToCodePage:0];
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     attachments2 = [changedItem attachments];
-    v26 = [attachments2 countByEnumeratingWithState:&v39 objects:v47 count:16];
+    v26 = [attachments2 countByEnumeratingWithState:&v38 objects:v46 count:16];
     if (!v26)
     {
       goto LABEL_23;
     }
 
     v27 = v26;
-    v28 = *v40;
+    v28 = *v39;
     while (1)
     {
       for (j = 0; j != v27; ++j)
       {
-        if (*v40 != v28)
+        if (*v39 != v28)
         {
           objc_enumerationMutation(attachments2);
         }
 
-        v30 = *(*(&v39 + 1) + 8 * j);
+        v30 = *(*(&v38 + 1) + 8 * j);
         changeType = [v30 changeType];
         if (changeType == 2)
         {
@@ -152,7 +152,7 @@
         [dataCopy closeTag:v32];
       }
 
-      v27 = [attachments2 countByEnumeratingWithState:&v39 objects:v47 count:16];
+      v27 = [attachments2 countByEnumeratingWithState:&v38 objects:v46 count:16];
       if (!v27)
       {
 LABEL_23:
@@ -169,8 +169,6 @@ LABEL_23:
   {
     [dataCopy appendEmptyTag:23];
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -208,56 +208,52 @@ LABEL_18:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 0x10) != 0)
   {
-    totalDurationMs = self->_totalDurationMs;
     PBDataWriterWriteUint32Field();
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v8 = self->_stateHists;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v9)
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v6 = self->_stateHists;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v7)
   {
-    v10 = v9;
-    v11 = *v19;
+    v8 = v7;
+    v9 = *v13;
     do
     {
-      for (i = 0; i != v10; i = i + 1)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v11)
+        if (*v13 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v18 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v10);
+    while (v8);
   }
 
-  v14 = self->_has;
-  if ((v14 & 2) != 0)
+  v11 = self->_has;
+  if ((v11 & 2) != 0)
   {
-    numSubs = self->_numSubs;
     PBDataWriterWriteUint32Field();
-    v14 = self->_has;
-    if ((v14 & 8) == 0)
+    v11 = self->_has;
+    if ((v11 & 8) == 0)
     {
 LABEL_14:
-      if ((v14 & 4) == 0)
+      if ((v11 & 4) == 0)
       {
         goto LABEL_16;
       }
@@ -271,12 +267,10 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_15:
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
   }
 
@@ -460,7 +454,6 @@ LABEL_16:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 56);
   if (has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -493,14 +486,13 @@ LABEL_16:
     if (![(NSMutableArray *)stateHists isEqual:?])
     {
 LABEL_32:
-      v10 = 0;
+      v8 = 0;
       goto LABEL_33;
     }
 
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 56);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 56) & 2) == 0 || self->_numSubs != *(equalCopy + 4))
@@ -543,17 +535,17 @@ LABEL_32:
   plmn = self->_plmn;
   if (plmn | *(equalCopy + 3))
   {
-    v10 = [(NSData *)plmn isEqual:?];
+    v8 = [(NSData *)plmn isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_33:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

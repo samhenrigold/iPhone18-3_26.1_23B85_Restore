@@ -18,7 +18,7 @@
 
 - (NSNumber)isSupportedLocale
 {
-  v2 = sub_232BAE340();
+  v2 = sub_232BAE340(self);
 
   return v2;
 }
@@ -27,12 +27,12 @@
 {
   localeCopy = locale;
   selfCopy = self;
-  sub_232BAE3D8();
+  sub_232BAE3D8(locale);
 }
 
 - (NSNumber)containsDataDetectors
 {
-  v2 = sub_232BAE4C8();
+  v2 = sub_232BAE4C8(self);
 
   return v2;
 }
@@ -41,12 +41,12 @@
 {
   detectorsCopy = detectors;
   selfCopy = self;
-  sub_232BAE560();
+  sub_232BAE560(detectors);
 }
 
 - (NSNumber)isClassifiedAsEvent
 {
-  v2 = sub_232BAE650();
+  v2 = sub_232BAE650(self);
 
   return v2;
 }
@@ -55,12 +55,12 @@
 {
   eventCopy = event;
   selfCopy = self;
-  sub_232BAE6E8();
+  sub_232BAE6E8(event);
 }
 
 - (NSNumber)textLengthPass
 {
-  v2 = sub_232BAE7D8();
+  v2 = sub_232BAE7D8(self);
 
   return v2;
 }
@@ -69,12 +69,12 @@
 {
   passCopy = pass;
   selfCopy = self;
-  sub_232BAE870();
+  sub_232BAE870(pass);
 }
 
 - (NSNumber)isEventCandidate
 {
-  v2 = sub_232BAE960();
+  v2 = sub_232BAE960(self);
 
   return v2;
 }
@@ -83,7 +83,7 @@
 {
   candidateCopy = candidate;
   selfCopy = self;
-  sub_232BAE9F8();
+  sub_232BAE9F8(candidate);
 }
 
 - (id)copyWithZone:(void *)zone

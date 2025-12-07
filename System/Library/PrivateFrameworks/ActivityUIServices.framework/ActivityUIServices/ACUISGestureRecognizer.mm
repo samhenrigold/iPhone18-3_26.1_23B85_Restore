@@ -87,55 +87,53 @@
 
 - (BOOL)_shouldRecognizeTouches:(id)touches
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
+  v21 = 0u;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
   touchesCopy = touches;
-  v5 = [touchesCopy countByEnumeratingWithState:&v23 objects:v28 count:16];
+  v5 = [touchesCopy countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v24;
+    v7 = *v22;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v24 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(touchesCopy);
         }
 
-        view = [*(*(&v23 + 1) + 8 * i) view];
+        view = [*(*(&v21 + 1) + 8 * i) view];
         if ([(ACUISGestureRecognizer *)self _shouldRecognizeTouchForView:view])
         {
 LABEL_19:
 
-          v16 = 1;
+          v15 = 1;
           goto LABEL_21;
         }
 
-        v21 = 0u;
-        v22 = 0u;
         v19 = 0u;
         v20 = 0u;
-        observedControlClasses = [(ACUISGestureRecognizer *)self observedControlClasses];
-        v11 = [observedControlClasses countByEnumeratingWithState:&v19 objects:v27 count:16];
+        v18 = 0u;
+        v10 = [(ACUISGestureRecognizer *)self observedControlClasses:0];
+        v11 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v20;
+          v13 = *v18;
           while (2)
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v20 != v13)
+              if (*v18 != v13)
               {
-                objc_enumerationMutation(observedControlClasses);
+                objc_enumerationMutation(v10);
               }
 
-              v15 = *(*(&v19 + 1) + 8 * j);
               if (objc_opt_isKindOfClass())
               {
 
@@ -143,7 +141,7 @@ LABEL_19:
               }
             }
 
-            v12 = [observedControlClasses countByEnumeratingWithState:&v19 objects:v27 count:16];
+            v12 = [v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
             if (v12)
             {
               continue;
@@ -154,8 +152,8 @@ LABEL_19:
         }
       }
 
-      v6 = [touchesCopy countByEnumeratingWithState:&v23 objects:v28 count:16];
-      v16 = 0;
+      v6 = [touchesCopy countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v15 = 0;
       if (v6)
       {
         continue;
@@ -167,18 +165,17 @@ LABEL_19:
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
 LABEL_21:
 
-  v17 = *MEMORY[0x1E69E9840];
-  return v16;
+  return v15;
 }
 
 - (BOOL)_shouldRecognizeTouchForView:(id)view
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   viewCopy = view;
   v5 = viewCopy;
   if (viewCopy)
@@ -186,38 +183,36 @@ LABEL_21:
     v6 = viewCopy;
     while ((objc_opt_respondsToSelector() & 1) == 0)
     {
-      v21 = 0u;
-      v22 = 0u;
       v19 = 0u;
       v20 = 0u;
-      observedControlClasses = [(ACUISGestureRecognizer *)self observedControlClasses];
-      v8 = [observedControlClasses countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v18 = 0u;
+      v7 = [(ACUISGestureRecognizer *)self observedControlClasses:0];
+      v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v20;
+        v10 = *v18;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v20 != v10)
+            if (*v18 != v10)
             {
-              objc_enumerationMutation(observedControlClasses);
+              objc_enumerationMutation(v7);
             }
 
-            v12 = *(*(&v19 + 1) + 8 * i);
             isKindOfClass = objc_opt_isKindOfClass();
           }
 
-          v14 = isKindOfClass;
-          v9 = [observedControlClasses countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v13 = isKindOfClass;
+          v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
         }
 
         while (v9);
 
-        if (v14)
+        if (v13)
         {
-          v16 = 1;
+          v15 = 1;
           goto LABEL_18;
         }
       }
@@ -231,22 +226,21 @@ LABEL_21:
       v6 = superview;
       if (!superview)
       {
-        v16 = 0;
+        v15 = 0;
         goto LABEL_18;
       }
     }
 
-    v16 = [v6 acuis_wantsPriorityOverTargetOfGestureRecognizer:self];
+    v15 = [v6 acuis_wantsPriorityOverTargetOfGestureRecognizer:self];
 LABEL_18:
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-  return v16;
+  return v15;
 }
 
 @end

@@ -96,9 +96,9 @@
         goto LABEL_23;
       }
 
-      v25 = [(__CFString *)partition isEqualToString:@"identity"];
+      isEqualToString = objc_msgSend_isEqualToString_(partition);
 
-      if (!v25)
+      if (!isEqualToString)
       {
 LABEL_23:
         docType = [propertiesCopy docType];
@@ -129,7 +129,7 @@ LABEL_51:
                 goto LABEL_52;
               }
 
-              v37 = [(__CFString *)v36 isEqualToString:@"aliro-r"];
+              v37 = objc_msgSend_isEqualToString_(v36);
 
               if (!v37)
               {
@@ -141,7 +141,7 @@ LABEL_51:
             goto LABEL_52;
           }
 
-          v31 = [(__CFString *)docType isEqualToString:@"aliro-a"];
+          v31 = objc_msgSend_isEqualToString_(docType);
 
           if ((v31 & 1) == 0)
           {
@@ -171,7 +171,7 @@ LABEL_33:
         goto LABEL_34;
       }
 
-      v28 = [(__CFString *)docType2 isEqualToString:@"org.iso.23220.1.jp.mnc"];
+      v28 = objc_msgSend_isEqualToString_(docType2);
 
       if (!v28)
       {
@@ -195,7 +195,7 @@ LABEL_34:
         goto LABEL_52;
       }
 
-      v35 = [(__CFString *)v34 isEqualToString:@"org.iso.23220.photoid.1"];
+      v35 = objc_msgSend_isEqualToString_(v34);
 
       if (!v35)
       {

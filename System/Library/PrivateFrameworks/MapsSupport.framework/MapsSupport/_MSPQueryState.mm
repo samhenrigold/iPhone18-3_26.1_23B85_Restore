@@ -11,11 +11,11 @@
 
 - (_MSPQueryState)initWithContainerContents:(id)contents
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   contentsCopy = contents;
-  v20.receiver = self;
-  v20.super_class = _MSPQueryState;
-  v5 = [(_MSPQueryState *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = _MSPQueryState;
+  v5 = [(_MSPQueryState *)&v19 init];
   if (v5)
   {
     v6 = [contentsCopy copy];
@@ -24,27 +24,27 @@
 
     v8 = contentsCopy;
     v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v10 = v8;
-    v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v22;
+      v13 = *v21;
       do
       {
         v14 = 0;
         do
         {
-          if (*v22 != v13)
+          if (*v21 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          storageIdentifier = [*(*(&v21 + 1) + 8 * v14) storageIdentifier];
+          storageIdentifier = [*(*(&v20 + 1) + 8 * v14) storageIdentifier];
           if (storageIdentifier)
           {
             [v9 addObject:storageIdentifier];
@@ -54,7 +54,7 @@
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v12);
@@ -65,7 +65,6 @@
     v5->_identifiers = v16;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -92,64 +91,63 @@
 
 - (id)stateByInvokingPreprocessingBlock:(id)block mappingBlock:(id)mappingBlock
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   mappingBlockCopy = mappingBlock;
   if (blockCopy)
   {
     contents = [(_MSPQueryState *)self contents];
-    v24 = blockCopy[2](blockCopy, contents);
+    v23 = blockCopy[2](blockCopy, contents);
   }
 
   else
   {
-    v24 = 0;
+    v23 = 0;
   }
 
-  v20 = blockCopy;
-  v23 = objc_opt_new();
+  v19 = blockCopy;
   v22 = objc_opt_new();
+  v21 = objc_opt_new();
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = [(_MSPQueryState *)self contents];
-  v9 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v26;
+    v12 = *v25;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v26 != v12)
+        if (*v25 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = mappingBlockCopy[2](mappingBlockCopy, *(*(&v25 + 1) + 8 * i), v24);
+        v14 = mappingBlockCopy[2](mappingBlockCopy, *(*(&v24 + 1) + 8 * i), v23);
         if (v14)
         {
           identifiers = [(_MSPQueryState *)self identifiers];
           v16 = [identifiers objectAtIndexedSubscript:v11];
 
-          [v23 addObject:v14];
-          [v22 addObject:v16];
+          [v22 addObject:v14];
+          [v21 addObject:v16];
         }
 
         ++v11;
       }
 
-      v10 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v10 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v10);
   }
 
-  v17 = [objc_alloc(objc_opt_class()) initWithContents:v23 identifiers:v22];
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = [objc_alloc(objc_opt_class()) initWithContents:v22 identifiers:v21];
 
   return v17;
 }

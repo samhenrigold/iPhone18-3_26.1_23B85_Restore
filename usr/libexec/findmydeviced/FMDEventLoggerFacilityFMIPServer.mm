@@ -41,38 +41,37 @@
   v17 = [(FMDEventLoggerFacilityFMIPServer *)self splunkifyObject:userInfo eventName:eventName2];
   [(__CFString *)v6 fm_safelyMapKey:@"info" toObject:v17];
 
-  v18 = sub_100002880();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v19 = sub_100002880(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v27 = v6;
-    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Logging event %@", buf, 0xCu);
+    v28 = v6;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Logging event %@", buf, 0xCu);
   }
 
   if ([(FMDEventLoggerFacilityFMIPServer *)self shouldLog])
   {
-    v25 = 0;
-    v19 = [NSJSONSerialization dataWithJSONObject:v6 options:0 error:&v25];
-    if (!v25)
+    v26 = 0;
+    v20 = [NSJSONSerialization dataWithJSONObject:v6 options:0 error:&v26];
+    if (!v26)
     {
-      v20 = [NSURL URLWithString:@"https://fmip.icloud.com/fmipservice/stats/infoRequest"];
-      v21 = [NSMutableURLRequest requestWithURL:v20];
+      v21 = [NSURL URLWithString:@"https://fmip.icloud.com/fmipservice/stats/infoRequest"];
+      v22 = [NSMutableURLRequest requestWithURL:v21];
 
-      [v21 setHTTPBody:v19];
-      v22 = sub_100002880();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v23 = sub_100002880([v22 setHTTPBody:v20]);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v27 = @"https://fmip.icloud.com/fmipservice/stats/infoRequest";
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Sending logs %@", buf, 0xCu);
+        v28 = @"https://fmip.icloud.com/fmipservice/stats/infoRequest";
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Sending logs %@", buf, 0xCu);
       }
 
-      [v21 setAllHTTPHeaderFields:&off_1002E8E08];
-      [v21 setHTTPMethod:@"POST"];
+      [v22 setAllHTTPHeaderFields:&off_1002E8E08];
+      [v22 setHTTPMethod:@"POST"];
       defaultSession = [(FMDEventLoggerFacilityFMIPServer *)self defaultSession];
-      v24 = [defaultSession dataTaskWithRequest:v21];
+      v25 = [defaultSession dataTaskWithRequest:v22];
 
-      [v24 resume];
+      [v25 resume];
     }
   }
 }
@@ -99,7 +98,7 @@
 - (void)URLSession:(id)session didBecomeInvalidWithError:(id)error
 {
   errorCopy = error;
-  v6 = sub_100002880();
+  v6 = sub_100002880(errorCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     sub_10022EA5C(errorCopy, v6);

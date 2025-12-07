@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)enforcedPolicyAsString:(int)string;
 - (int)enforcedPolicy;
 - (unint64_t)hash;
 - (void)copyTo:(id)to;
@@ -25,6 +26,21 @@
   {
     return 0;
   }
+}
+
+- (id)enforcedPolicyAsString:(int)string
+{
+  if (string)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = @"China";
+  }
+
+  return v4;
 }
 
 - (void)setHasApplyRestrictions:(BOOL)restrictions
@@ -111,12 +127,11 @@
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    enforcedPolicy = self->_enforcedPolicy;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -135,15 +150,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  applyRestrictions = self->_applyRestrictions;
   PBDataWriterWriteBOOLField();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    applyBackgroundEnforcementIfNecessary = self->_applyBackgroundEnforcementIfNecessary;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
@@ -254,7 +267,6 @@ LABEL_4:
       goto LABEL_15;
     }
 
-    v7 = *(equalCopy + 13);
     if (self->_applyRestrictions)
     {
       if ((*(equalCopy + 13) & 1) == 0)

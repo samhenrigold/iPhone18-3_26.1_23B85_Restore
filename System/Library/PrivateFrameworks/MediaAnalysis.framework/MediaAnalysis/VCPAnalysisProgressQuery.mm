@@ -623,7 +623,7 @@ LABEL_19:
 
 + (int)_scanPhotoLibrary:(id)library taskID:(unint64_t)d statistics:(id *)statistics cancelOrExtendTimeoutBlock:(id)block
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v81 = *MEMORY[0x1E69E9840];
   libraryCopy = library;
   blockCopy = block;
   if (!statistics)
@@ -644,14 +644,14 @@ LABEL_19:
     v10 = VCPTaskIDDescription(d);
     *buf = 134218242;
     *&buf[4] = d;
-    v77 = 2112;
-    v78 = v10;
+    v79 = 2112;
+    v80 = v10;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "Query progress: scan library for %lu - %@", buf, 0x16u);
 
     statistics = statisticsCopy;
   }
 
-  v63 = [VCPDatabaseReader databaseForPhotoLibrary:libraryCopy];
+  v65 = [VCPDatabaseReader databaseForPhotoLibrary:libraryCopy];
   if (+[MADManagedProcessingStatus isMACDReadEnabled])
   {
     mad_fetchRequest = [libraryCopy mad_fetchRequest];
@@ -663,46 +663,46 @@ LABEL_19:
   }
 
   array = [MEMORY[0x1E695DF70] array];
-  v58 = [MEMORY[0x1E6978628] vcp_fetchOptionsForLibrary:libraryCopy forTaskID:d];
+  v60 = [MEMORY[0x1E6978628] vcp_fetchOptionsForLibrary:libraryCopy forTaskID:d];
   v13 = mach_absolute_time();
   statisticsCopy2 = statistics;
-  v14 = VCPSignPostLog();
+  v14 = VCPSignPostLog(v13);
   v15 = os_signpost_id_generate(v14);
 
-  v16 = VCPSignPostLog();
-  v17 = v16;
-  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  v17 = VCPSignPostLog(v16);
+  v18 = v17;
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v15, "VCPAnalysisProgressQueryScanPhotoLibraryFetch", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v15, "VCPAnalysisProgressQueryScanPhotoLibraryFetch", "", buf, 2u);
   }
 
-  v18 = [MEMORY[0x1E6978628] fetchAssetsWithOptions:v58];
-  v19 = VCPSignPostLog();
-  v20 = v19;
-  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
+  v19 = [MEMORY[0x1E6978628] fetchAssetsWithOptions:v60];
+  v20 = VCPSignPostLog(v19);
+  v21 = v20;
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v20, OS_SIGNPOST_INTERVAL_END, v15, "VCPAnalysisProgressQueryScanPhotoLibraryFetch", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v21, OS_SIGNPOST_INTERVAL_END, v15, "VCPAnalysisProgressQueryScanPhotoLibraryFetch", "", buf, 2u);
   }
 
   if (v13)
   {
-    mach_absolute_time();
-    VCPPerformance_LogMeasurement();
+    v22 = mach_absolute_time();
+    VCPPerformance_LogMeasurement("VCPAnalysisProgressQueryScanPhotoLibraryFetch", v22 - v13);
   }
 
-  v61 = 0;
-  v62 = 0;
-  v21 = 0;
+  v63 = 0;
   v64 = 0;
-  v65 = 0;
-  v22 = 0;
-  while (v21 < [v18 count])
+  v23 = 0;
+  v66 = 0;
+  v67 = 0;
+  v24 = 0;
+  while (v23 < [v19 count])
   {
-    v23 = objc_autoreleasePoolPush();
-    v24 = [v18 objectAtIndexedSubscript:v21];
-    [array addObject:v24];
+    v25 = objc_autoreleasePoolPush();
+    v26 = [v19 objectAtIndexedSubscript:v23];
+    [array addObject:v26];
 
     if ([array count] >= 0x3E8)
     {
@@ -710,57 +710,57 @@ LABEL_19:
       {
         if (MediaAnalysisLogLevel() >= 5)
         {
-          v25 = MEMORY[0x1E69E9C10];
+          v27 = MEMORY[0x1E69E9C10];
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_1C9B70000, v25, OS_LOG_TYPE_DEFAULT, "Cancelled during _scanPhotoLibrary", buf, 2u);
+            _os_log_impl(&dword_1C9B70000, v27, OS_LOG_TYPE_DEFAULT, "Cancelled during _scanPhotoLibrary", buf, 2u);
           }
         }
 
-        v26 = 0;
+        v28 = 0;
         goto LABEL_37;
       }
 
-      v27 = [array count];
+      v29 = [array count];
       if (+[MADManagedProcessingStatus isMACDReadEnabled])
       {
-        v28 = [self _countFailuresWithAssetBatch:array fetchRequest:mad_fetchRequest taskID:d];
+        v30 = [self _countFailuresWithAssetBatch:array fetchRequest:mad_fetchRequest taskID:d];
       }
 
       else
       {
-        v28 = [self _countFailuresWithAssetBatch:array database:v63 taskID:d];
+        v30 = [self _countFailuresWithAssetBatch:array database:v65 taskID:d];
       }
 
-      v29 = v28;
+      v31 = v30;
       if (d == 1)
       {
         *buf = 0;
-        v68 = 0;
-        v69 = 0;
-        [self _countMediaAnalysisWithAssetBatch:array database:v63 analyzedCount:buf completeAnalyzedCount:&v69 partialAnalyzedCount:&v68];
-        v30 = *buf;
-        v61 += v69;
-        v62 += v68;
+        v70 = 0;
+        v71 = 0;
+        [self _countMediaAnalysisWithAssetBatch:array database:v65 analyzedCount:buf completeAnalyzedCount:&v71 partialAnalyzedCount:&v70];
+        v32 = *buf;
+        v63 += v71;
+        v64 += v70;
       }
 
       else
       {
-        v30 = [self _countAnalysisWithAssetBatch:array taskID:d];
+        v32 = [self _countAnalysisWithAssetBatch:array taskID:d];
       }
 
       [array removeAllObjects];
-      v65 += v27;
-      v22 += v29;
-      v64 += v30;
+      v67 += v29;
+      v24 += v31;
+      v66 += v32;
     }
 
-    v26 = 1;
+    v28 = 1;
 LABEL_37:
-    objc_autoreleasePoolPop(v23);
-    ++v21;
-    if ((v26 & 1) == 0)
+    objc_autoreleasePoolPop(v25);
+    ++v23;
+    if ((v28 & 1) == 0)
     {
       goto LABEL_38;
     }
@@ -781,100 +781,100 @@ LABEL_38:
       goto LABEL_57;
     }
 
-    v31 = [array count];
+    v33 = [array count];
     if (mad_fetchRequest)
     {
-      v32 = [self _countFailuresWithAssetBatch:array fetchRequest:mad_fetchRequest taskID:d];
+      v34 = [self _countFailuresWithAssetBatch:array fetchRequest:mad_fetchRequest taskID:d];
     }
 
     else
     {
-      v32 = [self _countFailuresWithAssetBatch:array database:v63 taskID:d];
+      v34 = [self _countFailuresWithAssetBatch:array database:v65 taskID:d];
     }
 
-    v65 += v31;
-    v22 += v32;
+    v67 += v33;
+    v24 += v34;
     if (d == 1)
     {
       *buf = 0;
-      v68 = 0;
-      v69 = 0;
-      [self _countMediaAnalysisWithAssetBatch:array database:v63 analyzedCount:buf completeAnalyzedCount:&v69 partialAnalyzedCount:&v68];
-      v64 += *buf;
-      v61 += v69;
-      v62 += v68;
+      v70 = 0;
+      v71 = 0;
+      [self _countMediaAnalysisWithAssetBatch:array database:v65 analyzedCount:buf completeAnalyzedCount:&v71 partialAnalyzedCount:&v70];
+      v66 += *buf;
+      v63 += v71;
+      v64 += v70;
     }
 
     else
     {
-      v64 += [self _countAnalysisWithAssetBatch:array taskID:d];
+      v66 += [self _countAnalysisWithAssetBatch:array taskID:d];
     }
   }
 
-  v33 = MEMORY[0x1E695DF90];
-  v74[0] = @"failed";
-  v34 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v22];
-  v75[0] = v34;
-  v74[1] = @"processed";
-  v35 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v64];
-  v75[1] = v35;
-  v74[2] = @"total-allowed";
-  v36 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v65];
-  v75[2] = v36;
-  v37 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v75 forKeys:v74 count:3];
-  type = [v33 dictionaryWithDictionary:v37];
+  v35 = MEMORY[0x1E695DF90];
+  v76[0] = @"failed";
+  v36 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v24];
+  v77[0] = v36;
+  v76[1] = @"processed";
+  v37 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v66];
+  v77[1] = v37;
+  v76[2] = @"total-allowed";
+  v38 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v67];
+  v77[2] = v38;
+  v39 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v77 forKeys:v76 count:3];
+  type = [v35 dictionaryWithDictionary:v39];
 
   if (d == 1)
   {
-    v41 = [libraryCopy countOfAllAssetsForMediaProcessingTaskID:PHMediaProcessingTaskIDForVCPTaskID(1) priority:2 sceneConfidenceThreshold:0 error:0.0];
-    v42 = PHMediaProcessingTaskIDForVCPTaskID(1);
-    v43 = [MEMORY[0x1E69788E8] mad_sharedVersionProviderWithPhotoLibrary:libraryCopy];
-    v44 = [libraryCopy countOfProcessedAssetsForMediaProcessingTaskID:v42 priority:2 algorithmVersion:v43 sceneConfidenceThreshold:0 error:0.0];
+    v43 = [libraryCopy countOfAllAssetsForMediaProcessingTaskID:PHMediaProcessingTaskIDForVCPTaskID(1) priority:2 sceneConfidenceThreshold:0 error:0.0];
+    v44 = PHMediaProcessingTaskIDForVCPTaskID(1);
+    v45 = [MEMORY[0x1E69788E8] mad_sharedVersionProviderWithPhotoLibrary:libraryCopy];
+    v46 = [libraryCopy countOfProcessedAssetsForMediaProcessingTaskID:v44 priority:2 algorithmVersion:v45 sceneConfidenceThreshold:0 error:0.0];
 
-    v45 = [libraryCopy countOfAllAssetsForMediaProcessingTaskID:PHMediaProcessingTaskIDForVCPTaskID(1) priority:4 sceneConfidenceThreshold:0 error:0.0];
-    v46 = PHMediaProcessingTaskIDForVCPTaskID(1);
-    v47 = [MEMORY[0x1E69788E8] mad_sharedVersionProviderWithPhotoLibrary:libraryCopy];
-    v48 = [libraryCopy countOfProcessedAssetsForMediaProcessingTaskID:v46 priority:4 algorithmVersion:v47 sceneConfidenceThreshold:0 error:0.0];
+    v47 = [libraryCopy countOfAllAssetsForMediaProcessingTaskID:PHMediaProcessingTaskIDForVCPTaskID(1) priority:4 sceneConfidenceThreshold:0 error:0.0];
+    v48 = PHMediaProcessingTaskIDForVCPTaskID(1);
+    v49 = [MEMORY[0x1E69788E8] mad_sharedVersionProviderWithPhotoLibrary:libraryCopy];
+    v50 = [libraryCopy countOfProcessedAssetsForMediaProcessingTaskID:v48 priority:4 algorithmVersion:v49 sceneConfidenceThreshold:0 error:0.0];
 
-    v70[0] = @"FullAnalysisCompleteProcessed";
-    v38 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v61];
-    v71[0] = v38;
-    v70[1] = @"FullAnalysisPartialProcessed";
-    v39 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v62];
-    v71[1] = v39;
-    v70[2] = @"FullAnalysisStillImageProcessed";
-    v40 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v64 - (v44 + v48)];
-    v71[2] = v40;
-    v70[3] = @"FullAnalysisStillImageCount";
-    v49 = v41;
-    v50 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v65 - (v41 + v45)];
-    v71[3] = v50;
-    v70[4] = @"FullAnalysisLivePhotoProcessed";
-    v51 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v44];
-    v71[4] = v51;
-    v70[5] = @"FullAnalysisLivePhotoCount";
-    v52 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v49];
-    v71[5] = v52;
-    v53 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v71 forKeys:v70 count:6];
-    [type addEntriesFromDictionary:v53];
+    v72[0] = @"FullAnalysisCompleteProcessed";
+    v40 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v63];
+    v73[0] = v40;
+    v72[1] = @"FullAnalysisPartialProcessed";
+    v41 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v64];
+    v73[1] = v41;
+    v72[2] = @"FullAnalysisStillImageProcessed";
+    v42 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v66 - (v46 + v50)];
+    v73[2] = v42;
+    v72[3] = @"FullAnalysisStillImageCount";
+    v51 = v43;
+    v52 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v67 - (v43 + v47)];
+    v73[3] = v52;
+    v72[4] = @"FullAnalysisLivePhotoProcessed";
+    v53 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v46];
+    v73[4] = v53;
+    v72[5] = @"FullAnalysisLivePhotoCount";
+    v54 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v51];
+    v73[5] = v54;
+    v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v73 forKeys:v72 count:6];
+    [type addEntriesFromDictionary:v55];
 
 LABEL_55:
   }
 
   else if (d == 3)
   {
-    v72[0] = @"pet-vip-status";
-    v38 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(self, "_vipStatusForPhotoLibrary:type:", libraryCopy, 1)}];
-    v73[0] = v38;
-    v72[1] = @"person-vip-status";
-    v39 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(self, "_vipStatusForPhotoLibrary:type:", libraryCopy, 0)}];
-    v73[1] = v39;
-    v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v73 forKeys:v72 count:2];
-    [type addEntriesFromDictionary:v40];
+    v74[0] = @"pet-vip-status";
+    v40 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(self, "_vipStatusForPhotoLibrary:type:", libraryCopy, 1)}];
+    v75[0] = v40;
+    v74[1] = @"person-vip-status";
+    v41 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(self, "_vipStatusForPhotoLibrary:type:", libraryCopy, 0)}];
+    v75[1] = v41;
+    v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v75 forKeys:v74 count:2];
+    [type addEntriesFromDictionary:v42];
     goto LABEL_55;
   }
 
-  v54 = type;
+  v56 = type;
   *statisticsCopy2 = type;
 
   v11 = 0;
@@ -891,7 +891,7 @@ LABEL_58:
     if (d == 12)
     {
       v4 = MEMORY[0x1E696AE18];
-      v10 = VCPPhotosVisualSearchAlgorithmVersion();
+      v10 = VCPPhotosVisualSearchAlgorithmVersion(self, a2);
       v11 = 1;
       v6 = @"mediaAnalysisAttributes.visualSearchAttributes.algorithmVersion >= %d && mediaAnalysisAttributes.visualSearchAttributes.stickerConfidenceAlgorithmVersion >= %d";
 LABEL_13:
@@ -949,7 +949,7 @@ LABEL_14:
 
 + (int)_queryProgressDetailExpress:(id *)express photoLibrary:(id)library taskID:(unint64_t)d cancelOrExtendTimeoutBlock:(id)block
 {
-  v104[6] = *MEMORY[0x1E69E9840];
+  v110[6] = *MEMORY[0x1E69E9840];
   libraryCopy = library;
   blockCopy = block;
   if (d <= 0x10)
@@ -961,8 +961,8 @@ LABEL_14:
 
     if (d == 1)
     {
-      v84 = 0;
-      v85 = 0;
+      v90 = 0;
+      v91 = 0;
       goto LABEL_21;
     }
   }
@@ -971,61 +971,61 @@ LABEL_14:
   {
 LABEL_3:
     v8 = mach_absolute_time();
-    v9 = VCPSignPostLog();
+    v9 = VCPSignPostLog(v8);
     v10 = os_signpost_id_generate(v9);
 
-    v11 = VCPSignPostLog();
-    v12 = v11;
-    if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+    v12 = VCPSignPostLog(v11);
+    v13 = v12;
+    if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v10, "VCPAnalysisProgressQueryExpressPathFetchTotalCount", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v10, "VCPAnalysisProgressQueryExpressPathFetchTotalCount", "", buf, 2u);
     }
 
-    v85 = [libraryCopy vcp_assetCountForTaskID:d];
-    v13 = VCPSignPostLog();
-    v14 = v13;
-    if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+    v91 = [libraryCopy vcp_assetCountForTaskID:d];
+    v14 = VCPSignPostLog(v91);
+    v15 = v14;
+    if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_END, v10, "VCPAnalysisProgressQueryExpressPathFetchTotalCount", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_END, v10, "VCPAnalysisProgressQueryExpressPathFetchTotalCount", "", buf, 2u);
     }
 
     if (v8)
     {
-      mach_absolute_time();
-      VCPPerformance_LogMeasurement();
+      v16 = mach_absolute_time();
+      VCPPerformance_LogMeasurement("VCPAnalysisProgressQueryExpressPathFetchTotalCount", v16 - v8);
     }
 
-    v15 = mach_absolute_time();
-    v16 = VCPSignPostLog();
-    v17 = os_signpost_id_generate(v16);
+    v17 = mach_absolute_time();
+    v18 = VCPSignPostLog(v17);
+    v19 = os_signpost_id_generate(v18);
 
-    v18 = VCPSignPostLog();
-    v19 = v18;
-    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+    v21 = VCPSignPostLog(v20);
+    v22 = v21;
+    if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v17, "VCPAnalysisProgressQueryExpressPathFetchProcessedCount", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v19, "VCPAnalysisProgressQueryExpressPathFetchProcessedCount", "", buf, 2u);
     }
 
-    v84 = [libraryCopy vcp_processedAssetCountForTaskID:d];
-    v20 = VCPSignPostLog();
-    v21 = v20;
-    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+    v90 = [libraryCopy vcp_processedAssetCountForTaskID:d];
+    v23 = VCPSignPostLog(v90);
+    v24 = v23;
+    if (v19 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v21, OS_SIGNPOST_INTERVAL_END, v17, "VCPAnalysisProgressQueryExpressPathFetchProcessedCount", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_END, v19, "VCPAnalysisProgressQueryExpressPathFetchProcessedCount", "", buf, 2u);
     }
 
-    if (v15)
+    if (v17)
     {
-      mach_absolute_time();
-      VCPPerformance_LogMeasurement();
+      v25 = mach_absolute_time();
+      VCPPerformance_LogMeasurement("VCPAnalysisProgressQueryExpressPathFetchProcessedCount", v25 - v17);
     }
 
 LABEL_21:
-    v88 = [VCPDatabaseReader databaseForPhotoLibrary:libraryCopy];
+    v94 = [VCPDatabaseReader databaseForPhotoLibrary:libraryCopy];
     if (+[MADManagedProcessingStatus isMACDReadEnabled](MADManagedProcessingStatus, "isMACDReadEnabled") || +[MADManagedKeyValueStore isMACDReadEnabled])
     {
       mad_fetchRequest = [libraryCopy mad_fetchRequest];
@@ -1039,91 +1039,92 @@ LABEL_21:
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     if (d == 1)
     {
-      LOWORD(v77) = 0;
-      v82 = [objc_alloc(MEMORY[0x1E69788E8]) initWithSceneAnalysisVersion:0 faceAnalysisVersion:0 characterRecognitionAlgorithmVersion:0 visualSearchAlgorithmVersion:0 stickerConfidenceAlgorithmVersion:0 vaAnalysisVersion:0 vaLocationAnalysisVersion:v77 mediaAnalysisVersion:0 mediaAnalysisImageVersion:0 captionGenerationVersion:? imageEmbeddingVersion:? videoEmbeddingVersion:?];
-      v92 = 0;
-      v24 = [libraryCopy countOfAssetsByMediaTypeForMediaProcessingTaskID:PHMediaProcessingTaskIDForVCPTaskID(1) processed:1 algorithmVersion:v82 exactVersionMatch:0 error:&v92];
-      v80 = v92;
-      if (v24)
+      LOWORD(v83) = 0;
+      v88 = [objc_alloc(MEMORY[0x1E69788E8]) initWithSceneAnalysisVersion:0 faceAnalysisVersion:0 characterRecognitionAlgorithmVersion:0 visualSearchAlgorithmVersion:0 stickerConfidenceAlgorithmVersion:0 vaAnalysisVersion:0 vaLocationAnalysisVersion:v83 mediaAnalysisVersion:0 mediaAnalysisImageVersion:0 captionGenerationVersion:? imageEmbeddingVersion:? videoEmbeddingVersion:?];
+      v98 = 0;
+      v28 = [libraryCopy countOfAssetsByMediaTypeForMediaProcessingTaskID:PHMediaProcessingTaskIDForVCPTaskID(1) processed:1 algorithmVersion:v88 exactVersionMatch:0 error:&v98];
+      v86 = v98;
+      if (v28)
       {
-        v25 = [v24 objectForKeyedSubscript:*MEMORY[0x1E6978EC8]];
-        unsignedLongLongValue = [v25 unsignedLongLongValue];
+        v29 = [v28 objectForKeyedSubscript:*MEMORY[0x1E6978EC8]];
+        unsignedLongLongValue = [v29 unsignedLongLongValue];
 
-        v27 = [v24 objectForKeyedSubscript:*MEMORY[0x1E6978EC0]];
-        unsignedLongLongValue2 = [v27 unsignedLongLongValue];
+        v31 = [v28 objectForKeyedSubscript:*MEMORY[0x1E6978EC0]];
+        unsignedLongLongValue2 = [v31 unsignedLongLongValue];
 
-        v29 = [v24 objectForKeyedSubscript:*MEMORY[0x1E6978ED0]];
-        unsignedLongLongValue3 = [v29 unsignedLongLongValue];
+        v33 = [v28 objectForKeyedSubscript:*MEMORY[0x1E6978ED0]];
+        unsignedLongLongValue3 = [v33 unsignedLongLongValue];
 
-        v101[0] = @"FullAnalysisStillImageCount";
-        v31 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:unsignedLongLongValue];
-        v102[0] = v31;
-        v101[1] = @"FullAnalysisLivePhotoCount";
-        v32 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:unsignedLongLongValue2];
-        v102[1] = v32;
-        v101[2] = @"FullAnalysisVideoCount";
-        v33 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:unsignedLongLongValue3];
-        v102[2] = v33;
-        v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v102 forKeys:v101 count:3];
-        [dictionary addEntriesFromDictionary:v34];
+        v107[0] = @"FullAnalysisStillImageCount";
+        v35 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:unsignedLongLongValue];
+        v108[0] = v35;
+        v107[1] = @"FullAnalysisLivePhotoCount";
+        v36 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:unsignedLongLongValue2];
+        v108[1] = v36;
+        v107[2] = @"FullAnalysisVideoCount";
+        v37 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:unsignedLongLongValue3];
+        v108[2] = v37;
+        v38 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v108 forKeys:v107 count:3];
+        [dictionary addEntriesFromDictionary:v38];
 
-        v85 = unsignedLongLongValue2 + unsignedLongLongValue + unsignedLongLongValue3;
+        v91 = unsignedLongLongValue2 + unsignedLongLongValue + unsignedLongLongValue3;
       }
 
       else if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
       {
-        v41 = objc_opt_class();
-        v42 = [v80 description];
+        v45 = objc_opt_class();
+        v46 = [v86 description];
         *buf = 138412546;
-        dCopy = v41;
-        v99 = 2112;
-        v100 = v42;
+        dCopy = v45;
+        v105 = 2112;
+        v106 = v46;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[%@] Failed to get total assets breakdown count from Photos (%@)", buf, 0x16u);
       }
 
-      v43 = objc_alloc(MEMORY[0x1E69788E8]);
-      v44 = VCPPhotosSceneProcessingVersionInternal();
-      LOWORD(v78) = VCPPhotosPECProcessingVersion;
-      v45 = [v43 initWithSceneAnalysisVersion:v44 faceAnalysisVersion:objc_msgSend(libraryCopy characterRecognitionAlgorithmVersion:"mad_faceProcessingInternalVersion") visualSearchAlgorithmVersion:8 stickerConfidenceAlgorithmVersion:VCPPhotosVisualSearchAlgorithmVersion() vaAnalysisVersion:1 vaLocationAnalysisVersion:v78 mediaAnalysisVersion:75 mediaAnalysisImageVersion:75 captionGenerationVersion:? imageEmbeddingVersion:? videoEmbeddingVersion:?];
+      v47 = objc_alloc(MEMORY[0x1E69788E8]);
+      v48 = VCPPhotosSceneProcessingVersionInternal();
+      mad_faceProcessingInternalVersion = [libraryCopy mad_faceProcessingInternalVersion];
+      LOWORD(v84) = VCPPhotosPECProcessingVersion;
+      v51 = [v47 initWithSceneAnalysisVersion:v48 faceAnalysisVersion:mad_faceProcessingInternalVersion characterRecognitionAlgorithmVersion:8 visualSearchAlgorithmVersion:VCPPhotosVisualSearchAlgorithmVersion(mad_faceProcessingInternalVersion stickerConfidenceAlgorithmVersion:v50) vaAnalysisVersion:1 vaLocationAnalysisVersion:v84 mediaAnalysisVersion:75 mediaAnalysisImageVersion:75 captionGenerationVersion:? imageEmbeddingVersion:? videoEmbeddingVersion:?];
 
-      v91 = v80;
-      v46 = [libraryCopy countOfAssetsByMediaTypeForMediaProcessingTaskID:PHMediaProcessingTaskIDForVCPTaskID(1) processed:1 algorithmVersion:v45 exactVersionMatch:0 error:&v91];
-      v79 = v91;
+      v97 = v86;
+      v52 = [libraryCopy countOfAssetsByMediaTypeForMediaProcessingTaskID:PHMediaProcessingTaskIDForVCPTaskID(1) processed:1 algorithmVersion:v51 exactVersionMatch:0 error:&v97];
+      v85 = v97;
 
-      if (v46)
+      if (v52)
       {
-        v47 = [v46 objectForKeyedSubscript:*MEMORY[0x1E6978EC8]];
-        unsignedLongLongValue4 = [v47 unsignedLongLongValue];
+        v53 = [v52 objectForKeyedSubscript:*MEMORY[0x1E6978EC8]];
+        unsignedLongLongValue4 = [v53 unsignedLongLongValue];
 
-        v49 = [v46 objectForKeyedSubscript:*MEMORY[0x1E6978EC0]];
-        unsignedLongLongValue5 = [v49 unsignedLongLongValue];
+        v55 = [v52 objectForKeyedSubscript:*MEMORY[0x1E6978EC0]];
+        unsignedLongLongValue5 = [v55 unsignedLongLongValue];
 
-        v51 = [v46 objectForKeyedSubscript:*MEMORY[0x1E6978ED0]];
-        unsignedLongLongValue6 = [v51 unsignedLongLongValue];
+        v57 = [v52 objectForKeyedSubscript:*MEMORY[0x1E6978ED0]];
+        unsignedLongLongValue6 = [v57 unsignedLongLongValue];
 
-        v95[0] = @"FullAnalysisStillImageProcessed";
-        v53 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:unsignedLongLongValue4];
-        v96[0] = v53;
-        v95[1] = @"FullAnalysisLivePhotoProcessed";
-        v54 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:unsignedLongLongValue5];
-        v96[1] = v54;
-        v95[2] = @"FullAnalysisVideoProcessed";
-        v55 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:unsignedLongLongValue6];
-        v96[2] = v55;
-        v56 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v96 forKeys:v95 count:3];
-        [dictionary addEntriesFromDictionary:v56];
+        v101[0] = @"FullAnalysisStillImageProcessed";
+        v59 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:unsignedLongLongValue4];
+        v102[0] = v59;
+        v101[1] = @"FullAnalysisLivePhotoProcessed";
+        v60 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:unsignedLongLongValue5];
+        v102[1] = v60;
+        v101[2] = @"FullAnalysisVideoProcessed";
+        v61 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:unsignedLongLongValue6];
+        v102[2] = v61;
+        v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v102 forKeys:v101 count:3];
+        [dictionary addEntriesFromDictionary:v62];
 
-        v84 = unsignedLongLongValue5 + unsignedLongLongValue4 + unsignedLongLongValue6;
+        v90 = unsignedLongLongValue5 + unsignedLongLongValue4 + unsignedLongLongValue6;
       }
 
       else if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO))
       {
-        v57 = objc_opt_class();
-        v58 = [v79 description];
+        v63 = objc_opt_class();
+        v64 = [v85 description];
         *buf = 138412546;
-        dCopy = v57;
-        v99 = 2112;
-        v100 = v58;
+        dCopy = v63;
+        v105 = 2112;
+        v106 = v64;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_INFO, "[%@] Failed to get processed assets breakdown count from Photos (%@)", buf, 0x16u);
       }
     }
@@ -1135,60 +1136,60 @@ LABEL_21:
 LABEL_59:
         if (+[MADManagedProcessingStatus isMACDReadEnabled])
         {
-          v63 = [mad_fetchRequest fetchAssetCountForTaskID:d status:2];
-          v64 = [mad_fetchRequest fetchAssetCountForTaskID:d status:7];
-          v65 = [mad_fetchRequest fetchAssetCountForTaskID:d status:3];
-          v66 = [mad_fetchRequest fetchAssetCountForTaskID:d status:4];
-          v67 = [mad_fetchRequest fetchAssetCountForTaskID:d minimumAttempts:2];
+          v69 = [mad_fetchRequest fetchAssetCountForTaskID:d status:2];
+          v70 = [mad_fetchRequest fetchAssetCountForTaskID:d status:7];
+          v71 = [mad_fetchRequest fetchAssetCountForTaskID:d status:3];
+          v72 = [mad_fetchRequest fetchAssetCountForTaskID:d status:4];
+          v73 = [mad_fetchRequest fetchAssetCountForTaskID:d minimumAttempts:2];
         }
 
         else
         {
-          v63 = [v88 countForTaskID:d withProcessingStatus:2];
-          v64 = [v88 countForTaskID:d withProcessingStatus:7];
-          v65 = [v88 countForTaskID:d withProcessingStatus:3];
-          v66 = [v88 countForTaskID:d withProcessingStatus:4];
-          v67 = [v88 countForTaskID:d minimumAttempts:2];
+          v69 = [v94 countForTaskID:d withProcessingStatus:2];
+          v70 = [v94 countForTaskID:d withProcessingStatus:7];
+          v71 = [v94 countForTaskID:d withProcessingStatus:3];
+          v72 = [v94 countForTaskID:d withProcessingStatus:4];
+          v73 = [v94 countForTaskID:d minimumAttempts:2];
         }
 
-        if (v64 + v63 + v65 + v66 >= (v85 - v84))
+        if (v70 + v69 + v71 + v72 >= (v91 - v90))
         {
-          v68 = v85 - v84;
+          v74 = v91 - v90;
         }
 
         else
         {
-          v68 = v64 + v63 + v65 + v66;
+          v74 = v70 + v69 + v71 + v72;
         }
 
-        if (v67 >= v68)
+        if (v73 >= v74)
         {
-          v69 = v68;
+          v75 = v74;
         }
 
         else
         {
-          v69 = v67;
+          v75 = v73;
         }
 
-        v93[0] = @"sticky-failed";
-        v70 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v69];
-        v94[0] = v70;
-        v93[1] = @"failed";
-        v71 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v68];
-        v94[1] = v71;
-        v93[2] = @"processed";
-        v72 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v84];
-        v94[2] = v72;
-        v93[3] = @"total-allowed";
-        v73 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v85];
-        v94[3] = v73;
-        v74 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v94 forKeys:v93 count:4];
-        [dictionary addEntriesFromDictionary:v74];
+        v99[0] = @"sticky-failed";
+        v76 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v75];
+        v100[0] = v76;
+        v99[1] = @"failed";
+        v77 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v74];
+        v100[1] = v77;
+        v99[2] = @"processed";
+        v78 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v90];
+        v100[2] = v78;
+        v99[3] = @"total-allowed";
+        v79 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v91];
+        v100[3] = v79;
+        v80 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v100 forKeys:v99 count:4];
+        [dictionary addEntriesFromDictionary:v80];
 
-        v75 = dictionary;
-        v22 = 0;
-        v36 = dictionary;
+        v81 = dictionary;
+        v26 = 0;
+        v40 = dictionary;
         *express = dictionary;
         goto LABEL_69;
       }
@@ -1201,18 +1202,18 @@ LABEL_59:
         }
 
         *buf = 0;
-        v23 = MEMORY[0x1E69E9C10];
+        v27 = MEMORY[0x1E69E9C10];
 LABEL_44:
-        _os_log_impl(&dword_1C9B70000, v23, OS_LOG_TYPE_DEFAULT, "Cancelled during _queryProgressDetailExpress", buf, 2u);
+        _os_log_impl(&dword_1C9B70000, v27, OS_LOG_TYPE_DEFAULT, "Cancelled during _queryProgressDetailExpress", buf, 2u);
 LABEL_45:
-        v22 = -128;
-        v36 = dictionary;
+        v26 = -128;
+        v40 = dictionary;
 LABEL_69:
 
         goto LABEL_70;
       }
 
-      v35 = [libraryCopy vcp_assetCountForTaskID:3 withPriority:1];
+      v39 = [libraryCopy vcp_assetCountForTaskID:3 withPriority:1];
       if (blockCopy && blockCopy[2]())
       {
         if (MediaAnalysisLogLevel() < 5 || !os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
@@ -1221,44 +1222,44 @@ LABEL_69:
         }
 
         *buf = 0;
-        v23 = MEMORY[0x1E69E9C10];
+        v27 = MEMORY[0x1E69E9C10];
         goto LABEL_44;
       }
 
-      v37 = [libraryCopy vcp_processedAssetCountForTaskID:3 withPriority:1];
+      v41 = [libraryCopy vcp_processedAssetCountForTaskID:3 withPriority:1];
       if (+[MADManagedKeyValueStore isMACDReadEnabled])
       {
         mad_fetchRequest2 = [libraryCopy mad_fetchRequest];
-        v39 = [mad_fetchRequest2 dataStoreValueForKey:@"NumberOfProcessedAssetsAfterPromoterForPhotosFaceProcessing"];
-        v40 = [mad_fetchRequest2 dataStoreValueForKey:@"VCPKeyValueLastPromoterTimestamp"];
+        v43 = [mad_fetchRequest2 dataStoreValueForKey:@"NumberOfProcessedAssetsAfterPromoterForPhotosFaceProcessing"];
+        v44 = [mad_fetchRequest2 dataStoreValueForKey:@"VCPKeyValueLastPromoterTimestamp"];
       }
 
       else
       {
-        v39 = [v88 valueForKey:@"NumberOfProcessedAssetsAfterPromoterForPhotosFaceProcessing"];
-        v40 = [v88 valueForKey:@"VCPKeyValueLastPromoterTimestamp"];
+        v43 = [v94 valueForKey:@"NumberOfProcessedAssetsAfterPromoterForPhotosFaceProcessing"];
+        v44 = [v94 valueForKey:@"VCPKeyValueLastPromoterTimestamp"];
       }
 
-      v103[0] = @"prioritized-processed";
-      v79 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v37];
-      v104[0] = v79;
-      v103[1] = @"prioritized-total-allowed";
-      v45 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v35];
-      v104[1] = v45;
-      v103[2] = @"pet-vip-status";
-      v46 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(self, "_vipStatusForPhotoLibrary:type:", libraryCopy, 1)}];
-      v104[2] = v46;
-      v103[3] = @"person-vip-status";
-      v59 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(self, "_vipStatusForPhotoLibrary:type:", libraryCopy, 0)}];
-      v104[3] = v59;
-      v103[4] = @"processed-assets-with-promoter";
-      v60 = [MEMORY[0x1E696AD98] numberWithInteger:v39];
-      v104[4] = v60;
-      v103[5] = @"last-promoter-timestamp";
-      v61 = [MEMORY[0x1E696AD98] numberWithLongLong:v40];
-      v104[5] = v61;
-      v62 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v104 forKeys:v103 count:6];
-      [dictionary addEntriesFromDictionary:v62];
+      v109[0] = @"prioritized-processed";
+      v85 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v41];
+      v110[0] = v85;
+      v109[1] = @"prioritized-total-allowed";
+      v51 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v39];
+      v110[1] = v51;
+      v109[2] = @"pet-vip-status";
+      v52 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(self, "_vipStatusForPhotoLibrary:type:", libraryCopy, 1)}];
+      v110[2] = v52;
+      v109[3] = @"person-vip-status";
+      v65 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(self, "_vipStatusForPhotoLibrary:type:", libraryCopy, 0)}];
+      v110[3] = v65;
+      v109[4] = @"processed-assets-with-promoter";
+      v66 = [MEMORY[0x1E696AD98] numberWithInteger:v43];
+      v110[4] = v66;
+      v109[5] = @"last-promoter-timestamp";
+      v67 = [MEMORY[0x1E696AD98] numberWithLongLong:v44];
+      v110[5] = v67;
+      v68 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v110 forKeys:v109 count:6];
+      [dictionary addEntriesFromDictionary:v68];
     }
 
     goto LABEL_59;
@@ -1271,15 +1272,15 @@ LABEL_69:
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Query progress: unsupported taskID (%lu)", buf, 0xCu);
   }
 
-  v22 = -50;
+  v26 = -50;
 LABEL_70:
 
-  return v22;
+  return v26;
 }
 
 + (int)queryProgressDetail:(id *)detail photoLibrary:(id)library taskID:(unint64_t)d cancelOrExtendTimeoutBlock:(id)block
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   libraryCopy = library;
   blockCopy = block;
   v12 = blockCopy;
@@ -1289,7 +1290,7 @@ LABEL_70:
     {
       v13 = VCPTaskIDDescription(d);
       *buf = 138412290;
-      v29 = v13;
+      v31 = v13;
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "[%@] Cancelled during queryProgressDetail", buf, 0xCu);
     }
 
@@ -1299,41 +1300,41 @@ LABEL_70:
   else
   {
     v15 = mach_absolute_time();
-    v16 = VCPSignPostLog();
+    v16 = VCPSignPostLog(v15);
     v17 = os_signpost_id_generate(v16);
 
-    v18 = VCPSignPostLog();
-    v19 = v18;
-    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+    v19 = VCPSignPostLog(v18);
+    v20 = v19;
+    if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v17, "VCPAnalysisProgressQueryProgressDetail", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v17, "VCPAnalysisProgressQueryProgressDetail", "", buf, 2u);
     }
 
     if (d <= 0x10 && ((1 << d) & 0x1140E) != 0 || d == 255)
     {
       if ([self _screenProgress])
       {
-        v27 = 0;
-        v14 = [VCPAnalysisProgressQuery _scanPhotoLibrary:libraryCopy taskID:d statistics:&v27 cancelOrExtendTimeoutBlock:v12];
-        v20 = v27;
-        v21 = v20;
+        v29 = 0;
+        v14 = [VCPAnalysisProgressQuery _scanPhotoLibrary:libraryCopy taskID:d statistics:&v29 cancelOrExtendTimeoutBlock:v12];
+        v21 = v29;
+        v22 = v21;
         if (!v14)
         {
-          v22 = v20;
-          *detail = v21;
-          v23 = VCPSignPostLog();
-          v24 = v23;
-          if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
+          v23 = v21;
+          *detail = v22;
+          v24 = VCPSignPostLog(v23);
+          v25 = v24;
+          if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v24, OS_SIGNPOST_INTERVAL_END, v17, "VCPAnalysisProgressQueryProgressDetail", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_END, v17, "VCPAnalysisProgressQueryProgressDetail", "", buf, 2u);
           }
 
           if (v15)
           {
-            mach_absolute_time();
-            VCPPerformance_LogMeasurement();
+            v26 = mach_absolute_time();
+            VCPPerformance_LogMeasurement("VCPAnalysisProgressQueryProgressDetail", v26 - v15);
           }
         }
       }
@@ -1348,9 +1349,9 @@ LABEL_70:
     {
       if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v25 = VCPTaskIDDescription(d);
+        v27 = VCPTaskIDDescription(d);
         *buf = 138412290;
-        v29 = v25;
+        v31 = v27;
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Query progress: unsupported taskID (%@)", buf, 0xCu);
       }
 
@@ -1365,138 +1366,138 @@ LABEL_70:
 {
   libraryCopy = library;
   blockCopy = block;
-  v27 = mach_absolute_time();
-  v12 = VCPSignPostLog();
+  v30 = mach_absolute_time();
+  v12 = VCPSignPostLog(v30);
   v13 = os_signpost_id_generate(v12);
 
-  v14 = VCPSignPostLog();
-  v15 = v14;
-  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+  v15 = VCPSignPostLog(v14);
+  v16 = v15;
+  if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v13, "VCPAnalysisProgressQueryProgress", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v16, OS_SIGNPOST_INTERVAL_BEGIN, v13, "VCPAnalysisProgressQueryProgress", "", buf, 2u);
   }
 
-  v29 = 0;
-  v16 = [self queryProgressDetail:&v29 photoLibrary:libraryCopy taskID:d cancelOrExtendTimeoutBlock:blockCopy];
-  v17 = v29;
-  v18 = v17;
-  if (!v16)
+  v32 = 0;
+  v17 = [self queryProgressDetail:&v32 photoLibrary:libraryCopy taskID:d cancelOrExtendTimeoutBlock:blockCopy];
+  v18 = v32;
+  v19 = v18;
+  if (!v17)
   {
-    v19 = [v17 objectForKeyedSubscript:@"processed"];
-    unsignedIntegerValue = [v19 unsignedIntegerValue];
+    v20 = [v18 objectForKeyedSubscript:@"processed"];
+    unsignedIntegerValue = [v20 unsignedIntegerValue];
 
-    v21 = [v18 objectForKeyedSubscript:@"total-allowed"];
-    unsignedIntegerValue2 = [v21 unsignedIntegerValue];
+    v22 = [v19 objectForKeyedSubscript:@"total-allowed"];
+    unsignedIntegerValue2 = [v22 unsignedIntegerValue];
 
     if (unsignedIntegerValue2)
     {
-      v23 = unsignedIntegerValue / unsignedIntegerValue2;
+      v25 = unsignedIntegerValue / unsignedIntegerValue2;
     }
 
     else
     {
-      v23 = 1.0;
+      v25 = 1.0;
     }
 
-    *progress = v23;
-    v24 = VCPSignPostLog();
-    v25 = v24;
-    if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+    *progress = v25;
+    v26 = VCPSignPostLog(v24);
+    v27 = v26;
+    if (v13 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
     {
-      *v28 = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_END, v13, "VCPAnalysisProgressQueryProgress", "", v28, 2u);
+      *v31 = 0;
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_END, v13, "VCPAnalysisProgressQueryProgress", "", v31, 2u);
     }
 
-    if (v27)
+    if (v30)
     {
-      mach_absolute_time();
-      VCPPerformance_LogMeasurement();
+      v28 = mach_absolute_time();
+      VCPPerformance_LogMeasurement("VCPAnalysisProgressQueryProgress", v28 - v30);
     }
   }
 
-  return v16;
+  return v17;
 }
 
 + (int)queryCachedFaceAnalysisProgress:(id *)progress photoLibrary:(id)library
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   libraryCopy = library;
   if (progress)
   {
-    v30 = mach_absolute_time();
-    v6 = VCPSignPostLog();
+    v33 = mach_absolute_time();
+    v6 = VCPSignPostLog(v33);
     v7 = os_signpost_id_generate(v6);
 
-    v8 = VCPSignPostLog();
-    v9 = v8;
+    v9 = VCPSignPostLog(v8);
+    v10 = v9;
     spid = v7;
-    v10 = v7 - 1;
-    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+    v11 = v7 - 1;
+    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "VCPAnalysisProgressQueryCachedFaceAnalysisProgress", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1C9B70000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v7, "VCPAnalysisProgressQueryCachedFaceAnalysisProgress", "", buf, 2u);
     }
 
-    v11 = [VCPDatabaseReader databaseForPhotoLibrary:libraryCopy];
-    if (v11)
+    v12 = [VCPDatabaseReader databaseForPhotoLibrary:libraryCopy];
+    if (v12)
     {
       aBlock[0] = MEMORY[0x1E69E9820];
       aBlock[1] = 3221225472;
       aBlock[2] = __73__VCPAnalysisProgressQuery_queryCachedFaceAnalysisProgress_photoLibrary___block_invoke;
       aBlock[3] = &unk_1E834D780;
-      v32 = libraryCopy;
-      v33 = v11;
-      v12 = _Block_copy(aBlock);
-      v13 = v12[2](v12, @"NumberOfAssetsAllowedForPhotosFaceProcessing");
-      if (v13)
+      v35 = libraryCopy;
+      v36 = v12;
+      v13 = _Block_copy(aBlock);
+      v14 = v13[2](v13, @"NumberOfAssetsAllowedForPhotosFaceProcessing");
+      if (v14)
       {
-        v14 = v12[2](v12, @"NumberOfAssetsAnalyzedForPhotosFaceProcessing");
-        v15 = v12[2](v12, @"NumberOfPrioritizedAssetsAnalyzedForPhotosFaceProcessing");
-        v16 = v12[2](v12, @"NumberOfPrioritizedAssetsAllowedForPhotosFaceProcessing");
-        v28 = v12[2](v12, @"NumberOfProcessedAssetsAfterPromoterForPhotosFaceProcessing");
-        v27 = v12[2](v12, @"VCPKeyValueLastPromoterTimestamp");
+        v15 = v13[2](v13, @"NumberOfAssetsAnalyzedForPhotosFaceProcessing");
+        v16 = v13[2](v13, @"NumberOfPrioritizedAssetsAnalyzedForPhotosFaceProcessing");
+        v17 = v13[2](v13, @"NumberOfPrioritizedAssetsAllowedForPhotosFaceProcessing");
+        v31 = v13[2](v13, @"NumberOfProcessedAssetsAfterPromoterForPhotosFaceProcessing");
+        v30 = v13[2](v13, @"VCPKeyValueLastPromoterTimestamp");
         if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG))
         {
           *buf = 134218240;
-          v37 = v14;
-          v38 = 2048;
-          v39 = v13;
+          v40 = v15;
+          v41 = 2048;
+          v42 = v14;
           _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEBUG, "[CachedProgress] Query cached face progress: %ld out of %ld", buf, 0x16u);
         }
 
-        v34[0] = @"prioritized-processed";
-        v26 = [MEMORY[0x1E696AD98] numberWithInteger:v15];
-        v35[0] = v26;
-        v34[1] = @"prioritized-total-allowed";
-        v17 = [MEMORY[0x1E696AD98] numberWithInteger:v16];
-        v35[1] = v17;
-        v34[2] = @"processed";
-        v18 = [MEMORY[0x1E696AD98] numberWithInteger:v14];
-        v35[2] = v18;
-        v34[3] = @"total-allowed";
-        v19 = [MEMORY[0x1E696AD98] numberWithInteger:v13];
-        v35[3] = v19;
-        v34[4] = @"processed-assets-with-promoter";
-        v20 = [MEMORY[0x1E696AD98] numberWithInteger:v28];
-        v35[4] = v20;
-        v34[5] = @"last-promoter-timestamp";
-        v21 = [MEMORY[0x1E696AD98] numberWithLongLong:v27];
-        v35[5] = v21;
-        *progress = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:6];
+        v37[0] = @"prioritized-processed";
+        v29 = [MEMORY[0x1E696AD98] numberWithInteger:v16];
+        v38[0] = v29;
+        v37[1] = @"prioritized-total-allowed";
+        v18 = [MEMORY[0x1E696AD98] numberWithInteger:v17];
+        v38[1] = v18;
+        v37[2] = @"processed";
+        v19 = [MEMORY[0x1E696AD98] numberWithInteger:v15];
+        v38[2] = v19;
+        v37[3] = @"total-allowed";
+        v20 = [MEMORY[0x1E696AD98] numberWithInteger:v14];
+        v38[3] = v20;
+        v37[4] = @"processed-assets-with-promoter";
+        v21 = [MEMORY[0x1E696AD98] numberWithInteger:v31];
+        v38[4] = v21;
+        v37[5] = @"last-promoter-timestamp";
+        v22 = [MEMORY[0x1E696AD98] numberWithLongLong:v30];
+        v38[5] = v22;
+        *progress = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:6];
 
-        v22 = VCPSignPostLog();
-        v23 = v22;
-        if (v10 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+        v24 = VCPSignPostLog(v23);
+        v25 = v24;
+        if (v11 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v23, OS_SIGNPOST_INTERVAL_END, spid, "VCPAnalysisProgressQueryCachedFaceAnalysisProgress", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_END, spid, "VCPAnalysisProgressQueryCachedFaceAnalysisProgress", "", buf, 2u);
         }
 
-        if (v30)
+        if (v33)
         {
-          mach_absolute_time();
-          VCPPerformance_LogMeasurement();
+          v26 = mach_absolute_time();
+          VCPPerformance_LogMeasurement("VCPAnalysisProgressQueryCachedFaceAnalysisProgress", v26 - v33);
         }
       }
 
@@ -1506,7 +1507,7 @@ LABEL_70:
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[CachedProgress] No cached values", buf, 2u);
       }
 
-      v24 = 0;
+      v27 = 0;
     }
 
     else
@@ -1517,7 +1518,7 @@ LABEL_70:
         _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[CachedProgress] Failed to open MediaAnalysis database", buf, 2u);
       }
 
-      v24 = -18;
+      v27 = -18;
     }
   }
 
@@ -1529,10 +1530,10 @@ LABEL_70:
       _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "[CachedProgress] Nil input parameter 'progress'", buf, 2u);
     }
 
-    v24 = -50;
+    v27 = -50;
   }
 
-  return v24;
+  return v27;
 }
 
 uint64_t __73__VCPAnalysisProgressQuery_queryCachedFaceAnalysisProgress_photoLibrary___block_invoke(uint64_t a1, void *a2)
@@ -1731,21 +1732,21 @@ uint64_t __73__VCPAnalysisProgressQuery_queryCachedFaceAnalysisProgress_photoLib
       {
         if ([v30 vcp_isVideoSlowmo])
         {
-          [v30 duration];
+          objc_msgSend_duration(v30);
           v22 = v22 + v34;
           ++v93;
         }
 
         else if ([v30 vcp_isLongMovie])
         {
-          [v30 duration];
+          objc_msgSend_duration(v30);
           v23 = v23 + v35;
           ++v83;
         }
 
         else
         {
-          [v30 duration];
+          objc_msgSend_duration(v30);
           v21 = v21 + v40;
           ++v85;
         }
@@ -1781,21 +1782,21 @@ LABEL_47:
 LABEL_48:
             if ([v30 vcp_isVideoSlowmo])
             {
-              [v30 duration];
+              objc_msgSend_duration(v30);
               v25 = v25 + v41;
               ++v80;
             }
 
             else if ([v30 vcp_isLongMovie])
             {
-              [v30 duration];
+              objc_msgSend_duration(v30);
               v74 = v74 + v42;
               ++v75;
             }
 
             else
             {
-              [v30 duration];
+              objc_msgSend_duration(v30);
               v24 = v24 + v43;
               ++v77;
             }
@@ -1851,21 +1852,21 @@ LABEL_64:
 LABEL_66:
             if ([v30 vcp_isVideoSlowmo])
             {
-              [v30 duration];
+              objc_msgSend_duration(v30);
               v71 = v71 + v48;
               ++v72;
             }
 
             else if ([v30 vcp_isLongMovie])
             {
-              [v30 duration];
+              objc_msgSend_duration(v30);
               v64 = v64 + v49;
               ++v66;
             }
 
             else
             {
-              [v30 duration];
+              objc_msgSend_duration(v30);
               v65 = v65 + v50;
               ++v68;
             }
@@ -1881,7 +1882,7 @@ LABEL_54:
 LABEL_55:
       if ([v30 vcp_isVideoSlowmo])
       {
-        [v30 duration];
+        objc_msgSend_duration(v30);
         v29 = 0;
         v19 = v19 + v44;
         ++v16;
@@ -1889,7 +1890,7 @@ LABEL_55:
 
       else if ([v30 vcp_isLongMovie])
       {
-        [v30 duration];
+        objc_msgSend_duration(v30);
         v29 = 0;
         v20 = v20 + v45;
         ++v88;
@@ -1897,7 +1898,7 @@ LABEL_55:
 
       else
       {
-        [v30 duration];
+        objc_msgSend_duration(v30);
         v29 = 0;
         v18 = v18 + v46;
         ++v90;

@@ -92,14 +92,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    ehrpd = self->_ehrpd;
     PBDataWriterWriteBOOLField();
     has = self->_has;
   }
 
   if (has)
   {
-    total = self->_total;
     PBDataWriterWriteUint32Field();
   }
 
@@ -109,15 +107,14 @@
     PBDataWriterPlaceMark();
     if (p_endStatusCounts->count)
     {
-      v9 = 0;
+      v7 = 0;
       do
       {
-        v10 = p_endStatusCounts->list[v9];
         PBDataWriterWriteUint32Field();
-        ++v9;
+        ++v7;
       }
 
-      while (v9 < p_endStatusCounts->count);
+      while (v7 < p_endStatusCounts->count);
     }
 
     PBDataWriterRecallMark();
@@ -187,7 +184,6 @@
     goto LABEL_15;
   }
 
-  v5 = *(equalCopy + 40);
   if ((*&self->_has & 2) == 0)
   {
     if ((*(equalCopy + 40) & 2) == 0)
@@ -205,7 +201,6 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v6 = *(equalCopy + 36);
   if (self->_ehrpd)
   {
     if ((*(equalCopy + 36) & 1) == 0)

@@ -300,14 +300,14 @@
   operationCopy = operation;
   if (self)
   {
-    v22 = 0;
+    v21 = 0;
     v10 = *(self + 32);
     v11 = *(self + 40);
     if (v7)
     {
-      v21 = 0;
-      v12 = [v7 checkContextValidWithError:&v21];
-      v22 = v21;
+      v20 = 0;
+      v12 = [v7 checkContextValidWithError:&v20];
+      v21 = v20;
       if (v12)
       {
         v13 = [LAContext alloc];
@@ -315,35 +315,34 @@
         v15 = [(LAContext *)v13 initWithExternalizedContext:externalizedContext];
 
         [(LAContext *)v15 setInteractionNotAllowed:1];
-        v16 = *MEMORY[0x1E697B378];
         if (SecKeySetParameter())
         {
-          v18[0] = MEMORY[0x1E69E9820];
-          v18[1] = 3221225472;
-          v18[2] = __68___LAKeyStoreKey__performOperationWithContext_operation_completion___block_invoke;
-          v18[3] = &unk_1E77CB788;
-          v19 = v10;
-          v20 = operationCopy;
-          contextCopy[2](contextCopy, v19, v11, v18);
+          v17[0] = MEMORY[0x1E69E9820];
+          v17[1] = 3221225472;
+          v17[2] = __68___LAKeyStoreKey__performOperationWithContext_operation_completion___block_invoke;
+          v17[3] = &unk_1E77CB788;
+          v18 = v10;
+          v19 = operationCopy;
+          contextCopy[2](contextCopy, v18, v11, v17);
         }
 
         else
         {
-          (*(operationCopy + 2))(operationCopy, v22);
+          (*(operationCopy + 2))(operationCopy, v21);
         }
 
         goto LABEL_9;
       }
 
-      v17 = @"Cannot perform operation with invalid context";
+      v16 = @"Cannot perform operation with invalid context";
     }
 
     else
     {
-      v17 = @"Cannot perform operation with nil context";
+      v16 = @"Cannot perform operation with nil context";
     }
 
-    v15 = [LAAuthorizationError genericErrorWithMessage:v17];
+    v15 = [LAAuthorizationError genericErrorWithMessage:v16];
     (*(operationCopy + 2))(operationCopy, v15);
 LABEL_9:
   }

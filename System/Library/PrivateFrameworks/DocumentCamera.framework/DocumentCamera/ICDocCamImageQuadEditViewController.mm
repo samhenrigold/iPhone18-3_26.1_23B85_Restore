@@ -389,106 +389,9 @@ void __53__ICDocCamImageQuadEditViewController_viewDidAppear___block_invoke_4(ui
 
 - (void)refreshNavigationBar
 {
-  v56[3] = *MEMORY[0x277D85DE8];
-  quadEditNavigationBar = [(ICDocCamImageQuadEditViewController *)self quadEditNavigationBar];
-
-  if (!quadEditNavigationBar)
-  {
-    v4 = objc_alloc_init(MEMORY[0x277D75780]);
-    [(ICDocCamImageQuadEditViewController *)self setQuadEditNavigationBar:v4];
-
-    quadEditNavigationBar2 = [(ICDocCamImageQuadEditViewController *)self quadEditNavigationBar];
-    [quadEditNavigationBar2 setTranslatesAutoresizingMaskIntoConstraints:0];
-
-    view = [(ICDocCamImageQuadEditViewController *)self view];
-    quadEditNavigationBar3 = [(ICDocCamImageQuadEditViewController *)self quadEditNavigationBar];
-    [view addSubview:quadEditNavigationBar3];
-
-    view2 = [(ICDocCamImageQuadEditViewController *)self view];
-    window = [view2 window];
-    v10 = [window interfaceOrientation] - 1;
-
-    if (v10 > 1)
-    {
-      +[_TtC14DocumentCamera22DCLiquidGlassConstants navigationBarConstantLandscape];
-    }
-
-    else
-    {
-      +[_TtC14DocumentCamera22DCLiquidGlassConstants navigationBarConstantPortrait];
-    }
-
-    v12 = v11;
-    v47 = MEMORY[0x277CCAAD0];
-    quadEditNavigationBar4 = [(ICDocCamImageQuadEditViewController *)self quadEditNavigationBar];
-    topAnchor = [quadEditNavigationBar4 topAnchor];
-    view3 = [(ICDocCamImageQuadEditViewController *)self view];
-    safeAreaLayoutGuide = [view3 safeAreaLayoutGuide];
-    topAnchor2 = [safeAreaLayoutGuide topAnchor];
-    v49 = [topAnchor constraintEqualToAnchor:topAnchor2 constant:v12];
-    v56[0] = v49;
-    quadEditNavigationBar5 = [(ICDocCamImageQuadEditViewController *)self quadEditNavigationBar];
-    leadingAnchor = [quadEditNavigationBar5 leadingAnchor];
-    view4 = [(ICDocCamImageQuadEditViewController *)self view];
-    safeAreaLayoutGuide2 = [view4 safeAreaLayoutGuide];
-    leadingAnchor2 = [safeAreaLayoutGuide2 leadingAnchor];
-    v13 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v56[1] = v13;
-    quadEditNavigationBar6 = [(ICDocCamImageQuadEditViewController *)self quadEditNavigationBar];
-    trailingAnchor = [quadEditNavigationBar6 trailingAnchor];
-    view5 = [(ICDocCamImageQuadEditViewController *)self view];
-    safeAreaLayoutGuide3 = [view5 safeAreaLayoutGuide];
-    trailingAnchor2 = [safeAreaLayoutGuide3 trailingAnchor];
-    v19 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v56[2] = v19;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:3];
-    [v47 activateConstraints:v20];
-
-    navigationItem = [(ICDocCamImageQuadEditViewController *)self navigationItem];
-
-    if (!navigationItem)
-    {
-      v22 = os_log_create("com.apple.documentcamera", "");
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
-      {
-        [(ICDocCamImageQuadEditViewController *)v22 refreshNavigationBar:v23];
-      }
-    }
-
-    navigationItem2 = [(ICDocCamImageQuadEditViewController *)self navigationItem];
-    v55 = navigationItem2;
-    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
-    quadEditNavigationBar7 = [(ICDocCamImageQuadEditViewController *)self quadEditNavigationBar];
-    [quadEditNavigationBar7 setItems:v31];
-
-    v33 = [objc_alloc(MEMORY[0x277D76220]) initWithScrollView:self->_scrollView edge:1 style:2];
-    quadEditNavigationBar8 = [(ICDocCamImageQuadEditViewController *)self quadEditNavigationBar];
-    [quadEditNavigationBar8 addInteraction:v33];
-  }
-
-  if ([(ICDocCamImageQuadEditViewController *)self inCaptureMode])
-  {
-    v35 = [DCLocalization localizedStringForKey:@"Retake" value:@"Retake" table:@"Localizable"];
-    navigationItem6 = [DCLocalization localizedStringForKey:@"Keep" value:@"Keep" table:@"Localizable"];
-    v37 = [objc_alloc(MEMORY[0x277D751E0]) initWithTitle:v35 style:0 target:self action:sel_cancelButtonPressed_];
-    navigationItem3 = [(ICDocCamImageQuadEditViewController *)self navigationItem];
-    [navigationItem3 setLeftBarButtonItem:v37];
-
-    v39 = [objc_alloc(MEMORY[0x277D751E0]) initWithTitle:navigationItem6 style:0 target:self action:sel_saveButtonPressed_];
-    navigationItem4 = [(ICDocCamImageQuadEditViewController *)self navigationItem];
-    [navigationItem4 setRightBarButtonItem:v39];
-  }
-
-  else
-  {
-    v41 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:1 target:self action:sel_cancelButtonPressed_];
-    navigationItem5 = [(ICDocCamImageQuadEditViewController *)self navigationItem];
-    [navigationItem5 setLeftBarButtonItem:v41];
-
-    v35 = [objc_alloc(MEMORY[0x277D751E0]) initWithBarButtonSystemItem:0 target:self action:sel_saveButtonPressed_];
-    navigationItem6 = [(ICDocCamImageQuadEditViewController *)self navigationItem];
-    [navigationItem6 setRightBarButtonItem:v35];
-  }
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "self.navigationItem";
+  OUTLINED_FUNCTION_0(&dword_249253000, self, a3, "invalid nil value for '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -1234,6 +1137,20 @@ void __54__ICDocCamImageQuadEditViewController_scanWasDeleted___block_invoke(uin
   WeakRetained = objc_loadWeakRetained(&self->_placardTopConstraint);
 
   return WeakRetained;
+}
+
+- (void)initWithImage:(uint64_t)a3 quad:(uint64_t)a4 scanDataDelegate:(uint64_t)a5 orientation:(uint64_t)a6 completionHandler:(uint64_t)a7 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "image";
+  OUTLINED_FUNCTION_0(&dword_249253000, a1, a3, "invalid nil value for '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithImage:(uint64_t)a3 quad:(uint64_t)a4 scanDataDelegate:(uint64_t)a5 orientation:(uint64_t)a6 completionHandler:(uint64_t)a7 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "completionHandler";
+  OUTLINED_FUNCTION_0(&dword_249253000, a1, a3, "invalid nil value for '%s'", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -5,17 +5,17 @@
 
 uint64_t __103__WFBluetoothTrigger_BiomeContext__getPreviousStateWithDeviceName_currentStateEvent_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = getWFTriggersLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [v3 timestamp];
-    v20 = 136315394;
-    v21 = "[WFBluetoothTrigger(BiomeContext) getPreviousStateWithDeviceName:currentStateEvent:completionHandler:]_block_invoke_2";
-    v22 = 2048;
-    v23 = v5;
-    _os_log_impl(&dword_23103C000, v4, OS_LOG_TYPE_DEBUG, "%s Walking back through bluetooth event with timestamp %f", &v20, 0x16u);
+    v19 = 136315394;
+    v20 = "[WFBluetoothTrigger(BiomeContext) getPreviousStateWithDeviceName:currentStateEvent:completionHandler:]_block_invoke_2";
+    v21 = 2048;
+    v22 = v5;
+    _os_log_impl(&dword_23103C000, v4, OS_LOG_TYPE_DEBUG, "%s Walking back through bluetooth event with timestamp %f", &v19, 0x16u);
   }
 
   if (*(*(*(a1 + 48) + 8) + 24) == 1)
@@ -27,9 +27,9 @@ uint64_t __103__WFBluetoothTrigger_BiomeContext__getPreviousStateWithDeviceName_
       v13 = getWFTriggersLogObject();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = 136315138;
-        v21 = "[WFBluetoothTrigger(BiomeContext) getPreviousStateWithDeviceName:currentStateEvent:completionHandler:]_block_invoke";
-        _os_log_impl(&dword_23103C000, v13, OS_LOG_TYPE_DEFAULT, "%s Event in stream was not of BMDeviceBluetooth event type.", &v20, 0xCu);
+        v19 = 136315138;
+        v20 = "[WFBluetoothTrigger(BiomeContext) getPreviousStateWithDeviceName:currentStateEvent:completionHandler:]_block_invoke";
+        _os_log_impl(&dword_23103C000, v13, OS_LOG_TYPE_DEFAULT, "%s Event in stream was not of BMDeviceBluetooth event type.", &v19, 0xCu);
       }
 
       goto LABEL_16;
@@ -44,11 +44,11 @@ uint64_t __103__WFBluetoothTrigger_BiomeContext__getPreviousStateWithDeviceName_
     {
       if (v10)
       {
-        v20 = 136315394;
-        v21 = "[WFBluetoothTrigger(BiomeContext) getPreviousStateWithDeviceName:currentStateEvent:completionHandler:]_block_invoke";
-        v22 = 2112;
-        v23 = v6;
-        _os_log_impl(&dword_23103C000, v9, OS_LOG_TYPE_DEBUG, "%s Found last event for device name: %@", &v20, 0x16u);
+        v19 = 136315394;
+        v20 = "[WFBluetoothTrigger(BiomeContext) getPreviousStateWithDeviceName:currentStateEvent:completionHandler:]_block_invoke";
+        v21 = 2112;
+        v22 = v6;
+        _os_log_impl(&dword_23103C000, v9, OS_LOG_TYPE_DEBUG, "%s Found last event for device name: %@", &v19, 0x16u);
       }
 
       v11 = *(*(a1 + 56) + 8);
@@ -63,11 +63,11 @@ LABEL_16:
 
     if (v10)
     {
-      v20 = 136315394;
-      v21 = "[WFBluetoothTrigger(BiomeContext) getPreviousStateWithDeviceName:currentStateEvent:completionHandler:]_block_invoke";
-      v22 = 2112;
-      v23 = v6;
-      _os_log_impl(&dword_23103C000, v9, OS_LOG_TYPE_DEBUG, "%s Processed previous event with different device: %@", &v20, 0x16u);
+      v19 = 136315394;
+      v20 = "[WFBluetoothTrigger(BiomeContext) getPreviousStateWithDeviceName:currentStateEvent:completionHandler:]_block_invoke";
+      v21 = 2112;
+      v22 = v6;
+      _os_log_impl(&dword_23103C000, v9, OS_LOG_TYPE_DEBUG, "%s Processed previous event with different device: %@", &v19, 0x16u);
     }
 
 LABEL_20:
@@ -84,11 +84,11 @@ LABEL_20:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     [*(a1 + 40) timestamp];
-    v20 = 136315394;
-    v21 = "[WFBluetoothTrigger(BiomeContext) getPreviousStateWithDeviceName:currentStateEvent:completionHandler:]_block_invoke";
-    v22 = 2048;
-    v23 = v15;
-    _os_log_impl(&dword_23103C000, v14, OS_LOG_TYPE_DEBUG, "%s Hit the event we are recieved for the trigger, which has timestamp %f", &v20, 0x16u);
+    v19 = 136315394;
+    v20 = "[WFBluetoothTrigger(BiomeContext) getPreviousStateWithDeviceName:currentStateEvent:completionHandler:]_block_invoke";
+    v21 = 2048;
+    v22 = v15;
+    _os_log_impl(&dword_23103C000, v14, OS_LOG_TYPE_DEBUG, "%s Hit the event we are recieved for the trigger, which has timestamp %f", &v19, 0x16u);
   }
 
   v16 = *(*(a1 + 48) + 8);
@@ -96,13 +96,12 @@ LABEL_20:
   *(v16 + 24) = 1;
 LABEL_21:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 void __93__WFBluetoothTrigger_BiomeContext__shouldFireInResponseToEvent_triggerIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (v3)
@@ -113,11 +112,11 @@ void __93__WFBluetoothTrigger_BiomeContext__shouldFireInResponseToEvent_triggerI
       v9 = getWFTriggersLogObject();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 136315138;
-        v13 = "[WFBluetoothTrigger(BiomeContext) shouldFireInResponseToEvent:triggerIdentifier:completion:]_block_invoke";
+        v11 = 136315138;
+        v12 = "[WFBluetoothTrigger(BiomeContext) shouldFireInResponseToEvent:triggerIdentifier:completion:]_block_invoke";
         v10 = "%s Last Bluetooth connection event was same as current event, not firing";
 LABEL_10:
-        _os_log_impl(&dword_23103C000, v9, OS_LOG_TYPE_DEFAULT, v10, &v12, 0xCu);
+        _os_log_impl(&dword_23103C000, v9, OS_LOG_TYPE_DEFAULT, v10, &v11, 0xCu);
       }
 
 LABEL_11:
@@ -138,8 +137,8 @@ LABEL_11:
       v9 = getWFTriggersLogObject();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 136315138;
-        v13 = "[WFBluetoothTrigger(BiomeContext) shouldFireInResponseToEvent:triggerIdentifier:completion:]_block_invoke";
+        v11 = 136315138;
+        v12 = "[WFBluetoothTrigger(BiomeContext) shouldFireInResponseToEvent:triggerIdentifier:completion:]_block_invoke";
         v10 = "%s Event device not contained in trigger devices, not firing";
         goto LABEL_10;
       }
@@ -150,8 +149,6 @@ LABEL_11:
 
   (*(*(a1 + 48) + 16))(*(a1 + 48), 1);
 LABEL_12:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

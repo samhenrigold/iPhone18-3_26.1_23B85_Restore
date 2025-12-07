@@ -50,54 +50,52 @@
   stateCopy = state;
   if ([stateCopy state] == 5)
   {
-    _HKInitializeLogging();
-    v5 = HKLogServices;
+    _HKInitializeLogging(5, v5);
+    v6 = HKLogServices;
     if (os_log_type_enabled(HKLogServices, OS_LOG_TYPE_DEFAULT))
     {
       pendingHandlers = self->_pendingHandlers;
-      v7 = v5;
+      v8 = v6;
       *buf = 138412546;
       selfCopy = self;
       v21 = 2048;
       v22 = [(NSMutableArray *)pendingHandlers count];
-      _os_log_impl(&dword_19197B000, v7, OS_LOG_TYPE_DEFAULT, "%@ CBCentralManager did become available, %lu pending handlers", buf, 0x16u);
+      _os_log_impl(&dword_19197B000, v8, OS_LOG_TYPE_DEFAULT, "%@ CBCentralManager did become available, %lu pending handlers", buf, 0x16u);
     }
 
     v16 = 0u;
     v17 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v8 = self->_pendingHandlers;
-    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v9)
+    v9 = self->_pendingHandlers;
+    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    if (v10)
     {
-      v10 = v9;
-      v11 = *v15;
+      v11 = v10;
+      v12 = *v15;
       do
       {
-        v12 = 0;
+        v13 = 0;
         do
         {
-          if (*v15 != v11)
+          if (*v15 != v12)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v9);
           }
 
-          (*(*(*(&v14 + 1) + 8 * v12) + 16))(*(*(&v14 + 1) + 8 * v12));
-          ++v12;
+          (*(*(*(&v14 + 1) + 8 * v13) + 16))(*(*(&v14 + 1) + 8 * v13));
+          ++v13;
         }
 
-        while (v10 != v12);
-        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        while (v11 != v13);
+        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
-      while (v10);
+      while (v11);
     }
 
     [(NSMutableArray *)self->_pendingHandlers removeAllObjects];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

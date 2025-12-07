@@ -10,20 +10,20 @@
 {
   if (a3)
   {
-    return [self addObject:?];
+    return [result addObject:?];
   }
 
-  return self;
+  return result;
 }
 
 - (void)pk_safelyAddObjectsFromArray:()PKMutableArrayAdditions
 {
   if (a3)
   {
-    return [self addObjectsFromArray:?];
+    return [result addObjectsFromArray:?];
   }
 
-  return self;
+  return result;
 }
 
 - (void)pk_removeObjectsPassingTest:()PKMutableArrayAdditions

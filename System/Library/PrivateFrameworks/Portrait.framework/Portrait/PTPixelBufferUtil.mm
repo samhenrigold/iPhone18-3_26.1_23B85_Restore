@@ -64,78 +64,80 @@
       v24 = MEMORY[0x277CD7058];
       v25 = CVPixelBufferGetWidthOfPlane(buffer, 1uLL);
       v26 = [v24 texture2DDescriptorWithPixelFormat:v19 width:v25 height:CVPixelBufferGetHeightOfPlane(buffer mipmapped:1uLL), 0];
-      [v26 setUsage:v16];
+      v27 = [v26 setUsage:v16];
       if (v23 && v26)
       {
-        v27 = deviceCopy;
         v28 = deviceCopy;
+        v29 = deviceCopy;
         if (cache)
         {
-          v29 = [self createTextureFromCache:cache pixelBuffer:buffer descriptor:v23 plane:0];
-          v30 = lumaCopy;
-          v31 = *lumaCopy;
-          *lumaCopy = v29;
+          v30 = [self createTextureFromCache:cache pixelBuffer:buffer descriptor:v23 plane:0];
+          v31 = lumaCopy;
+          v32 = *lumaCopy;
+          *lumaCopy = v30;
 
-          v32 = [self createTextureFromCache:cache pixelBuffer:buffer descriptor:v26 plane:1];
+          v33 = [self createTextureFromCache:cache pixelBuffer:buffer descriptor:v26 plane:1];
         }
 
         else
         {
           IOSurface = CVPixelBufferGetIOSurface(buffer);
-          v36 = [v28 newTextureWithDescriptor:v23 iosurface:IOSurface plane:0];
-          v30 = lumaCopy;
-          v37 = *lumaCopy;
-          *lumaCopy = v36;
+          v38 = [v29 newTextureWithDescriptor:v23 iosurface:IOSurface plane:0];
+          v31 = lumaCopy;
+          v39 = *lumaCopy;
+          *lumaCopy = v38;
 
-          v32 = [v28 newTextureWithDescriptor:v26 iosurface:IOSurface plane:1];
+          v33 = [v29 newTextureWithDescriptor:v26 iosurface:IOSurface plane:1];
         }
 
-        v38 = *chromaCopy;
-        *chromaCopy = v32;
+        v40 = *chromaCopy;
+        *chromaCopy = v33;
 
-        if (*v30 && *chromaCopy)
+        if (*v31 && *chromaCopy)
         {
-          v34 = 0;
+          v36 = 0;
 LABEL_22:
 
           goto LABEL_23;
         }
 
         PixelFormatType = CVPixelBufferGetPixelFormatType(buffer);
-        v40 = _PTLogSystem();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+        v42 = PixelFormatType;
+        v43 = _PTLogSystem(PixelFormatType);
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
-          [PTPixelBufferUtil createTexturesFromPixelBuffer:? device:? textureCache:? outLuma:? outChroma:? read:? write:?];
+          [PTPixelBufferUtil createTexturesFromPixelBuffer:v42 device:? textureCache:? outLuma:? outChroma:? read:? write:?];
         }
       }
 
       else
       {
-        v28 = _PTLogSystem();
-        v27 = deviceCopy;
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+        v29 = _PTLogSystem(v27);
+        v28 = deviceCopy;
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
           +[PTPixelBufferUtil createTexturesFromPixelBuffer:device:textureCache:outLuma:outChroma:read:write:];
         }
       }
 
-      v34 = -1;
+      v36 = -1;
       goto LABEL_22;
     }
   }
 
-  v33 = CVPixelBufferGetPixelFormatType(buffer);
-  v23 = _PTLogSystem();
+  v34 = CVPixelBufferGetPixelFormatType(buffer);
+  v35 = v34;
+  v23 = _PTLogSystem(v34);
   if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
-    [PTPixelBufferUtil createTexturesFromPixelBuffer:v33 device:? textureCache:? outLuma:? outChroma:? read:? write:?];
+    [PTPixelBufferUtil createTexturesFromPixelBuffer:v35 device:? textureCache:? outLuma:? outChroma:? read:? write:?];
   }
 
-  v34 = -10;
-  v27 = deviceCopy;
+  v36 = -10;
+  v28 = deviceCopy;
 LABEL_23:
 
-  return v34;
+  return v36;
 }
 
 + (id)createTextureFromPixelBuffer:(__CVBuffer *)buffer device:(id)device textureCache:(__CVMetalTextureCache *)cache sRGB:(BOOL)b metalYCBCRConversion:(BOOL)conversion
@@ -177,7 +179,7 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v20 = _PTLogSystem();
+  v20 = _PTLogSystem(pixelFormat);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
     [PTPixelBufferUtil createTextureFromPixelBuffer:v14 device:? textureCache:? sRGB:? metalYCBCRConversion:?];
@@ -191,22 +193,22 @@ LABEL_11:
 
 + (id)createTextureFromCache:(__CVMetalTextureCache *)cache pixelBuffer:(__CVBuffer *)buffer descriptor:(id)descriptor plane:(unint64_t)plane
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   descriptorCopy = descriptor;
   image = 0;
   v10 = *MEMORY[0x277CBECE8];
-  v19[0] = *MEMORY[0x277CC4D50];
+  v20[0] = *MEMORY[0x277CC4D50];
   v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(descriptorCopy, "usage")}];
-  v20[0] = v11;
-  v19[1] = *MEMORY[0x277CC4D48];
+  v21[0] = v11;
+  v20[1] = *MEMORY[0x277CC4D48];
   v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(descriptorCopy, "storageMode")}];
-  v20[1] = v12;
-  v13 = CVMetalTextureCacheCreateTextureFromImage(v10, cache, buffer, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2], objc_msgSend(descriptorCopy, "pixelFormat"), objc_msgSend(descriptorCopy, "width"), objc_msgSend(descriptorCopy, "height"), plane, &image);
+  v21[1] = v12;
+  v13 = CVMetalTextureCacheCreateTextureFromImage(v10, cache, buffer, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2], objc_msgSend(descriptorCopy, "pixelFormat"), objc_msgSend(descriptorCopy, "width"), objc_msgSend(descriptorCopy, "height"), plane, &image);
 
   if (!image || v13)
   {
-    v15 = _PTLogSystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = _PTLogSystem(image);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [PTPixelBufferUtil createTextureFromCache:descriptorCopy pixelBuffer:? descriptor:? plane:?];
     }
@@ -222,8 +224,8 @@ LABEL_11:
     }
   }
 
-  v16 = _PTLogSystem();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v17 = _PTLogSystem(v15);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     [PTPixelBufferUtil createTextureFromCache:descriptorCopy pixelBuffer:? descriptor:? plane:?];
   }
@@ -460,33 +462,34 @@ LABEL_65:
   if (buffer)
   {
     PixelFormatType = CVPixelBufferGetPixelFormatType(buffer);
-    v6 = [self _getPixelFormatsForType:PixelFormatType];
+    v5 = [self _getPixelFormatsForType:PixelFormatType];
     v7 = v5;
-    if (!v6 || !v5)
+    v8 = v6;
+    if (!v5 || !v6)
     {
-      v8 = CVPixelBufferGetAttributes();
-      v9 = v8;
-      if (v8)
+      v9 = CVPixelBufferGetAttributes();
+      v10 = v9;
+      if (v9)
       {
-        v10 = [v8 objectForKeyedSubscript:@"PixelFormatDescription"];
-        if (v10)
+        v11 = [v9 objectForKeyedSubscript:@"PixelFormatDescription"];
+        if (v11)
         {
-          v11 = v10;
-          v12 = [v9 objectForKeyedSubscript:@"PixelFormatDescription"];
-          v13 = [v12 objectForKeyedSubscript:@"EquivalentUncompressedPixelFormat"];
+          v12 = v11;
+          v13 = [v10 objectForKeyedSubscript:@"PixelFormatDescription"];
+          v14 = [v13 objectForKeyedSubscript:@"EquivalentUncompressedPixelFormat"];
 
-          if (v13)
+          if (v14)
           {
-            v14 = [v9 objectForKeyedSubscript:@"PixelFormatDescription"];
-            v15 = [v14 objectForKeyedSubscript:@"EquivalentUncompressedPixelFormat"];
-            unsignedIntValue = [v15 unsignedIntValue];
+            v15 = [v10 objectForKeyedSubscript:@"PixelFormatDescription"];
+            v16 = [v15 objectForKeyedSubscript:@"EquivalentUncompressedPixelFormat"];
+            unsignedIntValue = [v16 unsignedIntValue];
 
             if (unsignedIntValue)
             {
               if (unsignedIntValue != PixelFormatType)
               {
-                v6 = [self _getPixelFormatsForType:unsignedIntValue];
-                v7 = v17;
+                v7 = [self _getPixelFormatsForType:unsignedIntValue];
+                v8 = v18;
               }
             }
           }
@@ -494,26 +497,26 @@ LABEL_65:
       }
     }
 
-    if (!v6 || !v7)
+    if (!v7 || !v8)
     {
-      v18 = _PTLogSystem();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+      v19 = _PTLogSystem(v5);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        [(PTPixelBufferUtil *)PixelFormatType getPixelFormatsForPixelBuffer:v18];
+        [(PTPixelBufferUtil *)PixelFormatType getPixelFormatsForPixelBuffer:v19];
       }
     }
   }
 
   else
   {
+    v8 = 0;
     v7 = 0;
-    v6 = 0;
   }
 
-  v19 = v6;
   v20 = v7;
-  result.var1 = v20;
-  result.var0 = v19;
+  v21 = v8;
+  result.var1 = v21;
+  result.var0 = v20;
   return result;
 }
 
@@ -658,33 +661,34 @@ void __49__PTPixelBufferUtil_supportsMetalYCBCRConversion__block_invoke()
   conversionCopy = conversion;
   device = [PTPixelBufferUtil getNoConcurrentAccessHint:descriptor, device];
   PixelFormatType = CVPixelBufferGetPixelFormatType(descriptor);
-  if ([self is420YpCbCr8:PixelFormatType] && conversionCopy)
+  v10 = [self is420YpCbCr8:PixelFormatType];
+  if (v10 && conversionCopy)
   {
-    v10 = device | 0x10003;
-    v11 = 500;
+    v11 = device | 0x10003;
+    v12 = 500;
 LABEL_33:
-    v14 = MEMORY[0x277CD7058];
+    v15 = MEMORY[0x277CD7058];
     Width = CVPixelBufferGetWidth(descriptor);
-    v16 = [v14 texture2DDescriptorWithPixelFormat:v11 width:Width height:CVPixelBufferGetHeight(descriptor) mipmapped:0];
-    [v16 setUsage:v10];
-    [v16 setResourceOptions:0];
+    v17 = [v15 texture2DDescriptorWithPixelFormat:v12 width:Width height:CVPixelBufferGetHeight(descriptor) mipmapped:0];
+    [v17 setUsage:v11];
+    [v17 setResourceOptions:0];
     goto LABEL_34;
   }
 
-  v10 = device | 3;
+  v11 = device | 3;
   if (PixelFormatType > 1380410944)
   {
     if (PixelFormatType <= 1717856626)
     {
       if (PixelFormatType == 1380410945)
       {
-        v11 = 125;
+        v12 = 125;
         goto LABEL_33;
       }
 
       if (PixelFormatType == 1380411457)
       {
-        v11 = 115;
+        v12 = 115;
         goto LABEL_33;
       }
 
@@ -700,12 +704,12 @@ LABEL_33:
     {
       if (PixelFormatType != 1717856627)
       {
-        v12 = 1751410032;
+        v13 = 1751410032;
         goto LABEL_23;
       }
 
 LABEL_25:
-      v11 = 55;
+      v12 = 55;
       goto LABEL_33;
     }
 
@@ -714,15 +718,15 @@ LABEL_25:
       goto LABEL_30;
     }
 
-    v13 = 2084718401;
+    v14 = 2084718401;
 LABEL_28:
-    if (PixelFormatType != v13)
+    if (PixelFormatType != v14)
     {
       goto LABEL_37;
     }
 
 LABEL_29:
-    v11 = 80;
+    v12 = 80;
     goto LABEL_33;
   }
 
@@ -733,7 +737,7 @@ LABEL_29:
       goto LABEL_29;
     }
 
-    v13 = 792872769;
+    v14 = 792872769;
     goto LABEL_28;
   }
 
@@ -741,15 +745,15 @@ LABEL_29:
   {
     if (PixelFormatType != 1278226534)
     {
-      v12 = 1278226536;
+      v13 = 1278226536;
 LABEL_23:
-      if (PixelFormatType != v12)
+      if (PixelFormatType != v13)
       {
         goto LABEL_37;
       }
 
 LABEL_30:
-      v11 = 25;
+      v12 = 25;
       goto LABEL_33;
     }
 
@@ -763,21 +767,21 @@ LABEL_30:
 
   if (PixelFormatType == 1278226488)
   {
-    v11 = 10;
+    v12 = 10;
     goto LABEL_33;
   }
 
 LABEL_37:
-  v18 = _PTLogSystem();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v19 = _PTLogSystem(v10);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     [PTPixelBufferUtil getMTLTextureDescriptor:descriptor device:? metalYCBCRConversion:?];
   }
 
-  v16 = 0;
+  v17 = 0;
 LABEL_34:
 
-  return v16;
+  return v17;
 }
 
 + (unsigned)getCVPixelBufferGetPixelFormatType:(unint64_t)type
@@ -808,7 +812,7 @@ LABEL_34:
     }
   }
 
-  v4 = _PTLogSystem();
+  v4 = _PTLogSystem(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     +[PTPixelBufferUtil getCVPixelBufferGetPixelFormatType:];
@@ -819,7 +823,7 @@ LABEL_34:
 
 + (void)logPixelbufferMetadataForPixelBuffer:(__CVBuffer *)buffer name:(id)name
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   nameCopy = [objc_alloc(MEMORY[0x277CCAB68]) initWithFormat:@"PixelBuffer %@: ", nameCopy];
   v7 = nameCopy;
@@ -830,106 +834,111 @@ LABEL_34:
     Width = CVPixelBufferGetWidth(buffer);
     [(__CFString *)v7 appendFormat:@" f: %@ s: %zu x %zu", v9, Width, CVPixelBufferGetHeight(buffer)];
 
-    v11 = _PTLogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v12 = _PTLogSystem(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v49 = v7;
-      _os_log_impl(&dword_2243FB000, v11, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
+      v51 = v7;
+      _os_log_impl(&dword_2243FB000, v12, OS_LOG_TYPE_INFO, "%@", buf, 0xCu);
     }
 
     IOSurface = CVPixelBufferGetIOSurface(buffer);
     if (IOSurface)
     {
-      v13 = IOSurface;
-      v14 = IOSurfaceCopyAllValues(IOSurface);
-      v15 = IOSurfaceCopyValue(v13, *MEMORY[0x277CD29C0]);
-      if (v15)
+      v14 = IOSurface;
+      v15 = IOSurfaceCopyAllValues(IOSurface);
+      v16 = IOSurfaceCopyValue(v14, *MEMORY[0x277CD29C0]);
+      if (v16)
       {
-        v16 = v15;
-        v17 = CGColorSpaceCreateWithPropertyList(v15);
-        if (v17)
+        v17 = v16;
+        v18 = CGColorSpaceCreateWithPropertyList(v16);
+        if (v18)
         {
-          v18 = v17;
-          v19 = _PTLogSystem();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+          v19 = v18;
+          v20 = _PTLogSystem(v18);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
           {
-            Name = CGColorSpaceGetName(v18);
-            Model = CGColorSpaceGetModel(v18);
-            NumberOfComponents = CGColorSpaceGetNumberOfComponents(v18);
-            v21 = v14;
-            v22 = CGColorSpaceUsesExtendedRange(v18);
-            IsWideGamutRGB = CGColorSpaceIsWideGamutRGB(v18);
-            IsHLGBased = CGColorSpaceIsHLGBased(v18);
-            IsPQBased = CGColorSpaceIsPQBased(v18);
+            Name = CGColorSpaceGetName(v19);
+            Model = CGColorSpaceGetModel(v19);
+            NumberOfComponents = CGColorSpaceGetNumberOfComponents(v19);
+            v22 = v15;
+            v23 = CGColorSpaceUsesExtendedRange(v19);
+            IsWideGamutRGB = CGColorSpaceIsWideGamutRGB(v19);
+            IsHLGBased = CGColorSpaceIsHLGBased(v19);
+            IsPQBased = CGColorSpaceIsPQBased(v19);
             *buf = 138413826;
-            v49 = Name;
-            v50 = 1024;
-            *v51 = Model;
-            *&v51[4] = 1024;
-            *&v51[6] = NumberOfComponents;
+            v51 = Name;
             v52 = 1024;
-            v53 = v22;
-            v14 = v21;
+            *v53 = Model;
+            *&v53[4] = 1024;
+            *&v53[6] = NumberOfComponents;
             v54 = 1024;
-            v55 = IsWideGamutRGB;
+            v55 = v23;
+            v15 = v22;
             v56 = 1024;
-            v57 = IsHLGBased;
+            v57 = IsWideGamutRGB;
             v58 = 1024;
-            v59 = IsPQBased;
-            _os_log_impl(&dword_2243FB000, v19, OS_LOG_TYPE_INFO, "colorSpaceName: %@ Model: %u NumberOfComponents: %i extendedRange: %i WideGamutRGB: %i HLG: %i PQ: %i", buf, 0x30u);
+            v59 = IsHLGBased;
+            v60 = 1024;
+            v61 = IsPQBased;
+            _os_log_impl(&dword_2243FB000, v20, OS_LOG_TYPE_INFO, "colorSpaceName: %@ Model: %u NumberOfComponents: %i extendedRange: %i WideGamutRGB: %i HLG: %i PQ: %i", buf, 0x30u);
           }
 
-          CGColorSpaceRelease(v18);
+          CGColorSpaceRelease(v19);
         }
 
-        CFRelease(v16);
-        if (v14)
+        CFRelease(v17);
+        if (v15)
         {
 LABEL_11:
+          v47 = 0u;
+          v48 = 0u;
           v45 = 0u;
           v46 = 0u;
-          v43 = 0u;
-          v44 = 0u;
-          allKeys = [v14 allKeys];
-          v27 = [allKeys countByEnumeratingWithState:&v43 objects:v47 count:16];
-          if (v27)
+          allKeys = [v15 allKeys];
+          v29 = [allKeys countByEnumeratingWithState:&v45 objects:v49 count:16];
+          if (v29)
           {
-            v28 = v27;
-            v39 = v7;
-            v41 = nameCopy;
-            v29 = *v44;
+            v30 = v29;
+            v41 = v7;
+            v43 = nameCopy;
+            v31 = *v46;
             do
             {
-              for (i = 0; i != v28; ++i)
+              v32 = 0;
+              do
               {
-                if (*v44 != v29)
+                if (*v46 != v31)
                 {
                   objc_enumerationMutation(allKeys);
                 }
 
-                v31 = *(*(&v43 + 1) + 8 * i);
-                v32 = _PTLogSystem();
-                if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+                v33 = *(*(&v45 + 1) + 8 * v32);
+                v34 = _PTLogSystem(v29);
+                if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
                 {
-                  [v14 objectForKeyedSubscript:v31];
-                  v34 = v33 = v14;
+                  [v15 objectForKeyedSubscript:v33];
+                  v36 = v35 = v15;
                   *buf = 138412546;
-                  v49 = v31;
-                  v50 = 2112;
-                  *v51 = v34;
-                  _os_log_impl(&dword_2243FB000, v32, OS_LOG_TYPE_INFO, "%@: %@", buf, 0x16u);
+                  v51 = v33;
+                  v52 = 2112;
+                  *v53 = v36;
+                  _os_log_impl(&dword_2243FB000, v34, OS_LOG_TYPE_INFO, "%@: %@", buf, 0x16u);
 
-                  v14 = v33;
+                  v15 = v35;
                 }
+
+                ++v32;
               }
 
-              v28 = [allKeys countByEnumeratingWithState:&v43 objects:v47 count:16];
+              while (v30 != v32);
+              v29 = [allKeys countByEnumeratingWithState:&v45 objects:v49 count:16];
+              v30 = v29;
             }
 
-            while (v28);
-            v7 = v39;
-            nameCopy = v41;
+            while (v29);
+            v7 = v41;
+            nameCopy = v43;
           }
 
 LABEL_31:
@@ -940,20 +949,20 @@ LABEL_31:
 
       else
       {
-        v38 = _PTLogSystem();
-        if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+        v40 = _PTLogSystem(0);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_2243FB000, v38, OS_LOG_TYPE_INFO, "No kIOSurfaceColorSpace available", buf, 2u);
+          _os_log_impl(&dword_2243FB000, v40, OS_LOG_TYPE_INFO, "No kIOSurfaceColorSpace available", buf, 2u);
         }
 
-        if (v14)
+        if (v15)
         {
           goto LABEL_11;
         }
       }
 
-      allKeys = _PTLogSystem();
+      allKeys = _PTLogSystem(v27);
       if (os_log_type_enabled(allKeys, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
@@ -963,30 +972,29 @@ LABEL_31:
       goto LABEL_31;
     }
 
-    v14 = _PTLogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v15 = _PTLogSystem(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      v35 = "IOSurface is NULL";
-      v36 = v14;
-      v37 = 2;
+      v37 = "IOSurface is NULL";
+      v38 = v15;
+      v39 = 2;
       goto LABEL_25;
     }
   }
 
   else
   {
-    [(__CFString *)nameCopy appendString:@"NULL"];
-    v14 = _PTLogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+    v15 = _PTLogSystem([(__CFString *)nameCopy appendString:@"NULL"]);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v49 = v7;
-      v35 = "%@";
-      v36 = v14;
-      v37 = 12;
+      v51 = v7;
+      v37 = "%@";
+      v38 = v15;
+      v39 = 12;
 LABEL_25:
-      _os_log_impl(&dword_2243FB000, v36, OS_LOG_TYPE_INFO, v35, buf, v37);
+      _os_log_impl(&dword_2243FB000, v38, OS_LOG_TYPE_INFO, v37, buf, v39);
     }
   }
 
@@ -1003,14 +1011,14 @@ LABEL_32:
   if ([fileCopy hasSuffix:@"LZMA"])
   {
     v9 = [objc_alloc(MEMORY[0x277CBEA90]) initWithContentsOfFile:fileCopy];
-    v17 = 0;
-    v10 = [v9 decompressedDataUsingAlgorithm:2 error:&v17];
-    v11 = v17;
+    v18 = 0;
+    v10 = [v9 decompressedDataUsingAlgorithm:2 error:&v18];
+    v11 = v18;
 
     if (v11)
     {
-      v12 = _PTLogSystem();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = _PTLogSystem(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         +[PTPixelBufferUtil readRawPixelBufferFromFile:pixelBuffer:];
       }
@@ -1023,16 +1031,16 @@ LABEL_32:
 
   else
   {
-    v13 = fopen([fileCopy UTF8String], "r");
-    if (!v13)
+    v14 = fopen([fileCopy UTF8String], "r");
+    if (!v14)
     {
       fclose(0);
 LABEL_13:
-      v15 = -1;
+      v16 = -1;
       goto LABEL_14;
     }
 
-    for (i = v13; Height; --Height)
+    for (i = v14; Height; --Height)
     {
       fread(BaseAddress, 1uLL, BytesPerRow, i);
       BaseAddress += BytesPerRow;
@@ -1042,10 +1050,10 @@ LABEL_13:
   }
 
   CVPixelBufferUnlockBaseAddress(buffer, 0);
-  v15 = 0;
+  v16 = 0;
 LABEL_14:
 
-  return v15;
+  return v16;
 }
 
 - (__CVBuffer)readPixelBufferFromFile:(id)file pixelFormat:(unsigned int)format ciOptions:(id)options
@@ -1056,7 +1064,7 @@ LABEL_14:
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   if (!defaultManager)
   {
-    v11 = _PTLogSystem();
+    v11 = _PTLogSystem(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [PTPixelBufferUtil readPixelBufferFromFile:pixelFormat:ciOptions:];
@@ -1068,41 +1076,41 @@ LABEL_14:
 
   if (v13)
   {
-    v14 = [MEMORY[0x277CBEBC0] fileURLWithPath:fileCopy];
-    if (!v14)
+    v15 = [MEMORY[0x277CBEBC0] fileURLWithPath:fileCopy];
+    if (!v15)
     {
-      v15 = _PTLogSystem();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = _PTLogSystem(0);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         [PTPixelBufferUtil readPixelBufferFromFile:pixelFormat:ciOptions:];
       }
 
-      v24 = 0;
+      v25 = 0;
       goto LABEL_24;
     }
 
-    v15 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:optionsCopy];
-    v16 = MEMORY[0x277CE1CB8];
+    v16 = [MEMORY[0x277CBEB38] dictionaryWithDictionary:optionsCopy];
+    v17 = MEMORY[0x277CE1CB8];
     pathExtension = [fileCopy pathExtension];
-    v18 = [v16 typeWithFilenameExtension:pathExtension];
-    identifier = [v18 identifier];
+    v19 = [v17 typeWithFilenameExtension:pathExtension];
+    identifier = [v19 identifier];
 
     if (identifier)
     {
-      [v15 setObject:identifier forKeyedSubscript:*MEMORY[0x277CD3668]];
+      [v16 setObject:identifier forKeyedSubscript:*MEMORY[0x277CD3668]];
     }
 
-    v20 = [MEMORY[0x277CBF758] imageWithContentsOfURL:v14 options:v15];
-    v21 = v20;
-    if (v20)
+    v21 = [MEMORY[0x277CBF758] imageWithContentsOfURL:v15 options:v16];
+    v22 = v21;
+    if (v21)
     {
-      [v20 extent];
-      if (v22 != 0.0)
+      [v21 extent];
+      if (v23 != 0.0)
       {
-        [v21 extent];
-        if (v23 != 0.0)
+        [v22 extent];
+        if (v24 != 0.0)
         {
-          v24 = [(PTPixelBufferUtil *)self createPixelbufferFromCIImage:v21 pixelFormat:v6];
+          v25 = [(PTPixelBufferUtil *)self createPixelbufferFromCIImage:v22 pixelFormat:v6];
 LABEL_23:
 
 LABEL_24:
@@ -1113,32 +1121,32 @@ LABEL_24:
 
     else
     {
-      v25 = _PTLogSystem();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v26 = _PTLogSystem(0);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         [PTPixelBufferUtil readPixelBufferFromFile:pixelFormat:ciOptions:];
       }
     }
 
-    v24 = 0;
+    v25 = 0;
     goto LABEL_23;
   }
 
-  v14 = _PTLogSystem();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v15 = _PTLogSystem(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
   {
     [PTPixelBufferUtil readPixelBufferFromFile:fileCopy pixelFormat:? ciOptions:?];
   }
 
-  v24 = 0;
+  v25 = 0;
 LABEL_25:
 
-  return v24;
+  return v25;
 }
 
 - (__CVBuffer)createPixelbufferFromCIImage:(id)image pixelFormat:(unsigned int)format
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v28[2] = *MEMORY[0x277D85DE8];
   imageCopy = image;
   if (!self->_ciContext)
   {
@@ -1148,47 +1156,48 @@ LABEL_25:
   }
 
   v9 = *MEMORY[0x277CC4DE8];
-  v26[0] = *MEMORY[0x277CC4E08];
-  v26[1] = v9;
-  v27[0] = MEMORY[0x277CBEC38];
-  v27[1] = MEMORY[0x277CBEC10];
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
+  v27[0] = *MEMORY[0x277CC4E08];
+  v27[1] = v9;
+  v28[0] = MEMORY[0x277CBEC38];
+  v28[1] = MEMORY[0x277CBEC10];
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
   buffer = 0;
   [imageCopy extent];
   v12 = v11;
   [imageCopy extent];
-  if (CVPixelBufferCreate(*MEMORY[0x277CBECE8], v12, v13, format, v10, &buffer))
+  v14 = CVPixelBufferCreate(*MEMORY[0x277CBECE8], v12, v13, format, v10, &buffer);
+  if (v14)
   {
-    v14 = _PTLogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _PTLogSystem(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [PTPixelBufferUtil createPixelbufferFromCIImage:pixelFormat:];
     }
 
-    v15 = 0;
+    v16 = 0;
   }
 
   else
   {
     if ([imageCopy colorSpace])
     {
-      v16 = CGColorSpaceCopyICCData([imageCopy colorSpace]);
-      if (v16)
+      v17 = CGColorSpaceCopyICCData([imageCopy colorSpace]);
+      if (v17)
       {
-        v17 = v16;
-        CVBufferSetAttachment(buffer, *MEMORY[0x277CC4C88], v16, kCVAttachmentMode_ShouldPropagate);
-        CFRelease(v17);
+        v18 = v17;
+        CVBufferSetAttachment(buffer, *MEMORY[0x277CC4C88], v17, kCVAttachmentMode_ShouldPropagate);
+        CFRelease(v18);
       }
     }
 
-    v18 = self->_ciContext;
-    v19 = buffer;
+    v19 = self->_ciContext;
+    v20 = buffer;
     [imageCopy extent];
-    -[CIContext render:toCVPixelBuffer:bounds:colorSpace:](v18, "render:toCVPixelBuffer:bounds:colorSpace:", imageCopy, v19, [imageCopy colorSpace], v20, v21, v22, v23);
-    v15 = buffer;
+    -[CIContext render:toCVPixelBuffer:bounds:colorSpace:](v19, "render:toCVPixelBuffer:bounds:colorSpace:", imageCopy, v20, [imageCopy colorSpace], v21, v22, v23, v24);
+    v16 = buffer;
   }
 
-  return v15;
+  return v16;
 }
 
 + (unsigned)compressedPixelFormat:(unsigned int)format compression:(int)compression
@@ -1210,7 +1219,7 @@ LABEL_25:
 
   else
   {
-    v7 = _PTLogSystem();
+    v7 = _PTLogSystem(self);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [PTPixelBufferUtil compressedPixelFormat:format compression:?];

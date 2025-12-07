@@ -112,7 +112,7 @@
 
 - (void)needsConnect
 {
-  v3 = sub_10002F03C();
+  v3 = sub_10002F03C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -120,61 +120,63 @@
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}@> needsConnect", buf, 0xCu);
   }
 
-  if (uuid_is_null(self->remote_device_uuid))
+  is_null = uuid_is_null(self->remote_device_uuid);
+  if (is_null)
   {
-    v4 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v4 = [[NSUUID alloc] initWithUUIDBytes:self->remote_device_uuid];
+    is_null = [[NSUUID alloc] initWithUUIDBytes:self->remote_device_uuid];
+    v5 = is_null;
   }
 
   saysHelloFirst = self->saysHelloFirst;
-  v6 = sub_10002F03C();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  v7 = sub_10002F03C(is_null);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (saysHelloFirst)
   {
-    if (v7)
+    if (v8)
     {
       *buf = 138543362;
       *&buf[4] = self;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@> local device uuid > remote device uuid: attaching and connecting to remote device", buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@> local device uuid > remote device uuid: attaching and connecting to remote device", buf, 0xCu);
     }
 
-    if (!v4 || ([qword_100064620 containsObject:v4] & 1) != 0)
+    if (!v5 || (v9 = [qword_100064620 containsObject:v5], (v9 & 1) != 0))
     {
-      v8 = sub_10002F03C();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_10002F03C(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
         *&buf[4] = self;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}@> connecting to remote remoted", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%{public}@> connecting to remote remoted", buf, 0xCu);
       }
 
       bonjour_endpoint = [(RSDRemoteBonjourPeerDevice *)self bonjour_endpoint];
       if (!bonjour_endpoint)
       {
-        sub_1000424D0(&v25, buf);
+        sub_1000424D0(&v29, buf);
       }
 
       bonjour_endpoint2 = [(RSDRemoteBonjourPeerDevice *)self bonjour_endpoint];
-      v11 = nw_endpoint_copy_interface();
+      v13 = nw_endpoint_copy_interface();
 
-      v12 = v11;
-      if (!v12)
+      v14 = v13;
+      if (!v14)
       {
-        sub_100042464(&v25, buf);
+        sub_100042464(&v29, buf);
       }
 
-      peerconn = v12;
+      peerconn = v14;
 
       index = nw_interface_get_index(peerconn);
-      v15 = sub_10002F080(index);
-      if (!v15)
+      v17 = sub_10002F080(index, 2u);
+      if (!v17)
       {
-        v24 = sub_10002F03C();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+        v28 = sub_10002F03C(0);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
         {
           sub_100042430();
         }
@@ -182,55 +184,55 @@
         goto LABEL_40;
       }
 
-      v16 = v15;
+      v18 = v17;
       bonjour_endpoint3 = [(RSDRemoteBonjourPeerDevice *)self bonjour_endpoint];
-      v18 = nw_connection_create(bonjour_endpoint3, v16);
+      v20 = nw_connection_create(bonjour_endpoint3, v18);
 
       goto LABEL_36;
     }
 
-    v22 = sub_10002F03C();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+    v26 = sub_10002F03C(v9);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       *&buf[4] = self;
-      v23 = "%{public}@> attempting hello but bonjour endpoint previously gone away so discarding device";
+      v27 = "%{public}@> attempting hello but bonjour endpoint previously gone away so discarding device";
 LABEL_43:
-      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, v23, buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, v27, buf, 0xCu);
       goto LABEL_44;
     }
 
     goto LABEL_44;
   }
 
-  if (v7)
+  if (v8)
   {
     *buf = 138543362;
     *&buf[4] = self;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}@> local device uuid < remote device uuid: waiting for remote device to connect", buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}@> local device uuid < remote device uuid: waiting for remote device to connect", buf, 0xCu);
   }
 
   if (self->_peerconn)
   {
     connection = [(RSDRemoteDevice *)self connection];
 
-    peerconn = sub_10002F03C();
-    v20 = os_log_type_enabled(peerconn, OS_LOG_TYPE_DEFAULT);
+    peerconn = sub_10002F03C(v23);
+    v24 = os_log_type_enabled(peerconn, OS_LOG_TYPE_DEFAULT);
     if (!connection)
     {
-      if (v20)
+      if (v24)
       {
         *buf = 138543362;
         *&buf[4] = self;
         _os_log_impl(&_mh_execute_header, peerconn, OS_LOG_TYPE_DEFAULT, "%{public}@> using established peer connection", buf, 0xCu);
       }
 
-      v18 = self->_peerconn;
+      v20 = self->_peerconn;
       peerconn = self->_peerconn;
       self->_peerconn = 0;
 LABEL_36:
 
-      if (v18)
+      if (v20)
       {
         xpc_remote_connection_get_failsafe_version_flags();
         peerconn = xpc_remote_connection_create_with_nw_connection();
@@ -246,41 +248,45 @@ LABEL_36:
       goto LABEL_40;
     }
 
-    if (v20)
+    if (v24)
     {
       *buf = 138543362;
       *&buf[4] = self;
-      v21 = "%{public}@> wait for current connection to invalidate before applying reestablished connection";
+      v25 = "%{public}@> wait for current connection to invalidate before applying reestablished connection";
 LABEL_27:
-      _os_log_impl(&_mh_execute_header, peerconn, OS_LOG_TYPE_DEFAULT, v21, buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, peerconn, OS_LOG_TYPE_DEFAULT, v25, buf, 0xCu);
     }
   }
 
   else
   {
-    if (v4 && ([qword_100064620 containsObject:v4] & 1) == 0)
+    if (v5)
     {
-      v22 = sub_10002F03C();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v21 = [qword_100064620 containsObject:v5];
+      if ((v21 & 1) == 0)
       {
-        *buf = 138543362;
-        *&buf[4] = self;
-        v23 = "%{public}@> attempting to wait for connection from peer but bonjour endpoint previously gone away so discarding device";
-        goto LABEL_43;
-      }
+        v26 = sub_10002F03C(v21);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138543362;
+          *&buf[4] = self;
+          v27 = "%{public}@> attempting to wait for connection from peer but bonjour endpoint previously gone away so discarding device";
+          goto LABEL_43;
+        }
 
 LABEL_44:
 
-      [(RSDRemoteBonjourPeerDevice *)self disconnect];
-      goto LABEL_45;
+        [(RSDRemoteBonjourPeerDevice *)self disconnect];
+        goto LABEL_45;
+      }
     }
 
-    peerconn = sub_10002F03C();
+    peerconn = sub_10002F03C(v21);
     if (os_log_type_enabled(peerconn, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
       *&buf[4] = self;
-      v21 = "%{public}@> waiting for connection from peer";
+      v25 = "%{public}@> waiting for connection from peer";
       goto LABEL_27;
     }
   }
@@ -293,12 +299,16 @@ LABEL_45:
 - (const)local_address
 {
   p_local_address_storage = &self->local_address_storage;
-  if (!self->local_address_storage.__u6_addr32[0] && !self->local_address_storage.__u6_addr32[1] && !self->local_address_storage.__u6_addr32[2] && !self->local_address_storage.__u6_addr32[3] && sub_1000244F8([qword_100064630 name], p_local_address_storage, 1))
+  if (!self->local_address_storage.__u6_addr32[0] && !self->local_address_storage.__u6_addr32[1] && !self->local_address_storage.__u6_addr32[2] && !self->local_address_storage.__u6_addr32[3])
   {
-    v3 = sub_10002F03C();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v3 = sub_1000244F8([qword_100064630 name], p_local_address_storage, 1);
+    if (v3)
     {
-      sub_1000425F8();
+      v4 = sub_10002F03C(v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      {
+        sub_1000425F8();
+      }
     }
   }
 

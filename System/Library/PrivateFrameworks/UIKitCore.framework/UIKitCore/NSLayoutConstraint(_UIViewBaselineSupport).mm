@@ -10,9 +10,9 @@
 {
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
-  v4 = [(NSString *)v3 isEqual:@"NSAutoresizingMaskLayoutConstraint"];
+  isEqual = objc_msgSend_isEqual_(v3);
   v5 = @"NSAutoResizeMaskCn";
-  if (!v4)
+  if (!isEqual)
   {
     v5 = v3;
   }

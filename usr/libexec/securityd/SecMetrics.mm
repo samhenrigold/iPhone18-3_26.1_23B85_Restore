@@ -64,7 +64,7 @@
       v9.next_out = v10;
       if (deflate(&v9, 4) == -2)
       {
-        sub_100089FEC(@"Execution has encountered an unexpected state", 1405091854);
+        sub_100089FEC(@"Execution has encountered an unexpected state", 0x53C0000Eu);
       }
 
       [v4 appendBytes:v10 length:1024 - v9.avail_out];
@@ -73,7 +73,7 @@
     while (!v9.avail_out);
     if (v9.avail_in)
     {
-      sub_100089FEC(@"Execution has encountered an unexpected state", 1405091854);
+      sub_100089FEC(@"Execution has encountered an unexpected state", 0x53C0000Eu);
     }
 
     deflateEnd(&v9);

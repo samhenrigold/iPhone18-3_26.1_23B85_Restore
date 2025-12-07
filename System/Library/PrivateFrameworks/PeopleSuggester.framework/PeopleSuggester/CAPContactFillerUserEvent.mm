@@ -109,16 +109,12 @@ LABEL_5:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  textInteractionsSent = self->_textInteractionsSent;
   PBDataWriterWriteUint32Field();
-  textInteractionsReceived = self->_textInteractionsReceived;
   PBDataWriterWriteUint32Field();
-  shareInteractionsSent = self->_shareInteractionsSent;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if (has)
   {
-    highConfidenceRuleCount = self->_highConfidenceRuleCount;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -138,12 +134,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  mediumConfidenceRuleCount = self->_mediumConfidenceRuleCount;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    lowConfidenceRuleCount = self->_lowConfidenceRuleCount;
     PBDataWriterWriteUint32Field();
   }
 

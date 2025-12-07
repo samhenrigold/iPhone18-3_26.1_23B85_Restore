@@ -1,3 +1,238 @@
+void nw_mem_region_release(uint64_t a1)
+{
+  v40 = *MEMORY[0x1E69E9840];
+  v1 = *(a1 + 4) - 1;
+  *(a1 + 4) = v1;
+  if (!v1)
+  {
+    if (gLogDatapath == 1)
+    {
+      v33 = __nwlog_obj();
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 136446722;
+        v37 = "nw_mem_region_destroy";
+        v38 = 2082;
+        *v39 = a1 + 160;
+        *&v39[8] = 2048;
+        *&v39[10] = a1;
+        _os_log_impl(&dword_181A37000, v33, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s: nwr %p", buf, 0x20u);
+      }
+    }
+
+    if (*(a1 + 16))
+    {
+      pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
+      networkd_settings_init();
+      v3 = gLogObj;
+      v4 = os_log_type_enabled(gLogObj, OS_LOG_TYPE_ERROR);
+      v5 = *(a1 + 16);
+      if (v4)
+      {
+        v6 = 3;
+      }
+
+      else
+      {
+        v6 = 2;
+      }
+
+      *buf = 136446978;
+      v37 = "nw_mem_region_destroy";
+      v38 = 2082;
+      *v39 = a1 + 160;
+      *&v39[8] = 2048;
+      *&v39[10] = a1;
+      *&v39[18] = 2048;
+      *&v39[20] = v5;
+      v7 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &dword_181A37000, v3, 16, "%{public}s '%{public}s' (%p) not empty (%llu unfreed)", buf, 42);
+      if (__nwlog_should_abort(v7))
+      {
+LABEL_50:
+        __break(1u);
+        return;
+      }
+
+      free(v7);
+    }
+
+    if (*(a1 + 144) || *(a1 + 152))
+    {
+      os_unfair_lock_lock(&nw_mem_region_lock);
+      v8 = *(a1 + 144);
+      v9 = *(a1 + 152);
+      v10 = (v8 + 152);
+      if (!v8)
+      {
+        v10 = &qword_1ED411038;
+      }
+
+      *v10 = v9;
+      *v9 = v8;
+      os_unfair_lock_unlock(&nw_mem_region_lock);
+    }
+
+    if (gLogDatapath == 1)
+    {
+      v34 = __nwlog_obj();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+      {
+        *buf = 136446466;
+        v37 = "nw_mem_region_depopulate";
+        v38 = 2082;
+        *v39 = a1 + 160;
+        _os_log_impl(&dword_181A37000, v34, OS_LOG_TYPE_DEBUG, "%{public}s %{public}s", buf, 0x16u);
+      }
+    }
+
+    v11 = *(a1 + 368);
+    if (v11)
+    {
+      v12 = MEMORY[0x1E69E9A60];
+      while (1)
+      {
+        v13 = *v11;
+        if (mach_vm_deallocate(*v12, *(v11 + 24), *(a1 + 88)))
+        {
+          v17 = __nwlog_obj();
+          v18 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
+          *buf = 136446466;
+          if (v18)
+          {
+            v19 = 3;
+          }
+
+          else
+          {
+            v19 = 2;
+          }
+
+          v37 = "nw_mem_region_depopulate";
+          v38 = 2082;
+          *v39 = "VERIFY result == 0 failed";
+          LODWORD(v35) = 22;
+          v20 = _os_log_send_and_compose_impl(v19, 0, 0, 0, &dword_181A37000, v17, 16, "%{public}s %{public}s", buf, v35);
+          if (__nwlog_should_abort(v20))
+          {
+            goto LABEL_50;
+          }
+
+          free(v20);
+        }
+
+        *(v11 + 24) = 0;
+        *(v11 + 32) = 0;
+        *(v11 + 48) = 1;
+        v14 = *(v11 + 40);
+        nw_segment_freelist_remove(a1, v11, 1);
+        v15 = *(v11 + 40);
+        v16 = *(a1 + 304);
+        if (gLogDatapath == 1)
+        {
+          v21 = __nwlog_obj();
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+          {
+            v22 = *(v11 + 24);
+            v23 = *(v11 + 32);
+            v24 = *(a1 + 240);
+            *buf = 136447234;
+            v37 = "nw_segment_destroy";
+            v38 = 1024;
+            *v39 = v15;
+            *&v39[4] = 2048;
+            *&v39[6] = v22;
+            *&v39[14] = 2048;
+            *&v39[16] = v23;
+            *&v39[24] = 1024;
+            *&v39[26] = v24;
+            _os_log_impl(&dword_181A37000, v21, OS_LOG_TYPE_DEBUG, "%{public}s   [%u] [0x%llx-0x%llx) 0x%X", buf, 0x2Cu);
+          }
+        }
+
+        *(v16 + ((v15 >> 3) & 0x1FFFFFF8)) |= 1 << v15;
+        malloc_zone_free(g_slab_zone, v11);
+        if ((*(*(a1 + 304) + ((v14 >> 3) & 0x1FFFFFF8)) >> v14))
+        {
+          v11 = v13;
+          if (!v13)
+          {
+            break;
+          }
+        }
+
+        else
+        {
+          v25 = __nwlog_obj();
+          v26 = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
+          *buf = 136446466;
+          if (v26)
+          {
+            v27 = 3;
+          }
+
+          else
+          {
+            v27 = 2;
+          }
+
+          v37 = "nw_mem_region_depopulate";
+          v38 = 2082;
+          *v39 = "VERIFY bit_test(nwr->nwr_seg_bmap[i / BMAPSZ], i % BMAPSZ) failed";
+          LODWORD(v35) = 22;
+          v28 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &dword_181A37000, v25, 16, "%{public}s %{public}s", buf, v35);
+          if (__nwlog_should_abort(v28))
+          {
+            goto LABEL_50;
+          }
+
+          free(v28);
+          v11 = v13;
+          if (!v13)
+          {
+            break;
+          }
+        }
+      }
+    }
+
+    v29 = *(a1 + 304);
+    if (v29)
+    {
+      free(v29);
+      *(a1 + 304) = 0;
+      *(a1 + 312) = 0;
+    }
+
+    v30 = *(a1 + 360);
+    if (v30)
+    {
+      free(v30);
+      *(a1 + 360) = 0;
+    }
+
+    v31 = *(a1 + 392);
+    if (v31)
+    {
+      *(a1 + 392) = 0;
+      *(v31 + 240) &= ~0x80000000;
+    }
+
+    v32 = *(a1 + 272);
+    if (v32)
+    {
+      dispatch_release(v32);
+      *(a1 + 272) = 0;
+    }
+
+    if (v31)
+    {
+      nw_mem_region_release(v31);
+    }
+
+    malloc_zone_free(g_slab_zone, a1);
+  }
+}
+
 void nw_mem_region_stats_dump()
 {
   v18 = *MEMORY[0x1E69E9840];
@@ -48,7 +283,7 @@ id nw_endpoint_create_apple_service(const char *a1, const char *a2)
     v21 = __nwlog_obj();
     *buf = 136446210;
     v31 = "nw_endpoint_create_apple_service";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v21, 16, "%{public}s called with null apple_id", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v28 = 0;
@@ -134,7 +369,7 @@ LABEL_78:
     v31 = "nw_endpoint_create_apple_service";
     v32 = 2082;
     v33 = "apple_id";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s invalid empty string %{public}s", buf, 22);
 
     type = OS_LOG_TYPE_ERROR;
     v28 = 0;
@@ -253,7 +488,7 @@ LABEL_15:
     v25 = __nwlog_obj();
     *buf = 136446210;
     v31 = "nw_endpoint_create_apple_service";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v25, 16, "%{public}s called with null service", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v28 = 0;
@@ -347,7 +582,7 @@ LABEL_46:
     v31 = "nw_endpoint_create_apple_service";
     v32 = 2082;
     v33 = "service";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v15, 16, "%{public}s invalid empty string %{public}s", buf, 22);
 
     type = OS_LOG_TYPE_ERROR;
     v28 = 0;
@@ -463,7 +698,7 @@ LABEL_16:
   return _nw_endpoint_create_apple_service(a1, a2);
 }
 
-id nw_endpoint_create_application_service_with_alias(const char *a1, const char *a2)
+uint64_t nw_endpoint_create_application_service_with_alias(const char *a1, const char *a2)
 {
   v36 = *MEMORY[0x1E69E9840];
   if (!a1)
@@ -471,7 +706,7 @@ id nw_endpoint_create_application_service_with_alias(const char *a1, const char 
     v21 = __nwlog_obj();
     *buf = 136446210;
     v31 = "nw_endpoint_create_application_service_with_alias";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v21, 16, "%{public}s called with null application_service", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v28 = 0;
@@ -557,7 +792,7 @@ LABEL_78:
     v31 = "nw_endpoint_create_application_service_with_alias";
     v32 = 2082;
     v33 = "application_service";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s invalid empty string %{public}s", buf, 22);
 
     type = OS_LOG_TYPE_ERROR;
     v28 = 0;
@@ -676,7 +911,7 @@ LABEL_15:
     v25 = __nwlog_obj();
     *buf = 136446210;
     v31 = "nw_endpoint_create_application_service_with_alias";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v25, 16, "%{public}s called with null alias", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v28 = 0;
@@ -770,7 +1005,7 @@ LABEL_46:
     v31 = "nw_endpoint_create_application_service_with_alias";
     v32 = 2082;
     v33 = "alias";
-    v7 = _os_log_send_and_compose_impl();
+    v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v15, 16, "%{public}s invalid empty string %{public}s", buf, 22);
 
     type = OS_LOG_TYPE_ERROR;
     v28 = 0;
@@ -900,7 +1135,7 @@ uint64_t nw_endpoint_get_apple_service_apple_id(void *a1)
   v5 = __nwlog_obj();
   *buf = 136446210;
   v16 = "nw_endpoint_get_apple_service_apple_id";
-  v6 = _os_log_send_and_compose_impl();
+  v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s called with null endpoint", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -974,81 +1209,80 @@ LABEL_3:
 
 void nw_endpoint_set_application_service_name(void *a1, uint64_t a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a1;
-  v4 = v3;
   if (!v3)
   {
-    v5 = __nwlog_obj();
+    v4 = __nwlog_obj();
     *buf = 136446210;
-    v22 = "nw_endpoint_set_application_service_name";
-    v6 = _os_log_send_and_compose_impl();
+    v21 = "nw_endpoint_set_application_service_name";
+    v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null endpoint", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
-    v19 = 0;
-    if (!__nwlog_fault(v6, &type, &v19))
+    v18 = 0;
+    if (!__nwlog_fault(v5, &type, &v18))
     {
       goto LABEL_38;
     }
 
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v7 = __nwlog_obj();
-      v8 = type;
-      if (os_log_type_enabled(v7, type))
+      v6 = __nwlog_obj();
+      v7 = type;
+      if (os_log_type_enabled(v6, type))
       {
         *buf = 136446210;
-        v22 = "nw_endpoint_set_application_service_name";
-        _os_log_impl(&dword_181A37000, v7, v8, "%{public}s called with null endpoint", buf, 0xCu);
+        v21 = "nw_endpoint_set_application_service_name";
+        _os_log_impl(&dword_181A37000, v6, v7, "%{public}s called with null endpoint", buf, 0xCu);
       }
     }
 
-    else if (v19 == 1)
+    else if (v18 == 1)
     {
       backtrace_string = __nw_create_backtrace_string();
-      v7 = __nwlog_obj();
-      v12 = type;
-      v13 = os_log_type_enabled(v7, type);
+      v6 = __nwlog_obj();
+      v11 = type;
+      v12 = os_log_type_enabled(v6, type);
       if (backtrace_string)
       {
-        if (v13)
+        if (v12)
         {
           *buf = 136446466;
-          v22 = "nw_endpoint_set_application_service_name";
-          v23 = 2082;
-          v24 = backtrace_string;
-          _os_log_impl(&dword_181A37000, v7, v12, "%{public}s called with null endpoint, dumping backtrace:%{public}s", buf, 0x16u);
+          v21 = "nw_endpoint_set_application_service_name";
+          v22 = 2082;
+          v23 = backtrace_string;
+          _os_log_impl(&dword_181A37000, v6, v11, "%{public}s called with null endpoint, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
         free(backtrace_string);
 LABEL_38:
-        if (!v6)
+        if (!v5)
         {
           goto LABEL_4;
         }
 
 LABEL_39:
-        free(v6);
+        free(v5);
         goto LABEL_4;
       }
 
-      if (v13)
+      if (v12)
       {
         *buf = 136446210;
-        v22 = "nw_endpoint_set_application_service_name";
-        _os_log_impl(&dword_181A37000, v7, v12, "%{public}s called with null endpoint, no backtrace", buf, 0xCu);
+        v21 = "nw_endpoint_set_application_service_name";
+        _os_log_impl(&dword_181A37000, v6, v11, "%{public}s called with null endpoint, no backtrace", buf, 0xCu);
       }
     }
 
     else
     {
-      v7 = __nwlog_obj();
-      v17 = type;
-      if (os_log_type_enabled(v7, type))
+      v6 = __nwlog_obj();
+      v16 = type;
+      if (os_log_type_enabled(v6, type))
       {
         *buf = 136446210;
-        v22 = "nw_endpoint_set_application_service_name";
-        _os_log_impl(&dword_181A37000, v7, v17, "%{public}s called with null endpoint, backtrace limit exceeded", buf, 0xCu);
+        v21 = "nw_endpoint_set_application_service_name";
+        _os_log_impl(&dword_181A37000, v6, v16, "%{public}s called with null endpoint, backtrace limit exceeded", buf, 0xCu);
       }
     }
 
@@ -1059,77 +1293,77 @@ LABEL_37:
 
   if (a2)
   {
-    _nw_endpoint_set_application_service_name(v3, a2);
+    _nw_endpoint_set_application_service_name();
     goto LABEL_4;
   }
 
-  v9 = __nwlog_obj();
+  v8 = __nwlog_obj();
   *buf = 136446210;
-  v22 = "nw_endpoint_set_application_service_name";
-  v6 = _os_log_send_and_compose_impl();
+  v21 = "nw_endpoint_set_application_service_name";
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null application_service", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
-  v19 = 0;
-  if (!__nwlog_fault(v6, &type, &v19))
+  v18 = 0;
+  if (!__nwlog_fault(v5, &type, &v18))
   {
     goto LABEL_38;
   }
 
   if (type == OS_LOG_TYPE_FAULT)
   {
-    v7 = __nwlog_obj();
-    v10 = type;
-    if (os_log_type_enabled(v7, type))
+    v6 = __nwlog_obj();
+    v9 = type;
+    if (os_log_type_enabled(v6, type))
     {
       *buf = 136446210;
-      v22 = "nw_endpoint_set_application_service_name";
-      _os_log_impl(&dword_181A37000, v7, v10, "%{public}s called with null application_service", buf, 0xCu);
+      v21 = "nw_endpoint_set_application_service_name";
+      _os_log_impl(&dword_181A37000, v6, v9, "%{public}s called with null application_service", buf, 0xCu);
     }
 
     goto LABEL_37;
   }
 
-  if (v19 != 1)
+  if (v18 != 1)
   {
-    v7 = __nwlog_obj();
-    v18 = type;
-    if (os_log_type_enabled(v7, type))
+    v6 = __nwlog_obj();
+    v17 = type;
+    if (os_log_type_enabled(v6, type))
     {
       *buf = 136446210;
-      v22 = "nw_endpoint_set_application_service_name";
-      _os_log_impl(&dword_181A37000, v7, v18, "%{public}s called with null application_service, backtrace limit exceeded", buf, 0xCu);
+      v21 = "nw_endpoint_set_application_service_name";
+      _os_log_impl(&dword_181A37000, v6, v17, "%{public}s called with null application_service, backtrace limit exceeded", buf, 0xCu);
     }
 
     goto LABEL_37;
   }
 
-  v14 = __nw_create_backtrace_string();
-  v7 = __nwlog_obj();
-  v15 = type;
-  v16 = os_log_type_enabled(v7, type);
-  if (!v14)
+  v13 = __nw_create_backtrace_string();
+  v6 = __nwlog_obj();
+  v14 = type;
+  v15 = os_log_type_enabled(v6, type);
+  if (!v13)
   {
-    if (v16)
+    if (v15)
     {
       *buf = 136446210;
-      v22 = "nw_endpoint_set_application_service_name";
-      _os_log_impl(&dword_181A37000, v7, v15, "%{public}s called with null application_service, no backtrace", buf, 0xCu);
+      v21 = "nw_endpoint_set_application_service_name";
+      _os_log_impl(&dword_181A37000, v6, v14, "%{public}s called with null application_service, no backtrace", buf, 0xCu);
     }
 
     goto LABEL_37;
   }
 
-  if (v16)
+  if (v15)
   {
     *buf = 136446466;
-    v22 = "nw_endpoint_set_application_service_name";
-    v23 = 2082;
-    v24 = v14;
-    _os_log_impl(&dword_181A37000, v7, v15, "%{public}s called with null application_service, dumping backtrace:%{public}s", buf, 0x16u);
+    v21 = "nw_endpoint_set_application_service_name";
+    v22 = 2082;
+    v23 = v13;
+    _os_log_impl(&dword_181A37000, v6, v14, "%{public}s called with null application_service, dumping backtrace:%{public}s", buf, 0x16u);
   }
 
-  free(v14);
-  if (v6)
+  free(v13);
+  if (v5)
   {
     goto LABEL_39;
   }
@@ -1139,81 +1373,80 @@ LABEL_4:
 
 void nw_endpoint_set_service_identifier(void *a1, uint64_t a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a1;
-  v4 = v3;
   if (!v3)
   {
-    v5 = __nwlog_obj();
+    v4 = __nwlog_obj();
     *buf = 136446210;
-    v22 = "nw_endpoint_set_service_identifier";
-    v6 = _os_log_send_and_compose_impl();
+    v21 = "nw_endpoint_set_service_identifier";
+    v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v4, 16, "%{public}s called with null endpoint", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
-    v19 = 0;
-    if (!__nwlog_fault(v6, &type, &v19))
+    v18 = 0;
+    if (!__nwlog_fault(v5, &type, &v18))
     {
       goto LABEL_38;
     }
 
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v7 = __nwlog_obj();
-      v8 = type;
-      if (os_log_type_enabled(v7, type))
+      v6 = __nwlog_obj();
+      v7 = type;
+      if (os_log_type_enabled(v6, type))
       {
         *buf = 136446210;
-        v22 = "nw_endpoint_set_service_identifier";
-        _os_log_impl(&dword_181A37000, v7, v8, "%{public}s called with null endpoint", buf, 0xCu);
+        v21 = "nw_endpoint_set_service_identifier";
+        _os_log_impl(&dword_181A37000, v6, v7, "%{public}s called with null endpoint", buf, 0xCu);
       }
     }
 
-    else if (v19 == 1)
+    else if (v18 == 1)
     {
       backtrace_string = __nw_create_backtrace_string();
-      v7 = __nwlog_obj();
-      v12 = type;
-      v13 = os_log_type_enabled(v7, type);
+      v6 = __nwlog_obj();
+      v11 = type;
+      v12 = os_log_type_enabled(v6, type);
       if (backtrace_string)
       {
-        if (v13)
+        if (v12)
         {
           *buf = 136446466;
-          v22 = "nw_endpoint_set_service_identifier";
-          v23 = 2082;
-          v24 = backtrace_string;
-          _os_log_impl(&dword_181A37000, v7, v12, "%{public}s called with null endpoint, dumping backtrace:%{public}s", buf, 0x16u);
+          v21 = "nw_endpoint_set_service_identifier";
+          v22 = 2082;
+          v23 = backtrace_string;
+          _os_log_impl(&dword_181A37000, v6, v11, "%{public}s called with null endpoint, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
         free(backtrace_string);
 LABEL_38:
-        if (!v6)
+        if (!v5)
         {
           goto LABEL_4;
         }
 
 LABEL_39:
-        free(v6);
+        free(v5);
         goto LABEL_4;
       }
 
-      if (v13)
+      if (v12)
       {
         *buf = 136446210;
-        v22 = "nw_endpoint_set_service_identifier";
-        _os_log_impl(&dword_181A37000, v7, v12, "%{public}s called with null endpoint, no backtrace", buf, 0xCu);
+        v21 = "nw_endpoint_set_service_identifier";
+        _os_log_impl(&dword_181A37000, v6, v11, "%{public}s called with null endpoint, no backtrace", buf, 0xCu);
       }
     }
 
     else
     {
-      v7 = __nwlog_obj();
-      v17 = type;
-      if (os_log_type_enabled(v7, type))
+      v6 = __nwlog_obj();
+      v16 = type;
+      if (os_log_type_enabled(v6, type))
       {
         *buf = 136446210;
-        v22 = "nw_endpoint_set_service_identifier";
-        _os_log_impl(&dword_181A37000, v7, v17, "%{public}s called with null endpoint, backtrace limit exceeded", buf, 0xCu);
+        v21 = "nw_endpoint_set_service_identifier";
+        _os_log_impl(&dword_181A37000, v6, v16, "%{public}s called with null endpoint, backtrace limit exceeded", buf, 0xCu);
       }
     }
 
@@ -1224,77 +1457,77 @@ LABEL_37:
 
   if (a2)
   {
-    _nw_endpoint_set_service_identifier(v3, a2);
+    _nw_endpoint_set_service_identifier();
     goto LABEL_4;
   }
 
-  v9 = __nwlog_obj();
+  v8 = __nwlog_obj();
   *buf = 136446210;
-  v22 = "nw_endpoint_set_service_identifier";
-  v6 = _os_log_send_and_compose_impl();
+  v21 = "nw_endpoint_set_service_identifier";
+  v5 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v8, 16, "%{public}s called with null service_uuid", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
-  v19 = 0;
-  if (!__nwlog_fault(v6, &type, &v19))
+  v18 = 0;
+  if (!__nwlog_fault(v5, &type, &v18))
   {
     goto LABEL_38;
   }
 
   if (type == OS_LOG_TYPE_FAULT)
   {
-    v7 = __nwlog_obj();
-    v10 = type;
-    if (os_log_type_enabled(v7, type))
+    v6 = __nwlog_obj();
+    v9 = type;
+    if (os_log_type_enabled(v6, type))
     {
       *buf = 136446210;
-      v22 = "nw_endpoint_set_service_identifier";
-      _os_log_impl(&dword_181A37000, v7, v10, "%{public}s called with null service_uuid", buf, 0xCu);
+      v21 = "nw_endpoint_set_service_identifier";
+      _os_log_impl(&dword_181A37000, v6, v9, "%{public}s called with null service_uuid", buf, 0xCu);
     }
 
     goto LABEL_37;
   }
 
-  if (v19 != 1)
+  if (v18 != 1)
   {
-    v7 = __nwlog_obj();
-    v18 = type;
-    if (os_log_type_enabled(v7, type))
+    v6 = __nwlog_obj();
+    v17 = type;
+    if (os_log_type_enabled(v6, type))
     {
       *buf = 136446210;
-      v22 = "nw_endpoint_set_service_identifier";
-      _os_log_impl(&dword_181A37000, v7, v18, "%{public}s called with null service_uuid, backtrace limit exceeded", buf, 0xCu);
+      v21 = "nw_endpoint_set_service_identifier";
+      _os_log_impl(&dword_181A37000, v6, v17, "%{public}s called with null service_uuid, backtrace limit exceeded", buf, 0xCu);
     }
 
     goto LABEL_37;
   }
 
-  v14 = __nw_create_backtrace_string();
-  v7 = __nwlog_obj();
-  v15 = type;
-  v16 = os_log_type_enabled(v7, type);
-  if (!v14)
+  v13 = __nw_create_backtrace_string();
+  v6 = __nwlog_obj();
+  v14 = type;
+  v15 = os_log_type_enabled(v6, type);
+  if (!v13)
   {
-    if (v16)
+    if (v15)
     {
       *buf = 136446210;
-      v22 = "nw_endpoint_set_service_identifier";
-      _os_log_impl(&dword_181A37000, v7, v15, "%{public}s called with null service_uuid, no backtrace", buf, 0xCu);
+      v21 = "nw_endpoint_set_service_identifier";
+      _os_log_impl(&dword_181A37000, v6, v14, "%{public}s called with null service_uuid, no backtrace", buf, 0xCu);
     }
 
     goto LABEL_37;
   }
 
-  if (v16)
+  if (v15)
   {
     *buf = 136446466;
-    v22 = "nw_endpoint_set_service_identifier";
-    v23 = 2082;
-    v24 = v14;
-    _os_log_impl(&dword_181A37000, v7, v15, "%{public}s called with null service_uuid, dumping backtrace:%{public}s", buf, 0x16u);
+    v21 = "nw_endpoint_set_service_identifier";
+    v22 = 2082;
+    v23 = v13;
+    _os_log_impl(&dword_181A37000, v6, v14, "%{public}s called with null service_uuid, dumping backtrace:%{public}s", buf, 0x16u);
   }
 
-  free(v14);
-  if (v6)
+  free(v13);
+  if (v5)
   {
     goto LABEL_39;
   }
@@ -1302,261 +1535,258 @@ LABEL_37:
 LABEL_4:
 }
 
-void nw_endpoint_set_contact_id(void *a1, uint64_t a2)
+void nw_endpoint_set_contact_id(void *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v3 = a1;
-  v4 = v3;
-  if (v3)
+  v16 = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  if (v1)
   {
-    _nw_endpoint_set_contact_id(v3, a2);
+    _nw_endpoint_set_contact_id();
     goto LABEL_3;
   }
 
-  v5 = __nwlog_obj();
+  v2 = __nwlog_obj();
   *buf = 136446210;
-  v16 = "nw_endpoint_set_contact_id";
-  v6 = _os_log_send_and_compose_impl();
+  v13 = "nw_endpoint_set_contact_id";
+  v3 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v2, 16, "%{public}s called with null endpoint", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
-  v13 = 0;
-  if (__nwlog_fault(v6, &type, &v13))
+  v10 = 0;
+  if (__nwlog_fault(v3, &type, &v10))
   {
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v7 = __nwlog_obj();
-      v8 = type;
-      if (os_log_type_enabled(v7, type))
+      v4 = __nwlog_obj();
+      v5 = type;
+      if (os_log_type_enabled(v4, type))
       {
         *buf = 136446210;
-        v16 = "nw_endpoint_set_contact_id";
-        _os_log_impl(&dword_181A37000, v7, v8, "%{public}s called with null endpoint", buf, 0xCu);
+        v13 = "nw_endpoint_set_contact_id";
+        _os_log_impl(&dword_181A37000, v4, v5, "%{public}s called with null endpoint", buf, 0xCu);
       }
     }
 
-    else if (v13 == 1)
+    else if (v10 == 1)
     {
       backtrace_string = __nw_create_backtrace_string();
-      v7 = __nwlog_obj();
-      v10 = type;
-      v11 = os_log_type_enabled(v7, type);
+      v4 = __nwlog_obj();
+      v7 = type;
+      v8 = os_log_type_enabled(v4, type);
       if (backtrace_string)
       {
-        if (v11)
+        if (v8)
         {
           *buf = 136446466;
-          v16 = "nw_endpoint_set_contact_id";
-          v17 = 2082;
-          v18 = backtrace_string;
-          _os_log_impl(&dword_181A37000, v7, v10, "%{public}s called with null endpoint, dumping backtrace:%{public}s", buf, 0x16u);
+          v13 = "nw_endpoint_set_contact_id";
+          v14 = 2082;
+          v15 = backtrace_string;
+          _os_log_impl(&dword_181A37000, v4, v7, "%{public}s called with null endpoint, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
         free(backtrace_string);
         goto LABEL_20;
       }
 
-      if (v11)
+      if (v8)
       {
         *buf = 136446210;
-        v16 = "nw_endpoint_set_contact_id";
-        _os_log_impl(&dword_181A37000, v7, v10, "%{public}s called with null endpoint, no backtrace", buf, 0xCu);
+        v13 = "nw_endpoint_set_contact_id";
+        _os_log_impl(&dword_181A37000, v4, v7, "%{public}s called with null endpoint, no backtrace", buf, 0xCu);
       }
     }
 
     else
     {
-      v7 = __nwlog_obj();
-      v12 = type;
-      if (os_log_type_enabled(v7, type))
+      v4 = __nwlog_obj();
+      v9 = type;
+      if (os_log_type_enabled(v4, type))
       {
         *buf = 136446210;
-        v16 = "nw_endpoint_set_contact_id";
-        _os_log_impl(&dword_181A37000, v7, v12, "%{public}s called with null endpoint, backtrace limit exceeded", buf, 0xCu);
+        v13 = "nw_endpoint_set_contact_id";
+        _os_log_impl(&dword_181A37000, v4, v9, "%{public}s called with null endpoint, backtrace limit exceeded", buf, 0xCu);
       }
     }
   }
 
 LABEL_20:
-  if (v6)
+  if (v3)
   {
-    free(v6);
+    free(v3);
   }
 
 LABEL_3:
 }
 
-void nw_endpoint_set_device_color(void *a1, uint64_t a2)
+void nw_endpoint_set_device_color(void *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v3 = a1;
-  v4 = v3;
-  if (v3)
+  v16 = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  if (v1)
   {
-    _nw_endpoint_set_device_color(v3, a2);
+    _nw_endpoint_set_device_color();
     goto LABEL_3;
   }
 
-  v5 = __nwlog_obj();
+  v2 = __nwlog_obj();
   *buf = 136446210;
-  v16 = "nw_endpoint_set_device_color";
-  v6 = _os_log_send_and_compose_impl();
+  v13 = "nw_endpoint_set_device_color";
+  v3 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v2, 16, "%{public}s called with null endpoint", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
-  v13 = 0;
-  if (__nwlog_fault(v6, &type, &v13))
+  v10 = 0;
+  if (__nwlog_fault(v3, &type, &v10))
   {
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v7 = __nwlog_obj();
-      v8 = type;
-      if (os_log_type_enabled(v7, type))
+      v4 = __nwlog_obj();
+      v5 = type;
+      if (os_log_type_enabled(v4, type))
       {
         *buf = 136446210;
-        v16 = "nw_endpoint_set_device_color";
-        _os_log_impl(&dword_181A37000, v7, v8, "%{public}s called with null endpoint", buf, 0xCu);
+        v13 = "nw_endpoint_set_device_color";
+        _os_log_impl(&dword_181A37000, v4, v5, "%{public}s called with null endpoint", buf, 0xCu);
       }
     }
 
-    else if (v13 == 1)
+    else if (v10 == 1)
     {
       backtrace_string = __nw_create_backtrace_string();
-      v7 = __nwlog_obj();
-      v10 = type;
-      v11 = os_log_type_enabled(v7, type);
+      v4 = __nwlog_obj();
+      v7 = type;
+      v8 = os_log_type_enabled(v4, type);
       if (backtrace_string)
       {
-        if (v11)
+        if (v8)
         {
           *buf = 136446466;
-          v16 = "nw_endpoint_set_device_color";
-          v17 = 2082;
-          v18 = backtrace_string;
-          _os_log_impl(&dword_181A37000, v7, v10, "%{public}s called with null endpoint, dumping backtrace:%{public}s", buf, 0x16u);
+          v13 = "nw_endpoint_set_device_color";
+          v14 = 2082;
+          v15 = backtrace_string;
+          _os_log_impl(&dword_181A37000, v4, v7, "%{public}s called with null endpoint, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
         free(backtrace_string);
         goto LABEL_20;
       }
 
-      if (v11)
+      if (v8)
       {
         *buf = 136446210;
-        v16 = "nw_endpoint_set_device_color";
-        _os_log_impl(&dword_181A37000, v7, v10, "%{public}s called with null endpoint, no backtrace", buf, 0xCu);
+        v13 = "nw_endpoint_set_device_color";
+        _os_log_impl(&dword_181A37000, v4, v7, "%{public}s called with null endpoint, no backtrace", buf, 0xCu);
       }
     }
 
     else
     {
-      v7 = __nwlog_obj();
-      v12 = type;
-      if (os_log_type_enabled(v7, type))
+      v4 = __nwlog_obj();
+      v9 = type;
+      if (os_log_type_enabled(v4, type))
       {
         *buf = 136446210;
-        v16 = "nw_endpoint_set_device_color";
-        _os_log_impl(&dword_181A37000, v7, v12, "%{public}s called with null endpoint, backtrace limit exceeded", buf, 0xCu);
+        v13 = "nw_endpoint_set_device_color";
+        _os_log_impl(&dword_181A37000, v4, v9, "%{public}s called with null endpoint, backtrace limit exceeded", buf, 0xCu);
       }
     }
   }
 
 LABEL_20:
-  if (v6)
+  if (v3)
   {
-    free(v6);
+    free(v3);
   }
 
 LABEL_3:
 }
 
-void nw_endpoint_set_advertised_route(void *a1, uint64_t a2)
+void nw_endpoint_set_advertised_route(void *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v3 = a1;
-  v4 = v3;
-  if (v3)
+  v16 = *MEMORY[0x1E69E9840];
+  v1 = a1;
+  if (v1)
   {
-    _nw_endpoint_set_advertised_route(v3, a2);
+    _nw_endpoint_set_advertised_route();
     goto LABEL_3;
   }
 
-  v5 = __nwlog_obj();
+  v2 = __nwlog_obj();
   *buf = 136446210;
-  v16 = "nw_endpoint_set_advertised_route";
-  v6 = _os_log_send_and_compose_impl();
+  v13 = "nw_endpoint_set_advertised_route";
+  v3 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v2, 16, "%{public}s called with null endpoint", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
-  v13 = 0;
-  if (__nwlog_fault(v6, &type, &v13))
+  v10 = 0;
+  if (__nwlog_fault(v3, &type, &v10))
   {
     if (type == OS_LOG_TYPE_FAULT)
     {
-      v7 = __nwlog_obj();
-      v8 = type;
-      if (os_log_type_enabled(v7, type))
+      v4 = __nwlog_obj();
+      v5 = type;
+      if (os_log_type_enabled(v4, type))
       {
         *buf = 136446210;
-        v16 = "nw_endpoint_set_advertised_route";
-        _os_log_impl(&dword_181A37000, v7, v8, "%{public}s called with null endpoint", buf, 0xCu);
+        v13 = "nw_endpoint_set_advertised_route";
+        _os_log_impl(&dword_181A37000, v4, v5, "%{public}s called with null endpoint", buf, 0xCu);
       }
     }
 
-    else if (v13 == 1)
+    else if (v10 == 1)
     {
       backtrace_string = __nw_create_backtrace_string();
-      v7 = __nwlog_obj();
-      v10 = type;
-      v11 = os_log_type_enabled(v7, type);
+      v4 = __nwlog_obj();
+      v7 = type;
+      v8 = os_log_type_enabled(v4, type);
       if (backtrace_string)
       {
-        if (v11)
+        if (v8)
         {
           *buf = 136446466;
-          v16 = "nw_endpoint_set_advertised_route";
-          v17 = 2082;
-          v18 = backtrace_string;
-          _os_log_impl(&dword_181A37000, v7, v10, "%{public}s called with null endpoint, dumping backtrace:%{public}s", buf, 0x16u);
+          v13 = "nw_endpoint_set_advertised_route";
+          v14 = 2082;
+          v15 = backtrace_string;
+          _os_log_impl(&dword_181A37000, v4, v7, "%{public}s called with null endpoint, dumping backtrace:%{public}s", buf, 0x16u);
         }
 
         free(backtrace_string);
         goto LABEL_20;
       }
 
-      if (v11)
+      if (v8)
       {
         *buf = 136446210;
-        v16 = "nw_endpoint_set_advertised_route";
-        _os_log_impl(&dword_181A37000, v7, v10, "%{public}s called with null endpoint, no backtrace", buf, 0xCu);
+        v13 = "nw_endpoint_set_advertised_route";
+        _os_log_impl(&dword_181A37000, v4, v7, "%{public}s called with null endpoint, no backtrace", buf, 0xCu);
       }
     }
 
     else
     {
-      v7 = __nwlog_obj();
-      v12 = type;
-      if (os_log_type_enabled(v7, type))
+      v4 = __nwlog_obj();
+      v9 = type;
+      if (os_log_type_enabled(v4, type))
       {
         *buf = 136446210;
-        v16 = "nw_endpoint_set_advertised_route";
-        _os_log_impl(&dword_181A37000, v7, v12, "%{public}s called with null endpoint, backtrace limit exceeded", buf, 0xCu);
+        v13 = "nw_endpoint_set_advertised_route";
+        _os_log_impl(&dword_181A37000, v4, v9, "%{public}s called with null endpoint, backtrace limit exceeded", buf, 0xCu);
       }
     }
   }
 
 LABEL_20:
-  if (v6)
+  if (v3)
   {
-    free(v6);
+    free(v3);
   }
 
 LABEL_3:
 }
 
-void saveAndPostNetworkdSettings(void *a1, void *a2, uint64_t a3)
+void saveAndPostNetworkdSettings(void *a1, void *a2, void *a3)
 {
-  v134 = *MEMORY[0x1E69E9840];
+  v132 = *MEMORY[0x1E69E9840];
   v4 = a1;
   v5 = a2;
-  v88 = v5;
+  v86 = v5;
   if (v4 == v5 || !v4 || !v5)
   {
     if (v4 == v5)
@@ -1636,14 +1866,12 @@ LABEL_21:
     *&buf[12] = 2114;
     *&buf[14] = v8;
     *&buf[22] = 1024;
-    LODWORD(v100) = v17;
-    LODWORD(v84) = 28;
-    v83 = buf;
-    v19 = _os_log_send_and_compose_impl();
+    LODWORD(v98) = v17;
+    v19 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v18, 16, "%{public}s unlink(%{public}@) failed %{darwin.errno}d", buf, 28);
 
     type[0] = OS_LOG_TYPE_ERROR;
-    v93 = 0;
-    if (!__nwlog_fault(v19, type, &v93))
+    v91 = 0;
+    if (!__nwlog_fault(v19, type, &v91))
     {
 LABEL_93:
       if (v19)
@@ -1668,7 +1896,7 @@ LABEL_93:
         *&buf[12] = 2114;
         *&buf[14] = v8;
         *&buf[22] = 1024;
-        LODWORD(v100) = v20;
+        LODWORD(v98) = v20;
         v23 = "%{public}s unlink(%{public}@) failed %{darwin.errno}d";
 LABEL_90:
         v81 = v21;
@@ -1680,7 +1908,7 @@ LABEL_91:
 
     else
     {
-      if (v93 == 1)
+      if (v91 == 1)
       {
         backtrace_string = __nw_create_backtrace_string();
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -1697,9 +1925,9 @@ LABEL_91:
             *&buf[12] = 2114;
             *&buf[14] = v8;
             *&buf[22] = 1024;
-            LODWORD(v100) = v20;
-            WORD2(v100) = 2082;
-            *(&v100 + 6) = backtrace_string;
+            LODWORD(v98) = v20;
+            WORD2(v98) = 2082;
+            *(&v98 + 6) = backtrace_string;
             _os_log_impl(&dword_181A37000, v21, v79, "%{public}s unlink(%{public}@) failed %{darwin.errno}d, dumping backtrace:%{public}s", buf, 0x26u);
           }
 
@@ -1717,7 +1945,7 @@ LABEL_91:
         *&buf[12] = 2114;
         *&buf[14] = v8;
         *&buf[22] = 1024;
-        LODWORD(v100) = v20;
+        LODWORD(v98) = v20;
         v23 = "%{public}s unlink(%{public}@) failed %{darwin.errno}d, no backtrace";
         v81 = v21;
         v82 = v79;
@@ -1735,7 +1963,7 @@ LABEL_91:
         *&buf[12] = 2114;
         *&buf[14] = v8;
         *&buf[22] = 1024;
-        LODWORD(v100) = v20;
+        LODWORD(v98) = v20;
         v23 = "%{public}s unlink(%{public}@) failed %{darwin.errno}d, backtrace limit exceeded";
         goto LABEL_90;
       }
@@ -1752,28 +1980,28 @@ LABEL_92:
   }
 
 LABEL_22:
-  v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{nw_file_path_settings, v83, v84}];
+  v24 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_file_path_settings];
   fixFilePermissions(v24);
 
   v25 = [v4 mutableCopy];
   v26 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_settings_managed_settings];
   v27 = [v25 objectForKeyedSubscript:v26];
   [v25 removeObjectForKey:v26];
-  v96 = 0u;
-  v97 = 0u;
-  *type = 0u;
+  v94 = 0u;
   v95 = 0u;
+  *type = 0u;
+  v93 = 0u;
   v28 = v27;
   v29 = [v28 countByEnumeratingWithState:type objects:buf count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v95;
+    v31 = *v93;
     do
     {
       for (i = 0; i != v30; ++i)
       {
-        if (*v95 != v31)
+        if (*v93 != v31)
         {
           objc_enumerationMutation(v28);
         }
@@ -1829,47 +2057,47 @@ LABEL_22:
     updateOSLogPlistFromLevel(v40, 0, v41);
   }
 
-  v87 = v36;
-  v85 = v4;
+  v85 = v36;
+  v83 = v4;
   v43 = v25;
   *buf = 8;
   *&buf[8] = nw_setting_libnetcore_datapath_debug;
   *&buf[16] = 16;
-  *&v100 = nw_setting_tcpconn_disable_simulate_crash;
-  *(&v100 + 1) = 32;
-  v101 = nw_setting_boringssl_log_debug;
-  v102 = 64;
-  v103 = nw_setting_tcp_enable_auto_tfo[0];
-  v104 = 128;
-  v105 = nw_setting_disable_dns_xpc;
-  v106 = 256;
-  v107 = nw_setting_tcpconn_enable_tls_tickets;
-  v108 = 512;
-  v109 = nw_setting_channel_enable_qos_override;
-  v110 = 1024;
-  v111 = nw_setting_disable_ddr;
-  v112 = 2048;
-  v113 = nw_setting_tcpconn_enable_tls_esni;
-  v114 = 4096;
-  v115 = nw_setting_context_timer_disable_qos_override;
-  v116 = 0x2000;
-  v117 = nw_setting_tcpconn_enable_tls_experiments;
-  v118 = 0x4000;
-  v119 = nw_setting_tcpconn_enable_tls_keylog;
-  v120 = 0x8000;
-  v121 = nw_setting_disable_swift_tls_privacy_proxy;
-  v122 = 0x10000;
-  v123 = nw_setting_disable_l4s_aqm;
-  v124 = 0x20000;
-  v125 = nw_setting_disable_pqtls;
-  v126 = 0x40000;
-  v127 = nw_setting_ultra_constrained_default_allow[0];
-  v128 = 0x80000;
-  v129 = nw_setting_channel_force_copy_frame;
-  v130 = 0x100000;
-  v131 = nw_setting_swift_tls_log_debug;
-  v133 = 0;
-  v132 = 0;
+  *&v98 = nw_setting_tcpconn_disable_simulate_crash;
+  *(&v98 + 1) = 32;
+  v99 = nw_setting_boringssl_log_debug;
+  v100 = 64;
+  v101 = nw_setting_tcp_enable_auto_tfo[0];
+  v102 = 128;
+  v103 = nw_setting_disable_dns_xpc;
+  v104 = 256;
+  v105 = nw_setting_tcpconn_enable_tls_tickets;
+  v106 = 512;
+  v107 = nw_setting_channel_enable_qos_override;
+  v108 = 1024;
+  v109 = nw_setting_disable_ddr;
+  v110 = 2048;
+  v111 = nw_setting_tcpconn_enable_tls_esni;
+  v112 = 4096;
+  v113 = nw_setting_context_timer_disable_qos_override;
+  v114 = 0x2000;
+  v115 = nw_setting_tcpconn_enable_tls_experiments;
+  v116 = 0x4000;
+  v117 = nw_setting_tcpconn_enable_tls_keylog;
+  v118 = 0x8000;
+  v119 = nw_setting_disable_swift_tls_privacy_proxy;
+  v120 = 0x10000;
+  v121 = nw_setting_disable_l4s_aqm;
+  v122 = 0x20000;
+  v123 = nw_setting_disable_pqtls;
+  v124 = 0x40000;
+  v125 = nw_setting_ultra_constrained_default_allow[0];
+  v126 = 0x80000;
+  v127 = nw_setting_channel_force_copy_frame;
+  v128 = 0x100000;
+  v129 = nw_setting_swift_tls_log_debug;
+  v131 = 0;
+  v130 = 0;
   v44 = 0;
   if (nw_setting_libnetcore_datapath_debug)
   {
@@ -1917,34 +2145,34 @@ LABEL_22:
 
   if ([v43 count])
   {
-    v91 = 0u;
-    v92 = 0u;
     v89 = 0u;
     v90 = 0u;
+    v87 = 0u;
+    v88 = 0u;
     v57 = [v43 allKeys];
-    v58 = [v57 countByEnumeratingWithState:&v89 objects:v98 count:16];
-    v59 = v85;
+    v58 = [v57 countByEnumeratingWithState:&v87 objects:v96 count:16];
+    v59 = v83;
     if (v58)
     {
       v60 = v58;
       v61 = 0;
-      v62 = *v90;
+      v62 = *v88;
       do
       {
         for (j = 0; j != v60; ++j)
         {
-          if (*v90 != v62)
+          if (*v88 != v62)
           {
             objc_enumerationMutation(v57);
           }
 
-          v64 = *(*(&v89 + 1) + 8 * j);
+          v64 = *(*(&v87 + 1) + 8 * j);
           v65 = [v43 objectForKeyedSubscript:v64];
           v66 = [v64 hash];
           v61 ^= v66 ^ [v65 hash];
         }
 
-        v60 = [v57 countByEnumeratingWithState:&v89 objects:v98 count:16];
+        v60 = [v57 countByEnumeratingWithState:&v87 objects:v96 count:16];
       }
 
       while (v60);
@@ -1961,7 +2189,7 @@ LABEL_22:
 
   else
   {
-    v59 = v85;
+    v59 = v83;
   }
 
   if (postSettingsBitmask_sPostedSettingsBitmask != v56)
@@ -1983,7 +2211,7 @@ LABEL_22:
           *&buf[12] = 2082;
           *&buf[14] = nw_notification_name_settings;
           *&buf[22] = 1024;
-          LODWORD(v100) = v73;
+          LODWORD(v98) = v73;
           _os_log_impl(&dword_181A37000, v74, OS_LOG_TYPE_ERROR, "%{public}s notify_register_check(%{public}s) failed: %u", buf, 0x1Cu);
         }
 
@@ -2017,9 +2245,9 @@ LABEL_74:
         *&buf[12] = 2082;
         *&buf[14] = nw_notification_name_settings;
         *&buf[22] = 2048;
-        *&v100 = v56;
-        WORD4(v100) = 1024;
-        *(&v100 + 10) = v70;
+        *&v98 = v56;
+        WORD4(v98) = 1024;
+        *(&v98 + 10) = v70;
         _os_log_impl(&dword_181A37000, v71, OS_LOG_TYPE_ERROR, "%{public}s notify_set_state for %{public}s %#llx failed: %u", buf, 0x26u);
       }
     }
@@ -2040,7 +2268,7 @@ LABEL_74:
           *&buf[12] = 2048;
           *&buf[14] = postSettingsBitmask_sPostedSettingsBitmask;
           *&buf[22] = 2048;
-          *&v100 = v56;
+          *&v98 = v56;
           _os_log_impl(&dword_181A37000, v77, OS_LOG_TYPE_DEFAULT, "%{public}s successfully changed networkd settings state from %#llx to %#llx", buf, 0x20u);
         }
 
@@ -2054,7 +2282,7 @@ LABEL_74:
         *&buf[12] = 2082;
         *&buf[14] = nw_notification_name_settings;
         *&buf[22] = 1024;
-        LODWORD(v100) = v75;
+        LODWORD(v98) = v75;
         _os_log_impl(&dword_181A37000, v77, OS_LOG_TYPE_ERROR, "%{public}s notify_post for %{public}s failed: %u", buf, 0x1Cu);
       }
     }
@@ -2089,7 +2317,7 @@ void fixFilePermissions(void *a1)
       *&v40[6] = v1;
       *&v40[14] = 1024;
       *&v40[16] = v4;
-      v6 = _os_log_send_and_compose_impl();
+      v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v5, 16, "%{public}s fstat(%d) on %{public}@ failed %{darwin.errno}d", v37, 34);
 
       type = OS_LOG_TYPE_ERROR;
       v35 = 0;
@@ -2253,7 +2481,7 @@ LABEL_23:
     *&v40[12] = v1;
     v41 = 1024;
     LODWORD(v42[0]) = v17;
-    v6 = _os_log_send_and_compose_impl();
+    v6 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v18, 16, "%{public}s fchmod(%d, 0x%x) on %{public}@ failed %{darwin.errno}d", v37, 40);
 
     type = OS_LOG_TYPE_ERROR;
     v35 = 0;
@@ -2383,7 +2611,7 @@ LABEL_63:
     *(&v43.st_ino + 6) = v1;
     HIWORD(v43.st_gid) = 1024;
     v43.st_rdev = v10;
-    v12 = _os_log_send_and_compose_impl();
+    v12 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v11, 16, "%{public}s open(%{public}@, O_RDWR) failed %{darwin.errno}d", &v43, 28);
 
     v37[0] = OS_LOG_TYPE_ERROR;
     type = OS_LOG_TYPE_DEFAULT;
@@ -2676,7 +2904,7 @@ void getLastUpdateModTimeFromPath(const char *a1, __darwin_time_t *a2, uint64_t 
     v24 = a1;
     v25 = 1024;
     v26 = v6;
-    v8 = _os_log_send_and_compose_impl();
+    v8 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s stat(%{public}s) failed %{darwin.errno}d", &buf, 28);
 
     type = OS_LOG_TYPE_ERROR;
     v18 = 0;
@@ -2903,7 +3131,7 @@ uint64_t nwphShouldRunCheck(void *a1, void *a2, void *a3, int a4, double a5, dou
       v27 = gLogObj;
       *buf = 136446210;
       v58 = "nwphReportCheck";
-      v28 = _os_log_send_and_compose_impl();
+      v28 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v27, 16, "%{public}s xpc_dictionary_create failed", buf, 12);
 
       type = OS_LOG_TYPE_ERROR;
       v55 = 0;
@@ -3097,7 +3325,7 @@ void __nwphCheckMobileAsset_block_invoke(uint64_t a1, unint64_t a2)
 
 void __nwphConfigureRemoteSettings_block_invoke()
 {
-  v170 = *MEMORY[0x1E69E9840];
+  v168 = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E695DF90] dictionaryWithContentsOfFile:@"/Library/Preferences/com.apple.networkd.networknomicon.plist"];
   if (!v0)
   {
@@ -3105,10 +3333,10 @@ void __nwphConfigureRemoteSettings_block_invoke()
   }
 
   v1 = MEMORY[0x1E695DF00];
-  v157 = v0;
+  v155 = v0;
   v2 = [v1 date];
-  v3 = [v157 objectForKeyedSubscript:@"kNWSettingsKeyLastRun"];
-  v4 = [v157 objectForKeyedSubscript:@"kNWSettingsKeyFrequencySeconds"];
+  v3 = [v155 objectForKeyedSubscript:@"kNWSettingsKeyLastRun"];
+  v4 = [v155 objectForKeyedSubscript:@"kNWSettingsKeyFrequencySeconds"];
 
   if (v4 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -3130,9 +3358,9 @@ void __nwphConfigureRemoteSettings_block_invoke()
   if (v7)
   {
     v8 = [MEMORY[0x1E695DF00] date];
-    [v157 setObject:v8 forKeyedSubscript:@"kNWSettingsKeyLastRun"];
+    [v155 setObject:v8 forKeyedSubscript:@"kNWSettingsKeyLastRun"];
 
-    if ([v157 writeToFile:@"/Library/Preferences/com.apple.networkd.networknomicon.plist" atomically:1])
+    if ([v155 writeToFile:@"/Library/Preferences/com.apple.networkd.networknomicon.plist" atomically:1])
     {
       goto LABEL_32;
     }
@@ -3141,57 +3369,55 @@ void __nwphConfigureRemoteSettings_block_invoke()
     networkd_settings_init();
     v9 = gLogObj;
     *buf = 136446722;
-    v164 = "nwphConfigureRemoteSettings_block_invoke";
-    v165 = 2114;
-    *v166 = v157;
-    *&v166[8] = 2114;
-    v167 = @"/Library/Preferences/com.apple.networkd.networknomicon.plist";
-    LODWORD(v149) = 32;
-    v148 = buf;
-    v10 = _os_log_send_and_compose_impl();
+    v162 = "nwphConfigureRemoteSettings_block_invoke";
+    v163 = 2114;
+    *v164 = v155;
+    *&v164[8] = 2114;
+    v165 = @"/Library/Preferences/com.apple.networkd.networknomicon.plist";
+    v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s Failed to save networknomicon settings run %{public}@ to %{public}@", buf, 32);
 
-    v162 = OS_LOG_TYPE_ERROR;
-    v161 = 0;
-    if (__nwlog_fault(v10, &v162, &v161))
+    v160 = OS_LOG_TYPE_ERROR;
+    v159 = 0;
+    if (__nwlog_fault(v10, &v160, &v159))
     {
-      if (v162 == OS_LOG_TYPE_FAULT)
+      if (v160 == OS_LOG_TYPE_FAULT)
       {
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
         v11 = gLogObj;
-        v12 = v162;
-        if (os_log_type_enabled(v11, v162))
+        v12 = v160;
+        if (os_log_type_enabled(v11, v160))
         {
           *buf = 136446722;
-          v164 = "nwphConfigureRemoteSettings_block_invoke";
-          v165 = 2114;
-          *v166 = v157;
-          *&v166[8] = 2114;
-          v167 = @"/Library/Preferences/com.apple.networkd.networknomicon.plist";
+          v162 = "nwphConfigureRemoteSettings_block_invoke";
+          v163 = 2114;
+          *v164 = v155;
+          *&v164[8] = 2114;
+          v165 = @"/Library/Preferences/com.apple.networkd.networknomicon.plist";
           _os_log_impl(&dword_181A37000, v11, v12, "%{public}s Failed to save networknomicon settings run %{public}@ to %{public}@", buf, 0x20u);
         }
       }
 
-      else if (v161 == 1)
+      else if (v159 == 1)
       {
         backtrace_string = __nw_create_backtrace_string();
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
         v11 = gLogObj;
-        v15 = v162;
-        v16 = os_log_type_enabled(v11, v162);
+        v15 = v160;
+        v16 = os_log_type_enabled(v11, v160);
         if (backtrace_string)
         {
           if (v16)
           {
             *buf = 136446978;
-            v164 = "nwphConfigureRemoteSettings_block_invoke";
-            v165 = 2114;
-            *v166 = v157;
-            *&v166[8] = 2114;
-            v167 = @"/Library/Preferences/com.apple.networkd.networknomicon.plist";
-            v168 = 2082;
-            v169 = backtrace_string;
+            v162 = "nwphConfigureRemoteSettings_block_invoke";
+            v163 = 2114;
+            *v164 = v155;
+            *&v164[8] = 2114;
+            v165 = @"/Library/Preferences/com.apple.networkd.networknomicon.plist";
+            v166 = 2082;
+            v167 = backtrace_string;
             _os_log_impl(&dword_181A37000, v11, v15, "%{public}s Failed to save networknomicon settings run %{public}@ to %{public}@, dumping backtrace:%{public}s", buf, 0x2Au);
           }
 
@@ -3222,14 +3448,14 @@ LABEL_32:
               int64 = 0;
             }
 
-            v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{nw_file_path_settings, v148, v149}];
+            v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_file_path_settings];
             v13 = [MEMORY[0x1E695DF90] dictionaryWithContentsOfFile:v19];
             if (!v13)
             {
               v13 = [MEMORY[0x1E695DF90] dictionary];
             }
 
-            v152 = [v13 copy];
+            v150 = [v13 copy];
             pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
             networkd_settings_init();
             v20 = gLogObj;
@@ -3237,9 +3463,9 @@ LABEL_32:
             {
               v21 = networkd_settings_get_BOOL(nw_setting_enable_quic);
               *buf = 136446466;
-              v164 = "nwphConfigureRemoteSettings_block_invoke";
-              v165 = 1024;
-              *v166 = v21;
+              v162 = "nwphConfigureRemoteSettings_block_invoke";
+              v163 = 1024;
+              *v164 = v21;
               _os_log_impl(&dword_181A37000, v20, OS_LOG_TYPE_DEBUG, "%{public}s QUIC was set to: %u", buf, 0x12u);
             }
 
@@ -3251,11 +3477,11 @@ LABEL_32:
             if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136446722;
-              v164 = "nwphConfigureRemoteSettings_block_invoke";
-              v165 = 1024;
-              *v166 = int64_with_default;
-              *&v166[4] = 1024;
-              *&v166[6] = v23;
+              v162 = "nwphConfigureRemoteSettings_block_invoke";
+              v163 = 1024;
+              *v164 = int64_with_default;
+              *&v164[4] = 1024;
+              *&v164[6] = v23;
               _os_log_impl(&dword_181A37000, v24, OS_LOG_TYPE_DEBUG, "%{public}s enable_quic sampled at: %u / %u", buf, 0x18u);
             }
 
@@ -3266,20 +3492,20 @@ LABEL_32:
             if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136446466;
-              v164 = "nwphConfigureRemoteSettings_block_invoke";
-              v165 = 1024;
-              *v166 = v25 < int64_with_default;
+              v162 = "nwphConfigureRemoteSettings_block_invoke";
+              v163 = 1024;
+              *v164 = v25 < int64_with_default;
               _os_log_impl(&dword_181A37000, v26, OS_LOG_TYPE_DEBUG, "%{public}s enabling QUIC: %u", buf, 0x12u);
             }
 
-            v156 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:v25 < int64_with_default];
-            if (v156)
+            v154 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:v25 < int64_with_default];
+            if (v154)
             {
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
                 v27 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_enable_quic];
-                [v13 setObject:v156 forKeyedSubscript:v27];
+                [v13 setObject:v154 forKeyedSubscript:v27];
               }
             }
 
@@ -3290,9 +3516,9 @@ LABEL_32:
             {
               v29 = networkd_settings_get_BOOL(nw_setting_enable_quic_migration);
               *buf = 136446466;
-              v164 = "nwphConfigureRemoteSettings_block_invoke";
-              v165 = 1024;
-              *v166 = v29;
+              v162 = "nwphConfigureRemoteSettings_block_invoke";
+              v163 = 1024;
+              *v164 = v29;
               _os_log_impl(&dword_181A37000, v28, OS_LOG_TYPE_DEBUG, "%{public}s QUIC migration was set to: %u", buf, 0x12u);
             }
 
@@ -3304,11 +3530,11 @@ LABEL_32:
             if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136446722;
-              v164 = "nwphConfigureRemoteSettings_block_invoke";
-              v165 = 1024;
-              *v166 = v30;
-              *&v166[4] = 1024;
-              *&v166[6] = v31;
+              v162 = "nwphConfigureRemoteSettings_block_invoke";
+              v163 = 1024;
+              *v164 = v30;
+              *&v164[4] = 1024;
+              *&v164[6] = v31;
               _os_log_impl(&dword_181A37000, v32, OS_LOG_TYPE_DEBUG, "%{public}s enable_quic_migration sampled at: %u / %u", buf, 0x18u);
             }
 
@@ -3319,22 +3545,22 @@ LABEL_32:
             if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136446722;
-              v164 = "nwphConfigureRemoteSettings_block_invoke";
-              v165 = 1024;
-              *v166 = v33;
-              *&v166[4] = 1024;
-              *&v166[6] = v25 < int64_with_default;
+              v162 = "nwphConfigureRemoteSettings_block_invoke";
+              v163 = 1024;
+              *v164 = v33;
+              *&v164[4] = 1024;
+              *&v164[6] = v25 < int64_with_default;
               _os_log_impl(&dword_181A37000, v34, OS_LOG_TYPE_DEBUG, "%{public}s enabling QUIC migration: %u (enable_quic %u)", buf, 0x18u);
             }
 
-            v155 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:v33];
-            if (v155)
+            v153 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:v33];
+            if (v153)
             {
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
                 v35 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_enable_quic_migration];
-                [v13 setObject:v155 forKeyedSubscript:v35];
+                [v13 setObject:v153 forKeyedSubscript:v35];
               }
             }
 
@@ -3345,9 +3571,9 @@ LABEL_32:
             {
               quic_l4s_enabled = network_config_get_quic_l4s_enabled();
               *buf = 136446466;
-              v164 = "nwphConfigureRemoteSettings_block_invoke";
-              v165 = 1024;
-              *v166 = quic_l4s_enabled;
+              v162 = "nwphConfigureRemoteSettings_block_invoke";
+              v163 = 1024;
+              *v164 = quic_l4s_enabled;
               _os_log_impl(&dword_181A37000, v36, OS_LOG_TYPE_DEBUG, "%{public}s QUIC L4S was set to: %u", buf, 0x12u);
             }
 
@@ -3393,11 +3619,11 @@ LABEL_32:
             if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136446722;
-              v164 = "nwphConfigureRemoteSettings_block_invoke";
-              v165 = 1024;
-              *v166 = v41;
-              *&v166[4] = 1024;
-              *&v166[6] = v42;
+              v162 = "nwphConfigureRemoteSettings_block_invoke";
+              v163 = 1024;
+              *v164 = v41;
+              *&v164[4] = 1024;
+              *&v164[6] = v42;
               _os_log_impl(&dword_181A37000, v43, OS_LOG_TYPE_DEBUG, "%{public}s enable QUIC L4S sampled at: %u / %u", buf, 0x18u);
             }
 
@@ -3414,9 +3640,9 @@ LABEL_32:
               }
 
               *buf = 136446466;
-              v164 = "nwphConfigureRemoteSettings_block_invoke";
-              v165 = 2080;
-              *v166 = v46;
+              v162 = "nwphConfigureRemoteSettings_block_invoke";
+              v163 = 2080;
+              *v164 = v46;
               _os_log_impl(&dword_181A37000, v45, OS_LOG_TYPE_DEBUG, "%{public}s %sing QUIC L4S", buf, 0x16u);
             }
 
@@ -3439,9 +3665,9 @@ LABEL_79:
             {
               tcp_l4s_enabled = network_config_get_tcp_l4s_enabled();
               *buf = 136446466;
-              v164 = "nwphConfigureRemoteSettings_block_invoke";
-              v165 = 1024;
-              *v166 = tcp_l4s_enabled;
+              v162 = "nwphConfigureRemoteSettings_block_invoke";
+              v163 = 1024;
+              *v164 = tcp_l4s_enabled;
               _os_log_impl(&dword_181A37000, v50, OS_LOG_TYPE_DEBUG, "%{public}s TCP L4S was set to: %u", buf, 0x12u);
             }
 
@@ -3474,11 +3700,11 @@ LABEL_86:
                 if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 136446722;
-                  v164 = "nwphConfigureRemoteSettings_block_invoke";
-                  v165 = 1024;
-                  *v166 = v54;
-                  *&v166[4] = 1024;
-                  *&v166[6] = v55;
+                  v162 = "nwphConfigureRemoteSettings_block_invoke";
+                  v163 = 1024;
+                  *v164 = v54;
+                  *&v164[4] = 1024;
+                  *&v164[6] = v55;
                   _os_log_impl(&dword_181A37000, v56, OS_LOG_TYPE_DEBUG, "%{public}s enable TCP L4S sampled at: %u / %u", buf, 0x18u);
                 }
 
@@ -3495,9 +3721,9 @@ LABEL_86:
                   }
 
                   *buf = 136446466;
-                  v164 = "nwphConfigureRemoteSettings_block_invoke";
-                  v165 = 2080;
-                  *v166 = v59;
+                  v162 = "nwphConfigureRemoteSettings_block_invoke";
+                  v163 = 2080;
+                  *v164 = v59;
                   _os_log_impl(&dword_181A37000, v58, OS_LOG_TYPE_DEBUG, "%{public}s %sing TCP L4S", buf, 0x16u);
                 }
 
@@ -3522,9 +3748,9 @@ LABEL_98:
                 {
                   v65 = networkd_settings_get_BOOL(nw_setting_enable_unified_http);
                   *buf = 136446466;
-                  v164 = "nwphConfigureRemoteSettings_block_invoke";
-                  v165 = 1024;
-                  *v166 = v65;
+                  v162 = "nwphConfigureRemoteSettings_block_invoke";
+                  v163 = 1024;
+                  *v164 = v65;
                   _os_log_impl(&dword_181A37000, v64, OS_LOG_TYPE_DEBUG, "%{public}s unified HTTP was set to: %u", buf, 0x12u);
                 }
 
@@ -3536,11 +3762,11 @@ LABEL_98:
                 if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 136446722;
-                  v164 = "nwphConfigureRemoteSettings_block_invoke";
-                  v165 = 1024;
-                  *v166 = v66;
-                  *&v166[4] = 1024;
-                  *&v166[6] = v67;
+                  v162 = "nwphConfigureRemoteSettings_block_invoke";
+                  v163 = 1024;
+                  *v164 = v66;
+                  *&v164[4] = 1024;
+                  *&v164[6] = v67;
                   _os_log_impl(&dword_181A37000, v68, OS_LOG_TYPE_DEBUG, "%{public}s enable_unified_http sampled at: %u / %u", buf, 0x18u);
                 }
 
@@ -3551,9 +3777,9 @@ LABEL_98:
                 if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 136446466;
-                  v164 = "nwphConfigureRemoteSettings_block_invoke";
-                  v165 = 1024;
-                  *v166 = v69 < v66;
+                  v162 = "nwphConfigureRemoteSettings_block_invoke";
+                  v163 = 1024;
+                  *v164 = v69 < v66;
                   _os_log_impl(&dword_181A37000, v70, OS_LOG_TYPE_DEBUG, "%{public}s enabling unified HTTP: %u", buf, 0x12u);
                 }
 
@@ -3575,9 +3801,9 @@ LABEL_98:
                 {
                   v74 = networkd_settings_get_BOOL(nw_setting_enable_http_connection_coalescing);
                   *buf = 136446466;
-                  v164 = "nwphConfigureRemoteSettings_block_invoke";
-                  v165 = 1024;
-                  *v166 = v74;
+                  v162 = "nwphConfigureRemoteSettings_block_invoke";
+                  v163 = 1024;
+                  *v164 = v74;
                   _os_log_impl(&dword_181A37000, v73, OS_LOG_TYPE_DEBUG, "%{public}s HTTP connection coalescing was set to: %u", buf, 0x12u);
                 }
 
@@ -3589,11 +3815,11 @@ LABEL_98:
                 if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 136446722;
-                  v164 = "nwphConfigureRemoteSettings_block_invoke";
-                  v165 = 1024;
-                  *v166 = v75;
-                  *&v166[4] = 1024;
-                  *&v166[6] = v76;
+                  v162 = "nwphConfigureRemoteSettings_block_invoke";
+                  v163 = 1024;
+                  *v164 = v75;
+                  *&v164[4] = 1024;
+                  *&v164[6] = v76;
                   _os_log_impl(&dword_181A37000, v77, OS_LOG_TYPE_DEBUG, "%{public}s http_connection_coalescing sampled at: %u / %u", buf, 0x18u);
                 }
 
@@ -3604,9 +3830,9 @@ LABEL_98:
                 if (os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 136446466;
-                  v164 = "nwphConfigureRemoteSettings_block_invoke";
-                  v165 = 1024;
-                  *v166 = v78 < v75;
+                  v162 = "nwphConfigureRemoteSettings_block_invoke";
+                  v163 = 1024;
+                  *v164 = v78 < v75;
                   _os_log_impl(&dword_181A37000, v79, OS_LOG_TYPE_DEBUG, "%{public}s enabling HTTP connection coalescing: %u", buf, 0x12u);
                 }
 
@@ -3621,9 +3847,9 @@ LABEL_98:
                 {
                   v83 = networkd_settings_get_BOOL(nw_setting_enable_http_early_data);
                   *buf = 136446466;
-                  v164 = "nwphConfigureRemoteSettings_block_invoke";
-                  v165 = 1024;
-                  *v166 = v83;
+                  v162 = "nwphConfigureRemoteSettings_block_invoke";
+                  v163 = 1024;
+                  *v164 = v83;
                   _os_log_impl(&dword_181A37000, v82, OS_LOG_TYPE_DEBUG, "%{public}s HTTP early data was set to: %u", buf, 0x12u);
                 }
 
@@ -3635,11 +3861,11 @@ LABEL_98:
                 if (os_log_type_enabled(v86, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 136446722;
-                  v164 = "nwphConfigureRemoteSettings_block_invoke";
-                  v165 = 1024;
-                  *v166 = v84;
-                  *&v166[4] = 1024;
-                  *&v166[6] = v85;
+                  v162 = "nwphConfigureRemoteSettings_block_invoke";
+                  v163 = 1024;
+                  *v164 = v84;
+                  *&v164[4] = 1024;
+                  *&v164[6] = v85;
                   _os_log_impl(&dword_181A37000, v86, OS_LOG_TYPE_DEBUG, "%{public}s http_early_data sampled at: %u / %u", buf, 0x18u);
                 }
 
@@ -3650,9 +3876,9 @@ LABEL_98:
                 if (os_log_type_enabled(v88, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 136446466;
-                  v164 = "nwphConfigureRemoteSettings_block_invoke";
-                  v165 = 1024;
-                  *v166 = v87 < v84;
+                  v162 = "nwphConfigureRemoteSettings_block_invoke";
+                  v163 = 1024;
+                  *v164 = v87 < v84;
                   _os_log_impl(&dword_181A37000, v88, OS_LOG_TYPE_DEBUG, "%{public}s enabling HTTP early data: %u", buf, 0x12u);
                 }
 
@@ -3667,9 +3893,9 @@ LABEL_98:
                 {
                   v92 = networkd_settings_get_BOOL(nw_setting_disable_pqtls);
                   *buf = 136446466;
-                  v164 = "nwphConfigureRemoteSettings_block_invoke";
-                  v165 = 1024;
-                  *v166 = !v92;
+                  v162 = "nwphConfigureRemoteSettings_block_invoke";
+                  v163 = 1024;
+                  *v164 = !v92;
                   _os_log_impl(&dword_181A37000, v91, OS_LOG_TYPE_DEBUG, "%{public}s PQ-TLS was set to: %d", buf, 0x12u);
                 }
 
@@ -3681,11 +3907,11 @@ LABEL_98:
                 if (os_log_type_enabled(v95, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 136446722;
-                  v164 = "nwphConfigureRemoteSettings_block_invoke";
-                  v165 = 1024;
-                  *v166 = v93;
-                  *&v166[4] = 1024;
-                  *&v166[6] = v94;
+                  v162 = "nwphConfigureRemoteSettings_block_invoke";
+                  v163 = 1024;
+                  *v164 = v93;
+                  *&v164[4] = 1024;
+                  *&v164[6] = v94;
                   _os_log_impl(&dword_181A37000, v95, OS_LOG_TYPE_DEBUG, "%{public}s enable_pqtls sampled at: %u / %u", buf, 0x18u);
                 }
 
@@ -3696,20 +3922,20 @@ LABEL_98:
                 if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 136446466;
-                  v164 = "nwphConfigureRemoteSettings_block_invoke";
-                  v165 = 1024;
-                  *v166 = v96 < v93;
+                  v162 = "nwphConfigureRemoteSettings_block_invoke";
+                  v163 = 1024;
+                  *v164 = v96 < v93;
                   _os_log_impl(&dword_181A37000, v97, OS_LOG_TYPE_DEBUG, "%{public}s PQ-TLS enabled: %u", buf, 0x12u);
                 }
 
-                v154 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:v96 >= v93];
-                if (v154)
+                v152 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:v96 >= v93];
+                if (v152)
                 {
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
                     v98 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_disable_pqtls];
-                    [v13 setObject:v154 forKeyedSubscript:v98];
+                    [v13 setObject:v152 forKeyedSubscript:v98];
                   }
                 }
 
@@ -3720,9 +3946,9 @@ LABEL_98:
                 {
                   v100 = networkd_settings_get_BOOL(nw_setting_pqtls_probe_enabled);
                   *buf = 136446466;
-                  v164 = "nwphConfigureRemoteSettings_block_invoke";
-                  v165 = 1024;
-                  *v166 = v100;
+                  v162 = "nwphConfigureRemoteSettings_block_invoke";
+                  v163 = 1024;
+                  *v164 = v100;
                   _os_log_impl(&dword_181A37000, v99, OS_LOG_TYPE_DEBUG, "%{public}s PQ-TLS probing was set to: %u", buf, 0x12u);
                 }
 
@@ -3734,11 +3960,11 @@ LABEL_98:
                 if (os_log_type_enabled(v103, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 136446722;
-                  v164 = "nwphConfigureRemoteSettings_block_invoke";
-                  v165 = 1024;
-                  *v166 = v101;
-                  *&v166[4] = 1024;
-                  *&v166[6] = v102;
+                  v162 = "nwphConfigureRemoteSettings_block_invoke";
+                  v163 = 1024;
+                  *v164 = v101;
+                  *&v164[4] = 1024;
+                  *&v164[6] = v102;
                   _os_log_impl(&dword_181A37000, v103, OS_LOG_TYPE_DEBUG, "%{public}s pqtls_probe_enabled sampled at: %u / %u", buf, 0x18u);
                 }
 
@@ -3748,20 +3974,20 @@ LABEL_98:
                 if (os_log_type_enabled(v104, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 136446466;
-                  v164 = "nwphConfigureRemoteSettings_block_invoke";
-                  v165 = 1024;
-                  *v166 = v101 != 0;
+                  v162 = "nwphConfigureRemoteSettings_block_invoke";
+                  v163 = 1024;
+                  *v164 = v101 != 0;
                   _os_log_impl(&dword_181A37000, v104, OS_LOG_TYPE_DEBUG, "%{public}s enabling PQ-TLS probing: %u", buf, 0x12u);
                 }
 
-                v153 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:v101 != 0];
-                if (v153)
+                v151 = [objc_alloc(MEMORY[0x1E696AD98]) initWithBool:v101 != 0];
+                if (v151)
                 {
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
                     v105 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_pqtls_probe_enabled];
-                    [v13 setObject:v153 forKeyedSubscript:v105];
+                    [v13 setObject:v151 forKeyedSubscript:v105];
                   }
                 }
 
@@ -3774,7 +4000,7 @@ LABEL_98:
                   applier[2] = __nwphConfigureRemoteSettings_block_invoke_529;
                   applier[3] = &unk_1E6A3D300;
                   v107 = v106;
-                  v160 = v107;
+                  v158 = v107;
                   xpc_array_apply(xarray, applier);
                   pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
                   networkd_settings_init();
@@ -3782,9 +4008,9 @@ LABEL_98:
                   if (os_log_type_enabled(v108, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 136446466;
-                    v164 = "nwphConfigureRemoteSettings_block_invoke_2";
-                    v165 = 2112;
-                    *v166 = v107;
+                    v162 = "nwphConfigureRemoteSettings_block_invoke_2";
+                    v163 = 2112;
+                    *v164 = v107;
                     _os_log_impl(&dword_181A37000, v108, OS_LOG_TYPE_DEFAULT, "%{public}s PQ-TLS fallback allowed domains: %@", buf, 0x16u);
                   }
 
@@ -3799,9 +4025,9 @@ LABEL_98:
                 {
                   v111 = networkd_settings_get_BOOL(nw_setting_enable_push_ulpn);
                   *buf = 136446466;
-                  v164 = "nwphConfigureRemoteSettings_block_invoke";
-                  v165 = 1024;
-                  *v166 = v111;
+                  v162 = "nwphConfigureRemoteSettings_block_invoke";
+                  v163 = 1024;
+                  *v164 = v111;
                   _os_log_impl(&dword_181A37000, v110, OS_LOG_TYPE_DEBUG, "%{public}s push ULPN was set to: %u", buf, 0x12u);
                 }
 
@@ -3860,11 +4086,11 @@ LABEL_98:
                               if (os_log_type_enabled(v125, OS_LOG_TYPE_DEBUG))
                               {
                                 *buf = 136446722;
-                                v164 = "nwphConfigureRemoteSettings_block_invoke";
-                                v165 = 1024;
-                                *v166 = v123;
-                                *&v166[4] = 1024;
-                                *&v166[6] = v124;
+                                v162 = "nwphConfigureRemoteSettings_block_invoke";
+                                v163 = 1024;
+                                *v164 = v123;
+                                *&v164[4] = 1024;
+                                *&v164[6] = v124;
                                 _os_log_impl(&dword_181A37000, v125, OS_LOG_TYPE_DEBUG, "%{public}s enable_push_ulpn sampled at: %u / %u", buf, 0x18u);
                               }
 
@@ -3889,9 +4115,9 @@ LABEL_158:
                 if (os_log_type_enabled(v126, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 136446466;
-                  v164 = "nwphConfigureRemoteSettings_block_invoke";
-                  v165 = 1024;
-                  *v166 = has_internal_content;
+                  v162 = "nwphConfigureRemoteSettings_block_invoke";
+                  v163 = 1024;
+                  *v164 = has_internal_content;
                   _os_log_impl(&dword_181A37000, v126, OS_LOG_TYPE_DEBUG, "%{public}s enabling push ULPN: %u", buf, 0x12u);
                 }
 
@@ -3913,9 +4139,9 @@ LABEL_158:
                 if (os_log_type_enabled(v130, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136446466;
-                  v164 = "nwphConfigureRemoteSettings_block_invoke";
-                  v165 = 2048;
-                  *v166 = v129;
+                  v162 = "nwphConfigureRemoteSettings_block_invoke";
+                  v163 = 2048;
+                  *v164 = v129;
                   _os_log_impl(&dword_181A37000, v130, OS_LOG_TYPE_DEFAULT, "%{public}s Current Investigation ID: %llu", buf, 0x16u);
                 }
 
@@ -3963,9 +4189,9 @@ LABEL_158:
                         if (os_log_type_enabled(v144, OS_LOG_TYPE_DEFAULT))
                         {
                           *buf = 136446466;
-                          v164 = "nwphConfigureRemoteSettings_block_invoke";
-                          v165 = 2048;
-                          *v166 = v134;
+                          v162 = "nwphConfigureRemoteSettings_block_invoke";
+                          v163 = 2048;
+                          *v164 = v134;
                           _os_log_impl(&dword_181A37000, v144, OS_LOG_TYPE_DEFAULT, "%{public}s Overriding Investigation ID start time to %llu", buf, 0x16u);
                         }
                       }
@@ -3988,13 +4214,13 @@ LABEL_158:
                       if (v141)
                       {
                         *buf = 136446978;
-                        v164 = "nwphConfigureRemoteSettings_block_invoke";
-                        v165 = 2048;
-                        *v166 = v132;
-                        *&v166[8] = 2048;
-                        v167 = v134;
-                        v168 = 2048;
-                        v169 = v139;
+                        v162 = "nwphConfigureRemoteSettings_block_invoke";
+                        v163 = 2048;
+                        *v164 = v132;
+                        *&v164[8] = 2048;
+                        v165 = v134;
+                        v166 = 2048;
+                        v167 = v139;
                         _os_log_impl(&dword_181A37000, v140, OS_LOG_TYPE_DEFAULT, "%{public}s Investigation ID has not expired (start: %llu, now: %llu, delta_sec: %llu)", buf, 0x2Au);
                       }
 
@@ -4009,13 +4235,13 @@ LABEL_158:
                       if (v141)
                       {
                         *buf = 136446978;
-                        v164 = "nwphConfigureRemoteSettings_block_invoke";
-                        v165 = 2048;
-                        *v166 = v132;
-                        *&v166[8] = 2048;
-                        v167 = v134;
-                        v168 = 2048;
-                        v169 = v139;
+                        v162 = "nwphConfigureRemoteSettings_block_invoke";
+                        v163 = 2048;
+                        *v164 = v132;
+                        *&v164[8] = 2048;
+                        v165 = v134;
+                        v166 = 2048;
+                        v167 = v139;
                         _os_log_impl(&dword_181A37000, v140, OS_LOG_TYPE_DEFAULT, "%{public}s Investigation ID expired, removing (start: %llu, now: %llu, delta_sec: %llu)", buf, 0x2Au);
                       }
 
@@ -4030,7 +4256,7 @@ LABEL_158:
                   }
                 }
 
-                saveAndPostNetworkdSettings(v13, v152, int64);
+                saveAndPostNetworkdSettings(v13, v150, int64);
                 v145 = networkd_settings_get_BOOL(nw_setting_disable_l4s_aqm);
                 v146 = +[ManagedNetworkSettings sharedMNS];
                 v147 = [v146 queue];
@@ -4068,11 +4294,11 @@ LABEL_31:
         if (v16)
         {
           *buf = 136446722;
-          v164 = "nwphConfigureRemoteSettings_block_invoke";
-          v165 = 2114;
-          *v166 = v157;
-          *&v166[8] = 2114;
-          v167 = @"/Library/Preferences/com.apple.networkd.networknomicon.plist";
+          v162 = "nwphConfigureRemoteSettings_block_invoke";
+          v163 = 2114;
+          *v164 = v155;
+          *&v164[8] = 2114;
+          v165 = @"/Library/Preferences/com.apple.networkd.networknomicon.plist";
           _os_log_impl(&dword_181A37000, v11, v15, "%{public}s Failed to save networknomicon settings run %{public}@ to %{public}@, no backtrace", buf, 0x20u);
         }
       }
@@ -4082,15 +4308,15 @@ LABEL_31:
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
         v11 = gLogObj;
-        v17 = v162;
-        if (os_log_type_enabled(v11, v162))
+        v17 = v160;
+        if (os_log_type_enabled(v11, v160))
         {
           *buf = 136446722;
-          v164 = "nwphConfigureRemoteSettings_block_invoke";
-          v165 = 2114;
-          *v166 = v157;
-          *&v166[8] = 2114;
-          v167 = @"/Library/Preferences/com.apple.networkd.networknomicon.plist";
+          v162 = "nwphConfigureRemoteSettings_block_invoke";
+          v163 = 2114;
+          *v164 = v155;
+          *&v164[8] = 2114;
+          v165 = @"/Library/Preferences/com.apple.networkd.networknomicon.plist";
           _os_log_impl(&dword_181A37000, v11, v17, "%{public}s Failed to save networknomicon settings run %{public}@ to %{public}@, backtrace limit exceeded", buf, 0x20u);
         }
       }
@@ -4110,7 +4336,7 @@ LABEL_31:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136446210;
-    v164 = "nwphConfigureRemoteSettings_block_invoke";
+    v162 = "nwphConfigureRemoteSettings_block_invoke";
     _os_log_impl(&dword_181A37000, v13, OS_LOG_TYPE_DEBUG, "%{public}s skipping remote settings run", buf, 0xCu);
   }
 
@@ -4134,7 +4360,7 @@ uint64_t __nwphConfigureRemoteSettings_block_invoke_529(uint64_t a1, uint64_t a2
 
 void __nwphConfigureRemoteSettings_block_invoke_533(uint64_t a1)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF90] dictionaryWithContentsOfFile:@"/Library/Preferences/com.apple.networkd.sysctl.plist"];
   if (!v2)
   {
@@ -4159,9 +4385,9 @@ void __nwphConfigureRemoteSettings_block_invoke_533(uint64_t a1)
     {
       v7 = *(a1 + 32);
       *buf = 136446466;
-      v32 = "nwphConfigureRemoteSettings_block_invoke";
-      v33 = 2048;
-      v34 = v7;
+      v30 = "nwphConfigureRemoteSettings_block_invoke";
+      v31 = 2048;
+      v32 = v7;
       _os_log_impl(&dword_181A37000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s Changing TCP L4S to %lld", buf, 0x16u);
     }
 
@@ -4181,9 +4407,9 @@ void __nwphConfigureRemoteSettings_block_invoke_533(uint64_t a1)
     {
       v11 = *(a1 + 40);
       *buf = 136446466;
-      v32 = "nwphConfigureRemoteSettings_block_invoke";
-      v33 = 2048;
-      v34 = v11;
+      v30 = "nwphConfigureRemoteSettings_block_invoke";
+      v31 = 2048;
+      v32 = v11;
       _os_log_impl(&dword_181A37000, v10, OS_LOG_TYPE_DEFAULT, "%{public}s Changing L4S AQM enablement to %lld", buf, 0x16u);
     }
 
@@ -4211,9 +4437,9 @@ void __nwphConfigureRemoteSettings_block_invoke_533(uint64_t a1)
     {
       v15 = *(a1 + 40);
       *buf = 136446466;
-      v32 = "nwphConfigureRemoteSettings_block_invoke";
-      v33 = 2048;
-      v34 = v15;
+      v30 = "nwphConfigureRemoteSettings_block_invoke";
+      v31 = 2048;
+      v32 = v15;
       _os_log_impl(&dword_181A37000, v14, OS_LOG_TYPE_DEFAULT, "%{public}s Changing L4S AQM Pacing enablement to %lld", buf, 0x16u);
     }
   }
@@ -4224,18 +4450,16 @@ void __nwphConfigureRemoteSettings_block_invoke_533(uint64_t a1)
     networkd_settings_init();
     v16 = gLogObj;
     *buf = 136446722;
-    v32 = "nwphConfigureRemoteSettings_block_invoke";
+    v30 = "nwphConfigureRemoteSettings_block_invoke";
+    v31 = 2114;
+    v32 = v2;
     v33 = 2114;
-    v34 = v2;
-    v35 = 2114;
-    v36 = @"/Library/Preferences/com.apple.networkd.sysctl.plist";
-    LODWORD(v28) = 32;
-    v27 = buf;
-    v17 = _os_log_send_and_compose_impl();
+    v34 = @"/Library/Preferences/com.apple.networkd.sysctl.plist";
+    v17 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v16, 16, "%{public}s Failed to save network settings %{public}@ to %{public}@", buf, 32);
 
     type = OS_LOG_TYPE_ERROR;
-    v29 = 0;
-    if (__nwlog_fault(v17, &type, &v29))
+    v27 = 0;
+    if (__nwlog_fault(v17, &type, &v27))
     {
       if (type == OS_LOG_TYPE_FAULT)
       {
@@ -4249,11 +4473,11 @@ void __nwphConfigureRemoteSettings_block_invoke_533(uint64_t a1)
         }
 
         *buf = 136446722;
-        v32 = "nwphConfigureRemoteSettings_block_invoke";
+        v30 = "nwphConfigureRemoteSettings_block_invoke";
+        v31 = 2114;
+        v32 = v2;
         v33 = 2114;
-        v34 = v2;
-        v35 = 2114;
-        v36 = @"/Library/Preferences/com.apple.networkd.sysctl.plist";
+        v34 = @"/Library/Preferences/com.apple.networkd.sysctl.plist";
         v20 = "%{public}s Failed to save network settings %{public}@ to %{public}@";
 LABEL_40:
         v25 = v18;
@@ -4261,7 +4485,7 @@ LABEL_40:
         goto LABEL_41;
       }
 
-      if (v29 != 1)
+      if (v27 != 1)
       {
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
@@ -4273,11 +4497,11 @@ LABEL_40:
         }
 
         *buf = 136446722;
-        v32 = "nwphConfigureRemoteSettings_block_invoke";
+        v30 = "nwphConfigureRemoteSettings_block_invoke";
+        v31 = 2114;
+        v32 = v2;
         v33 = 2114;
-        v34 = v2;
-        v35 = 2114;
-        v36 = @"/Library/Preferences/com.apple.networkd.sysctl.plist";
+        v34 = @"/Library/Preferences/com.apple.networkd.sysctl.plist";
         v20 = "%{public}s Failed to save network settings %{public}@ to %{public}@, backtrace limit exceeded";
         goto LABEL_40;
       }
@@ -4303,11 +4527,11 @@ LABEL_42:
         }
 
         *buf = 136446722;
-        v32 = "nwphConfigureRemoteSettings_block_invoke";
+        v30 = "nwphConfigureRemoteSettings_block_invoke";
+        v31 = 2114;
+        v32 = v2;
         v33 = 2114;
-        v34 = v2;
-        v35 = 2114;
-        v36 = @"/Library/Preferences/com.apple.networkd.sysctl.plist";
+        v34 = @"/Library/Preferences/com.apple.networkd.sysctl.plist";
         v20 = "%{public}s Failed to save network settings %{public}@ to %{public}@, no backtrace";
         v25 = v18;
         v26 = v22;
@@ -4319,13 +4543,13 @@ LABEL_41:
       if (v23)
       {
         *buf = 136446978;
-        v32 = "nwphConfigureRemoteSettings_block_invoke";
+        v30 = "nwphConfigureRemoteSettings_block_invoke";
+        v31 = 2114;
+        v32 = v2;
         v33 = 2114;
-        v34 = v2;
-        v35 = 2114;
-        v36 = @"/Library/Preferences/com.apple.networkd.sysctl.plist";
-        v37 = 2082;
-        v38 = backtrace_string;
+        v34 = @"/Library/Preferences/com.apple.networkd.sysctl.plist";
+        v35 = 2082;
+        v36 = backtrace_string;
         _os_log_impl(&dword_181A37000, v18, v22, "%{public}s Failed to save network settings %{public}@ to %{public}@, dumping backtrace:%{public}s", buf, 0x2Au);
       }
 
@@ -4340,7 +4564,7 @@ LABEL_35:
   }
 
 LABEL_36:
-  v24 = [ManagedNetworkSettings sharedMNS:v27];
+  v24 = +[ManagedNetworkSettings sharedMNS];
   [v24 reloadMNS];
 
 LABEL_37:
@@ -4348,7 +4572,7 @@ LABEL_37:
 
 void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
 {
-  v815 = *MEMORY[0x1E69E9840];
+  v816 = *MEMORY[0x1E69E9840];
   if (a2 < 0xD && ((0x103Fu >> a2) & 1) != 0)
   {
     v4 = off_1E6A2E948[a2];
@@ -4366,9 +4590,9 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     buf = 136446466;
-    v808 = "nwphCheckMobileAsset_block_invoke";
-    v809 = 2114;
-    v810 = v4;
+    v809 = "nwphCheckMobileAsset_block_invoke";
+    v810 = 2114;
+    v811 = v4;
     _os_log_impl(&dword_181A37000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s queried mobile asset metadata with res %{public}@", &buf, 0x16u);
   }
 
@@ -4384,13 +4608,13 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
       v10 = *(a1 + 32);
       v11 = [(__CFString *)v10 queryParams];
       buf = 136446978;
-      v808 = "nwphCheckMobileAsset_block_invoke";
-      v809 = 2048;
-      v810 = v9;
-      v811 = 2114;
-      v812 = v10;
-      v813 = 2114;
-      v814 = v11;
+      v809 = "nwphCheckMobileAsset_block_invoke";
+      v810 = 2048;
+      v811 = v9;
+      v812 = 2114;
+      v813 = v10;
+      v814 = 2114;
+      v815 = v11;
       _os_log_impl(&dword_181A37000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s queried mobile asset metadata got %llu results %{public}@ params %{public}@", &buf, 0x2Au);
     }
 
@@ -4401,30 +4625,30 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
     }
 
     [v12 setObject:0 forKeyedSubscript:@"RandomID"];
-    v801 = 0u;
     v802 = 0u;
-    v799 = 0u;
+    v803 = 0u;
     v800 = 0u;
+    v801 = 0u;
     obj = v7;
-    v774 = [obj countByEnumeratingWithState:&v799 objects:v806 count:16];
-    if (v774)
+    v775 = [obj countByEnumeratingWithState:&v800 objects:v807 count:16];
+    if (v775)
     {
-      v771 = v4;
+      v772 = v4;
       v13 = 0;
-      v773 = *v800;
+      v774 = *v801;
       v14 = &nwlog_legacy_init(void)::init_once;
       while (1)
       {
         v15 = 0;
         do
         {
-          if (*v800 != v773)
+          if (*v801 != v774)
           {
             objc_enumerationMutation(obj);
           }
 
-          v776 = v15;
-          v19 = *(*(&v799 + 1) + 8 * v15);
+          v777 = v15;
+          v19 = *(*(&v800 + 1) + 8 * v15);
 
           pthread_once(v14, nwlog_legacy_init_once);
           networkd_settings_init();
@@ -4432,13 +4656,13 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
           {
             buf = 136446466;
-            v808 = "nwphCheckMobileAsset_block_invoke";
-            v809 = 2114;
-            v810 = v19;
+            v809 = "nwphCheckMobileAsset_block_invoke";
+            v810 = 2114;
+            v811 = v19;
             _os_log_impl(&dword_181A37000, v20, OS_LOG_TYPE_DEFAULT, "%{public}s Received asset %{public}@", &buf, 0x16u);
           }
 
-          v777 = v19;
+          v778 = v19;
           v21 = [v19 attributes];
           pthread_once(v14, nwlog_legacy_init_once);
           networkd_settings_init();
@@ -4446,9 +4670,9 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
           if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             buf = 136446466;
-            v808 = "nwphCheckMobileAsset_block_invoke";
-            v809 = 2114;
-            v810 = v21;
+            v809 = "nwphCheckMobileAsset_block_invoke";
+            v810 = 2114;
+            v811 = v21;
             _os_log_impl(&dword_181A37000, v22, OS_LOG_TYPE_DEFAULT, "%{public}s Received asset attributes %{public}@", &buf, 0x16u);
           }
 
@@ -4457,15 +4681,15 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
           networkd_settings_init();
           v24 = v5[275];
           v25 = v24;
-          v778 = v23;
+          v779 = v23;
           if (v23)
           {
             if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
             {
               buf = 136446466;
-              v808 = "nwphCheckMobileAsset_block_invoke";
-              v809 = 2114;
-              v810 = v23;
+              v809 = "nwphCheckMobileAsset_block_invoke";
+              v810 = 2114;
+              v811 = v23;
               _os_log_impl(&dword_181A37000, v25, OS_LOG_TYPE_DEFAULT, "%{public}s Received NetworknomiconVersion %{public}@", &buf, 0x16u);
             }
 
@@ -4518,13 +4742,13 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
             {
               v34 = +[ManagedNetworkSettings sharedMNS];
               v35 = [v34 queue];
-              v796[0] = MEMORY[0x1E69E9820];
-              v796[1] = 3221225472;
-              v796[2] = __nwphCheckMobileAsset_block_invoke_392;
-              v796[3] = &unk_1E6A3AC58;
-              v798 = v26;
-              v797 = v12;
-              dispatch_async(v35, v796);
+              v797[0] = MEMORY[0x1E69E9820];
+              v797[1] = 3221225472;
+              v797[2] = __nwphCheckMobileAsset_block_invoke_392;
+              v797[3] = &unk_1E6A3AC58;
+              v799 = v26;
+              v798 = v12;
+              dispatch_async(v35, v797);
 
               v5 = &qword_1ED411000;
               v14 = &nwlog_legacy_init(void)::init_once;
@@ -4534,9 +4758,9 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
           else if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
             buf = 136446466;
-            v808 = "nwphCheckMobileAsset_block_invoke";
-            v809 = 2114;
-            v810 = v21;
+            v809 = "nwphCheckMobileAsset_block_invoke";
+            v810 = 2114;
+            v811 = v21;
             _os_log_impl(&dword_181A37000, v25, OS_LOG_TYPE_ERROR, "%{public}s Bad asset attributes %{public}@", &buf, 0x16u);
           }
 
@@ -4550,21 +4774,21 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
             if (v37)
             {
               buf = 136446466;
-              v808 = "nwphCheckMobileAsset_block_invoke";
-              v809 = 2114;
-              v810 = v36;
+              v809 = "nwphCheckMobileAsset_block_invoke";
+              v810 = 2114;
+              v811 = v36;
               _os_log_impl(&dword_181A37000, v18, OS_LOG_TYPE_DEFAULT, "%{public}s Received ActivityRateVersion %{public}@", &buf, 0x16u);
             }
 
-            v775 = v36;
+            v776 = v36;
 
-            v779 = objc_alloc_init(MEMORY[0x1E695DF90]);
+            v780 = objc_alloc_init(MEMORY[0x1E695DF90]);
             v38 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"activity_rate_num_%s_%s", "ios", "libnetcore"];
             v39 = [v21 objectForKeyedSubscript:v38];
             if (v39 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && ([v39 longLongValue] & 0x8000000000000000) == 0)
             {
               v40 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_libnetcore];
-              [v779 setObject:v39 forKeyedSubscript:v40];
+              [v780 setObject:v39 forKeyedSubscript:v40];
 
               v41 = 1;
             }
@@ -4582,7 +4806,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v43 longLongValue] & 0x8000000000000000) == 0)
               {
                 v44 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_cfnetwork];
-                [v779 setObject:v43 forKeyedSubscript:v44];
+                [v780 setObject:v43 forKeyedSubscript:v44];
 
                 v41 = 1;
               }
@@ -4596,7 +4820,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v46 longLongValue] & 0x8000000000000000) == 0)
               {
                 v47 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_coremedia];
-                [v779 setObject:v46 forKeyedSubscript:v47];
+                [v780 setObject:v46 forKeyedSubscript:v47];
 
                 v41 = 1;
               }
@@ -4610,7 +4834,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v49 longLongValue] & 0x8000000000000000) == 0)
               {
                 v50 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_parsec];
-                [v779 setObject:v49 forKeyedSubscript:v50];
+                [v780 setObject:v49 forKeyedSubscript:v50];
 
                 v41 = 1;
               }
@@ -4624,7 +4848,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v52 longLongValue] & 0x8000000000000000) == 0)
               {
                 v53 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_siri];
-                [v779 setObject:v52 forKeyedSubscript:v53];
+                [v780 setObject:v52 forKeyedSubscript:v53];
 
                 v41 = 1;
               }
@@ -4638,7 +4862,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v55 longLongValue] & 0x8000000000000000) == 0)
               {
                 v56 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_webkit];
-                [v779 setObject:v55 forKeyedSubscript:v56];
+                [v780 setObject:v55 forKeyedSubscript:v56];
 
                 v41 = 1;
               }
@@ -4652,7 +4876,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v58 longLongValue] & 0x8000000000000000) == 0)
               {
                 v59 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_coremedia_crabs];
-                [v779 setObject:v58 forKeyedSubscript:v59];
+                [v780 setObject:v58 forKeyedSubscript:v59];
 
                 v41 = 1;
               }
@@ -4666,7 +4890,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v61 longLongValue] & 0x8000000000000000) == 0)
               {
                 v62 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_coremedia_hls];
-                [v779 setObject:v61 forKeyedSubscript:v62];
+                [v780 setObject:v61 forKeyedSubscript:v62];
 
                 v41 = 1;
               }
@@ -4680,7 +4904,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v64 longLongValue] & 0x8000000000000000) == 0)
               {
                 v65 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_cloudkit];
-                [v779 setObject:v64 forKeyedSubscript:v65];
+                [v780 setObject:v64 forKeyedSubscript:v65];
 
                 v41 = 1;
               }
@@ -4694,7 +4918,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v67 longLongValue] & 0x8000000000000000) == 0)
               {
                 v68 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_mmcs];
-                [v779 setObject:v67 forKeyedSubscript:v68];
+                [v780 setObject:v67 forKeyedSubscript:v68];
 
                 v41 = 1;
               }
@@ -4708,7 +4932,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v70 longLongValue] & 0x8000000000000000) == 0)
               {
                 v71 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_mail];
-                [v779 setObject:v70 forKeyedSubscript:v71];
+                [v780 setObject:v70 forKeyedSubscript:v71];
 
                 v41 = 1;
               }
@@ -4722,7 +4946,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v73 longLongValue] & 0x8000000000000000) == 0)
               {
                 v74 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_facetime];
-                [v779 setObject:v73 forKeyedSubscript:v74];
+                [v780 setObject:v73 forKeyedSubscript:v74];
 
                 v41 = 1;
               }
@@ -4736,7 +4960,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v76 longLongValue] & 0x8000000000000000) == 0)
               {
                 v77 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_adplatforms];
-                [v779 setObject:v76 forKeyedSubscript:v77];
+                [v780 setObject:v76 forKeyedSubscript:v77];
 
                 v41 = 1;
               }
@@ -4750,7 +4974,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v79 longLongValue] & 0x8000000000000000) == 0)
               {
                 v80 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_corelocation];
-                [v779 setObject:v79 forKeyedSubscript:v80];
+                [v780 setObject:v79 forKeyedSubscript:v80];
 
                 v41 = 1;
               }
@@ -4764,7 +4988,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v82 longLongValue] & 0x8000000000000000) == 0)
               {
                 v83 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_airplay_sender];
-                [v779 setObject:v82 forKeyedSubscript:v83];
+                [v780 setObject:v82 forKeyedSubscript:v83];
 
                 v41 = 1;
               }
@@ -4778,7 +5002,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v85 longLongValue] & 0x8000000000000000) == 0)
               {
                 v86 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_airplay_receiver];
-                [v779 setObject:v85 forKeyedSubscript:v86];
+                [v780 setObject:v85 forKeyedSubscript:v86];
 
                 v41 = 1;
               }
@@ -4792,7 +5016,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v88 longLongValue] & 0x8000000000000000) == 0)
               {
                 v89 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_maps];
-                [v779 setObject:v88 forKeyedSubscript:v89];
+                [v780 setObject:v88 forKeyedSubscript:v89];
 
                 v41 = 1;
               }
@@ -4806,7 +5030,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v91 longLongValue] & 0x8000000000000000) == 0)
               {
                 v92 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_maps_internal];
-                [v779 setObject:v91 forKeyedSubscript:v92];
+                [v780 setObject:v91 forKeyedSubscript:v92];
 
                 v41 = 1;
               }
@@ -4820,7 +5044,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v94 longLongValue] & 0x8000000000000000) == 0)
               {
                 v95 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_maps_external];
-                [v779 setObject:v94 forKeyedSubscript:v95];
+                [v780 setObject:v94 forKeyedSubscript:v95];
 
                 v41 = 1;
               }
@@ -4834,7 +5058,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v97 longLongValue] & 0x8000000000000000) == 0)
               {
                 v98 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_network_speed_test];
-                [v779 setObject:v97 forKeyedSubscript:v98];
+                [v780 setObject:v97 forKeyedSubscript:v98];
 
                 v41 = 1;
               }
@@ -4848,7 +5072,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v100 longLongValue] & 0x8000000000000000) == 0)
               {
                 v101 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_captive];
-                [v779 setObject:v100 forKeyedSubscript:v101];
+                [v780 setObject:v100 forKeyedSubscript:v101];
 
                 v41 = 1;
               }
@@ -4862,7 +5086,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v103 longLongValue] & 0x8000000000000000) == 0)
               {
                 v104 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_safe_browsing];
-                [v779 setObject:v103 forKeyedSubscript:v104];
+                [v780 setObject:v103 forKeyedSubscript:v104];
 
                 v41 = 1;
               }
@@ -4876,7 +5100,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v106 longLongValue] & 0x8000000000000000) == 0)
               {
                 v107 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_dns];
-                [v779 setObject:v106 forKeyedSubscript:v107];
+                [v780 setObject:v106 forKeyedSubscript:v107];
 
                 v41 = 1;
               }
@@ -4890,7 +5114,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v109 longLongValue] & 0x8000000000000000) == 0)
               {
                 v110 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_music];
-                [v779 setObject:v109 forKeyedSubscript:v110];
+                [v780 setObject:v109 forKeyedSubscript:v110];
 
                 v41 = 1;
               }
@@ -4904,7 +5128,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v112 longLongValue] & 0x8000000000000000) == 0)
               {
                 v113 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_battery];
-                [v779 setObject:v112 forKeyedSubscript:v113];
+                [v780 setObject:v112 forKeyedSubscript:v113];
 
                 v41 = 1;
               }
@@ -4918,7 +5142,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v115 longLongValue] & 0x8000000000000000) == 0)
               {
                 v116 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_cloud_media_services];
-                [v779 setObject:v115 forKeyedSubscript:v116];
+                [v780 setObject:v115 forKeyedSubscript:v116];
 
                 v41 = 1;
               }
@@ -4932,7 +5156,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v118 longLongValue] & 0x8000000000000000) == 0)
               {
                 v119 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_avconference];
-                [v779 setObject:v118 forKeyedSubscript:v119];
+                [v780 setObject:v118 forKeyedSubscript:v119];
 
                 v41 = 1;
               }
@@ -4946,7 +5170,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v121 longLongValue] & 0x8000000000000000) == 0)
               {
                 v122 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_appstore];
-                [v779 setObject:v121 forKeyedSubscript:v122];
+                [v780 setObject:v121 forKeyedSubscript:v122];
 
                 v41 = 1;
               }
@@ -4960,7 +5184,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v124 longLongValue] & 0x8000000000000000) == 0)
               {
                 v125 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_telephony_service];
-                [v779 setObject:v124 forKeyedSubscript:v125];
+                [v780 setObject:v124 forKeyedSubscript:v125];
 
                 v41 = 1;
               }
@@ -4974,7 +5198,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v127 longLongValue] & 0x8000000000000000) == 0)
               {
                 v128 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_network_experiments];
-                [v779 setObject:v127 forKeyedSubscript:v128];
+                [v780 setObject:v127 forKeyedSubscript:v128];
 
                 v41 = 1;
               }
@@ -4988,7 +5212,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v130 longLongValue] & 0x8000000000000000) == 0)
               {
                 v131 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_network_perf];
-                [v779 setObject:v130 forKeyedSubscript:v131];
+                [v780 setObject:v130 forKeyedSubscript:v131];
 
                 v41 = 1;
               }
@@ -5002,7 +5226,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v133 longLongValue] & 0x8000000000000000) == 0)
               {
                 v134 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_hotspot];
-                [v779 setObject:v133 forKeyedSubscript:v134];
+                [v780 setObject:v133 forKeyedSubscript:v134];
 
                 v41 = 1;
               }
@@ -5016,7 +5240,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v136 longLongValue] & 0x8000000000000000) == 0)
               {
                 v137 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_weather];
-                [v779 setObject:v136 forKeyedSubscript:v137];
+                [v780 setObject:v136 forKeyedSubscript:v137];
 
                 v41 = 1;
               }
@@ -5030,7 +5254,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v139 longLongValue] & 0x8000000000000000) == 0)
               {
                 v140 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_coordination];
-                [v779 setObject:v139 forKeyedSubscript:v140];
+                [v780 setObject:v139 forKeyedSubscript:v140];
 
                 v41 = 1;
               }
@@ -5044,7 +5268,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v142 longLongValue] & 0x8000000000000000) == 0)
               {
                 v143 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_appstore_jet];
-                [v779 setObject:v142 forKeyedSubscript:v143];
+                [v780 setObject:v142 forKeyedSubscript:v143];
 
                 v41 = 1;
               }
@@ -5058,7 +5282,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v145 longLongValue] & 0x8000000000000000) == 0)
               {
                 v146 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_soundboard];
-                [v779 setObject:v145 forKeyedSubscript:v146];
+                [v780 setObject:v145 forKeyedSubscript:v146];
 
                 v41 = 1;
               }
@@ -5072,7 +5296,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v148 longLongValue] & 0x8000000000000000) == 0)
               {
                 v149 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_aea];
-                [v779 setObject:v148 forKeyedSubscript:v149];
+                [v780 setObject:v148 forKeyedSubscript:v149];
 
                 v41 = 1;
               }
@@ -5086,7 +5310,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v151 longLongValue] & 0x8000000000000000) == 0)
               {
                 v152 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_homekit];
-                [v779 setObject:v151 forKeyedSubscript:v152];
+                [v780 setObject:v151 forKeyedSubscript:v152];
 
                 v41 = 1;
               }
@@ -5100,7 +5324,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v154 longLongValue] & 0x8000000000000000) == 0)
               {
                 v155 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_wifi];
-                [v779 setObject:v154 forKeyedSubscript:v155];
+                [v780 setObject:v154 forKeyedSubscript:v155];
 
                 v41 = 1;
               }
@@ -5114,7 +5338,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v157 longLongValue] & 0x8000000000000000) == 0)
               {
                 v158 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_app_launch];
-                [v779 setObject:v157 forKeyedSubscript:v158];
+                [v780 setObject:v157 forKeyedSubscript:v158];
 
                 v41 = 1;
               }
@@ -5128,7 +5352,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v160 longLongValue] & 0x8000000000000000) == 0)
               {
                 v161 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_ams];
-                [v779 setObject:v160 forKeyedSubscript:v161];
+                [v780 setObject:v160 forKeyedSubscript:v161];
 
                 v41 = 1;
               }
@@ -5142,7 +5366,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v163 longLongValue] & 0x8000000000000000) == 0)
               {
                 v164 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_reve];
-                [v779 setObject:v163 forKeyedSubscript:v164];
+                [v780 setObject:v163 forKeyedSubscript:v164];
 
                 v41 = 1;
               }
@@ -5156,7 +5380,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v166 longLongValue] & 0x8000000000000000) == 0)
               {
                 v167 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_network_quality];
-                [v779 setObject:v166 forKeyedSubscript:v167];
+                [v780 setObject:v166 forKeyedSubscript:v167];
 
                 v41 = 1;
               }
@@ -5170,7 +5394,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v169 longLongValue] & 0x8000000000000000) == 0)
               {
                 v170 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_news];
-                [v779 setObject:v169 forKeyedSubscript:v170];
+                [v780 setObject:v169 forKeyedSubscript:v170];
 
                 v41 = 1;
               }
@@ -5184,7 +5408,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v172 longLongValue] & 0x8000000000000000) == 0)
               {
                 v173 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_cloud_compute];
-                [v779 setObject:v172 forKeyedSubscript:v173];
+                [v780 setObject:v172 forKeyedSubscript:v173];
 
                 v41 = 1;
               }
@@ -5198,7 +5422,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v175 longLongValue] & 0x8000000000000000) == 0)
               {
                 v176 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_push];
-                [v779 setObject:v175 forKeyedSubscript:v176];
+                [v780 setObject:v175 forKeyedSubscript:v176];
 
                 v41 = 1;
               }
@@ -5212,7 +5436,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v178 longLongValue] & 0x8000000000000000) == 0)
               {
                 v179 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_nw_actor_system];
-                [v779 setObject:v178 forKeyedSubscript:v179];
+                [v780 setObject:v178 forKeyedSubscript:v179];
 
                 v41 = 1;
               }
@@ -5226,7 +5450,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v181 longLongValue] & 0x8000000000000000) == 0)
               {
                 v182 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_app_intents_services];
-                [v779 setObject:v181 forKeyedSubscript:v182];
+                [v780 setObject:v181 forKeyedSubscript:v182];
 
                 v41 = 1;
               }
@@ -5240,7 +5464,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v184 longLongValue] & 0x8000000000000000) == 0)
               {
                 v185 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_stocks];
-                [v779 setObject:v184 forKeyedSubscript:v185];
+                [v780 setObject:v184 forKeyedSubscript:v185];
 
                 v41 = 1;
               }
@@ -5254,7 +5478,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v187 longLongValue] & 0x8000000000000000) == 0)
               {
                 v188 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_tv_app];
-                [v779 setObject:v187 forKeyedSubscript:v188];
+                [v780 setObject:v187 forKeyedSubscript:v188];
 
                 v41 = 1;
               }
@@ -5268,7 +5492,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v190 longLongValue] & 0x8000000000000000) == 0)
               {
                 v191 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_rapport];
-                [v779 setObject:v190 forKeyedSubscript:v191];
+                [v780 setObject:v190 forKeyedSubscript:v191];
 
                 v41 = 1;
               }
@@ -5282,7 +5506,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v193 longLongValue] & 0x8000000000000000) == 0)
               {
                 v194 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_numerator_mobile_asset];
-                [v779 setObject:v193 forKeyedSubscript:v194];
+                [v780 setObject:v193 forKeyedSubscript:v194];
 
                 v41 = 1;
               }
@@ -5296,7 +5520,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v196 longLongValue] & 0x8000000000000000) == 0)
               {
                 v197 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_libnetcore];
-                [v779 setObject:v196 forKeyedSubscript:v197];
+                [v780 setObject:v196 forKeyedSubscript:v197];
 
                 v41 = 1;
               }
@@ -5310,7 +5534,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v199 longLongValue] & 0x8000000000000000) == 0)
               {
                 v200 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_cfnetwork];
-                [v779 setObject:v199 forKeyedSubscript:v200];
+                [v780 setObject:v199 forKeyedSubscript:v200];
 
                 v41 = 1;
               }
@@ -5324,7 +5548,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v202 longLongValue] & 0x8000000000000000) == 0)
               {
                 v203 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_coremedia];
-                [v779 setObject:v202 forKeyedSubscript:v203];
+                [v780 setObject:v202 forKeyedSubscript:v203];
 
                 v41 = 1;
               }
@@ -5338,7 +5562,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v205 longLongValue] & 0x8000000000000000) == 0)
               {
                 v206 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_parsec];
-                [v779 setObject:v205 forKeyedSubscript:v206];
+                [v780 setObject:v205 forKeyedSubscript:v206];
 
                 v41 = 1;
               }
@@ -5352,7 +5576,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v208 longLongValue] & 0x8000000000000000) == 0)
               {
                 v209 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_siri];
-                [v779 setObject:v208 forKeyedSubscript:v209];
+                [v780 setObject:v208 forKeyedSubscript:v209];
 
                 v41 = 1;
               }
@@ -5366,7 +5590,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v211 longLongValue] & 0x8000000000000000) == 0)
               {
                 v212 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_webkit];
-                [v779 setObject:v211 forKeyedSubscript:v212];
+                [v780 setObject:v211 forKeyedSubscript:v212];
 
                 v41 = 1;
               }
@@ -5380,7 +5604,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v214 longLongValue] & 0x8000000000000000) == 0)
               {
                 v215 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_coremedia_crabs];
-                [v779 setObject:v214 forKeyedSubscript:v215];
+                [v780 setObject:v214 forKeyedSubscript:v215];
 
                 v41 = 1;
               }
@@ -5394,7 +5618,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v217 longLongValue] & 0x8000000000000000) == 0)
               {
                 v218 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_coremedia_hls];
-                [v779 setObject:v217 forKeyedSubscript:v218];
+                [v780 setObject:v217 forKeyedSubscript:v218];
 
                 v41 = 1;
               }
@@ -5408,7 +5632,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v220 longLongValue] & 0x8000000000000000) == 0)
               {
                 v221 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_cloudkit];
-                [v779 setObject:v220 forKeyedSubscript:v221];
+                [v780 setObject:v220 forKeyedSubscript:v221];
 
                 v41 = 1;
               }
@@ -5422,7 +5646,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v223 longLongValue] & 0x8000000000000000) == 0)
               {
                 v224 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_mmcs];
-                [v779 setObject:v223 forKeyedSubscript:v224];
+                [v780 setObject:v223 forKeyedSubscript:v224];
 
                 v41 = 1;
               }
@@ -5436,7 +5660,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v226 longLongValue] & 0x8000000000000000) == 0)
               {
                 v227 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_mail];
-                [v779 setObject:v226 forKeyedSubscript:v227];
+                [v780 setObject:v226 forKeyedSubscript:v227];
 
                 v41 = 1;
               }
@@ -5450,7 +5674,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v229 longLongValue] & 0x8000000000000000) == 0)
               {
                 v230 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_facetime];
-                [v779 setObject:v229 forKeyedSubscript:v230];
+                [v780 setObject:v229 forKeyedSubscript:v230];
 
                 v41 = 1;
               }
@@ -5464,7 +5688,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v232 longLongValue] & 0x8000000000000000) == 0)
               {
                 v233 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_adplatforms];
-                [v779 setObject:v232 forKeyedSubscript:v233];
+                [v780 setObject:v232 forKeyedSubscript:v233];
 
                 v41 = 1;
               }
@@ -5478,7 +5702,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v235 longLongValue] & 0x8000000000000000) == 0)
               {
                 v236 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_corelocation];
-                [v779 setObject:v235 forKeyedSubscript:v236];
+                [v780 setObject:v235 forKeyedSubscript:v236];
 
                 v41 = 1;
               }
@@ -5492,7 +5716,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v238 longLongValue] & 0x8000000000000000) == 0)
               {
                 v239 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_airplay_sender];
-                [v779 setObject:v238 forKeyedSubscript:v239];
+                [v780 setObject:v238 forKeyedSubscript:v239];
 
                 v41 = 1;
               }
@@ -5506,7 +5730,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v241 longLongValue] & 0x8000000000000000) == 0)
               {
                 v242 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_airplay_receiver];
-                [v779 setObject:v241 forKeyedSubscript:v242];
+                [v780 setObject:v241 forKeyedSubscript:v242];
 
                 v41 = 1;
               }
@@ -5520,7 +5744,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v244 longLongValue] & 0x8000000000000000) == 0)
               {
                 v245 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_maps];
-                [v779 setObject:v244 forKeyedSubscript:v245];
+                [v780 setObject:v244 forKeyedSubscript:v245];
 
                 v41 = 1;
               }
@@ -5534,7 +5758,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v247 longLongValue] & 0x8000000000000000) == 0)
               {
                 v248 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_maps_internal];
-                [v779 setObject:v247 forKeyedSubscript:v248];
+                [v780 setObject:v247 forKeyedSubscript:v248];
 
                 v41 = 1;
               }
@@ -5548,7 +5772,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v250 longLongValue] & 0x8000000000000000) == 0)
               {
                 v251 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_maps_external];
-                [v779 setObject:v250 forKeyedSubscript:v251];
+                [v780 setObject:v250 forKeyedSubscript:v251];
 
                 v41 = 1;
               }
@@ -5562,7 +5786,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v253 longLongValue] & 0x8000000000000000) == 0)
               {
                 v254 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_network_speed_test];
-                [v779 setObject:v253 forKeyedSubscript:v254];
+                [v780 setObject:v253 forKeyedSubscript:v254];
 
                 v41 = 1;
               }
@@ -5576,7 +5800,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v256 longLongValue] & 0x8000000000000000) == 0)
               {
                 v257 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_captive];
-                [v779 setObject:v256 forKeyedSubscript:v257];
+                [v780 setObject:v256 forKeyedSubscript:v257];
 
                 v41 = 1;
               }
@@ -5590,7 +5814,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v259 longLongValue] & 0x8000000000000000) == 0)
               {
                 v260 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_safe_browsing];
-                [v779 setObject:v259 forKeyedSubscript:v260];
+                [v780 setObject:v259 forKeyedSubscript:v260];
 
                 v41 = 1;
               }
@@ -5604,7 +5828,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v262 longLongValue] & 0x8000000000000000) == 0)
               {
                 v263 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_dns];
-                [v779 setObject:v262 forKeyedSubscript:v263];
+                [v780 setObject:v262 forKeyedSubscript:v263];
 
                 v41 = 1;
               }
@@ -5618,7 +5842,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v265 longLongValue] & 0x8000000000000000) == 0)
               {
                 v266 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_music];
-                [v779 setObject:v265 forKeyedSubscript:v266];
+                [v780 setObject:v265 forKeyedSubscript:v266];
 
                 v41 = 1;
               }
@@ -5632,7 +5856,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v268 longLongValue] & 0x8000000000000000) == 0)
               {
                 v269 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_battery];
-                [v779 setObject:v268 forKeyedSubscript:v269];
+                [v780 setObject:v268 forKeyedSubscript:v269];
 
                 v41 = 1;
               }
@@ -5646,7 +5870,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v271 longLongValue] & 0x8000000000000000) == 0)
               {
                 v272 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_cloud_media_services];
-                [v779 setObject:v271 forKeyedSubscript:v272];
+                [v780 setObject:v271 forKeyedSubscript:v272];
 
                 v41 = 1;
               }
@@ -5660,7 +5884,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v274 longLongValue] & 0x8000000000000000) == 0)
               {
                 v275 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_avconference];
-                [v779 setObject:v274 forKeyedSubscript:v275];
+                [v780 setObject:v274 forKeyedSubscript:v275];
 
                 v41 = 1;
               }
@@ -5674,7 +5898,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v277 longLongValue] & 0x8000000000000000) == 0)
               {
                 v278 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_appstore];
-                [v779 setObject:v277 forKeyedSubscript:v278];
+                [v780 setObject:v277 forKeyedSubscript:v278];
 
                 v41 = 1;
               }
@@ -5688,7 +5912,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v280 longLongValue] & 0x8000000000000000) == 0)
               {
                 v281 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_telephony_service];
-                [v779 setObject:v280 forKeyedSubscript:v281];
+                [v780 setObject:v280 forKeyedSubscript:v281];
 
                 v41 = 1;
               }
@@ -5702,7 +5926,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v283 longLongValue] & 0x8000000000000000) == 0)
               {
                 v284 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_network_experiments];
-                [v779 setObject:v283 forKeyedSubscript:v284];
+                [v780 setObject:v283 forKeyedSubscript:v284];
 
                 v41 = 1;
               }
@@ -5716,7 +5940,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v286 longLongValue] & 0x8000000000000000) == 0)
               {
                 v287 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_network_perf];
-                [v779 setObject:v286 forKeyedSubscript:v287];
+                [v780 setObject:v286 forKeyedSubscript:v287];
 
                 v41 = 1;
               }
@@ -5730,7 +5954,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v289 longLongValue] & 0x8000000000000000) == 0)
               {
                 v290 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_hotspot];
-                [v779 setObject:v289 forKeyedSubscript:v290];
+                [v780 setObject:v289 forKeyedSubscript:v290];
 
                 v41 = 1;
               }
@@ -5744,7 +5968,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v292 longLongValue] & 0x8000000000000000) == 0)
               {
                 v293 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_weather];
-                [v779 setObject:v292 forKeyedSubscript:v293];
+                [v780 setObject:v292 forKeyedSubscript:v293];
 
                 v41 = 1;
               }
@@ -5758,7 +5982,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v295 longLongValue] & 0x8000000000000000) == 0)
               {
                 v296 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_coordination];
-                [v779 setObject:v295 forKeyedSubscript:v296];
+                [v780 setObject:v295 forKeyedSubscript:v296];
 
                 v41 = 1;
               }
@@ -5772,7 +5996,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v298 longLongValue] & 0x8000000000000000) == 0)
               {
                 v299 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_appstore_jet];
-                [v779 setObject:v298 forKeyedSubscript:v299];
+                [v780 setObject:v298 forKeyedSubscript:v299];
 
                 v41 = 1;
               }
@@ -5786,7 +6010,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v301 longLongValue] & 0x8000000000000000) == 0)
               {
                 v302 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_soundboard];
-                [v779 setObject:v301 forKeyedSubscript:v302];
+                [v780 setObject:v301 forKeyedSubscript:v302];
 
                 v41 = 1;
               }
@@ -5800,7 +6024,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v304 longLongValue] & 0x8000000000000000) == 0)
               {
                 v305 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_aea];
-                [v779 setObject:v304 forKeyedSubscript:v305];
+                [v780 setObject:v304 forKeyedSubscript:v305];
 
                 v41 = 1;
               }
@@ -5814,7 +6038,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v307 longLongValue] & 0x8000000000000000) == 0)
               {
                 v308 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_homekit];
-                [v779 setObject:v307 forKeyedSubscript:v308];
+                [v780 setObject:v307 forKeyedSubscript:v308];
 
                 v41 = 1;
               }
@@ -5828,7 +6052,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v310 longLongValue] & 0x8000000000000000) == 0)
               {
                 v311 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_wifi];
-                [v779 setObject:v310 forKeyedSubscript:v311];
+                [v780 setObject:v310 forKeyedSubscript:v311];
 
                 v41 = 1;
               }
@@ -5842,7 +6066,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v313 longLongValue] & 0x8000000000000000) == 0)
               {
                 v314 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_app_launch];
-                [v779 setObject:v313 forKeyedSubscript:v314];
+                [v780 setObject:v313 forKeyedSubscript:v314];
 
                 v41 = 1;
               }
@@ -5856,7 +6080,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v316 longLongValue] & 0x8000000000000000) == 0)
               {
                 v317 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_ams];
-                [v779 setObject:v316 forKeyedSubscript:v317];
+                [v780 setObject:v316 forKeyedSubscript:v317];
 
                 v41 = 1;
               }
@@ -5870,7 +6094,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v319 longLongValue] & 0x8000000000000000) == 0)
               {
                 v320 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_reve];
-                [v779 setObject:v319 forKeyedSubscript:v320];
+                [v780 setObject:v319 forKeyedSubscript:v320];
 
                 v41 = 1;
               }
@@ -5884,7 +6108,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v322 longLongValue] & 0x8000000000000000) == 0)
               {
                 v323 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_network_quality];
-                [v779 setObject:v322 forKeyedSubscript:v323];
+                [v780 setObject:v322 forKeyedSubscript:v323];
 
                 v41 = 1;
               }
@@ -5898,7 +6122,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v325 longLongValue] & 0x8000000000000000) == 0)
               {
                 v326 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_news];
-                [v779 setObject:v325 forKeyedSubscript:v326];
+                [v780 setObject:v325 forKeyedSubscript:v326];
 
                 v41 = 1;
               }
@@ -5912,7 +6136,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v328 longLongValue] & 0x8000000000000000) == 0)
               {
                 v329 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_cloud_compute];
-                [v779 setObject:v328 forKeyedSubscript:v329];
+                [v780 setObject:v328 forKeyedSubscript:v329];
 
                 v41 = 1;
               }
@@ -5926,7 +6150,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v331 longLongValue] & 0x8000000000000000) == 0)
               {
                 v332 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_push];
-                [v779 setObject:v331 forKeyedSubscript:v332];
+                [v780 setObject:v331 forKeyedSubscript:v332];
 
                 v41 = 1;
               }
@@ -5940,7 +6164,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v334 longLongValue] & 0x8000000000000000) == 0)
               {
                 v335 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_nw_actor_system];
-                [v779 setObject:v334 forKeyedSubscript:v335];
+                [v780 setObject:v334 forKeyedSubscript:v335];
 
                 v41 = 1;
               }
@@ -5954,7 +6178,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v337 longLongValue] & 0x8000000000000000) == 0)
               {
                 v338 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_app_intents_services];
-                [v779 setObject:v337 forKeyedSubscript:v338];
+                [v780 setObject:v337 forKeyedSubscript:v338];
 
                 v41 = 1;
               }
@@ -5968,7 +6192,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v340 longLongValue] & 0x8000000000000000) == 0)
               {
                 v341 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_stocks];
-                [v779 setObject:v340 forKeyedSubscript:v341];
+                [v780 setObject:v340 forKeyedSubscript:v341];
 
                 v41 = 1;
               }
@@ -5982,7 +6206,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v343 longLongValue] & 0x8000000000000000) == 0)
               {
                 v344 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_tv_app];
-                [v779 setObject:v343 forKeyedSubscript:v344];
+                [v780 setObject:v343 forKeyedSubscript:v344];
 
                 v41 = 1;
               }
@@ -5996,7 +6220,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v346 longLongValue] & 0x8000000000000000) == 0)
               {
                 v347 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_rapport];
-                [v779 setObject:v346 forKeyedSubscript:v347];
+                [v780 setObject:v346 forKeyedSubscript:v347];
 
                 v41 = 1;
               }
@@ -6011,7 +6235,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               if ((objc_opt_isKindOfClass() & 1) != 0 && ([v349 longLongValue] & 0x8000000000000000) == 0)
               {
                 v351 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_denominator_mobile_asset];
-                [v779 setObject:v349 forKeyedSubscript:v351];
+                [v780 setObject:v349 forKeyedSubscript:v351];
 
                 v41 = 1;
               }
@@ -6030,12 +6254,12 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
             if (v354)
             {
               objc_opt_class();
-              v355 = v779;
+              v355 = v780;
               v356 = v352;
               if (objc_opt_isKindOfClass())
               {
                 v357 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_activity_report_destination];
-                [v779 setObject:v354 forKeyedSubscript:v357];
+                [v780 setObject:v354 forKeyedSubscript:v357];
 
                 v356 = 1;
               }
@@ -6043,7 +6267,7 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
 
             else
             {
-              v355 = v779;
+              v355 = v780;
               v356 = v352;
             }
 
@@ -7451,21 +7675,21 @@ void __nwphCheckMobileAsset_block_invoke_378(uint64_t a1, unint64_t a2)
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v794 = 0u;
                 v795 = 0u;
-                v792 = 0u;
+                v796 = 0u;
                 v793 = 0u;
+                v794 = 0u;
                 v733 = v732;
-                v734 = [v733 countByEnumeratingWithState:&v792 objects:v805 count:16];
+                v734 = [v733 countByEnumeratingWithState:&v793 objects:v806 count:16];
                 if (v734)
                 {
                   v735 = v734;
-                  v736 = *v793;
+                  v736 = *v794;
 LABEL_754:
                   v737 = 0;
                   while (1)
                   {
-                    if (*v793 != v736)
+                    if (*v794 != v736)
                     {
                       objc_enumerationMutation(v733);
                     }
@@ -7478,7 +7702,7 @@ LABEL_754:
 
                     if (v735 == ++v737)
                     {
-                      v735 = [v733 countByEnumeratingWithState:&v792 objects:v805 count:16];
+                      v735 = [v733 countByEnumeratingWithState:&v793 objects:v806 count:16];
                       if (v735)
                       {
                         goto LABEL_754;
@@ -7494,7 +7718,7 @@ LABEL_754:
 LABEL_760:
 
                   v738 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_pqtls_fallback_allowed_domains];
-                  [v779 setObject:v733 forKeyedSubscript:v738];
+                  [v780 setObject:v733 forKeyedSubscript:v738];
                   v733 = v738;
                   v356 = 1;
                 }
@@ -7511,21 +7735,21 @@ LABEL_760:
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v790 = 0u;
                 v791 = 0u;
-                v788 = 0u;
+                v792 = 0u;
                 v789 = 0u;
+                v790 = 0u;
                 v742 = v741;
-                v743 = [v742 countByEnumeratingWithState:&v788 objects:v804 count:16];
+                v743 = [v742 countByEnumeratingWithState:&v789 objects:v805 count:16];
                 if (v743)
                 {
                   v744 = v743;
-                  v745 = *v789;
+                  v745 = *v790;
 LABEL_766:
                   v746 = 0;
                   while (1)
                   {
-                    if (*v789 != v745)
+                    if (*v790 != v745)
                     {
                       objc_enumerationMutation(v742);
                     }
@@ -7538,7 +7762,7 @@ LABEL_766:
 
                     if (v744 == ++v746)
                     {
-                      v744 = [v742 countByEnumeratingWithState:&v788 objects:v804 count:16];
+                      v744 = [v742 countByEnumeratingWithState:&v789 objects:v805 count:16];
                       if (v744)
                       {
                         goto LABEL_766;
@@ -7554,7 +7778,7 @@ LABEL_766:
 LABEL_772:
 
                   v747 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_enable_pqtls_domains];
-                  [v779 setObject:v742 forKeyedSubscript:v747];
+                  [v780 setObject:v742 forKeyedSubscript:v747];
                   v742 = v747;
                   v356 = 1;
                 }
@@ -7568,21 +7792,21 @@ LABEL_772:
             v750 = [v21 objectForKeyedSubscript:v749];
             if (v750 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
             {
-              v786 = 0u;
               v787 = 0u;
-              v784 = 0u;
+              v788 = 0u;
               v785 = 0u;
+              v786 = 0u;
               v751 = v750;
-              v752 = [v751 countByEnumeratingWithState:&v784 objects:v803 count:16];
+              v752 = [v751 countByEnumeratingWithState:&v785 objects:v804 count:16];
               if (v752)
               {
                 v753 = v752;
-                v754 = *v785;
+                v754 = *v786;
                 while (2)
                 {
                   for (i = 0; i != v753; ++i)
                   {
-                    if (*v785 != v754)
+                    if (*v786 != v754)
                     {
                       objc_enumerationMutation(v751);
                     }
@@ -7596,7 +7820,7 @@ LABEL_772:
                     }
                   }
 
-                  v753 = [v751 countByEnumeratingWithState:&v784 objects:v803 count:16];
+                  v753 = [v751 countByEnumeratingWithState:&v785 objects:v804 count:16];
                   if (v753)
                   {
                     continue;
@@ -7607,7 +7831,7 @@ LABEL_772:
               }
 
               v756 = [MEMORY[0x1E696AEC0] stringWithUTF8String:nw_setting_enable_pqtls_exclude_domains];
-              [v779 setObject:v751 forKeyedSubscript:v756];
+              [v780 setObject:v751 forKeyedSubscript:v756];
 
               v14 = &nwlog_legacy_init(void)::init_once;
             }
@@ -7619,8 +7843,8 @@ LABEL_786:
               if (!v356)
               {
                 v5 = &qword_1ED411000;
-                v36 = v775;
-                v18 = v779;
+                v36 = v776;
+                v18 = v780;
                 goto LABEL_17;
               }
             }
@@ -7629,11 +7853,11 @@ LABEL_786:
             networkd_settings_init();
             v5 = &qword_1ED411000;
             v757 = gLogObj;
-            v36 = v775;
+            v36 = v776;
             if (os_log_type_enabled(v757, OS_LOG_TYPE_DEBUG))
             {
               buf = 136446210;
-              v808 = "nwphCheckMobileAsset_block_invoke";
+              v809 = "nwphCheckMobileAsset_block_invoke";
               _os_log_impl(&dword_181A37000, v757, OS_LOG_TYPE_DEBUG, "%{public}s Some new setting was found", &buf, 0xCu);
             }
 
@@ -7643,32 +7867,32 @@ LABEL_786:
             block[1] = 3221225472;
             block[2] = __nwphCheckMobileAsset_block_invoke_459;
             block[3] = &unk_1E6A3D868;
-            v18 = v779;
-            v783 = v18;
+            v18 = v780;
+            v784 = v18;
             dispatch_async(v17, block);
           }
 
           else if (v37)
           {
             buf = 136446466;
-            v808 = "nwphCheckMobileAsset_block_invoke_2";
-            v809 = 2114;
-            v810 = v21;
+            v809 = "nwphCheckMobileAsset_block_invoke_2";
+            v810 = 2114;
+            v811 = v21;
             _os_log_impl(&dword_181A37000, v18, OS_LOG_TYPE_DEFAULT, "%{public}s Asset attributes do not contain ActivityRateVersion: %{public}@", &buf, 0x16u);
           }
 
 LABEL_17:
 
-          v13 = v777;
-          v15 = v776 + 1;
+          v13 = v778;
+          v15 = v777 + 1;
         }
 
-        while (v776 + 1 != v774);
-        v774 = [obj countByEnumeratingWithState:&v799 objects:v806 count:16];
-        if (!v774)
+        while (v777 + 1 != v775);
+        v775 = [obj countByEnumeratingWithState:&v800 objects:v807 count:16];
+        if (!v775)
         {
 
-          v4 = v771;
+          v4 = v772;
           break;
         }
       }
@@ -7687,7 +7911,7 @@ LABEL_17:
       if (os_log_type_enabled(v760, OS_LOG_TYPE_DEFAULT))
       {
         buf = 136446210;
-        v808 = "nwphCheckMobileAsset_block_invoke";
+        v809 = "nwphCheckMobileAsset_block_invoke";
         _os_log_impl(&dword_181A37000, v761, OS_LOG_TYPE_DEFAULT, "%{public}s Saved successful mobile asset load date to disk", &buf, 0xCu);
       }
 
@@ -7696,16 +7920,17 @@ LABEL_811:
     }
 
     buf = 136446722;
-    v808 = "nwphCheckMobileAsset_block_invoke";
-    v809 = 2114;
-    v810 = v12;
-    v811 = 2114;
-    v812 = @"/Library/Preferences/com.apple.networkd.networknomicon.plist";
-    v762 = _os_log_send_and_compose_impl();
+    v809 = "nwphCheckMobileAsset_block_invoke";
+    v810 = 2114;
+    v811 = v12;
+    v812 = 2114;
+    v813 = @"/Library/Preferences/com.apple.networkd.networknomicon.plist";
+    LODWORD(v771) = 32;
+    v762 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v760, 16, "%{public}s Failed to save mobile asset networknomicon success %{public}@ to %{public}@", &buf, v771);
 
     type = OS_LOG_TYPE_ERROR;
-    v780 = 0;
-    if (!__nwlog_fault(v762, &type, &v780))
+    v781 = 0;
+    if (!__nwlog_fault(v762, &type, &v781))
     {
 LABEL_809:
       if (v762)
@@ -7725,11 +7950,11 @@ LABEL_809:
       if (os_log_type_enabled(v763, type))
       {
         buf = 136446722;
-        v808 = "nwphCheckMobileAsset_block_invoke";
-        v809 = 2114;
-        v810 = v12;
-        v811 = 2114;
-        v812 = @"/Library/Preferences/com.apple.networkd.networknomicon.plist";
+        v809 = "nwphCheckMobileAsset_block_invoke";
+        v810 = 2114;
+        v811 = v12;
+        v812 = 2114;
+        v813 = @"/Library/Preferences/com.apple.networkd.networknomicon.plist";
         v765 = "%{public}s Failed to save mobile asset networknomicon success %{public}@ to %{public}@";
 LABEL_806:
         v769 = v763;
@@ -7741,7 +7966,7 @@ LABEL_807:
 
     else
     {
-      if (v780 == 1)
+      if (v781 == 1)
       {
         backtrace_string = __nw_create_backtrace_string();
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
@@ -7754,13 +7979,13 @@ LABEL_807:
           if (v768)
           {
             buf = 136446978;
-            v808 = "nwphCheckMobileAsset_block_invoke";
-            v809 = 2114;
-            v810 = v12;
-            v811 = 2114;
-            v812 = @"/Library/Preferences/com.apple.networkd.networknomicon.plist";
-            v813 = 2082;
-            v814 = backtrace_string;
+            v809 = "nwphCheckMobileAsset_block_invoke";
+            v810 = 2114;
+            v811 = v12;
+            v812 = 2114;
+            v813 = @"/Library/Preferences/com.apple.networkd.networknomicon.plist";
+            v814 = 2082;
+            v815 = backtrace_string;
             _os_log_impl(&dword_181A37000, v763, v767, "%{public}s Failed to save mobile asset networknomicon success %{public}@ to %{public}@, dumping backtrace:%{public}s", &buf, 0x2Au);
           }
 
@@ -7774,11 +7999,11 @@ LABEL_807:
         }
 
         buf = 136446722;
-        v808 = "nwphCheckMobileAsset_block_invoke";
-        v809 = 2114;
-        v810 = v12;
-        v811 = 2114;
-        v812 = @"/Library/Preferences/com.apple.networkd.networknomicon.plist";
+        v809 = "nwphCheckMobileAsset_block_invoke";
+        v810 = 2114;
+        v811 = v12;
+        v812 = 2114;
+        v813 = @"/Library/Preferences/com.apple.networkd.networknomicon.plist";
         v765 = "%{public}s Failed to save mobile asset networknomicon success %{public}@ to %{public}@, no backtrace";
         v769 = v763;
         v770 = v767;
@@ -7792,11 +8017,11 @@ LABEL_807:
       if (os_log_type_enabled(v763, type))
       {
         buf = 136446722;
-        v808 = "nwphCheckMobileAsset_block_invoke";
-        v809 = 2114;
-        v810 = v12;
-        v811 = 2114;
-        v812 = @"/Library/Preferences/com.apple.networkd.networknomicon.plist";
+        v809 = "nwphCheckMobileAsset_block_invoke";
+        v810 = 2114;
+        v811 = v12;
+        v812 = 2114;
+        v813 = @"/Library/Preferences/com.apple.networkd.networknomicon.plist";
         v765 = "%{public}s Failed to save mobile asset networknomicon success %{public}@ to %{public}@, backtrace limit exceeded";
         goto LABEL_806;
       }
@@ -7812,7 +8037,7 @@ LABEL_812:
 
 void __nwphCheckMobileAsset_block_invoke_392(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF90] dictionaryWithContentsOfFile:@"/Library/Preferences/com.apple.networkd.sysctl.plist"];
   if (!v2)
   {
@@ -7832,9 +8057,9 @@ void __nwphCheckMobileAsset_block_invoke_392(uint64_t a1)
     {
       v6 = *(a1 + 40);
       *buf = 136446466;
-      v28 = "nwphCheckMobileAsset_block_invoke";
-      v29 = 2048;
-      v30 = v6;
+      v26 = "nwphCheckMobileAsset_block_invoke";
+      v27 = 2048;
+      v28 = v6;
       _os_log_impl(&dword_181A37000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s Changing ECN Percentage to %lld", buf, 0x16u);
     }
 
@@ -7848,18 +8073,16 @@ void __nwphCheckMobileAsset_block_invoke_392(uint64_t a1)
     v7 = gLogObj;
     v8 = *(a1 + 32);
     *buf = 136446722;
-    v28 = "nwphCheckMobileAsset_block_invoke";
+    v26 = "nwphCheckMobileAsset_block_invoke";
+    v27 = 2114;
+    v28 = v8;
     v29 = 2114;
-    v30 = v8;
-    v31 = 2114;
-    v32 = @"/Library/Preferences/com.apple.networkd.sysctl.plist";
-    LODWORD(v24) = 32;
-    v23 = buf;
-    v9 = _os_log_send_and_compose_impl();
+    v30 = @"/Library/Preferences/com.apple.networkd.sysctl.plist";
+    v9 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v7, 16, "%{public}s Failed to save network settings %{public}@ to %{public}@", buf, 32);
 
     type = OS_LOG_TYPE_ERROR;
-    v25 = 0;
-    if (__nwlog_fault(v9, &type, &v25))
+    v23 = 0;
+    if (__nwlog_fault(v9, &type, &v23))
     {
       if (type == OS_LOG_TYPE_FAULT)
       {
@@ -7874,11 +8097,11 @@ void __nwphCheckMobileAsset_block_invoke_392(uint64_t a1)
 
         v12 = *(a1 + 32);
         *buf = 136446722;
-        v28 = "nwphCheckMobileAsset_block_invoke";
+        v26 = "nwphCheckMobileAsset_block_invoke";
+        v27 = 2114;
+        v28 = v12;
         v29 = 2114;
-        v30 = v12;
-        v31 = 2114;
-        v32 = @"/Library/Preferences/com.apple.networkd.sysctl.plist";
+        v30 = @"/Library/Preferences/com.apple.networkd.sysctl.plist";
         v13 = "%{public}s Failed to save network settings %{public}@ to %{public}@";
 LABEL_24:
         v20 = v10;
@@ -7886,7 +8109,7 @@ LABEL_24:
         goto LABEL_25;
       }
 
-      if (v25 != 1)
+      if (v23 != 1)
       {
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
@@ -7899,11 +8122,11 @@ LABEL_24:
 
         v19 = *(a1 + 32);
         *buf = 136446722;
-        v28 = "nwphCheckMobileAsset_block_invoke";
+        v26 = "nwphCheckMobileAsset_block_invoke";
+        v27 = 2114;
+        v28 = v19;
         v29 = 2114;
-        v30 = v19;
-        v31 = 2114;
-        v32 = @"/Library/Preferences/com.apple.networkd.sysctl.plist";
+        v30 = @"/Library/Preferences/com.apple.networkd.sysctl.plist";
         v13 = "%{public}s Failed to save network settings %{public}@ to %{public}@, backtrace limit exceeded";
         goto LABEL_24;
       }
@@ -7930,11 +8153,11 @@ LABEL_26:
 
         v22 = *(a1 + 32);
         *buf = 136446722;
-        v28 = "nwphCheckMobileAsset_block_invoke";
+        v26 = "nwphCheckMobileAsset_block_invoke";
+        v27 = 2114;
+        v28 = v22;
         v29 = 2114;
-        v30 = v22;
-        v31 = 2114;
-        v32 = @"/Library/Preferences/com.apple.networkd.sysctl.plist";
+        v30 = @"/Library/Preferences/com.apple.networkd.sysctl.plist";
         v13 = "%{public}s Failed to save network settings %{public}@ to %{public}@, no backtrace";
         v20 = v10;
         v21 = v15;
@@ -7947,13 +8170,13 @@ LABEL_25:
       {
         v17 = *(a1 + 32);
         *buf = 136446978;
-        v28 = "nwphCheckMobileAsset_block_invoke";
+        v26 = "nwphCheckMobileAsset_block_invoke";
+        v27 = 2114;
+        v28 = v17;
         v29 = 2114;
-        v30 = v17;
-        v31 = 2114;
-        v32 = @"/Library/Preferences/com.apple.networkd.sysctl.plist";
-        v33 = 2082;
-        v34 = backtrace_string;
+        v30 = @"/Library/Preferences/com.apple.networkd.sysctl.plist";
+        v31 = 2082;
+        v32 = backtrace_string;
         _os_log_impl(&dword_181A37000, v10, v15, "%{public}s Failed to save network settings %{public}@ to %{public}@, dumping backtrace:%{public}s", buf, 0x2Au);
       }
 
@@ -7963,7 +8186,7 @@ LABEL_25:
     if (!v9)
     {
 LABEL_20:
-      v18 = [ManagedNetworkSettings sharedMNS:v23];
+      v18 = +[ManagedNetworkSettings sharedMNS];
       [v18 reloadMNS];
 
       goto LABEL_21;

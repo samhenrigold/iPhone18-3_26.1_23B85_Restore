@@ -11,9 +11,9 @@
     +[NSCharacterSet(RomajiAdditions) alphabetCharacterSet];
   }
 
-  v1 = alphabetCharacterSet___alphabetCharacterSet;
+  v2 = alphabetCharacterSet___alphabetCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 @end

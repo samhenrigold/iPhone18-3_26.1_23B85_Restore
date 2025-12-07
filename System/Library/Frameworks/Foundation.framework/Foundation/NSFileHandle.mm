@@ -94,7 +94,7 @@
   return qword_1ED43F090;
 }
 
-uint64_t __40__NSFileHandle_fileHandleWithNullDevice__block_invoke()
+void *__40__NSFileHandle_fileHandleWithNullDevice__block_invoke()
 {
   result = [objc_allocWithZone(NSNullFileHandle) init];
   qword_1ED43F090 = result;
@@ -117,13 +117,13 @@ uint64_t __40__NSFileHandle_fileHandleWithNullDevice__block_invoke()
   return _MergedGlobals_25;
 }
 
-uint64_t __43__NSFileHandle_fileHandleWithStandardInput__block_invoke(uint64_t a1)
+atomic_ushort *__43__NSFileHandle_fileHandleWithStandardInput__block_invoke(uint64_t a1)
 {
   result = [objc_allocWithZone(_NSStdIOFileHandle) initWithFileDescriptor:0 closeOnDealloc:0];
   _MergedGlobals_25 = result;
   if (result)
   {
-    atomic_fetch_or((result + 100), 0x8000u);
+    atomic_fetch_or(result + 50, 0x8000u);
   }
 
   else
@@ -151,13 +151,13 @@ uint64_t __43__NSFileHandle_fileHandleWithStandardInput__block_invoke(uint64_t a
   return qword_1ED43F070;
 }
 
-uint64_t __44__NSFileHandle_fileHandleWithStandardOutput__block_invoke(uint64_t a1)
+atomic_ushort *__44__NSFileHandle_fileHandleWithStandardOutput__block_invoke(uint64_t a1)
 {
   result = [objc_allocWithZone(_NSStdIOFileHandle) initWithFileDescriptor:1 closeOnDealloc:0];
   qword_1ED43F070 = result;
   if (result)
   {
-    atomic_fetch_or((result + 100), 0x4000u);
+    atomic_fetch_or(result + 50, 0x4000u);
   }
 
   else
@@ -185,13 +185,13 @@ uint64_t __44__NSFileHandle_fileHandleWithStandardOutput__block_invoke(uint64_t 
   return qword_1ED43F080;
 }
 
-uint64_t __43__NSFileHandle_fileHandleWithStandardError__block_invoke(uint64_t a1)
+atomic_ushort *__43__NSFileHandle_fileHandleWithStandardError__block_invoke(uint64_t a1)
 {
   result = [objc_allocWithZone(_NSStdIOFileHandle) initWithFileDescriptor:2 closeOnDealloc:0];
   qword_1ED43F080 = result;
   if (result)
   {
-    atomic_fetch_or((result + 100), 0x2000u);
+    atomic_fetch_or(result + 50, 0x2000u);
   }
 
   else

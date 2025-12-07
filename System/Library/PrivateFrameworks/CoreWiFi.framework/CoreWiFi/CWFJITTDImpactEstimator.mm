@@ -36,13 +36,13 @@
 
 - (CWFJITTDImpactEstimator)init
 {
-  v42 = *MEMORY[0x1E69E9840];
-  v35.receiver = self;
-  v35.super_class = CWFJITTDImpactEstimator;
-  v2 = [(CWFJITTDImpactEstimator *)&v35 init];
+  v41 = *MEMORY[0x1E69E9840];
+  v34.receiver = self;
+  v34.super_class = CWFJITTDImpactEstimator;
+  v2 = [(CWFJITTDImpactEstimator *)&v34 init];
   if (!v2)
   {
-    goto LABEL_8;
+    return v2;
   }
 
   v3 = dispatch_queue_create("com.apple.wifi.CWFJITTDImpactEstimator", 0);
@@ -54,30 +54,30 @@
   if (v3)
   {
 
-    v19 = CWFGetOSLog();
-    if (v19)
+    v18 = CWFGetOSLog();
+    if (v18)
     {
-      v20 = CWFGetOSLog();
+      v19 = CWFGetOSLog();
     }
 
     else
     {
-      v20 = MEMORY[0x1E69E9C10];
-      v26 = MEMORY[0x1E69E9C10];
+      v19 = MEMORY[0x1E69E9C10];
+      v25 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v36 = 136446722;
-      v37 = "[CWFJITTDImpactEstimator init]";
-      v38 = 2082;
-      v39 = "CWFJITTDImpactEstimator.m";
-      v40 = 1024;
-      v41 = 121;
-      _os_log_send_and_compose_impl();
+      v35 = 136446722;
+      v36 = "[CWFJITTDImpactEstimator init]";
+      v37 = 2082;
+      v38 = "CWFJITTDImpactEstimator.m";
+      v39 = 1024;
+      v40 = 121;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v19, 16, "[corewifi] %{public}s (%{public}s:%u) Unable to create service queue\n", &v35, 28);
     }
 
-    goto LABEL_29;
+    return 0;
   }
 
   objc_initWeak(&location, v2);
@@ -90,29 +90,29 @@
   if (v5)
   {
 
-    v21 = CWFGetOSLog();
-    if (v21)
+    v20 = CWFGetOSLog();
+    if (v20)
     {
-      v22 = CWFGetOSLog();
+      v21 = CWFGetOSLog();
     }
 
     else
     {
-      v22 = MEMORY[0x1E69E9C10];
-      v27 = MEMORY[0x1E69E9C10];
+      v21 = MEMORY[0x1E69E9C10];
+      v26 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_28;
+      v35 = 136446722;
+      v36 = "[CWFJITTDImpactEstimator init]";
+      v37 = 2082;
+      v38 = "CWFJITTDImpactEstimator.m";
+      v39 = 1024;
+      v40 = 129;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v21, 16, "[corewifi] %{public}s (%{public}s:%u) Unable to create timer queue\n", &v35, 28);
     }
 
-    v36 = 136446722;
-    v37 = "[CWFJITTDImpactEstimator init]";
-    v38 = 2082;
-    v39 = "CWFJITTDImpactEstimator.m";
-    v40 = 1024;
-    v41 = 129;
     goto LABEL_27;
   }
 
@@ -126,37 +126,33 @@
   if (_timerQueue2)
   {
 
-    v23 = CWFGetOSLog();
-    if (v23)
+    v22 = CWFGetOSLog();
+    if (v22)
     {
-      v22 = CWFGetOSLog();
+      v21 = CWFGetOSLog();
     }
 
     else
     {
-      v22 = MEMORY[0x1E69E9C10];
-      v28 = MEMORY[0x1E69E9C10];
+      v21 = MEMORY[0x1E69E9C10];
+      v27 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_28;
+      v35 = 136446722;
+      v36 = "[CWFJITTDImpactEstimator init]";
+      v37 = 2082;
+      v38 = "CWFJITTDImpactEstimator.m";
+      v39 = 1024;
+      v40 = 135;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v21, 16, "[corewifi] %{public}s (%{public}s:%u) Unable to create queue\n", &v35, 28);
     }
 
-    v36 = 136446722;
-    v37 = "[CWFJITTDImpactEstimator init]";
-    v38 = 2082;
-    v39 = "CWFJITTDImpactEstimator.m";
-    v40 = 1024;
-    v41 = 135;
 LABEL_27:
-    _os_log_send_and_compose_impl();
-LABEL_28:
 
     objc_destroyWeak(&location);
-LABEL_29:
-    v2 = 0;
-    goto LABEL_8;
+    return 0;
   }
 
   _boundaryTimer2 = [(CWFJITTDImpactEstimator *)v2 _boundaryTimer];
@@ -164,7 +160,7 @@ LABEL_29:
   handler[1] = 3221225472;
   handler[2] = sub_1E0C00A3C;
   handler[3] = &unk_1E86E6190;
-  objc_copyWeak(&v33, &location);
+  objc_copyWeak(&v32, &location);
   dispatch_source_set_event_handler(_boundaryTimer2, handler);
 
   _boundaryTimer3 = [(CWFJITTDImpactEstimator *)v2 _boundaryTimer];
@@ -180,27 +176,27 @@ LABEL_29:
   if (_timerQueue3)
   {
 
-    v24 = CWFGetOSLog();
-    if (v24)
+    v23 = CWFGetOSLog();
+    if (v23)
     {
-      v25 = CWFGetOSLog();
+      v24 = CWFGetOSLog();
     }
 
     else
     {
-      v25 = MEMORY[0x1E69E9C10];
-      v29 = MEMORY[0x1E69E9C10];
+      v24 = MEMORY[0x1E69E9C10];
+      v28 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v36 = 136446722;
-      v37 = "[CWFJITTDImpactEstimator init]";
-      v38 = 2082;
-      v39 = "CWFJITTDImpactEstimator.m";
-      v40 = 1024;
-      v41 = 149;
-      _os_log_send_and_compose_impl();
+      v35 = 136446722;
+      v36 = "[CWFJITTDImpactEstimator init]";
+      v37 = 2082;
+      v38 = "CWFJITTDImpactEstimator.m";
+      v39 = 1024;
+      v40 = 149;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v24, 16, "[corewifi] %{public}s (%{public}s:%u) Unable to create queue\n", &v35, 28);
     }
 
     v2 = 0;
@@ -209,12 +205,12 @@ LABEL_29:
   else
   {
     _periodicTimer2 = [(CWFJITTDImpactEstimator *)v2 _periodicTimer];
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = sub_1E0C00A80;
-    v30[3] = &unk_1E86E6190;
-    objc_copyWeak(&v31, &location);
-    dispatch_source_set_event_handler(_periodicTimer2, v30);
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = sub_1E0C00A80;
+    v29[3] = &unk_1E86E6190;
+    objc_copyWeak(&v30, &location);
+    dispatch_source_set_event_handler(_periodicTimer2, v29);
 
     _periodicTimer3 = [(CWFJITTDImpactEstimator *)v2 _periodicTimer];
     dispatch_activate(_periodicTimer3);
@@ -222,13 +218,11 @@ LABEL_29:
     [(CWFJITTDImpactEstimator *)v2 set_lastSubmissionTimePreAJ:0];
     [(CWFJITTDImpactEstimator *)v2 set_lastSubmissionTimePostTD:0];
     [(CWFJITTDImpactEstimator *)v2 resetStores];
-    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v30);
   }
 
-  objc_destroyWeak(&v33);
+  objc_destroyWeak(&v32);
   objc_destroyWeak(&location);
-LABEL_8:
-  v17 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -308,7 +302,7 @@ LABEL_8:
 
 - (void)__stopCellularDataUsageAccountingPostTD
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   [(CWFJITTDImpactEstimator *)self cancelPeriodicTimer];
   [(CWFJITTDImpactEstimator *)self cancelBoundaryTimer];
   if ([(CWFJITTDImpactEstimator *)self _activity]== 1)
@@ -319,8 +313,8 @@ LABEL_8:
 
   else
   {
-    v5 = CWFGetOSLog();
-    if (v5)
+    v4 = CWFGetOSLog();
+    if (v4)
     {
       _previousCellularDataUsageInPostTD = CWFGetOSLog();
     }
@@ -328,17 +322,22 @@ LABEL_8:
     else
     {
       _previousCellularDataUsageInPostTD = MEMORY[0x1E69E9C10];
-      v6 = MEMORY[0x1E69E9C10];
+      v5 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(_previousCellularDataUsageInPostTD, OS_LOG_TYPE_ERROR))
     {
-      _os_log_send_and_compose_impl();
+      v6 = 136446722;
+      v7 = "[CWFJITTDImpactEstimator __stopCellularDataUsageAccountingPostTD]";
+      v8 = 2082;
+      v9 = "CWFJITTDImpactEstimator.m";
+      v10 = 1024;
+      v11 = 386;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, _previousCellularDataUsageInPostTD, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid state we are not in post TD data eval zone\n", &v6, 28);
     }
   }
 
   [(CWFJITTDImpactEstimator *)self resetStores];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopCellularDataUsageAccountingPostTD
@@ -354,56 +353,64 @@ LABEL_8:
 
 - (void)gatherCellularDataUsageSoFar:(id)far
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   farCopy = far;
   gatherCellularDataStats = [(CWFJITTDImpactEstimator *)self gatherCellularDataStats];
 
   if (!gatherCellularDataStats)
   {
-    v10 = CWFGetOSLog();
-    if (v10)
+    v9 = CWFGetOSLog();
+    if (v9)
     {
-      v11 = CWFGetOSLog();
+      v10 = CWFGetOSLog();
     }
 
     else
     {
-      v11 = MEMORY[0x1E69E9C10];
-      v15 = MEMORY[0x1E69E9C10];
+      v10 = MEMORY[0x1E69E9C10];
+      v14 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_28;
+      *v18 = 136446722;
+      *&v18[4] = "[CWFJITTDImpactEstimator gatherCellularDataUsageSoFar:]";
+      *&v18[12] = 2082;
+      *&v18[14] = "CWFJITTDImpactEstimator.m";
+      *&v18[22] = 1024;
+      LODWORD(v19) = 406;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v10, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid cellular callback reference\n", v18, 28, *v18, *&v18[8], v19);
     }
 
-LABEL_27:
-    _os_log_send_and_compose_impl();
-LABEL_28:
-
-    goto LABEL_7;
+    goto LABEL_28;
   }
 
   if ([(CWFJITTDImpactEstimator *)self _activity]!= 1)
   {
-    v12 = CWFGetOSLog();
-    if (v12)
+    v11 = CWFGetOSLog();
+    if (v11)
     {
-      v11 = CWFGetOSLog();
+      v10 = CWFGetOSLog();
     }
 
     else
     {
-      v11 = MEMORY[0x1E69E9C10];
-      v16 = MEMORY[0x1E69E9C10];
+      v10 = MEMORY[0x1E69E9C10];
+      v15 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_28;
+      *v18 = 136446722;
+      *&v18[4] = "[CWFJITTDImpactEstimator gatherCellularDataUsageSoFar:]";
+      *&v18[12] = 2082;
+      *&v18[14] = "CWFJITTDImpactEstimator.m";
+      *&v18[22] = 1024;
+      LODWORD(v19) = 410;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v10, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid state we are not in post TD data eval zone\n", v18, 28, *v18, *&v18[8], v19);
     }
 
-    goto LABEL_27;
+    goto LABEL_28;
   }
 
   if (!farCopy)
@@ -414,54 +421,67 @@ LABEL_28:
 
     if ((v7 & 1) == 0)
     {
-      v13 = CWFGetOSLog();
-      if (v13)
+      v12 = CWFGetOSLog();
+      if (v12)
       {
-        v11 = CWFGetOSLog();
+        v10 = CWFGetOSLog();
       }
 
       else
       {
-        v11 = MEMORY[0x1E69E9C10];
-        v17 = MEMORY[0x1E69E9C10];
+        v10 = MEMORY[0x1E69E9C10];
+        v16 = MEMORY[0x1E69E9C10];
       }
 
-      if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_28;
+        *v18 = 136446722;
+        *&v18[4] = "[CWFJITTDImpactEstimator gatherCellularDataUsageSoFar:]";
+        *&v18[12] = 2082;
+        *&v18[14] = "CWFJITTDImpactEstimator.m";
+        *&v18[22] = 1024;
+        LODWORD(v19) = 421;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v10, 16, "[corewifi] %{public}s (%{public}s:%u) Unable to get cellular data usage at init\n", v18, 28, *v18, *&v18[8], v19);
       }
 
-      goto LABEL_27;
+      goto LABEL_28;
     }
   }
 
   if (![(CWFJITTDImpactEstimator *)self checkCellularDataSanity:farCopy])
   {
-    v14 = CWFGetOSLog();
-    if (v14)
+    v13 = CWFGetOSLog();
+    if (v13)
     {
-      v11 = CWFGetOSLog();
+      v10 = CWFGetOSLog();
     }
 
     else
     {
-      v11 = MEMORY[0x1E69E9C10];
-      v18 = MEMORY[0x1E69E9C10];
+      v10 = MEMORY[0x1E69E9C10];
+      v17 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_28;
+      *v18 = 136446722;
+      *&v18[4] = "[CWFJITTDImpactEstimator gatherCellularDataUsageSoFar:]";
+      *&v18[12] = 2082;
+      *&v18[14] = "CWFJITTDImpactEstimator.m";
+      *&v18[22] = 1024;
+      LODWORD(v19) = 425;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v10, 16, "[corewifi] %{public}s (%{public}s:%u) Data obtained for cellular stats is invalid, exiting\n", v18, 28, *v18, *&v18[8], v19);
     }
 
-    goto LABEL_27;
+LABEL_28:
+
+    goto LABEL_7;
   }
 
   v8 = [(CWFJITTDImpactEstimator *)self computeDataUsageInCurrentSession:farCopy];
   [(CWFJITTDImpactEstimator *)self set_previousCellularDataUsageInPostTD:v8];
 
 LABEL_7:
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)checkCellularDataSanity:(id)sanity
@@ -470,23 +490,7 @@ LABEL_7:
   v4 = [sanityCopy objectForKeyedSubscript:@"CellularDataOutPackets"];
   unsignedIntValue = [v4 unsignedIntValue];
 
-  if (!unsignedIntValue)
-  {
-    goto LABEL_6;
-  }
-
-  v6 = [sanityCopy objectForKeyedSubscript:@"CellularDataInPackets"];
-  unsignedIntValue2 = [v6 unsignedIntValue];
-
-  if (!unsignedIntValue2)
-  {
-    goto LABEL_6;
-  }
-
-  v8 = [sanityCopy objectForKeyedSubscript:@"CellularDataOutBytes"];
-  unsignedIntValue3 = [v8 unsignedIntValue];
-
-  if (unsignedIntValue3)
+  if (unsignedIntValue && ([sanityCopy objectForKeyedSubscript:@"CellularDataInPackets"], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "unsignedIntValue"), v6, v7) && (objc_msgSend(sanityCopy, "objectForKeyedSubscript:", @"CellularDataOutBytes"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "unsignedIntValue"), v8, v9))
   {
     v10 = [sanityCopy objectForKeyedSubscript:@"CellularDataInBytes"];
     v11 = [v10 unsignedIntValue] != 0;
@@ -494,7 +498,6 @@ LABEL_7:
 
   else
   {
-LABEL_6:
     v11 = 0;
   }
 
@@ -503,222 +506,217 @@ LABEL_6:
 
 - (void)notifyScanResult:(id)result withError:(id)error
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   resultCopy = result;
   [(CWFJITTDImpactEstimator *)self cancelPeriodicTimer];
-  if ([(CWFJITTDImpactEstimator *)self _activity])
+  if (![(CWFJITTDImpactEstimator *)self _activity])
   {
-    if (error)
+    goto LABEL_35;
+  }
+
+  if (error)
+  {
+    goto LABEL_26;
+  }
+
+  _tdNetwork = [(CWFJITTDImpactEstimator *)self _tdNetwork];
+
+  if (!_tdNetwork)
+  {
+    selfCopy5 = self;
+    v31 = CWFGetOSLog();
+    if (v31)
     {
-      goto LABEL_26;
-    }
-
-    _tdNetwork = [(CWFJITTDImpactEstimator *)self _tdNetwork];
-
-    if (_tdNetwork)
-    {
-      if (resultCopy)
-      {
-        v49 = 0u;
-        v50 = 0u;
-        v47 = 0u;
-        v48 = 0u;
-        v8 = resultCopy;
-        v9 = [v8 countByEnumeratingWithState:&v47 objects:v51 count:16];
-        if (!v9)
-        {
-
-          goto LABEL_29;
-        }
-
-        v10 = v9;
-        v40 = resultCopy;
-        v41 = 0;
-        v11 = *v48;
-        v12 = v8;
-        selfCopy = self;
-        v43 = v8;
-        v45 = *v48;
-        while (1)
-        {
-          v13 = 0;
-          v46 = v10;
-          do
-          {
-            if (*v48 != v11)
-            {
-              objc_enumerationMutation(v12);
-            }
-
-            v14 = *(*(&v47 + 1) + 8 * v13);
-            _tdNetwork2 = [(CWFJITTDImpactEstimator *)self _tdNetwork];
-            sSID = [_tdNetwork2 SSID];
-            if (!sSID)
-            {
-              goto LABEL_19;
-            }
-
-            v17 = sSID;
-            sSID2 = [v14 SSID];
-            if (!sSID2)
-            {
-
-LABEL_19:
-              goto LABEL_23;
-            }
-
-            v19 = sSID2;
-            _tdNetwork3 = [(CWFJITTDImpactEstimator *)self _tdNetwork];
-            sSID3 = [_tdNetwork3 SSID];
-            sSID4 = [v14 SSID];
-            if (![sSID3 isEqual:sSID4])
-            {
-
-LABEL_22:
-              v11 = v45;
-              v10 = v46;
-              goto LABEL_23;
-            }
-
-            _tdNetwork4 = [(CWFJITTDImpactEstimator *)self _tdNetwork];
-            supportedSecurityTypes = [_tdNetwork4 supportedSecurityTypes];
-            if (([v14 supportedSecurityTypes] & supportedSecurityTypes) == 0)
-            {
-
-              self = selfCopy;
-              v12 = v43;
-              goto LABEL_22;
-            }
-
-            rSSI = [v14 RSSI];
-            _rssi = [(CWFJITTDImpactEstimator *)selfCopy _rssi];
-
-            v11 = v45;
-            self = selfCopy;
-            v12 = v43;
-            v10 = v46;
-            if (rSSI > _rssi)
-            {
-              if ([(CWFJITTDImpactEstimator *)selfCopy _activity]== 1)
-              {
-                [(CWFJITTDImpactEstimator *)selfCopy gatherCellularDataUsageSoFar:0];
-              }
-
-              v41 = 1;
-            }
-
-LABEL_23:
-            ++v13;
-          }
-
-          while (v10 != v13);
-          v10 = [v12 countByEnumeratingWithState:&v47 objects:v51 count:16];
-          if (!v10)
-          {
-
-            resultCopy = v40;
-            if (v41)
-            {
-LABEL_26:
-              selfCopy2 = self;
-              goto LABEL_27;
-            }
-
-LABEL_29:
-            selfCopy5 = self;
-            v28 = CWFGetOSLog();
-            if (v28)
-            {
-              v29 = CWFGetOSLog();
-            }
-
-            else
-            {
-              v29 = MEMORY[0x1E69E9C10];
-              v30 = MEMORY[0x1E69E9C10];
-            }
-
-            if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
-            {
-              v52 = 136446722;
-              v53 = "[CWFJITTDImpactEstimator notifyScanResult:withError:]";
-              v54 = 2082;
-              v55 = "CWFJITTDImpactEstimator.m";
-              v56 = 1024;
-              v57 = 485;
-              goto LABEL_34;
-            }
-
-            goto LABEL_35;
-          }
-        }
-      }
-
-      selfCopy4 = self;
-      v34 = CWFGetOSLog();
-      if (v34)
-      {
-        v35 = CWFGetOSLog();
-      }
-
-      else
-      {
-        v35 = MEMORY[0x1E69E9C10];
-        v37 = MEMORY[0x1E69E9C10];
-      }
-
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
-      {
-        v52 = 136446722;
-        v53 = "[CWFJITTDImpactEstimator notifyScanResult:withError:]";
-        v54 = 2082;
-        v55 = "CWFJITTDImpactEstimator.m";
-        v56 = 1024;
-        v57 = 469;
-        LODWORD(v39) = 28;
-        v38 = &v52;
-        _os_log_send_and_compose_impl();
-      }
-
-      selfCopy2 = selfCopy4;
-LABEL_27:
-      [(CWFJITTDImpactEstimator *)selfCopy2 setupPeriodicTimerForScan:v38];
+      v29 = CWFGetOSLog();
     }
 
     else
     {
-      selfCopy5 = self;
-      v32 = CWFGetOSLog();
-      if (v32)
-      {
-        v29 = CWFGetOSLog();
-      }
-
-      else
-      {
-        v29 = MEMORY[0x1E69E9C10];
-        v36 = MEMORY[0x1E69E9C10];
-      }
-
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
-      {
-        v52 = 136446722;
-        v53 = "[CWFJITTDImpactEstimator notifyScanResult:withError:]";
-        v54 = 2082;
-        v55 = "CWFJITTDImpactEstimator.m";
-        v56 = 1024;
-        v57 = 464;
-LABEL_34:
-        _os_log_send_and_compose_impl();
-      }
-
-LABEL_35:
-
-      [(CWFJITTDImpactEstimator *)selfCopy5 stopAccounting];
+      v29 = MEMORY[0x1E69E9C10];
+      v35 = MEMORY[0x1E69E9C10];
     }
+
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    {
+      v49 = 136446722;
+      v50 = "[CWFJITTDImpactEstimator notifyScanResult:withError:]";
+      v51 = 2082;
+      v52 = "CWFJITTDImpactEstimator.m";
+      v53 = 1024;
+      v54 = 464;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v29, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid TD network\n", &v49, 28);
+    }
+
+    goto LABEL_34;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
+  if (!resultCopy)
+  {
+    selfCopy2 = self;
+    v33 = CWFGetOSLog();
+    if (v33)
+    {
+      v34 = CWFGetOSLog();
+    }
+
+    else
+    {
+      v34 = MEMORY[0x1E69E9C10];
+      v36 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    {
+      v49 = 136446722;
+      v50 = "[CWFJITTDImpactEstimator notifyScanResult:withError:]";
+      v51 = 2082;
+      v52 = "CWFJITTDImpactEstimator.m";
+      v53 = 1024;
+      v54 = 469;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v34, 16, "[corewifi] %{public}s (%{public}s:%u) No scan result\n", &v49, 28);
+    }
+
+    selfCopy4 = selfCopy2;
+LABEL_27:
+    [(CWFJITTDImpactEstimator *)selfCopy4 setupPeriodicTimerForScan];
+    goto LABEL_35;
+  }
+
+  v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v8 = resultCopy;
+  v9 = [v8 countByEnumeratingWithState:&v44 objects:v48 count:16];
+  if (!v9)
+  {
+
+    goto LABEL_29;
+  }
+
+  v10 = v9;
+  v37 = resultCopy;
+  v38 = 0;
+  v11 = *v45;
+  v12 = v8;
+  selfCopy3 = self;
+  v40 = v8;
+  v42 = *v45;
+  do
+  {
+    v13 = 0;
+    v43 = v10;
+    do
+    {
+      if (*v45 != v11)
+      {
+        objc_enumerationMutation(v12);
+      }
+
+      v14 = *(*(&v44 + 1) + 8 * v13);
+      _tdNetwork2 = [(CWFJITTDImpactEstimator *)self _tdNetwork];
+      sSID = [_tdNetwork2 SSID];
+      if (!sSID)
+      {
+        goto LABEL_19;
+      }
+
+      v17 = sSID;
+      sSID2 = [v14 SSID];
+      if (!sSID2)
+      {
+
+LABEL_19:
+        goto LABEL_23;
+      }
+
+      v19 = sSID2;
+      _tdNetwork3 = [(CWFJITTDImpactEstimator *)self _tdNetwork];
+      sSID3 = [_tdNetwork3 SSID];
+      sSID4 = [v14 SSID];
+      if (![sSID3 isEqual:sSID4])
+      {
+
+LABEL_22:
+        v11 = v42;
+        v10 = v43;
+        goto LABEL_23;
+      }
+
+      _tdNetwork4 = [(CWFJITTDImpactEstimator *)self _tdNetwork];
+      supportedSecurityTypes = [_tdNetwork4 supportedSecurityTypes];
+      if (([v14 supportedSecurityTypes] & supportedSecurityTypes) == 0)
+      {
+
+        self = selfCopy3;
+        v12 = v40;
+        goto LABEL_22;
+      }
+
+      rSSI = [v14 RSSI];
+      _rssi = [(CWFJITTDImpactEstimator *)selfCopy3 _rssi];
+
+      v11 = v42;
+      self = selfCopy3;
+      v12 = v40;
+      v10 = v43;
+      if (rSSI > _rssi)
+      {
+        if ([(CWFJITTDImpactEstimator *)selfCopy3 _activity]== 1)
+        {
+          [(CWFJITTDImpactEstimator *)selfCopy3 gatherCellularDataUsageSoFar:0];
+        }
+
+        v38 = 1;
+      }
+
+LABEL_23:
+      ++v13;
+    }
+
+    while (v10 != v13);
+    v10 = [v12 countByEnumeratingWithState:&v44 objects:v48 count:16];
+  }
+
+  while (v10);
+
+  resultCopy = v37;
+  if (v38)
+  {
+LABEL_26:
+    selfCopy4 = self;
+    goto LABEL_27;
+  }
+
+LABEL_29:
+  selfCopy5 = self;
+  v28 = CWFGetOSLog();
+  if (v28)
+  {
+    v29 = CWFGetOSLog();
+  }
+
+  else
+  {
+    v29 = MEMORY[0x1E69E9C10];
+    v30 = MEMORY[0x1E69E9C10];
+  }
+
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+  {
+    v49 = 136446722;
+    v50 = "[CWFJITTDImpactEstimator notifyScanResult:withError:]";
+    v51 = 2082;
+    v52 = "CWFJITTDImpactEstimator.m";
+    v53 = 1024;
+    v54 = 485;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v29, 16, "[corewifi] %{public}s (%{public}s:%u) Not in link vicinity anymore\n", &v49, 28);
+  }
+
+LABEL_34:
+
+  [(CWFJITTDImpactEstimator *)selfCopy5 stopAccounting];
+LABEL_35:
 }
 
 - (BOOL)canSubmitToCA:(id)a
@@ -756,48 +754,48 @@ LABEL_35:
 
 - (void)postCellularDataUsageAccoutingPostTD:(id)d
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = sub_1E0BC2CD4;
-  v35 = sub_1E0BC61B4;
-  v36 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = sub_1E0BC2CD4;
+  v34 = sub_1E0BC61B4;
+  v35 = objc_alloc_init(MEMORY[0x1E695DF90]);
   if (dCopy)
   {
     if (objc_opt_class())
     {
       v5 = [dCopy objectForKeyedSubscript:@"impactTimeIns"];
-      [v32[5] setObject:v5 forKeyedSubscript:@"TotalTime_s"];
+      [v31[5] setObject:v5 forKeyedSubscript:@"TotalTime_s"];
 
       v6 = [dCopy objectForKeyedSubscript:@"CellularDataOutPackets"];
       v7 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v6 unsignedIntValue]);
-      [v32[5] setObject:v7 forKeyedSubscript:@"TotalTxPackets"];
+      [v31[5] setObject:v7 forKeyedSubscript:@"TotalTxPackets"];
 
       v8 = [dCopy objectForKeyedSubscript:@"CellularDataInPackets"];
       v9 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v8 unsignedIntValue]);
-      [v32[5] setObject:v9 forKeyedSubscript:@"TotalRxPackets"];
+      [v31[5] setObject:v9 forKeyedSubscript:@"TotalRxPackets"];
 
       v10 = [dCopy objectForKeyedSubscript:@"CellularDataOutBytes"];
       v11 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v10 unsignedIntValue]);
-      [v32[5] setObject:v11 forKeyedSubscript:@"TotalTx_Bytes"];
+      [v31[5] setObject:v11 forKeyedSubscript:@"TotalTx_Bytes"];
 
       v12 = [dCopy objectForKeyedSubscript:@"CellularDataInBytes"];
       v13 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v12 unsignedIntValue]);
-      [v32[5] setObject:v13 forKeyedSubscript:@"TotalRx_Bytes"];
+      [v31[5] setObject:v13 forKeyedSubscript:@"TotalRx_Bytes"];
 
       v14 = [dCopy objectForKeyedSubscript:@"CellularDataOutPackets"];
       unsignedIntValue = [v14 unsignedIntValue];
       v16 = [dCopy objectForKeyedSubscript:@"CellularDataInPackets"];
       v17 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v16 unsignedIntValue] + unsignedIntValue);
-      [v32[5] setObject:v17 forKeyedSubscript:@"TotalPackets"];
+      [v31[5] setObject:v17 forKeyedSubscript:@"TotalPackets"];
 
       v18 = [dCopy objectForKeyedSubscript:@"CellularDataOutBytes"];
       LODWORD(v17) = [v18 unsignedIntValue];
       v19 = [dCopy objectForKeyedSubscript:@"CellularDataInBytes"];
       v20 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v19 unsignedIntValue] + v17);
-      [v32[5] setObject:v20 forKeyedSubscript:@"TotalData_Bytes"];
+      [v31[5] setObject:v20 forKeyedSubscript:@"TotalData_Bytes"];
 
       AnalyticsSendEventLazy();
       v21 = CWFGetOSLog();
@@ -814,51 +812,53 @@ LABEL_35:
 
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = v32[5];
-        v37 = 136446978;
-        v38 = "[CWFJITTDImpactEstimator postCellularDataUsageAccoutingPostTD:]";
-        v39 = 2082;
-        v40 = "CWFJITTDImpactEstimator.m";
-        v41 = 1024;
-        v42 = 553;
-        v43 = 2112;
-        v44 = v24;
-        _os_log_send_and_compose_impl();
+        v24 = v31[5];
+        v36 = 136446978;
+        v37 = "[CWFJITTDImpactEstimator postCellularDataUsageAccoutingPostTD:]";
+        v38 = 2082;
+        v39 = "CWFJITTDImpactEstimator.m";
+        v40 = 1024;
+        v41 = 553;
+        v42 = 2112;
+        v43 = v24;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v22, 0, "[corewifi] %{public}s (%{public}s:%u) Posting cellular data post TD[%@]", &v36, 38);
       }
 
       date = [MEMORY[0x1E695DF00] date];
       [(CWFJITTDImpactEstimator *)self set_lastSubmissionTimePostTD:date];
-      goto LABEL_9;
-    }
-
-    v28 = CWFGetOSLog();
-    if (v28)
-    {
-      date = CWFGetOSLog();
     }
 
     else
     {
-      date = MEMORY[0x1E69E9C10];
-      v30 = MEMORY[0x1E69E9C10];
-    }
+      v27 = CWFGetOSLog();
+      if (v27)
+      {
+        date = CWFGetOSLog();
+      }
 
-    if (os_log_type_enabled(date, OS_LOG_TYPE_ERROR))
-    {
-      v37 = 136446722;
-      v38 = "[CWFJITTDImpactEstimator postCellularDataUsageAccoutingPostTD:]";
-      v39 = 2082;
-      v40 = "CWFJITTDImpactEstimator.m";
-      v41 = 1024;
-      v42 = 530;
-      goto LABEL_20;
+      else
+      {
+        date = MEMORY[0x1E69E9C10];
+        v29 = MEMORY[0x1E69E9C10];
+      }
+
+      if (os_log_type_enabled(date, OS_LOG_TYPE_ERROR))
+      {
+        v36 = 136446722;
+        v37 = "[CWFJITTDImpactEstimator postCellularDataUsageAccoutingPostTD:]";
+        v38 = 2082;
+        v39 = "CWFJITTDImpactEstimator.m";
+        v40 = 1024;
+        v41 = 530;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, date, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid analytics library\n", &v36, 28);
+      }
     }
   }
 
   else
   {
-    v27 = CWFGetOSLog();
-    if (v27)
+    v26 = CWFGetOSLog();
+    if (v26)
     {
       date = CWFGetOSLog();
     }
@@ -866,211 +866,205 @@ LABEL_35:
     else
     {
       date = MEMORY[0x1E69E9C10];
-      v29 = MEMORY[0x1E69E9C10];
+      v28 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(date, OS_LOG_TYPE_ERROR))
     {
-      v37 = 136446722;
-      v38 = "[CWFJITTDImpactEstimator postCellularDataUsageAccoutingPostTD:]";
-      v39 = 2082;
-      v40 = "CWFJITTDImpactEstimator.m";
-      v41 = 1024;
-      v42 = 526;
-LABEL_20:
-      _os_log_send_and_compose_impl();
+      v36 = 136446722;
+      v37 = "[CWFJITTDImpactEstimator postCellularDataUsageAccoutingPostTD:]";
+      v38 = 2082;
+      v39 = "CWFJITTDImpactEstimator.m";
+      v40 = 1024;
+      v41 = 526;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, date, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid data stats dictionary\n", &v36, 28);
     }
   }
 
-LABEL_9:
-
-  _Block_object_dispose(&v31, 8);
-  v26 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v30, 8);
 }
 
 - (void)postCellularDataUsageAccountingPreAJ:(id)j
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v70 = *MEMORY[0x1E69E9840];
   jCopy = j;
-  v57 = 0;
-  v58 = &v57;
-  v59 = 0x3032000000;
-  v60 = sub_1E0BC2CD4;
-  v61 = sub_1E0BC61B4;
-  v62 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  if (!jCopy)
+  v56 = 0;
+  v57 = &v56;
+  v58 = 0x3032000000;
+  v59 = sub_1E0BC2CD4;
+  v60 = sub_1E0BC61B4;
+  v61 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  if (jCopy)
   {
-    v53 = CWFGetOSLog();
-    if (v53)
+    if (objc_opt_class())
     {
-      date = CWFGetOSLog();
+      v5 = [jCopy objectForKeyedSubscript:@"impactTimeIns"];
+      [v57[5] setObject:v5 forKeyedSubscript:@"TotalTime_s"];
+
+      v6 = [jCopy objectForKeyedSubscript:@"CellularDataOutPackets"];
+      v7 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v6 unsignedIntValue]);
+      [v57[5] setObject:v7 forKeyedSubscript:@"TotalTxPackets"];
+
+      v8 = [jCopy objectForKeyedSubscript:@"CellularDataInPackets"];
+      v9 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v8 unsignedIntValue]);
+      [v57[5] setObject:v9 forKeyedSubscript:@"TotalRxPackets"];
+
+      v10 = [jCopy objectForKeyedSubscript:@"CellularDataOutBytes"];
+      v11 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v10 unsignedIntValue]);
+      [v57[5] setObject:v11 forKeyedSubscript:@"TotalTx_Bytes"];
+
+      v12 = [jCopy objectForKeyedSubscript:@"CellularDataInBytes"];
+      v13 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v12 unsignedIntValue]);
+      [v57[5] setObject:v13 forKeyedSubscript:@"TotalRx_Bytes"];
+
+      v14 = [jCopy objectForKeyedSubscript:@"CellularDataOutPackets"];
+      unsignedIntValue = [v14 unsignedIntValue];
+      v16 = [jCopy objectForKeyedSubscript:@"CellularDataInPackets"];
+      v17 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v16 unsignedIntValue] + unsignedIntValue);
+      [v57[5] setObject:v17 forKeyedSubscript:@"TotalPackets"];
+
+      v18 = [jCopy objectForKeyedSubscript:@"CellularDataOutBytes"];
+      LODWORD(v17) = [v18 unsignedIntValue];
+      v19 = [jCopy objectForKeyedSubscript:@"CellularDataInBytes"];
+      v20 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v19 unsignedIntValue] + v17);
+      [v57[5] setObject:v20 forKeyedSubscript:@"TotalData_Bytes"];
+
+      _cellularDataUsageInLegacyBoundary = [(CWFJITTDImpactEstimator *)self _cellularDataUsageInLegacyBoundary];
+      LOBYTE(v18) = _cellularDataUsageInLegacyBoundary == 0;
+
+      if ((v18 & 1) == 0)
+      {
+        _cellularDataUsageInLegacyBoundary2 = [(CWFJITTDImpactEstimator *)self _cellularDataUsageInLegacyBoundary];
+        v23 = [_cellularDataUsageInLegacyBoundary2 objectForKeyedSubscript:@"impactTimeIns"];
+        [v57[5] setObject:v23 forKeyedSubscript:@"TotalTimeLegacy_s"];
+
+        _cellularDataUsageInLegacyBoundary3 = [(CWFJITTDImpactEstimator *)self _cellularDataUsageInLegacyBoundary];
+        v25 = [_cellularDataUsageInLegacyBoundary3 objectForKeyedSubscript:@"CellularDataOutPackets"];
+        v26 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v25 unsignedIntValue]);
+        [v57[5] setObject:v26 forKeyedSubscript:@"TotalTxLegacyPackets"];
+
+        _cellularDataUsageInLegacyBoundary4 = [(CWFJITTDImpactEstimator *)self _cellularDataUsageInLegacyBoundary];
+        v28 = [_cellularDataUsageInLegacyBoundary4 objectForKeyedSubscript:@"CellularDataInPackets"];
+        v29 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v28 unsignedIntValue]);
+        [v57[5] setObject:v29 forKeyedSubscript:@"TotalRxLegacyPackets"];
+
+        _cellularDataUsageInLegacyBoundary5 = [(CWFJITTDImpactEstimator *)self _cellularDataUsageInLegacyBoundary];
+        v31 = [_cellularDataUsageInLegacyBoundary5 objectForKeyedSubscript:@"CellularDataOutBytes"];
+        v32 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v31 unsignedIntValue]);
+        [v57[5] setObject:v32 forKeyedSubscript:@"TotalTxLegacy_Bytes"];
+
+        _cellularDataUsageInLegacyBoundary6 = [(CWFJITTDImpactEstimator *)self _cellularDataUsageInLegacyBoundary];
+        v34 = [_cellularDataUsageInLegacyBoundary6 objectForKeyedSubscript:@"CellularDataInBytes"];
+        v35 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v34 unsignedIntValue]);
+        [v57[5] setObject:v35 forKeyedSubscript:@"TotalRxLegacy_Bytes"];
+
+        _cellularDataUsageInLegacyBoundary7 = [(CWFJITTDImpactEstimator *)self _cellularDataUsageInLegacyBoundary];
+        v37 = [_cellularDataUsageInLegacyBoundary7 objectForKeyedSubscript:@"CellularDataOutPackets"];
+        unsignedIntValue2 = [v37 unsignedIntValue];
+        _cellularDataUsageInLegacyBoundary8 = [(CWFJITTDImpactEstimator *)self _cellularDataUsageInLegacyBoundary];
+        v40 = [_cellularDataUsageInLegacyBoundary8 objectForKeyedSubscript:@"CellularDataInPackets"];
+        v41 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v40 unsignedIntValue] + unsignedIntValue2);
+        [v57[5] setObject:v41 forKeyedSubscript:@"TotalLegacyPackets"];
+
+        _cellularDataUsageInLegacyBoundary9 = [(CWFJITTDImpactEstimator *)self _cellularDataUsageInLegacyBoundary];
+        v43 = [_cellularDataUsageInLegacyBoundary9 objectForKeyedSubscript:@"CellularDataOutBytes"];
+        LODWORD(v41) = [v43 unsignedIntValue];
+        _cellularDataUsageInLegacyBoundary10 = [(CWFJITTDImpactEstimator *)self _cellularDataUsageInLegacyBoundary];
+        v45 = [_cellularDataUsageInLegacyBoundary10 objectForKeyedSubscript:@"CellularDataInBytes"];
+        v46 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v45 unsignedIntValue] + v41);
+        [v57[5] setObject:v46 forKeyedSubscript:@"TotalDataLegacy_Bytes"];
+      }
+
+      AnalyticsSendEventLazy();
+      v47 = CWFGetOSLog();
+      if (v47)
+      {
+        v48 = CWFGetOSLog();
+      }
+
+      else
+      {
+        v48 = MEMORY[0x1E69E9C10];
+        v49 = MEMORY[0x1E69E9C10];
+      }
+
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+      {
+        v50 = v57[5];
+        v62 = 136446978;
+        v63 = "[CWFJITTDImpactEstimator postCellularDataUsageAccountingPreAJ:]";
+        v64 = 2082;
+        v65 = "CWFJITTDImpactEstimator.m";
+        v66 = 1024;
+        v67 = 610;
+        v68 = 2112;
+        v69 = v50;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v48, 0, "[corewifi] %{public}s (%{public}s:%u) Posting cellular data pre AJ[%@]", &v62, 38);
+      }
+
+      date = [MEMORY[0x1E695DF00] date];
+      [(CWFJITTDImpactEstimator *)self set_lastSubmissionTimePreAJ:date];
     }
 
     else
     {
-      date = MEMORY[0x1E69E9C10];
-      v55 = MEMORY[0x1E69E9C10];
+      v53 = CWFGetOSLog();
+      if (v53)
+      {
+        date = CWFGetOSLog();
+      }
+
+      else
+      {
+        date = MEMORY[0x1E69E9C10];
+        v55 = MEMORY[0x1E69E9C10];
+      }
+
+      if (os_log_type_enabled(date, OS_LOG_TYPE_ERROR))
+      {
+        v62 = 136446722;
+        v63 = "[CWFJITTDImpactEstimator postCellularDataUsageAccountingPreAJ:]";
+        v64 = 2082;
+        v65 = "CWFJITTDImpactEstimator.m";
+        v66 = 1024;
+        v67 = 569;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, date, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid analytics library\n", &v62, 28);
+      }
     }
-
-    if (!os_log_type_enabled(date, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_11;
-    }
-
-    v63 = 136446722;
-    v64 = "[CWFJITTDImpactEstimator postCellularDataUsageAccountingPreAJ:]";
-    v65 = 2082;
-    v66 = "CWFJITTDImpactEstimator.m";
-    v67 = 1024;
-    v68 = 565;
-LABEL_22:
-    _os_log_send_and_compose_impl();
-    goto LABEL_11;
-  }
-
-  if (!objc_opt_class())
-  {
-    v54 = CWFGetOSLog();
-    if (v54)
-    {
-      date = CWFGetOSLog();
-    }
-
-    else
-    {
-      date = MEMORY[0x1E69E9C10];
-      v56 = MEMORY[0x1E69E9C10];
-    }
-
-    if (!os_log_type_enabled(date, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_11;
-    }
-
-    v63 = 136446722;
-    v64 = "[CWFJITTDImpactEstimator postCellularDataUsageAccountingPreAJ:]";
-    v65 = 2082;
-    v66 = "CWFJITTDImpactEstimator.m";
-    v67 = 1024;
-    v68 = 569;
-    goto LABEL_22;
-  }
-
-  v5 = [jCopy objectForKeyedSubscript:@"impactTimeIns"];
-  [v58[5] setObject:v5 forKeyedSubscript:@"TotalTime_s"];
-
-  v6 = [jCopy objectForKeyedSubscript:@"CellularDataOutPackets"];
-  v7 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v6 unsignedIntValue]);
-  [v58[5] setObject:v7 forKeyedSubscript:@"TotalTxPackets"];
-
-  v8 = [jCopy objectForKeyedSubscript:@"CellularDataInPackets"];
-  v9 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v8 unsignedIntValue]);
-  [v58[5] setObject:v9 forKeyedSubscript:@"TotalRxPackets"];
-
-  v10 = [jCopy objectForKeyedSubscript:@"CellularDataOutBytes"];
-  v11 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v10 unsignedIntValue]);
-  [v58[5] setObject:v11 forKeyedSubscript:@"TotalTx_Bytes"];
-
-  v12 = [jCopy objectForKeyedSubscript:@"CellularDataInBytes"];
-  v13 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v12 unsignedIntValue]);
-  [v58[5] setObject:v13 forKeyedSubscript:@"TotalRx_Bytes"];
-
-  v14 = [jCopy objectForKeyedSubscript:@"CellularDataOutPackets"];
-  unsignedIntValue = [v14 unsignedIntValue];
-  v16 = [jCopy objectForKeyedSubscript:@"CellularDataInPackets"];
-  v17 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v16 unsignedIntValue] + unsignedIntValue);
-  [v58[5] setObject:v17 forKeyedSubscript:@"TotalPackets"];
-
-  v18 = [jCopy objectForKeyedSubscript:@"CellularDataOutBytes"];
-  LODWORD(v17) = [v18 unsignedIntValue];
-  v19 = [jCopy objectForKeyedSubscript:@"CellularDataInBytes"];
-  v20 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v19 unsignedIntValue] + v17);
-  [v58[5] setObject:v20 forKeyedSubscript:@"TotalData_Bytes"];
-
-  _cellularDataUsageInLegacyBoundary = [(CWFJITTDImpactEstimator *)self _cellularDataUsageInLegacyBoundary];
-  LOBYTE(v18) = _cellularDataUsageInLegacyBoundary == 0;
-
-  if ((v18 & 1) == 0)
-  {
-    _cellularDataUsageInLegacyBoundary2 = [(CWFJITTDImpactEstimator *)self _cellularDataUsageInLegacyBoundary];
-    v23 = [_cellularDataUsageInLegacyBoundary2 objectForKeyedSubscript:@"impactTimeIns"];
-    [v58[5] setObject:v23 forKeyedSubscript:@"TotalTimeLegacy_s"];
-
-    _cellularDataUsageInLegacyBoundary3 = [(CWFJITTDImpactEstimator *)self _cellularDataUsageInLegacyBoundary];
-    v25 = [_cellularDataUsageInLegacyBoundary3 objectForKeyedSubscript:@"CellularDataOutPackets"];
-    v26 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v25 unsignedIntValue]);
-    [v58[5] setObject:v26 forKeyedSubscript:@"TotalTxLegacyPackets"];
-
-    _cellularDataUsageInLegacyBoundary4 = [(CWFJITTDImpactEstimator *)self _cellularDataUsageInLegacyBoundary];
-    v28 = [_cellularDataUsageInLegacyBoundary4 objectForKeyedSubscript:@"CellularDataInPackets"];
-    v29 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v28 unsignedIntValue]);
-    [v58[5] setObject:v29 forKeyedSubscript:@"TotalRxLegacyPackets"];
-
-    _cellularDataUsageInLegacyBoundary5 = [(CWFJITTDImpactEstimator *)self _cellularDataUsageInLegacyBoundary];
-    v31 = [_cellularDataUsageInLegacyBoundary5 objectForKeyedSubscript:@"CellularDataOutBytes"];
-    v32 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v31 unsignedIntValue]);
-    [v58[5] setObject:v32 forKeyedSubscript:@"TotalTxLegacy_Bytes"];
-
-    _cellularDataUsageInLegacyBoundary6 = [(CWFJITTDImpactEstimator *)self _cellularDataUsageInLegacyBoundary];
-    v34 = [_cellularDataUsageInLegacyBoundary6 objectForKeyedSubscript:@"CellularDataInBytes"];
-    v35 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v34 unsignedIntValue]);
-    [v58[5] setObject:v35 forKeyedSubscript:@"TotalRxLegacy_Bytes"];
-
-    _cellularDataUsageInLegacyBoundary7 = [(CWFJITTDImpactEstimator *)self _cellularDataUsageInLegacyBoundary];
-    v37 = [_cellularDataUsageInLegacyBoundary7 objectForKeyedSubscript:@"CellularDataOutPackets"];
-    unsignedIntValue2 = [v37 unsignedIntValue];
-    _cellularDataUsageInLegacyBoundary8 = [(CWFJITTDImpactEstimator *)self _cellularDataUsageInLegacyBoundary];
-    v40 = [_cellularDataUsageInLegacyBoundary8 objectForKeyedSubscript:@"CellularDataInPackets"];
-    v41 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v40 unsignedIntValue] + unsignedIntValue2);
-    [v58[5] setObject:v41 forKeyedSubscript:@"TotalLegacyPackets"];
-
-    _cellularDataUsageInLegacyBoundary9 = [(CWFJITTDImpactEstimator *)self _cellularDataUsageInLegacyBoundary];
-    v43 = [_cellularDataUsageInLegacyBoundary9 objectForKeyedSubscript:@"CellularDataOutBytes"];
-    LODWORD(v41) = [v43 unsignedIntValue];
-    _cellularDataUsageInLegacyBoundary10 = [(CWFJITTDImpactEstimator *)self _cellularDataUsageInLegacyBoundary];
-    v45 = [_cellularDataUsageInLegacyBoundary10 objectForKeyedSubscript:@"CellularDataInBytes"];
-    v46 = -[CWFJITTDImpactEstimator twoSigFig:](self, "twoSigFig:", [v45 unsignedIntValue] + v41);
-    [v58[5] setObject:v46 forKeyedSubscript:@"TotalDataLegacy_Bytes"];
-  }
-
-  AnalyticsSendEventLazy();
-  v47 = CWFGetOSLog();
-  if (v47)
-  {
-    v48 = CWFGetOSLog();
   }
 
   else
   {
-    v48 = MEMORY[0x1E69E9C10];
-    v49 = MEMORY[0x1E69E9C10];
+    v52 = CWFGetOSLog();
+    if (v52)
+    {
+      date = CWFGetOSLog();
+    }
+
+    else
+    {
+      date = MEMORY[0x1E69E9C10];
+      v54 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(date, OS_LOG_TYPE_ERROR))
+    {
+      v62 = 136446722;
+      v63 = "[CWFJITTDImpactEstimator postCellularDataUsageAccountingPreAJ:]";
+      v64 = 2082;
+      v65 = "CWFJITTDImpactEstimator.m";
+      v66 = 1024;
+      v67 = 565;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, date, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid data stats dictionary\n", &v62, 28);
+    }
   }
 
-  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
-  {
-    v50 = v58[5];
-    v63 = 136446978;
-    v64 = "[CWFJITTDImpactEstimator postCellularDataUsageAccountingPreAJ:]";
-    v65 = 2082;
-    v66 = "CWFJITTDImpactEstimator.m";
-    v67 = 1024;
-    v68 = 610;
-    v69 = 2112;
-    v70 = v50;
-    _os_log_send_and_compose_impl();
-  }
-
-  date = [MEMORY[0x1E695DF00] date];
-  [(CWFJITTDImpactEstimator *)self set_lastSubmissionTimePreAJ:date];
-LABEL_11:
-
-  _Block_object_dispose(&v57, 8);
-  v52 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v56, 8);
 }
 
 - (void)setupPeriodicTimerForScan
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if ([(CWFJITTDImpactEstimator *)self _activity]== 1)
   {
     date = [MEMORY[0x1E695DF00] date];
@@ -1083,8 +1077,8 @@ LABEL_11:
 
     if (v8 >= _boundaryTime)
     {
-      v14 = CWFGetOSLog();
-      if (v14)
+      v13 = CWFGetOSLog();
+      if (v13)
       {
         _periodicTimer = CWFGetOSLog();
       }
@@ -1092,12 +1086,18 @@ LABEL_11:
       else
       {
         _periodicTimer = MEMORY[0x1E69E9C10];
-        v15 = MEMORY[0x1E69E9C10];
+        v14 = MEMORY[0x1E69E9C10];
       }
 
       if (os_log_type_enabled(_periodicTimer, OS_LOG_TYPE_ERROR))
       {
-        _os_log_send_and_compose_impl();
+        v15 = 136446722;
+        v16 = "[CWFJITTDImpactEstimator setupPeriodicTimerForScan]";
+        v17 = 2082;
+        v18 = "CWFJITTDImpactEstimator.m";
+        v19 = 1024;
+        v20 = 626;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, _periodicTimer, 16, "[corewifi] %{public}s (%{public}s:%u) Time left is less than periodic time. Skipping timer re-arm for scan\n", &v15, 28);
       }
     }
 
@@ -1111,8 +1111,6 @@ LABEL_11:
       dispatch_source_set_timer(_periodicTimer, v12, 0xFFFFFFFFFFFFFFFFLL, 0);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)storeCellularDataUsage:(id)usage
@@ -1136,7 +1134,7 @@ LABEL_11:
 
 - (id)computeDataUsageInCurrentSession:(id)session
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   sessionCopy = session;
   v5 = objc_alloc_init(MEMORY[0x1E695DF90]);
   date = [MEMORY[0x1E695DF00] date];
@@ -1166,6 +1164,16 @@ LABEL_11:
 
     _totalCellularInBytes2 = [(CWFJITTDImpactEstimator *)self _totalCellularInBytes];
     v65 = [sessionCopy objectForKeyedSubscript:@"CellularDataInBytes"];
+    *v69 = 136447234;
+    *&v69[4] = "[CWFJITTDImpactEstimator computeDataUsageInCurrentSession:]";
+    *&v69[12] = 2082;
+    *&v69[14] = "CWFJITTDImpactEstimator.m";
+    *&v69[22] = 1024;
+    LODWORD(v70) = 654;
+    WORD2(v70) = 2112;
+    *(&v70 + 6) = _totalCellularInBytes2;
+    HIWORD(v70) = 2112;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v59, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid data usage stats ignoring stored inBytes[%@], incoming inBytes[%@]\n", v69, 48, *v69, *&v69[8], v70, v65);
     goto LABEL_33;
   }
 
@@ -1195,6 +1203,16 @@ LABEL_11:
 
     _totalCellularInBytes2 = [(CWFJITTDImpactEstimator *)self _totalCellularOutBytes];
     v65 = [sessionCopy objectForKeyedSubscript:@"CellularDataOutBytes"];
+    *v69 = 136447234;
+    *&v69[4] = "[CWFJITTDImpactEstimator computeDataUsageInCurrentSession:]";
+    *&v69[12] = 2082;
+    *&v69[14] = "CWFJITTDImpactEstimator.m";
+    *&v69[22] = 1024;
+    LODWORD(v70) = 659;
+    WORD2(v70) = 2112;
+    *(&v70 + 6) = _totalCellularInBytes2;
+    HIWORD(v70) = 2112;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v59, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid data usage stats ignoring stored outBytes[%@], incoming outBytes[%@]\n", v69, 48, *v69, *&v69[8], v70, v65);
     goto LABEL_33;
   }
 
@@ -1224,6 +1242,16 @@ LABEL_11:
 
     _totalCellularInBytes2 = [(CWFJITTDImpactEstimator *)self _totalCellularInPackets];
     v65 = [sessionCopy objectForKeyedSubscript:@"CellularDataInPackets"];
+    *v69 = 136447234;
+    *&v69[4] = "[CWFJITTDImpactEstimator computeDataUsageInCurrentSession:]";
+    *&v69[12] = 2082;
+    *&v69[14] = "CWFJITTDImpactEstimator.m";
+    *&v69[22] = 1024;
+    LODWORD(v70) = 664;
+    WORD2(v70) = 2112;
+    *(&v70 + 6) = _totalCellularInBytes2;
+    HIWORD(v70) = 2112;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v59, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid data usage stats ignoring stored inPackets[%@], incoming inPackets[%@]\n", v69, 48, *v69, *&v69[8], v70, v65);
     goto LABEL_33;
   }
 
@@ -1253,8 +1281,17 @@ LABEL_11:
 
     _totalCellularInBytes2 = [(CWFJITTDImpactEstimator *)self _totalCellularOutPackets];
     v65 = [sessionCopy objectForKeyedSubscript:@"CellularDataOutPackets"];
+    *v69 = 136447234;
+    *&v69[4] = "[CWFJITTDImpactEstimator computeDataUsageInCurrentSession:]";
+    *&v69[12] = 2082;
+    *&v69[14] = "CWFJITTDImpactEstimator.m";
+    *&v69[22] = 1024;
+    LODWORD(v70) = 669;
+    WORD2(v70) = 2112;
+    *(&v70 + 6) = _totalCellularInBytes2;
+    HIWORD(v70) = 2112;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v59, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid data usage stats ignoring stored outPackets[%@], incoming outPackets[%@]\n", v69, 48, *v69, *&v69[8], v70, v65);
 LABEL_33:
-    _os_log_send_and_compose_impl();
 
 LABEL_34:
     v50 = v5;
@@ -1316,13 +1353,27 @@ LABEL_34:
     v53 = [v5 objectForKeyedSubscript:@"CellularDataOutBytes"];
     v54 = [v5 objectForKeyedSubscript:@"CellularDataInPackets"];
     v55 = [v5 objectForKeyedSubscript:@"CellularDataOutPackets"];
-    v69 = [v5 objectForKeyedSubscript:@"impactTimeIns"];
-    _os_log_send_and_compose_impl();
+    v56 = [v5 objectForKeyedSubscript:@"impactTimeIns"];
+    *v69 = 136448002;
+    *&v69[4] = "[CWFJITTDImpactEstimator computeDataUsageInCurrentSession:]";
+    *&v69[12] = 2082;
+    *&v69[14] = "CWFJITTDImpactEstimator.m";
+    *&v69[22] = 1024;
+    LODWORD(v70) = 679;
+    WORD2(v70) = 2112;
+    *(&v70 + 6) = v52;
+    HIWORD(v70) = 2112;
+    v71 = v53;
+    v72 = 2112;
+    v73 = v54;
+    v74 = 2112;
+    v75 = v55;
+    v76 = 2112;
+    v77 = v56;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v50, 0, "[corewifi] %{public}s (%{public}s:%u) Total data usage in this session inBytes[%@] outBytes[%@] inPackets[%@] outPackets[%@] time[%@]", v69, 78);
   }
 
 LABEL_10:
-
-  v56 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -1346,7 +1397,7 @@ LABEL_10:
 
 - (void)issueFullBandScan
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   [(CWFJITTDImpactEstimator *)self cancelPeriodicTimer];
   v3 = objc_alloc_init(CWFScanParameters);
   v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
@@ -1354,29 +1405,30 @@ LABEL_10:
 
   if (!_tdNetwork)
   {
-    v15 = CWFGetOSLog();
-    if (v15)
+    v14 = CWFGetOSLog();
+    if (v14)
     {
-      v16 = CWFGetOSLog();
+      v15 = CWFGetOSLog();
     }
 
     else
     {
-      v16 = MEMORY[0x1E69E9C10];
-      v19 = MEMORY[0x1E69E9C10];
+      v15 = MEMORY[0x1E69E9C10];
+      v18 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_23;
+      *v22 = 136446722;
+      *&v22[4] = "[CWFJITTDImpactEstimator issueFullBandScan]";
+      *&v22[12] = 2082;
+      *&v22[14] = "CWFJITTDImpactEstimator.m";
+      *&v22[22] = 1024;
+      *v23 = 705;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v15, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid tdNetworkRef\n", v22, 28, *v22, *&v22[8], *v23);
     }
 
-LABEL_22:
-    _os_log_send_and_compose_impl();
-LABEL_23:
-
-    [(CWFJITTDImpactEstimator *)self stopCellularDataUsageAccountingPostTD];
-    goto LABEL_7;
+    goto LABEL_23;
   }
 
   _tdNetwork2 = [(CWFJITTDImpactEstimator *)self _tdNetwork];
@@ -1384,22 +1436,30 @@ LABEL_23:
 
   if (!networkName)
   {
-    v17 = CWFGetOSLog();
-    if (v17)
+    v16 = CWFGetOSLog();
+    if (v16)
     {
-      v16 = CWFGetOSLog();
+      v15 = CWFGetOSLog();
     }
 
     else
     {
-      v16 = MEMORY[0x1E69E9C10];
-      v20 = MEMORY[0x1E69E9C10];
+      v15 = MEMORY[0x1E69E9C10];
+      v19 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       _tdNetwork3 = [(CWFJITTDImpactEstimator *)self _tdNetwork];
-      _os_log_send_and_compose_impl();
+      *v22 = 136446978;
+      *&v22[4] = "[CWFJITTDImpactEstimator issueFullBandScan]";
+      *&v22[12] = 2082;
+      *&v22[14] = "CWFJITTDImpactEstimator.m";
+      *&v22[22] = 1024;
+      *v23 = 710;
+      *&v23[4] = 2112;
+      *&v23[6] = _tdNetwork3;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v15, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid tdNetwork SSID[%@]\n", v22, 38);
     }
 
     goto LABEL_23;
@@ -1409,24 +1469,33 @@ LABEL_23:
 
   if (!scanForNetworkHandler)
   {
-    v18 = CWFGetOSLog();
-    if (v18)
+    v17 = CWFGetOSLog();
+    if (v17)
     {
-      v16 = CWFGetOSLog();
+      v15 = CWFGetOSLog();
     }
 
     else
     {
-      v16 = MEMORY[0x1E69E9C10];
+      v15 = MEMORY[0x1E69E9C10];
       v21 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_23;
+      *v22 = 136446722;
+      *&v22[4] = "[CWFJITTDImpactEstimator issueFullBandScan]";
+      *&v22[12] = 2082;
+      *&v22[14] = "CWFJITTDImpactEstimator.m";
+      *&v22[22] = 1024;
+      *v23 = 715;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v15, 16, "[corewifi] %{public}s (%{public}s:%u) Invalid scanForNetworkHandler ref\n", v22, 28, *v22, *&v22[8], *v23);
     }
 
-    goto LABEL_22;
+LABEL_23:
+
+    [(CWFJITTDImpactEstimator *)self stopCellularDataUsageAccountingPostTD];
+    goto LABEL_7;
   }
 
   _tdNetwork4 = [(CWFJITTDImpactEstimator *)self _tdNetwork];
@@ -1451,7 +1520,6 @@ LABEL_23:
   (scanForNetworkHandler2)[2](scanForNetworkHandler2, v3);
 
 LABEL_7:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelBoundaryTimer

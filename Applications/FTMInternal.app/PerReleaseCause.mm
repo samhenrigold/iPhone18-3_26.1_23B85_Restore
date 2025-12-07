@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)mrabAsString:(int)string;
 - (int)StringAsMrab:(id)mrab;
 - (int)mrab;
 - (unint64_t)hash;
@@ -41,6 +42,21 @@
   {
     return 0;
   }
+}
+
+- (id)mrabAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317C98 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsMrab:(id)mrab
@@ -153,12 +169,11 @@ LABEL_5:
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((has & 4) != 0)
   {
-    releaseCause = self->_releaseCause;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -177,15 +192,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  mrab = self->_mrab;
   PBDataWriterWriteInt32Field();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    numCalls = self->_numCalls;
     PBDataWriterWriteUint32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:

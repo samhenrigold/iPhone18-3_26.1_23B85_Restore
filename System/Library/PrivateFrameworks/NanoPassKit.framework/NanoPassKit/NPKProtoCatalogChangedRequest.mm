@@ -118,35 +118,32 @@ LABEL_7:
     [NPKProtoCatalogChangedRequest writeTo:];
   }
 
-  v10 = toCopy;
+  v7 = toCopy;
   PBDataWriterWriteSubmessage();
   has = self->_has;
   if ((has & 2) != 0)
   {
-    resyncID = self->_resyncID;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if (has)
   {
-    lastKnownResyncID = self->_lastKnownResyncID;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
-  v8 = v10;
+  v6 = v7;
   if ((has & 4) != 0)
   {
-    syncID = self->_syncID;
     PBDataWriterWriteUint32Field();
-    v8 = v10;
+    v6 = v7;
   }
 
   if (self->_watchCatalog)
   {
     PBDataWriterWriteSubmessage();
-    v8 = v10;
+    v6 = v7;
   }
 }
 
@@ -262,7 +259,6 @@ LABEL_5:
     }
   }
 
-  v6 = *(equalCopy + 40);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 40) & 2) == 0 || self->_resyncID != *(equalCopy + 5))
@@ -274,7 +270,7 @@ LABEL_5:
   else if ((*(equalCopy + 40) & 2) != 0)
   {
 LABEL_21:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_22;
   }
 
@@ -307,17 +303,17 @@ LABEL_21:
   watchCatalog = self->_watchCatalog;
   if (watchCatalog | *(equalCopy + 4))
   {
-    v8 = [(NPKProtoCatalog *)watchCatalog isEqual:?];
+    v7 = [(NPKProtoCatalog *)watchCatalog isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_22:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

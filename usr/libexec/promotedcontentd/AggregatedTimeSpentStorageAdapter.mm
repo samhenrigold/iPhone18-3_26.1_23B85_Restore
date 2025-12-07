@@ -17,7 +17,7 @@
 
 - (NSArray)aggregatedTimeSpentEntries
 {
-  type metadata accessor for AggregatedTimeSpentEntry();
+  type metadata accessor for AggregatedTimeSpentEntry(0);
 
   v2.super.isa = sub_100399178().super.isa;
 
@@ -28,7 +28,7 @@
 {
   v5 = sub_100398F58();
   v7 = v6;
-  type metadata accessor for AggregatedTimeSpentEntry();
+  type metadata accessor for AggregatedTimeSpentEntry(0);
   v8 = sub_100399198();
   v9 = (self + OBJC_IVAR____TtC16promotedcontentd33AggregatedTimeSpentStorageAdapter_clientIdentifier);
   *v9 = v5;

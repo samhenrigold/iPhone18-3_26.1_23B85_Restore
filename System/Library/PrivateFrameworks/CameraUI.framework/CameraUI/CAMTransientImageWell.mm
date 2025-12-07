@@ -419,7 +419,7 @@
     v17 = _imageView5;
     if (_imageView5)
     {
-      [_imageView5 transform];
+      objc_msgSend_transform(_imageView5);
     }
 
     else

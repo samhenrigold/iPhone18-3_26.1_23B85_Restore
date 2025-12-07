@@ -30,7 +30,7 @@
 
   else
   {
-    v6 = vm_imap_log();
+    v6 = vm_imap_log(self);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
@@ -65,16 +65,14 @@
 
 - (id)errorWithMessage:(id)message code:(int64_t)code
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCA9B8];
-  v11 = *MEMORY[0x277CCA450];
-  v12[0] = message;
+  v10 = *MEMORY[0x277CCA450];
+  v11[0] = message;
   v5 = MEMORY[0x277CBEAC0];
   messageCopy = message;
-  v7 = [v5 dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v7 = [v5 dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v8 = [v4 errorWithDomain:@"MFAttachmentDataProviderErrorDomain" code:0 userInfo:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -113,7 +111,7 @@
 
 - (BOOL)save:(id)save
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   saveCopy = save;
   _path = [(MFAttachmentDataProvider *)self _path];
   v6 = [_path copy];
@@ -122,45 +120,46 @@
   if (stringByDeletingLastPathComponent)
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v17 = 0;
-    v9 = [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v17];
-    v10 = v17;
+    v18 = 0;
+    v9 = [defaultManager createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v18];
+    v10 = v18;
+    v11 = v10;
     if (v9)
     {
-      v11 = MEMORY[0x277CBEB38];
-      v12 = [(MFAttachmentDataProvider *)self _fileAttributes:0];
-      v13 = [v11 dictionaryWithDictionary:v12];
+      v12 = MEMORY[0x277CBEB38];
+      v13 = [(MFAttachmentDataProvider *)self _fileAttributes:0];
+      v14 = [v12 dictionaryWithDictionary:v13];
 
-      [v13 setObject:*MEMORY[0x277CCA198] forKey:*MEMORY[0x277CCA1B0]];
-      if (([defaultManager createFileAtPath:v6 contents:saveCopy attributes:v13] & 1) == 0)
+      [v14 setObject:*MEMORY[0x277CCA198] forKey:*MEMORY[0x277CCA1B0]];
+      v15 = [defaultManager createFileAtPath:v6 contents:saveCopy attributes:v14];
+      if ((v15 & 1) == 0)
       {
-        v14 = vm_imap_log();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v16 = vm_imap_log(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v19 = v6;
-          v20 = 2112;
-          v21 = v10;
-          _os_log_impl(&dword_2720B1000, v14, OS_LOG_TYPE_DEFAULT, "#Attachments Failed to create file for attachment %@: %@", buf, 0x16u);
+          v20 = v6;
+          v21 = 2112;
+          v22 = v11;
+          _os_log_impl(&dword_2720B1000, v16, OS_LOG_TYPE_DEFAULT, "#Attachments Failed to create file for attachment %@: %@", buf, 0x16u);
         }
       }
     }
 
     else
     {
-      v13 = vm_imap_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = vm_imap_log(v10);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v19 = stringByDeletingLastPathComponent;
-        v20 = 2112;
-        v21 = v10;
-        _os_log_impl(&dword_2720B1000, v13, OS_LOG_TYPE_DEFAULT, "#Attachments Failed to create directory for attachment %@: %@", buf, 0x16u);
+        v20 = stringByDeletingLastPathComponent;
+        v21 = 2112;
+        v22 = v11;
+        _os_log_impl(&dword_2720B1000, v14, OS_LOG_TYPE_DEFAULT, "#Attachments Failed to create directory for attachment %@: %@", buf, 0x16u);
       }
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

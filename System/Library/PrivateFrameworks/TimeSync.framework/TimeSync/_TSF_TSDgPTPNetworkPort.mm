@@ -22,6 +22,7 @@
 - (BOOL)registerAsyncCallbackError:(id *)error;
 - (BOOL)requestRemoteMessageIntervalsWithPDelayMessageInterval:(char)interval syncMessageInterval:(char)messageInterval announceMessageInterval:(char)announceMessageInterval error:(id *)error;
 - (BOOL)restoreReceiveMatchingError:(id *)error;
+- (_TSF_TSDgPTPNetworkPort)initWithService:(id)service pid:(int)pid;
 - (char)_localAnnounceLogMeanInterval;
 - (char)_localSyncLogMeanInterval;
 - (char)_remoteAnnounceLogMeanInterval;
@@ -64,20 +65,96 @@
 
 + (id)iokitMatchingDictionaryForClockIdentifier:(unint64_t)identifier
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v10[0] = @"IOProviderClass";
-  v10[1] = @"IOPropertyMatch";
-  v11[0] = @"IOTimeSyncNetworkPort";
-  v8 = @"ClockIdentifier";
-  v3 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:identifier];
-  v9 = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
-  v11[1] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:?];
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
 
-  v6 = *MEMORY[0x277D85DE8];
+  return v3;
+}
 
-  return v5;
+- (_TSF_TSDgPTPNetworkPort)initWithService:(id)service pid:(int)pid
+{
+  v4 = *&pid;
+  serviceCopy = service;
+  weakObjectsPointerArray = [MEMORY[0x277CCAC18] weakObjectsPointerArray];
+  clients = self->_clients;
+  self->_clients = weakObjectsPointerArray;
+
+  self->_clientsLock._os_unfair_lock_opaque = 0;
+  v19.receiver = self;
+  v19.super_class = _TSF_TSDgPTPNetworkPort;
+  v9 = [(_TSF_TSDgPTPPort *)&v19 initWithService:serviceCopy pid:v4];
+  if (v9)
+  {
+    v10 = [_TSF_IODConnection initWithService:"initWithService:andType:" andType:?];
+    connection = v9->_connection;
+    v9->_connection = v10;
+
+    if (v9->_connection)
+    {
+      _interfaceName = [(_TSF_TSDgPTPNetworkPort *)v9 _interfaceName];
+      interfaceName = v9->_interfaceName;
+      v9->_interfaceName = _interfaceName;
+
+      v9->_remoteClockIdentity = [(_TSF_TSDgPTPNetworkPort *)v9 _remoteClockIdentity];
+      v9->_remotePortNumber = [(_TSF_TSDgPTPNetworkPort *)v9 _remotePortNumber];
+      v9->_remoteIsSameDevice = [(_TSF_TSDgPTPNetworkPort *)v9 _remoteIsSameDevice];
+      v9->_asCapable = [(_TSF_TSDgPTPNetworkPort *)v9 _isASCapable];
+      v9->_propagationDelay = [(_TSF_TSDgPTPNetworkPort *)v9 _propagationDelay];
+      v9->_maximumPropagationDelay = [(_TSF_TSDgPTPNetworkPort *)v9 _maximumPropagationDelay];
+      v9->_minimumPropagationDelay = [(_TSF_TSDgPTPNetworkPort *)v9 _minimumPropagationDelay];
+      v9->_propagationDelayLimit = [(_TSF_TSDgPTPNetworkPort *)v9 _propagationDelayLimit];
+      v9->_maximumRawDelay = [(_TSF_TSDgPTPNetworkPort *)v9 _maximumRawDelay];
+      v9->_minimumRawDelay = [(_TSF_TSDgPTPNetworkPort *)v9 _minimumRawDelay];
+      v9->_localSyncLogMeanInterval = [(_TSF_TSDgPTPNetworkPort *)v9 _localSyncLogMeanInterval];
+      v9->_remoteSyncLogMeanInterval = [(_TSF_TSDgPTPNetworkPort *)v9 _remoteSyncLogMeanInterval];
+      v9->_localAnnounceLogMeanInterval = [(_TSF_TSDgPTPNetworkPort *)v9 _localAnnounceLogMeanInterval];
+      v9->_remoteAnnounceLogMeanInterval = [(_TSF_TSDgPTPNetworkPort *)v9 _remoteAnnounceLogMeanInterval];
+      v9->_localLinkType = [(_TSF_TSDgPTPNetworkPort *)v9 _localLinkType];
+      v9->_remoteLinkType = [(_TSF_TSDgPTPNetworkPort *)v9 _remoteLinkType];
+      v9->_localTimestampingMode = [(_TSF_TSDgPTPNetworkPort *)v9 _localTimestampingMode];
+      v9->_remoteTimestampingMode = [(_TSF_TSDgPTPNetworkPort *)v9 _remoteTimestampingMode];
+      v9->_localOscillatorType = [(_TSF_TSDgPTPNetworkPort *)v9 _localOscillatorType];
+      v9->_remoteOscillatorType = [(_TSF_TSDgPTPNetworkPort *)v9 _remoteOscillatorType];
+      v9->_hasLocalFrequencyToleranceLower = [(_TSF_TSDgPTPNetworkPort *)v9 _hasLocalFrequencyToleranceLower];
+      v9->_localFrequencyToleranceLower = [(_TSF_TSDgPTPNetworkPort *)v9 _localFrequencyToleranceLower];
+      v9->_hasLocalFrequencyToleranceUpper = [(_TSF_TSDgPTPNetworkPort *)v9 _hasLocalFrequencyToleranceUpper];
+      v9->_localFrequencyToleranceUpper = [(_TSF_TSDgPTPNetworkPort *)v9 _localFrequencyToleranceUpper];
+      v9->_hasRemoteFrequencyToleranceLower = [(_TSF_TSDgPTPNetworkPort *)v9 _hasRemoteFrequencyToleranceLower];
+      v9->_remoteFrequencyToleranceLower = [(_TSF_TSDgPTPNetworkPort *)v9 _remoteFrequencyToleranceLower];
+      v9->_hasRemoteFrequencyToleranceUpper = [(_TSF_TSDgPTPNetworkPort *)v9 _hasRemoteFrequencyToleranceUpper];
+      v9->_remoteFrequencyToleranceUpper = [(_TSF_TSDgPTPNetworkPort *)v9 _remoteFrequencyToleranceUpper];
+      v9->_hasLocalFrequencyStabilityLower = [(_TSF_TSDgPTPNetworkPort *)v9 _hasLocalFrequencyStabilityLower];
+      v9->_localFrequencyStabilityLower = [(_TSF_TSDgPTPNetworkPort *)v9 _localFrequencyStabilityLower];
+      v9->_hasLocalFrequencyStabilityUpper = [(_TSF_TSDgPTPNetworkPort *)v9 _hasLocalFrequencyStabilityUpper];
+      v9->_localFrequencyStabilityUpper = [(_TSF_TSDgPTPNetworkPort *)v9 _localFrequencyStabilityUpper];
+      v9->_hasRemoteFrequencyStabilityLower = [(_TSF_TSDgPTPNetworkPort *)v9 _hasRemoteFrequencyStabilityLower];
+      v9->_remoteFrequencyStabilityLower = [(_TSF_TSDgPTPNetworkPort *)v9 _remoteFrequencyStabilityLower];
+      v9->_hasRemoteFrequencyStabilityUpper = [(_TSF_TSDgPTPNetworkPort *)v9 _hasRemoteFrequencyStabilityUpper];
+      v9->_remoteFrequencyStabilityUpper = [(_TSF_TSDgPTPNetworkPort *)v9 _remoteFrequencyStabilityUpper];
+      _sourceAddressString = [(_TSF_TSDgPTPNetworkPort *)v9 _sourceAddressString];
+      sourceAddressString = v9->_sourceAddressString;
+      v9->_sourceAddressString = _sourceAddressString;
+
+      _destinationAddressString = [(_TSF_TSDgPTPNetworkPort *)v9 _destinationAddressString];
+      destinationAddressString = v9->_destinationAddressString;
+      v9->_destinationAddressString = _destinationAddressString;
+
+      v9->_overridenReceiveMatching = [(_TSF_TSDgPTPNetworkPort *)v9 _overridenReceiveMatching];
+      v9->_overridenReceiveClockIdentity = [(_TSF_TSDgPTPNetworkPort *)v9 _overridenReceiveClockIdentity];
+      v9->_overridenReceivePortNumber = [(_TSF_TSDgPTPNetworkPort *)v9 _overridenReceivePortNumber];
+      v9->_enabled = [(_TSF_TSDgPTPNetworkPort *)v9 _enabled];
+      v9->_asyncCallbackRefcon = 0;
+    }
+
+    else
+    {
+      [_TSF_TSDgPTPNetworkPort initWithService:v9 pid:?];
+      v9 = 0;
+    }
+  }
+
+  return v9;
 }
 
 - (void)updateProperties
@@ -181,7 +258,7 @@
 - (unint64_t)_remoteClockIdentity
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"RemoteClockIdentity"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -199,7 +276,7 @@
 - (unsigned)_remotePortNumber
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"RemotePortNumber"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -217,7 +294,7 @@
 - (BOOL)_remoteIsSameDevice
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"RemoteIsSameDevice"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -235,7 +312,7 @@
 - (BOOL)_isASCapable
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"ASCapable"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -253,7 +330,7 @@
 - (unsigned)_propagationDelay
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"LinkPropagationDelay"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -271,7 +348,7 @@
 - (unsigned)_maximumPropagationDelay
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"MaximumPropagationDelay"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -289,7 +366,7 @@
 - (unsigned)_minimumPropagationDelay
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"MinimumPropagationDelay"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -307,7 +384,7 @@
 - (unsigned)_propagationDelayLimit
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"PropagationDelayLimit"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -325,7 +402,7 @@
 - (unsigned)_maximumRawDelay
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"MaximumRawDelay"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -343,7 +420,7 @@
 - (unsigned)_minimumRawDelay
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"MinimumRawDelay"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -361,7 +438,7 @@
 - (char)_localSyncLogMeanInterval
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"LocalSyncLogMeanInterval"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -379,7 +456,7 @@
 - (char)_remoteSyncLogMeanInterval
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"RemoteSyncLogMeanInterval"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -397,7 +474,7 @@
 - (char)_localAnnounceLogMeanInterval
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"LocalAnnounceLogMeanInterval"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -415,7 +492,7 @@
 - (char)_remoteAnnounceLogMeanInterval
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"RemoteAnnounceLogMeanInterval"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -433,7 +510,7 @@
 - (unsigned)_localLinkType
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"LocalLinkType"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -451,7 +528,7 @@
 - (unsigned)_remoteLinkType
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"RemoteLinkType"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -469,7 +546,7 @@
 - (unsigned)_localTimestampingMode
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"LocalTimestampingMode"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -487,7 +564,7 @@
 - (unsigned)_remoteTimestampingMode
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"RemoteTimestampingMode"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -505,7 +582,7 @@
 - (unsigned)_localOscillatorType
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"LocalOscillatorType"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -523,7 +600,7 @@
 - (unsigned)_remoteOscillatorType
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"RemoteOscillatorType"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -541,7 +618,7 @@
 - (BOOL)_hasLocalFrequencyToleranceLower
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"LocalFrequencyToleranceLower"];
+  v3 = [service iodPropertyForKey:?];
 
   return v3 != 0;
 }
@@ -549,7 +626,7 @@
 - (int)_localFrequencyToleranceLower
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"LocalFrequencyToleranceLower"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -567,7 +644,7 @@
 - (BOOL)_hasLocalFrequencyToleranceUpper
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"LocalFrequencyToleranceUpper"];
+  v3 = [service iodPropertyForKey:?];
 
   return v3 != 0;
 }
@@ -575,7 +652,7 @@
 - (int)_localFrequencyToleranceUpper
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"LocalFrequencyToleranceUpper"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -593,7 +670,7 @@
 - (BOOL)_hasRemoteFrequencyToleranceLower
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"RemoteFrequencyToleranceLower"];
+  v3 = [service iodPropertyForKey:?];
 
   return v3 != 0;
 }
@@ -601,7 +678,7 @@
 - (int)_remoteFrequencyToleranceLower
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"RemoteFrequencyToleranceLower"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -619,7 +696,7 @@
 - (BOOL)_hasRemoteFrequencyToleranceUpper
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"RemoteFrequencyToleranceUpper"];
+  v3 = [service iodPropertyForKey:?];
 
   return v3 != 0;
 }
@@ -627,7 +704,7 @@
 - (int)_remoteFrequencyToleranceUpper
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"RemoteFrequencyToleranceUpper"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -645,7 +722,7 @@
 - (BOOL)_hasLocalFrequencyStabilityLower
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"LocalFrequencyStabilityLower"];
+  v3 = [service iodPropertyForKey:?];
 
   return v3 != 0;
 }
@@ -653,7 +730,7 @@
 - (int)_localFrequencyStabilityLower
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"LocalFrequencyStabilityLower"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -671,7 +748,7 @@
 - (BOOL)_hasLocalFrequencyStabilityUpper
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"LocalFrequencyStabilityUpper"];
+  v3 = [service iodPropertyForKey:?];
 
   return v3 != 0;
 }
@@ -679,7 +756,7 @@
 - (int)_localFrequencyStabilityUpper
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"LocalFrequencyStabilityUpper"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -697,7 +774,7 @@
 - (BOOL)_hasRemoteFrequencyStabilityLower
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"RemoteFrequencyStabilityLower"];
+  v3 = [service iodPropertyForKey:?];
 
   return v3 != 0;
 }
@@ -705,7 +782,7 @@
 - (int)_remoteFrequencyStabilityLower
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"RemoteFrequencyStabilityLower"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -723,7 +800,7 @@
 - (BOOL)_hasRemoteFrequencyStabilityUpper
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"RemoteFrequencyStabilityUpper"];
+  v3 = [service iodPropertyForKey:?];
 
   return v3 != 0;
 }
@@ -731,7 +808,7 @@
 - (int)_remoteFrequencyStabilityUpper
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"RemoteFrequencyStabilityUpper"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -749,7 +826,7 @@
 - (BOOL)_overridenReceiveMatching
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"OverridenReceiveMatching"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -767,7 +844,7 @@
 - (unint64_t)_overridenReceiveClockIdentity
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"OverridenReceiveClockIdentity"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -785,7 +862,7 @@
 - (unsigned)_overridenReceivePortNumber
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"OverridenReceivePortNumber"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -803,7 +880,7 @@
 - (BOOL)_enabled
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"PTPPortEnabled"];
+  v3 = [service iodPropertyForKey:?];
 
   if (v3)
   {
@@ -821,48 +898,36 @@
 - (id)_interfaceName
 {
   service = [(_TSF_TSDgPTPPort *)self service];
-  v3 = [service iodPropertyForKey:@"InterfaceName"];
+  v3 = [service iodPropertyForKey:?];
 
   return v3;
 }
 
 - (BOOL)requestRemoteMessageIntervalsWithPDelayMessageInterval:(char)interval syncMessageInterval:(char)messageInterval announceMessageInterval:(char)announceMessageInterval error:(id *)error
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9 = 0;
-  v10[0] = interval;
-  v10[1] = messageInterval;
-  v10[2] = announceMessageInterval;
-  v6 = [(_TSF_IODConnection *)self->_connection callMethodWithSelector:0 scalarInputs:v10 scalarInputCount:3 scalarOutputs:0 scalarOutputCount:&v9 error:0];
+  v6 = [_TSF_IODConnection callMethodWithSelector:"callMethodWithSelector:scalarInputs:scalarInputCount:scalarOutputs:scalarOutputCount:error:" scalarInputs:? scalarInputCount:? scalarOutputs:? scalarOutputCount:? error:?];
   if (!v6)
   {
     [_TSF_TSDgPTPNetworkPort requestRemoteMessageIntervalsWithPDelayMessageInterval:syncMessageInterval:announceMessageInterval:error:];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (BOOL)overrideReceiveMatchingWithRemoteClockIdentity:(unint64_t)identity remotePortNumber:(unsigned __int16)number error:(id *)error
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8 = 0;
-  v9[0] = identity;
-  v9[1] = number;
-  v5 = [(_TSF_IODConnection *)self->_connection callMethodWithSelector:1 scalarInputs:v9 scalarInputCount:2 scalarOutputs:0 scalarOutputCount:&v8 error:0];
+  v5 = [_TSF_IODConnection callMethodWithSelector:"callMethodWithSelector:scalarInputs:scalarInputCount:scalarOutputs:scalarOutputCount:error:" scalarInputs:? scalarInputCount:? scalarOutputs:? scalarOutputCount:? error:?];
   if (!v5)
   {
     [_TSF_TSDgPTPNetworkPort overrideReceiveMatchingWithRemoteClockIdentity:remotePortNumber:error:];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BOOL)restoreReceiveMatchingError:(id *)error
 {
-  v5 = 0;
-  v3 = [(_TSF_IODConnection *)self->_connection callMethodWithSelector:2 scalarInputs:0 scalarInputCount:0 scalarOutputs:0 scalarOutputCount:&v5 error:0];
+  v3 = [_TSF_IODConnection callMethodWithSelector:"callMethodWithSelector:scalarInputs:scalarInputCount:scalarOutputs:scalarOutputCount:error:" scalarInputs:? scalarInputCount:? scalarOutputs:? scalarOutputCount:? error:?];
   if (!v3)
   {
     [_TSF_TSDgPTPNetworkPort restoreReceiveMatchingError:];
@@ -873,8 +938,7 @@
 
 - (BOOL)enablePortError:(id *)error
 {
-  v5 = 0;
-  v3 = [(_TSF_IODConnection *)self->_connection callMethodWithSelector:3 scalarInputs:0 scalarInputCount:0 scalarOutputs:0 scalarOutputCount:&v5 error:0];
+  v3 = [_TSF_IODConnection callMethodWithSelector:"callMethodWithSelector:scalarInputs:scalarInputCount:scalarOutputs:scalarOutputCount:error:" scalarInputs:? scalarInputCount:? scalarOutputs:? scalarOutputCount:? error:?];
   if (!v3)
   {
     [_TSF_TSDgPTPNetworkPort enablePortError:];
@@ -885,8 +949,7 @@
 
 - (BOOL)disablePortError:(id *)error
 {
-  v5 = 0;
-  v3 = [(_TSF_IODConnection *)self->_connection callMethodWithSelector:4 scalarInputs:0 scalarInputCount:0 scalarOutputs:0 scalarOutputCount:&v5 error:0];
+  v3 = [_TSF_IODConnection callMethodWithSelector:"callMethodWithSelector:scalarInputs:scalarInputCount:scalarOutputs:scalarOutputCount:error:" scalarInputs:? scalarInputCount:? scalarOutputs:? scalarOutputCount:? error:?];
   if (!v3)
   {
     [_TSF_TSDgPTPNetworkPort disablePortError:];
@@ -899,19 +962,19 @@
 {
   if (info)
   {
-    v6 = [(_TSF_TSDgPTPPort *)self propertyUpdateQueue:info];
+    propertyUpdateQueue = [(_TSF_TSDgPTPPort *)self propertyUpdateQueue];
     v9[0] = MEMORY[0x277D85DD0];
     v9[1] = 3221225472;
     v9[2] = __52___TSF_TSDgPTPNetworkPort_getCurrentPortInfo_error___block_invoke;
     v9[3] = &unk_279DBD7F8;
     v9[4] = self;
     v9[5] = info;
-    dispatch_sync(v6, v9);
+    dispatch_sync(propertyUpdateQueue, v9);
   }
 
   else if (error)
   {
-    *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"TSDErrorDomain" code:-536870206 userInfo:0];
+    *error = [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
   }
 
   return info != 0;
@@ -919,30 +982,30 @@
 
 - (void)_handleRefreshConnection
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   [(_TSF_TSDgPTPNetworkPort *)self updateProperties];
   _isASCapable = [(_TSF_TSDgPTPNetworkPort *)self _isASCapable];
   os_unfair_lock_lock(&self->_clientsLock);
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v4 = self->_clients;
-  v5 = [(NSPointerArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [NSPointerArray countByEnumeratingWithState:v4 objects:"countByEnumeratingWithState:objects:count:" count:?];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v6; i = (i + 1))
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           propertyUpdateQueue = [(_TSF_TSDgPTPPort *)self propertyUpdateQueue];
@@ -950,26 +1013,25 @@
           block[1] = 3221225472;
           block[2] = __51___TSF_TSDgPTPNetworkPort__handleRefreshConnection__block_invoke;
           block[3] = &unk_279DBD898;
-          v13 = _isASCapable;
+          v12 = _isASCapable;
           block[4] = v9;
           block[5] = self;
           dispatch_async(propertyUpdateQueue, block);
         }
       }
 
-      v6 = [(NSPointerArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [NSPointerArray countByEnumeratingWithState:v4 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
     while (v6);
   }
 
   os_unfair_lock_unlock(&self->_clientsLock);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleNotification:(int)notification withArg1:(unint64_t)arg1 arg2:(unint64_t)arg2 arg3:(unint64_t)arg3 arg4:(unint64_t)arg4 arg5:(unint64_t)arg5 arg6:(unint64_t)arg6
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   queue = [(_TSF_TSDgPTPPort *)self propertyUpdateQueue];
   if (notification <= 4001)
   {
@@ -1043,113 +1105,100 @@ LABEL_18:
 
 LABEL_19:
   os_unfair_lock_lock(&self->_clientsLock);
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
-  v35 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v14 = self->_clients;
-  v15 = [(NSPointerArray *)v14 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v15 = [NSPointerArray countByEnumeratingWithState:v14 objects:"countByEnumeratingWithState:objects:count:" count:?];
   if (v15)
   {
     v16 = v15;
-    v17 = *v35;
+    v17 = *v25;
     do
     {
-      for (i = 0; i != v16; ++i)
+      for (i = 0; i != v16; i = (i + 1))
       {
-        if (*v35 != v17)
+        if (*v25 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v34 + 1) + 8 * i);
+        v19 = *(*(&v24 + 1) + 8 * i);
         if (notification <= 4001)
         {
           if (notification == 4000)
           {
-            v24 = *(*(&v34 + 1) + 8 * i);
             if (objc_opt_respondsToSelector())
             {
-              [v19 didTimeoutOnMACLookupForPort:self];
+              [v19 didTimeoutOnMACLookupForPort:?];
             }
           }
 
           else if (notification == 4001)
           {
-            v21 = *(*(&v34 + 1) + 8 * i);
             if (objc_opt_respondsToSelector())
             {
-              [v19 didSyncTimeoutForPort:self];
+              [v19 didSyncTimeoutForPort:?];
             }
 
             if (objc_opt_respondsToSelector())
             {
-              [v19 didSyncTimeoutWithMean:arg1 median:arg2 standardDeviation:arg3 minimum:arg4 maximum:arg5 numberOfSamples:arg6 forPort:self];
+              [v19 didSyncTimeoutWithMean:self median:? standardDeviation:? minimum:? maximum:? numberOfSamples:? forPort:?];
             }
           }
         }
 
-        else
+        else if (notification == 4002)
         {
-          switch(notification)
+          if (objc_opt_respondsToSelector())
           {
-            case 4002:
-              v22 = *(*(&v34 + 1) + 8 * i);
-              if (objc_opt_respondsToSelector())
-              {
-                block[0] = MEMORY[0x277D85DD0];
-                block[1] = 3221225472;
-                block[2] = __81___TSF_TSDgPTPNetworkPort__handleNotification_withArg1_arg2_arg3_arg4_arg5_arg6___block_invoke;
-                block[3] = &unk_279DBD8C0;
-                block[5] = self;
-                block[6] = arg1;
-                block[4] = v19;
-                dispatch_async(queue, block);
-              }
-
-              break;
-            case 4003:
-              v23 = *(*(&v34 + 1) + 8 * i);
-              if (objc_opt_respondsToSelector())
-              {
-                [v19 didChangeAdministrativeEnable:arg1 != 0 forPort:self];
-              }
-
-              break;
-            case 4004:
-              v20 = *(*(&v34 + 1) + 8 * i);
-              if (objc_opt_respondsToSelector())
-              {
-                [v19 didAnnounceTimeoutForPort:self];
-              }
-
-              break;
+            block[0] = MEMORY[0x277D85DD0];
+            block[1] = 3221225472;
+            block[2] = __81___TSF_TSDgPTPNetworkPort__handleNotification_withArg1_arg2_arg3_arg4_arg5_arg6___block_invoke;
+            block[3] = &unk_279DBD8C0;
+            block[5] = self;
+            block[6] = arg1;
+            block[4] = v19;
+            dispatch_async(queue, block);
           }
+        }
+
+        else if (notification == 4003)
+        {
+          if (objc_opt_respondsToSelector())
+          {
+            [v19 didChangeAdministrativeEnable:? forPort:?];
+          }
+        }
+
+        else if (notification == 4004 && (objc_opt_respondsToSelector() & 1) != 0)
+        {
+          [v19 didAnnounceTimeoutForPort:?];
         }
       }
 
-      v16 = [(NSPointerArray *)v14 countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v16 = [NSPointerArray countByEnumeratingWithState:v14 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
     while (v16);
   }
 
   os_unfair_lock_unlock(&self->_clientsLock);
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)registerAsyncCallbackError:(id *)error
 {
   v4 = +[_TSF_TSDCallbackRefconMap sharedTSDCallbackRefconMap];
-  self->_asyncCallbackRefcon = [v4 allocateRefcon:self];
+  self->_asyncCallbackRefcon = [v4 allocateRefcon:?];
 
   connection = [(_TSF_TSDgPTPNetworkPort *)self connection];
-  v6 = [connection registerAsyncNotificationsWithSelector:5 callBack:asyncNotificationsCallback refcon:self->_asyncCallbackRefcon callbackQueue:_sharedNotificationsQueue];
+  v6 = [connection registerAsyncNotificationsWithSelector:? callBack:? refcon:? callbackQueue:?];
 
   if ((v6 & 1) == 0)
   {
     v7 = +[_TSF_TSDCallbackRefconMap sharedTSDCallbackRefconMap];
-    [v7 releaseRefcon:self->_asyncCallbackRefcon];
+    [v7 releaseRefcon:?];
   }
 
   return v6;
@@ -1173,10 +1222,10 @@ LABEL_19:
 - (BOOL)deregisterAsyncCallbackError:(id *)error
 {
   v4 = +[_TSF_TSDCallbackRefconMap sharedTSDCallbackRefconMap];
-  [v4 releaseRefcon:self->_asyncCallbackRefcon];
+  [v4 releaseRefcon:?];
 
   connection = [(_TSF_TSDgPTPNetworkPort *)self connection];
-  v6 = [connection deregisterAsyncNotificationsWithSelector:6];
+  v6 = [connection deregisterAsyncNotificationsWithSelector:?];
 
   if ((v6 & 1) == 0)
   {
@@ -1188,41 +1237,32 @@ LABEL_19:
 
 - (void)addClient:(id)client
 {
-  v16 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   os_unfair_lock_lock(&self->_clientsLock);
   [(NSPointerArray *)self->_clients compact];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
-  v12 = 0u;
   v5 = self->_clients;
-  v6 = [(NSPointerArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [NSPointerArray countByEnumeratingWithState:v5 objects:"countByEnumeratingWithState:objects:count:" count:0];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = MEMORY[0];
     while (2)
     {
-      v9 = 0;
-      do
+      for (i = 0; i != v7; i = (i + 1))
       {
-        if (*v12 != v8)
+        if (MEMORY[0] != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        if (*(*(&v11 + 1) + 8 * v9) == clientCopy)
+        if (*(8 * i) == clientCopy)
         {
 
           goto LABEL_11;
         }
-
-        ++v9;
       }
 
-      while (v7 != v9);
-      v7 = [(NSPointerArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [NSPointerArray countByEnumeratingWithState:v5 objects:"countByEnumeratingWithState:objects:count:" count:?];
       if (v7)
       {
         continue;
@@ -1232,30 +1272,23 @@ LABEL_19:
     }
   }
 
-  [(NSPointerArray *)self->_clients addPointer:clientCopy, v11];
+  [(NSPointerArray *)self->_clients addPointer:?];
 LABEL_11:
   os_unfair_lock_unlock(&self->_clientsLock);
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeClient:(id)client
 {
-  v18 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   os_unfair_lock_lock(&self->_clientsLock);
   [(NSPointerArray *)self->_clients compact];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
-  v14 = 0u;
   v5 = self->_clients;
-  v6 = [(NSPointerArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [NSPointerArray countByEnumeratingWithState:v5 objects:"countByEnumeratingWithState:objects:count:" count:0];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v14;
+    v9 = MEMORY[0];
     while (2)
     {
       v10 = 0;
@@ -1263,24 +1296,24 @@ LABEL_11:
       v8 += v7;
       do
       {
-        if (*v14 != v9)
+        if (MEMORY[0] != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        if (*(*(&v13 + 1) + 8 * v10) == clientCopy)
+        if (*(8 * v10) == clientCopy)
         {
 
-          [(NSPointerArray *)self->_clients removePointerAtIndex:v11, v13];
+          [(NSPointerArray *)self->_clients removePointerAtIndex:?];
           goto LABEL_11;
         }
 
         ++v11;
-        ++v10;
+        v10 = (v10 + 1);
       }
 
       while (v7 != v10);
-      v7 = [(NSPointerArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [NSPointerArray countByEnumeratingWithState:v5 objects:"countByEnumeratingWithState:objects:count:" count:?];
       if (v7)
       {
         continue;
@@ -1292,55 +1325,44 @@ LABEL_11:
 
 LABEL_11:
   os_unfair_lock_unlock(&self->_clientsLock);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)serviceTerminated
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v14.receiver = self;
-  v14.super_class = _TSF_TSDgPTPNetworkPort;
-  [(_TSF_TSDgPTPPort *)&v14 serviceTerminated];
+  v10 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = _TSF_TSDgPTPNetworkPort;
+  [(_TSF_TSDgPTPPort *)&v9 serviceTerminated];
   os_unfair_lock_lock(&self->_clientsLock);
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
-  v11 = 0u;
   v3 = self->_clients;
-  v4 = [(NSPointerArray *)v3 countByEnumeratingWithState:&v10 objects:v15 count:16];
+  v4 = [NSPointerArray countByEnumeratingWithState:v3 objects:"countByEnumeratingWithState:objects:count:" count:0];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = MEMORY[0];
     do
     {
-      v7 = 0;
-      do
+      for (i = 0; i != v5; i = (i + 1))
       {
-        if (*v11 != v6)
+        if (MEMORY[0] != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
+        v8 = *(8 * i);
         if (objc_opt_respondsToSelector())
         {
-          [v8 didTerminateServiceForPort:{self, v10}];
+          [v8 didTerminateServiceForPort:?];
         }
-
-        ++v7;
       }
 
-      while (v5 != v7);
-      v5 = [(NSPointerArray *)v3 countByEnumeratingWithState:&v10 objects:v15 count:16];
+      v5 = [NSPointerArray countByEnumeratingWithState:v3 objects:"countByEnumeratingWithState:objects:count:" count:?];
     }
 
     while (v5);
   }
 
   os_unfair_lock_unlock(&self->_clientsLock);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)propertiesForXPC
@@ -1348,36 +1370,36 @@ LABEL_11:
   v12.receiver = self;
   v12.super_class = _TSF_TSDgPTPNetworkPort;
   propertiesForXPC = [(_TSF_TSDgPTPPort *)&v12 propertiesForXPC];
-  v3 = [propertiesForXPC objectForKeyedSubscript:@"OverridenReceiveClockIdentity"];
+  v3 = [propertiesForXPC objectForKeyedSubscript:?];
 
   if (!v3)
   {
-    v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:-1];
-    [propertiesForXPC setObject:v4 forKeyedSubscript:@"OverridenReceiveClockIdentity"];
+    v4 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:?];
+    [propertiesForXPC setObject:? forKeyedSubscript:?];
   }
 
-  v5 = [propertiesForXPC objectForKeyedSubscript:@"OverridenReceivePortNumber"];
+  v5 = [propertiesForXPC objectForKeyedSubscript:?];
 
   if (!v5)
   {
-    v6 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:0xFFFFLL];
-    [propertiesForXPC setObject:v6 forKeyedSubscript:@"OverridenReceivePortNumber"];
+    v6 = [MEMORY[0x277CCABB0] numberWithUnsignedShort:?];
+    [propertiesForXPC setObject:? forKeyedSubscript:?];
   }
 
-  v7 = [propertiesForXPC objectForKeyedSubscript:@"MinimumPropagationDelay"];
+  v7 = [propertiesForXPC objectForKeyedSubscript:?];
 
   if (!v7)
   {
-    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0xFFFFFFFFLL];
-    [propertiesForXPC setObject:v8 forKeyedSubscript:@"MinimumPropagationDelay"];
+    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:?];
+    [propertiesForXPC setObject:? forKeyedSubscript:?];
   }
 
-  v9 = [propertiesForXPC objectForKeyedSubscript:@"MinimumRawDelay"];
+  v9 = [propertiesForXPC objectForKeyedSubscript:?];
 
   if (!v9)
   {
-    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:0xFFFFFFFFLL];
-    [propertiesForXPC setObject:v10 forKeyedSubscript:@"MinimumRawDelay"];
+    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:?];
+    [propertiesForXPC setObject:? forKeyedSubscript:?];
   }
 
   return propertiesForXPC;
@@ -1385,112 +1407,93 @@ LABEL_11:
 
 + (id)diagnosticInfoForService:(id)service
 {
-  v10.receiver = self;
-  v10.super_class = &OBJC_METACLASS____TSF_TSDgPTPNetworkPort;
+  v8.receiver = self;
+  v8.super_class = &OBJC_METACLASS____TSF_TSDgPTPNetworkPort;
   serviceCopy = service;
-  v4 = objc_msgSendSuper2(&v10, sel_diagnosticInfoForService_, serviceCopy);
-  v5 = [serviceCopy parentIteratorInServicePlaneWithError:0];
+  v4 = objc_msgSendSuper2(&v8, sel_diagnosticInfoForService_, serviceCopy);
+  v5 = [serviceCopy parentIteratorInServicePlaneWithError:?];
 
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __52___TSF_TSDgPTPNetworkPort_diagnosticInfoForService___block_invoke;
-  v8[3] = &unk_279DBD7A8;
   v6 = v4;
-  v9 = v6;
-  [v5 enumerateWithBlock:v8];
+  [v5 enumerateWithBlock:?];
 
   return v6;
 }
 
 - (void)initWithService:(void *)a1 pid:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v7 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v2, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v3, v4, v5, v6, v7);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestRemoteMessageIntervalsWithPDelayMessageInterval:syncMessageInterval:announceMessageInterval:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)overrideReceiveMatchingWithRemoteClockIdentity:remotePortNumber:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)restoreReceiveMatchingError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enablePortError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disablePortError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deregisterAsyncCallbackError:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
+    v5 = 136316418;
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, 2u);
+    OUTLINED_FUNCTION_2(&dword_26F080000, MEMORY[0x277D86220], v0, "Assert: %s (value 0x%lx %lu), %s file: %s, line: %d\n", v1, v2, v3, v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

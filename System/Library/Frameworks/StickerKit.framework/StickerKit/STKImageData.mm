@@ -198,7 +198,7 @@
 
   ITKSizeGetMaxDimension();
   v6 = v4 * v5;
-  if (-[STKImageData count](self, "count") > 1 || (-[STKImageData utType](self, "utType"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 conformsToType:*MEMORY[0x1E6982E58]], v7, !v8) || (-[STKImageData data](self, "data"), (ThumbnailWithImageSourceAtIndexForMaxDimension = _CreateThumbnailWithJPEGForMaxDimension(v6)) == 0))
+  if (-[STKImageData count](self, "count") > 1 || (-[STKImageData utType](self, "utType"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 conformsToType:*MEMORY[0x1E6982E58]], v7, !v8) || (ThumbnailWithImageSourceAtIndexForMaxDimension = _CreateThumbnailWithJPEGForMaxDimension(-[STKImageData data](self, "data"), v6)) == 0)
   {
     ThumbnailWithImageSourceAtIndexForMaxDimension = _CreateThumbnailWithImageSourceAtIndexForMaxDimension(self->_imageSource, 0, v6);
   }
@@ -771,8 +771,7 @@ LABEL_16:
 
   if ([(STKImageData *)self count]<= 1 && v13)
   {
-    [(STKImageData *)self data];
-    ThumbnailWithJPEGForMaxDimension = _CreateThumbnailWithJPEGForMaxDimension(v8);
+    ThumbnailWithJPEGForMaxDimension = _CreateThumbnailWithJPEGForMaxDimension([(STKImageData *)self data], v8);
   }
 
   else
@@ -876,8 +875,7 @@ LABEL_23:
 
       if (v10 <= 1)
       {
-        [(STKImageData *)self data];
-        ThumbnailWithJPEGForMaxDimension = _CreateThumbnailWithJPEGForMaxDimension(v8);
+        ThumbnailWithJPEGForMaxDimension = _CreateThumbnailWithJPEGForMaxDimension([(STKImageData *)self data], v8);
         if (ThumbnailWithJPEGForMaxDimension)
         {
           goto LABEL_13;

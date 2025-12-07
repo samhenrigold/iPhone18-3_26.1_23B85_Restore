@@ -15,13 +15,14 @@
 - (void)dealloc;
 - (void)deleteAllTrackedLocations;
 - (void)logLocation:(id)location;
+- (void)recordLocation:(id)location ofType:(unsigned __int8)type;
 @end
 
 @implementation FMDTrackedLocationsStore
 
 - (void)dealloc
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_10022C990(self);
@@ -104,8 +105,8 @@
 
   if (v6)
   {
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100002880(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10022CA14();
     }
@@ -124,7 +125,7 @@
 
   else
   {
-    v7 = sub_100002880();
+    v7 = sub_100002880(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       sub_10022CA88();
@@ -136,8 +137,8 @@
   _locationCacheFileName = [(FMDTrackedLocationsStore *)self _locationCacheFileName];
   v9 = [v6 URLByAppendingPathComponent:_locationCacheFileName isDirectory:0];
 
-  v10 = sub_100002880();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v11 = sub_100002880(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     sub_10022CAC8();
   }
@@ -151,35 +152,36 @@
   v3 = objc_opt_class();
   v4 = objc_opt_class();
   v5 = [NSSet setWithObjects:v3, v4, objc_opt_class(), 0];
-  v14 = 0;
-  v6 = [dataArchiver readArrayAndClasses:v5 error:&v14];
-  v7 = v14;
+  v16 = 0;
+  v6 = [dataArchiver readArrayAndClasses:v5 error:&v16];
+  v7 = v16;
 
-  if ([v7 fm_isFileNotFoundError])
+  fm_isFileNotFoundError = [v7 fm_isFileNotFoundError];
+  if (fm_isFileNotFoundError)
   {
     goto LABEL_9;
   }
 
   if (v6)
   {
-    v8 = v7 == 0;
+    v9 = v7 == 0;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  if (!v8)
+  if (!v9)
   {
-    v9 = sub_100002880();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100002880(fm_isFileNotFoundError);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10022CB38();
     }
 
-    v10 = +[FMDEventLoggerGeneral sharedInstance];
-    [v10 sendError:v7 forEventName:@"FMDTrackedLocationsStoreFailedReadEventName"];
+    v11 = +[FMDEventLoggerGeneral sharedInstance];
+    [v11 sendError:v7 forEventName:@"FMDTrackedLocationsStoreFailedReadEventName"];
 
 LABEL_9:
     if (!v6)
@@ -188,14 +190,14 @@ LABEL_9:
     }
   }
 
-  v11 = sub_100002880();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v12 = sub_100002880(fm_isFileNotFoundError);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     sub_10022CBAC(v6);
   }
 
-  v12 = sub_100002880();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v14 = sub_100002880(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     sub_10022CC24(v6);
   }
@@ -214,27 +216,31 @@ LABEL_15:
 
   if (v6)
   {
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = sub_100002880(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       sub_10022CCA8(self);
     }
 
-    v8 = +[NSFileManager defaultManager];
-    v11 = 0;
-    [v8 removeItemAtURL:_trackedLocationsCacheFileURL error:&v11];
-    v9 = v11;
+    v9 = +[NSFileManager defaultManager];
+    v13 = 0;
+    [v9 removeItemAtURL:_trackedLocationsCacheFileURL error:&v13];
+    v10 = v13;
 
-    if (v9 && ([v9 fm_isFileNotFoundError] & 1) == 0)
+    if (v10)
     {
-      v10 = sub_100002880();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      fm_isFileNotFoundError = [v10 fm_isFileNotFoundError];
+      if ((fm_isFileNotFoundError & 1) == 0)
       {
-        *buf = 138412546;
-        v13 = _trackedLocationsCacheFileURL;
-        v14 = 2112;
-        v15 = v9;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Failed to delete tracked locations file (%@): %@", buf, 0x16u);
+        v12 = sub_100002880(fm_isFileNotFoundError);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412546;
+          v15 = _trackedLocationsCacheFileURL;
+          v16 = 2112;
+          v17 = v10;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Failed to delete tracked locations file (%@): %@", buf, 0x16u);
+        }
       }
     }
   }
@@ -247,6 +253,49 @@ LABEL_15:
   off_100313388 = [NSString stringWithFormat:@"%@.%@", v3, off_100313388];
 
   return off_100313388;
+}
+
+- (void)recordLocation:(id)location ofType:(unsigned __int8)type
+{
+  typeCopy = type;
+  locationCopy = location;
+  v7 = [[FMDLocation alloc] initWithLocation:locationCopy eventType:5 positionType:typeCopy];
+  [(FMDTrackedLocationsStore *)self logLocation:v7];
+  horizontalAccuracy = [locationCopy horizontalAccuracy];
+  [horizontalAccuracy doubleValue];
+  v10 = v9;
+  locationTracker = [(FMDTrackedLocationsStore *)self locationTracker];
+  [locationTracker minSLCAccuracyThreshold];
+  v13 = v12;
+
+  if (v10 <= v13)
+  {
+    v14 = +[NSMutableDictionary dictionary];
+    [v14 fm_safelySetObject:v7 forKey:@"kFMDTrackedLocationsStoreTrackFMDLocation"];
+    v15 = objc_alloc_init(FMDBatteryInfo);
+    metaDataRecord = [(FMDLocation *)v7 metaDataRecord];
+    v26 = @"kFMDTrackedLocationsStoreTrackFMDBatteryInfo";
+    dictionaryValue = [(FMDBatteryInfo *)v15 dictionaryValue];
+    v27 = dictionaryValue;
+    v18 = [NSDictionary dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    [metaDataRecord appendMetaData:v18];
+
+    [v14 fm_safelySetObject:v15 forKey:@"kFMDTrackedLocationsStoreTrackFMDBatteryInfo"];
+    objc_initWeak(&location, self);
+    store_ops_queue = [(FMDTrackedLocationsStore *)self store_ops_queue];
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_1001A97C0;
+    block[3] = &unk_1002CE3B8;
+    objc_copyWeak(&v24, &location);
+    v22 = v14;
+    v23 = locationCopy;
+    v20 = v14;
+    dispatch_async(store_ops_queue, block);
+
+    objc_destroyWeak(&v24);
+    objc_destroyWeak(&location);
+  }
 }
 
 - (void)logLocation:(id)location
@@ -396,7 +445,7 @@ LABEL_15:
 
 - (void)_serialQueue_scheduleLocationPurgeTimer_internal
 {
-  v2 = sub_100002880();
+  v2 = sub_100002880(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     sub_10022CD2C();
@@ -412,7 +461,7 @@ LABEL_15:
     block[1] = 3221225472;
     block[2] = sub_1001AA4D0;
     block[3] = &unk_1002CD4C8;
-    v38 = locationPurgeTimer2;
+    v40 = locationPurgeTimer2;
     v5 = locationPurgeTimer2;
     dispatch_async(&_dispatch_main_q, block);
   }
@@ -422,8 +471,8 @@ LABEL_15:
 
   if (v7)
   {
-    v12 = sub_100002880();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = sub_100002880(v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       sub_10022CE14();
     }
@@ -433,102 +482,102 @@ LABEL_15:
   {
     locationTracker = [vala locationTracker];
     [locationTracker keepAlive];
-    v10 = v9;
+    v11 = v10;
 
+    v37 = 0u;
+    v38 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v33 = 0u;
-    v34 = 0u;
     trackedLocations2 = [vala trackedLocations];
-    v12 = 0;
-    v13 = [trackedLocations2 countByEnumeratingWithState:&v33 objects:v39 count:16];
-    if (v13)
+    v13 = 0;
+    v14 = [trackedLocations2 countByEnumeratingWithState:&v35 objects:v41 count:16];
+    if (v14)
     {
-      v14 = *v34;
+      v15 = *v36;
       do
       {
-        v15 = 0;
+        v16 = 0;
         do
         {
-          if (*v34 != v14)
+          if (*v36 != v15)
           {
             objc_enumerationMutation(trackedLocations2);
           }
 
-          v16 = [*(*(&v33 + 1) + 8 * v15) objectForKeyedSubscript:@"kFMDTrackedLocationsStoreTrackFMDLocation"];
-          timeStamp = [v16 timeStamp];
-          v18 = [timeStamp dateByAddingTimeInterval:v10];
-          v19 = v18;
-          if (v12)
+          v17 = [*(*(&v35 + 1) + 8 * v16) objectForKeyedSubscript:@"kFMDTrackedLocationsStoreTrackFMDLocation"];
+          timeStamp = [v17 timeStamp];
+          v19 = [timeStamp dateByAddingTimeInterval:v11];
+          v20 = v19;
+          if (v13)
           {
-            v20 = [v18 earlierDate:v12];
+            v21 = [v19 earlierDate:v13];
 
-            v12 = v20;
+            v13 = v21;
           }
 
           else
           {
-            v12 = v18;
+            v13 = v19;
           }
 
-          v15 = v15 + 1;
+          v16 = v16 + 1;
         }
 
-        while (v13 != v15);
-        v13 = [trackedLocations2 countByEnumeratingWithState:&v33 objects:v39 count:16];
+        while (v14 != v16);
+        v14 = [trackedLocations2 countByEnumeratingWithState:&v35 objects:v41 count:16];
       }
 
-      while (v13);
+      while (v14);
     }
 
-    v21 = +[NSDate date];
-    v22 = [v12 compare:v21]== -1;
+    v22 = +[NSDate date];
+    v23 = [v13 compare:v22]== -1;
 
-    v23 = sub_100002880();
-    v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG);
-    if (v22)
+    v25 = sub_100002880(v24);
+    v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG);
+    if (v23)
     {
-      if (v24)
+      if (v26)
       {
         sub_10022CDD8();
       }
 
       objc_initWeak(&location, vala);
       store_ops_queue = [vala store_ops_queue];
-      v30[0] = _NSConcreteStackBlock;
-      v30[1] = 3221225472;
-      v30[2] = sub_1001AA4D8;
-      v30[3] = &unk_1002CD518;
-      objc_copyWeak(&v31, &location);
-      dispatch_async(store_ops_queue, v30);
+      v32[0] = _NSConcreteStackBlock;
+      v32[1] = 3221225472;
+      v32[2] = sub_1001AA4D8;
+      v32[3] = &unk_1002CD518;
+      objc_copyWeak(&v33, &location);
+      dispatch_async(store_ops_queue, v32);
 
-      objc_destroyWeak(&v31);
+      objc_destroyWeak(&v33);
       objc_destroyWeak(&location);
     }
 
     else
     {
-      if (v24)
+      if (v26)
       {
         sub_10022CD68();
       }
 
-      v25 = [[PCPersistentTimer alloc] initWithFireDate:v12 serviceIdentifier:@"com.apple.icloud.findmydeviced.trackedLocationsPurgeTimer" target:vala selector:"_serialQueue_purgeOldTrackedLocationsNow" userInfo:0];
-      [vala setLocationPurgeTimer:v25];
+      v27 = [[PCPersistentTimer alloc] initWithFireDate:v13 serviceIdentifier:@"com.apple.icloud.findmydeviced.trackedLocationsPurgeTimer" target:vala selector:"_serialQueue_purgeOldTrackedLocationsNow" userInfo:0];
+      [vala setLocationPurgeTimer:v27];
 
-      v29[0] = _NSConcreteStackBlock;
-      v29[1] = 3221225472;
-      v29[2] = sub_1001AA540;
-      v29[3] = &unk_1002CD4C8;
-      v29[4] = vala;
-      dispatch_async(&_dispatch_main_q, v29);
+      v31[0] = _NSConcreteStackBlock;
+      v31[1] = 3221225472;
+      v31[2] = sub_1001AA540;
+      v31[3] = &unk_1002CD4C8;
+      v31[4] = vala;
+      dispatch_async(&_dispatch_main_q, v31);
     }
   }
 }
 
 - (void)_serialQueue_purgeOldTrackedLocationsNow
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_10022CE50();
@@ -537,74 +586,75 @@ LABEL_15:
   locationTracker = [(FMDTrackedLocationsStore *)self locationTracker];
   [locationTracker keepAlive];
   v6 = v5;
-  v23 = locationTracker;
+  v24 = locationTracker;
   maxLocations = [locationTracker maxLocations];
-  v25 = +[NSMutableArray array];
+  v26 = +[NSMutableArray array];
   v7 = +[NSDate date];
-  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
   selfCopy = self;
   trackedLocations = [(FMDTrackedLocationsStore *)self trackedLocations];
-  v9 = [trackedLocations countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v9 = [trackedLocations countByEnumeratingWithState:&v27 objects:v33 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v27;
+    v11 = *v28;
     do
     {
       for (i = 0; i != v10; i = i + 1)
       {
-        if (*v27 != v11)
+        if (*v28 != v11)
         {
           objc_enumerationMutation(trackedLocations);
         }
 
-        v13 = *(*(&v26 + 1) + 8 * i);
+        v13 = *(*(&v27 + 1) + 8 * i);
         v14 = [v13 objectForKeyedSubscript:@"kFMDTrackedLocationsStoreTrackFMDLocation"];
         timeStamp = [v14 timeStamp];
         v16 = [timeStamp dateByAddingTimeInterval:v6];
-        if ([v16 compare:v7] == 1)
+        v17 = [v16 compare:v7];
+        if (v17 == 1)
         {
-          [v25 addObject:v13];
+          [v26 addObject:v13];
         }
 
         else
         {
-          v17 = sub_100002880();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          v18 = sub_100002880(v17);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v31 = timeStamp;
-            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Purging location with timestamp %@ since it was very old", buf, 0xCu);
+            v32 = timeStamp;
+            _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Purging location with timestamp %@ since it was very old", buf, 0xCu);
           }
         }
       }
 
-      v10 = [trackedLocations countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v10 = [trackedLocations countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
     while (v10);
   }
 
-  while ([v25 count] > maxLocations)
+  while ([v26 count] > maxLocations)
   {
-    v18 = [v25 objectAtIndexedSubscript:0];
-    v19 = [v18 objectForKeyedSubscript:@"kFMDTrackedLocationsStoreTrackFMDLocation"];
-    timeStamp2 = [v19 timeStamp];
-    v21 = sub_100002880();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v19 = [v26 objectAtIndexedSubscript:0];
+    v20 = [v19 objectForKeyedSubscript:@"kFMDTrackedLocationsStoreTrackFMDLocation"];
+    timeStamp2 = [v20 timeStamp];
+    v22 = sub_100002880(timeStamp2);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v31 = timeStamp2;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Purging location with timestamp %@ since there were too many locations", buf, 0xCu);
+      v32 = timeStamp2;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Purging location with timestamp %@ since there were too many locations", buf, 0xCu);
     }
 
-    [v25 removeObjectAtIndex:0];
+    [v26 removeObjectAtIndex:0];
   }
 
-  [(FMDTrackedLocationsStore *)selfCopy setTrackedLocations:v25];
+  [(FMDTrackedLocationsStore *)selfCopy setTrackedLocations:v26];
   [(FMDTrackedLocationsStore *)selfCopy _serialQueue_scheduleLocationPurgeTimer];
 }
 
@@ -619,38 +669,38 @@ LABEL_15:
   location = [v7 location];
   location2 = [v8 location];
 
-  v11 = sub_100002880();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  v12 = sub_100002880(v11);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
   if (location == location2)
   {
-    if (v12)
+    if (v13)
     {
-      *v21 = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "New location does not have a better accuracy. Copying the new timestamp to the last location...", v21, 2u);
+      *v22 = 0;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "New location does not have a better accuracy. Copying the new timestamp to the last location...", v22, 2u);
     }
 
-    v14 = [FMDLocation alloc];
+    v15 = [FMDLocation alloc];
     location3 = [v7 location];
-    trackedLocations5 = -[FMDLocation initWithLocation:eventType:positionType:](v14, "initWithLocation:eventType:positionType:", location3, [v7 eventType], objc_msgSend(v7, "positionType"));
+    trackedLocations5 = -[FMDLocation initWithLocation:eventType:positionType:](v15, "initWithLocation:eventType:positionType:", location3, [v7 eventType], objc_msgSend(v7, "positionType"));
 
     trackedLocations2 = [(FMDTrackedLocationsStore *)self trackedLocations];
     lastObject2 = [trackedLocations2 lastObject];
-    v18 = [lastObject2 mutableCopy];
+    v19 = [lastObject2 mutableCopy];
 
-    [v18 setObject:trackedLocations5 forKeyedSubscript:@"kFMDTrackedLocationsStoreTrackFMDLocation"];
+    [v19 setObject:trackedLocations5 forKeyedSubscript:@"kFMDTrackedLocationsStoreTrackFMDLocation"];
     trackedLocations3 = [(FMDTrackedLocationsStore *)self trackedLocations];
     [trackedLocations3 removeLastObject];
 
     trackedLocations4 = [(FMDTrackedLocationsStore *)self trackedLocations];
-    [trackedLocations4 addObject:v18];
+    [trackedLocations4 addObject:v19];
   }
 
   else
   {
-    if (v12)
+    if (v13)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "New location. Recording this location...", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "New location. Recording this location...", buf, 2u);
     }
 
     trackedLocations5 = [(FMDTrackedLocationsStore *)self trackedLocations];

@@ -2503,7 +2503,7 @@ BOOL __84__AXCameraVisionEngine__filterElements_usingRelativeAreaThreshold_refer
   v12 = objc_opt_class();
   if (v12)
   {
-    [v12 _scaleNormalizedCoordinatesToSceneCoordinates:{x, y, width, height}];
+    objc_msgSend__scaleNormalizedCoordinatesToSceneCoordinates_(v12, x, y, width, height);
   }
 
   else
@@ -2985,7 +2985,7 @@ void __101__AXCameraVisionEngine_captureOutput_didOutputMetadataObjects_forMetad
             {
               if (v25)
               {
-                [v25 time];
+                objc_msgSend_time(v25);
               }
 
               else

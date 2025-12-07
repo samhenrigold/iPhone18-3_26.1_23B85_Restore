@@ -1,5 +1,6 @@
 @interface CATRemoteConnection
 + (void)createConnectionPairWithConnection:(id *)connection andConnection:(id *)andConnection bufferSize:(unint64_t)size;
+- (BOOL)secureUsingIdentity:(__SecIdentity *)identity trustedCertificates:(id)certificates isServer:(BOOL)server;
 - (BOOL)trySendingDataWithContext:(id)context error:(id *)error;
 - (CATRemoteConnection)initWithInputStream:(id)stream outputStream:(id)outputStream bufferSize:(unint64_t)size;
 - (CATRemoteConnection)initWithNetService:(id)service;
@@ -22,6 +23,7 @@
 - (void)delegateDidOpen;
 - (void)delegateDidReceiveData:(id)data;
 - (void)delegateDidReceiveDataRequestWithURL:(id)l;
+- (void)delegateDidReceiveStreamData:(id)data moreComing:(BOOL)coming;
 - (void)delegateDidSecure;
 - (void)delegateDidSendData:(id)data userInfo:(id)info;
 - (void)delegateDidSendDataWithStream:(id)stream userInfo:(id)info;
@@ -31,6 +33,7 @@
 - (void)enqueueSendContext:(id)context;
 - (void)messageParser:(id)parser didParseRequestData:(id)data;
 - (void)messageParser:(id)parser didParseRequestWithURL:(id)l;
+- (void)messageParser:(id)parser didParseResponseData:(id)data moreComing:(BOOL)coming;
 - (void)open;
 - (void)scheduleStreams;
 - (void)secureUsingClientIdentity:(__SecIdentity *)identity trustedCertificates:(id)certificates;
@@ -174,8 +177,7 @@ LABEL_3:
     mStreamEventQueue = v13->mStreamEventQueue;
     v13->mStreamEventQueue = v18;
 
-    [(CATSerialOperationQueue *)v13->mStreamEventQueue setName:@"Stream Event Queue"];
-    v20 = CATGetCatalystQueue();
+    v20 = CATGetCatalystQueue([(CATSerialOperationQueue *)v13->mStreamEventQueue setName:@"Stream Event Queue"]);
     [(CATOperationQueue *)v13->mStreamEventQueue setUnderlyingQueue:v20];
 
     [(CATSerialOperationQueue *)v13->mStreamEventQueue setSuspended:1];
@@ -225,7 +227,7 @@ LABEL_3:
 - (void)secureUsingClientIdentity:(__SecIdentity *)identity trustedCertificates:(id)certificates
 {
   certificatesCopy = certificates;
-  v6 = CATGetCatalystQueue();
+  v6 = CATGetCatalystQueue(certificatesCopy);
   CATAssertIsQueue(v6);
 
   [(CATRemoteConnection *)self secureUsingIdentity:identity trustedCertificates:certificatesCopy isServer:0];
@@ -234,7 +236,7 @@ LABEL_3:
 - (void)secureUsingServerIdentity:(__SecIdentity *)identity trustedCertificates:(id)certificates
 {
   certificatesCopy = certificates;
-  v6 = CATGetCatalystQueue();
+  v6 = CATGetCatalystQueue(certificatesCopy);
   CATAssertIsQueue(v6);
 
   [(CATRemoteConnection *)self secureUsingIdentity:identity trustedCertificates:certificatesCopy isServer:1];
@@ -260,8 +262,8 @@ void __27__CATRemoteConnection_open__block_invoke(uint64_t a1)
 
 - (void)close
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v3 = CATGetCatalystQueue();
+  v26 = *MEMORY[0x277D85DE8];
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   mState = self->mState;
@@ -301,27 +303,27 @@ void __27__CATRemoteConnection_open__block_invoke(uint64_t a1)
     self->mMessageParser = 0;
 
     self->mState = 4;
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v12 = self->mPendingSendContexts;
-    v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v23;
+      v15 = *v22;
       do
       {
         v16 = 0;
         do
         {
-          if (*v23 != v15)
+          if (*v22 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v22 + 1) + 8 * v16);
+          v17 = *(*(&v21 + 1) + 8 * v16);
           v18 = CATErrorWithCodeAndUserInfo(100, 0);
           [(CATRemoteConnection *)self sendDidFail:v17 withError:v18];
 
@@ -329,7 +331,7 @@ void __27__CATRemoteConnection_open__block_invoke(uint64_t a1)
         }
 
         while (v14 != v16);
-        v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v14);
@@ -338,31 +340,29 @@ void __27__CATRemoteConnection_open__block_invoke(uint64_t a1)
     [(CATSerialOperationQueue *)self->mStreamEventQueue cancelAllOperations];
     [(CATSerialOperationQueue *)self->mStreamEventQueue setSuspended:0];
     [(NSMutableArray *)self->mPendingSendContexts removeAllObjects];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __28__CATRemoteConnection_close__block_invoke;
-    v21[3] = &unk_278DA72D0;
-    v21[4] = self;
-    v19 = [MEMORY[0x277CCA8C8] blockOperationWithBlock:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __28__CATRemoteConnection_close__block_invoke;
+    v20[3] = &unk_278DA72D0;
+    v20[4] = self;
+    v19 = [MEMORY[0x277CCA8C8] blockOperationWithBlock:v20];
     [v19 setName:@"Connection did close"];
     [(CATSerialOperationQueue *)self->mStreamEventQueue addOperation:v19];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleStreams
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   [(CATSerialOperationQueue *)self->mStreamEventQueue setSuspended:0];
   inputStream = [(CATRemoteConnection *)self inputStream];
-  v5 = CATGetCatalystQueue();
+  v5 = CATGetCatalystQueue(inputStream);
   MEMORY[0x245D2EE20](inputStream, v5);
 
   outputStream = [(CATRemoteConnection *)self outputStream];
-  v7 = CATGetCatalystQueue();
+  v7 = CATGetCatalystQueue(outputStream);
   MEMORY[0x245D2EE70](outputStream, v7);
 
   inputStream2 = [(CATRemoteConnection *)self inputStream];
@@ -417,7 +417,7 @@ LABEL_7:
 
 - (void)unscheduleStreams
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   [(CATSerialOperationQueue *)self->mStreamEventQueue setSuspended:1];
@@ -428,11 +428,96 @@ LABEL_7:
   MEMORY[0x245D2EE70](outputStream, 0);
 }
 
+- (BOOL)secureUsingIdentity:(__SecIdentity *)identity trustedCertificates:(id)certificates isServer:(BOOL)server
+{
+  serverCopy = server;
+  v30[1] = *MEMORY[0x277D85DE8];
+  certificatesCopy = certificates;
+  v9 = CATGetCatalystQueue(certificatesCopy);
+  CATAssertIsQueue(v9);
+
+  if (!identity)
+  {
+    [CATRemoteConnection secureUsingIdentity:trustedCertificates:isServer:];
+  }
+
+  if (self->mState == 4)
+  {
+    [CATRemoteConnection secureUsingIdentity:trustedCertificates:isServer:];
+  }
+
+  inputStream = [(CATRemoteConnection *)self inputStream];
+  v11 = *MEMORY[0x277CBAE68];
+  v12 = [inputStream propertyForKey:*MEMORY[0x277CBAE68]];
+  v13 = v12;
+  v14 = MEMORY[0x277CBEC10];
+  if (v12)
+  {
+    v14 = v12;
+  }
+
+  v15 = v14;
+
+  v16 = objc_opt_new();
+  null = [MEMORY[0x277CBEB68] null];
+  [v16 setObject:null forKeyedSubscript:*MEMORY[0x277CBAEC8]];
+
+  [v16 addEntriesFromDictionary:v15];
+  [v16 setObject:*MEMORY[0x277CBAEE0] forKeyedSubscript:*MEMORY[0x277CBAEB0]];
+  v30[0] = identity;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+  [v16 setObject:v18 forKeyedSubscript:*MEMORY[0x277CBAE98]];
+
+  v19 = [MEMORY[0x277CCABB0] numberWithInt:certificatesCopy == 0];
+  [v16 setObject:v19 forKeyedSubscript:*MEMORY[0x277CBAED0]];
+
+  v20 = [MEMORY[0x277CCABB0] numberWithBool:serverCopy];
+  [v16 setObject:v20 forKeyedSubscript:*MEMORY[0x277CBAEA8]];
+
+  mTrustedCertificates = self->mTrustedCertificates;
+  self->mTrustedCertificates = certificatesCopy;
+
+  inputStream2 = [(CATRemoteConnection *)self inputStream];
+  -[CATRemoteConnection setUsesSSL:](self, "setUsesSSL:", [inputStream2 setProperty:v16 forKey:v11]);
+
+  usesSSL = [(CATRemoteConnection *)self usesSSL];
+  usesSSL2 = [(CATRemoteConnection *)self usesSSL];
+  if (!certificatesCopy || !usesSSL2 || !serverCopy)
+  {
+    if (usesSSL)
+    {
+      goto LABEL_11;
+    }
+
+LABEL_13:
+    v28 = CATErrorWithCodeAndUserInfo(107, 0);
+    [(CATRemoteConnection *)self connectionDidInterruptWithError:v28];
+
+    v27 = 0;
+    goto LABEL_14;
+  }
+
+  inputStream3 = [(CATRemoteConnection *)self inputStream];
+  v26 = [inputStream3 setProperty:&unk_28560C240 forKey:*MEMORY[0x277CBACA8]];
+
+  if ((v26 & 1) == 0)
+  {
+    goto LABEL_13;
+  }
+
+LABEL_11:
+  [(CATRemoteConnection *)self delegateWillSecure];
+  v27 = 1;
+LABEL_14:
+
+  return v27;
+}
+
 - (void)tryEvaluatingPeerTrustWithStream:(id)stream
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
-  v5 = CATGetCatalystQueue();
+  v5 = CATGetCatalystQueue(streamCopy);
   CATAssertIsQueue(v5);
 
   v6 = [streamCopy propertyForKey:*MEMORY[0x277CBAE60]];
@@ -488,14 +573,14 @@ LABEL_14:
           [(CATRemoteConnection *)self delegateDidSecure];
 LABEL_20:
 
-          goto LABEL_21;
+          return;
         case kSecTrustResultRecoverableTrustFailure:
           self->mPeerTrustState = 3;
           v15 = [[CATRemoteConnectionTrustDecision alloc] initWithConnection:self trust:v6];
           delegate = [(CATRemoteConnection *)self delegate];
-          v18 = objc_opt_respondsToSelector();
+          v17 = objc_opt_respondsToSelector();
 
-          if (v18)
+          if (v17)
           {
             delegate2 = [(CATRemoteConnection *)self delegate];
             [delegate2 connection:self encounteredTrustDecisionWhileTryingToSecure:v15];
@@ -509,9 +594,9 @@ LABEL_20:
 
     if (v8)
     {
-      v21 = *MEMORY[0x277CCA7E8];
-      v22 = v8;
-      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+      v20 = *MEMORY[0x277CCA7E8];
+      v21 = v8;
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
       v15 = CATErrorWithCodeAndUserInfo(106, v14);
     }
 
@@ -526,9 +611,6 @@ LABEL_19:
 
     goto LABEL_20;
   }
-
-LABEL_21:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (int)applyCustomEvaluationPoliciesToTrust:(__SecTrust *)trust
@@ -556,7 +638,7 @@ LABEL_21:
   connectionCopy = connection;
   v5[4] = self;
   v3 = v5;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(v3);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __CATPerformBlock_block_invoke_5;
@@ -589,7 +671,7 @@ void __85__CATRemoteConnection_trustDecisionDidRespondWithDecisionToAllowUntrust
 
 - (void)configureStreamSocketOptions
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   inputStream = [(CATRemoteConnection *)self inputStream];
@@ -624,75 +706,10 @@ void __85__CATRemoteConnection_trustDecisionDidRespondWithDecisionToAllowUntrust
     v35 = intValue;
     if (intValue >= 1)
     {
-      if (setsockopt(*buffer, 0xFFFF, 8, &v35, 4u) < 0)
+      if (setsockopt(*buffer, 0xFFFF, 8, &v35, 4u) < 0 || (-[CATRemoteConnection socketOptions](self, "socketOptions"), v13 = objc_claimAutoreleasedReturnValue(), [v13 keepAliveDelay], v14 = objc_claimAutoreleasedReturnValue(), v14, v13, v14) && (-[CATRemoteConnection socketOptions](self, "socketOptions"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "keepAliveDelay"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v16, "intValue"), v16, v15, v34 = v17, setsockopt(*buffer, 6, 16, &v34, 4u) < 0) || (-[CATRemoteConnection socketOptions](self, "socketOptions"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "keepAliveInterval"), v19 = objc_claimAutoreleasedReturnValue(), v19, v18, v19) && (-[CATRemoteConnection socketOptions](self, "socketOptions"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "keepAliveInterval"), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v21, "intValue"), v21, v20, v34 = v22, setsockopt(*buffer, 6, 257, &v34, 4u) < 0) || (-[CATRemoteConnection socketOptions](self, "socketOptions"), v23 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v23, "keepAliveCount"), v24 = objc_claimAutoreleasedReturnValue(), v24, v23, v24) && (-[CATRemoteConnection socketOptions](self, "socketOptions"), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v25, "keepAliveCount"), v26 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend(v26, "intValue"), v26, v25, v34 = v27, setsockopt(*buffer, 6, 258, &v34, 4u) < 0) || (-[CATRemoteConnection socketOptions](self, "socketOptions"), v28 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v28, "netServiceType"), v29 = objc_claimAutoreleasedReturnValue(), v29, v28, v29) && (-[CATRemoteConnection socketOptions](self, "socketOptions"), v30 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v30, "netServiceType"), v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend(v31, "intValue"), v31, v30, v34 = v32, setsockopt(*buffer, 0xFFFF, 4374, &v34, 4u) < 0))
       {
-        goto LABEL_16;
-      }
-
-      socketOptions2 = [(CATRemoteConnection *)self socketOptions];
-      keepAliveDelay = [socketOptions2 keepAliveDelay];
-
-      if (keepAliveDelay)
-      {
-        socketOptions3 = [(CATRemoteConnection *)self socketOptions];
-        keepAliveDelay2 = [socketOptions3 keepAliveDelay];
-        intValue2 = [keepAliveDelay2 intValue];
-
-        v34 = intValue2;
-        if (setsockopt(*buffer, 6, 16, &v34, 4u) < 0)
-        {
-          goto LABEL_16;
-        }
-      }
-
-      socketOptions4 = [(CATRemoteConnection *)self socketOptions];
-      keepAliveInterval = [socketOptions4 keepAliveInterval];
-
-      if (keepAliveInterval)
-      {
-        socketOptions5 = [(CATRemoteConnection *)self socketOptions];
-        keepAliveInterval2 = [socketOptions5 keepAliveInterval];
-        intValue3 = [keepAliveInterval2 intValue];
-
-        v34 = intValue3;
-        if (setsockopt(*buffer, 6, 257, &v34, 4u) < 0)
-        {
-          goto LABEL_16;
-        }
-      }
-
-      socketOptions6 = [(CATRemoteConnection *)self socketOptions];
-      keepAliveCount = [socketOptions6 keepAliveCount];
-
-      if (keepAliveCount)
-      {
-        socketOptions7 = [(CATRemoteConnection *)self socketOptions];
-        keepAliveCount2 = [socketOptions7 keepAliveCount];
-        intValue4 = [keepAliveCount2 intValue];
-
-        v34 = intValue4;
-        if (setsockopt(*buffer, 6, 258, &v34, 4u) < 0)
-        {
-          goto LABEL_16;
-        }
-      }
-
-      socketOptions8 = [(CATRemoteConnection *)self socketOptions];
-      netServiceType = [socketOptions8 netServiceType];
-
-      if (netServiceType)
-      {
-        socketOptions9 = [(CATRemoteConnection *)self socketOptions];
-        netServiceType2 = [socketOptions9 netServiceType];
-        intValue5 = [netServiceType2 intValue];
-
-        v34 = intValue5;
-        if (setsockopt(*buffer, 0xFFFF, 4374, &v34, 4u) < 0)
-        {
-LABEL_16:
-          v33 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:*__error() userInfo:0];
-          [(CATRemoteConnection *)self connectionDidInterruptWithError:v33];
-        }
+        v33 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:*__error() userInfo:0];
+        [(CATRemoteConnection *)self connectionDidInterruptWithError:v33];
       }
     }
   }
@@ -700,7 +717,7 @@ LABEL_16:
 
 - (void)connectionTimedOut
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   v4 = CATErrorWithCodeAndUserInfo(105, 0);
@@ -709,7 +726,7 @@ LABEL_16:
 
 - (void)connectionShouldSendData
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   lastObject = [(NSMutableArray *)self->mPendingSendContexts lastObject];
@@ -753,7 +770,7 @@ LABEL_8:
 - (void)enqueueSendContext:(id)context
 {
   contextCopy = context;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(contextCopy);
   CATAssertIsQueue(v4);
 
   mState = self->mState;
@@ -808,14 +825,14 @@ LABEL_16:
 
 - (BOOL)trySendingDataWithContext:(id)context error:(id *)error
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v7 = CATGetCatalystQueue();
+  v7 = CATGetCatalystQueue(contextCopy);
   CATAssertIsQueue(v7);
 
-  v28 = 0;
-  v8 = [contextCopy bufferedDataWithError:&v28];
-  v9 = v28;
+  v27 = 0;
+  v8 = [contextCopy bufferedDataWithError:&v27];
+  v9 = v27;
   if ([v8 length])
   {
     while (1)
@@ -842,12 +859,12 @@ LABEL_16:
         streamError = [outputStream3 streamError];
         if (streamError)
         {
-          v31 = *MEMORY[0x277CCA7E8];
+          v30 = *MEMORY[0x277CCA7E8];
           outputStream4 = [(CATRemoteConnection *)self outputStream];
           streamError2 = [outputStream4 streamError];
-          v32[0] = streamError2;
-          v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
-          v18 = CATErrorWithCodeAndUserInfo(102, v26);
+          v31[0] = streamError2;
+          v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+          v18 = CATErrorWithCodeAndUserInfo(102, v25);
         }
 
         else
@@ -864,9 +881,9 @@ LABEL_16:
       }
 
       [contextCopy setBytesWritten:{objc_msgSend(contextCopy, "bytesWritten") + v13}];
-      v27 = v9;
-      v14 = [contextCopy bufferedDataWithError:&v27];
-      v15 = v27;
+      v26 = v9;
+      v14 = [contextCopy bufferedDataWithError:&v26];
+      v15 = v26;
 
       if ([contextCopy clientBytesWritten])
       {
@@ -900,9 +917,9 @@ LABEL_8:
 LABEL_11:
     if (v15)
     {
-      v29 = *MEMORY[0x277CCA7E8];
-      v30 = v15;
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+      v28 = *MEMORY[0x277CCA7E8];
+      v29 = v15;
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
       v18 = CATErrorWithCodeAndUserInfo(102, v17);
     }
 
@@ -927,14 +944,13 @@ LABEL_16:
     v15 = v9;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (void)sendDidSucceed:(id)succeed
 {
   succeedCopy = succeed;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(succeedCopy);
   CATAssertIsQueue(v4);
 
   objc_opt_class();
@@ -957,7 +973,7 @@ LABEL_16:
 {
   failCopy = fail;
   errorCopy = error;
-  v7 = CATGetCatalystQueue();
+  v7 = CATGetCatalystQueue(errorCopy);
   CATAssertIsQueue(v7);
 
   objc_opt_class();
@@ -978,7 +994,7 @@ LABEL_16:
 
 - (void)connectionDidReceiveData
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   inputStream = [(CATRemoteConnection *)self inputStream];
@@ -1013,9 +1029,9 @@ LABEL_16:
 
 - (void)connectionDidInterruptWithError:(id)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v6 = CATGetCatalystQueue();
+  v6 = CATGetCatalystQueue(errorCopy);
   CATAssertIsQueue(v6);
 
   if (!errorCopy)
@@ -1040,31 +1056,31 @@ LABEL_16:
       self->mConnectionTimeoutTimer = 0;
     }
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v10 = self->mPendingSendContexts;
-    v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v17;
+      v13 = *v16;
       do
       {
         v14 = 0;
         do
         {
-          if (*v17 != v13)
+          if (*v16 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          [(CATRemoteConnection *)self sendDidFail:*(*(&v16 + 1) + 8 * v14++) withError:errorCopy, v16];
+          [(CATRemoteConnection *)self sendDidFail:*(*(&v15 + 1) + 8 * v14++) withError:errorCopy, v15];
         }
 
         while (v12 != v14);
-        v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v12);
@@ -1073,8 +1089,6 @@ LABEL_16:
     [(NSMutableArray *)self->mPendingSendContexts removeAllObjects];
     [(CATRemoteConnection *)self delegateDidInterruptWithError:errorCopy];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)delegateWillSecure
@@ -1105,7 +1119,7 @@ LABEL_16:
 {
   dataCopy = data;
   infoCopy = info;
-  v7 = CATGetCatalystQueue();
+  v7 = CATGetCatalystQueue(infoCopy);
   CATAssertIsQueue(v7);
 
   delegate = [(CATRemoteConnection *)self delegate];
@@ -1123,7 +1137,7 @@ LABEL_16:
   dataCopy = data;
   infoCopy = info;
   errorCopy = error;
-  v10 = CATGetCatalystQueue();
+  v10 = CATGetCatalystQueue(errorCopy);
   CATAssertIsQueue(v10);
 
   delegate = [(CATRemoteConnection *)self delegate];
@@ -1139,7 +1153,7 @@ LABEL_16:
 - (void)delegateDidReceiveData:(id)data
 {
   dataCopy = data;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(dataCopy);
   CATAssertIsQueue(v4);
 
   delegate = [(CATRemoteConnection *)self delegate];
@@ -1155,7 +1169,7 @@ LABEL_16:
 - (void)delegateDidReceiveDataRequestWithURL:(id)l
 {
   lCopy = l;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(lCopy);
   CATAssertIsQueue(v4);
 
   delegate = [(CATRemoteConnection *)self delegate];
@@ -1171,7 +1185,7 @@ LABEL_16:
 - (void)delegateDidWriteDataForContextIfNeeded:(id)needed
 {
   neededCopy = needed;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(neededCopy);
   CATAssertIsQueue(v4);
 
   objc_opt_class();
@@ -1191,7 +1205,7 @@ LABEL_16:
 {
   streamCopy = stream;
   infoCopy = info;
-  v11 = CATGetCatalystQueue();
+  v11 = CATGetCatalystQueue(infoCopy);
   CATAssertIsQueue(v11);
 
   delegate = [(CATRemoteConnection *)self delegate];
@@ -1208,7 +1222,7 @@ LABEL_16:
 {
   streamCopy = stream;
   infoCopy = info;
-  v7 = CATGetCatalystQueue();
+  v7 = CATGetCatalystQueue(infoCopy);
   CATAssertIsQueue(v7);
 
   delegate = [(CATRemoteConnection *)self delegate];
@@ -1226,7 +1240,7 @@ LABEL_16:
   streamCopy = stream;
   infoCopy = info;
   errorCopy = error;
-  v10 = CATGetCatalystQueue();
+  v10 = CATGetCatalystQueue(errorCopy);
   CATAssertIsQueue(v10);
 
   delegate = [(CATRemoteConnection *)self delegate];
@@ -1239,9 +1253,26 @@ LABEL_16:
   }
 }
 
+- (void)delegateDidReceiveStreamData:(id)data moreComing:(BOOL)coming
+{
+  comingCopy = coming;
+  dataCopy = data;
+  v6 = CATGetCatalystQueue(dataCopy);
+  CATAssertIsQueue(v6);
+
+  delegate = [(CATRemoteConnection *)self delegate];
+  v8 = objc_opt_respondsToSelector();
+
+  if (v8)
+  {
+    delegate2 = [(CATRemoteConnection *)self delegate];
+    [delegate2 connection:self didReceiveStreamData:dataCopy moreComing:comingCopy];
+  }
+}
+
 - (void)delegateDidOpen
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   delegate = [(CATRemoteConnection *)self delegate];
@@ -1256,7 +1287,7 @@ LABEL_16:
 
 - (void)delegateDidClose
 {
-  v3 = CATGetCatalystQueue();
+  v3 = CATGetCatalystQueue(self);
   CATAssertIsQueue(v3);
 
   delegate = [(CATRemoteConnection *)self delegate];
@@ -1272,7 +1303,7 @@ LABEL_16:
 - (void)delegateDidInterruptWithError:(id)error
 {
   errorCopy = error;
-  v4 = CATGetCatalystQueue();
+  v4 = CATGetCatalystQueue(errorCopy);
   CATAssertIsQueue(v4);
 
   delegate = [(CATRemoteConnection *)self delegate];
@@ -1288,7 +1319,7 @@ LABEL_16:
 - (void)messageParser:(id)parser didParseRequestData:(id)data
 {
   dataCopy = data;
-  v5 = CATGetCatalystQueue();
+  v5 = CATGetCatalystQueue(dataCopy);
   CATAssertIsQueue(v5);
 
   if (self->mState != 4)
@@ -1297,10 +1328,23 @@ LABEL_16:
   }
 }
 
+- (void)messageParser:(id)parser didParseResponseData:(id)data moreComing:(BOOL)coming
+{
+  comingCopy = coming;
+  dataCopy = data;
+  v7 = CATGetCatalystQueue(dataCopy);
+  CATAssertIsQueue(v7);
+
+  if (self->mState != 4)
+  {
+    [(CATRemoteConnection *)self delegateDidReceiveStreamData:dataCopy moreComing:comingCopy];
+  }
+}
+
 - (void)messageParser:(id)parser didParseRequestWithURL:(id)l
 {
   lCopy = l;
-  v5 = CATGetCatalystQueue();
+  v5 = CATGetCatalystQueue(lCopy);
   CATAssertIsQueue(v5);
 
   if (self->mState != 4)
@@ -1321,7 +1365,7 @@ LABEL_16:
   eventCopy = event;
   v7 = v11;
   v8 = streamCopy;
-  v9 = CATGetCatalystQueue();
+  v9 = CATGetCatalystQueue(v8);
   v10 = v7;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -1362,9 +1406,9 @@ void *__42__CATRemoteConnection_stream_handleEvent___block_invoke_2(void *a1)
 
 - (void)_stream:(id)_stream handleEvent:(unint64_t)event
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   _streamCopy = _stream;
-  v7 = CATGetCatalystQueue();
+  v7 = CATGetCatalystQueue(_streamCopy);
   CATAssertIsQueue(v7);
 
   if (event <= 3)
@@ -1426,11 +1470,11 @@ void *__42__CATRemoteConnection_stream_handleEvent___block_invoke_2(void *a1)
 
         if (inputStream2 == _streamCopy)
         {
-          v21 = *MEMORY[0x277CCA7E8];
+          v20 = *MEMORY[0x277CCA7E8];
           inputStream = [(CATRemoteConnection *)self inputStream];
           streamError = [inputStream streamError];
-          v22[0] = streamError;
-          v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+          v21[0] = streamError;
+          v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
           v14 = 101;
         }
 
@@ -1443,11 +1487,11 @@ void *__42__CATRemoteConnection_stream_handleEvent___block_invoke_2(void *a1)
             break;
           }
 
-          v19 = *MEMORY[0x277CCA7E8];
+          v18 = *MEMORY[0x277CCA7E8];
           inputStream = [(CATRemoteConnection *)self outputStream];
           streamError = [inputStream streamError];
-          v20 = streamError;
-          v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+          v19 = streamError;
+          v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
           v14 = 102;
         }
 
@@ -1468,8 +1512,6 @@ LABEL_30:
         break;
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (CATRemoteConnectionDelegate)delegate

@@ -6,17 +6,21 @@
 - (id)data;
 - (id)description;
 - (id)getField:(int)field;
+- (id)mutableFieldForNumber:(int)number create:(BOOL)create;
 - (id)sortedFields;
 - (unint64_t)countOfFields;
 - (unint64_t)hash;
 - (unint64_t)serializedSize;
 - (unint64_t)serializedSizeAsMessageSet;
 - (void)addField:(id)field;
+- (void)addUnknownMapEntry:(int)entry value:(id)value;
 - (void)dealloc;
 - (void)getTags:(int *)tags;
 - (void)mergeFromCodedInputStream:(id)stream;
 - (void)mergeFromData:(id)data;
+- (void)mergeMessageSetMessage:(int)message data:(id)data;
 - (void)mergeUnknownFields:(id)fields;
+- (void)mergeVarintField:(int)field value:(int)value;
 - (void)writeAsMessageSetTo:(id)to;
 - (void)writeToCodedOutputStream:(id)stream;
 @end
@@ -290,6 +294,34 @@
   CFDictionarySetValue(fields, number, field);
 }
 
+- (id)mutableFieldForNumber:(int)number create:(BOOL)create
+{
+  createCopy = create;
+  v5 = *&number;
+  fields = self->fields_;
+  if (fields)
+  {
+    Value = CFDictionaryGetValue(fields, number);
+    if (Value)
+    {
+      return Value;
+    }
+  }
+
+  else
+  {
+    Value = 0;
+  }
+
+  if (createCopy)
+  {
+    Value = [[GPBUnknownField alloc] initWithNumber:v5];
+    [(GPBUnknownFieldSet *)self addField:Value];
+  }
+
+  return Value;
+}
+
 - (void)mergeUnknownFields:(id)fields
 {
   if (fields)
@@ -307,6 +339,19 @@
   v4 = [[GPBCodedInputStream alloc] initWithData:data];
   [(GPBUnknownFieldSet *)self mergeFromCodedInputStream:v4];
   [(GPBCodedInputStream *)v4 checkLastTagWas:0];
+}
+
+- (void)mergeVarintField:(int)field value:(int)value
+{
+  v5 = *&field;
+  if (!field)
+  {
+    [NSException raise:NSInvalidArgumentException format:@"Zero is not a valid field number."];
+  }
+
+  v7 = [(GPBUnknownFieldSet *)self mutableFieldForNumber:v5 create:1];
+
+  [v7 addVarint:value];
 }
 
 - (BOOL)mergeFieldFrom:(int)from input:(id)input
@@ -362,6 +407,20 @@
   }
 
   return v10;
+}
+
+- (void)mergeMessageSetMessage:(int)message data:(id)data
+{
+  v5 = [(GPBUnknownFieldSet *)self mutableFieldForNumber:*&message create:1];
+
+  [v5 addLengthDelimited:data];
+}
+
+- (void)addUnknownMapEntry:(int)entry value:(id)value
+{
+  v5 = [(GPBUnknownFieldSet *)self mutableFieldForNumber:*&entry create:1];
+
+  [v5 addLengthDelimited:value];
 }
 
 - (void)mergeFromCodedInputStream:(id)stream

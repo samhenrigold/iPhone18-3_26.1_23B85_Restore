@@ -192,14 +192,14 @@ LABEL_16:
     v29 = minus2Copy;
     if (calcTransform)
     {
-      [(CalcHomography *)calcTransform ispHomographyFromMetaInfo:infoCopy];
+      objc_msgSend_ispHomographyFromMetaInfo_(calcTransform);
       v31 = self->_calcTransform;
       v32 = v87;
       v33 = v88;
       v34 = v89;
       if (v31)
       {
-        [(CalcHomography *)v31 ispHomographyFromMetaInfo:tPlusOrMinus1Copy];
+        objc_msgSend_ispHomographyFromMetaInfo_(v31);
         v33 = v88;
         v32 = v87;
         v34 = v89;
@@ -255,12 +255,12 @@ LABEL_12:
   v29 = minus2Copy;
   if (calcTransform)
   {
-    [(CalcHomography *)calcTransform ispHomographyFromMetaInfo:tPlusOrMinus1Copy];
+    objc_msgSend_ispHomographyFromMetaInfo_(calcTransform);
     v38 = self->_calcTransform;
     v39 = v81;
     if (v38)
     {
-      [(CalcHomography *)v38 ispHomographyFromMetaInfo:tPlusOrMinus2Copy];
+      objc_msgSend_ispHomographyFromMetaInfo_(v38);
       v39 = v81;
       v40 = v77;
       v41 = v78;

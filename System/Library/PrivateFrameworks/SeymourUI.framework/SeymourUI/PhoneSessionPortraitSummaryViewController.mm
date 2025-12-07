@@ -24,14 +24,14 @@
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for PhoneSessionPortraitSummaryViewController();
+  v9 = type metadata accessor for PhoneSessionPortraitSummaryViewController(0);
   v12.receiver = self;
   v12.super_class = v9;
   selfCopy = self;
   [(PhoneSessionPortraitSummaryViewController *)&v12 viewDidAppear:appearCopy];
   v11[1] = selfCopy;
   sub_20BFB4810(v8);
-  sub_20BE0D2EC(&qword_27C76F530, type metadata accessor for PhoneSessionPortraitSummaryViewController);
+  sub_20BE0D2EC(&qword_27C76F530, type metadata accessor for PhoneSessionPortraitSummaryViewController, &unk_20C17F248);
   sub_20C138C54();
   (*(v6 + 8))(v8, v5);
 }
@@ -53,7 +53,7 @@
   selfCopy = self;
   sub_20BE0B3B0();
   v3.receiver = selfCopy;
-  v3.super_class = type metadata accessor for PhoneSessionPortraitSummaryViewController();
+  v3.super_class = type metadata accessor for PhoneSessionPortraitSummaryViewController(0);
   [(PhoneSessionPortraitSummaryViewController *)&v3 updateViewConstraints];
 }
 
@@ -73,7 +73,7 @@
 
 - (uint64_t)handleGuidedRunButtonTapped
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7617F0);
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7617F0, &unk_20C151A10);
   MEMORY[0x28223BE20](v0 - 8);
   v2 = &v11 - v1;
   v3 = sub_20C132C14();
@@ -84,7 +84,7 @@
   sub_20C0930CC(v2);
   if ((*(v4 + 48))(v2, 1, v3) == 1)
   {
-    return sub_20B520158(v2, &unk_27C7617F0);
+    return sub_20B520158(v2, &unk_27C7617F0, &unk_20C151A10);
   }
 
   (*(v4 + 32))(v6, v2, v3);

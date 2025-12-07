@@ -9,16 +9,13 @@ uint64_t __routingContextResilientRemote_SendCommand_block_invoke(void *a1, uint
   v4 = a1[5];
   v5 = a1[6];
   v6 = a1[7];
-  VTable = CMBaseObjectGetVTable();
-  v8 = *(*(VTable + 16) + 136);
-  if (!v8)
+  v7 = *(*(CMBaseObjectGetVTable() + 16) + 136);
+  if (!v7)
   {
     return 4294954514;
   }
 
-  v9 = *(VTable + 16) + 136;
-
-  return v8(a2, v3, v4, v5, v6);
+  return v7(a2, v3, v4, v5, v6);
 }
 
 void __routingContext_SendCommand_block_invoke(uint64_t a1)
@@ -74,16 +71,13 @@ uint64_t __endpointAggregate_SendCommand_block_invoke(void *a1, uint64_t a2)
   v5 = a1[5];
   v6 = a1[6];
   v7 = a1[7];
-  VTable = CMBaseObjectGetVTable();
-  v9 = *(*(VTable + 24) + 72);
-  if (!v9)
+  v8 = *(*(CMBaseObjectGetVTable() + 24) + 72);
+  if (!v8)
   {
     return 4294954514;
   }
 
-  v10 = *(VTable + 24) + 72;
-
-  return v9(v3, v4, v5, v6, v7);
+  return v8(v3, v4, v5, v6, v7);
 }
 
 @end

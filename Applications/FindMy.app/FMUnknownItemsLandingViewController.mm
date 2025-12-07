@@ -56,7 +56,7 @@
 - (void)viewLayoutMarginsDidChange
 {
   selfCopy = self;
-  sub_10027F63C();
+  sub_10027F63C(selfCopy, v2);
 }
 
 - (void)traitCollectionDidChange:(id)change

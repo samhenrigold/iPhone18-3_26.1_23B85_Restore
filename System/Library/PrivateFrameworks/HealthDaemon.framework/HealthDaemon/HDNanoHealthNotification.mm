@@ -93,32 +93,29 @@
 
 void __47__HDNanoHealthNotification_triggerNotification__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v5 = a3;
+  v16 = *MEMORY[0x277D85DE8];
+  v4 = a3;
   _HKInitializeLogging();
-  v6 = *MEMORY[0x277CCC300];
+  v5 = *MEMORY[0x277CCC300];
   if (os_log_type_enabled(*MEMORY[0x277CCC300], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 32);
-    v8 = v6;
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
-    v11 = @"NO";
-    v13 = 138412802;
-    v14 = v10;
-    v15 = 2112;
+    v6 = v5;
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
+    v9 = @"NO";
+    v10 = 138412802;
+    v11 = v8;
+    v12 = 2112;
     if (a2)
     {
-      v11 = @"YES";
+      v9 = @"YES";
     }
 
-    v16 = v11;
-    v17 = 2112;
-    v18 = v5;
-    _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "Posted %@ with success %@, error: %@", &v13, 0x20u);
+    v13 = v9;
+    v14 = 2112;
+    v15 = v4;
+    _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "Posted %@ with success %@, error: %@", &v10, 0x20u);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

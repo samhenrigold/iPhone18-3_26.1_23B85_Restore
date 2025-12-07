@@ -10,8 +10,8 @@
 
 - (BOOL)_shouldSubsumeValveInOverallActiveState
 {
-  service = [(HFServiceItem *)self service];
-  v3 = [service hf_childServicesOfType:*MEMORY[0x277CD0F38]];
+  v2 = objc_msgSend_service(self, a2);
+  v3 = [v2 hf_childServicesOfType:*MEMORY[0x277CD0F38]];
   v4 = [v3 count] < 2;
 
   return v4;
@@ -27,8 +27,8 @@
 
   if (v6)
   {
-    service = [(HFServiceItem *)self service];
-    v8 = [service hf_childServicesOfType:*MEMORY[0x277CD0F38]];
+    v7 = objc_msgSend_service(self);
+    v8 = [v7 hf_childServicesOfType:*MEMORY[0x277CD0F38]];
     v9 = [v5 na_setByRemovingObjectsFromSet:v8];
 
     v5 = v9;
@@ -39,22 +39,22 @@
 
 - (id)createControlItemsWithOptions:(id)options
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB58];
   optionsCopy = options;
   v6 = [v4 set];
-  service = [(HFServiceItem *)self service];
-  hf_childServices = [service hf_childServices];
+  v7 = objc_msgSend_service(self);
+  hf_childServices = [v7 hf_childServices];
   v9 = [hf_childServices na_firstObjectPassingTest:&__block_literal_global_17];
 
   v10 = MEMORY[0x277CBEB58];
-  service2 = [(HFServiceItem *)self service];
-  v12 = [v10 setWithObject:service2];
+  v11 = objc_msgSend_service(self);
+  v12 = [v10 setWithObject:v11];
 
   [v12 na_safeAddObject:v9];
-  service3 = [(HFServiceItem *)self service];
+  v13 = objc_msgSend_service(self);
   v14 = *MEMORY[0x277CD0F38];
-  v15 = [service3 hf_childServicesOfType:*MEMORY[0x277CD0F38]];
+  v15 = [v13 hf_childServicesOfType:*MEMORY[0x277CD0F38]];
   [v12 unionSet:v15];
 
   if ([(HFFaucetServiceItem *)self _shouldSubsumeValveInOverallActiveState])
@@ -70,8 +70,8 @@
 
     v20 = [HFChildServiceControlItem alloc];
     valueSource = [(HFServiceItem *)self valueSource];
-    service4 = [(HFServiceItem *)self service];
-    v23 = [(HFChildServiceControlItem *)v20 initWithBaseValueSource:valueSource parentService:service4 childServiceFilter:v19 displayResults:0];
+    v22 = objc_msgSend_service(self);
+    v23 = [(HFChildServiceControlItem *)v20 initWithBaseValueSource:valueSource parentService:v22 childServiceFilter:v19 displayResults:0];
 
     [v6 na_safeAddObject:v23];
     v16 = 1;
@@ -79,23 +79,22 @@
 
   v24 = [(HFServiceItem *)self controlItemValueSourceForServices:v12];
   v25 = [HFFaucetActiveStateControlItem alloc];
-  v37 = @"title";
+  v36 = @"title";
   v26 = HFItemOptionalLocalizedString(@"HFControlTitleFaucetActive", optionsCopy);
-  v38[0] = v26;
-  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+  v37[0] = v26;
+  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
   v28 = [(HFFaucetActiveStateControlItem *)v25 initWithValueSource:v24 valveControlMode:v16 displayResults:v27];
   [v6 addObject:v28];
 
   v29 = [HFHeaterCoolerThresholdControlItem alloc];
-  v35 = @"title";
+  v34 = @"title";
   v30 = HFItemOptionalLocalizedString(@"HFControlTitleFaucetTemperature", optionsCopy);
 
-  v36 = v30;
-  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+  v35 = v30;
+  v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
   v32 = [(HFHeaterCoolerThresholdControlItem *)v29 initWithValueSource:v24 displayResults:v31];
 
   [v6 na_safeAddObject:v32];
-  v33 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

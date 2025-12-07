@@ -13,8 +13,10 @@
 - (void)transitItemReferenceDateUpdater:(id)updater didUpdateToReferenceDate:(id)date;
 - (void)transitUIReferenceTimeUpdated:(id)updated;
 - (void)updateTransitLineItemIfNeeded;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation MUTransitLineIncidentsViewController
@@ -236,9 +238,27 @@ LABEL_11:
   }
 }
 
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = MUTransitLineIncidentsViewController;
+  [(MUTransitLineIncidentsViewController *)&v5 viewDidDisappear:disappear];
+  itemUpdater = [(MUTransitLineIncidentsViewController *)self itemUpdater];
+  [itemUpdater setActive:0];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = MUTransitLineIncidentsViewController;
+  [(MUTransitLineIncidentsViewController *)&v5 viewWillAppear:appear];
+  itemUpdater = [(MUTransitLineIncidentsViewController *)self itemUpdater];
+  [itemUpdater setActive:1];
+}
+
 - (void)updateTransitLineItemIfNeeded
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   if (([(GEOTransitLineItem *)self->_lineItem isIncidentsTTLExpired]& 1) != 0 || ([(GEOTransitLineItem *)self->_lineItem hasIncidentComponent]& 1) == 0)
   {
     v3 = objc_alloc(MEMORY[0x1E696F280]);
@@ -249,53 +269,51 @@ LABEL_11:
     {
       objc_initWeak(&location, self);
       mEMORY[0x1E696F298] = [MEMORY[0x1E696F298] sharedService];
-      v14[0] = v5;
-      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+      v13[0] = v5;
+      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
       v8 = [mEMORY[0x1E696F298] ticketForTransitLines:v7 traits:0];
 
-      v10[0] = MEMORY[0x1E69E9820];
-      v10[1] = 3221225472;
-      v10[2] = __69__MUTransitLineIncidentsViewController_updateTransitLineItemIfNeeded__block_invoke;
-      v10[3] = &unk_1E8219FE0;
-      objc_copyWeak(&v12, &location);
-      v11 = v5;
-      [v8 submitWithHandler:v10 networkActivity:0];
+      v9[0] = MEMORY[0x1E69E9820];
+      v9[1] = 3221225472;
+      v9[2] = __69__MUTransitLineIncidentsViewController_updateTransitLineItemIfNeeded__block_invoke;
+      v9[3] = &unk_1E8219FE0;
+      objc_copyWeak(&v11, &location);
+      v10 = v5;
+      [v8 submitWithHandler:v9 networkActivity:0];
 
-      objc_destroyWeak(&v12);
+      objc_destroyWeak(&v11);
       objc_destroyWeak(&location);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __69__MUTransitLineIncidentsViewController_updateTransitLineItemIfNeeded__block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v23 = 0u;
-    v24 = 0u;
-    v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v22;
+      v8 = *v21;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v22 != v8)
+          if (*v21 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v21 + 1) + 8 * i);
+          v10 = *(*(&v20 + 1) + 8 * i);
           v11 = [v10 identifier];
           v12 = [v11 isEqual:*(a1 + 32)];
 
@@ -306,7 +324,7 @@ void __69__MUTransitLineIncidentsViewController_updateTransitLineItemIfNeeded__b
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
         if (v7)
         {
           continue;
@@ -336,8 +354,6 @@ LABEL_12:
       [v19 reloadData];
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)viewDidLoad

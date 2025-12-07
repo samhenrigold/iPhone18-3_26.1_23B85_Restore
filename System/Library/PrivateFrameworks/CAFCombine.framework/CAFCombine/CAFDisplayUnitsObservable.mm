@@ -1,5 +1,10 @@
 @interface CAFDisplayUnitsObservable
 - (NSString)description;
+- (void)displayUnitsService:(id)service didUpdateDistanceUnitRawValue:(unsigned __int16)value;
+- (void)displayUnitsService:(id)service didUpdateEnergyEfficiencyUnitRawValue:(unsigned __int16)value;
+- (void)displayUnitsService:(id)service didUpdateFuelEfficiencyUnitRawValue:(unsigned __int16)value;
+- (void)displayUnitsService:(id)service didUpdateSpeedUnitRawValue:(unsigned __int16)value;
+- (void)displayUnitsService:(id)service didUpdateTemperatureUnitRawValue:(unsigned __int16)value;
 - (void)serviceDidFinishGroupUpdate:(id)update;
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate;
 - (void)serviceDidUpdate:(id)update receivedAllValues:(BOOL)values;
@@ -16,6 +21,46 @@
   v6 = MEMORY[0x245D0A4C0](v3, v5);
 
   return v6;
+}
+
+- (void)displayUnitsService:(id)service didUpdateSpeedUnitRawValue:(unsigned __int16)value
+{
+  valueCopy = value;
+  serviceCopy = service;
+  selfCopy = self;
+  CAFDisplayUnitsObservable.displayUnitsService(_:didUpdateSpeedUnitRawValue:)(selfCopy, valueCopy);
+}
+
+- (void)displayUnitsService:(id)service didUpdateDistanceUnitRawValue:(unsigned __int16)value
+{
+  valueCopy = value;
+  serviceCopy = service;
+  selfCopy = self;
+  CAFDisplayUnitsObservable.displayUnitsService(_:didUpdateDistanceUnitRawValue:)(selfCopy, valueCopy);
+}
+
+- (void)displayUnitsService:(id)service didUpdateTemperatureUnitRawValue:(unsigned __int16)value
+{
+  valueCopy = value;
+  serviceCopy = service;
+  selfCopy = self;
+  CAFDisplayUnitsObservable.displayUnitsService(_:didUpdateTemperatureUnitRawValue:)(selfCopy, valueCopy);
+}
+
+- (void)displayUnitsService:(id)service didUpdateEnergyEfficiencyUnitRawValue:(unsigned __int16)value
+{
+  valueCopy = value;
+  serviceCopy = service;
+  selfCopy = self;
+  CAFDisplayUnitsObservable.displayUnitsService(_:didUpdateEnergyEfficiencyUnitRawValue:)(selfCopy, valueCopy);
+}
+
+- (void)displayUnitsService:(id)service didUpdateFuelEfficiencyUnitRawValue:(unsigned __int16)value
+{
+  valueCopy = value;
+  serviceCopy = service;
+  selfCopy = self;
+  CAFDisplayUnitsObservable.displayUnitsService(_:didUpdateFuelEfficiencyUnitRawValue:)(selfCopy, valueCopy);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

@@ -135,7 +135,6 @@
 
 - (id)additionalHeaderValues
 {
-  backingAccountInfoProvider = self->_backingAccountInfoProvider;
   if (objc_opt_respondsToSelector())
   {
     additionalHeaderValues = [(CoreDAVAccountInfoProvider *)self->_backingAccountInfoProvider additionalHeaderValues];
@@ -151,18 +150,16 @@
 
 - (void)clientTokenRequestedByServer
 {
-  backingAccountInfoProvider = self->_backingAccountInfoProvider;
   if (objc_opt_respondsToSelector())
   {
-    v4 = self->_backingAccountInfoProvider;
+    backingAccountInfoProvider = self->_backingAccountInfoProvider;
 
-    [(CoreDAVAccountInfoProvider *)v4 clientTokenRequestedByServer];
+    [(CoreDAVAccountInfoProvider *)backingAccountInfoProvider clientTokenRequestedByServer];
   }
 }
 
 - (id)clientToken
 {
-  backingAccountInfoProvider = self->_backingAccountInfoProvider;
   if (objc_opt_respondsToSelector())
   {
     clientToken = [(CoreDAVAccountInfoProvider *)self->_backingAccountInfoProvider clientToken];
@@ -178,7 +175,6 @@
 
 - (id)clientCertificateInfoProvider
 {
-  backingAccountInfoProvider = self->_backingAccountInfoProvider;
   if (objc_opt_respondsToSelector())
   {
     clientCertificateInfoProvider = [(CoreDAVAccountInfoProvider *)self->_backingAccountInfoProvider clientCertificateInfoProvider];
@@ -194,7 +190,6 @@
 
 - (id)oauthInfoProvider
 {
-  backingAccountInfoProvider = self->_backingAccountInfoProvider;
   if (objc_opt_respondsToSelector())
   {
     oauthInfoProvider = [(CoreDAVAccountInfoProvider *)self->_backingAccountInfoProvider oauthInfoProvider];
@@ -212,82 +207,77 @@
 {
   challengeCopy = challenge;
   handlerCopy = handler;
-  backingAccountInfoProvider = self->_backingAccountInfoProvider;
   if (objc_opt_respondsToSelector())
   {
-    v9 = [(CoreDAVAccountInfoProvider *)self->_backingAccountInfoProvider handleTrustChallenge:challengeCopy completionHandler:handlerCopy];
+    v8 = [(CoreDAVAccountInfoProvider *)self->_backingAccountInfoProvider handleTrustChallenge:challengeCopy completionHandler:handlerCopy];
   }
 
   else
   {
-    v10 = +[CoreDAVLogging sharedLogging];
-    v11 = [v10 logHandleForAccountInfoProvider:0];
-    v12 = v11;
-    if (v11 && os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v9 = +[CoreDAVLogging sharedLogging];
+    v10 = [v9 logHandleForAccountInfoProvider:0];
+    v11 = v10;
+    if (v10 && os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      *v14 = 0;
-      _os_log_impl(&dword_2452FB000, v12, OS_LOG_TYPE_INFO, "BackingAccountInfoProvider doesn't know how to handle a trust challenge, so we're just going to have to cancel.", v14, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_2452FB000, v11, OS_LOG_TYPE_INFO, "BackingAccountInfoProvider doesn't know how to handle a trust challenge, so we're just going to have to cancel.", v13, 2u);
     }
 
     handlerCopy[2](handlerCopy, 2, 0);
-    v9 = 0;
+    v8 = 0;
   }
 
-  return v9;
+  return v8;
 }
 
 - (BOOL)shouldRetryUnauthorizedTask:(id)task
 {
   taskCopy = task;
-  backingAccountInfoProvider = self->_backingAccountInfoProvider;
   if (objc_opt_respondsToSelector())
   {
-    v6 = [(CoreDAVAccountInfoProvider *)self->_backingAccountInfoProvider shouldRetryUnauthorizedTask:taskCopy];
+    v5 = [(CoreDAVAccountInfoProvider *)self->_backingAccountInfoProvider shouldRetryUnauthorizedTask:taskCopy];
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  return v6;
+  return v5;
 }
 
 - (BOOL)shouldTryRenewingCredential
 {
-  backingAccountInfoProvider = self->_backingAccountInfoProvider;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     return 0;
   }
 
-  v4 = self->_backingAccountInfoProvider;
+  backingAccountInfoProvider = self->_backingAccountInfoProvider;
 
-  return [(CoreDAVAccountInfoProvider *)v4 shouldTryRenewingCredential];
+  return [(CoreDAVAccountInfoProvider *)backingAccountInfoProvider shouldTryRenewingCredential];
 }
 
 - (BOOL)renewCredential
 {
-  backingAccountInfoProvider = self->_backingAccountInfoProvider;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     return 0;
   }
 
-  v4 = self->_backingAccountInfoProvider;
+  backingAccountInfoProvider = self->_backingAccountInfoProvider;
 
-  return [(CoreDAVAccountInfoProvider *)v4 renewCredential];
+  return [(CoreDAVAccountInfoProvider *)backingAccountInfoProvider renewCredential];
 }
 
 - (BOOL)handleAuthenticateAgainstProtectionSpace:(id)space
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   spaceCopy = space;
   authenticationMethod = [spaceCopy authenticationMethod];
-  backingAccountInfoProvider = self->_backingAccountInfoProvider;
   if (objc_opt_respondsToSelector())
   {
-    self = [(CoreDAVAccountInfoProvider *)self->_backingAccountInfoProvider handleAuthenticateAgainstProtectionSpace:spaceCopy];
+    v6 = [(CoreDAVAccountInfoProvider *)self->_backingAccountInfoProvider handleAuthenticateAgainstProtectionSpace:spaceCopy];
     v7 = +[CoreDAVLogging sharedLogging];
     v8 = [v7 logHandleForAccountInfoProvider:0];
     v9 = v8;
@@ -296,14 +286,14 @@
       goto LABEL_15;
     }
 
-    v10 = [MEMORY[0x277CCABB0] numberWithBool:self];
-    v16 = 138543618;
-    v17 = authenticationMethod;
-    v18 = 2114;
-    v19 = v10;
+    v10 = [MEMORY[0x277CCABB0] numberWithBool:v6];
+    v14 = 138543618;
+    v15 = authenticationMethod;
+    v16 = 2114;
+    v17 = v10;
     v11 = "_backingAccountInfoProvider: Can authenticate against protection space %{public}@? %{public}@";
 LABEL_14:
-    _os_log_impl(&dword_2452FB000, v9, OS_LOG_TYPE_INFO, v11, &v16, 0x16u);
+    _os_log_impl(&dword_2452FB000, v9, OS_LOG_TYPE_INFO, v11, &v14, 0x16u);
 
 LABEL_15:
     goto LABEL_16;
@@ -313,115 +303,107 @@ LABEL_15:
   {
     if ([authenticationMethod isEqualToString:*MEMORY[0x277CBAB00]] & 1) != 0 || (objc_msgSend(authenticationMethod, "isEqualToString:", *MEMORY[0x277CBAAE0]))
     {
-      self = 1;
+      v6 = 1;
     }
 
     else
     {
-      self = [authenticationMethod isEqualToString:*MEMORY[0x277CBAAE8]];
+      v6 = [authenticationMethod isEqualToString:*MEMORY[0x277CBAAE8]];
     }
 
     v7 = +[CoreDAVLogging sharedLogging];
-    v13 = [v7 logHandleForAccountInfoProvider:0];
-    v9 = v13;
-    if (!v13 || !os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v12 = [v7 logHandleForAccountInfoProvider:0];
+    v9 = v12;
+    if (!v12 || !os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       goto LABEL_15;
     }
 
-    v10 = [MEMORY[0x277CCABB0] numberWithBool:self];
-    v16 = 138543618;
-    v17 = authenticationMethod;
-    v18 = 2114;
-    v19 = v10;
+    v10 = [MEMORY[0x277CCABB0] numberWithBool:v6];
+    v14 = 138543618;
+    v15 = authenticationMethod;
+    v16 = 2114;
+    v17 = v10;
     v11 = "CoreDAVDiscoveryAccountInfo: Can authenticate against protection space %{public}@? %{public}@";
     goto LABEL_14;
   }
 
-  v12 = self->_backingAccountInfoProvider;
-  LOBYTE(self) = objc_opt_respondsToSelector();
+  LOBYTE(v6) = objc_opt_respondsToSelector();
 LABEL_16:
 
-  v14 = *MEMORY[0x277D85DE8];
-  return self & 1;
+  return v6 & 1;
 }
 
 - (BOOL)handleShouldUseCredentialStorage
 {
-  backingAccountInfoProvider = self->_backingAccountInfoProvider;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     return 1;
   }
 
-  v4 = self->_backingAccountInfoProvider;
+  backingAccountInfoProvider = self->_backingAccountInfoProvider;
 
-  return [(CoreDAVAccountInfoProvider *)v4 handleShouldUseCredentialStorage];
+  return [(CoreDAVAccountInfoProvider *)backingAccountInfoProvider handleShouldUseCredentialStorage];
 }
 
 - (BOOL)shouldHandleHTTPCookiesForURL:(id)l
 {
   lCopy = l;
-  backingAccountInfoProvider = self->_backingAccountInfoProvider;
   if (objc_opt_respondsToSelector())
   {
-    v6 = [(CoreDAVAccountInfoProvider *)self->_backingAccountInfoProvider shouldHandleHTTPCookiesForURL:lCopy];
+    v5 = [(CoreDAVAccountInfoProvider *)self->_backingAccountInfoProvider shouldHandleHTTPCookiesForURL:lCopy];
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  return v6;
+  return v5;
 }
 
 - (BOOL)shouldSendClientInfoHeaderForURL:(id)l
 {
   lCopy = l;
-  backingAccountInfoProvider = self->_backingAccountInfoProvider;
   if (objc_opt_respondsToSelector())
   {
-    v6 = [(CoreDAVAccountInfoProvider *)self->_backingAccountInfoProvider shouldSendClientInfoHeaderForURL:lCopy];
+    v5 = [(CoreDAVAccountInfoProvider *)self->_backingAccountInfoProvider shouldSendClientInfoHeaderForURL:lCopy];
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  return v6;
+  return v5;
 }
 
 - (__CFURLStorageSession)copyStorageSession
 {
-  backingAccountInfoProvider = self->_backingAccountInfoProvider;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     return 0;
   }
 
-  v4 = self->_backingAccountInfoProvider;
+  backingAccountInfoProvider = self->_backingAccountInfoProvider;
 
-  return [(CoreDAVAccountInfoProvider *)v4 copyStorageSession];
+  return [(CoreDAVAccountInfoProvider *)backingAccountInfoProvider copyStorageSession];
 }
 
 - (BOOL)shouldUseOpportunisticSockets
 {
-  backingAccountInfoProvider = self->_backingAccountInfoProvider;
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
     return 0;
   }
 
-  v4 = self->_backingAccountInfoProvider;
+  backingAccountInfoProvider = self->_backingAccountInfoProvider;
 
-  return [(CoreDAVAccountInfoProvider *)v4 shouldUseOpportunisticSockets];
+  return [(CoreDAVAccountInfoProvider *)backingAccountInfoProvider shouldUseOpportunisticSockets];
 }
 
 - (id)getAppleIDSession
 {
-  backingAccountInfoProvider = self->_backingAccountInfoProvider;
   if (objc_opt_respondsToSelector())
   {
     getAppleIDSession = [(CoreDAVAccountInfoProvider *)self->_backingAccountInfoProvider getAppleIDSession];
@@ -437,7 +419,6 @@ LABEL_16:
 
 - (id)customConnectionProperties
 {
-  backingAccountInfoProvider = self->_backingAccountInfoProvider;
   if (objc_opt_respondsToSelector())
   {
     customConnectionProperties = [(CoreDAVAccountInfoProvider *)self->_backingAccountInfoProvider customConnectionProperties];

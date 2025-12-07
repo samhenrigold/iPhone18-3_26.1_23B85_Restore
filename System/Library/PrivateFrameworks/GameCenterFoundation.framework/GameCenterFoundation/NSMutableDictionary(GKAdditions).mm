@@ -7,29 +7,29 @@
 
 - (void)_gkAddEntriesFromFormEncodedString:()GKAdditions
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     v3 = [a3 componentsSeparatedByString:@"&"];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v4 = [v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v21;
+      v6 = *v20;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v21 != v6)
+          if (*v20 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          v8 = *(*(&v20 + 1) + 8 * i);
+          v8 = *(*(&v19 + 1) + 8 * i);
           if ([v8 length])
           {
             v9 = [v8 rangeOfString:@"="];
@@ -67,24 +67,22 @@
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v5);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_gkSetIfNonNilObject:()GKAdditions forKey:
 {
   if (a3)
   {
-    return [self setObject:? forKeyedSubscript:?];
+    return [result setObject:? forKeyedSubscript:?];
   }
 
-  return self;
+  return result;
 }
 
 @end

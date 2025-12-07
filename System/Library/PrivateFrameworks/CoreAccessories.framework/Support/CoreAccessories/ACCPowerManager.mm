@@ -1,5 +1,6 @@
 @interface ACCPowerManager
 - (ACCPowerManager)init;
+- (BOOL)connectionPowerModeChangedForFeaturePowerModeUpdate:(int)update withObject:(BOOL)object;
 - (BOOL)getCurrentConnectionIsHighPowerMode;
 - (void)dealloc;
 @end
@@ -35,6 +36,28 @@
   v3.receiver = self;
   v3.super_class = ACCPowerManager;
   [(ACCPowerManager *)&v3 dealloc];
+}
+
+- (BOOL)connectionPowerModeChangedForFeaturePowerModeUpdate:(int)update withObject:(BOOL)object
+{
+  if (update > 1)
+  {
+    LOBYTE(v8) = 0;
+  }
+
+  else
+  {
+    objectCopy = object;
+    updateCopy = update;
+    v7 = [(NSMutableArray *)self->_featurePowerMode objectAtIndex:update];
+    v8 = [v7 BOOLValue] ^ objectCopy;
+
+    featurePowerMode = self->_featurePowerMode;
+    v10 = [NSNumber numberWithBool:objectCopy];
+    [(NSMutableArray *)featurePowerMode setObject:v10 atIndexedSubscript:updateCopy];
+  }
+
+  return v8;
 }
 
 - (BOOL)getCurrentConnectionIsHighPowerMode

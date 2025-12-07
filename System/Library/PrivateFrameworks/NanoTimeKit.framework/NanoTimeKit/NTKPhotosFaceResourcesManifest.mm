@@ -224,7 +224,7 @@ LABEL_16:
 
       if (v14)
       {
-        [v14 duration];
+        objc_msgSend_duration(v14);
       }
 
       else

@@ -54,13 +54,13 @@
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_1002F1944();
+  sub_1002F1944(selfCopy, v2);
 }
 
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1002F1C68();
+  sub_1002F1C68(selfCopy, v2);
 }
 
 - (void)shareButtonPressed

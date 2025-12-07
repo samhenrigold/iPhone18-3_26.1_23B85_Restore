@@ -212,27 +212,21 @@ void __31__DEDDeferredExtensionInfo_log__block_invoke()
 
 - (void)addToStore
 {
-  v10 = *MEMORY[0x277D85DE8];
   activityString = [self activityString];
   OUTLINED_FUNCTION_1_5();
-  OUTLINED_FUNCTION_0_8(&dword_248AD7000, v2, v3, "Archiving failed for extension: %{public}@\nReason:%{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_8(&dword_248AD7000, v2, v3, "Archiving failed for extension: %{public}@\nReason:%{public}@", v4, v5, v6, v7);
 }
 
 - (void)removeFromStore
 {
-  v10 = *MEMORY[0x277D85DE8];
   activityString = [self activityString];
   OUTLINED_FUNCTION_1_5();
-  OUTLINED_FUNCTION_0_8(&dword_248AD7000, v2, v3, "Archiving failed for extension: %{public}@\nReason: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_8(&dword_248AD7000, v2, v3, "Archiving failed for extension: %{public}@\nReason: %{public}@", v4, v5, v6, v7);
 }
 
 + (void)checkIn
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D86238];
   handler[0] = MEMORY[0x277D85DD0];
   handler[1] = 3221225472;
@@ -249,37 +243,35 @@ void __31__DEDDeferredExtensionInfo_log__block_invoke()
 
   allInfo = [objc_opt_class() allInfo];
   +[DEDAnalytics didCheckInDeferredExtensionsWithCount:](DEDAnalytics, "didCheckInDeferredExtensionsWithCount:", [allInfo count]);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   allValues = [allInfo allValues];
-  v7 = [allValues countByEnumeratingWithState:&v12 objects:v18 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v11 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) schedule];
+        [*(*(&v11 + 1) + 8 * v10++) schedule];
       }
 
       while (v8 != v10);
-      v8 = [allValues countByEnumeratingWithState:&v12 objects:v18 count:16];
+      v8 = [allValues countByEnumeratingWithState:&v11 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __35__DEDDeferredExtensionInfo_checkIn__block_invoke(uint64_t a1, xpc_activity_t activity)
@@ -323,7 +315,7 @@ void __35__DEDDeferredExtensionInfo_checkIn__block_invoke(uint64_t a1, xpc_activ
 
 - (void)schedule
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   [(DEDDeferredExtensionInfo *)self setScheduled:1];
   v3 = MEMORY[0x277CCACA8];
   activityString = [(DEDDeferredExtensionInfo *)self activityString];
@@ -336,7 +328,7 @@ void __35__DEDDeferredExtensionInfo_checkIn__block_invoke(uint64_t a1, xpc_activ
   {
     activityString2 = [(DEDDeferredExtensionInfo *)self activityString];
     *buf = 138543362;
-    v18 = activityString2;
+    v17 = activityString2;
     _os_log_impl(&dword_248AD7000, v7, OS_LOG_TYPE_DEFAULT, "Scheduling deferred DE: %{public}@", buf, 0xCu);
   }
 
@@ -347,32 +339,30 @@ void __35__DEDDeferredExtensionInfo_checkIn__block_invoke(uint64_t a1, xpc_activ
   handler[1] = 3221225472;
   handler[2] = __36__DEDDeferredExtensionInfo_schedule__block_invoke;
   handler[3] = &unk_278F65D78;
-  v15 = v6;
+  v14 = v6;
   selfCopy = self;
   v12 = v6;
   xpc_activity_register(uTF8String, v11, handler);
 
   [(DEDDeferredExtensionInfo *)self addToStore];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __36__DEDDeferredExtensionInfo_schedule__block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   state = xpc_activity_get_state(v3);
   if (state)
   {
     if (state == 2)
     {
-      v5 = *(a1 + 40);
-      v6 = [objc_opt_class() log];
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v5 = [objc_opt_class() log];
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = [*(a1 + 40) activityString];
-        v13 = 138543362;
-        v14 = v7;
-        _os_log_impl(&dword_248AD7000, v6, OS_LOG_TYPE_DEFAULT, "Deferred DE is now executing (%{public}@)", &v13, 0xCu);
+        v6 = [*(a1 + 40) activityString];
+        v10 = 138543362;
+        v11 = v6;
+        _os_log_impl(&dword_248AD7000, v5, OS_LOG_TYPE_DEFAULT, "Deferred DE is now executing (%{public}@)", &v10, 0xCu);
       }
 
       [*(a1 + 40) run];
@@ -381,26 +371,23 @@ void __36__DEDDeferredExtensionInfo_schedule__block_invoke(uint64_t a1, void *a2
 
   else
   {
-    v8 = *(a1 + 40);
-    v9 = [objc_opt_class() log];
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v7 = [objc_opt_class() log];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [*(a1 + 40) activityString];
-      v13 = 138543362;
-      v14 = v10;
-      _os_log_impl(&dword_248AD7000, v9, OS_LOG_TYPE_DEFAULT, "Deferred DE is checking in (%{public}@)", &v13, 0xCu);
+      v8 = [*(a1 + 40) activityString];
+      v10 = 138543362;
+      v11 = v8;
+      _os_log_impl(&dword_248AD7000, v7, OS_LOG_TYPE_DEFAULT, "Deferred DE is checking in (%{public}@)", &v10, 0xCu);
     }
 
-    v11 = [*(a1 + 40) criteria];
-    xpc_activity_set_criteria(v3, v11);
+    v9 = [*(a1 + 40) criteria];
+    xpc_activity_set_criteria(v3, v9);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)run
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = +[DEDDaemon sharedInstance];
   controller = [v3 controller];
   bugSessionIdentifier = [(DEDDeferredExtensionInfo *)self bugSessionIdentifier];
@@ -410,35 +397,31 @@ void __36__DEDDeferredExtensionInfo_schedule__block_invoke(uint64_t a1, void *a2
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     prettyDescription = [v6 prettyDescription];
-    v12 = 138543362;
-    v13 = prettyDescription;
-    _os_log_impl(&dword_248AD7000, v7, OS_LOG_TYPE_DEFAULT, "Starting deferred DE for bug session: %{public}@", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = prettyDescription;
+    _os_log_impl(&dword_248AD7000, v7, OS_LOG_TYPE_DEFAULT, "Starting deferred DE for bug session: %{public}@", &v11, 0xCu);
   }
 
   dedIdentifier = [(DEDDeferredExtensionInfo *)self dedIdentifier];
   parameters = [(DEDDeferredExtensionInfo *)self parameters];
   [v6 finallyStartDiagnosticWithIdentifier:dedIdentifier parameters:parameters completion:0];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unschedule
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = [objc_opt_class() log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[DEDDeferredExtensionInfo unschedule]";
-    _os_log_impl(&dword_248AD7000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[DEDDeferredExtensionInfo unschedule]";
+    _os_log_impl(&dword_248AD7000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v5, 0xCu);
   }
 
   [(DEDDeferredExtensionInfo *)self setScheduled:0];
   [(DEDDeferredExtensionInfo *)self removeFromStore];
   activityString = [(DEDDeferredExtensionInfo *)self activityString];
   xpc_activity_unregister([activityString UTF8String]);
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isOverdue
@@ -573,19 +556,19 @@ uint64_t __80__DEDDeferredExtensionInfo_activityStringForBugSessionIdentifier_de
 
 + (void)allInfo
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_error_impl(&dword_248AD7000, a2, OS_LOG_TYPE_ERROR, "Unarchiving failed for reason: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_248AD7000, a2, OS_LOG_TYPE_ERROR, "Unarchiving failed for reason: %{public}@", &v2, 0xCu);
 }
 
 + (void)activityStringForBugSessionIdentifier:(void *)a1 dedIdentifier:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  [a1 length];
-  OUTLINED_FUNCTION_0_8(&dword_248AD7000, v1, v2, "XPC activity identifier %@ is longer than %lu characters; truncating", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  *v7 = 138412546;
+  *&v7[4] = a1;
+  *&v7[12] = 2048;
+  *&v7[14] = [a1 length];
+  OUTLINED_FUNCTION_0_8(&dword_248AD7000, v1, v2, "XPC activity identifier %@ is longer than %lu characters; truncating", v3, v4, v5, v6, *v7, *&v7[8], *&v7[16]);
 }
 
 @end

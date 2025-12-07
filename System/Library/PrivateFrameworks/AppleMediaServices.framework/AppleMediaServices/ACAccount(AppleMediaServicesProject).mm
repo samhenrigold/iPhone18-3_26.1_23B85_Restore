@@ -5,12 +5,12 @@
 - (uint64_t)ams_biometricsState;
 - (uint64_t)ams_copyStorefrontFromAccount:()AppleMediaServicesProject;
 - (uint64_t)ams_isBundleOwner;
-- (uint64_t)ams_isDemoAccount;
 - (uint64_t)ams_isRegulatoryAccount;
 - (uint64_t)ams_lastAuthenticationCredentialSource;
 - (uint64_t)ams_lastRestrictedRegionSyncTimestamp;
 - (uint64_t)ams_migrateCookiePropertiesWithError:()AppleMediaServicesProject;
 - (uint64_t)ams_setAccountFlagOverrideValue:()AppleMediaServicesProject forAccountFlag:;
+- (void)ams_isDemoAccount;
 - (void)ams_setBiometricsState:()AppleMediaServicesProject;
 - (void)ams_setDemoAccount:()AppleMediaServicesProject;
 - (void)ams_setIsBundleOwner:()AppleMediaServicesProject;
@@ -72,7 +72,7 @@ LABEL_5:
   return [self _accountPropertyForKey:@"isBundleOwner" expectedClass:v2];
 }
 
-- (uint64_t)ams_isDemoAccount
+- (void)ams_isDemoAccount
 {
   result = [self ams_isiTunesAccount];
   if (result)

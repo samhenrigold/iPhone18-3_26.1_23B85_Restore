@@ -84,7 +84,7 @@
 {
   v5 = sub_220BCDBA0();
   v7 = v6;
-  v8 = objc_allocWithZone(type metadata accessor for TPSAppSearchQuery());
+  v8 = objc_allocWithZone(type metadata accessor for TPSAppSearchQuery(0));
   v9 = TPSAppSearchQuery.init(searchTerm:origin:identifier:)(v5, v7, origin, 0, 0);
 
   return v9;

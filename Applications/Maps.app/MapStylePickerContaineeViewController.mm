@@ -24,10 +24,10 @@
 {
   viewCopy = view;
   swift_unknownObjectRetain();
-  v5 = sub_1001D9FE0(viewCopy);
+  v6 = sub_1001D9FE0(viewCopy, delegate);
 
   swift_unknownObjectRelease();
-  return v5;
+  return v6;
 }
 
 - (_TtC4Maps37MapStylePickerContaineeViewController)initWithCoder:(id)coder
@@ -48,7 +48,7 @@
   swift_unknownObjectRelease();
   sub_1001D9778();
 
-  sub_10004E3D0(&v5);
+  sub_10004E3D0(v5);
 }
 
 - (void)didDismissByGesture

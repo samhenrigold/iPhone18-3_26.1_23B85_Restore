@@ -828,7 +828,7 @@ uint64_t __59__GKExtensionRootViewController_setInitialState_withReply___block_i
 {
   v4 = MEMORY[0x277CCAAC8];
   clientCopy = client;
-  v6 = GKExtensionProtocolSecureCodedClasses();
+  v6 = GKExtensionProtocolSecureCodedClasses(clientCopy);
   v13 = 0;
   v7 = [v4 unarchivedObjectOfClasses:v6 fromData:clientCopy error:&v13];
 

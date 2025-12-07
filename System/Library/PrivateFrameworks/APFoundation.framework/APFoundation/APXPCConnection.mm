@@ -12,7 +12,7 @@
 
 - (NSString)bundleID
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   bundleID = self->_bundleID;
   if (bundleID)
   {
@@ -122,23 +122,22 @@ LABEL_24:
 
   v16 = 0;
 LABEL_25:
-  v28 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
 
 - (void)invalidate
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = APLogForCategory(0x39uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     connection = self->_connection;
-    v12 = 136643075;
-    v13 = "[APXPCConnection invalidate]";
-    v14 = 2048;
-    v15 = connection;
-    _os_log_impl(&dword_1BADC1000, v3, OS_LOG_TYPE_INFO, "%{sensitive}s: invalidating connection %p", &v12, 0x16u);
+    v11 = 136643075;
+    v12 = "[APXPCConnection invalidate]";
+    v13 = 2048;
+    v14 = connection;
+    _os_log_impl(&dword_1BADC1000, v3, OS_LOG_TYPE_INFO, "%{sensitive}s: invalidating connection %p", &v11, 0x16u);
   }
 
   v8 = self->_connection;
@@ -154,17 +153,15 @@ LABEL_25:
   {
     self->_bundleID = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (APXPCConnection)initWithConnection:(id)connection
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
-  v10.receiver = self;
-  v10.super_class = APXPCConnection;
-  v6 = [(APXPCConnection *)&v10 self];
+  v9.receiver = self;
+  v9.super_class = APXPCConnection;
+  v6 = [(APXPCConnection *)&v9 self];
 
   if (v6)
   {
@@ -172,16 +169,15 @@ LABEL_25:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 136643075;
-      v12 = "[APXPCConnection initWithConnection:]";
-      v13 = 2048;
-      v14 = connectionCopy;
+      v11 = "[APXPCConnection initWithConnection:]";
+      v12 = 2048;
+      v13 = connectionCopy;
       _os_log_impl(&dword_1BADC1000, v7, OS_LOG_TYPE_INFO, "%{sensitive}s: Initializing connection %p", buf, 0x16u);
     }
 
     objc_storeStrong(&v6->_connection, connection);
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -213,7 +209,7 @@ LABEL_25:
 
 - (BOOL)hasEntitlement:(id)entitlement
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   entitlementCopy = entitlement;
   if (entitlementCopy)
   {
@@ -227,16 +223,15 @@ LABEL_25:
     v16 = APLogForCategory(0x39uLL);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v20 = 138477827;
-      v21 = objc_opt_class();
-      v17 = v21;
-      _os_log_impl(&dword_1BADC1000, v16, OS_LOG_TYPE_ERROR, "[%{private}@] Caller did not provide an entitlement to check.", &v20, 0xCu);
+      v19 = 138477827;
+      v20 = objc_opt_class();
+      v17 = v20;
+      _os_log_impl(&dword_1BADC1000, v16, OS_LOG_TYPE_ERROR, "[%{private}@] Caller did not provide an entitlement to check.", &v19, 0xCu);
     }
 
     v15 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v15;
 }
 

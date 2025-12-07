@@ -32,7 +32,7 @@ LABEL_6:
 LABEL_7:
     v22 = 0;
     v24 = 0;
-    return REMColor_Codable.init(red:green:blue:alpha:colorSpace:daSymbolicColorName:daHexString:ckSymbolicColorName:)(space, red, green, blue, alpha, v17, v19, stringCopy, v21, v22, v24);
+    return REMColor_Codable.init(red:green:blue:alpha:colorSpace:daSymbolicColorName:daHexString:ckSymbolicColorName:)(space, v17, v19, stringCopy, v21, v22, v24, red, green, blue, alpha);
   }
 
   v17 = 0;
@@ -53,7 +53,7 @@ LABEL_3:
 LABEL_4:
   v22 = _sSo15REMSortingStylea19ReminderKitInternalE11descriptionSSvg_0();
   v24 = v23;
-  return REMColor_Codable.init(red:green:blue:alpha:colorSpace:daSymbolicColorName:daHexString:ckSymbolicColorName:)(space, red, green, blue, alpha, v17, v19, stringCopy, v21, v22, v24);
+  return REMColor_Codable.init(red:green:blue:alpha:colorSpace:daSymbolicColorName:daHexString:ckSymbolicColorName:)(space, v17, v19, stringCopy, v21, v22, v24, red, green, blue, alpha);
 }
 
 - (REMColor_Codable)initWithRed:(double)red green:(double)green blue:(double)blue alpha:(double)alpha

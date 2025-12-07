@@ -47,18 +47,17 @@ void __39__KCSharingGroupManager_sharedInstance__block_invoke()
 
 - (void)accountChanged
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = KCSharingLogObject(@"KCSharingGroupManager", 0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     cachedCurrentUserIdentifier = [(KCSharingGroupManager *)self cachedCurrentUserIdentifier];
-    v6 = 138543362;
-    v7 = cachedCurrentUserIdentifier;
-    _os_log_impl(&dword_1887D2000, v3, OS_LOG_TYPE_DEFAULT, "Received accountChanged notification, invalidating cached current user identifier: %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = cachedCurrentUserIdentifier;
+    _os_log_impl(&dword_1887D2000, v3, OS_LOG_TYPE_DEFAULT, "Received accountChanged notification, invalidating cached current user identifier: %{public}@", &v5, 0xCu);
   }
 
   [(KCSharingGroupManager *)self setCachedCurrentUserIdentifier:0];
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performMaintenanceWithCompletion:(id)completion
@@ -115,7 +114,7 @@ void __39__KCSharingGroupManager_sharedInstance__block_invoke()
 
 void __61__KCSharingGroupManager_fetchCurrentUserIdentifierWithReply___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = KCSharingLogObject(@"KCSharingGroupManager", 0);
@@ -124,23 +123,21 @@ void __61__KCSharingGroupManager_fetchCurrentUserIdentifierWithReply___block_inv
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
-      v10 = 138543362;
-      v11 = v5;
-      _os_log_impl(&dword_1887D2000, v8, OS_LOG_TYPE_INFO, "Fetched current user identifier: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v5;
+      _os_log_impl(&dword_1887D2000, v8, OS_LOG_TYPE_INFO, "Fetched current user identifier: %{public}@", &v9, 0xCu);
     }
   }
 
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v10 = 138543362;
-    v11 = v6;
-    _os_log_error_impl(&dword_1887D2000, v8, OS_LOG_TYPE_ERROR, "Failed to fetch current user identifier: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v6;
+    _os_log_error_impl(&dword_1887D2000, v8, OS_LOG_TYPE_ERROR, "Failed to fetch current user identifier: %{public}@", &v9, 0xCu);
   }
 
   [*(a1 + 32) setCachedCurrentUserIdentifier:v5];
   (*(*(a1 + 40) + 16))();
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)provisionWithReply:(id)reply
@@ -174,22 +171,20 @@ void __61__KCSharingGroupManager_fetchCurrentUserIdentifierWithReply___block_inv
 
 - (void)checkAvailabilityForHandle:(id)handle completion:(id)completion
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   completionCopy = completion;
-  v15[0] = handleCopy;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __63__KCSharingGroupManager_checkAvailabilityForHandle_completion___block_invoke;
-  v12[3] = &unk_1E70D6960;
-  v13 = handleCopy;
-  v14 = completionCopy;
+  v14[0] = handleCopy;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __63__KCSharingGroupManager_checkAvailabilityForHandle_completion___block_invoke;
+  v11[3] = &unk_1E70D6960;
+  v12 = handleCopy;
+  v13 = completionCopy;
   v9 = completionCopy;
   v10 = handleCopy;
-  [(KCSharingGroupManager *)self checkAvailabilityForHandles:v8 completion:v12];
-
-  v11 = *MEMORY[0x1E69E9840];
+  [(KCSharingGroupManager *)self checkAvailabilityForHandles:v8 completion:v11];
 }
 
 void __63__KCSharingGroupManager_checkAvailabilityForHandle_completion___block_invoke(uint64_t a1, void *a2, void *a3)

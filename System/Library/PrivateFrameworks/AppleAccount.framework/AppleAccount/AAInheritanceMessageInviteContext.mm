@@ -7,7 +7,7 @@
 
 - (AAInheritanceMessageInviteContext)initWithLocalContact:(id)contact beneficiaryID:(id)d
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   contactCopy = contact;
   dCopy = d;
   if (!dCopy)
@@ -27,7 +27,7 @@
   v16 = [MEMORY[0x1E695DFF8] URLWithString:v15];
   if (!v16)
   {
-    v17 = _AALogSystem();
+    v17 = _AALogSystem(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [AAInheritanceMessageInviteContext initWithLocalContact:v15 beneficiaryID:v17];
@@ -74,8 +74,8 @@
     [(AAMessagesInviteContext *)v18 setAction:v25];
 
     handle = [contactCopy handle];
-    v31[0] = handle;
-    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
+    v30[0] = handle;
+    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
     [(AAMessagesInviteContext *)v18 setRecipients:v27];
 
     [(AAMessagesInviteContext *)v18 setMessageBody:v14];
@@ -87,7 +87,6 @@
     }
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -106,15 +105,15 @@
   v10 = [v6 copy];
   [v5 setQueryItems:v10];
 
-  v11 = _AALogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v12 = _AALogSystem(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    [(AACustodianMessageInviteContext *)v5 _messageURLForCustodianID:v11];
+    [(AACustodianMessageInviteContext *)v5 _messageURLForCustodianID:v12];
   }
 
-  v12 = [v5 URL];
+  v13 = [v5 URL];
 
-  return v12;
+  return v13;
 }
 
 - (void)initWithLocalContact:(uint64_t)a1 beneficiaryID:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
@@ -125,11 +124,10 @@
 
 - (void)initWithLocalContact:(uint64_t)a1 beneficiaryID:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_ERROR, "Error creating NSURL from universal link - %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B6F6A000, a2, OS_LOG_TYPE_ERROR, "Error creating NSURL from universal link - %@", &v2, 0xCu);
 }
 
 @end

@@ -32,84 +32,79 @@
 
 uint64_t __63__MSVExtendableBackgroundTaskProvider__locked_releaseAssertion__block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
+  v15 = *MEMORY[0x1E69E9840];
   os_unfair_recursive_lock_lock_with_options();
-  v3 = *(a1 + 32);
-  if (*(a1 + 40) == v3[14])
+  v2 = *(a1 + 32);
+  if (*(a1 + 40) == v2[14])
   {
-    v4 = [v3 _locked_taskCount];
-    v5 = *(a1 + 32);
-    if (!v4)
+    v3 = [v2 _locked_taskCount];
+    v4 = *(a1 + 32);
+    if (!v3)
     {
-      if (*(v5 + 40))
+      if (*(v4 + 40))
       {
-        [*(v5 + 40) invalidate];
-        v6 = os_log_create("com.apple.amp.MediaServices", "Default");
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        [*(v4 + 40) invalidate];
+        v5 = os_log_create("com.apple.amp.MediaServices", "Default");
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
-          v7 = *(a1 + 32);
-          v8 = *(v7 + 40);
-          v14 = 134218240;
-          v15 = v7;
-          v16 = 2048;
-          v17 = v8;
-          _os_log_impl(&dword_1AC81F000, v6, OS_LOG_TYPE_DEFAULT, "MSVExtendableBackgroundTaskProvider %p Invalidated RBSAssertion %p", &v14, 0x16u);
+          v6 = *(a1 + 32);
+          v7 = *(v6 + 40);
+          v11 = 134218240;
+          v12 = v6;
+          v13 = 2048;
+          v14 = v7;
+          _os_log_impl(&dword_1AC81F000, v5, OS_LOG_TYPE_DEFAULT, "MSVExtendableBackgroundTaskProvider %p Invalidated RBSAssertion %p", &v11, 0x16u);
         }
 
-        v9 = *(a1 + 32);
-        v10 = *(v9 + 40);
-        *(v9 + 40) = 0;
-
-        v11 = *(a1 + 32);
+        v8 = *(a1 + 32);
+        v9 = *(v8 + 40);
+        *(v8 + 40) = 0;
       }
     }
   }
 
-  result = os_unfair_recursive_lock_unlock();
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return os_unfair_recursive_lock_unlock();
 }
 
 - (BOOL)_locked_acquireAssertion:(id)assertion
 {
-  v36[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   assertionCopy = assertion;
   if ([(MSVExtendableBackgroundTaskProvider *)self _locked_needsAssertion])
   {
     currentProcess = [MEMORY[0x1E69C7640] currentProcess];
     v6 = [MEMORY[0x1E69C7560] attributeWithDomain:self->_domain name:self->_name];
-    v36[0] = v6;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v36 count:1];
+    v35[0] = v6;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
 
     v8 = [objc_alloc(MEMORY[0x1E69C7548]) initWithExplanation:assertionCopy target:currentProcess attributes:v7];
     objc_initWeak(&location, self);
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x3032000000;
-    v24 = __Block_byref_object_copy_;
-    v25 = __Block_byref_object_dispose_;
-    v26 = 0;
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __64__MSVExtendableBackgroundTaskProvider__locked_acquireAssertion___block_invoke;
-    v19[3] = &unk_1E7981890;
-    objc_copyWeak(&v20, &location);
-    v19[4] = &v21;
-    [v8 acquireWithInvalidationHandler:v19];
-    if (!v22[5])
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x3032000000;
+    v23 = __Block_byref_object_copy_;
+    v24 = __Block_byref_object_dispose_;
+    v25 = 0;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __64__MSVExtendableBackgroundTaskProvider__locked_acquireAssertion___block_invoke;
+    v18[3] = &unk_1E7981890;
+    objc_copyWeak(&v19, &location);
+    v18[4] = &v20;
+    [v8 acquireWithInvalidationHandler:v18];
+    if (!v21[5])
     {
       v9 = os_log_create("com.apple.amp.MediaServices", "Default");
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218754;
         selfCopy = self;
-        v30 = 2048;
-        v31 = v8;
-        v32 = 2114;
-        v33 = v7;
-        v34 = 2114;
-        v35 = assertionCopy;
+        v29 = 2048;
+        v30 = v8;
+        v31 = 2114;
+        v32 = v7;
+        v33 = 2114;
+        v34 = assertionCopy;
         _os_log_impl(&dword_1AC81F000, v9, OS_LOG_TYPE_DEFAULT, "MSVExtendableBackgroundTaskProvider %p Took RBSAssertion %p %{public}@ [%{public}@]", buf, 0x2Au);
       }
 
@@ -127,14 +122,14 @@ uint64_t __63__MSVExtendableBackgroundTaskProvider__locked_releaseAssertion__blo
 
     if (!self->_assertion)
     {
-      [(MSVExtendableBackgroundTaskProvider *)self _locked_removeAllTasksWithError:v22[5]];
+      [(MSVExtendableBackgroundTaskProvider *)self _locked_removeAllTasksWithError:v21[5]];
     }
 
     explanationForExtension = self->_explanationForExtension;
     self->_explanationForExtension = 0;
 
-    objc_destroyWeak(&v20);
-    _Block_object_dispose(&v21, 8);
+    objc_destroyWeak(&v19);
+    _Block_object_dispose(&v20, 8);
 
     objc_destroyWeak(&location);
   }
@@ -148,7 +143,6 @@ uint64_t __63__MSVExtendableBackgroundTaskProvider__locked_releaseAssertion__blo
 
   v16 = self->_assertion != 0;
 
-  v17 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -182,7 +176,7 @@ void __64__MSVExtendableBackgroundTaskProvider__locked_acquireAssertion___block_
 
 void __71__MSVExtendableBackgroundTaskProvider__locked_removeAllTasksWithError___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if ([a3 disarm])
   {
@@ -195,20 +189,18 @@ void __71__MSVExtendableBackgroundTaskProvider__locked_removeAllTasksWithError__
         v8 = *(a1 + 32);
         v9 = [v5 integerValue];
         v10 = *(a1 + 40);
-        v12 = 134218498;
-        v13 = v8;
-        v14 = 2048;
-        v15 = v9;
-        v16 = 2114;
-        v17 = v10;
-        _os_log_impl(&dword_1AC81F000, v7, OS_LOG_TYPE_DEFAULT, "MSVExtendableBackgroundTaskProvider %p Task #%ld ended [%{public}@]", &v12, 0x20u);
+        v11 = 134218498;
+        v12 = v8;
+        v13 = 2048;
+        v14 = v9;
+        v15 = 2114;
+        v16 = v10;
+        _os_log_impl(&dword_1AC81F000, v7, OS_LOG_TYPE_DEFAULT, "MSVExtendableBackgroundTaskProvider %p Task #%ld ended [%{public}@]", &v11, 0x20u);
       }
 
       v6[2](v6);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_locked_needsAssertion
@@ -229,20 +221,20 @@ void __71__MSVExtendableBackgroundTaskProvider__locked_removeAllTasksWithError__
 
 - (void)_assertionInvalidated:(id)invalidated error:(id)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   invalidatedCopy = invalidated;
   errorCopy = error;
   os_unfair_recursive_lock_lock_with_options();
   v8 = os_log_create("com.apple.amp.MediaServices", "Default");
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 134218498;
+    v10 = 134218498;
     selfCopy = self;
-    v13 = 2048;
-    v14 = invalidatedCopy;
-    v15 = 2114;
-    v16 = errorCopy;
-    _os_log_impl(&dword_1AC81F000, v8, OS_LOG_TYPE_DEFAULT, "MSVExtendableBackgroundTaskProvider %p RBSAssertion %p invalidated with error: %{public}@", &v11, 0x20u);
+    v12 = 2048;
+    v13 = invalidatedCopy;
+    v14 = 2114;
+    v15 = errorCopy;
+    _os_log_impl(&dword_1AC81F000, v8, OS_LOG_TYPE_DEFAULT, "MSVExtendableBackgroundTaskProvider %p RBSAssertion %p invalidated with error: %{public}@", &v10, 0x20u);
   }
 
   assertion = self->_assertion;
@@ -257,13 +249,11 @@ void __71__MSVExtendableBackgroundTaskProvider__locked_removeAllTasksWithError__
   }
 
   os_unfair_recursive_lock_unlock();
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_taskDidTimeout:(unint64_t)timeout
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   os_unfair_recursive_lock_lock_with_options();
   expirationHandlers = self->_expirationHandlers;
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:timeout];
@@ -274,24 +264,22 @@ void __71__MSVExtendableBackgroundTaskProvider__locked_removeAllTasksWithError__
     v8 = os_log_create("com.apple.amp.MediaServices", "Default");
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 134218240;
+      v9 = 134218240;
       selfCopy = self;
-      v12 = 2048;
+      v11 = 2048;
       timeoutCopy = timeout;
-      _os_log_impl(&dword_1AC81F000, v8, OS_LOG_TYPE_DEFAULT, "MSVExtendableBackgroundTaskProvider %p Task #%ld expired", &v10, 0x16u);
+      _os_log_impl(&dword_1AC81F000, v8, OS_LOG_TYPE_DEFAULT, "MSVExtendableBackgroundTaskProvider %p Task #%ld expired", &v9, 0x16u);
     }
 
     v7[2](v7);
   }
 
   os_unfair_recursive_lock_unlock();
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endTask:(unint64_t)task
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   os_unfair_recursive_lock_lock_with_options();
   timeoutGuards = self->_timeoutGuards;
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:task];
@@ -311,11 +299,11 @@ void __71__MSVExtendableBackgroundTaskProvider__locked_removeAllTasksWithError__
     v12 = os_log_create("com.apple.amp.MediaServices", "Default");
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 134218240;
+      v13 = 134218240;
       selfCopy = self;
-      v16 = 2048;
+      v15 = 2048;
       taskCopy = task;
-      _os_log_impl(&dword_1AC81F000, v12, OS_LOG_TYPE_DEFAULT, "MSVExtendableBackgroundTaskProvider %p Task #%ld ended", &v14, 0x16u);
+      _os_log_impl(&dword_1AC81F000, v12, OS_LOG_TYPE_DEFAULT, "MSVExtendableBackgroundTaskProvider %p Task #%ld ended", &v13, 0x16u);
     }
 
     if (![(MSVExtendableBackgroundTaskProvider *)self _locked_taskCount])
@@ -325,13 +313,11 @@ void __71__MSVExtendableBackgroundTaskProvider__locked_removeAllTasksWithError__
   }
 
   os_unfair_recursive_lock_unlock();
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (unint64_t)beginTaskWithName:(id)name expirationHandler:(id)handler
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   handlerCopy = handler;
   os_unfair_recursive_lock_lock_with_options();
@@ -347,13 +333,13 @@ void __71__MSVExtendableBackgroundTaskProvider__locked_removeAllTasksWithError__
     objc_initWeak(&location, self);
     v9 = [MSVBlockGuard alloc];
     invalidationDuration = self->_invalidationDuration;
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __75__MSVExtendableBackgroundTaskProvider_beginTaskWithName_expirationHandler___block_invoke;
-    v20[3] = &unk_1E7981840;
-    objc_copyWeak(v21, &location);
-    v21[1] = v8;
-    v11 = [(MSVBlockGuard *)v9 initWithTimeout:v20 interruptionHandler:invalidationDuration];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __75__MSVExtendableBackgroundTaskProvider_beginTaskWithName_expirationHandler___block_invoke;
+    v19[3] = &unk_1E7981840;
+    objc_copyWeak(v20, &location);
+    v20[1] = v8;
+    v11 = [(MSVBlockGuard *)v9 initWithTimeout:v19 interruptionHandler:invalidationDuration];
     v12 = MEMORY[0x1B26EC6C0](handlerCopy);
     expirationHandlers = self->_expirationHandlers;
     v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v8];
@@ -368,14 +354,14 @@ void __71__MSVExtendableBackgroundTaskProvider__locked_removeAllTasksWithError__
     {
       *buf = 134218498;
       selfCopy = self;
-      v25 = 2048;
-      v26 = v8;
-      v27 = 2114;
-      v28 = nameCopy;
+      v24 = 2048;
+      v25 = v8;
+      v26 = 2114;
+      v27 = nameCopy;
       _os_log_impl(&dword_1AC81F000, v17, OS_LOG_TYPE_DEFAULT, "MSVExtendableBackgroundTaskProvider %p Task #%ld started [%{public}@]", buf, 0x20u);
     }
 
-    objc_destroyWeak(v21);
+    objc_destroyWeak(v20);
     objc_destroyWeak(&location);
   }
 
@@ -386,7 +372,6 @@ void __71__MSVExtendableBackgroundTaskProvider__locked_removeAllTasksWithError__
 
   os_unfair_recursive_lock_unlock();
 
-  v18 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

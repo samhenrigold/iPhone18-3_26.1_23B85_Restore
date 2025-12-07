@@ -10,10 +10,9 @@
 
 - (id)checksumData
 {
-  v5 = *MEMORY[0x277D85DE8];
-  [self checksum:v4];
-  v1 = [MEMORY[0x277CBEA90] dataWithBytes:v4 length:32];
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  [self checksum:v3];
+  v1 = [MEMORY[0x277CBEA90] dataWithBytes:v3 length:32];
 
   return v1;
 }
@@ -37,20 +36,16 @@
 
 - (BOOL)matchesChecksum:()Checksum
 {
-  v9[4] = *MEMORY[0x277D85DE8];
-  [self checksum:v9];
-  result = *a3 == v9[0] && a3[1] == v9[1] && a3[2] == v9[2] && a3[3] == v9[3];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  v8[4] = *MEMORY[0x277D85DE8];
+  [self checksum:v8];
+  return *a3 == v8[0] && a3[1] == v8[1] && a3[2] == v8[2] && a3[3] == v8[3];
 }
 
 - (uint64_t)matchesChecksumData:()Checksum
 {
-  v7 = *MEMORY[0x277D85DE8];
-  [a3 checksumDataToChecksum:v6];
-  result = [self matchesChecksum:v6];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v6 = *MEMORY[0x277D85DE8];
+  [a3 checksumDataToChecksum:v5];
+  return [self matchesChecksum:v5];
 }
 
 @end

@@ -23,18 +23,16 @@
 {
   if (*(self + OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_associatedAppBundleIdentifier + 8))
   {
-    v2 = *(self + OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_associatedAppBundleIdentifier);
-    v3 = *(self + OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_associatedAppBundleIdentifier + 8);
 
-    v4 = String._bridgeToObjectiveC()();
+    v2 = String._bridgeToObjectiveC()();
   }
 
   else
   {
-    v4 = 0;
+    v2 = 0;
   }
 
-  return v4;
+  return v2;
 }
 
 - (void)setAssociatedAppBundleIdentifier:(id)identifier
@@ -51,7 +49,6 @@
   }
 
   v6 = (self + OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_associatedAppBundleIdentifier);
-  v7 = *(self + OBJC_IVAR____TtC21AccessibilityUIServer33AXUISystemAperatureViewController_associatedAppBundleIdentifier + 8);
   *v6 = v4;
   v6[1] = v5;
 }

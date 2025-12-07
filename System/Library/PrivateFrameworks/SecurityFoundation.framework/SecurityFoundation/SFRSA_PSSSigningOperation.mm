@@ -49,10 +49,7 @@
 
 - (void)setMaskGenerationFunction:(id)function
 {
-  v4 = [function copyWithZone:0];
-  pssSigningOperationInternal = self->_pssSigningOperationInternal;
-  v6 = pssSigningOperationInternal[1];
-  pssSigningOperationInternal[1] = v4;
+  *(self->_pssSigningOperationInternal + 1) = [function copyWithZone:0];
 
   MEMORY[0x2821F96F8]();
 }

@@ -35,20 +35,20 @@
     layer = [(JFXOverlayEffectAnimationView *)v11 layer];
     [layer setOpacity:0.0];
 
-    transform = [transforms transform];
-    if (transform)
+    v18 = objc_msgSend_transform(transforms);
+    if (v18)
     {
-      v19 = transform;
-      transform2 = [transforms2 transform];
+      v19 = v18;
+      v20 = objc_msgSend_transform(transforms2);
 
-      if (transform2)
+      if (v20)
       {
         layer2 = [(JFXOverlayEffectAnimationView *)v11 layer];
-        transform3 = [transforms transform];
-        v23 = transform3;
-        if (transform3)
+        v22 = objc_msgSend_transform(transforms);
+        v23 = v22;
+        if (v22)
         {
-          [transform3 SIMDDouble4x4];
+          objc_msgSend_SIMDDouble4x4(v22);
           v64 = v106;
           v65 = v107;
           v66 = v108;
@@ -102,7 +102,7 @@
         transformAnimation3 = [transforms transformAnimation];
         if (frameCopy)
         {
-          [frameCopy time];
+          objc_msgSend_time(frameCopy);
         }
 
         else
@@ -119,7 +119,7 @@
         {
           v106 = v80;
           v107.f64[0] = v81;
-          [transformAnimation3 transformInfoAtTime:&v106];
+          objc_msgSend_transformInfoAtTime_(transformAnimation3);
           v31 = *&v102[24];
         }
 
@@ -277,21 +277,21 @@
   [v17 setToValue:&unk_28556D428];
   [v16 addAnimation:v17 forKey:@"opacityAnimation"];
 
-  transform = [transforms transform];
-  if (transform)
+  v18 = objc_msgSend_transform(transforms);
+  if (v18)
   {
-    v19 = transform;
-    transform2 = [transforms2 transform];
+    v19 = v18;
+    v20 = objc_msgSend_transform(transforms2);
 
-    if (transform2)
+    if (v20)
     {
       transformLayer = [(JFXOverlayEffectAnimationView *)self transformLayer];
       v22 = [animateCopy copy];
-      transform3 = [transforms transform];
-      v24 = transform3;
-      if (transform3)
+      v23 = objc_msgSend_transform(transforms);
+      v24 = v23;
+      if (v23)
       {
-        [transform3 SIMDDouble4x4];
+        objc_msgSend_SIMDDouble4x4(v23);
         v112 = *&STACK[0x6C0];
         v115 = *&STACK[0x6D0];
         v118 = *&STACK[0x6E0];
@@ -314,11 +314,11 @@
         v115 = 0u;
       }
 
-      transform4 = [transforms2 transform];
-      v26 = transform4;
-      if (transform4)
+      v25 = objc_msgSend_transform(transforms2);
+      v26 = v25;
+      if (v25)
       {
-        [transform4 SIMDDouble4x4];
+        objc_msgSend_SIMDDouble4x4(v25);
         v101 = *&STACK[0x6C0];
         v102 = *&STACK[0x6D0];
         v103 = *&STACK[0x6E0];
@@ -388,7 +388,7 @@
       v39 = fromEffectFrame2;
       if (fromEffectFrame2)
       {
-        [fromEffectFrame2 time];
+        objc_msgSend_time(fromEffectFrame2);
       }
 
       else
@@ -404,7 +404,7 @@
       {
         *&STACK[0x6C0] = *&STACK[0x6A0];
         STACK[0x6D0] = STACK[0x6B0];
-        [transformAnimation3 transformInfoAtTime:&STACK[0x6C0]];
+        objc_msgSend_transformInfoAtTime_(transformAnimation3);
       }
 
       *&STACK[0x700] = 0u;
@@ -443,7 +443,7 @@
       v47 = fromEffectFrame3;
       if (fromEffectFrame3)
       {
-        [fromEffectFrame3 time];
+        objc_msgSend_time(fromEffectFrame3);
       }
 
       else
@@ -460,7 +460,7 @@
       {
         *&STACK[0x6C0] = v136;
         STACK[0x6D0] = v137;
-        [transformAnimation4 transformInfoAtTime:&STACK[0x6C0]];
+        objc_msgSend_transformInfoAtTime_(transformAnimation4);
         v48 = STACK[0x688];
       }
 
@@ -680,12 +680,12 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  transform = [transforms transform];
-  if (transform)
+  v14 = objc_msgSend_transform(transforms);
+  if (v14)
   {
-    transform2 = [transforms2 transform];
+    v15 = objc_msgSend_transform(transforms2);
 
-    if (transform2)
+    if (v15)
     {
       v16 = MEMORY[0x277D41690];
       transformLayer = [(JFXOverlayEffectAnimationView *)self transformLayer];
@@ -693,7 +693,7 @@ LABEL_9:
       v19 = presentationLayer2;
       if (presentationLayer2)
       {
-        [presentationLayer2 transform];
+        objc_msgSend_transform(presentationLayer2);
         v21 = v93;
         v20 = v94;
         v23 = v91;
@@ -724,12 +724,12 @@ LABEL_9:
       v100 = v22;
       v101 = v21;
       v102 = v20;
-      transform = [v16 matrixWithSIMDDouble4x4:&v95];
+      v14 = [v16 matrixWithSIMDDouble4x4:&v95];
     }
 
     else
     {
-      transform = 0;
+      v14 = 0;
     }
   }
 
@@ -745,7 +745,7 @@ LABEL_9:
       v34 = presentationLayer3;
       if (presentationLayer3)
       {
-        [presentationLayer3 transform];
+        objc_msgSend_transform(presentationLayer3);
       }
 
       v35 = *(MEMORY[0x277D41B90] + 80);
@@ -804,7 +804,7 @@ LABEL_9:
       v50 = presentationLayer4;
       if (presentationLayer4)
       {
-        [presentationLayer4 transform];
+        objc_msgSend_transform(presentationLayer4);
         *&v75 = vcvt_hight_f32_f64(vcvt_f32_f64(v99), v100).u64[0];
         *&v76 = vcvt_hight_f32_f64(vcvt_f32_f64(v101), v102).u64[0];
         *&v73 = vcvt_hight_f32_f64(vcvt_f32_f64(v95), v96).u64[0];
@@ -824,7 +824,7 @@ LABEL_9:
       v53 = presentationLayer5;
       if (presentationLayer5)
       {
-        [presentationLayer5 transform];
+        objc_msgSend_transform(presentationLayer5);
         v82 = vcvt_hight_f32_f64(vcvt_f32_f64(v99), v100);
         v83 = vcvt_hight_f32_f64(vcvt_f32_f64(v101), v102);
         v81 = vcvt_hight_f32_f64(vcvt_f32_f64(v97), v98);
@@ -883,7 +883,7 @@ LABEL_9:
     }
   }
 
-  v28 = [JFXOverlayEffectTransforms transformsWithTransform:transform transformAnimation:transformAnimation faceTrackingTransform:faceTrackingTransform];
+  v28 = [JFXOverlayEffectTransforms transformsWithTransform:v14 transformAnimation:transformAnimation faceTrackingTransform:faceTrackingTransform];
 
 LABEL_11:
 

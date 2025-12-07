@@ -111,7 +111,7 @@
     v7->_size = sectionCopy->_size;
     if (v6 != sectionCopy)
     {
-      sub_DA600(&v6->_viewMap, sectionCopy->_viewMap.__tree_.__begin_node_, &sectionCopy->_viewMap.__tree_.__end_node_.__left_);
+      sub_DA600(&v6->_viewMap.__tree_.__begin_node_, sectionCopy->_viewMap.__tree_.__begin_node_, &sectionCopy->_viewMap.__tree_.__end_node_.__left_);
     }
 
     v7->_viewRange = sectionCopy->_viewRange;
@@ -208,7 +208,7 @@
 
             itemIndex = [*(*(&v76 + 1) + 8 * i) itemIndex];
             v80 = &itemIndex;
-            sub_DA530(&v19->_viewMap, &itemIndex)[5] = v32++;
+            sub_DA530(&v19->_viewMap, &itemIndex, &std::piecewise_construct, &v80)[5] = v32++;
           }
 
           v31 = [(NSArray *)v30 countByEnumeratingWithState:&v76 objects:v82 count:16];
@@ -719,7 +719,7 @@
   v50 = 0u;
   if (modelCopy)
   {
-    [modelCopy transform];
+    objc_msgSend_transform(modelCopy);
   }
 
   zIndex = [modelCopy zIndex];
@@ -737,7 +737,7 @@
     v30 = v33;
     if (v31)
     {
-      [v31 transform];
+      objc_msgSend_transform(v31);
     }
 
     else
@@ -819,7 +819,7 @@
   [v11 setBounds:{0.0, 0.0, v13, v15}];
   if (impressionCopy)
   {
-    [impressionCopy transform];
+    objc_msgSend_transform(impressionCopy);
   }
 
   else

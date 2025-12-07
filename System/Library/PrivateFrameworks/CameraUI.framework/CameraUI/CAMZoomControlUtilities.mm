@@ -14,7 +14,7 @@
 + (id)exifFocalLengthsByZoomFactorForMode:(int64_t)mode device:(int64_t)device videoConfiguration:(int64_t)configuration videoStabilizationStrength:(int64_t)strength customLensGroup:(id)group isTrueVideo:(BOOL)video frontRearSimultaneousVideoEnabled:(BOOL)enabled;
 + (int64_t)deviceForEmulatingZoomFactor:(double)factor fromDevice:(int64_t)device mode:(int64_t)mode continuousZoomSupported:(BOOL)supported;
 + (void)layoutForExternalChromeZoomControl:(id)control bounds:(CGRect)bounds viewportFrame:(CGRect)frame referenceYForControlsAboveShutterButton:(double)button xOffset:(double)offset;
-+ (void)layoutZoomControl:(CGFloat)control forLayoutStyle:(CGFloat)style bottomBarAlignmentRect:(CGFloat)rect bottomBarTransparent:(CGFloat)transparent shutterButtonAlignmentRect:(CGFloat)alignmentRect previewViewAlignmentRect:(CGFloat)viewAlignmentRect;
++ (void)layoutZoomControl:(CGFloat)control forLayoutStyle:(CGFloat)style bottomBarAlignmentRect:(double)rect bottomBarTransparent:(double)transparent shutterButtonAlignmentRect:(double)alignmentRect previewViewAlignmentRect:(double)viewAlignmentRect;
 + (void)layoutZoomControl:(id)control alignmentRect:(CGRect)rect zoomDialExpansionRegionHeight:(double)height zoomButtonMarginFromBottomOfExpansionRegion:(double)region;
 + (void)layoutZoomControl:(id)control forLayoutStyle:(int64_t)style bottomBar:(id)bar previewView:(id)view;
 + (void)layoutZoomControl:(id)control layoutSide:(int64_t)side forLayoutStyle:(int64_t)style width:(double)width marginForZoomButtonFromEdge:(double)edge marginForZoomDialFromEdge:(double)fromEdge zoomDialContentMaskingHeight:(double)height centerOfZoomControlInContainerView:(CGPoint)self0;
@@ -155,7 +155,7 @@
   [controlCopy setTransform:&v54];
 }
 
-+ (void)layoutZoomControl:(CGFloat)control forLayoutStyle:(CGFloat)style bottomBarAlignmentRect:(CGFloat)rect bottomBarTransparent:(CGFloat)transparent shutterButtonAlignmentRect:(CGFloat)alignmentRect previewViewAlignmentRect:(CGFloat)viewAlignmentRect
++ (void)layoutZoomControl:(CGFloat)control forLayoutStyle:(CGFloat)style bottomBarAlignmentRect:(double)rect bottomBarTransparent:(double)transparent shutterButtonAlignmentRect:(double)alignmentRect previewViewAlignmentRect:(double)viewAlignmentRect
 {
   v38 = a11;
   UIRectGetCenter();
@@ -1770,7 +1770,7 @@ LABEL_6:
   return dictionary;
 }
 
-uint64_t __178__CAMZoomControlUtilities_exifFocalLengthsByZoomFactorForMode_device_videoConfiguration_videoStabilizationStrength_customLensGroup_isTrueVideo_frontRearSimultaneousVideoEnabled___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__178__CAMZoomControlUtilities_exifFocalLengthsByZoomFactorForMode_device_videoConfiguration_videoStabilizationStrength_customLensGroup_isTrueVideo_frontRearSimultaneousVideoEnabled___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 customLens];
   if (result)

@@ -87,16 +87,16 @@ void AppendSizeInfo(void *a1, void *a2, uint64_t a3)
   }
 }
 
-id STStorageLog()
+id STStorageLog(uint64_t a1)
 {
   if (STStorageLog_onceToken != -1)
   {
     STStorageLog_cold_1();
   }
 
-  v1 = STStorageLog__gSharedLog;
+  v2 = STStorageLog__gSharedLog;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __STStorageLog_block_invoke()
@@ -120,54 +120,52 @@ void STLog(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_
   v11 = a2;
   v12 = [[v10 alloc] initWithFormat:v11 arguments:&a9];
 
-  v13 = STStorageLog();
-  v14 = v13;
+  v14 = STStorageLog(v13);
+  v15 = v14;
   switch(a1)
   {
     case 2:
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        STLog_cold_2(v12, v14);
+        STLog_cold_2(v12, v15);
       }
 
       break;
     case 3:
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
-        STLog_cold_1(v12, v14);
+        STLog_cold_1(v12, v15);
       }
 
       break;
     case 4:
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
         v20 = @"StorageLogInvestigation";
         v21 = 2114;
         v22 = v12;
-        v15 = "%@ - %{public}@";
-        v16 = v14;
-        v17 = 22;
+        v16 = "%@ - %{public}@";
+        v17 = v15;
+        v18 = 22;
 LABEL_12:
-        _os_log_impl(&dword_26BB8E000, v16, OS_LOG_TYPE_DEFAULT, v15, buf, v17);
+        _os_log_impl(&dword_26BB8E000, v17, OS_LOG_TYPE_DEFAULT, v16, buf, v18);
       }
 
       break;
     default:
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
         v20 = v12;
-        v15 = "%{public}@";
-        v16 = v14;
-        v17 = 12;
+        v16 = "%{public}@";
+        v17 = v15;
+        v18 = 12;
         goto LABEL_12;
       }
 
       break;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 id STFormattedSize(uint64_t a1)
@@ -261,7 +259,7 @@ id STMakeDirPath(void *a1)
   return v3;
 }
 
-uint64_t STSizeOfSystemVolume()
+uint64_t STSizeOfSystemVolume(uint64_t a1, uint64_t a2)
 {
   if (STSizeOfSystemVolume_onceToken != -1)
   {
@@ -281,78 +279,79 @@ void __STSizeOfSystemVolume_block_invoke()
 
 uint64_t STVolumeSize(const char *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  memset(v10, 0, 20);
-  v13 = 0;
-  v11 = 5;
-  v12 = 2155872256;
-  v2 = getattrlist(a1, &v11, v10, 0x14uLL, 0);
-  v3 = STStorageLog();
-  v4 = v3;
-  if (v2)
+  v19 = *MEMORY[0x277D85DE8];
+  memset(v11, 0, 20);
+  v14 = 0;
+  v12 = 5;
+  v13 = 2155872256;
+  v2 = getattrlist(a1, &v12, v11, 0x14uLL, 0);
+  v3 = v2;
+  v4 = STStorageLog(v2);
+  v5 = v4;
+  if (v3)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      STVolumeSize_cold_1(a1, v4);
+      STVolumeSize_cold_1(a1, v5);
     }
 
-    LODWORD(v12) = -2147483628;
-    if (getattrlist(a1, &v11, v10, 0x14uLL, 0))
+    LODWORD(v13) = -2147483628;
+    v6 = getattrlist(a1, &v12, v11, 0x14uLL, 0);
+    if (v6)
     {
-      v5 = STStorageLog();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = STStorageLog(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        STVolumeSize_cold_2(a1, v5);
+        STVolumeSize_cold_2(a1, v7);
       }
 
-      v6 = 0;
+      return 0;
     }
 
     else
     {
-      v6 = *&v10[1] - *&v10[3];
-      v7 = STStorageLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+      v8 = *&v11[1] - *&v11[3];
+      v9 = STStorageLog(v6);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         *buf = 136446466;
-        v15 = a1;
-        v16 = 2048;
-        v17 = v6;
-        _os_log_impl(&dword_26BB8E000, v7, OS_LOG_TYPE_INFO, "STVolumeSize: %{public}s volume: %lld", buf, 0x16u);
+        v16 = a1;
+        v17 = 2048;
+        v18 = v8;
+        _os_log_impl(&dword_26BB8E000, v9, OS_LOG_TYPE_INFO, "STVolumeSize: %{public}s volume: %lld", buf, 0x16u);
       }
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 136446466;
-      v15 = a1;
-      v16 = 2048;
-      v17 = *&v10[1];
-      _os_log_impl(&dword_26BB8E000, v4, OS_LOG_TYPE_INFO, "STVolumeSize: %{public}s volume: %lld", buf, 0x16u);
+      v16 = a1;
+      v17 = 2048;
+      v18 = *&v11[1];
+      _os_log_impl(&dword_26BB8E000, v5, OS_LOG_TYPE_INFO, "STVolumeSize: %{public}s volume: %lld", buf, 0x16u);
     }
 
-    v6 = *&v10[1];
+    return *&v11[1];
   }
 
-  v8 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v8;
 }
 
 id STSizeOfPathWithOptions(void *a1, int a2)
 {
-  v51[2] = *MEMORY[0x277D85DE8];
+  v49[2] = *MEMORY[0x277D85DE8];
   v3 = a1;
   if (![v3 length])
   {
     goto LABEL_36;
   }
 
-  v51[0] = [v3 fileSystemRepresentation];
-  v51[1] = 0;
-  v4 = fts_open(v51, 81, 0);
+  v49[0] = [v3 fileSystemRepresentation];
+  v49[1] = 0;
+  v4 = fts_open(v49, 81, 0);
   if (!v4)
   {
     STLog(2, @"Failed to open path: %@", v5, v6, v7, v8, v9, v10, v3);
@@ -374,9 +373,9 @@ LABEL_38:
   }
 
   v20 = v13;
-  v47 = 0;
   v45 = 0;
-  v46 = *MEMORY[0x277CBE908];
+  v43 = 0;
+  v44 = *MEMORY[0x277CBE908];
   do
   {
     v21 = v20;
@@ -394,15 +393,15 @@ LABEL_38:
         goto LABEL_27;
       }
 
-      v49 = 0;
-      v50 = 0;
-      if (fsctl(v21->fts_path, 0x40104A0EuLL, &v49, 0) == -1 || v49 != 2)
+      v47 = 0;
+      v48 = 0;
+      if (fsctl(v21->fts_path, 0x40104A0EuLL, &v47, 0) == -1 || v47 != 2)
       {
         goto LABEL_27;
       }
 
-      v24 = v50;
-      v25 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v50];
+      v24 = v48;
+      v25 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v48];
       v26 = [v12 containsObject:v25];
 
       if ((v26 & 1) == 0)
@@ -419,19 +418,19 @@ LABEL_27:
           v38 = [MEMORY[0x277CCACA8] stringWithUTF8String:v21->fts_path];
           v39 = [v37 fileURLWithPath:v38];
 
-          v48 = 0;
-          [v39 getResourceValue:&v48 forKey:v46 error:0];
-          v47 += [v48 longLongValue];
+          v46 = 0;
+          [v39 getResourceValue:&v46 forKey:v44 error:0];
+          v45 += [v46 longLongValue];
 
           objc_autoreleasePoolPop(v36);
         }
 
         else
         {
-          v49 = 0;
-          if (v21->fts_info != 8 || (fsctl(v21->fts_path, 0x40084A47uLL, &v49, 0), !v49))
+          v47 = 0;
+          if (v21->fts_info != 8 || (fsctl(v21->fts_path, 0x40084A47uLL, &v47, 0), !v47))
           {
-            v47 += fts_statp->st_blocks << 9;
+            v45 += fts_statp->st_blocks << 9;
           }
         }
 
@@ -462,9 +461,8 @@ LABEL_27:
         break;
       case 7:
         v27 = __error();
-        fts_path = v21->fts_path;
         STLog(3, @"error %d sizing %s", v28, v29, v30, v31, v32, v33, *v27);
-        v45 = 1;
+        v43 = 1;
         break;
       case 10:
         STLog(2, @"stat failed for %s", v14, v15, v16, v17, v18, v19, v21->fts_path);
@@ -478,8 +476,8 @@ LABEL_32:
   while (v20);
 LABEL_33:
   fts_close(v11);
-  v40 = v47;
-  if ((v45 & 1) == 0)
+  v40 = v45;
+  if ((v43 & 1) == 0)
   {
     goto LABEL_38;
   }
@@ -488,21 +486,20 @@ LABEL_33:
 LABEL_39:
 
 LABEL_40:
-  v42 = *MEMORY[0x277D85DE8];
 
   return v41;
 }
 
-id STSharedConcurrentQueue()
+id STSharedConcurrentQueue(uint64_t a1)
 {
   if (STSharedConcurrentQueue_token != -1)
   {
     STSharedConcurrentQueue_cold_1();
   }
 
-  v1 = STSharedConcurrentQueue_queue;
+  v2 = STSharedConcurrentQueue_queue;
 
-  return v1;
+  return v2;
 }
 
 void __STSharedConcurrentQueue_block_invoke()
@@ -514,16 +511,16 @@ void __STSharedConcurrentQueue_block_invoke()
   STSharedConcurrentQueue_queue = v1;
 }
 
-id STSharedConcurrentOpQueue()
+id STSharedConcurrentOpQueue(uint64_t a1)
 {
   if (STSharedConcurrentOpQueue_token != -1)
   {
     STSharedConcurrentOpQueue_cold_1();
   }
 
-  v1 = STSharedConcurrentOpQueue_opQueue;
+  v2 = STSharedConcurrentOpQueue_opQueue;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __STSharedConcurrentOpQueue_block_invoke()
@@ -532,24 +529,24 @@ uint64_t __STSharedConcurrentOpQueue_block_invoke()
   v1 = STSharedConcurrentOpQueue_opQueue;
   STSharedConcurrentOpQueue_opQueue = v0;
 
-  v2 = STSharedConcurrentQueue();
-  [STSharedConcurrentOpQueue_opQueue setUnderlyingQueue:v2];
+  v3 = STSharedConcurrentQueue(v2);
+  [STSharedConcurrentOpQueue_opQueue setUnderlyingQueue:v3];
 
-  v3 = STSharedConcurrentOpQueue_opQueue;
+  v4 = STSharedConcurrentOpQueue_opQueue;
 
-  return [v3 setMaxConcurrentOperationCount:4];
+  return [v4 setMaxConcurrentOperationCount:4];
 }
 
-id STSharedContainerSizingQueue()
+id STSharedContainerSizingQueue(uint64_t a1)
 {
   if (STSharedContainerSizingQueue_token != -1)
   {
     STSharedContainerSizingQueue_cold_1();
   }
 
-  v1 = STSharedContainerSizingQueue_queue;
+  v2 = STSharedContainerSizingQueue_queue;
 
-  return v1;
+  return v2;
 }
 
 void __STSharedContainerSizingQueue_block_invoke()
@@ -562,16 +559,16 @@ void __STSharedContainerSizingQueue_block_invoke()
   STSharedContainerSizingQueue_queue = v1;
 }
 
-id STSharedPathSizingOpQueue()
+id STSharedPathSizingOpQueue(uint64_t a1)
 {
   if (STSharedPathSizingOpQueue_token != -1)
   {
     STSharedPathSizingOpQueue_cold_1();
   }
 
-  v1 = STSharedPathSizingOpQueue_opQueue;
+  v2 = STSharedPathSizingOpQueue_opQueue;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __STSharedPathSizingOpQueue_block_invoke()
@@ -580,24 +577,24 @@ uint64_t __STSharedPathSizingOpQueue_block_invoke()
   v1 = STSharedPathSizingOpQueue_opQueue;
   STSharedPathSizingOpQueue_opQueue = v0;
 
-  v2 = STSharedConcurrentQueue();
-  [STSharedPathSizingOpQueue_opQueue setUnderlyingQueue:v2];
+  v3 = STSharedConcurrentQueue(v2);
+  [STSharedPathSizingOpQueue_opQueue setUnderlyingQueue:v3];
 
-  v3 = STSharedPathSizingOpQueue_opQueue;
+  v4 = STSharedPathSizingOpQueue_opQueue;
 
-  return [v3 setMaxConcurrentOperationCount:8];
+  return [v4 setMaxConcurrentOperationCount:8];
 }
 
-id STSharedSerialQueue()
+id STSharedSerialQueue(uint64_t a1)
 {
   if (STSharedSerialQueue_token != -1)
   {
     STSharedSerialQueue_cold_1();
   }
 
-  v1 = STSharedSerialQueue_queue;
+  v2 = STSharedSerialQueue_queue;
 
-  return v1;
+  return v2;
 }
 
 void __STSharedSerialQueue_block_invoke()
@@ -609,16 +606,16 @@ void __STSharedSerialQueue_block_invoke()
   STSharedSerialQueue_queue = v1;
 }
 
-id STSharedSerialOpQueue()
+id STSharedSerialOpQueue(uint64_t a1)
 {
   if (STSharedSerialOpQueue_token != -1)
   {
     STSharedSerialOpQueue_cold_1();
   }
 
-  v1 = STSharedSerialOpQueue_opQueue;
+  v2 = STSharedSerialOpQueue_opQueue;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __STSharedSerialOpQueue_block_invoke()
@@ -627,12 +624,12 @@ uint64_t __STSharedSerialOpQueue_block_invoke()
   v1 = STSharedSerialOpQueue_opQueue;
   STSharedSerialOpQueue_opQueue = v0;
 
-  v2 = STSharedSerialQueue();
-  [STSharedSerialOpQueue_opQueue setUnderlyingQueue:v2];
+  v3 = STSharedSerialQueue(v2);
+  [STSharedSerialOpQueue_opQueue setUnderlyingQueue:v3];
 
-  v3 = STSharedSerialOpQueue_opQueue;
+  v4 = STSharedSerialOpQueue_opQueue;
 
-  return [v3 setMaxConcurrentOperationCount:1];
+  return [v4 setMaxConcurrentOperationCount:1];
 }
 
 id STStorageDataLocStr(void *a1)
@@ -656,7 +653,7 @@ uint64_t __STStorageDataLocStr_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-uint64_t STStorageIsInternalInstall()
+uint64_t STStorageIsInternalInstall(uint64_t a1, uint64_t a2)
 {
   if (STStorageIsInternalInstall_onceToken != -1)
   {
@@ -672,7 +669,7 @@ void __STStorageIsInternalInstall_block_invoke()
   STStorageIsInternalInstall_isInternal = [v0 BOOLValue];
 }
 
-uint64_t STStorageIsDeveloperRelease()
+uint64_t STStorageIsDeveloperRelease(uint64_t a1, uint64_t a2)
 {
   if (STStorageIsDeveloperRelease_onceToken != -1)
   {
@@ -688,7 +685,7 @@ void __STStorageIsDeveloperRelease_block_invoke()
   STStorageIsDeveloperRelease_isDeveloperRelease = [v0 isEqualToString:@"Beta"];
 }
 
-uint64_t STStorageDeviceIsiPad()
+uint64_t STStorageDeviceIsiPad(uint64_t a1, uint64_t a2)
 {
   if (STStorageDeviceIsiPad_onceToken != -1)
   {
@@ -716,7 +713,7 @@ uint64_t STStorageComputePercentage(void *a1, void *a2)
   return [v3 numberWithInt:((v6 / v8) * 100.0)];
 }
 
-uint64_t STPersonasAreSupported()
+uint64_t STPersonasAreSupported(uint64_t a1, uint64_t a2)
 {
   if (STPersonasAreSupported_onceToken != -1)
   {
@@ -744,9 +741,9 @@ void __STPersonasAreSupported_block_invoke()
   STPersonasAreSupported_personasSupported = v1;
 }
 
-id STPersonaCopyPersonaUniqueStrings()
+id STPersonaCopyPersonaUniqueStrings(uint64_t a1, uint64_t a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   if (STPersonasAreSupported_onceToken != -1)
   {
     STPersonasAreSupported_cold_1();
@@ -754,63 +751,63 @@ id STPersonaCopyPersonaUniqueStrings()
 
   if (STPersonasAreSupported_personasSupported == 1)
   {
-    v0 = [MEMORY[0x277D77BF8] sharedManager];
-    v33 = 0;
-    v1 = [v0 personaGenerationIdentifierWithError:&v33];
-    v2 = v33;
+    v2 = [MEMORY[0x277D77BF8] sharedManager];
+    v34 = 0;
+    v3 = [v2 personaGenerationIdentifierWithError:&v34];
+    v4 = v34;
 
-    if (v1)
+    if (v3)
     {
-      if (v1 == STPersonaCopyPersonaUniqueStrings_previousGenerationId && STPersonaCopyPersonaUniqueStrings_personaUniqueStrings != 0)
+      if (v3 == STPersonaCopyPersonaUniqueStrings_previousGenerationId && STPersonaCopyPersonaUniqueStrings_personaUniqueStrings != 0)
       {
-        v24 = STPersonaCopyPersonaUniqueStrings_personaUniqueStrings;
+        v26 = STPersonaCopyPersonaUniqueStrings_personaUniqueStrings;
 
         goto LABEL_31;
       }
 
-      STPersonaCopyPersonaUniqueStrings_previousGenerationId = v1;
+      STPersonaCopyPersonaUniqueStrings_previousGenerationId = v3;
     }
 
-    v4 = [MEMORY[0x277D77BF8] sharedManager];
-    v32 = v2;
-    v5 = [v4 listAllPersonaAttributesWithError:&v32];
-    v6 = v32;
+    v6 = [MEMORY[0x277D77BF8] sharedManager];
+    v33 = v4;
+    v7 = [v6 listAllPersonaAttributesWithError:&v33];
+    v8 = v33;
 
-    if (v5)
+    if (v7)
     {
-      v27 = v6;
-      v13 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v5, "count")}];
-      v14 = STPersonaCopyPersonaUniqueStrings_personaUniqueStrings;
-      STPersonaCopyPersonaUniqueStrings_personaUniqueStrings = v13;
+      v28 = v8;
+      v15 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v7, "count")}];
+      v16 = STPersonaCopyPersonaUniqueStrings_personaUniqueStrings;
+      STPersonaCopyPersonaUniqueStrings_personaUniqueStrings = v15;
 
-      v30 = 0u;
       v31 = 0u;
-      v28 = 0u;
+      v32 = 0u;
       v29 = 0u;
-      v15 = v5;
-      v16 = [v15 countByEnumeratingWithState:&v28 objects:v34 count:16];
-      if (!v16)
+      v30 = 0u;
+      v17 = v7;
+      v18 = [v17 countByEnumeratingWithState:&v29 objects:v35 count:16];
+      if (!v18)
       {
         goto LABEL_27;
       }
 
-      v17 = v16;
-      v18 = *v29;
+      v19 = v18;
+      v20 = *v30;
       while (1)
       {
-        for (i = 0; i != v17; ++i)
+        for (i = 0; i != v19; ++i)
         {
-          if (*v29 != v18)
+          if (*v30 != v20)
           {
-            objc_enumerationMutation(v15);
+            objc_enumerationMutation(v17);
           }
 
-          v20 = *(*(&v28 + 1) + 8 * i);
-          v21 = [v20 userPersonaUniqueString];
-          if ([v20 isPersonalPersona])
+          v22 = *(*(&v29 + 1) + 8 * i);
+          v23 = [v22 userPersonaUniqueString];
+          if ([v22 isPersonalPersona])
           {
-            v22 = 1;
-            if (v21)
+            v24 = 1;
+            if (v23)
             {
               goto LABEL_24;
             }
@@ -818,45 +815,44 @@ id STPersonaCopyPersonaUniqueStrings()
 
           else
           {
-            if ([v20 isEnterprisePersona])
+            if ([v22 isEnterprisePersona])
             {
-              v22 = 2;
+              v24 = 2;
             }
 
             else
             {
-              v22 = 0;
+              v24 = 0;
             }
 
-            if (v21)
+            if (v23)
             {
 LABEL_24:
-              v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v22];
-              [STPersonaCopyPersonaUniqueStrings_personaUniqueStrings setObject:v23 forKeyedSubscript:v21];
+              v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v24];
+              [STPersonaCopyPersonaUniqueStrings_personaUniqueStrings setObject:v25 forKeyedSubscript:v23];
             }
           }
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v28 objects:v34 count:16];
-        if (!v17)
+        v19 = [v17 countByEnumeratingWithState:&v29 objects:v35 count:16];
+        if (!v19)
         {
 LABEL_27:
 
-          v6 = v27;
+          v8 = v28;
           goto LABEL_29;
         }
       }
     }
 
-    STLog(2, @"Could not fetch persona attributes from UserManagement %@\n", v7, v8, v9, v10, v11, v12, v6);
+    STLog(2, @"Could not fetch persona attributes from UserManagement %@\n", v9, v10, v11, v12, v13, v14, v8);
 LABEL_29:
   }
 
-  v24 = [STPersonaCopyPersonaUniqueStrings_personaUniqueStrings copy];
+  v26 = [STPersonaCopyPersonaUniqueStrings_personaUniqueStrings copy];
 LABEL_31:
-  v25 = *MEMORY[0x277D85DE8];
 
-  return v24;
+  return v26;
 }
 
 id DataContainersFromAppRecordWithPersonas(void *a1, void *a2)
@@ -916,30 +912,30 @@ id DataContainersFromAppRecordWithPersonas(void *a1, void *a2)
   return v8;
 }
 
-id STPersonaUniqueStringOfType(uint64_t a1, void *a2)
+id STPersonaUniqueStringOfType(void *a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v3 = a2;
-  v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v15;
+    v6 = *v14;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
-        v9 = [v3 objectForKeyedSubscript:{v8, v14}];
+        v8 = *(*(&v13 + 1) + 8 * i);
+        v9 = [v3 objectForKeyedSubscript:{v8, v13}];
         v10 = [v9 unsignedIntegerValue];
 
         if (v10 == a1)
@@ -949,7 +945,7 @@ id STPersonaUniqueStringOfType(uint64_t a1, void *a2)
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v5)
       {
         continue;
@@ -961,8 +957,6 @@ id STPersonaUniqueStringOfType(uint64_t a1, void *a2)
 
   v11 = 0;
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -1117,35 +1111,35 @@ void _UpdateSize(void *a1, void *a2, uint64_t a3)
 
 id SizesOfContainers(void *a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if ([v1 count])
   {
     v2 = +[STMSizer sharedAppSizer];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
-    v20 = v1;
+    v19 = v1;
     v3 = v1;
-    v4 = [v3 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v4)
     {
       v5 = v4;
+      v20 = 0;
       v21 = 0;
-      v22 = 0;
       v6 = 0;
-      v7 = *v24;
+      v7 = *v23;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v24 != v7)
+          if (*v23 != v7)
           {
             objc_enumerationMutation(v3);
           }
 
-          v9 = *(*(&v23 + 1) + 8 * i);
+          v9 = *(*(&v22 + 1) + 8 * i);
           v10 = [v9 url];
           v11 = [v10 path];
 
@@ -1160,12 +1154,12 @@ id SizesOfContainers(void *a1)
             {
               if ([v9 containerClass] == 1)
               {
-                v22 += v14;
+                v21 += v14;
               }
 
               else
               {
-                v21 += v14;
+                v20 += v14;
                 v15 = [v12 stringByAppendingString:@"Library/Caches/"];
 
                 v16 = [v2 updatedSizeOfItemForPath:v15];
@@ -1182,7 +1176,7 @@ id SizesOfContainers(void *a1)
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v5);
@@ -1190,14 +1184,14 @@ id SizesOfContainers(void *a1)
 
     else
     {
+      v20 = 0;
       v21 = 0;
-      v22 = 0;
       v6 = 0;
     }
 
-    v17 = [STSizeVector fixed:v22 dynamic:v21 purgeable:v6];
+    v17 = [STSizeVector fixed:v21 dynamic:v20 purgeable:v6];
 
-    v1 = v20;
+    v1 = v19;
   }
 
   else
@@ -1205,13 +1199,12 @@ id SizesOfContainers(void *a1)
     v17 = +[STSizeVector zero];
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
-void STMSizeOfFileTree(void *a1@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+void STMSizeOfFileTree(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
+  v3 = a2;
   v5 = MEMORY[0x277CCAA00];
   v6 = a1;
   v13 = [v5 defaultManager];
@@ -1220,7 +1213,7 @@ void STMSizeOfFileTree(void *a1@<X0>, int a2@<W1>, uint64_t a3@<X8>)
     *(a3 + 32) = 0;
     *a3 = 0u;
     *(a3 + 16) = 0u;
-    diskUsageList(v6, 0, a2, a3);
+    diskUsageList(v6, 0, v3, a3);
   }
 
   else
@@ -1236,65 +1229,65 @@ void STMSizeOfFileTree(void *a1@<X0>, int a2@<W1>, uint64_t a3@<X8>)
 
 void diskUsageList(void *a1@<X0>, void *a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
 {
-  v165 = *MEMORY[0x277D85DE8];
+  v164 = *MEMORY[0x277D85DE8];
   v7 = a1;
-  v154 = a2;
-  memset(v164, 0, 7);
+  v153 = a2;
+  memset(v163, 0, 7);
   if (v7)
   {
     if (a3)
     {
-      memset(&v158.st_ino, 0, 32);
-      *&v158.st_dev = 1;
-      if (!fsctl([v7 fileSystemRepresentation], 0xC0284A20uLL, &v158, 0))
+      memset(&v157.st_ino, 0, 32);
+      *&v157.st_dev = 1;
+      if (!fsctl([v7 fileSystemRepresentation], 0xC0284A20uLL, &v157, 0))
       {
         *(a4 + 16) = 0;
         *(a4 + 24) = 0;
         *(a4 + 32) = 0;
-        *a4 = vextq_s8(*&v158.st_uid, *&v158.st_uid, 8uLL);
+        *a4 = vextq_s8(*&v157.st_uid, *&v157.st_uid, 8uLL);
         goto LABEL_83;
       }
 
       v14 = *__error();
       v15 = __error();
       v16 = strerror(*v15);
-      v141[4093] = v14;
-      v141[4094] = v16;
+      v140[4093] = v14;
+      v140[4094] = v16;
       STLog(0, @"Asked to use fast sizing on %@ but fast sizing failed: %d (%s)", v17, v18, v19, v20, v21, v22, v7);
     }
 
     v23 = objc_opt_new();
     v24 = [MEMORY[0x277CBEB18] array];
     info = 0;
-    v160 = 0xA200000900000005;
-    v161 = 0;
-    v162 = 0x500000002;
-    v163 = 768;
+    v159 = 0xA200000900000005;
+    v160 = 0;
+    v161 = 0x500000002;
+    v162 = 768;
     mach_timebase_info(&info);
     v25 = mach_absolute_time();
     MEMORY[0x28223BE20]();
-    bzero(v141, 0x8000uLL);
+    bzero(v140, 0x8000uLL);
     v32 = +[PathObject pathObjectWithPath:component:](PathObject, "pathObjectWithPath:component:", [v7 fileSystemRepresentation], 0);
     if (v32)
     {
-      v146 = v141;
-      v142 = v25;
-      v145 = v7;
+      v145 = v140;
+      v141 = v25;
+      v144 = v7;
       [v24 addObject:v32];
       v33 = [v24 count];
-      v149 = v23;
-      v144 = a4;
-      v143 = v32;
+      v148 = v23;
+      v143 = a4;
+      v142 = v32;
       if (v33)
       {
-        v156 = 0;
+        v155 = 0;
         v34 = 0;
         v35 = 0;
         v36 = 0;
-        v147 = v24;
+        v146 = v24;
         while (1)
         {
-          memset(&v158, 0, sizeof(v158));
+          memset(&v157, 0, sizeof(v157));
           v37 = [v24 objectAtIndex:0];
           [v24 removeObjectAtIndex:0];
           v38 = open([v37 path], 256);
@@ -1316,7 +1309,7 @@ LABEL_76:
         }
 
         v39 = v38;
-        if (fstat(v38, &v158))
+        if (fstat(v38, &v157))
         {
           v46 = __error();
           strerror(*v46);
@@ -1327,15 +1320,15 @@ LABEL_75:
           goto LABEL_76;
         }
 
-        v60 = v158.st_mode & 0xF000;
+        v60 = v157.st_mode & 0xF000;
         if (v60 == 40960 || v60 == 0x8000)
         {
-          v119 = v158.st_blocks << 9;
+          v119 = v157.st_blocks << 9;
           ++v34;
-          v156 += v158.st_blocks << 9;
-          v157 = 0;
-          fsctl([v37 path], 0x40084A47uLL, &v157, 0);
-          if (v157)
+          v155 += v157.st_blocks << 9;
+          v156 = 0;
+          fsctl([v37 path], 0x40084A47uLL, &v156, 0);
+          if (v156)
           {
             v120 = v119;
           }
@@ -1355,14 +1348,14 @@ LABEL_75:
           goto LABEL_75;
         }
 
-        v152 = v34;
-        v155 = v35;
+        v151 = v34;
+        v154 = v35;
         v61 = 0;
 LABEL_16:
-        v62 = v146;
+        v62 = v145;
         do
         {
-          v63 = getattrlistbulk(v39, &v160, v62, 0x8000uLL, 0);
+          v63 = getattrlistbulk(v39, &v159, v62, 0x8000uLL, 0);
           if (v63 == -1)
           {
             v121 = __error();
@@ -1370,9 +1363,9 @@ LABEL_16:
             STLog(2, @"getattrlistbulk on entry %llu in %@ returned error %s", v122, v123, v124, v125, v126, v127, v61);
             v36 = 1;
 LABEL_74:
-            v24 = v147;
-            v35 = v155;
-            v34 = v152;
+            v24 = v146;
+            v35 = v154;
+            v34 = v151;
             goto LABEL_75;
           }
 
@@ -1458,7 +1451,7 @@ LABEL_25:
                 v81 = 0;
               }
 
-              v153 = v36;
+              v152 = v36;
               if ((v73 & 4) != 0)
               {
                 v104 = *v75;
@@ -1471,7 +1464,7 @@ LABEL_25:
                 v103 = 0;
               }
 
-              v150 = v76;
+              v149 = v76;
               if ((v74 & 0x100) != 0)
               {
                 v107 = *v75;
@@ -1498,17 +1491,17 @@ LABEL_47:
                 LOBYTE(v106) = 0;
               }
 
-              if (v154 && (v106 & 1) != 0 && v105)
+              if (v153 && (v106 & 1) != 0 && v105)
               {
-                v148 = v81;
+                v147 = v81;
                 v108 = [MEMORY[0x277CCABB0] numberWithLongLong:v103];
-                v151 = v72;
+                v150 = v72;
                 v109 = v108;
                 v110 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v105];
-                [v154 setObject:v109 forKeyedSubscript:v110];
+                [v153 setObject:v109 forKeyedSubscript:v110];
 
-                v81 = v148;
-                v72 = v151;
+                v81 = v147;
+                v72 = v150;
               }
 
               if ((v106 & 8) != 0)
@@ -1521,32 +1514,32 @@ LABEL_47:
                 v111 = 0;
               }
 
-              v155 += v111;
+              v154 += v111;
               if (v81)
               {
-                v156 += v103;
-                ++v152;
-                v36 = v153;
+                v155 += v103;
+                ++v151;
+                v36 = v152;
               }
 
               else
               {
-                v151 = objc_autoreleasePoolPush();
-                v112 = v149;
-                if ([v149 containsIndex:v79])
+                v150 = objc_autoreleasePoolPush();
+                v112 = v148;
+                if ([v148 containsIndex:v79])
                 {
                   STLog(1, @"Skipping hardlinked file at %@/%s", v113, v114, v115, v116, v117, v118, v37);
                 }
 
                 else
                 {
-                  v156 += v103;
-                  ++v152;
+                  v155 += v103;
+                  ++v151;
                   [v112 addIndex:v79];
                 }
 
-                v36 = v153;
-                objc_autoreleasePoolPop(v151);
+                v36 = v152;
+                objc_autoreleasePoolPop(v150);
               }
 
               goto LABEL_66;
@@ -1573,7 +1566,7 @@ LABEL_33:
 
           if (v76)
           {
-            v151 = *v62;
+            v150 = *v62;
             v90 = v36;
             v91 = objc_autoreleasePoolPush();
             v92 = +[PathObject pathObjectWithPath:component:](PathObject, "pathObjectWithPath:component:", [v37 path], v76);
@@ -1585,7 +1578,7 @@ LABEL_33:
 
               if ((v101 & 1) == 0)
               {
-                [v147 addObject:v99];
+                [v146 addObject:v99];
               }
             }
 
@@ -1597,7 +1590,7 @@ LABEL_33:
 
             objc_autoreleasePoolPop(v91);
             v36 = v90;
-            v72 = v151;
+            v72 = v150;
             goto LABEL_66;
           }
 
@@ -1617,33 +1610,33 @@ LABEL_66:
       LOBYTE(v36) = 0;
       v35 = 0;
       v34 = 0;
-      v156 = 0;
+      v155 = 0;
 LABEL_81:
       mach_absolute_time();
       v128 = v36;
-      v129 = v156;
-      v130 = [MEMORY[0x277CCA8E8] stringFromByteCount:v156 countStyle:0];
+      v129 = v155;
+      v130 = [MEMORY[0x277CCA8E8] stringFromByteCount:v155 countStyle:0];
       v131 = [MEMORY[0x277CCA8E8] stringFromByteCount:v35 countStyle:0];
       v132 = v34;
-      v7 = v145;
-      STLog(1, @"result for %@: %llu files, %@ total, %@ purgeable, took %lf ms"), v133, v134, v135, v136, v137, v138, v145);
+      v7 = v144;
+      STLog(1, @"result for %@: %llu files, %@ total, %@ purgeable, took %lf ms"), v133, v134, v135, v136, v137, v138, v144);
 
-      v23 = v149;
-      v139 = v144;
-      *v144 = v129;
+      v23 = v148;
+      v139 = v143;
+      *v143 = v129;
       v139[1] = v132;
       v139[2] = v35;
       v139[3] = 0;
       *(v139 + 32) = v128;
-      *(v139 + 33) = v164[0];
-      *(v139 + 9) = *(v164 + 3);
-      v32 = v143;
+      *(v139 + 33) = v163[0];
+      *(v139 + 9) = *(v163 + 3);
+      v32 = v142;
     }
 
     else
     {
       STLog(2, @"unable to create PathObject from %@", v26, v27, v28, v29, v30, v31, v7);
-      free(v141);
+      free(v140);
       *a4 = 0u;
       *(a4 + 16) = 0u;
       *(a4 + 32) = 1;
@@ -1654,7 +1647,7 @@ LABEL_81:
 
   else
   {
-    STLog(2, @"Path is nil", v8, v9, v10, v11, v12, v13, v142);
+    STLog(2, @"Path is nil", v8, v9, v10, v11, v12, v13, v141);
     *a4 = 0u;
     *(a4 + 16) = 0u;
     *(a4 + 32) = 1;
@@ -1663,8 +1656,6 @@ LABEL_81:
   }
 
 LABEL_83:
-
-  v140 = *MEMORY[0x277D85DE8];
 }
 
 id STMSizesOfClones(void *a1)
@@ -1726,62 +1717,62 @@ LABEL_9:
 uint64_t _SizeOfOPurgeableAssets(void *a1)
 {
   v1 = a1;
-  v10 = 0;
-  v11 = &v10;
-  v12 = 0x2020000000;
-  v13 = 0;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = ___SizeOfOPurgeableAssets_block_invoke;
-  v9[3] = &unk_279D1D188;
-  v9[4] = &v10;
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x2020000000;
+  v14 = 0;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = ___SizeOfOPurgeableAssets_block_invoke;
+  v10[3] = &unk_279D1D188;
+  v10[4] = &v11;
   v2 = v1;
-  v3 = v9;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
+  v3 = v10;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x2020000000;
   v4 = getCacheManagementEnumerateAssetsSymbolLoc_ptr;
-  v18 = getCacheManagementEnumerateAssetsSymbolLoc_ptr;
+  v19 = getCacheManagementEnumerateAssetsSymbolLoc_ptr;
   if (!getCacheManagementEnumerateAssetsSymbolLoc_ptr)
   {
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __getCacheManagementEnumerateAssetsSymbolLoc_block_invoke;
-    v14[3] = &unk_279D1D1B0;
-    v14[4] = &v15;
-    __getCacheManagementEnumerateAssetsSymbolLoc_block_invoke(v14);
-    v4 = v16[3];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __getCacheManagementEnumerateAssetsSymbolLoc_block_invoke;
+    v15[3] = &unk_279D1D1B0;
+    v15[4] = &v16;
+    __getCacheManagementEnumerateAssetsSymbolLoc_block_invoke(v15);
+    v4 = v17[3];
   }
 
-  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v16, 8);
   if (v4)
   {
     (v4)(v2, 0, v3);
 
-    v5 = v11[3];
+    v5 = v12[3];
     v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"PurgeableAssets: %@", v2];
     STLogSize(v5, v6);
 
-    v7 = v11[3];
-    _Block_object_dispose(&v10, 8);
+    v7 = v12[3];
+    _Block_object_dispose(&v11, 8);
 
     return v7;
   }
 
   else
   {
-    dlerror();
-    result = abort_report_np();
+    v9 = dlerror();
+    result = abort_report_np("%s", v9);
     __break(1u);
   }
 
   return result;
 }
 
-void sub_26BB99D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_26BB99D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
-  _Block_object_dispose((v8 - 80), 8);
+  va_start(va, a15);
+  _Block_object_dispose((v15 - 80), 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1804,23 +1795,23 @@ uint64_t STMSizeOfPurgeableAssets(void *a1)
 
 void *__getCacheManagementEnumerateAssetsSymbolLoc_block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v6[0] = 0;
+  v8 = *MEMORY[0x277D85DE8];
+  v5[0] = 0;
   if (!CacheDeleteLibraryCore_frameworkLibrary)
   {
-    v6[1] = MEMORY[0x277D85DD0];
-    v6[2] = 3221225472;
-    v6[3] = __CacheDeleteLibraryCore_block_invoke;
-    v6[4] = &__block_descriptor_40_e5_v8__0l;
-    v6[5] = v6;
-    v7 = xmmword_279D1D1D0;
-    v8 = 0;
+    v5[1] = MEMORY[0x277D85DD0];
+    v5[2] = 3221225472;
+    v5[3] = __CacheDeleteLibraryCore_block_invoke;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_279D1D1D0;
+    v7 = 0;
     CacheDeleteLibraryCore_frameworkLibrary = _sl_dlopen();
-    v3 = v6[0];
+    v3 = v5[0];
     v2 = CacheDeleteLibraryCore_frameworkLibrary;
     if (CacheDeleteLibraryCore_frameworkLibrary)
     {
-      if (!v6[0])
+      if (!v5[0])
       {
         goto LABEL_5;
       }
@@ -1828,7 +1819,7 @@ void *__getCacheManagementEnumerateAssetsSymbolLoc_block_invoke(uint64_t a1)
 
     else
     {
-      v3 = abort_report_np();
+      v3 = abort_report_np("%s", v5[0]);
     }
 
     free(v3);
@@ -1840,17 +1831,13 @@ LABEL_5:
   result = dlsym(v2, "CacheManagementEnumerateAssets");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCacheManagementEnumerateAssetsSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __CacheDeleteLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CacheDeleteLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1863,18 +1850,18 @@ void sub_26BB9AAF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 id _CompressPath(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v1 = a1;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v2 = [&unk_287C8E860 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v2 = [&unk_287C8E860 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v2)
   {
     v3 = v2;
     v4 = 0;
-    v5 = *v15;
+    v5 = *v14;
     while (2)
     {
       v6 = 0;
@@ -1882,12 +1869,12 @@ id _CompressPath(void *a1)
       v4 += v3;
       do
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(&unk_287C8E860);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * v6);
+        v8 = *(*(&v13 + 1) + 8 * v6);
         if ([v1 hasPrefix:v8])
         {
           v10 = [v8 length];
@@ -1902,7 +1889,7 @@ id _CompressPath(void *a1)
       }
 
       while (v3 != v6);
-      v3 = [&unk_287C8E860 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v3 = [&unk_287C8E860 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v3)
       {
         continue;
@@ -1914,8 +1901,6 @@ id _CompressPath(void *a1)
 
   v9 = v1;
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -1987,7 +1972,7 @@ void _FSEventStreamCallback(uint64_t a1, void *a2, uint64_t a3, const char **a4,
 
 id STTapToRadarURLWithTitleAndContent(void *a1, void *a2)
 {
-  v18[7] = *MEMORY[0x277D85DE8];
+  v17[7] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACE0];
   v4 = a2;
   v5 = a1;
@@ -1998,31 +1983,29 @@ id STTapToRadarURLWithTitleAndContent(void *a1, void *a2)
 
   v8 = [MEMORY[0x277CCAD18] queryItemWithName:@"Description" value:{v4, v7}];
 
-  v18[1] = v8;
+  v17[1] = v8;
   v9 = [MEMORY[0x277CCAD18] queryItemWithName:@"ComponentName" value:@"Disk Space Triage"];
-  v18[2] = v9;
+  v17[2] = v9;
   v10 = [MEMORY[0x277CCAD18] queryItemWithName:@"ComponentVersion" value:@"iOS"];
-  v18[3] = v10;
+  v17[3] = v10;
   v11 = [MEMORY[0x277CCAD18] queryItemWithName:@"ComponentID" value:@"951859"];
-  v18[4] = v11;
+  v17[4] = v11;
   v12 = [MEMORY[0x277CCAD18] queryItemWithName:@"Classification" value:@"Other Bug"];
-  v18[5] = v12;
+  v17[5] = v12;
   v13 = [MEMORY[0x277CCAD18] queryItemWithName:@"Reproducibility" value:@"Always"];
-  v18[6] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:7];
+  v17[6] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:7];
   [v6 setQueryItems:v14];
 
   v15 = [v6 URL];
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v15;
 }
 
-void *__getCacheDeleteCopyPurgeableSpaceWithInfoSymbolLoc_block_invoke(uint64_t a1)
+void *__getCacheDeleteCopyPurgeableSpaceWithInfoSymbolLoc_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = CacheDeleteLibrary();
-  result = dlsym(v2, "CacheDeleteCopyPurgeableSpaceWithInfo");
+  v3 = CacheDeleteLibrary();
+  result = dlsym(v3, "CacheDeleteCopyPurgeableSpaceWithInfo");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getCacheDeleteCopyPurgeableSpaceWithInfoSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
   return result;
@@ -2030,45 +2013,41 @@ void *__getCacheDeleteCopyPurgeableSpaceWithInfoSymbolLoc_block_invoke(uint64_t 
 
 uint64_t CacheDeleteLibrary()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!CacheDeleteLibraryCore_frameworkLibrary_0)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __CacheDeleteLibraryCore_block_invoke_0;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v5 = xmmword_279D1D3A8;
-    v6 = 0;
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __CacheDeleteLibraryCore_block_invoke_0;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v4 = xmmword_279D1D3A8;
+    v5 = 0;
     CacheDeleteLibraryCore_frameworkLibrary_0 = _sl_dlopen();
   }
 
   v0 = CacheDeleteLibraryCore_frameworkLibrary_0;
-  v1 = v4[0];
+  v1 = v3[0];
   if (!CacheDeleteLibraryCore_frameworkLibrary_0)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
-  if (v4[0])
+  if (v3[0])
   {
 LABEL_7:
     free(v1);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
 uint64_t __CacheDeleteLibraryCore_block_invoke_0(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CacheDeleteLibraryCore_frameworkLibrary_0 = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2081,9 +2060,9 @@ void *__getCacheDeleteCopyItemizedPurgeableSpaceWithInfoSymbolLoc_block_invoke(u
   return result;
 }
 
-void sub_26BBA152C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26BBA152C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2200,31 +2179,31 @@ LABEL_15:
 
 STStorageApp *MakePseudoAppForContainer(void *a1, void *a2)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v31 = a1;
+  v36 = *MEMORY[0x277D85DE8];
+  v30 = a1;
   v3 = a2;
   v4 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v3, "count")}];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v33;
+    v9 = *v32;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v33 != v9)
+        if (*v32 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * i);
+        v11 = *(*(&v31 + 1) + 8 * i);
         v12 = [v11 vendorName];
         if ([v12 length])
         {
@@ -2251,7 +2230,7 @@ STStorageApp *MakePseudoAppForContainer(void *a1, void *a2)
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v7);
@@ -2287,15 +2266,13 @@ STStorageApp *MakePseudoAppForContainer(void *a1, void *a2)
   v25 = MEMORY[0x277CCACA8];
   v26 = STStorageDataLocStr(@"SHARED_FMT %ld");
   v27 = [v25 localizedStringWithFormat:v26, objc_msgSend(v5, "count")];
-  v28 = [(STStorageApp *)v22 initWithBundleIdentifier:v31 name:v24 vendorName:v27];
+  v28 = [(STStorageApp *)v22 initWithBundleIdentifier:v30 name:v24 vendorName:v27];
 
   if (!v23)
   {
   }
 
   [(STStorageApp *)v28 setAppKind:2];
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
@@ -2359,17 +2336,17 @@ void __STMessagesExternalDataSize_block_invoke()
   STMessagesExternalDataSize__messagesPlugin = v7;
 }
 
-void sub_26BBA4EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_26BBA4EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
-  objc_sync_exit(v16);
+  objc_sync_exit(v23);
   _Unwind_Resume(a1);
 }
 
-void sub_26BBA5324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_26BBA5324(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2392,43 +2369,38 @@ void __getCSSearchQueryContextClass_block_invoke(uint64_t a1)
 
 void CoreSpotlightLibrary()
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v2[0] = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v1[0] = 0;
   if (!CoreSpotlightLibraryCore_frameworkLibrary)
   {
-    v2[1] = MEMORY[0x277D85DD0];
-    v2[2] = 3221225472;
-    v2[3] = __CoreSpotlightLibraryCore_block_invoke;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_279D1D670;
-    v4 = 0;
+    v1[1] = MEMORY[0x277D85DD0];
+    v1[2] = 3221225472;
+    v1[3] = __CoreSpotlightLibraryCore_block_invoke;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_279D1D670;
+    v3 = 0;
     CoreSpotlightLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  v0 = v2[0];
+  v0 = v1[0];
   if (!CoreSpotlightLibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
-  if (v2[0])
+  if (v1[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __CoreSpotlightLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreSpotlightLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2444,7 +2416,7 @@ STMSizeCacheEntry *__getCSSearchQueryClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getCSSearchQueryClass_block_invoke_cold_1();
+    __getCSSearchQueryClass_block_invoke_cold_1();
     return [(STMSizeCacheEntry *)v3 initWithPath:v4, v5];
   }
 
@@ -2473,37 +2445,37 @@ void GetDeviceSpace(void *a1, void *a2)
 
 id STDictLookup(void *a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a1;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = a2;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       v8 = 0;
       v9 = v3;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * v8);
+        v10 = *(*(&v13 + 1) + 8 * v8);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           goto LABEL_12;
         }
 
-        v3 = [v9 objectForKey:{v10, v14}];
+        v3 = [v9 objectForKey:{v10, v13}];
 
         if (!v3)
         {
@@ -2519,7 +2491,7 @@ LABEL_12:
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -2532,8 +2504,6 @@ LABEL_12:
   v9 = v3;
   v11 = v9;
 LABEL_13:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -2586,72 +2556,70 @@ STMutableSizeDict *STSelectMediaUsage(void *a1, void *a2)
 
 void __STSelectMediaUsage_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [a3 includeMediaUsage];
   v7 = v6;
   if (v6)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
-    v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
+    v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         v11 = 0;
         do
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          [*(a1 + 32) setObject:v5 forKey:*(*(&v13 + 1) + 8 * v11++)];
+          [*(a1 + 32) setObject:v5 forKey:*(*(&v12 + 1) + 8 * v11++)];
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 STMutableSizeDict *STComputeUsageBundleData(void *a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = objc_alloc_init(STMutableSizeDict);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v25 = v3;
+  v24 = v3;
   v6 = [v3 allAppsWithUsageBundles];
-  v7 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v27;
+    v9 = *v26;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * i);
+        v11 = *(*(&v25 + 1) + 8 * i);
         v12 = [v4 objectForKeyedSubscript:v11];
         if (([v12 excludeUsageBundle] & 1) == 0)
         {
@@ -2660,7 +2628,7 @@ STMutableSizeDict *STComputeUsageBundleData(void *a1, void *a2)
             STLog(1, @"Adding %@ because of UsageBundleData", v13, v14, v15, v16, v17, v18, v11);
           }
 
-          v19 = [v25 usageBundleForIdentifier:v11];
+          v19 = [v24 usageBundleForIdentifier:v11];
           [v19 totalSize];
           v21 = [STSizeVector docsAndData:v20];
           [(STMutableSizeDict *)v5 addSize:v21 toKey:v11];
@@ -2669,13 +2637,11 @@ STMutableSizeDict *STComputeUsageBundleData(void *a1, void *a2)
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v8);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -2703,28 +2669,28 @@ STMutableSizeDict *STComputeFSOverrides(void *a1)
 
 void __STComputeFSOverrides_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v5 = a2;
   [a3 includeFsPaths];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  obj = v37 = 0u;
-  v6 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+  obj = v36 = 0u;
+  v6 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v35;
+    v8 = *v34;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v35 != v8)
+        if (*v34 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v34 + 1) + 8 * i);
+        v10 = *(*(&v33 + 1) + 8 * i);
         v11 = [*(a1 + 32) itemForPath:v10];
         if (v11)
         {
@@ -2764,13 +2730,11 @@ void __STComputeFSOverrides_block_invoke(uint64_t a1, void *a2, void *a3)
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v7 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v7);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 STMutableSizeDict *STComputeCacheDeleteOverrides(void *a1)
@@ -2801,35 +2765,35 @@ STMutableSizeDict *STComputeCacheDeleteOverrides(void *a1)
 
 void __STComputeCacheDeleteOverrides_block_invoke(id *a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [a3 includeCacheDeleteKeys];
   if ([v6 count])
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     obj = v6;
-    v7 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v7 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v7)
     {
       v8 = v7;
-      v25 = v5;
+      v24 = v5;
       v9 = 0;
       v10 = 0;
       v11 = 0;
-      v12 = *v28;
+      v12 = *v27;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v28 != v12)
+          if (*v27 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v27 + 1) + 8 * i);
+          v14 = *(*(&v26 + 1) + 8 * i);
           v15 = [a1[4] objectForKey:v14];
 
           objc_opt_class();
@@ -2847,12 +2811,12 @@ void __STComputeCacheDeleteOverrides_block_invoke(id *a1, void *a2, void *a3)
           }
         }
 
-        v8 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v8 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v8);
 
-      v5 = v25;
+      v5 = v24;
     }
 
     else
@@ -2874,25 +2838,23 @@ void __STComputeCacheDeleteOverrides_block_invoke(id *a1, void *a2, void *a3)
       STLogSizeVector(v22, v23);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 STMutableSizeDict *STFileProviderExternalDataSize(void *a1)
 {
-  v87 = *MEMORY[0x277D85DE8];
+  v86 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = objc_alloc_init(STMutableSizeDict);
   v3 = [MEMORY[0x277D262A0] sharedConnection];
-  v69 = [v3 isiCloudDriveAllowed];
+  v68 = [v3 isiCloudDriveAllowed];
 
   v4 = +[STStorageCacheDelete sharedMonitor];
   v5 = [v4 cacheDeleteDict];
 
-  v71 = v5;
+  v70 = v5;
   v6 = [v5 objectForKeyedSubscript:@"CACHE_DELETE_ITEMIZED_NONPURGEABLE"];
   v7 = [v6 objectForKeyedSubscript:@"com.apple.FileProvider.cache-delete"];
-  v70 = v7;
+  v69 = v7;
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
     STLog(3, @"'com.apple.FileProvider.cache-delete' value must be an NSDictionary.\nCACHE_DELETE_ITEMIZED_NONPURGEABLE value: %@", v8, v9, v10, v11, v12, v13, v6);
@@ -2901,35 +2863,35 @@ STMutableSizeDict *STFileProviderExternalDataSize(void *a1)
 
   else
   {
-    v67 = v6;
-    v68 = v1;
-    v83 = 0u;
-    v84 = 0u;
-    v81 = 0u;
+    v66 = v6;
+    v67 = v1;
     v82 = 0u;
+    v83 = 0u;
+    v80 = 0u;
+    v81 = 0u;
     obj = v1;
-    v14 = [obj countByEnumeratingWithState:&v81 objects:v86 count:16];
-    v15 = v69;
+    v14 = [obj countByEnumeratingWithState:&v80 objects:v85 count:16];
+    v15 = v68;
     if (v14)
     {
       v16 = v14;
-      v17 = *v82;
-      v72 = *v82;
+      v17 = *v81;
+      v71 = *v81;
       while (2)
       {
         v18 = 0;
-        v73 = v16;
+        v72 = v16;
         do
         {
-          if (*v82 != v17)
+          if (*v81 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v81 + 1) + 8 * v18);
+          v19 = *(*(&v80 + 1) + 8 * v18);
           if (v15 & 1 | (([v19 isiCloudDriveProvider] & 1) == 0))
           {
-            v75 = v18;
+            v74 = v18;
             v20 = [v19 providerID];
             v21 = [v19 topLevelBundleIdentifier];
             v22 = v21;
@@ -2945,29 +2907,29 @@ STMutableSizeDict *STFileProviderExternalDataSize(void *a1)
 
             v24 = v23;
 
-            v76 = v20;
+            v75 = v20;
             if ([v20 isEqualToString:@"com.apple.FileProvider.LocalStorage"])
             {
               v25 = [v19 storageURLs];
+              v76 = 0u;
               v77 = 0u;
               v78 = 0u;
               v79 = 0u;
-              v80 = 0u;
-              v26 = [v25 countByEnumeratingWithState:&v77 objects:v85 count:16];
+              v26 = [v25 countByEnumeratingWithState:&v76 objects:v84 count:16];
               if (v26)
               {
                 v27 = v26;
-                v28 = *v78;
+                v28 = *v77;
                 do
                 {
                   for (i = 0; i != v27; ++i)
                   {
-                    if (*v78 != v28)
+                    if (*v77 != v28)
                     {
                       objc_enumerationMutation(v25);
                     }
 
-                    v30 = [*(*(&v77 + 1) + 8 * i) path];
+                    v30 = [*(*(&v76 + 1) + 8 * i) path];
                     v31 = STSizeOfPathWithOptions(v30, 1);
 
                     v32 = [v31 longLongValue];
@@ -2986,19 +2948,19 @@ STMutableSizeDict *STFileProviderExternalDataSize(void *a1)
                     }
                   }
 
-                  v27 = [v25 countByEnumeratingWithState:&v77 objects:v85 count:16];
+                  v27 = [v25 countByEnumeratingWithState:&v76 objects:v84 count:16];
                 }
 
                 while (v27);
-                v7 = v70;
-                v15 = v69;
-                v17 = v72;
+                v7 = v69;
+                v15 = v68;
+                v17 = v71;
               }
             }
 
             else
             {
-              v25 = [v71 objectForKey:v20];
+              v25 = [v70 objectForKey:v20];
               v42 = [v7 objectForKey:v20];
               if (v25 | v42)
               {
@@ -3012,13 +2974,13 @@ STMutableSizeDict *STFileProviderExternalDataSize(void *a1)
                   objc_opt_class();
                   if ((objc_opt_isKindOfClass() & 1) == 0)
                   {
-                    v64 = v76;
-                    STLog(3, @"'%@' value must be an NSNumber.\ncacheDeleteDict value: %@", v49, v50, v51, v52, v53, v54, v76);
-                    v6 = v67;
+                    v64 = v75;
+                    STLog(3, @"'%@' value must be an NSNumber.\ncacheDeleteDict value: %@", v49, v50, v51, v52, v53, v54, v75);
+                    v6 = v66;
 LABEL_41:
                     v63 = objc_alloc_init(STMutableSizeDict);
 
-                    v1 = v68;
+                    v1 = v67;
                     goto LABEL_42;
                   }
                 }
@@ -3028,9 +2990,9 @@ LABEL_41:
                   objc_opt_class();
                   if ((objc_opt_isKindOfClass() & 1) == 0)
                   {
-                    v6 = v67;
-                    v64 = v76;
-                    STLog(3, @"'%@' value must be an NSNumber.\nCACHE_DELETE_ITEMIZED_NONPURGEABLE value: %@", v55, v56, v57, v58, v59, v60, v76);
+                    v6 = v66;
+                    v64 = v75;
+                    STLog(3, @"'%@' value must be an NSNumber.\nCACHE_DELETE_ITEMIZED_NONPURGEABLE value: %@", v55, v56, v57, v58, v59, v60, v75);
                     goto LABEL_41;
                   }
                 }
@@ -3040,19 +3002,19 @@ LABEL_41:
                 v62 = [MEMORY[0x277CCACA8] stringWithFormat:@"FPExternalData %@", v24];
                 STLogSizeVector(v61, v62);
 
-                v17 = v72;
+                v17 = v71;
               }
             }
 
-            v16 = v73;
-            v18 = v75;
+            v16 = v72;
+            v18 = v74;
           }
 
           ++v18;
         }
 
         while (v18 != v16);
-        v16 = [obj countByEnumeratingWithState:&v81 objects:v86 count:16];
+        v16 = [obj countByEnumeratingWithState:&v80 objects:v85 count:16];
         if (v16)
         {
           continue;
@@ -3063,13 +3025,11 @@ LABEL_41:
     }
 
     v63 = v2;
-    v6 = v67;
-    v1 = v68;
+    v6 = v66;
+    v1 = v67;
   }
 
 LABEL_42:
-
-  v65 = *MEMORY[0x277D85DE8];
 
   return v63;
 }
@@ -3143,36 +3103,32 @@ void __recursiveComputeMediaUsage_block_invoke(id *a1, uint64_t a2, void *a3)
 
 void STLog_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_26BB8E000, a2, OS_LOG_TYPE_FAULT, "%{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_26BB8E000, a2, OS_LOG_TYPE_FAULT, "%{public}@", &v2, 0xCu);
 }
 
 void STLog_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_26BB8E000, a2, OS_LOG_TYPE_ERROR, "%{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_26BB8E000, a2, OS_LOG_TYPE_ERROR, "%{public}@", &v2, 0xCu);
 }
 
 void STVolumeSize_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3 = *__error();
-  OUTLINED_FUNCTION_0();
-  _os_log_fault_impl(&dword_26BB8E000, a2, OS_LOG_TYPE_FAULT, "Error retrieving the total attributes list for %{public}s : %{errno}d", v5, 0x12u);
   v4 = *MEMORY[0x277D85DE8];
+  __error();
+  OUTLINED_FUNCTION_0();
+  _os_log_fault_impl(&dword_26BB8E000, a2, OS_LOG_TYPE_FAULT, "Error retrieving the total attributes list for %{public}s : %{errno}d", v3, 0x12u);
 }
 
 void STVolumeSize_cold_2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v3 = *__error();
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_26BB8E000, a2, OS_LOG_TYPE_ERROR, "Error retrieving the total and available attributes list for %{public}s : %{errno}d", v5, 0x12u);
   v4 = *MEMORY[0x277D85DE8];
+  __error();
+  OUTLINED_FUNCTION_0();
+  _os_log_error_impl(&dword_26BB8E000, a2, OS_LOG_TYPE_ERROR, "Error retrieving the total and available attributes list for %{public}s : %{errno}d", v3, 0x12u);
 }

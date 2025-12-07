@@ -53,7 +53,7 @@
 - (_TtC19LiveSpeechUIService31AXLTAudioHistogramViewGenerator)init
 {
   v3 = OBJC_IVAR____TtC19LiveSpeechUIService31AXLTAudioHistogramViewGenerator_config;
-  type metadata accessor for AudioHistogramConfig();
+  type metadata accessor for AudioHistogramConfig(0);
   v4 = swift_allocObject();
   sub_87840();
   *(&self->super.isa + v3) = v4;
@@ -88,7 +88,7 @@
   v9[9] = *&self->audioHistogramView[OBJC_IVAR____TtC19LiveSpeechUIService31AXLTAudioHistogramViewGenerator_audioHistogramView + 48];
   v9[5] = v10[0];
   v9[6] = v2;
-  v6 = objc_allocWithZone(sub_2E50(&qword_FB088));
+  v6 = objc_allocWithZone(sub_2E50(&qword_FB088, &qword_C22A8));
   sub_89F50(v10, v9);
   v7 = sub_BA370();
 

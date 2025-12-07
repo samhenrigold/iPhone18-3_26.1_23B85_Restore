@@ -71,9 +71,9 @@
   height = size.height;
   width = size.width;
   identifierCopy = identifier;
-  v75.receiver = self;
-  v75.super_class = SBIconLabelImageCache;
-  v10 = [(SBIconLabelImageCache *)&v75 init];
+  v76.receiver = self;
+  v76.super_class = SBIconLabelImageCache;
+  v10 = [(SBIconLabelImageCache *)&v76 init];
   if (v10)
   {
     v11 = [identifierCopy copy];
@@ -105,18 +105,18 @@
       objc_initWeak(&location, v10);
       v23 = objc_alloc(MEMORY[0x1E69C5400]);
       v24 = v10->_contentCache;
-      v72[0] = MEMORY[0x1E69E9820];
-      v72[1] = 3221225472;
-      v72[2] = __68__SBIconLabelImageCache_initWithMaxLabelSize_scale_cacheIdentifier___block_invoke;
-      v72[3] = &unk_1E808B078;
+      v73[0] = MEMORY[0x1E69E9820];
+      v73[1] = 3221225472;
+      v73[2] = __68__SBIconLabelImageCache_initWithMaxLabelSize_scale_cacheIdentifier___block_invoke;
+      v73[3] = &unk_1E808B078;
       v25 = currentLocale;
-      v73 = v25;
-      v70[0] = MEMORY[0x1E69E9820];
-      v70[1] = 3221225472;
-      v70[2] = __68__SBIconLabelImageCache_initWithMaxLabelSize_scale_cacheIdentifier___block_invoke_2;
-      v70[3] = &unk_1E808B0A0;
-      objc_copyWeak(&v71, &location);
-      v26 = [v23 initWithCache:v24 keyGenerator:v72 imageGenerator:v70];
+      v74 = v25;
+      v71[0] = MEMORY[0x1E69E9820];
+      v71[1] = 3221225472;
+      v71[2] = __68__SBIconLabelImageCache_initWithMaxLabelSize_scale_cacheIdentifier___block_invoke_2;
+      v71[3] = &unk_1E808B0A0;
+      objc_copyWeak(&v72, &location);
+      v26 = [v23 initWithCache:v24 keyGenerator:v73 imageGenerator:v71];
       contentGenerator = v10->_contentGenerator;
       v10->_contentGenerator = v26;
 
@@ -126,21 +126,21 @@
       objc_initWeak(&from, v10->_contentGenerator);
       v29 = objc_alloc(MEMORY[0x1E69C5400]);
       v30 = v10->_legibilityCache;
-      v67[0] = MEMORY[0x1E69E9820];
-      v67[1] = 3221225472;
-      v67[2] = __68__SBIconLabelImageCache_initWithMaxLabelSize_scale_cacheIdentifier___block_invoke_18;
-      v67[3] = &unk_1E808B078;
+      v68[0] = MEMORY[0x1E69E9820];
+      v68[1] = 3221225472;
+      v68[2] = __68__SBIconLabelImageCache_initWithMaxLabelSize_scale_cacheIdentifier___block_invoke_18;
+      v68[3] = &unk_1E808B078;
       v31 = v25;
-      v68 = v31;
-      v63[0] = MEMORY[0x1E69E9820];
-      v63[1] = 3221225472;
-      v63[2] = __68__SBIconLabelImageCache_initWithMaxLabelSize_scale_cacheIdentifier___block_invoke_2_19;
-      v63[3] = &unk_1E808B0C8;
-      objc_copyWeak(&v65, &location);
+      v69 = v31;
+      v64[0] = MEMORY[0x1E69E9820];
+      v64[1] = 3221225472;
+      v64[2] = __68__SBIconLabelImageCache_initWithMaxLabelSize_scale_cacheIdentifier___block_invoke_2_19;
+      v64[3] = &unk_1E808B0C8;
+      objc_copyWeak(&v66, &location);
       v32 = v28;
-      v64 = v32;
-      objc_copyWeak(&v66, &from);
-      v33 = [v29 initWithCache:v30 keyGenerator:v67 imageGenerator:v63];
+      v65 = v32;
+      objc_copyWeak(&v67, &from);
+      v33 = [v29 initWithCache:v30 keyGenerator:v68 imageGenerator:v64];
       legibilityGenerator = v10->_legibilityGenerator;
       v10->_legibilityGenerator = v33;
 
@@ -150,55 +150,55 @@
       legibilityDataSource = v10->_legibilityDataSource;
       v10->_legibilityDataSource = v35;
 
-      v37 = __versionSuffix();
-      v38 = v10->_contentGenerator;
-      v39 = MEMORY[0x1E696AE18];
-      v61[0] = MEMORY[0x1E69E9820];
-      v61[1] = 3221225472;
-      v61[2] = __68__SBIconLabelImageCache_initWithMaxLabelSize_scale_cacheIdentifier___block_invoke_3;
-      v61[3] = &unk_1E808B0F0;
-      v40 = v37;
-      v62 = v40;
-      v41 = [v39 predicateWithBlock:v61];
-      v42 = [(PLKCachedImageGenerator *)v38 removeImagesForPredicate:v41];
+      v38 = __versionSuffix(v37);
+      v39 = v10->_contentGenerator;
+      v40 = MEMORY[0x1E696AE18];
+      v62[0] = MEMORY[0x1E69E9820];
+      v62[1] = 3221225472;
+      v62[2] = __68__SBIconLabelImageCache_initWithMaxLabelSize_scale_cacheIdentifier___block_invoke_3;
+      v62[3] = &unk_1E808B0F0;
+      v41 = v38;
+      v63 = v41;
+      v42 = [v40 predicateWithBlock:v62];
+      v43 = [(PLKCachedImageGenerator *)v39 removeImagesForPredicate:v42];
 
-      v43 = v10->_legibilityGenerator;
-      v44 = MEMORY[0x1E696AE18];
-      v59[0] = MEMORY[0x1E69E9820];
-      v59[1] = 3221225472;
-      v59[2] = __68__SBIconLabelImageCache_initWithMaxLabelSize_scale_cacheIdentifier___block_invoke_4;
-      v59[3] = &unk_1E808B0F0;
-      v45 = v40;
-      v60 = v45;
-      v46 = [v44 predicateWithBlock:v59];
-      v47 = [(PLKCachedImageGenerator *)v43 removeImagesForPredicate:v46];
+      v44 = v10->_legibilityGenerator;
+      v45 = MEMORY[0x1E696AE18];
+      v60[0] = MEMORY[0x1E69E9820];
+      v60[1] = 3221225472;
+      v60[2] = __68__SBIconLabelImageCache_initWithMaxLabelSize_scale_cacheIdentifier___block_invoke_4;
+      v60[3] = &unk_1E808B0F0;
+      v46 = v41;
+      v61 = v46;
+      v47 = [v45 predicateWithBlock:v60];
+      v48 = [(PLKCachedImageGenerator *)v44 removeImagesForPredicate:v47];
 
+      objc_destroyWeak(&v67);
       objc_destroyWeak(&v66);
-      objc_destroyWeak(&v65);
 
       objc_destroyWeak(&from);
-      objc_destroyWeak(&v71);
+      objc_destroyWeak(&v72);
 
       objc_destroyWeak(&location);
     }
 
-    v48 = [MEMORY[0x1E69DCAB8] sbf_bytesNeededForSize:4 scale:width withContextType:{height, scale}];
-    v49 = [MEMORY[0x1E69DCAB8] sbf_bytesNeededForSize:0 scale:width withContextType:{height, scale}];
-    v50 = [objc_alloc(MEMORY[0x1E698B698]) initWithLabel:"iconLabels_gray" slotLength:v48];
+    v49 = [MEMORY[0x1E69DCAB8] sbf_bytesNeededForSize:4 scale:width withContextType:{height, scale}];
+    v50 = [MEMORY[0x1E69DCAB8] sbf_bytesNeededForSize:0 scale:width withContextType:{height, scale}];
+    v51 = [objc_alloc(MEMORY[0x1E698B698]) initWithLabel:"iconLabels_gray" slotLength:v49];
     grayPool = v10->_grayPool;
-    v10->_grayPool = v50;
+    v10->_grayPool = v51;
 
-    v52 = [objc_alloc(MEMORY[0x1E698B698]) initWithLabel:"iconLabels_color" slotLength:v49];
+    v53 = [objc_alloc(MEMORY[0x1E698B698]) initWithLabel:"iconLabels_color" slotLength:v50];
     colorPool = v10->_colorPool;
-    v10->_colorPool = v52;
+    v10->_colorPool = v53;
 
-    v54 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v55 = objc_alloc_init(MEMORY[0x1E695DF90]);
     labelImages = v10->_labelImages;
-    v10->_labelImages = v54;
+    v10->_labelImages = v55;
 
-    v56 = +[SBHLegibilitySettings defaultLegibilitySettings];
+    v57 = +[SBHLegibilitySettings defaultLegibilitySettings];
     legibilitySettings = v10->_legibilitySettings;
-    v10->_legibilitySettings = v56;
+    v10->_legibilitySettings = v57;
   }
 
   return v10;
@@ -207,7 +207,7 @@
 id __68__SBIconLabelImageCache_initWithMaxLabelSize_scale_cacheIdentifier___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
-  v6 = [a2 metrics];
+  v6 = objc_msgSend_metrics(a2);
   v7 = __generateCacheKeyForMetricsAndLegibilityDescriptor(v6, v5, *(a1 + 32), 0);
 
   return v7;
@@ -227,7 +227,7 @@ id __68__SBIconLabelImageCache_initWithMaxLabelSize_scale_cacheIdentifier___bloc
 id __68__SBIconLabelImageCache_initWithMaxLabelSize_scale_cacheIdentifier___block_invoke_18(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
-  v6 = [a2 metrics];
+  v6 = objc_msgSend_metrics(a2);
   v7 = __generateCacheKeyForMetricsAndLegibilityDescriptor(v6, v5, *(a1 + 32), 1);
 
   return v7;
@@ -464,13 +464,13 @@ id __68__SBIconLabelImageCache_initWithMaxLabelSize_scale_cacheIdentifier___bloc
 
     if (!v9)
     {
-      v10 = SBLogIconLabelImageCache();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = SBLogIconLabelImageCache(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        [(SBIconLabelImageCache *)parametersCopy cacheLabelContentForParameters:v10];
+        [(SBIconLabelImageCache *)parametersCopy cacheLabelContentForParameters:v11];
       }
 
-      v11 = [(SBIconLabelImageCache *)self _generateAndStoreLabelImageForParameters:parametersCopy];
+      v12 = [(SBIconLabelImageCache *)self _generateAndStoreLabelImageForParameters:parametersCopy];
     }
   }
 }
@@ -539,9 +539,9 @@ id __68__SBIconLabelImageCache_initWithMaxLabelSize_scale_cacheIdentifier___bloc
     {
       currentLocale = [MEMORY[0x1E695DF58] currentLocale];
       legibilityDescriptor = [(SBHLegibilitySettings *)self->_legibilitySettings legibilityDescriptor];
-      metrics = [parametersCopy metrics];
-      v9 = __generateCacheKeyForMetricsAndLegibilityDescriptor(metrics, 0, currentLocale, 0);
-      v10 = __generateCacheKeyForMetricsAndLegibilityDescriptor(metrics, legibilityDescriptor, currentLocale, 1);
+      v8 = objc_msgSend_metrics(parametersCopy);
+      v9 = __generateCacheKeyForMetricsAndLegibilityDescriptor(v8, 0, currentLocale, 0);
+      v10 = __generateCacheKeyForMetricsAndLegibilityDescriptor(v8, legibilityDescriptor, currentLocale, 1);
       allKeys = [(BSUIMappedImageCache *)self->_contentCache allKeys];
       v12 = [allKeys containsObject:v9];
 
@@ -872,66 +872,66 @@ void __51__SBIconLabelImageCache_removeLabelContentForText___block_invoke(uint64
 
 - (id)_generateAndStoreLabelImageForParameters:(uint64_t)parameters
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (parameters)
   {
     [v3 scale];
     v6 = v5;
-    [parameters scale];
-    if (v6 != v7)
+    scale = [parameters scale];
+    if (v6 != v8)
     {
-      v8 = v7;
-      v9 = SBLogLabels();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v9 = v8;
+      v10 = SBLogLabels(scale);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
         *buf = 134218240;
-        v20 = v6;
-        v21 = 2048;
-        v22 = v8;
-        _os_log_fault_impl(&dword_1BEB18000, v9, OS_LOG_TYPE_FAULT, "Scale mismatch for label image: %f (should be %f)", buf, 0x16u);
+        v21 = v6;
+        v22 = 2048;
+        v23 = v9;
+        _os_log_fault_impl(&dword_1BEB18000, v10, OS_LOG_TYPE_FAULT, "Scale mismatch for label image: %f (should be %f)", buf, 0x16u);
       }
 
-      NSLog(&cfstr_ScaleMismatchF.isa, *&v6, *&v8);
-      v10 = [v4 mutableCopy];
-      [v10 setScale:v8];
+      NSLog(&cfstr_ScaleMismatchF.isa, *&v6, *&v9);
+      v11 = [v4 mutableCopy];
+      [v11 setScale:v9];
 
-      v4 = v10;
+      v4 = v11;
     }
 
-    v11 = [v4 copy];
+    v12 = [v4 copy];
     [v4 maxSize];
-    if (v13 <= *(parameters + 144) && v12 <= *(parameters + 152))
+    if (v14 <= *(parameters + 144) && v13 <= *(parameters + 152))
     {
       isColorspaceGrayscale = [v4 isColorspaceGrayscale];
-      v16 = 136;
+      v17 = 136;
       if (isColorspaceGrayscale)
       {
-        v16 = 128;
+        v17 = 128;
       }
 
-      v14 = *(parameters + v16);
+      v15 = *(parameters + v17);
     }
 
     else
     {
-      v14 = 0;
+      v15 = 0;
     }
 
-    v17 = [SBIconLabelImage imageWithParameters:v11 pool:v14];
-    if (v17)
+    v18 = [SBIconLabelImage imageWithParameters:v12 pool:v15];
+    if (v18)
     {
-      [*(parameters + 56) setObject:v17 forKey:v11];
+      [*(parameters + 56) setObject:v18 forKey:v12];
     }
   }
 
   else
   {
-    v17 = 0;
+    v18 = 0;
   }
 
-  return v17;
+  return v18;
 }
 
 - (void)cacheLabelContentForParameters:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)

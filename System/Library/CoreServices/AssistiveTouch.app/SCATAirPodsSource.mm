@@ -34,7 +34,7 @@
   switchesCopy = switches;
   if (switches)
   {
-    sub_1000FB560(0, &qword_100218300);
+    sub_1000FB560(0, &qword_100218300, AXSwitch_ptr);
     sub_10010F138();
     switchesCopy = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   }

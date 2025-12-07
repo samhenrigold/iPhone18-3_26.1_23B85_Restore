@@ -15,7 +15,7 @@
   v6 = v5;
   if (v5)
   {
-    [(TUILayout *)v5 specifiedWidth];
+    objc_msgSend_specifiedWidth(v5);
     if ((v7 & 0x6000000000000) == 0x2000000000000)
     {
       [(TUILayout *)v6 setSpecifiedWidthComputeInherited:1];
@@ -33,7 +33,7 @@
 {
   [(TUILayout *)self computeWidth];
   v4 = v3;
-  v5 = [(TUILayout *)self box];
+  v5 = objc_msgSend_box(self);
   [v5 insets];
   v7 = v6;
   v9 = v8;
@@ -41,11 +41,11 @@
   v13 = v12;
 
   v14 = fmax(v4 - v9 - v13, 1.0);
-  v15 = [(TUILayout *)self box];
+  v15 = objc_msgSend_box(self);
   [v15 spacing];
   v17 = v16;
 
-  v18 = [(TUILayout *)self box];
+  v18 = objc_msgSend_box(self);
   columns = [v18 columns];
 
   if (columns <= 1)
@@ -150,8 +150,8 @@
   v140 = 0u;
   v137 = 0u;
   v138 = 0u;
-  children = [(TUILayout *)self children];
-  v64 = [children countByEnumeratingWithState:&v137 objects:v142 count:16];
+  v63 = objc_msgSend_children(self);
+  v64 = [v63 countByEnumeratingWithState:&v137 objects:v142 count:16];
   if (v64)
   {
     v65 = v64;
@@ -162,7 +162,7 @@
       {
         if (*v138 != v66)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v63);
         }
 
         v68 = *(*(&v137 + 1) + 8 * i);
@@ -189,7 +189,7 @@
         [(TUILayout *)self containingHeight];
         [v68 setContainingHeight:?];
         [v68 setFlexedHeight:NAN];
-        [v68 validateLayout];
+        objc_msgSend_validateLayout(v68);
         effectiveGuideTop = [v68 effectiveGuideTop];
         v79 = effectiveGuideTop;
         v80 = v132;
@@ -215,7 +215,7 @@
         [(TUIGuideLayoutController *)v86 addEdgeFrom:v81 to:v85 length:computedHeight, v88];
       }
 
-      v65 = [children countByEnumeratingWithState:&v137 objects:v142 count:16];
+      v65 = [v63 countByEnumeratingWithState:&v137 objects:v142 count:16];
     }
 
     while (v65);
@@ -261,8 +261,8 @@
   v134 = 0u;
   v135 = 0u;
   v136 = 0u;
-  children2 = [(TUILayout *)self children];
-  v96 = [children2 countByEnumeratingWithState:&v133 objects:v141 count:16];
+  v95 = objc_msgSend_children(self);
+  v96 = [v95 countByEnumeratingWithState:&v133 objects:v141 count:16];
   if (v96)
   {
     v97 = v96;
@@ -273,11 +273,11 @@
       {
         if (*v134 != v98)
         {
-          objc_enumerationMutation(children2);
+          objc_enumerationMutation(v95);
         }
 
         v100 = *(*(&v133 + 1) + 8 * j);
-        [v100 computedTransformedSize];
+        objc_msgSend_computedTransformedSize(v100);
         v102 = v101;
         v104 = v103;
         effectiveGuideLeading3 = [v100 effectiveGuideLeading];
@@ -372,13 +372,13 @@ LABEL_52:
         if (v104 != v120)
         {
           [v100 setFlexedHeight:v120];
-          [v100 validateLayout];
+          objc_msgSend_validateLayout(v100);
         }
 
         [v100 setComputedOrigin:{v108, v114}];
       }
 
-      v97 = [children2 countByEnumeratingWithState:&v133 objects:v141 count:16];
+      v97 = [v95 countByEnumeratingWithState:&v133 objects:v141 count:16];
     }
 
     while (v97);

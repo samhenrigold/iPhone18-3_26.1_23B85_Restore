@@ -1,4 +1,5 @@
 @interface _DKBatteryMonitor
++ (id)_BMEventWithBatteryPercentage:(double)percentage isFullyCharged:(BOOL)charged;
 + (id)_eventWithBatteryPercentage:(double)percentage isFullyCharged:(BOOL)charged;
 + (void)setCurrentBatteryPercentage:(double)percentage;
 - (BOOL)adapterType:(id)type differsFrom:(id)from;
@@ -20,7 +21,6 @@
 - (void)currentBatteryPercentage;
 - (void)deactivate;
 - (void)dealloc;
-- (void)getBatteryProperties;
 - (void)postImminentShutdownNotification:(double)notification;
 - (void)start;
 - (void)stop;
@@ -122,15 +122,15 @@
 + (id)_eventWithBatteryPercentage:(double)percentage isFullyCharged:(BOOL)charged
 {
   chargedCopy = charged;
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CFE190] withBatteryPercentage:percentage];
   if (chargedCopy)
   {
     fullyCharged = [MEMORY[0x277CFE1C0] fullyCharged];
-    v16 = fullyCharged;
+    v15 = fullyCharged;
     v7 = [MEMORY[0x277CCABB0] numberWithBool:1];
-    v17[0] = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v16[0] = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
   }
 
   else
@@ -144,9 +144,18 @@
   distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
   v13 = [v9 eventWithStream:deviceBatteryPercentageStream startDate:date endDate:distantFuture value:v5 metadata:v8];
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
+}
+
++ (id)_BMEventWithBatteryPercentage:(double)percentage isFullyCharged:(BOOL)charged
+{
+  chargedCopy = charged;
+  v6 = objc_alloc(MEMORY[0x277CF10A8]);
+  v7 = [MEMORY[0x277CCABB0] numberWithDouble:percentage];
+  v8 = [MEMORY[0x277CCABB0] numberWithBool:chargedCopy];
+  v9 = [v6 initWithBatteryPercentage:v7 fullyCharged:v8];
+
+  return v9;
 }
 
 - (void)start
@@ -208,7 +217,7 @@
 - (void)completeStart
 {
   selfCopy = self;
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (self == 256)
   {
     v4 = @"unable to get power service or notify port";
@@ -219,14 +228,12 @@
     v4 = [MEMORY[0x277CCABB0] numberWithInt:self];
   }
 
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_22595A000, log, OS_LOG_TYPE_ERROR, "Unable to register for battery notifications: %@", &v6, 0xCu);
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_22595A000, log, OS_LOG_TYPE_ERROR, "Unable to register for battery notifications: %@", &v5, 0xCu);
   if (selfCopy != 256)
   {
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
@@ -672,31 +679,13 @@
   objc_sync_exit(selfCopy);
 }
 
-- (void)getBatteryProperties
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)currentBatteryPercentage
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = [MEMORY[0x277CCABB0] numberWithInt:self];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_22595A000, a2, OS_LOG_TYPE_ERROR, "Unable to get valid battery level: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)batteryPercentageFromPowerSourceDictionary:.cold.1()
-{
   v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = [MEMORY[0x277CCABB0] numberWithInt:self];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_22595A000, a2, OS_LOG_TYPE_ERROR, "Unable to get valid battery level: %@", &v4, 0xCu);
 }
 
 @end

@@ -209,7 +209,7 @@ _BYTE *__45__MPVolumeControllerSystemDataSource__reload__block_invoke_27(void *a
   result = a1[4];
   if ((result[11] & 1) == 0)
   {
-    [result updateVolumeControlCapabilities:*(*(a1[5] + 8) + 24)];
+    [result updateVolumeControlCapabilities:{*(*(a1[5] + 8) + 24), a2}];
     result = a1[4];
   }
 
@@ -222,7 +222,7 @@ _BYTE *__45__MPVolumeControllerSystemDataSource__reload__block_invoke_27(void *a
 
   if ((result[12] & 1) == 0)
   {
-    [result updateVolumeMuted:*(*(a1[7] + 8) + 24)];
+    [result updateVolumeMuted:{*(*(a1[7] + 8) + 24), a2}];
     result = a1[4];
   }
 

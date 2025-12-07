@@ -79,14 +79,13 @@ LABEL_6:
 
   if (v8)
   {
-    v11 = _AFKUserLog();
+    v11 = _AFKUserLog(v9);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(AFKBufferMemoryDescriptor *)&v12 assumeControlWithOffset:v8 andSize:?];
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -103,14 +102,13 @@ LABEL_6:
 
   if (v10)
   {
-    v13 = _AFKUserLog();
+    v13 = _AFKUserLog(v11);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       [AFKBufferMemoryDescriptor releaseControl:[(AFKMemoryDescriptor *)self regID] withOffset:v10 andSize:?];
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

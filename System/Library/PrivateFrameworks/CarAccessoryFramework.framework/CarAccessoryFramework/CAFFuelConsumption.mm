@@ -19,6 +19,7 @@
 - (NSMeasurement)averageFuelEfficiency;
 - (NSMeasurement)fuelEfficiency;
 - (NSMeasurement)fuelEfficiencyMax;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -257,6 +258,81 @@
   v3 = fuelEfficiencyMaxCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000035000013"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    fuelEfficiencyCharacteristic = [(CAFFuelConsumption *)self fuelEfficiencyCharacteristic];
+    uniqueIdentifier2 = [fuelEfficiencyCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      fuelEfficiency = [(CAFFuelConsumption *)self fuelEfficiency];
+      [observers fuelConsumptionService:self didUpdateFuelEfficiency:fuelEfficiency];
+LABEL_12:
+
+      goto LABEL_13;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000035000018"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    averageFuelEfficiencyCharacteristic = [(CAFFuelConsumption *)self averageFuelEfficiencyCharacteristic];
+    uniqueIdentifier4 = [averageFuelEfficiencyCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      fuelEfficiency = [(CAFFuelConsumption *)self averageFuelEfficiency];
+      [observers fuelConsumptionService:self didUpdateAverageFuelEfficiency:fuelEfficiency];
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000041000025"])
+  {
+LABEL_13:
+
+    goto LABEL_14;
+  }
+
+  uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+  fuelEfficiencyMaxCharacteristic = [(CAFFuelConsumption *)self fuelEfficiencyMaxCharacteristic];
+  uniqueIdentifier6 = [fuelEfficiencyMaxCharacteristic uniqueIdentifier];
+  v22 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+  if (v22)
+  {
+    observers = [(CAFService *)self observers];
+    fuelEfficiency = [(CAFFuelConsumption *)self fuelEfficiencyMax];
+    [observers fuelConsumptionService:self didUpdateFuelEfficiencyMax:fuelEfficiency];
+    goto LABEL_12;
+  }
+
+LABEL_14:
+  v23.receiver = self;
+  v23.super_class = CAFFuelConsumption;
+  [(CAFService *)&v23 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForFuelEfficiency

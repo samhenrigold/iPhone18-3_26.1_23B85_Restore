@@ -20,7 +20,7 @@
     return &unk_28432B8B0;
   }
 
-  v5 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+  v5 = _ANSTLoggingGetOSLogForCategoryANSTKit(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
     sub_22E6596F8(version, v5);
@@ -51,25 +51,25 @@
 
   if (v11)
   {
-    v16.receiver = self;
-    v16.super_class = ANSTViSegHQInferenceConfiguration;
-    v12 = [(ANSTViSegHQInferenceConfiguration *)&v16 init];
-    if (v12)
+    v17.receiver = self;
+    v17.super_class = ANSTViSegHQInferenceConfiguration;
+    v13 = [(ANSTViSegHQInferenceConfiguration *)&v17 init];
+    if (v13)
     {
-      v12->_version = version;
-      v12->_resolution = resolution;
+      v13->_version = version;
+      v13->_resolution = resolution;
     }
 
-    self = v12;
+    self = v13;
     selfCopy = self;
   }
 
   else
   {
-    v14 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _ANSTLoggingGetOSLogForCategoryANSTKit(v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      sub_22E659784(v14);
+      sub_22E659784(v15);
     }
 
     selfCopy = 0;
@@ -151,7 +151,6 @@
 {
   v4 = [ANSTViSegHQInferenceConfiguration alloc];
   version = self->_version;
-  resolution = self->_resolution;
 
   return MEMORY[0x2821F9670](v4, sel_initWithVersion_resolution_, version);
 }
@@ -174,7 +173,7 @@
 
 - (ANSTViSegHQInferenceConfiguration)initWithCoder:(id)coder
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = objc_opt_class();
   v6 = NSStringFromSelector(sel_version);
@@ -184,9 +183,9 @@
   {
     v18 = MEMORY[0x277CCA9B8];
     v19 = *MEMORY[0x277CCA050];
-    v33 = *MEMORY[0x277CCA068];
-    v34[0] = @"ViSegHQ inference configuration version was not encoded.";
-    v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v9, v34, &v33, 1);
+    v32 = *MEMORY[0x277CCA068];
+    v33[0] = @"ViSegHQ inference configuration version was not encoded.";
+    v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v9, v33, &v32, 1);
     v21 = objc_msgSend_errorWithDomain_code_userInfo_(v18, v20, v19, 4865, v14);
     objc_msgSend_failWithError_(coderCopy, v22, v21);
 
@@ -204,9 +203,9 @@ LABEL_6:
   {
     v23 = MEMORY[0x277CCA9B8];
     v24 = *MEMORY[0x277CCA050];
-    v31 = *MEMORY[0x277CCA068];
-    v32 = @"-resolution was not encoded.";
-    v25 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v15, &v32, &v31, 1);
+    v30 = *MEMORY[0x277CCA068];
+    v31 = @"-resolution was not encoded.";
+    v25 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v15, &v31, &v30, 1);
     v27 = objc_msgSend_errorWithDomain_code_userInfo_(v23, v26, v24, 4865, v25);
     objc_msgSend_failWithError_(coderCopy, v28, v27);
 
@@ -217,7 +216,6 @@ LABEL_6:
   selfCopy = self;
 LABEL_7:
 
-  v29 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

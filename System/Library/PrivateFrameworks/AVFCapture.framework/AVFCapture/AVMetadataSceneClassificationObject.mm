@@ -37,7 +37,7 @@
   confidences = [object confidences];
   if (object)
   {
-    [object time];
+    objc_msgSend_time(object);
   }
 
   else
@@ -57,7 +57,7 @@
 
 - (float)_confidenceForKey:(id)key
 {
-  v3 = [(NSDictionary *)self->_confidences objectForKeyedSubscript:key];
+  v3 = objc_msgSend_objectForKeyedSubscript_(self->_confidences, a2, key);
   if (!v3)
   {
     return -1.0;
@@ -74,7 +74,7 @@
   v5 = NSStringFromClass(v4);
   if (self)
   {
-    [(AVMetadataObject *)self time];
+    objc_msgSend_time(self);
     v6 = v21;
   }
 

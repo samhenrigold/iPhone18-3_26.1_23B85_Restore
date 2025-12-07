@@ -13,7 +13,7 @@
 {
   appearCopy = appear;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for FMItemPhoneNumberViewController();
+  v7.super_class = type metadata accessor for FMItemPhoneNumberViewController(0);
   v4 = v7.receiver;
   [(FMPhoneNumberViewController *)&v7 viewWillAppear:appearCopy];
   parentViewController = [v4 parentViewController];
@@ -27,7 +27,7 @@
     }
   }
 
-  sub_10036FDBC();
+  sub_10036FDBC(parentViewController);
   *(v4 + OBJC_IVAR____TtC6FindMy27FMPhoneNumberViewController_shouldShowSecondaryLabel) = 1;
   sub_10041842C();
 }
@@ -37,15 +37,15 @@
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_10036F8C8(viewCopy);
+  v13 = sub_10036F8C8(viewCopy, v9, v12);
 
   (*(v7 + 8))(v9, v6);
 
-  return v12;
+  return v13;
 }
 
 - (void)nextAction
@@ -140,7 +140,7 @@ LABEL_3:
   }
 
   v21.receiver = self;
-  v21.super_class = type metadata accessor for FMItemPhoneNumberViewController();
+  v21.super_class = type metadata accessor for FMItemPhoneNumberViewController(0);
   v19 = [(FMPhoneNumberViewController *)&v21 initWithTitle:title detailText:v14 icon:icon contentLayout:layout];
 
   return v19;

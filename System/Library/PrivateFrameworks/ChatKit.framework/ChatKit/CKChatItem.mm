@@ -224,7 +224,7 @@
       transcriptRegularFontAttributes = [v25 transcriptRegularFontAttributes];
       v9 = +[CKUIBehavior sharedBehaviors];
       transcriptEmphasizedFontAttributes = [v9 transcriptEmphasizedFontAttributes];
-      v11 = CKFrameworkBundle();
+      v11 = CKFrameworkBundle(transcriptEmphasizedFontAttributes);
       v12 = [v11 localizedStringForKey:@"INTERNAL_GUID_STATUS" value:&stru_1F04268F8 table:@"ChatKit"];
       iMChatItem = [(CKChatItem *)self IMChatItem];
       guid = [iMChatItem guid];
@@ -1069,7 +1069,7 @@ LABEL_30:
           v104 = 0u;
           v105 = 0u;
           v103 = 0u;
-          if (v24 && ([v24 geometryDescriptor], v103 == 10))
+          if (v24 && (objc_msgSend_geometryDescriptor(v24), v103 == 10))
           {
             v25 = +[CKUIBehavior sharedBehaviors];
             [v25 messageAcknowledgmentTranscriptBalloonRelativePosition];
@@ -1286,7 +1286,7 @@ LABEL_9:
         v28 = *(*(&v55 + 1) + 8 * i);
         if (v28)
         {
-          [v28 geometryDescriptor];
+          objc_msgSend_geometryDescriptor(v28);
         }
 
         if ([(CKChatItem *)self _associatedChatItemIsReaction:v28])

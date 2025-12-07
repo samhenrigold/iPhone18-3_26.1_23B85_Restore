@@ -1,3 +1,377 @@
+uint64_t IFTSchemaIFTTerminateReadFrom(void *a1, void *a2)
+{
+  for (i = a2; ; i = a2)
+  {
+    v5 = [i position];
+    if (v5 >= [a2 length] || (objc_msgSend(a2, "hasError") & 1) != 0)
+    {
+      break;
+    }
+
+    v6 = 0;
+    v7 = 0;
+    v8 = 0;
+    while (1)
+    {
+      v22 = 0;
+      v9 = [a2 position] + 1;
+      if (v9 >= [a2 position] && (v10 = objc_msgSend(a2, "position") + 1, v10 <= objc_msgSend(a2, "length")))
+      {
+        v11 = [a2 data];
+        [v11 getBytes:&v22 range:{objc_msgSend(a2, "position"), 1}];
+
+        [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+      }
+
+      else
+      {
+        [a2 _setError];
+      }
+
+      v8 |= (v22 & 0x7F) << v6;
+      if ((v22 & 0x80) == 0)
+      {
+        break;
+      }
+
+      v6 += 7;
+      v12 = v7++ >= 9;
+      if (v12)
+      {
+        v13 = 0;
+        goto LABEL_16;
+      }
+    }
+
+    v13 = [a2 hasError] ? 0 : v8;
+LABEL_16:
+    if (([a2 hasError] & 1) != 0 || (v13 & 7) == 4)
+    {
+      break;
+    }
+
+    if ((v13 >> 3) == 1)
+    {
+      v14 = 0;
+      v15 = 0;
+      v16 = 0;
+      while (1)
+      {
+        v23 = 0;
+        v17 = [a2 position] + 1;
+        if (v17 >= [a2 position] && (v18 = objc_msgSend(a2, "position") + 1, v18 <= objc_msgSend(a2, "length")))
+        {
+          v19 = [a2 data];
+          [v19 getBytes:&v23 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v16 |= (v23 & 0x7F) << v14;
+        if ((v23 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v14 += 7;
+        v12 = v15++ >= 9;
+        if (v12)
+        {
+          v20 = 0;
+          goto LABEL_31;
+        }
+      }
+
+      v20 = (v16 != 0) & ~[a2 hasError];
+LABEL_31:
+      [a1 setExists:v20];
+    }
+
+    else
+    {
+      result = PBReaderSkipValueWithTag();
+      if (!result)
+      {
+        return result;
+      }
+    }
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t IFTSchemaIFTToolDefinitionReadFrom(void *a1, void *a2)
+{
+  for (i = a2; ; i = a2)
+  {
+    v5 = [i position];
+    if (v5 >= [a2 length] || (objc_msgSend(a2, "hasError") & 1) != 0)
+    {
+      break;
+    }
+
+    v6 = 0;
+    v7 = 0;
+    v8 = 0;
+    while (1)
+    {
+      v23 = 0;
+      v9 = [a2 position] + 1;
+      if (v9 >= [a2 position] && (v10 = objc_msgSend(a2, "position") + 1, v10 <= objc_msgSend(a2, "length")))
+      {
+        v11 = [a2 data];
+        [v11 getBytes:&v23 range:{objc_msgSend(a2, "position"), 1}];
+
+        [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+      }
+
+      else
+      {
+        [a2 _setError];
+      }
+
+      v8 |= (v23 & 0x7F) << v6;
+      if ((v23 & 0x80) == 0)
+      {
+        break;
+      }
+
+      v6 += 7;
+      v12 = v7++ >= 9;
+      if (v12)
+      {
+        v13 = 0;
+        goto LABEL_16;
+      }
+    }
+
+    v13 = [a2 hasError] ? 0 : v8;
+LABEL_16:
+    if (([a2 hasError] & 1) != 0 || (v13 & 7) == 4)
+    {
+      break;
+    }
+
+    if ((v13 >> 3) == 1)
+    {
+      v21 = PBReaderReadString();
+      [a1 setToolId:v21];
+    }
+
+    else if ((v13 >> 3) == 2)
+    {
+      v14 = 0;
+      v15 = 0;
+      v16 = 0;
+      while (1)
+      {
+        v24 = 0;
+        v17 = [a2 position] + 1;
+        if (v17 >= [a2 position] && (v18 = objc_msgSend(a2, "position") + 1, v18 <= objc_msgSend(a2, "length")))
+        {
+          v19 = [a2 data];
+          [v19 getBytes:&v24 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v16 |= (v24 & 0x7F) << v14;
+        if ((v24 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v14 += 7;
+        v12 = v15++ >= 9;
+        if (v12)
+        {
+          v20 = 0;
+          goto LABEL_35;
+        }
+      }
+
+      if ([a2 hasError])
+      {
+        v20 = 0;
+      }
+
+      else
+      {
+        v20 = v16;
+      }
+
+LABEL_35:
+      [a1 setToolType:v20];
+    }
+
+    else
+    {
+      result = PBReaderSkipValueWithTag();
+      if (!result)
+      {
+        return result;
+      }
+    }
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
+uint64_t IFTSchemaIFTToolDisambiguationReadFrom(void *a1, void *a2)
+{
+  v4 = [a2 position];
+  if (v4 < [a2 length])
+  {
+    while (1)
+    {
+      if ([a2 hasError])
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v5 = 0;
+      v6 = 0;
+      v7 = 0;
+      while (1)
+      {
+        LOBYTE(v24[0]) = 0;
+        v8 = [a2 position] + 1;
+        if (v8 >= [a2 position] && (v9 = objc_msgSend(a2, "position") + 1, v9 <= objc_msgSend(a2, "length")))
+        {
+          v10 = [a2 data];
+          [v10 getBytes:v24 range:{objc_msgSend(a2, "position"), 1}];
+
+          [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+        }
+
+        else
+        {
+          [a2 _setError];
+        }
+
+        v7 |= (v24[0] & 0x7F) << v5;
+        if ((v24[0] & 0x80) == 0)
+        {
+          break;
+        }
+
+        v5 += 7;
+        v11 = v6++ >= 9;
+        if (v11)
+        {
+          v12 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v12 = [a2 hasError] ? 0 : v7;
+LABEL_15:
+      if (([a2 hasError] & 1) != 0 || (v12 & 7) == 4)
+      {
+        return [a2 hasError] ^ 1;
+      }
+
+      v13 = v12 >> 3;
+      if ((v12 >> 3) == 3)
+      {
+        break;
+      }
+
+      if (v13 == 2)
+      {
+        v21 = PBReaderReadString();
+        [a1 setAssistantSchemaKind:v21];
+LABEL_34:
+
+        goto LABEL_39;
+      }
+
+      if (v13 == 1)
+      {
+        v14 = 0;
+        v15 = 0;
+        v16 = 0;
+        while (1)
+        {
+          LOBYTE(v24[0]) = 0;
+          v17 = [a2 position] + 1;
+          if (v17 >= [a2 position] && (v18 = objc_msgSend(a2, "position") + 1, v18 <= objc_msgSend(a2, "length")))
+          {
+            v19 = [a2 data];
+            [v19 getBytes:v24 range:{objc_msgSend(a2, "position"), 1}];
+
+            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
+          }
+
+          else
+          {
+            [a2 _setError];
+          }
+
+          v16 |= (v24[0] & 0x7F) << v14;
+          if ((v24[0] & 0x80) == 0)
+          {
+            break;
+          }
+
+          v14 += 7;
+          v11 = v15++ >= 9;
+          if (v11)
+          {
+            v20 = 0;
+            goto LABEL_38;
+          }
+        }
+
+        v20 = (v16 != 0) & ~[a2 hasError];
+LABEL_38:
+        [a1 setExists:v20];
+      }
+
+      else if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_39:
+      v22 = [a2 position];
+      if (v22 >= [a2 length])
+      {
+        return [a2 hasError] ^ 1;
+      }
+    }
+
+    v21 = objc_alloc_init(IFTSchemaIFTToolDefinition);
+    v24[0] = 0;
+    v24[1] = 0;
+    if (!PBReaderPlaceMark() || !IFTSchemaIFTToolDefinitionReadFrom(v21, a2))
+    {
+
+      return 0;
+    }
+
+    PBReaderRecallMark();
+    if (v21)
+    {
+      [a1 addTools:v21];
+    }
+
+    goto LABEL_34;
+  }
+
+  return [a2 hasError] ^ 1;
+}
+
 uint64_t IFTSchemaIFTToolResolutionReadFrom(void *a1, void *a2)
 {
   v4 = [a2 position];
@@ -9427,328 +9801,4 @@ LABEL_142:
         goto LABEL_151;
     }
   }
-}
-
-uint64_t INFERENCESchemaINFERENCECommsAppSelectionTrainingAppIndependentSignalsReadFrom(void *a1, void *a2)
-{
-  for (i = a2; ; i = a2)
-  {
-    v5 = [i position];
-    if (v5 >= [a2 length] || (objc_msgSend(a2, "hasError") & 1) != 0)
-    {
-      break;
-    }
-
-    v6 = 0;
-    v7 = 0;
-    v8 = 0;
-    while (1)
-    {
-      v51 = 0;
-      v9 = [a2 position] + 1;
-      if (v9 >= [a2 position] && (v10 = objc_msgSend(a2, "position") + 1, v10 <= objc_msgSend(a2, "length")))
-      {
-        v11 = [a2 data];
-        [v11 getBytes:&v51 range:{objc_msgSend(a2, "position"), 1}];
-
-        [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-      }
-
-      else
-      {
-        [a2 _setError];
-      }
-
-      v8 |= (v51 & 0x7F) << v6;
-      if ((v51 & 0x80) == 0)
-      {
-        break;
-      }
-
-      v6 += 7;
-      v12 = v7++ >= 9;
-      if (v12)
-      {
-        v13 = 0;
-        goto LABEL_16;
-      }
-    }
-
-    v13 = [a2 hasError] ? 0 : v8;
-LABEL_16:
-    if (([a2 hasError] & 1) != 0 || (v13 & 7) == 4)
-    {
-      break;
-    }
-
-    v14 = v13 >> 3;
-    if ((v13 >> 3) <= 2)
-    {
-      if (v14 == 1)
-      {
-        v43 = 0;
-        v44 = 0;
-        v45 = 0;
-        while (1)
-        {
-          v54 = 0;
-          v46 = [a2 position] + 1;
-          if (v46 >= [a2 position] && (v47 = objc_msgSend(a2, "position") + 1, v47 <= objc_msgSend(a2, "length")))
-          {
-            v48 = [a2 data];
-            [v48 getBytes:&v54 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v45 |= (v54 & 0x7F) << v43;
-          if ((v54 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v43 += 7;
-          v12 = v44++ >= 9;
-          if (v12)
-          {
-            v49 = 0;
-            goto LABEL_82;
-          }
-        }
-
-        if ([a2 hasError])
-        {
-          v49 = 0;
-        }
-
-        else
-        {
-          v49 = v45;
-        }
-
-LABEL_82:
-        [a1 setRequestOriginLocale:v49];
-        continue;
-      }
-
-      if (v14 == 2)
-      {
-        v22 = 0;
-        v23 = 0;
-        v24 = 0;
-        while (1)
-        {
-          v53 = 0;
-          v25 = [a2 position] + 1;
-          if (v25 >= [a2 position] && (v26 = objc_msgSend(a2, "position") + 1, v26 <= objc_msgSend(a2, "length")))
-          {
-            v27 = [a2 data];
-            [v27 getBytes:&v53 range:{objc_msgSend(a2, "position"), 1}];
-
-            [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-          }
-
-          else
-          {
-            [a2 _setError];
-          }
-
-          v24 |= (v53 & 0x7F) << v22;
-          if ((v53 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v22 += 7;
-          v12 = v23++ >= 9;
-          if (v12)
-          {
-            v28 = 0;
-            goto LABEL_90;
-          }
-        }
-
-        if ([a2 hasError])
-        {
-          v28 = 0;
-        }
-
-        else
-        {
-          v28 = v24;
-        }
-
-LABEL_90:
-        [a1 setRequestOriginLanguage:v28];
-        continue;
-      }
-    }
-
-    else
-    {
-      switch(v14)
-      {
-        case 3:
-          v29 = 0;
-          v30 = 0;
-          v31 = 0;
-          while (1)
-          {
-            v52 = 0;
-            v32 = [a2 position] + 1;
-            if (v32 >= [a2 position] && (v33 = objc_msgSend(a2, "position") + 1, v33 <= objc_msgSend(a2, "length")))
-            {
-              v34 = [a2 data];
-              [v34 getBytes:&v52 range:{objc_msgSend(a2, "position"), 1}];
-
-              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-            }
-
-            else
-            {
-              [a2 _setError];
-            }
-
-            v31 |= (v52 & 0x7F) << v29;
-            if ((v52 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v29 += 7;
-            v12 = v30++ >= 9;
-            if (v12)
-            {
-              v35 = 0;
-              goto LABEL_74;
-            }
-          }
-
-          if ([a2 hasError])
-          {
-            v35 = 0;
-          }
-
-          else
-          {
-            v35 = v31;
-          }
-
-LABEL_74:
-          [a1 setCommunicationType:v35];
-          continue;
-        case 4:
-          v36 = 0;
-          v37 = 0;
-          v38 = 0;
-          while (1)
-          {
-            v56 = 0;
-            v39 = [a2 position] + 1;
-            if (v39 >= [a2 position] && (v40 = objc_msgSend(a2, "position") + 1, v40 <= objc_msgSend(a2, "length")))
-            {
-              v41 = [a2 data];
-              [v41 getBytes:&v56 range:{objc_msgSend(a2, "position"), 1}];
-
-              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-            }
-
-            else
-            {
-              [a2 _setError];
-            }
-
-            v38 |= (v56 & 0x7F) << v36;
-            if ((v56 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v36 += 7;
-            v12 = v37++ >= 9;
-            if (v12)
-            {
-              v42 = 0;
-              goto LABEL_78;
-            }
-          }
-
-          if ([a2 hasError])
-          {
-            v42 = 0;
-          }
-
-          else
-          {
-            v42 = v38;
-          }
-
-LABEL_78:
-          [a1 setAppResolutionType:v42];
-          continue;
-        case 5:
-          v15 = 0;
-          v16 = 0;
-          v17 = 0;
-          while (1)
-          {
-            v55 = 0;
-            v18 = [a2 position] + 1;
-            if (v18 >= [a2 position] && (v19 = objc_msgSend(a2, "position") + 1, v19 <= objc_msgSend(a2, "length")))
-            {
-              v20 = [a2 data];
-              [v20 getBytes:&v55 range:{objc_msgSend(a2, "position"), 1}];
-
-              [a2 setPosition:{objc_msgSend(a2, "position") + 1}];
-            }
-
-            else
-            {
-              [a2 _setError];
-            }
-
-            v17 |= (v55 & 0x7F) << v15;
-            if ((v55 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v15 += 7;
-            v12 = v16++ >= 9;
-            if (v12)
-            {
-              v21 = 0;
-              goto LABEL_86;
-            }
-          }
-
-          if ([a2 hasError])
-          {
-            v21 = 0;
-          }
-
-          else
-          {
-            v21 = v17;
-          }
-
-LABEL_86:
-          [a1 setUserPersona:v21];
-          continue;
-      }
-    }
-
-    result = PBReaderSkipValueWithTag();
-    if (!result)
-    {
-      return result;
-    }
-  }
-
-  return [a2 hasError] ^ 1;
 }

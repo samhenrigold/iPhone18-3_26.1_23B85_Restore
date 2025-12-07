@@ -1,7 +1,9 @@
 @interface GEOAPUploader
 - (BOOL)_debugUploadCountersEnabled;
+- (BOOL)_startTaskForFile:(id)file toDestination:(id)destination taskDescription:(id)description analyticSessionType:(int)type apURLsessionConfigType:(int)configType ttl:(double)ttl startDelay:(double)delay;
 - (GEOAPUploader)init;
 - (id)_additionalHTTPHeadersForAnalyticSessionType:(int)type;
+- (id)_sessionForType:(int)type;
 - (id)_urlForAnalyticSessionType:(int)type;
 - (id)_urlForBatchId:(unint64_t)id;
 - (id)filePathForTaskDescription:(id)description;
@@ -38,7 +40,6 @@
   v2 = +[GEOPlatform sharedPlatform];
   if ([v2 isInternalInstall])
   {
-    v3 = GeoAnalyticsConfig__debug_UploadCountersEnabled[1];
     BOOL = GEOConfigGetBOOL();
   }
 
@@ -130,9 +131,8 @@ LABEL_9:
         v4 = GEOGetURL();
         break;
       case 9:
-        v5 = GeoAnalyticsConfig_NavFullTraceEvent[1];
-        v6 = GEOConfigGetString();
-        v4 = [NSURL URLWithString:v6];
+        v5 = GEOConfigGetString();
+        v4 = [NSURL URLWithString:v5];
 
         break;
       default:
@@ -165,6 +165,136 @@ LABEL_9:
   v10 = taskCopy;
   v11 = errorCopy;
   dispatch_sync(uploadQueue, block);
+}
+
+- (BOOL)_startTaskForFile:(id)file toDestination:(id)destination taskDescription:(id)description analyticSessionType:(int)type apURLsessionConfigType:(int)configType ttl:(double)ttl startDelay:(double)delay
+{
+  v11 = *&configType;
+  v12 = *&type;
+  fileCopy = file;
+  destinationCopy = destination;
+  descriptionCopy = description;
+  v31 = destinationCopy;
+  v18 = [NSMutableURLRequest requestWithURL:destinationCopy];
+  [v18 setHTTPMethod:@"POST"];
+  v19 = [(GEOAPUploader *)self _additionalHTTPHeadersForAnalyticSessionType:v12];
+  v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v20 = [v19 countByEnumeratingWithState:&v33 objects:v41 count:16];
+  if (v20)
+  {
+    v21 = *v34;
+    do
+    {
+      for (i = 0; i != v20; i = i + 1)
+      {
+        if (*v34 != v21)
+        {
+          objc_enumerationMutation(v19);
+        }
+
+        v23 = *(*(&v33 + 1) + 8 * i);
+        v24 = [v19 objectForKeyedSubscript:v23];
+        [v18 addValue:v24 forHTTPHeaderField:v23];
+      }
+
+      v20 = [v19 countByEnumeratingWithState:&v33 objects:v41 count:16];
+    }
+
+    while (v20);
+  }
+
+  v25 = [(GEOAPUploader *)self _sessionForType:v11];
+  v26 = [v25 uploadTaskWithRequest:v18 fromFile:fileCopy];
+  [v26 setTaskDescription:descriptionCopy];
+  [v26 set_timeoutIntervalForResource:ttl];
+  if (delay != 0.0)
+  {
+    v27 = [[NSDate alloc] initWithTimeIntervalSinceNow:delay];
+    [v26 setEarliestBeginDate:v27];
+
+    v28 = sub_100001E4C();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+    {
+      earliestBeginDate = [v26 earliestBeginDate];
+      *buf = 138412546;
+      v38 = descriptionCopy;
+      v39 = 2112;
+      v40 = earliestBeginDate;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "uploadTask '%@' will not start before %@", buf, 0x16u);
+    }
+  }
+
+  [v26 resume];
+
+  return 1;
+}
+
+- (id)_sessionForType:(int)type
+{
+  v3 = *&type;
+  sessionCache = self->_sessionCache;
+  v6 = [NSNumber numberWithInt:?];
+  v7 = [(NSCache *)sessionCache objectForKey:v6];
+
+  if (!v7)
+  {
+    if (v3 >= 7)
+    {
+      v8 = [NSString stringWithFormat:@"(unknown: %i)", v3];
+    }
+
+    else
+    {
+      v8 = *(&off_10003D258 + v3);
+    }
+
+    v9 = [NSString stringWithFormat:@"com.apple.geo.analytics.%@", v8];
+
+    v10 = [GEOAPURLSessionConfig configForURLSessionConfigType:v3];
+    v11 = +[GEOPlatform sharedPlatform];
+    if ([v11 isInternalInstall])
+    {
+      BOOL = GEOConfigGetBOOL();
+    }
+
+    else
+    {
+      BOOL = 0;
+    }
+
+    v13 = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:v9];
+    [v13 _geo_setTLSMinimumSupportedProtocolVersion];
+    [v13 set_allowsTLSSessionTickets:GEOConfigGetBOOL()];
+    if (BOOL)
+    {
+      v14 = 1;
+      [v13 set_allowsExpensiveAccess:1];
+    }
+
+    else
+    {
+      [v13 set_allowsExpensiveAccess:{objc_msgSend(v10, "requireWifi") ^ 1}];
+      v14 = [v10 requireWifi] ^ 1;
+    }
+
+    [v13 setAllowsCellularAccess:v14];
+    [v13 set_requiresPowerPluggedIn:{objc_msgSend(v10, "requirePower")}];
+    [v13 setDiscretionary:{objc_msgSend(v10, "discretionary")}];
+    [v13 setAllowsConstrainedNetworkAccess:GEOConfigGetBOOL()];
+    [v13 setSessionSendsLaunchEvents:1];
+    [v13 _setAllowsUCA:GEOConfigGetBOOL()];
+
+    [v13 _geo_setTLSMinimumSupportedProtocolVersion];
+    v7 = [NSURLSession sessionWithConfiguration:v13 delegate:self delegateQueue:0];
+    v15 = self->_sessionCache;
+    v16 = [NSNumber numberWithInt:v3];
+    [(NSCache *)v15 setObject:v7 forKey:v16 cost:1];
+  }
+
+  return v7;
 }
 
 - (id)fileURLForTaskDescription:(id)description
@@ -588,7 +718,7 @@ LABEL_41:
 
 - (void)_setupBackgroundTask
 {
-  if (sub_100005AA4())
+  if (sub_100005AA4(0))
   {
     v12 = 0;
     v13 = &v12;

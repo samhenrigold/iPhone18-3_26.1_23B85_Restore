@@ -1,45 +1,47 @@
-id WLKStartupSignpostLogObject()
+id WLKStartupSignpostLogObject(uint64_t a1)
 {
   if (WLKStartupSignpostLogObject_onceToken != -1)
   {
     WLKStartupSignpostLogObject_cold_1();
   }
 
-  v1 = WLKStartupSignpostLogObject_logger;
+  v2 = WLKStartupSignpostLogObject_logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __WLKStartupSignpostLogObject_block_invoke()
 {
-  WLKStartupSignpostLogObject_logger = os_log_create("com.apple.WatchListKit", "startup");
+  v0 = os_log_create("com.apple.WatchListKit", "startup");
+  v1 = WLKStartupSignpostLogObject_logger;
+  WLKStartupSignpostLogObject_logger = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id WLKDefaultSupportPath()
+id WLKDefaultSupportPath(uint64_t a1)
 {
   if (WLKDefaultSupportPath_onceToken != -1)
   {
     WLKDefaultSupportPath_cold_1();
   }
 
-  v1 = WLKDefaultSupportPath__path;
+  v2 = WLKDefaultSupportPath__path;
 
-  return v1;
+  return v2;
 }
 
 void __WLKDefaultSupportPath_block_invoke()
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v0 = CPSharedResourcesDirectory();
   v1 = v0;
   if (v0)
   {
-    v16[0] = v0;
-    v16[1] = @"Library";
-    v16[2] = @"com.apple.WatchListKit";
-    v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
+    v15[0] = v0;
+    v15[1] = @"Library";
+    v15[2] = @"com.apple.WatchListKit";
+    v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:3];
     v3 = [MEMORY[0x277CCACA8] pathWithComponents:v2];
     v4 = WLKDefaultSupportPath__path;
     WLKDefaultSupportPath__path = v3;
@@ -47,13 +49,13 @@ void __WLKDefaultSupportPath_block_invoke()
     v5 = [MEMORY[0x277CCAA00] defaultManager];
     if ([v5 fileExistsAtPath:WLKDefaultSupportPath__path])
     {
-      v15 = 0;
-      v6 = [v5 removeItemAtPath:WLKDefaultSupportPath__path error:&v15];
-      v7 = v15;
+      v14 = 0;
+      v6 = [v5 removeItemAtPath:WLKDefaultSupportPath__path error:&v14];
+      v7 = v14;
       v8 = v7;
       if ((v6 & 1) == 0 && v7)
       {
-        v9 = WLKSystemLogObject();
+        v9 = WLKSystemLogObject(v7);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           __WLKDefaultSupportPath_block_invoke_cold_1(v8, v9);
@@ -72,27 +74,27 @@ void __WLKDefaultSupportPath_block_invoke()
   v12 = [v11 path];
   v13 = WLKDefaultSupportPath__path;
   WLKDefaultSupportPath__path = v12;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-id WLKSystemLogObject()
+id WLKSystemLogObject(uint64_t a1)
 {
   if (WLKSystemLogObject_onceToken != -1)
   {
     WLKSystemLogObject_cold_1();
   }
 
-  v1 = WLKSystemLogObject_logger;
+  v2 = WLKSystemLogObject_logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __WLKSystemLogObject_block_invoke()
 {
-  WLKSystemLogObject_logger = os_log_create("com.apple.WatchListKit", "System");
+  v0 = os_log_create("com.apple.WatchListKit", "System");
+  v1 = WLKSystemLogObject_logger;
+  WLKSystemLogObject_logger = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void sub_272A11260(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location)
@@ -116,9 +118,11 @@ id WLKNetworkingLogObject()
 
 uint64_t __WLKNetworkingLogObject_block_invoke()
 {
-  WLKNetworkingLogObject_logger = os_log_create("com.apple.WatchListKit", "Networking");
+  v0 = os_log_create("com.apple.WatchListKit", "Networking");
+  v1 = WLKNetworkingLogObject_logger;
+  WLKNetworkingLogObject_logger = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void __WLKIsTVApp_block_invoke()
@@ -220,7 +224,7 @@ uint64_t __Block_byref_object_copy__11(uint64_t result, uint64_t a2)
   return result;
 }
 
-uint64_t WLKIsTVApp()
+uint64_t WLKIsTVApp(uint64_t a1, uint64_t a2)
 {
   if (WLKIsTVApp_onceToken != -1)
   {
@@ -263,59 +267,58 @@ id WLKConnectionServerInterface()
   v3 = objc_opt_class();
   v4 = objc_opt_class();
   v5 = [v1 setWithObjects:{v2, v3, v4, objc_opt_class(), 0}];
-  [v0 setClasses:v5 forSelector:sel_fetchApplications_ argumentIndex:0 ofReply:1];
-  v6 = MEMORY[0x277CBEB58];
-  v7 = WLKPlistClasses();
-  v8 = [v6 setWithSet:v7];
+  v6 = [v0 setClasses:v5 forSelector:sel_fetchApplications_ argumentIndex:0 ofReply:1];
+  v7 = MEMORY[0x277CBEB58];
+  v8 = WLKPlistClasses(v6);
+  v9 = [v7 setWithSet:v8];
 
-  [v8 addObject:objc_opt_class()];
-  [v0 setClasses:v8 forSelector:sel_readSettingsStore_ argumentIndex:0 ofReply:1];
-  [v0 setClasses:v8 forSelector:sel_writeSettingsStore_replyHandler_ argumentIndex:0 ofReply:0];
-  v9 = WLKPlistClasses();
-  [v0 setClasses:v9 forSelector:sel_fetchSettings_ argumentIndex:0 ofReply:1];
+  [v9 addObject:objc_opt_class()];
+  [v0 setClasses:v9 forSelector:sel_readSettingsStore_ argumentIndex:0 ofReply:1];
+  v10 = WLKPlistClasses([v0 setClasses:v9 forSelector:sel_writeSettingsStore_replyHandler_ argumentIndex:0 ofReply:0]);
+  [v0 setClasses:v10 forSelector:sel_fetchSettings_ argumentIndex:0 ofReply:1];
 
-  v10 = WLKPlistClasses();
-  [v0 setClasses:v10 forSelector:sel_postSettings_replyHandler_ argumentIndex:0 ofReply:0];
+  v12 = WLKPlistClasses(v11);
+  [v0 setClasses:v12 forSelector:sel_postSettings_replyHandler_ argumentIndex:0 ofReply:0];
 
-  v11 = MEMORY[0x277CBEB58];
-  v12 = WLKPlistClasses();
-  v13 = [v11 setWithSet:v12];
-
-  [v13 addObject:objc_opt_class()];
-  [v0 setClasses:v13 forSelector:sel_requestDecoratedNowPlayingSummaries_ argumentIndex:0 ofReply:1];
-  v14 = MEMORY[0x277CBEB58];
-  v15 = WLKPlistClasses();
-  v16 = [v14 setWithSet:v15];
+  v13 = MEMORY[0x277CBEB58];
+  v15 = WLKPlistClasses(v14);
+  v16 = [v13 setWithSet:v15];
 
   [v16 addObject:objc_opt_class()];
-  [v0 setClasses:v16 forSelector:sel_requestNowPlayingSummaries_ argumentIndex:0 ofReply:1];
-  v17 = [MEMORY[0x277CBEB98] setWithObjects:{objc_opt_class(), 0}];
-  [v0 setClasses:v17 forSelector:sel_fetchSubscriptionData_callerProcessID_completion_ argumentIndex:0 ofReply:1];
-  v18 = MEMORY[0x277CBEB98];
-  v19 = WLKPlistClasses();
+  v17 = [v0 setClasses:v16 forSelector:sel_requestDecoratedNowPlayingSummaries_ argumentIndex:0 ofReply:1];
+  v18 = MEMORY[0x277CBEB58];
+  v19 = WLKPlistClasses(v17);
   v20 = [v18 setWithSet:v19];
 
-  [v0 setClasses:v20 forSelector:sel_performSportsFavoritesAction_ids_caller_completion_ argumentIndex:1 ofReply:0];
-  [v0 setClasses:v20 forSelector:sel_performSportsFavoritesAction_ids_caller_completion_ argumentIndex:0 ofReply:1];
-  v21 = MEMORY[0x277CBEB98];
-  v22 = objc_opt_class();
-  v23 = objc_opt_class();
-  v24 = [v21 setWithObjects:{v22, v23, objc_opt_class(), 0}];
-  [v0 setClasses:v24 forSelector:sel_vppaConsentedBundleIDsWithCompletion_ argumentIndex:0 ofReply:1];
+  [v20 addObject:objc_opt_class()];
+  [v0 setClasses:v20 forSelector:sel_requestNowPlayingSummaries_ argumentIndex:0 ofReply:1];
+  v21 = [MEMORY[0x277CBEB98] setWithObjects:{objc_opt_class(), 0}];
+  v22 = [v0 setClasses:v21 forSelector:sel_fetchSubscriptionData_callerProcessID_completion_ argumentIndex:0 ofReply:1];
+  v23 = MEMORY[0x277CBEB98];
+  v24 = WLKPlistClasses(v22);
+  v25 = [v23 setWithSet:v24];
+
+  [v0 setClasses:v25 forSelector:sel_performSportsFavoritesAction_ids_caller_completion_ argumentIndex:1 ofReply:0];
+  [v0 setClasses:v25 forSelector:sel_performSportsFavoritesAction_ids_caller_completion_ argumentIndex:0 ofReply:1];
+  v26 = MEMORY[0x277CBEB98];
+  v27 = objc_opt_class();
+  v28 = objc_opt_class();
+  v29 = [v26 setWithObjects:{v27, v28, objc_opt_class(), 0}];
+  [v0 setClasses:v29 forSelector:sel_vppaConsentedBundleIDsWithCompletion_ argumentIndex:0 ofReply:1];
 
   return v0;
 }
 
-id WLKPlistClasses()
+id WLKPlistClasses(uint64_t a1)
 {
   if (WLKPlistClasses_onceToken != -1)
   {
     WLKPlistClasses_cold_1();
   }
 
-  v1 = WLKPlistClasses___plistClasses;
+  v2 = WLKPlistClasses___plistClasses;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __WLKPlistClasses_block_invoke()
@@ -326,9 +329,11 @@ uint64_t __WLKPlistClasses_block_invoke()
   v3 = objc_opt_class();
   v4 = objc_opt_class();
   v5 = objc_opt_class();
-  WLKPlistClasses___plistClasses = [v0 setWithObjects:{v1, v2, v3, v4, v5, objc_opt_class(), 0}];
+  v6 = [v0 setWithObjects:{v1, v2, v3, v4, v5, objc_opt_class(), 0}];
+  v7 = WLKPlistClasses___plistClasses;
+  WLKPlistClasses___plistClasses = v6;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v6, v7);
 }
 
 uint64_t WLKShouldRunInProcess()
@@ -341,9 +346,9 @@ uint64_t WLKShouldRunInProcess()
   return WLKShouldRunInProcess_retVal;
 }
 
-void sub_272A12A68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272A12A68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -444,17 +449,16 @@ uint64_t WLKIsRegulatedSKU()
 
 void WLKIsRegulatedSKU_cold_1(char a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v1 = @"NO";
   if (a1)
   {
     v1 = @"YES";
   }
 
-  v3 = 138412290;
-  v4 = v1;
-  _os_log_error_impl(&dword_272A0F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[WLKRegionUtilities]: Is regulated SKU: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = v1;
+  _os_log_error_impl(&dword_272A0F000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "[WLKRegionUtilities]: Is regulated SKU: %@", &v2, 0xCu);
 }
 
 void sub_272A14260(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -547,23 +551,25 @@ id WLKAPIVersionOverride()
   return v1;
 }
 
-id WLKNetworkSignpostLogObject()
+id WLKNetworkSignpostLogObject(uint64_t a1)
 {
   if (WLKNetworkSignpostLogObject_onceToken != -1)
   {
     WLKNetworkSignpostLogObject_cold_1();
   }
 
-  v1 = WLKNetworkSignpostLogObject_logger;
+  v2 = WLKNetworkSignpostLogObject_logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __WLKNetworkSignpostLogObject_block_invoke()
 {
-  WLKNetworkSignpostLogObject_logger = os_log_create("com.apple.WatchListKit", "network");
+  v0 = os_log_create("com.apple.WatchListKit", "network");
+  v1 = WLKNetworkSignpostLogObject_logger;
+  WLKNetworkSignpostLogObject_logger = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void sub_272A159C4(_Unwind_Exception *a1)
@@ -611,9 +617,9 @@ id WLKRestrictionsMaximumEffectiveTVShowRanking()
   return v3;
 }
 
-void sub_272A17234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272A17234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -622,21 +628,19 @@ id WLKRestrictionsCountryCode()
 {
   v0 = CRCopyRestrictionsDictionary();
   v1 = [v0 objectForKey:*MEMORY[0x277CEC560]];
-  v2 = [v1 length];
-  v3 = *MEMORY[0x277CEC568];
-  if (v2)
+  if ([v1 length])
   {
-    v4 = v1;
+    v2 = v1;
   }
 
   else
   {
-    v4 = *MEMORY[0x277CEC568];
+    v2 = *MEMORY[0x277CEC568];
   }
 
-  v5 = [v4 uppercaseString];
+  v3 = [v2 uppercaseString];
 
-  return v5;
+  return v3;
 }
 
 void __WLKBaseURLOverride_block_invoke(uint64_t a1)
@@ -673,31 +677,31 @@ void sub_272A1897C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_272A18AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272A18AD4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 WLKSortedKeyDictionary *WLKSortDictionaries(void *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v1 = a1;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v2 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{-[WLKSortedKeyDictionary count](v1, "count")}];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __WLKSortDictionaries_block_invoke;
-    v17[3] = &unk_279E5F2F8;
-    v18 = v2;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __WLKSortDictionaries_block_invoke;
+    v16[3] = &unk_279E5F2F8;
+    v17 = v2;
     v3 = v2;
-    [(WLKSortedKeyDictionary *)v1 enumerateKeysAndObjectsUsingBlock:v17];
+    [(WLKSortedKeyDictionary *)v1 enumerateKeysAndObjectsUsingBlock:v16];
     v4 = [[WLKSortedKeyDictionary alloc] initWithDictionary:v3];
 
-    v5 = v18;
+    v5 = v17;
     v1 = v4;
   }
 
@@ -710,30 +714,30 @@ WLKSortedKeyDictionary *WLKSortDictionaries(void *a1)
     }
 
     v3 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[WLKSortedKeyDictionary count](v1, "count")}];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v5 = v1;
-    v6 = [(WLKSortedKeyDictionary *)v5 countByEnumeratingWithState:&v13 objects:v19 count:16];
+    v6 = [(WLKSortedKeyDictionary *)v5 countByEnumeratingWithState:&v12 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = WLKSortDictionaries(*(*(&v13 + 1) + 8 * i));
-          [(WLKSortedKeyDictionary *)v3 addObject:v10, v13];
+          v10 = WLKSortDictionaries(*(*(&v12 + 1) + 8 * i));
+          [(WLKSortedKeyDictionary *)v3 addObject:v10, v12];
         }
 
-        v7 = [(WLKSortedKeyDictionary *)v5 countByEnumeratingWithState:&v13 objects:v19 count:16];
+        v7 = [(WLKSortedKeyDictionary *)v5 countByEnumeratingWithState:&v12 objects:v18 count:16];
       }
 
       while (v7);
@@ -743,12 +747,11 @@ WLKSortedKeyDictionary *WLKSortDictionaries(void *a1)
   }
 
 LABEL_13:
-  v11 = *MEMORY[0x277D85DE8];
 
   return v1;
 }
 
-void __WLKSortDictionaries_block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __WLKSortDictionaries_block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v4 = *(a1 + 32);
   v5 = a2;
@@ -776,16 +779,16 @@ id WLKBaseURLReturningError()
   return v2;
 }
 
-id WLKPushNotificationsLogObject()
+id WLKPushNotificationsLogObject(uint64_t a1)
 {
   if (WLKPushNotificationsLogObject_onceToken != -1)
   {
     WLKPushNotificationsLogObject_cold_1();
   }
 
-  v1 = WLKPushNotificationsLogObject_logger;
+  v2 = WLKPushNotificationsLogObject_logger;
 
-  return v1;
+  return v2;
 }
 
 id WLKBaseURLOverride()
@@ -815,14 +818,16 @@ id WLKBaseURLOverride()
 
 uint64_t __WLKPushNotificationsLogObject_block_invoke()
 {
-  WLKPushNotificationsLogObject_logger = os_log_create("com.apple.WatchListKit", "PushNotifications");
+  v0 = os_log_create("com.apple.WatchListKit", "PushNotifications");
+  v1 = WLKPushNotificationsLogObject_logger;
+  WLKPushNotificationsLogObject_logger = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void WLKFetchNotificationCategories(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277D6C480] app];
   v3 = [v2 arrayForKey:kBagKeyUVSearchEnabledNotificationTypes];
@@ -838,28 +843,28 @@ void WLKFetchNotificationCategories(void *a1)
     goto LABEL_20;
   }
 
-  v12 = v3;
+  v11 = v3;
   v4 = v3;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if ([v10 isEqual:@"Explicit"])
         {
           v7 |= 1uLL;
@@ -876,7 +881,7 @@ void WLKFetchNotificationCategories(void *a1)
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
@@ -887,7 +892,7 @@ void WLKFetchNotificationCategories(void *a1)
     v7 = 0;
   }
 
-  v3 = v12;
+  v3 = v11;
   if (v1)
   {
 LABEL_20:
@@ -895,8 +900,6 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 id WLKIgnoreHTTPCacheOverride()
@@ -960,23 +963,25 @@ void sub_272A1A6CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id WLKSubscriptionSyncLogObject()
+id WLKSubscriptionSyncLogObject(uint64_t a1)
 {
   if (WLKSubscriptionSyncLogObject_onceToken != -1)
   {
     WLKSubscriptionSyncLogObject_cold_1();
   }
 
-  v1 = WLKSubscriptionSyncLogObject_logger;
+  v2 = WLKSubscriptionSyncLogObject_logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __WLKSubscriptionSyncLogObject_block_invoke()
 {
-  WLKSubscriptionSyncLogObject_logger = os_log_create("com.apple.WatchListKit", "SubscriptionSync");
+  v0 = os_log_create("com.apple.WatchListKit", "SubscriptionSync");
+  v1 = WLKSubscriptionSyncLogObject_logger;
+  WLKSubscriptionSyncLogObject_logger = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void sub_272A1AA20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -994,7 +999,7 @@ void sub_272A1C6B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t WLKRequireNonNilParameter(uint64_t result)
+void *WLKRequireNonNilParameter(void *result)
 {
   if (!result)
   {
@@ -1014,9 +1019,9 @@ void WLKRequireParameterIsKindOfClass(void *a1, void *a2)
   }
 }
 
-void sub_272A1D2EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272A1D2EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1047,70 +1052,49 @@ void WLKFetchIsSportsEnabled(void *a1)
   v10 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = WLKSportsEnabledOverride();
+  v3 = v2;
   if (v2)
   {
-    v3 = WLKSystemLogObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = WLKSystemLogObject(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v9 = [v2 BOOLValue];
-      _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "WLKFeatureEnablerHelpers - Sports enabled *override*: %d", buf, 8u);
+      v9 = [v3 BOOLValue];
+      _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "WLKFeatureEnablerHelpers - Sports enabled *override*: %d", buf, 8u);
     }
 
-    v1[2](v1, [v2 BOOLValue], 0);
+    v1[2](v1, [v3 BOOLValue], 0);
   }
 
   else
   {
-    v4 = +[WLKConfigurationManager sharedInstance];
+    v5 = +[WLKConfigurationManager sharedInstance];
     v6[0] = MEMORY[0x277D85DD0];
     v6[1] = 3221225472;
     v6[2] = __WLKFetchIsSportsEnabled_block_invoke;
     v6[3] = &unk_279E5E8A8;
     v7 = v1;
-    [v4 fetchConfigurationWithCompletionHandler:v6];
+    [v5 fetchConfigurationWithCompletionHandler:v6];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __WLKFetchIsSportsEnabled_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
-  if (!v5)
+  if (v5 && !v6 && ([v5 features], (v6 = objc_claimAutoreleasedReturnValue()) != 0) && (v8 = v6, objc_msgSend(v5, "features"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "count"), v9, v8, v10))
   {
-    goto LABEL_8;
-  }
+    v11 = [v5 features];
+    v12 = [v11 wlk_BOOLForKey:@"sports" defaultValue:0];
 
-  if (v6)
-  {
-    goto LABEL_8;
-  }
-
-  v8 = [v5 features];
-  if (!v8)
-  {
-    goto LABEL_8;
-  }
-
-  v9 = v8;
-  v10 = [v5 features];
-  v11 = [v10 count];
-
-  if (v11)
-  {
-    v12 = [v5 features];
-    v13 = [v12 wlk_BOOLForKey:@"sports" defaultValue:0];
-
-    v14 = WLKSystemLogObject();
+    v14 = WLKSystemLogObject(v13);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v24[0] = 67109120;
-      v24[1] = v13;
-      _os_log_impl(&dword_272A0F000, v14, OS_LOG_TYPE_DEFAULT, "WLKFeatureEnablerHelpers - Sports enabled from config %d", v24, 8u);
+      v23[0] = 67109120;
+      v23[1] = v12;
+      _os_log_impl(&dword_272A0F000, v14, OS_LOG_TYPE_DEFAULT, "WLKFeatureEnablerHelpers - Sports enabled from config %d", v23, 8u);
     }
 
     v15 = *(*(a1 + 32) + 16);
@@ -1118,8 +1102,7 @@ void __WLKFetchIsSportsEnabled_block_invoke(uint64_t a1, void *a2, void *a3)
 
   else
   {
-LABEL_8:
-    v16 = WLKSystemLogObject();
+    v16 = WLKSystemLogObject(v6);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       __WLKFetchIsSportsEnabled_block_invoke_cold_1(v7, v16, v17, v18, v19, v20, v21, v22);
@@ -1129,8 +1112,6 @@ LABEL_8:
   }
 
   v15();
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t WLKIsSportsEnabled(void *a1)
@@ -1168,11 +1149,11 @@ uint64_t WLKIsSportsEnabled(void *a1)
   return v4;
 }
 
-void sub_272A2019C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_272A2019C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1186,58 +1167,58 @@ void __WLKIsSportsEnabled_block_invoke(uint64_t a1, char a2, id obj)
 
 uint64_t WLKIsSportsFavoritesEnabled(void *a1)
 {
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy_;
+  v20 = __Block_byref_object_dispose_;
   v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy_;
-  v19 = __Block_byref_object_dispose_;
-  v20 = 0;
   v2 = dispatch_semaphore_create(0);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __WLKIsSportsFavoritesEnabled_block_invoke;
-  v11[3] = &unk_279E5E8D0;
-  v13 = &v21;
-  v14 = &v15;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __WLKIsSportsFavoritesEnabled_block_invoke;
+  v12[3] = &unk_279E5E8D0;
+  v14 = &v22;
+  v15 = &v16;
   v3 = v2;
-  v12 = v3;
-  WLKFetchIsSportsFavoritesEnabled(v11);
+  v13 = v3;
+  WLKFetchIsSportsFavoritesEnabled(v12);
   v4 = dispatch_time(0, 3000000000);
   if (dispatch_semaphore_wait(v3, v4))
   {
     v5 = [MEMORY[0x277CCA9B8] errorWithDomain:@"WLKFeatureEnablerHelperDomain" code:1 userInfo:0];
-    v6 = v16[5];
-    v16[5] = v5;
+    v6 = v17[5];
+    v17[5] = v5;
 
-    v7 = WLKSystemLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = WLKSystemLogObject(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_272A0F000, v7, OS_LOG_TYPE_DEFAULT, "WLKFeatureEnablerHelpers - Timed out getting the config.", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_272A0F000, v8, OS_LOG_TYPE_DEFAULT, "WLKFeatureEnablerHelpers - Timed out getting the config.", v11, 2u);
     }
   }
 
   if (a1)
   {
-    *a1 = v16[5];
+    *a1 = v17[5];
   }
 
-  v8 = *(v22 + 24);
+  v9 = *(v23 + 24);
 
-  _Block_object_dispose(&v15, 8);
-  _Block_object_dispose(&v21, 8);
-  return v8;
+  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v22, 8);
+  return v9;
 }
 
-void sub_272A203F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_272A203F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1246,31 +1227,30 @@ void WLKFetchIsSportsFavoritesEnabled(void *a1)
   v10 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = WLKSportsFavoritesEnabledOverride();
+  v3 = v2;
   if (v2)
   {
-    v3 = WLKSystemLogObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = WLKSystemLogObject(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v9 = [v2 BOOLValue];
-      _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "WLKFeatureEnablerHelpers - Sports favorites enabled *override*: %d", buf, 8u);
+      v9 = [v3 BOOLValue];
+      _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "WLKFeatureEnablerHelpers - Sports favorites enabled *override*: %d", buf, 8u);
     }
 
-    v1[2](v1, [v2 BOOLValue], 0);
+    v1[2](v1, [v3 BOOLValue], 0);
   }
 
   else
   {
-    v4 = +[WLKConfigurationManager sharedInstance];
+    v5 = +[WLKConfigurationManager sharedInstance];
     v6[0] = MEMORY[0x277D85DD0];
     v6[1] = 3221225472;
     v6[2] = __WLKFetchIsSportsFavoritesEnabled_block_invoke;
     v6[3] = &unk_279E5E8A8;
     v7 = v1;
-    [v4 fetchConfigurationWithCompletionHandler:v6];
+    [v5 fetchConfigurationWithCompletionHandler:v6];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __WLKIsSportsFavoritesEnabled_block_invoke(uint64_t a1, char a2, id obj)
@@ -1283,41 +1263,21 @@ void __WLKIsSportsFavoritesEnabled_block_invoke(uint64_t a1, char a2, id obj)
 
 void __WLKFetchIsSportsFavoritesEnabled_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
-  if (!v5)
+  if (v5 && !v6 && ([v5 features], (v6 = objc_claimAutoreleasedReturnValue()) != 0) && (v8 = v6, objc_msgSend(v5, "features"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "count"), v9, v8, v10))
   {
-    goto LABEL_8;
-  }
+    v11 = [v5 features];
+    v12 = [v11 wlk_BOOLForKey:@"sportsFavorites" defaultValue:0];
 
-  if (v6)
-  {
-    goto LABEL_8;
-  }
-
-  v8 = [v5 features];
-  if (!v8)
-  {
-    goto LABEL_8;
-  }
-
-  v9 = v8;
-  v10 = [v5 features];
-  v11 = [v10 count];
-
-  if (v11)
-  {
-    v12 = [v5 features];
-    v13 = [v12 wlk_BOOLForKey:@"sportsFavorites" defaultValue:0];
-
-    v14 = WLKSystemLogObject();
+    v14 = WLKSystemLogObject(v13);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v24[0] = 67109120;
-      v24[1] = v13;
-      _os_log_impl(&dword_272A0F000, v14, OS_LOG_TYPE_DEFAULT, "WLKFeatureEnablerHelpers - Sports enabled from config %d", v24, 8u);
+      v23[0] = 67109120;
+      v23[1] = v12;
+      _os_log_impl(&dword_272A0F000, v14, OS_LOG_TYPE_DEFAULT, "WLKFeatureEnablerHelpers - Sports enabled from config %d", v23, 8u);
     }
 
     v15 = *(*(a1 + 32) + 16);
@@ -1325,8 +1285,7 @@ void __WLKFetchIsSportsFavoritesEnabled_block_invoke(uint64_t a1, void *a2, void
 
   else
   {
-LABEL_8:
-    v16 = WLKSystemLogObject();
+    v16 = WLKSystemLogObject(v6);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       __WLKFetchIsSportsEnabled_block_invoke_cold_1(v7, v16, v17, v18, v19, v20, v21, v22);
@@ -1336,64 +1295,62 @@ LABEL_8:
   }
 
   v15();
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t WLKIsNLSBubbleTipEnabled(void *a1)
 {
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy_;
+  v20 = __Block_byref_object_dispose_;
   v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy_;
-  v19 = __Block_byref_object_dispose_;
-  v20 = 0;
   v2 = dispatch_semaphore_create(0);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __WLKIsNLSBubbleTipEnabled_block_invoke;
-  v11[3] = &unk_279E5E8D0;
-  v13 = &v21;
-  v14 = &v15;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __WLKIsNLSBubbleTipEnabled_block_invoke;
+  v12[3] = &unk_279E5E8D0;
+  v14 = &v22;
+  v15 = &v16;
   v3 = v2;
-  v12 = v3;
-  WLKFetchIsBubbleTipEnabled(0, v11);
+  v13 = v3;
+  WLKFetchIsBubbleTipEnabled(0, v12);
   v4 = dispatch_time(0, 3000000000);
   if (dispatch_semaphore_wait(v3, v4))
   {
     v5 = [MEMORY[0x277CCA9B8] errorWithDomain:@"WLKFeatureEnablerHelperDomain" code:1 userInfo:0];
-    v6 = v16[5];
-    v16[5] = v5;
+    v6 = v17[5];
+    v17[5] = v5;
 
-    v7 = WLKSystemLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = WLKSystemLogObject(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_272A0F000, v7, OS_LOG_TYPE_DEFAULT, "WLKFeatureEnablerHelpers - Timed out getting the config for feature enablement for bubble tip.", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_272A0F000, v8, OS_LOG_TYPE_DEFAULT, "WLKFeatureEnablerHelpers - Timed out getting the config for feature enablement for bubble tip.", v11, 2u);
     }
   }
 
   if (a1)
   {
-    *a1 = v16[5];
+    *a1 = v17[5];
   }
 
-  v8 = *(v22 + 24);
+  v9 = *(v23 + 24);
 
-  _Block_object_dispose(&v15, 8);
-  _Block_object_dispose(&v21, 8);
-  return v8;
+  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v22, 8);
+  return v9;
 }
 
-void sub_272A20968(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_272A20968(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1430,58 +1387,58 @@ void __WLKIsNLSBubbleTipEnabled_block_invoke(uint64_t a1, char a2, id obj)
 
 uint64_t WLKIsNLSBubbleTipEnabledInCache(void *a1)
 {
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy_;
+  v20 = __Block_byref_object_dispose_;
   v21 = 0;
-  v22 = &v21;
-  v23 = 0x2020000000;
-  v24 = 0;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy_;
-  v19 = __Block_byref_object_dispose_;
-  v20 = 0;
   v2 = dispatch_semaphore_create(0);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __WLKIsNLSBubbleTipEnabledInCache_block_invoke;
-  v11[3] = &unk_279E5E8D0;
-  v13 = &v21;
-  v14 = &v15;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __WLKIsNLSBubbleTipEnabledInCache_block_invoke;
+  v12[3] = &unk_279E5E8D0;
+  v14 = &v22;
+  v15 = &v16;
   v3 = v2;
-  v12 = v3;
-  WLKFetchIsBubbleTipEnabled(1, v11);
+  v13 = v3;
+  WLKFetchIsBubbleTipEnabled(1, v12);
   v4 = dispatch_time(0, 500000);
   if (dispatch_semaphore_wait(v3, v4))
   {
     v5 = [MEMORY[0x277CCA9B8] errorWithDomain:@"WLKFeatureEnablerHelperDomain" code:1 userInfo:0];
-    v6 = v16[5];
-    v16[5] = v5;
+    v6 = v17[5];
+    v17[5] = v5;
 
-    v7 = WLKSystemLogObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = WLKSystemLogObject(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_272A0F000, v7, OS_LOG_TYPE_DEFAULT, "WLKFeatureEnablerHelpers - Timed out accessing cached config for feature enablement for bubble tip.", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_272A0F000, v8, OS_LOG_TYPE_DEFAULT, "WLKFeatureEnablerHelpers - Timed out accessing cached config for feature enablement for bubble tip.", v11, 2u);
     }
   }
 
   if (a1)
   {
-    *a1 = v16[5];
+    *a1 = v17[5];
   }
 
-  v8 = *(v22 + 24);
+  v9 = *(v23 + 24);
 
-  _Block_object_dispose(&v15, 8);
-  _Block_object_dispose(&v21, 8);
-  return v8;
+  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v22, 8);
+  return v9;
 }
 
-void sub_272A20CA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_272A20CA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1495,12 +1452,12 @@ void __WLKIsNLSBubbleTipEnabledInCache_block_invoke(uint64_t a1, char a2, id obj
 
 void __WLKFetchIsBubbleTipEnabled_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = v5;
   if (!a2 || v5)
   {
-    v10 = WLKSystemLogObject();
+    v10 = WLKSystemLogObject(v5);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __WLKFetchIsSportsEnabled_block_invoke_cold_1(v6, v10, v11, v12, v13, v14, v15, v16);
@@ -1512,26 +1469,25 @@ void __WLKFetchIsBubbleTipEnabled_block_invoke(uint64_t a1, void *a2, void *a3)
   else
   {
     v7 = [a2 naturalLanguageSearchProperty];
-    v8 = WLKSystemLogObject();
+    v8 = WLKSystemLogObject(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v18[0] = 67109120;
-      v18[1] = v7;
-      _os_log_impl(&dword_272A0F000, v8, OS_LOG_TYPE_DEFAULT, "WLKFeatureEnablerHelpers - NLS Bubble Tip enabled from config %d", v18, 8u);
+      v17[0] = 67109120;
+      v17[1] = v7;
+      _os_log_impl(&dword_272A0F000, v8, OS_LOG_TYPE_DEFAULT, "WLKFeatureEnablerHelpers - NLS Bubble Tip enabled from config %d", v17, 8u);
     }
 
     v9 = *(*(a1 + 32) + 16);
   }
 
   v9();
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 id WLKLaunchOptionsForPlayback(int a1)
@@ -1547,9 +1503,9 @@ id WLKLaunchOptionsForPlayback(int a1)
   return v2;
 }
 
-void sub_272A23D98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_272A23D98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1570,9 +1526,9 @@ void sub_272A25618(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_272A25808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272A25808(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1599,9 +1555,9 @@ uint64_t WLKIsTVAppEnabled()
   return v2;
 }
 
-void sub_272A25D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272A25D38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1685,28 +1641,26 @@ void __WLKFetchNowPlayingEnabledReturningError_block_invoke(uint64_t a1)
   v2 = [MEMORY[0x277D6C480] app];
   v3 = [v2 cachedBooleanForKey:kBagKeyUVSearchNowPlayingEnabled];
 
-  v4 = WLKSystemLogObject();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = WLKSystemLogObject(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;
     v10 = v3;
-    _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "Fetch now playing enabled: %@", &v9, 0xCu);
+    _os_log_impl(&dword_272A0F000, v5, OS_LOG_TYPE_DEFAULT, "Fetch now playing enabled: %@", &v9, 0xCu);
   }
 
-  v5 = [v3 BOOLValue];
+  v6 = [v3 BOOLValue];
   if (!v3)
   {
-    v6 = [MEMORY[0x277CBEBD0] wlk_userDefaults];
-    [v6 setBool:v5 forKey:@"lastKnownTVAppEnabledValue"];
+    v7 = [MEMORY[0x277CBEBD0] wlk_userDefaults];
+    [v7 setBool:v6 forKey:@"lastKnownTVAppEnabledValue"];
   }
 
-  v7 = *(a1 + 32);
-  if (v7)
+  v8 = *(a1 + 32);
+  if (v8)
   {
-    (*(v7 + 16))(v7, v5, 0);
+    (*(v8 + 16))(v8, v6, 0);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void WLKFetchPrivacyAcknowledgementURLWithCompletionHandler(void *a1)
@@ -1758,16 +1712,16 @@ void __WLKFetchBaseURLWithCompletion_block_invoke(uint64_t a1)
   }
 }
 
-void sub_272A271A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_272A271A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_272A28070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_272A28070(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1786,7 +1740,7 @@ void sub_272A299A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t WLKIsSandboxed()
+uint64_t WLKIsSandboxed(uint64_t a1, uint64_t a2)
 {
   if (WLKIsSandboxed_onceToken != -1)
   {
@@ -1804,7 +1758,7 @@ uint64_t __WLKIsSandboxed_block_invoke()
   return result;
 }
 
-uint64_t WLKIsTool()
+uint64_t WLKIsTool(uint64_t a1, uint64_t a2)
 {
   if (WLKIsTool_onceToken != -1)
   {
@@ -1822,7 +1776,7 @@ void __WLKIsTool_block_invoke()
   WLKIsTool_retVal = [v1 isEqualToString:@"com.apple.watchlisttool"];
 }
 
-uint64_t WLKIsWatchlisttool()
+uint64_t WLKIsWatchlisttool(uint64_t a1, uint64_t a2)
 {
   if (WLKIsWatchlisttool_onceToken != -1)
   {
@@ -1839,7 +1793,7 @@ void __WLKIsWatchlisttool_block_invoke()
   WLKIsWatchlisttool_retVal = [v0 isEqualToString:@"watchlisttool"];
 }
 
-uint64_t WLKIsNewsApp()
+uint64_t WLKIsNewsApp(uint64_t a1, uint64_t a2)
 {
   if (WLKIsNewsApp_onceToken != -1)
   {
@@ -1867,245 +1821,242 @@ void sub_272A2FC54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 id fetchedApplicationsCompletion_block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v19[4] = *MEMORY[0x277D85DE8];
-  v18[0] = @"Installed";
+  v18[4] = *MEMORY[0x277D85DE8];
+  v17[0] = @"Installed";
   v8 = a5;
   v9 = a4;
   v10 = a3;
   v11 = [a2 copy];
-  v19[0] = v11;
-  v18[1] = @"Subscribed";
+  v18[0] = v11;
+  v17[1] = @"Subscribed";
   v12 = [v10 copy];
 
-  v19[1] = v12;
-  v18[2] = @"Test";
+  v18[1] = v12;
+  v17[2] = @"Test";
   v13 = [v9 copy];
 
-  v19[2] = v13;
-  v18[3] = @"NonConforming";
+  v18[2] = v13;
+  v17[3] = @"NonConforming";
   v14 = [v8 copy];
 
-  v19[3] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v18[3] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
 
   return v15;
 }
 
 void _configureDemoBundles(void *a1, void *a2, void *a3)
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = a3;
-  v8 = WLKStartupSignpostLogObject();
+  v8 = WLKStartupSignpostLogObject(v7);
   v9 = os_signpost_id_generate(v8);
 
-  v10 = WLKStartupSignpostLogObject();
-  v11 = v10;
-  v49 = v9 - 1;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v11 = WLKStartupSignpostLogObject(v10);
+  v12 = v11;
+  v50 = v9 - 1;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_272A0F000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "LibraryCore.configureDemoBundles", &unk_272A8884E, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_272A0F000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "LibraryCore.configureDemoBundles", &unk_272A8884E, buf, 2u);
   }
 
   spid = v9;
 
-  v64 = 0u;
   v65 = 0u;
   v66 = 0u;
   v67 = 0u;
+  v68 = 0u;
   obj = CFPreferencesCopyAppValue(@"DemoInstalledBundleIdentifiers", @"com.apple.WatchListKit");
-  v12 = [obj countByEnumeratingWithState:&v64 objects:v71 count:16];
-  if (v12)
+  v13 = [obj countByEnumeratingWithState:&v65 objects:v72 count:16];
+  if (v13)
   {
-    v13 = v12;
-    v53 = *v65;
+    v14 = v13;
+    v54 = *v66;
     do
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v14; ++i)
       {
-        if (*v65 != v53)
+        if (*v66 != v54)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v64 + 1) + 8 * i);
+        v16 = *(*(&v65 + 1) + 8 * i);
         if ([v5 count])
         {
-          v16 = 0;
+          v17 = 0;
           while (1)
           {
-            v17 = [v5 objectAtIndexedSubscript:v16];
-            v18 = [v17 bundleIdentifier];
-            v19 = [v18 isEqualToString:v15];
+            v18 = [v5 objectAtIndexedSubscript:v17];
+            v19 = [v18 bundleIdentifier];
+            v20 = [v19 isEqualToString:v16];
 
-            if (v19)
+            if (v20)
             {
               break;
             }
 
-            if (++v16 >= [v5 count])
+            if (++v17 >= [v5 count])
             {
               goto LABEL_15;
             }
           }
 
-          [v5 removeObjectAtIndex:v16];
+          [v5 removeObjectAtIndex:v17];
         }
 
 LABEL_15:
-        v20 = [WLKAppProxy alloc];
-        v21 = WLKAppProxyDictionaryForDemoBundleID(v15, 0);
-        v22 = [(WLKAppProxy *)v20 initWithDictionary:v21];
+        v21 = [WLKAppProxy alloc];
+        v22 = WLKAppProxyDictionaryForDemoBundleID(v16, 0);
+        v23 = [(WLKAppProxy *)v21 initWithDictionary:v22];
 
-        [v5 addObject:v22];
+        [v5 addObject:v23];
       }
 
-      v13 = [obj countByEnumeratingWithState:&v64 objects:v71 count:16];
+      v14 = [obj countByEnumeratingWithState:&v65 objects:v72 count:16];
     }
 
-    while (v13);
+    while (v14);
   }
 
-  v60 = 0u;
   v61 = 0u;
   v62 = 0u;
   v63 = 0u;
-  v50 = CFPreferencesCopyAppValue(@"DemoSubscribedBundleIdentifiers", @"com.apple.WatchListKit");
-  v23 = [v50 countByEnumeratingWithState:&v60 objects:v70 count:16];
-  if (v23)
+  v64 = 0u;
+  v51 = CFPreferencesCopyAppValue(@"DemoSubscribedBundleIdentifiers", @"com.apple.WatchListKit");
+  v24 = [v51 countByEnumeratingWithState:&v61 objects:v71 count:16];
+  if (v24)
   {
-    v24 = v23;
-    v54 = *v61;
+    v25 = v24;
+    v55 = *v62;
     do
     {
-      for (j = 0; j != v24; ++j)
+      for (j = 0; j != v25; ++j)
       {
-        if (*v61 != v54)
+        if (*v62 != v55)
         {
-          objc_enumerationMutation(v50);
+          objc_enumerationMutation(v51);
         }
 
-        v26 = *(*(&v60 + 1) + 8 * j);
+        v27 = *(*(&v61 + 1) + 8 * j);
         if ([v6 count])
         {
-          v27 = 0;
+          v28 = 0;
           while (1)
           {
-            v28 = [v6 objectAtIndexedSubscript:v27];
-            v29 = [v28 bundleIdentifier];
-            v30 = [v29 isEqualToString:v26];
+            v29 = [v6 objectAtIndexedSubscript:v28];
+            v30 = [v29 bundleIdentifier];
+            v31 = [v30 isEqualToString:v27];
 
-            if (v30)
+            if (v31)
             {
               break;
             }
 
-            if (++v27 >= [v6 count])
+            if (++v28 >= [v6 count])
             {
               goto LABEL_28;
             }
           }
 
-          [v6 removeObjectAtIndex:v27];
+          [v6 removeObjectAtIndex:v28];
         }
 
 LABEL_28:
-        v31 = WLKAppProxyDictionaryForDemoBundleID(v26, 0);
-        v32 = [v31 mutableCopy];
+        v32 = WLKAppProxyDictionaryForDemoBundleID(v27, 0);
+        v33 = [v32 mutableCopy];
 
-        [v32 setObject:@"Demo" forKey:@"WLKAppProxy.subscriptionInfo"];
-        v33 = [[WLKAppProxy alloc] initWithDictionary:v32];
-        [v6 addObject:v33];
+        [v33 setObject:@"Demo" forKey:@"WLKAppProxy.subscriptionInfo"];
+        v34 = [[WLKAppProxy alloc] initWithDictionary:v33];
+        [v6 addObject:v34];
       }
 
-      v24 = [v50 countByEnumeratingWithState:&v60 objects:v70 count:16];
+      v25 = [v51 countByEnumeratingWithState:&v61 objects:v71 count:16];
     }
 
-    while (v24);
+    while (v25);
   }
 
-  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v52 = CFPreferencesCopyAppValue(@"DemoTestBundleIdentifiers", @"com.apple.WatchListKit");
-  v34 = [v52 countByEnumeratingWithState:&v56 objects:v69 count:16];
-  if (v34)
+  v60 = 0u;
+  v53 = CFPreferencesCopyAppValue(@"DemoTestBundleIdentifiers", @"com.apple.WatchListKit");
+  v35 = [v53 countByEnumeratingWithState:&v57 objects:v70 count:16];
+  if (v35)
   {
-    v35 = v34;
-    v55 = *v57;
+    v36 = v35;
+    v56 = *v58;
     do
     {
-      for (k = 0; k != v35; ++k)
+      for (k = 0; k != v36; ++k)
       {
-        if (*v57 != v55)
+        if (*v58 != v56)
         {
-          objc_enumerationMutation(v52);
+          objc_enumerationMutation(v53);
         }
 
-        v37 = *(*(&v56 + 1) + 8 * k);
+        v38 = *(*(&v57 + 1) + 8 * k);
         if ([v7 count])
         {
-          v38 = 0;
+          v39 = 0;
           while (1)
           {
-            v39 = [v7 objectAtIndexedSubscript:v38];
-            v40 = [v39 bundleIdentifier];
-            v41 = [v40 isEqualToString:v37];
+            v40 = [v7 objectAtIndexedSubscript:v39];
+            v41 = [v40 bundleIdentifier];
+            v42 = [v41 isEqualToString:v38];
 
-            if (v41)
+            if (v42)
             {
               break;
             }
 
-            if (++v38 >= [v7 count])
+            if (++v39 >= [v7 count])
             {
               goto LABEL_41;
             }
           }
 
-          [v7 removeObjectAtIndex:v38];
+          [v7 removeObjectAtIndex:v39];
         }
 
 LABEL_41:
-        v42 = WLKAppProxyDictionaryForDemoBundleID(v37, 1);
-        v43 = [v42 mutableCopy];
+        v43 = WLKAppProxyDictionaryForDemoBundleID(v38, 1);
+        v44 = [v43 mutableCopy];
 
-        v44 = [[WLKAppProxy alloc] initWithDictionary:v43];
-        [v7 addObject:v44];
+        v45 = [[WLKAppProxy alloc] initWithDictionary:v44];
+        [v7 addObject:v45];
       }
 
-      v35 = [v52 countByEnumeratingWithState:&v56 objects:v69 count:16];
+      v36 = [v53 countByEnumeratingWithState:&v57 objects:v70 count:16];
     }
 
-    while (v35);
+    while (v36);
   }
 
-  v45 = WLKStartupSignpostLogObject();
-  v46 = v45;
-  if (v49 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
+  v47 = WLKStartupSignpostLogObject(v46);
+  v48 = v47;
+  if (v50 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v47))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_272A0F000, v46, OS_SIGNPOST_INTERVAL_END, spid, "LibraryCore.configureDemoBundles", &unk_272A8884E, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_272A0F000, v48, OS_SIGNPOST_INTERVAL_END, spid, "LibraryCore.configureDemoBundles", &unk_272A8884E, buf, 2u);
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
-void sub_272A334F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_272A334F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_272A3381C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272A3381C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2191,61 +2142,67 @@ void sub_272A3CCD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id WLKAppVisibilityLogObject()
+id WLKAppVisibilityLogObject(uint64_t a1)
 {
   if (WLKAppVisibilityLogObject_onceToken != -1)
   {
     WLKAppVisibilityLogObject_cold_1();
   }
 
-  v1 = WLKAppVisibilityLogObject_logger;
+  v2 = WLKAppVisibilityLogObject_logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __WLKAppVisibilityLogObject_block_invoke()
 {
-  WLKAppVisibilityLogObject_logger = os_log_create("com.apple.WatchListKit", "Visibility");
+  v0 = os_log_create("com.apple.WatchListKit", "Visibility");
+  v1 = WLKAppVisibilityLogObject_logger;
+  WLKAppVisibilityLogObject_logger = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id WLKPlaybackTrackingLogObject()
+id WLKPlaybackTrackingLogObject(uint64_t a1)
 {
   if (WLKPlaybackTrackingLogObject_onceToken != -1)
   {
     WLKPlaybackTrackingLogObject_cold_1();
   }
 
-  v1 = WLKPlaybackTrackingLogObject_logger;
+  v2 = WLKPlaybackTrackingLogObject_logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __WLKPlaybackTrackingLogObject_block_invoke()
 {
-  WLKPlaybackTrackingLogObject_logger = os_log_create("com.apple.WatchListKit", "PlaybackTracking");
+  v0 = os_log_create("com.apple.WatchListKit", "PlaybackTracking");
+  v1 = WLKPlaybackTrackingLogObject_logger;
+  WLKPlaybackTrackingLogObject_logger = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
-id WLKSiriActionsLogObject()
+id WLKSiriActionsLogObject(uint64_t a1)
 {
   if (WLKSiriActionsLogObject_onceToken != -1)
   {
     WLKSiriActionsLogObject_cold_1();
   }
 
-  v1 = WLKSiriActionsLogObject_logger;
+  v2 = WLKSiriActionsLogObject_logger;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __WLKSiriActionsLogObject_block_invoke()
 {
-  WLKSiriActionsLogObject_logger = os_log_create("com.apple.WatchListKit", "SiriActions");
+  v0 = os_log_create("com.apple.WatchListKit", "SiriActions");
+  v1 = WLKSiriActionsLogObject_logger;
+  WLKSiriActionsLogObject_logger = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 id WLKSubscriptionIdentifierForBundleID(void *a1)
@@ -2381,11 +2338,11 @@ void sub_272A44A1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_272A45670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_272A45670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2519,16 +2476,16 @@ void sub_272A51DA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_272A53904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272A53904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_272A54804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_272A54804(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2580,12 +2537,13 @@ void sub_272A598B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_272A5A388(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location, char a21)
+void sub_272A5A388(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location, ...)
 {
-  objc_destroyWeak((v21 + 72));
+  va_start(va, location);
+  objc_destroyWeak((v20 + 72));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a21, 8);
-  _Block_object_dispose((v22 - 96), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v21 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2596,12 +2554,13 @@ void sub_272A5A524(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_272A5A988(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id location, char a23)
+void sub_272A5A988(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id location, ...)
 {
-  objc_destroyWeak((v24 + 96));
+  va_start(va, location);
+  objc_destroyWeak((v23 + 96));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a23, 8);
-  objc_sync_exit(v23);
+  _Block_object_dispose(va, 8);
+  objc_sync_exit(v22);
   _Unwind_Resume(a1);
 }
 
@@ -2623,23 +2582,24 @@ void sub_272A5D054(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_272A5EDE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_272A5EDE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
+  va_start(va, a33);
   _Block_object_dispose(&a28, 8);
-  _Block_object_dispose(&a34, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_272A5FE90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_272A60918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_272A5FE90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_272A60918(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2651,9 +2611,9 @@ void sub_272A60C90(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_272A61018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_272A61018(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   objc_destroyWeak(va);
   _Unwind_Resume(a1);
 }
@@ -2665,9 +2625,9 @@ void sub_272A61838(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_272A625EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272A625EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2679,16 +2639,16 @@ void sub_272A62714(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_272A629FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_272A629FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_272A62E10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_272A62E10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2802,16 +2762,16 @@ id WLKBulletinTimeoutOverride()
   return v2;
 }
 
-uint64_t WLKRetryOnBackgroundTimeOutJSOverride()
+uint64_t WLKRetryOnBackgroundTimeOutJSOverride(uint64_t a1)
 {
   if (WLKRetryOnBackgroundTimeOutJSOverride_onceToken != -1)
   {
     WLKRetryOnBackgroundTimeOutJSOverride_cold_1();
   }
 
-  v1 = WLKRetryOnBackgroundTimeOutJSOverride_retVal;
+  v2 = WLKRetryOnBackgroundTimeOutJSOverride_retVal;
 
-  return [v1 BOOLValue];
+  return [v2 BOOLValue];
 }
 
 void __WLKRetryOnBackgroundTimeOutJSOverride_block_invoke()
@@ -2880,6 +2840,20 @@ void sub_272A6B564(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
+void sub_272A6C6F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_272A6CC84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_272A6DCF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
 {
   objc_destroyWeak((v15 + 40));
@@ -2894,9 +2868,9 @@ void sub_272A6E080(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_272A6F610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272A6F610(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2908,16 +2882,16 @@ void sub_272A711C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_272A71EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_272A71EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id _WLKDeepReplacement(void *a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = a3;
@@ -2925,17 +2899,17 @@ id _WLKDeepReplacement(void *a1, void *a2, void *a3)
   if (objc_opt_isKindOfClass())
   {
     v8 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v5, "count")}];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = ___WLKDeepReplacement_block_invoke;
-    v26[3] = &unk_279E60C30;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = ___WLKDeepReplacement_block_invoke;
+    v25[3] = &unk_279E60C30;
     v9 = v8;
-    v27 = v9;
+    v26 = v9;
     v10 = v6;
-    v28 = v10;
+    v27 = v10;
     v11 = v7;
-    v29 = v11;
-    [v5 enumerateKeysAndObjectsUsingBlock:v26];
+    v28 = v11;
+    [v5 enumerateKeysAndObjectsUsingBlock:v25];
     v12 = [v9 objectForKey:v10];
 
     if (v12)
@@ -2945,7 +2919,7 @@ id _WLKDeepReplacement(void *a1, void *a2, void *a3)
 
     v13 = [v9 copy];
 
-    v14 = v27;
+    v14 = v26;
   }
 
   else
@@ -2957,30 +2931,30 @@ id _WLKDeepReplacement(void *a1, void *a2, void *a3)
     }
 
     v9 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v5, "count")}];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
     v14 = v5;
-    v15 = [v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v23;
+      v17 = *v22;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v23 != v17)
+          if (*v22 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          v19 = _WLKDeepReplacement(*(*(&v22 + 1) + 8 * i), v6, v7);
-          [v9 addObject:{v19, v22}];
+          v19 = _WLKDeepReplacement(*(*(&v21 + 1) + 8 * i), v6, v7);
+          [v9 addObject:{v19, v21}];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v21 objects:v29 count:16];
       }
 
       while (v16);
@@ -2992,8 +2966,6 @@ id _WLKDeepReplacement(void *a1, void *a2, void *a3)
   v5 = v13;
 LABEL_15:
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
@@ -3004,16 +2976,16 @@ void sub_272A7286C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id TVASDefaultSupportPath()
+id TVASDefaultSupportPath(uint64_t a1)
 {
   if (TVASDefaultSupportPath_onceToken != -1)
   {
     TVASDefaultSupportPath_cold_1();
   }
 
-  v1 = TVASDefaultSupportPath__path;
+  v2 = TVASDefaultSupportPath__path;
 
-  return v1;
+  return v2;
 }
 
 void __TVASDefaultSupportPath_block_invoke()
@@ -3034,18 +3006,16 @@ void sub_272A74034(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void __WLKFetchIsSportsEnabled_block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_272A0F000, a2, a3, "WLKFeatureEnablerHelpers - An error occured getting the config %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_272A0F000, a2, a3, "WLKFeatureEnablerHelpers - An error occured getting the config %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __WLKDefaultSupportPath_block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 localizedDescription];
-  v5 = 136315138;
-  v6 = [v3 UTF8String];
-  _os_log_error_impl(&dword_272A0F000, a2, OS_LOG_TYPE_ERROR, "WLKPathUtilities - Failed to remove previous DefaultSupportPath location file with error: %s", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 136315138;
+  v5 = [v3 UTF8String];
+  _os_log_error_impl(&dword_272A0F000, a2, OS_LOG_TYPE_ERROR, "WLKPathUtilities - Failed to remove previous DefaultSupportPath location file with error: %s", &v4, 0xCu);
 }

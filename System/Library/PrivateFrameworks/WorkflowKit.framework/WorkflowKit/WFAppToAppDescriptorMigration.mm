@@ -194,10 +194,10 @@ void __48__WFAppToAppDescriptorMigration_migrateWorkflow__block_invoke(uint64_t 
 
   v5 = [*(a1 + 32) actionIdentifierKey];
   v6 = [v25 objectForKeyedSubscript:v5];
-  v7 = [v6 isEqualToString:@"is.workflow.actions.openapp"];
+  isEqualToString = objc_msgSend_isEqualToString_(v6);
 
   v8 = *(a1 + 32);
-  if (v7)
+  if (isEqualToString)
   {
     [v8 migrateOpenAppWithParameters:v4];
   }
@@ -206,7 +206,7 @@ void __48__WFAppToAppDescriptorMigration_migrateWorkflow__block_invoke(uint64_t 
   {
     v9 = [v8 actionIdentifierKey];
     v10 = [v25 objectForKeyedSubscript:v9];
-    v11 = [v10 isEqualToString:@"is.workflow.actions.openin"];
+    v11 = objc_msgSend_isEqualToString_(v10);
 
     v12 = *(a1 + 32);
     if (v11)
@@ -218,7 +218,7 @@ void __48__WFAppToAppDescriptorMigration_migrateWorkflow__block_invoke(uint64_t 
     {
       v13 = [v12 actionIdentifierKey];
       v14 = [v25 objectForKeyedSubscript:v13];
-      v15 = [v14 isEqualToString:@"is.workflow.actions.quit.app"];
+      v15 = objc_msgSend_isEqualToString_(v14);
 
       v16 = *(a1 + 32);
       if (v15)
@@ -230,7 +230,7 @@ void __48__WFAppToAppDescriptorMigration_migrateWorkflow__block_invoke(uint64_t 
       {
         v17 = [v16 actionIdentifierKey];
         v18 = [v25 objectForKeyedSubscript:v17];
-        v19 = [v18 isEqualToString:@"is.workflow.actions.hide.app"];
+        v19 = objc_msgSend_isEqualToString_(v18);
 
         v20 = *(a1 + 32);
         if (v19)
@@ -242,7 +242,7 @@ void __48__WFAppToAppDescriptorMigration_migrateWorkflow__block_invoke(uint64_t 
         {
           v21 = [v20 actionIdentifierKey];
           v22 = [v25 objectForKeyedSubscript:v21];
-          v23 = [v22 isEqualToString:@"is.workflow.actions.splitscreen"];
+          v23 = objc_msgSend_isEqualToString_(v22);
 
           v24 = *(a1 + 32);
           if (v23)
@@ -262,25 +262,24 @@ void __48__WFAppToAppDescriptorMigration_migrateWorkflow__block_invoke(uint64_t 
 
 - (BOOL)actionDictionaryContainsSystemIntentAction:(id)action
 {
-  v11[10] = *MEMORY[0x1E69E9840];
-  v11[0] = @"com.apple.mobilenotes.SharingExtension";
-  v11[1] = @"is.workflow.actions.appendnote";
-  v11[2] = @"is.workflow.actions.ride.requestride";
-  v11[3] = @"is.workflow.actions.sendmessage";
-  v11[4] = @"com.apple.mobilephone.call";
-  v11[5] = @"com.apple.facetime.facetime";
-  v11[6] = @"is.workflow.actions.venmo.pay";
-  v11[7] = @"is.workflow.actions.workout.start";
-  v11[8] = @"is.workflow.actions.venmo.request";
-  v11[9] = @"is.workflow.actions.timer.start";
+  v10[10] = *MEMORY[0x1E69E9840];
+  v10[0] = @"com.apple.mobilenotes.SharingExtension";
+  v10[1] = @"is.workflow.actions.appendnote";
+  v10[2] = @"is.workflow.actions.ride.requestride";
+  v10[3] = @"is.workflow.actions.sendmessage";
+  v10[4] = @"com.apple.mobilephone.call";
+  v10[5] = @"com.apple.facetime.facetime";
+  v10[6] = @"is.workflow.actions.venmo.pay";
+  v10[7] = @"is.workflow.actions.workout.start";
+  v10[8] = @"is.workflow.actions.venmo.request";
+  v10[9] = @"is.workflow.actions.timer.start";
   v4 = MEMORY[0x1E695DEC8];
   actionCopy = action;
-  v6 = [v4 arrayWithObjects:v11 count:10];
+  v6 = [v4 arrayWithObjects:v10 count:10];
   actionIdentifierKey = [(WFWorkflowMigration *)self actionIdentifierKey];
   v8 = [actionCopy objectForKeyedSubscript:actionIdentifierKey];
 
   LOBYTE(actionIdentifierKey) = [v6 containsObject:v8];
-  v9 = *MEMORY[0x1E69E9840];
   return actionIdentifierKey;
 }
 

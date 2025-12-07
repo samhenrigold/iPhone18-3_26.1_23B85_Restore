@@ -6,6 +6,7 @@
 - (void)cancel;
 - (void)dealloc;
 - (void)downloadFilesWithResponder:(id)responder;
+- (void)endTesting:(int)testing immediately:(BOOL)immediately;
 - (void)freeFilter;
 - (void)handleChamberStatus:(int)status;
 - (void)initFilter;
@@ -201,6 +202,109 @@ LABEL_11:
 LABEL_12:
 
   return v5;
+}
+
+- (void)endTesting:(int)testing immediately:(BOOL)immediately
+{
+  v4 = *&testing;
+  v6 = DiagnosticLogHandleForCategory();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    v32 = v4;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[AirPodsAudioSystemController] End testing with status: %d", buf, 8u);
+  }
+
+  [(AirPodsAudioSystemController *)self setIsRunning:0];
+  if (!v4)
+  {
+    if ([(AudioSystemCommon *)self testFailed])
+    {
+      goto LABEL_6;
+    }
+
+    airpodsInputs = [(AirPodsAudioSystemController *)self airpodsInputs];
+    chamberInputs = [airpodsInputs chamberInputs];
+    testCompleteVibrationAlertEnabled = [chamberInputs testCompleteVibrationAlertEnabled];
+
+    airpodsInputs2 = [(AirPodsAudioSystemController *)self airpodsInputs];
+    chamberInputs2 = [airpodsInputs2 chamberInputs];
+    testCompleteChimeAlertEnabled = [chamberInputs2 testCompleteChimeAlertEnabled];
+
+    if (testCompleteVibrationAlertEnabled)
+    {
+      v16 = kAudioServicesPlaySystemSoundOptionLoopKey;
+      v29 = kAudioServicesPlaySystemSoundOptionLoopKey;
+      v17 = [NSNumber numberWithBool:1];
+      v30 = v17;
+      v18 = [NSDictionary dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+
+      AudioServicesPlaySystemSoundWithOptions();
+      v19 = DiagnosticLogHandleForCategory();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "[AirPodsAudioSystemController] Start test vibration", buf, 2u);
+      }
+
+      if ((testCompleteChimeAlertEnabled & 1) == 0)
+      {
+        goto LABEL_18;
+      }
+    }
+
+    else
+    {
+      if (!testCompleteChimeAlertEnabled)
+      {
+        goto LABEL_6;
+      }
+
+      v16 = kAudioServicesPlaySystemSoundOptionLoopKey;
+    }
+
+    v27 = v16;
+    v20 = [NSNumber numberWithBool:1];
+    v28 = v20;
+    v21 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+
+    AudioServicesPlaySystemSoundWithOptions();
+    v22 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "[AirPodsAudioSystemController] Start test chime", buf, 2u);
+    }
+
+LABEL_18:
+    testCompletionSemaphore = [(AirPodsAudioSystemController *)self testCompletionSemaphore];
+    dispatch_semaphore_signal(testCompletionSemaphore);
+
+    v24 = dispatch_semaphore_create(0);
+    [(AirPodsAudioSystemController *)self setTestEndedSemaphore:v24];
+
+    eventQueue = [(AirPodsAudioSystemController *)self eventQueue];
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_1000063B4;
+    block[3] = &unk_10001C5A0;
+    block[4] = self;
+    dispatch_async(eventQueue, block);
+
+    return;
+  }
+
+  v7 = [(AirPodsAudioSystemController *)self errorForTestStatus:v4];
+  [(AudioSystemCommon *)self failedToExecuteWithError:v7];
+
+LABEL_6:
+  testCompletionSemaphore2 = [(AirPodsAudioSystemController *)self testCompletionSemaphore];
+  dispatch_semaphore_signal(testCompletionSemaphore2);
+
+  v9 = dispatch_semaphore_create(0);
+  [(AirPodsAudioSystemController *)self setTestEndedSemaphore:v9];
+
+  [(AirPodsAudioSystemController *)self setFinished:1];
 }
 
 - (void)stopAlerts
@@ -508,7 +612,7 @@ LABEL_9:
 
   bytes = [v32 bytes];
   v57 = v32;
-  v55 = ([v32 length] >> 2);
+  v55 = [v32 length] >> 2;
   data = [resultCopy data];
   airpodsInputs8 = [(AirPodsAudioSystemController *)self airpodsInputs];
   dataFrontCroppingLength = [airpodsInputs8 dataFrontCroppingLength];

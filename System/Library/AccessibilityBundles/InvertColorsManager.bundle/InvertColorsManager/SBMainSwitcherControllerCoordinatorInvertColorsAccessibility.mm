@@ -1,6 +1,8 @@
 @interface SBMainSwitcherControllerCoordinatorInvertColorsAccessibility
 - (id)_axWindowsForInverColors;
 - (void)_accessibilityAppleInvertToMainSwitcherIfNecessary;
+- (void)_activateNeighboringAppLayoutRequiringActiveAppLayout:(BOOL)layout appLayoutEnvironment:(int64_t)environment inForwardDirection:(BOOL)direction windowScene:(id)scene eventLabel:(id)label;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SBMainSwitcherControllerCoordinatorInvertColorsAccessibility
@@ -12,6 +14,26 @@
   v5 = [v4 safeValueForKey:@"switcherController"];
 
   -[SBMainSwitcherControllerCoordinatorInvertColorsAccessibility _accessibilityApplyInvertView:](self, "_accessibilityApplyInvertView:", [v5 safeBoolForKey:@"isMainSwitcherVisible"]);
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = SBMainSwitcherControllerCoordinatorInvertColorsAccessibility;
+  [(SBMainSwitcherControllerCoordinatorInvertColorsAccessibility *)&v4 viewWillAppear:appear];
+  [(SBMainSwitcherControllerCoordinatorInvertColorsAccessibility *)self _accessibilityLoadInvertColors];
+}
+
+- (void)_activateNeighboringAppLayoutRequiringActiveAppLayout:(BOOL)layout appLayoutEnvironment:(int64_t)environment inForwardDirection:(BOOL)direction windowScene:(id)scene eventLabel:(id)label
+{
+  directionCopy = direction;
+  layoutCopy = layout;
+  labelCopy = label;
+  sceneCopy = scene;
+  [(SBMainSwitcherControllerCoordinatorInvertColorsAccessibility *)self _accessibilityApplyInvertView:1];
+  v14.receiver = self;
+  v14.super_class = SBMainSwitcherControllerCoordinatorInvertColorsAccessibility;
+  [(SBMainSwitcherControllerCoordinatorInvertColorsAccessibility *)&v14 _activateNeighboringAppLayoutRequiringActiveAppLayout:layoutCopy appLayoutEnvironment:environment inForwardDirection:directionCopy windowScene:sceneCopy eventLabel:labelCopy];
 }
 
 - (id)_axWindowsForInverColors

@@ -59,11 +59,11 @@ void __40__PFPosterExtensionInstancePool_dealloc__block_invoke(uint64_t a1, void
 
 - (id)acquireInstanceForExtensionWithIdentifier:(id)identifier error:(id *)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (!identifierCopy)
   {
-    [PFPosterExtensionInstancePool acquireInstanceForExtensionWithIdentifier:a2 error:?];
+    [PFPosterExtensionInstancePool acquireInstanceForExtensionWithIdentifier:a2 error:self];
   }
 
   v8 = identifierCopy;
@@ -75,80 +75,79 @@ void __40__PFPosterExtensionInstancePool_dealloc__block_invoke(uint64_t a1, void
     v11 = [(NSMapTable *)self->_extensionBundleIdentifierToReasonMap objectForKey:v8];
     [v11 removeLastObject];
 
-    v12 = PFLogExtensionInstancePool();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = PFLogExtensionInstancePool(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
       *buf = 138412802;
-      v31 = v14;
-      v32 = 2048;
+      v33 = v15;
+      v34 = 2048;
       selfCopy3 = self;
-      v34 = 2114;
-      v35 = lastObject;
-      _os_log_impl(&dword_1C269D000, v12, OS_LOG_TYPE_DEFAULT, "(%@:%p) reclaiming reason: %{public}@", buf, 0x20u);
+      v36 = 2114;
+      v37 = lastObject;
+      _os_log_impl(&dword_1C269D000, v13, OS_LOG_TYPE_DEFAULT, "(%@:%p) reclaiming reason: %{public}@", buf, 0x20u);
     }
 
-    v15 = [(PFPosterExtensionInstancePool *)self _buildKeyForExtensionIdentifier:v8 reason:lastObject];
-    v16 = [(NSMapTable *)self->_relinquishTimerMap objectForKey:v15];
-    if (v16)
+    v16 = [(PFPosterExtensionInstancePool *)self _buildKeyForExtensionIdentifier:v8 reason:lastObject];
+    v17 = [(NSMapTable *)self->_relinquishTimerMap objectForKey:v16];
+    v18 = v17;
+    if (v17)
     {
-      v17 = PFLogExtensionInstancePool();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v19 = PFLogExtensionInstancePool(v17);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = objc_opt_class();
-        v19 = NSStringFromClass(v18);
+        v20 = objc_opt_class();
+        v21 = NSStringFromClass(v20);
         *buf = 138412802;
-        v31 = v19;
-        v32 = 2048;
+        v33 = v21;
+        v34 = 2048;
         selfCopy3 = self;
-        v34 = 2114;
-        v35 = lastObject;
-        _os_log_impl(&dword_1C269D000, v17, OS_LOG_TYPE_DEFAULT, "(%@:%p) canceling relinquish timer: %{public}@", buf, 0x20u);
+        v36 = 2114;
+        v37 = lastObject;
+        _os_log_impl(&dword_1C269D000, v19, OS_LOG_TYPE_DEFAULT, "(%@:%p) canceling relinquish timer: %{public}@", buf, 0x20u);
       }
 
-      [v16 invalidate];
-      [(NSMapTable *)self->_relinquishTimerMap removeObjectForKey:v15];
+      [v18 invalidate];
+      [(NSMapTable *)self->_relinquishTimerMap removeObjectForKey:v16];
     }
   }
 
   else
   {
-    v20 = MEMORY[0x1E696AEC0];
-    v21 = objc_opt_class();
-    v22 = NSStringFromClass(v21);
+    v22 = MEMORY[0x1E696AEC0];
+    v23 = objc_opt_class();
+    v24 = NSStringFromClass(v23);
     uUID = [MEMORY[0x1E696AFB0] UUID];
     uUIDString = [uUID UUIDString];
-    lastObject = [v20 stringWithFormat:@"[%@][%p][%@][%@]", v22, self, v8, uUIDString];
+    lastObject = [v22 stringWithFormat:@"[%@][%p][%@][%@]", v24, self, v8, uUIDString];
 
-    v15 = PFLogExtensionInstancePool();
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = PFLogExtensionInstancePool(v27);
+    if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_12;
     }
 
-    v25 = objc_opt_class();
-    v16 = NSStringFromClass(v25);
+    v28 = objc_opt_class();
+    v18 = NSStringFromClass(v28);
     *buf = 138412802;
-    v31 = v16;
-    v32 = 2048;
+    v33 = v18;
+    v34 = 2048;
     selfCopy3 = self;
-    v34 = 2114;
-    v35 = lastObject;
-    _os_log_impl(&dword_1C269D000, v15, OS_LOG_TYPE_DEFAULT, "(%@:%p) new claim with reason: %{public}@", buf, 0x20u);
+    v36 = 2114;
+    v37 = lastObject;
+    _os_log_impl(&dword_1C269D000, v16, OS_LOG_TYPE_DEFAULT, "(%@:%p) new claim with reason: %{public}@", buf, 0x20u);
   }
 
 LABEL_12:
-  v26 = [(PFPosterExtensionProvider *)self->_extensionProvider acquireInstanceForExtensionWithIdentifier:v8 reason:lastObject error:error];
-  v27 = v26;
-  if (v26)
+  v29 = [(PFPosterExtensionProvider *)self->_extensionProvider acquireInstanceForExtensionWithIdentifier:v8 reason:lastObject error:error];
+  v30 = v29;
+  if (v29)
   {
-    objc_setAssociatedObject(v26, &__PFPosterExtensionInstancePoolReasonToken, lastObject, 1);
+    objc_setAssociatedObject(v29, &__PFPosterExtensionInstancePoolReasonToken, lastObject, 1);
   }
 
-  v28 = *MEMORY[0x1E69E9840];
-
-  return v27;
+  return v30;
 }
 
 - (void)relinquishExtensionInstance:(id)instance
@@ -156,7 +155,7 @@ LABEL_12:
   instanceCopy = instance;
   if (!instanceCopy)
   {
-    [PFPosterExtensionInstancePool relinquishExtensionInstance:a2];
+    [(PFPosterExtensionInstancePool *)a2 relinquishExtensionInstance:?];
   }
 
   v6 = instanceCopy;
@@ -202,7 +201,7 @@ LABEL_12:
 
 void __61__PFPosterExtensionInstancePool_relinquishExtensionInstance___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   if (WeakRetained)
@@ -214,21 +213,20 @@ void __61__PFPosterExtensionInstancePool_relinquishExtensionInstance___block_inv
 
       if (v6)
       {
-        v7 = PFLogExtensionInstancePool();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+        v8 = PFLogExtensionInstancePool(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
-          v8 = *(a1 + 48);
           v9 = objc_opt_class();
           v10 = NSStringFromClass(v9);
           v12 = *(a1 + 40);
           v11 = *(a1 + 48);
-          v14 = 138412802;
-          v15 = v10;
-          v16 = 2048;
-          v17 = v11;
-          v18 = 2114;
-          v19 = v12;
-          _os_log_impl(&dword_1C269D000, v7, OS_LOG_TYPE_DEFAULT, "(%@:%p) relinquishing reason: %{public}@", &v14, 0x20u);
+          v13 = 138412802;
+          v14 = v10;
+          v15 = 2048;
+          v16 = v11;
+          v17 = 2114;
+          v18 = v12;
+          _os_log_impl(&dword_1C269D000, v8, OS_LOG_TYPE_DEFAULT, "(%@:%p) relinquishing reason: %{public}@", &v13, 0x20u);
         }
 
         [WeakRetained[1] relinquishExtensionInstanceWithIdentifier:*(a1 + 32) reason:*(a1 + 40)];
@@ -237,42 +235,39 @@ void __61__PFPosterExtensionInstancePool_relinquishExtensionInstance___block_inv
 
     [WeakRetained[4] removeObjectForKey:*(a1 + 56)];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
-- (void)acquireInstanceForExtensionWithIdentifier:(const char *)a1 error:.cold.1(const char *a1)
+- (void)acquireInstanceForExtensionWithIdentifier:(const char *)a1 error:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"extensionIdentifier"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"extensionIdentifier", v11, v12);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)relinquishExtensionInstance:(const char *)a1 .cold.1(const char *a1)
+- (void)relinquishExtensionInstance:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"extensionInstance"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"extensionInstance", v12, v13);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v13, v14);
   }
 
-  v11 = v2;
-  [v2 UTF8String];
+  v12 = v3;
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

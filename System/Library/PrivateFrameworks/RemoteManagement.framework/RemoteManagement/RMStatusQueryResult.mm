@@ -2,6 +2,7 @@
 - (BOOL)hasStatusToReport;
 - (RMStatusQueryResult)init;
 - (RMStatusQueryResult)initWithStatusKeyPaths:(id)paths statusByKeyPath:(id)path errorByKeyPath:(id)keyPath;
+- (id)protocolStatusReportWithFullReport:(BOOL)report;
 @end
 
 @implementation RMStatusQueryResult
@@ -208,6 +209,34 @@
   }
 
   return v4;
+}
+
+- (id)protocolStatusReportWithFullReport:(BOOL)report
+{
+  reportCopy = report;
+  statusByKeyPath = [(RMStatusQueryResult *)self statusByKeyPath];
+  errorByKeyPath = [(RMStatusQueryResult *)self errorByKeyPath];
+  if ([errorByKeyPath count])
+  {
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_1000699A0;
+    v12[3] = &unk_1000D2A98;
+    v7 = objc_opt_new();
+    v13 = v7;
+    [errorByKeyPath enumerateKeysAndObjectsUsingBlock:v12];
+  }
+
+  else
+  {
+    v7 = &__NSArray0__struct;
+  }
+
+  v8 = [RMModelAnyPayload buildFromDictionary:statusByKeyPath];
+  v9 = [NSNumber numberWithBool:reportCopy];
+  v10 = [RMProtocolStatusReport requestWithStatusItems:v8 errors:v7 fullReport:v9];
+
+  return v10;
 }
 
 @end

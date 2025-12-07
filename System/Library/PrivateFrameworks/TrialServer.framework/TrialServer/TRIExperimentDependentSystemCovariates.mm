@@ -109,14 +109,14 @@
 
 - (id)tri_checkAIUseCaseEnabled:(id)enabled
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   enabledCopy = enabled;
   v4 = enabledCopy;
   if (enabledCopy && ![enabledCopy isEqualToString:&stru_287FA0430])
   {
     v5 = objc_alloc_init(TRIXPCCovariateFetcher);
-    v11 = v4;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:1];
+    v10 = v4;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
     v8 = [(TRIXPCCovariateFetcher *)v5 appleIntelligenceStateWithUseCaseIdentifiers:v7];
 
     if (v8)
@@ -136,14 +136,13 @@
     if (os_log_type_enabled(&v5->super, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = v4;
+      v12 = v4;
       _os_log_error_impl(&dword_26F567000, &v5->super, OS_LOG_TYPE_ERROR, "Invalid useCaseId: %@", buf, 0xCu);
     }
 
     v6 = &unk_287FC4C00;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

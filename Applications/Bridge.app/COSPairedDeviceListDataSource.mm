@@ -221,13 +221,13 @@
   v9 = [v8 localizedStringForKey:@"STANDARD_PAIRED_GROUP_TITLE" value:&stru_10026E598 table:@"Localizable-tinker"];
   v10 = [PSSpecifier groupSpecifierWithID:@"DeviceListGroup" name:v9];
 
-  v104 = v10;
+  v106 = v10;
   [v10 setProperty:&__kCFBooleanTrue forKey:PSIsRadioGroupKey];
   v11 = sub_10002E4B8();
   v12 = [v7 count];
   v13 = [v5 count];
-  v118 = 0u;
-  v119 = 0u;
+  v120 = 0u;
+  v121 = 0u;
   if (v13)
   {
     v14 = 1;
@@ -239,14 +239,14 @@
   }
 
   v15 = !v14;
-  v120 = 0uLL;
-  v121 = 0uLL;
+  v122 = 0uLL;
+  v123 = 0uLL;
   v16 = v7;
-  v17 = [v16 countByEnumeratingWithState:&v118 objects:v127 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v120 objects:v129 count:16];
   obj = v16;
-  v107 = v6;
-  v102 = v5;
-  v103 = specifiers;
+  v109 = v6;
+  v104 = v5;
+  v105 = specifiers;
   if (!v17)
   {
 LABEL_37:
@@ -257,8 +257,8 @@ LABEL_37:
 
   v18 = v17;
   v19 = 0;
-  v20 = *v119;
-  v105 = NRDevicePropertyMaxPairingCompatibilityVersion;
+  v20 = *v121;
+  v107 = NRDevicePropertyMaxPairingCompatibilityVersion;
   if (v13)
   {
     v21 = 1;
@@ -274,12 +274,12 @@ LABEL_37:
   {
     for (i = 0; i != v18; i = i + 1)
     {
-      if (*v119 != v20)
+      if (*v121 != v20)
       {
         objc_enumerationMutation(obj);
       }
 
-      v24 = *(*(&v118 + 1) + 8 * i);
+      v24 = *(*(&v120 + 1) + 8 * i);
       if (v15)
       {
         v25 = pbb_bridge_log();
@@ -295,14 +295,14 @@ LABEL_37:
           goto LABEL_32;
         }
 
-        v126 = v105;
-        v26 = [NSArray arrayWithObjects:&v126 count:1];
+        v128 = v107;
+        v26 = [NSArray arrayWithObjects:&v128 count:1];
         [v24 addPropertyObserver:selfCopy forPropertyChanges:v26];
       }
 
       else
       {
-        if (![(COSPairedDeviceListDataSource *)selfCopy _deviceRequiresUpdate:*(*(&v118 + 1) + 8 * i)])
+        if (![(COSPairedDeviceListDataSource *)selfCopy _deviceRequiresUpdate:*(*(&v120 + 1) + 8 * i)])
         {
           v26 = pbb_bridge_log();
           if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
@@ -315,8 +315,8 @@ LABEL_37:
           goto LABEL_31;
         }
 
-        v125 = v105;
-        v27 = [NSArray arrayWithObjects:&v125 count:1];
+        v127 = v107;
+        v27 = [NSArray arrayWithObjects:&v127 count:1];
         [v24 addPropertyObserver:selfCopy forPropertyChanges:v27];
 
         v26 = pbb_bridge_log();
@@ -338,18 +338,18 @@ LABEL_32:
       bOOLValue = [v31 BOOLValue];
 
       v19 += bOOLValue ^ 1;
-      [v107 addObject:v30];
+      [v109 addObject:v30];
     }
 
-    v18 = [obj countByEnumeratingWithState:&v118 objects:v127 count:16];
+    v18 = [obj countByEnumeratingWithState:&v120 objects:v129 count:16];
   }
 
   while (v18);
 
   v33 = v19 < 2;
-  v5 = v102;
-  specifiers = v103;
-  v6 = v107;
+  v5 = v104;
+  specifiers = v105;
+  v6 = v109;
   v34 = selfCopy;
   if (!v33 && ![(COSPairedDeviceListDataSource *)selfCopy tinkerOnly])
   {
@@ -358,7 +358,7 @@ LABEL_32:
     v36 = [v35 localizedStringForKey:@"MAGIC_SWITCH_FOOTER" value:&stru_10026E598 table:@"Pairing"];
     [v16 setProperty:v36 forKey:PSFooterTextGroupKey];
 
-    [v103 addObject:v16];
+    [v105 addObject:v16];
     v37 = +[NSBundle mainBundle];
     v38 = [v37 localizedStringForKey:@"MAGIC_SWITCH" value:&stru_10026E598 table:@"Pairing"];
     v39 = [PSSpecifier preferenceSpecifierNamed:v38 target:selfCopy set:"setPreferenceValue:specifier:" get:"readPreferenceValue:" detail:0 cell:6 edit:0];
@@ -370,7 +370,7 @@ LABEL_32:
     [v39 setProperty:v40 forKey:PSDefaultValueKey];
 
     [v39 setProperty:@"com.apple.NanoRegistry.MagicSwitchSettingsChanged" forKey:PSValueChangedNotificationKey];
-    [v103 addObject:v39];
+    [v105 addObject:v39];
 
     goto LABEL_37;
   }
@@ -378,37 +378,37 @@ LABEL_32:
 LABEL_38:
   if ([v6 count] && (objc_msgSend(v34, "tinkerOnly") & 1) == 0)
   {
-    [specifiers addObject:v104];
+    [specifiers addObject:v106];
     [specifiers addObjectsFromArray:v6];
   }
 
-  [v34 setPairedDevicesGroupSpecifier:v104];
+  [v34 setPairedDevicesGroupSpecifier:v106];
   [v34 setPairedDeviceSpecifiers:v6];
   migratableDevices = [v34[7] migratableDevices];
   if ([migratableDevices count] && (objc_msgSend(v34, "tinkerOnly") & 1) == 0)
   {
     v41 = +[NSMutableArray array];
     v42 = +[PSSpecifier emptyGroupSpecifier];
-    v113 = 0u;
-    v114 = 0u;
     v115 = 0u;
     v116 = 0u;
+    v117 = 0u;
+    v118 = 0u;
     v43 = migratableDevices;
-    v44 = [v43 countByEnumeratingWithState:&v113 objects:v124 count:16];
+    v44 = [v43 countByEnumeratingWithState:&v115 objects:v126 count:16];
     if (v44)
     {
       v45 = v44;
-      v46 = *v114;
+      v46 = *v116;
       do
       {
         for (j = 0; j != v45; j = j + 1)
         {
-          if (*v114 != v46)
+          if (*v116 != v46)
           {
             objc_enumerationMutation(v43);
           }
 
-          v48 = *(*(&v113 + 1) + 8 * j);
+          v48 = *(*(&v115 + 1) + 8 * j);
           v49 = [(COSMigrationManager *)selfCopy->_migrationManager currentState]!= 0;
           v50 = [NSNumber numberWithInteger:4];
           v51 = [(COSPairedDeviceListDataSource *)selfCopy newDeviceSpecifierForNRDevice:v48 enableCell:v49 deviceState:v50];
@@ -416,17 +416,17 @@ LABEL_38:
           [v41 addObject:v51];
         }
 
-        v45 = [v43 countByEnumeratingWithState:&v113 objects:v124 count:16];
+        v45 = [v43 countByEnumeratingWithState:&v115 objects:v126 count:16];
       }
 
       while (v45);
     }
 
-    specifiers = v103;
-    [v103 addObject:v42];
-    [v103 addObjectsFromArray:v41];
+    specifiers = v105;
+    [v105 addObject:v42];
+    [v105 addObjectsFromArray:v41];
 
-    v5 = v102;
+    v5 = v104;
     v34 = selfCopy;
   }
 
@@ -445,30 +445,30 @@ LABEL_38:
     v55 = +[NSMutableArray array];
     v56 = +[NSBundle mainBundle];
     v57 = [v56 localizedStringForKey:@"SATELLITE_PAIRED_GROUP_TITLE" value:&stru_10026E598 table:@"Localizable-tinker"];
-    v100 = [PSSpecifier groupSpecifierWithID:@"SatellitePairedDeviceListGroup" name:v57];
+    v102 = [PSSpecifier groupSpecifierWithID:@"SatellitePairedDeviceListGroup" name:v57];
 
+    v113 = 0u;
+    v114 = 0u;
     v111 = 0u;
     v112 = 0u;
-    v109 = 0u;
-    v110 = 0u;
     v58 = v5;
-    v59 = [v58 countByEnumeratingWithState:&v109 objects:v123 count:16];
+    v59 = [v58 countByEnumeratingWithState:&v111 objects:v125 count:16];
     if (v59)
     {
       v60 = v59;
-      v61 = *v110;
+      v61 = *v112;
       v62 = NRDevicePropertyIsArchived;
       v63 = NRDevicePropertyMaxPairingCompatibilityVersion;
       do
       {
         for (k = 0; k != v60; k = k + 1)
         {
-          if (*v110 != v61)
+          if (*v112 != v61)
           {
             objc_enumerationMutation(v58);
           }
 
-          v65 = *(*(&v109 + 1) + 8 * k);
+          v65 = *(*(&v111 + 1) + 8 * k);
           v66 = [v65 valueForProperty:v62];
           bOOLValue2 = [v66 BOOLValue];
 
@@ -479,8 +479,8 @@ LABEL_38:
 
           else if ([(COSPairedDeviceListDataSource *)selfCopy _deviceRequiresUpdate:v65])
           {
-            v122 = v63;
-            v69 = [NSArray arrayWithObjects:&v122 count:1];
+            v124 = v63;
+            v69 = [NSArray arrayWithObjects:&v124 count:1];
             [v65 addPropertyObserver:selfCopy forPropertyChanges:v69];
 
             v68 = 6;
@@ -497,20 +497,20 @@ LABEL_38:
           [v55 addObject:v71];
         }
 
-        v60 = [v58 countByEnumeratingWithState:&v109 objects:v123 count:16];
+        v60 = [v58 countByEnumeratingWithState:&v111 objects:v125 count:16];
       }
 
       while (v60);
     }
 
-    specifiers = v103;
-    [v103 addObject:v100];
-    [v103 addObjectsFromArray:v55];
+    specifiers = v105;
+    [v105 addObject:v102];
+    [v105 addObjectsFromArray:v55];
     v34 = selfCopy;
-    [(COSPairedDeviceListDataSource *)selfCopy setTinkerDevicesGroupSpecifier:v100];
+    [(COSPairedDeviceListDataSource *)selfCopy setTinkerDevicesGroupSpecifier:v102];
     [(COSPairedDeviceListDataSource *)selfCopy setTinkerDeviceSpecifiers:v55];
 
-    v5 = v102;
+    v5 = v104;
   }
 
   else
@@ -561,55 +561,55 @@ LABEL_38:
   v85 = [v84 localizedStringForKey:@"PAIR_NEW_WATCH_FOOTER" value:&stru_10026E598 table:@"Localizable-tinker"];
   [v83 setProperty:v85 forKey:v77];
 
-  [specifiers addObject:v83];
-  v86 = sub_10002DF9C();
-  v87 = @"PAIR_A_NEW_APPLE_WATCH";
-  if (v86)
+  v86 = [specifiers addObject:v83];
+  v88 = sub_10002DF9C(v86, v87);
+  v89 = @"PAIR_A_NEW_APPLE_WATCH";
+  if (v88)
   {
-    v87 = @"PAIR_A_NEW_APPLE_WATCH_GT";
+    v89 = @"PAIR_A_NEW_APPLE_WATCH_GT";
   }
 
-  v88 = v87;
-  v89 = +[NSBundle mainBundle];
-  v90 = [v89 localizedStringForKey:v88 value:&stru_10026E598 table:@"Pairing"];
+  v90 = v89;
+  v91 = +[NSBundle mainBundle];
+  v92 = [v91 localizedStringForKey:v90 value:&stru_10026E598 table:@"Pairing"];
 
-  v91 = [PSSpecifier preferenceSpecifierNamed:v90 target:v34 set:0 get:0 detail:objc_opt_class() cell:13 edit:0];
-  v92 = v34[8];
-  v34[8] = v91;
+  v93 = [PSSpecifier preferenceSpecifierNamed:v92 target:v34 set:0 get:0 detail:objc_opt_class() cell:13 edit:0];
+  v94 = v34[8];
+  v34[8] = v93;
 
   [v34[8] setButtonAction:"presentNewPairingFlowIfPossible"];
   [v34[8] setIdentifier:@"PairNewWatchSpecifier"];
   if ([v34[7] currentState])
   {
     currentState = [v34[7] currentState];
-    v94 = PSEnabledKey;
-    v95 = v107;
+    v96 = PSEnabledKey;
+    v97 = v109;
     if (currentState != 4)
     {
-      v96 = v34[8];
-      v97 = &__kCFBooleanFalse;
+      v98 = v34[8];
+      v99 = &__kCFBooleanFalse;
       goto LABEL_81;
     }
   }
 
   else
   {
-    v94 = PSEnabledKey;
-    v95 = v107;
+    v96 = PSEnabledKey;
+    v97 = v109;
   }
 
-  v96 = v34[8];
-  v97 = &__kCFBooleanTrue;
+  v98 = v34[8];
+  v99 = &__kCFBooleanTrue;
 LABEL_81:
-  [v96 setProperty:v97 forKey:v94];
+  [v98 setProperty:v99 forKey:v96];
   [specifiers addObject:v34[8]];
   if (sub_10002D04C())
   {
-    v98 = +[PSSpecifier emptyGroupSpecifier];
-    [specifiers addObject:v98];
-    v99 = [PSSpecifier preferenceSpecifierNamed:@"Automation" target:v34 set:0 get:0 detail:0 cell:13 edit:0];
-    [v99 setButtonAction:"presentInternalFlow"];
-    [specifiers addObject:v99];
+    v100 = +[PSSpecifier emptyGroupSpecifier];
+    [specifiers addObject:v100];
+    v101 = [PSSpecifier preferenceSpecifierNamed:@"Automation" target:v34 set:0 get:0 detail:0 cell:13 edit:0];
+    [v101 setButtonAction:"presentInternalFlow"];
+    [specifiers addObject:v101];
   }
 }
 

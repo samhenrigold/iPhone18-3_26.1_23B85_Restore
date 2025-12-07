@@ -66,112 +66,122 @@
   shouldLog = [v4 shouldLog];
   if ([v4 shouldLogToDisk])
   {
-    v6 = shouldLog | 2;
+    LODWORD(v6) = shouldLog | 2;
   }
 
   else
   {
-    v6 = shouldLog;
+    LODWORD(v6) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v4 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v4 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v6 = v6;
+  }
+
+  else
   {
     v6 &= 2u;
   }
 
   if (v6)
   {
-    v7 = objc_opt_class();
+    v8 = objc_opt_class();
     mediaPath = self->_mediaPath;
-    v28 = 138412546;
-    v29 = v7;
-    v30 = 2112;
-    v31 = mediaPath;
-    LODWORD(v25) = 22;
-    v24 = &v28;
-    v9 = _os_log_send_and_compose_impl();
-    if (v9)
+    v30 = 138412546;
+    v31 = v8;
+    v32 = 2112;
+    v33 = mediaPath;
+    v10 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Processing file: %@", &v30, 22);
+    if (v10)
     {
-      v10 = v9;
-      v11 = [NSString stringWithCString:v9 encoding:4, &v28, v25];
-      free(v10);
-      v24 = v11;
+      v11 = v10;
+      v12 = [NSString stringWithCString:v10 encoding:4];
+      free(v11);
+      v26 = v12;
       SSFileLog();
     }
   }
 
-  v12 = objc_alloc_init(NSMutableDictionary);
-  v27 = 0;
+  v13 = objc_alloc_init(NSMutableDictionary);
+  v29 = 0;
   sinfs = self->_sinfs;
   if (sinfs)
   {
-    [v12 setObject:sinfs forKey:ISWeakLinkedStringConstantForString()];
+    [v13 setObject:sinfs forKey:ISWeakLinkedStringConstantForString()];
   }
 
   fileProcessor = [ISWeakLinkedClassForString() fileProcessor];
-  v15 = self->_mediaPath;
-  v26[0] = _NSConcreteStackBlock;
-  v26[1] = 3221225472;
-  v26[2] = sub_1000AEBF0;
-  v26[3] = &unk_100327858;
-  v26[4] = self;
-  v16 = [fileProcessor processPurchasedItem:v15 withAttributes:v12 resultInfo:&v27 progressBlock:v26];
-  if (v16)
+  v16 = self->_mediaPath;
+  v28[0] = _NSConcreteStackBlock;
+  v28[1] = 3221225472;
+  v28[2] = sub_1000AEBF0;
+  v28[3] = &unk_100327858;
+  v28[4] = self;
+  v17 = [fileProcessor processPurchasedItem:v16 withAttributes:v13 resultInfo:&v29 progressBlock:v28];
+  if (v17)
   {
-    v17 = +[SSLogConfig sharedDaemonConfig];
-    if (!v17)
+    v18 = +[SSLogConfig sharedDaemonConfig];
+    if (!v18)
     {
-      v17 = +[SSLogConfig sharedConfig];
+      v18 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v17 shouldLog];
-    if ([v17 shouldLogToDisk])
+    shouldLog2 = [v18 shouldLog];
+    if ([v18 shouldLogToDisk])
     {
-      v19 = shouldLog2 | 2;
+      LODWORD(v20) = shouldLog2 | 2;
     }
 
     else
     {
-      v19 = shouldLog2;
+      LODWORD(v20) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([v17 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject2 = [v18 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      v19 &= 2u;
+      v20 = v20;
     }
 
-    if (v19)
+    else
     {
-      v20 = objc_opt_class();
-      v28 = 138412546;
-      v29 = v20;
-      v30 = 2112;
-      v31 = v16;
-      LODWORD(v25) = 22;
-      v21 = _os_log_send_and_compose_impl();
-      if (v21)
+      v20 &= 2u;
+    }
+
+    if (v20)
+    {
+      v22 = objc_opt_class();
+      v30 = 138412546;
+      v31 = v22;
+      v32 = 2112;
+      v33 = v17;
+      LODWORD(v27) = 22;
+      v23 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Failed with error: %@", &v30, v27);
+      if (v23)
       {
-        v22 = v21;
-        [NSString stringWithCString:v21 encoding:4, &v28, v25];
-        free(v22);
+        v24 = v23;
+        [NSString stringWithCString:v23 encoding:4];
+        free(v24);
         SSFileLog();
       }
     }
 
-    v23 = ISErrorWithExternalError();
+    v25 = ISErrorWithExternalError();
   }
 
   else
   {
     [(MediaDRMOperation *)self lock];
 
-    self->_mediaFileExtension = [v27 objectForKey:ISWeakLinkedStringConstantForString()];
+    self->_mediaFileExtension = [v29 objectForKey:ISWeakLinkedStringConstantForString()];
     [(MediaDRMOperation *)self unlock];
-    v23 = 0;
+    v25 = 0;
   }
 
-  [(MediaDRMOperation *)self setError:v23];
-  [(MediaDRMOperation *)self setSuccess:v16 == 0];
+  [(MediaDRMOperation *)self setError:v25];
+  [(MediaDRMOperation *)self setSuccess:v17 == 0];
 }
 
 @end

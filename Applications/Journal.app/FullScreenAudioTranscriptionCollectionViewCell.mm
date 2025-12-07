@@ -16,7 +16,7 @@
   *(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtC7Journal46FullScreenAudioTranscriptionCollectionViewCell_recordingViewModel) = 0;
   *(&self->super.super.super.super.super.super.isa + OBJC_IVAR____TtC7Journal46FullScreenAudioTranscriptionCollectionViewCell_transcriptionCoordinator) = 0;
   v8 = self + OBJC_IVAR____TtC7Journal46FullScreenAudioTranscriptionCollectionViewCell_audioAsset;
-  v9 = type metadata accessor for FullScreenAudioTranscriptionCollectionViewCell();
+  v9 = type metadata accessor for FullScreenAudioTranscriptionCollectionViewCell(0);
   *v8 = 0u;
   *(v8 + 1) = 0u;
   *(v8 + 4) = 0;

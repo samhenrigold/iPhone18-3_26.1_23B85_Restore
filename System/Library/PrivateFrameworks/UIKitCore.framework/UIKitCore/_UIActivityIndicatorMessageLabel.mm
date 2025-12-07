@@ -86,7 +86,7 @@
 - (void)setEffectiveTextAttributes:(id)attributes
 {
   attributesCopy = attributes;
-  if (([(NSDictionary *)self->_effectiveTextAttributes isEqual:?]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_effectiveTextAttributes) & 1) == 0)
   {
     objc_storeStrong(&self->_effectiveTextAttributes, attributes);
     v5 = objc_alloc(MEMORY[0x1E696AAB0]);

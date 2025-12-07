@@ -76,7 +76,7 @@ LABEL_9:
   memset(&v50, 0, sizeof(v50));
   if (v6)
   {
-    [v6 CGAffineTransformValue];
+    objc_msgSend_CGAffineTransformValue(v6);
   }
 
   else
@@ -139,7 +139,7 @@ LABEL_9:
   if (v24 || ([changesCopy objectForKey:@"Transform"], (v24 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v25 = v24;
-    [v24 CGAffineTransformValue];
+    objc_msgSend_CGAffineTransformValue(v24);
     hostView3 = [(UIInputViewSetPlacement_FloatingAssistantApplicator *)self hostView];
     v48 = v44;
     [hostView3 setTransformForContent:&v48];

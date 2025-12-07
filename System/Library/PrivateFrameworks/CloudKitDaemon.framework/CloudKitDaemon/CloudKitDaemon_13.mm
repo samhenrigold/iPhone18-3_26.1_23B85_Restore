@@ -1,3232 +1,3 @@
-uint64_t sub_2252D4660(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
-  {
-    do
-    {
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      while (1)
-      {
-        v82 = 0;
-        v13 = objc_msgSend_position(a2, v8, v9) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
-        {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, &v82, v24, 1);
-
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v16, v17);
-        }
-
-        v12 |= (v82 & 0x7F) << v10;
-        if ((v82 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v10 += 7;
-        v30 = v11++ >= 9;
-        if (v30)
-        {
-          v31 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
-LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v9 = v31 & 7;
-      if (v9 == 4)
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v32 = (v31 >> 3);
-      if ((v31 >> 3) > 2)
-      {
-        if (v32 == 3)
-        {
-          v58 = 0;
-          v59 = 0;
-          v60 = 0;
-          *(a1 + 36) |= 1u;
-          while (1)
-          {
-            v83 = 0;
-            v61 = objc_msgSend_position(a2, v32, v9) + 1;
-            if (v61 >= objc_msgSend_position(a2, v62, v63) && (v66 = objc_msgSend_position(a2, v64, v65) + 1, v66 <= objc_msgSend_length(a2, v67, v68)))
-            {
-              v69 = objc_msgSend_data(a2, v64, v65);
-              v72 = objc_msgSend_position(a2, v70, v71);
-              objc_msgSend_getBytes_range_(v69, v73, &v83, v72, 1);
-
-              v76 = objc_msgSend_position(a2, v74, v75);
-              objc_msgSend_setPosition_(a2, v77, v76 + 1);
-            }
-
-            else
-            {
-              objc_msgSend__setError(a2, v64, v65);
-            }
-
-            v60 |= (v83 & 0x7F) << v58;
-            if ((v83 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v58 += 7;
-            v30 = v59++ >= 9;
-            if (v30)
-            {
-              v78 = 0;
-              goto LABEL_52;
-            }
-          }
-
-          if (objc_msgSend_hasError(a2, v32, v9))
-          {
-            v78 = 0;
-          }
-
-          else
-          {
-            v78 = v60;
-          }
-
-LABEL_52:
-          *(a1 + 8) = v78;
-        }
-
-        else
-        {
-          if (v32 != 4)
-          {
-LABEL_32:
-            result = PBReaderSkipValueWithTag();
-            if (!result)
-            {
-              return result;
-            }
-
-            goto LABEL_53;
-          }
-
-          v35 = 0;
-          v36 = 0;
-          v37 = 0;
-          *(a1 + 36) |= 2u;
-          while (1)
-          {
-            v84 = 0;
-            v38 = objc_msgSend_position(a2, v32, v9) + 1;
-            if (v38 >= objc_msgSend_position(a2, v39, v40) && (v43 = objc_msgSend_position(a2, v41, v42) + 1, v43 <= objc_msgSend_length(a2, v44, v45)))
-            {
-              v46 = objc_msgSend_data(a2, v41, v42);
-              v49 = objc_msgSend_position(a2, v47, v48);
-              objc_msgSend_getBytes_range_(v46, v50, &v84, v49, 1);
-
-              v53 = objc_msgSend_position(a2, v51, v52);
-              objc_msgSend_setPosition_(a2, v54, v53 + 1);
-            }
-
-            else
-            {
-              objc_msgSend__setError(a2, v41, v42);
-            }
-
-            v37 |= (v84 & 0x7F) << v35;
-            if ((v84 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v35 += 7;
-            v30 = v36++ >= 9;
-            if (v30)
-            {
-              v55 = 0;
-              goto LABEL_48;
-            }
-          }
-
-          if (objc_msgSend_hasError(a2, v32, v9))
-          {
-            v55 = 0;
-          }
-
-          else
-          {
-            v55 = v37;
-          }
-
-LABEL_48:
-          *(a1 + 32) = v55;
-        }
-      }
-
-      else
-      {
-        if (v32 == 1)
-        {
-          v33 = PBReaderReadData();
-          v34 = 16;
-        }
-
-        else
-        {
-          if (v32 != 2)
-          {
-            goto LABEL_32;
-          }
-
-          v33 = PBReaderReadString();
-          v34 = 24;
-        }
-
-        v57 = *(a1 + v34);
-        *(a1 + v34) = v33;
-      }
-
-LABEL_53:
-      v79 = objc_msgSend_position(a2, v32, v9);
-    }
-
-    while (v79 < objc_msgSend_length(a2, v80, v81));
-  }
-
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-}
-
-void sub_2252D5038()
-{
-  v0 = qword_280D54F18;
-  qword_280D54F18 = &unk_2838C92F0;
-}
-
-uint64_t sub_2252D5810(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
-  {
-    do
-    {
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      while (1)
-      {
-        LOBYTE(v65) = 0;
-        v13 = objc_msgSend_position(a2, v8, v9, v65) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
-        {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, &v65, v24, 1);
-
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v16, v17);
-        }
-
-        v12 |= (v65 & 0x7F) << v10;
-        if ((v65 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v10 += 7;
-        v30 = v11++ >= 9;
-        if (v30)
-        {
-          v31 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
-LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v9 = v31 & 7;
-      if (v9 == 4)
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v32 = (v31 >> 3);
-      if ((v31 >> 3) <= 3)
-      {
-        switch(v32)
-        {
-          case 1:
-            v33 = objc_alloc_init(MEMORY[0x277CBC278]);
-            objc_storeStrong((a1 + 40), v33);
-            v65 = 0;
-            v66 = 0;
-            if (!PBReaderPlaceMark() || !CKDPRecordZoneIdentifierReadFrom())
-            {
-LABEL_55:
-
-              return 0;
-            }
-
-            goto LABEL_49;
-          case 2:
-            v33 = objc_alloc_init(CKDPSupportedCapabilitiesCapability);
-            objc_msgSend_addZoneLevelCapabilities_(a1, v59, v33);
-LABEL_47:
-            v65 = 0;
-            v66 = 0;
-            if (!PBReaderPlaceMark() || !sub_22536EBA4(v33, a2, v60))
-            {
-              goto LABEL_55;
-            }
-
-LABEL_49:
-            PBReaderRecallMark();
-
-            goto LABEL_50;
-          case 3:
-            v33 = objc_alloc_init(CKDPSupportedCapabilitiesCapability);
-            objc_msgSend_addRecordLevelCapabilities_(a1, v34, v33);
-            goto LABEL_47;
-        }
-      }
-
-      else if (v32 > 5)
-      {
-        if (v32 == 6)
-        {
-          v38 = 0;
-          v39 = 0;
-          v40 = 0;
-          *(a1 + 60) |= 1u;
-          while (1)
-          {
-            LOBYTE(v65) = 0;
-            v41 = objc_msgSend_position(a2, v32, v9, v65) + 1;
-            if (v41 >= objc_msgSend_position(a2, v42, v43) && (v46 = objc_msgSend_position(a2, v44, v45) + 1, v46 <= objc_msgSend_length(a2, v47, v48)))
-            {
-              v49 = objc_msgSend_data(a2, v44, v45);
-              v52 = objc_msgSend_position(a2, v50, v51);
-              objc_msgSend_getBytes_range_(v49, v53, &v65, v52, 1);
-
-              v56 = objc_msgSend_position(a2, v54, v55);
-              objc_msgSend_setPosition_(a2, v57, v56 + 1);
-            }
-
-            else
-            {
-              objc_msgSend__setError(a2, v44, v45);
-            }
-
-            v40 |= (v65 & 0x7F) << v38;
-            if ((v65 & 0x80) == 0)
-            {
-              break;
-            }
-
-            v38 += 7;
-            v30 = v39++ >= 9;
-            if (v30)
-            {
-              LOBYTE(v58) = 0;
-              goto LABEL_53;
-            }
-          }
-
-          v58 = (v40 != 0) & ~objc_msgSend_hasError(a2, v32, v9);
-LABEL_53:
-          *(a1 + 56) = v58;
-          goto LABEL_50;
-        }
-
-        if (v32 == 7)
-        {
-          v35 = PBReaderReadData();
-          v36 = *(a1 + 8);
-          *(a1 + 8) = v35;
-
-          goto LABEL_50;
-        }
-      }
-
-      else
-      {
-        if (v32 == 4)
-        {
-          v33 = objc_alloc_init(CKDPSupportedCapabilitiesCapability);
-          objc_msgSend_addFieldLevelCapabilities_(a1, v37, v33);
-          goto LABEL_47;
-        }
-
-        if (v32 == 5)
-        {
-          v33 = objc_alloc_init(MEMORY[0x277CBC240]);
-          objc_storeStrong((a1 + 16), v33);
-          v65 = 0;
-          v66 = 0;
-          if (!PBReaderPlaceMark() || !CKDPDateReadFrom())
-          {
-            goto LABEL_55;
-          }
-
-          goto LABEL_49;
-        }
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_50:
-      v61 = objc_msgSend_position(a2, v32, v9);
-    }
-
-    while (v61 < objc_msgSend_length(a2, v62, v63));
-  }
-
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-}
-
-uint64_t sub_2252D6D54(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
-  {
-    do
-    {
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      while (1)
-      {
-        LOBYTE(v63[0]) = 0;
-        v13 = objc_msgSend_position(a2, v8, v9, v63[0]) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
-        {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, v63, v24, 1);
-
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v16, v17);
-        }
-
-        v12 |= (v63[0] & 0x7F) << v10;
-        if ((v63[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v10 += 7;
-        v30 = v11++ >= 9;
-        if (v30)
-        {
-          v31 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
-LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v9 = v31 & 7;
-      if (v9 == 4)
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v32 = (v31 >> 3);
-      if ((v31 >> 3) <= 2)
-      {
-        if (v32 == 1)
-        {
-          v38 = 0;
-          v39 = 0;
-          v40 = 0;
-          *(a1 + 44) |= 1u;
-          while (1)
-          {
-            LOBYTE(v63[0]) = 0;
-            v41 = objc_msgSend_position(a2, v32, v9, v63[0]) + 1;
-            if (v41 >= objc_msgSend_position(a2, v42, v43) && (v46 = objc_msgSend_position(a2, v44, v45) + 1, v46 <= objc_msgSend_length(a2, v47, v48)))
-            {
-              v49 = objc_msgSend_data(a2, v44, v45);
-              v52 = objc_msgSend_position(a2, v50, v51);
-              objc_msgSend_getBytes_range_(v49, v53, v63, v52, 1);
-
-              v56 = objc_msgSend_position(a2, v54, v55);
-              objc_msgSend_setPosition_(a2, v57, v56 + 1);
-            }
-
-            else
-            {
-              objc_msgSend__setError(a2, v44, v45);
-            }
-
-            v40 |= (v63[0] & 0x7F) << v38;
-            if ((v63[0] & 0x80) == 0)
-            {
-              break;
-            }
-
-            v38 += 7;
-            v30 = v39++ >= 9;
-            if (v30)
-            {
-              LOBYTE(v58) = 0;
-              goto LABEL_42;
-            }
-          }
-
-          v58 = (v40 != 0) & ~objc_msgSend_hasError(a2, v32, v9);
-LABEL_42:
-          *(a1 + 40) = v58;
-          goto LABEL_43;
-        }
-
-        if (v32 != 2)
-        {
-          goto LABEL_39;
-        }
-
-        v35 = objc_alloc_init(CKDPSignedVersionedBlob);
-        v36 = 24;
-      }
-
-      else
-      {
-        switch(v32)
-        {
-          case 3:
-            v35 = objc_alloc_init(CKDPSignedVersionedBlob);
-            v36 = 16;
-            break;
-          case 4:
-            v35 = objc_alloc_init(CKDPSignedVersionedBlob);
-            v36 = 32;
-            break;
-          case 5:
-            v33 = PBReaderReadData();
-            v34 = *(a1 + 8);
-            *(a1 + 8) = v33;
-
-            goto LABEL_43;
-          default:
-LABEL_39:
-            if ((PBReaderSkipValueWithTag() & 1) == 0)
-            {
-              return 0;
-            }
-
-            goto LABEL_43;
-        }
-      }
-
-      objc_storeStrong((a1 + v36), v35);
-      v63[0] = 0;
-      v63[1] = 0;
-      if (!PBReaderPlaceMark() || !sub_225360D24(v35, a2, v37))
-      {
-
-        return 0;
-      }
-
-      PBReaderRecallMark();
-
-LABEL_43:
-      v59 = objc_msgSend_position(a2, v32, v9);
-    }
-
-    while (v59 < objc_msgSend_length(a2, v60, v61));
-  }
-
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-}
-
-void sub_2252D77E0()
-{
-  v0 = qword_280D58418;
-  qword_280D58418 = &unk_2838C9318;
-}
-
-uint64_t sub_2252D7930(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
-  {
-    do
-    {
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        break;
-      }
-
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      while (1)
-      {
-        LOBYTE(v40[0]) = 0;
-        v13 = objc_msgSend_position(a2, v8, v9, v40[0]) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
-        {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, v40, v24, 1);
-
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v16, v17);
-        }
-
-        v12 |= (v40[0] & 0x7F) << v10;
-        if ((v40[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v10 += 7;
-        if (v11++ >= 9)
-        {
-          v31 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
-LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        break;
-      }
-
-      v9 = v31 & 7;
-      if (v9 == 4)
-      {
-        break;
-      }
-
-      if ((v31 >> 3) == 3)
-      {
-        v32 = objc_alloc_init(CKDPSignedVersionedBlob);
-        objc_storeStrong((a1 + 8), v32);
-        v40[0] = 0;
-        v40[1] = 0;
-        if (!PBReaderPlaceMark() || !sub_225360D24(v32, a2, v33))
-        {
-
-          return 0;
-        }
-
-        PBReaderRecallMark();
-      }
-
-      else if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-      v36 = objc_msgSend_position(a2, v34, v35);
-    }
-
-    while (v36 < objc_msgSend_length(a2, v37, v38));
-  }
-
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-}
-
-uint64_t sub_2252D859C(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
-  {
-    do
-    {
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      while (1)
-      {
-        LOBYTE(v63[0]) = 0;
-        v13 = objc_msgSend_position(a2, v8, v9, v63[0]) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
-        {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, v63, v24, 1);
-
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v16, v17);
-        }
-
-        v12 |= (v63[0] & 0x7F) << v10;
-        if ((v63[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v10 += 7;
-        v30 = v11++ >= 9;
-        if (v30)
-        {
-          v31 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
-LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v9 = v31 & 7;
-      if (v9 == 4)
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v32 = (v31 >> 3);
-      if ((v31 >> 3) > 2)
-      {
-        if (v32 == 3)
-        {
-          v33 = objc_alloc_init(CKDPAdopterFeatureSetAdopterFeature);
-          objc_msgSend_addRecordFeatures_(a1, v57, v33);
-        }
-
-        else
-        {
-          if (v32 != 4)
-          {
-            goto LABEL_24;
-          }
-
-          v33 = objc_alloc_init(CKDPAdopterFeatureSetAdopterFeature);
-          objc_msgSend_addFieldFeatures_(a1, v35, v33);
-        }
-      }
-
-      else
-      {
-        if (v32 == 1)
-        {
-          v36 = 0;
-          v37 = 0;
-          v38 = 0;
-          *(a1 + 40) |= 1u;
-          while (1)
-          {
-            LOBYTE(v63[0]) = 0;
-            v39 = objc_msgSend_position(a2, v32, v9, v63[0]) + 1;
-            if (v39 >= objc_msgSend_position(a2, v40, v41) && (v44 = objc_msgSend_position(a2, v42, v43) + 1, v44 <= objc_msgSend_length(a2, v45, v46)))
-            {
-              v47 = objc_msgSend_data(a2, v42, v43);
-              v50 = objc_msgSend_position(a2, v48, v49);
-              objc_msgSend_getBytes_range_(v47, v51, v63, v50, 1);
-
-              v54 = objc_msgSend_position(a2, v52, v53);
-              objc_msgSend_setPosition_(a2, v55, v54 + 1);
-            }
-
-            else
-            {
-              objc_msgSend__setError(a2, v42, v43);
-            }
-
-            v38 |= (v63[0] & 0x7F) << v36;
-            if ((v63[0] & 0x80) == 0)
-            {
-              break;
-            }
-
-            v36 += 7;
-            v30 = v37++ >= 9;
-            if (v30)
-            {
-              v56 = 0;
-              goto LABEL_42;
-            }
-          }
-
-          if (objc_msgSend_hasError(a2, v32, v9))
-          {
-            v56 = 0;
-          }
-
-          else
-          {
-            v56 = v38;
-          }
-
-LABEL_42:
-          *(a1 + 16) = v56;
-          goto LABEL_43;
-        }
-
-        if (v32 != 2)
-        {
-LABEL_24:
-          if ((PBReaderSkipValueWithTag() & 1) == 0)
-          {
-            return 0;
-          }
-
-          goto LABEL_43;
-        }
-
-        v33 = objc_alloc_init(CKDPAdopterFeatureSetAdopterFeature);
-        objc_msgSend_addZoneFeatures_(a1, v34, v33);
-      }
-
-      v63[0] = 0;
-      v63[1] = 0;
-      if (!PBReaderPlaceMark() || !sub_2252D95D4(v33, a2, v58))
-      {
-
-        return 0;
-      }
-
-      PBReaderRecallMark();
-
-LABEL_43:
-      v59 = objc_msgSend_position(a2, v32, v9);
-    }
-
-    while (v59 < objc_msgSend_length(a2, v60, v61));
-  }
-
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-}
-
-uint64_t sub_2252D95D4(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
-  {
-    while (1)
-    {
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      while (1)
-      {
-        v42 = 0;
-        v13 = objc_msgSend_position(a2, v8, v9) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
-        {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, &v42, v24, 1);
-
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v16, v17);
-        }
-
-        v12 |= (v42 & 0x7F) << v10;
-        if ((v42 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v10 += 7;
-        if (v11++ >= 9)
-        {
-          v31 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
-LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v9 = v31 & 7;
-      if (v9 == 4)
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      if ((v31 >> 3) == 1)
-      {
-        break;
-      }
-
-      if ((v31 >> 3) == 2)
-      {
-        v32 = &OBJC_IVAR___CKDPAdopterFeatureSetAdopterFeature__value;
-LABEL_21:
-        v33 = PBReaderReadString();
-        v34 = *v32;
-        v35 = *(a1 + v34);
-        *(a1 + v34) = v33;
-
-        goto LABEL_23;
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_23:
-      v38 = objc_msgSend_position(a2, v36, v37);
-      if (v38 >= objc_msgSend_length(a2, v39, v40))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-    }
-
-    v32 = &OBJC_IVAR___CKDPAdopterFeatureSetAdopterFeature__key;
-    goto LABEL_21;
-  }
-
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-}
-
-uint64_t sub_2252D9FA4(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
-  {
-    do
-    {
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        break;
-      }
-
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      while (1)
-      {
-        LOBYTE(v61[0]) = 0;
-        v13 = objc_msgSend_position(a2, v8, v9, v61[0]) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
-        {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, v61, v24, 1);
-
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v16, v17);
-        }
-
-        v12 |= (v61[0] & 0x7F) << v10;
-        if ((v61[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v10 += 7;
-        v30 = v11++ >= 9;
-        if (v30)
-        {
-          v31 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
-LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        break;
-      }
-
-      v9 = v31 & 7;
-      if (v9 == 4)
-      {
-        break;
-      }
-
-      v32 = (v31 >> 3);
-      if ((v31 >> 3) == 2)
-      {
-        v36 = 0;
-        v37 = 0;
-        v38 = 0;
-        *(a1 + 20) |= 1u;
-        while (1)
-        {
-          LOBYTE(v61[0]) = 0;
-          v39 = objc_msgSend_position(a2, v32, v9, v61[0]) + 1;
-          if (v39 >= objc_msgSend_position(a2, v40, v41) && (v44 = objc_msgSend_position(a2, v42, v43) + 1, v44 <= objc_msgSend_length(a2, v45, v46)))
-          {
-            v47 = objc_msgSend_data(a2, v42, v43);
-            v50 = objc_msgSend_position(a2, v48, v49);
-            objc_msgSend_getBytes_range_(v47, v51, v61, v50, 1);
-
-            v54 = objc_msgSend_position(a2, v52, v53);
-            objc_msgSend_setPosition_(a2, v55, v54 + 1);
-          }
-
-          else
-          {
-            objc_msgSend__setError(a2, v42, v43);
-          }
-
-          v38 |= (v61[0] & 0x7F) << v36;
-          if ((v61[0] & 0x80) == 0)
-          {
-            break;
-          }
-
-          v36 += 7;
-          v30 = v37++ >= 9;
-          if (v30)
-          {
-            v56 = 0;
-            goto LABEL_36;
-          }
-        }
-
-        if (objc_msgSend_hasError(a2, v32, v9))
-        {
-          v56 = 0;
-        }
-
-        else
-        {
-          v56 = v38;
-        }
-
-LABEL_36:
-        *(a1 + 16) = v56;
-      }
-
-      else if (v32 == 1)
-      {
-        v33 = objc_alloc_init(CKDPAncestryEtagAncestorInformation);
-        objc_msgSend_addAncestorInformation_(a1, v34, v33);
-        v61[0] = 0;
-        v61[1] = 0;
-        if (!PBReaderPlaceMark() || !sub_2252DAA34(v33, a2, v35))
-        {
-
-          return 0;
-        }
-
-        PBReaderRecallMark();
-      }
-
-      else if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-      v57 = objc_msgSend_position(a2, v32, v9);
-    }
-
-    while (v57 < objc_msgSend_length(a2, v58, v59));
-  }
-
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-}
-
-uint64_t sub_2252DAA34(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
-  {
-    while (1)
-    {
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      while (1)
-      {
-        LOBYTE(v40[0]) = 0;
-        v13 = objc_msgSend_position(a2, v8, v9, v40[0]) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
-        {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, v40, v24, 1);
-
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v16, v17);
-        }
-
-        v12 |= (v40[0] & 0x7F) << v10;
-        if ((v40[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v10 += 7;
-        if (v11++ >= 9)
-        {
-          v31 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
-LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v9 = v31 & 7;
-      if (v9 == 4)
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      if ((v31 >> 3) == 2)
-      {
-        break;
-      }
-
-      if ((v31 >> 3) == 1)
-      {
-        v32 = objc_alloc_init(MEMORY[0x277CBC278]);
-        objc_storeStrong((a1 + 16), v32);
-        v40[0] = 0;
-        v40[1] = 0;
-        if (!PBReaderPlaceMark() || !CKDPRecordZoneIdentifierReadFrom())
-        {
-
-          return 0;
-        }
-
-        PBReaderRecallMark();
-        goto LABEL_23;
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_25:
-      v36 = objc_msgSend_position(a2, v34, v35);
-      if (v36 >= objc_msgSend_length(a2, v37, v38))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-    }
-
-    v33 = PBReaderReadString();
-    v32 = *(a1 + 8);
-    *(a1 + 8) = v33;
-LABEL_23:
-
-    goto LABEL_25;
-  }
-
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-}
-
-void sub_2252DB064()
-{
-  v0 = qword_280D58428;
-  qword_280D58428 = &unk_2838C9340;
-}
-
-uint64_t sub_2252DB1D8(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
-  {
-    while (1)
-    {
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      while (1)
-      {
-        v42 = 0;
-        v13 = objc_msgSend_position(a2, v8, v9) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
-        {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, &v42, v24, 1);
-
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v16, v17);
-        }
-
-        v12 |= (v42 & 0x7F) << v10;
-        if ((v42 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v10 += 7;
-        if (v11++ >= 9)
-        {
-          v31 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
-LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v9 = v31 & 7;
-      if (v9 == 4)
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      if ((v31 >> 3) == 2)
-      {
-        break;
-      }
-
-      if ((v31 >> 3) == 1)
-      {
-        v32 = PBReaderReadString();
-        v33 = &OBJC_IVAR___CKDPAnonymousShareAddRequest__anonymousShareTupleHash;
-LABEL_21:
-        v34 = *v33;
-        v35 = *(a1 + v34);
-        *(a1 + v34) = v32;
-
-        goto LABEL_23;
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_23:
-      v38 = objc_msgSend_position(a2, v36, v37);
-      if (v38 >= objc_msgSend_length(a2, v39, v40))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-    }
-
-    v32 = PBReaderReadData();
-    v33 = &OBJC_IVAR___CKDPAnonymousShareAddRequest__encryptedShareTuple;
-    goto LABEL_21;
-  }
-
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-}
-
-uint64_t sub_2252DB87C(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
-  {
-    do
-    {
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        break;
-      }
-
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      while (1)
-      {
-        v40 = 0;
-        v13 = objc_msgSend_position(a2, v8, v9) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
-        {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, &v40, v24, 1);
-
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v16, v17);
-        }
-
-        v12 |= (v40 & 0x7F) << v10;
-        if ((v40 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v10 += 7;
-        if (v11++ >= 9)
-        {
-          v31 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
-LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        break;
-      }
-
-      v9 = v31 & 7;
-      if (v9 == 4)
-      {
-        break;
-      }
-
-      if ((v31 >> 3) == 1)
-      {
-        v32 = PBReaderReadString();
-        v33 = *(a1 + 8);
-        *(a1 + 8) = v32;
-      }
-
-      else
-      {
-        result = PBReaderSkipValueWithTag();
-        if (!result)
-        {
-          return result;
-        }
-      }
-
-      v37 = objc_msgSend_position(a2, v34, v35);
-    }
-
-    while (v37 < objc_msgSend_length(a2, v38, v39));
-  }
-
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-}
-
-void sub_2252DBC18()
-{
-  v0 = qword_280D58438;
-  qword_280D58438 = &unk_2838C9368;
-}
-
-uint64_t sub_2252DBD8C(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
-  {
-    while (1)
-    {
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      while (1)
-      {
-        v42 = 0;
-        v13 = objc_msgSend_position(a2, v8, v9) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
-        {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, &v42, v24, 1);
-
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v16, v17);
-        }
-
-        v12 |= (v42 & 0x7F) << v10;
-        if ((v42 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v10 += 7;
-        if (v11++ >= 9)
-        {
-          v31 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
-LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v9 = v31 & 7;
-      if (v9 == 4)
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      if ((v31 >> 3) == 2)
-      {
-        break;
-      }
-
-      if ((v31 >> 3) == 1)
-      {
-        v32 = PBReaderReadString();
-        v33 = &OBJC_IVAR___CKDPAnonymousShareRemoveRequest__anonymousShareTupleHash;
-LABEL_21:
-        v34 = *v33;
-        v35 = *(a1 + v34);
-        *(a1 + v34) = v32;
-
-        goto LABEL_23;
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_23:
-      v38 = objc_msgSend_position(a2, v36, v37);
-      if (v38 >= objc_msgSend_length(a2, v39, v40))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-    }
-
-    v32 = PBReaderReadData();
-    v33 = &OBJC_IVAR___CKDPAnonymousShareRemoveRequest__encryptedShareTuple;
-    goto LABEL_21;
-  }
-
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-}
-
-uint64_t sub_2252DC430(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
-  {
-    do
-    {
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        break;
-      }
-
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      while (1)
-      {
-        v40 = 0;
-        v13 = objc_msgSend_position(a2, v8, v9) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
-        {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, &v40, v24, 1);
-
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v16, v17);
-        }
-
-        v12 |= (v40 & 0x7F) << v10;
-        if ((v40 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v10 += 7;
-        if (v11++ >= 9)
-        {
-          v31 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
-LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        break;
-      }
-
-      v9 = v31 & 7;
-      if (v9 == 4)
-      {
-        break;
-      }
-
-      if ((v31 >> 3) == 1)
-      {
-        v32 = PBReaderReadString();
-        v33 = *(a1 + 8);
-        *(a1 + 8) = v32;
-      }
-
-      else
-      {
-        result = PBReaderSkipValueWithTag();
-        if (!result)
-        {
-          return result;
-        }
-      }
-
-      v37 = objc_msgSend_position(a2, v34, v35);
-    }
-
-    while (v37 < objc_msgSend_length(a2, v38, v39));
-  }
-
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-}
-
-uint64_t sub_2252DC8D4(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
-  {
-    while (1)
-    {
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      while (1)
-      {
-        v42 = 0;
-        v13 = objc_msgSend_position(a2, v8, v9) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
-        {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, &v42, v24, 1);
-
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v16, v17);
-        }
-
-        v12 |= (v42 & 0x7F) << v10;
-        if ((v42 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v10 += 7;
-        if (v11++ >= 9)
-        {
-          v31 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
-LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v9 = v31 & 7;
-      if (v9 == 4)
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      if ((v31 >> 3) == 2)
-      {
-        break;
-      }
-
-      if ((v31 >> 3) == 1)
-      {
-        v32 = PBReaderReadString();
-        v33 = &OBJC_IVAR___CKDPAnonymousZoneInfo__anonymousZoneInfoID;
-LABEL_21:
-        v34 = *v33;
-        v35 = *(a1 + v34);
-        *(a1 + v34) = v32;
-
-        goto LABEL_23;
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_23:
-      v38 = objc_msgSend_position(a2, v36, v37);
-      if (v38 >= objc_msgSend_length(a2, v39, v40))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-    }
-
-    v32 = PBReaderReadData();
-    v33 = &OBJC_IVAR___CKDPAnonymousZoneInfo__anonymousZoneInfoData;
-    goto LABEL_21;
-  }
-
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-}
-
-void sub_2252DCE94()
-{
-  v0 = qword_280D58448;
-  qword_280D58448 = &unk_2838C9390;
-}
-
-uint64_t sub_2252DD198(void *a1, void *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
-  {
-    do
-    {
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        break;
-      }
-
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      while (1)
-      {
-        LOBYTE(v40[0]) = 0;
-        v13 = objc_msgSend_position(a2, v8, v9, v40[0]) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
-        {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, v40, v24, 1);
-
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v16, v17);
-        }
-
-        v12 |= (v40[0] & 0x7F) << v10;
-        if ((v40[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v10 += 7;
-        if (v11++ >= 9)
-        {
-          v31 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
-LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        break;
-      }
-
-      v9 = v31 & 7;
-      if (v9 == 4)
-      {
-        break;
-      }
-
-      if ((v31 >> 3) == 1)
-      {
-        v32 = objc_alloc_init(MEMORY[0x277CBC268]);
-        objc_msgSend_addIdsToArchive_(a1, v33, v32);
-        v40[0] = 0;
-        v40[1] = 0;
-        if (!PBReaderPlaceMark() || !CKDPRecordIdentifierReadFrom())
-        {
-
-          return 0;
-        }
-
-        PBReaderRecallMark();
-      }
-
-      else if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-      v36 = objc_msgSend_position(a2, v34, v35);
-    }
-
-    while (v36 < objc_msgSend_length(a2, v37, v38));
-  }
-
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-}
-
-uint64_t sub_2252DF538(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
-  {
-    do
-    {
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        break;
-      }
-
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      while (1)
-      {
-        LOBYTE(v60[0]) = 0;
-        v13 = objc_msgSend_position(a2, v8, v9, v60[0]) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
-        {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, v60, v24, 1);
-
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v16, v17);
-        }
-
-        v12 |= (v60[0] & 0x7F) << v10;
-        if ((v60[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v10 += 7;
-        v30 = v11++ >= 9;
-        if (v30)
-        {
-          v31 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
-LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        break;
-      }
-
-      v9 = v31 & 7;
-      if (v9 == 4)
-      {
-        break;
-      }
-
-      v32 = (v31 >> 3);
-      if ((v31 >> 3) == 2)
-      {
-        v54 = objc_alloc_init(CKDPRequestedFields);
-        objc_storeStrong((a1 + 8), v54);
-        v60[0] = 0;
-        v60[1] = 0;
-        if (!PBReaderPlaceMark() || !CKDPRequestedFieldsReadFrom(v54, a2, v55))
-        {
-
-          return 0;
-        }
-
-        PBReaderRecallMark();
-      }
-
-      else if (v32 == 1)
-      {
-        v33 = 0;
-        v34 = 0;
-        v35 = 0;
-        *(a1 + 20) |= 1u;
-        while (1)
-        {
-          LOBYTE(v60[0]) = 0;
-          v36 = objc_msgSend_position(a2, v32, v9, v60[0]) + 1;
-          if (v36 >= objc_msgSend_position(a2, v37, v38) && (v41 = objc_msgSend_position(a2, v39, v40) + 1, v41 <= objc_msgSend_length(a2, v42, v43)))
-          {
-            v44 = objc_msgSend_data(a2, v39, v40);
-            v47 = objc_msgSend_position(a2, v45, v46);
-            objc_msgSend_getBytes_range_(v44, v48, v60, v47, 1);
-
-            v51 = objc_msgSend_position(a2, v49, v50);
-            objc_msgSend_setPosition_(a2, v52, v51 + 1);
-          }
-
-          else
-          {
-            objc_msgSend__setError(a2, v39, v40);
-          }
-
-          v35 |= (v60[0] & 0x7F) << v33;
-          if ((v60[0] & 0x80) == 0)
-          {
-            break;
-          }
-
-          v33 += 7;
-          v30 = v34++ >= 9;
-          if (v30)
-          {
-            LOBYTE(v53) = 0;
-            goto LABEL_34;
-          }
-        }
-
-        v53 = (v35 != 0) & ~objc_msgSend_hasError(a2, v32, v9);
-LABEL_34:
-        *(a1 + 16) = v53;
-      }
-
-      else if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-      v56 = objc_msgSend_position(a2, v32, v9);
-    }
-
-    while (v56 < objc_msgSend_length(a2, v57, v58));
-  }
-
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-}
-
-void sub_2252DFC3C()
-{
-  v0 = qword_280D54EB8;
-  qword_280D54EB8 = &unk_2838C93B8;
-}
-
-uint64_t sub_2252E05F8(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
-  {
-    do
-    {
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      while (1)
-      {
-        LOBYTE(v90) = 0;
-        v13 = objc_msgSend_position(a2, v8, v9, v90) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
-        {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, &v90, v24, 1);
-
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v16, v17);
-        }
-
-        v12 |= (v90 & 0x7F) << v10;
-        if ((v90 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v10 += 7;
-        v30 = v11++ >= 9;
-        if (v30)
-        {
-          v31 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
-LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v9 = v31 & 7;
-      if (v9 == 4)
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v32 = (v31 >> 3);
-      if ((v31 >> 3) > 4)
-      {
-        if (v32 > 7)
-        {
-          if (v32 == 8)
-          {
-            v68 = 0;
-            v69 = 0;
-            v70 = 0;
-            *(a1 + 72) |= 2u;
-            while (1)
-            {
-              LOBYTE(v90) = 0;
-              v71 = objc_msgSend_position(a2, v32, v9, v90) + 1;
-              if (v71 >= objc_msgSend_position(a2, v72, v73) && (v76 = objc_msgSend_position(a2, v74, v75) + 1, v76 <= objc_msgSend_length(a2, v77, v78)))
-              {
-                v79 = objc_msgSend_data(a2, v74, v75);
-                v82 = objc_msgSend_position(a2, v80, v81);
-                objc_msgSend_getBytes_range_(v79, v83, &v90, v82, 1);
-
-                v86 = objc_msgSend_position(a2, v84, v85);
-                objc_msgSend_setPosition_(a2, v87, v86 + 1);
-              }
-
-              else
-              {
-                objc_msgSend__setError(a2, v74, v75);
-              }
-
-              v70 |= (v90 & 0x7F) << v68;
-              if ((v90 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v68 += 7;
-              v30 = v69++ >= 9;
-              if (v30)
-              {
-                v88 = 0;
-                goto LABEL_69;
-              }
-            }
-
-            if (objc_msgSend_hasError(a2, v32, v9))
-            {
-              v88 = 0;
-            }
-
-            else
-            {
-              v88 = v70;
-            }
-
-LABEL_69:
-            *(a1 + 32) = v88;
-            goto LABEL_53;
-          }
-
-          if (v32 == 9)
-          {
-            v39 = 0;
-            v40 = 0;
-            v41 = 0;
-            *(a1 + 72) |= 1u;
-            while (1)
-            {
-              LOBYTE(v90) = 0;
-              v42 = objc_msgSend_position(a2, v32, v9, v90) + 1;
-              if (v42 >= objc_msgSend_position(a2, v43, v44) && (v47 = objc_msgSend_position(a2, v45, v46) + 1, v47 <= objc_msgSend_length(a2, v48, v49)))
-              {
-                v50 = objc_msgSend_data(a2, v45, v46);
-                v53 = objc_msgSend_position(a2, v51, v52);
-                objc_msgSend_getBytes_range_(v50, v54, &v90, v53, 1);
-
-                v57 = objc_msgSend_position(a2, v55, v56);
-                objc_msgSend_setPosition_(a2, v58, v57 + 1);
-              }
-
-              else
-              {
-                objc_msgSend__setError(a2, v45, v46);
-              }
-
-              v41 |= (v90 & 0x7F) << v39;
-              if ((v90 & 0x80) == 0)
-              {
-                break;
-              }
-
-              v39 += 7;
-              v30 = v40++ >= 9;
-              if (v30)
-              {
-                v59 = 0;
-                goto LABEL_73;
-              }
-            }
-
-            if (objc_msgSend_hasError(a2, v32, v9))
-            {
-              v59 = 0;
-            }
-
-            else
-            {
-              v59 = v41;
-            }
-
-LABEL_73:
-            *(a1 + 8) = v59;
-            goto LABEL_53;
-          }
-        }
-
-        else
-        {
-          if (v32 == 5)
-          {
-            v33 = objc_alloc_init(CKDPAssetUploadTokenRetrieveRequestHeaderInfo);
-            objc_msgSend_addContentRequestHeaders_(a1, v61, v33);
-            v90 = 0;
-            v91 = 0;
-            if (!PBReaderPlaceMark() || !sub_2252E277C(v33, a2, v62))
-            {
-LABEL_75:
-
-              return 0;
-            }
-
-            goto LABEL_52;
-          }
-
-          if (v32 == 6)
-          {
-            v35 = PBReaderReadData();
-            v36 = *(a1 + 24);
-            *(a1 + 24) = v35;
-
-            goto LABEL_53;
-          }
-        }
-      }
-
-      else if (v32 > 2)
-      {
-        if (v32 == 3)
-        {
-          v33 = objc_alloc_init(CKDPAsset);
-          objc_msgSend_addAssets_(a1, v63, v33);
-          v90 = 0;
-          v91 = 0;
-          if (!PBReaderPlaceMark() || !CKDPAssetReadFrom(v33, a2, v64))
-          {
-            goto LABEL_75;
-          }
-
-          goto LABEL_52;
-        }
-
-        if (v32 == 4)
-        {
-          v33 = objc_alloc_init(CKDPAssetUploadTokenRetrieveRequestRecordAssetUpload);
-          objc_msgSend_addUploads_(a1, v37, v33);
-          v90 = 0;
-          v91 = 0;
-          if (!PBReaderPlaceMark() || !sub_2252E3094(&v33->super.super.isa, a2, v38))
-          {
-            goto LABEL_75;
-          }
-
-          goto LABEL_52;
-        }
-      }
-
-      else
-      {
-        if (v32 == 1)
-        {
-          v33 = objc_alloc_init(CKDPRecordType);
-          objc_storeStrong((a1 + 56), v33);
-          v90 = 0;
-          v91 = 0;
-          if (!PBReaderPlaceMark() || !CKDPRecordTypeReadFrom(v33, a2, v60))
-          {
-            goto LABEL_75;
-          }
-
-          goto LABEL_52;
-        }
-
-        if (v32 == 2)
-        {
-          v33 = objc_alloc_init(CKDPRecordFieldIdentifier);
-          objc_storeStrong((a1 + 48), v33);
-          v90 = 0;
-          v91 = 0;
-          if (!PBReaderPlaceMark() || !CKDPRecordFieldIdentifierReadFrom(v33, a2, v34))
-          {
-            goto LABEL_75;
-          }
-
-LABEL_52:
-          PBReaderRecallMark();
-
-          goto LABEL_53;
-        }
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_53:
-      v65 = objc_msgSend_position(a2, v32, v9);
-    }
-
-    while (v65 < objc_msgSend_length(a2, v66, v67));
-  }
-
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-}
-
-uint64_t sub_2252E1DF0(id *a1, void *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
-  {
-    while (1)
-    {
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      while (1)
-      {
-        LOBYTE(v42) = 0;
-        v13 = objc_msgSend_position(a2, v8, v9, v42) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
-        {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, &v42, v24, 1);
-
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v16, v17);
-        }
-
-        v12 |= (v42 & 0x7F) << v10;
-        if ((v42 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v10 += 7;
-        if (v11++ >= 9)
-        {
-          v31 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
-LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v9 = v31 & 7;
-      if (v9 == 4)
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      if ((v31 >> 3) == 2)
-      {
-        break;
-      }
-
-      if ((v31 >> 3) == 1)
-      {
-        v32 = objc_alloc_init(CKDPRecordFieldIdentifier);
-        objc_storeStrong(a1 + 2, v32);
-        v42 = 0;
-        v43 = 0;
-        if (!PBReaderPlaceMark() || !CKDPRecordFieldIdentifierReadFrom(v32, a2, v33))
-        {
-          goto LABEL_28;
-        }
-
-LABEL_24:
-        PBReaderRecallMark();
-
-        goto LABEL_26;
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_26:
-      v38 = objc_msgSend_position(a2, v36, v37);
-      if (v38 >= objc_msgSend_length(a2, v39, v40))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-    }
-
-    v32 = objc_alloc_init(CKDPAsset);
-    objc_msgSend_addAssets_(a1, v34, v32);
-    v42 = 0;
-    v43 = 0;
-    if (!PBReaderPlaceMark() || !CKDPAssetReadFrom(v32, a2, v35))
-    {
-LABEL_28:
-
-      return 0;
-    }
-
-    goto LABEL_24;
-  }
-
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-}
-
-uint64_t sub_2252E277C(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
-  {
-    while (1)
-    {
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      while (1)
-      {
-        v42 = 0;
-        v13 = objc_msgSend_position(a2, v8, v9) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
-        {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, &v42, v24, 1);
-
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v16, v17);
-        }
-
-        v12 |= (v42 & 0x7F) << v10;
-        if ((v42 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v10 += 7;
-        if (v11++ >= 9)
-        {
-          v31 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
-LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v9 = v31 & 7;
-      if (v9 == 4)
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      if ((v31 >> 3) == 1)
-      {
-        break;
-      }
-
-      if ((v31 >> 3) == 2)
-      {
-        v32 = &OBJC_IVAR___CKDPAssetUploadTokenRetrieveRequestHeaderInfo__headerValue;
-LABEL_21:
-        v33 = PBReaderReadString();
-        v34 = *v32;
-        v35 = *(a1 + v34);
-        *(a1 + v34) = v33;
-
-        goto LABEL_23;
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_23:
-      v38 = objc_msgSend_position(a2, v36, v37);
-      if (v38 >= objc_msgSend_length(a2, v39, v40))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-    }
-
-    v32 = &OBJC_IVAR___CKDPAssetUploadTokenRetrieveRequestHeaderInfo__headerKey;
-    goto LABEL_21;
-  }
-
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-}
-
-uint64_t sub_2252E3094(id *a1, void *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
-  {
-    while (1)
-    {
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      while (1)
-      {
-        LOBYTE(v43) = 0;
-        v13 = objc_msgSend_position(a2, v8, v9, v43) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
-        {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, &v43, v24, 1);
-
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v16, v17);
-        }
-
-        v12 |= (v43 & 0x7F) << v10;
-        if ((v43 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v10 += 7;
-        if (v11++ >= 9)
-        {
-          v31 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
-LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v9 = v31 & 7;
-      if (v9 == 4)
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v32 = v31 >> 3;
-      if ((v31 >> 3) == 3)
-      {
-        v33 = objc_alloc_init(CKDPAssetUploadTokenRetrieveRequestAssetField);
-        objc_msgSend_addAssetFields_(a1, v35, v33);
-        v43 = 0;
-        v44 = 0;
-        if (!PBReaderPlaceMark() || !sub_2252E1DF0(&v33->super.super.isa, a2, v36))
-        {
-LABEL_32:
-
-          return 0;
-        }
-
-        goto LABEL_28;
-      }
-
-      if (v32 == 2)
-      {
-        break;
-      }
-
-      if (v32 == 1)
-      {
-        v33 = objc_alloc_init(MEMORY[0x277CBC268]);
-        objc_storeStrong(a1 + 2, v33);
-        v43 = 0;
-        v44 = 0;
-        if (!PBReaderPlaceMark() || !CKDPRecordIdentifierReadFrom())
-        {
-          goto LABEL_32;
-        }
-
-LABEL_28:
-        PBReaderRecallMark();
-
-        goto LABEL_30;
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_30:
-      v39 = objc_msgSend_position(a2, v37, v38);
-      if (v39 >= objc_msgSend_length(a2, v40, v41))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-    }
-
-    v33 = objc_alloc_init(CKDPRecordType);
-    objc_storeStrong(a1 + 3, v33);
-    v43 = 0;
-    v44 = 0;
-    if (!PBReaderPlaceMark() || !CKDPRecordTypeReadFrom(v33, a2, v34))
-    {
-      goto LABEL_32;
-    }
-
-    goto LABEL_28;
-  }
-
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-}
-
-uint64_t sub_2252E3F04(void *a1, void *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
-  {
-    while (1)
-    {
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      while (1)
-      {
-        LOBYTE(v45) = 0;
-        v13 = objc_msgSend_position(a2, v8, v9, v45) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
-        {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, &v45, v24, 1);
-
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v16, v17);
-        }
-
-        v12 |= (v45 & 0x7F) << v10;
-        if ((v45 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v10 += 7;
-        if (v11++ >= 9)
-        {
-          v31 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
-LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v9 = v31 & 7;
-      if (v9 == 4)
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v32 = v31 >> 3;
-      if ((v31 >> 3) == 4)
-      {
-        break;
-      }
-
-      if (v32 == 3)
-      {
-        v36 = PBReaderReadData();
-        v33 = a1[1];
-        a1[1] = v36;
-        goto LABEL_27;
-      }
-
-      if (v32 == 2)
-      {
-        v33 = objc_alloc_init(CKDPAssetUploadTokenRetrieveResponseUploadToken);
-        objc_msgSend_addUploadTokens_(a1, v34, v33);
-        v45 = 0;
-        v46 = 0;
-        if (!PBReaderPlaceMark() || !sub_2252E5394(v33, a2, v35))
-        {
-          goto LABEL_31;
-        }
-
-        goto LABEL_26;
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_29:
-      v41 = objc_msgSend_position(a2, v39, v40);
-      if (v41 >= objc_msgSend_length(a2, v42, v43))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-    }
-
-    v33 = objc_alloc_init(CKDPAssetUploadTokenRetrieveResponseHeaderInfo);
-    objc_msgSend_addContentResponseHeaders_(a1, v37, v33);
-    v45 = 0;
-    v46 = 0;
-    if (!PBReaderPlaceMark() || !sub_2252E4B48(v33, a2, v38))
-    {
-LABEL_31:
-
-      return 0;
-    }
-
-LABEL_26:
-    PBReaderRecallMark();
-LABEL_27:
-
-    goto LABEL_29;
-  }
-
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-}
-
-uint64_t sub_2252E4B48(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
-  {
-    while (1)
-    {
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      while (1)
-      {
-        v42 = 0;
-        v13 = objc_msgSend_position(a2, v8, v9) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
-        {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, &v42, v24, 1);
-
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v16, v17);
-        }
-
-        v12 |= (v42 & 0x7F) << v10;
-        if ((v42 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v10 += 7;
-        if (v11++ >= 9)
-        {
-          v31 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
-LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v9 = v31 & 7;
-      if (v9 == 4)
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      if ((v31 >> 3) == 1)
-      {
-        break;
-      }
-
-      if ((v31 >> 3) == 2)
-      {
-        v32 = &OBJC_IVAR___CKDPAssetUploadTokenRetrieveResponseHeaderInfo__headerValue;
-LABEL_21:
-        v33 = PBReaderReadString();
-        v34 = *v32;
-        v35 = *(a1 + v34);
-        *(a1 + v34) = v33;
-
-        goto LABEL_23;
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_23:
-      v38 = objc_msgSend_position(a2, v36, v37);
-      if (v38 >= objc_msgSend_length(a2, v39, v40))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-    }
-
-    v32 = &OBJC_IVAR___CKDPAssetUploadTokenRetrieveResponseHeaderInfo__headerKey;
-    goto LABEL_21;
-  }
-
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-}
-
-uint64_t sub_2252E5394(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
-  {
-    while (1)
-    {
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      while (1)
-      {
-        LOBYTE(v83[0]) = 0;
-        v13 = objc_msgSend_position(a2, v8, v9, v83[0]) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
-        {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, v83, v24, 1);
-
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v16, v17);
-        }
-
-        v12 |= (v83[0] & 0x7F) << v10;
-        if ((v83[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v10 += 7;
-        v30 = v11++ >= 9;
-        if (v30)
-        {
-          v31 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
-LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v9 = v31 & 7;
-      if (v9 == 4)
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v32 = (v31 >> 3);
-      if ((v31 >> 3) > 2)
-      {
-        break;
-      }
-
-      if (v32 == 1)
-      {
-        v56 = PBReaderReadString();
-        v57 = *(a1 + 24);
-        *(a1 + 24) = v56;
-
-        goto LABEL_52;
-      }
-
-      if (v32 != 2)
-      {
-        goto LABEL_34;
-      }
-
-      v33 = objc_alloc_init(CKDPAsset);
-      objc_storeStrong((a1 + 16), v33);
-      v83[0] = 0;
-      v83[1] = 0;
-      if (!PBReaderPlaceMark() || !CKDPAssetReadFrom(v33, a2, v34))
-      {
-
-        return 0;
-      }
-
-      PBReaderRecallMark();
-
-LABEL_52:
-      v79 = objc_msgSend_position(a2, v32, v9);
-      if (v79 >= objc_msgSend_length(a2, v80, v81))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-    }
-
-    if (v32 == 3)
-    {
-      v58 = 0;
-      v59 = 0;
-      v60 = 0;
-      *(a1 + 36) |= 1u;
-      while (1)
-      {
-        LOBYTE(v83[0]) = 0;
-        v61 = objc_msgSend_position(a2, v32, v9, v83[0]) + 1;
-        if (v61 >= objc_msgSend_position(a2, v62, v63) && (v66 = objc_msgSend_position(a2, v64, v65) + 1, v66 <= objc_msgSend_length(a2, v67, v68)))
-        {
-          v69 = objc_msgSend_data(a2, v64, v65);
-          v72 = objc_msgSend_position(a2, v70, v71);
-          objc_msgSend_getBytes_range_(v69, v73, v83, v72, 1);
-
-          v76 = objc_msgSend_position(a2, v74, v75);
-          objc_msgSend_setPosition_(a2, v77, v76 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v64, v65);
-        }
-
-        v60 |= (v83[0] & 0x7F) << v58;
-        if ((v83[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v58 += 7;
-        v30 = v59++ >= 9;
-        if (v30)
-        {
-          v78 = 0;
-          goto LABEL_51;
-        }
-      }
-
-      if (objc_msgSend_hasError(a2, v32, v9))
-      {
-        v78 = 0;
-      }
-
-      else
-      {
-        v78 = v60;
-      }
-
-LABEL_51:
-      *(a1 + 8) = v78;
-      goto LABEL_52;
-    }
-
-    if (v32 == 4)
-    {
-      v35 = 0;
-      v36 = 0;
-      v37 = 0;
-      *(a1 + 36) |= 2u;
-      while (1)
-      {
-        LOBYTE(v83[0]) = 0;
-        v38 = objc_msgSend_position(a2, v32, v9, v83[0]) + 1;
-        if (v38 >= objc_msgSend_position(a2, v39, v40) && (v43 = objc_msgSend_position(a2, v41, v42) + 1, v43 <= objc_msgSend_length(a2, v44, v45)))
-        {
-          v46 = objc_msgSend_data(a2, v41, v42);
-          v49 = objc_msgSend_position(a2, v47, v48);
-          objc_msgSend_getBytes_range_(v46, v50, v83, v49, 1);
-
-          v53 = objc_msgSend_position(a2, v51, v52);
-          objc_msgSend_setPosition_(a2, v54, v53 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v41, v42);
-        }
-
-        v37 |= (v83[0] & 0x7F) << v35;
-        if ((v83[0] & 0x80) == 0)
-        {
-          break;
-        }
-
-        v35 += 7;
-        v30 = v36++ >= 9;
-        if (v30)
-        {
-          LOBYTE(v55) = 0;
-          goto LABEL_47;
-        }
-      }
-
-      v55 = (v37 != 0) & ~objc_msgSend_hasError(a2, v32, v9);
-LABEL_47:
-      *(a1 + 32) = v55;
-      goto LABEL_52;
-    }
-
-LABEL_34:
-    if ((PBReaderSkipValueWithTag() & 1) == 0)
-    {
-      return 0;
-    }
-
-    goto LABEL_52;
-  }
-
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-}
-
-void sub_2252E5DF4()
-{
-  v0 = qword_280D58458;
-  qword_280D58458 = &unk_2838C93E0;
-}
-
-uint64_t sub_2252E6138(void *a1, void *a2, uint64_t a3)
-{
-  for (i = objc_msgSend_position(a2, a2, a3); i < objc_msgSend_length(a2, v6, v7) && (objc_msgSend_hasError(a2, v8, v9) & 1) == 0; i = objc_msgSend_position(a2, v34, v35))
-  {
-    v10 = 0;
-    v11 = 0;
-    v12 = 0;
-    while (1)
-    {
-      v37 = 0;
-      v13 = objc_msgSend_position(a2, v8, v9) + 1;
-      if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
-      {
-        v21 = objc_msgSend_data(a2, v16, v17);
-        v24 = objc_msgSend_position(a2, v22, v23);
-        objc_msgSend_getBytes_range_(v21, v25, &v37, v24, 1);
-
-        v28 = objc_msgSend_position(a2, v26, v27);
-        objc_msgSend_setPosition_(a2, v29, v28 + 1);
-      }
-
-      else
-      {
-        objc_msgSend__setError(a2, v16, v17);
-      }
-
-      v12 |= (v37 & 0x7F) << v10;
-      if ((v37 & 0x80) == 0)
-      {
-        break;
-      }
-
-      v10 += 7;
-      if (v11++ >= 9)
-      {
-        v31 = 0;
-        goto LABEL_16;
-      }
-    }
-
-    v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
-LABEL_16:
-    if (objc_msgSend_hasError(a2, v8, v9))
-    {
-      break;
-    }
-
-    v9 = v31 & 7;
-    if (v9 == 4)
-    {
-      break;
-    }
-
-    if ((v31 >> 3) == 1)
-    {
-      v33 = PBReaderReadString();
-      if (v33)
-      {
-        objc_msgSend_addBundleID_(a1, v32, v33);
-      }
-    }
-
-    else
-    {
-      result = PBReaderSkipValueWithTag();
-      if (!result)
-      {
-        return result;
-      }
-    }
-  }
-
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-}
-
-void sub_2252E67E0()
-{
-  v0 = qword_280D54F28;
-  qword_280D54F28 = &unk_2838C9408;
-}
-
-uint64_t sub_2252E6A78(id *a1, void *a2, uint64_t a3)
-{
-  v5 = objc_msgSend_position(a2, a2, a3);
-  if (v5 < objc_msgSend_length(a2, v6, v7))
-  {
-    do
-    {
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      while (1)
-      {
-        LOBYTE(v45) = 0;
-        v13 = objc_msgSend_position(a2, v8, v9, v45) + 1;
-        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
-        {
-          v21 = objc_msgSend_data(a2, v16, v17);
-          v24 = objc_msgSend_position(a2, v22, v23);
-          objc_msgSend_getBytes_range_(v21, v25, &v45, v24, 1);
-
-          v28 = objc_msgSend_position(a2, v26, v27);
-          objc_msgSend_setPosition_(a2, v29, v28 + 1);
-        }
-
-        else
-        {
-          objc_msgSend__setError(a2, v16, v17);
-        }
-
-        v12 |= (v45 & 0x7F) << v10;
-        if ((v45 & 0x80) == 0)
-        {
-          break;
-        }
-
-        v10 += 7;
-        if (v11++ >= 9)
-        {
-          v31 = 0;
-          goto LABEL_15;
-        }
-      }
-
-      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
-LABEL_15:
-      if (objc_msgSend_hasError(a2, v8, v9))
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v9 = v31 & 7;
-      if (v9 == 4)
-      {
-        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-      }
-
-      v32 = v31 >> 3;
-      if ((v31 >> 3) > 3)
-      {
-        switch(v32)
-        {
-          case 4:
-            v35 = objc_alloc_init(CKDPCodeFunctionInvokeRequestProtectedCloudComputeMetadata);
-            objc_storeStrong(a1 + 3, v35);
-            v45 = 0;
-            v46 = 0;
-            if (!PBReaderPlaceMark() || !sub_2252E7C3C(v35, a2, v37))
-            {
-LABEL_42:
-
-              return 0;
-            }
-
-LABEL_38:
-            PBReaderRecallMark();
-LABEL_39:
-
-            goto LABEL_40;
-          case 5:
-            v35 = objc_alloc_init(CKDPCodeFunctionInvokeRequestAttestationRequest);
-            objc_storeStrong(a1 + 1, v35);
-            v45 = 0;
-            v46 = 0;
-            if (!PBReaderPlaceMark() || !sub_2252E7608(v35, a2, v40))
-            {
-              goto LABEL_42;
-            }
-
-            goto LABEL_38;
-          case 6:
-            v35 = objc_alloc_init(CKCDPTrustedTargetCryptoMetadata);
-            objc_storeStrong(a1 + 6, v35);
-            v45 = 0;
-            v46 = 0;
-            if (!PBReaderPlaceMark() || !sub_2252D4660(v35, a2, v36))
-            {
-              goto LABEL_42;
-            }
-
-            goto LABEL_38;
-        }
-      }
-
-      else
-      {
-        switch(v32)
-        {
-          case 1:
-            v33 = PBReaderReadString();
-            v34 = 5;
-            goto LABEL_35;
-          case 2:
-            v33 = PBReaderReadString();
-            v34 = 2;
-            goto LABEL_35;
-          case 3:
-            v33 = PBReaderReadData();
-            v34 = 4;
-LABEL_35:
-            v35 = a1[v34];
-            a1[v34] = v33;
-            goto LABEL_39;
-        }
-      }
-
-      if ((PBReaderSkipValueWithTag() & 1) == 0)
-      {
-        return 0;
-      }
-
-LABEL_40:
-      v41 = objc_msgSend_position(a2, v38, v39);
-    }
-
-    while (v41 < objc_msgSend_length(a2, v42, v43));
-  }
-
-  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
-}
-
 uint64_t sub_2252E7608(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = objc_msgSend_position(a2, a2, a3);
@@ -10078,4 +6849,2917 @@ LABEL_207:
         goto LABEL_205;
     }
   }
+}
+
+uint64_t sub_2253101B8(void *a1, void *a2, uint64_t a3)
+{
+  v5 = objc_msgSend_position(a2, a2, a3);
+  if (v5 < objc_msgSend_length(a2, v6, v7))
+  {
+    while (1)
+    {
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v10 = 0;
+      v11 = 0;
+      v12 = 0;
+      while (1)
+      {
+        LOBYTE(v42[0]) = 0;
+        v13 = objc_msgSend_position(a2, v8, v9, v42[0]) + 1;
+        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
+        {
+          v21 = objc_msgSend_data(a2, v16, v17);
+          v24 = objc_msgSend_position(a2, v22, v23);
+          objc_msgSend_getBytes_range_(v21, v25, v42, v24, 1);
+
+          v28 = objc_msgSend_position(a2, v26, v27);
+          objc_msgSend_setPosition_(a2, v29, v28 + 1);
+        }
+
+        else
+        {
+          objc_msgSend__setError(a2, v16, v17);
+        }
+
+        v12 |= (v42[0] & 0x7F) << v10;
+        if ((v42[0] & 0x80) == 0)
+        {
+          break;
+        }
+
+        v10 += 7;
+        if (v11++ >= 9)
+        {
+          v31 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
+LABEL_15:
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v9 = v31 & 7;
+      if (v9 == 4)
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      if ((v31 >> 3) == 2)
+      {
+        break;
+      }
+
+      if ((v31 >> 3) == 1)
+      {
+        v32 = objc_alloc_init(CKDPProtectionInfoKeysToRemoveProtectionInfoKey);
+        objc_msgSend_addKeysToRemove_(a1, v33, v32);
+        v42[0] = 0;
+        v42[1] = 0;
+        if (!PBReaderPlaceMark() || !sub_225310CEC(v32, a2, v34))
+        {
+
+          return 0;
+        }
+
+        PBReaderRecallMark();
+        goto LABEL_23;
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_25:
+      v38 = objc_msgSend_position(a2, v36, v37);
+      if (v38 >= objc_msgSend_length(a2, v39, v40))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+    }
+
+    v35 = PBReaderReadString();
+    v32 = a1[2];
+    a1[2] = v35;
+LABEL_23:
+
+    goto LABEL_25;
+  }
+
+  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+}
+
+uint64_t sub_225310CEC(uint64_t a1, void *a2, uint64_t a3)
+{
+  v5 = objc_msgSend_position(a2, a2, a3);
+  if (v5 < objc_msgSend_length(a2, v6, v7))
+  {
+    do
+    {
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        break;
+      }
+
+      v10 = 0;
+      v11 = 0;
+      v12 = 0;
+      while (1)
+      {
+        v60 = 0;
+        v13 = objc_msgSend_position(a2, v8, v9) + 1;
+        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
+        {
+          v21 = objc_msgSend_data(a2, v16, v17);
+          v24 = objc_msgSend_position(a2, v22, v23);
+          objc_msgSend_getBytes_range_(v21, v25, &v60, v24, 1);
+
+          v28 = objc_msgSend_position(a2, v26, v27);
+          objc_msgSend_setPosition_(a2, v29, v28 + 1);
+        }
+
+        else
+        {
+          objc_msgSend__setError(a2, v16, v17);
+        }
+
+        v12 |= (v60 & 0x7F) << v10;
+        if ((v60 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v10 += 7;
+        v30 = v11++ >= 9;
+        if (v30)
+        {
+          v31 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
+LABEL_15:
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        break;
+      }
+
+      v9 = v31 & 7;
+      if (v9 == 4)
+      {
+        break;
+      }
+
+      v32 = (v31 >> 3);
+      if ((v31 >> 3) == 2)
+      {
+        v35 = 0;
+        v36 = 0;
+        v37 = 0;
+        *(a1 + 20) |= 1u;
+        while (1)
+        {
+          v61 = 0;
+          v38 = objc_msgSend_position(a2, v32, v9) + 1;
+          if (v38 >= objc_msgSend_position(a2, v39, v40) && (v43 = objc_msgSend_position(a2, v41, v42) + 1, v43 <= objc_msgSend_length(a2, v44, v45)))
+          {
+            v46 = objc_msgSend_data(a2, v41, v42);
+            v49 = objc_msgSend_position(a2, v47, v48);
+            objc_msgSend_getBytes_range_(v46, v50, &v61, v49, 1);
+
+            v53 = objc_msgSend_position(a2, v51, v52);
+            objc_msgSend_setPosition_(a2, v54, v53 + 1);
+          }
+
+          else
+          {
+            objc_msgSend__setError(a2, v41, v42);
+          }
+
+          v37 |= (v61 & 0x7F) << v35;
+          if ((v61 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v35 += 7;
+          v30 = v36++ >= 9;
+          if (v30)
+          {
+            v55 = 0;
+            goto LABEL_34;
+          }
+        }
+
+        v55 = objc_msgSend_hasError(a2, v32, v9) ? 0 : v37;
+LABEL_34:
+        *(a1 + 16) = v55;
+      }
+
+      else if (v32 == 1)
+      {
+        v33 = PBReaderReadData();
+        v34 = *(a1 + 8);
+        *(a1 + 8) = v33;
+      }
+
+      else
+      {
+        result = PBReaderSkipValueWithTag();
+        if (!result)
+        {
+          return result;
+        }
+      }
+
+      v57 = objc_msgSend_position(a2, v32, v9);
+    }
+
+    while (v57 < objc_msgSend_length(a2, v58, v59));
+  }
+
+  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+}
+
+uint64_t sub_225311C10(uint64_t a1, void *a2, uint64_t a3)
+{
+  v5 = objc_msgSend_position(a2, a2, a3);
+  if (v5 < objc_msgSend_length(a2, v6, v7))
+  {
+    do
+    {
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v10 = 0;
+      v11 = 0;
+      v12 = 0;
+      while (1)
+      {
+        LOBYTE(v86) = 0;
+        v13 = objc_msgSend_position(a2, v8, v9, v86) + 1;
+        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
+        {
+          v21 = objc_msgSend_data(a2, v16, v17);
+          v24 = objc_msgSend_position(a2, v22, v23);
+          objc_msgSend_getBytes_range_(v21, v25, &v86, v24, 1);
+
+          v28 = objc_msgSend_position(a2, v26, v27);
+          objc_msgSend_setPosition_(a2, v29, v28 + 1);
+        }
+
+        else
+        {
+          objc_msgSend__setError(a2, v16, v17);
+        }
+
+        v12 |= (v86 & 0x7F) << v10;
+        if ((v86 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v10 += 7;
+        v30 = v11++ >= 9;
+        if (v30)
+        {
+          v31 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
+LABEL_15:
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v9 = v31 & 7;
+      if (v9 == 4)
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v32 = (v31 >> 3);
+      if ((v31 >> 3) <= 2)
+      {
+        if (v32 == 1)
+        {
+          v54 = objc_alloc_init(CKDPRecordType);
+          objc_msgSend_addTypes_(a1, v80, v54);
+          v86 = 0;
+          v87 = 0;
+          if (!PBReaderPlaceMark() || !CKDPRecordTypeReadFrom(v54, a2, v81))
+          {
+LABEL_60:
+
+            return 0;
+          }
+
+          goto LABEL_49;
+        }
+
+        if (v32 == 2)
+        {
+          v54 = objc_alloc_init(CKDPQueryFilter);
+          objc_msgSend_addFilters_(a1, v55, v54);
+          v86 = 0;
+          v87 = 0;
+          if (!PBReaderPlaceMark() || !sub_22531338C(v54, a2, v56))
+          {
+            goto LABEL_60;
+          }
+
+          goto LABEL_49;
+        }
+      }
+
+      else
+      {
+        switch(v32)
+        {
+          case 3:
+            v54 = objc_alloc_init(CKDPQuerySort);
+            objc_msgSend_addSorts_(a1, v57, v54);
+            v86 = 0;
+            v87 = 0;
+            if (!PBReaderPlaceMark() || !sub_225315FB0(v54, a2, v58))
+            {
+              goto LABEL_60;
+            }
+
+LABEL_49:
+            PBReaderRecallMark();
+
+            goto LABEL_58;
+          case 4:
+            v59 = 0;
+            v60 = 0;
+            v61 = 0;
+            *(a1 + 44) |= 2u;
+            while (1)
+            {
+              LOBYTE(v86) = 0;
+              v62 = objc_msgSend_position(a2, v32, v9, v86) + 1;
+              if (v62 >= objc_msgSend_position(a2, v63, v64) && (v67 = objc_msgSend_position(a2, v65, v66) + 1, v67 <= objc_msgSend_length(a2, v68, v69)))
+              {
+                v70 = objc_msgSend_data(a2, v65, v66);
+                v73 = objc_msgSend_position(a2, v71, v72);
+                objc_msgSend_getBytes_range_(v70, v74, &v86, v73, 1);
+
+                v77 = objc_msgSend_position(a2, v75, v76);
+                objc_msgSend_setPosition_(a2, v78, v77 + 1);
+              }
+
+              else
+              {
+                objc_msgSend__setError(a2, v65, v66);
+              }
+
+              v61 |= (v86 & 0x7F) << v59;
+              if ((v86 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v59 += 7;
+              v30 = v60++ >= 9;
+              if (v30)
+              {
+                LOBYTE(v79) = 0;
+                goto LABEL_53;
+              }
+            }
+
+            v79 = (v61 != 0) & ~objc_msgSend_hasError(a2, v32, v9);
+LABEL_53:
+            *(a1 + 40) = v79;
+            goto LABEL_58;
+          case 5:
+            v33 = 0;
+            v34 = 0;
+            v35 = 0;
+            *(a1 + 44) |= 1u;
+            while (1)
+            {
+              LOBYTE(v86) = 0;
+              v36 = objc_msgSend_position(a2, v32, v9, v86) + 1;
+              if (v36 >= objc_msgSend_position(a2, v37, v38) && (v41 = objc_msgSend_position(a2, v39, v40) + 1, v41 <= objc_msgSend_length(a2, v42, v43)))
+              {
+                v44 = objc_msgSend_data(a2, v39, v40);
+                v47 = objc_msgSend_position(a2, v45, v46);
+                objc_msgSend_getBytes_range_(v44, v48, &v86, v47, 1);
+
+                v51 = objc_msgSend_position(a2, v49, v50);
+                objc_msgSend_setPosition_(a2, v52, v51 + 1);
+              }
+
+              else
+              {
+                objc_msgSend__setError(a2, v39, v40);
+              }
+
+              v35 |= (v86 & 0x7F) << v33;
+              if ((v86 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v33 += 7;
+              v30 = v34++ >= 9;
+              if (v30)
+              {
+                v53 = 0;
+                goto LABEL_57;
+              }
+            }
+
+            if (objc_msgSend_hasError(a2, v32, v9))
+            {
+              v53 = 0;
+            }
+
+            else
+            {
+              v53 = v35;
+            }
+
+LABEL_57:
+            *(a1 + 16) = v53;
+            goto LABEL_58;
+        }
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_58:
+      v82 = objc_msgSend_position(a2, v32, v9);
+    }
+
+    while (v82 < objc_msgSend_length(a2, v83, v84));
+  }
+
+  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+}
+
+uint64_t sub_22531338C(uint64_t a1, void *a2, uint64_t a3)
+{
+  v5 = objc_msgSend_position(a2, a2, a3);
+  if (v5 < objc_msgSend_length(a2, v6, v7))
+  {
+    do
+    {
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v10 = 0;
+      v11 = 0;
+      v12 = 0;
+      while (1)
+      {
+        LOBYTE(v62) = 0;
+        v13 = objc_msgSend_position(a2, v8, v9, v62) + 1;
+        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
+        {
+          v21 = objc_msgSend_data(a2, v16, v17);
+          v24 = objc_msgSend_position(a2, v22, v23);
+          objc_msgSend_getBytes_range_(v21, v25, &v62, v24, 1);
+
+          v28 = objc_msgSend_position(a2, v26, v27);
+          objc_msgSend_setPosition_(a2, v29, v28 + 1);
+        }
+
+        else
+        {
+          objc_msgSend__setError(a2, v16, v17);
+        }
+
+        v12 |= (v62 & 0x7F) << v10;
+        if ((v62 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v10 += 7;
+        v30 = v11++ >= 9;
+        if (v30)
+        {
+          v31 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
+LABEL_15:
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v9 = v31 & 7;
+      if (v9 == 4)
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v32 = (v31 >> 3);
+      if ((v31 >> 3) > 2)
+      {
+        if (v32 == 3)
+        {
+          v33 = objc_alloc_init(CKDPLocationBound);
+          objc_storeStrong((a1 + 8), v33);
+          v62 = 0;
+          v63 = 0;
+          if (!PBReaderPlaceMark() || !sub_2252F9034(v33, a2, v57))
+          {
+LABEL_48:
+
+            return 0;
+          }
+
+          goto LABEL_41;
+        }
+
+        if (v32 == 4)
+        {
+          v35 = 0;
+          v36 = 0;
+          v37 = 0;
+          *(a1 + 36) |= 1u;
+          while (1)
+          {
+            LOBYTE(v62) = 0;
+            v38 = objc_msgSend_position(a2, v32, v9, v62) + 1;
+            if (v38 >= objc_msgSend_position(a2, v39, v40) && (v43 = objc_msgSend_position(a2, v41, v42) + 1, v43 <= objc_msgSend_length(a2, v44, v45)))
+            {
+              v46 = objc_msgSend_data(a2, v41, v42);
+              v49 = objc_msgSend_position(a2, v47, v48);
+              objc_msgSend_getBytes_range_(v46, v50, &v62, v49, 1);
+
+              v53 = objc_msgSend_position(a2, v51, v52);
+              objc_msgSend_setPosition_(a2, v54, v53 + 1);
+            }
+
+            else
+            {
+              objc_msgSend__setError(a2, v41, v42);
+            }
+
+            v37 |= (v62 & 0x7F) << v35;
+            if ((v62 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v35 += 7;
+            v30 = v36++ >= 9;
+            if (v30)
+            {
+              v55 = 0;
+              goto LABEL_45;
+            }
+          }
+
+          if (objc_msgSend_hasError(a2, v32, v9))
+          {
+            v55 = 0;
+          }
+
+          else
+          {
+            v55 = v37;
+          }
+
+LABEL_45:
+          *(a1 + 32) = v55;
+          goto LABEL_46;
+        }
+      }
+
+      else
+      {
+        if (v32 == 1)
+        {
+          v33 = objc_alloc_init(CKDPRecordFieldIdentifier);
+          objc_storeStrong((a1 + 16), v33);
+          v62 = 0;
+          v63 = 0;
+          if (!PBReaderPlaceMark() || !CKDPRecordFieldIdentifierReadFrom(v33, a2, v56))
+          {
+            goto LABEL_48;
+          }
+
+          goto LABEL_41;
+        }
+
+        if (v32 == 2)
+        {
+          v33 = objc_alloc_init(CKDPRecordFieldValue);
+          objc_storeStrong((a1 + 24), v33);
+          v62 = 0;
+          v63 = 0;
+          if (!PBReaderPlaceMark() || !CKDPRecordFieldValueReadFrom(v33, a2, v34))
+          {
+            goto LABEL_48;
+          }
+
+LABEL_41:
+          PBReaderRecallMark();
+
+          goto LABEL_46;
+        }
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_46:
+      v58 = objc_msgSend_position(a2, v32, v9);
+    }
+
+    while (v58 < objc_msgSend_length(a2, v59, v60));
+  }
+
+  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+}
+
+void sub_225313C9C()
+{
+  v0 = qword_280D55018;
+  qword_280D55018 = &unk_2838C9598;
+}
+
+uint64_t sub_225313FAC(uint64_t a1, void *a2, uint64_t a3)
+{
+  v5 = objc_msgSend_position(a2, a2, a3);
+  if (v5 < objc_msgSend_length(a2, v6, v7))
+  {
+    do
+    {
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v10 = 0;
+      v11 = 0;
+      v12 = 0;
+      while (1)
+      {
+        LOBYTE(v64) = 0;
+        v13 = objc_msgSend_position(a2, v8, v9, v64) + 1;
+        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
+        {
+          v21 = objc_msgSend_data(a2, v16, v17);
+          v24 = objc_msgSend_position(a2, v22, v23);
+          objc_msgSend_getBytes_range_(v21, v25, &v64, v24, 1);
+
+          v28 = objc_msgSend_position(a2, v26, v27);
+          objc_msgSend_setPosition_(a2, v29, v28 + 1);
+        }
+
+        else
+        {
+          objc_msgSend__setError(a2, v16, v17);
+        }
+
+        v12 |= (v64 & 0x7F) << v10;
+        if ((v64 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v10 += 7;
+        v30 = v11++ >= 9;
+        if (v30)
+        {
+          v31 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
+LABEL_15:
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v9 = v31 & 7;
+      if (v9 == 4)
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v32 = (v31 >> 3);
+      if ((v31 >> 3) > 3)
+      {
+        switch(v32)
+        {
+          case 4:
+            v54 = objc_alloc_init(MEMORY[0x277CBC278]);
+            objc_storeStrong((a1 + 48), v54);
+            v64 = 0;
+            v65 = 0;
+            if (!PBReaderPlaceMark() || !CKDPRecordZoneIdentifierReadFrom())
+            {
+LABEL_54:
+
+              return 0;
+            }
+
+            goto LABEL_47;
+          case 5:
+            v54 = objc_alloc_init(CKDPRequestedFields);
+            objc_storeStrong((a1 + 40), v54);
+            v64 = 0;
+            v65 = 0;
+            if (!PBReaderPlaceMark() || !CKDPRequestedFieldsReadFrom(v54, a2, v59))
+            {
+              goto LABEL_54;
+            }
+
+            goto LABEL_47;
+          case 6:
+            v54 = objc_alloc_init(CKDPAssetsToDownload);
+            objc_storeStrong((a1 + 8), v54);
+            v64 = 0;
+            v65 = 0;
+            if (!PBReaderPlaceMark() || !sub_2252DF538(v54, a2, v55))
+            {
+              goto LABEL_54;
+            }
+
+            goto LABEL_47;
+        }
+      }
+
+      else
+      {
+        switch(v32)
+        {
+          case 1:
+            v54 = objc_alloc_init(CKDPQuery);
+            objc_storeStrong((a1 + 32), v54);
+            v64 = 0;
+            v65 = 0;
+            if (!PBReaderPlaceMark() || !sub_225311C10(v54, a2, v56))
+            {
+              goto LABEL_54;
+            }
+
+LABEL_47:
+            PBReaderRecallMark();
+
+            goto LABEL_52;
+          case 2:
+            v57 = PBReaderReadData();
+            v58 = *(a1 + 16);
+            *(a1 + 16) = v57;
+
+            goto LABEL_52;
+          case 3:
+            v33 = 0;
+            v34 = 0;
+            v35 = 0;
+            *(a1 + 56) |= 1u;
+            while (1)
+            {
+              LOBYTE(v64) = 0;
+              v36 = objc_msgSend_position(a2, v32, v9, v64) + 1;
+              if (v36 >= objc_msgSend_position(a2, v37, v38) && (v41 = objc_msgSend_position(a2, v39, v40) + 1, v41 <= objc_msgSend_length(a2, v42, v43)))
+              {
+                v44 = objc_msgSend_data(a2, v39, v40);
+                v47 = objc_msgSend_position(a2, v45, v46);
+                objc_msgSend_getBytes_range_(v44, v48, &v64, v47, 1);
+
+                v51 = objc_msgSend_position(a2, v49, v50);
+                objc_msgSend_setPosition_(a2, v52, v51 + 1);
+              }
+
+              else
+              {
+                objc_msgSend__setError(a2, v39, v40);
+              }
+
+              v35 |= (v64 & 0x7F) << v33;
+              if ((v64 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v33 += 7;
+              v30 = v34++ >= 9;
+              if (v30)
+              {
+                v53 = 0;
+                goto LABEL_51;
+              }
+            }
+
+            if (objc_msgSend_hasError(a2, v32, v9))
+            {
+              v53 = 0;
+            }
+
+            else
+            {
+              v53 = v35;
+            }
+
+LABEL_51:
+            *(a1 + 24) = v53;
+            goto LABEL_52;
+        }
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_52:
+      v60 = objc_msgSend_position(a2, v32, v9);
+    }
+
+    while (v60 < objc_msgSend_length(a2, v61, v62));
+  }
+
+  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+}
+
+uint64_t sub_225315FB0(uint64_t a1, void *a2, uint64_t a3)
+{
+  v5 = objc_msgSend_position(a2, a2, a3);
+  if (v5 < objc_msgSend_length(a2, v6, v7))
+  {
+    while (1)
+    {
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v10 = 0;
+      v11 = 0;
+      v12 = 0;
+      while (1)
+      {
+        LOBYTE(v60) = 0;
+        v13 = objc_msgSend_position(a2, v8, v9, v60) + 1;
+        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
+        {
+          v21 = objc_msgSend_data(a2, v16, v17);
+          v24 = objc_msgSend_position(a2, v22, v23);
+          objc_msgSend_getBytes_range_(v21, v25, &v60, v24, 1);
+
+          v28 = objc_msgSend_position(a2, v26, v27);
+          objc_msgSend_setPosition_(a2, v29, v28 + 1);
+        }
+
+        else
+        {
+          objc_msgSend__setError(a2, v16, v17);
+        }
+
+        v12 |= (v60 & 0x7F) << v10;
+        if ((v60 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v10 += 7;
+        v30 = v11++ >= 9;
+        if (v30)
+        {
+          v31 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
+LABEL_15:
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v9 = v31 & 7;
+      if (v9 == 4)
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v32 = (v31 >> 3);
+      if ((v31 >> 3) == 3)
+      {
+        break;
+      }
+
+      if (v32 == 2)
+      {
+        v35 = 0;
+        v36 = 0;
+        v37 = 0;
+        *(a1 + 28) |= 1u;
+        while (1)
+        {
+          LOBYTE(v60) = 0;
+          v38 = objc_msgSend_position(a2, v32, v9, v60) + 1;
+          if (v38 >= objc_msgSend_position(a2, v39, v40) && (v43 = objc_msgSend_position(a2, v41, v42) + 1, v43 <= objc_msgSend_length(a2, v44, v45)))
+          {
+            v46 = objc_msgSend_data(a2, v41, v42);
+            v49 = objc_msgSend_position(a2, v47, v48);
+            objc_msgSend_getBytes_range_(v46, v50, &v60, v49, 1);
+
+            v53 = objc_msgSend_position(a2, v51, v52);
+            objc_msgSend_setPosition_(a2, v54, v53 + 1);
+          }
+
+          else
+          {
+            objc_msgSend__setError(a2, v41, v42);
+          }
+
+          v37 |= (v60 & 0x7F) << v35;
+          if ((v60 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v35 += 7;
+          v30 = v36++ >= 9;
+          if (v30)
+          {
+            v55 = 0;
+            goto LABEL_40;
+          }
+        }
+
+        if (objc_msgSend_hasError(a2, v32, v9))
+        {
+          v55 = 0;
+        }
+
+        else
+        {
+          v55 = v37;
+        }
+
+LABEL_40:
+        *(a1 + 24) = v55;
+        goto LABEL_41;
+      }
+
+      if (v32 == 1)
+      {
+        v33 = objc_alloc_init(CKDPRecordFieldIdentifier);
+        objc_storeStrong((a1 + 16), v33);
+        v60 = 0;
+        v61 = 0;
+        if (!PBReaderPlaceMark() || !CKDPRecordFieldIdentifierReadFrom(v33, a2, v34))
+        {
+          goto LABEL_43;
+        }
+
+LABEL_34:
+        PBReaderRecallMark();
+
+        goto LABEL_41;
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_41:
+      v56 = objc_msgSend_position(a2, v32, v9);
+      if (v56 >= objc_msgSend_length(a2, v57, v58))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+    }
+
+    v33 = objc_alloc_init(MEMORY[0x277CBC258]);
+    objc_storeStrong((a1 + 8), v33);
+    v60 = 0;
+    v61 = 0;
+    if (!PBReaderPlaceMark() || !CKDPLocationCoordinateReadFrom())
+    {
+LABEL_43:
+
+      return 0;
+    }
+
+    goto LABEL_34;
+  }
+
+  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+}
+
+uint64_t sub_2253181E0(id *a1, void *a2, uint64_t a3)
+{
+  v5 = objc_msgSend_position(a2, a2, a3);
+  if (v5 < objc_msgSend_length(a2, v6, v7))
+  {
+    do
+    {
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v10 = 0;
+      v11 = 0;
+      v12 = 0;
+      while (1)
+      {
+        LOBYTE(v44) = 0;
+        v13 = objc_msgSend_position(a2, v8, v9, v44) + 1;
+        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
+        {
+          v21 = objc_msgSend_data(a2, v16, v17);
+          v24 = objc_msgSend_position(a2, v22, v23);
+          objc_msgSend_getBytes_range_(v21, v25, &v44, v24, 1);
+
+          v28 = objc_msgSend_position(a2, v26, v27);
+          objc_msgSend_setPosition_(a2, v29, v28 + 1);
+        }
+
+        else
+        {
+          objc_msgSend__setError(a2, v16, v17);
+        }
+
+        v12 |= (v44 & 0x7F) << v10;
+        if ((v44 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v10 += 7;
+        if (v11++ >= 9)
+        {
+          v31 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
+LABEL_15:
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v9 = v31 & 7;
+      if (v9 == 4)
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v32 = v31 >> 3;
+      if ((v31 >> 3) > 2)
+      {
+        if (v32 == 3)
+        {
+          v33 = objc_alloc_init(CKDPMergeableValueIdentifier);
+          objc_storeStrong(a1 + 2, v33);
+          v44 = 0;
+          v45 = 0;
+          if (!PBReaderPlaceMark() || !sub_2253021B0(v33, a2, v39))
+          {
+LABEL_38:
+
+            return 0;
+          }
+
+          goto LABEL_35;
+        }
+
+        if (v32 == 4)
+        {
+          v33 = objc_alloc_init(CKDPMergeableDelta);
+          objc_msgSend_addMergeableDeltas_(a1, v35, v33);
+          v44 = 0;
+          v45 = 0;
+          if (!PBReaderPlaceMark() || !CKDPMergeableDeltaReadFrom(v33, a2, v36))
+          {
+            goto LABEL_38;
+          }
+
+          goto LABEL_35;
+        }
+      }
+
+      else
+      {
+        if (v32 == 1)
+        {
+          v33 = objc_alloc_init(MEMORY[0x277CBC268]);
+          objc_storeStrong(a1 + 4, v33);
+          v44 = 0;
+          v45 = 0;
+          if (!PBReaderPlaceMark() || !CKDPRecordIdentifierReadFrom())
+          {
+            goto LABEL_38;
+          }
+
+          goto LABEL_35;
+        }
+
+        if (v32 == 2)
+        {
+          v33 = objc_alloc_init(CKDPRecordFieldIdentifier);
+          objc_storeStrong(a1 + 1, v33);
+          v44 = 0;
+          v45 = 0;
+          if (!PBReaderPlaceMark() || !CKDPRecordFieldIdentifierReadFrom(v33, a2, v34))
+          {
+            goto LABEL_38;
+          }
+
+LABEL_35:
+          PBReaderRecallMark();
+
+          goto LABEL_36;
+        }
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_36:
+      v40 = objc_msgSend_position(a2, v37, v38);
+    }
+
+    while (v40 < objc_msgSend_length(a2, v41, v42));
+  }
+
+  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+}
+
+uint64_t sub_225318DEC(uint64_t a1, void *a2, uint64_t a3)
+{
+  v5 = objc_msgSend_position(a2, a2, a3);
+  if (v5 < objc_msgSend_length(a2, v6, v7))
+  {
+    do
+    {
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        break;
+      }
+
+      v10 = 0;
+      v11 = 0;
+      v12 = 0;
+      while (1)
+      {
+        LOBYTE(v39[0]) = 0;
+        v13 = objc_msgSend_position(a2, v8, v9, v39[0]) + 1;
+        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
+        {
+          v21 = objc_msgSend_data(a2, v16, v17);
+          v24 = objc_msgSend_position(a2, v22, v23);
+          objc_msgSend_getBytes_range_(v21, v25, v39, v24, 1);
+
+          v28 = objc_msgSend_position(a2, v26, v27);
+          objc_msgSend_setPosition_(a2, v29, v28 + 1);
+        }
+
+        else
+        {
+          objc_msgSend__setError(a2, v16, v17);
+        }
+
+        v12 |= (v39[0] & 0x7F) << v10;
+        if ((v39[0] & 0x80) == 0)
+        {
+          break;
+        }
+
+        v10 += 7;
+        if (v11++ >= 9)
+        {
+          v31 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
+LABEL_15:
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        break;
+      }
+
+      v9 = v31 & 7;
+      if (v9 == 4)
+      {
+        break;
+      }
+
+      if ((v31 >> 3) == 1)
+      {
+        v32 = objc_alloc_init(MEMORY[0x277CBC268]);
+        objc_storeStrong((a1 + 8), v32);
+        v39[0] = 0;
+        v39[1] = 0;
+        if (!PBReaderPlaceMark() || !CKDPRecordIdentifierReadFrom())
+        {
+
+          return 0;
+        }
+
+        PBReaderRecallMark();
+      }
+
+      else if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+      v35 = objc_msgSend_position(a2, v33, v34);
+    }
+
+    while (v35 < objc_msgSend_length(a2, v36, v37));
+  }
+
+  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+}
+
+uint64_t sub_225319314(uint64_t a1, void *a2, uint64_t a3)
+{
+  v5 = objc_msgSend_position(a2, a2, a3);
+  if (v5 < objc_msgSend_length(a2, v6, v7))
+  {
+    do
+    {
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        break;
+      }
+
+      v10 = 0;
+      v11 = 0;
+      v12 = 0;
+      while (1)
+      {
+        LOBYTE(v40[0]) = 0;
+        v13 = objc_msgSend_position(a2, v8, v9, v40[0]) + 1;
+        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
+        {
+          v21 = objc_msgSend_data(a2, v16, v17);
+          v24 = objc_msgSend_position(a2, v22, v23);
+          objc_msgSend_getBytes_range_(v21, v25, v40, v24, 1);
+
+          v28 = objc_msgSend_position(a2, v26, v27);
+          objc_msgSend_setPosition_(a2, v29, v28 + 1);
+        }
+
+        else
+        {
+          objc_msgSend__setError(a2, v16, v17);
+        }
+
+        v12 |= (v40[0] & 0x7F) << v10;
+        if ((v40[0] & 0x80) == 0)
+        {
+          break;
+        }
+
+        v10 += 7;
+        if (v11++ >= 9)
+        {
+          v31 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
+LABEL_15:
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        break;
+      }
+
+      v9 = v31 & 7;
+      if (v9 == 4)
+      {
+        break;
+      }
+
+      if ((v31 >> 3) == 1)
+      {
+        v32 = objc_alloc_init(CKDPRecord);
+        objc_storeStrong((a1 + 8), v32);
+        v40[0] = 0;
+        v40[1] = 0;
+        if (!PBReaderPlaceMark() || !CKDPRecordReadFrom(v32, a2, v33))
+        {
+
+          return 0;
+        }
+
+        PBReaderRecallMark();
+      }
+
+      else if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+      v36 = objc_msgSend_position(a2, v34, v35);
+    }
+
+    while (v36 < objc_msgSend_length(a2, v37, v38));
+  }
+
+  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+}
+
+uint64_t CKDPRecordChainParentReadFrom(uint64_t a1, void *a2, uint64_t a3)
+{
+  v5 = objc_msgSend_position(a2, a2, a3);
+  if (v5 < objc_msgSend_length(a2, v6, v7))
+  {
+    while (1)
+    {
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v10 = 0;
+      v11 = 0;
+      v12 = 0;
+      while (1)
+      {
+        LOBYTE(v40[0]) = 0;
+        v13 = objc_msgSend_position(a2, v8, v9, v40[0]) + 1;
+        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
+        {
+          v21 = objc_msgSend_data(a2, v16, v17);
+          v24 = objc_msgSend_position(a2, v22, v23);
+          objc_msgSend_getBytes_range_(v21, v25, v40, v24, 1);
+
+          v28 = objc_msgSend_position(a2, v26, v27);
+          objc_msgSend_setPosition_(a2, v29, v28 + 1);
+        }
+
+        else
+        {
+          objc_msgSend__setError(a2, v16, v17);
+        }
+
+        v12 |= (v40[0] & 0x7F) << v10;
+        if ((v40[0] & 0x80) == 0)
+        {
+          break;
+        }
+
+        v10 += 7;
+        if (v11++ >= 9)
+        {
+          v31 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
+LABEL_15:
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v9 = v31 & 7;
+      if (v9 == 4)
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      if ((v31 >> 3) == 2)
+      {
+        break;
+      }
+
+      if ((v31 >> 3) == 1)
+      {
+        v32 = PBReaderReadData();
+        v33 = *(a1 + 8);
+        *(a1 + 8) = v32;
+LABEL_23:
+
+        goto LABEL_25;
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_25:
+      v36 = objc_msgSend_position(a2, v34, v35);
+      if (v36 >= objc_msgSend_length(a2, v37, v38))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+    }
+
+    v33 = objc_alloc_init(MEMORY[0x277CBC270]);
+    objc_storeStrong((a1 + 16), v33);
+    v40[0] = 0;
+    v40[1] = 0;
+    if (!PBReaderPlaceMark() || !CKDPRecordReferenceReadFrom())
+    {
+
+      return 0;
+    }
+
+    PBReaderRecallMark();
+    goto LABEL_23;
+  }
+
+  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+}
+
+uint64_t sub_22531CCC0(uint64_t a1, void *a2, uint64_t a3)
+{
+  v5 = objc_msgSend_position(a2, a2, a3);
+  if (v5 < objc_msgSend_length(a2, v6, v7))
+  {
+    do
+    {
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        break;
+      }
+
+      v10 = 0;
+      v11 = 0;
+      v12 = 0;
+      while (1)
+      {
+        v58 = 0;
+        v13 = objc_msgSend_position(a2, v8, v9) + 1;
+        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
+        {
+          v21 = objc_msgSend_data(a2, v16, v17);
+          v24 = objc_msgSend_position(a2, v22, v23);
+          objc_msgSend_getBytes_range_(v21, v25, &v58, v24, 1);
+
+          v28 = objc_msgSend_position(a2, v26, v27);
+          objc_msgSend_setPosition_(a2, v29, v28 + 1);
+        }
+
+        else
+        {
+          objc_msgSend__setError(a2, v16, v17);
+        }
+
+        v12 |= (v58 & 0x7F) << v10;
+        if ((v58 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v10 += 7;
+        v30 = v11++ >= 9;
+        if (v30)
+        {
+          v31 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
+LABEL_15:
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        break;
+      }
+
+      v9 = v31 & 7;
+      if (v9 == 4)
+      {
+        break;
+      }
+
+      v32 = (v31 >> 3);
+      if ((v31 >> 3) == 1)
+      {
+        v33 = 0;
+        v34 = 0;
+        v35 = 0;
+        *(a1 + 12) |= 1u;
+        while (1)
+        {
+          v59 = 0;
+          v36 = objc_msgSend_position(a2, v32, v9) + 1;
+          if (v36 >= objc_msgSend_position(a2, v37, v38) && (v41 = objc_msgSend_position(a2, v39, v40) + 1, v41 <= objc_msgSend_length(a2, v42, v43)))
+          {
+            v44 = objc_msgSend_data(a2, v39, v40);
+            v47 = objc_msgSend_position(a2, v45, v46);
+            objc_msgSend_getBytes_range_(v44, v48, &v59, v47, 1);
+
+            v51 = objc_msgSend_position(a2, v49, v50);
+            objc_msgSend_setPosition_(a2, v52, v51 + 1);
+          }
+
+          else
+          {
+            objc_msgSend__setError(a2, v39, v40);
+          }
+
+          v35 |= (v59 & 0x7F) << v33;
+          if ((v59 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v33 += 7;
+          v30 = v34++ >= 9;
+          if (v30)
+          {
+            v53 = 0;
+            goto LABEL_32;
+          }
+        }
+
+        v53 = objc_msgSend_hasError(a2, v32, v9) ? 0 : v35;
+LABEL_32:
+        *(a1 + 8) = v53;
+      }
+
+      else
+      {
+        result = PBReaderSkipValueWithTag();
+        if (!result)
+        {
+          return result;
+        }
+      }
+
+      v55 = objc_msgSend_position(a2, v32, v9);
+    }
+
+    while (v55 < objc_msgSend_length(a2, v56, v57));
+  }
+
+  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+}
+
+void sub_22531D170()
+{
+  v0 = qword_280D55028;
+  qword_280D55028 = &unk_2838C95C0;
+}
+
+uint64_t sub_22531D678(uint64_t a1, void *a2, uint64_t a3)
+{
+  v5 = objc_msgSend_position(a2, a2, a3);
+  if (v5 < objc_msgSend_length(a2, v6, v7))
+  {
+    do
+    {
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v10 = 0;
+      v11 = 0;
+      v12 = 0;
+      while (1)
+      {
+        LOBYTE(v64) = 0;
+        v13 = objc_msgSend_position(a2, v8, v9, v64) + 1;
+        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
+        {
+          v21 = objc_msgSend_data(a2, v16, v17);
+          v24 = objc_msgSend_position(a2, v22, v23);
+          objc_msgSend_getBytes_range_(v21, v25, &v64, v24, 1);
+
+          v28 = objc_msgSend_position(a2, v26, v27);
+          objc_msgSend_setPosition_(a2, v29, v28 + 1);
+        }
+
+        else
+        {
+          objc_msgSend__setError(a2, v16, v17);
+        }
+
+        v12 |= (v64 & 0x7F) << v10;
+        if ((v64 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v10 += 7;
+        v30 = v11++ >= 9;
+        if (v30)
+        {
+          v31 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
+LABEL_15:
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v9 = v31 & 7;
+      if (v9 == 4)
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v32 = (v31 >> 3);
+      if ((v31 >> 3) <= 2)
+      {
+        if (v32 == 1)
+        {
+          v34 = objc_alloc_init(MEMORY[0x277CBC268]);
+          objc_storeStrong((a1 + 32), v34);
+          v64 = 0;
+          v65 = 0;
+          if (!PBReaderPlaceMark() || !CKDPRecordIdentifierReadFrom())
+          {
+LABEL_48:
+
+            return 0;
+          }
+
+          goto LABEL_40;
+        }
+
+        if (v32 == 2)
+        {
+          v35 = PBReaderReadString();
+          v36 = *(a1 + 8);
+          *(a1 + 8) = v35;
+
+          goto LABEL_46;
+        }
+      }
+
+      else
+      {
+        switch(v32)
+        {
+          case 3:
+            v34 = objc_alloc_init(CKDPRecordField);
+            objc_msgSend_addPluginFields_(a1, v37, v34);
+            v64 = 0;
+            v65 = 0;
+            if (!PBReaderPlaceMark() || !CKDPRecordFieldReadFrom(&v34->super.super.isa, a2, v38))
+            {
+              goto LABEL_48;
+            }
+
+LABEL_40:
+            PBReaderRecallMark();
+LABEL_41:
+
+            goto LABEL_46;
+          case 4:
+            v39 = 0;
+            v40 = 0;
+            v41 = 0;
+            *(a1 + 44) |= 1u;
+            while (1)
+            {
+              LOBYTE(v64) = 0;
+              v42 = objc_msgSend_position(a2, v32, v9, v64) + 1;
+              if (v42 >= objc_msgSend_position(a2, v43, v44) && (v47 = objc_msgSend_position(a2, v45, v46) + 1, v47 <= objc_msgSend_length(a2, v48, v49)))
+              {
+                v50 = objc_msgSend_data(a2, v45, v46);
+                v53 = objc_msgSend_position(a2, v51, v52);
+                objc_msgSend_getBytes_range_(v50, v54, &v64, v53, 1);
+
+                v57 = objc_msgSend_position(a2, v55, v56);
+                objc_msgSend_setPosition_(a2, v58, v57 + 1);
+              }
+
+              else
+              {
+                objc_msgSend__setError(a2, v45, v46);
+              }
+
+              v41 |= (v64 & 0x7F) << v39;
+              if ((v64 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v39 += 7;
+              v30 = v40++ >= 9;
+              if (v30)
+              {
+                LOBYTE(v59) = 0;
+                goto LABEL_45;
+              }
+            }
+
+            v59 = (v41 != 0) & ~objc_msgSend_hasError(a2, v32, v9);
+LABEL_45:
+            *(a1 + 40) = v59;
+            goto LABEL_46;
+          case 5:
+            v34 = PBReaderReadData();
+            if (v34)
+            {
+              objc_msgSend_addPublicKeys_(a1, v33, v34);
+            }
+
+            goto LABEL_41;
+        }
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_46:
+      v60 = objc_msgSend_position(a2, v32, v9);
+    }
+
+    while (v60 < objc_msgSend_length(a2, v61, v62));
+  }
+
+  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+}
+
+void sub_2253211DC()
+{
+  v0 = qword_280D55038;
+  qword_280D55038 = &unk_2838C95E8;
+}
+
+uint64_t sub_2253216E0(uint64_t a1, void *a2, uint64_t a3)
+{
+  v5 = objc_msgSend_position(a2, a2, a3);
+  if (v5 < objc_msgSend_length(a2, v6, v7))
+  {
+    do
+    {
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v10 = 0;
+      v11 = 0;
+      v12 = 0;
+      while (1)
+      {
+        LOBYTE(v84) = 0;
+        v13 = objc_msgSend_position(a2, v8, v9, v84) + 1;
+        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
+        {
+          v21 = objc_msgSend_data(a2, v16, v17);
+          v24 = objc_msgSend_position(a2, v22, v23);
+          objc_msgSend_getBytes_range_(v21, v25, &v84, v24, 1);
+
+          v28 = objc_msgSend_position(a2, v26, v27);
+          objc_msgSend_setPosition_(a2, v29, v28 + 1);
+        }
+
+        else
+        {
+          objc_msgSend__setError(a2, v16, v17);
+        }
+
+        v12 |= (v84 & 0x7F) << v10;
+        if ((v84 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v10 += 7;
+        v30 = v11++ >= 9;
+        if (v30)
+        {
+          v31 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
+LABEL_15:
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v9 = v31 & 7;
+      if (v9 == 4)
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v32 = (v31 >> 3);
+      if ((v31 >> 3) > 4)
+      {
+        if (v32 > 6)
+        {
+          if (v32 == 7)
+          {
+            v33 = objc_alloc_init(CKDPRecord);
+            objc_storeStrong((a1 + 16), v33);
+            v84 = 0;
+            v85 = 0;
+            if (!PBReaderPlaceMark() || !CKDPRecordReadFrom(v33, a2, v79))
+            {
+LABEL_67:
+
+              return 0;
+            }
+
+            goto LABEL_56;
+          }
+
+          if (v32 == 8)
+          {
+            v36 = 0;
+            v37 = 0;
+            v38 = 0;
+            *(a1 + 64) |= 2u;
+            while (1)
+            {
+              LOBYTE(v84) = 0;
+              v39 = objc_msgSend_position(a2, v32, v9, v84) + 1;
+              if (v39 >= objc_msgSend_position(a2, v40, v41) && (v44 = objc_msgSend_position(a2, v42, v43) + 1, v44 <= objc_msgSend_length(a2, v45, v46)))
+              {
+                v47 = objc_msgSend_data(a2, v42, v43);
+                v50 = objc_msgSend_position(a2, v48, v49);
+                objc_msgSend_getBytes_range_(v47, v51, &v84, v50, 1);
+
+                v54 = objc_msgSend_position(a2, v52, v53);
+                objc_msgSend_setPosition_(a2, v55, v54 + 1);
+              }
+
+              else
+              {
+                objc_msgSend__setError(a2, v42, v43);
+              }
+
+              v38 |= (v84 & 0x7F) << v36;
+              if ((v84 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v36 += 7;
+              v30 = v37++ >= 9;
+              if (v30)
+              {
+                LOBYTE(v56) = 0;
+                goto LABEL_64;
+              }
+            }
+
+            v56 = (v38 != 0) & ~objc_msgSend_hasError(a2, v32, v9);
+LABEL_64:
+            *(a1 + 60) = v56;
+            goto LABEL_65;
+          }
+        }
+
+        else
+        {
+          if (v32 == 5)
+          {
+            v34 = PBReaderReadString();
+            v35 = 32;
+            goto LABEL_53;
+          }
+
+          if (v32 == 6)
+          {
+            v34 = PBReaderReadString();
+            v35 = 24;
+LABEL_53:
+            v78 = *(a1 + v35);
+            *(a1 + v35) = v34;
+
+            goto LABEL_65;
+          }
+        }
+      }
+
+      else if (v32 > 2)
+      {
+        if (v32 == 3)
+        {
+          v34 = PBReaderReadString();
+          v35 = 40;
+          goto LABEL_53;
+        }
+
+        if (v32 == 4)
+        {
+          v34 = PBReaderReadString();
+          v35 = 8;
+          goto LABEL_53;
+        }
+      }
+
+      else
+      {
+        if (v32 == 1)
+        {
+          v57 = 0;
+          v58 = 0;
+          v59 = 0;
+          *(a1 + 64) |= 1u;
+          while (1)
+          {
+            LOBYTE(v84) = 0;
+            v60 = objc_msgSend_position(a2, v32, v9, v84) + 1;
+            if (v60 >= objc_msgSend_position(a2, v61, v62) && (v65 = objc_msgSend_position(a2, v63, v64) + 1, v65 <= objc_msgSend_length(a2, v66, v67)))
+            {
+              v68 = objc_msgSend_data(a2, v63, v64);
+              v71 = objc_msgSend_position(a2, v69, v70);
+              objc_msgSend_getBytes_range_(v68, v72, &v84, v71, 1);
+
+              v75 = objc_msgSend_position(a2, v73, v74);
+              objc_msgSend_setPosition_(a2, v76, v75 + 1);
+            }
+
+            else
+            {
+              objc_msgSend__setError(a2, v63, v64);
+            }
+
+            v59 |= (v84 & 0x7F) << v57;
+            if ((v84 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v57 += 7;
+            v30 = v58++ >= 9;
+            if (v30)
+            {
+              v77 = 0;
+              goto LABEL_62;
+            }
+          }
+
+          if (objc_msgSend_hasError(a2, v32, v9))
+          {
+            v77 = 0;
+          }
+
+          else
+          {
+            v77 = v59;
+          }
+
+LABEL_62:
+          *(a1 + 56) = v77;
+          goto LABEL_65;
+        }
+
+        if (v32 == 2)
+        {
+          v33 = objc_alloc_init(MEMORY[0x277CBC268]);
+          objc_storeStrong((a1 + 48), v33);
+          v84 = 0;
+          v85 = 0;
+          if (!PBReaderPlaceMark() || !CKDPRecordIdentifierReadFrom())
+          {
+            goto LABEL_67;
+          }
+
+LABEL_56:
+          PBReaderRecallMark();
+
+          goto LABEL_65;
+        }
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_65:
+      v80 = objc_msgSend_position(a2, v32, v9);
+    }
+
+    while (v80 < objc_msgSend_length(a2, v81, v82));
+  }
+
+  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+}
+
+uint64_t sub_2253226C8(uint64_t a1, void *a2, uint64_t a3)
+{
+  v5 = objc_msgSend_position(a2, a2, a3);
+  if (v5 < objc_msgSend_length(a2, v6, v7))
+  {
+    do
+    {
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v10 = 0;
+      v11 = 0;
+      v12 = 0;
+      while (1)
+      {
+        LOBYTE(v41[0]) = 0;
+        v13 = objc_msgSend_position(a2, v8, v9, v41[0]) + 1;
+        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
+        {
+          v21 = objc_msgSend_data(a2, v16, v17);
+          v24 = objc_msgSend_position(a2, v22, v23);
+          objc_msgSend_getBytes_range_(v21, v25, v41, v24, 1);
+
+          v28 = objc_msgSend_position(a2, v26, v27);
+          objc_msgSend_setPosition_(a2, v29, v28 + 1);
+        }
+
+        else
+        {
+          objc_msgSend__setError(a2, v16, v17);
+        }
+
+        v12 |= (v41[0] & 0x7F) << v10;
+        if ((v41[0] & 0x80) == 0)
+        {
+          break;
+        }
+
+        v10 += 7;
+        if (v11++ >= 9)
+        {
+          v31 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
+LABEL_15:
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v9 = v31 & 7;
+      if (v9 == 4)
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      if ((v31 >> 3) == 2)
+      {
+        v32 = objc_alloc_init(CKDPRecord);
+        v33 = 16;
+      }
+
+      else
+      {
+        if ((v31 >> 3) != 1)
+        {
+          if ((PBReaderSkipValueWithTag() & 1) == 0)
+          {
+            return 0;
+          }
+
+          goto LABEL_25;
+        }
+
+        v32 = objc_alloc_init(CKDPRecord);
+        v33 = 8;
+      }
+
+      objc_storeStrong((a1 + v33), v32);
+      v41[0] = 0;
+      v41[1] = 0;
+      if (!PBReaderPlaceMark() || !CKDPRecordReadFrom(v32, a2, v34))
+      {
+
+        return 0;
+      }
+
+      PBReaderRecallMark();
+
+LABEL_25:
+      v37 = objc_msgSend_position(a2, v35, v36);
+    }
+
+    while (v37 < objc_msgSend_length(a2, v38, v39));
+  }
+
+  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+}
+
+uint64_t CKDPRecordOneTimeStableUrlReadFrom(uint64_t a1, void *a2, uint64_t a3)
+{
+  v5 = objc_msgSend_position(a2, a2, a3);
+  if (v5 < objc_msgSend_length(a2, v6, v7))
+  {
+    while (1)
+    {
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v10 = 0;
+      v11 = 0;
+      v12 = 0;
+      while (1)
+      {
+        v62 = 0;
+        v13 = objc_msgSend_position(a2, v8, v9) + 1;
+        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
+        {
+          v21 = objc_msgSend_data(a2, v16, v17);
+          v24 = objc_msgSend_position(a2, v22, v23);
+          objc_msgSend_getBytes_range_(v21, v25, &v62, v24, 1);
+
+          v28 = objc_msgSend_position(a2, v26, v27);
+          objc_msgSend_setPosition_(a2, v29, v28 + 1);
+        }
+
+        else
+        {
+          objc_msgSend__setError(a2, v16, v17);
+        }
+
+        v12 |= (v62 & 0x7F) << v10;
+        if ((v62 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v10 += 7;
+        if (v11++ >= 9)
+        {
+          v31 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
+LABEL_15:
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v9 = v31 & 7;
+      if (v9 == 4)
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v32 = (v31 >> 3);
+      if ((v31 >> 3) <= 2)
+      {
+        break;
+      }
+
+      switch(v32)
+      {
+        case 3:
+          v43 = PBReaderReadData();
+          v44 = 16;
+LABEL_32:
+          v47 = *(a1 + v44);
+          *(a1 + v44) = v43;
+
+          break;
+        case 4:
+          v46 = PBReaderReadString();
+          if (v46)
+          {
+            objc_msgSend_addParticipantId_(a1, v45, v46);
+          }
+
+          break;
+        case 5:
+          *(a1 + 48) |= 1u;
+          v61 = 0;
+          v33 = objc_msgSend_position(a2, v32, v9) + 8;
+          if (v33 >= objc_msgSend_position(a2, v34, v35) && (v38 = objc_msgSend_position(a2, v36, v37) + 8, v38 <= objc_msgSend_length(a2, v39, v40)))
+          {
+            v49 = objc_msgSend_data(a2, v36, v37);
+            v52 = objc_msgSend_position(a2, v50, v51);
+            objc_msgSend_getBytes_range_(v49, v53, &v61, v52, 8);
+
+            v56 = objc_msgSend_position(a2, v54, v55);
+            objc_msgSend_setPosition_(a2, v57, v56 + 8);
+          }
+
+          else
+          {
+            objc_msgSend__setError(a2, v36, v37);
+          }
+
+          *(a1 + 8) = v61;
+          break;
+        default:
+          goto LABEL_33;
+      }
+
+LABEL_37:
+      v58 = objc_msgSend_position(a2, v41, v42);
+      if (v58 >= objc_msgSend_length(a2, v59, v60))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+    }
+
+    if (v32 == 1)
+    {
+      v43 = PBReaderReadData();
+      v44 = 40;
+    }
+
+    else
+    {
+      if (v32 != 2)
+      {
+LABEL_33:
+        result = PBReaderSkipValueWithTag();
+        if (!result)
+        {
+          return result;
+        }
+
+        goto LABEL_37;
+      }
+
+      v43 = PBReaderReadData();
+      v44 = 32;
+    }
+
+    goto LABEL_32;
+  }
+
+  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+}
+
+uint64_t CKDPRecordOneTimeStableUrlInfoReadFrom(void *a1, void *a2, uint64_t a3)
+{
+  v5 = objc_msgSend_position(a2, a2, a3);
+  if (v5 < objc_msgSend_length(a2, v6, v7))
+  {
+    do
+    {
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        break;
+      }
+
+      v10 = 0;
+      v11 = 0;
+      v12 = 0;
+      while (1)
+      {
+        LOBYTE(v41[0]) = 0;
+        v13 = objc_msgSend_position(a2, v8, v9, v41[0]) + 1;
+        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
+        {
+          v21 = objc_msgSend_data(a2, v16, v17);
+          v24 = objc_msgSend_position(a2, v22, v23);
+          objc_msgSend_getBytes_range_(v21, v25, v41, v24, 1);
+
+          v28 = objc_msgSend_position(a2, v26, v27);
+          objc_msgSend_setPosition_(a2, v29, v28 + 1);
+        }
+
+        else
+        {
+          objc_msgSend__setError(a2, v16, v17);
+        }
+
+        v12 |= (v41[0] & 0x7F) << v10;
+        if ((v41[0] & 0x80) == 0)
+        {
+          break;
+        }
+
+        v10 += 7;
+        if (v11++ >= 9)
+        {
+          v31 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
+LABEL_15:
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        break;
+      }
+
+      v9 = v31 & 7;
+      if (v9 == 4)
+      {
+        break;
+      }
+
+      if ((v31 >> 3) == 1)
+      {
+        v32 = objc_alloc_init(CKDPRecordOneTimeStableUrl);
+        objc_msgSend_addOneTimeUrl_(a1, v33, v32);
+        v41[0] = 0;
+        v41[1] = 0;
+        if (!PBReaderPlaceMark() || !CKDPRecordOneTimeStableUrlReadFrom(v32, a2, v34))
+        {
+
+          return 0;
+        }
+
+        PBReaderRecallMark();
+      }
+
+      else if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+      v37 = objc_msgSend_position(a2, v35, v36);
+    }
+
+    while (v37 < objc_msgSend_length(a2, v38, v39));
+  }
+
+  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+}
+
+uint64_t sub_225324758(uint64_t a1, void *a2, uint64_t a3)
+{
+  v5 = objc_msgSend_position(a2, a2, a3);
+  if (v5 < objc_msgSend_length(a2, v6, v7))
+  {
+    do
+    {
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        break;
+      }
+
+      v10 = 0;
+      v11 = 0;
+      v12 = 0;
+      while (1)
+      {
+        v58 = 0;
+        v13 = objc_msgSend_position(a2, v8, v9) + 1;
+        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
+        {
+          v21 = objc_msgSend_data(a2, v16, v17);
+          v24 = objc_msgSend_position(a2, v22, v23);
+          objc_msgSend_getBytes_range_(v21, v25, &v58, v24, 1);
+
+          v28 = objc_msgSend_position(a2, v26, v27);
+          objc_msgSend_setPosition_(a2, v29, v28 + 1);
+        }
+
+        else
+        {
+          objc_msgSend__setError(a2, v16, v17);
+        }
+
+        v12 |= (v58 & 0x7F) << v10;
+        if ((v58 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v10 += 7;
+        v30 = v11++ >= 9;
+        if (v30)
+        {
+          v31 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
+LABEL_15:
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        break;
+      }
+
+      v9 = v31 & 7;
+      if (v9 == 4)
+      {
+        break;
+      }
+
+      v32 = (v31 >> 3);
+      if ((v31 >> 3) == 1)
+      {
+        v33 = 0;
+        v34 = 0;
+        v35 = 0;
+        *(a1 + 12) |= 1u;
+        while (1)
+        {
+          v59 = 0;
+          v36 = objc_msgSend_position(a2, v32, v9) + 1;
+          if (v36 >= objc_msgSend_position(a2, v37, v38) && (v41 = objc_msgSend_position(a2, v39, v40) + 1, v41 <= objc_msgSend_length(a2, v42, v43)))
+          {
+            v44 = objc_msgSend_data(a2, v39, v40);
+            v47 = objc_msgSend_position(a2, v45, v46);
+            objc_msgSend_getBytes_range_(v44, v48, &v59, v47, 1);
+
+            v51 = objc_msgSend_position(a2, v49, v50);
+            objc_msgSend_setPosition_(a2, v52, v51 + 1);
+          }
+
+          else
+          {
+            objc_msgSend__setError(a2, v39, v40);
+          }
+
+          v35 |= (v59 & 0x7F) << v33;
+          if ((v59 & 0x80) == 0)
+          {
+            break;
+          }
+
+          v33 += 7;
+          v30 = v34++ >= 9;
+          if (v30)
+          {
+            v53 = 0;
+            goto LABEL_32;
+          }
+        }
+
+        v53 = objc_msgSend_hasError(a2, v32, v9) ? 0 : v35;
+LABEL_32:
+        *(a1 + 8) = v53;
+      }
+
+      else
+      {
+        result = PBReaderSkipValueWithTag();
+        if (!result)
+        {
+          return result;
+        }
+      }
+
+      v55 = objc_msgSend_position(a2, v32, v9);
+    }
+
+    while (v55 < objc_msgSend_length(a2, v56, v57));
+  }
+
+  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+}
+
+void sub_225324C08()
+{
+  v0 = qword_280D55048;
+  qword_280D55048 = &unk_2838C9610;
+}
+
+uint64_t sub_225325000(_BYTE *a1, void *a2, uint64_t a3)
+{
+  v5 = objc_msgSend_position(a2, a2, a3);
+  if (v5 < objc_msgSend_length(a2, v6, v7))
+  {
+    do
+    {
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v10 = 0;
+      v11 = 0;
+      v12 = 0;
+      while (1)
+      {
+        v84 = 0;
+        v13 = objc_msgSend_position(a2, v8, v9) + 1;
+        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
+        {
+          v21 = objc_msgSend_data(a2, v16, v17);
+          v24 = objc_msgSend_position(a2, v22, v23);
+          objc_msgSend_getBytes_range_(v21, v25, &v84, v24, 1);
+
+          v28 = objc_msgSend_position(a2, v26, v27);
+          objc_msgSend_setPosition_(a2, v29, v28 + 1);
+        }
+
+        else
+        {
+          objc_msgSend__setError(a2, v16, v17);
+        }
+
+        v12 |= (v84 & 0x7F) << v10;
+        if ((v84 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v10 += 7;
+        v30 = v11++ >= 9;
+        if (v30)
+        {
+          v31 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
+LABEL_15:
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v9 = v31 & 7;
+      if (v9 == 4)
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v32 = (v31 >> 3);
+      if ((v31 >> 3) > 3)
+      {
+        if (v32 == 4)
+        {
+          v56 = 0;
+          v57 = 0;
+          v58 = 0;
+          a1[44] |= 2u;
+          while (1)
+          {
+            v85 = 0;
+            v59 = objc_msgSend_position(a2, v32, v9) + 1;
+            if (v59 >= objc_msgSend_position(a2, v60, v61) && (v64 = objc_msgSend_position(a2, v62, v63) + 1, v64 <= objc_msgSend_length(a2, v65, v66)))
+            {
+              v67 = objc_msgSend_data(a2, v62, v63);
+              v70 = objc_msgSend_position(a2, v68, v69);
+              objc_msgSend_getBytes_range_(v67, v71, &v85, v70, 1);
+
+              v74 = objc_msgSend_position(a2, v72, v73);
+              objc_msgSend_setPosition_(a2, v75, v74 + 1);
+            }
+
+            else
+            {
+              objc_msgSend__setError(a2, v62, v63);
+            }
+
+            v58 |= (v85 & 0x7F) << v56;
+            if ((v85 & 0x80) == 0)
+            {
+              break;
+            }
+
+            v56 += 7;
+            v30 = v57++ >= 9;
+            if (v30)
+            {
+              LOBYTE(v53) = 0;
+              goto LABEL_52;
+            }
+          }
+
+          v53 = (v58 != 0) & ~objc_msgSend_hasError(a2, v32, v9);
+LABEL_52:
+          v80 = 41;
+LABEL_55:
+          a1[v80] = v53;
+          goto LABEL_56;
+        }
+
+        if (v32 == 5)
+        {
+          v79 = PBReaderReadString();
+          if (v79)
+          {
+            objc_msgSend_addRootRecordDesiredKeys_(a1, v78, v79);
+          }
+
+          goto LABEL_56;
+        }
+
+        if (v32 != 6)
+        {
+LABEL_44:
+          result = PBReaderSkipValueWithTag();
+          if (!result)
+          {
+            return result;
+          }
+
+          goto LABEL_56;
+        }
+
+        v54 = PBReaderReadString();
+        v55 = 8;
+      }
+
+      else
+      {
+        switch(v32)
+        {
+          case 1:
+            v54 = PBReaderReadString();
+            v55 = 24;
+            break;
+          case 2:
+            v54 = PBReaderReadData();
+            v55 = 32;
+            break;
+          case 3:
+            v33 = 0;
+            v34 = 0;
+            v35 = 0;
+            a1[44] |= 1u;
+            while (1)
+            {
+              v86 = 0;
+              v36 = objc_msgSend_position(a2, v32, v9) + 1;
+              if (v36 >= objc_msgSend_position(a2, v37, v38) && (v41 = objc_msgSend_position(a2, v39, v40) + 1, v41 <= objc_msgSend_length(a2, v42, v43)))
+              {
+                v44 = objc_msgSend_data(a2, v39, v40);
+                v47 = objc_msgSend_position(a2, v45, v46);
+                objc_msgSend_getBytes_range_(v44, v48, &v86, v47, 1);
+
+                v51 = objc_msgSend_position(a2, v49, v50);
+                objc_msgSend_setPosition_(a2, v52, v51 + 1);
+              }
+
+              else
+              {
+                objc_msgSend__setError(a2, v39, v40);
+              }
+
+              v35 |= (v86 & 0x7F) << v33;
+              if ((v86 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v33 += 7;
+              v30 = v34++ >= 9;
+              if (v30)
+              {
+                LOBYTE(v53) = 0;
+                goto LABEL_54;
+              }
+            }
+
+            v53 = (v35 != 0) & ~objc_msgSend_hasError(a2, v32, v9);
+LABEL_54:
+            v80 = 40;
+            goto LABEL_55;
+          default:
+            goto LABEL_44;
+        }
+      }
+
+      v77 = *&a1[v55];
+      *&a1[v55] = v54;
+
+LABEL_56:
+      v81 = objc_msgSend_position(a2, v32, v9);
+    }
+
+    while (v81 < objc_msgSend_length(a2, v82, v83));
+  }
+
+  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+}
+
+uint64_t sub_225326400(uint64_t a1, void *a2, uint64_t a3)
+{
+  v5 = objc_msgSend_position(a2, a2, a3);
+  if (v5 < objc_msgSend_length(a2, v6, v7))
+  {
+    do
+    {
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v10 = 0;
+      v11 = 0;
+      v12 = 0;
+      while (1)
+      {
+        LOBYTE(v65) = 0;
+        v13 = objc_msgSend_position(a2, v8, v9, v65) + 1;
+        if (v13 >= objc_msgSend_position(a2, v14, v15) && (v18 = objc_msgSend_position(a2, v16, v17) + 1, v18 <= objc_msgSend_length(a2, v19, v20)))
+        {
+          v21 = objc_msgSend_data(a2, v16, v17);
+          v24 = objc_msgSend_position(a2, v22, v23);
+          objc_msgSend_getBytes_range_(v21, v25, &v65, v24, 1);
+
+          v28 = objc_msgSend_position(a2, v26, v27);
+          objc_msgSend_setPosition_(a2, v29, v28 + 1);
+        }
+
+        else
+        {
+          objc_msgSend__setError(a2, v16, v17);
+        }
+
+        v12 |= (v65 & 0x7F) << v10;
+        if ((v65 & 0x80) == 0)
+        {
+          break;
+        }
+
+        v10 += 7;
+        v30 = v11++ >= 9;
+        if (v30)
+        {
+          v31 = 0;
+          goto LABEL_15;
+        }
+      }
+
+      v31 = objc_msgSend_hasError(a2, v8, v9) ? 0 : v12;
+LABEL_15:
+      if (objc_msgSend_hasError(a2, v8, v9))
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v9 = v31 & 7;
+      if (v9 == 4)
+      {
+        return objc_msgSend_hasError(a2, v8, v9) ^ 1;
+      }
+
+      v32 = (v31 >> 3);
+      if ((v31 >> 3) > 3)
+      {
+        switch(v32)
+        {
+          case 4:
+            v33 = objc_alloc_init(CKDPRecord);
+            objc_storeStrong((a1 + 48), v33);
+LABEL_30:
+            v65 = 0;
+            v66 = 0;
+            if (!PBReaderPlaceMark() || !CKDPRecordReadFrom(v33, a2, v38))
+            {
+              goto LABEL_53;
+            }
+
+LABEL_46:
+            PBReaderRecallMark();
+
+            goto LABEL_51;
+          case 5:
+            v33 = objc_alloc_init(CKDPShareMetadata);
+            objc_storeStrong((a1 + 40), v33);
+            v65 = 0;
+            v66 = 0;
+            if (!PBReaderPlaceMark() || !CKDPShareMetadataReadFrom(v33, a2, v60))
+            {
+LABEL_53:
+
+              return 0;
+            }
+
+            goto LABEL_46;
+          case 8:
+            v33 = objc_alloc_init(CKDPZone);
+            objc_storeStrong((a1 + 24), v33);
+            v65 = 0;
+            v66 = 0;
+            if (!PBReaderPlaceMark() || !sub_22538168C(v33, a2, v35))
+            {
+              goto LABEL_53;
+            }
+
+            goto LABEL_46;
+        }
+      }
+
+      else
+      {
+        switch(v32)
+        {
+          case 1:
+            v36 = PBReaderReadString();
+            v37 = *(a1 + 8);
+            *(a1 + 8) = v36;
+
+            goto LABEL_51;
+          case 2:
+            v39 = 0;
+            v40 = 0;
+            v41 = 0;
+            *(a1 + 56) |= 1u;
+            while (1)
+            {
+              LOBYTE(v65) = 0;
+              v42 = objc_msgSend_position(a2, v32, v9, v65) + 1;
+              if (v42 >= objc_msgSend_position(a2, v43, v44) && (v47 = objc_msgSend_position(a2, v45, v46) + 1, v47 <= objc_msgSend_length(a2, v48, v49)))
+              {
+                v50 = objc_msgSend_data(a2, v45, v46);
+                v53 = objc_msgSend_position(a2, v51, v52);
+                objc_msgSend_getBytes_range_(v50, v54, &v65, v53, 1);
+
+                v57 = objc_msgSend_position(a2, v55, v56);
+                objc_msgSend_setPosition_(a2, v58, v57 + 1);
+              }
+
+              else
+              {
+                objc_msgSend__setError(a2, v45, v46);
+              }
+
+              v41 |= (v65 & 0x7F) << v39;
+              if ((v65 & 0x80) == 0)
+              {
+                break;
+              }
+
+              v39 += 7;
+              v30 = v40++ >= 9;
+              if (v30)
+              {
+                v59 = 0;
+                goto LABEL_50;
+              }
+            }
+
+            if (objc_msgSend_hasError(a2, v32, v9))
+            {
+              v59 = 0;
+            }
+
+            else
+            {
+              v59 = v41;
+            }
+
+LABEL_50:
+            *(a1 + 16) = v59;
+            goto LABEL_51;
+          case 3:
+            v33 = objc_alloc_init(CKDPRecord);
+            objc_msgSend_addRecord_(a1, v34, v33);
+            goto LABEL_30;
+        }
+      }
+
+      if ((PBReaderSkipValueWithTag() & 1) == 0)
+      {
+        return 0;
+      }
+
+LABEL_51:
+      v61 = objc_msgSend_position(a2, v32, v9);
+    }
+
+    while (v61 < objc_msgSend_length(a2, v62, v63));
+  }
+
+  return objc_msgSend_hasError(a2, v8, v9) ^ 1;
 }

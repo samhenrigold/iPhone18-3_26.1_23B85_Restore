@@ -497,34 +497,34 @@
 
 - (id)dictionaryRepresentation
 {
-  v74 = *MEMORY[0x29EDCA608];
+  v73 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   if ([(NSMutableArray *)self->_cTLMIndexs count])
   {
     v4 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_cTLMIndexs, "count")}];
+    v63 = 0u;
     v64 = 0u;
     v65 = 0u;
     v66 = 0u;
-    v67 = 0u;
     cTLMIndexs = self->_cTLMIndexs;
-    v6 = [(NSMutableArray *)cTLMIndexs countByEnumeratingWithState:&v64 objects:v73 count:16];
+    v6 = [(NSMutableArray *)cTLMIndexs countByEnumeratingWithState:&v63 objects:v72 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v65;
+      v8 = *v64;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v65 != v8)
+          if (*v64 != v8)
           {
             objc_enumerationMutation(cTLMIndexs);
           }
 
-          [v4 addObject:{objc_msgSend(*(*(&v64 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v4 addObject:{objc_msgSend(*(*(&v63 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v7 = [(NSMutableArray *)cTLMIndexs countByEnumeratingWithState:&v64 objects:v73 count:16];
+        v7 = [(NSMutableArray *)cTLMIndexs countByEnumeratingWithState:&v63 objects:v72 count:16];
       }
 
       while (v7);
@@ -536,29 +536,29 @@
   if ([(NSMutableArray *)self->_txPowerBackoffDBs count])
   {
     v10 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_txPowerBackoffDBs, "count")}];
+    v59 = 0u;
     v60 = 0u;
     v61 = 0u;
     v62 = 0u;
-    v63 = 0u;
     txPowerBackoffDBs = self->_txPowerBackoffDBs;
-    v12 = [(NSMutableArray *)txPowerBackoffDBs countByEnumeratingWithState:&v60 objects:v72 count:16];
+    v12 = [(NSMutableArray *)txPowerBackoffDBs countByEnumeratingWithState:&v59 objects:v71 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v61;
+      v14 = *v60;
       do
       {
         for (j = 0; j != v13; ++j)
         {
-          if (*v61 != v14)
+          if (*v60 != v14)
           {
             objc_enumerationMutation(txPowerBackoffDBs);
           }
 
-          [v10 addObject:{objc_msgSend(*(*(&v60 + 1) + 8 * j), "dictionaryRepresentation")}];
+          [v10 addObject:{objc_msgSend(*(*(&v59 + 1) + 8 * j), "dictionaryRepresentation")}];
         }
 
-        v13 = [(NSMutableArray *)txPowerBackoffDBs countByEnumeratingWithState:&v60 objects:v72 count:16];
+        v13 = [(NSMutableArray *)txPowerBackoffDBs countByEnumeratingWithState:&v59 objects:v71 count:16];
       }
 
       while (v13);
@@ -570,29 +570,29 @@
   if ([(NSMutableArray *)self->_txDutyCyclePcts count])
   {
     v16 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_txDutyCyclePcts, "count")}];
+    v55 = 0u;
     v56 = 0u;
     v57 = 0u;
     v58 = 0u;
-    v59 = 0u;
     txDutyCyclePcts = self->_txDutyCyclePcts;
-    v18 = [(NSMutableArray *)txDutyCyclePcts countByEnumeratingWithState:&v56 objects:v71 count:16];
+    v18 = [(NSMutableArray *)txDutyCyclePcts countByEnumeratingWithState:&v55 objects:v70 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v57;
+      v20 = *v56;
       do
       {
         for (k = 0; k != v19; ++k)
         {
-          if (*v57 != v20)
+          if (*v56 != v20)
           {
             objc_enumerationMutation(txDutyCyclePcts);
           }
 
-          [v16 addObject:{objc_msgSend(*(*(&v56 + 1) + 8 * k), "dictionaryRepresentation")}];
+          [v16 addObject:{objc_msgSend(*(*(&v55 + 1) + 8 * k), "dictionaryRepresentation")}];
         }
 
-        v19 = [(NSMutableArray *)txDutyCyclePcts countByEnumeratingWithState:&v56 objects:v71 count:16];
+        v19 = [(NSMutableArray *)txDutyCyclePcts countByEnumeratingWithState:&v55 objects:v70 count:16];
       }
 
       while (v19);
@@ -604,29 +604,29 @@
   if ([(NSMutableArray *)self->_cTLMIndex1s count])
   {
     v22 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_cTLMIndex1s, "count")}];
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
     cTLMIndex1s = self->_cTLMIndex1s;
-    v24 = [(NSMutableArray *)cTLMIndex1s countByEnumeratingWithState:&v52 objects:v70 count:16];
+    v24 = [(NSMutableArray *)cTLMIndex1s countByEnumeratingWithState:&v51 objects:v69 count:16];
     if (v24)
     {
       v25 = v24;
-      v26 = *v53;
+      v26 = *v52;
       do
       {
         for (m = 0; m != v25; ++m)
         {
-          if (*v53 != v26)
+          if (*v52 != v26)
           {
             objc_enumerationMutation(cTLMIndex1s);
           }
 
-          [v22 addObject:{objc_msgSend(*(*(&v52 + 1) + 8 * m), "dictionaryRepresentation")}];
+          [v22 addObject:{objc_msgSend(*(*(&v51 + 1) + 8 * m), "dictionaryRepresentation")}];
         }
 
-        v25 = [(NSMutableArray *)cTLMIndex1s countByEnumeratingWithState:&v52 objects:v70 count:16];
+        v25 = [(NSMutableArray *)cTLMIndex1s countByEnumeratingWithState:&v51 objects:v69 count:16];
       }
 
       while (v25);
@@ -638,29 +638,29 @@
   if ([(NSMutableArray *)self->_txPowerBackoffDB1s count])
   {
     v28 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_txPowerBackoffDB1s, "count")}];
+    v47 = 0u;
     v48 = 0u;
     v49 = 0u;
     v50 = 0u;
-    v51 = 0u;
     txPowerBackoffDB1s = self->_txPowerBackoffDB1s;
-    v30 = [(NSMutableArray *)txPowerBackoffDB1s countByEnumeratingWithState:&v48 objects:v69 count:16];
+    v30 = [(NSMutableArray *)txPowerBackoffDB1s countByEnumeratingWithState:&v47 objects:v68 count:16];
     if (v30)
     {
       v31 = v30;
-      v32 = *v49;
+      v32 = *v48;
       do
       {
         for (n = 0; n != v31; ++n)
         {
-          if (*v49 != v32)
+          if (*v48 != v32)
           {
             objc_enumerationMutation(txPowerBackoffDB1s);
           }
 
-          [v28 addObject:{objc_msgSend(*(*(&v48 + 1) + 8 * n), "dictionaryRepresentation")}];
+          [v28 addObject:{objc_msgSend(*(*(&v47 + 1) + 8 * n), "dictionaryRepresentation")}];
         }
 
-        v31 = [(NSMutableArray *)txPowerBackoffDB1s countByEnumeratingWithState:&v48 objects:v69 count:16];
+        v31 = [(NSMutableArray *)txPowerBackoffDB1s countByEnumeratingWithState:&v47 objects:v68 count:16];
       }
 
       while (v31);
@@ -672,29 +672,29 @@
   if ([(NSMutableArray *)self->_txDutyCyclePct1s count])
   {
     v34 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_txDutyCyclePct1s, "count")}];
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
     txDutyCyclePct1s = self->_txDutyCyclePct1s;
-    v36 = [(NSMutableArray *)txDutyCyclePct1s countByEnumeratingWithState:&v44 objects:v68 count:16];
+    v36 = [(NSMutableArray *)txDutyCyclePct1s countByEnumeratingWithState:&v43 objects:v67 count:16];
     if (v36)
     {
       v37 = v36;
-      v38 = *v45;
+      v38 = *v44;
       do
       {
         for (ii = 0; ii != v37; ++ii)
         {
-          if (*v45 != v38)
+          if (*v44 != v38)
           {
             objc_enumerationMutation(txDutyCyclePct1s);
           }
 
-          [v34 addObject:{objc_msgSend(*(*(&v44 + 1) + 8 * ii), "dictionaryRepresentation")}];
+          [v34 addObject:{objc_msgSend(*(*(&v43 + 1) + 8 * ii), "dictionaryRepresentation")}];
         }
 
-        v37 = [(NSMutableArray *)txDutyCyclePct1s countByEnumeratingWithState:&v44 objects:v68 count:16];
+        v37 = [(NSMutableArray *)txDutyCyclePct1s countByEnumeratingWithState:&v43 objects:v67 count:16];
       }
 
       while (v37);
@@ -1047,191 +1047,183 @@ LABEL_81:
     [dictionary setObject:-[AWDWiFiTDM dictionaryRepresentation](sdbtdm forKey:{"dictionaryRepresentation"), @"sdbtdm"}];
   }
 
-  v42 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v97 = *MEMORY[0x29EDCA608];
-  v87 = 0u;
-  v88 = 0u;
-  v89 = 0u;
-  v90 = 0u;
+  v65 = *MEMORY[0x29EDCA608];
+  v55 = 0u;
+  v56 = 0u;
+  v57 = 0u;
+  v58 = 0u;
   cTLMIndexs = self->_cTLMIndexs;
-  v5 = [(NSMutableArray *)cTLMIndexs countByEnumeratingWithState:&v87 objects:v96 count:16];
+  v5 = [(NSMutableArray *)cTLMIndexs countByEnumeratingWithState:&v55 objects:v64 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v88;
+    v7 = *v56;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v88 != v7)
+        if (*v56 != v7)
         {
           objc_enumerationMutation(cTLMIndexs);
         }
 
-        v9 = *(*(&v87 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v6 = [(NSMutableArray *)cTLMIndexs countByEnumeratingWithState:&v87 objects:v96 count:16];
+      v6 = [(NSMutableArray *)cTLMIndexs countByEnumeratingWithState:&v55 objects:v64 count:16];
     }
 
     while (v6);
   }
 
-  v85 = 0u;
-  v86 = 0u;
-  v83 = 0u;
-  v84 = 0u;
+  v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   txPowerBackoffDBs = self->_txPowerBackoffDBs;
-  v11 = [(NSMutableArray *)txPowerBackoffDBs countByEnumeratingWithState:&v83 objects:v95 count:16];
-  if (v11)
+  v10 = [(NSMutableArray *)txPowerBackoffDBs countByEnumeratingWithState:&v51 objects:v63 count:16];
+  if (v10)
   {
-    v12 = v11;
-    v13 = *v84;
+    v11 = v10;
+    v12 = *v52;
     do
     {
-      for (j = 0; j != v12; ++j)
+      for (j = 0; j != v11; ++j)
       {
-        if (*v84 != v13)
+        if (*v52 != v12)
         {
           objc_enumerationMutation(txPowerBackoffDBs);
         }
 
-        v15 = *(*(&v83 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v12 = [(NSMutableArray *)txPowerBackoffDBs countByEnumeratingWithState:&v83 objects:v95 count:16];
+      v11 = [(NSMutableArray *)txPowerBackoffDBs countByEnumeratingWithState:&v51 objects:v63 count:16];
     }
 
-    while (v12);
+    while (v11);
   }
 
-  v81 = 0u;
-  v82 = 0u;
-  v79 = 0u;
-  v80 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   txDutyCyclePcts = self->_txDutyCyclePcts;
-  v17 = [(NSMutableArray *)txDutyCyclePcts countByEnumeratingWithState:&v79 objects:v94 count:16];
-  if (v17)
+  v15 = [(NSMutableArray *)txDutyCyclePcts countByEnumeratingWithState:&v47 objects:v62 count:16];
+  if (v15)
   {
-    v18 = v17;
-    v19 = *v80;
+    v16 = v15;
+    v17 = *v48;
     do
     {
-      for (k = 0; k != v18; ++k)
+      for (k = 0; k != v16; ++k)
       {
-        if (*v80 != v19)
+        if (*v48 != v17)
         {
           objc_enumerationMutation(txDutyCyclePcts);
         }
 
-        v21 = *(*(&v79 + 1) + 8 * k);
         PBDataWriterWriteSubmessage();
       }
 
-      v18 = [(NSMutableArray *)txDutyCyclePcts countByEnumeratingWithState:&v79 objects:v94 count:16];
+      v16 = [(NSMutableArray *)txDutyCyclePcts countByEnumeratingWithState:&v47 objects:v62 count:16];
     }
 
-    while (v18);
+    while (v16);
   }
 
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
-  v76 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   cTLMIndex1s = self->_cTLMIndex1s;
-  v23 = [(NSMutableArray *)cTLMIndex1s countByEnumeratingWithState:&v75 objects:v93 count:16];
-  if (v23)
+  v20 = [(NSMutableArray *)cTLMIndex1s countByEnumeratingWithState:&v43 objects:v61 count:16];
+  if (v20)
   {
-    v24 = v23;
-    v25 = *v76;
+    v21 = v20;
+    v22 = *v44;
     do
     {
-      for (m = 0; m != v24; ++m)
+      for (m = 0; m != v21; ++m)
       {
-        if (*v76 != v25)
+        if (*v44 != v22)
         {
           objc_enumerationMutation(cTLMIndex1s);
         }
 
-        v27 = *(*(&v75 + 1) + 8 * m);
         PBDataWriterWriteSubmessage();
       }
 
-      v24 = [(NSMutableArray *)cTLMIndex1s countByEnumeratingWithState:&v75 objects:v93 count:16];
+      v21 = [(NSMutableArray *)cTLMIndex1s countByEnumeratingWithState:&v43 objects:v61 count:16];
     }
 
-    while (v24);
+    while (v21);
   }
 
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
-  v72 = 0u;
+  v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   txPowerBackoffDB1s = self->_txPowerBackoffDB1s;
-  v29 = [(NSMutableArray *)txPowerBackoffDB1s countByEnumeratingWithState:&v71 objects:v92 count:16];
-  if (v29)
+  v25 = [(NSMutableArray *)txPowerBackoffDB1s countByEnumeratingWithState:&v39 objects:v60 count:16];
+  if (v25)
   {
-    v30 = v29;
-    v31 = *v72;
+    v26 = v25;
+    v27 = *v40;
     do
     {
-      for (n = 0; n != v30; ++n)
+      for (n = 0; n != v26; ++n)
       {
-        if (*v72 != v31)
+        if (*v40 != v27)
         {
           objc_enumerationMutation(txPowerBackoffDB1s);
         }
 
-        v33 = *(*(&v71 + 1) + 8 * n);
         PBDataWriterWriteSubmessage();
       }
 
-      v30 = [(NSMutableArray *)txPowerBackoffDB1s countByEnumeratingWithState:&v71 objects:v92 count:16];
+      v26 = [(NSMutableArray *)txPowerBackoffDB1s countByEnumeratingWithState:&v39 objects:v60 count:16];
     }
 
-    while (v30);
+    while (v26);
   }
 
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
-  v68 = 0u;
+  v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   txDutyCyclePct1s = self->_txDutyCyclePct1s;
-  v35 = [(NSMutableArray *)txDutyCyclePct1s countByEnumeratingWithState:&v67 objects:v91 count:16];
-  if (v35)
+  v30 = [(NSMutableArray *)txDutyCyclePct1s countByEnumeratingWithState:&v35 objects:v59 count:16];
+  if (v30)
   {
-    v36 = v35;
-    v37 = *v68;
+    v31 = v30;
+    v32 = *v36;
     do
     {
-      for (ii = 0; ii != v36; ++ii)
+      for (ii = 0; ii != v31; ++ii)
       {
-        if (*v68 != v37)
+        if (*v36 != v32)
         {
           objc_enumerationMutation(txDutyCyclePct1s);
         }
 
-        v39 = *(*(&v67 + 1) + 8 * ii);
         PBDataWriterWriteSubmessage();
       }
 
-      v36 = [(NSMutableArray *)txDutyCyclePct1s countByEnumeratingWithState:&v67 objects:v91 count:16];
+      v31 = [(NSMutableArray *)txDutyCyclePct1s countByEnumeratingWithState:&v35 objects:v59 count:16];
     }
 
-    while (v36);
+    while (v31);
   }
 
   has = self->_has;
   if ((*&has & 0x80000) != 0)
   {
-    txduty0 = self->_txduty0;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((*&has & 0x100000) == 0)
@@ -1251,7 +1243,6 @@ LABEL_45:
     goto LABEL_45;
   }
 
-  txduty1 = self->_txduty1;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -1266,7 +1257,6 @@ LABEL_46:
   }
 
 LABEL_74:
-  txpowerbackoff0 = self->_txpowerbackoff0;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -1281,7 +1271,6 @@ LABEL_47:
   }
 
 LABEL_75:
-  txpowerbackoff1 = self->_txpowerbackoff1;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -1296,7 +1285,6 @@ LABEL_48:
   }
 
 LABEL_76:
-  activechains0 = self->_activechains0;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -1311,7 +1299,6 @@ LABEL_49:
   }
 
 LABEL_77:
-  activechains1 = self->_activechains1;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -1326,7 +1313,6 @@ LABEL_50:
   }
 
 LABEL_78:
-  temp0 = self->_temp0;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -1341,7 +1327,6 @@ LABEL_51:
   }
 
 LABEL_79:
-  temp1 = self->_temp1;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800000) == 0)
@@ -1356,7 +1341,6 @@ LABEL_52:
   }
 
 LABEL_80:
-  voltage0 = self->_voltage0;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000000) == 0)
@@ -1371,7 +1355,6 @@ LABEL_53:
   }
 
 LABEL_81:
-  voltage1 = self->_voltage1;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1386,7 +1369,6 @@ LABEL_54:
   }
 
 LABEL_82:
-  ppm0 = self->_ppm0;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -1401,7 +1383,6 @@ LABEL_55:
   }
 
 LABEL_83:
-  ppm1 = self->_ppm1;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -1416,7 +1397,6 @@ LABEL_56:
   }
 
 LABEL_84:
-  ctlmid0 = self->_ctlmid0;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -1431,7 +1411,6 @@ LABEL_57:
   }
 
 LABEL_85:
-  ctlmid1 = self->_ctlmid1;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1446,7 +1425,6 @@ LABEL_58:
   }
 
 LABEL_86:
-  tvpmindex0 = self->_tvpmindex0;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -1461,7 +1439,6 @@ LABEL_59:
   }
 
 LABEL_87:
-  tvpmindex1 = self->_tvpmindex1;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1476,7 +1453,6 @@ LABEL_60:
   }
 
 LABEL_88:
-  rc1Request = self->_rc1Request;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -1491,7 +1467,6 @@ LABEL_61:
   }
 
 LABEL_89:
-  rc1Duration = self->_rc1Duration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -1506,7 +1481,6 @@ LABEL_62:
   }
 
 LABEL_90:
-  rc1wlanCrit = self->_rc1wlanCrit;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -1521,7 +1495,6 @@ LABEL_63:
   }
 
 LABEL_91:
-  rc1wlanCritDuration = self->_rc1wlanCritDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -1536,7 +1509,6 @@ LABEL_64:
   }
 
 LABEL_92:
-  rc2Request = self->_rc2Request;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -1551,7 +1523,6 @@ LABEL_65:
   }
 
 LABEL_93:
-  rc2Duration = self->_rc2Duration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1566,7 +1537,6 @@ LABEL_66:
   }
 
 LABEL_94:
-  rc2Grant = self->_rc2Grant;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1581,12 +1551,10 @@ LABEL_67:
   }
 
 LABEL_95:
-  rc2LongGrant = self->_rc2LongGrant;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x4000) != 0)
   {
 LABEL_68:
-    rc2cts2a = self->_rc2cts2a;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1595,8 +1563,6 @@ LABEL_69:
   {
     PBDataWriterWriteSubmessage();
   }
-
-  v42 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -2057,177 +2023,177 @@ LABEL_51:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v75 = *MEMORY[0x29EDCA608];
+  v74 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
+  v64 = 0u;
   v65 = 0u;
   v66 = 0u;
   v67 = 0u;
-  v68 = 0u;
   cTLMIndexs = self->_cTLMIndexs;
-  v7 = [(NSMutableArray *)cTLMIndexs countByEnumeratingWithState:&v65 objects:v74 count:16];
+  v7 = [(NSMutableArray *)cTLMIndexs countByEnumeratingWithState:&v64 objects:v73 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v66;
+    v9 = *v65;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v66 != v9)
+        if (*v65 != v9)
         {
           objc_enumerationMutation(cTLMIndexs);
         }
 
-        v11 = [*(*(&v65 + 1) + 8 * i) copyWithZone:zone];
+        v11 = [*(*(&v64 + 1) + 8 * i) copyWithZone:zone];
         [v5 addCTLMIndex:v11];
       }
 
-      v8 = [(NSMutableArray *)cTLMIndexs countByEnumeratingWithState:&v65 objects:v74 count:16];
+      v8 = [(NSMutableArray *)cTLMIndexs countByEnumeratingWithState:&v64 objects:v73 count:16];
     }
 
     while (v8);
   }
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   txPowerBackoffDBs = self->_txPowerBackoffDBs;
-  v13 = [(NSMutableArray *)txPowerBackoffDBs countByEnumeratingWithState:&v61 objects:v73 count:16];
+  v13 = [(NSMutableArray *)txPowerBackoffDBs countByEnumeratingWithState:&v60 objects:v72 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v62;
+    v15 = *v61;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v62 != v15)
+        if (*v61 != v15)
         {
           objc_enumerationMutation(txPowerBackoffDBs);
         }
 
-        v17 = [*(*(&v61 + 1) + 8 * j) copyWithZone:zone];
+        v17 = [*(*(&v60 + 1) + 8 * j) copyWithZone:zone];
         [v5 addTxPowerBackoffDB:v17];
       }
 
-      v14 = [(NSMutableArray *)txPowerBackoffDBs countByEnumeratingWithState:&v61 objects:v73 count:16];
+      v14 = [(NSMutableArray *)txPowerBackoffDBs countByEnumeratingWithState:&v60 objects:v72 count:16];
     }
 
     while (v14);
   }
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   txDutyCyclePcts = self->_txDutyCyclePcts;
-  v19 = [(NSMutableArray *)txDutyCyclePcts countByEnumeratingWithState:&v57 objects:v72 count:16];
+  v19 = [(NSMutableArray *)txDutyCyclePcts countByEnumeratingWithState:&v56 objects:v71 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v58;
+    v21 = *v57;
     do
     {
       for (k = 0; k != v20; ++k)
       {
-        if (*v58 != v21)
+        if (*v57 != v21)
         {
           objc_enumerationMutation(txDutyCyclePcts);
         }
 
-        v23 = [*(*(&v57 + 1) + 8 * k) copyWithZone:zone];
+        v23 = [*(*(&v56 + 1) + 8 * k) copyWithZone:zone];
         [v5 addTxDutyCyclePct:v23];
       }
 
-      v20 = [(NSMutableArray *)txDutyCyclePcts countByEnumeratingWithState:&v57 objects:v72 count:16];
+      v20 = [(NSMutableArray *)txDutyCyclePcts countByEnumeratingWithState:&v56 objects:v71 count:16];
     }
 
     while (v20);
   }
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   cTLMIndex1s = self->_cTLMIndex1s;
-  v25 = [(NSMutableArray *)cTLMIndex1s countByEnumeratingWithState:&v53 objects:v71 count:16];
+  v25 = [(NSMutableArray *)cTLMIndex1s countByEnumeratingWithState:&v52 objects:v70 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v54;
+    v27 = *v53;
     do
     {
       for (m = 0; m != v26; ++m)
       {
-        if (*v54 != v27)
+        if (*v53 != v27)
         {
           objc_enumerationMutation(cTLMIndex1s);
         }
 
-        v29 = [*(*(&v53 + 1) + 8 * m) copyWithZone:zone];
+        v29 = [*(*(&v52 + 1) + 8 * m) copyWithZone:zone];
         [v5 addCTLMIndex1:v29];
       }
 
-      v26 = [(NSMutableArray *)cTLMIndex1s countByEnumeratingWithState:&v53 objects:v71 count:16];
+      v26 = [(NSMutableArray *)cTLMIndex1s countByEnumeratingWithState:&v52 objects:v70 count:16];
     }
 
     while (v26);
   }
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
+  v48 = 0u;
+  v49 = 0u;
   txPowerBackoffDB1s = self->_txPowerBackoffDB1s;
-  v31 = [(NSMutableArray *)txPowerBackoffDB1s countByEnumeratingWithState:&v49 objects:v70 count:16];
+  v31 = [(NSMutableArray *)txPowerBackoffDB1s countByEnumeratingWithState:&v48 objects:v69 count:16];
   if (v31)
   {
     v32 = v31;
-    v33 = *v50;
+    v33 = *v49;
     do
     {
       for (n = 0; n != v32; ++n)
       {
-        if (*v50 != v33)
+        if (*v49 != v33)
         {
           objc_enumerationMutation(txPowerBackoffDB1s);
         }
 
-        v35 = [*(*(&v49 + 1) + 8 * n) copyWithZone:zone];
+        v35 = [*(*(&v48 + 1) + 8 * n) copyWithZone:zone];
         [v5 addTxPowerBackoffDB1:v35];
       }
 
-      v32 = [(NSMutableArray *)txPowerBackoffDB1s countByEnumeratingWithState:&v49 objects:v70 count:16];
+      v32 = [(NSMutableArray *)txPowerBackoffDB1s countByEnumeratingWithState:&v48 objects:v69 count:16];
     }
 
     while (v32);
   }
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   txDutyCyclePct1s = self->_txDutyCyclePct1s;
-  v37 = [(NSMutableArray *)txDutyCyclePct1s countByEnumeratingWithState:&v45 objects:v69 count:16];
+  v37 = [(NSMutableArray *)txDutyCyclePct1s countByEnumeratingWithState:&v44 objects:v68 count:16];
   if (v37)
   {
     v38 = v37;
-    v39 = *v46;
+    v39 = *v45;
     do
     {
       for (ii = 0; ii != v38; ++ii)
       {
-        if (*v46 != v39)
+        if (*v45 != v39)
         {
           objc_enumerationMutation(txDutyCyclePct1s);
         }
 
-        v41 = [*(*(&v45 + 1) + 8 * ii) copyWithZone:zone];
+        v41 = [*(*(&v44 + 1) + 8 * ii) copyWithZone:zone];
         [v5 addTxDutyCyclePct1:v41];
       }
 
-      v38 = [(NSMutableArray *)txDutyCyclePct1s countByEnumeratingWithState:&v45 objects:v69 count:16];
+      v38 = [(NSMutableArray *)txDutyCyclePct1s countByEnumeratingWithState:&v44 objects:v68 count:16];
     }
 
     while (v38);
@@ -2598,7 +2564,6 @@ LABEL_68:
 LABEL_69:
 
   *(v5 + 88) = [(AWDWiFiTDM *)self->_sdbtdm copyWithZone:zone];
-  v43 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
@@ -3333,170 +3298,170 @@ LABEL_26:
 
 - (void)mergeFrom:(id)from
 {
-  v69 = *MEMORY[0x29EDCA608];
+  v68 = *MEMORY[0x29EDCA608];
+  v58 = 0u;
   v59 = 0u;
   v60 = 0u;
   v61 = 0u;
-  v62 = 0u;
   v5 = *(from + 3);
-  v6 = [v5 countByEnumeratingWithState:&v59 objects:v68 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v58 objects:v67 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v60;
+    v8 = *v59;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v60 != v8)
+        if (*v59 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(AWDWiFiNWActivityImpedingFunctions *)self addCTLMIndex:*(*(&v59 + 1) + 8 * i)];
+        [(AWDWiFiNWActivityImpedingFunctions *)self addCTLMIndex:*(*(&v58 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v59 objects:v68 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v58 objects:v67 count:16];
     }
 
     while (v7);
   }
 
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   v10 = *(from + 17);
-  v11 = [v10 countByEnumeratingWithState:&v55 objects:v67 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v54 objects:v66 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v56;
+    v13 = *v55;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v56 != v13)
+        if (*v55 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [(AWDWiFiNWActivityImpedingFunctions *)self addTxPowerBackoffDB:*(*(&v55 + 1) + 8 * j)];
+        [(AWDWiFiNWActivityImpedingFunctions *)self addTxPowerBackoffDB:*(*(&v54 + 1) + 8 * j)];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v55 objects:v67 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v54 objects:v66 count:16];
     }
 
     while (v12);
   }
 
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v15 = *(from + 15);
-  v16 = [v15 countByEnumeratingWithState:&v51 objects:v66 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v50 objects:v65 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v52;
+    v18 = *v51;
     do
     {
       for (k = 0; k != v17; ++k)
       {
-        if (*v52 != v18)
+        if (*v51 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        [(AWDWiFiNWActivityImpedingFunctions *)self addTxDutyCyclePct:*(*(&v51 + 1) + 8 * k)];
+        [(AWDWiFiNWActivityImpedingFunctions *)self addTxDutyCyclePct:*(*(&v50 + 1) + 8 * k)];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v51 objects:v66 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v50 objects:v65 count:16];
     }
 
     while (v17);
   }
 
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v20 = *(from + 2);
-  v21 = [v20 countByEnumeratingWithState:&v47 objects:v65 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v46 objects:v64 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v48;
+    v23 = *v47;
     do
     {
       for (m = 0; m != v22; ++m)
       {
-        if (*v48 != v23)
+        if (*v47 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        [(AWDWiFiNWActivityImpedingFunctions *)self addCTLMIndex1:*(*(&v47 + 1) + 8 * m)];
+        [(AWDWiFiNWActivityImpedingFunctions *)self addCTLMIndex1:*(*(&v46 + 1) + 8 * m)];
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v47 objects:v65 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v46 objects:v64 count:16];
     }
 
     while (v22);
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v25 = *(from + 16);
-  v26 = [v25 countByEnumeratingWithState:&v43 objects:v64 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v42 objects:v63 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v44;
+    v28 = *v43;
     do
     {
       for (n = 0; n != v27; ++n)
       {
-        if (*v44 != v28)
+        if (*v43 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        [(AWDWiFiNWActivityImpedingFunctions *)self addTxPowerBackoffDB1:*(*(&v43 + 1) + 8 * n)];
+        [(AWDWiFiNWActivityImpedingFunctions *)self addTxPowerBackoffDB1:*(*(&v42 + 1) + 8 * n)];
       }
 
-      v27 = [v25 countByEnumeratingWithState:&v43 objects:v64 count:16];
+      v27 = [v25 countByEnumeratingWithState:&v42 objects:v63 count:16];
     }
 
     while (v27);
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v30 = *(from + 14);
-  v31 = [v30 countByEnumeratingWithState:&v39 objects:v63 count:16];
+  v31 = [v30 countByEnumeratingWithState:&v38 objects:v62 count:16];
   if (v31)
   {
     v32 = v31;
-    v33 = *v40;
+    v33 = *v39;
     do
     {
       for (ii = 0; ii != v32; ++ii)
       {
-        if (*v40 != v33)
+        if (*v39 != v33)
         {
           objc_enumerationMutation(v30);
         }
 
-        [(AWDWiFiNWActivityImpedingFunctions *)self addTxDutyCyclePct1:*(*(&v39 + 1) + 8 * ii)];
+        [(AWDWiFiNWActivityImpedingFunctions *)self addTxDutyCyclePct1:*(*(&v38 + 1) + 8 * ii)];
       }
 
-      v32 = [v30 countByEnumeratingWithState:&v39 objects:v63 count:16];
+      v32 = [v30 countByEnumeratingWithState:&v38 objects:v62 count:16];
     }
 
     while (v32);
@@ -3879,8 +3844,6 @@ LABEL_69:
   {
     [(AWDWiFiNWActivityImpedingFunctions *)self setSdbtdm:?];
   }
-
-  v38 = *MEMORY[0x29EDCA608];
 }
 
 @end

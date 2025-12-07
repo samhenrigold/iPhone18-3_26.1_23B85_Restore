@@ -31,23 +31,23 @@
 
 - (int64_t)hash
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC7remindd21RDPredefinedObjectKey_accountID);
   selfCopy = self;
+  v3 = NSObject.hashValue.getter();
   v4 = NSObject.hashValue.getter();
-  v5 = *(&selfCopy->super.isa + OBJC_IVAR____TtC7remindd21RDPredefinedObjectKey_objectID);
-  v6 = NSObject.hashValue.getter();
 
-  return v6 ^ v4;
+  return v4 ^ v3;
 }
 
 - (NSString)description
 {
   selfCopy = self;
   sub_100743B88();
+  v4 = v3;
 
-  v3 = String._bridgeToObjectiveC()();
+  v5 = String._bridgeToObjectiveC()();
+  v4, v6, v7, v8, v9, v10, v11, v12;
 
-  return v3;
+  return v5;
 }
 
 - (_TtC7remindd21RDPredefinedObjectKey)init

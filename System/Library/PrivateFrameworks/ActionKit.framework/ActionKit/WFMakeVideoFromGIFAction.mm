@@ -75,7 +75,7 @@ void __55__WFMakeVideoFromGIFAction_runAsynchronouslyWithInput___block_invoke_3(
 
 void __55__WFMakeVideoFromGIFAction_runAsynchronouslyWithInput___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -99,11 +99,11 @@ void __55__WFMakeVideoFromGIFAction_runAsynchronouslyWithInput___block_invoke_2(
         v13 = MEMORY[0x277CCA9B8];
         v14 = *MEMORY[0x277D7CB30];
         v15 = *MEMORY[0x277CCA450];
-        v19[0] = *MEMORY[0x277CCA470];
-        v19[1] = v15;
-        v20[0] = v11;
-        v20[1] = v12;
-        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+        v18[0] = *MEMORY[0x277CCA470];
+        v18[1] = v15;
+        v19[0] = v11;
+        v19[1] = v12;
+        v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
         v17 = [v13 errorWithDomain:v14 code:6 userInfo:v16];
 
         v7 = v17;
@@ -118,8 +118,6 @@ void __55__WFMakeVideoFromGIFAction_runAsynchronouslyWithInput___block_invoke_2(
   }
 
   v8();
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

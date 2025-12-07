@@ -25,21 +25,20 @@
 
 - (MusicKit_SoftLinking_MPModelLibraryAddToPlaylistChangeRequest)initWithPlaylist:(id)playlist itemToAdd:(id)add representativeObject:(id)object referralObject:(id)referralObject
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   referralObjectCopy = referralObject;
   objectCopy = object;
   playlistCopy = playlist;
   _underlyingModelObject = [add _underlyingModelObject];
   _underlyingModelObject2 = [playlistCopy _underlyingModelObject];
 
-  v21[0] = _underlyingModelObject;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+  v20[0] = _underlyingModelObject;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
   _underlyingModelObject3 = [objectCopy _underlyingModelObject];
 
   _underlyingModelObject4 = [referralObjectCopy _underlyingModelObject];
 
   v18 = [(MusicKit_SoftLinking_MPModelLibraryAddToPlaylistChangeRequest *)self _initWithPlaylist:_underlyingModelObject2 itemsToAdd:v15 representativeObject:_underlyingModelObject3 referralObject:_underlyingModelObject4];
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 

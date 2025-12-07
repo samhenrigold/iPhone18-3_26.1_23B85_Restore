@@ -79,7 +79,7 @@
   v6 = v5;
   v8 = v7;
   v10 = v9;
-  [(_SBHAddWidgetSheetGalleryWrapperView *)self bounds];
+  objc_msgSend_bounds(self);
   v12 = v6 + v11;
   v14 = v4 + v13;
   v16 = v15 - (v6 + v10);
@@ -91,7 +91,7 @@
   [(UIView *)scalingView setTransform:&v21];
   [(UIView *)self->_scalingView setFrame:v12, v14, v16, v18];
   contentView = self->_contentView;
-  [(UIView *)self->_scalingView bounds];
+  objc_msgSend_bounds(self->_scalingView);
   [(UIView *)contentView setFrame:?];
 }
 

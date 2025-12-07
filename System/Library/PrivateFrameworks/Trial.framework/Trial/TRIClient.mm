@@ -5,6 +5,9 @@
 + (id)_sysdiagnoseLogProviders;
 + (id)activeRolloutInformation:(id *)information;
 + (id)clientWithExperimentIdentifiers:(id)identifiers;
++ (id)clientWithIdentifier:(int)identifier;
++ (id)clientWithIdentifier:(int)identifier forTrialdSystem:(BOOL)system;
++ (id)clientWithProjectId:(int)id factorsState:(id)state;
 + (id)getSandboxExtensionTokensForIdentifierQueryWithError:(id *)error;
 + (id)printedNCVInformation;
 + (id)printedOnDemandReferenceCountsPerUserInformationWithError:(id *)error;
@@ -15,7 +18,9 @@
 - (BOOL)enumerateCounterfactualsWithNamespace:(id)namespace error:(id *)error usingBlock:(id)block;
 - (BOOL)hasCounterfactualsForNamespace:(id)namespace;
 - (BOOL)hasDownloadedNamespaceWithName:(id)name;
+- (BOOL)immediateDownloadForNamespaceNames:(id)names allowExpensiveNetworking:(BOOL)networking error:(id *)error;
 - (BOOL)promoteFactorsForNamespace:(id)namespace error:(id *)error;
+- (BOOL)registerNamespaceName:(id)name compatibilityVersion:(unsigned int)version defaultsFileURL:(id)l applicationGroup:(id)group cloudKitContainerId:(int)id error:(id *)error;
 - (BOOL)setFactorsProvisionalForNamespace:(id)namespace error:(id *)error;
 - (BOOL)setPurgeabilityLevelsForFactors:(id)factors withNamespaceName:(id)name;
 - (BOOL)trialIdentifiersWithNamespaceName:(id)name experimentId:(id *)id deploymentId:(int *)deploymentId treatmentId:(id *)treatmentId;
@@ -24,16 +29,22 @@
 - (TRITrackingId)trackingId;
 - (id)_rampIdForRolloutDeployment:(id)deployment;
 - (id)_refresh:(BOOL)_refresh;
+- (id)addUpdateHandlerForNamespaceId:(unsigned int)id queue:(id)queue usingBlock:(id)block;
+- (id)addUpdateHandlerForNamespaceId:(unsigned int)id usingBlock:(id)block;
 - (id)addUpdateHandlerForNamespaceName:(id)name queue:(id)queue usingBlock:(id)block;
 - (id)addUpdateHandlerForNamespaceName:(id)name usingBlock:(id)block;
+- (id)experimentIdWithNamespace:(unsigned int)namespace;
 - (id)experimentIdWithNamespaceName:(id)name;
 - (id)experimentIdentifiersWithNamespaceName:(id)name;
+- (id)factorLevelsWithNamespace:(unsigned int)namespace;
 - (id)factorLevelsWithNamespaceName:(id)name;
+- (id)levelForFactor:(id)factor withNamespace:(unsigned int)namespace;
 - (id)levelForFactor:(id)factor withNamespaceName:(id)name;
 - (id)purgeabilityLevelsForFactorsWithNamespaceName:(id)name;
 - (id)rolloutIdWithNamespaceName:(id)name;
 - (id)rolloutIdentifiersWithNamespaceName:(id)name;
 - (id)sizesForFactors:(id)factors withNamespaceName:(id)name forMetric:(unint64_t)metric error:(id *)error;
+- (id)treatmentIdWithNamespace:(unsigned int)namespace;
 - (id)treatmentIdWithNamespaceName:(id)name;
 - (int64_t)_appContainerType:(id)type;
 - (unint64_t)statusOfDownloadForFactors:(id)factors withNamespace:(id)namespace token:(id *)token queue:(id)queue progress:(id)progress completion:(id)completion;
@@ -122,7 +133,7 @@ void __29__TRIClient_isPlatformBinary__block_invoke()
 
 - (void)_checkEntitlements
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   requiresTrialDataVaultAccess = [objc_opt_class() requiresTrialDataVaultAccess];
   namespaceDescriptorsDir = [(TRIPaths *)self->_paths namespaceDescriptorsDir];
   fileSystemRepresentation = [namespaceDescriptorsDir fileSystemRepresentation];
@@ -133,13 +144,11 @@ void __29__TRIClient_isPlatformBinary__block_invoke()
     v6 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      v8 = 136315138;
-      v9 = fileSystemRepresentation;
-      _os_log_fault_impl(&dword_22EA6B000, v6, OS_LOG_TYPE_FAULT, "Cannot access %s - Please ensure you have set the entitlement <key>com.apple.trial.client</key> to the right value(s)", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = fileSystemRepresentation;
+      _os_log_fault_impl(&dword_22EA6B000, v6, OS_LOG_TYPE_FAULT, "Cannot access %s - Please ensure you have set the entitlement <key>com.apple.trial.client</key> to the right value(s)", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -174,6 +183,52 @@ void __20__TRIClient_dealloc__block_invoke(uint64_t a1, void *a2)
   return v5;
 }
 
++ (id)clientWithIdentifier:(int)identifier
+{
+  v3 = *&identifier;
+  v4 = +[TRIProcessInfo callerIsRunningFromSystemContext];
+
+  return [TRIClient clientWithIdentifier:v3 forTrialdSystem:v4];
+}
+
++ (id)clientWithIdentifier:(int)identifier forTrialdSystem:(BOOL)system
+{
+  systemCopy = system;
+  v5 = *&identifier;
+  if (system)
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"TRIClient.m" lineNumber:195 description:@"Wrong param provided to [TRIClient clientWithIdentifier:forTrialdSystem:] triald_system only exists on macOS"];
+  }
+
+  v8 = +[TRIStandardPaths sharedPaths];
+  if (systemCopy)
+  {
+    v9 = +[TRIStandardPaths sharedPathsForSystem];
+
+    v8 = v9;
+  }
+
+  v10 = [[TRIClient alloc] initWithClientIdentifier:v5 paths:v8 factorsState:0 staleFactorsUsageGracePeriod:0 logger:86400.0];
+  if (!v10)
+  {
+    currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler2 handleFailureInMethod:a2 object:self file:@"TRIClient.m" lineNumber:206 description:{@"Expression was unexpectedly nil/false: %@", @"[[TRIClient alloc] initWithClientIdentifier:projectId paths:paths factorsState:nil staleFactorsUsageGracePeriod:kTwentyFourHoursInSeconds logger:nil]"}];
+  }
+
+  return v10;
+}
+
++ (id)clientWithProjectId:(int)id factorsState:(id)state
+{
+  v4 = *&id;
+  stateCopy = state;
+  v6 = +[TRIStandardPaths sharedPaths];
+  v7 = [[TRIClient alloc] initWithClientIdentifier:v4 paths:v6 factorsState:stateCopy staleFactorsUsageGracePeriod:0 logger:86400.0];
+
+  return v7;
+}
+
 + (id)clientWithExperimentIdentifiers:(id)identifiers
 {
   asFactorsState = [identifiers asFactorsState];
@@ -184,13 +239,13 @@ void __20__TRIClient_dealloc__block_invoke(uint64_t a1, void *a2)
 
 - (TRIClient)initWithClientIdentifier:(int)identifier paths:(id)paths factorsState:(id)state staleFactorsUsageGracePeriod:(double)period logger:(id)logger
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   stateCopy = state;
   loggerCopy = logger;
-  v33.receiver = self;
-  v33.super_class = TRIClient;
-  v16 = [(TRIClient *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = TRIClient;
+  v16 = [(TRIClient *)&v32 init];
   if (!v16)
   {
     goto LABEL_6;
@@ -200,7 +255,7 @@ void __20__TRIClient_dealloc__block_invoke(uint64_t a1, void *a2)
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v35 = @"TrialXP-474.2";
+    v34 = @"TrialXP-474.2";
     _os_log_impl(&dword_22EA6B000, v17, OS_LOG_TYPE_DEFAULT, "Initializing TRIClient. Trial version: %@", buf, 0xCu);
   }
 
@@ -248,7 +303,6 @@ LABEL_6:
   v29 = 0;
 LABEL_10:
 
-  v31 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
@@ -278,7 +332,7 @@ LABEL_10:
 
 void __22__TRIClient__refresh___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   v5 = *(a1 + 32);
@@ -304,18 +358,17 @@ void __22__TRIClient__refresh___block_invoke(uint64_t a1, void *a2)
   v13 = TRILogCategory_ClientFramework();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v15 = [v4[1] uuid];
-    v16 = [v4[1] subject];
-    v17 = [v16 deviceId];
-    v18 = 138412546;
-    v19 = v15;
-    v20 = 2112;
-    v21 = v17;
-    _os_log_debug_impl(&dword_22EA6B000, v13, OS_LOG_TYPE_DEBUG, "Generated new tracking id %@ for subject with device id %@", &v18, 0x16u);
+    v14 = [v4[1] uuid];
+    v15 = [v4[1] subject];
+    v16 = [v15 deviceId];
+    v17 = 138412546;
+    v18 = v14;
+    v19 = 2112;
+    v20 = v16;
+    _os_log_debug_impl(&dword_22EA6B000, v13, OS_LOG_TYPE_DEBUG, "Generated new tracking id %@ for subject with device id %@", &v17, 0x16u);
   }
 
   objc_storeStrong((*(*(a1 + 40) + 8) + 40), v4[1]);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (TRITrackingId)trackingId
@@ -457,7 +510,7 @@ void __41__TRIClient_removeUpdateHandlerForToken___block_invoke(uint64_t a1, uin
 
 void __41__TRIClient_removeUpdateHandlerForToken___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v6 count];
@@ -470,15 +523,13 @@ void __41__TRIClient_removeUpdateHandlerForToken___block_invoke_2(uint64_t a1, v
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [*(a1 + 32) id];
-      v12 = 134218242;
-      v13 = v10;
-      v14 = 2112;
-      v15 = v5;
-      _os_log_impl(&dword_22EA6B000, v9, OS_LOG_TYPE_DEFAULT, "removed update handler %lu for namespace %@", &v12, 0x16u);
+      v11 = 134218242;
+      v12 = v10;
+      v13 = 2112;
+      v14 = v5;
+      _os_log_impl(&dword_22EA6B000, v9, OS_LOG_TYPE_DEFAULT, "removed update handler %lu for namespace %@", &v11, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupExcessiveStaleFactorsUsageTimerWithGuardedData:(id)data namespace:(id)namespace clientMethodNameForLogging:(const char *)logging callingFunctionReturnAddressForLogging:(void *)forLogging
@@ -529,7 +580,7 @@ void __142__TRIClient__setupExcessiveStaleFactorsUsageTimerWithGuardedData_names
 
 void __142__TRIClient__setupExcessiveStaleFactorsUsageTimerWithGuardedData_namespace_clientMethodNameForLogging_callingFunctionReturnAddressForLogging___block_invoke_2(void *a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (a1[5])
   {
@@ -544,20 +595,18 @@ void __142__TRIClient__setupExcessiveStaleFactorsUsageTimerWithGuardedData_names
   v5 = TRILogCategory_ClientFramework();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    v7 = a1[4];
-    v8 = a1[6];
-    v9 = 138413058;
-    v10 = v7;
-    v11 = 1024;
-    v12 = 24;
-    v13 = 2080;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v4;
-    _os_log_fault_impl(&dword_22EA6B000, v5, OS_LOG_TYPE_FAULT, "TRIClient MISUSE: Factor levels for namespace %@ have been stale for %u hours.\n    Factor levels were pinned by TRIClient method call: %s\n    Calling function: %@\nPinning stale factor levels increases disk space requirements.  Use [TRIClient addUpdateHandlerForNamespaceName:usingBlock:] to detect factor level updates and respond to them (e.g. with [TRIClient refresh]).", &v9, 0x26u);
+    v6 = a1[4];
+    v7 = a1[6];
+    v8 = 138413058;
+    v9 = v6;
+    v10 = 1024;
+    v11 = 24;
+    v12 = 2080;
+    v13 = v7;
+    v14 = 2112;
+    v15 = v4;
+    _os_log_fault_impl(&dword_22EA6B000, v5, OS_LOG_TYPE_FAULT, "TRIClient MISUSE: Factor levels for namespace %@ have been stale for %u hours.\n    Factor levels were pinned by TRIClient method call: %s\n    Calling function: %@\nPinning stale factor levels increases disk space requirements.  Use [TRIClient addUpdateHandlerForNamespaceName:usingBlock:] to detect factor level updates and respond to them (e.g. with [TRIClient refresh]).", &v8, 0x26u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerUpdateHandlerForNamespaceName:(id)name notificationCallback:(id)callback clientMethodNameForLogging:(const char *)logging callingFunctionReturnAddressForLogging:(void *)forLogging
@@ -581,7 +630,7 @@ void __142__TRIClient__setupExcessiveStaleFactorsUsageTimerWithGuardedData_names
 
 void __139__TRIClient__registerUpdateHandlerForNamespaceName_notificationCallback_clientMethodNameForLogging_callingFunctionReturnAddressForLogging___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (*(a1 + 32))
   {
@@ -591,9 +640,9 @@ void __139__TRIClient__registerUpdateHandlerForNamespaceName_notificationCallbac
       v5 = [*(a1 + 32) id];
       v6 = *(a1 + 40);
       *buf = 134218242;
-      v25 = v5;
-      v26 = 2112;
-      v27 = v6;
+      v24 = v5;
+      v25 = 2112;
+      v26 = v6;
       _os_log_impl(&dword_22EA6B000, v4, OS_LOG_TYPE_DEFAULT, "adding update handler %lu for namespace %@", buf, 0x16u);
     }
 
@@ -608,15 +657,15 @@ void __139__TRIClient__registerUpdateHandlerForNamespaceName_notificationCallbac
     v8 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v14 = [*(a1 + 32) id];
-      v15 = *(a1 + 40);
-      v16 = [v7 count];
+      v13 = [*(a1 + 32) id];
+      v14 = *(a1 + 40);
+      v15 = [v7 count];
       *buf = 134218498;
-      v25 = v14;
-      v26 = 2112;
-      v27 = v15;
-      v28 = 2048;
-      v29 = v16;
+      v24 = v13;
+      v25 = 2112;
+      v26 = v14;
+      v27 = 2048;
+      v28 = v15;
       _os_log_debug_impl(&dword_22EA6B000, v8, OS_LOG_TYPE_DEBUG, "added update handler %lu for namespace %@ — now %lu handlers for this namespace", buf, 0x20u);
     }
   }
@@ -627,37 +676,35 @@ void __139__TRIClient__registerUpdateHandlerForNamespaceName_notificationCallbac
   if (v10)
   {
     objc_initWeak(buf, *(a1 + 48));
-    v17 = MEMORY[0x277D85DD0];
-    v18 = 3221225472;
-    v19 = __139__TRIClient__registerUpdateHandlerForNamespaceName_notificationCallback_clientMethodNameForLogging_callingFunctionReturnAddressForLogging___block_invoke_231;
-    v20 = &unk_27885F1E0;
-    v21 = *(a1 + 40);
-    objc_copyWeak(&v22, buf);
-    v23 = *(a1 + 56);
-    v11 = MEMORY[0x2318F2490](&v17);
-    v12 = [TRINamespaceUpdateNotification registerUpdateForNamespaceName:*(a1 + 40) queue:*(*(a1 + 48) + 48) usingBlock:v11, v17, v18, v19, v20];
+    v16 = MEMORY[0x277D85DD0];
+    v17 = 3221225472;
+    v18 = __139__TRIClient__registerUpdateHandlerForNamespaceName_notificationCallback_clientMethodNameForLogging_callingFunctionReturnAddressForLogging___block_invoke_231;
+    v19 = &unk_27885F1E0;
+    v20 = *(a1 + 40);
+    objc_copyWeak(&v21, buf);
+    v22 = *(a1 + 56);
+    v11 = MEMORY[0x2318F2490](&v16);
+    v12 = [TRINamespaceUpdateNotification registerUpdateForNamespaceName:*(a1 + 40) queue:*(*(a1 + 48) + 48) usingBlock:v11, v16, v17, v18, v19];
     if (v12)
     {
       [v3[2] setObject:v12 forKeyedSubscript:*(a1 + 40)];
     }
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(buf);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __139__TRIClient__registerUpdateHandlerForNamespaceName_notificationCallback_clientMethodNameForLogging_callingFunctionReturnAddressForLogging___block_invoke_231(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = TRILogCategory_ClientFramework();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     *buf = 138412290;
-    v15 = v5;
+    v14 = v5;
     _os_log_impl(&dword_22EA6B000, v4, OS_LOG_TYPE_DEFAULT, "handling namespace update for %@", buf, 0xCu);
   }
 
@@ -666,23 +713,21 @@ void __139__TRIClient__registerUpdateHandlerForNamespaceName_notificationCallbac
   if (WeakRetained)
   {
     v8 = *(WeakRetained + 5);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __139__TRIClient__registerUpdateHandlerForNamespaceName_notificationCallback_clientMethodNameForLogging_callingFunctionReturnAddressForLogging___block_invoke_232;
-    v10[3] = &unk_27885F1B8;
-    v10[4] = WeakRetained;
-    v11 = *(a1 + 32);
-    v13 = *(a1 + 48);
-    v12 = v3;
-    [v8 runWithLockAcquired:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __139__TRIClient__registerUpdateHandlerForNamespaceName_notificationCallback_clientMethodNameForLogging_callingFunctionReturnAddressForLogging___block_invoke_232;
+    v9[3] = &unk_27885F1B8;
+    v9[4] = WeakRetained;
+    v10 = *(a1 + 32);
+    v12 = *(a1 + 48);
+    v11 = v3;
+    [v8 runWithLockAcquired:v9];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __139__TRIClient__registerUpdateHandlerForNamespaceName_notificationCallback_clientMethodNameForLogging_callingFunctionReturnAddressForLogging___block_invoke_232(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) _setupExcessiveStaleFactorsUsageTimerWithGuardedData:v3 namespace:*(a1 + 40) clientMethodNameForLogging:*(a1 + 56) callingFunctionReturnAddressForLogging:*(a1 + 64)];
   v4 = [v3[3] objectForKeyedSubscript:*(a1 + 40)];
@@ -690,40 +735,40 @@ void __139__TRIClient__registerUpdateHandlerForNamespaceName_notificationCallbac
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v26 = [v4 count];
+    v25 = [v4 count];
     _os_log_impl(&dword_22EA6B000, v5, OS_LOG_TYPE_DEFAULT, "dispatching updates to %lu callbacks", buf, 0xCu);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       v10 = 0;
       do
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * v10);
+        v11 = *(*(&v20 + 1) + 8 * v10);
         v12 = TRILogCategory_ClientFramework();
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           v14 = [v11 id];
           v15 = *(a1 + 40);
           *buf = 134218242;
-          v26 = v14;
-          v27 = 2112;
-          v28 = v15;
+          v25 = v14;
+          v26 = 2112;
+          v27 = v15;
           _os_log_debug_impl(&dword_22EA6B000, v12, OS_LOG_TYPE_DEBUG, "calling update handler %lu for namespace %@", buf, 0x16u);
         }
 
@@ -733,14 +778,14 @@ void __139__TRIClient__registerUpdateHandlerForNamespaceName_notificationCallbac
         block[2] = __139__TRIClient__registerUpdateHandlerForNamespaceName_notificationCallback_clientMethodNameForLogging_callingFunctionReturnAddressForLogging___block_invoke_233;
         block[3] = &unk_27885F190;
         block[4] = v11;
-        v20 = *(a1 + 48);
+        v19 = *(a1 + 48);
         dispatch_async(v13, block);
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v8);
@@ -751,11 +796,9 @@ void __139__TRIClient__registerUpdateHandlerForNamespaceName_notificationCallbac
   {
     v17 = *(a1 + 40);
     *buf = 138412290;
-    v26 = v17;
+    v25 = v17;
     _os_log_impl(&dword_22EA6B000, v16, OS_LOG_TYPE_DEFAULT, "handled namespace update for %@", buf, 0xCu);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __139__TRIClient__registerUpdateHandlerForNamespaceName_notificationCallback_clientMethodNameForLogging_callingFunctionReturnAddressForLogging___block_invoke_233(uint64_t a1)
@@ -798,7 +841,7 @@ void __139__TRIClient__registerUpdateHandlerForNamespaceName_notificationCallbac
 
 - (id)experimentIdentifiersWithNamespaceName:(id)name
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (!nameCopy)
   {
@@ -813,7 +856,7 @@ void __139__TRIClient__registerUpdateHandlerForNamespaceName_notificationCallbac
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138477827;
-    v24 = nameCopy;
+    v23 = nameCopy;
     _os_log_debug_impl(&dword_22EA6B000, v8, OS_LOG_TYPE_DEBUG, "Looking for experiment identifiers for namespace name: %{private}@", buf, 0xCu);
   }
 
@@ -825,7 +868,7 @@ void __139__TRIClient__registerUpdateHandlerForNamespaceName_notificationCallbac
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v24 = namespaceDescriptorsDir;
+        v23 = namespaceDescriptorsDir;
         _os_log_error_impl(&dword_22EA6B000, v9, OS_LOG_TYPE_ERROR, "Cannot access %@ - Please ensure you have set the entitlement \n<key>com.apple.trial.client</key> to the right value(s)", buf, 0xCu);
       }
     }
@@ -839,9 +882,9 @@ void __139__TRIClient__registerUpdateHandlerForNamespaceName_notificationCallbac
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138478083;
-      v24 = nameCopy;
-      v25 = 1024;
-      LODWORD(v26) = v10;
+      v23 = nameCopy;
+      v24 = 1024;
+      LODWORD(v25) = v10;
       _os_log_debug_impl(&dword_22EA6B000, v14, OS_LOG_TYPE_DEBUG, "Looking for experiment identifiers for namespace name: %{private}@ and namespace id: %d", buf, 0x12u);
     }
 
@@ -851,7 +894,7 @@ void __139__TRIClient__registerUpdateHandlerForNamespaceName_notificationCallbac
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v24 = v13;
+        v23 = v13;
         _os_log_error_impl(&dword_22EA6B000, v15, OS_LOG_TYPE_ERROR, "Cannot access %@ - Please ensure you have set the entitlement \n<key>com.apple.trial.client</key> to the right value(s)", buf, 0xCu);
       }
 
@@ -868,7 +911,7 @@ LABEL_22:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       *buf = 138412290;
-      v24 = namespaceDescriptorsDir;
+      v23 = namespaceDescriptorsDir;
       _os_log_fault_impl(&dword_22EA6B000, v13, OS_LOG_TYPE_FAULT, "Cannot access %@ - Please ensure you have set the entitlement \n<key>com.apple.trial.client</key> to the right value(s)", buf, 0xCu);
     }
 
@@ -891,9 +934,9 @@ LABEL_22:
     if (os_log_type_enabled(experimentId, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138478083;
-      v24 = namespaceDescriptorsDir;
-      v25 = 2113;
-      v26 = v13;
+      v23 = namespaceDescriptorsDir;
+      v24 = 2113;
+      v25 = v13;
       _os_log_debug_impl(&dword_22EA6B000, experimentId, OS_LOG_TYPE_DEBUG, "Either of ExperimentDeployment %{private}@ or Treatment %{private}@ is nil", buf, 0x16u);
     }
 
@@ -901,14 +944,13 @@ LABEL_22:
   }
 
 LABEL_30:
-  v20 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 - (id)rolloutIdentifiersWithNamespaceName:(id)name
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (!nameCopy)
   {
@@ -929,7 +971,7 @@ LABEL_30:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v27 = v7;
+        v26 = v7;
         goto LABEL_24;
       }
 
@@ -951,9 +993,9 @@ LABEL_19:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v27 = v7;
-        v28 = 2112;
-        v29 = v13;
+        v26 = v7;
+        v27 = 2112;
+        v28 = v13;
         _os_log_error_impl(&dword_22EA6B000, v22, OS_LOG_TYPE_ERROR, "Cannot access %@ or %@ - Please ensure you have set the entitlement \n<key>com.apple.trial.client</key> to the right value(s)", buf, 0x16u);
       }
 
@@ -967,7 +1009,7 @@ LABEL_19:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v27 = namespaceDescriptorsDir;
+      v26 = namespaceDescriptorsDir;
 LABEL_24:
       _os_log_error_impl(&dword_22EA6B000, v21, OS_LOG_TYPE_ERROR, "Cannot access %@ - Please ensure you have set the entitlement \n<key>com.apple.trial.client</key> to the right value(s)", buf, 0xCu);
       goto LABEL_15;
@@ -989,14 +1031,13 @@ LABEL_24:
   }
 
 LABEL_20:
-  v23 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
 - (id)_rampIdForRolloutDeployment:(id)deployment
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   paths = self->_paths;
   deploymentCopy = deployment;
   namespaceDescriptorsDir = [(TRIPaths *)paths namespaceDescriptorsDir];
@@ -1007,9 +1048,9 @@ LABEL_20:
   v9 = [v6 initWithFormat:@"v2/rolloutV2/%@/%d/%@", rolloutId, deploymentId, @"rampId"];
   v10 = [namespaceDescriptorsDir stringByAppendingPathComponent:v9];
 
-  v20 = 0;
-  v11 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v10 encoding:4 error:&v20];
-  v12 = v20;
+  v19 = 0;
+  v11 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v10 encoding:4 error:&v19];
+  v12 = v19;
   v13 = v12;
   if (v11)
   {
@@ -1031,9 +1072,9 @@ LABEL_9:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v22 = v10;
-      v23 = 2114;
-      v24 = v13;
+      v21 = v10;
+      v22 = 2114;
+      v23 = v13;
       _os_log_error_impl(&dword_22EA6B000, v17, OS_LOG_TYPE_ERROR, "Unable to read ramp ID from file at path %{public}@: %{public}@", buf, 0x16u);
     }
 
@@ -1051,7 +1092,7 @@ LABEL_9:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
-    v22 = v10;
+    v21 = v10;
     _os_log_debug_impl(&dword_22EA6B000, v17, OS_LOG_TYPE_DEBUG, "No ramp ID file found at path %{public}@", buf, 0xCu);
   }
 
@@ -1059,8 +1100,6 @@ LABEL_11:
 
   v14 = 0;
 LABEL_12:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -1189,6 +1228,120 @@ LABEL_12:
   return v8;
 }
 
+- (BOOL)registerNamespaceName:(id)name compatibilityVersion:(unsigned int)version defaultsFileURL:(id)l applicationGroup:(id)group cloudKitContainerId:(int)id error:(id *)error
+{
+  v9 = *&id;
+  v12 = *&version;
+  v36[1] = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  lCopy = l;
+  groupCopy = group;
+  [(TRIClient *)self _lazyInit];
+  if (v12)
+  {
+    if (![(TRIClient *)self hasRegisteredNamespaceWithName:nameCopy])
+    {
+      mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
+      bundleIdentifier = [mainBundle bundleIdentifier];
+
+      if (groupCopy | bundleIdentifier)
+      {
+        v24 = objc_opt_new();
+        v18 = [v24 registerNamespaceWithNamespaceName:nameCopy compatibilityVersion:v12 defaultsFileURL:lCopy applicationGroup:groupCopy cloudKitContainerId:v9 error:error];
+        if (v18)
+        {
+          if (groupCopy)
+          {
+            v25 = groupCopy;
+          }
+
+          else
+          {
+            v25 = bundleIdentifier;
+          }
+
+          if (groupCopy)
+          {
+            v26 = 3;
+          }
+
+          else
+          {
+            v26 = 2;
+          }
+
+          v27 = v25;
+          v28 = [TRIAppContainer containerWithIdentifier:v27 type:v26];
+          [(TRIDefaultFactorProvider *)self->_defaultFactorProvider setContainer:v28 forNamespaceName:nameCopy];
+          [(TRIClient *)self _invalidateFactors];
+        }
+      }
+
+      else
+      {
+        v29 = TRILogCategory_ClientFramework();
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        {
+          LOWORD(v31) = 0;
+          _os_log_error_impl(&dword_22EA6B000, v29, OS_LOG_TYPE_ERROR, "No application group provided and application bundle identifier could not be identified.", &v31, 2u);
+        }
+
+        bundleIdentifier = 0;
+        LOBYTE(v18) = 0;
+      }
+
+      goto LABEL_26;
+    }
+
+    if ([(TRIClient *)self compatibilityVersionWithNamespaceName:nameCopy]== v12)
+    {
+      bundleIdentifier = TRILogCategory_ClientFramework();
+      if (os_log_type_enabled(bundleIdentifier, OS_LOG_TYPE_DEBUG))
+      {
+        v31 = 138412290;
+        v32 = nameCopy;
+        _os_log_debug_impl(&dword_22EA6B000, bundleIdentifier, OS_LOG_TYPE_DEBUG, "Namespace %@ is already registered", &v31, 0xCu);
+      }
+
+      LOBYTE(v18) = 1;
+      goto LABEL_26;
+    }
+
+    if (error)
+    {
+      v19 = MEMORY[0x277CCA9B8];
+      v33 = *MEMORY[0x277CCA450];
+      v34 = @"Namespace is already registered with different compatibility version";
+      v20 = MEMORY[0x277CBEAC0];
+      v21 = &v34;
+      v22 = &v33;
+      goto LABEL_21;
+    }
+  }
+
+  else if (error)
+  {
+    v19 = MEMORY[0x277CCA9B8];
+    v35 = *MEMORY[0x277CCA450];
+    v36[0] = @"compatibility version must be greater than 0";
+    v20 = MEMORY[0x277CBEAC0];
+    v21 = v36;
+    v22 = &v35;
+LABEL_21:
+    bundleIdentifier = [v20 dictionaryWithObjects:v21 forKeys:v22 count:1];
+    [v19 errorWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:bundleIdentifier];
+    *error = LOBYTE(v18) = 0;
+LABEL_26:
+
+    goto LABEL_27;
+  }
+
+  LOBYTE(v18) = 0;
+LABEL_27:
+
+  return v18;
+}
+
 - (BOOL)deregisterNamespaceName:(id)name error:(id *)error
 {
   nameCopy = name;
@@ -1244,7 +1397,7 @@ LABEL_12:
 
 - (void)downloadNamespaceWithName:(id)name options:(id)options progress:(id)progress completion:(id)completion
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   optionsCopy = options;
   progressCopy = progress;
@@ -1258,7 +1411,7 @@ LABEL_12:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v48 = nameCopy;
+        v47 = nameCopy;
         _os_log_debug_impl(&dword_22EA6B000, v14, OS_LOG_TYPE_DEBUG, "namespace %@ already has downloaded treatment", buf, 0xCu);
       }
 
@@ -1270,58 +1423,58 @@ LABEL_12:
 
     else
     {
-      v42[0] = MEMORY[0x277D85DD0];
-      v42[1] = 3221225472;
-      v42[2] = __67__TRIClient_downloadNamespaceWithName_options_progress_completion___block_invoke;
-      v42[3] = &unk_27885F208;
+      v41[0] = MEMORY[0x277D85DD0];
+      v41[1] = 3221225472;
+      v41[2] = __67__TRIClient_downloadNamespaceWithName_options_progress_completion___block_invoke;
+      v41[3] = &unk_27885F208;
       v20 = nameCopy;
-      v43 = v20;
+      v42 = v20;
       v21 = completionCopy;
-      v44 = v21;
-      v32 = MEMORY[0x2318F2490](v42);
+      v43 = v21;
+      v31 = MEMORY[0x2318F2490](v41);
       v22 = [(TRIClient *)self addUpdateHandlerForNamespaceName:v20 usingBlock:?];
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __67__TRIClient_downloadNamespaceWithName_options_progress_completion___block_invoke_264;
-      v36[3] = &unk_27885F230;
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __67__TRIClient_downloadNamespaceWithName_options_progress_completion___block_invoke_264;
+      v35[3] = &unk_27885F230;
       v23 = v20;
-      v37 = v23;
-      v40 = progressCopy;
+      v36 = v23;
+      v39 = progressCopy;
       v24 = v21;
-      v41 = v24;
+      v40 = v24;
       selfCopy = self;
-      v34 = v22;
-      v39 = v34;
-      v31 = MEMORY[0x2318F2490](v36);
-      v33 = [TRIDownloadNotification registerDownloadNotificationForKey:v23 queue:0 usingBlock:?];
+      v33 = v22;
+      v38 = v33;
+      v30 = MEMORY[0x2318F2490](v35);
+      v32 = [TRIDownloadNotification registerDownloadNotificationForKey:v23 queue:0 usingBlock:?];
       v25 = TRILogCategory_ClientFramework();
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v48 = v23;
+        v47 = v23;
         _os_log_debug_impl(&dword_22EA6B000, v25, OS_LOG_TYPE_DEBUG, "requesting treatment download for namespace %@", buf, 0xCu);
       }
 
       v26 = objc_opt_new();
-      v35 = 0;
-      v27 = [v26 startNamespaceDownloadWithName:v23 options:optionsCopy error:&v35];
-      v28 = v35;
+      v34 = 0;
+      v27 = [v26 startNamespaceDownloadWithName:v23 options:optionsCopy error:&v34];
+      v28 = v34;
       if ((v27 & 1) == 0)
       {
         v29 = TRILogCategory_ClientFramework();
         if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v48 = v23;
+          v47 = v23;
           _os_log_debug_impl(&dword_22EA6B000, v29, OS_LOG_TYPE_DEBUG, "failed to request treatment download for namespace %@", buf, 0xCu);
         }
 
-        if (v33)
+        if (v32)
         {
           [TRIDownloadNotification deregisterNotificationWithToken:?];
         }
 
-        [(TRIClient *)self removeUpdateHandlerForToken:v34];
+        [(TRIClient *)self removeUpdateHandlerForToken:v33];
         if (v24)
         {
           (v24)[2](v24, 0, v28);
@@ -1336,49 +1489,46 @@ LABEL_12:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v48 = nameCopy;
+      v47 = nameCopy;
       _os_log_debug_impl(&dword_22EA6B000, v15, OS_LOG_TYPE_DEBUG, "cannot download treatment because namespace %@ is not registered", buf, 0xCu);
     }
 
     if (completionCopy)
     {
       v16 = MEMORY[0x277CCA9B8];
-      v45 = *MEMORY[0x277CCA450];
+      v44 = *MEMORY[0x277CCA450];
       nameCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"namespace is not registered: %@", nameCopy];
-      v46 = nameCopy;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+      v45 = nameCopy;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
       v19 = [v16 errorWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v18];
 
       (completionCopy)[2](completionCopy, 0, v19);
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __67__TRIClient_downloadNamespaceWithName_options_progress_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = TRILogCategory_ClientFramework();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 32);
-    v8 = 138412290;
-    v9 = v7;
-    _os_log_debug_impl(&dword_22EA6B000, v4, OS_LOG_TYPE_DEBUG, "received downloaded treatment activated notification for namespace %@", &v8, 0xCu);
+    v6 = *(a1 + 32);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_debug_impl(&dword_22EA6B000, v4, OS_LOG_TYPE_DEBUG, "received downloaded treatment activated notification for namespace %@", &v7, 0xCu);
   }
 
   (*(*(a1 + 40) + 16))();
   v5 = [v3 token];
 
   [TRINamespaceUpdateNotification deregisterUpdateWithToken:v5];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __67__TRIClient_downloadNamespaceWithName_options_progress_completion___block_invoke_264(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [v6 type];
@@ -1391,10 +1541,10 @@ void __67__TRIClient_downloadNamespaceWithName_options_progress_completion___blo
         v8 = TRILogCategory_ClientFramework();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
-          v18 = *(a1 + 32);
-          v21 = 138412290;
-          *v22 = v18;
-          _os_log_debug_impl(&dword_22EA6B000, v8, OS_LOG_TYPE_DEBUG, "received download completed notification for namespace %@", &v21, 0xCu);
+          v17 = *(a1 + 32);
+          v20 = 138412290;
+          *v21 = v17;
+          _os_log_debug_impl(&dword_22EA6B000, v8, OS_LOG_TYPE_DEBUG, "received download completed notification for namespace %@", &v20, 0xCu);
         }
 
         v9 = *(a1 + 56);
@@ -1423,13 +1573,13 @@ LABEL_11:
     v10 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v16 = [v6 progress];
-      v17 = *(a1 + 32);
-      v21 = 67109378;
-      *v22 = v16;
-      *&v22[4] = 2112;
-      *&v22[6] = v17;
-      _os_log_debug_impl(&dword_22EA6B000, v10, OS_LOG_TYPE_DEBUG, "received download progress %u for namespace %@", &v21, 0x12u);
+      v15 = [v6 progress];
+      v16 = *(a1 + 32);
+      v20 = 67109378;
+      *v21 = v15;
+      *&v21[4] = 2112;
+      *&v21[6] = v16;
+      _os_log_debug_impl(&dword_22EA6B000, v10, OS_LOG_TYPE_DEBUG, "received download progress %u for namespace %@", &v20, 0x12u);
     }
 
     v11 = *(a1 + 56);
@@ -1444,13 +1594,13 @@ LABEL_11:
   v12 = TRILogCategory_ClientFramework();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v19 = *(a1 + 32);
-    v20 = [v6 error];
-    v21 = 138412546;
-    *v22 = v19;
-    *&v22[8] = 2112;
-    *&v22[10] = v20;
-    _os_log_debug_impl(&dword_22EA6B000, v12, OS_LOG_TYPE_DEBUG, "received download failed notification for namespace %@, error: %@", &v21, 0x16u);
+    v18 = *(a1 + 32);
+    v19 = [v6 error];
+    v20 = 138412546;
+    *v21 = v18;
+    *&v21[8] = 2112;
+    *&v21[10] = v19;
+    _os_log_debug_impl(&dword_22EA6B000, v12, OS_LOG_TYPE_DEBUG, "received download failed notification for namespace %@, error: %@", &v20, 0x16u);
   }
 
   v13 = *(a1 + 64);
@@ -1463,13 +1613,11 @@ LABEL_11:
   [TRIDownloadNotification deregisterNotificationWithToken:v5];
   [*(a1 + 40) removeUpdateHandlerForToken:*(a1 + 48)];
 LABEL_20:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)sizesForFactors:(id)factors withNamespaceName:(id)name forMetric:(unint64_t)metric error:(id *)error
 {
-  v96[1] = *MEMORY[0x277D85DE8];
+  v95[1] = *MEMORY[0x277D85DE8];
   factorsCopy = factors;
   nameCopy = name;
   v13 = nameCopy;
@@ -1506,7 +1654,7 @@ LABEL_3:
   block[1] = 3221225472;
   block[2] = __63__TRIClient_sizesForFactors_withNamespaceName_forMetric_error___block_invoke_2;
   block[3] = &unk_27885F278;
-  v77 = &__block_literal_global_272;
+  v76 = &__block_literal_global_272;
   if (qword_280ACAE90 != -1)
   {
     dispatch_once(&qword_280ACAE90, block);
@@ -1517,9 +1665,9 @@ LABEL_3:
   if ((v14 & 1) == 0 && (v15 & 1) == 0)
   {
     v43 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v95 = *MEMORY[0x277CCA450];
-    v96[0] = @"Process is not entitled for on-demand factor download, please see logs for details.";
-    v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v96 forKeys:&v95 count:1];
+    v94 = *MEMORY[0x277CCA450];
+    v95[0] = @"Process is not entitled for on-demand factor download, please see logs for details.";
+    v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v95 forKeys:&v94 count:1];
     v45 = [v43 initWithDomain:@"TRIGeneralErrorDomain" code:3 userInfo:v44];
 
     if (error)
@@ -1532,41 +1680,41 @@ LABEL_3:
     goto LABEL_52;
   }
 
-  v74 = 0;
-  v75 = 0;
   v73 = 0;
+  v74 = 0;
+  v72 = 0;
   [(TRIClient *)self _lazyInit];
-  if (![TRIFactorDownloadValidator validateDownloadForFactors:factorsCopy withNamespace:v13 paths:self->_paths container:0 factorsState:self->_factorsState assetIndexesByTreatment:&v74 experimentIds:0 assetIdsByFactorPack:&v73 rolloutFactorNames:0 rolloutDeployments:0 error:&v75])
+  if (![TRIFactorDownloadValidator validateDownloadForFactors:factorsCopy withNamespace:v13 paths:self->_paths container:0 factorsState:self->_factorsState assetIndexesByTreatment:&v73 experimentIds:0 assetIdsByFactorPack:&v72 rolloutFactorNames:0 rolloutDeployments:0 error:&v74])
   {
     v41 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v41, OS_LOG_TYPE_INFO))
     {
       *buf = 138412802;
-      v90 = factorsCopy;
-      v91 = 2112;
-      v92 = v13;
-      v93 = 2112;
-      v94 = v75;
+      v89 = factorsCopy;
+      v90 = 2112;
+      v91 = v13;
+      v92 = 2112;
+      v93 = v74;
       _os_log_impl(&dword_22EA6B000, v41, OS_LOG_TYPE_INFO, "Download not allowed for factors:%@, namespace:%@. Error: %@", buf, 0x20u);
     }
 
     v42 = 0;
     if (error)
     {
-      *error = v75;
+      *error = v74;
     }
 
     goto LABEL_51;
   }
 
   v16 = objc_opt_new();
+  v68 = 0u;
   v69 = 0u;
   v70 = 0u;
   v71 = 0u;
-  v72 = 0u;
   v17 = factorsCopy;
-  v66 = [v17 countByEnumeratingWithState:&v69 objects:v88 count:16];
-  if (!v66)
+  v65 = [v17 countByEnumeratingWithState:&v68 objects:v87 count:16];
+  if (!v65)
   {
 
 LABEL_49:
@@ -1577,43 +1725,43 @@ LABEL_49:
 
   metricCopy = metric;
   v18 = 0;
-  v67 = *v70;
-  v63 = v13;
-  v64 = *MEMORY[0x277CCA450];
+  v66 = *v69;
+  v62 = v13;
+  v63 = *MEMORY[0x277CCA450];
   selfCopy = self;
   errorCopy = error;
-  v59 = factorsCopy;
-  v61 = v16;
+  v58 = factorsCopy;
+  v60 = v16;
   obj = v17;
   do
   {
-    v68 = v18;
+    v67 = v18;
     v19 = 0;
     do
     {
-      if (*v70 != v67)
+      if (*v69 != v66)
       {
         objc_enumerationMutation(obj);
       }
 
-      v20 = *(*(&v69 + 1) + 8 * v19);
+      v20 = *(*(&v68 + 1) + 8 * v19);
       v21 = objc_autoreleasePoolPush();
       if (![(TRIClient *)self hasDownloadedNamespaceWithName:v13])
       {
         v47 = MEMORY[0x277CCA9B8];
-        v86 = v64;
+        v85 = v63;
         v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"No active rollout or experiment found for factor %@", v20];
-        v87 = v22;
-        v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
+        v86 = v22;
+        v48 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
         v49 = [v47 errorWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v48];
-        v50 = v68;
+        v50 = v67;
 LABEL_44:
 
         objc_autoreleasePoolPop(v21);
         v18 = v49;
         v40 = errorCopy;
-        factorsCopy = v59;
-        v16 = v61;
+        factorsCopy = v58;
+        v16 = v60;
         v38 = obj;
         goto LABEL_46;
       }
@@ -1623,10 +1771,10 @@ LABEL_44:
       if (!v23)
       {
         v51 = MEMORY[0x277CCA9B8];
-        v84 = v64;
+        v83 = v63;
         v50 = [MEMORY[0x277CCACA8] stringWithFormat:@"No level found for factor %@", v20];
-        v85 = v50;
-        v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v85 forKeys:&v84 count:1];
+        v84 = v50;
+        v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
         v49 = [v51 errorWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v52];
 
         v48 = 0;
@@ -1639,30 +1787,30 @@ LABEL_44:
       if (!v25)
       {
         v29 = MEMORY[0x277CCA9B8];
-        v82 = v64;
+        v81 = v63;
         asset = [MEMORY[0x277CCACA8] stringWithFormat:@"Factor %@ is not file / directory typed", v20];
-        v83 = asset;
+        v82 = asset;
         v30 = MEMORY[0x277CBEAC0];
-        v31 = &v83;
-        v32 = &v82;
+        v31 = &v82;
+        v32 = &v81;
 LABEL_24:
         v33 = [v30 dictionaryWithObjects:v31 forKeys:v32 count:1];
         v34 = [v29 errorWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v33];
 
         v28 = 0;
-        v68 = v34;
+        v67 = v34;
         goto LABEL_25;
       }
 
       if (([v25 hasAsset] & 1) == 0)
       {
         v29 = MEMORY[0x277CCA9B8];
-        v80 = v64;
+        v79 = v63;
         asset = [MEMORY[0x277CCACA8] stringWithFormat:@"No asset metadata found for factor %@", v20];
-        v81 = asset;
+        v80 = asset;
         v30 = MEMORY[0x277CBEAC0];
-        v31 = &v81;
-        v32 = &v80;
+        v31 = &v80;
+        v32 = &v79;
         goto LABEL_24;
       }
 
@@ -1676,36 +1824,36 @@ LABEL_24:
         }
 
         v33 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(asset, "size")}];
-        [v61 setObject:v33 forKeyedSubscript:v20];
+        [v60 setObject:v33 forKeyedSubscript:v20];
         v28 = 1;
       }
 
       else
       {
         v35 = MEMORY[0x277CCA9B8];
-        v78 = v64;
+        v77 = v63;
         v33 = [MEMORY[0x277CCACA8] stringWithFormat:@"No size found for asset of factor %@", v20];
-        v79 = v33;
-        v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
+        v78 = v33;
+        v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
         v37 = [v35 errorWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v36];
 
         v28 = 0;
-        v68 = v37;
+        v67 = v37;
       }
 
 LABEL_25:
 
-      v13 = v63;
+      v13 = v62;
 LABEL_26:
 
       objc_autoreleasePoolPop(v21);
       if (!v28)
       {
         v40 = errorCopy;
-        factorsCopy = v59;
-        v16 = v61;
+        factorsCopy = v58;
+        v16 = v60;
         v38 = obj;
-        v18 = v68;
+        v18 = v67;
         goto LABEL_46;
       }
 
@@ -1713,14 +1861,14 @@ LABEL_26:
       self = selfCopy;
     }
 
-    while (v66 != v19);
+    while (v65 != v19);
     v38 = obj;
-    v39 = [obj countByEnumeratingWithState:&v69 objects:v88 count:16];
+    v39 = [obj countByEnumeratingWithState:&v68 objects:v87 count:16];
     v40 = errorCopy;
-    factorsCopy = v59;
-    v16 = v61;
-    v18 = v68;
-    v66 = v39;
+    factorsCopy = v58;
+    v16 = v60;
+    v18 = v67;
+    v65 = v39;
   }
 
   while (v39);
@@ -1748,14 +1896,12 @@ LABEL_50:
 LABEL_51:
 LABEL_52:
 
-  v54 = *MEMORY[0x277D85DE8];
-
   return v42;
 }
 
 uint64_t __63__TRIClient_sizesForFactors_withNamespaceName_forMetric_error___block_invoke()
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v0 = [TRIEntitlement objectForCurrentProcessEntitlement:@"com.apple.trial.client"];
   if (!v0)
   {
@@ -1763,7 +1909,7 @@ uint64_t __63__TRIClient_sizesForFactors_withNamespaceName_forMetric_error___blo
     if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v19 = @"com.apple.trial.client";
+      v17 = @"com.apple.trial.client";
       _os_log_error_impl(&dword_22EA6B000, v1, OS_LOG_TYPE_ERROR, "Process is missing entitlement required for on-demand factor download: <key>%@</key><array>    <string>...</string></array>", buf, 0xCu);
     }
 
@@ -1777,44 +1923,43 @@ LABEL_15:
     v1 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
-      v10 = [MEMORY[0x277CCAC38] processInfo];
-      v11 = [v10 processName];
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
+      v8 = [MEMORY[0x277CCAC38] processInfo];
+      v9 = [v8 processName];
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
       *buf = 138412802;
-      v19 = v11;
+      v17 = v9;
+      v18 = 2112;
+      v19 = @"com.apple.trial.client";
       v20 = 2112;
-      v21 = @"com.apple.trial.client";
-      v22 = 2112;
-      v23 = v13;
+      v21 = v11;
       _os_log_error_impl(&dword_22EA6B000, v1, OS_LOG_TYPE_ERROR, "Process %@ has incorrectly-typed entitlement %@ (expected array of string, decoded %@)", buf, 0x20u);
     }
 
 LABEL_17:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_18;
   }
 
-  v16 = 0u;
-  v17 = 0u;
   v14 = 0u;
   v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v1 = v0;
-  v2 = [v1 countByEnumeratingWithState:&v14 objects:v24 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v12 objects:v22 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v15;
+    v4 = *v13;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v15 != v4)
+        if (*v13 != v4)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v14 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -1823,8 +1968,8 @@ LABEL_17:
         }
       }
 
-      v3 = [v1 countByEnumeratingWithState:&v14 objects:v24 count:16];
-      v7 = 1;
+      v3 = [v1 countByEnumeratingWithState:&v12 objects:v22 count:16];
+      v6 = 1;
       if (v3)
       {
         continue;
@@ -1836,13 +1981,12 @@ LABEL_17:
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_18:
 
-  v8 = *MEMORY[0x277D85DE8];
-  return v7;
+  return v6;
 }
 
 void __63__TRIClient_sizesForFactors_withNamespaceName_forMetric_error___block_invoke_276()
@@ -1865,7 +2009,7 @@ void __63__TRIClient_sizesForFactors_withNamespaceName_forMetric_error___block_i
 
 - (void)downloadLevelsForFactors:(id)factors withNamespace:(id)namespace queue:(id)queue options:(id)options progress:(id)progress completion:(id)completion
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   factorsCopy = factors;
   namespaceCopy = namespace;
   queueCopy = queue;
@@ -1902,11 +2046,11 @@ LABEL_3:
 
   if (dword_280ACAE74)
   {
-    v31 = 0;
-    v32 = 0;
     v30 = 0;
+    v31 = 0;
+    v29 = 0;
     [(TRIClient *)self _lazyInit];
-    if ([TRIFactorDownloadValidator validateDownloadForFactors:factorsCopy withNamespace:namespaceCopy paths:self->_paths container:0 factorsState:self->_factorsState assetIndexesByTreatment:&v31 experimentIds:0 assetIdsByFactorPack:&v30 rolloutFactorNames:0 rolloutDeployments:0 error:&v32])
+    if ([TRIFactorDownloadValidator validateDownloadForFactors:factorsCopy withNamespace:namespaceCopy paths:self->_paths container:0 factorsState:self->_factorsState assetIndexesByTreatment:&v30 experimentIds:0 assetIdsByFactorPack:&v29 rolloutFactorNames:0 rolloutDeployments:0 error:&v31])
     {
       v21 = objc_opt_new();
       [v21 downloadLevelsForFactors:factorsCopy withNamespace:namespaceCopy queue:queueCopy factorsState:self->_factorsState options:optionsCopy progress:progressCopy completion:completionCopy];
@@ -1918,17 +2062,17 @@ LABEL_3:
       if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412802;
-        v34 = factorsCopy;
-        v35 = 2112;
-        v36 = namespaceCopy;
-        v37 = 2112;
-        v38 = v32;
+        v33 = factorsCopy;
+        v34 = 2112;
+        v35 = namespaceCopy;
+        v36 = 2112;
+        v37 = v31;
         _os_log_impl(&dword_22EA6B000, v26, OS_LOG_TYPE_DEFAULT, "Download not allowed for factors:%@, namespace:%@. Error: %@", buf, 0x20u);
       }
 
       if (completionCopy)
       {
-        completionCopy[2](completionCopy, 0, v32);
+        completionCopy[2](completionCopy, 0, v31);
       }
     }
   }
@@ -1939,14 +2083,14 @@ LABEL_3:
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v34 = @"com.apple.trial.client";
+      v33 = @"com.apple.trial.client";
       _os_log_error_impl(&dword_22EA6B000, v22, OS_LOG_TYPE_ERROR, "Process is missing entitlement required for on-demand factor download: <key>%@</key><array>...</array>", buf, 0xCu);
     }
 
     v23 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v39 = *MEMORY[0x277CCA450];
-    v40[0] = @"Process is not entitled for on-demand factor download.";
-    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+    v38 = *MEMORY[0x277CCA450];
+    v39[0] = @"Process is not entitled for on-demand factor download.";
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
     v25 = [v23 initWithDomain:@"TRIGeneralErrorDomain" code:3 userInfo:v24];
 
     if (completionCopy)
@@ -1954,8 +2098,6 @@ LABEL_3:
       completionCopy[2](completionCopy, 0, v25);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __86__TRIClient_downloadLevelsForFactors_withNamespace_queue_options_progress_completion___block_invoke()
@@ -2121,7 +2263,7 @@ LABEL_4:
 
 - (BOOL)setPurgeabilityLevelsForFactors:(id)factors withNamespaceName:(id)name
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   factorsCopy = factors;
   nameCopy = name;
   v9 = nameCopy;
@@ -2151,18 +2293,18 @@ LABEL_3:
   if ([(TRIClient *)self _hasAppropriatePermissionsForNamespaceName:v9])
   {
     v10 = objc_opt_new();
-    v18 = 0;
-    v11 = [v10 setPurgeabilityLevelsForFactors:factorsCopy forNamespaceName:v9 error:&v18];
-    v12 = v18;
+    v17 = 0;
+    v11 = [v10 setPurgeabilityLevelsForFactors:factorsCopy forNamespaceName:v9 error:&v17];
+    v12 = v17;
     if ((v11 & 1) == 0)
     {
       v13 = TRILogCategory_ClientFramework();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v20 = v9;
-        v21 = 2112;
-        v22 = v12;
+        v19 = v9;
+        v20 = 2112;
+        v21 = v12;
         _os_log_error_impl(&dword_22EA6B000, v13, OS_LOG_TYPE_ERROR, "Failed to save purgeability levels for namespace %@ : %@", buf, 0x16u);
       }
     }
@@ -2173,13 +2315,12 @@ LABEL_3:
     v11 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (id)purgeabilityLevelsForFactorsWithNamespaceName:(id)name
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (!nameCopy)
   {
@@ -2191,36 +2332,34 @@ LABEL_3:
   if ([(TRIClient *)self _hasAppropriatePermissionsForNamespaceName:nameCopy])
   {
     v7 = objc_opt_new();
-    v20 = 0;
-    v8 = [v7 loadNamespaceMetadataForNamespaceName:nameCopy error:&v20];
-    v9 = v20;
+    v19 = 0;
+    v8 = [v7 loadNamespaceMetadataForNamespaceName:nameCopy error:&v19];
+    v9 = v19;
     if (!v8)
     {
       v10 = TRILogCategory_ClientFramework();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v22 = nameCopy;
-        v23 = 2112;
-        v24 = v9;
+        v21 = nameCopy;
+        v22 = 2112;
+        v23 = v9;
         _os_log_error_impl(&dword_22EA6B000, v10, OS_LOG_TYPE_ERROR, "Failed to save purgeability levels for namespace %@ : %@", buf, 0x16u);
       }
     }
 
     factorNamePurgeabilityLevels = [v8 factorNamePurgeabilityLevels];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __59__TRIClient_purgeabilityLevelsForFactorsWithNamespaceName___block_invoke;
-    v18[3] = &unk_27885F2C8;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __59__TRIClient_purgeabilityLevelsForFactorsWithNamespaceName___block_invoke;
+    v17[3] = &unk_27885F2C8;
     v12 = dictionary;
-    v19 = v12;
-    [factorNamePurgeabilityLevels enumerateKeysAndEnumsUsingBlock:v18];
+    v18 = v12;
+    [factorNamePurgeabilityLevels enumerateKeysAndEnumsUsingBlock:v17];
 
-    v13 = v19;
+    v13 = v18;
     v14 = v12;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -2328,7 +2467,7 @@ LABEL_11:
 
 - (unint64_t)statusOfDownloadForFactors:(id)factors withNamespace:(id)namespace token:(id *)token queue:(id)queue progress:(id)progress completion:(id)completion
 {
-  v71[1] = *MEMORY[0x277D85DE8];
+  v70[1] = *MEMORY[0x277D85DE8];
   factorsCopy = factors;
   namespaceCopy = namespace;
   queueCopy = queue;
@@ -2362,15 +2501,15 @@ LABEL_11:
   [currentHandler2 handleFailureInMethod:a2 object:self file:@"TRIClient.m" lineNumber:1323 description:{@"Invalid parameter not satisfying: %@", @"namespaceName"}];
 
 LABEL_5:
-  v61[0] = MEMORY[0x277D85DD0];
-  v61[1] = 3221225472;
-  v61[2] = __86__TRIClient_statusOfDownloadForFactors_withNamespace_token_queue_progress_completion___block_invoke;
-  v61[3] = &unk_27885F2F0;
+  v60[0] = MEMORY[0x277D85DD0];
+  v60[1] = 3221225472;
+  v60[2] = __86__TRIClient_statusOfDownloadForFactors_withNamespace_token_queue_progress_completion___block_invoke;
+  v60[3] = &unk_27885F2F0;
   v20 = completionCopy;
-  v63 = v20;
+  v62 = v20;
   v21 = queueCopy;
-  v62 = v21;
-  v22 = MEMORY[0x2318F2490](v61);
+  v61 = v21;
+  v22 = MEMORY[0x2318F2490](v60);
   if (qword_280ACAEA0 != -1)
   {
     dispatch_once(&qword_280ACAEA0, &__block_literal_global_316);
@@ -2378,26 +2517,26 @@ LABEL_5:
 
   if (dword_280ACAE78)
   {
-    v59 = 0;
-    v60 = 0;
     v58 = 0;
+    v59 = 0;
+    v57 = 0;
     [(TRIClient *)self _lazyInit];
-    if ([TRIFactorDownloadValidator validateDownloadForFactors:factorsCopy withNamespace:namespaceCopy paths:self->_paths container:0 factorsState:self->_factorsState assetIndexesByTreatment:&v59 experimentIds:0 assetIdsByFactorPack:&v58 rolloutFactorNames:0 rolloutDeployments:0 error:&v60])
+    if ([TRIFactorDownloadValidator validateDownloadForFactors:factorsCopy withNamespace:namespaceCopy paths:self->_paths container:0 factorsState:self->_factorsState assetIndexesByTreatment:&v58 experimentIds:0 assetIdsByFactorPack:&v57 rolloutFactorNames:0 rolloutDeployments:0 error:&v59])
     {
-      if ([v59 count] || objc_msgSend(v58, "count"))
+      if ([v58 count] || objc_msgSend(v57, "count"))
       {
-        v51[0] = MEMORY[0x277D85DD0];
-        v51[1] = 3221225472;
-        v51[2] = __86__TRIClient_statusOfDownloadForFactors_withNamespace_token_queue_progress_completion___block_invoke_320;
-        v51[3] = &unk_27885F318;
+        v50[0] = MEMORY[0x277D85DD0];
+        v50[1] = 3221225472;
+        v50[2] = __86__TRIClient_statusOfDownloadForFactors_withNamespace_token_queue_progress_completion___block_invoke_320;
+        v50[3] = &unk_27885F318;
         v23 = progressCopy;
-        v52 = progressCopy;
-        v53 = v20;
-        v24 = MEMORY[0x2318F2490](v51);
+        v51 = progressCopy;
+        v52 = v20;
+        v24 = MEMORY[0x2318F2490](v50);
         *buf = 0;
-        v50 = 0;
+        v49 = 0;
         v25 = objc_opt_new();
-        v26 = [v25 statusOfDownloadForFactors:factorsCopy withNamespace:namespaceCopy factorsState:self->_factorsState notificationKey:buf error:&v50];
+        v26 = [v25 statusOfDownloadForFactors:factorsCopy withNamespace:namespaceCopy factorsState:self->_factorsState notificationKey:buf error:&v49];
         v27 = v26;
         if ((v26 - 2) < 2)
         {
@@ -2422,7 +2561,7 @@ LABEL_5:
 
         else
         {
-          (v22)[2](v22, 0, v50);
+          (v22)[2](v22, 0, v49);
         }
 
         progressCopy = v23;
@@ -2430,35 +2569,35 @@ LABEL_5:
 
       else
       {
-        v47 = v20;
-        v48 = v21;
-        v49 = progressCopy;
-        v56 = 0u;
-        v57 = 0u;
-        v54 = 0u;
+        v46 = v20;
+        v47 = v21;
+        v48 = progressCopy;
         v55 = 0u;
-        v36 = factorsCopy;
-        v37 = [v36 countByEnumeratingWithState:&v54 objects:v64 count:16];
-        if (v37)
+        v56 = 0u;
+        v53 = 0u;
+        v54 = 0u;
+        v35 = factorsCopy;
+        v36 = [v35 countByEnumeratingWithState:&v53 objects:v63 count:16];
+        if (v36)
         {
-          v38 = v37;
-          v39 = *v55;
+          v37 = v36;
+          v38 = *v54;
           while (2)
           {
-            for (i = 0; i != v38; ++i)
+            for (i = 0; i != v37; ++i)
             {
-              if (*v55 != v39)
+              if (*v54 != v38)
               {
-                objc_enumerationMutation(v36);
+                objc_enumerationMutation(v35);
               }
 
-              v41 = [(TRIDefaultFactorProvider *)self->_defaultFactorProvider levelForFactor:*(*(&v54 + 1) + 8 * i) withNamespaceName:namespaceCopy];
-              if (v41)
+              v40 = [(TRIDefaultFactorProvider *)self->_defaultFactorProvider levelForFactor:*(*(&v53 + 1) + 8 * i) withNamespaceName:namespaceCopy];
+              if (v40)
               {
-                v42 = v41;
-                v43 = [v41 fileOrDirectoryLevelWithIsDir:0];
-                v44 = v43;
-                if (v43 && ([v43 hasAsset] & 1) == 0)
+                v41 = v40;
+                v42 = [v40 fileOrDirectoryLevelWithIsDir:0];
+                v43 = v42;
+                if (v42 && ([v42 hasAsset] & 1) == 0)
                 {
                   v22[2](v22, 0, 0);
 
@@ -2468,8 +2607,8 @@ LABEL_5:
               }
             }
 
-            v38 = [v36 countByEnumeratingWithState:&v54 objects:v64 count:16];
-            if (v38)
+            v37 = [v35 countByEnumeratingWithState:&v53 objects:v63 count:16];
+            if (v37)
             {
               continue;
             }
@@ -2481,9 +2620,9 @@ LABEL_5:
         v22[2](v22, 1, 0);
         v27 = 4;
 LABEL_42:
-        v21 = v48;
-        progressCopy = v49;
-        v20 = v47;
+        v21 = v47;
+        progressCopy = v48;
+        v20 = v46;
       }
     }
 
@@ -2494,14 +2633,14 @@ LABEL_42:
       {
         *buf = 138412802;
         *&buf[4] = factorsCopy;
-        v66 = 2112;
-        v67 = namespaceCopy;
-        v68 = 2112;
-        v69 = v60;
+        v65 = 2112;
+        v66 = namespaceCopy;
+        v67 = 2112;
+        v68 = v59;
         _os_log_impl(&dword_22EA6B000, v32, OS_LOG_TYPE_INFO, "Download not allowed for factors:%@, namespace:%@. Error: %@", buf, 0x20u);
       }
 
-      (v22)[2](v22, 0, v60);
+      (v22)[2](v22, 0, v59);
       v27 = 0;
     }
   }
@@ -2517,16 +2656,15 @@ LABEL_42:
     }
 
     v29 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v70 = *MEMORY[0x277CCA450];
-    v71[0] = @"Process is not entitled for on-demand factor status.";
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v71 forKeys:&v70 count:1];
+    v69 = *MEMORY[0x277CCA450];
+    v70[0] = @"Process is not entitled for on-demand factor status.";
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:&v69 count:1];
     v31 = [v29 initWithDomain:@"TRIGeneralErrorDomain" code:3 userInfo:v30];
 
     (v22)[2](v22, 0, v31);
     v27 = 0;
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
@@ -2658,9 +2796,159 @@ LABEL_20:
   }
 }
 
+- (id)levelForFactor:(id)factor withNamespace:(unsigned int)namespace
+{
+  v4 = *&namespace;
+  factorCopy = factor;
+  [(TRIClient *)self _lazyInit];
+  v7 = [MEMORY[0x277D73B50] namespaceNameFromId:v4];
+  v8 = [(TRIClient *)self levelForFactor:factorCopy withNamespaceName:v7];
+
+  return v8;
+}
+
+- (id)factorLevelsWithNamespace:(unsigned int)namespace
+{
+  v3 = *&namespace;
+  [(TRIClient *)self _lazyInit];
+  v5 = [MEMORY[0x277D73B50] namespaceNameFromId:v3];
+  v6 = [(TRIClient *)self factorLevelsWithNamespaceName:v5];
+
+  return v6;
+}
+
+- (id)addUpdateHandlerForNamespaceId:(unsigned int)id usingBlock:(id)block
+{
+  v4 = *&id;
+  v6 = MEMORY[0x277D73B50];
+  blockCopy = block;
+  v8 = [v6 namespaceNameFromId:v4];
+  v9 = [(TRIClient *)self addUpdateHandlerForNamespaceName:v8 queue:0 usingBlock:blockCopy];
+
+  return v9;
+}
+
+- (id)addUpdateHandlerForNamespaceId:(unsigned int)id queue:(id)queue usingBlock:(id)block
+{
+  v6 = *&id;
+  v8 = MEMORY[0x277D73B50];
+  blockCopy = block;
+  queueCopy = queue;
+  v11 = [v8 namespaceNameFromId:v6];
+  v12 = [(TRIClient *)self addUpdateHandlerForNamespaceName:v11 queue:queueCopy usingBlock:blockCopy];
+
+  return v12;
+}
+
+- (id)treatmentIdWithNamespace:(unsigned int)namespace
+{
+  v3 = *&namespace;
+  [(TRIClient *)self _lazyInit];
+  v5 = [MEMORY[0x277D73B50] namespaceNameFromId:v3];
+  v6 = [(TRIClient *)self treatmentIdWithNamespaceName:v5];
+
+  return v6;
+}
+
+- (id)experimentIdWithNamespace:(unsigned int)namespace
+{
+  v3 = *&namespace;
+  [(TRIClient *)self _lazyInit];
+  v5 = [MEMORY[0x277D73B50] namespaceNameFromId:v3];
+  v6 = [(TRIClient *)self experimentIdWithNamespaceName:v5];
+
+  return v6;
+}
+
+- (BOOL)immediateDownloadForNamespaceNames:(id)names allowExpensiveNetworking:(BOOL)networking error:(id *)error
+{
+  networkingCopy = networking;
+  v33 = *MEMORY[0x277D85DE8];
+  namesCopy = names;
+  v9 = namesCopy;
+  if (namesCopy && [namesCopy count])
+  {
+    v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v10 = v9;
+    v11 = [v10 countByEnumeratingWithState:&v25 objects:v32 count:16];
+    if (v11)
+    {
+      v12 = v11;
+      v13 = *v26;
+      while (2)
+      {
+        for (i = 0; i != v12; ++i)
+        {
+          if (*v26 != v13)
+          {
+            objc_enumerationMutation(v10);
+          }
+
+          v15 = *(*(&v25 + 1) + 8 * i);
+          v16 = objc_autoreleasePoolPush();
+          LOBYTE(v15) = [(TRIClient *)self _hasAppropriatePermissionsForNamespaceName:v15];
+          objc_autoreleasePoolPop(v16);
+          if ((v15 & 1) == 0)
+          {
+            if (error)
+            {
+              v21 = objc_alloc(MEMORY[0x277CCA9B8]);
+              v30 = *MEMORY[0x277CCA450];
+              v31 = @"Process is not entitled for immediate download.";
+              v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+              *error = [v21 initWithDomain:@"TRIGeneralErrorDomain" code:3 userInfo:v22];
+            }
+
+            v18 = 0;
+            goto LABEL_20;
+          }
+        }
+
+        v12 = [v10 countByEnumeratingWithState:&v25 objects:v32 count:16];
+        if (v12)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+    v17 = objc_opt_new();
+    v24 = 0;
+    v18 = [v17 immediateDownloadForNamespaceNames:v10 allowExpensiveNetworking:networkingCopy error:&v24];
+    v19 = v24;
+    v10 = v19;
+    if (error)
+    {
+      v20 = v19;
+      *error = v10;
+    }
+  }
+
+  else
+  {
+    v10 = TRILogCategory_ClientFramework();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&dword_22EA6B000, v10, OS_LOG_TYPE_DEFAULT, "Immediate download is not needed, namespace names are either nil or empty", buf, 2u);
+    }
+
+    v18 = 1;
+  }
+
+LABEL_20:
+
+  return v18;
+}
+
 - (BOOL)_hasAppropriatePermissionsForNamespaceName:(id)name
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277D73B50] namespaceIdFromName:name];
   treatmentsDir = [(TRIPaths *)self->_paths treatmentsDir];
   v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%u", v4];
@@ -2673,7 +2961,7 @@ LABEL_20:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = v7;
+      v13 = v7;
 LABEL_12:
       _os_log_error_impl(&dword_22EA6B000, v9, OS_LOG_TYPE_ERROR, "Cannot access %@ - Please ensure you have set the entitlement \n<key>com.apple.trial.client</key> to the right value(s)", buf, 0xCu);
     }
@@ -2691,7 +2979,7 @@ LABEL_12:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = namespaceDescriptorsDir;
+      v13 = namespaceDescriptorsDir;
       goto LABEL_12;
     }
   }
@@ -2699,7 +2987,6 @@ LABEL_12:
   v10 = 0;
 LABEL_10:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -2740,7 +3027,7 @@ LABEL_10:
 
 + (id)printedNCVInformation
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
   [v2 addObject:@"NCVs:"];
   v3 = +[TRIStandardPaths sharedPaths];
@@ -2749,26 +3036,26 @@ LABEL_10:
 
   v6 = [v5 sortedArrayUsingComparator:&__block_literal_global_346];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   obj = v6;
-  v7 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v7 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v27;
+    v9 = *v26;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * i);
+        v11 = *(*(&v25 + 1) + 8 * i);
         v12 = objc_autoreleasePoolPush();
         v13 = objc_alloc(MEMORY[0x277CCACA8]);
         namespaceName = [v11 namespaceName];
@@ -2793,13 +3080,11 @@ LABEL_10:
         objc_autoreleasePoolPop(v12);
       }
 
-      v8 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v8 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v8);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -2816,7 +3101,7 @@ uint64_t __34__TRIClient_printedNCVInformation__block_invoke(uint64_t a1, void *
 
 + (id)printedOnDemandReferenceCountsPerUserInformationWithError:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v5 = objc_opt_new();
   v6 = +[TRIStandardPaths sharedPaths];
@@ -2830,7 +3115,7 @@ uint64_t __34__TRIClient_printedNCVInformation__block_invoke(uint64_t a1, void *
     {
       localizedDescription = [*error localizedDescription];
       *buf = 138412290;
-      v19 = localizedDescription;
+      v18 = localizedDescription;
       _os_log_error_impl(&dword_22EA6B000, v9, OS_LOG_TYPE_ERROR, "Could not get the on-demand references: %@", buf, 0xCu);
     }
 
@@ -2847,17 +3132,16 @@ LABEL_5:
   }
 
   [v4 addObject:@"on-demand reference per user:"];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __71__TRIClient_printedOnDemandReferenceCountsPerUserInformationWithError___block_invoke;
-  v16[3] = &unk_27885F388;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __71__TRIClient_printedOnDemandReferenceCountsPerUserInformationWithError___block_invoke;
+  v15[3] = &unk_27885F388;
   v12 = v4;
-  v17 = v12;
-  [v8 enumerateKeysAndObjectsUsingBlock:v16];
+  v16 = v12;
+  [v8 enumerateKeysAndObjectsUsingBlock:v15];
   v11 = v12;
 
 LABEL_8:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -2915,12 +3199,12 @@ void __71__TRIClient_printedOnDemandReferenceCountsPerUserInformationWithError__
 
 + (id)_sysdiagnoseLogProviders
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   v2 = [[TRIBlockBasedSysdiagnoseInfoProvider alloc] initWithOutputFilename:@"trial-namespace-compatibility-versions.log" block:&__block_literal_global_385];
-  v22[0] = v2;
+  v21[0] = v2;
   v3 = objc_opt_new();
-  v22[1] = v3;
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v21[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
   v5 = [v4 mutableCopy];
 
   v6 = [TRIActiveExperimentsSysdiagnoseProvider alloc];
@@ -2929,55 +3213,53 @@ void __71__TRIClient_printedOnDemandReferenceCountsPerUserInformationWithError__
   v9 = [TRIActiveExperimentsSysdiagnoseProvider alloc];
   v10 = +[TRIAllocationStatus _defaultProviderImpl];
   v11 = [(TRIActiveExperimentsSysdiagnoseProvider *)v9 initWithAllocationStatusProvider:v10 outputFilename:@"trial-server-side-experiment-info.log" environments:&unk_28436FB88];
-  v21[1] = v11;
+  v20[1] = v11;
   v12 = [TRIActiveExperimentsSysdiagnoseProvider alloc];
   v13 = +[TRIAllocationStatus _defaultProviderImpl];
   v14 = [(TRIActiveExperimentsSysdiagnoseProvider *)v12 initWithAllocationStatusProvider:v13 outputFilename:@"trial-mixed-experiment-info.log" environments:&unk_28436FBA0];
-  v21[2] = v14;
+  v20[2] = v14;
   v15 = +[TRIExperimentHistorySysdiagnoseProvider defaultProvider];
-  v21[3] = v15;
+  v20[3] = v15;
   v16 = objc_opt_new();
-  v21[4] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:5];
+  v20[4] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:5];
 
   [v5 addObjectsFromArray:v17];
   v18 = [v5 copy];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
 
 + (BOOL)sysdiagnoseInfoToDir:(id)dir error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dirCopy = dir;
   _sysdiagnoseLogProviders = [self _sysdiagnoseLogProviders];
   v8 = [[TRISysdiagnoseLogWriter alloc] initWithDirectory:dirCopy];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v9 = _sysdiagnoseLogProviders;
-  v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v24;
+    v12 = *v23;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v24 != v12)
+        if (*v23 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v23 + 1) + 8 * i);
+        v14 = *(*(&v22 + 1) + 8 * i);
         v15 = objc_autoreleasePoolPush();
-        v22 = 0;
-        v16 = [(TRISysdiagnoseLogWriter *)v8 writeSysdiagnoseInfoForProvider:v14 error:&v22];
-        v17 = v22;
+        v21 = 0;
+        v16 = [(TRISysdiagnoseLogWriter *)v8 writeSysdiagnoseInfoForProvider:v14 error:&v21];
+        v17 = v21;
         objc_autoreleasePoolPop(v15);
         if (!v16)
         {
@@ -2997,7 +3279,7 @@ void __71__TRIClient_printedOnDemandReferenceCountsPerUserInformationWithError__
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v11)
       {
         continue;
@@ -3012,13 +3294,12 @@ void __71__TRIClient_printedOnDemandReferenceCountsPerUserInformationWithError__
   v18 = 1;
 LABEL_15:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 + (void)printCurrentSettings
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.triald"];
   v3 = [v2 integerForKey:@"com.apple.triald.population.override"];
   isInternalBuild = [MEMORY[0x277D42590] isInternalBuild];
@@ -3036,11 +3317,11 @@ LABEL_15:
     }
 
     v7 = [MEMORY[0x277CCABB0] numberWithInteger:v3];
-    v12 = 138412546;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&dword_22EA6B000, v5, OS_LOG_TYPE_DEFAULT, "Current population is %@ with population override: %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&dword_22EA6B000, v5, OS_LOG_TYPE_DEFAULT, "Current population is %@ with population override: %@", &v11, 0x16u);
   }
 
   v8 = +[TRICEnvironmentManager currentEnv];
@@ -3048,37 +3329,33 @@ LABEL_15:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = [TRICEnvironmentManager envToString:v8];
-    v12 = 138412290;
-    v13 = v10;
-    _os_log_impl(&dword_22EA6B000, v9, OS_LOG_TYPE_DEFAULT, "Current CloudKit environment is %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = v10;
+    _os_log_impl(&dword_22EA6B000, v9, OS_LOG_TYPE_DEFAULT, "Current CloudKit environment is %@", &v11, 0xCu);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (void)logSystemCovariates
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5 = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4 = 0;
   v2 = objc_opt_new();
-  [v2 logSystemCovariatesWithError:&v5];
-  if (v5)
+  [v2 logSystemCovariatesWithError:&v4];
+  if (v4)
   {
     v3 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v7 = v5;
+      v6 = v4;
       _os_log_impl(&dword_22EA6B000, v3, OS_LOG_TYPE_DEFAULT, "Could not log covariates -- %@", buf, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 + (id)getSandboxExtensionTokensForIdentifierQueryWithError:(id *)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (+[TRIProcessInfo hostingProcessIsCoreAnalytics])
   {
     v4 = objc_opt_new();
@@ -3091,23 +3368,21 @@ LABEL_15:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = @"Process is not allowlisted to access getSandboxExtensionTokensForIdentifierQueryWithError, please contact Trial team to request access if necessary.";
+      v13 = @"Process is not allowlisted to access getSandboxExtensionTokensForIdentifierQueryWithError, please contact Trial team to request access if necessary.";
       _os_log_error_impl(&dword_22EA6B000, v6, OS_LOG_TYPE_ERROR, "Error generating sandbox tokens: %@", buf, 0xCu);
     }
 
     if (error)
     {
       v7 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v11 = *MEMORY[0x277CCA450];
-      v12 = @"Process is not allowlisted to access getSandboxExtensionTokensForIdentifierQueryWithError, please contact Trial team to request access if necessary.";
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+      v10 = *MEMORY[0x277CCA450];
+      v11 = @"Process is not allowlisted to access getSandboxExtensionTokensForIdentifierQueryWithError, please contact Trial team to request access if necessary.";
+      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
       *error = [v7 initWithDomain:@"TRIGeneralErrorDomain" code:16 userInfo:v8];
     }
 
     v5 = objc_opt_new();
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -3122,34 +3397,34 @@ LABEL_15:
 
 - (BOOL)enumerateCounterfactualsWithNamespace:(id)namespace error:(id *)error usingBlock:(id)block
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   [(TRIDefaultFactorProvider *)self->_defaultFactorProvider counterfactualFactorsStatesForNamespace:namespace];
-  v26 = 0;
+  v25 = 0;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v8 = v25 = 0u;
-  v9 = [v8 countByEnumeratingWithState:&v22 objects:v29 count:16];
+  v8 = v24 = 0u;
+  v9 = [v8 countByEnumeratingWithState:&v21 objects:v28 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v22;
 LABEL_3:
     v12 = 0;
     while (1)
     {
-      if (*v23 != v11)
+      if (*v22 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      if (v26)
+      if (v25)
       {
         break;
       }
 
-      experimentIdentifiers = [*(*(&v22 + 1) + 8 * v12) experimentIdentifiers];
+      experimentIdentifiers = [*(*(&v21 + 1) + 8 * v12) experimentIdentifiers];
       treatmentId = [experimentIdentifiers treatmentId];
 
       if (treatmentId)
@@ -3159,7 +3434,7 @@ LABEL_3:
         deploymentId = [experimentIdentifiers deploymentId];
         treatmentId2 = [experimentIdentifiers treatmentId];
         v19 = [(TRIExperimentIdentifiers *)v15 initWithExperimentId:experimentId deploymentId:deploymentId treatmentId:treatmentId2];
-        blockCopy[2](blockCopy, v19, &v26);
+        blockCopy[2](blockCopy, v19, &v25);
       }
 
       else
@@ -3168,14 +3443,14 @@ LABEL_3:
         if (os_log_type_enabled(experimentId, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v28 = experimentIdentifiers;
+          v27 = experimentIdentifiers;
           _os_log_error_impl(&dword_22EA6B000, experimentId, OS_LOG_TYPE_ERROR, "Skipping counterfactual due to not having a treatment ID: %@", buf, 0xCu);
         }
       }
 
       if (v10 == ++v12)
       {
-        v10 = [v8 countByEnumeratingWithState:&v22 objects:v29 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v21 objects:v28 count:16];
         if (v10)
         {
           goto LABEL_3;
@@ -3186,7 +3461,6 @@ LABEL_3:
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

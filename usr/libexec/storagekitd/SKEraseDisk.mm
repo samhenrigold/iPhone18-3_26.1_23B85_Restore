@@ -8,21 +8,8 @@
 {
   disk = [(SKEraseDisk *)self disk];
 
-  if (disk)
+  if (disk || (+[SKDaemonManager sharedManager](SKDaemonManager, "sharedManager"), v6 = objc_claimAutoreleasedReturnValue(), -[SKEraseDisk diskRepresentation](self, "diskRepresentation"), v7 = objc_claimAutoreleasedReturnValue(), [v6 knownDiskForDictionary:v7], v8 = objc_claimAutoreleasedReturnValue(), -[SKEraseDisk setDisk:](self, "setDisk:", v8), v8, v7, v6, -[SKEraseDisk disk](self, "disk"), v9 = objc_claimAutoreleasedReturnValue(), v9, v9))
   {
-    goto LABEL_3;
-  }
-
-  v6 = +[SKDaemonManager sharedManager];
-  diskRepresentation = [(SKEraseDisk *)self diskRepresentation];
-  v8 = [v6 knownDiskForDictionary:diskRepresentation];
-  [(SKEraseDisk *)self setDisk:v8];
-
-  disk2 = [(SKEraseDisk *)self disk];
-
-  if (disk2)
-  {
-LABEL_3:
     v10 = [(SKEraseDisk *)self validateWithError:error];
 
     if (v10)
@@ -120,8 +107,8 @@ LABEL_14:
 
   else
   {
-    diskRepresentation2 = [(SKEraseDisk *)self diskRepresentation];
-    v31 = [SKError errorWithCode:117 userInfo:diskRepresentation2];
+    diskRepresentation = [(SKEraseDisk *)self diskRepresentation];
+    v31 = [SKError errorWithCode:117 userInfo:diskRepresentation];
     v28 = [SKError nilWithError:v31 error:error];
   }
 

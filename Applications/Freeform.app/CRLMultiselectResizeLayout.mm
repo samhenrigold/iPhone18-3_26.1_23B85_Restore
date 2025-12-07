@@ -75,7 +75,7 @@ LABEL_11:
   v19 = 0u;
   if (trackerCopy)
   {
-    [trackerCopy transformForLayout:self];
+    objc_msgSend_transformForLayout_(trackerCopy);
   }
 
   originalGeometry = [(CRLCanvasLayout *)self originalGeometry];
@@ -448,7 +448,7 @@ LABEL_19:
         v34 = pureGeometry2;
         if (pureGeometry2)
         {
-          [pureGeometry2 transform];
+          objc_msgSend_transform(pureGeometry2);
         }
 
         else

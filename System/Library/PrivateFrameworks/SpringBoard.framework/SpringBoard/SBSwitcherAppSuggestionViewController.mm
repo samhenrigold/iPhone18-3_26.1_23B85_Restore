@@ -433,7 +433,7 @@ void __83__SBSwitcherAppSuggestionViewController__setBestAppSuggestion_animation
       if (bestAppSuggestion)
       {
 LABEL_15:
-        [(SBSwitcherAppSuggestionViewController *)self _insertAndAnimateInBottomBannerForSuggestion:bestAppSuggestion completion:v11];
+        bannerView = [(SBSwitcherAppSuggestionViewController *)self _insertAndAnimateInBottomBannerForSuggestion:bestAppSuggestion completion:v11];
         goto LABEL_16;
       }
     }
@@ -454,7 +454,7 @@ LABEL_15:
         v9 = v11;
       }
 
-      [(SBSwitcherAppSuggestionViewController *)self _animateOutAndRemoveCurrentBottomBannerWithCompletion:v9];
+      bannerView = [(SBSwitcherAppSuggestionViewController *)self _animateOutAndRemoveCurrentBottomBannerWithCompletion:v9];
       if (!v8)
       {
         goto LABEL_16;
@@ -469,18 +469,18 @@ LABEL_15:
 
   else if (bannerView)
   {
-    [(SBSwitcherAppSuggestionViewController *)self _animateOutAndRemoveCurrentBottomBannerWithCompletion:?];
+    bannerView = [(SBSwitcherAppSuggestionViewController *)self _animateOutAndRemoveCurrentBottomBannerWithCompletion:?];
     goto LABEL_16;
   }
 
   if (completionCopy)
   {
-    completionCopy[2](completionCopy, 0);
+    bannerView = completionCopy[2](completionCopy, 0);
   }
 
 LABEL_16:
 
-  MEMORY[0x2821F9730]();
+  MEMORY[0x2821F9730](bannerView);
 }
 
 - (void)_insertAndAnimateInBottomBannerForSuggestion:(id)suggestion completion:(id)completion

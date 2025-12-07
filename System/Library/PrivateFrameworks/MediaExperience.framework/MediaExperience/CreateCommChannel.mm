@@ -7,38 +7,35 @@ uint64_t __routingContextResilientRemote_CreateCommChannel_block_invoke(uint64_t
 {
   v3 = *(a1 + 32);
   v4 = *(a1 + 40);
-  VTable = CMBaseObjectGetVTable();
-  v6 = *(*(VTable + 16) + 112);
-  if (!v6)
+  v5 = *(*(CMBaseObjectGetVTable() + 16) + 112);
+  if (!v5)
   {
     return 4294954514;
   }
 
-  v7 = *(VTable + 16) + 112;
-
-  return v6(a2, v3, v4);
+  return v5(a2, v3, v4);
 }
 
-uint64_t __central_CreateCommChannel_block_invoke(uint64_t a1)
+uint64_t __central_CreateCommChannel_block_invoke()
 {
-  OUTLINED_FUNCTION_1_4(a1);
-  if (v2)
+  OUTLINED_FUNCTION_1_4();
+  if (v1)
   {
-    v5 = 4294954511;
+    v4 = 4294954511;
   }
 
-  else if (*(v1 + 48) && *(*(OUTLINED_FUNCTION_6_2() + 24) + 88))
+  else if (*(v0 + 48) && *(*(OUTLINED_FUNCTION_6_2() + 24) + 88))
   {
-    v3 = OUTLINED_FUNCTION_2_3();
-    v5 = v4(v3);
+    v2 = OUTLINED_FUNCTION_2_3();
+    v4 = v3(v2);
   }
 
   else
   {
-    v5 = 4294954514;
+    v4 = 4294954514;
   }
 
-  return OUTLINED_FUNCTION_0_3(v5);
+  return OUTLINED_FUNCTION_0_3(v4);
 }
 
 void __routingContext_CreateCommChannel_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)

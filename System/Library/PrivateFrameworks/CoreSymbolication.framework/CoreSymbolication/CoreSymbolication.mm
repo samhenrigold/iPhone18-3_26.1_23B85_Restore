@@ -221,14 +221,14 @@ void coresymbolicationd_peer_event_handler(_xpc_connection_s *a1@<X0>, xpc_objec
     {
       euid = xpc_connection_get_euid(a1);
       xpc_connection_get_pid(a1);
-      XPCDictionary::XPCDictionary(&v44, object, 1);
-      XPCDictionary::create_reply(&v44, a3);
+      XPCDictionary::XPCDictionary(v44, object, 1);
+      XPCDictionary::create_reply(v44, a3);
     }
 
     else
     {
       euid = geteuid();
-      XPCDictionary::XPCDictionary(&v44, object, 1);
+      XPCDictionary::XPCDictionary(v44, object, 1);
       XPCDictionary::XPCDictionary(a3);
     }
 
@@ -239,8 +239,8 @@ void coresymbolicationd_peer_event_handler(_xpc_connection_s *a1@<X0>, xpc_objec
       {
         if (uint64 == 4)
         {
-          XPCObject::XPCObject(&v39, &v44);
-          XPCDictionary::get_object(&v39, "entry", &__p);
+          XPCObject::XPCObject(v39, v44);
+          XPCDictionary::get_object(&__p, v39, "entry");
           if (XPCObject::operator BOOL(&__p) && XPCObject::xpc_type(&__p) == &_xpc_type_array)
           {
             *&v55 = _NSConcreteStackBlock;
@@ -255,15 +255,15 @@ void coresymbolicationd_peer_event_handler(_xpc_connection_s *a1@<X0>, xpc_objec
           }
 
           XPCObject::~XPCObject(&__p);
-          v17 = &v39;
+          v17 = v39;
         }
 
         else
         {
-          XPCObject::XPCObject(&v38, &v44);
+          XPCObject::XPCObject(v38, v44);
           region = 0;
           v54 = 0;
-          XPCDictionary::get_object(&v38, "archive_shmem", &v52);
+          XPCDictionary::get_object(&v52, v38, "archive_shmem");
           if (XPCObject::raw_ptr(&v52) && XPCObject::xpc_type(&v52) == &_xpc_type_shmem && (v36 = XPCObject::raw_ptr(&v52), v19 = xpc_shmem_map(v36, &region), (v54 = v19) != 0))
           {
             v20 = region;
@@ -273,7 +273,7 @@ void coresymbolicationd_peer_event_handler(_xpc_connection_s *a1@<X0>, xpc_objec
           else
           {
             region = 0;
-            bytes = XPCDictionary::get_bytes(&v38, "archive", &v54);
+            bytes = XPCDictionary::get_bytes(v38, "archive", &v54);
             v20 = region;
             v19 = v54;
           }
@@ -284,11 +284,11 @@ void coresymbolicationd_peer_event_handler(_xpc_connection_s *a1@<X0>, xpc_objec
           {
             if (v19 >= *(bytes + 1))
             {
-              XPCDictionary::get_object(&v38, "entry", &v51);
+              XPCDictionary::get_object(&v51, v38, "entry");
               if (XPCObject::operator BOOL(&v51) && XPCObject::xpc_type(&v51) == &_xpc_type_array)
               {
-                XPCObject::XPCObject(&v50, &v51);
-                if (XPCArray::count(&v50) < 6)
+                XPCObject::XPCObject(v50, &v51);
+                if (XPCArray::count(v50) < 6)
                 {
                   XPCDictionary::set_uint64(a3, "write_errno", 6uLL);
                 }
@@ -308,7 +308,7 @@ void coresymbolicationd_peer_event_handler(_xpc_connection_s *a1@<X0>, xpc_objec
                   XPCObject::~XPCObject(&v58);
                 }
 
-                XPCObject::~XPCObject(&v50);
+                XPCObject::~XPCObject(v50);
               }
 
               XPCObject::~XPCObject(&v51);
@@ -322,7 +322,7 @@ void coresymbolicationd_peer_event_handler(_xpc_connection_s *a1@<X0>, xpc_objec
 
           std::unique_ptr<void,coresymbolicationd_write_mmap_archive(XPCDictionary,XPCDictionary&,unsigned int,int)::$_0>::~unique_ptr[abi:ne200100](&__p);
           XPCObject::~XPCObject(&v52);
-          v17 = &v38;
+          v17 = v38;
         }
 
         goto LABEL_88;
@@ -330,11 +330,11 @@ void coresymbolicationd_peer_event_handler(_xpc_connection_s *a1@<X0>, xpc_objec
 
       if (uint64 == 2)
       {
-        XPCObject::XPCObject(&v41, &v44);
+        XPCObject::XPCObject(v41, v44);
         __p = 0;
         v48 = 0;
         v49 = 0;
-        XPCDictionary::get_object(&v41, "filters", &v54);
+        XPCDictionary::get_object(&v54, v41, "filters");
         v24 = XPCObject::operator BOOL(&v54);
         if (v24)
         {
@@ -349,7 +349,7 @@ void coresymbolicationd_peer_event_handler(_xpc_connection_s *a1@<X0>, xpc_objec
               v28 = 1;
               do
               {
-                XPCArray::get_object(&region, v27, &v52);
+                XPCArray::get_object(&v52, &region, v27);
                 if (XPCObject::xpc_type(&v52) == &_xpc_type_array)
                 {
                   XPCObject::XPCObject(&v51, &v52);
@@ -409,17 +409,17 @@ void coresymbolicationd_peer_event_handler(_xpc_connection_s *a1@<X0>, xpc_objec
           operator delete(__p);
         }
 
-        v17 = &v41;
+        v17 = v41;
         goto LABEL_88;
       }
 
       if (uint64 == 3)
       {
-        XPCObject::XPCObject(&v40, &v44);
+        XPCObject::XPCObject(v40, v44);
         __p = 0;
         v48 = 0;
         v49 = 0;
-        XPCDictionary::get_object(&v40, "filters", &v54);
+        XPCDictionary::get_object(&v54, v40, "filters");
         v10 = XPCObject::operator BOOL(&v54);
         if (v10)
         {
@@ -434,7 +434,7 @@ void coresymbolicationd_peer_event_handler(_xpc_connection_s *a1@<X0>, xpc_objec
               v14 = 1;
               do
               {
-                XPCArray::get_object(&region, v13, &v52);
+                XPCArray::get_object(&v52, &region, v13);
                 if (XPCObject::xpc_type(&v52) == &_xpc_type_array)
                 {
                   XPCObject::XPCObject(&v51, &v52);
@@ -467,7 +467,7 @@ void coresymbolicationd_peer_event_handler(_xpc_connection_s *a1@<X0>, xpc_objec
 
         else
         {
-          v10 = XPCDictionary::get_uint64(&v40, "should_delete_precached");
+          v10 = XPCDictionary::get_uint64(v40, "should_delete_precached");
           v16 = v10 == 1;
         }
 
@@ -506,12 +506,12 @@ void coresymbolicationd_peer_event_handler(_xpc_connection_s *a1@<X0>, xpc_objec
           operator delete(__p);
         }
 
-        v17 = &v40;
+        v17 = v40;
         goto LABEL_88;
       }
 
 LABEL_89:
-      XPCObject::~XPCObject(&v44);
+      XPCObject::~XPCObject(v44);
       return;
     }
 
@@ -519,10 +519,10 @@ LABEL_89:
     {
       if (uint64 == 8)
       {
-        XPCObject::XPCObject(&v42, &v44);
+        XPCObject::XPCObject(v42, v44);
         global_queue = dispatch_get_global_queue(0, 0);
         dispatch_async(global_queue, &__block_literal_global_53);
-        v17 = &v42;
+        v17 = v42;
       }
 
       else
@@ -532,8 +532,8 @@ LABEL_89:
           goto LABEL_89;
         }
 
-        XPCObject::XPCObject(&v37, &v44);
-        v21 = XPCDictionary::get_uint64(&v37, "free_capacity");
+        XPCObject::XPCObject(v37, v44);
+        v21 = XPCDictionary::get_uint64(v37, "free_capacity");
         *&v55 = _NSConcreteStackBlock;
         *(&v55 + 1) = 0x40000000;
         v56 = ___ZL26coresymbolicationd_compact13XPCDictionaryRS__block_invoke;
@@ -541,7 +541,7 @@ LABEL_89:
         v58 = v21;
         v59 = a3;
         _access_storage(&v55);
-        v17 = &v37;
+        v17 = v37;
       }
     }
 
@@ -558,14 +558,14 @@ LABEL_89:
         goto LABEL_89;
       }
 
-      XPCObject::XPCObject(&v43, &v44);
+      XPCObject::XPCObject(v43, v44);
       *&v55 = _NSConcreteStackBlock;
       *(&v55 + 1) = 0x40000000;
       v56 = ___ZL27coresymbolicationd_validate13XPCDictionaryRS__block_invoke;
       v57 = &__block_descriptor_tmp_50;
       v58 = a3;
       _access_storage(&v55);
-      v17 = &v43;
+      v17 = v43;
     }
 
 LABEL_88:
@@ -598,16 +598,16 @@ LABEL_88:
   XPCDictionary::XPCDictionary(a3);
 }
 
-void sub_1000018D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, void *a12, __int16 a13, char a14, char a15, int a16, __int16 a17, char a18, char a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, char a25, int a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34, uint64_t a35, void *a36, __int16 a37, char a38, char a39, int a40, __int16 a41, char a42, char a43)
+void sub_1000018D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, int a11, void *a12, __int16 a16, char a17, char a18, int a19, __int16 a20, char a21, char a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, char a28, int a29, void *a30, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *__p, uint64_t a39, uint64_t a40, void *a41, void *a43, void *a47)
 {
-  XPCObject::~XPCObject((v44 + 32));
-  XPCObject::~XPCObject(&a36);
-  XPCObject::~XPCObject(&a37);
-  std::unique_ptr<void,coresymbolicationd_write_mmap_archive(XPCDictionary,XPCDictionary&,unsigned int,int)::$_0>::~unique_ptr[abi:ne200100](&__p);
+  XPCObject::~XPCObject((v39 + 32));
   XPCObject::~XPCObject(&a41);
+  XPCObject::~XPCObject(&a43);
+  std::unique_ptr<void,coresymbolicationd_write_mmap_archive(XPCDictionary,XPCDictionary&,unsigned int,int)::$_0>::~unique_ptr[abi:ne200100](&__p);
+  XPCObject::~XPCObject(&a47);
   XPCObject::~XPCObject(&a12);
-  XPCObject::~XPCObject(v43);
-  XPCObject::~XPCObject(&a27);
+  XPCObject::~XPCObject(v38);
+  XPCObject::~XPCObject(&a30);
   _Unwind_Resume(a1);
 }
 
@@ -623,10 +623,10 @@ void XPCDictionary::XPCDictionary(XPCDictionary *this, xpc_object_t object, int 
   }
 }
 
-xpc_object_t XPCDictionary::get_object@<X0>(xpc_object_t *this@<X0>, const char *a2@<X1>, void *a3@<X8>)
+uint64_t *XPCDictionary::get_object@<X0>(uint64_t *__return_ptr a1@<X8>, xpc_object_t *this@<X0>, const char *a3@<X1>)
 {
-  result = xpc_dictionary_get_value(*this, a2);
-  *a3 = result;
+  result = xpc_dictionary_get_value(*this, a3);
+  *a1 = result;
   if (result)
   {
 
@@ -732,14 +732,14 @@ int8x16_t *MMapArchiveFileSystem::ArchiveEntry::ArchiveEntry(int8x16_t *a1, void
   return a1;
 }
 
-void sub_100001D6C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100001D6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   XPCObject::~XPCObject(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t ___ZL36coresymbolicationd_read_mmap_archive13XPCDictionaryRS_ji_block_invoke(uint64_t result, pthread_mutex_t **a2)
+uint64_t ___ZL36coresymbolicationd_read_mmap_archive13XPCDictionaryRS_ji_block_invoke(uint64_t result, MMapArchiveFileSystem **a2)
 {
   if (*a2)
   {
@@ -766,9 +766,9 @@ uint64_t ___ZL36coresymbolicationd_read_mmap_archive13XPCDictionaryRS_ji_block_i
   return result;
 }
 
-void sub_100001E40(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100001E40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   XPCObject::~XPCObject(va);
   _Unwind_Resume(a1);
 }
@@ -776,63 +776,60 @@ void sub_100001E40(_Unwind_Exception *a1, uint64_t a2, ...)
 uint64_t MMapArchiveFileSystem::match_archive(pthread_mutex_t *this, MMapArchiveFileSystem::ArchiveEntry *a2)
 {
   pthread_mutex_lock(this);
-  UUIDBytesToString<CFUUIDBytes>(a2, __s, 40);
-  std::ostringstream::basic_ostringstream[abi:ne200100](&v40);
-  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v40, "match_archive -- UUID: ", 23);
+  UUIDBytesToString<CFUUIDBytes>(a2, __s, 0x28uLL);
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v37);
+  v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v37, "match_archive -- UUID: ", 23);
   v5 = strlen(__s);
   v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, __s, v5);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, ", uid: ", 7);
-  v7 = *(a2 + 8);
+  v7 = std::ostream::operator<<();
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, ", offset: ", 10);
   v8 = std::ostream::operator<<();
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, ", offset: ", 10);
-  v9 = *(a2 + 2);
-  v10 = std::ostream::operator<<();
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, ", size: ", 8);
-  v11 = *(a2 + 9);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, ", size: ", 8);
   std::ostream::operator<<();
-  if ((v47 & 0x10) != 0)
+  if ((v44 & 0x10) != 0)
   {
-    v13 = v46;
-    if (v46 < v43)
+    v10 = v43;
+    if (v43 < v40)
     {
-      v46 = v43;
-      v13 = v43;
+      v43 = v40;
+      v10 = v40;
     }
 
-    locale = v42[4].__locale_;
+    locale = v39[4].__locale_;
     goto LABEL_8;
   }
 
-  if ((v47 & 8) != 0)
+  if ((v44 & 8) != 0)
   {
-    locale = v42[1].__locale_;
-    v13 = v42[3].__locale_;
+    locale = v39[1].__locale_;
+    v10 = v39[3].__locale_;
 LABEL_8:
-    v12 = v13 - locale;
-    if ((v13 - locale) >= 0x7FFFFFFFFFFFFFF8)
+    v9 = v10 - locale;
+    if ((v10 - locale) >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    if (v12 >= 0x17)
+    if (v9 >= 0x17)
     {
       operator new();
     }
 
-    v39 = v13 - locale;
-    if (v12)
+    v36 = v10 - locale;
+    if (v9)
     {
-      memmove(&__dst, locale, v12);
+      memmove(&__dst, locale, v9);
     }
 
     goto LABEL_14;
   }
 
-  v12 = 0;
-  v39 = 0;
+  v9 = 0;
+  v36 = 0;
 LABEL_14:
-  *(&__dst + v12) = 0;
-  if (v39 >= 0)
+  *(&__dst + v9) = 0;
+  if (v36 >= 0)
   {
     p_dst = &__dst;
   }
@@ -842,122 +839,122 @@ LABEL_14:
     p_dst = __dst;
   }
 
-  CSCppCrashReporterInfoSetter::CSCppCrashReporterInfoSetter(v37, p_dst);
+  CSCppCrashReporterInfoSetter::CSCppCrashReporterInfoSetter(v34, p_dst);
   is_null = UUID::is_null(a2);
   if (*(a2 + 8) == -1)
   {
-    v17 = 1;
+    v14 = 1;
   }
 
   else
   {
-    v17 = is_null;
+    v14 = is_null;
   }
 
-  if (v17)
+  if (v14)
   {
     goto LABEL_43;
   }
 
-  v18 = *&this[1].__opaque[16];
-  v19 = *(v18 + 12);
-  if (!v19)
+  v15 = *&this[1].__opaque[16];
+  v16 = *(v15 + 12);
+  if (!v16)
   {
     goto LABEL_43;
   }
 
-  v20 = (v18 + 24);
-  v21 = bswap64(*a2);
-  v22 = v20;
-  v23 = v19;
+  v17 = (v15 + 24);
+  v18 = bswap64(*a2);
+  v19 = v17;
+  v20 = v16;
   do
   {
-    v24 = v23 >> 1;
-    v25 = &v22[7 * (v23 >> 1)];
-    v26 = bswap64(*v25);
-    if (v26 != v21)
+    v21 = v20 >> 1;
+    v22 = &v19[7 * (v20 >> 1)];
+    v23 = bswap64(*v22);
+    if (v23 != v18)
     {
-      v27 = v21;
+      v24 = v18;
 LABEL_27:
-      if (v26 < v27)
+      if (v23 < v24)
       {
-        v28 = -1;
+        v25 = -1;
       }
 
       else
       {
-        v28 = 1;
+        v25 = 1;
       }
 
       goto LABEL_30;
     }
 
-    v26 = bswap64(v25[1]);
-    v27 = bswap64(*(a2 + 1));
-    if (v26 != v27)
+    v23 = bswap64(v22[1]);
+    v24 = bswap64(*(a2 + 1));
+    if (v23 != v24)
     {
       goto LABEL_27;
     }
 
-    v28 = 0;
+    v25 = 0;
 LABEL_30:
-    v29 = v25 + 7;
-    v23 += ~v24;
-    if (v28 < 0)
+    v26 = v22 + 7;
+    v20 += ~v21;
+    if (v25 < 0)
     {
-      v22 = v29;
+      v19 = v26;
     }
 
     else
     {
-      v23 = v24;
+      v20 = v21;
     }
   }
 
-  while (v23);
-  v30 = &v20[7 * v19];
-  while (v22 != v30)
+  while (v20);
+  v27 = &v17[7 * v16];
+  while (v19 != v27)
   {
-    if (*v22 != *a2 || v22[1] != *(a2 + 1))
+    if (*v19 != *a2 || v19[1] != *(a2 + 1))
     {
       break;
     }
 
-    if (MMapArchiveFileSystem::ArchiveEntry::matches(a2, v22))
+    if (MMapArchiveFileSystem::ArchiveEntry::matches(a2, v19))
     {
-      v34 = *v22;
-      v35 = *(v22 + 1);
-      v36 = *(v22 + 2);
-      *(a2 + 48) = *(v22 + 48);
-      *(a2 + 1) = v35;
-      *(a2 + 2) = v36;
-      *a2 = v34;
-      v32 = 1;
+      v31 = *v19;
+      v32 = *(v19 + 1);
+      v33 = *(v19 + 2);
+      *(a2 + 48) = *(v19 + 48);
+      *(a2 + 1) = v32;
+      *(a2 + 2) = v33;
+      *a2 = v31;
+      v29 = 1;
       goto LABEL_44;
     }
 
-    v22 += 7;
+    v19 += 7;
   }
 
 LABEL_43:
-  v32 = 0;
+  v29 = 0;
 LABEL_44:
-  CSCppCrashReporterInfoSetter::~CSCppCrashReporterInfoSetter(v37);
-  if (v39 < 0)
+  CSCppCrashReporterInfoSetter::~CSCppCrashReporterInfoSetter(v34);
+  if (v36 < 0)
   {
     operator delete(__dst);
   }
 
-  if (v45 < 0)
+  if (v42 < 0)
   {
     operator delete(__p);
   }
 
-  std::locale::~locale(v42);
+  std::locale::~locale(v39);
   std::ostream::~ostream();
   std::ios::~ios();
   pthread_mutex_unlock(this);
-  return v32;
+  return v29;
 }
 
 void sub_10000227C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, char a17)
@@ -987,73 +984,33 @@ uint64_t _xpc_dict_box_entry(xpc_object_t *a1, uint64_t *a2, uint64_t a3)
     v12 = &v10[v8];
     if (v12 != -1)
     {
-      if (!v12->i32[1])
+      if (!v12->i32[1] || (v13 = v12[3].i32[0], v13 != TMMapArchive::calculate_checksum(v12)) || (v14 = v12[6].u64 + 32 * v12->i32[2] + (24 * v12->i32[3]), v15 = v12[1].i32[0], v16 = v14 + (24 * v15), v17 = v12[5].u32[2], v18 = (4 * v15), v19 = v16 + (36 * v12[1].i32[1]) + (20 * v12[1].i32[2]), v20 = v19 + v18 + v17 + v12[5].u32[0], v21 = v20 + v12[5].u32[1], v22 = v12[2].u32[2], v22) && (v23 = v20 + v22) != 0 && (v23 >= v20 ? (v24 = v23 >= v21) : (v24 = 1), v24) || (v25 = v12[2].u32[3], v25) && (v26 = v20 + v25) != 0 && (v26 >= v20 ? (v27 = v26 >= v21) : (v27 = 1), v27))
       {
-        goto LABEL_18;
-      }
-
-      v13 = v12[3].i32[0];
-      if (v13 != TMMapArchive::calculate_checksum(v12))
-      {
-        goto LABEL_18;
-      }
-
-      v14 = v12[6].u64 + 32 * v12->i32[2] + (24 * v12->i32[3]);
-      v15 = v12[1].i32[0];
-      v16 = v14 + (24 * v15);
-      v17 = v12[5].u32[2];
-      v18 = (4 * v15);
-      v19 = v16 + (36 * v12[1].i32[1]) + (20 * v12[1].i32[2]);
-      v20 = v19 + v18 + v17 + v12[5].u32[0];
-      v21 = v20 + v12[5].u32[1];
-      v22 = v12[2].u32[2];
-      if (v22)
-      {
-        v23 = v20 + v22;
-        if (v23)
-        {
-          if (v23 < v20 || v23 >= v21)
-          {
-            goto LABEL_18;
-          }
-        }
-      }
-
-      v25 = v12[2].u32[3];
-      if (v25)
-      {
-        v26 = v20 + v25;
-        if (v26)
-        {
-          if (v26 < v20 || v26 >= v21)
-          {
 LABEL_18:
-            v28 = *(a3 + 16);
-            v46[0] = *a3;
-            v46[1] = v28;
-            v46[2] = *(a3 + 32);
-            v47 = *(a3 + 48);
-            v42 = 0;
-            v43 = 0;
-            v41 = 0;
-            std::vector<MMapArchiveFileSystem::ArchiveEntry>::__init_with_size[abi:ne200100]<MMapArchiveFileSystem::ArchiveEntry const*,MMapArchiveFileSystem::ArchiveEntry const*>(&v41, v46, &v48, 1uLL);
-            MMapArchiveFileSystem::delete_archives(*a2, &v41, 1, __p);
-            if (__p[0])
-            {
-              __p[1] = __p[0];
-              operator delete(__p[0]);
-            }
-
-            XPCDictionary::set_uint64(a1, "write_errno", 6uLL);
-            if (v41)
-            {
-              v42 = v41;
-              operator delete(v41);
-            }
-
-            goto LABEL_22;
-          }
+        v28 = *(a3 + 16);
+        v46[0] = *a3;
+        v46[1] = v28;
+        v46[2] = *(a3 + 32);
+        v47 = *(a3 + 48);
+        v42 = 0;
+        v43 = 0;
+        v41 = 0;
+        std::vector<MMapArchiveFileSystem::ArchiveEntry>::__init_with_size[abi:ne200100]<MMapArchiveFileSystem::ArchiveEntry const*,MMapArchiveFileSystem::ArchiveEntry const*>(&v41, v46, &v48, 1uLL);
+        MMapArchiveFileSystem::delete_archives(*a2, &v41, 1, __p);
+        if (__p[0])
+        {
+          __p[1] = __p[0];
+          operator delete(__p[0]);
         }
+
+        XPCDictionary::set_uint64(a1, "write_errno", 6uLL);
+        if (v41)
+        {
+          v42 = v41;
+          operator delete(v41);
+        }
+
+        goto LABEL_22;
       }
 
       v31 = (v19 + v17);
@@ -1112,6 +1069,13 @@ LABEL_22:
 LABEL_23:
   MMapArchiveFileSystem::MMapMemory::~MMapMemory(v44);
   return v29;
+}
+
+void sub_1000025E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, ...)
+{
+  va_start(va, a14);
+  MMapArchiveFileSystem::MMapMemory::~MMapMemory(va);
+  _Unwind_Resume(a1);
 }
 
 void MMapArchiveFileSystem::MMapMemory::~MMapMemory(MMapArchiveFileSystem::MMapMemory *this)
@@ -1243,9 +1207,9 @@ LABEL_25:
   return v11 & 1;
 }
 
-void sub_1000029C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1000029C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1522,7 +1486,7 @@ BOOL MMapArchiveFileSystem::ArchiveEntry::validate(MMapArchiveFileSystem::Archiv
   return result;
 }
 
-MMapArchiveFileSystem *std::unique_ptr<MMapArchiveFileSystem>::reset[abi:ne200100](MMapArchiveFileSystem **a1, MMapArchiveFileSystem *a2)
+MMapArchiveFileSystem::MMapMemory **std::unique_ptr<MMapArchiveFileSystem>::reset[abi:ne200100](MMapArchiveFileSystem::MMapMemory ***a1, MMapArchiveFileSystem::MMapMemory **a2)
 {
   result = *a1;
   *a1 = a2;
@@ -1563,16 +1527,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13 == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, &std::ctype<char>::id);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -1901,26 +1865,25 @@ void ___ZL37coresymbolicationd_write_mmap_archive13XPCDictionaryRS_ji_block_invo
 {
   if (*a2)
   {
-    XPCObject::XPCObject(&v10, (a1 + 32));
-    MMapArchiveFileSystem::ArchiveEntry::ArchiveEntry(v13, &v10);
-    XPCObject::~XPCObject(&v10);
-    if (*(a1 + 64) || v14 == -1)
+    XPCObject::XPCObject(&v9, (a1 + 32));
+    MMapArchiveFileSystem::ArchiveEntry::ArchiveEntry(v12, &v9);
+    XPCObject::~XPCObject(&v9);
+    if (*(a1 + 64) || v13 == -1)
     {
-      v14 = *(a1 + 64);
+      v13 = *(a1 + 64);
     }
 
-    v4 = MMapArchiveFileSystem::add_archive(*a2, v13, *(a1 + 40), *(a1 + 48));
+    v4 = MMapArchiveFileSystem::add_archive(*a2, v12, *(a1 + 40), *(a1 + 48));
     if (v4 == 3)
     {
       if ((attempt_grow_storage(std::unique_ptr<MMapArchiveFileSystem> &)::growth_failed_do_not_try_again & 1) == 0)
       {
         snprintf(__str, 0x400uLL, "%s/grow.XXXXXXX", storage_dirname);
         v5 = mkstemp(__str);
-        v12 = 0;
+        v11 = 0;
         if (v5 != -1)
         {
           pthread_mutex_lock(*a2);
-          v6 = *(*(*a2 + 11) + 8);
           operator new();
         }
 
@@ -1932,27 +1895,27 @@ void ___ZL37coresymbolicationd_write_mmap_archive13XPCDictionaryRS_ji_block_invo
         }
 
         fwrite("Unable to grow coresymbolicationd storage; will not attempt again unless daemon respawns\n", 0x59uLL, 1uLL, __stderrp);
-        v7 = v12;
-        v12 = 0;
-        if (v7)
+        v6 = v11;
+        v11 = 0;
+        if (v6)
         {
-          MMapArchiveFileSystem::~MMapArchiveFileSystem(v7);
+          MMapArchiveFileSystem::~MMapArchiveFileSystem(v6);
           operator delete();
         }
       }
 
-      v4 = MMapArchiveFileSystem::add_archive(*a2, v13, *(a1 + 40), *(a1 + 48));
+      v4 = MMapArchiveFileSystem::add_archive(*a2, v12, *(a1 + 40), *(a1 + 48));
     }
 
     XPCDictionary::set_uint64(*(a1 + 56), "write_errno", v4);
     if (!v4)
     {
-      if (_xpc_dict_box_entry(*(a1 + 56), a2, v13))
+      if (_xpc_dict_box_entry(*(a1 + 56), a2, v12))
       {
-        v8 = *(a1 + 56);
-        MMapArchiveFileSystem::ArchiveEntry::encode(v13, __str);
-        v9 = XPCObject::raw_ptr(__str);
-        XPCDictionary::set_object(v8, "results", v9);
+        v7 = *(a1 + 56);
+        MMapArchiveFileSystem::ArchiveEntry::encode(__str, v12);
+        v8 = XPCObject::raw_ptr(__str);
+        XPCDictionary::set_object(v7, "results", v8);
         XPCObject::~XPCObject(__str);
       }
     }
@@ -2154,7 +2117,7 @@ LABEL_85:
               MMapArchiveFileSystem::add_archive(v48);
             }
 
-            if (!v30)
+            if ((v30 & 1) == 0)
             {
               goto LABEL_85;
             }
@@ -2585,7 +2548,7 @@ LABEL_10:
   return result;
 }
 
-void MMapArchiveFileSystem::ArchiveEntry::encode(int8x16_t *this@<X0>, void *a2@<X8>)
+void MMapArchiveFileSystem::ArchiveEntry::encode(uint64_t *__return_ptr a1@<X8>, int8x16_t *this@<X0>)
 {
   XPCArray::XPCArray(&v6);
   if (this[2].i16[6] == 3)
@@ -2609,7 +2572,7 @@ void MMapArchiveFileSystem::ArchiveEntry::encode(int8x16_t *this@<X0>, void *a2@
   XPCArray::set_uint64(&v6, 0xFFFFFFFFFFFFFFFFLL, this[2].u16[6]);
   XPCArray::set_uint64(&v6, 0xFFFFFFFFFFFFFFFFLL, this[2].u16[7]);
   XPCArray::set_uint64(&v6, 0xFFFFFFFFFFFFFFFFLL, this[3].u8[0]);
-  XPCObject::XPCObject(a2, &v6);
+  XPCObject::XPCObject(a1, &v6);
   XPCObject::~XPCObject(&v6);
 }
 
@@ -2632,7 +2595,7 @@ uint64_t std::unique_ptr<void,coresymbolicationd_write_mmap_archive(XPCDictionar
   return a1;
 }
 
-BOOL is_replacement_entry(const TMMapArchive *a1, unsigned int a2, MMapArchiveFileSystem::ArchiveEntry *a3, int a4)
+uint64_t is_replacement_entry(const TMMapArchive *a1, unsigned int a2, MMapArchiveFileSystem::ArchiveEntry *a3, int a4)
 {
   if (*(a3 + 22) != 7)
   {
@@ -2757,9 +2720,9 @@ void __main_block_invoke_5(uint64_t a1, void *a2)
   XPCObject::~XPCObject(&v5);
 }
 
-void sub_100005404(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100005404(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   XPCObject::~XPCObject(va);
   _Unwind_Resume(a1);
 }
@@ -2939,7 +2902,7 @@ void ___ZL38coresymbolicationd_match_mmap_archives13XPCDictionaryRS_j_block_invo
     {
       do
       {
-        MMapArchiveFileSystem::ArchiveEntry::encode(v4, &v9);
+        MMapArchiveFileSystem::ArchiveEntry::encode(&v9, v4);
         v6 = XPCObject::raw_ptr(&v9);
         XPCArray::append_object(&v12, v6);
         XPCObject::~XPCObject(&v9);
@@ -2963,12 +2926,12 @@ void ___ZL38coresymbolicationd_match_mmap_archives13XPCDictionaryRS_j_block_invo
   }
 }
 
-uint64_t __copy_helper_block_e8_32c79_ZTSNSt3__16vectorIN21MMapArchiveFileSystem12ArchiveEntryENS_9allocatorIS2_EEEE(uint64_t a1, uint64_t a2)
+uint64_t *__copy_helper_block_e8_32c79_ZTSNSt3__16vectorIN21MMapArchiveFileSystem12ArchiveEntryENS_9allocatorIS2_EEEE(uint64_t a1, uint64_t a2)
 {
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
-  v2 = a1 + 32;
-  *(v2 + 16) = 0;
+  v2 = (a1 + 32);
+  v2[2] = 0;
   return std::vector<MMapArchiveFileSystem::ArchiveEntry>::__init_with_size[abi:ne200100]<MMapArchiveFileSystem::ArchiveEntry*,MMapArchiveFileSystem::ArchiveEntry*>(v2, *(a2 + 32), *(a2 + 40), 0x6DB6DB6DB6DB6DB7 * ((*(a2 + 40) - *(a2 + 32)) >> 3));
 }
 
@@ -2992,7 +2955,7 @@ void std::allocator<MMapArchiveFileSystem::ArchiveEntry>::allocate_at_least[abi:
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<MMapArchiveFileSystem::ArchiveEntry>::__init_with_size[abi:ne200100]<MMapArchiveFileSystem::ArchiveEntry*,MMapArchiveFileSystem::ArchiveEntry*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<MMapArchiveFileSystem::ArchiveEntry>::__init_with_size[abi:ne200100]<MMapArchiveFileSystem::ArchiveEntry*,MMapArchiveFileSystem::ArchiveEntry*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3014,7 +2977,7 @@ void sub_100005AE0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<MMapArchiveFileSystem::ArchiveEntry>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<MMapArchiveFileSystem::ArchiveEntry>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x492492492492493)
   {
@@ -3036,7 +2999,7 @@ void ___ZL39coresymbolicationd_delete_mmap_archives13XPCDictionaryRS_j_block_inv
     {
       do
       {
-        MMapArchiveFileSystem::ArchiveEntry::encode(v4, &v9);
+        MMapArchiveFileSystem::ArchiveEntry::encode(&v9, v4);
         v6 = XPCObject::raw_ptr(&v9);
         XPCArray::append_object(&v12, v6);
         XPCObject::~XPCObject(&v9);
@@ -3060,7 +3023,7 @@ void ___ZL39coresymbolicationd_delete_mmap_archives13XPCDictionaryRS_j_block_inv
   }
 }
 
-uint64_t std::vector<MMapArchiveFileSystem::ArchiveEntry>::__init_with_size[abi:ne200100]<MMapArchiveFileSystem::ArchiveEntry const*,MMapArchiveFileSystem::ArchiveEntry const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<MMapArchiveFileSystem::ArchiveEntry>::__init_with_size[abi:ne200100]<MMapArchiveFileSystem::ArchiveEntry const*,MMapArchiveFileSystem::ArchiveEntry const*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -3086,7 +3049,7 @@ void ___ZL26coresymbolicationd_compact13XPCDictionaryRS__block_invoke(uint64_t a
 {
   if (*a2)
   {
-    MMapArchiveFileSystem::delete_old_archives(*a2, *(a1 + 32), __p);
+    MMapArchiveFileSystem::delete_old_archives(__p, *a2, *(a1 + 32));
     if (__p[0])
     {
       __p[1] = __p[0];
@@ -3235,11 +3198,10 @@ void MMapArchiveFileSystem::MMapArchiveFileSystem(MMapArchiveFileSystem *this, c
 
 uint64_t MMapArchiveFileSystem::initialize(MMapArchiveFileSystem *this, unsigned int a2)
 {
-  v3 = (56 * a2 + 16407) & 0x7FFFFFC000;
-  *(this + 9) = v3;
-  if (!ftruncate(*(this + 16), v3))
+  v2 = (56 * a2 + 16407) & 0x7FFFFFC000;
+  *(this + 9) = v2;
+  if (!ftruncate(*(this + 16), v2))
   {
-    v5 = *(this + 9);
     operator new();
   }
 
@@ -3305,7 +3267,7 @@ uint64_t MMapArchiveFileSystem::bytes_in_use(MMapArchiveFileSystem *this)
       if (!std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>(v8, &v7))
       {
         v7 = *v5;
-        std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long>(v8, &v7);
+        std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long>(v8, &v7, &v7);
         v2 += *(v5 + 20);
       }
 
@@ -3320,9 +3282,9 @@ uint64_t MMapArchiveFileSystem::bytes_in_use(MMapArchiveFileSystem *this)
   return v2;
 }
 
-void sub_1000065DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000065DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -3383,8 +3345,8 @@ uint64_t MMapArchiveFileSystem::match_archives@<X0>(uint64_t a1@<X0>, UUID **a2@
             *(v22 + 16) = v24;
             *(v22 + 32) = v25;
             *v22 = v23;
-            v17 = v22 + 56;
-            v26 = v22 - v19;
+            v17 = (v22 + 56);
+            v26 = (v22 - v19);
             memcpy((v22 - v19), v18, v19);
             v27 = *a3;
             *a3 = v26;
@@ -3405,7 +3367,7 @@ uint64_t MMapArchiveFileSystem::match_archives@<X0>(uint64_t a1@<X0>, UUID **a2@
             *(v12 + 1) = v15;
             *(v12 + 2) = v16;
             *v12 = v14;
-            v17 = (v12 + 56);
+            v17 = v12 + 56;
           }
 
           a3[1] = v17;
@@ -3437,7 +3399,7 @@ void sub_1000067B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t MMapArchiveFileSystem::_remove_entries_with_predicate@<X0>(uint64_t a1@<X0>, __int128 *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
+uint64_t MMapArchiveFileSystem::_remove_entries_with_predicate@<X0>(uint64_t a1@<X0>, char *a2@<X1>, __int128 *a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X8>)
 {
   v9 = *(*(a1 + 88) + 12);
   a5[1] = 0;
@@ -3454,9 +3416,9 @@ uint64_t MMapArchiveFileSystem::_remove_entries_with_predicate@<X0>(uint64_t a1@
     do
     {
       v27 = *(v11 + 2);
-      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long>(v24, &v27);
+      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long>(v24, &v27, &v27);
       std::vector<MMapArchiveFileSystem::ArchiveEntry>::push_back[abi:ne200100](a5, v11);
-      v11 = (v11 + 56);
+      v11 += 56;
     }
 
     while (v11 != v10);
@@ -3486,7 +3448,7 @@ uint64_t MMapArchiveFileSystem::_remove_entries_with_predicate@<X0>(uint64_t a1@
             goto LABEL_26;
           }
 
-          v27 = *(v14 + 16);
+          v27 = *(v14 + 2);
           v14 -= 56;
           v12 -= 56;
         }
@@ -3545,7 +3507,7 @@ LABEL_22:
         goto LABEL_26;
       }
 
-      v13 = (v13 + 56);
+      v13 += 56;
       v12 -= 56;
     }
 
@@ -3630,7 +3592,7 @@ uint64_t MMapArchiveFileSystem::delete_archives@<X0>(uint64_t a1@<X0>, uint64_t 
     LOBYTE(v15[0]) = a3;
     v15[1] = v14;
     memset(v15 + 1, 0, 7);
-    MMapArchiveFileSystem::_remove_entries_with_predicate(a1, (v8 + 24), v8 + 24 + 56 * v9, v14, &v12);
+    MMapArchiveFileSystem::_remove_entries_with_predicate(a1, (v8 + 24), (v8 + 24 + 56 * v9), v14, &v12);
     v10 = v13;
     *a4 = v12;
     a4[2] = v10;
@@ -3642,21 +3604,21 @@ uint64_t MMapArchiveFileSystem::delete_archives@<X0>(uint64_t a1@<X0>, uint64_t 
   return pthread_mutex_unlock(a1);
 }
 
-void sub_100006D2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_100006D2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<BOOL ()(MMapArchiveFileSystem::ArchiveEntry &)>::~__value_func[abi:ne200100](va);
-  pthread_mutex_unlock(v4);
+  pthread_mutex_unlock(v7);
   _Unwind_Resume(a1);
 }
 
-uint64_t MMapArchiveFileSystem::delete_old_archives@<X0>(pthread_mutex_t *this@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t *MMapArchiveFileSystem::delete_old_archives@<X0>(uint64_t *__return_ptr a1@<X8>, pthread_mutex_t *this@<X0>, uint64_t a3@<X1>)
 {
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   pthread_mutex_lock(this);
-  if (a2)
+  if (a3)
   {
     v6 = *&this[1].__opaque[16];
     v7 = *(v6 + 12);
@@ -3664,13 +3626,13 @@ uint64_t MMapArchiveFileSystem::delete_old_archives@<X0>(pthread_mutex_t *this@<
     {
       v12 = 0;
       v13[0] = off_10000C820;
-      v13[1] = a2;
+      v13[1] = a3;
       v13[2] = &v12;
       v13[3] = v13;
-      MMapArchiveFileSystem::_remove_entries_with_predicate(this, (v6 + 24), v6 + 24 + 56 * v7, v13, &v10);
+      MMapArchiveFileSystem::_remove_entries_with_predicate(this, (v6 + 24), (v6 + 24 + 56 * v7), v13, &v10);
       v8 = v11;
-      *a3 = v10;
-      a3[2] = v8;
+      *a1 = v10;
+      a1[2] = v8;
       v11 = 0;
       v10 = 0uLL;
       std::__function::__value_func<BOOL ()(MMapArchiveFileSystem::ArchiveEntry &)>::~__value_func[abi:ne200100](v13);
@@ -3680,15 +3642,15 @@ uint64_t MMapArchiveFileSystem::delete_old_archives@<X0>(pthread_mutex_t *this@<
   return pthread_mutex_unlock(this);
 }
 
-void sub_100006E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_100006E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<BOOL ()(MMapArchiveFileSystem::ArchiveEntry &)>::~__value_func[abi:ne200100](va);
-  pthread_mutex_unlock(v6);
+  pthread_mutex_unlock(v11);
   _Unwind_Resume(a1);
 }
 
-BOOL serialize_archive_to_disk(int32x4_t *__buf, int __fd, off_t a3)
+uint64_t serialize_archive_to_disk(int32x4_t *__buf, int __fd, off_t a3)
 {
   v3 = __buf;
   v9 = a3;
@@ -3804,9 +3766,9 @@ LABEL_11:
   return 0;
 }
 
-void sub_1000071B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1000071B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   MMapArchiveFileSystem::MMapMemory::~MMapMemory(va);
   _Unwind_Resume(a1);
 }
@@ -3855,7 +3817,7 @@ uint64_t std::ostringstream::~ostringstream(uint64_t a1, uint64_t *a2)
   return std::ostream::~ostream();
 }
 
-BOOL TMMapArchiveSerialization::_invoke_supplied_callback<serialize_archive_to_disk(TMMapArchive const*,int,long long)::$_0>(void *__buf, size_t __nbyte, int __fd, off_t *a4)
+uint64_t TMMapArchiveSerialization::_invoke_supplied_callback<serialize_archive_to_disk(TMMapArchive const*,int,long long)::$_0>(void *__buf, size_t __nbyte, int __fd, off_t *a4)
 {
   if (!__nbyte)
   {
@@ -3948,45 +3910,37 @@ void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::eq
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v3 == v8)
     {
-      v8 = result[1];
-      if (v3 == v8)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -4022,77 +3976,69 @@ void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::eq
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long>(void *a1, unint64_t *a2)
+void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long>(float *a1, unint64_t *a2, void *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = *(a1 + 2);
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v6 = *a2;
+    if (v3 >= *&v4)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -4100,47 +4046,47 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>(uint64_t a1, size_t __n)
+void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__rehash<true>(uint64_t result, size_t __n)
 {
   if (__n == 1)
   {
@@ -4156,7 +4102,7 @@ void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equ
     }
   }
 
-  v4 = *(a1 + 8);
+  v4 = *(result + 8);
   if (prime > *&v4)
   {
     goto LABEL_6;
@@ -4164,7 +4110,7 @@ void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equ
 
   if (prime < *&v4)
   {
-    v5 = vcvtps_u32_f32(*(a1 + 24) / *(a1 + 32));
+    v5 = vcvtps_u32_f32(*(result + 24) / *(result + 32));
     if (*&v4 < 3uLL || (v6 = vcnt_s8(v4), v6.i16[0] = vaddlv_u8(v6), v6.u32[0] > 1uLL))
     {
       v5 = std::__next_prime(v5);
@@ -4188,7 +4134,7 @@ void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equ
     {
 LABEL_6:
 
-      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__do_rehash<true>(a1, prime);
+      std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__do_rehash<true>(result, prime);
     }
   }
 }
@@ -4215,7 +4161,7 @@ void std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equ
   *(a1 + 8) = 0;
 }
 
-__int128 *std::__stable_partition_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::function<BOOL ()(MMapArchiveFileSystem::ArchiveEntry &)> &,MMapArchiveFileSystem::ArchiveEntry*>(__int128 *a1, uint64_t a2, uint64_t a3)
+char *std::__stable_partition_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::function<BOOL ()(MMapArchiveFileSystem::ArchiveEntry &)> &,MMapArchiveFileSystem::ArchiveEntry*>(char *a1, __int128 *a2, uint64_t a3)
 {
   v3 = a1;
   if (a1 != a2)
@@ -4235,7 +4181,7 @@ LABEL_23:
         break;
       }
 
-      v3 = (v3 + 56);
+      v3 += 56;
       if (v3 == v5)
       {
         return v3;
@@ -4244,7 +4190,7 @@ LABEL_23:
 
     while (1)
     {
-      v5 -= 56;
+      v5 = (v5 - 56);
       if (v3 == v5)
       {
         break;
@@ -4325,7 +4271,7 @@ void sub_100007C28(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-__int128 *std::__stable_partition_impl<std::_ClassicAlgPolicy,std::function<BOOL ()(MMapArchiveFileSystem::ArchiveEntry &)> &,MMapArchiveFileSystem::ArchiveEntry*,long,std::pair<MMapArchiveFileSystem::ArchiveEntry*,long>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __int128 *a5, uint64_t a6)
+char *std::__stable_partition_impl<std::_ClassicAlgPolicy,std::function<BOOL ()(MMapArchiveFileSystem::ArchiveEntry &)> &,MMapArchiveFileSystem::ArchiveEntry*,long,std::pair<MMapArchiveFileSystem::ArchiveEntry*,long>>(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4, __int128 *a5, uint64_t a6)
 {
   v7 = a2;
   v8 = a1;
@@ -4405,8 +4351,8 @@ __int128 *std::__stable_partition_impl<std::_ClassicAlgPolicy,std::function<BOOL
     v10 = *(a1 + 32);
     v12 = *a1;
     v13 = *(a1 + 48);
-    v15 = *(a2 + 16);
-    v14 = *(a2 + 32);
+    v15 = a2[1];
+    v14 = a2[2];
     v16 = *a2;
     *(a1 + 48) = *(a2 + 48);
     *(a1 + 16) = v15;
@@ -4455,7 +4401,7 @@ LABEL_25:
         v63 = v30;
         while ((*(*v60 + 48))(v60, v63))
         {
-          v63 = (v63 + 56);
+          v63 += 56;
           if (v63 == v7)
           {
             return std::__rotate[abi:ne200100]<std::_ClassicAlgPolicy,MMapArchiveFileSystem::ArchiveEntry *,MMapArchiveFileSystem::ArchiveEntry *>(v8, v30, v61);
@@ -4485,9 +4431,9 @@ LABEL_30:
   a5[1] = v34;
   a5[2] = v35;
   *a5 = v33;
-  v36 = a5 + 56;
+  v36 = (a5 + 56);
   v37 = a1 + 56;
-  if (a1 + 56 == a2)
+  if ((a1 + 56) == a2)
   {
     v64 = *(a1 + 72);
     *a1 = *v37;
@@ -4538,11 +4484,11 @@ LABEL_34:
       v42 = *v37;
       v43 = *(v37 + 16);
       v44 = *(v37 + 32);
-      *(v36 + 48) = *(v37 + 48);
-      *(v36 + 16) = v43;
-      *(v36 + 32) = v44;
+      *(v36 + 6) = *(v37 + 48);
+      v36[1] = v43;
+      v36[2] = v44;
       *v36 = v42;
-      v36 += 56;
+      v36 = (v36 + 56);
     }
 
     v37 += 56;
@@ -4571,7 +4517,7 @@ void std::__throw_bad_function_call[abi:ne200100]()
   exception = __cxa_allocate_exception(8uLL);
 }
 
-__int128 *std::__rotate[abi:ne200100]<std::_ClassicAlgPolicy,MMapArchiveFileSystem::ArchiveEntry *,MMapArchiveFileSystem::ArchiveEntry *>(__int128 *__src, __int128 *a2, __int128 *a3)
+char *std::__rotate[abi:ne200100]<std::_ClassicAlgPolicy,MMapArchiveFileSystem::ArchiveEntry *,MMapArchiveFileSystem::ArchiveEntry *>(char *__src, char *a2, char *a3)
 {
   v3 = a3;
   if (__src != a2)
@@ -4581,37 +4527,37 @@ __int128 *std::__rotate[abi:ne200100]<std::_ClassicAlgPolicy,MMapArchiveFileSyst
       return __src;
     }
 
-    else if ((__src + 56) == a2)
+    else if (__src + 56 == a2)
     {
       v7 = *__src;
-      v9 = __src[1];
-      v11 = __src[2];
+      v9 = *(__src + 1);
+      v11 = *(__src + 2);
       v13 = *(__src + 6);
       v5 = a3 - a2;
       memmove(__src, __src + 56, a3 - a2 - 7);
-      v3 = (__src + v5);
+      v3 = &__src[v5];
       *v3 = v7;
-      v3[1] = v9;
-      v3[2] = v11;
-      *(v3 + 48) = v13;
+      *(v3 + 1) = v9;
+      *(v3 + 2) = v11;
+      v3[48] = v13;
     }
 
-    else if ((a2 + 56) == a3)
+    else if (a2 + 56 == a3)
     {
-      v3 = (__src + 56);
+      v3 = __src + 56;
       v8 = *(a3 - 56);
       v10 = *(a3 - 40);
       v12 = *(a3 - 24);
       v14 = *(a3 - 1);
-      if ((a3 - 56) != __src)
+      if (a3 - 56 != __src)
       {
         memmove(__src + 56, __src, a3 - 56 - __src - 7);
       }
 
       *__src = v8;
-      __src[1] = v10;
-      __src[2] = v12;
-      *(__src + 48) = v14;
+      *(__src + 1) = v10;
+      *(__src + 2) = v12;
+      __src[48] = v14;
     }
 
     else
@@ -4623,7 +4569,7 @@ __int128 *std::__rotate[abi:ne200100]<std::_ClassicAlgPolicy,MMapArchiveFileSyst
   return v3;
 }
 
-__int128 *std::__rotate_gcd[abi:ne200100]<std::_ClassicAlgPolicy,MMapArchiveFileSystem::ArchiveEntry *>(__int128 *a1, __int128 *a2, __int128 *a3)
+char *std::__rotate_gcd[abi:ne200100]<std::_ClassicAlgPolicy,MMapArchiveFileSystem::ArchiveEntry *>(char *a1, char *a2, char *a3)
 {
   v3 = a2 - a1;
   v4 = 0x6DB6DB6DB6DB6DB7 * ((a2 - a1) >> 3);
@@ -4632,7 +4578,7 @@ __int128 *std::__rotate_gcd[abi:ne200100]<std::_ClassicAlgPolicy,MMapArchiveFile
   {
     if (a1 != a2 && a2 != a3)
     {
-      v6 = (a2 + 56);
+      v6 = a2 + 56;
       v7 = (a1 + 56);
       do
       {
@@ -4658,7 +4604,7 @@ __int128 *std::__rotate_gcd[abi:ne200100]<std::_ClassicAlgPolicy,MMapArchiveFile
 
         v7 = (v7 + 56);
         v15 = v6 == a3;
-        v6 = (v6 + 56);
+        v6 += 56;
       }
 
       while (!v15);
@@ -4676,7 +4622,7 @@ __int128 *std::__rotate_gcd[abi:ne200100]<std::_ClassicAlgPolicy,MMapArchiveFile
     }
 
     while (v5);
-    v18 = (a1 + 56 * v16);
+    v18 = &a1[56 * v16];
     do
     {
       v19 = *(v18 - 56);
@@ -4705,7 +4651,7 @@ __int128 *std::__rotate_gcd[abi:ne200100]<std::_ClassicAlgPolicy,MMapArchiveFile
         v30 = __OFSUB__(v4, v29);
         v32 = v4 - v29;
         v31 = (v32 < 0) ^ v30;
-        v23 = (a1 + 56 * v32);
+        v23 = &a1[56 * v32];
         if (v31)
         {
           v23 = (v24 + v3);
@@ -4720,7 +4666,7 @@ __int128 *std::__rotate_gcd[abi:ne200100]<std::_ClassicAlgPolicy,MMapArchiveFile
     }
 
     while (v18 != a1);
-    return (a1 + a3 - a2);
+    return &a1[a3 - a2];
   }
 
   return a2;
@@ -4767,7 +4713,7 @@ uint64_t std::__function::__value_func<BOOL ()(MMapArchiveFileSystem::ArchiveEnt
   return a1;
 }
 
-__int128 *std::__stable_partition_impl<std::_ClassicAlgPolicy,MMapArchiveFileSystem::_remove_entries_with_predicate(MMapArchiveFileSystem::ArchiveEntry *,MMapArchiveFileSystem::ArchiveEntry *,std::function<BOOL ()(MMapArchiveFileSystem::ArchiveEntry&)>)::$_1 &,MMapArchiveFileSystem::ArchiveEntry *,long,std::pair<MMapArchiveFileSystem::ArchiveEntry *,long>>(__int128 *a1, __int128 *a2, void **a3, uint64_t a4, __int128 *a5, uint64_t a6)
+char *std::__stable_partition_impl<std::_ClassicAlgPolicy,MMapArchiveFileSystem::_remove_entries_with_predicate(MMapArchiveFileSystem::ArchiveEntry *,MMapArchiveFileSystem::ArchiveEntry *,std::function<BOOL ()(MMapArchiveFileSystem::ArchiveEntry&)>)::$_1 &,MMapArchiveFileSystem::ArchiveEntry *,long,std::pair<MMapArchiveFileSystem::ArchiveEntry *,long>>(__int128 *a1, __int128 *a2, uint64_t *a3, uint64_t a4, __int128 *a5, uint64_t a6)
 {
   v7 = a2;
   v8 = a1;
@@ -4902,9 +4848,9 @@ LABEL_6:
           v43 = *v38;
           v44 = v38[1];
           v45 = v38[2];
-          *(v37 + 48) = *(v38 + 6);
-          *(v37 + 16) = v44;
-          *(v37 + 32) = v45;
+          *(v37 + 6) = *(v38 + 6);
+          *(v37 + 1) = v44;
+          *(v37 + 2) = v45;
           *v37 = v43;
           v37 += 56;
         }
@@ -4948,9 +4894,9 @@ LABEL_6:
 
   v29 = a4 / 2;
   v30 = a1 + 56 * (a4 / 2);
-  v31 = v30 - 56;
+  v31 = (v30 - 56);
   v32 = *a3;
-  v76[0] = *(v30 - 40);
+  v76[0] = *(v30 - 5);
   if (std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>(v32, v76))
   {
     v33 = a4 / 2;
@@ -4966,12 +4912,12 @@ LABEL_22:
     {
       --v33;
       v62 = *a3;
-      v76[0] = *(v31 - 40);
+      v76[0] = *(v31 - 5);
       v61 += 56;
-      v31 -= 56;
+      v31 = (v31 - 56);
       if (std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>(v62, v76))
       {
-        v31 = v8 - v61;
+        v31 = (v8 - v61);
         v30 = v8 + 56 * (a4 / 2);
         goto LABEL_22;
       }
@@ -4983,10 +4929,10 @@ LABEL_22:
 
   v64 = a4 - v29;
   v65 = *a3;
-  v76[0] = *(v30 + 16);
+  v76[0] = *(v30 + 2);
   if (std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>(v65, v76))
   {
-    v66 = (v7 + 56);
+    v66 = v7 + 56;
     v67 = v8 + 56 * v29 + 56;
     while (v67 != v7)
     {
@@ -4996,7 +4942,7 @@ LABEL_22:
       v67 += 56;
       if (!std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>(v68, v76))
       {
-        v69 = v67 - 56;
+        v69 = (v67 - 56);
         goto LABEL_33;
       }
     }
@@ -5118,10 +5064,10 @@ uint64_t std::__function::__func<MMapArchiveFileSystem::delete_old_archives(unsi
   }
 }
 
-xpc_object_t XPCArray::get_object@<X0>(xpc_object_t *this@<X0>, size_t a2@<X1>, void *a3@<X8>)
+uint64_t *XPCArray::get_object@<X0>(uint64_t *__return_ptr a1@<X8>, xpc_object_t *this@<X0>, size_t a3@<X1>)
 {
-  result = xpc_array_get_value(*this, a2);
-  *a3 = result;
+  result = xpc_array_get_value(*this, a3);
+  *a1 = result;
   if (result)
   {
 

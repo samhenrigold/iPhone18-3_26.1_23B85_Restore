@@ -35,8 +35,8 @@
 
   else
   {
-    v20 = W5GetOSLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v19 = W5GetOSLog();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       v22 = 136315650;
       v23 = "[W5DebugConfiguration initDiagnosticsMode:wifiState:megaWiFiProfileState:noLoggingWiFiProfileState:eapolState:bluetoothState:]";
@@ -44,11 +44,11 @@
       v25 = "W5DebugConfiguration.m";
       v26 = 1024;
       v27 = 31;
-      _os_log_send_and_compose_impl();
+      LODWORD(v20) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, v19, 0, "[wifivelocity] %s (%s:%u) init error!", &v22, v20, LODWORD(v21.receiver));
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -75,8 +75,8 @@
 
   else
   {
-    v21 = W5GetOSLog();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v20 = W5GetOSLog();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       v23 = 136315650;
       v24 = "[W5DebugConfiguration initDiagnosticsMode:wifiState:megaWiFiProfileState:noLoggingWiFiProfileState:eapolState:bluetoothState:stbcState:]";
@@ -84,11 +84,11 @@
       v26 = "W5DebugConfiguration.m";
       v27 = 1024;
       v28 = 55;
-      _os_log_send_and_compose_impl();
+      LODWORD(v21) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, v20, 0, "[wifivelocity] %s (%s:%u) init error!", &v23, v21, LODWORD(v22.receiver));
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

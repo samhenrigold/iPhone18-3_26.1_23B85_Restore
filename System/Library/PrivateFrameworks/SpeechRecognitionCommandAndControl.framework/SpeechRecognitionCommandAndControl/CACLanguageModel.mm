@@ -117,59 +117,60 @@
 
 - (void)logTreeDescriptionWithLevel:(int)level
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_new();
+  v6 = v5;
   if (level >= 1)
   {
     levelCopy = level;
     do
     {
-      [v5 appendString:@">"];
+      v5 = [v6 appendString:@">"];
       --levelCopy;
     }
 
     while (levelCopy);
   }
 
-  v7 = CACLogGeneral();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = CACLogGeneral(v5);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = [(CACLanguageModel *)self description];
+    v9 = [(CACLanguageModel *)self description];
     *buf = 138412546;
-    v20 = v5;
-    v21 = 2112;
-    v22 = v8;
-    _os_log_impl(&dword_26B354000, v7, OS_LOG_TYPE_DEFAULT, "%@%@", buf, 0x16u);
+    v21 = v6;
+    v22 = 2112;
+    v23 = v9;
+    _os_log_impl(&dword_26B354000, v8, OS_LOG_TYPE_DEFAULT, "%@%@", buf, 0x16u);
   }
 
-  v16 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
-  v9 = self->_children;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v10)
+  v16 = 0u;
+  v10 = self->_children;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v11)
   {
-    v11 = v10;
-    v12 = *v15;
+    v12 = v11;
+    v13 = *v16;
     do
     {
-      v13 = 0;
+      v14 = 0;
       do
       {
-        if (*v15 != v12)
+        if (*v16 != v13)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v10);
         }
 
-        [*(*(&v14 + 1) + 8 * v13++) logTreeDescriptionWithLevel:{(level + 1), v14}];
+        [*(*(&v15 + 1) + 8 * v14++) logTreeDescriptionWithLevel:{(level + 1), v15}];
       }
 
-      while (v11 != v13);
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      while (v12 != v14);
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
-    while (v11);
+    while (v12);
   }
 }
 

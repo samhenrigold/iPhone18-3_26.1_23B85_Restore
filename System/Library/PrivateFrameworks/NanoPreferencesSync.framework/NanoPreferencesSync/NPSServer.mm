@@ -10,14 +10,17 @@
 + (id)queueOneIdentifierForUserDefaultsMsg:(id)msg;
 + (int64_t)purgeRetryDelay;
 + (void)setLaunchNotification:(id)notification enabled:(BOOL)enabled;
++ (void)setLaunchNotificationsEnabled:(BOOL)enabled;
 - (BOOL)checkActiveDeviceChangedVersion;
 - (BOOL)checkIfTinkerLastActiveDateChanged;
+- (BOOL)deleteCacheForDomain:(id)domain isPerGizmo:(BOOL)gizmo;
 - (BOOL)doesCurrentDeviceSupportGroupedTwoWayKeys;
 - (BOOL)doesCurrentDeviceSupportNewIDSServiceForSync;
 - (BOOL)handlePermittedUserDefaultsMsg:(id)msg messageData:(id)data overwriteNewerTimestamps:(BOOL)timestamps backupFile:(id)file;
 - (BOOL)hasPerformedInitialSync;
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection;
 - (BOOL)retryFileBackupRestoreForFilePath:(id)path;
+- (BOOL)writeCache:(id)cache toDiskForDomain:(id)domain isPerGizmo:(BOOL)gizmo;
 - (NPSFileBackupManager)fileBackupManager;
 - (NPSServer)init;
 - (NSDictionary)allowedGroups;
@@ -25,7 +28,9 @@
 - (id)cachePathForDomain:(id)domain isPerGizmo:(BOOL)gizmo;
 - (id)createDirectoryIfNeeded:(id)needed;
 - (id)dumpDomain:(id)domain;
+- (id)getCachedTimeStampFor:(id)for key:(id)key usePerGizmoCache:(BOOL)cache;
 - (id)newDefaultsMsgWithDomain:(id)domain;
+- (id)readCacheFromDiskForDomain:(id)domain isPerGizmo:(BOOL)gizmo;
 - (id)restoreFileBackupForLocalFileURL:(id)l originalFileURL:(id)rL isInitialSync:(BOOL)sync;
 - (id)restoreRemoteFilesFromBackup;
 - (id)restoreRemoteSettingsFromBackup;
@@ -43,6 +48,7 @@
 - (void)checkAndUpdateCacheTimestamps;
 - (void)dealloc;
 - (void)debounceOnWorkerQueueWithblock:(id)withblock;
+- (void)forceResyncManagedConfigurationIsInitialSync:(BOOL)sync;
 - (void)handleAppChangedRestrictions;
 - (void)handleFileBackupMessage:(id)message resourceURL:(id)l backupFile:(id)file;
 - (void)handleFileBackupMessage:(id)message service:(id)service account:(id)account fromID:(id)d context:(id)context;
@@ -66,15 +72,19 @@
 - (void)registerSyncMessageWithIdentifier:(id)identifier size:(unint64_t)size;
 - (void)resendMessagesForMessageID:(id)d;
 - (void)resetIfActiveDeviceChanged;
+- (void)resyncManagedConfigurationIfNeededIsInitialSync:(BOOL)sync;
 - (void)sendPUDSettingsInDomain:(id)domain keys:(id)keys backupFile:(id)file allowedGroups:(id)groups;
 - (void)sendSettingsInDomain:(id)domain keys:(id)keys cloudEnabled:(BOOL)enabled backupFile:(id)file allowedGroups:(id)groups;
+- (void)sendUserDefaultMsg:(id)msg forDomain:(id)domain includedKeys:(id)keys cloudEnabled:(BOOL)enabled backupFile:(id)file;
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (void)service:(id)service account:(id)account incomingResourceAtURL:(id)l metadata:(id)metadata fromID:(id)d context:(id)context;
+- (void)setHasPerformedInitialSync:(BOOL)sync updateBuildVersion:(BOOL)version withDevice:(id)device;
 - (void)startPrefsSyncWithGroups:(id)groups backupWriter:(id)writer withCompletionHandler:(id)handler;
 - (void)syncCompletedWithError:(id)error withDevice:(id)device;
 - (void)syncCoordinator:(id)coordinator beginSyncSession:(id)session;
 - (void)synchronizeNanoDomain:(id)domain keys:(id)keys cloudEnabled:(BOOL)enabled;
 - (void)synchronizeUserDefaultsDomain:(id)domain keys:(id)keys container:(id)container appGroupContainer:(id)groupContainer cloudEnabled:(BOOL)enabled;
+- (void)updateCacheForDomain:(id)domain keys:(id)keys twoWaySyncTimestamp:(id)timestamp isPerGizmo:(BOOL)gizmo;
 - (void)usingPrefsFromDomain:(id)domain;
 @end
 
@@ -412,6 +422,184 @@ LABEL_13:
   }
 }
 
+- (void)setHasPerformedInitialSync:(BOOL)sync updateBuildVersion:(BOOL)version withDevice:(id)device
+{
+  versionCopy = version;
+  syncCopy = sync;
+  deviceCopy = device;
+  if (!deviceCopy)
+  {
+    deviceCopy = [(NPSDeviceRegistry *)self->_deviceRegistry activeDevice];
+  }
+
+  if (![(NPSDeviceRegistry *)self->_deviceRegistry isAltAccountDevice]|| syncCopy)
+  {
+    v10 = nps_daemon_log;
+    if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = v10;
+      pairingID = [deviceCopy pairingID];
+      *buf = 67109634;
+      *v48 = syncCopy;
+      *&v48[4] = 1024;
+      *&v48[6] = versionCopy;
+      *v49 = 2114;
+      *&v49[2] = pairingID;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "setHasPerformedInitialSync: (%d, %d, %{public}@)", buf, 0x18u);
+    }
+
+    if (-[NPSDeviceRegistry isPaired](self->_deviceRegistry, "isPaired") || (-[NPSDeviceRegistry activeDevice](self->_deviceRegistry, "activeDevice"), v13 = objc_claimAutoreleasedReturnValue(), v14 = [v13 isArchived], v13, (v14 & 1) != 0))
+    {
+      domainAccessor = [(NPSDeviceRegistry *)self->_deviceRegistry domainAccessor];
+      v16 = kNPSInitialSyncKey;
+      v44 = [domainAccessor BOOLForKey:kNPSInitialSyncKey];
+      if (syncCopy)
+      {
+        [domainAccessor setBool:1 forKey:v16];
+      }
+
+      if (versionCopy)
+      {
+        systemBuildVersion = [deviceCopy systemBuildVersion];
+        v18 = [domainAccessor stringForKey:@"paired-device-build-version"];
+        if (([systemBuildVersion isEqual:v18] & 1) == 0)
+        {
+          if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_ERROR))
+          {
+            sub_1000266C4();
+          }
+
+          [domainAccessor setObject:systemBuildVersion forKey:@"paired-device-build-version"];
+        }
+
+        v43 = systemBuildVersion;
+        systemBuildVersion2 = [(NPSServer *)self systemBuildVersion];
+        v20 = [domainAccessor stringForKey:@"local-device-build-version"];
+
+        if (([systemBuildVersion2 isEqual:v20] & 1) == 0)
+        {
+          if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_ERROR))
+          {
+            sub_100026738();
+          }
+
+          [domainAccessor setObject:systemBuildVersion2 forKey:@"local-device-build-version"];
+        }
+
+        deviceRegistry = [(NPSServer *)self deviceRegistry];
+        lastActiveDate = [deviceRegistry lastActiveDate];
+
+        [lastActiveDate timeIntervalSinceReferenceDate];
+        v24 = v23;
+        v25 = [domainAccessor integerForKey:@"last-active-date"];
+        if (v25 != v24)
+        {
+          v26 = v25;
+          v42 = v20;
+          v27 = nps_daemon_log;
+          if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 134218240;
+            *v48 = v26;
+            *&v48[8] = 2048;
+            *v49 = v24;
+            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "setHasPerformedInitialSync: LastActiveDate being updated from %llu -> %llu", buf, 0x16u);
+          }
+
+          v28 = [NSNumber numberWithUnsignedInteger:v24];
+          [domainAccessor setObject:v28 forKey:@"last-active-date"];
+
+          v20 = v42;
+        }
+      }
+
+      synchronize = [domainAccessor synchronize];
+      v30 = [NPSSettingAccessor alloc];
+      domain = [domainAccessor domain];
+      v32 = [(NPSSettingAccessor *)v30 initWithNanoDomain:domain];
+
+      if (syncCopy)
+      {
+        [(NPSSettingAccessor *)v32 setObject:&__kCFBooleanTrue forKey:v16];
+      }
+
+      v33 = [NSSet setWithObject:v16];
+      allowedGroups = [(NPSServer *)self allowedGroups];
+      v45 = 0;
+      v46 = 0;
+      v35 = [(NPSServer *)self sendSetting:v32 keys:v33 allowedSyncGroups:allowedGroups messageIdentifier:&v46 messageData:&v45 cloudEnabled:0 backupFile:0];
+      v36 = v46;
+      v37 = v45;
+
+      if (v35)
+      {
+        if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_ERROR))
+        {
+          sub_1000267AC();
+        }
+      }
+
+      else
+      {
+        -[NPSServer registerSyncMessageWithIdentifier:size:](self, "registerSyncMessageWithIdentifier:size:", v36, [v37 length]);
+      }
+
+      if ([(NPSDeviceRegistry *)self->_deviceRegistry isAltAccountDevice])
+      {
+        if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_ERROR))
+        {
+          sub_1000267E8();
+        }
+      }
+
+      else
+      {
+        NPSHasCompletedInitialSync();
+      }
+
+      if (((v44 | !syncCopy) & 1) == 0)
+      {
+        v39 = os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_ERROR);
+        v40 = kNPSInitialSyncCompletionDarwinNotification;
+        if (v39)
+        {
+          sub_100026824();
+        }
+
+        DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+        CFNotificationCenterPostNotification(DarwinNotifyCenter, v40, 0, 0, 0);
+      }
+    }
+
+    else if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_ERROR))
+    {
+      sub_100026688();
+    }
+  }
+
+  else if (deviceCopy && [deviceCopy isPaired])
+  {
+    v9 = nps_daemon_log;
+    if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "setHasPerformedInitialSync: Alt account device. Force set sync complete.", buf, 2u);
+    }
+
+    [(NPSServer *)self setHasPerformedInitialSync:1 updateBuildVersion:versionCopy withDevice:deviceCopy];
+  }
+
+  else
+  {
+    v38 = nps_daemon_log;
+    if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "setHasPerformedInitialSync: Alt account device. Not paired, not forcing sync complete", buf, 2u);
+    }
+  }
+}
+
 - (void)registerInitialSyncMessage:(id)message ofSize:(unint64_t)size orReportInitialSyncFailureWithError:(id)error
 {
   if (error)
@@ -460,10 +648,10 @@ LABEL_13:
     {
       if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_ERROR))
       {
-        sub_100026904(errorCopy, p_activeSyncSession);
+        sub_100026904();
       }
 
-      [*p_activeSyncSession syncDidFailWithError:errorCopy];
+      [(PSYServiceSyncSession *)*p_activeSyncSession syncDidFailWithError:errorCopy];
     }
 
     else
@@ -476,7 +664,7 @@ LABEL_13:
         _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "_completeActiveSyncSessionWithError:Reporting successful sync completion to sync session: (%@)", &v10, 0xCu);
       }
 
-      [*p_activeSyncSession syncDidComplete];
+      [(PSYServiceSyncSession *)*p_activeSyncSession syncDidComplete];
     }
 
     v9 = *p_activeSyncSession;
@@ -3374,6 +3562,302 @@ LABEL_36:
   return v11;
 }
 
+- (id)readCacheFromDiskForDomain:(id)domain isPerGizmo:(BOOL)gizmo
+{
+  gizmoCopy = gizmo;
+  domainCopy = domain;
+  v7 = nps_daemon_log;
+  if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v17 = domainCopy;
+    v18 = 1024;
+    LODWORD(v19) = gizmoCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Reading cache for domain: (%@); isPerGizmo: (%d)", buf, 0x12u);
+  }
+
+  v8 = [(NPSServer *)self cachePathForDomain:domainCopy isPerGizmo:gizmoCopy];
+  if (!v8)
+  {
+    v10 = 0;
+    v13 = 0;
+    goto LABEL_15;
+  }
+
+  v9 = [NSData dataWithContentsOfFile:v8];
+  if (v9)
+  {
+    v15 = 0;
+    v10 = [NSPropertyListSerialization propertyListWithData:v9 options:1 format:0 error:&v15];
+    v11 = v15;
+    v12 = nps_daemon_log;
+    if (v11)
+    {
+      v13 = v11;
+      if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412546;
+        v17 = v9;
+        v18 = 2112;
+        v19 = v13;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Failed to unserialized domain cache (%@) %@", buf, 0x16u);
+      }
+
+      v10 = 0;
+      goto LABEL_14;
+    }
+
+    if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEBUG))
+    {
+      sub_100026A38();
+    }
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  v13 = 0;
+LABEL_14:
+
+LABEL_15:
+
+  return v10;
+}
+
+- (BOOL)writeCache:(id)cache toDiskForDomain:(id)domain isPerGizmo:(BOOL)gizmo
+{
+  gizmoCopy = gizmo;
+  cacheCopy = cache;
+  domainCopy = domain;
+  v10 = nps_daemon_log;
+  if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v22 = domainCopy;
+    v23 = 1024;
+    LODWORD(v24) = gizmoCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Writing cache for domain: (%@); isPerGizmo: (%d)", buf, 0x12u);
+  }
+
+  if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEBUG))
+  {
+    sub_100026AAC();
+    if (!cacheCopy)
+    {
+      goto LABEL_16;
+    }
+  }
+
+  else if (!cacheCopy)
+  {
+    goto LABEL_16;
+  }
+
+  if ([cacheCopy count])
+  {
+    v20 = 0;
+    v11 = [NSPropertyListSerialization dataWithPropertyList:cacheCopy format:200 options:0 error:&v20];
+    v12 = v20;
+    if (v12)
+    {
+      v13 = v12;
+      v14 = nps_daemon_log;
+      if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412546;
+        v22 = cacheCopy;
+        v23 = 2112;
+        v24 = v13;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Failed to serialize updated domain cache dictionary (%@) with error: (%@)", buf, 0x16u);
+      }
+
+      v15 = 0;
+      goto LABEL_20;
+    }
+
+    v16 = [(NPSServer *)self cachePathForDomain:domainCopy isPerGizmo:gizmoCopy];
+    if (v16)
+    {
+      v19 = 0;
+      [v11 writeToFile:v16 options:268435457 error:&v19];
+      v13 = v19;
+      if (v13)
+      {
+        v17 = nps_daemon_log;
+        if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412546;
+          v22 = v16;
+          v23 = 2112;
+          v24 = v13;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Failed to write updated domain cache (%@) with error: (%@)", buf, 0x16u);
+        }
+
+        v15 = 0;
+        goto LABEL_19;
+      }
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+
+    v15 = 1;
+LABEL_19:
+
+LABEL_20:
+    goto LABEL_21;
+  }
+
+LABEL_16:
+  [(NPSServer *)self deleteCacheForDomain:domainCopy isPerGizmo:gizmoCopy];
+  v15 = 1;
+LABEL_21:
+
+  return v15;
+}
+
+- (BOOL)deleteCacheForDomain:(id)domain isPerGizmo:(BOOL)gizmo
+{
+  gizmoCopy = gizmo;
+  domainCopy = domain;
+  v7 = nps_daemon_log;
+  if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v20 = domainCopy;
+    v21 = 1024;
+    v22 = gizmoCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Deleting cache for domain: (%@); isPerGizmo: (%d)", buf, 0x12u);
+  }
+
+  v8 = [(NPSServer *)self cachePathForDomain:domainCopy isPerGizmo:gizmoCopy];
+  if (v8)
+  {
+    v9 = +[NSFileManager defaultManager];
+    v10 = +[NSFileManager defaultManager];
+    v11 = [v10 fileExistsAtPath:v8];
+
+    if (v11)
+    {
+      v18 = 0;
+      [v9 removeItemAtPath:v8 error:&v18];
+      v12 = v18;
+      if (v12)
+      {
+        v13 = v12;
+        v14 = nps_daemon_log;
+        if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138412290;
+          v20 = v13;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Failed to delete cache for domain: %@", buf, 0xCu);
+        }
+
+        v15 = 0;
+        goto LABEL_13;
+      }
+    }
+
+    else
+    {
+      v16 = nps_daemon_log;
+      if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v20 = v8;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Cache for domain (%@) does not exist.", buf, 0xCu);
+      }
+    }
+
+    v15 = 1;
+LABEL_13:
+
+    goto LABEL_14;
+  }
+
+  v15 = 0;
+LABEL_14:
+
+  return v15;
+}
+
+- (void)updateCacheForDomain:(id)domain keys:(id)keys twoWaySyncTimestamp:(id)timestamp isPerGizmo:(BOOL)gizmo
+{
+  gizmoCopy = gizmo;
+  domainCopy = domain;
+  keysCopy = keys;
+  timestampCopy = timestamp;
+  if ([keysCopy count])
+  {
+    selfCopy = self;
+    v24 = domainCopy;
+    v23 = gizmoCopy;
+    v13 = [(NPSServer *)self readCacheFromDiskForDomain:domainCopy isPerGizmo:gizmoCopy];
+    if (!v13)
+    {
+      v13 = objc_opt_new();
+    }
+
+    v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v22 = keysCopy;
+    obj = keysCopy;
+    v14 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
+    if (v14)
+    {
+      v15 = v14;
+      v16 = *v27;
+      do
+      {
+        for (i = 0; i != v15; i = i + 1)
+        {
+          if (*v27 != v16)
+          {
+            objc_enumerationMutation(obj);
+          }
+
+          v18 = *(*(&v26 + 1) + 8 * i);
+          v19 = [v13 objectForKeyedSubscript:v18];
+          if (!v19)
+          {
+            v19 = objc_opt_new();
+            [v13 setObject:v19 forKeyedSubscript:v18];
+          }
+
+          v20 = nps_daemon_log;
+          if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 138412802;
+            v31 = v24;
+            v32 = 2112;
+            v33 = v18;
+            v34 = 2112;
+            v35 = timestampCopy;
+            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Updating timestamp for <%@; %@> to %@", buf, 0x20u);
+          }
+
+          [v19 setObject:timestampCopy forKeyedSubscript:@"timestamp"];
+        }
+
+        v15 = [obj countByEnumeratingWithState:&v26 objects:v36 count:16];
+      }
+
+      while (v15);
+    }
+
+    domainCopy = v24;
+    [(NPSServer *)selfCopy writeCache:v13 toDiskForDomain:v24 isPerGizmo:v23];
+
+    keysCopy = v22;
+  }
+}
+
 - (id)restoreRemoteSettingsFromBackup
 {
   v3 = os_transaction_create();
@@ -4346,6 +4830,69 @@ LABEL_23:
   return v3;
 }
 
+- (id)getCachedTimeStampFor:(id)for key:(id)key usePerGizmoCache:(BOOL)cache
+{
+  cacheCopy = cache;
+  forCopy = for;
+  keyCopy = key;
+  v10 = nps_daemon_log;
+  if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = @"NO";
+    *buf = 138412802;
+    *&buf[4] = forCopy;
+    if (cacheCopy)
+    {
+      v11 = @"YES";
+    }
+
+    v20 = 2112;
+    v21 = keyCopy;
+    v22 = 2114;
+    v23 = v11;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Reading cache for domain: (%@); key: (%@); isPerGizmo: (%{public}@)", buf, 0x20u);
+  }
+
+  v12 = [(NPSServer *)self cachePathForDomain:forCopy isPerGizmo:cacheCopy];
+  if (v12)
+  {
+    v18 = 0;
+    v13 = [NSData dataWithContentsOfFile:v12 options:1 error:&v18];
+    v14 = v18;
+    if (v14 || !v13)
+    {
+      if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_ERROR))
+      {
+        sub_100026B20();
+      }
+
+      v15 = 0;
+    }
+
+    else
+    {
+      *buf = 0;
+      [NSSet setWithObject:keyCopy];
+      _CFPropertyListCreateFiltered();
+      v15 = [*buf objectForKey:keyCopy];
+      if (*buf)
+      {
+        CFRelease(*buf);
+      }
+    }
+  }
+
+  else
+  {
+    v15 = 0;
+    v14 = 0;
+  }
+
+  v16 = [v15 objectForKeyedSubscript:@"timestamp"];
+
+  return v16;
+}
+
 - (id)newDefaultsMsgWithDomain:(id)domain
 {
   domainCopy = domain;
@@ -4356,6 +4903,46 @@ LABEL_23:
   [v4 setKeys:v5];
 
   return v4;
+}
+
+- (void)sendUserDefaultMsg:(id)msg forDomain:(id)domain includedKeys:(id)keys cloudEnabled:(BOOL)enabled backupFile:(id)file
+{
+  enabledCopy = enabled;
+  msgCopy = msg;
+  domainCopy = domain;
+  keysCopy = keys;
+  fileCopy = file;
+  v16 = nps_daemon_log;
+  if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
+  {
+    v17 = v16;
+    *buf = 138412546;
+    v26 = domainCopy;
+    v27 = 2050;
+    v28 = [keysCopy count];
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Sending user defaults message for <Domain: %@, Keys: %{public}lu>", buf, 0x16u);
+  }
+
+  data = [msgCopy data];
+  v19 = [domainCopy isEqualToString:@"com.apple.pairedsync"];
+  if (fileCopy)
+  {
+    [fileCopy writeMessage:0 data:data];
+  }
+
+  else
+  {
+    v20 = v19;
+    v21 = [objc_opt_class() queueOneIdentifierForUserDefaultsMsg:msgCopy];
+    v24 = 0;
+    v22 = [(NPSServer *)self sendMessageData:data messageType:0 queueOneIdentifier:v21 identifier:&v24 isPairedSyncMessage:v20 cloudEnabled:enabledCopy];
+    v23 = v24;
+    -[NPSServer registerInitialSyncMessage:ofSize:orReportInitialSyncFailureWithError:](self, "registerInitialSyncMessage:ofSize:orReportInitialSyncFailureWithError:", v23, [data length], v22);
+    if (!v22)
+    {
+      [(NPSDatabase *)self->_database sentSettingsSyncMessage:v23 forDomain:domainCopy keys:keysCopy cloudEnabled:enabledCopy];
+    }
+  }
 }
 
 - (void)sendSettingsInDomain:(id)domain keys:(id)keys cloudEnabled:(BOOL)enabled backupFile:(id)file allowedGroups:(id)groups
@@ -5109,6 +5696,73 @@ LABEL_59:
   return v9;
 }
 
+- (void)forceResyncManagedConfigurationIsInitialSync:(BOOL)sync
+{
+  syncCopy = sync;
+  v5 = nps_daemon_log;
+  if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
+  {
+    *v8 = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Will force re-sync ManagedConfiguration state", v8, 2u);
+  }
+
+  domainAccessor = [(NPSDeviceRegistry *)self->_deviceRegistry domainAccessor];
+  [domainAccessor removeObjectForKey:@"mc-data-cache"];
+  synchronize = [domainAccessor synchronize];
+  [(NPSServer *)self resyncManagedConfigurationIfNeededIsInitialSync:syncCopy];
+}
+
+- (void)resyncManagedConfigurationIfNeededIsInitialSync:(BOOL)sync
+{
+  syncCopy = sync;
+  if ([(NPSDeviceRegistry *)self->_deviceRegistry isAltAccountDevice])
+  {
+    v5 = nps_daemon_log;
+    if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v15) = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Skipping MC re-sync since Tinker watch", &v15, 2u);
+    }
+  }
+
+  else
+  {
+    domainAccessor = [(NPSDeviceRegistry *)self->_deviceRegistry domainAccessor];
+    synchronize = [domainAccessor synchronize];
+    managedConfigurationData = [objc_opt_class() managedConfigurationData];
+    v9 = [domainAccessor objectForKey:@"mc-data-cache"];
+    v10 = v9;
+    if (v9 && ([v9 isEqualToArray:managedConfigurationData] & 1) != 0)
+    {
+      v11 = nps_daemon_log;
+      if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
+      {
+        v15 = 67109120;
+        v16 = syncCopy;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Skipping MC re-sync since no change detected since last sync. isInitialSync: (%d)", &v15, 8u);
+      }
+    }
+
+    else
+    {
+      v12 = nps_daemon_log;
+      if (os_log_type_enabled(nps_daemon_log, OS_LOG_TYPE_DEFAULT))
+      {
+        v15 = 67109120;
+        v16 = syncCopy;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Re-syncing MC since changes were detected since last sync. isInitialSync: (%d)", &v15, 8u);
+      }
+
+      v13 = [(NPSServer *)self sendManagedConfigurationSettings:managedConfigurationData isInitialSync:syncCopy];
+      if (!v13)
+      {
+        [domainAccessor setObject:managedConfigurationData forKey:@"mc-data-cache"];
+        synchronize2 = [domainAccessor synchronize];
+      }
+    }
+  }
+}
+
 - (id)sendManagedConfigurationSettings:(id)settings isInitialSync:(BOOL)sync
 {
   settingsCopy = settings;
@@ -5367,6 +6021,18 @@ LABEL_13:
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Domain (%@) should not be nil, and keys (%@) should not be nil or empty.", buf, 0x16u);
     }
   }
+}
+
++ (void)setLaunchNotificationsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  [self setLaunchNotification:@"com.apple.mobile.keybagd.first_unlock" enabled:enabled];
+  [self setLaunchNotification:@"com.apple.Preferences.ChangedRestrictionsEnabledStateNotification" enabled:enabledCopy];
+  [self setLaunchNotification:MCSettingsChangedNotification enabled:enabledCopy];
+  [self setLaunchNotification:MCRestrictionChangedNotification enabled:enabledCopy];
+  v5 = MCEffectiveSettingsChangedNotification;
+
+  [self setLaunchNotification:v5 enabled:enabledCopy];
 }
 
 + (void)setLaunchNotification:(id)notification enabled:(BOOL)enabled

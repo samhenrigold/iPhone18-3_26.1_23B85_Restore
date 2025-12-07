@@ -6,6 +6,7 @@
 - (id)getLabelTextForSlowCharger;
 - (id)getLabelWithTitle:(id)title withRGB:(id)b withFont:(id)font andTextAlignment:(int64_t)alignment;
 - (id)timeEstimateStringWithChargeTarget:(int)target;
+- (id)timeToChargeTo:(int)to;
 - (void)dealloc;
 - (void)handleTapGesture:(id)gesture;
 - (void)infoSymbolTapped:(id)tapped;
@@ -1018,6 +1019,50 @@ LABEL_179:
   }
 
   return byte_187B88;
+}
+
+- (id)timeToChargeTo:(int)to
+{
+  v3 = *&to;
+  if (+[PLBatteryUIGraphLastChargeCell isChargeTimeEnabled])
+  {
+    estimatedChargedDate = [(PLBatteryUIGraphLastChargeCell *)self estimatedChargedDate];
+
+    if (estimatedChargedDate)
+    {
+LABEL_3:
+      v6 = [(PLBatteryUIGraphLastChargeCell *)self timeEstimateStringWithChargeTarget:v3];
+      goto LABEL_10;
+    }
+
+    v7 = +[BIChargeTimeEstimatorClient sharedEstimator];
+    chargeTime = [v7 chargeTime];
+
+    if (chargeTime)
+    {
+      if ([chargeTime additionalInformation] == &dword_0 + 1)
+      {
+        [chargeTime estimate];
+        if (v9 > 0.0)
+        {
+          [chargeTime confidenceScore];
+          if (v10 >= 80.0)
+          {
+            [chargeTime estimate];
+            v12 = [NSDate dateWithTimeIntervalSinceNow:?];
+            [(PLBatteryUIGraphLastChargeCell *)self setEstimatedChargedDate:v12];
+
+            goto LABEL_3;
+          }
+        }
+      }
+    }
+  }
+
+  v6 = 0;
+LABEL_10:
+
+  return v6;
 }
 
 + (id)dateComponentFormatter

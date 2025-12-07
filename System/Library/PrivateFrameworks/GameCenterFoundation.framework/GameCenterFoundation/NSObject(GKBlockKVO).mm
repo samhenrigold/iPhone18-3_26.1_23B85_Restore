@@ -21,7 +21,7 @@
   v28 = __Block_byref_object_copy__16;
   v29 = __Block_byref_object_dispose__16;
   v30 = 0;
-  v10 = GKObserverMutationQueueCreatingIfNecessary();
+  v10 = GKObserverMutationQueueCreatingIfNecessary(v9);
   v15 = MEMORY[0x277D85DD0];
   v16 = 3221225472;
   v17 = __67__NSObject_GKBlockKVO___gkAddObserverForKeyPath_options_withBlock___block_invoke;
@@ -48,7 +48,7 @@
 - (void)_gkRemoveObserverWithBlockToken:()GKBlockKVO
 {
   v4 = a3;
-  v5 = GKObserverMutationQueueCreatingIfNecessary();
+  v5 = GKObserverMutationQueueCreatingIfNecessary(v4);
   v7[0] = MEMORY[0x277D85DD0];
   v7[1] = 3221225472;
   v7[2] = __56__NSObject_GKBlockKVO___gkRemoveObserverWithBlockToken___block_invoke;

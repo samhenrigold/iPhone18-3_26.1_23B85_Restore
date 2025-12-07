@@ -4,8 +4,8 @@
 + (void)ic_performNotesActivity:()IC;
 - (BOOL)ic_isBeingRevealedFromPoppingViewController;
 - (BOOL)ic_isViewVisible;
+- (CGFloat)ic_safeAreaDistanceFromTop;
 - (double)ic_safeAreaDistanceFromBottom;
-- (double)ic_safeAreaDistanceFromTop;
 - (id)ic_embedInNavigationControllerForModalPresentation;
 - (id)ic_rootNavigationController;
 - (id)ic_safeAreaLayoutGuide;
@@ -50,7 +50,7 @@
   return v4;
 }
 
-- (double)ic_safeAreaDistanceFromTop
+- (CGFloat)ic_safeAreaDistanceFromTop
 {
   ic_safeAreaLayoutGuide = [self ic_safeAreaLayoutGuide];
   [ic_safeAreaLayoutGuide layoutFrame];

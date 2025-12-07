@@ -204,7 +204,7 @@ LABEL_8:
   }
 
   v9.receiver = self;
-  v9.super_class = type metadata accessor for HighlightCalendarDayView();
+  v9.super_class = type metadata accessor for HighlightCalendarDayView(0);
   layerCopy = layer;
   selfCopy = self;
   [(HighlightCalendarDayView *)&v9 layoutSublayersOfLayer:layerCopy];

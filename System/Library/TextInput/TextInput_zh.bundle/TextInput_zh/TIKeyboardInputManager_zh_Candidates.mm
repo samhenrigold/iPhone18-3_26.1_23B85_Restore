@@ -146,38 +146,38 @@
 
 - (id)candidateResultSetFromCandidateResultSet:(id)set lastCharacterCandidateResultSet:(id)resultSet
 {
-  v69 = *MEMORY[0x29EDCA608];
+  v68 = *MEMORY[0x29EDCA608];
   setCopy = set;
   resultSetCopy = resultSet;
   array = [MEMORY[0x29EDB8DE8] array];
-  v57 = array;
-  v54 = resultSetCopy;
-  v55 = setCopy;
+  v56 = array;
+  v53 = resultSetCopy;
+  v54 = setCopy;
   if (setCopy)
   {
-    v65 = 0u;
-    v66 = 0u;
-    v63 = 0u;
     v64 = 0u;
+    v65 = 0u;
+    v62 = 0u;
+    v63 = 0u;
     candidates = [setCopy candidates];
-    v10 = [candidates countByEnumeratingWithState:&v63 objects:v68 count:16];
+    v10 = [candidates countByEnumeratingWithState:&v62 objects:v67 count:16];
     if (!v10)
     {
       goto LABEL_13;
     }
 
     v11 = v10;
-    v12 = *v64;
+    v12 = *v63;
     while (1)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v64 != v12)
+        if (*v63 != v12)
         {
           objc_enumerationMutation(candidates);
         }
 
-        v14 = *(*(&v63 + 1) + 8 * i);
+        v14 = *(*(&v62 + 1) + 8 * i);
         input = [v14 input];
         if ([input isEqualToString:self->_inputString])
         {
@@ -198,21 +198,21 @@
           v23 = [(NSString *)autoCommitString stringByAppendingString:candidate];
           input = [v20 initWithMecabraCandidate:unsignedLongLongValue candidate:v23];
 
-          [v57 addObject:input];
+          [v56 addObject:input];
         }
       }
 
-      v11 = [candidates countByEnumeratingWithState:&v63 objects:v68 count:16];
+      v11 = [candidates countByEnumeratingWithState:&v62 objects:v67 count:16];
       if (!v11)
       {
 LABEL_13:
 
         v24 = [(TIKeyboardInputManager_zh_Candidates *)self punctuationCandiadtesFor:self->_inputString withAutoCommit:self->_autoCommitString];
-        array = v57;
-        [v57 addObjectsFromArray:v24];
+        array = v56;
+        [v56 addObjectsFromArray:v24];
 
-        resultSetCopy = v54;
-        setCopy = v55;
+        resultSetCopy = v53;
+        setCopy = v54;
         break;
       }
     }
@@ -225,30 +225,30 @@ LABEL_13:
     firstObject = [candidates2 firstObject];
     label2 = [firstObject label];
 
-    array = v57;
-    v53 = label2;
+    array = v56;
+    v52 = label2;
     _stringByTrimmingLastCharacter = [label2 _stringByTrimmingLastCharacter];
-    v56 = [(NSString *)self->_autoCommitString stringByAppendingString:?];
+    v55 = [(NSString *)self->_autoCommitString stringByAppendingString:?];
+    v58 = 0u;
     v59 = 0u;
     v60 = 0u;
     v61 = 0u;
-    v62 = 0u;
     candidates3 = [resultSetCopy candidates];
-    v30 = [candidates3 countByEnumeratingWithState:&v59 objects:v67 count:16];
+    v30 = [candidates3 countByEnumeratingWithState:&v58 objects:v66 count:16];
     if (v30)
     {
       v31 = v30;
-      v32 = *v60;
+      v32 = *v59;
       do
       {
         for (j = 0; j != v31; ++j)
         {
-          if (*v60 != v32)
+          if (*v59 != v32)
           {
             objc_enumerationMutation(candidates3);
           }
 
-          v34 = *(*(&v59 + 1) + 8 * j);
+          v34 = *(*(&v58 + 1) + 8 * j);
           label3 = [v34 label];
           v36 = [label3 isEqualToString:v25];
 
@@ -259,25 +259,25 @@ LABEL_13:
 
             v39 = objc_alloc(MEMORY[0x29EDC70C8]);
             candidate2 = [v34 candidate];
-            v41 = [v56 stringByAppendingString:candidate2];
+            v41 = [v55 stringByAppendingString:candidate2];
             v42 = [v39 initWithMecabraCandidate:unsignedLongLongValue2 candidate:v41];
 
-            array = v57;
-            [v57 addObject:v42];
+            array = v56;
+            [v56 addObject:v42];
           }
         }
 
-        v31 = [candidates3 countByEnumeratingWithState:&v59 objects:v67 count:16];
+        v31 = [candidates3 countByEnumeratingWithState:&v58 objects:v66 count:16];
       }
 
       while (v31);
     }
 
-    v43 = [(TIKeyboardInputManager_zh_Candidates *)self punctuationCandiadtesFor:v25 withAutoCommit:v56];
+    v43 = [(TIKeyboardInputManager_zh_Candidates *)self punctuationCandiadtesFor:v25 withAutoCommit:v55];
     [array addObjectsFromArray:v43];
 
-    resultSetCopy = v54;
-    setCopy = v55;
+    resultSetCopy = v53;
+    setCopy = v54;
   }
 
   v44 = objc_alloc(MEMORY[0x29EDC7088]);
@@ -287,12 +287,12 @@ LABEL_13:
 
   [v47 setTypingEngine:5];
   [array addObject:v47];
-  v58[0] = MEMORY[0x29EDCA5F8];
-  v58[1] = 3221225472;
-  v58[2] = __113__TIKeyboardInputManager_zh_Candidates_candidateResultSetFromCandidateResultSet_lastCharacterCandidateResultSet___block_invoke;
-  v58[3] = &unk_29F37D5D0;
-  v58[4] = self;
-  v48 = [array indexOfObjectPassingTest:v58];
+  v57[0] = MEMORY[0x29EDCA5F8];
+  v57[1] = 3221225472;
+  v57[2] = __113__TIKeyboardInputManager_zh_Candidates_candidateResultSetFromCandidateResultSet_lastCharacterCandidateResultSet___block_invoke;
+  v57[3] = &unk_29F37D5D0;
+  v57[4] = self;
+  v48 = [array indexOfObjectPassingTest:v57];
   if (v48 == 0x7FFFFFFFFFFFFFFFLL)
   {
     v49 = [(TIKeyboardInputManager_zh_Candidates *)self candidateResultSetFromCandidates:array];
@@ -304,8 +304,6 @@ LABEL_13:
     v49 = [(TIKeyboardInputManager_zh_Candidates *)self candidateResultSetFromCandidates:array];
     [v49 setInitialSelectedIndex:0];
   }
-
-  v50 = *MEMORY[0x29EDCA608];
 
   return v49;
 }
@@ -376,7 +374,7 @@ LABEL_13:
 
 - (id)punctuationCandiadtesFor:(id)for withAutoCommit:(id)commit
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   forCopy = for;
   commitCopy = commit;
   v6 = +[TIZhuyinPunctuationManager shareZhuyinPunctuationManager];
@@ -384,26 +382,26 @@ LABEL_13:
   v8 = [v6 candidatesFor:forCopy];
 
   array = [MEMORY[0x29EDB8DE8] array];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = v8;
-  v10 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v10 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v27;
+    v12 = *v26;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v27 != v12)
+        if (*v26 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v26 + 1) + 8 * i);
+        v14 = *(*(&v25 + 1) + 8 * i);
         v15 = objc_alloc(MEMORY[0x29EDC70C0]);
         candidate = [v14 candidate];
         v17 = [commitCopy stringByAppendingString:candidate];
@@ -416,47 +414,46 @@ LABEL_13:
         [array addObject:v19];
       }
 
-      v11 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v11 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v11);
   }
 
   v21 = [array copy];
-  v22 = *MEMORY[0x29EDCA608];
 
   return v21;
 }
 
 - (BOOL)hasIdeographicCandidates
 {
-  v30 = *MEMORY[0x29EDCA608];
-  v27.receiver = self;
-  v27.super_class = TIKeyboardInputManager_zh_Candidates;
-  if (![(TIKeyboardInputManagerChinese *)&v27 hasIdeographicCandidates])
+  v29 = *MEMORY[0x29EDCA608];
+  v26.receiver = self;
+  v26.super_class = TIKeyboardInputManager_zh_Candidates;
+  if (![(TIKeyboardInputManagerChinese *)&v26 hasIdeographicCandidates])
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     wholePhraseCandidateResultSet = [(TIKeyboardInputManager_zh_Candidates *)self wholePhraseCandidateResultSet];
     candidates = [wholePhraseCandidateResultSet candidates];
 
-    v6 = [candidates countByEnumeratingWithState:&v23 objects:v29 count:16];
+    v6 = [candidates countByEnumeratingWithState:&v22 objects:v28 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v24;
+      v8 = *v23;
 LABEL_5:
       v9 = 0;
       while (1)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(candidates);
         }
 
-        candidate = [*(*(&v23 + 1) + 8 * v9) candidate];
+        candidate = [*(*(&v22 + 1) + 8 * v9) candidate];
         _containsIdeographicCharacters = [candidate _containsIdeographicCharacters];
 
         if (_containsIdeographicCharacters)
@@ -466,7 +463,7 @@ LABEL_5:
 
         if (v7 == ++v9)
         {
-          v7 = [candidates countByEnumeratingWithState:&v23 objects:v29 count:16];
+          v7 = [candidates countByEnumeratingWithState:&v22 objects:v28 count:16];
           if (v7)
           {
             goto LABEL_5;
@@ -481,32 +478,32 @@ LABEL_5:
     {
 LABEL_11:
 
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
       lastCharacterCandidateResultSet = [(TIKeyboardInputManager_zh_Candidates *)self lastCharacterCandidateResultSet];
       candidates = [lastCharacterCandidateResultSet candidates];
 
-      v3 = [candidates countByEnumeratingWithState:&v19 objects:v28 count:16];
+      v3 = [candidates countByEnumeratingWithState:&v18 objects:v27 count:16];
       if (!v3)
       {
 LABEL_21:
 
-        goto LABEL_22;
+        return v3;
       }
 
-      v13 = *v20;
+      v13 = *v19;
 LABEL_13:
       v14 = 0;
       while (1)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(candidates);
         }
 
-        candidate2 = [*(*(&v19 + 1) + 8 * v14) candidate];
+        candidate2 = [*(*(&v18 + 1) + 8 * v14) candidate];
         _containsIdeographicCharacters2 = [candidate2 _containsIdeographicCharacters];
 
         if (_containsIdeographicCharacters2)
@@ -516,7 +513,7 @@ LABEL_13:
 
         if (v3 == ++v14)
         {
-          v3 = [candidates countByEnumeratingWithState:&v19 objects:v28 count:16];
+          v3 = [candidates countByEnumeratingWithState:&v18 objects:v27 count:16];
           if (v3)
           {
             goto LABEL_13;
@@ -532,8 +529,6 @@ LABEL_13:
   }
 
   LOBYTE(v3) = 1;
-LABEL_22:
-  v17 = *MEMORY[0x29EDCA608];
   return v3;
 }
 

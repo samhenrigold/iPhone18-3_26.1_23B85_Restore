@@ -11,11 +11,11 @@
 
 - (id)attributeDescriptions
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v18[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   identifier = [(HMDWatchSync *)self identifier];
   v5 = [v3 initWithName:@"Identifier" value:identifier];
-  v19[0] = v5;
+  v18[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   syncOption = [(HMDWatchSync *)self syncOption];
   if (syncOption > 2)
@@ -29,20 +29,18 @@
   }
 
   v9 = [v6 initWithName:@"Sync Option" value:v8];
-  v19[1] = v9;
+  v18[1] = v9;
   v10 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDWatchSync *)self inProgress];
   v11 = HMFBooleanToString();
   v12 = [v10 initWithName:@"In Progress" value:v11];
-  v19[2] = v12;
+  v18[2] = v12;
   v13 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDWatchSync *)self isRetry];
   v14 = HMFBooleanToString();
   v15 = [v13 initWithName:@"Is Retry" value:v14];
-  v19[3] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:4];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v18[3] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:4];
 
   return v16;
 }

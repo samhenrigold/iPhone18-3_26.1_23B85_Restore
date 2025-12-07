@@ -51,11 +51,12 @@
 
     if (removed)
     {
-      *removed = [v11 copy];
+      v13 = [v11 copy];
+      *removed = v13;
     }
 
-    v13 = MSPGetSharedTripCapabilityFetchingLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = MSPGetSharedTripCapabilityFetchingLog(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       v17 = 138478339;
       v18 = handlesCopy;
@@ -63,7 +64,7 @@
       v20 = v9;
       v21 = 2113;
       v22 = v11;
-      _os_log_impl(&dword_25813A000, v13, OS_LOG_TYPE_DEBUG, "[Peer] Updated contacts: %{private}@\n\tAdded: %{private}@\n\tRemoved: %{private}@", &v17, 0x20u);
+      _os_log_impl(&dword_25813A000, v14, OS_LOG_TYPE_DEBUG, "[Peer] Updated contacts: %{private}@\n\tAdded: %{private}@\n\tRemoved: %{private}@", &v17, 0x20u);
     }
 
     _requestedHandles = [(MSPSharedTripCapabilityFetchingPeer *)self _requestedHandles];
@@ -72,8 +73,6 @@
     _requestedHandles2 = [(MSPSharedTripCapabilityFetchingPeer *)self _requestedHandles];
     [_requestedHandles2 addObjectsFromArray:handlesCopy];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)removeRequestedHandles:(id)handles
@@ -87,8 +86,7 @@
     v7 = [v6 mutableCopy];
 
     [(NSMutableOrderedSet *)v7 intersectSet:v5];
-    [(NSMutableOrderedSet *)self->_requestedHandles minusSet:v7];
-    v8 = MSPGetSharedTripCapabilityFetchingLog();
+    v8 = MSPGetSharedTripCapabilityFetchingLog([(NSMutableOrderedSet *)self->_requestedHandles minusSet:v7]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       v14 = 138477827;
@@ -96,29 +94,28 @@
       _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_DEBUG, "[Peer] Removing requested contacts %{private}@", &v14, 0xCu);
     }
 
-    if ([(NSMutableOrderedSet *)self->_requestedHandles count])
+    v9 = [(NSMutableOrderedSet *)self->_requestedHandles count];
+    if (v9)
     {
-      v9 = MSPGetSharedTripCapabilityFetchingLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = MSPGetSharedTripCapabilityFetchingLog(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         requestedHandles = self->_requestedHandles;
         v14 = 138477827;
         v15 = requestedHandles;
-        _os_log_impl(&dword_25813A000, v9, OS_LOG_TYPE_DEBUG, "[Peer] Still waiting for %{private}@", &v14, 0xCu);
+        _os_log_impl(&dword_25813A000, v10, OS_LOG_TYPE_DEBUG, "[Peer] Still waiting for %{private}@", &v14, 0xCu);
       }
     }
 
-    v11 = [(NSMutableOrderedSet *)v7 copy];
+    v12 = [(NSMutableOrderedSet *)v7 copy];
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v11;
+  return v12;
 }
 
 @end

@@ -82,11 +82,11 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v12[3] = *MEMORY[0x277D85DE8];
-  v11[0] = @"symbolColor";
+  v11[3] = *MEMORY[0x277D85DE8];
+  v10[0] = @"symbolColor";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{-[CAFSettingNotificationEntry symbolColor](self, "symbolColor")}];
-  v12[0] = v3;
-  v11[1] = @"symbolName";
+  v11[0] = v3;
+  v10[1] = @"symbolName";
   symbolName = [(CAFSettingNotificationEntry *)self symbolName];
   null = symbolName;
   if (!symbolName)
@@ -94,8 +94,8 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v12[1] = null;
-  v11[2] = @"userVisibleLabel";
+  v11[1] = null;
+  v10[2] = @"userVisibleLabel";
   userVisibleLabel = [(CAFSettingNotificationEntry *)self userVisibleLabel];
   null2 = userVisibleLabel;
   if (!userVisibleLabel)
@@ -103,8 +103,8 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v12[2] = null2;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v11[2] = null2;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
   if (!userVisibleLabel)
   {
   }
@@ -112,8 +112,6 @@
   if (!symbolName)
   {
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

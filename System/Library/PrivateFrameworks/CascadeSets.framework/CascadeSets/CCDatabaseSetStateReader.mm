@@ -5,6 +5,7 @@
 - (BOOL)constructStateVectorsFromDatabaseWithDeviceMapping:(id)mapping outContent:(id *)content outMetaContent:(id *)metaContent error:(id *)error;
 - (BOOL)enumerateProvenanceRecordsForStateVector:(id)vector withType:(unsigned __int8)type selectAtomsInState:(unsigned __int8)state skipOverAtomsInState:(unsigned __int8)inState deviceMapping:(id)mapping error:(id *)error usingBlock:(id)block;
 - (CCDatabaseSetStateReader)initWithDatabaseAccess:(id)access siteIdentifierFormat:(unsigned __int8)format;
+- (id)_createProvenanceSelectCommandFromDeviceRowIdToClockValues:(id)values type:(unsigned __int8)type state:(unsigned __int8)state columns:(id)columns;
 - (id)constructDeviceMapping:(id *)mapping;
 - (id)fetchContentRecordFromContentHash:(id)hash;
 - (id)itemInstanceCount:(id *)count;
@@ -144,86 +145,86 @@ uint64_t __111__CCDatabaseSetStateReader_constructStateVectorsFromDatabaseWithDe
 {
   stateCopy = state;
   typeCopy = type;
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   vectorCopy = vector;
   mappingCopy = mapping;
   blockCopy = block;
-  v39 = vectorCopy;
+  v38 = vectorCopy;
   if ([vectorCopy timestampCount])
   {
-    v58 = 0;
-    v59 = &v58;
-    v60 = 0x2020000000;
-    v61 = 0;
-    v35 = blockCopy;
-    v36 = objc_opt_new();
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
+    v57 = 0;
+    v58 = &v57;
+    v59 = 0x2020000000;
+    v60 = 0;
+    v34 = blockCopy;
+    v35 = objc_opt_new();
     v55 = 0u;
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     allSiteIdentifiers = [vectorCopy allSiteIdentifiers];
-    v15 = [allSiteIdentifiers countByEnumeratingWithState:&v54 objects:v62 count:16];
+    v15 = [allSiteIdentifiers countByEnumeratingWithState:&v53 objects:v61 count:16];
     if (v15)
     {
-      v16 = *v55;
+      v16 = *v54;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v55 != v16)
+          if (*v54 != v16)
           {
             objc_enumerationMutation(allSiteIdentifiers);
           }
 
-          v18 = *(*(&v54 + 1) + 8 * i);
+          v18 = *(*(&v53 + 1) + 8 * i);
           v19 = [mappingCopy deviceRowIdForSiteIdentifier:v18];
           v20 = objc_opt_new();
-          v49[0] = MEMORY[0x1E69E9820];
-          v49[1] = 3221225472;
-          v49[2] = __149__CCDatabaseSetStateReader_enumerateProvenanceRecordsForStateVector_withType_selectAtomsInState_skipOverAtomsInState_deviceMapping_error_usingBlock___block_invoke;
-          v49[3] = &unk_1E7C8B1E8;
-          v52 = stateCopy;
+          v48[0] = MEMORY[0x1E69E9820];
+          v48[1] = 3221225472;
+          v48[2] = __149__CCDatabaseSetStateReader_enumerateProvenanceRecordsForStateVector_withType_selectAtomsInState_skipOverAtomsInState_deviceMapping_error_usingBlock___block_invoke;
+          v48[3] = &unk_1E7C8B1E8;
+          v51 = stateCopy;
           inStateCopy = inState;
           v21 = v20;
-          v50 = v21;
-          v51 = &v58;
-          [v39 enumerateClockValuesForSiteIdentifier:v18 usingBlock:v49];
-          [v36 setObject:v21 forKeyedSubscript:v19];
+          v49 = v21;
+          v50 = &v57;
+          [v38 enumerateClockValuesForSiteIdentifier:v18 usingBlock:v48];
+          [v35 setObject:v21 forKeyedSubscript:v19];
         }
 
-        v15 = [allSiteIdentifiers countByEnumeratingWithState:&v54 objects:v62 count:16];
+        v15 = [allSiteIdentifiers countByEnumeratingWithState:&v53 objects:v61 count:16];
       }
 
       while (v15);
     }
 
-    v22 = v59[3];
+    v22 = v58[3];
     if (v22)
     {
       if (v22 < 0x1F5)
       {
-        v25 = v36;
-        v26 = _Block_copy(v35);
+        v25 = v35;
+        v26 = _Block_copy(v34);
       }
 
       else
       {
         v23 = objc_opt_new();
-        v47[0] = MEMORY[0x1E69E9820];
-        v47[1] = 3221225472;
-        v47[2] = __149__CCDatabaseSetStateReader_enumerateProvenanceRecordsForStateVector_withType_selectAtomsInState_skipOverAtomsInState_deviceMapping_error_usingBlock___block_invoke_10;
-        v47[3] = &unk_1E7C8B210;
+        v46[0] = MEMORY[0x1E69E9820];
+        v46[1] = 3221225472;
+        v46[2] = __149__CCDatabaseSetStateReader_enumerateProvenanceRecordsForStateVector_withType_selectAtomsInState_skipOverAtomsInState_deviceMapping_error_usingBlock___block_invoke_10;
+        v46[3] = &unk_1E7C8B210;
         v24 = v23;
-        v48 = v24;
-        [v36 enumerateKeysAndObjectsUsingBlock:v47];
+        v47 = v24;
+        [v35 enumerateKeysAndObjectsUsingBlock:v46];
         aBlock[0] = MEMORY[0x1E69E9820];
         aBlock[1] = 3221225472;
         aBlock[2] = __149__CCDatabaseSetStateReader_enumerateProvenanceRecordsForStateVector_withType_selectAtomsInState_skipOverAtomsInState_deviceMapping_error_usingBlock___block_invoke_2;
         aBlock[3] = &unk_1E7C8B238;
-        v43 = v36;
-        v45 = typeCopy;
-        v46 = stateCopy;
-        v44 = v35;
+        v42 = v35;
+        v44 = typeCopy;
+        v45 = stateCopy;
+        v43 = v34;
         v25 = v24;
         v26 = _Block_copy(aBlock);
       }
@@ -233,12 +234,12 @@ uint64_t __111__CCDatabaseSetStateReader_constructStateVectorsFromDatabaseWithDe
       {
         databaseAccess = self->_databaseAccess;
         v30 = objc_opt_class();
-        v40[0] = MEMORY[0x1E69E9820];
-        v40[1] = 3221225472;
-        v40[2] = __149__CCDatabaseSetStateReader_enumerateProvenanceRecordsForStateVector_withType_selectAtomsInState_skipOverAtomsInState_deviceMapping_error_usingBlock___block_invoke_13;
-        v40[3] = &unk_1E7C8B260;
-        v41 = v26;
-        v27 = [(CCDatabaseReadOnlyAccess *)databaseAccess enumerateRecordResultsOfSelect:v28 recordClass:v30 error:error usingBlock:v40];
+        v39[0] = MEMORY[0x1E69E9820];
+        v39[1] = 3221225472;
+        v39[2] = __149__CCDatabaseSetStateReader_enumerateProvenanceRecordsForStateVector_withType_selectAtomsInState_skipOverAtomsInState_deviceMapping_error_usingBlock___block_invoke_13;
+        v39[3] = &unk_1E7C8B260;
+        v40 = v26;
+        v27 = [(CCDatabaseReadOnlyAccess *)databaseAccess enumerateRecordResultsOfSelect:v28 recordClass:v30 error:error usingBlock:v39];
       }
 
       else
@@ -252,14 +253,14 @@ uint64_t __111__CCDatabaseSetStateReader_constructStateVectorsFromDatabaseWithDe
       v25 = __biome_log_for_category();
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
-        [CCDatabaseSetStateReader enumerateProvenanceRecordsForStateVector:stateCopy withType:v39 selectAtomsInState:v25 skipOverAtomsInState:? deviceMapping:? error:? usingBlock:?];
+        [CCDatabaseSetStateReader enumerateProvenanceRecordsForStateVector:stateCopy withType:v38 selectAtomsInState:v25 skipOverAtomsInState:? deviceMapping:? error:? usingBlock:?];
       }
 
       v27 = 1;
     }
 
-    _Block_object_dispose(&v58, 8);
-    blockCopy = v35;
+    _Block_object_dispose(&v57, 8);
+    blockCopy = v34;
   }
 
   else
@@ -267,13 +268,12 @@ uint64_t __111__CCDatabaseSetStateReader_constructStateVectorsFromDatabaseWithDe
     v27 = 1;
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v27;
 }
 
 void __149__CCDatabaseSetStateReader_enumerateProvenanceRecordsForStateVector_withType_selectAtomsInState_skipOverAtomsInState_deviceMapping_error_usingBlock___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (*(a1 + 48) == a5 || *(a1 + 49) == a5)
   {
     [*(a1 + 32) addIndexesInRange:{a2, a3}];
@@ -285,20 +285,18 @@ void __149__CCDatabaseSetStateReader_enumerateProvenanceRecordsForStateVector_wi
     v9 = __biome_log_for_category();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v11 = *(a1 + 48);
-      v12 = 134218752;
-      v13 = a2;
-      v14 = 2048;
-      v15 = a2 + a3;
-      v16 = 1024;
-      v17 = a5;
-      v18 = 1024;
-      v19 = v11;
-      _os_log_debug_impl(&dword_1B6DB2000, v9, OS_LOG_TYPE_DEBUG, "Enumerating clock value (%lu - %lu) which is in state %u when expecting to enumerate clock values in state %u", &v12, 0x22u);
+      v10 = *(a1 + 48);
+      v11 = 134218752;
+      v12 = a2;
+      v13 = 2048;
+      v14 = a2 + a3;
+      v15 = 1024;
+      v16 = a5;
+      v17 = 1024;
+      v18 = v10;
+      _os_log_debug_impl(&dword_1B6DB2000, v9, OS_LOG_TYPE_DEBUG, "Enumerating clock value (%lu - %lu) which is in state %u when expecting to enumerate clock values in state %u", &v11, 0x22u);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __149__CCDatabaseSetStateReader_enumerateProvenanceRecordsForStateVector_withType_selectAtomsInState_skipOverAtomsInState_deviceMapping_error_usingBlock___block_invoke_10(uint64_t a1, void *a2, void *a3)
@@ -335,7 +333,7 @@ void __149__CCDatabaseSetStateReader_enumerateProvenanceRecordsForStateVector_wi
       v15 = __biome_log_for_category();
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        __149__CCDatabaseSetStateReader_enumerateProvenanceRecordsForStateVector_withType_selectAtomsInState_skipOverAtomsInState_deviceMapping_error_usingBlock___block_invoke_2_cold_1((a1 + 48));
+        __149__CCDatabaseSetStateReader_enumerateProvenanceRecordsForStateVector_withType_selectAtomsInState_skipOverAtomsInState_deviceMapping_error_usingBlock___block_invoke_2_cold_1();
       }
 
       v7 = 0;
@@ -407,10 +405,10 @@ LABEL_16:
 
 - (id)fetchContentRecordFromContentHash:(id)hash
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   hashCopy = hash;
-  v27[0] = hashCopy;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
+  v26[0] = hashCopy;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
   v6 = [(NSMutableDictionary *)self->_commandCache objectForKey:&unk_1F2EC92A0];
   if ([v6 updateParameters:v5])
   {
@@ -439,25 +437,25 @@ LABEL_16:
     }
   }
 
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__1;
-  v25 = __Block_byref_object_dispose__1;
-  v26 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__1;
+  v24 = __Block_byref_object_dispose__1;
+  v25 = 0;
   databaseAccess = self->_databaseAccess;
   v12 = objc_opt_class();
-  v19[4] = &v21;
-  v20 = 0;
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __62__CCDatabaseSetStateReader_fetchContentRecordFromContentHash___block_invoke;
-  v19[3] = &unk_1E7C8B288;
-  v13 = [(CCDatabaseReadOnlyAccess *)databaseAccess enumerateRecordResultsOfSelect:build recordClass:v12 error:&v20 usingBlock:v19];
-  v14 = v20;
+  v18[4] = &v20;
+  v19 = 0;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __62__CCDatabaseSetStateReader_fetchContentRecordFromContentHash___block_invoke;
+  v18[3] = &unk_1E7C8B288;
+  v13 = [(CCDatabaseReadOnlyAccess *)databaseAccess enumerateRecordResultsOfSelect:build recordClass:v12 error:&v19 usingBlock:v18];
+  v14 = v19;
   if (v13)
   {
-    v15 = v22[5];
+    v15 = v21[5];
   }
 
   else
@@ -471,9 +469,7 @@ LABEL_16:
     v15 = 0;
   }
 
-  _Block_object_dispose(&v21, 8);
-
-  v17 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v20, 8);
 
   return v15;
 }
@@ -487,7 +483,7 @@ uint64_t __62__CCDatabaseSetStateReader_fetchContentRecordFromContentHash___bloc
 
 - (id)provenanceRecordEnumeratorForContentDeltaVector:(id)vector metaContentDeltaVector:(id)deltaVector seenContentBuilder:(id)builder seenMetaContentBuilder:(id)contentBuilder deviceMapping:(id)mapping error:(id *)error
 {
-  v64[3] = *MEMORY[0x1E69E9840];
+  v63[3] = *MEMORY[0x1E69E9840];
   mappingCopy = mapping;
   contentBuilderCopy = contentBuilder;
   builderCopy = builder;
@@ -495,73 +491,71 @@ uint64_t __62__CCDatabaseSetStateReader_fetchContentRecordFromContentHash___bloc
   vectorCopy = vector;
   v13 = [CCDatabaseSelect builderWithTableName:@"provenance"];
   v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", @"provenance", @"*"];
-  v64[0] = v14;
+  v63[0] = v14;
   v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", @"content", @"content"];
-  v64[1] = v15;
+  v63[1] = v15;
   v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", @"metacontent", @"metacontent"];
-  v64[2] = v16;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v64 count:3];
-  v56 = v13;
+  v63[2] = v16;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v63 count:3];
+  v55 = v13;
   [v13 setColumns:v17];
 
   v18 = [CCSQLCommandJoinTable alloc];
   v19 = [CCSQLCommandJoinCriterion criterionWithColumnName:@"content_hash" onTable:@"provenance" EQUALSColumnName:@"content_hash" comparingTableName:@"content"];
   v20 = [(CCSQLCommandJoinTable *)v18 initWithTable:@"content" joinCriterion:v19];
-  v63[0] = v20;
+  v62[0] = v20;
   v21 = [CCSQLCommandJoinTable alloc];
   v22 = [CCSQLCommandJoinCriterion criterionWithColumnName:@"instance_hash" onTable:@"provenance" EQUALSColumnName:@"instance_hash" comparingTableName:@"metacontent"];
   v23 = [(CCSQLCommandJoinTable *)v21 initWithTable:@"metacontent" joinCriterion:v22];
-  v63[1] = v23;
-  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v63 count:2];
+  v62[1] = v23;
+  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v62 count:2];
   [v13 setJoinWithType:2 tables:v24];
 
   v25 = objc_alloc_init(MEMORY[0x1E695DF70]);
   [(CCDatabaseSetStateReader *)self _resolveSequenceNumberRangesOfDeltaVector:vectorCopy appendToCriteria:v25 seenStateVectorBuilder:builderCopy deviceMapping:mappingCopy type:0];
 
   v26 = v25;
-  v55 = v25;
+  v54 = v25;
   [(CCDatabaseSetStateReader *)self _resolveSequenceNumberRangesOfDeltaVector:deltaVectorCopy appendToCriteria:v25 seenStateVectorBuilder:contentBuilderCopy deviceMapping:mappingCopy type:1];
 
   v27 = [CCDatabaseSelect builderWithTableName:@"provenance"];
   v28 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", @"provenance", @"content_hash"];
-  v62 = v28;
-  v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v62 count:1];
+  v61 = v28;
+  v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v61 count:1];
   [v27 setColumns:v29];
 
   v30 = [CCSQLCommandCriterion criterionWithORSubCriteria:v26];
-  v54 = v27;
+  v53 = v27;
   [v27 setCommandCriterion:v30];
 
   build = [v27 build];
-  v49 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", @"provenance", @"content_hash"];
-  v31 = [CCSQLCommandCriterion criterionWithColumnName:v49 INSubQuery:build];
-  v61[0] = v31;
+  v48 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%@", @"provenance", @"content_hash"];
+  v31 = [CCSQLCommandCriterion criterionWithColumnName:v48 INSubQuery:build];
+  v60[0] = v31;
   v32 = [CCSQLCommandCriterion criterionWithColumnName:"criterionWithColumnName:EQUALSColumnValue:" EQUALSColumnValue:?];
-  v60[0] = v32;
+  v59[0] = v32;
   v33 = [CCSQLCommandCriterion criterionWithColumnName:@"metacontent_state" EQUALSColumnValue:&unk_1F2EC92D0];
-  v60[1] = v33;
+  v59[1] = v33;
   null = [MEMORY[0x1E695DFB0] null];
   v35 = [CCSQLCommandCriterion criterionWithColumnName:@"metacontent_state" ISNOTColumnValue:null];
-  v60[2] = v35;
-  v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:3];
+  v59[2] = v35;
+  v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:v59 count:3];
   v37 = [CCSQLCommandCriterion criterionWithANDSubCriteria:v36];
   v38 = [CCSQLCommandCriterion criterionWithNOTSubCriteria:v37];
-  v61[1] = v38;
-  v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:2];
+  v60[1] = v38;
+  v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:2];
   v40 = [CCSQLCommandCriterion criterionWithANDSubCriteria:v39];
 
-  [v56 setCommandCriterion:v40];
+  [v55 setCommandCriterion:v40];
   v41 = [CCSQLCommandOrder alloc];
-  v59[0] = @"content_hash";
-  v59[1] = @"content_state";
-  v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v59 count:2];
+  v58[0] = @"content_hash";
+  v58[1] = @"content_state";
+  v42 = [MEMORY[0x1E695DEC8] arrayWithObjects:v58 count:2];
   v43 = [(CCSQLCommandOrder *)v41 initWithOrderMode:2 columnNames:v42];
 
-  [v56 setCommandOrder:v43];
-  build2 = [v56 build];
+  [v55 setCommandOrder:v43];
+  build2 = [v55 build];
   v45 = [(CCDatabaseReadOnlyAccess *)self->_databaseAccess enumeratorForRowResultsOfSelect:build2 error:error];
-
-  v46 = *MEMORY[0x1E69E9840];
 
   return v45;
 }
@@ -569,7 +563,7 @@ uint64_t __62__CCDatabaseSetStateReader_fetchContentRecordFromContentHash___bloc
 - (void)_resolveSequenceNumberRangesOfDeltaVector:(id)vector appendToCriteria:(id)criteria seenStateVectorBuilder:(id)builder deviceMapping:(id)mapping type:(unsigned __int8)type
 {
   typeCopy = type;
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   vectorCopy = vector;
   criteriaCopy = criteria;
   builderCopy = builder;
@@ -578,7 +572,7 @@ uint64_t __62__CCDatabaseSetStateReader_fetchContentRecordFromContentHash___bloc
   allSiteIdentifiers = [removals allSiteIdentifiers];
   v14 = [allSiteIdentifiers mutableCopy];
 
-  v41 = vectorCopy;
+  v40 = vectorCopy;
   contents = [vectorCopy contents];
   allSiteIdentifiers2 = [contents allSiteIdentifiers];
   [v14 unionSet:allSiteIdentifiers2];
@@ -601,42 +595,42 @@ LABEL_5:
     aBlock[1] = 3221225472;
     aBlock[2] = __129__CCDatabaseSetStateReader__resolveSequenceNumberRangesOfDeltaVector_appendToCriteria_seenStateVectorBuilder_deviceMapping_type___block_invoke_37;
     aBlock[3] = &unk_1E7C8B2D8;
-    v37 = v19;
-    v49 = v37;
-    v36 = v20;
-    v50 = v36;
+    v36 = v19;
+    v48 = v36;
+    v35 = v20;
+    v49 = v35;
     v21 = _Block_copy(aBlock);
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
-    v38 = v14;
+    v37 = v14;
     obj = v14;
-    v22 = [obj countByEnumeratingWithState:&v44 objects:v51 count:16];
+    v22 = [obj countByEnumeratingWithState:&v43 objects:v50 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v45;
+      v24 = *v44;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v45 != v24)
+          if (*v44 != v24)
           {
             objc_enumerationMutation(obj);
           }
 
-          v26 = *(*(&v44 + 1) + 8 * i);
+          v26 = *(*(&v43 + 1) + 8 * i);
           v27 = [mappingCopy deviceRowIdForSiteIdentifier:v26];
           if (v27)
           {
             v28 = objc_alloc_init(MEMORY[0x1E696AD50]);
             v29 = objc_alloc_init(MEMORY[0x1E696AD50]);
-            removals2 = [v41 removals];
+            removals2 = [v40 removals];
             __129__CCDatabaseSetStateReader__resolveSequenceNumberRangesOfDeltaVector_appendToCriteria_seenStateVectorBuilder_deviceMapping_type___block_invoke(removals2, removals2, v26, v28, v29);
 
             [builderCopy addClockValueSet:v29 withAtomState:2 forDeviceRowId:v27];
-            contents2 = [v41 contents];
+            contents2 = [v40 contents];
             __129__CCDatabaseSetStateReader__resolveSequenceNumberRangesOfDeltaVector_appendToCriteria_seenStateVectorBuilder_deviceMapping_type___block_invoke(contents2, contents2, v26, v28, v29);
 
             if ([v28 count])
@@ -653,14 +647,14 @@ LABEL_5:
           }
         }
 
-        v23 = [obj countByEnumeratingWithState:&v44 objects:v51 count:16];
+        v23 = [obj countByEnumeratingWithState:&v43 objects:v50 count:16];
       }
 
       while (v23);
     }
 
-    v34 = v37;
-    v14 = v38;
+    v34 = v36;
+    v14 = v37;
     goto LABEL_21;
   }
 
@@ -671,8 +665,6 @@ LABEL_5:
   }
 
 LABEL_21:
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __129__CCDatabaseSetStateReader__resolveSequenceNumberRangesOfDeltaVector_appendToCriteria_seenStateVectorBuilder_deviceMapping_type___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4, void *a5)
@@ -690,7 +682,7 @@ void __129__CCDatabaseSetStateReader__resolveSequenceNumberRangesOfDeltaVector_a
   [a2 enumerateClockValuesForSiteIdentifier:a3 usingBlock:v12];
 }
 
-uint64_t __129__CCDatabaseSetStateReader__resolveSequenceNumberRangesOfDeltaVector_appendToCriteria_seenStateVectorBuilder_deviceMapping_type___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+char *__129__CCDatabaseSetStateReader__resolveSequenceNumberRangesOfDeltaVector_appendToCriteria_seenStateVectorBuilder_deviceMapping_type___block_invoke_2(char *result, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
   if (a5 == 1)
   {
@@ -707,19 +699,19 @@ uint64_t __129__CCDatabaseSetStateReader__resolveSequenceNumberRangesOfDeltaVect
     v5 = 40;
   }
 
-  return [*(result + v5) addIndexesInRange:{a2, a3}];
+  return [*&result[v5] addIndexesInRange:{a2, a3}];
 }
 
 id __129__CCDatabaseSetStateReader__resolveSequenceNumberRangesOfDeltaVector_appendToCriteria_seenStateVectorBuilder_deviceMapping_type___block_invoke_37(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v22[3] = *MEMORY[0x1E69E9840];
+  v21[3] = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = [CCSQLCommandCriterion criterionWithColumnName:@"device_row_id" EQUALSColumnValue:a2];
-  v22[0] = v8;
+  v21[0] = v8;
   v9 = *(a1 + 32);
   v10 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:{a4, v8}];
   v11 = [CCSQLCommandCriterion criterionWithColumnName:v9 EQUALSColumnValue:v10];
-  v22[1] = v11;
+  v21[1] = v11;
   v12 = *(a1 + 40);
   v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v7, "firstIndex")}];
   v14 = MEMORY[0x1E696AD98];
@@ -727,50 +719,138 @@ id __129__CCDatabaseSetStateReader__resolveSequenceNumberRangesOfDeltaVector_app
 
   v16 = [v14 numberWithUnsignedInteger:v15];
   v17 = [CCSQLCommandCriterion criterionWithColumnName:v12 BETWEENLowerColumnValue:v13 ANDUpperColumnValue:v16];
-  v22[2] = v17;
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:3];
+  v21[2] = v17;
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:3];
   v19 = [CCSQLCommandCriterion criterionWithANDSubCriteria:v18];
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v19;
 }
 
+- (id)_createProvenanceSelectCommandFromDeviceRowIdToClockValues:(id)values type:(unsigned __int8)type state:(unsigned __int8)state columns:(id)columns
+{
+  stateCopy = state;
+  typeCopy = type;
+  v38[2] = *MEMORY[0x1E69E9840];
+  valuesCopy = values;
+  columnsCopy = columns;
+  if (!typeCopy)
+  {
+    v11 = CCDatabaseColumnContentSequenceNumberEndOfRun;
+    v12 = CCDatabaseColumnContentSequenceNumber;
+    v13 = CCDatabaseColumnContentState;
+    goto LABEL_5;
+  }
+
+  if (typeCopy == 1)
+  {
+    v11 = CCDatabaseColumnMetaContentSequenceNumberEndOfRun;
+    v12 = CCDatabaseColumnMetaContentSequenceNumber;
+    v13 = CCDatabaseColumnMetaContentState;
+LABEL_5:
+    v14 = *v13;
+    v15 = *v12;
+    v16 = *v11;
+    v17 = objc_opt_new();
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __106__CCDatabaseSetStateReader__createProvenanceSelectCommandFromDeviceRowIdToClockValues_type_state_columns___block_invoke;
+    v33[3] = &unk_1E7C8B328;
+    v37 = stateCopy;
+    v18 = v15;
+    v34 = v18;
+    v19 = v16;
+    v35 = v19;
+    v20 = v17;
+    v36 = v20;
+    [valuesCopy enumerateKeysAndObjectsUsingBlock:v33];
+    if ([v20 count])
+    {
+      v31 = v18;
+      v32 = valuesCopy;
+      v21 = [CCDatabaseSelect builderWithTableName:@"provenance"];
+      v22 = v21;
+      if (columnsCopy)
+      {
+        [v21 setColumns:columnsCopy];
+      }
+
+      v23 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:stateCopy];
+      v24 = [CCSQLCommandCriterion criterionWithColumnName:v14 EQUALSColumnValue:v23];
+
+      v38[0] = v24;
+      [CCSQLCommandCriterion criterionWithORSubCriteria:v20];
+      v26 = v25 = columnsCopy;
+      v38[1] = v26;
+      v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:2];
+      v28 = [CCSQLCommandCriterion criterionWithANDSubCriteria:v27];
+
+      columnsCopy = v25;
+      [v22 setCommandCriterion:v28];
+      build = [v22 build];
+
+      v18 = v31;
+      valuesCopy = v32;
+    }
+
+    else
+    {
+      v22 = __biome_log_for_category();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      {
+        [CCDatabaseSetStateReader _createProvenanceSelectCommandFromDeviceRowIdToClockValues:type:state:columns:];
+      }
+
+      build = 0;
+    }
+
+    goto LABEL_16;
+  }
+
+  v14 = __biome_log_for_category();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  {
+    [CCDatabaseSetStateReader _resolveSequenceNumberRangesOfDeltaVector:appendToCriteria:seenStateVectorBuilder:deviceMapping:type:];
+  }
+
+  build = 0;
+LABEL_16:
+
+  return build;
+}
+
 void __106__CCDatabaseSetStateReader__createProvenanceSelectCommandFromDeviceRowIdToClockValues_type_state_columns___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_opt_new();
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __106__CCDatabaseSetStateReader__createProvenanceSelectCommandFromDeviceRowIdToClockValues_type_state_columns___block_invoke_2;
-  v14[3] = &unk_1E7C8B300;
-  v18 = *(a1 + 56);
-  v15 = *(a1 + 32);
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __106__CCDatabaseSetStateReader__createProvenanceSelectCommandFromDeviceRowIdToClockValues_type_state_columns___block_invoke_2;
+  v13[3] = &unk_1E7C8B300;
+  v17 = *(a1 + 56);
+  v14 = *(a1 + 32);
   v8 = v7;
-  v16 = v8;
-  v17 = *(a1 + 40);
-  [v6 enumerateRangesUsingBlock:v14];
+  v15 = v8;
+  v16 = *(a1 + 40);
+  [v6 enumerateRangesUsingBlock:v13];
 
   if ([v8 count])
   {
     v9 = [CCSQLCommandCriterion criterionWithColumnName:@"device_row_id" EQUALSColumnValue:v5];
-    v19[0] = v9;
+    v18[0] = v9;
     v10 = [CCSQLCommandCriterion criterionWithORSubCriteria:v8];
-    v19[1] = v10;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:2];
+    v18[1] = v10;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
     v12 = [CCSQLCommandCriterion criterionWithANDSubCriteria:v11];
 
     [*(a1 + 48) addObject:v12];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __106__CCDatabaseSetStateReader__createProvenanceSelectCommandFromDeviceRowIdToClockValues_type_state_columns___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v30[3] = *MEMORY[0x1E69E9840];
+  v29[3] = *MEMORY[0x1E69E9840];
   v6 = *(a1 + 56);
   if (v6 == 2)
   {
@@ -786,11 +866,11 @@ void __106__CCDatabaseSetStateReader__createProvenanceSelectCommandFromDeviceRow
     v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a3 + a2 - 1];
     v18 = [CCSQLCommandCriterion criterionWithColumnName:v16 LESSTHANOrEqualColumnValue:v17];
 
-    v28 = v12;
-    v30[0] = v12;
-    v30[1] = v15;
-    v30[2] = v18;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:3];
+    v27 = v12;
+    v29[0] = v12;
+    v29[1] = v15;
+    v29[2] = v18;
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:3];
     v20 = [CCSQLCommandCriterion criterionWithANDSubCriteria:v19];
 
     v21 = *(a1 + 32);
@@ -806,17 +886,21 @@ void __106__CCDatabaseSetStateReader__createProvenanceSelectCommandFromDeviceRow
       v23 = [CCSQLCommandCriterion criterionWithColumnName:v21 BETWEENLowerColumnValue:v22 ANDUpperColumnValue:v25];
     }
 
-    v29[0] = v23;
-    v29[1] = v20;
-    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:2];
+    v28[0] = v23;
+    v28[1] = v20;
+    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
     v9 = [CCSQLCommandCriterion criterionWithORSubCriteria:v26];
 
     [*(a1 + 40) addObject:v9];
-    goto LABEL_11;
   }
 
-  if (v6 == 1)
+  else
   {
+    if (v6 != 1)
+    {
+      return;
+    }
+
     v7 = *(a1 + 32);
     v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a2];
     if (a3 == 1)
@@ -831,24 +915,21 @@ void __106__CCDatabaseSetStateReader__createProvenanceSelectCommandFromDeviceRow
     }
 
     [*(a1 + 40) addObject:v9];
-LABEL_11:
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)checkForPresentContent:(BOOL *)content filterByDeviceRowId:(id)id error:(id *)error
 {
-  v22[2] = *MEMORY[0x1E69E9840];
+  v21[2] = *MEMORY[0x1E69E9840];
   idCopy = id;
   v9 = [CCDatabaseSelect builderWithTableName:@"provenance"];
   v10 = [CCSQLCommandCriterion criterionWithColumnName:@"content_state" EQUALSColumnValue:&unk_1F2EC92D0];
   if (idCopy)
   {
     v11 = [CCSQLCommandCriterion criterionWithColumnName:@"device_row_id" EQUALSColumnValue:idCopy];
-    v22[0] = v10;
-    v22[1] = v11;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
+    v21[0] = v10;
+    v21[1] = v11;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
     v13 = [CCSQLCommandCriterion criterionWithANDSubCriteria:v12];
 
     v10 = v13;
@@ -859,16 +940,15 @@ LABEL_11:
   [v9 setLimit:&unk_1F2EC92E8];
   build = [v9 build];
   databaseAccess = self->_databaseAccess;
-  v21 = 0;
-  v16 = [(CCDatabaseReadOnlyAccess *)databaseAccess firstResultOfSelect:build outNumberValue:&v21 error:error];
-  v17 = v21;
+  v20 = 0;
+  v16 = [(CCDatabaseReadOnlyAccess *)databaseAccess firstResultOfSelect:build outNumberValue:&v20 error:error];
+  v17 = v20;
   v18 = v17;
   if (content && v16)
   {
     *content = [v17 intValue] > 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -1026,86 +1106,55 @@ uint64_t __67__CCDatabaseSetStateReader_persistedKeyValueForKey_database_error__
 
 - (void)enumerateProvenanceRecordsForStateVector:(os_log_t)log withType:selectAtomsInState:skipOverAtomsInState:deviceMapping:error:usingBlock:.cold.1(unsigned __int8 a1, uint64_t a2, os_log_t log)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 67109378;
-  v4[1] = a1;
-  v5 = 2112;
-  v6 = a2;
-  _os_log_debug_impl(&dword_1B6DB2000, log, OS_LOG_TYPE_DEBUG, "No clock values found with state %u in state vector: %@", v4, 0x12u);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void __149__CCDatabaseSetStateReader_enumerateProvenanceRecordsForStateVector_withType_selectAtomsInState_skipOverAtomsInState_deviceMapping_error_usingBlock___block_invoke_2_cold_1(unsigned __int8 *a1)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = *a1;
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
   v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109378;
+  v3[1] = a1;
+  v4 = 2112;
+  v5 = a2;
+  _os_log_debug_impl(&dword_1B6DB2000, log, OS_LOG_TYPE_DEBUG, "No clock values found with state %u in state vector: %@", v3, 0x12u);
 }
 
 - (void)fetchContentRecordFromContentHash:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchContentRecordFromContentHash:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_resolveSequenceNumberRangesOfDeltaVector:appendToCriteria:seenStateVectorBuilder:deviceMapping:type:.cold.1()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_createProvenanceSelectCommandFromDeviceRowIdToClockValues:type:state:columns:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sharedItemCount:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 commandString];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1B6DB2000, v2, v3, "Failed to select shared item count (%@) error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1B6DB2000, v2, v3, "Failed to select shared item count (%@) error: %@", v4, v5, v6, v7);
 }
 
 - (void)itemInstanceCount:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 commandString];
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_3(&dword_1B6DB2000, v2, v3, "Failed to select local instance count (%@) error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(&dword_1B6DB2000, v2, v3, "Failed to select local instance count (%@) error: %@", v4, v5, v6, v7);
 }
 
 + (void)persistedKeyValueForKey:database:error:.cold.1()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_1();
-  v4 = v0;
-  _os_log_error_impl(&dword_1B6DB2000, v1, OS_LOG_TYPE_ERROR, "Failed to select key value record for key: %@ error: %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = v0;
+  _os_log_error_impl(&dword_1B6DB2000, v1, OS_LOG_TYPE_ERROR, "Failed to select key value record for key: %@ error: %@", v2, 0x16u);
 }
 
 @end

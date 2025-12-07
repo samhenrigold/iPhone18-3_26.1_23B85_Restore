@@ -1,6 +1,7 @@
 @interface AXAccessQueue
 + (id)backgroundAccessQueue;
 + (id)mainAccessQueue;
+- (AXAccessQueue)initWithParentClass:(Class)class description:(id)description appendUUIDToLabel:(BOOL)label;
 - (BOOL)canReadInCurrentExecutionThread;
 - (BOOL)canWriteInCurrentExecutionThread;
 - (NSString)label;
@@ -181,6 +182,48 @@ LABEL_21:
   return v10;
 }
 
+- (AXAccessQueue)initWithParentClass:(Class)class description:(id)description appendUUIDToLabel:(BOOL)label
+{
+  labelCopy = label;
+  descriptionCopy = description;
+  if (class)
+  {
+    v9 = NSStringFromClass(class);
+    v10 = [MEMORY[0x1E696AAE8] bundleForClass:class];
+    bundleIdentifier = [v10 bundleIdentifier];
+
+    if (bundleIdentifier)
+    {
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
+  bundleIdentifier = [mainBundle bundleIdentifier];
+
+LABEL_6:
+  v13 = objc_alloc(MEMORY[0x1E696AEC0]);
+  if (descriptionCopy)
+  {
+    descriptionCopy = [v13 initWithFormat:@"%@.%@.%@", bundleIdentifier, v9, descriptionCopy];
+  }
+
+  else
+  {
+    descriptionCopy = [v13 initWithFormat:@"%@.%@", bundleIdentifier, v9, v18];
+  }
+
+  v15 = descriptionCopy;
+  v16 = [(AXAccessQueue *)self initWithLabel:descriptionCopy appendUUIDToLabel:labelCopy];
+
+  return v16;
+}
+
 - (NSString)label
 {
   if ([(AXAccessQueue *)self behavesAsMainQueue])
@@ -337,7 +380,7 @@ LABEL_21:
   v12 = blockCopy;
   if (!blockCopy)
   {
-    v13 = AXLogUI();
+    v13 = AXLogUI(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       [AXAccessQueue _performBlock:v13 withDispatchFunction:? synchronously:? accessQueueContext:?];
@@ -408,10 +451,9 @@ void __85__AXAccessQueue__performBlock_withDispatchFunction_synchronously_access
 
 - (void)_accessQueueContextInCurrentExecutionThread
 {
-  v8 = *MEMORY[0x1E69E9840];
-  sel_getName(self);
-  OUTLINED_FUNCTION_0_5(&dword_19159B000, v1, v2, "%s makes no sense with the main access queue.", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x1E69E9840];
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = sel_getName(self);
+  OUTLINED_FUNCTION_0_5(&dword_19159B000, v1, v2, "%s makes no sense with the main access queue.", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 @end

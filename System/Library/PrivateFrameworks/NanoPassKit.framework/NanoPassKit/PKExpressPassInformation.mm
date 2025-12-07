@@ -5,27 +5,27 @@
 
 void __84__PKExpressPassInformation_NanoPassKit__npk_hasImmediateAutomaticSelectionCriterion__block_invoke(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = a3;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v14 + 1) + 8 * i) type];
+        v11 = [*(*(&v13 + 1) + 8 * i) type];
         v12 = [v11 isEqualToString:@"generic_immediate.type_a"];
 
         if (v12)
@@ -35,7 +35,7 @@ void __84__PKExpressPassInformation_NanoPassKit__npk_hasImmediateAutomaticSelect
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v8)
       {
         continue;
@@ -48,7 +48,6 @@ void __84__PKExpressPassInformation_NanoPassKit__npk_hasImmediateAutomaticSelect
 LABEL_11:
 
   *a4 = *(*(*(a1 + 32) + 8) + 24);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __69__PKExpressPassInformation_NanoPassKit__npk_expressAppletIdentifiers__block_invoke(uint64_t a1, uint64_t a2)

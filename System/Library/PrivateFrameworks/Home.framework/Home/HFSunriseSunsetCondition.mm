@@ -9,11 +9,11 @@
 
 - (HFSunriseSunsetCondition)initWithPredicate:(id)predicate
 {
-  v32[2] = *MEMORY[0x277D85DE8];
+  v31[2] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
-  v31.receiver = self;
-  v31.super_class = HFSunriseSunsetCondition;
-  v5 = [(HFCondition *)&v31 initWithPredicate:predicateCopy];
+  v30.receiver = self;
+  v30.super_class = HFSunriseSunsetCondition;
+  v5 = [(HFCondition *)&v30 initWithPredicate:predicateCopy];
   if (v5)
   {
     objc_opt_class();
@@ -28,9 +28,9 @@
         if ([leftExpression expressionType] == 3)
         {
           v9 = *MEMORY[0x277CD0FB0];
-          v32[0] = *MEMORY[0x277CD0FA8];
-          v32[1] = v9;
-          v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
+          v31[0] = *MEMORY[0x277CD0FA8];
+          v31[1] = v9;
+          v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:2];
           keyPath = [leftExpression keyPath];
           v12 = [v10 containsObject:keyPath];
 
@@ -91,7 +91,6 @@ LABEL_16:
   v28 = v5;
 LABEL_20:
 
-  v29 = *MEMORY[0x277D85DE8];
   return v28;
 }
 

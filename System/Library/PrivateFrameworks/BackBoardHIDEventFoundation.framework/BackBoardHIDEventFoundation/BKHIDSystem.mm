@@ -68,57 +68,51 @@
 
 - (void)unregisterIOHIDServicesCallback:(void *)callback matchingDictionary:(id)dictionary target:(void *)target refCon:(void *)con
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (self->_HIDEventSystem)
   {
-    v6 = *MEMORY[0x277D85DE8];
 
     MEMORY[0x282121D80]();
   }
 
   else
   {
-    v8 = BKLogCommon();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = BKLogCommon();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = NSStringFromSelector(a2);
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_223CBE000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: _HIDEventSystem not initialized", &v11, 0xCu);
+      v8 = NSStringFromSelector(a2);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_223CBE000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: _HIDEventSystem not initialized", &v9, 0xCu);
     }
-
-    v10 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)registerIOHIDServicesCallback:(void *)callback matchingDictionary:(id)dictionary target:(void *)target refCon:(void *)con
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (self->_HIDEventSystem)
   {
-    v6 = *MEMORY[0x277D85DE8];
 
     MEMORY[0x282121D58]();
   }
 
   else
   {
-    v8 = BKLogCommon();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v7 = BKLogCommon();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = NSStringFromSelector(a2);
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_223CBE000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: _HIDEventSystem not initialized", &v11, 0xCu);
+      v8 = NSStringFromSelector(a2);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_223CBE000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: _HIDEventSystem not initialized", &v9, 0xCu);
     }
-
-    v10 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (id)IOHIDServicesMatching:(id)matching
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (self->_HIDEventSystem)
   {
     v3 = IOHIDEventSystemCopyServices();
@@ -130,15 +124,13 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = NSStringFromSelector(a2);
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_223CBE000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: _HIDEventSystem not initialized", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_223CBE000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: _HIDEventSystem not initialized", &v8, 0xCu);
     }
 
     v3 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -154,27 +146,25 @@
 
 - (__IOHIDEvent)systemEventOfType:(unsigned int)type matchingEvent:(__IOHIDEvent *)event options:(unsigned int)options
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (self->_HIDEventSystem)
   {
-    v6 = *MEMORY[0x277D85DE8];
 
     return MEMORY[0x282121D20]();
   }
 
   else
   {
-    v7 = BKLogCommon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = BKLogCommon();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138543618;
+      v8 = 138543618;
       Name = IOHIDEventTypeGetName();
-      v12 = 2114;
+      v10 = 2114;
       eventCopy = event;
-      _os_log_impl(&dword_223CBE000, v7, OS_LOG_TYPE_DEFAULT, "HIDSystem is not fully initialized, dropping systemEventOfType request: %{public}@ %{public}@", &v10, 0x16u);
+      _os_log_impl(&dword_223CBE000, v6, OS_LOG_TYPE_DEFAULT, "HIDSystem is not fully initialized, dropping systemEventOfType request: %{public}@ %{public}@", &v8, 0x16u);
     }
 
-    v8 = *MEMORY[0x277D85DE8];
     return 0;
   }
 }
@@ -196,28 +186,27 @@
 
 void __29__BKHIDSystem_injectGSEvent___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = BKLogEventDelivery();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v15 = *MEMORY[0x277D85DE8];
+  v2 = BKLogEventDelivery();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v15 = 67109120;
+    v13 = 67109120;
     Type = GSEventGetType();
-    _os_log_error_impl(&dword_223CBE000, v3, OS_LOG_TYPE_ERROR, "Received a GSEvent of type %d, but GSEvents are no longer supported", &v15, 8u);
+    _os_log_error_impl(&dword_223CBE000, v2, OS_LOG_TYPE_ERROR, "Received a GSEvent of type %d, but GSEvents are no longer supported", &v13, 8u);
   }
 
   GSEventRecord = _GSEventGetGSEventRecord();
   if (!GSEventShouldRouteToFrontMost())
   {
-    v10 = BKLogEventDelivery();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = BKLogEventDelivery();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = GSEventGetType();
-      v15 = 67109120;
-      Type = v11;
-      v12 = "Received a GSEvent that is not designated as being routed to frontmost (type %d), routing to system shell";
+      v10 = GSEventGetType();
+      v13 = 67109120;
+      Type = v10;
+      v11 = "Received a GSEvent that is not designated as being routed to frontmost (type %d), routing to system shell";
 LABEL_12:
-      _os_log_impl(&dword_223CBE000, v10, OS_LOG_TYPE_DEFAULT, v12, &v15, 8u);
+      _os_log_impl(&dword_223CBE000, v9, OS_LOG_TYPE_DEFAULT, v11, &v13, 8u);
     }
 
 LABEL_13:
@@ -229,113 +218,108 @@ LABEL_13:
   GSEventRemoveShouldRouteToFrontMost();
   if (GSEventGetType() != 50)
   {
-    v10 = BKLogEventDelivery();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = BKLogEventDelivery();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = GSEventGetType();
-      v15 = 67109120;
-      Type = v13;
-      v12 = "Received a frontmost non-orientation GSEvent (type:%d), routing to system shell";
+      v12 = GSEventGetType();
+      v13 = 67109120;
+      Type = v12;
+      v11 = "Received a frontmost non-orientation GSEvent (type:%d), routing to system shell";
       goto LABEL_12;
     }
 
     goto LABEL_13;
   }
 
-  v5 = GSEventDeviceOrientation();
-  v6 = v5;
-  v7 = BKLogEventDelivery();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v4 = GSEventDeviceOrientation();
+  v5 = v4;
+  v6 = BKLogEventDelivery();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 67109120;
-    Type = v5;
-    _os_log_impl(&dword_223CBE000, v7, OS_LOG_TYPE_DEFAULT, "Got an orientation event from a GSEvent: %d", &v15, 8u);
+    v13 = 67109120;
+    Type = v4;
+    _os_log_impl(&dword_223CBE000, v6, OS_LOG_TYPE_DEFAULT, "Got an orientation event from a GSEvent: %d", &v13, 8u);
   }
 
-  v8 = +[BKHIDSystem sharedInstance];
-  v9 = [v8 delegate];
-  [v9 hidSystem:v8 receivedUpdatedDeviceOrientation:v6];
+  v7 = +[BKHIDSystem sharedInstance];
+  v8 = [v7 delegate];
+  [v8 hidSystem:v7 receivedUpdatedDeviceOrientation:v5];
 
 LABEL_14:
   CFRelease(*(a1 + 32));
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSystemProperty:(id)property forKey:(id)key
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   propertyCopy = property;
   keyCopy = key;
   if (!self->_HIDEventSystem)
   {
-    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"need HID system"];
+    v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"need HID system"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v10 = NSStringFromSelector(a2);
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
+      v9 = NSStringFromSelector(a2);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
       *buf = 138544642;
-      v15 = v10;
-      v16 = 2114;
-      v17 = v12;
-      v18 = 2048;
+      v14 = v9;
+      v15 = 2114;
+      v16 = v11;
+      v17 = 2048;
       selfCopy = self;
-      v20 = 2114;
-      v21 = @"BKHIDSystem.m";
-      v22 = 1024;
-      v23 = 170;
-      v24 = 2114;
-      v25 = v9;
+      v19 = 2114;
+      v20 = @"BKHIDSystem.m";
+      v21 = 1024;
+      v22 = 170;
+      v23 = 2114;
+      v24 = v8;
       _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v9 UTF8String];
+    [v8 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x223CE6354);
   }
 
   IOHIDEventSystemSetProperty();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)systemPropertyForKey:(id)key
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if (!self->_HIDEventSystem)
   {
-    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"need HID system"];
+    v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"need HID system"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v10 = NSStringFromSelector(a2);
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
-      v13 = 138544642;
-      v14 = v10;
-      v15 = 2114;
-      v16 = v12;
-      v17 = 2048;
+      v9 = NSStringFromSelector(a2);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v12 = 138544642;
+      v13 = v9;
+      v14 = 2114;
+      v15 = v11;
+      v16 = 2048;
       selfCopy = self;
-      v19 = 2114;
-      v20 = @"BKHIDSystem.m";
-      v21 = 1024;
-      v22 = 162;
-      v23 = 2114;
-      v24 = v9;
-      _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v13, 0x3Au);
+      v18 = 2114;
+      v19 = @"BKHIDSystem.m";
+      v20 = 1024;
+      v21 = 162;
+      v22 = 2114;
+      v23 = v8;
+      _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v12, 0x3Au);
     }
 
-    [v9 UTF8String];
+    [v8 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x223CE64DCLL);
   }
 
   v6 = IOHIDEventSystemGetProperty();
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -390,31 +374,31 @@ void __90__BKHIDSystem_startEventProcessor_mainDisplayObserver_deliveryManager_d
 
 - (void)startHIDSystem
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   if (!self->_HIDEventSystem)
   {
-    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"IOHIDEventSystem creation failed"];
+    v8 = [MEMORY[0x277CCACA8] stringWithFormat:@"IOHIDEventSystem creation failed"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v10 = NSStringFromSelector(a2);
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
-      v21 = 138544642;
-      v22 = v10;
-      v23 = 2114;
-      v24 = v12;
-      v25 = 2048;
+      v9 = NSStringFromSelector(a2);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
+      v20 = 138544642;
+      v21 = v9;
+      v22 = 2114;
+      v23 = v11;
+      v24 = 2048;
       selfCopy3 = self;
-      v27 = 2114;
-      v28 = @"BKHIDSystem.m";
-      v29 = 1024;
-      v30 = 108;
-      v31 = 2114;
-      v32 = v9;
-      _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v21, 0x3Au);
+      v26 = 2114;
+      v27 = @"BKHIDSystem.m";
+      v28 = 1024;
+      v29 = 108;
+      v30 = 2114;
+      v31 = v8;
+      _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v20, 0x3Au);
     }
 
-    [v9 UTF8String];
+    [v8 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x223CE6914);
@@ -422,28 +406,28 @@ void __90__BKHIDSystem_startEventProcessor_mainDisplayObserver_deliveryManager_d
 
   if (!IOHIDEventSystemOpen())
   {
-    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to open HID system fullly"];
+    v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to open HID system fullly"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v14 = NSStringFromSelector(a2);
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
-      v21 = 138544642;
-      v22 = v14;
-      v23 = 2114;
-      v24 = v16;
-      v25 = 2048;
+      v13 = NSStringFromSelector(a2);
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
+      v20 = 138544642;
+      v21 = v13;
+      v22 = 2114;
+      v23 = v15;
+      v24 = 2048;
       selfCopy3 = self;
-      v27 = 2114;
-      v28 = @"BKHIDSystem.m";
-      v29 = 1024;
-      v30 = 111;
-      v31 = 2114;
-      v32 = v13;
-      _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v21, 0x3Au);
+      v26 = 2114;
+      v27 = @"BKHIDSystem.m";
+      v28 = 1024;
+      v29 = 111;
+      v30 = 2114;
+      v31 = v12;
+      _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v20, 0x3Au);
     }
 
-    [v13 UTF8String];
+    [v12 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x223CE6A00);
@@ -453,28 +437,28 @@ void __90__BKHIDSystem_startEventProcessor_mainDisplayObserver_deliveryManager_d
   self->_HIDEventSystemClient = v4;
   if (!v4)
   {
-    v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"BKHID: Failed to create system client"];
+    v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"BKHID: Failed to create system client"];
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v18 = NSStringFromSelector(a2);
-      v19 = objc_opt_class();
-      v20 = NSStringFromClass(v19);
-      v21 = 138544642;
-      v22 = v18;
-      v23 = 2114;
-      v24 = v20;
-      v25 = 2048;
+      v17 = NSStringFromSelector(a2);
+      v18 = objc_opt_class();
+      v19 = NSStringFromClass(v18);
+      v20 = 138544642;
+      v21 = v17;
+      v22 = 2114;
+      v23 = v19;
+      v24 = 2048;
       selfCopy3 = self;
-      v27 = 2114;
-      v28 = @"BKHIDSystem.m";
-      v29 = 1024;
-      v30 = 114;
-      v31 = 2114;
-      v32 = v17;
-      _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v21, 0x3Au);
+      v26 = 2114;
+      v27 = @"BKHIDSystem.m";
+      v28 = 1024;
+      v29 = 114;
+      v30 = 2114;
+      v31 = v16;
+      _os_log_error_impl(&dword_223CBE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", &v20, 0x3Au);
     }
 
-    [v17 UTF8String];
+    [v16 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x223CE6AECLL);
@@ -482,10 +466,9 @@ void __90__BKHIDSystem_startEventProcessor_mainDisplayObserver_deliveryManager_d
 
   v5 = v4;
   Main = CFRunLoopGetMain();
-  v7 = *MEMORY[0x277D85DE8];
-  v8 = *MEMORY[0x277CBF058];
+  v7 = *MEMORY[0x277CBF058];
 
-  MEMORY[0x282121C68](v5, Main, v8);
+  MEMORY[0x282121C68](v5, Main, v7);
 }
 
 - (void)dealloc

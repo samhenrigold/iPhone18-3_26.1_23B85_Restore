@@ -1,9 +1,12 @@
 @interface WFCloudKitItemProperty
++ (id)assetPropertyWithName:(id)name fileType:(id)type ignoredByDefault:(BOOL)default encrypted:(BOOL)encrypted;
 + (id)itemPropertyWithName:(id)name itemClass:(Class)class;
 + (id)itemReferencePropertyWithName:(id)name itemClass:(Class)class;
 + (id)objectPropertyWithName:(id)name constantValue:(id)value;
 + (id)objectPropertyWithName:(id)name constantValue:(id)value encrypted:(BOOL)encrypted;
++ (id)objectPropertyWithName:(id)name ignoredByDefault:(BOOL)default encrypted:(BOOL)encrypted;
 + (id)scalarPropertyWithName:(id)name constantValue:(id)value;
++ (id)scalarPropertyWithName:(id)name nilValue:(id)value ignoredByDefault:(BOOL)default encrypted:(BOOL)encrypted;
 - (WFCloudKitItemProperty)initWithType:(unint64_t)type name:(id)name itemClass:(Class)class ignoredByDefault:(BOOL)default nilValue:(id)value hasConstantValue:(BOOL)constantValue constantValue:(id)a9 fileType:(id)self0 encrypted:(BOOL)self1;
 @end
 
@@ -75,6 +78,17 @@
   return v8;
 }
 
++ (id)assetPropertyWithName:(id)name fileType:(id)type ignoredByDefault:(BOOL)default encrypted:(BOOL)encrypted
+{
+  defaultCopy = default;
+  typeCopy = type;
+  nameCopy = name;
+  LOBYTE(v14) = encrypted;
+  v12 = [[self alloc] initWithType:2 name:nameCopy itemClass:0 ignoredByDefault:defaultCopy nilValue:0 hasConstantValue:0 constantValue:0 fileType:typeCopy encrypted:v14];
+
+  return v12;
+}
+
 + (id)objectPropertyWithName:(id)name constantValue:(id)value encrypted:(BOOL)encrypted
 {
   valueCopy = value;
@@ -95,6 +109,16 @@
   return v8;
 }
 
++ (id)objectPropertyWithName:(id)name ignoredByDefault:(BOOL)default encrypted:(BOOL)encrypted
+{
+  defaultCopy = default;
+  nameCopy = name;
+  LOBYTE(v11) = encrypted;
+  v9 = [[self alloc] initWithType:1 name:nameCopy itemClass:0 ignoredByDefault:defaultCopy nilValue:0 hasConstantValue:0 constantValue:0 fileType:0 encrypted:v11];
+
+  return v9;
+}
+
 + (id)scalarPropertyWithName:(id)name constantValue:(id)value
 {
   valueCopy = value;
@@ -103,6 +127,23 @@
   v8 = [[self alloc] initWithType:0 name:nameCopy itemClass:0 ignoredByDefault:0 nilValue:0 hasConstantValue:1 constantValue:valueCopy fileType:0 encrypted:v10];
 
   return v8;
+}
+
++ (id)scalarPropertyWithName:(id)name nilValue:(id)value ignoredByDefault:(BOOL)default encrypted:(BOOL)encrypted
+{
+  defaultCopy = default;
+  nameCopy = name;
+  valueCopy = value;
+  if (!valueCopy)
+  {
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"WFCloudKitItemProperty.m" lineNumber:21 description:{@"Invalid parameter not satisfying: %@", @"nilValue"}];
+  }
+
+  LOBYTE(v16) = encrypted;
+  v13 = [[self alloc] initWithType:0 name:nameCopy itemClass:0 ignoredByDefault:defaultCopy nilValue:valueCopy hasConstantValue:0 constantValue:0 fileType:0 encrypted:v16];
+
+  return v13;
 }
 
 @end

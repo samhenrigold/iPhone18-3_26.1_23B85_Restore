@@ -21,7 +21,7 @@
 
 - (CNKMutedTalkerBannerViewControllerDelegate)delegate
 {
-  v2 = MutedTalkerBannerViewController.delegate.getter();
+  v2 = MutedTalkerBannerViewController.delegate.getter(self);
 
   return v2;
 }
@@ -30,7 +30,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  MutedTalkerBannerViewController.delegate.setter();
+  MutedTalkerBannerViewController.delegate.setter(delegate);
 }
 
 - (void)viewDidLoad

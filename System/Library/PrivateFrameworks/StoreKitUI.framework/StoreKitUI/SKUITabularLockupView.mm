@@ -366,37 +366,37 @@ void __61__SKUITabularLockupView_reloadWithViewElement_width_context___block_inv
 
 - (void)_layoutSubviewsForColumn:(id)column
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   columnCopy = column;
   identifier = [columnCopy identifier];
   [(SKUITabularLockupView *)self bounds];
-  v30 = v7;
-  v31 = v6;
-  v28 = v9;
-  v29 = v8;
+  v32 = v7;
+  v33 = v6;
+  v30 = v9;
+  v31 = v8;
   [(SKUITabularLockupView *)self bounds];
-  [(SKUITabularLockupView *)self _sizeViewsForColumn:columnCopy toFitWidth:CGRectGetWidth(v39)];
-  v33 = 0u;
-  v34 = 0u;
+  [(SKUITabularLockupView *)self _sizeViewsForColumn:columnCopy toFitWidth:CGRectGetWidth(v41)];
   v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   childViewElements = [columnCopy childViewElements];
-  v11 = [childViewElements countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v11 = [childViewElements countByEnumeratingWithState:&v35 objects:v39 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v34;
+    v13 = *v36;
     do
     {
       v14 = 0;
       do
       {
-        if (*v34 != v13)
+        if (*v36 != v13)
         {
           objc_enumerationMutation(childViewElements);
         }
 
-        v15 = [(NSMapTable *)self->_viewElementViews objectForKey:*(*(&v33 + 1) + 8 * v14)];
+        v15 = [(NSMapTable *)self->_viewElementViews objectForKey:*(*(&v35 + 1) + 8 * v14)];
         [v15 frame];
         v17 = v16;
         v19 = v18;
@@ -406,52 +406,52 @@ void __61__SKUITabularLockupView_reloadWithViewElement_width_context___block_inv
         switch(identifier)
         {
           case 2:
-            v42.origin.y = v30;
-            v42.origin.x = v31;
-            v42.size.height = v28;
-            v42.size.width = v29;
-            Width = CGRectGetWidth(v42);
+            v44.origin.y = v32;
+            v44.origin.x = v33;
+            v44.size.height = v30;
+            v44.size.width = v31;
+            Width = CGRectGetWidth(v44);
+            v45.origin.x = v17;
+            v45.origin.y = v19;
+            v45.size.width = v21;
+            v45.size.height = v23;
+            v17 = Width - CGRectGetWidth(v45);
+            break;
+          case 1:
+            v42.origin.y = v32;
+            v42.origin.x = v33;
+            v42.size.height = v30;
+            v42.size.width = v31;
+            v24 = CGRectGetWidth(v42);
             v43.origin.x = v17;
             v43.origin.y = v19;
             v43.size.width = v21;
             v43.size.height = v23;
-            v17 = Width - CGRectGetWidth(v43);
-            break;
-          case 1:
-            v40.origin.y = v30;
-            v40.origin.x = v31;
-            v40.size.height = v28;
-            v40.size.width = v29;
-            v24 = CGRectGetWidth(v40);
-            v41.origin.x = v17;
-            v41.origin.y = v19;
-            v41.size.width = v21;
-            v41.size.height = v23;
-            v17 = floor((v24 - CGRectGetWidth(v41)) * 0.5);
+            v17 = floor((v24 - CGRectGetWidth(v43)) * 0.5);
             break;
           case 0:
             v17 = 0.0;
             break;
         }
 
-        v44.origin.x = v31;
-        v44.origin.y = v30;
-        v44.size.width = v29;
-        v44.size.height = v28;
-        Height = CGRectGetHeight(v44);
-        v45.origin.x = v17;
-        v45.origin.y = rect;
-        v45.size.width = v21;
-        v45.size.height = v23;
-        v27 = CGRectGetHeight(v45);
-        SKUIRectByApplyingUserInterfaceLayoutDirectionInRect(v17, floor((Height - v27) * 0.5), v21, v23, v31, v30, v29, v28);
+        v46.origin.x = v33;
+        v46.origin.y = v32;
+        v46.size.width = v31;
+        v46.size.height = v30;
+        Height = CGRectGetHeight(v46);
+        v47.origin.x = v17;
+        v47.origin.y = rect;
+        v47.size.width = v21;
+        v47.size.height = v23;
+        v27 = CGRectGetHeight(v47);
+        SKUIRectByApplyingUserInterfaceLayoutDirectionInRect(v17, floor((Height - v27) * 0.5), v21, v23, v33, v32, v31, v30, v28, v29);
         [v15 setFrame:?];
 
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [childViewElements countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v12 = [childViewElements countByEnumeratingWithState:&v35 objects:v39 count:16];
     }
 
     while (v12);
@@ -518,6 +518,48 @@ void __56__SKUITabularLockupView__sizeViewsForColumn_toFitWidth___block_invoke(u
   }
 
   *(v13 + 32) = v14;
+}
+
+- (void)initWithFrame:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITabularLockupView initWithFrame:]";
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITabularLockupView prefetchResourcesForViewElement:reason:context:]";
+}
+
++ (void)preferredSizeForViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITabularLockupView preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITabularLockupView requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITabularLockupView sizeThatFitsWidth:viewElement:context:]";
+}
+
++ (void)_attributedStringForLabel:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITabularLockupView _attributedStringForLabel:context:]";
+}
+
++ (void)_requestLayoutForViewElements:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUITabularLockupView _requestLayoutForViewElements:width:context:]";
 }
 
 @end

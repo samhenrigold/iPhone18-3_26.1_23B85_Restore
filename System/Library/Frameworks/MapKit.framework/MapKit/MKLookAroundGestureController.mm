@@ -491,7 +491,7 @@ void __44__MKLookAroundGestureController__handlePan___block_invoke_22(uint64_t a
         v17 = mEMORY[0x1E69DF418]2;
         if (mEMORY[0x1E69DF418]2)
         {
-          [mEMORY[0x1E69DF418]2 muninTapState];
+          objc_msgSend_muninTapState(mEMORY[0x1E69DF418]2);
           v13 = *&v42;
         }
 
@@ -506,7 +506,7 @@ void __44__MKLookAroundGestureController__handlePan___block_invoke_22(uint64_t a
         v19 = mEMORY[0x1E69DF418]3;
         if (mEMORY[0x1E69DF418]3)
         {
-          [mEMORY[0x1E69DF418]3 muninTapState];
+          objc_msgSend_muninTapState(mEMORY[0x1E69DF418]3);
           v15 = *(&v40 + 1);
         }
 
@@ -615,7 +615,7 @@ void __44__MKLookAroundGestureController__handlePan___block_invoke_22(uint64_t a
   v5 = mEMORY[0x1E69DF418];
   if (mEMORY[0x1E69DF418])
   {
-    [mEMORY[0x1E69DF418] muninTapState];
+    objc_msgSend_muninTapState(mEMORY[0x1E69DF418]);
   }
 
   else

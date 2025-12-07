@@ -228,12 +228,12 @@ LABEL_19:
         {
           delegate4 = [(NRExtensiblePair *)self delegate];
           nrDeviceUUID2 = [(NRExtensiblePair *)self nrDeviceUUID];
-          v118[0] = _NSConcreteStackBlock;
-          v118[1] = 3221225472;
-          v118[2] = sub_1000BA304;
-          v118[3] = &unk_100175660;
-          v118[4] = self;
-          [delegate4 activateDevice:nrDeviceUUID2 withCompletion:v118];
+          v120[0] = _NSConcreteStackBlock;
+          v120[1] = 3221225472;
+          v120[2] = sub_1000BA304;
+          v120[3] = &unk_100175660;
+          v120[4] = self;
+          [delegate4 activateDevice:nrDeviceUUID2 withCompletion:v120];
 
           goto LABEL_24;
         }
@@ -309,11 +309,11 @@ LABEL_24:
       block[1] = 3221225472;
       block[2] = sub_1000BA348;
       block[3] = &unk_100175660;
-      v117 = v32;
+      v119 = v32;
       delegate2 = v32;
       dispatch_async(v33, block);
 
-      pairingReport = v117;
+      pairingReport = v119;
       goto LABEL_30;
     }
 
@@ -344,13 +344,13 @@ LABEL_32:
     pairingMode3 = [(NRExtensiblePair *)self pairingMode];
     if (pairingMode3 - 1 < 2)
     {
-      v91 = self->_generator;
+      v93 = self->_generator;
       self->_generator = 0;
 
-      v92 = self->_unpairer;
+      v94 = self->_unpairer;
       self->_unpairer = 0;
 
-      v93 = self->_advertiser;
+      v95 = self->_advertiser;
       self->_advertiser = 0;
 
       if (!self->_discoverer)
@@ -362,9 +362,9 @@ LABEL_32:
         [factory2 setDiscovererShouldScanForProximity:0];
 
         factory3 = [(NRExtensiblePair *)self factory];
-        v97 = [factory3 newDiscovererWithDelegate:self];
-        v98 = self->_discoverer;
-        self->_discoverer = v97;
+        v99 = [factory3 newDiscovererWithDelegate:self];
+        v100 = self->_discoverer;
+        self->_discoverer = v99;
       }
 
       if (self->_pipeManager)
@@ -372,16 +372,16 @@ LABEL_32:
         goto LABEL_36;
       }
 
-      v81 = 1;
+      v83 = 1;
 LABEL_112:
-      v99 = +[EPScalablePipeManagerManagerFactory sharedPipeManagerManagerFactory];
-      v100 = [v99 pipeManagerManagerWithName:@"com.apple.ep" type:v81 priority:1];
-      v101 = self->_pipeManager;
-      self->_pipeManager = v100;
+      v101 = +[EPScalablePipeManagerManagerFactory sharedPipeManagerManagerFactory];
+      v102 = [v101 pipeManagerManagerWithName:@"com.apple.ep" type:v83 priority:1];
+      v103 = self->_pipeManager;
+      self->_pipeManager = v102;
 
-      v102 = [(EPScalablePipeManagerManager *)self->_pipeManager newManagerWithDelegate:self];
-      v103 = self->_pipe;
-      self->_pipe = v102;
+      v104 = [(EPScalablePipeManagerManager *)self->_pipeManager newManagerWithDelegate:self];
+      v105 = self->_pipe;
+      self->_pipe = v104;
 
       goto LABEL_36;
     }
@@ -444,26 +444,26 @@ LABEL_79:
               objc_initWeak(&buf, self);
               factory6 = [(NRExtensiblePair *)self factory];
               v72 = [CBUUID UUIDWithString:@"E168D473-8EFD-4485-A1FD-B25EDAD4DCE2"];
-              v114[0] = _NSConcreteStackBlock;
-              v114[1] = 3221225472;
-              v114[2] = sub_1000BA630;
-              v114[3] = &unk_1001791B0;
-              objc_copyWeak(&v115, &buf);
-              [factory6 addAdvertisedCharacteristic:v72 encryptionRequired:0 withReadHandler:v114 writeHandler:0];
+              v116[0] = _NSConcreteStackBlock;
+              v116[1] = 3221225472;
+              v116[2] = sub_1000BA630;
+              v116[3] = &unk_1001791B0;
+              objc_copyWeak(&v117, &buf);
+              [factory6 addAdvertisedCharacteristic:v72 encryptionRequired:0 withReadHandler:v116 writeHandler:0];
 
               factory7 = [(NRExtensiblePair *)self factory];
               [factory7 setAdvertisingRate:3];
 
-              v74 = sub_1000A98C0();
-              LODWORD(v72) = os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT);
+              v75 = sub_1000A98C0(v74);
+              LODWORD(v72) = os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT);
 
               if (v72)
               {
-                v75 = sub_1000A98C0();
-                if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
+                v77 = sub_1000A98C0(v76);
+                if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
                 {
-                  *v113 = 0;
-                  _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEFAULT, "NRExtensiblePair: Set not available to pair to NO", v113, 2u);
+                  *v115 = 0;
+                  _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEFAULT, "NRExtensiblePair: Set not available to pair to NO", v115, 2u);
                 }
               }
 
@@ -474,11 +474,11 @@ LABEL_79:
               [factory9 setDontAdvertiseWithServiceUUID:0];
 
               factory10 = [(NRExtensiblePair *)self factory];
-              v79 = [factory10 newAdvertiserWithDelegate:self];
-              v80 = self->_advertiser;
-              self->_advertiser = v79;
+              v81 = [factory10 newAdvertiserWithDelegate:self];
+              v82 = self->_advertiser;
+              self->_advertiser = v81;
 
-              objc_destroyWeak(&v115);
+              objc_destroyWeak(&v117);
               objc_destroyWeak(&buf);
             }
 
@@ -487,7 +487,7 @@ LABEL_79:
               goto LABEL_36;
             }
 
-            v81 = 0;
+            v83 = 0;
             goto LABEL_112;
           }
 
@@ -503,9 +503,9 @@ LABEL_79:
       }
 
       factory11 = [(NRExtensiblePair *)self factory];
-      v104 = [factory11 newKeyGeneratorWithDelegate:self];
-      v105 = self->_generator;
-      self->_generator = v104;
+      v106 = [factory11 newKeyGeneratorWithDelegate:self];
+      v107 = self->_generator;
+      self->_generator = v106;
     }
 
     goto LABEL_75;
@@ -529,40 +529,40 @@ LABEL_36:
       self->_haveStartedCreatingPairingDevice = 1;
       delegate7 = [(NRExtensiblePair *)self delegate];
       advertisedName3 = [(NRExtensiblePair *)self advertisedName];
-      v112[0] = _NSConcreteStackBlock;
-      v112[1] = 3221225472;
-      v112[2] = sub_1000BA744;
-      v112[3] = &unk_1001791D8;
-      v112[4] = self;
-      [delegate7 createDeviceFromPairingRequest:advertisedName3 discoveredBy:1 withBlock:v112];
+      v114[0] = _NSConcreteStackBlock;
+      v114[1] = 3221225472;
+      v114[2] = sub_1000BA744;
+      v114[3] = &unk_1001791D8;
+      v114[4] = self;
+      [delegate7 createDeviceFromPairingRequest:advertisedName3 discoveredBy:1 withBlock:v114];
     }
   }
 
 LABEL_41:
+  v112 = 0u;
+  v113 = 0u;
   v110 = 0u;
   v111 = 0u;
-  v108 = 0u;
-  v109 = 0u;
   devices = [(EPDiscoverer *)self->_discoverer devices];
   allValues = [devices allValues];
 
-  v44 = [allValues countByEnumeratingWithState:&v108 objects:v119 count:16];
+  v44 = [allValues countByEnumeratingWithState:&v110 objects:v121 count:16];
   if (v44)
   {
-    v45 = *v109;
+    v45 = *v111;
     do
     {
       for (i = 0; i != v44; i = i + 1)
       {
-        if (*v109 != v45)
+        if (*v111 != v45)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v108 + 1) + 8 * i) setEnableOOBPairing:{-[NRExtensiblePair pairingMode](self, "pairingMode") == 1}];
+        [*(*(&v110 + 1) + 8 * i) setEnableOOBPairing:{-[NRExtensiblePair pairingMode](self, "pairingMode") == 1}];
       }
 
-      v44 = [allValues countByEnumeratingWithState:&v108 objects:v119 count:16];
+      v44 = [allValues countByEnumeratingWithState:&v110 objects:v121 count:16];
     }
 
     while (v44);
@@ -650,44 +650,44 @@ LABEL_95:
   }
 
 LABEL_97:
-  v82 = nr_daemon_log();
-  v83 = os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT);
+  v84 = nr_daemon_log();
+  v85 = os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT);
 
-  if (v83)
+  if (v85)
   {
-    v84 = nr_daemon_log();
-    if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
+    v86 = nr_daemon_log();
+    if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf) = 0;
-      _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: Init complete", &buf, 2u);
+      _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: Init complete", &buf, 2u);
     }
   }
 
   if ([(NSMutableArray *)self->_startupBlocks count])
   {
-    v85 = nr_daemon_log();
-    v86 = os_log_type_enabled(v85, OS_LOG_TYPE_DEFAULT);
+    v87 = nr_daemon_log();
+    v88 = os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT);
 
-    if (v86)
+    if (v88)
     {
-      v87 = nr_daemon_log();
-      if (os_log_type_enabled(v87, OS_LOG_TYPE_DEFAULT))
+      v89 = nr_daemon_log();
+      if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf) = 0;
-        _os_log_impl(&_mh_execute_header, v87, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: Init complete calling pending blocks", &buf, 2u);
+        _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: Init complete calling pending blocks", &buf, 2u);
       }
     }
 
-    v88 = [(NSMutableArray *)self->_startupBlocks copy];
+    v90 = [(NSMutableArray *)self->_startupBlocks copy];
     [(NSMutableArray *)self->_startupBlocks removeAllObjects];
-    v89 = +[EPFactory queue];
-    v106[0] = _NSConcreteStackBlock;
-    v106[1] = 3221225472;
-    v106[2] = sub_1000BA97C;
-    v106[3] = &unk_100175660;
-    v107 = v88;
-    v90 = v88;
-    dispatch_async(v89, v106);
+    v91 = +[EPFactory queue];
+    v108[0] = _NSConcreteStackBlock;
+    v108[1] = 3221225472;
+    v108[2] = sub_1000BA97C;
+    v108[3] = &unk_100175660;
+    v109 = v90;
+    v92 = v90;
+    dispatch_async(v91, v108);
   }
 }
 
@@ -789,31 +789,32 @@ LABEL_11:
   {
     [(NRExtensiblePair *)self setIDSAccountAndDevicePresent:1];
     isReady = [(NRExtensiblePair *)self isReady];
-    v4 = sub_1000034AC();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+    v4 = isReady;
+    v5 = sub_1000034AC(isReady);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-    if (isReady)
+    if (v4)
     {
-      if (v5)
+      if (v6)
       {
-        v6 = sub_1000034AC();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v8 = sub_1000034AC(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: accountAndDeviceReady- ready, finalizing BT/IDS pairing", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: accountAndDeviceReady- ready, finalizing BT/IDS pairing", buf, 2u);
         }
       }
 
       [(NRExtensiblePair *)self setPairingMode:5];
     }
 
-    else if (v5)
+    else if (v6)
     {
-      v7 = sub_1000034AC();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_1000034AC(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v8 = 0;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: accountAndDeviceReady- not ready yet", v8, 2u);
+        *v10 = 0;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: accountAndDeviceReady- not ready yet", v10, 2u);
       }
     }
   }
@@ -825,31 +826,32 @@ LABEL_11:
   {
     [(NRExtensiblePair *)self setIsInitialPropertiesReceived:1];
     isReady = [(NRExtensiblePair *)self isReady];
-    v4 = sub_1000034AC();
-    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+    v4 = isReady;
+    v5 = sub_1000034AC(isReady);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-    if (isReady)
+    if (v4)
     {
-      if (v5)
+      if (v6)
       {
-        v6 = sub_1000034AC();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v8 = sub_1000034AC(v7);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: propertiesReceived- ready, finalizing BT/IDS pairing", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: propertiesReceived- ready, finalizing BT/IDS pairing", buf, 2u);
         }
       }
 
       [(NRExtensiblePair *)self setPairingMode:5];
     }
 
-    else if (v5)
+    else if (v6)
     {
-      v7 = sub_1000034AC();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_1000034AC(v7);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v8 = 0;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: propertiesReceived- not ready yet", v8, 2u);
+        *v10 = 0;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: propertiesReceived- not ready yet", v10, 2u);
       }
     }
   }
@@ -874,31 +876,32 @@ LABEL_11:
     }
 
     isReady = [(NRExtensiblePair *)self isReady];
-    v10 = sub_1000034AC();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    v10 = isReady;
+    v11 = sub_1000034AC(isReady);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
-    if (isReady)
+    if (v10)
     {
-      if (v11)
+      if (v12)
       {
-        v12 = sub_1000034AC();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        v14 = sub_1000034AC(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          *v14 = 0;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: propertiesReceived- ready, finalizing BT/IDS pairing", v14, 2u);
+          *v16 = 0;
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: propertiesReceived- ready, finalizing BT/IDS pairing", v16, 2u);
         }
       }
 
       [(NRExtensiblePair *)self setPairingMode:5];
     }
 
-    else if (v11)
+    else if (v12)
     {
-      v13 = sub_1000034AC();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_1000034AC(v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        *v14 = 0;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: propertiesReceived- not ready yet", v14, 2u);
+        *v16 = 0;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: propertiesReceived- not ready yet", v16, 2u);
       }
     }
   }
@@ -947,25 +950,15 @@ LABEL_11:
 
 - (BOOL)isReady
 {
-  v3 = sub_1000034AC();
+  v3 = sub_1000034AC(self);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = sub_1000034AC();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_1000034AC(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       if ([(NRExtensiblePair *)self isBluetoothPairComplete])
-      {
-        v6 = @"YES";
-      }
-
-      else
-      {
-        v6 = @"NO";
-      }
-
-      if ([(NRExtensiblePair *)self IDSAccountAndDevicePresent])
       {
         v7 = @"YES";
       }
@@ -975,8 +968,7 @@ LABEL_11:
         v7 = @"NO";
       }
 
-      *v11 = 138412802;
-      if ([(NRExtensiblePair *)self isInitialPropertiesReceived])
+      if ([(NRExtensiblePair *)self IDSAccountAndDevicePresent])
       {
         v8 = @"YES";
       }
@@ -986,12 +978,23 @@ LABEL_11:
         v8 = @"NO";
       }
 
-      *&v11[4] = v6;
-      v12 = 2112;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: BT:%@ IDS:%@ IPE:%@", v11, 0x20u);
+      *v12 = 138412802;
+      if ([(NRExtensiblePair *)self isInitialPropertiesReceived])
+      {
+        v9 = @"YES";
+      }
+
+      else
+      {
+        v9 = @"NO";
+      }
+
+      *&v12[4] = v7;
+      v13 = 2112;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v9;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: BT:%@ IDS:%@ IPE:%@", v12, 0x20u);
     }
   }
 
@@ -1306,37 +1309,38 @@ LABEL_11:
   unpairerCopy = unpairer;
   devicesCopy = devices;
   self->_failure = 0;
-  v37 = 0u;
-  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v7 = [devicesCopy countByEnumeratingWithState:&v37 objects:v44 count:16];
+  v41 = 0u;
+  v42 = 0u;
+  v7 = [devicesCopy countByEnumeratingWithState:&v39 objects:v46 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v38;
+    v9 = *v40;
     do
     {
-      for (i = 0; i != v8; i = i + 1)
+      v10 = 0;
+      do
       {
-        if (*v38 != v9)
+        if (*v40 != v9)
         {
           objc_enumerationMutation(devicesCopy);
         }
 
-        v11 = *(*(&v37 + 1) + 8 * i);
-        v12 = sub_1000034AC();
+        v11 = *(*(&v39 + 1) + 8 * v10);
+        v12 = sub_1000034AC(v7);
         v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
         if (v13)
         {
-          v14 = sub_1000034AC();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v15 = sub_1000034AC(v14);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
           {
             uUIDString = [v11 UUIDString];
             *buf = 138412290;
-            v43 = uUIDString;
-            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "NRExtensiblePair: Unpaired %@", buf, 0xCu);
+            v45 = uUIDString;
+            _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "NRExtensiblePair: Unpaired %@", buf, 0xCu);
           }
         }
 
@@ -1344,70 +1348,74 @@ LABEL_11:
         printf("NRExtensiblePair: Unpaired %s\n", [uUIDString2 UTF8String]);
 
         devices = [(EPDiscoverer *)self->_discoverer devices];
-        v18 = [devices objectForKeyedSubscript:v11];
-        [v18 reset];
+        v19 = [devices objectForKeyedSubscript:v11];
+        [v19 reset];
+
+        v10 = v10 + 1;
       }
 
-      v8 = [devicesCopy countByEnumeratingWithState:&v37 objects:v44 count:16];
+      while (v8 != v10);
+      v7 = [devicesCopy countByEnumeratingWithState:&v39 objects:v46 count:16];
+      v8 = v7;
     }
 
-    while (v8);
+    while (v7);
   }
 
   if (self->_discoverer)
   {
     requestedUUIDs = [unpairerCopy requestedUUIDs];
-    v20 = [NSMutableSet setWithSet:requestedUUIDs];
+    v21 = [NSMutableSet setWithSet:requestedUUIDs];
 
-    [v20 minusSet:devicesCopy];
+    [v21 minusSet:devicesCopy];
+    v37 = 0u;
+    v38 = 0u;
     v35 = 0u;
     v36 = 0u;
-    v33 = 0u;
-    v34 = 0u;
-    v21 = v20;
-    v22 = [v21 countByEnumeratingWithState:&v33 objects:v41 count:16];
-    if (v22)
+    v22 = v21;
+    v23 = [v22 countByEnumeratingWithState:&v35 objects:v43 count:16];
+    if (v23)
     {
-      v23 = v22;
-      v24 = *v34;
+      v24 = v23;
+      v25 = *v36;
       do
       {
-        for (j = 0; j != v23; j = j + 1)
+        for (i = 0; i != v24; i = i + 1)
         {
-          if (*v34 != v24)
+          if (*v36 != v25)
           {
-            objc_enumerationMutation(v21);
+            objc_enumerationMutation(v22);
           }
 
-          v26 = *(*(&v33 + 1) + 8 * j);
+          v27 = *(*(&v35 + 1) + 8 * i);
           devices2 = [(EPDiscoverer *)self->_discoverer devices];
-          v28 = [devices2 objectForKeyedSubscript:v26];
+          v29 = [devices2 objectForKeyedSubscript:v27];
 
-          if (v28)
+          if (v29)
           {
-            [(NRExtensiblePair *)self pairWithDevice:v28];
+            [(NRExtensiblePair *)self pairWithDevice:v29];
           }
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v33 objects:v41 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v35 objects:v43 count:16];
       }
 
-      while (v23);
+      while (v24);
     }
 
-    [v21 removeAllObjects];
+    [v22 removeAllObjects];
   }
 
-  v29 = sub_1000034AC();
-  v30 = os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
+  v30 = sub_1000034AC(v7);
+  v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
 
-  if (v30)
+  if (v31)
   {
-    v31 = sub_1000034AC();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v33 = sub_1000034AC(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "NRExtensiblePair: Unpair complete", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "NRExtensiblePair: Unpair complete", buf, 2u);
     }
   }
 
@@ -1430,30 +1438,31 @@ LABEL_11:
 
       if (v9)
       {
-        if ([displayableCopy isPeripheral])
+        isPeripheral = [displayableCopy isPeripheral];
+        if (isPeripheral)
         {
-          v10 = sub_1000034AC();
-          v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+          v11 = sub_1000034AC(isPeripheral);
+          v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
-          if (v11)
+          if (v12)
           {
-            v12 = sub_1000034AC();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+            v14 = sub_1000034AC(v13);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
             {
-              v13 = [displayableCopy description];
+              v15 = [displayableCopy description];
               *buf = 136315138;
-              uTF8String = [v13 UTF8String];
-              _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "NRExtensiblePair: Discovered device %s, unpairing", buf, 0xCu);
+              uTF8String = [v15 UTF8String];
+              _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "NRExtensiblePair: Discovered device %s, unpairing", buf, 0xCu);
             }
           }
 
-          v14 = [displayableCopy description];
-          printf("NRExtensiblePair: Discovered device %s, unpairing\n", [v14 UTF8String]);
+          v16 = [displayableCopy description];
+          printf("NRExtensiblePair: Discovered device %s, unpairing\n", [v16 UTF8String]);
 
-          v15 = [EPMassUnpairer alloc];
+          v17 = [EPMassUnpairer alloc];
           uuid = [displayableCopy uuid];
-          v17 = [NSSet setWithObject:uuid];
-          v18 = [(EPMassUnpairer *)v15 initWithDelegate:self UUIDs:v17];
+          v19 = [NSSet setWithObject:uuid];
+          v20 = [(EPMassUnpairer *)v17 initWithDelegate:self UUIDs:v19];
         }
       }
     }
@@ -1651,39 +1660,38 @@ LABEL_3:
     uuid = [device2 uuid];
     [(NRExtensiblePair *)self bluetoothPaired:uuid];
 
-    [(NRExtensiblePair *)self sendBeginningToPairNotification];
-    v29 = sub_1000034AC();
-    LODWORD(uuid) = os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
+    v31 = sub_1000034AC([(NRExtensiblePair *)self sendBeginningToPairNotification]);
+    LODWORD(uuid) = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
 
     if (uuid)
     {
-      v30 = sub_1000034AC();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      v33 = sub_1000034AC(v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         uUIDString = [(NSUUID *)self->_pairedBTDeviceUUID UUIDString];
         *buf = 138412290;
-        v75 = uUIDString;
-        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: Paired to BT device %@", buf, 0xCu);
+        v80 = uUIDString;
+        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: Paired to BT device %@", buf, 0xCu);
       }
     }
 
     [(AbstractTimer *)self->_timer invalidate];
-    v32 = +[EPFactory queue];
-    v70[0] = _NSConcreteStackBlock;
-    v70[1] = 3221225472;
-    v70[2] = sub_1000BD964;
-    v70[3] = &unk_100175660;
-    v70[4] = self;
-    v33 = [TimerFactory timerWithIdentifier:@"com.apple.NanoRegistry.ExtensiblePair" delay:1 gracePeriod:v32 waking:v70 handlerQueue:120.0 handlerBlock:0.0];
+    v35 = +[EPFactory queue];
+    v75[0] = _NSConcreteStackBlock;
+    v75[1] = 3221225472;
+    v75[2] = sub_1000BD964;
+    v75[3] = &unk_100175660;
+    v75[4] = self;
+    v36 = [TimerFactory timerWithIdentifier:@"com.apple.NanoRegistry.ExtensiblePair" delay:1 gracePeriod:v35 waking:v75 handlerQueue:120.0 handlerBlock:0.0];
     timer = self->_timer;
-    self->_timer = v33;
+    self->_timer = v36;
 
     [(NSMutableArray *)self->_pairers removeAllObjects];
     [(NSMutableArray *)self->_pairers addObject:pairerCopy];
     [(NSMutableArray *)self->_pairingDevices removeAllObjects];
-    v35 = self->_pairingDevices;
+    v38 = self->_pairingDevices;
     device3 = [pairerCopy device];
-    [(NSMutableArray *)v35 addObject:device3];
+    [(NSMutableArray *)v38 addObject:device3];
 
     unpairer = self->_unpairer;
     self->_unpairer = 0;
@@ -1698,16 +1706,16 @@ LABEL_3:
     factory = [(NRExtensiblePair *)self factory];
     [factory setAdvertisingRate:1];
 
-    v41 = sub_1000A98C0();
-    v42 = os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT);
+    v45 = sub_1000A98C0(v44);
+    v46 = os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT);
 
-    if (v42)
+    if (v46)
     {
-      v43 = sub_1000A98C0();
-      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+      v48 = sub_1000A98C0(v47);
+      if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "NRExtensiblePair: Set not available to pair to YES", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "NRExtensiblePair: Set not available to pair to YES", buf, 2u);
       }
     }
 
@@ -1725,54 +1733,54 @@ LABEL_3:
     nrDeviceUUID2 = [(NRExtensiblePair *)self nrDeviceUUID];
     [delegate2 updateNRMutableDeviceFromEPDevice:device4 withNRUUID:nrDeviceUUID2 withBlock:0];
 
-    v69[0] = _NSConcreteStackBlock;
-    v69[1] = 3221225472;
-    v69[2] = sub_1000BD96C;
-    v69[3] = &unk_100175A10;
-    v69[4] = self;
-    v50 = objc_retainBlock(v69);
+    v74[0] = _NSConcreteStackBlock;
+    v74[1] = 3221225472;
+    v74[2] = sub_1000BD96C;
+    v74[3] = &unk_100175A10;
+    v74[4] = self;
+    v55 = objc_retainBlock(v74);
     if ([(NRExtensiblePair *)self pairingStrategy]== 1)
     {
-      (v50[2])(v50, 0);
+      (v55[2])(v55, 0);
     }
 
     else
     {
-      v51 = self->_pairedBTDeviceUUID;
+      v56 = self->_pairedBTDeviceUUID;
       oobKey = [(NRExtensiblePair *)self oobKey];
-      v53 = oobKey;
-      v62 = device;
+      v58 = oobKey;
+      v67 = device;
       if (oobKey)
       {
-        v54 = oobKey;
+        v59 = oobKey;
       }
 
       else
       {
-        v54 = objc_opt_new();
+        v59 = objc_opt_new();
       }
 
-      v55 = v54;
-      v56 = [[IDSLocalPairingAddPairedDeviceInfo alloc] initWithCBUUID:v51 pairingProtocolVersion:0 BTOutOfBandKey:v54];
-      [v56 setPairingType:self->_isTinkerPairing];
-      [v56 setShouldPairDirectlyOverIPsec:{-[NRExtensiblePair pairingStrategy](self, "pairingStrategy") == 3}];
+      v60 = v59;
+      v61 = [[IDSLocalPairingAddPairedDeviceInfo alloc] initWithCBUUID:v56 pairingProtocolVersion:0 BTOutOfBandKey:v59];
+      [v61 setPairingType:self->_isTinkerPairing];
+      [v61 setShouldPairDirectlyOverIPsec:{-[NRExtensiblePair pairingStrategy](self, "pairingStrategy") == 3}];
       delegate3 = [(NRExtensiblePair *)self delegate];
       nrDeviceUUID3 = [(NRExtensiblePair *)self nrDeviceUUID];
-      v63[0] = _NSConcreteStackBlock;
-      v63[1] = 3221225472;
-      v63[2] = sub_1000BDD38;
-      v63[3] = &unk_100179228;
-      v64 = v51;
-      v65 = v53;
-      v66 = v56;
+      v68[0] = _NSConcreteStackBlock;
+      v68[1] = 3221225472;
+      v68[2] = sub_1000BDD38;
+      v68[3] = &unk_100179228;
+      v69 = v56;
+      v70 = v58;
+      v71 = v61;
       selfCopy = self;
-      v68 = v50;
-      v59 = v56;
-      v60 = v53;
-      v61 = v51;
-      [delegate3 createLocalPairingStore:nrDeviceUUID3 andNotifyPairingBeginning:1 withBlock:v63];
+      v73 = v55;
+      v64 = v61;
+      v65 = v58;
+      v66 = v56;
+      [delegate3 createLocalPairingStore:nrDeviceUUID3 andNotifyPairingBeginning:1 withBlock:v68];
 
-      device = v62;
+      device = v67;
     }
 
     goto LABEL_3;
@@ -1798,38 +1806,38 @@ LABEL_3:
       userInfo = [errorCopy userInfo];
       v17 = [userInfo objectForKeyedSubscript:CBOriginalPeerIdentifierErrorKey];
 
-      v18 = sub_1000034AC();
-      v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+      v19 = sub_1000034AC(v18);
+      v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
 
-      if (v19)
+      if (v20)
       {
-        v20 = sub_1000034AC();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v22 = sub_1000034AC(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           uUIDString2 = [uuid2 UUIDString];
           uUIDString3 = [v17 UUIDString];
           *buf = 138412546;
-          v75 = uUIDString2;
-          v76 = 2112;
-          v77 = uUIDString3;
-          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: BT returned already paired error for device %@. Ghost device UUID is: %@", buf, 0x16u);
+          v80 = uUIDString2;
+          v81 = 2112;
+          v82 = uUIDString3;
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "ExtensiblePair: BT returned already paired error for device %@. Ghost device UUID is: %@", buf, 0x16u);
         }
       }
 
       if (v17)
       {
-        v23 = [EPMassUnpairer alloc];
-        v24 = [NSSet setWithObject:v17];
-        v25 = [(EPMassUnpairer *)v23 initWithDelegate:self UUIDs:v24];
+        v25 = [EPMassUnpairer alloc];
+        v26 = [NSSet setWithObject:v17];
+        v27 = [(EPMassUnpairer *)v25 initWithDelegate:self UUIDs:v26];
 
         delegate4 = [(NRExtensiblePair *)self delegate];
-        v71[0] = _NSConcreteStackBlock;
-        v71[1] = 3221225472;
-        v71[2] = sub_1000BD83C;
-        v71[3] = &unk_100178828;
-        v72 = v17;
+        v76[0] = _NSConcreteStackBlock;
+        v76[1] = 3221225472;
+        v76[2] = sub_1000BD83C;
+        v76[3] = &unk_100178828;
+        v77 = v17;
         selfCopy2 = self;
-        [delegate4 getPairedPairingIDForBluetoothID:v72 completion:v71];
+        [delegate4 getPairedPairingIDForBluetoothID:v77 completion:v76];
       }
 
       pairerCopy = 0;
@@ -1860,16 +1868,16 @@ LABEL_30:
   if (!self->_beginningToPairNotificationSent)
   {
     self->_beginningToPairNotificationSent = 1;
-    v2 = sub_1000034AC();
+    v2 = sub_1000034AC(self);
     v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
     if (v3)
     {
-      v4 = sub_1000034AC();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = sub_1000034AC(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        *v5 = 0;
-        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Sending com.apple.nanoregistry.isbeginningtopair darwin notification", v5, 2u);
+        *v6 = 0;
+        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Sending com.apple.nanoregistry.isbeginningtopair darwin notification", v6, 2u);
       }
     }
 
@@ -1881,29 +1889,31 @@ LABEL_30:
 {
   pairerCopy = pairer;
   delegateCopy = delegate;
-  if ([(NRExtensiblePair *)self isBluetoothPairComplete])
+  isBluetoothPairComplete = [(NRExtensiblePair *)self isBluetoothPairComplete];
+  if (isBluetoothPairComplete)
   {
     goto LABEL_2;
   }
 
-  pairingStrategy = [(NRExtensiblePair *)self pairingStrategy];
-  if (pairingStrategy - 2 < 2)
+  isBluetoothPairComplete = [(NRExtensiblePair *)self pairingStrategy];
+  if ((isBluetoothPairComplete - 2) < 2)
   {
     pairingPipeFactory = self->_pairingPipeFactory;
     if (!pairingPipeFactory)
     {
-      v22 = [EPNullResourceManager alloc];
-      v23 = +[EPFactory queue];
-      v24 = [(EPResourceManager *)v22 initWithQueue:v23];
-      v25 = self->_pairingPipeFactory;
-      self->_pairingPipeFactory = v24;
+      v23 = [EPNullResourceManager alloc];
+      v24 = +[EPFactory queue];
+      v25 = [(EPResourceManager *)v23 initWithQueue:v24];
+      v26 = self->_pairingPipeFactory;
+      self->_pairingPipeFactory = v25;
 
       pairingPipeFactory = self->_pairingPipeFactory;
     }
 
-    v18 = [(EPResourceManagerProtocol *)pairingPipeFactory newResourceWithDelegate:delegateCopy];
+    isBluetoothPairComplete = [(EPResourceManagerProtocol *)pairingPipeFactory newResourceWithDelegate:delegateCopy];
+    v20 = isBluetoothPairComplete;
 LABEL_14:
-    if (v18)
+    if (v20)
     {
       goto LABEL_7;
     }
@@ -1911,17 +1921,17 @@ LABEL_14:
     goto LABEL_2;
   }
 
-  if (pairingStrategy != 1)
+  if (isBluetoothPairComplete != 1)
   {
-    v36 = sub_1000034AC();
-    v37 = os_log_type_enabled(v36, OS_LOG_TYPE_ERROR);
+    v37 = sub_1000034AC(isBluetoothPairComplete);
+    v38 = os_log_type_enabled(v37, OS_LOG_TYPE_ERROR);
 
-    if (v37)
+    if (v38)
     {
-      v38 = sub_1000034AC();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      v39 = sub_1000034AC(isBluetoothPairComplete);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
-        sub_100102FD0(v38, v39, v40, v41, v42, v43, v44, v45);
+        sub_100102FD0(v39, v40, v41, v42, v43, v44, v45, v46);
       }
     }
 
@@ -1930,40 +1940,40 @@ LABEL_14:
 
   if (!self->_concurrentPipeFactory)
   {
-    v26 = [NRConcurrentPipeManager alloc];
-    v27 = +[EPFactory queue];
-    v28 = [(EPResourceManager *)v26 initWithQueue:v27];
+    v27 = [NRConcurrentPipeManager alloc];
+    v28 = +[EPFactory queue];
+    v29 = [(EPResourceManager *)v27 initWithQueue:v28];
     concurrentPipeFactory = self->_concurrentPipeFactory;
-    self->_concurrentPipeFactory = v28;
+    self->_concurrentPipeFactory = v29;
 
-    v30 = self->_concurrentPipeFactory;
+    v31 = self->_concurrentPipeFactory;
     device = [pairerCopy device];
     uuid = [device uuid];
     nrDeviceUUID = [(NRExtensiblePair *)self nrDeviceUUID];
     oobKey = [(NRExtensiblePair *)self oobKey];
     delegate = [(NRExtensiblePair *)self delegate];
-    v18 = [(NRConcurrentPipeManager *)v30 newIDSPairingToUUID:uuid pairingUUID:nrDeviceUUID oobKey:oobKey withExtensiblePairingDelegate:delegate withDelegate:delegateCopy];
+    v20 = [(NRConcurrentPipeManager *)v31 newIDSPairingToUUID:uuid pairingUUID:nrDeviceUUID oobKey:oobKey withExtensiblePairingDelegate:delegate withDelegate:delegateCopy];
 
     goto LABEL_14;
   }
 
 LABEL_2:
-  v8 = sub_1000034AC();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+  v9 = sub_1000034AC(isBluetoothPairComplete);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
 
-  if (v9)
+  if (v10)
   {
-    v10 = sub_1000034AC();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v12 = sub_1000034AC(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      sub_100103008(v10, v11, v12, v13, v14, v15, v16, v17);
+      sub_100103008(v12, v13, v14, v15, v16, v17, v18, v19);
     }
   }
 
-  v18 = 0;
+  v20 = 0;
 LABEL_7:
 
-  return v18;
+  return v20;
 }
 
 - (NRExtensiblePairingDelegate)delegate

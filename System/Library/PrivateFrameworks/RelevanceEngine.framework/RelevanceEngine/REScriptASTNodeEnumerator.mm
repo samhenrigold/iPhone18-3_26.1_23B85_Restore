@@ -24,30 +24,30 @@
 
 - (BOOL)buildSymbolTableWithError:(id *)error
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
+  v64 = 0u;
   v65 = 0u;
   v66 = 0u;
   v67 = 0u;
-  v68 = 0u;
   obj = self->_nodes;
-  v62 = [(NSArray *)obj countByEnumeratingWithState:&v65 objects:v79 count:16];
-  if (!v62)
+  v61 = [(NSArray *)obj countByEnumeratingWithState:&v64 objects:v78 count:16];
+  if (!v61)
   {
     v50 = 1;
     goto LABEL_54;
   }
 
-  v63 = *v66;
+  v62 = *v65;
   while (2)
   {
-    for (i = 0; i != v62; ++i)
+    for (i = 0; i != v61; ++i)
     {
-      if (*v66 != v63)
+      if (*v65 != v62)
       {
         objc_enumerationMutation(obj);
       }
 
-      v6 = *(*(&v65 + 1) + 8 * i);
+      v6 = *(*(&v64 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
@@ -63,10 +63,10 @@
 
         table = self->_table;
         name = [v7 name];
-        v77 = @"REScriptSymbolRuleTypeKey";
+        v76 = @"REScriptSymbolRuleTypeKey";
         v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v10];
-        v78 = v13;
-        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
+        v77 = v13;
+        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
         LODWORD(table) = [(REScriptSymbolTable *)table define:name type:1 options:v14 error:error];
 
         if (!table)
@@ -135,11 +135,11 @@ LABEL_26:
             v27 = v6;
             v28 = self->_table;
             name5 = [v27 name];
-            v75 = @"REScriptSymbolValueTypeKey";
+            v74 = @"REScriptSymbolValueTypeKey";
             type2 = [v27 type];
             value4 = [type2 value];
-            v76 = value4;
-            v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+            v75 = value4;
+            v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
             LODWORD(v28) = [(REScriptSymbolTable *)v28 define:name5 type:3 options:v32 error:error];
 
             if (!v28)
@@ -193,10 +193,10 @@ LABEL_44:
                 if (error)
                 {
                   value7 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unexpected top level expression."];
-                  v69 = @"REErrorTokenKey";
+                  v68 = @"REErrorTokenKey";
                   binaryExpressions2 = [v38 binaryExpressions];
-                  v70 = binaryExpressions2;
-                  v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
+                  v69 = binaryExpressions2;
+                  v58 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v69 forKeys:&v68 count:1];
                   *error = RECreateErrorWithCodeMessageAndUseInfo(209, value7, v58);
 
                   goto LABEL_49;
@@ -217,16 +217,16 @@ LABEL_44:
               token = [prefixExpression2 token];
               value7 = [token value];
 
-              v64 = 0;
-              if (![(REScriptSymbolTable *)self->_table typeForDefinition:value7 type:&v64])
+              v63 = 0;
+              if (![(REScriptSymbolTable *)self->_table typeForDefinition:value7 type:&v63])
               {
                 if (error)
                 {
-                  v73 = @"REErrorTokenKey";
+                  v72 = @"REErrorTokenKey";
                   prefixExpression3 = [v38 prefixExpression];
                   token2 = [prefixExpression3 token];
-                  v74 = token2;
-                  v54Token = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
+                  v73 = token2;
+                  v54Token = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
                   *error = RECreateErrorWithCodeAndUseInfo(207, v54Token);
 LABEL_48:
                 }
@@ -245,7 +245,7 @@ LABEL_53:
               binaryOperator = [firstObject binaryOperator];
               type3 = [binaryOperator type];
 
-              if (v64 == 3)
+              if (v63 == 3)
               {
                 if (type3 - 29 >= 2)
                 {
@@ -253,7 +253,7 @@ LABEL_53:
                 }
               }
 
-              else if (v64 || type3 != 30)
+              else if (v63 || type3 != 30)
               {
 LABEL_41:
                 if (error)
@@ -262,11 +262,11 @@ LABEL_41:
                   v52 = REDescriptionForTokenType(type3);
                   prefixExpression3 = [v51 stringWithFormat:@"Invalid operator %@. Expecting assignment operator. Did you mean to use <-?", v52];
 
-                  v71 = @"REErrorTokenKey";
+                  v70 = @"REErrorTokenKey";
                   token2 = [firstObject expression];
                   v54Token = [token2 token];
-                  v72 = v54Token;
-                  v56 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
+                  v71 = v54Token;
+                  v56 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v71 forKeys:&v70 count:1];
                   *error = RECreateErrorWithCodeMessageAndUseInfo(204, prefixExpression3, v56);
 
                   goto LABEL_48;
@@ -290,8 +290,8 @@ LABEL_41:
     }
 
     v50 = 1;
-    v62 = [(NSArray *)obj countByEnumeratingWithState:&v65 objects:v79 count:16];
-    if (v62)
+    v61 = [(NSArray *)obj countByEnumeratingWithState:&v64 objects:v78 count:16];
+    if (v61)
     {
       continue;
     }
@@ -301,7 +301,6 @@ LABEL_41:
 
 LABEL_54:
 
-  v59 = *MEMORY[0x277D85DE8];
   return v50;
 }
 

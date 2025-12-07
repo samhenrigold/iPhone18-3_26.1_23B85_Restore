@@ -62,9 +62,9 @@
 + (id)monotonicDateWithTimeIntervalSinceNow:()Monotonic
 {
   monotonicDate = [objc_opt_class() monotonicDate];
-  v3 = [monotonicDate dateByAddingTimeInterval:self];
+  v4 = [monotonicDate dateByAddingTimeInterval:a2];
 
-  return v3;
+  return v4;
 }
 
 - (id)convertFromMonotonicToBaseband
@@ -219,9 +219,9 @@
     +[NSDate(Monotonic) defaultDateFormatter];
   }
 
-  v1 = defaultDateFormatter_f;
+  v2 = defaultDateFormatter_f;
 
-  return v1;
+  return v2;
 }
 
 @end

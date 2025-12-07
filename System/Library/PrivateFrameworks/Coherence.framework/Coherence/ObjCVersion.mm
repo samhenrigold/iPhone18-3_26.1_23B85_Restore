@@ -56,12 +56,11 @@
   v5 = (subtract + OBJC_IVAR____TtC9Coherence11ObjCVersion_version);
   swift_beginAccess();
   v6 = *v5;
-  v7 = v5[1];
   swift_beginAccess();
   subtractCopy = subtract;
   selfCopy = self;
 
-  sub_1ADE00714(v10);
+  sub_1ADE00714(v9);
   sub_1ADE00714(v6);
   swift_endAccess();
 }
@@ -85,30 +84,27 @@
 - (int64_t)maxCounter
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5BA480, &qword_1AE25AAE0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v14 - v5;
-  v7 = OBJC_IVAR____TtC9Coherence11ObjCVersion_version;
+  v5 = &v11 - v4;
   swift_beginAccess();
-  v8 = *(&self->super.isa + v7);
   selfCopy = self;
 
-  sub_1ADF62304(v10, v6);
+  sub_1ADF62304(v7, v5);
 
-  v11 = type metadata accessor for Timestamp(0);
-  if ((*(*(v11 - 8) + 48))(v6, 1, v11) == 1)
+  v8 = type metadata accessor for Timestamp(0);
+  if ((*(*(v8 - 8) + 48))(v5, 1, v8) == 1)
   {
-    sub_1ADDCEDE0(v6, &qword_1EB5BA480, &qword_1AE25AAE0);
+    sub_1ADDCEDE0(v5, &qword_1EB5BA480, &qword_1AE25AAE0);
     return -1;
   }
 
   else
   {
-    v12 = *&v6[*(v11 + 20)];
-    sub_1ADE0DCEC(v6, type metadata accessor for Timestamp);
+    v9 = *&v5[*(v8 + 20)];
+    sub_1ADE0DCEC(v5, type metadata accessor for Timestamp);
   }
 
-  return v12;
+  return v9;
 }
 
 - (BOOL)hasTemporaryComponents
@@ -131,17 +127,19 @@
   toCopy = to;
   selfCopy = self;
 
-  if (sub_1ADF637A8(v7, v10))
+  sub_1ADF637A8(v7, v10);
+  if (v13)
   {
-    v13 = 1;
+    v14 = 1;
   }
 
   else
   {
-    v13 = sub_1ADF637A8(v6, v9);
+    sub_1ADF637A8(v6, v9);
+    v14 = v15;
   }
 
-  return v13 & 1;
+  return v14 & 1;
 }
 
 - (int64_t)compareTo:(id)to
@@ -153,15 +151,14 @@
   v8 = (to + OBJC_IVAR____TtC9Coherence11ObjCVersion_version);
   swift_beginAccess();
   v9 = *v8;
-  v10 = v8[1];
-  v15 = 0;
+  v14 = 0;
   toCopy = to;
   selfCopy = self;
 
-  sub_1ADF6457C(v13, &v15, v7);
-  sub_1ADF6457C(v9, &v15, v6);
+  sub_1ADF6457C(v12, &v14, v7);
+  sub_1ADF6457C(v9, &v14, v6);
 
-  return v15;
+  return v14;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -199,17 +196,15 @@
   *v8 = MEMORY[0x1E69E7CC8];
   *(v8 + 1) = v9;
   swift_beginAccess();
-  v10 = *v8;
-  v11 = *(v8 + 1);
   *v8 = v5;
   *(v8 + 1) = v4;
   selfCopy = self;
 
-  v15.receiver = v7;
-  v15.super_class = v6;
-  v13 = [(ObjCVersion *)&v15 init];
+  v13.receiver = v7;
+  v13.super_class = v6;
+  v11 = [(ObjCVersion *)&v13 init];
 
-  return v13;
+  return v11;
 }
 
 - (BOOL)contains:(id)contains
@@ -252,13 +247,11 @@
 
 - (NSString)description
 {
-  v3 = OBJC_IVAR____TtC9Coherence11ObjCVersion_version;
   swift_beginAccess();
-  v6 = *(&self->super.isa + v3);
   CRVersion.description.getter();
-  v4 = sub_1AE23CCDC();
+  v2 = sub_1AE23CCDC();
 
-  return v4;
+  return v2;
 }
 
 @end

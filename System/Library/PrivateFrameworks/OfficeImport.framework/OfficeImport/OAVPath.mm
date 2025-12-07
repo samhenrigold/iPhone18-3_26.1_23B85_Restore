@@ -289,19 +289,19 @@ LABEL_33:
 {
   pathCopy = path;
   geometryCopy = geometry;
-  v42 = 0;
-  v43 = 0;
-  v44 = 0;
   v40 = 0;
-  v41 = &unk_286EC4EE0;
+  v41 = 0;
+  v42 = 0;
+  v38 = 0;
+  v39 = &unk_286EC4EE0;
   __p = 0;
-  v39 = 0;
-  v37 = &unk_286EC4D78;
+  v37 = 0;
+  v35 = &unk_286EC4D78;
   uppercaseString = [pathCopy uppercaseString];
   uTF8String = [uppercaseString UTF8String];
 
   v9 = 0;
-  v36 = uTF8String;
+  v34 = uTF8String;
   v10 = MEMORY[0x277D85DE0];
   while (1)
   {
@@ -313,15 +313,15 @@ LABEL_33:
         break;
       }
 
-      uTF8String = ++v36;
+      uTF8String = ++v34;
     }
 
-    if (!*v36)
+    if (!*v34)
     {
       break;
     }
 
-    v13 = [self parseCommand:&v36];
+    v13 = [self parseCommand:&v34];
     v14 = v13;
     if (v13 == -1)
     {
@@ -329,109 +329,102 @@ LABEL_33:
     }
 
     v15 = EshPathCommand::paramsPerCommand(v13);
-    v16 = 1;
-    v17 = 1;
-    while (1)
+    for (i = 1; ; ++i)
     {
       if (v15 >= 1)
       {
-        LOWORD(v18) = 0;
-        v19 = v17;
+        LOWORD(v17) = 0;
         do
         {
-          [self parseParam:&v36 first:v19 & 1];
-          v20 = v39;
-          if (v39 >= v40)
+          objc_msgSend_parseParam_first_(self);
+          v18 = v37;
+          if (v37 >= v38)
           {
-            v21 = std::vector<EshComputedValue,ChAllocator<EshComputedValue>>::__emplace_back_slow_path<EshComputedValue const&>(&__p, &v35);
+            v19 = std::vector<EshComputedValue,ChAllocator<EshComputedValue>>::__emplace_back_slow_path<EshComputedValue const&>(&__p, &v33);
           }
 
           else
           {
-            *v39 = v35;
-            v21 = (v20 + 1);
+            *v37 = v33;
+            v19 = (v18 + 1);
           }
 
-          v17 = 0;
-          v19 = 0;
-          v39 = v21;
-          v18 = (v18 + 1);
+          v37 = v19;
+          v17 = (v17 + 1);
         }
 
-        while (v18 < v15);
+        while (v17 < v15);
       }
 
-      for (i = v36; ; i = ++v36)
+      for (j = v34; ; j = ++v34)
       {
-        v23 = *i;
-        if (!((v23 & 0x80000000) != 0 ? __maskrune(v23, 0x4000uLL) : *(v10 + 4 * v23 + 60) & 0x4000))
+        v21 = *j;
+        if (!((v21 & 0x80000000) != 0 ? __maskrune(v21, 0x4000uLL) : *(v10 + 4 * v21 + 60) & 0x4000))
         {
           break;
         }
       }
 
-      v25 = *v36;
-      if ((v25 & 0x80000000) != 0 ? __maskrune(v25, 0x100uLL) : *(v10 + 4 * v25 + 60) & 0x100)
+      v23 = *v34;
+      if ((v23 & 0x80000000) != 0 ? __maskrune(v23, 0x100uLL) : *(v10 + 4 * v23 + 60) & 0x100)
       {
         break;
       }
 
-      v27 = *v36;
-      if (!*v36)
+      v25 = *v34;
+      if (!*v34)
       {
         break;
       }
 
-      v28 = (v27 & 0x80000000) != 0 ? __maskrune(v27, 0x4000uLL) : *(v10 + 4 * v27 + 60) & 0x4000;
-      if (!v28 && v15 == 0)
+      v26 = (v25 & 0x80000000) != 0 ? __maskrune(v25, 0x4000uLL) : *(v10 + 4 * v25 + 60) & 0x4000;
+      if (!v26 && v15 == 0)
       {
-        v30 = *v36;
-        v31 = (v30 & 0x80000000) != 0 ? __maskrune(v30, 0x100uLL) : *(v10 + 4 * v30 + 60) & 0x100;
-        if (!v31 && *v36)
+        v28 = *v34;
+        v29 = (v28 & 0x80000000) != 0 ? __maskrune(v28, 0x100uLL) : *(v10 + 4 * v28 + 60) & 0x100;
+        if (!v29 && *v34)
         {
           break;
         }
       }
-
-      ++v16;
     }
 
-    LOWORD(v35) = v16;
-    HIDWORD(v35) = v14;
-    v32 = v43;
-    if (v43 >= v44)
+    LOWORD(v33) = i;
+    HIDWORD(v33) = v14;
+    v30 = v41;
+    if (v41 >= v42)
     {
-      v33 = std::vector<EshPathCommand,ChAllocator<EshPathCommand>>::__emplace_back_slow_path<EshPathCommand const&>(&v42, &v35);
+      v31 = std::vector<EshPathCommand,ChAllocator<EshPathCommand>>::__emplace_back_slow_path<EshPathCommand const&>(&v40, &v33);
     }
 
     else
     {
-      *v43 = v35;
-      v33 = (v32 + 1);
+      *v41 = v33;
+      v31 = (v30 + 1);
     }
 
-    v43 = v33;
+    v41 = v31;
     v9 = 1;
-    uTF8String = v36;
+    uTF8String = v34;
   }
 
   if (v9)
   {
-    [OABShapeGeometry readFromPathCommands:&v41 pathParams:&v37 toGeometry:geometryCopy];
+    [OABShapeGeometry readFromPathCommands:&v39 pathParams:&v35 toGeometry:geometryCopy];
   }
 
-  v37 = &unk_286EC4E08;
+  v35 = &unk_286EC4E08;
   if (__p)
   {
-    v39 = __p;
+    v37 = __p;
     operator delete(__p);
   }
 
-  v41 = &unk_286EC4F48;
-  if (v42)
+  v39 = &unk_286EC4F48;
+  if (v40)
   {
-    v43 = v42;
-    operator delete(v42);
+    v41 = v40;
+    operator delete(v40);
   }
 }
 

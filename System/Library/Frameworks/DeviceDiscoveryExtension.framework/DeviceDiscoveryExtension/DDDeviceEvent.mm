@@ -80,9 +80,7 @@
 - (void)encodeWithXPCObject:(id)object
 {
   xdict = object;
-  device = self->_device;
   CUXPCEncodeObject();
-  error = self->_error;
   CUXPCEncodeNSError();
   eventType = self->_eventType;
   if (eventType)
@@ -110,49 +108,68 @@
 {
   if ((level & 0x8000000) != 0)
   {
-    v4 = 0;
+    v4 = 8;
   }
 
   else
   {
-    v13 = objc_opt_class();
-    CUAppendF();
-    v4 = 0;
+    v4 = 12;
+  }
+
+  v19 = v4;
+  if ((level & 0x8000000) != 0)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v18 = 0;
+    v5 = objc_opt_class();
+    CUAppendF(&v18, &v19, "%@", v5);
+    v6 = v18;
   }
 
   eventType = [(DDDeviceEvent *)self eventType];
   if (eventType)
   {
-    if ((eventType - 40) <= 2)
+    v17 = v6;
+    if ((eventType - 40) > 2)
     {
-      v6 = off_278A469F0[eventType - 40];
+      v8 = @"?";
     }
 
-    CUAppendF();
-    v7 = v4;
+    else
+    {
+      v8 = off_278A469F0[eventType - 40];
+    }
 
-    v4 = v7;
+    CUAppendF(&v17, &v19, "type %@", v8);
+    v9 = v17;
+
+    v6 = v9;
   }
 
   device = self->_device;
   if (device)
   {
-    v14 = device;
-    CUAppendF();
-    v9 = v4;
+    v16 = v6;
+    v11 = device;
+    CUAppendF(&v16, &v19, "device %@", v11);
+    v12 = v16;
 
-    v4 = v9;
+    v6 = v12;
   }
 
-  v10 = &stru_284AE9D28;
-  if (v4)
+  v13 = &stru_284AE9D28;
+  if (v6)
   {
-    v10 = v4;
+    v13 = v6;
   }
 
-  v11 = v10;
+  v14 = v13;
 
-  return v11;
+  return v14;
 }
 
 + (id)allocInitWithXPCObject:(id)object error:(id *)error

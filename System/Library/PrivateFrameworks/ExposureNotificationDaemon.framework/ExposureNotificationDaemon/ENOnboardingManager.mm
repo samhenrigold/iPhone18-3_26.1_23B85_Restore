@@ -80,15 +80,13 @@ void __54__ENOnboardingManager__observeCameraIrisNotifications__block_invoke(uin
 
 - (BOOL)isDeviceUnlocked
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = SBSGetScreenLockStatus();
-  v8 = @"ExtendedDeviceLockState";
-  v9[0] = MEMORY[0x277CBEC30];
-  [MEMORY[0x277CBEAC8] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = @"ExtendedDeviceLockState";
+  v8[0] = MEMORY[0x277CBEC30];
+  [MEMORY[0x277CBEAC8] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v3 = MKBGetDeviceLockState();
-  result = v3 != 6 && (v3 - 3) < 0xFFFFFFFE && v2 == 0;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return v3 != 6 && (v3 - 3) < 0xFFFFFFFE && v2 == 0;
 }
 
 - (void)setShouldObserveDeviceUnlocks:(BOOL)unlocks
@@ -96,19 +94,19 @@ void __54__ENOnboardingManager__observeCameraIrisNotifications__block_invoke(uin
   if (unlocks)
   {
     objc_initWeak(&location, self);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __53__ENOnboardingManager_setShouldObserveDeviceUnlocks___block_invoke;
-    v10[3] = &unk_278FD2A18;
-    objc_copyWeak(&v11, &location);
-    v4 = MEMORY[0x24C214430](v10);
+    v10 = MEMORY[0x277D85DD0];
+    v11 = 3221225472;
+    v12 = __53__ENOnboardingManager_setShouldObserveDeviceUnlocks___block_invoke;
+    v13 = &unk_278FD2A18;
+    objc_copyWeak(&v14, &location);
+    v4 = MEMORY[0x24C214430](&v10);
     screenLockNotifyToken = self->_screenLockNotifyToken;
     p_screenLockNotifyToken = &self->_screenLockNotifyToken;
     if (notify_is_valid_token(screenLockNotifyToken))
     {
-      if (gLogCategory_ENOnboardingManager > 30 || gLogCategory_ENOnboardingManager == -1 && !_LogCategory_Initialize())
+      if (gLogCategory_ENOnboardingManager <= 30 && (gLogCategory_ENOnboardingManager != -1 || _LogCategory_Initialize()))
       {
-        goto LABEL_22;
+        LogPrintF_safe(&gLogCategory_ENOnboardingManager, "[ENOnboardingManager setShouldObserveDeviceUnlocks:]", 30, "Already registered for lock events", v10, v11, v12, v13);
       }
     }
 
@@ -123,28 +121,23 @@ void __54__ENOnboardingManager__observeCameraIrisNotifications__block_invoke(uin
       {
         if (gLogCategory_ENOnboardingManager <= 90 && (gLogCategory_ENOnboardingManager != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF_safe();
+          LogPrintF_safe(&gLogCategory_ENOnboardingManager, "[ENOnboardingManager setShouldObserveDeviceUnlocks:]", 90, "Failed to register for lock events.", v10, v11, v12, v13);
         }
 
         *p_screenLockNotifyToken = -1;
-        goto LABEL_22;
       }
 
-      if (gLogCategory_ENOnboardingManager > 30 || gLogCategory_ENOnboardingManager == -1 && !_LogCategory_Initialize())
+      else if (gLogCategory_ENOnboardingManager <= 30 && (gLogCategory_ENOnboardingManager != -1 || _LogCategory_Initialize()))
       {
-LABEL_22:
-
-        objc_destroyWeak(&v11);
-        objc_destroyWeak(&location);
-        return;
+        LogPrintF_safe(&gLogCategory_ENOnboardingManager, "[ENOnboardingManager setShouldObserveDeviceUnlocks:]", 30, "Registered for lock events.", v10, v11, v12, v13);
       }
     }
 
-    LogPrintF_safe();
-    goto LABEL_22;
+    objc_destroyWeak(&v14);
+    objc_destroyWeak(&location);
   }
 
-  if (self->_screenLockNotifyToken != -1)
+  else if (self->_screenLockNotifyToken != -1)
   {
     if (gLogCategory_ENOnboardingManager <= 30 && (gLogCategory_ENOnboardingManager != -1 || _LogCategory_Initialize()))
     {
@@ -218,12 +211,12 @@ void __53__ENOnboardingManager_setShouldObserveDeviceUnlocks___block_invoke(uint
 - (void)_observeCameraIrisNotifications
 {
   objc_initWeak(&location, self);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __54__ENOnboardingManager__observeCameraIrisNotifications__block_invoke;
-  v8[3] = &unk_278FD2A18;
-  objc_copyWeak(&v9, &location);
-  v3 = MEMORY[0x24C214430](v8);
+  v8 = MEMORY[0x277D85DD0];
+  v9 = 3221225472;
+  v10 = __54__ENOnboardingManager__observeCameraIrisNotifications__block_invoke;
+  v11 = &unk_278FD2A18;
+  objc_copyWeak(&v12, &location);
+  v3 = MEMORY[0x24C214430](&v8);
   v4 = MEMORY[0x277D85CD0];
   v5 = MEMORY[0x277D85CD0];
   LODWORD(v4) = notify_register_dispatch("com.apple.isp.frontcamerapower", &self->_cameraIrisFrontNotifyToken, v4, v3);
@@ -232,7 +225,7 @@ void __53__ENOnboardingManager_setShouldObserveDeviceUnlocks___block_invoke(uint
   {
     if (gLogCategory_ENOnboardingManager <= 90 && (gLogCategory_ENOnboardingManager != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_ENOnboardingManager, "[ENOnboardingManager _observeCameraIrisNotifications]", 90, "Failed to register for front camera iris events.", v8, v9, v10, v11);
     }
 
     self->_cameraIrisFrontNotifyToken = -1;
@@ -240,7 +233,7 @@ void __53__ENOnboardingManager_setShouldObserveDeviceUnlocks___block_invoke(uint
 
   else if (gLogCategory_ENOnboardingManager <= 30 && (gLogCategory_ENOnboardingManager != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_ENOnboardingManager, "[ENOnboardingManager _observeCameraIrisNotifications]", 30, "Registered for front camera iris events.", v8, v9, v10, v11);
   }
 
   v6 = notify_register_dispatch("com.apple.isp.backcamerapower", &self->_cameraIrisBackNotifyToken, MEMORY[0x277D85CD0], v3);
@@ -249,7 +242,7 @@ void __53__ENOnboardingManager_setShouldObserveDeviceUnlocks___block_invoke(uint
   {
     if (gLogCategory_ENOnboardingManager <= 90 && (gLogCategory_ENOnboardingManager != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_ENOnboardingManager, "[ENOnboardingManager _observeCameraIrisNotifications]", 90, "Failed to register for back camera iris events.", v8, v9, v10, v11);
     }
 
     self->_cameraIrisBackNotifyToken = -1;
@@ -257,7 +250,7 @@ void __53__ENOnboardingManager_setShouldObserveDeviceUnlocks___block_invoke(uint
 
   else if (gLogCategory_ENOnboardingManager <= 30 && (gLogCategory_ENOnboardingManager != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_ENOnboardingManager, "[ENOnboardingManager _observeCameraIrisNotifications]", 30, "Registered for back camera iris events.", v8, v9, v10, v11);
   }
 
   v7 = notify_register_dispatch("com.apple.isp.backtelecamerapower", &self->_cameraIrisBackTeleNotifyToken, MEMORY[0x277D85CD0], v3);
@@ -266,7 +259,7 @@ void __53__ENOnboardingManager_setShouldObserveDeviceUnlocks___block_invoke(uint
   {
     if (gLogCategory_ENOnboardingManager <= 90 && (gLogCategory_ENOnboardingManager != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory_ENOnboardingManager, "[ENOnboardingManager _observeCameraIrisNotifications]", 90, "Failed to register for back telecamera iris events.", v8, v9, v10, v11);
     }
 
     self->_cameraIrisBackTeleNotifyToken = -1;
@@ -274,10 +267,10 @@ void __53__ENOnboardingManager_setShouldObserveDeviceUnlocks___block_invoke(uint
 
   else if (gLogCategory_ENOnboardingManager <= 30 && (gLogCategory_ENOnboardingManager != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF_safe();
+    LogPrintF_safe(&gLogCategory_ENOnboardingManager, "[ENOnboardingManager _observeCameraIrisNotifications]", 30, "Registered for back telecamera iris events.", v8, v9, v10, v11);
   }
 
-  objc_destroyWeak(&v9);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(&location);
 }
 

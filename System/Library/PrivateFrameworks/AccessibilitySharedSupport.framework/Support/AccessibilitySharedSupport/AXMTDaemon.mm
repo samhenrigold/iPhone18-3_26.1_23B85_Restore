@@ -91,7 +91,7 @@
   }
 
   memset(&cf[1], 0, sizeof(audit_token_t));
-  [authorized auditToken];
+  objc_msgSend_auditToken(authorized, a2);
   cf[0] = cf[1];
   v3 = SecTaskCreateWithAuditToken(0, cf);
   if (v3)
@@ -677,15 +677,15 @@ LABEL_14:
       }
     }
 
-    _lookAtPointTrackerObserver = [(AXMTDaemon *)self _lookAtPointTrackerObserver];
+    v24 = [(AXMTDaemon *)self _lookAtPointTrackerObserver:*v67];
 
-    if (!_lookAtPointTrackerObserver)
+    if (!v24)
     {
       v25 = objc_alloc_init(AXMTLookAtPointTrackerObserver);
       [(AXMTDaemon *)self set_lookAtPointTrackerObserver:v25];
 
-      _lookAtPointTrackerObserver2 = [(AXMTDaemon *)self _lookAtPointTrackerObserver];
-      [_lookAtPointTrackerObserver2 setDelegate:self];
+      _lookAtPointTrackerObserver = [(AXMTDaemon *)self _lookAtPointTrackerObserver];
+      [_lookAtPointTrackerObserver setDelegate:self];
     }
 
     _lookAtPointTracker5 = [(AXMTDaemon *)self _lookAtPointTracker];
@@ -749,9 +749,9 @@ LABEL_14:
       _lookAtPointTracker13 = [(AXMTDaemon *)self _lookAtPointTracker];
       [_lookAtPointTracker13 setExpressionConfiguration:_expressionConfiguration];
 
-      _lookAtPointTrackerObserver3 = [(AXMTDaemon *)self _lookAtPointTrackerObserver];
+      _lookAtPointTrackerObserver2 = [(AXMTDaemon *)self _lookAtPointTrackerObserver];
       _lookAtPointTracker14 = [(AXMTDaemon *)self _lookAtPointTracker];
-      [_lookAtPointTracker14 setDelegate:_lookAtPointTrackerObserver3];
+      [_lookAtPointTracker14 setDelegate:_lookAtPointTrackerObserver2];
 
       _lookAtPointTracker15 = [(AXMTDaemon *)self _lookAtPointTracker];
       [_lookAtPointTracker15 startTracking];
@@ -761,8 +761,8 @@ LABEL_14:
       [_lookAtPointTracker16 setDebugOverlayEnabled:_showDebugOverlay];
     }
 
-    _lookAtPointTrackerObserver4 = [(AXMTDaemon *)self _lookAtPointTrackerObserver];
-    state = [_lookAtPointTrackerObserver4 state];
+    _lookAtPointTrackerObserver3 = [(AXMTDaemon *)self _lookAtPointTrackerObserver];
+    state = [_lookAtPointTrackerObserver3 state];
     [(AXMTDaemon *)self _updateState:state];
 
     goto LABEL_30;
@@ -785,21 +785,21 @@ LABEL_23:
     [(AXMTDaemon *)self set_lookAtPointTracker:0];
   }
 
-  _lookAtPointTrackerObserver5 = [(AXMTDaemon *)self _lookAtPointTrackerObserver];
+  _lookAtPointTrackerObserver4 = [(AXMTDaemon *)self _lookAtPointTrackerObserver];
 
-  if (_lookAtPointTrackerObserver5)
+  if (_lookAtPointTrackerObserver4)
   {
-    _lookAtPointTrackerObserver6 = [(AXMTDaemon *)self _lookAtPointTrackerObserver];
-    [_lookAtPointTrackerObserver6 setDelegate:0];
+    _lookAtPointTrackerObserver5 = [(AXMTDaemon *)self _lookAtPointTrackerObserver];
+    [_lookAtPointTrackerObserver5 setDelegate:0];
 
     [(AXMTDaemon *)self set_lookAtPointTrackerObserver:0];
   }
 
-  _lookAtPointTrackerObserver4 = objc_alloc_init(AXSSMotionTrackingState);
+  _lookAtPointTrackerObserver3 = objc_alloc_init(AXSSMotionTrackingState);
   v66 = [NSError errorWithDomain:AXSSMotionTrackingErrorDomain code:13 userInfo:0];
-  [_lookAtPointTrackerObserver4 setError:v66];
+  [_lookAtPointTrackerObserver3 setError:v66];
 
-  [(AXMTDaemon *)self _updateState:_lookAtPointTrackerObserver4];
+  [(AXMTDaemon *)self _updateState:_lookAtPointTrackerObserver3];
 LABEL_30:
 }
 
@@ -869,28 +869,29 @@ LABEL_30:
 {
   objc_opt_class();
   UIApplicationInstantiateSingleton();
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v2 = off_100054498;
-  v8 = off_100054498;
+  v9 = off_100054498;
   if (!off_100054498)
   {
-    v4[0] = _NSConcreteStackBlock;
-    v4[1] = 3221225472;
-    v4[2] = sub_1000046A0;
-    v4[3] = &unk_100048BA8;
-    v4[4] = &v5;
-    sub_1000046A0(v4);
-    v2 = v6[3];
+    v5[0] = _NSConcreteStackBlock;
+    v5[1] = 3221225472;
+    v5[2] = sub_1000046A0;
+    v5[3] = &unk_100048BA8;
+    v5[4] = &v6;
+    sub_1000046A0(v5);
+    v2 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v2)
   {
-    v3 = sub_100029794();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v3);
+    sub_100029794();
+    v4 = v3;
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v4);
   }
 
   v2();

@@ -13,78 +13,76 @@ void __42___DPSubmissionRateLimiter_sharedInstance__block_invoke(uint64_t a1)
 
 void __41___DPSubmissionRateLimiter_debit_forKey___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() budgetNameForKey:*(a1 + 40)];
-  if (v3)
+  v2 = [objc_opt_class() budgetNameForKey:*(a1 + 40)];
+  if (v2)
   {
-    v23 = v3;
-    v4 = [*(a1 + 32) limitDictionary];
-    v5 = [v4 objectForKeyedSubscript:v23];
+    v22 = v2;
+    v3 = [*(a1 + 32) limitDictionary];
+    v4 = [v3 objectForKeyedSubscript:v22];
 
-    v6 = [v5 objectForKeyedSubscript:@"interval"];
-    v7 = [v6 unsignedIntegerValue];
+    v5 = [v4 objectForKeyedSubscript:@"interval"];
+    v6 = [v5 unsignedIntegerValue];
 
-    if (v7)
+    if (v6)
     {
-      v8 = [v5 objectForKeyedSubscript:@"chunks_amount"];
-      v9 = [v8 unsignedIntegerValue];
+      v7 = [v4 objectForKeyedSubscript:@"chunks_amount"];
+      v8 = [v7 unsignedIntegerValue];
 
-      if (v9 <= 1)
+      if (v8 <= 1)
       {
-        v10 = 1;
+        v9 = 1;
       }
 
       else
       {
-        v10 = v9;
+        v9 = v8;
       }
 
-      v11 = [v5 objectForKeyedSubscript:@"refill_amount"];
-      v12 = [v11 unsignedIntegerValue];
+      v10 = [v4 objectForKeyedSubscript:@"refill_amount"];
+      v11 = [v10 unsignedIntegerValue];
 
-      v13 = [v5 objectForKeyedSubscript:@"limit"];
-      v14 = [v13 unsignedIntegerValue];
+      v12 = [v4 objectForKeyedSubscript:@"limit"];
+      v13 = [v12 unsignedIntegerValue];
 
-      v15 = [v5 objectForKeyedSubscript:@"checkpoint"];
-      v16 = [MEMORY[0x277CBEAA8] date];
-      [v16 timeIntervalSinceDate:v15];
-      v18 = v17 / v7;
+      v14 = [v4 objectForKeyedSubscript:@"checkpoint"];
+      v15 = [MEMORY[0x277CBEAA8] date];
+      [v15 timeIntervalSinceDate:v14];
+      v17 = v16 / v6;
 
-      v19 = v14 + v12 * v10 * v18;
-      v20 = [v15 dateByAddingTimeInterval:(v18 * v7)];
+      v18 = v13 + v11 * v9 * v17;
+      v19 = [v14 dateByAddingTimeInterval:(v17 * v6)];
 
-      v21 = *(a1 + 56);
-      if (v21 >= v19)
+      v20 = *(a1 + 56);
+      if (v20 >= v18)
       {
-        v21 = v19;
+        v20 = v18;
       }
 
-      *(*(*(a1 + 48) + 8) + 24) = v21;
-      [v5 setObject:v20 forKeyedSubscript:@"checkpoint"];
-      v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v19 - *(*(*(a1 + 48) + 8) + 24)];
-      [v5 setObject:v22 forKeyedSubscript:@"limit"];
+      *(*(*(a1 + 48) + 8) + 24) = v20;
+      [v4 setObject:v19 forKeyedSubscript:@"checkpoint"];
+      v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v18 - *(*(*(a1 + 48) + 8) + 24)];
+      [v4 setObject:v21 forKeyedSubscript:@"limit"];
     }
 
-    v3 = v23;
+    v2 = v22;
   }
 }
 
 void __42___DPSubmissionRateLimiter_credit_amount___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = [objc_opt_class() budgetNameForKey:*(a1 + 40)];
-  if (v3)
+  v2 = [objc_opt_class() budgetNameForKey:*(a1 + 40)];
+  if (v2)
   {
-    v9 = v3;
-    v4 = [*(a1 + 32) limitDictionary];
-    v5 = [v4 objectForKeyedSubscript:v9];
+    v8 = v2;
+    v3 = [*(a1 + 32) limitDictionary];
+    v4 = [v3 objectForKeyedSubscript:v8];
 
-    v6 = MEMORY[0x277CCABB0];
-    v7 = [v5 objectForKeyedSubscript:@"limit"];
-    v8 = [v6 numberWithUnsignedInteger:{*(a1 + 48) + objc_msgSend(v7, "unsignedIntegerValue")}];
-    [v5 setObject:v8 forKeyedSubscript:@"limit"];
+    v5 = MEMORY[0x277CCABB0];
+    v6 = [v4 objectForKeyedSubscript:@"limit"];
+    v7 = [v5 numberWithUnsignedInteger:{*(a1 + 48) + objc_msgSend(v6, "unsignedIntegerValue")}];
+    [v4 setObject:v7 forKeyedSubscript:@"limit"];
 
-    v3 = v9;
+    v2 = v8;
   }
 }
 

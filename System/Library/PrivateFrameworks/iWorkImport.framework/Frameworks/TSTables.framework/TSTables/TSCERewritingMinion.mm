@@ -69,14 +69,14 @@
 
 - (void)markCellRefAsDirty:(const TSCECellRef *)dirty
 {
-  v9 = objc_msgSend_calcEngine(self->_formulasToSet, a2, dirty, v3, v4);
-  objc_msgSend_markCellRefAsDirty_(v9, v6, dirty, v7, v8);
+  v7 = objc_msgSend_calcEngine(self->_formulasToSet, a2, dirty, v3);
+  objc_msgSend_markCellRefAsDirty_(v7, v5, dirty, v6);
 }
 
 - (void)markRangeRefAsDirty:(const TSCERangeRef *)dirty
 {
-  v9 = objc_msgSend_calcEngine(self->_formulasToSet, a2, dirty, v3, v4);
-  objc_msgSend_markRangeRefAsDirty_(v9, v6, dirty, v7, v8);
+  v7 = objc_msgSend_calcEngine(self->_formulasToSet, a2, dirty, v3);
+  objc_msgSend_markRangeRefAsDirty_(v7, v5, dirty, v6);
 }
 
 - (void)flushAllChanges
@@ -84,12 +84,12 @@
   if ((TSCECellRefSet::isEmpty(&self->_pendingCellsToRemove) & 1) == 0)
   {
     TSCECellRefSet::removeCellRefs(&self->_pendingCellsToRemove, &self->_rewrittenCells);
-    objc_msgSend_removeFormulasAt_(self, v7, &self->_pendingCellsToRemove, v8, v9);
+    objc_msgSend_removeFormulasAt_(self, v6, &self->_pendingCellsToRemove, v7);
   }
 
   formulasToSet = self->_formulasToSet;
 
-  objc_msgSend_flushAllFormulaChanges(formulasToSet, v3, v4, v5, v6);
+  objc_msgSend_flushAllFormulaChanges(formulasToSet, v3, v4, v5);
 }
 
 - (id).cxx_construct

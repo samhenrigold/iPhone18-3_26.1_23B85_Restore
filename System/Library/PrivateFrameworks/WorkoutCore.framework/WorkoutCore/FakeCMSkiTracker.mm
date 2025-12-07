@@ -17,7 +17,7 @@
   v6[1] = v5;
   selfCopy = self;
 
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed CMLiveSkiData?, @guaranteed Error?) -> ())?(v7);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed CMLiveSkiData?, @guaranteed Error?) -> ())?(v7, v8);
   FakeCMSkiTracker.startTimer()();
 }
 

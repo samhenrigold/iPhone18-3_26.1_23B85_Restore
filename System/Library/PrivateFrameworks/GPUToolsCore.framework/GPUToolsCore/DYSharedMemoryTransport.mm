@@ -132,16 +132,16 @@
   dispatch_sync(queue, block);
 }
 
-uint64_t __34__DYSharedMemoryTransport_setUrl___block_invoke(uint64_t result)
+void *__34__DYSharedMemoryTransport_setUrl___block_invoke(void *result)
 {
-  v1 = *(*(result + 40) + 8);
-  if (*(result + 32) != v1)
+  v1 = *(result[5] + 8);
+  if (result[4] != v1)
   {
     v2 = result;
 
-    *(*(v2 + 40) + 8) = *(v2 + 32);
-    result = [objc_msgSend(*(*(v2 + 40) + 8) "scheme")];
-    v3 = *(v2 + 40);
+    *(v2[5] + 8) = v2[4];
+    result = [objc_msgSend(*(v2[5] + 8) "scheme")];
+    v3 = v2[5];
     if (result)
     {
       v4 = *(v3 + 300) != 2;
@@ -170,15 +170,15 @@ uint64_t __34__DYSharedMemoryTransport_setUrl___block_invoke(uint64_t result)
   dispatch_sync(queue, v4);
 }
 
-uint64_t __45__DYSharedMemoryTransport_setRelayTransport___block_invoke(uint64_t result)
+void *__45__DYSharedMemoryTransport_setRelayTransport___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 272);
-  if (v1 != *(result + 40))
+  v1 = *(result[4] + 272);
+  if (v1 != result[5])
   {
     v2 = result;
 
-    *(*(v2 + 32) + 272) = *(v2 + 40);
-    v3 = *(v2 + 32);
+    *(v2[4] + 272) = v2[5];
+    v3 = v2[4];
     v4 = *(v3 + 272);
     v5 = (v3 + 288);
     if (v4)
@@ -192,7 +192,7 @@ uint64_t __45__DYSharedMemoryTransport_setRelayTransport___block_invoke(uint64_t
     }
 
     *v5 = v6;
-    v7 = *(v2 + 32);
+    v7 = v2[4];
     if (v7[36])
     {
       v8 = v7[36];
@@ -204,8 +204,8 @@ uint64_t __45__DYSharedMemoryTransport_setRelayTransport___block_invoke(uint64_t
     }
 
     result = [v7 methodForSelector:v8];
-    *(*(v2 + 32) + 280) = result;
-    if (!*(*(v2 + 32) + 280))
+    *(v2[4] + 280) = result;
+    if (!*(v2[4] + 280))
     {
       __45__DYSharedMemoryTransport_setRelayTransport___block_invoke_cold_1();
     }
@@ -425,46 +425,45 @@ LABEL_17:
 
 - (BOOL)_createAndRunSources:(id *)sources
 {
-  v18 = *MEMORY[0x277D85DE8];
-  pthread_attr_init(&v17);
-  pthread_attr_setdetachstate(&v17, 2);
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x3052000000;
-  v14 = __Block_byref_object_copy_;
-  v15 = __Block_byref_object_dispose_;
-  v16 = 0;
+  v17 = *MEMORY[0x277D85DE8];
+  pthread_attr_init(&v16);
+  pthread_attr_setdetachstate(&v16, 2);
+  v10 = 0;
+  v11 = &v10;
+  v12 = 0x3052000000;
+  v13 = __Block_byref_object_copy_;
+  v14 = __Block_byref_object_dispose_;
+  v15 = 0;
   v4 = [DYContinuation alloc];
   queue = self->super.super._queue;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __48__DYSharedMemoryTransport__createAndRunSources___block_invoke;
-  v10[3] = &unk_27930C1C0;
-  v10[4] = self;
-  v10[5] = &v11;
-  v6 = [(DYContinuation *)v4 initWithQueue:queue block:v10];
-  v12[5] = v6;
-  v9 = 0;
-  pthread_create(&v9, &v17, smt_poll_thread_entry, v6);
-  pthread_attr_destroy(&v17);
-  _Block_object_dispose(&v11, 8);
-  v7 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __48__DYSharedMemoryTransport__createAndRunSources___block_invoke;
+  v9[3] = &unk_27930C1C0;
+  v9[4] = self;
+  v9[5] = &v10;
+  v6 = [(DYContinuation *)v4 initWithQueue:queue block:v9];
+  v11[5] = v6;
+  v8 = 0;
+  pthread_create(&v8, &v16, smt_poll_thread_entry, v6);
+  pthread_attr_destroy(&v16);
+  _Block_object_dispose(&v10, 8);
   return 1;
 }
 
-uint64_t __48__DYSharedMemoryTransport__createAndRunSources___block_invoke(uint64_t a1)
+uint64_t __48__DYSharedMemoryTransport__createAndRunSources___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if (*(v2 + 52) == 1)
+  v3 = *(a1 + 32);
+  if (*(v3 + 52) == 1)
   {
     return __48__DYSharedMemoryTransport__createAndRunSources___block_invoke_cold_1(a1);
   }
 
-  v3 = atomic_load((v2 + 48));
-  atomic_store(v3, *(*(a1 + 32) + 232));
-  v4 = *(a1 + 32);
+  v4 = atomic_load((v3 + 48));
+  atomic_store(v4, *(*(a1 + 32) + 232));
+  v5 = *(a1 + 32);
 
-  return [v4 _dequeueIncomingMessages];
+  return [v5 _dequeueIncomingMessages];
 }
 
 - (BOOL)_serverConnect:(id *)connect
@@ -577,7 +576,7 @@ LABEL_3:
   return [v6 setResult:v5];
 }
 
-unint64_t __34__DYSharedMemoryTransport_connect__block_invoke_2(uint64_t a1)
+void *__34__DYSharedMemoryTransport_connect__block_invoke_2(uint64_t a1)
 {
   if (([*(a1 + 32) _clientConnect:0] & 1) == 0)
   {

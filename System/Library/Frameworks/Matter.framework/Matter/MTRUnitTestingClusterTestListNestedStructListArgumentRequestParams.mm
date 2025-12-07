@@ -56,11 +56,11 @@
 
 - (ChipError)_encodeToTLVReader:(PacketBufferTLVReader *)reader
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v17 = 0uLL;
-  v16[0] = 0;
-  v16[1] = 0;
-  v15 = v16;
+  v22 = *MEMORY[0x277D85DE8];
+  v16 = 0uLL;
+  v15[0] = 0;
+  v15[1] = 0;
+  v14 = v15;
   arg1 = [(MTRUnitTestingClusterTestListNestedStructListArgumentRequestParams *)self arg1];
   v4 = [arg1 count] == 0;
 
@@ -69,35 +69,35 @@
     operator new();
   }
 
-  v17 = 0uLL;
-  sub_2393D9C18(0x62FuLL, 0, &v14);
-  if (v14)
+  v16 = 0uLL;
+  sub_2393D9C18(0x62FuLL, 0, &v13);
+  if (v13)
   {
     sub_2393C7B90(buf);
+    v19 = 0;
     v20 = 0;
+    v18 = &unk_284BB83A8;
     v21 = 0;
-    v19 = &unk_284BB83A8;
-    v22 = 0;
-    sub_238EA16C4(&v19, &v14, 0);
-    sub_2393C7BF0(buf, &v19, 0xFFFFFFFF);
-    v6 = sub_238F30CB0(&v17, buf, 0x100uLL);
+    sub_238EA16C4(&v18, &v13, 0);
+    sub_2393C7BF0(buf, &v18, 0xFFFFFFFF);
+    v6 = sub_238F30CB0(&v16, buf, 0x100uLL);
     v7 = v6;
-    if (v6 || (v6 = sub_238DD2EFC(buf, &v14), v7 = v6, v6))
+    if (v6 || (v6 = sub_238DD2EFC(buf, &v13), v7 = v6, v6))
     {
       v8 = v5;
     }
 
     else
     {
-      sub_238DD2F90(reader, &v14);
+      sub_238DD2F90(reader, &v13);
       v6 = sub_2393C7114(reader, 21, 256);
       v8 = v9;
       v7 = v6;
     }
 
-    v19 = &unk_284BB83A8;
-    sub_238EA1758(&v21);
+    v18 = &unk_284BB83A8;
     sub_238EA1758(&v20);
+    sub_238EA1758(&v19);
   }
 
   else
@@ -107,14 +107,13 @@
     v7 = 11;
   }
 
-  sub_238EA1758(&v14);
-  sub_238EA1790(&v15);
-  v10 = *MEMORY[0x277D85DE8];
-  v11 = v6 & 0xFFFFFFFF00000000 | v7;
-  v12 = v8;
-  result.mFile = v12;
-  result.mError = v11;
-  result.mLine = HIDWORD(v11);
+  sub_238EA1758(&v13);
+  sub_238EA1790(&v14);
+  v10 = v6 & 0xFFFFFFFF00000000 | v7;
+  v11 = v8;
+  result.mFile = v11;
+  result.mError = v10;
+  result.mLine = HIDWORD(v10);
   return result;
 }
 

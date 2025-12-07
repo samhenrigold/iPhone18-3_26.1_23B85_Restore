@@ -7,7 +7,7 @@
 
 - (void)fetchSharing
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC064560);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EC064560, &qword_1C2E7A890);
   MEMORY[0x1EEE9AC00](v3 - 8);
   v5 = &v10 - v4;
   v6 = OBJC_IVAR____TtC16CommunicationsUI18SafetyCheckManager_fetchTask;

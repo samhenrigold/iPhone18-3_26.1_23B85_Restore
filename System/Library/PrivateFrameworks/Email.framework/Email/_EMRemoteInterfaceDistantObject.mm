@@ -90,7 +90,7 @@
 
 - (void)forwardInvocation:(id)invocation
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   invocationCopy = invocation;
   if (self->_proxyGenerator)
   {
@@ -102,11 +102,11 @@
     v5 = +[EMRemoteConnection log];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138543618;
+      v9 = 138543618;
       selfCopy2 = self;
-      v12 = 2114;
-      v13 = invocationCopy;
-      _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Client instance no longer valid. Skipping forwarding invocation %{public}@", &v10, 0x16u);
+      v11 = 2114;
+      v12 = invocationCopy;
+      _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Client instance no longer valid. Skipping forwarding invocation %{public}@", &v9, 0x16u);
     }
 
     if (self->_reattemptHandler)
@@ -114,11 +114,11 @@
       v6 = +[EMRemoteConnection log];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138543618;
+        v9 = 138543618;
         selfCopy2 = self;
-        v12 = 2114;
-        v13 = invocationCopy;
-        _os_log_impl(&dword_1C6655000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Invoking reattemptHandler with EMConnectionInvalidated error for invocation %{public}@", &v10, 0x16u);
+        v11 = 2114;
+        v12 = invocationCopy;
+        _os_log_impl(&dword_1C6655000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Invoking reattemptHandler with EMConnectionInvalidated error for invocation %{public}@", &v9, 0x16u);
       }
 
       reattemptHandler = self->_reattemptHandler;
@@ -126,13 +126,11 @@
       reattemptHandler[2](reattemptHandler, v8);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_forwardStackInvocation:(id)invocation
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   invocationCopy = invocation;
   if (self->_proxyGenerator)
   {
@@ -144,11 +142,11 @@
     v5 = +[EMRemoteConnection log];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138543618;
+      v9 = 138543618;
       selfCopy2 = self;
-      v12 = 2114;
-      v13 = invocationCopy;
-      _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Client instance no longer valid. Skipping fowarding stack invocation %{public}@", &v10, 0x16u);
+      v11 = 2114;
+      v12 = invocationCopy;
+      _os_log_impl(&dword_1C6655000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Client instance no longer valid. Skipping fowarding stack invocation %{public}@", &v9, 0x16u);
     }
 
     if (self->_reattemptHandler)
@@ -156,11 +154,11 @@
       v6 = +[EMRemoteConnection log];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = 138543618;
+        v9 = 138543618;
         selfCopy2 = self;
-        v12 = 2114;
-        v13 = invocationCopy;
-        _os_log_impl(&dword_1C6655000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Invoking reattemptHandler with EMConnectionInvalidated error for invocation %{public}@", &v10, 0x16u);
+        v11 = 2114;
+        v12 = invocationCopy;
+        _os_log_impl(&dword_1C6655000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Invoking reattemptHandler with EMConnectionInvalidated error for invocation %{public}@", &v9, 0x16u);
       }
 
       reattemptHandler = self->_reattemptHandler;
@@ -168,8 +166,6 @@
       reattemptHandler[2](reattemptHandler, v8);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)reattemptingRemoteObjectProxy

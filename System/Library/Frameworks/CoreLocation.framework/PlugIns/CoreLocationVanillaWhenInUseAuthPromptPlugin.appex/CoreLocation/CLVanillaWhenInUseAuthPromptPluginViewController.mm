@@ -6,6 +6,7 @@
 - (void)_stylePreciseOnButton;
 - (void)loadView;
 - (void)pillButtonOnAction:(id)action;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -332,6 +333,17 @@ LABEL_8:
   [(CLAuthWithPreciseSettingBaseViewController *)&v3 viewWillLayoutSubviews];
   [(CLVanillaWhenInUseAuthPromptPluginViewController *)self _stylePreciseOnButton];
   [(CLVanillaWhenInUseAuthPromptPluginViewController *)self _setPreciseButtonPadding];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  pillButton = [(CLVanillaWhenInUseAuthPromptPluginViewController *)self pillButton];
+  [pillButton removeFromSuperview];
+
+  pillButton2 = [(CLVanillaWhenInUseAuthPromptPluginViewController *)self pillButton];
+  [pillButton2 removeTarget:self action:"pillButtonOnAction:" forControlEvents:64];
+
+  [(CLVanillaWhenInUseAuthPromptPluginViewController *)self setPillButton:0];
 }
 
 @end

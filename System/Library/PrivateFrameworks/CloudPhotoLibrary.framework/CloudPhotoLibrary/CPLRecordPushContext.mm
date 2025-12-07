@@ -110,7 +110,7 @@ LABEL_8:
   return v9;
 }
 
-uint64_t __38__CPLRecordPushContext_initWithCoder___block_invoke()
+uint64_t __38__CPLRecordPushContext_initWithCoder___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = objc_opt_class();
   initWithCoder___NSStringClass = result;
@@ -263,16 +263,16 @@ uint64_t __38__CPLRecordPushContext_initWithCoder___block_invoke()
   return v9;
 }
 
-uint64_t __75__CPLRecordPushContext_pushContextsFromStoredUploadIdentifiersInCoder_key___block_invoke()
+uint64_t __75__CPLRecordPushContext_pushContextsFromStoredUploadIdentifiersInCoder_key___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = MEMORY[0x1E695DFD8];
-  v1 = objc_opt_class();
-  v2 = objc_opt_class();
-  v3 = [v0 setWithObjects:{v1, v2, objc_opt_class(), 0}];
-  v4 = pushContextsFromStoredUploadIdentifiersInCoder_key__uploadIdentifiersClasses;
-  pushContextsFromStoredUploadIdentifiersInCoder_key__uploadIdentifiersClasses = v3;
+  v2 = MEMORY[0x1E695DFD8];
+  v3 = objc_opt_class();
+  v4 = objc_opt_class();
+  v5 = [v2 setWithObjects:{v3, v4, objc_opt_class(), 0}];
+  v6 = pushContextsFromStoredUploadIdentifiersInCoder_key__uploadIdentifiersClasses;
+  pushContextsFromStoredUploadIdentifiersInCoder_key__uploadIdentifiersClasses = v5;
 
-  return MEMORY[0x1EEE66BB8](v3, v4);
+  return MEMORY[0x1EEE66BB8](v5, v6);
 }
 
 + (id)pushContextsFromStoredUploadIdentifiers:(id)identifiers

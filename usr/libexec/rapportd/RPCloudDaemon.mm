@@ -9,6 +9,7 @@
 - (BOOL)idsHasWatch;
 - (BOOL)idsHasiPad;
 - (BOOL)idsIsSignedIn;
+- (BOOL)sendIDSMessage:(id)message cloudServiceID:(id)d frameType:(unsigned __int8)type destinationDevice:(id)device sendFlags:(unsigned int)flags msgCtx:(id)ctx error:(id *)error;
 - (BOOL)sendIDSMessage:(id)message cloudServiceID:(id)d frameType:(unsigned __int8)type destinationID:(id)iD sendFlags:(unsigned int)flags msgCtx:(id)ctx error:(id *)error;
 - (NSArray)idsDeviceArray;
 - (NSDictionary)idsDeviceMap;
@@ -79,7 +80,7 @@
     {
       if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1001D30F8, "[RPCloudDaemon idsDeviceIDSelf]", 90, "### No IDS device ID\n");
       }
 
       v3 = 0;
@@ -459,7 +460,7 @@ LABEL_13:
   {
     if (dword_1001D30F8 <= 30 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001D30F8, "[RPCloudDaemon idsDeviceArray]", 30, "Get IDSDevices\n");
     }
 
     devices = [selfCopy->_nearbyIDSService devices];
@@ -607,15 +608,15 @@ LABEL_14:
 
 - (id)descriptionWithLevel:(int)level
 {
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   obj = [(NSDictionary *)self->_idsFamilyEndpointMap allKeys];
-  v24 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
-  if (v24)
+  v34 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
+  if (v34)
   {
-    v22 = *v26;
+    v31 = *v39;
     v3 = &stru_1001B1A70;
     do
     {
@@ -623,12 +624,12 @@ LABEL_14:
       v5 = v3;
       do
       {
-        if (*v26 != v22)
+        if (*v39 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v25 + 1) + 8 * v4);
+        v6 = *(*(&v38 + 1) + 8 * v4);
         v7 = [(NSDictionary *)self->_idsFamilyEndpointMap objectForKeyedSubscript:v6];
         familyEndpointData = [v7 familyEndpointData];
         deviceName = [familyEndpointData deviceName];
@@ -643,11 +644,11 @@ LABEL_14:
         v5 = v3;
       }
 
-      while (v24 != v4);
-      v24 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      while (v34 != v4);
+      v34 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
     }
 
-    while (v24);
+    while (v34);
   }
 
   else
@@ -655,32 +656,98 @@ LABEL_14:
     v3 = &stru_1001B1A70;
   }
 
+  v37 = 0;
   idsDeviceArray = [(RPCloudDaemon *)self idsDeviceArray];
-  [idsDeviceArray count];
-  [(RPCloudDaemon *)self idsIsSignedIn];
-  [(RPCloudDaemon *)self idsHasAppleTV];
-  [(RPCloudDaemon *)self idsHasHomePod];
-  [(RPCloudDaemon *)self idsHasiPad];
-  [(RPCloudDaemon *)self idsHasMac];
-  [(RPCloudDaemon *)self idsHasWatch];
-  [(RPCloudDaemon *)self idsHasRealityDevice];
-  [(RPCloudDaemon *)self idsHandheldCount];
+  v35 = [idsDeviceArray count];
+  if ([(RPCloudDaemon *)self idsIsSignedIn])
+  {
+    v15 = "yes";
+  }
+
+  else
+  {
+    v15 = "no";
+  }
+
+  v32 = v15;
+  if ([(RPCloudDaemon *)self idsHasAppleTV])
+  {
+    v16 = "yes";
+  }
+
+  else
+  {
+    v16 = "no";
+  }
+
+  obja = v16;
+  if ([(RPCloudDaemon *)self idsHasHomePod])
+  {
+    v17 = "yes";
+  }
+
+  else
+  {
+    v17 = "no";
+  }
+
+  if ([(RPCloudDaemon *)self idsHasiPad])
+  {
+    v18 = "yes";
+  }
+
+  else
+  {
+    v18 = "no";
+  }
+
+  if ([(RPCloudDaemon *)self idsHasMac])
+  {
+    v19 = "yes";
+  }
+
+  else
+  {
+    v19 = "no";
+  }
+
+  if ([(RPCloudDaemon *)self idsHasWatch])
+  {
+    v20 = "yes";
+  }
+
+  else
+  {
+    v20 = "no";
+  }
+
+  if ([(RPCloudDaemon *)self idsHasRealityDevice])
+  {
+    v21 = "yes";
+  }
+
+  else
+  {
+    v21 = "no";
+  }
+
+  idsHandheldCount = [(RPCloudDaemon *)self idsHandheldCount];
   idsFamilyEndpointMap = [(RPCloudDaemon *)self idsFamilyEndpointMap];
-  [idsFamilyEndpointMap count];
-  NSAppendPrintF();
-  v16 = 0;
+  NSAppendPrintF(&v37, "-- RPCloudDaemon --\nIDS devices %d, Signed In %s, AppleTV %s, HomePod %s, iPad %s, Mac %s, Watch %s, RealityDevice %s, Handheld %d, Sessions %d \n%d FamilyEndpointMap:\n%@", v35, v32, obja, v17, v18, v19, v20, v21, idsHandheldCount, 0, [idsFamilyEndpointMap count], v3);
+  v24 = v37;
 
   if (level <= 20)
   {
-    NSAppendPrintF();
-    v17 = v16;
+    v36 = v24;
+    NSAppendPrintF(&v36, "\n");
+    v25 = v36;
 
-    v16 = v17;
+    v24 = v25;
   }
 
-  v18 = v16;
+  v26 = v24;
 
-  return v16;
+  return v24;
 }
 
 - (void)activate
@@ -709,20 +776,24 @@ LABEL_14:
 {
   if (!self->_invalidateCalled)
   {
-    v8 = v2;
+    v9 = v3;
+    selfCopy = self;
     self->_invalidateCalled = 1;
-    if (dword_1001D30F8 <= 30 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D30F8 <= 30)
     {
-      sub_10010E004();
+      if (dword_1001D30F8 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_10010E004(self, a2, v2);
+      }
     }
 
-    [(CUSystemMonitor *)self->_systemMonitor invalidate:v3];
-    systemMonitor = self->_systemMonitor;
-    self->_systemMonitor = 0;
+    [(CUSystemMonitor *)selfCopy->_systemMonitor invalidate:v4];
+    systemMonitor = selfCopy->_systemMonitor;
+    selfCopy->_systemMonitor = 0;
 
-    [(RPCloudDaemon *)self _idsEnsureStopped];
+    [(RPCloudDaemon *)selfCopy _idsEnsureStopped];
 
-    [(RPCloudDaemon *)self _invalidated];
+    [(RPCloudDaemon *)selfCopy _invalidated];
   }
 }
 
@@ -731,9 +802,12 @@ LABEL_14:
   if (self->_invalidateCalled && !self->_invalidateDone)
   {
     self->_invalidateDone = 1;
-    if (dword_1001D30F8 <= 30 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D30F8 <= 30)
     {
-      sub_10010E020();
+      if (dword_1001D30F8 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_10010E020(self, a2, v2);
+      }
     }
   }
 }
@@ -744,7 +818,7 @@ LABEL_14:
   {
     if (dword_1001D30F8 <= 30 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
     {
-      sub_10010E03C();
+      sub_10010E03C(changed);
     }
 
     [(RPCloudDaemon *)self idsFamilyEndpointsUpdateWithForce:1];
@@ -769,9 +843,7 @@ LABEL_14:
         prefHasAppleTVForce = self->_prefHasAppleTVForce;
       }
 
-      v16 = prefHasAppleTVForce;
-      v17 = v3;
-      LogPrintF();
+      LogPrintF(&dword_1001D30F8, "[RPCloudDaemon prefsChanged]", 40, "HasAppleTVForce: %d -> %d\n", prefHasAppleTVForce, v3);
     }
 
 LABEL_6:
@@ -797,9 +869,7 @@ LABEL_6:
       prefHasHomePodForce = self->_prefHasHomePodForce;
     }
 
-    v16 = prefHasHomePodForce;
-    v17 = v5;
-    LogPrintF();
+    LogPrintF(&dword_1001D30F8, "[RPCloudDaemon prefsChanged]", 40, "HasHomePodForce: %d -> %d\n", prefHasHomePodForce, v5);
   }
 
 LABEL_12:
@@ -824,9 +894,7 @@ LABEL_13:
       prefHasiPadForce = self->_prefHasiPadForce;
     }
 
-    v16 = prefHasiPadForce;
-    v17 = v7;
-    LogPrintF();
+    LogPrintF(&dword_1001D30F8, "[RPCloudDaemon prefsChanged]", 40, "HasiPadForce: %d -> %d\n", prefHasiPadForce, v7);
   }
 
 LABEL_18:
@@ -851,9 +919,7 @@ LABEL_19:
       prefHasMacForce = self->_prefHasMacForce;
     }
 
-    v16 = prefHasMacForce;
-    v17 = v9;
-    LogPrintF();
+    LogPrintF(&dword_1001D30F8, "[RPCloudDaemon prefsChanged]", 40, "HasMacForce: %d -> %d\n", prefHasMacForce, v9);
   }
 
 LABEL_24:
@@ -878,9 +944,7 @@ LABEL_25:
       prefHasRealityDeviceForce = self->_prefHasRealityDeviceForce;
     }
 
-    v16 = prefHasRealityDeviceForce;
-    v17 = v11;
-    LogPrintF();
+    LogPrintF(&dword_1001D30F8, "[RPCloudDaemon prefsChanged]", 40, "HasRealityDeviceForce: %d -> %d\n", prefHasRealityDeviceForce, v11);
   }
 
 LABEL_30:
@@ -891,7 +955,7 @@ LABEL_31:
   {
     if (dword_1001D30F8 <= 40 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
     {
-      sub_10010E084();
+      sub_10010E084(v13);
     }
 
     self->_prefIDSEnabled = v13;
@@ -913,16 +977,14 @@ LABEL_31:
         prefIsSignedInForce = self->_prefIsSignedInForce;
       }
 
-      v16 = prefIsSignedInForce;
-      v17 = v14;
-      LogPrintF();
+      LogPrintF(&dword_1001D30F8, "[RPCloudDaemon prefsChanged]", 40, "IsSignedInForce: %d -> %d\n", prefIsSignedInForce, v14);
     }
 
 LABEL_41:
     self->_prefIsSignedInForce = v14;
   }
 
-  [(RPCloudDaemon *)self _update:v16];
+  [(RPCloudDaemon *)self _update];
 }
 
 - (void)_update
@@ -948,38 +1010,46 @@ LABEL_41:
 {
   if (!self->_nearbyIDSService)
   {
-    if (dword_1001D30F8 <= 40 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (dword_1001D30F8 <= 40)
     {
-      sub_10010E0E0();
+      if (dword_1001D30F8 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_10010E0E0(self, a2, v2);
+      }
     }
 
-    v4 = [[IDSService alloc] initWithService:@"com.apple.private.alloy.nearby"];
-    nearbyIDSService = self->_nearbyIDSService;
-    self->_nearbyIDSService = v4;
+    v5 = [[IDSService alloc] initWithService:@"com.apple.private.alloy.nearby"];
+    nearbyIDSService = selfCopy->_nearbyIDSService;
+    selfCopy->_nearbyIDSService = v5;
 
-    dispatchQueue = self->_dispatchQueue;
-    v6 = self->_nearbyIDSService;
+    dispatchQueue = selfCopy->_dispatchQueue;
+    v7 = selfCopy->_nearbyIDSService;
 
-    [(IDSService *)v6 addDelegate:self queue:dispatchQueue];
+    [(IDSService *)v7 addDelegate:selfCopy queue:dispatchQueue];
   }
 }
 
 - (void)_idsEnsureStopped
 {
+  selfCopy = self;
   if (self->_nearbyIDSService)
   {
-    if (dword_1001D30F8 <= 40 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D30F8 <= 40)
     {
-      sub_10010E0FC();
+      if (dword_1001D30F8 != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        sub_10010E0FC(self, a2, v2);
+      }
     }
 
-    [self->_nearbyIDSService removeDelegate:self];
-    nearbyIDSService = self->_nearbyIDSService;
-    self->_nearbyIDSService = 0;
+    [selfCopy->_nearbyIDSService removeDelegate:selfCopy];
+    nearbyIDSService = selfCopy->_nearbyIDSService;
+    selfCopy->_nearbyIDSService = 0;
   }
 
-  idsCorrelationIdentifier = self->_idsCorrelationIdentifier;
-  self->_idsCorrelationIdentifier = 0;
+  idsCorrelationIdentifier = selfCopy->_idsCorrelationIdentifier;
+  selfCopy->_idsCorrelationIdentifier = 0;
 }
 
 - (id)_idsAccountWithURI:(id)i senderID:(id *)d
@@ -1187,7 +1257,7 @@ LABEL_40:
   {
     if (dword_1001D30F8 <= 30 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001D30F8, "[RPCloudDaemon idsAccountSet]", 30, "Get IDSAccounts\n");
     }
 
     accounts = [selfCopy->_nearbyIDSService accounts];
@@ -1262,12 +1332,16 @@ LABEL_11:
 
   v6 = +[IDSIDQueryController sharedInstance];
   v7 = +[IDSIDInfoOptions refreshIDInfo];
-  if (dword_1001D30F8 <= 30 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
+  v10 = v7;
+  if (dword_1001D30F8 <= 30)
   {
-    sub_10010E14C();
+    if (dword_1001D30F8 != -1 || (v7 = _LogCategory_Initialize(), v7))
+    {
+      sub_10010E14C(v7, v8, v9);
+    }
   }
 
-  [v6 idInfoForDestinations:getFamilyURIs service:@"com.apple.private.alloy.nearby.family" infoTypes:1 options:v7 listenerID:@"com.apple.private.alloy.nearby" queue:self->_dispatchQueue completionBlock:completionCopy];
+  [v6 idInfoForDestinations:getFamilyURIs service:@"com.apple.private.alloy.nearby.family" infoTypes:1 options:v10 listenerID:@"com.apple.private.alloy.nearby" queue:self->_dispatchQueue completionBlock:completionCopy];
 }
 
 - (void)setIdsFamilyEndpointMap:(id)map
@@ -1481,35 +1555,34 @@ LABEL_15:
   v15 = [dataCopy length];
   nearbyIDSService = self->_nearbyIDSService;
 
-  if (nearbyIDSService == serviceCopy)
+  if (nearbyIDSService != serviceCopy)
   {
-    v17 = @"com.apple.private.alloy.nearby";
-    bytes = [dataCopy bytes];
-    v19 = v15 - 4;
-    if (v15 < 4)
+    if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
     {
-      if (dword_1001D30F8 > 90 || dword_1001D30F8 == -1 && !_LogCategory_Initialize())
-      {
-        goto LABEL_15;
-      }
-
-      goto LABEL_12;
+      LogPrintF(&dword_1001D30F8, "[RPCloudDaemon service:account:incomingData:fromID:context:]", 90, "### IDS unsupported cloud service: From '%@', %zu bytes, <%.32@>\n", dCopy, v15, dataCopy);
     }
 
-    v20 = bytes;
-    v21 = (bytes[1] << 16) | (bytes[2] << 8) | bytes[3];
-    if (v19 < v21)
-    {
-      if (dword_1001D30F8 > 90 || dword_1001D30F8 == -1 && !_LogCategory_Initialize())
-      {
-        goto LABEL_15;
-      }
+    v17 = 0;
+    goto LABEL_16;
+  }
 
-LABEL_12:
-      LogPrintF();
-      goto LABEL_15;
+  v17 = @"com.apple.private.alloy.nearby";
+  bytes = [dataCopy bytes];
+  v19 = v15 - 4;
+  if (v15 < 4)
+  {
+    if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
+    {
+      LogPrintF(&dword_1001D30F8, "[RPCloudDaemon service:account:incomingData:fromID:context:]", 90, "### IDS header truncated from '%@', %zu bytes, <%.32@>\n", dCopy, v15, dataCopy);
     }
 
+    goto LABEL_16;
+  }
+
+  v20 = bytes;
+  v21 = (bytes[1] << 16) | (bytes[2] << 8) | bytes[3];
+  if (v19 >= v21)
+  {
     v22 = objc_alloc_init(RPCloudMessageContext);
     [(RPCloudMessageContext *)v22 setCloudServiceID:v17];
     [(RPCloudMessageContext *)v22 setFromID:dCopy];
@@ -1517,52 +1590,153 @@ LABEL_12:
     [(RPCloudMessageContext *)v22 setToID:toID];
 
     v24 = *v20;
-    if (dword_1001D30F8 <= 30 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
+    if (dword_1001D30F8 > 30 || dword_1001D30F8 == -1 && !_LogCategory_Initialize())
     {
-      toID2 = [(RPCloudMessageContext *)v22 toID];
-      LogPrintF();
-    }
-
-    v26 = v24 - 32;
-    if ((v24 - 32) <= 0x21)
-    {
-      if (((1 << v26) & 7) != 0)
+LABEL_58:
+      v28 = v24 - 32;
+      if ((v24 - 32) <= 0x21)
       {
-        [(RPCloudDaemon *)self _receivedFamilyIdentityFrameType:v24 ptr:v20 + 4 length:v21 msgCtx:v22];
-        goto LABEL_38;
+        if (((1 << v28) & 7) != 0)
+        {
+          [(RPCloudDaemon *)self _receivedFamilyIdentityFrameType:v24 ptr:v20 + 4 length:v21 msgCtx:v22];
+          goto LABEL_70;
+        }
+
+        if (((1 << v28) & 0x30000) != 0)
+        {
+          [(RPCloudDaemon *)self _receivedWatchIdentityFrameType:v24 ptr:v20 + 4 length:v21 fromID:dCopy];
+          goto LABEL_70;
+        }
+
+        if (((1 << v28) & 0x300000000) != 0)
+        {
+          [(RPCloudDaemon *)self _receivedFriendIdentityFrameType:v24 ptr:v20 + 4 length:v21 msgCtx:v22];
+LABEL_70:
+
+          goto LABEL_16;
+        }
       }
 
-      if (((1 << v26) & 0x30000) != 0)
+      if (v24 != 1 && dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
       {
-        [(RPCloudDaemon *)self _receivedWatchIdentityFrameType:v24 ptr:v20 + 4 length:v21 fromID:dCopy];
-        goto LABEL_38;
+        v29 = sub_1000183B0(v24);
+        LogPrintF(&dword_1001D30F8, "[RPCloudDaemon service:account:incomingData:fromID:context:]", 90, "### IDS ignoring unhandled frame 0x%02X (%s), from '%@', %zu bytes, <%.32@>\n", v24, v29, dCopy, v21, dataCopy);
       }
 
-      if (((1 << v26) & 0x300000000) != 0)
-      {
-        [(RPCloudDaemon *)self _receivedFriendIdentityFrameType:v24 ptr:v20 + 4 length:v21 msgCtx:v22];
-LABEL_38:
-
-        goto LABEL_15;
-      }
+      goto LABEL_70;
     }
 
-    if (v24 != 1 && dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
+    toID2 = [(RPCloudMessageContext *)v22 toID];
+    if (v24 <= 47)
     {
-      sub_1000183B0(v24);
-      LogPrintF();
+      v26 = dataCopy;
+      v27 = "Invalid";
+      switch(v24)
+      {
+        case 0:
+          goto LABEL_57;
+        case 1:
+          v27 = "NoOp";
+          break;
+        case 3:
+          v27 = "PS_Start";
+          break;
+        case 4:
+          v27 = "PS_Next";
+          break;
+        case 5:
+          v27 = "PV_Start";
+          break;
+        case 6:
+          v27 = "PV_Next";
+          break;
+        case 7:
+          v27 = "U_OPACK";
+          break;
+        case 8:
+          v27 = "E_OPACK";
+          break;
+        case 9:
+          v27 = "P_OPACK";
+          break;
+        case 10:
+          v27 = "PA_Req";
+          break;
+        case 11:
+          v27 = "PA_Rsp";
+          break;
+        case 16:
+          v27 = "SessionStartRequest";
+          break;
+        case 17:
+          v27 = "SessionStartResponse";
+          break;
+        case 18:
+          v27 = "SessionData";
+          break;
+        case 32:
+          v27 = "FamilyIdentityRequest";
+          break;
+        case 33:
+          v27 = "FamilyIdentityResponse";
+          break;
+        case 34:
+          v27 = "FamilyIdentityUpdate";
+          break;
+        default:
+          goto LABEL_56;
+      }
+
+      goto LABEL_57;
     }
 
-    goto LABEL_38;
+    if (v24 <= 63)
+    {
+      v26 = dataCopy;
+      if (v24 == 48)
+      {
+        v27 = "WatchIdentityRequest";
+        goto LABEL_57;
+      }
+
+      if (v24 == 49)
+      {
+        v27 = "WatchIdentityResponse";
+        goto LABEL_57;
+      }
+    }
+
+    else
+    {
+      v26 = dataCopy;
+      switch(v24)
+      {
+        case '@':
+          v27 = "FriendIdentityRequest";
+          goto LABEL_57;
+        case 'A':
+          v27 = "FriendIdentityResponse";
+          goto LABEL_57;
+        case 'B':
+          v27 = "FriendIdentityUpdate";
+LABEL_57:
+          LogPrintF(&dword_1001D30F8, "[RPCloudDaemon service:account:incomingData:fromID:context:]", 30, "IDS received frame from '%@', ClSI '%@', ToID %@, 0x%02X (%s), %zu bytes, <%.32@>\n", dCopy, v17, toID2, v24, v27, v21, v26);
+
+          goto LABEL_58;
+      }
+    }
+
+LABEL_56:
+    v27 = "?";
+    goto LABEL_57;
   }
 
   if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001D30F8, "[RPCloudDaemon service:account:incomingData:fromID:context:]", 90, "### IDS payload truncated from '%@', %zu bytes, <%.32@>\n", dCopy, v21, dataCopy);
   }
 
-  v17 = 0;
-LABEL_15:
+LABEL_16:
 }
 
 - (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error context:(id)context
@@ -1576,13 +1750,13 @@ LABEL_15:
   {
     if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001D30F8, "[RPCloudDaemon service:account:identifier:didSendWithSuccess:error:context:]", 90, "### IDS send failed ID %@, error %{error}\n", identifierCopy, errorCopy);
     }
   }
 
   else if (dword_1001D30F8 <= 30 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
   {
-    sub_10010E238();
+    sub_10010E238(identifierCopy);
   }
 }
 
@@ -1594,7 +1768,7 @@ LABEL_15:
   contextCopy = context;
   if (dword_1001D30F8 <= 30 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
   {
-    sub_10010E278();
+    sub_10010E278(identifierCopy);
   }
 }
 
@@ -1665,7 +1839,7 @@ LABEL_15:
           {
             if (dword_1001D30F8 != -1 || (v19 = v8, _LogCategory_Initialize()))
             {
-              sub_10010E340();
+              sub_10010E340(v13);
               v19 = v8;
             }
           }
@@ -1709,14 +1883,14 @@ LABEL_16:
 - (void)serviceSpaceDidBecomeAvailable:(id)available
 {
   availableCopy = available;
-  v4 = availableCopy;
+  v5 = availableCopy;
   if (dword_1001D30F8 <= 30)
   {
     v6 = availableCopy;
-    if (dword_1001D30F8 != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
+    if (dword_1001D30F8 != -1 || (availableCopy = _LogCategory_Initialize(), v5 = v6, availableCopy))
     {
-      sub_10010E380();
-      v4 = v6;
+      sub_10010E380(availableCopy, v5, v4);
+      v5 = v6;
     }
   }
 }
@@ -1727,75 +1901,270 @@ LABEL_16:
   ctxCopy = ctx;
   fromID = [ctxCopy fromID];
   v9 = OPACKDecodeBytes();
-  if (v9)
+  if (!v9)
   {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    if (dword_1001D30F8 > 90 || dword_1001D30F8 == -1 && !_LogCategory_Initialize())
     {
-      v10 = IDSCopyRawAddressForDestination();
-      v11 = v10;
-      if (!v10)
-      {
-        if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
-        {
-          sub_10010E3E4();
-        }
+      goto LABEL_93;
+    }
 
-        goto LABEL_28;
-      }
-
-      if ([v10 _appearsToBePhoneNumber])
-      {
-        CUNormalizePhoneNumber();
-      }
-
-      else
-      {
-        CUNormalizeEmailAddress();
-      }
-      v12 = ;
-      [ctxCopy setAppleID:v12];
-
+    if (typeCopy <= 47)
+    {
+      v12 = "Invalid";
       switch(typeCopy)
       {
-        case '""':
-          v13 = +[RPPeopleDaemon sharedPeopleDaemon];
-          [v13 receivedFamilyIdentityUpdate:v9 msgCtx:ctxCopy];
+        case 0:
+          goto LABEL_72;
+        case 1:
+          v12 = "NoOp";
           break;
-        case '!':
-          v13 = +[RPPeopleDaemon sharedPeopleDaemon];
-          [v13 receivedFamilyIdentityResponse:v9 msgCtx:ctxCopy];
+        case 3:
+          v12 = "PS_Start";
           break;
-        case ' ':
-          v13 = +[RPPeopleDaemon sharedPeopleDaemon];
-          [v13 receivedFamilyIdentityRequest:v9 msgCtx:ctxCopy];
+        case 4:
+          v12 = "PS_Next";
+          break;
+        case 5:
+          v12 = "PV_Start";
+          break;
+        case 6:
+          v12 = "PV_Next";
+          break;
+        case 7:
+          v12 = "U_OPACK";
+          break;
+        case 8:
+          v12 = "E_OPACK";
+          break;
+        case 9:
+          v12 = "P_OPACK";
+          break;
+        case 10:
+          v12 = "PA_Req";
+          break;
+        case 11:
+          v12 = "PA_Rsp";
+          break;
+        case 16:
+          v12 = "SessionStartRequest";
+          break;
+        case 17:
+          v12 = "SessionStartResponse";
+          break;
+        case 18:
+          v12 = "SessionData";
+          break;
+        case 32:
+          v12 = "FamilyIdentityRequest";
+          break;
+        case 33:
+          v12 = "FamilyIdentityResponse";
+          break;
+        case 34:
+          v12 = "FamilyIdentityUpdate";
           break;
         default:
-          if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
-          {
-            sub_10010E39C(typeCopy);
-          }
-
-          goto LABEL_28;
+          goto LABEL_71;
       }
 
-LABEL_28:
-      goto LABEL_34;
+      goto LABEL_72;
     }
 
-    if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
+    if (typeCopy <= 63)
     {
-LABEL_33:
-      LogPrintF();
+      if (typeCopy == 48)
+      {
+        v12 = "WatchIdentityRequest";
+        goto LABEL_72;
+      }
+
+      if (typeCopy == 49)
+      {
+        v12 = "WatchIdentityResponse";
+        goto LABEL_72;
+      }
     }
+
+    else
+    {
+      switch(typeCopy)
+      {
+        case '@':
+          v12 = "FriendIdentityRequest";
+          goto LABEL_72;
+        case 'A':
+          v12 = "FriendIdentityResponse";
+          goto LABEL_72;
+        case 'B':
+          v12 = "FriendIdentityUpdate";
+LABEL_72:
+          LogPrintF(&dword_1001D30F8, "[RPCloudDaemon _receivedFamilyIdentityFrameType:ptr:length:msgCtx:]", 90, "### Family identity message decode failed: type %s, fromID '%@', %#m\n", v12, fromID, 0);
+          goto LABEL_93;
+      }
+    }
+
+LABEL_71:
+    v12 = "?";
+    goto LABEL_72;
   }
 
-  else if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
   {
-    goto LABEL_33;
+    v10 = IDSCopyRawAddressForDestination();
+    v11 = v10;
+    if (!v10)
+    {
+      if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
+      {
+        sub_10010E3E4(fromID);
+      }
+
+      goto LABEL_32;
+    }
+
+    if ([v10 _appearsToBePhoneNumber])
+    {
+      CUNormalizePhoneNumber();
+    }
+
+    else
+    {
+      CUNormalizeEmailAddress();
+    }
+    v14 = ;
+    [ctxCopy setAppleID:v14];
+
+    switch(typeCopy)
+    {
+      case '""':
+        v15 = +[RPPeopleDaemon sharedPeopleDaemon];
+        [v15 receivedFamilyIdentityUpdate:v9 msgCtx:ctxCopy];
+        break;
+      case '!':
+        v15 = +[RPPeopleDaemon sharedPeopleDaemon];
+        [v15 receivedFamilyIdentityResponse:v9 msgCtx:ctxCopy];
+        break;
+      case ' ':
+        v15 = +[RPPeopleDaemon sharedPeopleDaemon];
+        [v15 receivedFamilyIdentityRequest:v9 msgCtx:ctxCopy];
+        break;
+      default:
+        if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
+        {
+          sub_10010E39C(typeCopy);
+        }
+
+        goto LABEL_32;
+    }
+
+LABEL_32:
+    goto LABEL_93;
   }
 
-LABEL_34:
+  if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
+  {
+    if (typeCopy <= 47)
+    {
+      v13 = "Invalid";
+      switch(typeCopy)
+      {
+        case 0:
+          goto LABEL_92;
+        case 1:
+          v13 = "NoOp";
+          break;
+        case 3:
+          v13 = "PS_Start";
+          break;
+        case 4:
+          v13 = "PS_Next";
+          break;
+        case 5:
+          v13 = "PV_Start";
+          break;
+        case 6:
+          v13 = "PV_Next";
+          break;
+        case 7:
+          v13 = "U_OPACK";
+          break;
+        case 8:
+          v13 = "E_OPACK";
+          break;
+        case 9:
+          v13 = "P_OPACK";
+          break;
+        case 10:
+          v13 = "PA_Req";
+          break;
+        case 11:
+          v13 = "PA_Rsp";
+          break;
+        case 16:
+          v13 = "SessionStartRequest";
+          break;
+        case 17:
+          v13 = "SessionStartResponse";
+          break;
+        case 18:
+          v13 = "SessionData";
+          break;
+        case 32:
+          v13 = "FamilyIdentityRequest";
+          break;
+        case 33:
+          v13 = "FamilyIdentityResponse";
+          break;
+        case 34:
+          v13 = "FamilyIdentityUpdate";
+          break;
+        default:
+          goto LABEL_91;
+      }
+
+      goto LABEL_92;
+    }
+
+    if (typeCopy <= 63)
+    {
+      if (typeCopy == 48)
+      {
+        v13 = "WatchIdentityRequest";
+        goto LABEL_92;
+      }
+
+      if (typeCopy == 49)
+      {
+        v13 = "WatchIdentityResponse";
+        goto LABEL_92;
+      }
+    }
+
+    else
+    {
+      switch(typeCopy)
+      {
+        case '@':
+          v13 = "FriendIdentityRequest";
+          goto LABEL_92;
+        case 'A':
+          v13 = "FriendIdentityResponse";
+          goto LABEL_92;
+        case 'B':
+          v13 = "FriendIdentityUpdate";
+LABEL_92:
+          LogPrintF(&dword_1001D30F8, "[RPCloudDaemon _receivedFamilyIdentityFrameType:ptr:length:msgCtx:]", 90, "### Family identity message not dictionary: type %s, fromID '%@', %#m\n", v13, fromID, 0);
+          goto LABEL_93;
+      }
+    }
+
+LABEL_91:
+    v13 = "?";
+    goto LABEL_92;
+  }
+
+LABEL_93:
 }
 
 - (void)_receivedFriendIdentityFrameType:(unsigned __int8)type ptr:(const char *)ptr length:(unint64_t)length msgCtx:(id)ctx
@@ -1804,75 +2173,270 @@ LABEL_34:
   ctxCopy = ctx;
   fromID = [ctxCopy fromID];
   v9 = OPACKDecodeBytes();
-  if (v9)
+  if (!v9)
   {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    if (dword_1001D30F8 > 90 || dword_1001D30F8 == -1 && !_LogCategory_Initialize())
     {
-      v10 = IDSCopyRawAddressForDestination();
-      v11 = v10;
-      if (!v10)
-      {
-        if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
-        {
-          sub_10010E46C();
-        }
+      goto LABEL_93;
+    }
 
-        goto LABEL_28;
-      }
-
-      if ([v10 _appearsToBePhoneNumber])
-      {
-        CUNormalizePhoneNumber();
-      }
-
-      else
-      {
-        CUNormalizeEmailAddress();
-      }
-      v12 = ;
-      [ctxCopy setAppleID:v12];
-
+    if (typeCopy <= 47)
+    {
+      v12 = "Invalid";
       switch(typeCopy)
       {
-        case 'B':
-          v13 = +[RPPeopleDaemon sharedPeopleDaemon];
-          [v13 receivedFriendIdentityUpdate:v9 msgCtx:ctxCopy];
+        case 0:
+          goto LABEL_72;
+        case 1:
+          v12 = "NoOp";
           break;
-        case 'A':
-          v13 = +[RPPeopleDaemon sharedPeopleDaemon];
-          [v13 receivedFriendIdentityResponse:v9 msgCtx:ctxCopy];
+        case 3:
+          v12 = "PS_Start";
           break;
-        case '@':
-          v13 = +[RPPeopleDaemon sharedPeopleDaemon];
-          [v13 receivedFriendIdentityRequest:v9 msgCtx:ctxCopy];
+        case 4:
+          v12 = "PS_Next";
+          break;
+        case 5:
+          v12 = "PV_Start";
+          break;
+        case 6:
+          v12 = "PV_Next";
+          break;
+        case 7:
+          v12 = "U_OPACK";
+          break;
+        case 8:
+          v12 = "E_OPACK";
+          break;
+        case 9:
+          v12 = "P_OPACK";
+          break;
+        case 10:
+          v12 = "PA_Req";
+          break;
+        case 11:
+          v12 = "PA_Rsp";
+          break;
+        case 16:
+          v12 = "SessionStartRequest";
+          break;
+        case 17:
+          v12 = "SessionStartResponse";
+          break;
+        case 18:
+          v12 = "SessionData";
+          break;
+        case 32:
+          v12 = "FamilyIdentityRequest";
+          break;
+        case 33:
+          v12 = "FamilyIdentityResponse";
+          break;
+        case 34:
+          v12 = "FamilyIdentityUpdate";
           break;
         default:
-          if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
-          {
-            sub_10010E424(typeCopy);
-          }
-
-          goto LABEL_28;
+          goto LABEL_71;
       }
 
-LABEL_28:
-      goto LABEL_34;
+      goto LABEL_72;
     }
 
-    if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
+    if (typeCopy <= 63)
     {
-LABEL_33:
-      LogPrintF();
+      if (typeCopy == 48)
+      {
+        v12 = "WatchIdentityRequest";
+        goto LABEL_72;
+      }
+
+      if (typeCopy == 49)
+      {
+        v12 = "WatchIdentityResponse";
+        goto LABEL_72;
+      }
     }
+
+    else
+    {
+      switch(typeCopy)
+      {
+        case '@':
+          v12 = "FriendIdentityRequest";
+          goto LABEL_72;
+        case 'A':
+          v12 = "FriendIdentityResponse";
+          goto LABEL_72;
+        case 'B':
+          v12 = "FriendIdentityUpdate";
+LABEL_72:
+          LogPrintF(&dword_1001D30F8, "[RPCloudDaemon _receivedFriendIdentityFrameType:ptr:length:msgCtx:]", 90, "### Friend identity message decode failed: type %s, fromID '%@', %#m\n", v12, fromID, 0);
+          goto LABEL_93;
+      }
+    }
+
+LABEL_71:
+    v12 = "?";
+    goto LABEL_72;
   }
 
-  else if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
   {
-    goto LABEL_33;
+    v10 = IDSCopyRawAddressForDestination();
+    v11 = v10;
+    if (!v10)
+    {
+      if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
+      {
+        sub_10010E46C(fromID);
+      }
+
+      goto LABEL_32;
+    }
+
+    if ([v10 _appearsToBePhoneNumber])
+    {
+      CUNormalizePhoneNumber();
+    }
+
+    else
+    {
+      CUNormalizeEmailAddress();
+    }
+    v14 = ;
+    [ctxCopy setAppleID:v14];
+
+    switch(typeCopy)
+    {
+      case 'B':
+        v15 = +[RPPeopleDaemon sharedPeopleDaemon];
+        [v15 receivedFriendIdentityUpdate:v9 msgCtx:ctxCopy];
+        break;
+      case 'A':
+        v15 = +[RPPeopleDaemon sharedPeopleDaemon];
+        [v15 receivedFriendIdentityResponse:v9 msgCtx:ctxCopy];
+        break;
+      case '@':
+        v15 = +[RPPeopleDaemon sharedPeopleDaemon];
+        [v15 receivedFriendIdentityRequest:v9 msgCtx:ctxCopy];
+        break;
+      default:
+        if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
+        {
+          sub_10010E424(typeCopy);
+        }
+
+        goto LABEL_32;
+    }
+
+LABEL_32:
+    goto LABEL_93;
   }
 
-LABEL_34:
+  if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
+  {
+    if (typeCopy <= 47)
+    {
+      v13 = "Invalid";
+      switch(typeCopy)
+      {
+        case 0:
+          goto LABEL_92;
+        case 1:
+          v13 = "NoOp";
+          break;
+        case 3:
+          v13 = "PS_Start";
+          break;
+        case 4:
+          v13 = "PS_Next";
+          break;
+        case 5:
+          v13 = "PV_Start";
+          break;
+        case 6:
+          v13 = "PV_Next";
+          break;
+        case 7:
+          v13 = "U_OPACK";
+          break;
+        case 8:
+          v13 = "E_OPACK";
+          break;
+        case 9:
+          v13 = "P_OPACK";
+          break;
+        case 10:
+          v13 = "PA_Req";
+          break;
+        case 11:
+          v13 = "PA_Rsp";
+          break;
+        case 16:
+          v13 = "SessionStartRequest";
+          break;
+        case 17:
+          v13 = "SessionStartResponse";
+          break;
+        case 18:
+          v13 = "SessionData";
+          break;
+        case 32:
+          v13 = "FamilyIdentityRequest";
+          break;
+        case 33:
+          v13 = "FamilyIdentityResponse";
+          break;
+        case 34:
+          v13 = "FamilyIdentityUpdate";
+          break;
+        default:
+          goto LABEL_91;
+      }
+
+      goto LABEL_92;
+    }
+
+    if (typeCopy <= 63)
+    {
+      if (typeCopy == 48)
+      {
+        v13 = "WatchIdentityRequest";
+        goto LABEL_92;
+      }
+
+      if (typeCopy == 49)
+      {
+        v13 = "WatchIdentityResponse";
+        goto LABEL_92;
+      }
+    }
+
+    else
+    {
+      switch(typeCopy)
+      {
+        case '@':
+          v13 = "FriendIdentityRequest";
+          goto LABEL_92;
+        case 'A':
+          v13 = "FriendIdentityResponse";
+          goto LABEL_92;
+        case 'B':
+          v13 = "FriendIdentityUpdate";
+LABEL_92:
+          LogPrintF(&dword_1001D30F8, "[RPCloudDaemon _receivedFriendIdentityFrameType:ptr:length:msgCtx:]", 90, "### Friend identity message not dictionary: type %s, fromID '%@', %#m\n", v13, fromID, 0);
+          goto LABEL_93;
+      }
+    }
+
+LABEL_91:
+    v13 = "?";
+    goto LABEL_92;
+  }
+
+LABEL_93:
 }
 
 - (void)_receivedWatchIdentityFrameType:(unsigned __int8)type ptr:(const char *)ptr length:(unint64_t)length fromID:(id)d
@@ -1889,10 +2453,10 @@ LABEL_34:
     {
       if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
       {
-        sub_10010E534();
+        sub_10010E534(dCopy);
       }
 
-      goto LABEL_32;
+      goto LABEL_92;
     }
 
     v12 = OPACKDecodeBytes();
@@ -1916,33 +2480,228 @@ LABEL_34:
           sub_10010E4EC(typeCopy);
         }
 
-        goto LABEL_31;
+        goto LABEL_91;
       }
 
-      if (dword_1001D30F8 > 90 || dword_1001D30F8 == -1 && !_LogCategory_Initialize())
+      if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
       {
-LABEL_31:
+        if (typeCopy <= 47)
+        {
+          v14 = "Invalid";
+          switch(typeCopy)
+          {
+            case 0:
+              goto LABEL_90;
+            case 1:
+              v14 = "NoOp";
+              break;
+            case 3:
+              v14 = "PS_Start";
+              break;
+            case 4:
+              v14 = "PS_Next";
+              break;
+            case 5:
+              v14 = "PV_Start";
+              break;
+            case 6:
+              v14 = "PV_Next";
+              break;
+            case 7:
+              v14 = "U_OPACK";
+              break;
+            case 8:
+              v14 = "E_OPACK";
+              break;
+            case 9:
+              v14 = "P_OPACK";
+              break;
+            case 10:
+              v14 = "PA_Req";
+              break;
+            case 11:
+              v14 = "PA_Rsp";
+              break;
+            case 16:
+              v14 = "SessionStartRequest";
+              break;
+            case 17:
+              v14 = "SessionStartResponse";
+              break;
+            case 18:
+              v14 = "SessionData";
+              break;
+            case 32:
+              v14 = "FamilyIdentityRequest";
+              break;
+            case 33:
+              v14 = "FamilyIdentityResponse";
+              break;
+            case 34:
+              v14 = "FamilyIdentityUpdate";
+              break;
+            default:
+              goto LABEL_89;
+          }
 
-LABEL_32:
-        goto LABEL_33;
+          goto LABEL_90;
+        }
+
+        if (typeCopy <= 63)
+        {
+          if (typeCopy == 48)
+          {
+            v14 = "WatchIdentityRequest";
+            goto LABEL_90;
+          }
+
+          if (typeCopy == 49)
+          {
+            v14 = "WatchIdentityResponse";
+            goto LABEL_90;
+          }
+        }
+
+        else
+        {
+          switch(typeCopy)
+          {
+            case '@':
+              v14 = "FriendIdentityRequest";
+              goto LABEL_90;
+            case 'A':
+              v14 = "FriendIdentityResponse";
+              goto LABEL_90;
+            case 'B':
+              v14 = "FriendIdentityUpdate";
+LABEL_90:
+              LogPrintF(&dword_1001D30F8, "[RPCloudDaemon _receivedWatchIdentityFrameType:ptr:length:fromID:]", 90, "### Watch identity message not dictionary: type %s, fromID '%@', %#m\n", v14, dCopy, 0);
+              goto LABEL_91;
+          }
+        }
+
+LABEL_89:
+        v14 = "?";
+        goto LABEL_90;
+      }
+
+LABEL_91:
+
+LABEL_92:
+      goto LABEL_93;
+    }
+
+    if (dword_1001D30F8 > 90 || dword_1001D30F8 == -1 && !_LogCategory_Initialize())
+    {
+      goto LABEL_91;
+    }
+
+    if (typeCopy <= 47)
+    {
+      v13 = "Invalid";
+      switch(typeCopy)
+      {
+        case 0:
+          goto LABEL_70;
+        case 1:
+          v13 = "NoOp";
+          break;
+        case 3:
+          v13 = "PS_Start";
+          break;
+        case 4:
+          v13 = "PS_Next";
+          break;
+        case 5:
+          v13 = "PV_Start";
+          break;
+        case 6:
+          v13 = "PV_Next";
+          break;
+        case 7:
+          v13 = "U_OPACK";
+          break;
+        case 8:
+          v13 = "E_OPACK";
+          break;
+        case 9:
+          v13 = "P_OPACK";
+          break;
+        case 10:
+          v13 = "PA_Req";
+          break;
+        case 11:
+          v13 = "PA_Rsp";
+          break;
+        case 16:
+          v13 = "SessionStartRequest";
+          break;
+        case 17:
+          v13 = "SessionStartResponse";
+          break;
+        case 18:
+          v13 = "SessionData";
+          break;
+        case 32:
+          v13 = "FamilyIdentityRequest";
+          break;
+        case 33:
+          v13 = "FamilyIdentityResponse";
+          break;
+        case 34:
+          v13 = "FamilyIdentityUpdate";
+          break;
+        default:
+          goto LABEL_69;
+      }
+
+      goto LABEL_70;
+    }
+
+    if (typeCopy <= 63)
+    {
+      if (typeCopy == 48)
+      {
+        v13 = "WatchIdentityRequest";
+        goto LABEL_70;
+      }
+
+      if (typeCopy == 49)
+      {
+        v13 = "WatchIdentityResponse";
+        goto LABEL_70;
       }
     }
 
-    else if (dword_1001D30F8 > 90 || dword_1001D30F8 == -1 && !_LogCategory_Initialize())
+    else
     {
-      goto LABEL_31;
+      switch(typeCopy)
+      {
+        case '@':
+          v13 = "FriendIdentityRequest";
+          goto LABEL_70;
+        case 'A':
+          v13 = "FriendIdentityResponse";
+          goto LABEL_70;
+        case 'B':
+          v13 = "FriendIdentityUpdate";
+LABEL_70:
+          LogPrintF(&dword_1001D30F8, "[RPCloudDaemon _receivedWatchIdentityFrameType:ptr:length:fromID:]", 90, "### Watch identity message decode failed: type %s, fromID '%@', %#m\n", v13, dCopy, 0);
+          goto LABEL_91;
+      }
     }
 
-    LogPrintF();
-    goto LABEL_31;
+LABEL_69:
+    v13 = "?";
+    goto LABEL_70;
   }
 
   if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
   {
-    sub_10010E4AC();
+    sub_10010E4AC(dCopy);
   }
 
-LABEL_33:
+LABEL_93:
 }
 
 - (void)_receivedWatchIdentityRequest:(id)request fromIDSDevice:(id)device
@@ -1950,35 +2709,43 @@ LABEL_33:
   requestCopy = request;
   deviceCopy = device;
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (([(CUSystemMonitor *)self->_systemMonitor firstUnlocked]& 1) != 0)
+  firstUnlocked = [(CUSystemMonitor *)self->_systemMonitor firstUnlocked];
+  if (firstUnlocked)
   {
     uniqueIDOverride = [deviceCopy uniqueIDOverride];
+    v13 = uniqueIDOverride;
     if (uniqueIDOverride)
     {
       if (dword_1001D30F8 <= 30 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
       {
-        sub_10010E590();
+        sub_10010E590(v13);
       }
 
-      v8 = +[RPIdentityDaemon sharedIdentityDaemon];
-      [v8 saveIdentityWithIDSDeviceID:uniqueIDOverride message:requestCopy error:0];
+      v14 = +[RPIdentityDaemon sharedIdentityDaemon];
+      [v14 saveIdentityWithIDSDeviceID:v13 message:requestCopy error:0];
 
-      v9 = objc_alloc_init(NSMutableDictionary);
-      v10 = +[RPIdentityDaemon sharedIdentityDaemon];
-      [v10 addSelfIdentityInfoToMessage:v9 flags:0];
+      v15 = objc_alloc_init(NSMutableDictionary);
+      v16 = +[RPIdentityDaemon sharedIdentityDaemon];
+      [v16 addSelfIdentityInfoToMessage:v15 flags:0];
 
-      [(RPCloudDaemon *)self sendIDSMessage:v9 cloudServiceID:@"com.apple.private.alloy.nearby" frameType:49 destinationDevice:deviceCopy sendFlags:1 msgCtx:0 error:0];
+      [(RPCloudDaemon *)self sendIDSMessage:v15 cloudServiceID:@"com.apple.private.alloy.nearby" frameType:49 destinationDevice:deviceCopy sendFlags:1 msgCtx:0 error:0];
     }
 
-    else if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
+    else if (dword_1001D30F8 <= 90)
     {
-      sub_10010E5D0();
+      if (dword_1001D30F8 != -1 || (uniqueIDOverride = _LogCategory_Initialize(), uniqueIDOverride))
+      {
+        sub_10010E5D0(uniqueIDOverride, v11, v12);
+      }
     }
   }
 
-  else if (dword_1001D30F8 <= 30 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
+  else if (dword_1001D30F8 <= 30)
   {
-    sub_10010E574();
+    if (dword_1001D30F8 != -1 || (firstUnlocked = _LogCategory_Initialize(), firstUnlocked))
+    {
+      sub_10010E574(firstUnlocked, v8, v9);
+    }
   }
 }
 
@@ -1990,20 +2757,24 @@ LABEL_33:
   if (([(CUSystemMonitor *)self->_systemMonitor firstUnlocked]& 1) != 0)
   {
     uniqueIDOverride = [deviceCopy uniqueIDOverride];
+    v10 = uniqueIDOverride;
     if (uniqueIDOverride)
     {
       if (dword_1001D30F8 <= 30 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
       {
-        sub_10010E60C();
+        sub_10010E60C(v10);
       }
 
-      v8 = +[RPIdentityDaemon sharedIdentityDaemon];
-      [v8 saveIdentityWithIDSDeviceID:uniqueIDOverride message:responseCopy error:0];
+      v11 = +[RPIdentityDaemon sharedIdentityDaemon];
+      [v11 saveIdentityWithIDSDeviceID:v10 message:responseCopy error:0];
     }
 
-    else if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
+    else if (dword_1001D30F8 <= 90)
     {
-      sub_10010E64C();
+      if (dword_1001D30F8 != -1 || (uniqueIDOverride = _LogCategory_Initialize(), uniqueIDOverride))
+      {
+        sub_10010E64C(uniqueIDOverride, v8, v9);
+      }
     }
   }
 
@@ -2013,44 +2784,275 @@ LABEL_33:
   }
 }
 
+- (BOOL)sendIDSMessage:(id)message cloudServiceID:(id)d frameType:(unsigned __int8)type destinationDevice:(id)device sendFlags:(unsigned int)flags msgCtx:(id)ctx error:(id *)error
+{
+  v10 = *&flags;
+  typeCopy = type;
+  messageCopy = message;
+  dCopy = d;
+  deviceCopy = device;
+  ctxCopy = ctx;
+  v25 = IDSCopyIDForDevice();
+  if (v25)
+  {
+    v26 = [(RPCloudDaemon *)self sendIDSMessage:messageCopy cloudServiceID:dCopy frameType:typeCopy destinationID:v25 sendFlags:v10 msgCtx:ctxCopy error:error];
+    goto LABEL_41;
+  }
+
+  v27 = RPErrorF(4294960591, "No IDS destination ID for device %@", v19, v20, v21, v22, v23, v24, deviceCopy);
+  if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
+  {
+    if (typeCopy <= 47)
+    {
+      v28 = "Invalid";
+      switch(typeCopy)
+      {
+        case 0:
+          goto LABEL_37;
+        case 1:
+          v28 = "NoOp";
+          break;
+        case 3:
+          v28 = "PS_Start";
+          break;
+        case 4:
+          v28 = "PS_Next";
+          break;
+        case 5:
+          v28 = "PV_Start";
+          break;
+        case 6:
+          v28 = "PV_Next";
+          break;
+        case 7:
+          v28 = "U_OPACK";
+          break;
+        case 8:
+          v28 = "E_OPACK";
+          break;
+        case 9:
+          v28 = "P_OPACK";
+          break;
+        case 10:
+          v28 = "PA_Req";
+          break;
+        case 11:
+          v28 = "PA_Rsp";
+          break;
+        case 16:
+          v28 = "SessionStartRequest";
+          break;
+        case 17:
+          v28 = "SessionStartResponse";
+          break;
+        case 18:
+          v28 = "SessionData";
+          break;
+        case 32:
+          v28 = "FamilyIdentityRequest";
+          break;
+        case 33:
+          v28 = "FamilyIdentityResponse";
+          break;
+        case 34:
+          v28 = "FamilyIdentityUpdate";
+          break;
+        default:
+          goto LABEL_36;
+      }
+
+      goto LABEL_37;
+    }
+
+    if (typeCopy <= 63)
+    {
+      if (typeCopy == 48)
+      {
+        v28 = "WatchIdentityRequest";
+        goto LABEL_37;
+      }
+
+      if (typeCopy == 49)
+      {
+        v28 = "WatchIdentityResponse";
+        goto LABEL_37;
+      }
+    }
+
+    else
+    {
+      switch(typeCopy)
+      {
+        case '@':
+          v28 = "FriendIdentityRequest";
+          goto LABEL_37;
+        case 'A':
+          v28 = "FriendIdentityResponse";
+          goto LABEL_37;
+        case 'B':
+          v28 = "FriendIdentityUpdate";
+LABEL_37:
+          LogPrintF(&dword_1001D30F8, "[RPCloudDaemon sendIDSMessage:cloudServiceID:frameType:destinationDevice:sendFlags:msgCtx:error:]", 90, "### IDS send frame failed: %s, %{error}\n", v28, v27);
+          goto LABEL_38;
+      }
+    }
+
+LABEL_36:
+    v28 = "?";
+    goto LABEL_37;
+  }
+
+LABEL_38:
+  if (error)
+  {
+    v29 = v27;
+    *error = v27;
+  }
+
+  v26 = 0;
+LABEL_41:
+
+  return v26;
+}
+
 - (BOOL)sendIDSMessage:(id)message cloudServiceID:(id)d frameType:(unsigned __int8)type destinationID:(id)iD sendFlags:(unsigned int)flags msgCtx:(id)ctx error:(id *)error
 {
   flagsCopy = flags;
+  typeCopy = type;
   dCopy = d;
   iDCopy = iD;
   ctxCopy = ctx;
-  v58 = 0;
-  Data = OPACKEncoderCreateData();
-  v18 = Data;
-  if (Data)
+  if (typeCopy > 47)
   {
-    v50 = dCopy;
-    v57[0] = type;
-    v19 = [Data length];
-    v57[1] = BYTE2(v19);
-    v57[2] = BYTE1(v19);
-    v57[3] = v19;
-    v20 = objc_alloc_init(NSMutableData);
-    [v20 appendBytes:v57 length:4];
-    [v20 appendData:v18];
-    v21 = objc_alloc_init(NSMutableDictionary);
-    v22 = v21;
-    if (flagsCopy)
+    if (typeCopy <= 63)
     {
-      [v21 setObject:&__kCFBooleanTrue forKeyedSubscript:IDSSendMessageOptionLocalDeliveryKey];
-      [v22 setObject:&__kCFBooleanTrue forKeyedSubscript:IDSSendMessageOptionRequireBluetoothKey];
+      if (typeCopy == 48)
+      {
+        v17 = "WatchIdentityRequest";
+        goto LABEL_31;
+      }
+
+      if (typeCopy == 49)
+      {
+        v17 = "WatchIdentityResponse";
+        goto LABEL_31;
+      }
     }
 
-    v23 = IDSSendMessageOptionFromIDKey;
+    else
+    {
+      switch(typeCopy)
+      {
+        case '@':
+          v17 = "FriendIdentityRequest";
+          goto LABEL_31;
+        case 'A':
+          v17 = "FriendIdentityResponse";
+          goto LABEL_31;
+        case 'B':
+          v17 = "FriendIdentityUpdate";
+          goto LABEL_31;
+      }
+    }
+
+LABEL_30:
+    v17 = "?";
+  }
+
+  else
+  {
+    v17 = "Invalid";
+    switch(typeCopy)
+    {
+      case 0:
+        break;
+      case 1:
+        v17 = "NoOp";
+        break;
+      case 3:
+        v17 = "PS_Start";
+        break;
+      case 4:
+        v17 = "PS_Next";
+        break;
+      case 5:
+        v17 = "PV_Start";
+        break;
+      case 6:
+        v17 = "PV_Next";
+        break;
+      case 7:
+        v17 = "U_OPACK";
+        break;
+      case 8:
+        v17 = "E_OPACK";
+        break;
+      case 9:
+        v17 = "P_OPACK";
+        break;
+      case 10:
+        v17 = "PA_Req";
+        break;
+      case 11:
+        v17 = "PA_Rsp";
+        break;
+      case 16:
+        v17 = "SessionStartRequest";
+        break;
+      case 17:
+        v17 = "SessionStartResponse";
+        break;
+      case 18:
+        v17 = "SessionData";
+        break;
+      case 32:
+        v17 = "FamilyIdentityRequest";
+        break;
+      case 33:
+        v17 = "FamilyIdentityResponse";
+        break;
+      case 34:
+        v17 = "FamilyIdentityUpdate";
+        break;
+      default:
+        goto LABEL_30;
+    }
+  }
+
+LABEL_31:
+  v91[0] = 0;
+  Data = OPACKEncoderCreateData();
+  v25 = Data;
+  if (Data)
+  {
+    v79 = v17;
+    v81 = dCopy;
+    v90[0] = typeCopy;
+    v26 = [Data length];
+    v90[1] = BYTE2(v26);
+    v90[2] = BYTE1(v26);
+    v90[3] = v26;
+    v27 = objc_alloc_init(NSMutableData);
+    [v27 appendBytes:v90 length:4];
+    [v27 appendData:v25];
+    v28 = objc_alloc_init(NSMutableDictionary);
+    v29 = v28;
+    if (flagsCopy)
+    {
+      [v28 setObject:&__kCFBooleanTrue forKeyedSubscript:IDSSendMessageOptionLocalDeliveryKey];
+      [v29 setObject:&__kCFBooleanTrue forKeyedSubscript:IDSSendMessageOptionRequireBluetoothKey];
+    }
+
+    v30 = IDSSendMessageOptionFromIDKey;
     toID = [ctxCopy toID];
     if (toID)
     {
-      [v22 setObject:toID forKeyedSubscript:v23];
-      v25 = [(RPCloudDaemon *)self _idsAccountWithURI:toID senderID:0];
+      [v29 setObject:toID forKeyedSubscript:v30];
+      v32 = [(RPCloudDaemon *)self _idsAccountWithURI:toID senderID:0];
 
-      if (v25)
+      if (v32)
       {
-        goto LABEL_16;
+        goto LABEL_46;
       }
     }
 
@@ -2059,194 +3061,197 @@ LABEL_33:
     }
 
     sendersKnownAlias = [ctxCopy sendersKnownAlias];
-    v56 = [(RPCloudDaemon *)self _idsURIWithID:sendersKnownAlias];
+    v89 = [(RPCloudDaemon *)self _idsURIWithID:sendersKnownAlias];
 
-    v28 = v56;
-    if (v56)
+    v35 = v89;
+    if (v89)
     {
-      v25 = [(RPCloudDaemon *)self _idsAccountWithURI:v56 senderID:&v56];
-      v28 = v56;
-      if (v25)
+      v32 = [(RPCloudDaemon *)self _idsAccountWithURI:v89 senderID:&v89];
+      v35 = v89;
+      if (v32)
       {
-        [v22 setObject:v56 forKeyedSubscript:v23];
-        v28 = v56;
+        [v29 setObject:v89 forKeyedSubscript:v30];
+        v35 = v89;
       }
     }
 
     else
     {
-      v25 = 0;
+      v32 = 0;
     }
 
-LABEL_16:
+LABEL_46:
     if ([ctxCopy nonWakingRequest])
     {
-      [v22 setObject:&off_1001B7D20 forKeyedSubscript:IDSSendMessageOptionPushPriorityKey];
+      [v29 setObject:&off_1001B7D20 forKeyedSubscript:IDSSendMessageOptionPushPriorityKey];
     }
 
-    dCopy = v50;
-    if (![v50 isEqual:@"com.apple.private.alloy.nearby"] || (v29 = self->_nearbyIDSService) == 0)
+    dCopy = v81;
+    if (![v81 isEqual:@"com.apple.private.alloy.nearby"] || (v42 = self->_nearbyIDSService) == 0)
     {
-      v30 = RPErrorF();
+      v43 = RPErrorF(4294896131, "Unsupported cloudServiceID: '%@'", v36, v37, v38, v39, v40, v41, v81);
       if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1001D30F8, "[RPCloudDaemon sendIDSMessage:cloudServiceID:frameType:destinationID:sendFlags:msgCtx:error:]", 90, "### IDS send frame failed: %s, %{error}\n", v79, v43);
       }
 
       if (error)
       {
-        v33 = v30;
-        v34 = 0;
-        *error = v30;
+        v46 = v43;
+        v47 = 0;
+        *error = v43;
       }
 
       else
       {
-        v34 = 0;
+        v47 = 0;
       }
 
-      goto LABEL_58;
+      goto LABEL_88;
     }
 
-    v30 = v29;
+    v43 = v42;
     iDCopy = iDCopy;
-    v31 = iDCopy;
+    v44 = iDCopy;
     if (([(__CFString *)iDCopy hasPrefix:@"token:"]& 1) == 0)
     {
       if ([(__CFString *)iDCopy _appearsToBePhoneNumber])
       {
-        v32 = IDSCopyIDForPhoneNumber();
-LABEL_36:
-        v31 = v32;
+        v45 = IDSCopyIDForPhoneNumber();
+LABEL_66:
+        v44 = v45;
 
-        goto LABEL_37;
+        goto LABEL_67;
       }
 
-      v31 = iDCopy;
+      v44 = iDCopy;
       if ([(__CFString *)iDCopy _appearsToBeEmail])
       {
-        v32 = IDSCopyIDForEmailAddress();
-        goto LABEL_36;
+        v45 = IDSCopyIDForEmailAddress();
+        goto LABEL_66;
       }
     }
 
-LABEL_37:
-    if ([v31 isEqual:iDCopy])
+LABEL_67:
+    if ([v44 isEqual:iDCopy])
     {
 
       iDCopy = @"=";
     }
 
-    v48 = v31;
-    if (v31)
+    v78 = v44;
+    if (v44)
     {
-      v36 = [NSSet setWithObject:v31];
-      if (v25)
+      v55 = [NSSet setWithObject:v44];
+      if (v32)
       {
-        v54 = 0;
-        v55 = 0;
-        v37 = [v30 sendData:v20 fromAccount:v25 toDestinations:v36 priority:300 options:v22 identifier:&v55 error:&v54];
-        v46 = v55;
-        v38 = v54;
+        v87 = 0;
+        v88 = 0;
+        v75 = &v87;
+        v56 = [v43 sendData:v27 fromAccount:v32 toDestinations:v55 priority:300 options:v29 identifier:&v88 error:?];
+        v76 = v88;
+        v57 = v87;
       }
 
       else
       {
-        v52 = 0;
-        v53 = 0;
-        v37 = [v30 sendData:v20 toDestinations:v36 priority:300 options:v22 identifier:&v53 error:&v52];
-        v46 = v53;
-        v38 = v52;
+        v85 = 0;
+        v86 = 0;
+        v56 = [v43 sendData:v27 toDestinations:v55 priority:300 options:v29 identifier:&v86 error:&v85];
+        v76 = v86;
+        v57 = v85;
       }
 
-      v47 = v38;
+      v77 = v57;
 
-      if (v37)
+      if (v56)
       {
-        v39 = sub_100009D00();
-        sub_10001BB10("to ", v39);
-        NSAppendPrintF();
-        v51 = 0;
-        sub_10001BB10(" (", v39);
-        v49 = iDCopy;
-        v44 = iDCopy;
-        NSAppendPrintF();
-        v40 = v51;
+        v65 = sub_100009D00(v58, v59);
+        v84 = 0;
+        v66 = sub_10001BB10("to ", v65);
+        NSAppendPrintF(&v84, v66, v78);
+        v67 = v84;
+        v83 = v67;
+        v68 = sub_10001BB10(" (", v65);
+        v80 = iDCopy;
+        NSAppendPrintF(&v83, v68, iDCopy);
+        v69 = v83;
 
-        sub_10001BB10("), Account ", v39);
-        loginID = [v25 loginID];
-        NSAppendPrintF();
-        v41 = v40;
+        v82 = v69;
+        v70 = sub_10001BB10("), Account ", v65);
+        loginID = [v32 loginID];
+        NSAppendPrintF(&v82, v70, loginID);
+        v72 = v82;
 
-        dCopy = v50;
+        dCopy = v81;
         if (dword_1001D30F8 <= 30 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1001D30F8, "[RPCloudDaemon sendIDSMessage:cloudServiceID:frameType:destinationID:sendFlags:msgCtx:error:]", 30, "IDS send frame %s, %@, ClSI '%@', %zu bytes, IDS ID %@\n", v79, v72, v81, v26, v76);
         }
 
-        v34 = 1;
-        iDCopy = v49;
+        v47 = 1;
+        iDCopy = v80;
       }
 
       else
       {
         if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1001D30F8, "[RPCloudDaemon sendIDSMessage:cloudServiceID:frameType:destinationID:sendFlags:msgCtx:error:]", 90, "### IDS send frame failed: %s, %{error}\n", v79, v77);
         }
 
-        dCopy = v50;
+        dCopy = v81;
         if (error)
         {
-          RPNestedErrorF();
-          *error = v34 = 0;
+          RPNestedErrorF(v77, 4294960549, "IDS send failed", v60, v61, v62, v63, v64, v75);
+          *error = v47 = 0;
         }
 
         else
         {
-          v34 = 0;
+          v47 = 0;
         }
       }
 
-      v42 = v48;
+      v73 = v78;
     }
 
     else
     {
       if (error)
       {
-        RPErrorF();
-        *error = v34 = 0;
+        RPErrorF(4294960591, "Bad destination ID", v49, v50, v51, v52, v53, v54, v75);
+        *error = v47 = 0;
       }
 
       else
       {
-        v34 = 0;
+        v47 = 0;
       }
 
-      v42 = 0;
+      v73 = 0;
     }
 
-LABEL_58:
-    goto LABEL_59;
+LABEL_88:
+    goto LABEL_89;
   }
 
-  v26 = RPErrorF();
+  v33 = RPErrorF(4294960596, "Encode failed", v19, v20, v21, v22, v23, v24, v75);
   if (dword_1001D30F8 <= 90 && (dword_1001D30F8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001D30F8, "[RPCloudDaemon sendIDSMessage:cloudServiceID:frameType:destinationID:sendFlags:msgCtx:error:]", 90, "### IDS send frame failed: %s, %{error}\n", v17, v33);
   }
 
   if (error)
   {
-    v35 = v26;
-    *error = v26;
+    v48 = v33;
+    *error = v33;
   }
 
-  v34 = 0;
-LABEL_59:
+  v47 = 0;
+LABEL_89:
 
-  return v34;
+  return v47;
 }
 
 - ($9FE6E10C8CE45DBC9A88DFDEA39A390D)operatingSystemVersionForID:(SEL)d
@@ -2285,7 +3290,7 @@ LABEL_59:
           {
             if (v12)
             {
-              [v12 operatingSystemVersion];
+              objc_msgSend_operatingSystemVersion(v12);
             }
 
             else
@@ -2327,7 +3332,7 @@ LABEL_15:
   if (v4)
   {
     v6 = v4;
-    [v4 operatingSystemVersion];
+    objc_msgSend_operatingSystemVersion(v4);
     v4 = v6;
   }
 

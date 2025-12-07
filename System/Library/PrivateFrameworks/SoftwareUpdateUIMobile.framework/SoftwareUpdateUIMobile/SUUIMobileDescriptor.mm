@@ -452,7 +452,6 @@
   MEMORY[0x277D82BD8](documentation);
   MEMORY[0x277D82BD8](v30);
   MEMORY[0x277D82BD8](updateName);
-  *MEMORY[0x277D85DE8];
 
   return v17;
 }

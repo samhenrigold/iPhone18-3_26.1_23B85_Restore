@@ -9,6 +9,7 @@
 - (void)configure;
 - (void)didReceiveEventDictionary:(id)dictionary;
 - (void)handleHomeManagerHomeDataLoaded:(id)loaded;
+- (void)handleStepUpForReaderGroupSubIdentifier:(id)identifier didError:(BOOL)error;
 - (void)handleWalletKeyStatusChange;
 - (void)handleWalletKeyUpdatedNotification:(id)notification;
 @end
@@ -24,7 +25,7 @@
 
 - (void)didReceiveEventDictionary:(id)dictionary
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v5 = [dictionaryCopy hmf_stringForKey:@"readerIdentifier"];
   v6 = [dictionaryCopy hmf_BOOLForKey:@"isStepUp"];
@@ -36,17 +37,17 @@
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v23 = 138544386;
-    v24 = v12;
-    v25 = 1024;
-    *v26 = v7;
-    *&v26[4] = 1024;
-    *&v26[6] = v6;
-    v27 = 2112;
-    v28 = v8;
-    v29 = 2112;
-    v30 = v5;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Stockholm StepUp detection payload values: didError: %d, isStepUp: %d, txType: %@, readerIdentifier: %@", &v23, 0x2Cu);
+    v22 = 138544386;
+    v23 = v12;
+    v24 = 1024;
+    *v25 = v7;
+    *&v25[4] = 1024;
+    *&v25[6] = v6;
+    v26 = 2112;
+    v27 = v8;
+    v28 = 2112;
+    v29 = v5;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Stockholm StepUp detection payload values: didError: %d, isStepUp: %d, txType: %@, readerIdentifier: %@", &v22, 0x2Cu);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -61,11 +62,11 @@
       if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
         v21 = HMFGetLogIdentifier();
-        v23 = 138543618;
-        v24 = v21;
-        v25 = 2112;
-        *v26 = v5;
-        _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@StepUp failed for: %@", &v23, 0x16u);
+        v22 = 138543618;
+        v23 = v21;
+        v24 = 2112;
+        *v25 = v5;
+        _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@StepUp failed for: %@", &v22, 0x16u);
       }
 
       objc_autoreleasePoolPop(v18);
@@ -80,23 +81,21 @@
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         v16 = HMFGetLogIdentifier();
-        v23 = 138543618;
-        v24 = v16;
-        v25 = 2112;
-        *v26 = v5;
-        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Missing readerIdentifier: %@", &v23, 0x16u);
+        v22 = 138543618;
+        v23 = v16;
+        v24 = 2112;
+        *v25 = v5;
+        _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Missing readerIdentifier: %@", &v22, 0x16u);
       }
 
       objc_autoreleasePoolPop(v13);
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleWalletKeyUpdatedNotification:(id)notification
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -104,20 +103,18 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling HMDWalletKeyUpdatedNotification", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling HMDWalletKeyUpdatedNotification", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMDWalletKeyStepUpFailureListener *)selfCopy handleWalletKeyStatusChange];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleHomeManagerHomeDataLoaded:(id)loaded
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   loadedCopy = loaded;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -125,15 +122,13 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling HMDHomeManagerHomeDataLoadedNotification", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling HMDHomeManagerHomeDataLoadedNotification", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   [(HMDWalletKeyStepUpFailureListener *)selfCopy handleWalletKeyStatusChange];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleWalletKeyStatusChange
@@ -149,7 +144,7 @@
 
 void __64__HMDWalletKeyStepUpFailureListener_handleWalletKeyStatusChange__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = objc_autoreleasePoolPush();
   v7 = *(a1 + 32);
@@ -160,11 +155,11 @@ void __64__HMDWalletKeyStepUpFailureListener_handleWalletKeyStatusChange__block_
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v17 = 138543618;
-      v18 = v10;
-      v19 = 2112;
-      v20 = v5;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to check if user has at least one wallet key: %@", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v10;
+      v18 = 2112;
+      v19 = v5;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to check if user has at least one wallet key: %@", &v16, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
@@ -178,9 +173,9 @@ void __64__HMDWalletKeyStepUpFailureListener_handleWalletKeyStatusChange__block_
       if (v11)
       {
         v12 = HMFGetLogIdentifier();
-        v17 = 138543362;
-        v18 = v12;
-        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@User has at least one wallet key. Starting listener", &v17, 0xCu);
+        v16 = 138543362;
+        v17 = v12;
+        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@User has at least one wallet key. Starting listener", &v16, 0xCu);
       }
 
       objc_autoreleasePoolPop(v6);
@@ -193,9 +188,9 @@ void __64__HMDWalletKeyStepUpFailureListener_handleWalletKeyStatusChange__block_
       if (v11)
       {
         v14 = HMFGetLogIdentifier();
-        v17 = 138543362;
-        v18 = v14;
-        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@User has no wallet keys. Stopping listener", &v17, 0xCu);
+        v16 = 138543362;
+        v17 = v14;
+        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@User has no wallet keys. Stopping listener", &v16, 0xCu);
       }
 
       objc_autoreleasePoolPop(v6);
@@ -206,8 +201,6 @@ void __64__HMDWalletKeyStepUpFailureListener_handleWalletKeyStatusChange__block_
       [v13 removeAllObjects];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)reachablePrimaryResidentDeviceForHome:(id)home
@@ -237,9 +230,133 @@ LABEL_6:
   return device;
 }
 
+- (void)handleStepUpForReaderGroupSubIdentifier:(id)identifier didError:(BOOL)error
+{
+  errorCopy = error;
+  v50 = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  internalOnlyInitializer = [MEMORY[0x277D0F7B8] internalOnlyInitializer];
+  v8 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v10 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  {
+    v11 = HMFGetLogIdentifier();
+    uUID = [internalOnlyInitializer UUID];
+    *buf = 138543874;
+    v45 = v11;
+    v46 = 2112;
+    v47 = uUID;
+    v48 = 2112;
+    v49 = identifierCopy;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@[NewFlow: %@ {Feature:Home Key}] Handle Stepup failure for reader group subidentifier: %@", buf, 0x20u);
+  }
+
+  objc_autoreleasePoolPop(v8);
+  v13 = [(HMDWalletKeyStepUpFailureListener *)selfCopy accessoryWithReaderGroupSubIdentifierACWG:identifierCopy];
+  if (v13)
+  {
+    if ([(HMDWalletKeyStepUpFailureListener *)selfCopy shouldPerformAuditForAccessory:v13 didError:errorCopy])
+    {
+      supportsMatterWalletKey = [v13 supportsMatterWalletKey];
+      bOOLValue = [supportsMatterWalletKey BOOLValue];
+
+      if (bOOLValue)
+      {
+        date = [MEMORY[0x277CBEAA8] date];
+        auditedAccessories = [(HMDWalletKeyStepUpFailureListener *)selfCopy auditedAccessories];
+        uuid = [v13 uuid];
+        [auditedAccessories setObject:date forKeyedSubscript:uuid];
+      }
+
+      home = [v13 home];
+      if ([v13 supportsACWGProvisioning])
+      {
+        v20 = +[HMDACWGKeyManager shared];
+        uuid2 = [home uuid];
+        v40[0] = MEMORY[0x277D85DD0];
+        v40[1] = 3221225472;
+        v40[2] = __86__HMDWalletKeyStepUpFailureListener_handleStepUpForReaderGroupSubIdentifier_didError___block_invoke;
+        v40[3] = &unk_278673418;
+        v40[4] = selfCopy;
+        v41 = internalOnlyInitializer;
+        v42 = v13;
+        v43 = home;
+        [v20 getIssuerKeyPairExternalRepresentationFromKeychainForHomeUUID:uuid2 completionHandler:v40];
+      }
+
+      else
+      {
+        v27 = [HMDHomeWalletKeyAccessoryManager matterIssuerKeyDataForCurrentUserWithFlow:internalOnlyInitializer];
+        v28 = objc_autoreleasePoolPush();
+        v29 = selfCopy;
+        v30 = HMFGetOSLogHandle();
+        v31 = v30;
+        if (v27)
+        {
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+          {
+            v32 = HMFGetLogIdentifier();
+            uUID2 = [internalOnlyInitializer UUID];
+            [v13 uuid];
+            v34 = v39 = v28;
+            *buf = 138543874;
+            v45 = v32;
+            v46 = 2112;
+            v47 = uUID2;
+            v48 = 2112;
+            v49 = v34;
+            _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Invoking auditKeysLocallyOrRedispatchWithAccessoryUUID for non-ACWG accessory: %@", buf, 0x20u);
+
+            v28 = v39;
+          }
+
+          objc_autoreleasePoolPop(v28);
+          nfcReaderKeyManager = [home nfcReaderKeyManager];
+          accessoryManager = [nfcReaderKeyManager accessoryManager];
+          uuid3 = [v13 uuid];
+          [accessoryManager auditKeysLocallyOrRedispatchWithAccessoryUUID:uuid3 issuerKey:v27 withFlow:internalOnlyInitializer];
+        }
+
+        else
+        {
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+          {
+            v38 = HMFGetLogIdentifier();
+            *buf = 138543362;
+            v45 = v38;
+            _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_ERROR, "%{public}@Failed to find hap issuer key", buf, 0xCu);
+          }
+
+          objc_autoreleasePoolPop(v28);
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v22 = objc_autoreleasePoolPush();
+    v23 = selfCopy;
+    v24 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    {
+      v25 = HMFGetLogIdentifier();
+      uUID3 = [internalOnlyInitializer UUID];
+      *buf = 138543618;
+      v45 = v25;
+      v46 = 2112;
+      v47 = uUID3;
+      _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Processing RGSI, but accessory not found.", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v22);
+  }
+}
+
 void __86__HMDWalletKeyStepUpFailureListener_handleStepUpForReaderGroupSubIdentifier_didError___block_invoke(id *a1, void *a2, void *a3, uint64_t a4, void *a5)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v8 = a2;
   v9 = a3;
   v10 = a5;
@@ -252,20 +369,20 @@ void __86__HMDWalletKeyStepUpFailureListener_handleStepUpForReaderGroupSubIdenti
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       HMFGetLogIdentifier();
-      v15 = v27 = v9;
+      v15 = v26 = v9;
       v16 = [a1[5] UUID];
       v17 = [a1[6] uuid];
       *buf = 138544130;
-      v29 = v15;
-      v30 = 2112;
-      v31 = v16;
-      v32 = 2112;
-      v33 = v17;
-      v34 = 2112;
-      v35 = v11;
+      v28 = v15;
+      v29 = 2112;
+      v30 = v16;
+      v31 = 2112;
+      v32 = v17;
+      v33 = 2112;
+      v34 = v11;
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@[Flow: %@] Invoking auditKeysLocallyOrRedispatchWithAccessoryUUID for accessoryUUID: %@, localIssuerKey: %@", buf, 0x2Au);
 
-      v9 = v27;
+      v9 = v26;
     }
 
     objc_autoreleasePoolPop(v12);
@@ -285,23 +402,21 @@ void __86__HMDWalletKeyStepUpFailureListener_handleStepUpForReaderGroupSubIdenti
       v24 = HMFGetLogIdentifier();
       v25 = [a1[5] UUID];
       *buf = 138543874;
-      v29 = v24;
-      v30 = 2112;
-      v31 = v25;
-      v32 = 2112;
-      v33 = v10;
+      v28 = v24;
+      v29 = 2112;
+      v30 = v25;
+      v31 = 2112;
+      v32 = v10;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@[Flow: %@] Failed to create ACWG issuer key with error: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v21);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldPerformAuditForAccessory:(id)accessory didError:(BOOL)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   if (([accessoryCopy supportsACWGProvisioning] & 1) == 0)
   {
@@ -323,13 +438,13 @@ void __86__HMDWalletKeyStepUpFailureListener_handleStepUpForReaderGroupSubIdenti
         {
           v21 = HMFGetLogIdentifier();
           uuid2 = [accessoryCopy uuid];
-          v25 = 138543874;
-          v26 = v21;
-          v27 = 2112;
-          v28 = uuid2;
-          v29 = 2048;
-          v30 = v14;
-          _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Skipping audit for accessory %@ - last audit was %0.1f seconds ago", &v25, 0x20u);
+          v24 = 138543874;
+          v25 = v21;
+          v26 = 2112;
+          v27 = uuid2;
+          v28 = 2048;
+          v29 = v14;
+          _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Skipping audit for accessory %@ - last audit was %0.1f seconds ago", &v24, 0x20u);
         }
 
         error = 0;
@@ -345,11 +460,11 @@ void __86__HMDWalletKeyStepUpFailureListener_handleStepUpForReaderGroupSubIdenti
         {
           v18 = HMFGetLogIdentifier();
           uuid3 = [accessoryCopy uuid];
-          v25 = 138543618;
-          v26 = v18;
-          v27 = 2112;
-          v28 = uuid3;
-          _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Accessory %@ is unified access, performing audit", &v25, 0x16u);
+          v24 = 138543618;
+          v25 = v18;
+          v26 = 2112;
+          v27 = uuid3;
+          _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Accessory %@ is unified access, performing audit", &v24, 0x16u);
         }
       }
 
@@ -362,42 +477,41 @@ void __86__HMDWalletKeyStepUpFailureListener_handleStepUpForReaderGroupSubIdenti
     }
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return error;
 }
 
 - (id)accessoryWithReaderGroupSubIdentifierACWG:(id)g
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   gCopy = g;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   homeManager = [(HMDWalletKeyStepUpFailureListener *)self homeManager];
   homes = [homeManager homes];
 
-  v7 = [homes countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [homes countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v18 != v9)
+      if (*v17 != v9)
       {
         objc_enumerationMutation(homes);
       }
 
-      hapAccessories = [*(*(&v17 + 1) + 8 * v10) hapAccessories];
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __79__HMDWalletKeyStepUpFailureListener_accessoryWithReaderGroupSubIdentifierACWG___block_invoke;
-      v15[3] = &unk_2786830C8;
-      v16 = gCopy;
-      v12 = [hapAccessories na_firstObjectPassingTest:v15];
+      hapAccessories = [*(*(&v16 + 1) + 8 * v10) hapAccessories];
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __79__HMDWalletKeyStepUpFailureListener_accessoryWithReaderGroupSubIdentifierACWG___block_invoke;
+      v14[3] = &unk_2786830C8;
+      v15 = gCopy;
+      v12 = [hapAccessories na_firstObjectPassingTest:v14];
 
       if (v12)
       {
@@ -406,7 +520,7 @@ LABEL_3:
 
       if (v8 == ++v10)
       {
-        v8 = [homes countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [homes countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -422,8 +536,6 @@ LABEL_3:
 LABEL_9:
     v12 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -514,10 +626,9 @@ BOOL __79__HMDWalletKeyStepUpFailureListener_accessoryWithReaderGroupSubIdentifi
 
 void __48__HMDWalletKeyStepUpFailureListener_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v14_47173;
-  logCategory__hmf_once_v14_47173 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v14_47173;
+  logCategory__hmf_once_v14_47173 = v0;
 }
 
 @end

@@ -27,7 +27,7 @@
 
 - (void)_verifyRequest
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v2 = [*(self + 16) objectForKeyedSubscript:@"attributes"];
   v3 = [v2 objectForKeyedSubscript:@"appContentRatingsBySystem"];
   v4 = [v3 objectForKeyedSubscript:@"appsApple"];
@@ -38,8 +38,8 @@
     v6 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v40) = 0;
-      _os_log_impl(&dword_1B8220000, v6, OS_LOG_TYPE_INFO, "Performing age verification", &v40, 2u);
+      LOWORD(v39) = 0;
+      _os_log_impl(&dword_1B8220000, v6, OS_LOG_TYPE_INFO, "Performing age verification", &v39, 2u);
     }
 
     mEMORY[0x1E69ADFB8] = [MEMORY[0x1E69ADFB8] sharedConnection];
@@ -64,11 +64,11 @@
     v16 = ASDLogHandleForCategory(13);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v40 = 134218240;
-      v41 = integerValue2;
-      v42 = 2048;
-      v43 = integerValue;
-      _os_log_impl(&dword_1B8220000, v16, OS_LOG_TYPE_INFO, "Verfiying app rank: %ld to restrictionsRank: %ld", &v40, 0x16u);
+      v39 = 134218240;
+      v40 = integerValue2;
+      v41 = 2048;
+      v42 = integerValue;
+      _os_log_impl(&dword_1B8220000, v16, OS_LOG_TYPE_INFO, "Verfiying app rank: %ld to restrictionsRank: %ld", &v39, 0x16u);
     }
 
     if (integerValue2 <= integerValue)
@@ -81,8 +81,8 @@
       v17 = ASDLogHandleForCategory(13);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v40) = 0;
-        _os_log_error_impl(&dword_1B8220000, v17, OS_LOG_TYPE_ERROR, "Age verificaton failed", &v40, 2u);
+        LOWORD(v39) = 0;
+        _os_log_error_impl(&dword_1B8220000, v17, OS_LOG_TYPE_ERROR, "Age verificaton failed", &v39, 2u);
       }
 
       v15 = 1;
@@ -121,16 +121,16 @@
         v27 = ASDLogHandleForCategory(13);
         if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
-          LOWORD(v40) = 0;
-          _os_log_error_impl(&dword_1B8220000, v27, OS_LOG_TYPE_ERROR, "AppStore account required to verify Korean age verification", &v40, 2u);
+          LOWORD(v39) = 0;
+          _os_log_error_impl(&dword_1B8220000, v27, OS_LOG_TYPE_ERROR, "AppStore account required to verify Korean age verification", &v39, 2u);
         }
       }
 
       v28 = ASDLogHandleForCategory(13);
       if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v40) = 0;
-        _os_log_impl(&dword_1B8220000, v28, OS_LOG_TYPE_INFO, "Performing Korean age verification", &v40, 2u);
+        LOWORD(v39) = 0;
+        _os_log_impl(&dword_1B8220000, v28, OS_LOG_TYPE_INFO, "Performing Korean age verification", &v39, 2u);
       }
 
       v21 = [ams_activeiTunesAccount ams_accountFlagValueForAccountFlag:*MEMORY[0x1E698C498]];
@@ -160,11 +160,11 @@
       v31 = ASDLogHandleForCategory(13);
       if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
-        v40 = 138412546;
-        v41 = v22;
-        v42 = 2112;
-        v43 = v20;
-        _os_log_impl(&dword_1B8220000, v31, OS_LOG_TYPE_INFO, "Verfiying currentDate: %@ is before expirationDate: %@", &v40, 0x16u);
+        v39 = 138412546;
+        v40 = v22;
+        v41 = 2112;
+        v42 = v20;
+        _os_log_impl(&dword_1B8220000, v31, OS_LOG_TYPE_INFO, "Verfiying currentDate: %@ is before expirationDate: %@", &v39, 0x16u);
       }
 
       if (!v20 || [v22 compare:v20] != -1)
@@ -172,8 +172,8 @@
         v32 = ASDLogHandleForCategory(13);
         if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
-          LOWORD(v40) = 0;
-          _os_log_error_impl(&dword_1B8220000, v32, OS_LOG_TYPE_ERROR, "Korean age verification failed", &v40, 2u);
+          LOWORD(v39) = 0;
+          _os_log_error_impl(&dword_1B8220000, v32, OS_LOG_TYPE_ERROR, "Korean age verification failed", &v39, 2u);
         }
 
         v15 |= 2uLL;
@@ -204,15 +204,13 @@ LABEL_41:
       v38 = ASDLogHandleForCategory(13);
       if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v40) = 0;
-        _os_log_error_impl(&dword_1B8220000, v38, OS_LOG_TYPE_ERROR, "Unable to read device OS version, skipping minimum OS version check!", &v40, 2u);
+        LOWORD(v39) = 0;
+        _os_log_error_impl(&dword_1B8220000, v38, OS_LOG_TYPE_ERROR, "Unable to read device OS version, skipping minimum OS version check!", &v39, 2u);
       }
     }
   }
 
   *(self + 8) = v15;
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (ASDClipRestrictionsTask)initWithClipRequest:(id)request

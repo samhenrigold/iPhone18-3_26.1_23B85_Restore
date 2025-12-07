@@ -6,38 +6,38 @@
 
 + (id)_hmiErrorWithCode:()HMIError description:reason:suggestion:underlyingError:
 {
-  v11 = a4;
-  v12 = a5;
-  v13 = a6;
-  v14 = a7;
-  v15 = v14;
-  if (v11 || v12 || v13 || v14)
+  v10 = a4;
+  v11 = a5;
+  v12 = a6;
+  v13 = a7;
+  v14 = v13;
+  if (v10 || v11 || v12 || v13)
   {
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    if (v11)
+    if (v10)
     {
       mainBundle = [MEMORY[0x277CCA8D8] mainBundle];
-      v18 = [mainBundle localizedStringForKey:v11 value:&stru_284057FB8 table:0];
-      [dictionary setObject:v18 forKeyedSubscript:*MEMORY[0x277CCA450]];
+      v17 = [mainBundle localizedStringForKey:? value:? table:?];
+      [dictionary setObject:? forKeyedSubscript:?];
+    }
+
+    if (v11)
+    {
+      mainBundle2 = [MEMORY[0x277CCA8D8] mainBundle];
+      v19 = [mainBundle2 localizedStringForKey:? value:? table:?];
+      [dictionary setObject:? forKeyedSubscript:?];
     }
 
     if (v12)
     {
-      mainBundle2 = [MEMORY[0x277CCA8D8] mainBundle];
-      v20 = [mainBundle2 localizedStringForKey:v12 value:&stru_284057FB8 table:0];
-      [dictionary setObject:v20 forKeyedSubscript:*MEMORY[0x277CCA470]];
-    }
-
-    if (v13)
-    {
       mainBundle3 = [MEMORY[0x277CCA8D8] mainBundle];
-      v22 = [mainBundle3 localizedStringForKey:v13 value:&stru_284057FB8 table:0];
-      [dictionary setObject:v22 forKeyedSubscript:*MEMORY[0x277CCA498]];
+      v21 = [mainBundle3 localizedStringForKey:? value:? table:?];
+      [dictionary setObject:? forKeyedSubscript:?];
     }
 
-    if (v15)
+    if (v14)
     {
-      [dictionary setObject:v15 forKeyedSubscript:*MEMORY[0x277CCA7E8]];
+      [dictionary setObject:? forKeyedSubscript:?];
     }
   }
 
@@ -46,9 +46,9 @@
     dictionary = 0;
   }
 
-  v23 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HMIErrorDomain" code:a3 userInfo:dictionary];
+  v22 = [MEMORY[0x277CCA9B8] errorWithDomain:? code:? userInfo:?];
 
-  return v23;
+  return v22;
 }
 
 @end

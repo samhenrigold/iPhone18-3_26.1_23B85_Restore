@@ -30,7 +30,7 @@
 
 + (void)_syncronizeGizmoDefaultWithKey:(id)key value:(int64_t)value
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if (getNRPairedDeviceRegistryClass() && getNPSManagerClass())
   {
@@ -38,25 +38,25 @@
     getActivePairedDevice = [sharedInstance getActivePairedDevice];
 
     v8 = getActivePairedDevice;
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x2020000000;
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x2020000000;
     v9 = getNRWatchOSVersionForRemoteDeviceSymbolLoc_ptr;
-    v34 = getNRWatchOSVersionForRemoteDeviceSymbolLoc_ptr;
+    v33 = getNRWatchOSVersionForRemoteDeviceSymbolLoc_ptr;
     if (!getNRWatchOSVersionForRemoteDeviceSymbolLoc_ptr)
     {
-      v26 = MEMORY[0x277D85DD0];
-      v27 = 3221225472;
-      v28 = __getNRWatchOSVersionForRemoteDeviceSymbolLoc_block_invoke;
-      v29 = &unk_2787A8FA0;
-      v30 = &v31;
+      v25 = MEMORY[0x277D85DD0];
+      v26 = 3221225472;
+      v27 = __getNRWatchOSVersionForRemoteDeviceSymbolLoc_block_invoke;
+      v28 = &unk_2787A8FA0;
+      v29 = &v30;
       v10 = NanoRegistryLibrary();
-      v32[3] = dlsym(v10, "NRWatchOSVersionForRemoteDevice");
-      getNRWatchOSVersionForRemoteDeviceSymbolLoc_ptr = *(v30[1] + 24);
-      v9 = v32[3];
+      v31[3] = dlsym(v10, "NRWatchOSVersionForRemoteDevice");
+      getNRWatchOSVersionForRemoteDeviceSymbolLoc_ptr = *(v29[1] + 24);
+      v9 = v31[3];
     }
 
-    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(&v30, 8);
     if (v9)
     {
       v11 = v9(v8);
@@ -71,23 +71,23 @@
       }
 
       v15 = +[IPiOSABNamePreferenceInfoProvider domain];
-      v31 = 0;
-      v32 = &v31;
-      v33 = 0x2020000000;
+      v30 = 0;
+      v31 = &v30;
+      v32 = 0x2020000000;
       v16 = getPSIsNanoMirroringDomainSymbolLoc_ptr;
-      v34 = getPSIsNanoMirroringDomainSymbolLoc_ptr;
+      v33 = getPSIsNanoMirroringDomainSymbolLoc_ptr;
       if (!getPSIsNanoMirroringDomainSymbolLoc_ptr)
       {
-        v26 = MEMORY[0x277D85DD0];
-        v27 = 3221225472;
-        v28 = __getPSIsNanoMirroringDomainSymbolLoc_block_invoke;
-        v29 = &unk_2787A8FA0;
-        v30 = &v31;
-        __getPSIsNanoMirroringDomainSymbolLoc_block_invoke(&v26);
-        v16 = v32[3];
+        v25 = MEMORY[0x277D85DD0];
+        v26 = 3221225472;
+        v27 = __getPSIsNanoMirroringDomainSymbolLoc_block_invoke;
+        v28 = &unk_2787A8FA0;
+        v29 = &v30;
+        __getPSIsNanoMirroringDomainSymbolLoc_block_invoke(&v25);
+        v16 = v31[3];
       }
 
-      _Block_object_dispose(&v31, 8);
+      _Block_object_dispose(&v30, 8);
       if (v16)
       {
         v17 = v16(v15);
@@ -99,21 +99,21 @@ LABEL_14:
           goto LABEL_15;
         }
 
-        v35 = keyCopy;
+        v34 = keyCopy;
         v18 = [MEMORY[0x277CCABB0] numberWithInteger:value];
-        v36[0] = v18;
-        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+        v35[0] = v18;
+        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
         v14 = [NSPersonNameComponentsFormatterPreferences mappedPreferencesForPreferences:v19 from:0 to:2];
 
         v20 = +[IPiOSABNamePreferenceInfoProvider domain];
-        v23[0] = MEMORY[0x277D85DD0];
-        v23[1] = 3221225472;
-        v23[2] = __83__NSPersonNameComponentsFormatterPreferences__syncronizeGizmoDefaultWithKey_value___block_invoke;
-        v23[3] = &unk_2787A9108;
-        v24 = v20;
-        v25 = v13;
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __83__NSPersonNameComponentsFormatterPreferences__syncronizeGizmoDefaultWithKey_value___block_invoke;
+        v22[3] = &unk_2787A9108;
+        v23 = v20;
+        v24 = v13;
         v21 = v20;
-        [v14 enumerateKeysAndObjectsUsingBlock:v23];
+        [v14 enumerateKeysAndObjectsUsingBlock:v22];
 
 LABEL_13:
         goto LABEL_14;
@@ -131,8 +131,6 @@ LABEL_13:
   }
 
 LABEL_15:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __83__NSPersonNameComponentsFormatterPreferences__syncronizeGizmoDefaultWithKey_value___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -219,22 +217,21 @@ void __86__NSPersonNameComponentsFormatterPreferences_mappedPreferencesForPrefer
 {
   if (source > 2)
   {
-    v5 = 0;
+    v4 = 0;
   }
 
   else
   {
-    v4 = *off_2787A9198[source];
-    v5 = objc_opt_class();
+    v4 = objc_opt_class();
   }
 
-  return v5;
+  return v4;
 }
 
 + (uint64_t)_syncronizeGizmoDefaultWithKey:value:.cold.1()
 {
-  dlerror();
-  abort_report_np();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
   return __getNRPairedDeviceRegistryClass_block_invoke_cold_1();
 }
 

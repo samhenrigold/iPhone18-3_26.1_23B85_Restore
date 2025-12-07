@@ -9,10 +9,10 @@
 
 - (void)start
 {
-  v53 = *MEMORY[0x1E69E9840];
-  v47.receiver = self;
-  v47.super_class = WFCloudKitResolveReferencesOperation;
-  [(WFCloudKitAsyncOperation *)&v47 start];
+  v52 = *MEMORY[0x1E69E9840];
+  v46.receiver = self;
+  v46.super_class = WFCloudKitResolveReferencesOperation;
+  [(WFCloudKitAsyncOperation *)&v46 start];
   currentQueue = [MEMORY[0x1E696ADC8] currentQueue];
   v3 = getWFCloudKitLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
@@ -20,50 +20,50 @@
     records = [(WFCloudKitResolveReferencesOperation *)self records];
     v5 = [records count];
     *buf = 136315394;
-    v50 = "[WFCloudKitResolveReferencesOperation start]";
-    v51 = 2048;
-    v52 = v5;
+    v49 = "[WFCloudKitResolveReferencesOperation start]";
+    v50 = 2048;
+    v51 = v5;
     _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_INFO, "%s Resolve references operation starting for %lu records", buf, 0x16u);
   }
 
   v6 = objc_opt_new();
   v7 = objc_opt_new();
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
   selfCopy = self;
   obj = [(WFCloudKitResolveReferencesOperation *)self records];
-  v8 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
+  v8 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v44;
+    v10 = *v43;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v44 != v10)
+        if (*v43 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v43 + 1) + 8 * i);
+        v12 = *(*(&v42 + 1) + 8 * i);
         record = [v12 record];
         item = [v12 item];
         properties = [objc_opt_class() properties];
-        v39[0] = MEMORY[0x1E69E9820];
-        v39[1] = 3221225472;
-        v39[2] = __45__WFCloudKitResolveReferencesOperation_start__block_invoke;
-        v39[3] = &unk_1E83799B8;
-        v40 = record;
-        v41 = v6;
-        v42 = v7;
+        v38[0] = MEMORY[0x1E69E9820];
+        v38[1] = 3221225472;
+        v38[2] = __45__WFCloudKitResolveReferencesOperation_start__block_invoke;
+        v38[3] = &unk_1E83799B8;
+        v39 = record;
+        v40 = v6;
+        v41 = v7;
         v16 = record;
-        [properties enumerateKeysAndObjectsUsingBlock:v39];
+        [properties enumerateKeysAndObjectsUsingBlock:v38];
       }
 
-      v9 = [obj countByEnumeratingWithState:&v43 objects:v48 count:16];
+      v9 = [obj countByEnumeratingWithState:&v42 objects:v47 count:16];
     }
 
     while (v9);
@@ -84,9 +84,9 @@
     {
       v21 = [v6 count];
       *buf = 136315394;
-      v50 = "[WFCloudKitResolveReferencesOperation start]";
-      v51 = 2048;
-      v52 = v21;
+      v49 = "[WFCloudKitResolveReferencesOperation start]";
+      v50 = 2048;
+      v51 = v21;
       _os_log_impl(&dword_1CA256000, v18, OS_LOG_TYPE_INFO, "%s Fetching %lu references.", buf, 0x16u);
     }
 
@@ -94,16 +94,16 @@
     allKeys = [v6 allKeys];
     allObjects = [v7 allObjects];
     operationGroup = [(WFCloudKitResolveReferencesOperation *)selfCopy operationGroup];
-    v32[0] = MEMORY[0x1E69E9820];
-    v32[1] = 3221225472;
-    v32[2] = __45__WFCloudKitResolveReferencesOperation_start__block_invoke_446;
-    v32[3] = &unk_1E837AE68;
-    v33 = v6;
-    v34 = selfCopy;
-    v35 = currentQueue;
-    v37 = a2;
-    v36 = v17;
-    v26 = [request fetchRecordIDs:allKeys desiredKeys:allObjects operationGroup:operationGroup completionHandler:v32];
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __45__WFCloudKitResolveReferencesOperation_start__block_invoke_446;
+    v31[3] = &unk_1E837AE68;
+    v32 = v6;
+    v33 = selfCopy;
+    v34 = currentQueue;
+    v36 = a2;
+    v35 = v17;
+    v26 = [request fetchRecordIDs:allKeys desiredKeys:allObjects operationGroup:operationGroup completionHandler:v31];
     [(WFCloudKitResolveReferencesOperation *)selfCopy setCurrentOperation:v26];
   }
 
@@ -113,47 +113,44 @@
     v19 = currentQueue;
     v20 = v7;
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __45__WFCloudKitResolveReferencesOperation_start__block_invoke_3(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = [*(a1 + 32) records];
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         v10 = [v9 record];
         v11 = [v9 item];
         [WFCloudKitItemRequest hydrateItem:v11 withRecord:v10 resolvedReferences:v3 setNilValues:0];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   [*(a1 + 32) finishExecuting];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (WFCloudKitItemRequest)request
@@ -175,7 +172,7 @@ void __45__WFCloudKitResolveReferencesOperation_start__block_invoke_3(uint64_t a
 
 void __45__WFCloudKitResolveReferencesOperation_start__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([v6 type] == 3)
@@ -197,28 +194,28 @@ void __45__WFCloudKitResolveReferencesOperation_start__block_invoke(uint64_t a1,
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v28 = 0u;
-        v29 = 0u;
-        v26 = 0u;
         v27 = 0u;
-        v23 = v7;
+        v28 = 0u;
+        v25 = 0u;
+        v26 = 0u;
+        v22 = v7;
         v12 = [v7 objectsMatchingClass:objc_opt_class()];
-        v13 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v27;
+          v15 = *v26;
           do
           {
             v16 = 0;
             do
             {
-              if (*v27 != v15)
+              if (*v26 != v15)
               {
                 objc_enumerationMutation(v12);
               }
 
-              v17 = *(*(&v26 + 1) + 8 * v16);
+              v17 = *(*(&v25 + 1) + 8 * v16);
               v18 = [v6 itemClass];
               v19 = *(a1 + 40);
               v20 = [v17 recordID];
@@ -228,31 +225,29 @@ void __45__WFCloudKitResolveReferencesOperation_start__block_invoke(uint64_t a1,
             }
 
             while (v14 != v16);
-            v14 = [v12 countByEnumeratingWithState:&v26 objects:v30 count:16];
+            v14 = [v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
           }
 
           while (v14);
         }
 
-        v7 = v23;
+        v7 = v22;
       }
     }
 
     v21 = [objc_msgSend(v6 "itemClass")];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __45__WFCloudKitResolveReferencesOperation_start__block_invoke_2;
-    v24[3] = &unk_1E83798F0;
-    v25 = *(a1 + 48);
-    [v21 enumerateKeysAndObjectsUsingBlock:v24];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __45__WFCloudKitResolveReferencesOperation_start__block_invoke_2;
+    v23[3] = &unk_1E83798F0;
+    v24 = *(a1 + 48);
+    [v21 enumerateKeysAndObjectsUsingBlock:v23];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __45__WFCloudKitResolveReferencesOperation_start__block_invoke_446(uint64_t a1, void *a2, void *a3)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = getWFCloudKitLogObject();
@@ -263,11 +258,11 @@ void __45__WFCloudKitResolveReferencesOperation_start__block_invoke_446(uint64_t
     {
       v9 = [*(a1 + 32) allKeys];
       *buf = 136315650;
-      v32 = "[WFCloudKitResolveReferencesOperation start]_block_invoke";
-      v33 = 2112;
-      v34 = v9;
-      v35 = 2112;
-      v36 = v6;
+      v31 = "[WFCloudKitResolveReferencesOperation start]_block_invoke";
+      v32 = 2112;
+      v33 = v9;
+      v34 = 2112;
+      v35 = v6;
       _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_ERROR, "%s Error fetching record IDs: %@, %@", buf, 0x20u);
     }
 
@@ -283,25 +278,25 @@ void __45__WFCloudKitResolveReferencesOperation_start__block_invoke_446(uint64_t
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v32 = "[WFCloudKitResolveReferencesOperation start]_block_invoke";
-      v33 = 2048;
-      v34 = [v5 count];
+      v31 = "[WFCloudKitResolveReferencesOperation start]_block_invoke";
+      v32 = 2048;
+      v33 = [v5 count];
       _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_INFO, "%s Finished fetching %lu references", buf, 0x16u);
     }
 
     v11 = objc_opt_new();
-    v23 = MEMORY[0x1E69E9820];
-    v24 = 3221225472;
-    v25 = __45__WFCloudKitResolveReferencesOperation_start__block_invoke_447;
-    v26 = &unk_1E8379A08;
+    v22 = MEMORY[0x1E69E9820];
+    v23 = 3221225472;
+    v24 = __45__WFCloudKitResolveReferencesOperation_start__block_invoke_447;
+    v25 = &unk_1E8379A08;
     v12 = *(a1 + 32);
-    v30 = *(a1 + 64);
+    v29 = *(a1 + 64);
     v13 = *(a1 + 40);
-    v27 = v12;
-    v28 = v13;
+    v26 = v12;
+    v27 = v13;
     v14 = v11;
-    v29 = v14;
-    [v5 enumerateKeysAndObjectsUsingBlock:&v23];
+    v28 = v14;
+    [v5 enumerateKeysAndObjectsUsingBlock:&v22];
     if (([*(a1 + 40) isCancelled] & 1) == 0)
     {
       v15 = *(a1 + 48);
@@ -316,8 +311,6 @@ void __45__WFCloudKitResolveReferencesOperation_start__block_invoke_446(uint64_t
 
     (*(*(a1 + 56) + 16))();
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __45__WFCloudKitResolveReferencesOperation_start__block_invoke_447(uint64_t a1, void *a2, void *a3)

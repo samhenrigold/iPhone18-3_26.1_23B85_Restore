@@ -880,8 +880,8 @@ uint64_t __18__NWPath_gateways__block_invoke(uint64_t a1)
   internalPath = [(NWPath *)self internalPath];
   address = [addressCopy address];
 
-  v8 = nw_path_voluntary_agent_matches_address(internalPath, address);
-  return v8;
+  LOBYTE(immediately) = nw_path_voluntary_agent_matches_address(internalPath, address, immediately);
+  return immediately;
 }
 
 - (id)copyFlowDivertToken
@@ -1905,7 +1905,7 @@ void __48__NWPath_descriptionWithIndent_showFullContent___block_invoke(uint64_t 
     v14 = __nwlog_obj();
     *buf = 136446210;
     v27 = "[NWPath initWithPath:]";
-    v15 = _os_log_send_and_compose_impl();
+    v15 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v14, 16, "%{public}s [super init] failed", buf, 12);
 
     type = OS_LOG_TYPE_ERROR;
     v24 = 0;
@@ -1984,7 +1984,7 @@ LABEL_38:
   v9 = __nwlog_obj();
   *buf = 136446210;
   v27 = "[NWPath initWithPath:]";
-  v10 = _os_log_send_and_compose_impl();
+  v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s called with null path", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v24 = 0;
@@ -2080,7 +2080,7 @@ LABEL_4:
   v6 = __nwlog_obj();
   *buf = 136446210;
   v17 = "[NWPath init]";
-  v7 = _os_log_send_and_compose_impl();
+  v7 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v6, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v13 = 0;
@@ -2161,22 +2161,22 @@ LABEL_3:
 
 + (NWPath)pathWithProtocolBufferData:(id)data
 {
-  v166 = *MEMORY[0x1E69E9840];
+  v170 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   v3 = [[NWPBPath alloc] initWithData:dataCopy];
-  v146 = v3;
+  v150 = v3;
   if (!v3)
   {
     pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
     networkd_settings_init();
     v9 = gLogObj;
     *buf = 136446210;
-    v159 = "+[NWPath pathWithProtocolBufferData:]";
-    v10 = _os_log_send_and_compose_impl();
+    v163 = "+[NWPath pathWithProtocolBufferData:]";
+    v10 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v9, 16, "%{public}s [NWPBPath initWithData:] failed", buf, 12);
 
     uu[0] = 16;
-    v157 = 0;
-    if (__nwlog_fault(v10, uu, &v157))
+    v161 = 0;
+    if (__nwlog_fault(v10, uu, &v161))
     {
       if (uu[0] == 17)
       {
@@ -2187,28 +2187,28 @@ LABEL_3:
         if (os_log_type_enabled(v11, uu[0]))
         {
           *buf = 136446210;
-          v159 = "+[NWPath pathWithProtocolBufferData:]";
+          v163 = "+[NWPath pathWithProtocolBufferData:]";
           _os_log_impl(&dword_181A37000, v11, v12, "%{public}s [NWPBPath initWithData:] failed", buf, 0xCu);
         }
       }
 
-      else if (v157 == 1)
+      else if (v161 == 1)
       {
         backtrace_string = __nw_create_backtrace_string();
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
         v11 = gLogObj;
-        v136 = uu[0];
-        v137 = os_log_type_enabled(v11, uu[0]);
+        v141 = uu[0];
+        v142 = os_log_type_enabled(v11, uu[0]);
         if (backtrace_string)
         {
-          if (v137)
+          if (v142)
           {
             *buf = 136446466;
-            v159 = "+[NWPath pathWithProtocolBufferData:]";
-            v160 = 2082;
-            v161 = backtrace_string;
-            _os_log_impl(&dword_181A37000, v11, v136, "%{public}s [NWPBPath initWithData:] failed, dumping backtrace:%{public}s", buf, 0x16u);
+            v163 = "+[NWPath pathWithProtocolBufferData:]";
+            v164 = 2082;
+            v165 = backtrace_string;
+            _os_log_impl(&dword_181A37000, v11, v141, "%{public}s [NWPBPath initWithData:] failed, dumping backtrace:%{public}s", buf, 0x16u);
           }
 
           free(backtrace_string);
@@ -2221,11 +2221,11 @@ LABEL_3:
           goto LABEL_12;
         }
 
-        if (v137)
+        if (v142)
         {
           *buf = 136446210;
-          v159 = "+[NWPath pathWithProtocolBufferData:]";
-          _os_log_impl(&dword_181A37000, v11, v136, "%{public}s [NWPBPath initWithData:] failed, no backtrace", buf, 0xCu);
+          v163 = "+[NWPath pathWithProtocolBufferData:]";
+          _os_log_impl(&dword_181A37000, v11, v141, "%{public}s [NWPBPath initWithData:] failed, no backtrace", buf, 0xCu);
         }
       }
 
@@ -2234,12 +2234,12 @@ LABEL_3:
         pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
         networkd_settings_init();
         v11 = gLogObj;
-        v138 = uu[0];
+        v143 = uu[0];
         if (os_log_type_enabled(v11, uu[0]))
         {
           *buf = 136446210;
-          v159 = "+[NWPath pathWithProtocolBufferData:]";
-          _os_log_impl(&dword_181A37000, v11, v138, "%{public}s [NWPBPath initWithData:] failed, backtrace limit exceeded", buf, 0xCu);
+          v163 = "+[NWPath pathWithProtocolBufferData:]";
+          _os_log_impl(&dword_181A37000, v11, v143, "%{public}s [NWPBPath initWithData:] failed, backtrace limit exceeded", buf, 0xCu);
         }
       }
     }
@@ -2249,7 +2249,7 @@ LABEL_3:
     {
 LABEL_13:
       v14 = 0;
-      goto LABEL_160;
+      goto LABEL_172;
     }
 
 LABEL_12:
@@ -2264,7 +2264,7 @@ LABEL_12:
     v5 = clientUUID;
     uuid_parse([(NSString *)v5 UTF8String], uu);
 
-    v3 = v146;
+    v3 = v150;
   }
 
   directInterface = v3->_directInterface;
@@ -2272,14 +2272,14 @@ LABEL_12:
   {
     v7 = directInterface;
     data = [(NWPBInterface *)v7 data];
-    v144 = [NWInterface interfaceWithProtocolBufferData:data];
+    v148 = [NWInterface interfaceWithProtocolBufferData:data];
 
-    v3 = v146;
+    v3 = v150;
   }
 
   else
   {
-    v144 = 0;
+    v148 = 0;
   }
 
   delegateInterface = v3->_delegateInterface;
@@ -2287,42 +2287,42 @@ LABEL_12:
   {
     v16 = delegateInterface;
     data2 = [(NWPBInterface *)v16 data];
-    v143 = [NWInterface interfaceWithProtocolBufferData:data2];
+    v147 = [NWInterface interfaceWithProtocolBufferData:data2];
 
-    v3 = v146;
+    v3 = v150;
   }
 
   else
   {
-    v143 = 0;
+    v147 = 0;
   }
 
   if ([(NSMutableArray *)v3->_agents count])
   {
     xdict = xpc_dictionary_create(0, 0, 0);
-    v155 = 0u;
-    v156 = 0u;
-    v153 = 0u;
-    v154 = 0u;
-    obj = v146->_agents;
-    v150 = [(NSMutableArray *)obj countByEnumeratingWithState:&v153 objects:v164 count:16];
-    if (!v150)
+    v159 = 0u;
+    v160 = 0u;
+    v157 = 0u;
+    v158 = 0u;
+    obj = v150->_agents;
+    v154 = [(NSMutableArray *)obj countByEnumeratingWithState:&v157 objects:v168 count:16];
+    if (!v154)
     {
-      goto LABEL_148;
+      goto LABEL_160;
     }
 
-    v149 = *v154;
+    v153 = *v158;
     while (1)
     {
       v18 = 0;
       do
       {
-        if (*v154 != v149)
+        if (*v158 != v153)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v153 + 1) + 8 * v18);
+        v19 = *(*(&v157 + 1) + 8 * v18);
         if (v19)
         {
           v20 = *(v19 + 16);
@@ -2340,7 +2340,7 @@ LABEL_12:
           v20 = 0;
         }
 
-        v151 = v20;
+        v155 = v20;
         v23 = v20 + 8;
         v24 = malloc_type_calloc(1uLL, v20 + 8, 0x17D75B9CuLL);
         if (!v24)
@@ -2348,208 +2348,226 @@ LABEL_12:
           pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
           networkd_settings_init();
           v25 = gLogObj;
-          os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
+          v26 = os_log_type_enabled(v25, OS_LOG_TYPE_ERROR);
           *buf = 136446722;
-          v159 = "+[NWPath pathWithProtocolBufferData:]";
-          v160 = 2048;
-          v161 = 1;
-          v162 = 2048;
-          v163 = v23;
-          LODWORD(v140) = 32;
-          v139 = buf;
-          v26 = _os_log_send_and_compose_impl();
-
-          if (__nwlog_should_abort(v26))
+          if (v26)
           {
-            goto LABEL_175;
-          }
-
-          free(v26);
-        }
-
-        if (v19)
-        {
-          v27 = *(v19 + 32);
-        }
-
-        else
-        {
-          v27 = 0;
-        }
-
-        v28 = v27;
-        uuid_parse([v28 UTF8String], v24);
-        v29 = xpc_dictionary_create(0, 0, 0);
-        if (v19)
-        {
-          v30 = *(v19 + 8);
-          v31 = v30;
-          if (v30)
-          {
-            v32 = *(v30 + 1);
+            v27 = 3;
           }
 
           else
           {
-            v32 = 0;
+            v27 = 2;
+          }
+
+          v163 = "+[NWPath pathWithProtocolBufferData:]";
+          v164 = 2048;
+          v165 = 1;
+          v166 = 2048;
+          v167 = v23;
+          LODWORD(v144) = 32;
+          v28 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &dword_181A37000, v25, 16, "%{public}s strict_calloc(%zu, %zu) failed", buf, v144);
+
+          if (__nwlog_should_abort(v28))
+          {
+LABEL_187:
+            __break(1u);
+          }
+
+          free(v28);
+        }
+
+        if (v19)
+        {
+          v29 = *(v19 + 32);
+        }
+
+        else
+        {
+          v29 = 0;
+        }
+
+        v30 = v29;
+        uuid_parse([v30 UTF8String], v24);
+        v31 = xpc_dictionary_create(0, 0, 0);
+        if (v19)
+        {
+          v32 = *(v19 + 8);
+          v33 = v32;
+          if (v32)
+          {
+            v34 = *(v32 + 1);
+          }
+
+          else
+          {
+            v34 = 0;
           }
         }
 
         else
         {
-          v31 = 0;
-          v32 = 0;
+          v33 = 0;
+          v34 = 0;
         }
 
-        v33 = v32;
+        v35 = v34;
 
-        if ([v33 UTF8String])
+        if ([v35 UTF8String])
         {
-          uTF8String = [v33 UTF8String];
+          uTF8String = [v35 UTF8String];
           if (!uTF8String)
           {
             pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
             networkd_settings_init();
-            v111 = gLogObj;
-            os_log_type_enabled(v111, OS_LOG_TYPE_ERROR);
-            *buf = 136446210;
-            v159 = "_strict_strlcpy";
-            LODWORD(v140) = 12;
-            v139 = buf;
-            v112 = _os_log_send_and_compose_impl();
-
-            if (__nwlog_should_abort(v112))
+            v113 = gLogObj;
+            if (os_log_type_enabled(v113, OS_LOG_TYPE_ERROR))
             {
-              goto LABEL_175;
+              v114 = 3;
             }
 
-            free(v112);
+            else
+            {
+              v114 = 2;
+            }
+
+            *buf = 136446210;
+            v163 = "_strict_strlcpy";
+            LODWORD(v144) = 12;
+            v115 = _os_log_send_and_compose_impl(v114, 0, 0, 0, &dword_181A37000, v113, 16, "%{public}s strict_strlcpy called with NULL src", buf, v144);
+
+            if (__nwlog_should_abort(v115))
+            {
+              goto LABEL_187;
+            }
+
+            free(v115);
             uTF8String = 0;
           }
 
-          v35 = *uTF8String;
-          v24[16] = v35;
-          if (v35)
+          v37 = *uTF8String;
+          v24[16] = v37;
+          if (v37)
           {
-            v36 = uTF8String[1];
-            v24[17] = v36;
-            if (v36)
+            v38 = uTF8String[1];
+            v24[17] = v38;
+            if (v38)
             {
-              v37 = uTF8String[2];
-              v24[18] = v37;
-              if (v37)
+              v39 = uTF8String[2];
+              v24[18] = v39;
+              if (v39)
               {
-                v38 = uTF8String[3];
-                v24[19] = v38;
-                if (v38)
+                v40 = uTF8String[3];
+                v24[19] = v40;
+                if (v40)
                 {
-                  v39 = uTF8String[4];
-                  v24[20] = v39;
-                  if (v39)
+                  v41 = uTF8String[4];
+                  v24[20] = v41;
+                  if (v41)
                   {
-                    v40 = uTF8String[5];
-                    v24[21] = v40;
-                    if (v40)
+                    v42 = uTF8String[5];
+                    v24[21] = v42;
+                    if (v42)
                     {
-                      v41 = uTF8String[6];
-                      v24[22] = v41;
-                      if (v41)
+                      v43 = uTF8String[6];
+                      v24[22] = v43;
+                      if (v43)
                       {
-                        v42 = uTF8String[7];
-                        v24[23] = v42;
-                        if (v42)
+                        v44 = uTF8String[7];
+                        v24[23] = v44;
+                        if (v44)
                         {
-                          v43 = uTF8String[8];
-                          v24[24] = v43;
-                          if (v43)
+                          v45 = uTF8String[8];
+                          v24[24] = v45;
+                          if (v45)
                           {
-                            v44 = uTF8String[9];
-                            v24[25] = v44;
-                            if (v44)
+                            v46 = uTF8String[9];
+                            v24[25] = v46;
+                            if (v46)
                             {
-                              v45 = uTF8String[10];
-                              v24[26] = v45;
-                              if (v45)
+                              v47 = uTF8String[10];
+                              v24[26] = v47;
+                              if (v47)
                               {
-                                v46 = uTF8String[11];
-                                v24[27] = v46;
-                                if (v46)
+                                v48 = uTF8String[11];
+                                v24[27] = v48;
+                                if (v48)
                                 {
-                                  v47 = uTF8String[12];
-                                  v24[28] = v47;
-                                  if (v47)
+                                  v49 = uTF8String[12];
+                                  v24[28] = v49;
+                                  if (v49)
                                   {
-                                    v48 = uTF8String[13];
-                                    v24[29] = v48;
-                                    if (v48)
+                                    v50 = uTF8String[13];
+                                    v24[29] = v50;
+                                    if (v50)
                                     {
-                                      v49 = uTF8String[14];
-                                      v24[30] = v49;
-                                      if (v49)
+                                      v51 = uTF8String[14];
+                                      v24[30] = v51;
+                                      if (v51)
                                       {
-                                        v50 = uTF8String[15];
-                                        v24[31] = v50;
-                                        if (v50)
+                                        v52 = uTF8String[15];
+                                        v24[31] = v52;
+                                        if (v52)
                                         {
-                                          v51 = uTF8String[16];
-                                          v24[32] = v51;
-                                          if (v51)
+                                          v53 = uTF8String[16];
+                                          v24[32] = v53;
+                                          if (v53)
                                           {
-                                            v52 = uTF8String[17];
-                                            v24[33] = v52;
-                                            if (v52)
+                                            v54 = uTF8String[17];
+                                            v24[33] = v54;
+                                            if (v54)
                                             {
-                                              v53 = uTF8String[18];
-                                              v24[34] = v53;
-                                              if (v53)
+                                              v55 = uTF8String[18];
+                                              v24[34] = v55;
+                                              if (v55)
                                               {
-                                                v54 = uTF8String[19];
-                                                v24[35] = v54;
-                                                if (v54)
+                                                v56 = uTF8String[19];
+                                                v24[35] = v56;
+                                                if (v56)
                                                 {
-                                                  v55 = uTF8String[20];
-                                                  v24[36] = v55;
-                                                  if (v55)
+                                                  v57 = uTF8String[20];
+                                                  v24[36] = v57;
+                                                  if (v57)
                                                   {
-                                                    v56 = uTF8String[21];
-                                                    v24[37] = v56;
-                                                    if (v56)
+                                                    v58 = uTF8String[21];
+                                                    v24[37] = v58;
+                                                    if (v58)
                                                     {
-                                                      v57 = uTF8String[22];
-                                                      v24[38] = v57;
-                                                      if (v57)
+                                                      v59 = uTF8String[22];
+                                                      v24[38] = v59;
+                                                      if (v59)
                                                       {
-                                                        v58 = uTF8String[23];
-                                                        v24[39] = v58;
-                                                        if (v58)
+                                                        v60 = uTF8String[23];
+                                                        v24[39] = v60;
+                                                        if (v60)
                                                         {
-                                                          v59 = uTF8String[24];
-                                                          v24[40] = v59;
-                                                          if (v59)
+                                                          v61 = uTF8String[24];
+                                                          v24[40] = v61;
+                                                          if (v61)
                                                           {
-                                                            v60 = uTF8String[25];
-                                                            v24[41] = v60;
-                                                            if (v60)
+                                                            v62 = uTF8String[25];
+                                                            v24[41] = v62;
+                                                            if (v62)
                                                             {
-                                                              v61 = uTF8String[26];
-                                                              v24[42] = v61;
-                                                              if (v61)
+                                                              v63 = uTF8String[26];
+                                                              v24[42] = v63;
+                                                              if (v63)
                                                               {
-                                                                v62 = uTF8String[27];
-                                                                v24[43] = v62;
-                                                                if (v62)
+                                                                v64 = uTF8String[27];
+                                                                v24[43] = v64;
+                                                                if (v64)
                                                                 {
-                                                                  v63 = uTF8String[28];
-                                                                  v24[44] = v63;
-                                                                  if (v63)
+                                                                  v65 = uTF8String[28];
+                                                                  v24[44] = v65;
+                                                                  if (v65)
                                                                   {
-                                                                    v64 = uTF8String[29];
-                                                                    v24[45] = v64;
-                                                                    if (v64)
+                                                                    v66 = uTF8String[29];
+                                                                    v24[45] = v66;
+                                                                    if (v66)
                                                                     {
-                                                                      v65 = uTF8String[30];
-                                                                      v24[46] = v65;
-                                                                      if (v65)
+                                                                      v67 = uTF8String[30];
+                                                                      v24[46] = v67;
+                                                                      if (v67)
                                                                       {
                                                                         v24[47] = 0;
                                                                       }
@@ -2587,174 +2605,182 @@ LABEL_12:
 
         if (v19)
         {
-          v66 = *(v19 + 8);
-          v67 = v66;
-          if (v66)
+          v68 = *(v19 + 8);
+          v69 = v68;
+          if (v68)
           {
-            v68 = *(v66 + 2);
+            v70 = *(v68 + 2);
           }
 
           else
           {
-            v68 = 0;
+            v70 = 0;
           }
         }
 
         else
         {
-          v67 = 0;
-          v68 = 0;
+          v69 = 0;
+          v70 = 0;
         }
 
-        v69 = v68;
+        v71 = v70;
 
-        if ([v69 UTF8String])
+        if ([v71 UTF8String])
         {
-          uTF8String2 = [v69 UTF8String];
+          uTF8String2 = [v71 UTF8String];
           if (!uTF8String2)
           {
             pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
             networkd_settings_init();
-            v113 = gLogObj;
-            os_log_type_enabled(v113, OS_LOG_TYPE_ERROR);
-            *buf = 136446210;
-            v159 = "_strict_strlcpy";
-            LODWORD(v140) = 12;
-            v139 = buf;
-            v114 = _os_log_send_and_compose_impl();
-
-            if (__nwlog_should_abort(v114))
+            v116 = gLogObj;
+            if (os_log_type_enabled(v116, OS_LOG_TYPE_ERROR))
             {
-              goto LABEL_175;
+              v117 = 3;
             }
 
-            free(v114);
+            else
+            {
+              v117 = 2;
+            }
+
+            *buf = 136446210;
+            v163 = "_strict_strlcpy";
+            LODWORD(v144) = 12;
+            v118 = _os_log_send_and_compose_impl(v117, 0, 0, 0, &dword_181A37000, v116, 16, "%{public}s strict_strlcpy called with NULL src", buf, v144);
+
+            if (__nwlog_should_abort(v118))
+            {
+              goto LABEL_187;
+            }
+
+            free(v118);
             uTF8String2 = 0;
           }
 
-          v71 = *uTF8String2;
-          v24[48] = v71;
-          if (v71)
+          v73 = *uTF8String2;
+          v24[48] = v73;
+          if (v73)
           {
-            v72 = uTF8String2[1];
-            v24[49] = v72;
-            if (v72)
+            v74 = uTF8String2[1];
+            v24[49] = v74;
+            if (v74)
             {
-              v73 = uTF8String2[2];
-              v24[50] = v73;
-              if (v73)
+              v75 = uTF8String2[2];
+              v24[50] = v75;
+              if (v75)
               {
-                v74 = uTF8String2[3];
-                v24[51] = v74;
-                if (v74)
+                v76 = uTF8String2[3];
+                v24[51] = v76;
+                if (v76)
                 {
-                  v75 = uTF8String2[4];
-                  v24[52] = v75;
-                  if (v75)
+                  v77 = uTF8String2[4];
+                  v24[52] = v77;
+                  if (v77)
                   {
-                    v76 = uTF8String2[5];
-                    v24[53] = v76;
-                    if (v76)
+                    v78 = uTF8String2[5];
+                    v24[53] = v78;
+                    if (v78)
                     {
-                      v77 = uTF8String2[6];
-                      v24[54] = v77;
-                      if (v77)
+                      v79 = uTF8String2[6];
+                      v24[54] = v79;
+                      if (v79)
                       {
-                        v78 = uTF8String2[7];
-                        v24[55] = v78;
-                        if (v78)
+                        v80 = uTF8String2[7];
+                        v24[55] = v80;
+                        if (v80)
                         {
-                          v79 = uTF8String2[8];
-                          v24[56] = v79;
-                          if (v79)
+                          v81 = uTF8String2[8];
+                          v24[56] = v81;
+                          if (v81)
                           {
-                            v80 = uTF8String2[9];
-                            v24[57] = v80;
-                            if (v80)
+                            v82 = uTF8String2[9];
+                            v24[57] = v82;
+                            if (v82)
                             {
-                              v81 = uTF8String2[10];
-                              v24[58] = v81;
-                              if (v81)
+                              v83 = uTF8String2[10];
+                              v24[58] = v83;
+                              if (v83)
                               {
-                                v82 = uTF8String2[11];
-                                v24[59] = v82;
-                                if (v82)
+                                v84 = uTF8String2[11];
+                                v24[59] = v84;
+                                if (v84)
                                 {
-                                  v83 = uTF8String2[12];
-                                  v24[60] = v83;
-                                  if (v83)
+                                  v85 = uTF8String2[12];
+                                  v24[60] = v85;
+                                  if (v85)
                                   {
-                                    v84 = uTF8String2[13];
-                                    v24[61] = v84;
-                                    if (v84)
+                                    v86 = uTF8String2[13];
+                                    v24[61] = v86;
+                                    if (v86)
                                     {
-                                      v85 = uTF8String2[14];
-                                      v24[62] = v85;
-                                      if (v85)
+                                      v87 = uTF8String2[14];
+                                      v24[62] = v87;
+                                      if (v87)
                                       {
-                                        v86 = uTF8String2[15];
-                                        v24[63] = v86;
-                                        if (v86)
+                                        v88 = uTF8String2[15];
+                                        v24[63] = v88;
+                                        if (v88)
                                         {
-                                          v87 = uTF8String2[16];
-                                          v24[64] = v87;
-                                          if (v87)
+                                          v89 = uTF8String2[16];
+                                          v24[64] = v89;
+                                          if (v89)
                                           {
-                                            v88 = uTF8String2[17];
-                                            v24[65] = v88;
-                                            if (v88)
+                                            v90 = uTF8String2[17];
+                                            v24[65] = v90;
+                                            if (v90)
                                             {
-                                              v89 = uTF8String2[18];
-                                              v24[66] = v89;
-                                              if (v89)
+                                              v91 = uTF8String2[18];
+                                              v24[66] = v91;
+                                              if (v91)
                                               {
-                                                v90 = uTF8String2[19];
-                                                v24[67] = v90;
-                                                if (v90)
+                                                v92 = uTF8String2[19];
+                                                v24[67] = v92;
+                                                if (v92)
                                                 {
-                                                  v91 = uTF8String2[20];
-                                                  v24[68] = v91;
-                                                  if (v91)
+                                                  v93 = uTF8String2[20];
+                                                  v24[68] = v93;
+                                                  if (v93)
                                                   {
-                                                    v92 = uTF8String2[21];
-                                                    v24[69] = v92;
-                                                    if (v92)
+                                                    v94 = uTF8String2[21];
+                                                    v24[69] = v94;
+                                                    if (v94)
                                                     {
-                                                      v93 = uTF8String2[22];
-                                                      v24[70] = v93;
-                                                      if (v93)
+                                                      v95 = uTF8String2[22];
+                                                      v24[70] = v95;
+                                                      if (v95)
                                                       {
-                                                        v94 = uTF8String2[23];
-                                                        v24[71] = v94;
-                                                        if (v94)
+                                                        v96 = uTF8String2[23];
+                                                        v24[71] = v96;
+                                                        if (v96)
                                                         {
-                                                          v95 = uTF8String2[24];
-                                                          v24[72] = v95;
-                                                          if (v95)
+                                                          v97 = uTF8String2[24];
+                                                          v24[72] = v97;
+                                                          if (v97)
                                                           {
-                                                            v96 = uTF8String2[25];
-                                                            v24[73] = v96;
-                                                            if (v96)
+                                                            v98 = uTF8String2[25];
+                                                            v24[73] = v98;
+                                                            if (v98)
                                                             {
-                                                              v97 = uTF8String2[26];
-                                                              v24[74] = v97;
-                                                              if (v97)
+                                                              v99 = uTF8String2[26];
+                                                              v24[74] = v99;
+                                                              if (v99)
                                                               {
-                                                                v98 = uTF8String2[27];
-                                                                v24[75] = v98;
-                                                                if (v98)
+                                                                v100 = uTF8String2[27];
+                                                                v24[75] = v100;
+                                                                if (v100)
                                                                 {
-                                                                  v99 = uTF8String2[28];
-                                                                  v24[76] = v99;
-                                                                  if (v99)
+                                                                  v101 = uTF8String2[28];
+                                                                  v24[76] = v101;
+                                                                  if (v101)
                                                                   {
-                                                                    v100 = uTF8String2[29];
-                                                                    v24[77] = v100;
-                                                                    if (v100)
+                                                                    v102 = uTF8String2[29];
+                                                                    v24[77] = v102;
+                                                                    if (v102)
                                                                     {
-                                                                      v101 = uTF8String2[30];
-                                                                      v24[78] = v101;
-                                                                      if (v101)
+                                                                      v103 = uTF8String2[30];
+                                                                      v24[78] = v103;
+                                                                      if (v103)
                                                                       {
                                                                         v24[79] = 0;
                                                                       }
@@ -2792,55 +2818,62 @@ LABEL_12:
 
         if (v19)
         {
-          v102 = *(v19 + 24);
+          v104 = *(v19 + 24);
         }
 
         else
         {
-          v102 = 0;
+          v104 = 0;
         }
 
-        v103 = v102;
-        if ([v103 UTF8String])
+        v105 = v104;
+        if ([v105 UTF8String])
         {
-          uTF8String3 = [v103 UTF8String];
+          uTF8String3 = [v105 UTF8String];
           if (!uTF8String3)
           {
             pthread_once(&nwlog_legacy_init(void)::init_once, nwlog_legacy_init_once);
             networkd_settings_init();
-            v142 = gLogObj;
-            os_log_type_enabled(v142, OS_LOG_TYPE_ERROR);
-            *buf = 136446210;
-            v159 = "_strict_strlcpy";
-            LODWORD(v140) = 12;
-            v139 = buf;
-            v141 = _os_log_send_and_compose_impl();
-
-            if (__nwlog_should_abort(v141))
+            v146 = gLogObj;
+            if (os_log_type_enabled(v146, OS_LOG_TYPE_ERROR))
             {
-LABEL_175:
-              __break(1u);
+              v119 = 3;
             }
 
-            free(v141);
+            else
+            {
+              v119 = 2;
+            }
+
+            *buf = 136446210;
+            v163 = "_strict_strlcpy";
+            LODWORD(v144) = 12;
+            v145 = _os_log_send_and_compose_impl(v119, 0, 0, 0, &dword_181A37000, v146, 16, "%{public}s strict_strlcpy called with NULL src", buf, v144);
+
+            if (__nwlog_should_abort(v145))
+            {
+              goto LABEL_187;
+            }
+
+            free(v145);
           }
 
-          v105 = v24 + 80;
-          v106 = 128;
+          v107 = v24 + 80;
+          v108 = 128;
           while (1)
           {
-            v107 = *uTF8String3;
-            *v105 = v107;
-            if (!v107)
+            v109 = *uTF8String3;
+            *v107 = v109;
+            if (!v109)
             {
               break;
             }
 
-            ++v105;
+            ++v107;
             ++uTF8String3;
-            if (--v106 <= 1)
+            if (--v108 <= 1)
             {
-              *v105 = 0;
+              *v107 = 0;
               break;
             }
           }
@@ -2873,85 +2906,85 @@ LABEL_175:
             *(v24 + 52) |= 0x80u;
           }
 
-          *(v24 + 53) = v151;
-          if (v151)
+          *(v24 + 53) = v155;
+          if (v155)
           {
-            v108 = *(v19 + 16);
-LABEL_127:
-            v109 = v108;
-            [v109 getBytes:v24 + 216 length:v151];
+            v110 = *(v19 + 16);
+LABEL_130:
+            v111 = v110;
+            [v111 getBytes:v24 + 216 length:v155];
           }
         }
 
         else
         {
-          *(v24 + 53) = v151;
-          if (v151)
+          *(v24 + 53) = v155;
+          if (v155)
           {
-            v108 = 0;
-            goto LABEL_127;
+            v110 = 0;
+            goto LABEL_130;
           }
         }
 
-        xpc_dictionary_set_data(v29, "data", v24, v23);
+        xpc_dictionary_set_data(v31, "data", v24, v23);
         free(v24);
-        uTF8String4 = [v28 UTF8String];
+        uTF8String4 = [v30 UTF8String];
         if (uTF8String4)
         {
-          xpc_dictionary_set_value(xdict, uTF8String4, v29);
+          xpc_dictionary_set_value(xdict, uTF8String4, v31);
         }
 
         ++v18;
       }
 
-      while (v18 != v150);
-      v115 = [(NSMutableArray *)obj countByEnumeratingWithState:&v153 objects:v164 count:16];
-      v150 = v115;
-      if (!v115)
+      while (v18 != v154);
+      v120 = [(NSMutableArray *)obj countByEnumeratingWithState:&v157 objects:v168 count:16];
+      v154 = v120;
+      if (!v120)
       {
-LABEL_148:
+LABEL_160:
 
-        goto LABEL_150;
+        goto LABEL_162;
       }
     }
   }
 
   xdict = 0;
-LABEL_150:
-  v116 = v146;
-  endpoint = v146->_endpoint;
+LABEL_162:
+  v121 = v150;
+  endpoint = v150->_endpoint;
   if (endpoint)
   {
-    v118 = endpoint;
-    data3 = [(NWPBEndpoint *)v118 data];
-    v152 = [NWEndpoint endpointWithProtocolBufferData:data3];
+    v123 = endpoint;
+    data3 = [(NWPBEndpoint *)v123 data];
+    v156 = [NWEndpoint endpointWithProtocolBufferData:data3];
 
-    v116 = v146;
+    v121 = v150;
   }
 
   else
   {
-    v152 = 0;
+    v156 = 0;
   }
 
-  parameters = v116->_parameters;
+  parameters = v121->_parameters;
   if (parameters)
   {
-    v121 = parameters;
-    data4 = [(NWPBParameters *)v121 data];
-    v123 = [NWParameters parametersWithProtocolBufferData:data4];
+    v126 = parameters;
+    data4 = [(NWPBParameters *)v126 data];
+    v128 = [NWParameters parametersWithProtocolBufferData:data4];
   }
 
   else
   {
-    v123 = 0;
+    v128 = 0;
   }
 
-  internalEndpoint = [v152 internalEndpoint];
-  internalParameters = [v123 internalParameters];
-  if (*&v146->_has)
+  internalEndpoint = [v156 internalEndpoint];
+  internalParameters = [v128 internalParameters];
+  if (*&v150->_has)
   {
-    status = v146->_status;
+    status = v150->_status;
   }
 
   else
@@ -2959,17 +2992,17 @@ LABEL_150:
     status = 0;
   }
 
-  direct = v146->_direct;
-  local = v146->_local;
-  ipv4 = v146->_ipv4;
-  ipv6 = v146->_ipv6;
-  internalInterface = [v144 internalInterface];
-  internalInterface2 = [v143 internalInterface];
-  v133 = _nw_path_create_static(internalEndpoint, internalParameters, status, uu, direct, local, ipv4, ipv6, internalInterface, internalInterface2, xdict);
+  direct = v150->_direct;
+  local = v150->_local;
+  ipv4 = v150->_ipv4;
+  ipv6 = v150->_ipv6;
+  internalInterface = [v148 internalInterface];
+  internalInterface2 = [v147 internalInterface];
+  v138 = _nw_path_create_static(internalEndpoint, internalParameters, status, uu, direct, local, ipv4, ipv6, internalInterface, internalInterface2, xdict);
 
-  v14 = [[NWPath alloc] initWithPath:v133];
-  v13 = v146;
-LABEL_160:
+  v14 = [[NWPath alloc] initWithPath:v138];
+  v13 = v150;
+LABEL_172:
 
   return v14;
 }

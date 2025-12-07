@@ -20,44 +20,44 @@
 - (CKSyndicationContentViewController)initWithIndex:(unint64_t)index
 {
   selfCopy = self;
-  [(CKSyndicationContentViewController *)self setOnboardingPage:?];
+  v5 = [(CKSyndicationContentViewController *)self setOnboardingPage:?];
   switch(index)
   {
     case 2uLL:
-      v12 = CKFrameworkBundle();
-      v6 = [v12 localizedStringForKey:@"WHATS_NEW_SYNDICATION_PINS_DETAIL_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+      v15 = CKFrameworkBundle(v5);
+      v7 = [v15 localizedStringForKey:@"WHATS_NEW_SYNDICATION_PINS_DETAIL_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-      v13 = CKFrameworkBundle();
-      v8 = [v13 localizedStringForKey:@"WHATS_NEW_SYNDICATION_PINS_DETAIL_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
+      v17 = CKFrameworkBundle(v16);
+      v10 = [v17 localizedStringForKey:@"WHATS_NEW_SYNDICATION_PINS_DETAIL_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
 
-      cKSyndicationContentViewController = [(CKSyndicationContentViewController *)&v15 initWithTitle:v6 detailText:v8 icon:0, selfCopy, CKSyndicationContentViewController, v16.receiver, v16.super_class, v17.receiver, v17.super_class];
+      cKSyndicationContentViewController = [(CKSyndicationContentViewController *)&v19 initWithTitle:v7 detailText:v10 icon:0, selfCopy, CKSyndicationContentViewController, v20.receiver, v20.super_class, v21.receiver, v21.super_class];
       goto LABEL_9;
     case 1uLL:
-      v10 = CKFrameworkBundle();
-      v6 = [v10 localizedStringForKey:@"WHATS_NEW_SYNDICATION_PHOTOS_DETAIL_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+      v12 = CKFrameworkBundle(v5);
+      v7 = [v12 localizedStringForKey:@"WHATS_NEW_SYNDICATION_PHOTOS_DETAIL_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-      v11 = CKFrameworkBundle();
-      v8 = [v11 localizedStringForKey:@"WHATS_NEW_SYNDICATION_PHOTOS_DETAIL_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
+      v14 = CKFrameworkBundle(v13);
+      v10 = [v14 localizedStringForKey:@"WHATS_NEW_SYNDICATION_PHOTOS_DETAIL_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
 
-      cKSyndicationContentViewController = [(CKSyndicationContentViewController *)&v16 initWithTitle:v6 detailText:v8 icon:0, v15.receiver, v15.super_class, selfCopy, CKSyndicationContentViewController, v17.receiver, v17.super_class];
+      cKSyndicationContentViewController = [(CKSyndicationContentViewController *)&v20 initWithTitle:v7 detailText:v10 icon:0, v19.receiver, v19.super_class, selfCopy, CKSyndicationContentViewController, v21.receiver, v21.super_class];
 LABEL_9:
       selfCopy = cKSyndicationContentViewController;
 
       return selfCopy;
     case 0uLL:
-      v5 = CKFrameworkBundle();
-      v6 = [v5 localizedStringForKey:@"WHATS_NEW_SYNDICATION_DETAIL_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+      v6 = CKFrameworkBundle(v5);
+      v7 = [v6 localizedStringForKey:@"WHATS_NEW_SYNDICATION_DETAIL_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-      v7 = CKFrameworkBundle();
-      v8 = [v7 localizedStringForKey:@"WHATS_NEW_SYNDICATION_DETAIL_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
+      v9 = CKFrameworkBundle(v8);
+      v10 = [v9 localizedStringForKey:@"WHATS_NEW_SYNDICATION_DETAIL_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
 
-      if ([(__CFString *)v8 isEqualToString:@"WHATS_NEW_SYNDICATION_DETAIL_DESCRIPTION_MAC"])
+      if ([(__CFString *)v10 isEqualToString:@"WHATS_NEW_SYNDICATION_DETAIL_DESCRIPTION_MAC"])
       {
 
-        v8 = @"Content shared in Messages can automatically appear in apps such as Photos, Safari, and more.";
+        v10 = @"Content shared in Messages can automatically appear in apps such as Photos, Safari, and more.";
       }
 
-      cKSyndicationContentViewController = [(CKSyndicationContentViewController *)&v17 initWithTitle:v6 detailText:v8 icon:0, v15.receiver, v15.super_class, v16.receiver, v16.super_class, selfCopy, CKSyndicationContentViewController];
+      cKSyndicationContentViewController = [(CKSyndicationContentViewController *)&v21 initWithTitle:v7 detailText:v10 icon:0, v19.receiver, v19.super_class, v20.receiver, v20.super_class, selfCopy, CKSyndicationContentViewController];
       goto LABEL_9;
   }
 
@@ -741,7 +741,7 @@ LABEL_26:
 
 - (id)_setUpPhotosMicropillForAvatarImage:(id)image forName:(id)name
 {
-  v66[1] = *MEMORY[0x1E69E9840];
+  v67[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v6 = MEMORY[0x1E69DD298];
   imageCopy = image;
@@ -753,104 +753,104 @@ LABEL_26:
   layer = [v10 layer];
   [layer setMasksToBounds:1];
 
-  v58 = objc_alloc_init(MEMORY[0x1E69DCC10]);
-  [v58 setTranslatesAutoresizingMaskIntoConstraints:0];
-  [v58 setNumberOfLines:1];
-  [v58 setLineBreakMode:2];
-  v63 = [MEMORY[0x1E69DB878] systemFontOfSize:4.0];
-  v62 = [MEMORY[0x1E69DCAD8] configurationWithFont:v63 scale:1];
-  v12 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"chevron.forward" withConfiguration:v62];
-  v60 = [v12 imageWithRenderingMode:2];
+  v59 = objc_alloc_init(MEMORY[0x1E69DCC10]);
+  [v59 setTranslatesAutoresizingMaskIntoConstraints:0];
+  [v59 setNumberOfLines:1];
+  [v59 setLineBreakMode:2];
+  v64 = [MEMORY[0x1E69DB878] systemFontOfSize:4.0];
+  v63 = [MEMORY[0x1E69DCAD8] configurationWithFont:v64 scale:1];
+  v12 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"chevron.forward" withConfiguration:v63];
+  v61 = [v12 imageWithRenderingMode:2];
 
-  v61 = [MEMORY[0x1E69DB7F0] textAttachmentWithImage:imageCopy];
+  v62 = [MEMORY[0x1E69DB7F0] textAttachmentWithImage:imageCopy];
 
-  [v61 setBounds:{0.0, -1.0, 15.0, 15.0}];
-  [v61 setAdjustsImageSizeForAccessibilityContentSizeCategory:1];
-  v13 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v61];
-  v55 = v13;
-  v14 = [MEMORY[0x1E69DB7F0] textAttachmentWithImage:v60];
+  [v62 setBounds:{0.0, -1.0, 15.0, 15.0}];
+  [v62 setAdjustsImageSizeForAccessibilityContentSizeCategory:1];
+  v13 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v62];
+  v56 = v13;
+  v14 = [MEMORY[0x1E69DB7F0] textAttachmentWithImage:v61];
   [v14 setBounds:{4.0, 2.0, 6.0, 8.0}];
-  v59 = v14;
+  v60 = v14;
   [v14 setAdjustsImageSizeForAccessibilityContentSizeCategory:1];
   v15 = MEMORY[0x1E696AAB0];
-  v65 = *MEMORY[0x1E69DB650];
+  v66 = *MEMORY[0x1E69DB650];
   secondaryLabelColor = [MEMORY[0x1E69DC888] secondaryLabelColor];
-  v66[0] = secondaryLabelColor;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v66 forKeys:&v65 count:1];
+  v67[0] = secondaryLabelColor;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v67 forKeys:&v66 count:1];
   v18 = [v15 attributedStringWithAttachment:v14 attributes:v17];
-  v54 = v18;
+  v55 = v18;
 
   v19 = MEMORY[0x1E696AEC0];
-  v20 = CKFrameworkBundle();
-  v21 = [v20 localizedStringForKey:@"WHATS_NEW_SYNDICATION_PHOTOS" value:&stru_1F04268F8 table:@"ChatKit"];
-  v22 = nameCopy;
-  v57 = nameCopy;
-  nameCopy = [v19 stringWithFormat:v21, nameCopy];
+  v21 = CKFrameworkBundle(v20);
+  v22 = [v21 localizedStringForKey:@"WHATS_NEW_SYNDICATION_PHOTOS" value:&stru_1F04268F8 table:@"ChatKit"];
+  v23 = nameCopy;
+  v58 = nameCopy;
+  nameCopy = [v19 stringWithFormat:v22, nameCopy];
 
   mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
   userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
   if (userInterfaceLayoutDirection == 1)
   {
-    v26 = @"\u200F";
+    v27 = @"\u200F";
   }
 
   else
   {
-    v26 = @"\u200E";
+    v27 = @"\u200E";
   }
 
-  v27 = [(__CFString *)v26 stringByAppendingString:nameCopy];
+  v28 = [(__CFString *)v27 stringByAppendingString:nameCopy];
 
-  v56 = v27;
-  v28 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v27];
-  v29 = *MEMORY[0x1E69DB648];
-  v30 = [MEMORY[0x1E69DB878] systemFontOfSize:12.0];
-  [v28 addAttribute:v29 value:v30 range:{0, objc_msgSend(v28, "length")}];
+  v57 = v28;
+  v29 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v28];
+  v30 = *MEMORY[0x1E69DB648];
+  v31 = [MEMORY[0x1E69DB878] systemFontOfSize:12.0];
+  [v29 addAttribute:v30 value:v31 range:{0, objc_msgSend(v29, "length")}];
 
-  v31 = [v27 rangeOfString:v22];
-  v33 = v32;
-  v34 = [MEMORY[0x1E69DB878] boldSystemFontOfSize:12.0];
-  [v28 addAttribute:v29 value:v34 range:{v31, v33}];
+  v32 = [v28 rangeOfString:v23];
+  v34 = v33;
+  v35 = [MEMORY[0x1E69DB878] boldSystemFontOfSize:12.0];
+  [v29 addAttribute:v30 value:v35 range:{v32, v34}];
 
-  [v28 addAttribute:*MEMORY[0x1E69DB610] value:&unk_1F04E89D8 range:{0, objc_msgSend(v28, "length")}];
-  v53 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:@"%@ %@ %@"];
-  v52 = [MEMORY[0x1E696AAB0] localizedAttributedStringWithFormat:v53, v13, v28, v18];
-  [v58 setAttributedText:v52];
+  [v29 addAttribute:*MEMORY[0x1E69DB610] value:&unk_1F04E89D8 range:{0, objc_msgSend(v29, "length")}];
+  v54 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:@"%@ %@ %@"];
+  v53 = [MEMORY[0x1E696AAB0] localizedAttributedStringWithFormat:v54, v13, v29, v18];
+  [v59 setAttributedText:v53];
   contentView = [v10 contentView];
-  [contentView addSubview:v58];
+  [contentView addSubview:v59];
 
-  v46 = MEMORY[0x1E696ACD8];
-  leadingAnchor = [v58 leadingAnchor];
+  v47 = MEMORY[0x1E696ACD8];
+  leadingAnchor = [v59 leadingAnchor];
   leadingAnchor2 = [v10 leadingAnchor];
-  v49 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:5.0];
-  v64[0] = v49;
-  trailingAnchor = [v58 trailingAnchor];
+  v50 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:5.0];
+  v65[0] = v50;
+  trailingAnchor = [v59 trailingAnchor];
   trailingAnchor2 = [v10 trailingAnchor];
-  v36 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-5.0];
-  v64[1] = v36;
-  topAnchor = [v58 topAnchor];
+  v37 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-5.0];
+  v65[1] = v37;
+  topAnchor = [v59 topAnchor];
   topAnchor2 = [v10 topAnchor];
-  v39 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v64[2] = v39;
-  bottomAnchor = [v58 bottomAnchor];
-  v45 = v10;
+  v40 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v65[2] = v40;
+  bottomAnchor = [v59 bottomAnchor];
+  v46 = v10;
   bottomAnchor2 = [v10 bottomAnchor];
-  v42 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v64[3] = v42;
-  v43 = [MEMORY[0x1E695DEC8] arrayWithObjects:v64 count:4];
-  [v46 activateConstraints:v43];
+  v43 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  v65[3] = v43;
+  v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:4];
+  [v47 activateConstraints:v44];
 
-  [v58 sizeToFit];
+  [v59 sizeToFit];
 
-  return v45;
+  return v46;
 }
 
 - (void)setUpPhotosContent
 {
-  v46 = [MEMORY[0x1E69DCAB8] ckImageNamed:@"WhatsNew_Photos1"];
+  v47 = [MEMORY[0x1E69DCAB8] ckImageNamed:@"WhatsNew_Photos1"];
   v3 = [MEMORY[0x1E69DCAB8] ckImageNamed:@"WhatsNew_Photos2"];
-  v4 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v46];
+  v4 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v47];
   [(CKSyndicationContentViewController *)self setHighlightsView1:v4];
 
   v5 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v3];
@@ -864,15 +864,15 @@ LABEL_26:
 
   v8 = [MEMORY[0x1E69DCAB8] ckImageNamed:@"Syndication_Avatar7"];
   v9 = [MEMORY[0x1E69DCAB8] ckImageNamed:@"Syndication_Avatar8"];
-  v10 = CKFrameworkBundle();
+  v10 = CKFrameworkBundle(v9);
   v11 = [v10 localizedStringForKey:@"WHATS_NEW_SYNDICATION_PHOTOS_EXAMPLE_NAME1" value:&stru_1F04268F8 table:@"ChatKit"];
   v12 = [(CKSyndicationContentViewController *)self _setUpPhotosMicropillForAvatarImage:v8 forName:v11];
   [(CKSyndicationContentViewController *)self setMicropillView1:v12];
 
-  v13 = CKFrameworkBundle();
-  v14 = [v13 localizedStringForKey:@"WHATS_NEW_SYNDICATION_PHOTOS_EXAMPLE_NAME2" value:&stru_1F04268F8 table:@"ChatKit"];
-  v15 = [(CKSyndicationContentViewController *)self _setUpPhotosMicropillForAvatarImage:v9 forName:v14];
-  [(CKSyndicationContentViewController *)self setMicropillView2:v15];
+  v14 = CKFrameworkBundle(v13);
+  v15 = [v14 localizedStringForKey:@"WHATS_NEW_SYNDICATION_PHOTOS_EXAMPLE_NAME2" value:&stru_1F04268F8 table:@"ChatKit"];
+  v16 = [(CKSyndicationContentViewController *)self _setUpPhotosMicropillForAvatarImage:v9 forName:v15];
+  [(CKSyndicationContentViewController *)self setMicropillView2:v16];
 
   highlightsView12 = [(CKSyndicationContentViewController *)self highlightsView1];
   layer = [highlightsView12 layer];
@@ -890,47 +890,47 @@ LABEL_26:
   layer4 = [highlightsView23 layer];
   [layer4 setMasksToBounds:1];
 
-  v24 = objc_alloc_init(MEMORY[0x1E69DCAE0]);
-  layer5 = [v24 layer];
+  v25 = objc_alloc_init(MEMORY[0x1E69DCAE0]);
+  layer5 = [v25 layer];
   blackColor = [MEMORY[0x1E69DC888] blackColor];
   [layer5 setShadowColor:{objc_msgSend(blackColor, "CGColor")}];
 
-  layer6 = [v24 layer];
-  LODWORD(v28) = *"333?";
-  [layer6 setShadowOpacity:v28];
+  layer6 = [v25 layer];
+  LODWORD(v29) = *"333?";
+  [layer6 setShadowOpacity:v29];
 
-  layer7 = [v24 layer];
+  layer7 = [v25 layer];
   [layer7 setShadowRadius:25.0];
 
-  layer8 = [v24 layer];
+  layer8 = [v25 layer];
   [layer8 setShadowOffset:{0.0, 2.0}];
 
   highlightsView14 = [(CKSyndicationContentViewController *)self highlightsView1];
-  [v24 addSubview:highlightsView14];
+  [v25 addSubview:highlightsView14];
 
-  v32 = objc_alloc_init(MEMORY[0x1E69DCAE0]);
-  layer9 = [v32 layer];
+  v33 = objc_alloc_init(MEMORY[0x1E69DCAE0]);
+  layer9 = [v33 layer];
   blackColor2 = [MEMORY[0x1E69DC888] blackColor];
   [layer9 setShadowColor:{objc_msgSend(blackColor2, "CGColor")}];
 
-  layer10 = [v32 layer];
-  LODWORD(v36) = *"333?";
-  [layer10 setShadowOpacity:v36];
+  layer10 = [v33 layer];
+  LODWORD(v37) = *"333?";
+  [layer10 setShadowOpacity:v37];
 
-  layer11 = [v32 layer];
+  layer11 = [v33 layer];
   [layer11 setShadowRadius:10.0];
 
-  layer12 = [v32 layer];
+  layer12 = [v33 layer];
   [layer12 setShadowOffset:{0.0, 2.0}];
 
   highlightsView24 = [(CKSyndicationContentViewController *)self highlightsView2];
-  [v32 addSubview:highlightsView24];
+  [v33 addSubview:highlightsView24];
 
   contentView = [(CKSyndicationContentViewController *)self contentView];
-  [contentView addSubview:v24];
+  [contentView addSubview:v25];
 
   contentView2 = [(CKSyndicationContentViewController *)self contentView];
-  [contentView2 addSubview:v32];
+  [contentView2 addSubview:v33];
 
   contentView3 = [(CKSyndicationContentViewController *)self contentView];
   micropillView1 = [(CKSyndicationContentViewController *)self micropillView1];

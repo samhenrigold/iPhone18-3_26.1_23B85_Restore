@@ -149,8 +149,9 @@ uint64_t CreateIteratorForDriverOfType(IONotificationPort *a1, CFAbsoluteTime *a
   return 0;
 }
 
-void DriverAppeared(double *a1, io_iterator_t a2)
+void DriverAppeared(double *a1, uint64_t a2)
 {
+  v2 = a2;
   if (a1)
   {
     v3 = CFAbsoluteTimeGetCurrent() - *a1;
@@ -161,7 +162,7 @@ void DriverAppeared(double *a1, io_iterator_t a2)
     v3 = 0.0;
   }
 
-  if (MergePropertiesWithIterator(a2))
+  if (MergePropertiesWithIterator(v2))
   {
     syslog(5, "Found the mt driver after %f seconds. Exiting.\n", v3);
     Main = CFRunLoopGetMain();

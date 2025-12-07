@@ -440,7 +440,7 @@ LABEL_20:
 
 - (void)valueChangedForGEOConfigKey:(id)key
 {
-  if (key.var0 == GeoServicesConfig_ClientAuthFeatureFlagsStateInfo && key.var1 == *(&GeoServicesConfig_ClientAuthFeatureFlagsStateInfo + 1))
+  if (key.var0 == LODWORD(GeoServicesConfig_ClientAuthFeatureFlagsStateInfo[0]) && key.var1 == GeoServicesConfig_ClientAuthFeatureFlagsStateInfo[1])
   {
     tableView = [(EnvironmentsViewController *)self tableView];
     [tableView reloadData];

@@ -43,8 +43,7 @@
 
 - (void)runWithCompletion:(id)completion
 {
-  [(AccessoryCurrentLocationAction *)self setCompletion:completion];
-  v4 = sub_100002880();
+  v4 = sub_100002880([(AccessoryCurrentLocationAction *)self setCompletion:completion]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -77,7 +76,7 @@
 
 - (void)_retrieveLocationNow
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -131,7 +130,7 @@
 
 - (void)_finishAction
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;

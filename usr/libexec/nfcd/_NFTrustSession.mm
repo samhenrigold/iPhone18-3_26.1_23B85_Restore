@@ -162,7 +162,7 @@ LABEL_25:
     goto LABEL_27;
   }
 
-  v6 = sub_10001F6E4();
+  v6 = sub_10001F6E4(NFTrustDataBase);
   [(_NFTrustSession *)v5 setTrustDB:v6];
 
   trustDB = [(_NFTrustSession *)v5 trustDB];
@@ -377,7 +377,7 @@ LABEL_28:
 
 - (BOOL)willStartSession
 {
-  sub_10026449C();
+  sub_10026449C(NFSecureElementWrapper);
   v4.receiver = self;
   v4.super_class = _NFTrustSession;
   return [(_NFSession *)&v4 willStartSession];

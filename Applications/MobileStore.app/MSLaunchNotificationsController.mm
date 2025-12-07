@@ -47,18 +47,18 @@
 
   if (activeAccount)
   {
-    v4 = sub_100003088();
-    v5 = [objc_alloc(sub_100003150(@"AAUIFamilySetupPrompter" v4))];
+    v5 = sub_100003088(activeAccount, v4);
+    v6 = [objc_alloc(sub_100003150(@"AAUIFamilySetupPrompter" v5))];
     familySetupPrompter = self->_familySetupPrompter;
-    self->_familySetupPrompter = v5;
+    self->_familySetupPrompter = v6;
 
-    v7 = self->_familySetupPrompter;
+    v8 = self->_familySetupPrompter;
     WeakRetained = objc_loadWeakRetained(&self->_parentViewController);
-    [(AAUIFamilySetupPrompter *)v7 promptIfEligibleWithPresentingViewController:WeakRetained isFirstRun:1];
+    [(AAUIFamilySetupPrompter *)v8 promptIfEligibleWithPresentingViewController:WeakRetained isFirstRun:1];
 
-    v9 = +[NSUserDefaults standardUserDefaults];
-    [v9 setBool:1 forKey:@"SUUIFamilySetupDisplayed"];
-    [v9 synchronize];
+    v10 = +[NSUserDefaults standardUserDefaults];
+    [v10 setBool:1 forKey:@"SUUIFamilySetupDisplayed"];
+    [v10 synchronize];
   }
 }
 

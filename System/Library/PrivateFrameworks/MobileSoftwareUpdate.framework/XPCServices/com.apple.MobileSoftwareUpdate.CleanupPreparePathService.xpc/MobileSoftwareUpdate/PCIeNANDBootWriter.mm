@@ -187,24 +187,22 @@
   return v7;
 }
 
-- (void)initWithServiceNamed:(uint64_t *)a1 parent:(_OWORD *)a2 .cold.1(uint64_t *a1, _OWORD *a2)
+- (void)initWithServiceNamed:(void *)a1 parent:(_OWORD *)a2 .cold.1(void *a1, _OWORD *a2)
 {
   OUTLINED_FUNCTION_2_0(a1, a2);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1(v3, v4, v5, v6, &_mh_execute_header);
-  v7 = *a1;
+  OUTLINED_FUNCTION_1(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }
 
-- (void)writeFirmware:(uint64_t *)a1 error:(_OWORD *)a2 .cold.1(uint64_t *a1, _OWORD *a2)
+- (void)writeFirmware:(void *)a1 error:(_OWORD *)a2 .cold.1(void *a1, _OWORD *a2)
 {
   OUTLINED_FUNCTION_2_0(a1, a2);
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1(v3, v4, v5, v6, &_mh_execute_header);
-  v7 = *a1;
+  OUTLINED_FUNCTION_1(v2, v3, v4, v5, &_mh_execute_header);
   _os_crash_msg();
   __break(1u);
 }

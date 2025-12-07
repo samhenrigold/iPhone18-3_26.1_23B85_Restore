@@ -14,16 +14,16 @@
 
 - (void)resolveLabelForCreateTimer:(id)timer withCompletion:(id)completion
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   timerCopy = timer;
   completionCopy = completion;
   v8 = *MEMORY[0x1E696E6D8];
   if (os_log_type_enabled(*MEMORY[0x1E696E6D8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v35 = "[MTCreateTimerIntentHandler resolveLabelForCreateTimer:withCompletion:]";
-    v36 = 2112;
-    v37 = timerCopy;
+    v34 = "[MTCreateTimerIntentHandler resolveLabelForCreateTimer:withCompletion:]";
+    v35 = 2112;
+    v36 = timerCopy;
     _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%s %@", buf, 0x16u);
   }
 
@@ -55,10 +55,10 @@
       type = 1;
     }
 
-    v32 = @"MTTimerIntentSupportSiriContextTimerTypeKey";
+    v31 = @"MTTimerIntentSupportSiriContextTimerTypeKey";
     v15 = [MEMORY[0x1E696AD98] numberWithInteger:type];
-    v33 = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v32 = v15;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
     [(MTTimer *)v11 setSiriContext:v16];
 
     aBlock[0] = MEMORY[0x1E69E9820];
@@ -66,24 +66,24 @@
     aBlock[2] = __72__MTCreateTimerIntentHandler_resolveLabelForCreateTimer_withCompletion___block_invoke;
     aBlock[3] = &unk_1E7B0DA88;
     v17 = _timerManager;
-    v27 = v17;
+    v26 = v17;
     v18 = timerCopy;
-    v28 = v18;
+    v27 = v18;
     selfCopy = self;
     v19 = v11;
-    v30 = v19;
+    v29 = v19;
     v20 = completionCopy;
-    v31 = v20;
+    v30 = v20;
     v21 = _Block_copy(aBlock);
     if ([v18 type] == 2)
     {
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __72__MTCreateTimerIntentHandler_resolveLabelForCreateTimer_withCompletion___block_invoke_7;
-      v23[3] = &unk_1E7B0DAB0;
-      v24 = v21;
-      v25 = v20;
-      [(MTCreateTimerIntentHandler *)self _checkNowPlayingMediaState:v23];
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __72__MTCreateTimerIntentHandler_resolveLabelForCreateTimer_withCompletion___block_invoke_7;
+      v22[3] = &unk_1E7B0DAB0;
+      v23 = v21;
+      v24 = v20;
+      [(MTCreateTimerIntentHandler *)self _checkNowPlayingMediaState:v22];
     }
 
     else
@@ -91,8 +91,6 @@
       v21[2](v21);
     }
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __72__MTCreateTimerIntentHandler_resolveLabelForCreateTimer_withCompletion___block_invoke(uint64_t a1)
@@ -123,7 +121,7 @@ void __72__MTCreateTimerIntentHandler_resolveLabelForCreateTimer_withCompletion_
 
 void __72__MTCreateTimerIntentHandler_resolveLabelForCreateTimer_withCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   v4 = a2;
   v5 = [v3 label];
@@ -167,18 +165,16 @@ void __72__MTCreateTimerIntentHandler_resolveLabelForCreateTimer_withCompletion_
   if (os_log_type_enabled(*MEMORY[0x1E696E6D8], OS_LOG_TYPE_INFO))
   {
     v14 = *(a1 + 32);
-    v16 = 136315650;
-    v17 = "[MTCreateTimerIntentHandler resolveLabelForCreateTimer:withCompletion:]_block_invoke_2";
-    v18 = 2112;
-    v19 = v14;
-    v20 = 2112;
-    v21 = v11;
-    _os_log_impl(&dword_1B1F9F000, v13, OS_LOG_TYPE_INFO, "%s Handled resolve label for intent: %@ with result: %@", &v16, 0x20u);
+    v15 = 136315650;
+    v16 = "[MTCreateTimerIntentHandler resolveLabelForCreateTimer:withCompletion:]_block_invoke_2";
+    v17 = 2112;
+    v18 = v14;
+    v19 = 2112;
+    v20 = v11;
+    _os_log_impl(&dword_1B1F9F000, v13, OS_LOG_TYPE_INFO, "%s Handled resolve label for intent: %@ with result: %@", &v15, 0x20u);
   }
 
   (*(*(a1 + 56) + 16))();
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __72__MTCreateTimerIntentHandler_resolveLabelForCreateTimer_withCompletion___block_invoke_4(uint64_t a1, void *a2)
@@ -186,7 +182,7 @@ void __72__MTCreateTimerIntentHandler_resolveLabelForCreateTimer_withCompletion_
   v3 = a2;
   if (os_log_type_enabled(*MEMORY[0x1E696E6D8], OS_LOG_TYPE_ERROR))
   {
-    __72__MTCreateTimerIntentHandler_resolveLabelForCreateTimer_withCompletion___block_invoke_4_cold_1(a1);
+    __72__MTCreateTimerIntentHandler_resolveLabelForCreateTimer_withCompletion___block_invoke_4_cold_1();
   }
 
   v4 = [MEMORY[0x1E696E7E0] unsupported];
@@ -214,18 +210,18 @@ void __72__MTCreateTimerIntentHandler_resolveLabelForCreateTimer_withCompletion_
 
 - (void)resolveDurationForCreateTimer:(id)timer withCompletion:(id)completion
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   timerCopy = timer;
   completionCopy = completion;
   v7 = MEMORY[0x1E696E6D8];
   v8 = *MEMORY[0x1E696E6D8];
   if (os_log_type_enabled(*MEMORY[0x1E696E6D8], OS_LOG_TYPE_INFO))
   {
-    v21 = 136315394;
-    v22 = "[MTCreateTimerIntentHandler resolveDurationForCreateTimer:withCompletion:]";
-    v23 = 2112;
-    v24 = timerCopy;
-    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%s %@", &v21, 0x16u);
+    v20 = 136315394;
+    v21 = "[MTCreateTimerIntentHandler resolveDurationForCreateTimer:withCompletion:]";
+    v22 = 2112;
+    v23 = timerCopy;
+    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%s %@", &v20, 0x16u);
   }
 
   if (completionCopy)
@@ -261,10 +257,10 @@ void __72__MTCreateTimerIntentHandler_resolveLabelForCreateTimer_withCompletion_
       type = 1;
     }
 
-    v27 = @"MTTimerIntentSupportSiriContextTimerTypeKey";
+    v26 = @"MTTimerIntentSupportSiriContextTimerTypeKey";
     v15 = [MEMORY[0x1E696AD98] numberWithInteger:type];
-    v28[0] = v15;
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v27[0] = v15;
+    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     [(MTTimer *)v10 setSiriContext:v16];
 
     [timerCopy duration];
@@ -274,13 +270,13 @@ void __72__MTCreateTimerIntentHandler_resolveLabelForCreateTimer_withCompletion_
       v19 = *v7;
       if (os_log_type_enabled(*v7, OS_LOG_TYPE_INFO))
       {
-        v21 = 136315650;
-        v22 = "[MTCreateTimerIntentHandler resolveDurationForCreateTimer:withCompletion:]";
-        v23 = 2112;
-        v24 = timerCopy;
-        v25 = 2112;
-        v26 = needsValue;
-        _os_log_impl(&dword_1B1F9F000, v19, OS_LOG_TYPE_INFO, "%s Handled resolve duration for intent: %@ with result: %@", &v21, 0x20u);
+        v20 = 136315650;
+        v21 = "[MTCreateTimerIntentHandler resolveDurationForCreateTimer:withCompletion:]";
+        v22 = 2112;
+        v23 = timerCopy;
+        v24 = 2112;
+        v25 = needsValue;
+        _os_log_impl(&dword_1B1F9F000, v19, OS_LOG_TYPE_INFO, "%s Handled resolve duration for intent: %@ with result: %@", &v20, 0x20u);
       }
     }
 
@@ -291,13 +287,11 @@ void __72__MTCreateTimerIntentHandler_resolveLabelForCreateTimer_withCompletion_
 
     completionCopy[2](completionCopy, needsValue);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resolveTypeForCreateTimer:(id)timer withCompletion:(id)completion
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   timerCopy = timer;
   completionCopy = completion;
   v8 = MEMORY[0x1E696E6D8];
@@ -316,30 +310,30 @@ void __72__MTCreateTimerIntentHandler_resolveLabelForCreateTimer_withCompletion_
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v32 = __Block_byref_object_copy__3;
-    v33 = __Block_byref_object_dispose__3;
-    v34 = [MEMORY[0x1E696EAD0] successWithResolvedTimerType:{objc_msgSend(timerCopy, "type")}];
+    v31 = __Block_byref_object_copy__3;
+    v32 = __Block_byref_object_dispose__3;
+    v33 = [MEMORY[0x1E696EAD0] successWithResolvedTimerType:{objc_msgSend(timerCopy, "type")}];
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __71__MTCreateTimerIntentHandler_resolveTypeForCreateTimer_withCompletion___block_invoke;
     aBlock[3] = &unk_1E7B0DB00;
     v10 = timerCopy;
-    v21 = v10;
+    v20 = v10;
     selfCopy = self;
-    v24 = buf;
+    v23 = buf;
     v11 = completionCopy;
-    v23 = v11;
+    v22 = v11;
     v12 = _Block_copy(aBlock);
     if ([v10 type] == 2)
     {
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __71__MTCreateTimerIntentHandler_resolveTypeForCreateTimer_withCompletion___block_invoke_3;
-      v16[3] = &unk_1E7B0DB28;
-      v18 = v12;
-      v19 = v11;
-      v17 = v10;
-      [(MTCreateTimerIntentHandler *)self _checkNowPlayingMediaState:v16];
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __71__MTCreateTimerIntentHandler_resolveTypeForCreateTimer_withCompletion___block_invoke_3;
+      v15[3] = &unk_1E7B0DB28;
+      v17 = v12;
+      v18 = v11;
+      v16 = v10;
+      [(MTCreateTimerIntentHandler *)self _checkNowPlayingMediaState:v15];
     }
 
     else
@@ -348,13 +342,13 @@ void __72__MTCreateTimerIntentHandler_resolveLabelForCreateTimer_withCompletion_
       if (os_log_type_enabled(*v8, OS_LOG_TYPE_INFO))
       {
         v14 = *(*&buf[8] + 40);
-        *v25 = 136315650;
-        v26 = "[MTCreateTimerIntentHandler resolveTypeForCreateTimer:withCompletion:]";
-        v27 = 2112;
-        v28 = v10;
-        v29 = 2112;
-        v30 = v14;
-        _os_log_impl(&dword_1B1F9F000, v13, OS_LOG_TYPE_INFO, "%s Handled resolve type for intent: %@ with result: %@", v25, 0x20u);
+        *v24 = 136315650;
+        v25 = "[MTCreateTimerIntentHandler resolveTypeForCreateTimer:withCompletion:]";
+        v26 = 2112;
+        v27 = v10;
+        v28 = 2112;
+        v29 = v14;
+        _os_log_impl(&dword_1B1F9F000, v13, OS_LOG_TYPE_INFO, "%s Handled resolve type for intent: %@ with result: %@", v24, 0x20u);
       }
 
       (*(v11 + 2))(v11, *(*&buf[8] + 40));
@@ -362,8 +356,6 @@ void __72__MTCreateTimerIntentHandler_resolveLabelForCreateTimer_withCompletion_
 
     _Block_object_dispose(buf, 8);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __71__MTCreateTimerIntentHandler_resolveTypeForCreateTimer_withCompletion___block_invoke(uint64_t a1)
@@ -398,10 +390,9 @@ uint64_t __71__MTCreateTimerIntentHandler_resolveTypeForCreateTimer_withCompleti
     *(v6 + 40) = v7;
   }
 
-  v8 = *(*(*(a1 + 48) + 8) + 40);
-  v9 = *(*(a1 + 40) + 16);
+  v8 = *(*(a1 + 40) + 16);
 
-  return v9();
+  return v8();
 }
 
 void __71__MTCreateTimerIntentHandler_resolveTypeForCreateTimer_withCompletion___block_invoke_3(uint64_t a1, int a2)
@@ -423,45 +414,41 @@ void __71__MTCreateTimerIntentHandler_resolveTypeForCreateTimer_withCompletion__
 
 - (void)confirmCreateTimer:(id)timer completion:(id)completion
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   timerCopy = timer;
   completionCopy = completion;
   v8 = *MEMORY[0x1E696E6D8];
   if (os_log_type_enabled(*MEMORY[0x1E696E6D8], OS_LOG_TYPE_INFO))
   {
-    v10 = 136315394;
-    v11 = "[MTCreateTimerIntentHandler confirmCreateTimer:completion:]";
-    v12 = 2112;
-    v13 = timerCopy;
-    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%s %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[MTCreateTimerIntentHandler confirmCreateTimer:completion:]";
+    v11 = 2112;
+    v12 = timerCopy;
+    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%s %@", &v9, 0x16u);
   }
 
   if (completionCopy)
   {
     [(MTCreateTimerIntentHandler *)self _createTimerWithIntent:timerCopy dryRun:1 completion:completionCopy];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleCreateTimer:(id)timer completion:(id)completion
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   timerCopy = timer;
   completionCopy = completion;
   v8 = *MEMORY[0x1E696E6D8];
   if (os_log_type_enabled(*MEMORY[0x1E696E6D8], OS_LOG_TYPE_INFO))
   {
-    v10 = 136315394;
-    v11 = "[MTCreateTimerIntentHandler handleCreateTimer:completion:]";
-    v12 = 2112;
-    v13 = timerCopy;
-    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%s %@", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[MTCreateTimerIntentHandler handleCreateTimer:completion:]";
+    v11 = 2112;
+    v12 = timerCopy;
+    _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%s %@", &v9, 0x16u);
   }
 
   [(MTCreateTimerIntentHandler *)self _createTimerWithIntent:timerCopy dryRun:0 completion:completionCopy];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_checkNowPlayingMediaState:(id)state
@@ -561,7 +548,7 @@ uint64_t __57__MTCreateTimerIntentHandler__checkNowPlayingMediaState___block_inv
 
 void __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion___block_invoke(uint64_t a1, void *a2, int a3, void *a4)
 {
-  v50[1] = *MEMORY[0x1E69E9840];
+  v49[1] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a4;
   v9 = [MTMutableTimer alloc];
@@ -595,60 +582,60 @@ void __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion__
     v14 = 1;
   }
 
-  v49 = @"MTTimerIntentSupportSiriContextTimerTypeKey";
+  v48 = @"MTTimerIntentSupportSiriContextTimerTypeKey";
   v15 = [MEMORY[0x1E696AD98] numberWithInteger:v14];
-  v50[0] = v15;
-  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:&v49 count:1];
+  v49[0] = v15;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:&v48 count:1];
   [(MTTimer *)v10 setSiriContext:v16];
 
   if (!a3)
   {
     v20 = [*(a1 + 32) _timerManager];
-    v34 = [v20 addTimer:v10];
-    v47[0] = MEMORY[0x1E69E9820];
-    v47[1] = 3221225472;
-    v47[2] = __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion___block_invoke_2;
-    v47[3] = &unk_1E7B0DB78;
+    v33 = [v20 addTimer:v10];
+    v46[0] = MEMORY[0x1E69E9820];
+    v46[1] = 3221225472;
+    v46[2] = __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion___block_invoke_2;
+    v46[3] = &unk_1E7B0DB78;
     v21 = v20;
-    v48 = v21;
-    v35 = [v34 flatMap:v47];
-    v44[0] = MEMORY[0x1E69E9820];
-    v44[1] = 3221225472;
-    v44[2] = __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion___block_invoke_3;
-    v44[3] = &unk_1E7B0DBF0;
-    v45 = v10;
-    v46 = v21;
+    v47 = v21;
+    v34 = [v33 flatMap:v46];
+    v43[0] = MEMORY[0x1E69E9820];
+    v43[1] = 3221225472;
+    v43[2] = __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion___block_invoke_3;
+    v43[3] = &unk_1E7B0DBF0;
+    v44 = v10;
+    v45 = v21;
     v19 = v21;
-    v22 = [v35 flatMap:v44];
-    v40[0] = MEMORY[0x1E69E9820];
-    v40[1] = 3221225472;
-    v40[2] = __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion___block_invoke_26;
-    v40[3] = &unk_1E7B0DC18;
+    v22 = [v34 flatMap:v43];
+    v39[0] = MEMORY[0x1E69E9820];
+    v39[1] = 3221225472;
+    v39[2] = __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion___block_invoke_26;
+    v39[3] = &unk_1E7B0DC18;
     v23 = v11;
     v24 = v8;
     v25 = *(a1 + 32);
-    v42 = v24;
-    v40[4] = v25;
+    v41 = v24;
+    v39[4] = v25;
     v26 = v8;
     v27 = v7;
-    v41 = v27;
-    v43 = 0;
-    v28 = [v22 addSuccessBlock:v40];
-    v36[0] = MEMORY[0x1E69E9820];
-    v36[1] = 3221225472;
-    v36[2] = __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion___block_invoke_2_28;
-    v36[3] = &unk_1E7B0DC40;
+    v40 = v27;
+    v42 = 0;
+    v28 = [v22 addSuccessBlock:v39];
+    v35[0] = MEMORY[0x1E69E9820];
+    v35[1] = 3221225472;
+    v35[2] = __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion___block_invoke_2_28;
+    v35[3] = &unk_1E7B0DC40;
     v29 = v24;
     v11 = v23;
     v30 = *(a1 + 32);
-    v18 = v34;
-    v38 = v29;
-    v36[4] = v30;
+    v18 = v33;
+    v37 = v29;
+    v35[4] = v30;
     v31 = v27;
     v8 = v26;
-    v37 = v31;
-    v39 = 0;
-    v32 = [v22 addFailureBlock:v36];
+    v36 = v31;
+    v38 = 0;
+    v32 = [v22 addFailureBlock:v35];
 
     goto LABEL_13;
   }
@@ -661,8 +648,6 @@ void __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion__
     (*(v8 + 2))(v8, v19);
 LABEL_13:
   }
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 id __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion___block_invoke_3(uint64_t a1, void *a2)
@@ -713,68 +698,64 @@ uint64_t __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completi
 
 void __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion___block_invoke_5(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion___block_invoke_6;
-  v14[3] = &unk_1E7B0DBC8;
+  v19 = *MEMORY[0x1E69E9840];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion___block_invoke_6;
+  v13[3] = &unk_1E7B0DBC8;
   v2 = *(a1 + 32);
-  v15 = *(a1 + 40);
-  v3 = [v2 na_firstObjectPassingTest:v14];
+  v14 = *(a1 + 40);
+  v3 = [v2 na_firstObjectPassingTest:v13];
   if (v3)
   {
     v4 = *MEMORY[0x1E696E6D8];
     if (os_log_type_enabled(*MEMORY[0x1E696E6D8], OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v17 = "[MTCreateTimerIntentHandler _createTimerWithIntent:dryRun:completion:]_block_invoke_5";
-      v18 = 2112;
-      v19 = v3;
+      v16 = "[MTCreateTimerIntentHandler _createTimerWithIntent:dryRun:completion:]_block_invoke_5";
+      v17 = 2112;
+      v18 = v3;
       _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_INFO, "%s Attempting to remove conflicting timer: %@", buf, 0x16u);
     }
 
     v5 = [*(a1 + 48) removeTimer:v3];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion___block_invoke_20;
-    v12[3] = &unk_1E7B0D120;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion___block_invoke_20;
+    v11[3] = &unk_1E7B0D120;
     v6 = v3;
-    v13 = v6;
-    v7 = [v5 addSuccessBlock:v12];
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion___block_invoke_22;
-    v10[3] = &unk_1E7B0D658;
-    v11 = v6;
-    v8 = [v5 addFailureBlock:v10];
+    v12 = v6;
+    v7 = [v5 addSuccessBlock:v11];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion___block_invoke_22;
+    v9[3] = &unk_1E7B0D658;
+    v10 = v6;
+    v8 = [v5 addFailureBlock:v9];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion___block_invoke_20(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E696E6D8];
   if (os_log_type_enabled(*MEMORY[0x1E696E6D8], OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v5 = 136315394;
-    v6 = "[MTCreateTimerIntentHandler _createTimerWithIntent:dryRun:completion:]_block_invoke";
-    v7 = 2112;
-    v8 = v3;
-    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_INFO, "%s Successfully removed conflicting timer: %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[MTCreateTimerIntentHandler _createTimerWithIntent:dryRun:completion:]_block_invoke";
+    v6 = 2112;
+    v7 = v3;
+    _os_log_impl(&dword_1B1F9F000, v2, OS_LOG_TYPE_INFO, "%s Successfully removed conflicting timer: %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion___block_invoke_22(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   if (os_log_type_enabled(*MEMORY[0x1E696E6D8], OS_LOG_TYPE_ERROR))
   {
-    __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion___block_invoke_22_cold_1(a1);
+    __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion___block_invoke_22_cold_1();
   }
 }
 
@@ -803,8 +784,8 @@ uint64_t __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completi
   [*(a1 + 32) duration];
   if (v2 <= 0.0)
   {
-    v9 = MEMORY[0x1E696ABC0];
-    v10 = 2;
+    v6 = MEMORY[0x1E696ABC0];
+    v7 = 2;
   }
 
   else
@@ -812,65 +793,61 @@ uint64_t __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completi
     [*(a1 + 32) duration];
     if (v3 < 86400.0)
     {
-      v4 = *(a1 + 32);
-      v5 = *(a1 + 64);
-      v6 = *(a1 + 48);
-      v7 = *(*(a1 + 56) + 16);
+      v4 = *(*(a1 + 56) + 16);
 
-      return v7();
+      return v4();
     }
 
-    v9 = MEMORY[0x1E696ABC0];
-    v10 = 3;
+    v6 = MEMORY[0x1E696ABC0];
+    v7 = 3;
   }
 
-  v11 = [v9 errorWithDomain:@"MTTimerIntentHandlerErrorDomain" code:v10 userInfo:0];
-  v12 = v11;
-  v13 = *(a1 + 48);
-  if (v13)
+  v8 = [v6 errorWithDomain:@"MTTimerIntentHandlerErrorDomain" code:v7 userInfo:0];
+  v9 = v8;
+  v10 = *(a1 + 48);
+  if (v10)
   {
-    v15 = v11;
-    v14 = [*(a1 + 40) _responseToCreateTimerIntent:*(a1 + 32) withCreatedTimer:0 error:v11 dryRun:*(a1 + 64)];
-    (*(v13 + 16))(v13, v14);
+    v12 = v8;
+    v11 = [*(a1 + 40) _responseToCreateTimerIntent:*(a1 + 32) withCreatedTimer:0 error:v8 dryRun:*(a1 + 64)];
+    (*(v10 + 16))(v10, v11);
 
-    v12 = v15;
+    v9 = v12;
   }
 
-  return MEMORY[0x1EEE66BB8](v11, v12);
+  return MEMORY[0x1EEE66BB8](v8, v9);
 }
 
 uint64_t __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion___block_invoke_4_31(uint64_t a1, int a2)
 {
   if (a2)
   {
-    v3 = *(a1 + 48);
-    v4 = *(*(a1 + 48) + 16);
+    v3 = *(*(a1 + 48) + 16);
 
-    return v4();
+    return v3();
   }
 
   else
   {
-    v6 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTTimerIntentHandlerErrorDomain" code:10 userInfo:0];
-    v7 = v6;
-    v8 = *(a1 + 56);
-    if (v8)
+    v5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MTTimerIntentHandlerErrorDomain" code:10 userInfo:0];
+    v6 = v5;
+    v7 = *(a1 + 56);
+    if (v7)
     {
-      v10 = v6;
-      v9 = [*(a1 + 32) _responseToCreateTimerIntent:*(a1 + 40) withCreatedTimer:0 error:v6 dryRun:*(a1 + 64)];
-      (*(v8 + 16))(v8, v9);
+      v9 = v5;
+      v8 = [*(a1 + 32) _responseToCreateTimerIntent:*(a1 + 40) withCreatedTimer:0 error:v5 dryRun:*(a1 + 64)];
+      (*(v7 + 16))(v7, v8);
 
-      v7 = v10;
+      v6 = v9;
     }
 
-    return MEMORY[0x1EEE66BB8](v6, v7);
+    return MEMORY[0x1EEE66BB8](v5, v6);
   }
 }
 
 - (id)_responseToCreateTimerIntent:(id)intent withCreatedTimer:(id)timer error:(id)error dryRun:(BOOL)run
 {
   runCopy = run;
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   intentCopy = intent;
   timerCopy = timer;
   errorCopy = error;
@@ -883,20 +860,20 @@ uint64_t __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completi
     if (os_log_type_enabled(*MEMORY[0x1E696E6D8], OS_LOG_TYPE_INFO))
     {
       v15 = @"handled";
-      v26 = 136315906;
-      v27 = "[MTCreateTimerIntentHandler _responseToCreateTimerIntent:withCreatedTimer:error:dryRun:]";
-      v28 = 2112;
+      v25 = 136315906;
+      v26 = "[MTCreateTimerIntentHandler _responseToCreateTimerIntent:withCreatedTimer:error:dryRun:]";
+      v27 = 2112;
       if (runCopy)
       {
         v15 = @"confirmed";
       }
 
-      v29 = v15;
-      v30 = 2112;
-      v31 = intentCopy;
-      v32 = 2112;
-      v33 = v13;
-      _os_log_impl(&dword_1B1F9F000, v14, OS_LOG_TYPE_INFO, "%s Successfully %@ create timer intent %@ with response %@", &v26, 0x2Au);
+      v28 = v15;
+      v29 = 2112;
+      v30 = intentCopy;
+      v31 = 2112;
+      v32 = v13;
+      _os_log_impl(&dword_1B1F9F000, v14, OS_LOG_TYPE_INFO, "%s Successfully %@ create timer intent %@ with response %@", &v25, 0x2Au);
     }
 
     goto LABEL_21;
@@ -953,28 +930,26 @@ LABEL_20:
   v22 = *MEMORY[0x1E696E6D8];
   if (os_log_type_enabled(*MEMORY[0x1E696E6D8], OS_LOG_TYPE_ERROR))
   {
-    v25 = @"handle";
-    v26 = 136316162;
-    v27 = "[MTCreateTimerIntentHandler _responseToCreateTimerIntent:withCreatedTimer:error:dryRun:]";
-    v28 = 2112;
+    v24 = @"handle";
+    v25 = 136316162;
+    v26 = "[MTCreateTimerIntentHandler _responseToCreateTimerIntent:withCreatedTimer:error:dryRun:]";
+    v27 = 2112;
     if (runCopy)
     {
-      v25 = @"confirm";
+      v24 = @"confirm";
     }
 
-    v29 = v25;
-    v30 = 2112;
-    v31 = intentCopy;
-    v32 = 2112;
-    v33 = v13;
-    v34 = 2112;
-    v35 = v12;
-    _os_log_error_impl(&dword_1B1F9F000, v22, OS_LOG_TYPE_ERROR, "%s Failed to %@ create timer intent %@ with response: %@, error: %@", &v26, 0x34u);
+    v28 = v24;
+    v29 = 2112;
+    v30 = intentCopy;
+    v31 = 2112;
+    v32 = v13;
+    v33 = 2112;
+    v34 = v12;
+    _os_log_error_impl(&dword_1B1F9F000, v22, OS_LOG_TYPE_ERROR, "%s Failed to %@ create timer intent %@ with response: %@, error: %@", &v25, 0x34u);
   }
 
 LABEL_21:
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -1001,14 +976,11 @@ BOOL __72__MTCreateTimerIntentHandler__timer_conflictsWithRunningTimersInTimers_
   return v4;
 }
 
-void __72__MTCreateTimerIntentHandler_resolveLabelForCreateTimer_withCompletion___block_invoke_4_cold_1(uint64_t a1)
+void __72__MTCreateTimerIntentHandler_resolveLabelForCreateTimer_withCompletion___block_invoke_4_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v5 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_4(&dword_1B1F9F000, v2, v3, "%s Failed to fetch timers for intent: %@, error: %@", v5);
-  v4 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_4(&dword_1B1F9F000, v0, v1, "%s Failed to fetch timers for intent: %@, error: %@", v2);
 }
 
 - (void)_checkNowPlayingMediaState:.cold.1()
@@ -1020,14 +992,11 @@ void __72__MTCreateTimerIntentHandler_resolveLabelForCreateTimer_withCompletion_
   __break(1u);
 }
 
-void __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion___block_invoke_22_cold_1(uint64_t a1)
+void __71__MTCreateTimerIntentHandler__createTimerWithIntent_dryRun_completion___block_invoke_22_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v5 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_4(&dword_1B1F9F000, v2, v3, "%s Failed to remove conflicting timer: %@ with error: %@", v5);
-  v4 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_4(&dword_1B1F9F000, v0, v1, "%s Failed to remove conflicting timer: %@ with error: %@", v2);
 }
 
 @end

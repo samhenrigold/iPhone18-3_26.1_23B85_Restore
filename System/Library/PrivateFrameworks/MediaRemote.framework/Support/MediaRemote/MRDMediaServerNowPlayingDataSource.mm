@@ -24,6 +24,7 @@
 - (void)_someSessionIsPlayingDidChangeNotification:(id)notification;
 - (void)_sourceFormatInfoDidChangeNotification:(id)notification;
 - (void)_updateNowPlayingAudioFormatContentInfo;
+- (void)addCachedAudioSession:(id)session forID:(unsigned int)d;
 - (void)dealloc;
 - (void)loadMediaServerState;
 - (void)loadMediaServerStateWithController:(id)controller;
@@ -31,6 +32,7 @@
 - (void)setMediaServerController:(id)controller;
 - (void)setNowPlayingApplicationDisplayID:(id)d;
 - (void)setNowPlayingApplicationIsPlaying:(BOOL)playing;
+- (void)setNowPlayingApplicationPID:(int)d;
 - (void)setNowPlayingApplications:(id)applications;
 - (void)setNowPlayingAudioFormatContentInfos:(id)infos;
 - (void)setNowPlayingSessions:(id)sessions;
@@ -380,6 +382,29 @@ LABEL_5:
   cachedNowPlayingAppDisplayID = selfCopy->_cachedNowPlayingAppDisplayID;
   selfCopy->_cachedNowPlayingAppDisplayID = v7;
 
+  objc_sync_exit(selfCopy);
+}
+
+- (void)setNowPlayingApplicationPID:(int)d
+{
+  v3 = *&d;
+  v5 = _MRLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = objc_opt_class();
+    v7 = [NSNumber numberWithInt:v3];
+    v9 = 138543874;
+    v10 = v6;
+    v11 = 2114;
+    v12 = @"nowPlayingApplicationPID";
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Set: %{public}@ setting %{public}@ to <%@>", &v9, 0x20u);
+  }
+
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  selfCopy->_cachedNowPlayingAppPID = v3;
   objc_sync_exit(selfCopy);
 }
 
@@ -1094,7 +1119,7 @@ LABEL_5:
     v15 = v14;
     if (v14)
     {
-      [v14 auditToken];
+      objc_msgSend_auditToken(v14);
     }
 
     else
@@ -1390,6 +1415,41 @@ LABEL_32:
   v15 = anyObject;
 
   return v15;
+}
+
+- (void)addCachedAudioSession:(id)session forID:(unsigned int)d
+{
+  v4 = *&d;
+  sessionCopy = session;
+  cachedAudioSessions = self->_cachedAudioSessions;
+  v8 = [NSNumber numberWithUnsignedInt:v4];
+  [(MSVLRUDictionary *)cachedAudioSessions setObject:sessionCopy forKeyedSubscript:v8];
+
+  v9 = AVAudioSessionRenderingModeChangeNotification;
+  v10 = v9;
+  v11 = 0;
+  if (sessionCopy && v9)
+  {
+    v21 = v9;
+    v12 = [NSArray arrayWithObjects:&v21 count:1];
+    v16 = 0;
+    [sessionCopy subscribeToNotifications:v12 error:&v16];
+    v11 = v16;
+
+    v13 = +[NSNotificationCenter defaultCenter];
+    [v13 addObserver:self selector:"_renderingModeChangeNotification:" name:v10 object:sessionCopy];
+  }
+
+  v14 = _MRLogForCategory();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = [(MSVLRUDictionary *)self->_cachedAudioSessions count];
+    *buf = 138412546;
+    v18 = sessionCopy;
+    v19 = 2048;
+    v20 = v15;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[MediaServerNowPlayingDataSource] Adding new audioSession %@ for a total of %ld", buf, 0x16u);
+  }
 }
 
 - (id)description

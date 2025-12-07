@@ -11,6 +11,7 @@
 - (int)_priorityForProblemType:(int)type;
 - (int)_zoneStateForProblemType:(int)type;
 - (void)_addProblem:(id)problem;
+- (void)addProblemWithType:(int)type recordName:(id)name;
 - (void)effectiveProblemMessage;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -63,19 +64,19 @@
 
 - (BRCProblemReport)initWithCoder:(id)coder
 {
-  v17[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v16.receiver = self;
-  v16.super_class = BRCProblemReport;
-  v5 = [(BRCProblemReport *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = BRCProblemReport;
+  v5 = [(BRCProblemReport *)&v15 init];
   if (v5)
   {
     v5->_state = [coderCopy decodeInt32ForKey:@"state"];
     v6 = MEMORY[0x277CBEB98];
-    v17[0] = objc_opt_class();
-    v17[1] = objc_opt_class();
-    v17[2] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
+    v16[0] = objc_opt_class();
+    v16[1] = objc_opt_class();
+    v16[2] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
     v8 = [v6 setWithArray:v7];
     v9 = [v8 mutableCopy];
 
@@ -90,7 +91,6 @@
     v5->_needsSyncUp = [coderCopy decodeBoolForKey:@"needsSync"];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -132,29 +132,29 @@
 
 - (int)_effectiveProblemType
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   allKeys = [(NSMutableDictionary *)self->_problems allKeys];
-  v4 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
     intValue = 0;
-    v7 = *v16;
+    v7 = *v15;
     v8 = -100;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = -[BRCProblemReport _priorityForProblemType:](self, "_priorityForProblemType:", [v10 intValue]);
         if (v11 > v8)
         {
@@ -164,7 +164,7 @@
         }
       }
 
-      v5 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
@@ -175,7 +175,6 @@
     intValue = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return intValue;
 }
 
@@ -298,6 +297,15 @@
   }
 }
 
+- (void)addProblemWithType:(int)type recordName:(id)name
+{
+  v4 = *&type;
+  nameCopy = name;
+  v7 = [[BRCProblem alloc] initWithType:v4 recordName:nameCopy];
+
+  [(BRCProblemReport *)self _addProblem:v7];
+}
+
 - (id)description
 {
   v3 = MEMORY[0x277CCACA8];
@@ -333,26 +341,26 @@
 
 - (BOOL)shouldResetAfterFixingState
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   allKeys = [(NSMutableDictionary *)self->_problems allKeys];
-  v3 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
-    v4 = *v12;
+    v4 = *v11;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v6 = *(*(&v11 + 1) + 8 * i);
+        v6 = *(*(&v10 + 1) + 8 * i);
         v7 = [BRCUserDefaults defaultsForMangledID:0];
         healthErrorsForReset = [v7 healthErrorsForReset];
         LOBYTE(v6) = [healthErrorsForReset containsObject:v6];
@@ -364,7 +372,7 @@
         }
       }
 
-      v3 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v3 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v3)
       {
         continue;
@@ -376,17 +384,15 @@
 
 LABEL_11:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (void)effectiveProblemMessage
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_fault_impl(&dword_223E7A000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: unknown effective problem type%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_223E7A000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: unknown effective problem type%@", &v2, 0xCu);
 }
 
 @end

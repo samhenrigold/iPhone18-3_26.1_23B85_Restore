@@ -62,16 +62,167 @@
 {
   infoCopy = info;
   v7 = infoCopy;
-  if (dword_1001BE938 <= 10)
+  if (dword_1001BE938 > 10)
   {
-    v10 = infoCopy;
-    if (dword_1001BE938 != -1 || (infoCopy = _LogCategory_Initialize(), v7 = v10, infoCopy))
+    goto LABEL_48;
+  }
+
+  v12 = infoCopy;
+  if (dword_1001BE938 == -1)
+  {
+    infoCopy = _LogCategory_Initialize();
+    v7 = v12;
+    if (!infoCopy)
     {
-      infoCopy = LogPrintF();
-      v7 = v10;
+      goto LABEL_48;
     }
   }
 
+  if (progress <= 49)
+  {
+    if (progress > 30)
+    {
+      if (progress <= 32)
+      {
+        if (progress == 31)
+        {
+          v8 = "SessionStarted";
+        }
+
+        else
+        {
+          v8 = "SessionEnded";
+        }
+
+        goto LABEL_45;
+      }
+
+      if (progress == 33)
+      {
+        v8 = "SessionSecured";
+        goto LABEL_45;
+      }
+
+      if (progress == 40)
+      {
+        v8 = "PreAuthStart";
+        goto LABEL_45;
+      }
+    }
+
+    else if (progress > 19)
+    {
+      if (progress == 20)
+      {
+        v8 = "Final";
+        goto LABEL_45;
+      }
+
+      if (progress == 30)
+      {
+        v8 = "Error";
+        goto LABEL_45;
+      }
+    }
+
+    else
+    {
+      if (!progress)
+      {
+        v8 = "Invalid";
+        goto LABEL_45;
+      }
+
+      if (progress == 10)
+      {
+        v8 = "Start";
+        goto LABEL_45;
+      }
+    }
+
+LABEL_44:
+    v8 = "?";
+    goto LABEL_45;
+  }
+
+  if (progress <= 81)
+  {
+    if (progress > 69)
+    {
+      if (progress == 70)
+      {
+        v8 = "SecurityFinished";
+        goto LABEL_45;
+      }
+
+      if (progress == 80)
+      {
+        v8 = "PasswordSending";
+        goto LABEL_45;
+      }
+    }
+
+    else
+    {
+      if (progress == 50)
+      {
+        v8 = "PreAuthFinish";
+        goto LABEL_45;
+      }
+
+      if (progress == 60)
+      {
+        v8 = "SecurityStart";
+        goto LABEL_45;
+      }
+    }
+
+    goto LABEL_44;
+  }
+
+  if (progress <= 83)
+  {
+    if (progress == 82)
+    {
+      v8 = "PasswordSent";
+    }
+
+    else
+    {
+      v8 = "PasswordReceived";
+    }
+
+    goto LABEL_45;
+  }
+
+  if (progress == 84)
+  {
+    v8 = "PasswordAccepted";
+    goto LABEL_45;
+  }
+
+  if (progress == 86)
+  {
+    v8 = "PasswordDeclined";
+    goto LABEL_45;
+  }
+
+  if (progress != 100)
+  {
+    goto LABEL_44;
+  }
+
+  v8 = "Finished";
+LABEL_45:
+  v9 = &stru_100195CA8;
+  if (v7)
+  {
+    v9 = v7;
+  }
+
+  infoCopy = LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy _sessionHandleProgress:info:]", 10, "PasswordSession progress: %s, %@", v8, v9);
+  v7 = v12;
+LABEL_48:
   if (progress == 82)
   {
     self->_passwordSent = 1;
@@ -79,23 +230,23 @@
 
   else if (progress == 20)
   {
-    v11 = v7;
+    v13 = v7;
     CFErrorGetTypeID();
-    v8 = CFDictionaryGetTypedValue();
-    if (v8)
+    v10 = CFDictionaryGetTypedValue();
+    if (v10)
     {
-      v9 = 3;
+      v11 = 3;
     }
 
     else
     {
-      v9 = 4;
+      v11 = 4;
     }
 
-    self->_shareState = v9;
+    self->_shareState = v11;
     [(PasswordSharingViewControllerProxy *)self showDoneUI:NSErrorToOSStatus()];
 
-    v7 = v11;
+    v7 = v13;
   }
 
   _objc_release_x1(infoCopy, v7);
@@ -109,31 +260,30 @@
   [v3 setRequestSSID:self->_requestSSID];
   if (dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    v14 = v3;
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy _sessionStart]", 30, "Start setup with %@\n", v3);
   }
 
-  v17 = 0;
+  v16 = 0;
   self->_shareState = 1;
   CFStringGetTypeID();
   v4 = CFDictionaryGetTypedValue();
-  if (v17 && dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
+  if (v16 && dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy _sessionStart]", 30, "No email hash?\n");
   }
 
   CFStringGetTypeID();
   v5 = CFDictionaryGetTypedValue();
-  if (v17 && dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
+  if (v16 && dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy _sessionStart]", 30, "No phone hash?\n");
   }
 
   CFStringGetTypeID();
   v6 = CFDictionaryGetTypedValue();
-  if (v17 && dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
+  if (v16 && dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy _sessionStart]", 30, "No device name?\n");
   }
 
   v7 = +[NSDate date];
@@ -149,28 +299,28 @@
   [(SFPasswordSharingSession *)self->_passwordSession setHashedEmail:v4];
   [(SFPasswordSharingSession *)self->_passwordSession setHashedPhone:v5];
   [(SFPasswordSharingSession *)self->_passwordSession setPeerDevice:v3];
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_1000FBF54;
-  v16[3] = &unk_1001959F8;
-  v16[4] = self;
-  [(SFPasswordSharingSession *)self->_passwordSession setProgressHandler:v16];
   v15[0] = _NSConcreteStackBlock;
   v15[1] = 3221225472;
-  v15[2] = sub_1000FBF64;
-  v15[3] = &unk_100195A48;
+  v15[2] = sub_1000FBF54;
+  v15[3] = &unk_1001959F8;
   v15[4] = self;
-  [(SFPasswordSharingSession *)self->_passwordSession setPromptForPINHandler:v15];
+  [(SFPasswordSharingSession *)self->_passwordSession setProgressHandler:v15];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_1000FBF64;
+  v14[3] = &unk_100195A48;
+  v14[4] = self;
+  [(SFPasswordSharingSession *)self->_passwordSession setPromptForPINHandler:v14];
   if (self->_hotspot)
   {
     CFStringGetTypeID();
     v11 = CFDictionaryGetTypedValue();
     v12 = v11;
-    if (v17 || !v11)
+    if (v16 || !v11)
     {
       if (dword_1001BE938 <= 60 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy _sessionStart]", 60, "### No PSK for hotspot?");
       }
     }
 
@@ -205,7 +355,7 @@
 LABEL_10:
     if (dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy _handleDeviceNoLongerNeedsPassword]", 30, "### Peer no longer needs password before final ack received\n");
     }
 
     goto LABEL_14;
@@ -250,14 +400,10 @@ LABEL_14:
   {
     if (dword_1001BE938 <= 10 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
-      [(PasswordSharingViewControllerProxy *)self _handleDeviceNoLongerNeedsPassword];
+      LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy _deviceLost:]", 10, "Lost %@\n", bleDevice);
     }
 
-    else
-    {
-      [(PasswordSharingViewControllerProxy *)self _handleDeviceNoLongerNeedsPassword];
-    }
+    [(PasswordSharingViewControllerProxy *)self _handleDeviceNoLongerNeedsPassword];
   }
 }
 
@@ -286,7 +432,7 @@ LABEL_14:
     {
       if (dword_1001BE938 <= 50 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy _deviceFound:]", 50, "Not connecting to mock device.");
       }
     }
 
@@ -294,15 +440,14 @@ LABEL_14:
     {
       if (dword_1001BE938 <= 10 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
       {
-        v10 = bleDevice;
-        LogPrintF();
+        LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy _deviceFound:]", 10, "Found %@\n", bleDevice);
       }
 
       if (![foundCopy needsSetup] || objc_msgSend(foundCopy, "deviceActionType") != 8)
       {
         if (dword_1001BE938 <= 10 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy _deviceFound:]", 10, "Device doesn't need WiFi password anymore\n");
         }
 
         [(PasswordSharingViewControllerProxy *)self _handleDeviceNoLongerNeedsPassword];
@@ -355,8 +500,7 @@ LABEL_14:
   v3 = *&i;
   if (dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    v27 = v3;
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy showDoneUI:]", 30, "Show done UI: %#m\n", v3);
   }
 
   [(SFPasswordSharingSession *)self->_passwordSession invalidate];
@@ -403,39 +547,39 @@ LABEL_14:
   _remoteViewControllerProxy = [(PasswordSharingViewControllerProxy *)self _remoteViewControllerProxy];
   [_remoteViewControllerProxy setIdleTimerDisabled:0 forReason:@"com.apple.SharingViewService.WiFiPasswordSharing"];
 
-  v30[0] = @"_cat";
-  v30[1] = @"_op";
-  v31[0] = @"PasswordSharing";
-  v31[1] = @"Done";
-  v30[2] = @"durationMS";
+  v29[0] = @"_cat";
+  v29[1] = @"_op";
+  v30[0] = @"PasswordSharing";
+  v30[1] = @"Done";
+  v29[2] = @"durationMS";
   [NSNumber numberWithInteger:(v12 * 1000.0)];
   v17 = v16 = v3;
-  v31[2] = v17;
-  v30[3] = @"errorCode";
+  v30[2] = v17;
+  v29[3] = @"errorCode";
   v18 = [NSNumber numberWithInt:v16];
-  v31[3] = v18;
-  v30[4] = @"isHotspot";
+  v30[3] = v18;
+  v29[4] = @"isHotspot";
   v19 = [NSNumber numberWithBool:self->_hotspot];
-  v31[4] = v19;
-  v30[5] = @"missingAck";
+  v30[4] = v19;
+  v29[5] = @"missingAck";
   v20 = [NSNumber numberWithBool:self->_missingAck];
-  v31[5] = v20;
-  v21 = [NSDictionary dictionaryWithObjects:v31 forKeys:v30 count:6];
+  v30[5] = v20;
+  v21 = [NSDictionary dictionaryWithObjects:v30 forKeys:v29 count:6];
   SFDashboardLogJSON();
 
-  v28[0] = @"durationMS";
+  v27[0] = @"durationMS";
   v22 = [NSNumber numberWithInteger:(v12 * 1000.0)];
-  v29[0] = v22;
-  v28[1] = @"errorCode";
+  v28[0] = v22;
+  v27[1] = @"errorCode";
   v23 = [NSNumber numberWithInt:v16];
-  v29[1] = v23;
-  v28[2] = @"isHotspot";
+  v28[1] = v23;
+  v27[2] = @"isHotspot";
   v24 = [NSNumber numberWithBool:self->_hotspot];
-  v29[2] = v24;
-  v28[3] = @"missingAck";
+  v28[2] = v24;
+  v27[3] = @"missingAck";
   v25 = [NSNumber numberWithBool:self->_missingAck];
-  v29[3] = v25;
-  v26 = [NSDictionary dictionaryWithObjects:v29 forKeys:v28 count:4];
+  v28[3] = v25;
+  v26 = [NSDictionary dictionaryWithObjects:v28 forKeys:v27 count:4];
   SFMetricsLog();
 }
 
@@ -445,7 +589,7 @@ LABEL_14:
   dismissCopy = dismiss;
   if (dword_1001BE938 <= 50 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy ensureStoppedWithDismiss:reason:]", 50, "Ensuring stopped.");
   }
 
   v19[0] = @"scanRate";
@@ -568,17 +712,16 @@ LABEL_29:
     self->_dismissed = 1;
     if (dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
     {
-      v14 = v3;
-      LogPrintF();
+      LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy dismiss:]", 30, "Dismissing UI. Reason: %d", v3);
     }
 
     [(PasswordSharingViewControllerProxy *)self _remoteViewControllerProxy];
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_1000FD1A4;
-    v5 = v15[3] = &unk_100195AC0;
-    v16 = v5;
-    [(PasswordSharingViewControllerProxy *)self dismissViewControllerAnimated:v3 != 19 completion:v15];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_1000FD1A4;
+    v5 = v14[3] = &unk_100195AC0;
+    v15 = v5;
+    [(PasswordSharingViewControllerProxy *)self dismissViewControllerAnimated:v3 != 19 completion:v14];
     [(NSDate *)self->_visibleClock timeIntervalSinceNow];
     v7 = v6;
     [(NSDate *)self->_visibleClock timeIntervalSinceNow];
@@ -588,16 +731,16 @@ LABEL_29:
     }
 
     v9 = (v8 * 1000.0);
-    v17[0] = @"actionType";
+    v16[0] = @"actionType";
     v10 = [NSNumber numberWithInt:v3];
-    v18[0] = v10;
-    v17[1] = @"shareState";
+    v17[0] = v10;
+    v16[1] = @"shareState";
     v11 = [NSNumber numberWithInt:self->_shareState];
-    v18[1] = v11;
-    v17[2] = @"durationMS";
+    v17[1] = v11;
+    v16[2] = @"durationMS";
     v12 = [NSNumber numberWithInteger:v9];
-    v18[2] = v12;
-    v13 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:3];
+    v17[2] = v12;
+    v13 = [NSDictionary dictionaryWithObjects:v17 forKeys:v16 count:3];
     SFMetricsLog();
   }
 }
@@ -606,7 +749,7 @@ LABEL_29:
 {
   if (dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy invalidateTouchDelayTimer]", 30, "Touch delay timer invalidate");
   }
 
   touchDelayTimer = self->_touchDelayTimer;
@@ -621,21 +764,30 @@ LABEL_29:
     {
       return;
     }
+
+    v6 = "Touch delay timer didn't invalidate?\n";
+    v7 = 60;
   }
 
-  else if (dword_1001BE938 > 30 || dword_1001BE938 == -1 && !_LogCategory_Initialize())
+  else
   {
-    return;
+    if (dword_1001BE938 > 30 || dword_1001BE938 == -1 && !_LogCategory_Initialize())
+    {
+      return;
+    }
+
+    v6 = "No touch delay timer to invalidate\n";
+    v7 = 30;
   }
 
-  LogPrintF();
+  LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy invalidateTouchDelayTimer]", v7, v6);
 }
 
 - (void)activateTouchDelayTimer
 {
   if (dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy activateTouchDelayTimer]", 30, "Touch delay timer activate");
   }
 
   if (!self->_touchDelayActive)
@@ -645,7 +797,9 @@ LABEL_29:
       return;
     }
 
-    goto LABEL_18;
+    v8 = "Touch delay already active\n";
+    v9 = 30;
+    goto LABEL_20;
   }
 
   if (self->_touchDelayTimer)
@@ -655,7 +809,8 @@ LABEL_29:
       return;
     }
 
-    goto LABEL_18;
+    v8 = "Touch delay timer already active\n";
+    goto LABEL_19;
   }
 
   v3 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, &_dispatch_main_q);
@@ -680,9 +835,12 @@ LABEL_29:
 
   if (dword_1001BE938 <= 60 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-LABEL_18:
+    v8 = "Failed to create touch delay timer\n";
+LABEL_19:
+    v9 = 60;
+LABEL_20:
 
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy activateTouchDelayTimer]", v9, v8);
   }
 }
 
@@ -696,7 +854,7 @@ LABEL_18:
   {
     if (dword_1001BE938 <= 50 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy viewDidDisappear:]", 50, "### Dismising from view did disappear.");
     }
 
     [(PasswordSharingViewControllerProxy *)self dismiss:21];
@@ -719,7 +877,7 @@ LABEL_18:
 
   if (dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy viewDidAppear:]", 30, "View did appear");
   }
 
   v6 = [UIStoryboard storyboardWithName:@"PasswordSharing" bundle:0];
@@ -759,23 +917,23 @@ LABEL_18:
   appearCopy = appear;
   v6 = dispatch_queue_create("clientQueue", 0);
   v7 = dispatch_semaphore_create(0);
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = sub_1000FDDB0;
-  v39 = sub_1000FDDC0;
-  v40 = 0;
   v34 = 0;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x2020000000;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = sub_1000FDDB0;
+  v38 = sub_1000FDDC0;
+  v39 = 0;
   v33 = 0;
-  v29.receiver = self;
-  v29.super_class = PasswordSharingViewControllerProxy;
-  [(PasswordSharingViewControllerProxy *)&v29 viewWillAppear:appearCopy];
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x2020000000;
+  v32 = 0;
+  v28.receiver = self;
+  v28.super_class = PasswordSharingViewControllerProxy;
+  [(PasswordSharingViewControllerProxy *)&v28 viewWillAppear:appearCopy];
   if (dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy viewWillAppear:]", 30, "View will appear");
   }
 
   deviceIdentifier = 16;
@@ -786,8 +944,8 @@ LABEL_18:
 
   CFStringGetTypeID();
   v11 = CFDictionaryGetTypedValue();
-  v12 = v34;
-  if (!v34)
+  v12 = v33;
+  if (!v33)
   {
     v17 = [[NSUUID alloc] initWithUUIDString:v11];
     deviceIdentifier = self->_deviceIdentifier;
@@ -807,11 +965,11 @@ LABEL_18:
       goto LABEL_15;
     }
 
-    v12 = v34;
-    if (v34)
+    v12 = v33;
+    if (v33)
     {
 LABEL_8:
-      v41 = NSLocalizedDescriptionKey;
+      v40 = NSLocalizedDescriptionKey;
       v13 = [NSString stringWithUTF8String:DebugGetErrorString()];
       deviceIdentifier = v13;
       v14 = @"?";
@@ -820,8 +978,8 @@ LABEL_8:
         v14 = v13;
       }
 
-      v42 = v14;
-      v3 = [NSDictionary dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+      v41 = v14;
+      v3 = [NSDictionary dictionaryWithObjects:&v41 forKeys:&v40 count:1];
       v15 = [NSError errorWithDomain:NSOSStatusErrorDomain code:v12 userInfo:v3];
       v16 = 0;
     }
@@ -832,8 +990,7 @@ LABEL_8:
       v16 = 1;
     }
 
-    v24 = v15;
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy viewWillAppear:]", 60, "### Error acquiring device identifier: %@", v15);
     if ((v16 & 1) == 0)
     {
 
@@ -846,26 +1003,26 @@ LABEL_15:
   [v18 setDispatchQueue:v6];
   v19 = self->_peerContactID;
   v20 = self->_deviceIdentifier;
-  v25[0] = _NSConcreteStackBlock;
-  v25[1] = 3221225472;
-  v25[2] = sub_1000FDDC8;
-  v25[3] = &unk_100194F38;
-  v27 = &v35;
-  v28 = &v30;
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_1000FDDC8;
+  v24[3] = &unk_100194F38;
+  v26 = &v34;
+  v27 = &v29;
   v21 = v7;
-  v26 = v21;
-  [v18 displayStringForContactIdentifier:v19 deviceIdentifier:v20 completion:v25];
+  v25 = v21;
+  [v18 displayStringForContactIdentifier:v19 deviceIdentifier:v20 completion:v24];
 
   v22 = dispatch_time(0, 10000000000);
   dispatch_semaphore_wait(v21, v22);
   [v18 invalidate];
-  if (!v36[5] && dword_1001BE938 <= 60 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
+  if (!v35[5] && dword_1001BE938 <= 60 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy viewWillAppear:]", 60, "### No display name?\n");
   }
 
-  objc_storeStrong(&self->_peerDisplayName, v36[5]);
-  v23 = *(v31 + 24);
+  objc_storeStrong(&self->_peerDisplayName, v35[5]);
+  v23 = *(v30 + 24);
   if (self->_testMode == 6)
   {
     v23 = 1;
@@ -873,8 +1030,8 @@ LABEL_15:
 
   self->_displayNameIsDevice = v23;
   [(PasswordSharingViewControllerProxy *)self _deviceDiscoveryEnsureStarted];
-  _Block_object_dispose(&v30, 8);
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v34, 8);
 }
 
 - (unint64_t)supportedInterfaceOrientations
@@ -910,7 +1067,7 @@ LABEL_15:
 
   if (dword_1001BE938 <= 30 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy configureWithContext:completion:]", 30, "Main configuration: %@\n", self->super._userInfo);
   }
 
   v9 = 1;
@@ -966,7 +1123,7 @@ LABEL_19:
 
   if (!v11 && dword_1001BE938 <= 60 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy configureWithContext:completion:]", 60, "### No request SSID: %@\n", 0);
   }
 
   requestSSID = self->_requestSSID;
@@ -994,7 +1151,23 @@ LABEL_19:
   {
     if (dword_1001BE938 <= 40 && (dword_1001BE938 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      v16 = "yes";
+      if (v15)
+      {
+        v17 = "no";
+      }
+
+      else
+      {
+        v17 = "yes";
+      }
+
+      if (!v15)
+      {
+        v16 = "no";
+      }
+
+      LogPrintF(&dword_1001BE938, "[PasswordSharingViewControllerProxy configureWithContext:completion:]", 40, "autoGrant enabled: %s -> %s\n", v17, v16);
     }
 
     self->_autoGrant = v15;

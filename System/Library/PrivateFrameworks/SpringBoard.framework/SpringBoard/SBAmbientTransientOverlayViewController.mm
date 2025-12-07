@@ -161,7 +161,7 @@
   v9.super_class = SBAmbientTransientOverlayViewController;
   [(SBAmbientTransientOverlayViewController *)&v9 loadView];
   view = [(SBAmbientTransientOverlayViewController *)self view];
-  [view frame];
+  objc_msgSend_frame(view);
   v5 = v4;
   v7 = v6;
 
@@ -865,56 +865,58 @@ void __71__SBAmbientTransientOverlayViewController_presentAmbientActivityAlert__
 
 void __71__SBAmbientTransientOverlayViewController_dismissAmbientActivityAlert___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) item];
   v3 = *(a1 + 40);
   v4 = [v2 identifier];
   [v3 _stopAlertingForActivityIdentifier:v4];
 
-  if (([*(a1 + 40) _isShowingFullActivityOverlayForItem:v2] & 1) == 0)
+  v5 = [*(a1 + 40) _isShowingFullActivityOverlayForItem:v2];
+  if ((v5 & 1) == 0)
   {
-    v6 = SBLogAmbientPresentation();
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = SBLogAmbientPresentation(v5);
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_8;
     }
 
-    v7 = [v2 identifier];
+    v9 = [v2 identifier];
     *buf = 138412290;
-    v12 = v7;
-    v8 = "[ActivityID: %@], Activity is not shown as a full overlay, no alert to dismiss";
+    v14 = v9;
+    v10 = "[ActivityID: %@], Activity is not shown as a full overlay, no alert to dismiss";
     goto LABEL_7;
   }
 
-  if ([*(a1 + 32) canPresentInEnvironment:1 alertType:3])
+  v6 = [*(a1 + 32) canPresentInEnvironment:1 alertType:3];
+  if (v6)
   {
-    v5 = *(*(a1 + 40) + 1496);
-    if (v5)
+    v7 = *(*(a1 + 40) + 1496);
+    if (v7)
     {
-      v9[0] = MEMORY[0x277D85DD0];
-      v9[1] = 3221225472;
-      v9[2] = __71__SBAmbientTransientOverlayViewController_dismissAmbientActivityAlert___block_invoke_51;
-      v9[3] = &unk_2783A8C18;
-      v10 = v2;
-      [v5 alertDidDismissForActivityItem:v10 completion:v9];
-      v6 = v10;
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __71__SBAmbientTransientOverlayViewController_dismissAmbientActivityAlert___block_invoke_51;
+      v11[3] = &unk_2783A8C18;
+      v12 = v2;
+      [v7 alertDidDismissForActivityItem:v12 completion:v11];
+      v8 = v12;
 LABEL_8:
 
       goto LABEL_9;
     }
 
-    v6 = SBLogAmbientPresentation();
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v8 = SBLogAmbientPresentation(v6);
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_8;
     }
 
-    v7 = [v2 identifier];
+    v9 = [v2 identifier];
     *buf = 138412290;
-    v12 = v7;
-    v8 = "[ActivityID: %@], No view controller found to dismiss from ambient presentation.";
+    v14 = v9;
+    v10 = "[ActivityID: %@], No view controller found to dismiss from ambient presentation.";
 LABEL_7:
-    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, v8, buf, 0xCu);
+    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, v10, buf, 0xCu);
 
     goto LABEL_8;
   }
@@ -925,7 +927,7 @@ LABEL_9:
 void __71__SBAmbientTransientOverlayViewController_dismissAmbientActivityAlert___block_invoke_51(uint64_t a1)
 {
   v6 = *MEMORY[0x277D85DE8];
-  v2 = SBLogAmbientPresentation();
+  v2 = SBLogAmbientPresentation(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) identifier];
@@ -1045,7 +1047,7 @@ void __112__SBAmbientTransientOverlayViewController__addActivityViewControllerWi
 
   v5 = +[SBActivityManager sharedInstance];
   firstPartyActivityGroupingIdentifiers = [v5 firstPartyActivityGroupingIdentifiers];
-  v7 = [firstPartyActivityGroupingIdentifiers containsObject:platterTargetBundleIdentifier];
+  v7 = objc_msgSend_containsObject_(firstPartyActivityGroupingIdentifiers);
 
   return v7;
 }
@@ -1354,7 +1356,7 @@ uint64_t __90__SBAmbientTransientOverlayViewController_attemptUnlockForSender_fo
   v22 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   collectionCopy = collection;
-  v8 = SBLogAmbientPresentation();
+  v8 = SBLogAmbientPresentation(collectionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = MEMORY[0x277CCABB0];
@@ -1397,17 +1399,17 @@ uint64_t __90__SBAmbientTransientOverlayViewController_attemptUnlockForSender_fo
   }
 }
 
-uint64_t __96__SBAmbientTransientOverlayViewController__backlightLuminanceDidChange_previousTraitCollection___block_invoke(uint64_t result, int a2)
+void *__96__SBAmbientTransientOverlayViewController__backlightLuminanceDidChange_previousTraitCollection___block_invoke(void *result, int a2)
 {
   if (a2)
   {
-    return [*(*(result + 32) + 1416) bs_endAppearanceTransition:0];
+    return [*(result[4] + 1416) bs_endAppearanceTransition:0];
   }
 
   return result;
 }
 
-uint64_t __96__SBAmbientTransientOverlayViewController__backlightLuminanceDidChange_previousTraitCollection___block_invoke_2(uint64_t a1)
+void *__96__SBAmbientTransientOverlayViewController__backlightLuminanceDidChange_previousTraitCollection___block_invoke_2(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 1416) _appearState];
   if (result != 1)

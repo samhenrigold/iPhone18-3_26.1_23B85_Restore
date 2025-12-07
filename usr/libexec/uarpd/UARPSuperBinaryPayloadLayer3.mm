@@ -522,9 +522,7 @@ LABEL_21:
 
 - (void)setPayloadData:(id)data
 {
-  v4 = [data copy];
-  payloadDataInternal = self->_payloadDataInternal;
-  self->_payloadDataInternal = v4;
+  self->_payloadDataInternal = [data copy];
 
   _objc_release_x1();
 }
@@ -830,7 +828,7 @@ LABEL_9:
   {
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      sub_100085AB0(self);
+      sub_100085AB0();
     }
 
     v10 = 0;
@@ -959,7 +957,7 @@ LABEL_14:
           {
             v24 = *p_payloadURL;
             v25 = v18;
-            absoluteString = [v24 absoluteString];
+            absoluteString = [(NSURL *)v24 absoluteString];
             v27 = [v12 description];
             *buf = 136316162;
             v33 = "[UARPSuperBinaryPayloadLayer3 getDataRangeFromURL:]";
@@ -1826,21 +1824,21 @@ LABEL_13:
       longname = self->_longname;
       self->_longname = v21;
 
-      if (!self->_longname || (v23 = *p_filepath, objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+      if (!self->_longname || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
-        v24 = [dictionaryCopy objectForKeyedSubscript:@"Property List Path"];
+        v23 = [dictionaryCopy objectForKeyedSubscript:@"Property List Path"];
         propertyListPath = self->_propertyListPath;
-        self->_propertyListPath = v24;
+        self->_propertyListPath = v23;
 
         if (!self->_propertyListPath || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
-          v26 = [dictionaryCopy objectForKeyedSubscript:@"Property List Version Path"];
-          if (v26)
+          v25 = [dictionaryCopy objectForKeyedSubscript:@"Property List Version Path"];
+          if (v25)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v27 = [v26 copy];
+              v26 = [v25 copy];
             }
 
             else
@@ -1851,11 +1849,11 @@ LABEL_13:
                 goto LABEL_38;
               }
 
-              v27 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%lu", [v26 unsignedIntegerValue]);
+              v26 = +[NSString stringWithFormat:](NSString, "stringWithFormat:", @"%lu", [v25 unsignedIntegerValue]);
             }
 
             propertyListVersion = self->_propertyListVersion;
-            self->_propertyListVersion = v27;
+            self->_propertyListVersion = v26;
           }
 
           if ([(UARPSuperBinaryPayloadLayer3 *)self expandPayloadDictionaryTLVs:dictionaryCopy])
@@ -1866,7 +1864,7 @@ LABEL_39:
             goto LABEL_29;
           }
 
-          v31 = *p_filepath;
+          v30 = *p_filepath;
           *p_filepath = 0;
 
 LABEL_38:
@@ -1874,7 +1872,7 @@ LABEL_38:
           goto LABEL_39;
         }
 
-        v28 = self->_propertyListPath;
+        v27 = self->_propertyListPath;
         self->_propertyListPath = 0;
         goto LABEL_27;
       }
@@ -1882,11 +1880,11 @@ LABEL_38:
 
     else if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      sub_10008665C(p_filepath);
+      sub_10008665C();
     }
 
 LABEL_26:
-    v28 = *p_filepath;
+    v27 = *p_filepath;
     *p_filepath = 0;
 LABEL_27:
 
@@ -1965,7 +1963,7 @@ LABEL_15:
 
         if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
         {
-          sub_10008675C(&self->_payloadURL);
+          sub_10008675C();
         }
       }
     }
@@ -2214,7 +2212,7 @@ LABEL_29:
 
           else if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
           {
-            sub_100086A58(self);
+            sub_100086A58();
           }
 
           v7 = 0;
@@ -2223,25 +2221,25 @@ LABEL_29:
 
         if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
         {
-          sub_100086AD4(self);
+          sub_100086AD4();
         }
       }
 
       else if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
       {
-        sub_100086B50(self);
+        sub_100086B50();
       }
     }
 
     else if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      sub_100086BCC(self);
+      sub_100086BCC();
     }
   }
 
   else if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
   {
-    sub_100086C48(self);
+    sub_100086C48();
   }
 
   return 0;

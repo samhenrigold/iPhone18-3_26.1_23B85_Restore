@@ -135,18 +135,18 @@
 
 - (BOOL)collectionView:(id)view shouldSpringLoadItemAtIndexPath:(id)path withContext:(id)context
 {
-  v7 = sub_1D818E994();
-  v8 = *(v7 - 8);
-  MEMORY[0x1EEE9AC00](v7);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = sub_1D818E994();
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = &v20 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D818E924();
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  LOBYTE(self) = MultiCollectionViewDelegate.collectionView(_:shouldSpringLoadItemAt:with:)();
+  LOBYTE(self) = MultiCollectionViewDelegate.collectionView(_:shouldSpringLoadItemAt:with:)(viewCopy, v11, context, v14, v15, v16, v17, v18);
 
   swift_unknownObjectRelease();
-  (*(v8 + 8))(v10, v7);
+  (*(v9 + 8))(v11, v8);
   return self & 1;
 }
 
@@ -193,7 +193,7 @@
 
 - (id)indexPathForPreferredFocusedViewInCollectionView:(id)view
 {
-  sub_1D7E3D564();
+  sub_1D7E3D564(0);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   viewCopy = view;

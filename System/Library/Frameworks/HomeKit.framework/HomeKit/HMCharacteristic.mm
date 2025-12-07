@@ -30,6 +30,7 @@
 - (id)value;
 - (unint64_t)hash;
 - (void)__configureWithContext:(id)context service:(id)service;
+- (void)_enableNotification:(BOOL)notification completionHandler:(id)handler;
 - (void)_readValueWithCompletionHandler:(id)handler;
 - (void)_unconfigure;
 - (void)_updateAuthorizationData:(id)data completionHandler:(id)handler;
@@ -61,16 +62,16 @@
 - (NSString)localizedDescription
 {
   v3 = objc_opt_class();
-  characteristicType = [(HMCharacteristic *)self characteristicType];
-  v5 = [v3 __localizedDescriptionForCharacteristicType:characteristicType];
+  v4 = objc_msgSend_characteristicType(self);
+  v5 = [v3 __localizedDescriptionForCharacteristicType:v4];
 
   return v5;
 }
 
 - (id)_characteristicTypeDescription
 {
-  characteristicType = [(HMCharacteristic *)self characteristicType];
-  v3 = [HMCharacteristic _characteristicTypeAsString:characteristicType];
+  v2 = objc_msgSend_characteristicType(self, a2);
+  v3 = [HMCharacteristic _characteristicTypeAsString:v2];
 
   return v3;
 }
@@ -98,76 +99,13 @@
 
 - (void)updateAuthorizationData:(NSData *)data completionHandler:(void *)completion
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v6 = data;
   v7 = completion;
   context = [(HMCharacteristic *)self context];
   if (!v7)
   {
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMCharacteristic updateAuthorizationData:completionHandler:]", @"completion"];
-    v18 = objc_autoreleasePoolPush();
-    selfCopy = self;
-    v20 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
-    {
-      v21 = HMFGetLogIdentifier();
-      *buf = 138543618;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
-    }
-
-    objc_autoreleasePoolPop(v18);
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
-    objc_exception_throw(v22);
-  }
-
-  v9 = context;
-  if (context)
-  {
-    queue = [context queue];
-    block[0] = MEMORY[0x1E69E9820];
-    block[1] = 3221225472;
-    block[2] = __62__HMCharacteristic_updateAuthorizationData_completionHandler___block_invoke;
-    block[3] = &unk_1E754E0F8;
-    block[4] = self;
-    v24 = v6;
-    v25 = v7;
-    dispatch_async(queue, block);
-  }
-
-  else
-  {
-    v11 = objc_autoreleasePoolPush();
-    selfCopy2 = self;
-    v13 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-    {
-      v14 = HMFGetLogIdentifier();
-      *buf = 138543618;
-      v27 = v14;
-      v28 = 2080;
-      v29 = "[HMCharacteristic updateAuthorizationData:completionHandler:]";
-      _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
-    }
-
-    objc_autoreleasePoolPop(v11);
-    v15 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
-    (*(v7 + 2))(v7, v15);
-  }
-
-  v16 = *MEMORY[0x1E69E9840];
-}
-
-- (void)enableNotification:(BOOL)enable completionHandler:(void *)completion
-{
-  v29 = *MEMORY[0x1E69E9840];
-  v6 = completion;
-  context = [(HMCharacteristic *)self context];
-  if (!v6)
-  {
-    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMCharacteristic enableNotification:completionHandler:]", @"completion"];
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMCharacteristic updateAuthorizationData:completionHandler:]", @"completion"];
     v17 = objc_autoreleasePoolPush();
     selfCopy = self;
     v19 = HMFGetOSLogHandle();
@@ -186,6 +124,106 @@
     objc_exception_throw(v21);
   }
 
+  v9 = context;
+  if (context)
+  {
+    queue = [context queue];
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = __62__HMCharacteristic_updateAuthorizationData_completionHandler___block_invoke;
+    block[3] = &unk_1E754E0F8;
+    block[4] = self;
+    v23 = v6;
+    v24 = v7;
+    dispatch_async(queue, block);
+  }
+
+  else
+  {
+    v11 = objc_autoreleasePoolPush();
+    selfCopy2 = self;
+    v13 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      v14 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v26 = v14;
+      v27 = 2080;
+      v28 = "[HMCharacteristic updateAuthorizationData:completionHandler:]";
+      _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v11);
+    v15 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
+    (*(v7 + 2))(v7, v15);
+  }
+}
+
+- (void)_enableNotification:(BOOL)notification completionHandler:(id)handler
+{
+  notificationCopy = notification;
+  v16[1] = *MEMORY[0x1E69E9840];
+  handlerCopy = handler;
+  service = [(HMCharacteristic *)self service];
+  accessory = [service accessory];
+  home = [accessory home];
+  if (home)
+  {
+    if (([(HMCharacteristic *)self hapProperties]& 1) != 0)
+    {
+      v16[0] = self;
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+      [home enableNotification:notificationCopy forCharacteristics:v15 completionHandler:handlerCopy];
+
+      goto LABEL_7;
+    }
+
+    context = [(HMCharacteristic *)self context];
+    delegateCaller = [context delegateCaller];
+    v12 = MEMORY[0x1E696ABC0];
+    v13 = 7;
+  }
+
+  else
+  {
+    context = [(HMCharacteristic *)self context];
+    delegateCaller = [context delegateCaller];
+    v12 = MEMORY[0x1E696ABC0];
+    v13 = 21;
+  }
+
+  v14 = [v12 errorWithDomain:@"HMErrorDomain" code:v13 userInfo:0];
+  [delegateCaller callCompletion:handlerCopy error:v14];
+
+LABEL_7:
+}
+
+- (void)enableNotification:(BOOL)enable completionHandler:(void *)completion
+{
+  v28 = *MEMORY[0x1E69E9840];
+  v6 = completion;
+  context = [(HMCharacteristic *)self context];
+  if (!v6)
+  {
+    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMCharacteristic enableNotification:completionHandler:]", @"completion"];
+    v16 = objc_autoreleasePoolPush();
+    selfCopy = self;
+    v18 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      v19 = HMFGetLogIdentifier();
+      *buf = 138543618;
+      v25 = v19;
+      v26 = 2112;
+      v27 = v15;
+      _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v16);
+    v20 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v15 userInfo:0];
+    objc_exception_throw(v20);
+  }
+
   v8 = context;
   if (context)
   {
@@ -195,8 +233,8 @@
     block[2] = __57__HMCharacteristic_enableNotification_completionHandler___block_invoke;
     block[3] = &unk_1E7548108;
     block[4] = self;
-    v24 = enable;
-    v23 = v6;
+    v23 = enable;
+    v22 = v6;
     dispatch_async(queue, block);
   }
 
@@ -209,9 +247,9 @@
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v26 = v13;
-      v27 = 2080;
-      v28 = "[HMCharacteristic enableNotification:completionHandler:]";
+      v25 = v13;
+      v26 = 2080;
+      v27 = "[HMCharacteristic enableNotification:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -219,8 +257,6 @@
     v14 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(v6 + 2))(v6, v14);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_readValueWithCompletionHandler:(id)handler
@@ -256,28 +292,28 @@
 
 - (void)readValueWithCompletionHandler:(void *)completion
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v4 = completion;
   context = [(HMCharacteristic *)self context];
   if (!v4)
   {
-    v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMCharacteristic readValueWithCompletionHandler:]", @"completion"];
-    v22 = objc_autoreleasePoolPush();
+    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMCharacteristic readValueWithCompletionHandler:]", @"completion"];
+    v21 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v24 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v23 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      v25 = HMFGetLogIdentifier();
+      v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v32 = v25;
-      v33 = 2112;
-      v34 = v21;
-      _os_log_impl(&dword_19BB39000, v24, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v31 = v24;
+      v32 = 2112;
+      v33 = v20;
+      _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v22);
-    v26 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v21 userInfo:0];
-    objc_exception_throw(v26);
+    objc_autoreleasePoolPop(v21);
+    v25 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v20 userInfo:0];
+    objc_exception_throw(v25);
   }
 
   v6 = context;
@@ -293,9 +329,9 @@
         v10 = HMFGetLogIdentifier();
         characteristicType = selfCopy2->_characteristicType;
         *buf = 138543618;
-        v32 = v10;
-        v33 = 2112;
-        v34 = characteristicType;
+        v31 = v10;
+        v32 = 2112;
+        v33 = characteristicType;
         _os_log_impl(&dword_19BB39000, v9, OS_LOG_TYPE_INFO, "%{public}@Characteristics of type %@ has fixed value. So skipping reads to the accessory", buf, 0x16u);
       }
 
@@ -313,9 +349,9 @@
       block[1] = 3221225472;
       block[2] = __51__HMCharacteristic_readValueWithCompletionHandler___block_invoke;
       block[3] = &unk_1E754E0F8;
-      v28 = v18;
+      v27 = v18;
       selfCopy3 = self;
-      v30 = v4;
+      v29 = v4;
       context2 = v18;
       dispatch_async(queue, block);
     }
@@ -330,9 +366,9 @@
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v32 = v17;
-      v33 = 2080;
-      v34 = "[HMCharacteristic readValueWithCompletionHandler:]";
+      v31 = v17;
+      v32 = 2080;
+      v33 = "[HMCharacteristic readValueWithCompletionHandler:]";
       _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -340,8 +376,6 @@
     context2 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(v4 + 2))(v4, context2);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __51__HMCharacteristic_readValueWithCompletionHandler___block_invoke(uint64_t a1)
@@ -355,7 +389,7 @@ uint64_t __51__HMCharacteristic_readValueWithCompletionHandler___block_invoke(ui
 
 - (void)_writeValue:(id)value completionHandler:(id)handler
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   handlerCopy = handler;
   if (valueCopy)
@@ -385,9 +419,9 @@ uint64_t __51__HMCharacteristic_readValueWithCompletionHandler___block_invoke(ui
             if (v16)
             {
               v37 = HMFGetLogIdentifier();
-              v42 = 138543362;
-              v43 = v37;
-              _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@Cannot write value for characteristic: characteristic is readonly", &v42, 0xCu);
+              v41 = 138543362;
+              v42 = v37;
+              _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@Cannot write value for characteristic: characteristic is readonly", &v41, 0xCu);
             }
 
             v18 = 5;
@@ -398,9 +432,9 @@ uint64_t __51__HMCharacteristic_readValueWithCompletionHandler___block_invoke(ui
             if (v16)
             {
               v17 = HMFGetLogIdentifier();
-              v42 = 138543362;
-              v43 = v17;
-              _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@Cannot write value for characteristic: characteristic is not writeable", &v42, 0xCu);
+              v41 = 138543362;
+              v42 = v17;
+              _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@Cannot write value for characteristic: characteristic is not writeable", &v41, 0xCu);
             }
 
             v18 = 48;
@@ -422,9 +456,9 @@ uint64_t __51__HMCharacteristic_readValueWithCompletionHandler___block_invoke(ui
         if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
         {
           v33 = HMFGetLogIdentifier();
-          v42 = 138543362;
-          v43 = v33;
-          _os_log_impl(&dword_19BB39000, v32, OS_LOG_TYPE_ERROR, "%{public}@Cannot write value for characteristic: service's accessory is nil", &v42, 0xCu);
+          v41 = 138543362;
+          v42 = v33;
+          _os_log_impl(&dword_19BB39000, v32, OS_LOG_TYPE_ERROR, "%{public}@Cannot write value for characteristic: service's accessory is nil", &v41, 0xCu);
         }
 
         objc_autoreleasePoolPop(v30);
@@ -445,9 +479,9 @@ uint64_t __51__HMCharacteristic_readValueWithCompletionHandler___block_invoke(ui
       if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         v27 = HMFGetLogIdentifier();
-        v42 = 138543362;
-        v43 = v27;
-        _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_ERROR, "%{public}@Cannot write value for characteristic: service is nil", &v42, 0xCu);
+        v41 = 138543362;
+        v42 = v27;
+        _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_ERROR, "%{public}@Cannot write value for characteristic: service is nil", &v41, 0xCu);
       }
 
       objc_autoreleasePoolPop(v24);
@@ -468,9 +502,9 @@ uint64_t __51__HMCharacteristic_readValueWithCompletionHandler___block_invoke(ui
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       v22 = HMFGetLogIdentifier();
-      v42 = 138543362;
-      v43 = v22;
-      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@Cannot write value for characteristic: value is nil", &v42, 0xCu);
+      v41 = 138543362;
+      v42 = v22;
+      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@Cannot write value for characteristic: value is nil", &v41, 0xCu);
     }
 
     objc_autoreleasePoolPop(v19);
@@ -479,35 +513,33 @@ uint64_t __51__HMCharacteristic_readValueWithCompletionHandler___block_invoke(ui
     v23 = [MEMORY[0x1E696ABC0] hmErrorWithCode:20];
     [context3 callCompletion:handlerCopy error:v23];
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (void)writeValue:(id)value completionHandler:(void *)completion
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v6 = value;
   v7 = completion;
   context = [(HMCharacteristic *)self context];
   if (!v7)
   {
-    v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMCharacteristic writeValue:completionHandler:]", @"completion"];
-    v19 = objc_autoreleasePoolPush();
+    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMCharacteristic writeValue:completionHandler:]", @"completion"];
+    v18 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v21 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v22 = HMFGetLogIdentifier();
+      v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v30 = v22;
-      v31 = 2112;
-      v32 = v18;
-      _os_log_impl(&dword_19BB39000, v21, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v29 = v21;
+      v30 = 2112;
+      v31 = v17;
+      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v19);
-    v23 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v18 userInfo:0];
-    objc_exception_throw(v23);
+    objc_autoreleasePoolPop(v18);
+    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
+    objc_exception_throw(v22);
   }
 
   v9 = context;
@@ -519,10 +551,10 @@ uint64_t __51__HMCharacteristic_readValueWithCompletionHandler___block_invoke(ui
     block[1] = 3221225472;
     block[2] = __49__HMCharacteristic_writeValue_completionHandler___block_invoke;
     block[3] = &unk_1E754D208;
-    v25 = v10;
+    v24 = v10;
     selfCopy2 = self;
-    v27 = v6;
-    v28 = v7;
+    v26 = v6;
+    v27 = v7;
     v12 = v10;
     dispatch_async(queue, block);
   }
@@ -536,9 +568,9 @@ uint64_t __51__HMCharacteristic_readValueWithCompletionHandler___block_invoke(ui
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v30 = v16;
-      v31 = 2080;
-      v32 = "[HMCharacteristic writeValue:completionHandler:]";
+      v29 = v16;
+      v30 = 2080;
+      v31 = "[HMCharacteristic writeValue:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -546,8 +578,6 @@ uint64_t __51__HMCharacteristic_readValueWithCompletionHandler___block_invoke(ui
     v12 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(v7 + 2))(v7, v12);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __49__HMCharacteristic_writeValue_completionHandler___block_invoke(uint64_t a1)
@@ -561,7 +591,7 @@ uint64_t __49__HMCharacteristic_writeValue_completionHandler___block_invoke(uint
 
 - (void)_updateValue:(id)value valueUpdatedDate:(id)date
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   valueCopy = value;
   dateCopy = date;
   v8 = objc_autoreleasePoolPush();
@@ -571,15 +601,15 @@ uint64_t __49__HMCharacteristic_writeValue_completionHandler___block_invoke(uint
   {
     v11 = HMFGetLogIdentifier();
     value = [(HMCharacteristic *)selfCopy value];
-    v15 = 138544130;
-    v16 = v11;
-    v17 = 2112;
-    v18 = value;
-    v19 = 2112;
-    v20 = valueCopy;
-    v21 = 2112;
-    v22 = dateCopy;
-    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating characteristic value from %@ -> %@ with value updated date: %@", &v15, 0x2Au);
+    v14 = 138544130;
+    v15 = v11;
+    v16 = 2112;
+    v17 = value;
+    v18 = 2112;
+    v19 = valueCopy;
+    v20 = 2112;
+    v21 = dateCopy;
+    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating characteristic value from %@ -> %@ with value updated date: %@", &v14, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -594,13 +624,11 @@ uint64_t __49__HMCharacteristic_writeValue_completionHandler___block_invoke(uint
     date = [MEMORY[0x1E695DF00] date];
     [(HMCharacteristic *)selfCopy setValueUpdatedTime:date];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)mergeFromNewObject:(id)object
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -615,14 +643,14 @@ uint64_t __49__HMCharacteristic_writeValue_completionHandler___block_invoke(uint
   v9 = [metadata mergeFromNewObject:metadata2];
 
   -[HMCharacteristic setHapProperties:](self, "setHapProperties:", [v6 hapProperties]);
-  characteristicType = [v6 characteristicType];
-  [(HMCharacteristic *)self setCharacteristicType:characteristicType];
+  v10 = objc_msgSend_characteristicType(v6);
+  [(HMCharacteristic *)self setCharacteristicType:v10];
 
   -[HMCharacteristic setHasFixedValue:](self, "setHasFixedValue:", [v6 hasFixedValue]);
   [v6 setNotificationEnabledByThisClient:{-[HMCharacteristic notificationEnabledByThisClient](self, "notificationEnabledByThisClient")}];
   -[HMCharacteristic setRequiresDeviceUnlock:](self, "setRequiresDeviceUnlock:", [v6 requiresDeviceUnlock]);
-  LODWORD(characteristicType) = [(HMCharacteristic *)self hasAuthorizationData];
-  if (characteristicType != [v6 hasAuthorizationData])
+  LODWORD(v10) = [(HMCharacteristic *)self hasAuthorizationData];
+  if (v10 != [v6 hasAuthorizationData])
   {
     -[HMCharacteristic setHasAuthorizationData:](self, "setHasAuthorizationData:", [v6 hasAuthorizationData]);
     service = [(HMCharacteristic *)self service];
@@ -649,15 +677,15 @@ uint64_t __49__HMCharacteristic_writeValue_completionHandler___block_invoke(uint
       block[2] = __39__HMCharacteristic_mergeFromNewObject___block_invoke;
       block[3] = &unk_1E754E5E8;
       block[4] = self;
-      v71 = value2;
-      v72 = accessory;
+      v70 = value2;
+      v71 = accessory;
       dispatch_async(queue, block);
     }
   }
 
   value = [(HMCharacteristic *)self value];
   valueUpdatedTime = [(HMCharacteristic *)self valueUpdatedTime];
-  v65 = value;
+  v64 = value;
   if (!valueUpdatedTime)
   {
     value2 = [v6 value];
@@ -674,11 +702,11 @@ LABEL_19:
         value3 = [v6 value];
         valueUpdatedTime2 = [v6 valueUpdatedTime];
         *buf = 138543874;
-        v74 = v26;
-        v75 = 2112;
-        v76 = value3;
-        v77 = 2112;
-        v78 = valueUpdatedTime2;
+        v73 = v26;
+        v74 = 2112;
+        v75 = value3;
+        v76 = 2112;
+        v77 = valueUpdatedTime2;
         _os_log_impl(&dword_19BB39000, v25, OS_LOG_TYPE_INFO, "%{public}@Updating value and value updated time via merge to %@ and %@", buf, 0x20u);
       }
 
@@ -724,9 +752,9 @@ LABEL_22:
       v35 = HMFGetLogIdentifier();
       isNotificationEnabled2 = [v6 isNotificationEnabled];
       *buf = 138543618;
-      v74 = v35;
-      v75 = 1024;
-      LODWORD(v76) = isNotificationEnabled2;
+      v73 = v35;
+      v74 = 1024;
+      LODWORD(v75) = isNotificationEnabled2;
       _os_log_impl(&dword_19BB39000, v34, OS_LOG_TYPE_INFO, "%{public}@Updating notification enabled via merge to %{BOOL}d", buf, 0x12u);
     }
 
@@ -749,9 +777,9 @@ LABEL_22:
       v43 = HMFGetLogIdentifier();
       notificationEnabledTime3 = [v6 notificationEnabledTime];
       *buf = 138543618;
-      v74 = v43;
-      v75 = 2112;
-      v76 = notificationEnabledTime3;
+      v73 = v43;
+      v74 = 2112;
+      v75 = notificationEnabledTime3;
       _os_log_impl(&dword_19BB39000, v42, OS_LOG_TYPE_INFO, "%{public}@Updating notification enabled time via merge to %@", buf, 0x16u);
     }
 
@@ -765,8 +793,8 @@ LABEL_22:
   v46 = +[HMHAPMetadata getSharedInstance];
   if (v22)
   {
-    characteristicType2 = [(HMCharacteristic *)self characteristicType];
-    v48 = [v46 shouldNotCacheCharacteristicOfType:characteristicType2];
+    v47 = objc_msgSend_characteristicType(self);
+    v48 = [v46 shouldNotCacheCharacteristicOfType:v47];
 
     if ((v48 & 1) == 0)
     {
@@ -781,20 +809,20 @@ LABEL_22:
         if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
         {
           HMFGetLogIdentifier();
-          v54 = v64 = v51;
+          v54 = v63 = v51;
           value6 = [(HMCharacteristic *)selfCopy4 value];
           valueUpdatedTime6 = [(HMCharacteristic *)selfCopy4 valueUpdatedTime];
           *buf = 138544130;
-          v74 = v54;
-          v75 = 2112;
-          v76 = v65;
-          v77 = 2112;
-          v78 = value6;
-          v79 = 2112;
-          v80 = valueUpdatedTime6;
+          v73 = v54;
+          v74 = 2112;
+          v75 = v64;
+          v76 = 2112;
+          v77 = value6;
+          v78 = 2112;
+          v79 = valueUpdatedTime6;
           _os_log_impl(&dword_19BB39000, v53, OS_LOG_TYPE_INFO, "%{public}@Merge updated characteristic value from %@ -> %@ with value updated date: %@", buf, 0x2Au);
 
-          v51 = v64;
+          v51 = v63;
         }
 
         objc_autoreleasePoolPop(v51);
@@ -807,21 +835,20 @@ LABEL_22:
       {
         context2 = [(HMCharacteristic *)self context];
         queue2 = [context2 queue];
-        v66[0] = MEMORY[0x1E69E9820];
-        v66[1] = 3221225472;
-        v66[2] = __39__HMCharacteristic_mergeFromNewObject___block_invoke_258;
-        v66[3] = &unk_1E754DE30;
-        v66[4] = self;
-        v67 = delegate2;
-        v68 = accessory2;
-        v69 = service2;
-        dispatch_async(queue2, v66);
+        v65[0] = MEMORY[0x1E69E9820];
+        v65[1] = 3221225472;
+        v65[2] = __39__HMCharacteristic_mergeFromNewObject___block_invoke_258;
+        v65[3] = &unk_1E754DE30;
+        v65[4] = self;
+        v66 = delegate2;
+        v67 = accessory2;
+        v68 = service2;
+        dispatch_async(queue2, v65);
       }
     }
   }
 
 LABEL_40:
-  v62 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -863,7 +890,7 @@ void __39__HMCharacteristic_mergeFromNewObject___block_invoke_258(id *a1)
 
 - (HMCharacteristic)initWithCoder:(id)coder
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"characteristicInstanceID"];
   v6 = [coderCopy hm_decodeAndCacheStringForKey:@"characteristicType"];
@@ -886,15 +913,15 @@ void __39__HMCharacteristic_mergeFromNewObject___block_invoke_258(id *a1)
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v23 = 138544130;
-      v24 = v13;
-      v25 = 2112;
-      v26 = v5;
-      v27 = 2112;
-      v28 = v6;
-      v29 = 2112;
-      v30 = v8;
-      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Cannot initialize from instanceID: %@, characteristicType: %@, service: %@", &v23, 0x2Au);
+      v22 = 138544130;
+      v23 = v13;
+      v24 = 2112;
+      v25 = v5;
+      v26 = 2112;
+      v27 = v6;
+      v28 = 2112;
+      v29 = v8;
+      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Cannot initialize from instanceID: %@, characteristicType: %@, service: %@", &v22, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -934,7 +961,6 @@ void __39__HMCharacteristic_mergeFromNewObject___block_invoke_258(id *a1)
     selfCopy = self;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -947,20 +973,20 @@ void __39__HMCharacteristic_mergeFromNewObject___block_invoke_258(id *a1)
   [array addObject:v6];
 
   v7 = objc_alloc(MEMORY[0x1E69A29C8]);
-  characteristicType = [(HMCharacteristic *)self characteristicType];
-  characteristicType2 = [(HMCharacteristic *)self characteristicType];
-  v10 = [characteristicType2 hasSuffix:@"-0000-1000-8000-0026BB765291"];
+  v8 = objc_msgSend_characteristicType(self);
+  v9 = objc_msgSend_characteristicType(self);
+  v10 = [v9 hasSuffix:@"-0000-1000-8000-0026BB765291"];
 
   if (v10)
   {
-    characteristicType3 = [(HMCharacteristic *)self characteristicType];
-    characteristicType4 = [(HMCharacteristic *)self characteristicType];
-    v13 = [characteristicType3 substringToIndex:{objc_msgSend(characteristicType4, "length") - objc_msgSend(@"-0000-1000-8000-0026BB765291", "length")}];
+    v11 = objc_msgSend_characteristicType(self);
+    v12 = objc_msgSend_characteristicType(self);
+    v13 = [v11 substringToIndex:{objc_msgSend(v12, "length") - objc_msgSend(@"-0000-1000-8000-0026BB765291", "length")}];
 
-    characteristicType = v13;
+    v8 = v13;
   }
 
-  v14 = [v7 initWithName:@"Type" value:characteristicType];
+  v14 = [v7 initWithName:@"Type" value:v8];
   [array addObject:v14];
 
   v15 = objc_alloc(MEMORY[0x1E69A29C8]);
@@ -1006,7 +1032,7 @@ void __39__HMCharacteristic_mergeFromNewObject___block_invoke_258(id *a1)
 
 - (NSUUID)uniqueIdentifier
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock_with_options();
   uniqueIdentifier = self->_uniqueIdentifier;
   if (!uniqueIdentifier)
@@ -1014,8 +1040,8 @@ void __39__HMCharacteristic_mergeFromNewObject___block_invoke_258(id *a1)
     v4 = MEMORY[0x1E696AFB0];
     serviceUniqueIdentifier = [(HMCharacteristic *)self serviceUniqueIdentifier];
     v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@", self->_instanceID];
-    v13[0] = v6;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+    v12[0] = v6;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
     v8 = [v4 hm_deriveUUIDFromBaseUUID:serviceUniqueIdentifier withSalts:v7];
     v9 = self->_uniqueIdentifier;
     self->_uniqueIdentifier = v8;
@@ -1025,7 +1051,6 @@ void __39__HMCharacteristic_mergeFromNewObject___block_invoke_258(id *a1)
 
   v10 = uniqueIdentifier;
   os_unfair_lock_unlock(&self->_lock);
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -1200,7 +1225,7 @@ void __39__HMCharacteristic_mergeFromNewObject___block_invoke_258(id *a1)
 
 - (void)_unconfigure
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   service = [(HMCharacteristic *)self service];
 
   if (service)
@@ -1208,30 +1233,28 @@ void __39__HMCharacteristic_mergeFromNewObject___block_invoke_258(id *a1)
     [(HMCharacteristic *)self setService:0];
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     [defaultCenter removeObserver:self];
-    v4 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v5 = objc_autoreleasePoolPush();
+    v4 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v7 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v6 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v8 = HMFGetLogIdentifier();
+      v7 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v12 = v8;
-      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Skipping unconfigure on already unconfigured object", buf, 0xCu);
+      v10 = v7;
+      _os_log_impl(&dword_19BB39000, v6, OS_LOG_TYPE_INFO, "%{public}@Skipping unconfigure on already unconfigured object", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v5);
-    v9 = *MEMORY[0x1E69E9840];
+    objc_autoreleasePoolPop(v4);
   }
 }
 
 - (void)__configureWithContext:(id)context service:(id)service
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   serviceCopy = service;
   v8 = objc_autoreleasePoolPush();
@@ -1240,19 +1263,17 @@ void __39__HMCharacteristic_mergeFromNewObject___block_invoke_258(id *a1)
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     v11 = HMFGetLogIdentifier();
-    v13 = 138543874;
-    v14 = v11;
-    v15 = 2112;
-    v16 = contextCopy;
-    v17 = 2112;
-    v18 = serviceCopy;
-    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Configuring with context: %@, service: %@", &v13, 0x20u);
+    v12 = 138543874;
+    v13 = v11;
+    v14 = 2112;
+    v15 = contextCopy;
+    v16 = 2112;
+    v17 = serviceCopy;
+    _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_DEBUG, "%{public}@Configuring with context: %@, service: %@", &v12, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
   [(HMCharacteristic *)selfCopy setService:serviceCopy];
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -1354,24 +1375,23 @@ void __39__HMCharacteristic_mergeFromNewObject___block_invoke_258(id *a1)
 
 - (HMCharacteristic)init
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v5;
-    v12 = 2080;
-    v13 = "[HMCharacteristic init]";
-    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_ERROR, "%{public}@%s is unsupported and will be removed in a future release", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v5;
+    v11 = 2080;
+    v12 = "[HMCharacteristic init]";
+    _os_log_impl(&dword_19BB39000, v4, OS_LOG_TYPE_ERROR, "%{public}@%s is unsupported and will be removed in a future release", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
   v6 = objc_alloc_init(HMService);
   v7 = [(HMCharacteristic *)self initWithInstanceID:&unk_1F0EFCB78 characteristicType:@"000000B0-0000-1000-8000-0026BB765291" service:v6 metadata:0];
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -1414,33 +1434,32 @@ void __39__HMCharacteristic_mergeFromNewObject___block_invoke_258(id *a1)
 
 uint64_t __31__HMCharacteristic_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  logCategory__hmf_once_v23 = HMFCreateOSLogHandle();
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v23;
+  logCategory__hmf_once_v23 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (NSDictionary)serializedDictionaryRepresentation
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v2 = [HMPBCharacteristicReference characteristicReferenceWithCharacteristic:self];
-  v7[0] = @"HMShortcutsSerializedDictionaryVersion";
-  v7[1] = @"HMShortcutsSerializedDictionaryProtocol";
-  v8[0] = @"1.0";
-  v8[1] = @"ProtoBuf";
-  v7[2] = @"HMCharacteristicSerializedDataKey";
+  v6[0] = @"HMShortcutsSerializedDictionaryVersion";
+  v6[1] = @"HMShortcutsSerializedDictionaryProtocol";
+  v7[0] = @"1.0";
+  v7[1] = @"ProtoBuf";
+  v6[2] = @"HMCharacteristicSerializedDataKey";
   data = [v2 data];
-  v8[2] = data;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:3];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v7[2] = data;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:3];
 
   return v4;
 }
 
 + (HMCharacteristic)characteristicWithCharacteristicReference:(id)reference home:(id)home
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   referenceCopy = reference;
   homeCopy = home;
   if (([referenceCopy hasUniqueIdentifier] & 1) == 0)
@@ -1451,11 +1470,11 @@ uint64_t __31__HMCharacteristic_logCategory__block_invoke()
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = HMFGetLogIdentifier();
-      v27 = 138543362;
-      v28 = v19;
+      v26 = 138543362;
+      v27 = v19;
       v20 = "%{public}@CharacteristicReference uniqueIdentifier not set";
 LABEL_10:
-      _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, v20, &v27, 0xCu);
+      _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, v20, &v26, 0xCu);
     }
 
 LABEL_11:
@@ -1473,8 +1492,8 @@ LABEL_11:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = HMFGetLogIdentifier();
-      v27 = 138543362;
-      v28 = v19;
+      v26 = 138543362;
+      v27 = v19;
       v20 = "%{public}@ServiceReference not set in characteristicReference";
       goto LABEL_10;
     }
@@ -1506,11 +1525,11 @@ LABEL_11:
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         v24 = HMFGetLogIdentifier();
-        v27 = 138543618;
-        v28 = v24;
-        v29 = 2112;
-        v30 = v12;
-        _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_ERROR, "%{public}@Can't find characteristic %@", &v27, 0x16u);
+        v26 = 138543618;
+        v27 = v24;
+        v28 = 2112;
+        v29 = v12;
+        _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_ERROR, "%{public}@Can't find characteristic %@", &v26, 0x16u);
       }
 
       objc_autoreleasePoolPop(v21);
@@ -1523,7 +1542,6 @@ LABEL_11:
   }
 
 LABEL_18:
-  v25 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

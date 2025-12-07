@@ -1,437 +1,4 @@
-uint64_t ofi_compare_addr_entry(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 104);
-  v3 = *(a1 + 104);
-  if (v2 > v3)
-  {
-    return 1;
-  }
-
-  if (v2 < v3)
-  {
-    return 0;
-  }
-
-  v5 = *(a2 + 57);
-  v6 = *(a1 + 57);
-  if (v5 < v6)
-  {
-    return 1;
-  }
-
-  if (v5 > v6)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return ofi_addr_cmp(&core_prov, a2 + 56, a1 + 56);
-  }
-}
-
-uint64_t ofi_cpu_supports(int a1, unsigned int a2, unsigned int a3)
-{
-  v5[2] = *MEMORY[0x29EDCA608];
-  v5[0] = 0;
-  v5[1] = 0;
-  if (a1)
-  {
-    result = 0;
-  }
-
-  else
-  {
-    result = *(v5 + a2) & a3;
-  }
-
-  v4 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-size_t ofi_remove_comma(const char *a1)
-{
-  result = strlen(a1);
-  if (result >= 2)
-  {
-    v3 = &a1[result];
-    if (a1[result - 2] == 44 && *(v3 - 1) == 32 && !*v3)
-    {
-      *(v3 - 2) = 0;
-    }
-  }
-
-  return result;
-}
-
-uint64_t ofi_nic_close(void *a1)
-{
-  if (!a1 || *a1 != 20)
-  {
-    ofi_nic_close_cold_1();
-  }
-
-  v2 = *(a1 + 3);
-  if (v2)
-  {
-    free(*v2);
-    free(*(*(a1 + 3) + 8));
-    free(*(*(a1 + 3) + 16));
-    free(*(*(a1 + 3) + 24));
-    free(*(*(a1 + 3) + 32));
-    free(*(*(a1 + 3) + 40));
-    free(*(a1 + 3));
-  }
-
-  free(*(a1 + 4));
-  v3 = *(a1 + 5);
-  if (v3)
-  {
-    free(*v3);
-    free(*(*(a1 + 5) + 32));
-    free(*(a1 + 5));
-  }
-
-  free(a1);
-  return 0;
-}
-
-uint64_t ofi_nic_control(void *a1, int a2, void *a3)
-{
-  if (a2 != 15)
-  {
-    return 4294967218;
-  }
-
-  v4 = ofi_nic_dup(a1);
-  *a3 = v4;
-  if (v4)
-  {
-    return 0;
-  }
-
-  else
-  {
-    return 4294967284;
-  }
-}
-
-void *ofi_nic_dup(void *a1)
-{
-  v2 = malloc_type_calloc(1uLL, 0x38uLL, 0x10A00401A993988uLL);
-  v3 = v2;
-  if (v2)
-  {
-    if (a1)
-    {
-      if (*a1 != 20)
-      {
-        ofi_nic_dup_cold_1();
-      }
-
-      v4 = *a1;
-      v2[2] = a1[2];
-      *v2 = v4;
-      v5 = a1[3];
-      if (v5)
-      {
-        v6 = malloc_type_calloc(1uLL, 0x30uLL, 0x100407BD0BEC4uLL);
-        v3[3] = v6;
-        if (!v6)
-        {
-          goto LABEL_45;
-        }
-
-        v7 = v6;
-        if (*v5)
-        {
-          v8 = strdup(*v5);
-          *v7 = v8;
-          if (!v8)
-          {
-            goto LABEL_45;
-          }
-        }
-
-        else
-        {
-          *v6 = 0;
-        }
-
-        v10 = v5[1];
-        v11 = v3[3];
-        if (v10)
-        {
-          v12 = strdup(v10);
-          *(v11 + 8) = v12;
-          if (!v12)
-          {
-            goto LABEL_45;
-          }
-        }
-
-        else
-        {
-          *(v11 + 8) = 0;
-        }
-
-        v13 = v5[2];
-        v14 = v3[3];
-        if (v13)
-        {
-          v15 = strdup(v13);
-          *(v14 + 16) = v15;
-          if (!v15)
-          {
-            goto LABEL_45;
-          }
-        }
-
-        else
-        {
-          *(v14 + 16) = 0;
-        }
-
-        v16 = v5[3];
-        v17 = v3[3];
-        if (v16)
-        {
-          v18 = strdup(v16);
-          *(v17 + 24) = v18;
-          if (!v18)
-          {
-            goto LABEL_45;
-          }
-        }
-
-        else
-        {
-          *(v17 + 24) = 0;
-        }
-
-        v19 = v5[4];
-        v20 = v3[3];
-        if (v19)
-        {
-          v21 = strdup(v19);
-          *(v20 + 32) = v21;
-          if (!v21)
-          {
-            goto LABEL_45;
-          }
-        }
-
-        else
-        {
-          *(v20 + 32) = 0;
-        }
-
-        v22 = v5[5];
-        v23 = v3[3];
-        if (v22)
-        {
-          v24 = strdup(v22);
-          *(v23 + 40) = v24;
-          if (!v24)
-          {
-            goto LABEL_45;
-          }
-        }
-
-        else
-        {
-          *(v23 + 40) = 0;
-        }
-      }
-
-      v25 = a1[4];
-      if (v25)
-      {
-        v26 = malloc_type_calloc(1uLL, 0xCuLL, 0x100004005A209FEuLL);
-        v3[4] = v26;
-        if (!v26)
-        {
-          goto LABEL_45;
-        }
-
-        v27 = *v25;
-        v26[2] = *(v25 + 2);
-        *v26 = v27;
-      }
-
-      v28 = a1[5];
-      if (v28)
-      {
-        v29 = malloc_type_calloc(1uLL, 0x28uLL, 0x10100407AC8CDE2uLL);
-        v3[5] = v29;
-        if (v29)
-        {
-          v30 = v29;
-          if (*v28)
-          {
-            v31 = strdup(*v28);
-            *v30 = v31;
-            if (!v31)
-            {
-              goto LABEL_45;
-            }
-          }
-
-          else
-          {
-            *v29 = 0;
-          }
-
-          v32 = *(v28 + 32);
-          v33 = v3[5];
-          if (v32)
-          {
-            v34 = strdup(v32);
-            *(v33 + 32) = v34;
-            if (!v34)
-            {
-              goto LABEL_45;
-            }
-          }
-
-          else
-          {
-            *(v33 + 32) = 0;
-          }
-
-          v36 = v3[5];
-          *(v36 + 8) = *(v28 + 8);
-          *(v36 + 24) = *(v28 + 24);
-          return v3;
-        }
-
-LABEL_45:
-        ofi_nic_close(v3);
-        return 0;
-      }
-    }
-
-    else
-    {
-      *v2 = 20;
-      v2[3] = malloc_type_calloc(1uLL, 0x30uLL, 0x100407BD0BEC4uLL);
-      v3[4] = malloc_type_calloc(1uLL, 0xCuLL, 0x100004005A209FEuLL);
-      v9 = malloc_type_calloc(1uLL, 0x28uLL, 0x10100407AC8CDE2uLL);
-      v3[5] = v9;
-      if (!v3[3] || !v9 || !v3[4])
-      {
-        goto LABEL_45;
-      }
-
-      v3[2] = &default_nic_ops;
-    }
-  }
-
-  return v3;
-}
-
-uint64_t ofi_vrb_speed(int a1, int a2)
-{
-  if (a1 > 15)
-  {
-    if (a1 > 63)
-    {
-      if (a1 == 64)
-      {
-        v2 = 50000000000;
-        goto LABEL_20;
-      }
-
-      if (a1 == 128)
-      {
-        v2 = 100000000000;
-        goto LABEL_20;
-      }
-    }
-
-    else
-    {
-      if (a1 == 16)
-      {
-        v2 = 14000000000;
-        goto LABEL_20;
-      }
-
-      if (a1 == 32)
-      {
-        v2 = 25000000000;
-        goto LABEL_20;
-      }
-    }
-  }
-
-  else if (a1 > 3)
-  {
-    if (a1 == 4 || a1 == 8)
-    {
-      v2 = 10000000000;
-      goto LABEL_20;
-    }
-  }
-
-  else
-  {
-    if (a1 == 1)
-    {
-      v2 = 2500000000;
-      goto LABEL_20;
-    }
-
-    if (a1 == 2)
-    {
-      v2 = 5000000000;
-      goto LABEL_20;
-    }
-  }
-
-  v2 = 0;
-LABEL_20:
-  if (a2 <= 3)
-  {
-    if (a2 == 1)
-    {
-      v3 = 1;
-      return v3 * v2;
-    }
-
-    if (a2 == 2)
-    {
-      v3 = 4;
-      return v3 * v2;
-    }
-
-LABEL_31:
-    v3 = 0;
-    return v3 * v2;
-  }
-
-  if (a2 == 4)
-  {
-    v3 = 8;
-    return v3 * v2;
-  }
-
-  if (a2 == 8)
-  {
-    v3 = 12;
-    return v3 * v2;
-  }
-
-  if (a2 != 16)
-  {
-    goto LABEL_31;
-  }
-
-  v3 = 2;
-  return v3 * v2;
-}
-
-uint64_t ofi_pollfds_do_add(uint64_t a1, unsigned int a2, __int16 a3, uint64_t a4)
+uint64_t ofi_pollfds_do_add(uint64_t a1, uint64_t a2, __int16 a3, uint64_t a4)
 {
   if (!(*(a1 + 192))(a1 + 128))
   {
@@ -456,7 +23,7 @@ uint64_t ofi_pollfds_do_add(uint64_t a1, unsigned int a2, __int16 a3, uint64_t a
   return result;
 }
 
-uint64_t ofi_pollfds_do_del(uint64_t a1, unsigned int a2)
+uint64_t ofi_pollfds_do_del(uint64_t a1, signed int a2)
 {
   if (!(*(a1 + 192))(a1 + 128))
   {
@@ -651,7 +218,7 @@ uint64_t ofi_cntr_wait(uint64_t a1, unint64_t a2, int a3)
   return 4294967037;
 }
 
-uint64_t ofi_cntr_cleanup(uint64_t a1)
+uint64_t ofi_cntr_cleanup(uint64_t a1, uint64_t a2)
 {
   if (atomic_load((a1 + 48)))
   {
@@ -663,10 +230,10 @@ uint64_t ofi_cntr_cleanup(uint64_t a1)
     (*(*(*(a1 + 216) + 16) + 8))();
   }
 
-  v4 = *(a1 + 40);
-  if (v4)
+  v5 = *(a1 + 40);
+  if (v5)
   {
-    (*(*(*(v4 + 40) + 24) + 24))();
+    (*(*(*(v5 + 40) + 24) + 24))();
     if (*(a1 + 200))
     {
       (*(*(*(a1 + 40) + 16) + 8))();
@@ -674,7 +241,7 @@ uint64_t ofi_cntr_cleanup(uint64_t a1)
   }
 
   atomic_fetch_add((*(a1 + 32) + 176), 0xFFFFFFFF);
-  ofi_genlock_destroy((a1 + 104));
+  ofi_genlock_destroy((a1 + 104), a2);
   return 0;
 }
 
@@ -698,7 +265,7 @@ uint64_t ofi_cntr_init(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     ofi_cntr_init_cold_2();
   }
 
-  v20 = 0;
+  v21 = 0;
   if (a3)
   {
     if ((*(a3 + 16) | 0x80000000000) != 0x80000000000)
@@ -805,7 +372,7 @@ LABEL_21:
       goto LABEL_47;
     }
 
-    v20 = *(a3 + 8);
+    v21 = *(a3 + 8);
     if ((v11 & 0x80000000000) != 0)
     {
       goto LABEL_21;
@@ -853,35 +420,35 @@ LABEL_22:
   }
 
   atomic_fetch_add((*(a4 + 32) + 176), 1u);
-  if (!v20)
+  if (!v21)
   {
     return 0;
   }
 
-  *(a4 + 40) = v20;
-  v13 = (*(*(*(v20 + 40) + 24) + 16))();
+  *(a4 + 40) = v21;
+  v13 = (*(*(*(v21 + 40) + 24) + 16))();
   if (v13)
   {
-    ofi_cntr_cleanup(a4);
+    ofi_cntr_cleanup(a4, v19);
 LABEL_37:
-    if (v20 && *(a3 + 4) != 2)
+    if (v21 && *(a3 + 4) != 2)
     {
-      (*(*(v20 + 16) + 8))();
+      (*(*(v21 + 16) + 8))();
     }
   }
 
   return v13;
 }
 
-uint64_t util_cntr_close(void *a1)
+uint64_t util_cntr_close(void *a1, uint64_t a2)
 {
-  v2 = ofi_cntr_cleanup(a1);
-  if (!v2)
+  v3 = ofi_cntr_cleanup(a1, a2);
+  if (!v3)
   {
     free(a1);
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t ofi_peer_cntr_read(uint64_t a1)
@@ -1146,63 +713,63 @@ uint64_t ofi_monitor_cleanup(uint64_t result)
 
 int *ofi_monitors_init()
 {
-  v48[11] = *MEMORY[0x29EDCA608];
+  v17[11] = *MEMORY[0x29EDCA608];
   pthread_mutex_init(&mm_lock, 0);
   pthread_mutex_init(&mm_state_lock, 0);
   pthread_rwlock_init(&mm_list_rwlock, 0);
-  v48[0] = uffd_monitor;
-  v48[1] = memhooks_monitor;
-  v48[2] = cuda_monitor;
-  v48[3] = cuda_ipc_monitor;
-  v48[4] = rocr_monitor;
-  v48[5] = rocr_ipc_monitor;
-  v48[6] = xpmem_monitor;
-  v48[7] = ze_monitor;
-  v48[8] = ze_ipc_monitor;
-  v48[9] = import_monitor;
-  v48[10] = kdreg2_monitor;
+  v17[0] = uffd_monitor;
+  v17[1] = memhooks_monitor;
+  v17[2] = cuda_monitor;
+  v17[3] = cuda_ipc_monitor;
+  v17[4] = rocr_monitor;
+  v17[5] = rocr_ipc_monitor;
+  v17[6] = xpmem_monitor;
+  v17[7] = ze_monitor;
+  v17[8] = ze_ipc_monitor;
+  v17[9] = import_monitor;
+  v17[10] = kdreg2_monitor;
   monitor_list_size = 11;
   v0 = malloc_type_calloc(0xBuLL, 8uLL, 0x2004093837F09uLL);
   monitor_list = v0;
-  v5 = monitor_list_size;
+  v1 = monitor_list_size;
   if (monitor_list_size)
   {
-    v6 = 0;
+    v2 = 0;
     do
     {
-      v0[v6] = v48[v6];
+      v0[v2] = v17[v2];
       v0 = monitor_list;
-      if (!*(*(monitor_list + 8 * v6) + 80))
+      if (!*(*(monitor_list + 8 * v2) + 80))
       {
         ofi_monitors_init_cold_1();
       }
 
-      ++v6;
+      ++v2;
     }
 
-    while (v5 != v6);
-    v7 = 0;
+    while (v1 != v2);
+    v3 = 0;
     do
     {
       if (fi_log_enabled(&core_prov, 2, 8))
       {
-        v8 = *__error();
-        fi_log(&core_prov, 2, 8, "ofi_monitors_init", 240, "Initializing memory monitor %s\n", *(*(monitor_list + 8 * v7) + 80));
-        *__error() = v8;
+        v4 = *__error();
+        fi_log(&core_prov, 2, 8, "ofi_monitors_init", 240, "Initializing memory monitor %s\n", *(*(monitor_list + 8 * v3) + 80));
+        *__error() = v4;
       }
 
-      (*(*(monitor_list + 8 * v7++) + 24))();
+      (*(*(monitor_list + 8 * v3++) + 24))();
     }
 
-    while (v7 < monitor_list_size);
+    while (v3 < monitor_list_size);
   }
 
-  fi_param_define(0, "mr_cache_max_size", 3, "Defines the total number of bytes for all memory regions that may be tracked by the MR cache. Setting this will reduce the amount of memory not actively in use that may be registered. (default: total memory / number of cpu cores / 2)", v1, v2, v3, v4, v42);
-  fi_param_define(0, "mr_cache_max_count", 3, "Defines the total number of memory regions that may be store in the cache.  Setting this will reduce the number of registered regions, regardless of their size, stored in the cache.  Setting this to zero will disable MR caching.  (default: 1024)", v9, v10, v11, v12, v43);
-  fi_param_define(0, "mr_cache_monitor", 0, "Define a default memory registration monitor. The monitor checks for virtual to physical memory address changes.  Options are: userfaultfd, memhooks kdreg2, and disabled.  Userfaultfd is a Linux kernel feature. Memhooks operates by intercepting memory allocation and free calls. kdreg2 is a supplied as a loadable Linux kernel module. Userfaultfd is the default if available on the system. 'disabled' option disables memory caching.", v13, v14, v15, v16, v44);
-  fi_param_define(0, "mr_cuda_cache_monitor_enabled", 2, "Enable or disable the CUDA cache memory monitor.Enabled by default.", v17, v18, v19, v20, v45);
-  fi_param_define(0, "mr_rocr_cache_monitor_enabled", 2, "Enable or disable the ROCR cache memory monitor. Enabled by default.", v21, v22, v23, v24, v46);
-  fi_param_define(0, "mr_ze_cache_monitor_enabled", 2, "Enable or disable the oneAPI Level Zero cache memory monitor.  Enabled by default.", v25, v26, v27, v28, v47);
+  fi_param_define(0, "mr_cache_max_size", 3, "Defines the total number of bytes for all memory regions that may be tracked by the MR cache. Setting this will reduce the amount of memory not actively in use that may be registered. (default: total memory / number of cpu cores / 2)");
+  fi_param_define(0, "mr_cache_max_count", 3, "Defines the total number of memory regions that may be store in the cache.  Setting this will reduce the number of registered regions, regardless of their size, stored in the cache.  Setting this to zero will disable MR caching.  (default: 1024)");
+  fi_param_define(0, "mr_cache_monitor", 0, "Define a default memory registration monitor. The monitor checks for virtual to physical memory address changes.  Options are: userfaultfd, memhooks kdreg2, and disabled.  Userfaultfd is a Linux kernel feature. Memhooks operates by intercepting memory allocation and free calls. kdreg2 is a supplied as a loadable Linux kernel module. Userfaultfd is the default if available on the system. 'disabled' option disables memory caching.");
+  fi_param_define(0, "mr_cuda_cache_monitor_enabled", 2, "Enable or disable the CUDA cache memory monitor.Enabled by default.");
+  fi_param_define(0, "mr_rocr_cache_monitor_enabled", 2, "Enable or disable the ROCR cache memory monitor. Enabled by default.");
+  fi_param_define(0, "mr_ze_cache_monitor_enabled", 2, "Enable or disable the oneAPI Level Zero cache memory monitor.  Enabled by default.");
   fi_param_get(0, "mr_cache_max_size", &cache_params + 2);
   fi_param_get(0, "mr_cache_max_count", &cache_params);
   fi_param_get(0, "mr_cache_monitor", &qword_2A18935A0);
@@ -1212,75 +779,75 @@ int *ofi_monitors_init()
   if (!*(&cache_params + 1))
   {
     *__error() = 0;
-    v29 = sysconf(58);
-    if (v29 <= 0)
+    v5 = sysconf(58);
+    if (v5 <= 0)
     {
       if (!*__error())
       {
         goto LABEL_17;
       }
 
-      v30 = -*__error();
+      v6 = -*__error();
     }
 
     else
     {
-      v30 = v29 & 0x7FFFFFFF;
+      v6 = v5 & 0x7FFFFFFF;
     }
 
-    if (v30 >= 1)
+    if (v6 >= 1)
     {
-      v31 = (ofi_get_mem_size() / v30) >> 1;
+      v7 = (ofi_get_mem_size() / v6) >> 1;
       if (fi_log_enabled(&core_prov, 2, 8))
       {
-        v32 = *__error();
-        fi_log(&core_prov, 2, 8, "ofi_default_cache_size", 67, "default cache size=%zu\n", v31);
-        *__error() = v32;
+        v8 = *__error();
+        fi_log(&core_prov, 2, 8, "ofi_default_cache_size", 67, "default cache size=%zu\n", v7);
+        *__error() = v8;
       }
 
       goto LABEL_18;
     }
 
 LABEL_17:
-    v31 = 0;
+    v7 = 0;
 LABEL_18:
-    *(&cache_params + 1) = v31;
+    *(&cache_params + 1) = v7;
   }
 
-  v33 = qword_2A18935A0;
+  v9 = qword_2A18935A0;
   if (!qword_2A18935A0)
   {
     goto LABEL_30;
   }
 
-  if (!strcmp(qword_2A18935A0, "userfaultfd") || !strcmp(v33, "uffd"))
+  if (!strcmp(qword_2A18935A0, "userfaultfd") || !strcmp(v9, "uffd"))
   {
     if (fi_log_enabled(&core_prov, 0, 8))
     {
-      v34 = *__error();
+      v10 = *__error();
       fi_log(&core_prov, 0, 8, "set_default_monitor", 204, "userfaultfd monitor not available\n");
 LABEL_28:
-      *__error() = v34;
+      *__error() = v10;
     }
   }
 
   else
   {
-    if (!strcmp(v33, "memhooks"))
+    if (!strcmp(v9, "memhooks"))
     {
       if (!fi_log_enabled(&core_prov, 0, 8))
       {
         goto LABEL_29;
       }
 
-      v34 = *__error();
+      v10 = *__error();
       fi_log(&core_prov, 0, 8, "set_default_monitor", 211, "memhooks monitor not available\n");
       goto LABEL_28;
     }
 
-    if (strcmp(v33, "kdreg2"))
+    if (strcmp(v9, "kdreg2"))
     {
-      if (strcmp(v33, "disabled"))
+      if (strcmp(v9, "disabled"))
       {
         goto LABEL_30;
       }
@@ -1290,7 +857,7 @@ LABEL_28:
 
     if (fi_log_enabled(&core_prov, 0, 8))
     {
-      v34 = *__error();
+      v10 = *__error();
       fi_log(&core_prov, 0, 8, "set_default_monitor", 218, "kdreg2 monitor not available\n");
       goto LABEL_28;
     }
@@ -1302,48 +869,47 @@ LABEL_30:
   result = fi_log_enabled(&core_prov, 2, 8);
   if (result)
   {
-    v36 = *__error();
+    v12 = *__error();
     if (default_monitor)
     {
-      v37 = *(default_monitor + 80);
+      v13 = *(default_monitor + 80);
     }
 
     else
     {
-      v37 = "disabled";
+      v13 = "disabled";
     }
 
-    fi_log(&core_prov, 2, 8, "ofi_monitors_init", 317, "Default memory monitor is: %s\n", v37);
+    fi_log(&core_prov, 2, 8, "ofi_monitors_init", 317, "Default memory monitor is: %s\n", v13);
     result = __error();
-    *result = v36;
+    *result = v12;
   }
 
-  v38 = cuda_monitor;
+  v14 = cuda_monitor;
   if (!dword_2A18935A8)
   {
-    v38 = 0;
+    v14 = 0;
   }
 
-  default_cuda_monitor = v38;
-  v39 = rocr_monitor;
+  default_cuda_monitor = v14;
+  v15 = rocr_monitor;
   if (!dword_2A18935AC)
   {
-    v39 = 0;
+    v15 = 0;
   }
 
-  default_rocr_monitor = v39;
+  default_rocr_monitor = v15;
   if (dword_2A18935B0)
   {
-    v40 = ze_monitor;
+    v16 = ze_monitor;
   }
 
   else
   {
-    v40 = 0;
+    v16 = 0;
   }
 
-  default_ze_monitor = v40;
-  v41 = *MEMORY[0x29EDCA608];
+  default_ze_monitor = v16;
   return result;
 }
 
@@ -1378,17 +944,16 @@ uint64_t ofi_monitors_cleanup()
 
 uint64_t ofi_monitors_add_cache(uint64_t a1, _OWORD *a2)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   if (!a1)
   {
     a2[2] = 0u;
     a2[3] = 0u;
     a2[1] = 0u;
-    v5 = 4294967218;
-    goto LABEL_25;
+    return 4294967218;
   }
 
-  memset(v20, 0, sizeof(v20));
+  memset(v19, 0, sizeof(v19));
   do
   {
     v4 = pthread_rwlock_trywrlock(&mm_list_rwlock);
@@ -1400,12 +965,11 @@ uint64_t ofi_monitors_add_cache(uint64_t a1, _OWORD *a2)
   {
     v6 = 0;
     v7 = 0;
-    v8 = 4;
-    while (1)
+    for (i = 4; ; ++i)
     {
       v9 = a2 + 8 * v6;
       *(v9 + 2) = 0;
-      *(v20 + v6) = 0;
+      *(v19 + v6) = 0;
       if (!ofi_hmem_is_initialized(v6))
       {
         goto LABEL_16;
@@ -1425,20 +989,18 @@ uint64_t ofi_monitors_add_cache(uint64_t a1, _OWORD *a2)
 LABEL_15:
       ++v7;
       *(v9 + 2) = v10;
-      v13 = &a2[v8];
+      v13 = &a2[i];
       v14 = *(v10 + 8);
       v15 = *v14;
       *v13 = *v14;
       v13[1] = v14;
-      *(v15 + 8) = &a2[v8];
-      *v14 = &a2[v8];
+      *(v15 + 8) = &a2[i];
+      *v14 = &a2[i];
 LABEL_16:
-      ++v6;
-      ++v8;
-      if (v6 == 6)
+      if (++v6 == 6)
       {
         pthread_rwlock_unlock(&mm_list_rwlock);
-        v16 = ofi_monitors_update(v20);
+        v16 = ofi_monitors_update(v19);
         if (v16)
         {
           v5 = v16;
@@ -1447,20 +1009,20 @@ LABEL_16:
 
         else if (v7)
         {
-          v5 = 0;
+          return 0;
         }
 
         else
         {
-          v5 = 4294967218;
+          return 4294967218;
         }
 
-        goto LABEL_25;
+        return v5;
       }
     }
 
     pthread_mutex_lock(&mm_state_lock);
-    *(v20 + v6) = v10;
+    *(v19 + v6) = v10;
     v11 = *(v10 + 20);
     if (v11 == 1)
     {
@@ -1490,8 +1052,6 @@ LABEL_14:
     *__error() = v17;
   }
 
-LABEL_25:
-  v18 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
@@ -1504,7 +1064,7 @@ uint64_t ofi_monitors_update(uint64_t a1)
 
   pthread_mutex_lock(&mm_state_lock);
   v2 = 0;
-  v20 = 0;
+  LODWORD(v14) = 0;
   while (1)
   {
     v3 = *(a1 + 8 * v2);
@@ -1514,7 +1074,7 @@ uint64_t ofi_monitors_update(uint64_t a1)
     }
 
 LABEL_16:
-    v20 = ++v2;
+    LODWORD(v14) = ++v2;
     if (v2 >= 6)
     {
       v9 = 0;
@@ -1568,9 +1128,9 @@ LABEL_15:
   if (fi_log_enabled(&core_prov, 0, 8))
   {
     v11 = *__error();
-    v18 = fi_tostr(&v20, 25, v12, v13, v14, v15, v16, v17);
-    v19 = fi_strerror(-v9);
-    fi_log(&core_prov, 0, 8, "ofi_monitors_update", 124, "Failed to start %s memory monitor: %s\n", v18, v19);
+    v12 = fi_tostr(&v14, 25);
+    v13 = fi_strerror(-v9);
+    fi_log(&core_prov, 0, 8, "ofi_monitors_update", 124, "Failed to start %s memory monitor: %s\n", v12, v13);
     *__error() = v11;
   }
 
@@ -1579,10 +1139,10 @@ LABEL_18:
   return v9;
 }
 
-uint64_t ofi_monitors_del_cache(uint64_t a1)
+int *ofi_monitors_del_cache(uint64_t a1)
 {
-  v16 = *MEMORY[0x29EDCA608];
-  memset(v15, 0, sizeof(v15));
+  v15 = *MEMORY[0x29EDCA608];
+  memset(v14, 0, sizeof(v14));
   do
   {
     v2 = pthread_rwlock_trywrlock(&mm_list_rwlock);
@@ -1594,10 +1154,9 @@ uint64_t ofi_monitors_del_cache(uint64_t a1)
   {
     v4 = 0;
     v5 = a1 + 16;
-    v6 = (a1 + 72);
-    while (1)
+    for (i = (a1 + 72); ; i += 2)
     {
-      *(v15 + v4) = 0;
+      *(v14 + v4) = 0;
       v7 = *(v5 + v4);
       if (v7)
       {
@@ -1606,17 +1165,15 @@ uint64_t ofi_monitors_del_cache(uint64_t a1)
 
 LABEL_14:
       v4 += 8;
-      v6 += 2;
       if (v4 == 48)
       {
         pthread_rwlock_unlock(&mm_list_rwlock);
-        result = ofi_monitors_update(v15);
-        goto LABEL_18;
+        return ofi_monitors_update(v14);
       }
     }
 
-    v8 = *(v6 - 1);
-    v9 = *v6;
+    v8 = *(i - 1);
+    v9 = *i;
     *v9 = v8;
     *(v8 + 8) = v9;
     if (*v7 != v7)
@@ -1646,7 +1203,7 @@ LABEL_12:
     }
 
     *(v7 + 20) = v11;
-    *(v15 + v4) = v7;
+    *(v14 + v4) = v7;
     goto LABEL_12;
   }
 
@@ -1659,8 +1216,6 @@ LABEL_12:
     *result = v13;
   }
 
-LABEL_18:
-  v14 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -1782,7 +1337,7 @@ void ofi_prof_sys_init()
 {
   if (ofi_sys_var_count)
   {
-    bzero(&ofi_sys_vars, 8 * ofi_sys_var_count);
+    bzero(ofi_sys_vars, 8 * ofi_sys_var_count);
   }
 
   ofi_sys_var_enabled = 1;
@@ -1794,7 +1349,7 @@ uint64_t ofi_prof_inc_sys_var(uint64_t result, unint64_t a2)
   {
     if (ofi_sys_var_enabled)
     {
-      atomic_fetch_add(&ofi_sys_vars, a2);
+      atomic_fetch_add(ofi_sys_vars, a2);
     }
   }
 
@@ -1808,7 +1363,7 @@ unint64_t ofi_prof_read_sys_var(int a1)
   {
     if (ofi_sys_var_enabled)
     {
-      return atomic_load(&ofi_sys_vars);
+      return atomic_load(ofi_sys_vars);
     }
   }
 
@@ -2270,7 +1825,7 @@ LABEL_7:
   }
 }
 
-uint64_t ofi_prof_reg_callback(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4)
+uint64_t ofi_prof_reg_callback(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v4 = ofi_common_event_count;
   if (a2 < 0x10000)
@@ -2290,7 +1845,7 @@ uint64_t ofi_prof_reg_callback(uint64_t a1, unsigned int a2, uint64_t a3, uint64
   return 0;
 }
 
-uint64_t util_srx_generic_trecv(uint64_t a1, uint64_t *a2, const void *a3, unint64_t a4, uint64_t a5, uint64_t *a6, uint64_t a7, uint64_t a8, uint64_t a9)
+uint64_t util_srx_generic_trecv(uint64_t a1, uint64_t *a2, const void *a3, unint64_t a4, uint64_t a5, uint64_t **a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (*(a1 + 128) < a4)
   {
@@ -2434,7 +1989,7 @@ uint64_t util_srx_generic_trecv(uint64_t a1, uint64_t *a2, const void *a3, unint
     }
 
     v32 = *a6;
-    if ((*(*(*(*a6 + 16) + 88) + 32))(*a6) && fi_log_enabled(&core_prov, 0, 3))
+    if ((*(*((*a6)[2] + 88) + 32))(*a6) && fi_log_enabled(&core_prov, 0, 3))
     {
       v33 = *__error();
       fi_log(&core_prov, 0, 3, "util_srx_generic_trecv", 703, "Error discarding message with peer\n");
@@ -2474,8 +2029,9 @@ LABEL_39:
   return v39;
 }
 
-void *util_search_unexp_tag(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
+uint64_t *util_search_unexp_tag(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
+  v5 = a5;
   if (a2 != -1)
   {
     v9 = a2;
@@ -2500,7 +2056,7 @@ void *util_search_unexp_tag(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, int
     v12 = (v11 + a1[3106] * (v9 & 0x3FF));
 LABEL_7:
 
-    return util_search_peer_tag(v12, a3, a4, a5);
+    return util_search_peer_tag(v12, a3, a4, v5);
   }
 
   v14 = a1 + 2078;
@@ -2537,7 +2093,7 @@ LABEL_7:
       break;
     }
 
-    result = util_search_peer_tag(v18, a3, a4, a5);
+    result = util_search_peer_tag(v18, a3, a4, v5);
     if (result)
     {
       return result;
@@ -2787,7 +2343,7 @@ LABEL_43:
   return v18;
 }
 
-uint64_t *util_search_unexp_msg(uint64_t a1, uint64_t a2)
+uint64_t *util_search_unexp_msg(void *a1, uint64_t a2)
 {
   if (a2 != -1)
   {
@@ -2797,30 +2353,30 @@ uint64_t *util_search_unexp_msg(uint64_t a1, uint64_t a2)
       util_srx_generic_trecv_cold_3();
     }
 
-    v4 = a1 + 16656;
-    v5 = *(a1 + 16656 + 8 * (a2 >> 10));
+    v4 = a1 + 2082;
+    v5 = a1[(a2 >> 10) + 2082];
     if (!v5)
     {
-      if ((ofi_array_grow(a1 + 16656, a2) & 0x80000000) != 0)
+      if ((ofi_array_grow((a1 + 2082), a2) & 0x80000000) != 0)
       {
         v6 = 0;
         goto LABEL_7;
       }
 
-      v5 = *(v4 + 8 * (v3 >> 10));
+      v5 = v4[v3 >> 10];
     }
 
-    v6 = (v5 + *(a1 + 24848) * (v3 & 0x3FF));
+    v6 = (v5 + a1[3106] * (v3 & 0x3FF));
 LABEL_7:
 
     return util_search_peer_msg(v6);
   }
 
-  result = *(a1 + 16608);
-  if (result == (a1 + 16608))
+  result = a1[2076];
+  if (result == a1 + 2076)
   {
-    v10 = (a1 + 16640);
-    v11 = (a1 + 16640);
+    v10 = a1 + 2080;
+    v11 = a1 + 2080;
     while (1)
     {
       v11 = *v11;
@@ -2858,7 +2414,7 @@ uint64_t util_srx_recv(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
   return util_srx_generic_recv(a1, v7, &v8, 1uLL, a5, a6, *(a1 + 112));
 }
 
-uint64_t util_srx_trecv(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t *a8)
+uint64_t util_srx_trecv(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t **a8)
 {
   v10 = a4;
   v9[0] = a2;
@@ -3141,7 +2697,7 @@ uint64_t util_rx_entry_init(uint64_t result, uint64_t a2)
   return result;
 }
 
-void *util_search_peer_tag(uint64_t *a1, uint64_t a2, uint64_t a3, int a4)
+uint64_t *util_search_peer_tag(uint64_t *a1, uint64_t a2, uint64_t a3, int a4)
 {
   if (!a1)
   {
@@ -3305,7 +2861,7 @@ LABEL_8:
   return v1;
 }
 
-uint64_t util_get_msg(uint64_t a1, uint64_t *a2, void *a3)
+uint64_t util_get_msg(uint64_t a1, uint64_t *a2, uint64_t *a3)
 {
   v6 = *(a1 + 8);
   if (!(*(*(v6 + 24872) + 72))(*(v6 + 24872) + 8))
@@ -3810,12 +3366,11 @@ uint64_t util_free_entry(uint64_t a1)
     *(v3 + 128) = v4;
     if (!v4 && *(v3 + 32) < v2[13])
     {
-      v5 = *(v3 + 64);
       if ((*(*(*(v2[18] + 288) + 24) + 8))() && fi_log_enabled(&core_prov, 0, 3))
       {
-        v6 = *__error();
+        v5 = *__error();
         fi_log(&core_prov, 0, 3, "util_free_entry", 397, "cannot write MULTI_RECV completion\n");
-        *__error() = v6;
+        *__error() = v5;
       }
 
       ofi_buf_free(v3);
@@ -3992,9 +3547,9 @@ uint64_t util_cancel_recv(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
     v7 = v8;
   }
 
-  while (*(v8 + 64) != a4);
-  v10 = *(v8 + 56);
-  if ((v10 & 0x10000) != 0 && *(v8 + 128))
+  while (v8[8] != a4);
+  v10 = v8[7];
+  if ((v10 & 0x10000) != 0 && *(v8 + 32))
   {
     return 4294967261;
   }
@@ -4016,16 +3571,14 @@ uint64_t util_cancel_recv(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
     a2[1] = v9;
   }
 
-  v14 = *(v8 + 64);
   if ((v10 & 0x10000) != 0)
   {
-    if (*(v8 + 128))
+    if (*(v8 + 32))
     {
       util_cancel_recv_cold_1();
     }
   }
 
-  v15 = *(v8 + 40);
   (*(*(*(*(a1 + 144) + 288) + 24) + 16))();
   ofi_buf_free(v8);
   return 0;
@@ -9911,6 +9464,471 @@ _BYTE *ofi_cswap_OFI_OP_CSWAP_GE_int8_t(_BYTE *result, _BYTE *a2, char *a3, _BYT
     ++a2;
     ++a4;
     ++result;
+  }
+
+  return result;
+}
+
+_BYTE *ofi_cswap_OFI_OP_CSWAP_GE_uint8_t(_BYTE *result, _BYTE *a2, unsigned __int8 *a3, _BYTE *a4, uint64_t a5)
+{
+  for (; a5; --a5)
+  {
+    v5 = *result;
+    *a4 = v5;
+    v6 = *a3++;
+    if (v6 >= v5)
+    {
+      *result = *a2;
+    }
+
+    ++a2;
+    ++a4;
+    ++result;
+  }
+
+  return result;
+}
+
+__int16 *ofi_cswap_OFI_OP_CSWAP_GE_int16_t(__int16 *result, __int16 *a2, __int16 *a3, _WORD *a4, uint64_t a5)
+{
+  for (; a5; --a5)
+  {
+    v5 = *result;
+    *a4 = *result;
+    v6 = *a3++;
+    if (v6 >= v5)
+    {
+      *result = *a2;
+    }
+
+    ++a2;
+    ++a4;
+    ++result;
+  }
+
+  return result;
+}
+
+_WORD *ofi_cswap_OFI_OP_CSWAP_GE_uint16_t(_WORD *result, _WORD *a2, unsigned __int16 *a3, _WORD *a4, uint64_t a5)
+{
+  for (; a5; --a5)
+  {
+    v5 = *result;
+    *a4 = v5;
+    v6 = *a3++;
+    if (v6 >= v5)
+    {
+      *result = *a2;
+    }
+
+    ++a2;
+    ++a4;
+    ++result;
+  }
+
+  return result;
+}
+
+int *ofi_cswap_OFI_OP_CSWAP_GE_int32_t(int *result, int *a2, int *a3, int *a4, uint64_t a5)
+{
+  for (; a5; --a5)
+  {
+    v5 = *result;
+    *a4 = *result;
+    v6 = *a3++;
+    if (v6 >= v5)
+    {
+      *result = *a2;
+    }
+
+    ++a2;
+    ++a4;
+    ++result;
+  }
+
+  return result;
+}
+
+unsigned int *ofi_cswap_OFI_OP_CSWAP_GE_uint32_t(unsigned int *result, unsigned int *a2, unsigned int *a3, unsigned int *a4, uint64_t a5)
+{
+  for (; a5; --a5)
+  {
+    v5 = *result;
+    *a4 = *result;
+    v6 = *a3++;
+    if (v6 >= v5)
+    {
+      *result = *a2;
+    }
+
+    ++a2;
+    ++a4;
+    ++result;
+  }
+
+  return result;
+}
+
+uint64_t *ofi_cswap_OFI_OP_CSWAP_GE_int64_t(uint64_t *result, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
+{
+  for (; a5; --a5)
+  {
+    v5 = *result;
+    *a4 = *result;
+    v6 = *a3++;
+    if (v6 >= v5)
+    {
+      *result = *a2;
+    }
+
+    ++a2;
+    ++a4;
+    ++result;
+  }
+
+  return result;
+}
+
+unint64_t *ofi_cswap_OFI_OP_CSWAP_GE_uint64_t(unint64_t *result, unint64_t *a2, unint64_t *a3, unint64_t *a4, uint64_t a5)
+{
+  for (; a5; --a5)
+  {
+    v5 = *result;
+    *a4 = *result;
+    v6 = *a3++;
+    if (v6 >= v5)
+    {
+      *result = *a2;
+    }
+
+    ++a2;
+    ++a4;
+    ++result;
+  }
+
+  return result;
+}
+
+float *ofi_cswap_OFI_OP_CSWAP_GE_float(float *result, float *a2, float *a3, _DWORD *a4, uint64_t a5)
+{
+  for (; a5; --a5)
+  {
+    v5 = *result;
+    *a4 = *result;
+    if (*a3 >= v5)
+    {
+      *result = *a2;
+    }
+
+    ++a2;
+    ++a3;
+    ++a4;
+    ++result;
+  }
+
+  return result;
+}
+
+double *ofi_cswap_OFI_OP_CSWAP_GE_double(double *result, double *a2, double *a3, void *a4, uint64_t a5)
+{
+  for (; a5; --a5)
+  {
+    v5 = *result;
+    *a4 = *result;
+    if (*a3 >= v5)
+    {
+      *result = *a2;
+    }
+
+    ++a2;
+    ++a3;
+    ++a4;
+    ++result;
+  }
+
+  return result;
+}
+
+double *ofi_cswap_OFI_OP_CSWAP_GE_long_double(double *result, double *a2, double *a3, void *a4, uint64_t a5)
+{
+  for (; a5; --a5)
+  {
+    v5 = *result;
+    *a4 = *result;
+    if (*a3 >= v5)
+    {
+      *result = *a2;
+    }
+
+    ++a2;
+    ++a3;
+    ++a4;
+    ++result;
+  }
+
+  return result;
+}
+
+_BYTE *ofi_cswap_OFI_OP_CSWAP_GT_int8_t(_BYTE *result, _BYTE *a2, char *a3, _BYTE *a4, uint64_t a5)
+{
+  for (; a5; --a5)
+  {
+    v5 = *result;
+    *a4 = *result;
+    v6 = *a3++;
+    if (v6 > v5)
+    {
+      *result = *a2;
+    }
+
+    ++a2;
+    ++a4;
+    ++result;
+  }
+
+  return result;
+}
+
+_BYTE *ofi_cswap_OFI_OP_CSWAP_GT_uint8_t(_BYTE *result, _BYTE *a2, unsigned __int8 *a3, _BYTE *a4, uint64_t a5)
+{
+  for (; a5; --a5)
+  {
+    v5 = *result;
+    *a4 = v5;
+    v6 = *a3++;
+    if (v6 > v5)
+    {
+      *result = *a2;
+    }
+
+    ++a2;
+    ++a4;
+    ++result;
+  }
+
+  return result;
+}
+
+__int16 *ofi_cswap_OFI_OP_CSWAP_GT_int16_t(__int16 *result, __int16 *a2, __int16 *a3, _WORD *a4, uint64_t a5)
+{
+  for (; a5; --a5)
+  {
+    v5 = *result;
+    *a4 = *result;
+    v6 = *a3++;
+    if (v6 > v5)
+    {
+      *result = *a2;
+    }
+
+    ++a2;
+    ++a4;
+    ++result;
+  }
+
+  return result;
+}
+
+_WORD *ofi_cswap_OFI_OP_CSWAP_GT_uint16_t(_WORD *result, _WORD *a2, unsigned __int16 *a3, _WORD *a4, uint64_t a5)
+{
+  for (; a5; --a5)
+  {
+    v5 = *result;
+    *a4 = v5;
+    v6 = *a3++;
+    if (v6 > v5)
+    {
+      *result = *a2;
+    }
+
+    ++a2;
+    ++a4;
+    ++result;
+  }
+
+  return result;
+}
+
+int *ofi_cswap_OFI_OP_CSWAP_GT_int32_t(int *result, int *a2, int *a3, int *a4, uint64_t a5)
+{
+  for (; a5; --a5)
+  {
+    v5 = *result;
+    *a4 = *result;
+    v6 = *a3++;
+    if (v6 > v5)
+    {
+      *result = *a2;
+    }
+
+    ++a2;
+    ++a4;
+    ++result;
+  }
+
+  return result;
+}
+
+unsigned int *ofi_cswap_OFI_OP_CSWAP_GT_uint32_t(unsigned int *result, unsigned int *a2, unsigned int *a3, unsigned int *a4, uint64_t a5)
+{
+  for (; a5; --a5)
+  {
+    v5 = *result;
+    *a4 = *result;
+    v6 = *a3++;
+    if (v6 > v5)
+    {
+      *result = *a2;
+    }
+
+    ++a2;
+    ++a4;
+    ++result;
+  }
+
+  return result;
+}
+
+uint64_t *ofi_cswap_OFI_OP_CSWAP_GT_int64_t(uint64_t *result, uint64_t *a2, uint64_t *a3, uint64_t *a4, uint64_t a5)
+{
+  for (; a5; --a5)
+  {
+    v5 = *result;
+    *a4 = *result;
+    v6 = *a3++;
+    if (v6 > v5)
+    {
+      *result = *a2;
+    }
+
+    ++a2;
+    ++a4;
+    ++result;
+  }
+
+  return result;
+}
+
+unint64_t *ofi_cswap_OFI_OP_CSWAP_GT_uint64_t(unint64_t *result, unint64_t *a2, unint64_t *a3, unint64_t *a4, uint64_t a5)
+{
+  for (; a5; --a5)
+  {
+    v5 = *result;
+    *a4 = *result;
+    v6 = *a3++;
+    if (v6 > v5)
+    {
+      *result = *a2;
+    }
+
+    ++a2;
+    ++a4;
+    ++result;
+  }
+
+  return result;
+}
+
+float *ofi_cswap_OFI_OP_CSWAP_GT_float(float *result, float *a2, float *a3, _DWORD *a4, uint64_t a5)
+{
+  for (; a5; --a5)
+  {
+    v5 = *result;
+    *a4 = *result;
+    if (*a3 > v5)
+    {
+      *result = *a2;
+    }
+
+    ++a2;
+    ++a3;
+    ++a4;
+    ++result;
+  }
+
+  return result;
+}
+
+double *ofi_cswap_OFI_OP_CSWAP_GT_double(double *result, double *a2, double *a3, void *a4, uint64_t a5)
+{
+  for (; a5; --a5)
+  {
+    v5 = *result;
+    *a4 = *result;
+    if (*a3 > v5)
+    {
+      *result = *a2;
+    }
+
+    ++a2;
+    ++a3;
+    ++a4;
+    ++result;
+  }
+
+  return result;
+}
+
+double *ofi_cswap_OFI_OP_CSWAP_GT_long_double(double *result, double *a2, double *a3, void *a4, uint64_t a5)
+{
+  for (; a5; --a5)
+  {
+    v5 = *result;
+    *a4 = *result;
+    if (*a3 > v5)
+    {
+      *result = *a2;
+    }
+
+    ++a2;
+    ++a3;
+    ++a4;
+    ++result;
+  }
+
+  return result;
+}
+
+char *ofi_cswap_OFI_OP_MSWAP_int8_t(char *result, char *a2, char *a3, char *a4, uint64_t a5)
+{
+  for (; a5; --a5)
+  {
+    v5 = *result;
+    *a4++ = *result;
+    v7 = *a2++;
+    v6 = v7;
+    v8 = *a3++;
+    *result++ = v5 & ~v8 | v8 & v6;
+  }
+
+  return result;
+}
+
+char *ofi_cswap_OFI_OP_MSWAP_uint8_t(char *result, char *a2, char *a3, char *a4, uint64_t a5)
+{
+  for (; a5; --a5)
+  {
+    v5 = *result;
+    *a4++ = *result;
+    v7 = *a2++;
+    v6 = v7;
+    v8 = *a3++;
+    *result++ = v5 & ~v8 | v8 & v6;
+  }
+
+  return result;
+}
+
+__int16 *ofi_cswap_OFI_OP_MSWAP_int16_t(__int16 *result, __int16 *a2, __int16 *a3, __int16 *a4, uint64_t a5)
+{
+  for (; a5; --a5)
+  {
+    v5 = *result;
+    *a4++ = *result;
+    v7 = *a2++;
+    v6 = v7;
+    v8 = *a3++;
+    *result++ = v5 & ~v8 | v8 & v6;
   }
 
   return result;

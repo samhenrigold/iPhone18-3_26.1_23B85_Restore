@@ -44,7 +44,7 @@
 
 - (void)whiteRose:(id)rose derivativeClockCreated:(id)created rootClock:(id)clock
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   createdCopy = created;
   clockCopy = clock;
   if (SiriAnalyticsLoggingInit_once != -1)
@@ -55,13 +55,13 @@
   v9 = SiriAnalyticsLogContextAssistant;
   if (os_log_type_enabled(SiriAnalyticsLogContextAssistant, OS_LOG_TYPE_INFO))
   {
-    v16 = 136315650;
-    v17 = "[AssistantSiriAnalyticsClockWatcher whiteRose:derivativeClockCreated:rootClock:]";
-    v18 = 2112;
-    v19 = createdCopy;
-    v20 = 2112;
-    v21 = clockCopy;
-    _os_log_impl(&dword_1D9863000, v9, OS_LOG_TYPE_INFO, "%s Derivative clock created: %@ from parent: %@, triggering partial global dimension logging", &v16, 0x20u);
+    v15 = 136315650;
+    v16 = "[AssistantSiriAnalyticsClockWatcher whiteRose:derivativeClockCreated:rootClock:]";
+    v17 = 2112;
+    v18 = createdCopy;
+    v19 = 2112;
+    v20 = clockCopy;
+    _os_log_impl(&dword_1D9863000, v9, OS_LOG_TYPE_INFO, "%s Derivative clock created: %@ from parent: %@, triggering partial global dimension logging", &v15, 0x20u);
   }
 
   isolatedStreamUUID = [createdCopy isolatedStreamUUID];
@@ -72,13 +72,11 @@
   clockIdentifier2 = [clockCopy clockIdentifier];
   clockStatistics = [createdCopy clockStatistics];
   -[SiriAnalyticsLogicalClocksProvider createClock:rootClockIdentifier:startedOn:](logicalClocks, "createClock:rootClockIdentifier:startedOn:", clockIdentifier, clockIdentifier2, [clockStatistics startedOn]);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)whiteRose:(id)rose rootClockDestroyed:(id)destroyed reason:(unint64_t)reason completion:(id)completion
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   destroyedCopy = destroyed;
   completionCopy = completion;
   if (SiriAnalyticsLoggingInit_once != -1)
@@ -86,14 +84,14 @@
     dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
   }
 
-  v26 = completionCopy;
+  v25 = completionCopy;
   v11 = SiriAnalyticsLogContextAssistant;
   if (os_log_type_enabled(SiriAnalyticsLogContextAssistant, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v33 = "[AssistantSiriAnalyticsClockWatcher whiteRose:rootClockDestroyed:reason:completion:]";
-    v34 = 2112;
-    v35 = destroyedCopy;
+    v32 = "[AssistantSiriAnalyticsClockWatcher whiteRose:rootClockDestroyed:reason:completion:]";
+    v33 = 2112;
+    v34 = destroyedCopy;
     _os_log_impl(&dword_1D9863000, v11, OS_LOG_TYPE_INFO, "%s Clock destroyed: %@", buf, 0x16u);
   }
 
@@ -103,32 +101,32 @@
   clockStatistics = [destroyedCopy clockStatistics];
   -[SiriAnalyticsLogicalClocksProvider endClock:endedOn:endedReason:](logicalClocks, "endClock:endedOn:endedReason:", clockIdentifier, [clockStatistics endedOn], reason);
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   derivativeClocks = [destroyedCopy derivativeClocks];
-  v16 = [derivativeClocks countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v16 = [derivativeClocks countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v28;
+    v18 = *v27;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v28 != v18)
+        if (*v27 != v18)
         {
           objc_enumerationMutation(derivativeClocks);
         }
 
         v20 = self->_logicalClocks;
-        clockIdentifier2 = [*(*(&v27 + 1) + 8 * i) clockIdentifier];
+        clockIdentifier2 = [*(*(&v26 + 1) + 8 * i) clockIdentifier];
         clockStatistics2 = [destroyedCopy clockStatistics];
         -[SiriAnalyticsLogicalClocksProvider endClock:endedOn:endedReason:](v20, "endClock:endedOn:endedReason:", clockIdentifier2, [clockStatistics2 endedOn], reason);
       }
 
-      v17 = [derivativeClocks countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v17 = [derivativeClocks countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v17);
@@ -138,31 +136,29 @@
   inactivityScheduler = self->_inactivityScheduler;
   if (inactivityScheduler)
   {
-    v24 = v26;
+    v24 = v25;
     if (reason == 3)
     {
       [(SiriAnalyticsClockInactivityScheduler *)inactivityScheduler destroyInactivityTimer];
-      [(SiriAnalyticsPreprocessor *)self->_preprocessor triggerWithReason:2 completion:v26];
+      [(SiriAnalyticsPreprocessor *)self->_preprocessor triggerWithReason:2 completion:v25];
     }
 
     else
     {
-      [(SiriAnalyticsClockInactivityScheduler *)inactivityScheduler clockExpiredWithCompletion:v26];
+      [(SiriAnalyticsClockInactivityScheduler *)inactivityScheduler clockExpiredWithCompletion:v25];
     }
   }
 
   else
   {
-    v24 = v26;
-    v26[2](v26);
+    v24 = v25;
+    v25[2](v25);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)whiteRose:(id)rose rootClockCreated:(id)created
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   createdCopy = created;
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -173,9 +169,9 @@
   if (os_log_type_enabled(SiriAnalyticsLogContextAssistant, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v17 = "[AssistantSiriAnalyticsClockWatcher whiteRose:rootClockCreated:]";
-    v18 = 2112;
-    v19 = createdCopy;
+    v16 = "[AssistantSiriAnalyticsClockWatcher whiteRose:rootClockCreated:]";
+    v17 = 2112;
+    v18 = createdCopy;
     _os_log_impl(&dword_1D9863000, v6, OS_LOG_TYPE_INFO, "%s Clock created: %@, triggering global dimension logging", buf, 0x16u);
   }
 
@@ -192,20 +188,18 @@
 
   dataPolicyObserver = self->_dataPolicyObserver;
   clockIdentifier2 = [createdCopy clockIdentifier];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __65__AssistantSiriAnalyticsClockWatcher_whiteRose_rootClockCreated___block_invoke;
-  v14[3] = &unk_1E8587918;
-  v15 = createdCopy;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __65__AssistantSiriAnalyticsClockWatcher_whiteRose_rootClockCreated___block_invoke;
+  v13[3] = &unk_1E8587918;
+  v14 = createdCopy;
   v12 = createdCopy;
-  [(SiriAnalyticsDataCollectionPolicyClockObserver *)dataPolicyObserver rootClockCreatedWithClockIdentifier:clockIdentifier2 completion:v14];
-
-  v13 = *MEMORY[0x1E69E9840];
+  [(SiriAnalyticsDataCollectionPolicyClockObserver *)dataPolicyObserver rootClockCreatedWithClockIdentifier:clockIdentifier2 completion:v13];
 }
 
 void __65__AssistantSiriAnalyticsClockWatcher_whiteRose_rootClockCreated___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (SiriAnalyticsLoggingInit_once != -1)
   {
     dispatch_once(&SiriAnalyticsLoggingInit_once, &__block_literal_global_701);
@@ -217,19 +211,17 @@ void __65__AssistantSiriAnalyticsClockWatcher_whiteRose_rootClockCreated___block
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 clockIdentifier];
-    v7 = 136315394;
-    v8 = "[AssistantSiriAnalyticsClockWatcher whiteRose:rootClockCreated:]_block_invoke";
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_1D9863000, v4, OS_LOG_TYPE_INFO, "%s Finished checking data policy for: %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[AssistantSiriAnalyticsClockWatcher whiteRose:rootClockCreated:]_block_invoke";
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_1D9863000, v4, OS_LOG_TYPE_INFO, "%s Finished checking data policy for: %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)whiteRose:(id)rose willCreateRootClock:(id)clock completion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   clockCopy = clock;
   completionCopy = completion;
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -237,7 +229,7 @@ void __65__AssistantSiriAnalyticsClockWatcher_whiteRose_rootClockCreated___block
   aBlock[2] = __79__AssistantSiriAnalyticsClockWatcher_whiteRose_willCreateRootClock_completion___block_invoke;
   aBlock[3] = &unk_1E8587C18;
   v9 = completionCopy;
-  v16 = v9;
+  v15 = v9;
   v10 = _Block_copy(aBlock);
   if (SiriAnalyticsLoggingInit_once != -1)
   {
@@ -249,11 +241,11 @@ void __65__AssistantSiriAnalyticsClockWatcher_whiteRose_rootClockCreated___block
   {
     sensitiveConditionsObservers = self->_sensitiveConditionsObservers;
     *buf = 136315650;
-    v18 = "[AssistantSiriAnalyticsClockWatcher whiteRose:willCreateRootClock:completion:]";
-    v19 = 2112;
-    v20 = clockCopy;
-    v21 = 2112;
-    v22 = sensitiveConditionsObservers;
+    v17 = "[AssistantSiriAnalyticsClockWatcher whiteRose:willCreateRootClock:completion:]";
+    v18 = 2112;
+    v19 = clockCopy;
+    v20 = 2112;
+    v21 = sensitiveConditionsObservers;
     _os_log_impl(&dword_1D9863000, v11, OS_LOG_TYPE_INFO, "%s Will create: %@, fetching sensitive conditions from %@", buf, 0x20u);
   }
 
@@ -267,8 +259,6 @@ void __65__AssistantSiriAnalyticsClockWatcher_whiteRose_rootClockCreated___block
   {
     v10[2](v10);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __79__AssistantSiriAnalyticsClockWatcher_whiteRose_willCreateRootClock_completion___block_invoke(uint64_t a1)

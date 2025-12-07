@@ -290,145 +290,144 @@
       *buf = 138543362;
       selfCopy = self;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "=ck-op= Canceling %{public}@", buf, 0xCu);
-      selfCopy2 = self;
-      _MBLog();
+      _MBLog(@"Df", "=ck-op= Canceling %{public}@", self);
     }
   }
 
   [(MBCKOperationTracker *)self trackers];
+  v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
-  obj = v53 = 0u;
-  v7 = [obj countByEnumeratingWithState:&v52 objects:v60 count:16];
+  v51 = 0u;
+  obj = v52 = 0u;
+  v7 = [obj countByEnumeratingWithState:&v51 objects:v59 count:16];
   if (v7)
   {
-    v8 = *v53;
+    v8 = *v52;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v53 != v8)
+        if (*v52 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        [*(*(&v52 + 1) + 8 * i) cancel];
+        [*(*(&v51 + 1) + 8 * i) cancel];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v52 objects:v60 count:16];
+      v7 = [obj countByEnumeratingWithState:&v51 objects:v59 count:16];
     }
 
     while (v7);
   }
 
-  selfCopy3 = self;
-  objc_sync_enter(selfCopy3);
-  v11 = [(NSMutableArray *)selfCopy3->_batchFetches copy];
-  v12 = [(NSMutableArray *)selfCopy3->_batchSaves copy];
-  v13 = [(NSMutableArray *)selfCopy3->_batchDeletes copy];
-  objc_sync_exit(selfCopy3);
+  selfCopy2 = self;
+  objc_sync_enter(selfCopy2);
+  v11 = [(NSMutableArray *)selfCopy2->_batchFetches copy];
+  v12 = [(NSMutableArray *)selfCopy2->_batchSaves copy];
+  v13 = [(NSMutableArray *)selfCopy2->_batchDeletes copy];
+  objc_sync_exit(selfCopy2);
 
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   v14 = v11;
-  v15 = [v14 countByEnumeratingWithState:&v48 objects:v59 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v47 objects:v58 count:16];
   if (v15)
   {
-    v16 = *v49;
+    v16 = *v48;
     do
     {
       for (j = 0; j != v15; j = j + 1)
       {
-        if (*v49 != v16)
+        if (*v48 != v16)
         {
           objc_enumerationMutation(v14);
         }
 
-        [*(*(&v48 + 1) + 8 * j) cancel];
+        [*(*(&v47 + 1) + 8 * j) cancel];
       }
 
-      v15 = [v14 countByEnumeratingWithState:&v48 objects:v59 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v47 objects:v58 count:16];
     }
 
     while (v15);
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v18 = v12;
-  v19 = [v18 countByEnumeratingWithState:&v44 objects:v58 count:16];
+  v19 = [v18 countByEnumeratingWithState:&v43 objects:v57 count:16];
   if (v19)
   {
-    v20 = *v45;
+    v20 = *v44;
     do
     {
       for (k = 0; k != v19; k = k + 1)
       {
-        if (*v45 != v20)
+        if (*v44 != v20)
         {
           objc_enumerationMutation(v18);
         }
 
-        [*(*(&v44 + 1) + 8 * k) cancel];
+        [*(*(&v43 + 1) + 8 * k) cancel];
       }
 
-      v19 = [v18 countByEnumeratingWithState:&v44 objects:v58 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v43 objects:v57 count:16];
     }
 
     while (v19);
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v22 = v13;
-  v23 = [v22 countByEnumeratingWithState:&v40 objects:v57 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v39 objects:v56 count:16];
   if (v23)
   {
-    v24 = *v41;
+    v24 = *v40;
     do
     {
       for (m = 0; m != v23; m = m + 1)
       {
-        if (*v41 != v24)
+        if (*v40 != v24)
         {
           objc_enumerationMutation(v22);
         }
 
-        [*(*(&v40 + 1) + 8 * m) cancel];
+        [*(*(&v39 + 1) + 8 * m) cancel];
       }
 
-      v23 = [v22 countByEnumeratingWithState:&v40 objects:v57 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v39 objects:v56 count:16];
     }
 
     while (v23);
   }
 
-  operations = [(MBCKOperationTracker *)selfCopy3 operations];
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
+  operations = [(MBCKOperationTracker *)selfCopy2 operations];
   v37 = 0u;
-  v27 = [operations countByEnumeratingWithState:&v36 objects:v56 count:16];
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v27 = [operations countByEnumeratingWithState:&v35 objects:v55 count:16];
   if (v27)
   {
-    v28 = *v37;
+    v28 = *v36;
     do
     {
       for (n = 0; n != v27; n = n + 1)
       {
-        if (*v37 != v28)
+        if (*v36 != v28)
         {
           objc_enumerationMutation(operations);
         }
 
-        v30 = *(*(&v36 + 1) + 8 * n);
+        v30 = *(*(&v35 + 1) + 8 * n);
         if (([v30 isCancelled] & 1) == 0)
         {
           v31 = MBGetDefaultLog();
@@ -440,14 +439,14 @@
             _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "=ck-op= Canceling operation %@", buf, 0xCu);
 
             operationID2 = [v30 operationID];
-            _MBLog();
+            _MBLog(@"Df", "=ck-op= Canceling operation %@", operationID2);
           }
 
           [v30 cancel];
         }
       }
 
-      v27 = [operations countByEnumeratingWithState:&v36 objects:v56 count:16];
+      v27 = [operations countByEnumeratingWithState:&v35 objects:v55 count:16];
     }
 
     while (v27);
@@ -557,7 +556,7 @@
           _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "=ck-op= Submitting CKEventMetric: %@", buf, 0xCu);
 
           eventName2 = [v9 eventName];
-          _MBLog();
+          _MBLog(@"I ", "=ck-op= Submitting CKEventMetric: %@", eventName2);
         }
 
         databaseManager = [(MBCKOperationTracker *)selfCopy databaseManager];
@@ -577,30 +576,30 @@
     while (v6);
   }
 
-  v14 = dispatch_time(0, 30000000000);
-  v15 = dispatch_group_wait(v4, v14);
-  v16 = CFAbsoluteTimeGetCurrent();
-  v17 = v15 == 0;
-  v18 = MBGetDefaultLog();
-  v19 = v18;
-  v20 = v16 - Current;
-  if (v17)
+  v15 = dispatch_time(0, 30000000000);
+  v16 = dispatch_group_wait(v4, v15);
+  v17 = CFAbsoluteTimeGetCurrent();
+  v18 = v16 == 0;
+  v19 = MBGetDefaultLog();
+  v20 = v19;
+  v21 = v17 - Current;
+  if (v18)
   {
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v30 = v20;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "=ck-op= Successfully submitted metrics after %.3fs", buf, 0xCu);
-      _MBLog();
+      v30 = v21;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "=ck-op= Successfully submitted metrics after %.3fs", buf, 0xCu);
+      _MBLog(@"I ", "=ck-op= Successfully submitted metrics after %.3fs", v21);
     }
   }
 
-  else if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
   {
     *buf = 134217984;
-    v30 = v20;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "=ck-op= Timed out while submitting metrics after %.3fs", buf, 0xCu);
-    _MBLog();
+    v30 = v21;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "=ck-op= Timed out while submitting metrics after %.3fs", buf, 0xCu);
+    _MBLog(@"E ", "=ck-op= Timed out while submitting metrics after %.3fs", v21);
   }
 }
 
@@ -610,72 +609,68 @@
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 138543362;
-    selfCopy5 = self;
+    selfCopy3 = self;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "=ck-op= Draining CK operations for %{public}@", buf, 0xCu);
-    selfCopy4 = self;
-    _MBLog();
+    _MBLog(@"I ", "=ck-op= Draining CK operations for %{public}@", self);
   }
 
   Current = CFAbsoluteTimeGetCurrent();
   v5 = dispatch_group_create();
   dispatch_group_enter(v5);
-  v26[0] = _NSConcreteStackBlock;
-  v26[1] = 3221225472;
-  v26[2] = sub_100218D68;
-  v26[3] = &unk_1003BC0B0;
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_100218D68;
+  v23[3] = &unk_1003BC0B0;
   v6 = v5;
-  v27 = v6;
-  [(MBCKOperationTracker *)self _drainWithCompletion:v26];
+  v24 = v6;
+  [(MBCKOperationTracker *)self _drainWithCompletion:v23];
   v7 = dispatch_time(0, 300000000000);
   v8 = dispatch_group_wait(v6, v7);
   v9 = CFAbsoluteTimeGetCurrent() - Current;
   if (v8)
   {
-    v21 = v6;
+    v18 = v6;
     trackers = [(MBCKOperationTracker *)self trackers];
+    v19 = 0u;
+    v20 = 0u;
+    v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v24 = 0u;
-    v25 = 0u;
-    v11 = [trackers countByEnumeratingWithState:&v22 objects:v34 count:16];
+    v11 = [trackers countByEnumeratingWithState:&v19 objects:v31 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v23;
+      v13 = *v20;
       do
       {
         for (i = 0; i != v12; i = i + 1)
         {
-          if (*v23 != v13)
+          if (*v20 != v13)
           {
             objc_enumerationMutation(trackers);
           }
 
-          operations = [*(*(&v22 + 1) + 8 * i) operations];
+          operations = [*(*(&v19 + 1) + 8 * i) operations];
           v16 = MBGetDefaultLog();
           if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543874;
-            selfCopy5 = self;
-            v30 = 2048;
-            v31 = v9;
-            v32 = 2112;
-            v33 = operations;
+            selfCopy3 = self;
+            v27 = 2048;
+            v28 = v9;
+            v29 = 2112;
+            v30 = operations;
             _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "=ck-op= Failed to drain CK operations for %{public}@ after %.3fs: %@", buf, 0x20u);
-            v20 = operations;
-            v19 = v9;
-            selfCopy4 = self;
-            _MBLog();
+            _MBLog(@"E ", "=ck-op= Failed to drain CK operations for %{public}@ after %.3fs: %@", self, *&v9, operations);
           }
         }
 
-        v12 = [trackers countByEnumeratingWithState:&v22 objects:v34 count:16];
+        v12 = [trackers countByEnumeratingWithState:&v19 objects:v31 count:16];
       }
 
       while (v12);
     }
 
-    v6 = v21;
+    v6 = v18;
   }
 
   else
@@ -684,11 +679,11 @@
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      selfCopy5 = self;
-      v30 = 2048;
-      v31 = v9;
+      selfCopy3 = self;
+      v27 = 2048;
+      v28 = v9;
       _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "=ck-op= Drained CK operations for %@ in %.3fs", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"I ", "=ck-op= Drained CK operations for %@ in %.3fs", self, *&v9);
     }
 
     [(MBCKOperationTracker *)self _submitMetrics];
@@ -733,7 +728,7 @@
           }
 
           eventName2 = [v10 eventName];
-          _MBLog();
+          _MBLog(@"I ", "=ck-op= Associating CKEventMetric: %@", eventName2);
         }
 
         [v10 associateWithCompletedOperation:operationCopy];
@@ -776,7 +771,7 @@
   }
 
   cellularAccess = [policyCopy cellularAccess];
-  v53 = cellularAccess;
+  v55 = cellularAccess;
   if (cellularAccess)
   {
     allowsExpensiveNetworkAccess = [cellularAccess allowsExpensiveNetworkAccess];
@@ -788,40 +783,40 @@
   }
 
   Current = CFAbsoluteTimeGetCurrent();
-  v68[0] = 0;
-  v68[1] = v68;
-  v68[2] = 0x2020000000;
-  v69 = 0;
+  v70[0] = 0;
+  v70[1] = v70;
+  v70[2] = 0x2020000000;
+  v71 = 0;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v9 = operationCopy;
     recordsToSave = [v9 recordsToSave];
-    v51 = [recordsToSave count];
+    v53 = [recordsToSave count];
     recordIDsToDelete = [v9 recordIDsToDelete];
     v12 = [recordIDsToDelete count];
 
     [v9 perRecordCompletionBlock];
-    v13 = v67;
-    v67[0] = _NSConcreteStackBlock;
-    v67[1] = 3221225472;
-    v67[2] = sub_100219B2C;
-    v67[3] = &unk_1003C1E50;
-    v14 = v67[5] = v68;
-    v67[4] = v14;
-    v15 = objc_retainBlock(v67);
+    v13 = v69;
+    v69[0] = _NSConcreteStackBlock;
+    v69[1] = 3221225472;
+    v69[2] = sub_100219B2C;
+    v69[3] = &unk_1003C1E50;
+    v14 = v69[5] = v70;
+    v69[4] = v14;
+    v15 = objc_retainBlock(v69);
     [v9 perRecordProgressBlock];
-    v16 = v66;
-    v66[0] = _NSConcreteStackBlock;
-    v66[1] = 3221225472;
-    v66[2] = sub_100219BB0;
-    v66[3] = &unk_1003C1E78;
-    v17 = v66[5] = v68;
-    v66[4] = v17;
-    v18 = objc_retainBlock(v66);
+    v16 = v68;
+    v68[0] = _NSConcreteStackBlock;
+    v68[1] = 3221225472;
+    v68[2] = sub_100219BB0;
+    v68[3] = &unk_1003C1E78;
+    v17 = v68[5] = v70;
+    v68[4] = v17;
+    v18 = objc_retainBlock(v68);
     [v9 setPerRecordProgressBlock:v18];
     [v9 setPerRecordCompletionBlock:v15];
-    v47 = &v51[v12];
+    v49 = &v53[v12];
 LABEL_13:
 
     goto LABEL_14;
@@ -832,26 +827,26 @@ LABEL_13:
   {
     v19 = operationCopy;
     recordIDs = [v19 recordIDs];
-    v47 = [recordIDs count];
+    v49 = [recordIDs count];
 
     [v19 perRecordCompletionBlock];
-    v13 = v65;
-    v65[0] = _NSConcreteStackBlock;
-    v65[1] = 3221225472;
-    v65[2] = sub_100219C34;
-    v65[3] = &unk_1003C1EA0;
-    v14 = v65[5] = v68;
-    v65[4] = v14;
-    v15 = objc_retainBlock(v65);
+    v13 = v67;
+    v67[0] = _NSConcreteStackBlock;
+    v67[1] = 3221225472;
+    v67[2] = sub_100219C34;
+    v67[3] = &unk_1003C1EA0;
+    v14 = v67[5] = v70;
+    v67[4] = v14;
+    v15 = objc_retainBlock(v67);
     [v19 perRecordProgressBlock];
-    v16 = v64;
-    v64[0] = _NSConcreteStackBlock;
-    v64[1] = 3221225472;
-    v64[2] = sub_100219CD4;
-    v64[3] = &unk_1003C1EC8;
-    v17 = v64[5] = v68;
-    v64[4] = v17;
-    v18 = objc_retainBlock(v64);
+    v16 = v66;
+    v66[0] = _NSConcreteStackBlock;
+    v66[1] = 3221225472;
+    v66[2] = sub_100219CD4;
+    v66[3] = &unk_1003C1EC8;
+    v17 = v66[5] = v70;
+    v66[4] = v17;
+    v18 = objc_retainBlock(v66);
     [v19 setPerRecordProgressBlock:v18];
     [v19 setPerRecordCompletionBlock:v15];
     goto LABEL_13;
@@ -862,48 +857,48 @@ LABEL_13:
   {
     v21 = operationCopy;
     [v21 recordFetchedBlock];
-    v13 = v63;
-    v63[0] = _NSConcreteStackBlock;
-    v63[1] = 3221225472;
-    v63[2] = sub_100219D58;
-    v63[3] = &unk_1003C1EF0;
-    v14 = v63[5] = v68;
-    v63[4] = v14;
-    v15 = objc_retainBlock(v63);
+    v13 = v65;
+    v65[0] = _NSConcreteStackBlock;
+    v65[1] = 3221225472;
+    v65[2] = sub_100219D58;
+    v65[3] = &unk_1003C1EF0;
+    v14 = v65[5] = v70;
+    v65[4] = v14;
+    v15 = objc_retainBlock(v65);
     [v21 queryCursorFetchedBlock];
-    v16 = v62;
-    v62[0] = _NSConcreteStackBlock;
-    v62[1] = 3221225472;
-    v62[2] = sub_100219D80;
-    v62[3] = &unk_1003C1F18;
-    v17 = v62[5] = v68;
-    v62[4] = v17;
-    v18 = objc_retainBlock(v62);
+    v16 = v64;
+    v64[0] = _NSConcreteStackBlock;
+    v64[1] = 3221225472;
+    v64[2] = sub_100219D80;
+    v64[3] = &unk_1003C1F18;
+    v17 = v64[5] = v70;
+    v64[4] = v17;
+    v18 = objc_retainBlock(v64);
     [v21 setRecordFetchedBlock:v15];
     [v21 setQueryCursorFetchedBlock:v18];
-    v47 = 0;
+    v49 = 0;
     goto LABEL_13;
   }
 
-  v47 = 0;
+  v49 = 0;
 LABEL_14:
   completionBlock = [operationCopy completionBlock];
-  v57[0] = _NSConcreteStackBlock;
-  v57[1] = 3221225472;
-  v57[2] = sub_100219DF0;
-  v57[3] = &unk_1003C1F40;
-  v61 = Current;
-  v57[4] = self;
+  v59[0] = _NSConcreteStackBlock;
+  v59[1] = 3221225472;
+  v59[2] = sub_100219DF0;
+  v59[3] = &unk_1003C1F40;
+  v63 = Current;
+  v59[4] = self;
   v23 = operationCopy;
-  v58 = v23;
-  v60 = v68;
-  v49 = completionBlock;
-  v59 = v49;
-  v24 = [v57 copy];
+  v60 = v23;
+  v62 = v70;
+  v51 = completionBlock;
+  v61 = v51;
+  v24 = [v59 copy];
   [v23 setCompletionBlock:v24];
-  v50 = v24;
+  v52 = v24;
   [policyCopy qualityOfService];
-  v52 = MBLogStringForNSQualityOfService();
+  v54 = MBLogStringForNSQualityOfService();
   group = [v23 group];
   v26 = group;
   if (group)
@@ -949,33 +944,32 @@ LABEL_14:
         v38 = objc_opt_class();
         operationID = [v23 operationID];
         *buf = 138545666;
-        v71 = v38;
-        v72 = 2114;
-        v73 = operationID;
+        v73 = v38;
         v74 = 2114;
-        v75 = operationGroupID;
-        v76 = 2112;
-        v77 = name;
-        v78 = 2114;
-        *v79 = v52;
-        *&v79[8] = 1024;
-        *v80 = v53 != 0;
-        *&v80[4] = 1024;
-        *v81 = allowsExpensiveNetworkAccess;
-        *&v81[4] = 1024;
-        *&v81[6] = xpcActivity != 0;
-        v82 = 2048;
-        v83 = v47;
+        v75 = operationID;
+        v76 = 2114;
+        v77 = operationGroupID;
+        v78 = 2112;
+        v79 = name;
+        v80 = 2114;
+        *v81 = v54;
+        *&v81[8] = 1024;
+        *v82 = v55 != 0;
+        *&v82[4] = 1024;
+        *v83 = allowsExpensiveNetworkAccess;
+        *&v83[4] = 1024;
+        *&v83[6] = xpcActivity != 0;
         v84 = 2048;
-        v85 = v35;
+        v85 = v49;
+        v86 = 2048;
+        v87 = v35;
         _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "=ck-op= Starting %{public}@, id:%{public}@, gid:%{public}@, gn:%@, qos:%{public}@, ac:%d(%d), xa:%d, c:%lu, o:%lu", buf, 0x5Au);
       }
 
-LABEL_27:
-
-      objc_opt_class();
+      v40 = objc_opt_class();
       operationID2 = [v23 operationID];
-      _MBLog();
+      _MBLog(@"Df", "=ck-op= Starting %{public}@, id:%{public}@, gid:%{public}@, gn:%@, qos:%{public}@, ac:%d(%d), xa:%d, c:%lu, o:%lu", v40, operationID2, operationGroupID, name, v54, v55 != 0, allowsExpensiveNetworkAccess, xpcActivity != 0, v49, v35);
+LABEL_28:
     }
   }
 
@@ -987,56 +981,59 @@ LABEL_27:
       v37 = v37;
       if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
-        v40 = objc_opt_class();
+        v42 = objc_opt_class();
         operationID3 = [v23 operationID];
         *buf = 138545410;
-        v71 = v40;
-        v72 = 2114;
-        v73 = operationID3;
+        v73 = v42;
         v74 = 2114;
-        v75 = operationGroupID;
+        v75 = operationID3;
         v76 = 2114;
-        v77 = v52;
-        v78 = 1024;
-        *v79 = v53 != 0;
-        *&v79[4] = 1024;
-        *&v79[6] = allowsExpensiveNetworkAccess;
-        *v80 = 1024;
-        *&v80[2] = xpcActivity != 0;
-        *v81 = 2048;
-        *&v81[2] = v47;
-        v82 = 2048;
-        v83 = v35;
+        v77 = operationGroupID;
+        v78 = 2114;
+        v79 = v54;
+        v80 = 1024;
+        *v81 = v55 != 0;
+        *&v81[4] = 1024;
+        *&v81[6] = allowsExpensiveNetworkAccess;
+        *v82 = 1024;
+        *&v82[2] = xpcActivity != 0;
+        *v83 = 2048;
+        *&v83[2] = v49;
+        v84 = 2048;
+        v85 = v35;
         _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "=ck-op= Starting %{public}@, id:%{public}@, gid:%{public}@, qos:%{public}@, ac:%d(%d), xa:%d, c:%lu, o:%lu", buf, 0x50u);
       }
 
-      goto LABEL_27;
+      v44 = objc_opt_class();
+      operationID2 = [v23 operationID];
+      _MBLog(@"Df", "=ck-op= Starting %{public}@, id:%{public}@, gid:%{public}@, qos:%{public}@, ac:%d(%d), xa:%d, c:%lu, o:%lu", v44, operationID2, operationGroupID, v54, v55 != 0, allowsExpensiveNetworkAccess, xpcActivity != 0, v49, v35);
+      goto LABEL_28;
     }
   }
 
   [databaseManager addDatabaseOperation:v23 account:account policy:policyCopy operationGroup:v28 xpcActivity:xpcActivity];
   if (-[MBCKOperationTracker canceled](selfCopy, "canceled") && ([v23 isCancelled] & 1) == 0)
   {
-    v43 = MBGetDefaultLog();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+    v45 = MBGetDefaultLog();
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
     {
-      v44 = v43;
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+      v46 = v45;
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
       {
         operationID4 = [v23 operationID];
         *buf = 138543362;
-        v71 = operationID4;
-        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "=ck-op= Canceling operation %{public}@", buf, 0xCu);
+        v73 = operationID4;
+        _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "=ck-op= Canceling operation %{public}@", buf, 0xCu);
       }
 
       operationID5 = [v23 operationID];
-      _MBLog();
+      _MBLog(@"Df", "=ck-op= Canceling operation %{public}@", operationID5);
     }
 
     [v23 cancel];
   }
 
-  _Block_object_dispose(v68, 8);
+  _Block_object_dispose(v70, 8);
 }
 
 - (void)addDatabaseOperation:(id)operation
@@ -1121,7 +1118,7 @@ LABEL_27:
       v21 = 2112;
       v22 = selfCopy;
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "=ck-op= Updated group name %@ -> %@ for %@", buf, 0x20u);
-      _MBLog();
+      _MBLog(@"I ", "=ck-op= Updated group name %@ -> %@ for %@", v13, v15, selfCopy);
     }
   }
 
@@ -1263,7 +1260,7 @@ LABEL_27:
       }
 
       operationID2 = [v16 operationID];
-      _MBLog();
+      _MBLog(@"Df", "=ck-op= Canceling operation %@", operationID2);
     }
 
     [v16 cancel];
@@ -1271,26 +1268,26 @@ LABEL_27:
 
   if (v12 > 0.0)
   {
-    v23 = dispatch_time(0, 1000000 * (v12 * 1000.0));
-    if (dispatch_semaphore_wait(v17, v23))
+    v24 = dispatch_time(0, 1000000 * (v12 * 1000.0));
+    if (dispatch_semaphore_wait(v17, v24))
     {
       *(v37 + 24) = 1;
       if (([v16 isCancelled] & 1) == 0)
       {
-        v24 = MBGetDefaultLog();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v25 = MBGetDefaultLog();
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
-          v25 = v24;
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          v26 = v25;
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
             operationID3 = [v16 operationID];
             *buf = 138412290;
             v41 = operationID3;
-            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "=ck-op= Canceling operation %@", buf, 0xCu);
+            _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "=ck-op= Canceling operation %@", buf, 0xCu);
           }
 
           operationID4 = [v16 operationID];
-          _MBLog();
+          _MBLog(@"Df", "=ck-op= Canceling operation %@", operationID4);
         }
 
         [v16 cancel];

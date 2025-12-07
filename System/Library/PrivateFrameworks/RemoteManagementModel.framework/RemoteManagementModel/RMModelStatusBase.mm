@@ -1,6 +1,7 @@
 @interface RMModelStatusBase
 + (BOOL)isSupportedStatusItem:(id)item platform:(int64_t)platform scope:(int64_t)scope;
 + (id)stubObjectForStatusItemType:(id)type;
+- (id)serializeWithType:(signed __int16)type;
 @end
 
 @implementation RMModelStatusBase
@@ -53,6 +54,21 @@ LABEL_9:
 LABEL_10:
 
   return v11;
+}
+
+- (id)serializeWithType:(signed __int16)type
+{
+  typeCopy = type;
+  v5 = objc_opt_new();
+  v6 = [(RMModelStatusBase *)self serializePayloadWithType:typeCopy];
+  if ([v6 count])
+  {
+    [v5 addEntriesFromDictionary:v6];
+  }
+
+  v7 = [v5 copy];
+
+  return v7;
 }
 
 @end

@@ -25,7 +25,7 @@ BOOL sub_10000147C(uint64_t a1, void *a2, const __CFString **a3, double a4)
   }
 
   v8 = sub_10000A3F0([RDWriteableDatastore alloc], *(a1 + 8));
-  v9 = [(NSURL *)sub_10001ADB4(a4) lastPathComponent];
+  v9 = [(NSURL *)sub_10001ADB4(RDFileURLs lastPathComponent];
   v10 = sub_10000AA38(v8, v9, 0, 0, a3);
 
   v11 = [(NSMutableDictionary *)v10 objectForKeyedSubscript:@"samples"];
@@ -309,9 +309,9 @@ void *sub_1000021B0(void *a1, void *a2, void *a3)
   return v5;
 }
 
-void sub_1000025E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000025E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -387,7 +387,7 @@ void *sub_100002ED0(void *a1, void *a2, void *a3, uint64_t a4, void *a5, void *a
 
   v13.receiver = a1;
   v13.super_class = RDCompanionSideSync;
-  v10 = objc_msgSendSuper2(&v13, "init");
+  v10 = objc_msgSendSuper2(&v13, "init", a3, a4);
   if (v10)
   {
     v10[4] = a5;
@@ -441,18 +441,18 @@ uint64_t sub_100003868(uint64_t a1, uint64_t a2)
   return 1;
 }
 
-uint64_t sub_100004938(uint64_t a1, uint64_t a2, void *a3)
+uint64_t sub_100004938(void *a1, uint64_t a2, void *a3)
 {
   if (!a2)
   {
 LABEL_7:
-    v9 = *(a1 + 48);
+    v9 = a1[6];
     v10 = [a3 path];
     if (v9)
     {
       v21[0] = @"RDGizmoSyncMessageTypeKey";
       v21[1] = @"RDGizmoSyncSamplesURLKey";
-      v11 = *(a1 + 32);
+      v11 = a1[4];
       *&buf = &off_1000651F0;
       *(&buf + 1) = v10;
       v23 = v11;
@@ -488,7 +488,7 @@ LABEL_7:
       _os_log_error_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to unarchive, removing local file %{public}@", &buf, 0xCu);
     }
 
-    v7 = sub_10003A334(*(a1 + 32), *(a1 + 40), *(*(a1 + 48) + 24), *(*(a1 + 48) + 32));
+    v7 = sub_10003A334(a1[4], a1[5], *(a1[6] + 24), *(a1[6] + 32));
     v8 = sub_10000E610([RDArchiveableDatastore alloc], &v7->super.isa);
     sub_10001092C(v8, a3);
 
@@ -504,7 +504,7 @@ LABEL_7:
   }
 
 LABEL_12:
-  v16 = *(a1 + 56);
+  v16 = a1[7];
   if (v16)
   {
     v17 = (*(v16 + 16))(v16, a2, a3);
@@ -618,7 +618,7 @@ LABEL_19:
   }
 }
 
-void sub_100004EE8(void **a1, __CFString *a2, void *a3, uint64_t a4)
+void sub_100004EE8(void *a1, __CFString *a2, void *a3, uint64_t a4)
 {
   if (a1)
   {
@@ -957,20 +957,21 @@ id sub_1000058AC(id result, uint64_t a2)
   return result;
 }
 
-NSDictionary *sub_1000059A0(NSDictionary *result, void *a2, void *a3, void *a4, int a5, int a6, void *a7)
+NSDictionary *sub_1000059A0(NSDictionary *result, void *a2, void *a3, void *a4, int a5, uint64_t a6, void *a7)
 {
   if (result)
   {
+    v8 = a6;
     v13 = +[NSMutableDictionary dictionary];
-    [v13 setObject:sub_10001C0E8(NSFileHandle forKeyedSubscript:{a2, a5, a6, a7), @"samples"}];
+    [v13 setObject:sub_10001C0E8(NSFileHandle forKeyedSubscript:{a2, a5, v8, a7), @"samples"}];
     if (a3)
     {
-      [v13 setObject:sub_10001C0E8(NSFileHandle forKeyedSubscript:{a3, a5, a6, a7), @"metadata"}];
+      [v13 setObject:sub_10001C0E8(NSFileHandle forKeyedSubscript:{a3, a5, v8, a7), @"metadata"}];
     }
 
     if (a4)
     {
-      [v13 setObject:sub_10001C0E8(NSFileHandle forKeyedSubscript:{a4, a5, a6, a7), @"sensorConfiguration"}];
+      [v13 setObject:sub_10001C0E8(NSFileHandle forKeyedSubscript:{a4, a5, v8, a7), @"sensorConfiguration"}];
     }
 
     return [NSDictionary dictionaryWithDictionary:v13];
@@ -2121,9 +2122,9 @@ void *sub_1000090AC(void *a1, void *a2, void *a3, uint64_t a4)
     return 0;
   }
 
-  v18.receiver = a1;
-  v18.super_class = RDUnarchiver;
-  v7 = objc_msgSendSuper2(&v18, "init");
+  v13.receiver = a1;
+  v13.super_class = RDUnarchiver;
+  v7 = objc_msgSendSuper2(&v13, "init");
   if (v7)
   {
     v7[3] = a3;
@@ -2133,11 +2134,9 @@ void *sub_1000090AC(void *a1, void *a2, void *a3, uint64_t a4)
     support_format_all = archive_read_support_format_all();
     if (!support_format_all)
     {
-      v9 = v7[1];
       support_format_all = archive_read_support_filter_all();
       if (!support_format_all)
       {
-        v10 = v7[1];
         [a2 bytes];
         [a2 length];
         support_format_all = archive_read_open_memory();
@@ -2149,12 +2148,12 @@ void *sub_1000090AC(void *a1, void *a2, void *a3, uint64_t a4)
           }
 
           v7[2] = archive_write_disk_new();
-          v15 = archive_write_disk_set_options();
-          if (v15)
+          v12 = archive_write_disk_set_options();
+          if (v12)
           {
-            v11 = v15;
+            v9 = v12;
             *(v7 + 40) = 1;
-            v12 = qword_1000719C0;
+            v10 = qword_1000719C0;
             if (!os_log_type_enabled(qword_1000719C0, OS_LOG_TYPE_ERROR))
             {
 LABEL_7:
@@ -2168,10 +2167,10 @@ LABEL_7:
 
 LABEL_16:
             *buf = 138412546;
-            v20 = a3;
-            v21 = 1024;
-            v22 = v11;
-            _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Error creating unarchive output at path %@ %d", buf, 0x12u);
+            v15 = a3;
+            v16 = 1024;
+            v17 = v9;
+            _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Error creating unarchive output at path %@ %d", buf, 0x12u);
             if (*(v7 + 41) != 1)
             {
 LABEL_8:
@@ -2184,13 +2183,11 @@ LABEL_10:
               }
 
 LABEL_9:
-              v13 = v7[2];
               archive_write_free();
               goto LABEL_10;
             }
 
 LABEL_17:
-            v16 = v7[1];
             archive_read_free();
             if (*(v7 + 40) != 1)
             {
@@ -2200,7 +2197,6 @@ LABEL_17:
             goto LABEL_9;
           }
 
-          v17 = v7[2];
           support_format_all = archive_write_disk_set_standard_lookup();
           *(v7 + 40) = 1;
           if (!support_format_all)
@@ -2211,8 +2207,8 @@ LABEL_17:
       }
     }
 
-    v11 = support_format_all;
-    v12 = qword_1000719C0;
+    v9 = support_format_all;
+    v10 = qword_1000719C0;
     if (!os_log_type_enabled(qword_1000719C0, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_7;
@@ -2231,23 +2227,20 @@ uint64_t sub_10000931C(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t
   if (v9)
   {
     v10 = sub_1000090AC([RDUnarchiver alloc], v9, a3, a4);
-    v11 = v10;
     if (!v10)
     {
-      v33 = 0;
+      v25 = 0;
       goto LABEL_29;
     }
 
-    v12 = v10[1];
     if (archive_read_next_header() == 1)
     {
 LABEL_23:
-      if (*(v11 + 41) == 1)
+      if (*(v10 + 41) == 1)
       {
-        v33 = *(v11 + 40);
-        v36 = v11[1];
+        v25 = *(v10 + 40);
         archive_read_free();
-        if (*(v11 + 40) != 1)
+        if (*(v10 + 40) != 1)
         {
           goto LABEL_28;
         }
@@ -2255,69 +2248,65 @@ LABEL_23:
 
       else
       {
-        v33 = 0;
-        if (*(v11 + 40) != 1)
+        v25 = 0;
+        if (*(v10 + 40) != 1)
         {
 LABEL_28:
-          *(v11 + 20) = 0;
+          *(v10 + 20) = 0;
 LABEL_29:
 
-          return v33 & 1;
+          return v25 & 1;
         }
       }
 
-      v37 = v11[2];
       archive_write_free();
       goto LABEL_28;
     }
 
     while (2)
     {
-      v13 = objc_autoreleasePoolPush();
-      v14 = archive_entry_pathname();
-      if (!v14)
+      v11 = objc_autoreleasePoolPush();
+      v12 = archive_entry_pathname();
+      if (!v12)
       {
-        v39 = qword_1000719C0;
+        v29 = qword_1000719C0;
         if (os_log_type_enabled(qword_1000719C0, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_error_impl(&_mh_execute_header, v39, OS_LOG_TYPE_ERROR, "Got no pathname from entry", buf, 2u);
+          _os_log_error_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "Got no pathname from entry", buf, 2u);
         }
 
-        v35 = 41;
+        v27 = 41;
         goto LABEL_22;
       }
 
-      v15 = [NSURL fileURLWithPath:[NSString stringWithUTF8String:v14] relativeToURL:v11[3]];
-      [(NSString *)[(NSURL *)v15 path] UTF8String];
+      v13 = [NSURL fileURLWithPath:[NSString stringWithUTF8String:v12] relativeToURL:v10[3]];
+      [(NSString *)[(NSURL *)v13 path] UTF8String];
       archive_entry_set_pathname();
-      v16 = v11[2];
       if ((archive_write_header() & 0x80000000) != 0)
       {
-        v34 = qword_1000719C0;
+        v26 = qword_1000719C0;
         if (!os_log_type_enabled(qword_1000719C0, OS_LOG_TYPE_ERROR))
         {
 LABEL_21:
-          v35 = 40;
+          v27 = 40;
 LABEL_22:
-          *(v11 + v35) = 0;
-          objc_autoreleasePoolPop(v13);
+          *(v10 + v27) = 0;
+          objc_autoreleasePoolPop(v11);
           goto LABEL_23;
         }
 
-        v40 = v11[2];
-        v41 = archive_error_string();
+        v30 = archive_error_string();
         *buf = 136446210;
-        v49 = v41;
-        v42 = "Failed to write header. %{public}s";
+        v36 = v30;
+        v31 = "Failed to write header. %{public}s";
 LABEL_39:
-        _os_log_error_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, v42, buf, 0xCu);
+        _os_log_error_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, v31, buf, 0xCu);
         goto LABEL_21;
       }
 
       do
       {
-        v17 = v11[1];
         data_block = archive_read_data_block();
         if (data_block == 1)
         {
@@ -2329,58 +2318,54 @@ LABEL_39:
           goto LABEL_20;
         }
 
-        v19 = v11[2];
-        v20 = archive_write_data_block();
+        v15 = archive_write_data_block();
       }
 
-      while ((v20 & 0x8000000000000000) == 0);
-      v21 = v20;
-      v22 = qword_1000719C0;
+      while ((v15 & 0x8000000000000000) == 0);
+      v16 = v15;
+      v17 = qword_1000719C0;
       if (os_log_type_enabled(qword_1000719C0, OS_LOG_TYPE_ERROR))
       {
-        v29 = v11[2];
-        v30 = archive_error_string();
+        v22 = archive_error_string();
         *buf = 136446210;
-        v49 = v30;
-        _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Failed to write a data block. %{public}s", buf, 0xCu);
-        if ((v21 & 0x80000000) == 0)
+        v36 = v22;
+        _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Failed to write a data block. %{public}s", buf, 0xCu);
+        if ((v16 & 0x80000000) == 0)
         {
           goto LABEL_11;
         }
       }
 
-      else if ((v21 & 0x80000000) == 0)
+      else if ((v16 & 0x80000000) == 0)
       {
 LABEL_11:
-        v23 = v11[2];
         if ((archive_write_finish_entry() & 0x80000000) == 0)
         {
-          v24 = [NSFileHandle fileHandleForUpdatingAtPath:[(NSURL *)v15 path]];
-          v25 = fcntl([(NSFileHandle *)v24 fileDescriptor], 64, v11[4]);
-          if (v25 < 0)
+          v18 = [NSFileHandle fileHandleForUpdatingAtPath:[(NSURL *)v13 path]];
+          v19 = fcntl([(NSFileHandle *)v18 fileDescriptor], 64, v10[4]);
+          if (v19 < 0)
           {
-            v26 = v25;
-            v27 = qword_1000719C0;
+            v20 = v19;
+            v21 = qword_1000719C0;
             if (os_log_type_enabled(qword_1000719C0, OS_LOG_TYPE_ERROR))
             {
-              v31 = [(NSURL *)v15 path];
-              v47 = v11[4];
-              v32 = *__error();
+              v23 = [(NSURL *)v13 path];
+              v34 = v10[4];
+              v24 = *__error();
               *buf = 138544130;
-              v49 = v31;
-              v50 = 2050;
-              v51 = v47;
-              v52 = 1026;
-              v53 = v26;
-              v54 = 1026;
-              v55 = v32;
-              _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Failed to set data protection on file %{public}@ to %{public}ld because %{public}d %{public, errno}d", buf, 0x22u);
+              v36 = v23;
+              v37 = 2050;
+              v38 = v34;
+              v39 = 1026;
+              v40 = v20;
+              v41 = 1026;
+              v42 = v24;
+              _os_log_error_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Failed to set data protection on file %{public}@ to %{public}ld because %{public}d %{public, errno}d", buf, 0x22u);
             }
           }
 
-          [(NSFileHandle *)v24 closeFile];
-          objc_autoreleasePoolPop(v13);
-          v28 = v11[1];
+          [(NSFileHandle *)v18 closeFile];
+          objc_autoreleasePoolPop(v11);
           if (archive_read_next_header() != 1)
           {
             continue;
@@ -2389,17 +2374,16 @@ LABEL_11:
           goto LABEL_23;
         }
 
-        v34 = qword_1000719C0;
+        v26 = qword_1000719C0;
         if (!os_log_type_enabled(qword_1000719C0, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_21;
         }
 
-        v43 = v11[2];
-        v44 = archive_error_string();
+        v32 = archive_error_string();
         *buf = 136315138;
-        v49 = v44;
-        v42 = "Failed to finish writing entry. %s";
+        v36 = v32;
+        v31 = "Failed to finish writing entry. %s";
         goto LABEL_39;
       }
 
@@ -2407,69 +2391,65 @@ LABEL_11:
     }
 
 LABEL_20:
-    v34 = qword_1000719C0;
+    v26 = qword_1000719C0;
     if (!os_log_type_enabled(qword_1000719C0, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_21;
     }
 
-    v45 = v11[2];
-    v46 = archive_error_string();
+    v33 = archive_error_string();
     *buf = 136446210;
-    v49 = v46;
-    v42 = "Failed to copy data. %{public}s";
+    v36 = v33;
+    v31 = "Failed to copy data. %{public}s";
     goto LABEL_39;
   }
 
-  v33 = 0;
-  return v33 & 1;
+  v25 = 0;
+  return v25 & 1;
 }
 
 void sub_10000978C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   objc_opt_self();
-  v18 = 0;
-  v5 = [NSData dataWithContentsOfURL:a2 options:1 error:&v18];
+  v15 = 0;
+  v5 = [NSData dataWithContentsOfURL:a2 options:1 error:&v15];
   if (v5)
   {
     v6 = sub_1000090AC([RDUnarchiver alloc], v5, 0, 0);
-    v7 = v6;
-    v13 = _NSConcreteStackBlock;
-    v14 = 3221225472;
-    v15 = sub_100009928;
-    v16 = &unk_100060D70;
-    v17 = a3;
+    v10 = _NSConcreteStackBlock;
+    v11 = 3221225472;
+    v12 = sub_100009928;
+    v13 = &unk_100060D70;
+    v14 = a3;
     if (v6)
     {
-      v20 = 0;
-      v8 = v6[1];
+      v17 = 0;
       if (archive_read_next_header() != 1)
       {
         while (1)
         {
-          v9 = archive_entry_pathname();
-          if (!v9)
+          v7 = archive_entry_pathname();
+          if (!v7)
           {
             break;
           }
 
-          v10 = [NSString stringWithUTF8String:v9, v13, v14];
-          (v15)(&v13, v10);
-          v11 = v7[1];
+          v8 = [NSString stringWithUTF8String:v7, v10, v11];
+          (v12)(&v10, v8);
           if (archive_read_next_header() == 1)
           {
             goto LABEL_11;
           }
         }
 
-        v12 = qword_1000719C0;
+        v9 = qword_1000719C0;
         if (os_log_type_enabled(qword_1000719C0, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Got no pathname from entry", buf, 2u);
+          _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Got no pathname from entry", buf, 2u);
         }
 
-        *(v7 + 41) = 0;
+        v6[41] = 0;
       }
     }
 
@@ -2478,7 +2458,7 @@ LABEL_11:
 
   else
   {
-    (*(a3 + 16))(a3, 0, v18);
+    (*(a3 + 16))(a3, 0, v15);
   }
 }
 
@@ -2524,7 +2504,7 @@ CFAbsoluteTime SRAbsoluteTimeToCFAbsoluteTime(SRAbsoluteTime sr)
   return sr - (v2 + v3) + v4 + 0 - kCFAbsoluteTimeIntervalSince1970 + 0 * 0.000000001;
 }
 
-BOOL SRAbsoluteTimeSetSyntheticStartFromRemoteTime(unint64_t a1, unint64_t a2, double a3, uint64_t a4, double *a5)
+BOOL SRAbsoluteTimeSetSyntheticStartFromRemoteTime(unint64_t a1, unint64_t a2, uint64_t a3, double *a4, double a5)
 {
   mach_get_times();
   TMConvertTicksToSeconds();
@@ -2535,7 +2515,7 @@ BOOL SRAbsoluteTimeSetSyntheticStartFromRemoteTime(unint64_t a1, unint64_t a2, d
     v11 = -v11;
   }
 
-  v12 = v10 + a3 + v11;
+  v12 = v10 + a5 + v11;
   TMConvertTicksToSeconds();
   v14 = v12 - v13;
   TMConvertTicksToSeconds();
@@ -2552,9 +2532,9 @@ BOOL SRAbsoluteTimeSetSyntheticStartFromRemoteTime(unint64_t a1, unint64_t a2, d
 
     v20 = v19 + v16 - v18;
     qword_100071B78 = *&v20;
-    if (a5)
+    if (a4)
     {
-      *a5 = v20;
+      *a4 = v20;
     }
   }
 
@@ -2592,7 +2572,7 @@ CFTimeInterval SRAbsoluteTimeRoundedDownToNearestInterval(double a1, double a2)
   return kCFAbsoluteTimeIntervalSince1970 + floor((a1 - (v4 + v5) + v7 + 0 - kCFAbsoluteTimeIntervalSince1970 + 0 * 0.000000001) / v12) * v12 - 0 + 0 * -0.000000001 + v8 + v9 + v11;
 }
 
-id sub_10000A3F0(id result, void **self)
+void *sub_10000A3F0(void *result, void **self)
 {
   if (!result)
   {
@@ -2633,7 +2613,7 @@ LABEL_11:
   result = objc_msgSendSuper2(&v8, "init");
   if (result)
   {
-    *(result + 1) = 1;
+    result[1] = 1;
     v5 = result;
     if (sub_10002A184(self[2], self[3]))
     {
@@ -2961,7 +2941,7 @@ LABEL_19:
   return v11;
 }
 
-id sub_10000ACCC(id result, void **self)
+void *sub_10000ACCC(void *result, void **self)
 {
   if (!result)
   {
@@ -3002,17 +2982,17 @@ LABEL_11:
   result = objc_msgSendSuper2(&v8, "init");
   if (result)
   {
-    *(result + 2) = 0;
+    result[2] = 0;
     v5 = result;
     if (sub_10002A184(self[2], self[3]))
     {
-      *(v5 + 16) |= 4uLL;
+      v5[2] |= 4uLL;
     }
 
-    *(v5 + 24) = 0;
+    *(v5 + 6) = 0;
     v6 = self;
     result = v5;
-    *(v5 + 8) = v6;
+    v5[1] = v6;
   }
 
   return result;
@@ -3715,7 +3695,7 @@ LABEL_22:
   return v7;
 }
 
-id sub_10000BC68(id result, void **self)
+void *sub_10000BC68(void *result, void **self)
 {
   if (!result)
   {
@@ -3757,7 +3737,7 @@ LABEL_11:
   if (result)
   {
     v5 = result;
-    *(result + 1) = self;
+    result[1] = self;
     v5[2] = 2;
     v6 = sub_10002A184(self[2], self[3]);
     result = v5;
@@ -4577,7 +4557,7 @@ id sub_10000D068(id result, id self)
         v4 = result;
         v5 = self;
         result = v4;
-        *(v4 + 8) = v5;
+        v4[1] = v5;
       }
 
       return result;
@@ -5032,7 +5012,7 @@ void *sub_10000DC14(void *result, char a2)
       v10 = v9;
       v11 = v7;
       v12 = v10;
-      *(v10 + 1) = v11;
+      v10[1] = v11;
       *(v10 + 16) = a2;
     }
 
@@ -6874,14 +6854,14 @@ NSURL *sub_100010A54(NSURL *result, void *a2)
   {
     v3 = result;
     v5 = [a2 lastPathComponent];
-    urlString = v3->_urlString;
-    if (urlString)
+    v6 = *(v3 + 8);
+    if (v6)
     {
-      Property = objc_getProperty(urlString, v4, 8, 1);
-      urlString = v3->_urlString;
-      if (urlString)
+      Property = objc_getProperty(v6, v4, 8, 1);
+      v6 = *(v3 + 8);
+      if (v6)
       {
-        urlString = objc_getProperty(urlString, v7, 32, 1);
+        v6 = objc_getProperty(v6, v7, 32, 1);
       }
     }
 
@@ -6890,9 +6870,9 @@ NSURL *sub_100010A54(NSURL *result, void *a2)
       Property = 0;
     }
 
-    v14 = urlString;
+    v14 = v6;
     v10 = [NSArray arrayWithObjects:&v14 count:1];
-    v11 = v3->_urlString;
+    v11 = *(v3 + 8);
     if (v11)
     {
       v12 = objc_getProperty(v11, v9, 24, 1);
@@ -6904,7 +6884,7 @@ NSURL *sub_100010A54(NSURL *result, void *a2)
     }
 
     v13 = sub_10001A924(Property, v10, v12);
-    return sub_100010C64(v3->_urlString, a2, v5, v13, 0);
+    return sub_100010C64(*(v3 + 8), a2, v5, v13, 0);
   }
 
   return result;
@@ -6919,7 +6899,7 @@ NSURL *sub_100010B60(NSURL *result, const char *a2, uint64_t a3)
     if (urlString)
     {
       Property = objc_getProperty(urlString, a2, 8, 1);
-      urlString = v5->_urlString;
+      urlString = *(v5 + 8);
       if (urlString)
       {
         urlString = objc_getProperty(urlString, v7, 32, 1);
@@ -6933,7 +6913,7 @@ NSURL *sub_100010B60(NSURL *result, const char *a2, uint64_t a3)
 
     v14 = urlString;
     v10 = [NSArray arrayWithObjects:&v14 count:1];
-    v11 = v5->_urlString;
+    v11 = *(v5 + 8);
     if (v11)
     {
       v12 = objc_getProperty(v11, v9, 24, 1);
@@ -6945,7 +6925,7 @@ NSURL *sub_100010B60(NSURL *result, const char *a2, uint64_t a3)
     }
 
     v13 = sub_10001A924(Property, v10, v12);
-    return sub_100010C64(v5->_urlString, a2, a3, v13, 0);
+    return sub_100010C64(*(v5 + 8), a2, a3, v13, 0);
   }
 
   return result;
@@ -7220,34 +7200,34 @@ void *sub_100011CFC(void *a1, void *a2)
   return v2;
 }
 
-NSMutableData *sub_100011E1C()
+NSMutableData *sub_100011E1C(uint64_t a1)
 {
   objc_opt_self();
-  v0 = [NSMutableData dataWithLength:32];
-  Bytes = CCRandomGenerateBytes([(NSMutableData *)v0 mutableBytes], 0x20uLL);
+  v1 = [NSMutableData dataWithLength:32];
+  Bytes = CCRandomGenerateBytes([(NSMutableData *)v1 mutableBytes], 0x20uLL);
   if (!Bytes)
   {
-    return v0;
+    return v1;
   }
 
-  v2 = Bytes;
+  v3 = Bytes;
   if (qword_1000719D0 != -1)
   {
     dispatch_once(&qword_1000719D0, &stru_100060E18);
-    v3 = qword_1000719D8;
+    v4 = qword_1000719D8;
     if (!os_log_type_enabled(qword_1000719D8, OS_LOG_TYPE_FAULT))
     {
       return 0;
     }
 
 LABEL_8:
-    v5[0] = 67109120;
-    v5[1] = v2;
-    _os_log_fault_impl(&_mh_execute_header, v3, OS_LOG_TYPE_FAULT, "Failed to generate random data for a key. %d", v5, 8u);
+    v6[0] = 67109120;
+    v6[1] = v3;
+    _os_log_fault_impl(&_mh_execute_header, v4, OS_LOG_TYPE_FAULT, "Failed to generate random data for a key. %d", v6, 8u);
     return 0;
   }
 
-  v3 = qword_1000719D8;
+  v4 = qword_1000719D8;
   if (os_log_type_enabled(qword_1000719D8, OS_LOG_TYPE_FAULT))
   {
     goto LABEL_8;
@@ -7256,34 +7236,34 @@ LABEL_8:
   return 0;
 }
 
-NSMutableData *sub_100011F44()
+NSMutableData *sub_100011F44(uint64_t a1)
 {
   objc_opt_self();
-  v0 = [NSMutableData dataWithLength:16];
-  Bytes = CCRandomGenerateBytes([(NSMutableData *)v0 mutableBytes], 0x10uLL);
+  v1 = [NSMutableData dataWithLength:16];
+  Bytes = CCRandomGenerateBytes([(NSMutableData *)v1 mutableBytes], 0x10uLL);
   if (!Bytes)
   {
-    return v0;
+    return v1;
   }
 
-  v2 = Bytes;
+  v3 = Bytes;
   if (qword_1000719D0 != -1)
   {
     dispatch_once(&qword_1000719D0, &stru_100060E18);
-    v3 = qword_1000719D8;
+    v4 = qword_1000719D8;
     if (!os_log_type_enabled(qword_1000719D8, OS_LOG_TYPE_FAULT))
     {
       return 0;
     }
 
 LABEL_8:
-    v5[0] = 67109120;
-    v5[1] = v2;
-    _os_log_fault_impl(&_mh_execute_header, v3, OS_LOG_TYPE_FAULT, "Failed to generate random data for an initialization vector. %d", v5, 8u);
+    v6[0] = 67109120;
+    v6[1] = v3;
+    _os_log_fault_impl(&_mh_execute_header, v4, OS_LOG_TYPE_FAULT, "Failed to generate random data for an initialization vector. %d", v6, 8u);
     return 0;
   }
 
-  v3 = qword_1000719D8;
+  v4 = qword_1000719D8;
   if (os_log_type_enabled(qword_1000719D8, OS_LOG_TYPE_FAULT))
   {
     goto LABEL_8;
@@ -7641,28 +7621,28 @@ void *sub_100012994(void *a1, void *a2)
     return 0;
   }
 
-  objc_opt_class();
-  v4 = sub_100011E1C();
-  if (!v4)
+  v4 = objc_opt_class();
+  v5 = sub_100011E1C(v4);
+  if (!v5)
   {
     return 0;
   }
 
-  v5 = v4;
-  objc_opt_class();
-  v6 = sub_100011F44();
-  if (!v6)
+  v6 = v5;
+  v7 = objc_opt_class();
+  v8 = sub_100011F44(v7);
+  if (!v8)
   {
     return 0;
   }
 
-  v7 = v6;
-  if (!sub_1000120EC(a1, v5, v6, [a2 lastPathComponent]))
+  v9 = v8;
+  if (!sub_1000120EC(a1, v6, v8, [a2 lastPathComponent]))
   {
     return 0;
   }
 
-  return sub_100012588(a1, 0, a2, v5, v7);
+  return sub_100012588(a1, 0, a2, v6, v9);
 }
 
 void *sub_100012A40(NSDictionary *a1, void *a2)
@@ -8155,7 +8135,7 @@ LABEL_29:
     v18 = -v18;
   }
 
-  if (![(NSData *)v13 writeToURL:[NSURL fileURLWithPath:0 isDirectory:v11 relativeToURL:?], 1, &v24])
+  if (![(NSData *)v13 writeToURL:[NSURL options:"fileURLWithPath:isDirectory:relativeToURL:" error:[(NSURL *)sub_10001ADB4(RDFileURLs lastPathComponent] fileURLWithPath:v11) isDirectory:1 relativeToURL:&v24]]
   {
     if (qword_1000719D0 == -1)
     {
@@ -8482,7 +8462,7 @@ LABEL_24:
     v30 = -v30;
   }
 
-  if (![(NSData *)v25 writeToURL:[NSURL fileURLWithPath:0 isDirectory:v23 relativeToURL:?], 1, &v34])
+  if (![(NSData *)v25 writeToURL:[NSURL options:"fileURLWithPath:isDirectory:relativeToURL:" error:[(NSURL *)sub_10001ADB4(RDFileURLs lastPathComponent] fileURLWithPath:v23) isDirectory:1 relativeToURL:&v34]]
   {
     if (qword_1000719D0 == -1)
     {
@@ -8639,18 +8619,18 @@ void sub_1000144E8(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   if (a1 && a2)
   {
-    v51 = 0;
+    v47 = 0;
     v7 = &IDSCopyIDForDevice_ptr;
-    v8 = +[NSMutableArray arrayWithArray:](NSMutableArray, "arrayWithArray:", -[NSFileManager contentsOfDirectoryAtPath:error:](+[NSFileManager defaultManager](NSFileManager, "defaultManager"), "contentsOfDirectoryAtPath:error:", [a2 path], &v51));
-    v9 = v51;
-    if (v51)
+    v8 = +[NSMutableArray arrayWithArray:](NSMutableArray, "arrayWithArray:", -[NSFileManager contentsOfDirectoryAtPath:error:](+[NSFileManager defaultManager](NSFileManager, "defaultManager"), "contentsOfDirectoryAtPath:error:", [a2 path], &v47));
+    v9 = v47;
+    if (v47)
     {
       v10 = qword_1000719E0;
       if (os_log_type_enabled(qword_1000719E0, OS_LOG_TYPE_ERROR))
       {
-        v59.st_dev = 138412290;
-        *&v59.st_mode = v9;
-        _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "error while reading directory, %@", &v59, 0xCu);
+        v55.st_dev = 138412290;
+        *&v55.st_mode = v9;
+        _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "error while reading directory, %@", &v55, 0xCu);
       }
 
       return;
@@ -8659,33 +8639,33 @@ void sub_1000144E8(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
     v11 = v8;
     if (v8)
     {
-      v45 = a1;
-      v50 = 0;
+      v41 = a1;
+      v46 = 0;
       if (a3)
       {
         [(NSMutableArray *)v8 sortUsingComparator:a3];
       }
 
-      v43 = a3;
-      v48 = 0u;
-      v49 = 0u;
-      v46 = 0u;
-      v47 = 0u;
-      v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v46 objects:v54 count:16];
+      v39 = a3;
+      v44 = 0u;
+      v45 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v42 objects:v50 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v47;
+        v14 = *v43;
 LABEL_13:
         v15 = 0;
         while (1)
         {
-          if (*v47 != v14)
+          if (*v43 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v46 + 1) + 8 * v15);
+          v16 = *(*(&v42 + 1) + 8 * v15);
           v17 = objc_autoreleasePoolPush();
           v18 = [objc_msgSend(a2 "path")];
           v19 = [objc_msgSend(a2 "relativePath")];
@@ -8694,11 +8674,11 @@ LABEL_13:
             goto LABEL_15;
           }
 
-          v20 = +[NSURL fileURLWithPath:isDirectory:relativeToURL:](NSURL, "fileURLWithPath:isDirectory:relativeToURL:", v19, v50, [a2 baseURL]);
+          v20 = +[NSURL fileURLWithPath:isDirectory:relativeToURL:](NSURL, "fileURLWithPath:isDirectory:relativeToURL:", v19, v46, [a2 baseURL]);
           v21 = v20;
-          if (v50 == 1)
+          if (v46 == 1)
           {
-            sub_1000144E8(v45, v20, v43, a4);
+            sub_1000144E8(v41, v20, v39, a4);
           }
 
           else
@@ -8708,55 +8688,52 @@ LABEL_13:
               goto LABEL_15;
             }
 
-            memset(&v59, 0, sizeof(v59));
+            memset(&v55, 0, sizeof(v55));
             v22 = [(NSString *)[(NSURL *)v20 path] UTF8String];
             if (!v22)
             {
               goto LABEL_15;
             }
 
-            stat(v22, &v59);
+            stat(v22, &v55);
             archive_entry_new();
             archive_entry_copy_stat();
             [(NSString *)[(NSURL *)v21 relativePath] UTF8String];
             archive_entry_set_pathname();
-            v23 = *(v45 + 8);
             if (archive_write_header())
             {
-              v24 = qword_1000719E0;
+              v23 = qword_1000719E0;
               if (os_log_type_enabled(qword_1000719E0, OS_LOG_TYPE_ERROR))
               {
-                v41 = [(NSURL *)v21 path];
-                v25 = *(v45 + 8);
-                v26 = archive_errno();
-                v27 = *(v45 + 8);
-                v28 = archive_error_string();
+                v37 = [(NSURL *)v21 path];
+                v24 = archive_errno();
+                v25 = archive_error_string();
                 *buf = 138412802;
-                v56 = v41;
-                v57 = 1024;
-                *v58 = v26;
-                *&v58[4] = 2080;
-                *&v58[6] = v28;
-                _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "failed to write header for file, %@, status, %d, reason: %s", buf, 0x1Cu);
+                v52 = v37;
+                v53 = 1024;
+                *v54 = v24;
+                *&v54[4] = 2080;
+                *&v54[6] = v25;
+                _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "failed to write header for file, %@, status, %d, reason: %s", buf, 0x1Cu);
               }
 
               goto LABEL_15;
             }
 
-            v53 = 0;
-            v29 = [NSData dataWithContentsOfURL:v21 options:1 error:&v53];
-            if (!v29)
+            v49 = 0;
+            v26 = [NSData dataWithContentsOfURL:v21 options:1 error:&v49];
+            if (!v26)
             {
-              v33 = qword_1000719E0;
+              v29 = qword_1000719E0;
               if (os_log_type_enabled(qword_1000719E0, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138412546;
-                v56 = v21;
-                v57 = 2112;
-                *v58 = v53;
-                v34 = v33;
-                v35 = "failed to open file %@. %@ ";
-                v36 = 22;
+                v52 = v21;
+                v53 = 2112;
+                *v54 = v49;
+                v30 = v29;
+                v31 = "failed to open file %@. %@ ";
+                v32 = 22;
                 goto LABEL_40;
               }
 
@@ -8765,63 +8742,62 @@ LABEL_41:
               goto LABEL_15;
             }
 
-            v30 = v29;
-            if (([(NSData *)v29 length]& 0x8000000000000000) != 0)
+            v27 = v26;
+            if (([(NSData *)v26 length]& 0x8000000000000000) != 0)
             {
-              v37 = qword_1000719E0;
+              v33 = qword_1000719E0;
               if (!os_log_type_enabled(qword_1000719E0, OS_LOG_TYPE_ERROR))
               {
                 goto LABEL_41;
               }
 
-              v38 = [(NSData *)v30 length];
+              v34 = [(NSData *)v27 length];
               *buf = 134218240;
-              v56 = v38;
-              v57 = 2048;
-              *v58 = 0x7FFFFFFFFFFFFFFFLL;
-              v34 = v37;
-              v35 = "Data being written is too large (%lu > %ldd)";
-              v36 = 22;
+              v52 = v34;
+              v53 = 2048;
+              *v54 = 0x7FFFFFFFFFFFFFFFLL;
+              v30 = v33;
+              v31 = "Data being written is too large (%lu > %ldd)";
+              v32 = 22;
 LABEL_40:
-              _os_log_error_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, v35, buf, v36);
+              _os_log_error_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, v31, buf, v32);
               goto LABEL_41;
             }
 
-            v31 = *(v45 + 8);
-            [(NSData *)v30 bytes];
-            [(NSData *)v30 length];
-            v42 = archive_write_data();
-            if (v42 != [(NSData *)v30 length])
+            [(NSData *)v27 bytes];
+            [(NSData *)v27 length];
+            v38 = archive_write_data();
+            if (v38 != [(NSData *)v27 length])
             {
-              v40 = qword_1000719E0;
+              v36 = qword_1000719E0;
               v7 = &IDSCopyIDForDevice_ptr;
               if (!os_log_type_enabled(qword_1000719E0, OS_LOG_TYPE_ERROR))
               {
                 goto LABEL_41;
               }
 
-              v39 = [(NSData *)v30 length];
+              v35 = [(NSData *)v27 length];
               *buf = 138412802;
-              v56 = v21;
-              v57 = 2048;
-              *v58 = v39;
-              *&v58[8] = 2048;
-              v34 = v40;
-              *&v58[10] = v42;
-              v35 = "error writing file, %@, request to write %lu bytes but wrote %ld bytes";
-              v36 = 32;
+              v52 = v21;
+              v53 = 2048;
+              *v54 = v35;
+              *&v54[8] = 2048;
+              v30 = v36;
+              *&v54[10] = v38;
+              v31 = "error writing file, %@, request to write %lu bytes but wrote %ld bytes";
+              v32 = 32;
               goto LABEL_40;
             }
 
             archive_entry_free();
             v7 = &IDSCopyIDForDevice_ptr;
-            if (*(v45 + 16) == 1 && (v52 = 0, ![+[NSFileManager removeItemAtPath:"removeItemAtPath:error:"]&& (v32 = qword_1000719E0, os_log_type_enabled(qword_1000719E0, OS_LOG_TYPE_ERROR)))
+            if (*(v41 + 16) == 1 && (v48 = 0, ![+[NSFileManager removeItemAtPath:"removeItemAtPath:error:"]&& (v28 = qword_1000719E0, os_log_type_enabled(qword_1000719E0, OS_LOG_TYPE_ERROR)))
             {
               *buf = 138543618;
-              v56 = v21;
-              v57 = 2114;
-              *v58 = v52;
-              _os_log_error_impl(&_mh_execute_header, v32, OS_LOG_TYPE_ERROR, "error removing file that has been archived %{public}@. %{public}@", buf, 0x16u);
+              v52 = v21;
+              v53 = 2114;
+              *v54 = v48;
+              _os_log_error_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "error removing file that has been archived %{public}@. %{public}@", buf, 0x16u);
               if (!a4)
               {
                 goto LABEL_15;
@@ -8844,7 +8820,7 @@ LABEL_15:
           objc_autoreleasePoolPop(v17);
           if (v13 == ++v15)
           {
-            v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v46 objects:v54 count:16];
+            v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v42 objects:v50 count:16];
             if (!v13)
             {
               return;
@@ -8873,9 +8849,9 @@ uint64_t sub_100014B10(uint64_t a1, void *a2, void *a3, int a4, char a5, int a6,
     goto LABEL_15;
   }
 
-  v38.receiver = v15;
-  v38.super_class = RDArchiver;
-  v16 = objc_msgSendSuper2(&v38, "init");
+  v30.receiver = v15;
+  v30.super_class = RDArchiver;
+  v16 = objc_msgSendSuper2(&v30, "init");
   if (!v16)
   {
 LABEL_15:
@@ -8888,15 +8864,13 @@ LABEL_15:
   v16[16] = a5;
   *(v16 + 1) = archive_write_new();
   *(v17 + 32) = [a3 URLByAppendingPathExtension:@"tar"];
-  v18 = *(v17 + 8);
   if (a4)
   {
-    v19 = archive_write_add_filter_gzip();
+    v18 = archive_write_add_filter_gzip();
     *(v17 + 32) = [*(v17 + 32) URLByAppendingPathExtension:@"gz"];
-    v20 = *(v17 + 8);
     archive_write_set_bytes_per_block();
-    v21 = *(v17 + 32);
-    if (v19)
+    v19 = *(v17 + 32);
+    if (v18)
     {
       goto LABEL_11;
     }
@@ -8904,61 +8878,57 @@ LABEL_15:
 
   else
   {
-    v19 = archive_write_add_filter_none();
-    v22 = *(v17 + 8);
+    v18 = archive_write_add_filter_none();
     archive_write_set_bytes_per_block();
-    v23 = *(v17 + 32);
-    if (v19)
+    v20 = *(v17 + 32);
+    if (v18)
     {
       goto LABEL_11;
     }
   }
 
-  v24 = *(v17 + 8);
-  v25 = archive_write_set_format_pax();
-  if (v25)
+  v21 = archive_write_set_format_pax();
+  if (v21)
   {
     goto LABEL_10;
   }
 
-  v30 = open_dprotected_np([objc_msgSend(*(v17 + 32) "path")], 514, a6, 0, 416);
-  *(v17 + 20) = v30;
-  if (v30 < 0)
+  v25 = open_dprotected_np([objc_msgSend(*(v17 + 32) "path")], 514, a6, 0, 416);
+  *(v17 + 20) = v25;
+  if (v25 < 0)
   {
-    v34 = qword_1000719E0;
+    v27 = qword_1000719E0;
     if (os_log_type_enabled(qword_1000719E0, OS_LOG_TYPE_ERROR))
     {
-      v36 = *(v17 + 32);
-      v37 = *__error();
+      v28 = *(v17 + 32);
+      v29 = *__error();
       *buf = 138412546;
-      v40 = v36;
-      v41 = 1024;
-      v42 = v37;
-      _os_log_error_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "Unable to create archive at path %@ with data protection, errno, %{errno}d", buf, 0x12u);
+      v32 = v28;
+      v33 = 1024;
+      v34 = v29;
+      _os_log_error_impl(&_mh_execute_header, v27, OS_LOG_TYPE_ERROR, "Unable to create archive at path %@ with data protection, errno, %{errno}d", buf, 0x12u);
     }
 
-    v35 = *(v17 + 8);
     archive_write_close();
     goto LABEL_14;
   }
 
-  v31 = *(v17 + 8);
-  v25 = archive_write_open_fd();
+  v21 = archive_write_open_fd();
   *(v17 + 24) = 1;
-  if (v25)
+  if (v21)
   {
 LABEL_10:
-    v19 = v25;
+    v18 = v21;
 LABEL_11:
-    v26 = qword_1000719E0;
+    v22 = qword_1000719E0;
     if (os_log_type_enabled(qword_1000719E0, OS_LOG_TYPE_ERROR))
     {
-      v33 = *(v17 + 32);
+      v26 = *(v17 + 32);
       *buf = 138412546;
-      v40 = v33;
-      v41 = 1024;
-      v42 = v19;
-      _os_log_error_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "Error creating archive at path %@ %d", buf, 0x12u);
+      v32 = v26;
+      v33 = 1024;
+      v34 = v18;
+      _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Error creating archive at path %@ %d", buf, 0x12u);
       if (*(v17 + 24) != 1)
       {
         goto LABEL_14;
@@ -8972,7 +8942,6 @@ LABEL_14:
       goto LABEL_15;
     }
 
-    v27 = *(v17 + 8);
     archive_write_free();
     close(*(v17 + 20));
     *(v17 + 24) = 0;
@@ -8982,8 +8951,7 @@ LABEL_14:
   sub_1000144E8(v17, a2, a7, a8);
   if (*(v17 + 24) == 1)
   {
-    v28 = *(v17 + 32);
-    v32 = *(v17 + 8);
+    v23 = *(v17 + 32);
     archive_write_free();
     close(*(v17 + 20));
     *(v17 + 24) = 0;
@@ -8991,10 +8959,10 @@ LABEL_14:
   }
 
 LABEL_16:
-  v28 = 0;
+  v23 = 0;
 LABEL_17:
 
-  return v28;
+  return v23;
 }
 
 SRAuthorizationStore *sub_1000152BC(uint64_t a1)
@@ -9650,4 +9618,247 @@ LABEL_65:
 
     os_activity_scope_leave(&state);
   }
+}
+
+void sub_100016A00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, os_activity_scope_state_s state)
+{
+  objc_sync_exit(v31);
+  os_activity_scope_leave(&state);
+  _Unwind_Resume(a1);
+}
+
+id sub_100016CAC(uint64_t a1, void *a2, void *a3, void *a4)
+{
+  if (!a3)
+  {
+    v66 = 0u;
+    v67 = 0u;
+    v64 = 0u;
+    v65 = 0u;
+    result = [a4 countByEnumeratingWithState:&v64 objects:v76 count:16];
+    if (!result)
+    {
+      return result;
+    }
+
+    v35 = result;
+    v36 = *v65;
+LABEL_52:
+    v37 = 0;
+    while (1)
+    {
+      if (*v65 == v36)
+      {
+        v38 = *(*(&v64 + 1) + 8 * v37);
+        if (objc_opt_respondsToSelector())
+        {
+          goto LABEL_58;
+        }
+      }
+
+      else
+      {
+        objc_enumerationMutation(a4);
+        v38 = *(*(&v64 + 1) + 8 * v37);
+        if (objc_opt_respondsToSelector())
+        {
+LABEL_58:
+          [v38 authorizationStore:a1 didDetermineInitialAuthorizationValues:a2];
+        }
+      }
+
+      if (v35 == ++v37)
+      {
+        result = [a4 countByEnumeratingWithState:&v64 objects:v76 count:16];
+        v35 = result;
+        if (!result)
+        {
+          return result;
+        }
+
+        goto LABEL_52;
+      }
+    }
+  }
+
+  v6 = a3;
+  v7 = +[NSMutableSet setWithArray:](NSMutableSet, "setWithArray:", [a3 allKeys]);
+  -[NSMutableSet unionSet:](v7, "unionSet:", +[NSSet setWithArray:](NSSet, "setWithArray:", [a2 allKeys]));
+  v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
+  obj = v7;
+  result = [(NSMutableSet *)v7 countByEnumeratingWithState:&v60 objects:v75 count:16];
+  v45 = result;
+  if (result)
+  {
+    v41 = *v61;
+    *&v9 = 138543618;
+    v39 = v9;
+    v43 = a2;
+    v44 = a4;
+    v42 = v6;
+    do
+    {
+      v10 = 0;
+      do
+      {
+        if (*v61 != v41)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v47 = v10;
+        v11 = *(*(&v60 + 1) + 8 * v10);
+        v12 = [v6 objectForKeyedSubscript:{v11, v39}];
+        v13 = [a2 objectForKeyedSubscript:v11];
+        v14 = objc_alloc_init(NSMutableSet);
+        v56 = 0u;
+        v57 = 0u;
+        v58 = 0u;
+        v59 = 0u;
+        v15 = [v13 countByEnumeratingWithState:&v56 objects:v74 count:16];
+        if (v15)
+        {
+          v16 = v15;
+          v17 = *v57;
+          do
+          {
+            for (i = 0; i != v16; i = i + 1)
+            {
+              if (*v57 != v17)
+              {
+                objc_enumerationMutation(v13);
+              }
+
+              v19 = *(*(&v56 + 1) + 8 * i);
+              v20 = [v13 objectForKeyedSubscript:v19];
+              v21 = [v12 objectForKeyedSubscript:v19];
+              if ([v20 BOOLValue] && !objc_msgSend(v21, "BOOLValue") || v20 && (objc_msgSend(v20, "BOOLValue") & 1) == 0 && !v21)
+              {
+                [v14 addObject:v19];
+              }
+            }
+
+            v16 = [v13 countByEnumeratingWithState:&v56 objects:v74 count:16];
+          }
+
+          while (v16);
+        }
+
+        v54 = 0u;
+        v55 = 0u;
+        v52 = 0u;
+        v53 = 0u;
+        v22 = [v12 countByEnumeratingWithState:&v52 objects:v73 count:16];
+        if (v22)
+        {
+          v23 = v22;
+          v24 = *v53;
+          do
+          {
+            for (j = 0; j != v23; j = j + 1)
+            {
+              if (*v53 != v24)
+              {
+                objc_enumerationMutation(v12);
+              }
+
+              v26 = *(*(&v52 + 1) + 8 * j);
+              v27 = [v13 objectForKeyedSubscript:v26];
+              if (v27)
+              {
+                v28 = v27;
+                if (([objc_msgSend(v12 objectForKeyedSubscript:{v26), "BOOLValue"}] & 1) == 0)
+                {
+                  if ([v12 objectForKeyedSubscript:v26])
+                  {
+                    continue;
+                  }
+                }
+
+                if ([v28 BOOLValue])
+                {
+                  continue;
+                }
+              }
+
+              [v14 addObject:v26];
+            }
+
+            v23 = [v12 countByEnumeratingWithState:&v52 objects:v73 count:16];
+          }
+
+          while (v23);
+        }
+
+        a2 = v43;
+        if ([v14 count])
+        {
+          v50 = 0u;
+          v51 = 0u;
+          v48 = 0u;
+          v49 = 0u;
+          v29 = [v44 countByEnumeratingWithState:&v48 objects:v72 count:16];
+          if (v29)
+          {
+            v30 = v29;
+            v31 = *v49;
+            do
+            {
+              for (k = 0; k != v30; k = k + 1)
+              {
+                if (*v49 == v31)
+                {
+                  v33 = *(*(&v48 + 1) + 8 * k);
+                  if ((objc_opt_respondsToSelector() & 1) == 0)
+                  {
+                    continue;
+                  }
+                }
+
+                else
+                {
+                  objc_enumerationMutation(v44);
+                  v33 = *(*(&v48 + 1) + 8 * k);
+                  if ((objc_opt_respondsToSelector() & 1) == 0)
+                  {
+                    continue;
+                  }
+                }
+
+                [v33 authorizationStore:a1 didUpdateAuthorizationsForBundleId:v11 sensors:v14];
+              }
+
+              v30 = [v44 countByEnumeratingWithState:&v48 objects:v72 count:16];
+            }
+
+            while (v30);
+          }
+
+          v34 = qword_1000719E8;
+          if (os_log_type_enabled(qword_1000719E8, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = v39;
+            v69 = v11;
+            v70 = 2114;
+            v71 = v14;
+            _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Authorization Changed for bundle id %{public}@ for sensors %{public}@", buf, 0x16u);
+          }
+        }
+
+        v10 = v47 + 1;
+        v6 = v42;
+      }
+
+      while ((v47 + 1) != v45);
+      result = [(NSMutableSet *)obj countByEnumeratingWithState:&v60 objects:v75 count:16];
+      v45 = result;
+    }
+
+    while (result);
+  }
+
+  return result;
 }

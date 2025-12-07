@@ -31,8 +31,8 @@
 - (int64_t)_resolvedMacIdiomStyle;
 - (int64_t)_resolvedMonochromaticTreatment;
 - (int64_t)_resolvedTitleAlignment;
-- (uint64_t)__updateDefaultButtonCornerRadiusIfNecessary;
 - (unint64_t)hash;
+- (void)__updateDefaultButtonCornerRadiusIfNecessary;
 - (void)_dci_setIndicator:(int64_t)indicator;
 - (void)_resolveValuesWithButton:(id)button;
 - (void)_setAllowGlassAdaptivity:(BOOL)adaptivity;
@@ -987,17 +987,17 @@ LABEL_10:
   return v5;
 }
 
-- (uint64_t)__updateDefaultButtonCornerRadiusIfNecessary
+- (void)__updateDefaultButtonCornerRadiusIfNecessary
 {
   if (result)
   {
     v1 = result;
-    v2 = *(result + 104);
+    v2 = result[13];
     if (!v2 || (*(v2 + 8) & 2) == 0)
     {
       if (_UISolariumEnabled())
       {
-        v3 = *(v1 + 112) == 0;
+        v3 = v1[14] == 0;
       }
 
       else
@@ -1005,7 +1005,7 @@ LABEL_10:
         v3 = 0;
       }
 
-      v4 = (*(v1 + 96) >> 4) & 3;
+      v4 = (*(v1 + 24) >> 4) & 3;
       v5 = 14.0;
       if ((v4 - 1) >= 2)
       {
@@ -1027,7 +1027,7 @@ LABEL_10:
         }
       }
 
-      v7 = *(v1 + 104);
+      v7 = v1[13];
 
       return [v7 _setCornerRadius:v5];
     }
@@ -1121,10 +1121,10 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(NSAttributedString *)resolvedTitle isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(resolvedTitle, v6, v6);
 
   v8 = v11;
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v9 = [(NSAttributedString *)v8 copy];
@@ -1175,10 +1175,10 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(NSAttributedString *)resolvedSubtitle isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(resolvedSubtitle, v6, v6);
 
   v8 = v11;
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     v9 = [(NSAttributedString *)v8 copy];
@@ -1878,10 +1878,10 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v7 = [(UISymbolContentTransition *)symbolContentTransition isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(symbolContentTransition, v6, v6);
 
   v8 = v11;
-  if (!v7)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     options = [(UISymbolContentTransition *)self->_symbolContentTransition options];
@@ -1914,10 +1914,10 @@ LABEL_10:
     {
       if (v7 && options)
       {
-        v9 = [(UISymbolContentTransition *)options isEqual:v7];
+        isEqual = objc_msgSend_isEqual_(options);
 
         optionsCopy = v12;
-        if (v9)
+        if (isEqual)
         {
           goto LABEL_11;
         }

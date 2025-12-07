@@ -33,17 +33,17 @@
 
     v14 = [dictionaryCopy PKDictionaryForKey:@"explanation"];
     v15 = [dictionaryCopy PKStringForKey:@"issueType"];
-    if ([v15 isEqualToString:@"dispute"])
+    if (objc_msgSend_isEqualToString_(v15))
     {
       v16 = 2;
     }
 
-    else if ([v15 isEqualToString:@"fraud"])
+    else if (objc_msgSend_isEqualToString_(v15))
     {
       v16 = 3;
     }
 
-    else if ([v15 isEqualToString:@"mapsFeedback"])
+    else if (objc_msgSend_isEqualToString_(v15))
     {
       v16 = 4;
     }

@@ -227,7 +227,6 @@ LABEL_7:
     }
   }
 
-  v7 = *(equalCopy + 44);
   if (*&self->_has)
   {
     if ((*(equalCopy + 44) & 1) == 0 || self->_resultSizeLog10 != *(equalCopy + 8))
@@ -248,7 +247,6 @@ LABEL_7:
       goto LABEL_53;
     }
 
-    v10 = *(equalCopy + 39);
     if (self->_timeLimited)
     {
       if ((*(equalCopy + 39) & 1) == 0)
@@ -275,7 +273,6 @@ LABEL_7:
       goto LABEL_53;
     }
 
-    v11 = *(equalCopy + 37);
     if (self->_exclusionSpec)
     {
       if ((*(equalCopy + 37) & 1) == 0)
@@ -302,7 +299,6 @@ LABEL_7:
       goto LABEL_53;
     }
 
-    v12 = *(equalCopy + 36);
     if (self->_error)
     {
       if ((*(equalCopy + 36) & 1) == 0)
@@ -329,7 +325,6 @@ LABEL_7:
       goto LABEL_53;
     }
 
-    v13 = *(equalCopy + 40);
     if (self->_timeSpec)
     {
       if ((*(equalCopy + 40) & 1) == 0)
@@ -357,7 +352,7 @@ LABEL_7:
     }
 
 LABEL_53:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_54;
   }
 
@@ -366,7 +361,6 @@ LABEL_53:
     goto LABEL_53;
   }
 
-  v14 = *(equalCopy + 38);
   if (self->_limitHit)
   {
     if ((*(equalCopy + 38) & 1) == 0)
@@ -384,17 +378,17 @@ LABEL_21:
   activeTreatments = self->_activeTreatments;
   if (activeTreatments | *(equalCopy + 1))
   {
-    v9 = [(NSString *)activeTreatments isEqual:?];
+    v8 = [(NSString *)activeTreatments isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_54:
 
-  return v9;
+  return v8;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -597,25 +591,24 @@ LABEL_12:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v12 = toCopy;
+  v6 = toCopy;
   if (self->_bundleId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   if (self->_mappingId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    resultSizeLog10 = self->_resultSizeLog10;
     PBDataWriterWriteUint32Field();
-    toCopy = v12;
+    toCopy = v6;
     has = self->_has;
     if ((has & 0x10) == 0)
     {
@@ -634,9 +627,8 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  timeLimited = self->_timeLimited;
   PBDataWriterWriteBOOLField();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 4) == 0)
   {
@@ -650,9 +642,8 @@ LABEL_8:
   }
 
 LABEL_19:
-  exclusionSpec = self->_exclusionSpec;
   PBDataWriterWriteBOOLField();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -666,9 +657,8 @@ LABEL_9:
   }
 
 LABEL_20:
-  error = self->_error;
   PBDataWriterWriteBOOLField();
-  toCopy = v12;
+  toCopy = v6;
   has = self->_has;
   if ((has & 0x20) == 0)
   {
@@ -682,22 +672,20 @@ LABEL_10:
   }
 
 LABEL_21:
-  timeSpec = self->_timeSpec;
   PBDataWriterWriteBOOLField();
-  toCopy = v12;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_11:
-    limitHit = self->_limitHit;
     PBDataWriterWriteBOOLField();
-    toCopy = v12;
+    toCopy = v6;
   }
 
 LABEL_12:
   if (self->_activeTreatments)
   {
     PBDataWriterWriteStringField();
-    toCopy = v12;
+    toCopy = v6;
   }
 }
 

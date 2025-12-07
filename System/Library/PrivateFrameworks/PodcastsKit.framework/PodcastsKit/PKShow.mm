@@ -21,24 +21,23 @@
   height = for.height;
   width = for.width;
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FD0FBE0, &qword_25EA22418);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x28223BE20](v6 - 8);
-  v9 = &v17 - v8;
+  v8 = &v16 - v7;
   selfCopy = self;
-  Show.artworkUrl(for:)(v9, width, height);
+  Show.artworkUrl(for:)(v8, width, height);
 
-  v11 = sub_25EA1E448();
-  v12 = *(v11 - 8);
-  v13 = (*(v12 + 48))(v9, 1, v11);
-  v14 = 0;
-  if (v13 != 1)
+  v10 = sub_25EA1E448();
+  v11 = *(v10 - 8);
+  v12 = (*(v11 + 48))(v8, 1, v10);
+  v13 = 0;
+  if (v12 != 1)
   {
-    v15 = sub_25EA1E418();
-    (*(v12 + 8))(v9, v11);
-    v14 = v15;
+    v14 = sub_25EA1E418();
+    (*(v11 + 8))(v8, v10);
+    v13 = v14;
   }
 
-  return v14;
+  return v13;
 }
 
 - (BOOL)isSubscribed

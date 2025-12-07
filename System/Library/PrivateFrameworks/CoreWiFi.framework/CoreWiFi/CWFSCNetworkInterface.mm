@@ -26,11 +26,11 @@
 
 - (CWFSCNetworkInterface)initWithInterfaceName:(id)name
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  v25.receiver = self;
-  v25.super_class = CWFSCNetworkInterface;
-  v5 = [(CWFSCNetworkInterface *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = CWFSCNetworkInterface;
+  v5 = [(CWFSCNetworkInterface *)&v24 init];
   v6 = v5;
   if (!nameCopy || !v5)
   {
@@ -48,29 +48,29 @@
 
   if (!v6->_hardwareAddress)
   {
-    v21 = CWFGetOSLog();
-    if (v21)
+    v20 = CWFGetOSLog();
+    if (v20)
     {
-      v22 = CWFGetOSLog();
+      v21 = CWFGetOSLog();
     }
 
     else
     {
+      v21 = MEMORY[0x1E69E9C10];
       v22 = MEMORY[0x1E69E9C10];
-      v23 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v26 = 136446978;
-      v27 = "[CWFSCNetworkInterface initWithInterfaceName:]";
-      v28 = 2082;
-      v29 = "CWFSCNetworkInterface.m";
-      v30 = 1024;
-      v31 = 80;
-      v32 = 2114;
-      v33 = nameCopy;
-      _os_log_send_and_compose_impl();
+      v25 = 136446978;
+      v26 = "[CWFSCNetworkInterface initWithInterfaceName:]";
+      v27 = 2082;
+      v28 = "CWFSCNetworkInterface.m";
+      v29 = 1024;
+      v30 = 80;
+      v31 = 2114;
+      v32 = nameCopy;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v21, 16, "[corewifi] %{public}s (%{public}s:%u) No hardware interface address found for %{public}@", &v25, 38);
     }
   }
 
@@ -79,24 +79,13 @@
   mutexQueue = v6->_mutexQueue;
   v6->_mutexQueue = v13;
 
-  if (!v6->_mutexQueue)
-  {
-    goto LABEL_8;
-  }
-
-  v15 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v16 = dispatch_queue_create("com.apple.corewifi.SC-interface-event", v15);
-  eventQueue = v6->_eventQueue;
-  v6->_eventQueue = v16;
-
-  if (!v6->_eventQueue || (context.version = 0, memset(&context.retain, 0, 24), context.info = v6, v18 = SCDynamicStoreCreate(*MEMORY[0x1E695E480], @"com.apple.corewifi.SC-interface", sub_1E0D30DD0, &context), (v6->_storeRef = v18) == 0) || !SCDynamicStoreSetDisconnectCallBack())
+  if (!v6->_mutexQueue || (dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v15 = objc_claimAutoreleasedReturnValue(), v16 = dispatch_queue_create("com.apple.corewifi.SC-interface-event", v15), eventQueue = v6->_eventQueue, v6->_eventQueue = v16, eventQueue, v15, !v6->_eventQueue) || (context.version = 0, memset(&context.retain, 0, 24), context.info = v6, v18 = SCDynamicStoreCreate(*MEMORY[0x1E695E480], @"com.apple.corewifi.SC-interface", sub_1E0D30DD0, &context), (v6->_storeRef = v18) == 0) || !SCDynamicStoreSetDisconnectCallBack())
   {
 LABEL_8:
 
     v6 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -121,39 +110,35 @@ LABEL_8:
 
 - (void)__startEventMonitoring
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E695E480];
   v4 = *MEMORY[0x1E69822F0];
   NetworkInterfaceEntity = SCDynamicStoreKeyCreateNetworkInterfaceEntity(*MEMORY[0x1E695E480], *MEMORY[0x1E69822F0], self->_interfaceName, *MEMORY[0x1E6982338]);
-  if (!NetworkInterfaceEntity)
+  if (NetworkInterfaceEntity)
   {
-LABEL_6:
-    v10 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  v6 = NetworkInterfaceEntity;
-  v7 = SCDynamicStoreKeyCreateNetworkInterfaceEntity(v3, v4, self->_interfaceName, *MEMORY[0x1E6982340]);
-  if (v7)
-  {
-    v8 = v7;
-    v12[0] = v6;
-    v12[1] = v7;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
-    if (SCDynamicStoreSetNotificationKeys(self->_storeRef, v9, 0))
+    v6 = NetworkInterfaceEntity;
+    v7 = SCDynamicStoreKeyCreateNetworkInterfaceEntity(v3, v4, self->_interfaceName, *MEMORY[0x1E6982340]);
+    if (v7)
     {
-      SCDynamicStoreSetDispatchQueue(self->_storeRef, self->_eventQueue);
+      v8 = v7;
+      v10[0] = v6;
+      v10[1] = v7;
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+      if (SCDynamicStoreSetNotificationKeys(self->_storeRef, v9, 0))
+      {
+        SCDynamicStoreSetDispatchQueue(self->_storeRef, self->_eventQueue);
+      }
+
+      CFRelease(v6);
+      CFRelease(v8);
     }
 
-    CFRelease(v6);
-    CFRelease(v8);
+    else
+    {
 
-    goto LABEL_6;
+      CFRelease(v6);
+    }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
-
-  CFRelease(v6);
 }
 
 - (void)restartEventMonitoring

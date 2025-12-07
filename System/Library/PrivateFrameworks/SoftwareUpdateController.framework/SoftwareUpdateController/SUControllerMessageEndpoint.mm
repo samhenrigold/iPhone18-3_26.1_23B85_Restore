@@ -1,6 +1,7 @@
 @interface SUControllerMessageEndpoint
 + (id)sharedEndpoint;
 - (SUControllerMessageEndpoint)init;
+- (id)sendMessage:(id)message replyingTo:(id)to expectingResponse:(BOOL)response isCritical:(BOOL)critical error:(id *)error;
 - (void)sendErrorReply:(id)reply toMessage:(id)message;
 - (void)sendMessage:(id)message completion:(id)completion;
 - (void)sendMessage:(id)message isCritical:(BOOL)critical completion:(id)completion;
@@ -161,28 +162,28 @@ void __60__SUControllerMessageEndpoint_setHandler_forMessagesOfType___block_invo
 
 void __61__SUControllerMessageEndpoint_setHandler_forMessagesOfTypes___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * v6);
+        v7 = *(*(&v10 + 1) + 8 * v6);
         v8 = [*(a1 + 40) messageHandlers];
         v9 = MEMORY[0x26D667D10](*(a1 + 48));
         [v8 setObject:v9 forKey:v7];
@@ -191,13 +192,141 @@ void __61__SUControllerMessageEndpoint_setHandler_forMessagesOfTypes___block_inv
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
+}
 
-  v10 = *MEMORY[0x277D85DE8];
+- (id)sendMessage:(id)message replyingTo:(id)to expectingResponse:(BOOL)response isCritical:(BOOL)critical error:(id *)error
+{
+  responseCopy = response;
+  messageCopy = message;
+  toCopy = to;
+  if (messageCopy)
+  {
+    dictionary = [MEMORY[0x277CBEB38] dictionary];
+    v58[0] = MEMORY[0x277D85DD0];
+    v58[1] = 3221225472;
+    v58[2] = __89__SUControllerMessageEndpoint_sendMessage_replyingTo_expectingResponse_isCritical_error___block_invoke;
+    v58[3] = &unk_279CA85C8;
+    v19 = dictionary;
+    v59 = v19;
+    [messageCopy enumerateKeysAndObjectsUsingBlock:v58];
+    v57 = 0;
+    v20 = [MEMORY[0x277CCAC58] dataWithPropertyList:v19 format:200 options:0 error:&v57];
+    v25 = v57;
+    if (v20)
+    {
+      v53 = v20;
+      v52 = [MEMORY[0x277CBEB98] setWithObject:*MEMORY[0x277D187E0]];
+      v26 = MEMORY[0x277CBEB38];
+      [MEMORY[0x277CCABB0] numberWithBool:responseCopy];
+      v27 = v54 = toCopy;
+      v28 = [v26 dictionaryWithObject:v27 forKey:*MEMORY[0x277D185B8]];
+
+      if (v54)
+      {
+        [v28 setObject:v54 forKeyedSubscript:*MEMORY[0x277D18608]];
+      }
+
+      v29 = MEMORY[0x277D18658];
+      if (critical)
+      {
+        v30 = &unk_287B43D90;
+        v31 = 300;
+      }
+
+      else
+      {
+        v35 = [MEMORY[0x277CCABB0] numberWithDouble:*MEMORY[0x277D18820]];
+        [v28 setObject:v35 forKeyedSubscript:*v29];
+
+        v30 = MEMORY[0x277CBEC38];
+        v29 = MEMORY[0x277D185C8];
+        v31 = 200;
+      }
+
+      [v28 setObject:v30 forKeyedSubscript:*v29];
+      [v28 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:*MEMORY[0x277D185A8]];
+      service = [(SUControllerMessageEndpoint *)self service];
+      v55 = v25;
+      v56 = 0;
+      v37 = [service sendData:v20 toDestinations:v52 priority:v31 options:v28 identifier:&v56 error:&v55];
+      v38 = v56;
+      v39 = v55;
+
+      v40 = +[SUControllerLogger sharedLogger];
+      if (v37)
+      {
+        v41 = [MEMORY[0x277CCACA8] stringWithUTF8String:SUControllerMessageTypeKey];
+        v42 = [messageCopy objectForKeyedSubscript:v41];
+        if (v42)
+        {
+          v43 = [MEMORY[0x277CCACA8] stringWithUTF8String:SUControllerMessageTypeKey];
+          v44 = [messageCopy objectForKeyedSubscript:v43];
+          [v40 logAtLevel:2 label:"-[SUControllerMessageEndpoint sendMessage:replyingTo:expectingResponse:isCritical:error:]" format:{@"Sent message:%@ %@", v44, v38}];
+        }
+
+        else
+        {
+          [v40 logAtLevel:2 label:"-[SUControllerMessageEndpoint sendMessage:replyingTo:expectingResponse:isCritical:error:]" format:{@"Sent message:%@ %@", &stru_287B3F250, v38}];
+        }
+
+        v20 = v53;
+        toCopy = v54;
+
+        v33 = v38;
+      }
+
+      else
+      {
+        [v40 logAtLevel:0 label:"-[SUControllerMessageEndpoint sendMessage:replyingTo:expectingResponse:isCritical:error:]" format:{@"Failed to send message: %ld", objc_msgSend(v39, "code")}];
+
+        if (error)
+        {
+          *error = SUControllerError(@"SUControllerError", 2, v39, @"Failed to send message: %@", v45, v46, v47, v48, v39);
+        }
+
+        v49 = +[SUControllerLogger sharedLogger];
+        [v49 logAtLevel:0 label:"-[SUControllerMessageEndpoint sendMessage:replyingTo:expectingResponse:isCritical:error:]" format:{@"Failed to send message: %@", v39}];
+
+        v33 = 0;
+        toCopy = v54;
+      }
+
+      v25 = v39;
+      v34 = v52;
+    }
+
+    else
+    {
+      if (error)
+      {
+        *error = SUControllerError(@"SUControllerError", 1, v25, @"Failed to serialize message '%@'", v21, v22, v23, v24, messageCopy);
+      }
+
+      v34 = +[SUControllerLogger sharedLogger];
+      [v34 logAtLevel:0 label:"-[SUControllerMessageEndpoint sendMessage:replyingTo:expectingResponse:isCritical:error:]" format:{@"Failed to serialize message '%@'", messageCopy}];
+      v33 = 0;
+    }
+  }
+
+  else
+  {
+    if (error)
+    {
+      *error = SUControllerError(@"SUControllerError", 1, 0, @"Cannot send nil message", v13, v14, v15, v16, v51);
+    }
+
+    v32 = +[SUControllerLogger sharedLogger];
+    [v32 logAtLevel:0 label:"-[SUControllerMessageEndpoint sendMessage:replyingTo:expectingResponse:isCritical:error:]" format:@"Cannot send nil message"];
+
+    v33 = 0;
+  }
+
+  return v33;
 }
 
 void __89__SUControllerMessageEndpoint_sendMessage_replyingTo_expectingResponse_isCritical_error___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
@@ -217,7 +346,7 @@ void __89__SUControllerMessageEndpoint_sendMessage_replyingTo_expectingResponse_
 
 - (void)sendErrorReply:(id)reply toMessage:(id)message
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   messageCopy = message;
   if (messageCopy)
@@ -226,12 +355,12 @@ void __89__SUControllerMessageEndpoint_sendMessage_replyingTo_expectingResponse_
     if (v8)
     {
       v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:SUControllerMessageErrorKey];
-      v16 = v9;
-      v17[0] = v8;
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
-      v15 = 0;
-      v11 = [(SUControllerMessageEndpoint *)self sendMessage:v10 replyingTo:messageCopy expectingResponse:0 isCritical:1 error:&v15];
-      v12 = v15;
+      v15 = v9;
+      v16[0] = v8;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v14 = 0;
+      v11 = [(SUControllerMessageEndpoint *)self sendMessage:v10 replyingTo:messageCopy expectingResponse:0 isCritical:1 error:&v14];
+      v12 = v14;
 
       if (!v11)
       {
@@ -246,8 +375,6 @@ void __89__SUControllerMessageEndpoint_sendMessage_replyingTo_expectingResponse_
       [v12 logAtLevel:2 label:"-[SUControllerMessageEndpoint sendErrorReply:toMessage:]" format:{@"Failed to archive error '%@'", replyCopy}];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)service:(id)service account:(id)account incomingData:(id)data fromID:(id)d context:(id)context

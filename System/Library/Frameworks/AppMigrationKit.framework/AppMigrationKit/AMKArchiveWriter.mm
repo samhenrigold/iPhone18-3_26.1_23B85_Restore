@@ -18,9 +18,9 @@
 {
   handleCopy = handle;
   progressCopy = progress;
-  v25.receiver = self;
-  v25.super_class = AMKArchiveWriter;
-  v17 = [(AMKArchiveWriter *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = AMKArchiveWriter;
+  v17 = [(AMKArchiveWriter *)&v24 init];
   if (!v17)
   {
     goto LABEL_9;
@@ -39,7 +39,6 @@
 
   if ([(AMKArchiveWriter *)v17 _applyCompressionScheme:scheme error:error]&& [(AMKArchiveWriter *)v17 _applyArchiveFormat:format error:error])
   {
-    archive = v17->_archive;
     if (archive_write_open2())
     {
       if (error)
@@ -51,16 +50,16 @@
     }
 
 LABEL_9:
-    v23 = v17;
+    v22 = v17;
     goto LABEL_10;
   }
 
 LABEL_7:
 
-  v23 = 0;
+  v22 = 0;
 LABEL_10:
 
-  return v23;
+  return v22;
 }
 
 - (BOOL)_applyArchiveFormat:(unint64_t)format error:(id *)error
@@ -71,17 +70,16 @@ LABEL_10:
     {
       v5 = [MEMORY[0x29EDB9FA0] amk_errorFromPosixCode:22];
 LABEL_7:
+      v7 = v5;
       v8 = v5;
-      v9 = v5;
       result = 0;
-      *error = v8;
+      *error = v7;
       return result;
     }
 
     return 0;
   }
 
-  archive = self->_archive;
   if (archive_write_set_format_gnutar())
   {
     if (error)
@@ -107,24 +105,23 @@ LABEL_7:
   {
     if (error)
     {
-      v7 = [MEMORY[0x29EDB9FA0] amk_errorFromPosixCode:22];
+      v6 = [MEMORY[0x29EDB9FA0] amk_errorFromPosixCode:22];
       goto LABEL_9;
     }
 
     return 0;
   }
 
-  archive = self->_archive;
   if (archive_write_add_filter_gzip())
   {
     if (error)
     {
-      v7 = [MEMORY[0x29EDB9FA0] amk_errorFromArchive:self->_archive];
+      v6 = [MEMORY[0x29EDB9FA0] amk_errorFromArchive:self->_archive];
 LABEL_9:
-      v9 = v7;
-      v10 = v7;
+      v8 = v6;
+      v9 = v6;
       result = 0;
-      *error = v9;
+      *error = v8;
       return result;
     }
 
@@ -159,7 +156,6 @@ void __40__AMKArchiveWriter_closeWithCompletion___block_invoke(uint64_t a1)
 
 - (BOOL)_closeWithError:(id *)error
 {
-  archive = self->_archive;
   archive_write_close();
   fileHandle = self->_fileHandle;
 
@@ -169,37 +165,46 @@ void __40__AMKArchiveWriter_closeWithCompletion___block_invoke(uint64_t a1)
 - (void)dealloc
 {
   [(AMKArchiveWriter *)self _closeWithError:0];
-  archive = self->_archive;
   archive_free();
-  v4.receiver = self;
-  v4.super_class = AMKArchiveWriter;
-  [(AMKArchiveWriter *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = AMKArchiveWriter;
+  [(AMKArchiveWriter *)&v3 dealloc];
 }
 
 - (BOOL)_writeContentsOfFdToArchive:(int)archive error:(id *)error
 {
-  v16 = *MEMORY[0x29EDCA608];
-  if (![(NSProgress *)self->_progress isCancelled])
+  v14 = *MEMORY[0x29EDCA608];
+  if ([(NSProgress *)self->_progress isCancelled])
+  {
+    if (![(NSProgress *)self->_progress isCancelled])
+    {
+      return 1;
+    }
+
+LABEL_10:
+    amk_canceledError = [MEMORY[0x29EDB9FA0] amk_canceledError];
+  }
+
+  else
   {
     do
     {
-      v7 = read(archive, v15, 0x2000uLL);
+      v7 = read(archive, v13, 0x2000uLL);
       if (v7 < 1)
       {
         break;
       }
 
-      archive = self->_archive;
-      v9 = archive_write_data();
+      v8 = archive_write_data();
       if (self->_updateProgress)
       {
         [(NSProgress *)self->_progress setCompletedUnitCount:[(NSProgress *)self->_progress completedUnitCount]+ v7];
       }
 
       self->_uncompressedBytes += v7;
-      if (v9 < 0)
+      if (v8 < 0)
       {
-        amk_errorFromErrno = [MEMORY[0x29EDB9FA0] amk_errorFromArchive:self->_archive];
+        amk_canceledError = [MEMORY[0x29EDB9FA0] amk_errorFromArchive:self->_archive];
         goto LABEL_15;
       }
     }
@@ -212,42 +217,30 @@ void __40__AMKArchiveWriter_closeWithCompletion___block_invoke(uint64_t a1)
 
     if ((v7 & 0x8000000000000000) == 0)
     {
-      goto LABEL_12;
+      return 1;
     }
 
-    amk_errorFromErrno = [MEMORY[0x29EDB9FA0] amk_errorFromErrno];
+    amk_canceledError = [MEMORY[0x29EDB9FA0] amk_errorFromErrno];
+  }
+
 LABEL_15:
-    v12 = amk_errorFromErrno;
-    v13 = amk_errorFromErrno;
-    result = 0;
-    *error = v12;
-    goto LABEL_16;
-  }
-
-  if ([(NSProgress *)self->_progress isCancelled])
-  {
-LABEL_10:
-    amk_errorFromErrno = [MEMORY[0x29EDB9FA0] amk_canceledError];
-    goto LABEL_15;
-  }
-
-LABEL_12:
-  result = 1;
-LABEL_16:
-  v14 = *MEMORY[0x29EDCA608];
+  v11 = amk_canceledError;
+  v12 = amk_canceledError;
+  result = 0;
+  *error = v11;
   return result;
 }
 
 - (BOOL)_appendContentsOfDirectory:(id)directory pathInArchive:(id)archive error:(id *)error
 {
-  v47[2] = *MEMORY[0x29EDCA608];
+  v43[2] = *MEMORY[0x29EDCA608];
   directoryCopy = directory;
   archiveCopy = archive;
   disk_new = archive_read_disk_new();
   archive_read_disk_set_standard_lookup();
-  v47[0] = [directoryCopy fileSystemRepresentation];
-  v47[1] = 0;
-  v11 = fts_open(v47, 84, 0);
+  v43[0] = [directoryCopy fileSystemRepresentation];
+  v43[1] = 0;
+  v11 = fts_open(v43, 84, 0);
   amk_errorFromErrno = 0;
   if (!v11)
   {
@@ -277,7 +270,7 @@ LABEL_16:
   p_directoryCount = &self->_directoryCount;
   p_symlinkCount = &self->_symlinkCount;
   p_fileCount = &self->_fileCount;
-  v44 = v16;
+  v40 = v16;
   errorCopy = error;
   while (2)
   {
@@ -322,67 +315,64 @@ LABEL_15:
           goto LABEL_37;
         }
 
-        v40 = open(v19->fts_accpath, 4);
-        if ((v40 & 0x80000000) == 0)
+        v36 = open(v19->fts_accpath, 4);
+        if ((v36 & 0x80000000) == 0)
         {
           archive_entry_new();
           selfCopy = self;
           if ((v14 & 1) == 0)
           {
-            v38 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:&v19->fts_path[v44 + 1]];
-            v24 = [archiveCopy stringByAppendingPathComponent:v38];
+            v34 = [MEMORY[0x29EDBA0F8] stringWithUTF8String:&v19->fts_path[v40 + 1]];
+            v24 = [archiveCopy stringByAppendingPathComponent:v34];
             fileSystemRepresentation = [v24 fileSystemRepresentation];
           }
 
           archive_entry_set_pathname();
-          fts_path = v19->fts_path;
           archive_entry_copy_sourcepath();
-          fts_statp = v19->fts_statp;
           if (archive_read_disk_entry_from_file())
           {
             fileSystemRepresentation = [MEMORY[0x29EDB9FA0] amk_errorFromArchive:disk_new];
-            v39 = 0;
+            v35 = 0;
             self = selfCopy;
           }
 
           else
           {
             self = selfCopy;
-            archive = selfCopy->_archive;
             if (archive_write_header())
             {
               fileSystemRepresentation = [MEMORY[0x29EDB9FA0] amk_errorFromArchive:selfCopy->_archive];
-              v39 = 0;
+              v35 = 0;
             }
 
             else
             {
               if ((v19->fts_statp->st_mode & 0xF000) != 0x8000)
               {
-                v39 = 1;
+                v35 = 1;
 LABEL_26:
-                v28 = v19->fts_statp->st_mode & 0xF000;
-                if (v28 == 0x4000)
+                v25 = v19->fts_statp->st_mode & 0xF000;
+                if (v25 == 0x4000)
                 {
-                  v29 = p_directoryCount;
-                  v30 = v39;
+                  v26 = p_directoryCount;
+                  v27 = v35;
                 }
 
                 else
                 {
-                  v29 = p_fileCount;
-                  v30 = v39;
-                  if (v28 != 0x8000)
+                  v26 = p_fileCount;
+                  v27 = v35;
+                  if (v25 != 0x8000)
                   {
-                    v29 = p_symlinkCount;
-                    if (v28 != 40960)
+                    v26 = p_symlinkCount;
+                    if (v25 != 40960)
                     {
 LABEL_32:
                       archive_entry_free();
-                      close(v40);
+                      close(v36);
                       objc_autoreleasePoolPop(v21);
                       error = errorCopy;
-                      if (v30)
+                      if (v27)
                       {
                         continue;
                       }
@@ -392,13 +382,13 @@ LABEL_32:
                   }
                 }
 
-                ++*v29;
+                ++*v26;
                 goto LABEL_32;
               }
 
-              v46 = amk_errorFromErrno;
-              v39 = [(AMKArchiveWriter *)selfCopy _writeContentsOfFdToArchive:v40 error:&v46];
-              fileSystemRepresentation = v46;
+              v42 = amk_errorFromErrno;
+              v35 = [(AMKArchiveWriter *)selfCopy _writeContentsOfFdToArchive:v36 error:&v42];
+              fileSystemRepresentation = v42;
             }
           }
 
@@ -409,11 +399,11 @@ LABEL_32:
 
       amk_canceledError = [MEMORY[0x29EDB9FA0] amk_errorFromErrno];
 LABEL_37:
-      v32 = amk_canceledError;
+      v29 = amk_canceledError;
 
       objc_autoreleasePoolPop(v21);
       v18 = 0;
-      amk_errorFromErrno = v32;
+      amk_errorFromErrno = v29;
       goto LABEL_38;
     }
 
@@ -433,18 +423,17 @@ LABEL_39:
 
   if (error && amk_errorFromErrno)
   {
-    v33 = amk_errorFromErrno;
+    v30 = amk_errorFromErrno;
     *error = amk_errorFromErrno;
   }
 
-  v34 = *MEMORY[0x29EDCA608];
   return v18;
 }
 
 - (BOOL)_fillSymlinkEntryFromURL:(id)l entry:(archive_entry *)entry error:(id *)error
 {
-  v11 = *MEMORY[0x29EDCA608];
-  v6 = readlink([l fileSystemRepresentation], v10, 0x3FFuLL);
+  v10 = *MEMORY[0x29EDCA608];
+  v6 = readlink([l fileSystemRepresentation], v9, 0x3FFuLL);
   v7 = v6;
   if (v6 == -1)
   {
@@ -456,13 +445,11 @@ LABEL_39:
 
   else
   {
-    v10[v6] = 0;
+    v9[v6] = 0;
     archive_entry_set_symlink();
   }
 
-  result = v7 != -1;
-  v9 = *MEMORY[0x29EDCA608];
-  return result;
+  return v7 != -1;
 }
 
 - (void)appendItemAtURL:(id)l pathInArchive:(id)archive completion:(id)completion
@@ -530,9 +517,9 @@ void __61__AMKArchiveWriter_appendItemAtURL_pathInArchive_completion___block_inv
   }
 
   v12 = v11;
-  if (!fstat(v11, &v19))
+  if (!fstat(v11, &v17))
   {
-    v16 = v19.st_mode & 0xF000;
+    v16 = v17.st_mode & 0xF000;
     switch(v16)
     {
       case 16384:
@@ -551,7 +538,6 @@ void __61__AMKArchiveWriter_appendItemAtURL_pathInArchive_completion___block_inv
           goto LABEL_18;
         }
 
-        archive = self->_archive;
         if (archive_write_header())
         {
 LABEL_16:
@@ -566,7 +552,6 @@ LABEL_16:
         [archiveCopy UTF8String];
         archive_entry_set_pathname();
         ++self->_fileCount;
-        v17 = self->_archive;
         if (!archive_write_header())
         {
           if ([(AMKArchiveWriter *)self _writeContentsOfFdToArchive:v12 error:error])

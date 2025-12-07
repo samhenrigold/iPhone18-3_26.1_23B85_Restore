@@ -23,7 +23,7 @@
 - (PXPhotosSearchResultsCollectionsViewFactory)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for PhotosSearchResultsCollectionsViewFactory();
+  v3.super_class = type metadata accessor for PhotosSearchResultsCollectionsViewFactory(self, a2);
   return [(PXPhotosSearchResultsCollectionsViewFactory *)&v3 init];
 }
 

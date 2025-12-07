@@ -99,39 +99,36 @@ void __40__BRCFileUnlinker_initWithCacheDirPath___block_invoke(uint64_t a1)
 
 - (void)resume
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v0 = brc_bread_crumbs();
   v1 = brc_default_log();
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    v3 = 138412290;
-    v4 = v0;
-    _os_log_fault_impl(&dword_223E7A000, v1, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: suspendCount >= 0%@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = v0;
+    _os_log_fault_impl(&dword_223E7A000, v1, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: suspendCount >= 0%@", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)suspend
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109634;
-  v4[1] = self;
-  v5 = 1024;
-  v6 = self + 1;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_debug_impl(&dword_223E7A000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] suspending - suspendCount:%d->%d%@", v4, 0x18u);
-  v3 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109634;
+  v3[1] = self;
+  v4 = 1024;
+  v5 = self + 1;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_debug_impl(&dword_223E7A000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] suspending - suspendCount:%d->%d%@", v3, 0x18u);
 }
 
 - (void)_purge
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 2112;
-  v7 = a2;
+  v5 = 2112;
+  v6 = a2;
 - (void)forcePurgeWithCompletionBlock:(id)block
 {
   blockCopy = block;
@@ -163,10 +160,10 @@ uint64_t __49__BRCFileUnlinker_forcePurgeWithCompletionBlock___block_invoke(uint
 
 - (BOOL)renameAndUnlinkInBackgroundItemAt:(int)at path:(id)path
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  memset(&v46, 0, sizeof(v46));
-  if ((fstatat(at, [pathCopy fileSystemRepresentation], &v46, 32) & 0x80000000) == 0)
+  memset(&v45, 0, sizeof(v45));
+  if ((fstatat(at, [pathCopy fileSystemRepresentation], &v45, 32) & 0x80000000) == 0)
   {
     v7 = self->_unlinkRootPath;
     if ((BRCMkdirAt(-1, v7, 511) & 0x80000000) != 0 && *__error() != 17)
@@ -185,10 +182,20 @@ uint64_t __49__BRCFileUnlinker_forcePurgeWithCompletionBlock___block_invoke(uint
       v13 = brc_default_log();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        v26 = aPcDBLSW[v46.st_mode >> 12];
-        if ((v46.st_mode & 0x100) != 0)
+        v25 = aPcDBLSW[v45.st_mode >> 12];
+        if ((v45.st_mode & 0x100) != 0)
         {
-          v27 = 114;
+          v26 = 114;
+        }
+
+        else
+        {
+          v26 = 45;
+        }
+
+        if ((v45.st_mode & 0x80) != 0)
+        {
+          v27 = 119;
         }
 
         else
@@ -196,9 +203,9 @@ uint64_t __49__BRCFileUnlinker_forcePurgeWithCompletionBlock___block_invoke(uint
           v27 = 45;
         }
 
-        if ((v46.st_mode & 0x80) != 0)
+        if ((v45.st_mode & 0x40) != 0)
         {
-          v28 = 119;
+          v28 = 120;
         }
 
         else
@@ -206,9 +213,9 @@ uint64_t __49__BRCFileUnlinker_forcePurgeWithCompletionBlock___block_invoke(uint
           v28 = 45;
         }
 
-        if ((v46.st_mode & 0x40) != 0)
+        if ((v45.st_mode & 0x20) != 0)
         {
-          v29 = 120;
+          v29 = 114;
         }
 
         else
@@ -216,9 +223,9 @@ uint64_t __49__BRCFileUnlinker_forcePurgeWithCompletionBlock___block_invoke(uint
           v29 = 45;
         }
 
-        if ((v46.st_mode & 0x20) != 0)
+        if ((v45.st_mode & 0x10) != 0)
         {
-          v30 = 114;
+          v30 = 119;
         }
 
         else
@@ -226,9 +233,9 @@ uint64_t __49__BRCFileUnlinker_forcePurgeWithCompletionBlock___block_invoke(uint
           v30 = 45;
         }
 
-        if ((v46.st_mode & 0x10) != 0)
+        if ((v45.st_mode & 8) != 0)
         {
-          v31 = 119;
+          v31 = 120;
         }
 
         else
@@ -236,9 +243,9 @@ uint64_t __49__BRCFileUnlinker_forcePurgeWithCompletionBlock___block_invoke(uint
           v31 = 45;
         }
 
-        if ((v46.st_mode & 8) != 0)
+        if ((v45.st_mode & 4) != 0)
         {
-          v32 = 120;
+          v32 = 114;
         }
 
         else
@@ -246,9 +253,9 @@ uint64_t __49__BRCFileUnlinker_forcePurgeWithCompletionBlock___block_invoke(uint
           v32 = 45;
         }
 
-        if ((v46.st_mode & 4) != 0)
+        if ((v45.st_mode & 2) != 0)
         {
-          v33 = 114;
+          v33 = 119;
         }
 
         else
@@ -256,9 +263,9 @@ uint64_t __49__BRCFileUnlinker_forcePurgeWithCompletionBlock___block_invoke(uint
           v33 = 45;
         }
 
-        if ((v46.st_mode & 2) != 0)
+        if (v45.st_mode)
         {
-          v34 = 119;
+          v34 = 120;
         }
 
         else
@@ -266,62 +273,52 @@ uint64_t __49__BRCFileUnlinker_forcePurgeWithCompletionBlock___block_invoke(uint
           v34 = 45;
         }
 
-        if (v46.st_mode)
-        {
-          v35 = 120;
-        }
-
-        else
-        {
-          v35 = 45;
-        }
-
         *buf = 138417922;
-        *v48 = pathCopy;
-        *&v48[8] = 2112;
-        *&v48[10] = v11;
-        *&v48[18] = 1024;
-        *&v48[20] = v46.st_dev;
-        v49 = 2048;
-        *v50 = v46.st_ino;
-        *&v50[8] = 1024;
-        *&v50[10] = v26;
-        v51 = 1024;
-        v52 = v27;
-        v53 = 1024;
-        v54 = v28;
-        v55 = 1024;
-        v56 = v29;
-        v57 = 1024;
-        v58 = v30;
-        v59 = 1024;
-        v60 = v31;
-        v61 = 1024;
-        v62 = v32;
-        v63 = 1024;
-        v64 = v33;
-        v65 = 1024;
-        v66 = v34;
-        v67 = 1024;
-        v68 = v35;
-        v69 = 1024;
-        st_nlink = v46.st_nlink;
-        v71 = 1024;
-        st_uid = v46.st_uid;
-        v73 = 1024;
-        st_gid = v46.st_gid;
-        v75 = 2048;
-        *v76 = v46.st_atimespec.tv_sec;
-        *&v76[8] = 2048;
-        *&v76[10] = v46.st_mtimespec.tv_sec;
-        *&v76[18] = 2048;
-        *&v76[20] = v46.st_ctimespec.tv_sec;
-        *&v76[28] = 2048;
-        *&v76[30] = v46.st_size;
-        *&v76[38] = 1024;
-        *&v76[40] = v46.st_flags;
-        v77 = 2112;
-        *v78 = v12;
+        *v47 = pathCopy;
+        *&v47[8] = 2112;
+        *&v47[10] = v11;
+        *&v47[18] = 1024;
+        *&v47[20] = v45.st_dev;
+        v48 = 2048;
+        *v49 = v45.st_ino;
+        *&v49[8] = 1024;
+        *&v49[10] = v25;
+        v50 = 1024;
+        v51 = v26;
+        v52 = 1024;
+        v53 = v27;
+        v54 = 1024;
+        v55 = v28;
+        v56 = 1024;
+        v57 = v29;
+        v58 = 1024;
+        v59 = v30;
+        v60 = 1024;
+        v61 = v31;
+        v62 = 1024;
+        v63 = v32;
+        v64 = 1024;
+        v65 = v33;
+        v66 = 1024;
+        v67 = v34;
+        v68 = 1024;
+        st_nlink = v45.st_nlink;
+        v70 = 1024;
+        st_uid = v45.st_uid;
+        v72 = 1024;
+        st_gid = v45.st_gid;
+        v74 = 2048;
+        *v75 = v45.st_atimespec.tv_sec;
+        *&v75[8] = 2048;
+        *&v75[10] = v45.st_mtimespec.tv_sec;
+        *&v75[18] = 2048;
+        *&v75[20] = v45.st_ctimespec.tv_sec;
+        *&v75[28] = 2048;
+        *&v75[30] = v45.st_size;
+        *&v75[38] = 1024;
+        *&v75[40] = v45.st_flags;
+        v76 = 2112;
+        *v77 = v12;
         _os_log_debug_impl(&dword_223E7A000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] renamed '%@' to '%@' deviceID:%u fileID:%llu mode:%c%c%c%c%c%c%c%c%c%c nlink:%u uid:%u gid:%u atime:%lu mtime:%lu ctime:%lu size:%llu flags:0x%x%@", buf, 0xACu);
       }
 
@@ -347,10 +344,20 @@ uint64_t __49__BRCFileUnlinker_forcePurgeWithCompletionBlock___block_invoke(uint
     v23 = brc_default_log();
     if (os_log_type_enabled(v23, 0x90u))
     {
-      v36 = aPcDBLSW[v46.st_mode >> 12];
-      if ((v46.st_mode & 0x100) != 0)
+      v35 = aPcDBLSW[v45.st_mode >> 12];
+      if ((v45.st_mode & 0x100) != 0)
       {
-        v37 = 114;
+        v36 = 114;
+      }
+
+      else
+      {
+        v36 = 45;
+      }
+
+      if ((v45.st_mode & 0x80) != 0)
+      {
+        v37 = 119;
       }
 
       else
@@ -358,9 +365,9 @@ uint64_t __49__BRCFileUnlinker_forcePurgeWithCompletionBlock___block_invoke(uint
         v37 = 45;
       }
 
-      if ((v46.st_mode & 0x80) != 0)
+      if ((v45.st_mode & 0x40) != 0)
       {
-        v38 = 119;
+        v38 = 120;
       }
 
       else
@@ -368,9 +375,9 @@ uint64_t __49__BRCFileUnlinker_forcePurgeWithCompletionBlock___block_invoke(uint
         v38 = 45;
       }
 
-      if ((v46.st_mode & 0x40) != 0)
+      if ((v45.st_mode & 0x20) != 0)
       {
-        v39 = 120;
+        v39 = 114;
       }
 
       else
@@ -378,9 +385,9 @@ uint64_t __49__BRCFileUnlinker_forcePurgeWithCompletionBlock___block_invoke(uint
         v39 = 45;
       }
 
-      if ((v46.st_mode & 0x20) != 0)
+      if ((v45.st_mode & 0x10) != 0)
       {
-        v40 = 114;
+        v40 = 119;
       }
 
       else
@@ -388,9 +395,9 @@ uint64_t __49__BRCFileUnlinker_forcePurgeWithCompletionBlock___block_invoke(uint
         v40 = 45;
       }
 
-      if ((v46.st_mode & 0x10) != 0)
+      if ((v45.st_mode & 8) != 0)
       {
-        v41 = 119;
+        v41 = 120;
       }
 
       else
@@ -398,9 +405,9 @@ uint64_t __49__BRCFileUnlinker_forcePurgeWithCompletionBlock___block_invoke(uint
         v41 = 45;
       }
 
-      if ((v46.st_mode & 8) != 0)
+      if ((v45.st_mode & 4) != 0)
       {
-        v42 = 120;
+        v42 = 114;
       }
 
       else
@@ -408,9 +415,9 @@ uint64_t __49__BRCFileUnlinker_forcePurgeWithCompletionBlock___block_invoke(uint
         v42 = 45;
       }
 
-      if ((v46.st_mode & 4) != 0)
+      if ((v45.st_mode & 2) != 0)
       {
-        v43 = 114;
+        v43 = 119;
       }
 
       else
@@ -418,9 +425,9 @@ uint64_t __49__BRCFileUnlinker_forcePurgeWithCompletionBlock___block_invoke(uint
         v43 = 45;
       }
 
-      if ((v46.st_mode & 2) != 0)
+      if (v45.st_mode)
       {
-        v44 = 119;
+        v44 = 120;
       }
 
       else
@@ -428,66 +435,56 @@ uint64_t __49__BRCFileUnlinker_forcePurgeWithCompletionBlock___block_invoke(uint
         v44 = 45;
       }
 
-      if (v46.st_mode)
-      {
-        v45 = 120;
-      }
-
-      else
-      {
-        v45 = 45;
-      }
-
       *buf = 67115266;
-      *v48 = at;
-      *&v48[4] = 2112;
-      *&v48[6] = pathCopy;
-      *&v48[14] = 2112;
-      *&v48[16] = v11;
-      v49 = 1024;
-      *v50 = v46.st_dev;
-      *&v50[4] = 2048;
-      *&v50[6] = v46.st_ino;
-      v51 = 1024;
-      v52 = v36;
-      v53 = 1024;
-      v54 = v37;
-      v55 = 1024;
-      v56 = v38;
-      v57 = 1024;
-      v58 = v39;
-      v59 = 1024;
-      v60 = v40;
-      v61 = 1024;
-      v62 = v41;
-      v63 = 1024;
-      v64 = v42;
-      v65 = 1024;
-      v66 = v43;
-      v67 = 1024;
-      v68 = v44;
-      v69 = 1024;
-      st_nlink = v45;
-      v71 = 1024;
-      st_uid = v46.st_nlink;
-      v73 = 1024;
-      st_gid = v46.st_uid;
-      v75 = 1024;
-      *v76 = v46.st_gid;
-      *&v76[4] = 2048;
-      *&v76[6] = v46.st_atimespec.tv_sec;
-      *&v76[14] = 2048;
-      *&v76[16] = v46.st_mtimespec.tv_sec;
-      *&v76[24] = 2048;
-      *&v76[26] = v46.st_ctimespec.tv_sec;
-      *&v76[34] = 2048;
-      *&v76[36] = v46.st_size;
-      v77 = 1024;
-      *v78 = v46.st_flags;
-      *&v78[4] = 1024;
-      *&v78[6] = v21;
-      v79 = 2112;
-      v80 = v22;
+      *v47 = at;
+      *&v47[4] = 2112;
+      *&v47[6] = pathCopy;
+      *&v47[14] = 2112;
+      *&v47[16] = v11;
+      v48 = 1024;
+      *v49 = v45.st_dev;
+      *&v49[4] = 2048;
+      *&v49[6] = v45.st_ino;
+      v50 = 1024;
+      v51 = v35;
+      v52 = 1024;
+      v53 = v36;
+      v54 = 1024;
+      v55 = v37;
+      v56 = 1024;
+      v57 = v38;
+      v58 = 1024;
+      v59 = v39;
+      v60 = 1024;
+      v61 = v40;
+      v62 = 1024;
+      v63 = v41;
+      v64 = 1024;
+      v65 = v42;
+      v66 = 1024;
+      v67 = v43;
+      v68 = 1024;
+      st_nlink = v44;
+      v70 = 1024;
+      st_uid = v45.st_nlink;
+      v72 = 1024;
+      st_gid = v45.st_uid;
+      v74 = 1024;
+      *v75 = v45.st_gid;
+      *&v75[4] = 2048;
+      *&v75[6] = v45.st_atimespec.tv_sec;
+      *&v75[14] = 2048;
+      *&v75[16] = v45.st_mtimespec.tv_sec;
+      *&v75[24] = 2048;
+      *&v75[26] = v45.st_ctimespec.tv_sec;
+      *&v75[34] = 2048;
+      *&v75[36] = v45.st_size;
+      v76 = 1024;
+      *v77 = v45.st_flags;
+      *&v77[4] = 1024;
+      *&v77[6] = v21;
+      v78 = 2112;
+      v79 = v22;
       _os_log_error_impl(&dword_223E7A000, v23, 0x90u, "[ERROR] renameat(%d, '%@', -1, '%@' deviceID:%u fileID:%llu mode:%c%c%c%c%c%c%c%c%c%c nlink:%u uid:%u gid:%u atime:%lu mtime:%lu ctime:%lu size:%llu flags:0x%x failed %{errno}d%@", buf, 0xB8u);
     }
 
@@ -508,11 +505,11 @@ LABEL_18:
   if (os_log_type_enabled(v20, 0x90u))
   {
     *buf = 138412802;
-    *v48 = pathCopy;
-    *&v48[8] = 1024;
-    *&v48[10] = v18;
-    *&v48[14] = 2112;
-    *&v48[16] = v19;
+    *v47 = pathCopy;
+    *&v47[8] = 1024;
+    *&v47[10] = v18;
+    *&v47[14] = 2112;
+    *&v47[16] = v19;
     _os_log_error_impl(&dword_223E7A000, v20, 0x90u, "[ERROR] lstat('%@') failed %{errno}d%@", buf, 0x1Cu);
   }
 
@@ -520,7 +517,6 @@ LABEL_18:
   *__error() = v18;
 LABEL_19:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

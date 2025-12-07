@@ -1848,7 +1848,7 @@ uint64_t __80__NSFilePresenterXPCMessenger__makePresenter_observeChangeOfUbiquit
     _os_log_impl(&dword_18075C000, v13, OS_LOG_TYPE_INFO, "Making presenter %{public}@ observe version change", buf, 0xCu);
   }
 
-  if ([kind isEqualToString:@"added"])
+  if (objc_msgSend_isEqualToString_(kind))
   {
     if (l)
     {
@@ -1886,7 +1886,7 @@ uint64_t __80__NSFilePresenterXPCMessenger__makePresenter_observeChangeOfUbiquit
     }
   }
 
-  else if ([kind isEqualToString:@"removed"])
+  else if (objc_msgSend_isEqualToString_(kind))
   {
     if (l)
     {
@@ -1926,7 +1926,7 @@ uint64_t __80__NSFilePresenterXPCMessenger__makePresenter_observeChangeOfUbiquit
 
   else
   {
-    if (![kind isEqualToString:@"resolved"])
+    if (!objc_msgSend_isEqualToString_(kind))
     {
       return;
     }
@@ -1994,7 +1994,7 @@ id __102__NSFilePresenterXPCMessenger__makePresenter_observeVersionChangeOfKind_
   return result;
 }
 
-uint64_t __102__NSFilePresenterXPCMessenger__makePresenter_observeVersionChangeOfKind_withClientID_name_subitemURL___block_invoke_592(void *a1)
+void *__102__NSFilePresenterXPCMessenger__makePresenter_observeVersionChangeOfKind_withClientID_name_subitemURL___block_invoke_592(void *a1)
 {
   result = (*(a1[6] + 16))();
   if (result)
@@ -2009,7 +2009,7 @@ uint64_t __102__NSFilePresenterXPCMessenger__makePresenter_observeVersionChangeO
   return result;
 }
 
-uint64_t __102__NSFilePresenterXPCMessenger__makePresenter_observeVersionChangeOfKind_withClientID_name_subitemURL___block_invoke_2(uint64_t a1)
+void *__102__NSFilePresenterXPCMessenger__makePresenter_observeVersionChangeOfKind_withClientID_name_subitemURL___block_invoke_2(uint64_t a1)
 {
   result = (*(*(a1 + 40) + 16))();
   if (result)
@@ -2023,7 +2023,7 @@ uint64_t __102__NSFilePresenterXPCMessenger__makePresenter_observeVersionChangeO
   return result;
 }
 
-uint64_t __102__NSFilePresenterXPCMessenger__makePresenter_observeVersionChangeOfKind_withClientID_name_subitemURL___block_invoke_3(void *a1)
+void *__102__NSFilePresenterXPCMessenger__makePresenter_observeVersionChangeOfKind_withClientID_name_subitemURL___block_invoke_3(void *a1)
 {
   result = (*(a1[6] + 16))();
   if (result)
@@ -2038,7 +2038,7 @@ uint64_t __102__NSFilePresenterXPCMessenger__makePresenter_observeVersionChangeO
   return result;
 }
 
-uint64_t __102__NSFilePresenterXPCMessenger__makePresenter_observeVersionChangeOfKind_withClientID_name_subitemURL___block_invoke_4(uint64_t a1)
+void *__102__NSFilePresenterXPCMessenger__makePresenter_observeVersionChangeOfKind_withClientID_name_subitemURL___block_invoke_4(uint64_t a1)
 {
   result = (*(*(a1 + 40) + 16))();
   if (result)
@@ -2052,7 +2052,7 @@ uint64_t __102__NSFilePresenterXPCMessenger__makePresenter_observeVersionChangeO
   return result;
 }
 
-uint64_t __102__NSFilePresenterXPCMessenger__makePresenter_observeVersionChangeOfKind_withClientID_name_subitemURL___block_invoke_5(void *a1)
+void *__102__NSFilePresenterXPCMessenger__makePresenter_observeVersionChangeOfKind_withClientID_name_subitemURL___block_invoke_5(void *a1)
 {
   result = (*(a1[6] + 16))();
   if (result)
@@ -2067,7 +2067,7 @@ uint64_t __102__NSFilePresenterXPCMessenger__makePresenter_observeVersionChangeO
   return result;
 }
 
-uint64_t __102__NSFilePresenterXPCMessenger__makePresenter_observeVersionChangeOfKind_withClientID_name_subitemURL___block_invoke_6(uint64_t a1)
+void *__102__NSFilePresenterXPCMessenger__makePresenter_observeVersionChangeOfKind_withClientID_name_subitemURL___block_invoke_6(uint64_t a1)
 {
   result = (*(*(a1 + 40) + 16))();
   if (result)
@@ -2335,7 +2335,7 @@ uint64_t __145__NSFilePresenterXPCMessenger__makePresenter_relinquishToAccessCla
   return [v8 _fc_addUncancellableOperationForReactorID:? block:?];
 }
 
-uint64_t __145__NSFilePresenterXPCMessenger__makePresenter_relinquishToAccessClaimWithID_purposeID_ifNecessaryUsingSelector_recordingRelinquishment_continuer___block_invoke_620(uint64_t a1)
+void *__145__NSFilePresenterXPCMessenger__makePresenter_relinquishToAccessClaimWithID_purposeID_ifNecessaryUsingSelector_recordingRelinquishment_continuer___block_invoke_620(uint64_t a1)
 {
   v8 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) didBegin];
@@ -2534,7 +2534,7 @@ uint64_t __113__NSFilePresenterXPCMessenger__makePresenter_relinquishToReadingCl
   v27 = v15;
   if (options)
   {
-    if ([iD isEqualToString:@"com.apple.icloud.drive"] & 1) != 0 || (objc_msgSend(iD, "isEqualToString:", @"com.apple.bird"))
+    if (objc_msgSend_isEqualToString_(iD) & 1) != 0 || (objc_msgSend_isEqualToString_(iD))
     {
       filePresenter = self->_filePresenter;
       v18[0] = MEMORY[0x1E69E9820];

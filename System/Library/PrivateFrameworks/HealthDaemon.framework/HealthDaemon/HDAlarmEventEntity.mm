@@ -5,7 +5,7 @@
 + (BOOL)deleteAllAlarmEventsWithClientIdentifier:(id)identifier transaction:(id)transaction error:(id *)error;
 + (BOOL)enumerateAllAlarmEventsWithClientIdentifier:(id)identifier transaction:(id)transaction error:(id *)error enumerationHandler:(id)handler;
 + (BOOL)insertOrReplaceAlarmEvents:(id)events transaction:(id)transaction error:(id *)error;
-+ (id)_alarmEventFromAllPropertiesRow:;
++ (id)_alarmEventFromAllPropertiesRow:(uint64_t)row;
 + (id)checkConstraints;
 + (id)insertOrReplaceAlarmEvent:(id)event transaction:(id)transaction error:(id *)error;
 + (id)uniquedColumns;
@@ -28,7 +28,7 @@
 
 + (uint64_t)_enumerateAllAlarmEventsWithTransaction:(void *)transaction predicate:(uint64_t)predicate error:(void *)error enumerationHandler:
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   transactionCopy = transaction;
   v10 = a2;
@@ -36,45 +36,43 @@
   v12 = [v10 databaseForEntityClass:v11];
 
   v13 = [MEMORY[0x277D10B68] orderingTermWithProperty:*MEMORY[0x277D10A40] entityClass:v11 ascending:1];
-  v24[0] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  v23[0] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
   v15 = [v11 queryWithDatabase:v12 predicate:transactionCopy limit:0 orderingTerms:v14 groupBy:0];
 
   v16 = HDAlarmEventEntityAllProperties();
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __97__HDAlarmEventEntity__enumerateAllAlarmEventsWithTransaction_predicate_error_enumerationHandler___block_invoke;
-  v21[3] = &unk_278618B48;
-  v22 = errorCopy;
-  v23 = v11;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __97__HDAlarmEventEntity__enumerateAllAlarmEventsWithTransaction_predicate_error_enumerationHandler___block_invoke;
+  v20[3] = &unk_278618B48;
+  v21 = errorCopy;
+  v22 = v11;
   v17 = errorCopy;
-  v18 = [v15 enumerateProperties:v16 error:predicate enumerationHandler:v21];
+  v18 = [v15 enumerateProperties:v16 error:predicate enumerationHandler:v20];
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
-uint64_t __97__HDAlarmEventEntity__enumerateAllAlarmEventsWithTransaction_predicate_error_enumerationHandler___block_invoke(uint64_t a1)
+uint64_t __97__HDAlarmEventEntity__enumerateAllAlarmEventsWithTransaction_predicate_error_enumerationHandler___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(a1 + 40);
-  v3 = +[HDAlarmEventEntity _alarmEventFromAllPropertiesRow:];
-  v4 = (*(*(a1 + 32) + 16))();
-
-  return v4;
-}
-
-+ (id)_alarmEventFromAllPropertiesRow:
-{
-  objc_opt_self();
-  v0 = HDSQLiteColumnWithNameAsString();
-  v1 = HDSQLiteColumnWithNameAsString();
-  v2 = HDSQLiteColumnWithNameAsDate();
-  objc_opt_class();
-  v3 = HDSQLiteColumnWithNameAsObject();
-  v4 = HDSQLiteColumnWithNameAsInt64();
-  v5 = [[HDAlarmEvent alloc] _initWithClientIdentifier:v0 eventIdentifier:v1 dueDate:v2 dueDateComponents:v3 eventOptions:v4 clientOptions:HDSQLiteColumnWithNameAsInt64()];
+  v4 = [(HDAlarmEventEntity *)*(a1 + 40) _alarmEventFromAllPropertiesRow:a3];
+  v5 = (*(*(a1 + 32) + 16))();
 
   return v5;
+}
+
++ (id)_alarmEventFromAllPropertiesRow:(uint64_t)row
+{
+  objc_opt_self();
+  v2 = HDSQLiteColumnWithNameAsString();
+  v3 = HDSQLiteColumnWithNameAsString();
+  v4 = HDSQLiteColumnWithNameAsDate();
+  objc_opt_class();
+  v5 = HDSQLiteColumnWithNameAsObject();
+  v6 = HDSQLiteColumnWithNameAsInt64();
+  v7 = [[HDAlarmEvent alloc] _initWithClientIdentifier:v2 eventIdentifier:v3 dueDate:v4 dueDateComponents:v5 eventOptions:v6 clientOptions:HDSQLiteColumnWithNameAsInt64()];
+
+  return v7;
 }
 
 + (id)insertOrReplaceAlarmEvent:(id)event transaction:(id)transaction error:(id *)error
@@ -115,83 +113,6 @@ void __66__HDAlarmEventEntity_insertOrReplaceAlarmEvent_transaction_error___bloc
 
 + (BOOL)insertOrReplaceAlarmEvents:(id)events transaction:(id)transaction error:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
-  eventsCopy = events;
-  transactionCopy = transaction;
-  v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v10 = eventsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
-  if (v11)
-  {
-    v12 = v11;
-    v13 = *v20;
-    while (2)
-    {
-      for (i = 0; i != v12; ++i)
-      {
-        if (*v20 != v13)
-        {
-          objc_enumerationMutation(v10);
-        }
-
-        v15 = [self insertOrReplaceAlarmEvent:*(*(&v19 + 1) + 8 * i) transaction:transactionCopy error:{error, v19}];
-
-        if (!v15)
-        {
-          v16 = 0;
-          goto LABEL_11;
-        }
-      }
-
-      v12 = [v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
-      if (v12)
-      {
-        continue;
-      }
-
-      break;
-    }
-  }
-
-  v16 = 1;
-LABEL_11:
-
-  v17 = *MEMORY[0x277D85DE8];
-  return v16;
-}
-
-+ (BOOL)deleteAlarmEvent:(id)event transaction:(id)transaction error:(id *)error
-{
-  v22[2] = *MEMORY[0x277D85DE8];
-  v8 = MEMORY[0x277D10B18];
-  transactionCopy = transaction;
-  eventCopy = event;
-  clientIdentifier = [eventCopy clientIdentifier];
-  v12 = [v8 predicateWithProperty:@"client_identifier" equalToValue:clientIdentifier];
-
-  v13 = MEMORY[0x277D10B18];
-  eventIdentifier = [eventCopy eventIdentifier];
-
-  v15 = [v13 predicateWithProperty:@"event_identifier" equalToValue:eventIdentifier];
-
-  v16 = MEMORY[0x277D10B20];
-  v22[0] = v12;
-  v22[1] = v15;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
-  v18 = [v16 predicateMatchingAllPredicates:v17];
-
-  v19 = [transactionCopy databaseForEntityClass:self];
-
-  LOBYTE(error) = [self deleteEntitiesInDatabase:v19 predicate:v18 error:error];
-  v20 = *MEMORY[0x277D85DE8];
-  return error;
-}
-
-+ (BOOL)deleteAlarmEvents:(id)events transaction:(id)transaction error:(id *)error
-{
   v23 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   transactionCopy = transaction;
@@ -214,9 +135,11 @@ LABEL_11:
           objc_enumerationMutation(v10);
         }
 
-        if (![self deleteAlarmEvent:*(*(&v18 + 1) + 8 * i) transaction:transactionCopy error:{error, v18}])
+        v15 = [self insertOrReplaceAlarmEvent:*(*(&v18 + 1) + 8 * i) transaction:transactionCopy error:{error, v18}];
+
+        if (!v15)
         {
-          v15 = 0;
+          v16 = 0;
           goto LABEL_11;
         }
       }
@@ -231,10 +154,82 @@ LABEL_11:
     }
   }
 
+  v16 = 1;
+LABEL_11:
+
+  return v16;
+}
+
++ (BOOL)deleteAlarmEvent:(id)event transaction:(id)transaction error:(id *)error
+{
+  v21[2] = *MEMORY[0x277D85DE8];
+  v8 = MEMORY[0x277D10B18];
+  transactionCopy = transaction;
+  eventCopy = event;
+  clientIdentifier = [eventCopy clientIdentifier];
+  v12 = [v8 predicateWithProperty:@"client_identifier" equalToValue:clientIdentifier];
+
+  v13 = MEMORY[0x277D10B18];
+  eventIdentifier = [eventCopy eventIdentifier];
+
+  v15 = [v13 predicateWithProperty:@"event_identifier" equalToValue:eventIdentifier];
+
+  v16 = MEMORY[0x277D10B20];
+  v21[0] = v12;
+  v21[1] = v15;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v18 = [v16 predicateMatchingAllPredicates:v17];
+
+  v19 = [transactionCopy databaseForEntityClass:self];
+
+  LOBYTE(error) = [self deleteEntitiesInDatabase:v19 predicate:v18 error:error];
+  return error;
+}
+
++ (BOOL)deleteAlarmEvents:(id)events transaction:(id)transaction error:(id *)error
+{
+  v22 = *MEMORY[0x277D85DE8];
+  eventsCopy = events;
+  transactionCopy = transaction;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v10 = eventsCopy;
+  v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = *v18;
+    while (2)
+    {
+      for (i = 0; i != v12; ++i)
+      {
+        if (*v18 != v13)
+        {
+          objc_enumerationMutation(v10);
+        }
+
+        if (![self deleteAlarmEvent:*(*(&v17 + 1) + 8 * i) transaction:transactionCopy error:{error, v17}])
+        {
+          v15 = 0;
+          goto LABEL_11;
+        }
+      }
+
+      v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      if (v12)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
   v15 = 1;
 LABEL_11:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -265,10 +260,9 @@ LABEL_11:
   return error;
 }
 
-uint64_t __100__HDAlarmEventEntity_deleteAllAlarmEventsWithClientIdentifier_transaction_enumerationHandler_error___block_invoke_2(uint64_t a1)
+uint64_t __100__HDAlarmEventEntity_deleteAllAlarmEventsWithClientIdentifier_transaction_enumerationHandler_error___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 40);
-  v3 = +[HDAlarmEventEntity _alarmEventFromAllPropertiesRow:];
+  v3 = [(HDAlarmEventEntity *)*(a1 + 40) _alarmEventFromAllPropertiesRow:a2];
   v4 = (*(*(a1 + 32) + 16))();
 
   return v4;
@@ -319,23 +313,22 @@ uint64_t __100__HDAlarmEventEntity_deleteAllAlarmEventsWithClientIdentifier_tran
   return v10;
 }
 
-uint64_t __54__HDAlarmEventEntity_alarmEventWithTransaction_error___block_invoke(uint64_t a1)
+uint64_t __54__HDAlarmEventEntity_alarmEventWithTransaction_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = +[HDAlarmEventEntity _alarmEventFromAllPropertiesRow:];
-  v3 = *(*(a1 + 32) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  v4 = [HDAlarmEventEntity _alarmEventFromAllPropertiesRow:a3];
+  v5 = *(*(a1 + 32) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v4, v6);
 }
 
 + (id)uniquedColumns
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"client_identifier";
-  v5[1] = @"event_identifier";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"client_identifier";
+  v4[1] = @"event_identifier";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }

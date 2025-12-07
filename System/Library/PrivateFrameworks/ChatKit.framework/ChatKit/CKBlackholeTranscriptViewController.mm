@@ -64,18 +64,18 @@
 
 - (void)viewDidLoad
 {
-  v11.receiver = self;
-  v11.super_class = CKBlackholeTranscriptViewController;
-  [(CKBlackholeTranscriptViewController *)&v11 viewDidLoad];
-  v3 = CKFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"BLACKHOLE_TRANSCRIPT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
-  [(CKBlackholeTranscriptViewController *)self setTitle:v4];
+  v12.receiver = self;
+  v12.super_class = CKBlackholeTranscriptViewController;
+  viewDidLoad = [(CKBlackholeTranscriptViewController *)&v12 viewDidLoad];
+  v4 = CKFrameworkBundle(viewDidLoad);
+  v5 = [v4 localizedStringForKey:@"BLACKHOLE_TRANSCRIPT_TITLE" value:&stru_1F04268F8 table:@"ChatKit"];
+  [(CKBlackholeTranscriptViewController *)self setTitle:v5];
 
-  v5 = objc_alloc(MEMORY[0x1E69DD020]);
+  v6 = objc_alloc(MEMORY[0x1E69DD020]);
   view = [(CKBlackholeTranscriptViewController *)self view];
   [view bounds];
-  v7 = [v5 initWithFrame:2 style:?];
-  [(CKBlackholeTranscriptViewController *)self setTableView:v7];
+  v8 = [v6 initWithFrame:2 style:?];
+  [(CKBlackholeTranscriptViewController *)self setTableView:v8];
 
   tableView = [(CKBlackholeTranscriptViewController *)self tableView];
   [tableView registerClass:objc_opt_class() forCellReuseIdentifier:@"action"];
@@ -203,7 +203,7 @@
     }
 
     textLabel3 = [v7 textLabel];
-    v19 = CKFrameworkBundle();
+    v19 = CKFrameworkBundle(textLabel3);
     v20 = [v19 localizedStringForKey:v11 value:&stru_1F04268F8 table:@"ChatKit"];
     [textLabel3 setText:v20];
   }
@@ -246,25 +246,24 @@ LABEL_14:
 
   if ([pathCopy section] == 1)
   {
-    v9 = CKFrameworkBundle();
+    v9 = CKFrameworkBundle(1);
     v10 = [v9 localizedStringForKey:@"BLACKHOLE_RESTORE_PROMPT_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
     v11 = [CKAlertController alertControllerWithTitle:v10 message:0 preferredStyle:0];
 
-    v12 = CKFrameworkBundle();
-    v13 = [v12 localizedStringForKey:@"BLACKHOLE_RESTORE_PROMPT_CONFIRM" value:&stru_1F04268F8 table:@"ChatKit"];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __73__CKBlackholeTranscriptViewController_tableView_didSelectRowAtIndexPath___block_invoke;
-    v23[3] = &unk_1E72EBFE8;
-    v23[4] = self;
-    v14 = [CKAlertAction actionWithTitle:v13 style:0 handler:v23];
+    v13 = CKFrameworkBundle(v12);
+    v14 = [v13 localizedStringForKey:@"BLACKHOLE_RESTORE_PROMPT_CONFIRM" value:&stru_1F04268F8 table:@"ChatKit"];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __73__CKBlackholeTranscriptViewController_tableView_didSelectRowAtIndexPath___block_invoke;
+    v24[3] = &unk_1E72EBFE8;
+    v24[4] = self;
+    v15 = [CKAlertAction actionWithTitle:v14 style:0 handler:v24];
 
-    [v11 addAction:v14];
-    v15 = CKFrameworkBundle();
-    v16 = [v15 localizedStringForKey:@"BLACKHOLE_RESTORE_PROMPT_CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
-    v17 = [CKAlertAction actionWithTitle:v16 style:1 handler:0];
+    v16 = CKFrameworkBundle([v11 addAction:v15]);
+    v17 = [v16 localizedStringForKey:@"BLACKHOLE_RESTORE_PROMPT_CANCEL" value:&stru_1F04268F8 table:@"ChatKit"];
+    v18 = [CKAlertAction actionWithTitle:v17 style:1 handler:0];
 
-    [v11 addAction:v17];
+    [v11 addAction:v18];
     [v11 presentFromViewController:self animated:1 completion:0];
   }
 
@@ -273,14 +272,14 @@ LABEL_14:
     objc_initWeak(&location, self);
     conversation = self->_conversation;
     view = [(CKBlackholeTranscriptViewController *)self view];
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __73__CKBlackholeTranscriptViewController_tableView_didSelectRowAtIndexPath___block_invoke_2;
-    v20[3] = &unk_1E72EE728;
-    objc_copyWeak(&v21, &location);
-    [(CKBlackholeTranscriptViewController *)self _confirmDeleteConversation:conversation view:view withCompletionHandler:v20];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __73__CKBlackholeTranscriptViewController_tableView_didSelectRowAtIndexPath___block_invoke_2;
+    v21[3] = &unk_1E72EE728;
+    objc_copyWeak(&v22, &location);
+    [(CKBlackholeTranscriptViewController *)self _confirmDeleteConversation:conversation view:view withCompletionHandler:v21];
 
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v22);
     objc_destroyWeak(&location);
   }
 }
@@ -445,21 +444,22 @@ void __93__CKBlackholeTranscriptViewController__confirmDeleteConversation_view_w
 {
   mEMORY[0x1E69A5B20] = [MEMORY[0x1E69A5B20] sharedInstance];
   isEnabled = [mEMORY[0x1E69A5B20] isEnabled];
-  v4 = CKFrameworkBundle();
-  v5 = v4;
-  if (isEnabled)
+  v4 = isEnabled;
+  v5 = CKFrameworkBundle(isEnabled);
+  v6 = v5;
+  if (v4)
   {
-    v6 = @"DELETE_ALERT_MESSAGE_ON_ICLOUD";
+    v7 = @"DELETE_ALERT_MESSAGE_ON_ICLOUD";
   }
 
   else
   {
-    v6 = @"DELETE_ALERT_MESSAGE";
+    v7 = @"DELETE_ALERT_MESSAGE";
   }
 
-  v7 = [v4 localizedStringForKey:v6 value:&stru_1F04268F8 table:@"ChatKit"];
+  v8 = [v5 localizedStringForKey:v7 value:&stru_1F04268F8 table:@"ChatKit"];
 
-  return v7;
+  return v8;
 }
 
 - (void)_updateTranscriptHistory
@@ -689,8 +689,7 @@ id __71__CKBlackholeTranscriptViewController__handleIDsForCurrentConversation__b
   v3 = [v2 initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
   [v3 setSelectable:0];
   [v3 setEditable:0];
-  [v3 setAdjustsFontForContentSizeCategory:1];
-  v4 = CKFrameworkBundle();
+  v4 = CKFrameworkBundle([v3 setAdjustsFontForContentSizeCategory:1]);
   v5 = [v4 localizedStringForKey:@"BLACKHOLE_TRANSCRIPT_DESCRIPTION" value:&stru_1F04268F8 table:@"ChatKit"];
   [v3 setText:v5];
 

@@ -93,7 +93,7 @@ void __25___UIEventBus_addEvents___block_invoke(uint64_t a1)
 
 void __27___UIEventBus_drainEvents___block_invoke(uint64_t a1)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v2 = _UIUpdateCycleMainScheduler + 576;
   if (*(_UIUpdateCycleMainScheduler + 568) != 1)
   {
@@ -121,7 +121,7 @@ void __27___UIEventBus_drainEvents___block_invoke(uint64_t a1)
     v9 = 0;
     v10 = 0x8000000000000000;
     v11 = 0x7FFFFFFFFFFFFFFFLL;
-    v31 = 0x8000000000000000;
+    v32 = 0x8000000000000000;
     do
     {
       v12 = [*(*(a1 + 32) + 8) firstObject];
@@ -151,27 +151,27 @@ void __27___UIEventBus_drainEvents___block_invoke(uint64_t a1)
           {
             if (byte_1ED48B50C)
             {
-              v18 = _UIEventHIDEventRemoteTimestamp(v12);
-              if (v18)
+              v19 = _UIEventHIDEventRemoteTimestamp(v12);
+              if (v19)
               {
                 log = *(__UILogGetCategoryCachedImpl("RemoteTimestamp", &qword_1ED4A0980) + 8);
                 if (os_signpost_enabled(log))
                 {
                   *buf = 134218240;
-                  v42 = v18;
-                  v43 = 2048;
-                  v44 = v14;
+                  v43 = v19;
+                  v44 = 2048;
+                  v45 = v14;
                   _os_signpost_emit_with_name_impl(&dword_188A29000, log, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "EventRemoteTimestamp", "eventRemoteTime=%lli, eventTime=%lli", buf, 0x16u);
                 }
               }
 
-              v19 = v31;
-              if (v31 <= v18)
+              v20 = v32;
+              if (v32 <= v19)
               {
-                v19 = v18;
+                v20 = v19;
               }
 
-              v31 = v19;
+              v32 = v20;
             }
 
             break;
@@ -192,47 +192,47 @@ void __27___UIEventBus_drainEvents___block_invoke(uint64_t a1)
 
     while (v9 != v5);
     *&xmmword_1ED4A37C8 = v10;
-    *(&xmmword_1ED4A37C8 + 1) = v31;
-    if (_UIUpdateCycleDebugTracingCheck && _UIUpdateCycleDebugTracingCheck())
+    *(&xmmword_1ED4A37C8 + 1) = v32;
+    if (_UIUpdateCycleDebugTracingCheck && _UIUpdateCycleDebugTracingCheck(v17))
     {
       mach_absolute_time();
       CategoryCachedImpl = __UILogGetCategoryCachedImpl("EventBus", &qword_1ED4A0988);
-      v21 = *(CategoryCachedImpl + 8);
-      v22 = os_signpost_id_make_with_pointer(*(CategoryCachedImpl + 8), *(a1 + 32));
-      if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+      v22 = *(CategoryCachedImpl + 8);
+      v23 = os_signpost_id_make_with_pointer(*(CategoryCachedImpl + 8), *(a1 + 32));
+      if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
       {
-        v23 = v22;
-        if (os_signpost_enabled(v21))
+        v24 = v23;
+        if (os_signpost_enabled(v22))
         {
           *__str = 0u;
-          v39 = 0u;
           v40 = 0u;
+          v41 = 0u;
           UCTimeToSeconds();
-          v25 = v24;
+          v26 = v25;
           UCTimeToSeconds();
-          snprintf(__str, 0x30uLL, "%.06f(%+.06f)s", v25, v25 - v26);
-          *v35 = 0u;
-          v36 = 0u;
+          snprintf(__str, 0x30uLL, "%.06f(%+.06f)s", v26, v26 - v27);
+          *v36 = 0u;
           v37 = 0u;
+          v38 = 0u;
           UCTimeToSeconds();
-          snprintf(v35, 0x30uLL, "%.06f(%+.06f)s", v27, v27 - v25);
-          *v32 = 0u;
-          v33 = 0u;
+          snprintf(v36, 0x30uLL, "%.06f(%+.06f)s", v28, v28 - v26);
+          *v33 = 0u;
           v34 = 0u;
+          v35 = 0u;
           UCTimeToSeconds();
-          snprintf(v32, 0x30uLL, "%.06f(%+.06f)s", v28, v28 - v25);
-          v29 = [*(*(a1 + 32) + 8) count];
+          snprintf(v33, 0x30uLL, "%.06f(%+.06f)s", v29, v29 - v26);
+          v30 = [*(*(a1 + 32) + 8) count];
           *buf = 136316162;
-          v42 = __str;
-          v43 = 2080;
-          v44 = v35;
-          v45 = 2080;
-          v46 = v32;
-          v47 = 1024;
-          v48 = v5;
-          v49 = 1024;
-          v50 = v29;
-          _os_signpost_emit_with_name_impl(&dword_188A29000, v21, OS_SIGNPOST_EVENT, v23, "DrainEvents", "modelTime=%s, minEventTime=%s, maxEventTime=%s, drained=%u, remaining=%u", buf, 0x2Cu);
+          v43 = __str;
+          v44 = 2080;
+          v45 = v36;
+          v46 = 2080;
+          v47 = v33;
+          v48 = 1024;
+          v49 = v5;
+          v50 = 1024;
+          v51 = v30;
+          _os_signpost_emit_with_name_impl(&dword_188A29000, v22, OS_SIGNPOST_EVENT, v24, "DrainEvents", "modelTime=%s, minEventTime=%s, maxEventTime=%s, drained=%u, remaining=%u", buf, 0x2Cu);
         }
       }
     }

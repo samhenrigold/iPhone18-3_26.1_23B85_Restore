@@ -3,6 +3,8 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)schedulingTierAsString:(int)string;
+- (id)taskTypeAsString:(int)string;
 - (int)StringAsSchedulingTier:(id)tier;
 - (int)StringAsTaskType:(id)type;
 - (int)schedulingTier;
@@ -170,6 +172,19 @@
   *&self->_has = *&self->_has & 0xFDFF | v3;
 }
 
+- (id)taskTypeAsString:(int)string
+{
+  if ((string - 1) >= 5)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE324A0[string - 1];
+  }
+}
+
 - (int)StringAsTaskType:(id)type
 {
   if ([type isEqualToString:@"UNKNOWN_TASK_TYPE"])
@@ -255,6 +270,19 @@
   *&self->_has = *&self->_has & 0xFEFF | v3;
 }
 
+- (id)schedulingTierAsString:(int)string
+{
+  if ((string - 1) >= 5)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE324C8[string - 1];
+  }
+}
+
 - (int)StringAsSchedulingTier:(id)tier
 {
   if ([tier isEqualToString:@"DEFAULT"])
@@ -309,7 +337,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v24 = *MEMORY[0x29EDCA608];
+  v23 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   if ((*&self->_has & 0x20) != 0)
   {
@@ -450,29 +478,29 @@ LABEL_15:
   if ([(NSMutableArray *)self->_transactionMetrics count])
   {
     v6 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_transactionMetrics, "count")}];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     transactionMetrics = self->_transactionMetrics;
-    v8 = [(NSMutableArray *)transactionMetrics countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v8 = [(NSMutableArray *)transactionMetrics countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v19;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(transactionMetrics);
           }
 
-          [v6 addObject:{objc_msgSend(*(*(&v19 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v6 addObject:{objc_msgSend(*(*(&v18 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v9 = [(NSMutableArray *)transactionMetrics countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [(NSMutableArray *)transactionMetrics countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v9);
@@ -504,16 +532,14 @@ LABEL_15:
     [dictionary setObject:objc_msgSend(MEMORY[0x29EDBA070] forKey:{"numberWithBool:", self->_unused), @"unused"}];
   }
 
-  v17 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v16 = *MEMORY[0x29EDCA608];
   if ((*&self->_has & 0x20) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
@@ -525,7 +551,6 @@ LABEL_15:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    taskResume = self->_taskResume;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -545,7 +570,6 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  didCompleteWithError = self->_didCompleteWithError;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -560,7 +584,6 @@ LABEL_8:
   }
 
 LABEL_29:
-  numberOfRetries = self->_numberOfRetries;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -575,7 +598,6 @@ LABEL_9:
   }
 
 LABEL_30:
-  numberOfRedirects = self->_numberOfRedirects;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -590,7 +612,6 @@ LABEL_10:
   }
 
 LABEL_31:
-  error = self->_error;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -605,7 +626,6 @@ LABEL_11:
   }
 
 LABEL_32:
-  underlyingError = self->_underlyingError;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -620,7 +640,6 @@ LABEL_12:
   }
 
 LABEL_33:
-  underlyingErrorDomain = self->_underlyingErrorDomain;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -635,60 +654,53 @@ LABEL_13:
   }
 
 LABEL_34:
-  taskType = self->_taskType;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x400) != 0)
   {
 LABEL_14:
-    isBackground = self->_isBackground;
     PBDataWriterWriteBOOLField();
   }
 
 LABEL_15:
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   transactionMetrics = self->_transactionMetrics;
-  v8 = [(NSMutableArray *)transactionMetrics countByEnumeratingWithState:&v25 objects:v29 count:16];
-  if (v8)
+  v6 = [(NSMutableArray *)transactionMetrics countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v6)
   {
-    v9 = v8;
-    v10 = *v26;
+    v7 = v6;
+    v8 = *v12;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v26 != v10)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(transactionMetrics);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v9 = [(NSMutableArray *)transactionMetrics countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v7 = [(NSMutableArray *)transactionMetrics countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v9);
+    while (v7);
   }
 
-  v13 = self->_has;
-  if ((v13 & 0x100) != 0)
+  v10 = self->_has;
+  if ((v10 & 0x100) != 0)
   {
-    schedulingTier = self->_schedulingTier;
     PBDataWriterWriteInt32Field();
-    v13 = self->_has;
+    v10 = self->_has;
   }
 
-  if ((v13 & 0x800) != 0)
+  if ((v10 & 0x800) != 0)
   {
-    unused = self->_unused;
     PBDataWriterWriteBOOLField();
   }
-
-  v16 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -858,7 +870,7 @@ LABEL_15:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   if ((*&self->_has & 0x20) != 0)
@@ -991,30 +1003,30 @@ LABEL_12:
   }
 
 LABEL_13:
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   transactionMetrics = self->_transactionMetrics;
-  v9 = [(NSMutableArray *)transactionMetrics countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [(NSMutableArray *)transactionMetrics countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(transactionMetrics);
         }
 
-        v13 = [*(*(&v17 + 1) + 8 * i) copyWithZone:zone];
+        v13 = [*(*(&v16 + 1) + 8 * i) copyWithZone:zone];
         [v6 addTransactionMetrics:v13];
       }
 
-      v10 = [(NSMutableArray *)transactionMetrics countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v10 = [(NSMutableArray *)transactionMetrics countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v10);
@@ -1034,7 +1046,6 @@ LABEL_13:
     *(v6 + 100) |= 0x800u;
   }
 
-  v15 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -1182,7 +1193,6 @@ LABEL_13:
         goto LABEL_70;
       }
 
-      v11 = *(equal + 96);
       if (self->_isBackground)
       {
         if ((*(equal + 96) & 1) == 0)
@@ -1417,7 +1427,7 @@ LABEL_25:
 
 - (void)mergeFrom:(id)from
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   if ((*(from + 50) & 0x20) != 0)
   {
     self->_timestamp = *(from + 6);
@@ -1552,29 +1562,29 @@ LABEL_14:
   }
 
 LABEL_15:
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = *(from + 11);
-  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(AWDCFNetworkTaskMetrics *)self addTransactionMetrics:*(*(&v13 + 1) + 8 * i)];
+        [(AWDCFNetworkTaskMetrics *)self addTransactionMetrics:*(*(&v12 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
@@ -1593,8 +1603,6 @@ LABEL_15:
     self->_unused = *(from + 97);
     *&self->_has |= 0x800u;
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 @end

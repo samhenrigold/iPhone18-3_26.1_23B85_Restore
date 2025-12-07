@@ -1,5 +1,7 @@
 @interface UWLLiveActivityEvent
 - (BOOL)isEqual:(id)equal;
+- (id)causeAsString:(int)string;
+- (id)contractOrTimedAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -60,6 +62,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)causeAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100044DD8 + (string - 1));
+  }
+
+  return v4;
 }
 
 - (int)StringAsCause:(id)cause
@@ -134,6 +151,21 @@
   }
 
   *&self->_has = *&self->_has & 0xEF | v3;
+}
+
+- (id)contractOrTimedAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100044DF8 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsContractOrTimed:(id)timed
@@ -294,44 +326,42 @@ LABEL_26:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v11 = toCopy;
+  v6 = toCopy;
   if (self->_bundleId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    millisecondsSinceEvent = self->_millisecondsSinceEvent;
     PBDataWriterWriteInt64Field();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_profileId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_channel)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_content)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 8) != 0)
   {
-    cause = self->_cause;
     PBDataWriterWriteInt32Field();
-    toCopy = v11;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -350,9 +380,8 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  expectedStartTimeEpochMillis = self->_expectedStartTimeEpochMillis;
   PBDataWriterWriteInt64Field();
-  toCopy = v11;
+  toCopy = v6;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -366,22 +395,20 @@ LABEL_14:
   }
 
 LABEL_23:
-  cleanupTimeEpochMillis = self->_cleanupTimeEpochMillis;
   PBDataWriterWriteInt64Field();
-  toCopy = v11;
+  toCopy = v6;
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_15:
-    contractOrTimed = self->_contractOrTimed;
     PBDataWriterWriteInt32Field();
-    toCopy = v11;
+    toCopy = v6;
   }
 
 LABEL_16:
   if (self->_passThrough)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 }
 
@@ -571,7 +598,6 @@ LABEL_8:
     }
   }
 
-  v6 = *(equalCopy + 88);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 88) & 4) == 0 || self->_millisecondsSinceEvent != *(equalCopy + 3))
@@ -583,7 +609,7 @@ LABEL_8:
   else if ((*(equalCopy + 88) & 4) != 0)
   {
 LABEL_37:
-    v12 = 0;
+    v10 = 0;
     goto LABEL_38;
   }
 
@@ -611,7 +637,6 @@ LABEL_37:
     }
   }
 
-  v10 = *(equalCopy + 88);
   if ((*&self->_has & 8) != 0)
   {
     if ((*(equalCopy + 88) & 8) == 0 || self->_cause != *(equalCopy + 10))
@@ -667,17 +692,17 @@ LABEL_37:
   passThrough = self->_passThrough;
   if (passThrough | *(equalCopy + 9))
   {
-    v12 = [(NSString *)passThrough isEqual:?];
+    v10 = [(NSString *)passThrough isEqual:?];
   }
 
   else
   {
-    v12 = 1;
+    v10 = 1;
   }
 
 LABEL_38:
 
-  return v12;
+  return v10;
 }
 
 - (unint64_t)hash

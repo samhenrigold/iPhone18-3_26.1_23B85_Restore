@@ -35,57 +35,58 @@
   width = size.width;
   lCopy = l;
   nameCopy = name;
-  v33.receiver = self;
-  v33.super_class = WBSFaviconProviderPersistenceController;
-  v13 = [(WBSFaviconProviderPersistenceController *)&v33 init];
+  v35.receiver = self;
+  v35.super_class = WBSFaviconProviderPersistenceController;
+  v13 = [(WBSFaviconProviderPersistenceController *)&v35 init];
+  v15 = v13;
   if (v13)
   {
     if (lCopy && nameCopy)
     {
-      v14 = [nameCopy stringByAppendingPathExtension:@"db"];
-      v15 = [lCopy URLByAppendingPathComponent:v14 isDirectory:0];
-      databaseURL = v13->_databaseURL;
-      v13->_databaseURL = v15;
+      v16 = [nameCopy stringByAppendingPathExtension:@"db"];
+      v17 = [lCopy URLByAppendingPathComponent:v16 isDirectory:0];
+      databaseURL = v15->_databaseURL;
+      v15->_databaseURL = v17;
 
-      v17 = [lCopy URLByAppendingPathComponent:nameCopy isDirectory:1];
-      diskCacheURL = v13->_diskCacheURL;
-      v13->_diskCacheURL = v17;
+      v19 = [lCopy URLByAppendingPathComponent:nameCopy isDirectory:1];
+      diskCacheURL = v15->_diskCacheURL;
+      v15->_diskCacheURL = v19;
     }
 
     else
     {
-      v19 = WBS_LOG_CHANNEL_PREFIXFaviconPersistence();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v21 = WBS_LOG_CHANNEL_PREFIXFaviconPersistence(v13, v14);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        [WBSFaviconProviderPersistenceController initWithPersistenceBaseURL:lCopy databaseName:nameCopy preferredIconSize:v19 isReadOnly:?];
+        [WBSFaviconProviderPersistenceController initWithPersistenceBaseURL:lCopy databaseName:nameCopy preferredIconSize:v21 isReadOnly:?];
       }
     }
 
-    v13->_controllerState = 0;
-    v20 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
-    v21 = MEMORY[0x1E696AEC0];
-    v22 = objc_opt_class();
-    v23 = NSStringFromClass(v22);
-    v24 = [v21 stringWithFormat:@"com.apple.Safari.%@.%p.internalQueue", v23, v13];
-    v25 = dispatch_queue_create([v24 UTF8String], v20);
-    internalQueue = v13->_internalQueue;
-    v13->_internalQueue = v25;
+    v15->_controllerState = 0;
+    v22 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_UTILITY, 0);
+    v23 = MEMORY[0x1E696AEC0];
+    v24 = objc_opt_class();
+    v25 = NSStringFromClass(v24);
+    v26 = [v23 stringWithFormat:@"com.apple.Safari.%@.%p.internalQueue", v25, v15];
+    v27 = dispatch_queue_create([v26 UTF8String], v22);
+    internalQueue = v15->_internalQueue;
+    v15->_internalQueue = v27;
 
-    v27 = objc_alloc_init(WBSFaviconProviderPrivateCache);
-    privateCache = v13->_privateCache;
-    v13->_privateCache = v27;
+    v29 = objc_alloc_init(WBSFaviconProviderPrivateCache);
+    privateCache = v15->_privateCache;
+    v15->_privateCache = v29;
 
-    v13->_preferredIconSize.width = width;
-    v13->_preferredIconSize.height = height;
-    v13->_isReadOnly = only;
+    v15->_preferredIconSize.width = width;
+    v15->_preferredIconSize.height = height;
+    v15->_isReadOnly = only;
     strongToWeakObjectsMapTable = [MEMORY[0x1E696AD18] strongToWeakObjectsMapTable];
-    inMemoryImageCache = v13->_inMemoryImageCache;
-    v13->_inMemoryImageCache = strongToWeakObjectsMapTable;
+    inMemoryImageCache = v15->_inMemoryImageCache;
+    v15->_inMemoryImageCache = strongToWeakObjectsMapTable;
 
-    v31 = v13;
+    v33 = v15;
   }
 
-  return v13;
+  return v15;
 }
 
 - (void)openAndCheckIntegrity:(BOOL)integrity createIfNeeded:(BOOL)needed fallBackToMemoryStoreIfError:(BOOL)error completionHandler:(id)handler
@@ -113,60 +114,60 @@ uint64_t __127__WBSFaviconProviderPersistenceController_openAndCheckIntegrity_cr
   v4 = *(v3 + 48);
   *(v3 + 48) = v2;
 
-  v5 = *(a1 + 32);
-  if (*(v5 + 104) && *(v5 + 96))
+  v7 = *(a1 + 32);
+  if (*(v7 + 104) && *(v7 + 96))
   {
-    v6 = [[WBSOnDiskDataCache alloc] initWithCacheDirectoryURL:*(*(a1 + 32) + 104)];
-    v7 = *(a1 + 32);
-    v8 = *(v7 + 8);
-    *(v7 + 8) = v6;
+    v8 = [[WBSOnDiskDataCache alloc] initWithCacheDirectoryURL:*(*(a1 + 32) + 104)];
+    v9 = *(a1 + 32);
+    v10 = *(v9 + 8);
+    *(v9 + 8) = v8;
 
     [*(*(a1 + 32) + 8) setDataCacheDelegate:?];
     [*(*(a1 + 32) + 8) setIsInMemoryCacheEnabled:0];
-    v9 = [(WBSSQLiteStore *)[WBSFaviconProviderDatabaseController alloc] initWithURL:*(*(a1 + 32) + 96)];
-    v10 = *(a1 + 32);
-    v11 = *(v10 + 16);
-    *(v10 + 16) = v9;
+    v11 = [(WBSSQLiteStore *)[WBSFaviconProviderDatabaseController alloc] initWithURL:*(*(a1 + 32) + 96)];
+    v12 = *(a1 + 32);
+    v13 = *(v12 + 16);
+    *(v12 + 16) = v11;
 
     [*(*(a1 + 32) + 16) setDelegate:?];
-    v12 = objc_alloc_init(WBSFaviconProviderRecordCache);
-    v13 = *(a1 + 32);
-    v14 = *(v13 + 24);
-    *(v13 + 24) = v12;
-
+    v14 = objc_alloc_init(WBSFaviconProviderRecordCache);
     v15 = *(a1 + 32);
-    v16 = *(v15 + 16);
-    v17 = *(a1 + 48);
-    v18 = *(a1 + 49);
-    v19 = *(a1 + 50);
-    v20 = *(v15 + 88);
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __127__WBSFaviconProviderPersistenceController_openAndCheckIntegrity_createIfNeeded_fallBackToMemoryStoreIfError_completionHandler___block_invoke_9;
-    v23[3] = &unk_1E82847E0;
-    v23[4] = v15;
-    return [v16 openAndCheckIntegrity:v17 createIfNeeded:v18 fallBackToMemoryStoreIfError:v19 lockingPolicy:v20 ^ 1 completionHandler:v23];
+    v16 = *(v15 + 24);
+    *(v15 + 24) = v14;
+
+    v17 = *(a1 + 32);
+    v18 = *(v17 + 16);
+    v19 = *(a1 + 48);
+    v20 = *(a1 + 49);
+    v21 = *(a1 + 50);
+    v22 = *(v17 + 88);
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __127__WBSFaviconProviderPersistenceController_openAndCheckIntegrity_createIfNeeded_fallBackToMemoryStoreIfError_completionHandler___block_invoke_9;
+    v25[3] = &unk_1E82847E0;
+    v25[4] = v17;
+    return [v18 openAndCheckIntegrity:v19 createIfNeeded:v20 fallBackToMemoryStoreIfError:v21 lockingPolicy:v22 ^ 1 completionHandler:v25];
   }
 
   else
   {
-    v22 = WBS_LOG_CHANNEL_PREFIXFaviconPersistence();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v24 = WBS_LOG_CHANNEL_PREFIXFaviconPersistence(v5, v6);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      __127__WBSFaviconProviderPersistenceController_openAndCheckIntegrity_createIfNeeded_fallBackToMemoryStoreIfError_completionHandler___block_invoke_cold_1(v22);
+      __127__WBSFaviconProviderPersistenceController_openAndCheckIntegrity_createIfNeeded_fallBackToMemoryStoreIfError_completionHandler___block_invoke_cold_1(v24);
     }
 
     return [*(a1 + 32) _finishSetUpWithStatus:3];
   }
 }
 
-uint64_t __127__WBSFaviconProviderPersistenceController_openAndCheckIntegrity_createIfNeeded_fallBackToMemoryStoreIfError_completionHandler___block_invoke_9(uint64_t result, uint64_t a2)
+void *__127__WBSFaviconProviderPersistenceController_openAndCheckIntegrity_createIfNeeded_fallBackToMemoryStoreIfError_completionHandler___block_invoke_9(void *result, uint64_t a2)
 {
   if ((a2 - 1) >= 3)
   {
     if (!a2)
     {
-      v5 = *(*(result + 32) + 8);
+      v5 = *(result[4] + 8);
 
       return [v5 setUp];
     }
@@ -174,7 +175,7 @@ uint64_t __127__WBSFaviconProviderPersistenceController_openAndCheckIntegrity_cr
 
   else
   {
-    v3 = *(result + 32);
+    v3 = result[4];
     v4 = [v3 _faviconStatusFromWBSSQLStoreStatus:a2];
 
     return [v3 _finishSetUpWithStatus:v4];
@@ -575,6 +576,7 @@ void __147__WBSFaviconProviderPersistenceController_setIconData_forPageURLString
 void __147__WBSFaviconProviderPersistenceController_setIconData_forPageURLString_iconURLString_iconSize_hasGeneratedResolutions_isPrivate_completionHandler___block_invoke_4(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
+  v7 = v5;
   if (a2)
   {
     (*(*(a1 + 48) + 16))();
@@ -582,26 +584,27 @@ void __147__WBSFaviconProviderPersistenceController_setIconData_forPageURLString
 
   else
   {
-    v6 = WBS_LOG_CHANNEL_PREFIXFaviconPersistence();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = WBS_LOG_CHANNEL_PREFIXFaviconPersistence(v5, v6);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+    if (v9)
     {
-      __147__WBSFaviconProviderPersistenceController_setIconData_forPageURLString_iconURLString_iconSize_hasGeneratedResolutions_isPrivate_completionHandler___block_invoke_4_cold_1(v6);
+      __147__WBSFaviconProviderPersistenceController_setIconData_forPageURLString_iconURLString_iconSize_hasGeneratedResolutions_isPrivate_completionHandler___block_invoke_4_cold_1(v8);
     }
 
-    v7 = WBS_LOG_CHANNEL_PREFIXFaviconPersistence();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v11 = WBS_LOG_CHANNEL_PREFIXFaviconPersistence(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      __147__WBSFaviconProviderPersistenceController_setIconData_forPageURLString_iconURLString_iconSize_hasGeneratedResolutions_isPrivate_completionHandler___block_invoke_4_cold_2(a1, v7);
+      __147__WBSFaviconProviderPersistenceController_setIconData_forPageURLString_iconURLString_iconSize_hasGeneratedResolutions_isPrivate_completionHandler___block_invoke_4_cold_2(a1, v11);
     }
 
-    v8 = *(a1 + 32);
-    v9 = *(*(a1 + 40) + 16);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __147__WBSFaviconProviderPersistenceController_setIconData_forPageURLString_iconURLString_iconSize_hasGeneratedResolutions_isPrivate_completionHandler___block_invoke_16;
-    v10[3] = &unk_1E8284880;
-    v11 = *(a1 + 48);
-    [v9 removePageURLString:v8 completionHandler:v10];
+    v12 = *(a1 + 32);
+    v13 = *(*(a1 + 40) + 16);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __147__WBSFaviconProviderPersistenceController_setIconData_forPageURLString_iconURLString_iconSize_hasGeneratedResolutions_isPrivate_completionHandler___block_invoke_16;
+    v14[3] = &unk_1E8284880;
+    v15 = *(a1 + 48);
+    [v13 removePageURLString:v12 completionHandler:v14];
   }
 }
 
@@ -1903,16 +1906,16 @@ void __131__WBSFaviconProviderPersistenceController_pageURLStringsPrefixedWithVa
   databaseURL = self->_databaseURL;
   p_databaseURL = &self->_databaseURL;
   path = [(NSURL *)databaseURL path];
-  v13 = 0;
-  v10 = [defaultManager removeItemAtPath:path error:&v13];
-  v11 = v13;
+  v15 = 0;
+  v10 = [defaultManager removeItemAtPath:path error:&v15];
+  v11 = v15;
 
   if ((v10 & 1) == 0)
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXFaviconPersistence();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = WBS_LOG_CHANNEL_PREFIXFaviconPersistence(v12, v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [WBSFaviconProviderPersistenceController sqliteStoreDidFailDatabaseIntegrityCheck:v12 completionHandler:?];
+      [WBSFaviconProviderPersistenceController sqliteStoreDidFailDatabaseIntegrityCheck:v14 completionHandler:?];
     }
   }
 
@@ -1921,7 +1924,7 @@ void __131__WBSFaviconProviderPersistenceController_pageURLStringsPrefixedWithVa
 
 - (void)sqliteStoreDidFallBackToInMemoryStore:(id)store
 {
-  v4 = WBS_LOG_CHANNEL_PREFIXFaviconPersistence();
+  v4 = WBS_LOG_CHANNEL_PREFIXFaviconPersistence(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [(WBSFaviconProviderPersistenceController *)self sqliteStoreDidFallBackToInMemoryStore:v4];
@@ -1942,7 +1945,9 @@ void __147__WBSFaviconProviderPersistenceController_setIconData_forPageURLString
 {
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_3() safari_privacyPreservingDescription];
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v4, v5, "Failed to write icon data, error: %{public}@", v6, v7, v8, v9, 2u);
+  LODWORD(v10) = 138543362;
+  *(&v10 + 4) = v3;
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v4, v5, "Failed to write icon data, error: %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 void __147__WBSFaviconProviderPersistenceController_setIconData_forPageURLString_iconURLString_iconSize_hasGeneratedResolutions_isPrivate_completionHandler___block_invoke_4_cold_2(uint64_t a1, void *a2)
@@ -1977,7 +1982,9 @@ void __147__WBSFaviconProviderPersistenceController_setIconData_forPageURLString
 {
   v3 = a2;
   v4 = [OUTLINED_FUNCTION_3() path];
-  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Using in-memory representation for database %{public}@", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  OUTLINED_FUNCTION_0(&dword_1C6968000, v5, v6, "Using in-memory representation for database %{public}@", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 @end

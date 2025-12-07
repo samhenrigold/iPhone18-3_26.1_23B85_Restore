@@ -79,9 +79,9 @@
 - (GTServiceProperties)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v26.receiver = self;
-  v26.super_class = GTServiceProperties;
-  v5 = [(GTServiceProperties *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = GTServiceProperties;
+  v5 = [(GTServiceProperties *)&v25 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"protocolName"];
@@ -107,37 +107,36 @@
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v24 = 0u;
-        v25 = 0u;
-        v22 = 0u;
         v23 = 0u;
+        v24 = 0u;
+        v21 = 0u;
+        v22 = 0u;
         v11 = v5->_protocolMethods;
-        v12 = [(NSArray *)v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v12 = [(NSArray *)v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v23;
+          v14 = *v22;
           while (2)
           {
-            for (i = 0; i != v13; i = i + 1)
+            for (i = 0; i != v13; ++i)
             {
-              if (*v23 != v14)
+              if (*v22 != v14)
               {
                 objc_enumerationMutation(v11);
               }
 
-              v16 = *(*(&v22 + 1) + 8 * i);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
-                v17 = v5->_protocolMethods;
+                v16 = v5->_protocolMethods;
                 v5->_protocolMethods = 0;
 
                 goto LABEL_18;
               }
             }
 
-            v13 = [(NSArray *)v11 countByEnumeratingWithState:&v22 objects:v27 count:16];
+            v13 = [(NSArray *)v11 countByEnumeratingWithState:&v21 objects:v26 count:16];
             if (v13)
             {
               continue;
@@ -157,21 +156,21 @@
 LABEL_18:
     }
 
-    v18 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"deviceUDID"];
+    v17 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"deviceUDID"];
     deviceUDID = v5->_deviceUDID;
-    v5->_deviceUDID = v18;
+    v5->_deviceUDID = v17;
 
     if (v5->_deviceUDID)
     {
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v20 = v5->_deviceUDID;
+        v19 = v5->_deviceUDID;
         v5->_deviceUDID = 0;
       }
     }
 
-    v5->_servicePort = [coderCopy decodeInt64ForKey:{@"servicePort", v22}];
+    v5->_servicePort = [coderCopy decodeInt64ForKey:{@"servicePort", v21}];
     v5->_platform = [coderCopy decodeInt64ForKey:@"platform"];
     v5->_version = [coderCopy decodeInt64ForKey:@"version"];
   }
@@ -209,10 +208,9 @@ LABEL_18:
 {
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  deviceUDID = self->_deviceUDID;
-  v6 = [NSString stringWithFormat:@"<%@: protocolName=%@ protocolMethods=%@ servicePort=%llu platform=%u deviceUDID=%@ version=%llu>", v4, self->_protocolName, self->_protocolMethods, self->_servicePort, self->_platform, deviceUDID, self->_version];
+  v5 = [NSString stringWithFormat:@"<%@: protocolName=%@ protocolMethods=%@ servicePort=%llu platform=%u deviceUDID=%@ version=%llu>", v4, self->_protocolName, self->_protocolMethods, self->_servicePort, self->_platform, self->_deviceUDID, self->_version];
 
-  return v6;
+  return v5;
 }
 
 @end

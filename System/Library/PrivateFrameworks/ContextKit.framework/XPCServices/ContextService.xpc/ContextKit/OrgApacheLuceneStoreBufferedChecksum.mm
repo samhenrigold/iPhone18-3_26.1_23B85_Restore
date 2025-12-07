@@ -5,6 +5,7 @@
 - (void)dealloc;
 - (void)flush;
 - (void)reset;
+- (void)updateWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (void)updateWithInt:(int)int;
 @end
 
@@ -64,6 +65,69 @@ LABEL_7:
   }
 
   *(&buffer->super.size_ + upto + 4) = intCopy;
+}
+
+- (void)updateWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  buffer = self->buffer_;
+  if (!buffer)
+  {
+    goto LABEL_16;
+  }
+
+  v7 = *&withInt;
+  v8 = *&int;
+  size = buffer->super.size_;
+  upto = self->upto_;
+  if (size > v7)
+  {
+    if (upto + v7 <= size)
+    {
+LABEL_8:
+      JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(array, v8, buffer, upto, v7);
+      self->upto_ += v7;
+      return;
+    }
+
+    if (upto < 1)
+    {
+LABEL_7:
+      upto = 0;
+      self->upto_ = 0;
+      goto LABEL_8;
+    }
+
+    in = self->in_;
+    if (in)
+    {
+      [JavaUtilZipChecksum updateWithByteArray:"updateWithByteArray:withInt:withInt:" withInt:? withInt:?];
+      buffer = self->buffer_;
+      goto LABEL_7;
+    }
+
+    goto LABEL_16;
+  }
+
+  if (upto >= 1)
+  {
+    v13 = self->in_;
+    if (!v13)
+    {
+      goto LABEL_16;
+    }
+
+    [JavaUtilZipChecksum updateWithByteArray:v13 withInt:"updateWithByteArray:withInt:withInt:" withInt:?];
+  }
+
+  self->upto_ = 0;
+  v14 = self->in_;
+  if (!v14)
+  {
+LABEL_16:
+    JreThrowNullPointerException();
+  }
+
+  [(JavaUtilZipChecksum *)v14 updateWithByteArray:array withInt:v8 withInt:v7];
 }
 
 - (int64_t)getValue

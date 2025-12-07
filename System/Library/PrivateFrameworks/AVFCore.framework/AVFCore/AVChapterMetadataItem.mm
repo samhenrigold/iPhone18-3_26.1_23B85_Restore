@@ -31,9 +31,9 @@
 
 - (id)_initWithAsset:(id)asset chapterGroupIndex:(int64_t)index chapterIndex:(int64_t)chapterIndex chapterType:(id)type extendedLanguageTag:(id)tag languageCode:(id)code chapterDataType:(id)dataType time:(id *)self0 duration:(id *)self1
 {
-  v26.receiver = self;
-  v26.super_class = AVChapterMetadataItem;
-  v17 = [(AVMetadataItem *)&v26 init];
+  v27.receiver = self;
+  v27.super_class = AVChapterMetadataItem;
+  v17 = [(AVMetadataItem *)&v27 init];
   if (v17)
   {
     v18 = objc_alloc_init(AVChapterMetadataItemInternal);
@@ -54,7 +54,7 @@
     }
 
     CFRetain(v18);
-    v17->_privChapter->readWriteQueue = av_readwrite_dispatch_queue_create("com.apple.avfoundation.avchaptermetadataitem");
+    v17->_privChapter->readWriteQueue = av_readwrite_dispatch_queue_create("com.apple.avfoundation.avchaptermetadataitem", v19);
     if (!v17->_privChapter->readWriteQueue)
     {
       goto LABEL_16;
@@ -85,10 +85,10 @@
     var3 = time->var3;
     *&privChapter->time.value = *&time->var0;
     privChapter->time.epoch = var3;
-    v22 = v17->_privChapter;
-    v23 = *&duration->var0;
-    v22->duration.epoch = duration->var3;
-    *&v22->duration.value = v23;
+    v23 = v17->_privChapter;
+    v24 = *&duration->var0;
+    v23->duration.epoch = duration->var3;
+    *&v23->duration.value = v24;
     _figAsset = [asset _figAsset];
     if (_figAsset)
     {
@@ -412,17 +412,17 @@ LABEL_6:
   _Block_object_dispose(&v17, 8);
 }
 
-uint64_t __54__AVChapterMetadataItem__setValueStatus_figErrorCode___block_invoke(uint64_t result)
+void *__54__AVChapterMetadataItem__setValueStatus_figErrorCode___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 16);
+  v1 = *(result[4] + 16);
   v2 = *(v1 + 128);
   if (v2)
   {
     if (v2 >= 2)
     {
       v3 = result;
-      *(*(*(result + 40) + 8) + 40) = [*(v1 + 144) copy];
-      v4 = *(*(*(v3 + 32) + 16) + 144);
+      *(*(result[5] + 8) + 40) = [*(v1 + 144) copy];
+      v4 = *(*(v3[4] + 16) + 144);
 
       return [v4 removeAllObjects];
     }

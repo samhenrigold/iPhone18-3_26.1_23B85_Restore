@@ -95,7 +95,7 @@ void __95__WFConditionalSubjectParameterState_processWithContext_userInputRequir
 
 - (WFConditionalSubjectParameterState)initWithSerializedRepresentation:(id)representation variableProvider:(id)provider parameter:(id)parameter
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   providerCopy = provider;
   parameterCopy = parameter;
@@ -107,41 +107,41 @@ void __95__WFConditionalSubjectParameterState_processWithContext_userInputRequir
     {
       v13 = [v12 objectForKey:@"Type"];
       v14 = [v12 objectForKey:@"HomeIdentifier"];
+      v28 = 0u;
       v29 = 0u;
       v30 = 0u;
       v31 = 0u;
-      v32 = 0u;
       subjectClasses = [objc_opt_class() subjectClasses];
-      v16 = [subjectClasses countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v16 = [subjectClasses countByEnumeratingWithState:&v28 objects:v32 count:16];
       if (v16)
       {
-        v26 = v14;
-        v27 = providerCopy;
+        v25 = v14;
+        v26 = providerCopy;
         selfCopy = self;
-        v17 = *v30;
+        v17 = *v29;
         while (2)
         {
           for (i = 0; i != v16; i = (i + 1))
           {
-            if (*v30 != v17)
+            if (*v29 != v17)
             {
               objc_enumerationMutation(subjectClasses);
             }
 
-            v19 = *(*(&v29 + 1) + 8 * i);
+            v19 = *(*(&v28 + 1) + 8 * i);
             subjectType = [v19 subjectType];
-            v21 = [subjectType isEqualToString:v13];
+            isEqualToString = objc_msgSend_isEqualToString_(subjectType);
 
-            if (v21)
+            if (isEqualToString)
             {
-              providerCopy = v27;
-              v16 = [[v19 alloc] initWithSerializedRepresentation:v12 variableProvider:v27 parameter:parameterCopy];
+              providerCopy = v26;
+              v16 = [[v19 alloc] initWithSerializedRepresentation:v12 variableProvider:v26 parameter:parameterCopy];
               self = selfCopy;
               goto LABEL_17;
             }
           }
 
-          v16 = [subjectClasses countByEnumeratingWithState:&v29 objects:v33 count:16];
+          v16 = [subjectClasses countByEnumeratingWithState:&v28 objects:v32 count:16];
           if (v16)
           {
             continue;
@@ -150,10 +150,10 @@ void __95__WFConditionalSubjectParameterState_processWithContext_userInputRequir
           break;
         }
 
-        providerCopy = v27;
+        providerCopy = v26;
         self = selfCopy;
 LABEL_17:
-        v14 = v26;
+        v14 = v25;
       }
 
       if (v16)
@@ -178,14 +178,14 @@ LABEL_17:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315906;
-        v35 = "WFEnforceClass";
-        v36 = 2114;
-        v37 = v12;
-        v38 = 2114;
-        v39 = objc_opt_class();
-        v40 = 2114;
-        v41 = v11;
-        v22 = v39;
+        v34 = "WFEnforceClass";
+        v35 = 2114;
+        v36 = v12;
+        v37 = 2114;
+        v38 = objc_opt_class();
+        v39 = 2114;
+        v40 = v11;
+        v22 = v38;
         _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_FAULT, "%s Warning: %{public}@ is of type %{public}@, not %{public}@! Falling back to nil.", buf, 0x2Au);
       }
 
@@ -198,7 +198,6 @@ LABEL_17:
     v16 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -240,11 +239,10 @@ LABEL_4:
 
 + (id)subjectClasses
 {
-  v5[2] = *MEMORY[0x1E69E9840];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
+  v4[0] = objc_opt_class();
+  v4[1] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
 
   return v2;
 }

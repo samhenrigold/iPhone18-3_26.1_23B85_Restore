@@ -38,148 +38,138 @@
 
 + (id)entryEventPointDefinitions
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"bbPowerPointCause";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"bbPowerPointCause";
   entryCauseDefinition = [self entryCauseDefinition];
-  v8[1] = @"bbPowerPointCauseHelper";
-  v9[0] = entryCauseDefinition;
+  v7[1] = @"bbPowerPointCauseHelper";
+  v8[0] = entryCauseDefinition;
   entryCauseHelperDefinition = [self entryCauseHelperDefinition];
-  v9[1] = entryCauseHelperDefinition;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = entryCauseHelperDefinition;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
 
 + (id)entryCauseDefinition
 {
-  v27[2] = *MEMORY[0x277D85DE8];
-  v26[0] = *MEMORY[0x277D3F4E8];
+  v26[2] = *MEMORY[0x277D85DE8];
+  v25[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v24[0] = *MEMORY[0x277D3F568];
-  v24[1] = v2;
-  v25[0] = &unk_2870FEF40;
-  v25[1] = MEMORY[0x277CBEC28];
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:2];
-  v27[0] = v21;
-  v26[1] = *MEMORY[0x277D3F540];
-  v22[0] = @"cause";
+  v23[0] = *MEMORY[0x277D3F568];
+  v23[1] = v2;
+  v24[0] = &unk_2870FEF40;
+  v24[1] = MEMORY[0x277CBEC28];
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+  v26[0] = v20;
+  v25[1] = *MEMORY[0x277D3F540];
+  v21[0] = @"cause";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v23[0] = commonTypeDict_StringFormat;
-  v22[1] = @"causeTimeStamp";
+  v22[0] = commonTypeDict_StringFormat;
+  v21[1] = @"causeTimeStamp";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_DateFormat = [mEMORY[0x277D3F198]2 commonTypeDict_DateFormat];
-  v23[1] = commonTypeDict_DateFormat;
-  v22[2] = @"causeDuration";
+  v22[1] = commonTypeDict_DateFormat;
+  v21[2] = @"causeDuration";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v23[2] = commonTypeDict_IntegerFormat;
-  v22[3] = @"ArmUtil";
+  v22[2] = commonTypeDict_IntegerFormat;
+  v21[3] = @"ArmUtil";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]4 commonTypeDict_IntegerFormat];
-  v23[3] = commonTypeDict_IntegerFormat2;
-  v22[4] = @"IsContinuous";
+  v22[3] = commonTypeDict_IntegerFormat2;
+  v21[4] = @"IsContinuous";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198]5 commonTypeDict_BoolFormat];
-  v23[4] = commonTypeDict_BoolFormat;
-  v22[5] = @"PerepherialMax";
+  v22[4] = commonTypeDict_BoolFormat;
+  v21[5] = @"PerepherialMax";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]6 commonTypeDict_IntegerFormat];
-  v23[5] = commonTypeDict_IntegerFormat3;
-  v22[6] = @"APExclusion";
+  v22[5] = commonTypeDict_IntegerFormat3;
+  v21[6] = @"APExclusion";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat4 = [mEMORY[0x277D3F198]7 commonTypeDict_IntegerFormat];
-  v23[6] = commonTypeDict_IntegerFormat4;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:7];
-  v27[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v22[6] = commonTypeDict_IntegerFormat4;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:7];
+  v26[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
 
   return v12;
 }
 
 + (id)entryCauseHelperDefinition
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  v16[0] = *MEMORY[0x277D3F4E8];
+  v16[2] = *MEMORY[0x277D85DE8];
+  v15[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v14[0] = *MEMORY[0x277D3F568];
-  v14[1] = v2;
-  v15[0] = &unk_2870FEF40;
-  v15[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-  v17[0] = v3;
-  v16[1] = *MEMORY[0x277D3F540];
-  v12[0] = @"BBPowerName";
+  v13[0] = *MEMORY[0x277D3F568];
+  v13[1] = v2;
+  v14[0] = &unk_2870FEF40;
+  v14[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v16[0] = v3;
+  v15[1] = *MEMORY[0x277D3F540];
+  v11[0] = @"BBPowerName";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198] commonTypeDict_StringFormat];
-  v12[1] = @"Value";
-  v13[0] = commonTypeDict_StringFormat;
+  v11[1] = @"Value";
+  v12[0] = commonTypeDict_StringFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v13[1] = commonTypeDict_IntegerFormat;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v17[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v12[1] = commonTypeDict_IntegerFormat;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v16[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:2];
 
   return v9;
 }
 
 + (id)entryAggregateDefinitions
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"AggregatedARMUtil";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"AggregatedARMUtil";
   entryArmUtil = [self entryArmUtil];
-  v7[0] = entryArmUtil;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = entryArmUtil;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (id)entryArmUtil
 {
-  v25[4] = *MEMORY[0x277D85DE8];
-  v24[0] = *MEMORY[0x277D3F4E8];
+  v24[4] = *MEMORY[0x277D85DE8];
+  v23[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v22[0] = *MEMORY[0x277D3F568];
-  v22[1] = v2;
-  v23[0] = &unk_2870FEF40;
-  v23[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
-  v25[0] = v3;
-  v24[1] = *MEMORY[0x277D3F540];
-  v20[0] = @"ArmUtilBucket";
+  v21[0] = *MEMORY[0x277D3F568];
+  v21[1] = v2;
+  v22[0] = &unk_2870FEF40;
+  v22[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+  v24[0] = v3;
+  v23[1] = *MEMORY[0x277D3F540];
+  v19[0] = @"ArmUtilBucket";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v20[1] = @"ArmUtilCount";
-  v21[0] = commonTypeDict_IntegerFormat;
+  v19[1] = @"ArmUtilCount";
+  v20[0] = commonTypeDict_IntegerFormat;
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat_aggregateFunction_sum = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat_aggregateFunction_sum];
-  v21[1] = commonTypeDict_IntegerFormat_aggregateFunction_sum;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-  v25[1] = v8;
-  v24[2] = *MEMORY[0x277D3F478];
-  v18 = &unk_2870FEF50;
-  v16 = *MEMORY[0x277D3F470];
+  v20[1] = commonTypeDict_IntegerFormat_aggregateFunction_sum;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+  v24[1] = v8;
+  v23[2] = *MEMORY[0x277D3F478];
   v17 = &unk_2870FEF50;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
-  v19 = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-  v25[2] = v10;
-  v24[3] = *MEMORY[0x277D3F488];
-  v15 = @"ArmUtilCount";
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
-  v25[3] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D3F470];
+  v16 = &unk_2870FEF50;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+  v18 = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+  v24[2] = v10;
+  v23[3] = *MEMORY[0x277D3F488];
+  v14 = @"ArmUtilCount";
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v24[3] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
 
   return v12;
 }
@@ -362,81 +352,81 @@ LABEL_10:
   [(PLBBPowerToolService *)self setupInitExclusions];
 }
 
-uint64_t __48__PLBBPowerToolService_initOperatorDependancies__block_invoke(uint64_t result, uint64_t a2)
+id *__48__PLBBPowerToolService_initOperatorDependancies__block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) handleAudioCallback:a2];
+    return [result[4] handleAudioCallback:a2];
   }
 
   return result;
 }
 
-uint64_t __48__PLBBPowerToolService_initOperatorDependancies__block_invoke_2(uint64_t result, uint64_t a2)
+id *__48__PLBBPowerToolService_initOperatorDependancies__block_invoke_2(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) handleDisplayCallback:a2];
+    return [result[4] handleDisplayCallback:a2];
   }
 
   return result;
 }
 
-uint64_t __48__PLBBPowerToolService_initOperatorDependancies__block_invoke_3(uint64_t result, uint64_t a2)
+id *__48__PLBBPowerToolService_initOperatorDependancies__block_invoke_3(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) handleHotspotCallback:a2];
+    return [result[4] handleHotspotCallback:a2];
   }
 
   return result;
 }
 
-uint64_t __48__PLBBPowerToolService_initOperatorDependancies__block_invoke_4(uint64_t result, uint64_t a2)
+id *__48__PLBBPowerToolService_initOperatorDependancies__block_invoke_4(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) handleMavBBHwOtherCallback:a2];
+    return [result[4] handleMavBBHwOtherCallback:a2];
   }
 
   return result;
 }
 
-uint64_t __48__PLBBPowerToolService_initOperatorDependancies__block_invoke_5(uint64_t result, uint64_t a2)
+id *__48__PLBBPowerToolService_initOperatorDependancies__block_invoke_5(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) msgLiteCallback:a2];
+    return [result[4] msgLiteCallback:a2];
   }
 
   return result;
 }
 
-uint64_t __48__PLBBPowerToolService_initOperatorDependancies__block_invoke_6(uint64_t result, uint64_t a2)
+id *__48__PLBBPowerToolService_initOperatorDependancies__block_invoke_6(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) wcdmaRRCCallback:a2];
+    return [result[4] wcdmaRRCCallback:a2];
   }
 
   return result;
 }
 
-uint64_t __48__PLBBPowerToolService_initOperatorDependancies__block_invoke_7(uint64_t result, uint64_t a2)
+id *__48__PLBBPowerToolService_initOperatorDependancies__block_invoke_7(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) lteRRCCallback:a2];
+    return [result[4] lteRRCCallback:a2];
   }
 
   return result;
 }
 
-uint64_t __48__PLBBPowerToolService_initOperatorDependancies__block_invoke_8(uint64_t result, uint64_t a2)
+id *__48__PLBBPowerToolService_initOperatorDependancies__block_invoke_8(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) telActivityCallback:a2];
+    return [result[4] telActivityCallback:a2];
   }
 
   return result;
@@ -446,34 +436,33 @@ uint64_t __48__PLBBPowerToolService_initOperatorDependancies__block_invoke_9(uin
 {
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v2 = *(a1 + 32);
-    v3 = objc_opt_class();
-    v12 = MEMORY[0x277D85DD0];
-    v13 = 3221225472;
-    v14 = __48__PLBBPowerToolService_initOperatorDependancies__block_invoke_10;
-    v15 = &unk_279A593B8;
-    v16 = @"DailyTasks";
-    v17 = v3;
+    v2 = objc_opt_class();
+    v11 = MEMORY[0x277D85DD0];
+    v12 = 3221225472;
+    v13 = __48__PLBBPowerToolService_initOperatorDependancies__block_invoke_10;
+    v14 = &unk_279A593B8;
+    v15 = @"DailyTasks";
+    v16 = v2;
     if (rrcDisconnected_block_invoke_defaultOnce != -1)
     {
-      dispatch_once(&rrcDisconnected_block_invoke_defaultOnce, &v12);
+      dispatch_once(&rrcDisconnected_block_invoke_defaultOnce, &v11);
     }
 
-    v4 = rrcDisconnected_block_invoke_classDebugEnabled;
+    v3 = rrcDisconnected_block_invoke_classDebugEnabled;
 
-    if (v4 == 1)
+    if (v3 == 1)
     {
-      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"DailyTasks notification!", v12, v13, v14, v15];
-      v6 = MEMORY[0x277D3F178];
-      v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLBBPowerToolService.m"];
-      v8 = [v7 lastPathComponent];
-      v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBPowerToolService initOperatorDependancies]_block_invoke_9"];
-      [v6 logMessage:v5 fromFile:v8 fromFunction:v9 fromLineNumber:330];
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"DailyTasks notification!", v11, v12, v13, v14];
+      v5 = MEMORY[0x277D3F178];
+      v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLBBPowerToolService.m"];
+      v7 = [v6 lastPathComponent];
+      v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLBBPowerToolService initOperatorDependancies]_block_invoke_9"];
+      [v5 logMessage:v4 fromFile:v7 fromFunction:v8 fromLineNumber:330];
 
-      v10 = PLLogCommon();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v9 = PLLogCommon();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        [(PLAWDNetworkUsage *)v5 handleNameConnectionCallback:v10];
+        [(PLAWDNetworkUsage *)v4 handleNameConnectionCallback:v9];
       }
     }
   }
@@ -482,7 +471,7 @@ uint64_t __48__PLBBPowerToolService_initOperatorDependancies__block_invoke_9(uin
   return [*(a1 + 32) setIsUIAlertEnabled:1];
 }
 
-uint64_t __48__PLBBPowerToolService_initOperatorDependancies__block_invoke_10(uint64_t a1)
+void *__48__PLBBPowerToolService_initOperatorDependancies__block_invoke_10(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 40) forKey:*(a1 + 32)];
   rrcDisconnected_block_invoke_classDebugEnabled = result;
@@ -491,7 +480,7 @@ uint64_t __48__PLBBPowerToolService_initOperatorDependancies__block_invoke_10(ui
 
 - (void)writeToHelperTable:(id)table WithValue:(double)value withDate:(id)date
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   tableCopy = table;
   v9 = *MEMORY[0x277D3F5E8];
   dateCopy = date;
@@ -503,8 +492,8 @@ uint64_t __48__PLBBPowerToolService_initOperatorDependancies__block_invoke_10(ui
   notToRemoveDate = [(PLBBPowerToolService *)self notToRemoveDate];
   [notToRemoveDate timeIntervalSince1970];
   v17 = v16;
-  v27[0] = tableCopy;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+  v26[0] = tableCopy;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
   v19 = [storage entriesForKey:v11 before:1 timeInterval:1 count:v18 withFilters:v17];
 
   if ([v19 count])
@@ -512,8 +501,8 @@ uint64_t __48__PLBBPowerToolService_initOperatorDependancies__block_invoke_10(ui
     v20 = [v19 objectAtIndexedSubscript:0];
     storage2 = [(PLOperator *)self storage];
     entryDate = [v20 entryDate];
-    v26 = tableCopy;
-    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+    v25 = tableCopy;
+    v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
     [storage2 deleteAllEntriesForKey:v11 beforeTimestamp:entryDate withFilters:v23];
   }
 
@@ -522,7 +511,6 @@ uint64_t __48__PLBBPowerToolService_initOperatorDependancies__block_invoke_10(ui
   [v12 setObject:v24 forKeyedSubscript:@"Value"];
 
   [(PLOperator *)self logEntry:v12];
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)msgLiteCallback:(id)callback
@@ -990,7 +978,7 @@ LABEL_13:
   }
 }
 
-uint64_t __47__PLBBPowerToolService_handleProblemWithEntry___block_invoke(uint64_t a1)
+void *__47__PLBBPowerToolService_handleProblemWithEntry___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   handleProblemWithEntry__classDebugEnabled = result;
@@ -1345,35 +1333,35 @@ LABEL_8:
 
 - (double)percentageHistogramFromArray:(id)array
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   arrayCopy = array;
   if ([arrayCopy count])
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v4 = arrayCopy;
-    v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v17;
+      v7 = *v16;
       v8 = 0.0;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v17 != v7)
+          if (*v16 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          [*(*(&v16 + 1) + 8 * i) doubleValue];
+          [*(*(&v15 + 1) + 8 * i) doubleValue];
           v8 = v8 + v10;
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v6);
@@ -1394,7 +1382,6 @@ LABEL_8:
     v11 = 0.0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1459,15 +1446,15 @@ LABEL_8:
 
 - (void)submitAWD
 {
-  v97 = *MEMORY[0x277D85DE8];
+  v96 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277D7BC58]) initWithComponentId:31 andBlockOnConfiguration:1];
   v4 = [v3 newMetricContainerWithIdentifier:2031617];
   v5 = v4;
   if (v4)
   {
-    v59 = v4;
-    v60 = v3;
-    v61 = objc_alloc_init(MEMORY[0x277D817E0]);
+    v58 = v4;
+    v59 = v3;
+    v60 = objc_alloc_init(MEMORY[0x277D817E0]);
     v6 = [MEMORY[0x277CBEAA8] monotonicDateWithTimeIntervalSinceNow:-86400.0];
     monotonicDate = [MEMORY[0x277CBEAA8] monotonicDate];
     [v6 timeIntervalSince1970];
@@ -1478,43 +1465,43 @@ LABEL_8:
     v12 = 0x279A58000uLL;
     v13 = [(PLOperator *)PLBBPowerToolService entryKeyForType:*MEMORY[0x277D3F5B8] andName:@"AggregatedARMUtil"];
     storage = [(PLOperator *)self storage];
-    v58 = v13;
+    v57 = v13;
     v15 = [storage aggregateEntriesForKey:v13 withBucketLength:86400.0 inTimeIntervalRange:{v9, v11}];
 
-    v57 = v15;
+    v56 = v15;
     v16 = [MEMORY[0x277D3F190] summarizeAggregateEntries:v15];
-    v96 = 0;
-    memset(v95, 0, sizeof(v95));
-    v68 = 0u;
-    v69 = 0u;
-    v66 = 0u;
+    v95 = 0;
+    memset(v94, 0, sizeof(v94));
     v67 = 0u;
-    v17 = [v16 countByEnumeratingWithState:&v66 objects:v94 count:16];
+    v68 = 0u;
+    v65 = 0u;
+    v66 = 0u;
+    v17 = [v16 countByEnumeratingWithState:&v65 objects:v93 count:16];
     if (v17)
     {
       v18 = v17;
       selfCopy = self;
-      v19 = *v67;
+      v19 = *v66;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v67 != v19)
+          if (*v66 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v66 + 1) + 8 * i);
+          v21 = *(*(&v65 + 1) + 8 * i);
           v22 = [v21 objectForKeyedSubscript:@"ArmUtilBucket"];
           [v22 doubleValue];
           v24 = v23;
 
           v25 = [v21 objectForKeyedSubscript:@"ArmUtilCount"];
           [v25 doubleValue];
-          *(v95 + v24) = v26;
+          *(v94 + v24) = v26;
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v66 objects:v94 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v65 objects:v93 count:16];
       }
 
       while (v18);
@@ -1527,28 +1514,27 @@ LABEL_8:
       v24 = 0;
     }
 
-    [v61 setArmUtilityPDFs:v95 count:101];
+    [v60 setArmUtilityPDFs:v94 count:101];
     v27 = [*(v12 + 2608) entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"bbPowerPointCause"];
     storage2 = [(PLOperator *)self storage];
-    v56 = v27;
+    v55 = v27;
     v29 = [storage2 entriesForKey:v27];
 
-    v93 = 0;
-    memset(v92, 0, sizeof(v92));
-    v91 = 0;
-    memset(v90, 0, sizeof(v90));
-    v89 = 0;
-    memset(v88, 0, sizeof(v88));
-    v87 = 0;
-    memset(v86, 0, sizeof(v86));
-    v85 = 0;
-    memset(v84, 0, sizeof(v84));
-    v83 = 0;
-    memset(v82, 0, sizeof(v82));
-    v81 = 0;
-    memset(v80, 0, sizeof(v80));
-    v79 = 0;
-    memset(v78, 0, sizeof(v78));
+    v92 = 0;
+    memset(v91, 0, sizeof(v91));
+    v90 = 0;
+    memset(v89, 0, sizeof(v89));
+    v88 = 0;
+    memset(v87, 0, sizeof(v87));
+    v86 = 0;
+    memset(v85, 0, sizeof(v85));
+    v84 = 0;
+    memset(v83, 0, sizeof(v83));
+    v82 = 0;
+    memset(v81, 0, sizeof(v81));
+    v80 = 0;
+    memset(v79, 0, sizeof(v79));
+    v78 = 0;
     memset(v77, 0, sizeof(v77));
     memset(v76, 0, sizeof(v76));
     memset(v75, 0, sizeof(v75));
@@ -1557,12 +1543,13 @@ LABEL_8:
     memset(v72, 0, sizeof(v72));
     memset(v71, 0, sizeof(v71));
     memset(v70, 0, sizeof(v70));
-    v65 = v29;
+    memset(v69, 0, sizeof(v69));
+    v64 = v29;
     if ([v29 count] != -1)
     {
       v30 = 0;
       v31 = 0;
-      v63 = 0;
+      v62 = 0;
       v32 = 0;
       v33 = 0;
       v34 = 0;
@@ -1570,9 +1557,9 @@ LABEL_8:
       while (1)
       {
         v36 = v31;
-        if ([v65 count] != v30)
+        if ([v64 count] != v30)
         {
-          v39 = [v65 objectAtIndexedSubscript:v30];
+          v39 = [v64 objectAtIndexedSubscript:v30];
           v40 = [v39 objectForKeyedSubscript:@"ArmUtil"];
           [v40 doubleValue];
           v24 = v41;
@@ -1584,24 +1571,24 @@ LABEL_8:
             v33 = 0;
             v32 = 1;
             v34 = v24;
-            LODWORD(v63) = 1;
-            HIDWORD(v63) = v24;
+            LODWORD(v62) = 1;
+            HIDWORD(v62) = v24;
             goto LABEL_27;
           }
 
-          v62 = v34;
+          v61 = v34;
           v42 = [v39 objectForKeyedSubscript:@"IsContinuous"];
           bOOLValue = [v42 BOOLValue];
 
           if (bOOLValue)
           {
             v44 = [v31 isEqualToString:v36];
-            v45 = v63;
-            v46 = HIDWORD(v63);
+            v45 = v62;
+            v46 = HIDWORD(v62);
             if (v44)
             {
-              v46 = (v24 + HIDWORD(v63) * v63) / (v63 + 1);
-              v45 = v63 + 1;
+              v46 = (v24 + HIDWORD(v62) * v62) / (v62 + 1);
+              v45 = v62 + 1;
             }
 
             else
@@ -1609,8 +1596,8 @@ LABEL_8:
               v33 = 1;
             }
 
-            v63 = __PAIR64__(v46, v45);
-            v47 = v24 + v62 * v32;
+            v62 = __PAIR64__(v46, v45);
+            v47 = v24 + v61 * v32;
             v48 = ++v32;
             v34 = v47 / v48;
 LABEL_27:
@@ -1623,7 +1610,7 @@ LABEL_27:
             goto LABEL_28;
           }
 
-          v34 = v62;
+          v34 = v61;
         }
 
         if (v34 <= 0x3C)
@@ -1636,28 +1623,28 @@ LABEL_27:
           v37 = v34;
         }
 
-        ++*(v78 + (v37 - 60));
+        ++*(v77 + (v37 - 60));
         v38 = 120 * v32;
         if (v38 >= 0xB)
         {
           v38 = 11;
         }
 
-        ++*(v70 + v38);
+        ++*(v69 + v38);
         v33 = 1;
         v34 = v24;
         v32 = 1;
 LABEL_28:
         if (v31)
         {
-          if (HIDWORD(v63) <= 0x3C)
+          if (HIDWORD(v62) <= 0x3C)
           {
             v49 = 60;
           }
 
           else
           {
-            v49 = HIDWORD(v63);
+            v49 = HIDWORD(v62);
           }
 
           if (120 * v32 >= 0xB)
@@ -1672,50 +1659,50 @@ LABEL_28:
 
           if ([v31 isEqualToString:@"RACHFail"])
           {
-            v51 = v77;
-            v52 = v92;
+            v51 = v76;
+            v52 = v91;
             goto LABEL_50;
           }
 
           if ([v31 isEqualToString:@"OOS"])
           {
-            v51 = v76;
-            v52 = v90;
+            v51 = v75;
+            v52 = v89;
             goto LABEL_50;
           }
 
           if ([v31 isEqualToString:@"TcXONotShutting"])
           {
-            v51 = v75;
-            v52 = v88;
+            v51 = v74;
+            v52 = v87;
             goto LABEL_50;
           }
 
           if ([v31 isEqualToString:@"MarginalCoverage"])
           {
-            v51 = v74;
-            v52 = v86;
+            v51 = v73;
+            v52 = v85;
             goto LABEL_50;
           }
 
           if ([v31 isEqualToString:@"Background"])
           {
-            v51 = v73;
-            v52 = v84;
+            v51 = v72;
+            v52 = v83;
             goto LABEL_50;
           }
 
           if ([v31 isEqualToString:@"struckInDCH"])
           {
-            v51 = v72;
-            v52 = v82;
+            v51 = v71;
+            v52 = v81;
             goto LABEL_50;
           }
 
           if ([v31 isEqualToString:@"Unknown"])
           {
-            v51 = v71;
-            v52 = v80;
+            v51 = v70;
+            v52 = v79;
 LABEL_50:
             v33 = 0;
             ++*(v52 + (v49 - 60));
@@ -1727,15 +1714,15 @@ LABEL_50:
             v33 = 0;
           }
 
-          LODWORD(v63) = 1;
-          HIDWORD(v63) = v24;
+          LODWORD(v62) = 1;
+          HIDWORD(v62) = v24;
         }
 
 LABEL_52:
         v53 = v36;
 
         v30 = v35;
-        v54 = [v65 count] + 1 > v35++;
+        v54 = [v64 count] + 1 > v35++;
         v31 = v53;
         if (!v54)
         {
@@ -1746,28 +1733,26 @@ LABEL_52:
 
     v53 = 0;
 LABEL_56:
-    v3 = v60;
-    [v61 setTimestamp:{objc_msgSend(v60, "getAWDTimestamp")}];
-    [v61 setCauseCodeRACHFailARMUtilitys:v92 count:41];
-    [v61 setCauseCodeRACHFailDurations:v77 count:12];
-    [v61 setCauseCodeOOSARMUtilitys:v90 count:41];
-    [v61 setCauseCodeOOSDurations:v76 count:12];
-    [v61 setCauseCodeTcXONotShuttingARMUtilitys:v88 count:41];
-    [v61 setCauseCodeTcXONotShuttingDurations:v75 count:12];
-    [v61 setCauseCodeMarginalCoverageARMUtilitys:v86 count:41];
-    [v61 setCauseCodeMarginalCoverageDurations:v74 count:12];
-    [v61 setCauseCodeBackgroundActivityARMUtilitys:v84 count:41];
-    [v61 setCauseCodeBackgroundActivityDurations:v73 count:12];
-    [v61 setCauseCodeStruckInDCHARMUtilitys:v82 count:41];
-    [v61 setCauseCodeStruckInDCHDurations:v72 count:12];
-    [v61 setCauseCodeUnknownARMUtilitys:v80 count:41];
-    [v61 setCauseCodeUnknownDurations:v71 count:12];
-    v5 = v59;
-    [v59 setMetric:v61];
-    [v60 submitMetric:v59];
+    v3 = v59;
+    [v60 setTimestamp:{objc_msgSend(v59, "getAWDTimestamp")}];
+    [v60 setCauseCodeRACHFailARMUtilitys:v91 count:41];
+    [v60 setCauseCodeRACHFailDurations:v76 count:12];
+    [v60 setCauseCodeOOSARMUtilitys:v89 count:41];
+    [v60 setCauseCodeOOSDurations:v75 count:12];
+    [v60 setCauseCodeTcXONotShuttingARMUtilitys:v87 count:41];
+    [v60 setCauseCodeTcXONotShuttingDurations:v74 count:12];
+    [v60 setCauseCodeMarginalCoverageARMUtilitys:v85 count:41];
+    [v60 setCauseCodeMarginalCoverageDurations:v73 count:12];
+    [v60 setCauseCodeBackgroundActivityARMUtilitys:v83 count:41];
+    [v60 setCauseCodeBackgroundActivityDurations:v72 count:12];
+    [v60 setCauseCodeStruckInDCHARMUtilitys:v81 count:41];
+    [v60 setCauseCodeStruckInDCHDurations:v71 count:12];
+    [v60 setCauseCodeUnknownARMUtilitys:v79 count:41];
+    [v60 setCauseCodeUnknownDurations:v70 count:12];
+    v5 = v58;
+    [v58 setMetric:v60];
+    [v59 submitMetric:v58];
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 - (PLTelephonyConnection)connection

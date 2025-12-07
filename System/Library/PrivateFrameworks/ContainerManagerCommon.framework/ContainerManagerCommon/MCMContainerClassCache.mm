@@ -4,17 +4,7 @@
 - (BOOL)_isEntryA:(id)a olderThanEntryB:(id)b;
 - (BOOL)_queue_consumeResyncRequired;
 - (BOOL)enumerateCacheEntriesWithEnumerator:(id)enumerator;
-- (BOOL)firstBuild;
-- (BOOL)writeThroughEnabled;
-- (Class)cacheEntryClass;
 - (MCMContainerClassCache)initWithContainerClassPath:(id)path cacheEntryClass:(Class)class targetQueue:(id)queue userIdentityCache:(id)cache;
-- (MCMContainerClassPath)containerClassPath;
-- (MCMUserIdentityCache)userIdentityCache;
-- (NSMutableDictionary)lock_cache;
-- (NSUUID)lastCompletedDiskScanUUID;
-- (NSUUID)targetDiskScanUUID;
-- (OS_dispatch_queue)fsScanQueue;
-- (container_notify_s)notify;
 - (id)_concurrent_generateCacheEntryWithURL:(id)l identifier:(id)identifier containerPath:(id)path schemaVersion:(id)version uuid:(id)uuid metadata:(id)metadata;
 - (id)_concurrent_slowGenerateCacheEntryWithFileHandle:(id)handle URL:(id)l identifier:(id)identifier uuid:(id)uuid schemaVersion:(id)version containerPath:(id)path;
 - (id)_lock_rootEntryByResortingFromRootEntry:(id)entry insertEntry:(id)insertEntry;
@@ -23,7 +13,7 @@
 - (id)cacheEntryForIdentifier:(id)identifier;
 - (id)concurrentWriteThroughHandler;
 - (id)setCacheEntry:(id)entry forIdentifier:(id)identifier;
-- (unint64_t)containerClass;
+- (id)setCacheEntry:(id)entry forIdentifier:(id)identifier writeThrough:(BOOL)through;
 - (unint64_t)generation;
 - (void)_concurrent_processCorruptEntry:(id)entry handler:(id)handler;
 - (void)_concurrent_processURL:(id)l handler:(id)handler;
@@ -36,10 +26,8 @@
 - (void)forceWriteThrough;
 - (void)resyncRequired;
 - (void)setConcurrentWriteThroughHandler:(id)handler;
-- (void)setFirstBuild:(BOOL)build;
 - (void)setLastCompletedDiskScanUUID:(id)d;
 - (void)setTargetDiskScanUUID:(id)d;
-- (void)setWriteThroughEnabled:(BOOL)enabled;
 - (void)waitForSynchronizationToComplete;
 @end
 
@@ -47,202 +35,81 @@
 
 - (void)waitForSynchronizationToComplete
 {
-  v4[5] = *MEMORY[0x1E69E9840];
+  v3[5] = *MEMORY[0x1E69E9840];
   fsScanQueue = self->_fsScanQueue;
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = __58__MCMContainerClassCache_waitForSynchronizationToComplete__block_invoke;
-  v4[3] = &unk_1E86B0E08;
-  v4[4] = self;
-  dispatch_async_and_wait(fsScanQueue, v4);
-  v3 = *MEMORY[0x1E69E9840];
+  v3[0] = MEMORY[0x1E69E9820];
+  v3[1] = 3221225472;
+  v3[2] = __58__MCMContainerClassCache_waitForSynchronizationToComplete__block_invoke;
+  v3[3] = &unk_1E86B0E08;
+  v3[4] = self;
+  dispatch_async_and_wait(fsScanQueue, v3);
 }
 
-uint64_t __58__MCMContainerClassCache_waitForSynchronizationToComplete__block_invoke(uint64_t a1)
+void *__58__MCMContainerClassCache_waitForSynchronizationToComplete__block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) _queue_consumeResyncRequired];
   if (result)
   {
     v3 = *(a1 + 32);
-    v4 = *MEMORY[0x1E69E9840];
 
     return [v3 _queue_syncWithDisk];
   }
 
-  else
-  {
-    v5 = *MEMORY[0x1E69E9840];
-  }
-
-  return result;
-}
-
-- (NSMutableDictionary)lock_cache
-{
-  result = self->_lock_cache;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (unint64_t)generation
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v4 = *MEMORY[0x1E69E9968];
+  v3 = *MEMORY[0x1E69E9968];
   [(MCMContainerClassCache *)self notify];
   container_notify_get_generation();
-  result = v4;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (container_notify_s)notify
-{
-  result = self->_notify;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
+  return v3;
 }
 
 - (BOOL)_queue_consumeResyncRequired
 {
-  v6 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_fsScanQueue);
   os_unfair_lock_lock(&self->_resyncRequiredLock);
   lock_resyncRequired = self->_lock_resyncRequired;
   self->_lock_resyncRequired = 0;
   os_unfair_lock_unlock(&self->_resyncRequiredLock);
-  v4 = *MEMORY[0x1E69E9840];
   return lock_resyncRequired;
-}
-
-- (void)setFirstBuild:(BOOL)build
-{
-  v4 = *MEMORY[0x1E69E9840];
-  self->_firstBuild = build;
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (BOOL)firstBuild
-{
-  result = self->_firstBuild;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (MCMUserIdentityCache)userIdentityCache
-{
-  result = self->_userIdentityCache;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (Class)cacheEntryClass
-{
-  result = self->_cacheEntryClass;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (void)setWriteThroughEnabled:(BOOL)enabled
-{
-  v4 = *MEMORY[0x1E69E9840];
-  self->_writeThroughEnabled = enabled;
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (BOOL)writeThroughEnabled
-{
-  result = self->_writeThroughEnabled;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (OS_dispatch_queue)fsScanQueue
-{
-  result = self->_fsScanQueue;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (void)setTargetDiskScanUUID:(id)d
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
   p_targetDiskScanUUID = &self->_targetDiskScanUUID;
 
   objc_storeStrong(p_targetDiskScanUUID, d);
 }
 
-- (NSUUID)targetDiskScanUUID
-{
-  result = self->_targetDiskScanUUID;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (void)setLastCompletedDiskScanUUID:(id)d
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
   p_lastCompletedDiskScanUUID = &self->_lastCompletedDiskScanUUID;
 
   objc_storeStrong(p_lastCompletedDiskScanUUID, d);
 }
 
-- (NSUUID)lastCompletedDiskScanUUID
-{
-  result = self->_lastCompletedDiskScanUUID;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (MCMContainerClassPath)containerClassPath
-{
-  result = self->_containerClassPath;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (unint64_t)containerClass
-{
-  result = self->_containerClass;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (void)dealloc
 {
-  v6 = *MEMORY[0x1E69E9840];
-  notify = self->_notify;
-  container_notify_free();
-  v5.receiver = self;
-  v5.super_class = MCMContainerClassCache;
-  [(MCMContainerClassCache *)&v5 dealloc];
   v4 = *MEMORY[0x1E69E9840];
+  container_notify_free();
+  v3.receiver = self;
+  v3.super_class = MCMContainerClassCache;
+  [(MCMContainerClassCache *)&v3 dealloc];
 }
 
 - (void)_handleUnrecoverableCorruptContainerPath:(id)path
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   containerRootURL = [pathCopy containerRootURL];
   userIdentity = [pathCopy userIdentity];
   containerClass = [pathCopy containerClass];
   containerPathIdentifier = [pathCopy containerPathIdentifier];
-  v12 = 0;
-  LODWORD(containerClass) = [MCMCommandOperationDelete deleteContainerRootURL:containerRootURL userIdentity:userIdentity containerClass:containerClass containerPathIdentifier:containerPathIdentifier preferDirectDelete:0 error:&v12];
-  v8 = v12;
+  v11 = 0;
+  LODWORD(containerClass) = [MCMCommandOperationDelete deleteContainerRootURL:containerRootURL userIdentity:userIdentity containerClass:containerClass containerPathIdentifier:containerPathIdentifier preferDirectDelete:0 error:&v11];
+  v8 = v11;
 
   v9 = container_log_handle_for_category();
   v10 = v9;
@@ -251,7 +118,7 @@ uint64_t __58__MCMContainerClassCache_waitForSynchronizationToComplete__block_in
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v14 = pathCopy;
+      v13 = pathCopy;
       _os_log_impl(&dword_1DF2C3000, v10, OS_LOG_TYPE_DEFAULT, "DELETED: [%@] (corrupt container)", buf, 0xCu);
     }
   }
@@ -259,37 +126,35 @@ uint64_t __58__MCMContainerClassCache_waitForSynchronizationToComplete__block_in
   else if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v14 = pathCopy;
-    v15 = 2112;
-    v16 = v8;
+    v13 = pathCopy;
+    v14 = 2112;
+    v15 = v8;
     _os_log_error_impl(&dword_1DF2C3000, v10, OS_LOG_TYPE_ERROR, "Could not delete corrupt container; path = %@, error = %@", buf, 0x16u);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isEntryA:(id)a olderThanEntryB:(id)b
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   aCopy = a;
   bCopy = b;
-  v25 = 0;
-  v7 = [aCopy birthtimeWithError:&v25];
-  v9 = v8;
-  v10 = v25;
   v24 = 0;
-  v11 = [bCopy birthtimeWithError:&v24];
+  v7 = [aCopy birthtimeWithError:&v24];
+  v9 = v8;
+  v10 = v24;
+  v23 = 0;
+  v11 = [bCopy birthtimeWithError:&v23];
   v13 = v12;
-  v14 = v24;
+  v14 = v23;
   if (!(v7 | v9))
   {
     v15 = container_log_handle_for_category();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v27 = aCopy;
-      v28 = 2112;
-      v29 = v10;
+      v26 = aCopy;
+      v27 = 2112;
+      v28 = v10;
       _os_log_error_impl(&dword_1DF2C3000, v15, OS_LOG_TYPE_ERROR, "Unpredicatable resolution for conflicting container paths since birthtime not available on A; entry = %@, error = %@", buf, 0x16u);
     }
   }
@@ -300,9 +165,9 @@ uint64_t __58__MCMContainerClassCache_waitForSynchronizationToComplete__block_in
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v27 = bCopy;
-      v28 = 2112;
-      v29 = v14;
+      v26 = bCopy;
+      v27 = 2112;
+      v28 = v14;
       _os_log_error_impl(&dword_1DF2C3000, v16, OS_LOG_TYPE_ERROR, "Unpredicatable resolution for conflicting container paths since birthtime not available on B; entry = %@, error = %@", buf, 0x16u);
     }
   }
@@ -314,9 +179,9 @@ uint64_t __58__MCMContainerClassCache_waitForSynchronizationToComplete__block_in
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v27 = aCopy;
-      v28 = 2112;
-      v29 = bCopy;
+      v26 = aCopy;
+      v27 = 2112;
+      v28 = bCopy;
       _os_log_error_impl(&dword_1DF2C3000, v18, OS_LOG_TYPE_ERROR, "Unpredicatable resolution for conflicting container paths since birthtime is the same; entryA = %@, entryB = %@", buf, 0x16u);
     }
 
@@ -331,36 +196,35 @@ uint64_t __58__MCMContainerClassCache_waitForSynchronizationToComplete__block_in
   v20 = container_log_handle_for_category();
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
-    v23 = @"NO";
+    v22 = @"NO";
     *buf = 138413826;
-    v27 = aCopy;
+    v26 = aCopy;
     if (v19)
     {
-      v23 = @"YES";
+      v22 = @"YES";
     }
 
-    v28 = 2112;
-    v29 = bCopy;
-    v30 = 2112;
-    v31 = v23;
-    v32 = 2048;
-    v33 = v7;
-    v34 = 2048;
-    v35 = v9;
-    v36 = 2048;
-    v37 = v11;
-    v38 = 2048;
-    v39 = v13;
+    v27 = 2112;
+    v28 = bCopy;
+    v29 = 2112;
+    v30 = v22;
+    v31 = 2048;
+    v32 = v7;
+    v33 = 2048;
+    v34 = v9;
+    v35 = 2048;
+    v36 = v11;
+    v37 = 2048;
+    v38 = v13;
     _os_log_debug_impl(&dword_1DF2C3000, v20, OS_LOG_TYPE_DEBUG, "entryA %@ is older than entryB %@: %@; birthtimeA = %ld.%09ld, birthtimeB = %ld.%09ld", buf, 0x48u);
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 - (id)_lock_rootEntryByResortingFromRootEntry:(id)entry insertEntry:(id)insertEntry
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   entryCopy = entry;
   insertEntryCopy = insertEntry;
   v8 = entryCopy;
@@ -401,11 +265,11 @@ uint64_t __58__MCMContainerClassCache_waitForSynchronizationToComplete__block_in
           v19 = container_log_handle_for_category();
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
           {
-            v27 = 138412546;
-            v28 = insertEntryCopy;
-            v29 = 2112;
-            v30 = v12;
-            _os_log_debug_impl(&dword_1DF2C3000, v19, OS_LOG_TYPE_DEBUG, "Inserting entry %@ after entry %@", &v27, 0x16u);
+            v26 = 138412546;
+            v27 = insertEntryCopy;
+            v28 = 2112;
+            v29 = v12;
+            _os_log_debug_impl(&dword_1DF2C3000, v19, OS_LOG_TYPE_DEBUG, "Inserting entry %@ after entry %@", &v26, 0x16u);
           }
 
           v13 = 0;
@@ -417,13 +281,13 @@ uint64_t __58__MCMContainerClassCache_waitForSynchronizationToComplete__block_in
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         next3 = [v12 next];
-        v27 = 138412802;
-        v28 = insertEntryCopy;
-        v29 = 2112;
-        v30 = v12;
-        v31 = 2112;
-        v32 = next3;
-        _os_log_debug_impl(&dword_1DF2C3000, v20, OS_LOG_TYPE_DEBUG, "Inserting entry %@ after entry %@ but before entry %@", &v27, 0x20u);
+        v26 = 138412802;
+        v27 = insertEntryCopy;
+        v28 = 2112;
+        v29 = v12;
+        v30 = 2112;
+        v31 = next3;
+        _os_log_debug_impl(&dword_1DF2C3000, v20, OS_LOG_TYPE_DEBUG, "Inserting entry %@ after entry %@ but before entry %@", &v26, 0x20u);
       }
 
       next4 = [v12 next];
@@ -444,11 +308,11 @@ LABEL_19:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         next5 = [v10 next];
-        v27 = 138412546;
-        v28 = v10;
-        v29 = 2112;
-        v30 = next5;
-        _os_log_debug_impl(&dword_1DF2C3000, v11, OS_LOG_TYPE_DEBUG, "Inserting entry %@ as root entry; next = %@", &v27, 0x16u);
+        v26 = 138412546;
+        v27 = v10;
+        v28 = 2112;
+        v29 = next5;
+        _os_log_debug_impl(&dword_1DF2C3000, v11, OS_LOG_TYPE_DEBUG, "Inserting entry %@ as root entry; next = %@", &v26, 0x16u);
       }
 
       v12 = 0;
@@ -465,13 +329,12 @@ LABEL_19:
 
   v22 = v10;
 
-  v23 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 - (id)_lock_rootEntryFromRootEntry:(id)entry afterRemovingEntryForContainerPath:(id)path
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   entryCopy = entry;
   pathCopy = path;
   v7 = entryCopy;
@@ -516,24 +379,23 @@ LABEL_19:
   v16 = container_log_handle_for_category();
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
-    v20 = 138412546;
-    v21 = next;
-    v22 = 2112;
-    v23 = v7;
-    _os_log_debug_impl(&dword_1DF2C3000, v16, OS_LOG_TYPE_DEBUG, "Removing entry %@, new root is %@", &v20, 0x16u);
+    v19 = 138412546;
+    v20 = next;
+    v21 = 2112;
+    v22 = v7;
+    _os_log_debug_impl(&dword_1DF2C3000, v16, OS_LOG_TYPE_DEBUG, "Removing entry %@, new root is %@", &v19, 0x16u);
   }
 
 LABEL_11:
   v17 = v7;
 
-  v18 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (id)_setEntry:(id)entry forIdentifier:(id)identifier containerPath:(id)path writeThrough:(BOOL)through replace:(BOOL)replace
 {
   throughCopy = through;
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   entryCopy = entry;
   identifierCopy = identifier;
   pathCopy = path;
@@ -613,13 +475,13 @@ LABEL_17:
   if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
   {
     next2 = [v20 next];
-    v27 = 138412802;
-    v28 = identifierCopy;
-    v29 = 2112;
-    v30 = v20;
-    v31 = 2112;
-    v32 = next2;
-    _os_log_debug_impl(&dword_1DF2C3000, v23, OS_LOG_TYPE_DEBUG, "Setting cache entry; identifier = %@, cache entry = %@, next = %@", &v27, 0x20u);
+    v26 = 138412802;
+    v27 = identifierCopy;
+    v28 = 2112;
+    v29 = v20;
+    v30 = 2112;
+    v31 = next2;
+    _os_log_debug_impl(&dword_1DF2C3000, v23, OS_LOG_TYPE_DEBUG, "Setting cache entry; identifier = %@, cache entry = %@, next = %@", &v26, 0x20u);
   }
 
   os_unfair_lock_unlock(&self->_cacheLock);
@@ -628,34 +490,21 @@ LABEL_17:
     v19[2](v19, identifierCopy, v18, v15);
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return v20;
 }
 
 - (BOOL)_identifier:(id)_identifier isEqualToOtherIdentifier:(id)identifier caseSensitive:(BOOL)sensitive
 {
-  v9 = *MEMORY[0x1E69E9840];
-  if (sensitive)
+  if (!sensitive)
   {
-    v5 = *MEMORY[0x1E69E9840];
-    v6 = *MEMORY[0x1E69E9840];
-
-    return [_identifier isEqualToString:identifier];
+    return [_identifier compare:identifier options:1] == 0;
   }
 
-  else
-  {
-    result = [_identifier compare:identifier options:1] == 0;
-    v8 = *MEMORY[0x1E69E9840];
-  }
-
-  return result;
+  return [_identifier isEqualToString:identifier];
 }
 
 - (id)_concurrent_generateCacheEntryWithURL:(id)l identifier:(id)identifier containerPath:(id)path schemaVersion:(id)version uuid:(id)uuid metadata:(id)metadata
 {
-  v23 = *MEMORY[0x1E69E9840];
   metadataCopy = metadata;
   uuidCopy = uuid;
   versionCopy = version;
@@ -665,14 +514,12 @@ LABEL_17:
   userIdentityCache = [(MCMContainerClassCache *)self userIdentityCache];
   v20 = [(objc_class *)v18 initWithIdentifier:identifierCopy containerPath:pathCopy schemaVersion:versionCopy uuid:uuidCopy metadata:metadataCopy userIdentityCache:userIdentityCache];
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v20;
 }
 
 - (id)_concurrent_slowGenerateCacheEntryWithFileHandle:(id)handle URL:(id)l identifier:(id)identifier uuid:(id)uuid schemaVersion:(id)version containerPath:(id)path
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   lCopy = l;
   identifierCopy = identifier;
@@ -684,10 +531,10 @@ LABEL_17:
   userIdentity = [containerClassPath userIdentity];
   v20 = [MCMMetadata alloc];
   userIdentityCache = [(MCMContainerClassCache *)self userIdentityCache];
-  v45 = 0;
-  v40 = userIdentity;
-  v22 = [(MCMMetadataMinimal *)v20 initByReadingAndValidatingMetadataAtContainerPath:pathCopy userIdentity:userIdentity containerClass:containerClass userIdentityCache:userIdentityCache error:&v45];
-  v23 = v45;
+  v44 = 0;
+  v39 = userIdentity;
+  v22 = [(MCMMetadataMinimal *)v20 initByReadingAndValidatingMetadataAtContainerPath:pathCopy userIdentity:userIdentity containerClass:containerClass userIdentityCache:userIdentityCache error:&v44];
+  v23 = v44;
 
   if (v22)
   {
@@ -700,8 +547,8 @@ LABEL_17:
     goto LABEL_3;
   }
 
-  v31 = containermanager_copy_global_configuration();
-  staticConfig = [v31 staticConfig];
+  v30 = containermanager_copy_global_configuration();
+  staticConfig = [v30 staticConfig];
   if ([staticConfig attemptMetadataReconstructionIfMissing])
   {
   }
@@ -712,22 +559,22 @@ LABEL_17:
 
     if (pOSIXerrno == 2)
     {
-      v34 = container_log_handle_for_category();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v33 = container_log_handle_for_category();
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         *buf = 138413570;
-        v47 = identifierCopy;
-        v48 = 2112;
-        v49 = pathCopy;
-        v50 = 2112;
-        v51 = identifierCopy;
-        v52 = 2112;
-        v53 = uuidCopy;
-        v54 = 2112;
-        v55 = versionCopy;
-        v56 = 2112;
-        v57 = v23;
-        _os_log_error_impl(&dword_1DF2C3000, v34, OS_LOG_TYPE_ERROR, "Could not read metadata for [(%@) %@]; identifier = [%@], uuid = %@, schemaVersion = %@, error = %@", buf, 0x3Eu);
+        v46 = identifierCopy;
+        v47 = 2112;
+        v48 = pathCopy;
+        v49 = 2112;
+        v50 = identifierCopy;
+        v51 = 2112;
+        v52 = uuidCopy;
+        v53 = 2112;
+        v54 = versionCopy;
+        v55 = 2112;
+        v56 = v23;
+        _os_log_error_impl(&dword_1DF2C3000, v33, OS_LOG_TYPE_ERROR, "Could not read metadata for [(%@) %@]; identifier = [%@], uuid = %@, schemaVersion = %@, error = %@", buf, 0x3Eu);
       }
 
       v27 = 0;
@@ -735,27 +582,27 @@ LABEL_17:
     }
   }
 
-  v35 = container_log_handle_for_category();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+  v34 = container_log_handle_for_category();
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
   {
     *buf = 138413570;
-    v47 = identifierCopy;
-    v48 = 2112;
-    v49 = pathCopy;
-    v50 = 2112;
-    v51 = identifierCopy;
-    v52 = 2112;
-    v53 = uuidCopy;
-    v54 = 2112;
-    v55 = versionCopy;
-    v56 = 2112;
-    v57 = v23;
-    _os_log_error_impl(&dword_1DF2C3000, v35, OS_LOG_TYPE_ERROR, "Could not read metadata for [(%@) %@], attempting recovery; identifier = [%@], uuid = %@, schemaVersion = %@, error = %@", buf, 0x3Eu);
+    v46 = identifierCopy;
+    v47 = 2112;
+    v48 = pathCopy;
+    v49 = 2112;
+    v50 = identifierCopy;
+    v51 = 2112;
+    v52 = uuidCopy;
+    v53 = 2112;
+    v54 = versionCopy;
+    v55 = 2112;
+    v56 = v23;
+    _os_log_error_impl(&dword_1DF2C3000, v34, OS_LOG_TYPE_ERROR, "Could not read metadata for [(%@) %@], attempting recovery; identifier = [%@], uuid = %@, schemaVersion = %@, error = %@", buf, 0x3Eu);
   }
 
-  v36 = [MCMContainerCacheEntry alloc];
+  v35 = [MCMContainerCacheEntry alloc];
   userIdentityCache2 = [(MCMContainerClassCache *)self userIdentityCache];
-  v27 = [(MCMContainerCacheEntry *)v36 initFromContainerPath:pathCopy identifier:identifierCopy uuid:uuidCopy schemaVersion:versionCopy userIdentityCache:userIdentityCache2];
+  v27 = [(MCMContainerCacheEntry *)v35 initFromContainerPath:pathCopy identifier:identifierCopy uuid:uuidCopy schemaVersion:versionCopy userIdentityCache:userIdentityCache2];
 
   if (!v27)
   {
@@ -764,24 +611,24 @@ LABEL_3:
     goto LABEL_4;
   }
 
-  v44 = v23;
-  v38 = [v27 verifyWithError:&v44];
-  v28 = v44;
+  v43 = v23;
+  v37 = [v27 verifyWithError:&v43];
+  v28 = v43;
 
-  if ((v38 & 1) == 0)
+  if ((v37 & 1) == 0)
   {
-    v39 = container_log_handle_for_category();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    v38 = container_log_handle_for_category();
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       *buf = 138413058;
-      v47 = identifierCopy;
-      v48 = 2112;
-      v49 = uuidCopy;
-      v50 = 2112;
-      v51 = versionCopy;
-      v52 = 2112;
-      v53 = v28;
-      _os_log_error_impl(&dword_1DF2C3000, v39, OS_LOG_TYPE_ERROR, "Attempted to recover, but verification failed; identifier = [%@], uuid = %@, schemaVersion = %@, error = %@", buf, 0x2Au);
+      v46 = identifierCopy;
+      v47 = 2112;
+      v48 = uuidCopy;
+      v49 = 2112;
+      v50 = versionCopy;
+      v51 = 2112;
+      v52 = v28;
+      _os_log_error_impl(&dword_1DF2C3000, v38, OS_LOG_TYPE_ERROR, "Attempted to recover, but verification failed; identifier = [%@], uuid = %@, schemaVersion = %@, error = %@", buf, 0x2Au);
     }
 
     v27 = 0;
@@ -789,36 +636,34 @@ LABEL_3:
 
 LABEL_4:
 
-  v29 = *MEMORY[0x1E69E9840];
-
   return v27;
 }
 
 - (void)_concurrent_processCorruptEntry:(id)entry handler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   entryCopy = entry;
   handlerCopy = handler;
   containerPath = [entryCopy containerPath];
   containerRootURL = [containerPath containerRootURL];
   v10 = [MCMFileHandle alloc];
   path = [containerRootURL path];
-  LOBYTE(v23) = 0;
-  v12 = [(MCMFileHandle *)v10 initWithPath:path relativeToFileHandle:0 direction:9 symlinks:0 createMode:0 createDPClass:0 openLazily:v23];
+  LOBYTE(v22) = 0;
+  v12 = [(MCMFileHandle *)v10 initWithPath:path relativeToFileHandle:0 direction:9 symlinks:0 createMode:0 createDPClass:0 openLazily:v22];
 
-  v25 = 0;
-  v13 = [(MCMFileHandle *)v12 openWithError:&v25];
-  v14 = v25;
+  v24 = 0;
+  v13 = [(MCMFileHandle *)v12 openWithError:&v24];
+  v14 = v24;
   v15 = container_log_handle_for_category();
   v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
   if (v13)
   {
-    v24 = handlerCopy;
+    v23 = handlerCopy;
     selfCopy = self;
     if (v16)
     {
       *buf = 138412290;
-      v27 = containerPath;
+      v26 = containerPath;
       _os_log_error_impl(&dword_1DF2C3000, v15, OS_LOG_TYPE_ERROR, "Attempting to repair corrupt container (slow); path = %@", buf, 0xCu);
     }
 
@@ -830,44 +675,43 @@ LABEL_4:
     if (!v15)
     {
       [(MCMContainerClassCache *)selfCopy _handleUnrecoverableCorruptContainerPath:containerPath];
-      handlerCopy = v24;
+      handlerCopy = v23;
       goto LABEL_9;
     }
 
-    handlerCopy = v24;
-    v24[2](v24, v15);
+    handlerCopy = v23;
+    v23[2](v23, v15);
   }
 
   else if (v16)
   {
     path2 = [containerRootURL path];
     *buf = 138412546;
-    v27 = path2;
-    v28 = 2112;
-    v29 = v14;
+    v26 = path2;
+    v27 = 2112;
+    v28 = v14;
     _os_log_error_impl(&dword_1DF2C3000, v15, OS_LOG_TYPE_ERROR, "Failed to open [%@] for container scan, skipping; error = %@", buf, 0x16u);
   }
 
 LABEL_9:
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_concurrent_processURL:(id)l handler:(id)handler
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   lCopy = l;
   handlerCopy = handler;
   containerClassPath = [(MCMContainerClassCache *)self containerClassPath];
   lastPathComponent = [lCopy lastPathComponent];
-  v26 = [MCMContainerPath containerPathForContainerClassPath:containerClassPath containerPathIdentifier:lastPathComponent];
+  v25 = [MCMContainerPath containerPathForContainerClassPath:containerClassPath containerPathIdentifier:lastPathComponent];
   v9 = [MCMFileHandle alloc];
   path = [lCopy path];
-  LOBYTE(v24) = 0;
-  v11 = [(MCMFileHandle *)v9 initWithPath:path relativeToFileHandle:0 direction:9 symlinks:0 createMode:0 createDPClass:0 openLazily:v24];
+  LOBYTE(v23) = 0;
+  v11 = [(MCMFileHandle *)v9 initWithPath:path relativeToFileHandle:0 direction:9 symlinks:0 createMode:0 createDPClass:0 openLazily:v23];
 
-  v27 = 0;
-  LOBYTE(v9) = [(MCMFileHandle *)v11 openWithError:&v27];
-  v12 = v27;
+  v26 = 0;
+  LOBYTE(v9) = [(MCMFileHandle *)v11 openWithError:&v26];
+  v12 = v26;
   if ((v9 & 1) == 0)
   {
     v18 = container_log_handle_for_category();
@@ -875,9 +719,9 @@ LABEL_9:
     {
       path2 = [lCopy path];
       *buf = 138412546;
-      v29 = path2;
-      v30 = 2112;
-      v31 = v12;
+      v28 = path2;
+      v29 = 2112;
+      v30 = v12;
       _os_log_error_impl(&dword_1DF2C3000, v18, OS_LOG_TYPE_ERROR, "Failed to open [%@] for container scan, skipping; error = %@", buf, 0x16u);
     }
 
@@ -894,7 +738,7 @@ LABEL_9:
   v16 = v15;
   if (v13 && v14 && v15)
   {
-    v17 = [(MCMContainerClassCache *)self _concurrent_generateCacheEntryWithURL:lCopy identifier:v13 containerPath:v26 schemaVersion:v15 uuid:v14 metadata:0];
+    v17 = [(MCMContainerClassCache *)self _concurrent_generateCacheEntryWithURL:lCopy identifier:v13 containerPath:v25 schemaVersion:v15 uuid:v14 metadata:0];
   }
 
   else
@@ -903,23 +747,23 @@ LABEL_9:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138413058;
-      v29 = v13;
-      v30 = 2112;
-      v31 = v14;
-      v32 = 2112;
-      v33 = v16;
-      v34 = 2112;
-      v35 = v26;
+      v28 = v13;
+      v29 = 2112;
+      v30 = v14;
+      v31 = 2112;
+      v32 = v16;
+      v33 = 2112;
+      v34 = v25;
       _os_log_debug_impl(&dword_1DF2C3000, v20, OS_LOG_TYPE_DEBUG, "Container did not have xattr (%@|%@|%@), reading plist (slow); path = %@", buf, 0x2Au);
     }
 
-    v17 = [(MCMContainerClassCache *)self _concurrent_slowGenerateCacheEntryWithFileHandle:v11 URL:lCopy identifier:v13 uuid:v14 schemaVersion:v16 containerPath:v26];
+    v17 = [(MCMContainerClassCache *)self _concurrent_slowGenerateCacheEntryWithFileHandle:v11 URL:lCopy identifier:v13 uuid:v14 schemaVersion:v16 containerPath:v25];
   }
 
   v19 = v17;
   if (!v17)
   {
-    [(MCMContainerClassCache *)self _handleUnrecoverableCorruptContainerPath:v26];
+    [(MCMContainerClassCache *)self _handleUnrecoverableCorruptContainerPath:v25];
 LABEL_15:
     v21 = handlerCopy;
     goto LABEL_16;
@@ -928,72 +772,62 @@ LABEL_15:
   v21 = handlerCopy;
   (*(handlerCopy + 2))(handlerCopy, v17);
 LABEL_16:
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_processCorruptEntries:(id)entries handler:(id)handler
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __57__MCMContainerClassCache__processCorruptEntries_handler___block_invoke;
-  v9[3] = &unk_1E86AFEF8;
-  v9[4] = self;
-  v10 = handlerCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __57__MCMContainerClassCache__processCorruptEntries_handler___block_invoke;
+  v8[3] = &unk_1E86AFEF8;
+  v8[4] = self;
+  v9 = handlerCopy;
   v7 = handlerCopy;
-  [entries enumerateObjectsWithOptions:0 usingBlock:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [entries enumerateObjectsWithOptions:0 usingBlock:v8];
 }
 
 void __57__MCMContainerClassCache__processCorruptEntries_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v5 = a2;
+  v4 = a2;
   v3 = objc_autoreleasePoolPush();
-  [*(a1 + 32) _concurrent_processCorruptEntry:v5 handler:*(a1 + 40)];
+  [*(a1 + 32) _concurrent_processCorruptEntry:v4 handler:*(a1 + 40)];
   objc_autoreleasePoolPop(v3);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_processURLs:(id)ls handler:(id)handler
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __47__MCMContainerClassCache__processURLs_handler___block_invoke;
-  v9[3] = &unk_1E86AFEF8;
-  v9[4] = self;
-  v10 = handlerCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __47__MCMContainerClassCache__processURLs_handler___block_invoke;
+  v8[3] = &unk_1E86AFEF8;
+  v8[4] = self;
+  v9 = handlerCopy;
   v7 = handlerCopy;
-  [ls enumerateObjectsWithOptions:0 usingBlock:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [ls enumerateObjectsWithOptions:0 usingBlock:v8];
 }
 
 void __47__MCMContainerClassCache__processURLs_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v5 = a2;
+  v4 = a2;
   v3 = objc_autoreleasePoolPush();
-  [*(a1 + 32) _concurrent_processURL:v5 handler:*(a1 + 40)];
+  [*(a1 + 32) _concurrent_processURL:v4 handler:*(a1 + 40)];
   objc_autoreleasePoolPop(v3);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_syncWithDisk
 {
-  v90 = *MEMORY[0x1E69E9840];
+  v89 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_fsScanQueue);
   containerClassPath = [(MCMContainerClassCache *)self containerClassPath];
   v4 = container_log_handle_for_category();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v73 = containerClassPath;
+    v72 = containerClassPath;
     _os_log_debug_impl(&dword_1DF2C3000, v4, OS_LOG_TYPE_DEBUG, "Resyncing container class cache: %@", buf, 0xCu);
   }
 
@@ -1002,12 +836,12 @@ void __47__MCMContainerClassCache__processURLs_handler___block_invoke(uint64_t a
 
   v7 = container_log_handle_for_category();
   v8 = v7;
-  v58 = v6 - 1;
+  v57 = v6 - 1;
   if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
     containerClass = [containerClassPath containerClass];
     *buf = 134349056;
-    v73 = containerClass;
+    v72 = containerClass;
     _os_signpost_emit_with_name_impl(&dword_1DF2C3000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "ResyncingCache", " class=%{public, signpost.description:attribute}llu ", buf, 0xCu);
   }
 
@@ -1018,18 +852,18 @@ void __47__MCMContainerClassCache__processURLs_handler___block_invoke(uint64_t a
   v12 = [userIdentityCache libraryRepairForUserIdentity:userIdentity];
 
   v13 = [MEMORY[0x1E695DFA8] set];
-  v60 = containerClassPath;
+  v59 = containerClassPath;
   classURL = [containerClassPath classURL];
-  v71 = 0;
-  v69[0] = MEMORY[0x1E69E9820];
-  v69[1] = 3221225472;
-  v69[2] = __45__MCMContainerClassCache__queue_syncWithDisk__block_invoke;
-  v69[3] = &unk_1E86B10B8;
+  v70 = 0;
+  v68[0] = MEMORY[0x1E69E9820];
+  v68[1] = 3221225472;
+  v68[2] = __45__MCMContainerClassCache__queue_syncWithDisk__block_invoke;
+  v68[3] = &unk_1E86B10B8;
   v15 = v13;
-  v70 = v15;
-  v59 = v12;
-  LODWORD(v13) = [v12 fixAndRetryIfPermissionsErrorWithURL:classURL error:&v71 duringBlock:v69];
-  v57 = v71;
+  v69 = v15;
+  v58 = v12;
+  LODWORD(v13) = [v12 fixAndRetryIfPermissionsErrorWithURL:classURL error:&v70 duringBlock:v68];
+  v56 = v70;
 
   if (v13)
   {
@@ -1042,26 +876,26 @@ void __47__MCMContainerClassCache__processURLs_handler___block_invoke(uint64_t a
   os_unfair_lock_lock(&self->_cacheLock);
   lock_cache = [(MCMContainerClassCache *)self lock_cache];
   v19 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(lock_cache, "count")}];
+  v85 = 0u;
   v86 = 0u;
   v87 = 0u;
   v88 = 0u;
-  v89 = 0u;
   obj = lock_cache;
-  v62 = [obj countByEnumeratingWithState:&v86 objects:v85 count:16];
-  if (v62)
+  v61 = [obj countByEnumeratingWithState:&v85 objects:v84 count:16];
+  if (v61)
   {
-    v61 = *v87;
+    v60 = *v86;
     do
     {
-      for (i = 0; i != v62; ++i)
+      for (i = 0; i != v61; ++i)
       {
-        if (*v87 != v61)
+        if (*v86 != v60)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = [obj objectForKeyedSubscript:*(*(&v86 + 1) + 8 * i)];
-        v64 = v21;
+        v21 = [obj objectForKeyedSubscript:*(*(&v85 + 1) + 8 * i)];
+        v63 = v21;
         do
         {
           containerPath = [v21 containerPath];
@@ -1078,7 +912,7 @@ void __47__MCMContainerClassCache__processURLs_handler___block_invoke(uint64_t a
               {
                 path = [containerRootURL path];
                 *buf = 138412290;
-                v73 = path;
+                v72 = path;
                 _os_log_debug_impl(&dword_1DF2C3000, v25, OS_LOG_TYPE_DEBUG, "Disk sync knows about corrupt [%@]", buf, 0xCu);
               }
 
@@ -1091,7 +925,7 @@ void __47__MCMContainerClassCache__processURLs_handler___block_invoke(uint64_t a
               {
                 path2 = [containerRootURL path];
                 *buf = 138412290;
-                v73 = path2;
+                v72 = path2;
                 _os_log_debug_impl(&dword_1DF2C3000, v25, OS_LOG_TYPE_DEBUG, "Disk sync knows about [%@]", buf, 0xCu);
               }
             }
@@ -1106,7 +940,7 @@ void __47__MCMContainerClassCache__processURLs_handler___block_invoke(uint64_t a
             {
               path3 = [containerRootURL path];
               *buf = 138412290;
-              v73 = path3;
+              v72 = path3;
               _os_log_impl(&dword_1DF2C3000, v27, OS_LOG_TYPE_DEFAULT, "Disk sync has stale entry for [%@]", buf, 0xCu);
             }
 
@@ -1123,39 +957,39 @@ void __47__MCMContainerClassCache__processURLs_handler___block_invoke(uint64_t a
         while (next);
       }
 
-      v62 = [obj countByEnumeratingWithState:&v86 objects:v85 count:16];
+      v61 = [obj countByEnumeratingWithState:&v85 objects:v84 count:16];
     }
 
-    while (v62);
+    while (v61);
   }
 
   os_unfair_lock_unlock(&self->_cacheLock);
   [v15 minusSet:v19];
-  v83 = 0u;
-  v84 = 0u;
-  v81 = 0u;
   v82 = 0u;
-  v66 = array;
-  v33 = [v66 countByEnumeratingWithState:&v81 objects:v80 count:16];
+  v83 = 0u;
+  v80 = 0u;
+  v81 = 0u;
+  v65 = array;
+  v33 = [v65 countByEnumeratingWithState:&v80 objects:v79 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v82;
+    v35 = *v81;
     do
     {
       for (j = 0; j != v34; ++j)
       {
-        if (*v82 != v35)
+        if (*v81 != v35)
         {
-          objc_enumerationMutation(v66);
+          objc_enumerationMutation(v65);
         }
 
-        v37 = *(*(&v81 + 1) + 8 * j);
+        v37 = *(*(&v80 + 1) + 8 * j);
         v38 = container_log_handle_for_category();
         if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v73 = v37;
+          v72 = v37;
           _os_log_impl(&dword_1DF2C3000, v38, OS_LOG_TYPE_DEFAULT, "Disk sync evicting stale entry: %@", buf, 0xCu);
         }
 
@@ -1164,39 +998,39 @@ void __47__MCMContainerClassCache__processURLs_handler___block_invoke(uint64_t a
         v41 = [(MCMContainerClassCache *)self _setEntry:0 forIdentifier:identifier containerPath:containerPath2 writeThrough:1 replace:0];
       }
 
-      v34 = [v66 countByEnumeratingWithState:&v81 objects:v80 count:16];
+      v34 = [v65 countByEnumeratingWithState:&v80 objects:v79 count:16];
     }
 
     while (v34);
   }
 
   allObjects = [v15 allObjects];
-  v68[0] = MEMORY[0x1E69E9820];
-  v68[1] = 3221225472;
-  v68[2] = __45__MCMContainerClassCache__queue_syncWithDisk__block_invoke_8;
-  v68[3] = &unk_1E86AFED0;
-  v68[4] = self;
-  [(MCMContainerClassCache *)self _processURLs:allObjects handler:v68];
-
   v67[0] = MEMORY[0x1E69E9820];
   v67[1] = 3221225472;
-  v67[2] = __45__MCMContainerClassCache__queue_syncWithDisk__block_invoke_10;
+  v67[2] = __45__MCMContainerClassCache__queue_syncWithDisk__block_invoke_8;
   v67[3] = &unk_1E86AFED0;
   v67[4] = self;
-  [(MCMContainerClassCache *)self _processCorruptEntries:array2 handler:v67];
+  [(MCMContainerClassCache *)self _processURLs:allObjects handler:v67];
+
+  v66[0] = MEMORY[0x1E69E9820];
+  v66[1] = 3221225472;
+  v66[2] = __45__MCMContainerClassCache__queue_syncWithDisk__block_invoke_10;
+  v66[3] = &unk_1E86AFED0;
+  v66[4] = self;
+  [(MCMContainerClassCache *)self _processCorruptEntries:array2 handler:v66];
   v43 = [v19 count];
   v44 = [v15 count];
-  v45 = [v66 count];
+  v45 = [v65 count];
   if ([(MCMContainerClassCache *)self firstBuild])
   {
     [(MCMContainerClassCache *)self setFirstBuild:0];
-    v46 = v60;
+    v46 = v59;
   }
 
   else
   {
-    v46 = v60;
-    if ([v15 count] || objc_msgSend(v66, "count"))
+    v46 = v59;
+    if ([v15 count] || objc_msgSend(v65, "count"))
     {
       [(MCMContainerClassCache *)self notify];
       container_notify_increment_generation();
@@ -1208,137 +1042,122 @@ void __47__MCMContainerClassCache__processURLs_handler___block_invoke(uint64_t a
   {
     v48 = v44 + v43 - v45;
     v49 = [v15 count];
-    v50 = [v66 count];
+    v50 = [v65 count];
     *buf = 138413058;
-    v73 = v46;
-    v74 = 2048;
-    v75 = v49;
-    v76 = 2048;
-    v77 = v50;
-    v78 = 2048;
-    v79 = v48;
+    v72 = v46;
+    v73 = 2048;
+    v74 = v49;
+    v75 = 2048;
+    v76 = v50;
+    v77 = 2048;
+    v78 = v48;
     _os_log_impl(&dword_1DF2C3000, v47, OS_LOG_TYPE_DEFAULT, "Finished resyncing container class cache: %@, added = %lu, removed = %lu, total = %lu", buf, 0x2Au);
   }
 
   v51 = container_log_handle_for_category();
   v52 = v51;
-  if (v58 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v51))
+  if (v57 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v51))
   {
     containerClass2 = [v46 containerClass];
     *buf = 134349056;
-    v73 = containerClass2;
+    v72 = containerClass2;
     _os_signpost_emit_with_name_impl(&dword_1DF2C3000, v52, OS_SIGNPOST_INTERVAL_END, spida, "ResyncingCache", " class=%{public, signpost.description:attribute}llu ", buf, 0xCu);
   }
-
-  v54 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __45__MCMContainerClassCache__queue_syncWithDisk__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = +[MCMFileManager defaultManager];
   v7 = [v6 urlsForItemsInDirectoryAtURL:v5 error:a3];
 
   [*(a1 + 32) addObjectsFromArray:v7];
-  v8 = *MEMORY[0x1E69E9840];
   return v7 != 0;
 }
 
 void __45__MCMContainerClassCache__queue_syncWithDisk__block_invoke_8(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = container_log_handle_for_category();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = v3;
-    _os_log_impl(&dword_1DF2C3000, v4, OS_LOG_TYPE_DEFAULT, "Disk sync reporting on new entry: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v3;
+    _os_log_impl(&dword_1DF2C3000, v4, OS_LOG_TYPE_DEFAULT, "Disk sync reporting on new entry: %@", &v9, 0xCu);
   }
 
   v5 = *(a1 + 32);
   v6 = [v3 identifier];
   v7 = [v3 containerPath];
   v8 = [v5 _setEntry:v3 forIdentifier:v6 containerPath:v7 writeThrough:1 replace:0];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __45__MCMContainerClassCache__queue_syncWithDisk__block_invoke_10(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = container_log_handle_for_category();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412290;
-    v11 = v3;
-    _os_log_impl(&dword_1DF2C3000, v4, OS_LOG_TYPE_DEFAULT, "Disk sync reporting on repaired entry: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v3;
+    _os_log_impl(&dword_1DF2C3000, v4, OS_LOG_TYPE_DEFAULT, "Disk sync reporting on repaired entry: %@", &v9, 0xCu);
   }
 
   v5 = *(a1 + 32);
   v6 = [v3 identifier];
   v7 = [v3 containerPath];
   v8 = [v5 _setEntry:v3 forIdentifier:v6 containerPath:v7 writeThrough:1 replace:1];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_checkExistanceOfCacheEntry:(id)entry libraryRepair:(id)repair
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   entryCopy = entry;
   repairCopy = repair;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
   containerClassPath = [(MCMContainerClassCache *)self containerClassPath];
   classURL = [containerClassPath classURL];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __68__MCMContainerClassCache__checkExistanceOfCacheEntry_libraryRepair___block_invoke;
-  v13[3] = &unk_1E86B1090;
-  v13[4] = &v15;
-  v14 = 0;
-  [repairCopy fixAndRetryIfPermissionsErrorWithURL:classURL error:&v14 duringBlock:v13];
-  v10 = v14;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __68__MCMContainerClassCache__checkExistanceOfCacheEntry_libraryRepair___block_invoke;
+  v12[3] = &unk_1E86B1090;
+  v12[4] = &v14;
+  v13 = 0;
+  [repairCopy fixAndRetryIfPermissionsErrorWithURL:classURL error:&v13 duringBlock:v12];
+  v10 = v13;
 
-  LOBYTE(containerClassPath) = *(v16 + 24);
-  _Block_object_dispose(&v15, 8);
+  LOBYTE(containerClassPath) = *(v15 + 24);
+  _Block_object_dispose(&v14, 8);
 
-  v11 = *MEMORY[0x1E69E9840];
   return containerClassPath;
 }
 
 uint64_t __68__MCMContainerClassCache__checkExistanceOfCacheEntry_libraryRepair___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = +[MCMFileManager defaultManager];
   v7 = [v6 itemAtURL:v5 exists:*(*(a1 + 32) + 8) + 24 error:a3];
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (id)concurrentWriteThroughHandler
 {
-  v7 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_cacheLock);
   v3 = _Block_copy(self->_lock_concurrentWriteThroughHandler);
   os_unfair_lock_unlock(&self->_cacheLock);
   v4 = _Block_copy(v3);
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 - (void)setConcurrentWriteThroughHandler:(id)handler
 {
-  v8 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   os_unfair_lock_lock(&self->_cacheLock);
   v5 = _Block_copy(handlerCopy);
@@ -1346,14 +1165,12 @@ uint64_t __68__MCMContainerClassCache__checkExistanceOfCacheEntry_libraryRepair_
   lock_concurrentWriteThroughHandler = self->_lock_concurrentWriteThroughHandler;
   self->_lock_concurrentWriteThroughHandler = v5;
 
-  v7 = *MEMORY[0x1E69E9840];
-
   os_unfair_lock_unlock(&self->_cacheLock);
 }
 
 - (void)forceWriteThrough
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_cacheLock);
   v3 = _Block_copy(self->_lock_concurrentWriteThroughHandler);
   lock_cache = [(MCMContainerClassCache *)self lock_cache];
@@ -1362,64 +1179,50 @@ uint64_t __68__MCMContainerClassCache__checkExistanceOfCacheEntry_libraryRepair_
   os_unfair_lock_unlock(&self->_cacheLock);
   if (v3)
   {
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __43__MCMContainerClassCache_forceWriteThrough__block_invoke;
-    v7[3] = &unk_1E86AFEA8;
-    v8 = v3;
-    [v5 enumerateKeysAndObjectsWithOptions:1 usingBlock:v7];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __43__MCMContainerClassCache_forceWriteThrough__block_invoke;
+    v6[3] = &unk_1E86AFEA8;
+    v7 = v3;
+    [v5 enumerateKeysAndObjectsWithOptions:1 usingBlock:v6];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __43__MCMContainerClassCache_forceWriteThrough__block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
   v1 = *(*(a1 + 32) + 16);
-  v2 = *MEMORY[0x1E69E9840];
 
   return v1();
 }
 
 - (void)resyncRequired
 {
-  v4 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_resyncRequiredLock);
   self->_lock_resyncRequired = 1;
-  v3 = *MEMORY[0x1E69E9840];
 
   os_unfair_lock_unlock(&self->_resyncRequiredLock);
 }
 
 - (void)asyncStartSynchronization
 {
-  v4[5] = *MEMORY[0x1E69E9840];
+  v3[5] = *MEMORY[0x1E69E9840];
   fsScanQueue = self->_fsScanQueue;
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = __51__MCMContainerClassCache_asyncStartSynchronization__block_invoke;
-  v4[3] = &unk_1E86B0E08;
-  v4[4] = self;
-  dispatch_async(fsScanQueue, v4);
-  v3 = *MEMORY[0x1E69E9840];
+  v3[0] = MEMORY[0x1E69E9820];
+  v3[1] = 3221225472;
+  v3[2] = __51__MCMContainerClassCache_asyncStartSynchronization__block_invoke;
+  v3[3] = &unk_1E86B0E08;
+  v3[4] = self;
+  dispatch_async(fsScanQueue, v3);
 }
 
-uint64_t __51__MCMContainerClassCache_asyncStartSynchronization__block_invoke(uint64_t a1)
+void *__51__MCMContainerClassCache_asyncStartSynchronization__block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) _queue_consumeResyncRequired];
   if (result)
   {
     v3 = *(a1 + 32);
-    v4 = *MEMORY[0x1E69E9840];
 
     return [v3 _queue_syncWithDisk];
-  }
-
-  else
-  {
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   return result;
@@ -1427,34 +1230,34 @@ uint64_t __51__MCMContainerClassCache_asyncStartSynchronization__block_invoke(ui
 
 - (BOOL)enumerateCacheEntriesWithEnumerator:(id)enumerator
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   enumeratorCopy = enumerator;
   os_unfair_lock_lock(&self->_cacheLock);
   lock_cache = [(MCMContainerClassCache *)self lock_cache];
   v6 = [lock_cache copy];
 
   os_unfair_lock_unlock(&self->_cacheLock);
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v16 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v15 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v18;
+    v11 = *v17;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = [v7 objectForKeyedSubscript:*(*(&v17 + 1) + 8 * i)];
+        v13 = [v7 objectForKeyedSubscript:*(*(&v16 + 1) + 8 * i)];
         if (([v13 corrupt] & 1) == 0 && (objc_msgSend(v13, "ignore") & 1) == 0)
         {
           if ((enumeratorCopy[2](enumeratorCopy, v13) & 1) == 0)
@@ -1467,7 +1270,7 @@ uint64_t __51__MCMContainerClassCache_asyncStartSynchronization__block_invoke(ui
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v16 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v15 count:16];
       if (v9)
       {
         continue;
@@ -1483,21 +1286,38 @@ LABEL_14:
     v10 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v10 & 1;
+}
+
+- (id)setCacheEntry:(id)entry forIdentifier:(id)identifier writeThrough:(BOOL)through
+{
+  throughCopy = through;
+  entryCopy = entry;
+  identifierCopy = identifier;
+  if (entryCopy)
+  {
+    [entryCopy setXattrs];
+  }
+
+  containerPath = [entryCopy containerPath];
+  v11 = [(MCMContainerClassCache *)self _setEntry:entryCopy forIdentifier:identifierCopy containerPath:containerPath writeThrough:throughCopy replace:1];
+
+  [(MCMContainerClassCache *)self notify];
+  container_notify_increment_generation();
+  [v11 setGeneration:{-[MCMContainerClassCache generation](self, "generation")}];
+
+  return v11;
 }
 
 - (id)setCacheEntry:(id)entry forIdentifier:(id)identifier
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = *MEMORY[0x1E69E9840];
 
   return [(MCMContainerClassCache *)self setCacheEntry:entry forIdentifier:identifier writeThrough:1];
 }
 
 - (id)cacheEntryForIdentifier:(id)identifier
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   [(MCMContainerClassCache *)self waitForSynchronizationToComplete];
   os_unfair_lock_lock(&self->_cacheLock);
@@ -1515,27 +1335,25 @@ LABEL_14:
   v7 = container_log_handle_for_category();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v10 = 138412546;
-    v11 = identifierCopy;
-    v12 = 2112;
-    v13 = v6;
-    _os_log_debug_impl(&dword_1DF2C3000, v7, OS_LOG_TYPE_DEBUG, "Retrieving cache entry; identifier = %@, cache entry = %@", &v10, 0x16u);
+    v9 = 138412546;
+    v10 = identifierCopy;
+    v11 = 2112;
+    v12 = v6;
+    _os_log_debug_impl(&dword_1DF2C3000, v7, OS_LOG_TYPE_DEBUG, "Retrieving cache entry; identifier = %@, cache entry = %@", &v9, 0x16u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (MCMContainerClassCache)initWithContainerClassPath:(id)path cacheEntryClass:(Class)class targetQueue:(id)queue userIdentityCache:(id)cache
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   queueCopy = queue;
   cacheCopy = cache;
-  v34.receiver = self;
-  v34.super_class = MCMContainerClassCache;
-  v14 = [(MCMContainerClassCache *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = MCMContainerClassCache;
+  v14 = [(MCMContainerClassCache *)&v33 init];
   v15 = v14;
   if (!v14)
   {
@@ -1601,14 +1419,13 @@ LABEL_12:
   {
     containerClass = v15->_containerClass;
     *buf = 134217984;
-    v36 = containerClass;
+    v35 = containerClass;
     _os_log_fault_impl(&dword_1DF2C3000, v27, OS_LOG_TYPE_FAULT, "Attempting to build cache for class not supported by this daemon: %llu", buf, 0xCu);
   }
 
   v28 = 0;
 LABEL_13:
 
-  v31 = *MEMORY[0x1E69E9840];
   return v28;
 }
 

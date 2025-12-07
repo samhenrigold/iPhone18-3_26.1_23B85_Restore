@@ -637,7 +637,7 @@ LABEL_15:
             v25 = *(*(&v55 + 1) + 8 * i);
             [v25 startTime];
             v27 = v26;
-            [v25 duration];
+            objc_msgSend_duration(v25);
             if (v28 > 0.0)
             {
               v29 = v28;
@@ -1151,7 +1151,7 @@ LABEL_15:
     transitLine3 = [(GEOComposedRouteStep *)v19 transitLine];
     obj = [UIColor _mapkit_colorForTransitLine:transitLine3];
 
-    duration = [(GEOComposedRouteStep *)v19 duration];
+    v28 = objc_msgSend_duration(v19);
     v29 = [[NSMutableArray alloc] initWithObjects:{v19, 0}];
     v30 = 0;
     if (!v126)
@@ -1160,7 +1160,7 @@ LABEL_15:
     }
 
     v131 = v29;
-    v18 = duration + v18;
+    v18 = v28 + v18;
     getNextStep = [(GEOComposedRouteStep *)self->_currentStep getNextStep];
     if (!getNextStep)
     {
@@ -1242,7 +1242,7 @@ LABEL_52:
 LABEL_41:
       v48 = v33;
 
-      duration2 = [v48 duration];
+      v49 = objc_msgSend_duration(v48);
       v19 = v48;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
@@ -1278,7 +1278,7 @@ LABEL_49:
       }
 
 LABEL_51:
-      v18 = duration2 + v18;
+      v18 = v49 + v18;
       [(TransitDirectionsStepsListDataProvider *)self _incrementStep];
       getNextStep2 = [(GEOComposedRouteStep *)self->_currentStep getNextStep];
 

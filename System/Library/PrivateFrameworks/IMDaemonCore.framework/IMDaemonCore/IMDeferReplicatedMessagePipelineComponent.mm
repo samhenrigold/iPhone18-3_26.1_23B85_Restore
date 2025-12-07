@@ -49,15 +49,15 @@ LABEL_7:
 
 - (id)_runIndividuallyWithInput:(id)input
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "<IMDeferReplicatedMessagePipelineComponent> Started processing", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "<IMDeferReplicatedMessagePipelineComponent> Started processing", &v14, 2u);
     }
   }
 
@@ -69,9 +69,9 @@ LABEL_7:
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         gUID = [inputCopy GUID];
-        v15 = 138412290;
-        v16 = gUID;
-        _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "<IMDeferReplicatedMessagePipelineComponent> Deferring message %@", &v15, 0xCu);
+        v14 = 138412290;
+        v15 = gUID;
+        _os_log_impl(&dword_22B4CC000, v6, OS_LOG_TYPE_INFO, "<IMDeferReplicatedMessagePipelineComponent> Deferring message %@", &v14, 0xCu);
       }
     }
 
@@ -93,14 +93,12 @@ LABEL_7:
     v10 = [objc_alloc(MEMORY[0x277D18E08]) initWithValue:inputCopy];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (BOOL)_shouldDeferDeliveryWithInput:(id)input
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   replicationSourceServiceName = [inputCopy replicationSourceServiceName];
   v6 = [replicationSourceServiceName length];
@@ -113,9 +111,9 @@ LABEL_7:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         gUID = [inputCopy GUID];
-        v25 = 138412290;
-        v26 = gUID;
-        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "<IMDeferReplicatedMessagePipelineComponent> Allowing instant delivery of %@, message is not replicated.", &v25, 0xCu);
+        v24 = 138412290;
+        v25 = gUID;
+        _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "<IMDeferReplicatedMessagePipelineComponent> Allowing instant delivery of %@, message is not replicated.", &v24, 0xCu);
       }
 
       goto LABEL_22;
@@ -137,9 +135,9 @@ LABEL_7:
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
           gUID2 = [inputCopy GUID];
-          v25 = 138412290;
-          v26 = gUID2;
-          _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "<IMDeferReplicatedMessagePipelineComponent> Allowing instant delivery of %@, default set", &v25, 0xCu);
+          v24 = 138412290;
+          v25 = gUID2;
+          _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "<IMDeferReplicatedMessagePipelineComponent> Allowing instant delivery of %@, default set", &v24, 0xCu);
         }
 
 LABEL_22:
@@ -165,9 +163,9 @@ LABEL_22:
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
           gUID3 = [inputCopy GUID];
-          v25 = 138412290;
-          v26 = gUID3;
-          _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "<IMDeferReplicatedMessagePipelineComponent> Allowing instant delivery of %@, skipDeferral is set", &v25, 0xCu);
+          v24 = 138412290;
+          v25 = gUID3;
+          _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "<IMDeferReplicatedMessagePipelineComponent> Allowing instant delivery of %@, skipDeferral is set", &v24, 0xCu);
         }
 
         goto LABEL_22;
@@ -176,12 +174,12 @@ LABEL_22:
       goto LABEL_23;
     }
 
-    v17 = +[IMDMessageStore sharedInstance];
+    v16 = +[IMDMessageStore sharedInstance];
     gUID4 = [inputCopy GUID];
-    v19 = [v17 messageWithGUID:gUID4];
+    v18 = [v16 messageWithGUID:gUID4];
 
-    v14 = v19 == 0;
-    if (!v19)
+    v14 = v18 == 0;
+    if (!v18)
     {
 LABEL_34:
 
@@ -191,30 +189,30 @@ LABEL_34:
     replicationSourceServiceName2 = [inputCopy replicationSourceServiceName];
     if ([replicationSourceServiceName2 isEqualToString:*MEMORY[0x277D1A610]])
     {
-      service = [v19 service];
-      v22 = [service isEqualToString:*MEMORY[0x277D1A608]];
+      service = [v18 service];
+      v21 = [service isEqualToString:*MEMORY[0x277D1A608]];
 
-      if (!v22)
+      if (!v21)
       {
         goto LABEL_30;
       }
 
-      replicationSourceServiceName2 = [v19 service];
+      replicationSourceServiceName2 = [v18 service];
       [inputCopy setReplicationSourceServiceName:replicationSourceServiceName2];
     }
 
 LABEL_30:
     if (IMOSLoggingEnabled())
     {
-      v23 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      v22 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
         gUID5 = [inputCopy GUID];
-        v25 = 138412546;
-        v26 = gUID5;
-        v27 = 2112;
-        v28 = v19;
-        _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "<IMDeferReplicatedMessagePipelineComponent> Allowing instant delivery of %@, found existing item %@", &v25, 0x16u);
+        v24 = 138412546;
+        v25 = gUID5;
+        v26 = 2112;
+        v27 = v18;
+        _os_log_impl(&dword_22B4CC000, v22, OS_LOG_TYPE_INFO, "<IMDeferReplicatedMessagePipelineComponent> Allowing instant delivery of %@, found existing item %@", &v24, 0x16u);
       }
     }
 
@@ -227,9 +225,9 @@ LABEL_30:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       gUID6 = [inputCopy GUID];
-      v25 = 138412290;
-      v26 = gUID6;
-      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "<IMDeferReplicatedMessagePipelineComponent> Allowing instant delivery of %@, message is SOS", &v25, 0xCu);
+      v24 = 138412290;
+      v25 = gUID6;
+      _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "<IMDeferReplicatedMessagePipelineComponent> Allowing instant delivery of %@, message is SOS", &v24, 0xCu);
     }
 
     goto LABEL_22;
@@ -239,7 +237,6 @@ LABEL_23:
   v14 = 0;
 LABEL_24:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

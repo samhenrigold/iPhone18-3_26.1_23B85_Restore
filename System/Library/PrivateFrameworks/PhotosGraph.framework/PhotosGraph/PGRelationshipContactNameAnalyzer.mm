@@ -7,24 +7,24 @@
 
 - (void)runAnalysisWithProgressBlock:(id)block
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v5 = _Block_copy(blockCopy);
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
-  v42 = 0;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x2020000000;
   v38 = 0;
-  if (v5 && (v6 = CFAbsoluteTimeGetCurrent(), v6 - v36[3] >= 0.01) && (v36[3] = v6, LOBYTE(v43[0]) = 0, (*(v5 + 2))(v5, v43, 0.0), v7 = *(v40 + 24) | LOBYTE(v43[0]), *(v40 + 24) = v7, (v7 & 1) != 0))
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
+  v37 = 0;
+  if (v5 && (v6 = CFAbsoluteTimeGetCurrent(), v6 - v35[3] >= 0.01) && (v35[3] = v6, LOBYTE(v42[0]) = 0, (*(v5 + 2))(v5, v42, 0.0), v7 = *(v39 + 24) | LOBYTE(v42[0]), *(v39 + 24) = v7, (v7 & 1) != 0))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       buf = 0x2604000202;
-      LOWORD(v47) = 2080;
-      *(&v47 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/People Inferences/Relationship/Relationship Analyzers/PGRelationshipContactNameAnalyzer.m";
+      LOWORD(v46) = 2080;
+      *(&v46 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/People Inferences/Relationship/Relationship Analyzers/PGRelationshipContactNameAnalyzer.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", &buf, 0x12u);
     }
   }
@@ -39,46 +39,46 @@
     personNodes = [WeakRetained personNodes];
     v14 = [personNodes count];
     buf = 0;
-    *&v47 = &buf;
-    *(&v47 + 1) = 0x2020000000;
-    v48 = 0;
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __66__PGRelationshipContactNameAnalyzer_runAnalysisWithProgressBlock___block_invoke;
-    v24[3] = &unk_278889A50;
+    *&v46 = &buf;
+    *(&v46 + 1) = 0x2020000000;
+    v47 = 0;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __66__PGRelationshipContactNameAnalyzer_runAnalysisWithProgressBlock___block_invoke;
+    v23[3] = &unk_278889A50;
     p_buf = &buf;
-    v33 = 1.0 / v14;
+    v32 = 1.0 / v14;
     v15 = v5;
-    v29 = v15;
-    v31 = &v35;
-    v34 = 0x3F847AE147AE147BLL;
-    v32 = &v39;
+    v28 = v15;
+    v30 = &v34;
+    v33 = 0x3F847AE147AE147BLL;
+    v31 = &v38;
     v16 = serviceManager;
-    v25 = v16;
+    v24 = v16;
     v17 = inferredUserLocales;
-    v26 = v17;
+    v25 = v17;
     v18 = WeakRetained;
-    v27 = v18;
+    v26 = v18;
     v19 = mePerson;
-    v28 = v19;
-    [personNodes enumerateNodesUsingBlock:v24];
+    v27 = v19;
+    [personNodes enumerateNodesUsingBlock:v23];
     if (v5)
     {
       Current = CFAbsoluteTimeGetCurrent();
-      if (Current - v36[3] >= 0.01)
+      if (Current - v35[3] >= 0.01)
       {
-        v36[3] = Current;
-        v23 = 0;
-        (*(v15 + 2))(v15, &v23, 1.0);
-        v21 = *(v40 + 24) | v23;
-        *(v40 + 24) = v21;
+        v35[3] = Current;
+        v22 = 0;
+        (*(v15 + 2))(v15, &v22, 1.0);
+        v21 = *(v39 + 24) | v22;
+        *(v39 + 24) = v21;
         if ((v21 & 1) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
-          v43[0] = 67109378;
-          v43[1] = 105;
-          v44 = 2080;
-          v45 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/People Inferences/Relationship/Relationship Analyzers/PGRelationshipContactNameAnalyzer.m";
-          _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v43, 0x12u);
+          v42[0] = 67109378;
+          v42[1] = 105;
+          v43 = 2080;
+          v44 = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/People Inferences/Relationship/Relationship Analyzers/PGRelationshipContactNameAnalyzer.m";
+          _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v42, 0x12u);
         }
       }
     }
@@ -86,10 +86,8 @@
     _Block_object_dispose(&buf, 8);
   }
 
-  _Block_object_dispose(&v35, 8);
-  _Block_object_dispose(&v39, 8);
-
-  v22 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v38, 8);
 }
 
 void __66__PGRelationshipContactNameAnalyzer_runAnalysisWithProgressBlock___block_invoke(uint64_t a1, void *a2, _BYTE *a3)

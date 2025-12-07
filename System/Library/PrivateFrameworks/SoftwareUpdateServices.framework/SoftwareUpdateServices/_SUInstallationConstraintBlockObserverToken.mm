@@ -9,15 +9,15 @@
 - (_SUInstallationConstraintBlockObserverToken)initWithObserver:(id)observer
 {
   observerCopy = observer;
-  v15.receiver = self;
-  v15.super_class = _SUInstallationConstraintBlockObserverToken;
-  v5 = [(_SUInstallationConstraintBlockObserverToken *)&v15 init];
+  v16.receiver = self;
+  v16.super_class = _SUInstallationConstraintBlockObserverToken;
+  v5 = [(_SUInstallationConstraintBlockObserverToken *)&v16 init];
   v6 = v5;
   if (v5)
   {
-    objc_storeWeak(&v5->_observer, observerCopy);
-    v7 = SULogInstallConstraints();
-    SULogDebugForSubsystem(v7, @"[Token] Create: %@", v8, v9, v10, v11, v12, v13, v6);
+    v7 = objc_storeWeak(&v5->_observer, observerCopy);
+    v8 = SULogInstallConstraints(v7);
+    SULogDebugForSubsystem(v8, @"[Token] Create: %@", v9, v10, v11, v12, v13, v14, v6);
   }
 
   return v6;
@@ -25,7 +25,7 @@
 
 - (void)dealloc
 {
-  v3 = SULogInstallConstraints();
+  v3 = SULogInstallConstraints(self);
   SULogDebugForSubsystem(v3, @"[Token] Dealloc: %@", v4, v5, v6, v7, v8, v9, self);
 
   [(_SUInstallationConstraintBlockObserverToken *)self invalidate];
@@ -38,7 +38,7 @@
 {
   if (!self->_invalidated)
   {
-    v4 = SULogInstallConstraints();
+    v4 = SULogInstallConstraints(self);
     SULogDebugForSubsystem(v4, @"[Token] Invalidate: %@", v5, v6, v7, v8, v9, v10, self);
 
     self->_invalidated = 1;

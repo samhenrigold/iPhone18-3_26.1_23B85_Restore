@@ -1053,25 +1053,25 @@ void __73__PXSurveyQuestionGadget__updateSurveyQuestionStateFromAnswer_andReason
   px_dispatch_on_main_queue();
 }
 
-uint64_t __73__PXSurveyQuestionGadget__updateSurveyQuestionStateFromAnswer_andReason___block_invoke_4(uint64_t a1)
+uint64_t __73__PXSurveyQuestionGadget__updateSurveyQuestionStateFromAnswer_andReason___block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (*(a1 + 64) == 1)
   {
-    v2 = *(a1 + 56);
+    v3 = *(a1 + 56);
     WeakRetained = objc_loadWeakRetained((a1 + 48));
-    [WeakRetained setAnswer:v2];
+    [WeakRetained setAnswer:v3];
   }
 
   else
   {
-    v4 = PLUIGetLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = PLUIGetLog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v5 = *(a1 + 32);
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_1A3C1C000, v4, OS_LOG_TYPE_ERROR, "Error updating survey question state from answer (error: %@)", &v7, 0xCu);
+      v6 = *(a1 + 32);
+      v8 = 138412290;
+      v9 = v6;
+      _os_log_impl(&dword_1A3C1C000, v5, OS_LOG_TYPE_ERROR, "Error updating survey question state from answer (error: %@)", &v8, 0xCu);
     }
   }
 

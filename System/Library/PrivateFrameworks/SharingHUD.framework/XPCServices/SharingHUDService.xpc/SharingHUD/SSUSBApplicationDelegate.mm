@@ -19,6 +19,7 @@
 - (void)showPairingStarted;
 - (void)showSubsequentPairSuccess;
 - (void)showUnlockPrompt;
+- (void)updateDeviceInfoWithDeviceType:(unint64_t)type batteryLevel:(double)level batteryLevelKnown:(BOOL)known edge:(unint64_t)edge orientation:(unint64_t)orientation isCharging:(BOOL)charging identifier:(id)identifier;
 - (void)updatePairedUnlockBannerToUnlocked;
 - (void)viewControllerDidDismiss:(id)dismiss;
 @end
@@ -348,6 +349,59 @@
   {
     self->_pendingOperation = 0;
   }
+}
+
+- (void)updateDeviceInfoWithDeviceType:(unint64_t)type batteryLevel:(double)level batteryLevelKnown:(BOOL)known edge:(unint64_t)edge orientation:(unint64_t)orientation isCharging:(BOOL)charging identifier:(id)identifier
+{
+  chargingCopy = charging;
+  knownCopy = known;
+  identifierCopy = identifier;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2050000000;
+  v17 = qword_10001C298;
+  v29 = qword_10001C298;
+  if (!qword_10001C298)
+  {
+    *buf = _NSConcreteStackBlock;
+    v31 = 3221225472;
+    v32 = sub_100005E9C;
+    v33 = &unk_1000145E8;
+    v34 = &v26;
+    sub_100005E9C(buf);
+    v17 = v27[3];
+  }
+
+  v18 = v17;
+  _Block_object_dispose(&v26, 8);
+  v19 = objc_alloc_init(v17);
+  if (objc_opt_respondsToSelector())
+  {
+    [v19 setDeviceType:{-[SSUSBApplicationDelegate pnpDeviceTypeForType:](self, "pnpDeviceTypeForType:", type, v26)}];
+  }
+
+  [v19 setEdge:{edge, v26}];
+  [v19 setOrientation:orientation];
+  [v19 setIdentifier:identifierCopy];
+  [v19 setBatteryLevelUnknown:!knownCopy];
+  [v19 setBatteryLevel:level];
+  [v19 setIsCharging:chargingCopy];
+  v20 = b332_log();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  {
+    batteryLevelUnknown = [v19 batteryLevelUnknown];
+    *buf = 67109120;
+    *&buf[4] = batteryLevelUnknown;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "updateDeviceInfoWithName. batteryLevelUnknown: %i", buf, 8u);
+  }
+
+  deviceState = self->_deviceState;
+  self->_deviceState = v19;
+  v23 = v19;
+
+  v24 = self->_deviceState;
+  WeakRetained = objc_loadWeakRetained(&self->_displayViewController);
+  [WeakRetained setDeviceState:v24];
 }
 
 - (int64_t)pnpDeviceTypeForType:(unint64_t)type

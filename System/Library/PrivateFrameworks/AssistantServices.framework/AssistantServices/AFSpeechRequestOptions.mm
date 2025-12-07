@@ -190,9 +190,9 @@ LABEL_12:
 - (AFSpeechRequestOptions)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v85.receiver = self;
-  v85.super_class = AFSpeechRequestOptions;
-  v5 = [(AFSpeechRequestOptions *)&v85 init];
+  v79.receiver = self;
+  v79.super_class = AFSpeechRequestOptions;
+  v5 = [(AFSpeechRequestOptions *)&v79 init];
   if (v5)
   {
     v5->_activationEvent = [coderCopy decodeIntegerForKey:@"_activationEvent"];
@@ -247,169 +247,163 @@ LABEL_12:
     voiceTriggerEventInfo = v5->_voiceTriggerEventInfo;
     v5->_voiceTriggerEventInfo = v22;
 
-    v24 = v5->_voiceTriggerEventInfo;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v25 = v5->_voiceTriggerEventInfo;
+      v24 = v5->_voiceTriggerEventInfo;
       v5->_voiceTriggerEventInfo = 0;
     }
 
-    v26 = [coderCopy decodePropertyListForKey:@"_raiseToSpeakEventInfo"];
+    v25 = [coderCopy decodePropertyListForKey:@"_raiseToSpeakEventInfo"];
     raiseToSpeakEventInfo = v5->_raiseToSpeakEventInfo;
-    v5->_raiseToSpeakEventInfo = v26;
+    v5->_raiseToSpeakEventInfo = v25;
 
-    v28 = v5->_raiseToSpeakEventInfo;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v29 = v5->_raiseToSpeakEventInfo;
+      v27 = v5->_raiseToSpeakEventInfo;
       v5->_raiseToSpeakEventInfo = 0;
     }
 
-    v30 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_myriadContext"];
+    v28 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_myriadContext"];
     myriadContext = v5->_myriadContext;
-    v5->_myriadContext = v30;
+    v5->_myriadContext = v28;
 
-    v32 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_scdaContext"];
+    v30 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_scdaContext"];
     scdaContext = v5->_scdaContext;
-    v5->_scdaContext = v32;
+    v5->_scdaContext = v30;
 
     v5->_releaseAudioSessionOnRecordingCompletion = [coderCopy decodeBoolForKey:@"_releaseAudioSessionOnRecordingCompletion"];
-    v34 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_recordDeviceIdentifier"];
+    v32 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_recordDeviceIdentifier"];
     recordDeviceIdentifier = v5->_recordDeviceIdentifier;
-    v5->_recordDeviceIdentifier = v34;
+    v5->_recordDeviceIdentifier = v32;
 
-    v36 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_speechRecordingEventListeningEndpoint"];
+    v34 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_speechRecordingEventListeningEndpoint"];
     speechRecordingEventListeningEndpoint = v5->_speechRecordingEventListeningEndpoint;
-    v5->_speechRecordingEventListeningEndpoint = v36;
+    v5->_speechRecordingEventListeningEndpoint = v34;
 
     v5->_usePrelisteningMode = [coderCopy decodeBoolForKey:@"_usePrelisteningMode"];
     v5->_pendCallbacksUntilAfterContinuation = [coderCopy decodeBoolForKey:@"_pendCallbacksUntilAfterContinuation"];
     v5->_useBorealisBuffer = [coderCopy decodeBoolForKey:@"_useBorealisBuffer"];
-    v38 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_notifyState"];
+    v36 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_notifyState"];
     notifyState = v5->_notifyState;
-    v5->_notifyState = v38;
+    v5->_notifyState = v36;
 
-    v40 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_audioFileURL"];
+    v38 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_audioFileURL"];
     audioFileURL = v5->_audioFileURL;
-    v5->_audioFileURL = v40;
+    v5->_audioFileURL = v38;
 
     v5->_suppressStartAlert = [coderCopy decodeBoolForKey:@"_suppressStartAlert"];
     v5->_suppressStopAlert = [coderCopy decodeBoolForKey:@"_suppressStopAlert"];
     v5->_hasPlayedStartAlert = [coderCopy decodeBoolForKey:@"_hasPlayedStartAlert"];
-    v42 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_bargeInOptions"];
-    v5->_bargeInOptions = [v42 unsignedIntegerValue];
+    v40 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_bargeInOptions"];
+    v5->_bargeInOptions = [v40 unsignedIntegerValue];
 
-    v43 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_speechSynthesisRecord"];
+    v41 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_speechSynthesisRecord"];
     speechSynthesisRecord = v5->_speechSynthesisRecord;
-    v5->_speechSynthesisRecord = v43;
+    v5->_speechSynthesisRecord = v41;
 
     v5->_reloadSmartSiriVolume = [coderCopy decodeBoolForKey:@"_reloadSmartSiriVolume"];
     v5->_skipPersonalizedASR = [coderCopy decodeBoolForKey:@"_skipPersonalizedASR"];
     v5->_disableASR = [coderCopy decodeBoolForKey:@"_disableASR"];
-    v45 = [coderCopy decodePropertyListForKey:@"_clientAnalyticsContext"];
+    v43 = [coderCopy decodePropertyListForKey:@"_clientAnalyticsContext"];
     clientAnalyticsContext = v5->_clientAnalyticsContext;
-    v5->_clientAnalyticsContext = v45;
+    v5->_clientAnalyticsContext = v43;
 
-    v47 = v5->_clientAnalyticsContext;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v48 = v5->_clientAnalyticsContext;
+      v45 = v5->_clientAnalyticsContext;
       v5->_clientAnalyticsContext = 0;
     }
 
-    v49 = [coderCopy decodePropertyListForKey:@"_startContext"];
+    v46 = [coderCopy decodePropertyListForKey:@"_startContext"];
     startContext = v5->_startContext;
-    v5->_startContext = v49;
+    v5->_startContext = v46;
 
-    v51 = v5->_startContext;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v52 = v5->_startContext;
+      v48 = v5->_startContext;
       v5->_startContext = 0;
     }
 
-    v53 = [coderCopy decodePropertyListForKey:@"_stopContext"];
+    v49 = [coderCopy decodePropertyListForKey:@"_stopContext"];
     stopContext = v5->_stopContext;
-    v5->_stopContext = v53;
+    v5->_stopContext = v49;
 
-    v55 = v5->_stopContext;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v56 = v5->_stopContext;
+      v51 = v5->_stopContext;
       v5->_stopContext = 0;
     }
 
     v5->_isOnPhoneCall = [coderCopy decodeBoolForKey:@"_isOnPhoneCall"];
     v5->_isMediaPlaying = [coderCopy decodeBoolForKey:@"_isMediaPlaying"];
     [coderCopy decodeFloatForKey:@"_mediaPlaybackVolume"];
-    v5->_mediaPlaybackVolume = v57;
-    v58 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_turnIdentifier"];
+    v5->_mediaPlaybackVolume = v52;
+    v53 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_turnIdentifier"];
     turnIdentifier = v5->_turnIdentifier;
-    v5->_turnIdentifier = v58;
+    v5->_turnIdentifier = v53;
 
-    v60 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_languageDetectionUserContext"];
+    v55 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_languageDetectionUserContext"];
     languageDetectionUserContext = v5->_languageDetectionUserContext;
-    v5->_languageDetectionUserContext = v60;
+    v5->_languageDetectionUserContext = v55;
 
     v5->_dictationInputOrigin = [coderCopy decodeIntegerForKey:@"_dictationInputOrigin"];
-    v62 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_applicationDisplayName"];
+    v57 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_applicationDisplayName"];
     applicationDisplayName = v5->_applicationDisplayName;
-    v5->_applicationDisplayName = v62;
+    v5->_applicationDisplayName = v57;
 
-    v64 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_applicationBundleIdentifier"];
+    v59 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_applicationBundleIdentifier"];
     applicationBundleIdentifier = v5->_applicationBundleIdentifier;
-    v5->_applicationBundleIdentifier = v64;
+    v5->_applicationBundleIdentifier = v59;
 
     v5->_presentationMode = [coderCopy decodeIntegerForKey:@"_presentationMode"];
-    v66 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_preheatLanguage"];
+    v61 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_preheatLanguage"];
     preheatLanguage = v5->_preheatLanguage;
-    v5->_preheatLanguage = v66;
+    v5->_preheatLanguage = v61;
 
-    v68 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_preheatTestModelPath"];
+    v63 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_preheatTestModelPath"];
     preheatTestModelPath = v5->_preheatTestModelPath;
-    v5->_preheatTestModelPath = v68;
+    v5->_preheatTestModelPath = v63;
 
-    v70 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_dictationVoiceTriggerAbsStartSampleId"];
-    v5->_dictationVoiceTriggerAbsStartSampleId = [v70 unsignedLongLongValue];
+    v65 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_dictationVoiceTriggerAbsStartSampleId"];
+    v5->_dictationVoiceTriggerAbsStartSampleId = [v65 unsignedLongLongValue];
 
-    v71 = [coderCopy decodePropertyListForKey:@"_continuousConversationInfo"];
+    v66 = [coderCopy decodePropertyListForKey:@"_continuousConversationInfo"];
     continuousConversationInfo = v5->_continuousConversationInfo;
-    v5->_continuousConversationInfo = v71;
+    v5->_continuousConversationInfo = v66;
 
-    v73 = v5->_continuousConversationInfo;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v74 = v5->_continuousConversationInfo;
+      v68 = v5->_continuousConversationInfo;
       v5->_continuousConversationInfo = 0;
     }
 
-    v75 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_intuitiveConversationRequestId"];
+    v69 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_intuitiveConversationRequestId"];
     intuitiveConversationRequestId = v5->_intuitiveConversationRequestId;
-    v5->_intuitiveConversationRequestId = v75;
+    v5->_intuitiveConversationRequestId = v69;
 
     v5->_announcementPlatform = [coderCopy decodeIntegerForKey:@"_announcementPlatform"];
-    v77 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_smartSiriVolumeTTSType"];
-    v5->_smartSiriVolumeTTSType = [v77 unsignedIntegerValue];
+    v71 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_smartSiriVolumeTTSType"];
+    v5->_smartSiriVolumeTTSType = [v71 unsignedIntegerValue];
 
     v5->_isTest = [coderCopy decodeBoolForKey:@"_isTest"];
-    v78 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_testRequestOptions"];
+    v72 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_testRequestOptions"];
     testRequestOptions = v5->_testRequestOptions;
-    v5->_testRequestOptions = v78;
+    v5->_testRequestOptions = v72;
 
     v5->_isHeadphonesAuthenticated = [coderCopy decodeBoolForKey:@"_isHeadphonesAuthenticated"];
-    v80 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_speechPackageOverride"];
+    v74 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_speechPackageOverride"];
     speechPackageOverride = v5->_speechPackageOverride;
-    v5->_speechPackageOverride = v80;
+    v5->_speechPackageOverride = v74;
 
-    v82 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_userProfilePersonaId"];
+    v76 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"_userProfilePersonaId"];
     userProfilePersonaId = v5->_userProfilePersonaId;
-    v5->_userProfilePersonaId = v82;
+    v5->_userProfilePersonaId = v76;
 
     v5->_userProfileConfidence = [coderCopy decodeIntegerForKey:@"_userProfileConfidence"];
     v5->_userProfileHeadphoneConnected = [coderCopy decodeBoolForKey:@"_userProfileHeadphoneConnected"];

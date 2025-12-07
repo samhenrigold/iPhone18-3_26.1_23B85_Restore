@@ -3,7 +3,7 @@
 
 @implementation AXSPointerEffectScalingEnabled
 
-uint64_t ___AXSPointerEffectScalingEnabled_block_invoke()
+void *___AXSPointerEffectScalingEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

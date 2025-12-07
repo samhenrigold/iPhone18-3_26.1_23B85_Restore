@@ -50,10 +50,11 @@
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
 
-    AVCaptureInitializeShutterSoundSuppressedByAirpodStemClickStorageOnce();
+    AVCaptureInitializeShutterSoundSuppressedByAirpodStemClickStorageOnce(v3, v4);
   }
 }
 
@@ -184,9 +185,9 @@ LABEL_7:
 - (void)setOutputSettings:(NSDictionary *)outputSettings
 {
   self->_internal->outputSettings = [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:outputSettings];
-  v5 = [(NSDictionary *)outputSettings objectForKeyedSubscript:*MEMORY[0x1E6966130]];
-  v6 = [(NSDictionary *)outputSettings objectForKeyedSubscript:*MEMORY[0x1E6987CB0]];
-  v7 = [(NSDictionary *)outputSettings objectForKeyedSubscript:*MEMORY[0x1E6987DC0]];
+  v5 = objc_msgSend_objectForKeyedSubscript_(outputSettings);
+  v6 = objc_msgSend_objectForKeyedSubscript_(outputSettings);
+  v7 = objc_msgSend_objectForKeyedSubscript_(outputSettings);
   if (!v5)
   {
     if (!v6)
@@ -238,7 +239,7 @@ LABEL_24:
     {
       v11 = MEMORY[0x1E695DF30];
       v12 = *MEMORY[0x1E695D940];
-      v19 = v6;
+      v20 = v6;
 LABEL_21:
       v15 = AVMethodExceptionReasonWithObjectAndSelector();
       v16 = v11;
@@ -261,14 +262,14 @@ LABEL_7:
   v13 = MEMORY[0x1E695DF30];
   v14 = *MEMORY[0x1E695D940];
   [v5 intValue];
-  v19 = AVStringForOSType();
+  v20 = AVStringForOSType();
   intValue2 = [v5 intValue];
   v15 = AVMethodExceptionReasonWithObjectAndSelector();
   v16 = v13;
   v17 = v14;
 LABEL_22:
-  v18 = [v16 exceptionWithName:v17 reason:v15 userInfo:{0, v19, intValue2}];
-  if (AVCaptureShouldThrowForAPIViolations())
+  v18 = [v16 exceptionWithName:v17 reason:v15 userInfo:{0, v20, intValue2}];
+  if (AVCaptureShouldThrowForAPIViolations(v18, v19))
   {
     objc_exception_throw(v18);
   }
@@ -374,7 +375,7 @@ LABEL_5:
   else
   {
     v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v6, v7))
     {
       objc_exception_throw(v6);
     }
@@ -412,7 +413,7 @@ LABEL_5:
   else
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -427,7 +428,7 @@ LABEL_5:
   if (enabled && !internal->cameraSensorOrientationCompensationSupported)
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -694,22 +695,22 @@ LABEL_5:
       }
 
       *buf = 0;
-      v15 = buf;
-      v16 = 0x2020000000;
-      v17 = 0;
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __93__AVCaptureStillImageOutput_captureStillImageAsynchronouslyFromConnection_completionHandler___block_invoke;
-      v13[3] = &unk_1E786F770;
-      v13[4] = self;
-      v13[5] = connection;
-      v13[6] = handler;
-      v13[7] = buf;
-      [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v13];
-      if ((v15[24] & 1) == 0)
+      v16 = buf;
+      v17 = 0x2020000000;
+      v18 = 0;
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __93__AVCaptureStillImageOutput_captureStillImageAsynchronouslyFromConnection_completionHandler___block_invoke;
+      v14[3] = &unk_1E786F770;
+      v14[4] = self;
+      v14[5] = connection;
+      v14[6] = handler;
+      v14[7] = buf;
+      [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v14];
+      if ((v16[24] & 1) == 0)
       {
-        v12 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-        objc_exception_throw(v12);
+        v13 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
+        objc_exception_throw(v13);
       }
 
       _Block_object_dispose(buf, 8);
@@ -727,7 +728,7 @@ LABEL_5:
   }
 
   v11 = [v9 exceptionWithName:v10 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v11, v12))
   {
     objc_exception_throw(v11);
   }
@@ -790,22 +791,22 @@ uint64_t __93__AVCaptureStillImageOutput_captureStillImageAsynchronouslyFromConn
       }
 
       *buf = 0;
-      v15 = buf;
-      v16 = 0x2020000000;
-      v17 = 0;
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __100__AVCaptureStillImageOutput_captureStillImageSurfaceAsynchronouslyFromConnection_completionHandler___block_invoke;
-      v13[3] = &unk_1E786F770;
-      v13[4] = self;
-      v13[5] = connection;
-      v13[6] = handler;
-      v13[7] = buf;
-      [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v13];
-      if ((v15[24] & 1) == 0)
+      v16 = buf;
+      v17 = 0x2020000000;
+      v18 = 0;
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __100__AVCaptureStillImageOutput_captureStillImageSurfaceAsynchronouslyFromConnection_completionHandler___block_invoke;
+      v14[3] = &unk_1E786F770;
+      v14[4] = self;
+      v14[5] = connection;
+      v14[6] = handler;
+      v14[7] = buf;
+      [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v14];
+      if ((v16[24] & 1) == 0)
       {
-        v12 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-        objc_exception_throw(v12);
+        v13 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
+        objc_exception_throw(v13);
       }
 
       _Block_object_dispose(buf, 8);
@@ -823,7 +824,7 @@ uint64_t __93__AVCaptureStillImageOutput_captureStillImageAsynchronouslyFromConn
   }
 
   v11 = [v9 exceptionWithName:v10 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v11, v12))
   {
     objc_exception_throw(v11);
   }
@@ -887,7 +888,7 @@ uint64_t __100__AVCaptureStillImageOutput_captureStillImageSurfaceAsynchronously
   else
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }
@@ -904,7 +905,7 @@ uint64_t __100__AVCaptureStillImageOutput_captureStillImageSurfaceAsynchronously
     v13 = *MEMORY[0x1E695D940];
 LABEL_8:
     v14 = [v12 exceptionWithName:v13 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v14, v15))
     {
       objc_exception_throw(v14);
     }
@@ -923,19 +924,19 @@ LABEL_8:
   v10 = [(NSArray *)settings count];
   if (v10 > [(AVCaptureStillImageOutput *)self maxBracketedCaptureStillImageCount])
   {
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __113__AVCaptureStillImageOutput_prepareToCaptureStillImageBracketFromConnection_withSettingsArray_completionHandler___block_invoke;
-    v23[3] = &unk_1E786F798;
-    v23[4] = handler;
-    v11 = v23;
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __113__AVCaptureStillImageOutput_prepareToCaptureStillImageBracketFromConnection_withSettingsArray_completionHandler___block_invoke;
+    v24[3] = &unk_1E786F798;
+    v24[4] = handler;
+    v11 = v24;
 LABEL_5:
     [(AVCaptureOutput *)self performBlockOnSessionNotifyingThread:v11];
     return;
   }
 
-  v22 = 0;
-  if (![(AVCaptureStillImageOutput *)self _bracketedSettingsAreValid:settings fromConnection:connection exceptionReason:&v22])
+  v23 = 0;
+  if (![(AVCaptureStillImageOutput *)self _bracketedSettingsAreValid:settings fromConnection:connection exceptionReason:&v23])
   {
     v12 = MEMORY[0x1E695DF30];
     v13 = *MEMORY[0x1E695D940];
@@ -944,35 +945,35 @@ LABEL_5:
 
   internal = self->_internal;
   objc_sync_enter(internal);
-  v16 = [(AVCaptureStillImageOutput *)self _figCaptureStillImageSettingsForBracketedCaptureSettingsArray:settings fromConnection:connection];
-  v17 = [(AVCaptureStillImageOutput *)self _preparedForBracketedCaptureWithSettings:v16];
+  v17 = [(AVCaptureStillImageOutput *)self _figCaptureStillImageSettingsForBracketedCaptureSettingsArray:settings fromConnection:connection];
+  v18 = [(AVCaptureStillImageOutput *)self _preparedForBracketedCaptureWithSettings:v17];
   objc_sync_exit(internal);
-  if (v17)
+  if (v18)
   {
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __113__AVCaptureStillImageOutput_prepareToCaptureStillImageBracketFromConnection_withSettingsArray_completionHandler___block_invoke_2;
-    v21[3] = &unk_1E786F798;
-    v21[4] = handler;
-    v11 = v21;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __113__AVCaptureStillImageOutput_prepareToCaptureStillImageBracketFromConnection_withSettingsArray_completionHandler___block_invoke_2;
+    v22[3] = &unk_1E786F798;
+    v22[4] = handler;
+    v11 = v22;
     goto LABEL_5;
   }
 
-  v19[0] = 0;
-  v19[1] = v19;
-  v19[2] = 0x2020000000;
-  v20 = 0;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __113__AVCaptureStillImageOutput_prepareToCaptureStillImageBracketFromConnection_withSettingsArray_completionHandler___block_invoke_3;
-  v18[3] = &unk_1E786F7C0;
-  v18[6] = handler;
-  v18[7] = v19;
-  v18[4] = self;
-  v18[5] = v16;
-  v18[8] = a2;
-  [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v18];
-  _Block_object_dispose(v19, 8);
+  v20[0] = 0;
+  v20[1] = v20;
+  v20[2] = 0x2020000000;
+  v21 = 0;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __113__AVCaptureStillImageOutput_prepareToCaptureStillImageBracketFromConnection_withSettingsArray_completionHandler___block_invoke_3;
+  v19[3] = &unk_1E786F7C0;
+  v19[6] = handler;
+  v19[7] = v20;
+  v19[4] = self;
+  v19[5] = v17;
+  v19[8] = a2;
+  [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v19];
+  _Block_object_dispose(v20, 8);
 }
 
 uint64_t __113__AVCaptureStillImageOutput_prepareToCaptureStillImageBracketFromConnection_withSettingsArray_completionHandler___block_invoke(uint64_t a1)
@@ -1024,45 +1025,45 @@ uint64_t __113__AVCaptureStillImageOutput_prepareToCaptureStillImageBracketFromC
       v9 = [(NSArray *)settings count];
       if (v9 > [(AVCaptureStillImageOutput *)self maxBracketedCaptureStillImageCount])
       {
-        v22[0] = MEMORY[0x1E69E9820];
-        v22[1] = 3221225472;
-        v22[2] = __118__AVCaptureStillImageOutput_captureStillImageBracketAsynchronouslyFromConnection_withSettingsArray_completionHandler___block_invoke;
-        v22[3] = &unk_1E786F7E8;
-        v22[4] = settings;
-        v22[5] = handler;
-        [(AVCaptureOutput *)self performBlockOnSessionNotifyingThread:v22];
+        v23[0] = MEMORY[0x1E69E9820];
+        v23[1] = 3221225472;
+        v23[2] = __118__AVCaptureStillImageOutput_captureStillImageBracketAsynchronouslyFromConnection_withSettingsArray_completionHandler___block_invoke;
+        v23[3] = &unk_1E786F7E8;
+        v23[4] = settings;
+        v23[5] = handler;
+        [(AVCaptureOutput *)self performBlockOnSessionNotifyingThread:v23];
         return;
       }
 
-      v21 = 0;
-      if ([(AVCaptureStillImageOutput *)self _bracketedSettingsAreValid:settings fromConnection:connection exceptionReason:&v21])
+      v22 = 0;
+      if ([(AVCaptureStillImageOutput *)self _bracketedSettingsAreValid:settings fromConnection:connection exceptionReason:&v22])
       {
         internal = self->_internal;
         objc_sync_enter(internal);
-        v14 = [(AVCaptureStillImageOutput *)self _figCaptureStillImageSettingsForBracketedCaptureSettingsArray:settings fromConnection:connection];
-        [(AVCaptureStillImageOutput *)self _preparedForBracketedCaptureWithSettings:v14];
+        v15 = [(AVCaptureStillImageOutput *)self _figCaptureStillImageSettingsForBracketedCaptureSettingsArray:settings fromConnection:connection];
+        [(AVCaptureStillImageOutput *)self _preparedForBracketedCaptureWithSettings:v15];
         objc_sync_exit(internal);
-        v17 = 0;
-        v18 = &v17;
-        v19 = 0x2020000000;
-        v20 = 0;
-        v16[0] = MEMORY[0x1E69E9820];
-        v16[1] = 3221225472;
-        v16[2] = __118__AVCaptureStillImageOutput_captureStillImageBracketAsynchronouslyFromConnection_withSettingsArray_completionHandler___block_invoke_2;
-        v16[3] = &unk_1E786F810;
-        v16[7] = handler;
-        v16[8] = &v17;
-        v16[4] = self;
-        v16[5] = v14;
-        v16[6] = settings;
-        [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v16];
-        if ((v18[3] & 1) == 0)
+        v18 = 0;
+        v19 = &v18;
+        v20 = 0x2020000000;
+        v21 = 0;
+        v17[0] = MEMORY[0x1E69E9820];
+        v17[1] = 3221225472;
+        v17[2] = __118__AVCaptureStillImageOutput_captureStillImageBracketAsynchronouslyFromConnection_withSettingsArray_completionHandler___block_invoke_2;
+        v17[3] = &unk_1E786F810;
+        v17[7] = handler;
+        v17[8] = &v18;
+        v17[4] = self;
+        v17[5] = v15;
+        v17[6] = settings;
+        [(AVCaptureOutput *)self performFigCaptureSessionOperationSafelyUsingBlock:v17];
+        if ((v19[3] & 1) == 0)
         {
-          v15 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-          objc_exception_throw(v15);
+          v16 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
+          objc_exception_throw(v16);
         }
 
-        _Block_object_dispose(&v17, 8);
+        _Block_object_dispose(&v18, 8);
         return;
       }
 
@@ -1084,7 +1085,7 @@ uint64_t __113__AVCaptureStillImageOutput_prepareToCaptureStillImageBracketFromC
   }
 
   v12 = [v10 exceptionWithName:v11 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v12, v13))
   {
     objc_exception_throw(v12);
   }
@@ -1092,7 +1093,7 @@ uint64_t __113__AVCaptureStillImageOutput_prepareToCaptureStillImageBracketFromC
   NSLog(&cfstr_SuppressingExc.isa, v12);
 }
 
-uint64_t __118__AVCaptureStillImageOutput_captureStillImageBracketAsynchronouslyFromConnection_withSettingsArray_completionHandler___block_invoke(uint64_t a1)
+char *__118__AVCaptureStillImageOutput_captureStillImageBracketAsynchronouslyFromConnection_withSettingsArray_completionHandler___block_invoke(uint64_t a1)
 {
   AVLocalizedError();
   v8 = 0u;
@@ -1302,7 +1303,7 @@ LABEL_60:
 
       if (v23)
       {
-        [v23 exposureDuration];
+        objc_msgSend_exposureDuration(v23);
       }
 
       else
@@ -1342,11 +1343,11 @@ LABEL_15:
 
     if (v23)
     {
-      [v23 exposureDuration];
+      objc_msgSend_exposureDuration(v23);
       if (activeFormat)
       {
 LABEL_32:
-        [activeFormat minExposureDuration];
+        objc_msgSend_minExposureDuration(activeFormat);
         goto LABEL_35;
       }
     }
@@ -1369,11 +1370,11 @@ LABEL_35:
 
     if (v23)
     {
-      [v23 exposureDuration];
+      objc_msgSend_exposureDuration(v23);
       if (activeFormat)
       {
 LABEL_38:
-        [activeFormat maxExposureDuration];
+        objc_msgSend_maxExposureDuration(activeFormat);
         goto LABEL_41;
       }
     }
@@ -1500,7 +1501,7 @@ LABEL_62:
           exposureDurations = [v6 exposureDurations];
           if (v15)
           {
-            [v15 exposureDuration];
+            objc_msgSend_exposureDuration(v15);
           }
 
           else
@@ -1721,37 +1722,46 @@ LABEL_19:
 
 - (void)_updateCameraSensorOrientationCompensationSupportedForDevice:(id)device
 {
-  figCaptureSourceAttributes = [device figCaptureSourceAttributes];
-  v5 = [objc_msgSend(figCaptureSourceAttributes objectForKeyedSubscript:{*MEMORY[0x1E69900E8]), "intValue"}];
-  v6 = v5 != 0;
+  v4 = [objc_msgSend_objectForKeyedSubscript_(objc_msgSend(device "figCaptureSourceAttributes"))];
+  v5 = v4 != 0;
   internal = self->_internal;
   cameraSensorOrientationCompensationSupported = internal->cameraSensorOrientationCompensationSupported;
   cameraSensorOrientationCompensationEnabled = internal->cameraSensorOrientationCompensationEnabled;
   cameraSensorOrientationCompensationAutomaticallyEnabled = internal->cameraSensorOrientationCompensationAutomaticallyEnabled;
-  if (v5)
+  if (v4)
   {
-    v11 = cameraSensorOrientationCompensationEnabled;
+    v10 = cameraSensorOrientationCompensationEnabled;
   }
 
   else
+  {
+    v10 = 0;
+  }
+
+  if (v4)
   {
     v11 = 0;
   }
 
-  if (v5)
+  else
   {
-    v12 = 0;
+    v11 = cameraSensorOrientationCompensationEnabled;
+  }
+
+  v12 = cameraSensorOrientationCompensationEnabled != v5;
+  if (cameraSensorOrientationCompensationAutomaticallyEnabled)
+  {
+    v13 = v4 != 0;
   }
 
   else
   {
-    v12 = cameraSensorOrientationCompensationEnabled;
+    v13 = v10;
   }
 
-  v13 = cameraSensorOrientationCompensationEnabled != v6;
   if (cameraSensorOrientationCompensationAutomaticallyEnabled)
   {
-    v14 = v5 != 0;
+    v14 = v12;
   }
 
   else
@@ -1759,30 +1769,20 @@ LABEL_19:
     v14 = v11;
   }
 
-  if (cameraSensorOrientationCompensationAutomaticallyEnabled)
-  {
-    v15 = v13;
-  }
-
-  else
-  {
-    v15 = v12;
-  }
-
-  if (cameraSensorOrientationCompensationSupported != v6)
+  if (cameraSensorOrientationCompensationSupported != v5)
   {
     [(AVCaptureStillImageOutput *)self willChangeValueForKey:@"cameraSensorOrientationCompensationSupported"];
-    self->_internal->cameraSensorOrientationCompensationSupported = v6;
+    self->_internal->cameraSensorOrientationCompensationSupported = v5;
   }
 
-  if (v15)
+  if (v14)
   {
     [(AVCaptureStillImageOutput *)self willChangeValueForKey:@"cameraSensorOrientationCompensationEnabled"];
-    self->_internal->cameraSensorOrientationCompensationEnabled = v14;
+    self->_internal->cameraSensorOrientationCompensationEnabled = v13;
     [(AVCaptureStillImageOutput *)self didChangeValueForKey:@"cameraSensorOrientationCompensationEnabled"];
   }
 
-  if (cameraSensorOrientationCompensationSupported != v6)
+  if (cameraSensorOrientationCompensationSupported != v5)
   {
 
     [(AVCaptureStillImageOutput *)self didChangeValueForKey:@"cameraSensorOrientationCompensationSupported"];
@@ -1812,8 +1812,8 @@ LABEL_19:
 
 - (void)handleNotificationForRequest:(id)request withPayload:(id)payload imageIsEV0:(BOOL *)v0
 {
-  v8 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC40]), "intValue"}];
-  [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC38]), "intValue"}];
+  v8 = [objc_msgSend_objectForKeyedSubscript_(payload a2];
+  [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
   if (v8)
   {
     v9 = AVLocalizedErrorWithUnderlyingOSStatus();
@@ -1826,13 +1826,14 @@ LABEL_19:
 
   if ([request sbufCompletionBlock])
   {
-    v10 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FCD0]];
+    v10 = objc_msgSend_objectForKeyedSubscript_(payload);
     if (v10)
     {
-      v11 = [objc_msgSend(CMGetAttachment(v10 *MEMORY[0x1E696D9B0]];
+      v11 = CMGetAttachment(v10, *MEMORY[0x1E696D9B0], 0);
+      intValue = [objc_msgSend_objectForKeyedSubscript_(v11) intValue];
       if (v0)
       {
-        *v0 = v11 == 4;
+        *v0 = intValue == 4;
       }
     }
 
@@ -1841,71 +1842,71 @@ LABEL_19:
       AVLocalizedError();
     }
 
-    v20 = *([request sbufCompletionBlock] + 16);
+    v21 = *([request sbufCompletionBlock] + 16);
 
-    v20();
+    v21();
   }
 
   else if ([request iosurfaceCompletionBlock])
   {
-    v12 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FCF8]];
-    v13 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FD00]), "unsignedIntegerValue"}];
-    [payload objectForKeyedSubscript:*MEMORY[0x1E698FCB0]];
-    [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FCB8]), "unsignedIntegerValue"}];
-    v14 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FC70]];
-    if (v14)
+    v13 = objc_msgSend_objectForKeyedSubscript_(payload);
+    unsignedIntegerValue = [objc_msgSend_objectForKeyedSubscript_(payload) unsignedIntegerValue];
+    objc_msgSend_objectForKeyedSubscript_(payload);
+    [objc_msgSend_objectForKeyedSubscript_(payload) unsignedIntegerValue];
+    v15 = objc_msgSend_objectForKeyedSubscript_(payload);
+    if (v15)
     {
-      v15 = [v14 objectForKeyedSubscript:*MEMORY[0x1E696D9B0]];
-      if (v15)
+      v16 = objc_msgSend_objectForKeyedSubscript_(v15);
+      if (v16)
       {
-        v16 = [objc_msgSend(v15 objectForKeyedSubscript:{*MEMORY[0x1E696D988]), "intValue"}];
+        intValue2 = [objc_msgSend_objectForKeyedSubscript_(v16) intValue];
         if (v0)
         {
-          *v0 = v16 == 4;
+          *v0 = intValue2 == 4;
         }
       }
     }
 
-    if (v13)
+    if (unsignedIntegerValue)
     {
-      v17 = v12 == 0;
+      v18 = v13 == 0;
     }
 
     else
     {
-      v17 = 1;
+      v18 = 1;
     }
 
-    if (v17 && v9 == 0)
+    if (v18 && v9 == 0)
     {
       AVLocalizedError();
     }
 
-    v19 = *([request iosurfaceCompletionBlock] + 16);
+    v20 = *([request iosurfaceCompletionBlock] + 16);
 
-    v19();
+    v20();
   }
 
   else if ([request bracketedCaptureCompletionBlock])
   {
-    v21 = [payload objectForKeyedSubscript:*MEMORY[0x1E698FCD0]];
-    if (!(v21 | v9))
+    v22 = objc_msgSend_objectForKeyedSubscript_(payload);
+    if (!(v22 | v9))
     {
       v9 = AVLocalizedError();
     }
 
     bracketedCaptureCompletionBlock = [request bracketedCaptureCompletionBlock];
     bracketedSettings = [request bracketedSettings];
-    v24 = *(bracketedCaptureCompletionBlock + 16);
+    v25 = *(bracketedCaptureCompletionBlock + 16);
 
-    v24(bracketedCaptureCompletionBlock, v21, bracketedSettings, v9);
+    v25(bracketedCaptureCompletionBlock, v22, bracketedSettings, v9);
   }
 }
 
 - (void)handleNotificationForPrepareRequest:(id)request withPayload:(id)payload
 {
-  v6 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC40]), "intValue"}];
-  [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FC38]), "intValue"}];
+  v6 = [objc_msgSend_objectForKeyedSubscript_(payload a2];
+  [objc_msgSend_objectForKeyedSubscript_(payload) intValue];
   if (v6)
   {
     AVLocalizedErrorWithUnderlyingOSStatus();
@@ -1921,7 +1922,7 @@ LABEL_19:
 
 - (void)handleNotification:(id)notification payload:(id)payload
 {
-  if (![objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FCD8]), "isEqual:", -[AVCaptureOutput sinkID](self, "sinkID")}])
+  if (![objc_msgSend_objectForKeyedSubscript_(payload a2])
   {
     return;
   }
@@ -1945,7 +1946,7 @@ LABEL_19:
 
     if ([notification isEqualToString:*MEMORY[0x1E698FE68]])
     {
-      v17 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FCE0]), "longLongValue"}];
+      longLongValue = [objc_msgSend_objectForKeyedSubscript_(payload) longLongValue];
       internal = self->_internal;
       objc_sync_enter(internal);
       if ([(NSMutableArray *)self->_internal->stillImageRequests count])
@@ -1972,7 +1973,7 @@ LABEL_28:
             }
 
             v24 = *(*(&v47 + 1) + 8 * v23);
-            if ([v24 settingsID] == v17)
+            if ([v24 settingsID] == longLongValue)
             {
               break;
             }
@@ -2027,7 +2028,7 @@ LABEL_34:
         return;
       }
 
-      v26 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FCE0]), "longLongValue"}];
+      longLongValue2 = [objc_msgSend_objectForKeyedSubscript_(payload) longLongValue];
       obja = self->_internal;
       objc_sync_enter(obja);
       v41 = 0u;
@@ -2053,7 +2054,7 @@ LABEL_38:
           }
 
           v33 = *(*(&v41 + 1) + 8 * v31);
-          if ([objc_msgSend(v33 settings] == v26)
+          if ([objc_msgSend(v33 settings] == longLongValue2)
           {
             break;
           }
@@ -2095,7 +2096,7 @@ LABEL_44:
     return;
   }
 
-  v7 = [objc_msgSend(payload objectForKeyedSubscript:{*MEMORY[0x1E698FCE0]), "longLongValue"}];
+  longLongValue3 = [objc_msgSend_objectForKeyedSubscript_(payload) longLongValue];
   v8 = self->_internal;
   objc_sync_enter(v8);
   v54 = 0u;
@@ -2117,7 +2118,7 @@ LABEL_44:
         }
 
         v13 = *(*(&v52 + 1) + 8 * i);
-        if ([v13 settingsID] == v7)
+        if ([v13 settingsID] == longLongValue3)
         {
           shutterSoundID = [v13 shutterSoundID];
           objc_sync_exit(v8);
@@ -2143,7 +2144,7 @@ LABEL_44:
   objc_sync_exit(v8);
 LABEL_20:
   [(AVCaptureStillImageOutput *)self willChangeValueForKey:@"capturingStillImage"];
-  v15 = [payload objectForKeyedSubscript:*MEMORY[0x1E6990018]];
+  v15 = objc_msgSend_objectForKeyedSubscript_(payload);
   if (v15)
   {
     v16 = v15;
@@ -2166,9 +2167,9 @@ LABEL_20:
   return maxStillImageJPEGDataSize_maxDataSize;
 }
 
-CMVideoDimensions __54__AVCaptureStillImageOutput_maxStillImageJPEGDataSize__block_invoke()
+CMVideoDimensions __54__AVCaptureStillImageOutput_maxStillImageJPEGDataSize__block_invoke(uint64_t a1, uint64_t a2)
 {
-  if ((AVCaptureIsRunningInMediaserverd() & 1) == 0)
+  if ((AVCaptureIsRunningInMediaserverd(a1, a2) & 1) == 0)
   {
     result = FigCaptureSourceRemoteMaxStillImageJPEGDataSize();
 LABEL_9:
@@ -2176,22 +2177,22 @@ LABEL_9:
     return result;
   }
 
-  v0 = [(NSArray *)[[AVCaptureDevice defaultDeviceWithMediaType:?]] lastObject];
-  if (v0)
+  v2 = [(NSArray *)[[AVCaptureDevice defaultDeviceWithMediaType:?]] lastObject];
+  if (v2)
   {
-    result = CMVideoFormatDescriptionGetDimensions([v0 formatDescription]);
-    v2 = HIDWORD(*&result);
+    result = CMVideoFormatDescriptionGetDimensions([v2 formatDescription]);
+    v4 = HIDWORD(*&result);
   }
 
   else
   {
-    LODWORD(v2) = 2448;
+    LODWORD(v4) = 2448;
     result = 3264;
   }
 
-  if (result.width >= 1 && v2 >= 1)
+  if (result.width >= 1 && v4 >= 1)
   {
-    result = ((2 * result.width * v2) / 3uLL);
+    result = ((2 * result.width * v4) / 3uLL);
     goto LABEL_9;
   }
 
@@ -2258,7 +2259,7 @@ LABEL_9:
   }
 
   v14 = [v12 exceptionWithName:v13 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v14, v15))
   {
     objc_exception_throw(v14);
   }
@@ -2289,7 +2290,7 @@ LABEL_9:
   else
   {
     v11 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v11, v12))
     {
       objc_exception_throw(v11);
     }

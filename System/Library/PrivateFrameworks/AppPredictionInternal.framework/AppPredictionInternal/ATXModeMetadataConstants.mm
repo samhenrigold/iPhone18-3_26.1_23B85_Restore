@@ -29,11 +29,11 @@
 
     if (v6)
     {
-      v7 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = __atxlog_handle_modes(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *v23 = 0;
-        _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "ATXModeMetadataConstants: Loaded mode affinity app category scores from Trial", v23, 2u);
+        _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "ATXModeMetadataConstants: Loaded mode affinity app category scores from Trial", v23, 2u);
       }
 
       modeAffinityAppCategoryScores2 = [(ATXModeEntityTrialClientWrapper *)v2->_modeEntityTrialClientWrapper modeAffinityAppCategoryScores];
@@ -44,15 +44,15 @@
     else
     {
       appCategoryScores_V2 = [MEMORY[0x277CEB3C0] rawDictionaryForResource:@"ATXAppCategoryScoresV2" ofType:@"plist"];
-      v10 = [appCategoryScores_V2 objectForKeyedSubscript:@"Modes"];
-      v11 = v2->_appCategoryScores_V2;
-      v2->_appCategoryScores_V2 = v10;
+      v11 = [appCategoryScores_V2 objectForKeyedSubscript:@"Modes"];
+      v12 = v2->_appCategoryScores_V2;
+      v2->_appCategoryScores_V2 = v11;
     }
 
-    v12 = [MEMORY[0x277CEB3C0] rawDictionaryForResource:@"ATXAppCategoryScoresV1" ofType:@"plist"];
-    v13 = [v12 objectForKeyedSubscript:@"Modes"];
+    v13 = [MEMORY[0x277CEB3C0] rawDictionaryForResource:@"ATXAppCategoryScoresV1" ofType:@"plist"];
+    v14 = [v13 objectForKeyedSubscript:@"Modes"];
     appCategoryScores_V1 = v2->_appCategoryScores_V1;
-    v2->_appCategoryScores_V1 = v13;
+    v2->_appCategoryScores_V1 = v14;
 
     v25[0] = @"DefaultAppGenreModeAffinities";
     getCategoryScoresV1 = [(ATXModeMetadataConstants *)v2 getCategoryScoresV1];
@@ -60,9 +60,9 @@
     v26[0] = getCategoryScoresV1;
     getCategoryScoresV2 = [(ATXModeMetadataConstants *)v2 getCategoryScoresV2];
     v26[1] = getCategoryScoresV2;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
+    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
     parameters = v2->_parameters;
-    v2->_parameters = v17;
+    v2->_parameters = v18;
 
     defaultAppGenreModeAffinities = v2->_defaultAppGenreModeAffinities;
     v2->_defaultAppGenreModeAffinities = 0;
@@ -71,166 +71,161 @@
     v2->_defaultAppGenreModeAffinities_v2 = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (id)getCategoryScoresV2
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v20 = objc_opt_new();
+  v33 = *MEMORY[0x277D85DE8];
+  v19 = objc_opt_new();
   v3 = objc_opt_new();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   selfCopy = self;
   obj = self->_appCategoryScores_V2;
-  v21 = [(NSDictionary *)obj countByEnumeratingWithState:&v28 objects:v33 count:16];
-  if (v21)
+  v20 = [(NSDictionary *)obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+  if (v20)
   {
-    v19 = *v29;
+    v18 = *v28;
     do
     {
       v4 = 0;
       v5 = v3;
       do
       {
-        if (*v29 != v19)
+        if (*v28 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = v4;
-        v6 = *(*(&v28 + 1) + 8 * v4);
+        v21 = v4;
+        v6 = *(*(&v27 + 1) + 8 * v4);
+        v23 = 0u;
         v24 = 0u;
         v25 = 0u;
         v26 = 0u;
-        v27 = 0u;
         v7 = [(NSDictionary *)selfCopy->_appCategoryScores_V2 objectForKeyedSubscript:v6];
-        v8 = [v7 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v23 objects:v31 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v25;
+          v10 = *v24;
           do
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v25 != v10)
+              if (*v24 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v12 = *(*(&v24 + 1) + 8 * i);
+              v12 = *(*(&v23 + 1) + 8 * i);
               v13 = [(NSDictionary *)selfCopy->_appCategoryScores_V2 objectForKeyedSubscript:v6];
               v14 = [v13 objectForKeyedSubscript:v12];
               v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(MEMORY[0x277CEB350], "appDirectoryCategoryStringToAppDirectoryCategoryID:", v12)}];
               [v5 setObject:v14 forKey:v15];
             }
 
-            v9 = [v7 countByEnumeratingWithState:&v24 objects:v32 count:16];
+            v9 = [v7 countByEnumeratingWithState:&v23 objects:v31 count:16];
           }
 
           while (v9);
         }
 
-        [v20 setObject:v5 forKey:v6];
+        [v19 setObject:v5 forKey:v6];
         v3 = objc_opt_new();
 
-        v4 = v22 + 1;
+        v4 = v21 + 1;
         v5 = v3;
       }
 
-      while (v22 + 1 != v21);
-      v21 = [(NSDictionary *)obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+      while (v21 + 1 != v20);
+      v20 = [(NSDictionary *)obj countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v20;
+  return v19;
 }
 
 - (id)getCategoryScoresV1
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v20 = objc_opt_new();
+  v33 = *MEMORY[0x277D85DE8];
+  v19 = objc_opt_new();
   v3 = objc_opt_new();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   selfCopy = self;
   obj = self->_appCategoryScores_V1;
-  v21 = [(NSDictionary *)obj countByEnumeratingWithState:&v28 objects:v33 count:16];
-  if (v21)
+  v20 = [(NSDictionary *)obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+  if (v20)
   {
-    v19 = *v29;
+    v18 = *v28;
     do
     {
       v4 = 0;
       v5 = v3;
       do
       {
-        if (*v29 != v19)
+        if (*v28 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = v4;
-        v6 = *(*(&v28 + 1) + 8 * v4);
+        v21 = v4;
+        v6 = *(*(&v27 + 1) + 8 * v4);
+        v23 = 0u;
         v24 = 0u;
         v25 = 0u;
         v26 = 0u;
-        v27 = 0u;
         v7 = [(NSDictionary *)selfCopy->_appCategoryScores_V1 objectForKeyedSubscript:v6];
-        v8 = [v7 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v23 objects:v31 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v25;
+          v10 = *v24;
           do
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v25 != v10)
+              if (*v24 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v12 = *(*(&v24 + 1) + 8 * i);
+              v12 = *(*(&v23 + 1) + 8 * i);
               v13 = [(NSDictionary *)selfCopy->_appCategoryScores_V1 objectForKeyedSubscript:v6];
               v14 = [v13 objectForKeyedSubscript:v12];
               v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(MEMORY[0x277CEB350], "appDirectoryCategoryStringToAppDirectoryCategoryID:", v12)}];
               [v5 setObject:v14 forKey:v15];
             }
 
-            v9 = [v7 countByEnumeratingWithState:&v24 objects:v32 count:16];
+            v9 = [v7 countByEnumeratingWithState:&v23 objects:v31 count:16];
           }
 
           while (v9);
         }
 
-        [v20 setObject:v5 forKey:v6];
+        [v19 setObject:v5 forKey:v6];
         v3 = objc_opt_new();
 
-        v4 = v22 + 1;
+        v4 = v21 + 1;
         v5 = v3;
       }
 
-      while (v22 + 1 != v21);
-      v21 = [(NSDictionary *)obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+      while (v21 + 1 != v20);
+      v20 = [(NSDictionary *)obj countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v20;
+  return v19;
 }
 
 + (id)sharedInstance
@@ -323,50 +318,50 @@ void __42__ATXModeMetadataConstants_sharedInstance__block_invoke()
 
 - (id)_invertDictionary:(id)dictionary
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v4 = objc_opt_new();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v5 = dictionaryCopy;
-  v22 = [v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
-  if (v22)
+  v21 = [v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  if (v21)
   {
-    v21 = *v29;
+    v20 = *v28;
     do
     {
       v6 = 0;
       do
       {
-        if (*v29 != v21)
+        if (*v28 != v20)
         {
           objc_enumerationMutation(v5);
         }
 
-        v23 = v6;
-        v7 = *(*(&v28 + 1) + 8 * v6);
+        v22 = v6;
+        v7 = *(*(&v27 + 1) + 8 * v6);
+        v23 = 0u;
         v24 = 0u;
         v25 = 0u;
         v26 = 0u;
-        v27 = 0u;
         v8 = [v5 objectForKeyedSubscript:v7];
-        v9 = [v8 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v23 objects:v31 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v25;
+          v11 = *v24;
           do
           {
             for (i = 0; i != v10; ++i)
             {
-              if (*v25 != v11)
+              if (*v24 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = *(*(&v24 + 1) + 8 * i);
+              v13 = *(*(&v23 + 1) + 8 * i);
               v14 = [v4 objectForKeyedSubscript:v13];
 
               if (!v14)
@@ -381,23 +376,21 @@ void __42__ATXModeMetadataConstants_sharedInstance__block_invoke()
               [v18 setObject:v17 forKeyedSubscript:v7];
             }
 
-            v10 = [v8 countByEnumeratingWithState:&v24 objects:v32 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v23 objects:v31 count:16];
           }
 
           while (v10);
         }
 
-        v6 = v23 + 1;
+        v6 = v22 + 1;
       }
 
-      while (v23 + 1 != v22);
-      v22 = [v5 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      while (v22 + 1 != v21);
+      v21 = [v5 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
-    while (v22);
+    while (v21);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

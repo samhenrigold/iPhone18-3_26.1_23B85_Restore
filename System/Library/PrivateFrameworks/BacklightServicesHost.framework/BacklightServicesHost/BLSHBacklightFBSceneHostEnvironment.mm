@@ -209,10 +209,9 @@
 {
   if (result)
   {
-    v1 = *(result + 88);
     mach_continuous_time();
     BSTimeDifferenceFromMachTimeToMachTime();
-    return v2 > 60.0;
+    return v1 > 60.0;
   }
 
   return result;
@@ -240,31 +239,25 @@
 - (void)clearPresentationDate
 {
   OUTLINED_FUNCTION_16_1();
-  v8 = *MEMORY[0x277D85DE8];
   identifier = [v0 identifier];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_15();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __60__BLSHBacklightFBSceneHostEnvironment_clearPresentationDate__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = bls_scenes_log();
   if (OUTLINED_FUNCTION_15_1(v5))
   {
     v6 = [OUTLINED_FUNCTION_18_0() identifier];
-    v7 = *(a1 + 40);
     OUTLINED_FUNCTION_11_1();
     OUTLINED_FUNCTION_7_2();
-    _os_log_debug_impl(v8, v9, v10, v11, v12, 0x20u);
+    _os_log_debug_impl(v7, v8, v9, v10, v11, 0x20u);
   }
 
   [(BLSHBacklightFBSceneHostEnvironment *)*(a1 + 32) setPresentationDate:v4 forwardedToSettings:?];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)clientSupportsAlwaysOn
@@ -277,11 +270,11 @@ void __60__BLSHBacklightFBSceneHostEnvironment_clearPresentationDate__block_invo
 
 - (BLSHBacklightFBSceneHostEnvironment)initWithFBScene:(id)scene
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
-  v30.receiver = self;
-  v30.super_class = BLSHBacklightFBSceneHostEnvironment;
-  v5 = [(BLSHBacklightFBSceneHostEnvironment *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = BLSHBacklightFBSceneHostEnvironment;
+  v5 = [(BLSHBacklightFBSceneHostEnvironment *)&v29 init];
   if (v5)
   {
     v5->_creationMachTime = mach_continuous_time();
@@ -303,7 +296,7 @@ void __60__BLSHBacklightFBSceneHostEnvironment_clearPresentationDate__block_invo
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v32 = v5;
+        v31 = v5;
         _os_log_impl(&dword_21FD11000, v8, OS_LOG_TYPE_DEFAULT, "%p: DisableFrontBoardRBAssertions=YES", buf, 0xCu);
       }
     }
@@ -360,19 +353,18 @@ void __60__BLSHBacklightFBSceneHostEnvironment_clearPresentationDate__block_invo
         identifier2 = [sceneCopy identifier];
         v27 = [sceneCopy debugDescription];
         *buf = 134218754;
-        v32 = v5;
-        v33 = 2114;
-        v34 = identifier2;
-        v35 = 2114;
-        v36 = delegate;
-        v37 = 2114;
-        v38 = v27;
+        v31 = v5;
+        v32 = 2114;
+        v33 = identifier2;
+        v34 = 2114;
+        v35 = delegate;
+        v36 = 2114;
+        v37 = v27;
         _os_log_impl(&dword_21FD11000, &v25->super, OS_LOG_TYPE_DEFAULT, "%p:%{public}@ sceneDelegate:%{public}@ does not respond to @selector(addActionHandler:) - cannot invalidate from client, scene:%{public}@", buf, 0x2Au);
       }
     }
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -568,7 +560,7 @@ void __71__BLSHBacklightFBSceneHostEnvironment_setUnrestrictedFramerateUpdates__
 - (void)set1HzFlipbookForAssertion:(BOOL)assertion
 {
   assertionCopy = assertion;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   lock_1HzFlipbookForAssertion = self->_lock_1HzFlipbookForAssertion;
   self->_lock_1HzFlipbookForAssertion = assertionCopy;
@@ -578,29 +570,27 @@ void __71__BLSHBacklightFBSceneHostEnvironment_setUnrestrictedFramerateUpdates__
   v8 = bls_scenes_log();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v10 = lock_1HzFlipbookForAssertion != assertionCopy;
+    v9 = lock_1HzFlipbookForAssertion != assertionCopy;
     identifier = [(BLSHBacklightFBSceneHostEnvironment *)self identifier];
-    v12 = 134219266;
+    v11 = 134219266;
     selfCopy = self;
-    v14 = 2114;
-    v15 = identifier;
-    v16 = 1024;
-    v17 = assertionCopy;
-    v18 = 1024;
-    v19 = clientAlwaysOnContentIs1hz;
-    v20 = 1024;
-    v21 = v10;
-    v22 = 1024;
-    v23 = v7;
-    _os_log_debug_impl(&dword_21FD11000, v8, OS_LOG_TYPE_DEBUG, "%p:%{public}@ set1HzFlipbookForAssertion:%{BOOL}u client1Hz::%{BOOL}u didChange:%{BOOL}u is1HzFlipbookDidChange:%{BOOL}u", &v12, 0x2Eu);
+    v13 = 2114;
+    v14 = identifier;
+    v15 = 1024;
+    v16 = assertionCopy;
+    v17 = 1024;
+    v18 = clientAlwaysOnContentIs1hz;
+    v19 = 1024;
+    v20 = v9;
+    v21 = 1024;
+    v22 = v7;
+    _os_log_debug_impl(&dword_21FD11000, v8, OS_LOG_TYPE_DEBUG, "%p:%{public}@ set1HzFlipbookForAssertion:%{BOOL}u client1Hz::%{BOOL}u didChange:%{BOOL}u is1HzFlipbookDidChange:%{BOOL}u", &v11, 0x2Eu);
   }
 
   if (v7)
   {
     [(BLSHBacklightFBSceneHostEnvironment *)self updateHost1HzFlipbook];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __60__BLSHBacklightFBSceneHostEnvironment_updateHost1HzFlipbook__block_invoke(uint64_t a1, void *a2)
@@ -687,10 +677,10 @@ void __64__BLSHBacklightFBSceneHostEnvironment_setHighLuminanceAlwaysOn___block_
 {
   objc_opt_self();
   os_unfair_lock_lock(&_classLock_3);
-  v0 = _amendSceneSettingsDelegate;
+  v1 = _amendSceneSettingsDelegate;
   os_unfair_lock_unlock(&_classLock_3);
 
-  return v0;
+  return v1;
 }
 
 - (void)deactivateClient
@@ -803,25 +793,25 @@ LABEL_8:
 
 id __89__BLSHBacklightFBSceneHostEnvironment_requestedFidelityForInactiveContentWithCompletion___block_invoke(uint64_t a1)
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277CF08E0]);
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = __89__BLSHBacklightFBSceneHostEnvironment_requestedFidelityForInactiveContentWithCompletion___block_invoke_2;
-  v19 = &unk_27841FFB8;
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __89__BLSHBacklightFBSceneHostEnvironment_requestedFidelityForInactiveContentWithCompletion___block_invoke_2;
+  v18 = &unk_27841FFB8;
   v4 = *(a1 + 32);
   v3 = (a1 + 32);
-  v20 = v4;
-  v21 = v3[2];
-  v5 = [v2 initWithCompletion:&v16];
+  v19 = v4;
+  v20 = v3[2];
+  v5 = [v2 initWithCompletion:&v15];
   v6 = [v3[1] definition];
   v7 = [v6 specification];
   v8 = [v7 transitionContextClass];
 
   v9 = objc_alloc_init(v8);
   v10 = MEMORY[0x277CBEB98];
-  v22[0] = v5;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v21[0] = v5;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
   v12 = [v10 setWithArray:v11];
   [v9 setActions:v12];
 
@@ -831,14 +821,12 @@ id __89__BLSHBacklightFBSceneHostEnvironment_requestedFidelityForInactiveContent
     __89__BLSHBacklightFBSceneHostEnvironment_requestedFidelityForInactiveContentWithCompletion___block_invoke_cold_1(v3);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 void __89__BLSHBacklightFBSceneHostEnvironment_requestedFidelityForInactiveContentWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 error];
   if (v4)
@@ -846,17 +834,17 @@ void __89__BLSHBacklightFBSceneHostEnvironment_requestedFidelityForInactiveConte
     v5 = bls_scenes_log();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 32);
-      v8 = [v7 identifier];
-      v9 = 134218754;
-      v10 = v7;
-      v11 = 2114;
-      v12 = v8;
-      v13 = 2114;
-      v14 = v4;
-      v15 = 2114;
-      v16 = v3;
-      _os_log_error_impl(&dword_21FD11000, v5, OS_LOG_TYPE_ERROR, "%p:%{public}@ client desired fidelity action failed error:%{public}@ response:%{public}@, requestedFidelityForInactiveContent:Minutes", &v9, 0x2Au);
+      v6 = *(a1 + 32);
+      v7 = [v6 identifier];
+      v8 = 134218754;
+      v9 = v6;
+      v10 = 2114;
+      v11 = v7;
+      v12 = 2114;
+      v13 = v4;
+      v14 = 2114;
+      v15 = v3;
+      _os_log_error_impl(&dword_21FD11000, v5, OS_LOG_TYPE_ERROR, "%p:%{public}@ client desired fidelity action failed error:%{public}@ response:%{public}@, requestedFidelityForInactiveContent:Minutes", &v8, 0x2Au);
     }
   }
 
@@ -871,14 +859,13 @@ void __89__BLSHBacklightFBSceneHostEnvironment_requestedFidelityForInactiveConte
   }
 
   (*(*(a1 + 40) + 16))();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateToVisualState:(id)state presentationDateSpecifier:(id)specifier animated:(BOOL)animated triggerEvent:(id)event touchTargetable:(BOOL)targetable sceneContentsUpdated:(id)updated performBacklightRamp:(id)ramp animationComplete:(id)self0
 {
   targetableCopy = targetable;
   animatedCopy = animated;
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   eventCopy = event;
   updatedCopy = updated;
@@ -907,19 +894,19 @@ void __89__BLSHBacklightFBSceneHostEnvironment_requestedFidelityForInactiveConte
     }
   }
 
-  v54[0] = MEMORY[0x277D85DD0];
-  v54[1] = 3221225472;
-  v54[2] = __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentationDateSpecifier_animated_triggerEvent_touchTargetable_sceneContentsUpdated_performBacklightRamp_animationComplete___block_invoke;
-  v54[3] = &unk_278420008;
+  v53[0] = MEMORY[0x277D85DD0];
+  v53[1] = 3221225472;
+  v53[2] = __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentationDateSpecifier_animated_triggerEvent_touchTargetable_sceneContentsUpdated_performBacklightRamp_animationComplete___block_invoke;
+  v53[3] = &unk_278420008;
   v22 = updatedCopy;
-  v55 = v22;
+  v54 = v22;
   v23 = rampCopy;
-  v56 = v23;
-  v58 = animatedCopy;
+  v55 = v23;
+  v57 = animatedCopy;
   v24 = completeCopy;
-  v57 = v24;
-  v59 = WeakRetained == 0;
-  v25 = MEMORY[0x223D70730](v54);
+  v56 = v24;
+  v58 = WeakRetained == 0;
+  v25 = MEMORY[0x223D70730](v53);
   v26 = bls_scenes_log();
   v27 = v26;
   if (WeakRetained)
@@ -932,35 +919,35 @@ void __89__BLSHBacklightFBSceneHostEnvironment_requestedFidelityForInactiveConte
       bls_shortLoggingString2 = [eventCopy bls_shortLoggingString];
       *buf = 138543874;
       selfCopy = identifier;
-      v62 = 2114;
-      v63 = bls_shortLoggingString;
-      v37 = bls_shortLoggingString;
-      v64 = 2114;
-      v65 = bls_shortLoggingString2;
-      v38 = bls_shortLoggingString2;
+      v61 = 2114;
+      v62 = bls_shortLoggingString;
+      v36 = bls_shortLoggingString;
+      v63 = 2114;
+      v64 = bls_shortLoggingString2;
+      v37 = bls_shortLoggingString2;
       _os_log_debug_impl(&dword_21FD11000, v27, OS_LOG_TYPE_DEBUG, "FBSceneHostEnv.updateToVisualState: sending update from host to scene:%{public}@ to state:%{public}@ for event:%{public}@", buf, 0x20u);
 
       v28 = stateCopy;
     }
 
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentationDateSpecifier_animated_triggerEvent_touchTargetable_sceneContentsUpdated_performBacklightRamp_animationComplete___block_invoke_66;
-    v44[3] = &unk_2784200A8;
-    v44[4] = self;
-    v45 = v28;
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentationDateSpecifier_animated_triggerEvent_touchTargetable_sceneContentsUpdated_performBacklightRamp_animationComplete___block_invoke_66;
+    v43[3] = &unk_2784200A8;
+    v43[4] = self;
+    v44 = v28;
     v29 = date;
-    v46 = date;
+    v45 = date;
     v30 = WeakRetained;
-    v47 = v30;
+    v46 = v30;
     v31 = eventCopy;
-    v48 = eventCopy;
-    v52 = animatedCopy;
-    v53 = targetableCopy;
-    v49 = v22;
-    v50 = v23;
-    v51 = v24;
-    [v30 updateSettingsWithTransitionBlock:v44];
+    v47 = eventCopy;
+    v51 = animatedCopy;
+    v52 = targetableCopy;
+    v48 = v22;
+    v49 = v23;
+    v50 = v24;
+    [v30 updateSettingsWithTransitionBlock:v43];
     if (([v30 isActive] & 1) == 0)
     {
       v25[2](v25);
@@ -975,20 +962,20 @@ void __89__BLSHBacklightFBSceneHostEnvironment_requestedFidelityForInactiveConte
       bls_shortLoggingString3 = [date bls_shortLoggingString];
       *buf = 134219778;
       selfCopy = self;
-      v62 = 2114;
-      v63 = identifier2;
-      v64 = 2114;
-      v65 = 0;
-      v66 = 2114;
-      v67 = stateCopy;
-      v68 = 2114;
-      v69 = bls_shortLoggingString3;
-      v70 = 1024;
-      v71 = animatedCopy;
-      v72 = 2114;
-      v73 = eventCopy;
-      v74 = 1024;
-      v75 = targetableCopy;
+      v61 = 2114;
+      v62 = identifier2;
+      v63 = 2114;
+      v64 = 0;
+      v65 = 2114;
+      v66 = stateCopy;
+      v67 = 2114;
+      v68 = bls_shortLoggingString3;
+      v69 = 1024;
+      v70 = animatedCopy;
+      v71 = 2114;
+      v72 = eventCopy;
+      v73 = 1024;
+      v74 = targetableCopy;
       _os_log_impl(&dword_21FD11000, v27, OS_LOG_TYPE_INFO, "%p:%{public}@ nil scene, will not update scene:%{public}@ to visualState:%{public}@ presentationDate:%{public}@ animated:%{BOOL}u event:%{public}@ touchTarget:%{BOOL}u", buf, 0x4Au);
     }
 
@@ -997,8 +984,6 @@ void __89__BLSHBacklightFBSceneHostEnvironment_requestedFidelityForInactiveConte
     v28 = stateCopy;
     v29 = date;
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentationDateSpecifier_animated_triggerEvent_touchTargetable_sceneContentsUpdated_performBacklightRamp_animationComplete___block_invoke(uint64_t a1)
@@ -1039,7 +1024,7 @@ void __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentation
 
 void __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentationDateSpecifier_animated_triggerEvent_touchTargetable_sceneContentsUpdated_performBacklightRamp_animationComplete___block_invoke_75(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ((*(a1 + 88) & 1) == 0)
   {
@@ -1061,27 +1046,27 @@ void __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentation
       v12 = *(a1 + 88);
       v13 = *(a1 + 89);
       v14 = *(a1 + 72);
-      v16 = 134220290;
-      v17 = v7;
-      v18 = 2114;
-      v19 = v8;
-      v20 = 2114;
-      v21 = v4;
-      v22 = 2114;
-      v23 = v3;
-      v24 = 2114;
-      v25 = v9;
-      v26 = 2114;
-      v27 = v10;
-      v28 = 2114;
-      v29 = v11;
-      v30 = 1024;
-      v31 = v12;
-      v32 = 1024;
-      v33 = v13;
-      v34 = 2114;
-      v35 = v14;
-      _os_log_error_impl(&dword_21FD11000, v6, OS_LOG_TYPE_ERROR, "%p:%{public}@ client update action failed error:%{public}@ response:%{public}@, will not update scene:%{public}@ to visualState:%{public}@ presentationDate:%{public}@, animated:%{BOOL}u touchTarget:%{BOOL}u event:%{public}@", &v16, 0x5Eu);
+      v15 = 134220290;
+      v16 = v7;
+      v17 = 2114;
+      v18 = v8;
+      v19 = 2114;
+      v20 = v4;
+      v21 = 2114;
+      v22 = v3;
+      v23 = 2114;
+      v24 = v9;
+      v25 = 2114;
+      v26 = v10;
+      v27 = 2114;
+      v28 = v11;
+      v29 = 1024;
+      v30 = v12;
+      v31 = 1024;
+      v32 = v13;
+      v33 = 2114;
+      v34 = v14;
+      _os_log_error_impl(&dword_21FD11000, v6, OS_LOG_TYPE_ERROR, "%p:%{public}@ client update action failed error:%{public}@ response:%{public}@, will not update scene:%{public}@ to visualState:%{public}@ presentationDate:%{public}@, animated:%{BOOL}u touchTarget:%{BOOL}u event:%{public}@", &v15, 0x5Eu);
     }
   }
 
@@ -1091,12 +1076,11 @@ void __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentation
   }
 
   (*(*(a1 + 80) + 16))();
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentationDateSpecifier_animated_triggerEvent_touchTargetable_sceneContentsUpdated_performBacklightRamp_animationComplete___block_invoke_79(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = bls_scenes_log();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -1106,17 +1090,17 @@ void __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentation
     objc_opt_class();
     isKindOfClass = objc_opt_isKindOfClass();
     v8 = *(a1 + 40);
-    v21 = 134219010;
-    v22 = v5;
-    v23 = 2114;
-    v24 = v6;
-    v25 = 2114;
-    v26 = v3;
-    v27 = 1024;
-    *v28 = isKindOfClass & 1;
-    *&v28[4] = 2114;
-    *&v28[6] = v8;
-    _os_log_impl(&dword_21FD11000, v4, OS_LOG_TYPE_DEFAULT, "%p:%{public}@ client ramp action response:%{public}@ isKindBLSBacklightSceneUpdateBacklightRampResponse:%{BOOL}u for update to visualState:%{public}@", &v21, 0x30u);
+    v20 = 134219010;
+    v21 = v5;
+    v22 = 2114;
+    v23 = v6;
+    v24 = 2114;
+    v25 = v3;
+    v26 = 1024;
+    *v27 = isKindOfClass & 1;
+    *&v27[4] = 2114;
+    *&v27[6] = v8;
+    _os_log_impl(&dword_21FD11000, v4, OS_LOG_TYPE_DEFAULT, "%p:%{public}@ client ramp action response:%{public}@ isKindBLSBacklightSceneUpdateBacklightRampResponse:%{BOOL}u for update to visualState:%{public}@", &v20, 0x30u);
   }
 
   v9 = [v3 error];
@@ -1125,29 +1109,29 @@ void __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentation
     v10 = bls_scenes_log();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v15 = *(a1 + 32);
-      v16 = [v15 identifier];
-      v17 = *(a1 + 40);
-      v18 = [*(a1 + 48) bls_shortLoggingString];
-      v19 = *(a1 + 72);
-      v20 = *(a1 + 56);
-      v21 = 134219778;
-      v22 = v15;
-      v23 = 2114;
-      v24 = v16;
-      v25 = 2114;
-      v26 = v9;
-      v27 = 2114;
-      *v28 = v3;
-      *&v28[8] = 2114;
-      *&v28[10] = v17;
-      v29 = 2114;
-      v30 = v18;
-      v31 = 1024;
-      v32 = v19;
-      v33 = 2114;
-      v34 = v20;
-      _os_log_error_impl(&dword_21FD11000, v10, OS_LOG_TYPE_ERROR, "%p:%{public}@ client ramp action failed error:%{public}@ response:%{public}@, for update to visualState:%{public}@ presentationDate:%{public}@, animated:%{BOOL}u event:%{public}@", &v21, 0x4Eu);
+      v14 = *(a1 + 32);
+      v15 = [v14 identifier];
+      v16 = *(a1 + 40);
+      v17 = [*(a1 + 48) bls_shortLoggingString];
+      v18 = *(a1 + 72);
+      v19 = *(a1 + 56);
+      v20 = 134219778;
+      v21 = v14;
+      v22 = 2114;
+      v23 = v15;
+      v24 = 2114;
+      v25 = v9;
+      v26 = 2114;
+      *v27 = v3;
+      *&v27[8] = 2114;
+      *&v27[10] = v16;
+      v28 = 2114;
+      v29 = v17;
+      v30 = 1024;
+      v31 = v18;
+      v32 = 2114;
+      v33 = v19;
+      _os_log_error_impl(&dword_21FD11000, v10, OS_LOG_TYPE_ERROR, "%p:%{public}@ client ramp action failed error:%{public}@ response:%{public}@, for update to visualState:%{public}@ presentationDate:%{public}@, animated:%{BOOL}u event:%{public}@", &v20, 0x4Eu);
     }
 
     if (*(a1 + 72))
@@ -1173,13 +1157,11 @@ void __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentation
   }
 
   (*(*(a1 + 64) + 16))(v11);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentationDateSpecifier_animated_triggerEvent_touchTargetable_sceneContentsUpdated_performBacklightRamp_animationComplete___block_invoke_83(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) invalidate];
   v4 = [v3 error];
@@ -1195,23 +1177,23 @@ void __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentation
       v10 = [*(a1 + 56) bls_shortLoggingString];
       v11 = *(a1 + 80);
       v12 = *(a1 + 64);
-      v14 = 134219778;
-      v15 = v7;
-      v16 = 2114;
-      v17 = v8;
-      v18 = 2114;
-      v19 = v4;
-      v20 = 2114;
-      v21 = v3;
-      v22 = 2114;
-      v23 = v9;
-      v24 = 2114;
-      v25 = v10;
-      v26 = 1024;
-      v27 = v11;
-      v28 = 2114;
-      v29 = v12;
-      _os_log_error_impl(&dword_21FD11000, v6, OS_LOG_TYPE_ERROR, "%p:%{public}@ client animation action failed error:%{public}@ response:%{public}@, for update to visualState:%{public}@ presentationDate:%{public}@, animated:%{BOOL}u event:%{public}@", &v14, 0x4Eu);
+      v13 = 134219778;
+      v14 = v7;
+      v15 = 2114;
+      v16 = v8;
+      v17 = 2114;
+      v18 = v4;
+      v19 = 2114;
+      v20 = v3;
+      v21 = 2114;
+      v22 = v9;
+      v23 = 2114;
+      v24 = v10;
+      v25 = 1024;
+      v26 = v11;
+      v27 = 2114;
+      v28 = v12;
+      _os_log_error_impl(&dword_21FD11000, v6, OS_LOG_TYPE_ERROR, "%p:%{public}@ client animation action failed error:%{public}@ response:%{public}@, for update to visualState:%{public}@ presentationDate:%{public}@, animated:%{BOOL}u event:%{public}@", &v13, 0x4Eu);
     }
   }
 
@@ -1221,13 +1203,12 @@ void __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentation
   }
 
   (*(*(a1 + 72) + 16))();
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestDateSpecifiersForDateInterval:(id)interval previousPresentationDate:(id)date shouldReset:(BOOL)reset completion:(id)completion
 {
   resetCopy = reset;
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   dateCopy = date;
   completionCopy = completion;
@@ -1244,54 +1225,54 @@ void __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentation
       bls_shortLoggingString2 = [dateCopy bls_shortLoggingString];
       *buf = 134219010;
       selfCopy2 = self;
-      v41 = 2114;
-      v42 = identifier;
-      v43 = 2114;
-      v44 = bls_shortLoggingString;
-      v45 = 2114;
-      v46 = bls_shortLoggingString2;
-      v47 = 1024;
-      v48 = resetCopy;
+      v40 = 2114;
+      v41 = identifier;
+      v42 = 2114;
+      v43 = bls_shortLoggingString;
+      v44 = 2114;
+      v45 = bls_shortLoggingString2;
+      v46 = 1024;
+      v47 = resetCopy;
       _os_log_impl(&dword_21FD11000, v15, OS_LOG_TYPE_INFO, "%p:%{public}@ nil scene, will return only now date for interval:%{public}@ previous:%{public}@ reset:%{BOOL}u", buf, 0x30u);
     }
 
     v19 = objc_alloc(MEMORY[0x277CF0848]);
     v20 = [MEMORY[0x277CBEAA8] now];
     v21 = [v19 initWithDate:v20 fidelity:0];
-    v38 = v21;
+    v37 = v21;
     v22 = MEMORY[0x277CBEA60];
-    v23 = &v38;
+    v23 = &v37;
     goto LABEL_7;
   }
 
   if (([WeakRetained isActive] & 1) == 0)
   {
-    v26 = bls_scenes_log();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+    v25 = bls_scenes_log();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
       identifier2 = [(BLSHBacklightFBSceneHostEnvironment *)self identifier];
       bls_shortLoggingString3 = [intervalCopy bls_shortLoggingString];
       bls_shortLoggingString4 = [dateCopy bls_shortLoggingString];
       *buf = 134219010;
       selfCopy2 = self;
-      v41 = 2114;
-      v42 = identifier2;
-      v43 = 2114;
-      v44 = bls_shortLoggingString3;
-      v45 = 2114;
-      v46 = bls_shortLoggingString4;
-      v47 = 1024;
-      v48 = resetCopy;
-      _os_log_impl(&dword_21FD11000, v26, OS_LOG_TYPE_INFO, "%p:%{public}@ inactive scene, will return only now date for interval:%{public}@ previous:%{public}@ reset:%{BOOL}u", buf, 0x30u);
+      v40 = 2114;
+      v41 = identifier2;
+      v42 = 2114;
+      v43 = bls_shortLoggingString3;
+      v44 = 2114;
+      v45 = bls_shortLoggingString4;
+      v46 = 1024;
+      v47 = resetCopy;
+      _os_log_impl(&dword_21FD11000, v25, OS_LOG_TYPE_INFO, "%p:%{public}@ inactive scene, will return only now date for interval:%{public}@ previous:%{public}@ reset:%{BOOL}u", buf, 0x30u);
     }
 
     [(BLSHBacklightFBSceneHostEnvironment *)self setShouldInvalidateWhenActivated];
-    v30 = objc_alloc(MEMORY[0x277CF0848]);
+    v29 = objc_alloc(MEMORY[0x277CF0848]);
     v20 = [MEMORY[0x277CBEAA8] now];
-    v21 = [v30 initWithDate:v20 fidelity:0];
-    v37 = v21;
+    v21 = [v29 initWithDate:v20 fidelity:0];
+    v36 = v21;
     v22 = MEMORY[0x277CBEA60];
-    v23 = &v37;
+    v23 = &v36;
 LABEL_7:
     v24 = [v22 arrayWithObjects:v23 count:1];
     completionCopy[2](completionCopy, intervalCopy, v24);
@@ -1299,32 +1280,31 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __124__BLSHBacklightFBSceneHostEnvironment_requestDateSpecifiersForDateInterval_previousPresentationDate_shouldReset_completion___block_invoke;
-  v31[3] = &unk_2784200F8;
-  v31[4] = self;
-  v32 = v14;
-  v33 = intervalCopy;
-  v34 = dateCopy;
-  v36 = resetCopy;
-  v35 = completionCopy;
-  [v32 updateSettingsWithTransitionBlock:v31];
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __124__BLSHBacklightFBSceneHostEnvironment_requestDateSpecifiersForDateInterval_previousPresentationDate_shouldReset_completion___block_invoke;
+  v30[3] = &unk_2784200F8;
+  v30[4] = self;
+  v31 = v14;
+  v32 = intervalCopy;
+  v33 = dateCopy;
+  v35 = resetCopy;
+  v34 = completionCopy;
+  [v31 updateSettingsWithTransitionBlock:v30];
 
 LABEL_8:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 id __124__BLSHBacklightFBSceneHostEnvironment_requestDateSpecifiersForDateInterval_previousPresentationDate_shouldReset_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v67[1] = *MEMORY[0x277D85DE8];
+  v66[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x3032000000;
-  v50 = __Block_byref_object_copy__8;
-  v51 = __Block_byref_object_dispose__8;
-  v52 = 0;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = __Block_byref_object_copy__8;
+  v50 = __Block_byref_object_dispose__8;
+  v51 = 0;
   if ([(BLSHBacklightFBSceneHostEnvironment *)*(a1 + 32) sceneWantsProcessAssertion:v3 withSceneSettings:?])
   {
     v4 = MEMORY[0x277CCACA8];
@@ -1339,11 +1319,11 @@ id __124__BLSHBacklightFBSceneHostEnvironment_requestDateSpecifiersForDateInterv
     if (v10)
     {
       v11 = [[BLSHAggregatedProcessAssertion alloc] initWithExplanation:v7 processIdentity:v10 duration:1.25];
-      v12 = v48[5];
-      v48[5] = v11;
+      v12 = v47[5];
+      v47[5] = v11;
 
-      [v48[5] setShouldFaultOnFailureToAcquire:-[BLSHBacklightFBSceneHostEnvironment isAtLeastOneMinuteOld](*(a1 + 32))];
-      [v48[5] acquireWithCompletion:0];
+      [v47[5] setShouldFaultOnFailureToAcquire:-[BLSHBacklightFBSceneHostEnvironment isAtLeastOneMinuteOld](*(a1 + 32))];
+      [v47[5] acquireWithCompletion:0];
     }
 
     else
@@ -1355,11 +1335,11 @@ id __124__BLSHBacklightFBSceneHostEnvironment_requestDateSpecifiersForDateInterv
         v15 = [v14 identifier];
         v16 = *(a1 + 40);
         *buf = 134218498;
-        v54 = v14;
-        v55 = 2114;
-        v56 = v15;
-        v57 = 2048;
-        v58 = v16;
+        v53 = v14;
+        v54 = 2114;
+        v55 = v15;
+        v56 = 2048;
+        v57 = v16;
         _os_log_impl(&dword_21FD11000, v13, OS_LOG_TYPE_DEFAULT, "%p:%{public}@ couldn't get a client processIdentity for scene %p. cannot take CPU grant process assertion", buf, 0x20u);
       }
     }
@@ -1369,27 +1349,27 @@ id __124__BLSHBacklightFBSceneHostEnvironment_requestDateSpecifiersForDateInterv
   v18 = *(a1 + 48);
   v19 = *(a1 + 56);
   v20 = *(a1 + 72);
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __124__BLSHBacklightFBSceneHostEnvironment_requestDateSpecifiersForDateInterval_previousPresentationDate_shouldReset_completion___block_invoke_90;
-  v40[3] = &unk_2784200D0;
-  v45 = &v47;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __124__BLSHBacklightFBSceneHostEnvironment_requestDateSpecifiersForDateInterval_previousPresentationDate_shouldReset_completion___block_invoke_90;
+  v39[3] = &unk_2784200D0;
+  v44 = &v46;
   v21 = v18;
   v22 = *(a1 + 32);
-  v41 = v21;
-  v42 = v22;
-  v43 = *(a1 + 56);
-  v46 = *(a1 + 72);
-  v44 = *(a1 + 64);
-  v23 = [v17 initWithDateInterval:v21 previousPresentationDate:v19 shouldReset:v20 completion:v40];
+  v40 = v21;
+  v41 = v22;
+  v42 = *(a1 + 56);
+  v45 = *(a1 + 72);
+  v43 = *(a1 + 64);
+  v23 = [v17 initWithDateInterval:v21 previousPresentationDate:v19 shouldReset:v20 completion:v39];
   v24 = [*(a1 + 40) definition];
   v25 = [v24 specification];
   v26 = [v25 transitionContextClass];
 
   v27 = objc_alloc_init(v26);
   v28 = MEMORY[0x277CBEB98];
-  v67[0] = v23;
-  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v67 count:1];
+  v66[0] = v23;
+  v29 = [MEMORY[0x277CBEA60] arrayWithObjects:v66 count:1];
   v30 = [v28 setWithArray:v29];
   [v27 setActions:v30];
 
@@ -1408,31 +1388,30 @@ id __124__BLSHBacklightFBSceneHostEnvironment_requestDateSpecifiersForDateInterv
     v36 = *(a1 + 72);
     v37 = [*(a1 + 32) clientHasDelegate];
     *buf = 134219522;
-    v54 = v32;
-    v55 = 2114;
-    v56 = v33;
-    v57 = 2114;
-    v58 = v34;
-    v59 = 2114;
-    v60 = v35;
-    v61 = 1024;
-    v62 = v36;
-    v63 = 1024;
-    v64 = v37;
-    v65 = 2114;
-    v66 = v23;
+    v53 = v32;
+    v54 = 2114;
+    v55 = v33;
+    v56 = 2114;
+    v57 = v34;
+    v58 = 2114;
+    v59 = v35;
+    v60 = 1024;
+    v61 = v36;
+    v62 = 1024;
+    v63 = v37;
+    v64 = 2114;
+    v65 = v23;
     _os_log_impl(&dword_21FD11000, v31, OS_LOG_TYPE_DEFAULT, "%p:%{public}@ request presentation dates for interval:%{public}@ previous:%{public}@ reset:%{BOOL}u clientHasDelegate:%{BOOL}u created action:%{public}@", buf, 0x40u);
   }
 
-  _Block_object_dispose(&v47, 8);
-  v38 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v46, 8);
 
   return v27;
 }
 
 void __124__BLSHBacklightFBSceneHostEnvironment_requestDateSpecifiersForDateInterval_previousPresentationDate_shouldReset_completion___block_invoke_90(uint64_t a1, void *a2)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(*(*(a1 + 64) + 8) + 40) invalidate];
   v4 = *(*(a1 + 64) + 8);
@@ -1471,39 +1450,39 @@ void __124__BLSHBacklightFBSceneHostEnvironment_requestDateSpecifiersForDateInte
     v17 = bls_scenes_log();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
-      v34 = *(a1 + 40);
-      v39 = [v34 identifier];
-      v41 = [MEMORY[0x277CF0BF0] sharedInstance];
-      v35 = [v41 formatDuration:v16];
-      v36 = [*(a1 + 32) bls_shortLoggingString];
-      v37 = [*(a1 + 48) bls_shortLoggingString];
-      v38 = *(a1 + 72);
+      v33 = *(a1 + 40);
+      v38 = [v33 identifier];
+      v40 = [MEMORY[0x277CF0BF0] sharedInstance];
+      v34 = [v40 formatDuration:v16];
+      v35 = [*(a1 + 32) bls_shortLoggingString];
+      v36 = [*(a1 + 48) bls_shortLoggingString];
+      v37 = *(a1 + 72);
       *buf = 134220034;
-      v44 = v34;
-      v45 = 2114;
-      v46 = v39;
-      v47 = 1024;
-      *v48 = v15;
-      *&v48[4] = 2114;
-      *&v48[6] = v35;
-      *&v48[14] = 2114;
-      *&v48[16] = v6;
-      *&v48[24] = 2114;
-      *&v48[26] = v3;
-      v49 = 2114;
-      v50 = v36;
-      v51 = 2114;
-      v52 = v37;
-      v53 = 1024;
-      v54 = v38;
+      v43 = v33;
+      v44 = 2114;
+      v45 = v38;
+      v46 = 1024;
+      *v47 = v15;
+      *&v47[4] = 2114;
+      *&v47[6] = v34;
+      *&v47[14] = 2114;
+      *&v47[16] = v6;
+      *&v47[24] = 2114;
+      *&v47[26] = v3;
+      v48 = 2114;
+      v49 = v35;
+      v50 = 2114;
+      v51 = v36;
+      v52 = 1024;
+      v53 = v37;
       _os_log_fault_impl(&dword_21FD11000, v17, OS_LOG_TYPE_FAULT, "%p:%{public}@ date specifier request failed (%d times). May retry after %{public}@ : error:%{public}@ response:%{public}@, for interval:%{public}@ previous:%{public}@ reset:%{BOOL}u", buf, 0x54u);
     }
 
     v18 = objc_alloc(MEMORY[0x277CF0848]);
     v19 = [MEMORY[0x277CBEAA8] now];
     v20 = [v18 initWithDate:v19 fidelity:0];
-    v42 = v20;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
+    v41 = v20;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
 
     v21 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceNow:v16];
     v22 = objc_alloc(MEMORY[0x277CCA970]);
@@ -1547,30 +1526,29 @@ void __124__BLSHBacklightFBSceneHostEnvironment_requestDateSpecifiersForDateInte
       v28 = [v27 identifier];
       v29 = [v9 bls_boundedDescriptionWithMax:12 transformer:&__block_literal_global_96];
       [*(a1 + 32) bls_shortLoggingString];
-      v30 = v40 = v3;
+      v30 = v39 = v3;
       v31 = [*(a1 + 48) bls_shortLoggingString];
       v32 = *(a1 + 72);
       *buf = 134219266;
-      v44 = v27;
-      v45 = 2114;
-      v46 = v28;
-      v47 = 2114;
-      *v48 = v29;
-      *&v48[8] = 2114;
-      *&v48[10] = v30;
-      *&v48[18] = 2114;
-      *&v48[20] = v31;
-      *&v48[28] = 1024;
-      *&v48[30] = v32;
+      v43 = v27;
+      v44 = 2114;
+      v45 = v28;
+      v46 = 2114;
+      *v47 = v29;
+      *&v47[8] = 2114;
+      *&v47[10] = v30;
+      *&v47[18] = 2114;
+      *&v47[20] = v31;
+      *&v47[28] = 1024;
+      *&v47[30] = v32;
       _os_log_impl(&dword_21FD11000, v21, v13, "%p:%{public}@ client dates:%{public}@ animation interval:%{public}@ previous:%{public}@ reset:%{BOOL}u", buf, 0x3Au);
 
       v6 = 0;
-      v3 = v40;
+      v3 = v39;
     }
   }
 
   (*(*(a1 + 56) + 16))();
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 id __124__BLSHBacklightFBSceneHostEnvironment_requestDateSpecifiersForDateInterval_previousPresentationDate_shouldReset_completion___block_invoke_93(uint64_t a1, void *a2)
@@ -1589,7 +1567,7 @@ id __124__BLSHBacklightFBSceneHostEnvironment_requestDateSpecifiersForDateInterv
 
 - (void)updateToDateSpecifier:(id)specifier sceneContentsUpdated:(id)updated
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   specifierCopy = specifier;
   updatedCopy = updated;
   BSDispatchQueueAssertMain();
@@ -1603,12 +1581,12 @@ id __124__BLSHBacklightFBSceneHostEnvironment_requestDateSpecifiersForDateInterv
       identifier = [(BLSHBacklightFBSceneHostEnvironment *)self identifier];
       *buf = 134218754;
       selfCopy2 = self;
-      v27 = 2114;
-      v28 = identifier;
-      v29 = 2114;
-      v30 = 0;
-      v31 = 2114;
-      v32 = specifierCopy;
+      v26 = 2114;
+      v27 = identifier;
+      v28 = 2114;
+      v29 = 0;
+      v30 = 2114;
+      v31 = specifierCopy;
       v16 = "%p:%{public}@ nil scene, will not update scene:%{public}@ to dateSpecifier:%{public}@";
       goto LABEL_8;
     }
@@ -1634,12 +1612,12 @@ LABEL_9:
         identifier = [(BLSHBacklightFBSceneHostEnvironment *)self identifier];
         *buf = 134218754;
         selfCopy2 = self;
-        v27 = 2114;
-        v28 = identifier;
-        v29 = 2114;
-        v30 = WeakRetained;
-        v31 = 2114;
-        v32 = specifierCopy;
+        v26 = 2114;
+        v27 = identifier;
+        v28 = 2114;
+        v29 = WeakRetained;
+        v30 = 2114;
+        v31 = specifierCopy;
         v16 = "%p:%{public}@ scene:%{public}@ already at dateSpecifier:%{public}@";
 LABEL_8:
         _os_log_impl(&dword_21FD11000, v14, OS_LOG_TYPE_INFO, v16, buf, 0x2Au);
@@ -1655,30 +1633,29 @@ LABEL_8:
   {
   }
 
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __82__BLSHBacklightFBSceneHostEnvironment_updateToDateSpecifier_sceneContentsUpdated___block_invoke;
-  v20[3] = &unk_278420148;
-  v20[4] = self;
-  v21 = visualState;
-  v22 = specifierCopy;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __82__BLSHBacklightFBSceneHostEnvironment_updateToDateSpecifier_sceneContentsUpdated___block_invoke;
+  v19[3] = &unk_278420148;
+  v19[4] = self;
+  v20 = visualState;
+  v21 = specifierCopy;
   v17 = WeakRetained;
-  v23 = v17;
+  v22 = v17;
   v18 = updatedCopy;
-  v24 = v18;
-  [v17 updateSettingsWithTransitionBlock:v20];
+  v23 = v18;
+  [v17 updateSettingsWithTransitionBlock:v19];
   if (([v17 isActive] & 1) == 0)
   {
     v18[2](v18);
   }
 
 LABEL_14:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __82__BLSHBacklightFBSceneHostEnvironment_updateToDateSpecifier_sceneContentsUpdated___block_invoke_104(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) invalidate];
   v4 = [v3 error];
@@ -1692,19 +1669,19 @@ void __82__BLSHBacklightFBSceneHostEnvironment_updateToDateSpecifier_sceneConten
       v8 = [v7 identifier];
       v9 = *(a1 + 48);
       v10 = *(a1 + 56);
-      v12 = 134219266;
-      v13 = v7;
-      v14 = 2114;
-      v15 = v8;
-      v16 = 2114;
-      v17 = v4;
-      v18 = 2114;
-      v19 = v3;
-      v20 = 2114;
-      v21 = v9;
-      v22 = 2114;
-      v23 = v10;
-      _os_log_error_impl(&dword_21FD11000, v6, OS_LOG_TYPE_ERROR, "%p:%{public}@ client update action failed error:%{public}@ response:%{public}@ will not update scene:%{public}@ to dateSpecifier:%{public}@", &v12, 0x3Eu);
+      v11 = 134219266;
+      v12 = v7;
+      v13 = 2114;
+      v14 = v8;
+      v15 = 2114;
+      v16 = v4;
+      v17 = 2114;
+      v18 = v3;
+      v19 = 2114;
+      v20 = v9;
+      v21 = 2114;
+      v22 = v10;
+      _os_log_error_impl(&dword_21FD11000, v6, OS_LOG_TYPE_ERROR, "%p:%{public}@ client update action failed error:%{public}@ response:%{public}@ will not update scene:%{public}@ to dateSpecifier:%{public}@", &v11, 0x3Eu);
     }
   }
 
@@ -1714,7 +1691,6 @@ void __82__BLSHBacklightFBSceneHostEnvironment_updateToDateSpecifier_sceneConten
   }
 
   (*(*(a1 + 64) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __62__BLSHBacklightFBSceneHostEnvironment_willBeginRenderSession___block_invoke(uint64_t a1)
@@ -1724,39 +1700,37 @@ void __62__BLSHBacklightFBSceneHostEnvironment_willBeginRenderSession___block_in
   v3 = MEMORY[0x277CCACA8];
   v4 = *(a1 + 32);
   v5 = [v4 identifier];
-  v6 = *(*(a1 + 32) + 40);
-  v7 = [v3 stringWithFormat:@"%p:%@ willBeginRenderSession – nonnil existing renderSessionAssertion:%@ newRenderSession:%@", v4, v5, v6, *(a1 + 40)];
+  v6 = [v3 stringWithFormat:@"%p:%@ willBeginRenderSession – nonnil existing renderSessionAssertion:%@ newRenderSession:%@", v4, v5, *(*(a1 + 32) + 40), *(a1 + 40)];
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v8 = NSStringFromSelector(*(a1 + 48));
-    v9 = *(a1 + 32);
-    v10 = objc_opt_class();
-    v11 = NSStringFromClass(v10);
-    v12 = *(a1 + 32);
+    v7 = NSStringFromSelector(*(a1 + 48));
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
+    v10 = *(a1 + 32);
     *buf = 138544642;
-    v14 = v8;
-    v15 = 2114;
-    v16 = v11;
-    v17 = 2048;
-    v18 = v12;
-    v19 = 2114;
-    v20 = @"BLSHBacklightFBSceneHostEnvironment.m";
-    v21 = 1024;
-    v22 = 935;
-    v23 = 2114;
-    v24 = v7;
+    v12 = v7;
+    v13 = 2114;
+    v14 = v9;
+    v15 = 2048;
+    v16 = v10;
+    v17 = 2114;
+    v18 = @"BLSHBacklightFBSceneHostEnvironment.m";
+    v19 = 1024;
+    v20 = 935;
+    v21 = 2114;
+    v22 = v6;
     _os_log_error_impl(&dword_21FD11000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  [v7 UTF8String];
+  [v6 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)willEndRenderSession:(id)session
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   BSDispatchQueueAssertMain();
   os_unfair_lock_lock(&self->_lock);
@@ -1765,15 +1739,15 @@ void __62__BLSHBacklightFBSceneHostEnvironment_willBeginRenderSession___block_in
   {
     identifier = [(BLSHBacklightFBSceneHostEnvironment *)self identifier];
     lock_renderSessionAssertion = self->_lock_renderSessionAssertion;
-    *v12 = 134218754;
-    *&v12[4] = self;
-    v13 = 2114;
-    v14 = identifier;
-    v15 = 2048;
-    v16 = sessionCopy;
-    v17 = 2048;
-    v18 = lock_renderSessionAssertion;
-    _os_log_impl(&dword_21FD11000, v5, OS_LOG_TYPE_INFO, "%p:%{public}@ willEndRenderSession:%p assertion:%p", v12, 0x2Au);
+    *v11 = 134218754;
+    *&v11[4] = self;
+    v12 = 2114;
+    v13 = identifier;
+    v14 = 2048;
+    v15 = sessionCopy;
+    v16 = 2048;
+    v17 = lock_renderSessionAssertion;
+    _os_log_impl(&dword_21FD11000, v5, OS_LOG_TYPE_INFO, "%p:%{public}@ willEndRenderSession:%p assertion:%p", v11, 0x2Au);
   }
 
   p_lock_renderSessionAssertion = &self->_lock_renderSessionAssertion;
@@ -1781,7 +1755,7 @@ void __62__BLSHBacklightFBSceneHostEnvironment_willBeginRenderSession___block_in
   if (!v8)
   {
     [BLSHBacklightFBSceneHostEnvironment willEndRenderSession:];
-    v8 = *v12;
+    v8 = *v11;
   }
 
   [(BLSHAggregatedProcessAssertion *)v8 invalidate];
@@ -1789,12 +1763,11 @@ void __62__BLSHBacklightFBSceneHostEnvironment_willBeginRenderSession___block_in
   *p_lock_renderSessionAssertion = 0;
 
   os_unfair_lock_unlock(&self->_lock);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateToVisualState:(id)state presentationDateSpecifier:(id)specifier
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   specifierCopy = specifier;
   BSDispatchQueueAssertMain();
@@ -1808,26 +1781,24 @@ void __62__BLSHBacklightFBSceneHostEnvironment_willBeginRenderSession___block_in
     bls_shortLoggingString = [stateCopy bls_shortLoggingString];
     bls_shortLoggingString2 = [date bls_shortLoggingString];
     *buf = 138543874;
-    v21 = identifier;
-    v22 = 2114;
-    v23 = bls_shortLoggingString;
-    v24 = 2114;
-    v25 = bls_shortLoggingString2;
+    v20 = identifier;
+    v21 = 2114;
+    v22 = bls_shortLoggingString;
+    v23 = 2114;
+    v24 = bls_shortLoggingString2;
     _os_log_debug_impl(&dword_21FD11000, v10, OS_LOG_TYPE_DEBUG, "FBSceneHostEnv.updateToVisualState: (direct) sending scene settings from host to scene:%{public}@ state:%{public}@ presentationDate:%{public}@", buf, 0x20u);
   }
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __85__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentationDateSpecifier___block_invoke;
-  v17[3] = &unk_278420198;
-  v17[4] = self;
-  v18 = stateCopy;
-  v19 = date;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __85__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentationDateSpecifier___block_invoke;
+  v16[3] = &unk_278420198;
+  v16[4] = self;
+  v17 = stateCopy;
+  v18 = date;
   v11 = date;
   v12 = stateCopy;
-  [WeakRetained updateSettingsWithBlock:v17];
-
-  v13 = *MEMORY[0x277D85DE8];
+  [WeakRetained updateSettingsWithBlock:v16];
 }
 
 void __113__BLSHBacklightFBSceneHostEnvironment_scene_didUpdateClientSettingsWithDiff_oldClientSettings_transitionContext___block_invoke(uint64_t a1, void *a2)
@@ -1967,45 +1938,43 @@ void __113__BLSHBacklightFBSceneHostEnvironment_scene_didUpdateClientSettingsWit
 
 - (void)notifyObserversWithBlock:(uint64_t)block
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (block)
   {
     os_unfair_lock_lock((block + 64));
     allObjects = [*(block + 56) allObjects];
     os_unfair_lock_unlock((block + 64));
-    v13 = 0u;
-    v14 = 0u;
-    v11 = 0u;
     v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
     v5 = allObjects;
-    v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v12;
+      v8 = *v11;
       do
       {
         v9 = 0;
         do
         {
-          if (*v12 != v8)
+          if (*v11 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v3[2](v3, *(*(&v11 + 1) + 8 * v9++));
+          v3[2](v3, *(*(&v10 + 1) + 8 * v9++));
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
       }
 
       while (v7);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLiveUpdating:(void *)updating forwardedToSettings:
@@ -2150,7 +2119,6 @@ void __113__BLSHBacklightFBSceneHostEnvironment_scene_didUpdateClientSettingsWit
 
 - (uint64_t)sceneWantsProcessAssertion:(void *)assertion withSceneSettings:
 {
-  v31 = *MEMORY[0x277D85DE8];
   v6 = a2;
   assertionCopy = assertion;
   if (self)
@@ -2194,7 +2162,7 @@ void __113__BLSHBacklightFBSceneHostEnvironment_scene_didUpdateClientSettingsWit
         identifier2 = [self identifier];
         OUTLINED_FUNCTION_1_13();
         OUTLINED_FUNCTION_7_2();
-        _os_log_debug_impl(v25, v26, v27, v28, v29, 0x20u);
+        _os_log_debug_impl(v24, v25, v26, v27, v28, 0x20u);
       }
 
       v14 = 0;
@@ -2206,13 +2174,12 @@ void __113__BLSHBacklightFBSceneHostEnvironment_scene_didUpdateClientSettingsWit
     v14 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v14 & 1;
 }
 
 id __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentationDateSpecifier_animated_triggerEvent_touchTargetable_sceneContentsUpdated_performBacklightRamp_animationComplete___block_invoke_66(uint64_t a1, void *a2)
 {
-  v121 = *MEMORY[0x277D85DE8];
+  v118 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_22_0(a2);
   [(BLSHBacklightFBSceneHostEnvironment *)*(a1 + 32) setVisualState:v2 forwardedToSettings:?];
   [(BLSHBacklightFBSceneHostEnvironment *)*(a1 + 32) setPresentationDate:v2 forwardedToSettings:?];
@@ -2245,26 +2212,26 @@ id __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentationDa
           v21 = *(a1 + 32);
           if (!*(v21 + 32))
           {
-            v66 = bls_scenes_log();
-            if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+            v63 = bls_scenes_log();
+            if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
             {
-              v67 = *(a1 + 32);
-              v68 = [v67 identifier];
-              v69 = *(a1 + 56);
+              v64 = *(a1 + 32);
+              v65 = [v64 identifier];
+              v66 = *(a1 + 56);
               *buf = 134218498;
-              v108 = v67;
-              OUTLINED_FUNCTION_3_8(v68, v69);
-              OUTLINED_FUNCTION_14_2(&dword_21FD11000, v66, v70, "%p:%{public}@ taking CPU/GPU grant process assertion 1FPSFlipbook for scene %p", buf);
+              v105 = v64;
+              OUTLINED_FUNCTION_3_8(v65, v66);
+              OUTLINED_FUNCTION_14_2(&dword_21FD11000, v63, v67, "%p:%{public}@ taking CPU/GPU grant process assertion 1FPSFlipbook for scene %p", buf);
             }
 
-            v71 = [BLSHAggregatedProcessAssertion alloc];
-            v72 = MEMORY[0x277CCACA8];
-            v73 = [*(a1 + 32) identifier];
-            v74 = [v72 stringWithFormat:@"1FPSFlipbook forScene:%@", v73];
-            v75 = [(BLSHAggregatedProcessAssertion *)v71 initWithExplanation:v74 processIdentity:v20 duration:1.79769313e308];
-            v76 = *(a1 + 32);
-            v77 = *(v76 + 32);
-            *(v76 + 32) = v75;
+            v68 = [BLSHAggregatedProcessAssertion alloc];
+            v69 = MEMORY[0x277CCACA8];
+            v70 = [*(a1 + 32) identifier];
+            v71 = [v69 stringWithFormat:@"1FPSFlipbook forScene:%@", v70];
+            v72 = [(BLSHAggregatedProcessAssertion *)v68 initWithExplanation:v71 processIdentity:v20 duration:1.79769313e308];
+            v73 = *(a1 + 32);
+            v74 = *(v73 + 32);
+            *(v73 + 32) = v72;
 
             [*(*(a1 + 32) + 32) setShouldFaultOnFailureToAcquire:-[BLSHBacklightFBSceneHostEnvironment isAtLeastOneMinuteOld](*(a1 + 32))];
             [*(*(a1 + 32) + 32) acquireWithCompletion:0];
@@ -2276,133 +2243,131 @@ id __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentationDa
           v11 = 0;
 LABEL_21:
           v24 = objc_alloc(MEMORY[0x277CF08A8]);
-          v25 = *(a1 + 64);
-          v26 = *(a1 + 96);
-          v27 = *(a1 + 97);
-          v96 = MEMORY[0x277D85DD0];
-          v97 = 3221225472;
-          v98 = __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentationDateSpecifier_animated_triggerEvent_touchTargetable_sceneContentsUpdated_performBacklightRamp_animationComplete___block_invoke_75;
-          v99 = &unk_278420030;
-          v105 = v26;
+          v25 = *(a1 + 96);
+          v93 = MEMORY[0x277D85DD0];
+          v94 = 3221225472;
+          v95 = __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentationDateSpecifier_animated_triggerEvent_touchTargetable_sceneContentsUpdated_performBacklightRamp_animationComplete___block_invoke_75;
+          v96 = &unk_278420030;
+          v102 = v25;
           v3 = v11;
-          v100 = v3;
-          v80 = *(a1 + 32);
-          v28 = *(a1 + 56);
-          v29 = *(a1 + 40);
-          v30 = *(a1 + 48);
-          *&v31 = v29;
-          *(&v31 + 1) = v30;
-          *&v32 = v80;
-          *(&v32 + 1) = v28;
-          v101 = v32;
-          v102 = v31;
-          v106 = *(a1 + 97);
-          v103 = *(a1 + 64);
-          v104 = *(a1 + 72);
-          v33 = [OUTLINED_FUNCTION_19_0() initWithBacklightChangeEvent:? animated:? touchTargetable:? isUpdateToDateSpecifier:? completion:?];
-          v34 = [MEMORY[0x277CBEB18] arrayWithObject:v33];
+          v97 = v3;
+          v77 = *(a1 + 32);
+          v26 = *(a1 + 56);
+          v27 = *(a1 + 40);
+          v28 = *(a1 + 48);
+          *&v29 = v27;
+          *(&v29 + 1) = v28;
+          *&v30 = v77;
+          *(&v30 + 1) = v26;
+          v98 = v30;
+          v99 = v29;
+          v103 = *(a1 + 97);
+          v100 = *(a1 + 64);
+          v101 = *(a1 + 72);
+          v31 = [OUTLINED_FUNCTION_19_0() initWithBacklightChangeEvent:? animated:? touchTargetable:? isUpdateToDateSpecifier:? completion:?];
+          v32 = [MEMORY[0x277CBEB18] arrayWithObject:v31];
           if (*(a1 + 80))
           {
-            v35 = objc_alloc(MEMORY[0x277CF08B8]);
-            v90[0] = MEMORY[0x277D85DD0];
-            v90[1] = 3221225472;
-            v90[2] = __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentationDateSpecifier_animated_triggerEvent_touchTargetable_sceneContentsUpdated_performBacklightRamp_animationComplete___block_invoke_79;
-            v90[3] = &unk_278420058;
-            v36 = *(a1 + 40);
-            v90[4] = *(a1 + 32);
-            v91 = v36;
-            v92 = *(a1 + 48);
-            v95 = *(a1 + 96);
-            v93 = *(a1 + 64);
-            v94 = *(a1 + 80);
-            v37 = [v35 initWithCompletion:v90];
+            v33 = objc_alloc(MEMORY[0x277CF08B8]);
+            v87[0] = MEMORY[0x277D85DD0];
+            v87[1] = 3221225472;
+            v87[2] = __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentationDateSpecifier_animated_triggerEvent_touchTargetable_sceneContentsUpdated_performBacklightRamp_animationComplete___block_invoke_79;
+            v87[3] = &unk_278420058;
+            v34 = *(a1 + 40);
+            v87[4] = *(a1 + 32);
+            v88 = v34;
+            v89 = *(a1 + 48);
+            v92 = *(a1 + 96);
+            v90 = *(a1 + 64);
+            v91 = *(a1 + 80);
+            v35 = [v33 initWithCompletion:v87];
             [OUTLINED_FUNCTION_19_0() addObject:?];
           }
 
           if (*(a1 + 88))
           {
-            v38 = objc_alloc(MEMORY[0x277CF08B0]);
-            v82[0] = MEMORY[0x277D85DD0];
-            v82[1] = 3221225472;
-            v82[2] = __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentationDateSpecifier_animated_triggerEvent_touchTargetable_sceneContentsUpdated_performBacklightRamp_animationComplete___block_invoke_83;
-            v82[3] = &unk_278420080;
-            v39 = v3;
-            v40 = *(a1 + 32);
-            v41 = *(a1 + 40);
-            v83 = v39;
-            v84 = v40;
-            v85 = v41;
-            v86 = *(a1 + 48);
-            v89 = *(a1 + 96);
-            v87 = *(a1 + 64);
-            v88 = *(a1 + 88);
-            v42 = [v38 initWithCompletion:v82];
+            v36 = objc_alloc(MEMORY[0x277CF08B0]);
+            v79[0] = MEMORY[0x277D85DD0];
+            v79[1] = 3221225472;
+            v79[2] = __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentationDateSpecifier_animated_triggerEvent_touchTargetable_sceneContentsUpdated_performBacklightRamp_animationComplete___block_invoke_83;
+            v79[3] = &unk_278420080;
+            v37 = v3;
+            v38 = *(a1 + 32);
+            v39 = *(a1 + 40);
+            v80 = v37;
+            v81 = v38;
+            v82 = v39;
+            v83 = *(a1 + 48);
+            v86 = *(a1 + 96);
+            v84 = *(a1 + 64);
+            v85 = *(a1 + 88);
+            v40 = [v36 initWithCompletion:v79];
             [OUTLINED_FUNCTION_19_0() addObject:?];
           }
 
-          v43 = [*(a1 + 56) definition];
-          v44 = [v43 specification];
-          v45 = [v44 transitionContextClass];
+          v41 = [*(a1 + 56) definition];
+          v42 = [v41 specification];
+          v43 = [v42 transitionContextClass];
 
-          v10 = objc_alloc_init(v45);
-          v46 = [MEMORY[0x277CBEB98] setWithArray:v34];
-          [v10 setActions:v46];
+          v10 = objc_alloc_init(v43);
+          v44 = [MEMORY[0x277CBEB98] setWithArray:v32];
+          [v10 setActions:v44];
 
           if (__disableFrontBoardRBAssertions == 1)
           {
             [v10 setRunningBoardAssertionDisabled:1];
           }
 
-          v47 = bls_scenes_log();
-          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
+          v45 = bls_scenes_log();
+          if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
           {
-            v59 = *(a1 + 32);
-            v60 = [v59 identifier];
-            v79 = *(a1 + 56);
-            v81 = *(a1 + 48);
-            v78 = *(a1 + 40);
-            v61 = [*(a1 + 32) clientHasDelegate];
+            v56 = *(a1 + 32);
+            v57 = [v56 identifier];
+            v76 = *(a1 + 56);
+            v78 = *(a1 + 48);
+            v75 = *(a1 + 40);
+            v58 = [*(a1 + 32) clientHasDelegate];
             *buf = 134219522;
-            v108 = v59;
-            v109 = 2114;
-            v110 = v60;
-            v111 = 2114;
-            v112 = v78;
-            v113 = 2048;
-            v114 = v79;
-            v115 = 2114;
-            v116 = v81;
-            v117 = 1024;
-            v118 = v61;
-            v119 = 2114;
-            v120 = v34;
-            _os_log_debug_impl(&dword_21FD11000, v47, OS_LOG_TYPE_DEBUG, "%p:%{public}@ updateToVisualState:%{public}@ scene:%p to presentationDate:%{public}@ clientHasDelegate:%{BOOL}u with:%{public}@", buf, 0x44u);
+            v105 = v56;
+            v106 = 2114;
+            v107 = v57;
+            v108 = 2114;
+            v109 = v75;
+            v110 = 2048;
+            v111 = v76;
+            v112 = 2114;
+            v113 = v78;
+            v114 = 1024;
+            v115 = v58;
+            v116 = 2114;
+            v117 = v32;
+            _os_log_debug_impl(&dword_21FD11000, v45, OS_LOG_TYPE_DEBUG, "%p:%{public}@ updateToVisualState:%{public}@ scene:%p to presentationDate:%{public}@ clientHasDelegate:%{BOOL}u with:%{public}@", buf, 0x44u);
           }
 
           goto LABEL_30;
         }
 
-        v62 = MEMORY[0x277CCACA8];
-        v63 = *(a1 + 40);
-        v64 = [*(a1 + 32) identifier];
-        v65 = [v62 stringWithFormat:@"updateToSceneVisualState:%@ forScene:%@", v63, v64];
+        v59 = MEMORY[0x277CCACA8];
+        v60 = *(a1 + 40);
+        v61 = [*(a1 + 32) identifier];
+        v62 = [v59 stringWithFormat:@"updateToSceneVisualState:%@ forScene:%@", v60, v61];
 
-        v11 = [[BLSHAggregatedProcessAssertion alloc] initWithExplanation:v65 processIdentity:v20 duration:2.75];
+        v11 = [[BLSHAggregatedProcessAssertion alloc] initWithExplanation:v62 processIdentity:v20 duration:2.75];
         [(BLSHAggregatedProcessAssertion *)v11 setShouldFaultOnFailureToAcquire:[(BLSHBacklightFBSceneHostEnvironment *)*(a1 + 32) isAtLeastOneMinuteOld]];
         [(BLSHAggregatedProcessAssertion *)v11 acquireWithCompletion:0];
       }
 
       else
       {
-        v50 = bls_scenes_log();
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+        v47 = bls_scenes_log();
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
         {
-          v51 = [OUTLINED_FUNCTION_18_0() identifier];
-          v52 = *(a1 + 56);
+          v48 = [OUTLINED_FUNCTION_18_0() identifier];
+          v49 = *(a1 + 56);
           *buf = 134218498;
-          v108 = v18;
-          OUTLINED_FUNCTION_3_8(v51, v52);
-          OUTLINED_FUNCTION_14_2(&dword_21FD11000, v50, v53, "%p:%{public}@ couldn't get a client processIdentity for scene %p. cannot take CPU/GPU grant process assertion 1FPSFlipbook", buf);
+          v105 = v18;
+          OUTLINED_FUNCTION_3_8(v48, v49);
+          OUTLINED_FUNCTION_14_2(&dword_21FD11000, v47, v50, "%p:%{public}@ couldn't get a client processIdentity for scene %p. cannot take CPU/GPU grant process assertion 1FPSFlipbook", buf);
         }
 
         v11 = 0;
@@ -2428,7 +2393,7 @@ LABEL_21:
         v14 = [v13 identifier];
         v15 = *(a1 + 56);
         *buf = 134218498;
-        v108 = v13;
+        v105 = v13;
         OUTLINED_FUNCTION_3_8(v14, v15);
         OUTLINED_FUNCTION_14_2(&dword_21FD11000, v12, v16, "%p:%{public}@ dropping CPU/GPU grant process assertion 1FPSFlipbook for scene %p", buf);
       }
@@ -2454,202 +2419,194 @@ LABEL_21:
   v9 = bls_scenes_log();
   if (OUTLINED_FUNCTION_15_1(v9))
   {
-    v54 = [OUTLINED_FUNCTION_18_0() identifier];
-    v56 = *(a1 + 48);
-    v55 = *(a1 + 56);
-    v57 = *(a1 + 40);
-    v58 = [*(a1 + 32) clientHasDelegate];
+    v51 = [OUTLINED_FUNCTION_18_0() identifier];
+    v53 = *(a1 + 48);
+    v52 = *(a1 + 56);
+    v54 = *(a1 + 40);
+    v55 = [*(a1 + 32) clientHasDelegate];
     *buf = 134219266;
-    v108 = v4;
-    v109 = 2114;
-    v110 = v54;
-    v111 = 2114;
-    v112 = v57;
-    v113 = 2048;
-    v114 = v55;
-    v115 = 2114;
-    v116 = v56;
-    v117 = 1024;
-    v118 = v58;
+    v105 = v4;
+    v106 = 2114;
+    v107 = v51;
+    v108 = 2114;
+    v109 = v54;
+    v110 = 2048;
+    v111 = v52;
+    v112 = 2114;
+    v113 = v53;
+    v114 = 1024;
+    v115 = v55;
     _os_log_debug_impl(&dword_21FD11000, v3, OS_LOG_TYPE_DEBUG, "%p:%{public}@ updateToVisualState:%{public}@ inactive scene:%p to presentationDate:%{public}@ clientHasDelegate:%{BOOL}u", buf, 0x3Au);
   }
 
   v10 = 0;
 LABEL_30:
 
-  v48 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 id __82__BLSHBacklightFBSceneHostEnvironment_updateToDateSpecifier_sceneContentsUpdated___block_invoke(uint64_t a1, void *a2)
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_22_0(a2);
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  [v5 newVisualStateWithUpdateFidelity:{objc_msgSend(*(a1 + 48), "fidelity")}];
-  v6 = OUTLINED_FUNCTION_17();
-  [(BLSHBacklightFBSceneHostEnvironment *)v6 setVisualState:v7 forwardedToSettings:v8];
+  v4 = *(a1 + 40);
+  [v4 newVisualStateWithUpdateFidelity:{objc_msgSend(*(a1 + 48), "fidelity")}];
+  v5 = OUTLINED_FUNCTION_17();
+  [(BLSHBacklightFBSceneHostEnvironment *)v5 setVisualState:v6 forwardedToSettings:v7];
 
-  v9 = *(a1 + 32);
   [*(a1 + 48) date];
   objc_claimAutoreleasedReturnValue();
-  v10 = OUTLINED_FUNCTION_17();
-  [(BLSHBacklightFBSceneHostEnvironment *)v10 setPresentationDate:v11 forwardedToSettings:v12];
+  v8 = OUTLINED_FUNCTION_17();
+  [(BLSHBacklightFBSceneHostEnvironment *)v8 setPresentationDate:v9 forwardedToSettings:v10];
 
   [(BLSHBacklightFBSceneHostEnvironment *)*(a1 + 32) copyRenderSeedToSettings:v2];
-  v13 = [*(a1 + 56) isActive];
-  v14 = *(a1 + 32);
-  if (v13)
+  v11 = [*(a1 + 56) isActive];
+  v12 = *(a1 + 32);
+  if (v11)
   {
-    if ([(BLSHBacklightFBSceneHostEnvironment *)v14 sceneWantsProcessAssertion:v2 withSceneSettings:?])
+    if ([(BLSHBacklightFBSceneHostEnvironment *)v12 sceneWantsProcessAssertion:v2 withSceneSettings:?])
     {
-      v15 = MEMORY[0x277CCACA8];
-      v16 = *(a1 + 48);
-      v17 = [*(a1 + 32) identifier];
-      v18 = [v15 stringWithFormat:@"updateTo:%@ forScene:%@", v16, v17];
+      v13 = MEMORY[0x277CCACA8];
+      v14 = *(a1 + 48);
+      v15 = [*(a1 + 32) identifier];
+      v16 = [v13 stringWithFormat:@"updateTo:%@ forScene:%@", v14, v15];
 
-      v19 = [*(a1 + 56) definition];
-      v20 = [v19 clientIdentity];
-      v21 = [v20 processIdentity];
+      v17 = [*(a1 + 56) definition];
+      v18 = [v17 clientIdentity];
+      v19 = [v18 processIdentity];
 
-      if (v21)
+      if (v19)
       {
-        v28 = [[BLSHAggregatedProcessAssertion alloc] initWithExplanation:v18 processIdentity:v21 duration:1.25];
-        [(BLSHAggregatedProcessAssertion *)v28 setShouldFaultOnFailureToAcquire:[(BLSHBacklightFBSceneHostEnvironment *)*(a1 + 32) isAtLeastOneMinuteOld]];
-        [(BLSHAggregatedProcessAssertion *)v28 acquireWithCompletion:0];
+        v25 = [[BLSHAggregatedProcessAssertion alloc] initWithExplanation:v16 processIdentity:v19 duration:1.25];
+        [(BLSHAggregatedProcessAssertion *)v25 setShouldFaultOnFailureToAcquire:[(BLSHBacklightFBSceneHostEnvironment *)*(a1 + 32) isAtLeastOneMinuteOld]];
+        [(BLSHAggregatedProcessAssertion *)v25 acquireWithCompletion:0];
       }
 
       else
       {
-        v22 = bls_scenes_log();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+        v20 = bls_scenes_log();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
-          v23 = *(a1 + 32);
-          v24 = [v23 identifier];
-          v25 = *(a1 + 56);
+          v21 = *(a1 + 32);
+          v22 = [v21 identifier];
           *buf = 134218498;
-          v57 = v23;
+          v53 = v21;
           OUTLINED_FUNCTION_10_0();
-          v61 = v26;
-          OUTLINED_FUNCTION_14_2(&dword_21FD11000, v22, v27, "%p:%{public}@ couldn't get a client processIdentity for scene %p. cannot take CPU/GPU grant process assertion", buf);
+          v57 = v23;
+          OUTLINED_FUNCTION_14_2(&dword_21FD11000, v20, v24, "%p:%{public}@ couldn't get a client processIdentity for scene %p. cannot take CPU/GPU grant process assertion", buf);
         }
 
-        v28 = 0;
+        v25 = 0;
       }
     }
 
     else
     {
-      v28 = 0;
+      v25 = 0;
     }
 
-    v35 = objc_alloc(MEMORY[0x277CF08A8]);
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = __82__BLSHBacklightFBSceneHostEnvironment_updateToDateSpecifier_sceneContentsUpdated___block_invoke_104;
-    v50[3] = &unk_278420120;
-    v29 = v28;
-    v36 = *(a1 + 32);
-    v51 = v29;
-    v52 = v36;
-    v53 = *(a1 + 56);
-    v54 = *(a1 + 48);
-    v55 = *(a1 + 64);
-    v37 = [v35 initWithBacklightChangeEvent:0 animated:0 touchTargetable:0 isUpdateToDateSpecifier:1 completion:v50];
-    v38 = [*(a1 + 56) definition];
-    v39 = [v38 specification];
-    v40 = [v39 transitionContextClass];
+    v32 = objc_alloc(MEMORY[0x277CF08A8]);
+    v46[0] = MEMORY[0x277D85DD0];
+    v46[1] = 3221225472;
+    v46[2] = __82__BLSHBacklightFBSceneHostEnvironment_updateToDateSpecifier_sceneContentsUpdated___block_invoke_104;
+    v46[3] = &unk_278420120;
+    v26 = v25;
+    v33 = *(a1 + 32);
+    v47 = v26;
+    v48 = v33;
+    v49 = *(a1 + 56);
+    v50 = *(a1 + 48);
+    v51 = *(a1 + 64);
+    v34 = [v32 initWithBacklightChangeEvent:0 animated:0 touchTargetable:0 isUpdateToDateSpecifier:1 completion:v46];
+    v35 = [*(a1 + 56) definition];
+    v36 = [v35 specification];
+    v37 = [v36 transitionContextClass];
 
-    v34 = objc_alloc_init(v40);
-    v41 = [MEMORY[0x277CBEB98] setWithObject:v37];
-    [v34 setActions:v41];
+    v31 = objc_alloc_init(v37);
+    v38 = [MEMORY[0x277CBEB98] setWithObject:v34];
+    [v31 setActions:v38];
 
     if (__disableFrontBoardRBAssertions == 1)
     {
-      [v34 setRunningBoardAssertionDisabled:1];
+      [v31 setRunningBoardAssertionDisabled:1];
     }
 
-    v42 = bls_scenes_log();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+    v39 = bls_scenes_log();
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
     {
-      v43 = *(a1 + 32);
-      v44 = [v43 identifier];
-      v46 = *(a1 + 48);
-      v45 = *(a1 + 56);
-      v47 = [*(a1 + 32) clientHasDelegate];
+      v40 = *(a1 + 32);
+      v41 = [v40 identifier];
+      v43 = *(a1 + 48);
+      v42 = *(a1 + 56);
+      v44 = [*(a1 + 32) clientHasDelegate];
       *buf = 134219266;
-      v57 = v43;
+      v53 = v40;
+      v54 = 2114;
+      v55 = v41;
+      v56 = 2048;
+      v57 = v42;
       v58 = 2114;
-      v59 = v44;
-      v60 = 2048;
-      v61 = v45;
+      v59 = v43;
+      v60 = 1024;
+      v61 = v44;
       v62 = 2114;
-      v63 = v46;
-      v64 = 1024;
-      v65 = v47;
-      v66 = 2114;
-      v67 = v37;
-      _os_log_impl(&dword_21FD11000, v42, OS_LOG_TYPE_INFO, "%p:%{public}@ request to update scene:%p to dateSpecifier:%{public}@ clientHasDelegate:%{BOOL}u action:%{public}@", buf, 0x3Au);
+      v63 = v34;
+      _os_log_impl(&dword_21FD11000, v39, OS_LOG_TYPE_INFO, "%p:%{public}@ request to update scene:%p to dateSpecifier:%{public}@ clientHasDelegate:%{BOOL}u action:%{public}@", buf, 0x3Au);
     }
   }
 
   else
   {
-    [(BLSHBacklightFBSceneHostEnvironment *)v14 setShouldInvalidateWhenActivated];
-    v29 = bls_scenes_log();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+    [(BLSHBacklightFBSceneHostEnvironment *)v12 setShouldInvalidateWhenActivated];
+    v26 = bls_scenes_log();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
-      v30 = [OUTLINED_FUNCTION_18_0() identifier];
-      v32 = *(a1 + 48);
-      v31 = *(a1 + 56);
-      v33 = [*(a1 + 32) clientHasDelegate];
+      v27 = [OUTLINED_FUNCTION_18_0() identifier];
+      v29 = *(a1 + 48);
+      v28 = *(a1 + 56);
+      v30 = [*(a1 + 32) clientHasDelegate];
       *buf = 134219010;
-      v57 = v5;
+      v53 = v4;
+      v54 = 2114;
+      v55 = v27;
+      v56 = 2048;
+      v57 = v28;
       v58 = 2114;
-      v59 = v30;
-      v60 = 2048;
-      v61 = v31;
-      v62 = 2114;
-      v63 = v32;
-      v64 = 1024;
-      v65 = v33;
-      _os_log_impl(&dword_21FD11000, v29, OS_LOG_TYPE_INFO, "%p:%{public}@ request to update inactive scene:%p to dateSpecifier:%{public}@ clientHasDelegate:%{BOOL}u", buf, 0x30u);
+      v59 = v29;
+      v60 = 1024;
+      v61 = v30;
+      _os_log_impl(&dword_21FD11000, v26, OS_LOG_TYPE_INFO, "%p:%{public}@ request to update inactive scene:%p to dateSpecifier:%{public}@ clientHasDelegate:%{BOOL}u", buf, 0x30u);
     }
 
-    v34 = 0;
+    v31 = 0;
   }
 
-  v48 = *MEMORY[0x277D85DE8];
-
-  return v34;
+  return v31;
 }
 
 - (void)willBeginRenderSession:(id)session
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   os_unfair_lock_lock(&self->_lock);
   v6 = bls_scenes_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     identifier = [(BLSHBacklightFBSceneHostEnvironment *)self identifier];
-    lock_renderSessionAssertion = self->_lock_renderSessionAssertion;
     *buf = 134218754;
     selfCopy2 = self;
     OUTLINED_FUNCTION_10_0();
-    v41 = sessionCopy;
-    v42 = v9;
-    v43 = v10;
+    v39 = sessionCopy;
+    v40 = v8;
+    v41 = v9;
     _os_log_impl(&dword_21FD11000, v6, OS_LOG_TYPE_INFO, "%p:%{public}@ willBeginRenderSession:%p oldAssertion:%p", buf, 0x2Au);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_fbScene);
   settings = [WeakRetained settings];
-  v13 = [(BLSHBacklightFBSceneHostEnvironment *)self sceneWantsProcessAssertion:settings withSceneSettings:?];
+  v12 = [(BLSHBacklightFBSceneHostEnvironment *)self sceneWantsProcessAssertion:settings withSceneSettings:?];
 
-  if (v13)
+  if (v12)
   {
     definition = [WeakRetained definition];
     clientIdentity = [definition clientIdentity];
@@ -2657,43 +2614,43 @@ id __82__BLSHBacklightFBSceneHostEnvironment_updateToDateSpecifier_sceneContents
 
     if (processIdentity)
     {
-      v21 = 0x277CCA000uLL;
+      v19 = 0x277CCA000uLL;
       if (self->_lock_renderSessionAssertion)
       {
-        v28 = MEMORY[0x277CCACA8];
+        v26 = MEMORY[0x277CCACA8];
         identifier2 = [(BLSHBacklightFBSceneHostEnvironment *)self identifier];
-        sessionCopy = [v28 stringWithFormat:@"%p:%@ willBeginRenderSession – nonnil existing renderSessionAssertion:%@ newRenderSession:%@", self, identifier2, self->_lock_renderSessionAssertion, sessionCopy];
+        sessionCopy = [v26 stringWithFormat:@"%p:%@ willBeginRenderSession – nonnil existing renderSessionAssertion:%@ newRenderSession:%@", self, identifier2, self->_lock_renderSessionAssertion, sessionCopy];
 
         BLSHRecordCriticalAssertFailure(sessionCopy, 1, 0);
-        v33[0] = MEMORY[0x277D85DD0];
-        v33[1] = 3221225472;
-        v33[2] = __62__BLSHBacklightFBSceneHostEnvironment_willBeginRenderSession___block_invoke;
-        v33[3] = &unk_27841E510;
-        v33[4] = self;
-        v34 = sessionCopy;
-        v35 = a2;
-        v31 = MEMORY[0x223D70730](v33);
+        v31[0] = MEMORY[0x277D85DD0];
+        v31[1] = 3221225472;
+        v31[2] = __62__BLSHBacklightFBSceneHostEnvironment_willBeginRenderSession___block_invoke;
+        v31[3] = &unk_27841E510;
+        v31[4] = self;
+        v32 = sessionCopy;
+        v33 = a2;
+        v29 = MEMORY[0x223D70730](v31);
         if (BLSHIsUnitTestRunning())
         {
-          v31[2](v31);
+          v29[2](v29);
         }
 
         else
         {
-          v32 = dispatch_time(0, 1000000000);
-          dispatch_after(v32, MEMORY[0x277D85CD0], v31);
+          v30 = dispatch_time(0, 1000000000);
+          dispatch_after(v30, MEMORY[0x277D85CD0], v29);
         }
 
-        v21 = 0x277CCA000;
+        v19 = 0x277CCA000;
       }
 
-      v22 = [BLSHAggregatedProcessAssertion alloc];
-      v23 = *(v21 + 3240);
+      v20 = [BLSHAggregatedProcessAssertion alloc];
+      v21 = *(v19 + 3240);
       identifier3 = [(BLSHBacklightFBSceneHostEnvironment *)self identifier];
-      v25 = [v23 stringWithFormat:@"RenderSession:%p forScene:%@", sessionCopy, identifier3];
-      v26 = [OUTLINED_FUNCTION_19_0() initWithExplanation:? processIdentity:? duration:?];
-      v27 = self->_lock_renderSessionAssertion;
-      self->_lock_renderSessionAssertion = v26;
+      v23 = [v21 stringWithFormat:@"RenderSession:%p forScene:%@", sessionCopy, identifier3];
+      v24 = [OUTLINED_FUNCTION_19_0() initWithExplanation:? processIdentity:? duration:?];
+      lock_renderSessionAssertion = self->_lock_renderSessionAssertion;
+      self->_lock_renderSessionAssertion = v24;
 
       [(BLSHAggregatedProcessAssertion *)self->_lock_secondsFidelityAssertion setShouldFaultOnFailureToAcquire:[(BLSHBacklightFBSceneHostEnvironment *)self isAtLeastOneMinuteOld]];
       [(BLSHAggregatedProcessAssertion *)self->_lock_renderSessionAssertion acquireWithCompletion:0];
@@ -2701,29 +2658,26 @@ id __82__BLSHBacklightFBSceneHostEnvironment_updateToDateSpecifier_sceneContents
 
     else
     {
-      v17 = bls_scenes_log();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v16 = bls_scenes_log();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         identifier4 = [(BLSHBacklightFBSceneHostEnvironment *)self identifier];
         *buf = 134218498;
         selfCopy2 = self;
-        v38 = 2114;
-        v39 = identifier4;
-        v40 = 2048;
-        v41 = WeakRetained;
-        OUTLINED_FUNCTION_14_2(&dword_21FD11000, v17, v19, "%p:%{public}@ couldn't get a client processIdentity for scene %p. cannot take CPU/GPU grant process assertion for render session", buf);
+        v36 = 2114;
+        v37 = identifier4;
+        v38 = 2048;
+        v39 = WeakRetained;
+        OUTLINED_FUNCTION_14_2(&dword_21FD11000, v16, v18, "%p:%{public}@ couldn't get a client processIdentity for scene %p. cannot take CPU/GPU grant process assertion for render session", buf);
       }
     }
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)wantsStateUpdateToActiveAfterRemovalFromPresentation
 {
-  v15 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_fbScene);
   settings = [WeakRetained settings];
   v5 = [(BLSHBacklightFBSceneHostEnvironment *)self sceneWantsProcessAssertion:settings withSceneSettings:?];
@@ -2733,10 +2687,9 @@ id __82__BLSHBacklightFBSceneHostEnvironment_updateToDateSpecifier_sceneContents
   {
     identifier = [(BLSHBacklightFBSceneHostEnvironment *)self identifier];
     OUTLINED_FUNCTION_7_2();
-    _os_log_debug_impl(v9, v10, v11, v12, v13, 0x12u);
+    _os_log_debug_impl(v8, v9, v10, v11, v12, 0x12u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5 ^ 1;
 }
 
@@ -2758,12 +2711,12 @@ void __85__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentationD
   if (v9)
   {
     [(BLSHBacklightFBSceneHostEnvironment *)self updateClientHasDelegateFromClientSettings];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __113__BLSHBacklightFBSceneHostEnvironment_scene_didUpdateClientSettingsWithDiff_oldClientSettings_transitionContext___block_invoke;
-    v16[3] = &unk_27841FF68;
-    v16[4] = self;
-    [(BLSHBacklightFBSceneHostEnvironment *)self notifyObserversWithBlock:v16];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __113__BLSHBacklightFBSceneHostEnvironment_scene_didUpdateClientSettingsWithDiff_oldClientSettings_transitionContext___block_invoke;
+    v17[3] = &unk_27841FF68;
+    v17[4] = self;
+    [(BLSHBacklightFBSceneHostEnvironment *)self notifyObserversWithBlock:v17];
     if ((v9 & 2) == 0)
     {
 LABEL_3:
@@ -2775,11 +2728,11 @@ LABEL_3:
 LABEL_7:
       [(BLSHBacklightFBSceneHostEnvironment *)self update1HzFlipbookForClientSettingChange];
       OUTLINED_FUNCTION_0_5();
-      v11 = 3221225472;
-      v12 = __113__BLSHBacklightFBSceneHostEnvironment_scene_didUpdateClientSettingsWithDiff_oldClientSettings_transitionContext___block_invoke_3;
-      v13 = &unk_27841FF68;
+      v12 = 3221225472;
+      v13 = __113__BLSHBacklightFBSceneHostEnvironment_scene_didUpdateClientSettingsWithDiff_oldClientSettings_transitionContext___block_invoke_3;
+      v14 = &unk_27841FF68;
       selfCopy = self;
-      [(BLSHBacklightFBSceneHostEnvironment *)self notifyObserversWithBlock:v10];
+      [(BLSHBacklightFBSceneHostEnvironment *)self notifyObserversWithBlock:v11];
       return;
     }
   }
@@ -2790,12 +2743,12 @@ LABEL_7:
   }
 
   [(BLSHBacklightFBSceneHostEnvironment *)self updateClientSupportsAlwaysOnFromClientSettings];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __113__BLSHBacklightFBSceneHostEnvironment_scene_didUpdateClientSettingsWithDiff_oldClientSettings_transitionContext___block_invoke_2;
-  v15[3] = &unk_27841FF68;
-  v15[4] = self;
-  [(BLSHBacklightFBSceneHostEnvironment *)self notifyObserversWithBlock:v15];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __113__BLSHBacklightFBSceneHostEnvironment_scene_didUpdateClientSettingsWithDiff_oldClientSettings_transitionContext___block_invoke_2;
+  v16[3] = &unk_27841FF68;
+  v16[4] = self;
+  [(BLSHBacklightFBSceneHostEnvironment *)self notifyObserversWithBlock:v16];
   if ((v9 & 4) != 0)
   {
     goto LABEL_7;
@@ -2805,53 +2758,41 @@ LABEL_7:
 - (void)initWithFBScene:.cold.2()
 {
   OUTLINED_FUNCTION_16_1();
-  v10 = *MEMORY[0x277D85DE8];
   v2 = [v1 identifier];
   v3 = [v0 debugDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_15();
   _os_log_debug_impl(v4, v5, v6, v7, v8, 0x2Au);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setAlwaysOnEnabledForEnvironment:.cold.1()
 {
   OUTLINED_FUNCTION_9_1();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 identifier];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_8_1();
   OUTLINED_FUNCTION_4_6();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLiveUpdating:.cold.1()
 {
   OUTLINED_FUNCTION_9_1();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 identifier];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_8_1();
   OUTLINED_FUNCTION_4_6();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUnrestrictedFramerateUpdates:.cold.1()
 {
   OUTLINED_FUNCTION_9_1();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 identifier];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_8_1();
   OUTLINED_FUNCTION_4_6();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCacheFlipbookOnDisplayWake:(void *)a1 .cold.1(void *a1)
@@ -2871,74 +2812,56 @@ LABEL_7:
 - (void)requestedFidelityForInactiveContentWithCompletion:.cold.1()
 {
   OUTLINED_FUNCTION_21_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 identifier];
   OUTLINED_FUNCTION_1_13();
   OUTLINED_FUNCTION_15();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestedFidelityForInactiveContentWithCompletion:.cold.2()
 {
   OUTLINED_FUNCTION_21_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [v0 identifier];
   OUTLINED_FUNCTION_1_13();
   OUTLINED_FUNCTION_15();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __89__BLSHBacklightFBSceneHostEnvironment_requestedFidelityForInactiveContentWithCompletion___block_invoke_cold_1(id *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [*a1 identifier];
   OUTLINED_FUNCTION_1_13();
   OUTLINED_FUNCTION_15();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __89__BLSHBacklightFBSceneHostEnvironment_requestedFidelityForInactiveContentWithCompletion___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_16_1();
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [*(v0 + 32) identifier];
   v2 = NSStringFromBLSUpdateFidelity();
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_15();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateToVisualState:presentationDateSpecifier:animated:triggerEvent:touchTargetable:sceneContentsUpdated:performBacklightRamp:animationComplete:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = MEMORY[0x223D70730]();
+  v5 = MEMORY[0x223D70730]();
   OUTLINED_FUNCTION_4_6();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateToVisualState:presentationDateSpecifier:animated:triggerEvent:touchTargetable:sceneContentsUpdated:performBacklightRamp:animationComplete:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v6 = MEMORY[0x223D70730]();
+  v5 = MEMORY[0x223D70730]();
   OUTLINED_FUNCTION_4_6();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentationDateSpecifier_animated_triggerEvent_touchTargetable_sceneContentsUpdated_performBacklightRamp_animationComplete___block_invoke_75_cold_1(uint64_t a1, unsigned __int8 *a2, NSObject *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 40);
   v7 = [v6 identifier];
   v8 = *(a1 + 48);
@@ -2947,88 +2870,74 @@ void __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentation
   v11 = *a2;
   v12 = *(a1 + 89);
   v13 = *(a1 + 72);
-  v15 = 134219778;
-  v16 = v6;
-  v17 = 2114;
-  v18 = v7;
-  v19 = 2114;
-  v20 = v8;
-  v21 = 2114;
-  v22 = v9;
-  v23 = 2114;
-  v24 = v10;
-  v25 = 1024;
-  v26 = v11;
-  v27 = 1024;
-  v28 = v12;
-  v29 = 2114;
-  v30 = v13;
-  _os_log_debug_impl(&dword_21FD11000, a3, OS_LOG_TYPE_DEBUG, "%p:%{public}@ client did update scene:%{public}@ to visualState:%{public}@ presentationDate:%{public}@ animated:%{BOOL}u touchTarget:%{BOOL}u event:%{public}@", &v15, 0x4Au);
-
-  v14 = *MEMORY[0x277D85DE8];
+  v14 = 134219778;
+  v15 = v6;
+  v16 = 2114;
+  v17 = v7;
+  v18 = 2114;
+  v19 = v8;
+  v20 = 2114;
+  v21 = v9;
+  v22 = 2114;
+  v23 = v10;
+  v24 = 1024;
+  v25 = v11;
+  v26 = 1024;
+  v27 = v12;
+  v28 = 2114;
+  v29 = v13;
+  _os_log_debug_impl(&dword_21FD11000, a3, OS_LOG_TYPE_DEBUG, "%p:%{public}@ client did update scene:%{public}@ to visualState:%{public}@ presentationDate:%{public}@ animated:%{BOOL}u touchTarget:%{BOOL}u event:%{public}@", &v14, 0x4Au);
 }
 
 void __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentationDateSpecifier_animated_triggerEvent_touchTargetable_sceneContentsUpdated_performBacklightRamp_animationComplete___block_invoke_79_cold_1(uint64_t a1, NSObject *a2, double a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 32);
   v7 = [v6 identifier];
   v8 = *(a1 + 40);
   v9 = [*(a1 + 48) bls_shortLoggingString];
   v10 = *(a1 + 72);
   v11 = *(a1 + 56);
-  v13 = 134219522;
-  v14 = v6;
-  v15 = 2114;
-  v16 = v7;
-  v17 = 2048;
-  v18 = a3;
-  v19 = 2114;
-  v20 = v8;
-  v21 = 2114;
-  v22 = v9;
-  v23 = 1024;
-  v24 = v10;
-  v25 = 2114;
-  v26 = v11;
-  _os_log_debug_impl(&dword_21FD11000, a2, OS_LOG_TYPE_DEBUG, "%p:%{public}@ client began ramp with duration:%lf for update to visualState:%{public}@ presentationDate:%{public}@, animated:%{BOOL}u event:%{public}@", &v13, 0x44u);
-
-  v12 = *MEMORY[0x277D85DE8];
+  v12 = 134219522;
+  v13 = v6;
+  v14 = 2114;
+  v15 = v7;
+  v16 = 2048;
+  v17 = a3;
+  v18 = 2114;
+  v19 = v8;
+  v20 = 2114;
+  v21 = v9;
+  v22 = 1024;
+  v23 = v10;
+  v24 = 2114;
+  v25 = v11;
+  _os_log_debug_impl(&dword_21FD11000, a2, OS_LOG_TYPE_DEBUG, "%p:%{public}@ client began ramp with duration:%lf for update to visualState:%{public}@ presentationDate:%{public}@, animated:%{BOOL}u event:%{public}@", &v12, 0x44u);
 }
 
 void __183__BLSHBacklightFBSceneHostEnvironment_updateToVisualState_presentationDateSpecifier_animated_triggerEvent_touchTargetable_sceneContentsUpdated_performBacklightRamp_animationComplete___block_invoke_83_cold_1()
 {
   OUTLINED_FUNCTION_21_0();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(v1 + 40) identifier];
-  v3 = *(v0 + 48);
-  v10 = [*(v0 + 56) bls_shortLoggingString];
-  v11 = *(v0 + 80);
-  v12 = *(v0 + 64);
+  v8 = [*(v0 + 56) bls_shortLoggingString];
   OUTLINED_FUNCTION_15();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x3Au);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x3Au);
 }
 
 void __82__BLSHBacklightFBSceneHostEnvironment_updateToDateSpecifier_sceneContentsUpdated___block_invoke_104_cold_1()
 {
   OUTLINED_FUNCTION_21_0();
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = [*(v1 + 40) identifier];
-  v3 = *(v0 + 56);
+  v1 = [*(v0 + 40) identifier];
   OUTLINED_FUNCTION_11_1();
   OUTLINED_FUNCTION_15();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
 - (void)willEndRenderSession:.cold.1()
 {
   OUTLINED_FUNCTION_16_1();
   v3 = v2;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(v2 + 1);
   v5 = [WeakRetained settings];
   if ([(BLSHBacklightFBSceneHostEnvironment *)v3 sceneWantsProcessAssertion:v5 withSceneSettings:?])
@@ -3044,57 +2953,55 @@ void __82__BLSHBacklightFBSceneHostEnvironment_updateToDateSpecifier_sceneConten
     v12 = bls_scenes_log();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      v14 = v8 == -128;
-      v15 = [v3 identifier];
+      v13 = v8 == -128;
+      v14 = [v3 identifier];
       *buf = 134219778;
-      v17 = v3;
-      v18 = 2114;
-      v19 = v15;
-      v20 = 2048;
-      v21 = WeakRetained;
-      v22 = 2048;
-      v23 = v5;
-      v24 = 1024;
-      v25 = ((v7 | v11) & 1 | v14) == 0;
-      v26 = 1024;
-      v27 = v7;
-      v28 = 1024;
-      v29 = v14;
-      v30 = 1024;
-      v31 = v11;
+      v16 = v3;
+      v17 = 2114;
+      v18 = v14;
+      v19 = 2048;
+      v20 = WeakRetained;
+      v21 = 2048;
+      v22 = v5;
+      v23 = 1024;
+      v24 = ((v7 | v11) & 1 | v13) == 0;
+      v25 = 1024;
+      v26 = v7;
+      v27 = 1024;
+      v28 = v13;
+      v29 = 1024;
+      v30 = v11;
       _os_log_fault_impl(&dword_21FD11000, v12, OS_LOG_TYPE_FAULT, "%p:%{public}@ renderSessionAssertion=nil but scene:%p settings:%p wantsProcessAssertions:%{BOOL}u optsOut:%{BOOL}u externalManaged:%{BOOL}u local:%{BOOL}u", buf, 0x42u);
     }
   }
 
   *v0 = *v1;
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sceneDidInvalidate:(id *)a3 .cold.1(void *a1, uint64_t a2, id *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = bls_scenes_log();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = [a1 identifier];
-    v9 = 134218498;
-    v10 = a1;
+    v11 = 134218498;
+    v12 = a1;
     OUTLINED_FUNCTION_1_13();
-    v11 = 2048;
-    v12 = a2;
-    _os_log_impl(&dword_21FD11000, v6, OS_LOG_TYPE_INFO, "%p:%{public}@ scene:%p did invalidate", &v9, 0x20u);
+    v13 = 2048;
+    v14 = a2;
+    _os_log_impl(&dword_21FD11000, v6, OS_LOG_TYPE_INFO, "%p:%{public}@ scene:%p did invalidate", &v11, 0x20u);
   }
 
   objc_storeWeak(a3, 0);
   [(BLSHBacklightFBSceneHostEnvironment *)a1 updateClientHasDelegateFromClientSettings];
   [(BLSHBacklightFBSceneHostEnvironment *)a1 updateClientSupportsAlwaysOnFromClientSettings];
   [(BLSHBacklightFBSceneHostEnvironment *)a1 update1HzFlipbookForClientSettingChange];
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sceneDidActivate:(os_unfair_lock_s *)a1 .cold.1(os_unfair_lock_s *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   ShouldInvalidateWhen = [(BLSHBacklightFBSceneHostEnvironment *)a1 readAndClearShouldInvalidateWhenActivated];
   v5 = bls_scenes_log();
   v6 = v5;
@@ -3111,20 +3018,18 @@ void __82__BLSHBacklightFBSceneHostEnvironment_updateToDateSpecifier_sceneConten
   if (os_log_type_enabled(v5, v7))
   {
     v8 = [(os_unfair_lock_s *)a1 identifier];
-    v10 = 134218498;
-    v11 = a1;
+    v9 = 134218498;
+    v10 = a1;
     OUTLINED_FUNCTION_1_13();
-    v12 = 2048;
-    v13 = a2;
-    _os_log_impl(&dword_21FD11000, v6, v7, "%p:%{public}@ scene:%p did activate", &v10, 0x20u);
+    v11 = 2048;
+    v12 = a2;
+    _os_log_impl(&dword_21FD11000, v6, v7, "%p:%{public}@ scene:%p did activate", &v9, 0x20u);
   }
 
   if (ShouldInvalidateWhen)
   {
     [(os_unfair_lock_s *)a1 invalidateContentForReason:@"wasInPresentationWhileInactive"];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 @end

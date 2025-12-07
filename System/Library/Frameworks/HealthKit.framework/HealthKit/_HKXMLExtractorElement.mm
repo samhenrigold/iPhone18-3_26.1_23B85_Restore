@@ -106,7 +106,7 @@ LABEL_13:
 
 - (BOOL)matchesElement:(id)element
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   elementCopy = element;
   specificationElement = self->_specificationElement;
   specificationElement = [elementCopy specificationElement];
@@ -117,27 +117,27 @@ LABEL_13:
     if (self->_specificationAttributes)
     {
       specificationAttributes = [elementCopy specificationAttributes];
+      v22 = 0u;
       v23 = 0u;
       v24 = 0u;
       v25 = 0u;
-      v26 = 0u;
       v8 = self->_specificationAttributes;
-      v9 = [(NSDictionary *)v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v9 = [(NSDictionary *)v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v9)
       {
         v10 = v9;
-        v22 = elementCopy;
-        v11 = *v24;
+        v21 = elementCopy;
+        v11 = *v23;
         while (2)
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v24 != v11)
+            if (*v23 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v23 + 1) + 8 * i);
+            v13 = *(*(&v22 + 1) + 8 * i);
             v14 = [specificationAttributes objectForKeyedSubscript:v13];
             if (!v14)
             {
@@ -158,7 +158,7 @@ LABEL_18:
             }
           }
 
-          v10 = [(NSDictionary *)v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v10 = [(NSDictionary *)v8 countByEnumeratingWithState:&v22 objects:v26 count:16];
           if (v10)
           {
             continue;
@@ -169,7 +169,7 @@ LABEL_18:
 
         v19 = 1;
 LABEL_19:
-        elementCopy = v22;
+        elementCopy = v21;
       }
 
       else
@@ -189,7 +189,6 @@ LABEL_19:
     v19 = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 

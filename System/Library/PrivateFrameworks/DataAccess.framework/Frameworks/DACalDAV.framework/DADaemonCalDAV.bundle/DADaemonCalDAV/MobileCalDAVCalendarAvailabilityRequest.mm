@@ -104,130 +104,127 @@
 + (id)_parseResponse:(id)response withAddresses:(id)addresses
 {
   responseCopy = response;
-  v48 = [NSSet setWithArray:addresses];
-  v47 = objc_alloc_init(NSMutableDictionary);
+  v46 = [NSSet setWithArray:addresses];
+  v45 = objc_alloc_init(NSMutableDictionary);
   v6 = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-  v38 = [NSTimeZone timeZoneWithName:@"UTC"];
+  v36 = [NSTimeZone timeZoneWithName:@"UTC"];
   [v6 setTimeZone:?];
-  v57 = 0u;
-  v58 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v39 = responseCopy;
+  v53 = 0u;
+  v54 = 0u;
+  v37 = responseCopy;
   obj = [responseCopy successfulICS];
-  v7 = [obj countByEnumeratingWithState:&v55 objects:v64 count:16];
+  v7 = [obj countByEnumeratingWithState:&v53 objects:v62 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v56;
+    v9 = *v54;
     v10 = _CPLog_to_os_log_type[7];
     type = _CPLog_to_os_log_type[4];
-    v41 = *v56;
-    v40 = v10;
+    v39 = *v54;
+    v38 = v10;
     do
     {
       v11 = 0;
-      v42 = v8;
+      v40 = v8;
       do
       {
-        if (*v56 != v9)
+        if (*v54 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v55 + 1) + 8 * v11);
+        v12 = *(*(&v53 + 1) + 8 * v11);
         calendar = [v12 calendar];
         calscale = [calendar calscale];
 
         if (calscale && ([calscale isEqualToString:@"GREGORIAN"] & 1) == 0)
         {
-          v36 = DALoggingwithCategory();
-          v50 = v36;
-          if (os_log_type_enabled(v36, v10))
+          v34 = DALoggingwithCategory();
+          v48 = v34;
+          if (os_log_type_enabled(v34, v10))
           {
             *buf = 138412546;
-            v61 = calscale;
-            v62 = 2112;
-            v63 = v12;
-            _os_log_impl(&dword_0, v36, v10, "Calendar scale unsupported: [%@].  Will not use iCalendar document in free/busy response: [%@]", buf, 0x16u);
+            v59 = calscale;
+            v60 = 2112;
+            v61 = v12;
+            _os_log_impl(&dword_0, v34, v10, "Calendar scale unsupported: [%@].  Will not use iCalendar document in free/busy response: [%@]", buf, 0x16u);
           }
         }
 
         else
         {
-          v53 = 0u;
-          v54 = 0u;
           v51 = 0u;
           v52 = 0u;
+          v49 = 0u;
+          v50 = 0u;
           calendar2 = [v12 calendar];
           components = [calendar2 components];
 
-          v50 = components;
-          v17 = [components countByEnumeratingWithState:&v51 objects:v59 count:16];
+          v48 = components;
+          v17 = [components countByEnumeratingWithState:&v49 objects:v57 count:16];
           if (v17)
           {
             v18 = v17;
-            v44 = calscale;
-            v45 = v11;
-            v19 = *v52;
+            v42 = calscale;
+            v43 = v11;
+            v19 = *v50;
             v20 = type;
-            v21 = &CalIsReminderBridgeEnabled_ptr;
-            v22 = v50;
+            v21 = v48;
             do
             {
               for (i = 0; i != v18; i = i + 1)
               {
-                if (*v52 != v19)
+                if (*v50 != v19)
                 {
-                  objc_enumerationMutation(v22);
+                  objc_enumerationMutation(v21);
                 }
 
-                v24 = *(*(&v51 + 1) + 8 * i);
-                v25 = v21[119];
+                v23 = *(*(&v49 + 1) + 8 * i);
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v26 = v24;
-                  v27 = [objc_opt_class() _availabilitySpansForFreeBusyComponent:v26 usingCalendar:v6];
-                  v28 = v27;
-                  if (v27 && [v27 count])
+                  v24 = v23;
+                  v25 = [objc_opt_class() _availabilitySpansForFreeBusyComponent:v24 usingCalendar:v6];
+                  v26 = v25;
+                  if (v25 && [v25 count])
                   {
-                    v29 = v6;
-                    attendee = [v26 attendee];
+                    v27 = v6;
+                    attendee = [v24 attendee];
                     firstObject = [attendee firstObject];
 
                     value = [firstObject value];
                     absoluteString = [value absoluteString];
-                    if (([v48 containsObject:absoluteString] & 1) == 0 && objc_msgSend(absoluteString, "hasMailto"))
+                    if (([v46 containsObject:absoluteString] & 1) == 0 && objc_msgSend(absoluteString, "hasMailto"))
                     {
                       stringRemovingMailto = [absoluteString stringRemovingMailto];
-                      if ([v48 containsObject:stringRemovingMailto])
+                      if ([v46 containsObject:stringRemovingMailto])
                       {
-                        v46 = stringRemovingMailto;
+                        v44 = stringRemovingMailto;
 
-                        absoluteString = v46;
+                        absoluteString = v44;
                       }
                     }
 
                     if (absoluteString)
                     {
-                      [v47 setObject:v28 forKey:absoluteString];
+                      [v45 setObject:v26 forKey:absoluteString];
                     }
 
                     else
                     {
-                      v35 = DALoggingwithCategory();
-                      if (os_log_type_enabled(v35, type))
+                      v33 = DALoggingwithCategory();
+                      if (os_log_type_enabled(v33, type))
                       {
                         *buf = 138412290;
-                        v61 = v26;
-                        _os_log_impl(&dword_0, v35, type, "No attendee found on free/busy component [%@].  Will not save free/busy spans.", buf, 0xCu);
+                        v59 = v24;
+                        _os_log_impl(&dword_0, v33, type, "No attendee found on free/busy component [%@].  Will not save free/busy spans.", buf, 0xCu);
                       }
                     }
 
-                    v6 = v29;
+                    v6 = v27;
                     v20 = type;
-                    v21 = &CalIsReminderBridgeEnabled_ptr;
                   }
 
                   else
@@ -236,24 +233,24 @@
                     if (os_log_type_enabled(firstObject, v20))
                     {
                       *buf = 138412290;
-                      v61 = v26;
+                      v59 = v24;
                       _os_log_impl(&dword_0, firstObject, v20, "No availability spans generated for component: [%@]", buf, 0xCu);
                     }
                   }
 
-                  v22 = v50;
+                  v21 = v48;
                 }
               }
 
-              v18 = [v22 countByEnumeratingWithState:&v51 objects:v59 count:16];
+              v18 = [v21 countByEnumeratingWithState:&v49 objects:v57 count:16];
             }
 
             while (v18);
-            v9 = v41;
-            v8 = v42;
-            v10 = v40;
-            calscale = v44;
-            v11 = v45;
+            v9 = v39;
+            v8 = v40;
+            v10 = v38;
+            calscale = v42;
+            v11 = v43;
           }
         }
 
@@ -261,13 +258,13 @@
       }
 
       while (v11 != v8);
-      v8 = [obj countByEnumeratingWithState:&v55 objects:v64 count:16];
+      v8 = [obj countByEnumeratingWithState:&v53 objects:v62 count:16];
     }
 
     while (v8);
   }
 
-  return v47;
+  return v45;
 }
 
 + (id)_availabilitySpansForFreeBusyComponent:(id)component usingCalendar:(id)calendar

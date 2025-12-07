@@ -186,7 +186,7 @@ LABEL_12:
   return candidatesCopy;
 }
 
-uint64_t __80__TUIKeyboardCandidateMultiplexer_willHandleDeliveryForCandidates_requestToken___block_invoke(uint64_t a1)
+void *__80__TUIKeyboardCandidateMultiplexer_willHandleDeliveryForCandidates_requestToken___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queueOnly_willHandleDeliveryForCandidates:*(a1 + 40) requestToken:*(a1 + 48)];
   *(*(*(a1 + 56) + 8) + 24) = result;
@@ -675,7 +675,7 @@ void __100__TUIKeyboardCandidateMultiplexer__queueOnly_candidateAccepted_keyboar
   dispatch_async(internalQueue, v15);
 }
 
-uint64_t __89__TUIKeyboardCandidateMultiplexer_candidateAccepted_keyboardState_candidateRequestToken___block_invoke(uint64_t a1)
+void *__89__TUIKeyboardCandidateMultiplexer_candidateAccepted_keyboardState_candidateRequestToken___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _queueOnly_candidateAccepted:*(a1 + 40) keyboardState:*(a1 + 48) candidateRequestToken:*(a1 + 56)];
   result = [*(a1 + 40) candidateProperty];

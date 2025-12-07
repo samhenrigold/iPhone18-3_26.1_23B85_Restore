@@ -1,13 +1,129 @@
 @interface CSUCoreMLInference
 - (BOOL)predict:(id *)predict;
 - (BOOL)setInputFeatures:(id)features error:(id *)error;
+- (CSUCoreMLInference)initWithCompiledModelFromUri:(id)uri useFunction:(id)function useComputeUnit:(int64_t)unit usePrecompiledE5Bundle:(BOOL)bundle error:(id *)error;
 - (id)getInputMLMutliArrayFor:(id)for WithShape:(id)shape error:(id *)error;
 - (id)getInputMLMutliArrayFor:(id)for error:(id *)error;
 - (id)getOutputFor:(id)for;
+- (void)getMLModelConfigWithFuncName:(id)name ComputeUnit:(int64_t)unit PrecompiledE5Bundle:(BOOL)bundle;
 - (void)setOutputBufferWithLayerName:(id)name withWidth:(unint64_t)width withHeight:(unint64_t)height withShape:(id)shape withPixelFormat:(unsigned int)format error:(id *)error;
 @end
 
 @implementation CSUCoreMLInference
+
+- (void)getMLModelConfigWithFuncName:(id)name ComputeUnit:(int64_t)unit PrecompiledE5Bundle:(BOOL)bundle
+{
+  bundleCopy = bundle;
+  v31 = *MEMORY[0x1E69E9840];
+  nameCopy = name;
+  v9 = objc_opt_new();
+  config = self->_config;
+  self->_config = v9;
+
+  objc_msgSend_setComputeUnits_(self->_config, v11, unit, v12, v13);
+  objc_msgSend_setUsePrecompiledE5Bundle_(self->_config, v14, bundleCopy, v15, v16);
+  v21 = objc_msgSend_usePrecompiledE5Bundle(self->_config, v17, v18, v19, v20);
+  if (v21)
+  {
+    v22 = sub_1AC090E50(v21);
+    if (!os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    {
+      goto LABEL_7;
+    }
+
+    LOWORD(v29) = 0;
+    v23 = "Using precompiled bundle";
+  }
+
+  else
+  {
+    v22 = sub_1AC090E50(v21);
+    if (!os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    {
+      goto LABEL_7;
+    }
+
+    LOWORD(v29) = 0;
+    v23 = "Not using precompiled bundle";
+  }
+
+  _os_log_impl(&dword_1AC05D000, v22, OS_LOG_TYPE_INFO, v23, &v29, 2u);
+LABEL_7:
+
+  if (nameCopy)
+  {
+    v27 = objc_msgSend_setFunctionName_(self->_config, v24, nameCopy, v25, v26);
+    v28 = sub_1AC090E50(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+    {
+      v29 = 138412290;
+      v30 = nameCopy;
+      _os_log_impl(&dword_1AC05D000, v28, OS_LOG_TYPE_INFO, "Using function = %@", &v29, 0xCu);
+    }
+  }
+}
+
+- (CSUCoreMLInference)initWithCompiledModelFromUri:(id)uri useFunction:(id)function useComputeUnit:(int64_t)unit usePrecompiledE5Bundle:(BOOL)bundle error:(id *)error
+{
+  bundleCopy = bundle;
+  v64 = *MEMORY[0x1E69E9840];
+  uriCopy = uri;
+  functionCopy = function;
+  v59.receiver = self;
+  v59.super_class = CSUCoreMLInference;
+  v14 = [(CSUCoreMLInference *)&v59 init];
+  v16 = v14;
+  if (v14)
+  {
+    objc_msgSend_getMLModelConfigWithFuncName_ComputeUnit_PrecompiledE5Bundle_(v14, v15, functionCopy, unit, bundleCopy);
+    pixelBufferAttributesForIOSurfaceBacking = v16->_pixelBufferAttributesForIOSurfaceBacking;
+    v16->_pixelBufferAttributesForIOSurfaceBacking = 0;
+
+    outputBackings = v16->_outputBackings;
+    v16->_outputBackings = 0;
+
+    v19 = MEMORY[0x1E695DFF8];
+    v23 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v20, @"file://%@", v21, v22, uriCopy);
+    v27 = objc_msgSend_URLWithString_(v19, v24, v23, v25, v26);
+    modelURL = v16->_modelURL;
+    v16->_modelURL = v27;
+
+    v33 = objc_msgSend_date(MEMORY[0x1E695DF00], v29, v30, v31, v32);
+    v35 = objc_msgSend_modelWithContentsOfURL_configuration_error_(MEMORY[0x1E695FE90], v34, v16->_modelURL, v16->_config, error);
+    model = v16->_model;
+    v16->_model = v35;
+
+    if (!v16->_model)
+    {
+
+      v57 = 0;
+      goto LABEL_8;
+    }
+
+    v41 = objc_msgSend_timeIntervalSinceNow(v33, v37, v38, v39, v40);
+    v43 = v42;
+    v44 = sub_1AC090E50(v41);
+    if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+    {
+      v45 = v16->_modelURL;
+      *buf = 138412546;
+      v61 = v45;
+      v62 = 2048;
+      v63 = v43;
+      _os_log_impl(&dword_1AC05D000, v44, OS_LOG_TYPE_INFO, "Time to load CoreML model %@ = %f", buf, 0x16u);
+    }
+
+    v50 = objc_msgSend_modelDescription(v16->_model, v46, v47, v48, v49);
+    v55 = objc_msgSend_inputDescriptionsByName(v50, v51, v52, v53, v54);
+    inputDescriptionsByName = v16->_inputDescriptionsByName;
+    v16->_inputDescriptionsByName = v55;
+  }
+
+  v57 = v16;
+LABEL_8:
+
+  return v57;
+}
 
 - (id)getInputMLMutliArrayFor:(id)for error:(id *)error
 {
@@ -39,7 +155,7 @@
 
 - (id)getInputMLMutliArrayFor:(id)for WithShape:(id)shape error:(id *)error
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   forCopy = for;
   shapeCopy = shape;
   v13 = objc_msgSend_objectForKeyedSubscript_(self->_inputDescriptionsByName, v10, forCopy, v11, v12);
@@ -51,25 +167,25 @@
   v37 = objc_msgSend_shapeConstraint(v32, v33, v34, v35, v36);
   v42 = objc_msgSend_enumeratedShapes(v37, v38, v39, v40, v41);
 
-  v76 = 0u;
-  v77 = 0u;
-  v74 = 0u;
   v75 = 0u;
+  v76 = 0u;
+  v73 = 0u;
+  v74 = 0u;
   v43 = v42;
-  v45 = objc_msgSend_countByEnumeratingWithState_objects_count_(v43, v44, &v74, v78, 16);
+  v45 = objc_msgSend_countByEnumeratingWithState_objects_count_(v43, v44, &v73, v77, 16);
   if (v45)
   {
-    v46 = *v75;
+    v46 = *v74;
     while (2)
     {
       for (i = 0; i != v45; ++i)
       {
-        if (*v75 != v46)
+        if (*v74 != v46)
         {
           objc_enumerationMutation(v43);
         }
 
-        v48 = *(*(&v74 + 1) + 8 * i);
+        v48 = *(*(&v73 + 1) + 8 * i);
         isEqualToArray = objc_msgSend_isEqualToArray_(shapeCopy, v49, v48, v50, v51);
 
         if (isEqualToArray)
@@ -79,7 +195,7 @@
         }
       }
 
-      v45 = objc_msgSend_countByEnumeratingWithState_objects_count_(v43, v53, &v74, v78, 16);
+      v45 = objc_msgSend_countByEnumeratingWithState_objects_count_(v43, v53, &v73, v77, 16);
       if (v45)
       {
         continue;
@@ -101,8 +217,6 @@ LABEL_11:
     v68 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v64, @"Could not create input MLMultiArray of type %ld and shape %@", v65, v66, v23, shapeCopy);
     v71 = objc_msgSend_errorForInternalErrorWithLocalizedDescription_underlyingError_(CSUError, v69, v68, *error, v70);
   }
-
-  v72 = *MEMORY[0x1E69E9840];
 
   return v67;
 }

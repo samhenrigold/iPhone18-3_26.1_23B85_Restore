@@ -900,7 +900,6 @@ LABEL_31:
   has = self->_has;
   if ((*&has & 0x1000000) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 1) == 0)
@@ -920,7 +919,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  associatedDuration = self->_associatedDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x800000) == 0)
@@ -935,7 +933,6 @@ LABEL_4:
   }
 
 LABEL_34:
-  sleepDuration = self->_sleepDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -950,7 +947,6 @@ LABEL_5:
   }
 
 LABEL_35:
-  roamDuration = self->_roamDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -965,7 +961,6 @@ LABEL_6:
   }
 
 LABEL_36:
-  phyOffDuration = self->_phyOffDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20000000) == 0)
@@ -980,7 +975,6 @@ LABEL_7:
   }
 
 LABEL_37:
-  transmitDuration = self->_transmitDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -995,7 +989,6 @@ LABEL_8:
   }
 
 LABEL_38:
-  receiveDuration = self->_receiveDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x2000000) == 0)
@@ -1010,7 +1003,6 @@ LABEL_9:
   }
 
 LABEL_39:
-  totalLPASDuration = self->_totalLPASDuration;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -1025,7 +1017,6 @@ LABEL_10:
   }
 
 LABEL_40:
-  powerConsumedInSelfManagedLPASMode = self->_powerConsumedInSelfManagedLPASMode;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -1040,7 +1031,6 @@ LABEL_11:
   }
 
 LABEL_41:
-  powerConsumptionDueToMac = self->_powerConsumptionDueToMac;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -1055,7 +1045,6 @@ LABEL_12:
   }
 
 LABEL_42:
-  powerConsumptionDueToRF = self->_powerConsumptionDueToRF;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -1070,7 +1059,6 @@ LABEL_13:
   }
 
 LABEL_43:
-  powerConsumptionDueToUserScan = self->_powerConsumptionDueToUserScan;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1085,7 +1073,6 @@ LABEL_14:
   }
 
 LABEL_44:
-  powerConsumptionDueToRoamScan = self->_powerConsumptionDueToRoamScan;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1100,7 +1087,6 @@ LABEL_15:
   }
 
 LABEL_45:
-  powerConsumptionDueToAssocScan = self->_powerConsumptionDueToAssocScan;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -1115,7 +1101,6 @@ LABEL_16:
   }
 
 LABEL_46:
-  powerConsumptionDueToEPNOScan = self->_powerConsumptionDueToEPNOScan;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -1130,7 +1115,6 @@ LABEL_17:
   }
 
 LABEL_47:
-  powerConsumptionDueToTx = self->_powerConsumptionDueToTx;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -1145,7 +1129,6 @@ LABEL_18:
   }
 
 LABEL_48:
-  powerConsumptionDueToRx = self->_powerConsumptionDueToRx;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -1160,7 +1143,6 @@ LABEL_19:
   }
 
 LABEL_49:
-  powerConsumptionDueToFRTS = self->_powerConsumptionDueToFRTS;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1175,7 +1157,6 @@ LABEL_20:
   }
 
 LABEL_50:
-  powerConsumptionDueToAWDLTx = self->_powerConsumptionDueToAWDLTx;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -1190,7 +1171,6 @@ LABEL_21:
   }
 
 LABEL_51:
-  powerConsumptionDueToAWDLRx = self->_powerConsumptionDueToAWDLRx;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -1205,7 +1185,6 @@ LABEL_22:
   }
 
 LABEL_52:
-  beaconReceivedInLpas = self->_beaconReceivedInLpas;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x10) == 0)
@@ -1220,7 +1199,6 @@ LABEL_23:
   }
 
 LABEL_53:
-  beaconsMissedInLpas = self->_beaconsMissedInLpas;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -1235,7 +1213,6 @@ LABEL_24:
   }
 
 LABEL_54:
-  beaconsEarlyTerminatedInLpas = self->_beaconsEarlyTerminatedInLpas;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -1250,7 +1227,6 @@ LABEL_25:
   }
 
 LABEL_55:
-  beaconsScheduledInLpas = self->_beaconsScheduledInLpas;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x4000000) == 0)
@@ -1265,7 +1241,6 @@ LABEL_26:
   }
 
 LABEL_56:
-  totalLpasPowerBudget = self->_totalLpasPowerBudget;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -1280,7 +1255,6 @@ LABEL_27:
   }
 
 LABEL_57:
-  lpasPowerBudgetRemaining = self->_lpasPowerBudgetRemaining;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x8000000) == 0)
@@ -1295,7 +1269,6 @@ LABEL_28:
   }
 
 LABEL_58:
-  totalLpasPowerMonitoringPeriod = self->_totalLpasPowerMonitoringPeriod;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1307,7 +1280,6 @@ LABEL_29:
     }
 
 LABEL_60:
-    associatedSleepDuration = self->_associatedSleepDuration;
     PBDataWriterWriteUint64Field();
     if ((*&self->_has & 0x10000000) == 0)
     {
@@ -1318,7 +1290,6 @@ LABEL_60:
   }
 
 LABEL_59:
-  lpasPowerPeriodRemaining = self->_lpasPowerPeriodRemaining;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 2) != 0)
@@ -1333,7 +1304,6 @@ LABEL_30:
   }
 
 LABEL_61:
-  totalTimeForBugetExpiry = self->_totalTimeForBugetExpiry;
 
   PBDataWriterWriteUint64Field();
 }

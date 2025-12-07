@@ -48,15 +48,15 @@
 
 - (STVersionVector)initWithDataRepresentation:(id)representation
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v5 = [(STVersionVector *)self init];
   v6 = v5;
   if (representationCopy && v5)
   {
-    v32 = 0;
-    v7 = [MEMORY[0x1E696ACB0] JSONObjectWithData:representationCopy options:0 error:&v32];
-    v8 = v32;
+    v31 = 0;
+    v7 = [MEMORY[0x1E696ACB0] JSONObjectWithData:representationCopy options:0 error:&v31];
+    v8 = v31;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -69,32 +69,32 @@
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v25 = v9;
-          v26 = v8;
-          v27 = v7;
-          v24 = v10;
+          v24 = v9;
+          v25 = v8;
+          v26 = v7;
+          v23 = v10;
           [(STVersionVector *)v6 setEditorIdentifier:v10];
           v12 = v6->_nodeByIdentifier;
+          v27 = 0u;
           v28 = 0u;
           v29 = 0u;
           v30 = 0u;
-          v31 = 0u;
           v13 = v11;
-          v14 = [v13 countByEnumeratingWithState:&v28 objects:v33 count:16];
+          v14 = [v13 countByEnumeratingWithState:&v27 objects:v32 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v29;
+            v16 = *v28;
             do
             {
               for (i = 0; i != v15; ++i)
               {
-                if (*v29 != v16)
+                if (*v28 != v16)
                 {
                   objc_enumerationMutation(v13);
                 }
 
-                v18 = *(*(&v28 + 1) + 8 * i);
+                v18 = *(*(&v27 + 1) + 8 * i);
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
@@ -104,15 +104,15 @@
                 }
               }
 
-              v15 = [v13 countByEnumeratingWithState:&v28 objects:v33 count:16];
+              v15 = [v13 countByEnumeratingWithState:&v27 objects:v32 count:16];
             }
 
             while (v15);
           }
 
-          v7 = v27;
-          v21 = v25;
-          v8 = v26;
+          v7 = v26;
+          v21 = v24;
+          v8 = v25;
 LABEL_19:
 
           goto LABEL_20;
@@ -131,17 +131,16 @@ LABEL_19:
 
 LABEL_20:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (NSData)dataRepresentation
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   nodes = [(STVersionVector *)self nodes];
   v4 = [nodes valueForKeyPath:@"dictionaryRepresentation"];
 
-  v17[0] = @"e";
+  v16[0] = @"e";
   editorIdentifier = [(STVersionVector *)self editorIdentifier];
   v6 = editorIdentifier;
   v7 = &stru_1F3040980;
@@ -150,14 +149,14 @@ LABEL_20:
     v7 = editorIdentifier;
   }
 
-  v17[1] = @"n";
-  v18[0] = v7;
-  v18[1] = v4;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v16[1] = @"n";
+  v17[0] = v7;
+  v17[1] = v4;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
 
-  v16 = 0;
-  v9 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v8 options:0 error:&v16];
-  v10 = v16;
+  v15 = 0;
+  v9 = [MEMORY[0x1E696ACB0] dataWithJSONObject:v8 options:0 error:&v15];
+  v10 = v15;
   if (v9)
   {
     v11 = v9;
@@ -176,63 +175,59 @@ LABEL_20:
 
   v13 = v11;
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 - (NSArray)nodes
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"identifier" ascending:1];
   nodeByIdentifier = [(STVersionVector *)self nodeByIdentifier];
   allValues = [nodeByIdentifier allValues];
-  v10[0] = v3;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+  v9[0] = v3;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
   v7 = [allValues sortedArrayUsingDescriptors:v6];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (unint64_t)evaluateCausality:(id)causality
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   causalityCopy = causality;
   v5 = objc_opt_new();
   nodeByIdentifier = [(STVersionVector *)self nodeByIdentifier];
   allKeys = [nodeByIdentifier allKeys];
   [v5 addObjectsFromArray:allKeys];
 
-  v36 = causalityCopy;
+  v35 = causalityCopy;
   nodeByIdentifier2 = [causalityCopy nodeByIdentifier];
   allKeys2 = [nodeByIdentifier2 allKeys];
   [v5 addObjectsFromArray:allKeys2];
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v10 = v5;
-  v11 = [v10 countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v11)
   {
     v12 = v11;
     v13 = 0;
     v14 = 0;
-    v15 = *v38;
+    v15 = *v37;
     obj = v10;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v38 != v15)
+        if (*v37 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v37 + 1) + 8 * i);
+        v17 = *(*(&v36 + 1) + 8 * i);
         nodeByIdentifier3 = [(STVersionVector *)self nodeByIdentifier];
         v19 = [nodeByIdentifier3 objectForKeyedSubscript:v17];
         v20 = v19;
@@ -248,7 +243,7 @@ LABEL_20:
 
         v22 = v21;
 
-        nodeByIdentifier4 = [v36 nodeByIdentifier];
+        nodeByIdentifier4 = [v35 nodeByIdentifier];
         v24 = [nodeByIdentifier4 objectForKeyedSubscript:v17];
         v25 = v24;
         if (v24)
@@ -280,7 +275,7 @@ LABEL_20:
       }
 
       v10 = obj;
-      v12 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v12 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
     }
 
     while (v12);
@@ -319,7 +314,6 @@ LABEL_20:
 
 LABEL_28:
 
-  v33 = *MEMORY[0x1E69E9840];
   return v31;
 }
 
@@ -344,7 +338,7 @@ LABEL_28:
 
 - (void)join:(id)join
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   joinCopy = join;
   editorIdentifier = [joinCopy editorIdentifier];
   [(STVersionVector *)self setEditorIdentifier:editorIdentifier];
@@ -358,27 +352,27 @@ LABEL_28:
   allKeys2 = [nodeByIdentifier2 allKeys];
   [v6 addObjectsFromArray:allKeys2];
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v11 = v6;
-  v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v24;
+    v14 = *v23;
     do
     {
       v15 = 0;
       do
       {
-        if (*v24 != v14)
+        if (*v23 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v23 + 1) + 8 * v15);
+        v16 = *(*(&v22 + 1) + 8 * v15);
         nodeByIdentifier3 = [(STVersionVector *)self nodeByIdentifier];
         v18 = [nodeByIdentifier3 objectForKeyedSubscript:v16];
 
@@ -401,46 +395,40 @@ LABEL_28:
       }
 
       while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v13);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"identifier" ascending:1];
   nodes = [(STVersionVector *)self nodes];
-  v10[0] = v3;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+  v9[0] = v3;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
   v6 = [nodes sortedArrayUsingDescriptors:v5];
 
   v7 = [v6 description];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (id)debugDescription
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"identifier" ascending:1];
   nodes = [(STVersionVector *)self nodes];
-  v13[0] = v3;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = v3;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   v6 = [nodes sortedArrayUsingDescriptors:v5];
 
   v7 = MEMORY[0x1E696AEC0];
   v8 = objc_opt_class();
   editorIdentifier = [(STVersionVector *)self editorIdentifier];
   v10 = [v7 stringWithFormat:@"<%@: %p { editorIdentifier = %@, nodes = %@ }>", v8, self, editorIdentifier, v6];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -471,22 +459,20 @@ void __32__STVersionVector_copyWithZone___block_invoke(uint64_t a1, void *a2, vo
 
 - (void)initWithDataRepresentation:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_1B831F000, log, OS_LOG_TYPE_ERROR, "Malformed version vector: %{public}@ %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_1B831F000, log, OS_LOG_TYPE_ERROR, "Malformed version vector: %{public}@ %{public}@", &v3, 0x16u);
 }
 
 - (void)dataRepresentation
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
   selfCopy = self;
-  _os_log_fault_impl(&dword_1B831F000, a2, OS_LOG_TYPE_FAULT, "Failed to serialize version vector: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1B831F000, a2, OS_LOG_TYPE_FAULT, "Failed to serialize version vector: %{public}@", &v2, 0xCu);
 }
 
 @end

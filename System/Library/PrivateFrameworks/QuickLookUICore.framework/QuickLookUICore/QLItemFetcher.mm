@@ -54,39 +54,36 @@
 
 void __33__QLItemFetcher__notifyObservers__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = [*(*(a1 + 32) + 8) objectForKey:a2];
+  v12 = *MEMORY[0x277D85DE8];
+  v2 = [*(*(a1 + 32) + 8) objectForKey:a2];
+  v7 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
-  if (v4)
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  if (v3)
   {
-    v5 = v4;
-    v6 = *v11;
+    v4 = v3;
+    v5 = *v8;
     do
     {
-      v7 = 0;
+      v6 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v8 != v5)
         {
-          objc_enumerationMutation(v3);
+          objc_enumerationMutation(v2);
         }
 
-        v8 = *(a1 + 32);
-        (*(*(*(&v10 + 1) + 8 * v7++) + 16))();
+        (*(*(*(&v7 + 1) + 8 * v6++) + 16))();
       }
 
-      while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      while (v4 != v6);
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
-    while (v5);
+    while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeWithCoder:(id)coder

@@ -33,7 +33,7 @@
 
 - (NSDictionary)enterpriseProfile
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   enterpriseProfile = self->_enterpriseProfile;
   if (enterpriseProfile)
   {
@@ -42,9 +42,9 @@
 
   else
   {
-    v35.receiver = self;
-    v35.super_class = WFMutableNetworkProfile;
-    enterpriseProfile = [(WFNetworkProfile *)&v35 enterpriseProfile];
+    v38.receiver = self;
+    v38.super_class = WFMutableNetworkProfile;
+    enterpriseProfile = [(WFNetworkProfile *)&v38 enterpriseProfile];
   }
 
   v5 = enterpriseProfile;
@@ -67,42 +67,44 @@
       {
         v11 = WFLogForCategory(0);
         v12 = OSLogForWFLogLevel(1uLL);
-        if (WFCurrentLogLevel() && v11 && os_log_type_enabled(v11, v12))
+        v13 = v12;
+        if (WFCurrentLogLevel(v12, v14) && v11 && os_log_type_enabled(v11, v13))
         {
           *buf = 136315138;
-          v37 = "[WFMutableNetworkProfile enterpriseProfile]";
-          _os_log_impl(&dword_273ECD000, v11, v12, "%s: failed to create SecIdentity handle for identity", buf, 0xCu);
+          v40 = "[WFMutableNetworkProfile enterpriseProfile]";
+          _os_log_impl(&dword_273ECD000, v11, v13, "%s: failed to create SecIdentity handle for identity", buf, 0xCu);
         }
       }
 
-      v13 = [dictionary objectForKey:@"AcceptEAPTypes"];
+      v15 = [dictionary objectForKey:@"AcceptEAPTypes"];
 
-      if (v13)
+      if (v15)
       {
-        v14 = [dictionary objectForKey:@"AcceptEAPTypes"];
-        v15 = [v14 containsObject:&unk_288304828];
+        v16 = [dictionary objectForKey:@"AcceptEAPTypes"];
+        v17 = [v16 containsObject:&unk_288304828];
 
-        if (v15)
+        if (v17)
         {
-          v16 = WFLogForCategory(0);
-          v17 = OSLogForWFLogLevel(1uLL);
-          if (WFCurrentLogLevel() && v16 && os_log_type_enabled(v16, v17))
+          v18 = WFLogForCategory(0);
+          v19 = OSLogForWFLogLevel(1uLL);
+          v20 = v19;
+          if (WFCurrentLogLevel(v19, v21) && v18 && os_log_type_enabled(v18, v20))
           {
             *buf = 136315394;
-            v37 = "[WFMutableNetworkProfile enterpriseProfile]";
-            v38 = 2112;
-            v39 = dictionary;
-            _os_log_impl(&dword_273ECD000, v16, v17, "%s: accept EAP types already present %@", buf, 0x16u);
+            v40 = "[WFMutableNetworkProfile enterpriseProfile]";
+            v41 = 2112;
+            v42 = dictionary;
+            _os_log_impl(&dword_273ECD000, v18, v20, "%s: accept EAP types already present %@", buf, 0x16u);
           }
         }
 
         else
         {
-          v18 = [dictionary objectForKey:@"AcceptEAPTypes"];
-          v19 = [v18 mutableCopy];
+          v22 = [dictionary objectForKey:@"AcceptEAPTypes"];
+          v23 = [v22 mutableCopy];
 
-          [v19 addObject:&unk_288304828];
-          [dictionary setObject:v19 forKey:@"AcceptEAPTypes"];
+          [v23 addObject:&unk_288304828];
+          [dictionary setObject:v23 forKey:@"AcceptEAPTypes"];
         }
       }
 
@@ -122,15 +124,15 @@
 
   if (v5)
   {
-    v21 = certificateChain == 0;
+    v25 = certificateChain == 0;
   }
 
   else
   {
-    v21 = 1;
+    v25 = 1;
   }
 
-  if (!v21)
+  if (!v25)
   {
     certificateChain2 = [(WFMutableNetworkProfile *)self certificateChain];
     [dictionary setObject:certificateChain2 forKey:@"TLSUserTrustProceedCertificateChain"];
@@ -146,27 +148,27 @@
   else
   {
     password = [(WFMutableNetworkProfile *)self password];
-    v25 = [password length];
+    v29 = [password length];
 
-    if (!v25)
+    if (!v29)
     {
       goto LABEL_35;
     }
   }
 
   username2 = [(WFMutableNetworkProfile *)self username];
-  v27 = [username2 length];
+  v31 = [username2 length];
 
-  if (v27)
+  if (v31)
   {
     username3 = [(WFMutableNetworkProfile *)self username];
     [dictionary setObject:username3 forKey:@"UserName"];
   }
 
   password2 = [(WFMutableNetworkProfile *)self password];
-  v30 = [password2 length];
+  v34 = [password2 length];
 
-  if (v30)
+  if (v34)
   {
     password3 = [(WFMutableNetworkProfile *)self password];
     [dictionary setObject:password3 forKey:@"UserPassword"];
@@ -175,29 +177,26 @@
 LABEL_35:
   if ([dictionary count])
   {
-    v32 = [(NSDictionary *)v5 mutableCopy];
-    [(NSDictionary *)v32 setObject:dictionary forKey:@"EAPClientConfiguration"];
+    v36 = [(NSDictionary *)v5 mutableCopy];
+    [(NSDictionary *)v36 setObject:dictionary forKey:@"EAPClientConfiguration"];
 
-    v5 = v32;
+    v5 = v36;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (void)removePassword
 {
-  v9 = *MEMORY[0x277D85DE8];
   v0 = WFLogForCategory(0);
   v1 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v0 && os_log_type_enabled(v0, v1))
+  v2 = v1;
+  if (WFCurrentLogLevel(v1, v3) >= 3 && v0 && os_log_type_enabled(v0, v2))
   {
+    v10 = 136315394;
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1(&dword_273ECD000, v2, v3, "%s: no password to remove for profile %@", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_1(&dword_273ECD000, v4, v5, "%s: no password to remove for profile %@", v6, v7, v8, v9, v10);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTLSIdentity:(__SecIdentity *)identity

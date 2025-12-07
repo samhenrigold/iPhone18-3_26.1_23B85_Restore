@@ -131,7 +131,7 @@
 
 - (void)_updateDischargingTimer:(void *)timer
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (timer)
   {
     context = [timer context];
@@ -140,7 +140,7 @@
     {
 LABEL_15:
 
-      goto LABEL_16;
+      return;
     }
 
     queue = [context queue];
@@ -154,11 +154,11 @@ LABEL_15:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         v10 = HMFGetLogIdentifier();
-        v26 = 138543362;
-        v27 = v10;
+        v25 = 138543362;
+        v26 = v10;
         v11 = "%{public}@We should only be pinging the resident on transient resident capable devices which are enabled";
 LABEL_12:
-        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, v11, &v26, 0xCu);
+        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, v11, &v25, 0xCu);
 
         goto LABEL_13;
       }
@@ -174,8 +174,8 @@ LABEL_12:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         v10 = HMFGetLogIdentifier();
-        v26 = 138543362;
-        v27 = v10;
+        v25 = 138543362;
+        v26 = v10;
         v11 = "%{public}@We shouldn't ping if resident is not supported.";
         goto LABEL_12;
       }
@@ -196,11 +196,11 @@ LABEL_14:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         v15 = HMFGetLogIdentifier();
-        v26 = 138543362;
-        v27 = v15;
+        v25 = 138543362;
+        v26 = v15;
         v16 = "%{public}@Updating monitor timer since we are not at home and discharging";
 LABEL_20:
-        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, v16, &v26, 0xCu);
+        _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, v16, &v25, 0xCu);
       }
     }
 
@@ -209,35 +209,35 @@ LABEL_20:
       atHomeLevel = [v5 atHomeLevel];
       v7 = objc_autoreleasePoolPush();
       timerCopy4 = timer;
-      v20 = HMFGetOSLogHandle();
-      v13 = v20;
+      v19 = HMFGetOSLogHandle();
+      v13 = v19;
       if (atHomeLevel != 1)
       {
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
-          v25 = HMFGetLogIdentifier();
-          v26 = 138543362;
-          v27 = v25;
-          _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Battery state change does not require resetting the monitor timer.", &v26, 0xCu);
+          v24 = HMFGetLogIdentifier();
+          v25 = 138543362;
+          v26 = v24;
+          _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Battery state change does not require resetting the monitor timer.", &v25, 0xCu);
         }
 
         goto LABEL_14;
       }
 
       v14 = 600.0;
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         v15 = HMFGetLogIdentifier();
-        v26 = 138543362;
-        v27 = v15;
+        v25 = 138543362;
+        v26 = v15;
         v16 = "%{public}@Updating monitor timer since we are at home and discharging";
         goto LABEL_20;
       }
     }
 
     objc_autoreleasePoolPop(v7);
-    v21 = [objc_alloc(MEMORY[0x277D0F920]) initWithTimeInterval:13 options:v14];
-    [timer setResidentMonitorTimer:v21];
+    v20 = [objc_alloc(MEMORY[0x277D0F920]) initWithTimeInterval:13 options:v14];
+    [timer setResidentMonitorTimer:v20];
 
     residentMonitorTimer = [timer residentMonitorTimer];
     [residentMonitorTimer setDelegate:timer];
@@ -249,14 +249,11 @@ LABEL_20:
     [(HMDPrimaryElectionLegacyAddOn *)timer _startMonitoringResident];
     goto LABEL_15;
   }
-
-LABEL_16:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startMonitoringResident
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (self)
   {
     context = [self context];
@@ -265,7 +262,7 @@ LABEL_16:
     {
 LABEL_14:
 
-      goto LABEL_15;
+      return;
     }
 
     queue = [context queue];
@@ -288,11 +285,11 @@ LABEL_14:
           if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
             v12 = HMFGetLogIdentifier();
-            v15 = 138543618;
-            v16 = v12;
-            v17 = 2112;
-            v18 = v6;
-            _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Start monitoring resident, %@", &v15, 0x16u);
+            v14 = 138543618;
+            v15 = v12;
+            v16 = 2112;
+            v17 = v6;
+            _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@Start monitoring resident, %@", &v14, 0x16u);
           }
 
           objc_autoreleasePoolPop(v9);
@@ -313,14 +310,11 @@ LABEL_13:
 
     goto LABEL_14;
   }
-
-LABEL_15:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopMonitoringResident:(void *)resident
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (resident)
   {
@@ -337,11 +331,11 @@ LABEL_15:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         v10 = HMFGetLogIdentifier();
-        v13 = 138543618;
-        v14 = v10;
-        v15 = 2112;
-        v16 = v3;
-        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Stopping monitoring resident, %@", &v13, 0x16u);
+        v12 = 138543618;
+        v13 = v10;
+        v14 = 2112;
+        v15 = v3;
+        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@Stopping monitoring resident, %@", &v12, 0x16u);
       }
 
       objc_autoreleasePoolPop(v7);
@@ -349,13 +343,11 @@ LABEL_15:
       [residentMonitorTimer suspend];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleConfirmResidentDevice:(id)device
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   context = [(HMDPrimaryElectionLegacyAddOn *)self context];
   v6 = context;
@@ -371,7 +363,7 @@ LABEL_15:
     {
       remoteSourceDevice = [deviceCopy remoteSourceDevice];
       v12 = [v6 residentDeviceForDevice:remoteSourceDevice];
-      v34 = [deviceCopy dictionaryForKey:@"kResidentElectionParametersKey"];
+      v33 = [deviceCopy dictionaryForKey:@"kResidentElectionParametersKey"];
       primaryResidentDevice = [v6 primaryResidentDevice];
       v14 = objc_autoreleasePoolPush();
       selfCopy = self;
@@ -383,17 +375,17 @@ LABEL_15:
         {
           v18 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v37 = v18;
-          v38 = 2112;
-          v39 = v12;
+          v36 = v18;
+          v37 = 2112;
+          v38 = v12;
           _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Confirming current resident on behalf of %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v14);
-        v35 = primaryResidentDevice;
-        v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
-        v20 = v34;
-        [(HMDPrimaryElectionLegacyAddOn *)selfCopy _confirmResidentDevice:v12 electionParameters:v34 againstDevices:v19 completionBlock:0];
+        v34 = primaryResidentDevice;
+        v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
+        v20 = v33;
+        [(HMDPrimaryElectionLegacyAddOn *)selfCopy _confirmResidentDevice:v12 electionParameters:v33 againstDevices:v19 completionBlock:0];
 
         [deviceCopy respondWithPayload:0];
       }
@@ -404,14 +396,14 @@ LABEL_15:
         {
           v29 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v37 = v29;
+          v36 = v29;
           _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@No primary resident for confirmation.", buf, 0xCu);
         }
 
         objc_autoreleasePoolPop(v14);
         responseHandler = [deviceCopy responseHandler];
 
-        v20 = v34;
+        v20 = v33;
         if (responseHandler)
         {
           responseHandler2 = [deviceCopy responseHandler];
@@ -434,13 +426,13 @@ LABEL_15:
         v26 = HMFBooleanToString();
         v27 = HMFBooleanToString();
         *buf = 138544130;
-        v37 = v24;
-        v38 = 2112;
-        v39 = v25;
-        v40 = 2112;
-        v41 = v26;
-        v42 = 2112;
-        v43 = v27;
+        v36 = v24;
+        v37 = 2112;
+        v38 = v25;
+        v39 = 2112;
+        v40 = v26;
+        v41 = 2112;
+        v42 = v27;
         _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_INFO, "%{public}@Current device is incapable of election and confirmation - Resident Supported: %@, Resident Enabled: %@, Owned Home: %@", buf, 0x2Au);
       }
 
@@ -459,14 +451,12 @@ LABEL_15:
 
 LABEL_18:
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_confirmResidentDevice:(void *)device electionParameters:(void *)parameters againstDevices:(void *)devices completionBlock:
 {
-  v128 = *MEMORY[0x277D85DE8];
-  v65 = a2;
+  v127 = *MEMORY[0x277D85DE8];
+  v64 = a2;
   deviceCopy = device;
   parametersCopy = parameters;
   devicesCopy = devices;
@@ -474,7 +464,7 @@ LABEL_18:
   {
     val = self;
     context = [self context];
-    v72 = context;
+    v71 = context;
     if (!context)
     {
 LABEL_48:
@@ -485,13 +475,13 @@ LABEL_48:
     queue = [context queue];
     dispatch_assert_queue_V2(queue);
 
-    home = [v72 home];
+    home = [v71 home];
     if (home)
     {
-      if (v65)
+      if (v64)
       {
         accessories = [home accessories];
-        v12 = [accessories copy];
+        v12 = objc_msgSend_copy(accessories);
 
         if (v12)
         {
@@ -502,109 +492,109 @@ LABEL_48:
         {
           [MEMORY[0x277CBEB18] array];
         }
-        v81 = ;
-        v109 = 0u;
-        v110 = 0u;
-        v107 = 0u;
+        v80 = ;
         v108 = 0u;
+        v109 = 0u;
+        v106 = 0u;
+        v107 = 0u;
         obj = v12;
-        v21 = [obj countByEnumeratingWithState:&v107 objects:v127 count:16];
+        v21 = [obj countByEnumeratingWithState:&v106 objects:v126 count:16];
         if (v21)
         {
-          v22 = *v108;
+          v22 = *v107;
           do
           {
             for (i = 0; i != v21; ++i)
             {
-              if (*v108 != v22)
+              if (*v107 != v22)
               {
                 objc_enumerationMutation(obj);
               }
 
-              uuid = [*(*(&v107 + 1) + 8 * i) uuid];
+              uuid = [*(*(&v106 + 1) + 8 * i) uuid];
               uUIDString = [uuid UUIDString];
-              [v81 addObject:uUIDString];
+              [v80 addObject:uUIDString];
             }
 
-            v21 = [obj countByEnumeratingWithState:&v107 objects:v127 count:16];
+            v21 = [obj countByEnumeratingWithState:&v106 objects:v126 count:16];
           }
 
           while (v21);
         }
 
-        v125[0] = *MEMORY[0x277CD0640];
+        v124[0] = *MEMORY[0x277CD0640];
         uuid2 = [home uuid];
         uUIDString2 = [uuid2 UUIDString];
-        v126[0] = uUIDString2;
-        v125[1] = *MEMORY[0x277CCE7A8];
-        v28 = [v81 copy];
-        v126[1] = v28;
-        v68 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v126 forKeys:v125 count:2];
+        v125[0] = uUIDString2;
+        v124[1] = *MEMORY[0x277CCE7A8];
+        v28 = objc_msgSend_copy(v80);
+        v125[1] = v28;
+        v67 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v125 forKeys:v124 count:2];
 
         *&buf = 0;
         *(&buf + 1) = &buf;
-        v121 = 0x3032000000;
-        v122 = __Block_byref_object_copy__118213;
-        v123 = __Block_byref_object_dispose__118214;
-        v75 = v65;
-        v124 = v75;
-        v105[0] = 0;
-        v105[1] = v105;
-        v105[2] = 0x3032000000;
-        v105[3] = __Block_byref_object_copy__118213;
-        v105[4] = __Block_byref_object_dispose__118214;
-        v106 = deviceCopy;
-        primaryResidentDevice = [v72 primaryResidentDevice];
+        v120 = 0x3032000000;
+        v121 = __Block_byref_object_copy__118213;
+        v122 = __Block_byref_object_dispose__118214;
+        v74 = v64;
+        v123 = v74;
+        v104[0] = 0;
+        v104[1] = v104;
+        v104[2] = 0x3032000000;
+        v104[3] = __Block_byref_object_copy__118213;
+        v104[4] = __Block_byref_object_dispose__118214;
+        v105 = deviceCopy;
+        primaryResidentDevice = [v71 primaryResidentDevice];
         if (primaryResidentDevice)
         {
-          v80 = objc_alloc_init(HMDLegacyPrimaryElectionConfirmationLogEvent);
-          -[HMDLegacyPrimaryElectionConfirmationLogEvent setAvailableResidentCount:](v80, "setAvailableResidentCount:", [parametersCopy count]);
+          v79 = objc_alloc_init(HMDLegacyPrimaryElectionConfirmationLogEvent);
+          -[HMDLegacyPrimaryElectionConfirmationLogEvent setAvailableResidentCount:](v79, "setAvailableResidentCount:", [parametersCopy count]);
           group = dispatch_group_create();
+          v100 = 0u;
           v101 = 0u;
           v102 = 0u;
           v103 = 0u;
-          v104 = 0u;
-          v71 = parametersCopy;
-          v29 = [v71 countByEnumeratingWithState:&v101 objects:v119 count:16];
+          v70 = parametersCopy;
+          v29 = [v70 countByEnumeratingWithState:&v100 objects:v118 count:16];
           if (v29)
           {
-            v74 = *v102;
+            v73 = *v101;
             do
             {
-              v77 = v29;
-              for (j = 0; j != v77; ++j)
+              v76 = v29;
+              for (j = 0; j != v76; ++j)
               {
-                if (*v102 != v74)
+                if (*v101 != v73)
                 {
-                  objc_enumerationMutation(v71);
+                  objc_enumerationMutation(v70);
                 }
 
-                v31 = *(*(&v101 + 1) + 8 * j);
-                if ([v75 isEqual:v31])
+                v31 = *(*(&v100 + 1) + 8 * j);
+                if ([v74 isEqual:v31])
                 {
-                  [(HMDLegacyPrimaryElectionConfirmationLogEvent *)v80 setAvailableResidentCount:[(HMDLegacyPrimaryElectionConfirmationLogEvent *)v80 availableResidentCount]- 1];
+                  [(HMDLegacyPrimaryElectionConfirmationLogEvent *)v79 setAvailableResidentCount:[(HMDLegacyPrimaryElectionConfirmationLogEvent *)v79 availableResidentCount]- 1];
                 }
 
                 else
                 {
-                  v100 = [objc_alloc(MEMORY[0x277D0F770]) initWithName:@"Confirm against other resident"];
+                  v99 = [objc_alloc(MEMORY[0x277D0F770]) initWithName:@"Confirm against other resident"];
                   dispatch_group_enter(&group->super.super);
                   objc_initWeak(&location, val);
                   aBlock[0] = MEMORY[0x277D85DD0];
                   aBlock[1] = 3221225472;
                   aBlock[2] = __106__HMDPrimaryElectionLegacyAddOn__confirmResidentDevice_electionParameters_againstDevices_completionBlock___block_invoke;
                   aBlock[3] = &unk_27972BBD0;
-                  objc_copyWeak(&v98, &location);
-                  v32 = v72;
-                  v90 = v32;
-                  v91 = v100;
-                  v92 = v31;
-                  v93 = v80;
+                  objc_copyWeak(&v97, &location);
+                  v32 = v71;
+                  v89 = v32;
+                  v90 = v99;
+                  v91 = v31;
+                  v92 = v79;
                   p_buf = &buf;
-                  v97 = v105;
-                  v94 = primaryResidentDevice;
-                  v95 = group;
-                  v79 = _Block_copy(aBlock);
+                  v96 = v104;
+                  v93 = primaryResidentDevice;
+                  v94 = group;
+                  v78 = _Block_copy(aBlock);
                   device = [v31 device];
                   isCurrentDevice = [device isCurrentDevice];
 
@@ -616,18 +606,18 @@ LABEL_48:
                     if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
                     {
                       v38 = HMFGetLogIdentifier();
-                      identifier = [v100 identifier];
+                      identifier = [v99 identifier];
                       shortDescription = [identifier shortDescription];
-                      *v111 = 138543618;
-                      v112 = v38;
-                      v113 = 2114;
-                      v114 = shortDescription;
-                      _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Confirming against current device", v111, 0x16u);
+                      *v110 = 138543618;
+                      v111 = v38;
+                      v112 = 2114;
+                      v113 = shortDescription;
+                      _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Confirming against current device", v110, 0x16u);
                     }
 
                     objc_autoreleasePoolPop(v35);
-                    v41 = [(HMDPrimaryElectionLegacyAddOn *)v36 _electionParameters:v81];
-                    v79[2](v79, 0, v41);
+                    v41 = [(HMDPrimaryElectionLegacyAddOn *)v36 _electionParameters:v80];
+                    v78[2](v78, 0, v41);
                   }
 
                   else
@@ -637,30 +627,30 @@ LABEL_48:
                     device2 = [v31 device];
                     v41 = [(HMDRemoteDeviceMessageDestination *)v42 initWithTarget:messageTargetUUID device:device2];
 
-                    v45 = [HMDRemoteMessage secureMessageWithName:@"kResidentElectionParametersInternalRequestKey" destination:v41 messagePayload:v68];
-                    [v45 setResponseHandler:v79];
+                    v45 = [HMDRemoteMessage secureMessageWithName:@"kResidentElectionParametersInternalRequestKey" destination:v41 messagePayload:v67];
+                    [v45 setResponseHandler:v78];
                     v46 = objc_autoreleasePoolPush();
                     v47 = val;
                     v48 = HMFGetOSLogHandle();
                     if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
                     {
-                      v67 = v46;
-                      v69 = HMFGetLogIdentifier();
-                      identifier2 = [v100 identifier];
+                      v66 = v46;
+                      v68 = HMFGetLogIdentifier();
+                      identifier2 = [v99 identifier];
                       shortDescription2 = [identifier2 shortDescription];
                       shortDescription3 = [v31 shortDescription];
                       shortDescription4 = [v45 shortDescription];
-                      *v111 = 138544130;
-                      v112 = v69;
-                      v113 = 2114;
-                      v114 = shortDescription2;
-                      v115 = 2112;
-                      v116 = shortDescription3;
-                      v117 = 2112;
-                      v118 = shortDescription4;
-                      _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Confirming against resident capable device %@ with message: %@", v111, 0x2Au);
+                      *v110 = 138544130;
+                      v111 = v68;
+                      v112 = 2114;
+                      v113 = shortDescription2;
+                      v114 = 2112;
+                      v115 = shortDescription3;
+                      v116 = 2112;
+                      v117 = shortDescription4;
+                      _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Confirming against resident capable device %@ with message: %@", v110, 0x2Au);
 
-                      v46 = v67;
+                      v46 = v66;
                     }
 
                     objc_autoreleasePoolPop(v46);
@@ -668,30 +658,30 @@ LABEL_48:
                     [messageDispatcher sendMessage:v45];
                   }
 
-                  objc_destroyWeak(&v98);
+                  objc_destroyWeak(&v97);
                   objc_destroyWeak(&location);
                   __HMFActivityScopeLeave();
                 }
               }
 
-              v29 = [v71 countByEnumeratingWithState:&v101 objects:v119 count:16];
+              v29 = [v70 countByEnumeratingWithState:&v100 objects:v118 count:16];
             }
 
             while (v29);
           }
 
-          queue2 = [v72 queue];
+          queue2 = [v71 queue];
           block[0] = MEMORY[0x277D85DD0];
           block[1] = 3221225472;
           block[2] = __106__HMDPrimaryElectionLegacyAddOn__confirmResidentDevice_electionParameters_againstDevices_completionBlock___block_invoke_50;
           block[3] = &unk_2797346B8;
-          v83 = primaryResidentDevice;
-          v84 = v72;
-          v85 = val;
-          v87 = devicesCopy;
-          v88 = &buf;
-          v86 = v80;
-          v55 = v80;
+          v82 = primaryResidentDevice;
+          v83 = v71;
+          v84 = val;
+          v86 = devicesCopy;
+          v87 = &buf;
+          v85 = v79;
+          v55 = v79;
           dispatch_group_notify(&group->super.super, queue2, block);
         }
 
@@ -703,9 +693,9 @@ LABEL_48:
           if (os_log_type_enabled(v58, OS_LOG_TYPE_FAULT))
           {
             v59 = HMFGetLogIdentifier();
-            *v111 = 138543362;
-            v112 = v59;
-            _os_log_impl(&dword_2531F8000, v58, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Current resident cannot be determined", v111, 0xCu);
+            *v110 = 138543362;
+            v111 = v59;
+            _os_log_impl(&dword_2531F8000, v58, OS_LOG_TYPE_FAULT, "%{public}@Submitting ABC event for failure: Current resident cannot be determined", v110, 0xCu);
           }
 
           objc_autoreleasePoolPop(v56);
@@ -719,7 +709,7 @@ LABEL_48:
           }
         }
 
-        _Block_object_dispose(v105, 8);
+        _Block_object_dispose(v104, 8);
         _Block_object_dispose(&buf, 8);
 
         goto LABEL_47;
@@ -766,13 +756,11 @@ LABEL_48:
     devicesCopy[2]();
 LABEL_47:
 
-    context = v72;
+    context = v71;
     goto LABEL_48;
   }
 
 LABEL_49:
-
-  v61 = *MEMORY[0x277D85DE8];
 }
 
 void __106__HMDPrimaryElectionLegacyAddOn__confirmResidentDevice_electionParameters_againstDevices_completionBlock___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -813,7 +801,7 @@ void __106__HMDPrimaryElectionLegacyAddOn__confirmResidentDevice_electionParamet
 
 - (id)_electionParameters:(void *)parameters
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v4 = a2;
   if (parameters)
   {
@@ -822,27 +810,27 @@ void __106__HMDPrimaryElectionLegacyAddOn__confirmResidentDevice_electionParamet
     {
       parametersCopy = parameters;
       [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v4, "count")}];
-      v31 = v30 = v4;
+      v30 = v29 = v4;
+      v32 = 0u;
       v33 = 0u;
       v34 = 0u;
       v35 = 0u;
-      v36 = 0u;
       obj = v4;
-      v6 = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
+      v6 = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
       if (v6)
       {
         currentResidentDevice = v6;
-        v7 = *v34;
+        v7 = *v33;
         do
         {
           for (i = 0; i != currentResidentDevice; i = i + 1)
           {
-            if (*v34 != v7)
+            if (*v33 != v7)
             {
               objc_enumerationMutation(obj);
             }
 
-            v9 = *(*(&v33 + 1) + 8 * i);
+            v9 = *(*(&v32 + 1) + 8 * i);
             home = [context home];
             v11 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v9];
             v12 = [home accessoryWithUUID:v11];
@@ -887,20 +875,20 @@ void __106__HMDPrimaryElectionLegacyAddOn__confirmResidentDevice_electionParamet
                 v19 = &unk_286628D98;
               }
 
-              [v31 setObject:v19 forKey:v9];
+              [v30 setObject:v19 forKey:v9];
             }
           }
 
-          currentResidentDevice = [obj countByEnumeratingWithState:&v33 objects:v39 count:16];
+          currentResidentDevice = [obj countByEnumeratingWithState:&v32 objects:v38 count:16];
         }
 
         while (currentResidentDevice);
       }
 
       v20 = *MEMORY[0x277CCE7A8];
-      v38[0] = v31;
-      v37[0] = v20;
-      v37[1] = @"kEnabledKey";
+      v37[0] = v30;
+      v36[0] = v20;
+      v36[1] = @"kEnabledKey";
       v21 = MEMORY[0x277CCABB0];
       isResidentSupported = [context isResidentSupported];
       if (isResidentSupported)
@@ -914,13 +902,13 @@ void __106__HMDPrimaryElectionLegacyAddOn__confirmResidentDevice_electionParamet
         isEnabled = 0;
       }
 
-      v4 = v30;
+      v4 = v29;
       v25 = [v21 numberWithInt:isEnabled];
-      v38[1] = v25;
-      v37[2] = @"kAtHomeStateKey";
+      v37[1] = v25;
+      v36[2] = @"kAtHomeStateKey";
       v26 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(parametersCopy, "isAtHome")}];
-      v38[2] = v26;
-      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:3];
+      v37[2] = v26;
+      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:3];
 
       if (isResidentSupported)
       {
@@ -938,97 +926,90 @@ void __106__HMDPrimaryElectionLegacyAddOn__confirmResidentDevice_electionParamet
     v24 = 0;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v24;
 }
 
 uint64_t __106__HMDPrimaryElectionLegacyAddOn__confirmResidentDevice_electionParameters_againstDevices_completionBlock___block_invoke_50(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = [*(a1 + 40) primaryResidentDevice];
-  LOBYTE(v2) = HMFEqualObjects();
+  v19 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 40) primaryResidentDevice];
+  v3 = HMFEqualObjects();
 
-  if ((v2 & 1) == 0)
+  if (v3)
   {
-    v10 = objc_autoreleasePoolPush();
-    v11 = *(a1 + 48);
-    v12 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    if ((HMFEqualObjects() & 1) == 0)
     {
-      v13 = HMFGetLogIdentifier();
-      v14 = *(a1 + 32);
-      v15 = [*(a1 + 40) primaryResidentDevice];
-      v17 = 138543874;
-      v18 = v13;
-      v19 = 2112;
-      v20 = v14;
-      v21 = 2112;
-      v22 = v15;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Cancelling confirmation: resident device has changed from %@ to %@", &v17, 0x20u);
+      [*(a1 + 56) setChangedPrimary:1];
     }
 
-    objc_autoreleasePoolPop(v10);
+    v4 = [*(a1 + 48) delegate];
+    [v4 primaryElectionAddOn:*(a1 + 48) didElectPrimaryResident:*(*(*(a1 + 72) + 8) + 40) confirmed:1 electionLogEvent:*(a1 + 56)];
+
     result = *(a1 + 64);
     if (result)
     {
-      result = (*(result + 16))();
+      v6 = *(result + 16);
+
+      return v6();
+    }
+  }
+
+  else
+  {
+    v7 = objc_autoreleasePoolPush();
+    v8 = *(a1 + 48);
+    v9 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    {
+      v10 = HMFGetLogIdentifier();
+      v11 = *(a1 + 32);
+      v12 = [*(a1 + 40) primaryResidentDevice];
+      v13 = 138543874;
+      v14 = v10;
+      v15 = 2112;
+      v16 = v11;
+      v17 = 2112;
+      v18 = v12;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Cancelling confirmation: resident device has changed from %@ to %@", &v13, 0x20u);
     }
 
-    goto LABEL_12;
+    objc_autoreleasePoolPop(v7);
+    result = *(a1 + 64);
+    if (result)
+    {
+      return (*(result + 16))();
+    }
   }
 
-  v4 = *(a1 + 32);
-  v5 = *(*(*(a1 + 72) + 8) + 40);
-  if ((HMFEqualObjects() & 1) == 0)
-  {
-    [*(a1 + 56) setChangedPrimary:1];
-  }
-
-  v6 = [*(a1 + 48) delegate];
-  [v6 primaryElectionAddOn:*(a1 + 48) didElectPrimaryResident:*(*(*(a1 + 72) + 8) + 40) confirmed:1 electionLogEvent:*(a1 + 56)];
-
-  result = *(a1 + 64);
-  if (!result)
-  {
-LABEL_12:
-    v16 = *MEMORY[0x277D85DE8];
-    return result;
-  }
-
-  v8 = *(result + 16);
-  v9 = *MEMORY[0x277D85DE8];
-
-  return v8();
+  return result;
 }
 
 void __106__HMDPrimaryElectionLegacyAddOn__confirmResidentDevice_electionParameters_againstDevices_completionBlock___block_invoke_2(uint64_t a1)
 {
-  v100 = *MEMORY[0x277D85DE8];
+  v99 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 104));
   if (!*(a1 + 32))
   {
     [*(a1 + 56) setResidentsRespondedCount:{objc_msgSend(*(a1 + 56), "residentsRespondedCount") + 1}];
-    v91 = 0;
+    v90 = 0;
     v11 = *(*(*(a1 + 96) + 8) + 40);
     v12 = *(a1 + 48);
     v13 = *(a1 + 64);
-    v90 = *(*(*(a1 + 88) + 8) + 40);
+    v89 = *(*(*(a1 + 88) + 8) + 40);
     v14 = v11;
     v15 = v12;
-    v89 = v13;
+    v88 = v13;
     if (WeakRetained)
     {
       v16 = [WeakRetained context];
       if (v16)
       {
-        v87 = v16;
-        v86 = v14;
-        v17 = [[HMDResidentDeviceElectionParameters alloc] initWithResident:v90 dictionaryRepresentation:v14];
-        v18 = [[HMDResidentDeviceElectionParameters alloc] initWithResident:v15 dictionaryRepresentation:v89];
-        v91 = 1;
-        v88 = v17;
+        v86 = v16;
+        v85 = v14;
+        v17 = [[HMDResidentDeviceElectionParameters alloc] initWithResident:v89 dictionaryRepresentation:v14];
+        v18 = [[HMDResidentDeviceElectionParameters alloc] initWithResident:v15 dictionaryRepresentation:v88];
+        v90 = 1;
+        v87 = v17;
         v19 = [(HMDResidentDeviceElectionParameters *)v17 isEnabled];
         v20 = [(HMDResidentDeviceElectionParameters *)v18 isEnabled];
         v21 = objc_autoreleasePoolPush();
@@ -1040,11 +1021,11 @@ void __106__HMDPrimaryElectionLegacyAddOn__confirmResidentDevice_electionParamet
           v24 = v18;
           v26 = v25 = v22;
           *buf = 138543874;
-          v93 = v26;
-          v94 = 2112;
-          v95 = v19;
-          v96 = 2112;
-          v97 = v20;
+          v92 = v26;
+          v93 = 2112;
+          v94 = v19;
+          v95 = 2112;
+          v96 = v20;
           _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_DEBUG, "%{public}@Comparing enabled status: %@ -> %@", buf, 0x20u);
 
           v22 = v25;
@@ -1055,15 +1036,15 @@ void __106__HMDPrimaryElectionLegacyAddOn__confirmResidentDevice_electionParamet
         if (!(v19 | v20) || (!v19 ? (v27 = v20, v28 = 0) : (v27 = v19, v28 = v20), (v29 = [v27 compare:v28]) == 0))
         {
 
-          v91 = 2;
-          v31 = [v90 device];
+          v90 = 2;
+          v31 = [v89 device];
           v32 = [v31 capabilities];
 
           v33 = [v15 device];
           v34 = [v33 capabilities];
 
           v35 = objc_autoreleasePoolPush();
-          v85 = v22;
+          v84 = v22;
           v36 = v22;
           v37 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
@@ -1072,11 +1053,11 @@ void __106__HMDPrimaryElectionLegacyAddOn__confirmResidentDevice_electionParamet
             v38 = v18;
             v40 = v39 = v15;
             *buf = 138543874;
-            v93 = v40;
-            v94 = 2112;
-            v95 = v32;
-            v96 = 2112;
-            v97 = v34;
+            v92 = v40;
+            v93 = 2112;
+            v94 = v32;
+            v95 = 2112;
+            v96 = v34;
             _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_DEBUG, "%{public}@Comparing capabilities status: %@ -> %@", buf, 0x20u);
 
             v15 = v39;
@@ -1088,26 +1069,26 @@ void __106__HMDPrimaryElectionLegacyAddOn__confirmResidentDevice_electionParamet
 
           if (v29)
           {
-            v30 = v88;
-            v22 = v85;
+            v30 = v87;
+            v22 = v84;
             goto LABEL_25;
           }
 
           v41 = objc_autoreleasePoolPush();
           v42 = v36;
           v43 = HMFGetOSLogHandle();
-          v30 = v88;
+          v30 = v87;
           if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
           {
             HMFGetLogIdentifier();
             v44 = v18;
             v46 = v45 = v15;
             *buf = 138543874;
-            v93 = v46;
-            v94 = 2112;
-            v95 = v88;
-            v96 = 2112;
-            v97 = v44;
+            v92 = v46;
+            v93 = 2112;
+            v94 = v87;
+            v95 = 2112;
+            v96 = v44;
             _os_log_impl(&dword_2531F8000, v43, OS_LOG_TYPE_DEBUG, "%{public}@Comparing parameters: %@ -> %@", buf, 0x20u);
 
             v15 = v45;
@@ -1115,130 +1096,130 @@ void __106__HMDPrimaryElectionLegacyAddOn__confirmResidentDevice_electionParamet
           }
 
           objc_autoreleasePoolPop(v41);
-          v47 = [(HMDResidentDeviceElectionParameters *)v88 compare:v18 outCriteria:&v91];
-          v22 = v85;
+          v47 = [(HMDResidentDeviceElectionParameters *)v87 compare:v18 outCriteria:&v90];
+          v22 = v84;
           if (v47)
           {
             v29 = v47;
             goto LABEL_25;
           }
 
-          v91 = 8;
-          [v90 device];
-          v62 = v61 = v15;
-          v19 = [v62 version];
+          v90 = 8;
+          [v89 device];
+          v61 = v60 = v15;
+          v19 = [v61 version];
 
-          v84 = v61;
-          v63 = [v61 device];
-          v20 = [v63 version];
+          v83 = v60;
+          v62 = [v60 device];
+          v20 = [v62 version];
 
-          v64 = objc_autoreleasePoolPush();
-          v65 = v42;
-          v66 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
+          v63 = objc_autoreleasePoolPush();
+          v64 = v42;
+          v65 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
           {
-            v67 = HMFGetLogIdentifier();
+            v66 = HMFGetLogIdentifier();
             *buf = 138543874;
-            v93 = v67;
-            v94 = 2112;
-            v95 = v19;
-            v96 = 2112;
-            v97 = v20;
-            _os_log_impl(&dword_2531F8000, v66, OS_LOG_TYPE_DEBUG, "%{public}@Comparing election versions: %@ -> %@", buf, 0x20u);
+            v92 = v66;
+            v93 = 2112;
+            v94 = v19;
+            v95 = 2112;
+            v96 = v20;
+            _os_log_impl(&dword_2531F8000, v65, OS_LOG_TYPE_DEBUG, "%{public}@Comparing election versions: %@ -> %@", buf, 0x20u);
           }
 
-          objc_autoreleasePoolPop(v64);
-          v68 = [HMDPrimaryElectionLegacyAddOn compareElectionVersions:v19 otherVersion:v20];
-          if (v68)
+          objc_autoreleasePoolPop(v63);
+          v67 = [HMDPrimaryElectionLegacyAddOn compareElectionVersions:v19 otherVersion:v20];
+          if (v67)
           {
-            v29 = v68;
-            v15 = v84;
-            v22 = v85;
+            v29 = v67;
+            v15 = v83;
+            v22 = v84;
           }
 
           else
           {
-            v91 = 10;
-            v69 = [v87 primaryResidentDevice];
-            v70 = objc_autoreleasePoolPush();
-            v71 = v65;
-            v72 = HMFGetOSLogHandle();
-            v15 = v84;
-            if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
+            v90 = 10;
+            v68 = [v86 primaryResidentDevice];
+            v69 = objc_autoreleasePoolPush();
+            v70 = v64;
+            v71 = HMFGetOSLogHandle();
+            v15 = v83;
+            if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
             {
               HMFGetLogIdentifier();
-              v73 = v83 = v69;
-              [v83 shortDescription];
-              v74 = v81 = v71;
-              [v90 shortDescription];
-              v75 = v82 = v70;
-              v76 = [v84 shortDescription];
+              v72 = v82 = v68;
+              [v82 shortDescription];
+              v73 = v80 = v70;
+              [v89 shortDescription];
+              v74 = v81 = v69;
+              v75 = [v83 shortDescription];
               *buf = 138544130;
-              v93 = v73;
-              v94 = 2112;
-              v95 = v74;
-              v96 = 2112;
-              v97 = v75;
-              v98 = 2112;
-              v99 = v76;
-              _os_log_impl(&dword_2531F8000, v72, OS_LOG_TYPE_DEBUG, "%{public}@Comparing current primary %@: %@ -> %@", buf, 0x2Au);
+              v92 = v72;
+              v93 = 2112;
+              v94 = v73;
+              v95 = 2112;
+              v96 = v74;
+              v97 = 2112;
+              v98 = v75;
+              _os_log_impl(&dword_2531F8000, v71, OS_LOG_TYPE_DEBUG, "%{public}@Comparing current primary %@: %@ -> %@", buf, 0x2Au);
 
-              v15 = v84;
-              v70 = v82;
+              v15 = v83;
+              v69 = v81;
 
-              v71 = v81;
-              v69 = v83;
+              v70 = v80;
+              v68 = v82;
             }
 
-            objc_autoreleasePoolPop(v70);
-            v22 = v85;
-            if ([v69 isEqual:v90])
+            objc_autoreleasePoolPop(v69);
+            v22 = v84;
+            if ([v68 isEqual:v89])
             {
               v29 = 1;
             }
 
-            else if ([v69 isEqual:v15])
+            else if ([v68 isEqual:v15])
             {
               v29 = -1;
             }
 
             else
             {
-              v77 = objc_autoreleasePoolPush();
-              v78 = v71;
-              v79 = HMFGetOSLogHandle();
-              if (os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG))
+              v76 = objc_autoreleasePoolPush();
+              v77 = v70;
+              v78 = HMFGetOSLogHandle();
+              if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
               {
-                v80 = HMFGetLogIdentifier();
+                v79 = HMFGetLogIdentifier();
                 *buf = 138543362;
-                v93 = v80;
-                _os_log_impl(&dword_2531F8000, v79, OS_LOG_TYPE_DEBUG, "%{public}@Comparing, equivalent", buf, 0xCu);
+                v92 = v79;
+                _os_log_impl(&dword_2531F8000, v78, OS_LOG_TYPE_DEBUG, "%{public}@Comparing, equivalent", buf, 0xCu);
 
-                v15 = v84;
+                v15 = v83;
               }
 
-              objc_autoreleasePoolPop(v77);
+              objc_autoreleasePoolPop(v76);
               v29 = 0;
-              v91 = 0;
-              v22 = v85;
+              v90 = 0;
+              v22 = v84;
             }
           }
         }
 
-        v30 = v88;
+        v30 = v87;
 LABEL_25:
 
         if (v29 != -1)
         {
 LABEL_30:
-          if (v91 > 0x11)
+          if (v90 > 0x11)
           {
             v58 = @"unknown reason";
           }
 
           else
           {
-            v58 = off_279728B88[v91];
+            v58 = off_279728B88[v90];
           }
 
           v59 = v58;
@@ -1258,13 +1239,13 @@ LABEL_30:
           v54 = *(a1 + 48);
           v55 = *(a1 + 72);
           *buf = 138544130;
-          v93 = v51;
-          v94 = 2114;
-          v95 = v53;
-          v96 = 2112;
-          v97 = v54;
-          v98 = 2112;
-          v99 = v55;
+          v92 = v51;
+          v93 = 2114;
+          v94 = v53;
+          v95 = 2112;
+          v96 = v54;
+          v97 = 2112;
+          v98 = v55;
           _os_log_impl(&dword_2531F8000, v50, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Preferring device: %@ over current primary resident: %@", buf, 0x2Au);
         }
 
@@ -1272,7 +1253,7 @@ LABEL_30:
         objc_storeStrong((*(*(a1 + 88) + 8) + 40), *(a1 + 48));
         v56 = *(*(a1 + 96) + 8);
         v57 = *(a1 + 64);
-        v90 = *(v56 + 40);
+        v89 = *(v56 + 40);
         *(v56 + 40) = v57;
 LABEL_29:
 
@@ -1294,26 +1275,24 @@ LABEL_29:
     v9 = [*(a1 + 48) shortDescription];
     v10 = *(a1 + 32);
     *buf = 138544130;
-    v93 = v6;
-    v94 = 2114;
-    v95 = v8;
-    v96 = 2112;
-    v97 = v9;
-    v98 = 2112;
-    v99 = v10;
+    v92 = v6;
+    v93 = 2114;
+    v94 = v8;
+    v95 = 2112;
+    v96 = v9;
+    v97 = 2112;
+    v98 = v10;
     _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@[%{public}@] Failed to get election parameters from resident device %@: %@", buf, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v3);
 LABEL_34:
   dispatch_group_leave(*(a1 + 80));
-
-  v60 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)compareCapabilities:(void *)capabilities withCapabilities:
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a2;
   capabilitiesCopy = capabilities;
   if (self)
@@ -1333,62 +1312,62 @@ LABEL_34:
         goto LABEL_5;
       }
 
-      v22 = context;
-      v25 = 0u;
-      v26 = 0u;
-      v23 = 0u;
+      v21 = context;
       v24 = 0u;
+      v25 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       devicePreferenceDataSources = [self devicePreferenceDataSources];
-      v11 = [devicePreferenceDataSources countByEnumeratingWithState:&v23 objects:v33 count:16];
-      if (v11)
+      v10 = [devicePreferenceDataSources countByEnumeratingWithState:&v22 objects:v32 count:16];
+      if (v10)
       {
-        v12 = v11;
+        v11 = v10;
+        v12 = 0;
         v13 = 0;
-        v14 = 0;
-        v15 = *v24;
+        v14 = *v23;
         do
         {
-          for (i = 0; i != v12; ++i)
+          for (i = 0; i != v11; ++i)
           {
-            if (*v24 != v15)
+            if (*v23 != v14)
             {
               objc_enumerationMutation(devicePreferenceDataSources);
             }
 
-            v17 = *(*(&v23 + 1) + 8 * i);
-            v14 += [v17 supportsDeviceWithCapabilities:v5];
-            v13 += [v17 supportsDeviceWithCapabilities:capabilitiesCopy];
+            v16 = *(*(&v22 + 1) + 8 * i);
+            v13 += [v16 supportsDeviceWithCapabilities:v5];
+            v12 += [v16 supportsDeviceWithCapabilities:capabilitiesCopy];
           }
 
-          v12 = [devicePreferenceDataSources countByEnumeratingWithState:&v23 objects:v33 count:16];
+          v11 = [devicePreferenceDataSources countByEnumeratingWithState:&v22 objects:v32 count:16];
         }
 
-        while (v12);
+        while (v11);
       }
 
       else
       {
+        v12 = 0;
         v13 = 0;
-        v14 = 0;
       }
 
-      v18 = objc_autoreleasePoolPush();
+      v17 = objc_autoreleasePoolPush();
       selfCopy = self;
-      v20 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v19 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        v21 = HMFGetLogIdentifier();
+        v20 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v28 = v21;
-        v29 = 2048;
-        v30 = v14;
-        v31 = 2048;
-        v32 = v13;
-        _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_DEBUG, "%{public}@Comparing device preferences: %ld -> %ld", buf, 0x20u);
+        v27 = v20;
+        v28 = 2048;
+        v29 = v13;
+        v30 = 2048;
+        v31 = v12;
+        _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEBUG, "%{public}@Comparing device preferences: %ld -> %ld", buf, 0x20u);
       }
 
-      objc_autoreleasePoolPop(v18);
-      if (v14 > v13)
+      objc_autoreleasePoolPop(v17);
+      if (v13 > v12)
       {
         self = 1;
       }
@@ -1398,8 +1377,8 @@ LABEL_34:
         self = -1;
       }
 
-      context = v22;
-      if (v14 != v13)
+      context = v21;
+      if (v13 != v12)
       {
         goto LABEL_5;
       }
@@ -1409,7 +1388,6 @@ LABEL_34:
 LABEL_5:
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return self;
 }
 
@@ -1456,7 +1434,7 @@ LABEL_5:
 
 - (void)confirmPrimaryResident
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   context = [(HMDPrimaryElectionLegacyAddOn *)self context];
   v4 = context;
   if (context)
@@ -1486,9 +1464,9 @@ LABEL_5:
             v16 = HMFGetLogIdentifier();
             shortDescription = [v10 shortDescription];
             *buf = 138543618;
-            v34 = v16;
-            v35 = 2112;
-            v36 = shortDescription;
+            v33 = v16;
+            v34 = 2112;
+            v35 = shortDescription;
             _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Confirming primary resident: %@", buf, 0x16u);
           }
 
@@ -1502,13 +1480,13 @@ LABEL_5:
           if (v22 == -1)
           {
             objc_initWeak(buf, selfCopy);
-            v31[0] = MEMORY[0x277D85DD0];
-            v31[1] = 3221225472;
-            v31[2] = __55__HMDPrimaryElectionLegacyAddOn_confirmPrimaryResident__block_invoke;
-            v31[3] = &unk_279734708;
-            objc_copyWeak(&v32, buf);
-            [(HMDPrimaryElectionLegacyAddOn *)selfCopy confirmWithCompletionHandler:v31];
-            objc_destroyWeak(&v32);
+            v30[0] = MEMORY[0x277D85DD0];
+            v30[1] = 3221225472;
+            v30[2] = __55__HMDPrimaryElectionLegacyAddOn_confirmPrimaryResident__block_invoke;
+            v30[3] = &unk_279734708;
+            objc_copyWeak(&v31, buf);
+            [(HMDPrimaryElectionLegacyAddOn *)selfCopy confirmWithCompletionHandler:v30];
+            objc_destroyWeak(&v31);
             objc_destroyWeak(buf);
           }
         }
@@ -1528,26 +1506,24 @@ LABEL_5:
         v28 = HMFBooleanToString();
         v29 = HMFBooleanToString();
         *buf = 138544130;
-        v34 = v26;
-        v35 = 2112;
-        v36 = v27;
-        v37 = 2112;
-        v38 = v28;
-        v39 = 2112;
-        v40 = v29;
+        v33 = v26;
+        v34 = 2112;
+        v35 = v27;
+        v36 = 2112;
+        v37 = v28;
+        v38 = 2112;
+        v39 = v29;
         _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@Current device is incapable of election and confirmation - Resident Supported: %@, Resident Enabled: %@, Owned Home: %@", buf, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v23);
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __55__HMDPrimaryElectionLegacyAddOn_confirmPrimaryResident__block_invoke(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = objc_autoreleasePoolPush();
@@ -1556,20 +1532,19 @@ void __55__HMDPrimaryElectionLegacyAddOn_confirmPrimaryResident__block_invoke(ui
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v10 = 138543618;
-    v11 = v8;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Confirmed with error: %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v8;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Confirmed with error: %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)confirmOnAvailability
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   context = [(HMDPrimaryElectionLegacyAddOn *)self context];
   v4 = context;
   if (context)
@@ -1586,7 +1561,7 @@ void __55__HMDPrimaryElectionLegacyAddOn_confirmPrimaryResident__block_invoke(ui
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v37 = v11;
+      v36 = v11;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Resident device has become available", buf, 0xCu);
     }
 
@@ -1609,15 +1584,15 @@ void __55__HMDPrimaryElectionLegacyAddOn_confirmPrimaryResident__block_invoke(ui
           v20 = HMFGetLogIdentifier();
           primaryResidentDevice2 = [v4 primaryResidentDevice];
           *buf = 138543618;
-          v37 = v20;
-          v38 = 2112;
-          v39 = primaryResidentDevice2;
+          v36 = v20;
+          v37 = 2112;
+          v38 = primaryResidentDevice2;
           _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Confirming ourselves against primary resident %@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v16);
-        v35 = primaryResidentDevice;
-        v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
+        v34 = primaryResidentDevice;
+        v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
         [(HMDPrimaryElectionLegacyAddOn *)v17 _confirmResidentDevice:currentResidentDevice electionParameters:_electionParameters againstDevices:v22 completionBlock:0];
       }
 
@@ -1628,9 +1603,9 @@ void __55__HMDPrimaryElectionLegacyAddOn_confirmPrimaryResident__block_invoke(ui
           v23 = HMFGetLogIdentifier();
           primaryResidentDevice3 = [v4 primaryResidentDevice];
           *buf = 138543618;
-          v37 = v23;
-          v38 = 2112;
-          v39 = primaryResidentDevice3;
+          v36 = v23;
+          v37 = 2112;
+          v38 = primaryResidentDevice3;
           _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Requesting to confirm this device against primary resident %@", buf, 0x16u);
         }
 
@@ -1640,9 +1615,9 @@ void __55__HMDPrimaryElectionLegacyAddOn_confirmPrimaryResident__block_invoke(ui
         device2 = [v12 device];
         v28 = [(HMDRemoteDeviceMessageDestination *)v25 initWithTarget:messageTargetUUID device:device2];
 
-        v33 = @"kResidentElectionParametersKey";
-        v34 = _electionParameters;
-        v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+        v32 = @"kResidentElectionParametersKey";
+        v33 = _electionParameters;
+        v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
         v30 = [HMDRemoteMessage secureMessageWithName:@"kResidentConfirmDeviceInternalRequestKey" destination:v28 messagePayload:v29];
 
         messageDispatcher = [v4 messageDispatcher];
@@ -1655,14 +1630,12 @@ void __55__HMDPrimaryElectionLegacyAddOn_confirmPrimaryResident__block_invoke(ui
       [(HMDPrimaryElectionLegacyAddOn *)selfCopy performElectionWithReason:0];
     }
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_electionParameters
 {
   selfCopy = self;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (self)
   {
     context = [self context];
@@ -1671,7 +1644,7 @@ void __55__HMDPrimaryElectionLegacyAddOn_confirmPrimaryResident__block_invoke(ui
     {
       home = [context home];
       accessories = [home accessories];
-      v6 = [accessories copy];
+      v6 = objc_msgSend_copy(accessories);
 
       if (v6)
       {
@@ -1683,31 +1656,31 @@ void __55__HMDPrimaryElectionLegacyAddOn_confirmPrimaryResident__block_invoke(ui
         [MEMORY[0x277CBEB18] array];
       }
       v7 = ;
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
       v8 = v6;
-      v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v18;
+        v11 = *v17;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v18 != v11)
+            if (*v17 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            uuid = [*(*(&v17 + 1) + 8 * i) uuid];
+            uuid = [*(*(&v16 + 1) + 8 * i) uuid];
             uUIDString = [uuid UUIDString];
             [v7 addObject:uUIDString];
           }
 
-          v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
         }
 
         while (v10);
@@ -1722,14 +1695,12 @@ void __55__HMDPrimaryElectionLegacyAddOn_confirmPrimaryResident__block_invoke(ui
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return selfCopy;
 }
 
 - (void)confirmAsResident
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   context = [(HMDPrimaryElectionLegacyAddOn *)self context];
   v4 = context;
   if (context)
@@ -1746,7 +1717,7 @@ void __55__HMDPrimaryElectionLegacyAddOn_confirmPrimaryResident__block_invoke(ui
       {
         v17 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v26 = v17;
+        v25 = v17;
         _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Do not confirm ourselves as the resident; We are not currently supported", buf, 0xCu);
       }
 
@@ -1763,7 +1734,7 @@ void __55__HMDPrimaryElectionLegacyAddOn_confirmPrimaryResident__block_invoke(ui
       {
         v9 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v26 = v9;
+        v25 = v9;
         _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Starting to confirm ourselves as the resident", buf, 0xCu);
       }
 
@@ -1776,41 +1747,39 @@ void __55__HMDPrimaryElectionLegacyAddOn_confirmPrimaryResident__block_invoke(ui
         currentResidentDevice = [v4 currentResidentDevice];
         _electionParameters = [(HMDPrimaryElectionLegacyAddOn *)selfCopy2 _electionParameters];
         availableResidentDevices = [v4 availableResidentDevices];
-        v24[0] = MEMORY[0x277D85DD0];
-        v24[1] = 3221225472;
-        v24[2] = __50__HMDPrimaryElectionLegacyAddOn_confirmAsResident__block_invoke;
-        v24[3] = &unk_279735D00;
-        v24[4] = selfCopy2;
-        [(HMDPrimaryElectionLegacyAddOn *)selfCopy2 _confirmResidentDevice:currentResidentDevice electionParameters:_electionParameters againstDevices:availableResidentDevices completionBlock:v24];
+        v23[0] = MEMORY[0x277D85DD0];
+        v23[1] = 3221225472;
+        v23[2] = __50__HMDPrimaryElectionLegacyAddOn_confirmAsResident__block_invoke;
+        v23[3] = &unk_279735D00;
+        v23[4] = selfCopy2;
+        [(HMDPrimaryElectionLegacyAddOn *)selfCopy2 _confirmResidentDevice:currentResidentDevice electionParameters:_electionParameters againstDevices:availableResidentDevices completionBlock:v23];
 
         goto LABEL_12;
       }
 
-      v20 = objc_autoreleasePoolPush();
-      v21 = selfCopy2;
-      v22 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+      v19 = objc_autoreleasePoolPush();
+      v20 = selfCopy2;
+      v21 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
-        v23 = HMFGetLogIdentifier();
+        v22 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v26 = v23;
-        _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Returning early from confirming as resident since home does not exist", buf, 0xCu);
+        v25 = v22;
+        _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Returning early from confirming as resident since home does not exist", buf, 0xCu);
       }
 
-      v18 = v20;
+      v18 = v19;
 LABEL_11:
       objc_autoreleasePoolPop(v18);
     }
   }
 
 LABEL_12:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__handleConfirmationRequest:(id)request
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   context = [(HMDPrimaryElectionLegacyAddOn *)self context];
   v6 = context;
@@ -1833,13 +1802,13 @@ LABEL_12:
       v12 = ;
       if (v12)
       {
-        v19[0] = MEMORY[0x277D85DD0];
-        v19[1] = 3221225472;
-        v19[2] = __61__HMDPrimaryElectionLegacyAddOn___handleConfirmationRequest___block_invoke;
-        v19[3] = &unk_2797359D8;
-        v20 = requestCopy;
-        [(HMDPrimaryElectionLegacyAddOn *)self confirmElector:v12 completionHandler:v19];
-        v13 = v20;
+        v18[0] = MEMORY[0x277D85DD0];
+        v18[1] = 3221225472;
+        v18[2] = __61__HMDPrimaryElectionLegacyAddOn___handleConfirmationRequest___block_invoke;
+        v18[3] = &unk_2797359D8;
+        v19 = requestCopy;
+        [(HMDPrimaryElectionLegacyAddOn *)self confirmElector:v12 completionHandler:v18];
+        v13 = v19;
       }
 
       else
@@ -1851,7 +1820,7 @@ LABEL_12:
         {
           v17 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v22 = v17;
+          v21 = v17;
           _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@Confirmation failed, unable to determine the elector", buf, 0xCu);
         }
 
@@ -1870,7 +1839,7 @@ LABEL_12:
       {
         v11 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v22 = v11;
+        v21 = v11;
         _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@Confirmation failed, not an available resident", buf, 0xCu);
       }
 
@@ -1879,13 +1848,11 @@ LABEL_12:
       [requestCopy respondWithError:v12];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)confirmElector:(void *)elector completionHandler:
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v5 = a2;
   electorCopy = elector;
   if (self)
@@ -1910,31 +1877,31 @@ LABEL_12:
           context2 = [self context];
           if (context2)
           {
-            v45 = v14;
+            v44 = v14;
             capabilities = [v14 capabilities];
             if (capabilities)
             {
-              v43 = v13;
-              v48 = 0u;
-              v49 = 0u;
-              v46 = 0u;
+              v42 = v13;
               v47 = 0u;
+              v48 = 0u;
+              v45 = 0u;
+              v46 = 0u;
               devicePreferenceDataSources = [self devicePreferenceDataSources];
-              v18 = [devicePreferenceDataSources countByEnumeratingWithState:&v46 objects:buf count:16];
+              v18 = [devicePreferenceDataSources countByEnumeratingWithState:&v45 objects:buf count:16];
               if (v18)
               {
                 v19 = v18;
-                v20 = *v47;
+                v20 = *v46;
                 while (2)
                 {
                   for (i = 0; i != v19; ++i)
                   {
-                    if (*v47 != v20)
+                    if (*v46 != v20)
                     {
                       objc_enumerationMutation(devicePreferenceDataSources);
                     }
 
-                    if (([*(*(&v46 + 1) + 8 * i) supportsDeviceWithCapabilities:capabilities] & 1) == 0)
+                    if (([*(*(&v45 + 1) + 8 * i) supportsDeviceWithCapabilities:capabilities] & 1) == 0)
                     {
 
                       v22 = 0;
@@ -1942,7 +1909,7 @@ LABEL_12:
                     }
                   }
 
-                  v19 = [devicePreferenceDataSources countByEnumeratingWithState:&v46 objects:buf count:16];
+                  v19 = [devicePreferenceDataSources countByEnumeratingWithState:&v45 objects:buf count:16];
                   if (v19)
                   {
                     continue;
@@ -1954,7 +1921,7 @@ LABEL_12:
 
               v22 = 1;
 LABEL_22:
-              v13 = v43;
+              v13 = v42;
             }
 
             else
@@ -1964,23 +1931,23 @@ LABEL_22:
               v31 = HMFGetOSLogHandle();
               if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
               {
-                v42 = HMFGetLogIdentifier();
-                v44 = v29;
-                [v45 shortDescription];
+                v41 = HMFGetLogIdentifier();
+                v43 = v29;
+                [v44 shortDescription];
                 *buf = 138543618;
-                v51 = v42;
-                v53 = v52 = 2112;
-                v32 = v53;
+                v50 = v41;
+                v52 = v51 = 2112;
+                v32 = v52;
                 _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_ERROR, "%{public}@Unable to confirm device, %@, missing capabilities", buf, 0x16u);
 
-                v29 = v44;
+                v29 = v43;
               }
 
               objc_autoreleasePoolPop(v29);
               v22 = 0;
             }
 
-            v14 = v45;
+            v14 = v44;
           }
 
           else
@@ -1999,9 +1966,9 @@ LABEL_22:
               v37 = HMFGetLogIdentifier();
               shortDescription = [v14 shortDescription];
               *buf = 138543618;
-              v51 = v37;
-              v52 = 2112;
-              v53 = shortDescription;
+              v50 = v37;
+              v51 = 2112;
+              v52 = shortDescription;
               _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_INFO, "%{public}@Confirmed device: %@", buf, 0x16u);
             }
 
@@ -2019,9 +1986,9 @@ LABEL_22:
             v39 = HMFGetLogIdentifier();
             shortDescription2 = [v14 shortDescription];
             *buf = 138543618;
-            v51 = v39;
-            v52 = 2112;
-            v53 = shortDescription2;
+            v50 = v39;
+            v51 = 2112;
+            v52 = shortDescription2;
             _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_INFO, "%{public}@Confirmation of device, %@, failed, starting full election", buf, 0x16u);
           }
 
@@ -2039,7 +2006,7 @@ LABEL_22:
           {
             v26 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v51 = v26;
+            v50 = v26;
             _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@No primary resident, starting full election", buf, 0xCu);
           }
 
@@ -2066,13 +2033,11 @@ LABEL_36:
 
 LABEL_38:
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestConfirmationForElector:(void *)elector completionHandler:
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v5 = a2;
   primaryResidentDevice = v5;
   electorCopy = elector;
@@ -2098,9 +2063,9 @@ LABEL_38:
       {
         v14 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v44 = v14;
-        v45 = 2112;
-        v46 = primaryResidentDevice;
+        v43 = v14;
+        v44 = 2112;
+        v45 = primaryResidentDevice;
         _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@No elector provided, using current primary: %@", buf, 0x16u);
       }
 
@@ -2116,9 +2081,9 @@ LABEL_7:
           v18 = HMFGetLogIdentifier();
           shortDescription = [primaryResidentDevice shortDescription];
           *buf = 138543618;
-          v44 = v18;
-          v45 = 2112;
-          v46 = shortDescription;
+          v43 = v18;
+          v44 = 2112;
+          v45 = shortDescription;
           _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Requesting confirmation from %@", buf, 0x16u);
         }
 
@@ -2131,42 +2096,42 @@ LABEL_7:
         v24 = [(HMDRemoteDeviceMessageDestination *)v22 initWithTarget:messageTargetUUID device:device];
 
         v25 = MEMORY[0x277D0F848];
-        v41 = @"shouldElect";
+        v40 = @"shouldElect";
         v26 = [MEMORY[0x277CCABB0] numberWithBool:v20];
-        v42 = v26;
-        v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+        v41 = v26;
+        v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
         v28 = [v25 messageWithName:*MEMORY[0x277CCFEA0] destination:v24 payload:v27];
 
         [v28 setSecureRemote:1];
         objc_initWeak(buf, selfCopy2);
-        v35 = MEMORY[0x277D85DD0];
-        v36 = 3221225472;
-        v37 = __81__HMDPrimaryElectionLegacyAddOn_requestConfirmationForElector_completionHandler___block_invoke;
-        v38 = &unk_2797355F8;
-        objc_copyWeak(&v40, buf);
-        v39 = electorCopy;
-        [v28 setResponseHandler:&v35];
+        v34 = MEMORY[0x277D85DD0];
+        v35 = 3221225472;
+        v36 = __81__HMDPrimaryElectionLegacyAddOn_requestConfirmationForElector_completionHandler___block_invoke;
+        v37 = &unk_2797355F8;
+        objc_copyWeak(&v39, buf);
+        v38 = electorCopy;
+        [v28 setResponseHandler:&v34];
         messageDispatcher = [v9 messageDispatcher];
         [messageDispatcher sendMessage:v28 completionHandler:0];
 
-        objc_destroyWeak(&v40);
+        objc_destroyWeak(&v39);
         objc_destroyWeak(buf);
       }
 
       else
       {
-        v31 = objc_autoreleasePoolPush();
-        v32 = selfCopy;
-        v33 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+        v30 = objc_autoreleasePoolPush();
+        v31 = selfCopy;
+        v32 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
-          v34 = HMFGetLogIdentifier();
+          v33 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v44 = v34;
-          _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot confirm, unable to determine primary resident", buf, 0xCu);
+          v43 = v33;
+          _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@Cannot confirm, unable to determine primary resident", buf, 0xCu);
         }
 
-        objc_autoreleasePoolPop(v31);
+        objc_autoreleasePoolPop(v30);
         if (!electorCopy)
         {
           primaryResidentDevice = 0;
@@ -2181,13 +2146,11 @@ LABEL_7:
 
 LABEL_11:
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __81__HMDPrimaryElectionLegacyAddOn_requestConfirmationForElector_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -2203,10 +2166,10 @@ void __81__HMDPrimaryElectionLegacyAddOn_requestConfirmationForElector_completio
     }
 
     v12 = HMFGetLogIdentifier();
-    v19 = 138543618;
-    v20 = v12;
-    v21 = 2112;
-    v22 = v5;
+    v18 = 138543618;
+    v19 = v12;
+    v20 = 2112;
+    v21 = v5;
     v13 = "%{public}@Confirmation request failed with error: %@";
     v14 = v11;
     v15 = OS_LOG_TYPE_ERROR;
@@ -2221,15 +2184,15 @@ void __81__HMDPrimaryElectionLegacyAddOn_requestConfirmationForElector_completio
     }
 
     v12 = HMFGetLogIdentifier();
-    v19 = 138543362;
-    v20 = v12;
+    v18 = 138543362;
+    v19 = v12;
     v13 = "%{public}@Confirmation request succeeded";
     v14 = v11;
     v15 = OS_LOG_TYPE_INFO;
     v16 = 12;
   }
 
-  _os_log_impl(&dword_2531F8000, v14, v15, v13, &v19, v16);
+  _os_log_impl(&dword_2531F8000, v14, v15, v13, &v18, v16);
 
 LABEL_7:
   objc_autoreleasePoolPop(v8);
@@ -2238,13 +2201,11 @@ LABEL_7:
   {
     (*(v17 + 16))(v17, v5);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)confirmWithCompletionHandler:(id)handler
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   context = [(HMDPrimaryElectionLegacyAddOn *)self context];
   v6 = context;
@@ -2275,9 +2236,9 @@ LABEL_7:
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             v23 = HMFGetLogIdentifier();
-            v26 = 138543362;
-            v27 = v23;
-            _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Confirmation failed, unable to determine the elector", &v26, 0xCu);
+            v25 = 138543362;
+            v26 = v23;
+            _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_ERROR, "%{public}@Confirmation failed, unable to determine the elector", &v25, 0xCu);
           }
 
           objc_autoreleasePoolPop(v20);
@@ -2297,9 +2258,9 @@ LABEL_7:
         if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           v19 = HMFGetLogIdentifier();
-          v26 = 138543362;
-          v27 = v19;
-          _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Requesting confirmation from primary resident device", &v26, 0xCu);
+          v25 = 138543362;
+          v26 = v19;
+          _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Requesting confirmation from primary resident device", &v25, 0xCu);
         }
 
         objc_autoreleasePoolPop(v16);
@@ -2315,9 +2276,9 @@ LABEL_7:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       v15 = HMFGetLogIdentifier();
-      v26 = 138543362;
-      v27 = v15;
-      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Confirmation is only available to the owner of the home", &v26, 0xCu);
+      v25 = 138543362;
+      v26 = v15;
+      _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Confirmation is only available to the owner of the home", &v25, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -2328,14 +2289,12 @@ LABEL_7:
 LABEL_18:
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (id)computePreferredElector:(unint64_t *)elector
 {
   selfCopy = self;
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   context = [(HMDPrimaryElectionLegacyAddOn *)self context];
   v6 = context;
   if (context)
@@ -2345,32 +2304,32 @@ LABEL_18:
       *elector = 11;
     }
 
-    v37 = context;
+    v36 = context;
     availableResidentDevices = [context availableResidentDevices];
     v8 = [availableResidentDevices mutableCopy];
 
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
-    v40 = v8;
-    v9 = [v8 copy];
-    v10 = [v9 countByEnumeratingWithState:&v44 objects:v54 count:16];
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
+    v39 = v8;
+    v9 = objc_msgSend_copy(v8);
+    v10 = [v9 countByEnumeratingWithState:&v43 objects:v53 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v45;
-      v38 = v9;
+      v12 = *v44;
+      v37 = v9;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v45 != v12)
+          if (*v44 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v44 + 1) + 8 * i);
+          v14 = *(*(&v43 + 1) + 8 * i);
           if (([v14 isReachable] & 1) == 0)
           {
             v15 = objc_autoreleasePoolPush();
@@ -2379,33 +2338,33 @@ LABEL_18:
             if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
             {
               HMFGetLogIdentifier();
-              v18 = v39 = v15;
+              v18 = v38 = v15;
               device = [v14 device];
               [device isCurrentDevice];
               HMFBooleanToString();
               v20 = v12;
               v22 = v21 = selfCopy;
               *buf = 138543874;
-              v49 = v18;
-              v50 = 2112;
-              v51 = v14;
-              v52 = 2112;
-              v53 = v22;
+              v48 = v18;
+              v49 = 2112;
+              v50 = v14;
+              v51 = 2112;
+              v52 = v22;
               _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Not electing resident as it is unreachable: %@, isCurrentDevice: %@", buf, 0x20u);
 
-              v9 = v38;
+              v9 = v37;
               selfCopy = v21;
               v12 = v20;
 
-              v15 = v39;
+              v15 = v38;
             }
 
             objc_autoreleasePoolPop(v15);
-            [v40 removeObject:v14];
+            [v39 removeObject:v14];
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v44 objects:v54 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v43 objects:v53 count:16];
       }
 
       while (v11);
@@ -2413,8 +2372,8 @@ LABEL_18:
 
     if (isInternalBuild())
     {
-      v6 = v37;
-      home = [v37 home];
+      v6 = v36;
+      home = [v36 home];
       uuid = [home uuid];
 
       v25 = [preferredPrimaryForHome objectForKey:uuid];
@@ -2429,11 +2388,11 @@ LABEL_18:
           uUIDString = [uuid UUIDString];
           uUIDString2 = [v25 UUIDString];
           *buf = 138543874;
-          v49 = v29;
-          v50 = 2112;
-          v51 = uUIDString;
-          v52 = 2112;
-          v53 = uUIDString2;
+          v48 = v29;
+          v49 = 2112;
+          v50 = uUIDString;
+          v51 = 2112;
+          v52 = uUIDString2;
           _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@The house %@ has a preferred primary device of %@", buf, 0x20u);
         }
 
@@ -2444,26 +2403,24 @@ LABEL_18:
     else
     {
       v25 = 0;
-      v6 = v37;
+      v6 = v36;
     }
 
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __57__HMDPrimaryElectionLegacyAddOn_computePreferredElector___block_invoke;
-    v41[3] = &unk_27972BB80;
-    v42 = v25;
-    v43 = v36;
+    v40[0] = MEMORY[0x277D85DD0];
+    v40[1] = 3221225472;
+    v40[2] = __57__HMDPrimaryElectionLegacyAddOn_computePreferredElector___block_invoke;
+    v40[3] = &unk_27972BB80;
+    v41 = v25;
+    v42 = v35;
     v33 = v25;
-    [v40 sortUsingComparator:v41];
-    lastObject = [v40 lastObject];
+    [v39 sortUsingComparator:v40];
+    lastObject = [v39 lastObject];
   }
 
   else
   {
     lastObject = 0;
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return lastObject;
 }
@@ -2654,16 +2611,16 @@ LABEL_34:
 
 void __58__HMDPrimaryElectionLegacyAddOn_handleBatteryLevelChange___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     v5 = HMFGetLogIdentifier();
-    v19 = 138543362;
-    v20 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Received notification that of battery level change", &v19, 0xCu);
+    v18 = 138543362;
+    v19 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEBUG, "%{public}@Received notification that of battery level change", &v18, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -2686,19 +2643,19 @@ void __58__HMDPrimaryElectionLegacyAddOn_handleBatteryLevelChange___block_invoke
         if (v14)
         {
           v15 = HMFGetLogIdentifier();
-          v19 = 138543362;
-          v20 = v15;
+          v18 = 138543362;
+          v19 = v15;
           v16 = "%{public}@Currently in a low battery state, notifying clients";
 LABEL_13:
-          _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, v16, &v19, 0xCu);
+          _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, v16, &v18, 0xCu);
         }
       }
 
       else if (v14)
       {
         v15 = HMFGetLogIdentifier();
-        v19 = 138543362;
-        v20 = v15;
+        v18 = 138543362;
+        v19 = v15;
         v16 = "%{public}@No longer in a low battery state, notifying clients";
         goto LABEL_13;
       }
@@ -2709,8 +2666,6 @@ LABEL_13:
       [v17 primaryElectionAddOn:*(a1 + 32) didUpdateResidentDevice:v6];
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleBatteryStateChange:(id)change
@@ -2732,16 +2687,16 @@ LABEL_13:
 
 void __58__HMDPrimaryElectionLegacyAddOn_handleBatteryStateChange___block_invoke(uint64_t a1)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v41 = 138543362;
-    v42 = v5;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Received notification that of battery state change", &v41, 0xCu);
+    v40 = 138543362;
+    v41 = v5;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Received notification that of battery state change", &v40, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -2765,9 +2720,9 @@ void __58__HMDPrimaryElectionLegacyAddOn_handleBatteryStateChange___block_invoke
           if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
           {
             v14 = HMFGetLogIdentifier();
-            v41 = 138543362;
-            v42 = v14;
-            _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Currently discharging, notifying clients", &v41, 0xCu);
+            v40 = 138543362;
+            v41 = v14;
+            _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Currently discharging, notifying clients", &v40, 0xCu);
           }
 
           objc_autoreleasePoolPop(v11);
@@ -2783,9 +2738,9 @@ void __58__HMDPrimaryElectionLegacyAddOn_handleBatteryStateChange___block_invoke
           if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
           {
             v18 = HMFGetLogIdentifier();
-            v41 = 138543362;
-            v42 = v18;
-            _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Currently charging, notifying clients", &v41, 0xCu);
+            v40 = 138543362;
+            v41 = v18;
+            _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Currently charging, notifying clients", &v40, 0xCu);
           }
 
           objc_autoreleasePoolPop(v15);
@@ -2813,9 +2768,9 @@ void __58__HMDPrimaryElectionLegacyAddOn_handleBatteryStateChange___block_invoke
             if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
             {
               v26 = HMFGetLogIdentifier();
-              v41 = 138543362;
-              v42 = v26;
-              _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@We should only be pinging the resident on transient resident capable devices which are enabled", &v41, 0xCu);
+              v40 = 138543362;
+              v41 = v26;
+              _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_INFO, "%{public}@We should only be pinging the resident on transient resident capable devices which are enabled", &v40, 0xCu);
             }
 
             v27 = v23;
@@ -2833,9 +2788,9 @@ void __58__HMDPrimaryElectionLegacyAddOn_handleBatteryStateChange___block_invoke
               if (v32)
               {
                 v33 = HMFGetLogIdentifier();
-                v41 = 138543362;
-                v42 = v33;
-                _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@Updating monitor timer since we are charging", &v41, 0xCu);
+                v40 = 138543362;
+                v41 = v33;
+                _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@Updating monitor timer since we are charging", &v40, 0xCu);
               }
 
               objc_autoreleasePoolPop(v29);
@@ -2856,9 +2811,9 @@ void __58__HMDPrimaryElectionLegacyAddOn_handleBatteryStateChange___block_invoke
             if (v32)
             {
               v38 = HMFGetLogIdentifier();
-              v41 = 138543362;
-              v42 = v38;
-              _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@We shouldn't ping if resident is not supported.", &v41, 0xCu);
+              v40 = 138543362;
+              v41 = v38;
+              _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@We shouldn't ping if resident is not supported.", &v40, 0xCu);
             }
 
             v27 = v29;
@@ -2881,13 +2836,11 @@ LABEL_29:
   }
 
 LABEL_30:
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timerDidFire:(id)fire
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   context = [(HMDPrimaryElectionLegacyAddOn *)self context];
   v6 = context;
@@ -2908,31 +2861,29 @@ LABEL_30:
       {
         v13 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v20 = v13;
-        v21 = 2112;
-        v22 = device;
+        v19 = v13;
+        v20 = 2112;
+        v21 = device;
         _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Pinging resident: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v10);
       messageDispatcher = [v6 messageDispatcher];
       secureRemoteTransport = [messageDispatcher secureRemoteTransport];
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __46__HMDPrimaryElectionLegacyAddOn_timerDidFire___block_invoke;
-      v17[3] = &unk_27972C528;
-      v17[4] = selfCopy;
-      v18 = device;
-      [secureRemoteTransport pingDevice:v18 completionHandler:v17];
+      v16[0] = MEMORY[0x277D85DD0];
+      v16[1] = 3221225472;
+      v16[2] = __46__HMDPrimaryElectionLegacyAddOn_timerDidFire___block_invoke;
+      v16[3] = &unk_27972C528;
+      v16[4] = selfCopy;
+      v17 = device;
+      [secureRemoteTransport pingDevice:v17 completionHandler:v16];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __46__HMDPrimaryElectionLegacyAddOn_timerDidFire___block_invoke(uint64_t a1, char a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if ((a2 & 1) == 0)
   {
     v3 = objc_autoreleasePoolPush();
@@ -2942,22 +2893,20 @@ void __46__HMDPrimaryElectionLegacyAddOn_timerDidFire___block_invoke(uint64_t a1
     {
       v6 = HMFGetLogIdentifier();
       v7 = *(a1 + 40);
-      v9 = 138543618;
-      v10 = v6;
-      v11 = 2112;
-      v12 = v7;
-      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Ping failed for resident: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v6;
+      v10 = 2112;
+      v11 = v7;
+      _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Ping failed for resident: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performElectionWithReason:(unint64_t)reason
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   context = [(HMDPrimaryElectionLegacyAddOn *)self context];
   v6 = context;
   if (!context)
@@ -2986,9 +2935,9 @@ void __46__HMDPrimaryElectionLegacyAddOn_timerDidFire___block_invoke(uint64_t a1
 
     v13 = v12;
     *buf = 138543618;
-    v43 = v11;
-    v44 = 2112;
-    v45 = v13;
+    v42 = v11;
+    v43 = 2112;
+    v44 = v13;
     _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Performing election with reason: %@", buf, 0x16u);
   }
 
@@ -3005,7 +2954,7 @@ void __46__HMDPrimaryElectionLegacyAddOn_timerDidFire___block_invoke(uint64_t a1
 
     v23 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v43 = v23;
+    v42 = v23;
     v24 = "%{public}@Only resident capable devices which are enabled should perform resident election";
 LABEL_19:
     _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, v24, buf, 0xCu);
@@ -3025,7 +2974,7 @@ LABEL_19:
 
     v23 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v43 = v23;
+    v42 = v23;
     v24 = "%{public}@Resident election is not supported on this device.";
     goto LABEL_19;
   }
@@ -3039,7 +2988,7 @@ LABEL_19:
     {
       v23 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v43 = v23;
+      v42 = v23;
       v24 = "%{public}@Only owners can perform resident election";
       goto LABEL_19;
     }
@@ -3069,90 +3018,89 @@ LABEL_20:
       v19 = off_279728B50[reason - 1];
     }
 
-    v26 = v19;
+    v25 = v19;
     *buf = 138543618;
-    v43 = v18;
-    v44 = 2112;
-    v45 = v26;
+    v42 = v18;
+    v43 = 2112;
+    v44 = v25;
     _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@Starting primary resident election: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v15);
-  v41 = 0;
-  v27 = [(HMDPrimaryElectionLegacyAddOn *)v16 computePreferredElector:&v41];
+  v40 = 0;
+  v26 = [(HMDPrimaryElectionLegacyAddOn *)v16 computePreferredElector:&v40];
   delegate = [(HMDPrimaryElectionLegacyAddOn *)v16 delegate];
-  v29 = objc_autoreleasePoolPush();
-  v30 = v16;
-  v31 = HMFGetOSLogHandle();
-  v32 = os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT);
-  if (v27)
+  v28 = objc_autoreleasePoolPush();
+  v29 = v16;
+  v30 = HMFGetOSLogHandle();
+  v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
+  if (v26)
   {
-    if (v32)
+    if (v31)
     {
-      v33 = HMFGetLogIdentifier();
+      v32 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v43 = v33;
-      v44 = 2112;
-      v45 = v27;
-      _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_DEFAULT, "%{public}@Resident device elected: %@", buf, 0x16u);
+      v42 = v32;
+      v43 = 2112;
+      v44 = v26;
+      _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@Resident device elected: %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v29);
-    v34 = objc_alloc_init(HMDLegacyPrimaryElectionLogEvent);
+    objc_autoreleasePoolPop(v28);
+    v33 = objc_alloc_init(HMDLegacyPrimaryElectionLogEvent);
     if (reason - 1 > 6)
     {
-      v35 = @"no primary";
+      v34 = @"no primary";
     }
 
     else
     {
-      v35 = off_279728B50[reason - 1];
+      v34 = off_279728B50[reason - 1];
     }
 
-    v37 = v35;
-    [(HMDLegacyPrimaryElectionLogEvent *)v34 setReason:v37];
+    v36 = v34;
+    [(HMDLegacyPrimaryElectionLogEvent *)v33 setReason:v36];
 
-    if (v41 > 0x11)
+    if (v40 > 0x11)
     {
-      v38 = @"unknown reason";
+      v37 = @"unknown reason";
     }
 
     else
     {
-      v38 = off_279728B88[v41];
+      v37 = off_279728B88[v40];
     }
 
-    v39 = v38;
-    [(HMDLegacyPrimaryElectionLogEvent *)v34 setCriteria:v39];
+    v38 = v37;
+    [(HMDLegacyPrimaryElectionLogEvent *)v33 setCriteria:v38];
 
     availableResidentDevices = [v6 availableResidentDevices];
-    -[HMDLegacyPrimaryElectionLogEvent setAvailableResidentCount:](v34, "setAvailableResidentCount:", [availableResidentDevices count]);
+    -[HMDLegacyPrimaryElectionLogEvent setAvailableResidentCount:](v33, "setAvailableResidentCount:", [availableResidentDevices count]);
 
-    [delegate primaryElectionAddOn:v30 didElectPrimaryResident:v27 confirmed:0 electionLogEvent:v34];
+    [delegate primaryElectionAddOn:v29 didElectPrimaryResident:v26 confirmed:0 electionLogEvent:v33];
   }
 
   else
   {
-    if (v32)
+    if (v31)
     {
-      v36 = HMFGetLogIdentifier();
+      v35 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v43 = v36;
-      _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_DEFAULT, "%{public}@No resident device available", buf, 0xCu);
+      v42 = v35;
+      _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@No resident device available", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v29);
-    v34 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2 description:@"No valid resident found" reason:0 suggestion:0];
-    [delegate primaryElectionAddOn:v30 didFailToElectWithError:v34];
+    objc_autoreleasePoolPop(v28);
+    v33 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2 description:@"No valid resident found" reason:0 suggestion:0];
+    [delegate primaryElectionAddOn:v29 didFailToElectWithError:v33];
   }
 
 LABEL_21:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForMessages
 {
-  v19[2] = *MEMORY[0x277D85DE8];
+  v18[2] = *MEMORY[0x277D85DE8];
   context = [(HMDPrimaryElectionLegacyAddOn *)self context];
   v4 = context;
   if (context)
@@ -3163,30 +3111,28 @@ LABEL_21:
     [v6 setRequiresSecureMessage:1];
     [v6 setRequiresAccountMessage:1];
     [v6 setTransportRestriction:-1];
-    v7 = [v6 copy];
+    v7 = objc_msgSend_copy(v6);
     v8 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:3 remoteAccessRequired:0];
-    v19[0] = v7;
-    v19[1] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+    v18[0] = v7;
+    v18[1] = v8;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
     [messageDispatcher registerForMessage:@"kResidentElectionParametersInternalRequestKey" receiver:self policies:v9 selector:sel__handleResidentElectionParameters_];
 
     v10 = *MEMORY[0x277CCFEA0];
-    v18[0] = v7;
-    v18[1] = v8;
-    v11 = [HMDConfigurationMessagePolicy policyWithOperationTypes:2];
-    v18[2] = v11;
-    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
-    [messageDispatcher registerForMessage:v10 receiver:self policies:v12 selector:sel___handleConfirmationRequest_];
-
     v17[0] = v7;
     v17[1] = v8;
+    v11 = [HMDConfigurationMessagePolicy policyWithOperationTypes:2];
+    v17[2] = v11;
+    v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
+    [messageDispatcher registerForMessage:v10 receiver:self policies:v12 selector:sel___handleConfirmationRequest_];
+
+    v16[0] = v7;
+    v16[1] = v8;
     v13 = [HMDConfigurationMessagePolicy policyWithOperationTypes:2];
-    v17[2] = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
+    v16[2] = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
     [messageDispatcher registerForMessage:@"kResidentConfirmDeviceInternalRequestKey" receiver:self policies:v14 selector:sel__handleConfirmResidentDevice_];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
@@ -3211,11 +3157,11 @@ LABEL_21:
 
 - (HMDPrimaryElectionLegacyAddOn)initWithContext:(id)context
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v24.receiver = self;
-  v24.super_class = HMDPrimaryElectionLegacyAddOn;
-  v5 = [(HMDPrimaryElectionLegacyAddOn *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = HMDPrimaryElectionLegacyAddOn;
+  v5 = [(HMDPrimaryElectionLegacyAddOn *)&v23 init];
   v6 = [MEMORY[0x277CCAA50] hashTableWithOptions:517];
   devicePreferenceDataSources = v5->_devicePreferenceDataSources;
   v5->_devicePreferenceDataSources = v6;
@@ -3246,7 +3192,7 @@ LABEL_21:
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v26 = v18;
+        v25 = v18;
         _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Monitoring power state information for transient resident device", buf, 0xCu);
       }
 
@@ -3262,7 +3208,6 @@ LABEL_21:
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -3280,12 +3225,11 @@ LABEL_21:
 
 uint64_t __44__HMDPrimaryElectionLegacyAddOn_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v88;
-  logCategory__hmf_once_v88 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v88;
+  logCategory__hmf_once_v88 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (int64_t)compareElectionVersions:(id)versions otherVersion:(id)version

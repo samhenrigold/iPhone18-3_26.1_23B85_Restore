@@ -189,7 +189,7 @@ LABEL_8:
                 v17 = @"unknown";
               }
 
-              v18 = [v10 objectForKey:v17];
+              v18 = objc_msgSend_objectForKey_(v10);
               if (!v18)
               {
                 v18 = objc_alloc_init(NSMutableSet);
@@ -229,7 +229,7 @@ LABEL_8:
 
               v48 = v20;
               v53 = *(*(&v70 + 1) + 8 * v20);
-              v21 = [v47 objectForKey:v43];
+              v21 = objc_msgSend_objectForKey_(v47, v43);
               v66 = 0u;
               v67 = 0u;
               v68 = 0u;
@@ -741,7 +741,7 @@ LABEL_8:
     connectionDisruptedObservers = self->_connectionDisruptedObservers;
     idCopy = id;
     v8 = [NSNumber numberWithInt:v4];
-    v11 = [(NSMutableDictionary *)connectionDisruptedObservers objectForKey:v8];
+    v11 = objc_msgSend_objectForKey_(connectionDisruptedObservers);
 
     [v11 removeObjectForKey:idCopy];
     if (![v11 count])
@@ -762,7 +762,7 @@ LABEL_8:
     v15 = [observer copy];
     connectionDisruptedObservers = self->_connectionDisruptedObservers;
     v10 = [NSNumber numberWithInt:v6];
-    v11 = [(NSMutableDictionary *)connectionDisruptedObservers objectForKey:v10];
+    v11 = objc_msgSend_objectForKey_(connectionDisruptedObservers);
 
     if (!v11)
     {
@@ -782,7 +782,7 @@ LABEL_8:
   processIdentifier = [disruption processIdentifier];
   connectionDisruptedObservers = self->_connectionDisruptedObservers;
   v6 = [NSNumber numberWithInt:processIdentifier];
-  v7 = [(NSMutableDictionary *)connectionDisruptedObservers objectForKey:v6];
+  v7 = objc_msgSend_objectForKey_(connectionDisruptedObservers);
   allValues = [v7 allValues];
 
   v16 = 0u;

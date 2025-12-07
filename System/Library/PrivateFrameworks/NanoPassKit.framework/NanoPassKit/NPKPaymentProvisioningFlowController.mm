@@ -8,6 +8,7 @@
 + (id)_displayableErrorWithUnderlyingVerificationError:(id)error;
 + (id)_filterAssociatedCredentials:(id)credentials forProduct:(id)product;
 + (id)_filteredPaymentSetupProducts:(id)products localCredentials:(id)credentials setupContext:(int64_t)context webService:(id)service mobileCarrierRegion:(id)region readerModeSupported:(BOOL)supported digitalIssuanceSupported:(BOOL)issuanceSupported;
++ (id)_flowPickerSectionsWithContext:(int64_t)context provisioningController:(id)controller readerModeSupported:(BOOL)supported digitalIssuanceSupported:(BOOL)issuanceSupported;
 + (id)_physicalCardURLFromMetadata:(id)metadata forScale:(double)scale;
 + (id)_productsArrayFromPickerSection:(id)section;
 + (id)_readerModeResources;
@@ -38,6 +39,7 @@
 - (void)_canMakeDigitalIssuancePaymentsForTransitProductsWithCompletion:(id)completion;
 - (void)_cardsOnFileForProduct:(id)product updateHandler:(id)handler completionHandler:(id)completionHandler;
 - (void)_checkSpaceAvailableForAppletTypes:(id)types triedCleanup:(BOOL)cleanup completion:(id)completion;
+- (void)_chooseProductFromFlowPickerSection:(id)section requestContext:(id)context transitioningToStep:(int)step;
 - (void)_configureWebServiceIfNecessary:(id)necessary completion:(id)completion;
 - (void)_downloadAndAddUpdatedPassForPaymentPass:(id)pass completion:(id)completion;
 - (void)_downloadRemoteAssetsAndAddPaymentPass:(id)pass completion:(id)completion;
@@ -52,6 +54,7 @@
 - (void)_handleEligibiltySuccessWithContext:(id)context;
 - (void)_handleEndOfProvisioningFlowForCurrentPass:(id)pass requestContext:(id)context;
 - (void)_handleFinished:(id)finished;
+- (void)_handlePasscodeUpgradeCompleteWithSuccess:(BOOL)success error:(id)error requestContext:(id)context;
 - (void)_handlePreconditionsVerified:(id)verified;
 - (void)_handleProceedWithCredentials:(id)credentials chosenByUser:(BOOL)user requestContext:(id)context;
 - (void)_handleProductChosen:(id)chosen includeCardsOnFile:(BOOL)file requestContext:(id)context;
@@ -82,6 +85,7 @@
 - (void)_requestVerificationOptionsForPass:(id)pass context:(id)context;
 - (void)_resetReaderModeProvisioningState;
 - (void)_sendDidEncounterError:(id)error requestContext:(id)context;
+- (void)_sendDidTransitionFromStep:(int)step toStep:(int)toStep withContext:(id)context;
 - (void)_setupCardIngester;
 - (void)_startCardNotFoundTimer;
 - (void)_startDigitalIssuancePaymentWithAmount:(id)amount requestContext:(id)context serviceProviderProduct:(id)product productItem:(id)item;
@@ -121,6 +125,7 @@
 - (void)chooseCredentials:(id)credentials requestContext:(id)context;
 - (void)chooseFlowForPickerItem:(id)item requestContext:(id)context;
 - (void)chooseManualEntry:(id)entry;
+- (void)chooseProduct:(id)product includeCardsOnFile:(BOOL)file requestContext:(id)context;
 - (void)chooseReaderMode:(id)mode;
 - (void)contactlessCardIngester:(id)ingester didFailToIngestCardWithError:(id)error resetProvisioning:(BOOL)provisioning isRecoverable:(BOOL)recoverable;
 - (void)contactlessCardIngester:(id)ingester didUpdateCardIngestionStatus:(unint64_t)status;
@@ -133,6 +138,7 @@
 - (void)handleIssuerVerificationCode:(id)code requestContext:(id)context;
 - (void)handleIssuerVerificationFields:(id)fields requestContext:(id)context;
 - (void)handleManualEntryFields:(id)fields credential:(id)credential requestContext:(id)context;
+- (void)handlePasscodeUpgradeCompleteWithSuccess:(BOOL)success error:(id)error requestContext:(id)context;
 - (void)handleProductSelection:(id)selection requestContext:(id)context;
 - (void)handleReaderModeFields:(id)fields requestContext:(id)context;
 - (void)paymentAuthorizationController:(id)controller didAuthorizePayment:(id)payment handler:(id)handler;
@@ -151,72 +157,71 @@
 
 - (NPKPaymentProvisioningFlowController)initWithProvisioningController:(id)controller setupContext:(int64_t)context
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
-  v31.receiver = self;
-  v31.super_class = NPKPaymentProvisioningFlowController;
-  v8 = [(NPKPaymentProvisioningFlowController *)&v31 init];
+  v34.receiver = self;
+  v34.super_class = NPKPaymentProvisioningFlowController;
+  v8 = [(NPKPaymentProvisioningFlowController *)&v34 init];
   if (v8)
   {
     webService = [controllerCopy webService];
     webService = v8->_webService;
     v8->_webService = webService;
 
-    v11 = pk_Payment_log();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    v12 = pk_Payment_log(v11);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
-    if (v12)
+    if (v13)
     {
-      v13 = pk_Payment_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = pk_Payment_log(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = [(PKPaymentWebService *)v8->_webService debugDescription];
-        v15 = v14;
-        uTF8String = [v14 UTF8String];
+        v16 = [(PKPaymentWebService *)v8->_webService debugDescription];
+        v17 = v16;
+        uTF8String = [v16 UTF8String];
         *buf = 136315138;
-        v33 = uTF8String;
-        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: checking webService %s: ", buf, 0xCu);
+        v36 = uTF8String;
+        _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: checking webService %s: ", buf, 0xCu);
       }
     }
 
     v8->_currentStep = 100;
     objc_storeStrong(&v8->_provisioningController, controller);
     v8->_setupContext = context;
-    v17 = pk_Payment_log();
-    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
+    v20 = pk_Payment_log(v19);
+    v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
 
-    if (v18)
+    if (v21)
     {
-      v19 = pk_Payment_log();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v23 = pk_Payment_log(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = [(PKPaymentProvisioningController *)v8->_provisioningController debugDescription];
-        v21 = v20;
-        uTF8String2 = [v20 UTF8String];
+        v24 = [(PKPaymentProvisioningController *)v8->_provisioningController debugDescription];
+        v25 = v24;
+        uTF8String2 = [v24 UTF8String];
         *buf = 136315138;
-        v33 = uTF8String2;
-        _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: checking controller initialization %s: ", buf, 0xCu);
+        v36 = uTF8String2;
+        _os_log_impl(&dword_25B300000, v23, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: checking controller initialization %s: ", buf, 0xCu);
       }
     }
 
     objc_initWeak(buf, v8);
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     provisioningController = v8->_provisioningController;
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __84__NPKPaymentProvisioningFlowController_initWithProvisioningController_setupContext___block_invoke;
-    v29[3] = &unk_279946020;
-    objc_copyWeak(&v30, buf);
-    v25 = [defaultCenter addObserverForName:*MEMORY[0x277D388C8] object:provisioningController queue:0 usingBlock:v29];
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __84__NPKPaymentProvisioningFlowController_initWithProvisioningController_setupContext___block_invoke;
+    v32[3] = &unk_279946020;
+    objc_copyWeak(&v33, buf);
+    v29 = [defaultCenter addObserverForName:*MEMORY[0x277D388C8] object:provisioningController queue:0 usingBlock:v32];
     progressNotificationToken = v8->_progressNotificationToken;
-    v8->_progressNotificationToken = v25;
+    v8->_progressNotificationToken = v29;
 
     [MEMORY[0x277D37D28] beginSubjectReporting:@"provisioning"];
-    objc_destroyWeak(&v30);
+    objc_destroyWeak(&v33);
     objc_destroyWeak(buf);
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -247,23 +252,23 @@ void __84__NPKPaymentProvisioningFlowController_initWithProvisioningController_s
 
 - (void)reset
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D37D28];
   v4 = NPKAnalyticsEventForProvisioningFlowClientInput(@"reset", 0);
   [v3 subject:@"provisioning" sendEvent:v4];
 
-  v5 = pk_Payment_log();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  v6 = pk_Payment_log(v5);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
-  if (v6)
+  if (v7)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_Payment_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = [(PKPaymentWebService *)self->_webService debugDescription];
-      v15 = 136315138;
-      uTF8String = [v8 UTF8String];
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: checking webService %s: ", &v15, 0xCu);
+      v10 = [(PKPaymentWebService *)self->_webService debugDescription];
+      v16 = 136315138;
+      uTF8String = [v10 UTF8String];
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: checking webService %s: ", &v16, 0xCu);
     }
   }
 
@@ -284,8 +289,6 @@ void __84__NPKPaymentProvisioningFlowController_initWithProvisioningController_s
 
   inAppProvisioningRequestConfiguration = self->_inAppProvisioningRequestConfiguration;
   self->_inAppProvisioningRequestConfiguration = 0;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startProvisioningFlow:(id)flow
@@ -296,19 +299,19 @@ void __84__NPKPaymentProvisioningFlowController_initWithProvisioningController_s
   [v5 subject:@"provisioning" sendEvent:v6];
 
   currentStep = self->_currentStep;
-  v8 = pk_Payment_log();
-  v9 = v8;
+  v9 = pk_Payment_log(v8);
+  v10 = v9;
   if (currentStep == 100)
   {
-    v10 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    v11 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-    if (v10)
+    if (v11)
     {
-      v11 = pk_Payment_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = pk_Payment_log(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: starting provisioning flow", buf, 2u);
+        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: starting provisioning flow", buf, 2u);
       }
     }
 
@@ -317,15 +320,15 @@ void __84__NPKPaymentProvisioningFlowController_initWithProvisioningController_s
 
   else
   {
-    v12 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+    v14 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
 
-    if (v12)
+    if (v14)
     {
-      v13 = pk_Payment_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v16 = pk_Payment_log(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        *v14 = 0;
-        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_ERROR, "Error: Past initialization step; cannot start provisioning flow!", v14, 2u);
+        *v17 = 0;
+        _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_ERROR, "Error: Past initialization step; cannot start provisioning flow!", v17, 2u);
       }
     }
   }
@@ -449,28 +452,26 @@ uint64_t __59__NPKPaymentProvisioningFlowController_acknowledgeWelcome___block_i
   return v4 & 1;
 }
 
-void __59__NPKPaymentProvisioningFlowController_acknowledgeWelcome___block_invoke_3(uint64_t a1)
+void __59__NPKPaymentProvisioningFlowController_acknowledgeWelcome___block_invoke_3(void *a1)
 {
-  v3 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v4 = *(a1 + 64);
-  v5 = (*(*(a1 + 56) + 16))();
-  [v3 _transitionToChooseFlowWithSections:v5 requestContext:*(a1 + 48)];
+  v2 = a1[4];
+  v3 = (*(a1[7] + 16))();
+  [v2 _transitionToChooseFlowWithSections:v3 requestContext:a1[6]];
 }
 
 - (void)chooseFlowForPickerItem:(id)item requestContext:(id)context
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   itemCopy = item;
   contextCopy = context;
   identifier = [itemCopy identifier];
 
   if (identifier)
   {
-    v15 = @"flowItem";
+    v14 = @"flowItem";
     identifier2 = [itemCopy identifier];
-    v16[0] = identifier2;
-    identifier = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v15[0] = identifier2;
+    identifier = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   }
 
   v10 = MEMORY[0x277D37D28];
@@ -488,8 +489,6 @@ void __59__NPKPaymentProvisioningFlowController_acknowledgeWelcome___block_invok
   {
     [(NPKPaymentProvisioningFlowController *)self _transitionToChooseProductWithProducts:products requestContext:contextCopy];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_filterAssociatedCredentials:(id)credentials forProduct:(id)product
@@ -512,27 +511,34 @@ void __59__NPKPaymentProvisioningFlowController_acknowledgeWelcome___block_invok
 
   productIdentifier = [productCopy productIdentifier];
   v11 = productIdentifier;
-  if (cardType && productIdentifier && [productIdentifier length])
+  if (cardType)
   {
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __80__NPKPaymentProvisioningFlowController__filterAssociatedCredentials_forProduct___block_invoke;
-    v19[3] = &unk_2799460B8;
-    v21 = cardType;
-    v20 = v11;
-    v12 = [credentialsCopy pk_objectsPassingTest:v19];
-    v13 = v20;
+    if (productIdentifier)
+    {
+      productIdentifier = [productIdentifier length];
+      if (productIdentifier)
+      {
+        v19[0] = MEMORY[0x277D85DD0];
+        v19[1] = 3221225472;
+        v19[2] = __80__NPKPaymentProvisioningFlowController__filterAssociatedCredentials_forProduct___block_invoke;
+        v19[3] = &unk_2799460B8;
+        v21 = cardType;
+        v20 = v11;
+        v12 = [credentialsCopy pk_objectsPassingTest:v19];
+        v13 = v20;
 LABEL_12:
 
-    goto LABEL_14;
+        goto LABEL_14;
+      }
+    }
   }
 
-  v14 = pk_General_log();
+  v14 = pk_General_log(productIdentifier);
   v15 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
 
   if (v15)
   {
-    v13 = pk_General_log();
+    v13 = pk_General_log(v16);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       displayName = [productCopy displayName];
@@ -551,8 +557,6 @@ LABEL_12:
 
   v12 = MEMORY[0x277CBEBF8];
 LABEL_14:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -587,43 +591,43 @@ uint64_t __80__NPKPaymentProvisioningFlowController__filterAssociatedCredentials
 
 - (void)_ensureMetadataForCredentials:(id)credentials updateHandler:(id)handler completionHandler:(id)completionHandler
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   credentialsCopy = credentials;
   handlerCopy = handler;
   completionHandlerCopy = completionHandler;
-  v66[0] = 0;
-  v66[1] = v66;
-  v66[2] = 0x2020000000;
-  v67 = 0;
-  v64[0] = 0;
-  v64[1] = v64;
-  v64[2] = 0x3032000000;
-  v64[3] = __Block_byref_object_copy__3;
-  v64[4] = __Block_byref_object_dispose__3;
-  v65 = 0;
+  v65[0] = 0;
+  v65[1] = v65;
+  v65[2] = 0x2020000000;
+  v66 = 0;
+  v63[0] = 0;
+  v63[1] = v63;
+  v63[2] = 0x3032000000;
+  v63[3] = __Block_byref_object_copy__3;
+  v63[4] = __Block_byref_object_dispose__3;
+  v64 = 0;
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v41 = self->_provisioningController;
-  v38 = objc_opt_new();
-  v62 = 0u;
-  v63 = 0u;
-  v60 = 0u;
+  v40 = self->_provisioningController;
+  v37 = objc_opt_new();
   v61 = 0u;
+  v62 = 0u;
+  v59 = 0u;
+  v60 = 0u;
   obj = credentialsCopy;
-  v10 = [obj countByEnumeratingWithState:&v60 objects:v69 count:16];
+  v10 = [obj countByEnumeratingWithState:&v59 objects:v68 count:16];
   if (v10)
   {
-    v11 = *v61;
+    v11 = *v60;
     do
     {
       v12 = 0;
       do
       {
-        if (*v61 != v11)
+        if (*v60 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v60 + 1) + 8 * v12);
+        v13 = *(*(&v59 + 1) + 8 * v12);
         credentialType = [v13 credentialType];
         if (!credentialType)
         {
@@ -656,7 +660,7 @@ LABEL_12:
           [MEMORY[0x277CCACA8] stringWithFormat:@"%u", credentialType];
         }
         v17 = ;
-        v18 = [v38 objectForKey:v17];
+        v18 = [v37 objectForKey:v17];
         v19 = v18;
         if (v18)
         {
@@ -668,48 +672,48 @@ LABEL_12:
           v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
         }
 
-        [v38 setObject:v20 forKeyedSubscript:v17];
+        [v37 setObject:v20 forKeyedSubscript:v17];
 
 LABEL_13:
         ++v12;
       }
 
       while (v10 != v12);
-      v21 = [obj countByEnumeratingWithState:&v60 objects:v69 count:16];
+      v21 = [obj countByEnumeratingWithState:&v59 objects:v68 count:16];
       v10 = v21;
     }
 
     while (v21);
   }
 
-  if ([v38 count])
+  if ([v37 count])
   {
     if (handlerCopy && [v9 count])
     {
       handlerCopy[2](handlerCopy, 1, 0, v9);
     }
 
-    v22 = [v38 keysSortedByValueUsingComparator:&__block_literal_global_5];
+    v22 = [v37 keysSortedByValueUsingComparator:&__block_literal_global_5];
     v23 = objc_alloc_init(MEMORY[0x277D37DB0]);
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
     v57 = 0u;
-    v39 = v22;
-    v24 = [v39 countByEnumeratingWithState:&v56 objects:v68 count:16];
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
+    v38 = v22;
+    v24 = [v38 countByEnumeratingWithState:&v55 objects:v67 count:16];
     if (v24)
     {
-      v25 = *v57;
+      v25 = *v56;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v57 != v25)
+          if (*v56 != v25)
           {
-            objc_enumerationMutation(v39);
+            objc_enumerationMutation(v38);
           }
 
-          v27 = *(*(&v56 + 1) + 8 * i);
+          v27 = *(*(&v55 + 1) + 8 * i);
           v28 = [v27 rangeOfString:{@", "}];
           v29 = v28;
           if (v28 == 0x7FFFFFFFFFFFFFFFLL)
@@ -725,37 +729,37 @@ LABEL_13:
             integerValue = [v32 integerValue];
           }
 
-          v48[0] = MEMORY[0x277D85DD0];
-          v48[1] = 3221225472;
-          v48[2] = __102__NPKPaymentProvisioningFlowController__ensureMetadataForCredentials_updateHandler_completionHandler___block_invoke_2;
-          v48[3] = &unk_279946128;
-          v55 = integerValue;
+          v47[0] = MEMORY[0x277D85DD0];
+          v47[1] = 3221225472;
+          v47[2] = __102__NPKPaymentProvisioningFlowController__ensureMetadataForCredentials_updateHandler_completionHandler___block_invoke_2;
+          v47[3] = &unk_279946128;
+          v54 = integerValue;
           v33 = v31;
-          v49 = v33;
-          v50 = v41;
-          v53 = v64;
-          v51 = v9;
-          v54 = v66;
-          v52 = handlerCopy;
-          [v23 addOperation:v48];
+          v48 = v33;
+          v49 = v40;
+          v52 = v63;
+          v50 = v9;
+          v53 = v65;
+          v51 = handlerCopy;
+          [v23 addOperation:v47];
         }
 
-        v24 = [v39 countByEnumeratingWithState:&v56 objects:v68 count:16];
+        v24 = [v38 countByEnumeratingWithState:&v55 objects:v67 count:16];
       }
 
       while (v24);
     }
 
     null = [MEMORY[0x277CBEB68] null];
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __102__NPKPaymentProvisioningFlowController__ensureMetadataForCredentials_updateHandler_completionHandler___block_invoke_85;
-    v43[3] = &unk_279946150;
-    v45 = completionHandlerCopy;
-    v46 = v66;
-    v47 = v64;
-    v44 = v9;
-    v35 = [v23 evaluateWithInput:null completion:v43];
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __102__NPKPaymentProvisioningFlowController__ensureMetadataForCredentials_updateHandler_completionHandler___block_invoke_85;
+    v42[3] = &unk_279946150;
+    v44 = completionHandlerCopy;
+    v45 = v65;
+    v46 = v63;
+    v43 = v9;
+    v35 = [v23 evaluateWithInput:null completion:v42];
   }
 
   else
@@ -763,10 +767,8 @@ LABEL_13:
     (*(completionHandlerCopy + 2))(completionHandlerCopy, 1, 0, v9);
   }
 
-  _Block_object_dispose(v64, 8);
-  _Block_object_dispose(v66, 8);
-
-  v36 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v63, 8);
+  _Block_object_dispose(v65, 8);
 }
 
 void __102__NPKPaymentProvisioningFlowController__ensureMetadataForCredentials_updateHandler_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -804,66 +806,66 @@ void __102__NPKPaymentProvisioningFlowController__ensureMetadataForCredentials_u
 
 void __102__NPKPaymentProvisioningFlowController__ensureMetadataForCredentials_updateHandler_completionHandler___block_invoke_3(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a4;
-  [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-  v11 = v10;
-  v12 = *(a1 + 88);
-  v13 = pk_General_log();
-  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+  v10 = [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+  v12 = v11;
+  v13 = *(a1 + 88);
+  v14 = pk_General_log(v10);
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
 
-  if (v14)
+  if (v15)
   {
-    v15 = pk_General_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = pk_General_log(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = *(a1 + 96);
-      v17 = *(a1 + 32);
-      v29 = 67109634;
-      v30 = v16;
-      v31 = 2112;
-      v32 = v17;
-      v33 = 2048;
-      v34 = v11 - v12;
-      _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: updateRemoteCredentials [%u, %@] completed in %f seconds", &v29, 0x1Cu);
+      v18 = *(a1 + 96);
+      v19 = *(a1 + 32);
+      v30 = 67109634;
+      v31 = v18;
+      v32 = 2112;
+      v33 = v19;
+      v34 = 2048;
+      v35 = v12 - v13;
+      _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: updateRemoteCredentials [%u, %@] completed in %f seconds", &v30, 0x1Cu);
     }
   }
 
-  if (!v9 || ![v9 count])
+  if (!v9 || (v16 = [v9 count]) == 0)
   {
-    v18 = pk_General_log();
-    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+    v20 = pk_General_log(v16);
+    v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
 
-    if (v19)
+    if (v21)
     {
-      v20 = pk_General_log();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v22 = pk_General_log(v16);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = *(a1 + 96);
-        v29 = 67109120;
-        v30 = v21;
-        _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_DEFAULT, "Notice: Warning: User had matching associated credentials (type=%d) but when fetching metadata no credentials were returned", &v29, 8u);
+        v23 = *(a1 + 96);
+        v30 = 67109120;
+        v31 = v23;
+        _os_log_impl(&dword_25B300000, v22, OS_LOG_TYPE_DEFAULT, "Notice: Warning: User had matching associated credentials (type=%d) but when fetching metadata no credentials were returned", &v30, 8u);
       }
     }
   }
 
   if (v8)
   {
-    v22 = pk_General_log();
-    v23 = os_log_type_enabled(v22, OS_LOG_TYPE_ERROR);
+    v24 = pk_General_log(v16);
+    v25 = os_log_type_enabled(v24, OS_LOG_TYPE_ERROR);
 
-    if (v23)
+    if (v25)
     {
-      v24 = pk_General_log();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v27 = pk_General_log(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v25 = *(a1 + 96);
-        v29 = 67109378;
-        v30 = v25;
-        v31 = 2112;
-        v32 = v8;
-        _os_log_impl(&dword_25B300000, v24, OS_LOG_TYPE_ERROR, "Error: Failed collecting metadata for associated credentials (type=%d), error = %@", &v29, 0x12u);
+        v28 = *(a1 + 96);
+        v30 = 67109378;
+        v31 = v28;
+        v32 = 2112;
+        v33 = v8;
+        _os_log_impl(&dword_25B300000, v27, OS_LOG_TYPE_ERROR, "Error: Failed collecting metadata for associated credentials (type=%d), error = %@", &v30, 0x12u);
       }
     }
   }
@@ -879,27 +881,21 @@ void __102__NPKPaymentProvisioningFlowController__ensureMetadataForCredentials_u
     objc_storeStrong((*(*(a1 + 72) + 8) + 40), a3);
   }
 
-  v26 = *(a1 + 56);
-  if (v26)
+  v29 = *(a1 + 56);
+  if (v29)
   {
-    (*(v26 + 16))(v26, a2, v8, *(a1 + 40));
+    (*(v29 + 16))(v29, a2, v8, *(a1 + 40));
   }
 
-  v27 = *(a1 + 48);
   (*(*(a1 + 64) + 16))();
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __102__NPKPaymentProvisioningFlowController__ensureMetadataForCredentials_updateHandler_completionHandler___block_invoke_85(void *a1)
+uint64_t __102__NPKPaymentProvisioningFlowController__ensureMetadataForCredentials_updateHandler_completionHandler___block_invoke_85(uint64_t a1)
 {
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v2 = *(*(a1[6] + 8) + 24);
-  v3 = *(*(a1[7] + 8) + 40);
-  v4 = a1[4];
-  v5 = *(a1[5] + 16);
+  v2 = *(*(a1 + 40) + 16);
 
-  return v5();
+  return v2();
 }
 
 - (void)_cardsOnFileForProduct:(id)product updateHandler:(id)handler completionHandler:(id)completionHandler
@@ -952,22 +948,23 @@ uint64_t __102__NPKPaymentProvisioningFlowController__ensureMetadataForCredentia
 
 void __116__NPKPaymentProvisioningFlowController_ensureMetadataForCredentials_requestContext_updateHandler_completionHandler___block_invoke(uint64_t a1, char a2, void *a3, void *a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
+  v9 = v8;
   if ((a2 & 1) == 0)
   {
-    v9 = pk_Payment_log();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    v10 = pk_Payment_log(v8);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-    if (v10)
+    if (v11)
     {
-      v11 = pk_Payment_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = pk_Payment_log(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 138412290;
-        v14 = v7;
-        _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Error occurred when setting up product for provisioning: %@", &v13, 0xCu);
+        v14 = 138412290;
+        v15 = v7;
+        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Error occurred when setting up product for provisioning: %@", &v14, 0xCu);
       }
     }
 
@@ -975,28 +972,27 @@ void __116__NPKPaymentProvisioningFlowController_ensureMetadataForCredentials_re
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __116__NPKPaymentProvisioningFlowController_ensureMetadataForCredentials_requestContext_updateHandler_completionHandler___block_invoke_87(uint64_t a1, char a2, void *a3, void *a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
+  v9 = v8;
   if ((a2 & 1) == 0)
   {
-    v9 = pk_Payment_log();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    v10 = pk_Payment_log(v8);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-    if (v10)
+    if (v11)
     {
-      v11 = pk_Payment_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = pk_Payment_log(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 138412290;
-        v14 = v7;
-        _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Error occurred when setting up product for provisioning: %@", &v13, 0xCu);
+        v14 = 138412290;
+        v15 = v7;
+        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Error occurred when setting up product for provisioning: %@", &v14, 0xCu);
       }
     }
 
@@ -1004,8 +1000,6 @@ void __116__NPKPaymentProvisioningFlowController_ensureMetadataForCredentials_re
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)chooseCardsOnFileFlowForProduct:(id)product requestContext:(id)context preloadMetadata:(BOOL)metadata
@@ -1036,75 +1030,85 @@ void __116__NPKPaymentProvisioningFlowController_ensureMetadataForCredentials_re
 
 void __103__NPKPaymentProvisioningFlowController_chooseCardsOnFileFlowForProduct_requestContext_preloadMetadata___block_invoke(uint64_t a1, int a2, void *a3, void *a4)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
+  v9 = v8;
   if (a2)
   {
     objc_storeStrong((*(a1 + 32) + 184), *(a1 + 40));
-    [*(a1 + 32) _transitionBasedOnCredentials:v8 product:*(a1 + 40) requestContext:*(a1 + 48)];
+    [*(a1 + 32) _transitionBasedOnCredentials:v9 product:*(a1 + 40) requestContext:*(a1 + 48)];
   }
 
   else
   {
-    v9 = pk_Payment_log();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    v10 = pk_Payment_log(v8);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-    if (v10)
+    if (v11)
     {
-      v11 = pk_Payment_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = pk_Payment_log(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 138412290;
-        v14 = v7;
-        _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Error occurred when setting up product for provisioning: %@", &v13, 0xCu);
+        v14 = 138412290;
+        v15 = v7;
+        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Error occurred when setting up product for provisioning: %@", &v14, 0xCu);
       }
     }
 
     [*(a1 + 32) _sendDidEncounterError:v7 requestContext:*(a1 + 48)];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_productsArrayFromPickerSection:(id)section
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   sectionCopy = section;
   v4 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   items = [sectionCopy items];
-  v6 = [items countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [items countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(items);
         }
 
-        products = [*(*(&v14 + 1) + 8 * i) products];
+        products = [*(*(&v13 + 1) + 8 * i) products];
         [v4 addObjectsFromArray:products];
       }
 
-      v7 = [items countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [items countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   v11 = [v4 copy];
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
+}
+
+- (void)_chooseProductFromFlowPickerSection:(id)section requestContext:(id)context transitioningToStep:(int)step
+{
+  v5 = *&step;
+  contextCopy = context;
+  sectionCopy = section;
+  v11 = [objc_opt_class() _productsArrayFromPickerSection:sectionCopy];
+
+  v10 = [[NPKPaymentProvisioningFlowControllerChooseProductStepContext alloc] initWithRequestContext:contextCopy];
+  [(NPKPaymentProvisioningFlowControllerChooseProductStepContext *)v10 setProducts:v11];
+  [(NPKPaymentProvisioningFlowController *)self _performTransitionToStep:v5 withContext:v10];
 }
 
 - (void)prefetchCredentialsForProduct:(id)product requestContext:(id)context completionHandler:(id)handler
@@ -1130,8 +1134,9 @@ void __103__NPKPaymentProvisioningFlowController_chooseCardsOnFileFlowForProduct
 
 void __103__NPKPaymentProvisioningFlowController_prefetchCredentialsForProduct_requestContext_completionHandler___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
     (*(*(a1 + 56) + 16))();
@@ -1139,27 +1144,56 @@ void __103__NPKPaymentProvisioningFlowController_prefetchCredentialsForProduct_r
 
   else
   {
-    v6 = pk_Payment_log();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    v7 = pk_Payment_log(v5);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-    if (v7)
+    if (v8)
     {
-      v8 = pk_Payment_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = pk_Payment_log(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = [*(a1 + 32) displayName];
-        v11 = 138412546;
-        v12 = v9;
-        v13 = 2112;
-        v14 = v5;
-        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Error occurred when collecting associated purchases for product %@, error: %@", &v11, 0x16u);
+        v11 = [*(a1 + 32) displayName];
+        v12 = 138412546;
+        v13 = v11;
+        v14 = 2112;
+        v15 = v6;
+        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Error occurred when collecting associated purchases for product %@, error: %@", &v12, 0x16u);
       }
     }
 
-    [*(a1 + 40) _sendDidEncounterError:v5 requestContext:*(a1 + 48)];
+    [*(a1 + 40) _sendDidEncounterError:v6 requestContext:*(a1 + 48)];
+  }
+}
+
+- (void)chooseProduct:(id)product includeCardsOnFile:(BOOL)file requestContext:(id)context
+{
+  fileCopy = file;
+  v15[1] = *MEMORY[0x277D85DE8];
+  productCopy = product;
+  contextCopy = context;
+  productIdentifier = [productCopy productIdentifier];
+
+  if (productIdentifier)
+  {
+    v14 = @"productIdentifier";
+    productIdentifier2 = [productCopy productIdentifier];
+    v15[0] = productIdentifier2;
+    productIdentifier = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
+  v12 = MEMORY[0x277D37D28];
+  v13 = NPKAnalyticsEventForProvisioningFlowClientInput(@"chooseProduct", productIdentifier);
+  [v12 subject:@"provisioning" sendEvent:v13];
+
+  if ([productCopy isAppleBalanceProduct])
+  {
+    [(NPKPaymentProvisioningFlowController *)self _handleAppleBalanceProductChosen:productCopy requestContext:contextCopy];
+  }
+
+  else
+  {
+    [(NPKPaymentProvisioningFlowController *)self _handleProductChosen:productCopy includeCardsOnFile:fileCopy requestContext:contextCopy];
+  }
 }
 
 - (void)handleDigitalIssuanceAmount:(id)amount requestContext:(id)context
@@ -1236,22 +1270,20 @@ void __103__NPKPaymentProvisioningFlowController_prefetchCredentialsForProduct_r
 
   else
   {
-    v13 = pk_General_log();
+    v13 = pk_General_log(0);
     v14 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
 
     if (v14)
     {
-      v15 = pk_General_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = pk_General_log(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         v17 = 138412290;
         v18 = credentialsCopy;
-        _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_ERROR, "Error: Error: No valid provisioning methods exist for credentials [%@]", &v17, 0xCu);
+        _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_ERROR, "Error: Error: No valid provisioning methods exist for credentials [%@]", &v17, 0xCu);
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __73__NPKPaymentProvisioningFlowController_chooseCredentials_requestContext___block_invoke(uint64_t a1, void *a2)
@@ -1283,13 +1315,13 @@ BOOL __73__NPKPaymentProvisioningFlowController_chooseCredentials_requestContext
 
 - (void)handleManualEntryFields:(id)fields credential:(id)credential requestContext:(id)context
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   fieldsCopy = fields;
   credentialCopy = credential;
   contextCopy = context;
   v11 = NPKAnalyticsEventEntriesForPaymentSetupFields(fieldsCopy);
   v12 = MEMORY[0x277D37D28];
-  v64 = v11;
+  v69 = v11;
   v13 = NPKAnalyticsEventForProvisioningFlowClientInput(@"manualEntryFields", v11);
   [v12 subject:@"provisioning" sendEvent:v13];
 
@@ -1304,31 +1336,32 @@ BOOL __73__NPKPaymentProvisioningFlowController_chooseCredentials_requestContext
     [(NPKPaymentProvisioningFlowController *)self _performTransitionToStep:193 withContext:v14];
   }
 
-  v65 = contextCopy;
-  if ([(PKPaymentProvisioningController *)self->_provisioningController state]== 1)
+  state = [(PKPaymentProvisioningController *)self->_provisioningController state];
+  v70 = contextCopy;
+  if (state == 1)
   {
     if (credentialCopy)
     {
-      currentCredential = self->_currentCredential;
-      if (PKEqualObjects())
+      state = PKEqualObjects();
+      if (state)
       {
         goto LABEL_39;
       }
 
-      v16 = pk_General_log();
+      v16 = pk_General_log(state);
       v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 
       if (v17)
       {
-        v18 = pk_General_log();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v19 = pk_General_log(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          v19 = self->_currentCredential;
+          currentCredential = self->_currentCredential;
           *buf = 138412546;
-          v83 = credentialCopy;
-          v84 = 2112;
-          v85 = v19;
-          _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, "Notice: Provided credential %@ does not match current credential %@; going back to requirements", buf, 0x16u);
+          v88 = credentialCopy;
+          v89 = 2112;
+          v90 = currentCredential;
+          _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Notice: Provided credential %@ does not match current credential %@; going back to requirements", buf, 0x16u);
         }
       }
 
@@ -1339,33 +1372,33 @@ BOOL __73__NPKPaymentProvisioningFlowController_chooseCredentials_requestContext
     else
     {
       requirementsResponse = [MEMORY[0x277CBEB58] set];
-      v75 = 0u;
-      v76 = 0u;
-      v77 = 0u;
-      v78 = 0u;
-      v22 = fieldsCopy;
-      v23 = [v22 countByEnumeratingWithState:&v75 objects:v81 count:16];
-      if (v23)
+      v80 = 0u;
+      v81 = 0u;
+      v82 = 0u;
+      v83 = 0u;
+      v23 = fieldsCopy;
+      v24 = [v23 countByEnumeratingWithState:&v80 objects:v86 count:16];
+      if (v24)
       {
-        v24 = v23;
-        v25 = *v76;
+        v25 = v24;
+        v26 = *v81;
         do
         {
-          for (i = 0; i != v24; ++i)
+          for (i = 0; i != v25; ++i)
           {
-            if (*v76 != v25)
+            if (*v81 != v26)
             {
-              objc_enumerationMutation(v22);
+              objc_enumerationMutation(v23);
             }
 
-            identifier = [*(*(&v75 + 1) + 8 * i) identifier];
+            identifier = [*(*(&v80 + 1) + 8 * i) identifier];
             [requirementsResponse addObject:identifier];
           }
 
-          v24 = [v22 countByEnumeratingWithState:&v75 objects:v81 count:16];
+          v25 = [v23 countByEnumeratingWithState:&v80 objects:v86 count:16];
         }
 
-        while (v24);
+        while (v25);
       }
 
       fieldsModel = [MEMORY[0x277CBEB58] set];
@@ -1379,54 +1412,55 @@ BOOL __73__NPKPaymentProvisioningFlowController_chooseCredentials_requestContext
         [(NPKPaymentProvisioningFlowController *)self _requiredFieldsFromRequirementsResponseExcludingLocalFields];
       }
 
-      v73 = 0u;
-      v74 = 0u;
-      v71 = 0u;
-      v29 = v72 = 0u;
-      v30 = [v29 countByEnumeratingWithState:&v71 objects:v80 count:16];
-      if (v30)
+      v78 = 0u;
+      v79 = 0u;
+      v76 = 0u;
+      v30 = v77 = 0u;
+      v31 = [v30 countByEnumeratingWithState:&v76 objects:v85 count:16];
+      if (v31)
       {
-        v31 = v30;
-        v32 = *v72;
+        v32 = v31;
+        v33 = *v77;
         do
         {
-          for (j = 0; j != v31; ++j)
+          for (j = 0; j != v32; ++j)
           {
-            if (*v72 != v32)
+            if (*v77 != v33)
             {
-              objc_enumerationMutation(v29);
+              objc_enumerationMutation(v30);
             }
 
-            identifier2 = [*(*(&v71 + 1) + 8 * j) identifier];
+            identifier2 = [*(*(&v76 + 1) + 8 * j) identifier];
             [fieldsModel addObject:identifier2];
           }
 
-          v31 = [v29 countByEnumeratingWithState:&v71 objects:v80 count:16];
+          v32 = [v30 countByEnumeratingWithState:&v76 objects:v85 count:16];
         }
 
-        while (v31);
+        while (v32);
       }
 
-      if ([fieldsModel isSubsetOfSet:requirementsResponse])
+      v36 = [fieldsModel isSubsetOfSet:requirementsResponse];
+      if (v36)
       {
 
 LABEL_38:
         goto LABEL_39;
       }
 
-      v35 = pk_General_log();
-      v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
+      v37 = pk_General_log(v36);
+      v38 = os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT);
 
-      if (v36)
+      if (v38)
       {
-        v37 = pk_General_log();
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        v40 = pk_General_log(v39);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v83 = requirementsResponse;
-          v84 = 2112;
-          v85 = fieldsModel;
-          _os_log_impl(&dword_25B300000, v37, OS_LOG_TYPE_DEFAULT, "Notice: Manual entry fields %@ do not contain all required fields %@; going back to requirements", buf, 0x16u);
+          v88 = requirementsResponse;
+          v89 = 2112;
+          v90 = fieldsModel;
+          _os_log_impl(&dword_25B300000, v40, OS_LOG_TYPE_DEFAULT, "Notice: Manual entry fields %@ do not contain all required fields %@; going back to requirements", buf, 0x16u);
         }
       }
 
@@ -1437,128 +1471,126 @@ LABEL_38:
     credentialProvisioningQueue = [(PKPaymentProvisioningController *)self->_provisioningController credentialProvisioningQueue];
     [credentialProvisioningQueue setCurrentCredential:credentialCopy];
 
-    v39 = [objc_alloc(MEMORY[0x277D38110]) initWithPaymentSetupFields:requiredPaymentSetupFields];
+    v42 = [objc_alloc(MEMORY[0x277D38110]) initWithPaymentSetupFields:requiredPaymentSetupFields];
     fieldsModel = self->_fieldsModel;
-    self->_fieldsModel = v39;
+    self->_fieldsModel = v42;
     requirementsResponse = requiredPaymentSetupFields;
     goto LABEL_38;
   }
 
 LABEL_39:
-  v40 = pk_Payment_log();
-  v41 = os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT);
+  v43 = pk_Payment_log(state);
+  v44 = os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT);
 
-  if (v41)
+  if (v44)
   {
-    v42 = pk_Payment_log();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    v46 = pk_Payment_log(v45);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
       paymentSetupFields = [(PKPaymentSetupFieldsModel *)self->_fieldsModel paymentSetupFields];
       *buf = 138412546;
-      v83 = fieldsCopy;
-      v84 = 2112;
-      v85 = paymentSetupFields;
-      _os_log_impl(&dword_25B300000, v42, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Handling manual entry fields: %@ with fields model fields: %@", buf, 0x16u);
+      v88 = fieldsCopy;
+      v89 = 2112;
+      v90 = paymentSetupFields;
+      _os_log_impl(&dword_25B300000, v46, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Handling manual entry fields: %@ with fields model fields: %@", buf, 0x16u);
     }
   }
 
-  v66 = credentialCopy;
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
-  v68 = 0u;
-  v44 = fieldsCopy;
-  v45 = [v44 countByEnumeratingWithState:&v67 objects:v79 count:16];
-  if (v45)
+  v71 = credentialCopy;
+  v74 = 0u;
+  v75 = 0u;
+  v72 = 0u;
+  v73 = 0u;
+  v48 = fieldsCopy;
+  v49 = [v48 countByEnumeratingWithState:&v72 objects:v84 count:16];
+  if (v49)
   {
-    v46 = v45;
-    v47 = *v68;
+    v50 = v49;
+    v51 = *v73;
     do
     {
-      for (k = 0; k != v46; ++k)
+      for (k = 0; k != v50; ++k)
       {
-        if (*v68 != v47)
+        if (*v73 != v51)
         {
-          objc_enumerationMutation(v44);
+          objc_enumerationMutation(v48);
         }
 
-        v49 = *(*(&v67 + 1) + 8 * k);
-        v50 = self->_fieldsModel;
-        identifier3 = [v49 identifier];
-        v52 = [(PKPaymentSetupFieldsModel *)v50 paymentSetupFieldWithIdentifier:identifier3];
+        v53 = *(*(&v72 + 1) + 8 * k);
+        v54 = self->_fieldsModel;
+        identifier3 = [v53 identifier];
+        v56 = [(PKPaymentSetupFieldsModel *)v54 paymentSetupFieldWithIdentifier:identifier3];
 
-        v53 = pk_Payment_log();
-        v54 = os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT);
+        v58 = pk_Payment_log(v57);
+        v59 = os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT);
 
-        if (v52)
+        if (v56)
         {
-          if (!v54)
+          if (!v59)
           {
             goto LABEL_56;
           }
 
-          v55 = pk_Payment_log();
-          if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+          v61 = pk_Payment_log(v60);
+          if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v83 = v52;
-            _os_log_impl(&dword_25B300000, v55, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Updating %@", buf, 0xCu);
+            v88 = v56;
+            _os_log_impl(&dword_25B300000, v61, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Updating %@", buf, 0xCu);
           }
         }
 
         else
         {
-          if (!v54)
+          if (!v59)
           {
             goto LABEL_56;
           }
 
-          v55 = pk_Payment_log();
-          if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+          v61 = pk_Payment_log(v60);
+          if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
           {
-            identifier4 = [v49 identifier];
+            identifier4 = [v53 identifier];
             *buf = 138412290;
-            v83 = identifier4;
-            _os_log_impl(&dword_25B300000, v55, OS_LOG_TYPE_DEFAULT, "Warning: Standalone: no model field with identifier %@ to update!", buf, 0xCu);
+            v88 = identifier4;
+            _os_log_impl(&dword_25B300000, v61, OS_LOG_TYPE_DEFAULT, "Warning: Standalone: no model field with identifier %@ to update!", buf, 0xCu);
           }
         }
 
 LABEL_56:
-        currentValue = [v49 currentValue];
-        [v52 setCurrentValue:currentValue];
+        currentValue = [v53 currentValue];
+        [v56 setCurrentValue:currentValue];
 
-        [v52 setSource:{objc_msgSend(v49, "source") == 1}];
+        [v56 setSource:{objc_msgSend(v53, "source") == 1}];
       }
 
-      v46 = [v44 countByEnumeratingWithState:&v67 objects:v79 count:16];
+      v50 = [v48 countByEnumeratingWithState:&v72 objects:v84 count:16];
     }
 
-    while (v46);
+    while (v50);
   }
 
   if ([(NPKPaymentProvisioningFlowController *)self _fieldsModelCompleteExceptForLocalFields:self->_fieldsModel])
   {
     paymentSetupFields2 = [(PKPaymentSetupFieldsModel *)self->_fieldsModel paymentSetupFields];
     selfCopy = self;
-    v61 = v65;
-    v60 = v66;
-    [(NPKPaymentProvisioningFlowController *)selfCopy _transitionToSecondaryManualEntryWithFields:paymentSetupFields2 credential:v66 requestContext:v65];
+    v67 = v70;
+    v66 = v71;
+    [(NPKPaymentProvisioningFlowController *)selfCopy _transitionToSecondaryManualEntryWithFields:paymentSetupFields2 credential:v71 requestContext:v70];
   }
 
   else
   {
     selfCopy2 = self;
-    v61 = v65;
-    [(NPKPaymentProvisioningFlowController *)selfCopy2 _performNextActionForProvisioningState:v65];
-    v60 = v66;
+    v67 = v70;
+    [(NPKPaymentProvisioningFlowController *)selfCopy2 _performNextActionForProvisioningState:v70];
+    v66 = v71;
   }
-
-  v63 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleProductSelection:(id)selection requestContext:(id)context
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   selectionCopy = selection;
   contextCopy = context;
   v8 = NPKAnalyticsEventEntriesForProduct(selectionCopy);
@@ -1566,20 +1598,20 @@ LABEL_56:
   v10 = NPKAnalyticsEventForProvisioningFlowClientInput(@"productSelection", v8);
   [v9 subject:@"provisioning" sendEvent:v10];
 
-  v11 = pk_Payment_log();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  v12 = pk_Payment_log(v11);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
-  if (v12)
+  if (v13)
   {
-    v13 = pk_Payment_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = pk_Payment_log(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       rawDictionary = [selectionCopy rawDictionary];
-      v32 = 138412546;
-      v33 = selectionCopy;
-      v34 = 2112;
-      v35 = rawDictionary;
-      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Handling product selection: %@ (%@)", &v32, 0x16u);
+      v36 = 138412546;
+      v37 = selectionCopy;
+      v38 = 2112;
+      v39 = rawDictionary;
+      _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Handling product selection: %@ (%@)", &v36, 0x16u);
     }
   }
 
@@ -1587,25 +1619,25 @@ LABEL_56:
   {
     if (selectionCopy)
     {
-      v15 = pk_Payment_log();
-      v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+      v17 = pk_Payment_log(v14);
+      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
 
-      if (v16)
+      if (v18)
       {
-        v17 = pk_Payment_log();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        v20 = pk_Payment_log(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           productIdentifier = [selectionCopy productIdentifier];
           state = [(PKPaymentProvisioningController *)self->_provisioningController state];
           requirementsResponse = [(PKPaymentProvisioningController *)self->_provisioningController requirementsResponse];
           status = [requirementsResponse status];
-          v32 = 138412802;
-          v33 = productIdentifier;
-          v34 = 2048;
-          v35 = state;
-          v36 = 2048;
-          v37 = status;
-          _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: id %@ state %lu response status %lu", &v32, 0x20u);
+          v36 = 138412802;
+          v37 = productIdentifier;
+          v38 = 2048;
+          v39 = state;
+          v40 = 2048;
+          v41 = status;
+          _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: id %@ state %lu response status %lu", &v36, 0x20u);
         }
       }
 
@@ -1615,18 +1647,18 @@ LABEL_56:
     }
 
     _requiredFieldsFromRequirementsResponseExcludingLocalFields = [(NPKPaymentProvisioningFlowController *)self _requiredFieldsFromRequirementsResponseExcludingLocalFields];
-    v25 = pk_Payment_log();
-    v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
+    v28 = pk_Payment_log(_requiredFieldsFromRequirementsResponseExcludingLocalFields);
+    v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
 
-    if (v26)
+    if (v29)
     {
-      v27 = pk_Payment_log();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      v31 = pk_Payment_log(v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
-        v28 = [_requiredFieldsFromRequirementsResponseExcludingLocalFields count];
-        v32 = 134217984;
-        v33 = v28;
-        _os_log_impl(&dword_25B300000, v27, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Start secondary manual entry with %lu fields following product disambiguation.", &v32, 0xCu);
+        v32 = [_requiredFieldsFromRequirementsResponseExcludingLocalFields count];
+        v36 = 134217984;
+        v37 = v32;
+        _os_log_impl(&dword_25B300000, v31, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Start secondary manual entry with %lu fields following product disambiguation.", &v36, 0xCu);
       }
     }
 
@@ -1635,52 +1667,78 @@ LABEL_56:
 
   else
   {
-    v29 = pk_Payment_log();
-    v30 = os_log_type_enabled(v29, OS_LOG_TYPE_ERROR);
+    v33 = pk_Payment_log(v14);
+    v34 = os_log_type_enabled(v33, OS_LOG_TYPE_ERROR);
 
-    if (!v30)
+    if (!v34)
     {
       goto LABEL_21;
     }
 
-    _requiredFieldsFromRequirementsResponseExcludingLocalFields = pk_Payment_log();
+    _requiredFieldsFromRequirementsResponseExcludingLocalFields = pk_Payment_log(v35);
     if (os_log_type_enabled(_requiredFieldsFromRequirementsResponseExcludingLocalFields, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v32) = 0;
-      _os_log_impl(&dword_25B300000, _requiredFieldsFromRequirementsResponseExcludingLocalFields, OS_LOG_TYPE_ERROR, "Error: Not on product disambiguation step; cannot choose product!", &v32, 2u);
+      LOWORD(v36) = 0;
+      _os_log_impl(&dword_25B300000, _requiredFieldsFromRequirementsResponseExcludingLocalFields, OS_LOG_TYPE_ERROR, "Error: Not on product disambiguation step; cannot choose product!", &v36, 2u);
     }
   }
 
 LABEL_21:
-  v31 = *MEMORY[0x277D85DE8];
+}
+
+- (void)handlePasscodeUpgradeCompleteWithSuccess:(BOOL)success error:(id)error requestContext:(id)context
+{
+  successCopy = success;
+  v20 = *MEMORY[0x277D85DE8];
+  errorCopy = error;
+  contextCopy = context;
+  v10 = MEMORY[0x277D37D28];
+  v11 = NPKAnalyticsEventForProvisioningFlowClientInput(@"passcodeUpgradeComplete", 0);
+  [v10 subject:@"provisioning" sendEvent:v11];
+
+  v13 = pk_Payment_log(v12);
+  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+
+  if (v14)
+  {
+    v16 = pk_Payment_log(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    {
+      v17[0] = 67109378;
+      v17[1] = successCopy;
+      v18 = 2112;
+      v19 = errorCopy;
+      _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Handling passcode upgrade complete with success: %d error: %@", v17, 0x12u);
+    }
+  }
+
+  [(NPKPaymentProvisioningFlowController *)self _handlePasscodeUpgradeCompleteWithSuccess:successCopy error:errorCopy requestContext:contextCopy];
 }
 
 - (void)acknowledgeAppleBalanceAccountDetailsWithProduct:(id)product requestContext:(id)context
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   productCopy = product;
   contextCopy = context;
   v8 = MEMORY[0x277D37D28];
   v9 = NPKAnalyticsEventForProvisioningFlowClientInput(@"acknowledgeAppleBalanceAccountDetails", 0);
   [v8 subject:@"provisioning" sendEvent:v9];
 
-  v10 = pk_Payment_log();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  v11 = pk_Payment_log(v10);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
-  if (v11)
+  if (v12)
   {
-    v12 = pk_Payment_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = pk_Payment_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 138412290;
-      v15 = productCopy;
-      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Handling Apple Balance Account Details Acknowledged with product: %@", &v14, 0xCu);
+      v15 = 138412290;
+      v16 = productCopy;
+      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Handling Apple Balance Account Details Acknowledged with product: %@", &v15, 0xCu);
     }
   }
 
   [(NPKPaymentProvisioningFlowController *)self _handleAppleBalanceAccountDetailsAcknowledgedWithProduct:productCopy requestContext:contextCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)acceptTerms:(id)terms
@@ -1737,16 +1795,16 @@ LABEL_8:
   v6 = NPKAnalyticsEventForProvisioningFlowClientInput(@"acknowledgeMoreInformation", 0);
   [v4 subject:@"provisioning" sendEvent:v6];
 
-  v7 = pk_Payment_log();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  v8 = pk_Payment_log(v7);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
-  if (v8)
+  if (v9)
   {
-    v9 = pk_Payment_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_Payment_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: More information acknowledged", v11, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: More information acknowledged", v13, 2u);
     }
   }
 
@@ -1756,7 +1814,7 @@ LABEL_8:
 
 - (void)startIssuerVerificationFlowForPaymentPass:(id)pass requestContext:(id)context
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   passCopy = pass;
   contextCopy = context;
   v9 = MEMORY[0x277D37D28];
@@ -1764,21 +1822,21 @@ LABEL_8:
   [v9 subject:@"provisioning" sendEvent:v10];
 
   currentStep = self->_currentStep;
-  v12 = pk_Payment_log();
-  v13 = v12;
+  v13 = pk_Payment_log(v12);
+  v14 = v13;
   if (currentStep == 100)
   {
-    v14 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+    v15 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-    if (v14)
+    if (v15)
     {
-      v15 = pk_Payment_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = pk_Payment_log(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         uniqueID = [passCopy uniqueID];
-        v20 = 138412290;
-        v21 = uniqueID;
-        _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: starting issuer verification flow for pass %@", &v20, 0xCu);
+        v22 = 138412290;
+        v23 = uniqueID;
+        _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: starting issuer verification flow for pass %@", &v22, 0xCu);
       }
     }
 
@@ -1788,20 +1846,18 @@ LABEL_8:
 
   else
   {
-    v17 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+    v19 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
 
-    if (v17)
+    if (v19)
     {
-      v18 = pk_Payment_log();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v21 = pk_Payment_log(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v20) = 0;
-        _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_ERROR, "Error: Past initialization step; cannot start issuer verification flow!", &v20, 2u);
+        LOWORD(v22) = 0;
+        _os_log_impl(&dword_25B300000, v21, OS_LOG_TYPE_ERROR, "Error: Past initialization step; cannot start issuer verification flow!", &v22, 2u);
       }
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleIssuerVerificationChannel:(id)channel requestContext:(id)context
@@ -1818,94 +1874,91 @@ LABEL_8:
 
 - (void)handleIssuerVerificationFields:(id)fields requestContext:(id)context
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   fieldsCopy = fields;
   contextCopy = context;
   v8 = MEMORY[0x277D37D28];
   v9 = NPKAnalyticsEventForProvisioningFlowClientInput(@"issuerVerificationFields", 0);
   [v8 subject:@"provisioning" sendEvent:v9];
 
-  v10 = pk_Payment_log();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  v11 = pk_Payment_log(v10);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
-  if (v11)
+  if (v12)
   {
-    v12 = pk_Payment_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = pk_Payment_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       paymentSetupFields = [(PKPaymentSetupFieldsModel *)self->_fieldsModel paymentSetupFields];
       *buf = 138412546;
-      v31 = fieldsCopy;
-      v32 = 2112;
-      v33 = paymentSetupFields;
-      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Handling issuer verification fields: %@ with fields model fields: %@", buf, 0x16u);
+      v32 = fieldsCopy;
+      v33 = 2112;
+      v34 = paymentSetupFields;
+      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Handling issuer verification fields: %@ with fields model fields: %@", buf, 0x16u);
     }
   }
 
-  v27 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v14 = fieldsCopy;
-  v15 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
-  if (v15)
+  v27 = 0u;
+  v16 = fieldsCopy;
+  v17 = [v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  if (v17)
   {
-    v16 = v15;
-    v17 = *v26;
+    v18 = v17;
+    v19 = *v27;
     do
     {
-      for (i = 0; i != v16; ++i)
+      for (i = 0; i != v18; ++i)
       {
-        if (*v26 != v17)
+        if (*v27 != v19)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v16);
         }
 
-        v19 = *(*(&v25 + 1) + 8 * i);
+        v21 = *(*(&v26 + 1) + 8 * i);
         fieldsModel = self->_fieldsModel;
-        identifier = [v19 identifier];
-        v22 = [(PKPaymentSetupFieldsModel *)fieldsModel paymentSetupFieldWithIdentifier:identifier];
+        identifier = [v21 identifier];
+        v24 = [(PKPaymentSetupFieldsModel *)fieldsModel paymentSetupFieldWithIdentifier:identifier];
 
-        currentValue = [v19 currentValue];
-        [v22 setCurrentValue:currentValue];
+        currentValue = [v21 currentValue];
+        [v24 setCurrentValue:currentValue];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
-    while (v16);
+    while (v18);
   }
 
   [(NPKPaymentProvisioningFlowController *)self _handleVerificationFieldsForPass:self->_issuerVerificationPass context:contextCopy];
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleIssuerVerificationCode:(id)code requestContext:(id)context
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   codeCopy = code;
   contextCopy = context;
   v8 = MEMORY[0x277D37D28];
   v9 = NPKAnalyticsEventForProvisioningFlowClientInput(@"issuerVerificationCode", 0);
   [v8 subject:@"provisioning" sendEvent:v9];
 
-  v10 = pk_Payment_log();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  v11 = pk_Payment_log(v10);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
-  if (v11)
+  if (v12)
   {
-    v12 = pk_Payment_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = pk_Payment_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 134217984;
-      v15 = [codeCopy length];
-      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Handling issuer verification code of length %lu", &v14, 0xCu);
+      v15 = 134217984;
+      v16 = [codeCopy length];
+      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Handling issuer verification code of length %lu", &v15, 0xCu);
     }
   }
 
   [(NPKPaymentProvisioningFlowController *)self _handleVerificationCode:codeCopy forPass:self->_issuerVerificationPass context:contextCopy];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)skipIssuerVerification:(id)verification
@@ -1917,16 +1970,16 @@ LABEL_8:
 
   if ((self->_currentStep - 230) > 0x14 || ((1 << (LOBYTE(self->_currentStep) + 26)) & 0x100401) == 0)
   {
-    v8 = pk_Payment_log();
-    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
+    v9 = pk_Payment_log(v7);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
 
-    if (v9)
+    if (v10)
     {
-      v10 = pk_Payment_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = pk_Payment_log(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        *v11 = 0;
-        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_ERROR, "Error: Not on an issuer verification step; cannot skip issuer verification!", v11, 2u);
+        *v13 = 0;
+        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_ERROR, "Error: Not on an issuer verification step; cannot skip issuer verification!", v13, 2u);
       }
     }
   }
@@ -1939,7 +1992,7 @@ LABEL_8:
 
 - (void)startInAppProvisioningFlowWithConfiguration:(id)configuration requestContext:(id)context
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   contextCopy = context;
   v9 = MEMORY[0x277D37D28];
@@ -1947,20 +2000,20 @@ LABEL_8:
   [v9 subject:@"provisioning" sendEvent:v10];
 
   currentStep = self->_currentStep;
-  v12 = pk_Payment_log();
-  v13 = v12;
+  v13 = pk_Payment_log(v12);
+  v14 = v13;
   if (currentStep == 100)
   {
-    v14 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+    v15 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-    if (v14)
+    if (v15)
     {
-      v15 = pk_Payment_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = pk_Payment_log(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v19 = 138412290;
-        v20 = configurationCopy;
-        _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: starting in-app provisioning flow with configuration %@", &v19, 0xCu);
+        v21 = 138412290;
+        v22 = configurationCopy;
+        _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: starting in-app provisioning flow with configuration %@", &v21, 0xCu);
       }
     }
 
@@ -1970,42 +2023,40 @@ LABEL_8:
 
   else
   {
-    v16 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+    v18 = os_log_type_enabled(v13, OS_LOG_TYPE_ERROR);
 
-    if (v16)
+    if (v18)
     {
-      v17 = pk_Payment_log();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v20 = pk_Payment_log(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v19) = 0;
-        _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_ERROR, "Error: Past initialization step; cannot start issuer verification flow!", &v19, 2u);
+        LOWORD(v21) = 0;
+        _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_ERROR, "Error: Past initialization step; cannot start issuer verification flow!", &v21, 2u);
       }
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleIssuerApplicationAddRequest:(id)request requestContext:(id)context
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   contextCopy = context;
   v9 = MEMORY[0x277D37D28];
   v10 = NPKAnalyticsEventForProvisioningFlowClientInput(@"issuerApplicationAddRequest", 0);
   [v9 subject:@"provisioning" sendEvent:v10];
 
-  v11 = pk_Payment_log();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  v12 = pk_Payment_log(v11);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
-  if (v12)
+  if (v13)
   {
-    v13 = pk_Payment_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = pk_Payment_log(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = 138412290;
-      v22 = requestCopy;
-      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Handling issuer add request %@", &v21, 0xCu);
+      v23 = 138412290;
+      v24 = requestCopy;
+      _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Handling issuer add request %@", &v23, 0xCu);
     }
   }
 
@@ -2017,7 +2068,7 @@ LABEL_8:
       if (inAppProvisioningGetRequestTimer)
       {
         dispatch_source_cancel(inAppProvisioningGetRequestTimer);
-        v15 = self->_inAppProvisioningGetRequestTimer;
+        v17 = self->_inAppProvisioningGetRequestTimer;
         self->_inAppProvisioningGetRequestTimer = 0;
       }
 
@@ -2029,28 +2080,26 @@ LABEL_8:
 
     else
     {
-      v19 = PKDisplayableErrorForCommonType();
-      [(NPKPaymentProvisioningFlowController *)self _endProvisioningFlowWithError:v19 requestContext:contextCopy];
+      v22 = PKDisplayableErrorForCommonType();
+      [(NPKPaymentProvisioningFlowController *)self _endProvisioningFlowWithError:v22 requestContext:contextCopy];
     }
   }
 
   else
   {
-    v16 = pk_Payment_log();
-    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_ERROR);
+    v18 = pk_Payment_log(v14);
+    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
 
-    if (v17)
+    if (v19)
     {
-      v18 = pk_Payment_log();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v21 = pk_Payment_log(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v21) = 0;
-        _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_ERROR, "Error: Not on get issuer add request step; cannot handle request!", &v21, 2u);
+        LOWORD(v23) = 0;
+        _os_log_impl(&dword_25B300000, v21, OS_LOG_TYPE_ERROR, "Error: Not on get issuer add request step; cannot handle request!", &v23, 2u);
       }
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performRequirementsOrEligibilityForInAppProvisioning:(id)provisioning
@@ -2105,29 +2154,29 @@ void __76__NPKPaymentProvisioningFlowController__fetchInAppProvisioningCertifica
 
 void __76__NPKPaymentProvisioningFlowController__fetchInAppProvisioningCertificates___block_invoke_2(id *a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = a1[5];
   if (v2)
   {
     v4 = *(v3 + 13);
     v5 = [v2 nonce];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __76__NPKPaymentProvisioningFlowController__fetchInAppProvisioningCertificates___block_invoke_3;
-    v19[3] = &unk_279946238;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __76__NPKPaymentProvisioningFlowController__fetchInAppProvisioningCertificates___block_invoke_3;
+    v20[3] = &unk_279946238;
     *&v6 = a1[4];
     *(&v6 + 1) = a1[5];
-    v18 = v6;
+    v19 = v6;
     v7 = a1[6];
     v8 = a1[7];
     *&v9 = v7;
     *(&v9 + 1) = v8;
-    v20 = v18;
-    v21 = v9;
-    [v4 signNonce:v5 withCompletion:v19];
+    v21 = v19;
+    v22 = v9;
+    [v4 signNonce:v5 withCompletion:v20];
 
-    v10 = v20;
+    v10 = v21;
   }
 
   else
@@ -2146,24 +2195,22 @@ void __76__NPKPaymentProvisioningFlowController__fetchInAppProvisioningCertifica
 
     v10 = v13;
 
-    v14 = pk_Payment_log();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    v15 = pk_Payment_log(v14);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
 
-    if (v15)
+    if (v16)
     {
-      v16 = pk_Payment_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = pk_Payment_log(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v23 = v10;
-        _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: No response from issuer provisioning certificates endpoint: %@", buf, 0xCu);
+        v24 = v10;
+        _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: No response from issuer provisioning certificates endpoint: %@", buf, 0xCu);
       }
     }
 
     [a1[5] _sendDidEncounterError:v10 requestContext:a1[6]];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __76__NPKPaymentProvisioningFlowController__fetchInAppProvisioningCertificates___block_invoke_3(uint64_t a1, void *a2)
@@ -2196,44 +2243,41 @@ void __76__NPKPaymentProvisioningFlowController__fetchInAppProvisioningCertifica
     v3 = *(a1 + 40);
     v2 = *(a1 + 48);
     v4 = *(a1 + 56);
-    v5 = *MEMORY[0x277D85DE8];
 
     [v2 _fetchAddRequestWithCertificatesResponse:v3 requestContext:v4];
   }
 
   else
   {
-    v6 = [*(*(a1 + 48) + 24) displayableErrorForProvisioningError:*(a1 + 64)];
-    v7 = v6;
-    if (v6)
+    v5 = [*(*(a1 + 48) + 24) displayableErrorForProvisioningError:*(a1 + 64)];
+    v6 = v5;
+    if (v5)
     {
-      v8 = v6;
+      v7 = v5;
     }
 
     else
     {
-      v8 = PKDisplayableErrorForCommonType();
+      v7 = PKDisplayableErrorForCommonType();
     }
 
-    v9 = v8;
+    v8 = v7;
 
-    v10 = pk_Payment_log();
+    v10 = pk_Payment_log(v9);
     v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
     if (v11)
     {
-      v12 = pk_Payment_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = pk_Payment_log(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         v14 = 138412290;
-        v15 = v9;
-        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: No response from issuer provisioning certificates endpoint: %@", &v14, 0xCu);
+        v15 = v8;
+        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: No response from issuer provisioning certificates endpoint: %@", &v14, 0xCu);
       }
     }
 
-    [*(a1 + 48) _sendDidEncounterError:v9 requestContext:*(a1 + 56)];
-
-    v13 = *MEMORY[0x277D85DE8];
+    [*(a1 + 48) _sendDidEncounterError:v8 requestContext:*(a1 + 56)];
   }
 }
 
@@ -2289,22 +2333,22 @@ void __76__NPKPaymentProvisioningFlowController__fetchInAppProvisioningCertifica
 
 uint64_t __96__NPKPaymentProvisioningFlowController__fetchAddRequestWithCertificatesResponse_requestContext___block_invoke(uint64_t a1)
 {
-  v2 = pk_Payment_log();
+  v2 = pk_Payment_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_Payment_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_Payment_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: In-app provisioning timed out waiting for response from client", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: In-app provisioning timed out waiting for response from client", v9, 2u);
     }
   }
 
-  v5 = *(a1 + 32);
-  v6 = PKDisplayableErrorForCommonType();
-  [v5 _endProvisioningFlowWithError:v6 requestContext:*(a1 + 40)];
+  v6 = *(a1 + 32);
+  v7 = PKDisplayableErrorForCommonType();
+  [v6 _endProvisioningFlowWithError:v7 requestContext:*(a1 + 40)];
 
   return [*(a1 + 32) reset];
 }
@@ -2468,7 +2512,7 @@ void __71__NPKPaymentProvisioningFlowController__handleProvisioningFlowStarted__
 
 void __71__NPKPaymentProvisioningFlowController__handleProvisioningFlowStarted___block_invoke_5(uint64_t a1, uint64_t a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a3;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
   if (v5)
@@ -2488,22 +2532,22 @@ LABEL_10:
 
   if ((*(a1 + 56) & ~a2) == 0)
   {
-    [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-    v10 = v9;
-    v11 = *(a1 + 64);
-    v12 = pk_Payment_log();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+    v9 = [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+    v11 = v10;
+    v12 = *(a1 + 64);
+    v13 = pk_Payment_log(v9);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
 
-    if (v13)
+    if (v14)
     {
-      v14 = pk_Payment_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v16 = pk_Payment_log(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = 136315394;
-        v23 = "[NPKPaymentProvisioningFlowController _handleProvisioningFlowStarted:]_block_invoke_5";
-        v24 = 2048;
-        v25 = v10 - v11;
-        _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: %s: time taken to all requirements = %fs", &v22, 0x16u);
+        v25 = 136315394;
+        v26 = "[NPKPaymentProvisioningFlowController _handleProvisioningFlowStarted:]_block_invoke_5";
+        v27 = 2048;
+        v28 = v11 - v12;
+        _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: %s: time taken to all requirements = %fs", &v25, 0x16u);
       }
     }
 
@@ -2512,22 +2556,22 @@ LABEL_10:
 
   if ((*(a1 + 72) & ~a2) == 0)
   {
-    [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-    v17 = v16;
-    v18 = *(a1 + 64);
-    v19 = pk_Payment_log();
-    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+    v17 = [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+    v19 = v18;
+    v20 = *(a1 + 64);
+    v21 = pk_Payment_log(v17);
+    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
 
-    if (v20)
+    if (v22)
     {
-      v21 = pk_Payment_log();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v24 = pk_Payment_log(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = 136315394;
-        v23 = "[NPKPaymentProvisioningFlowController _handleProvisioningFlowStarted:]_block_invoke";
-        v24 = 2048;
-        v25 = v17 - v18;
-        _os_log_impl(&dword_25B300000, v21, OS_LOG_TYPE_DEFAULT, "Notice: %s: time taken to min requirements = %fs", &v22, 0x16u);
+        v25 = 136315394;
+        v26 = "[NPKPaymentProvisioningFlowController _handleProvisioningFlowStarted:]_block_invoke";
+        v27 = 2048;
+        v28 = v19 - v20;
+        _os_log_impl(&dword_25B300000, v24, OS_LOG_TYPE_DEFAULT, "Notice: %s: time taken to min requirements = %fs", &v25, 0x16u);
       }
     }
 
@@ -2535,8 +2579,6 @@ LABEL_10:
   }
 
 LABEL_12:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handlePreconditionsVerified:(id)verified
@@ -2552,17 +2594,17 @@ LABEL_12:
   v24 = *MEMORY[0x277D85DE8];
   chosenCopy = chosen;
   contextCopy = context;
-  v10 = pk_Payment_log();
+  v10 = pk_Payment_log(contextCopy);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
   if (v11)
   {
-    v12 = pk_Payment_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = pk_Payment_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v23 = chosenCopy;
-      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Product chosen: %@", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Product chosen: %@", buf, 0xCu);
     }
   }
 
@@ -2576,54 +2618,51 @@ LABEL_12:
   v19 = chosenCopy;
   fileCopy = file;
   v20 = contextCopy;
-  v15 = contextCopy;
-  v16 = chosenCopy;
-  [(PKPaymentProvisioningController *)provisioningController setupProductForProvisioning:v16 includePurchases:!IsSetupAssistant withCompletionHandler:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = contextCopy;
+  v17 = chosenCopy;
+  [(PKPaymentProvisioningController *)provisioningController setupProductForProvisioning:v17 includePurchases:!IsSetupAssistant withCompletionHandler:v18];
 }
 
 void __95__NPKPaymentProvisioningFlowController__handleProductChosen_includeCardsOnFile_requestContext___block_invoke(uint64_t a1, int a2, void *a3, void *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
+  v9 = v8;
   if (a2)
   {
     objc_storeStrong((*(a1 + 32) + 184), *(a1 + 40));
     if (*(a1 + 56))
     {
-      v9 = v8;
+      v10 = v9;
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
 
-    [*(a1 + 32) _transitionBasedOnCredentials:v9 product:*(a1 + 40) requestContext:*(a1 + 48)];
+    [*(a1 + 32) _transitionBasedOnCredentials:v10 product:*(a1 + 40) requestContext:*(a1 + 48)];
   }
 
   else
   {
-    v10 = pk_Payment_log();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    v11 = pk_Payment_log(v8);
+    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
-    if (v11)
+    if (v12)
     {
-      v12 = pk_Payment_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = pk_Payment_log(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 138412290;
-        v15 = v7;
-        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Error occurred when setting up product for provisioning: %@", &v14, 0xCu);
+        v15 = 138412290;
+        v16 = v7;
+        _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Error occurred when setting up product for provisioning: %@", &v15, 0xCu);
       }
     }
 
     [*(a1 + 32) _sendDidEncounterError:v7 requestContext:*(a1 + 48)];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleAppleBalanceProductChosen:(id)chosen requestContext:(id)context
@@ -2631,22 +2670,22 @@ void __95__NPKPaymentProvisioningFlowController__handleProductChosen_includeCard
   v23 = *MEMORY[0x277D85DE8];
   chosenCopy = chosen;
   contextCopy = context;
-  v9 = pk_Payment_log();
+  v9 = pk_Payment_log(contextCopy);
   v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
   if (v10)
   {
-    v11 = pk_Payment_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = pk_Payment_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v22 = chosenCopy;
-      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Apple Balance product chosen. Requesting resolve local eligibility with product: %@", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Apple Balance product chosen. Requesting resolve local eligibility with product: %@", buf, 0xCu);
     }
   }
 
-  v12 = [objc_alloc(MEMORY[0x277D37D40]) initWithProduct:chosenCopy eligibilitySource:1];
-  [(NPKPaymentProvisioningFlowController *)self setCurrentAppleBalanceCredential:v12];
+  v13 = [objc_alloc(MEMORY[0x277D37D40]) initWithProduct:chosenCopy eligibilitySource:1];
+  [(NPKPaymentProvisioningFlowController *)self setCurrentAppleBalanceCredential:v13];
 
   objc_storeStrong(&self->_currentProduct, chosen);
   provisioningController = [(NPKPaymentProvisioningFlowController *)self provisioningController];
@@ -2658,28 +2697,26 @@ void __95__NPKPaymentProvisioningFlowController__handleProductChosen_includeCard
   v18[4] = self;
   v19 = contextCopy;
   v20 = chosenCopy;
-  v15 = chosenCopy;
-  v16 = contextCopy;
+  v16 = chosenCopy;
+  v17 = contextCopy;
   [provisioningController resolveLocalEligibilityRequirementsForAppleBalanceCredential:currentAppleBalanceCredential withCompletion:v18];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __88__NPKPaymentProvisioningFlowController__handleAppleBalanceProductChosen_requestContext___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v23 = v3;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEBUG, "Debug: Standalone: Apple Balance. Local eligibility resolved. Error: %@", buf, 0xCu);
+      v24 = v3;
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEBUG, "Debug: Standalone: Apple Balance. Local eligibility resolved. Error: %@", buf, 0xCu);
     }
   }
 
@@ -2687,45 +2724,43 @@ void __88__NPKPaymentProvisioningFlowController__handleAppleBalanceProductChosen
   aBlock[1] = 3221225472;
   aBlock[2] = __88__NPKPaymentProvisioningFlowController__handleAppleBalanceProductChosen_requestContext___block_invoke_106;
   aBlock[3] = &unk_2799463A0;
-  v7 = *(a1 + 40);
+  v8 = *(a1 + 40);
   aBlock[4] = *(a1 + 32);
-  v20 = v7;
-  v21 = *(a1 + 48);
-  v8 = _Block_copy(aBlock);
-  v9 = v8;
+  v21 = v8;
+  v22 = *(a1 + 48);
+  v9 = _Block_copy(aBlock);
+  v10 = v9;
   if (v3)
   {
-    (*(v8 + 2))(v8, v3);
+    (*(v9 + 2))(v9, v3);
   }
 
   else
   {
-    v10 = [*(a1 + 32) _newPaymentEligibilityRequest];
-    v11 = pk_Payment_log();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+    v11 = [*(a1 + 32) _newPaymentEligibilityRequest];
+    v12 = pk_Payment_log(v11);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
-    if (v12)
+    if (v13)
     {
-      v13 = pk_Payment_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = pk_Payment_log(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Apple Balance. Requesting eligibility", buf, 2u);
+        _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Apple Balance. Requesting eligibility", buf, 2u);
       }
     }
 
-    v14 = *(a1 + 32);
-    v15 = *(v14 + 24);
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __88__NPKPaymentProvisioningFlowController__handleAppleBalanceProductChosen_requestContext___block_invoke_108;
-    v17[3] = &unk_2799463C8;
-    v17[4] = v14;
-    v18 = v9;
-    [v15 requestEligibility:v10 withCompletionHandler:v17];
+    v16 = *(a1 + 32);
+    v17 = *(v16 + 24);
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __88__NPKPaymentProvisioningFlowController__handleAppleBalanceProductChosen_requestContext___block_invoke_108;
+    v18[3] = &unk_2799463C8;
+    v18[4] = v16;
+    v19 = v10;
+    [v17 requestEligibility:v11 withCompletionHandler:v18];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __88__NPKPaymentProvisioningFlowController__handleAppleBalanceProductChosen_requestContext___block_invoke_106(uint64_t a1, void *a2)
@@ -2765,76 +2800,73 @@ void __88__NPKPaymentProvisioningFlowController__handleAppleBalanceProductChosen
   v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a2;
-  v7 = pk_Payment_log();
+  v7 = pk_Payment_log(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
   if (v8)
   {
-    v9 = pk_Payment_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = pk_Payment_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v16 = v5;
-      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Apple Balance. Eligibility resolved. Error: %@", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Apple Balance. Eligibility resolved. Error: %@", buf, 0xCu);
     }
   }
 
   [*(*(a1 + 32) + 176) setEligibilityResponse:v6];
   [v6 eligibilityStatus];
 
-  v10 = PKProvisioningErrorForAppleBalanceEligibilityStatus();
-  if (v10)
+  v11 = PKProvisioningErrorForAppleBalanceEligibilityStatus();
+  if (v11)
   {
     (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    v11 = [MEMORY[0x277D37CD0] sharedInstance];
+    v12 = [MEMORY[0x277D37CD0] sharedInstance];
     v13[0] = MEMORY[0x277D85DD0];
     v13[1] = 3221225472;
     v13[2] = __88__NPKPaymentProvisioningFlowController__handleAppleBalanceProductChosen_requestContext___block_invoke_110;
     v13[3] = &unk_279944F48;
     v14 = *(a1 + 40);
-    [v11 validateAppleBalanceSecurityRequirementsWithCompletion:v13];
+    [v12 validateAppleBalanceSecurityRequirementsWithCompletion:v13];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __88__NPKPaymentProvisioningFlowController__handleAppleBalanceProductChosen_requestContext___block_invoke_110(uint64_t a1, char a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
+  v6 = v5;
   if (v5 || (a2 & 1) == 0)
   {
-    v7 = pk_Payment_log();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+    v8 = pk_Payment_log(v5);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
 
-    if (v8)
+    if (v9)
     {
-      v9 = pk_Payment_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = pk_Payment_log(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v13 = 138412290;
-        v14 = v5;
-        _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_ERROR, "Error: Standalone: Apple Balance security requirements not met. Could not verify/setup Apple Pay cloud store container. Error: %@", &v13, 0xCu);
+        v14 = 138412290;
+        v15 = v6;
+        _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_ERROR, "Error: Standalone: Apple Balance security requirements not met. Could not verify/setup Apple Pay cloud store container. Error: %@", &v14, 0xCu);
       }
     }
 
-    v10 = PKLocalizedPaymentString(&cfstr_CouldNotSetUpT.isa);
-    v11 = PKLocalizedPaymentString(&cfstr_CouldNotSetUpM.isa);
-    v6 = PKDisplayableErrorCustom();
+    v12 = PKLocalizedPaymentString(&cfstr_CouldNotSetUpT.isa);
+    v13 = PKLocalizedPaymentString(&cfstr_CouldNotSetUpM.isa);
+    v7 = PKDisplayableErrorCustom();
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleAppleBalanceAccountDetailsAcknowledgedWithProduct:(id)product requestContext:(id)context
@@ -2842,42 +2874,40 @@ void __88__NPKPaymentProvisioningFlowController__handleAppleBalanceProductChosen
   v14 = *MEMORY[0x277D85DE8];
   productCopy = product;
   contextCopy = context;
-  v8 = pk_Payment_log();
+  v8 = pk_Payment_log(contextCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = pk_Payment_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_Payment_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = 138412290;
       v13 = productCopy;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Apple Balance. Acknowledged account details with product: %@", &v12, 0xCu);
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Apple Balance. Acknowledged account details with product: %@", &v12, 0xCu);
     }
   }
 
   [(NPKPaymentProvisioningFlowController *)self _performNextActionForProvisioningState:contextCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleProceedWithCredentials:(id)credentials chosenByUser:(BOOL)user requestContext:(id)context
 {
   userCopy = user;
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   credentialsCopy = credentials;
   contextCopy = context;
-  v10 = pk_Payment_log();
+  v10 = pk_Payment_log(contextCopy);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
   if (v11)
   {
-    v12 = pk_Payment_log();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = pk_Payment_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 138412290;
-      v20 = credentialsCopy;
-      _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Credentials chosen: %@", &v19, 0xCu);
+      v21 = 138412290;
+      v22 = credentialsCopy;
+      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Credentials chosen: %@", &v21, 0xCu);
     }
   }
 
@@ -2890,18 +2920,19 @@ void __88__NPKPaymentProvisioningFlowController__handleAppleBalanceProductChosen
 
   else
   {
-    if ([credentialsCopy count] >= 2)
+    v16 = [credentialsCopy count];
+    if (v16 >= 2)
     {
-      v15 = pk_Payment_log();
-      v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
+      v17 = pk_Payment_log(v16);
+      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_ERROR);
 
-      if (v16)
+      if (v18)
       {
-        v17 = pk_Payment_log();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v20 = pk_Payment_log(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
-          LOWORD(v19) = 0;
-          _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_ERROR, "Error: >1 credentials when not chosen by user!", &v19, 2u);
+          LOWORD(v21) = 0;
+          _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_ERROR, "Error: >1 credentials when not chosen by user!", &v21, 2u);
         }
       }
     }
@@ -2910,8 +2941,6 @@ void __88__NPKPaymentProvisioningFlowController__handleAppleBalanceProductChosen
   }
 
   [(NPKPaymentProvisioningFlowController *)self _startProvisioningForCredential:nextCredentialToProvision requestContext:contextCopy];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startProvisioningForCredential:(id)credential requestContext:(id)context
@@ -2949,22 +2978,21 @@ void __87__NPKPaymentProvisioningFlowController__startProvisioningForCredential_
   if (a3)
   {
     v4 = *(a1 + 40);
-    v5 = *(a1 + 48);
 
     [v4 _sendDidEncounterError:? requestContext:?];
   }
 
   else
   {
-    v6 = [*(a1 + 32) passDetailsResponse];
-    v7 = [v6 status];
+    v5 = [*(a1 + 32) passDetailsResponse];
+    v6 = [v5 status];
 
-    if (v7 == 1)
+    if (v6 == 1)
     {
-      v8 = [*(a1 + 32) account];
-      v10 = [v8 creditDetails];
+      v7 = [*(a1 + 32) account];
+      v9 = [v7 creditDetails];
 
-      if (v10 && ([v10 termsAcceptanceRequired] & 1) == 0)
+      if (v9 && ([v9 termsAcceptanceRequired] & 1) == 0)
       {
         [*(a1 + 40) setTermsAcceptedOutOfBand:1];
       }
@@ -2974,33 +3002,33 @@ void __87__NPKPaymentProvisioningFlowController__startProvisioningForCredential_
 
     else
     {
-      v9 = *(a1 + 40);
-      v10 = PKDisplayableErrorForCommonType();
-      [v9 _sendDidEncounterError:v10 requestContext:*(a1 + 48)];
+      v8 = *(a1 + 40);
+      v9 = PKDisplayableErrorForCommonType();
+      [v8 _sendDidEncounterError:v9 requestContext:*(a1 + 48)];
     }
   }
 }
 
 - (void)_performNextActionForProvisioningState:(id)state
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   state = [(PKPaymentProvisioningController *)self->_provisioningController state];
-  v6 = pk_Payment_log();
+  v6 = pk_Payment_log(state);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = pk_Payment_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_Payment_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 134217984;
-      v20 = state;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: current State is %ld", &v19, 0xCu);
+      v23 = 134217984;
+      v24 = state;
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: current State is %ld", &v23, 0xCu);
     }
   }
 
-  [(NPKPaymentProvisioningFlowController *)self _noteProvisioningStateChangeForReaderMode:state];
+  v10 = [(NPKPaymentProvisioningFlowController *)self _noteProvisioningStateChangeForReaderMode:state];
   if (state > 2)
   {
     switch(state)
@@ -3040,23 +3068,24 @@ LABEL_23:
 
       goto LABEL_23;
     case 2:
-      if ([(NPKPaymentProvisioningFlowController *)self _isPasscodeUpgradeRequired])
+      _isPasscodeUpgradeRequired = [(NPKPaymentProvisioningFlowController *)self _isPasscodeUpgradeRequired];
+      if (_isPasscodeUpgradeRequired)
       {
         [(NPKPaymentProvisioningFlowController *)self _performPasscodeUpgrade:stateCopy];
       }
 
       else
       {
-        v15 = pk_Payment_log();
-        v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+        v19 = pk_Payment_log(_isPasscodeUpgradeRequired);
+        v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
 
-        if (v16)
+        if (v20)
         {
-          v17 = pk_Payment_log();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          v22 = pk_Payment_log(v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v19) = 0;
-            _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Skipping passcode upgrade", &v19, 2u);
+            LOWORD(v23) = 0;
+            _os_log_impl(&dword_25B300000, v22, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Skipping passcode upgrade", &v23, 2u);
           }
         }
 
@@ -3067,275 +3096,265 @@ LABEL_23:
   }
 
 LABEL_18:
-  v9 = pk_Payment_log();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  v12 = pk_Payment_log(v10);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
-  if (v10)
+  if (v13)
   {
-    v11 = pk_Payment_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v15 = pk_Payment_log(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = objc_opt_class();
-      v13 = NSStringFromClass(v12);
-      v14 = PKPaymentProvisioningControllerStateToString();
-      v19 = 138543618;
-      v20 = v13;
-      v21 = 2114;
-      v22 = v14;
-      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Warning: Error: %{public}@ does not know how to handle provisioning state : %{public}@.", &v19, 0x16u);
+      v16 = objc_opt_class();
+      v17 = NSStringFromClass(v16);
+      v18 = PKPaymentProvisioningControllerStateToString();
+      v23 = 138543618;
+      v24 = v17;
+      v25 = 2114;
+      v26 = v18;
+      _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Warning: Error: %{public}@ does not know how to handle provisioning state : %{public}@.", &v23, 0x16u);
     }
   }
 
 LABEL_31:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_newPaymentRequirementsRequest
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (self->_currentCredential)
   {
-    v3 = pk_Payment_log();
+    v3 = pk_Payment_log(self);
     v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
     if (v4)
     {
-      v5 = pk_Payment_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = pk_Payment_log(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         currentCredential = self->_currentCredential;
-        v23 = 138412290;
-        v24 = currentCredential;
-        _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Forming payment requirements request from current credential %@", &v23, 0xCu);
+        v24 = 138412290;
+        v25 = currentCredential;
+        _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Forming payment requirements request from current credential %@", &v24, 0xCu);
       }
     }
 
-    v7 = objc_alloc(MEMORY[0x277D380E8]);
-    v8 = self->_currentCredential;
-LABEL_13:
-    v14 = [v7 initWithPaymentCredential:v8];
-    goto LABEL_14;
+    v8 = objc_alloc(MEMORY[0x277D380E8]);
+    v9 = self->_currentCredential;
+    return [v8 initWithPaymentCredential:v9];
   }
 
   currentAppleBalanceCredential = self->_currentAppleBalanceCredential;
-  v10 = pk_Payment_log();
-  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+  v11 = pk_Payment_log(self);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
   if (currentAppleBalanceCredential)
   {
-    if (v11)
+    if (v12)
     {
-      v12 = pk_Payment_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = pk_Payment_log(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = self->_currentAppleBalanceCredential;
-        v23 = 138412290;
-        v24 = v13;
-        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Forming payment requirements request from current Apple Balance credential %@", &v23, 0xCu);
+        v15 = self->_currentAppleBalanceCredential;
+        v24 = 138412290;
+        v25 = v15;
+        _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: Forming payment requirements request from current Apple Balance credential %@", &v24, 0xCu);
       }
     }
 
-    v7 = objc_alloc(MEMORY[0x277D380E8]);
-    v8 = self->_currentAppleBalanceCredential;
-    goto LABEL_13;
+    v8 = objc_alloc(MEMORY[0x277D380E8]);
+    v9 = self->_currentAppleBalanceCredential;
+    return [v8 initWithPaymentCredential:v9];
   }
 
-  if (v11)
+  if (v12)
   {
-    v17 = pk_Payment_log();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = pk_Payment_log(v13);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v23) = 0;
-      _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: Forming payment requirements request from fields model", &v23, 2u);
+      LOWORD(v24) = 0;
+      _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, "Notice: Forming payment requirements request from fields model", &v24, 2u);
     }
   }
 
-  v18 = objc_alloc(MEMORY[0x277D380E8]);
-  v19 = [(PKPaymentSetupFieldsModel *)self->_fieldsModel paymentSetupFieldWithIdentifier:*MEMORY[0x277D38930]];
-  submissionString = [v19 submissionString];
-  v21 = [(PKPaymentSetupFieldsModel *)self->_fieldsModel paymentSetupFieldWithIdentifier:*MEMORY[0x277D38938]];
-  submissionString2 = [v21 submissionString];
-  v14 = [v18 initWithCardholderName:submissionString primaryAccountNumber:submissionString2];
+  v19 = objc_alloc(MEMORY[0x277D380E8]);
+  v20 = [(PKPaymentSetupFieldsModel *)self->_fieldsModel paymentSetupFieldWithIdentifier:*MEMORY[0x277D38930]];
+  submissionString = [v20 submissionString];
+  v22 = [(PKPaymentSetupFieldsModel *)self->_fieldsModel paymentSetupFieldWithIdentifier:*MEMORY[0x277D38938]];
+  submissionString2 = [v22 submissionString];
+  v16 = [v19 initWithCardholderName:submissionString primaryAccountNumber:submissionString2];
 
-LABEL_14:
-  v15 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v16;
 }
 
 - (id)_newPaymentEligibilityRequest
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   if (self->_inAppProvisioningRequest)
   {
-    v3 = pk_Payment_log();
+    v3 = pk_Payment_log(self);
     v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
     if (v4)
     {
-      v5 = pk_Payment_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = pk_Payment_log(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         inAppProvisioningRequest = self->_inAppProvisioningRequest;
-        v48 = 138412290;
-        v49 = inAppProvisioningRequest;
-        _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Forming payment eligibility request from in-app provisioning request %@", &v48, 0xCu);
+        v50 = 138412290;
+        v51 = inAppProvisioningRequest;
+        _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Forming payment eligibility request from in-app provisioning request %@", &v50, 0xCu);
       }
     }
 
-    v7 = [objc_alloc(MEMORY[0x277D38058]) initWithSource:2];
+    v8 = [objc_alloc(MEMORY[0x277D38058]) initWithSource:2];
     encryptionVersion = [(PKAddPaymentPassRequest *)self->_inAppProvisioningRequest encryptionVersion];
-    [v7 setEncryptionVersion:encryptionVersion];
+    [v8 setEncryptionVersion:encryptionVersion];
 
     encryptedPassData = [(PKAddPaymentPassRequest *)self->_inAppProvisioningRequest encryptedPassData];
-    [v7 setEncryptedCardData:encryptedPassData];
+    [v8 setEncryptedCardData:encryptedPassData];
 
     publicKeyHash = [(PKAddPaymentPassRequest *)self->_inAppProvisioningRequest publicKeyHash];
-    [v7 setPublicKeyHash:publicKeyHash];
+    [v8 setPublicKeyHash:publicKeyHash];
 
     ephemeralPublicKey = [(PKAddPaymentPassRequest *)self->_inAppProvisioningRequest ephemeralPublicKey];
-    [v7 setEphemeralPublicKey:ephemeralPublicKey];
+    [v8 setEphemeralPublicKey:ephemeralPublicKey];
 
     wrappedKey = [(PKAddPaymentPassRequest *)self->_inAppProvisioningRequest wrappedKey];
-    [v7 setWrappedKey:wrappedKey];
+    [v8 setWrappedKey:wrappedKey];
 
     issuerIdentifier = [(PKAddPaymentPassRequest *)self->_inAppProvisioningRequest issuerIdentifier];
-    [v7 setIssuerIdentifier:issuerIdentifier];
+    [v8 setIssuerIdentifier:issuerIdentifier];
 
     hostApplicationIdentifier = [(PKAddPaymentPassRequest *)self->_inAppProvisioningRequest hostApplicationIdentifier];
-    [v7 setHostApplicationIdentifier:hostApplicationIdentifier];
+    [v8 setHostApplicationIdentifier:hostApplicationIdentifier];
 
     hostApplicationVersion = [(PKAddPaymentPassRequest *)self->_inAppProvisioningRequest hostApplicationVersion];
-    [v7 setHostApplicationVersion:hostApplicationVersion];
+    [v8 setHostApplicationVersion:hostApplicationVersion];
 
     fPInfo = [(PKAddPaymentPassRequest *)self->_inAppProvisioningRequest FPInfo];
-    [v7 setFPInfo:fPInfo];
+    [v8 setFPInfo:fPInfo];
 
     nonce = [(PKAddPaymentPassRequest *)self->_inAppProvisioningRequest nonce];
     hexEncoding = [nonce hexEncoding];
-    [v7 setNonce:hexEncoding];
+    [v8 setNonce:hexEncoding];
 
-    goto LABEL_20;
+    return v8;
   }
 
   if (self->_currentCredential)
   {
-    v19 = pk_Payment_log();
-    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+    v20 = pk_Payment_log(self);
+    v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
 
-    if (v20)
+    if (v21)
     {
-      v21 = pk_Payment_log();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v23 = pk_Payment_log(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         currentCredential = self->_currentCredential;
-        v48 = 138412290;
-        v49 = currentCredential;
-        _os_log_impl(&dword_25B300000, v21, OS_LOG_TYPE_DEFAULT, "Notice: Forming payment eligibility request from current credential %@", &v48, 0xCu);
+        v50 = 138412290;
+        v51 = currentCredential;
+        _os_log_impl(&dword_25B300000, v23, OS_LOG_TYPE_DEFAULT, "Notice: Forming payment eligibility request from current credential %@", &v50, 0xCu);
       }
     }
 
-    v23 = objc_alloc(MEMORY[0x277D38058]);
-    v24 = self->_currentCredential;
-LABEL_19:
-    v7 = [v23 initWithPaymentCredential:v24];
-    goto LABEL_20;
+    v25 = objc_alloc(MEMORY[0x277D38058]);
+    v26 = self->_currentCredential;
+    return [v25 initWithPaymentCredential:v26];
   }
 
   currentAppleBalanceCredential = self->_currentAppleBalanceCredential;
-  v26 = pk_Payment_log();
-  v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT);
+  v28 = pk_Payment_log(self);
+  v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
 
   if (currentAppleBalanceCredential)
   {
-    if (v27)
+    if (v29)
     {
-      v28 = pk_Payment_log();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v31 = pk_Payment_log(v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = self->_currentAppleBalanceCredential;
-        v48 = 138412290;
-        v49 = v29;
-        _os_log_impl(&dword_25B300000, v28, OS_LOG_TYPE_DEFAULT, "Notice: Forming payment eligibility request from current Apple Balance credential %@", &v48, 0xCu);
+        v32 = self->_currentAppleBalanceCredential;
+        v50 = 138412290;
+        v51 = v32;
+        _os_log_impl(&dword_25B300000, v31, OS_LOG_TYPE_DEFAULT, "Notice: Forming payment eligibility request from current Apple Balance credential %@", &v50, 0xCu);
       }
     }
 
-    v23 = objc_alloc(MEMORY[0x277D38058]);
-    v24 = self->_currentAppleBalanceCredential;
-    goto LABEL_19;
+    v25 = objc_alloc(MEMORY[0x277D38058]);
+    v26 = self->_currentAppleBalanceCredential;
+    return [v25 initWithPaymentCredential:v26];
   }
 
-  if (v27)
+  if (v29)
   {
-    v32 = pk_Payment_log();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v34 = pk_Payment_log(v30);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v48) = 0;
-      _os_log_impl(&dword_25B300000, v32, OS_LOG_TYPE_DEFAULT, "Notice: Forming payment eligibility request from fields model", &v48, 2u);
+      LOWORD(v50) = 0;
+      _os_log_impl(&dword_25B300000, v34, OS_LOG_TYPE_DEFAULT, "Notice: Forming payment eligibility request from fields model", &v50, 2u);
     }
   }
 
-  v7 = [objc_alloc(MEMORY[0x277D38058]) initWithSource:1];
-  v33 = [(PKPaymentSetupFieldsModel *)self->_fieldsModel paymentSetupFieldWithIdentifier:*MEMORY[0x277D38930]];
-  submissionString = [v33 submissionString];
-  [v7 setCardholderName:submissionString];
+  v8 = [objc_alloc(MEMORY[0x277D38058]) initWithSource:1];
+  v35 = [(PKPaymentSetupFieldsModel *)self->_fieldsModel paymentSetupFieldWithIdentifier:*MEMORY[0x277D38930]];
+  submissionString = [v35 submissionString];
+  [v8 setCardholderName:submissionString];
 
-  if ([v33 source] == 1)
+  if ([v35 source] == 1)
   {
-    v35 = 2;
+    v37 = 2;
   }
 
   else
   {
-    v35 = 1;
+    v37 = 1;
   }
 
-  [v7 setCardholderNameInputMethod:v35];
-  v36 = [(PKPaymentSetupFieldsModel *)self->_fieldsModel paymentSetupFieldWithIdentifier:*MEMORY[0x277D38938]];
-  submissionString2 = [v36 submissionString];
-  [v7 setPrimaryAccountNumber:submissionString2];
+  [v8 setCardholderNameInputMethod:v37];
+  v38 = [(PKPaymentSetupFieldsModel *)self->_fieldsModel paymentSetupFieldWithIdentifier:*MEMORY[0x277D38938]];
+  submissionString2 = [v38 submissionString];
+  [v8 setPrimaryAccountNumber:submissionString2];
 
-  if ([v36 source] == 1)
+  if ([v38 source] == 1)
   {
-    v38 = 2;
+    v40 = 2;
   }
 
   else
   {
-    v38 = 1;
+    v40 = 1;
   }
 
-  [v7 setPrimaryAccountNumberInputMethod:v38];
-  v39 = [(PKPaymentSetupFieldsModel *)self->_fieldsModel paymentSetupFieldWithIdentifier:*MEMORY[0x277D38918]];
-  submissionString3 = [v39 submissionString];
-  [v7 setExpiration:submissionString3];
+  [v8 setPrimaryAccountNumberInputMethod:v40];
+  v41 = [(PKPaymentSetupFieldsModel *)self->_fieldsModel paymentSetupFieldWithIdentifier:*MEMORY[0x277D38918]];
+  submissionString3 = [v41 submissionString];
+  [v8 setExpiration:submissionString3];
 
-  if ([v39 source] == 1)
+  if ([v41 source] == 1)
   {
-    v41 = 2;
+    v43 = 2;
   }
 
   else
   {
-    v41 = 1;
+    v43 = 1;
   }
 
-  [v7 setExpirationInputMethod:v41];
+  [v8 setExpirationInputMethod:v43];
   productIdentifier = [(PKPaymentProvisioningController *)self->_provisioningController productIdentifier];
-  [v7 setProductIdentifier:productIdentifier];
+  [v8 setProductIdentifier:productIdentifier];
 
   fieldsModel = [(NPKPaymentProvisioningFlowController *)self fieldsModel];
-  v44 = *MEMORY[0x277D38948];
-  v45 = [fieldsModel submissionValuesForDestination:*MEMORY[0x277D38948]];
+  v46 = *MEMORY[0x277D38948];
+  v47 = [fieldsModel submissionValuesForDestination:*MEMORY[0x277D38948]];
 
-  [v7 setOverlayParameters:v45];
+  [v8 setOverlayParameters:v47];
   fieldsModel2 = [(NPKPaymentProvisioningFlowController *)self fieldsModel];
-  v47 = [fieldsModel2 secureSubmissionValuesForDestination:v44];
+  v49 = [fieldsModel2 secureSubmissionValuesForDestination:v46];
 
-  [v7 setSecureOverlayParameters:v47];
-LABEL_20:
-  v30 = *MEMORY[0x277D85DE8];
-  return v7;
+  [v8 setSecureOverlayParameters:v49];
+  return v8;
 }
 
 - (id)_newPaymentProvisioningRequest
@@ -3386,19 +3405,18 @@ LABEL_20:
 
 - (void)_requestRequirements:(id)requirements
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   requirementsCopy = requirements;
-  [(PKPaymentProvisioningController *)self->_provisioningController resetForNewProvisioning];
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log([(PKPaymentProvisioningController *)self->_provisioningController resetForNewProvisioning]);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: performing requirements", buf, 2u);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: performing requirements", buf, 2u);
     }
   }
 
@@ -3406,31 +3424,30 @@ LABEL_20:
   if (currentCredential && [(PKPaymentCredential *)currentCredential isPurchasedProductCredential])
   {
     purchasedProductCredential = [(PKPaymentCredential *)self->_currentCredential purchasedProductCredential];
-    v10 = self->_provisioningController;
+    v11 = self->_provisioningController;
     product = [purchasedProductCredential product];
-    v12 = [product provisioningMethodMetadataForType:*MEMORY[0x277D388D0]];
-    [(PKPaymentProvisioningController *)v10 resolveRequirementsUsingProvisioningMethodMetadata:v12];
+    v13 = [product provisioningMethodMetadataForType:*MEMORY[0x277D388D0]];
+    [(PKPaymentProvisioningController *)v11 resolveRequirementsUsingProvisioningMethodMetadata:v13];
 
-    requirementsResponse = [(PKPaymentProvisioningController *)v10 requirementsResponse];
+    requirementsResponse = [(PKPaymentProvisioningController *)v11 requirementsResponse];
     [purchasedProductCredential setRequirementsResponse:requirementsResponse];
 
-    [(NPKPaymentProvisioningFlowController *)self setTermsAcceptedOutOfBand:1];
-    v14 = pk_Payment_log();
-    LODWORD(v12) = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    v15 = pk_Payment_log([(NPKPaymentProvisioningFlowController *)self setTermsAcceptedOutOfBand:1]);
+    LODWORD(v13) = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
 
-    if (v12)
+    if (v13)
     {
-      v15 = pk_Payment_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = pk_Payment_log(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         product2 = [purchasedProductCredential product];
         displayName = [product2 displayName];
         summaryMetadataDescription = [purchasedProductCredential summaryMetadataDescription];
         *buf = 138412546;
-        v24 = displayName;
-        v25 = 2112;
-        v26 = summaryMetadataDescription;
-        _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Moving directly to next provisioning step for purchased product %@ (%@).", buf, 0x16u);
+        v25 = displayName;
+        v26 = 2112;
+        v27 = summaryMetadataDescription;
+        _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Moving directly to next provisioning step for purchased product %@ (%@).", buf, 0x16u);
       }
     }
 
@@ -3441,85 +3458,85 @@ LABEL_20:
   {
     purchasedProductCredential = [(NPKPaymentProvisioningFlowController *)self _newPaymentRequirementsRequest];
     provisioningController = self->_provisioningController;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __61__NPKPaymentProvisioningFlowController__requestRequirements___block_invoke;
-    v21[3] = &unk_279946418;
-    v21[4] = self;
-    v22 = requirementsCopy;
-    [(PKPaymentProvisioningController *)provisioningController requestRequirements:purchasedProductCredential withCompletionHandler:v21];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __61__NPKPaymentProvisioningFlowController__requestRequirements___block_invoke;
+    v22[3] = &unk_279946418;
+    v22[4] = self;
+    v23 = requirementsCopy;
+    [(PKPaymentProvisioningController *)provisioningController requestRequirements:purchasedProductCredential withCompletionHandler:v22];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __61__NPKPaymentProvisioningFlowController__requestRequirements___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (!v5)
   {
-    v12 = pk_Payment_log();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+    v15 = pk_Payment_log(v6);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
 
-    if (v6)
+    if (v7)
     {
-      if (v13)
+      if (v16)
       {
-        v14 = pk_Payment_log();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v18 = pk_Payment_log(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          v39 = 138412290;
-          v40 = v6;
-          _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Error occurred when sending requirements request: %@", &v39, 0xCu);
+          v47 = 138412290;
+          v48 = v7;
+          _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Error occurred when sending requirements request: %@", &v47, 0xCu);
         }
       }
 
-      v15 = *(a1 + 32);
-      v16 = [v15[3] displayableErrorForProvisioningError:v6];
+      v19 = *(a1 + 32);
+      v20 = [v19[3] displayableErrorForProvisioningError:v7];
     }
 
     else
     {
-      if (v13)
+      if (v16)
       {
-        v25 = pk_Payment_log();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v32 = pk_Payment_log(v17);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v39) = 0;
-          _os_log_impl(&dword_25B300000, v25, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: No response or error from requirements!", &v39, 2u);
+          LOWORD(v47) = 0;
+          _os_log_impl(&dword_25B300000, v32, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: No response or error from requirements!", &v47, 2u);
         }
       }
 
-      v15 = *(a1 + 32);
-      v16 = PKDisplayableErrorForCommonType();
+      v19 = *(a1 + 32);
+      v20 = PKDisplayableErrorForCommonType();
     }
 
-    v11 = v16;
-    [v15 _sendDidEncounterError:v16 requestContext:*(a1 + 40)];
+    v14 = v20;
+    [v19 _sendDidEncounterError:v20 requestContext:*(a1 + 40)];
     goto LABEL_28;
   }
 
-  if ([v5 status] == 2 || PKForcePrivateLabelSetupDisambiguation())
+  v8 = [v5 status];
+  if (v8 == 2 || (v8 = PKForcePrivateLabelSetupDisambiguation(), v8))
   {
-    v7 = pk_Payment_log();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+    v9 = pk_Payment_log(v8);
+    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
 
-    if (v8)
+    if (v10)
     {
-      v9 = pk_Payment_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v12 = pk_Payment_log(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v39) = 0;
-        _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: PKPaymentRequirementsStatusRequirementsAmbiguous is responded by server", &v39, 2u);
+        LOWORD(v47) = 0;
+        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: PKPaymentRequirementsStatusRequirementsAmbiguous is responded by server", &v47, 2u);
       }
     }
 
-    v10 = [*(*(a1 + 32) + 24) requirementsResponse];
-    v11 = [v10 possibleProducts];
+    v13 = [*(*(a1 + 32) + 24) requirementsResponse];
+    v14 = [v13 possibleProducts];
 
-    [*(a1 + 32) _transitionToProductDisambiguationWithProducts:v11 requestContext:*(a1 + 40)];
+    [*(a1 + 32) _transitionToProductDisambiguationWithProducts:v14 requestContext:*(a1 + 40)];
 LABEL_28:
 
     goto LABEL_29;
@@ -3527,80 +3544,82 @@ LABEL_28:
 
   if ([v5 status] == 1)
   {
-    v17 = *(*(a1 + 32) + 136);
-    v18 = [v5 requiredPaymentSetupFields];
-    [v17 updateWithPaymentSetupFields:v18];
+    v21 = *(*(a1 + 32) + 136);
+    v22 = [v5 requiredPaymentSetupFields];
+    [v21 updateWithPaymentSetupFields:v22];
 
-    if ([*(*(a1 + 32) + 136) hasIncompletePaymentSetupFields])
+    v23 = [*(*(a1 + 32) + 136) hasIncompletePaymentSetupFields];
+    if (v23)
     {
-      v19 = [v5 requiredPaymentSetupFields];
-      v20 = [v19 count];
+      v24 = [v5 requiredPaymentSetupFields];
+      v25 = [v24 count];
 
-      v21 = pk_Payment_log();
-      v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+      v27 = pk_Payment_log(v26);
+      v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
 
-      if (v22)
+      if (v28)
       {
-        v23 = pk_Payment_log();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v30 = pk_Payment_log(v29);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
-          v39 = 134217984;
-          v40 = v20;
-          _os_log_impl(&dword_25B300000, v23, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Start secondary manual entry with %lu fields.", &v39, 0xCu);
+          v47 = 134217984;
+          v48 = v25;
+          _os_log_impl(&dword_25B300000, v30, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Start secondary manual entry with %lu fields.", &v47, 0xCu);
         }
       }
 
-      v24 = *(a1 + 32);
-      v11 = [v5 requiredPaymentSetupFields];
-      [v24 _transitionToSecondaryManualEntryWithFields:v11 credential:*(*(a1 + 32) + 168) requestContext:*(a1 + 40)];
+      v31 = *(a1 + 32);
+      v14 = [v5 requiredPaymentSetupFields];
+      [v31 _transitionToSecondaryManualEntryWithFields:v14 credential:*(*(a1 + 32) + 168) requestContext:*(a1 + 40)];
       goto LABEL_28;
     }
 
-    v35 = pk_Payment_log();
-    v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
+    v42 = pk_Payment_log(v23);
+    v43 = os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT);
 
-    if (v36)
+    if (v43)
     {
-      v37 = pk_Payment_log();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      v45 = pk_Payment_log(v44);
+      if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
       {
-        v38 = [*(*(a1 + 32) + 136) paymentSetupFields];
-        v39 = 138412290;
-        v40 = v38;
-        _os_log_impl(&dword_25B300000, v37, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Moving directly to next provisioning step since all fields are complete (%@).", &v39, 0xCu);
+        v46 = [*(*(a1 + 32) + 136) paymentSetupFields];
+        v47 = 138412290;
+        v48 = v46;
+        _os_log_impl(&dword_25B300000, v45, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Moving directly to next provisioning step since all fields are complete (%@).", &v47, 0xCu);
       }
     }
 
     [*(a1 + 32) _performNextActionForProvisioningState:*(a1 + 40)];
   }
 
-  else if (![v5 status] || objc_msgSend(v5, "status") == 3)
+  else
   {
-    v27 = pk_Payment_log();
-    v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
-
-    if (v28)
+    v33 = [v5 status];
+    if (!v33 || (v33 = [v5 status], v33 == 3))
     {
-      v29 = pk_Payment_log();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v34 = pk_Payment_log(v33);
+      v35 = os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT);
+
+      if (v35)
       {
-        LOWORD(v39) = 0;
-        _os_log_impl(&dword_25B300000, v29, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: PKPaymentRequirementsStatusUnknownRequirements or PKPaymentRequirementsStatusCardNotSupported is responded by server", &v39, 2u);
+        v37 = pk_Payment_log(v36);
+        if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+        {
+          LOWORD(v47) = 0;
+          _os_log_impl(&dword_25B300000, v37, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: PKPaymentRequirementsStatusUnknownRequirements or PKPaymentRequirementsStatusCardNotSupported is responded by server", &v47, 2u);
+        }
       }
+
+      v38 = objc_opt_class();
+      v39 = NPKPaymentCardIneligibleReasonForRequirementsStatus([v5 status]);
+      v40 = [v5 learnMoreURL];
+      v41 = [v38 _displayableErrorWithIneligibilityReason:v39 learnMoreURL:v40];
+
+      [*(a1 + 32) _sendDidEncounterError:v41 requestContext:*(a1 + 40)];
     }
-
-    v30 = *(a1 + 32);
-    v31 = objc_opt_class();
-    v32 = NPKPaymentCardIneligibleReasonForRequirementsStatus([v5 status]);
-    v33 = [v5 learnMoreURL];
-    v34 = [v31 _displayableErrorWithIneligibilityReason:v32 learnMoreURL:v33];
-
-    [*(a1 + 32) _sendDidEncounterError:v34 requestContext:*(a1 + 40)];
   }
 
 LABEL_29:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performEligibility:(id)eligibility
@@ -3657,29 +3676,29 @@ uint64_t __60__NPKPaymentProvisioningFlowController__performEligibility___block_
 - (void)_performProvisioningEligibility:(id)eligibility
 {
   eligibilityCopy = eligibility;
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(eligibilityCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: performing provisioning eligibility", buf, 2u);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: performing provisioning eligibility", buf, 2u);
     }
   }
 
   _newPaymentEligibilityRequest = [(NPKPaymentProvisioningFlowController *)self _newPaymentEligibilityRequest];
   provisioningController = self->_provisioningController;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __72__NPKPaymentProvisioningFlowController__performProvisioningEligibility___block_invoke;
-  v11[3] = &unk_279946468;
-  v11[4] = self;
-  v12 = eligibilityCopy;
-  v10 = eligibilityCopy;
-  [(PKPaymentProvisioningController *)provisioningController requestEligibility:_newPaymentEligibilityRequest withCompletionHandler:v11];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __72__NPKPaymentProvisioningFlowController__performProvisioningEligibility___block_invoke;
+  v12[3] = &unk_279946468;
+  v12[4] = self;
+  v13 = eligibilityCopy;
+  v11 = eligibilityCopy;
+  [(PKPaymentProvisioningController *)provisioningController requestEligibility:_newPaymentEligibilityRequest withCompletionHandler:v12];
 }
 
 void __72__NPKPaymentProvisioningFlowController__performProvisioningEligibility___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -3703,93 +3722,91 @@ void __72__NPKPaymentProvisioningFlowController__performProvisioningEligibility_
 
 void __72__NPKPaymentProvisioningFlowController__performProvisioningEligibility___block_invoke_2(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  if (!v2)
+  if (v2)
+  {
+    if ([v2 eligibilityStatus] == 1)
+    {
+      v3 = [*(a1 + 40) _isValidateSecurityRequirementsRequired];
+      v5 = *(a1 + 40);
+      v4 = *(a1 + 48);
+      if (v3)
+      {
+        v23[0] = MEMORY[0x277D85DD0];
+        v23[1] = 3221225472;
+        v23[2] = __72__NPKPaymentProvisioningFlowController__performProvisioningEligibility___block_invoke_3;
+        v23[3] = &unk_279946440;
+        v23[4] = v5;
+        v24 = v4;
+        [v5 _performValidateSecurityRequirements:v24 completion:v23];
+      }
+
+      else
+      {
+        v17 = *(a1 + 40);
+
+        [v17 _handleEligibiltySuccessWithContext:v4];
+      }
+    }
+
+    else
+    {
+      v14 = objc_opt_class();
+      v15 = NPKPaymentCardIneligibleReasonForEligibilityStatus([*(a1 + 32) eligibilityStatus]);
+      v16 = [*(a1 + 32) learnMoreURL];
+      v22 = [v14 _displayableErrorWithIneligibilityReason:v15 learnMoreURL:v16];
+
+      [*(a1 + 40) _sendDidEncounterError:v22 requestContext:*(a1 + 48)];
+    }
+  }
+
+  else
   {
     v6 = *(a1 + 56);
-    v7 = pk_Payment_log();
+    v7 = pk_Payment_log(0);
     v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
     if (v6)
     {
       if (v8)
       {
-        v9 = pk_Payment_log();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        v10 = pk_Payment_log(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = *(a1 + 56);
+          v11 = *(a1 + 56);
           *buf = 138412290;
-          v28 = v10;
-          _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Error occurred when sending eligibility request: %@", buf, 0xCu);
+          v26 = v11;
+          _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Error occurred when sending eligibility request: %@", buf, 0xCu);
         }
       }
 
-      v11 = *(a1 + 40);
-      v12 = [v11[3] displayableErrorForProvisioningError:*(a1 + 56)];
+      v12 = *(a1 + 40);
+      v13 = [v12[3] displayableErrorForProvisioningError:*(a1 + 56)];
     }
 
     else
     {
       if (v8)
       {
-        v19 = pk_Payment_log();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v18 = pk_Payment_log(v9);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: No response or error from requirements!", buf, 2u);
+          _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: No response or error from requirements!", buf, 2u);
         }
       }
 
-      v11 = *(a1 + 40);
-      v12 = PKDisplayableErrorForCommonType();
+      v12 = *(a1 + 40);
+      v13 = PKDisplayableErrorForCommonType();
     }
 
-    v20 = v12;
-    [v11 _sendDidEncounterError:v12 requestContext:*(a1 + 48)];
+    v19 = v13;
+    [v12 _sendDidEncounterError:v13 requestContext:*(a1 + 48)];
 
-    v21 = *(a1 + 40);
-    v22 = *(v21 + 64);
-    *(v21 + 64) = 0;
-
-    goto LABEL_23;
-  }
-
-  if ([v2 eligibilityStatus] == 1)
-  {
-    v3 = [*(a1 + 40) _isValidateSecurityRequirementsRequired];
-    v5 = *(a1 + 40);
-    v4 = *(a1 + 48);
-    if (v3)
-    {
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __72__NPKPaymentProvisioningFlowController__performProvisioningEligibility___block_invoke_3;
-      v25[3] = &unk_279946440;
-      v25[4] = v5;
-      v26 = v4;
-      [v5 _performValidateSecurityRequirements:v26 completion:v25];
-
-LABEL_23:
-      v23 = *MEMORY[0x277D85DE8];
-      return;
-    }
-
-    v17 = *MEMORY[0x277D85DE8];
-    v18 = *(a1 + 40);
-
-    [v18 _handleEligibiltySuccessWithContext:v4];
-  }
-
-  else
-  {
-    v13 = objc_opt_class();
-    v14 = NPKPaymentCardIneligibleReasonForEligibilityStatus([*(a1 + 32) eligibilityStatus]);
-    v15 = [*(a1 + 32) learnMoreURL];
-    v24 = [v13 _displayableErrorWithIneligibilityReason:v14 learnMoreURL:v15];
-
-    [*(a1 + 40) _sendDidEncounterError:v24 requestContext:*(a1 + 48)];
-    v16 = *MEMORY[0x277D85DE8];
+    v20 = *(a1 + 40);
+    v21 = *(v20 + 64);
+    *(v20 + 64) = 0;
   }
 }
 
@@ -3877,16 +3894,16 @@ void __76__NPKPaymentProvisioningFlowController__handleEligibiltySuccessWithCont
 - (void)_performResolveLocalEligibilityARequirements:(id)requirements completion:(id)completion
 {
   completionCopy = completion;
-  v6 = pk_Payment_log();
+  v6 = pk_Payment_log(completionCopy);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = pk_Payment_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_Payment_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Resolving local eligibility requirements", buf, 2u);
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Resolving local eligibility requirements", buf, 2u);
     }
   }
 
@@ -3897,41 +3914,39 @@ void __76__NPKPaymentProvisioningFlowController__handleEligibiltySuccessWithCont
   }
 
   provisioningController = self->_provisioningController;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __96__NPKPaymentProvisioningFlowController__performResolveLocalEligibilityARequirements_completion___block_invoke;
-  v13[3] = &unk_279945218;
-  v14 = completionCopy;
-  v11 = completionCopy;
-  v12 = currentCredential;
-  [(PKPaymentProvisioningController *)provisioningController resolveLocalEligibilityRequirementsForAppleBalanceCredential:v12 withCompletion:v13];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __96__NPKPaymentProvisioningFlowController__performResolveLocalEligibilityARequirements_completion___block_invoke;
+  v14[3] = &unk_279945218;
+  v15 = completionCopy;
+  v12 = completionCopy;
+  v13 = currentCredential;
+  [(PKPaymentProvisioningController *)provisioningController resolveLocalEligibilityRequirementsForAppleBalanceCredential:v13 withCompletion:v14];
 }
 
 void __96__NPKPaymentProvisioningFlowController__performResolveLocalEligibilityARequirements_completion___block_invoke(uint64_t a1, void *a2)
 {
   v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log(v3);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 138412290;
       v10 = v3;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Local eligibility resolved. Error: %@", &v9, 0xCu);
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Local eligibility resolved. Error: %@", &v9, 0xCu);
     }
   }
 
-  v7 = *(a1 + 32);
-  if (v7)
+  v8 = *(a1 + 32);
+  if (v8)
   {
-    (*(v7 + 16))(v7, v3);
+    (*(v8 + 16))(v8, v3);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performValidateSecurityRequirements:(id)requirements completion:(id)completion
@@ -3949,61 +3964,60 @@ void __96__NPKPaymentProvisioningFlowController__performResolveLocalEligibilityA
 
 void __88__NPKPaymentProvisioningFlowController__performValidateSecurityRequirements_completion___block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
+  v6 = v5;
   if (v5 || (a2 & 1) == 0)
   {
-    v7 = pk_Payment_log();
-    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+    v8 = pk_Payment_log(v5);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
 
-    if (v8)
+    if (v9)
     {
-      v9 = pk_Payment_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = pk_Payment_log(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v14 = 138412290;
-        v15 = v5;
-        _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_ERROR, "Error: Standalone: Apple Balance security requirements not met. Could not verify/setup Apple Pay cloud store container. Error: %@", &v14, 0xCu);
+        v15 = 138412290;
+        v16 = v6;
+        _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_ERROR, "Error: Standalone: Apple Balance security requirements not met. Could not verify/setup Apple Pay cloud store container. Error: %@", &v15, 0xCu);
       }
     }
 
-    v10 = PKLocalizedPaymentString(&cfstr_CouldNotSetUpT.isa);
-    v11 = PKLocalizedPaymentString(&cfstr_CouldNotSetUpM.isa);
-    v6 = PKDisplayableErrorCustom();
+    v12 = PKLocalizedPaymentString(&cfstr_CouldNotSetUpT.isa);
+    v13 = PKLocalizedPaymentString(&cfstr_CouldNotSetUpM.isa);
+    v7 = PKDisplayableErrorCustom();
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  v12 = *(a1 + 32);
-  if (v12)
+  v14 = *(a1 + 32);
+  if (v14)
   {
-    (*(v12 + 16))(v12, v6);
+    (*(v14 + 16))(v14, v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performSEStorageCheck:(id)check
 {
   v23 = *MEMORY[0x277D85DE8];
   checkCopy = check;
-  v5 = pk_General_log();
+  v5 = pk_General_log(checkCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_General_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_General_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Performing SE storage check.", buf, 2u);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Performing SE storage check.", buf, 2u);
     }
   }
 
-  v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
@@ -4011,36 +4025,35 @@ void __88__NPKPaymentProvisioningFlowController__performValidateSecurityRequirem
   eligibilityResponse = [(PKPaymentProvisioningController *)self->_provisioningController eligibilityResponse];
   paymentApplications = [eligibilityResponse paymentApplications];
 
-  v11 = [paymentApplications countByEnumeratingWithState:&v17 objects:v22 count:16];
-  if (v11)
+  v12 = [paymentApplications countByEnumeratingWithState:&v17 objects:v22 count:16];
+  if (v12)
   {
-    v12 = v11;
-    v13 = *v18;
+    v13 = v12;
+    v14 = *v18;
     do
     {
-      v14 = 0;
+      v15 = 0;
       do
       {
-        if (*v18 != v13)
+        if (*v18 != v14)
         {
           objc_enumerationMutation(paymentApplications);
         }
 
-        appletTypeIdentifier = [*(*(&v17 + 1) + 8 * v14) appletTypeIdentifier];
-        [v8 npkSafelyAddObject:appletTypeIdentifier];
+        appletTypeIdentifier = [*(*(&v17 + 1) + 8 * v15) appletTypeIdentifier];
+        [v9 npkSafelyAddObject:appletTypeIdentifier];
 
-        ++v14;
+        ++v15;
       }
 
-      while (v12 != v14);
-      v12 = [paymentApplications countByEnumeratingWithState:&v17 objects:v22 count:16];
+      while (v13 != v15);
+      v13 = [paymentApplications countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
-    while (v12);
+    while (v13);
   }
 
-  [(NPKPaymentProvisioningFlowController *)self _checkSpaceAvailableForAppletTypes:v8 triedCleanup:0 completion:checkCopy];
-  v16 = *MEMORY[0x277D85DE8];
+  [(NPKPaymentProvisioningFlowController *)self _checkSpaceAvailableForAppletTypes:v9 triedCleanup:0 completion:checkCopy];
 }
 
 - (void)_checkSpaceAvailableForAppletTypes:(id)types triedCleanup:(BOOL)cleanup completion:(id)completion
@@ -4068,68 +4081,79 @@ void __99__NPKPaymentProvisioningFlowController__checkSpaceAvailableForAppletTyp
   v4 = v3;
   if (!v3)
   {
-    v15 = *(*(a1 + 48) + 16);
+    v16 = *(*(a1 + 48) + 16);
 LABEL_16:
-    v15();
+    v16();
     goto LABEL_17;
   }
 
   v5 = [v3 canFitAppletTypes:*(a1 + 32)];
-  v6 = pk_General_log();
+  v6 = pk_General_log(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
   if (v7)
   {
-    v8 = pk_General_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_General_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = NSStringFromBOOL();
+      v10 = NSStringFromBOOL();
       *buf = 138412546;
-      v22 = v9;
+      v22 = v10;
       v23 = 2112;
       v24 = v4;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: SE storage check returned can fit applets on SE: %@ from snapshot %@", buf, 0x16u);
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: SE storage check returned can fit applets on SE: %@ from snapshot %@", buf, 0x16u);
     }
   }
 
-  if (PKDynamicSEAllocationFakeFullSE())
+  v11 = PKDynamicSEAllocationFakeFullSE();
+  if (v11)
   {
-    v10 = pk_General_log();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    v5 = pk_General_log(v11);
+    v12 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-    v5 = 0;
-    if (v11)
+    LOBYTE(v5) = 0;
+    if (v12)
     {
-      v12 = pk_General_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v5 = pk_General_log(v13);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Overriding canFit to NO b/c fake full se", buf, 2u);
+        _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Overriding canFit to NO b/c fake full se", buf, 2u);
       }
 
-      v5 = 0;
+      LOBYTE(v5) = 0;
     }
   }
 
   if (*(a1 + 56) & 1) != 0 || (v5)
   {
-    v15 = *(*(a1 + 48) + 16);
+    v16 = *(*(a1 + 48) + 16);
     goto LABEL_16;
   }
 
-  v13 = [objc_alloc(MEMORY[0x277D38228]) initWithWebService:*(*(a1 + 40) + 104)];
+  v14 = [objc_alloc(MEMORY[0x277D38228]) initWithWebService:*(*(a1 + 40) + 104)];
   v18[0] = MEMORY[0x277D85DD0];
   v18[1] = 3221225472;
   v18[2] = __99__NPKPaymentProvisioningFlowController__checkSpaceAvailableForAppletTypes_triedCleanup_completion___block_invoke_126;
   v18[3] = &unk_279945A48;
   v17 = *(a1 + 32);
-  v14 = v17.i64[0];
+  v15 = v17.i64[0];
   v19 = vextq_s8(v17, v17, 8uLL);
   v20 = *(a1 + 48);
-  [v13 debugPerformSECleanup:v18];
+  [v14 debugPerformSECleanup:v18];
 
 LABEL_17:
-  v16 = *MEMORY[0x277D85DE8];
+}
+
+- (void)_handlePasscodeUpgradeCompleteWithSuccess:(BOOL)success error:(id)error requestContext:(id)context
+{
+  successCopy = success;
+  contextCopy = context;
+  [(PKPaymentProvisioningController *)self->_provisioningController passcodeUpgradeCompleted:successCopy];
+  if (successCopy)
+  {
+    [(NPKPaymentProvisioningFlowController *)self _performNextActionForProvisioningState:contextCopy];
+  }
 }
 
 - (void)_performPasscodeUpgrade:(id)upgrade
@@ -4166,25 +4190,25 @@ void __64__NPKPaymentProvisioningFlowController__performPasscodeUpgrade___block_
 
 void __64__NPKPaymentProvisioningFlowController__performPasscodeUpgrade___block_invoke_2(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v2 = pk_Payment_log();
+  v17 = *MEMORY[0x277D85DE8];
+  v2 = pk_Payment_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_Payment_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_Payment_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 56);
-      v6 = *(a1 + 57);
-      v7 = *(a1 + 32);
-      v13[0] = 67109634;
-      v13[1] = v5;
-      v14 = 1024;
-      v15 = v6;
-      v16 = 2112;
-      v17 = v7;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Preflighted passcode upgrade with success %d, meets policy %d, error %@", v13, 0x18u);
+      v6 = *(a1 + 56);
+      v7 = *(a1 + 57);
+      v8 = *(a1 + 32);
+      v12[0] = 67109634;
+      v12[1] = v6;
+      v13 = 1024;
+      v14 = v7;
+      v15 = 2112;
+      v16 = v8;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Preflighted passcode upgrade with success %d, meets policy %d, error %@", v12, 0x18u);
     }
   }
 
@@ -4204,13 +4228,10 @@ void __64__NPKPaymentProvisioningFlowController__performPasscodeUpgrade___block_
 
   else
   {
-    v8 = *(a1 + 32);
     v9 = *(a1 + 40);
     v10 = PKDisplayableErrorForCommonType();
     [v9 _sendDidEncounterError:v10 requestContext:*(a1 + 48)];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performTerms:(id)terms
@@ -4231,32 +4252,32 @@ void __64__NPKPaymentProvisioningFlowController__performPasscodeUpgrade___block_
   v7 = PKPassKitCoreBundle();
   v8 = [v6 newAssertionForBundle:v7 withReason:@"User-requested Wallet pass provisioning"];
 
-  v9 = pk_General_log();
-  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  v10 = pk_General_log(v9);
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
-  if (v10)
+  if (v11)
   {
-    v11 = pk_General_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = pk_General_log(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Requesting externalized auth...", buf, 2u);
+      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Requesting externalized auth...", buf, 2u);
     }
   }
 
   fidoAuthCoordinator = [(NPKPaymentProvisioningFlowController *)self fidoAuthCoordinator];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __58__NPKPaymentProvisioningFlowController__performProvision___block_invoke;
-  v16[3] = &unk_279946580;
-  v16[4] = self;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __58__NPKPaymentProvisioningFlowController__performProvision___block_invoke;
+  v18[3] = &unk_279946580;
+  v18[4] = self;
+  v19 = _newPaymentProvisioningRequest;
+  v20 = provisionCopy;
+  v21 = v8;
+  v15 = v8;
+  v16 = provisionCopy;
   v17 = _newPaymentProvisioningRequest;
-  v18 = provisionCopy;
-  v19 = v8;
-  v13 = v8;
-  v14 = provisionCopy;
-  v15 = _newPaymentProvisioningRequest;
-  [fidoAuthCoordinator requestAuthorizationWithCompletion:v16];
+  [fidoAuthCoordinator requestAuthorizationWithCompletion:v18];
 }
 
 void __58__NPKPaymentProvisioningFlowController__performProvision___block_invoke(uint64_t a1, char a2, uint64_t a3, void *a4, void *a5)
@@ -4285,69 +4306,67 @@ void __58__NPKPaymentProvisioningFlowController__performProvision___block_invoke
 
 void __58__NPKPaymentProvisioningFlowController__performProvision___block_invoke_2(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v2 = pk_General_log();
+  v25 = *MEMORY[0x277D85DE8];
+  v2 = pk_General_log(a1);
   v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
 
   if (v3)
   {
-    v4 = pk_General_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_General_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 80);
-      v6 = *(a1 + 32);
-      v7 = *(a1 + 40);
-      v18 = 138412802;
-      v19 = v6;
-      v20 = 1024;
-      v21 = v5;
-      v22 = 2112;
-      v23 = v7;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Created context %@ with success %i and error %@", &v18, 0x1Cu);
+      v6 = *(a1 + 80);
+      v7 = *(a1 + 32);
+      v8 = *(a1 + 40);
+      v19 = 138412802;
+      v20 = v7;
+      v21 = 1024;
+      v22 = v6;
+      v23 = 2112;
+      v24 = v8;
+      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Created context %@ with success %i and error %@", &v19, 0x1Cu);
     }
   }
 
   if (*(a1 + 80) == 1)
   {
-    v8 = [*(a1 + 48) fidoAuthCoordinator];
-    v9 = [v8 context];
-    v10 = [v9 externalizedContext];
+    v9 = [*(a1 + 48) fidoAuthCoordinator];
+    v10 = [v9 context];
+    v11 = [v10 externalizedContext];
 
-    [*(*(a1 + 48) + 24) storeExternalizedAuth:v10];
+    [*(*(a1 + 48) + 24) storeExternalizedAuth:v11];
     [*(a1 + 48) _performProvisionWithRequest:*(a1 + 56) requestContext:*(a1 + 64) assertion:*(a1 + 72)];
-LABEL_13:
-
-    goto LABEL_14;
   }
 
-  if (*(a1 + 40))
+  else
   {
-    v11 = pk_General_log();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
-
-    if (v12)
+    if (!*(a1 + 40))
     {
-      v13 = pk_General_log();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      return;
+    }
+
+    v12 = pk_General_log(v4);
+    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
+
+    if (v13)
+    {
+      v15 = pk_General_log(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        v14 = *(a1 + 40);
-        v18 = 138412290;
-        v19 = v14;
-        _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_ERROR, "Error: Standalone: Error: Unable to request and store externalized auth! %@", &v18, 0xCu);
+        v16 = *(a1 + 40);
+        v19 = 138412290;
+        v20 = v16;
+        _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_ERROR, "Error: Standalone: Error: Unable to request and store externalized auth! %@", &v19, 0xCu);
       }
     }
 
-    v15 = [*(a1 + 48) fidoAuthCoordinator];
-    [v15 clearContext];
+    v17 = [*(a1 + 48) fidoAuthCoordinator];
+    [v17 clearContext];
 
-    v16 = *(a1 + 48);
-    v10 = [v16[3] displayableErrorForProvisioningError:*(a1 + 40)];
-    [v16 _sendDidEncounterError:v10 requestContext:*(a1 + 64)];
-    goto LABEL_13;
+    v18 = *(a1 + 48);
+    v11 = [v18[3] displayableErrorForProvisioningError:*(a1 + 40)];
+    [v18 _sendDidEncounterError:v11 requestContext:*(a1 + 64)];
   }
-
-LABEL_14:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performProvisionWithRequest:(id)request requestContext:(id)context assertion:(id)assertion
@@ -4369,68 +4388,66 @@ LABEL_14:
 
 void __94__NPKPaymentProvisioningFlowController__performProvisionWithRequest_requestContext_assertion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v6 = a4;
-  [*(a1 + 32) invalidate];
+  v7 = [*(a1 + 32) invalidate];
   if (a2)
   {
     [*(a1 + 40) _performNextActionForProvisioningState:*(a1 + 48)];
-    v7 = [*(a1 + 40) fidoAuthCoordinator];
+    v8 = [*(a1 + 40) fidoAuthCoordinator];
 
-    if (v7)
+    if (v8)
     {
-      v8 = [*(a1 + 40) fidoAuthCoordinator];
-      [v8 clearContext];
+      v9 = [*(a1 + 40) fidoAuthCoordinator];
+      [v9 clearContext];
     }
   }
 
   else
   {
-    v9 = pk_Payment_log();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+    v10 = pk_Payment_log(v7);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
 
     if (v6)
     {
-      if (v10)
+      if (v11)
       {
-        v11 = pk_Payment_log();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+        v13 = pk_Payment_log(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          v19 = 138412290;
-          v20 = v6;
-          _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Error occurred when sending provision request: %@", &v19, 0xCu);
+          v20 = 138412290;
+          v21 = v6;
+          _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Error occurred when sending provision request: %@", &v20, 0xCu);
         }
       }
 
-      v12 = *(a1 + 40);
-      v13 = [v12[3] displayableErrorForProvisioningError:v6];
+      v14 = *(a1 + 40);
+      v15 = [v14[3] displayableErrorForProvisioningError:v6];
     }
 
     else
     {
-      if (v10)
+      if (v11)
       {
-        v14 = pk_Payment_log();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v16 = pk_Payment_log(v12);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v19) = 0;
-          _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: No response or error from provision!", &v19, 2u);
+          LOWORD(v20) = 0;
+          _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: No response or error from provision!", &v20, 2u);
         }
       }
 
-      v12 = *(a1 + 40);
-      v13 = PKDisplayableErrorForCommonType();
+      v14 = *(a1 + 40);
+      v15 = PKDisplayableErrorForCommonType();
     }
 
-    v15 = v13;
-    [v12 _sendDidEncounterError:v13 requestContext:*(a1 + 48)];
+    v17 = v15;
+    [v14 _sendDidEncounterError:v15 requestContext:*(a1 + 48)];
 
-    v16 = *(a1 + 40);
-    v17 = *(v16 + 64);
-    *(v16 + 64) = 0;
+    v18 = *(a1 + 40);
+    v19 = *(v18 + 64);
+    *(v18 + 64) = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleFinished:(id)finished
@@ -4439,16 +4456,16 @@ void __94__NPKPaymentProvisioningFlowController__performProvisionWithRequest_req
   provisionedPass = [(PKPaymentProvisioningController *)self->_provisioningController provisionedPass];
   if ([(NPKPaymentProvisioningFlowController *)self internalIngestionState]== 7)
   {
-    v6 = pk_Payment_log();
+    v6 = pk_Payment_log(7);
     v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
     if (v7)
     {
-      v8 = pk_Payment_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = pk_Payment_log(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Provisioning is complete, but waiting for reader mode second tap", v9, 2u);
+        *v10 = 0;
+        _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Provisioning is complete, but waiting for reader mode second tap", v10, 2u);
       }
     }
   }
@@ -4473,7 +4490,7 @@ void __94__NPKPaymentProvisioningFlowController__performProvisionWithRequest_req
 
   moreInfoItems = [(PKPaymentProvisioningController *)self->_provisioningController moreInfoItems];
   v17 = moreInfoItems;
-  if (acknowledged || ![moreInfoItems count])
+  if (acknowledged || (moreInfoItems = [moreInfoItems count]) == 0)
   {
     if ((state - 3) > 1)
     {
@@ -4482,16 +4499,16 @@ void __94__NPKPaymentProvisioningFlowController__performProvisionWithRequest_req
 
     else
     {
-      v18 = pk_Payment_log();
+      v18 = pk_Payment_log(moreInfoItems);
       v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
 
       if (v19)
       {
-        v20 = pk_Payment_log();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        v21 = pk_Payment_log(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
-          *v21 = 0;
-          _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Verification is necessary", v21, 2u);
+          *v22 = 0;
+          _os_log_impl(&dword_25B300000, v21, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Verification is necessary", v22, 2u);
         }
       }
 
@@ -4524,13 +4541,13 @@ void __94__NPKPaymentProvisioningFlowController__performProvisionWithRequest_req
 
       else
       {
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 3221225472;
-        v20[2] = __83__NPKPaymentProvisioningFlowController__handleVerificationResponseForPass_context___block_invoke;
-        v20[3] = &unk_2799465D0;
-        v20[4] = self;
-        v21 = contextCopy;
-        [(NPKPaymentProvisioningFlowController *)self _downloadAndAddUpdatedPassForPaymentPass:passCopy completion:v20];
+        v21[0] = MEMORY[0x277D85DD0];
+        v21[1] = 3221225472;
+        v21[2] = __83__NPKPaymentProvisioningFlowController__handleVerificationResponseForPass_context___block_invoke;
+        v21[3] = &unk_2799465D0;
+        v21[4] = self;
+        v22 = contextCopy;
+        [(NPKPaymentProvisioningFlowController *)self _downloadAndAddUpdatedPassForPaymentPass:passCopy completion:v21];
       }
 
       break;
@@ -4549,16 +4566,16 @@ void __94__NPKPaymentProvisioningFlowController__performProvisionWithRequest_req
       [(NPKPaymentProvisioningFlowController *)self _transitionToVerificationFieldsWithPaymentPass:passCopy fields:allChannels requestContext:contextCopy];
       break;
     default:
-      v16 = pk_Payment_log();
+      v16 = pk_Payment_log(verificationStatus);
       v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 
       if (v17)
       {
-        v18 = pk_Payment_log();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v19 = pk_Payment_log(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
-          *v19 = 0;
-          _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, "Warning: Standalone verification status: unknown, showing error.", v19, 2u);
+          *v20 = 0;
+          _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Warning: Standalone verification status: unknown, showing error.", v20, 2u);
         }
       }
 
@@ -4606,42 +4623,39 @@ void __83__NPKPaymentProvisioningFlowController__requestVerificationOptionsForPa
 
 void __83__NPKPaymentProvisioningFlowController__requestVerificationOptionsForPass_context___block_invoke_2(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (a1[8] == 1)
   {
     v2 = a1[4];
     v3 = a1[5];
     v4 = a1[6];
-    v5 = *MEMORY[0x277D85DE8];
 
     [v2 _handleVerificationResponseForPass:v3 context:v4];
   }
 
   else
   {
-    v6 = pk_Payment_log();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    v5 = pk_Payment_log(a1);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-    if (v7)
+    if (v6)
     {
-      v8 = pk_Payment_log();
+      v8 = pk_Payment_log(v7);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v10 = a1[7];
         v9 = a1[8];
-        v14 = 134218242;
-        v15 = v9;
-        v16 = 2112;
-        v17 = v10;
-        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Warning: Standalone: requesting verification options failed (result %lu). Showing error: %@", &v14, 0x16u);
+        v13 = 134218242;
+        v14 = v9;
+        v15 = 2112;
+        v16 = v10;
+        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Warning: Standalone: requesting verification options failed (result %lu). Showing error: %@", &v13, 0x16u);
       }
     }
 
     v11 = a1[4];
     v12 = [objc_opt_class() _displayableErrorWithUnderlyingVerificationError:a1[7]];
     [v11 _sendDidEncounterError:v12 requestContext:a1[6]];
-
-    v13 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -4692,42 +4706,39 @@ void __83__NPKPaymentProvisioningFlowController__updateVerificationForPass_chann
 
 void __83__NPKPaymentProvisioningFlowController__updateVerificationForPass_channel_context___block_invoke_2(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (a1[8] == 1)
   {
     v2 = a1[4];
     v3 = a1[5];
     v4 = a1[6];
-    v5 = *MEMORY[0x277D85DE8];
 
     [v2 _handleVerificationResponseForPass:v3 context:v4];
   }
 
   else
   {
-    v6 = pk_Payment_log();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    v5 = pk_Payment_log(a1);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-    if (v7)
+    if (v6)
     {
-      v8 = pk_Payment_log();
+      v8 = pk_Payment_log(v7);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v10 = a1[7];
         v9 = a1[8];
-        v14 = 134218242;
-        v15 = v9;
-        v16 = 2112;
-        v17 = v10;
-        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Warning: Standalone: requesting verification fields failed (result %lu). Showing error: %@", &v14, 0x16u);
+        v13 = 134218242;
+        v14 = v9;
+        v15 = 2112;
+        v16 = v10;
+        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Warning: Standalone: requesting verification fields failed (result %lu). Showing error: %@", &v13, 0x16u);
       }
     }
 
     v11 = a1[4];
     v12 = [objc_opt_class() _displayableErrorWithUnderlyingVerificationError:a1[7]];
     [v11 _sendDidEncounterError:v12 requestContext:a1[6]];
-
-    v13 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -4786,42 +4797,39 @@ void __81__NPKPaymentProvisioningFlowController__handleVerificationFieldsForPass
 
 void __81__NPKPaymentProvisioningFlowController__handleVerificationFieldsForPass_context___block_invoke_2(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (a1[8] == 1)
   {
     v2 = a1[4];
     v3 = a1[5];
     v4 = a1[6];
-    v5 = *MEMORY[0x277D85DE8];
 
     [v2 _handleVerificationResponseForPass:v3 context:v4];
   }
 
   else
   {
-    v6 = pk_Payment_log();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    v5 = pk_Payment_log(a1);
+    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-    if (v7)
+    if (v6)
     {
-      v8 = pk_Payment_log();
+      v8 = pk_Payment_log(v7);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v10 = a1[7];
         v9 = a1[8];
-        v14 = 134218242;
-        v15 = v9;
-        v16 = 2112;
-        v17 = v10;
-        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Warning: Standalone: requesting verification fields failed (result %lu). Showing error: %@", &v14, 0x16u);
+        v13 = 134218242;
+        v14 = v9;
+        v15 = 2112;
+        v16 = v10;
+        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Warning: Standalone: requesting verification fields failed (result %lu). Showing error: %@", &v13, 0x16u);
       }
     }
 
     v11 = a1[4];
     v12 = [objc_opt_class() _displayableErrorWithUnderlyingVerificationError:a1[7]];
     [v11 _sendDidEncounterError:v12 requestContext:a1[6]];
-
-    v13 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -4876,30 +4884,28 @@ void __80__NPKPaymentProvisioningFlowController__handleVerificationCode_forPass_
 
   else
   {
-    v4 = pk_Payment_log();
+    v4 = pk_Payment_log(a1);
     v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
     if (v5)
     {
-      v6 = pk_Payment_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = pk_Payment_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = *(a1 + 56);
-        v7 = *(a1 + 64);
+        v9 = *(a1 + 56);
+        v8 = *(a1 + 64);
         *buf = 134218242;
-        v15 = v7;
+        v15 = v8;
         v16 = 2112;
-        v17 = v8;
-        _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Warning: Standalone: submitting verification code failed (result %lu). Showing error: %@", buf, 0x16u);
+        v17 = v9;
+        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Warning: Standalone: submitting verification code failed (result %lu). Showing error: %@", buf, 0x16u);
       }
     }
 
-    v9 = *(a1 + 32);
-    v10 = [objc_opt_class() _displayableErrorWithUnderlyingVerificationError:*(a1 + 56)];
-    [v9 _sendDidEncounterError:v10 requestContext:*(a1 + 48)];
+    v10 = *(a1 + 32);
+    v11 = [objc_opt_class() _displayableErrorWithUnderlyingVerificationError:*(a1 + 56)];
+    [v10 _sendDidEncounterError:v11 requestContext:*(a1 + 48)];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_downloadAndAddUpdatedPassForPaymentPass:(id)pass completion:(id)completion
@@ -5003,7 +5009,7 @@ uint64_t __90__NPKPaymentProvisioningFlowController__downloadRemoteAssetsAndAddP
 
 - (void)_transitionBasedOnTermsForReason:(unint64_t)reason URL:(id)l requestContext:(id)context
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   lCopy = l;
   self->_termsReason = reason;
   contextCopy = context;
@@ -5023,20 +5029,20 @@ uint64_t __90__NPKPaymentProvisioningFlowController__downloadRemoteAssetsAndAddP
 
   else
   {
-    v13 = pk_Payment_log();
-    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    v14 = pk_Payment_log(v13);
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
 
-    if (v14)
+    if (v15)
     {
-      v15 = pk_Payment_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = pk_Payment_log(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         termsAcceptedOutOfBand = self->_termsAcceptedOutOfBand;
-        v19 = 138412546;
-        v20 = lCopy;
-        v21 = 1024;
-        v22 = termsAcceptedOutOfBand;
-        _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Not showing terms (termsURL %@, accepted out of band %d)", &v19, 0x12u);
+        v20 = 138412546;
+        v21 = lCopy;
+        v22 = 1024;
+        v23 = termsAcceptedOutOfBand;
+        _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: Not showing terms (termsURL %@, accepted out of band %d)", &v20, 0x12u);
       }
     }
 
@@ -5044,8 +5050,6 @@ uint64_t __90__NPKPaymentProvisioningFlowController__downloadRemoteAssetsAndAddP
     requestContext = [(NPKPaymentProvisioningFlowStepContext *)v10 requestContext];
     [(NPKPaymentProvisioningFlowController *)self acceptTerms:requestContext];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_transitionToProvisioningProgressWithRequestContext:(id)context
@@ -5062,114 +5066,115 @@ uint64_t __90__NPKPaymentProvisioningFlowController__downloadRemoteAssetsAndAddP
 
 - (void)_transitionToProvisioningForCredential:(id)credential product:(id)product requestContext:(id)context
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   credentialCopy = credential;
   productCopy = product;
   contextCopy = context;
-  if ([credentialCopy isRemoteCredential] && (objc_msgSend(credentialCopy, "remoteCredential"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "status"), v11, v12 != 1))
+  isRemoteCredential = [credentialCopy isRemoteCredential];
+  if (isRemoteCredential && ([credentialCopy remoteCredential], v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "status"), v12, v13 != 1))
   {
-    v18 = pk_General_log();
-    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
+    v19 = pk_General_log(isRemoteCredential);
+    v20 = os_log_type_enabled(v19, OS_LOG_TYPE_ERROR);
 
-    if (!v19)
+    if (!v20)
     {
       goto LABEL_9;
     }
 
-    v16 = pk_General_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = pk_General_log(v21);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       displayName = [productCopy displayName];
       longDescription = [credentialCopy longDescription];
-      v22 = 138412546;
-      v23 = displayName;
-      v24 = 2112;
-      v25 = longDescription;
-      _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_ERROR, "Error: Error: No valid provisioning methods exist for product[%@] credential [%@]", &v22, 0x16u);
+      v24 = 138412546;
+      v25 = displayName;
+      v26 = 2112;
+      v27 = longDescription;
+      _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_ERROR, "Error: Error: No valid provisioning methods exist for product[%@] credential [%@]", &v24, 0x16u);
     }
   }
 
   else
   {
-    v13 = pk_Payment_log();
-    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    v14 = pk_Payment_log(isRemoteCredential);
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
 
-    if (v14)
+    if (v15)
     {
-      v15 = pk_Payment_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = pk_Payment_log(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v22) = 0;
-        _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Single remote credential", &v22, 2u);
+        LOWORD(v24) = 0;
+        _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Single remote credential", &v24, 2u);
       }
     }
 
-    v26[0] = credentialCopy;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
-    [(NPKPaymentProvisioningFlowController *)self _handleProceedWithCredentials:v16 chosenByUser:0 requestContext:contextCopy];
+    v28[0] = credentialCopy;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+    [(NPKPaymentProvisioningFlowController *)self _handleProceedWithCredentials:v18 chosenByUser:0 requestContext:contextCopy];
   }
 
 LABEL_9:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_transitionBasedOnCredentials:(id)credentials product:(id)product requestContext:(id)context
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   credentialsCopy = credentials;
   productCopy = product;
   contextCopy = context;
-  if (![credentialsCopy count])
+  v11 = [credentialsCopy count];
+  if (!v11)
   {
-    v14 = pk_Payment_log();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    v16 = pk_Payment_log(0);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 
     if (productCopy)
     {
-      if (v15)
+      if (v17)
       {
-        v16 = pk_Payment_log();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v19 = pk_Payment_log(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           productIdentifier = [productCopy productIdentifier];
           provisioningMethodTypes = [productCopy provisioningMethodTypes];
-          v27 = 138412546;
-          v28 = productIdentifier;
-          v29 = 2112;
-          v30 = provisioningMethodTypes;
-          _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Have product with identifier %@ provisioning method types %@", &v27, 0x16u);
+          v31 = 138412546;
+          v32 = productIdentifier;
+          v33 = 2112;
+          v34 = provisioningMethodTypes;
+          _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Have product with identifier %@ provisioning method types %@", &v31, 0x16u);
         }
       }
 
       if (!NPKPaymentProvisioningSetupContextIsSetupAssistant(self->_setupContext))
       {
-        v19 = [productCopy provisioningMethodMetadataForType:*MEMORY[0x277D388D0]];
+        v22 = [productCopy provisioningMethodMetadataForType:*MEMORY[0x277D388D0]];
 
-        if (v19)
+        if (v22)
         {
           [(NPKPaymentProvisioningFlowController *)self _transitionToDigitalIssuanceForProduct:productCopy requestContext:contextCopy];
           goto LABEL_27;
         }
       }
 
-      v20 = [productCopy provisioningMethodMetadataForType:*MEMORY[0x277D388E8]];
+      v23 = [productCopy provisioningMethodMetadataForType:*MEMORY[0x277D388E8]];
 
-      if (v20)
+      if (v23)
       {
         [(NPKPaymentProvisioningFlowController *)self _transitionToReaderModeForProduct:productCopy requestContext:contextCopy];
         goto LABEL_27;
       }
 
-      v22 = pk_General_log();
-      v23 = os_log_type_enabled(v22, OS_LOG_TYPE_ERROR);
+      v26 = pk_General_log(v24);
+      v27 = os_log_type_enabled(v26, OS_LOG_TYPE_ERROR);
 
-      if (v23)
+      if (v27)
       {
-        v24 = pk_General_log();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v29 = pk_General_log(v28);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
         {
-          LOWORD(v27) = 0;
-          _os_log_impl(&dword_25B300000, v24, OS_LOG_TYPE_ERROR, "Error: Error: No valid provisioning methods exist for product; transitioning to manual entry", &v27, 2u);
+          LOWORD(v31) = 0;
+          _os_log_impl(&dword_25B300000, v29, OS_LOG_TYPE_ERROR, "Error: Error: No valid provisioning methods exist for product; transitioning to manual entry", &v31, 2u);
         }
       }
 
@@ -5177,13 +5182,13 @@ LABEL_9:
       self->_currentProduct = 0;
     }
 
-    else if (v15)
+    else if (v17)
     {
-      v21 = pk_Payment_log();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v25 = pk_Payment_log(v18);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v27) = 0;
-        _os_log_impl(&dword_25B300000, v21, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Enter Manual Entry, no credentials found", &v27, 2u);
+        LOWORD(v31) = 0;
+        _os_log_impl(&dword_25B300000, v25, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Enter Manual Entry, no credentials found", &v31, 2u);
       }
     }
 
@@ -5191,54 +5196,52 @@ LABEL_9:
     goto LABEL_27;
   }
 
-  v11 = pk_Payment_log();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  v12 = pk_Payment_log(v11);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
-  if (v12)
+  if (v13)
   {
-    v13 = pk_Payment_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = pk_Payment_log(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v27) = 0;
-      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: TransitionToRemoteCredentials Step", &v27, 2u);
+      LOWORD(v31) = 0;
+      _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: TransitionToRemoteCredentials Step", &v31, 2u);
     }
   }
 
   [(NPKPaymentProvisioningFlowController *)self _transitionToChooseCredentials:credentialsCopy product:productCopy requestContext:contextCopy];
 LABEL_27:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_transitionToChooseCredentials:(id)credentials product:(id)product requestContext:(id)context
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   credentialsCopy = credentials;
   productCopy = product;
   contextCopy = context;
-  v21 = [[NPKPaymentProvisioningFlowControllerChooseCredentialsStepContext alloc] initWithRequestContext:contextCopy];
+  v20 = [[NPKPaymentProvisioningFlowControllerChooseCredentialsStepContext alloc] initWithRequestContext:contextCopy];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   array = [MEMORY[0x277CBEB18] array];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = credentialsCopy;
-  v10 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v10 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v27;
+    v12 = *v26;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v27 != v12)
+        if (*v26 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v26 + 1) + 8 * i);
+        v14 = *(*(&v25 + 1) + 8 * i);
         remoteCredential = [v14 remoteCredential];
         identifier = [remoteCredential identifier];
         v17 = identifier;
@@ -5257,20 +5260,18 @@ LABEL_27:
         [dictionary setObject:v14 forKey:uUIDString];
       }
 
-      v11 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v11 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v11);
   }
 
-  [(NPKPaymentProvisioningFlowControllerChooseCredentialsStepContext *)v21 setFlowIdentifiers:array];
-  [(NPKPaymentProvisioningFlowControllerChooseCredentialsStepContext *)v21 setFlowIdentifierToCredential:dictionary];
-  [(NPKPaymentProvisioningFlowControllerChooseCredentialsStepContext *)v21 setAllowsManualEntry:1];
-  [(NPKPaymentProvisioningFlowControllerChooseCredentialsStepContext *)v21 setProduct:productCopy];
-  [(NPKPaymentProvisioningFlowControllerChooseCredentialsStepContext *)v21 setCredentials:obj];
-  [(NPKPaymentProvisioningFlowController *)self _performTransitionToStep:140 withContext:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  [(NPKPaymentProvisioningFlowControllerChooseCredentialsStepContext *)v20 setFlowIdentifiers:array];
+  [(NPKPaymentProvisioningFlowControllerChooseCredentialsStepContext *)v20 setFlowIdentifierToCredential:dictionary];
+  [(NPKPaymentProvisioningFlowControllerChooseCredentialsStepContext *)v20 setAllowsManualEntry:1];
+  [(NPKPaymentProvisioningFlowControllerChooseCredentialsStepContext *)v20 setProduct:productCopy];
+  [(NPKPaymentProvisioningFlowControllerChooseCredentialsStepContext *)v20 setCredentials:obj];
+  [(NPKPaymentProvisioningFlowController *)self _performTransitionToStep:140 withContext:v20];
 }
 
 - (void)_transitionToAppleBalanceAccountDetailsWithProduct:(id)product requestContext:(id)context
@@ -5385,34 +5386,31 @@ uint64_t __85__NPKPaymentProvisioningFlowController__curatedDefaultPaymentSetupP
   }
 
   v24 = [_curatedDefaultPaymentSetupProvisioningFields2 count];
-  v25 = pk_Payment_log();
+  v25 = pk_Payment_log(v24);
   v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
 
   if (v26)
   {
-    v27 = pk_Payment_log();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v28 = pk_Payment_log(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
       v37 = v24;
-      _os_log_impl(&dword_25B300000, v27, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: There are %lu fields required in the Manual Entry", buf, 0xCu);
+      _os_log_impl(&dword_25B300000, v28, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: There are %lu fields required in the Manual Entry", buf, 0xCu);
     }
   }
 
-  v28 = [[NPKPaymentProvisioningFlowControllerManualEntryStepContext alloc] initWithRequestContext:entryCopy];
-  [(NPKPaymentProvisioningFlowControllerManualEntryStepContext *)v28 setCameraFirstProvisioningEnabled:v30];
-  [(NPKPaymentProvisioningFlowControllerManualEntryStepContext *)v28 setSetupFields:_curatedDefaultPaymentSetupProvisioningFields2];
-  [(NPKPaymentProvisioningFlowController *)self _performTransitionToStep:180 withContext:v28];
-
-  v29 = *MEMORY[0x277D85DE8];
+  v29 = [[NPKPaymentProvisioningFlowControllerManualEntryStepContext alloc] initWithRequestContext:entryCopy];
+  [(NPKPaymentProvisioningFlowControllerManualEntryStepContext *)v29 setCameraFirstProvisioningEnabled:v30];
+  [(NPKPaymentProvisioningFlowControllerManualEntryStepContext *)v29 setSetupFields:_curatedDefaultPaymentSetupProvisioningFields2];
+  [(NPKPaymentProvisioningFlowController *)self _performTransitionToStep:180 withContext:v29];
 }
 
 - (id)_credentialReadonlyFieldIdentifiers
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277D38920];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277D38920];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -5452,7 +5450,7 @@ uint64_t __79__NPKPaymentProvisioningFlowController__secondaryFilteredFields_for
 
 - (void)_transitionToSecondaryManualEntryWithFields:(id)fields credential:(id)credential requestContext:(id)context
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   credentialCopy = credential;
   fieldsModel = self->_fieldsModel;
   contextCopy = context;
@@ -5462,83 +5460,81 @@ uint64_t __79__NPKPaymentProvisioningFlowController__secondaryFilteredFields_for
   {
     v12 = [[NPKPaymentProvisioningFlowControllerLocalDeviceManualEntryStepContext alloc] initWithRequestContext:contextCopy];
 
-    v13 = pk_Payment_log();
-    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    v14 = pk_Payment_log(v13);
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
 
-    if (v14)
+    if (v15)
     {
-      v15 = pk_Payment_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = pk_Payment_log(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         incompletePaymentSetupFields = [(PKPaymentSetupFieldsModel *)self->_fieldsModel incompletePaymentSetupFields];
-        v28 = 138412546;
-        v29 = credentialCopy;
-        v30 = 2048;
-        v31 = [incompletePaymentSetupFields count];
-        _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Entered Local Device Manual Entry for credential %@. There are %lu incomplete fields.", &v28, 0x16u);
+        v31 = 138412546;
+        v32 = credentialCopy;
+        v33 = 2048;
+        v34 = [incompletePaymentSetupFields count];
+        _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Entered Local Device Manual Entry for credential %@. There are %lu incomplete fields.", &v31, 0x16u);
       }
 
-      v17 = 192;
+      v19 = 192;
 LABEL_10:
 
       goto LABEL_13;
     }
 
-    v17 = 192;
+    v19 = 192;
   }
 
   else
   {
     v12 = [[NPKPaymentProvisioningFlowControllerSecondaryManualEntryStepContext alloc] initWithRequestContext:contextCopy];
 
-    v18 = pk_Payment_log();
-    v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
+    v21 = pk_Payment_log(v20);
+    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
 
-    if (v19)
+    if (v22)
     {
-      v15 = pk_Payment_log();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v17 = pk_Payment_log(v23);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         incompletePaymentSetupFields2 = [(PKPaymentSetupFieldsModel *)self->_fieldsModel incompletePaymentSetupFields];
-        v28 = 138412546;
-        v29 = credentialCopy;
-        v30 = 2048;
-        v31 = [incompletePaymentSetupFields2 count];
-        _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Entered Secondary Manual Entry for credential %@. There are %lu incomplete fields.", &v28, 0x16u);
+        v31 = 138412546;
+        v32 = credentialCopy;
+        v33 = 2048;
+        v34 = [incompletePaymentSetupFields2 count];
+        _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Entered Secondary Manual Entry for credential %@. There are %lu incomplete fields.", &v31, 0x16u);
       }
 
-      v17 = 190;
+      v19 = 190;
       goto LABEL_10;
     }
 
-    v17 = 190;
+    v19 = 190;
   }
 
 LABEL_13:
   paymentSetupFields = [(PKPaymentSetupFieldsModel *)self->_fieldsModel paymentSetupFields];
-  v22 = [(NPKPaymentProvisioningFlowController *)self _filteredPaymentSetupFields:paymentSetupFields forLocalDeviceEntry:v11];
+  v26 = [(NPKPaymentProvisioningFlowController *)self _filteredPaymentSetupFields:paymentSetupFields forLocalDeviceEntry:v11];
 
-  v23 = [(NPKPaymentProvisioningFlowController *)self _secondaryFilteredFields:v22 forCredential:credentialCopy];
-  [(NPKPaymentProvisioningFlowControllerManualEntryStepContext *)v12 setSetupFields:v23];
+  v27 = [(NPKPaymentProvisioningFlowController *)self _secondaryFilteredFields:v26 forCredential:credentialCopy];
+  [(NPKPaymentProvisioningFlowControllerManualEntryStepContext *)v12 setSetupFields:v27];
   [(NPKPaymentProvisioningFlowControllerSecondaryManualEntryStepContext *)v12 setCredential:credentialCopy];
   credentialProvisioningQueue = [(PKPaymentProvisioningController *)self->_provisioningController credentialProvisioningQueue];
-  v25 = [credentialProvisioningQueue count];
+  v29 = [credentialProvisioningQueue count];
 
-  if (v25)
+  if (v29)
   {
-    v26 = 0;
+    v30 = 0;
   }
 
   else
   {
-    v26 = credentialCopy != 0;
+    v30 = credentialCopy != 0;
   }
 
-  [(NPKPaymentProvisioningFlowStepContext *)v12 setAllowsAddLater:v25 != 0];
-  [(NPKPaymentProvisioningFlowControllerSecondaryManualEntryStepContext *)v12 setAllowsAddingDifferentCard:v26];
-  [(NPKPaymentProvisioningFlowController *)self _performTransitionToStep:v17 withContext:v12];
-
-  v27 = *MEMORY[0x277D85DE8];
+  [(NPKPaymentProvisioningFlowStepContext *)v12 setAllowsAddLater:v29 != 0];
+  [(NPKPaymentProvisioningFlowControllerSecondaryManualEntryStepContext *)v12 setAllowsAddingDifferentCard:v30];
+  [(NPKPaymentProvisioningFlowController *)self _performTransitionToStep:v19 withContext:v12];
 }
 
 - (void)_transitionToProductDisambiguationWithProducts:(id)products requestContext:(id)context
@@ -5557,27 +5553,25 @@ LABEL_13:
   itemsCopy = items;
   contextCopy = context;
   passCopy = pass;
-  v11 = pk_Payment_log();
+  v11 = pk_Payment_log(passCopy);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
   if (v12)
   {
-    v13 = pk_Payment_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = pk_Payment_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v16 = 134217984;
       v17 = [itemsCopy count];
-      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Entered more information step. There are %lu more info items", &v16, 0xCu);
+      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Entered more information step. There are %lu more info items", &v16, 0xCu);
     }
   }
 
-  v14 = [[NPKPaymentProvisioningFlowControllerMoreInformationStepContext alloc] initWithRequestContext:contextCopy];
+  v15 = [[NPKPaymentProvisioningFlowControllerMoreInformationStepContext alloc] initWithRequestContext:contextCopy];
 
-  [(NPKPaymentProvisioningFlowControllerMoreInformationStepContext *)v14 setPaymentPass:passCopy];
-  [(NPKPaymentProvisioningFlowControllerMoreInformationStepContext *)v14 setMoreInfoItems:itemsCopy];
-  [(NPKPaymentProvisioningFlowController *)self _performTransitionToStep:157 withContext:v14];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [(NPKPaymentProvisioningFlowControllerMoreInformationStepContext *)v15 setPaymentPass:passCopy];
+  [(NPKPaymentProvisioningFlowControllerMoreInformationStepContext *)v15 setMoreInfoItems:itemsCopy];
+  [(NPKPaymentProvisioningFlowController *)self _performTransitionToStep:157 withContext:v15];
 }
 
 - (void)_transitionToVerificationChannelsWithPaymentPass:(id)pass channels:(id)channels requestContext:(id)context
@@ -5586,27 +5580,25 @@ LABEL_13:
   channelsCopy = channels;
   contextCopy = context;
   passCopy = pass;
-  v11 = pk_Payment_log();
+  v11 = pk_Payment_log(passCopy);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
   if (v12)
   {
-    v13 = pk_Payment_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = pk_Payment_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v16 = 134217984;
       v17 = [channelsCopy count];
-      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Entered verification options step. There are %lu channels", &v16, 0xCu);
+      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Entered verification options step. There are %lu channels", &v16, 0xCu);
     }
   }
 
-  v14 = [[NPKPaymentProvisioningFlowControllerIssuerVerificationChannelsStepContext alloc] initWithRequestContext:contextCopy];
+  v15 = [[NPKPaymentProvisioningFlowControllerIssuerVerificationChannelsStepContext alloc] initWithRequestContext:contextCopy];
 
-  [(NPKPaymentProvisioningFlowControllerIssuerVerificationChannelsStepContext *)v14 setPaymentPass:passCopy];
-  [(NPKPaymentProvisioningFlowControllerIssuerVerificationChannelsStepContext *)v14 setVerificationChannels:channelsCopy];
-  [(NPKPaymentProvisioningFlowController *)self _performTransitionToStep:230 withContext:v14];
-
-  v15 = *MEMORY[0x277D85DE8];
+  [(NPKPaymentProvisioningFlowControllerIssuerVerificationChannelsStepContext *)v15 setPaymentPass:passCopy];
+  [(NPKPaymentProvisioningFlowControllerIssuerVerificationChannelsStepContext *)v15 setVerificationChannels:channelsCopy];
+  [(NPKPaymentProvisioningFlowController *)self _performTransitionToStep:230 withContext:v15];
 }
 
 - (void)_transitionToVerificationFieldsWithPaymentPass:(id)pass fields:(id)fields requestContext:(id)context
@@ -5616,27 +5608,26 @@ LABEL_13:
   fieldsCopy = fields;
   passCopy = pass;
   v11 = [fieldsCopy count];
-  v12 = pk_Payment_log();
+  v12 = pk_Payment_log(v11);
   v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
 
   if (v13)
   {
-    v14 = pk_Payment_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = pk_Payment_log(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v17 = 134217984;
       v18 = v11;
-      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Entered verification fields step. There are %lu fields required", &v17, 0xCu);
+      _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Entered verification fields step. There are %lu fields required", &v17, 0xCu);
     }
   }
 
-  v15 = [[NPKPaymentProvisioningFlowControllerIssuerVerificationFieldsStepContext alloc] initWithRequestContext:contextCopy];
+  v16 = [[NPKPaymentProvisioningFlowControllerIssuerVerificationFieldsStepContext alloc] initWithRequestContext:contextCopy];
 
-  [(NPKPaymentProvisioningFlowControllerIssuerVerificationFieldsStepContext *)v15 setPaymentPass:passCopy];
-  [(NPKPaymentProvisioningFlowControllerIssuerVerificationFieldsStepContext *)v15 setVerificationFields:fieldsCopy];
+  [(NPKPaymentProvisioningFlowControllerIssuerVerificationFieldsStepContext *)v16 setPaymentPass:passCopy];
+  [(NPKPaymentProvisioningFlowControllerIssuerVerificationFieldsStepContext *)v16 setVerificationFields:fieldsCopy];
 
-  [(NPKPaymentProvisioningFlowController *)self _performTransitionToStep:240 withContext:v15];
-  v16 = *MEMORY[0x277D85DE8];
+  [(NPKPaymentProvisioningFlowController *)self _performTransitionToStep:240 withContext:v16];
 }
 
 - (void)_transitionToVerificationCodeWithPaymentPass:(id)pass channel:(id)channel requestContext:(id)context
@@ -5645,45 +5636,43 @@ LABEL_13:
   channelCopy = channel;
   contextCopy = context;
   passCopy = pass;
-  v11 = pk_Payment_log();
+  v11 = pk_Payment_log(passCopy);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
 
   if (v12)
   {
-    v13 = pk_Payment_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = pk_Payment_log(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = [channelCopy description];
+      v15 = [channelCopy description];
       v17 = 136315138;
-      uTF8String = [v14 UTF8String];
-      _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Entered verification code step with channel %s", &v17, 0xCu);
+      uTF8String = [v15 UTF8String];
+      _os_log_impl(&dword_25B300000, v14, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: Entered verification code step with channel %s", &v17, 0xCu);
     }
   }
 
-  v15 = [[NPKPaymentProvisioningFlowControllerIssuerVerificationCodeStepContext alloc] initWithRequestContext:contextCopy];
+  v16 = [[NPKPaymentProvisioningFlowControllerIssuerVerificationCodeStepContext alloc] initWithRequestContext:contextCopy];
 
-  [(NPKPaymentProvisioningFlowControllerIssuerVerificationCodeStepContext *)v15 setPaymentPass:passCopy];
-  [(NPKPaymentProvisioningFlowControllerIssuerVerificationCodeStepContext *)v15 setVerificationChannel:channelCopy];
-  [(NPKPaymentProvisioningFlowController *)self _performTransitionToStep:250 withContext:v15];
-
-  v16 = *MEMORY[0x277D85DE8];
+  [(NPKPaymentProvisioningFlowControllerIssuerVerificationCodeStepContext *)v16 setPaymentPass:passCopy];
+  [(NPKPaymentProvisioningFlowControllerIssuerVerificationCodeStepContext *)v16 setVerificationChannel:channelCopy];
+  [(NPKPaymentProvisioningFlowController *)self _performTransitionToStep:250 withContext:v16];
 }
 
 - (void)_handleEndOfProvisioningFlowForCurrentPass:(id)pass requestContext:(id)context
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   passCopy = pass;
   contextCopy = context;
-  v8 = pk_Payment_log();
+  v8 = pk_Payment_log(contextCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = pk_Payment_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_Payment_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v18[0]) = 0;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: End of provisioning flow for current card", v18, 2u);
+      LOWORD(v20[0]) = 0;
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Standalone: End of provisioning flow for current card", v20, 2u);
     }
   }
 
@@ -5691,33 +5680,32 @@ LABEL_13:
   credentialProvisioningQueue = [(PKPaymentProvisioningController *)self->_provisioningController credentialProvisioningQueue];
   remaining = [credentialProvisioningQueue remaining];
   nextCredentialToProvision = [credentialProvisioningQueue nextCredentialToProvision];
+  v15 = nextCredentialToProvision;
   if (nextCredentialToProvision)
   {
-    v14 = pk_Payment_log();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    v16 = pk_Payment_log(nextCredentialToProvision);
+    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
 
-    if (v15)
+    if (v17)
     {
-      v16 = pk_Payment_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v19 = pk_Payment_log(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v18[0] = 67109378;
-        v18[1] = remaining;
-        v19 = 2112;
-        v20 = nextCredentialToProvision;
-        _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: %d credentials remaining; moving to credential: %@", v18, 0x12u);
+        v20[0] = 67109378;
+        v20[1] = remaining;
+        v21 = 2112;
+        v22 = v15;
+        _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Notice: %d credentials remaining; moving to credential: %@", v20, 0x12u);
       }
     }
 
-    [(NPKPaymentProvisioningFlowController *)self _startProvisioningForCredential:nextCredentialToProvision requestContext:contextCopy];
+    [(NPKPaymentProvisioningFlowController *)self _startProvisioningForCredential:v15 requestContext:contextCopy];
   }
 
   else
   {
     [(NPKPaymentProvisioningFlowController *)self _endProvisioningFlowWithSuccessForPass:passCopy requestContext:contextCopy];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_endProvisioningFlowWithSuccessForPass:(id)pass requestContext:(id)context
@@ -5831,36 +5819,502 @@ LABEL_23:
   [(NPKPaymentProvisioningFlowController *)self _sendDidTransitionFromStep:currentStep toStep:self->_currentStep withContext:contextCopy];
 }
 
+- (void)_sendDidTransitionFromStep:(int)step toStep:(int)toStep withContext:(id)context
+{
+  v5 = *&toStep;
+  v6 = *&step;
+  v25 = *MEMORY[0x277D85DE8];
+  contextCopy = context;
+  v9 = pk_Payment_log(contextCopy);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+
+  if (v10)
+  {
+    v12 = pk_Payment_log(v11);
+    if (!os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+LABEL_148:
+
+      goto LABEL_149;
+    }
+
+    if (v6 <= 164)
+    {
+      if (v6 > 139)
+      {
+        if (v6 <= 149)
+        {
+          switch(v6)
+          {
+            case 0x8C:
+              v13 = @"ChooseCredentials";
+              goto LABEL_74;
+            case 0x90:
+              v13 = @"ChooseTransitProductType";
+              goto LABEL_74;
+            case 0x91:
+              v13 = @"ChooseServiceProviderProducts";
+              goto LABEL_74;
+          }
+        }
+
+        else if (v6 > 156)
+        {
+          if (v6 == 157)
+          {
+            v13 = @"MoreInformation";
+            goto LABEL_74;
+          }
+
+          if (v6 == 160)
+          {
+            v13 = @"ReaderModeEntry";
+            goto LABEL_74;
+          }
+        }
+
+        else
+        {
+          if (v6 == 150)
+          {
+            v13 = @"DigitalIssuanceAmount";
+            goto LABEL_74;
+          }
+
+          if (v6 == 155)
+          {
+            v13 = @"DigitalIssuancePayment";
+            goto LABEL_74;
+          }
+        }
+      }
+
+      else if (v6 <= 129)
+      {
+        switch(v6)
+        {
+          case 'd':
+            v13 = @"Initialized";
+            goto LABEL_74;
+          case 'n':
+            v13 = @"Preconditions";
+            goto LABEL_74;
+          case 'x':
+            v13 = @"Welcome";
+            goto LABEL_74;
+        }
+      }
+
+      else if (v6 > 136)
+      {
+        if (v6 == 137)
+        {
+          v13 = @"ChooseTransitProduct";
+          goto LABEL_74;
+        }
+
+        if (v6 == 138)
+        {
+          v13 = @"ChooseEMoneyProduct";
+          goto LABEL_74;
+        }
+      }
+
+      else
+      {
+        if (v6 == 130)
+        {
+          v13 = @"ChooseFlow";
+          goto LABEL_74;
+        }
+
+        if (v6 == 135)
+        {
+          v13 = @"ChooseProduct";
+          goto LABEL_74;
+        }
+      }
+    }
+
+    else if (v6 <= 199)
+    {
+      if (v6 <= 191)
+      {
+        switch(v6)
+        {
+          case 0xA5:
+            v13 = @"ReaderModeIngestion";
+            goto LABEL_74;
+          case 0xB4:
+            v13 = @"ManualEntry";
+            goto LABEL_74;
+          case 0xBE:
+            v13 = @"SecondaryManualEntry";
+            goto LABEL_74;
+        }
+      }
+
+      else if (v6 > 194)
+      {
+        if (v6 == 195)
+        {
+          v13 = @"ProductDisambiguation";
+          goto LABEL_74;
+        }
+
+        if (v6 == 197)
+        {
+          v13 = @"PasscodeUpgrade";
+          goto LABEL_74;
+        }
+      }
+
+      else
+      {
+        if (v6 == 192)
+        {
+          v13 = @"LocalDeviceManualEntry";
+          goto LABEL_74;
+        }
+
+        if (v6 == 193)
+        {
+          v13 = @"LocalDeviceManualEntryProgress";
+          goto LABEL_74;
+        }
+      }
+    }
+
+    else if (v6 > 239)
+    {
+      if (v6 > 259)
+      {
+        if (v6 == 260)
+        {
+          v13 = @"AppleBalanceAccountDetails";
+          goto LABEL_74;
+        }
+
+        if (v6 == 300)
+        {
+          v13 = @"GetIssuerApplicationAddRequest";
+          goto LABEL_74;
+        }
+      }
+
+      else
+      {
+        if (v6 == 240)
+        {
+          v13 = @"IssuerVerificationFields";
+          goto LABEL_74;
+        }
+
+        if (v6 == 250)
+        {
+          v13 = @"IssuerVerificationCode";
+          goto LABEL_74;
+        }
+      }
+    }
+
+    else if (v6 > 219)
+    {
+      if (v6 == 220)
+      {
+        v13 = @"ProvisioningResult";
+        goto LABEL_74;
+      }
+
+      if (v6 == 230)
+      {
+        v13 = @"IssuerVerificationChannels";
+        goto LABEL_74;
+      }
+    }
+
+    else
+    {
+      if (v6 == 200)
+      {
+        v13 = @"TermsAndConditions";
+        goto LABEL_74;
+      }
+
+      if (v6 == 210)
+      {
+        v13 = @"ProvisioningProgress";
+        goto LABEL_74;
+      }
+    }
+
+    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v6];
+LABEL_74:
+    v14 = v13;
+    if (v5 <= 164)
+    {
+      if (v5 > 139)
+      {
+        if (v5 <= 149)
+        {
+          switch(v5)
+          {
+            case 0x8C:
+              v15 = @"ChooseCredentials";
+              goto LABEL_145;
+            case 0x90:
+              v15 = @"ChooseTransitProductType";
+              goto LABEL_145;
+            case 0x91:
+              v15 = @"ChooseServiceProviderProducts";
+              goto LABEL_145;
+          }
+        }
+
+        else if (v5 > 156)
+        {
+          if (v5 == 157)
+          {
+            v15 = @"MoreInformation";
+            goto LABEL_145;
+          }
+
+          if (v5 == 160)
+          {
+            v15 = @"ReaderModeEntry";
+            goto LABEL_145;
+          }
+        }
+
+        else
+        {
+          if (v5 == 150)
+          {
+            v15 = @"DigitalIssuanceAmount";
+            goto LABEL_145;
+          }
+
+          if (v5 == 155)
+          {
+            v15 = @"DigitalIssuancePayment";
+            goto LABEL_145;
+          }
+        }
+      }
+
+      else if (v5 <= 129)
+      {
+        switch(v5)
+        {
+          case 'd':
+            v15 = @"Initialized";
+            goto LABEL_145;
+          case 'n':
+            v15 = @"Preconditions";
+            goto LABEL_145;
+          case 'x':
+            v15 = @"Welcome";
+            goto LABEL_145;
+        }
+      }
+
+      else if (v5 > 136)
+      {
+        if (v5 == 137)
+        {
+          v15 = @"ChooseTransitProduct";
+          goto LABEL_145;
+        }
+
+        if (v5 == 138)
+        {
+          v15 = @"ChooseEMoneyProduct";
+          goto LABEL_145;
+        }
+      }
+
+      else
+      {
+        if (v5 == 130)
+        {
+          v15 = @"ChooseFlow";
+          goto LABEL_145;
+        }
+
+        if (v5 == 135)
+        {
+          v15 = @"ChooseProduct";
+          goto LABEL_145;
+        }
+      }
+    }
+
+    else if (v5 <= 199)
+    {
+      if (v5 <= 191)
+      {
+        switch(v5)
+        {
+          case 0xA5:
+            v15 = @"ReaderModeIngestion";
+            goto LABEL_145;
+          case 0xB4:
+            v15 = @"ManualEntry";
+            goto LABEL_145;
+          case 0xBE:
+            v15 = @"SecondaryManualEntry";
+            goto LABEL_145;
+        }
+      }
+
+      else if (v5 > 194)
+      {
+        if (v5 == 195)
+        {
+          v15 = @"ProductDisambiguation";
+          goto LABEL_145;
+        }
+
+        if (v5 == 197)
+        {
+          v15 = @"PasscodeUpgrade";
+          goto LABEL_145;
+        }
+      }
+
+      else
+      {
+        if (v5 == 192)
+        {
+          v15 = @"LocalDeviceManualEntry";
+          goto LABEL_145;
+        }
+
+        if (v5 == 193)
+        {
+          v15 = @"LocalDeviceManualEntryProgress";
+          goto LABEL_145;
+        }
+      }
+    }
+
+    else if (v5 > 239)
+    {
+      if (v5 > 259)
+      {
+        if (v5 == 260)
+        {
+          v15 = @"AppleBalanceAccountDetails";
+          goto LABEL_145;
+        }
+
+        if (v5 == 300)
+        {
+          v15 = @"GetIssuerApplicationAddRequest";
+          goto LABEL_145;
+        }
+      }
+
+      else
+      {
+        if (v5 == 240)
+        {
+          v15 = @"IssuerVerificationFields";
+          goto LABEL_145;
+        }
+
+        if (v5 == 250)
+        {
+          v15 = @"IssuerVerificationCode";
+          goto LABEL_145;
+        }
+      }
+    }
+
+    else if (v5 > 219)
+    {
+      if (v5 == 220)
+      {
+        v15 = @"ProvisioningResult";
+        goto LABEL_145;
+      }
+
+      if (v5 == 230)
+      {
+        v15 = @"IssuerVerificationChannels";
+        goto LABEL_145;
+      }
+    }
+
+    else
+    {
+      if (v5 == 200)
+      {
+        v15 = @"TermsAndConditions";
+        goto LABEL_145;
+      }
+
+      if (v5 == 210)
+      {
+        v15 = @"ProvisioningProgress";
+LABEL_145:
+        v16 = @"<none>";
+        *buf = 138412802;
+        if (contextCopy)
+        {
+          v16 = contextCopy;
+        }
+
+        v20 = v14;
+        v21 = 2112;
+        v22 = v15;
+        v23 = 2112;
+        v24 = v16;
+        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, "Notice: Flow controller change step from %@ to %@ with context: %@", buf, 0x20u);
+
+        goto LABEL_148;
+      }
+    }
+
+    v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", v5];
+    goto LABEL_145;
+  }
+
+LABEL_149:
+  v17 = NPKAnalyticsEventForProvisioningFlowStepTransition(v6, v5, contextCopy);
+  [MEMORY[0x277D37D28] subject:@"provisioning" sendEvent:v17];
+  delegate = [(NPKPaymentProvisioningFlowController *)self delegate];
+  [delegate paymentProvisioningFlowController:self didTransitionFromStep:v6 toStep:v5 withContext:contextCopy];
+}
+
 - (void)_sendDidEncounterError:(id)error requestContext:(id)context
 {
   v17 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   contextCopy = context;
-  v8 = pk_Payment_log();
+  v8 = pk_Payment_log(contextCopy);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
 
   if (v9)
   {
-    v10 = pk_Payment_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pk_Payment_log(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v15 = 138412290;
       v16 = errorCopy;
-      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Flow controller encountered error: %@", &v15, 0xCu);
+      _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Notice: Flow controller encountered error: %@", &v15, 0xCu);
     }
   }
 
   if (errorCopy)
   {
-    v11 = MEMORY[0x277D37D28];
-    v12 = NPKAnalyticsEventForError(@"nonFatalError", errorCopy);
-    [v11 subject:@"provisioning" sendEvent:v12];
+    v12 = MEMORY[0x277D37D28];
+    v13 = NPKAnalyticsEventForError(@"nonFatalError", errorCopy);
+    [v12 subject:@"provisioning" sendEvent:v13];
   }
 
   delegate = [(NPKPaymentProvisioningFlowController *)self delegate];
   [delegate paymentProvisioningFlowController:self didEncounterError:errorCopy requestContext:contextCopy];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_requiredFieldsFromRequirementsResponseExcludingLocalFields
@@ -5869,24 +6323,25 @@ LABEL_23:
   v4 = _requiredFieldsFromRequirementsResponse;
   if (self->_separateLocalDeviceEntryRequired)
   {
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __99__NPKPaymentProvisioningFlowController__requiredFieldsFromRequirementsResponseExcludingLocalFields__block_invoke;
-    v11[3] = &unk_2799466E0;
-    v11[4] = self;
-    v5 = [_requiredFieldsFromRequirementsResponse pk_objectsPassingTest:v11];
-    if ((PKEqualObjects() & 1) == 0)
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __99__NPKPaymentProvisioningFlowController__requiredFieldsFromRequirementsResponseExcludingLocalFields__block_invoke;
+    v13[3] = &unk_2799466E0;
+    v13[4] = self;
+    v5 = [_requiredFieldsFromRequirementsResponse pk_objectsPassingTest:v13];
+    v6 = PKEqualObjects();
+    if ((v6 & 1) == 0)
     {
-      v6 = pk_Payment_log();
-      v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+      v7 = pk_Payment_log(v6);
+      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-      if (v7)
+      if (v8)
       {
-        v8 = pk_Payment_log();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v10 = pk_Payment_log(v9);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
-          *v10 = 0;
-          _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Filtered required fields based on local device entry requirement", v10, 2u);
+          *v12 = 0;
+          _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Filtered required fields based on local device entry requirement", v12, 2u);
         }
       }
     }
@@ -5920,60 +6375,61 @@ LABEL_23:
 
 - (BOOL)_fieldsModelCompleteExceptForLocalFields:(id)fields
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   if (self->_separateLocalDeviceEntryRequired)
   {
-    v28 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v29 = 0u;
-    v26 = 0u;
-    v27 = 0u;
+    v30 = 0u;
     paymentSetupFields = [fields paymentSetupFields];
-    v5 = [paymentSetupFields countByEnumeratingWithState:&v26 objects:v33 count:16];
+    v5 = [paymentSetupFields countByEnumeratingWithState:&v29 objects:v36 count:16];
     if (v5)
     {
       v7 = v5;
       v8 = 0;
       v9 = 0;
-      v10 = *v27;
+      v10 = *v30;
       *&v6 = 138412546;
-      v25 = v6;
+      v28 = v6;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v27 != v10)
+          if (*v30 != v10)
           {
             objc_enumerationMutation(paymentSetupFields);
           }
 
-          v12 = *(*(&v26 + 1) + 8 * i);
-          if (([v12 submissionStringMeetsAllRequirements] & 1) == 0)
+          v12 = *(*(&v29 + 1) + 8 * i);
+          submissionStringMeetsAllRequirements = [v12 submissionStringMeetsAllRequirements];
+          if ((submissionStringMeetsAllRequirements & 1) == 0)
           {
-            v13 = pk_Payment_log();
-            v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+            v14 = pk_Payment_log(submissionStringMeetsAllRequirements);
+            v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
 
-            if (v14)
+            if (v15)
             {
-              v15 = pk_Payment_log();
-              if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+              v17 = pk_Payment_log(v16);
+              if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
               {
                 identifier = [v12 identifier];
-                v17 = [(NPKPaymentProvisioningFlowController *)self _fieldRequiresLocalEntry:v12];
-                *buf = v25;
-                *v31 = identifier;
-                *&v31[8] = 1024;
-                v32[0] = v17;
-                _os_log_impl(&dword_25B300000, v15, OS_LOG_TYPE_DEFAULT, "Notice: Field %@ is incomplete requires local entry %d", buf, 0x12u);
+                v19 = [(NPKPaymentProvisioningFlowController *)self _fieldRequiresLocalEntry:v12];
+                *buf = v28;
+                *v34 = identifier;
+                *&v34[8] = 1024;
+                v35[0] = v19;
+                _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, "Notice: Field %@ is incomplete requires local entry %d", buf, 0x12u);
               }
             }
 
-            v18 = [(NPKPaymentProvisioningFlowController *)self _fieldRequiresLocalEntry:v12];
-            v8 |= !v18;
-            v9 |= v18;
+            v20 = [(NPKPaymentProvisioningFlowController *)self _fieldRequiresLocalEntry:v12];
+            v8 |= !v20;
+            v9 |= v20;
           }
         }
 
-        v7 = [paymentSetupFields countByEnumeratingWithState:&v26 objects:v33 count:16];
+        v7 = [paymentSetupFields countByEnumeratingWithState:&v29 objects:v36 count:16];
       }
 
       while (v7);
@@ -5985,33 +6441,32 @@ LABEL_23:
       v9 = 0;
     }
 
-    v19 = v9 & (v8 ^ 1);
-    v20 = pk_Payment_log();
-    v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+    v21 = v9 & (v8 ^ 1);
+    v23 = pk_Payment_log(v22);
+    v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
 
-    if (v21)
+    if (v24)
     {
-      v22 = pk_Payment_log();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+      v26 = pk_Payment_log(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109632;
-        *v31 = v19 & 1;
-        *&v31[4] = 1024;
-        *&v31[6] = v9 & 1;
-        LOWORD(v32[0]) = 1024;
-        *(v32 + 2) = v8 & 1;
-        _os_log_impl(&dword_25B300000, v22, OS_LOG_TYPE_DEFAULT, "Notice: Complete except for local fields %d local %d non local %d", buf, 0x14u);
+        *v34 = v21 & 1;
+        *&v34[4] = 1024;
+        *&v34[6] = v9 & 1;
+        LOWORD(v35[0]) = 1024;
+        *(v35 + 2) = v8 & 1;
+        _os_log_impl(&dword_25B300000, v26, OS_LOG_TYPE_DEFAULT, "Notice: Complete except for local fields %d local %d non local %d", buf, 0x14u);
       }
     }
   }
 
   else
   {
-    v19 = 0;
+    v21 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-  return v19 & 1;
+  return v21 & 1;
 }
 
 - (BOOL)_fieldRequiresLocalEntry:(id)entry
@@ -6051,13 +6506,13 @@ LABEL_23:
 {
   v30 = *MEMORY[0x277D85DE8];
   requirementsResponse = [(PKPaymentProvisioningController *)self->_provisioningController requirementsResponse];
-  v4 = pk_Payment_log();
+  v4 = pk_Payment_log(requirementsResponse);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
   if (v5)
   {
-    v6 = pk_Payment_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       status = [requirementsResponse status];
       productIdentifier = [(PKPaymentProvisioningController *)self->_provisioningController productIdentifier];
@@ -6065,7 +6520,7 @@ LABEL_23:
       v27 = status;
       v28 = 2112;
       v29 = productIdentifier;
-      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: Determining required fields for response status %ld and product identifier %@", buf, 0x16u);
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Determining required fields for response status %ld and product identifier %@", buf, 0x16u);
     }
   }
 
@@ -6074,40 +6529,40 @@ LABEL_23:
     requiredPaymentSetupFields = [requirementsResponse requiredPaymentSetupFields];
   }
 
-  else if ([requirementsResponse status] == 2 && (-[PKPaymentProvisioningController productIdentifier](self->_provisioningController, "productIdentifier"), v10 = objc_claimAutoreleasedReturnValue(), v10, v10))
+  else if ([requirementsResponse status] == 2 && (-[PKPaymentProvisioningController productIdentifier](self->_provisioningController, "productIdentifier"), v11 = objc_claimAutoreleasedReturnValue(), v11, v11))
   {
     v23 = 0u;
     v24 = 0u;
     v21 = 0u;
     v22 = 0u;
     possibleProducts = [requirementsResponse possibleProducts];
-    v12 = [possibleProducts countByEnumeratingWithState:&v21 objects:v25 count:16];
-    if (v12)
+    v13 = [possibleProducts countByEnumeratingWithState:&v21 objects:v25 count:16];
+    if (v13)
     {
-      v13 = *v22;
+      v14 = *v22;
       while (2)
       {
-        for (i = 0; i != v12; i = i + 1)
+        for (i = 0; i != v13; i = i + 1)
         {
-          if (*v22 != v13)
+          if (*v22 != v14)
           {
             objc_enumerationMutation(possibleProducts);
           }
 
-          v15 = *(*(&v21 + 1) + 8 * i);
-          productIdentifier2 = [v15 productIdentifier];
+          v16 = *(*(&v21 + 1) + 8 * i);
+          productIdentifier2 = [v16 productIdentifier];
           productIdentifier3 = [(PKPaymentProvisioningController *)self->_provisioningController productIdentifier];
-          v18 = [productIdentifier2 isEqualToString:productIdentifier3];
+          v19 = [productIdentifier2 isEqualToString:productIdentifier3];
 
-          if (v18)
+          if (v19)
           {
-            v12 = v15;
+            v13 = v16;
             goto LABEL_20;
           }
         }
 
-        v12 = [possibleProducts countByEnumeratingWithState:&v21 objects:v25 count:16];
-        if (v12)
+        v13 = [possibleProducts countByEnumeratingWithState:&v21 objects:v25 count:16];
+        if (v13)
         {
           continue;
         }
@@ -6118,15 +6573,13 @@ LABEL_23:
 
 LABEL_20:
 
-    requiredPaymentSetupFields = [v12 requiredFields];
+    requiredPaymentSetupFields = [v13 requiredFields];
   }
 
   else
   {
     requiredPaymentSetupFields = MEMORY[0x277CBEBF8];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return requiredPaymentSetupFields;
 }
@@ -6256,9 +6709,60 @@ void __102__NPKPaymentProvisioningFlowController__requestPassDetailsForAccountCr
   return WeakRetained;
 }
 
++ (id)_flowPickerSectionsWithContext:(int64_t)context provisioningController:(id)controller readerModeSupported:(BOOL)supported digitalIssuanceSupported:(BOOL)issuanceSupported
+{
+  supportedCopy = supported;
+  controllerCopy = controller;
+  webService = [controllerCopy webService];
+  v12 = PKCurrentMobileCarrierRegion();
+  paymentSetupProductModel = [controllerCopy paymentSetupProductModel];
+  LOBYTE(v22) = issuanceSupported;
+  v14 = [self _filteredPaymentSetupProducts:paymentSetupProductModel localCredentials:0 setupContext:context webService:webService mobileCarrierRegion:v12 readerModeSupported:supportedCopy digitalIssuanceSupported:v22];
+
+  array = [MEMORY[0x277CBEB18] array];
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__6;
+  v30 = __Block_byref_object_dispose__6;
+  v31 = 0;
+  aBlock[0] = MEMORY[0x277D85DD0];
+  aBlock[1] = 3221225472;
+  aBlock[2] = __154__NPKPaymentProvisioningFlowController_FlowSelection___flowPickerSectionsWithContext_provisioningController_readerModeSupported_digitalIssuanceSupported___block_invoke;
+  aBlock[3] = &unk_279946C38;
+  v25 = &v26;
+  v16 = array;
+  v24 = v16;
+  v17 = _Block_copy(aBlock);
+  [objc_opt_class() _addGroupedItemsToSections:v16 fromModel:v14 webService:webService paymentSection:v17];
+  [objc_opt_class() _addAppleBalanceToSections:v16 fromModel:v14];
+  if ([v16 count])
+  {
+    [objc_opt_class() _addCreditDebitItemToSection:v17 webService:webService];
+  }
+
+  if (v27[5])
+  {
+    firstObject = [v16 firstObject];
+    v19 = v27[5];
+
+    if (firstObject != v19)
+    {
+      [v16 removeObject:v27[5]];
+      [v16 insertObject:v27[5] atIndex:0];
+    }
+  }
+
+  v20 = v16;
+
+  _Block_object_dispose(&v26, 8);
+
+  return v20;
+}
+
 id __154__NPKPaymentProvisioningFlowController_FlowSelection___flowPickerSectionsWithContext_provisioningController_readerModeSupported_digitalIssuanceSupported___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = *(*(*(a1 + 40) + 8) + 40);
   if (!v2)
   {
@@ -6272,16 +6776,14 @@ id __154__NPKPaymentProvisioningFlowController_FlowSelection___flowPickerSection
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = [*(*(*(a1 + 40) + 8) + 40) title];
-      v11 = 138412290;
-      v12 = v8;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Added products section with title: %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v8;
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Added products section with title: %@", &v10, 0xCu);
     }
 
     [*(a1 + 32) addObject:*(*(*(a1 + 40) + 8) + 40)];
     v2 = *(*(*(a1 + 40) + 8) + 40);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -6289,15 +6791,15 @@ id __154__NPKPaymentProvisioningFlowController_FlowSelection___flowPickerSection
 + (id)_filteredPaymentSetupProducts:(id)products localCredentials:(id)credentials setupContext:(int64_t)context webService:(id)service mobileCarrierRegion:(id)region readerModeSupported:(BOOL)supported digitalIssuanceSupported:(BOOL)issuanceSupported
 {
   supportedCopy = supported;
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   productsCopy = products;
   credentialsCopy = credentials;
   serviceCopy = service;
   regionCopy = region;
   array = [MEMORY[0x277CBEB18] array];
-  v75 = PKOSVersion();
-  v74 = PKDeviceClass();
-  v61 = serviceCopy;
+  v74 = PKOSVersion();
+  v73 = PKDeviceClass();
+  v60 = serviceCopy;
   targetDevice = [serviceCopy targetDevice];
   deviceRegion = [targetDevice deviceRegion];
   deviceVersion = [targetDevice deviceVersion];
@@ -6307,38 +6809,38 @@ id __154__NPKPaymentProvisioningFlowController_FlowSelection___flowPickerSection
     v18 = supportedCopy | 2;
   }
 
-  v72 = v18;
-  v82 = 0u;
-  v83 = 0u;
-  v80 = 0u;
+  v71 = v18;
   v81 = 0u;
-  v63 = productsCopy;
+  v82 = 0u;
+  v79 = 0u;
+  v80 = 0u;
+  v62 = productsCopy;
   obj = [productsCopy allSetupProducts];
-  v19 = [obj countByEnumeratingWithState:&v80 objects:v91 count:16];
+  v19 = [obj countByEnumeratingWithState:&v79 objects:v90 count:16];
   v20 = regionCopy;
   if (v19)
   {
     v21 = v19;
-    v71 = *v81;
+    v70 = *v80;
     do
     {
       v22 = 0;
       do
       {
-        if (*v81 != v71)
+        if (*v80 != v70)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v80 + 1) + 8 * v22);
-        if (([v23 updateSupportWithOSVersion:v75 deviceClass:v74 deviceRegion:deviceRegion deviceVersion:deviceVersion] & 1) == 0)
+        v23 = *(*(&v79 + 1) + 8 * v22);
+        if (([v23 updateSupportWithOSVersion:v74 deviceClass:v73 deviceRegion:deviceRegion deviceVersion:deviceVersion] & 1) == 0)
         {
           regions = PKLogFacilityTypeGetObject();
           if (os_log_type_enabled(regions, OS_LOG_TYPE_DEFAULT))
           {
             displayName = [v23 displayName];
             *buf = 138412290;
-            v86 = displayName;
+            v85 = displayName;
             v29 = regions;
             v30 = "Product: %@ is not supported due to device OS version";
             v31 = 12;
@@ -6363,25 +6865,25 @@ LABEL_16:
             if (([regions containsObject:deviceRegion]& 1) != 0)
             {
               v26 = 1;
-              v69 = regions;
+              v68 = regions;
               goto LABEL_16;
             }
 
             if (!v20)
             {
 
-              v69 = regions;
+              v68 = regions;
 LABEL_70:
               regions = PKLogFacilityTypeGetObject();
               if (os_log_type_enabled(regions, OS_LOG_TYPE_DEFAULT))
               {
                 displayName = [v23 displayName];
                 *buf = 138412802;
-                v86 = displayName;
-                v87 = 2112;
-                v88 = deviceRegion;
-                v89 = 2112;
-                v90 = v20;
+                v85 = displayName;
+                v86 = 2112;
+                v87 = deviceRegion;
+                v88 = 2112;
+                v89 = v20;
                 v29 = regions;
                 v30 = "Product: %@ is not supported in neither this device region: %@, nor mobile carrier region: %@";
                 v31 = 32;
@@ -6392,7 +6894,7 @@ LABEL_14:
               goto LABEL_15;
             }
 
-            v69 = regions;
+            v68 = regions;
           }
 
           else if (!v20)
@@ -6416,7 +6918,7 @@ LABEL_14:
         v26 = 1;
 LABEL_17:
         supportedProvisioningMethods = [v23 supportedProvisioningMethods];
-        if (v26 && (supportedProvisioningMethods & v72) == 0)
+        if (v26 && (supportedProvisioningMethods & v71) == 0)
         {
           v33 = PKLogFacilityTypeGetObject();
           if (!os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
@@ -6427,11 +6929,11 @@ LABEL_17:
           displayName2 = [v23 displayName];
           supportedProvisioningMethods2 = [v23 supportedProvisioningMethods];
           *buf = 138412802;
-          v86 = displayName2;
-          v87 = 2048;
-          v88 = v72;
-          v89 = 2048;
-          v90 = supportedProvisioningMethods2;
+          v85 = displayName2;
+          v86 = 2048;
+          v87 = v71;
+          v88 = 2048;
+          v89 = supportedProvisioningMethods2;
           v36 = v33;
           v37 = "Product: %@ is not supported due to no matching provisioning methods (local supported methods %lu, product supported methods %lu)";
           v38 = 32;
@@ -6458,7 +6960,7 @@ LABEL_17:
 
             displayName2 = [v23 displayName];
             *buf = 138412290;
-            v86 = displayName2;
+            v85 = displayName2;
             v36 = v33;
             v37 = "Product: %@ is not supported due to lack of Type F support";
             goto LABEL_56;
@@ -6468,7 +6970,7 @@ LABEL_17:
           {
             displayName3 = [v23 displayName];
             *buf = 138412290;
-            v86 = displayName3;
+            v85 = displayName3;
             _os_log_impl(&dword_25B300000, v33, OS_LOG_TYPE_DEFAULT, "Product: %@ is supported due to available Type F support", buf, 0xCu);
           }
         }
@@ -6483,7 +6985,7 @@ LABEL_17:
 
           displayName2 = [v23 displayName];
           *buf = 138412290;
-          v86 = displayName2;
+          v85 = displayName2;
           v36 = v33;
           v37 = "Product: %@ is not supported due to lack of SE";
 LABEL_56:
@@ -6499,12 +7001,12 @@ LABEL_57:
           goto LABEL_38;
         }
 
-        v78 = 0u;
-        v79 = 0u;
-        v76 = 0u;
         v77 = 0u;
+        v78 = 0u;
+        v75 = 0u;
+        v76 = 0u;
         paymentOptions = [v23 paymentOptions];
-        v43 = [paymentOptions countByEnumeratingWithState:&v76 objects:v84 count:16];
+        v43 = [paymentOptions countByEnumeratingWithState:&v75 objects:v83 count:16];
         if (!v43)
         {
 LABEL_37:
@@ -6516,7 +7018,7 @@ LABEL_38:
           {
             displayName2 = [v23 displayName];
             *buf = 138412290;
-            v86 = displayName2;
+            v85 = displayName2;
             v36 = v33;
             v37 = "Product: %@ is not supported on device";
             goto LABEL_56;
@@ -6529,7 +7031,7 @@ LABEL_59:
           {
             displayName4 = [v23 displayName];
             *buf = 138412290;
-            v86 = displayName4;
+            v85 = displayName4;
             _os_log_impl(&dword_25B300000, v33, OS_LOG_TYPE_DEFAULT, "Product: %@ is unsupported and will not be shown in the flow picker", buf, 0xCu);
           }
 
@@ -6537,24 +7039,24 @@ LABEL_59:
         }
 
         v44 = v43;
-        v45 = *v77;
+        v45 = *v76;
 LABEL_31:
         v46 = 0;
         while (1)
         {
-          if (*v77 != v45)
+          if (*v76 != v45)
           {
             objc_enumerationMutation(paymentOptions);
           }
 
-          if ([targetDevice supportsCredentialType:{objc_msgSend(*(*(&v76 + 1) + 8 * v46), "cardType")}])
+          if ([targetDevice supportsCredentialType:{objc_msgSend(*(*(&v75 + 1) + 8 * v46), "cardType")}])
           {
             break;
           }
 
           if (v44 == ++v46)
           {
-            v44 = [paymentOptions countByEnumeratingWithState:&v76 objects:v84 count:16];
+            v44 = [paymentOptions countByEnumeratingWithState:&v75 objects:v83 count:16];
             if (v44)
             {
               goto LABEL_31;
@@ -6575,7 +7077,7 @@ LABEL_31:
 
           displayName2 = [v23 displayName];
           *buf = 138412290;
-          v86 = displayName2;
+          v85 = displayName2;
           v36 = v33;
           v37 = "Product: %@ is not supported in setup context due to HSA requirement";
           goto LABEL_56;
@@ -6595,9 +7097,9 @@ LABEL_31:
             [configuration3 state];
             v53 = PKPaymentSetupProductStateToString();
             *buf = 138412546;
-            v86 = displayName5;
-            v87 = 2112;
-            v88 = v53;
+            v85 = displayName5;
+            v86 = 2112;
+            v87 = v53;
             _os_log_impl(&dword_25B300000, v33, OS_LOG_TYPE_DEFAULT, "Product: %@ not supported. Product state is: %@. Previously provisioned to device?", buf, 0x16u);
           }
 
@@ -6612,11 +7114,11 @@ LABEL_31:
           productIdentifier = [v33 productIdentifier];
           provisioningMethodTypes = [v33 provisioningMethodTypes];
           *buf = 138412802;
-          v86 = displayName6;
-          v87 = 2112;
-          v88 = productIdentifier;
-          v89 = 2112;
-          v90 = provisioningMethodTypes;
+          v85 = displayName6;
+          v86 = 2112;
+          v87 = productIdentifier;
+          v88 = 2112;
+          v89 = provisioningMethodTypes;
           _os_log_impl(&dword_25B300000, v54, OS_LOG_TYPE_DEFAULT, "Product: %@ (%@) is supported with provisioning types %@", buf, 0x20u);
         }
 
@@ -6627,7 +7129,7 @@ LABEL_61:
       }
 
       while (v22 != v21);
-      v57 = [obj countByEnumeratingWithState:&v80 objects:v91 count:16];
+      v57 = [obj countByEnumeratingWithState:&v79 objects:v90 count:16];
       v21 = v57;
     }
 
@@ -6637,61 +7139,57 @@ LABEL_61:
   v58 = objc_alloc_init(MEMORY[0x277D38120]);
   [v58 setPaymentSetupProducts:array];
 
-  v59 = *MEMORY[0x277D85DE8];
-
   return v58;
 }
 
 + (void)_addGroupedItemsToSections:(id)sections fromModel:(id)model webService:(id)service paymentSection:(id)section
 {
-  v39[2] = *MEMORY[0x277D85DE8];
+  v38[2] = *MEMORY[0x277D85DE8];
   sectionsCopy = sections;
   modelCopy = model;
   serviceCopy = service;
   sectionCopy = section;
-  v38[0] = &unk_286CE76C0;
+  v37[0] = &unk_286CE76C0;
   v13 = PKLocalizedPaymentString(&cfstr_CardTypeTransi.isa);
-  v39[0] = v13;
-  v38[1] = &unk_286CE76D8;
+  v38[0] = v13;
+  v37[1] = &unk_286CE76D8;
   v14 = PKLocalizedPaymentString(&cfstr_CardTypeEmoney.isa);
-  v39[1] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
+  v38[1] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
 
-  v36[0] = &unk_286CE76C0;
+  v35[0] = &unk_286CE76C0;
   v16 = PKLocalizedPaymentString(&cfstr_CardTypeTransi_0.isa);
-  v36[1] = &unk_286CE76D8;
-  v37[0] = v16;
+  v35[1] = &unk_286CE76D8;
+  v36[0] = v16;
   v17 = PKLocalizedPaymentString(&cfstr_PaymentSetupEm.isa);
-  v37[1] = v17;
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
+  v36[1] = v17;
+  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:2];
 
   targetDevice = [serviceCopy targetDevice];
   deviceRegion = [targetDevice deviceRegion];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __118__NPKPaymentProvisioningFlowController_FlowSelection___addGroupedItemsToSections_fromModel_webService_paymentSection___block_invoke;
-  v28[3] = &unk_279946C60;
-  v29 = modelCopy;
-  v30 = v18;
-  v31 = serviceCopy;
-  v32 = deviceRegion;
-  v33 = &unk_286CE76C0;
-  v34 = sectionsCopy;
-  v35 = sectionCopy;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __118__NPKPaymentProvisioningFlowController_FlowSelection___addGroupedItemsToSections_fromModel_webService_paymentSection___block_invoke;
+  v27[3] = &unk_279946C60;
+  v28 = modelCopy;
+  v29 = v18;
+  v30 = serviceCopy;
+  v31 = deviceRegion;
+  v32 = &unk_286CE76C0;
+  v33 = sectionsCopy;
+  v34 = sectionCopy;
   v21 = sectionCopy;
   v22 = sectionsCopy;
   v23 = deviceRegion;
   v24 = serviceCopy;
   v25 = v18;
   v26 = modelCopy;
-  [v15 enumerateKeysAndObjectsUsingBlock:v28];
-
-  v27 = *MEMORY[0x277D85DE8];
+  [v15 enumerateKeysAndObjectsUsingBlock:v27];
 }
 
 void __118__NPKPaymentProvisioningFlowController_FlowSelection___addGroupedItemsToSections_fromModel_webService_paymentSection___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) setupProductsOfType:{objc_msgSend(v5, "unsignedIntegerValue")}];
@@ -6703,7 +7201,7 @@ void __118__NPKPaymentProvisioningFlowController_FlowSelection___addGroupedItems
       [v5 unsignedIntegerValue];
       v12 = PKPaymentSetupProductTypeToString();
       *buf = 138412290;
-      v54 = v12;
+      v53 = v12;
       _os_log_impl(&dword_25B300000, v11, OS_LOG_TYPE_DEFAULT, "Skipped products of type: %@. Not available setup products.", buf, 0xCu);
     }
 
@@ -6730,7 +7228,7 @@ void __118__NPKPaymentProvisioningFlowController_FlowSelection___addGroupedItems
         [v5 unsignedIntegerValue];
         v14 = PKPaymentSetupProductTypeToString();
         *buf = 138412290;
-        v54 = v14;
+        v53 = v14;
         _os_log_impl(&dword_25B300000, v13, OS_LOG_TYPE_DEFAULT, "Only one available product of type: %@ but no name for display. Using default for product type instead.", buf, 0xCu);
       }
     }
@@ -6748,56 +7246,56 @@ void __118__NPKPaymentProvisioningFlowController_FlowSelection___addGroupedItems
     goto LABEL_28;
   }
 
-  v42 = v6;
-  v40 = v11;
-  v45 = v5;
+  v41 = v6;
+  v39 = v11;
+  v44 = v5;
   v15 = [NPKPaymentProvisioningFlowPickerSection sectionWithTitle:v11 productType:v5];
   v16 = [*(a1 + 48) context];
-  v44 = a1;
-  v43 = [v16 betaPaymentNetworksForRegion:*(a1 + 56)];
+  v43 = a1;
+  v42 = [v16 betaPaymentNetworksForRegion:*(a1 + 56)];
 
   v17 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"displayName" ascending:1];
-  v52 = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
-  v41 = v7;
+  v51 = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
+  v40 = v7;
   v19 = [v7 sortedArrayUsingDescriptors:v18];
 
-  v48 = 0u;
-  v49 = 0u;
-  v46 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   v20 = v19;
-  v21 = [v20 countByEnumeratingWithState:&v46 objects:v51 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v45 objects:v50 count:16];
   if (!v21)
   {
     goto LABEL_24;
   }
 
   v22 = v21;
-  v23 = *v47;
+  v23 = *v46;
   do
   {
     for (i = 0; i != v22; ++i)
     {
-      if (*v47 != v23)
+      if (*v46 != v23)
       {
         objc_enumerationMutation(v20);
       }
 
-      v25 = *(*(&v46 + 1) + 8 * i);
+      v25 = *(*(&v45 + 1) + 8 * i);
       v26 = [v25 productIdentifier];
-      v50 = v25;
-      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
+      v49 = v25;
+      v27 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
       v28 = [NPKPaymentProvisioningFlowPickerItem itemWithIdentifier:v26 products:v27];
 
       v29 = [v15 footer];
-      if (!v29 && [v45 isEqualToNumber:*(v44 + 64)])
+      if (!v29 && [v44 isEqualToNumber:*(v43 + 64)])
       {
         v30 = MEMORY[0x277CCABB0];
         v31 = [v25 paymentOptions];
         v32 = [v31 firstObject];
         v33 = [v30 numberWithInteger:{objc_msgSend(v32, "cardType")}];
-        v34 = [v43 containsObject:v33];
+        v34 = [v42 containsObject:v33];
 
         if (!v34)
         {
@@ -6813,36 +7311,35 @@ LABEL_22:
       [v35 addObject:v28];
     }
 
-    v22 = [v20 countByEnumeratingWithState:&v46 objects:v51 count:16];
+    v22 = [v20 countByEnumeratingWithState:&v45 objects:v50 count:16];
   }
 
   while (v22);
 LABEL_24:
 
-  [*(v44 + 72) addObject:v15];
+  [*(v43 + 72) addObject:v15];
   v36 = PKLogFacilityTypeGetObject();
   if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
   {
     v37 = [v15 title];
     *buf = 138412290;
-    v54 = v37;
+    v53 = v37;
     _os_log_impl(&dword_25B300000, v36, OS_LOG_TYPE_DEFAULT, "Added products section with title: %@", buf, 0xCu);
   }
 
-  v5 = v45;
-  v7 = v41;
-  v6 = v42;
-  v11 = v40;
-  v38 = v43;
+  v5 = v44;
+  v7 = v40;
+  v6 = v41;
+  v11 = v39;
+  v38 = v42;
 LABEL_28:
 
 LABEL_29:
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_addAppleBalanceToSections:(id)sections fromModel:(id)model
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   sectionsCopy = sections;
   v6 = [model productsForFeatureIdentifier:4];
   if ([v6 count])
@@ -6863,18 +7360,16 @@ LABEL_29:
     v11 = v10;
 
     productIdentifier = [firstObject productIdentifier];
-    v19[0] = firstObject;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18[0] = firstObject;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
     v14 = [NPKPaymentProvisioningFlowPickerItem itemWithIdentifier:productIdentifier products:v13];
 
-    v18 = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+    v17 = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
     v16 = [NPKPaymentProvisioningFlowPickerSection sectionWithTitle:v11 productType:&unk_286CE76F0 items:v15];
 
     [sectionsCopy addObject:v16];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_addCreditDebitItemToSection:(id)section webService:(id)service
@@ -6984,64 +7479,64 @@ LABEL_7:
 - (void)_handleDigitalIssuanceTermsAccepted:(id)accepted
 {
   acceptedCopy = accepted;
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(acceptedCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Digital issuance terms accepted", buf, 2u);
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Digital issuance terms accepted", buf, 2u);
     }
   }
 
   [(NPKPaymentProvisioningFlowController *)self setDigitalIssuancePaymentRequestContext:acceptedCopy];
   [(NPKPaymentProvisioningFlowController *)self setTermsAcceptedOutOfBand:1];
   unitTestingAuthorizationController = [(NPKPaymentProvisioningFlowController *)self unitTestingAuthorizationController];
-  v9 = unitTestingAuthorizationController;
+  v10 = unitTestingAuthorizationController;
   if (unitTestingAuthorizationController)
   {
-    v10 = unitTestingAuthorizationController;
+    v11 = unitTestingAuthorizationController;
   }
 
   else
   {
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x2050000000;
-    v11 = getPKPaymentAuthorizationControllerClass_softClass;
-    v27 = getPKPaymentAuthorizationControllerClass_softClass;
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x2050000000;
+    v12 = getPKPaymentAuthorizationControllerClass_softClass;
+    v28 = getPKPaymentAuthorizationControllerClass_softClass;
     if (!getPKPaymentAuthorizationControllerClass_softClass)
     {
       *buf = MEMORY[0x277D85DD0];
-      v20 = 3221225472;
-      v21 = __getPKPaymentAuthorizationControllerClass_block_invoke;
-      v22 = &unk_2799457C8;
-      v23 = &v24;
+      v21 = 3221225472;
+      v22 = __getPKPaymentAuthorizationControllerClass_block_invoke;
+      v23 = &unk_2799457C8;
+      v24 = &v25;
       __getPKPaymentAuthorizationControllerClass_block_invoke(buf);
-      v11 = v25[3];
+      v12 = v26[3];
     }
 
-    v12 = v11;
-    _Block_object_dispose(&v24, 8);
-    v13 = [v11 alloc];
+    v13 = v12;
+    _Block_object_dispose(&v25, 8);
+    v14 = [v12 alloc];
     digitalIssuancePaymentRequest = [(NPKPaymentProvisioningFlowController *)self digitalIssuancePaymentRequest];
-    v10 = [v13 initWithPaymentRequest:digitalIssuancePaymentRequest];
+    v11 = [v14 initWithPaymentRequest:digitalIssuancePaymentRequest];
   }
 
-  [(NPKPaymentProvisioningFlowController *)self setAuthorizationController:v10];
-  [v10 setDelegate:self];
-  [v10 setPrivateDelegate:self];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __93__NPKPaymentProvisioningFlowController_DigitalIssuance___handleDigitalIssuanceTermsAccepted___block_invoke;
-  v16[3] = &unk_2799464B8;
-  v17 = acceptedCopy;
+  [(NPKPaymentProvisioningFlowController *)self setAuthorizationController:v11];
+  [v11 setDelegate:self];
+  [v11 setPrivateDelegate:self];
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __93__NPKPaymentProvisioningFlowController_DigitalIssuance___handleDigitalIssuanceTermsAccepted___block_invoke;
+  v17[3] = &unk_2799464B8;
+  v18 = acceptedCopy;
   selfCopy = self;
-  v15 = acceptedCopy;
-  [v10 presentWithCompletion:v16];
+  v16 = acceptedCopy;
+  [v11 presentWithCompletion:v17];
 }
 
 void __93__NPKPaymentProvisioningFlowController_DigitalIssuance___handleDigitalIssuanceTermsAccepted___block_invoke(uint64_t a1, char a2)
@@ -7062,26 +7557,24 @@ void __93__NPKPaymentProvisioningFlowController_DigitalIssuance___handleDigitalI
 {
   if (*(a1 + 48) == 1)
   {
-    v6 = [[NPKPaymentProvisioningFlowControllerDigitalIssuancePaymentStepContext alloc] initWithRequestContext:*(a1 + 32)];
+    v4 = [[NPKPaymentProvisioningFlowControllerDigitalIssuancePaymentStepContext alloc] initWithRequestContext:*(a1 + 32)];
     v2 = [*(a1 + 40) currentProduct];
-    [(NPKPaymentProvisioningFlowControllerDigitalIssuancePaymentStepContext *)v6 setProduct:v2];
+    [(NPKPaymentProvisioningFlowControllerDigitalIssuancePaymentStepContext *)v4 setProduct:v2];
 
-    [*(a1 + 40) _performTransitionToStep:155 withContext:v6];
+    [*(a1 + 40) _performTransitionToStep:155 withContext:v4];
   }
 
   else
   {
     v3 = *(a1 + 40);
     v4 = PKDisplayableErrorForCommonType();
-    v5 = *(a1 + 32);
-    v6 = v4;
     [v3 _sendDidEncounterError:? requestContext:?];
   }
 }
 
 - (void)_canMakeDigitalIssuancePaymentsForTransitProducts:(id)products withCompletion:(id)completion
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   productsCopy = products;
   completionCopy = completion;
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
@@ -7093,71 +7586,69 @@ void __93__NPKPaymentProvisioningFlowController_DigitalIssuance___handleDigitalI
   v9 = [productsCopy sortedArrayUsingFunction:_compareProductByRegionCodes context:deviceRegion];
   mEMORY[0x277D37FC0] = [MEMORY[0x277D37FC0] sharedInstance];
   v10 = objc_alloc_init(MEMORY[0x277D37DB0]);
-  v40[0] = 0;
-  v40[1] = v40;
-  v40[2] = 0x2020000000;
-  v41 = 0;
-  v38[0] = 0;
-  v38[1] = v38;
-  v38[2] = 0x2020000000;
-  v39 = 0;
+  v39[0] = 0;
+  v39[1] = v39;
+  v39[2] = 0x2020000000;
+  v40 = 0;
+  v37[0] = 0;
+  v37[1] = v37;
+  v37[2] = 0x2020000000;
+  v38 = 0;
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   obj = v9;
-  v11 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+  v11 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (v11)
   {
-    v12 = *v35;
+    v12 = *v34;
     do
     {
       v13 = 0;
       do
       {
-        if (*v35 != v12)
+        if (*v34 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v34 + 1) + 8 * v13);
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __122__NPKPaymentProvisioningFlowController_DigitalIssuance___canMakeDigitalIssuancePaymentsForTransitProducts_withCompletion___block_invoke;
-        v30[3] = &unk_279947478;
-        v30[4] = self;
-        v30[5] = v14;
-        v31 = mEMORY[0x277D37FC0];
-        v32 = v40;
-        v33 = v38;
-        [v10 addOperation:v30];
+        v14 = *(*(&v33 + 1) + 8 * v13);
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __122__NPKPaymentProvisioningFlowController_DigitalIssuance___canMakeDigitalIssuancePaymentsForTransitProducts_withCompletion___block_invoke;
+        v29[3] = &unk_279947478;
+        v29[4] = self;
+        v29[5] = v14;
+        v30 = mEMORY[0x277D37FC0];
+        v31 = v39;
+        v32 = v37;
+        [v10 addOperation:v29];
 
         ++v13;
       }
 
       while (v11 != v13);
-      v11 = [obj countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v11 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
     }
 
     while (v11);
   }
 
   null = [MEMORY[0x277CBEB68] null];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __122__NPKPaymentProvisioningFlowController_DigitalIssuance___canMakeDigitalIssuancePaymentsForTransitProducts_withCompletion___block_invoke_3;
-  v25[3] = &unk_2799474A0;
-  v29 = v7;
-  v27 = v38;
-  v28 = v40;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __122__NPKPaymentProvisioningFlowController_DigitalIssuance___canMakeDigitalIssuancePaymentsForTransitProducts_withCompletion___block_invoke_3;
+  v24[3] = &unk_2799474A0;
+  v28 = v7;
+  v26 = v37;
+  v27 = v39;
   v16 = completionCopy;
-  v26 = v16;
-  v17 = [v10 evaluateWithInput:null completion:v25];
+  v25 = v16;
+  v17 = [v10 evaluateWithInput:null completion:v24];
 
-  _Block_object_dispose(v38, 8);
-  _Block_object_dispose(v40, 8);
-
-  v18 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v37, 8);
+  _Block_object_dispose(v39, 8);
 }
 
 void __122__NPKPaymentProvisioningFlowController_DigitalIssuance___canMakeDigitalIssuancePaymentsForTransitProducts_withCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
@@ -7183,10 +7674,10 @@ void __122__NPKPaymentProvisioningFlowController_DigitalIssuance___canMakeDigita
 
 void __122__NPKPaymentProvisioningFlowController_DigitalIssuance___canMakeDigitalIssuancePaymentsForTransitProducts_withCompletion___block_invoke_2(uint64_t a1)
 {
-  v12 = [*(a1 + 32) provisioningMethodMetadataForType:*MEMORY[0x277D388D0]];
-  if (v12)
+  v10 = [*(a1 + 32) provisioningMethodMetadataForType:*MEMORY[0x277D388D0]];
+  if (v10)
   {
-    v2 = [v12 digitalIssuanceMetadata];
+    v2 = [v10 digitalIssuanceMetadata];
     v3 = [v2 serviceProviderAcceptedNetworks];
     v4 = [v2 serviceProviderCountryCode];
     v5 = *(a1 + 40);
@@ -7200,8 +7691,6 @@ void __122__NPKPaymentProvisioningFlowController_DigitalIssuance___canMakeDigita
   }
 
   ++*(*(*(a1 + 72) + 8) + 24);
-  v10 = *(a1 + 48);
-  v11 = *(*(*(a1 + 64) + 8) + 24);
   (*(*(a1 + 56) + 16))();
 }
 
@@ -7209,44 +7698,41 @@ uint64_t __122__NPKPaymentProvisioningFlowController_DigitalIssuance___canMakeDi
 {
   v21 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-  v3 = v2;
-  v4 = *(a1 + 56);
-  v5 = pk_General_log();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  v2 = [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+  v4 = v3;
+  v5 = *(a1 + 56);
+  v6 = pk_General_log(v2);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
-  if (v6)
+  if (v7)
   {
-    v7 = pk_General_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_General_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(*(*(a1 + 40) + 8) + 24);
+      v10 = *(*(*(a1 + 40) + 8) + 24);
       if (*(*(*(a1 + 48) + 8) + 24))
       {
-        v9 = @"YES";
+        v11 = @"YES";
       }
 
       else
       {
-        v9 = @"NO";
+        v11 = @"NO";
       }
 
       v13 = 136315906;
       v14 = "[NPKPaymentProvisioningFlowController(DigitalIssuance) _canMakeDigitalIssuancePaymentsForTransitProducts:withCompletion:]_block_invoke_3";
       v15 = 2048;
-      v16 = v3 - v4;
+      v16 = v4 - v5;
       v17 = 1024;
-      v18 = v8;
+      v18 = v10;
       v19 = 2112;
-      v20 = v9;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: %s: completed in %f seconds, after %u products, hasCompatiblePass = %@", &v13, 0x26u);
+      v20 = v11;
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: %s: completed in %f seconds, after %u products, hasCompatiblePass = %@", &v13, 0x26u);
     }
   }
 
-  v10 = *(*(*(a1 + 48) + 8) + 24);
-  result = (*(*(a1 + 32) + 16))();
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 - (void)_canMakeDigitalIssuancePaymentsForTransitProductsWithCompletion:(id)completion
@@ -7262,7 +7748,7 @@ uint64_t __122__NPKPaymentProvisioningFlowController_DigitalIssuance___canMakeDi
 
 - (void)_startDigitalIssuancePaymentWithAmount:(id)amount requestContext:(id)context serviceProviderProduct:(id)product productItem:(id)item
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   amountCopy = amount;
   contextCopy = context;
   productCopy = product;
@@ -7271,23 +7757,23 @@ uint64_t __122__NPKPaymentProvisioningFlowController_DigitalIssuance___canMakeDi
   v15 = [currentProduct provisioningMethodMetadataForType:*MEMORY[0x277D388D0]];
   minLoadedBalance = [v15 minLoadedBalance];
   maxLoadedBalance = [v15 maxLoadedBalance];
-  v31 = productCopy;
+  v32 = productCopy;
   if (minLoadedBalance && [amountCopy compare:{minLoadedBalance, productCopy}] == -1)
   {
     v18 = itemCopy;
-    v28 = pk_Payment_log();
-    v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
+    v29 = pk_Payment_log(-1);
+    v30 = os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
 
-    if (v29)
+    if (v30)
     {
-      v21 = pk_Payment_log();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v22 = pk_Payment_log(v31);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v36 = amountCopy;
-        v37 = 2112;
-        v38 = minLoadedBalance;
-        v22 = "Warning: Provided digital issuance amount %@ which is less than the minimum %@";
+        v37 = amountCopy;
+        v38 = 2112;
+        v39 = minLoadedBalance;
+        v23 = "Warning: Provided digital issuance amount %@ which is less than the minimum %@";
         goto LABEL_16;
       }
 
@@ -7303,21 +7789,21 @@ LABEL_18:
   if (maxLoadedBalance && [amountCopy compare:maxLoadedBalance] == 1)
   {
     v18 = itemCopy;
-    v19 = pk_Payment_log();
+    v19 = pk_Payment_log(1);
     v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
 
     if (v20)
     {
-      v21 = pk_Payment_log();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      v22 = pk_Payment_log(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v36 = amountCopy;
-        v37 = 2112;
-        v38 = maxLoadedBalance;
-        v22 = "Warning: Provided digital issuance amount %@ which is more than the maximum %@";
+        v37 = amountCopy;
+        v38 = 2112;
+        v39 = maxLoadedBalance;
+        v23 = "Warning: Provided digital issuance amount %@ which is more than the maximum %@";
 LABEL_16:
-        _os_log_impl(&dword_25B300000, v21, OS_LOG_TYPE_DEFAULT, v22, buf, 0x16u);
+        _os_log_impl(&dword_25B300000, v22, OS_LOG_TYPE_DEFAULT, v23, buf, 0x16u);
         goto LABEL_17;
       }
 
@@ -7329,32 +7815,31 @@ LABEL_16:
 
   if (productCopy && itemCopy)
   {
-    v23 = productCopy;
+    v24 = productCopy;
     v18 = itemCopy;
-    v24 = [(NPKPaymentProvisioningFlowController *)self _paymentRequestForAmount:amountCopy serviceProviderProduct:v23 productItem:itemCopy];
+    v25 = [(NPKPaymentProvisioningFlowController *)self _paymentRequestForAmount:amountCopy serviceProviderProduct:v24 productItem:itemCopy];
   }
 
   else
   {
     v18 = itemCopy;
-    v24 = [(NPKPaymentProvisioningFlowController *)self _paymentRequestForAmount:amountCopy, v31];
+    v25 = [(NPKPaymentProvisioningFlowController *)self _paymentRequestForAmount:amountCopy, v32];
   }
 
-  v25 = v24;
-  [(NPKPaymentProvisioningFlowController *)self setDigitalIssuancePaymentRequest:v24, v31];
+  v26 = v25;
+  [(NPKPaymentProvisioningFlowController *)self setDigitalIssuancePaymentRequest:v25, v32];
   mEMORY[0x277D37FC0] = [MEMORY[0x277D37FC0] sharedInstance];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __146__NPKPaymentProvisioningFlowController_DigitalIssuance___startDigitalIssuancePaymentWithAmount_requestContext_serviceProviderProduct_productItem___block_invoke;
-  v32[3] = &unk_2799474C8;
-  v32[4] = self;
-  v33 = v25;
-  v34 = contextCopy;
-  v27 = v25;
-  [mEMORY[0x277D37FC0] canPresentPaymentRequest:v27 completion:v32];
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __146__NPKPaymentProvisioningFlowController_DigitalIssuance___startDigitalIssuancePaymentWithAmount_requestContext_serviceProviderProduct_productItem___block_invoke;
+  v33[3] = &unk_2799474C8;
+  v33[4] = self;
+  v34 = v26;
+  v35 = contextCopy;
+  v28 = v26;
+  [mEMORY[0x277D37FC0] canPresentPaymentRequest:v28 completion:v33];
 
 LABEL_19:
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __146__NPKPaymentProvisioningFlowController_DigitalIssuance___startDigitalIssuancePaymentWithAmount_requestContext_serviceProviderProduct_productItem___block_invoke(uint64_t a1, uint64_t a2)
@@ -7378,30 +7863,28 @@ void __146__NPKPaymentProvisioningFlowController_DigitalIssuance___startDigitalI
   if (v2 == 5 || v2 == 2)
   {
     v4 = *(a1 + 32);
-    v5 = [v4 _addCardErrorForPaymentRequest:*(a1 + 40)];
-    v6 = *(a1 + 48);
-    v9 = v5;
+    v7 = [v4 _addCardErrorForPaymentRequest:*(a1 + 40)];
     [v4 _sendDidEncounterError:? requestContext:?];
   }
 
   else
   {
     [*(a1 + 32) setDigitalIssuancePaymentRequestContext:*(a1 + 48)];
-    v7 = *(a1 + 32);
-    v9 = [v7 currentProduct];
-    v8 = [v9 termsURL];
-    [v7 _transitionBasedOnTermsForReason:1 URL:v8 requestContext:*(a1 + 48)];
+    v5 = *(a1 + 32);
+    v7 = [v5 currentProduct];
+    v6 = [v7 termsURL];
+    [v5 _transitionBasedOnTermsForReason:1 URL:v6 requestContext:*(a1 + 48)];
   }
 }
 
 - (id)_paymentRequestForAmount:(id)amount serviceProviderProduct:(id)product productItem:(id)item
 {
-  v71[2] = *MEMORY[0x277D85DE8];
+  v70[2] = *MEMORY[0x277D85DE8];
   amountCopy = amount;
   productCopy = product;
   itemCopy = item;
-  v67 = productCopy;
-  v68 = itemCopy;
+  v66 = productCopy;
+  v67 = itemCopy;
   if (productCopy)
   {
     v11 = itemCopy == 0;
@@ -7430,7 +7913,7 @@ void __146__NPKPaymentProvisioningFlowController_DigitalIssuance___startDigitalI
     }
   }
 
-  v62 = currentProduct;
+  v61 = currentProduct;
   digitalIssuanceMetadata = [v14 digitalIssuanceMetadata];
   v21 = objc_alloc_init(MEMORY[0x277D37F90]);
   [digitalIssuanceMetadata action];
@@ -7441,26 +7924,26 @@ void __146__NPKPaymentProvisioningFlowController_DigitalIssuance___startDigitalI
   serviceProviderDict = [digitalIssuanceMetadata serviceProviderDict];
   v26 = [v24 initWithDictionary:serviceProviderDict];
 
-  v63 = v22;
+  v62 = v22;
   [v26 setObject:v22 forKey:*MEMORY[0x277D38990]];
-  v65 = v26;
+  v64 = v26;
   if (v12)
   {
-    v70[0] = @"identifier";
-    identifier = [v68 identifier];
-    v70[1] = @"amount";
-    v71[0] = identifier;
-    v71[1] = v15;
-    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v71 forKeys:v70 count:2];
+    v69[0] = @"identifier";
+    identifier = [v67 identifier];
+    v69[1] = @"amount";
+    v70[0] = identifier;
+    v70[1] = v15;
+    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:v69 count:2];
 
-    v69 = v28;
-    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v69 count:1];
-    [v65 setObject:v29 forKey:*MEMORY[0x277D38998]];
+    v68 = v28;
+    v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v68 count:1];
+    [v64 setObject:v29 forKey:*MEMORY[0x277D38998]];
 
-    v26 = v65;
+    v26 = v64;
   }
 
-  v66 = v15;
+  v65 = v15;
   [v21 setServiceProviderData:v26];
   serviceProviderIdentifier = [digitalIssuanceMetadata serviceProviderIdentifier];
   [v21 setServiceProviderIdentifier:serviceProviderIdentifier];
@@ -7478,7 +7961,7 @@ void __146__NPKPaymentProvisioningFlowController_DigitalIssuance___startDigitalI
   serviceProviderCountryCode = [digitalIssuanceMetadata serviceProviderCountryCode];
   [v31 setCountryCode:serviceProviderCountryCode];
 
-  v64 = v14;
+  v63 = v14;
   currency = [v14 currency];
   [v31 setCurrencyCode:currency];
 
@@ -7486,12 +7969,12 @@ void __146__NPKPaymentProvisioningFlowController_DigitalIssuance___startDigitalI
   if (v12)
   {
     v38 = objc_alloc_init(MEMORY[0x277CCACA8]);
-    localizedDisplayName = [v67 localizedDisplayName];
-    if (localizedDisplayName && (v40 = localizedDisplayName, [v68 localizedDisplayName], v41 = objc_claimAutoreleasedReturnValue(), v41, v40, v41))
+    localizedDisplayName = [v66 localizedDisplayName];
+    if (localizedDisplayName && (v40 = localizedDisplayName, [v67 localizedDisplayName], v41 = objc_claimAutoreleasedReturnValue(), v41, v40, v41))
     {
       v42 = MEMORY[0x277CCACA8];
-      localizedDisplayName2 = [v67 localizedDisplayName];
-      localizedDisplayName3 = [v68 localizedDisplayName];
+      localizedDisplayName2 = [v66 localizedDisplayName];
+      localizedDisplayName3 = [v67 localizedDisplayName];
       localizedDisplayName5 = [v42 stringWithFormat:@"%@ - %@", localizedDisplayName2, localizedDisplayName3];
 
       v38 = localizedDisplayName2;
@@ -7499,7 +7982,7 @@ void __146__NPKPaymentProvisioningFlowController_DigitalIssuance___startDigitalI
 
     else
     {
-      localizedDisplayName4 = [v67 localizedDisplayName];
+      localizedDisplayName4 = [v66 localizedDisplayName];
 
       if (!localizedDisplayName4)
       {
@@ -7508,7 +7991,7 @@ LABEL_20:
         goto LABEL_21;
       }
 
-      localizedDisplayName5 = [v67 localizedDisplayName];
+      localizedDisplayName5 = [v66 localizedDisplayName];
     }
 
     v38 = localizedDisplayName5;
@@ -7519,7 +8002,7 @@ LABEL_20:
   v38 = PKLocalizedPaymentString(&cfstr_SetupPurchaseT.isa);
   v47 = v46;
 LABEL_21:
-  v49 = [v47 summaryItemWithLabel:v38 amount:v66];
+  v49 = [v47 summaryItemWithLabel:v38 amount:v65];
 
   [v37 addObject:v49];
   if (depositAmount)
@@ -7529,7 +8012,7 @@ LABEL_21:
 
     if (v51 == -1)
     {
-      depositType = [v64 depositType];
+      depositType = [v63 depositType];
       if (depositType > 2)
       {
         v53 = 0;
@@ -7550,20 +8033,18 @@ LABEL_21:
   if (serviceProviderLocalizedDisplayName)
   {
     displayName = serviceProviderLocalizedDisplayName;
-    v58 = v62;
+    v58 = v61;
   }
 
   else
   {
-    v58 = v62;
-    displayName = [v62 displayName];
+    v58 = v61;
+    displayName = [v61 displayName];
   }
 
-  v59 = [MEMORY[0x277D38138] summaryItemWithLabel:displayName amount:v63];
+  v59 = [MEMORY[0x277D38138] summaryItemWithLabel:displayName amount:v62];
   [v37 addObject:v59];
   [v31 setPaymentSummaryItems:v37];
-
-  v60 = *MEMORY[0x277D85DE8];
 
   return v31;
 }
@@ -7629,23 +8110,23 @@ void __97__NPKPaymentProvisioningFlowController_DigitalIssuance__paymentAuthoriz
 
   else
   {
-    v17 = pk_Payment_log();
+    v17 = pk_Payment_log(0);
     v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
 
     if (v18)
     {
-      v19 = pk_Payment_log();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v20 = pk_Payment_log(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        *v21 = 0;
-        _os_log_impl(&dword_25B300000, v19, OS_LOG_TYPE_DEFAULT, "Notice: No digital issuance purchase; going back", v21, 2u);
+        *v22 = 0;
+        _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_DEFAULT, "Notice: No digital issuance purchase; going back", v22, 2u);
       }
     }
 
     [*(a1 + 32) setTermsAcceptedOutOfBand:0];
-    v20 = *(a1 + 32);
-    v4 = [v20 digitalIssuanceAmountRequestContext];
-    [v20 _transitionToDigitalIssuanceForProduct:v2 requestContext:v4];
+    v21 = *(a1 + 32);
+    v4 = [v21 digitalIssuanceAmountRequestContext];
+    [v21 _transitionToDigitalIssuanceForProduct:v2 requestContext:v4];
   }
 }
 
@@ -7761,7 +8242,7 @@ uint64_t __120__NPKPaymentProvisioningFlowController_DigitalIssuance__paymentAut
 
 + (id)_displayableErrorWithIneligibilityReason:(int64_t)reason learnMoreURL:(id)l
 {
-  v30[2] = *MEMORY[0x277D85DE8];
+  v29[2] = *MEMORY[0x277D85DE8];
   lCopy = l;
   v6 = lCopy;
   v8 = reason == 5 || lCopy == 0;
@@ -7783,7 +8264,7 @@ LABEL_29:
         v21 = @"ELIGIBILITY_UNKNOWN_REQUIREMENTS_ERROR_MESSAGE";
         break;
       case 2:
-        NPKTrackPaymentProvisioningWebServicesCheck();
+        NPKTrackPaymentProvisioningWebServicesCheck(0);
         v10 = PKLocalizedPaymentString(&cfstr_EligibilityIne.isa);
         if (v8)
         {
@@ -7794,7 +8275,7 @@ LABEL_29:
         v21 = @"ELIGIBILITY_INELIGIBLE_ERROR_MESSAGE";
         break;
       case 3:
-        NPKTrackPaymentProvisioningWebServicesCheck();
+        NPKTrackPaymentProvisioningWebServicesCheck(1);
         v10 = PKLocalizedPaymentString(&cfstr_EligibilityUna.isa);
         v17 = @"ELIGIBILITY_UNAVAILABLE_ERROR_MESSAGE";
 LABEL_24:
@@ -7816,16 +8297,16 @@ LABEL_20:
 
     v11 = PKLocalizedPaymentString(&v21->isa);
 LABEL_34:
-    v26[0] = *MEMORY[0x277CCA480];
+    v25[0] = *MEMORY[0x277CCA480];
     v12 = PKLocalizedPaymentString(&cfstr_EligibilityLea.isa);
-    v25 = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
-    v26[1] = *MEMORY[0x277D38628];
-    v27[0] = v13;
-    v27[1] = v6;
+    v24 = v12;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v24 count:1];
+    v25[1] = *MEMORY[0x277D38628];
+    v26[0] = v13;
+    v26[1] = v6;
     v14 = MEMORY[0x277CBEAC0];
-    v15 = v27;
-    v16 = v26;
+    v15 = v26;
+    v16 = v25;
     goto LABEL_35;
   }
 
@@ -7850,7 +8331,7 @@ LABEL_34:
 
   if (reason == 4)
   {
-    NPKTrackPaymentProvisioningWebServicesCheck();
+    NPKTrackPaymentProvisioningWebServicesCheck(2);
     v10 = PKLocalizedPaymentString(&cfstr_EligibilityAlr.isa);
     v11 = 0;
     if (!v8)
@@ -7863,26 +8344,24 @@ LABEL_30:
     goto LABEL_36;
   }
 
-  NPKTrackPaymentProvisioningWebServicesCheck();
+  NPKTrackPaymentProvisioningWebServicesCheck(3);
   v10 = PKLocalizedPaymentString(&cfstr_EligibilityNew.isa);
   v11 = PKLocalizedPaymentString(&cfstr_EligibilityNew_0.isa);
-  v29[0] = *MEMORY[0x277CCA480];
+  v28[0] = *MEMORY[0x277CCA480];
   v12 = PKLocalizedPaymentString(&cfstr_EligibilitySof.isa);
-  v28 = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
-  v29[1] = *MEMORY[0x277D38628];
-  v30[0] = v13;
-  v30[1] = @"bridge:root=GENERAL_LINK&path=SOFTWARE_UPDATE_LINK";
+  v27 = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+  v28[1] = *MEMORY[0x277D38628];
+  v29[0] = v13;
+  v29[1] = @"bridge:root=GENERAL_LINK&path=SOFTWARE_UPDATE_LINK";
   v14 = MEMORY[0x277CBEAC0];
-  v15 = v30;
-  v16 = v29;
+  v15 = v29;
+  v16 = v28;
 LABEL_35:
   v20 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:2];
 
 LABEL_36:
   v22 = PKDisplayableErrorCustom();
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -7970,66 +8449,72 @@ LABEL_12:
   }
 
   supportedProvisioningMethods = [productCopy supportedProvisioningMethods];
+  v6 = supportedProvisioningMethods;
   if ((supportedProvisioningMethods & 1) == 0)
   {
-    v6 = pk_Payment_log();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+    v7 = pk_Payment_log(supportedProvisioningMethods);
+    v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-    if (v7)
+    if (v8)
     {
-      v8 = pk_Payment_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = pk_Payment_log(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Reader mode entry is disabled because transit product lacks reader mode provisioning method", buf, 2u);
+        _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: Reader mode entry is disabled because transit product lacks reader mode provisioning method", buf, 2u);
       }
     }
   }
 
-  if ((supportedProvisioningMethods & 1) == 0)
+  if ((v6 & 1) == 0)
   {
     goto LABEL_20;
   }
 
-  if (([v4 allSupportedProtocols] & 4) != 0 && !PKFelicaSecureElementIsAvailable())
+  if (([v4 allSupportedProtocols] & 4) != 0)
   {
-    v15 = pk_Payment_log();
-    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
-
-    if (v16)
+    IsAvailable = PKFelicaSecureElementIsAvailable();
+    if (!IsAvailable)
     {
-      v12 = pk_Payment_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v20 = pk_Payment_log(IsAvailable);
+      v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
+
+      if (v21)
       {
-        *v19 = 0;
-        v13 = "Notice: Reader mode entry is disabled for typeF product as a local Felica secure element is not available";
-        v14 = v19;
-        goto LABEL_18;
-      }
+        v17 = pk_Payment_log(v22);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        {
+          *v25 = 0;
+          v18 = "Notice: Reader mode entry is disabled for typeF product as a local Felica secure element is not available";
+          v19 = v25;
+          goto LABEL_18;
+        }
 
 LABEL_19:
-    }
+      }
 
 LABEL_20:
-    v9 = 0;
-    goto LABEL_21;
+      v13 = 0;
+      goto LABEL_21;
+    }
   }
 
-  if (!PKSecureElementIsAvailable())
+  v12 = PKSecureElementIsAvailable();
+  if (!v12)
   {
-    v10 = pk_Payment_log();
-    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    v14 = pk_Payment_log(v12);
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
 
-    if (v11)
+    if (v15)
     {
-      v12 = pk_Payment_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v17 = pk_Payment_log(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 0;
-        v13 = "Notice: Reader mode entry is disabled because secure element is not available";
-        v14 = &v18;
+        v24 = 0;
+        v18 = "Notice: Reader mode entry is disabled because secure element is not available";
+        v19 = &v24;
 LABEL_18:
-        _os_log_impl(&dword_25B300000, v12, OS_LOG_TYPE_DEFAULT, v13, v14, 2u);
+        _os_log_impl(&dword_25B300000, v17, OS_LOG_TYPE_DEFAULT, v18, v19, 2u);
         goto LABEL_19;
       }
 
@@ -8039,10 +8524,10 @@ LABEL_18:
     goto LABEL_20;
   }
 
-  v9 = 1;
+  v13 = 1;
 LABEL_21:
 
-  return v9;
+  return v13;
 }
 
 - (void)_transitionToReaderModeForProduct:(id)product requestContext:(id)context
@@ -8086,16 +8571,16 @@ LABEL_21:
 - (void)_handleReaderModeTermsAccepted:(id)accepted
 {
   acceptedCopy = accepted;
-  v5 = pk_Payment_log();
+  v5 = pk_Payment_log(acceptedCopy);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
   if (v6)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = pk_Payment_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: Reader mode terms accepted", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Reader mode terms accepted", v9, 2u);
     }
   }
 
@@ -8195,10 +8680,11 @@ LABEL_7:
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-void __105__NPKPaymentProvisioningFlowController_ReaderMode__contactlessCardIngester_didUpdateCardIngestionStatus___block_invoke(uint64_t a1)
+void __105__NPKPaymentProvisioningFlowController_ReaderMode__contactlessCardIngester_didUpdateCardIngestionStatus___block_invoke(id *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 40);
+  v1 = a1;
+  v13 = *MEMORY[0x277D85DE8];
+  v2 = a1[5];
   if (v2 == 2)
   {
     v3 = dispatch_time(0, 1000000000);
@@ -8206,50 +8692,48 @@ void __105__NPKPaymentProvisioningFlowController_ReaderMode__contactlessCardInge
     block[1] = 3221225472;
     block[2] = __105__NPKPaymentProvisioningFlowController_ReaderMode__contactlessCardIngester_didUpdateCardIngestionStatus___block_invoke_2;
     block[3] = &unk_279944F98;
-    block[4] = *(a1 + 32);
+    block[4] = v1[4];
     dispatch_after(v3, MEMORY[0x277D85CD0], block);
-    [*(a1 + 32) _invalidateCardNotFoundTimer];
-    v4 = [*(a1 + 32) internalIngestionState];
-    if (v4 == 2)
+    [v1[4] _invalidateCardNotFoundTimer];
+    a1 = [v1[4] internalIngestionState];
+    if (a1 == 2)
     {
-      v5 = 0.179104478;
+      v4 = 0.179104478;
     }
 
     else
     {
-      if (v4 != 7)
+      if (a1 != 7)
       {
         goto LABEL_9;
       }
 
-      v5 = 0.98;
+      v4 = 0.98;
     }
 
-    [*(a1 + 32) _transitionToIngestionProgress:v5];
+    a1 = [v1[4] _transitionToIngestionProgress:v4];
   }
 
   else if (v2 == 10)
   {
-    [*(a1 + 32) _startCardNotFoundTimer];
+    a1 = [a1[4] _startCardNotFoundTimer];
   }
 
 LABEL_9:
-  v6 = pk_Payment_log();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  v5 = pk_Payment_log(a1);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
 
-  if (v7)
+  if (v6)
   {
-    v8 = pk_Payment_log();
+    v8 = pk_Payment_log(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(a1 + 40);
+      v9 = v1[5];
       *buf = 134217984;
-      v13 = v9;
+      v12 = v9;
       _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: Card ingestion status: %lu", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 unint64_t __105__NPKPaymentProvisioningFlowController_ReaderMode__contactlessCardIngester_didUpdateCardIngestionStatus___block_invoke_2(uint64_t a1)
@@ -8316,66 +8800,64 @@ unint64_t __105__NPKPaymentProvisioningFlowController_ReaderMode__contactlessCar
 
 void __137__NPKPaymentProvisioningFlowController_ReaderMode__contactlessCardIngester_didFailToIngestCardWithError_resetProvisioning_isRecoverable___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _invalidateCardNotFoundTimer];
   [*(a1 + 32) setIngestionStateOnRetry:0];
   v2 = *(a1 + 32);
   if (*(a1 + 48) == 1)
   {
-    [v2 _resetReaderModeProvisioningState];
+    v3 = [v2 _resetReaderModeProvisioningState];
   }
 
   else
   {
-    v3 = [v2 internalIngestionState];
-    v4 = 0.0;
-    if (v3 == 7)
+    v4 = [v2 internalIngestionState];
+    v5 = 0.0;
+    if (v4 == 7)
     {
       [*(a1 + 32) setIngestionStateOnRetry:{6, 0.0}];
-      v4 = 0.776119403;
+      v5 = 0.776119403;
     }
 
-    [*(a1 + 32) _transitionToFlowIngestionState:0 progress:v4];
+    v3 = [*(a1 + 32) _transitionToFlowIngestionState:0 progress:v5];
   }
 
-  v5 = pk_Payment_log();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  v6 = pk_Payment_log(v3);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
-  if (v6)
+  if (v7)
   {
-    v7 = pk_Payment_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = pk_Payment_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 40);
-      v9 = *(a1 + 48);
-      v10 = *(a1 + 49);
-      v16 = 136315906;
-      v17 = "[NPKPaymentProvisioningFlowController(ReaderMode) contactlessCardIngester:didFailToIngestCardWithError:resetProvisioning:isRecoverable:]_block_invoke";
-      v18 = 2112;
-      v19 = v8;
-      v20 = 1024;
-      v21 = v9;
-      v22 = 1024;
-      v23 = v10;
-      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: %s:%@ (resetProvisioning: %d, isRecoverable: %d)", &v16, 0x22u);
+      v10 = *(a1 + 40);
+      v11 = *(a1 + 48);
+      v12 = *(a1 + 49);
+      v17 = 136315906;
+      v18 = "[NPKPaymentProvisioningFlowController(ReaderMode) contactlessCardIngester:didFailToIngestCardWithError:resetProvisioning:isRecoverable:]_block_invoke";
+      v19 = 2112;
+      v20 = v10;
+      v21 = 1024;
+      v22 = v11;
+      v23 = 1024;
+      v24 = v12;
+      _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Notice: %s:%@ (resetProvisioning: %d, isRecoverable: %d)", &v17, 0x22u);
     }
   }
 
-  v11 = *(a1 + 49);
-  v12 = *(a1 + 32);
-  v13 = *(a1 + 40);
-  v14 = [v12 readerModeRequestContext];
-  if (v11 == 1)
+  v13 = *(a1 + 49);
+  v14 = *(a1 + 32);
+  v15 = *(a1 + 40);
+  v16 = [v14 readerModeRequestContext];
+  if (v13 == 1)
   {
-    [v12 _sendDidEncounterError:v13 requestContext:v14];
+    [v14 _sendDidEncounterError:v15 requestContext:v16];
   }
 
   else
   {
-    [v12 _endProvisioningFlowWithError:v13 requestContext:v14];
+    [v14 _endProvisioningFlowWithError:v15 requestContext:v16];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startIngestion
@@ -8403,18 +8885,19 @@ void __137__NPKPaymentProvisioningFlowController_ReaderMode__contactlessCardInge
 
 - (void)_startReadingCard
 {
-  if ([(NPKPaymentProvisioningFlowController *)self internalIngestionState])
+  internalIngestionState = [(NPKPaymentProvisioningFlowController *)self internalIngestionState];
+  if (internalIngestionState)
   {
-    v3 = pk_Payment_log();
-    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+    v4 = pk_Payment_log(internalIngestionState);
+    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-    if (v4)
+    if (v5)
     {
-      v5 = pk_Payment_log();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v7 = pk_Payment_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v8 = 0;
-        _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Warning: Warning! Attempted to ingestCard: while currently ingesting", v8, 2u);
+        *v10 = 0;
+        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Warning: Warning! Attempted to ingestCard: while currently ingesting", v10, 2u);
       }
     }
 
@@ -8427,12 +8910,12 @@ void __137__NPKPaymentProvisioningFlowController_ReaderMode__contactlessCardInge
   {
     [(NPKPaymentProvisioningFlowController *)self setInternalIngestionState:2];
     cardIngester = [(NPKPaymentProvisioningFlowController *)self cardIngester];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __69__NPKPaymentProvisioningFlowController_ReaderMode___startReadingCard__block_invoke;
-    v9[3] = &unk_279949098;
-    v9[4] = self;
-    [cardIngester ingestCardWithSuccessHandler:v9];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __69__NPKPaymentProvisioningFlowController_ReaderMode___startReadingCard__block_invoke;
+    v11[3] = &unk_279949098;
+    v11[4] = self;
+    [cardIngester ingestCardWithSuccessHandler:v11];
   }
 }
 
@@ -8466,31 +8949,32 @@ void __69__NPKPaymentProvisioningFlowController_ReaderMode___startReadingCard__b
 
 - (void)_startTransferringCard
 {
-  if ([(NPKPaymentProvisioningFlowController *)self internalIngestionState]== 6)
+  internalIngestionState = [(NPKPaymentProvisioningFlowController *)self internalIngestionState];
+  if (internalIngestionState == 6)
   {
     [(NPKPaymentProvisioningFlowController *)self setInternalIngestionState:7];
     cardIngester = [(NPKPaymentProvisioningFlowController *)self cardIngester];
     ingestionCardSessionToken = [(NPKPaymentProvisioningFlowController *)self ingestionCardSessionToken];
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __74__NPKPaymentProvisioningFlowController_ReaderMode___startTransferringCard__block_invoke;
-    v9[3] = &unk_279944F98;
-    v9[4] = self;
-    [cardIngester ingestCardWithCardSessionToken:ingestionCardSessionToken successHandler:v9];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __74__NPKPaymentProvisioningFlowController_ReaderMode___startTransferringCard__block_invoke;
+    v11[3] = &unk_279944F98;
+    v11[4] = self;
+    [cardIngester ingestCardWithCardSessionToken:ingestionCardSessionToken successHandler:v11];
   }
 
   else
   {
-    v5 = pk_Payment_log();
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+    v6 = pk_Payment_log(internalIngestionState);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
-    if (v6)
+    if (v7)
     {
-      v7 = pk_Payment_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = pk_Payment_log(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v8 = 0;
-        _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Warning: Warning! attempting to ingestCardWithCardSessionToken: while currently ingesting", v8, 2u);
+        *v10 = 0;
+        _os_log_impl(&dword_25B300000, v9, OS_LOG_TYPE_DEFAULT, "Warning: Warning! attempting to ingestCardWithCardSessionToken: while currently ingesting", v10, 2u);
       }
     }
 
@@ -8660,18 +9144,16 @@ void __75__NPKPaymentProvisioningFlowController_ReaderMode___startCardNotFoundTi
 
 void __72__NPKPaymentProvisioningFlowController_ReaderMode___readerModeResources__block_invoke()
 {
-  v3[6] = *MEMORY[0x277D85DE8];
-  v3[0] = @"transferValue";
-  v3[1] = @"notFound";
-  v3[2] = @"transferValue";
-  v3[3] = @"transferring";
-  v3[4] = @"cardAdded";
-  v3[5] = @"commuteCardAdded";
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:6];
+  v2[6] = *MEMORY[0x277D85DE8];
+  v2[0] = @"transferValue";
+  v2[1] = @"notFound";
+  v2[2] = @"transferValue";
+  v2[3] = @"transferring";
+  v2[4] = @"cardAdded";
+  v2[5] = @"commuteCardAdded";
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:6];
   v1 = _readerModeResources_resourceKeys;
   _readerModeResources_resourceKeys = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_physicalCardURLFromMetadata:(id)metadata forScale:(double)scale
@@ -8687,33 +9169,33 @@ void __72__NPKPaymentProvisioningFlowController_ReaderMode___readerModeResources
   v8 = [readerModeResources objectForKeyedSubscript:*MEMORY[0x277D388F0]];
   v9 = [v8 objectForKeyedSubscript:@"plasticCardImages"];
 
-  if (v9 && [v9 count])
+  if (v9 && (v10 = [v9 count]) != 0)
   {
-    v10 = MEMORY[0x277CBEBC0];
-    v11 = [v9 objectAtIndexedSubscript:0];
-    v12 = [v11 objectForKeyedSubscript:v6];
-    v13 = [v10 URLWithString:v12];
+    v11 = MEMORY[0x277CBEBC0];
+    v12 = [v9 objectAtIndexedSubscript:0];
+    v13 = [v12 objectForKeyedSubscript:v6];
+    v14 = [v11 URLWithString:v13];
   }
 
   else
   {
-    v14 = pk_Payment_log();
-    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    v15 = pk_Payment_log(v10);
+    v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
 
-    if (v15)
+    if (v16)
     {
-      v16 = pk_Payment_log();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = pk_Payment_log(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        *v18 = 0;
-        _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: Malformed reader mode resources - missing card image urls", v18, 2u);
+        *v20 = 0;
+        _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, "Notice: Malformed reader mode resources - missing card image urls", v20, 2u);
       }
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13;
+  return v14;
 }
 
 - (id)_titleForState:(unint64_t)state

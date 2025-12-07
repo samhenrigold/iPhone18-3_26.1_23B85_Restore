@@ -14,23 +14,24 @@
 {
   requestCopy = request;
   completionCopy = completion;
-  if (+[AFUtilities isInternalBuild])
+  v8 = +[AFUtilities isInternalBuild];
+  if (v8)
   {
     [(AAFTapToRadarHelper *)self _showAlertForRequest:requestCopy completion:completionCopy];
   }
 
   else
   {
-    v8 = _AAFLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _AAFLogSystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [AAFTapToRadarHelper tapToRadarWithRequest:completion:];
     }
 
     if (completionCopy)
     {
-      v9 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.AAFTTRErrorDomain" code:1 userInfo:0];
-      completionCopy[2](completionCopy, v9);
+      v10 = [MEMORY[0x1E696ABC0] errorWithDomain:@"com.apple.AAFTTRErrorDomain" code:1 userInfo:0];
+      completionCopy[2](completionCopy, v10);
     }
   }
 }
@@ -59,7 +60,7 @@
 
   else
   {
-    v12 = _AAFLogSystem();
+    v12 = _AAFLogSystem(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(AAFTapToRadarHelper *)v8 _showAlertForRequest:v12 completion:?];
@@ -234,7 +235,7 @@ void __56__AAFTapToRadarHelper__launchTTRWithRequest_completion___block_invoke(u
 {
   v5 = a2;
   v6 = a3;
-  v7 = _AAFLogSystem();
+  v7 = _AAFLogSystem(v6);
   v8 = v7;
   if (v6)
   {
@@ -262,41 +263,42 @@ void __56__AAFTapToRadarHelper__launchTTRWithRequest_completion___block_invoke(u
   completionCopy = completion;
   if (getTapToRadarServiceClass())
   {
-    if (+[AFUtilities isInternalBuild])
+    v8 = +[AFUtilities isInternalBuild];
+    if (v8)
     {
       [(AAFTapToRadarHelper *)self handleRadarRequest:requestCopy completion:completionCopy];
       goto LABEL_13;
     }
 
-    v11 = _AAFLogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = _AAFLogSystem(v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [AAFTapToRadarHelper tapToRadarWithRequest:completion:];
     }
 
     if (completionCopy)
     {
-      v9 = MEMORY[0x1E696ABC0];
-      v10 = 1;
+      v10 = MEMORY[0x1E696ABC0];
+      v11 = 1;
       goto LABEL_12;
     }
   }
 
   else
   {
-    v8 = _AAFLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _AAFLogSystem(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [AAFTapToRadarHelper silentTapToRadarWithRequest:completion:];
     }
 
     if (completionCopy)
     {
-      v9 = MEMORY[0x1E696ABC0];
-      v10 = 3;
+      v10 = MEMORY[0x1E696ABC0];
+      v11 = 3;
 LABEL_12:
-      v12 = [v9 errorWithDomain:@"com.apple.AAFTTRErrorDomain" code:v10 userInfo:0];
-      completionCopy[2](completionCopy, v12);
+      v13 = [v10 errorWithDomain:@"com.apple.AAFTTRErrorDomain" code:v11 userInfo:0];
+      completionCopy[2](completionCopy, v13);
     }
   }
 
@@ -307,7 +309,7 @@ LABEL_13:
 {
   requestCopy = request;
   completionCopy = completion;
-  v8 = _AAFLogSystem();
+  v8 = _AAFLogSystem(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [AAFTapToRadarHelper handleRadarRequest:requestCopy completion:v8];
@@ -325,7 +327,7 @@ LABEL_13:
     v34 = __getRadarDraftClass_block_invoke;
     v35 = &unk_1E831BCB8;
     v36 = &v37;
-    TapToRadarKitLibraryCore();
+    TapToRadarKitLibraryCore(0);
     v38[3] = objc_getClass("RadarDraft");
     getRadarDraftClass_softClass = *(v36[1] + 24);
     v9 = v38[3];
@@ -353,7 +355,7 @@ LABEL_13:
     v34 = __getRadarComponentClass_block_invoke;
     v35 = &unk_1E831BCB8;
     v36 = &v37;
-    TapToRadarKitLibraryCore();
+    TapToRadarKitLibraryCore(0);
     v38[3] = objc_getClass("RadarComponent");
     getRadarComponentClass_softClass = *(v36[1] + 24);
     v16 = v38[3];
@@ -399,7 +401,7 @@ LABEL_13:
 void __53__AAFTapToRadarHelper_handleRadarRequest_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _AAFLogSystem();
+  v4 = _AAFLogSystem(v3);
   v5 = v4;
   if (v3)
   {
@@ -468,63 +470,52 @@ void __53__AAFTapToRadarHelper_handleRadarRequest_completion___block_invoke(uint
   }
 }
 
-- (void)_showAlertForRequest:(NSObject *)a3 completion:.cold.1(void *a1, unsigned int *a2, NSObject *a3)
+- (void)_showAlertForRequest:(NSObject *)a3 completion:.cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v5 = [a1 objectForKeyedSubscript:*MEMORY[0x1E695EE58]];
-  v6 = *a2;
+  v9 = *MEMORY[0x1E69E9840];
+  v4 = [a1 objectForKeyedSubscript:*MEMORY[0x1E695EE58]];
   OUTLINED_FUNCTION_1_0();
-  v10 = 1024;
-  v11 = v7;
-  _os_log_error_impl(&dword_1C8644000, a3, OS_LOG_TYPE_ERROR, "Showing alert (%@) failed, user notification is nil!. Error: %d", v9, 0x12u);
-
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = 1024;
+  v8 = v5;
+  _os_log_error_impl(&dword_1C8644000, a3, OS_LOG_TYPE_ERROR, "Showing alert (%@) failed, user notification is nil!. Error: %d", v6, 0x12u);
 }
 
 void __56__AAFTapToRadarHelper__launchTTRWithRequest_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __56__AAFTapToRadarHelper__launchTTRWithRequest_completion___block_invoke_cold_2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_1C8644000, v0, OS_LOG_TYPE_DEBUG, "Tap-to-radar launched with result: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1C8644000, v0, OS_LOG_TYPE_DEBUG, "Tap-to-radar launched with result: %@", v1, 0xCu);
 }
 
 - (void)handleRadarRequest:(void *)a1 completion:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v3 = [a1 componentID];
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_1C8644000, a2, OS_LOG_TYPE_DEBUG, "Handling Silent Radar Request with id: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1C8644000, a2, OS_LOG_TYPE_DEBUG, "Handling Silent Radar Request with id: %@", v4, 0xCu);
 }
 
 void __53__AAFTapToRadarHelper_handleRadarRequest_completion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __53__AAFTapToRadarHelper_handleRadarRequest_completion___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1C8644000, a2, OS_LOG_TYPE_DEBUG, "Successfully created draft with title: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1C8644000, a2, OS_LOG_TYPE_DEBUG, "Successfully created draft with title: %@", &v3, 0xCu);
 }
 
 @end

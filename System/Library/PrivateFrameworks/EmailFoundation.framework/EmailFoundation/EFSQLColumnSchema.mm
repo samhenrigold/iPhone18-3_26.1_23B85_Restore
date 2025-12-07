@@ -1,5 +1,12 @@
 @interface EFSQLColumnSchema
++ (id)blobColumnWithName:(id)name nullable:(BOOL)nullable;
++ (id)integerColumnWithName:(id)name nullable:(BOOL)nullable;
++ (id)integerColumnWithName:(id)name nullable:(BOOL)nullable defaultValue:(id)value;
++ (id)realColumnWithName:(id)name nullable:(BOOL)nullable;
++ (id)realColumnWithName:(id)name nullable:(BOOL)nullable defaultValue:(id)value;
 + (id)stringForColumnType:(unint64_t)type;
++ (id)textColumnWithName:(id)name collation:(unint64_t)collation nullable:(BOOL)nullable;
++ (id)textColumnWithName:(id)name collation:(unint64_t)collation nullable:(BOOL)nullable defaultValue:(id)value;
 + (unint64_t)columnTypeForString:(id)string;
 - (EFSQLColumnExpression)columnExpression;
 - (EFSQLColumnExpression)columnExpressionWithFullName;
@@ -83,6 +90,66 @@ void __41__EFSQLColumnSchema_columnTypeForString___block_invoke()
 {
   v0 = columnTypeForString__sColumnTypeMap;
   columnTypeForString__sColumnTypeMap = &unk_1F45AD100;
+}
+
++ (id)integerColumnWithName:(id)name nullable:(BOOL)nullable
+{
+  v4 = [self integerColumnWithName:name nullable:nullable defaultValue:0];
+
+  return v4;
+}
+
++ (id)integerColumnWithName:(id)name nullable:(BOOL)nullable defaultValue:(id)value
+{
+  nullableCopy = nullable;
+  nameCopy = name;
+  valueCopy = value;
+  v10 = [[self alloc] initWithName:nameCopy type:1 collation:0 nullable:nullableCopy defaultValue:valueCopy];
+
+  return v10;
+}
+
++ (id)realColumnWithName:(id)name nullable:(BOOL)nullable
+{
+  v4 = [self realColumnWithName:name nullable:nullable defaultValue:0];
+
+  return v4;
+}
+
++ (id)realColumnWithName:(id)name nullable:(BOOL)nullable defaultValue:(id)value
+{
+  nullableCopy = nullable;
+  nameCopy = name;
+  valueCopy = value;
+  v10 = [[self alloc] initWithName:nameCopy type:2 collation:0 nullable:nullableCopy defaultValue:valueCopy];
+
+  return v10;
+}
+
++ (id)textColumnWithName:(id)name collation:(unint64_t)collation nullable:(BOOL)nullable
+{
+  v5 = [self textColumnWithName:name collation:collation nullable:nullable defaultValue:0];
+
+  return v5;
+}
+
++ (id)textColumnWithName:(id)name collation:(unint64_t)collation nullable:(BOOL)nullable defaultValue:(id)value
+{
+  nullableCopy = nullable;
+  nameCopy = name;
+  valueCopy = value;
+  v12 = [[self alloc] initWithName:nameCopy type:3 collation:collation nullable:nullableCopy defaultValue:valueCopy];
+
+  return v12;
+}
+
++ (id)blobColumnWithName:(id)name nullable:(BOOL)nullable
+{
+  nullableCopy = nullable;
+  nameCopy = name;
+  v7 = [[self alloc] initWithName:nameCopy type:4 collation:0 nullable:nullableCopy defaultValue:0];
+
+  return v7;
 }
 
 - (EFSQLColumnSchema)initWithName:(id)name isPrimaryKey:(BOOL)key isAutoincrementing:(BOOL)autoincrementing type:(unint64_t)type collation:(unint64_t)collation nullable:(BOOL)nullable defaultValue:(id)value

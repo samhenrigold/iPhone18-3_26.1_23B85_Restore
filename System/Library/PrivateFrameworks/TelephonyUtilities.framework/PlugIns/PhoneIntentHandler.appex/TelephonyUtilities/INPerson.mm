@@ -147,168 +147,168 @@
 {
   sourceCopy = source;
   cacheCopy = cache;
-  v8 = IntentHandlerDefaultLog();
+  v8 = IntentHandlerDefaultLog(cacheCopy);
   v9 = os_signpost_id_generate(v8);
 
-  v10 = IntentHandlerDefaultLog();
-  v11 = v10;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
+  v11 = IntentHandlerDefaultLog(v10);
+  v12 = v11;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v11, OS_SIGNPOST_INTERVAL_BEGIN, v9, "handlesMatchingPerson", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, OS_SIGNPOST_INTERVAL_BEGIN, v9, "handlesMatchingPerson", "", buf, 2u);
   }
 
-  v12 = objc_alloc_init(NSMutableArray);
+  v13 = objc_alloc_init(NSMutableArray);
   personHandle = [(INPerson *)self personHandle];
   value = [personHandle value];
-  v15 = [value length];
+  v16 = [value length];
 
-  if (v15)
+  if (v16)
   {
-    v16 = [TUHandle handleWithPerson:self];
-    [v12 addObject:v16];
+    v17 = [TUHandle handleWithPerson:self];
+    [v13 addObject:v17];
   }
 
   else
   {
     tu_allContactIdentifiers = [(INPerson *)self tu_allContactIdentifiers];
-    v53 = cacheCopy;
-    v54 = sourceCopy;
-    v17 = [INPerson tu_contactsMatchingIdentifiers:"tu_contactsMatchingIdentifiers:contactsDataSource:identifierToContactCache:" contactsDataSource:? identifierToContactCache:?];
+    v55 = cacheCopy;
+    v56 = sourceCopy;
+    v18 = [INPerson tu_contactsMatchingIdentifiers:"tu_contactsMatchingIdentifiers:contactsDataSource:identifierToContactCache:" contactsDataSource:? identifierToContactCache:?];
     personHandle2 = [(INPerson *)self personHandle];
     type = [personHandle2 type];
 
-    v20 = type < 3;
+    v21 = type < 3;
+    v74 = 0u;
+    v75 = 0u;
     v72 = 0u;
     v73 = 0u;
-    v70 = 0u;
-    v71 = 0u;
-    obj = v17;
-    v61 = [obj countByEnumeratingWithState:&v70 objects:v77 count:16];
-    if (v61)
+    obj = v18;
+    v63 = [obj countByEnumeratingWithState:&v72 objects:v79 count:16];
+    if (v63)
     {
-      v60 = v20 & (3u >> (type & 7));
-      v59 = v20 & (type ^ 1);
-      v58 = *v71;
+      v62 = v21 & (3u >> (type & 7));
+      v61 = v21 & (type ^ 1);
+      v60 = *v73;
       selfCopy = self;
       do
       {
-        for (i = 0; i != v61; i = i + 1)
+        for (i = 0; i != v63; i = i + 1)
         {
-          if (*v71 != v58)
+          if (*v73 != v60)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v70 + 1) + 8 * i);
-          if (v59)
+          v23 = *(*(&v72 + 1) + 8 * i);
+          if (v61)
           {
             personHandle3 = [(INPerson *)self personHandle];
             label = [personHandle3 label];
-            v57 = v22;
-            v25 = [v22 tu_phoneNumbersMatchingPersonHandleLabel:label];
+            v59 = v23;
+            v26 = [v23 tu_phoneNumbersMatchingPersonHandleLabel:label];
 
+            v70 = 0u;
+            v71 = 0u;
             v68 = 0u;
             v69 = 0u;
-            v66 = 0u;
-            v67 = 0u;
-            v26 = v25;
-            v27 = [v26 countByEnumeratingWithState:&v66 objects:v76 count:16];
-            if (v27)
+            v27 = v26;
+            v28 = [v27 countByEnumeratingWithState:&v68 objects:v78 count:16];
+            if (v28)
             {
-              v28 = v27;
-              v29 = *v67;
+              v29 = v28;
+              v30 = *v69;
               do
               {
-                for (j = 0; j != v28; j = j + 1)
+                for (j = 0; j != v29; j = j + 1)
                 {
-                  if (*v67 != v29)
+                  if (*v69 != v30)
                   {
-                    objc_enumerationMutation(v26);
+                    objc_enumerationMutation(v27);
                   }
 
-                  v31 = *(*(&v66 + 1) + 8 * j);
-                  v32 = [TUHandle alloc];
-                  value2 = [v31 value];
+                  v32 = *(*(&v68 + 1) + 8 * j);
+                  v33 = [TUHandle alloc];
+                  value2 = [v32 value];
                   stringValue = [value2 stringValue];
-                  v35 = [v32 initWithType:2 value:stringValue];
+                  v36 = [v33 initWithType:2 value:stringValue];
 
-                  [v12 addObject:v35];
+                  [v13 addObject:v36];
                 }
 
-                v28 = [v26 countByEnumeratingWithState:&v66 objects:v76 count:16];
+                v29 = [v27 countByEnumeratingWithState:&v68 objects:v78 count:16];
               }
 
-              while (v28);
+              while (v29);
             }
 
             self = selfCopy;
-            v22 = v57;
+            v23 = v59;
           }
 
-          if (v60)
+          if (v62)
           {
             personHandle4 = [(INPerson *)self personHandle];
             label2 = [personHandle4 label];
-            v38 = [v22 tu_emailAddressesMatchingPersonHandleLabel:label2];
+            v39 = [v23 tu_emailAddressesMatchingPersonHandleLabel:label2];
 
+            v66 = 0u;
+            v67 = 0u;
             v64 = 0u;
             v65 = 0u;
-            v62 = 0u;
-            v63 = 0u;
-            v39 = v38;
-            v40 = [v39 countByEnumeratingWithState:&v62 objects:v75 count:16];
-            if (v40)
+            v40 = v39;
+            v41 = [v40 countByEnumeratingWithState:&v64 objects:v77 count:16];
+            if (v41)
             {
-              v41 = v40;
-              v42 = *v63;
+              v42 = v41;
+              v43 = *v65;
               do
               {
-                for (k = 0; k != v41; k = k + 1)
+                for (k = 0; k != v42; k = k + 1)
                 {
-                  if (*v63 != v42)
+                  if (*v65 != v43)
                   {
-                    objc_enumerationMutation(v39);
+                    objc_enumerationMutation(v40);
                   }
 
-                  v44 = *(*(&v62 + 1) + 8 * k);
-                  v45 = [TUHandle alloc];
-                  value3 = [v44 value];
-                  v47 = [v45 initWithType:3 value:value3];
+                  v45 = *(*(&v64 + 1) + 8 * k);
+                  v46 = [TUHandle alloc];
+                  value3 = [v45 value];
+                  v48 = [v46 initWithType:3 value:value3];
 
-                  [v12 addObject:v47];
+                  [v13 addObject:v48];
                 }
 
-                v41 = [v39 countByEnumeratingWithState:&v62 objects:v75 count:16];
+                v42 = [v40 countByEnumeratingWithState:&v64 objects:v77 count:16];
               }
 
-              while (v41);
+              while (v42);
             }
           }
         }
 
-        v61 = [obj countByEnumeratingWithState:&v70 objects:v77 count:16];
+        v63 = [obj countByEnumeratingWithState:&v72 objects:v79 count:16];
       }
 
-      while (v61);
+      while (v63);
     }
 
-    cacheCopy = v53;
-    sourceCopy = v54;
-    v16 = tu_allContactIdentifiers;
+    cacheCopy = v55;
+    sourceCopy = v56;
+    v17 = tu_allContactIdentifiers;
   }
 
-  v48 = IntentHandlerDefaultLog();
-  v49 = v48;
-  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v48))
+  v50 = IntentHandlerDefaultLog(v49);
+  v51 = v50;
+  if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v50))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v49, OS_SIGNPOST_INTERVAL_END, v9, "handlesMatchingPerson", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v51, OS_SIGNPOST_INTERVAL_END, v9, "handlesMatchingPerson", "", buf, 2u);
   }
 
-  v50 = [v12 copy];
+  v52 = [v13 copy];
 
-  return v50;
+  return v52;
 }
 
 - (id)tu_contactsMatchingIdentifiers:(id)identifiers contactsDataSource:(id)source identifierToContactCache:(id)cache
@@ -316,149 +316,152 @@
   identifiersCopy = identifiers;
   sourceCopy = source;
   cacheCopy = cache;
-  if ([identifiersCopy count])
+  v10 = [identifiersCopy count];
+  if (v10)
   {
-    v52 = sourceCopy;
-    v10 = IntentHandlerDefaultLog();
-    v11 = os_signpost_id_generate(v10);
+    v56 = sourceCopy;
+    v11 = IntentHandlerDefaultLog(v10);
+    v12 = os_signpost_id_generate(v11);
 
-    v12 = IntentHandlerDefaultLog();
-    v13 = v12;
-    v50 = v11 - 1;
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+    v14 = IntentHandlerDefaultLog(v13);
+    v15 = v14;
+    v54 = v12 - 1;
+    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "contactsMatchingIdentifiers", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v15, OS_SIGNPOST_INTERVAL_BEGIN, v12, "contactsMatchingIdentifiers", "", buf, 2u);
     }
 
-    spid = v11;
+    spid = v12;
 
-    v14 = objc_alloc_init(NSMutableArray);
-    v15 = objc_alloc_init(NSMutableArray);
-    v58 = 0u;
-    v59 = 0u;
-    v60 = 0u;
-    v61 = 0u;
-    v51 = identifiersCopy;
-    v16 = identifiersCopy;
-    v17 = [v16 countByEnumeratingWithState:&v58 objects:v66 count:16];
-    if (v17)
+    v16 = objc_alloc_init(NSMutableArray);
+    v17 = objc_alloc_init(NSMutableArray);
+    v62 = 0u;
+    v63 = 0u;
+    v64 = 0u;
+    v65 = 0u;
+    v55 = identifiersCopy;
+    v18 = identifiersCopy;
+    v19 = [v18 countByEnumeratingWithState:&v62 objects:v70 count:16];
+    if (v19)
     {
-      v18 = v17;
-      v19 = *v59;
+      v20 = v19;
+      v21 = *v63;
       do
       {
-        for (i = 0; i != v18; i = i + 1)
+        for (i = 0; i != v20; i = i + 1)
         {
-          if (*v59 != v19)
+          if (*v63 != v21)
           {
-            objc_enumerationMutation(v16);
+            objc_enumerationMutation(v18);
           }
 
-          v21 = *(*(&v58 + 1) + 8 * i);
-          v22 = [cacheCopy objectForKey:v21];
-          if (v22)
+          v23 = *(*(&v62 + 1) + 8 * i);
+          v24 = [cacheCopy objectForKey:v23];
+          if (v24)
           {
-            v23 = v15;
-            v24 = v22;
+            v25 = v17;
+            v26 = v24;
           }
 
           else
           {
-            v23 = v14;
-            v24 = v21;
+            v25 = v16;
+            v26 = v23;
           }
 
-          [v23 addObject:v24];
+          [v25 addObject:v26];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v58 objects:v66 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v62 objects:v70 count:16];
       }
 
-      while (v18);
+      while (v20);
     }
 
-    sourceCopy = v52;
-    if ([v14 count])
+    v27 = [v16 count];
+    sourceCopy = v56;
+    if (v27)
     {
-      v25 = IntentHandlerDefaultLog();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v28 = IntentHandlerDefaultLog(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v65 = v16;
-        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Looking up contact in the contact store matching identifiers: %@", buf, 0xCu);
+        v69 = v18;
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Looking up contact in the contact store matching identifiers: %@", buf, 0xCu);
       }
 
-      v26 = [CNContact predicateForContactsWithIdentifiers:v14];
-      v63[0] = CNContactPhoneNumbersKey;
-      v63[1] = CNContactEmailAddressesKey;
-      [NSArray arrayWithObjects:v63 count:2];
-      v47 = v57 = 0;
-      v48 = v26;
-      v27 = [v52 unifiedContactsMatchingPredicate:v26 keysToFetch:? error:?];
-      v28 = 0;
-      if (v28)
+      v29 = [CNContact predicateForContactsWithIdentifiers:v16];
+      v67[0] = CNContactPhoneNumbersKey;
+      v67[1] = CNContactEmailAddressesKey;
+      [NSArray arrayWithObjects:v67 count:2];
+      v51 = v61 = 0;
+      v52 = v29;
+      v30 = [v56 unifiedContactsMatchingPredicate:v29 keysToFetch:? error:?];
+      v31 = 0;
+      v32 = v31;
+      if (v31)
       {
-        v29 = IntentHandlerDefaultLog();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v33 = IntentHandlerDefaultLog(v31);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
-          sub_10002F2FC(v28, v29, v30, v31, v32, v33, v34, v35);
+          sub_10002F2FC(v32, v33, v34, v35, v36, v37, v38, v39);
         }
       }
 
-      v55 = 0u;
-      v56 = 0u;
-      v53 = 0u;
-      v54 = 0u;
-      v36 = v27;
-      v37 = [v36 countByEnumeratingWithState:&v53 objects:v62 count:16];
-      if (v37)
+      v59 = 0u;
+      v60 = 0u;
+      v57 = 0u;
+      v58 = 0u;
+      v40 = v30;
+      v41 = [v40 countByEnumeratingWithState:&v57 objects:v66 count:16];
+      if (v41)
       {
-        v38 = v37;
-        v39 = *v54;
+        v42 = v41;
+        v43 = *v58;
         do
         {
-          for (j = 0; j != v38; j = j + 1)
+          for (j = 0; j != v42; j = j + 1)
           {
-            if (*v54 != v39)
+            if (*v58 != v43)
             {
-              objc_enumerationMutation(v36);
+              objc_enumerationMutation(v40);
             }
 
-            v41 = *(*(&v53 + 1) + 8 * j);
-            identifier = [v41 identifier];
-            [cacheCopy setObject:v41 forKey:identifier];
+            v45 = *(*(&v57 + 1) + 8 * j);
+            identifier = [v45 identifier];
+            [cacheCopy setObject:v45 forKey:identifier];
 
-            [v15 addObject:v41];
+            [v17 addObject:v45];
           }
 
-          v38 = [v36 countByEnumeratingWithState:&v53 objects:v62 count:16];
+          v42 = [v40 countByEnumeratingWithState:&v57 objects:v66 count:16];
         }
 
-        while (v38);
+        while (v42);
       }
 
-      sourceCopy = v52;
+      sourceCopy = v56;
     }
 
-    v43 = IntentHandlerDefaultLog();
-    v44 = v43;
-    if (v50 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v43))
+    v47 = IntentHandlerDefaultLog(v27);
+    v48 = v47;
+    if (v54 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v47))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v44, OS_SIGNPOST_INTERVAL_END, spid, "contactsMatchingIdentifiers", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v48, OS_SIGNPOST_INTERVAL_END, spid, "contactsMatchingIdentifiers", "", buf, 2u);
     }
 
-    v45 = [v15 copy];
-    identifiersCopy = v51;
+    v49 = [v17 copy];
+    identifiersCopy = v55;
   }
 
   else
   {
-    v45 = &__NSArray0__struct;
+    v49 = &__NSArray0__struct;
   }
 
-  return v45;
+  return v49;
 }
 
 + (id)tu_personMatchingHandle:(id)handle contactsDataSource:(id)source isoCountryCodes:(id)codes
@@ -466,24 +469,24 @@
   handleCopy = handle;
   sourceCopy = source;
   codesCopy = codes;
-  v10 = IntentHandlerDefaultLog();
+  v10 = IntentHandlerDefaultLog(codesCopy);
   v11 = os_signpost_id_generate(v10);
 
-  v12 = IntentHandlerDefaultLog();
-  v13 = v12;
-  v14 = v11 - 1;
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  v13 = IntentHandlerDefaultLog(v12);
+  v14 = v13;
+  v15 = v11 - 1;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&_mh_execute_header, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "personMatchingHandle", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_INTERVAL_BEGIN, v11, "personMatchingHandle", "", buf, 2u);
   }
 
-  v15 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v17 = IntentHandlerDefaultLog(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v63 = handleCopy;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Looking up contact in the contact store matching handle: %@", buf, 0xCu);
+    v68 = handleCopy;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Looking up contact in the contact store matching handle: %@", buf, 0xCu);
   }
 
   type = [handleCopy type];
@@ -504,7 +507,7 @@
 
 LABEL_9:
       value3 = [handleCopy value];
-      v18 = [CNContact predicateForContactsMatchingEmailAddress:value3];
+      v20 = [CNContact predicateForContactsMatchingEmailAddress:value3];
       goto LABEL_12;
     }
   }
@@ -520,92 +523,94 @@ LABEL_9:
   }
 
   value3 = [handleCopy value];
-  v21 = [CNPhoneNumber phoneNumberWithStringValue:value3];
-  v18 = [CNContact predicateForContactsMatchingPhoneNumber:v21];
+  v23 = [CNPhoneNumber phoneNumberWithStringValue:value3];
+  v20 = [CNContact predicateForContactsMatchingPhoneNumber:v23];
 
 LABEL_12:
-  if (v18)
+  if (v20)
   {
-    v61[0] = CNContactPhoneNumbersKey;
-    v61[1] = CNContactEmailAddressesKey;
-    v22 = +[NSPersonNameComponents descriptorForUsedKeys];
-    v61[2] = v22;
-    v23 = [NSArray arrayWithObjects:v61 count:3];
+    v66[0] = CNContactPhoneNumbersKey;
+    v66[1] = CNContactEmailAddressesKey;
+    v24 = +[NSPersonNameComponents descriptorForUsedKeys];
+    v66[2] = v24;
+    v25 = [NSArray arrayWithObjects:v66 count:3];
 
-    v59 = sourceCopy;
-    v60 = 0;
-    v58 = v23;
-    v24 = [sourceCopy unifiedContactsMatchingPredicate:v18 keysToFetch:v23 error:&v60];
-    v25 = v60;
-    if (v25)
+    v64 = sourceCopy;
+    v65 = 0;
+    v63 = v25;
+    v26 = [sourceCopy unifiedContactsMatchingPredicate:v20 keysToFetch:v25 error:&v65];
+    v27 = v65;
+    v28 = v27;
+    if (v27)
     {
-      v26 = IntentHandlerDefaultLog();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v29 = IntentHandlerDefaultLog(v27);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        sub_10002F2FC(v25, v26, v27, v28, v29, v30, v31, v32);
+        sub_10002F2FC(v28, v29, v30, v31, v32, v33, v34, v35);
       }
     }
 
-    if ([v24 count])
+    if ([v26 count])
     {
-      if ([v24 count] < 2)
+      v36 = [v26 count];
+      if (v36 < 2)
       {
 LABEL_25:
         spid = v11;
-        firstObject = [v24 firstObject];
-        v36 = firstObject;
-        v57 = v25;
+        firstObject = [v26 firstObject];
+        v40 = firstObject;
+        v62 = v28;
         if (firstObject)
         {
-          v37 = codesCopy;
-          v38 = [firstObject tu_personHandleMatchingHandle:handleCopy isoCountryCodes:codesCopy];
-          v39 = [NSPersonNameComponents componentsForContact:v36];
+          v41 = codesCopy;
+          v42 = [firstObject tu_personHandleMatchingHandle:handleCopy isoCountryCodes:codesCopy];
+          v43 = [NSPersonNameComponents componentsForContact:v40];
         }
 
         else
         {
-          v40 = [INPersonHandle alloc];
-          v37 = codesCopy;
-          v38 = [v40 tu_initUnlabledPersonHandleWithTUHandle:handleCopy isoCountryCodes:codesCopy];
+          v44 = [INPersonHandle alloc];
+          v41 = codesCopy;
+          v42 = [v44 tu_initUnlabledPersonHandleWithTUHandle:handleCopy isoCountryCodes:codesCopy];
 
-          v39 = 0;
+          v43 = 0;
         }
 
-        v41 = [INPerson alloc];
-        identifier = [v36 identifier];
-        LOBYTE(v55) = 0;
-        v43 = [v41 initWithPersonHandle:v38 nameComponents:v39 displayName:0 image:0 contactIdentifier:identifier customIdentifier:0 isMe:v55];
+        v45 = [INPerson alloc];
+        identifier = [v40 identifier];
+        LOBYTE(v60) = 0;
+        v47 = [v45 initWithPersonHandle:v42 nameComponents:v43 displayName:0 image:0 contactIdentifier:identifier customIdentifier:0 isMe:v60];
 
-        v44 = IntentHandlerDefaultLog();
-        v45 = v44;
-        if (v14 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v44))
+        v49 = IntentHandlerDefaultLog(v48);
+        v50 = v49;
+        if (v15 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v49))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&_mh_execute_header, v45, OS_SIGNPOST_INTERVAL_END, spid, "personMatchingHandle", "", buf, 2u);
+          _os_signpost_emit_with_name_impl(&_mh_execute_header, v50, OS_SIGNPOST_INTERVAL_END, spid, "personMatchingHandle", "", buf, 2u);
         }
 
-        sourceCopy = v59;
-        codesCopy = v37;
+        sourceCopy = v64;
+        codesCopy = v41;
         goto LABEL_36;
       }
 
-      v33 = IntentHandlerDefaultLog();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v37 = IntentHandlerDefaultLog(v36);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v34 = "[WARN] Multiple contacts match handle, using the first one arbitrarily";
+        v38 = "[WARN] Multiple contacts match handle, using the first one arbitrarily";
 LABEL_23:
-        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, v34, buf, 2u);
+        _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, v38, buf, 2u);
       }
     }
 
     else
     {
-      v33 = IntentHandlerDefaultLog();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v37 = IntentHandlerDefaultLog(0);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v34 = "No contacts match handle";
+        v38 = "No contacts match handle";
         goto LABEL_23;
       }
     }
@@ -614,16 +619,16 @@ LABEL_23:
   }
 
 LABEL_33:
-  v18 = IntentHandlerDefaultLog();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  v20 = IntentHandlerDefaultLog(type);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
-    sub_10002F368(handleCopy, v18, v48, v49, v50, v51, v52, v53);
+    sub_10002F368(handleCopy, v20, v53, v54, v55, v56, v57, v58);
   }
 
-  v43 = 0;
+  v47 = 0;
 LABEL_36:
 
-  return v43;
+  return v47;
 }
 
 - (BOOL)usesScoreBasedEncoding

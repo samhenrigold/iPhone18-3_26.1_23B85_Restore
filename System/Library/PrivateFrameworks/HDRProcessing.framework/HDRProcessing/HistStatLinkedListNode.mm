@@ -9,10 +9,10 @@
 - (HistStatLinkedListNode)initWithStreamId:(int64_t)id bufferSize:(unsigned __int16)size
 {
   sizeCopy = size;
-  v34 = *MEMORY[0x277D85DE8];
-  v27.receiver = self;
-  v27.super_class = HistStatLinkedListNode;
-  v6 = [(HistStatLinkedListNode *)&v27 init];
+  v33 = *MEMORY[0x277D85DE8];
+  v26.receiver = self;
+  v26.super_class = HistStatLinkedListNode;
+  v6 = [(HistStatLinkedListNode *)&v26 init];
   v7 = v6;
   if (v6)
   {
@@ -64,7 +64,7 @@
                     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 134217984;
-                      v29 = WORD1(v19);
+                      v28 = WORD1(v19);
                       v20 = MEMORY[0x277D86220];
                       v21 = " [1.450.54] #%04llx Memory allocation for prctValBuffer[i] failed";
                       goto LABEL_73;
@@ -113,7 +113,7 @@
                   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 134217984;
-                    v29 = WORD1(v19);
+                    v28 = WORD1(v19);
                     v20 = MEMORY[0x277D86220];
                     v21 = " [1.450.54] #%04llx Memory allocation for targetMaxBuffer failed";
                     goto LABEL_73;
@@ -149,7 +149,7 @@
                   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 134217984;
-                    v29 = WORD1(v19);
+                    v28 = WORD1(v19);
                     v20 = MEMORY[0x277D86220];
                     v21 = " [1.450.54] #%04llx Memory allocation for prevNormHistHeight failed";
                     goto LABEL_73;
@@ -199,7 +199,7 @@ LABEL_79:
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
             {
               *buf = 134217984;
-              v29 = WORD1(v19);
+              v28 = WORD1(v19);
               v20 = MEMORY[0x277D86220];
               v21 = " [1.450.54] #%04llx Memory allocation for prctValBuffer failed";
               goto LABEL_73;
@@ -239,7 +239,7 @@ LABEL_74:
           }
 
           *buf = 134217984;
-          v29 = WORD1(v19);
+          v28 = WORD1(v19);
           v20 = MEMORY[0x277D86220];
           v21 = " [1.450.54] #%04llx Memory allocation for stdValBuffer failed";
         }
@@ -275,7 +275,7 @@ LABEL_74:
           }
 
           *buf = 134217984;
-          v29 = WORD1(v19);
+          v28 = WORD1(v19);
           v20 = MEMORY[0x277D86220];
           v21 = " [1.450.54] #%04llx Memory allocation for avgValBuffer failed";
         }
@@ -312,7 +312,7 @@ LABEL_74:
         }
 
         *buf = 134217984;
-        v29 = WORD1(v19);
+        v28 = WORD1(v19);
         v20 = MEMORY[0x277D86220];
         v21 = " [1.450.54] #%04llx Memory allocation for maxValBuffer failed";
       }
@@ -349,7 +349,7 @@ LABEL_74:
       }
 
       *buf = 134217984;
-      v29 = WORD1(v19);
+      v28 = WORD1(v19);
       v20 = MEMORY[0x277D86220];
       v21 = " [1.450.54] #%04llx Memory allocation for minValBuffer failed";
     }
@@ -375,11 +375,11 @@ LABEL_80:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218498;
-      v29 = WORD1(v24);
-      v30 = 2080;
-      v31 = "[HistStatLinkedListNode initWithStreamId:bufferSize:]";
-      v32 = 2048;
-      v33 = v7;
+      v28 = WORD1(v24);
+      v29 = 2080;
+      v30 = "[HistStatLinkedListNode initWithStreamId:bufferSize:]";
+      v31 = 2048;
+      v32 = v7;
       _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx %s : Initialization Failed, self=%p\n", buf, 0x20u);
     }
 
@@ -392,16 +392,15 @@ LABEL_87:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v29 = "[HistStatLinkedListNode initWithStreamId:bufferSize:]";
-    v30 = 2048;
-    v31 = v7;
+    v28 = "[HistStatLinkedListNode initWithStreamId:bufferSize:]";
+    v29 = 2048;
+    v30 = v7;
     _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] %s : Initialization Failed, self=%p\n", buf, 0x16u);
   }
 
   v18 = 0;
 LABEL_90:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

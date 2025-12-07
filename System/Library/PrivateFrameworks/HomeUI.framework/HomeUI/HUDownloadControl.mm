@@ -848,11 +848,11 @@ LABEL_51:
   }
 }
 
-uint64_t __36__HUDownloadControl_setHighlighted___block_invoke_2(uint64_t result)
+id *__36__HUDownloadControl_setHighlighted___block_invoke_2(id *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
-    return [*(result + 32) _endTransientContentViewTransaction];
+    return [result[4] _endTransientContentViewTransaction];
   }
 
   return result;
@@ -1652,7 +1652,7 @@ LABEL_55:
       [v4 setDuration:1.0];
       [v4 setBeginTimeMode:*MEMORY[0x277CDA048]];
       v13 = CACurrentMediaTime();
-      [v4 duration];
+      objc_msgSend_duration(v4);
       [v4 setBeginTime:{(v13 - fmod(v13, v14))}];
       [layer addAnimation:v4 forKey:@"_HUDownloadControlWaitingSpinnerAnimationKey"];
     }

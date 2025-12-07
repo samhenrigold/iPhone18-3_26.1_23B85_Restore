@@ -14,7 +14,7 @@
   *&self->lazyHighlightCenter[OBJC_IVAR____TtC8NewsFeed27SocialLayerSharedItemCenter_delegate] = 0;
   swift_unknownObjectWeakInit();
   v8 = MEMORY[0x1E69E7CC0];
-  sub_1D5B76508(&qword_1EDF3BDB0, MEMORY[0x1E69D6420]);
+  sub_1D5B76508(&qword_1EDF3BDB0, MEMORY[0x1E69D6420], MEMORY[0x1E69D6428]);
   sub_1D5B765B4(0, &qword_1EDF1B5B0, MEMORY[0x1E69D6420], MEMORY[0x1E69E62F8]);
   sub_1D5B7667C();
   sub_1D7263B6C();
@@ -28,7 +28,7 @@
 
 - (void)highlightCenter:(id)center didRemoveHighlights:(id)highlights
 {
-  sub_1D5B5A498(0, &qword_1EDF3C798);
+  sub_1D5B5A498(0, &qword_1EDF3C798, 0x1E69D3810);
   v6 = sub_1D726267C();
   centerCopy = center;
   selfCopy = self;

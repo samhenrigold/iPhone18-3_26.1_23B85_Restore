@@ -161,38 +161,20 @@ LABEL_13:
   return v13;
 }
 
-+ (void)serializeJSONDictionary:fileURL:error:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v0, v1, "Could not write JSON data to disk %{public}@: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
 + (void)serializeJSONDictionary:(uint64_t)a1 fileURL:(NSObject *)a2 error:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1E1168000, a2, OS_LOG_TYPE_ERROR, "Could not serialize JSON object: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1E1168000, a2, OS_LOG_TYPE_ERROR, "Could not serialize JSON object: %{public}@", &v2, 0xCu);
 }
 
 + (void)deserializeJSONDictionaryAtFileURL:(uint64_t)a1 error:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1E1168000, a2, OS_LOG_TYPE_ERROR, "Could not deserialize JSON data: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)deserializeJSONDictionaryAtFileURL:error:.cold.3()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v0, v1, "Could not read JSON data file: %{public}@ %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1E1168000, a2, OS_LOG_TYPE_ERROR, "Could not deserialize JSON data: %{public}@", &v2, 0xCu);
 }
 
 @end

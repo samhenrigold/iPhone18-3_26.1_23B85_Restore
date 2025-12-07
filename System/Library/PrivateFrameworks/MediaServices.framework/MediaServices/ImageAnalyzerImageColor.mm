@@ -35,71 +35,71 @@
 
 - (ImageAnalyzerImageColor)initWithAnalyzedImageColors:(const AnalyzedImageColors *)colors
 {
-  v37 = *MEMORY[0x1E69E9840];
-  v34.receiver = self;
-  v34.super_class = ImageAnalyzerImageColor;
-  v4 = [(ImageAnalyzerImageColor *)&v34 init];
+  v36 = *MEMORY[0x1E69E9840];
+  v33.receiver = self;
+  v33.super_class = ImageAnalyzerImageColor;
+  v4 = [(ImageAnalyzerImageColor *)&v33 init];
   if (v4)
   {
     v5 = *&colors->var0.var2;
     *components = *&colors->var0.var0;
-    v36 = v5;
+    v35 = v5;
     DeviceRGB = CGColorSpaceCreateDeviceRGB();
     v7 = CGColorCreate(DeviceRGB, components);
     CGColorSpaceRelease(DeviceRGB);
     v4->_backgroundColor = v7;
     v8 = *&colors->var1.var2;
     *components = *&colors->var1.var0;
-    v36 = v8;
+    v35 = v8;
     v9 = CGColorSpaceCreateDeviceRGB();
     v10 = CGColorCreate(v9, components);
     CGColorSpaceRelease(v9);
     v4->_primaryTextColor = v10;
     v11 = *&colors->var2.var2;
     *components = *&colors->var2.var0;
-    v36 = v11;
+    v35 = v11;
     v12 = CGColorSpaceCreateDeviceRGB();
     v13 = CGColorCreate(v12, components);
     CGColorSpaceRelease(v12);
     v4->_secondaryTextColor = v13;
     v14 = *&colors->var3.var2;
     *components = *&colors->var3.var0;
-    v36 = v14;
+    v35 = v14;
     v15 = CGColorSpaceCreateDeviceRGB();
     v16 = CGColorCreate(v15, components);
     CGColorSpaceRelease(v15);
     v4->_tertiaryTextColor = v16;
     v17 = *&colors->var4.var2;
     *components = *&colors->var4.var0;
-    v36 = v17;
+    v35 = v17;
     v18 = CGColorSpaceCreateDeviceRGB();
     v19 = CGColorCreate(v18, components);
     CGColorSpaceRelease(v18);
     v4->_quaternaryTextColor = v19;
     v20 = *&colors->var5.var2;
     *components = *&colors->var5.var0;
-    v36 = v20;
+    v35 = v20;
     v21 = CGColorSpaceCreateDeviceRGB();
     v22 = CGColorCreate(v21, components);
     CGColorSpaceRelease(v21);
     v4->_primaryDropShadowColor = v22;
     v23 = *&colors->var7.var2;
     *components = *&colors->var7.var0;
-    v36 = v23;
+    v35 = v23;
     v24 = CGColorSpaceCreateDeviceRGB();
     v25 = CGColorCreate(v24, components);
     CGColorSpaceRelease(v24);
     v4->_tertiaryDropShadowColor = v25;
     v26 = *&colors->var6.var2;
     *components = *&colors->var6.var0;
-    v36 = v26;
+    v35 = v26;
     v27 = CGColorSpaceCreateDeviceRGB();
     v28 = CGColorCreate(v27, components);
     CGColorSpaceRelease(v27);
     v4->_secondaryDropShadowColor = v28;
     v29 = *&colors->var8.var2;
     *components = *&colors->var8.var0;
-    v36 = v29;
+    v35 = v29;
     v30 = CGColorSpaceCreateDeviceRGB();
     v31 = CGColorCreate(v30, components);
     CGColorSpaceRelease(v30);
@@ -109,7 +109,6 @@
     v4->_isSecondaryColorLight = colors->var13;
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -131,71 +130,71 @@
 
 - (ImageAnalyzerImageColor)initWithImageAnalyzer:(const void *)analyzer
 {
-  v43 = *MEMORY[0x1E69E9840];
-  v40.receiver = self;
-  v40.super_class = ImageAnalyzerImageColor;
-  v4 = [(ImageAnalyzerImageColor *)&v40 init];
+  v42 = *MEMORY[0x1E69E9840];
+  v39.receiver = self;
+  v39.super_class = ImageAnalyzerImageColor;
+  v4 = [(ImageAnalyzerImageColor *)&v39 init];
   if (v4)
   {
     v5 = *(analyzer + 3);
     *components = *(analyzer + 2);
-    v42 = v5;
+    v41 = v5;
     DeviceRGB = CGColorSpaceCreateDeviceRGB();
     v7 = CGColorCreate(DeviceRGB, components);
     CGColorSpaceRelease(DeviceRGB);
     v4->_backgroundColor = v7;
     v8 = *(analyzer + 5);
     *components = *(analyzer + 4);
-    v42 = v8;
+    v41 = v8;
     v9 = CGColorSpaceCreateDeviceRGB();
     v10 = CGColorCreate(v9, components);
     CGColorSpaceRelease(v9);
     v4->_primaryTextColor = v10;
     v11 = *(analyzer + 7);
     *components = *(analyzer + 6);
-    v42 = v11;
+    v41 = v11;
     v12 = CGColorSpaceCreateDeviceRGB();
     v13 = CGColorCreate(v12, components);
     CGColorSpaceRelease(v12);
     v4->_secondaryTextColor = v13;
     v14 = *(analyzer + 9);
     *components = *(analyzer + 8);
-    v42 = v14;
+    v41 = v14;
     v15 = CGColorSpaceCreateDeviceRGB();
     v16 = CGColorCreate(v15, components);
     CGColorSpaceRelease(v15);
     v4->_tertiaryTextColor = v16;
     v17 = *(analyzer + 11);
     *components = *(analyzer + 10);
-    v42 = v17;
+    v41 = v17;
     v18 = CGColorSpaceCreateDeviceRGB();
     v19 = CGColorCreate(v18, components);
     CGColorSpaceRelease(v18);
     v4->_quaternaryTextColor = v19;
     v20 = *(analyzer + 13);
     *components = *(analyzer + 12);
-    v42 = v20;
+    v41 = v20;
     v21 = CGColorSpaceCreateDeviceRGB();
     v22 = CGColorCreate(v21, components);
     CGColorSpaceRelease(v21);
     v4->_primaryDropShadowColor = v22;
     v23 = *(analyzer + 15);
     *components = *(analyzer + 14);
-    v42 = v23;
+    v41 = v23;
     v24 = CGColorSpaceCreateDeviceRGB();
     v25 = CGColorCreate(v24, components);
     CGColorSpaceRelease(v24);
     v4->_tertiaryDropShadowColor = v25;
     v26 = *(analyzer + 17);
     *components = *(analyzer + 16);
-    v42 = v26;
+    v41 = v26;
     v27 = CGColorSpaceCreateDeviceRGB();
     v28 = CGColorCreate(v27, components);
     CGColorSpaceRelease(v27);
     v4->_secondaryDropShadowColor = v28;
     v29 = *(analyzer + 19);
     *components = *(analyzer + 18);
-    v42 = v29;
+    v41 = v29;
     v30 = CGColorSpaceCreateDeviceRGB();
     v31 = CGColorCreate(v30, components);
     CGColorSpaceRelease(v30);
@@ -208,7 +207,6 @@
     v4->_isSecondaryColorLight = v37 >= 0.180000007;
   }
 
-  v38 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -339,7 +337,6 @@ LABEL_5:
   v8 = CGColorCreate(DeviceRGB, components);
   CGColorSpaceRelease(DeviceRGB);
   CFAutorelease(v8);
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -350,31 +347,31 @@ LABEL_5:
   if (!v4)
   {
     exception = __cxa_allocate_exception(0x18uLL);
-    ImageAnalyzer::image_analyzer_error::image_analyzer_error(exception, 2, "+[ImageColor analyzeImage:error:] - failed to create CGContext.", v9, v10, v11, v12, v13, v14);
+    ImageAnalyzer::image_analyzer_error::image_analyzer_error(exception, 2, "+[ImageColor analyzeImage:error:] - failed to create CGContext.", v9, v10, v11, v12, v13);
   }
 
-  memset(&v15, 0, 24);
-  v15.var0.var3 = 1.0;
-  memset(&v15.var1, 0, 24);
-  v15.var1.var3 = 1.0;
-  memset(&v15.var2, 0, 24);
-  v15.var2.var3 = 1.0;
-  memset(&v15.var3, 0, 24);
-  v15.var3.var3 = 1.0;
-  memset(&v15.var4, 0, 24);
-  v15.var4.var3 = 1.0;
-  memset(&v15.var5, 0, 24);
-  v15.var5.var3 = 1.0;
-  memset(&v15.var6, 0, 24);
-  v15.var6.var3 = 1.0;
-  memset(&v15.var7, 0, 24);
-  v15.var7.var3 = 1.0;
-  memset(&v15.var8, 0, 24);
-  v15.var8.var3 = 1.0;
-  *(&v15.var9 + 5) = 0.0;
-  v15.var9 = 0.0;
-  AnalyzeImagePlease(v4, &v15);
-  v6 = [ImageAnalyzerImageColor imageColorWithAnalyzedImageColors:&v15];
+  memset(&v14, 0, 24);
+  v14.var0.var3 = 1.0;
+  memset(&v14.var1, 0, 24);
+  v14.var1.var3 = 1.0;
+  memset(&v14.var2, 0, 24);
+  v14.var2.var3 = 1.0;
+  memset(&v14.var3, 0, 24);
+  v14.var3.var3 = 1.0;
+  memset(&v14.var4, 0, 24);
+  v14.var4.var3 = 1.0;
+  memset(&v14.var5, 0, 24);
+  v14.var5.var3 = 1.0;
+  memset(&v14.var6, 0, 24);
+  v14.var6.var3 = 1.0;
+  memset(&v14.var7, 0, 24);
+  v14.var7.var3 = 1.0;
+  memset(&v14.var8, 0, 24);
+  v14.var8.var3 = 1.0;
+  *(&v14.var9 + 5) = 0.0;
+  v14.var9 = 0.0;
+  AnalyzeImagePlease(v4, &v14);
+  v6 = [ImageAnalyzerImageColor imageColorWithAnalyzedImageColors:&v14];
   CGContextRelease(v5);
 
   return v6;
@@ -418,7 +415,8 @@ LABEL_5:
   v133 = 0;
   v134 = 0;
   v135 = 0x3FF0000000000000;
-  v99[0] = 0uLL;
+  v99.var0 = 0.0;
+  v99.var1 = 0.0;
   v138 = 0u;
   v139 = 0u;
   v136 = 0u;
@@ -473,7 +471,7 @@ LABEL_5:
   if (!v12)
   {
     v57 = __cxa_allocate_exception(0x18uLL);
-    ImageAnalyzer::image_analyzer_error::image_analyzer_error(v57, 2, "ImageAnalyzer::GenerateColorMaps() - Failed to create CG Context", v58, v59, v60, v61, v62, v88);
+    ImageAnalyzer::image_analyzer_error::image_analyzer_error(v57, 2, "ImageAnalyzer::GenerateColorMaps() - Failed to create CG Context", v58, v59, v60, v61, v62);
   }
 
   v145 = v12;
@@ -488,7 +486,7 @@ LABEL_5:
   if (!Image)
   {
     v63 = __cxa_allocate_exception(0x18uLL);
-    ImageAnalyzer::image_analyzer_error::image_analyzer_error(v63, 3, "ImageAnalyzer::GenerateColorMaps() - Failed to create CG Image", v64, v65, v66, v67, v68, v88);
+    ImageAnalyzer::image_analyzer_error::image_analyzer_error(v63, 3, "ImageAnalyzer::GenerateColorMaps() - Failed to create CG Image", v64, v65, v66, v67, v68);
   }
 
   v143 = Image;
@@ -502,7 +500,7 @@ LABEL_5:
   {
     v69 = v17;
     v70 = __cxa_allocate_exception(0x18uLL);
-    ImageAnalyzer::image_analyzer_error::image_analyzer_error(v70, 4, "ImageAnalyzer::GenerateColorMaps() - Failed to create vImageBuffer from CGImage (%zd)", v71, v72, v73, v74, v75, v69);
+    ImageAnalyzer::image_analyzer_error::image_analyzer_error(v70, 4, "ImageAnalyzer::GenerateColorMaps() - Failed to create vImageBuffer from CGImage (%zd)", v71, v72, v73, v74, v75, v69, error);
   }
 
   if (v6 == 1)
@@ -524,7 +522,7 @@ LABEL_5:
   {
     v82 = v18;
     v76 = __cxa_allocate_exception(0x18uLL);
-    ImageAnalyzer::image_analyzer_error::image_analyzer_error(v76, 4, "ImageAnalyzer::GenerateColorMaps() - vImage error un-premultiplying image data. (%zd)", v83, v84, v85, v86, v87, v82);
+    ImageAnalyzer::image_analyzer_error::image_analyzer_error(v76, 4, "ImageAnalyzer::GenerateColorMaps() - vImage error un-premultiplying image data. (%zd)", v83, v84, v85, v86, v87, v82, error);
 LABEL_60:
   }
 
@@ -538,7 +536,7 @@ LABEL_24:
   if (!v90)
   {
     v76 = __cxa_allocate_exception(0x18uLL);
-    ImageAnalyzer::image_analyzer_error::image_analyzer_error(v76, 1, "ImageAnalyzer::getHSVMap() - Failed to allocate memory for imageHSVMap.", v77, v78, v79, v80, v81, v88);
+    ImageAnalyzer::image_analyzer_error::image_analyzer_error(v76, 1, "ImageAnalyzer::getHSVMap() - Failed to allocate memory for imageHSVMap.", v77, v78, v79, v80, v81);
     goto LABEL_60;
   }
 
@@ -670,7 +668,7 @@ LABEL_48:
   while (v31 != v23);
 LABEL_49:
   *(&v139 + 1) = *(&v139 + 1) / 400.0;
-  v99[0].n128_u64[0] = v90;
+  *&v99.var0 = v90;
   if (dest.data)
   {
     free(dest.data);
@@ -678,12 +676,12 @@ LABEL_49:
 
   final_act<ImageAnalyzer::GenerateColorMaps(CGImage *)::$_1>::~final_act(&v143);
   CGContextRelease(c);
-  ImageAnalyzer::QuantizeColorMaps(v99);
-  ImageAnalyzer::PickBackgroundColor(v99);
-  ImageAnalyzer::PickTextColors(v99);
-  ImageAnalyzer::DoPostImageAnalysis(v99, v52, v53);
-  v54 = [ImageAnalyzerImageColor imageColorWithImageAnalyzer:v99];
-  ImageAnalyzer::~ImageAnalyzer(v99);
+  ImageAnalyzer::QuantizeColorMaps(&v99);
+  ImageAnalyzer::PickBackgroundColor(&v99);
+  ImageAnalyzer::PickTextColors(&v99);
+  ImageAnalyzer::DoPostImageAnalysis(&v99, v52, v53);
+  v54 = [ImageAnalyzerImageColor imageColorWithImageAnalyzer:&v99];
+  ImageAnalyzer::~ImageAnalyzer(&v99);
 
   return v54;
 }

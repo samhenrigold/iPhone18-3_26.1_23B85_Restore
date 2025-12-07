@@ -169,7 +169,7 @@
     {
       if ((objc_opt_respondsToSelector() & 1) == 0)
       {
-        [CSPosterSwitcherViewController setAppHostConfiguring:a2];
+        [(CSPosterSwitcherViewController *)a2 setAppHostConfiguring:?];
       }
 
       objc_initWeak(&location, self);
@@ -842,7 +842,7 @@ uint64_t __68__CSPosterSwitcherViewController_sceneHandle_didUpdateContentState_
   settingsCopy = settings;
   handleCopy = handle;
   settingsDiff = [settingsCopy settingsDiff];
-  transitionContext = [settingsCopy transitionContext];
+  v9 = objc_msgSend_transitionContext(settingsCopy);
 
   scene = [handleCopy scene];
 
@@ -899,7 +899,7 @@ uint64_t __68__CSPosterSwitcherViewController_sceneHandle_didUpdateContentState_
       [(CSPosterSwitcherViewController *)self setClientSwitcherLayoutMode:pruis_switcherLayoutMode];
       if (v19)
       {
-        v20 = transitionContext;
+        v20 = v9;
         _UISceneSettingsDiffActionPerformChangesWithTransitionContext();
       }
     }
@@ -947,24 +947,9 @@ uint64_t __68__CSPosterSwitcherViewController_sceneHandle_didUpdateContentState_
 
 - (void)_evaluateInitialTouchTransferActuation
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Why are we trying to transfer touches to a non-foreground scene?"];
-  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
-  {
-    v3 = NSStringFromSelector(self);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
-    OUTLINED_FUNCTION_1_1();
-    v8 = @"CSPosterSwitcherViewController.m";
-    v9 = 1024;
-    v10 = 610;
-    v11 = v6;
-    v12 = v2;
-    _os_log_error_impl(&dword_21EB05000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, 0x3Au);
-  }
-
-  [v2 UTF8String];
-  _bs_set_crash_log_message();
-  __break(0);
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = self;
+  OUTLINED_FUNCTION_0_4(&dword_21EB05000, a2, a3, "Poster Switcher had zero touches to transfer to context ID: %u", a5, a6, a7, a8, v8);
 }
 
 uint64_t __72__CSPosterSwitcherViewController__evaluateInitialTouchTransferActuation__block_invoke(uint64_t a1, void *a2)
@@ -1000,7 +985,7 @@ id __73__CSPosterSwitcherViewController__transitionScene_toLayoutMode_animated__
   [a2 pruis_setPreferredSwitcherLayoutMode:*(a1 + 40)];
   if (*(a1 + 48) == 1 && [*(a1 + 32) isActive])
   {
-    v3 = [MEMORY[0x277D75188] transitionContext];
+    v3 = objc_msgSend_transitionContext(MEMORY[0x277D75188]);
     v4 = PRUISSwitcherLayoutTransitionAnimationSettings();
     [v3 setAnimationSettings:v4];
   }
@@ -1166,20 +1151,20 @@ id __109__CSPosterSwitcherViewController__updateAppearanceWithClientLayoutMode_p
   return v2;
 }
 
-uint64_t __109__CSPosterSwitcherViewController__updateAppearanceWithClientLayoutMode_previousLayoutMode_transitionContext___block_invoke_2(uint64_t result)
+id *__109__CSPosterSwitcherViewController__updateAppearanceWithClientLayoutMode_previousLayoutMode_transitionContext___block_invoke_2(id *result)
 {
   if (*(result + 40) == 1)
   {
     v1 = result;
-    v2 = [*(result + 32) _effectiveSceneClientLayoutMode];
-    v3 = *(v1 + 32);
+    v2 = [result[4] _effectiveSceneClientLayoutMode];
+    v3 = v1[4];
     if (v2)
     {
       --v3[142];
-      result = *(v1 + 32);
-      if (!*(result + 1136))
+      result = v1[4];
+      if (!result[142])
       {
-        v4 = *(v1 + 32);
+        v4 = v1[4];
 
         return [result updateAppearanceForController:v4];
       }
@@ -1320,40 +1305,51 @@ uint64_t __109__CSPosterSwitcherViewController__updateAppearanceWithClientLayout
   return result;
 }
 
-- (void)setAppHostConfiguring:(const char *)a1 .cold.1(const char *a1)
+- (void)setAppHostConfiguring:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"We need an application hoster that supports an invalidation handler"];
+  v15 = *MEMORY[0x277D85DE8];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"We need an application hoster that supports an invalidation handler"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_1_1();
-    v9 = @"CSPosterSwitcherViewController.m";
-    v10 = 1024;
-    v11 = 134;
-    v12 = v6;
-    v13 = v2;
-    _os_log_error_impl(&dword_21EB05000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, 0x3Au);
+    v10 = @"CSPosterSwitcherViewController.m";
+    v11 = 1024;
+    v12 = 134;
+    v13 = v7;
+    v14 = v3;
+    _os_log_error_impl(&dword_21EB05000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, 0x3Au);
   }
 
-  v7 = v2;
-  [v2 UTF8String];
+  v8 = v3;
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
+}
+
+- (void)aggregateAppearance:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1 & 1;
+  OUTLINED_FUNCTION_0_4(&dword_21EB05000, a2, a3, "Updating Poster Switcher appearance with scaled switcher layout: %u", a5, a6, a7, a8, v8);
 }
 
 - (void)sceneHandle:didUpdateClientSettings:.cold.1()
 {
   v0 = NSStringFromPRUISSwitcherLayoutMode();
-  OUTLINED_FUNCTION_0_3(&dword_21EB05000, v1, v2, "Poster Switcher reflecting client layout mode update to: %@", v3, v4, v5, v6, 2u);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_0_3(&dword_21EB05000, v1, v2, "Poster Switcher reflecting client layout mode update to: %@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 - (void)_transitionScene:toLayoutMode:animated:.cold.1()
 {
   v0 = NSStringFromPRUISSwitcherLayoutMode();
-  OUTLINED_FUNCTION_0_3(&dword_21EB05000, v1, v2, "Poster Switcher is updating preferred layout mode to: %@", v3, v4, v5, v6, 2u);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_0_3(&dword_21EB05000, v1, v2, "Poster Switcher is updating preferred layout mode to: %@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 @end

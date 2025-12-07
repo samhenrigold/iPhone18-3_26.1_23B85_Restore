@@ -22,9 +22,9 @@
     +[NSString(TSUNumberFormatStringUtilities) tsu_numberSymbols];
   }
 
-  v1 = tsu_numberSymbols_symbols;
+  v2 = tsu_numberSymbols_symbols;
 
-  return v1;
+  return v2;
 }
 
 - (BOOL)tsu_isNumberFormatPattern

@@ -18,18 +18,16 @@
 
 - (NSArray)attributeDescriptions
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   accessAllowedToAccessories = [(HMRestrictedGuestHomeAccessSettings *)self accessAllowedToAccessories];
   v5 = [v3 initWithName:@"allowedAccessories" value:accessAllowedToAccessories];
-  v12[0] = v5;
+  v11[0] = v5;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   guestAccessSchedule = [(HMRestrictedGuestHomeAccessSettings *)self guestAccessSchedule];
   v8 = [v6 initWithName:@"schedule" value:guestAccessSchedule];
-  v12[1] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v11[1] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
 
   return v9;
 }
@@ -43,16 +41,16 @@
 
 - (void)fixupAccessoriesForHome:(id)home
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   homeCopy = home;
   identifiersOfAccessAllowedToAccessories = [(HMRestrictedGuestHomeAccessSettings *)self identifiersOfAccessAllowedToAccessories];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __63__HMRestrictedGuestHomeAccessSettings_fixupAccessoriesForHome___block_invoke;
-  v15[3] = &unk_1E754AD90;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __63__HMRestrictedGuestHomeAccessSettings_fixupAccessoriesForHome___block_invoke;
+  v14[3] = &unk_1E754AD90;
   v6 = homeCopy;
-  v16 = v6;
-  v7 = [identifiersOfAccessAllowedToAccessories na_map:v15];
+  v15 = v6;
+  v7 = [identifiersOfAccessAllowedToAccessories na_map:v14];
   [(HMRestrictedGuestHomeAccessSettings *)self setAccessAllowedToAccessories:v7];
 
   v8 = objc_autoreleasePoolPush();
@@ -64,16 +62,15 @@
     accessAllowedToAccessories = [(HMRestrictedGuestHomeAccessSettings *)selfCopy accessAllowedToAccessories];
     guestAccessSchedule = [(HMRestrictedGuestHomeAccessSettings *)selfCopy guestAccessSchedule];
     *buf = 138543874;
-    v18 = v11;
-    v19 = 2112;
-    v20 = accessAllowedToAccessories;
-    v21 = 2112;
-    v22 = guestAccessSchedule;
+    v17 = v11;
+    v18 = 2112;
+    v19 = accessAllowedToAccessories;
+    v20 = 2112;
+    v21 = guestAccessSchedule;
     _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_DEBUG, "%{public}@AllowedAccessories: %@, AccessSchedules: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (HMRestrictedGuestHomeAccessSettings)initWithCoder:(id)coder
@@ -222,18 +219,18 @@ void __55__HMRestrictedGuestHomeAccessSettings_encodeWithCoder___block_invoke(ui
 
 - (id)locksWithReducedFunctionalityDueToSchedule
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   guestAccessSchedule = [(HMRestrictedGuestHomeAccessSettings *)self guestAccessSchedule];
 
   if (guestAccessSchedule)
   {
     accessAllowedToAccessories = [(HMRestrictedGuestHomeAccessSettings *)self accessAllowedToAccessories];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __81__HMRestrictedGuestHomeAccessSettings_locksWithReducedFunctionalityDueToSchedule__block_invoke;
-    v12[3] = &unk_1E754AD00;
-    v12[4] = self;
-    v5 = [accessAllowedToAccessories na_filter:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __81__HMRestrictedGuestHomeAccessSettings_locksWithReducedFunctionalityDueToSchedule__block_invoke;
+    v11[3] = &unk_1E754AD00;
+    v11[4] = self;
+    v5 = [accessAllowedToAccessories na_filter:v11];
   }
 
   else
@@ -245,7 +242,7 @@ void __55__HMRestrictedGuestHomeAccessSettings_encodeWithCoder___block_invoke(ui
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v14 = v9;
+      v13 = v9;
       _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_INFO, "%{public}@Configured Schedule is unrestricted so no locks have reduced functionality", buf, 0xCu);
     }
 
@@ -253,14 +250,12 @@ void __55__HMRestrictedGuestHomeAccessSettings_encodeWithCoder___block_invoke(ui
     v5 = [MEMORY[0x1E695DFD8] set];
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 BOOL __81__HMRestrictedGuestHomeAccessSettings_locksWithReducedFunctionalityDueToSchedule__block_invoke(uint64_t a1, void *a2)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 supportsWalletKey] & 1) != 0 || (objc_msgSend(v3, "supportsAccessCodes") & 1) != 0 || (objc_msgSend(v3, "supportsUWBUnlock"))
   {
@@ -301,23 +296,23 @@ BOOL __81__HMRestrictedGuestHomeAccessSettings_locksWithReducedFunctionalityDueT
       }
 
       [v3 weekDaySchedulesPerUserCapacity];
-      v20 = v30 = v8;
+      v20 = v29 = v8;
       v21 = [v3 yearDaySchedulesPerUserCapacity];
       *buf = 138544642;
-      v32 = v16;
-      v33 = 2112;
-      v34 = v17;
-      v35 = 2112;
-      v36 = v18;
-      v37 = 2112;
-      v38 = v19;
-      v39 = 2112;
-      v40 = v20;
-      v41 = 2112;
-      v42 = v21;
+      v31 = v16;
+      v32 = 2112;
+      v33 = v17;
+      v34 = 2112;
+      v35 = v18;
+      v36 = 2112;
+      v37 = v19;
+      v38 = 2112;
+      v39 = v20;
+      v40 = 2112;
+      v41 = v21;
       _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_INFO, "%{public}@Schedule %@ does %@fit on accessory: [%@] with week day schedule capacity: %@ and year day schedule capacity: %@", buf, 0x3Eu);
 
-      v8 = v30;
+      v8 = v29;
     }
 
     objc_autoreleasePoolPop(v13);
@@ -326,25 +321,24 @@ BOOL __81__HMRestrictedGuestHomeAccessSettings_locksWithReducedFunctionalityDueT
 
   else
   {
-    v25 = objc_autoreleasePoolPush();
-    v26 = *(a1 + 32);
-    v27 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+    v24 = objc_autoreleasePoolPush();
+    v25 = *(a1 + 32);
+    v26 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
-      v28 = HMFGetLogIdentifier();
-      v29 = [v3 uuid];
+      v27 = HMFGetLogIdentifier();
+      v28 = [v3 uuid];
       *buf = 138543618;
-      v32 = v28;
-      v33 = 2112;
-      v34 = v29;
-      _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_INFO, "%{public}@Allowed Accessory: [%@] does not have any physical access credentials", buf, 0x16u);
+      v31 = v27;
+      v32 = 2112;
+      v33 = v28;
+      _os_log_impl(&dword_19BB39000, v26, OS_LOG_TYPE_INFO, "%{public}@Allowed Accessory: [%@] does not have any physical access credentials", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v25);
+    objc_autoreleasePoolPop(v24);
     v22 = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
@@ -402,18 +396,16 @@ uint64_t __68__HMRestrictedGuestHomeAccessSettings_doAllAccessoriesBelongToHome_
 
 void __58__HMRestrictedGuestHomeAccessSettings_secureClassServices__block_invoke()
 {
-  v5[4] = *MEMORY[0x1E69E9840];
+  v4[4] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
-  v5[0] = @"00000081-0000-1000-8000-0026BB765291";
-  v5[1] = @"00000041-0000-1000-8000-0026BB765291";
-  v5[2] = @"00000045-0000-1000-8000-0026BB765291";
-  v5[3] = @"0000007E-0000-1000-8000-0026BB765291";
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:4];
+  v4[0] = @"00000081-0000-1000-8000-0026BB765291";
+  v4[1] = @"00000041-0000-1000-8000-0026BB765291";
+  v4[2] = @"00000045-0000-1000-8000-0026BB765291";
+  v4[3] = @"0000007E-0000-1000-8000-0026BB765291";
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:4];
   v2 = [v0 setWithArray:v1];
   v3 = secureClassServices_secureClassServices;
   secureClassServices_secureClassServices = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)doesAccessoryHaveRestrictedGuestCapableServiceTypes:(id)types

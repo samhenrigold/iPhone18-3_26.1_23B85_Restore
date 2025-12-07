@@ -20,39 +20,37 @@
 
 - (NSArray)attributeDescriptions
 {
-  v24[5] = *MEMORY[0x277D85DE8];
+  v23[5] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCABB8]);
   [v3 setMinimumFractionDigits:3];
   [v3 setMaximumFractionDigits:3];
   [v3 setNotANumberSymbol:@"0.000"];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   logIdentifier = [(HMDCameraClipOperation *)self logIdentifier];
-  v22 = [v4 initWithName:@"ID" value:logIdentifier];
-  v24[0] = v22;
+  v21 = [v4 initWithName:@"ID" value:logIdentifier];
+  v23[0] = v21;
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   creationDate = [(HMDCameraClipOperation *)self creationDate];
   v7 = [v5 initWithName:@"Created" value:creationDate];
-  v24[1] = v7;
+  v23[1] = v7;
   v8 = objc_alloc(MEMORY[0x277D0F778]);
   v9 = MEMORY[0x277CCABB0];
   [(HMDCameraClipOperation *)self queuedDuration];
   v10 = [v9 numberWithDouble:?];
   v11 = [v8 initWithName:@"Queued Duration" value:v10 options:0 formatter:v3];
-  v24[2] = v11;
+  v23[2] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMFOperation *)self isExecuting];
   v13 = HMFBooleanToString();
   v14 = [v12 initWithName:@"Executing" value:v13];
-  v24[3] = v14;
+  v23[3] = v14;
   v15 = objc_alloc(MEMORY[0x277D0F778]);
   v16 = MEMORY[0x277CCABB0];
   [(HMDCameraClipOperation *)self executionDuration];
   v17 = [v16 numberWithDouble:?];
   v18 = [v15 initWithName:@"Execution Duration" value:v17 options:0 formatter:v3];
-  v24[4] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:5];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v23[4] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:5];
 
   return v19;
 }
@@ -121,7 +119,7 @@
 
 - (id)updateClipModel:(id)model
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   videoStreamingAsset = [modelCopy videoStreamingAsset];
 
@@ -147,11 +145,11 @@
     {
       v15 = HMFGetLogIdentifier();
       v16 = [modelCopy debugDescription];
-      v21 = 138543618;
-      v22 = v15;
-      v23 = 2112;
-      v24 = v16;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Aborting save of clip model because no video streaming asset was found: %@", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v15;
+      v22 = 2112;
+      v23 = v16;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Aborting save of clip model because no video streaming asset was found: %@", &v20, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
@@ -160,19 +158,17 @@
     v11 = [v17 futureWithError:v18];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)fetchClipModel
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   localZone = [(HMDCameraClipOperation *)self localZone];
   clipModelID = [(HMDCameraClipOperation *)self clipModelID];
-  v18 = 0;
-  v5 = [localZone fetchModelWithModelID:clipModelID ofType:objc_opt_class() error:&v18];
-  v6 = v18;
+  v17 = 0;
+  v5 = [localZone fetchModelWithModelID:clipModelID ofType:objc_opt_class() error:&v17];
+  v6 = v17;
 
   if (v5)
   {
@@ -190,11 +186,11 @@ LABEL_7:
     v11 = HMFGetLogIdentifier();
     clipModelID2 = [(HMDCameraClipOperation *)selfCopy clipModelID];
     *buf = 138543874;
-    v20 = v11;
-    v21 = 2112;
-    v22 = clipModelID2;
-    v23 = 2112;
-    v24 = v6;
+    v19 = v11;
+    v20 = 2112;
+    v21 = clipModelID2;
+    v22 = 2112;
+    v23 = v6;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to fetch local clip model with ID %@: %@", buf, 0x20u);
   }
 
@@ -206,22 +202,21 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v17 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:2];
-  v14 = [v13 futureWithError:v17];
+  v16 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:2];
+  v14 = [v13 futureWithError:v16];
 
 LABEL_8:
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 - (void)cancelWithError:(id)error
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v11.receiver = self;
-  v11.super_class = HMDCameraClipOperation;
-  [(HMFOperation *)&v11 cancelWithError:errorCopy];
+  v10.receiver = self;
+  v10.super_class = HMDCameraClipOperation;
+  [(HMFOperation *)&v10 cancelWithError:errorCopy];
   [(HMDCameraClipOperation *)self _markEndDateAndSubmitUploadOperationEvent];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -231,22 +226,21 @@ LABEL_8:
     v8 = HMFGetLogIdentifier();
     [(HMDCameraClipOperation *)selfCopy executionDuration];
     *buf = 138543618;
-    v13 = v8;
-    v14 = 2048;
-    v15 = v9;
+    v12 = v8;
+    v13 = 2048;
+    v14 = v9;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Operation canceled after %.2fs", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finish
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = HMDCameraClipOperation;
-  [(HMFOperation *)&v9 finish];
+  v13 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = HMDCameraClipOperation;
+  [(HMFOperation *)&v8 finish];
   [(HMDCameraClipOperation *)self _markEndDateAndSubmitUploadOperationEvent];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -256,14 +250,13 @@ LABEL_8:
     v6 = HMFGetLogIdentifier();
     [(HMDCameraClipOperation *)selfCopy executionDuration];
     *buf = 138543618;
-    v11 = v6;
-    v12 = 2048;
-    v13 = v7;
+    v10 = v6;
+    v11 = 2048;
+    v12 = v7;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Operation finished in %.2fs", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)main
@@ -387,10 +380,9 @@ LABEL_9:
 
 void __37__HMDCameraClipOperation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v5_48802;
-  logCategory__hmf_once_v5_48802 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v5_48802;
+  logCategory__hmf_once_v5_48802 = v0;
 }
 
 + (id)shortDescription

@@ -397,7 +397,7 @@ LABEL_15:
   dataSource = self->_private->dataSource;
   if (dataSource)
   {
-    [(WebDataSource *)dataSource _documentLoader];
+    objc_msgSend__documentLoader(dataSource);
     v4 = WebCore::DocumentLoader::parsedArchiveData(v23);
     v5 = objc_alloc(MEMORY[0x1E696AEC0]);
     if (v4)
@@ -448,7 +448,7 @@ LABEL_23:
 
 - (id)title
 {
-  [(WebDataSource *)self->_private->dataSource _documentLoader];
+  objc_msgSend__documentLoader(self->_private->dataSource, a2);
   result = *(v3 + 1624);
   if (result)
   {
@@ -937,7 +937,7 @@ LABEL_79:
 
         else
         {
-          WTF::StringImpl::substring(v67);
+          WTF::StringImpl::substring(&v68, v67);
           v23 = v68;
         }
 
@@ -998,7 +998,7 @@ LABEL_56:
 
         if (v40 || *(v67 + 1) > v43)
         {
-          WTF::StringImpl::substring(v67);
+          WTF::StringImpl::substring(&v68, v67);
           v44 = v68;
           if (!v68)
           {

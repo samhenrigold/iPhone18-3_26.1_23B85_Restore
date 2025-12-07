@@ -7,14 +7,13 @@
 
 - (NSString)description
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR____TtC11WorkoutCore16MediaMomentAlert_startTime);
   selfCopy = self;
-  v4 = Double.description.getter();
-  MEMORY[0x20F2E6D80](v4);
+  v3 = Double.description.getter();
+  MEMORY[0x20F2E6D80](v3);
 
-  v5 = MEMORY[0x20F2E6C00](0xD000000000000018, 0x800000020B45B1A0);
+  v4 = MEMORY[0x20F2E6C00](0xD000000000000018, 0x800000020B45B1A0);
 
-  return v5;
+  return v4;
 }
 
 - (_TtC11WorkoutCore16MediaMomentAlert)init

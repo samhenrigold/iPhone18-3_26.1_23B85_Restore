@@ -9,6 +9,7 @@
 - (UIEdgeInsets)contentInset;
 - (id)viewForElementIdentifier:(id)identifier;
 - (void)_layoutImages;
+- (void)init;
 - (void)layoutSubviews;
 - (void)reloadWithViewElement:(id)element width:(double)width context:(id)context;
 - (void)setContentInset:(UIEdgeInsets)inset;
@@ -466,9 +467,9 @@ uint64_t __57__SKUIImageDeckView_reloadWithViewElement_width_context___block_inv
 void __46__SKUIImageDeckView_viewForElementIdentifier___block_invoke(uint64_t a1, void *a2, unint64_t a3, _BYTE *a4)
 {
   v7 = [a2 itmlID];
-  v8 = [v7 isEqualToString:*(a1 + 32)];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if (v8)
+  if (isEqualToString)
   {
     if ([*(a1 + 40) count] > a3)
     {
@@ -729,11 +730,35 @@ void __46__SKUIImageDeckView_viewForElementIdentifier___block_invoke(uint64_t a1
   return result;
 }
 
+- (void)init
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIImageDeckView init]";
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIImageDeckView prefetchResourcesForViewElement:reason:context:]";
+}
+
++ (void)preferredSizeForViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIImageDeckView preferredSizeForViewElement:context:]";
+}
+
 + (void)requestLayoutForViewElement:width:context:.cold.1()
 {
   v2 = *MEMORY[0x277D85DE8];
   v0 = 136446210;
   v1 = "+[SKUIImageDeckView requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIImageDeckView sizeThatFitsWidth:viewElement:context:]";
 }
 
 @end

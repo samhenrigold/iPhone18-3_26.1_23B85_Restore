@@ -25,26 +25,26 @@
 
 - (void)loadView
 {
-  v36.receiver = self;
-  v36.super_class = StepByStepUIViewController_DevicePicker;
-  [(StepByStepUIViewController *)&v36 loadView];
-  objc_msgSend_setDelegate_(self, v3, self);
-  v6 = objc_msgSend_inParamDict(self, v4, v5);
-  self->_sourceBase = objc_msgSend_objectForKey_(v6, v7, @"kSBSKey_SourceBase");
-  v10 = objc_msgSend_inParamDict(self, v8, v9);
-  self->_sourceNetwork = objc_msgSend_objectForKey_(v10, v11, @"kSBSKey_SourceNetwork");
-  v14 = objc_msgSend_inParamDict(self, v12, v13);
-  self->_targetBase = objc_msgSend_objectForKey_(v14, v15, @"kSBSKey_TargetBase");
-  objc_msgSend_setupDevices(self, v16, v17);
+  v51.receiver = self;
+  v51.super_class = StepByStepUIViewController_DevicePicker;
+  [(StepByStepUIViewController *)&v51 loadView];
+  objc_msgSend_setDelegate_(self, v3, self, v4);
+  v8 = objc_msgSend_inParamDict(self, v5, v6, v7);
+  self->_sourceBase = objc_msgSend_objectForKey_(v8, v9, @"kSBSKey_SourceBase", v10);
+  v14 = objc_msgSend_inParamDict(self, v11, v12, v13);
+  self->_sourceNetwork = objc_msgSend_objectForKey_(v14, v15, @"kSBSKey_SourceNetwork", v16);
+  v20 = objc_msgSend_inParamDict(self, v17, v18, v19);
+  self->_targetBase = objc_msgSend_objectForKey_(v20, v21, @"kSBSKey_TargetBase", v22);
+  objc_msgSend_setupDevices(self, v23, v24, v25);
   if (!self->_selectedDevice)
   {
-    v20 = objc_msgSend_sortedDevices(self, v18, v19);
-    if (objc_msgSend_count(v20, v21, v22))
+    v29 = objc_msgSend_sortedDevices(self, v26, v27, v28);
+    if (objc_msgSend_count(v29, v30, v31, v32))
     {
-      v25 = objc_msgSend_sortedDevices(self, v23, v24);
-      v27 = objc_msgSend_objectAtIndex_(v25, v26, 0);
-      self->_selectedDevice = v27;
-      if (!v27)
+      v36 = objc_msgSend_sortedDevices(self, v33, v34, v35);
+      v39 = objc_msgSend_objectAtIndex_(v36, v37, 0, v38);
+      self->_selectedDevice = v39;
+      if (!v39)
       {
         return;
       }
@@ -58,90 +58,90 @@
 
   if (objc_opt_respondsToSelector())
   {
-    objc_msgSend_prepareParams(self, v28, v29);
+    objc_msgSend_prepareParams(self, v40, v41, v42);
   }
 
-  v30 = objc_msgSend_inParamDict(self, v28, v29);
-  v32 = objc_msgSend_objectForKey_(v30, v31, @"kSBSKey_Mode");
-  if (objc_msgSend_integerValue(v32, v33, v34) == 2)
+  v43 = objc_msgSend_inParamDict(self, v40, v41, v42);
+  v46 = objc_msgSend_objectForKey_(v43, v44, @"kSBSKey_Mode", v45);
+  if (objc_msgSend_integerValue(v46, v47, v48, v49) == 2)
   {
-    objc_msgSend_setLeftNavigationButton_enable_hide_(self, v35, @"kCancel", 1, 0);
+    objc_msgSend_setLeftNavigationButton_enable_hide_(self, v50, @"kCancel", 1, 0);
   }
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
   appearCopy = appear;
-  v5 = objc_msgSend_inParamDict(self, a2, appear);
-  v7 = objc_msgSend_objectForKey_(v5, v6, @"kSBSKey_Mode");
-  if (objc_msgSend_integerValue(v7, v8, v9) == 2)
+  v6 = objc_msgSend_inParamDict(self, a2, appear, v3);
+  v9 = objc_msgSend_objectForKey_(v6, v7, @"kSBSKey_Mode", v8);
+  if (objc_msgSend_integerValue(v9, v10, v11, v12) == 2)
   {
-    objc_msgSend_setLeftNavigationButton_enable_hide_(self, v10, @"kCancel", 1, 0);
-    if (objc_msgSend_showMoreOptions(self, v11, v12))
+    objc_msgSend_setLeftNavigationButton_enable_hide_(self, v13, @"kCancel", 1, 0);
+    if (objc_msgSend_showMoreOptions(self, v15, v16, v17))
     {
-      if (!objc_msgSend_actionController(self, v10, v13))
+      if (!objc_msgSend_actionController(self, v13, v18, v14))
       {
-        v15 = objc_msgSend_tableManager(self, v10, v14);
-        v18 = objc_msgSend_parentController(self, v16, v17);
-        v20 = objc_msgSend_recommendationActionControllerWithTableManager_andAssistantUIViewController_(RecommendationActionController, v19, v15, v18);
-        objc_msgSend_setActionController_(self, v21, v20);
+        v20 = objc_msgSend_tableManager(self, v13, v19, v14);
+        v24 = objc_msgSend_parentController(self, v21, v22, v23);
+        v26 = objc_msgSend_recommendationActionControllerWithTableManager_andAssistantUIViewController_(RecommendationActionController, v25, v20, v24);
+        objc_msgSend_setActionController_(self, v27, v26, v28);
       }
     }
   }
 
-  if (objc_msgSend_conformsToProtocol_(self, v10, &unk_285171958))
+  if (objc_msgSend_conformsToProtocol_(self, v13, &unk_285171958, v14))
   {
-    objc_msgSend_setupPickerTable(self, v22, v23);
-    objc_msgSend_setupHeaderAndFooter(self, v24, v25);
+    objc_msgSend_setupPickerTable(self, v29, v30, v31);
+    objc_msgSend_setupHeaderAndFooter(self, v32, v33, v34);
     if (objc_opt_respondsToSelector())
     {
-      objc_msgSend_updateNavigationButtons(self, v22, v23);
+      objc_msgSend_updateNavigationButtons(self, v29, v30, v31);
     }
   }
 
-  objc_msgSend_updateSelections(self, v22, v23);
-  v26.receiver = self;
-  v26.super_class = StepByStepUIViewController_DevicePicker;
-  [(StepByStepUIViewController *)&v26 viewWillAppear:appearCopy];
+  objc_msgSend_updateSelections(self, v29, v30, v31);
+  v35.receiver = self;
+  v35.super_class = StepByStepUIViewController_DevicePicker;
+  [(StepByStepUIViewController *)&v35 viewWillAppear:appearCopy];
 }
 
 - (void)touchInCellAtIndexPath:(id)path
 {
-  v5 = objc_msgSend_section(path, a2, path);
-  v8 = objc_msgSend_tableManager(self, v6, v7);
-  if (v5 == objc_msgSend_indexOfSectionWithIdentifier_(v8, v9, qword_27E383200))
+  v6 = objc_msgSend_section(path, a2, path, v3);
+  v10 = objc_msgSend_tableManager(self, v7, v8, v9);
+  if (v6 == objc_msgSend_indexOfSectionWithIdentifier_(v10, v11, qword_27E383200, v12))
   {
     if (objc_opt_respondsToSelector())
     {
-      v50 = 0;
-      v14 = objc_msgSend_tableManager(self, v12, v13);
-      if (objc_msgSend_tagOfCellAtIndexPath_tag_(v14, v15, path, &v50))
+      v69 = 0;
+      v19 = objc_msgSend_tableManager(self, v16, v17, v18);
+      if (objc_msgSend_tagOfCellAtIndexPath_tag_(v19, v20, path, &v69))
       {
-        if (v50 != 1400203111)
+        if (v69 != 1400203111)
         {
-          if (v50 == 1333028978)
+          if (v69 == 1333028978)
           {
             self->showFullList = 1;
-            v18 = objc_msgSend_tableManager(self, v16, v17);
-            objc_msgSend_deleteSectionWithIdentifier_animated_(v18, v19, qword_27E383200, 1);
-            objc_msgSend_setupPickerTable(self, v20, v21);
+            v24 = objc_msgSend_tableManager(self, v21, v22, v23);
+            objc_msgSend_deleteSectionWithIdentifier_animated_(v24, v25, qword_27E383200, 1);
+            objc_msgSend_setupPickerTable(self, v26, v27, v28);
           }
 
           else
           {
-            v32 = objc_msgSend_row(path, v16, v17);
-            if (objc_msgSend_sortedDevices(self, v33, v34))
+            v44 = objc_msgSend_row(path, v21, v22, v23);
+            if (objc_msgSend_sortedDevices(self, v45, v46, v47))
             {
-              v37 = objc_msgSend_sortedDevices(self, v35, v36);
-              if (v32 < objc_msgSend_count(v37, v38, v39))
+              v51 = objc_msgSend_sortedDevices(self, v48, v49, v50);
+              if (v44 < objc_msgSend_count(v51, v52, v53, v54))
               {
-                v42 = objc_msgSend_sortedDevices(self, v40, v41);
-                v45 = objc_msgSend_row(path, v43, v44);
-                v47 = objc_msgSend_objectAtIndex_(v42, v46, v45);
-                self->_selectedDevice = v47;
-                if (v47)
+                v58 = objc_msgSend_sortedDevices(self, v55, v56, v57);
+                v62 = objc_msgSend_row(path, v59, v60, v61);
+                v65 = objc_msgSend_objectAtIndex_(v58, v63, v62, v64);
+                self->_selectedDevice = v65;
+                if (v65)
                 {
-                  objc_msgSend_updateSelections(self, v48, v49);
+                  objc_msgSend_updateSelections(self, v66, v67, v68);
                 }
               }
             }
@@ -153,28 +153,28 @@
 
   else
   {
-    v22 = objc_msgSend_tableManager(self, v10, v11);
-    if (v5 == objc_msgSend_indexOfSectionWithIdentifier_(v22, v23, @"ActionTableSection"))
+    v29 = objc_msgSend_tableManager(self, v13, v14, v15);
+    if (v6 == objc_msgSend_indexOfSectionWithIdentifier_(v29, v30, @"ActionTableSection", v31))
     {
       actionController = self->actionController;
       if (actionController)
       {
-        isPrimaryRecommendation = objc_msgSend_isPrimaryRecommendation(actionController, v24, v25);
+        isPrimaryRecommendation = objc_msgSend_isPrimaryRecommendation(actionController, v32, v33, v34);
         if (isPrimaryRecommendation)
         {
-          objc_msgSend_setupPickerTable(self, v27, v28);
+          objc_msgSend_setupPickerTable(self, v36, v37, v38);
         }
 
         else
         {
-          v30 = objc_msgSend_tableManager(self, v27, v28);
-          objc_msgSend_deleteSectionWithIdentifier_(v30, v31, qword_27E383200);
+          v40 = objc_msgSend_tableManager(self, v36, v37, v38);
+          objc_msgSend_deleteSectionWithIdentifier_(v40, v41, qword_27E383200, v42);
         }
 
         if (objc_opt_respondsToSelector())
         {
 
-          MEMORY[0x2821F9670](self, sel_primaryActionSelected_, isPrimaryRecommendation);
+          MEMORY[0x2821F9670](self, sel_primaryActionSelected_, isPrimaryRecommendation, v43);
         }
       }
     }
@@ -185,43 +185,43 @@
 {
   if (self->actionController)
   {
-    v4 = objc_msgSend_tableManager(self, a2, v2);
-    v7 = objc_msgSend_sectionIdentifier(self->actionController, v5, v6);
-    if (objc_msgSend_indexOfSectionWithIdentifier_(v4, v8, v7) == 0x7FFFFFFFFFFFFFFFLL)
+    v5 = objc_msgSend_tableManager(self, a2, v2, v3);
+    v9 = objc_msgSend_sectionIdentifier(self->actionController, v6, v7, v8);
+    if (objc_msgSend_indexOfSectionWithIdentifier_(v5, v10, v9, v11) == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v11 = objc_msgSend_tableManager(self, v9, v10);
+      v15 = objc_msgSend_tableManager(self, v12, v13, v14);
       actionController = self->actionController;
-      v15 = sub_23EC13460(self, v13, v14) != 1;
-      SectionInfoWithLongStrings = objc_msgSend_getSectionInfoWithLongStrings_(actionController, v16, v15);
-      objc_msgSend_addSectionInfo_(v11, v18, SectionInfoWithLongStrings);
+      v20 = sub_23EC13460(self, v17, v18, v19) != 1;
+      SectionInfoWithLongStrings = objc_msgSend_getSectionInfoWithLongStrings_(actionController, v21, v20, v22);
+      objc_msgSend_addSectionInfo_(v15, v24, SectionInfoWithLongStrings, v25);
     }
 
     else
     {
-      objc_msgSend_selectPrimaryRecommendation(self->actionController, v9, v10);
+      objc_msgSend_selectPrimaryRecommendation(self->actionController, v12, v13, v14);
     }
   }
 
-  v19 = objc_msgSend_tableManager(self, a2, v2);
-  if (objc_msgSend_indexOfSectionWithIdentifier_(v19, v20, qword_27E383200) == 0x7FFFFFFFFFFFFFFFLL)
+  v26 = objc_msgSend_tableManager(self, a2, v2, v3);
+  if (objc_msgSend_indexOfSectionWithIdentifier_(v26, v27, qword_27E383200, v28) == 0x7FFFFFFFFFFFFFFFLL)
   {
-    if (!self->actionController || (v23 = objc_msgSend_sortedDevices(self, v21, v22), objc_msgSend_count(v23, v24, v25) >= 2))
+    if (!self->actionController || (v32 = objc_msgSend_sortedDevices(self, v29, v30, v31), objc_msgSend_count(v32, v33, v34, v35) >= 2))
     {
-      v26 = objc_msgSend_sortedDevices(self, v21, v22);
-      if (objc_msgSend_count(v26, v27, v28))
+      v36 = objc_msgSend_sortedDevices(self, v29, v30, v31);
+      if (objc_msgSend_count(v36, v37, v38, v39))
       {
-        v51 = objc_msgSend_deviceTableLabel(self, v29, v30);
-        v33 = objc_msgSend_sortedDevices(self, v31, v32);
-        v35 = objc_msgSend_indexOfObject_(v33, v34, self->_selectedDevice);
-        v50 = objc_msgSend_tableManager(self, v36, v37);
-        v38 = MEMORY[0x277CBEB38];
-        v41 = objc_msgSend_pickerContent(self, v39, v40);
-        v42 = qword_27E383200;
-        v44 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v43, 1);
-        v46 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v45, v35);
-        v49 = objc_msgSend_dictionaryWithObjectsAndKeys_(v38, v47, v41, @"sectionRows", v42, @"identifier", v44, @"sectionIsMenu", v51, @"header", v46, @"selectedMenuItemTag", 0);
+        v70 = objc_msgSend_deviceTableLabel(self, v40, v41, v42);
+        v46 = objc_msgSend_sortedDevices(self, v43, v44, v45);
+        v49 = objc_msgSend_indexOfObject_(v46, v47, self->_selectedDevice, v48);
+        v69 = objc_msgSend_tableManager(self, v50, v51, v52);
+        v53 = MEMORY[0x277CBEB38];
+        v57 = objc_msgSend_pickerContent(self, v54, v55, v56);
+        v58 = qword_27E383200;
+        v61 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v59, 1, v60);
+        v64 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v62, v49, v63);
+        v68 = objc_msgSend_dictionaryWithObjectsAndKeys_(v53, v65, v57, v66, @"sectionRows", v58, @"identifier", v61, @"sectionIsMenu", v70, @"header", v64, @"selectedMenuItemTag", 0);
 
-        objc_msgSend_insertSectionInfo_atIndex_withRowAnimation_(v50, v48, v49, 0, 100);
+        objc_msgSend_insertSectionInfo_atIndex_withRowAnimation_(v69, v67, v68, 0, 100);
       }
     }
   }
@@ -231,138 +231,138 @@
 {
   if (objc_opt_respondsToSelector())
   {
-    objc_msgSend_selectedDeviceUpdated(self, v3, v4);
+    objc_msgSend_selectedDeviceUpdated(self, v3, v4, v5);
   }
 
-  v6 = objc_msgSend_objectForKey_(self->_selectedDevice, v3, @"BSSID");
+  v8 = objc_msgSend_objectForKey_(self->_selectedDevice, v3, @"BSSID", v5);
   selectedDevice = self->_selectedDevice;
-  if (v6)
+  if (v8)
   {
     self->_sourceNetwork = selectedDevice;
-    objc_msgSend_objectForKey_(selectedDevice, v5, @"SSID_STR");
+    objc_msgSend_objectForKey_(selectedDevice, v6, @"SSID_STR", v7);
     if (self->_showSingleBaseTopo)
     {
-      v9 = 0;
+      v12 = 0;
     }
 
     else
     {
-      v9 = self->_selectedDevice;
+      v12 = self->_selectedDevice;
     }
 
-    self->_sourceBase = v9;
-    v30 = self->_selectedDevice;
-    if (v30)
+    self->_sourceBase = v12;
+    v23 = self->_selectedDevice;
+    if (v23)
     {
-      objc_msgSend_setObject_forKey_(self->super.super._outResultsDict, v8, v30, @"kSBSKey_SourceNetwork");
+      objc_msgSend_setObject_forKey_(self->super.super._outResultsDict, v10, v23, @"kSBSKey_SourceNetwork");
     }
 
-    v80 = 0;
-    v81 = 0;
+    v91 = 0;
+    v92 = 0;
   }
 
   else
   {
     self->_sourceBase = selectedDevice;
-    objc_msgSend_objectForKey_(selectedDevice, v5, @"raNm");
-    v16 = self->_selectedDevice;
-    if (v16)
+    objc_msgSend_objectForKey_(selectedDevice, v6, @"raNm", v7);
+    v14 = self->_selectedDevice;
+    if (v14)
     {
-      objc_msgSend_setObject_forKey_(self->super.super._outResultsDict, v10, v16, @"kSBSKey_SourceBase");
+      objc_msgSend_setObject_forKey_(self->super.super._outResultsDict, v13, v14, @"kSBSKey_SourceBase");
     }
 
-    v17 = MEMORY[0x277CCABB0];
-    v18 = sub_23EB6A2C0(self->_sourceBase, v10, v16, v11, v12, v13, v14, v15);
-    v81 = objc_msgSend_numberWithInteger_(v17, v19, v18);
-    v20 = MEMORY[0x277CCABB0];
-    v28 = sub_23EB6A294(self->_sourceBase, v21, v22, v23, v24, v25, v26, v27);
-    v80 = objc_msgSend_numberWithInteger_(v20, v29, v28);
+    v15 = MEMORY[0x277CCABB0];
+    v16 = sub_23EB6A2C0(self->_sourceBase);
+    v92 = objc_msgSend_numberWithInteger_(v15, v17, v16, v18);
+    v19 = MEMORY[0x277CCABB0];
+    v20 = sub_23EB6A294(self->_sourceBase);
+    v91 = objc_msgSend_numberWithInteger_(v19, v21, v20, v22);
   }
 
-  v31 = MEMORY[0x277CCABB0];
-  v32 = objc_msgSend_inParamDict(self, v8, v30);
-  ProductIDFromParamDict = objc_msgSend_getProductIDFromParamDict_(StepByStepUtilities, v33, v32);
-  v36 = objc_msgSend_numberWithInteger_(v31, v35, ProductIDFromParamDict);
-  v37 = MEMORY[0x277CCABB0];
-  v40 = objc_msgSend_inParamDict(self, v38, v39);
-  DeviceKindFromParamDict = objc_msgSend_getDeviceKindFromParamDict_(StepByStepUtilities, v41, v40);
-  v44 = objc_msgSend_numberWithInteger_(v37, v43, DeviceKindFromParamDict);
-  v47 = objc_msgSend_parentController(self, v45, v46);
-  v50 = objc_msgSend__assistantUIController(v47, v48, v49);
-  v53 = objc_msgSend_topoView(self, v51, v52);
-  v56 = objc_msgSend_layer(v53, v54, v55);
-  v59 = objc_msgSend_topoLayout(self, v57, v58);
-  v62 = objc_msgSend_topoView(self, v60, v61);
-  v65 = objc_msgSend_inParamDict(self, v63, v64);
-  v67 = objc_msgSend_objectForKey_(v65, v66, @"kSBSKey_TargetNetwork");
-  v70 = objc_msgSend_integerValue(v36, v68, v69);
-  v71 = sub_23EB6D0E0(v67, v70, 0);
-  v73 = objc_msgSend_objectForKey_(self->_sourceBase, v72, @"name");
-  v76 = objc_msgSend_connectionMedium(self, v74, v75);
-  v79 = objc_msgSend_modifyTopoUIInLayer_withLayout_andOwningView_targetProductID_targetDeviceKind_targetName_targetWiFiName_sourceProductID_sourceDeviceKind_sourceName_sourceWiFiName_connectionType_(v50, v77, v56, v59, v62, v36, v44, v71, 0, v81, v80, v73, 0, v76);
+  v24 = MEMORY[0x277CCABB0];
+  v25 = objc_msgSend_inParamDict(self, v10, v23, v11);
+  ProductIDFromParamDict = objc_msgSend_getProductIDFromParamDict_(StepByStepUtilities, v26, v25, v27);
+  v31 = objc_msgSend_numberWithInteger_(v24, v29, ProductIDFromParamDict, v30);
+  v32 = MEMORY[0x277CCABB0];
+  v36 = objc_msgSend_inParamDict(self, v33, v34, v35);
+  DeviceKindFromParamDict = objc_msgSend_getDeviceKindFromParamDict_(StepByStepUtilities, v37, v36, v38);
+  v42 = objc_msgSend_numberWithInteger_(v32, v40, DeviceKindFromParamDict, v41);
+  v46 = objc_msgSend_parentController(self, v43, v44, v45);
+  v50 = objc_msgSend__assistantUIController(v46, v47, v48, v49);
+  v54 = objc_msgSend_topoView(self, v51, v52, v53);
+  v58 = objc_msgSend_layer(v54, v55, v56, v57);
+  v62 = objc_msgSend_topoLayout(self, v59, v60, v61);
+  v66 = objc_msgSend_topoView(self, v63, v64, v65);
+  v70 = objc_msgSend_inParamDict(self, v67, v68, v69);
+  v73 = objc_msgSend_objectForKey_(v70, v71, @"kSBSKey_TargetNetwork", v72);
+  v77 = objc_msgSend_integerValue(v31, v74, v75, v76);
+  v79 = sub_23EB6D0E0(v73, v77, 0, v78);
+  v82 = objc_msgSend_objectForKey_(self->_sourceBase, v80, @"name", v81);
+  v86 = objc_msgSend_connectionMedium(self, v83, v84, v85);
+  v89 = objc_msgSend_modifyTopoUIInLayer_withLayout_andOwningView_targetProductID_targetDeviceKind_targetName_targetWiFiName_sourceProductID_sourceDeviceKind_sourceName_sourceWiFiName_connectionType_(v50, v87, v58, v62, v66, v31, v42, v79, 0, v92, v91, v82, 0, v86);
 
-  objc_msgSend_setTopoLayout_(self, v78, v79);
+  objc_msgSend_setTopoLayout_(self, v88, v89, v90);
 }
 
 - (id)pickerContent
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v6 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, v2);
+  v52 = *MEMORY[0x277D85DE8];
+  v8 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, v2, v3);
   if (self->showFullList)
   {
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
-    v39 = 0u;
-    v7 = objc_msgSend_sortedDevices(self, v4, v5, 0);
-    v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v38, v42, 16);
-    if (v9)
+    v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
+    v9 = objc_msgSend_sortedDevices(self, v5, v6, v7, 0);
+    v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v47, v51, 16);
+    if (v11)
     {
-      v12 = v9;
-      v13 = 0;
-      v14 = *v39;
+      v15 = v11;
+      v16 = 0;
+      v17 = *v48;
       do
       {
-        v15 = 0;
-        v16 = v13;
+        v18 = 0;
+        v19 = v16;
         do
         {
-          if (*v39 != v14)
+          if (*v48 != v17)
           {
-            objc_enumerationMutation(v7);
+            objc_enumerationMutation(v9);
           }
 
-          v17 = *(*(&v38 + 1) + 8 * v15);
-          v18 = objc_msgSend_tableManager(self, v10, v11);
-          v20 = objc_msgSend_nameForNetworkOrDevice_(StepByStepUtilities, v19, v17);
-          v13 = v16 + 1;
-          RowStyleBasicWithImage_text1_text2_withTag = objc_msgSend_createRowStyleBasicWithImage_text1_text2_withTag_(v18, v21, 0, v20, 0, v16);
-          objc_msgSend_addObject_(v6, v23, RowStyleBasicWithImage_text1_text2_withTag);
-          ++v15;
-          ++v16;
+          v20 = *(*(&v47 + 1) + 8 * v18);
+          v21 = objc_msgSend_tableManager(self, v12, v13, v14);
+          v24 = objc_msgSend_nameForNetworkOrDevice_(StepByStepUtilities, v22, v20, v23);
+          v16 = v19 + 1;
+          RowStyleBasicWithImage_text1_text2_withTag = objc_msgSend_createRowStyleBasicWithImage_text1_text2_withTag_(v21, v25, 0, v24, 0, v19);
+          objc_msgSend_addObject_(v8, v27, RowStyleBasicWithImage_text1_text2_withTag, v28);
+          ++v18;
+          ++v19;
         }
 
-        while (v12 != v15);
-        v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v38, v42, 16);
+        while (v15 != v18);
+        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v12, &v47, v51, 16);
       }
 
-      while (v12);
+      while (v15);
     }
   }
 
   else
   {
-    v24 = objc_msgSend_tableManager(self, v4, v5);
-    v26 = objc_msgSend_nameForNetworkOrDevice_(StepByStepUtilities, v25, self->_selectedDevice);
-    v28 = objc_msgSend_createRowStyleBasicWithImage_text1_text2_withTag_(v24, v27, 0, v26, 0, 1400203111);
-    objc_msgSend_addObject_(v6, v29, v28);
-    v32 = objc_msgSend_tableManager(self, v30, v31);
-    v33 = sub_23EB6CD3C(@"ShowOtherNetworksEllipsis", qword_27E383800);
-    v35 = objc_msgSend_createRowStyleBasicWithImage_text1_text2_withTag_(v32, v34, 0, v33, 0, 1333028978);
-    objc_msgSend_addObject_(v6, v36, v35);
+    v29 = objc_msgSend_tableManager(self, v5, v6, v7);
+    v32 = objc_msgSend_nameForNetworkOrDevice_(StepByStepUtilities, v30, self->_selectedDevice, v31);
+    v34 = objc_msgSend_createRowStyleBasicWithImage_text1_text2_withTag_(v29, v33, 0, v32, 0, 1400203111);
+    objc_msgSend_addObject_(v8, v35, v34, v36);
+    v40 = objc_msgSend_tableManager(self, v37, v38, v39);
+    v41 = sub_23EB6CD3C(@"ShowOtherNetworksEllipsis", qword_27E383800);
+    v43 = objc_msgSend_createRowStyleBasicWithImage_text1_text2_withTag_(v40, v42, 0, v41, 0, 1333028978);
+    objc_msgSend_addObject_(v8, v44, v43, v45);
   }
 
-  return v6;
+  return v8;
 }
 
 @end

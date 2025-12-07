@@ -4,7 +4,7 @@ void OUTLINED_FUNCTION_0_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, 
   _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, a5, 2u);
 }
 
-double OUTLINED_FUNCTION_0_1(float64x2_t a1, float64x2_t a2)
+long double OUTLINED_FUNCTION_0_1(float64x2_t a1, float64x2_t a2)
 {
   v3 = fmin(fmax(fabs(vaddvq_f64(vaddq_f64(a1, a2))), 0.0), 1.0);
 
@@ -17,29 +17,44 @@ void OUTLINED_FUNCTION_0_3(uint64_t a1, void *a2)
   _tlv_atexit(lss::SimpleCache<objc_object *,unsigned long long>::~SimpleCache, a2);
 }
 
-void OUTLINED_FUNCTION_0_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 double OUTLINED_FUNCTION_0_6(float64x2_t a1, float64_t a2, float64x2_t a3, double a4, double a5, double a6, double a7, double a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, float64x2_t a17, double a18, uint64_t a19, double a20)
 {
-  v15 = vmulq_n_f64(a3, a1.f64[0]);
-  *&v16.f64[0] = *&vmulq_f64(a1, 0);
-  v16.f64[1] = a2;
-  v17 = vnegq_f64(v15);
-  *&result = *&vaddq_f64(vmlsq_lane_f64(vmulq_n_f64(v16, a20), vextq_s8(v16, vnegq_f64(v16), 8uLL), a18, 0), vmlaq_n_f64(vmulq_laneq_f64(v17, a17, 1), vextq_s8(v15, v17, 8uLL), a17.f64[0]));
+  v20 = vmulq_n_f64(a3, a1.f64[0]);
+  *&v21.f64[0] = *&vmulq_f64(a1, 0);
+  v21.f64[1] = a2;
+  v22 = vnegq_f64(v20);
+  *&result = *&vaddq_f64(vmlsq_lane_f64(vmulq_n_f64(v21, a20), vextq_s8(v21, vnegq_f64(v21), 8uLL), a18, 0), vmlaq_n_f64(vmulq_laneq_f64(v22, a17, 1), vextq_s8(v20, v22, 8uLL), a17.f64[0]));
   return result;
 }
 
-void *OUTLINED_FUNCTION_0_8(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char __src)
+void *OUTLINED_FUNCTION_0_8(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
+  va_start(va1, a20);
+  va_start(__srca, a20);
+  __src = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
+  v27 = va_arg(va1, void);
+  v28 = va_arg(va1, void);
+  v29 = va_arg(va1, void);
+  v30 = va_arg(va1, void);
+  v31 = va_arg(va1, void);
+  v32 = va_arg(va1, void);
+  v33 = va_arg(va1, void);
+  v34 = va_arg(va1, void);
 
-  return memcpy(&a9, &__src, 0x60uLL);
+  return memcpy(&a9, __srca, 0x60uLL);
 }
 
-double OUTLINED_FUNCTION_2(long double a1, float64x2_t a2, float64x2_t a3)
+long double OUTLINED_FUNCTION_2(long double a1, float64x2_t a2, float64x2_t a3)
 {
   v4 = sqrt(vaddvq_f64(vaddq_f64(vmulq_f64(a3, a3), vmulq_f64(a2, a2))));
 
@@ -57,7 +72,7 @@ uint64_t OUTLINED_FUNCTION_2_1(void *a1, const char *a2, uint64_t a3, uint64_t a
   a20 = 1065353216;
   a21 = 0;
 
-  return [a1 provider:v21 updatedLight:&a14];
+  return [a1 provider:v21 updatedLight:{&a14, a5, a6, a7, a8}];
 }
 
 BOOL OUTLINED_FUNCTION_2_2()
@@ -73,13 +88,6 @@ void OUTLINED_FUNCTION_1_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, 
   _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, a5, 2u);
 }
 
-float OUTLINED_FUNCTION_1_1()
-{
-  v2 = *v0;
-  v4 = v0[1];
-  return v1;
-}
-
 void *OUTLINED_FUNCTION_1_3(_BYTE *a1)
 {
   *a1 = 1;
@@ -87,7 +95,7 @@ void *OUTLINED_FUNCTION_1_3(_BYTE *a1)
   return objc_autoreleasePoolPush();
 }
 
-double OUTLINED_FUNCTION_1_5()
+double OUTLINED_FUNCTION_1_5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
 
   return LSSMediaTime();
@@ -297,7 +305,7 @@ LABEL_21:
   *(a2 + 84) = v4;
 }
 
-double LSSAngleFromLightDirection(uint64_t a1)
+long double LSSAngleFromLightDirection(uint64_t a1)
 {
   v1 = *(a1 + 8);
   if (fabs(*a1) >= 0.000001 || fabs(v1) >= 0.000001)
@@ -403,20 +411,20 @@ void sub_255E8E854(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id LSSLogController()
+id LSSLogController(uint64_t a1)
 {
   if (qword_280D2F4F0 == -1)
   {
-    v1 = qword_280D2F4E8;
+    v2 = qword_280D2F4E8;
   }
 
   else
   {
     [LSSController _selectProviderFromSettings];
-    v1 = qword_280D2F4E8;
+    v2 = qword_280D2F4E8;
   }
 
-  return v1;
+  return v2;
 }
 
 uint64_t __LSSLogController_block_invoke()
@@ -490,20 +498,20 @@ void sub_255E9051C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id LSSLogMotionBasedLightService()
+id LSSLogMotionBasedLightService(uint64_t a1)
 {
   if (qword_280D2F530 == -1)
   {
-    v1 = _MergedGlobals_6;
+    v2 = _MergedGlobals_6;
   }
 
   else
   {
     LSSLogMotionBasedLightService_cold_1();
-    v1 = _MergedGlobals_6;
+    v2 = _MergedGlobals_6;
   }
 
-  return v1;
+  return v2;
 }
 
 uint64_t __LSSLogMotionBasedLightService_block_invoke()
@@ -513,10 +521,11 @@ uint64_t __LSSLogMotionBasedLightService_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void OUTLINED_FUNCTION_4(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint8_t buf)
+void OUTLINED_FUNCTION_4(void *a1, int a2, int a3, const char *a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
 
-  _os_log_impl(a1, v31, OS_LOG_TYPE_INFO, a4, &buf, 2u);
+  _os_log_impl(a1, v30, OS_LOG_TYPE_INFO, a4, va, 2u);
 }
 
 uint64_t __LSSLogSubscriber_block_invoke()
@@ -568,7 +577,7 @@ void LSSPowerLog(int a1, void *a2)
   }
 }
 
-uint64_t LSSHasInternalUI()
+uint64_t LSSHasInternalUI(uint64_t a1, uint64_t a2)
 {
   if (qword_280D2F590 != -1)
   {
@@ -808,22 +817,22 @@ BOOL LSSCAParamsAlmostEqual(float a1, float a2, float a3, float a4, float a5, fl
 {
   if ((LODWORD(a1) & 0x7FFFFFFFu) >= 0x7F800000)
   {
-    v20 = 0.0;
+    v12 = 0.0;
   }
 
   else
   {
-    v20 = a1;
+    v12 = a1;
   }
 
   if ((LODWORD(a4) & 0x7FFFFFFFu) >= 0x7F800000)
   {
-    v21 = 0.0;
+    v13 = 0.0;
   }
 
   else
   {
-    v21 = a4;
+    v13 = a4;
   }
 
   if ((LODWORD(a3) & 0x7FFFFFFFu) >= 0x7F800000)
@@ -833,35 +842,35 @@ BOOL LSSCAParamsAlmostEqual(float a1, float a2, float a3, float a4, float a5, fl
 
   if ((LODWORD(a5) & 0x7FFFFFFFu) >= 0x7F800000)
   {
-    v22 = 0.0;
+    v14 = 0.0;
   }
 
   else
   {
-    v22 = a5;
+    v14 = a5;
   }
 
   if ((LODWORD(a8) & 0x7FFFFFFFu) >= 0x7F800000)
   {
-    v23 = 0.0;
+    v15 = 0.0;
   }
 
   else
   {
-    v23 = a8;
+    v15 = a8;
   }
 
   if ((LODWORD(a7) & 0x7FFFFFFFu) >= 0x7F800000)
   {
-    v24 = 0.0;
+    v16 = 0.0;
   }
 
   else
   {
-    v24 = a7;
+    v16 = a7;
   }
 
-  if (vabds_f32(v20, v22) > a9)
+  if (vabds_f32(v12, v14) > a9)
   {
     return 0;
   }
@@ -881,41 +890,36 @@ BOOL LSSCAParamsAlmostEqual(float a1, float a2, float a3, float a4, float a5, fl
     return 0;
   }
 
-  if (vabds_f32(a3, v24) <= a11)
+  if (vabds_f32(a3, v16) <= a11)
   {
-    return vabds_f32(v21, v23) <= a12;
+    return vabds_f32(v13, v15) <= a12;
   }
 
   return 0;
 }
 
-float LSSCAParamsMake(uint64_t a1, float a2)
+float LSSCAParamsMake(uint64_t a1)
 {
-  v3 = *(a1 + 32);
-  v4 = sqrt(vaddvq_f64(vmulq_f64(*(a1 + 16), *(a1 + 16))));
-  v5 = fminf(fmaxf(v4 / a2, 0.0), 1.0);
-  v6 = (1.0 - v5) * (1.0 - v5);
-  v9[0] = *(a1 + 16);
-  v9[1] = v3;
-  result = LSSAngleFromLightDirection(v9);
-  v8 = *(a1 + 80) * (1.0 - v6);
-  return result;
+  v1 = *(a1 + 32);
+  v3[0] = *(a1 + 16);
+  v3[1] = v1;
+  return LSSAngleFromLightDirection(v3);
 }
 
-id LSSLogXPCService()
+id LSSLogXPCService(uint64_t a1)
 {
   if (qword_280D2F5E0 == -1)
   {
-    v1 = _MergedGlobals_12;
+    v2 = _MergedGlobals_12;
   }
 
   else
   {
     LSSLogXPCService_cold_1();
-    v1 = _MergedGlobals_12;
+    v2 = _MergedGlobals_12;
   }
 
-  return v1;
+  return v2;
 }
 
 void sub_255E9435C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)

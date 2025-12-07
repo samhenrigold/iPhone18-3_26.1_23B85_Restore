@@ -42,7 +42,7 @@
     v8[3] = &block_descriptor_3;
     v5 = _Block_copy(v8);
     selfCopy = self;
-    sub_1C5633060(v3);
+    sub_1C5633060(v3, v4);
   }
 
   else

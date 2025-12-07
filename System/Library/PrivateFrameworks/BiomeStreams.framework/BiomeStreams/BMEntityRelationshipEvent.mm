@@ -120,7 +120,7 @@
 
 - (BMEntityRelationshipEvent)initWithProto:(id)proto
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   protoCopy = proto;
   if (protoCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -135,42 +135,42 @@
 
     if (attributes)
     {
-      v25 = v9;
-      v26 = v7;
+      v24 = v9;
+      v25 = v7;
       attributes = objc_opt_new();
+      v26 = 0u;
       v27 = 0u;
       v28 = 0u;
       v29 = 0u;
-      v30 = 0u;
       attributes2 = [v5 attributes];
-      v12 = [attributes2 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v12 = [attributes2 countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v28;
+        v14 = *v27;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v28 != v14)
+            if (*v27 != v14)
             {
               objc_enumerationMutation(attributes2);
             }
 
-            v16 = *(*(&v27 + 1) + 8 * i);
+            v16 = *(*(&v26 + 1) + 8 * i);
             value = [v16 value];
             v18 = [v16 key];
             [attributes setValue:value forKey:v18];
           }
 
-          v13 = [attributes2 countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v13 = [attributes2 countByEnumeratingWithState:&v26 objects:v30 count:16];
         }
 
         while (v13);
       }
 
-      v9 = v25;
-      v7 = v26;
+      v9 = v24;
+      v7 = v25;
     }
 
     clientId = [v5 clientId];
@@ -186,7 +186,6 @@
     selfCopy = 0;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -211,7 +210,7 @@
 
 - (id)proto
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   clientId = [(BMEntityRelationshipEvent *)self clientId];
   [v3 setClientId:clientId];
@@ -232,26 +231,26 @@
   if (attributes)
   {
     v11 = objc_opt_new();
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     obj = [(BMEntityRelationshipEvent *)self attributes];
-    v12 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v12 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v26;
+      v14 = *v25;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v26 != v14)
+          if (*v25 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v25 + 1) + 8 * i);
+          v16 = *(*(&v24 + 1) + 8 * i);
           v17 = objc_autoreleasePoolPush();
           v18 = objc_opt_new();
           [v18 setKey:v16];
@@ -263,7 +262,7 @@
           objc_autoreleasePoolPop(v17);
         }
 
-        v13 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v13 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v13);
@@ -272,8 +271,6 @@
     v21 = [v11 copy];
     [v3 setAttributes:v21];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

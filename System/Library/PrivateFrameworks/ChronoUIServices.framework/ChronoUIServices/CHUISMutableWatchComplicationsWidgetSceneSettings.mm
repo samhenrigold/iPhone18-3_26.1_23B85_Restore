@@ -10,6 +10,8 @@
 - (void)setBezelContentCenter:(CGPoint)center;
 - (void)setCornerPosition:(unint64_t)position;
 - (void)setCurvedLabelMetrics:(id)metrics;
+- (void)setGenerateSnapshotMetadata:(BOOL)metadata;
+- (void)setIncludeAccessoryViews:(BOOL)views;
 @end
 
 @implementation CHUISMutableWatchComplicationsWidgetSceneSettings
@@ -193,6 +195,22 @@
   *&v7[1] = y;
   v6 = [MEMORY[0x1E696B098] valueWithBytes:v7 objCType:"{CGPoint=dd}"];
   [otherSettings setObject:v6 forSetting:89890];
+}
+
+- (void)setIncludeAccessoryViews:(BOOL)views
+{
+  viewsCopy = views;
+  otherSettings = [(FBSSettings *)self otherSettings];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:viewsCopy];
+  [otherSettings setObject:v4 forSetting:89891];
+}
+
+- (void)setGenerateSnapshotMetadata:(BOOL)metadata
+{
+  metadataCopy = metadata;
+  otherSettings = [(FBSSettings *)self otherSettings];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:metadataCopy];
+  [otherSettings setObject:v4 forSetting:89892];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

@@ -22,7 +22,7 @@ uint64_t pcWrite(uint64_t (*a1)(uint64_t, uint64_t, uint64_t), uint64_t a2, uint
       }
     }
 
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "pcWrite", 131, 37, 0, "pcWrite failed", v10, v11, v16);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "pcWrite", 131, 37, 0, "pcWrite failed", v10, v11);
     return v12;
   }
 
@@ -31,24 +31,24 @@ uint64_t pcWrite(uint64_t (*a1)(uint64_t, uint64_t, uint64_t), uint64_t a2, uint
     v8 = a1(a2, 0, 0);
     if (v8 < 0)
     {
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "pcWrite", 121, 37, 0, "pcWrite EOF failed", v13, v14, v16);
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "pcWrite", 121, 37, 0, "pcWrite EOF failed", v13, v14);
     }
   }
 
   return v8;
 }
 
-uint64_t PCompressFilter(unsigned int *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t PCompressFilter(unsigned int *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   enterThreadErrorContext(a1, a2, a3, a4, a5, a6, a7, a8, v110);
-  *v121 = 0;
-  v119 = 0u;
-  *v120 = 0u;
-  v117 = 0u;
+  v120 = 0;
   v118 = 0u;
-  v115 = 0u;
+  *v119 = 0u;
   v116 = 0u;
+  v117 = 0u;
   v114 = 0u;
+  v115 = 0u;
+  v113 = 0u;
   DefaultNThreads = a1[2];
   if (!DefaultNThreads)
   {
@@ -58,7 +58,7 @@ uint64_t PCompressFilter(unsigned int *a1, uint64_t a2, void *a3, uint64_t a4, u
   a1[2] = DefaultNThreads;
   if (a1[1] == 1)
   {
-    if (pcRead(*a2, *(a2 + 16), &v122, 4) != 4)
+    if (pcRead(*a2, a2[2], &v121, 4) != 4)
     {
       goto LABEL_90;
     }
@@ -74,9 +74,9 @@ uint64_t PCompressFilter(unsigned int *a1, uint64_t a2, void *a3, uint64_t a4, u
       DecoderKey = PCompressGetDecoderKey(v14);
       if (DecoderKey != 63)
       {
-        LODWORD(v123[0]) = 544891504;
-        BYTE3(v123[0]) = DecoderKey;
-        if (v122 == LODWORD(v123[0]))
+        LODWORD(v122[0]) = 544891504;
+        BYTE3(v122[0]) = DecoderKey;
+        if (v121 == LODWORD(v122[0]))
         {
           break;
         }
@@ -84,7 +84,7 @@ uint64_t PCompressFilter(unsigned int *a1, uint64_t a2, void *a3, uint64_t a4, u
 
       if (++v14 == 7)
       {
-        if (compression_stream_identify_algorithm(&v122) == -1)
+        if (compression_stream_identify_algorithm(&v121) == -1)
         {
           v16 = "invalid header in input stream";
           v17 = 179;
@@ -97,15 +97,15 @@ uint64_t PCompressFilter(unsigned int *a1, uint64_t a2, void *a3, uint64_t a4, u
         }
 
 LABEL_89:
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "processFileHeader", v17, 37, 0, v16, v12, v13, v111);
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "processFileHeader", v17, 37, 0, v16, v12, v13);
 LABEL_90:
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "PCompressFilter", 507, 37, 0, "processFileHeader", v12, v13, v111);
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "PCompressFilter", 507, 37, 0, "processFileHeader", v12, v13);
         goto LABEL_91;
       }
     }
 
-    v123[0] = 0;
-    if (pcRead(*a2, *(a2 + 16), v123, 8) != 8)
+    v122[0] = 0;
+    if (pcRead(*a2, a2[2], v122, 8) != 8)
     {
       goto LABEL_90;
     }
@@ -115,14 +115,14 @@ LABEL_90:
       *a3 += 8;
     }
 
-    if (!v123[0])
+    if (!v122[0])
     {
       v16 = "invalid blockSize in input stream";
       v17 = 191;
       goto LABEL_89;
     }
 
-    *(a1 + 2) = bswap64(v123[0]);
+    *(a1 + 2) = bswap64(v122[0]);
     *a1 = v14;
     if (a1[6] >= 1)
     {
@@ -143,9 +143,9 @@ LABEL_90:
       goto LABEL_90;
     }
 
-    v122 = 544891504;
-    HIBYTE(v122) = v20;
-    if (pcWrite(*(a2 + 24), *(a2 + 40), &v122, 4) != 4)
+    v121 = 544891504;
+    HIBYTE(v121) = v20;
+    if (pcWrite(a2[3], a2[5], &v121, 4) != 4)
     {
       goto LABEL_90;
     }
@@ -155,8 +155,8 @@ LABEL_90:
       a3[1] += 4;
     }
 
-    v123[0] = bswap64(v18);
-    if (pcWrite(*(a2 + 24), *(a2 + 40), v123, 8) != 8)
+    v122[0] = bswap64(v18);
+    if (pcWrite(a2[3], a2[5], v122, 8) != 8)
     {
       goto LABEL_90;
     }
@@ -175,18 +175,18 @@ LABEL_90:
   }
 
   v24 = *(a1 + 1);
-  v114 = *a1;
-  v115 = v24;
-  v119 = 0u;
-  *v120 = 0u;
-  *v121 = 0;
-  v25 = *(a2 + 16);
-  v116 = *a2;
-  v117 = v25;
-  v118 = *(a2 + 32);
+  v113 = *a1;
+  v114 = v24;
+  v118 = 0u;
+  *v119 = 0u;
+  v120 = 0;
+  v25 = *(a2 + 1);
+  v115 = *a2;
+  v116 = v25;
+  v117 = *(a2 + 2);
   if (a3)
   {
-    v119 = *a3;
+    v118 = *a3;
   }
 
   v26 = *a1;
@@ -200,20 +200,20 @@ LABEL_90:
     DecoderFilter = PCompressGetEncoderFilter(v26);
   }
 
-  v120[0] = DecoderFilter;
+  v119[0] = DecoderFilter;
   v28 = calloc(a1[2], 0x48uLL);
-  v120[1] = v28;
+  v119[1] = v28;
   if (!v28)
   {
     v34 = 468;
 LABEL_86:
     v86 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "initFilterState", v34, 37, *v86, "malloc", v87, v88, v111);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "initFilterState", v34, 37, *v86, "malloc", v87, v88);
 LABEL_87:
     v89 = "initFilterState";
     v90 = 510;
 LABEL_103:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "PCompressFilter", v90, 37, 0, v89, v42, v43, v111);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "PCompressFilter", v90, 37, 0, v89, v42, v43);
     v98 = 0;
     v99 = 1;
     goto LABEL_104;
@@ -231,7 +231,7 @@ LABEL_103:
   v30[1] = v32;
   v33 = malloc(v31);
   v30[5] = v33;
-  *v30 = &v114;
+  *v30 = &v113;
   v34 = 477;
   if (!v32 || !v33)
   {
@@ -251,7 +251,7 @@ LABEL_103:
     v36[1] = v37;
     v38 = malloc(v31);
     v36[5] = v38;
-    *v36 = &v114;
+    *v36 = &v113;
     ++v35;
     if (!v37)
     {
@@ -263,30 +263,30 @@ LABEL_103:
 
   while (v38);
   v39 = __error();
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "initFilterState", 477, 37, *v39, "malloc", v40, v41, v111);
+  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "initFilterState", 477, 37, *v39, "malloc", v40, v41);
   if (v35 < v29)
   {
     goto LABEL_87;
   }
 
 LABEL_43:
-  v44 = v115;
-  v45 = SDWORD2(v114);
-  v46 = malloc(8 * SDWORD2(v114));
+  v44 = v114;
+  v45 = SDWORD2(v113);
+  v46 = malloc(8 * SDWORD2(v113));
   if (!v46)
   {
     v95 = *__error();
     v96 = "malloc";
     v97 = 372;
 LABEL_101:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "processStream", v97, 37, v95, v96, v61, v62, v111);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "processStream", v97, 37, v95, v96, v61, v62);
     goto LABEL_102;
   }
 
   v47 = v46;
   if (v45 >= 1)
   {
-    v48 = v120[1];
+    v48 = v119[1];
     v49 = (v45 + 1) & 0xFFFFFFFE;
     v50 = vdupq_n_s64(v45 - 1);
     v51 = xmmword_33E760;
@@ -314,8 +314,8 @@ LABEL_101:
     while (v49);
   }
 
-  v113 = v44;
-  v55 = ThreadPipelineCreate(v45, v46, compressionWorkerProc, &v114, outputStreamProc, 0);
+  v112 = v44;
+  v55 = ThreadPipelineCreate(v45, v46, compressionWorkerProc, &v113, outputStreamProc, 0);
   if (!v55)
   {
     v96 = "creating pipeline";
@@ -325,12 +325,12 @@ LABEL_101:
   }
 
   v63 = v55;
-  v112 = v47;
+  v111 = v47;
   v64 = 0;
   v65 = 1;
   while (1)
   {
-    if (atomic_load(v121))
+    if (atomic_load(&v120))
     {
       v65 = 0;
 LABEL_117:
@@ -346,7 +346,7 @@ LABEL_117:
     Worker = ThreadPipelineGetWorker(v63, v56, v57, v58, v59, v60, v61, v62);
     if (!Worker)
     {
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "processStream", 387, 37, 0, "getting worker from pipeline", v68, v69, v111);
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "processStream", 387, 37, 0, "getting worker from pipeline", v68, v69);
       v83 = 0;
 LABEL_82:
       v65 = 0;
@@ -354,36 +354,36 @@ LABEL_82:
     }
 
     v70 = Worker;
-    if (DWORD1(v114) == 1)
+    if (DWORD1(v113) == 1)
     {
-      v71 = pcRead(v116, v117, v123, 16);
+      v71 = pcRead(v115, v116, v122, 16);
       if (v71)
       {
         v78 = v71;
         if (v71 < 0)
         {
-          pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "processStream", 397, 37, 0, "reading block header", v76, v77, v111);
+          pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "processStream", 397, 37, 0, "reading block header", v76, v77);
           v78 = 0;
         }
 
         else if (v71 == 16)
         {
           v79 = v44;
-          v80 = bswap64(v123[0]);
-          v81 = bswap64(v123[1]);
+          v80 = bswap64(v122[0]);
+          v81 = bswap64(v122[1]);
           if (v81 > v79 || v80 > v79)
           {
-            pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "processStream", 405, 37, 0, "Invalid block header payload=0x%llx raw=0x%llx block=0x%llx\n", v76, v77, v81);
+            pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "processStream", 405, 37, 0, "Invalid block header payload=0x%llx raw=0x%llx block=0x%llx\n", v76, v77, v81, v80, v79);
             v78 = 16;
             v44 = v79;
           }
 
           else
           {
-            v82 = pcRead(v116, v117, v70[1], v81);
+            v82 = pcRead(v115, v116, v70[1], v81);
             if (v82 < 0)
             {
-              pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "processStream", 411, 37, 0, "reading block payload", v76, v77, v111);
+              pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "processStream", 411, 37, 0, "reading block payload", v76, v77);
               v78 = 16;
             }
 
@@ -396,16 +396,16 @@ LABEL_82:
                 v70[3] = v81;
                 v70[4] = v80;
                 v70[2] = v64;
-                *&v119 = v119 + v78;
+                *&v118 = v118 + v78;
                 v65 = 1;
-                v44 = v113;
+                v44 = v112;
                 goto LABEL_80;
               }
 
-              pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "processStream", 415, 37, 0, "Truncated block payload (%lld/%llu bytes read)", v76, v77, v82);
+              pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "processStream", 415, 37, 0, "Truncated block payload (%lld/%llu bytes read)", v76, v77, v82, v81);
             }
 
-            v44 = v113;
+            v44 = v112;
           }
         }
 
@@ -415,7 +415,7 @@ LABEL_82:
         }
 
         v65 = 0;
-        *&v119 = v119 + v78;
+        *&v118 = v118 + v78;
         v85 = -1;
       }
 
@@ -428,10 +428,10 @@ LABEL_82:
 
     else
     {
-      v84 = pcRead(v116, v117, *(Worker + 8), v44);
+      v84 = pcRead(v115, v116, *(Worker + 8), v44);
       if (v84 < 0)
       {
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "processStream", 428, 37, 0, "reading block", v76, v77, v111);
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "processStream", 428, 37, 0, "reading block", v76, v77);
         v65 = 0;
         v85 = -1;
       }
@@ -444,7 +444,7 @@ LABEL_82:
           v70[3] = v84;
           v70[4] = 0;
           v70[2] = v64;
-          *&v119 = v119 + v84;
+          *&v118 = v118 + v84;
           v65 = 1;
           goto LABEL_80;
         }
@@ -459,7 +459,7 @@ LABEL_82:
 LABEL_80:
     if ((ThreadPipelineRunWorker(v63, v70, v72, v73, v74, v75, v76, v77) & 0x80000000) != 0)
     {
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "processStream", 445, 37, 0, "RunWorker", v61, v62, v111);
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "processStream", 445, 37, 0, "RunWorker", v61, v62);
       goto LABEL_82;
     }
 
@@ -471,17 +471,17 @@ LABEL_83:
     }
   }
 
-  atomic_load(v121);
+  atomic_load(&v120);
   v104 = 1;
 LABEL_119:
   if ((ThreadPipelineDestroy(v63) & 0x80000000) != 0)
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "processStream", 447, 37, 0, "ThreadPipelineDestroy", v105, v106, v111);
-    free(v112);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "processStream", 447, 37, 0, "ThreadPipelineDestroy", v105, v106);
+    free(v111);
     goto LABEL_102;
   }
 
-  free(v112);
+  free(v111);
   if (v104)
   {
 LABEL_102:
@@ -490,40 +490,40 @@ LABEL_102:
     goto LABEL_103;
   }
 
-  v107 = (*(a2 + 24))(*(a2 + 40), 0, 0);
+  v107 = (a2[3])(a2[5], 0, 0);
   if (v107 < 0)
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "pcWrite", 121, 37, 0, "pcWrite EOF failed", v108, v109, v111);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "pcWrite", 121, 37, 0, "pcWrite EOF failed", v108, v109);
     v89 = "writing EOF";
     v90 = 520;
     goto LABEL_103;
   }
 
   v99 = 0;
-  *(&v119 + 1) += v107;
+  *(&v118 + 1) += v107;
   v98 = 1;
 LABEL_104:
-  v100 = v120[1];
-  if (v120[1])
+  v100 = v119[1];
+  if (v119[1])
   {
-    if (SDWORD2(v114) >= 1)
+    if (SDWORD2(v113) >= 1)
     {
       v101 = 0;
       v102 = 0;
       do
       {
-        free(*(v120[1] + v101 + 8));
-        free(*(v120[1] + v101 + 40));
+        free(*(v119[1] + v101 + 8));
+        free(*(v119[1] + v101 + 40));
         ++v102;
         v101 += 72;
       }
 
-      while (v102 < SDWORD2(v114));
-      v100 = v120[1];
+      while (v102 < SDWORD2(v113));
+      v100 = v119[1];
     }
 
     free(v100);
-    v120[1] = 0;
+    v119[1] = 0;
   }
 
   v103 = v98 ^ 1;
@@ -535,7 +535,7 @@ LABEL_104:
   if ((v103 & 1) == 0)
   {
     v93 = 0;
-    *a3 = v119;
+    *a3 = v118;
     goto LABEL_96;
   }
 
@@ -546,16 +546,16 @@ LABEL_104:
   }
 
 LABEL_91:
-  v91 = *(a2 + 32);
+  v91 = a2[4];
   if (v91)
   {
-    v91(*(a2 + 40));
+    v91(a2[5]);
   }
 
-  v92 = *(a2 + 8);
+  v92 = a2[1];
   if (v92)
   {
-    v92(*(a2 + 16));
+    v92(a2[2]);
   }
 
   v93 = -1;
@@ -604,7 +604,7 @@ uint64_t pcRead(uint64_t (*a1)(uint64_t, uint64_t, uint64_t), uint64_t a2, uint6
     return v8;
   }
 
-  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "pcRead", 82, 37, 0, "pcRead failed", v10, v11, v14);
+  pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/ParallelCompression/Filter.c", "pcRead", 82, 37, 0, "pcRead failed", v10, v11);
   return v12;
 }
 
@@ -612,7 +612,7 @@ uint64_t IDecoderStreamThreadProc(uint64_t a1, uint64_t a2, uint64_t a3, uint64_
 {
   if (ParallelCompressionDecode(a1, a2, a3, a4, a5, a6, a7, a8))
   {
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOCompressedStreams.c", "IDecoderStreamThreadProc", 100, 39, 0, "decoder failed", v8, v9, vars0);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOCompressedStreams.c", "IDecoderStreamThreadProc", 100, 39, 0, "decoder failed", v8, v9);
   }
 
   return 0;
@@ -652,7 +652,7 @@ uint64_t IDecoderStreamCreate(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a
       v23 = "failed to start decoder thread";
       v24 = 125;
 LABEL_7:
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOCompressedStreams.c", "IDecoderStreamCreate", v24, 39, v22, v23, v20, v21, v29);
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOCompressedStreams.c", "IDecoderStreamCreate", v24, 39, v22, v23, v20, v21);
       IDecoderStreamDestroy(v18);
       return 0;
     }
@@ -661,7 +661,7 @@ LABEL_7:
   else
   {
     v25 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOCompressedStreams.c", "IDecoderStreamCreate", 107, 39, *v25, "malloc", v26, v27, v29);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOCompressedStreams.c", "IDecoderStreamCreate", 107, 39, *v25, "malloc", v26, v27);
   }
 
   return v18;
@@ -675,7 +675,7 @@ void IDecoderStreamDestroy(void *a1)
     {
       while (1)
       {
-        v2 = SharedBufferRead(a1[8], v10, 0x400uLL);
+        v2 = SharedBufferRead(a1[8], v9, 0x400uLL);
         if (v2 < 0)
         {
           break;
@@ -687,7 +687,7 @@ void IDecoderStreamDestroy(void *a1)
         }
       }
 
-      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOCompressedStreams.c", "IDecoderStreamDestroy", 155, 39, 0, "flushing shared buffer", v3, v4, v9);
+      pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOCompressedStreams.c", "IDecoderStreamDestroy", 155, 39, 0, "flushing shared buffer", v3, v4);
     }
 
 LABEL_7:
@@ -697,7 +697,7 @@ LABEL_7:
       if (joinThread(v5))
       {
         v6 = __error();
-        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOCompressedStreams.c", "IDecoderStreamDestroy", 163, 39, *v6, "failed to join decoder thread", v7, v8, v9);
+        pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/Common/IOCompressedStreams.c", "IDecoderStreamDestroy", 163, 39, *v6, "failed to join decoder thread", v7, v8);
       }
     }
 
@@ -719,7 +719,7 @@ uint64_t IDecoderStreamRead(uint64_t a1, uint64_t a2, unint64_t a3)
   }
 }
 
-uint64_t IDecoderStreamAbort(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+size_t IDecoderStreamAbort(size_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
 {
   if (result)
   {
@@ -810,14 +810,14 @@ off_t AAByteStreamProcess(AAByteStream istream, AAByteStream ostream)
     v13 = "byte stream read error";
     v14 = 26;
 LABEL_14:
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStreamProcess.c", "AAByteStreamProcess", v14, 58, 0, v13, v11, v12, v19);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStreamProcess.c", "AAByteStreamProcess", v14, 58, 0, v13, v11, v12);
     free(v5);
   }
 
   else
   {
     v15 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStreamProcess.c", "AAByteStreamProcess", 18, 58, *v15, "malloc", v16, v17, v19);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStreamProcess.c", "AAByteStreamProcess", 18, 58, *v15, "malloc", v16, v17);
   }
 
   return -1;
@@ -953,7 +953,7 @@ AAByteStream AAFileStreamOpenWithFD(int fd, int automatic_close)
   else
   {
     v7 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "AAFileStreamOpenWithFD", 402, 17, *v7, "malloc", v8, v9, v11);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "AAFileStreamOpenWithFD", 402, 17, *v7, "malloc", v8, v9);
     free(v4);
     free(v6);
     return 0;
@@ -962,7 +962,7 @@ AAByteStream AAFileStreamOpenWithFD(int fd, int automatic_close)
   return v4;
 }
 
-uint64_t aaFileStreamRead(int *a1, void *a2, size_t a3)
+ssize_t aaFileStreamRead(int *a1, void *a2, size_t a3)
 {
   if (a1[2])
   {
@@ -972,13 +972,13 @@ uint64_t aaFileStreamRead(int *a1, void *a2, size_t a3)
   v3 = read(*a1, a2, a3);
   if (v3 < 0)
   {
-    pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "aaFileStreamRead", 92, 17, "aaFileStreamRead err=%zd buf=%p n=%zu", v4, v5, v6, v3);
+    pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "aaFileStreamRead", 92, 17, "aaFileStreamRead err=%zd buf=%p n=%zu", v6, v7, v8, v3, a2, a3);
   }
 
   return v3;
 }
 
-uint64_t aaFileStreamWrite(int *a1, const void *a2, size_t a3)
+ssize_t aaFileStreamWrite(int *a1, const void *a2, size_t a3)
 {
   if (a1[2])
   {
@@ -988,13 +988,13 @@ uint64_t aaFileStreamWrite(int *a1, const void *a2, size_t a3)
   v3 = write(*a1, a2, a3);
   if (v3 < 0)
   {
-    pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "aaFileStreamWrite", 104, 17, "aaFileStreamWrite err=%zd buf=%p n=%zu", v4, v5, v6, v3);
+    pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "aaFileStreamWrite", 104, 17, "aaFileStreamWrite err=%zd buf=%p n=%zu", v6, v7, v8, v3, a2, a3);
   }
 
   return v3;
 }
 
-uint64_t aaFileStreamPRead(int *a1, void *a2, size_t a3, off_t a4)
+ssize_t aaFileStreamPRead(int *a1, void *a2, size_t a3, off_t a4)
 {
   if (a1[2])
   {
@@ -1004,13 +1004,13 @@ uint64_t aaFileStreamPRead(int *a1, void *a2, size_t a3, off_t a4)
   v4 = pread(*a1, a2, a3, a4);
   if (v4 < 0)
   {
-    pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "aaFileStreamPRead", 116, 17, "aaFileStreamPRead err=%zd buf=%p n=%zu off=%llu", v5, v6, v7, v4);
+    pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "aaFileStreamPRead", 116, 17, "aaFileStreamPRead err=%zd buf=%p n=%zu off=%llu", v8, v9, v10, v4, a2, a3, a4);
   }
 
   return v4;
 }
 
-uint64_t aaFileStreamPWrite(int *a1, const void *a2, size_t a3, off_t a4)
+ssize_t aaFileStreamPWrite(int *a1, const void *a2, size_t a3, off_t a4)
 {
   if (a1[2])
   {
@@ -1020,7 +1020,7 @@ uint64_t aaFileStreamPWrite(int *a1, const void *a2, size_t a3, off_t a4)
   v4 = pwrite(*a1, a2, a3, a4);
   if (v4 < 0)
   {
-    pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "aaFileStreamPWrite", 128, 17, "aaFileStreamPWrite err=%zd buf=%p n=%zu off=%llu", v5, v6, v7, v4);
+    pc_log_warning("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "aaFileStreamPWrite", 128, 17, "aaFileStreamPWrite err=%zd buf=%p n=%zu off=%llu", v8, v9, v10, v4, a2, a3, a4);
   }
 
   return v4;
@@ -1062,8 +1062,8 @@ uint64_t aaFileStreamFlush(int *a1)
   result = fsync(*a1);
   if (result)
   {
-    v3 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "aaFileStreamFlush", 151, 17, *v3, "fsync", v4, v5, v1);
+    v4 = __error();
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "aaFileStreamFlush", 151, 17, *v4, "fsync", v5, v6, v1, v2);
     return 0xFFFFFFFFLL;
   }
 
@@ -1072,12 +1072,11 @@ uint64_t aaFileStreamFlush(int *a1)
 
 AAByteStream AAFileStreamOpenWithPath(const char *path, int open_flags, mode_t open_mode)
 {
-  v3 = path;
   v4 = open(path, open_flags, open_mode);
   if (v4 < 0)
   {
     v7 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "AAFileStreamOpenWithPath", 428, 17, *v7, "open: %s", v8, v9, v3);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "AAFileStreamOpenWithPath", 428, 17, *v7, "open: %s", v8, v9, path);
   }
 
   else
@@ -1101,7 +1100,7 @@ AAByteStream AACustomByteStreamOpen(void)
   if (!v0)
   {
     v1 = __error();
-    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "AACustomByteStreamOpen", 619, 17, *v1, "malloc", v2, v3, v5);
+    pc_log_error("/Library/Caches/com.apple.xbs/Sources/ParallelCompression/AppleArchive/AAByteStream.c", "AACustomByteStreamOpen", 619, 17, *v1, "malloc", v2, v3);
   }
 
   return v0;
@@ -1264,7 +1263,7 @@ size_t PCompressLZFSEDecode(uint8_t *a1, size_t a2, const uint8_t *a3, size_t a4
   return result;
 }
 
-uint64_t BrotliCompressFragmentFast(uint64_t result, unsigned __int8 *a2, unint64_t a3, int a4, uint64_t a5, unsigned int a6, unsigned __int8 *a7, uint64_t a8, unint64_t *a9, _BYTE *a10, unint64_t *a11, uint64_t a12)
+uint64_t BrotliCompressFragmentFast(uint64_t result, unsigned __int8 *a2, unint64_t a3, uint64_t a4, uint64_t a5, unsigned int a6, unsigned __int8 *a7, unsigned __int16 *a8, unint64_t *a9, _BYTE *a10, unint64_t *a11, uint64_t a12)
 {
   v12 = *a11;
   if (!a3)
@@ -1272,6 +1271,7 @@ uint64_t BrotliCompressFragmentFast(uint64_t result, unsigned __int8 *a2, unint6
     goto LABEL_15;
   }
 
+  v13 = a4;
   v16 = __clz(a6) ^ 0x1F;
   if (v16 > 12)
   {
@@ -1301,7 +1301,7 @@ uint64_t BrotliCompressFragmentFast(uint64_t result, unsigned __int8 *a2, unint6
     result = EmitUncompressedMetaBlock(a2, &a2[a3], v12, a11, a12);
   }
 
-  if (a4)
+  if (v13)
   {
     v12 = *a11;
 LABEL_15:
@@ -1314,7 +1314,7 @@ LABEL_15:
   return result;
 }
 
-unint64_t BrotliCompressFragmentFastImpl9(uint64_t a1, unsigned __int8 *a2, unint64_t a3, int a4, uint64_t a5, unsigned __int8 *a6, uint64_t a7, unint64_t *a8, _BYTE *a9, unint64_t *a10, uint64_t a11)
+uint64_t BrotliCompressFragmentFastImpl9(uint64_t a1, unsigned __int8 *a2, unint64_t a3, int a4, uint64_t a5, unsigned __int8 *a6, unsigned __int16 *a7, unint64_t *a8, _BYTE *a9, unint64_t *a10, uint64_t a11)
 {
   v202 = a3;
   if (a3 >= 0x18000)
@@ -1495,7 +1495,7 @@ LABEL_88:
                 v153 = a6[63];
                 v154 = *a10;
                 result = *a10 & 7;
-                *(a11 + (*a10 >> 3)) = (*(a7 + 126) << result) | *(a11 + (*a10 >> 3));
+                *(a11 + (*a10 >> 3)) = (a7[63] << result) | *(a11 + (*a10 >> 3));
                 v155 = v154 + v153;
                 *a10 = v155;
                 *(a11 + (v155 >> 3)) = ((v46 - 22594) << (v155 & 7)) | *(a11 + (v155 >> 3));
@@ -1509,7 +1509,7 @@ LABEL_88:
                 v150 = a6[62];
                 v151 = *a10;
                 result = *a10 & 7;
-                *(a11 + (*a10 >> 3)) = (*(a7 + 124) << result) | *(a11 + (*a10 >> 3));
+                *(a11 + (*a10 >> 3)) = (a7[62] << result) | *(a11 + (*a10 >> 3));
                 v152 = v151 + v150;
                 *a10 = v152;
                 *(a11 + (v152 >> 3)) = ((v46 - 6210) << (v152 & 7)) | *(a11 + (v152 >> 3));
@@ -1528,7 +1528,7 @@ LABEL_88:
                   v62 = a6[61];
                   v63 = *a10;
                   result = *a10 & 7;
-                  *(a11 + (*a10 >> 3)) = (*(a7 + 122) << result) | *(a11 + (*a10 >> 3));
+                  *(a11 + (*a10 >> 3)) = (a7[61] << result) | *(a11 + (*a10 >> 3));
                   v64 = v63 + v62;
                   *a10 = v64;
                   *(a11 + (v64 >> 3)) = ((v46 - 2114) << (v64 & 7)) | *(a11 + (v64 >> 3));
@@ -1542,7 +1542,7 @@ LABEL_88:
                   v58 = __clz(v46 - 66) ^ 0x1F;
                   v59 = a6[v58 + 50];
                   v60 = *a10;
-                  *(a11 + (*a10 >> 3)) = (*(a7 + 2 * (v58 + 50)) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+                  *(a11 + (*a10 >> 3)) = (a7[v58 + 50] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
                   v61 = v60 + v59;
                   *a10 = v61;
                   result = *(a11 + (v61 >> 3));
@@ -1561,7 +1561,7 @@ LABEL_88:
                 v55 = a6[v54];
                 v56 = *a10;
                 v23 = v200;
-                *(a11 + (*a10 >> 3)) = (*(a7 + 2 * v54) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+                *(a11 + (*a10 >> 3)) = (a7[v54] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
                 v57 = v56 + v55;
                 *a10 = v57;
                 result = *(a11 + (v57 >> 3));
@@ -1578,7 +1578,7 @@ LABEL_88:
               v48 = *a10;
               v49 = *a10 >> 3;
               result = *(a11 + v49);
-              *(a11 + v49) = (*(a7 + 2 * (v46 | 0x28)) << (*a10 & 7)) | result;
+              *(a11 + v49) = (a7[v46 | 0x28] << (*a10 & 7)) | result;
               v50 = v48 + v47;
               *a10 = v50;
               v51 = &__dst[v46 | 0x28];
@@ -1609,7 +1609,7 @@ LABEL_88:
             if (v27 == v37)
             {
               v67 = a6[64];
-              *(a11 + (v50 >> 3)) = (*(a7 + 128) << (v50 & 7)) | *(a11 + (v50 >> 3));
+              *(a11 + (v50 >> 3)) = (a7[64] << (v50 & 7)) | *(a11 + (v50 >> 3));
               v68 = v50 + v67;
               v69 = &__dst[64];
             }
@@ -1623,7 +1623,7 @@ LABEL_88:
               v74 = ((2 * v71 - 4) & 0xFFFFFFFE | (v70 >> (v71 - 1)) & 1) + 80;
               v75 = a6[v74];
               result = v50 >> 3;
-              *(a11 + (v50 >> 3)) = (*(a7 + 2 * v74) << (v50 & 7)) | *(a11 + (v50 >> 3));
+              *(a11 + (v50 >> 3)) = (a7[v74] << (v50 & 7)) | *(a11 + (v50 >> 3));
               v76 = v50 + v75;
               *a10 = v76;
               *(a11 + (v76 >> 3)) = ((v70 - v73) << (v76 & 7)) | *(a11 + (v76 >> 3));
@@ -1644,7 +1644,7 @@ LABEL_88:
                   if (v77 > 0x847)
                   {
                     v98 = a6[39];
-                    *(a11 + (v68 >> 3)) = (*(a7 + 78) << (v68 & 7)) | *(a11 + (v68 >> 3));
+                    *(a11 + (v68 >> 3)) = (a7[39] << (v68 & 7)) | *(a11 + (v68 >> 3));
                     v99 = v68 + v98;
                     *a10 = v99;
                     v100 = v99 & 7;
@@ -1652,7 +1652,7 @@ LABEL_88:
                     v101 = v99 + 24;
                     *a10 = v99 + 24;
                     v102 = a6[64];
-                    *(a11 + (v101 >> 3)) = (*(a7 + 128) << v100) | *(a11 + (v101 >> 3));
+                    *(a11 + (v101 >> 3)) = (a7[64] << v100) | *(a11 + (v101 >> 3));
                     *a10 = v101 + v102;
                     ++__dst[39];
                   }
@@ -1663,14 +1663,14 @@ LABEL_88:
                     v93 = __clz(v92) ^ 0x1F;
                     v94 = a6[v93 + 28];
                     result = *(a11 + (v68 >> 3));
-                    *(a11 + (v68 >> 3)) = (*(a7 + 2 * (v93 + 28)) << (v68 & 7)) | result;
+                    *(a11 + (v68 >> 3)) = (a7[v93 + 28] << (v68 & 7)) | result;
                     v95 = v68 + v94;
                     *a10 = v95;
                     *(a11 + (v95 >> 3)) = (((-1 << v93) + v92) << (v95 & 7)) | *(a11 + (v95 >> 3));
                     v96 = v95 + v93;
                     *a10 = v95 + v93;
                     v97 = a6[64];
-                    *(a11 + (v96 >> 3)) = (*(a7 + 128) << (v96 & 7)) | *(a11 + (v96 >> 3));
+                    *(a11 + (v96 >> 3)) = (a7[64] << (v96 & 7)) | *(a11 + (v96 >> 3));
                     *a10 = v96 + v97;
                     ++__dst[v93 + 28];
                   }
@@ -1682,14 +1682,14 @@ LABEL_88:
                   v87 = (v86 >> 5) + 30;
                   v88 = a6[v87];
                   result = v68 & 7;
-                  *(a11 + (v68 >> 3)) = (*(a7 + 2 * v87) << (v68 & 7)) | *(a11 + (v68 >> 3));
+                  *(a11 + (v68 >> 3)) = (a7[v87] << (v68 & 7)) | *(a11 + (v68 >> 3));
                   v89 = v68 + v88;
                   *a10 = v89;
                   *(a11 + (v89 >> 3)) = ((v86 & 0x1F) << (v89 & 7)) | *(a11 + (v89 >> 3));
                   v90 = v89 + 5;
                   *a10 = v89 + 5;
                   v91 = a6[64];
-                  *(a11 + (v90 >> 3)) = (*(a7 + 128) << (v90 & 7)) | *(a11 + (v90 >> 3));
+                  *(a11 + (v90 >> 3)) = (a7[64] << (v90 & 7)) | *(a11 + (v90 >> 3));
                   *a10 = v90 + v91;
                   ++__dst[v87];
                 }
@@ -1704,7 +1704,7 @@ LABEL_88:
                 v83 = (v81 >> v82) + (2 * v82 + 4);
                 v84 = a6[v83];
                 result = v68 >> 3;
-                *(a11 + (v68 >> 3)) = (*(a7 + 2 * v83) << (v68 & 7)) | *(a11 + (v68 >> 3));
+                *(a11 + (v68 >> 3)) = (a7[v83] << (v68 & 7)) | *(a11 + (v68 >> 3));
                 v85 = v68 + v84;
                 *a10 = v85;
                 *(a11 + (v85 >> 3)) = ((v81 - (v81 >> v82 << v82)) << (v85 & 7)) | *(a11 + (v85 >> 3));
@@ -1717,7 +1717,7 @@ LABEL_88:
             {
               v78 = v43 + 1;
               v79 = a6[v78];
-              *(a11 + (v68 >> 3)) = (*(a7 + 2 * v78) << (v68 & 7)) | *(a11 + (v68 >> 3));
+              *(a11 + (v68 >> 3)) = (a7[v78] << (v68 & 7)) | *(a11 + (v68 >> 3));
               *a10 = v68 + v79;
               v80 = &__dst[v78];
             }
@@ -1818,7 +1818,7 @@ LABEL_81:
                       {
                         v133 = a6[39];
                         v134 = *a10;
-                        *(a11 + (*a10 >> 3)) = (*(a7 + 78) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+                        *(a11 + (*a10 >> 3)) = (a7[39] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
                         v135 = v134 + v133;
                         *a10 = v135;
                         *(a11 + (v135 >> 3)) = ((v112 - 2113) << (v135 & 7)) | *(a11 + (v135 >> 3));
@@ -1833,7 +1833,7 @@ LABEL_81:
                         v129 = __clz(v128) ^ 0x1F;
                         v130 = a6[v129 + 28];
                         v131 = *a10;
-                        *(a11 + (*a10 >> 3)) = (*(a7 + 2 * (v129 + 28)) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+                        *(a11 + (*a10 >> 3)) = (a7[v129 + 28] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
                         v132 = v131 + v130;
                         *a10 = v132;
                         *(a11 + (v132 >> 3)) = (((-1 << v129) + v128) << (v132 & 7)) | *(a11 + (v132 >> 3));
@@ -1850,7 +1850,7 @@ LABEL_81:
                       v124 = (v122 >> v123) + (2 * v123 + 20);
                       v125 = a6[v124];
                       v126 = *a10;
-                      *(a11 + (*a10 >> 3)) = (*(a7 + 2 * v124) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+                      *(a11 + (*a10 >> 3)) = (a7[v124] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
                       v127 = v126 + v125;
                       *a10 = v127;
                       *(a11 + (v127 >> 3)) = ((v122 - (v122 >> v123 << v123)) << (v127 & 7)) | *(a11 + (v127 >> 3));
@@ -1865,7 +1865,7 @@ LABEL_81:
                     v117 = v112 + 19;
                     v118 = a6[v112 + 19];
                     v119 = *a10;
-                    *(a11 + (*a10 >> 3)) = (*(a7 + 2 * v117) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+                    *(a11 + (*a10 >> 3)) = (a7[v117] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
                     v120 = v119 + v118;
                     *a10 = v120;
                     v121 = &__dst[v117];
@@ -1880,7 +1880,7 @@ LABEL_81:
                   v140 = ((2 * v137 - 4) & 0xFFFFFFFE | (v136 >> (v137 - 1)) & 1) + 80;
                   v141 = a6[v140];
                   result = v120 >> 3;
-                  *(a11 + (v120 >> 3)) = (*(a7 + 2 * v140) << (v120 & 7)) | *(a11 + (v120 >> 3));
+                  *(a11 + (v120 >> 3)) = (a7[v140] << (v120 & 7)) | *(a11 + (v120 >> 3));
                   v142 = v120 + v141;
                   *a10 = v142;
                   *(a11 + (v142 >> 3)) = ((v136 - (v139 << v138)) << (v142 & 7)) | *(a11 + (v142 >> 3));
@@ -1954,10 +1954,10 @@ LABEL_99:
       result = v194;
       if (50 * (v22 - v194) > v158 || v193 < 0x3D5)
       {
-        v179 = (a7 + 126);
+        v179 = a7 + 63;
         if (v158 < 0x5842)
         {
-          v179 = (a7 + 124);
+          v179 = a7 + 62;
         }
 
         v180 = a6 + 63;
@@ -2026,7 +2026,7 @@ LABEL_135:
         {
           v174 = a6[61];
           v175 = *a10;
-          *(a11 + (*a10 >> 3)) = (*(a7 + 122) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+          *(a11 + (*a10 >> 3)) = (a7[61] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
           v176 = v175 + v174;
           *a10 = v176;
           *(a11 + (v176 >> 3)) = ((v158 - 2114) << (v176 & 7)) | *(a11 + (v176 >> 3));
@@ -2040,7 +2040,7 @@ LABEL_135:
           v170 = __clz(v158 - 66) ^ 0x1F;
           v171 = a6[v170 + 50];
           v172 = *a10;
-          *(a11 + (*a10 >> 3)) = (*(a7 + 2 * (v170 + 50)) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+          *(a11 + (*a10 >> 3)) = (a7[v170 + 50] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
           v173 = v172 + v171;
           *a10 = v173;
           *(a11 + (v173 >> 3)) = (((-1 << v170) + v158 - 66) << (v173 & 7)) | *(a11 + (v173 >> 3));
@@ -2058,7 +2058,7 @@ LABEL_135:
         v167 = a6[v166];
         v168 = *a10;
         result = *a10 & 7;
-        *(a11 + (*a10 >> 3)) = (*(a7 + 2 * v166) << result) | *(a11 + (*a10 >> 3));
+        *(a11 + (*a10 >> 3)) = (a7[v166] << result) | *(a11 + (*a10 >> 3));
         v169 = v168 + v167;
         *a10 = v169;
         *(a11 + (v169 >> 3)) = ((v158 - 2 - (v165 << v164)) << (v169 & 7)) | *(a11 + (v169 >> 3));
@@ -2072,7 +2072,7 @@ LABEL_135:
     {
       v159 = a6[v158 | 0x28];
       v160 = *a10;
-      *(a11 + (*a10 >> 3)) = (*(a7 + 2 * (v158 | 0x28)) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+      *(a11 + (*a10 >> 3)) = (a7[v158 | 0x28] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
       v161 = v160 + v159;
       *a10 = v161;
       v162 = &__dst[v158 | 0x28];
@@ -2140,7 +2140,7 @@ LABEL_137:
   return result;
 }
 
-unint64_t BrotliCompressFragmentFastImpl11(uint64_t a1, unsigned __int8 *a2, unint64_t a3, int a4, uint64_t a5, unsigned __int8 *a6, uint64_t a7, unint64_t *a8, _BYTE *a9, unint64_t *a10, uint64_t a11)
+uint64_t BrotliCompressFragmentFastImpl11(uint64_t a1, unsigned __int8 *a2, unint64_t a3, int a4, uint64_t a5, unsigned __int8 *a6, unsigned __int16 *a7, unint64_t *a8, _BYTE *a9, unint64_t *a10, uint64_t a11)
 {
   v202 = a3;
   if (a3 >= 0x18000)
@@ -2321,7 +2321,7 @@ LABEL_88:
                 v153 = a6[63];
                 v154 = *a10;
                 result = *a10 & 7;
-                *(a11 + (*a10 >> 3)) = (*(a7 + 126) << result) | *(a11 + (*a10 >> 3));
+                *(a11 + (*a10 >> 3)) = (a7[63] << result) | *(a11 + (*a10 >> 3));
                 v155 = v154 + v153;
                 *a10 = v155;
                 *(a11 + (v155 >> 3)) = ((v46 - 22594) << (v155 & 7)) | *(a11 + (v155 >> 3));
@@ -2335,7 +2335,7 @@ LABEL_88:
                 v150 = a6[62];
                 v151 = *a10;
                 result = *a10 & 7;
-                *(a11 + (*a10 >> 3)) = (*(a7 + 124) << result) | *(a11 + (*a10 >> 3));
+                *(a11 + (*a10 >> 3)) = (a7[62] << result) | *(a11 + (*a10 >> 3));
                 v152 = v151 + v150;
                 *a10 = v152;
                 *(a11 + (v152 >> 3)) = ((v46 - 6210) << (v152 & 7)) | *(a11 + (v152 >> 3));
@@ -2354,7 +2354,7 @@ LABEL_88:
                   v62 = a6[61];
                   v63 = *a10;
                   result = *a10 & 7;
-                  *(a11 + (*a10 >> 3)) = (*(a7 + 122) << result) | *(a11 + (*a10 >> 3));
+                  *(a11 + (*a10 >> 3)) = (a7[61] << result) | *(a11 + (*a10 >> 3));
                   v64 = v63 + v62;
                   *a10 = v64;
                   *(a11 + (v64 >> 3)) = ((v46 - 2114) << (v64 & 7)) | *(a11 + (v64 >> 3));
@@ -2368,7 +2368,7 @@ LABEL_88:
                   v58 = __clz(v46 - 66) ^ 0x1F;
                   v59 = a6[v58 + 50];
                   v60 = *a10;
-                  *(a11 + (*a10 >> 3)) = (*(a7 + 2 * (v58 + 50)) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+                  *(a11 + (*a10 >> 3)) = (a7[v58 + 50] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
                   v61 = v60 + v59;
                   *a10 = v61;
                   result = *(a11 + (v61 >> 3));
@@ -2387,7 +2387,7 @@ LABEL_88:
                 v55 = a6[v54];
                 v56 = *a10;
                 v23 = v200;
-                *(a11 + (*a10 >> 3)) = (*(a7 + 2 * v54) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+                *(a11 + (*a10 >> 3)) = (a7[v54] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
                 v57 = v56 + v55;
                 *a10 = v57;
                 result = *(a11 + (v57 >> 3));
@@ -2404,7 +2404,7 @@ LABEL_88:
               v48 = *a10;
               v49 = *a10 >> 3;
               result = *(a11 + v49);
-              *(a11 + v49) = (*(a7 + 2 * (v46 | 0x28)) << (*a10 & 7)) | result;
+              *(a11 + v49) = (a7[v46 | 0x28] << (*a10 & 7)) | result;
               v50 = v48 + v47;
               *a10 = v50;
               v51 = &__dst[v46 | 0x28];
@@ -2435,7 +2435,7 @@ LABEL_88:
             if (v27 == v37)
             {
               v67 = a6[64];
-              *(a11 + (v50 >> 3)) = (*(a7 + 128) << (v50 & 7)) | *(a11 + (v50 >> 3));
+              *(a11 + (v50 >> 3)) = (a7[64] << (v50 & 7)) | *(a11 + (v50 >> 3));
               v68 = v50 + v67;
               v69 = &__dst[64];
             }
@@ -2449,7 +2449,7 @@ LABEL_88:
               v74 = ((2 * v71 - 4) & 0xFFFFFFFE | (v70 >> (v71 - 1)) & 1) + 80;
               v75 = a6[v74];
               result = v50 >> 3;
-              *(a11 + (v50 >> 3)) = (*(a7 + 2 * v74) << (v50 & 7)) | *(a11 + (v50 >> 3));
+              *(a11 + (v50 >> 3)) = (a7[v74] << (v50 & 7)) | *(a11 + (v50 >> 3));
               v76 = v50 + v75;
               *a10 = v76;
               *(a11 + (v76 >> 3)) = ((v70 - v73) << (v76 & 7)) | *(a11 + (v76 >> 3));
@@ -2470,7 +2470,7 @@ LABEL_88:
                   if (v77 > 0x847)
                   {
                     v98 = a6[39];
-                    *(a11 + (v68 >> 3)) = (*(a7 + 78) << (v68 & 7)) | *(a11 + (v68 >> 3));
+                    *(a11 + (v68 >> 3)) = (a7[39] << (v68 & 7)) | *(a11 + (v68 >> 3));
                     v99 = v68 + v98;
                     *a10 = v99;
                     v100 = v99 & 7;
@@ -2478,7 +2478,7 @@ LABEL_88:
                     v101 = v99 + 24;
                     *a10 = v99 + 24;
                     v102 = a6[64];
-                    *(a11 + (v101 >> 3)) = (*(a7 + 128) << v100) | *(a11 + (v101 >> 3));
+                    *(a11 + (v101 >> 3)) = (a7[64] << v100) | *(a11 + (v101 >> 3));
                     *a10 = v101 + v102;
                     ++__dst[39];
                   }
@@ -2489,14 +2489,14 @@ LABEL_88:
                     v93 = __clz(v92) ^ 0x1F;
                     v94 = a6[v93 + 28];
                     result = *(a11 + (v68 >> 3));
-                    *(a11 + (v68 >> 3)) = (*(a7 + 2 * (v93 + 28)) << (v68 & 7)) | result;
+                    *(a11 + (v68 >> 3)) = (a7[v93 + 28] << (v68 & 7)) | result;
                     v95 = v68 + v94;
                     *a10 = v95;
                     *(a11 + (v95 >> 3)) = (((-1 << v93) + v92) << (v95 & 7)) | *(a11 + (v95 >> 3));
                     v96 = v95 + v93;
                     *a10 = v95 + v93;
                     v97 = a6[64];
-                    *(a11 + (v96 >> 3)) = (*(a7 + 128) << (v96 & 7)) | *(a11 + (v96 >> 3));
+                    *(a11 + (v96 >> 3)) = (a7[64] << (v96 & 7)) | *(a11 + (v96 >> 3));
                     *a10 = v96 + v97;
                     ++__dst[v93 + 28];
                   }
@@ -2508,14 +2508,14 @@ LABEL_88:
                   v87 = (v86 >> 5) + 30;
                   v88 = a6[v87];
                   result = v68 & 7;
-                  *(a11 + (v68 >> 3)) = (*(a7 + 2 * v87) << (v68 & 7)) | *(a11 + (v68 >> 3));
+                  *(a11 + (v68 >> 3)) = (a7[v87] << (v68 & 7)) | *(a11 + (v68 >> 3));
                   v89 = v68 + v88;
                   *a10 = v89;
                   *(a11 + (v89 >> 3)) = ((v86 & 0x1F) << (v89 & 7)) | *(a11 + (v89 >> 3));
                   v90 = v89 + 5;
                   *a10 = v89 + 5;
                   v91 = a6[64];
-                  *(a11 + (v90 >> 3)) = (*(a7 + 128) << (v90 & 7)) | *(a11 + (v90 >> 3));
+                  *(a11 + (v90 >> 3)) = (a7[64] << (v90 & 7)) | *(a11 + (v90 >> 3));
                   *a10 = v90 + v91;
                   ++__dst[v87];
                 }
@@ -2530,7 +2530,7 @@ LABEL_88:
                 v83 = (v81 >> v82) + (2 * v82 + 4);
                 v84 = a6[v83];
                 result = v68 >> 3;
-                *(a11 + (v68 >> 3)) = (*(a7 + 2 * v83) << (v68 & 7)) | *(a11 + (v68 >> 3));
+                *(a11 + (v68 >> 3)) = (a7[v83] << (v68 & 7)) | *(a11 + (v68 >> 3));
                 v85 = v68 + v84;
                 *a10 = v85;
                 *(a11 + (v85 >> 3)) = ((v81 - (v81 >> v82 << v82)) << (v85 & 7)) | *(a11 + (v85 >> 3));
@@ -2543,7 +2543,7 @@ LABEL_88:
             {
               v78 = v43 + 1;
               v79 = a6[v78];
-              *(a11 + (v68 >> 3)) = (*(a7 + 2 * v78) << (v68 & 7)) | *(a11 + (v68 >> 3));
+              *(a11 + (v68 >> 3)) = (a7[v78] << (v68 & 7)) | *(a11 + (v68 >> 3));
               *a10 = v68 + v79;
               v80 = &__dst[v78];
             }
@@ -2644,7 +2644,7 @@ LABEL_81:
                       {
                         v133 = a6[39];
                         v134 = *a10;
-                        *(a11 + (*a10 >> 3)) = (*(a7 + 78) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+                        *(a11 + (*a10 >> 3)) = (a7[39] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
                         v135 = v134 + v133;
                         *a10 = v135;
                         *(a11 + (v135 >> 3)) = ((v112 - 2113) << (v135 & 7)) | *(a11 + (v135 >> 3));
@@ -2659,7 +2659,7 @@ LABEL_81:
                         v129 = __clz(v128) ^ 0x1F;
                         v130 = a6[v129 + 28];
                         v131 = *a10;
-                        *(a11 + (*a10 >> 3)) = (*(a7 + 2 * (v129 + 28)) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+                        *(a11 + (*a10 >> 3)) = (a7[v129 + 28] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
                         v132 = v131 + v130;
                         *a10 = v132;
                         *(a11 + (v132 >> 3)) = (((-1 << v129) + v128) << (v132 & 7)) | *(a11 + (v132 >> 3));
@@ -2676,7 +2676,7 @@ LABEL_81:
                       v124 = (v122 >> v123) + (2 * v123 + 20);
                       v125 = a6[v124];
                       v126 = *a10;
-                      *(a11 + (*a10 >> 3)) = (*(a7 + 2 * v124) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+                      *(a11 + (*a10 >> 3)) = (a7[v124] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
                       v127 = v126 + v125;
                       *a10 = v127;
                       *(a11 + (v127 >> 3)) = ((v122 - (v122 >> v123 << v123)) << (v127 & 7)) | *(a11 + (v127 >> 3));
@@ -2691,7 +2691,7 @@ LABEL_81:
                     v117 = v112 + 19;
                     v118 = a6[v112 + 19];
                     v119 = *a10;
-                    *(a11 + (*a10 >> 3)) = (*(a7 + 2 * v117) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+                    *(a11 + (*a10 >> 3)) = (a7[v117] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
                     v120 = v119 + v118;
                     *a10 = v120;
                     v121 = &__dst[v117];
@@ -2706,7 +2706,7 @@ LABEL_81:
                   v140 = ((2 * v137 - 4) & 0xFFFFFFFE | (v136 >> (v137 - 1)) & 1) + 80;
                   v141 = a6[v140];
                   result = v120 >> 3;
-                  *(a11 + (v120 >> 3)) = (*(a7 + 2 * v140) << (v120 & 7)) | *(a11 + (v120 >> 3));
+                  *(a11 + (v120 >> 3)) = (a7[v140] << (v120 & 7)) | *(a11 + (v120 >> 3));
                   v142 = v120 + v141;
                   *a10 = v142;
                   *(a11 + (v142 >> 3)) = ((v136 - (v139 << v138)) << (v142 & 7)) | *(a11 + (v142 >> 3));
@@ -2780,10 +2780,10 @@ LABEL_99:
       result = v194;
       if (50 * (v22 - v194) > v158 || v193 < 0x3D5)
       {
-        v179 = (a7 + 126);
+        v179 = a7 + 63;
         if (v158 < 0x5842)
         {
-          v179 = (a7 + 124);
+          v179 = a7 + 62;
         }
 
         v180 = a6 + 63;
@@ -2852,7 +2852,7 @@ LABEL_135:
         {
           v174 = a6[61];
           v175 = *a10;
-          *(a11 + (*a10 >> 3)) = (*(a7 + 122) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+          *(a11 + (*a10 >> 3)) = (a7[61] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
           v176 = v175 + v174;
           *a10 = v176;
           *(a11 + (v176 >> 3)) = ((v158 - 2114) << (v176 & 7)) | *(a11 + (v176 >> 3));
@@ -2866,7 +2866,7 @@ LABEL_135:
           v170 = __clz(v158 - 66) ^ 0x1F;
           v171 = a6[v170 + 50];
           v172 = *a10;
-          *(a11 + (*a10 >> 3)) = (*(a7 + 2 * (v170 + 50)) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+          *(a11 + (*a10 >> 3)) = (a7[v170 + 50] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
           v173 = v172 + v171;
           *a10 = v173;
           *(a11 + (v173 >> 3)) = (((-1 << v170) + v158 - 66) << (v173 & 7)) | *(a11 + (v173 >> 3));
@@ -2884,7 +2884,7 @@ LABEL_135:
         v167 = a6[v166];
         v168 = *a10;
         result = *a10 & 7;
-        *(a11 + (*a10 >> 3)) = (*(a7 + 2 * v166) << result) | *(a11 + (*a10 >> 3));
+        *(a11 + (*a10 >> 3)) = (a7[v166] << result) | *(a11 + (*a10 >> 3));
         v169 = v168 + v167;
         *a10 = v169;
         *(a11 + (v169 >> 3)) = ((v158 - 2 - (v165 << v164)) << (v169 & 7)) | *(a11 + (v169 >> 3));
@@ -2898,7 +2898,7 @@ LABEL_135:
     {
       v159 = a6[v158 | 0x28];
       v160 = *a10;
-      *(a11 + (*a10 >> 3)) = (*(a7 + 2 * (v158 | 0x28)) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+      *(a11 + (*a10 >> 3)) = (a7[v158 | 0x28] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
       v161 = v160 + v159;
       *a10 = v161;
       v162 = &__dst[v158 | 0x28];
@@ -2966,7 +2966,7 @@ LABEL_137:
   return result;
 }
 
-unint64_t BrotliCompressFragmentFastImpl13(uint64_t a1, unsigned __int8 *a2, unint64_t a3, int a4, uint64_t a5, unsigned __int8 *a6, uint64_t a7, unint64_t *a8, _BYTE *a9, unint64_t *a10, uint64_t a11)
+uint64_t BrotliCompressFragmentFastImpl13(uint64_t a1, unsigned __int8 *a2, unint64_t a3, int a4, uint64_t a5, unsigned __int8 *a6, unsigned __int16 *a7, unint64_t *a8, _BYTE *a9, unint64_t *a10, uint64_t a11)
 {
   v202 = a3;
   if (a3 >= 0x18000)
@@ -3147,7 +3147,7 @@ LABEL_88:
                 v153 = a6[63];
                 v154 = *a10;
                 result = *a10 & 7;
-                *(a11 + (*a10 >> 3)) = (*(a7 + 126) << result) | *(a11 + (*a10 >> 3));
+                *(a11 + (*a10 >> 3)) = (a7[63] << result) | *(a11 + (*a10 >> 3));
                 v155 = v154 + v153;
                 *a10 = v155;
                 *(a11 + (v155 >> 3)) = ((v46 - 22594) << (v155 & 7)) | *(a11 + (v155 >> 3));
@@ -3161,7 +3161,7 @@ LABEL_88:
                 v150 = a6[62];
                 v151 = *a10;
                 result = *a10 & 7;
-                *(a11 + (*a10 >> 3)) = (*(a7 + 124) << result) | *(a11 + (*a10 >> 3));
+                *(a11 + (*a10 >> 3)) = (a7[62] << result) | *(a11 + (*a10 >> 3));
                 v152 = v151 + v150;
                 *a10 = v152;
                 *(a11 + (v152 >> 3)) = ((v46 - 6210) << (v152 & 7)) | *(a11 + (v152 >> 3));
@@ -3180,7 +3180,7 @@ LABEL_88:
                   v62 = a6[61];
                   v63 = *a10;
                   result = *a10 & 7;
-                  *(a11 + (*a10 >> 3)) = (*(a7 + 122) << result) | *(a11 + (*a10 >> 3));
+                  *(a11 + (*a10 >> 3)) = (a7[61] << result) | *(a11 + (*a10 >> 3));
                   v64 = v63 + v62;
                   *a10 = v64;
                   *(a11 + (v64 >> 3)) = ((v46 - 2114) << (v64 & 7)) | *(a11 + (v64 >> 3));
@@ -3194,7 +3194,7 @@ LABEL_88:
                   v58 = __clz(v46 - 66) ^ 0x1F;
                   v59 = a6[v58 + 50];
                   v60 = *a10;
-                  *(a11 + (*a10 >> 3)) = (*(a7 + 2 * (v58 + 50)) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+                  *(a11 + (*a10 >> 3)) = (a7[v58 + 50] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
                   v61 = v60 + v59;
                   *a10 = v61;
                   result = *(a11 + (v61 >> 3));
@@ -3213,7 +3213,7 @@ LABEL_88:
                 v55 = a6[v54];
                 v56 = *a10;
                 v23 = v200;
-                *(a11 + (*a10 >> 3)) = (*(a7 + 2 * v54) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+                *(a11 + (*a10 >> 3)) = (a7[v54] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
                 v57 = v56 + v55;
                 *a10 = v57;
                 result = *(a11 + (v57 >> 3));
@@ -3230,7 +3230,7 @@ LABEL_88:
               v48 = *a10;
               v49 = *a10 >> 3;
               result = *(a11 + v49);
-              *(a11 + v49) = (*(a7 + 2 * (v46 | 0x28)) << (*a10 & 7)) | result;
+              *(a11 + v49) = (a7[v46 | 0x28] << (*a10 & 7)) | result;
               v50 = v48 + v47;
               *a10 = v50;
               v51 = &__dst[v46 | 0x28];
@@ -3261,7 +3261,7 @@ LABEL_88:
             if (v27 == v37)
             {
               v67 = a6[64];
-              *(a11 + (v50 >> 3)) = (*(a7 + 128) << (v50 & 7)) | *(a11 + (v50 >> 3));
+              *(a11 + (v50 >> 3)) = (a7[64] << (v50 & 7)) | *(a11 + (v50 >> 3));
               v68 = v50 + v67;
               v69 = &__dst[64];
             }
@@ -3275,7 +3275,7 @@ LABEL_88:
               v74 = ((2 * v71 - 4) & 0xFFFFFFFE | (v70 >> (v71 - 1)) & 1) + 80;
               v75 = a6[v74];
               result = v50 >> 3;
-              *(a11 + (v50 >> 3)) = (*(a7 + 2 * v74) << (v50 & 7)) | *(a11 + (v50 >> 3));
+              *(a11 + (v50 >> 3)) = (a7[v74] << (v50 & 7)) | *(a11 + (v50 >> 3));
               v76 = v50 + v75;
               *a10 = v76;
               *(a11 + (v76 >> 3)) = ((v70 - v73) << (v76 & 7)) | *(a11 + (v76 >> 3));
@@ -3296,7 +3296,7 @@ LABEL_88:
                   if (v77 > 0x847)
                   {
                     v98 = a6[39];
-                    *(a11 + (v68 >> 3)) = (*(a7 + 78) << (v68 & 7)) | *(a11 + (v68 >> 3));
+                    *(a11 + (v68 >> 3)) = (a7[39] << (v68 & 7)) | *(a11 + (v68 >> 3));
                     v99 = v68 + v98;
                     *a10 = v99;
                     v100 = v99 & 7;
@@ -3304,7 +3304,7 @@ LABEL_88:
                     v101 = v99 + 24;
                     *a10 = v99 + 24;
                     v102 = a6[64];
-                    *(a11 + (v101 >> 3)) = (*(a7 + 128) << v100) | *(a11 + (v101 >> 3));
+                    *(a11 + (v101 >> 3)) = (a7[64] << v100) | *(a11 + (v101 >> 3));
                     *a10 = v101 + v102;
                     ++__dst[39];
                   }
@@ -3315,14 +3315,14 @@ LABEL_88:
                     v93 = __clz(v92) ^ 0x1F;
                     v94 = a6[v93 + 28];
                     result = *(a11 + (v68 >> 3));
-                    *(a11 + (v68 >> 3)) = (*(a7 + 2 * (v93 + 28)) << (v68 & 7)) | result;
+                    *(a11 + (v68 >> 3)) = (a7[v93 + 28] << (v68 & 7)) | result;
                     v95 = v68 + v94;
                     *a10 = v95;
                     *(a11 + (v95 >> 3)) = (((-1 << v93) + v92) << (v95 & 7)) | *(a11 + (v95 >> 3));
                     v96 = v95 + v93;
                     *a10 = v95 + v93;
                     v97 = a6[64];
-                    *(a11 + (v96 >> 3)) = (*(a7 + 128) << (v96 & 7)) | *(a11 + (v96 >> 3));
+                    *(a11 + (v96 >> 3)) = (a7[64] << (v96 & 7)) | *(a11 + (v96 >> 3));
                     *a10 = v96 + v97;
                     ++__dst[v93 + 28];
                   }
@@ -3334,14 +3334,14 @@ LABEL_88:
                   v87 = (v86 >> 5) + 30;
                   v88 = a6[v87];
                   result = v68 & 7;
-                  *(a11 + (v68 >> 3)) = (*(a7 + 2 * v87) << (v68 & 7)) | *(a11 + (v68 >> 3));
+                  *(a11 + (v68 >> 3)) = (a7[v87] << (v68 & 7)) | *(a11 + (v68 >> 3));
                   v89 = v68 + v88;
                   *a10 = v89;
                   *(a11 + (v89 >> 3)) = ((v86 & 0x1F) << (v89 & 7)) | *(a11 + (v89 >> 3));
                   v90 = v89 + 5;
                   *a10 = v89 + 5;
                   v91 = a6[64];
-                  *(a11 + (v90 >> 3)) = (*(a7 + 128) << (v90 & 7)) | *(a11 + (v90 >> 3));
+                  *(a11 + (v90 >> 3)) = (a7[64] << (v90 & 7)) | *(a11 + (v90 >> 3));
                   *a10 = v90 + v91;
                   ++__dst[v87];
                 }
@@ -3356,7 +3356,7 @@ LABEL_88:
                 v83 = (v81 >> v82) + (2 * v82 + 4);
                 v84 = a6[v83];
                 result = v68 >> 3;
-                *(a11 + (v68 >> 3)) = (*(a7 + 2 * v83) << (v68 & 7)) | *(a11 + (v68 >> 3));
+                *(a11 + (v68 >> 3)) = (a7[v83] << (v68 & 7)) | *(a11 + (v68 >> 3));
                 v85 = v68 + v84;
                 *a10 = v85;
                 *(a11 + (v85 >> 3)) = ((v81 - (v81 >> v82 << v82)) << (v85 & 7)) | *(a11 + (v85 >> 3));
@@ -3369,7 +3369,7 @@ LABEL_88:
             {
               v78 = v43 + 1;
               v79 = a6[v78];
-              *(a11 + (v68 >> 3)) = (*(a7 + 2 * v78) << (v68 & 7)) | *(a11 + (v68 >> 3));
+              *(a11 + (v68 >> 3)) = (a7[v78] << (v68 & 7)) | *(a11 + (v68 >> 3));
               *a10 = v68 + v79;
               v80 = &__dst[v78];
             }
@@ -3470,7 +3470,7 @@ LABEL_81:
                       {
                         v133 = a6[39];
                         v134 = *a10;
-                        *(a11 + (*a10 >> 3)) = (*(a7 + 78) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+                        *(a11 + (*a10 >> 3)) = (a7[39] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
                         v135 = v134 + v133;
                         *a10 = v135;
                         *(a11 + (v135 >> 3)) = ((v112 - 2113) << (v135 & 7)) | *(a11 + (v135 >> 3));
@@ -3485,7 +3485,7 @@ LABEL_81:
                         v129 = __clz(v128) ^ 0x1F;
                         v130 = a6[v129 + 28];
                         v131 = *a10;
-                        *(a11 + (*a10 >> 3)) = (*(a7 + 2 * (v129 + 28)) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+                        *(a11 + (*a10 >> 3)) = (a7[v129 + 28] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
                         v132 = v131 + v130;
                         *a10 = v132;
                         *(a11 + (v132 >> 3)) = (((-1 << v129) + v128) << (v132 & 7)) | *(a11 + (v132 >> 3));
@@ -3502,7 +3502,7 @@ LABEL_81:
                       v124 = (v122 >> v123) + (2 * v123 + 20);
                       v125 = a6[v124];
                       v126 = *a10;
-                      *(a11 + (*a10 >> 3)) = (*(a7 + 2 * v124) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+                      *(a11 + (*a10 >> 3)) = (a7[v124] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
                       v127 = v126 + v125;
                       *a10 = v127;
                       *(a11 + (v127 >> 3)) = ((v122 - (v122 >> v123 << v123)) << (v127 & 7)) | *(a11 + (v127 >> 3));
@@ -3517,7 +3517,7 @@ LABEL_81:
                     v117 = v112 + 19;
                     v118 = a6[v112 + 19];
                     v119 = *a10;
-                    *(a11 + (*a10 >> 3)) = (*(a7 + 2 * v117) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+                    *(a11 + (*a10 >> 3)) = (a7[v117] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
                     v120 = v119 + v118;
                     *a10 = v120;
                     v121 = &__dst[v117];
@@ -3532,7 +3532,7 @@ LABEL_81:
                   v140 = ((2 * v137 - 4) & 0xFFFFFFFE | (v136 >> (v137 - 1)) & 1) + 80;
                   v141 = a6[v140];
                   result = v120 >> 3;
-                  *(a11 + (v120 >> 3)) = (*(a7 + 2 * v140) << (v120 & 7)) | *(a11 + (v120 >> 3));
+                  *(a11 + (v120 >> 3)) = (a7[v140] << (v120 & 7)) | *(a11 + (v120 >> 3));
                   v142 = v120 + v141;
                   *a10 = v142;
                   *(a11 + (v142 >> 3)) = ((v136 - (v139 << v138)) << (v142 & 7)) | *(a11 + (v142 >> 3));
@@ -3606,10 +3606,10 @@ LABEL_99:
       result = v194;
       if (50 * (v22 - v194) > v158 || v193 < 0x3D5)
       {
-        v179 = (a7 + 126);
+        v179 = a7 + 63;
         if (v158 < 0x5842)
         {
-          v179 = (a7 + 124);
+          v179 = a7 + 62;
         }
 
         v180 = a6 + 63;
@@ -3678,7 +3678,7 @@ LABEL_135:
         {
           v174 = a6[61];
           v175 = *a10;
-          *(a11 + (*a10 >> 3)) = (*(a7 + 122) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+          *(a11 + (*a10 >> 3)) = (a7[61] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
           v176 = v175 + v174;
           *a10 = v176;
           *(a11 + (v176 >> 3)) = ((v158 - 2114) << (v176 & 7)) | *(a11 + (v176 >> 3));
@@ -3692,7 +3692,7 @@ LABEL_135:
           v170 = __clz(v158 - 66) ^ 0x1F;
           v171 = a6[v170 + 50];
           v172 = *a10;
-          *(a11 + (*a10 >> 3)) = (*(a7 + 2 * (v170 + 50)) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+          *(a11 + (*a10 >> 3)) = (a7[v170 + 50] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
           v173 = v172 + v171;
           *a10 = v173;
           *(a11 + (v173 >> 3)) = (((-1 << v170) + v158 - 66) << (v173 & 7)) | *(a11 + (v173 >> 3));
@@ -3710,7 +3710,7 @@ LABEL_135:
         v167 = a6[v166];
         v168 = *a10;
         result = *a10 & 7;
-        *(a11 + (*a10 >> 3)) = (*(a7 + 2 * v166) << result) | *(a11 + (*a10 >> 3));
+        *(a11 + (*a10 >> 3)) = (a7[v166] << result) | *(a11 + (*a10 >> 3));
         v169 = v168 + v167;
         *a10 = v169;
         *(a11 + (v169 >> 3)) = ((v158 - 2 - (v165 << v164)) << (v169 & 7)) | *(a11 + (v169 >> 3));
@@ -3724,7 +3724,7 @@ LABEL_135:
     {
       v159 = a6[v158 | 0x28];
       v160 = *a10;
-      *(a11 + (*a10 >> 3)) = (*(a7 + 2 * (v158 | 0x28)) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+      *(a11 + (*a10 >> 3)) = (a7[v158 | 0x28] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
       v161 = v160 + v159;
       *a10 = v161;
       v162 = &__dst[v158 | 0x28];
@@ -3792,7 +3792,7 @@ LABEL_137:
   return result;
 }
 
-unint64_t BrotliCompressFragmentFastImpl15(uint64_t a1, unsigned __int8 *a2, unint64_t a3, int a4, uint64_t a5, unsigned __int8 *a6, uint64_t a7, unint64_t *a8, _BYTE *a9, unint64_t *a10, uint64_t a11)
+uint64_t BrotliCompressFragmentFastImpl15(uint64_t a1, unsigned __int8 *a2, unint64_t a3, int a4, uint64_t a5, unsigned __int8 *a6, unsigned __int16 *a7, unint64_t *a8, _BYTE *a9, unint64_t *a10, uint64_t a11)
 {
   v202 = a3;
   if (a3 >= 0x18000)
@@ -3973,7 +3973,7 @@ LABEL_88:
                 v153 = a6[63];
                 v154 = *a10;
                 result = *a10 & 7;
-                *(a11 + (*a10 >> 3)) = (*(a7 + 126) << result) | *(a11 + (*a10 >> 3));
+                *(a11 + (*a10 >> 3)) = (a7[63] << result) | *(a11 + (*a10 >> 3));
                 v155 = v154 + v153;
                 *a10 = v155;
                 *(a11 + (v155 >> 3)) = ((v46 - 22594) << (v155 & 7)) | *(a11 + (v155 >> 3));
@@ -3987,7 +3987,7 @@ LABEL_88:
                 v150 = a6[62];
                 v151 = *a10;
                 result = *a10 & 7;
-                *(a11 + (*a10 >> 3)) = (*(a7 + 124) << result) | *(a11 + (*a10 >> 3));
+                *(a11 + (*a10 >> 3)) = (a7[62] << result) | *(a11 + (*a10 >> 3));
                 v152 = v151 + v150;
                 *a10 = v152;
                 *(a11 + (v152 >> 3)) = ((v46 - 6210) << (v152 & 7)) | *(a11 + (v152 >> 3));
@@ -4006,7 +4006,7 @@ LABEL_88:
                   v62 = a6[61];
                   v63 = *a10;
                   result = *a10 & 7;
-                  *(a11 + (*a10 >> 3)) = (*(a7 + 122) << result) | *(a11 + (*a10 >> 3));
+                  *(a11 + (*a10 >> 3)) = (a7[61] << result) | *(a11 + (*a10 >> 3));
                   v64 = v63 + v62;
                   *a10 = v64;
                   *(a11 + (v64 >> 3)) = ((v46 - 2114) << (v64 & 7)) | *(a11 + (v64 >> 3));
@@ -4020,7 +4020,7 @@ LABEL_88:
                   v58 = __clz(v46 - 66) ^ 0x1F;
                   v59 = a6[v58 + 50];
                   v60 = *a10;
-                  *(a11 + (*a10 >> 3)) = (*(a7 + 2 * (v58 + 50)) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+                  *(a11 + (*a10 >> 3)) = (a7[v58 + 50] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
                   v61 = v60 + v59;
                   *a10 = v61;
                   result = *(a11 + (v61 >> 3));
@@ -4039,7 +4039,7 @@ LABEL_88:
                 v55 = a6[v54];
                 v56 = *a10;
                 v23 = v200;
-                *(a11 + (*a10 >> 3)) = (*(a7 + 2 * v54) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+                *(a11 + (*a10 >> 3)) = (a7[v54] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
                 v57 = v56 + v55;
                 *a10 = v57;
                 result = *(a11 + (v57 >> 3));
@@ -4056,7 +4056,7 @@ LABEL_88:
               v48 = *a10;
               v49 = *a10 >> 3;
               result = *(a11 + v49);
-              *(a11 + v49) = (*(a7 + 2 * (v46 | 0x28)) << (*a10 & 7)) | result;
+              *(a11 + v49) = (a7[v46 | 0x28] << (*a10 & 7)) | result;
               v50 = v48 + v47;
               *a10 = v50;
               v51 = &__dst[v46 | 0x28];
@@ -4087,7 +4087,7 @@ LABEL_88:
             if (v27 == v37)
             {
               v67 = a6[64];
-              *(a11 + (v50 >> 3)) = (*(a7 + 128) << (v50 & 7)) | *(a11 + (v50 >> 3));
+              *(a11 + (v50 >> 3)) = (a7[64] << (v50 & 7)) | *(a11 + (v50 >> 3));
               v68 = v50 + v67;
               v69 = &__dst[64];
             }
@@ -4101,7 +4101,7 @@ LABEL_88:
               v74 = ((2 * v71 - 4) & 0xFFFFFFFE | (v70 >> (v71 - 1)) & 1) + 80;
               v75 = a6[v74];
               result = v50 >> 3;
-              *(a11 + (v50 >> 3)) = (*(a7 + 2 * v74) << (v50 & 7)) | *(a11 + (v50 >> 3));
+              *(a11 + (v50 >> 3)) = (a7[v74] << (v50 & 7)) | *(a11 + (v50 >> 3));
               v76 = v50 + v75;
               *a10 = v76;
               *(a11 + (v76 >> 3)) = ((v70 - v73) << (v76 & 7)) | *(a11 + (v76 >> 3));
@@ -4122,7 +4122,7 @@ LABEL_88:
                   if (v77 > 0x847)
                   {
                     v98 = a6[39];
-                    *(a11 + (v68 >> 3)) = (*(a7 + 78) << (v68 & 7)) | *(a11 + (v68 >> 3));
+                    *(a11 + (v68 >> 3)) = (a7[39] << (v68 & 7)) | *(a11 + (v68 >> 3));
                     v99 = v68 + v98;
                     *a10 = v99;
                     v100 = v99 & 7;
@@ -4130,7 +4130,7 @@ LABEL_88:
                     v101 = v99 + 24;
                     *a10 = v99 + 24;
                     v102 = a6[64];
-                    *(a11 + (v101 >> 3)) = (*(a7 + 128) << v100) | *(a11 + (v101 >> 3));
+                    *(a11 + (v101 >> 3)) = (a7[64] << v100) | *(a11 + (v101 >> 3));
                     *a10 = v101 + v102;
                     ++__dst[39];
                   }
@@ -4141,14 +4141,14 @@ LABEL_88:
                     v93 = __clz(v92) ^ 0x1F;
                     v94 = a6[v93 + 28];
                     result = *(a11 + (v68 >> 3));
-                    *(a11 + (v68 >> 3)) = (*(a7 + 2 * (v93 + 28)) << (v68 & 7)) | result;
+                    *(a11 + (v68 >> 3)) = (a7[v93 + 28] << (v68 & 7)) | result;
                     v95 = v68 + v94;
                     *a10 = v95;
                     *(a11 + (v95 >> 3)) = (((-1 << v93) + v92) << (v95 & 7)) | *(a11 + (v95 >> 3));
                     v96 = v95 + v93;
                     *a10 = v95 + v93;
                     v97 = a6[64];
-                    *(a11 + (v96 >> 3)) = (*(a7 + 128) << (v96 & 7)) | *(a11 + (v96 >> 3));
+                    *(a11 + (v96 >> 3)) = (a7[64] << (v96 & 7)) | *(a11 + (v96 >> 3));
                     *a10 = v96 + v97;
                     ++__dst[v93 + 28];
                   }
@@ -4160,14 +4160,14 @@ LABEL_88:
                   v87 = (v86 >> 5) + 30;
                   v88 = a6[v87];
                   result = v68 & 7;
-                  *(a11 + (v68 >> 3)) = (*(a7 + 2 * v87) << (v68 & 7)) | *(a11 + (v68 >> 3));
+                  *(a11 + (v68 >> 3)) = (a7[v87] << (v68 & 7)) | *(a11 + (v68 >> 3));
                   v89 = v68 + v88;
                   *a10 = v89;
                   *(a11 + (v89 >> 3)) = ((v86 & 0x1F) << (v89 & 7)) | *(a11 + (v89 >> 3));
                   v90 = v89 + 5;
                   *a10 = v89 + 5;
                   v91 = a6[64];
-                  *(a11 + (v90 >> 3)) = (*(a7 + 128) << (v90 & 7)) | *(a11 + (v90 >> 3));
+                  *(a11 + (v90 >> 3)) = (a7[64] << (v90 & 7)) | *(a11 + (v90 >> 3));
                   *a10 = v90 + v91;
                   ++__dst[v87];
                 }
@@ -4182,7 +4182,7 @@ LABEL_88:
                 v83 = (v81 >> v82) + (2 * v82 + 4);
                 v84 = a6[v83];
                 result = v68 >> 3;
-                *(a11 + (v68 >> 3)) = (*(a7 + 2 * v83) << (v68 & 7)) | *(a11 + (v68 >> 3));
+                *(a11 + (v68 >> 3)) = (a7[v83] << (v68 & 7)) | *(a11 + (v68 >> 3));
                 v85 = v68 + v84;
                 *a10 = v85;
                 *(a11 + (v85 >> 3)) = ((v81 - (v81 >> v82 << v82)) << (v85 & 7)) | *(a11 + (v85 >> 3));
@@ -4195,7 +4195,7 @@ LABEL_88:
             {
               v78 = v43 + 1;
               v79 = a6[v78];
-              *(a11 + (v68 >> 3)) = (*(a7 + 2 * v78) << (v68 & 7)) | *(a11 + (v68 >> 3));
+              *(a11 + (v68 >> 3)) = (a7[v78] << (v68 & 7)) | *(a11 + (v68 >> 3));
               *a10 = v68 + v79;
               v80 = &__dst[v78];
             }
@@ -4296,7 +4296,7 @@ LABEL_81:
                       {
                         v133 = a6[39];
                         v134 = *a10;
-                        *(a11 + (*a10 >> 3)) = (*(a7 + 78) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+                        *(a11 + (*a10 >> 3)) = (a7[39] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
                         v135 = v134 + v133;
                         *a10 = v135;
                         *(a11 + (v135 >> 3)) = ((v112 - 2113) << (v135 & 7)) | *(a11 + (v135 >> 3));
@@ -4311,7 +4311,7 @@ LABEL_81:
                         v129 = __clz(v128) ^ 0x1F;
                         v130 = a6[v129 + 28];
                         v131 = *a10;
-                        *(a11 + (*a10 >> 3)) = (*(a7 + 2 * (v129 + 28)) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+                        *(a11 + (*a10 >> 3)) = (a7[v129 + 28] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
                         v132 = v131 + v130;
                         *a10 = v132;
                         *(a11 + (v132 >> 3)) = (((-1 << v129) + v128) << (v132 & 7)) | *(a11 + (v132 >> 3));
@@ -4328,7 +4328,7 @@ LABEL_81:
                       v124 = (v122 >> v123) + (2 * v123 + 20);
                       v125 = a6[v124];
                       v126 = *a10;
-                      *(a11 + (*a10 >> 3)) = (*(a7 + 2 * v124) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+                      *(a11 + (*a10 >> 3)) = (a7[v124] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
                       v127 = v126 + v125;
                       *a10 = v127;
                       *(a11 + (v127 >> 3)) = ((v122 - (v122 >> v123 << v123)) << (v127 & 7)) | *(a11 + (v127 >> 3));
@@ -4343,7 +4343,7 @@ LABEL_81:
                     v117 = v112 + 19;
                     v118 = a6[v112 + 19];
                     v119 = *a10;
-                    *(a11 + (*a10 >> 3)) = (*(a7 + 2 * v117) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+                    *(a11 + (*a10 >> 3)) = (a7[v117] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
                     v120 = v119 + v118;
                     *a10 = v120;
                     v121 = &__dst[v117];
@@ -4358,7 +4358,7 @@ LABEL_81:
                   v140 = ((2 * v137 - 4) & 0xFFFFFFFE | (v136 >> (v137 - 1)) & 1) + 80;
                   v141 = a6[v140];
                   result = v120 >> 3;
-                  *(a11 + (v120 >> 3)) = (*(a7 + 2 * v140) << (v120 & 7)) | *(a11 + (v120 >> 3));
+                  *(a11 + (v120 >> 3)) = (a7[v140] << (v120 & 7)) | *(a11 + (v120 >> 3));
                   v142 = v120 + v141;
                   *a10 = v142;
                   *(a11 + (v142 >> 3)) = ((v136 - (v139 << v138)) << (v142 & 7)) | *(a11 + (v142 >> 3));
@@ -4432,10 +4432,10 @@ LABEL_99:
       result = v194;
       if (50 * (v22 - v194) > v158 || v193 < 0x3D5)
       {
-        v179 = (a7 + 126);
+        v179 = a7 + 63;
         if (v158 < 0x5842)
         {
-          v179 = (a7 + 124);
+          v179 = a7 + 62;
         }
 
         v180 = a6 + 63;
@@ -4504,7 +4504,7 @@ LABEL_135:
         {
           v174 = a6[61];
           v175 = *a10;
-          *(a11 + (*a10 >> 3)) = (*(a7 + 122) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+          *(a11 + (*a10 >> 3)) = (a7[61] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
           v176 = v175 + v174;
           *a10 = v176;
           *(a11 + (v176 >> 3)) = ((v158 - 2114) << (v176 & 7)) | *(a11 + (v176 >> 3));
@@ -4518,7 +4518,7 @@ LABEL_135:
           v170 = __clz(v158 - 66) ^ 0x1F;
           v171 = a6[v170 + 50];
           v172 = *a10;
-          *(a11 + (*a10 >> 3)) = (*(a7 + 2 * (v170 + 50)) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+          *(a11 + (*a10 >> 3)) = (a7[v170 + 50] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
           v173 = v172 + v171;
           *a10 = v173;
           *(a11 + (v173 >> 3)) = (((-1 << v170) + v158 - 66) << (v173 & 7)) | *(a11 + (v173 >> 3));
@@ -4536,7 +4536,7 @@ LABEL_135:
         v167 = a6[v166];
         v168 = *a10;
         result = *a10 & 7;
-        *(a11 + (*a10 >> 3)) = (*(a7 + 2 * v166) << result) | *(a11 + (*a10 >> 3));
+        *(a11 + (*a10 >> 3)) = (a7[v166] << result) | *(a11 + (*a10 >> 3));
         v169 = v168 + v167;
         *a10 = v169;
         *(a11 + (v169 >> 3)) = ((v158 - 2 - (v165 << v164)) << (v169 & 7)) | *(a11 + (v169 >> 3));
@@ -4550,7 +4550,7 @@ LABEL_135:
     {
       v159 = a6[v158 | 0x28];
       v160 = *a10;
-      *(a11 + (*a10 >> 3)) = (*(a7 + 2 * (v158 | 0x28)) << (*a10 & 7)) | *(a11 + (*a10 >> 3));
+      *(a11 + (*a10 >> 3)) = (a7[v158 | 0x28] << (*a10 & 7)) | *(a11 + (*a10 >> 3));
       v161 = v160 + v159;
       *a10 = v161;
       v162 = &__dst[v158 | 0x28];
@@ -4660,7 +4660,7 @@ unint64_t BrotliStoreMetaBlockHeader(unint64_t result, unsigned int a2, unint64_
   return result;
 }
 
-unint64_t BuildAndStoreLiteralPrefixCode(uint64_t a1, unsigned __int8 *a2, unint64_t a3, _BYTE *a4, uint64_t a5, unint64_t *a6, uint64_t a7)
+unint64_t BuildAndStoreLiteralPrefixCode(uint64_t a1, unsigned __int8 *a2, unint64_t a3, unsigned __int8 *a4, uint64_t a5, unint64_t *a6, uint64_t a7)
 {
   bzero(v35, 0x400uLL);
   if (a3 >= 0x8000)
@@ -4823,19 +4823,19 @@ uint64_t UpdateBits(uint64_t result, unint64_t a2, uint64_t a3)
   return result;
 }
 
-unint64_t BuildAndStoreCommandPrefixCode(uint64_t a1, uint64_t a2, _OWORD *a3, unint64_t *a4, uint64_t a5)
+unint64_t BuildAndStoreCommandPrefixCode(uint64_t a1, uint64_t *a2, _OWORD *a3, unint64_t *a4, uint64_t a5)
 {
   bzero(v30, 0x280uLL);
   BrotliCreateHuffmanTree(a1, 64, 15, v31, a2);
-  BrotliCreateHuffmanTree(a1 + 256, 64, 14, v31, a2 + 64);
+  BrotliCreateHuffmanTree(a1 + 256, 64, 14, v31, (a2 + 8));
   *v27 = *a2;
   v10 = v28;
-  v32.val[1] = *(a2 + 24);
-  v32.val[0] = *(a2 + 40);
+  v32.val[1] = *(a2 + 3);
+  v32.val[0] = *(a2 + 5);
   vst2q_f64(v10, v32);
-  v12 = (a2 + 56);
-  v11 = *(a2 + 56);
-  *&v27[16] = *(a2 + 16);
+  v12 = a2 + 7;
+  v11 = a2[7];
+  *&v27[16] = a2[2];
   v29 = v11;
   BrotliConvertBitDepthsToSymbols(v27, 64, v26);
   v13 = v26[1];
@@ -4851,16 +4851,16 @@ unint64_t BuildAndStoreCommandPrefixCode(uint64_t a1, uint64_t a2, _OWORD *a3, u
   a3[5] = v14;
   a3[6] = v16;
   a3[7] = v17;
-  BrotliConvertBitDepthsToSymbols((a2 + 64), 64, (a3 + 8));
+  BrotliConvertBitDepthsToSymbols(a2 + 64, 64, (a3 + 8));
   memset(v28, 0, sizeof(v28));
   v18 = *a2;
-  v19 = *(a2 + 8);
+  v19 = a2[1];
   v29 = 0;
   v30[0] = v19;
   *v27 = v18;
-  v20 = *(a2 + 24);
-  v30[8] = *(a2 + 16);
-  v21 = *(a2 + 32);
+  v20 = a2[3];
+  v30[8] = a2[2];
+  v21 = a2[4];
   v30[16] = v20;
   v30[40] = v21;
   v22 = 256;
@@ -4870,14 +4870,15 @@ unint64_t BuildAndStoreCommandPrefixCode(uint64_t a1, uint64_t a2, _OWORD *a3, u
     v23 = &v27[v22];
     *(v23 - 128) = *(v12 - 16);
     *v23 = *(v12 - 8);
-    v24 = *v12++;
+    v24 = *v12;
+    v12 = (v12 + 1);
     v23[192] = v24;
     v22 += 8;
   }
 
   while (v22 != 320);
   BrotliStoreHuffmanTree(v27, 0x2C0uLL, v31, a4, a5);
-  return BrotliStoreHuffmanTree(a2 + 64, 0x40uLL, v31, a4, a5);
+  return BrotliStoreHuffmanTree((a2 + 8), 0x40uLL, v31, a4, a5);
 }
 
 uint64_t lzvnDecode(uint64_t a1)
@@ -5293,7 +5294,7 @@ uint64_t BrotliZopfliCreateCommands(uint64_t result, uint64_t a2, uint64_t a3, u
 
 uint64_t BrotliZopfliComputeShortestPath(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, _DWORD *a10)
 {
-  v10 = __chkstk_darwin(a1);
+  __chkstk_darwin(a1);
   v168 = v13;
   v14 = v12;
   v16 = v15;
@@ -5333,7 +5334,7 @@ uint64_t BrotliZopfliComputeShortestPath(uint64_t a1, uint64_t a2, uint64_t a3, 
     v161 = v24;
     v160 = v22;
     v172 = v20;
-    ZopfliCostModelSetFromLiteralCosts(v175, v20);
+    ZopfliCostModelSetFromLiteralCosts(v175, v20, v18, v16);
     v174 = 0;
     v27 = v21;
     v28 = v169;
@@ -6071,70 +6072,70 @@ uint64_t InitZopfliCostModel(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   return result;
 }
 
-float ZopfliCostModelSetFromLiteralCosts(uint64_t a1, uint64_t a2)
+float ZopfliCostModelSetFromLiteralCosts(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = *(a1 + 2832);
-  v4 = *(a1 + 2816);
-  v5 = *(a1 + 2848);
-  v6 = (v3 + 1);
+  v5 = *(a1 + 2832);
+  v6 = *(a1 + 2816);
+  v7 = *(a1 + 2848);
+  v8 = (v5 + 1);
   BrotliEstimateBitCostsForLiterals(a2);
-  *v3 = 0;
-  if (v5)
+  *v5 = 0;
+  if (v7)
   {
-    v7 = 0.0;
-    v8 = 0.0;
+    v9 = 0.0;
+    v10 = 0.0;
     do
     {
-      v9 = v8 + *v6;
-      v10 = v7 + v9;
-      *v6++ = v7 + v9;
-      v8 = v9 - ((v7 + v9) - v7);
-      v7 = v10;
-      --v5;
+      v11 = v10 + *v8;
+      v12 = v9 + v11;
+      *v8++ = v9 + v11;
+      v10 = v11 - ((v9 + v11) - v9);
+      v9 = v12;
+      --v7;
     }
 
-    while (v5);
+    while (v7);
   }
 
   for (i = 0; i != 704; ++i)
   {
     if (i > 0xF4)
     {
-      v12 = log2((i + 11));
+      v14 = log2((i + 11));
     }
 
     else
     {
-      v12 = kBrotliLog2Table[i + 11];
+      v14 = kBrotliLog2Table[i + 11];
     }
 
-    v13 = v12;
-    *(a1 + 4 * i) = v13;
+    v15 = v14;
+    *(a1 + 4 * i) = v15;
   }
 
-  v14 = *(a1 + 2824);
-  if (v14)
+  v16 = *(a1 + 2824);
+  if (v16)
   {
-    v15 = 20;
+    v17 = 20;
     do
     {
-      if (v15 > 0xFFuLL)
+      if (v17 > 0xFFuLL)
       {
-        v16 = log2(v15);
+        v18 = log2(v17);
       }
 
       else
       {
-        v16 = kBrotliLog2Table[v15];
+        v18 = kBrotliLog2Table[v17];
       }
 
-      v17 = v16;
-      *v4++ = v17;
-      ++v15;
-      --v14;
+      v19 = v18;
+      *v6++ = v19;
+      ++v17;
+      --v16;
     }
 
-    while (v14);
+    while (v16);
   }
 
   result = 3.45943165;
@@ -6799,7 +6800,7 @@ uint64_t BrotliCreateZopfliBackwardReferences(uint64_t result, uint64_t a2, uint
 
 void BrotliCreateHqZopfliBackwardReferences(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 *a9, void *a10, uint64_t a11, uint64_t *a12, void *a13)
 {
-  v13 = __chkstk_darwin(a1);
+  __chkstk_darwin(a1);
   v233 = v16;
   v237 = v17;
   v19 = v18;
@@ -6982,7 +6983,7 @@ LABEL_201:
           v230 = v172;
           if (v172)
           {
-            ZopfliCostModelSetFromLiteralCosts(&v242, v240);
+            ZopfliCostModelSetFromLiteralCosts(&v242, v240, v19, v237);
             v175 = v237;
             v176 = v238;
           }
@@ -8131,7 +8132,7 @@ uint64_t BrotliEncoderSetParameter(uint64_t a1, int a2, unsigned int a3)
   return 1;
 }
 
-char *BrotliEncoderCreateInstance(void *(*a1)(int a1, size_t __size), void (*a2)(int a1, void *a2), uint64_t a3)
+char *BrotliEncoderCreateInstance(uint64_t (*a1)(uint64_t, uint64_t), void (*a2)(int a1, void *a2), uint64_t a3)
 {
   if (a1 | a2)
   {
@@ -8280,7 +8281,7 @@ char *BrotliEncoderCompress(int a1, int a2, int a3, unint64_t a4, uint64_t *a5, 
       }
 
       v24 = BrotliEncoderCompressStream(result, 2, &v233, v203, v192, v232, v186);
-      if (*(v22 + 8628) == 2 && !*(v22 + 8592))
+      if (*(v22 + 2157) == 2 && !*(v22 + 1074))
       {
         v25 = v24;
       }
@@ -9759,7 +9760,7 @@ LABEL_87:
   return 0;
 }
 
-uint64_t BrotliEncoderCompressStream(uint64_t a1, int a2, size_t *a3, const void **a4, size_t *a5, void **a6, size_t *a7)
+uint64_t BrotliEncoderCompressStream(uint64_t a1, int a2, size_t *a3, const void **a4, size_t *a5, void **a6, unint64_t *a7)
 {
   if (*(a1 + 168))
   {
@@ -10322,12 +10323,12 @@ LABEL_241:
           v128 = *a4;
           if (*(a1 + 4))
           {
-            BrotliCompressFragmentTwoPass(a1 + 144, v128, v119, v141, v135, v134, HashTable, v142, v143, v126);
+            BrotliCompressFragmentTwoPass((a1 + 144), v128, v119, v141, v135, v134, HashTable, v142, v143, v126);
           }
 
           else
           {
-            BrotliCompressFragmentFast(a1 + 144, v128, v119, v141, HashTable, v142, (a1 + 7664), a1 + 7792, (a1 + 8560), (a1 + 8048), v143, v126);
+            BrotliCompressFragmentFast(a1 + 144, v128, v119, v141, HashTable, v142, (a1 + 7664), (a1 + 7792), (a1 + 8560), (a1 + 8048), v143, v126);
           }
 
           if (*(a1 + 168))
@@ -10640,7 +10641,7 @@ LABEL_133:
       v103 = a2 == 1;
     }
 
-    if ((v102 & 1) == 0 && !*(a1 + 2435))
+    if (!v102 && !*(a1 + 2435))
     {
       *(a1 + 2435) = -1;
       v103 = 1;
@@ -10670,7 +10671,7 @@ LABEL_133:
       return result;
     }
 
-    if ((v102 & 1) != 0 || v103)
+    if (v102 || v103)
     {
       if (v102)
       {

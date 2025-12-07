@@ -6,6 +6,7 @@
 - (void)_extensionForIdentifier:(id)identifier containingAppBundleURL:(id)l completion:(id)completion;
 - (void)beginMatchingExtensions;
 - (void)dealloc;
+- (void)extensionWithIdentifier:(id)identifier inContainingAppWithProcessIdentifier:(int)processIdentifier completion:(id)completion;
 - (void)extensionsWithCompletionHandler:(id)handler;
 - (void)pluginsDidInstall:(id)install;
 - (void)setDelegate:(id)delegate queue:(id)queue;
@@ -98,30 +99,28 @@ uint64_t __55__CXCallDirectoryNSExtensionManager_setDelegate_queue___block_invok
 
 + (NSDictionary)baseExtensionMatchingAttributes
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   if (_os_feature_enabled_impl())
   {
-    v12[0] = @"com.apple.callkit.call-directory";
-    v12[1] = @"com.apple.live-lookup";
+    v11[0] = @"com.apple.callkit.call-directory";
+    v11[1] = @"com.apple.live-lookup";
     v2 = MEMORY[0x1E695DEC8];
-    v3 = v12;
+    v3 = v11;
     v4 = 2;
   }
 
   else
   {
-    v11 = @"com.apple.callkit.call-directory";
+    v10 = @"com.apple.callkit.call-directory";
     v2 = MEMORY[0x1E695DEC8];
-    v3 = &v11;
+    v3 = &v10;
     v4 = 1;
   }
 
   v5 = [v2 arrayWithObjects:v3 count:v4];
-  v9 = *MEMORY[0x1E696A2F8];
-  v10 = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E696A2F8];
+  v9 = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
 
   return v6;
 }
@@ -161,10 +160,10 @@ void __72__CXCallDirectoryNSExtensionManager__beginMatchingExtensionsIfNecessary
   {
     if (v6)
     {
-      v9 = CXDefaultLog();
+      v9 = CXDefaultLog(WeakRetained);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        __72__CXCallDirectoryNSExtensionManager__beginMatchingExtensionsIfNecessary__block_invoke_cold_1(a1);
+        __72__CXCallDirectoryNSExtensionManager__beginMatchingExtensionsIfNecessary__block_invoke_cold_1();
       }
     }
 
@@ -189,42 +188,42 @@ void __72__CXCallDirectoryNSExtensionManager__beginMatchingExtensionsIfNecessary
 
 void __72__CXCallDirectoryNSExtensionManager__beginMatchingExtensionsIfNecessary__block_invoke_2(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v24 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v24 = v3;
+    v23 = v3;
     _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "matchingExtensions=%@", buf, 0xCu);
   }
 
   v4 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = *(a1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         v11 = [v10 identifier];
         [v4 setObject:v10 forKeyedSubscript:v11];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
@@ -240,12 +239,10 @@ void __72__CXCallDirectoryNSExtensionManager__beginMatchingExtensionsIfNecessary
     block[1] = 3221225472;
     block[2] = __72__CXCallDirectoryNSExtensionManager__beginMatchingExtensionsIfNecessary__block_invoke_14;
     block[3] = &unk_1E7C06C80;
-    v16 = *(a1 + 40);
-    v17 = *(a1 + 32);
+    v15 = *(a1 + 40);
+    v16 = *(a1 + 32);
     dispatch_async(v13, block);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __72__CXCallDirectoryNSExtensionManager__beginMatchingExtensionsIfNecessary__block_invoke_14(uint64_t a1)
@@ -261,15 +258,50 @@ void __72__CXCallDirectoryNSExtensionManager__beginMatchingExtensionsIfNecessary
   [MEMORY[0x1E696ABD0] extensionsWithMatchingAttributes:baseExtensionMatchingAttributes completion:handlerCopy];
 }
 
+- (void)extensionWithIdentifier:(id)identifier inContainingAppWithProcessIdentifier:(int)processIdentifier completion:(id)completion
+{
+  v6 = *&processIdentifier;
+  identifierCopy = identifier;
+  completionCopy = completion;
+  v10 = objc_alloc_init(MEMORY[0x1E698D028]);
+  v11 = [v10 bundleInfoValueForKey:*MEMORY[0x1E695E4F0] PID:v6];
+  invalidate = [v10 invalidate];
+  if (v11)
+  {
+    v13 = [MEMORY[0x1E69635F8] cx_applicationRecordForBundleIdentifier:v11];
+    v14 = [v13 URL];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __109__CXCallDirectoryNSExtensionManager_extensionWithIdentifier_inContainingAppWithProcessIdentifier_completion___block_invoke;
+    v17[3] = &unk_1E7C07070;
+    v18 = identifierCopy;
+    v19 = v14;
+    v20 = completionCopy;
+    v15 = v14;
+    [(CXCallDirectoryNSExtensionManager *)self _extensionForIdentifier:v18 containingAppBundleURL:v15 completion:v17];
+  }
+
+  else
+  {
+    v16 = CXDefaultLog(invalidate);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      [CXCallDirectoryNSExtensionManager extensionWithIdentifier:v6 inContainingAppWithProcessIdentifier:v16 completion:?];
+    }
+
+    (*(completionCopy + 2))(completionCopy, 0);
+  }
+}
+
 void __109__CXCallDirectoryNSExtensionManager_extensionWithIdentifier_inContainingAppWithProcessIdentifier_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
   if (!v3)
   {
-    v4 = CXDefaultLog();
+    v4 = CXDefaultLog(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __109__CXCallDirectoryNSExtensionManager_extensionWithIdentifier_inContainingAppWithProcessIdentifier_completion___block_invoke_cold_1(a1);
+      __109__CXCallDirectoryNSExtensionManager_extensionWithIdentifier_inContainingAppWithProcessIdentifier_completion___block_invoke_cold_1();
     }
   }
 
@@ -303,20 +335,21 @@ void __109__CXCallDirectoryNSExtensionManager_extensionWithIdentifier_inContaini
 void __95__CXCallDirectoryNSExtensionManager__extensionForIdentifier_containingAppBundleURL_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = [a2 firstObject];
+    v7 = [a2 firstObject];
   }
 
   else
   {
-    v7 = CXDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = CXDefaultLog(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __95__CXCallDirectoryNSExtensionManager__extensionForIdentifier_containingAppBundleURL_completion___block_invoke_cold_1(a1);
+      __95__CXCallDirectoryNSExtensionManager__extensionForIdentifier_containingAppBundleURL_completion___block_invoke_cold_1();
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
   (*(*(a1 + 40) + 16))();
@@ -344,7 +377,7 @@ void __55__CXCallDirectoryNSExtensionManager_pluginsDidInstall___block_invoke(ui
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v4 = CXDefaultLog();
+    v4 = CXDefaultLog(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 40);
@@ -393,28 +426,26 @@ void __55__CXCallDirectoryNSExtensionManager_pluginsDidInstall___block_invoke(ui
       while (v8);
     }
 
-    v15 = CXDefaultLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = CXDefaultLog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
       v26 = v3;
-      _os_log_impl(&dword_1B47F3000, v15, OS_LOG_TYPE_DEFAULT, "installedPlugins=%@", buf, 0xCu);
+      _os_log_impl(&dword_1B47F3000, v16, OS_LOG_TYPE_DEFAULT, "installedPlugins=%@", buf, 0xCu);
     }
 
     if ([v3 count])
     {
-      v16 = [*(a1 + 32) delegateQueue];
+      v17 = [*(a1 + 32) delegateQueue];
       v18[0] = MEMORY[0x1E69E9820];
       v18[1] = 3221225472;
       v18[2] = __55__CXCallDirectoryNSExtensionManager_pluginsDidInstall___block_invoke_20;
       v18[3] = &unk_1E7C06BE0;
       v18[4] = *(a1 + 32);
       v19 = v3;
-      dispatch_async(v16, v18);
+      dispatch_async(v17, v18);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __55__CXCallDirectoryNSExtensionManager_pluginsDidInstall___block_invoke_20(uint64_t a1)
@@ -430,42 +461,20 @@ void __55__CXCallDirectoryNSExtensionManager_pluginsDidInstall___block_invoke_20
   return WeakRetained;
 }
 
-void __72__CXCallDirectoryNSExtensionManager__beginMatchingExtensionsIfNecessary__block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2(&dword_1B47F3000, v2, v3, "Error beginning to match extensions with attributes %@: %@");
-  v4 = *MEMORY[0x1E69E9840];
-}
-
 - (void)extensionWithIdentifier:(int)a1 inContainingAppWithProcessIdentifier:(NSObject *)a2 completion:.cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "No containing app bundle ID found for containingAppPID %d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_1B47F3000, a2, OS_LOG_TYPE_ERROR, "No containing app bundle ID found for containingAppPID %d", v2, 8u);
 }
 
-void __109__CXCallDirectoryNSExtensionManager_extensionWithIdentifier_inContainingAppWithProcessIdentifier_completion___block_invoke_cold_1(uint64_t a1)
+void __109__CXCallDirectoryNSExtensionManager_extensionWithIdentifier_inContainingAppWithProcessIdentifier_completion___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  OUTLINED_FUNCTION_0_1();
-  v7 = v3;
-  _os_log_error_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_ERROR, "No NSExtension found for identifier %@ containingAppBundleURL %@", v6, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __95__CXCallDirectoryNSExtensionManager__extensionForIdentifier_containingAppBundleURL_completion___block_invoke_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2(&dword_1B47F3000, v2, v3, "Error matching extensions with attributes %@: %@");
   v4 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_1();
+  v3 = v0;
+  _os_log_error_impl(&dword_1B47F3000, v1, OS_LOG_TYPE_ERROR, "No NSExtension found for identifier %@ containingAppBundleURL %@", v2, 0x16u);
 }
 
 @end

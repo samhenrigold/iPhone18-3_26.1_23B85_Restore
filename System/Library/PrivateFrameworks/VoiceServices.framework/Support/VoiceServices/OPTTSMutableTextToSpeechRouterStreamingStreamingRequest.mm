@@ -12,16 +12,16 @@
 - (void)setContentAsOPTTSStartTextToSpeechStreamingRequest:(id)request
 {
   requestCopy = request;
-  [(OPTTSMutableTextToSpeechRouterStreamingStreamingRequest *)self setContent_type:1];
+  [(OPTTSMutableTextToSpeechRouterStreamingStreamingRequest *)self setContent_type:?];
   v4 = [requestCopy copy];
-  [(NSMutableDictionary *)self->super._storage setObject:v4 forKeyedSubscript:@"content"];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (OPTTSStartTextToSpeechStreamingRequest)contentAsOPTTSStartTextToSpeechStreamingRequest
 {
   if ([(OPTTSMutableTextToSpeechRouterStreamingStreamingRequest *)self content_type]== 1)
   {
-    v3 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"content"];
+    v3 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   }
 
   else
@@ -34,13 +34,13 @@
 
 - (void)setContent_type:(int64_t)content_type
 {
-  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInteger:content_type];
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInteger:?];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (int64_t)content_type
 {
-  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"content_type"];
+  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   integerValue = [v2 integerValue];
 
   return integerValue;
@@ -48,7 +48,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
+  v4 = [objc_msgSend(objc_opt_class() "allocWithZone:"init"")];
   v5 = [(NSMutableDictionary *)self->super._storage copy];
   v6 = v4[1];
   v4[1] = v5;

@@ -63,32 +63,32 @@
   aBlock[1] = 3221225472;
   aBlock[2] = __49__SUUIReviewsFacebookViewController__toggleLike___block_invoke;
   aBlock[3] = &unk_2798F88A0;
-  objc_copyWeak(&v16, &location);
-  v17 = v7;
+  objc_copyWeak(&v17, &location);
+  v18 = v7;
   v8 = _Block_copy(aBlock);
-  v9 = SUUISocialFramework();
-  v10 = [SUUIWeakLinkedClassForString(&cfstr_Slfacebooksess.isa v9)];
+  v10 = SUUISocialFramework(v8, v9);
+  v11 = [SUUIWeakLinkedClassForString(&cfstr_Slfacebooksess.isa v10)];
   [(SUUIFacebookLikeStatus *)self->_facebookLikeStatus URL];
   if (v6)
-    v11 = {;
-    [v10 unlikeURL:v11 completion:v8];
+    v12 = {;
+    [v11 unlikeURL:v12 completion:v8];
   }
 
   else
-    v11 = {;
-    [v10 likeURL:v11 completion:v8];
+    v12 = {;
+    [v11 likeURL:v12 completion:v8];
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v13 = objc_opt_respondsToSelector();
+  v14 = objc_opt_respondsToSelector();
 
-  if (v13)
+  if (v14)
   {
-    v14 = objc_loadWeakRetained(&self->_delegate);
-    [v14 reviewsFacebookViewControllerDidChange:self];
+    v15 = objc_loadWeakRetained(&self->_delegate);
+    [v15 reviewsFacebookViewControllerDidChange:self];
   }
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v17);
   objc_destroyWeak(&location);
 }
 

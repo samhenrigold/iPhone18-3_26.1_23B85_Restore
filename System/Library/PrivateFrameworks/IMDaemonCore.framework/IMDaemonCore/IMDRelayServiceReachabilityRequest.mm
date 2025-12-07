@@ -50,20 +50,18 @@
 
 - (id)createDictionary
 {
-  v11[3] = *MEMORY[0x277D85DE8];
-  v10[0] = @"h";
+  v10[3] = *MEMORY[0x277D85DE8];
+  v9[0] = @"h";
   handles = [(IMDRelayServiceReachabilityRequest *)self handles];
-  v11[0] = handles;
-  v10[1] = @"s";
+  v10[0] = handles;
+  v9[1] = @"s";
   serviceName = [(IMDRelayServiceReachabilityRequest *)self serviceName];
-  v11[1] = serviceName;
-  v10[2] = @"c";
+  v10[1] = serviceName;
+  v9[2] = @"c";
   context = [(IMDRelayServiceReachabilityRequest *)self context];
   createDictionary = [context createDictionary];
-  v11[2] = createDictionary;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[2] = createDictionary;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
 
   return v7;
 }

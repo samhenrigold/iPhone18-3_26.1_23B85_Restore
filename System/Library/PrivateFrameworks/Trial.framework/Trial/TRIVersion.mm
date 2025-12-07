@@ -16,7 +16,7 @@
 
 + (id)parseVersionFromString:(id)string withPrefix:(id)prefix
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   prefixCopy = prefix;
   if (!stringCopy)
@@ -55,26 +55,26 @@
   v12 = v11;
   if (v11)
   {
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __57__TRIVersion_Factory__parseVersionFromString_withPrefix___block_invoke;
-    v26[3] = &unk_27885EDE0;
-    v27 = v11;
-    v13 = MEMORY[0x2318F2490](v26);
-    v25 = 1;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __57__TRIVersion_Factory__parseVersionFromString_withPrefix___block_invoke;
+    v25[3] = &unk_27885EDE0;
+    v26 = v11;
+    v13 = MEMORY[0x2318F2490](v25);
+    v24 = 1;
     v14 = [TRIVersion alloc];
-    v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{(v13)[2](v13, 0, &v25)}];
-    v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{(v13)[2](v13, 1, &v25)}];
-    v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{(v13)[2](v13, 2, &v25)}];
+    v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{(v13)[2](v13, 0, &v24)}];
+    v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{(v13)[2](v13, 1, &v24)}];
+    v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{(v13)[2](v13, 2, &v24)}];
     v18 = [(TRIVersion *)v14 initWithMajorVersion:v15 minorVersion:v16 patchVersion:v17];
 
-    if ((v25 & 1) == 0)
+    if ((v24 & 1) == 0)
     {
       v19 = TRILogCategory_ClientFramework();
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v29 = v9;
+        v28 = v9;
         _os_log_impl(&dword_22EA6B000, v19, OS_LOG_TYPE_DEFAULT, "error in parsing version string %@", buf, 0xCu);
       }
     }
@@ -86,7 +86,7 @@
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = v9;
+      v28 = v9;
       _os_log_impl(&dword_22EA6B000, v20, OS_LOG_TYPE_DEFAULT, "could not parse version string %@", buf, 0xCu);
     }
 
@@ -94,7 +94,6 @@
   }
 
 LABEL_18:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -236,60 +235,8 @@ LABEL_4:
 {
   versionCopy = version;
   v5 = versionCopy;
-  if (!versionCopy)
+  if (!versionCopy || (v6 = self->_majorVersion == 0, [versionCopy majorVersion], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (majorVersion = self->_majorVersion) != 0 && (objc_msgSend(v5, "majorVersion"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSNumber isEqual:](majorVersion, "isEqual:", v10), v10, !v11) || (v12 = self->_minorVersion == 0, objc_msgSend(v5, "minorVersion"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14) || (minorVersion = self->_minorVersion) != 0 && (objc_msgSend(v5, "minorVersion"), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[NSNumber isEqual:](minorVersion, "isEqual:", v16), v16, !v17) || (v18 = self->_patchVersion == 0, objc_msgSend(v5, "patchVersion"), v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 != 0, v19, v18 == v20))
   {
-    goto LABEL_11;
-  }
-
-  v6 = self->_majorVersion == 0;
-  majorVersion = [versionCopy majorVersion];
-  v8 = majorVersion != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_11;
-  }
-
-  majorVersion = self->_majorVersion;
-  if (majorVersion)
-  {
-    majorVersion2 = [v5 majorVersion];
-    v11 = [(NSNumber *)majorVersion isEqual:majorVersion2];
-
-    if (!v11)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  v12 = self->_minorVersion == 0;
-  minorVersion = [v5 minorVersion];
-  v14 = minorVersion != 0;
-
-  if (v12 == v14)
-  {
-    goto LABEL_11;
-  }
-
-  minorVersion = self->_minorVersion;
-  if (minorVersion)
-  {
-    minorVersion2 = [v5 minorVersion];
-    v17 = [(NSNumber *)minorVersion isEqual:minorVersion2];
-
-    if (!v17)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  v18 = self->_patchVersion == 0;
-  patchVersion = [v5 patchVersion];
-  v20 = patchVersion != 0;
-
-  if (v18 == v20)
-  {
-LABEL_11:
     v23 = 0;
   }
 
@@ -298,8 +245,8 @@ LABEL_11:
     patchVersion = self->_patchVersion;
     if (patchVersion)
     {
-      patchVersion2 = [v5 patchVersion];
-      v23 = [(NSNumber *)patchVersion isEqual:patchVersion2];
+      patchVersion = [v5 patchVersion];
+      v23 = [(NSNumber *)patchVersion isEqual:patchVersion];
     }
 
     else

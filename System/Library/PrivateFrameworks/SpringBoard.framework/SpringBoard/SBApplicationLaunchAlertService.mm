@@ -325,7 +325,7 @@ LABEL_5:
 - (void)sceneContentStateDidChange:(id)change
 {
   changeCopy = change;
-  if (-[NSMutableSet containsObject:](self->_foregroundingScenes, "containsObject:") && [changeCopy contentState] == 2)
+  if (objc_msgSend_containsObject_(self->_foregroundingScenes) && [changeCopy contentState] == 2)
   {
     [(SBApplicationLaunchAlertService *)self _sceneDidBecomeForeground:changeCopy];
   }

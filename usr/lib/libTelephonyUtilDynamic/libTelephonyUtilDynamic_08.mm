@@ -1,991 +1,4 @@
-std::runtime_error *ctu::EmptyMockCallArgsException::EmptyMockCallArgsException(std::runtime_error *this, const char *a2)
-{
-  v11.__r_.__value_.__r.__words[0] = operator new(0x28uLL);
-  *&v11.__r_.__value_.__r.__words[1] = xmmword_1A9164DC0;
-  strcpy(v11.__r_.__value_.__l.__data_, "EmptyMockCallArgsException for method '");
-  v4 = strlen(a2);
-  v5 = std::string::append(&v11, a2, v4);
-  v6 = *&v5->__r_.__value_.__l.__data_;
-  v12.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
-  *&v12.__r_.__value_.__l.__data_ = v6;
-  v5->__r_.__value_.__l.__size_ = 0;
-  v5->__r_.__value_.__r.__words[2] = 0;
-  v5->__r_.__value_.__r.__words[0] = 0;
-  v7 = std::string::append(&v12, "': method appears not to have been called", 0x29uLL);
-  v8 = *&v7->__r_.__value_.__l.__data_;
-  __p.__r_.__value_.__r.__words[2] = v7->__r_.__value_.__r.__words[2];
-  *&__p.__r_.__value_.__l.__data_ = v8;
-  v7->__r_.__value_.__l.__size_ = 0;
-  v7->__r_.__value_.__r.__words[2] = 0;
-  v7->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v12.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v11.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v11.__r_.__value_.__l.__data_);
-  }
-
-  std::runtime_error::runtime_error(this, &__p);
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  this->__vftable = &unk_1F1CB9C48;
-  return this;
-}
-
-void sub_1A914C470(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void ctu::EmptyMockCallArgsException::~EmptyMockCallArgsException(std::runtime_error *this)
-{
-  std::runtime_error::~runtime_error(this);
-
-  operator delete(v1);
-}
-
-uint64_t ctu::LoggerTree::LoggerTree(uint64_t a1, __int128 *a2)
-{
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 0u;
-  *a1 = 0u;
-  if (*(a2 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external((a1 + 48), *a2, *(a2 + 1));
-  }
-
-  else
-  {
-    v3 = *a2;
-    *(a1 + 64) = *(a2 + 2);
-    *(a1 + 48) = v3;
-  }
-
-  *(a1 + 72) = 0;
-  *(a1 + 80) = 0;
-  return a1;
-}
-
-void sub_1A914C558(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10)
-{
-  a10 = v10 + 3;
-  std::vector<std::weak_ptr<ctu::TrackedLogger>>::__destroy_vector::operator()[abi:ne200100](&a10);
-  a10 = v10;
-  std::vector<ctu::LoggerTree>::__destroy_vector::operator()[abi:ne200100](&a10);
-  _Unwind_Resume(a1);
-}
-
-void ctu::LoggerTree::~LoggerTree(ctu::LoggerTree *this)
-{
-  v2 = *(this + 10);
-  *(this + 10) = 0;
-  if (v2)
-  {
-    operator delete(v2);
-  }
-
-  if (*(this + 71) < 0)
-  {
-    operator delete(*(this + 6));
-  }
-
-  v3 = (this + 24);
-  std::vector<std::weak_ptr<ctu::TrackedLogger>>::__destroy_vector::operator()[abi:ne200100](&v3);
-  v3 = this;
-  std::vector<ctu::LoggerTree>::__destroy_vector::operator()[abi:ne200100](&v3);
-}
-
-__n128 ctu::LoggerTree::LoggerTree(__n128 *a1, uint64_t a2)
-{
-  a1->n128_u64[0] = 0;
-  a1->n128_u64[1] = 0;
-  a1[1].n128_u64[0] = 0;
-  *a1 = *a2;
-  a1[1].n128_u64[0] = *(a2 + 16);
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  a1[1].n128_u64[1] = 0;
-  a1[2].n128_u64[0] = 0;
-  a1[2].n128_u64[1] = 0;
-  *(a1 + 24) = *(a2 + 24);
-  a1[2].n128_u64[1] = *(a2 + 40);
-  *(a2 + 24) = 0;
-  *(a2 + 32) = 0;
-  *(a2 + 40) = 0;
-  result = *(a2 + 48);
-  a1[4].n128_u64[0] = *(a2 + 64);
-  a1[3] = result;
-  *(a2 + 56) = 0;
-  *(a2 + 64) = 0;
-  *(a2 + 48) = 0;
-  a1[4].n128_u16[4] = *(a2 + 72);
-  v3 = *(a2 + 80);
-  *(a2 + 80) = 0;
-  a1[5].n128_u64[0] = v3;
-  return result;
-}
-
-char **ctu::LoggerTree::operator=(char **a1, uint64_t a2)
-{
-  v4 = *a1;
-  if (*a1)
-  {
-    v5 = a1[1];
-    v6 = v4;
-    if (v5 != v4)
-    {
-      do
-      {
-        ctu::LoggerTree::~LoggerTree((v5 - 88));
-      }
-
-      while (v5 != v4);
-      v6 = *a1;
-    }
-
-    a1[1] = v4;
-    operator delete(v6);
-    *a1 = 0;
-    a1[1] = 0;
-    a1[2] = 0;
-  }
-
-  *a1 = *a2;
-  a1[2] = *(a2 + 16);
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  v7 = (a1 + 3);
-  if (a1[3])
-  {
-    std::vector<std::weak_ptr<ctu::TrackedLogger>>::clear[abi:ne200100](a1 + 3);
-    operator delete(*v7);
-    *v7 = 0;
-    a1[4] = 0;
-    a1[5] = 0;
-  }
-
-  *(a1 + 3) = *(a2 + 24);
-  a1[5] = *(a2 + 40);
-  *(a2 + 24) = 0;
-  *(a2 + 32) = 0;
-  *(a2 + 40) = 0;
-  if (*(a1 + 71) < 0)
-  {
-    operator delete(a1[6]);
-  }
-
-  v8 = *(a2 + 48);
-  a1[8] = *(a2 + 64);
-  *(a1 + 3) = v8;
-  *(a2 + 71) = 0;
-  *(a2 + 48) = 0;
-  *(a1 + 36) = *(a2 + 72);
-  v9 = *(a2 + 80);
-  *(a2 + 80) = 0;
-  v10 = a1[10];
-  a1[10] = v9;
-  if (v10)
-  {
-    operator delete(v10);
-  }
-
-  return a1;
-}
-
-uint64_t ctu::LoggerTree::insertAt(uint64_t a1, __int128 *a2, void *a3)
-{
-  v4 = ctu::LoggerTree::getOrCreateFromPath(a1, a2);
-  v5 = v4;
-  v7 = *(v4 + 24);
-  v6 = *(v4 + 32);
-  if (v7 != v6)
-  {
-    v8 = v6 - 2;
-    v9 = *(v4 + 24);
-    while (1)
-    {
-      v10 = v7[1];
-      if (!v10 || *(v10 + 8) == -1)
-      {
-        break;
-      }
-
-      v7 += 2;
-      v9 += 2;
-      if (v7 == v6)
-      {
-        v7 = *(v4 + 32);
-        goto LABEL_25;
-      }
-    }
-
-    if (v7 != v8)
-    {
-      v11 = v8 - v9;
-      v12 = v8;
-      while (1)
-      {
-        v13 = v12[1];
-        if (v13)
-        {
-          if (*(v13 + 8) != -1)
-          {
-            break;
-          }
-        }
-
-        v12 -= 2;
-        v8 -= 2;
-        v11 -= 16;
-        if (v7 == v12)
-        {
-          goto LABEL_25;
-        }
-      }
-
-      v14 = v11 >> 4;
-      v15 = v14 + 1;
-      if (v14 < 3)
-      {
-        v16 = 0;
-        v21 = 0;
-      }
-
-      else
-      {
-        if (v15 >= 0x7FFFFFFFFFFFFFFLL)
-        {
-          v16 = 0x7FFFFFFFFFFFFFFLL;
-        }
-
-        else
-        {
-          v16 = v14 + 1;
-        }
-
-        v17 = MEMORY[0x1E69E5398];
-        while (1)
-        {
-          v18 = operator new(16 * v16, v17);
-          if (v18)
-          {
-            break;
-          }
-
-          v19 = v16 >> 1;
-          v20 = v16 > 1;
-          v16 >>= 1;
-          if (!v20)
-          {
-            v21 = 0;
-            v16 = v19;
-            goto LABEL_23;
-          }
-        }
-
-        v21 = v18;
-      }
-
-LABEL_23:
-      v7 = std::__stable_partition_impl<std::_ClassicAlgPolicy,ctu::LoggerTree::tidyUp(void)::$_0 &,std::__wrap_iter<std::weak_ptr<ctu::TrackedLogger> *>,long,std::pair<std::weak_ptr<ctu::TrackedLogger> *,long>>(v9, v8, v15, v21, v16);
-      if (v21)
-      {
-        operator delete(v21);
-      }
-    }
-  }
-
-LABEL_25:
-  v22 = *(v5 + 32);
-  if (v7 == v22)
-  {
-    v7 = *(v5 + 32);
-  }
-
-  else
-  {
-    while (v22 != v7)
-    {
-      v23 = *(v22 - 1);
-      if (v23)
-      {
-        std::__shared_weak_count::__release_weak(v23);
-      }
-
-      v22 -= 2;
-    }
-
-    *(v5 + 32) = v7;
-  }
-
-  v24 = *a3;
-  v25 = a3[1];
-  if (v25)
-  {
-    atomic_fetch_add_explicit((v25 + 16), 1uLL, memory_order_relaxed);
-    v7 = *(v5 + 32);
-  }
-
-  v26 = *(v5 + 40);
-  if (v7 >= v26)
-  {
-    v28 = *(v5 + 24);
-    v29 = v7 - v28;
-    v30 = (v29 >> 4) + 1;
-    if (v30 >> 60)
-    {
-      std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
-    }
-
-    v31 = v26 - v28;
-    if (v31 >> 3 > v30)
-    {
-      v30 = v31 >> 3;
-    }
-
-    if (v31 >= 0x7FFFFFFFFFFFFFF0)
-    {
-      v32 = 0xFFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v32 = v30;
-    }
-
-    if (v32)
-    {
-      v39 = v24;
-      if (v32 >> 60)
-      {
-        std::__throw_bad_array_new_length[abi:ne200100]();
-      }
-
-      v33 = operator new(16 * v32);
-      v24 = v39;
-    }
-
-    else
-    {
-      v33 = 0;
-    }
-
-    v34 = &v33[16 * (v29 >> 4)];
-    *v34 = v24;
-    v27 = (v34 + 16);
-    memcpy(v33, v28, v29);
-    *(v5 + 24) = v33;
-    *(v5 + 32) = v27;
-    *(v5 + 40) = &v33[16 * v32];
-    if (v28)
-    {
-      operator delete(v28);
-    }
-  }
-
-  else
-  {
-    *v7 = v24;
-    v7[1] = v25;
-    v27 = v7 + 2;
-  }
-
-  *(v5 + 32) = v27;
-  if (*(v5 + 72))
-  {
-    v35 = *(v5 + 73) == 255;
-  }
-
-  else
-  {
-    v35 = 1;
-  }
-
-  if (!v35)
-  {
-    v36 = *(v5 + 72);
-  }
-
-  v37 = *(**a3 + 16);
-
-  return v37();
-}
-
-void sub_1A914CA60(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-    std::__shared_weak_count::__release_weak(v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t ctu::LoggerTree::getOrCreateFromPath(uint64_t a1, __int128 *a2)
-{
-  *&v3 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *__str_16 = v3;
-  *&__str_16[16] = v3;
-  __str = v3;
-  if (*(a2 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(&__str, *a2, *(a2 + 1));
-  }
-
-  else
-  {
-    __str = *a2;
-    *__str_16 = *(a2 + 2);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(&__str_16[8], "");
-  while (1)
-  {
-    v4 = __str_16[7];
-    v5 = __str_16[7];
-    v6 = *(&__str + 1);
-    v7 = __str_16[7] >= 0 ? __str_16[7] : *(&__str + 1);
-    if (!v7)
-    {
-      break;
-    }
-
-    v8 = __str_16[7] >= 0 ? &__str : __str;
-    v9 = memchr(v8, 46, v7);
-    if (!v9)
-    {
-      break;
-    }
-
-    v10 = v9 - v8;
-    if (v10)
-    {
-      if (v10 != -1)
-      {
-        std::string::basic_string(&v69, &__str, v10 + 1, 0xFFFFFFFFFFFFFFFFLL, v82);
-        if ((__str_16[31] & 0x80000000) != 0)
-        {
-          operator delete(*&__str_16[8]);
-        }
-
-        *&__str_16[8] = v69;
-        std::string::resize(&__str, v10, 0);
-        v4 = __str_16[7];
-        v6 = *(&__str + 1);
-        v5 = __str_16[7];
-      }
-
-      break;
-    }
-
-    std::string::erase(&__str, 0, 1uLL);
-  }
-
-  if (v5 < 0)
-  {
-    v4 = v6;
-  }
-
-  if (v4)
-  {
-    v12 = *a1;
-    v11 = *(a1 + 8);
-    if (*a1 != v11)
-    {
-      if (v5 >= 0)
-      {
-        p_str = &__str;
-      }
-
-      else
-      {
-        p_str = __str;
-      }
-
-      v14 = v12 + 48;
-      while (1)
-      {
-        v15 = v14[23];
-        v16 = v15;
-        if ((v15 & 0x80u) != 0)
-        {
-          v15 = *(v14 + 1);
-        }
-
-        if (v15 == v4)
-        {
-          v17 = v16 >= 0 ? v14 : *v14;
-          if (!memcmp(v17, p_str, v4))
-          {
-            break;
-          }
-        }
-
-        v18 = (v14 + 40);
-        v14 += 88;
-        if (v18 == v11)
-        {
-          goto LABEL_35;
-        }
-      }
-
-      v32 = (v14 - 48);
-      if (v14 - 48 != v11)
-      {
-        goto LABEL_90;
-      }
-
-LABEL_35:
-      v19 = 0x2E8BA2E8BA2E8BA3 * ((v11 - v12) >> 3);
-      do
-      {
-        v20 = v12 + 88 * (v19 >> 1);
-        v21 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v20 + 6, &__str);
-        if (v21 >= 0)
-        {
-          v19 >>= 1;
-        }
-
-        else
-        {
-          v19 += ~(v19 >> 1);
-        }
-
-        if (v21 < 0)
-        {
-          v12 = (v20 + 88);
-        }
-      }
-
-      while (v19);
-      v5 = __str_16[7];
-      v11 = v12;
-    }
-
-    if (v5 < 0)
-    {
-      std::string::__init_copy_ctor_external(&v68, __str, *(&__str + 1));
-    }
-
-    else
-    {
-      *&v68.__r_.__value_.__l.__data_ = __str;
-      v68.__r_.__value_.__r.__words[2] = *__str_16;
-    }
-
-    ctu::LoggerTree::LoggerTree(&v69, &v68);
-    v22 = *(a1 + 8);
-    v23 = *(a1 + 16);
-    if (v22 >= v23)
-    {
-      v27 = *a1;
-      v28 = 0x2E8BA2E8BA2E8BA3 * ((v22 - *a1) >> 3) + 1;
-      if (v28 > 0x2E8BA2E8BA2E8BALL)
-      {
-        std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
-      }
-
-      v29 = 0x2E8BA2E8BA2E8BA3 * ((v23 - v27) >> 3);
-      if (2 * v29 > v28)
-      {
-        v28 = 2 * v29;
-      }
-
-      if (v29 >= 0x1745D1745D1745DLL)
-      {
-        v30 = 0x2E8BA2E8BA2E8BALL;
-      }
-
-      else
-      {
-        v30 = v28;
-      }
-
-      v81 = a1;
-      if (v30)
-      {
-        v30 = std::__allocate_at_least[abi:ne200100]<std::allocator<ctu::LoggerTree>>(v30);
-      }
-
-      else
-      {
-        v31 = 0;
-      }
-
-      v35 = v11 - v27;
-      v36 = v30 + 8 * ((v11 - v27) >> 3);
-      v78 = v30;
-      v79 = v36;
-      *&v80 = v36;
-      *(&v80 + 1) = v30 + 88 * v31;
-      if (0x2E8BA2E8BA2E8BA3 * ((v11 - v27) >> 3) == v31)
-      {
-        if (v35 < 1)
-        {
-          if (v11 == v27)
-          {
-            v39 = 1;
-          }
-
-          else
-          {
-            v39 = 0x5D1745D1745D1746 * ((v11 - v27) >> 3);
-          }
-
-          v82[4] = a1;
-          v40 = std::__allocate_at_least[abi:ne200100]<std::allocator<ctu::LoggerTree>>(v39);
-          v42 = v40;
-          v43 = &v40[88 * (v39 >> 2)];
-          v44 = &v40[88 * v41];
-          v46 = v79;
-          v45 = v80;
-          v47 = v43;
-          v48 = v80 - v79;
-          if (v80 != v79)
-          {
-            v65 = &v40[88 * v41];
-            v47 = &v43[v48];
-            v49 = &v40[88 * (v39 >> 2)];
-            v50 = v79;
-            do
-            {
-              ctu::LoggerTree::LoggerTree(v49, v50);
-              v49 = (v51 + 88);
-              v50 += 88;
-              v48 -= 88;
-            }
-
-            while (v48);
-            v44 = v65;
-          }
-
-          v52 = v78;
-          v53 = *(&v80 + 1);
-          v78 = v42;
-          v79 = v43;
-          v82[0] = v52;
-          v82[1] = v46;
-          *&v80 = v47;
-          *(&v80 + 1) = v44;
-          v82[2] = v45;
-          v82[3] = v53;
-          std::__split_buffer<ctu::LoggerTree>::~__split_buffer(v82);
-          v36 = v80;
-        }
-
-        else
-        {
-          v36 -= 88 * ((0x2E8BA2E8BA2E8BA3 * (v35 >> 3) + 1) >> 1);
-          v79 = v36;
-          *&v80 = v36;
-        }
-      }
-
-      *(v36 + 16) = 0;
-      *(v36 + 24) = 0;
-      *v36 = 0;
-      *(v36 + 8) = 0;
-      *v36 = v69;
-      *&v69.__r_.__value_.__l.__data_ = 0uLL;
-      *(v36 + 32) = 0;
-      *(v36 + 40) = 0;
-      *(v36 + 24) = v70;
-      *(v36 + 40) = v71;
-      v69.__r_.__value_.__r.__words[2] = 0;
-      v70 = 0uLL;
-      v71 = 0;
-      v54 = v72;
-      *(v36 + 64) = v73;
-      *(v36 + 48) = v54;
-      v72 = 0uLL;
-      *(v36 + 72) = v74;
-      v55 = v75;
-      v73 = 0;
-      v75 = 0;
-      *(v36 + 80) = v55;
-      v56 = v79;
-      *&v80 = v80 + 88;
-      std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ctu::LoggerTree>,ctu::LoggerTree*>(v11, *(a1 + 8), v80);
-      v57 = *a1;
-      v58 = v79;
-      *&v80 = v80 + *(a1 + 8) - v11;
-      *(a1 + 8) = v11;
-      v59 = (v58 + v57 - v11);
-      std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ctu::LoggerTree>,ctu::LoggerTree*>(v57, v11, v59);
-      v60 = *a1;
-      *a1 = v59;
-      v61 = *(a1 + 16);
-      *(a1 + 8) = v80;
-      *&v80 = v60;
-      *(&v80 + 1) = v61;
-      v78 = v60;
-      v79 = v60;
-      std::__split_buffer<ctu::LoggerTree>::~__split_buffer(&v78);
-      v11 = v56;
-    }
-
-    else
-    {
-      v24 = v11 - v22;
-      if (v11 == v22)
-      {
-        *(v22 + 16) = 0;
-        *(v22 + 24) = 0;
-        *v22 = 0;
-        *(v22 + 8) = 0;
-        *v22 = v69;
-        *&v69.__r_.__value_.__l.__data_ = 0uLL;
-        *(v22 + 32) = 0;
-        *(v22 + 40) = 0;
-        *(v22 + 24) = v70;
-        *(v22 + 40) = v71;
-        v69.__r_.__value_.__r.__words[2] = 0;
-        v70 = 0uLL;
-        v71 = 0;
-        v33 = v72;
-        *(v22 + 64) = v73;
-        *(v22 + 48) = v33;
-        v72 = 0uLL;
-        *(v22 + 72) = v74;
-        v34 = v75;
-        v73 = 0;
-        v75 = 0;
-        *(v22 + 80) = v34;
-        *(a1 + 8) = v22 + 88;
-      }
-
-      else
-      {
-        v25 = (v22 - 88);
-        if (v22 < 0x58)
-        {
-          v26 = *(a1 + 8);
-        }
-
-        else
-        {
-          v26 = v22 + 88;
-          ctu::LoggerTree::LoggerTree(v22, v22 - 88);
-        }
-
-        *(a1 + 8) = v26;
-        if (v22 != (v11 + 88))
-        {
-          v37 = v24 + 88;
-          v38 = v22 - 176;
-          do
-          {
-            ctu::LoggerTree::operator=(v25, v38);
-            v25 -= 11;
-            v38 -= 88;
-            v37 += 88;
-          }
-
-          while (v37);
-        }
-
-        ctu::LoggerTree::operator=(v11, &v69);
-      }
-    }
-
-    ctu::LoggerTree::~LoggerTree(&v69);
-    if (SHIBYTE(v68.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(v68.__r_.__value_.__l.__data_);
-    }
-
-    if (*(a1 + 72))
-    {
-      v62 = *(a1 + 73) == 255;
-    }
-
-    else
-    {
-      v62 = 1;
-    }
-
-    if (v62)
-    {
-      v63 = *(a1 + 73);
-    }
-
-    else
-    {
-      v63 = *(a1 + 72);
-    }
-
-    ctu::LoggerTree::updateParentLogLevel(v11, v63);
-    ctu::LoggerTree::commitConfigUpdate(&v66, v11);
-    if (v67)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v67);
-    }
-
-    v32 = v11;
-LABEL_90:
-    a1 = ctu::LoggerTree::getOrCreateFromPath(v32, &__str_16[8]);
-  }
-
-  if ((__str_16[31] & 0x80000000) != 0)
-  {
-    operator delete(*&__str_16[8]);
-  }
-
-  if ((__str_16[7] & 0x80000000) != 0)
-  {
-    operator delete(__str);
-  }
-
-  return a1;
-}
-
-void sub_1A914D074(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *a32, uint64_t a33, int a34, __int16 a35, char a36, char a37)
-{
-  std::__split_buffer<ctu::LoggerTree>::~__split_buffer(v37 - 168);
-  ctu::LoggerTree::~LoggerTree(&a20);
-  if (a18 < 0)
-  {
-    operator delete(__p);
-  }
-
-  std::pair<std::string,std::string>::~pair(&a32);
-  _Unwind_Resume(a1);
-}
-
-char *ctu::LoggerTree::updateParentLogLevel(uint64_t a1, int a2)
-{
-  result = *(a1 + 80);
-  v4 = (a1 + 73);
-  if (result)
-  {
-    v4 = (result + 1);
-  }
-
-  if (*v4 != a2)
-  {
-    v5 = a2;
-    if (!result)
-    {
-      result = operator new(2uLL);
-      *(a1 + 80) = result;
-      *result = *(a1 + 72);
-    }
-
-    result[1] = v5;
-  }
-
-  return result;
-}
-
-void ctu::LoggerTree::commitConfigUpdate(uint64_t *__return_ptr a1@<X8>, ctu::LoggerTree *this@<X0>)
-{
-  ctu::LoggerTree::commitConfigUpdate_impl(this);
-  v4 = operator new(0x30uLL);
-  v4[3] = 0;
-  v4[1] = 0;
-  v4[2] = 0;
-  *v4 = &unk_1F1CB4F28;
-  v4[4] = 0;
-  v4[5] = 0;
-  std::string::basic_string[abi:ne200100]<0>(__p, "");
-  ctu::LoggerTree::appendLevels(this, __p, v4 + 3);
-  if (v6 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  *a1 = (v4 + 3);
-  a1[1] = v4;
-}
-
-void sub_1A914D1EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  std::__shared_weak_count::__release_shared[abi:ne200100](v15);
-  _Unwind_Resume(a1);
-}
-
-void ctu::LoggerTree::updateLogLevels(uint64_t a1, void *a2)
-{
-  if (MEMORY[0x1AC581B70](*a2) == MEMORY[0x1E69E9E80])
-  {
-    v12 = 0;
-    v13 = &v12;
-    v14 = 0x4002000000;
-    v15 = __Block_byref_object_copy_;
-    v18[0] = 0;
-    v18[1] = 0;
-    v16 = __Block_byref_object_dispose_;
-    v17 = v18;
-    v4 = *a2;
-    applier[0] = MEMORY[0x1E69E9820];
-    applier[1] = 1107296256;
-    applier[2] = ___ZN3ctu10LoggerTree15updateLogLevelsEN3xpc4dictE_block_invoke;
-    applier[3] = &__block_descriptor_tmp_28;
-    applier[4] = &v12;
-    xpc_dictionary_apply(v4, applier);
-    v5 = v13[5];
-    v6 = (v13 + 6);
-    if (v5 != (v13 + 6))
-    {
-      do
-      {
-        v7 = ctu::LoggerTree::getOrCreateFromPath(a1, v5 + 2);
-        ctu::LoggerTree::updateLocalLogLevel(v7, *(v5 + 56));
-        v8 = *(v5 + 1);
-        if (v8)
-        {
-          do
-          {
-            v9 = v8;
-            v8 = *v8;
-          }
-
-          while (v8);
-        }
-
-        else
-        {
-          do
-          {
-            v9 = *(v5 + 2);
-            v10 = *v9 == v5;
-            v5 = v9;
-          }
-
-          while (!v10);
-        }
-
-        v5 = v9;
-      }
-
-      while (v9 != v6);
-    }
-
-    _Block_object_dispose(&v12, 8);
-    std::__tree<std::__value_type<std::string,ctu::LogLevel>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::LogLevel>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::LogLevel>>>::destroy(&v17, v18[0]);
-  }
-}
-
-void sub_1A914D374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char *a21)
+void sub_1A914D374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char *a21)
 {
   _Block_object_dispose(&a15, 8);
   std::__tree<std::__value_type<std::string,ctu::LogLevel>,std::__map_value_compare<std::string,std::__value_type<std::string,ctu::LogLevel>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,ctu::LogLevel>>>::destroy(v21 + 40, a21);
@@ -1037,7 +50,7 @@ uint64_t ___ZN3ctu10LoggerTree15updateLogLevelsEN3xpc4dictE_block_invoke(uint64_
   v7 = *(v6 + 48);
   if (!v7)
   {
-    v9 = (v6 + 48);
+    v9 = v6 + 48;
 LABEL_12:
     v10 = operator new(0x40uLL);
     v10[6] = v15;
@@ -1068,7 +81,7 @@ LABEL_12:
     while (1)
     {
       v9 = v7;
-      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__p, v7 + 4) & 0x80) == 0)
+      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__p, v7 + 32) & 0x80) == 0)
       {
         break;
       }
@@ -1081,13 +94,13 @@ LABEL_12:
       }
     }
 
-    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v9 + 4, __p) & 0x80) == 0)
+    if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((v9 + 32), __p) & 0x80) == 0)
     {
       break;
     }
 
-    v8 = v9 + 1;
-    v7 = v9[1];
+    v8 = (v9 + 8);
+    v7 = *(v9 + 8);
     if (!v7)
     {
       goto LABEL_12;
@@ -1149,7 +162,7 @@ unsigned __int8 *ctu::LoggerTree::updateLocalLogLevel(uint64_t a1, int a2)
 
 void ctu::LoggerTree::appendLevels(const std::string *a1, const void **a2, std::string::size_type *a3)
 {
-  v42[2] = *MEMORY[0x1E69E9840];
+  v41[2] = *MEMORY[0x1E69E9840];
   v5 = a1[3].__r_.__value_.__s.__data_[0];
   memset(&__p, 0, sizeof(__p));
   if (*(a2 + 23) >= 0)
@@ -1187,12 +200,12 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  memset(&v39, 170, sizeof(v39));
-  v8 = &v39;
-  std::string::basic_string[abi:ne200100](&v39, v6 + 1);
-  if ((v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  memset(&v38, 170, sizeof(v38));
+  v8 = &v38;
+  std::string::basic_string[abi:ne200100](&v38, v6 + 1);
+  if ((v38.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v8 = v39.__r_.__value_.__r.__words[0];
+    v8 = v38.__r_.__value_.__r.__words[0];
   }
 
   if (*(a2 + 23) >= 0)
@@ -1210,7 +223,7 @@ LABEL_22:
   v10 = SHIBYTE(a1[2].__r_.__value_.__r.__words[2]);
   if (v10 >= 0)
   {
-    data = &a1[2];
+    data = a1 + 2;
   }
 
   else
@@ -1228,10 +241,10 @@ LABEL_22:
     size = a1[2].__r_.__value_.__l.__size_;
   }
 
-  v13 = std::string::append(&v39, data, size);
+  v13 = std::string::append(&v38, data, size);
   v14 = v13->__r_.__value_.__r.__words[0];
-  v42[0] = v13->__r_.__value_.__l.__size_;
-  *(v42 + 7) = *(&v13->__r_.__value_.__r.__words[1] + 7);
+  v41[0] = v13->__r_.__value_.__l.__size_;
+  *(v41 + 7) = *(&v13->__r_.__value_.__r.__words[1] + 7);
   v15 = HIBYTE(v13->__r_.__value_.__r.__words[2]);
   v13->__r_.__value_.__l.__size_ = 0;
   v13->__r_.__value_.__r.__words[2] = 0;
@@ -1242,12 +255,12 @@ LABEL_22:
   }
 
   __p.__r_.__value_.__r.__words[0] = v14;
-  __p.__r_.__value_.__l.__size_ = v42[0];
-  *(&__p.__r_.__value_.__r.__words[1] + 7) = *(v42 + 7);
+  __p.__r_.__value_.__l.__size_ = v41[0];
+  *(&__p.__r_.__value_.__r.__words[1] + 7) = *(v41 + 7);
   *(&__p.__r_.__value_.__s + 23) = v15;
-  if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v39.__r_.__value_.__l.__data_);
+    operator delete(v38.__r_.__value_.__l.__data_);
   }
 
 LABEL_23:
@@ -1282,7 +295,7 @@ LABEL_23:
         v24 = v22;
       }
 
-      v41 = a3;
+      v40 = a3;
       if (v24)
       {
         if (v24 >> 59)
@@ -1299,17 +312,17 @@ LABEL_23:
       }
 
       v28 = &v25[32 * v21];
-      v39.__r_.__value_.__r.__words[0] = v25;
-      v39.__r_.__value_.__l.__size_ = v28;
+      v38.__r_.__value_.__r.__words[0] = v25;
+      v38.__r_.__value_.__l.__size_ = v28;
       v29 = &v25[32 * v24];
-      v39.__r_.__value_.__r.__words[2] = v28;
-      v40 = v29;
+      v38.__r_.__value_.__r.__words[2] = v28;
+      v39 = v29;
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         std::string::__init_copy_ctor_external(&v25[32 * v21], __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_);
-        v31 = v39.__r_.__value_.__r.__words[2];
-        v30 = v39.__r_.__value_.__l.__size_;
-        v29 = v40;
+        v31 = v38.__r_.__value_.__r.__words[2];
+        v30 = v38.__r_.__value_.__l.__size_;
+        v29 = v39;
         v19 = *a3;
         v20 = a3[1] - *a3;
         v21 = v20 >> 5;
@@ -1331,11 +344,11 @@ LABEL_23:
       a3[1] = v27;
       v34 = a3[2];
       a3[2] = v29;
-      v39.__r_.__value_.__r.__words[2] = v33;
-      v40 = v34;
-      v39.__r_.__value_.__r.__words[0] = v33;
-      v39.__r_.__value_.__l.__size_ = v33;
-      std::__split_buffer<std::tuple<std::string,unsigned int>>::~__split_buffer(&v39);
+      v38.__r_.__value_.__r.__words[2] = v33;
+      v39 = v34;
+      v38.__r_.__value_.__r.__words[0] = v33;
+      v38.__r_.__value_.__l.__size_ = v33;
+      std::__split_buffer<std::tuple<std::string,unsigned int>>::~__split_buffer(&v38);
     }
 
     else
@@ -1364,16 +377,14 @@ LABEL_23:
   v35 = a1->__r_.__value_.__l.__size_;
   while (v36 != v35)
   {
-    ctu::LoggerTree::appendLevels(v36, &__p, a3);
-    v36 += 88;
+    ctu::LoggerTree::appendLevels(v36, &__p.__r_.__value_.__l.__data_, a3);
+    v36 = (v36 + 88);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1A914D920(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -1393,123 +404,122 @@ void ctu::LoggerTree::commitConfigUpdate_impl(ctu::LoggerTree *this)
   if (v2)
   {
     v3 = v2[1];
-    v4 = *(this + 72);
-    v5 = *v2;
+    v4 = *v2;
+    if (v4)
+    {
+      v5 = v3 == 255;
+    }
+
+    else
+    {
+      v5 = 1;
+    }
+
     if (v5)
     {
-      v6 = v3 == 255;
+      v6 = v3;
     }
 
     else
     {
-      v6 = 1;
-    }
-
-    if (v6)
-    {
-      v7 = v3;
-    }
-
-    else
-    {
-      v7 = v5;
+      v6 = v4;
     }
 
     if (*(this + 72))
     {
-      v8 = *(this + 73) == 255;
+      v7 = *(this + 73) == 255;
     }
 
     else
     {
-      v8 = 1;
+      v7 = 1;
     }
 
-    if (v8)
+    if (v7)
     {
-      v9 = *(this + 73);
+      v8 = *(this + 73);
     }
 
     else
     {
-      v9 = *(this + 72);
+      v8 = *(this + 72);
     }
 
-    if (v9 != v7)
+    if (v8 != v6)
     {
-      v15 = *this;
-      v16 = *(this + 1);
-      while (v15 != v16)
+      v14 = *this;
+      v15 = *(this + 1);
+      while (v14 != v15)
       {
-        ctu::LoggerTree::updateParentLogLevel(v15, v7);
-        v15 += 88;
+        ctu::LoggerTree::updateParentLogLevel(v14, v6);
+        v14 += 88;
       }
 
-      v17 = *(this + 3);
-      v18 = *(this + 4);
-      while (v17 != v18)
+      v16 = *(this + 3);
+      v17 = *(this + 4);
+      while (v16 != v17)
       {
-        v19 = v17[1];
-        if (v19)
+        v18 = v16[1];
+        if (v18)
         {
-          v20 = std::__shared_weak_count::lock(v19);
-          if (v20)
+          v19 = std::__shared_weak_count::lock(v18);
+          if (v19)
           {
-            v21 = v20;
-            if (*v17)
+            v20 = v19;
+            if (*v16)
             {
-              (*(**v17 + 16))(*v17, v7);
+              (*(**v16 + 16))(*v16, v6);
             }
 
-            std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v20);
           }
         }
 
-        v17 += 2;
+        v16 += 2;
       }
     }
 
-    v10 = *(this + 10);
-    if (v10)
+    v9 = *(this + 10);
+    if (v9)
     {
-      v11 = *(this + 10);
+      v10 = *(this + 10);
     }
 
     else
     {
-      v11 = this + 72;
+      v10 = this + 72;
     }
 
-    *(this + 72) = *v11;
-    if (v10)
+    *(this + 72) = *v10;
+    if (v9)
     {
-      v12 = v10 + 1;
+      v11 = v9 + 1;
     }
 
     else
     {
-      v12 = this + 73;
+      v11 = this + 73;
     }
 
-    *(this + 73) = *v12;
+    *(this + 73) = *v11;
     *(this + 10) = 0;
-    if (v10)
+    if (v9)
     {
-      operator delete(v10);
+      operator delete(v9);
     }
   }
 
-  v14 = *this;
-  v13 = *(this + 1);
-  while (v14 != v13)
+  v13 = *this;
+  v12 = *(this + 1);
+  while (v13 != v12)
   {
-    ctu::LoggerTree::commitConfigUpdate(&v22, v14);
-    if (v23)
+    ctu::LoggerTree::commitConfigUpdate(&v21, v13);
+    if (v22)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v23);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v22);
     }
 
-    v14 = (v14 + 88);
+    v13 = (v13 + 88);
   }
 }
 
@@ -2031,7 +1041,7 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<ctu::L
     do
     {
       ctu::LoggerTree::LoggerTree(a3, v6);
-      v6 += 88;
+      v6 = (v6 + 88);
       a3 = (a3 + 88);
     }
 
@@ -2071,7 +1081,7 @@ uint64_t *std::__stable_partition_impl<std::_ClassicAlgPolicy,ctu::LoggerTree::t
     v10 = a1[3];
     if (!v10 || *(v10 + 8) == -1)
     {
-      v12 = (a1 + 2);
+      v12 = a1 + 2;
       v19 = a1[2];
       a1[2] = *a2;
       *a2 = v19;
@@ -2170,7 +1180,7 @@ LABEL_7:
       std::__shared_weak_count::__release_weak(v35);
     }
 
-    v12 = (v6 + 2);
+    v12 = v6 + 2;
     if (v22 > a4)
     {
       v36 = (v6 + 3);
@@ -2230,13 +1240,13 @@ LABEL_7:
       v17 += 16;
     }
 
-    v6 = std::__stable_partition_impl<std::_ClassicAlgPolicy,ctu::LoggerTree::tidyUp(void)::$_0 &,std::__wrap_iter<std::weak_ptr<ctu::TrackedLogger> *>,long,std::pair<std::weak_ptr<ctu::TrackedLogger> *,long>>(a1, a1 - v17, v18, a4, a5);
+    v6 = std::__stable_partition_impl<std::_ClassicAlgPolicy,ctu::LoggerTree::tidyUp(void)::$_0 &,std::__wrap_iter<std::weak_ptr<ctu::TrackedLogger> *>,long,std::pair<std::weak_ptr<ctu::TrackedLogger> *,long>>(a1, (a1 - v17), v18, a4, a5);
 LABEL_25:
     v29 = a3 - a3 / 2;
     v30 = v15[1];
     if (v30)
     {
-      v12 = (a2 + 2);
+      v12 = a2 + 2;
       v31 = v15 + 2;
       do
       {
@@ -2394,43 +1404,42 @@ void std::__shared_ptr_emplace<std::vector<std::pair<std::string,ctu::LogLevel>>
 uint64_t ctu::serial::configure(ctu::serial *this, unsigned int a2, cc_t a3, cc_t a4, int a5)
 {
   v9 = this;
-  v25 = *MEMORY[0x1E69E9840];
-  v24.c_ospeed = 0xAAAAAAAAAAAAAAAALL;
+  v24 = *MEMORY[0x1E69E9840];
+  v23.c_ospeed = 0xAAAAAAAAAAAAAAAALL;
   *&v10 = 0xAAAAAAAAAAAAAAAALL;
   *(&v10 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *v24.c_cc = v10;
-  *&v24.c_cc[16] = v10;
-  *&v24.c_iflag = v10;
-  *&v24.c_cflag = v10;
-  if (tcgetattr(this, &v24))
+  *v23.c_cc = v10;
+  *&v23.c_cc[16] = v10;
+  *&v23.c_iflag = v10;
+  *&v23.c_cflag = v10;
+  if (tcgetattr(this, &v23))
   {
     v11 = "Failed get attributes, err = %s (%d)\n";
   }
 
-  else if (cfsetspeed(&v24, a2))
+  else if (cfsetspeed(&v23, a2))
   {
     v11 = "Failed set speed, err = %s (%d)\n";
   }
 
   else
   {
-    cfmakeraw(&v24);
-    v24.c_iflag = v24.c_iflag & 0xFFFFFFFFFFFFF0CCLL | 1;
-    v24.c_oflag &= ~1uLL;
-    v24.c_cc[16] = a3;
-    v24.c_cc[17] = a4;
+    cfmakeraw(&v23);
+    v23.c_iflag = v23.c_iflag & 0xFFFFFFFFFFFFF0CCLL | 1;
+    v23.c_oflag &= ~1uLL;
+    v23.c_cc[16] = a3;
+    v23.c_cc[17] = a4;
     v12 = 51968;
     if (a5)
     {
       v12 = 248576;
     }
 
-    v24.c_cflag = v24.c_cflag & 0xFFFFFFFFFFFC20FFLL | v12;
-    v24.c_lflag &= 0xFFFFFFFFFFFFFA77;
-    if (!tcsetattr(v9, 0, &v24))
+    v23.c_cflag = v23.c_cflag & 0xFFFFFFFFFFFC20FFLL | v12;
+    v23.c_lflag &= 0xFFFFFFFFFFFFFA77;
+    if (!tcsetattr(v9, 0, &v23))
     {
-      v14 = 0;
-      goto LABEL_10;
+      return 0;
     }
 
     v11 = "Failed set attributes, err = %s (%d)";
@@ -2440,8 +1449,6 @@ uint64_t ctu::serial::configure(ctu::serial *this, unsigned int a2, cc_t a3, cc_
   v14 = *v13;
   v15 = strerror(*v13);
   _TelephonyUtilDebugPrint("configure", v11, v16, v17, v18, v19, v20, v21, v15);
-LABEL_10:
-  v22 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -2792,14 +1799,13 @@ uint64_t ctu::TextConverter::exceptionOccurred(ctu::TextConverter *this)
   return result;
 }
 
-void ctu::TextConverter::readChars(ctu::TextConverter *this@<X0>, uint64_t a2@<X1>, std::string *a3@<X8>)
+void ctu::TextConverter::readChars(std::string *__return_ptr a1@<X8>, ctu::TextConverter *this@<X0>, uint64_t a3@<X1>)
 {
-  a3->__r_.__value_.__r.__words[0] = 0;
-  a3->__r_.__value_.__l.__size_ = 0;
-  a3->__r_.__value_.__r.__words[2] = 0;
-  if (a2)
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  if (a3)
   {
-    v3 = a2;
+    v3 = a3;
     do
     {
       v6 = (*(**this + 16))();
@@ -2808,7 +1814,7 @@ void ctu::TextConverter::readChars(ctu::TextConverter *this@<X0>, uint64_t a2@<X
         break;
       }
 
-      std::string::push_back(a3, v6);
+      std::string::push_back(a1, v6);
       --v3;
     }
 
@@ -2829,8 +1835,7 @@ void sub_1A914F51C(_Unwind_Exception *exception_object)
 void ctu::TextConverter::getBytesToCurrentOffset(ctu::TextConverter *this@<X0>, uint64_t a2@<X1>, std::string *a3@<X8>)
 {
   v4 = *(this + 1);
-  a3->__r_.__value_.__l.__size_ = 0;
-  a3->__r_.__value_.__r.__words[2] = 0;
+  *&a3->__r_.__value_.__r.__words[1] = 0uLL;
   a3->__r_.__value_.__r.__words[0] = 0;
   if (*(v4 + 32))
   {
@@ -2860,8 +1865,7 @@ void sub_1A914F5C0(_Unwind_Exception *exception_object)
 void ctu::TextConverter::getBytesFromCurrentOffset(ctu::TextConverter *this@<X0>, uint64_t a2@<X1>, std::string *a3@<X8>)
 {
   v4 = *(this + 1);
-  a3->__r_.__value_.__l.__size_ = 0;
-  a3->__r_.__value_.__r.__words[2] = 0;
+  *&a3->__r_.__value_.__r.__words[1] = 0uLL;
   a3->__r_.__value_.__r.__words[0] = 0;
   if (v4[4])
   {
@@ -4116,337 +3120,329 @@ void sub_1A9150FA8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t ctu::TextConverter::decodeSmsDataCodingScheme(unsigned int a1, int *a2, int *a3, BOOL *a4, BOOL *a5, _BYTE *a6, BOOL *a7, _BYTE *a8, unsigned int (***a9)(void, uint64_t))
+uint64_t ctu::TextConverter::decodeSmsDataCodingScheme(uint64_t a1, unsigned int *a2, unsigned int *a3, BOOL *a4, BOOL *a5, _BYTE *a6, BOOL *a7, _BYTE *a8, unsigned int (***a9)(void, uint64_t))
 {
-  v31[4] = *MEMORY[0x1E69E9840];
+  v30[4] = *MEMORY[0x1E69E9840];
   *a2 = 4;
   *a6 = 0;
   if (a1 > 0xFF)
   {
-    goto LABEL_2;
+    return 0;
   }
 
-  if (a1 <= 0x7F)
+  v12 = a1;
+  if (a1 > 0x7F)
   {
-    v21 = 1798;
-    v31[0] = &unk_1F1CB5A28;
-    v31[3] = v31;
-    ctu::logBitFieldWithDesc(a9, a1, &v21, v31);
-    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v31);
-    *a4 = a1 > 0x3F;
-    *a5 = (a1 & 0x20) != 0;
-    v21 = 1285;
-    v30[0] = &unk_1F1CB59D0;
-    v30[3] = v30;
-    ctu::logBitFieldWithDesc(a9, a1, &v21, v30);
-    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v30);
-    ctu::decodeGeneralDataCodingIndication(a1, a2, a3, a9);
-LABEL_18:
-    result = 1;
-    goto LABEL_19;
-  }
-
-  if (a1 > 0xBF)
-  {
-    v19 = a1 >> 4;
-    if ((a1 & 0xE0) == 0xC0 || v19 == 14)
+    if (a1 > 0xBF)
     {
-      v21 = 1796;
-      v26[0] = &unk_1F1CB5870;
+      v19 = a1 >> 4;
+      if ((a1 & 0xE0) == 0xC0 || v19 == 14)
+      {
+        v20 = 1796;
+        v25[0] = &unk_1F1CB5870;
+        v25[3] = v25;
+        ctu::logBitFieldWithDesc(a9, a1, &v20, v25);
+        std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v25);
+        v20 = 771;
+        v24[0] = &unk_1F1CB5818;
+        v24[3] = v24;
+        ctu::logBitFieldWithDesc(a9, v12, &v20, v24);
+        std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v24);
+        v20 = 514;
+        v23[0] = &unk_1F1CB57C0;
+        v23[3] = v23;
+        ctu::logBitFieldWithDesc(a9, v12, &v20, v23);
+        std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v23);
+        v20 = 256;
+        v22[0] = &unk_1F1CB5768;
+        v22[3] = v22;
+        ctu::logBitFieldWithDesc(a9, v12, &v20, v22);
+        std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v22);
+        if (v19 == 12)
+        {
+          *a8 = 1;
+        }
+
+        if ((v12 & 3) == 0)
+        {
+          *a6 = 1;
+          *a7 = (v12 & 8) != 0;
+        }
+
+        v15 = 2 * (v19 == 14);
+        goto LABEL_17;
+      }
+
+      if (v19 == 15)
+      {
+        v20 = 1796;
+        v21[0] = &unk_1F1CB5710;
+        v21[3] = v21;
+        ctu::logBitFieldWithDesc(a9, a1, &v20, v21);
+        std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v21);
+        ctu::decodeDataCodingMessageHandling(v12, a2, a3, a9);
+        return 1;
+      }
+    }
+
+    else
+    {
+      v20 = 1796;
+      v28[0] = &unk_1F1CB5978;
+      v28[3] = v28;
+      ctu::logBitFieldWithDesc(a9, a1, &v20, v28);
+      std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v28);
+      v20 = 770;
+      v27[0] = &unk_1F1CB5920;
+      v27[3] = v27;
+      ctu::logBitFieldWithDesc(a9, v12, &v20, v27);
+      std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v27);
+      v20 = 256;
+      v26[0] = &unk_1F1CB58C8;
       v26[3] = v26;
-      ctu::logBitFieldWithDesc(a9, a1, &v21, v26);
+      ctu::logBitFieldWithDesc(a9, v12, &v20, v26);
       std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v26);
-      v21 = 771;
-      v25[0] = &unk_1F1CB5818;
-      v25[3] = v25;
-      ctu::logBitFieldWithDesc(a9, a1, &v21, v25);
-      std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v25);
-      v21 = 514;
-      v24[0] = &unk_1F1CB57C0;
-      v24[3] = v24;
-      ctu::logBitFieldWithDesc(a9, a1, &v21, v24);
-      std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v24);
-      v21 = 256;
-      v23[0] = &unk_1F1CB5768;
-      v23[3] = v23;
-      ctu::logBitFieldWithDesc(a9, a1, &v21, v23);
-      std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v23);
-      if (v19 == 12)
+      if ((v12 & 0xC) == 4)
       {
-        *a8 = 1;
+        v15 = 3;
+LABEL_17:
+        *a3 = v15;
+        return 1;
       }
-
-      if ((a1 & 3) == 0)
-      {
-        *a6 = 1;
-        *a7 = (a1 & 8) != 0;
-      }
-
-      v15 = 2 * (v19 == 14);
-      goto LABEL_17;
     }
 
-    if (v19 == 15)
-    {
-      v21 = 1796;
-      v22[0] = &unk_1F1CB5710;
-      v22[3] = v22;
-      ctu::logBitFieldWithDesc(a9, a1, &v21, v22);
-      std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v22);
-      ctu::decodeDataCodingMessageHandling(a1, a2, a3, a9);
-      goto LABEL_18;
-    }
+    return 0;
+  }
+
+  v20 = 1798;
+  v30[0] = &unk_1F1CB5A28;
+  v30[3] = v30;
+  ctu::logBitFieldWithDesc(a9, a1, &v20, v30);
+  std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v30);
+  *a4 = v12 > 0x3F;
+  *a5 = (v12 & 0x20) != 0;
+  v20 = 1285;
+  v29[0] = &unk_1F1CB59D0;
+  v29[3] = v29;
+  ctu::logBitFieldWithDesc(a9, v12, &v20, v29);
+  std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v29);
+  ctu::decodeGeneralDataCodingIndication(v12, a2, a3, a9);
+  return 1;
+}
+
+void sub_1A9151440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t ctu::decodeGeneralDataCodingIndication(unsigned int a1, unsigned int *a2, unsigned int *a3, unsigned int (***a4)(void, uint64_t))
+{
+  v14[4] = *MEMORY[0x1E69E9840];
+  v10 = 1028;
+  v14[0] = &unk_1F1CB9C88;
+  v14[3] = v14;
+  ctu::logBitFieldWithDesc(a4, a1, &v10, v14);
+  std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v14);
+  if ((a1 & 0x10) != 0)
+  {
+    *a2 = a1 & 3;
+    v10 = 256;
+    v13[0] = &unk_1F1CB9D08;
+    v13[3] = v13;
+    ctu::logBitFieldWithDesc(a4, a1, &v10, v13);
+    v8 = v13;
   }
 
   else
   {
-    v21 = 1796;
-    v29[0] = &unk_1F1CB5978;
-    v29[3] = v29;
-    ctu::logBitFieldWithDesc(a9, a1, &v21, v29);
-    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v29);
-    v21 = 770;
-    v28[0] = &unk_1F1CB5920;
-    v28[3] = v28;
-    ctu::logBitFieldWithDesc(a9, a1, &v21, v28);
-    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v28);
-    v21 = 256;
-    v27[0] = &unk_1F1CB58C8;
-    v27[3] = v27;
-    ctu::logBitFieldWithDesc(a9, a1, &v21, v27);
-    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v27);
-    if ((a1 & 0xC) == 4)
-    {
-      v15 = 3;
-LABEL_17:
-      *a3 = v15;
-      goto LABEL_18;
-    }
+    *a2 = 4;
+    v10 = 256;
+    v12[0] = &unk_1F1CB9D88;
+    v12[3] = v12;
+    ctu::logBitFieldWithDesc(a4, a1, &v10, v12);
+    v8 = v12;
   }
 
-LABEL_2:
-  result = 0;
-LABEL_19:
-  v20 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v8);
+  *a3 = (a1 >> 2) & 3;
+  v10 = 770;
+  v11[0] = &unk_1F1CB9E08;
+  v11[3] = v11;
+  ctu::logBitFieldWithDesc(a4, a1, &v10, v11);
+  return std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v11);
+}
+
+void sub_1A915166C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+{
+  va_start(va, a17);
+  std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t ctu::decodeDataCodingMessageHandling(unsigned int a1, unsigned int *a2, unsigned int *a3, unsigned int (***a4)(void, uint64_t))
+{
+  v12[4] = *MEMORY[0x1E69E9840];
+  v9 = 771;
+  v12[0] = &unk_1F1CB9E88;
+  v12[3] = v12;
+  ctu::logBitFieldWithDesc(a4, a1, &v9, v12);
+  std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v12);
+  v9 = 514;
+  v11[0] = &unk_1F1CB9F08;
+  v11[3] = v11;
+  ctu::logBitFieldWithDesc(a4, a1, &v9, v11);
+  std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v11);
+  *a3 = (a1 >> 2) & 1;
+  v9 = 256;
+  v10[0] = &unk_1F1CB9F88;
+  v10[3] = v10;
+  ctu::logBitFieldWithDesc(a4, a1, &v9, v10);
+  result = std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v10);
+  *a2 = a1 & 3;
   return result;
 }
 
-void sub_1A9151440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1A91517F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
   va_start(va, a3);
   std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t ctu::decodeGeneralDataCodingIndication(unsigned int a1, int *a2, int *a3, unsigned int (***a4)(void, uint64_t))
+uint64_t ctu::TextConverter::decodeSmsDataCodingScheme(unsigned int a1, unsigned int *a2, unsigned int *a3, BOOL *a4, BOOL *a5, _BYTE *a6, BOOL *a7, _BYTE *a8, std::string *a9)
 {
-  v15[4] = *MEMORY[0x1E69E9840];
-  v11 = 1028;
-  v15[0] = &unk_1F1CB9C88;
-  v15[3] = v15;
-  ctu::logBitFieldWithDesc(a4, a1, &v11, v15);
-  std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v15);
-  if ((a1 & 0x10) != 0)
-  {
-    *a2 = a1 & 3;
-    v11 = 256;
-    v14[0] = &unk_1F1CB9D08;
-    v14[3] = v14;
-    ctu::logBitFieldWithDesc(a4, a1, &v11, v14);
-    v8 = v14;
-  }
-
-  else
-  {
-    *a2 = 4;
-    v11 = 256;
-    v13[0] = &unk_1F1CB9D88;
-    v13[3] = v13;
-    ctu::logBitFieldWithDesc(a4, a1, &v11, v13);
-    v8 = v13;
-  }
-
-  std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v8);
-  *a3 = (a1 >> 2) & 3;
-  v11 = 770;
-  v12[0] = &unk_1F1CB9E08;
-  v12[3] = v12;
-  ctu::logBitFieldWithDesc(a4, a1, &v11, v12);
-  result = std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v12);
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void sub_1A915166C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
-{
-  va_start(va, a10);
-  std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t ctu::decodeDataCodingMessageHandling(unsigned int a1, int *a2, int *a3, unsigned int (***a4)(void, uint64_t))
-{
-  v13[4] = *MEMORY[0x1E69E9840];
-  v10 = 771;
-  v13[0] = &unk_1F1CB9E88;
-  v13[3] = v13;
-  ctu::logBitFieldWithDesc(a4, a1, &v10, v13);
-  std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v13);
-  v10 = 514;
-  v12[0] = &unk_1F1CB9F08;
-  v12[3] = v12;
-  ctu::logBitFieldWithDesc(a4, a1, &v10, v12);
-  std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v12);
-  *a3 = (a1 >> 2) & 1;
-  v10 = 256;
-  v11[0] = &unk_1F1CB9F88;
-  v11[3] = v11;
-  ctu::logBitFieldWithDesc(a4, a1, &v10, v11);
-  result = std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v11);
-  *a2 = a1 & 3;
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void sub_1A91517F4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t ctu::TextConverter::decodeSmsDataCodingScheme(unsigned int a1, unsigned int *a2, _DWORD *a3, BOOL *a4, BOOL *a5, _BYTE *a6, BOOL *a7, _BYTE *a8, std::string *a9)
-{
-  v79 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   *a2 = 4;
   *a6 = 0;
   if (a1 > 0xFF)
   {
-    goto LABEL_2;
+    return 0;
   }
 
   if (a1 <= 0x7F)
   {
-    LOWORD(v71) = 1798;
-    v66[0] = &unk_1F1CBA388;
-    v66[3] = v66;
-    ctu::getBitFieldPrintWithDesc(a1, &v71, v66, &v75);
-    if ((v77 & 0x80u) == 0)
+    LOWORD(v70) = 1798;
+    v65[0] = &unk_1F1CBA388;
+    v65[3] = v65;
+    ctu::getBitFieldPrintWithDesc(a1, &v70, v65, &v74);
+    if ((v76 & 0x80u) == 0)
     {
-      v15 = &v75;
+      v15 = &v74;
     }
 
     else
     {
-      v15 = v75;
+      v15 = v74;
     }
 
-    if ((v77 & 0x80u) == 0)
-    {
-      v16 = v77;
-    }
-
-    else
+    if ((v76 & 0x80u) == 0)
     {
       v16 = v76;
     }
 
-    std::string::append(a9, v15, v16);
-    if (v77 < 0)
+    else
     {
-      operator delete(v75);
+      v16 = v75;
     }
 
-    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v66);
+    std::string::append(a9, v15, v16);
+    if (v76 < 0)
+    {
+      operator delete(v74);
+    }
+
+    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v65);
     *a4 = a1 > 0x3F;
     *a5 = (a1 & 0x20) != 0;
-    LOWORD(v71) = 1285;
-    v65[0] = &unk_1F1CBA408;
-    v65[3] = v65;
-    ctu::getBitFieldPrintWithDesc(a1, &v71, v65, &v75);
-    if ((v77 & 0x80u) == 0)
+    LOWORD(v70) = 1285;
+    v64[0] = &unk_1F1CBA408;
+    v64[3] = v64;
+    ctu::getBitFieldPrintWithDesc(a1, &v70, v64, &v74);
+    if ((v76 & 0x80u) == 0)
     {
-      v17 = &v75;
+      v17 = &v74;
     }
 
     else
     {
-      v17 = v75;
+      v17 = v74;
     }
 
-    if ((v77 & 0x80u) == 0)
-    {
-      v18 = v77;
-    }
-
-    else
+    if ((v76 & 0x80u) == 0)
     {
       v18 = v76;
     }
 
+    else
+    {
+      v18 = v75;
+    }
+
     std::string::append(a9, v17, v18);
-    if (v77 < 0)
+    if (v76 < 0)
     {
-      operator delete(v75);
+      operator delete(v74);
     }
 
-    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v65);
-    LOWORD(v67) = 1028;
-    v75 = &unk_1F1CBA008;
-    v78 = &v75;
-    ctu::getBitFieldPrintWithDesc(a1, &v67, &v75, &v71);
-    if ((v73 & 0x80u) == 0)
+    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v64);
+    LOWORD(v66) = 1028;
+    v74 = &unk_1F1CBA008;
+    v77 = &v74;
+    ctu::getBitFieldPrintWithDesc(a1, &v66, &v74, &v70);
+    if ((v72 & 0x80u) == 0)
     {
-      v19 = &v71;
-    }
-
-    else
-    {
-      v19 = v71;
-    }
-
-    if ((v73 & 0x80u) == 0)
-    {
-      v20 = v73;
+      v19 = &v70;
     }
 
     else
+    {
+      v19 = v70;
+    }
+
+    if ((v72 & 0x80u) == 0)
     {
       v20 = v72;
     }
 
-    std::string::append(a9, v19, v20);
-    if (v73 < 0)
+    else
     {
-      operator delete(v71);
+      v20 = v71;
     }
 
-    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](&v75);
+    std::string::append(a9, v19, v20);
+    if (v72 < 0)
+    {
+      operator delete(v70);
+    }
+
+    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](&v74);
     if ((a1 & 0x10) != 0)
     {
       *a2 = a1 & 3;
       LOWORD(__p) = 256;
-      v71 = &unk_1F1CBA088;
-      v74 = &v71;
-      ctu::getBitFieldPrintWithDesc(a1, &__p, &v71, &v67);
-      if ((v69 & 0x80u) == 0)
+      v70 = &unk_1F1CBA088;
+      v73 = &v70;
+      ctu::getBitFieldPrintWithDesc(a1, &__p, &v70, &v66);
+      if ((v68 & 0x80u) == 0)
       {
-        v21 = &v67;
+        v21 = &v66;
       }
 
       else
       {
-        v21 = v67;
+        v21 = v66;
       }
 
-      if ((v69 & 0x80u) == 0)
-      {
-        v22 = v69;
-      }
-
-      else
+      if ((v68 & 0x80u) == 0)
       {
         v22 = v68;
+      }
+
+      else
+      {
+        v22 = v67;
       }
     }
 
@@ -4454,43 +3450,43 @@ uint64_t ctu::TextConverter::decodeSmsDataCodingScheme(unsigned int a1, unsigned
     {
       *a2 = 4;
       LOWORD(__p) = 256;
-      v71 = &unk_1F1CBA108;
-      v74 = &v71;
-      ctu::getBitFieldPrintWithDesc(a1, &__p, &v71, &v67);
-      if ((v69 & 0x80u) == 0)
+      v70 = &unk_1F1CBA108;
+      v73 = &v70;
+      ctu::getBitFieldPrintWithDesc(a1, &__p, &v70, &v66);
+      if ((v68 & 0x80u) == 0)
       {
-        v21 = &v67;
+        v21 = &v66;
       }
 
       else
       {
-        v21 = v67;
+        v21 = v66;
       }
 
-      if ((v69 & 0x80u) == 0)
-      {
-        v22 = v69;
-      }
-
-      else
+      if ((v68 & 0x80u) == 0)
       {
         v22 = v68;
+      }
+
+      else
+      {
+        v22 = v67;
       }
     }
 
     std::string::append(a9, v21, v22);
-    if (v69 < 0)
+    if (v68 < 0)
     {
-      operator delete(v67);
+      operator delete(v66);
     }
 
-    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](&v71);
+    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](&v70);
     *a3 = (a1 >> 2) & 3;
-    v53 = 770;
-    v67 = &unk_1F1CBA188;
-    v70 = &v67;
-    ctu::getBitFieldPrintWithDesc(a1, &v53, &v67, &__p);
-    if ((v56 & 0x80u) == 0)
+    v52 = 770;
+    v66 = &unk_1F1CBA188;
+    v69 = &v66;
+    ctu::getBitFieldPrintWithDesc(a1, &v52, &v66, &__p);
+    if ((v55 & 0x80u) == 0)
     {
       p_p = &__p;
     }
@@ -4500,124 +3496,124 @@ uint64_t ctu::TextConverter::decodeSmsDataCodingScheme(unsigned int a1, unsigned
       p_p = __p;
     }
 
-    if ((v56 & 0x80u) == 0)
-    {
-      v43 = v56;
-    }
-
-    else
+    if ((v55 & 0x80u) == 0)
     {
       v43 = v55;
     }
 
+    else
+    {
+      v43 = v54;
+    }
+
     std::string::append(a9, p_p, v43);
-    if (v56 < 0)
+    if (v55 < 0)
     {
       operator delete(__p);
     }
 
-    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](&v67);
-    goto LABEL_153;
+    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](&v66);
+    return 1;
   }
 
   if (a1 <= 0xBF)
   {
-    LOWORD(v71) = 1796;
-    v64[0] = &unk_1F1CBA488;
-    v64[3] = v64;
-    ctu::getBitFieldPrintWithDesc(a1, &v71, v64, &v75);
-    if ((v77 & 0x80u) == 0)
+    LOWORD(v70) = 1796;
+    v63[0] = &unk_1F1CBA488;
+    v63[3] = v63;
+    ctu::getBitFieldPrintWithDesc(a1, &v70, v63, &v74);
+    if ((v76 & 0x80u) == 0)
     {
-      v23 = &v75;
+      v23 = &v74;
     }
 
     else
     {
-      v23 = v75;
+      v23 = v74;
     }
 
-    if ((v77 & 0x80u) == 0)
-    {
-      v24 = v77;
-    }
-
-    else
+    if ((v76 & 0x80u) == 0)
     {
       v24 = v76;
     }
 
+    else
+    {
+      v24 = v75;
+    }
+
     std::string::append(a9, v23, v24);
-    if (v77 < 0)
+    if (v76 < 0)
     {
-      operator delete(v75);
+      operator delete(v74);
     }
 
-    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v64);
-    LOWORD(v71) = 770;
-    v63[0] = &unk_1F1CBA508;
-    v63[3] = v63;
-    ctu::getBitFieldPrintWithDesc(a1, &v71, v63, &v75);
-    if ((v77 & 0x80u) == 0)
+    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v63);
+    LOWORD(v70) = 770;
+    v62[0] = &unk_1F1CBA508;
+    v62[3] = v62;
+    ctu::getBitFieldPrintWithDesc(a1, &v70, v62, &v74);
+    if ((v76 & 0x80u) == 0)
     {
-      v25 = &v75;
-    }
-
-    else
-    {
-      v25 = v75;
-    }
-
-    if ((v77 & 0x80u) == 0)
-    {
-      v26 = v77;
+      v25 = &v74;
     }
 
     else
+    {
+      v25 = v74;
+    }
+
+    if ((v76 & 0x80u) == 0)
     {
       v26 = v76;
     }
 
+    else
+    {
+      v26 = v75;
+    }
+
     std::string::append(a9, v25, v26);
-    if (v77 < 0)
+    if (v76 < 0)
     {
-      operator delete(v75);
+      operator delete(v74);
     }
 
-    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v63);
-    LOWORD(v71) = 256;
-    v62[0] = &unk_1F1CBA588;
-    v62[3] = v62;
-    ctu::getBitFieldPrintWithDesc(a1, &v71, v62, &v75);
-    if ((v77 & 0x80u) == 0)
+    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v62);
+    LOWORD(v70) = 256;
+    v61[0] = &unk_1F1CBA588;
+    v61[3] = v61;
+    ctu::getBitFieldPrintWithDesc(a1, &v70, v61, &v74);
+    if ((v76 & 0x80u) == 0)
     {
-      v27 = &v75;
-    }
-
-    else
-    {
-      v27 = v75;
-    }
-
-    if ((v77 & 0x80u) == 0)
-    {
-      v28 = v77;
+      v27 = &v74;
     }
 
     else
+    {
+      v27 = v74;
+    }
+
+    if ((v76 & 0x80u) == 0)
     {
       v28 = v76;
     }
 
-    std::string::append(a9, v27, v28);
-    if (v77 < 0)
+    else
     {
-      operator delete(v75);
+      v28 = v75;
     }
 
-    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v62);
+    std::string::append(a9, v27, v28);
+    if (v76 < 0)
+    {
+      operator delete(v74);
+    }
+
+    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v61);
     if ((a1 & 0xC) != 4)
     {
-      goto LABEL_2;
+      return 0;
     }
 
     v29 = 3;
@@ -4627,130 +3623,130 @@ uint64_t ctu::TextConverter::decodeSmsDataCodingScheme(unsigned int a1, unsigned
   v33 = a1 >> 4;
   if ((a1 & 0xE0) == 0xC0 || v33 == 14)
   {
-    LOWORD(v71) = 1796;
-    v61[0] = &unk_1F1CBA608;
-    v61[3] = v61;
-    ctu::getBitFieldPrintWithDesc(a1, &v71, v61, &v75);
-    if ((v77 & 0x80u) == 0)
+    LOWORD(v70) = 1796;
+    v60[0] = &unk_1F1CBA608;
+    v60[3] = v60;
+    ctu::getBitFieldPrintWithDesc(a1, &v70, v60, &v74);
+    if ((v76 & 0x80u) == 0)
     {
-      v44 = &v75;
+      v44 = &v74;
     }
 
     else
     {
-      v44 = v75;
+      v44 = v74;
     }
 
-    if ((v77 & 0x80u) == 0)
-    {
-      v45 = v77;
-    }
-
-    else
+    if ((v76 & 0x80u) == 0)
     {
       v45 = v76;
     }
 
+    else
+    {
+      v45 = v75;
+    }
+
     std::string::append(a9, v44, v45);
-    if (v77 < 0)
+    if (v76 < 0)
     {
-      operator delete(v75);
+      operator delete(v74);
     }
 
-    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v61);
-    LOWORD(v71) = 771;
-    v60[0] = &unk_1F1CBA688;
-    v60[3] = v60;
-    ctu::getBitFieldPrintWithDesc(a1, &v71, v60, &v75);
-    if ((v77 & 0x80u) == 0)
+    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v60);
+    LOWORD(v70) = 771;
+    v59[0] = &unk_1F1CBA688;
+    v59[3] = v59;
+    ctu::getBitFieldPrintWithDesc(a1, &v70, v59, &v74);
+    if ((v76 & 0x80u) == 0)
     {
-      v46 = &v75;
-    }
-
-    else
-    {
-      v46 = v75;
-    }
-
-    if ((v77 & 0x80u) == 0)
-    {
-      v47 = v77;
+      v46 = &v74;
     }
 
     else
+    {
+      v46 = v74;
+    }
+
+    if ((v76 & 0x80u) == 0)
     {
       v47 = v76;
     }
 
+    else
+    {
+      v47 = v75;
+    }
+
     std::string::append(a9, v46, v47);
-    if (v77 < 0)
+    if (v76 < 0)
     {
-      operator delete(v75);
+      operator delete(v74);
     }
 
-    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v60);
-    LOWORD(v71) = 514;
-    v59[0] = &unk_1F1CBA708;
-    v59[3] = v59;
-    ctu::getBitFieldPrintWithDesc(a1, &v71, v59, &v75);
-    if ((v77 & 0x80u) == 0)
+    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v59);
+    LOWORD(v70) = 514;
+    v58[0] = &unk_1F1CBA708;
+    v58[3] = v58;
+    ctu::getBitFieldPrintWithDesc(a1, &v70, v58, &v74);
+    if ((v76 & 0x80u) == 0)
     {
-      v48 = &v75;
-    }
-
-    else
-    {
-      v48 = v75;
-    }
-
-    if ((v77 & 0x80u) == 0)
-    {
-      v49 = v77;
+      v48 = &v74;
     }
 
     else
+    {
+      v48 = v74;
+    }
+
+    if ((v76 & 0x80u) == 0)
     {
       v49 = v76;
     }
 
+    else
+    {
+      v49 = v75;
+    }
+
     std::string::append(a9, v48, v49);
-    if (v77 < 0)
+    if (v76 < 0)
     {
-      operator delete(v75);
+      operator delete(v74);
     }
 
-    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v59);
-    LOWORD(v71) = 256;
-    v58[0] = &unk_1F1CBA788;
-    v58[3] = v58;
-    ctu::getBitFieldPrintWithDesc(a1, &v71, v58, &v75);
-    if ((v77 & 0x80u) == 0)
+    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v58);
+    LOWORD(v70) = 256;
+    v57[0] = &unk_1F1CBA788;
+    v57[3] = v57;
+    ctu::getBitFieldPrintWithDesc(a1, &v70, v57, &v74);
+    if ((v76 & 0x80u) == 0)
     {
-      v50 = &v75;
-    }
-
-    else
-    {
-      v50 = v75;
-    }
-
-    if ((v77 & 0x80u) == 0)
-    {
-      v51 = v77;
+      v50 = &v74;
     }
 
     else
+    {
+      v50 = v74;
+    }
+
+    if ((v76 & 0x80u) == 0)
     {
       v51 = v76;
     }
 
-    std::string::append(a9, v50, v51);
-    if (v77 < 0)
+    else
     {
-      operator delete(v75);
+      v51 = v75;
     }
 
-    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v58);
+    std::string::append(a9, v50, v51);
+    if (v76 < 0)
+    {
+      operator delete(v74);
+    }
+
+    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v57);
     if (v33 == 12)
     {
       *a8 = 1;
@@ -4765,147 +3761,141 @@ uint64_t ctu::TextConverter::decodeSmsDataCodingScheme(unsigned int a1, unsigned
     v29 = 2 * (v33 == 14);
 LABEL_152:
     *a3 = v29;
-LABEL_153:
-    result = 1;
-    goto LABEL_154;
+    return 1;
   }
 
-  if (v33 == 15)
+  if (v33 != 15)
   {
-    LOWORD(v71) = 1796;
-    v57[0] = &unk_1F1CBA808;
-    v57[3] = v57;
-    ctu::getBitFieldPrintWithDesc(a1, &v71, v57, &v75);
-    if ((v77 & 0x80u) == 0)
-    {
-      v34 = &v75;
-    }
-
-    else
-    {
-      v34 = v75;
-    }
-
-    if ((v77 & 0x80u) == 0)
-    {
-      v35 = v77;
-    }
-
-    else
-    {
-      v35 = v76;
-    }
-
-    std::string::append(a9, v34, v35);
-    if (v77 < 0)
-    {
-      operator delete(v75);
-    }
-
-    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v57);
-    LOWORD(v67) = 771;
-    v75 = &unk_1F1CBA208;
-    v78 = &v75;
-    ctu::getBitFieldPrintWithDesc(a1, &v67, &v75, &v71);
-    if ((v73 & 0x80u) == 0)
-    {
-      v36 = &v71;
-    }
-
-    else
-    {
-      v36 = v71;
-    }
-
-    if ((v73 & 0x80u) == 0)
-    {
-      v37 = v73;
-    }
-
-    else
-    {
-      v37 = v72;
-    }
-
-    std::string::append(a9, v36, v37);
-    if (v73 < 0)
-    {
-      operator delete(v71);
-    }
-
-    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](&v75);
-    LOWORD(__p) = 514;
-    v71 = &unk_1F1CBA288;
-    v74 = &v71;
-    ctu::getBitFieldPrintWithDesc(a1, &__p, &v71, &v67);
-    if ((v69 & 0x80u) == 0)
-    {
-      v38 = &v67;
-    }
-
-    else
-    {
-      v38 = v67;
-    }
-
-    if ((v69 & 0x80u) == 0)
-    {
-      v39 = v69;
-    }
-
-    else
-    {
-      v39 = v68;
-    }
-
-    std::string::append(a9, v38, v39);
-    if (v69 < 0)
-    {
-      operator delete(v67);
-    }
-
-    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](&v71);
-    *a3 = (a1 >> 2) & 1;
-    v53 = 256;
-    v67 = &unk_1F1CBA308;
-    v70 = &v67;
-    ctu::getBitFieldPrintWithDesc(a1, &v53, &v67, &__p);
-    if ((v56 & 0x80u) == 0)
-    {
-      v40 = &__p;
-    }
-
-    else
-    {
-      v40 = __p;
-    }
-
-    if ((v56 & 0x80u) == 0)
-    {
-      v41 = v56;
-    }
-
-    else
-    {
-      v41 = v55;
-    }
-
-    std::string::append(a9, v40, v41);
-    if (v56 < 0)
-    {
-      operator delete(__p);
-    }
-
-    std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](&v67);
-    *a2 = a1 & 3;
-    goto LABEL_153;
+    return 0;
   }
 
-LABEL_2:
-  result = 0;
-LABEL_154:
-  v52 = *MEMORY[0x1E69E9840];
-  return result;
+  LOWORD(v70) = 1796;
+  v56[0] = &unk_1F1CBA808;
+  v56[3] = v56;
+  ctu::getBitFieldPrintWithDesc(a1, &v70, v56, &v74);
+  if ((v76 & 0x80u) == 0)
+  {
+    v34 = &v74;
+  }
+
+  else
+  {
+    v34 = v74;
+  }
+
+  if ((v76 & 0x80u) == 0)
+  {
+    v35 = v76;
+  }
+
+  else
+  {
+    v35 = v75;
+  }
+
+  std::string::append(a9, v34, v35);
+  if (v76 < 0)
+  {
+    operator delete(v74);
+  }
+
+  std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](v56);
+  LOWORD(v66) = 771;
+  v74 = &unk_1F1CBA208;
+  v77 = &v74;
+  ctu::getBitFieldPrintWithDesc(a1, &v66, &v74, &v70);
+  if ((v72 & 0x80u) == 0)
+  {
+    v36 = &v70;
+  }
+
+  else
+  {
+    v36 = v70;
+  }
+
+  if ((v72 & 0x80u) == 0)
+  {
+    v37 = v72;
+  }
+
+  else
+  {
+    v37 = v71;
+  }
+
+  std::string::append(a9, v36, v37);
+  if (v72 < 0)
+  {
+    operator delete(v70);
+  }
+
+  std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](&v74);
+  LOWORD(__p) = 514;
+  v70 = &unk_1F1CBA288;
+  v73 = &v70;
+  ctu::getBitFieldPrintWithDesc(a1, &__p, &v70, &v66);
+  if ((v68 & 0x80u) == 0)
+  {
+    v38 = &v66;
+  }
+
+  else
+  {
+    v38 = v66;
+  }
+
+  if ((v68 & 0x80u) == 0)
+  {
+    v39 = v68;
+  }
+
+  else
+  {
+    v39 = v67;
+  }
+
+  std::string::append(a9, v38, v39);
+  if (v68 < 0)
+  {
+    operator delete(v66);
+  }
+
+  std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](&v70);
+  *a3 = (a1 >> 2) & 1;
+  v52 = 256;
+  v66 = &unk_1F1CBA308;
+  v69 = &v66;
+  ctu::getBitFieldPrintWithDesc(a1, &v52, &v66, &__p);
+  if ((v55 & 0x80u) == 0)
+  {
+    v40 = &__p;
+  }
+
+  else
+  {
+    v40 = __p;
+  }
+
+  if ((v55 & 0x80u) == 0)
+  {
+    v41 = v55;
+  }
+
+  else
+  {
+    v41 = v54;
+  }
+
+  std::string::append(a9, v40, v41);
+  if (v55 < 0)
+  {
+    operator delete(__p);
+  }
+
+  std::__function::__value_func<std::string ()(int)>::~__value_func[abi:ne200100](&v66);
+  *a2 = a1 & 3;
+  return 1;
 }
 
 void sub_1A91521AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44)
@@ -4919,7 +3909,7 @@ void sub_1A91521AC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t ctu::TextConverter::decodeCbsDataCodingScheme(unsigned int a1, int *a2, int *a3, _BYTE *a4)
+uint64_t ctu::TextConverter::decodeCbsDataCodingScheme(unsigned int a1, unsigned int *a2, unsigned int *a3, _BYTE *a4)
 {
   *&v8 = 0xAAAAAAAAAAAAAAAALL;
   *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
@@ -5385,22 +4375,20 @@ void *std::__function::__func<ctu::decodeGeneralDataCodingIndication(int,ctu::Te
 
 void std::__function::__func<ctu::decodeGeneralDataCodingIndication(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,ctu::StaticLogger const&)::$_0,std::allocator<ctu::decodeGeneralDataCodingIndication(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,ctu::StaticLogger const&)::$_0>,std::string ()(int)>::operator()(unsigned int *a1@<X1>, void *a2@<X8>)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v6[0] = "Reserved, no message class meaning";
-  v6[1] = "Have a message class meaning";
+  v4[0] = "Reserved, no message class meaning";
+  v4[1] = "Have a message class meaning";
   if (v2 > 1)
   {
     *a2 = 0;
     a2[1] = 0;
     a2[2] = 0;
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v3 = v6[v2];
-    v4 = *MEMORY[0x1E69E9840];
+    v3 = v4[v2];
 
     std::string::basic_string[abi:ne200100]<0>(a2, v3);
   }
@@ -5427,24 +4415,22 @@ void *std::__function::__func<ctu::decodeGeneralDataCodingIndication(int,ctu::Te
 
 void std::__function::__func<ctu::decodeGeneralDataCodingIndication(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,ctu::StaticLogger const&)::$_1,std::allocator<ctu::decodeGeneralDataCodingIndication(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,ctu::StaticLogger const&)::$_1>,std::string ()(int)>::operator()(unsigned int *a1@<X1>, void *a2@<X8>)
 {
-  v6[4] = *MEMORY[0x1E69E9840];
+  v4[4] = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v6[0] = "Class 0";
-  v6[1] = "Class 1";
-  v6[2] = "Class 2";
-  v6[3] = "Class 3";
+  v4[0] = "Class 0";
+  v4[1] = "Class 1";
+  v4[2] = "Class 2";
+  v4[3] = "Class 3";
   if (v2 > 3)
   {
     *a2 = 0;
     a2[1] = 0;
     a2[2] = 0;
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v3 = v6[v2];
-    v4 = *MEMORY[0x1E69E9840];
+    v3 = v4[v2];
 
     std::string::basic_string[abi:ne200100]<0>(a2, v3);
   }
@@ -5490,24 +4476,22 @@ void *std::__function::__func<ctu::decodeGeneralDataCodingIndication(int,ctu::Te
 
 void std::__function::__func<ctu::decodeGeneralDataCodingIndication(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,ctu::StaticLogger const&)::$_3,std::allocator<ctu::decodeGeneralDataCodingIndication(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,ctu::StaticLogger const&)::$_3>,std::string ()(int)>::operator()(unsigned int *a1@<X1>, void *a2@<X8>)
 {
-  v6[4] = *MEMORY[0x1E69E9840];
+  v4[4] = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v6[0] = "Gsm7 encoding";
-  v6[1] = "8bit data encoding";
-  v6[2] = "UCS2 encoding";
-  v6[3] = "Reserved, used for KTF, KSC5601 encoding";
+  v4[0] = "Gsm7 encoding";
+  v4[1] = "8bit data encoding";
+  v4[2] = "UCS2 encoding";
+  v4[3] = "Reserved, used for KTF, KSC5601 encoding";
   if (v2 > 3)
   {
     *a2 = 0;
     a2[1] = 0;
     a2[2] = 0;
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v3 = v6[v2];
-    v4 = *MEMORY[0x1E69E9840];
+    v3 = v4[v2];
 
     std::string::basic_string[abi:ne200100]<0>(a2, v3);
   }
@@ -5553,22 +4537,20 @@ void *std::__function::__func<ctu::decodeDataCodingMessageHandling(int,ctu::Text
 
 void std::__function::__func<ctu::decodeDataCodingMessageHandling(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,ctu::StaticLogger const&)::$_1,std::allocator<ctu::decodeDataCodingMessageHandling(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,ctu::StaticLogger const&)::$_1>,std::string ()(int)>::operator()(unsigned int *a1@<X1>, void *a2@<X8>)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v6[0] = "Gsm7 encoding";
-  v6[1] = "8bit data encoding";
+  v4[0] = "Gsm7 encoding";
+  v4[1] = "8bit data encoding";
   if (v2 > 1)
   {
     *a2 = 0;
     a2[1] = 0;
     a2[2] = 0;
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v3 = v6[v2];
-    v4 = *MEMORY[0x1E69E9840];
+    v3 = v4[v2];
 
     std::string::basic_string[abi:ne200100]<0>(a2, v3);
   }
@@ -5595,24 +4577,22 @@ void *std::__function::__func<ctu::decodeDataCodingMessageHandling(int,ctu::Text
 
 void std::__function::__func<ctu::decodeDataCodingMessageHandling(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,ctu::StaticLogger const&)::$_2,std::allocator<ctu::decodeDataCodingMessageHandling(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,ctu::StaticLogger const&)::$_2>,std::string ()(int)>::operator()(unsigned int *a1@<X1>, void *a2@<X8>)
 {
-  v6[4] = *MEMORY[0x1E69E9840];
+  v4[4] = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v6[0] = "Class 0";
-  v6[1] = "Class 1";
-  v6[2] = "Class 2";
-  v6[3] = "Class 3";
+  v4[0] = "Class 0";
+  v4[1] = "Class 1";
+  v4[2] = "Class 2";
+  v4[3] = "Class 3";
   if (v2 > 3)
   {
     *a2 = 0;
     a2[1] = 0;
     a2[2] = 0;
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v3 = v6[v2];
-    v4 = *MEMORY[0x1E69E9840];
+    v3 = v4[v2];
 
     std::string::basic_string[abi:ne200100]<0>(a2, v3);
   }
@@ -5639,22 +4619,20 @@ void *std::__function::__func<ctu::decodeGeneralDataCodingIndication(int,ctu::Te
 
 void std::__function::__func<ctu::decodeGeneralDataCodingIndication(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,std::string &)::$_0,std::allocator<ctu::decodeGeneralDataCodingIndication(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,std::string &)::$_0>,std::string ()(int)>::operator()(unsigned int *a1@<X1>, void *a2@<X8>)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v6[0] = "Reserved, no message class meaning";
-  v6[1] = "Have a message class meaning";
+  v4[0] = "Reserved, no message class meaning";
+  v4[1] = "Have a message class meaning";
   if (v2 > 1)
   {
     *a2 = 0;
     a2[1] = 0;
     a2[2] = 0;
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v3 = v6[v2];
-    v4 = *MEMORY[0x1E69E9840];
+    v3 = v4[v2];
 
     std::string::basic_string[abi:ne200100]<0>(a2, v3);
   }
@@ -5681,24 +4659,22 @@ void *std::__function::__func<ctu::decodeGeneralDataCodingIndication(int,ctu::Te
 
 void std::__function::__func<ctu::decodeGeneralDataCodingIndication(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,std::string &)::$_1,std::allocator<ctu::decodeGeneralDataCodingIndication(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,std::string &)::$_1>,std::string ()(int)>::operator()(unsigned int *a1@<X1>, void *a2@<X8>)
 {
-  v6[4] = *MEMORY[0x1E69E9840];
+  v4[4] = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v6[0] = "Class 0";
-  v6[1] = "Class 1";
-  v6[2] = "Class 2";
-  v6[3] = "Class 3";
+  v4[0] = "Class 0";
+  v4[1] = "Class 1";
+  v4[2] = "Class 2";
+  v4[3] = "Class 3";
   if (v2 > 3)
   {
     *a2 = 0;
     a2[1] = 0;
     a2[2] = 0;
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v3 = v6[v2];
-    v4 = *MEMORY[0x1E69E9840];
+    v3 = v4[v2];
 
     std::string::basic_string[abi:ne200100]<0>(a2, v3);
   }
@@ -5744,24 +4720,22 @@ void *std::__function::__func<ctu::decodeGeneralDataCodingIndication(int,ctu::Te
 
 void std::__function::__func<ctu::decodeGeneralDataCodingIndication(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,std::string &)::$_3,std::allocator<ctu::decodeGeneralDataCodingIndication(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,std::string &)::$_3>,std::string ()(int)>::operator()(unsigned int *a1@<X1>, void *a2@<X8>)
 {
-  v6[4] = *MEMORY[0x1E69E9840];
+  v4[4] = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v6[0] = "Gsm7 encoding";
-  v6[1] = "8bit data encoding";
-  v6[2] = "UCS2 encoding";
-  v6[3] = "Reserved, used for KTF, KSC5601 encoding";
+  v4[0] = "Gsm7 encoding";
+  v4[1] = "8bit data encoding";
+  v4[2] = "UCS2 encoding";
+  v4[3] = "Reserved, used for KTF, KSC5601 encoding";
   if (v2 > 3)
   {
     *a2 = 0;
     a2[1] = 0;
     a2[2] = 0;
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v3 = v6[v2];
-    v4 = *MEMORY[0x1E69E9840];
+    v3 = v4[v2];
 
     std::string::basic_string[abi:ne200100]<0>(a2, v3);
   }
@@ -5807,22 +4781,20 @@ void *std::__function::__func<ctu::decodeDataCodingMessageHandling(int,ctu::Text
 
 void std::__function::__func<ctu::decodeDataCodingMessageHandling(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,std::string &)::$_1,std::allocator<ctu::decodeDataCodingMessageHandling(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,std::string &)::$_1>,std::string ()(int)>::operator()(unsigned int *a1@<X1>, void *a2@<X8>)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v6[0] = "Gsm7 encoding";
-  v6[1] = "8bit data encoding";
+  v4[0] = "Gsm7 encoding";
+  v4[1] = "8bit data encoding";
   if (v2 > 1)
   {
     *a2 = 0;
     a2[1] = 0;
     a2[2] = 0;
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v3 = v6[v2];
-    v4 = *MEMORY[0x1E69E9840];
+    v3 = v4[v2];
 
     std::string::basic_string[abi:ne200100]<0>(a2, v3);
   }
@@ -5849,24 +4821,22 @@ void *std::__function::__func<ctu::decodeDataCodingMessageHandling(int,ctu::Text
 
 void std::__function::__func<ctu::decodeDataCodingMessageHandling(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,std::string &)::$_2,std::allocator<ctu::decodeDataCodingMessageHandling(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,std::string &)::$_2>,std::string ()(int)>::operator()(unsigned int *a1@<X1>, void *a2@<X8>)
 {
-  v6[4] = *MEMORY[0x1E69E9840];
+  v4[4] = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v6[0] = "Class 0";
-  v6[1] = "Class 1";
-  v6[2] = "Class 2";
-  v6[3] = "Class 3";
+  v4[0] = "Class 0";
+  v4[1] = "Class 1";
+  v4[2] = "Class 2";
+  v4[3] = "Class 3";
   if (v2 > 3)
   {
     *a2 = 0;
     a2[1] = 0;
     a2[2] = 0;
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v3 = v6[v2];
-    v4 = *MEMORY[0x1E69E9840];
+    v3 = v4[v2];
 
     std::string::basic_string[abi:ne200100]<0>(a2, v3);
   }
@@ -5893,22 +4863,20 @@ void *std::__function::__func<ctu::TextConverter::decodeSmsDataCodingScheme(int,
 
 void std::__function::__func<ctu::TextConverter::decodeSmsDataCodingScheme(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,BOOL &,BOOL &,BOOL &,BOOL &,BOOL &,ctu::StaticLogger const&)::$_0,std::allocator<ctu::TextConverter::decodeSmsDataCodingScheme(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,BOOL &,BOOL &,BOOL &,BOOL &,BOOL &,ctu::StaticLogger const&)::$_0>,std::string ()(int)>::operator()(unsigned int *a1@<X1>, void *a2@<X8>)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v6[0] = "General data coding indication";
-  v6[1] = "Message marked for automatic deletion";
+  v4[0] = "General data coding indication";
+  v4[1] = "Message marked for automatic deletion";
   if (v2 > 1)
   {
     *a2 = 0;
     a2[1] = 0;
     a2[2] = 0;
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v3 = v6[v2];
-    v4 = *MEMORY[0x1E69E9840];
+    v3 = v4[v2];
 
     std::string::basic_string[abi:ne200100]<0>(a2, v3);
   }
@@ -5935,22 +4903,20 @@ void *std::__function::__func<ctu::TextConverter::decodeSmsDataCodingScheme(int,
 
 void std::__function::__func<ctu::TextConverter::decodeSmsDataCodingScheme(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,BOOL &,BOOL &,BOOL &,BOOL &,BOOL &,ctu::StaticLogger const&)::$_1,std::allocator<ctu::TextConverter::decodeSmsDataCodingScheme(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,BOOL &,BOOL &,BOOL &,BOOL &,BOOL &,ctu::StaticLogger const&)::$_1>,std::string ()(int)>::operator()(unsigned int *a1@<X1>, void *a2@<X8>)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v6[0] = "Uncompressed";
-  v6[1] = "Compressed";
+  v4[0] = "Uncompressed";
+  v4[1] = "Compressed";
   if (v2 > 1)
   {
     *a2 = 0;
     a2[1] = 0;
     a2[2] = 0;
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v3 = v6[v2];
-    v4 = *MEMORY[0x1E69E9840];
+    v3 = v4[v2];
 
     std::string::basic_string[abi:ne200100]<0>(a2, v3);
   }
@@ -6089,22 +5055,20 @@ void *std::__function::__func<ctu::TextConverter::decodeSmsDataCodingScheme(int,
 
 void std::__function::__func<ctu::TextConverter::decodeSmsDataCodingScheme(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,BOOL &,BOOL &,BOOL &,BOOL &,BOOL &,ctu::StaticLogger const&)::$_6,std::allocator<ctu::TextConverter::decodeSmsDataCodingScheme(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,BOOL &,BOOL &,BOOL &,BOOL &,BOOL &,ctu::StaticLogger const&)::$_6>,std::string ()(int)>::operator()(unsigned int *a1@<X1>, void *a2@<X8>)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v6[0] = "Set indication inactive";
-  v6[1] = "Set indication active";
+  v4[0] = "Set indication inactive";
+  v4[1] = "Set indication active";
   if (v2 > 1)
   {
     *a2 = 0;
     a2[1] = 0;
     a2[2] = 0;
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v3 = v6[v2];
-    v4 = *MEMORY[0x1E69E9840];
+    v3 = v4[v2];
 
     std::string::basic_string[abi:ne200100]<0>(a2, v3);
   }
@@ -6150,24 +5114,22 @@ void *std::__function::__func<ctu::TextConverter::decodeSmsDataCodingScheme(int,
 
 void std::__function::__func<ctu::TextConverter::decodeSmsDataCodingScheme(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,BOOL &,BOOL &,BOOL &,BOOL &,BOOL &,ctu::StaticLogger const&)::$_8,std::allocator<ctu::TextConverter::decodeSmsDataCodingScheme(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,BOOL &,BOOL &,BOOL &,BOOL &,BOOL &,ctu::StaticLogger const&)::$_8>,std::string ()(int)>::operator()(unsigned int *a1@<X1>, void *a2@<X8>)
 {
-  v6[4] = *MEMORY[0x1E69E9840];
+  v4[4] = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v6[0] = "Voicemail message waiting";
-  v6[1] = "Fax message waiting";
-  v6[2] = "Electronic mail message waiting";
-  v6[3] = "Other message waiting";
+  v4[0] = "Voicemail message waiting";
+  v4[1] = "Fax message waiting";
+  v4[2] = "Electronic mail message waiting";
+  v4[3] = "Other message waiting";
   if (v2 > 3)
   {
     *a2 = 0;
     a2[1] = 0;
     a2[2] = 0;
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v3 = v6[v2];
-    v4 = *MEMORY[0x1E69E9840];
+    v3 = v4[v2];
 
     std::string::basic_string[abi:ne200100]<0>(a2, v3);
   }
@@ -6213,22 +5175,20 @@ void *std::__function::__func<ctu::TextConverter::decodeSmsDataCodingScheme(int,
 
 void std::__function::__func<ctu::TextConverter::decodeSmsDataCodingScheme(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,BOOL &,BOOL &,BOOL &,BOOL &,BOOL &,std::string &)::$_0,std::allocator<ctu::TextConverter::decodeSmsDataCodingScheme(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,BOOL &,BOOL &,BOOL &,BOOL &,BOOL &,std::string &)::$_0>,std::string ()(int)>::operator()(unsigned int *a1@<X1>, void *a2@<X8>)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v6[0] = "General data coding indication";
-  v6[1] = "Message marked for automatic deletion";
+  v4[0] = "General data coding indication";
+  v4[1] = "Message marked for automatic deletion";
   if (v2 > 1)
   {
     *a2 = 0;
     a2[1] = 0;
     a2[2] = 0;
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v3 = v6[v2];
-    v4 = *MEMORY[0x1E69E9840];
+    v3 = v4[v2];
 
     std::string::basic_string[abi:ne200100]<0>(a2, v3);
   }
@@ -6255,22 +5215,20 @@ void *std::__function::__func<ctu::TextConverter::decodeSmsDataCodingScheme(int,
 
 void std::__function::__func<ctu::TextConverter::decodeSmsDataCodingScheme(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,BOOL &,BOOL &,BOOL &,BOOL &,BOOL &,std::string &)::$_1,std::allocator<ctu::TextConverter::decodeSmsDataCodingScheme(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,BOOL &,BOOL &,BOOL &,BOOL &,BOOL &,std::string &)::$_1>,std::string ()(int)>::operator()(unsigned int *a1@<X1>, void *a2@<X8>)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v6[0] = "Uncompressed";
-  v6[1] = "Compressed";
+  v4[0] = "Uncompressed";
+  v4[1] = "Compressed";
   if (v2 > 1)
   {
     *a2 = 0;
     a2[1] = 0;
     a2[2] = 0;
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v3 = v6[v2];
-    v4 = *MEMORY[0x1E69E9840];
+    v3 = v4[v2];
 
     std::string::basic_string[abi:ne200100]<0>(a2, v3);
   }
@@ -6409,22 +5367,20 @@ void *std::__function::__func<ctu::TextConverter::decodeSmsDataCodingScheme(int,
 
 void std::__function::__func<ctu::TextConverter::decodeSmsDataCodingScheme(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,BOOL &,BOOL &,BOOL &,BOOL &,BOOL &,std::string &)::$_6,std::allocator<ctu::TextConverter::decodeSmsDataCodingScheme(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,BOOL &,BOOL &,BOOL &,BOOL &,BOOL &,std::string &)::$_6>,std::string ()(int)>::operator()(unsigned int *a1@<X1>, void *a2@<X8>)
 {
-  v6[2] = *MEMORY[0x1E69E9840];
+  v4[2] = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v6[0] = "Set indication inactive";
-  v6[1] = "Set indication active";
+  v4[0] = "Set indication inactive";
+  v4[1] = "Set indication active";
   if (v2 > 1)
   {
     *a2 = 0;
     a2[1] = 0;
     a2[2] = 0;
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v3 = v6[v2];
-    v4 = *MEMORY[0x1E69E9840];
+    v3 = v4[v2];
 
     std::string::basic_string[abi:ne200100]<0>(a2, v3);
   }
@@ -6470,24 +5426,22 @@ void *std::__function::__func<ctu::TextConverter::decodeSmsDataCodingScheme(int,
 
 void std::__function::__func<ctu::TextConverter::decodeSmsDataCodingScheme(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,BOOL &,BOOL &,BOOL &,BOOL &,BOOL &,std::string &)::$_8,std::allocator<ctu::TextConverter::decodeSmsDataCodingScheme(int,ctu::TextConverter::MessageClass &,ctu::TextConverter::MessageEncoding &,BOOL &,BOOL &,BOOL &,BOOL &,BOOL &,std::string &)::$_8>,std::string ()(int)>::operator()(unsigned int *a1@<X1>, void *a2@<X8>)
 {
-  v6[4] = *MEMORY[0x1E69E9840];
+  v4[4] = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v6[0] = "Voicemail message waiting";
-  v6[1] = "Fax message waiting";
-  v6[2] = "Electronic mail message waiting";
-  v6[3] = "Other message waiting";
+  v4[0] = "Voicemail message waiting";
+  v4[1] = "Fax message waiting";
+  v4[2] = "Electronic mail message waiting";
+  v4[3] = "Other message waiting";
   if (v2 > 3)
   {
     *a2 = 0;
     a2[1] = 0;
     a2[2] = 0;
-    v5 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v3 = v6[v2];
-    v4 = *MEMORY[0x1E69E9840];
+    v3 = v4[v2];
 
     std::string::basic_string[abi:ne200100]<0>(a2, v3);
   }
@@ -6538,7 +5492,7 @@ void ctu::hex_sp(ctu **a1@<X0>, std::string *a2@<X8>)
     v4 = *a1;
   }
 
-  ctu::hex_sp(v4, v3, a2);
+  ctu::hex_sp(a2, v4, v3);
 }
 
 void ctu::hex(ctu *this@<X0>, unint64_t a2@<X8>)
@@ -7419,25 +6373,24 @@ void sub_1A91559E8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void ctu::hex0(ctu *this@<X0>, std::string *a2@<X8>)
+void ctu::hex0(std::string *__return_ptr a1@<X8>, ctu *this@<X0>)
 {
   v2 = this;
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
-  a2->__r_.__value_.__r.__words[2] = 0;
-  std::string::resize(a2, 2uLL, 48);
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  std::string::resize(a1, 2uLL, 48);
   if (v2)
   {
-    size = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
-    v5 = a2->__r_.__value_.__r.__words[0];
+    size = SHIBYTE(a1->__r_.__value_.__r.__words[2]);
+    v5 = a1->__r_.__value_.__r.__words[0];
     if (size >= 0)
     {
-      v5 = a2;
+      v5 = a1;
     }
 
     if (size < 0)
     {
-      size = a2->__r_.__value_.__l.__size_;
+      size = a1->__r_.__value_.__l.__size_;
     }
 
     v6 = v5 + size;
@@ -7464,22 +6417,66 @@ void ctu::hex0(ctu *this@<X0>, std::string *a2@<X8>)
 
 {
   v2 = this;
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
-  a2->__r_.__value_.__r.__words[2] = 0;
-  std::string::resize(a2, 4uLL, 48);
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  std::string::resize(a1, 2uLL, 48);
   if (v2)
   {
-    size = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
-    v5 = a2->__r_.__value_.__r.__words[0];
+    size = SHIBYTE(a1->__r_.__value_.__r.__words[2]);
+    v5 = a1->__r_.__value_.__r.__words[0];
     if (size >= 0)
     {
-      v5 = a2;
+      v5 = a1;
     }
 
     if (size < 0)
     {
-      size = a2->__r_.__value_.__l.__size_;
+      size = a1->__r_.__value_.__l.__size_;
+    }
+
+    v6 = v5 + size;
+    if ((v2 & 0xFu) >= 0xA)
+    {
+      v7 = (v2 & 0xF) + 87;
+    }
+
+    else
+    {
+      v7 = v2 & 0xF | 0x30;
+    }
+
+    *(v6 - 1) = v7;
+    if (v2 >= 0xA0u)
+    {
+      v8 = (v2 >> 4) + 87;
+    }
+
+    else
+    {
+      v8 = (v2 >> 4) | 0x30;
+    }
+
+    *(v6 - 2) = v8;
+  }
+}
+
+{
+  v2 = this;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  std::string::resize(a1, 4uLL, 48);
+  if (v2)
+  {
+    size = SHIBYTE(a1->__r_.__value_.__r.__words[2]);
+    v5 = a1->__r_.__value_.__r.__words[0];
+    if (size >= 0)
+    {
+      v5 = a1;
+    }
+
+    if (size < 0)
+    {
+      size = a1->__r_.__value_.__l.__size_;
     }
 
     v6 = v5 + size - 1;
@@ -7513,260 +6510,6 @@ void ctu::hex0(ctu *this@<X0>, std::string *a2@<X8>)
     }
 
     while (v7 >= 0x100);
-  }
-}
-
-{
-  v2 = this;
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
-  a2->__r_.__value_.__r.__words[2] = 0;
-  std::string::resize(a2, 8uLL, 48);
-  if (v2)
-  {
-    size = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
-    v5 = a2->__r_.__value_.__r.__words[0];
-    if (size >= 0)
-    {
-      v5 = a2;
-    }
-
-    if (size < 0)
-    {
-      size = a2->__r_.__value_.__l.__size_;
-    }
-
-    v6 = v5 + size - 1;
-    do
-    {
-      if ((v2 & 0xF) >= 0xA)
-      {
-        v7 = (v2 & 0xF) + 87;
-      }
-
-      else
-      {
-        v7 = v2 & 0xF | 0x30;
-      }
-
-      *v6 = v7;
-      if (v2 >= 0xA0u)
-      {
-        v8 = (v2 >> 4) + 87;
-      }
-
-      else
-      {
-        v8 = (v2 >> 4) | 0x30;
-      }
-
-      *(v6 - 1) = v8;
-      v6 -= 2;
-      v9 = v2 >= 0x100;
-      v2 >>= 8;
-    }
-
-    while (v9);
-  }
-}
-
-{
-  v2 = this;
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
-  a2->__r_.__value_.__r.__words[2] = 0;
-  std::string::resize(a2, 2uLL, 48);
-  if (v2)
-  {
-    size = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
-    v5 = a2->__r_.__value_.__r.__words[0];
-    if (size >= 0)
-    {
-      v5 = a2;
-    }
-
-    if (size < 0)
-    {
-      size = a2->__r_.__value_.__l.__size_;
-    }
-
-    v6 = v5 + size;
-    if ((v2 & 0xFu) >= 0xA)
-    {
-      v7 = (v2 & 0xF) + 87;
-    }
-
-    else
-    {
-      v7 = v2 & 0xF | 0x30;
-    }
-
-    *(v6 - 1) = v7;
-    if (v2 >= 0xA0u)
-    {
-      v8 = (v2 >> 4) + 87;
-    }
-
-    else
-    {
-      v8 = (v2 >> 4) | 0x30;
-    }
-
-    *(v6 - 2) = v8;
-  }
-}
-
-{
-  v2 = this;
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
-  a2->__r_.__value_.__r.__words[2] = 0;
-  std::string::resize(a2, 2uLL, 48);
-  if (v2)
-  {
-    size = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
-    v5 = a2->__r_.__value_.__r.__words[0];
-    if (size >= 0)
-    {
-      v5 = a2;
-    }
-
-    if (size < 0)
-    {
-      size = a2->__r_.__value_.__l.__size_;
-    }
-
-    v6 = v5 + size;
-    if ((v2 & 0xFu) >= 0xA)
-    {
-      v7 = (v2 & 0xF) + 87;
-    }
-
-    else
-    {
-      v7 = v2 & 0xF | 0x30;
-    }
-
-    *(v6 - 1) = v7;
-    if (v2 >= 0xA0u)
-    {
-      v8 = (v2 >> 4) + 87;
-    }
-
-    else
-    {
-      v8 = (v2 >> 4) | 0x30;
-    }
-
-    *(v6 - 2) = v8;
-  }
-}
-
-{
-  v2 = this;
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
-  a2->__r_.__value_.__r.__words[2] = 0;
-  std::string::resize(a2, 4uLL, 48);
-  if (v2)
-  {
-    size = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
-    v5 = a2->__r_.__value_.__r.__words[0];
-    if (size >= 0)
-    {
-      v5 = a2;
-    }
-
-    if (size < 0)
-    {
-      size = a2->__r_.__value_.__l.__size_;
-    }
-
-    v6 = v5 + size - 1;
-    do
-    {
-      v7 = v2;
-      if ((v2 & 0xFu) >= 0xA)
-      {
-        v8 = (v2 & 0xF) + 87;
-      }
-
-      else
-      {
-        v8 = v2 & 0xF | 0x30;
-      }
-
-      *v6 = v8;
-      if (v2 >= 0xA0u)
-      {
-        v9 = (v2 >> 4) + 87;
-      }
-
-      else
-      {
-        v9 = (v2 >> 4) | 0x30;
-      }
-
-      *(v6 - 1) = v9;
-      LOWORD(v2) = BYTE1(v2);
-      v6 -= 2;
-    }
-
-    while (v7 >= 0x100);
-  }
-}
-
-{
-  v2 = this;
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
-  a2->__r_.__value_.__r.__words[2] = 0;
-  std::string::resize(a2, 8uLL, 48);
-  if (v2)
-  {
-    size = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
-    v5 = a2->__r_.__value_.__r.__words[0];
-    if (size >= 0)
-    {
-      v5 = a2;
-    }
-
-    if (size < 0)
-    {
-      size = a2->__r_.__value_.__l.__size_;
-    }
-
-    v6 = v5 + size - 1;
-    do
-    {
-      if ((v2 & 0xF) >= 0xA)
-      {
-        v7 = (v2 & 0xF) + 87;
-      }
-
-      else
-      {
-        v7 = v2 & 0xF | 0x30;
-      }
-
-      *v6 = v7;
-      if (v2 >= 0xA0u)
-      {
-        v8 = (v2 >> 4) + 87;
-      }
-
-      else
-      {
-        v8 = (v2 >> 4) | 0x30;
-      }
-
-      *(v6 - 1) = v8;
-      v6 -= 2;
-      v9 = v2 >= 0x100;
-      v2 >>= 8;
-    }
-
-    while (v9);
   }
 }
 
@@ -7778,6 +6521,211 @@ void sub_1A9155A94(_Unwind_Exception *exception_object)
   }
 
   _Unwind_Resume(exception_object);
+}
+
+void ctu::hex0(ctu *this@<X0>, std::string *a2@<X8>)
+{
+  v2 = this;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
+  a2->__r_.__value_.__r.__words[2] = 0;
+  std::string::resize(a2, 4uLL, 48);
+  if (v2)
+  {
+    size = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
+    v5 = a2->__r_.__value_.__r.__words[0];
+    if (size >= 0)
+    {
+      v5 = a2;
+    }
+
+    if (size < 0)
+    {
+      size = a2->__r_.__value_.__l.__size_;
+    }
+
+    v6 = v5 + size - 1;
+    do
+    {
+      v7 = v2;
+      if ((v2 & 0xFu) >= 0xA)
+      {
+        v8 = (v2 & 0xF) + 87;
+      }
+
+      else
+      {
+        v8 = v2 & 0xF | 0x30;
+      }
+
+      *v6 = v8;
+      if (v2 >= 0xA0u)
+      {
+        v9 = (v2 >> 4) + 87;
+      }
+
+      else
+      {
+        v9 = (v2 >> 4) | 0x30;
+      }
+
+      *(v6 - 1) = v9;
+      LOWORD(v2) = BYTE1(v2);
+      v6 -= 2;
+    }
+
+    while (v7 >= 0x100);
+  }
+}
+
+{
+  v2 = this;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
+  a2->__r_.__value_.__r.__words[2] = 0;
+  std::string::resize(a2, 8uLL, 48);
+  if (v2)
+  {
+    size = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
+    v5 = a2->__r_.__value_.__r.__words[0];
+    if (size >= 0)
+    {
+      v5 = a2;
+    }
+
+    if (size < 0)
+    {
+      size = a2->__r_.__value_.__l.__size_;
+    }
+
+    v6 = v5 + size - 1;
+    do
+    {
+      if ((v2 & 0xF) >= 0xA)
+      {
+        v7 = (v2 & 0xF) + 87;
+      }
+
+      else
+      {
+        v7 = v2 & 0xF | 0x30;
+      }
+
+      *v6 = v7;
+      if (v2 >= 0xA0u)
+      {
+        v8 = (v2 >> 4) + 87;
+      }
+
+      else
+      {
+        v8 = (v2 >> 4) | 0x30;
+      }
+
+      *(v6 - 1) = v8;
+      v6 -= 2;
+      v9 = v2 >= 0x100;
+      v2 >>= 8;
+    }
+
+    while (v9);
+  }
+}
+
+{
+  v2 = this;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
+  a2->__r_.__value_.__r.__words[2] = 0;
+  std::string::resize(a2, 2uLL, 48);
+  if (v2)
+  {
+    size = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
+    v5 = a2->__r_.__value_.__r.__words[0];
+    if (size >= 0)
+    {
+      v5 = a2;
+    }
+
+    if (size < 0)
+    {
+      size = a2->__r_.__value_.__l.__size_;
+    }
+
+    v6 = v5 + size;
+    if ((v2 & 0xFu) >= 0xA)
+    {
+      v7 = (v2 & 0xF) + 87;
+    }
+
+    else
+    {
+      v7 = v2 & 0xF | 0x30;
+    }
+
+    *(v6 - 1) = v7;
+    if (v2 >= 0xA0u)
+    {
+      v8 = (v2 >> 4) + 87;
+    }
+
+    else
+    {
+      v8 = (v2 >> 4) | 0x30;
+    }
+
+    *(v6 - 2) = v8;
+  }
+}
+
+{
+  v2 = this;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
+  a2->__r_.__value_.__r.__words[2] = 0;
+  std::string::resize(a2, 8uLL, 48);
+  if (v2)
+  {
+    size = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
+    v5 = a2->__r_.__value_.__r.__words[0];
+    if (size >= 0)
+    {
+      v5 = a2;
+    }
+
+    if (size < 0)
+    {
+      size = a2->__r_.__value_.__l.__size_;
+    }
+
+    v6 = v5 + size - 1;
+    do
+    {
+      if ((v2 & 0xF) >= 0xA)
+      {
+        v7 = (v2 & 0xF) + 87;
+      }
+
+      else
+      {
+        v7 = v2 & 0xF | 0x30;
+      }
+
+      *v6 = v7;
+      if (v2 >= 0xA0u)
+      {
+        v8 = (v2 >> 4) + 87;
+      }
+
+      else
+      {
+        v8 = (v2 >> 4) | 0x30;
+      }
+
+      *(v6 - 1) = v8;
+      v6 -= 2;
+      v9 = v2 >= 0x100;
+      v2 >>= 8;
+    }
+
+    while (v9);
+  }
 }
 
 void sub_1A9155B60(_Unwind_Exception *exception_object)
@@ -7802,8 +6750,7 @@ void sub_1A9155C2C(_Unwind_Exception *exception_object)
 
 void ctu::hex0(unint64_t this@<X0>, std::string *a2@<X8>)
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   std::string::resize(a2, 0x10uLL, 48);
   if (this)
@@ -7855,8 +6802,7 @@ void ctu::hex0(unint64_t this@<X0>, std::string *a2@<X8>)
 }
 
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   std::string::resize(a2, 0x10uLL, 48);
   if (this)
@@ -7908,8 +6854,7 @@ void ctu::hex0(unint64_t this@<X0>, std::string *a2@<X8>)
 }
 
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   std::string::resize(a2, 0x10uLL, 48);
   if (this)
@@ -7961,8 +6906,7 @@ void ctu::hex0(unint64_t this@<X0>, std::string *a2@<X8>)
 }
 
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   std::string::resize(a2, 0x10uLL, 48);
   if (this)
@@ -8093,12 +7037,12 @@ void sub_1A9156254(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-double ctu::parse_hex@<D0>(char *a1@<X0>, int a2@<W1>, void *a3@<X8>)
+double ctu::parse_hex@<D0>(uint64_t a1@<X0>, int a2@<W1>, void *a3@<X8>)
 {
-  v4 = *(a1 + 1);
-  if (a1[23] >= 0)
+  v4 = *(a1 + 8);
+  if (*(a1 + 23) >= 0)
   {
-    v5 = a1[23];
+    v5 = *(a1 + 23);
   }
 
   else
@@ -8347,15 +7291,15 @@ uint64_t ctu::Gestalt::getSysctlAsString@<X0>(const char *a1@<X1>, uint64_t a2@<
     std::string::resize(a2, __n, 0);
     if (*(a2 + 23) >= 0)
     {
-      v6 = a2;
+      v5 = a2;
     }
 
     else
     {
-      v6 = *a2;
+      v5 = *a2;
     }
 
-    return sysctlbyname(a1, v6, &__n, 0, 0);
+    return sysctlbyname(a1, v5, &__n, 0, 0);
   }
 
   return result;
@@ -8931,7 +7875,7 @@ void ctu::StagedLogger::~StagedLogger(ctu::StagedLogger *this)
   if (*(this + 87))
   {
 LABEL_6:
-    ctu::LoggerBase<std::shared_ptr<ctu::LogServer>>::forceLog(this, *(this + 120), (this + 64));
+    ctu::LoggerBase<std::shared_ptr<ctu::LogServer>>::forceLog(this, *(this + 120), this + 8);
   }
 
 LABEL_7:
@@ -9161,7 +8105,7 @@ LABEL_21:
 
 uint64_t ctu::AssertionRestResourceState::dumpState(void)const::$_0::operator()(void *a1, void *a2)
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   *a1 = 0xAAAAAAAAAAAAAAAALL;
   v4 = xpc_array_create(0, 0);
   v5 = v4;
@@ -9193,13 +8137,11 @@ LABEL_8:
   xpc_retain(v5);
 LABEL_9:
   xpc_release(v5);
-  v9[0] = &unk_1F1CB5450;
-  v9[1] = a1;
-  v9[3] = v9;
-  ctu::rest::WatchableRestResourceHelper::map(a2, v9);
-  result = std::__function::__value_func<void ()(ctu::RestResourceConnection const&)>::~__value_func[abi:ne200100](v9);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  v8[0] = &unk_1F1CB5450;
+  v8[1] = a1;
+  v8[3] = v8;
+  ctu::rest::WatchableRestResourceHelper::map(a2, v8);
+  return std::__function::__value_func<void ()(ctu::RestResourceConnection const&)>::~__value_func[abi:ne200100](v8);
 }
 
 void sub_1A9157760(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
@@ -9328,7 +8270,7 @@ LABEL_13:
 
 uint64_t ctu::AssertionRestResource::handleMessage_Root_GET(ctu::AssertionRestResource *this, ctu::RestResourceContext *a2)
 {
-  ctu::AssertionRestResource::getResourceArray(this, &object);
+  ctu::AssertionRestResource::getResourceArray(&object, this);
   v5 = object;
   if (object)
   {
@@ -9441,12 +8383,12 @@ void sub_1A9157CCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 uint64_t ctu::AssertionRestResource::handleMessage_Resource_GET(uint64_t a1, uint64_t a2)
 {
   v3 = xpc::array_creator::array_creator(&v11);
-  xpc::array_creator::operator()<char const*>("grant", v3, &v6);
+  xpc::array_creator::operator()<char const*>(&v6, "grant", v3);
   xpc_release(v11);
-  xpc::array_creator::operator()<char const*>("revoke", &v6, &v7);
-  xpc::array_creator::operator()<char const*>("granted", &v7, &v8);
-  xpc::array_creator::operator()<char const*>("revoked", &v8, &object);
-  xpc::array_creator::operator()<char const*>("waiting", &object, &v10);
+  xpc::array_creator::operator()<char const*>(&v7, "revoke", &v6);
+  xpc::array_creator::operator()<char const*>(&v8, "granted", &v7);
+  xpc::array_creator::operator()<char const*>(&object, "revoked", &v8);
+  xpc::array_creator::operator()<char const*>(&v10, "waiting", &object);
   v4 = v10;
   v10 = xpc_null_create();
   xpc_release(v10);
@@ -9484,9 +8426,9 @@ void sub_1A9157E4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t ctu::AssertionRestResource::handleMessage_Resource_Granted_GET(uint64_t a1, uint64_t a2, const void *a3, const void *a4)
 {
-  v18[4] = *MEMORY[0x1E69E9840];
-  v14[0] = a3;
-  v14[1] = a4;
+  v17[4] = *MEMORY[0x1E69E9840];
+  v13[0] = a3;
+  v13[1] = a4;
   v6 = xpc_array_create(0, 0);
   v7 = v6;
   if (v6)
@@ -9517,10 +8459,10 @@ LABEL_8:
   object = v8;
 LABEL_9:
   xpc_release(v7);
-  ctu::llvm::StringRef::operator std::string(v14, __p);
-  boost::container::dtl::flat_tree<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RestResourceBase>>,boost::container::dtl::select1st<std::string>,std::less<std::string>,boost::container::new_allocator<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RestResourceBase>>>>::find(&v17, (a1 + 8), __p);
-  v9 = v17;
-  if (v16 < 0)
+  ctu::llvm::StringRef::operator std::string(v13, __p);
+  boost::container::dtl::flat_tree<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RestResourceBase>>,boost::container::dtl::select1st<std::string>,std::less<std::string>,boost::container::new_allocator<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RestResourceBase>>>>::find(&v16, (a1 + 8), __p);
+  v9 = v16;
+  if (v15 < 0)
   {
     operator delete(__p[0]);
   }
@@ -9528,11 +8470,11 @@ LABEL_9:
   if (v9 != *(a1 + 8) + 32 * *(a1 + 16))
   {
     v10 = *(v9 + 24);
-    v18[0] = &unk_1F1CBA888;
-    v18[1] = &object;
-    v18[3] = v18;
-    ctu::rest::WatchableRestResourceHelper::map((v10 + 48), v18);
-    std::__function::__value_func<void ()(ctu::RestResourceConnection const&)>::~__value_func[abi:ne200100](v18);
+    v17[0] = &unk_1F1CBA888;
+    v17[1] = &object;
+    v17[3] = v17;
+    ctu::rest::WatchableRestResourceHelper::map((v10 + 48), v17);
+    std::__function::__value_func<void ()(ctu::RestResourceConnection const&)>::~__value_func[abi:ne200100](v17);
   }
 
   __p[0] = object;
@@ -9549,7 +8491,6 @@ LABEL_9:
   (*(*a2 + 32))(a2, __p);
   xpc_release(__p[0]);
   xpc_release(object);
-  v11 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -9565,9 +8506,9 @@ void sub_1A91580AC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t ctu::AssertionRestResource::handleMessage_Resource_Revoked_GET(uint64_t a1, uint64_t a2, const void *a3, const void *a4)
 {
-  v18[4] = *MEMORY[0x1E69E9840];
-  v14[0] = a3;
-  v14[1] = a4;
+  v17[4] = *MEMORY[0x1E69E9840];
+  v13[0] = a3;
+  v13[1] = a4;
   v6 = xpc_array_create(0, 0);
   v7 = v6;
   if (v6)
@@ -9598,10 +8539,10 @@ LABEL_8:
   object = v8;
 LABEL_9:
   xpc_release(v7);
-  ctu::llvm::StringRef::operator std::string(v14, __p);
-  boost::container::dtl::flat_tree<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RestResourceBase>>,boost::container::dtl::select1st<std::string>,std::less<std::string>,boost::container::new_allocator<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RestResourceBase>>>>::find(&v17, (a1 + 8), __p);
-  v9 = v17;
-  if (v16 < 0)
+  ctu::llvm::StringRef::operator std::string(v13, __p);
+  boost::container::dtl::flat_tree<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RestResourceBase>>,boost::container::dtl::select1st<std::string>,std::less<std::string>,boost::container::new_allocator<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RestResourceBase>>>>::find(&v16, (a1 + 8), __p);
+  v9 = v16;
+  if (v15 < 0)
   {
     operator delete(__p[0]);
   }
@@ -9609,11 +8550,11 @@ LABEL_9:
   if (v9 != *(a1 + 8) + 32 * *(a1 + 16))
   {
     v10 = *(v9 + 24);
-    v18[0] = &unk_1F1CBA908;
-    v18[1] = &object;
-    v18[3] = v18;
-    ctu::rest::WatchableRestResourceHelper::map((v10 + 72), v18);
-    std::__function::__value_func<void ()(ctu::RestResourceConnection const&)>::~__value_func[abi:ne200100](v18);
+    v17[0] = &unk_1F1CBA908;
+    v17[1] = &object;
+    v17[3] = v17;
+    ctu::rest::WatchableRestResourceHelper::map((v10 + 72), v17);
+    std::__function::__value_func<void ()(ctu::RestResourceConnection const&)>::~__value_func[abi:ne200100](v17);
   }
 
   __p[0] = object;
@@ -9630,7 +8571,6 @@ LABEL_9:
   (*(*a2 + 32))(a2, __p);
   xpc_release(__p[0]);
   xpc_release(object);
-  v11 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -9646,9 +8586,9 @@ void sub_1A91582C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t ctu::AssertionRestResource::handleMessage_Resource_Waiting_GET(uint64_t a1, uint64_t a2, const void *a3, const void *a4)
 {
-  v18[4] = *MEMORY[0x1E69E9840];
-  v14[0] = a3;
-  v14[1] = a4;
+  v17[4] = *MEMORY[0x1E69E9840];
+  v13[0] = a3;
+  v13[1] = a4;
   v6 = xpc_array_create(0, 0);
   v7 = v6;
   if (v6)
@@ -9679,10 +8619,10 @@ LABEL_8:
   object = v8;
 LABEL_9:
   xpc_release(v7);
-  ctu::llvm::StringRef::operator std::string(v14, __p);
-  boost::container::dtl::flat_tree<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RestResourceBase>>,boost::container::dtl::select1st<std::string>,std::less<std::string>,boost::container::new_allocator<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RestResourceBase>>>>::find(&v17, (a1 + 8), __p);
-  v9 = v17;
-  if (v16 < 0)
+  ctu::llvm::StringRef::operator std::string(v13, __p);
+  boost::container::dtl::flat_tree<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RestResourceBase>>,boost::container::dtl::select1st<std::string>,std::less<std::string>,boost::container::new_allocator<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::RestResourceBase>>>>::find(&v16, (a1 + 8), __p);
+  v9 = v16;
+  if (v15 < 0)
   {
     operator delete(__p[0]);
   }
@@ -9690,11 +8630,11 @@ LABEL_9:
   if (v9 != *(a1 + 8) + 32 * *(a1 + 16))
   {
     v10 = *(v9 + 24);
-    v18[0] = &unk_1F1CBA988;
-    v18[1] = &object;
-    v18[3] = v18;
-    ctu::rest::WatchableRestResourceHelper::map((v10 + 24), v18);
-    std::__function::__value_func<void ()(ctu::RestResourceConnection const&)>::~__value_func[abi:ne200100](v18);
+    v17[0] = &unk_1F1CBA988;
+    v17[1] = &object;
+    v17[3] = v17;
+    ctu::rest::WatchableRestResourceHelper::map((v10 + 24), v17);
+    std::__function::__value_func<void ()(ctu::RestResourceConnection const&)>::~__value_func[abi:ne200100](v17);
   }
 
   __p[0] = object;
@@ -9711,7 +8651,6 @@ LABEL_9:
   (*(*a2 + 32))(a2, __p);
   xpc_release(__p[0]);
   xpc_release(object);
-  v11 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -9818,7 +8757,7 @@ void sub_1A91586E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t ctu::AssertionRestResource::handleRestMessage_SET(ctu::AssertionRestResource *this, ctu::RestResourceContext *a2, const ctu::PathView *a3)
+uint64_t ctu::AssertionRestResource::handleRestMessage_SET(ctu::AssertionRestResource *this, __n128 **a2, const ctu::PathView *a3)
 {
   memset(v9, 170, sizeof(v9));
   v6 = *(a3 + 1);
@@ -9972,7 +8911,7 @@ uint64_t ctu::AssertionRestResource::handleMessage_Resource_Granted_SET(uint64_t
   return 1;
 }
 
-uint64_t ctu::AssertionRestResource::handleMessage_Resource_Revoked_SET(uint64_t a1, ctu::RestResourceContext *a2, _OWORD *a3, const void *a4, const void *a5)
+uint64_t ctu::AssertionRestResource::handleMessage_Resource_Revoked_SET(uint64_t a1, __n128 **a2, _OWORD *a3, const void *a4, const void *a5)
 {
   v17[0] = a4;
   v17[1] = a5;
@@ -9984,12 +8923,12 @@ uint64_t ctu::AssertionRestResource::handleMessage_Resource_Revoked_SET(uint64_t
     operator delete(__p[0]);
   }
 
-  if (v8 != *(a1 + 8) + 32 * *(a1 + 16))
+  if (v8 != (*(a1 + 8) + 32 * *(a1 + 16)))
   {
-    (*(*a2 + 24))(__p, a2);
+    ((*a2)[1].n128_u64[1])(__p, a2);
     v9 = xpc::dyn_cast_or_default(__p, 0);
     xpc_release(__p[0]);
-    if (*(*(v8 + 24) + 16) == v9)
+    if (*(v8[1].n128_u64[1] + 16) == v9)
     {
       v10 = a3[1];
       *__p = *a3;
@@ -10029,7 +8968,7 @@ uint64_t ctu::AssertionRestResource::handleMessage_Resource_Revoked_SET(uint64_t
       }
 
       ctu::PathView::PathView(v14, v11, v12);
-      ctu::AssertionRestResource::startNewGeneration(a1, a2, v14, *(v8 + 24));
+      ctu::AssertionRestResource::startNewGeneration(a1, a2, v14, v8[1].n128_u64[1]);
     }
   }
 
@@ -10144,16 +9083,16 @@ void sub_1A9158E88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ctu::AssertionRestResource::startNewGeneration(ctu::AssertionRestResource *this, ctu::RestResourceContext *a2, const ctu::PathView *a3, ctu::AssertionRestResourceState *a4)
+void ctu::AssertionRestResource::startNewGeneration(__n128 **this, __n128 **a2, __n128 **a3, __n128 **a4)
 {
   v11[0] = a4;
   v11[1] = this;
   v11[2] = a2;
   v11[3] = a3;
-  ctu::AssertionRestResource::startNewGeneration(ctu::RestResourceContext &,ctu::PathView const&,ctu::AssertionRestResourceState &)const::$_0::operator()(v11, (a4 + 48));
-  if ((*(this + 32) & 1) == 0)
+  ctu::AssertionRestResource::startNewGeneration(ctu::RestResourceContext &,ctu::PathView const&,ctu::AssertionRestResourceState &)const::$_0::operator()(v11, (a4 + 6));
+  if ((this[4] & 1) == 0)
   {
-    ctu::AssertionRestResource::startNewGeneration(ctu::RestResourceContext &,ctu::PathView const&,ctu::AssertionRestResourceState &)const::$_0::operator()(v11, (a4 + 24));
+    ctu::AssertionRestResource::startNewGeneration(ctu::RestResourceContext &,ctu::PathView const&,ctu::AssertionRestResourceState &)const::$_0::operator()(v11, (a4 + 3));
   }
 
   v9 = *(a4 + 4);
@@ -10193,7 +9132,7 @@ uint64_t ctu::AssertionRestResource::handleRestMessage_POP(ctu::AssertionRestRes
   return 0;
 }
 
-uint64_t ctu::AssertionRestResource::handleMessage_Resource_POP(uint64_t a1, ctu::RestResourceContext *a2, const ctu::PathView *a3, const void *a4, const void *a5)
+uint64_t ctu::AssertionRestResource::handleMessage_Resource_POP(uint64_t a1, __n128 **a2, __n128 **a3, const void *a4, const void *a5)
 {
   v20[0] = a4;
   v20[1] = a5;
@@ -10207,7 +9146,7 @@ uint64_t ctu::AssertionRestResource::handleMessage_Resource_POP(uint64_t a1, ctu
 
   if (v8 != *(a1 + 8) + 32 * *(a1 + 16))
   {
-    (**a2)(&__p, a2);
+    ((*a2)->n128_u64[0])(&__p, a2);
     if (!__p)
     {
 LABEL_22:
@@ -10380,11 +9319,11 @@ uint64_t ctu::AssertionRestResource::handleMessage_Resource_PUSH(uint64_t a1, ct
 
     v8 = v29;
     v9 = *(v29 + 3);
-    v10 = v9[7];
+    v10 = *(v9 + 56);
     if (v10)
     {
       v11 = 16 * v10;
-      v12 = v9[6] + 8;
+      v12 = *(v9 + 48) + 8;
       while (!*v12 || *(*v12 + 8) == -1)
       {
         v12 += 16;
@@ -10406,7 +9345,7 @@ uint64_t ctu::AssertionRestResource::handleMessage_Resource_PUSH(uint64_t a1, ct
 
         v33 = 0xAAAAAAAAAAAAAAAALL;
         v34 = 0xAAAAAAAAAAAAAAAALL;
-        boost::container::dtl::flat_tree<std::weak_ptr<ctu::RestResourceConnection>,boost::move_detail::identity<std::weak_ptr<ctu::RestResourceConnection>>,std::owner_less<std::weak_ptr<ctu::RestResourceConnection>>,void>::emplace_unique<std::shared_ptr<ctu::RestResourceConnection>>(v9 + 6, &v27, &v33);
+        boost::container::dtl::flat_tree<std::weak_ptr<ctu::RestResourceConnection>,boost::move_detail::identity<std::weak_ptr<ctu::RestResourceConnection>>,std::owner_less<std::weak_ptr<ctu::RestResourceConnection>>,void>::emplace_unique<std::shared_ptr<ctu::RestResourceConnection>>((v9 + 48), &v27, &v33);
         v22 = v34;
         if (v28)
         {
@@ -10437,9 +9376,9 @@ LABEL_11:
       v13 = 0;
     }
 
-    v16 = v9[3];
-    v15 = v9[4];
-    v14 = v9 + 3;
+    v16 = *(v9 + 24);
+    v15 = *(v9 + 32);
+    v14 = (v9 + 24);
     if (v15)
     {
       v17 = 16 * v15;
@@ -10622,20 +9561,20 @@ void sub_1A91597B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void ctu::AssertionRestResource::getResourceArray(ctu::AssertionRestResource *this@<X0>, xpc_object_t *a2@<X8>)
+void ctu::AssertionRestResource::getResourceArray(xpc_object_t *__return_ptr a1@<X8>, ctu::AssertionRestResource *this@<X0>)
 {
-  *a2 = 0xAAAAAAAAAAAAAAAALL;
+  *a1 = 0xAAAAAAAAAAAAAAAALL;
   v4 = xpc_array_create(0, 0);
   v5 = v4;
   if (v4)
   {
-    *a2 = v4;
+    *a1 = v4;
   }
 
   else
   {
     v5 = xpc_null_create();
-    *a2 = v5;
+    *a1 = v5;
     if (!v5)
     {
       v6 = xpc_null_create();
@@ -10652,7 +9591,7 @@ void ctu::AssertionRestResource::getResourceArray(ctu::AssertionRestResource *th
 
   v6 = xpc_null_create();
 LABEL_8:
-  *a2 = v6;
+  *a1 = v6;
 LABEL_9:
   xpc_release(v5);
   v7 = *(this + 2);
@@ -10690,7 +9629,7 @@ LABEL_9:
         v12 = xpc_null_create();
       }
 
-      xpc_array_append_value(*a2, v12);
+      xpc_array_append_value(*a1, v12);
       xpc_release(v12);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -10705,12 +9644,12 @@ LABEL_9:
   }
 }
 
-BOOL ctu::AssertionRestResource::createIfNotPresent(void *a1, uint64_t a2, __int128 **a3)
+BOOL ctu::AssertionRestResource::createIfNotPresent(void *a1, uint64_t a2, char **a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a1[1];
   v5 = a1[2];
-  v4 = a1 + 1;
+  v4 = (a1 + 1);
   v6 = &v3[2 * v5];
   v7 = *a3;
   if (*a3 == v6)
@@ -10725,32 +9664,32 @@ BOOL ctu::AssertionRestResource::createIfNotPresent(void *a1, uint64_t a2, __int
     *(v11 + 56) = 0u;
     *(v11 + 72) = 0u;
     *(v11 + 11) = 0;
-    v23[0] = v11;
+    v22[0] = v11;
     *&v12 = 0xAAAAAAAAAAAAAAAALL;
     *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    *v25 = v12;
-    *&v25[16] = v12;
+    *v24 = v12;
+    *&v24[16] = v12;
     if (*(a2 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(v25, *a2, *(a2 + 8));
+      std::string::__init_copy_ctor_external(v24, *a2, *(a2 + 8));
       v3 = a1[1];
       v5 = a1[2];
     }
 
     else
     {
-      *v25 = *a2;
-      *&v25[16] = *(a2 + 16);
+      *v24 = *a2;
+      *&v24[16] = *(a2 + 16);
     }
 
-    v23[0] = 0;
-    *&v25[24] = v11;
-    v23[1] = v25;
-    v23[2] = v4;
+    v22[0] = 0;
+    *&v24[24] = v11;
+    v22[1] = v24;
+    v22[2] = v4;
     v13 = &v3[2 * v5];
     while (v5)
     {
-      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v3[2 * (v5 >> 1)], v25) & 0x80u) == 0)
+      if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v3[2 * (v5 >> 1)], v24) & 0x80u) == 0)
       {
         v5 >>= 1;
       }
@@ -10762,13 +9701,13 @@ BOOL ctu::AssertionRestResource::createIfNotPresent(void *a1, uint64_t a2, __int
       }
     }
 
-    if (v3 == v13 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v25, v3) & 0x80) != 0)
+    if (v3 == v13 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v24, v3) & 0x80) != 0)
     {
       v14 = a1[2];
       if (a1[3] == v14)
       {
-        boost::container::vector<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::AssertionRestResourceState>>,boost::container::new_allocator<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::AssertionRestResourceState>>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::new_allocator<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::AssertionRestResourceState>>>,boost::container::dtl::pair<std::string,std::unique_ptr<ctu::AssertionRestResourceState>>*,boost::container::dtl::pair<std::string,std::unique_ptr<ctu::AssertionRestResourceState>>>>(&v24, v4, v3, v25);
-        v3 = v24;
+        boost::container::vector<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::AssertionRestResourceState>>,boost::container::new_allocator<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::AssertionRestResourceState>>>,void>::priv_insert_forward_range_no_capacity<boost::container::dtl::insert_emplace_proxy<boost::container::new_allocator<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::AssertionRestResourceState>>>,boost::container::dtl::pair<std::string,std::unique_ptr<ctu::AssertionRestResourceState>>*,boost::container::dtl::pair<std::string,std::unique_ptr<ctu::AssertionRestResourceState>>>>(&v23, v4, v3, v24);
+        v3 = v23;
       }
 
       else
@@ -10776,11 +9715,11 @@ BOOL ctu::AssertionRestResource::createIfNotPresent(void *a1, uint64_t a2, __int
         v15 = *v4 + 32 * v14;
         if (v15 == v3)
         {
-          v20 = *v25;
-          *(v15 + 16) = *&v25[16];
+          v20 = *v24;
+          *(v15 + 16) = *&v24[16];
           *v15 = v20;
-          memset(v25, 0, sizeof(v25));
-          *(v15 + 24) = *&v25[24];
+          memset(v24, 0, sizeof(v24));
+          *(v15 + 24) = *&v24[24];
           ++a1[2];
         }
 
@@ -10809,37 +9748,35 @@ BOOL ctu::AssertionRestResource::createIfNotPresent(void *a1, uint64_t a2, __int
             while (v19 != v3);
           }
 
-          boost::container::dtl::pair<std::string,std::unique_ptr<ctu::AssertionRestResourceState>>::operator=(v3, v25);
+          boost::container::dtl::pair<std::string,std::unique_ptr<ctu::AssertionRestResourceState>>::operator=(v3, v24);
         }
       }
     }
 
-    std::unique_ptr<ctu::AssertionRestResourceState>::reset[abi:ne200100](&v25[24], 0);
-    if ((v25[23] & 0x80000000) != 0)
+    std::unique_ptr<ctu::AssertionRestResourceState>::reset[abi:ne200100](&v24[24], 0);
+    if ((v24[23] & 0x80000000) != 0)
     {
-      operator delete(*v25);
+      operator delete(*v24);
     }
 
     *a3 = v3;
-    std::unique_ptr<ctu::AssertionRestResourceState>::reset[abi:ne200100](v23, 0);
+    std::unique_ptr<ctu::AssertionRestResourceState>::reset[abi:ne200100](v22, 0);
   }
 
-  result = v7 == v6;
-  v22 = *MEMORY[0x1E69E9840];
-  return result;
+  return v7 == v6;
 }
 
-void sub_1A9159BF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1A9159BF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void *);
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, void);
   boost::container::dtl::value_destructor<boost::container::new_allocator<boost::container::dtl::pair<std::string,std::unique_ptr<ctu::AssertionRestResourceState>>>,boost::container::dtl::pair<std::string,std::unique_ptr<ctu::AssertionRestResourceState>>>::~value_destructor(va1);
   std::unique_ptr<ctu::AssertionRestResourceState>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
 }
 
-void ctu::AssertionRestResource::startNewGeneration(ctu::RestResourceContext &,ctu::PathView const&,ctu::AssertionRestResourceState &)const::$_0::operator()(ctu::RestResourceContext **a1, ctu::rest::WatchableRestResourceHelper *this)
+void ctu::AssertionRestResource::startNewGeneration(ctu::RestResourceContext &,ctu::PathView const&,ctu::AssertionRestResourceState &)const::$_0::operator()(__n128 ***a1, ctu::rest::WatchableRestResourceHelper *this)
 {
   memset(v11, 170, sizeof(v11));
   ctu::rest::WatchableRestResourceHelper::removeWatchers(this, v11);
@@ -10890,7 +9827,7 @@ void sub_1A9159D24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void ctu::AssertionRestResource::handleDroppedConnection(ctu::AssertionRestResource *a1, ctu::RestResourceContext *a2, _OWORD *a3, void *a4)
+void ctu::AssertionRestResource::handleDroppedConnection(ctu::AssertionRestResource *a1, __n128 **a2, _OWORD *a3, void *a4)
 {
   v4 = *(a1 + 2);
   if (v4)
@@ -11280,16 +10217,16 @@ uint64_t std::__function::__func<ctu::AssertionRestResource::handleMessage_Resou
   }
 }
 
-void std::unique_ptr<ctu::AssertionRestResourceState>::reset[abi:ne200100](void **a1, void *a2)
+void std::unique_ptr<ctu::AssertionRestResourceState>::reset[abi:ne200100](uint64_t *a1, void *a2)
 {
   v2 = *a1;
   *a1 = a2;
   if (v2)
   {
-    boost::container::vector<std::weak_ptr<ctu::RestResourceConnection>,boost::container::new_allocator<std::weak_ptr<ctu::RestResourceConnection>>,void>::~vector(v2 + 9);
-    boost::container::vector<std::weak_ptr<ctu::RestResourceConnection>,boost::container::new_allocator<std::weak_ptr<ctu::RestResourceConnection>>,void>::~vector(v2 + 6);
-    boost::container::vector<std::weak_ptr<ctu::RestResourceConnection>,boost::container::new_allocator<std::weak_ptr<ctu::RestResourceConnection>>,void>::~vector(v2 + 3);
-    v3 = v2[1];
+    boost::container::vector<std::weak_ptr<ctu::RestResourceConnection>,boost::container::new_allocator<std::weak_ptr<ctu::RestResourceConnection>>,void>::~vector((v2 + 72));
+    boost::container::vector<std::weak_ptr<ctu::RestResourceConnection>,boost::container::new_allocator<std::weak_ptr<ctu::RestResourceConnection>>,void>::~vector((v2 + 48));
+    boost::container::vector<std::weak_ptr<ctu::RestResourceConnection>,boost::container::new_allocator<std::weak_ptr<ctu::RestResourceConnection>>,void>::~vector((v2 + 24));
+    v3 = *(v2 + 8);
     if (v3)
     {
       std::__shared_weak_count::__release_weak(v3);
@@ -11343,7 +10280,7 @@ LABEL_27:
   v17 = operator new(32 * v11);
   v18 = v17;
   v19 = *a2;
-  v20 = *a2 + 32 * *(a2 + 1);
+  v20 = (*a2 + 32 * *(a2 + 1));
   v21 = v17;
   if (*a2 != a3)
   {
@@ -11352,33 +10289,33 @@ LABEL_27:
     do
     {
       v23 = *v22;
-      *(v21 + 2) = *(v22 + 2);
+      v21[2] = *(v22 + 16);
       *v21 = v23;
       *v22 = 0;
-      *(v22 + 1) = 0;
-      v24 = *(v22 + 3);
-      *(v22 + 2) = 0;
-      *(v22 + 3) = 0;
-      *(v21 + 3) = v24;
+      *(v22 + 8) = 0;
+      v24 = *(v22 + 24);
+      *(v22 + 16) = 0;
+      *(v22 + 24) = 0;
+      v21[3] = v24;
       v22 += 32;
-      v21 += 32;
+      v21 += 4;
     }
 
     while (v22 != a3);
   }
 
   v25 = *a4;
-  *(v21 + 2) = *(a4 + 2);
+  v21[2] = *(a4 + 2);
   *v21 = v25;
   *a4 = 0;
   *(a4 + 1) = 0;
   v26 = *(a4 + 3);
   *(a4 + 2) = 0;
   *(a4 + 3) = 0;
-  *(v21 + 3) = v26;
+  v21[3] = v26;
   if (v20 != a3)
   {
-    v27 = v21 + 56;
+    v27 = v21 + 7;
     v28 = a3;
     do
     {
@@ -11426,7 +10363,7 @@ LABEL_27:
   *a2 = v18;
   *(a2 + 1) = v33;
   *(a2 + 2) = v11;
-  *a1 = &v18[a3 - v16];
+  *a1 = a3 + v18 - v16;
 }
 
 uint64_t boost::container::dtl::pair<std::string,std::unique_ptr<ctu::AssertionRestResourceState>>::operator=(uint64_t a1, __int128 *a2)
@@ -11482,10 +10419,10 @@ void ctu::XpcLogger::create(NSObject **a1@<X0>, const char *a2@<X1>, uint64_t a3
   ctu::XpcLogger::XpcLogger(v10, &v21, a2, __p);
   *a5 = v10;
   v12 = operator new(0x20uLL);
-  v12->__vftable = &unk_1F1CB4A90;
-  v12->__shared_owners_ = 0;
-  v12->__shared_weak_owners_ = 0;
-  v12[1].__vftable = v10;
+  *v12 = &unk_1F1CB4A90;
+  *(v12 + 1) = 0;
+  *(v12 + 2) = 0;
+  *(v12 + 3) = v10;
   a5[1] = v12;
   get_deleter = v10[1].__get_deleter;
   if (get_deleter)
@@ -11495,8 +10432,8 @@ void ctu::XpcLogger::create(NSObject **a1@<X0>, const char *a2@<X1>, uint64_t a3
       goto LABEL_6;
     }
 
-    atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit(&v12->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v12 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v12 + 2, 1uLL, memory_order_relaxed);
     v10[1].__on_zero_shared = &v10[1].~__shared_weak_count_0;
     v10[1].__get_deleter = v12;
     std::__shared_weak_count::__release_weak(get_deleter);
@@ -11504,8 +10441,8 @@ void ctu::XpcLogger::create(NSObject **a1@<X0>, const char *a2@<X1>, uint64_t a3
 
   else
   {
-    atomic_fetch_add_explicit(&v12->__shared_owners_, 1uLL, memory_order_relaxed);
-    atomic_fetch_add_explicit(&v12->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v12 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v12 + 2, 1uLL, memory_order_relaxed);
     v10[1].__on_zero_shared = &v10[1].~__shared_weak_count_0;
     v10[1].__get_deleter = v12;
   }
@@ -11524,14 +10461,14 @@ LABEL_6:
 
   if (MEMORY[0x1AC581B70](*a4) == MEMORY[0x1E69E9E90])
   {
-    atomic_fetch_add_explicit(&v12->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v12 + 2, 1uLL, memory_order_relaxed);
     v16[0] = MEMORY[0x1E69E9820];
     v16[1] = 1174405120;
     v16[2] = ___ZN3ctu9XpcLogger6createEN8dispatch5queueEPKcNSt3__112basic_stringIcNS5_11char_traitsIcEENS5_9allocatorIcEEEEN3xpc8endpointE_block_invoke;
     v16[3] = &__block_descriptor_tmp_29;
     v16[4] = v10;
     v17 = v12;
-    atomic_fetch_add_explicit(&v12->__shared_weak_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v12 + 2, 1uLL, memory_order_relaxed);
     v14 = *a4;
     object = v14;
     if (v14)
@@ -12225,68 +11162,68 @@ void ___ZN3ctu9XpcLogger11setLogLevelENS_8LogLevelE_block_invoke(uint64_t a1)
   }
 }
 
-void ctu::XpcLogger::~XpcLogger(ctu::XpcLogger *this)
+void ctu::XpcLogger::~XpcLogger(ctu::XpcLogger *this, uint64_t a2)
 {
   *this = &unk_1F1CB5C90;
-  v2 = (this + 48);
+  v3 = (this + 48);
   *(this + 6) = &unk_1F1CB5CC8;
-  v3 = *(this + 15);
-  if (v3)
+  v4 = *(this + 15);
+  if (v4)
   {
-    _Block_release(v3);
+    _Block_release(v4);
   }
 
-  ctu::XpcClient::~XpcClient(v2);
+  ctu::XpcClient::~XpcClient(v3, a2);
 
   ctu::LoggerCommonBase::~LoggerCommonBase(this);
 }
 
 {
   *this = &unk_1F1CB5C90;
-  v2 = (this + 48);
+  v3 = (this + 48);
   *(this + 6) = &unk_1F1CB5CC8;
-  v3 = *(this + 15);
-  if (v3)
+  v4 = *(this + 15);
+  if (v4)
   {
-    _Block_release(v3);
+    _Block_release(v4);
   }
 
-  ctu::XpcClient::~XpcClient(v2);
+  ctu::XpcClient::~XpcClient(v3, a2);
   ctu::LoggerCommonBase::~LoggerCommonBase(this);
 
-  operator delete(v4);
+  operator delete(v5);
 }
 
-void non-virtual thunk toctu::XpcLogger::~XpcLogger(ctu::XpcLogger *this)
+void non-virtual thunk toctu::XpcLogger::~XpcLogger(ctu::XpcLogger *this, uint64_t a2)
 {
-  v2 = (this - 48);
+  v3 = (this - 48);
   *(this - 6) = &unk_1F1CB5C90;
   *this = &unk_1F1CB5CC8;
-  v3 = *(this + 9);
-  if (v3)
+  v4 = *(this + 9);
+  if (v4)
   {
-    _Block_release(v3);
+    _Block_release(v4);
   }
 
-  ctu::XpcClient::~XpcClient(this);
+  ctu::XpcClient::~XpcClient(this, a2);
 
-  ctu::LoggerCommonBase::~LoggerCommonBase(v2);
+  ctu::LoggerCommonBase::~LoggerCommonBase(v3);
 }
 
 {
-  v2 = (this - 48);
+  v3 = (this - 48);
   *(this - 6) = &unk_1F1CB5C90;
   *this = &unk_1F1CB5CC8;
-  v3 = *(this + 9);
-  if (v3)
+  v4 = *(this + 9);
+  if (v4)
   {
-    _Block_release(v3);
+    _Block_release(v4);
   }
 
-  ctu::XpcClient::~XpcClient(this);
-  ctu::LoggerCommonBase::~LoggerCommonBase(v2);
+  ctu::XpcClient::~XpcClient(this, a2);
+  ctu::LoggerCommonBase::~LoggerCommonBase(v3);
 
-  operator delete(v4);
+  operator delete(v5);
 }
 
 void std::__shared_ptr_pointer<ctu::XpcLogger *,std::shared_ptr<ctu::XpcLogger> ctu::SharedSynchronizable<ctu::XpcClient>::make_shared_ptr<ctu::XpcLogger>(ctu::XpcLogger*)::{lambda(ctu::XpcLogger *)#1},std::allocator<ctu::XpcLogger>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
@@ -12503,8 +11440,7 @@ void ctu::XpcLoggerProxy::getTrackedLoggerName(ctu::XpcLoggerProxy *this@<X0>, s
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 72);
-    a2->__r_.__value_.__r.__words[2] = *(this + 11);
+    *a2 = *(this + 3);
   }
 }
 
@@ -12517,8 +11453,7 @@ void non-virtual thunk toctu::XpcLoggerProxy::getTrackedLoggerName(ctu::XpcLogge
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(this + 8);
-    a2->__r_.__value_.__r.__words[2] = *(this + 3);
+    *a2 = *(this + 8);
   }
 }
 
@@ -12600,7 +11535,8 @@ void ctu::XpcLoggerProxy::handleMessage(ctu::XpcLoggerProxy *this, xpc_object_t 
       memset(&v13, 0, sizeof(v13));
       *(v9 + 3) = *v17;
       *(v9 + 8) = *&v17[16];
-      *v17 = 0uLL;
+      *v17 = 0;
+      *&v17[8] = 0;
       *(v9 + 72) = v18;
       *(v9 + 11) = v19;
       *&v17[16] = 0;
@@ -12962,14 +11898,14 @@ void ctu::XpcLogServer::handleServerError_sync(uint64_t a1, xpc::object *a2)
     v7 = 0;
     memset(v6, 0, sizeof(v6));
     ctu::LogMessageBuffer::appendString(v6, "Server error: ");
-    xpc::object::describe(a2, __p);
+    xpc::object::describe(__p, a2);
     ctu::LogMessageBuffer::appendString(v6, __p);
     if (v5 < 0)
     {
       operator delete(__p[0]);
     }
 
-    ctu::LoggerBase<std::shared_ptr<ctu::LogServer>>::forceLog(v3, 40, v6);
+    ctu::LoggerBase<std::shared_ptr<ctu::LogServer>>::forceLog(v3, 40, &v6[0].__r_.__value_.__l.__data_);
     ctu::LogMessageBuffer::~LogMessageBuffer(v6);
   }
 }
@@ -13132,7 +12068,8 @@ void ___ZN3ctu12XpcLogServer20handleNewClient_syncEN3xpc10connectionE_block_invo
       ctu::XpcLoggerProxy::create(v37, &v36, &v35, &v34, v38);
       v16 = *(*(a1 + 32) + 8);
       v17 = *v38;
-      *v38 = 0uLL;
+      *v38 = 0;
+      *&v38[8] = 0;
       v18 = *(v16 + 48);
       *(v16 + 40) = v17;
       if (v18)
@@ -13346,7 +12283,7 @@ void ctu::XpcLogServer::handleClientError_sync(uint64_t a1, xpc_object_t *a2, xp
       v20 = ctu::LogMessageBuffer::operator std::ostream &(v23);
       MEMORY[0x1AC580AA0](v20, v19);
       ctu::LogMessageBuffer::appendString(v23, ", but no client found: ");
-      xpc::object::describe(a3, __p);
+      xpc::object::describe(__p, a3);
       ctu::LogMessageBuffer::appendString(v23, __p);
       if (v22 < 0)
       {
@@ -13370,7 +12307,7 @@ void ctu::XpcLogServer::handleClientError_sync(uint64_t a1, xpc_object_t *a2, xp
       v12 = ctu::LogMessageBuffer::operator std::ostream &(v23);
       MEMORY[0x1AC580AA0](v12, v11);
       ctu::LogMessageBuffer::appendString(v23, ": ");
-      ctu::LogMessageBuffer::appendString(v23, *v6 + 72);
+      ctu::LogMessageBuffer::appendString(v23, (*v6 + 72));
       ctu::LogMessageBuffer::appendString(v23, ")");
       ctu::LoggerBase<std::shared_ptr<ctu::LogServer>>::forceLog(a1 + 80, 20, v23);
       ctu::LogMessageBuffer::~LogMessageBuffer(v23);
@@ -13546,8 +12483,7 @@ void ctu::Loggable<ctu::XpcLogServer,ctu::LoggerBase<std::shared_ptr<ctu::LogSer
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *(a1 - 32);
-    a2->__r_.__value_.__r.__words[2] = *(a1 - 16);
+    *a2 = *(a1 - 32);
   }
 }
 

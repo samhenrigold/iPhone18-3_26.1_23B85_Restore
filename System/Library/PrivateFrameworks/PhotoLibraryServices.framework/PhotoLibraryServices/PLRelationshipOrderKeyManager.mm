@@ -82,7 +82,7 @@ void __87__PLRelationshipOrderKeyManager_parentFolderOrderValueForAlbum_inManage
   v9 = v18;
   if (v8)
   {
-    if ([v8 count] == 2)
+    if (objc_msgSend_count(v8) == 2)
     {
       v10 = [v8 objectAtIndex:1];
       v11 = *(a1[6] + 8);
@@ -235,7 +235,7 @@ LABEL_7:
 
   v11 = [(PLRelationshipOrderKeyManager *)self _locked_spiSafeContextGivenPassedInContext:v10 andName:"[PLRelationshipOrderKeyManager writeStashedLocationValuesInContext:error:]"];
   os_unfair_lock_unlock(&self->_lock);
-  if ([v8 count] || objc_msgSend(v9, "count"))
+  if (objc_msgSend_count(v8) || objc_msgSend_count(v9))
   {
     v16 = MEMORY[0x1E69E9820];
     v17 = 3221225472;
@@ -303,7 +303,7 @@ void __75__PLRelationshipOrderKeyManager_writeStashedLocationValuesInContext_err
             v11 = __CPLAssetsdOSLogDomain();
             if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
             {
-              v12 = [v10 count];
+              v12 = objc_msgSend_count(v10);
               *buf = 67109634;
               *v66 = v12;
               *&v66[4] = 2112;
@@ -414,7 +414,7 @@ LABEL_25:
               v33 = __CPLAssetsdOSLogDomain();
               if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
               {
-                v34 = [v32 count];
+                v34 = objc_msgSend_count(v32);
                 *buf = 67109634;
                 *v66 = v34;
                 *&v66[4] = 2112;
@@ -726,7 +726,7 @@ LABEL_6:
     longLongValue2 = 1024;
   }
 
-  if ([orderKeys count] - 1 <= index)
+  if (objc_msgSend_count(orderKeys) - 1 <= index)
   {
     longLongValue3 = 0x7FFFFFFFFFFFFBFFLL;
   }
@@ -826,7 +826,7 @@ LABEL_6:
     v37 = v21;
     [v35 performBlockAndWait:&v31];
     v22 = v40[5];
-    if (v22 && [v22 count] == 2)
+    if (v22 && objc_msgSend_count(v22, v31, v32, v33, v34, v35, v36) == 2)
     {
       v23 = [PLRelationshipOrderingState alloc];
       v24 = [v40[5] objectAtIndexedSubscript:0];
@@ -892,7 +892,7 @@ void __114__PLRelationshipOrderKeyManager__orderingStateForRelationship_onObject
     [currentHandler handleFailureInMethod:a2 object:self file:@"PLRelationshipOrderKeyManager.m" lineNumber:457 description:{@"Invalid parameter not satisfying: %@", @"PLIsAssetsd()"}];
   }
 
-  if ([dCopy count])
+  if (objc_msgSend_count(dCopy))
   {
     managedObjectContext = [libraryCopy managedObjectContext];
     v12[0] = MEMORY[0x1E69E9820];
@@ -980,7 +980,7 @@ void __91__PLRelationshipOrderKeyManager_updateAlbumAssetsUsingTransientOrdersBy
   managedObjectContext = [parentCopy managedObjectContext];
   objectID = [parentCopy objectID];
   mutableAssets = [parentCopy mutableAssets];
-  v8 = [MEMORY[0x1E695DFA8] setWithCapacity:{objc_msgSend(v6, "count")}];
+  v8 = [MEMORY[0x1E695DFA8] setWithCapacity:objc_msgSend_count(v6)];
   v107 = 0u;
   v108 = 0u;
   v109 = 0u;
@@ -1049,7 +1049,7 @@ void __91__PLRelationshipOrderKeyManager_updateAlbumAssetsUsingTransientOrdersBy
           v102 = 0;
           v25 = [(PLRelationshipOrderKeyManager *)self findIndexForAssetWithID:objectID3 newOrderValue:orderValue inAlbumWithID:objectID hasOrderValueConflictWithAssetID:&v102 inContext:v18];
           v26 = v102;
-          v27 = [v19 count];
+          v27 = objc_msgSend_count(v19);
           v28 = v25;
           v92 = v25;
           if (v25 > v27)
@@ -1060,7 +1060,7 @@ void __91__PLRelationshipOrderKeyManager_updateAlbumAssetsUsingTransientOrdersBy
               if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
               {
                 v30 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v24];
-                v31 = [mutableAssets count];
+                v31 = objc_msgSend_count(mutableAssets);
                 *buf = 138413314;
                 v114 = v30;
                 v115 = 2112;
@@ -1079,7 +1079,7 @@ void __91__PLRelationshipOrderKeyManager_updateAlbumAssetsUsingTransientOrdersBy
               v19 = mutableAssets;
             }
 
-            v28 = [v19 count] - (v94 != 0x7FFFFFFFFFFFFFFFLL);
+            v28 = objc_msgSend_count(v19) - (v94 != 0x7FFFFFFFFFFFFFFFLL);
             v17 = MEMORY[0x1E6994D48];
           }
 
@@ -1435,7 +1435,7 @@ LABEL_62:
                 }
 
                 v75 = v57;
-                if (v87 >= [v57 count])
+                if (v87 >= objc_msgSend_count(v57))
                 {
                   v76 = v87;
                 }
@@ -1506,7 +1506,7 @@ LABEL_78:
           }
         }
 
-        v46 = [v19 count];
+        v46 = objc_msgSend_count(v19);
         v28 = v46;
         if (v94 != 0x7FFFFFFFFFFFFFFFLL)
         {
@@ -1956,7 +1956,7 @@ void __84__PLRelationshipOrderKeyManager__locked_spiSafeContextGivenPassedInCont
   mapCopy = map;
   v7 = [albumCopy valueForKey:@"assets"];
   managedObjectContext = [albumCopy managedObjectContext];
-  v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v7, "count")}];
+  v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(v7)];
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
@@ -2011,7 +2011,7 @@ LABEL_11:
   spaceCopy = space;
   keysCopy = keys;
   keyCopy = key;
-  v8 = [keysCopy count];
+  v8 = objc_msgSend_count(keysCopy);
   if (v8)
   {
     v9 = v8;

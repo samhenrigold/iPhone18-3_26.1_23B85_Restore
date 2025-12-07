@@ -3208,11 +3208,11 @@ LABEL_6:
 LABEL_7:
 }
 
-uint64_t __77__CNContactContentEditViewController_addEditingItemAtIndexPath_forTableView___block_invoke_2(uint64_t result, int a2)
+id *__77__CNContactContentEditViewController_addEditingItemAtIndexPath_forTableView___block_invoke_2(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) focusOnLastEditingItemInGroup:*(result + 40)];
+    return [result[4] focusOnLastEditingItemInGroup:result[5]];
   }
 
   return result;

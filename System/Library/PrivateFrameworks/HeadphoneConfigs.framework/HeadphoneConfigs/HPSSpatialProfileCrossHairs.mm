@@ -29,11 +29,11 @@
 
 - (void)nudgeInDirection:(unint64_t)direction smallNudgePeak:(id)peak largeNudgePeak:(id)nudgePeak completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   peakCopy = peak;
   nudgePeakCopy = nudgePeak;
   completionCopy = completion;
-  v13 = sharedBluetoothSettingsLogComponent();
+  v13 = sharedBluetoothSettingsLogComponent(completionCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
@@ -61,12 +61,10 @@
 
   else
   {
-    v15.receiver = self;
-    v15.super_class = HPSSpatialProfileCrossHairs;
-    [(BKUIPearlCrossHairsView *)&v15 nudgeInDirection:direction smallNudgePeak:peakCopy largeNudgePeak:nudgePeakCopy completion:completionCopy];
+    v14.receiver = self;
+    v14.super_class = HPSSpatialProfileCrossHairs;
+    [(BKUIPearlCrossHairsView *)&v14 nudgeInDirection:direction smallNudgePeak:peakCopy largeNudgePeak:nudgePeakCopy completion:completionCopy];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

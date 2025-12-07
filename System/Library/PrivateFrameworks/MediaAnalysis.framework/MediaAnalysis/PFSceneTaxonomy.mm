@@ -3,36 +3,36 @@
 
 @implementation PFSceneTaxonomy
 
-void __52__PFSceneTaxonomy_MediaAnalysis__vcp_sharedTaxonomy__block_invoke()
+void __52__PFSceneTaxonomy_MediaAnalysis__vcp_sharedTaxonomy__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (([objc_opt_class() mad_isExpectedTaxonomy] & 1) == 0 && MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Error: MAD tracked taxonomy is not the latest in Photos!", buf, 2u);
   }
 
-  v0 = [MEMORY[0x1E69C0858] latestTaxonomyIdentifier];
+  v2 = [MEMORY[0x1E69C0858] latestTaxonomyIdentifier];
   if (MediaAnalysisLogLevel() >= 5 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v7 = v0;
+    v9 = v2;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "Loading PFSceneTaxonomy identifier %@", buf, 0xCu);
   }
 
-  v5 = 0;
-  v1 = [objc_alloc(MEMORY[0x1E69C0858]) initWithIdentifier:v0 error:&v5];
-  v2 = v5;
-  v3 = +[PFSceneTaxonomy(MediaAnalysis) vcp_sharedTaxonomy]::instance;
-  +[PFSceneTaxonomy(MediaAnalysis) vcp_sharedTaxonomy]::instance = v1;
+  v7 = 0;
+  v3 = [objc_alloc(MEMORY[0x1E69C0858]) initWithIdentifier:v2 error:&v7];
+  v4 = v7;
+  v5 = +[PFSceneTaxonomy(MediaAnalysis) vcp_sharedTaxonomy]::instance;
+  +[PFSceneTaxonomy(MediaAnalysis) vcp_sharedTaxonomy]::instance = v3;
 
-  if ((!+[PFSceneTaxonomy(MediaAnalysis) vcp_sharedTaxonomy]::instance || v2) && MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  if ((!+[PFSceneTaxonomy(MediaAnalysis) vcp_sharedTaxonomy]::instance || v4) && MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v4 = [v2 description];
+    v6 = [v4 description];
     *buf = 138412546;
-    v7 = v0;
-    v8 = 2112;
-    v9 = v4;
+    v9 = v2;
+    v10 = 2112;
+    v11 = v6;
     _os_log_impl(&dword_1C9B70000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Failed to initialize PFSceneTaxonomy w/identifier %@ (%@)", buf, 0x16u);
   }
 }

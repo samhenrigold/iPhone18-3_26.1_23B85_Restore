@@ -33,15 +33,15 @@
 
 - (NSArray)deserializedActions
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   actions = [(WFCoreDataWorkflow *)self actions];
   data = [actions data];
 
   if (data)
   {
-    v9 = 0;
-    v4 = [MEMORY[0x1E696AE40] propertyListWithData:data options:0 format:0 error:&v9];
-    v5 = v9;
+    v8 = 0;
+    v4 = [MEMORY[0x1E696AE40] propertyListWithData:data options:0 format:0 error:&v8];
+    v5 = v8;
     if (!v4 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
 
@@ -49,9 +49,9 @@
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v11 = "[WFCoreDataWorkflow(RecordStorage) deserializedActions]";
-        v12 = 2114;
-        v13 = v5;
+        v10 = "[WFCoreDataWorkflow(RecordStorage) deserializedActions]";
+        v11 = 2114;
+        v12 = v5;
         _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_FAULT, "%s Failed to deserialize actions from plist data: %{public}@", buf, 0x16u);
       }
 
@@ -64,46 +64,42 @@
     v4 = MEMORY[0x1E695E0F0];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
 + (id)descriptorFetchRequest
 {
-  v8[20] = *MEMORY[0x1E69E9840];
+  v7[20] = *MEMORY[0x1E69E9840];
   fetchRequest = [self fetchRequest];
   [fetchRequest setReturnsObjectsAsFaults:0];
-  v8[0] = @"workflowID";
-  v8[1] = @"name";
-  v8[2] = @"workflowSubtitle";
-  v8[3] = @"actionsDescription";
-  v8[4] = @"actionCount";
-  v8[5] = @"associatedAppBundleIdentifier";
-  v8[6] = @"icon";
-  v8[7] = @"tombstoned";
-  v8[8] = @"triggerCount";
-  v8[9] = @"modificationDate";
-  v8[10] = @"lastRunEventDate";
-  v8[11] = @"remoteQuarantineStatusValue";
-  v8[12] = @"hasShortcutInputVariables";
-  v8[13] = @"showInSearch";
-  v8[14] = @"receivesInputFromSearch";
-  v8[15] = @"disabledOnLockScreen";
-  v8[16] = @"hiddenFromLibraryAndSync";
-  v8[17] = @"wantedEncryptedSchemaVersion";
-  v8[18] = @"lastSyncedEncryptedSchemaVersion";
-  v8[19] = @"hasOutputAction";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:20];
+  v7[0] = @"workflowID";
+  v7[1] = @"name";
+  v7[2] = @"workflowSubtitle";
+  v7[3] = @"actionsDescription";
+  v7[4] = @"actionCount";
+  v7[5] = @"associatedAppBundleIdentifier";
+  v7[6] = @"icon";
+  v7[7] = @"tombstoned";
+  v7[8] = @"triggerCount";
+  v7[9] = @"modificationDate";
+  v7[10] = @"lastRunEventDate";
+  v7[11] = @"remoteQuarantineStatusValue";
+  v7[12] = @"hasShortcutInputVariables";
+  v7[13] = @"showInSearch";
+  v7[14] = @"receivesInputFromSearch";
+  v7[15] = @"disabledOnLockScreen";
+  v7[16] = @"hiddenFromLibraryAndSync";
+  v7[17] = @"wantedEncryptedSchemaVersion";
+  v7[18] = @"lastSyncedEncryptedSchemaVersion";
+  v7[19] = @"hasOutputAction";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:20];
   [fetchRequest setPropertiesToFetch:v3];
 
-  v7[0] = @"icon";
-  v7[1] = @"triggers";
-  v7[2] = @"runEvents";
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
+  v6[0] = @"icon";
+  v6[1] = @"triggers";
+  v6[2] = @"runEvents";
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:3];
   [fetchRequest setRelationshipKeyPathsForPrefetching:v4];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return fetchRequest;
 }
@@ -169,33 +165,32 @@
 
 + (id)recordPropertyMap
 {
-  v6[12] = *MEMORY[0x1E69E9840];
-  v5[0] = @"icon";
-  v5[1] = @"quarantine";
-  v6[0] = @"workflowIcon";
-  v6[1] = @"workflowQuarantine";
-  v5[2] = @"deleted";
-  v5[3] = @"workflowSubtitle";
-  v6[2] = @"tombstoned";
-  v6[3] = @"subtitle";
-  v5[4] = @"actions";
-  v5[5] = @"importQuestions";
-  v6[4] = @"deserializedActions";
-  v6[5] = @"deserializedImportQuestions";
-  v5[6] = @"inputClasses";
-  v5[7] = @"noInputBehavior";
-  v6[6] = @"deserializedInputClasses";
-  v6[7] = @"deserializedNoInputBehavior";
-  v5[8] = @"outputClasses";
+  v5[12] = *MEMORY[0x1E69E9840];
+  v4[0] = @"icon";
+  v4[1] = @"quarantine";
+  v5[0] = @"workflowIcon";
+  v5[1] = @"workflowQuarantine";
+  v4[2] = @"deleted";
+  v4[3] = @"workflowSubtitle";
+  v5[2] = @"tombstoned";
+  v5[3] = @"subtitle";
+  v4[4] = @"actions";
+  v4[5] = @"importQuestions";
+  v5[4] = @"deserializedActions";
+  v5[5] = @"deserializedImportQuestions";
+  v4[6] = @"inputClasses";
+  v4[7] = @"noInputBehavior";
+  v5[6] = @"deserializedInputClasses";
+  v5[7] = @"deserializedNoInputBehavior";
+  v4[8] = @"outputClasses";
+  v4[9] = @"wantedEncryptedSchemaVersion";
+  v5[8] = @"deserializedOutputClasses";
   v5[9] = @"wantedEncryptedSchemaVersion";
-  v6[8] = @"deserializedOutputClasses";
-  v6[9] = @"wantedEncryptedSchemaVersion";
+  v4[10] = @"lastSyncedEncryptedSchemaVersion";
+  v4[11] = @"hasOutputAction";
   v5[10] = @"lastSyncedEncryptedSchemaVersion";
   v5[11] = @"hasOutputAction";
-  v6[10] = @"lastSyncedEncryptedSchemaVersion";
-  v6[11] = @"hasOutputAction";
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:12];
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:v4 count:12];
 
   return v2;
 }
@@ -358,7 +353,7 @@
 
   v64 = [v3 combineInteger:{-[WFCoreDataWorkflow remoteQuarantineStatus](self, "remoteQuarantineStatus")}];
   source = [(WFCoreDataWorkflow *)self source];
-  if (([source isEqualToString:@"ShortcutSourceUnknown"] & 1) != 0 || (objc_msgSend(source, "isEqualToString:", @"ShortcutSourceOnDevice") & 1) != 0 || (objc_msgSend(source, "isEqualToString:", @"ShortcutSourceGallery") & 1) != 0 || (objc_msgSend(source, "isEqualToString:", @"ShortcutSourceAddToSiri") & 1) != 0 || (objc_msgSend(source, "isEqualToString:", @"ShortcutSourceCloudLink") & 1) != 0 || (objc_msgSend(source, "isEqualToString:", @"ShortcutSourceDefaultShortcut") & 1) != 0 || (objc_msgSend(source, "isEqualToString:", @"ShortcutSourceSiriTopLevelShortcut") & 1) != 0 || (objc_msgSend(source, "isEqualToString:", @"ShortcutSourceAutomatorMigration") & 1) != 0 || (objc_msgSend(source, "isEqualToString:", @"ShortcutSourceFilePublic") & 1) != 0 || (objc_msgSend(source, "isEqualToString:", @"ShortcutSourceFileKnownContacts") & 1) != 0 || (objc_msgSend(source, "isEqualToString:", @"ShortcutSourceFilePersonal") & 1) != 0 || (objc_msgSend(source, "isEqualToString:", @"ShortcutSourceEditorDocumentMenu") & 1) != 0 || (objc_msgSend(source, "isEqualToString:", @"ShortcutSourceAppShortcut") & 1) != 0 || (objc_msgSend(source, "isEqualToString:", @"ShortcutSourceActiveStarterShortcut") & 1) == 0)
+  if ((objc_msgSend_isEqualToString_(source) & 1) != 0 || (objc_msgSend_isEqualToString_(source) & 1) != 0 || (objc_msgSend_isEqualToString_(source) & 1) != 0 || (objc_msgSend_isEqualToString_(source) & 1) != 0 || (objc_msgSend_isEqualToString_(source) & 1) != 0 || (objc_msgSend_isEqualToString_(source) & 1) != 0 || (objc_msgSend_isEqualToString_(source) & 1) != 0 || (objc_msgSend_isEqualToString_(source) & 1) != 0 || (objc_msgSend_isEqualToString_(source) & 1) != 0 || (objc_msgSend_isEqualToString_(source) & 1) != 0 || (objc_msgSend_isEqualToString_(source) & 1) != 0 || (objc_msgSend_isEqualToString_(source) & 1) != 0 || (objc_msgSend_isEqualToString_(source) & 1) != 0 || (objc_msgSend_isEqualToString_(source) & 1) == 0)
   {
   }
 
@@ -437,28 +432,28 @@ WFCoreDataSmartPromptPermission *__69__WFCoreDataWorkflow_RecordStorage__setSmar
 
 - (NSSet)smartPromptPerWorkflowStates
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   smartPromptPermissions = [(WFCoreDataWorkflow *)self smartPromptPermissions];
-  v5 = [smartPromptPermissions countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [smartPromptPermissions countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(smartPromptPermissions);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         data = [v9 data];
         v11 = [data length];
 
@@ -472,13 +467,11 @@ WFCoreDataSmartPromptPermission *__69__WFCoreDataWorkflow_RecordStorage__setSmar
         }
       }
 
-      v6 = [smartPromptPermissions countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [smartPromptPermissions countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -513,28 +506,28 @@ WFCoreDataAccessResourcePermission *__72__WFCoreDataWorkflow_RecordStorage__setA
 
 - (NSSet)accessResourcePerWorkflowStates
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   accessResourcePermissions = [(WFCoreDataWorkflow *)self accessResourcePermissions];
-  v5 = [accessResourcePermissions countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [accessResourcePermissions countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(accessResourcePermissions);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         v10 = [WFSerializedAccessResourcePerWorkflowState alloc];
         identifier = [v9 identifier];
         data = [v9 data];
@@ -542,23 +535,21 @@ WFCoreDataAccessResourcePermission *__72__WFCoreDataWorkflow_RecordStorage__setA
         [v3 addObject:v13];
       }
 
-      v6 = [accessResourcePermissions countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [accessResourcePermissions countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (void)setDeserializedImportQuestions:(id)questions
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v10 = 0;
-  v4 = [MEMORY[0x1E696AE40] dataWithPropertyList:questions format:200 options:0 error:&v10];
-  v5 = v10;
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0;
+  v4 = [MEMORY[0x1E696AE40] dataWithPropertyList:questions format:200 options:0 error:&v9];
+  v5 = v9;
   if (v4)
   {
     selfCopy2 = self;
@@ -571,9 +562,9 @@ WFCoreDataAccessResourcePermission *__72__WFCoreDataWorkflow_RecordStorage__setA
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v12 = "[WFCoreDataWorkflow(RecordStorage) setDeserializedImportQuestions:]";
-      v13 = 2114;
-      v14 = v5;
+      v11 = "[WFCoreDataWorkflow(RecordStorage) setDeserializedImportQuestions:]";
+      v12 = 2114;
+      v13 = v5;
       _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_FAULT, "%s Failed to serialize import questions into plist data: %{public}@", buf, 0x16u);
     }
 
@@ -582,22 +573,20 @@ WFCoreDataAccessResourcePermission *__72__WFCoreDataWorkflow_RecordStorage__setA
   }
 
   [(WFCoreDataWorkflow *)selfCopy2 setImportQuestionsData:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)deserializedImportQuestions
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   importQuestionsData = [(WFCoreDataWorkflow *)self importQuestionsData];
 
   if (importQuestionsData)
   {
     v4 = MEMORY[0x1E696AE40];
     importQuestionsData2 = [(WFCoreDataWorkflow *)self importQuestionsData];
-    v11 = 0;
-    v6 = [v4 propertyListWithData:importQuestionsData2 options:0 format:0 error:&v11];
-    v7 = v11;
+    v10 = 0;
+    v6 = [v4 propertyListWithData:importQuestionsData2 options:0 format:0 error:&v10];
+    v7 = v10;
 
     if (!v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
@@ -606,9 +595,9 @@ WFCoreDataAccessResourcePermission *__72__WFCoreDataWorkflow_RecordStorage__setA
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v13 = "[WFCoreDataWorkflow(RecordStorage) deserializedImportQuestions]";
-        v14 = 2114;
-        v15 = v7;
+        v12 = "[WFCoreDataWorkflow(RecordStorage) deserializedImportQuestions]";
+        v13 = 2114;
+        v14 = v7;
         _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_FAULT, "%s Failed to deserialize import questions from plist data: %{public}@", buf, 0x16u);
       }
 
@@ -621,17 +610,15 @@ WFCoreDataAccessResourcePermission *__72__WFCoreDataWorkflow_RecordStorage__setA
     v6 = MEMORY[0x1E695E0F0];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (void)setDeserializedOutputClasses:(id)classes
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v10 = 0;
-  v4 = [MEMORY[0x1E696AE40] dataWithPropertyList:classes format:200 options:0 error:&v10];
-  v5 = v10;
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0;
+  v4 = [MEMORY[0x1E696AE40] dataWithPropertyList:classes format:200 options:0 error:&v9];
+  v5 = v9;
   if (v4)
   {
     selfCopy2 = self;
@@ -644,9 +631,9 @@ WFCoreDataAccessResourcePermission *__72__WFCoreDataWorkflow_RecordStorage__setA
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v12 = "[WFCoreDataWorkflow(RecordStorage) setDeserializedOutputClasses:]";
-      v13 = 2114;
-      v14 = v5;
+      v11 = "[WFCoreDataWorkflow(RecordStorage) setDeserializedOutputClasses:]";
+      v12 = 2114;
+      v13 = v5;
       _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_FAULT, "%s Failed to serialize output classes into plist data: %{public}@", buf, 0x16u);
     }
 
@@ -655,22 +642,20 @@ WFCoreDataAccessResourcePermission *__72__WFCoreDataWorkflow_RecordStorage__setA
   }
 
   [(WFCoreDataWorkflow *)selfCopy2 setOutputClassesData:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)deserializedOutputClasses
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   outputClassesData = [(WFCoreDataWorkflow *)self outputClassesData];
 
   if (outputClassesData)
   {
     v4 = MEMORY[0x1E696AE40];
     outputClassesData2 = [(WFCoreDataWorkflow *)self outputClassesData];
-    v11 = 0;
-    v6 = [v4 propertyListWithData:outputClassesData2 options:0 format:0 error:&v11];
-    v7 = v11;
+    v10 = 0;
+    v6 = [v4 propertyListWithData:outputClassesData2 options:0 format:0 error:&v10];
+    v7 = v10;
 
     if (!v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
@@ -679,9 +664,9 @@ WFCoreDataAccessResourcePermission *__72__WFCoreDataWorkflow_RecordStorage__setA
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v13 = "[WFCoreDataWorkflow(RecordStorage) deserializedOutputClasses]";
-        v14 = 2114;
-        v15 = v7;
+        v12 = "[WFCoreDataWorkflow(RecordStorage) deserializedOutputClasses]";
+        v13 = 2114;
+        v14 = v7;
         _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_FAULT, "%s Failed to deserialize output classes from plist data: %{public}@", buf, 0x16u);
       }
 
@@ -694,14 +679,12 @@ WFCoreDataAccessResourcePermission *__72__WFCoreDataWorkflow_RecordStorage__setA
     v6 = MEMORY[0x1E695E0F0];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (void)setDeserializedNoInputBehavior:(id)behavior
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   behaviorCopy = behavior;
   if (!behaviorCopy)
   {
@@ -710,9 +693,9 @@ WFCoreDataAccessResourcePermission *__72__WFCoreDataWorkflow_RecordStorage__setA
     goto LABEL_7;
   }
 
-  v9 = 0;
-  v5 = [MEMORY[0x1E696AE40] dataWithPropertyList:behaviorCopy format:200 options:0 error:&v9];
-  v6 = v9;
+  v8 = 0;
+  v5 = [MEMORY[0x1E696AE40] dataWithPropertyList:behaviorCopy format:200 options:0 error:&v8];
+  v6 = v8;
   if (v5)
   {
 LABEL_7:
@@ -725,30 +708,28 @@ LABEL_7:
   if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v11 = "[WFCoreDataWorkflow(RecordStorage) setDeserializedNoInputBehavior:]";
-    v12 = 2114;
-    v13 = v6;
+    v10 = "[WFCoreDataWorkflow(RecordStorage) setDeserializedNoInputBehavior:]";
+    v11 = 2114;
+    v12 = v6;
     _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_FAULT, "%s Failed to serialize no input behavior into plist data: %{public}@", buf, 0x16u);
   }
 
   [(WFCoreDataWorkflow *)self setNoInputBehaviorData:0];
 LABEL_8:
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (NSDictionary)deserializedNoInputBehavior
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   noInputBehaviorData = [(WFCoreDataWorkflow *)self noInputBehaviorData];
 
   if (noInputBehaviorData)
   {
     v4 = MEMORY[0x1E696AE40];
     noInputBehaviorData2 = [(WFCoreDataWorkflow *)self noInputBehaviorData];
-    v10 = 0;
-    noInputBehaviorData = [v4 propertyListWithData:noInputBehaviorData2 options:0 format:0 error:&v10];
-    v6 = v10;
+    v9 = 0;
+    noInputBehaviorData = [v4 propertyListWithData:noInputBehaviorData2 options:0 format:0 error:&v9];
+    v6 = v9;
 
     if (!noInputBehaviorData || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
@@ -757,9 +738,9 @@ LABEL_8:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v12 = "[WFCoreDataWorkflow(RecordStorage) deserializedNoInputBehavior]";
-        v13 = 2114;
-        v14 = v6;
+        v11 = "[WFCoreDataWorkflow(RecordStorage) deserializedNoInputBehavior]";
+        v12 = 2114;
+        v13 = v6;
         _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_FAULT, "%s Failed to deserialize no input behavior from plist data: %{public}@", buf, 0x16u);
       }
 
@@ -767,17 +748,15 @@ LABEL_8:
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return noInputBehaviorData;
 }
 
 - (void)setDeserializedInputClasses:(id)classes
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v10 = 0;
-  v4 = [MEMORY[0x1E696AE40] dataWithPropertyList:classes format:200 options:0 error:&v10];
-  v5 = v10;
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0;
+  v4 = [MEMORY[0x1E696AE40] dataWithPropertyList:classes format:200 options:0 error:&v9];
+  v5 = v9;
   if (v4)
   {
     selfCopy2 = self;
@@ -790,9 +769,9 @@ LABEL_8:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v12 = "[WFCoreDataWorkflow(RecordStorage) setDeserializedInputClasses:]";
-      v13 = 2114;
-      v14 = v5;
+      v11 = "[WFCoreDataWorkflow(RecordStorage) setDeserializedInputClasses:]";
+      v12 = 2114;
+      v13 = v5;
       _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_FAULT, "%s Failed to serialize input classes into plist data: %{public}@", buf, 0x16u);
     }
 
@@ -801,22 +780,20 @@ LABEL_8:
   }
 
   [(WFCoreDataWorkflow *)selfCopy2 setInputClassesData:v7];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)deserializedInputClasses
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   inputClassesData = [(WFCoreDataWorkflow *)self inputClassesData];
 
   if (inputClassesData)
   {
     v4 = MEMORY[0x1E696AE40];
     inputClassesData2 = [(WFCoreDataWorkflow *)self inputClassesData];
-    v11 = 0;
-    v6 = [v4 propertyListWithData:inputClassesData2 options:0 format:0 error:&v11];
-    v7 = v11;
+    v10 = 0;
+    v6 = [v4 propertyListWithData:inputClassesData2 options:0 format:0 error:&v10];
+    v7 = v10;
 
     if (!v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
@@ -825,9 +802,9 @@ LABEL_8:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315394;
-        v13 = "[WFCoreDataWorkflow(RecordStorage) deserializedInputClasses]";
-        v14 = 2114;
-        v15 = v7;
+        v12 = "[WFCoreDataWorkflow(RecordStorage) deserializedInputClasses]";
+        v13 = 2114;
+        v14 = v7;
         _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_FAULT, "%s Failed to deserialize input classes from plist data: %{public}@", buf, 0x16u);
       }
 
@@ -840,17 +817,15 @@ LABEL_8:
     v6 = MEMORY[0x1E695E0F0];
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v6;
 }
 
 - (void)setDeserializedActions:(id)actions
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  v4 = [MEMORY[0x1E696AE40] dataWithPropertyList:actions format:200 options:0 error:&v11];
-  v5 = v11;
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0;
+  v4 = [MEMORY[0x1E696AE40] dataWithPropertyList:actions format:200 options:0 error:&v10];
+  v5 = v10;
   if (v4)
   {
     actions = [(WFCoreDataWorkflow *)self actions];
@@ -864,9 +839,9 @@ LABEL_8:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v13 = "[WFCoreDataWorkflow(RecordStorage) setDeserializedActions:]";
-      v14 = 2114;
-      v15 = v5;
+      v12 = "[WFCoreDataWorkflow(RecordStorage) setDeserializedActions:]";
+      v13 = 2114;
+      v14 = v5;
       _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_FAULT, "%s Failed to serialize actions into plist data: %{public}@", buf, 0x16u);
     }
 
@@ -876,8 +851,6 @@ LABEL_8:
   }
 
   [actions setData:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setWorkflowTypes:(id)types
@@ -932,7 +905,7 @@ LABEL_8:
 
 - (NSArray)workflowTypes
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   managedObjectContext = [(WFCoreDataWorkflow *)self managedObjectContext];
   if (managedObjectContext)
@@ -962,26 +935,26 @@ LABEL_8:
   identifier = [(WFCoreDataWorkflow *)self identifier];
   v10 = [library collectionsContainingShortcut:identifier];
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v21;
+    v14 = *v20;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v21 != v14)
+        if (*v20 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        identifier2 = [*(*(&v20 + 1) + 8 * i) identifier];
+        identifier2 = [*(*(&v19 + 1) + 8 * i) identifier];
         v17 = WFWorkflowTypeForCollectionIdentifier(identifier2);
 
         if (v17)
@@ -990,7 +963,7 @@ LABEL_8:
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v13);
@@ -1014,8 +987,6 @@ LABEL_8:
       [v3 addObject:*MEMORY[0x1E69E1448]];
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -1105,7 +1076,7 @@ LABEL_8:
 
 - (void)didUpdateProperties:(id)properties
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   if ([propertiesCopy count])
   {
@@ -1118,15 +1089,15 @@ LABEL_8:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
       {
         workflowID = [(WFCoreDataWorkflow *)self workflowID];
-        v14 = 136315906;
-        v15 = "[WFCoreDataWorkflow(RecordStorage) didUpdateProperties:]";
-        v16 = 2112;
-        v17 = propertiesCopy;
-        v18 = 2112;
-        v19 = workflowID;
-        v20 = 2048;
-        v21 = syncHash;
-        _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_INFO, "%s Properties %@ changed of workflow %@, but sync hash %lld stayed stable", &v14, 0x2Au);
+        v13 = 136315906;
+        v14 = "[WFCoreDataWorkflow(RecordStorage) didUpdateProperties:]";
+        v15 = 2112;
+        v16 = propertiesCopy;
+        v17 = 2112;
+        v18 = workflowID;
+        v19 = 2048;
+        v20 = syncHash;
+        _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_INFO, "%s Properties %@ changed of workflow %@, but sync hash %lld stayed stable", &v13, 0x2Au);
       }
     }
 
@@ -1135,17 +1106,17 @@ LABEL_8:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         workflowID2 = [(WFCoreDataWorkflow *)self workflowID];
-        v14 = 136316162;
-        v15 = "[WFCoreDataWorkflow(RecordStorage) didUpdateProperties:]";
-        v16 = 2112;
-        v17 = workflowID2;
-        v18 = 2048;
-        v19 = syncHash;
-        v20 = 2048;
-        v21 = computedSyncHash;
-        v22 = 2112;
-        v23 = propertiesCopy;
-        _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_DEFAULT, "%s Updating syncHash of workflow: %@ from %lld -> %lld. (Because %@ updated)", &v14, 0x34u);
+        v13 = 136316162;
+        v14 = "[WFCoreDataWorkflow(RecordStorage) didUpdateProperties:]";
+        v15 = 2112;
+        v16 = workflowID2;
+        v17 = 2048;
+        v18 = syncHash;
+        v19 = 2048;
+        v20 = computedSyncHash;
+        v21 = 2112;
+        v22 = propertiesCopy;
+        _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_DEFAULT, "%s Updating syncHash of workflow: %@ from %lld -> %lld. (Because %@ updated)", &v13, 0x34u);
       }
 
       [(WFCoreDataWorkflow *)self setSyncHash:computedSyncHash];
@@ -1158,8 +1129,6 @@ LABEL_8:
       [(WFCoreDataWorkflow *)self setSpotlightSyncHash:computedSpotlightSyncHash];
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -82,26 +82,26 @@ LABEL_22:
 
 + (_NSRange)revealRangeAtIndex:(unint64_t)index selectedRanges:(id)ranges shouldUpdateSelection:(BOOL *)selection
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   rangesCopy = ranges;
-  v8 = [rangesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [rangesCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(rangesCopy);
         }
 
-        rangeValue = [*(*(&v19 + 1) + 8 * i) rangeValue];
+        rangeValue = [*(*(&v18 + 1) + 8 * i) rangeValue];
         if (index >= rangeValue && index - rangeValue < v12)
         {
           indexCopy2 = rangeValue;
@@ -111,7 +111,7 @@ LABEL_22:
         }
       }
 
-      v8 = [rangesCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [rangesCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v8);
@@ -132,11 +132,10 @@ LABEL_14:
     indexCopy2 = index;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-  v17 = indexCopy2;
-  v18 = v15;
-  result.length = v18;
-  result.location = v17;
+  v16 = indexCopy2;
+  v17 = v15;
+  result.length = v17;
+  result.location = v16;
   return result;
 }
 

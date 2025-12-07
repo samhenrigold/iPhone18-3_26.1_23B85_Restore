@@ -44,10 +44,16 @@
   if (label)
   {
     sub_1D8190F14();
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
   }
 
   selfCopy = self;
-  OUTLINED_FUNCTION_6_54();
+  OUTLINED_FUNCTION_6_54(selfCopy, v5);
 }
 
 @end

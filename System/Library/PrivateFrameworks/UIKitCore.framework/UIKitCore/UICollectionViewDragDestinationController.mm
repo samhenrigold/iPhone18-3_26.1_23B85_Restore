@@ -24,13 +24,13 @@ void __123___UICollectionViewDragDestinationController__computeNextItemAttribute
 {
   v5 = a2;
   v7 = v5;
-  if (!v5 || (v6 = v5, (*(v5 + 288) & 1) == 0))
+  if (!v5 || (v6 = v5, (v5[288] & 1) == 0))
   {
     [*(a1 + 32) addIndex:a3];
     v6 = v7;
   }
 
-  if ([*(a1 + 40) isEqual:v6])
+  if (objc_msgSend_isEqual_(*(a1 + 40), v6, v6))
   {
     [*(a1 + 32) addIndex:a3];
   }

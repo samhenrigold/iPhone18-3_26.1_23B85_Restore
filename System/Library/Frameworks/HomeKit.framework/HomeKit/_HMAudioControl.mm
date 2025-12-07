@@ -36,7 +36,7 @@
 
 - (void)_handleAudioControlUpdated:(id)updated
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   updatedCopy = updated;
   context = [(_HMAudioControl *)self context];
   pendingRequests = [context pendingRequests];
@@ -52,11 +52,11 @@
     v12 = HMFGetLogIdentifier();
     v13 = _Block_copy(v8);
     *buf = 138543874;
-    v43 = v12;
-    v44 = 2112;
-    v45 = updatedCopy;
-    v46 = 2112;
-    v47 = v13;
+    v42 = v12;
+    v43 = 2112;
+    v44 = updatedCopy;
+    v45 = 2112;
+    v46 = v13;
     _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_INFO, "%{public}@Received notification that audio controls got updated : %@, %@", buf, 0x20u);
   }
 
@@ -75,15 +75,15 @@
       delegate2 = [(_HMAudioControl *)selfCopy delegate];
       context2 = [(_HMAudioControl *)selfCopy context];
       delegateCaller = [context2 delegateCaller];
-      v38[0] = MEMORY[0x1E69E9820];
-      v38[1] = 3221225472;
-      v38[2] = __46___HMAudioControl__handleAudioControlUpdated___block_invoke;
-      v38[3] = &unk_1E7547B40;
-      v39 = delegate2;
-      v40 = selfCopy;
-      v41 = v19;
+      v37[0] = MEMORY[0x1E69E9820];
+      v37[1] = 3221225472;
+      v37[2] = __46___HMAudioControl__handleAudioControlUpdated___block_invoke;
+      v37[3] = &unk_1E7547B40;
+      v38 = delegate2;
+      v39 = selfCopy;
+      v40 = v19;
       v23 = delegate2;
-      [delegateCaller invokeBlock:v38];
+      [delegateCaller invokeBlock:v37];
     }
   }
 
@@ -96,17 +96,17 @@
       delegate3 = [(_HMAudioControl *)selfCopy delegate];
       context3 = [(_HMAudioControl *)selfCopy context];
       delegateCaller2 = [context3 delegateCaller];
-      v34[0] = MEMORY[0x1E69E9820];
-      v34[1] = 3221225472;
-      v34[2] = __46___HMAudioControl__handleAudioControlUpdated___block_invoke_2;
-      v34[3] = &unk_1E754DC70;
-      v35 = delegate3;
-      v36 = selfCopy;
-      v37 = v26;
+      v33[0] = MEMORY[0x1E69E9820];
+      v33[1] = 3221225472;
+      v33[2] = __46___HMAudioControl__handleAudioControlUpdated___block_invoke_2;
+      v33[3] = &unk_1E754DC70;
+      v34 = delegate3;
+      v35 = selfCopy;
+      v36 = v26;
       context4 = delegate3;
-      [delegateCaller2 invokeBlock:v34];
+      [delegateCaller2 invokeBlock:v33];
 
-      delegateCaller3 = v35;
+      delegateCaller3 = v34;
 LABEL_15:
     }
   }
@@ -118,34 +118,32 @@ LABEL_15:
     [delegateCaller3 callCompletion:v8 error:0];
     goto LABEL_15;
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateMuted:(BOOL)muted completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   context = [(_HMAudioControl *)self context];
   if (!handlerCopy)
   {
-    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[_HMAudioControl updateMuted:completionHandler:]", @"completionHandler"];
-    v17 = objc_autoreleasePoolPush();
+    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[_HMAudioControl updateMuted:completionHandler:]", @"completionHandler"];
+    v16 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v19 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v18 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v20 = HMFGetLogIdentifier();
+      v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v20;
-      v28 = 2112;
-      v29 = v16;
-      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v26 = v19;
+      v27 = 2112;
+      v28 = v15;
+      _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v17);
-    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
-    objc_exception_throw(v21);
+    objc_autoreleasePoolPop(v16);
+    v20 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v15 userInfo:0];
+    objc_exception_throw(v20);
   }
 
   v8 = context;
@@ -158,8 +156,8 @@ LABEL_15:
     block[3] = &unk_1E754A040;
     mutedCopy = muted;
     block[4] = self;
-    v24 = handlerCopy;
-    v23 = v8;
+    v23 = handlerCopy;
+    v22 = v8;
     dispatch_async(queue, block);
   }
 
@@ -172,9 +170,9 @@ LABEL_15:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v13;
-      v28 = 2080;
-      v29 = "[_HMAudioControl updateMuted:completionHandler:]";
+      v26 = v13;
+      v27 = 2080;
+      v28 = "[_HMAudioControl updateMuted:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -182,34 +180,32 @@ LABEL_15:
     v14 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(handlerCopy + 2))(handlerCopy, v14);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateVolume:(float)volume completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   context = [(_HMAudioControl *)self context];
   if (!handlerCopy)
   {
-    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[_HMAudioControl updateVolume:completionHandler:]", @"completionHandler"];
-    v17 = objc_autoreleasePoolPush();
+    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[_HMAudioControl updateVolume:completionHandler:]", @"completionHandler"];
+    v16 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v19 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v18 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v20 = HMFGetLogIdentifier();
+      v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v20;
-      v28 = 2112;
-      v29 = v16;
-      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v26 = v19;
+      v27 = 2112;
+      v28 = v15;
+      _os_log_impl(&dword_19BB39000, v18, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v17);
-    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
-    objc_exception_throw(v21);
+    objc_autoreleasePoolPop(v16);
+    v20 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v15 userInfo:0];
+    objc_exception_throw(v20);
   }
 
   v8 = context;
@@ -222,8 +218,8 @@ LABEL_15:
     block[3] = &unk_1E7547950;
     volumeCopy = volume;
     block[4] = self;
-    v24 = handlerCopy;
-    v23 = v8;
+    v23 = handlerCopy;
+    v22 = v8;
     dispatch_async(queue, block);
   }
 
@@ -236,9 +232,9 @@ LABEL_15:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v13;
-      v28 = 2080;
-      v29 = "[_HMAudioControl updateVolume:completionHandler:]";
+      v26 = v13;
+      v27 = 2080;
+      v28 = "[_HMAudioControl updateVolume:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -246,8 +242,6 @@ LABEL_15:
     v14 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(handlerCopy + 2))(handlerCopy, v14);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)mergeFromNewObject:(id)object
@@ -394,16 +388,16 @@ LABEL_15:
 
 - (void)_unconfigure
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     v6 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v6;
-    _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Unconfiguring audioControl", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v6;
+    _os_log_impl(&dword_19BB39000, v5, OS_LOG_TYPE_DEBUG, "%{public}@Unconfiguring audioControl", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
@@ -414,8 +408,6 @@ LABEL_15:
   [(_HMAudioControl *)selfCopy setContext:0];
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter removeObserver:selfCopy];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__configureWithContext:(id)context

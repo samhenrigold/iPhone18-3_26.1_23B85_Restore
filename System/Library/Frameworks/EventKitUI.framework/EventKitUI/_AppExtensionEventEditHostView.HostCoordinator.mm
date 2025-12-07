@@ -34,6 +34,10 @@
   v12 = v11;
   selfCopy = self;
   sub_1D35C929C(v7, v9, v10, v12, style);
+
+  v9, v14, v15, v16, v17, v18, v19, v20;
+
+  v12, v21, v22, v23, v24, v25, v26, v27;
 }
 
 - (void)didCompleteWithAction:(int64_t)action oldToNewObjectIDMap:(id)map waitUntilTimestamp:(id)timestamp serializedDictionary:(id)dictionary objectIDToChangeSetDictionaryMap:(id)dictionaryMap objectIDToPersistentDictionaryMap:(id)persistentDictionaryMap eventConstraints:(id)constraints
@@ -41,7 +45,7 @@
   mapCopy = map;
   if (map)
   {
-    sub_1D35A52E0(0, &qword_1EC76AD00);
+    sub_1D35A52E0(0, &qword_1EC76AD00, 0x1E6966A68);
     sub_1D35BC1F4();
     mapCopy = sub_1D35DF344();
   }
@@ -53,7 +57,7 @@
 
   if (dictionaryMap)
   {
-    sub_1D35A52E0(0, &qword_1EC76AD00);
+    sub_1D35A52E0(0, &qword_1EC76AD00, 0x1E6966A68);
     sub_1D35BC1F4();
     dictionaryMap = sub_1D35DF344();
   }
@@ -64,7 +68,7 @@
   selfCopy = self;
   if (persistentDictionaryMapCopy)
   {
-    sub_1D35A52E0(0, &qword_1EC76AD00);
+    sub_1D35A52E0(0, &qword_1EC76AD00, 0x1E6966A68);
     sub_1D35BC1F4();
     v19 = sub_1D35DF344();
 
@@ -92,6 +96,12 @@ LABEL_9:
 LABEL_12:
   sub_1D35C9698(action, mapCopy, timestampCopy, dictionary, dictionaryMap, v19, v20, v22);
   sub_1D35C12AC(v20, v22);
+
+  v19, v23, v24, v25, v26, v27, v28, v29;
+  dictionaryMap, v30, v31, v32, v33, v34, v35, v36;
+  dictionary, v37, v38, v39, v40, v41, v42, v43;
+
+  mapCopy, v44, v45, v46, v47, v48, v49, v50;
 }
 
 - (_TtCV10EventKitUI30_AppExtensionEventEditHostView15HostCoordinator)init

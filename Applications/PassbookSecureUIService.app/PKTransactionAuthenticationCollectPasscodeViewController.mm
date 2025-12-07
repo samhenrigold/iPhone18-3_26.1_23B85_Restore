@@ -22,6 +22,7 @@
 - (void)resetWithTransactionAuthenticationFailure:(int64_t)failure completion:(id)completion;
 - (void)traitCollectionDidChange:(id)change;
 - (void)transactionSourceIdentifier:(id)identifier didReceiveTransaction:(id)transaction;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 @end
 
@@ -72,23 +73,7 @@
   completionCopy = completion;
   v17 = completionCopy;
   v5 = objc_retainBlock(v16);
-  if (!self->_passUniqueIdentifier)
-  {
-    goto LABEL_5;
-  }
-
-  if (!self->_transactionIdentifier)
-  {
-    goto LABEL_5;
-  }
-
-  v6 = +[PKPassLibrary sharedInstance];
-  v7 = [v6 passWithUniqueID:self->_passUniqueIdentifier];
-  paymentPass = [v7 paymentPass];
-  pass = self->_pass;
-  self->_pass = paymentPass;
-
-  if (self->_pass)
+  if (self->_passUniqueIdentifier && self->_transactionIdentifier && (+[PKPassLibrary sharedInstance](PKPassLibrary, "sharedInstance"), v6 = objc_claimAutoreleasedReturnValue(), [v6 passWithUniqueID:self->_passUniqueIdentifier], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "paymentPass"), v8 = objc_claimAutoreleasedReturnValue(), pass = self->_pass, self->_pass = v8, pass, v7, v6, self->_pass))
   {
     objc_initWeak(&location, self);
     paymentService = self->_paymentService;
@@ -108,7 +93,6 @@
 
   else
   {
-LABEL_5:
     (v5[2])(v5, 0);
   }
 }
@@ -293,9 +277,9 @@ LABEL_5:
 
 - (void)viewWillLayoutSubviews
 {
-  v52.receiver = self;
-  v52.super_class = PKTransactionAuthenticationCollectPasscodeViewController;
-  [(PKTransactionAuthenticationCollectPasscodeViewController *)&v52 viewWillLayoutSubviews];
+  v48.receiver = self;
+  v48.super_class = PKTransactionAuthenticationCollectPasscodeViewController;
+  [(PKTransactionAuthenticationCollectPasscodeViewController *)&v48 viewWillLayoutSubviews];
   view = [(PKTransactionAuthenticationCollectPasscodeViewController *)self view];
   v4 = PKUIGetMinScreenWidthType();
   v5 = 44.0;
@@ -315,8 +299,7 @@ LABEL_5:
   }
 
   [view bounds];
-  v51 = v7;
-  v9 = v8 - (v6 + v6);
+  v8 = v7 - (v6 + v6);
   PKUIGetMinScreenWidthType();
   superview = [(UIImageView *)self->_logoImageView superview];
 
@@ -327,16 +310,16 @@ LABEL_5:
 
     PKSizeAspectFit();
     UIRectCenteredXInRect();
-    v13 = v12;
-    v15 = v14;
-    v17 = v16;
-    v19 = v18;
+    v12 = v11;
+    v14 = v13;
+    v16 = v15;
+    v18 = v17;
     [(UIImageView *)self->_logoImageView setFrame:?];
-    v53.origin.x = v13;
-    v53.origin.y = v15;
-    v53.size.width = v17;
-    v53.size.height = v19;
-    CGRectGetMaxY(v53);
+    v49.origin.x = v12;
+    v49.origin.y = v14;
+    v49.size.width = v16;
+    v49.size.height = v18;
+    CGRectGetMaxY(v49);
   }
 
   else
@@ -345,66 +328,72 @@ LABEL_5:
 
     if (superview2)
     {
-      [(UILabel *)self->_titleLabel sizeThatFits:v9, 1.79769313e308];
+      [(UILabel *)self->_titleLabel sizeThatFits:v8, 1.79769313e308];
       UIRectCenteredXInRect();
-      v22 = v21;
-      v24 = v23;
-      v26 = v25;
-      v28 = v27;
+      v21 = v20;
+      v23 = v22;
+      v25 = v24;
+      v27 = v26;
       [(UILabel *)self->_titleLabel setFrame:?];
-      v54.origin.x = v22;
-      v54.origin.y = v24;
-      v54.size.width = v26;
-      v54.size.height = v28;
-      CGRectGetMaxY(v54);
+      v50.origin.x = v21;
+      v50.origin.y = v23;
+      v50.size.width = v25;
+      v50.size.height = v27;
+      CGRectGetMaxY(v50);
     }
   }
 
-  [(UILabel *)self->_bodyTextLabel sizeThatFits:v9];
+  [(UILabel *)self->_bodyTextLabel sizeThatFits:v8];
   UIRectCenteredXInRect();
-  v30 = v29;
-  v32 = v31;
-  v34 = v33;
-  v36 = v35;
+  v29 = v28;
+  v31 = v30;
+  v33 = v32;
+  v35 = v34;
   [(UILabel *)self->_bodyTextLabel setFrame:?];
-  v55.origin.x = v30;
-  v55.origin.y = v32;
-  v55.size.width = v34;
-  v55.size.height = v36;
-  CGRectGetMaxY(v55);
-  PINFormat = self->_PINFormat;
+  v51.origin.x = v29;
+  v51.origin.y = v31;
+  v51.size.width = v33;
+  v51.size.height = v35;
+  CGRectGetMaxY(v51);
   PKFloatRoundToPixel();
   [(UIView *)self->_passcodeField sizeThatFits:?];
   UIRectCenteredXInRect();
+  v37 = v36;
   v39 = v38;
   v41 = v40;
   v43 = v42;
-  v45 = v44;
   [(UIView *)self->_passcodeField setFrame:?];
-  v56.origin.x = v39;
-  v56.origin.y = v41;
-  v56.size.width = v43;
-  v56.size.height = v45;
-  CGRectGetMaxY(v56);
+  v52.origin.x = v37;
+  v52.origin.y = v39;
+  v52.size.width = v41;
+  v52.size.height = v43;
+  CGRectGetMaxY(v52);
   [(UIActivityIndicatorView *)self->_spinner frame];
   UIRectGetCenter();
   UIRectCenteredAboutPoint();
   [(UIActivityIndicatorView *)self->_spinner setFrame:?];
-  [(UILabel *)self->_failureLabel sizeThatFits:v9, 1.79769313e308];
-  v47 = v46 + 4.0;
+  [(UILabel *)self->_failureLabel sizeThatFits:v8, 1.79769313e308];
+  v45 = v44 + 4.0;
   UIRectCenteredXInRect();
   [(UILabel *)self->_failureLabel setFrame:?];
   layer = [(UILabel *)self->_failureLabel layer];
-  [layer setCornerRadius:v47 * 0.5];
+  [layer setCornerRadius:v45 * 0.5];
 
   [(UIButton *)self->_footerButton sizeToFit];
   [(UIButton *)self->_footerButton frame];
-  v49 = v51 - self->_keyboardSize.height;
   titleLabel = [(UIButton *)self->_footerButton titleLabel];
   [titleLabel frame];
 
   UIRectCenteredXInRect();
   [(UIButton *)self->_footerButton setFrame:?];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = PKTransactionAuthenticationCollectPasscodeViewController;
+  [(PKTransactionAuthenticationCollectPasscodeViewController *)&v4 viewDidAppear:appear];
+  [(UIView *)self->_passcodeField becomeFirstResponder];
 }
 
 - (void)traitCollectionDidChange:(id)change

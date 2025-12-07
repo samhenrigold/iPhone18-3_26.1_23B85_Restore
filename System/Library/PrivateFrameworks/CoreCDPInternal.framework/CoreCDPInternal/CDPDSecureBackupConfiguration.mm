@@ -334,20 +334,20 @@ LABEL_29:
 
 - (id)_fetchConfigurationWithRequest:(id)request
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   if (requestCopy)
   {
-    v27 = 0;
-    v28[0] = &v27;
-    v28[1] = 0x3032000000;
-    v28[2] = __Block_byref_object_copy__8;
-    v28[3] = __Block_byref_object_dispose__8;
-    v29 = 0;
-    v23 = 0;
-    v24 = &v23;
-    v25 = 0x2020000000;
     v26 = 0;
+    v27 = &v26;
+    v28 = 0x3032000000;
+    v29 = __Block_byref_object_copy__8;
+    v30 = __Block_byref_object_dispose__8;
+    v31 = 0;
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x2020000000;
+    v25 = 0;
     v5 = 1;
     v6 = MEMORY[0x277D85DD0];
     do
@@ -356,44 +356,44 @@ LABEL_29:
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v31 = requestCopy;
+        v33 = requestCopy;
         _os_log_debug_impl(&dword_24510B000, v7, OS_LOG_TYPE_DEBUG, "Attempting to fetch configuration using request: %@", buf, 0xCu);
       }
 
       v8 = dispatch_semaphore_create(0);
       session = self->_session;
-      v18[0] = v6;
-      v18[1] = 3221225472;
-      v18[2] = __64__CDPDSecureBackupConfiguration__fetchConfigurationWithRequest___block_invoke;
-      v18[3] = &unk_278E26278;
-      v20 = &v23;
-      v21 = &v27;
-      v22 = v5;
+      v17[0] = v6;
+      v17[1] = 3221225472;
+      v17[2] = __64__CDPDSecureBackupConfiguration__fetchConfigurationWithRequest___block_invoke;
+      v17[3] = &unk_278E26278;
+      v19 = &v22;
+      v20 = &v26;
+      v21 = v5;
       v10 = v8;
-      v19 = v10;
-      v11 = [(NSURLSession *)session dataTaskWithRequest:requestCopy completionHandler:v18];
+      v18 = v10;
+      v11 = [(NSURLSession *)session dataTaskWithRequest:requestCopy completionHandler:v17];
       [v11 resume];
       dispatch_semaphore_wait(v10, 0xFFFFFFFFFFFFFFFFLL);
 
       ++v5;
     }
 
-    while ((v24[3] & 1) != 0);
-    v12 = *(v28[0] + 40);
+    while ((v23[3] & 1) != 0);
+    v12 = v27[5];
     if (v12)
     {
       v13 = _CDPLogSystem();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        [CDPDSecureBackupConfiguration _fetchConfigurationWithRequest:v28];
+        [CDPDSecureBackupConfiguration _fetchConfigurationWithRequest:];
       }
 
-      v12 = *(v28[0] + 40);
+      v12 = v27[5];
     }
 
     v14 = v12;
-    _Block_object_dispose(&v23, 8);
-    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v22, 8);
+    _Block_object_dispose(&v26, 8);
   }
 
   else
@@ -406,8 +406,6 @@ LABEL_29:
 
     v14 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -457,14 +455,6 @@ void __64__CDPDSecureBackupConfiguration__fetchConfigurationWithRequest___block_
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-- (void)escrowAuthInfoForCreateEscrowRecordFlow:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 - (void)escrowAuthInfoForCreateEscrowRecordFlow:.cold.5()
 {
   OUTLINED_FUNCTION_3();
@@ -479,30 +469,12 @@ void __64__CDPDSecureBackupConfiguration__fetchConfigurationWithRequest___block_
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)_fetchConfigurationWithRequest:(uint64_t)a1 .cold.1(uint64_t a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *(*a1 + 40);
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __64__CDPDSecureBackupConfiguration__fetchConfigurationWithRequest___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __64__CDPDSecureBackupConfiguration__fetchConfigurationWithRequest___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Failed to load configuraiton: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_24510B000, a2, OS_LOG_TYPE_ERROR, "Failed to load configuraiton: %@", &v2, 0xCu);
 }
 
 @end

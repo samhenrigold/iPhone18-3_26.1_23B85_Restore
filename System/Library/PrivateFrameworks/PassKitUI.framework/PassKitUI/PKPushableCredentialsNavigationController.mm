@@ -49,7 +49,7 @@
   handlerCopy = handler;
   v8 = objc_alloc(MEMORY[0x1E69B8840]);
   _hostProcessIdentifier = [(PKPushableCredentialsNavigationController *)self _hostProcessIdentifier];
-  [(PKPushableCredentialsNavigationController *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self);
   v10 = [v8 initWithProcessIdentifier:_hostProcessIdentifier auditToken:buf];
   if (([v10 shareableCredentialProvisioning] & 1) == 0)
   {

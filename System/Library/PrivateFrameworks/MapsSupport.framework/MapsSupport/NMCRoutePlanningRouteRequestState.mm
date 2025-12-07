@@ -43,33 +43,33 @@
   manager = [(NanoRoutePlanningState *)self manager];
   request = [manager request];
 
-  v5 = sub_100053324();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+  v6 = sub_100053324(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     waypoints = [request waypoints];
     *buf = 138477827;
     *&buf[4] = waypoints;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "-start, will generate map-ish items for waypoints: %{private}@", buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "-start, will generate map-ish items for waypoints: %{private}@", buf, 0xCu);
   }
 
   waypoints2 = [request waypoints];
-  v8 = sub_1000282B8(waypoints2, &stru_100085110);
+  v9 = sub_1000282B8(waypoints2, &stru_100085110);
 
-  v9 = [v8 count];
+  v10 = [v9 count];
   waypoints3 = [request waypoints];
-  v11 = [waypoints3 count];
+  v12 = [waypoints3 count];
 
-  if (v9 == v11)
+  if (v10 == v12)
   {
     transportType = [request transportType];
     if (transportType > 5)
     {
-      v13 = 1;
+      v15 = 1;
     }
 
     else
     {
-      v13 = qword_100065980[transportType];
+      v15 = qword_100065980[transportType];
     }
 
     departureDate = [request departureDate];
@@ -77,125 +77,125 @@
     companionRouteContext = [request companionRouteContext];
     if (arrivalDate)
     {
-      v21 = 1;
-      v22 = arrivalDate;
+      v23 = 1;
+      v24 = arrivalDate;
     }
 
     else
     {
       if (!departureDate)
       {
-        v27 = objc_alloc_init(NSMutableDictionary);
+        v29 = objc_alloc_init(NSMutableDictionary);
         goto LABEL_20;
       }
 
-      v21 = 0;
-      v22 = departureDate;
+      v23 = 0;
+      v24 = departureDate;
     }
 
-    v25 = objc_alloc_init(GEOURLTimePoint);
-    [v25 setType:v21];
-    [v22 timeIntervalSinceReferenceDate];
-    [v25 setTime:?];
-    v26 = objc_alloc_init(NSMutableDictionary);
-    v27 = v26;
-    if (v25)
+    v27 = objc_alloc_init(GEOURLTimePoint);
+    [v27 setType:v23];
+    [v24 timeIntervalSinceReferenceDate];
+    [v27 setTime:?];
+    v28 = objc_alloc_init(NSMutableDictionary);
+    v29 = v28;
+    if (v27)
     {
-      [v26 setObject:v25 forKeyedSubscript:MKLaunchOptionsTimePointKey];
+      [v28 setObject:v27 forKeyedSubscript:MKLaunchOptionsTimePointKey];
     }
 
 LABEL_20:
-    if (v13 > 3)
+    if (v15 > 3)
     {
-      if (v13 == 4)
+      if (v15 == 4)
       {
-        [v27 setObject:MKLaunchOptionsDirectionsModeTransit forKeyedSubscript:MKLaunchOptionsDirectionsModeKey];
+        [v29 setObject:MKLaunchOptionsDirectionsModeTransit forKeyedSubscript:MKLaunchOptionsDirectionsModeKey];
         transitOptions = [request transitOptions];
-        v29 = &MKLaunchOptionsTransitOptionsKey;
+        v31 = &MKLaunchOptionsTransitOptionsKey;
         goto LABEL_30;
       }
 
-      if (v13 == 8)
+      if (v15 == 8)
       {
-        [v27 setObject:MKLaunchOptionsDirectionsModeCycling forKeyedSubscript:MKLaunchOptionsDirectionsModeKey];
+        [v29 setObject:MKLaunchOptionsDirectionsModeCycling forKeyedSubscript:MKLaunchOptionsDirectionsModeKey];
         transitOptions = [request cyclingOptions];
-        v29 = &MKLaunchOptionsCyclingOptionsKey;
+        v31 = &MKLaunchOptionsCyclingOptionsKey;
         goto LABEL_30;
       }
     }
 
     else
     {
-      if (v13 == 1)
+      if (v15 == 1)
       {
-        [v27 setObject:MKLaunchOptionsDirectionsModeDriving forKeyedSubscript:MKLaunchOptionsDirectionsModeKey];
+        [v29 setObject:MKLaunchOptionsDirectionsModeDriving forKeyedSubscript:MKLaunchOptionsDirectionsModeKey];
         transitOptions = [request automobileOptions];
-        v29 = &MKLaunchOptionsAutomobileOptionsKey;
+        v31 = &MKLaunchOptionsAutomobileOptionsKey;
         goto LABEL_30;
       }
 
-      if (v13 == 2)
+      if (v15 == 2)
       {
-        [v27 setObject:MKLaunchOptionsDirectionsModeWalking forKeyedSubscript:MKLaunchOptionsDirectionsModeKey];
+        [v29 setObject:MKLaunchOptionsDirectionsModeWalking forKeyedSubscript:MKLaunchOptionsDirectionsModeKey];
         transitOptions = [request walkingOptions];
-        v29 = &MKLaunchOptionsWalkingOptionsKey;
+        v31 = &MKLaunchOptionsWalkingOptionsKey;
 LABEL_30:
-        [v27 setObject:transitOptions forKeyedSubscript:*v29];
+        [v29 setObject:transitOptions forKeyedSubscript:*v31];
 
         goto LABEL_31;
       }
     }
 
-    [v27 setObject:MKLaunchOptionsDirectionsModeDefault forKeyedSubscript:MKLaunchOptionsDirectionsModeKey];
+    v32 = [v29 setObject:MKLaunchOptionsDirectionsModeDefault forKeyedSubscript:MKLaunchOptionsDirectionsModeKey];
 LABEL_31:
-    v30 = sub_100053324();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v33 = sub_100053324(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      *&buf[4] = v27;
-      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "-start, launching Maps with a url and options %{public}@", buf, 0xCu);
+      *&buf[4] = v29;
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "-start, launching Maps with a url and options %{public}@", buf, 0xCu);
     }
 
-    v31 = [MKMapItem urlForMapItems:v8 options:v27];
-    [(NMCRoutePlanningRouteRequestState *)self _launchMapsWithURL:v31 companionRouteContext:companionRouteContext];
+    v34 = [MKMapItem urlForMapItems:v9 options:v29];
+    [(NMCRoutePlanningRouteRequestState *)self _launchMapsWithURL:v34 companionRouteContext:companionRouteContext];
 
     goto LABEL_34;
   }
 
-  v14 = sub_100053324();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+  v16 = sub_100053324(v13);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
   {
     *buf = 138477827;
-    *&buf[4] = v8;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "-start, only generated map-ish items: %{private}@", buf, 0xCu);
+    *&buf[4] = v9;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "-start, only generated map-ish items: %{private}@", buf, 0xCu);
   }
 
-  v15 = sub_1000134CC(4);
-  v16 = v15;
-  if (v15)
+  v17 = sub_1000134CC(4);
+  v18 = v17;
+  if (v17)
   {
-    v35 = NSLocalizedDescriptionKey;
-    *buf = v15;
-    v17 = [NSDictionary dictionaryWithObjects:buf forKeys:&v35 count:1];
+    v38 = NSLocalizedDescriptionKey;
+    *buf = v17;
+    v19 = [NSDictionary dictionaryWithObjects:buf forKeys:&v38 count:1];
   }
 
   else
   {
-    v17 = 0;
+    v19 = 0;
   }
 
-  v23 = [NSError errorWithDomain:@"NanoRoutePlanningSession" code:4 userInfo:v17];
+  v25 = [NSError errorWithDomain:@"NanoRoutePlanningSession" code:4 userInfo:v19];
 
   manager2 = [(NanoRoutePlanningState *)self manager];
-  v32[0] = _NSConcreteStackBlock;
-  v32[1] = 3221225472;
-  v32[2] = sub_10000BA84;
-  v32[3] = &unk_100085138;
-  v33 = v23;
-  departureDate = v23;
-  [manager2 updateWithBlock:v32];
+  v35[0] = _NSConcreteStackBlock;
+  v35[1] = 3221225472;
+  v35[2] = sub_10000BA84;
+  v35[3] = &unk_100085138;
+  v36 = v25;
+  departureDate = v25;
+  [manager2 updateWithBlock:v35];
 
-  arrivalDate = v33;
+  arrivalDate = v36;
 LABEL_34:
 }
 
@@ -203,7 +203,7 @@ LABEL_34:
 {
   contextCopy = context;
   lCopy = l;
-  v8 = sub_100053324();
+  v8 = sub_100053324(lCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     simpleDescription = [contextCopy simpleDescription];

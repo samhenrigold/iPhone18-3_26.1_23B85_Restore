@@ -1,5 +1,6 @@
 @interface NPKProtoPassSyncStateChange
 - (BOOL)isEqual:(id)equal;
+- (id)changeTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -15,6 +16,21 @@
 @end
 
 @implementation NPKProtoPassSyncStateChange
+
+- (id)changeTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279949820[string];
+  }
+
+  return v4;
+}
 
 - (int)StringAsChangeType:(id)type
 {
@@ -104,7 +120,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = dictionary;
   changeUUID = self->_changeUUID;
@@ -182,30 +198,30 @@
   if ([(NSMutableArray *)self->_remoteAssetsForPartialUpdates count])
   {
     v19 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_remoteAssetsForPartialUpdates, "count")}];
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     v20 = self->_remoteAssetsForPartialUpdates;
-    v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v32;
+      v23 = *v31;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v32 != v23)
+          if (*v31 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          dictionaryRepresentation3 = [*(*(&v31 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v30 + 1) + 8 * i) dictionaryRepresentation];
           [v19 addObject:dictionaryRepresentation3];
         }
 
-        v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
       while (v22);
@@ -227,14 +243,12 @@
     [v4 setObject:v28 forKey:@"lastKnownReconciledPassSyncStateHashVersion"];
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (!self->_changeUUID)
   {
@@ -248,7 +262,6 @@
     PBDataWriterWriteDataField();
   }
 
-  changeType = self->_changeType;
   PBDataWriterWriteInt32Field();
   if (!self->_uniqueID)
   {
@@ -269,14 +282,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    passSegmentIndex = self->_passSegmentIndex;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    passSegmentTotal = self->_passSegmentTotal;
     PBDataWriterWriteUint32Field();
   }
 
@@ -290,33 +301,32 @@
     PBDataWriterWriteDataField();
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v10 = self->_remoteAssetsForPartialUpdates;
-  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
-  if (v11)
+  v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
+  v7 = self->_remoteAssetsForPartialUpdates;
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  if (v8)
   {
-    v12 = v11;
-    v13 = *v19;
+    v9 = v8;
+    v10 = *v13;
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v13)
+        if (*v13 != v10)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v7);
         }
 
-        v15 = *(*(&v18 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
-    while (v12);
+    while (v9);
   }
 
   if (self->_watchCatalog)
@@ -326,11 +336,8 @@
 
   if (*&self->_has)
   {
-    lastKnownReconciledPassSyncStateHashVersion = self->_lastKnownReconciledPassSyncStateHashVersion;
     PBDataWriterWriteUint32Field();
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -407,7 +414,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSData *)self->_changeUUID copyWithZone:zone];
   v7 = *(v5 + 24);
@@ -452,30 +459,30 @@
   v20 = *(v5 + 8);
   *(v5 + 8) = v19;
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v21 = self->_remoteAssetsForPartialUpdates;
-  v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v22 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v22)
   {
     v23 = v22;
-    v24 = *v32;
+    v24 = *v31;
     do
     {
       for (i = 0; i != v23; ++i)
       {
-        if (*v32 != v24)
+        if (*v31 != v24)
         {
           objc_enumerationMutation(v21);
         }
 
-        v26 = [*(*(&v31 + 1) + 8 * i) copyWithZone:{zone, v31}];
+        v26 = [*(*(&v30 + 1) + 8 * i) copyWithZone:{zone, v30}];
         [v5 addRemoteAssetsForPartialUpdate:v26];
       }
 
-      v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v23 = [(NSMutableArray *)v21 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
     while (v23);
@@ -491,7 +498,6 @@
     *(v5 + 104) |= 1u;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -553,7 +559,6 @@
     }
   }
 
-  v10 = *(equalCopy + 104);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 104) & 2) == 0 || self->_passSegmentIndex != *(equalCopy + 16))
@@ -565,7 +570,7 @@
   else if ((*(equalCopy + 104) & 2) != 0)
   {
 LABEL_35:
-    v15 = 0;
+    v14 = 0;
     goto LABEL_36;
   }
 
@@ -615,7 +620,7 @@ LABEL_35:
     }
   }
 
-  v15 = (*(equalCopy + 104) & 1) == 0;
+  v14 = (*(equalCopy + 104) & 1) == 0;
   if (*&self->_has)
   {
     if ((*(equalCopy + 104) & 1) == 0 || self->_lastKnownReconciledPassSyncStateHashVersion != *(equalCopy + 12))
@@ -623,12 +628,12 @@ LABEL_35:
       goto LABEL_35;
     }
 
-    v15 = 1;
+    v14 = 1;
   }
 
 LABEL_36:
 
-  return v15;
+  return v14;
 }
 
 - (unint64_t)hash
@@ -681,7 +686,7 @@ LABEL_6:
 
 - (void)mergeFrom:(id)from
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 3))
   {
@@ -753,29 +758,29 @@ LABEL_6:
     [(NPKProtoPassSyncStateChange *)self setBaseManifestHashForPartialUpdate:?];
   }
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v10 = *(fromCopy + 9);
-  v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [(NPKProtoPassSyncStateChange *)self addRemoteAssetsForPartialUpdate:*(*(&v18 + 1) + 8 * i), v18];
+        [(NPKProtoPassSyncStateChange *)self addRemoteAssetsForPartialUpdate:*(*(&v17 + 1) + 8 * i), v17];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v12);
@@ -801,8 +806,6 @@ LABEL_6:
     self->_lastKnownReconciledPassSyncStateHashVersion = *(fromCopy + 12);
     *&self->_has |= 1u;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)npkDescription

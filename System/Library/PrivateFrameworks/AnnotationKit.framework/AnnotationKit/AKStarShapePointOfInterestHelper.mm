@@ -22,7 +22,7 @@
   v16 = v15;
   v18 = v17;
   [annotationCopy rotationAngle];
-  [AKGeometryHelper rotationTransformForRect:v12 withAngle:v14, v16, v18, v19];
+  objc_msgSend_rotationTransformForRect_withAngle_(AKGeometryHelper, v12, v14, v16, v18, v19);
   v20 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v9, "count") + 1}];
   v21 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v10, "count") + 1}];
   v22 = [AKStarAnnotationRenderer innerStarPoints:annotationCopy];

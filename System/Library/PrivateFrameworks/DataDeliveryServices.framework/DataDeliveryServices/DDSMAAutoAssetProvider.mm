@@ -19,27 +19,27 @@
   selectorCopy = selector;
   v4 = objc_alloc(MEMORY[0x1E69B18F8]);
   assetSelector = [selectorCopy assetSelector];
-  v11 = 0;
-  v6 = [v4 initForClientName:@"com.apple.DataDeliveryServices" selectingAsset:assetSelector error:&v11];
-  v7 = v11;
+  v12 = 0;
+  v6 = [v4 initForClientName:@"com.apple.DataDeliveryServices" selectingAsset:assetSelector error:&v12];
+  v7 = v12;
 
   if (v7)
   {
-    v8 = AutoAssetLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = AutoAssetLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [DDSMAAutoAssetProvider autoAssetForAssetSelector:selectorCopy];
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v9 = v6;
+    v10 = v6;
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)fetchLockReasonCountForAutoAsset:(id)asset callback:(id)callback
@@ -59,28 +59,32 @@
 
 void __68__DDSMAAutoAssetProvider_fetchLockReasonCountForAutoAsset_callback___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
-  if (v6 && [v6 code] == 6301)
+  if (v6)
   {
-    v8 = AutoAssetLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v6 = [v6 code];
+    if (v6 == 6301)
     {
-      v9 = [*(a1 + 32) assetSelector];
-      v21 = 138543362;
-      v22 = v9;
-      _os_log_impl(&dword_1DF7C6000, v8, OS_LOG_TYPE_DEFAULT, "Auto asset status is not available for assetSelector: %{public}@", &v21, 0xCu);
-    }
+      v8 = AutoAssetLog(6301);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        v9 = [*(a1 + 32) assetSelector];
+        v20 = 138543362;
+        v21 = v9;
+        _os_log_impl(&dword_1DF7C6000, v8, OS_LOG_TYPE_DEFAULT, "Auto asset status is not available for assetSelector: %{public}@", &v20, 0xCu);
+      }
 
-    v10 = *(*(a1 + 40) + 16);
+      v10 = *(*(a1 + 40) + 16);
 LABEL_13:
-    v10();
-    goto LABEL_14;
+      v10();
+      goto LABEL_14;
+    }
   }
 
-  v11 = AutoAssetLog();
+  v11 = AutoAssetLog(v6);
   v12 = v11;
   if (!v5)
   {
@@ -98,11 +102,11 @@ LABEL_13:
     v13 = [v5 currentLockUsage];
     v14 = [v13 count];
     v15 = [*(a1 + 32) assetSelector];
-    v21 = 134218242;
-    v22 = v14;
-    v23 = 2114;
-    v24 = v15;
-    _os_log_impl(&dword_1DF7C6000, v12, OS_LOG_TYPE_DEFAULT, "Auto asset lock reason count: %lu for assetSelector: %{public}@", &v21, 0x16u);
+    v20 = 134218242;
+    v21 = v14;
+    v22 = 2114;
+    v23 = v15;
+    _os_log_impl(&dword_1DF7C6000, v12, OS_LOG_TYPE_DEFAULT, "Auto asset lock reason count: %lu for assetSelector: %{public}@", &v20, 0x16u);
   }
 
   v16 = *(a1 + 40);
@@ -112,85 +116,81 @@ LABEL_13:
   (*(v16 + 16))(v16, v19, 0);
 
 LABEL_14:
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)lockAutoAsset:(id)asset forReason:(id)reason withTimeout:(int64_t)timeout completion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   completionCopy = completion;
   reasonCopy = reason;
-  v12 = AutoAssetLog();
+  v12 = AutoAssetLog(reasonCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     assetSelector = [assetCopy assetSelector];
     *buf = 138412290;
-    v22 = assetSelector;
+    v21 = assetSelector;
     _os_log_impl(&dword_1DF7C6000, v12, OS_LOG_TYPE_DEFAULT, "Lock auto asset: %@", buf, 0xCu);
   }
 
   v14 = objc_alloc_init(MEMORY[0x1E69B1908]);
   [v14 setUserInitiated:1];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __73__DDSMAAutoAssetProvider_lockAutoAsset_forReason_withTimeout_completion___block_invoke;
-  v18[3] = &unk_1E86C5EA8;
-  v19 = assetCopy;
-  v20 = completionCopy;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __73__DDSMAAutoAssetProvider_lockAutoAsset_forReason_withTimeout_completion___block_invoke;
+  v17[3] = &unk_1E86C5EA8;
+  v18 = assetCopy;
+  v19 = completionCopy;
   v15 = completionCopy;
   v16 = assetCopy;
-  [v16 lockContent:reasonCopy withUsagePolicy:v14 withTimeout:timeout completion:v18];
-
-  v17 = *MEMORY[0x1E69E9840];
+  [v16 lockContent:reasonCopy withUsagePolicy:v14 withTimeout:timeout completion:v17];
 }
 
 void __73__DDSMAAutoAssetProvider_lockAutoAsset_forReason_withTimeout_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, void *a6)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v8 = a4;
   v9 = a6;
-  v10 = AutoAssetLog();
+  v10 = AutoAssetLog(v9);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
   if (v8)
   {
     if (v11)
     {
       v12 = [*(a1 + 32) assetSelector];
-      v15 = 138543618;
-      v16 = v12;
-      v17 = 2114;
-      v18 = v8;
-      _os_log_impl(&dword_1DF7C6000, v10, OS_LOG_TYPE_DEFAULT, "Auto asset: %{public}@ present at path: %{public}@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v12;
+      v16 = 2114;
+      v17 = v8;
+      _os_log_impl(&dword_1DF7C6000, v10, OS_LOG_TYPE_DEFAULT, "Auto asset: %{public}@ present at path: %{public}@", &v14, 0x16u);
     }
   }
 
   else if (v11)
   {
     v13 = [*(a1 + 32) assetSelector];
-    v15 = 138543618;
-    v16 = v13;
-    v17 = 2114;
-    v18 = v9;
-    _os_log_impl(&dword_1DF7C6000, v10, OS_LOG_TYPE_DEFAULT, "Failed to get content localContentURL for: %{public}@ with error: %{public}@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v13;
+    v16 = 2114;
+    v17 = v9;
+    _os_log_impl(&dword_1DF7C6000, v10, OS_LOG_TYPE_DEFAULT, "Failed to get content localContentURL for: %{public}@ with error: %{public}@", &v14, 0x16u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)lockAutoAssetSync:(id)sync forReason:(id)reason error:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   syncCopy = sync;
-  v31 = 0;
+  v33 = 0;
+  v34 = 0;
   v32 = 0;
-  v30 = 0;
-  v7 = [syncCopy lockContentSync:reason withTimeout:0 lockedAssetSelector:&v32 newerInProgress:&v31 error:&v30];
-  v8 = v32;
-  v9 = v31;
-  v10 = v30;
-  v11 = AutoAssetLog();
+  v7 = [syncCopy lockContentSync:reason withTimeout:0 lockedAssetSelector:&v34 newerInProgress:&v33 error:&v32];
+  v8 = v34;
+  v9 = v33;
+  v10 = v32;
+  v11 = AutoAssetLog(v10);
   v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
   if (v7)
   {
@@ -198,92 +198,92 @@ void __73__DDSMAAutoAssetProvider_lockAutoAsset_forReason_withTimeout_completion
     {
       assetSelector = [syncCopy assetSelector];
       *buf = 138412546;
-      v34 = assetSelector;
-      v35 = 2112;
-      v36 = v10;
+      v36 = assetSelector;
+      v37 = 2112;
+      v38 = v10;
       _os_log_impl(&dword_1DF7C6000, v11, OS_LOG_TYPE_DEFAULT, "lockContentSync completed for auto asset: %@ with error: %@", buf, 0x16u);
     }
 
-    v29 = v10;
-    v11 = [objc_alloc(MEMORY[0x1E69B18F8]) initForClientName:@"data-delivery-service" selectingAsset:v8 error:&v29];
-    v14 = v29;
+    v31 = v10;
+    v11 = [objc_alloc(MEMORY[0x1E69B18F8]) initForClientName:@"data-delivery-service" selectingAsset:v8 error:&v31];
+    v14 = v31;
 
     if (!v11)
     {
-      v15 = AutoAssetLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = AutoAssetLog(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v34 = v8;
-        v35 = 2112;
-        v36 = v14;
-        _os_log_impl(&dword_1DF7C6000, v15, OS_LOG_TYPE_DEFAULT, "Cannot create auto asset instance with selector: %@, error: %@", buf, 0x16u);
+        v36 = v8;
+        v37 = 2112;
+        v38 = v14;
+        _os_log_impl(&dword_1DF7C6000, v16, OS_LOG_TYPE_DEFAULT, "Cannot create auto asset instance with selector: %@, error: %@", buf, 0x16u);
       }
 
-      v20 = 0;
+      v22 = 0;
       v10 = v14;
       goto LABEL_24;
     }
 
-    v28 = v14;
-    v15 = [v11 currentStatusSync:&v28];
-    v10 = v28;
+    v30 = v14;
+    v16 = [v11 currentStatusSync:&v30];
+    v10 = v30;
 
-    if (!v15)
+    if (!v16)
     {
-      v16 = AutoAssetLog();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      v18 = AutoAssetLog(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         assetSelector2 = [v11 assetSelector];
         *buf = 138412546;
-        v34 = assetSelector2;
-        v35 = 2112;
-        v36 = v10;
-        _os_log_impl(&dword_1DF7C6000, v16, OS_LOG_TYPE_DEFAULT, "Fetch status for locked auto asset: %@ completed with error: %@", buf, 0x16u);
+        v36 = assetSelector2;
+        v37 = 2112;
+        v38 = v10;
+        _os_log_impl(&dword_1DF7C6000, v18, OS_LOG_TYPE_DEFAULT, "Fetch status for locked auto asset: %@ completed with error: %@", buf, 0x16u);
       }
 
-      v20 = 0;
+      v22 = 0;
       goto LABEL_23;
     }
 
-    v16 = objc_opt_new();
-    availableForUseAttributes = [v15 availableForUseAttributes];
+    v18 = objc_opt_new();
+    availableForUseAttributes = [v16 availableForUseAttributes];
 
     if (availableForUseAttributes)
     {
-      availableForUseAttributes2 = [v15 availableForUseAttributes];
+      availableForUseAttributes2 = [v16 availableForUseAttributes];
     }
 
     else
     {
-      newerVersionAttributes = [v15 newerVersionAttributes];
+      newerVersionAttributes = [v16 newerVersionAttributes];
 
       if (!newerVersionAttributes)
       {
 LABEL_20:
-        v24 = AutoAssetLog();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+        v27 = AutoAssetLog(v25);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
           assetSelector3 = [v11 assetSelector];
           *buf = 138412546;
-          v34 = assetSelector3;
-          v35 = 2112;
-          v36 = v16;
-          _os_log_impl(&dword_1DF7C6000, v24, OS_LOG_TYPE_DEFAULT, "Auto Asset: %@, Attributes: %@", buf, 0x16u);
+          v36 = assetSelector3;
+          v37 = 2112;
+          v38 = v18;
+          _os_log_impl(&dword_1DF7C6000, v27, OS_LOG_TYPE_DEFAULT, "Auto Asset: %@, Attributes: %@", buf, 0x16u);
         }
 
-        v20 = [[DDSAsset alloc] initWithAttributes:v16 localURL:v7];
+        v22 = [[DDSAsset alloc] initWithAttributes:v18 localURL:v7];
 LABEL_23:
 
 LABEL_24:
         goto LABEL_25;
       }
 
-      availableForUseAttributes2 = [v15 newerVersionAttributes];
+      availableForUseAttributes2 = [v16 newerVersionAttributes];
     }
 
-    v23 = availableForUseAttributes2;
-    [v16 addEntriesFromDictionary:availableForUseAttributes2];
+    v26 = availableForUseAttributes2;
+    [v18 addEntriesFromDictionary:availableForUseAttributes2];
 
     goto LABEL_20;
   }
@@ -292,18 +292,16 @@ LABEL_24:
   {
     assetSelector4 = [syncCopy assetSelector];
     *buf = 138412546;
-    v34 = assetSelector4;
-    v35 = 2112;
-    v36 = v10;
+    v36 = assetSelector4;
+    v37 = 2112;
+    v38 = v10;
     _os_log_impl(&dword_1DF7C6000, v11, OS_LOG_TYPE_DEFAULT, "lockContentSync failed for auto asset: %@ with error: %@", buf, 0x16u);
   }
 
-  v20 = 0;
+  v22 = 0;
 LABEL_25:
 
-  v26 = *MEMORY[0x1E69E9840];
-
-  return v20;
+  return v22;
 }
 
 - (void)unlockAutoAsset:(id)asset forReason:(id)reason
@@ -320,39 +318,37 @@ LABEL_25:
 
 void __52__DDSMAAutoAssetProvider_unlockAutoAsset_forReason___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = AutoAssetLog();
+  v6 = AutoAssetLog(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
     if (v7)
     {
       v8 = [*(a1 + 32) assetSelector];
-      v13 = 138543362;
-      v14 = v8;
+      v12 = 138543362;
+      v13 = v8;
       v9 = "Auto asset: %{public}@ unlocked successfully";
       v10 = v6;
       v11 = 12;
 LABEL_6:
-      _os_log_impl(&dword_1DF7C6000, v10, OS_LOG_TYPE_DEFAULT, v9, &v13, v11);
+      _os_log_impl(&dword_1DF7C6000, v10, OS_LOG_TYPE_DEFAULT, v9, &v12, v11);
     }
   }
 
   else if (v7)
   {
     v8 = [*(a1 + 32) assetSelector];
-    v13 = 138543618;
-    v14 = v8;
-    v15 = 2114;
-    v16 = v5;
+    v12 = 138543618;
+    v13 = v8;
+    v14 = 2114;
+    v15 = v5;
     v9 = "End lock for auto asset: %{public}@ failed with error: %{public}@";
     v10 = v6;
     v11 = 22;
     goto LABEL_6;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)interestInContentForAutoAsset:(id)asset completion:(id)completion
@@ -372,18 +368,18 @@ LABEL_6:
 
 void __67__DDSMAAutoAssetProvider_interestInContentForAutoAsset_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
-  v7 = AutoAssetLog();
+  v7 = AutoAssetLog(v6);
   v8 = v7;
   if (v5)
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = v5;
-      _os_log_impl(&dword_1DF7C6000, v8, OS_LOG_TYPE_DEFAULT, "interestInContent successful for asset selector: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v5;
+      _os_log_impl(&dword_1DF7C6000, v8, OS_LOG_TYPE_DEFAULT, "interestInContent successful for asset selector: %@", &v9, 0xCu);
     }
   }
 
@@ -393,7 +389,6 @@ void __67__DDSMAAutoAssetProvider_interestInContentForAutoAsset_completion___blo
   }
 
   (*(*(a1 + 40) + 16))();
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)eliminateInterestForAutoAsset:(id)asset
@@ -411,17 +406,17 @@ void __67__DDSMAAutoAssetProvider_interestInContentForAutoAsset_completion___blo
 
 void __56__DDSMAAutoAssetProvider_eliminateInterestForAutoAsset___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = AutoAssetLog();
+  v4 = AutoAssetLog(v3);
   v5 = v4;
   if (v3)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = v3;
-      _os_log_impl(&dword_1DF7C6000, v5, OS_LOG_TYPE_DEFAULT, "eliminateAllForSelector successful for asset selector: %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v3;
+      _os_log_impl(&dword_1DF7C6000, v5, OS_LOG_TYPE_DEFAULT, "eliminateAllForSelector successful for asset selector: %@", &v6, 0xCu);
     }
   }
 
@@ -429,13 +424,11 @@ void __56__DDSMAAutoAssetProvider_eliminateInterestForAutoAsset___block_invoke(u
   {
     __56__DDSMAAutoAssetProvider_eliminateInterestForAutoAsset___block_invoke_cold_1(a1, v5);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)setFetchAssetUpdateStatusDateForAutoAsset:(id)asset
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   v4 = MEMORY[0x1E696AEC0];
   assetSelector = [assetCopy assetSelector];
@@ -445,19 +438,18 @@ void __56__DDSMAAutoAssetProvider_eliminateInterestForAutoAsset___block_invoke(u
   v9 = [v4 stringWithFormat:@"%@-%@-%@", @"DDSAutoAssetPreferences", assetType, assetSpecifier];
 
   date = [MEMORY[0x1E695DF00] date];
-  v11 = AutoAssetLog();
+  v11 = AutoAssetLog(date);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     assetSelector3 = [assetCopy assetSelector];
     *buf = 138412546;
-    v15 = assetSelector3;
-    v16 = 2112;
-    v17 = date;
+    v14 = assetSelector3;
+    v15 = 2112;
+    v16 = date;
     _os_log_impl(&dword_1DF7C6000, v11, OS_LOG_TYPE_DEFAULT, "Did server lookup for auto asset: %@ on %@", buf, 0x16u);
   }
 
   DDSSetPreferenceObjectForKey(v9, date);
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (id)fetchAssetUpdateStatusDateForAutoAsset:(id)asset
@@ -490,113 +482,112 @@ void __56__DDSMAAutoAssetProvider_eliminateInterestForAutoAsset___block_invoke(u
 
 - (void)fetchUpdateStatusForAutoAsset:(id)asset completion:(id)completion
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   completionCopy = completion;
-  v7 = AutoAssetLog();
+  v7 = AutoAssetLog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     assetSelector = [assetCopy assetSelector];
     *buf = 138412290;
-    v24 = assetSelector;
+    v23 = assetSelector;
     _os_log_impl(&dword_1DF7C6000, v7, OS_LOG_TYPE_DEFAULT, "Fetch asset update status for auto asset: %@", buf, 0xCu);
   }
 
   v9 = [DDSMAAutoAssetProvider fetchAssetUpdateStatusDateForAutoAsset:assetCopy];
   v10 = v9;
-  if (v9 && ([v9 timeIntervalSinceNow], v11 > -86400.0))
+  if (v9 && (v9 = [v9 timeIntervalSinceNow], v11 > -86400.0))
   {
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __67__DDSMAAutoAssetProvider_fetchUpdateStatusForAutoAsset_completion___block_invoke;
-    v21[3] = &unk_1E86C5F20;
-    v12 = &v22;
-    v22 = completionCopy;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __67__DDSMAAutoAssetProvider_fetchUpdateStatusForAutoAsset_completion___block_invoke;
+    v20[3] = &unk_1E86C5F20;
+    v12 = &v21;
+    v21 = completionCopy;
     v13 = completionCopy;
-    [assetCopy currentStatus:v21];
+    [assetCopy currentStatus:v20];
   }
 
   else
   {
-    v14 = AutoAssetLog();
+    v14 = AutoAssetLog(v9);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       [DDSMAAutoAssetProvider fetchUpdateStatusForAutoAsset:assetCopy completion:v14];
     }
 
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __67__DDSMAAutoAssetProvider_fetchUpdateStatusForAutoAsset_completion___block_invoke_36;
-    v18[3] = &unk_1E86C5F48;
-    v12 = &v19;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __67__DDSMAAutoAssetProvider_fetchUpdateStatusForAutoAsset_completion___block_invoke_36;
+    v17[3] = &unk_1E86C5F48;
+    v12 = &v18;
     v15 = assetCopy;
-    v19 = v15;
-    v20 = completionCopy;
+    v18 = v15;
+    v19 = completionCopy;
     v16 = completionCopy;
-    [v15 determineIfAvailable:@"dds-asset-download-ui-determine-if-available" withTimeout:-2 completion:v18];
+    [v15 determineIfAvailable:@"dds-asset-download-ui-determine-if-available" withTimeout:-2 completion:v17];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __67__DDSMAAutoAssetProvider_fetchUpdateStatusForAutoAsset_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = *(a1 + 32);
-    v7 = [a2 notifications];
-    (*(v6 + 16))(v6, [v7 newerVersionDiscovered], 0);
+    v7 = *(a1 + 32);
+    v8 = [a2 notifications];
+    (*(v7 + 16))(v7, [v8 newerVersionDiscovered], 0);
   }
 
   else
   {
-    v8 = AutoAssetLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = AutoAssetLog(v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 138412290;
-      v11 = v5;
-      _os_log_impl(&dword_1DF7C6000, v8, OS_LOG_TYPE_DEFAULT, "Cannot fetch the current status of auto asset due to error: %@", &v10, 0xCu);
+      v11 = v6;
+      _os_log_impl(&dword_1DF7C6000, v9, OS_LOG_TYPE_DEFAULT, "Cannot fetch the current status of auto asset due to error: %@", &v10, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __67__DDSMAAutoAssetProvider_fetchUpdateStatusForAutoAsset_completion___block_invoke_36(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a4;
+  v9 = v8;
   if (a3)
   {
-    v17 = 0;
-    v9 = [objc_alloc(MEMORY[0x1E69B18F8]) initForClientName:@"com.apple.DataDeliveryServices" selectingAsset:v7 error:&v17];
-    v10 = v17;
-    if (v9)
+    v18 = 0;
+    v10 = [objc_alloc(MEMORY[0x1E69B18F8]) initForClientName:@"com.apple.DataDeliveryServices" selectingAsset:v7 error:&v18];
+    v11 = v18;
+    v12 = v11;
+    if (v10)
     {
-      [DDSMAAutoAssetProvider setFetchAssetUpdateStatusDateForAutoAsset:v9];
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __67__DDSMAAutoAssetProvider_fetchUpdateStatusForAutoAsset_completion___block_invoke_37;
-      v15[3] = &unk_1E86C5F20;
-      v16 = *(a1 + 40);
-      [v9 currentStatus:v15];
+      [DDSMAAutoAssetProvider setFetchAssetUpdateStatusDateForAutoAsset:v10];
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __67__DDSMAAutoAssetProvider_fetchUpdateStatusForAutoAsset_completion___block_invoke_37;
+      v16[3] = &unk_1E86C5F20;
+      v17 = *(a1 + 40);
+      [v10 currentStatus:v16];
     }
 
     else
     {
-      v13 = AutoAssetLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = AutoAssetLog(v11);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v19 = v7;
-        v20 = 2112;
-        v21 = v10;
-        _os_log_impl(&dword_1DF7C6000, v13, OS_LOG_TYPE_DEFAULT, "Cannot create auto asset for asset selector: %@ due to error: %@", buf, 0x16u);
+        v20 = v7;
+        v21 = 2112;
+        v22 = v12;
+        _os_log_impl(&dword_1DF7C6000, v15, OS_LOG_TYPE_DEFAULT, "Cannot create auto asset for asset selector: %@ due to error: %@", buf, 0x16u);
       }
 
       (*(*(a1 + 40) + 16))();
@@ -605,115 +596,112 @@ void __67__DDSMAAutoAssetProvider_fetchUpdateStatusForAutoAsset_completion___blo
 
   else
   {
-    v11 = AutoAssetLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = AutoAssetLog(v8);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = [*(a1 + 32) assetSelector];
+      v14 = [*(a1 + 32) assetSelector];
       *buf = 138412546;
-      v19 = v12;
-      v20 = 2112;
-      v21 = v8;
-      _os_log_impl(&dword_1DF7C6000, v11, OS_LOG_TYPE_DEFAULT, "Auto asset: %@, determineIfAvailable failed with error: %@", buf, 0x16u);
+      v20 = v14;
+      v21 = 2112;
+      v22 = v9;
+      _os_log_impl(&dword_1DF7C6000, v13, OS_LOG_TYPE_DEFAULT, "Auto asset: %@, determineIfAvailable failed with error: %@", buf, 0x16u);
     }
 
     (*(*(a1 + 40) + 16))();
-    if ([v8 code] == 6201)
+    if ([v9 code] == 6201)
     {
       [DDSMAAutoAssetProvider setFetchAssetUpdateStatusDateForAutoAsset:*(a1 + 32)];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __67__DDSMAAutoAssetProvider_fetchUpdateStatusForAutoAsset_completion___block_invoke_37(uint64_t a1, void *a2, void *a3)
 {
   v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = *(a1 + 32);
-    v7 = [a2 notifications];
-    (*(v6 + 16))(v6, [v7 newerVersionDiscovered], 0);
+    v7 = *(a1 + 32);
+    v8 = [a2 notifications];
+    (*(v7 + 16))(v7, [v8 newerVersionDiscovered], 0);
   }
 
   else
   {
-    v8 = AutoAssetLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = AutoAssetLog(v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = 138412290;
-      v11 = v5;
-      _os_log_impl(&dword_1DF7C6000, v8, OS_LOG_TYPE_DEFAULT, "Cannot fetch the current status of auto asset due to error: %@", &v10, 0xCu);
+      v11 = v6;
+      _os_log_impl(&dword_1DF7C6000, v9, OS_LOG_TYPE_DEFAULT, "Cannot fetch the current status of auto asset due to error: %@", &v10, 0xCu);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateAutoAsset:(id)asset forReason:(id)reason completion:(id)completion
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   reasonCopy = reason;
   completionCopy = completion;
-  v11 = AutoAssetLog();
+  v11 = AutoAssetLog(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     assetSelector = [assetCopy assetSelector];
     *buf = 138412290;
-    v20 = assetSelector;
+    v19 = assetSelector;
     _os_log_impl(&dword_1DF7C6000, v11, OS_LOG_TYPE_DEFAULT, "Download latest version of auto asset: %@", buf, 0xCu);
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __63__DDSMAAutoAssetProvider_updateAutoAsset_forReason_completion___block_invoke;
-  v16[3] = &unk_1E86C5F98;
-  v17 = reasonCopy;
-  v18 = completionCopy;
-  v16[4] = self;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __63__DDSMAAutoAssetProvider_updateAutoAsset_forReason_completion___block_invoke;
+  v15[3] = &unk_1E86C5F98;
+  v16 = reasonCopy;
+  v17 = completionCopy;
+  v15[4] = self;
   v13 = reasonCopy;
   v14 = completionCopy;
-  [assetCopy determineIfAvailable:v13 withTimeout:-2 completion:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
+  [assetCopy determineIfAvailable:v13 withTimeout:-2 completion:v15];
 }
 
 void __63__DDSMAAutoAssetProvider_updateAutoAsset_forReason_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a4;
+  v8 = v7;
   if (v6)
   {
-    v17 = 0;
-    v8 = [objc_alloc(MEMORY[0x1E69B18F8]) initForClientName:@"com.apple.DataDeliveryServices" selectingAsset:v6 error:&v17];
-    v9 = v17;
-    if (v8)
+    v18 = 0;
+    v9 = [objc_alloc(MEMORY[0x1E69B18F8]) initForClientName:@"com.apple.DataDeliveryServices" selectingAsset:v6 error:&v18];
+    v10 = v18;
+    v11 = v10;
+    if (v9)
     {
-      v10 = *(a1 + 32);
-      v11 = *(a1 + 40);
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __63__DDSMAAutoAssetProvider_updateAutoAsset_forReason_completion___block_invoke_39;
-      v15[3] = &unk_1E86C5F70;
-      v16 = *(a1 + 48);
-      [v10 lockAutoAsset:v8 forReason:v11 withTimeout:-1 completion:v15];
+      v12 = *(a1 + 32);
+      v13 = *(a1 + 40);
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __63__DDSMAAutoAssetProvider_updateAutoAsset_forReason_completion___block_invoke_39;
+      v16[3] = &unk_1E86C5F70;
+      v17 = *(a1 + 48);
+      [v12 lockAutoAsset:v9 forReason:v13 withTimeout:-1 completion:v16];
     }
 
     else
     {
-      v13 = AutoAssetLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = AutoAssetLog(v10);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v19 = v6;
-        v20 = 2112;
-        v21 = v9;
-        _os_log_impl(&dword_1DF7C6000, v13, OS_LOG_TYPE_DEFAULT, "Cannot create auto asset for asset selector: %@ due to error: %@", buf, 0x16u);
+        v20 = v6;
+        v21 = 2112;
+        v22 = v11;
+        _os_log_impl(&dword_1DF7C6000, v15, OS_LOG_TYPE_DEFAULT, "Cannot create auto asset for asset selector: %@ due to error: %@", buf, 0x16u);
       }
 
       (*(*(a1 + 48) + 16))();
@@ -722,71 +710,57 @@ void __63__DDSMAAutoAssetProvider_updateAutoAsset_forReason_completion___block_i
 
   else
   {
-    v12 = AutoAssetLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = AutoAssetLog(v7);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = v7;
-      _os_log_impl(&dword_1DF7C6000, v12, OS_LOG_TYPE_DEFAULT, "Cannot determine the latest auto asset version due to error: %@", buf, 0xCu);
+      v20 = v8;
+      _os_log_impl(&dword_1DF7C6000, v14, OS_LOG_TYPE_DEFAULT, "Cannot determine the latest auto asset version due to error: %@", buf, 0xCu);
     }
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)autoAssetForAssetSelector:(void *)a1 .cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 assetSelector];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __68__DDSMAAutoAssetProvider_fetchLockReasonCountForAutoAsset_callback___block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [*(a1 + 32) assetSelector];
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __67__DDSMAAutoAssetProvider_interestInContentForAutoAsset_completion___block_invoke_cold_1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = [*(a1 + 32) assetSelector];
+  v6 = [*(a1 + 32) assetSelector];
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __56__DDSMAAutoAssetProvider_eliminateInterestForAutoAsset___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_ERROR, "eliminateAllForSelector failed for auto asset selector: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_ERROR, "eliminateAllForSelector failed for auto asset selector: %@", &v3, 0xCu);
 }
 
 - (void)fetchUpdateStatusForAutoAsset:(void *)a1 completion:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 assetSelector];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_DEBUG, "Determine latest version of auto asset: %@ on server", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_1DF7C6000, a2, OS_LOG_TYPE_DEBUG, "Determine latest version of auto asset: %@ on server", &v4, 0xCu);
 }
 
 @end

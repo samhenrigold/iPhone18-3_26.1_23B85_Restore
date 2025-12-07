@@ -212,33 +212,32 @@
     PBDataWriterWriteSubmessage();
   }
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = self->_infoDicts;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v11 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
-        v9 = v9 + 1;
+        ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -405,39 +404,7 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  if (![equalCopy isMemberOfClass:objc_opt_class()])
-  {
-    goto LABEL_26;
-  }
-
-  objectId = self->_objectId;
-  if (objectId | equalCopy[8])
-  {
-    if (![(NSString *)objectId isEqual:?])
-    {
-      goto LABEL_26;
-    }
-  }
-
-  takerUserId = self->_takerUserId;
-  if (takerUserId | equalCopy[12] && ![(NSString *)takerUserId isEqual:?])
-  {
-    goto LABEL_26;
-  }
-
-  makerUserId = self->_makerUserId;
-  if (makerUserId | equalCopy[7] && ![(NSString *)makerUserId isEqual:?])
-  {
-    goto LABEL_26;
-  }
-
-  parentObjectId = self->_parentObjectId;
-  if (parentObjectId | equalCopy[9] && ![(NSString *)parentObjectId isEqual:?])
-  {
-    goto LABEL_26;
-  }
-
-  if (((dateCreated = self->_dateCreated, !(dateCreated | equalCopy[1])) || [(PDDPDate *)dateCreated isEqual:?]) && ((dateLastModified = self->_dateLastModified, !(dateLastModified | equalCopy[2])) || [(PDDPDate *)dateLastModified isEqual:?]) && ((etag = self->_etag, !(etag | equalCopy[3])) || [(NSString *)etag isEqual:?]) && ((selfIdentifiedName = self->_selfIdentifiedName, !(selfIdentifiedName | equalCopy[10])) || [(NSString *)selfIdentifiedName isEqual:?]) && ((takerMarkupAsset = self->_takerMarkupAsset, !(takerMarkupAsset | equalCopy[11])) || [(PDDPAsset *)takerMarkupAsset isEqual:?]) && ((graderMarkupAsset = self->_graderMarkupAsset, !(graderMarkupAsset | equalCopy[4])) || [(PDDPAsset *)graderMarkupAsset isEqual:?]) && ((graderScoreAsset = self->_graderScoreAsset, !(graderScoreAsset | equalCopy[5])) || [(PDDPAsset *)graderScoreAsset isEqual:?]))
+  if ([equalCopy isMemberOfClass:objc_opt_class()] && ((objectId = self->_objectId, !(objectId | equalCopy[8])) || -[NSString isEqual:](objectId, "isEqual:")) && ((takerUserId = self->_takerUserId, !(takerUserId | equalCopy[12])) || -[NSString isEqual:](takerUserId, "isEqual:")) && ((makerUserId = self->_makerUserId, !(makerUserId | equalCopy[7])) || -[NSString isEqual:](makerUserId, "isEqual:")) && ((parentObjectId = self->_parentObjectId, !(parentObjectId | equalCopy[9])) || -[NSString isEqual:](parentObjectId, "isEqual:")) && ((dateCreated = self->_dateCreated, !(dateCreated | equalCopy[1])) || -[PDDPDate isEqual:](dateCreated, "isEqual:")) && ((dateLastModified = self->_dateLastModified, !(dateLastModified | equalCopy[2])) || -[PDDPDate isEqual:](dateLastModified, "isEqual:")) && ((etag = self->_etag, !(etag | equalCopy[3])) || -[NSString isEqual:](etag, "isEqual:")) && ((selfIdentifiedName = self->_selfIdentifiedName, !(selfIdentifiedName | equalCopy[10])) || -[NSString isEqual:](selfIdentifiedName, "isEqual:")) && ((takerMarkupAsset = self->_takerMarkupAsset, !(takerMarkupAsset | equalCopy[11])) || -[PDDPAsset isEqual:](takerMarkupAsset, "isEqual:")) && ((graderMarkupAsset = self->_graderMarkupAsset, !(graderMarkupAsset | equalCopy[4])) || -[PDDPAsset isEqual:](graderMarkupAsset, "isEqual:")) && ((graderScoreAsset = self->_graderScoreAsset, !(graderScoreAsset | equalCopy[5])) || -[PDDPAsset isEqual:](graderScoreAsset, "isEqual:")))
   {
     infoDicts = self->_infoDicts;
     if (infoDicts | equalCopy[6])
@@ -453,7 +420,6 @@
 
   else
   {
-LABEL_26:
     v17 = 0;
   }
 

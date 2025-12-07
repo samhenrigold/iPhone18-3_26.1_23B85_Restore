@@ -58,7 +58,7 @@
 
 void __45__BRCSharingLookupParticipantsOperation_main__block_invoke_2(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (!v3)
   {
@@ -69,12 +69,12 @@ void __45__BRCSharingLookupParticipantsOperation_main__block_invoke_2(uint64_t a
       v11 = brc_default_log();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v16 = *(*(a1 + 32) + 528);
-        v19 = 138412546;
-        v20 = v16;
-        v21 = 2112;
-        v22 = v10;
-        _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] fetched share participants: %@%@", &v19, 0x16u);
+        v15 = *(*(a1 + 32) + 528);
+        v18 = 138412546;
+        v19 = v15;
+        v20 = 2112;
+        v21 = v10;
+        _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] fetched share participants: %@%@", &v18, 0x16u);
       }
 
       v8 = *(a1 + 32);
@@ -86,15 +86,15 @@ void __45__BRCSharingLookupParticipantsOperation_main__block_invoke_2(uint64_t a
       v13 = brc_default_log();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
       {
-        v17 = [*(*(a1 + 32) + 520) count];
-        v18 = [*(*(a1 + 32) + 528) count];
-        v19 = 134218498;
-        v20 = v17;
-        v21 = 2048;
-        v22 = v18;
-        v23 = 2112;
-        v24 = v12;
-        _os_log_fault_impl(&dword_223E7A000, v13, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Unexpected number of share participants: expected %lu got %lu%@", &v19, 0x20u);
+        v16 = [*(*(a1 + 32) + 520) count];
+        v17 = [*(*(a1 + 32) + 528) count];
+        v18 = 134218498;
+        v19 = v16;
+        v20 = 2048;
+        v21 = v17;
+        v22 = 2112;
+        v23 = v12;
+        _os_log_fault_impl(&dword_223E7A000, v13, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Unexpected number of share participants: expected %lu got %lu%@", &v18, 0x20u);
       }
 
       v4 = [MEMORY[0x277CCA9B8] br_errorWithDomain:*MEMORY[0x277CFABD0] code:15 description:@"Unexpected number of share participants"];
@@ -116,22 +116,20 @@ void __45__BRCSharingLookupParticipantsOperation_main__block_invoke_2(uint64_t a
   v6 = brc_default_log();
   if (os_log_type_enabled(v6, 0x90u))
   {
-    v15 = *(a1 + 32);
-    v19 = 138412802;
-    v20 = v15;
-    v21 = 2112;
-    v22 = v4;
-    v23 = 2112;
-    v24 = v5;
-    _os_log_error_impl(&dword_223E7A000, v6, 0x90u, "[ERROR] failed share participant lookup for %@ - %@%@", &v19, 0x20u);
+    v14 = *(a1 + 32);
+    v18 = 138412802;
+    v19 = v14;
+    v20 = 2112;
+    v21 = v4;
+    v22 = 2112;
+    v23 = v5;
+    _os_log_error_impl(&dword_223E7A000, v6, 0x90u, "[ERROR] failed share participant lookup for %@ - %@%@", &v18, 0x20u);
   }
 
   v7 = 0;
   v8 = *(a1 + 32);
 LABEL_14:
   [v8 completedWithResult:v7 error:v4];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

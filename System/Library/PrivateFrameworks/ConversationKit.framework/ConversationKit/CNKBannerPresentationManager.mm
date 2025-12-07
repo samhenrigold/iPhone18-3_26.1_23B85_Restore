@@ -77,7 +77,7 @@
 - (CNKBannerPresentationDelegate)presentationDelegate
 {
   selfCopy = self;
-  v3 = CNKBannerPresentationManager.presentationDelegate.getter();
+  v3 = CNKBannerPresentationManager.presentationDelegate.getter(selfCopy);
 
   return v3;
 }
@@ -86,13 +86,13 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  CNKBannerPresentationManager.presentationDelegate.setter();
+  CNKBannerPresentationManager.presentationDelegate.setter(delegate);
 }
 
 - (CNKAudioRoutingDelegate)audioRoutingDelegate
 {
   selfCopy = self;
-  v3 = CNKBannerPresentationManager.audioRoutingDelegate.getter();
+  v3 = CNKBannerPresentationManager.audioRoutingDelegate.getter(selfCopy);
 
   return v3;
 }
@@ -101,13 +101,13 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  CNKBannerPresentationManager.audioRoutingDelegate.setter();
+  CNKBannerPresentationManager.audioRoutingDelegate.setter(delegate);
 }
 
 - (TUCall)handedOffCall
 {
   selfCopy = self;
-  v3 = CNKBannerPresentationManager.handedOffCall.getter();
+  v3 = CNKBannerPresentationManager.handedOffCall.getter(selfCopy);
 
   return v3;
 }
@@ -116,13 +116,13 @@
 {
   callCopy = call;
   selfCopy = self;
-  CNKBannerPresentationManager.handedOffCall.setter();
+  CNKBannerPresentationManager.handedOffCall.setter(call);
 }
 
 - (BOOL)inCallControlsVisible
 {
   selfCopy = self;
-  v3 = CNKBannerPresentationManager.inCallControlsVisible.getter();
+  v3 = CNKBannerPresentationManager.inCallControlsVisible.getter(selfCopy);
 
   return v3 & 1;
 }
@@ -186,7 +186,7 @@
 - (TUCall)activeCall
 {
   selfCopy = self;
-  v3 = CNKBannerPresentationManager.activeCall.getter();
+  v3 = CNKBannerPresentationManager.activeCall.getter(selfCopy);
 
   return v3;
 }
@@ -194,7 +194,7 @@
 - (BOOL)hasAssociatedCall
 {
   selfCopy = self;
-  v3 = CNKBannerPresentationManager.hasAssociatedCall.getter();
+  v3 = CNKBannerPresentationManager.hasAssociatedCall.getter(selfCopy);
 
   return v3;
 }
@@ -340,7 +340,7 @@
 - (id)makeSystemApertureElementProvider
 {
   selfCopy = self;
-  v3 = CNKBannerPresentationManager.makeSystemApertureElementProvider()();
+  v3 = CNKBannerPresentationManager.makeSystemApertureElementProvider()(selfCopy);
 
   return v3;
 }

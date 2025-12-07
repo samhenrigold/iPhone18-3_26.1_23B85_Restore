@@ -282,12 +282,12 @@ LABEL_17:
 
 - (uint64_t)isUnsupportedPlatformClientError:(uint64_t)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (!error)
   {
-    v21 = 0;
+    v20 = 0;
     goto LABEL_22;
   }
 
@@ -315,26 +315,26 @@ LABEL_17:
       goto LABEL_20;
     }
 
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     domain = v9;
-    v11 = [domain countByEnumeratingWithState:&v22 objects:v26 count:16];
+    v11 = [domain countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v23;
+      v13 = *v22;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v23 != v13)
+          if (*v22 != v13)
           {
             objc_enumerationMutation(domain);
           }
 
-          v15 = *(*(&v22 + 1) + 8 * i);
+          v15 = *(*(&v21 + 1) + 8 * i);
           domain2 = [v15 domain];
           domain3 = [MEMORY[0x277CBAA70] domain];
           if ([domain2 isEqualToString:domain3])
@@ -344,7 +344,7 @@ LABEL_17:
             if (code == 2)
             {
 
-              v21 = 1;
+              v20 = 1;
               goto LABEL_21;
             }
           }
@@ -354,7 +354,7 @@ LABEL_17:
           }
         }
 
-        v12 = [domain countByEnumeratingWithState:&v22 objects:v26 count:16];
+        v12 = [domain countByEnumeratingWithState:&v21 objects:v25 count:16];
       }
 
       while (v12);
@@ -362,12 +362,11 @@ LABEL_17:
   }
 
 LABEL_20:
-  v21 = 0;
+  v20 = 0;
 LABEL_21:
 
 LABEL_22:
-  v19 = *MEMORY[0x277D85DE8];
-  return v21;
+  return v20;
 }
 
 - (void)assessmentSessionWrapper:(void *)a1 wasInterruptedWithError:(void *)a2 .cold.1(void *a1, void *a2)

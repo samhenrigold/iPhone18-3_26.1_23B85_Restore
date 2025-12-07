@@ -5,7 +5,7 @@
 
 void ___MergeLocalizedKeysForLocale_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   objc_opt_class();
@@ -40,15 +40,13 @@ void ___MergeLocalizedKeysForLocale_block_invoke(uint64_t a1, void *a2, void *a3
 
       else
       {
-        v17 = *(a1 + 40);
-        v18[0] = v9;
-        v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+        v16 = *(a1 + 40);
+        v17[0] = v9;
+        v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
         [*(a1 + 32) setObject:v15 forKeyedSubscript:v7];
       }
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -2,6 +2,7 @@
 - (BOOL)graphUpdatedWithSource:(id)source error:(id *)error;
 - (BOOL)migrateViewDatabasesWithError:(id *)error;
 - (BOOL)sourceUpdatedWithSourceType:(id)type sourceIdentifier:(id)identifier error:(id *)error;
+- (BOOL)streamUpdatedWithStreamName:(id)name isDelete:(BOOL)delete error:(id *)error;
 - (BOOL)streamsChangedWithUpdated:(id)updated deletes:(id)deletes error:(id *)error;
 - (GDXPCCoordinationService)init;
 - (id)synchronousRemoteObjectProxyWithErrorHandler:(id)handler;
@@ -126,115 +127,170 @@
 
 - (BOOL)streamsChangedWithUpdated:(id)updated deletes:(id)deletes error:(id *)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   updatedCopy = updated;
   deletesCopy = deletes;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 0;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = sub_1ABF0D4CC;
-  v23 = sub_1ABF0D4DC;
   v24 = 0;
+  v25 = &v24;
+  v26 = 0x2020000000;
+  v27 = 0;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = sub_1ABF0D4CC;
+  v22 = sub_1ABF0D4DC;
+  v23 = 0;
   v10 = GDXPCLog();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = [updatedCopy count];
     v12 = [deletesCopy count];
     *buf = 134218240;
-    v30 = v11;
-    v31 = 2048;
-    v32 = v12;
+    v29 = v11;
+    v30 = 2048;
+    v31 = v12;
     _os_log_impl(&dword_1ABA78000, v10, OS_LOG_TYPE_DEFAULT, "GDXPCCoordinationService: streamsChanged called with %tu updated and %tu deletes", buf, 0x16u);
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = sub_1ABF0DBC8;
-  v18[3] = &unk_1E7962878;
-  v18[4] = &v19;
-  v18[5] = &v25;
-  v13 = [(GDXPCCoordinationService *)self synchronousRemoteObjectProxyWithErrorHandler:v18];
   v17[0] = MEMORY[0x1E69E9820];
   v17[1] = 3221225472;
-  v17[2] = sub_1ABF0DCAC;
-  v17[3] = &unk_1E79628A0;
-  v17[4] = &v25;
-  v17[5] = &v19;
-  [v13 streamsChangedWithUpdated:updatedCopy deletes:deletesCopy completion:v17];
+  v17[2] = sub_1ABF0DBC8;
+  v17[3] = &unk_1E7962878;
+  v17[4] = &v18;
+  v17[5] = &v24;
+  v13 = [(GDXPCCoordinationService *)self synchronousRemoteObjectProxyWithErrorHandler:v17];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = sub_1ABF0DCAC;
+  v16[3] = &unk_1E79628A0;
+  v16[4] = &v24;
+  v16[5] = &v18;
+  [v13 streamsChangedWithUpdated:updatedCopy deletes:deletesCopy completion:v16];
 
-  v14 = *(v26 + 24);
-  if (error && (v26[3] & 1) == 0)
+  v14 = *(v25 + 24);
+  if (error && (v25[3] & 1) == 0)
   {
-    *error = v20[5];
-    v14 = *(v26 + 24);
+    *error = v19[5];
+    v14 = *(v25 + 24);
   }
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v18, 8);
 
-  _Block_object_dispose(&v25, 8);
-  v15 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v24, 8);
   return v14 & 1;
+}
+
+- (BOOL)streamUpdatedWithStreamName:(id)name isDelete:(BOOL)delete error:(id *)error
+{
+  deleteCopy = delete;
+  v35 = *MEMORY[0x1E69E9840];
+  nameCopy = name;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x2020000000;
+  v30 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = sub_1ABF0D4CC;
+  v25 = sub_1ABF0D4DC;
+  v26 = 0;
+  v9 = GDXPCLog();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  {
+    v10 = [MEMORY[0x1E696AD98] numberWithBool:deleteCopy];
+    *buf = 138412546;
+    v32 = nameCopy;
+    v33 = 2112;
+    v34 = v10;
+    _os_log_impl(&dword_1ABA78000, v9, OS_LOG_TYPE_DEFAULT, "GDXPCCoordinationService: streamUpdatedWithStreamName called. %@ %@", buf, 0x16u);
+  }
+
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = sub_1ABF0DF70;
+  v16[3] = &unk_1E7962428;
+  v11 = nameCopy;
+  v20 = deleteCopy;
+  v17 = v11;
+  v18 = &v21;
+  v19 = &v27;
+  v12 = [(GDXPCCoordinationService *)self synchronousRemoteObjectProxyWithErrorHandler:v16];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = sub_1ABF0E090;
+  v15[3] = &unk_1E79628A0;
+  v15[4] = &v27;
+  v15[5] = &v21;
+  [v12 streamUpdatedWithStreamName:v11 isDelete:deleteCopy completion:v15];
+
+  v13 = *(v28 + 24);
+  if (error && (v28[3] & 1) == 0)
+  {
+    *error = v22[5];
+    v13 = *(v28 + 24);
+  }
+
+  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v27, 8);
+
+  return v13 & 1;
 }
 
 - (BOOL)sourceUpdatedWithSourceType:(id)type sourceIdentifier:(id)identifier error:(id *)error
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   identifierCopy = identifier;
-  v29 = 0;
-  v30 = &v29;
-  v31 = 0x2020000000;
-  v32 = 0;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = sub_1ABF0D4CC;
-  v27 = sub_1ABF0D4DC;
   v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = sub_1ABF0D4CC;
+  v26 = sub_1ABF0D4DC;
+  v27 = 0;
   v10 = GDXPCLog();
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v34 = typeCopy;
-    v35 = 2112;
-    v36 = identifierCopy;
+    v33 = typeCopy;
+    v34 = 2112;
+    v35 = identifierCopy;
     _os_log_impl(&dword_1ABA78000, v10, OS_LOG_TYPE_DEFAULT, "GDXPCCoordinationService: sourceUpdatedWithError called. %@ %@", buf, 0x16u);
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = sub_1ABF0E350;
-  v18[3] = &unk_1E7962640;
-  v11 = typeCopy;
-  v19 = v11;
-  v12 = identifierCopy;
-  v20 = v12;
-  v21 = &v23;
-  v22 = &v29;
-  v13 = [(GDXPCCoordinationService *)self synchronousRemoteObjectProxyWithErrorHandler:v18];
   v17[0] = MEMORY[0x1E69E9820];
   v17[1] = 3221225472;
-  v17[2] = sub_1ABF0E44C;
-  v17[3] = &unk_1E79628A0;
-  v17[4] = &v29;
-  v17[5] = &v23;
-  [v13 sourceUpdatedWithSourceType:v11 sourceIdentifier:v12 completion:v17];
+  v17[2] = sub_1ABF0E350;
+  v17[3] = &unk_1E7962640;
+  v11 = typeCopy;
+  v18 = v11;
+  v12 = identifierCopy;
+  v19 = v12;
+  v20 = &v22;
+  v21 = &v28;
+  v13 = [(GDXPCCoordinationService *)self synchronousRemoteObjectProxyWithErrorHandler:v17];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = sub_1ABF0E44C;
+  v16[3] = &unk_1E79628A0;
+  v16[4] = &v28;
+  v16[5] = &v22;
+  [v13 sourceUpdatedWithSourceType:v11 sourceIdentifier:v12 completion:v16];
 
-  v14 = *(v30 + 24);
-  if (error && (v30[3] & 1) == 0)
+  v14 = *(v29 + 24);
+  if (error && (v29[3] & 1) == 0)
   {
-    *error = v24[5];
-    v14 = *(v30 + 24);
+    *error = v23[5];
+    v14 = *(v29 + 24);
   }
 
-  _Block_object_dispose(&v23, 8);
-  _Block_object_dispose(&v29, 8);
+  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v28, 8);
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14 & 1;
 }
 

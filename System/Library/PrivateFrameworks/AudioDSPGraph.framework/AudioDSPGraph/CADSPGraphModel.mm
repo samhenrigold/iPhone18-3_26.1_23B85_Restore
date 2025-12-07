@@ -64,7 +64,29 @@
     goto LABEL_28;
   }
 
-  if (std::operator==[abi:ne200100]<std::string,std::string>(&self->_this.name.var0.__val_.__rep_.__l.__data_, &equalCopy->_this) && *self->_anon_28 == *equalCopy->_anon_28 && *&self->_anon_28[4] == *&equalCopy->_anon_28[4] && *&self->_anon_28[8] == *&equalCopy->_anon_28[8] && *&self->_anon_28[12] == *&equalCopy->_anon_28[12] && self->_anon_28[16] == equalCopy->_anon_28[16] && ((equalCopy->_anon_28[17] ^ self->_anon_28[17]) & 0xF) == 0 && std::operator==[abi:ne200100]<AudioDSPGraph::IR::BoxModel,std::allocator<AudioDSPGraph::IR::BoxModel>>(*&self->_anon_28[24], *&self->_anon_28[32], *&equalCopy->_anon_28[24], *&equalCopy->_anon_28[32]) && std::operator==[abi:ne200100]<AudioDSPGraph::IR::BoxRelationModel,std::allocator<AudioDSPGraph::IR::BoxRelationModel>>(*&self->_anon_28[48], *&self->_anon_28[56], *&equalCopy->_anon_28[48], *&equalCopy->_anon_28[56]) && std::operator==[abi:ne200100]<AudioDSPGraph::IR::SubsetModel,std::allocator<AudioDSPGraph::IR::SubsetModel>>(*&self->_anon_28[72], *&self->_anon_28[80], *&equalCopy->_anon_28[72], *&equalCopy->_anon_28[80]) && std::operator==[abi:ne200100]<AudioDSPGraph::IR::WireModel,std::allocator<AudioDSPGraph::IR::WireModel>>(*&self->_anon_28[96], *&self->_anon_28[104], *&equalCopy->_anon_28[96], *&equalCopy->_anon_28[104]) && std::operator==[abi:ne200100]<AudioDSPGraph::IR::WireConfigurationAlias,AudioDSPGraph::IR::WireConfiguration,AudioDSPGraph::IR::Hash,std::equal_to<AudioDSPGraph::IR::WireConfigurationAlias>,std::allocator<std::pair<AudioDSPGraph::IR::WireConfigurationAlias const,AudioDSPGraph::IR::WireConfiguration>>>(&self->_anon_28[120], &equalCopy->_anon_28[120]) && AudioDSPGraph::IR::operator==<std::vector<AudioDSPGraph::IR::PortModel>>(&self->_anon_28[160], &equalCopy->_anon_28[160]) && std::operator==[abi:ne200100]<AudioDSPGraph::IR::SubsetModel,std::allocator<AudioDSPGraph::IR::SubsetModel>>(*&self->_anon_28[208], *&self->_anon_28[216], *&equalCopy->_anon_28[208], *&equalCopy->_anon_28[216]) && std::operator==[abi:ne200100]<AudioDSPGraph::IR::ParameterModel,std::allocator<AudioDSPGraph::IR::ParameterModel>>(*&self->_anon_28[232], *&self->_anon_28[240], *&equalCopy->_anon_28[232], *&equalCopy->_anon_28[240]) && std::operator==[abi:ne200100]<AudioDSPGraph::IR::ParameterConnectionModel,std::allocator<AudioDSPGraph::IR::ParameterConnectionModel>>(*&self->_anon_28[256], *&self->_anon_28[264], *&equalCopy->_anon_28[256], *&equalCopy->_anon_28[264]) && std::operator==[abi:ne200100]<AudioDSPGraph::IR::ParameterWireModel,std::allocator<AudioDSPGraph::IR::ParameterWireModel>>(*&self->_anon_28[280], *&self->_anon_28[288], *&equalCopy->_anon_28[280], *&equalCopy->_anon_28[288]) && std::operator==[abi:ne200100]<AudioDSPGraph::IR::PropertyModel,std::allocator<AudioDSPGraph::IR::PropertyModel>>(*&self->_anon_28[304], *&self->_anon_28[312], *&equalCopy->_anon_28[304], *&equalCopy->_anon_28[312]) && std::operator==[abi:ne200100]<AudioDSPGraph::IR::ParameterConnectionModel,std::allocator<AudioDSPGraph::IR::ParameterConnectionModel>>(*&self->_anon_28[328], *&self->_anon_28[336], *&equalCopy->_anon_28[328], *&equalCopy->_anon_28[336]) && std::operator==[abi:ne200100]<AudioDSPGraph::IR::ParameterWireModel,std::allocator<AudioDSPGraph::IR::ParameterWireModel>>(*&self->_anon_28[352], *&self->_anon_28[360], *&equalCopy->_anon_28[352], *&equalCopy->_anon_28[360]) && std::operator==[abi:ne200100]<AudioDSPGraph::IR::GraphModel::Analyzer,std::allocator<AudioDSPGraph::IR::GraphModel::Analyzer>>(*&self->_anon_28[376], *&self->_anon_28[384], *&equalCopy->_anon_28[376], *&equalCopy->_anon_28[384]) && std::operator==[abi:ne200100]<AudioDSPGraph::IR::GraphModel::AnalyzerConnection,std::allocator<AudioDSPGraph::IR::GraphModel::AnalyzerConnection>>(*&self->_anon_28[400], *&self->_anon_28[408], *&equalCopy->_anon_28[400], *&equalCopy->_anon_28[408]) && (v7.__data_ = *&self->_anon_28[432], v7.__size_ = *&equalCopy->_anon_28[424], std::operator==[abi:ne200100]<AudioDSPGraph::IR::InjectTapPointModel,std::allocator<AudioDSPGraph::IR::InjectTapPointModel>>(*&self->_anon_28[424], v7, *&equalCopy->_anon_28[432])))
+  if (std::operator==[abi:ne200100]<std::string,std::string>(&self->_this.name.var0.__val_.__rep_.__l.__data_, &equalCopy->_this)
+    && *self->_anon_28 == *equalCopy->_anon_28
+    && *&self->_anon_28[4] == *&equalCopy->_anon_28[4]
+    && *&self->_anon_28[8] == *&equalCopy->_anon_28[8]
+    && *&self->_anon_28[12] == *&equalCopy->_anon_28[12]
+    && self->_anon_28[16] == equalCopy->_anon_28[16]
+    && ((equalCopy->_anon_28[17] ^ self->_anon_28[17]) & 0xF) == 0
+    && std::operator==[abi:ne200100]<AudioDSPGraph::IR::BoxModel,std::allocator<AudioDSPGraph::IR::BoxModel>>(*&self->_anon_28[24], *&self->_anon_28[32], *&equalCopy->_anon_28[24], *&equalCopy->_anon_28[32])
+    && std::operator==[abi:ne200100]<AudioDSPGraph::IR::BoxRelationModel,std::allocator<AudioDSPGraph::IR::BoxRelationModel>>(*&self->_anon_28[48], *&self->_anon_28[56], *&equalCopy->_anon_28[48], *&equalCopy->_anon_28[56])
+    && std::operator==[abi:ne200100]<AudioDSPGraph::IR::SubsetModel,std::allocator<AudioDSPGraph::IR::SubsetModel>>(*&self->_anon_28[72], *&self->_anon_28[80], *&equalCopy->_anon_28[72], *&equalCopy->_anon_28[80])
+    && std::operator==[abi:ne200100]<AudioDSPGraph::IR::WireModel,std::allocator<AudioDSPGraph::IR::WireModel>>(*&self->_anon_28[96], *&self->_anon_28[104], *&equalCopy->_anon_28[96], *&equalCopy->_anon_28[104])
+    && std::operator==[abi:ne200100]<AudioDSPGraph::IR::WireConfigurationAlias,AudioDSPGraph::IR::WireConfiguration,AudioDSPGraph::IR::Hash,std::equal_to<AudioDSPGraph::IR::WireConfigurationAlias>,std::allocator<std::pair<AudioDSPGraph::IR::WireConfigurationAlias const,AudioDSPGraph::IR::WireConfiguration>>>(&self->_anon_28[120], &equalCopy->_anon_28[120])
+    && AudioDSPGraph::IR::operator==<std::vector<AudioDSPGraph::IR::PortModel>>(&self->_anon_28[160], &equalCopy->_anon_28[160])
+    && std::operator==[abi:ne200100]<AudioDSPGraph::IR::SubsetModel,std::allocator<AudioDSPGraph::IR::SubsetModel>>(*&self->_anon_28[208], *&self->_anon_28[216], *&equalCopy->_anon_28[208], *&equalCopy->_anon_28[216])
+    && std::operator==[abi:ne200100]<AudioDSPGraph::IR::ParameterModel,std::allocator<AudioDSPGraph::IR::ParameterModel>>(*&self->_anon_28[232], *&self->_anon_28[240], *&equalCopy->_anon_28[232], *&equalCopy->_anon_28[240])
+    && std::operator==[abi:ne200100]<AudioDSPGraph::IR::ParameterConnectionModel,std::allocator<AudioDSPGraph::IR::ParameterConnectionModel>>(*&self->_anon_28[256], *&self->_anon_28[264], *&equalCopy->_anon_28[256], *&equalCopy->_anon_28[264])
+    && std::operator==[abi:ne200100]<AudioDSPGraph::IR::ParameterWireModel,std::allocator<AudioDSPGraph::IR::ParameterWireModel>>(*&self->_anon_28[280], *&self->_anon_28[288], *&equalCopy->_anon_28[280], *&equalCopy->_anon_28[288])
+    && std::operator==[abi:ne200100]<AudioDSPGraph::IR::PropertyModel,std::allocator<AudioDSPGraph::IR::PropertyModel>>(*&self->_anon_28[304], *&self->_anon_28[312], *&equalCopy->_anon_28[304], *&equalCopy->_anon_28[312])
+    && std::operator==[abi:ne200100]<AudioDSPGraph::IR::ParameterConnectionModel,std::allocator<AudioDSPGraph::IR::ParameterConnectionModel>>(*&self->_anon_28[328], *&self->_anon_28[336], *&equalCopy->_anon_28[328], *&equalCopy->_anon_28[336])
+    && std::operator==[abi:ne200100]<AudioDSPGraph::IR::ParameterWireModel,std::allocator<AudioDSPGraph::IR::ParameterWireModel>>(*&self->_anon_28[352], *&self->_anon_28[360], *&equalCopy->_anon_28[352], *&equalCopy->_anon_28[360])
+    && std::operator==[abi:ne200100]<AudioDSPGraph::IR::GraphModel::Analyzer,std::allocator<AudioDSPGraph::IR::GraphModel::Analyzer>>(*&self->_anon_28[376], *&self->_anon_28[384], *&equalCopy->_anon_28[376], *&equalCopy->_anon_28[384])
+    && std::operator==[abi:ne200100]<AudioDSPGraph::IR::GraphModel::AnalyzerConnection,std::allocator<AudioDSPGraph::IR::GraphModel::AnalyzerConnection>>(*&self->_anon_28[400], *&self->_anon_28[408], *&equalCopy->_anon_28[400], *&equalCopy->_anon_28[408])
+    && (v7.__data_ = *&self->_anon_28[432], v7.__size_ = *&equalCopy->_anon_28[424], std::operator==[abi:ne200100]<AudioDSPGraph::IR::InjectTapPointModel,std::allocator<AudioDSPGraph::IR::InjectTapPointModel>>(*&self->_anon_28[424], v7, *&equalCopy->_anon_28[432])))
   {
     v8.__data_ = *&self->_anon_28[456];
     v8.__size_ = *&equalCopy->_anon_28[448];
@@ -192,18 +214,31 @@ LABEL_28:
 
 - (BOOL)getAudioStreamConfiguration:(CADSPAudioStreamConfiguration *)configuration forName:(id)name
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v7 = nameCopy;
   if (!nameCopy)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
-    v15 = 0u;
+    v14 = 0;
+    v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     *__p = 0u;
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
+    v12 = MEMORY[0x1E69E9C10];
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v13 = 3;
+    }
+
+    else
+    {
+      v13 = 2;
+    }
+
+    v15 = 134217984;
+    v16 = 0;
+    _os_log_send_and_compose_impl(v13, &v14, __p, 80, &dword_1C91AE000, v12, 16, "assertion failure: name -> %llu", &v15);
     _os_crash_msg();
     __break(1u);
   }
@@ -225,12 +260,11 @@ LABEL_28:
     configuration->var1 = *(v8 + 20);
   }
 
-  if (SBYTE7(v14) < 0)
+  if (SBYTE7(v18) < 0)
   {
     operator delete(__p[0]);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return 1;
 }
 

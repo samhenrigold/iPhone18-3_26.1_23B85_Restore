@@ -13,7 +13,7 @@
 
   if (equal && self->_index == *(equal + 2))
   {
-    return [(NSString *)self->_element isEqualToString:*(equal + 1)];
+    return objc_msgSend_isEqualToString_(self->_element, a2, *(equal + 1));
   }
 
   return 0;

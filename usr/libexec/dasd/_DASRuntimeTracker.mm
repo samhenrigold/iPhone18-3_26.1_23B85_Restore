@@ -80,27 +80,17 @@
   endedCopy = ended;
   v5 = endedCopy;
   activeActivities = self->_activeActivities;
-  if (!activeActivities)
-  {
-    goto LABEL_4;
-  }
-
-  uuid = [endedCopy uuid];
-  uUIDString = [uuid UUIDString];
-  v9 = [(NSMutableDictionary *)activeActivities objectForKeyedSubscript:uUIDString];
-
-  if (v9)
+  if (activeActivities && ([endedCopy uuid], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "UUIDString"), v8 = objc_claimAutoreleasedReturnValue(), -[NSMutableDictionary objectForKeyedSubscript:](activeActivities, "objectForKeyedSubscript:", v8), v9 = objc_claimAutoreleasedReturnValue(), v9, v8, v7, v9))
   {
     [(_DASRunningTracker *)self->_runningTracker updateCurrentRuntimeWithActivity:v5];
     v10 = self->_activeActivities;
-    uuid2 = [v5 uuid];
-    uUIDString2 = [uuid2 UUIDString];
-    [(NSMutableDictionary *)v10 removeObjectForKey:uUIDString2];
+    uuid = [v5 uuid];
+    uUIDString = [uuid UUIDString];
+    [(NSMutableDictionary *)v10 removeObjectForKey:uUIDString];
   }
 
   else
   {
-LABEL_4:
     v13 = [_DASDaemonLogger logForCategory:@"runtimeTracker"];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
@@ -113,7 +103,7 @@ LABEL_4:
 {
   v3 = [(NSMutableDictionary *)self->_activeActivities copy];
   v4 = v3;
-  if (v3 && [v3 count])
+  if (v3 && objc_msgSend_count(v3))
   {
     v5 = +[NSMutableDictionary dictionary];
     v6 = +[NSDate now];

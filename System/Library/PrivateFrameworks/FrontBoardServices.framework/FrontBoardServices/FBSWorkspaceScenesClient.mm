@@ -55,12 +55,11 @@
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot call activate more than once"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(self);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(self);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -69,16 +68,14 @@
 
 - (void)_queue_sendHandshake
 {
-  v12 = *(self + 48);
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<FBSWorkspaceScenesClient:%p %@> handshake already sent"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<FBSWorkspaceScenesClient:%p %@> handshake already sent", self, *(self + 48)];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_12();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a2);
+    v6 = OUTLINED_FUNCTION_12(v4, v5);
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, self, v12, v13);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
   [v3 UTF8String];
@@ -435,116 +432,116 @@ void __88__FBSWorkspaceScenesClient__initWithIdentifier_connection_queue_callout
 
 void __88__FBSWorkspaceScenesClient__initWithIdentifier_connection_queue_calloutQueue_workspace___block_invoke_4(uint64_t a1)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   v1 = (a1 + 32);
   os_unfair_lock_lock((*(a1 + 32) + 120));
   v2 = *(*v1 + 104);
   *(*v1 + 104) = 0;
 
   os_unfair_lock_unlock((*v1 + 120));
-  v3 = FBLogCommon();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = FBLogCommon(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *v1;
-    v5 = *(*v1 + 48);
+    v5 = *v1;
+    v6 = *(*v1 + 48);
     *buf = 134218242;
-    v45 = v4;
-    v46 = 2112;
-    v47 = v5;
-    _os_log_impl(&dword_1A2DBB000, v3, OS_LOG_TYPE_DEFAULT, "<FBSWorkspaceScenesClient:%p %@> was interrupted", buf, 0x16u);
+    v46 = v5;
+    v47 = 2112;
+    v48 = v6;
+    _os_log_impl(&dword_1A2DBB000, v4, OS_LOG_TYPE_DEFAULT, "<FBSWorkspaceScenesClient:%p %@> was interrupted", buf, 0x16u);
   }
 
-  v6 = *(*v1 + 96);
+  v7 = *(*v1 + 96);
   *(*v1 + 96) = 0;
 
-  v40 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v7 = [*(*v1 + 56) allValues];
-  v8 = [v7 countByEnumeratingWithState:&v38 objects:v43 count:16];
-  if (v8)
+  v40 = 0u;
+  v8 = [*(*v1 + 56) allValues];
+  v9 = [v8 countByEnumeratingWithState:&v39 objects:v44 count:16];
+  if (v9)
   {
-    v9 = v8;
-    v10 = *v39;
+    v10 = v9;
+    v11 = *v40;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v39 != v10)
+        if (*v40 != v11)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v38 + 1) + 8 * i);
-        v13 = [v12 settings];
-        v14 = [v13 interruptionPolicy];
+        v13 = *(*(&v39 + 1) + 8 * i);
+        v14 = [v13 settings];
+        v15 = [v14 interruptionPolicy];
 
-        v15 = *v1;
-        if (v14 == 2)
+        v16 = *v1;
+        if (v15 == 2)
         {
-          [v15[9] addObject:v12];
-          v16 = *v1;
-          v37[0] = MEMORY[0x1E69E9820];
-          v37[1] = 3221225472;
-          v37[2] = __88__FBSWorkspaceScenesClient__initWithIdentifier_connection_queue_calloutQueue_workspace___block_invoke_190;
-          v37[3] = &unk_1E76BCDB0;
-          v37[4] = v12;
-          if (v16)
+          [v16[9] addObject:v13];
+          v17 = *v1;
+          v38[0] = MEMORY[0x1E69E9820];
+          v38[1] = 3221225472;
+          v38[2] = __88__FBSWorkspaceScenesClient__initWithIdentifier_connection_queue_calloutQueue_workspace___block_invoke_190;
+          v38[3] = &unk_1E76BCDB0;
+          v38[4] = v13;
+          if (v17)
           {
-            [(FBSWorkspaceScenesClient *)v16 _executeCalloutFromHostEvent:v37 withBlock:?];
+            [(FBSWorkspaceScenesClient *)v17 _executeCalloutFromHostEvent:v38 withBlock:?];
           }
         }
 
         else
         {
-          [(FBSWorkspaceScenesClient *)v15 _queue_invalidateScene:v12 withTransitionContext:0 completion:0];
+          [(FBSWorkspaceScenesClient *)v16 _queue_invalidateScene:v13 withTransitionContext:0 completion:0];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v39 objects:v44 count:16];
     }
 
-    while (v9);
+    while (v10);
   }
 
-  v35 = 0u;
   v36 = 0u;
-  v33 = 0u;
+  v37 = 0u;
   v34 = 0u;
-  v17 = *(*v1 + 80);
-  v18 = [v17 countByEnumeratingWithState:&v33 objects:v42 count:16];
-  if (v18)
+  v35 = 0u;
+  v18 = *(*v1 + 80);
+  v19 = [v18 countByEnumeratingWithState:&v34 objects:v43 count:16];
+  if (v19)
   {
-    v24 = v18;
-    v25 = *v34;
+    v25 = v19;
+    v26 = *v35;
     do
     {
-      for (j = 0; j != v24; ++j)
+      for (j = 0; j != v25; ++j)
       {
-        if (*v34 != v25)
+        if (*v35 != v26)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v18);
         }
 
-        v27 = *(*(&v33 + 1) + 8 * j);
-        v28 = FBSWorkspaceErrorCreate(0, 3uLL, @"service was interrupted (did the server crash?) : %@", v19, v20, v21, v22, v23, *(*v1 + 48));
-        (*(v27 + 16))(v27, 0, v28);
+        v28 = *(*(&v34 + 1) + 8 * j);
+        v29 = FBSWorkspaceErrorCreate(0, 3uLL, @"service was interrupted (did the server crash?) : %@", v20, v21, v22, v23, v24, *(*v1 + 48));
+        (*(v28 + 16))(v28, 0, v29);
       }
 
-      v24 = [v17 countByEnumeratingWithState:&v33 objects:v42 count:16];
+      v25 = [v18 countByEnumeratingWithState:&v34 objects:v43 count:16];
     }
 
-    while (v24);
+    while (v25);
   }
 
-  v29 = [MEMORY[0x1E695DF70] array];
-  v30 = *(*v1 + 80);
-  *(*v1 + 80) = v29;
+  v30 = [MEMORY[0x1E695DF70] array];
+  v31 = *(*v1 + 80);
+  *(*v1 + 80) = v30;
 
   [*(*v1 + 40) activate];
-  v31 = *(*v1 + 48);
-  if (!v31 || (v32 = *(v31 + 8)) == 0 || ([v32 isNonLaunching] & 1) == 0)
+  v32 = *(*v1 + 48);
+  if (!v32 || (v33 = *(v32 + 8)) == 0 || ([v33 isNonLaunching] & 1) == 0)
   {
     __88__FBSWorkspaceScenesClient__initWithIdentifier_connection_queue_calloutQueue_workspace___block_invoke_4_cold_1(v1);
   }
@@ -598,7 +595,7 @@ void __88__FBSWorkspaceScenesClient__initWithIdentifier_connection_queue_callout
 void __88__FBSWorkspaceScenesClient__initWithIdentifier_connection_queue_calloutQueue_workspace___block_invoke_194(uint64_t a1)
 {
   v9 = *MEMORY[0x1E69E9840];
-  v2 = FBLogCommon();
+  v2 = FBLogCommon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -747,10 +744,10 @@ void __65__FBSWorkspaceScenesClient_sendActions_toWorkspaceID_completion___block
   return v12;
 }
 
-uint64_t __60__FBSWorkspaceScenesClient_createSceneFutureWithDefinition___block_invoke_217(uint64_t a1)
+uint64_t __60__FBSWorkspaceScenesClient_createSceneFutureWithDefinition___block_invoke_217(void *a1)
 {
-  v2 = [(FBSWorkspaceScenesClient *)*(a1 + 32) _createSceneWithIdentity:*(a1 + 48) parameters:?];
-  v3 = *(*(a1 + 56) + 8);
+  v2 = [(FBSWorkspaceScenesClient *)a1[4] _createSceneWithIdentity:a1[6] parameters:?];
+  v3 = *(a1[7] + 8);
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
@@ -777,55 +774,56 @@ uint64_t __60__FBSWorkspaceScenesClient_createSceneFutureWithDefinition___block_
     v7 = [*(self + 56) objectForKey:v5];
     if (v7)
     {
-      if (![*(self + 72) containsObject:v7])
+      v8 = [*(self + 72) containsObject:v7];
+      if (!v8)
       {
-        v15 = MEMORY[0x1E696AEC0];
+        v16 = MEMORY[0x1E696AEC0];
         identityToken = [v7 identityToken];
-        identityCopy = [v15 stringWithFormat:@"already have a scene for %@ : parameters=%@", identityToken, identityCopy];
+        identityCopy = [v16 stringWithFormat:@"already have a scene for %@ : parameters=%@", identityToken, identityCopy];
 
         if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
         {
-          [FBSWorkspaceScenesClient _createSceneWithIdentity:? parameters:?];
+          [(FBSWorkspaceScenesClient *)sel__createSceneWithIdentity_parameters_ _createSceneWithIdentity:self parameters:identityCopy];
         }
 
         [identityCopy UTF8String];
         _bs_set_crash_log_message();
       }
 
-      v8 = FBLogCommon();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = FBLogCommon(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [FBSWorkspaceScenesClient _createSceneWithIdentity:self parameters:v7];
       }
 
       [(FBSWorkspaceScenesClient *)self _queue_invalidateScene:v7 withTransitionContext:0 completion:0];
-      v9 = [*(self + 56) objectForKey:v5];
+      v10 = [*(self + 56) objectForKey:v5];
 
-      if (v9)
+      if (v10)
       {
-        [FBSWorkspaceScenesClient _createSceneWithIdentity:v7 parameters:sel__createSceneWithIdentity_parameters_];
+        [(FBSWorkspaceScenesClient *)v7 _createSceneWithIdentity:self parameters:?];
       }
     }
 
-    v10 = [(FBSWorkspaceScenesClientIdentifier *)*(self + 48) tokenWithIdentity:v5];
-    v11 = [[FBSScene alloc] _initWithUpdater:self identityToken:v10 identity:v5 parameters:identityCopy hostHandle:*(self + 96)];
-    [*(self + 56) setObject:v11 forKey:v5];
-    v12 = *(self + 64);
-    clientSettings = [v11 clientSettings];
-    [v12 setObject:clientSettings forKey:v5];
+    v11 = [(FBSWorkspaceScenesClientIdentifier *)*(self + 48) tokenWithIdentity:v5];
+    v12 = [[FBSScene alloc] _initWithUpdater:self identityToken:v11 identity:v5 parameters:identityCopy hostHandle:*(self + 96)];
+    [*(self + 56) setObject:v12 forKey:v5];
+    v13 = *(self + 64);
+    clientSettings = [v12 clientSettings];
+    [v13 setObject:clientSettings forKey:v5];
   }
 
   else
   {
-    v11 = 0;
+    v12 = 0;
   }
 
-  return v11;
+  return v12;
 }
 
 - (void)activateSceneFuture:(id)future completion:(id)completion
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   futureCopy = future;
   completionCopy = completion;
   [(BSServiceQueue *)self->_callOutQueue assertBarrierOnQueue];
@@ -856,62 +854,63 @@ uint64_t __60__FBSWorkspaceScenesClient_createSceneFutureWithDefinition___block_
   [v12 setInitialClientSettings:clientSettings];
 
   [v12 setClientFuture:1];
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x2020000000;
-  v59 = 0;
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2020000000;
+  v60 = 0;
   queue = self->_queue;
-  v51[0] = MEMORY[0x1E69E9820];
-  v51[1] = 3221225472;
-  v51[2] = __59__FBSWorkspaceScenesClient_activateSceneFuture_completion___block_invoke;
-  v51[3] = &unk_1E76BE988;
-  v55 = &v56;
+  v52[0] = MEMORY[0x1E69E9820];
+  v52[1] = 3221225472;
+  v52[2] = __59__FBSWorkspaceScenesClient_activateSceneFuture_completion___block_invoke;
+  v52[3] = &unk_1E76BE988;
+  v56 = &v57;
   v20 = futureCopy;
-  v52 = v20;
+  v53 = v20;
   selfCopy = self;
   v21 = identity;
-  v54 = v21;
-  [(BSServiceDispatchQueue *)queue performAsyncAndWait:v51];
+  v55 = v21;
+  [(BSServiceDispatchQueue *)queue performAsyncAndWait:v52];
   v22 = [off_1E76BC9B0 builderWithObject:v20];
   v23 = [v22 appendObject:v21 withName:0];
   build = [v22 build];
-  v46[0] = MEMORY[0x1E69E9820];
-  v46[1] = 3221225472;
-  v46[2] = __59__FBSWorkspaceScenesClient_activateSceneFuture_completion___block_invoke_2;
-  v46[3] = &unk_1E76BE9B0;
+  v47[0] = MEMORY[0x1E69E9820];
+  v47[1] = 3221225472;
+  v47[2] = __59__FBSWorkspaceScenesClient_activateSceneFuture_completion___block_invoke_2;
+  v47[3] = &unk_1E76BE9B0;
   v25 = build;
-  v47 = v25;
+  v48 = v25;
   selfCopy2 = self;
   v26 = v21;
-  v49 = v26;
+  v50 = v26;
   v27 = completionCopy;
-  v50 = v27;
-  v33 = MEMORY[0x1A58E80F0](v46);
-  if (*(v57 + 24) == 1)
+  v51 = v27;
+  v28 = MEMORY[0x1A58E80F0](v47);
+  v34 = v28;
+  if (*(v58 + 24) == 1)
   {
-    v35 = FBLogCommon();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v36 = FBLogCommon(v28);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
       identifier = self->_identifier;
       *buf = 138543618;
-      v61 = v25;
-      v62 = 2114;
-      v63 = identifier;
-      _os_log_impl(&dword_1A2DBB000, v35, OS_LOG_TYPE_DEFAULT, "Requesting scene %{public}@ from %{public}@", buf, 0x16u);
+      v62 = v25;
+      v63 = 2114;
+      v64 = identifier;
+      _os_log_impl(&dword_1A2DBB000, v36, OS_LOG_TYPE_DEFAULT, "Requesting scene %{public}@ from %{public}@", buf, 0x16u);
     }
 
     _remoteTarget = [(FBSWorkspaceScenesClient *)self _remoteTarget];
-    v34 = _remoteTarget;
+    v35 = _remoteTarget;
     if (_remoteTarget)
     {
-      [_remoteTarget createSceneWithOptions:v12 completion:v33];
+      [_remoteTarget createSceneWithOptions:v12 completion:v34];
       specification2 = [v20 specification];
       disablesClientBatching = [specification2 disablesClientBatching];
 
       if (!disablesClientBatching)
       {
 LABEL_12:
-        [(FBSWorkspaceScenesClient *)self _callOutQueue_sendDidCreateForScene:v20 transitionContext:0 completion:v33];
+        [(FBSWorkspaceScenesClient *)self _callOutQueue_sendDidCreateForScene:v20 transitionContext:0 completion:v34];
         goto LABEL_4;
       }
 
@@ -921,18 +920,18 @@ LABEL_12:
 
     else
     {
-      activeMessageBatch = FBSWorkspaceErrorCreate(0, 3uLL, @"no proxy available for %@", v38, v39, v40, v41, v42, self->_identifier);
-      (v33)[2](v33, activeMessageBatch);
+      activeMessageBatch = FBSWorkspaceErrorCreate(0, 3uLL, @"no proxy available for %@", v39, v40, v41, v42, v43, self->_identifier);
+      (v34)[2](v34, activeMessageBatch);
     }
 
     goto LABEL_12;
   }
 
-  v34 = FBSWorkspaceErrorCreate(0, 1uLL, @"scene %@ was invalidated before activation %@", v28, v29, v30, v31, v32, v25);
-  (v33)[2](v33, v34);
+  v35 = FBSWorkspaceErrorCreate(0, 1uLL, @"scene %@ was invalidated before activation %@", v29, v30, v31, v32, v33, v25);
+  (v34)[2](v34, v35);
 LABEL_4:
 
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v57, 8);
 }
 
 void __59__FBSWorkspaceScenesClient_activateSceneFuture_completion___block_invoke(void *a1)
@@ -950,11 +949,11 @@ void __59__FBSWorkspaceScenesClient_activateSceneFuture_completion___block_invok
   }
 }
 
-void __59__FBSWorkspaceScenesClient_activateSceneFuture_completion___block_invoke_2(uint64_t a1, void *a2)
+void __59__FBSWorkspaceScenesClient_activateSceneFuture_completion___block_invoke_2(void *a1, void *a2)
 {
   v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = FBLogCommon();
+  v4 = FBLogCommon(v3);
   v5 = v4;
   if (v3)
   {
@@ -963,21 +962,21 @@ void __59__FBSWorkspaceScenesClient_activateSceneFuture_completion___block_invok
       __59__FBSWorkspaceScenesClient_activateSceneFuture_completion___block_invoke_2_cold_1(a1, v3);
     }
 
-    [(FBSWorkspaceScenesClient *)*(a1 + 40) _sceneID:0 destroyWithTransitionContext:0 completion:?];
+    [(FBSWorkspaceScenesClient *)a1[5] _sceneID:0 destroyWithTransitionContext:0 completion:?];
   }
 
   else
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 32);
+      v6 = a1[4];
       v8 = 138543362;
       v9 = v6;
       _os_log_impl(&dword_1A2DBB000, v5, OS_LOG_TYPE_DEFAULT, "Request for %{public}@ complete!", &v8, 0xCu);
     }
   }
 
-  v7 = *(a1 + 56);
+  v7 = a1[7];
   if (v7)
   {
     (*(v7 + 16))(v7, v3 == 0, v3);
@@ -1096,10 +1095,11 @@ void __63__FBSWorkspaceScenesClient_requestSceneWithOptions_completion___block_i
   {
     if (!v6)
     {
-      v12 = FBSWorkspaceErrorCreate(0, 3uLL, @"proxy to %@ was unexpectedly nil", v7, v8, v9, v10, v11, *(*(a1 + 32) + 48));
+      v6 = FBSWorkspaceErrorCreate(0, 3uLL, @"proxy to %@ was unexpectedly nil", v7, v8, v9, v10, v11, *(*(a1 + 32) + 48));
+      v12 = v6;
     }
 
-    v14 = FBLogCommon();
+    v14 = FBLogCommon(v6);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       __63__FBSWorkspaceScenesClient_requestSceneWithOptions_completion___block_invoke_cold_2(a1, v12);
@@ -1115,56 +1115,58 @@ void __63__FBSWorkspaceScenesClient_requestSceneWithOptions_completion___block_i
 
 void __63__FBSWorkspaceScenesClient_requestSceneWithOptions_completion___block_invoke_2(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  if (v3)
+  v3 = v2;
+  v4 = *(a1 + 40);
+  if (v4)
   {
-    v9 = [(FBSWorkspaceScenesClient *)*(a1 + 48) _reportedSceneWithIdentity:v3];
-    if (!v9)
+    v2 = [(FBSWorkspaceScenesClient *)*(a1 + 48) _reportedSceneWithIdentity:v4];
+    v10 = v2;
+    if (!v2)
     {
-      v10 = FBSWorkspaceErrorCreate(*(a1 + 32), 1uLL, @"failed to find expected scene from %@ with identifier=%@", v4, v5, v6, v7, v8, *(*(a1 + 48) + 48));
+      v11 = FBSWorkspaceErrorCreate(*(a1 + 32), 1uLL, @"failed to find expected scene from %@ with identifier=%@", v5, v6, v7, v8, v9, *(*(a1 + 48) + 48));
 
-      v2 = v10;
+      v3 = v11;
     }
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  if (v2)
+  if (v3)
   {
-    v11 = FBLogCommon();
-    v12 = v11;
-    if (v9)
+    v12 = FBLogCommon(v2);
+    v13 = v12;
+    if (v10)
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = *(a1 + 48);
-        v14 = *(v13 + 48);
-        v15 = [v2 succinctDescription];
+        v14 = *(a1 + 48);
+        v15 = *(v14 + 48);
+        v16 = [v3 succinctDescription];
         *buf = 134218498;
-        v18 = v13;
-        v19 = 2112;
-        v20 = v14;
-        v21 = 2114;
-        v22 = v15;
-        _os_log_impl(&dword_1A2DBB000, v12, OS_LOG_TYPE_DEFAULT, "<FBSWorkspaceScenesClient:%p %@> scene request received error response : %{public}@", buf, 0x20u);
+        v19 = v14;
+        v20 = 2112;
+        v21 = v15;
+        v22 = 2114;
+        v23 = v16;
+        _os_log_impl(&dword_1A2DBB000, v13, OS_LOG_TYPE_DEFAULT, "<FBSWorkspaceScenesClient:%p %@> scene request received error response : %{public}@", buf, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      __63__FBSWorkspaceScenesClient_requestSceneWithOptions_completion___block_invoke_2_cold_1(a1, v2);
+      __63__FBSWorkspaceScenesClient_requestSceneWithOptions_completion___block_invoke_2_cold_1(a1, v3);
     }
   }
 
-  v16 = *(a1 + 56);
-  if (v16)
+  v17 = *(a1 + 56);
+  if (v17)
   {
-    (*(v16 + 16))(v16, v9, v2);
+    (*(v17 + 16))(v17, v10, v3);
   }
 }
 
@@ -1219,7 +1221,7 @@ void __63__FBSWorkspaceScenesClient_requestSceneWithOptions_completion___block_i
   {
     if (*(v2 + 80))
     {
-      __63__FBSWorkspaceScenesClient_requestSceneWithOptions_completion___block_invoke_2_242_cold_2(v2, a1);
+      __63__FBSWorkspaceScenesClient_requestSceneWithOptions_completion___block_invoke_2_242_cold_2(v2, a1, v3);
     }
 
     __63__FBSWorkspaceScenesClient_requestSceneWithOptions_completion___block_invoke_2_242_cold_3(a1, v2);
@@ -1278,7 +1280,7 @@ void __63__FBSWorkspaceScenesClient_requestSceneWithOptions_completion___block_i
 
 void __85__FBSWorkspaceScenesClient_scene_didUpdateClientSettings_withDiff_transitionContext___block_invoke(uint64_t a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 56) objectForKey:*(a1 + 40)];
   v3 = *(a1 + 48);
 
@@ -1296,37 +1298,37 @@ void __85__FBSWorkspaceScenesClient_scene_didUpdateClientSettings_withDiff_trans
         return;
       }
 
-      v7 = FBLogSceneClient();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = FBLogSceneClient(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = *(a1 + 40);
+        v9 = *(a1 + 40);
         *buf = 138543362;
-        v17 = v8;
-        _os_log_impl(&dword_1A2DBB000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Dropping transition context because the scene is reconnecting", buf, 0xCu);
+        v18 = v9;
+        _os_log_impl(&dword_1A2DBB000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Dropping transition context because the scene is reconnecting", buf, 0xCu);
       }
     }
 
     else
     {
-      v7 = [(FBSWorkspaceScenesClient *)*(a1 + 32) _remoteTarget];
-      if (v7)
+      v8 = [(FBSWorkspaceScenesClient *)*(a1 + 32) _remoteTarget];
+      if (v8)
       {
-        v9 = *(a1 + 40);
-        v10 = *(a1 + 64);
-        v11 = *(a1 + 72);
-        v14[0] = MEMORY[0x1E69E9820];
-        v14[1] = 3221225472;
-        v14[2] = __85__FBSWorkspaceScenesClient_scene_didUpdateClientSettings_withDiff_transitionContext___block_invoke_2;
-        v14[3] = &unk_1E76BEA78;
-        v15 = v9;
-        [v7 sceneID:v15 didUpdateClientSettingsWithDiff:v10 transitionContext:v11 completion:v14];
-        v12 = [*(a1 + 48) specification];
-        LODWORD(v11) = [v12 disablesClientBatching];
+        v10 = *(a1 + 40);
+        v11 = *(a1 + 64);
+        v12 = *(a1 + 72);
+        v15[0] = MEMORY[0x1E69E9820];
+        v15[1] = 3221225472;
+        v15[2] = __85__FBSWorkspaceScenesClient_scene_didUpdateClientSettings_withDiff_transitionContext___block_invoke_2;
+        v15[3] = &unk_1E76BEA78;
+        v16 = v10;
+        [v8 sceneID:v16 didUpdateClientSettingsWithDiff:v11 transitionContext:v12 completion:v15];
+        v13 = [*(a1 + 48) specification];
+        LODWORD(v12) = [v13 disablesClientBatching];
 
-        if (v11)
+        if (v12)
         {
-          v13 = [*(*(a1 + 32) + 40) activeMessageBatch];
-          [v13 commitWithReason:@"scene opts out of batching"];
+          v14 = [*(*(a1 + 32) + 40) activeMessageBatch];
+          [v14 commitWithReason:@"scene opts out of batching"];
         }
       }
     }
@@ -1336,12 +1338,13 @@ void __85__FBSWorkspaceScenesClient_scene_didUpdateClientSettings_withDiff_trans
 void __85__FBSWorkspaceScenesClient_scene_didUpdateClientSettings_withDiff_transitionContext___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = FBLogSceneClient();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = FBLogSceneClient(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __85__FBSWorkspaceScenesClient_scene_didUpdateClientSettings_withDiff_transitionContext___block_invoke_2_cold_1(a1, v3);
+      __85__FBSWorkspaceScenesClient_scene_didUpdateClientSettings_withDiff_transitionContext___block_invoke_2_cold_1(a1, v4);
     }
   }
 }
@@ -1368,31 +1371,32 @@ void __85__FBSWorkspaceScenesClient_scene_didUpdateClientSettings_withDiff_trans
   }
 }
 
-void __65__FBSWorkspaceScenesClient_scene_didReceiveActions_forExtension___block_invoke(uint64_t a1)
+void __65__FBSWorkspaceScenesClient_scene_didReceiveActions_forExtension___block_invoke(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = (a1 + 32);
-  v3 = (a1 + 40);
-  v4 = [*(*(a1 + 32) + 56) objectForKey:*(a1 + 40)];
-  v5 = *(a1 + 48);
+  v11 = *MEMORY[0x1E69E9840];
+  v2 = a1 + 4;
+  v3 = a1 + 5;
+  v4 = [*(a1[4] + 56) objectForKey:a1[5]];
+  v5 = a1[6];
 
   if (v4 == v5)
   {
-    if ([*(*v2 + 72) containsObject:*(a1 + 48)])
+    v6 = [*(*v2 + 72) containsObject:a1[6]];
+    if (v6)
     {
-      v6 = FBLogSceneClient();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = FBLogSceneClient(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = *v3;
-        v8 = 138543362;
-        v9 = v7;
-        _os_log_impl(&dword_1A2DBB000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Dropping actions because the scene is reconnecting", &v8, 0xCu);
+        v8 = *v3;
+        v9 = 138543362;
+        v10 = v8;
+        _os_log_impl(&dword_1A2DBB000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Dropping actions because the scene is reconnecting", &v9, 0xCu);
       }
     }
 
     else
     {
-      __65__FBSWorkspaceScenesClient_scene_didReceiveActions_forExtension___block_invoke_cold_1(v2, (a1 + 40), a1, (a1 + 48));
+      __65__FBSWorkspaceScenesClient_scene_didReceiveActions_forExtension___block_invoke_cold_1(v2, a1 + 5, a1, a1 + 6);
     }
   }
 }
@@ -1677,21 +1681,21 @@ void __59__FBSWorkspaceScenesClient_scene_sendMessage_withResponse___block_invok
   [(BSServiceDispatchQueue *)queue performAsyncAndWait:v13];
 }
 
-void __66__FBSWorkspaceScenesClient_scene_invalidateWithTransitionContext___block_invoke(uint64_t a1)
+void __66__FBSWorkspaceScenesClient_scene_invalidateWithTransitionContext___block_invoke(void **a1)
 {
-  v2 = (a1 + 32);
-  v3 = [*(*(a1 + 32) + 56) objectForKey:*(a1 + 40)];
-  v4 = *(a1 + 48);
+  v2 = (a1 + 4);
+  v3 = [*(a1[4] + 7) objectForKey:a1[5]];
+  v4 = a1[6];
 
   if (v3 == v4)
   {
-    __66__FBSWorkspaceScenesClient_scene_invalidateWithTransitionContext___block_invoke_cold_2(v2, (a1 + 48), a1, (a1 + 40));
+    __66__FBSWorkspaceScenesClient_scene_invalidateWithTransitionContext___block_invoke_cold_2(v2, a1 + 6, a1, a1 + 5);
   }
 
   else
   {
-    v5 = FBLogSceneClient();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = FBLogSceneClient(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __66__FBSWorkspaceScenesClient_scene_invalidateWithTransitionContext___block_invoke_cold_1();
     }
@@ -1812,7 +1816,7 @@ void __92__FBSWorkspaceScenesClient_createSceneWithIdentity_parameters_transitio
   parametersCopy = parameters;
   contextCopy = context;
   completionCopy = completion;
-  v14 = FBLogCommon();
+  v14 = FBLogCommon(completionCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     identifier = self->_identifier;
@@ -1895,19 +1899,20 @@ void __92__FBSWorkspaceScenesClient_createSceneWithIdentity_parameters_transitio
 void __95__FBSWorkspaceScenesClient_reconnectSceneWithIdentity_parameters_transitionContext_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = FBLogSceneClient();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = FBLogSceneClient(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __85__FBSWorkspaceScenesClient_scene_didUpdateClientSettings_withDiff_transitionContext___block_invoke_2_cold_1(a1, v3);
+      __85__FBSWorkspaceScenesClient_scene_didUpdateClientSettings_withDiff_transitionContext___block_invoke_2_cold_1(a1, v4);
     }
   }
 }
 
 - (void)_queue_updateScene:(void *)scene withSettings:(void *)settings diff:(void *)diff transitionContext:(void *)context completion:
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v11 = a2;
   sceneCopy = scene;
   settingsCopy = settings;
@@ -1921,14 +1926,15 @@ void __95__FBSWorkspaceScenesClient_reconnectSceneWithIdentity_parameters_transi
     }
 
     identity = [v11 identity];
-    if ([*(self + 72) containsObject:v11])
+    v17 = [*(self + 72) containsObject:v11];
+    if (v17)
     {
-      v17 = FBLogSceneClient();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = FBLogSceneClient(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v34 = identity;
-        _os_log_impl(&dword_1A2DBB000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Ignoring update for disconnected scene.", buf, 0xCu);
+        v35 = identity;
+        _os_log_impl(&dword_1A2DBB000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] Ignoring update for disconnected scene.", buf, 0xCu);
       }
 
       if (contextCopy)
@@ -1939,47 +1945,47 @@ void __95__FBSWorkspaceScenesClient_reconnectSceneWithIdentity_parameters_transi
 
     else
     {
-      v18 = objc_opt_new();
-      [(_FBSScenesClientHostEvent *)v18 setIdentity:identity];
+      v19 = objc_opt_new();
+      [(_FBSScenesClientHostEvent *)v19 setIdentity:identity];
       newValue[0] = MEMORY[0x1E69E9820];
       newValue[1] = 3221225472;
       newValue[2] = __94__FBSWorkspaceScenesClient__queue_updateScene_withSettings_diff_transitionContext_completion___block_invoke;
       newValue[3] = &unk_1E76BD318;
-      v32 = contextCopy;
-      if (v18)
+      v33 = contextCopy;
+      if (v19)
       {
-        objc_setProperty_nonatomic_copy(v18, v19, newValue, 32);
+        objc_setProperty_nonatomic_copy(v19, v20, newValue, 32);
       }
 
       if (!sceneCopy)
       {
         specification = [v11 specification];
-        v21 = [specification _isSignificantTransitionContext:diffCopy];
+        v22 = [specification _isSignificantTransitionContext:diffCopy];
 
-        if ((v21 & 1) == 0)
+        if ((v22 & 1) == 0)
         {
-          if (v18)
+          if (v19)
           {
-            v18[8] = 1;
+            v19[8] = 1;
           }
 
-          [(_FBSScenesClientHostEvent *)v18 setDiff:settingsCopy];
+          [(_FBSScenesClientHostEvent *)v19 setDiff:settingsCopy];
         }
       }
 
-      v23[0] = MEMORY[0x1E69E9820];
-      v23[1] = 3221225472;
-      v23[2] = __94__FBSWorkspaceScenesClient__queue_updateScene_withSettings_diff_transitionContext_completion___block_invoke_2;
-      v23[3] = &unk_1E76BEC58;
-      v24 = v11;
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __94__FBSWorkspaceScenesClient__queue_updateScene_withSettings_diff_transitionContext_completion___block_invoke_2;
+      v24[3] = &unk_1E76BEC58;
+      v25 = v11;
       selfCopy = self;
-      v26 = identity;
-      v27 = diffCopy;
-      v28 = settingsCopy;
-      v29 = sceneCopy;
-      v30 = v18;
-      v22 = v18;
-      [(FBSWorkspaceScenesClient *)self _executeCalloutFromHostEvent:v22 withBlock:v23];
+      v27 = identity;
+      v28 = diffCopy;
+      v29 = settingsCopy;
+      v30 = sceneCopy;
+      v31 = v19;
+      v23 = v19;
+      [(FBSWorkspaceScenesClient *)self _executeCalloutFromHostEvent:v23 withBlock:v24];
     }
   }
 }
@@ -1998,7 +2004,7 @@ void __95__FBSWorkspaceScenesClient_reconnectSceneWithIdentity_parameters_transi
 
   else
   {
-    v15 = FBLogSceneClient();
+    v15 = FBLogSceneClient(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [(FBSWorkspaceScenesClient *)dCopy sceneID:v15 updateWithSettingsDiff:v16 transitionContext:v17 completion:v18, v19, v20, v21];
@@ -2077,7 +2083,7 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v8 = FBLogSceneClient();
+  v8 = FBLogSceneClient(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     __71__FBSWorkspaceScenesClient_sceneID_sendActions_toExtension_completion___block_invoke_cold_1();
@@ -2156,10 +2162,11 @@ uint64_t __59__FBSWorkspaceScenesClient_sceneID_sendMessage_completion___block_i
 
 uint64_t __93__FBSWorkspaceScenesClient__callOutQueue_sendDidCreateForScene_transitionContext_completion___block_invoke(uint64_t a1, void *a2)
 {
-  if ([a2 isFailed])
+  v3 = [a2 isFailed];
+  if (v3)
   {
-    v3 = FBLogSceneClient();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = FBLogSceneClient(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __93__FBSWorkspaceScenesClient__callOutQueue_sendDidCreateForScene_transitionContext_completion___block_invoke_cold_1();
     }
@@ -2194,7 +2201,7 @@ void __93__FBSWorkspaceScenesClient__callOutQueue_sendDidCreateForScene_transiti
 
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        __93__FBSWorkspaceScenesClient__callOutQueue_sendDidCreateForScene_transitionContext_completion___block_invoke_337_cold_1(a1);
+        __93__FBSWorkspaceScenesClient__callOutQueue_sendDidCreateForScene_transitionContext_completion___block_invoke_337_cold_1(a1, v2);
       }
 
       [v9 UTF8String];
@@ -2364,7 +2371,7 @@ void __67__FBSWorkspaceScenesClient__executeCalloutFromHostEvent_withBlock___blo
       v7 = [MEMORY[0x1E696AEC0] stringWithFormat:@"if present, the next event is always at index 0"];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        __67__FBSWorkspaceScenesClient__executeCalloutFromHostEvent_withBlock___block_invoke_cold_2(a1);
+        __67__FBSWorkspaceScenesClient__executeCalloutFromHostEvent_withBlock___block_invoke_cold_2(a1, (a1 + 40));
       }
 
       [v7 UTF8String];
@@ -2387,7 +2394,7 @@ void __67__FBSWorkspaceScenesClient__executeCalloutFromHostEvent_withBlock___blo
 
 void __88__FBSWorkspaceScenesClient__initWithIdentifier_connection_queue_calloutQueue_workspace___block_invoke_2(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(*(a1 + 32) + 48);
   if (v4)
@@ -2395,15 +2402,16 @@ void __88__FBSWorkspaceScenesClient__initWithIdentifier_connection_queue_callout
     v5 = *(v4 + 8);
     if (v5)
     {
-      if ([v5 isNonLaunching])
+      v6 = [v5 isNonLaunching];
+      if (v6)
       {
-        v6 = FBLogCommon();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v7 = FBLogCommon(v6);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           OUTLINED_FUNCTION_17();
-          v13 = 2112;
-          v14 = v7;
-          _os_log_impl(&dword_1A2DBB000, v6, OS_LOG_TYPE_DEFAULT, "<FBSWorkspaceScenesClient:%p %@> attempting delayed handshake from activation handler", v12, 0x16u);
+          v14 = 2112;
+          v15 = v8;
+          _os_log_impl(&dword_1A2DBB000, v7, OS_LOG_TYPE_DEFAULT, "<FBSWorkspaceScenesClient:%p %@> attempting delayed handshake from activation handler", v13, 0x16u);
         }
 
         [(FBSWorkspaceScenesClient *)*(a1 + 32) _queue_sendHandshake];
@@ -2411,11 +2419,11 @@ void __88__FBSWorkspaceScenesClient__initWithIdentifier_connection_queue_callout
     }
   }
 
-  v8 = [v3 remoteToken];
-  v9 = [FBSSceneHostHandle handleWithAuditToken:v8];
-  v10 = *(a1 + 32);
-  v11 = *(v10 + 96);
-  *(v10 + 96) = v9;
+  v9 = [v3 remoteToken];
+  v10 = [FBSSceneHostHandle handleWithAuditToken:v9];
+  v11 = *(a1 + 32);
+  v12 = *(v11 + 96);
+  *(v11 + 96) = v10;
 }
 
 - (void)_queue_invalidate
@@ -2502,11 +2510,11 @@ void __88__FBSWorkspaceScenesClient__initWithIdentifier_connection_queue_callout
 {
   if (self)
   {
-    v2 = FBLogCommon();
+    v2 = FBLogCommon(self);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       OUTLINED_FUNCTION_18();
-      OUTLINED_FUNCTION_13_0(&dword_1A2DBB000, v3, v4, "<FBSWorkspaceScenesClient:%p %@> is explicitly invalidated", v5, v6, v7, v8, v9);
+      OUTLINED_FUNCTION_13_0(&dword_1A2DBB000, v3, v4, "<FBSWorkspaceScenesClient:%p %@> is explicitly invalidated", v5, v6, v7, v8);
     }
 
     [(FBSWorkspaceScenesClient *)self _queue_invalidate];
@@ -2529,7 +2537,7 @@ void __88__FBSWorkspaceScenesClient__initWithIdentifier_connection_queue_callout
 
     else
     {
-      v11 = FBLogSceneClient();
+      v11 = FBLogSceneClient(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
@@ -2584,16 +2592,16 @@ void __49__FBSWorkspaceScenesClient_scene_sendInvocation___block_invoke_2(uint64
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_16();
   v7 = *(a1 + 32);
-  v13 = *(a1 + 40);
+  v14 = *(a1 + 40);
   v8 = v5;
   v9 = v6;
-  v10 = v9;
-  v12 = v9;
   v11 = v9;
+  v13 = v9;
+  v12 = v9;
   if (v7)
   {
-    OUTLINED_FUNCTION_14(v9);
-    v11 = v12;
+    OUTLINED_FUNCTION_14(v9, v10);
+    v12 = v13;
   }
 }
 
@@ -2662,13 +2670,13 @@ void __49__FBSWorkspaceScenesClient_scene_sendInvocation___block_invoke_2(uint64
   OUTLINED_FUNCTION_16();
   v8 = actionsCopy;
   v9 = completionCopy;
-  v10 = v9;
-  v12 = v9;
   v11 = v9;
+  v13 = v9;
+  v12 = v9;
   if (self)
   {
-    OUTLINED_FUNCTION_14(v9);
-    v11 = v12;
+    OUTLINED_FUNCTION_14(v9, v10);
+    v12 = v13;
   }
 }
 
@@ -2730,7 +2738,7 @@ void __49__FBSWorkspaceScenesClient_scene_sendInvocation___block_invoke_2(uint64
   v14 = actionsCopy;
   if (self)
   {
-    v15 = OUTLINED_FUNCTION_21(actionsCopy, v7, v8, v9, v10, v11, v12, v13, 0, 0, 0, 0, 0, 0, 0, 0, v36, v38);
+    v15 = OUTLINED_FUNCTION_21(actionsCopy, v7, v8, v9, v10, v11, v12, v13, 0, 0, 0, 0, 0, 0, 0, 0, v36);
     if (v15)
     {
       v16 = v15;
@@ -2758,7 +2766,7 @@ void __49__FBSWorkspaceScenesClient_scene_sendInvocation___block_invoke_2(uint64
         }
 
         while (v16 != v18);
-        v16 = OUTLINED_FUNCTION_21(isKindOfClass, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v37, v39);
+        v16 = OUTLINED_FUNCTION_21(isKindOfClass, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v37);
       }
 
       while (v16);
@@ -2779,13 +2787,13 @@ void __49__FBSWorkspaceScenesClient_scene_sendInvocation___block_invoke_2(uint64
   v13 = dCopy;
   v14 = invocationCopy;
   v15 = completionCopy;
-  v16 = v15;
-  v18 = v15;
   v17 = v15;
+  v19 = v15;
+  v18 = v15;
   if (self)
   {
-    OUTLINED_FUNCTION_14(v15);
-    v17 = v18;
+    OUTLINED_FUNCTION_14(v15, v16);
+    v18 = v19;
   }
 }
 
@@ -2802,13 +2810,13 @@ void __49__FBSWorkspaceScenesClient_scene_sendInvocation___block_invoke_2(uint64
   v13 = dCopy;
   v14 = messageCopy;
   v15 = completionCopy;
-  v16 = v15;
-  v18 = v15;
   v17 = v15;
+  v19 = v15;
+  v18 = v15;
   if (self)
   {
-    OUTLINED_FUNCTION_14(v15);
-    v17 = v18;
+    OUTLINED_FUNCTION_14(v15, v16);
+    v18 = v19;
   }
 }
 
@@ -2853,15 +2861,14 @@ void __94__FBSWorkspaceScenesClient__queue_updateScene_withSettings_diff_transit
 
 - (void)initWithEndpoint:(char *)a1 queue:calloutQueue:workspace:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:BSServiceConnectionEndpointClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:BSServiceConnectionEndpointClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -2873,12 +2880,11 @@ void __94__FBSWorkspaceScenesClient__queue_updateScene_withSettings_diff_transit
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"provided endpoint is not for a workspace service"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2890,12 +2896,11 @@ void __94__FBSWorkspaceScenesClient__queue_updateScene_withSettings_diff_transit
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"provided endpoint must not be instanced"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -2904,15 +2909,14 @@ void __94__FBSWorkspaceScenesClient__queue_updateScene_withSettings_diff_transit
 
 - (void)initWithEndpoint:(char *)a1 queue:calloutQueue:workspace:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -2921,15 +2925,14 @@ void __94__FBSWorkspaceScenesClient__queue_updateScene_withSettings_diff_transit
 
 - (void)_initWithIdentifier:(char *)a1 connection:queue:calloutQueue:workspace:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"workspace"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"workspace", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -2938,15 +2941,14 @@ void __94__FBSWorkspaceScenesClient__queue_updateScene_withSettings_diff_transit
 
 - (void)_initWithIdentifier:(char *)a1 connection:queue:calloutQueue:workspace:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"calloutQueue"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"calloutQueue", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -2955,15 +2957,14 @@ void __94__FBSWorkspaceScenesClient__queue_updateScene_withSettings_diff_transit
 
 - (void)_initWithIdentifier:(char *)a1 connection:queue:calloutQueue:workspace:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"queue"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"queue", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -2972,15 +2973,14 @@ void __94__FBSWorkspaceScenesClient__queue_updateScene_withSettings_diff_transit
 
 - (void)_initWithIdentifier:(char *)a1 connection:queue:calloutQueue:workspace:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"connection"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"connection", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -2989,15 +2989,14 @@ void __94__FBSWorkspaceScenesClient__queue_updateScene_withSettings_diff_transit
 
 - (void)_initWithIdentifier:(char *)a1 connection:queue:calloutQueue:workspace:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"identifier"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"identifier", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3006,15 +3005,14 @@ void __94__FBSWorkspaceScenesClient__queue_updateScene_withSettings_diff_transit
 
 - (void)initWithPeer:(char *)a1 queue:calloutQueue:workspace:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:BSServiceConnectionClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_bs_assert_object isKindOfClass:BSServiceConnectionClass]", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3026,12 +3024,11 @@ void __94__FBSWorkspaceScenesClient__queue_updateScene_withSettings_diff_transit
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"provided peer is not for a workspace service"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -3043,12 +3040,11 @@ void __94__FBSWorkspaceScenesClient__queue_updateScene_withSettings_diff_transit
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"provided peer must not be instanced"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -3057,15 +3053,14 @@ void __94__FBSWorkspaceScenesClient__queue_updateScene_withSettings_diff_transit
 
 - (void)initWithPeer:(char *)a1 queue:calloutQueue:workspace:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_bs_assert_object != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3084,11 +3079,11 @@ void __88__FBSWorkspaceScenesClient__initWithIdentifier_connection_queue_callout
 
 void __88__FBSWorkspaceScenesClient__initWithIdentifier_connection_queue_calloutQueue_workspace___block_invoke_4_cold_1(uint64_t *a1)
 {
-  v2 = FBLogCommon();
+  v2 = FBLogCommon(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_17();
-    OUTLINED_FUNCTION_13_0(&dword_1A2DBB000, v3, v4, "<FBSWorkspaceScenesClient:%p %@> attempting immediate handshake from interruption handler", v5, v6, v7, v8, v9);
+    OUTLINED_FUNCTION_13_0(&dword_1A2DBB000, v3, v4, "<FBSWorkspaceScenesClient:%p %@> attempting immediate handshake from interruption handler", v5, v6, v7, v8);
   }
 
   [(FBSWorkspaceScenesClient *)*a1 _queue_sendHandshake];
@@ -3096,15 +3091,14 @@ void __88__FBSWorkspaceScenesClient__initWithIdentifier_connection_queue_callout
 
 - (void)_queue_invalidateScene:(char *)a1 withTransitionContext:completion:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"scene"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"scene", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3113,15 +3107,14 @@ void __88__FBSWorkspaceScenesClient__initWithIdentifier_connection_queue_callout
 
 + (void)sourceIdentifierForHostEndpoint:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"hostEndpoint"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"hostEndpoint", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3133,25 +3126,35 @@ void __88__FBSWorkspaceScenesClient__initWithIdentifier_connection_queue_callout
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"identity is not specified"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
-  v10 = v2;
+  v12 = v2;
   [v2 UTF8String];
   _bs_set_crash_log_message();
 }
 
-- (void)_createSceneWithIdentity:(const char *)a1 parameters:.cold.1(const char *a1)
+- (void)_createSceneWithIdentity:(uint64_t)a3 parameters:.cold.1(const char *a1, uint64_t a2, uint64_t a3)
 {
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v8 = NSStringFromClass(v2);
-  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v3, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v4, v5, v6, v7, 2u);
+  v5 = NSStringFromSelector(a1);
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  *v13 = 138544642;
+  *&v13[4] = v5;
+  *&v13[12] = 2114;
+  *&v13[14] = v7;
+  *&v13[22] = 2048;
+  LOWORD(v14) = 2114;
+  *(&v14 + 2) = @"FBSWorkspaceScenesClient.m";
+  WORD5(v14) = 1024;
+  HIDWORD(v14) = 1079;
+  LOWORD(v15) = 2114;
+  *(&v15 + 2) = a3;
+  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, *v13, *&v13[8], *&v13[16], a2, v14, v15, HIWORD(a3));
 }
 
 - (void)_createSceneWithIdentity:(uint64_t)a1 parameters:(void *)a2 .cold.2(uint64_t a1, void *a2)
@@ -3161,35 +3164,34 @@ void __88__FBSWorkspaceScenesClient__initWithIdentifier_connection_queue_callout
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
 }
 
-- (void)_createSceneWithIdentity:(void *)a1 parameters:(const char *)a2 .cold.3(void *a1, const char *a2)
+- (void)_createSceneWithIdentity:(uint64_t)a3 parameters:.cold.3(void *a1, const char *a2, uint64_t a3)
 {
-  v3 = MEMORY[0x1E696AEC0];
-  v12 = [a1 identityToken];
-  v4 = [v3 stringWithFormat:@"failed to purge remnant for incoming scene : token=%@"];
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = [a1 identityToken];
+  v6 = [v4 stringWithFormat:@"failed to purge remnant for incoming scene : token=%@", v5];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = NSStringFromSelector(a2);
-    v6 = objc_opt_class();
-    v14 = NSStringFromClass(v6);
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13, 2u);
+    v7 = NSStringFromSelector(a2);
+    v8 = objc_opt_class();
+    v16 = NSStringFromClass(v8);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15);
   }
 
-  [v4 UTF8String];
+  [v6 UTF8String];
   _bs_set_crash_log_message();
 }
 
 - (void)_createSceneWithIdentity:(char *)a1 parameters:.cold.4(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"parameters"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"parameters", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3198,15 +3200,14 @@ void __88__FBSWorkspaceScenesClient__initWithIdentifier_connection_queue_callout
 
 - (void)_createSceneWithIdentity:(char *)a1 parameters:.cold.5(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"identity"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"identity", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3218,15 +3219,14 @@ void __88__FBSWorkspaceScenesClient__initWithIdentifier_connection_queue_callout
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"scene is not a client future"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v11);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
-  v10 = v2;
+  v12 = v2;
   [v2 UTF8String];
   _bs_set_crash_log_message();
 }
@@ -3241,14 +3241,14 @@ void __59__FBSWorkspaceScenesClient_activateSceneFuture_completion___block_invok
 
 void __63__FBSWorkspaceScenesClient_requestSceneWithOptions_completion___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"we shouldn't have an error if we have a proxy : %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"we shouldn't have an error if we have a proxy : %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v4 = NSStringFromSelector(*(a2 + 56));
     v5 = objc_opt_class();
     v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_20();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, a1, v13, v14);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v3 UTF8String];
@@ -3296,20 +3296,19 @@ void __63__FBSWorkspaceScenesClient_requestSceneWithOptions_completion___block_i
   v3(v2);
 }
 
-void __63__FBSWorkspaceScenesClient_requestSceneWithOptions_completion___block_invoke_2_242_cold_2(uint64_t a1, uint64_t a2)
+void __63__FBSWorkspaceScenesClient_requestSceneWithOptions_completion___block_invoke_2_242_cold_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *(a1 + 48);
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"internal state inconsistency - we should never be pending send blocks for !isNonLaunching (%@) connections"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"internal state inconsistency - we should never be pending send blocks for !isNonLaunching (%@) connections", *(a1 + 48)];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v4 = NSStringFromSelector(*(a2 + 48));
-    v5 = objc_opt_class();
-    v6 = NSStringFromClass(v5);
+    v5 = NSStringFromSelector(*(a2 + 48));
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_20();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13, v14);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
-  [v3 UTF8String];
+  [v4 UTF8String];
   _bs_set_crash_log_message();
 }
 
@@ -3361,15 +3360,14 @@ void __65__FBSWorkspaceScenesClient_scene_didReceiveActions_forExtension___block
 
 - (void)scene:(char *)a1 sendInvocation:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"identity"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"identity", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3404,12 +3402,11 @@ void __66__FBSWorkspaceScenesClient_scene_invalidateWithTransitionContext___bloc
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"identity not set on coalescable event"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_13();
-    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10);
+    OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -3418,15 +3415,14 @@ void __66__FBSWorkspaceScenesClient_scene_invalidateWithTransitionContext___bloc
 
 - (void)_executeCalloutFromHostEvent:(char *)a1 withBlock:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"block != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"block != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -3443,19 +3439,25 @@ void __66__FBSWorkspaceScenesClient_scene_invalidateWithTransitionContext___bloc
 
 - (void)_queue_updateScene:(char *)a1 withSettings:diff:transitionContext:completion:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"scene"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"scene", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
   _bs_set_crash_log_message();
+}
+
+- (void)sceneID:(uint64_t)a3 updateWithSettingsDiff:(uint64_t)a4 transitionContext:(uint64_t)a5 completion:(uint64_t)a6 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_7_0(&dword_1A2DBB000, a2, a3, "No scene exists for identity: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __71__FBSWorkspaceScenesClient_sceneID_sendActions_toExtension_completion___block_invoke_cold_1()
@@ -3467,13 +3469,13 @@ void __71__FBSWorkspaceScenesClient_sceneID_sendActions_toExtension_completion__
   _os_log_error_impl(&dword_1A2DBB000, v1, OS_LOG_TYPE_ERROR, "[%{public}@] Unable to deliver actions to extension %{public}@ because that class does not exist.", v2, 0x16u);
 }
 
-void __93__FBSWorkspaceScenesClient__callOutQueue_sendDidCreateForScene_transitionContext_completion___block_invoke_337_cold_1(uint64_t a1)
+void __93__FBSWorkspaceScenesClient__callOutQueue_sendDidCreateForScene_transitionContext_completion___block_invoke_337_cold_1(uint64_t a1, void *a2)
 {
-  v1 = NSStringFromSelector(*(a1 + 64));
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(*(a1 + 64));
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_9_2();
-  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
 }
 
 void __94__FBSWorkspaceScenesClient__queue_updateScene_withSettings_diff_transitionContext_completion___block_invoke_2_cold_1(uint64_t *a1, uint64_t a2, void **a3, uint64_t a4)
@@ -3532,13 +3534,13 @@ void __67__FBSWorkspaceScenesClient__executeCalloutFromHostEvent_withBlock___blo
   }
 }
 
-void __67__FBSWorkspaceScenesClient__executeCalloutFromHostEvent_withBlock___block_invoke_cold_2(uint64_t a1)
+void __67__FBSWorkspaceScenesClient__executeCalloutFromHostEvent_withBlock___block_invoke_cold_2(uint64_t a1, void *a2)
 {
-  v1 = NSStringFromSelector(*(a1 + 56));
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(*(a1 + 56));
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_9_2();
-  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9);
 }
 
 @end

@@ -1,1169 +1,3 @@
-uint64_t std::pair<std::string,std::string>::operator=[abi:ne200100]<std::string,char const*,0>(uint64_t a1, __int128 *a2)
-{
-  if (*(a1 + 23) < 0)
-  {
-    operator delete(*a1);
-  }
-
-  v4 = *a2;
-  *(a1 + 16) = *(a2 + 2);
-  *a1 = v4;
-  *(a2 + 23) = 0;
-  *a2 = 0;
-  MEMORY[0x1865FEFC0](a1 + 24, *(a2 + 3));
-  return a1;
-}
-
-uint64_t MTLMetalScriptBuilderImpl::newSerializedMetalScript(NSObject **this)
-{
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3052000000;
-  v8 = __Block_byref_object_copy__1;
-  v9 = __Block_byref_object_dispose__1;
-  v10 = 0;
-  v1 = *this;
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = ___ZN25MTLMetalScriptBuilderImpl24newSerializedMetalScriptEv_block_invoke;
-  v4[3] = &unk_1E6EEB2C0;
-  v4[4] = &v5;
-  v4[5] = this;
-  dispatch_sync(v1, v4);
-  v2 = v6[5];
-  _Block_object_dispose(&v5, 8);
-  return v2;
-}
-
-void ___ZN25MTLMetalScriptBuilderImpl24newSerializedMetalScriptEv_block_invoke(uint64_t a1)
-{
-  v1 = *(a1 + 40);
-  if (*(v1 + 424) == *(v1 + 416) && *(v1 + 448) == *(v1 + 440) && *(v1 + 472) == *(v1 + 464) && *(v1 + 568) == *(v1 + 560))
-  {
-    *(*(*(a1 + 32) + 8) + 40) = 0;
-  }
-
-  else
-  {
-    v2 = *(v1 + 544) - *(v1 + 536);
-    if (v2)
-    {
-      v3 = *(v1 + 536);
-    }
-
-    else
-    {
-      v3 = &flatbuffers::data<flatbuffers::Offset<Mtl::NamedPredicate>,std::allocator<flatbuffers::Offset<Mtl::NamedPredicate>>>(std::vector<flatbuffers::Offset<Mtl::NamedPredicate>> const&)::t;
-    }
-
-    v48 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>((v1 + 248), v3, v2 >> 2);
-    v4 = *(v1 + 352) - *(v1 + 344);
-    if (v4)
-    {
-      v5 = *(v1 + 344);
-    }
-
-    else
-    {
-      v5 = &flatbuffers::data<flatbuffers::Offset<Mtl::PathLibrary>,std::allocator<flatbuffers::Offset<Mtl::PathLibrary>>>(std::vector<flatbuffers::Offset<Mtl::PathLibrary>> const&)::t;
-    }
-
-    v47 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>((v1 + 248), v5, v4 >> 2);
-    v6 = *(v1 + 376) - *(v1 + 368);
-    if (v6)
-    {
-      v7 = *(v1 + 368);
-    }
-
-    else
-    {
-      v7 = &flatbuffers::data<flatbuffers::Offset<Mtl::SpecializedFunctionLibrary>,std::allocator<flatbuffers::Offset<Mtl::SpecializedFunctionLibrary>>>(std::vector<flatbuffers::Offset<Mtl::SpecializedFunctionLibrary>> const&)::t;
-    }
-
-    v45 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>((v1 + 248), v7, v6 >> 2);
-    v8 = *(v1 + 400) - *(v1 + 392);
-    if (v8)
-    {
-      v9 = *(v1 + 392);
-    }
-
-    else
-    {
-      v9 = &flatbuffers::data<flatbuffers::Offset<Mtl::StitchedLibrary>,std::allocator<flatbuffers::Offset<Mtl::StitchedLibrary>>>(std::vector<flatbuffers::Offset<Mtl::StitchedLibrary>> const&)::t;
-    }
-
-    v10 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>((v1 + 248), v9, v8 >> 2);
-    v11 = *(v1 + 424) - *(v1 + 416);
-    if (v11)
-    {
-      v12 = *(v1 + 416);
-    }
-
-    else
-    {
-      v12 = &flatbuffers::data<flatbuffers::Offset<Mtl::ComputePipelineDescriptor>,std::allocator<flatbuffers::Offset<Mtl::ComputePipelineDescriptor>>>(std::vector<flatbuffers::Offset<Mtl::ComputePipelineDescriptor>> const&)::t;
-    }
-
-    v46 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>((v1 + 248), v12, v11 >> 2);
-    v13 = *(v1 + 448) - *(v1 + 440);
-    if (v13)
-    {
-      v14 = *(v1 + 440);
-    }
-
-    else
-    {
-      v14 = &flatbuffers::data<flatbuffers::Offset<Mtl::RenderPipelineDescriptor>,std::allocator<flatbuffers::Offset<Mtl::RenderPipelineDescriptor>>>(std::vector<flatbuffers::Offset<Mtl::RenderPipelineDescriptor>> const&)::t;
-    }
-
-    v15 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>((v1 + 248), v14, v13 >> 2);
-    v16 = *(v1 + 568) - *(v1 + 560);
-    if (v16)
-    {
-      v17 = *(v1 + 560);
-    }
-
-    else
-    {
-      v17 = &flatbuffers::data<flatbuffers::Offset<Mtl::MeshRenderPipelineDescriptor>,std::allocator<flatbuffers::Offset<Mtl::MeshRenderPipelineDescriptor>>>(std::vector<flatbuffers::Offset<Mtl::MeshRenderPipelineDescriptor>> const&)::t;
-    }
-
-    v18 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>((v1 + 248), v17, v16 >> 2);
-    v19 = *(v1 + 472) - *(v1 + 464);
-    if (v19)
-    {
-      v20 = *(v1 + 464);
-    }
-
-    else
-    {
-      v20 = &flatbuffers::data<flatbuffers::Offset<Mtl::TileRenderPipelineDescriptor>,std::allocator<flatbuffers::Offset<Mtl::TileRenderPipelineDescriptor>>>(std::vector<flatbuffers::Offset<Mtl::TileRenderPipelineDescriptor>> const&)::t;
-    }
-
-    v21 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>((v1 + 248), v20, v19 >> 2);
-    v22 = *(v1 + 496) - *(v1 + 488);
-    if (v22)
-    {
-      v23 = *(v1 + 488);
-    }
-
-    else
-    {
-      v23 = &flatbuffers::data<flatbuffers::Offset<Mtl::VisibleFunctionDescriptor>,std::allocator<flatbuffers::Offset<Mtl::VisibleFunctionDescriptor>>>(std::vector<flatbuffers::Offset<Mtl::VisibleFunctionDescriptor>> const&)::t;
-    }
-
-    v24 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>((v1 + 248), v23, v22 >> 2);
-    v25 = *(v1 + 520) - *(v1 + 512);
-    if (v25)
-    {
-      v26 = *(v1 + 512);
-    }
-
-    else
-    {
-      v26 = &flatbuffers::data<flatbuffers::Offset<Mtl::IntersectionFunctionDescriptor>,std::allocator<flatbuffers::Offset<Mtl::IntersectionFunctionDescriptor>>>(std::vector<flatbuffers::Offset<Mtl::IntersectionFunctionDescriptor>> const&)::t;
-    }
-
-    v27 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>((v1 + 248), v26, v25 >> 2);
-    *(v1 + 318) = 1;
-    v28 = *(v1 + 288);
-    v29 = *(v1 + 280) - *(v1 + 296);
-    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 4, v47);
-    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 6, v45);
-    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 8, v10);
-    v30 = flatbuffers::FlatBufferBuilder::EndTable((v1 + 248), v29 + v28);
-    *(v1 + 318) = 1;
-    v31 = *(v1 + 288);
-    v32 = *(v1 + 280) - *(v1 + 296);
-    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 4, v46);
-    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 6, v15);
-    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 8, v21);
-    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 10, v18);
-    v33 = flatbuffers::FlatBufferBuilder::EndTable((v1 + 248), v32 + v31);
-    *(v1 + 318) = 1;
-    v34 = *(v1 + 288);
-    v35 = *(v1 + 280) - *(v1 + 296);
-    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 6, v24);
-    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 4, v27);
-    v36 = flatbuffers::FlatBufferBuilder::EndTable((v1 + 248), v35 + v34);
-    v56 = 0x300000000;
-    v57 = 0;
-    *(v1 + 318) = 1;
-    v37 = *(v1 + 288);
-    v38 = *(v1 + 280) - *(v1 + 296);
-    flatbuffers::FlatBufferBuilder::AddStruct<Mtl4::Version>((v1 + 248), 4, &v56);
-    v39 = flatbuffers::FlatBufferBuilder::PushElement<unsigned char>(v1 + 248, 2);
-    flatbuffers::FlatBufferBuilder::TrackField((v1 + 248), 6, v39);
-    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 8, v48);
-    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 12, v30);
-    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 14, v33);
-    flatbuffers::FlatBufferBuilder::AddOffset<void>((v1 + 248), 16, v36);
-    v40 = flatbuffers::FlatBufferBuilder::EndTable((v1 + 248), v38 + v37);
-    flatbuffers::FlatBufferBuilder::Finish((v1 + 248), v40, "MTLP", 0);
-    v41 = *(v1 + 256);
-    v43 = *(v1 + 280);
-    v42 = *(v1 + 288);
-    v44 = *(v1 + 296);
-    v50 = *(v1 + 248);
-    v51 = v41;
-    v52 = v42;
-    v53 = v43;
-    v54 = v44;
-    v55 = (v43 + v42 - v44);
-    if (v41 == 1)
-    {
-      *(v1 + 248) = 0;
-      *(v1 + 256) = 0;
-    }
-
-    *(v1 + 280) = 0u;
-    *(v1 + 296) = 0u;
-    *(*(*(a1 + 32) + 8) + 40) = dispatch_data_create(v44, (v43 + v42 - v44), 0, 0);
-    MTLMetalScriptBuilderImpl::resetInternal(v1, 0);
-    MTLMetalScriptBuilderImpl::initFromData(v1, v44);
-    flatbuffers::DetachedBuffer::~DetachedBuffer(&v50);
-  }
-}
-
-void sub_185C896F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  flatbuffers::DetachedBuffer::~DetachedBuffer(va);
-  _Unwind_Resume(a1);
-}
-
-void MTLMetalScriptBuilderImpl::reset(NSObject **this, char a2)
-{
-  v2 = *this;
-  v3[0] = MEMORY[0x1E69E9820];
-  v3[1] = 3221225472;
-  v3[2] = ___ZN25MTLMetalScriptBuilderImpl5resetEb_block_invoke;
-  v3[3] = &__block_descriptor_41_e5_v8__0l;
-  v3[4] = this;
-  v4 = a2;
-  dispatch_sync(v2, v3);
-}
-
-void MTLMetalScriptBuilder::addComputePipelineWithDescriptor(MTLMetalScriptBuilder *this, MTLComputePipelineDescriptor *a2)
-{
-  v2 = *this;
-  v3 = **this;
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = ___ZN25MTLMetalScriptBuilderImpl32addComputePipelineWithDescriptorEP28MTLComputePipelineDescriptor_block_invoke;
-  v4[3] = &unk_1E6EEB298;
-  v4[4] = a2;
-  v4[5] = v2;
-  dispatch_sync(v3, v4);
-}
-
-void MTLMetalScriptBuilder::addRenderPipelineWithDescriptor(MTLMetalScriptBuilder *this, MTLRenderPipelineDescriptor *a2)
-{
-  v2 = *this;
-  v3 = **this;
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = ___ZN25MTLMetalScriptBuilderImpl31addRenderPipelineWithDescriptorEP27MTLRenderPipelineDescriptor_block_invoke;
-  v4[3] = &unk_1E6EEB298;
-  v4[4] = a2;
-  v4[5] = v2;
-  dispatch_sync(v3, v4);
-}
-
-void MTLMetalScriptBuilder::addMeshRenderPipelineWithDescriptor(MTLMetalScriptBuilder *this, MTLMeshRenderPipelineDescriptor *a2)
-{
-  v2 = *this;
-  v3 = **this;
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = ___ZN25MTLMetalScriptBuilderImpl35addMeshRenderPipelineWithDescriptorEP31MTLMeshRenderPipelineDescriptor_block_invoke;
-  v4[3] = &unk_1E6EEB298;
-  v4[4] = a2;
-  v4[5] = v2;
-  dispatch_sync(v3, v4);
-}
-
-void MTLMetalScriptBuilder::addTileRenderPipelineWithDescriptor(MTLMetalScriptBuilder *this, MTLTileRenderPipelineDescriptor *a2)
-{
-  v2 = *this;
-  v3 = **this;
-  v4[0] = MEMORY[0x1E69E9820];
-  v4[1] = 3221225472;
-  v4[2] = ___ZN25MTLMetalScriptBuilderImpl35addTileRenderPipelineWithDescriptorEP31MTLTileRenderPipelineDescriptor_block_invoke;
-  v4[3] = &unk_1E6EEB298;
-  v4[4] = a2;
-  v4[5] = v2;
-  dispatch_sync(v3, v4);
-}
-
-void MTLMetalScriptBuilder::addFunctionWithDescriptor(NSObject ***a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v4 = *a1;
-  v5 = **a1;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = ___ZN25MTLMetalScriptBuilderImpl25addFunctionWithDescriptorEPU22objcproto11MTLFunction11objc_objectPU21objcproto10MTLLibrary11objc_objectP21MTLFunctionDescriptor_block_invoke;
-  v6[3] = &unk_1E6EEAEF8;
-  v6[4] = a2;
-  v6[5] = a3;
-  v6[6] = a4;
-  v6[7] = v4;
-  dispatch_sync(v5, v6);
-}
-
-void MTLMetalScriptBuilder::addLibraryWithDescriptor(NSObject ***a1, uint64_t a2, uint64_t a3)
-{
-  v3 = *a1;
-  v4 = **a1;
-  block[0] = MEMORY[0x1E69E9820];
-  block[1] = 3221225472;
-  block[2] = ___ZN25MTLMetalScriptBuilderImpl24addLibraryWithDescriptorEPU21objcproto10MTLLibrary11objc_objectP28MTLStitchedLibraryDescriptor_block_invoke;
-  block[3] = &unk_1E6EEAD68;
-  block[5] = a3;
-  block[6] = v3;
-  block[4] = a2;
-  dispatch_sync(v4, block);
-}
-
-void MTLMetalScriptBuilder::reset(MTLMetalScriptBuilder *this)
-{
-  v1 = *this;
-  v2 = **this;
-  v3[0] = MEMORY[0x1E69E9820];
-  v3[1] = 3221225472;
-  v3[2] = ___ZN25MTLMetalScriptBuilderImpl5resetEb_block_invoke;
-  v3[3] = &__block_descriptor_41_e5_v8__0l;
-  v3[4] = v1;
-  v4 = 1;
-  dispatch_sync(v2, v3);
-}
-
-uint64_t **std::__hash_table<std::string_view,std::hash<std::string_view>,std::equal_to<std::string_view>,std::allocator<std::string_view>>::__emplace_unique_key_args<std::string_view,std::string_view>(void *a1, uint64_t a2)
-{
-  v4 = std::__string_view_hash<char>::operator()[abi:ne200100](a1, *a2, *(a2 + 8));
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
-  {
-    goto LABEL_20;
-  }
-
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
-  {
-    v9 = v4;
-    if (v4 >= *&v6)
-    {
-      v9 = v4 % *&v6;
-    }
-  }
-
-  else
-  {
-    v9 = (*&v6 - 1) & v4;
-  }
-
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
-  {
-LABEL_20:
-    operator new();
-  }
-
-  v14 = a2;
-  v12 = *a2;
-  v13 = *(v14 + 8);
-  while (1)
-  {
-    v15 = v11[1];
-    if (v15 == v5)
-    {
-      break;
-    }
-
-    if (v8 > 1)
-    {
-      if (v15 >= *&v6)
-      {
-        v15 %= *&v6;
-      }
-    }
-
-    else
-    {
-      v15 &= *&v6 - 1;
-    }
-
-    if (v15 != v9)
-    {
-      goto LABEL_20;
-    }
-
-LABEL_19:
-    v11 = *v11;
-    if (!v11)
-    {
-      goto LABEL_20;
-    }
-  }
-
-  if (v11[3] != v13 || memcmp(v11[2], v12, v13))
-  {
-    goto LABEL_19;
-  }
-
-  return v11;
-}
-
-__n128 __Block_byref_object_copy__50(__n128 *a1, __n128 *a2)
-{
-  a1[3].n128_u64[0] = 0;
-  a1[3].n128_u64[1] = 0;
-  a1[4].n128_u64[0] = 0;
-  result = a2[3];
-  a1[3] = result;
-  a1[4].n128_u64[0] = a2[4].n128_u64[0];
-  a2[3].n128_u64[0] = 0;
-  a2[3].n128_u64[1] = 0;
-  a2[4].n128_u64[0] = 0;
-  return result;
-}
-
-void __Block_byref_object_dispose__51(uint64_t a1)
-{
-  v2 = *(a1 + 48);
-  if (v2)
-  {
-    *(a1 + 56) = v2;
-    operator delete(v2);
-  }
-}
-
-void ___ZN24MTLMetalScriptSerializerL12createGroupsERN11flatbuffers17FlatBufferBuilderEP12NSDictionaryIP8NSStringP7NSArrayIPU22objcproto11MTLFunction11objc_objectEE_block_invoke(uint64_t a1, void *a2, void *a3)
-{
-  v50 = *MEMORY[0x1E69E9840];
-  v5 = *(a1 + 40);
-  v6 = [a2 UTF8String];
-  v7 = strlen(v6);
-  String = flatbuffers::FlatBufferBuilder::CreateString(v5, v6, v7);
-  __p = 0;
-  v47 = 0;
-  v48 = 0;
-  v42 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v45 = 0u;
-  v9 = [a3 countByEnumeratingWithState:&v42 objects:v49 count:16];
-  if (v9)
-  {
-    v10 = *v43;
-    do
-    {
-      for (i = 0; i != v9; ++i)
-      {
-        if (*v43 != v10)
-        {
-          objc_enumerationMutation(a3);
-        }
-
-        v12 = *(a1 + 40);
-        v13 = [objc_msgSend(*(*(&v42 + 1) + 8 * i) "name")];
-        v14 = strlen(v13);
-        v41 = flatbuffers::FlatBufferBuilder::CreateString(v12, v13, v14);
-        std::vector<unsigned int>::push_back[abi:ne200100](&__p, &v41);
-      }
-
-      v9 = [a3 countByEnumeratingWithState:&v42 objects:v49 count:16];
-    }
-
-    while (v9);
-    v15 = __p;
-    v16 = v47;
-  }
-
-  else
-  {
-    v16 = 0;
-    v15 = 0;
-  }
-
-  v17 = v16 - v15;
-  if (v17)
-  {
-    v18 = v15;
-  }
-
-  else
-  {
-    v18 = &flatbuffers::data<flatbuffers::Offset<flatbuffers::String>,std::allocator<flatbuffers::Offset<flatbuffers::String>>>(std::vector<flatbuffers::Offset<flatbuffers::String>> const&)::t;
-  }
-
-  v19 = flatbuffers::FlatBufferBuilder::CreateVector<flatbuffers::String>(*(a1 + 40), v18, v17 >> 2);
-  v20 = *(a1 + 40);
-  *(v20 + 70) = 1;
-  v21 = *(v20 + 32);
-  v22 = *(v20 + 48);
-  v23 = *(v20 + 40);
-  flatbuffers::FlatBufferBuilder::AddOffset<void>(v20, 4, String);
-  flatbuffers::FlatBufferBuilder::AddOffset<void>(v20, 6, v19);
-  v24 = *(*(a1 + 32) + 8);
-  v25 = flatbuffers::FlatBufferBuilder::EndTable(v20, v21 - v22 + v23);
-  v27 = v24[7];
-  v26 = v24[8];
-  if (v27 >= v26)
-  {
-    v29 = v24[6];
-    v30 = v27 - v29;
-    v31 = (v27 - v29) >> 2;
-    v32 = v31 + 1;
-    if ((v31 + 1) >> 62)
-    {
-      std::vector<std::pair<std::tuple<std::string,unsigned int,unsigned int>,unsigned int>>::__throw_length_error[abi:ne200100]();
-    }
-
-    v33 = v26 - v29;
-    if (v33 >> 1 > v32)
-    {
-      v32 = v33 >> 1;
-    }
-
-    v34 = v33 >= 0x7FFFFFFFFFFFFFFCLL;
-    v35 = 0x3FFFFFFFFFFFFFFFLL;
-    if (!v34)
-    {
-      v35 = v32;
-    }
-
-    if (v35)
-    {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned int>>((v24 + 6), v35);
-    }
-
-    v36 = (v27 - v29) >> 2;
-    v37 = (4 * v31);
-    v38 = (4 * v31 - 4 * v36);
-    *v37 = v25;
-    v28 = v37 + 1;
-    memcpy(v38, v29, v30);
-    v39 = v24[6];
-    v24[6] = v38;
-    v24[7] = v28;
-    v24[8] = 0;
-    if (v39)
-    {
-      operator delete(v39);
-    }
-  }
-
-  else
-  {
-    *v27 = v25;
-    v28 = v27 + 4;
-  }
-
-  v24[7] = v28;
-  if (__p)
-  {
-    v47 = __p;
-    operator delete(__p);
-  }
-
-  v40 = *MEMORY[0x1E69E9840];
-}
-
-void sub_185C8A040(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t makeValue(flatbuffers::FlatBufferBuilder *a1, MTLDataType a2, _DWORD *a3)
-{
-  switch(a2)
-  {
-    case MTLDataTypeFloat:
-      v3 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt>(a1, v3);
-    case MTLDataTypeFloat2:
-      v12 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt2>(a1, v12);
-    case MTLDataTypeFloat3:
-      v15 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt3>(a1, v15);
-    case MTLDataTypeFloat4:
-      v19 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt4>(a1, v19);
-    case MTLDataTypeHalf:
-      v24 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort>(a1, v24);
-    case MTLDataTypeHalf2:
-      v11 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort2>(a1, v11);
-    case MTLDataTypeHalf3:
-      v10 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort3>(a1, v10);
-    case MTLDataTypeHalf4:
-      v14 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort4>(a1, v14);
-    case MTLDataTypeInt:
-      v3 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt>(a1, v3);
-    case MTLDataTypeInt2:
-      v12 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt2>(a1, v12);
-    case MTLDataTypeInt3:
-      v15 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt3>(a1, v15);
-    case MTLDataTypeInt4:
-      v19 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt4>(a1, v19);
-    case MTLDataTypeUInt:
-      v3 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt>(a1, v3);
-    case MTLDataTypeUInt2:
-      v12 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt2>(a1, v12);
-    case MTLDataTypeUInt3:
-      v15 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt3>(a1, v15);
-    case MTLDataTypeUInt4:
-      v19 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt4>(a1, v19);
-    case MTLDataTypeShort:
-      v24 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort>(a1, v24);
-    case MTLDataTypeShort2:
-      v11 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort2>(a1, v11);
-    case MTLDataTypeShort3:
-      v10 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort3>(a1, v10);
-    case MTLDataTypeShort4:
-      v14 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort4>(a1, v14);
-    case MTLDataTypeUShort:
-      v24 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort>(a1, v24);
-    case MTLDataTypeUShort2:
-      v11 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort2>(a1, v11);
-    case MTLDataTypeUShort3:
-      v10 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort3>(a1, v10);
-    case MTLDataTypeUShort4:
-      v14 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort4>(a1, v14);
-    case MTLDataTypeChar:
-      v16 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool>(a1, v16);
-    case MTLDataTypeChar2:
-      v13 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool2>(a1, v13);
-    case MTLDataTypeChar3:
-      v23 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool3>(a1, v23);
-    case MTLDataTypeChar4:
-      v18 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool4>(a1, v18);
-    case MTLDataTypeUChar:
-      v16 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool>(a1, v16);
-    case MTLDataTypeUChar2:
-      v13 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool2>(a1, v13);
-    case MTLDataTypeUChar3:
-      v23 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool3>(a1, v23);
-    case MTLDataTypeUChar4:
-      v18 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool4>(a1, v18);
-    case MTLDataTypeBool:
-      v16 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool>(a1, v16);
-    case MTLDataTypeBool2:
-      v13 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool2>(a1, v13);
-    case MTLDataTypeBool3:
-      v23 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool3>(a1, v23);
-    case MTLDataTypeBool4:
-      v18 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool4>(a1, v18);
-    case MTLDataTypeLong:
-      v9 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong>(a1, v9);
-    case MTLDataTypeLong2:
-      v21 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong2>(a1, v21);
-    case MTLDataTypeLong3:
-      v8 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong3>(a1, v8);
-    case MTLDataTypeLong4:
-      v5 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong4>(a1, v5);
-    case MTLDataTypeULong:
-      v9 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong>(a1, v9);
-    case MTLDataTypeULong2:
-      v21 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong2>(a1, v21);
-    case MTLDataTypeULong3:
-      v8 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong3>(a1, v8);
-    case MTLDataTypeULong4:
-      v5 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong4>(a1, v5);
-    case MTLDataTypeULong4|MTLDataTypeStruct:
-      v9 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong>(a1, v9);
-    case MTLDataTypeULong4|MTLDataTypeArray:
-      v21 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong2>(a1, v21);
-    case MTLDataTypeULong4|MTLDataTypeFloat:
-      v8 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong3>(a1, v8);
-    case MTLDataTypeULong4|MTLDataTypeFloat2:
-      v5 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong4>(a1, v5);
-    case MTLDataTypeULong4|MTLDataTypeFloat3:
-      v22 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt8>(a1, v22);
-    case MTLDataTypeULong4|MTLDataTypeFloat4:
-      v7 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt16>(a1, v7);
-    case MTLDataTypeULong4|MTLDataTypeFloat2x2:
-      v6 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort8>(a1, v6);
-    case MTLDataTypeR16Unorm|MTLDataTypeInt4:
-      v27 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort16>(a1, v27);
-    case MTLDataTypeR16Snorm|MTLDataTypeInt4:
-      v22 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt8>(a1, v22);
-    case MTLDataTypeRG8Unorm|MTLDataTypeInt4:
-      v7 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt16>(a1, v7);
-    case MTLDataTypeRG8Snorm|MTLDataTypeInt4:
-      v22 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt8>(a1, v22);
-    case MTLDataTypeRG16Unorm|MTLDataTypeInt4:
-      v7 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt16>(a1, v7);
-    case MTLDataTypeRG16Snorm|MTLDataTypeInt4:
-      v6 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort8>(a1, v6);
-    case MTLDataTypeRGBA8Unorm|MTLDataTypeInt4:
-      v27 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort16>(a1, v27);
-    case MTLDataTypeRGBA8Unorm_sRGB|MTLDataTypeInt4:
-      v6 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort8>(a1, v6);
-    case MTLDataTypeRGBA8Snorm|MTLDataTypeInt4:
-      v27 = a3;
-      return flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort16>(a1, v27);
-    case MTLDataTypeRGBA16Unorm|MTLDataTypeInt4:
-      v25 = a3;
-      goto LABEL_79;
-    case MTLDataTypeRGBA16Snorm|MTLDataTypeInt4:
-      v26 = a3;
-      goto LABEL_81;
-    case MTLDataTypeRGB10A2Unorm|MTLDataTypeInt4:
-      v25 = a3;
-      goto LABEL_79;
-    case MTLDataTypeRG11B10Float|MTLDataTypeInt4:
-      v26 = a3;
-      goto LABEL_81;
-    case MTLDataTypeRGB9E5Float|MTLDataTypeInt4:
-      v4 = a3;
-      goto LABEL_5;
-    case MTLDataTypeRenderPipeline|MTLDataTypeInt4:
-      v20 = a3;
-      goto LABEL_48;
-    case MTLDataTypeComputePipeline|MTLDataTypeInt4:
-      v4 = a3;
-      goto LABEL_5;
-    case MTLDataTypeIndirectCommandBuffer|MTLDataTypeInt4:
-      v20 = a3;
-      goto LABEL_48;
-    case MTLDataTypeLong|MTLDataTypeInt4:
-      v4 = a3;
-LABEL_5:
-      result = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong8>(a1, v4);
-      break;
-    case MTLDataTypeLong2|MTLDataTypeInt4:
-      v20 = a3;
-LABEL_48:
-      result = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong16>(a1, v20);
-      break;
-    case MTLDataTypeInstanceAccelerationStructure|MTLDataTypeStruct:
-      v25 = a3;
-LABEL_79:
-      result = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool8>(a1, v25);
-      break;
-    case MTLDataTypeULong4|MTLDataTypeInt4:
-      v26 = a3;
-LABEL_81:
-      result = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool16>(a1, v26);
-      break;
-    default:
-      result = 0;
-      break;
-  }
-
-  return result;
-}
-
-uint64_t Air::FunctionConstantValue::HashImpl(Air::FunctionConstantValue *a1, CC_SHA256_CTX *c)
-{
-  CC_SHA256_Update(c, "Air.FunctionConstantValue", 0x19u);
-  v4 = (a1 - *a1);
-  if (*v4 < 5u)
-  {
-    LOWORD(v5) = 0;
-  }
-
-  else
-  {
-    v5 = v4[2];
-    if (v5)
-    {
-      LOWORD(v5) = *(a1 + v5);
-    }
-  }
-
-  data = v5;
-  CC_SHA256_Update(c, &data, 2u);
-  v6 = (a1 - *a1);
-  if (*v6 < 7u)
-  {
-    LODWORD(v7) = 0;
-  }
-
-  else
-  {
-    v7 = v6[3];
-    if (v7)
-    {
-      LODWORD(v7) = *(a1 + v7);
-    }
-  }
-
-  v84 = v7;
-  CC_SHA256_Update(c, &v84, 4u);
-  v8 = (a1 - *a1);
-  if (*v8 >= 7u && (v9 = v8[3]) != 0)
-  {
-    switch(*(a1 + v9))
-    {
-      case 3:
-        v10 = Air::FunctionConstantValue::value_as_ConstantFloat(a1);
-        result = Air::ConstantFloat::HashImpl(v10, c);
-        break;
-      case 4:
-        v43 = Air::FunctionConstantValue::value_as_ConstantFloat2(a1);
-        result = Air::ConstantFloat2::HashImpl(v43, c);
-        break;
-      case 5:
-        v35 = Air::FunctionConstantValue::value_as_ConstantFloat3(a1);
-        result = Air::ConstantFloat3::HashImpl(v35, c);
-        break;
-      case 6:
-        v51 = Air::FunctionConstantValue::value_as_ConstantFloat4(a1);
-        result = Air::ConstantFloat4::HashImpl(v51, c);
-        break;
-      case 0x10:
-        v53 = Air::FunctionConstantValue::value_as_ConstantHalf(a1);
-        result = Air::ConstantHalf::HashImpl(v53, c);
-        break;
-      case 0x11:
-        v38 = Air::FunctionConstantValue::value_as_ConstantHalf2(a1);
-        result = Air::ConstantHalf2::HashImpl(v38, c);
-        break;
-      case 0x12:
-        v44 = Air::FunctionConstantValue::value_as_ConstantHalf3(a1);
-        result = Air::ConstantHalf3::HashImpl(v44, c);
-        break;
-      case 0x13:
-        v45 = Air::FunctionConstantValue::value_as_ConstantHalf4(a1);
-        result = Air::ConstantHalf4::HashImpl(v45, c);
-        break;
-      case 0x1D:
-        v57 = Air::FunctionConstantValue::value_as_ConstantInt(a1);
-        result = Air::ConstantInt::HashImpl(v57, c);
-        break;
-      case 0x1E:
-        v55 = Air::FunctionConstantValue::value_as_ConstantInt2(a1);
-        result = Air::ConstantInt2::HashImpl(v55, c);
-        break;
-      case 0x1F:
-        v28 = Air::FunctionConstantValue::value_as_ConstantInt3(a1);
-        result = Air::ConstantInt3::HashImpl(v28, c);
-        break;
-      case 0x20:
-        v39 = Air::FunctionConstantValue::value_as_ConstantInt4(a1);
-        result = Air::ConstantInt4::HashImpl(v39, c);
-        break;
-      case 0x21:
-        v33 = Air::FunctionConstantValue::value_as_ConstantUInt(a1);
-        result = Air::ConstantUInt::HashImpl(v33, c);
-        break;
-      case 0x22:
-        v24 = Air::FunctionConstantValue::value_as_ConstantUInt2(a1);
-        result = Air::ConstantUInt2::HashImpl(v24, c);
-        break;
-      case 0x23:
-        v47 = Air::FunctionConstantValue::value_as_ConstantUInt3(a1);
-        result = Air::ConstantUInt3::HashImpl(v47, c);
-        break;
-      case 0x24:
-        v48 = Air::FunctionConstantValue::value_as_ConstantUInt4(a1);
-        result = Air::ConstantUInt4::HashImpl(v48, c);
-        break;
-      case 0x25:
-        v60 = Air::FunctionConstantValue::value_as_ConstantShort(a1);
-        result = Air::ConstantShort::HashImpl(v60, c);
-        break;
-      case 0x26:
-        v58 = Air::FunctionConstantValue::value_as_ConstantShort2(a1);
-        result = Air::ConstantShort2::HashImpl(v58, c);
-        break;
-      case 0x27:
-        v22 = Air::FunctionConstantValue::value_as_ConstantShort3(a1);
-        result = Air::ConstantShort3::HashImpl(v22, c);
-        break;
-      case 0x28:
-        v34 = Air::FunctionConstantValue::value_as_ConstantShort4(a1);
-        result = Air::ConstantShort4::HashImpl(v34, c);
-        break;
-      case 0x29:
-        v63 = Air::FunctionConstantValue::value_as_ConstantUShort(a1);
-        result = Air::ConstantUShort::HashImpl(v63, c);
-        break;
-      case 0x2A:
-        v23 = Air::FunctionConstantValue::value_as_ConstantUShort2(a1);
-        result = Air::ConstantUShort2::HashImpl(v23, c);
-        break;
-      case 0x2B:
-        v32 = Air::FunctionConstantValue::value_as_ConstantUShort3(a1);
-        result = Air::ConstantUShort3::HashImpl(v32, c);
-        break;
-      case 0x2C:
-        v27 = Air::FunctionConstantValue::value_as_ConstantUShort4(a1);
-        result = Air::ConstantUShort4::HashImpl(v27, c);
-        break;
-      case 0x2D:
-        v41 = Air::FunctionConstantValue::value_as_ConstantChar(a1);
-        result = Air::ConstantChar::HashImpl(v41, c);
-        break;
-      case 0x2E:
-        v25 = Air::FunctionConstantValue::value_as_ConstantChar2(a1);
-        result = Air::ConstantChar2::HashImpl(v25, c);
-        break;
-      case 0x2F:
-        v70 = Air::FunctionConstantValue::value_as_ConstantChar3(a1);
-        result = Air::ConstantChar3::HashImpl(v70, c);
-        break;
-      case 0x30:
-        v69 = Air::FunctionConstantValue::value_as_ConstantChar4(a1);
-        result = Air::ConstantChar4::HashImpl(v69, c);
-        break;
-      case 0x31:
-        v30 = Air::FunctionConstantValue::value_as_ConstantUChar(a1);
-        result = Air::ConstantUChar::HashImpl(v30, c);
-        break;
-      case 0x32:
-        v36 = Air::FunctionConstantValue::value_as_ConstantUChar2(a1);
-        result = Air::ConstantUChar2::HashImpl(v36, c);
-        break;
-      case 0x33:
-        v50 = Air::FunctionConstantValue::value_as_ConstantUChar3(a1);
-        result = Air::ConstantUChar3::HashImpl(v50, c);
-        break;
-      case 0x34:
-        v37 = Air::FunctionConstantValue::value_as_ConstantUChar4(a1);
-        result = Air::ConstantUChar4::HashImpl(v37, c);
-        break;
-      case 0x35:
-        v74 = Air::FunctionConstantValue::value_as_ConstantBool(a1);
-        result = Air::ConstantBool::HashImpl(v74, c);
-        break;
-      case 0x36:
-        v29 = Air::FunctionConstantValue::value_as_ConstantBool2(a1);
-        result = Air::ConstantBool2::HashImpl(v29, c);
-        break;
-      case 0x37:
-        v59 = Air::FunctionConstantValue::value_as_ConstantBool3(a1);
-        result = Air::ConstantBool3::HashImpl(v59, c);
-        break;
-      case 0x38:
-        v73 = Air::FunctionConstantValue::value_as_ConstantBool4(a1);
-        result = Air::ConstantBool4::HashImpl(v73, c);
-        break;
-      case 0x51:
-        v20 = Air::FunctionConstantValue::value_as_ConstantLong(a1);
-        result = Air::ConstantLong::HashImpl(v20, c);
-        break;
-      case 0x52:
-        v54 = Air::FunctionConstantValue::value_as_ConstantLong2(a1);
-        result = Air::ConstantLong2::HashImpl(v54, c);
-        break;
-      case 0x53:
-        v19 = Air::FunctionConstantValue::value_as_ConstantLong3(a1);
-        result = Air::ConstantLong3::HashImpl(v19, c);
-        break;
-      case 0x54:
-        v18 = Air::FunctionConstantValue::value_as_ConstantLong4(a1);
-        result = Air::ConstantLong4::HashImpl(v18, c);
-        break;
-      case 0x55:
-        v31 = Air::FunctionConstantValue::value_as_ConstantULong(a1);
-        result = Air::ConstantULong::HashImpl(v31, c);
-        break;
-      case 0x56:
-        v42 = Air::FunctionConstantValue::value_as_ConstantULong2(a1);
-        result = Air::ConstantULong2::HashImpl(v42, c);
-        break;
-      case 0x57:
-        v62 = Air::FunctionConstantValue::value_as_ConstantULong3(a1);
-        result = Air::ConstantULong3::HashImpl(v62, c);
-        break;
-      case 0x58:
-        v13 = Air::FunctionConstantValue::value_as_ConstantULong4(a1);
-        result = Air::ConstantULong4::HashImpl(v13, c);
-        break;
-      case 0x59:
-        v21 = Air::FunctionConstantValue::value_as_ConstantDouble(a1);
-        result = Air::ConstantDouble::HashImpl(v21, c);
-        break;
-      case 0x5A:
-        v46 = Air::FunctionConstantValue::value_as_ConstantDouble2(a1);
-        result = Air::ConstantDouble2::HashImpl(v46, c);
-        break;
-      case 0x5B:
-        v52 = Air::FunctionConstantValue::value_as_ConstantDouble3(a1);
-        result = Air::ConstantDouble3::HashImpl(v52, c);
-        break;
-      case 0x5C:
-        v75 = Air::FunctionConstantValue::value_as_ConstantDouble4(a1);
-        result = Air::ConstantDouble4::HashImpl(v75, c);
-        break;
-      case 0x5D:
-        v49 = Air::FunctionConstantValue::value_as_ConstantFloat8(a1);
-        result = Air::ConstantFloat8::HashImpl(v49, c);
-        break;
-      case 0x5E:
-        v17 = Air::FunctionConstantValue::value_as_ConstantFloat16(a1);
-        result = Air::ConstantFloat16::HashImpl(v17, c);
-        break;
-      case 0x5F:
-        v14 = Air::FunctionConstantValue::value_as_ConstantHalf8(a1);
-        result = Air::ConstantHalf8::HashImpl(v14, c);
-        break;
-      case 0x60:
-        v79 = Air::FunctionConstantValue::value_as_ConstantHalf16(a1);
-        result = Air::ConstantHalf16::HashImpl(v79, c);
-        break;
-      case 0x61:
-        v72 = Air::FunctionConstantValue::value_as_ConstantInt8(a1);
-        result = Air::ConstantInt8::HashImpl(v72, c);
-        break;
-      case 0x62:
-        v16 = Air::FunctionConstantValue::value_as_ConstantInt16(a1);
-        result = Air::ConstantInt16::HashImpl(v16, c);
-        break;
-      case 0x63:
-        v56 = Air::FunctionConstantValue::value_as_ConstantUInt8(a1);
-        result = Air::ConstantUInt8::HashImpl(v56, c);
-        break;
-      case 0x64:
-        v61 = Air::FunctionConstantValue::value_as_ConstantUInt16(a1);
-        result = Air::ConstantUInt16::HashImpl(v61, c);
-        break;
-      case 0x65:
-        v15 = Air::FunctionConstantValue::value_as_ConstantShort8(a1);
-        result = Air::ConstantShort8::HashImpl(v15, c);
-        break;
-      case 0x66:
-        v68 = Air::FunctionConstantValue::value_as_ConstantShort16(a1);
-        result = Air::ConstantShort16::HashImpl(v68, c);
-        break;
-      case 0x67:
-        v64 = Air::FunctionConstantValue::value_as_ConstantUShort8(a1);
-        result = Air::ConstantUShort8::HashImpl(v64, c);
-        break;
-      case 0x68:
-        v82 = Air::FunctionConstantValue::value_as_ConstantUShort16(a1);
-        result = Air::ConstantUShort16::HashImpl(v82, c);
-        break;
-      case 0x69:
-        v77 = Air::FunctionConstantValue::value_as_ConstantChar8(a1);
-        result = Air::ConstantChar8::HashImpl(v77, c);
-        break;
-      case 0x6A:
-        v80 = Air::FunctionConstantValue::value_as_ConstantChar16(a1);
-        result = Air::ConstantChar16::HashImpl(v80, c);
-        break;
-      case 0x6B:
-        v65 = Air::FunctionConstantValue::value_as_ConstantUChar8(a1);
-        result = Air::ConstantUChar8::HashImpl(v65, c);
-        break;
-      case 0x6C:
-        v66 = Air::FunctionConstantValue::value_as_ConstantUChar16(a1);
-        result = Air::ConstantUChar16::HashImpl(v66, c);
-        break;
-      case 0x6D:
-        v26 = Air::FunctionConstantValue::value_as_ConstantLong8(a1);
-        result = Air::ConstantLong8::HashImpl(v26, c);
-        break;
-      case 0x6E:
-        v71 = Air::FunctionConstantValue::value_as_ConstantLong16(a1);
-        result = Air::ConstantLong16::HashImpl(v71, c);
-        break;
-      case 0x6F:
-        v12 = Air::FunctionConstantValue::value_as_ConstantULong8(a1);
-        result = Air::ConstantULong8::HashImpl(v12, c);
-        break;
-      case 0x70:
-        v76 = Air::FunctionConstantValue::value_as_ConstantULong16(a1);
-        result = Air::ConstantULong16::HashImpl(v76, c);
-        break;
-      case 0x71:
-        v78 = Air::FunctionConstantValue::value_as_ConstantDouble8(a1);
-        result = Air::ConstantDouble8::HashImpl(v78, c);
-        break;
-      case 0x72:
-        v40 = Air::FunctionConstantValue::value_as_ConstantDouble16(a1);
-        result = Air::ConstantDouble16::HashImpl(v40, c);
-        break;
-      case 0x77:
-        v81 = Air::FunctionConstantValue::value_as_ConstantBool8(a1);
-        result = Air::ConstantBool8::HashImpl(v81, c);
-        break;
-      case 0x78:
-        v67 = Air::FunctionConstantValue::value_as_ConstantBool16(a1);
-        result = Air::ConstantBool16::HashImpl(v67, c);
-        break;
-      default:
-        goto LABEL_13;
-    }
-  }
-
-  else
-  {
-LABEL_13:
-    v85 = 0;
-    return CC_SHA256_Update(c, &v85, 4u);
-  }
-
-  return result;
-}
-
 uint64_t Air::FunctionConstantValue::value_as_ConstantFloat(Air::FunctionConstantValue *this)
 {
   v1 = (this - *this);
@@ -4135,7 +2969,7 @@ uint64_t Air::ConstantBool16::HashImpl(uint64_t a1, CC_SHA256_CTX *c)
   return result;
 }
 
-uint64_t std::vector<NSObject  {objcproto16OS_dispatch_data}*>::__init_with_size[abi:ne200100]<NSObject  {objcproto16OS_dispatch_data}**,NSObject  {objcproto16OS_dispatch_data}**>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<NSObject  {objcproto16OS_dispatch_data}*>::__init_with_size[abi:ne200100]<NSObject  {objcproto16OS_dispatch_data}**,NSObject  {objcproto16OS_dispatch_data}**>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4668,7 +3502,7 @@ uint64_t Mtl::FunctionStitching::EarlyReturnNode::HashImpl(int *a1, CC_SHA256_CT
   return result;
 }
 
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -4680,11 +3514,11 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 uint64_t **std::__hash_table<std::string_view,std::hash<std::string_view>,std::equal_to<std::string_view>,std::allocator<std::string_view>>::find<std::string_view>(void *a1, uint64_t a2)
@@ -4767,83 +3601,83 @@ uint64_t **std::__hash_table<std::string_view,std::hash<std::string_view>,std::e
   return v11;
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<std::string_view,flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> const*>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> const*>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> const*>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> const*>>>::__emplace_unique_key_args<std::string_view,std::piecewise_construct_t const&,std::tuple<std::string_view&&>,std::tuple<>>(void *a1, uint64_t a2)
+uint64_t **std::__hash_table<std::__hash_value_type<std::string_view,flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> const*>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> const*>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> const*>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> const*>>>::__emplace_unique_key_args<std::string_view,std::piecewise_construct_t const&,std::tuple<std::string_view&&>,std::tuple<>>(void *a1, uint64_t a2, uint64_t a3, _OWORD **a4)
 {
-  v4 = std::__string_view_hash<char>::operator()[abi:ne200100](a1, *a2, *(a2 + 8));
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = std::__string_view_hash<char>::operator()[abi:ne200100](a1, *a2, *(a2 + 8));
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_20;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_20:
     operator new();
   }
 
-  v14 = a2;
-  v12 = *a2;
-  v13 = *(v14 + 8);
+  v16 = a2;
+  v14 = *a2;
+  v15 = *(v16 + 8);
   while (1)
   {
-    v15 = v11[1];
-    if (v15 == v5)
+    v17 = v13[1];
+    if (v17 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v15 >= *&v6)
+      if (v17 >= *&v8)
       {
-        v15 %= *&v6;
+        v17 %= *&v8;
       }
     }
 
     else
     {
-      v15 &= *&v6 - 1;
+      v17 &= *&v8 - 1;
     }
 
-    if (v15 != v9)
+    if (v17 != v11)
     {
       goto LABEL_20;
     }
 
 LABEL_19:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_20;
     }
   }
 
-  if (v11[3] != v13 || memcmp(v11[2], v12, v13))
+  if (v13[3] != v15 || memcmp(v13[2], v14, v15))
   {
     goto LABEL_19;
   }
 
-  return v11;
+  return v13;
 }
 
 uint64_t **std::__hash_table<std::__hash_value_type<std::string_view,flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> const*>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> const*>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> const*>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,flatbuffers::Vector<flatbuffers::Offset<flatbuffers::String>> const*>>>::find<std::string_view>(void *a1, uint64_t a2)
@@ -4982,35 +3816,35 @@ void std::__destroy_at[abi:ne200100]<std::pair<MTLUINT256_t const,std::pair<std:
   }
 }
 
-const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(void *a1, const void **a2)
+const void **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(void *a1, const void **a2, uint64_t a3)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -5018,75 +3852,75 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, const void **a2, uint64_t a3, __int128 **a4)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v6 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v7 = v6;
+  v8 = a1[1];
+  if (!*&v8)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v11 = v6;
+    if (v6 >= *&v8)
     {
-      v9 = v4 % *&v6;
+      v11 = v6 % *&v8;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v11 = (*&v8 - 1) & v6;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12 || (v13 = *v12) == 0)
   {
 LABEL_18:
     operator new();
@@ -5094,49 +3928,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v14 = v13[1];
+    if (v14 == v7)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v10 > 1)
     {
-      if (v12 >= *&v6)
+      if (v14 >= *&v8)
       {
-        v12 %= *&v6;
+        v14 %= *&v8;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v14 &= *&v8 - 1;
     }
 
-    if (v12 != v9)
+    if (v14 != v11)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v13 = *v13;
+    if (!v13)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v13 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v13;
 }
 
-void sub_185C90308(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_185C90308(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5212,17 +4046,17 @@ void sub_185C9042C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<flatbuffers::Offset<Mtl::FunctionConstantValue>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<flatbuffers::Offset<Mtl::FunctionConstantValue>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_185C904A8(_Unwind_Exception *exception_object)
@@ -5239,7 +4073,7 @@ void sub_185C904A8(_Unwind_Exception *exception_object)
 
 uint64_t Mtl::CloneFunctionConstantValue<Mtl::FunctionConstantValue>(uint64_t a1, Mtl4::FunctionConstantValue *a2)
 {
-  v122 = *MEMORY[0x1E69E9840];
+  v121 = *MEMORY[0x1E69E9840];
   v4 = (a2 - *a2);
   if (*v4 >= 9u && (v5 = v4[4]) != 0)
   {
@@ -5255,439 +4089,439 @@ uint64_t Mtl::CloneFunctionConstantValue<Mtl::FunctionConstantValue>(uint64_t a1
   switch(Mtl4::CloneConstantValue<Mtl4::ConstantValue>(v6))
   {
     case 3u:
-      LODWORD(v114) = *Mtl4::FunctionConstantValue::value_as_ConstantFloat(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt>(a1, &v114);
+      LODWORD(v113) = *Mtl4::FunctionConstantValue::value_as_ConstantFloat(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt>(a1, &v113);
       goto LABEL_78;
     case 4u:
-      *&v114 = *Mtl4::FunctionConstantValue::value_as_ConstantFloat2(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt2>(a1, &v114);
+      *&v113 = *Mtl4::FunctionConstantValue::value_as_ConstantFloat2(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt2>(a1, &v113);
       goto LABEL_78;
     case 5u:
       v37 = Mtl4::FunctionConstantValue::value_as_ConstantFloat3(a2);
       v38 = *(v37 + 8);
-      *&v114 = *v37;
-      DWORD2(v114) = v38;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt3>(a1, &v114);
+      *&v113 = *v37;
+      DWORD2(v113) = v38;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt3>(a1, &v113);
       goto LABEL_78;
     case 6u:
-      v114 = *Mtl4::FunctionConstantValue::value_as_ConstantFloat4(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt4>(a1, &v114);
+      v113 = *Mtl4::FunctionConstantValue::value_as_ConstantFloat4(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt4>(a1, &v113);
       goto LABEL_78;
     case 0x10u:
-      LOWORD(v114) = *Mtl4::FunctionConstantValue::value_as_ConstantHalf(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort>(a1, &v114);
+      LOWORD(v113) = *Mtl4::FunctionConstantValue::value_as_ConstantHalf(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort>(a1, &v113);
       goto LABEL_78;
     case 0x11u:
-      LODWORD(v114) = *Mtl4::FunctionConstantValue::value_as_ConstantHalf2(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort2>(a1, &v114);
+      LODWORD(v113) = *Mtl4::FunctionConstantValue::value_as_ConstantHalf2(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort2>(a1, &v113);
       goto LABEL_78;
     case 0x12u:
       v46 = Mtl4::FunctionConstantValue::value_as_ConstantHalf3(a2);
       v47 = *v46;
-      WORD2(v114) = *(v46 + 4);
-      LODWORD(v114) = v47;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort3>(a1, &v114);
+      WORD2(v113) = *(v46 + 4);
+      LODWORD(v113) = v47;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort3>(a1, &v113);
       goto LABEL_78;
     case 0x13u:
-      *&v114 = *Mtl4::FunctionConstantValue::value_as_ConstantHalf4(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort4>(a1, &v114);
+      *&v113 = *Mtl4::FunctionConstantValue::value_as_ConstantHalf4(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort4>(a1, &v113);
       goto LABEL_78;
     case 0x1Du:
-      LODWORD(v114) = *Mtl4::FunctionConstantValue::value_as_ConstantInt(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt>(a1, &v114);
+      LODWORD(v113) = *Mtl4::FunctionConstantValue::value_as_ConstantInt(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt>(a1, &v113);
       goto LABEL_78;
     case 0x1Eu:
-      *&v114 = *Mtl4::FunctionConstantValue::value_as_ConstantInt2(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt2>(a1, &v114);
+      *&v113 = *Mtl4::FunctionConstantValue::value_as_ConstantInt2(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt2>(a1, &v113);
       goto LABEL_78;
     case 0x1Fu:
       v33 = Mtl4::FunctionConstantValue::value_as_ConstantInt3(a2);
       v34 = *(v33 + 8);
-      *&v114 = *v33;
-      DWORD2(v114) = v34;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt3>(a1, &v114);
+      *&v113 = *v33;
+      DWORD2(v113) = v34;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt3>(a1, &v113);
       goto LABEL_78;
     case 0x20u:
-      v114 = *Mtl4::FunctionConstantValue::value_as_ConstantInt4(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt4>(a1, &v114);
+      v113 = *Mtl4::FunctionConstantValue::value_as_ConstantInt4(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt4>(a1, &v113);
       goto LABEL_78;
     case 0x21u:
-      LODWORD(v114) = *Mtl4::FunctionConstantValue::value_as_ConstantUInt(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt>(a1, &v114);
+      LODWORD(v113) = *Mtl4::FunctionConstantValue::value_as_ConstantUInt(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt>(a1, &v113);
       goto LABEL_78;
     case 0x22u:
-      *&v114 = *Mtl4::FunctionConstantValue::value_as_ConstantUInt2(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt2>(a1, &v114);
+      *&v113 = *Mtl4::FunctionConstantValue::value_as_ConstantUInt2(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt2>(a1, &v113);
       goto LABEL_78;
     case 0x23u:
       v48 = Mtl4::FunctionConstantValue::value_as_ConstantUInt3(a2);
       v49 = *(v48 + 8);
-      *&v114 = *v48;
-      DWORD2(v114) = v49;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt3>(a1, &v114);
+      *&v113 = *v48;
+      DWORD2(v113) = v49;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt3>(a1, &v113);
       goto LABEL_78;
     case 0x24u:
-      v114 = *Mtl4::FunctionConstantValue::value_as_ConstantUInt4(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt4>(a1, &v114);
+      v113 = *Mtl4::FunctionConstantValue::value_as_ConstantUInt4(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt4>(a1, &v113);
       goto LABEL_78;
     case 0x25u:
-      LOWORD(v114) = *Mtl4::FunctionConstantValue::value_as_ConstantShort(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort>(a1, &v114);
+      LOWORD(v113) = *Mtl4::FunctionConstantValue::value_as_ConstantShort(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort>(a1, &v113);
       goto LABEL_78;
     case 0x26u:
-      LODWORD(v114) = *Mtl4::FunctionConstantValue::value_as_ConstantShort2(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort2>(a1, &v114);
+      LODWORD(v113) = *Mtl4::FunctionConstantValue::value_as_ConstantShort2(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort2>(a1, &v113);
       goto LABEL_78;
     case 0x27u:
       v27 = Mtl4::FunctionConstantValue::value_as_ConstantShort3(a2);
       v28 = *v27;
-      WORD2(v114) = *(v27 + 4);
-      LODWORD(v114) = v28;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort3>(a1, &v114);
+      WORD2(v113) = *(v27 + 4);
+      LODWORD(v113) = v28;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort3>(a1, &v113);
       goto LABEL_78;
     case 0x28u:
-      *&v114 = *Mtl4::FunctionConstantValue::value_as_ConstantShort4(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort4>(a1, &v114);
+      *&v113 = *Mtl4::FunctionConstantValue::value_as_ConstantShort4(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort4>(a1, &v113);
       goto LABEL_78;
     case 0x29u:
-      LOWORD(v114) = *Mtl4::FunctionConstantValue::value_as_ConstantUShort(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort>(a1, &v114);
+      LOWORD(v113) = *Mtl4::FunctionConstantValue::value_as_ConstantUShort(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort>(a1, &v113);
       goto LABEL_78;
     case 0x2Au:
-      LODWORD(v114) = *Mtl4::FunctionConstantValue::value_as_ConstantUShort2(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort2>(a1, &v114);
+      LODWORD(v113) = *Mtl4::FunctionConstantValue::value_as_ConstantUShort2(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort2>(a1, &v113);
       goto LABEL_78;
     case 0x2Bu:
       v35 = Mtl4::FunctionConstantValue::value_as_ConstantUShort3(a2);
       v36 = *v35;
-      WORD2(v114) = *(v35 + 4);
-      LODWORD(v114) = v36;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort3>(a1, &v114);
+      WORD2(v113) = *(v35 + 4);
+      LODWORD(v113) = v36;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort3>(a1, &v113);
       goto LABEL_78;
     case 0x2Cu:
-      *&v114 = *Mtl4::FunctionConstantValue::value_as_ConstantUShort4(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort4>(a1, &v114);
+      *&v113 = *Mtl4::FunctionConstantValue::value_as_ConstantUShort4(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort4>(a1, &v113);
       goto LABEL_78;
     case 0x2Du:
-      LOBYTE(v114) = *Mtl4::FunctionConstantValue::value_as_ConstantChar(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool>(a1, &v114);
+      LOBYTE(v113) = *Mtl4::FunctionConstantValue::value_as_ConstantChar(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool>(a1, &v113);
       goto LABEL_78;
     case 0x2Eu:
-      LOWORD(v114) = *Mtl4::FunctionConstantValue::value_as_ConstantChar2(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool2>(a1, &v114);
+      LOWORD(v113) = *Mtl4::FunctionConstantValue::value_as_ConstantChar2(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool2>(a1, &v113);
       goto LABEL_78;
     case 0x2Fu:
       v68 = Mtl4::FunctionConstantValue::value_as_ConstantChar3(a2);
       v69 = *v68;
-      BYTE2(v114) = *(v68 + 2);
-      LOWORD(v114) = v69;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool3>(a1, &v114);
+      BYTE2(v113) = *(v68 + 2);
+      LOWORD(v113) = v69;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool3>(a1, &v113);
       goto LABEL_78;
     case 0x30u:
-      LODWORD(v114) = *Mtl4::FunctionConstantValue::value_as_ConstantChar4(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool4>(a1, &v114);
+      LODWORD(v113) = *Mtl4::FunctionConstantValue::value_as_ConstantChar4(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool4>(a1, &v113);
       goto LABEL_78;
     case 0x31u:
-      LOBYTE(v114) = *Mtl4::FunctionConstantValue::value_as_ConstantUChar(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool>(a1, &v114);
+      LOBYTE(v113) = *Mtl4::FunctionConstantValue::value_as_ConstantUChar(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool>(a1, &v113);
       goto LABEL_78;
     case 0x32u:
-      LOWORD(v114) = *Mtl4::FunctionConstantValue::value_as_ConstantUChar2(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool2>(a1, &v114);
+      LOWORD(v113) = *Mtl4::FunctionConstantValue::value_as_ConstantUChar2(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool2>(a1, &v113);
       goto LABEL_78;
     case 0x33u:
       v52 = Mtl4::FunctionConstantValue::value_as_ConstantUChar3(a2);
       v53 = *v52;
-      BYTE2(v114) = *(v52 + 2);
-      LOWORD(v114) = v53;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool3>(a1, &v114);
+      BYTE2(v113) = *(v52 + 2);
+      LOWORD(v113) = v53;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool3>(a1, &v113);
       goto LABEL_78;
     case 0x34u:
-      LODWORD(v114) = *Mtl4::FunctionConstantValue::value_as_ConstantUChar4(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool4>(a1, &v114);
+      LODWORD(v113) = *Mtl4::FunctionConstantValue::value_as_ConstantUChar4(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool4>(a1, &v113);
       goto LABEL_78;
     case 0x35u:
-      LOBYTE(v114) = *Mtl4::FunctionConstantValue::value_as_ConstantBool(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool>(a1, &v114);
+      LOBYTE(v113) = *Mtl4::FunctionConstantValue::value_as_ConstantBool(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool>(a1, &v113);
       goto LABEL_78;
     case 0x36u:
-      LOWORD(v114) = *Mtl4::FunctionConstantValue::value_as_ConstantBool2(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool2>(a1, &v114);
+      LOWORD(v113) = *Mtl4::FunctionConstantValue::value_as_ConstantBool2(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool2>(a1, &v113);
       goto LABEL_78;
     case 0x37u:
       v58 = Mtl4::FunctionConstantValue::value_as_ConstantBool3(a2);
       v59 = *v58;
-      BYTE2(v114) = *(v58 + 2);
-      LOWORD(v114) = v59;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool3>(a1, &v114);
+      BYTE2(v113) = *(v58 + 2);
+      LOWORD(v113) = v59;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool3>(a1, &v113);
       goto LABEL_78;
     case 0x38u:
-      LODWORD(v114) = *Mtl4::FunctionConstantValue::value_as_ConstantBool4(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool4>(a1, &v114);
+      LODWORD(v113) = *Mtl4::FunctionConstantValue::value_as_ConstantBool4(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool4>(a1, &v113);
       goto LABEL_78;
     case 0x51u:
-      *&v114 = *Mtl4::FunctionConstantValue::value_as_ConstantLong(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong>(a1, &v114);
+      *&v113 = *Mtl4::FunctionConstantValue::value_as_ConstantLong(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong>(a1, &v113);
       goto LABEL_78;
     case 0x52u:
-      v114 = *Mtl4::FunctionConstantValue::value_as_ConstantLong2(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong2>(a1, &v114);
+      v113 = *Mtl4::FunctionConstantValue::value_as_ConstantLong2(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong2>(a1, &v113);
       goto LABEL_78;
     case 0x53u:
       v25 = Mtl4::FunctionConstantValue::value_as_ConstantLong3(a2);
       v26 = *v25;
-      *&v115 = *(v25 + 16);
-      v114 = v26;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong3>(a1, &v114);
+      *&v114 = *(v25 + 16);
+      v113 = v26;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong3>(a1, &v113);
       goto LABEL_78;
     case 0x54u:
       v23 = Mtl4::FunctionConstantValue::value_as_ConstantLong4(a2);
       v24 = v23[1];
-      v114 = *v23;
-      v115 = v24;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong4>(a1, &v114);
+      v113 = *v23;
+      v114 = v24;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong4>(a1, &v113);
       goto LABEL_78;
     case 0x55u:
-      *&v114 = *Mtl4::FunctionConstantValue::value_as_ConstantULong(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong>(a1, &v114);
+      *&v113 = *Mtl4::FunctionConstantValue::value_as_ConstantULong(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong>(a1, &v113);
       goto LABEL_78;
     case 0x56u:
-      v114 = *Mtl4::FunctionConstantValue::value_as_ConstantULong2(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong2>(a1, &v114);
+      v113 = *Mtl4::FunctionConstantValue::value_as_ConstantULong2(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong2>(a1, &v113);
       goto LABEL_78;
     case 0x57u:
       v64 = Mtl4::FunctionConstantValue::value_as_ConstantULong3(a2);
       v65 = *v64;
-      *&v115 = *(v64 + 16);
-      v114 = v65;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong3>(a1, &v114);
+      *&v114 = *(v64 + 16);
+      v113 = v65;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong3>(a1, &v113);
       goto LABEL_78;
     case 0x58u:
       v13 = Mtl4::FunctionConstantValue::value_as_ConstantULong4(a2);
       v14 = v13[1];
-      v114 = *v13;
-      v115 = v14;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong4>(a1, &v114);
+      v113 = *v13;
+      v114 = v14;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong4>(a1, &v113);
       goto LABEL_78;
     case 0x59u:
-      *&v114 = *Mtl4::FunctionConstantValue::value_as_ConstantDouble(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong>(a1, &v114);
+      *&v113 = *Mtl4::FunctionConstantValue::value_as_ConstantDouble(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong>(a1, &v113);
       goto LABEL_78;
     case 0x5Au:
-      v114 = *Mtl4::FunctionConstantValue::value_as_ConstantDouble2(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong2>(a1, &v114);
+      v113 = *Mtl4::FunctionConstantValue::value_as_ConstantDouble2(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong2>(a1, &v113);
       goto LABEL_78;
     case 0x5Bu:
       v54 = Mtl4::FunctionConstantValue::value_as_ConstantDouble3(a2);
       v55 = *(v54 + 16);
-      v114 = *v54;
-      *&v115 = v55;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong3>(a1, &v114);
+      v113 = *v54;
+      *&v114 = v55;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong3>(a1, &v113);
       goto LABEL_78;
     case 0x5Cu:
       v79 = Mtl4::FunctionConstantValue::value_as_ConstantDouble4(a2);
       v80 = v79[1];
-      v114 = *v79;
-      v115 = v80;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong4>(a1, &v114);
+      v113 = *v79;
+      v114 = v80;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong4>(a1, &v113);
       goto LABEL_78;
     case 0x5Du:
       v50 = Mtl4::FunctionConstantValue::value_as_ConstantFloat8(a2);
       v51 = v50[1];
-      v114 = *v50;
-      v115 = v51;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt8>(a1, &v114);
+      v113 = *v50;
+      v114 = v51;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt8>(a1, &v113);
       goto LABEL_78;
     case 0x5Eu:
       v19 = Mtl4::FunctionConstantValue::value_as_ConstantFloat16(a2);
       v20 = *v19;
       v21 = v19[1];
       v22 = v19[3];
-      v116 = v19[2];
-      v117 = v22;
-      v114 = v20;
-      v115 = v21;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt16>(a1, &v114);
+      v115 = v19[2];
+      v116 = v22;
+      v113 = v20;
+      v114 = v21;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt16>(a1, &v113);
       goto LABEL_78;
     case 0x5Fu:
-      v114 = *Mtl4::FunctionConstantValue::value_as_ConstantHalf8(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort8>(a1, &v114);
+      v113 = *Mtl4::FunctionConstantValue::value_as_ConstantHalf8(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort8>(a1, &v113);
       goto LABEL_78;
     case 0x60u:
       v92 = Mtl4::FunctionConstantValue::value_as_ConstantHalf16(a2);
       v93 = v92[1];
-      v114 = *v92;
-      v115 = v93;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort16>(a1, &v114);
+      v113 = *v92;
+      v114 = v93;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort16>(a1, &v113);
       goto LABEL_78;
     case 0x61u:
       v77 = Mtl4::FunctionConstantValue::value_as_ConstantInt8(a2);
       v78 = v77[1];
-      v114 = *v77;
-      v115 = v78;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt8>(a1, &v114);
+      v113 = *v77;
+      v114 = v78;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt8>(a1, &v113);
       goto LABEL_78;
     case 0x62u:
       v15 = Mtl4::FunctionConstantValue::value_as_ConstantInt16(a2);
       v16 = *v15;
       v17 = v15[1];
       v18 = v15[3];
-      v116 = v15[2];
-      v117 = v18;
-      v114 = v16;
-      v115 = v17;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt16>(a1, &v114);
+      v115 = v15[2];
+      v116 = v18;
+      v113 = v16;
+      v114 = v17;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt16>(a1, &v113);
       goto LABEL_78;
     case 0x63u:
       v56 = Mtl4::FunctionConstantValue::value_as_ConstantUInt8(a2);
       v57 = v56[1];
-      v114 = *v56;
-      v115 = v57;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt8>(a1, &v114);
+      v113 = *v56;
+      v114 = v57;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt8>(a1, &v113);
       goto LABEL_78;
     case 0x64u:
       v60 = Mtl4::FunctionConstantValue::value_as_ConstantUInt16(a2);
       v61 = *v60;
       v62 = v60[1];
       v63 = v60[3];
-      v116 = v60[2];
-      v117 = v63;
-      v114 = v61;
-      v115 = v62;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt16>(a1, &v114);
+      v115 = v60[2];
+      v116 = v63;
+      v113 = v61;
+      v114 = v62;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantInt16>(a1, &v113);
       goto LABEL_78;
     case 0x65u:
-      v114 = *Mtl4::FunctionConstantValue::value_as_ConstantShort8(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort8>(a1, &v114);
+      v113 = *Mtl4::FunctionConstantValue::value_as_ConstantShort8(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort8>(a1, &v113);
       goto LABEL_78;
     case 0x66u:
       v66 = Mtl4::FunctionConstantValue::value_as_ConstantShort16(a2);
       v67 = v66[1];
-      v114 = *v66;
-      v115 = v67;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort16>(a1, &v114);
+      v113 = *v66;
+      v114 = v67;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort16>(a1, &v113);
       goto LABEL_78;
     case 0x67u:
-      v114 = *Mtl4::FunctionConstantValue::value_as_ConstantUShort8(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort8>(a1, &v114);
+      v113 = *Mtl4::FunctionConstantValue::value_as_ConstantUShort8(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort8>(a1, &v113);
       goto LABEL_78;
     case 0x68u:
       v94 = Mtl4::FunctionConstantValue::value_as_ConstantUShort16(a2);
       v95 = v94[1];
-      v114 = *v94;
-      v115 = v95;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort16>(a1, &v114);
+      v113 = *v94;
+      v114 = v95;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort16>(a1, &v113);
       goto LABEL_78;
     case 0x69u:
-      *&v114 = *Mtl4::FunctionConstantValue::value_as_ConstantChar8(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool8>(a1, &v114);
+      *&v113 = *Mtl4::FunctionConstantValue::value_as_ConstantChar8(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool8>(a1, &v113);
       goto LABEL_78;
     case 0x6Au:
-      v114 = *Mtl4::FunctionConstantValue::value_as_ConstantChar16(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool16>(a1, &v114);
+      v113 = *Mtl4::FunctionConstantValue::value_as_ConstantChar16(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool16>(a1, &v113);
       goto LABEL_78;
     case 0x6Bu:
-      *&v114 = *Mtl4::FunctionConstantValue::value_as_ConstantUChar8(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool8>(a1, &v114);
+      *&v113 = *Mtl4::FunctionConstantValue::value_as_ConstantUChar8(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool8>(a1, &v113);
       goto LABEL_78;
     case 0x6Cu:
-      v114 = *Mtl4::FunctionConstantValue::value_as_ConstantUChar16(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool16>(a1, &v114);
+      v113 = *Mtl4::FunctionConstantValue::value_as_ConstantUChar16(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool16>(a1, &v113);
       goto LABEL_78;
     case 0x6Du:
       v29 = Mtl4::FunctionConstantValue::value_as_ConstantLong8(a2);
       v30 = *v29;
       v31 = v29[1];
       v32 = v29[3];
-      v116 = v29[2];
-      v117 = v32;
-      v114 = v30;
-      v115 = v31;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong8>(a1, &v114);
+      v115 = v29[2];
+      v116 = v32;
+      v113 = v30;
+      v114 = v31;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong8>(a1, &v113);
       goto LABEL_78;
     case 0x6Eu:
       v70 = Mtl4::FunctionConstantValue::value_as_ConstantLong16(a2);
       v71 = *v70;
       v72 = v70[1];
       v73 = v70[3];
-      v116 = v70[2];
-      v117 = v73;
-      v114 = v71;
-      v115 = v72;
+      v115 = v70[2];
+      v116 = v73;
+      v113 = v71;
+      v114 = v72;
       v74 = v70[4];
       v75 = v70[5];
       v76 = v70[7];
-      v120 = v70[6];
-      v121 = v76;
-      v118 = v74;
-      v119 = v75;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong16>(a1, &v114);
+      v119 = v70[6];
+      v120 = v76;
+      v117 = v74;
+      v118 = v75;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong16>(a1, &v113);
       goto LABEL_78;
     case 0x6Fu:
       v9 = Mtl4::FunctionConstantValue::value_as_ConstantULong8(a2);
       v10 = *v9;
       v11 = v9[1];
       v12 = v9[3];
-      v116 = v9[2];
-      v117 = v12;
-      v114 = v10;
-      v115 = v11;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong8>(a1, &v114);
+      v115 = v9[2];
+      v116 = v12;
+      v113 = v10;
+      v114 = v11;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong8>(a1, &v113);
       goto LABEL_78;
     case 0x70u:
       v81 = Mtl4::FunctionConstantValue::value_as_ConstantULong16(a2);
       v82 = *v81;
       v83 = v81[1];
       v84 = v81[3];
-      v116 = v81[2];
-      v117 = v84;
-      v114 = v82;
-      v115 = v83;
+      v115 = v81[2];
+      v116 = v84;
+      v113 = v82;
+      v114 = v83;
       v85 = v81[4];
       v86 = v81[5];
       v87 = v81[7];
-      v120 = v81[6];
-      v121 = v87;
-      v118 = v85;
-      v119 = v86;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong16>(a1, &v114);
+      v119 = v81[6];
+      v120 = v87;
+      v117 = v85;
+      v118 = v86;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong16>(a1, &v113);
       goto LABEL_78;
     case 0x71u:
       v88 = Mtl4::FunctionConstantValue::value_as_ConstantDouble8(a2);
       v89 = *v88;
       v90 = v88[1];
       v91 = v88[3];
-      v116 = v88[2];
-      v117 = v91;
-      v114 = v89;
-      v115 = v90;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong8>(a1, &v114);
+      v115 = v88[2];
+      v116 = v91;
+      v113 = v89;
+      v114 = v90;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong8>(a1, &v113);
       goto LABEL_78;
     case 0x72u:
       v39 = Mtl4::FunctionConstantValue::value_as_ConstantDouble16(a2);
       v40 = *v39;
       v41 = v39[1];
       v42 = v39[3];
-      v116 = v39[2];
-      v117 = v42;
-      v114 = v40;
-      v115 = v41;
+      v115 = v39[2];
+      v116 = v42;
+      v113 = v40;
+      v114 = v41;
       v43 = v39[4];
       v44 = v39[5];
       v45 = v39[7];
-      v120 = v39[6];
-      v121 = v45;
-      v118 = v43;
-      v119 = v44;
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong16>(a1, &v114);
+      v119 = v39[6];
+      v120 = v45;
+      v117 = v43;
+      v118 = v44;
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantLong16>(a1, &v113);
       goto LABEL_78;
     case 0x77u:
-      *&v114 = *Mtl4::FunctionConstantValue::value_as_ConstantBool8(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool8>(a1, &v114);
+      *&v113 = *Mtl4::FunctionConstantValue::value_as_ConstantBool8(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool8>(a1, &v113);
       goto LABEL_78;
     case 0x78u:
-      v114 = *Mtl4::FunctionConstantValue::value_as_ConstantBool16(a2);
-      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool16>(a1, &v114);
+      v113 = *Mtl4::FunctionConstantValue::value_as_ConstantBool16(a2);
+      v8 = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantBool16>(a1, &v113);
 LABEL_78:
       v7 = v8;
       break;
@@ -5719,8 +4553,8 @@ LABEL_78:
 
       else if (v98 == 1)
       {
-        LOWORD(v114) = *Mtl4::FunctionConstantValue::id_as_FunctionConstantIndex(a2);
-        String = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort>(a1, &v114);
+        LOWORD(v113) = *Mtl4::FunctionConstantValue::id_as_FunctionConstantIndex(a2);
+        String = flatbuffers::FlatBufferBuilder::CreateStruct<Mtl4::ConstantShort>(a1, &v113);
 LABEL_87:
         v101 = String;
         goto LABEL_89;
@@ -5774,9 +4608,7 @@ LABEL_100:
   }
 
   flatbuffers::FlatBufferBuilder::AddElement<unsigned char>(a1, 4, v111, 0);
-  result = flatbuffers::FlatBufferBuilder::EndTable(a1, v104 - v103 + v102);
-  v113 = *MEMORY[0x1E69E9840];
-  return result;
+  return flatbuffers::FlatBufferBuilder::EndTable(a1, v104 - v103 + v102);
 }
 
 uint64_t _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Mtl17FunctionStitching5GraphEEEZNS3_20CloneStitchedLibraryINS3_15StitchedLibraryEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_30StitchedLibraryCloneCompatibleET_EE5valueENS2_IS8_EEE4typeERS0_PKSC_EUlmPvE_vEENS2_INS_6VectorISC_EEEEmT0_PT1_(flatbuffers::FlatBufferBuilder *a1, unint64_t a2, void *a3, uint64_t a4)
@@ -5888,17 +4720,17 @@ void sub_185C9125C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<flatbuffers::Offset<Mtl::FunctionStitching::Graph>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<flatbuffers::Offset<Mtl::FunctionStitching::Graph>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_185C912D8(_Unwind_Exception *exception_object)
@@ -6094,17 +4926,17 @@ void sub_185C91664(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<flatbuffers::Offset<Mtl::FunctionStitching::Attribute>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<flatbuffers::Offset<Mtl::FunctionStitching::Attribute>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_185C916E0(_Unwind_Exception *exception_object)
@@ -6119,17 +4951,17 @@ void sub_185C916E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<flatbuffers::Offset<Mtl::FunctionStitching::Node>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<flatbuffers::Offset<Mtl::FunctionStitching::Node>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_185C91758(_Unwind_Exception *exception_object)
@@ -6197,7 +5029,7 @@ uint64_t Mtl::CloneLinkedFunctions<Mtl::LinkedFunctions>(uint64_t a1, int *a2)
   v6 = (a2 - v4);
   if (*v6 >= 0xBu && (v7 = v6[5]) != 0)
   {
-    v18 = (a2 + v7 + *(a2 + v7));
+    v18 = a2 + v7 + *(a2 + v7);
     v8 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Mtl13FunctionGroupEEEZNS3_20CloneLinkedFunctionsINS3_15LinkedFunctionsEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_30LinkedFunctionsCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v18, &v18, a1);
     v5 = -*a2;
   }
@@ -6209,7 +5041,7 @@ uint64_t Mtl::CloneLinkedFunctions<Mtl::LinkedFunctions>(uint64_t a1, int *a2)
 
   if (*(a2 + v5) >= 9u && *(a2 + v5 + 8))
   {
-    v18 = (a2 + *(a2 + v5 + 8) + *(a2 + *(a2 + v5 + 8)));
+    v18 = a2 + *(a2 + v5 + 8) + *(a2 + *(a2 + v5 + 8));
     v9 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetINS_6StringEEEZN3Mtl20CloneLinkedFunctionsINS5_15LinkedFunctionsEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS5_30LinkedFunctionsCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE0_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v18, &v18, a1);
     v5 = -*a2;
   }
@@ -6221,7 +5053,7 @@ uint64_t Mtl::CloneLinkedFunctions<Mtl::LinkedFunctions>(uint64_t a1, int *a2)
 
   if (*(a2 + v5) >= 7u && *(a2 + v5 + 6))
   {
-    v18 = (a2 + *(a2 + v5 + 6) + *(a2 + *(a2 + v5 + 6)));
+    v18 = a2 + *(a2 + v5 + 6) + *(a2 + *(a2 + v5 + 6));
     v10 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetINS_6StringEEEZN3Mtl20CloneLinkedFunctionsINS5_15LinkedFunctionsEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS5_30LinkedFunctionsCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE1_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v18, &v18, a1);
     v5 = -*a2;
   }
@@ -6234,7 +5066,7 @@ uint64_t Mtl::CloneLinkedFunctions<Mtl::LinkedFunctions>(uint64_t a1, int *a2)
   v11 = (a2 + v5);
   if (*v11 >= 5u && (v12 = v11[2]) != 0)
   {
-    v18 = (a2 + v12 + *(a2 + v12));
+    v18 = a2 + v12 + *(a2 + v12);
     v13 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetINS_6StringEEEZN3Mtl20CloneLinkedFunctionsINS5_15LinkedFunctionsEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS5_30LinkedFunctionsCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE2_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v18, &v18, a1);
   }
 
@@ -6331,7 +5163,7 @@ uint64_t Mtl::CloneStageInputOutputDescriptor<Mtl::StageInputOutputDescriptor>(u
   v6 = (a2 - v4);
   if (*v6 >= 7u && (v7 = v6[3]) != 0)
   {
-    v20 = (a2 + v7 + *(a2 + v7));
+    v20 = a2 + v7 + *(a2 + v7);
     v8 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Mtl22BufferLayoutDescriptorEEEZNS3_31CloneStageInputOutputDescriptorINS3_26StageInputOutputDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_41StageInputOutputDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v20, &v20, a1);
     v5 = -*a2;
   }
@@ -6343,7 +5175,7 @@ uint64_t Mtl::CloneStageInputOutputDescriptor<Mtl::StageInputOutputDescriptor>(u
 
   if (*(a2 + v5) >= 5u && *(a2 + v5 + 4))
   {
-    v20 = (a2 + *(a2 + v5 + 4) + *(a2 + *(a2 + v5 + 4)));
+    v20 = a2 + *(a2 + v5 + 4) + *(a2 + *(a2 + v5 + 4));
     v9 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Mtl19AttributeDescriptorEEEZNS3_31CloneStageInputOutputDescriptorINS3_26StageInputOutputDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_41StageInputOutputDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE0_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v20, &v20, a1);
     v5 = -*a2;
   }
@@ -6617,17 +5449,17 @@ void sub_185C92040(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<flatbuffers::Offset<Mtl::FunctionGroup>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<flatbuffers::Offset<Mtl::FunctionGroup>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_185C920BC(_Unwind_Exception *exception_object)
@@ -6742,17 +5574,17 @@ void sub_185C922BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<flatbuffers::Offset<Mtl::PipelineBufferDescriptor>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<flatbuffers::Offset<Mtl::PipelineBufferDescriptor>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_185C92338(_Unwind_Exception *exception_object)
@@ -6900,17 +5732,17 @@ void sub_185C92590(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<flatbuffers::Offset<Mtl::BufferLayoutDescriptor>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<flatbuffers::Offset<Mtl::BufferLayoutDescriptor>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_185C9260C(_Unwind_Exception *exception_object)
@@ -6980,17 +5812,17 @@ uint64_t Mtl::CloneBufferLayoutDescriptor<Mtl::BufferLayoutDescriptor>(uint64_t 
   return flatbuffers::FlatBufferBuilder::EndTable(a1, v9 - v8 + v7);
 }
 
-void *std::vector<flatbuffers::Offset<Mtl::AttributeDescriptor>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<flatbuffers::Offset<Mtl::AttributeDescriptor>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_185C9279C(_Unwind_Exception *exception_object)
@@ -7226,7 +6058,7 @@ uint64_t Mtl::CloneVertexDescriptor<Mtl::VertexDescriptor>(uint64_t a1, int *a2)
   v6 = (a2 - v4);
   if (*v6 >= 7u && (v7 = v6[3]) != 0)
   {
-    v16 = (a2 + v7 + *(a2 + v7));
+    v16 = a2 + v7 + *(a2 + v7);
     v8 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Mtl28VertexBufferLayoutDescriptorEEEZNS3_21CloneVertexDescriptorINS3_16VertexDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_31VertexDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v16, &v16, a1);
     v5 = -*a2;
   }
@@ -7239,7 +6071,7 @@ uint64_t Mtl::CloneVertexDescriptor<Mtl::VertexDescriptor>(uint64_t a1, int *a2)
   v9 = (a2 + v5);
   if (*v9 >= 5u && (v10 = v9[2]) != 0)
   {
-    v16 = (a2 + v10 + *(a2 + v10));
+    v16 = a2 + v10 + *(a2 + v10);
     v11 = _ZN11flatbuffers17FlatBufferBuilder12CreateVectorINS_6OffsetIN3Mtl25VertexAttributeDescriptorEEEZNS3_21CloneVertexDescriptorINS3_16VertexDescriptorEEENSt3__19enable_ifIXsr11flatbuffers11is_detectedINS3_31VertexDescriptorCloneCompatibleET_EE5valueENS2_IS7_EEE4typeERS0_PKSB_EUlmPvE0_vEENS2_INS_6VectorISB_EEEEmT0_PT1_(a1, *v16, &v16, a1);
   }
 
@@ -7562,17 +6394,17 @@ uint64_t Mtl::ClonePixelFormat<Mtl::PixelFormat>(uint64_t result)
   }
 }
 
-void *std::vector<flatbuffers::Offset<Mtl::RenderPipelineColorAttachmentDescriptor>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<flatbuffers::Offset<Mtl::RenderPipelineColorAttachmentDescriptor>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_185C92D5C(_Unwind_Exception *exception_object)
@@ -7830,17 +6662,17 @@ void sub_185C931B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<flatbuffers::Offset<Mtl::VertexBufferLayoutDescriptor>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<flatbuffers::Offset<Mtl::VertexBufferLayoutDescriptor>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_185C93234(_Unwind_Exception *exception_object)
@@ -7855,17 +6687,17 @@ void sub_185C93234(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<flatbuffers::Offset<Mtl::VertexAttributeDescriptor>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<flatbuffers::Offset<Mtl::VertexAttributeDescriptor>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_185C932AC(_Unwind_Exception *exception_object)
@@ -8034,17 +6866,17 @@ void sub_185C93528(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<flatbuffers::Offset<Mtl::TileRenderPipelineColorAttachmentDescriptor>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<flatbuffers::Offset<Mtl::TileRenderPipelineColorAttachmentDescriptor>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned int>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_185C935A4(_Unwind_Exception *exception_object)
@@ -8391,35 +7223,35 @@ void sub_185C93B34(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::__hash_table<MTLMetalScriptSerializer::pipelineDescriptorData *,MTLMetalScriptSerializer::PipelineDescriptorHashAndEqual,MTLMetalScriptSerializer::PipelineDescriptorHashAndEqual,std::allocator<MTLMetalScriptSerializer::pipelineDescriptorData *>>::__emplace_unique_key_args<MTLMetalScriptSerializer::pipelineDescriptorData *,MTLMetalScriptSerializer::pipelineDescriptorData * const&>(void *a1, uint64_t *a2)
+void *std::__hash_table<MTLMetalScriptSerializer::pipelineDescriptorData *,MTLMetalScriptSerializer::PipelineDescriptorHashAndEqual,MTLMetalScriptSerializer::PipelineDescriptorHashAndEqual,std::allocator<MTLMetalScriptSerializer::pipelineDescriptorData *>>::__emplace_unique_key_args<MTLMetalScriptSerializer::pipelineDescriptorData *,MTLMetalScriptSerializer::pipelineDescriptorData * const&>(void *a1, uint64_t *a2, void *a3)
 {
-  v4 = MTLMetalScriptSerializer::PipelineDescriptorHashAndEqual::operator()(a1, *a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = MTLMetalScriptSerializer::PipelineDescriptorHashAndEqual::operator()(a1, *a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -8427,44 +7259,44 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if ((MTLMetalScriptSerializer::PipelineDescriptorHashAndEqual::operator()(a1 + 36, v11[2], *a2) & 1) == 0)
+  if ((MTLMetalScriptSerializer::PipelineDescriptorHashAndEqual::operator()(a1 + 36, v12[2], *a2) & 1) == 0)
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
 uint64_t MTLMetalScriptSerializer::PipelineDescriptorHashAndEqual::operator()(uint64_t a1, uint64_t a2)
@@ -8827,35 +7659,35 @@ uint64_t std::__function::__func<MTLMetalScriptBuilderImpl::addTileRenderPipelin
   }
 }
 
-const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2)
+const void **std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(void *a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v7 = std::__string_hash<char>::operator()[abi:ne200100](a1, a2);
+  v8 = v7;
+  v9 = a1[1];
+  if (!*&v9)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v10 = vcnt_s8(v9);
+  v10.i16[0] = vaddlv_u8(v10);
+  v11 = v10.u32[0];
+  if (v10.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v12 = v7;
+    if (v7 >= *&v9)
     {
-      v9 = v4 % *&v6;
+      v12 = v7 % *&v9;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v12 = (*&v9 - 1) & v7;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v13 = *(*a1 + 8 * v12);
+  if (!v13 || (v14 = *v13) == 0)
   {
 LABEL_18:
     std::__hash_table<std::__hash_value_type<std::string,std::string>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::string>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::string>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::string>>>::__construct_node_hash<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -8863,80 +7695,80 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v15 = v14[1];
+    if (v15 == v8)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v11 > 1)
     {
-      if (v12 >= *&v6)
+      if (v15 >= *&v9)
       {
-        v12 %= *&v6;
+        v15 %= *&v9;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v15 &= *&v9 - 1;
     }
 
-    if (v12 != v9)
+    if (v15 != v12)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v14 = *v14;
+    if (!v14)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v11 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:ne200100](a1, v14 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v14;
 }
 
-void sub_185C94938(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_185C94938(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::string>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *std::__hash_table<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,std::__unordered_map_hasher<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::__unordered_map_equal<MTLUINT256_t,std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,UnorderedContainerHash,UnorderedContainerHash,true>,std::allocator<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>>>::__emplace_unique_key_args<MTLUINT256_t,std::piecewise_construct_t const&,std::tuple<MTLUINT256_t const&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, _OWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_28;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_28:
     operator new();
@@ -8944,49 +7776,49 @@ LABEL_28:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_28;
     }
 
 LABEL_27:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_28;
     }
   }
 
-  if (v7[2] != *a2 || v7[3] != a2[1] || v7[4] != a2[2] || v7[5] != a2[3])
+  if (v9[2] != *a2 || v9[3] != a2[1] || v9[4] != a2[2] || v9[5] != a2[3])
   {
     goto LABEL_27;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_185C94C6C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_185C94C6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<MTLUINT256_t,std::pair<std::string,std::string>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -9224,21 +8056,13 @@ unint64_t **std::__introsort<std::_ClassicAlgPolicy,MTLMetalScriptBuilderImpl::a
                 v248 = v8[1];
                 v258 = bswap64(*v248);
                 v259 = bswap64(**v8);
-                if (v258 != v259)
-                {
-                  goto LABEL_561;
-                }
-
-                v258 = bswap64(v248[1]);
-                v259 = bswap64(v257[1]);
-                if (v258 == v259 && (v258 = bswap64(v248[2]), v259 = bswap64(v257[2]), v258 == v259) && (v258 = bswap64(v248[3]), v259 = bswap64(v257[3]), v258 == v259))
+                if (v258 == v259 && (v258 = bswap64(v248[1]), v259 = bswap64(v257[1]), v258 == v259) && (v258 = bswap64(v248[2]), v259 = bswap64(v257[2]), v258 == v259) && (v258 = bswap64(v248[3]), v259 = bswap64(v257[3]), v258 == v259))
                 {
                   v260 = 0;
                 }
 
                 else
                 {
-LABEL_561:
                   v260 = v258 < v259 ? -1 : 1;
                 }
 
@@ -9286,21 +8110,13 @@ LABEL_565:
                 v248 = v8[3];
                 v250 = bswap64(*v248);
                 v251 = bswap64(*v249);
-                if (v250 != v251)
-                {
-                  goto LABEL_552;
-                }
-
-                v250 = bswap64(v248[1]);
-                v251 = bswap64(v249[1]);
-                if (v250 == v251 && (v250 = bswap64(v248[2]), v251 = bswap64(v249[2]), v250 == v251) && (v250 = bswap64(v248[3]), v251 = bswap64(v249[3]), v250 == v251))
+                if (v250 == v251 && (v250 = bswap64(v248[1]), v251 = bswap64(v249[1]), v250 == v251) && (v250 = bswap64(v248[2]), v251 = bswap64(v249[2]), v250 == v251) && (v250 = bswap64(v248[3]), v251 = bswap64(v249[3]), v250 == v251))
                 {
                   v252 = 0;
                 }
 
                 else
                 {
-LABEL_552:
                   v252 = v250 < v251 ? -1 : 1;
                 }
 
@@ -9314,21 +8130,13 @@ LABEL_552:
                 v274 = v8[1];
                 v275 = bswap64(*v248);
                 v276 = bswap64(*v274);
-                if (v275 != v276)
-                {
-                  goto LABEL_573;
-                }
-
-                v275 = bswap64(v248[1]);
-                v276 = bswap64(v274[1]);
-                if (v275 == v276 && (v275 = bswap64(v248[2]), v276 = bswap64(v274[2]), v275 == v276) && (v275 = bswap64(v248[3]), v276 = bswap64(v274[3]), v275 == v276))
+                if (v275 == v276 && (v275 = bswap64(v248[1]), v276 = bswap64(v274[1]), v275 == v276) && (v275 = bswap64(v248[2]), v276 = bswap64(v274[2]), v275 == v276) && (v275 = bswap64(v248[3]), v276 = bswap64(v274[3]), v275 == v276))
                 {
                   v277 = 0;
                 }
 
                 else
                 {
-LABEL_573:
                   v277 = v275 < v276 ? -1 : 1;
                 }
 
@@ -9342,21 +8150,13 @@ LABEL_573:
                 v257 = *v8;
                 v278 = bswap64(*v248);
                 v279 = bswap64(**v8);
-                if (v278 != v279)
-                {
-                  goto LABEL_582;
-                }
-
-                v278 = bswap64(v248[1]);
-                v279 = bswap64(v257[1]);
-                if (v278 == v279 && (v278 = bswap64(v248[2]), v279 = bswap64(v257[2]), v278 == v279) && (v278 = bswap64(v248[3]), v279 = bswap64(v257[3]), v278 == v279))
+                if (v278 == v279 && (v278 = bswap64(v248[1]), v279 = bswap64(v257[1]), v278 == v279) && (v278 = bswap64(v248[2]), v279 = bswap64(v257[2]), v278 == v279) && (v278 = bswap64(v248[3]), v279 = bswap64(v257[3]), v278 == v279))
                 {
                   v280 = 0;
                 }
 
                 else
                 {
-LABEL_582:
                   v280 = v278 < v279 ? -1 : 1;
                 }
 
@@ -9522,7 +8322,7 @@ LABEL_401:
                   }
                 }
 
-                v183 = v7 + 1;
+                v183 = (v7 + 1);
               }
 
               while (v7 + 1 != a2);
@@ -9550,21 +8350,13 @@ LABEL_401:
                     v204 = v202[1];
                     v205 = bswap64(*v203);
                     v206 = bswap64(*v204);
-                    if (v205 != v206)
-                    {
-                      goto LABEL_413;
-                    }
-
-                    v205 = bswap64(v203[1]);
-                    v206 = bswap64(v204[1]);
-                    if (v205 == v206 && (v205 = bswap64(v203[2]), v206 = bswap64(v204[2]), v205 == v206) && (v205 = bswap64(v203[3]), v206 = bswap64(v204[3]), v205 == v206))
+                    if (v205 == v206 && (v205 = bswap64(v203[1]), v206 = bswap64(v204[1]), v205 == v206) && (v205 = bswap64(v203[2]), v206 = bswap64(v204[2]), v205 == v206) && (v205 = bswap64(v203[3]), v206 = bswap64(v204[3]), v205 == v206))
                     {
                       v207 = 0;
                     }
 
                     else
                     {
-LABEL_413:
                       v207 = v205 < v206 ? -1 : 1;
                     }
 
@@ -9605,21 +8397,13 @@ LABEL_413:
                         v215 = v202[1];
                         v216 = bswap64(*v203);
                         v217 = bswap64(*v215);
-                        if (v216 != v217)
-                        {
-                          goto LABEL_434;
-                        }
-
-                        v216 = bswap64(v203[1]);
-                        v217 = bswap64(v215[1]);
-                        if (v216 == v217 && (v216 = bswap64(v203[2]), v217 = bswap64(v215[2]), v216 == v217) && (v216 = bswap64(v203[3]), v217 = bswap64(v215[3]), v216 == v217))
+                        if (v216 == v217 && (v216 = bswap64(v203[1]), v217 = bswap64(v215[1]), v216 == v217) && (v216 = bswap64(v203[2]), v217 = bswap64(v215[2]), v216 == v217) && (v216 = bswap64(v203[3]), v217 = bswap64(v215[3]), v216 == v217))
                         {
                           v218 = 0;
                         }
 
                         else
                         {
-LABEL_434:
                           v218 = v216 < v217 ? -1 : 1;
                         }
 
@@ -9637,21 +8421,13 @@ LABEL_434:
 
                       v219 = bswap64(*v203);
                       v220 = bswap64(*v209);
-                      if (v219 != v220)
-                      {
-                        goto LABEL_445;
-                      }
-
-                      v219 = bswap64(v203[1]);
-                      v220 = bswap64(v209[1]);
-                      if (v219 == v220 && (v219 = bswap64(v203[2]), v220 = bswap64(v209[2]), v219 == v220) && (v219 = bswap64(v203[3]), v220 = bswap64(v209[3]), v219 == v220))
+                      if (v219 == v220 && (v219 = bswap64(v203[1]), v220 = bswap64(v209[1]), v219 == v220) && (v219 = bswap64(v203[2]), v220 = bswap64(v209[2]), v219 == v220) && (v219 = bswap64(v203[3]), v220 = bswap64(v209[3]), v219 == v220))
                       {
                         v221 = 0;
                       }
 
                       else
                       {
-LABEL_445:
                         v221 = v219 < v220 ? -1 : 1;
                       }
 
@@ -9763,21 +8539,13 @@ LABEL_445:
                           v239 = *v238;
                           v245 = bswap64(**v238);
                           v246 = bswap64(*v240);
-                          if (v245 != v246)
-                          {
-                            goto LABEL_484;
-                          }
-
-                          v245 = bswap64(v239[1]);
-                          v246 = bswap64(v240[1]);
-                          if (v245 == v246 && (v245 = bswap64(v239[2]), v246 = bswap64(v240[2]), v245 == v246) && (v245 = bswap64(v239[3]), v246 = bswap64(v240[3]), v245 == v246))
+                          if (v245 == v246 && (v245 = bswap64(v239[1]), v246 = bswap64(v240[1]), v245 == v246) && (v245 = bswap64(v239[2]), v246 = bswap64(v240[2]), v245 == v246) && (v245 = bswap64(v239[3]), v246 = bswap64(v240[3]), v245 == v246))
                           {
                             v247 = 0;
                           }
 
                           else
                           {
-LABEL_484:
                             v247 = v245 < v246 ? -1 : 1;
                           }
 
@@ -10027,21 +8795,13 @@ LABEL_190:
                               *v11 = v87;
                               v95 = bswap64(*v91);
                               v96 = bswap64(*v87);
-                              if (v95 != v96)
-                              {
-                                goto LABEL_206;
-                              }
-
-                              v95 = bswap64(v91[1]);
-                              v96 = bswap64(v87[1]);
-                              if (v95 == v96 && (v95 = bswap64(v91[2]), v96 = bswap64(v87[2]), v95 == v96) && (v95 = bswap64(v91[3]), v96 = bswap64(v87[3]), v95 == v96))
+                              if (v95 == v96 && (v95 = bswap64(v91[1]), v96 = bswap64(v87[1]), v95 == v96) && (v95 = bswap64(v91[2]), v96 = bswap64(v87[2]), v95 == v96) && (v95 = bswap64(v91[3]), v96 = bswap64(v87[3]), v95 == v96))
                               {
                                 v97 = 0;
                               }
 
                               else
                               {
-LABEL_206:
                                 v97 = v95 < v96 ? -1 : 1;
                               }
 
@@ -10145,21 +8905,13 @@ LABEL_216:
                       v82 = v8[2];
                       v83 = bswap64(**v66);
                       v84 = bswap64(*v82);
-                      if (v83 != v84)
-                      {
-                        goto LABEL_170;
-                      }
-
-                      v83 = bswap64(v81[1]);
-                      v84 = bswap64(v82[1]);
-                      if (v83 == v84 && (v83 = bswap64(v81[2]), v84 = bswap64(v82[2]), v83 == v84) && (v83 = bswap64(v81[3]), v84 = bswap64(v82[3]), v83 == v84))
+                      if (v83 == v84 && (v83 = bswap64(v81[1]), v84 = bswap64(v82[1]), v83 == v84) && (v83 = bswap64(v81[2]), v84 = bswap64(v82[2]), v83 == v84) && (v83 = bswap64(v81[3]), v84 = bswap64(v82[3]), v83 == v84))
                       {
                         v85 = 0;
                       }
 
                       else
                       {
-LABEL_170:
                         v85 = v83 < v84 ? -1 : 1;
                       }
 
@@ -10200,21 +8952,13 @@ LABEL_170:
                   v62 = v8[1];
                   v63 = bswap64(**v47);
                   v64 = bswap64(*v62);
-                  if (v63 != v64)
-                  {
-                    goto LABEL_127;
-                  }
-
-                  v63 = bswap64(v61[1]);
-                  v64 = bswap64(v62[1]);
-                  if (v63 == v64 && (v63 = bswap64(v61[2]), v64 = bswap64(v62[2]), v63 == v64) && (v63 = bswap64(v61[3]), v64 = bswap64(v62[3]), v63 == v64))
+                  if (v63 == v64 && (v63 = bswap64(v61[1]), v64 = bswap64(v62[1]), v63 == v64) && (v63 = bswap64(v61[2]), v64 = bswap64(v62[2]), v63 == v64) && (v63 = bswap64(v61[3]), v64 = bswap64(v62[3]), v63 == v64))
                   {
                     v65 = 0;
                   }
 
                   else
                   {
-LABEL_127:
                     v65 = v63 < v64 ? -1 : 1;
                   }
 
@@ -10255,21 +8999,13 @@ LABEL_127:
               v38 = *v8;
               v39 = bswap64(**v10);
               v40 = bswap64(**v8);
-              if (v39 != v40)
-              {
-                goto LABEL_81;
-              }
-
-              v39 = bswap64(v37[1]);
-              v40 = bswap64(v38[1]);
-              if (v39 == v40 && (v39 = bswap64(v37[2]), v40 = bswap64(v38[2]), v39 == v40) && (v39 = bswap64(v37[3]), v40 = bswap64(v38[3]), v39 == v40))
+              if (v39 == v40 && (v39 = bswap64(v37[1]), v40 = bswap64(v38[1]), v39 == v40) && (v39 = bswap64(v37[2]), v40 = bswap64(v38[2]), v39 == v40) && (v39 = bswap64(v37[3]), v40 = bswap64(v38[3]), v39 == v40))
               {
                 v41 = 0;
               }
 
               else
               {
-LABEL_81:
                 v41 = v39 < v40 ? -1 : 1;
               }
 
@@ -10287,34 +9023,19 @@ LABEL_81:
           v19 = *v10;
           v20 = bswap64(**v8);
           v21 = bswap64(**v11);
-          if (v20 != v21)
-          {
-            goto LABEL_37;
-          }
-
-          v20 = bswap64(v18[1]);
-          v21 = bswap64(v19[1]);
-          if (v20 == v21 && (v20 = bswap64(v18[2]), v21 = bswap64(v19[2]), v20 == v21) && (v20 = bswap64(v18[3]), v21 = bswap64(v19[3]), v20 == v21))
+          if (v20 == v21 && (v20 = bswap64(v18[1]), v21 = bswap64(v19[1]), v20 == v21) && (v20 = bswap64(v18[2]), v21 = bswap64(v19[2]), v20 == v21) && (v20 = bswap64(v18[3]), v21 = bswap64(v19[3]), v20 == v21))
           {
             v22 = 0;
           }
 
           else
           {
-LABEL_37:
             v22 = v20 < v21 ? -1 : 1;
           }
 
           v30 = bswap64(*v12);
           v31 = bswap64(*v18);
-          if (v30 != v31)
-          {
-            goto LABEL_588;
-          }
-
-          v30 = bswap64(v12[1]);
-          v31 = bswap64(v18[1]);
-          if (v30 == v31 && (v30 = bswap64(v12[2]), v31 = bswap64(v18[2]), v30 == v31) && (v30 = bswap64(v12[3]), v31 = bswap64(v18[3]), v30 == v31))
+          if (v30 == v31 && (v30 = bswap64(v12[1]), v31 = bswap64(v18[1]), v30 == v31) && (v30 = bswap64(v12[2]), v31 = bswap64(v18[2]), v30 == v31) && (v30 = bswap64(v12[3]), v31 = bswap64(v18[3]), v30 == v31))
           {
             v32 = 0;
             if ((v22 & 0x80000000) == 0)
@@ -10325,7 +9046,6 @@ LABEL_37:
 
           else
           {
-LABEL_588:
             if (v30 < v31)
             {
               v32 = -1;
@@ -10347,21 +9067,13 @@ LABEL_65:
                 v43 = *v11;
                 v44 = bswap64(**v8);
                 v45 = bswap64(**v11);
-                if (v44 != v45)
-                {
-                  goto LABEL_86;
-                }
-
-                v44 = bswap64(v42[1]);
-                v45 = bswap64(v43[1]);
-                if (v44 == v45 && (v44 = bswap64(v42[2]), v45 = bswap64(v43[2]), v44 == v45) && (v44 = bswap64(v42[3]), v45 = bswap64(v43[3]), v44 == v45))
+                if (v44 == v45 && (v44 = bswap64(v42[1]), v45 = bswap64(v43[1]), v44 == v45) && (v44 = bswap64(v42[2]), v45 = bswap64(v43[2]), v44 == v45) && (v44 = bswap64(v42[3]), v45 = bswap64(v43[3]), v44 == v45))
                 {
                   v46 = 0;
                 }
 
                 else
                 {
-LABEL_86:
                   v46 = v44 < v45 ? -1 : 1;
                 }
 
@@ -10420,21 +9132,13 @@ LABEL_218:
           v103 = *(v8 - 1);
           v104 = bswap64(*v103);
           v105 = bswap64(*v102);
-          if (v104 != v105)
-          {
-            goto LABEL_224;
-          }
-
-          v104 = bswap64(v103[1]);
-          v105 = bswap64(v102[1]);
-          if (v104 == v105 && (v104 = bswap64(v103[2]), v105 = bswap64(v102[2]), v104 == v105) && (v104 = bswap64(v103[3]), v105 = bswap64(v102[3]), v104 == v105))
+          if (v104 == v105 && (v104 = bswap64(v103[1]), v105 = bswap64(v102[1]), v104 == v105) && (v104 = bswap64(v103[2]), v105 = bswap64(v102[2]), v104 == v105) && (v104 = bswap64(v103[3]), v105 = bswap64(v102[3]), v104 == v105))
           {
             v106 = 0;
           }
 
           else
           {
-LABEL_224:
             v106 = v104 < v105 ? -1 : 1;
           }
 
@@ -10524,21 +9228,13 @@ LABEL_224:
               v142 = *v141;
               v143 = bswap64(*v102);
               v144 = bswap64(**v8);
-              if (v143 != v144)
-              {
-                goto LABEL_304;
-              }
-
-              v143 = bswap64(v102[1]);
-              v144 = bswap64(v142[1]);
-              if (v143 == v144 && (v143 = bswap64(v102[2]), v144 = bswap64(v142[2]), v143 == v144) && (v143 = bswap64(v102[3]), v144 = bswap64(v142[3]), v143 == v144))
+              if (v143 == v144 && (v143 = bswap64(v102[1]), v144 = bswap64(v142[1]), v143 == v144) && (v143 = bswap64(v102[2]), v144 = bswap64(v142[2]), v143 == v144) && (v143 = bswap64(v102[3]), v144 = bswap64(v142[3]), v143 == v144))
               {
                 v145 = 0;
               }
 
               else
               {
-LABEL_304:
                 v145 = v143 < v144 ? -1 : 1;
               }
 
@@ -10928,4 +9624,186 @@ LABEL_287:
 
     return result;
   }
+}
+
+unint64_t **std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,MTLMetalScriptBuilderImpl::addStitchedFunctionLibraryWithDescriptorInternal(objc_object  {objcproto11MTLFunction}*,objc_object  {objcproto10MTLLibrary}*,MTLStitchedLibraryDescriptor *)::$_0 &,MTLUINT256_t const**,0>(unint64_t **result, unint64_t **a2, unint64_t **a3, unint64_t **a4)
+{
+  v4 = *a2;
+  v5 = *result;
+  v6 = bswap64(**a2);
+  v7 = bswap64(**result);
+  if (v6 == v7 && (v6 = bswap64(v4[1]), v7 = bswap64(v5[1]), v6 == v7) && (v6 = bswap64(v4[2]), v7 = bswap64(v5[2]), v6 == v7) && (v6 = bswap64(v4[3]), v7 = bswap64(v5[3]), v6 == v7))
+  {
+    v8 = 0;
+  }
+
+  else if (v6 < v7)
+  {
+    v8 = -1;
+  }
+
+  else
+  {
+    v8 = 1;
+  }
+
+  v9 = *a3;
+  v10 = bswap64(**a3);
+  v11 = bswap64(*v4);
+  if (v10 != v11 || (v10 = bswap64(v9[1]), v11 = bswap64(v4[1]), v10 != v11) || (v10 = bswap64(v9[2]), v11 = bswap64(v4[2]), v10 != v11) || (v10 = bswap64(v9[3]), v11 = bswap64(v4[3]), v10 != v11))
+  {
+    if (v10 < v11)
+    {
+      v12 = -1;
+    }
+
+    else
+    {
+      v12 = 1;
+    }
+
+    if (v8 < 0)
+    {
+      goto LABEL_14;
+    }
+
+LABEL_24:
+    if (v12 < 0)
+    {
+      *a2 = v9;
+      *a3 = v4;
+      v16 = *a2;
+      v17 = *result;
+      v18 = bswap64(**a2);
+      v19 = bswap64(**result);
+      if (v18 == v19 && (v18 = bswap64(v16[1]), v19 = bswap64(v17[1]), v18 == v19) && (v18 = bswap64(v16[2]), v19 = bswap64(v17[2]), v18 == v19) && (v18 = bswap64(v16[3]), v19 = bswap64(v17[3]), v18 == v19))
+      {
+        v20 = 0;
+      }
+
+      else if (v18 < v19)
+      {
+        v20 = -1;
+      }
+
+      else
+      {
+        v20 = 1;
+      }
+
+      if (v20 < 0)
+      {
+        *result = v16;
+        *a2 = v17;
+        v4 = *a3;
+      }
+    }
+
+    else
+    {
+      v4 = *a3;
+    }
+
+    goto LABEL_43;
+  }
+
+  v12 = 0;
+  if ((v8 & 0x80000000) == 0)
+  {
+    goto LABEL_24;
+  }
+
+LABEL_14:
+  if (v12 < 0)
+  {
+    *result = v9;
+    goto LABEL_42;
+  }
+
+  *result = v4;
+  *a2 = v5;
+  v4 = *a3;
+  v13 = bswap64(**a3);
+  v14 = bswap64(*v5);
+  if (v13 == v14 && (v13 = bswap64(v4[1]), v14 = bswap64(v5[1]), v13 == v14) && (v13 = bswap64(v4[2]), v14 = bswap64(v5[2]), v13 == v14) && (v13 = bswap64(v4[3]), v14 = bswap64(v5[3]), v13 == v14))
+  {
+    v15 = 0;
+  }
+
+  else if (v13 < v14)
+  {
+    v15 = -1;
+  }
+
+  else
+  {
+    v15 = 1;
+  }
+
+  if (v15 < 0)
+  {
+    *a2 = v4;
+LABEL_42:
+    *a3 = v5;
+    v4 = v5;
+  }
+
+LABEL_43:
+  v21 = *a4;
+  v22 = bswap64(**a4);
+  v23 = bswap64(*v4);
+  if (v22 != v23 || (v22 = bswap64(v21[1]), v23 = bswap64(v4[1]), v22 != v23) || (v22 = bswap64(v21[2]), v23 = bswap64(v4[2]), v22 != v23) || (v22 = bswap64(v21[3]), v23 = bswap64(v4[3]), v22 != v23))
+  {
+    v24 = v22 < v23 ? -1 : 1;
+    if (v24 < 0)
+    {
+      *a3 = v21;
+      *a4 = v4;
+      v25 = *a3;
+      v26 = *a2;
+      v27 = bswap64(**a3);
+      v28 = bswap64(**a2);
+      if (v27 == v28 && (v27 = bswap64(v25[1]), v28 = bswap64(v26[1]), v27 == v28) && (v27 = bswap64(v25[2]), v28 = bswap64(v26[2]), v27 == v28) && (v27 = bswap64(v25[3]), v28 = bswap64(v26[3]), v27 == v28))
+      {
+        v29 = 0;
+      }
+
+      else
+      {
+        v29 = v27 < v28 ? -1 : 1;
+      }
+
+      if (v29 < 0)
+      {
+        *a2 = v25;
+        *a3 = v26;
+        v30 = *a2;
+        v31 = *result;
+        v32 = bswap64(**a2);
+        v33 = bswap64(**result);
+        if (v32 == v33 && (v32 = bswap64(v30[1]), v33 = bswap64(v31[1]), v32 == v33) && (v32 = bswap64(v30[2]), v33 = bswap64(v31[2]), v32 == v33) && (v32 = bswap64(v30[3]), v33 = bswap64(v31[3]), v32 == v33))
+        {
+          v34 = 0;
+        }
+
+        else if (v32 < v33)
+        {
+          v34 = -1;
+        }
+
+        else
+        {
+          v34 = 1;
+        }
+
+        if (v34 < 0)
+        {
+          *result = v30;
+          *a2 = v31;
+        }
+      }
+    }
+  }
+
+  return result;
 }

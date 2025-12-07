@@ -26,7 +26,7 @@
 
   if (diameter <= 0.0)
   {
-    v18 = _AAFLogSystem();
+    v18 = _AAFLogSystem(self);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [AAFImage circularImage:v18 withDiameter:diameter crop:?];
@@ -101,13 +101,12 @@
 
 + (void)circularImage:(os_log_t)log withDiameter:(double)a2 crop:.cold.1(os_log_t log, double a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136315394;
-  v4 = "+[AAFImage circularImage:withDiameter:crop:]";
-  v5 = 2048;
-  v6 = a2;
-  _os_log_error_impl(&dword_1C8644000, log, OS_LOG_TYPE_ERROR, "AAFImage %s invalid diameter %f", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136315394;
+  v3 = "+[AAFImage circularImage:withDiameter:crop:]";
+  v4 = 2048;
+  v5 = a2;
+  _os_log_error_impl(&dword_1C8644000, log, OS_LOG_TYPE_ERROR, "AAFImage %s invalid diameter %f", &v2, 0x16u);
 }
 
 @end

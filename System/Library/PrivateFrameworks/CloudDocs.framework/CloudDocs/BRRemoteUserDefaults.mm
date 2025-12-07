@@ -142,32 +142,29 @@ LABEL_5:
 {
   v3 = [(NSMutableDictionary *)self->_userDictionaryCache objectForKeyedSubscript:@"min-file-size-for-thumb-transfer"];
 
-  if (v3)
+  if (!v3)
   {
-    goto LABEL_2;
+    v6 = +[BRDaemonConnection defaultConnection];
+    newSyncProxy = [v6 newSyncProxy];
+
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __55__BRRemoteUserDefaults_minFileSizeForThumbnailTransfer__block_invoke;
+    v12[3] = &unk_1E7A15D60;
+    v13 = newSyncProxy;
+    v8 = newSyncProxy;
+    [v8 lookupMinFileSizeForThumbnailTransferWithReply:v12];
+    result = [v8 result];
+    [(NSMutableDictionary *)self->_userDictionaryCache setObject:result forKeyedSubscript:@"min-file-size-for-thumb-transfer"];
+
+    error = [v8 error];
+
+    if (error)
+    {
+      return 0x100000;
+    }
   }
 
-  v6 = +[BRDaemonConnection defaultConnection];
-  newSyncProxy = [v6 newSyncProxy];
-
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __55__BRRemoteUserDefaults_minFileSizeForThumbnailTransfer__block_invoke;
-  v12[3] = &unk_1E7A15D60;
-  v13 = newSyncProxy;
-  v8 = newSyncProxy;
-  [v8 lookupMinFileSizeForThumbnailTransferWithReply:v12];
-  result = [v8 result];
-  [(NSMutableDictionary *)self->_userDictionaryCache setObject:result forKeyedSubscript:@"min-file-size-for-thumb-transfer"];
-
-  error = [v8 error];
-
-  if (error)
-  {
-    return 0x100000;
-  }
-
-LABEL_2:
   v4 = [(NSMutableDictionary *)self->_userDictionaryCache objectForKeyedSubscript:@"min-file-size-for-thumb-transfer"];
   longLongValue = [v4 longLongValue];
 
@@ -178,30 +175,8 @@ LABEL_2:
 {
   v3 = [(NSMutableDictionary *)self->_userDictionaryCache objectForKeyedSubscript:@"collection-gatherer-pacer-min-fire-interval"];
 
-  if (v3)
+  if (v3 || (+[BRDaemonConnection defaultConnection](BRDaemonConnection, "defaultConnection"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v6 newSyncProxy], v6, v12[0] = MEMORY[0x1E69E9820], v12[1] = 3221225472, v12[2] = __62__BRRemoteUserDefaults_collectionGathererPacerMinFireInterval__block_invoke, v12[3] = &unk_1E7A15D60, v13 = v7, v8 = v7, objc_msgSend(v8, "lookupCollectionGathererPacerMinFireInterval:", v12), objc_msgSend(v8, "result"), v9 = objc_claimAutoreleasedReturnValue(), -[NSMutableDictionary setObject:forKeyedSubscript:](self->_userDictionaryCache, "setObject:forKeyedSubscript:", v9, @"collection-gatherer-pacer-min-fire-interval"), v9, objc_msgSend(v8, "error"), v10 = objc_claimAutoreleasedReturnValue(), v10, v13, v8, longLongValue = 1.0, !v10))
   {
-    goto LABEL_2;
-  }
-
-  v6 = +[BRDaemonConnection defaultConnection];
-  newSyncProxy = [v6 newSyncProxy];
-
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __62__BRRemoteUserDefaults_collectionGathererPacerMinFireInterval__block_invoke;
-  v12[3] = &unk_1E7A15D60;
-  v13 = newSyncProxy;
-  v8 = newSyncProxy;
-  [v8 lookupCollectionGathererPacerMinFireInterval:v12];
-  result = [v8 result];
-  [(NSMutableDictionary *)self->_userDictionaryCache setObject:result forKeyedSubscript:@"collection-gatherer-pacer-min-fire-interval"];
-
-  error = [v8 error];
-
-  longLongValue = 1.0;
-  if (!error)
-  {
-LABEL_2:
     v4 = [(NSMutableDictionary *)self->_userDictionaryCache objectForKeyedSubscript:@"collection-gatherer-pacer-min-fire-interval"];
     longLongValue = [v4 longLongValue];
   }
@@ -245,11 +220,10 @@ LABEL_2:
 
 - (void)init
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_fault_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: use sharedDefaults%@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1AE2A9000, a2, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: use sharedDefaults%@", &v2, 0xCu);
 }
 
 @end

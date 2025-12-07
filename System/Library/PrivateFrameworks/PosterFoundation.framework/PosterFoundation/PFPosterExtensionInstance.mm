@@ -58,7 +58,7 @@
 
   else
   {
-    firstObject = PFLogCommon();
+    firstObject = PFLogCommon(0);
     if (os_log_type_enabled(firstObject, OS_LOG_TYPE_ERROR))
     {
       [PFPosterExtensionInstance extensionInstanceForPath:v10 instanceIdentifier:firstObject];
@@ -96,7 +96,7 @@ uint64_t __73__PFPosterExtensionInstance_extensionInstanceForPath_instanceIdenti
   identifierCopy = identifier;
   if (!extensionCopy)
   {
-    [PFPosterExtensionInstance initWithExtension:a2 instanceIdentifier:?];
+    [PFPosterExtensionInstance initWithExtension:a2 instanceIdentifier:self];
   }
 
   pf_defaultInstanceIdentifier = identifierCopy;
@@ -268,7 +268,7 @@ void __53__PFPosterExtensionInstance_bootupExtensionInstance___block_invoke(uint
 
 - (id)bootupExtensionInstanceWithError:(id *)error
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   if (![(BSAtomicFlag *)self->_invalidationFlag getFlag])
   {
     selfCopy = self;
@@ -281,9 +281,9 @@ void __53__PFPosterExtensionInstance_bootupExtensionInstance___block_invoke(uint
         if (error)
         {
           v8 = MEMORY[0x1E696ABC0];
-          v15 = *MEMORY[0x1E696A588];
-          v16[0] = @"Extension process was already bootstrapped; need to wait until that finishes";
-          v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+          v14 = *MEMORY[0x1E696A588];
+          v15[0] = @"Extension process was already bootstrapped; need to wait until that finishes";
+          v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
           *error = [v8 pf_errorWithCode:0 userInfo:v9];
         }
 
@@ -318,7 +318,6 @@ LABEL_13:
   }
 
 LABEL_14:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -381,7 +380,7 @@ LABEL_14:
         v8 = selfCopy->_extensionProcess;
         if (v8)
         {
-          [(_EXExtensionProcess *)v8 auditToken];
+          objc_msgSend_auditToken(v8);
         }
 
         else
@@ -523,31 +522,31 @@ void __63__PFPosterExtensionInstance__didAcquireExtensionProcess_error___block_i
 
 - (void)_fireObserversRespondingToSelector:(SEL)selector block:(id)block
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v7 = selfCopy->_observers;
   v8 = 0;
-  v9 = [(NSHashTable *)v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v9 = [(NSHashTable *)v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v9)
   {
-    v10 = *v23;
+    v10 = *v22;
     do
     {
       v11 = 0;
       do
       {
-        if (*v23 != v10)
+        if (*v22 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v22 + 1) + 8 * v11);
+        v12 = *(*(&v21 + 1) + 8 * v11);
         if (objc_opt_respondsToSelector())
         {
           if (!v8)
@@ -562,43 +561,41 @@ void __63__PFPosterExtensionInstance__didAcquireExtensionProcess_error___block_i
       }
 
       while (v9 != v11);
-      v9 = [(NSHashTable *)v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v9 = [(NSHashTable *)v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v9);
   }
 
   objc_sync_exit(selfCopy);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v13 = v8;
-  v14 = [v13 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v17 objects:v25 count:16];
   if (v14)
   {
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       v16 = 0;
       do
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        blockCopy[2](blockCopy, *(*(&v18 + 1) + 8 * v16++));
+        blockCopy[2](blockCopy, *(*(&v17 + 1) + 8 * v16++));
       }
 
       while (v14 != v16);
-      v14 = [v13 countByEnumeratingWithState:&v18 objects:v26 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
     while (v14);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidate
@@ -654,36 +651,34 @@ void __49__PFPosterExtensionInstance__sync_willInvalidate__block_invoke_2(uint64
 
 + (void)extensionInstanceForPath:(void *)a1 instanceIdentifier:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = [a1 serverIdentity];
   v4 = [v3 provider];
-  v6 = 138543362;
-  v7 = v4;
-  _os_log_error_impl(&dword_1C269D000, a2, OS_LOG_TYPE_ERROR, "No poster providers were found for %{public}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_1C269D000, a2, OS_LOG_TYPE_ERROR, "No poster providers were found for %{public}@", &v5, 0xCu);
 }
 
-- (void)initWithExtension:(const char *)a1 instanceIdentifier:.cold.1(const char *a1)
+- (void)initWithExtension:(const char *)a1 instanceIdentifier:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"extension"];
+  v15 = *MEMORY[0x1E69E9840];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"extension"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0();
-    v9 = @"PFPosterExtension.m";
-    v10 = 1024;
-    v11 = 186;
-    v12 = v6;
-    v13 = v2;
+    v10 = @"PFPosterExtension.m";
+    v11 = 1024;
+    v12 = 186;
+    v13 = v7;
+    v14 = v3;
     _os_log_error_impl(&dword_1C269D000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 
-  v7 = v2;
-  [v2 UTF8String];
+  v8 = v3;
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

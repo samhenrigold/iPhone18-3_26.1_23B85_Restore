@@ -21,21 +21,26 @@
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  v4 = PKFontForDefaultDesign(*MEMORY[0x1E69DDCF8], 0);
-  v5 = v4;
-  if ((self->_spacerType - 1) <= 3)
+  width = fits.width;
+  v5 = PKFontForDefaultDesign(*MEMORY[0x1E69DDCF8], 0);
+  v6 = v5;
+  v7 = self->_spacerType - 1;
+  v8 = 0.0;
+  if (v7 <= 3)
   {
-    [v4 lineHeight];
+    v9 = dbl_1BE116CA8[v7];
+    [v5 lineHeight];
+    v8 = v9 * v10;
   }
 
-  PKSizeRoundToPixel();
-  v7 = v6;
-  v9 = v8;
+  PKSizeRoundToPixel(width, v8);
+  v12 = v11;
+  v14 = v13;
 
-  v10 = v7;
-  v11 = v9;
-  result.height = v11;
-  result.width = v10;
+  v15 = v12;
+  v16 = v14;
+  result.height = v16;
+  result.width = v15;
   return result;
 }
 

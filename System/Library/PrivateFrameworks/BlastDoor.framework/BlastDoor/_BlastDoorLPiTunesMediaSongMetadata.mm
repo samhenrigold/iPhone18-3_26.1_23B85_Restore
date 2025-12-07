@@ -9,11 +9,11 @@
 
 - (_BlastDoorLPiTunesMediaSongMetadata)initWithCoder:(id)coder
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v31.receiver = self;
-  v31.super_class = _BlastDoorLPiTunesMediaSongMetadata;
-  v5 = [(_BlastDoorLPiTunesMediaSongMetadata *)&v31 init];
+  v30.receiver = self;
+  v30.super_class = _BlastDoorLPiTunesMediaSongMetadata;
+  v5 = [(_BlastDoorLPiTunesMediaSongMetadata *)&v30 init];
   if (v5)
   {
     v6 = decodeStringForKey(coderCopy, @"storeFrontIdentifier");
@@ -63,7 +63,6 @@
     v28 = v5;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -130,11 +129,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v20.receiver = self;
-  v20.super_class = _BlastDoorLPiTunesMediaSongMetadata;
-  if ([(_BlastDoorLPiTunesMediaSongMetadata *)&v20 isEqual:equalCopy])
+  v19.receiver = self;
+  v19.super_class = _BlastDoorLPiTunesMediaSongMetadata;
+  if ([(_BlastDoorLPiTunesMediaSongMetadata *)&v19 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -146,32 +145,8 @@
     {
       v6 = equalCopy;
       v7 = v6[2];
-      if (v7 | self->_storeFrontIdentifier && ![v7 isEqual:?])
+      if (v7 | self->_storeFrontIdentifier && ![v7 isEqual:?] || (v8 = v6[3], v8 | self->_storeIdentifier) && !objc_msgSend(v8, "isEqual:") || (v9 = v6[4], v9 | self->_name) && !objc_msgSend(v9, "isEqual:") || (v10 = v6[5], v10 | self->_artist) && !objc_msgSend(v10, "isEqual:") || (v11 = v6[6], v11 | self->_album) && !objc_msgSend(v11, "isEqual:") || (v12 = v6[7], v12 | self->_lyrics) && !objc_msgSend(v12, "isEqual:") || (v13 = v6[8], v13 | self->_artwork) && !objc_msgSend(v13, "isEqual:") || (v14 = v6[9], v14 | self->_artworkMetadata) && !objc_msgSend(v14, "isEqual:") || (v15 = v6[10], v15 | self->_previewURL) && !objc_msgSend(v15, "isEqual:") || (v16 = v6[11], v16 | self->_offers) && !objc_msgSend(v16, "isEqual:"))
       {
-        goto LABEL_27;
-      }
-
-      v8 = v6[3];
-      if (v8 | self->_storeIdentifier)
-      {
-        if (![v8 isEqual:?])
-        {
-          goto LABEL_27;
-        }
-      }
-
-      v9 = v6[4];
-      if (v9 | self->_name)
-      {
-        if (![v9 isEqual:?])
-        {
-          goto LABEL_27;
-        }
-      }
-
-      if ((v10 = v6[5], v10 | self->_artist) && ![v10 isEqual:?] || (v11 = v6[6], v11 | self->_album) && !objc_msgSend(v11, "isEqual:") || (v12 = v6[7], v12 | self->_lyrics) && !objc_msgSend(v12, "isEqual:") || (v13 = v6[8], v13 | self->_artwork) && !objc_msgSend(v13, "isEqual:") || (v14 = v6[9], v14 | self->_artworkMetadata) && !objc_msgSend(v14, "isEqual:") || (v15 = v6[10], v15 | self->_previewURL) && !objc_msgSend(v15, "isEqual:") || (v16 = v6[11], v16 | self->_offers) && !objc_msgSend(v16, "isEqual:"))
-      {
-LABEL_27:
         v5 = 0;
       }
 
@@ -196,7 +171,6 @@ LABEL_27:
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

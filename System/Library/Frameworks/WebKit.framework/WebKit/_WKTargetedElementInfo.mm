@@ -9,6 +9,7 @@
 - (NSString)renderedText;
 - (NSString)screenReaderText;
 - (NSString)searchableText;
+- (WTF)takeSnapshotWithCompletionHandler:(uint64_t)handler;
 - (int64_t)positionType;
 - (uint64_t)getChildFrames:(const void *)frames;
 - (uint64_t)getChildFrames:(uint64_t)frames;
@@ -338,16 +339,16 @@ LABEL_7:
 - (void)getChildFrames:(id)frames
 {
   v4 = _Block_copy(frames);
-  v5 = WTF::fastMalloc(0x10);
-  *v5 = &unk_1F10FBB60;
-  v5[1] = v4;
-  v7 = v5;
-  API::TargetedElementInfo::childFrames(&self->_info, &v7);
-  v6 = v7;
-  v7 = 0;
-  if (v6)
+  v6 = WTF::fastMalloc(v5, 0x10);
+  *v6 = &unk_1F10FBB60;
+  v6[1] = v4;
+  v8 = v6;
+  API::TargetedElementInfo::childFrames(&self->_info, &v8);
+  v7 = v8;
+  v8 = 0;
+  if (v7)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v7 + 8))(v7);
   }
 
   _Block_release(0);
@@ -414,16 +415,16 @@ LABEL_7:
 - (void)takeSnapshotWithCompletionHandler:(id)handler
 {
   v4 = _Block_copy(handler);
-  v5 = WTF::fastMalloc(0x10);
-  *v5 = &unk_1F10FBB88;
-  v5[1] = v4;
-  v7 = v5;
-  API::TargetedElementInfo::takeSnapshot(&self->_info, &v7);
-  v6 = v7;
-  v7 = 0;
-  if (v6)
+  v6 = WTF::fastMalloc(v5, 0x10);
+  *v6 = &unk_1F10FBB88;
+  v6[1] = v4;
+  v8 = v6;
+  API::TargetedElementInfo::takeSnapshot(&self->_info, &v8);
+  v7 = v8;
+  v8 = 0;
+  if (v7)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v7 + 8))(v7);
   }
 
   _Block_release(0);
@@ -530,6 +531,21 @@ LABEL_7:
 
 - (uint64_t)takeSnapshotWithCompletionHandler:(uint64_t)handler
 {
+  *handler = &unk_1F10FBB88;
+  _Block_release(*(handler + 8));
+  return handler;
+}
+
+- (uint64_t)takeSnapshotWithCompletionHandler:(const void *)handler
+{
+  *handler = &unk_1F10FBB88;
+  _Block_release(handler[1]);
+
+  return WTF::fastFree(handler, v2);
+}
+
+- (WTF)takeSnapshotWithCompletionHandler:(uint64_t)handler
+{
   if (*(a2 + 80))
   {
     WebCore::ShareableBitmap::create();
@@ -557,14 +573,6 @@ LABEL_7:
 
     return v5();
   }
-}
-
-- (uint64_t)takeSnapshotWithCompletionHandler:(const void *)handler
-{
-  *handler = &unk_1F10FBB88;
-  _Block_release(handler[1]);
-
-  return WTF::fastFree(handler, v2);
 }
 
 @end

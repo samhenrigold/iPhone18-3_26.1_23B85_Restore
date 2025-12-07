@@ -18,9 +18,11 @@
 
 uint64_t __45__PFImageMetadataChangePolicy_standardPolicy__block_invoke()
 {
-  standardPolicy_standardPolicy = objc_alloc_init(PFImageMetadataChangePolicy);
+  v0 = objc_alloc_init(PFImageMetadataChangePolicy);
+  v1 = standardPolicy_standardPolicy;
+  standardPolicy_standardPolicy = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

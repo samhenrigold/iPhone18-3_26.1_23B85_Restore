@@ -387,7 +387,7 @@ id __86__NTKRichComplicationCircularBaseView_keylineImageWithFilled_wide_expande
 
   else
   {
-    [self transformForState:state];
+    objc_msgSend_transformForState_(self);
   }
 
   v32[0] = v33;
@@ -842,7 +842,7 @@ void __65__NTKRichComplicationCircularBaseView__createAndAddColoringLabel__block
 
   else
   {
-    v5 = NTKWhistlerSubdialComplicationContentDiameter();
+    NTKWhistlerSubdialComplicationContentDiameter();
   }
 
   v6 = v5;

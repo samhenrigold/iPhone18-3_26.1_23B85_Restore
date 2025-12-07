@@ -169,7 +169,7 @@ LABEL_8:
   dispatch_async(xpcCommandQueue, block);
 }
 
-uint64_t __54__VCAudioClientManager_handleMutedTalkerNotification___block_invoke(uint64_t a1)
+void *__54__VCAudioClientManager_handleMutedTalkerNotification___block_invoke(uint64_t a1)
 {
   v15[1] = *MEMORY[0x1E69E9840];
   v14 = @"mutedTalkerNotificationType";
@@ -201,7 +201,7 @@ uint64_t __54__VCAudioClientManager_handleMutedTalkerNotification___block_invoke
           [+[AVConferenceXPCServer AVConferenceXPCServerSingleton](AVConferenceXPCServer "AVConferenceXPCServerSingleton")];
         }
 
-        ++v7;
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);
@@ -1176,7 +1176,7 @@ uint64_t __48__VCAudioClientManager_registerBlocksForService__block_invoke_121(u
         }
       }
 
-      [v4 setFollowSystemInput:{v5, *v13, *&v13[16]}];
+      [v4 setFollowSystemInput:{v5, *v13, *&v13[8]}];
     }
 
     else
@@ -1241,7 +1241,7 @@ uint64_t __48__VCAudioClientManager_registerBlocksForService__block_invoke_130(u
         }
       }
 
-      [v4 setFollowSystemOutput:{v5, *v13, *&v13[16]}];
+      [v4 setFollowSystemOutput:{v5, *v13, *&v13[8]}];
     }
 
     else

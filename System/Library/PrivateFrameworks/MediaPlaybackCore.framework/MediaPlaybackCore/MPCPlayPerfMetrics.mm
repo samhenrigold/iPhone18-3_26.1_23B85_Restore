@@ -3242,7 +3242,7 @@ LABEL_65:
           v190 = v302[5];
           if (v190)
           {
-            [v190 monotonicTime];
+            objc_msgSend_monotonicTime(v190);
             v191 = v284;
           }
 
@@ -3264,7 +3264,7 @@ LABEL_65:
           if (v196)
           {
             v197 = MEMORY[0x1E696AD98];
-            [v196 monotonicTime];
+            objc_msgSend_monotonicTime(v196);
             v198 = [v197 numberWithUnsignedLongLong:v283];
             [(MPCPlayPerfMetrics *)v272 set_checkpointSetQueueEnd:v198];
           }
@@ -3274,7 +3274,7 @@ LABEL_65:
         if (v199)
         {
           v200 = MEMORY[0x1E696AD98];
-          [v199 monotonicTime];
+          objc_msgSend_monotonicTime(v199);
           v201 = [v200 numberWithUnsignedLongLong:v282];
           [(MPCPlayPerfMetrics *)v272 set_checkpointRateZero:v201];
         }
@@ -3304,7 +3304,7 @@ LABEL_65:
           v210 = *(*&buf[8] + 40);
           if (v210)
           {
-            [v210 monotonicTime];
+            objc_msgSend_monotonicTime(v210);
             v211 = v281;
           }
 
@@ -3320,7 +3320,7 @@ LABEL_65:
         if (v258)
         {
           v213 = MEMORY[0x1E696AD98];
-          [v258 monotonicTime];
+          objc_msgSend_monotonicTime(v258);
           v214 = [v213 numberWithUnsignedLongLong:v280];
           [(MPCPlayPerfMetrics *)v272 set_checkpointAssetLoadBegin:v214];
         }
@@ -3329,7 +3329,7 @@ LABEL_65:
         if (v253)
         {
           v215 = MEMORY[0x1E696AD98];
-          [v253 monotonicTime];
+          objc_msgSend_monotonicTime(v253);
           v216 = [v215 numberWithUnsignedLongLong:v279];
           [(MPCPlayPerfMetrics *)v272 set_checkpointAssetLoadEnd:v216];
         }
@@ -3338,7 +3338,7 @@ LABEL_65:
         if (v251)
         {
           v217 = MEMORY[0x1E696AD98];
-          [v251 monotonicTime];
+          objc_msgSend_monotonicTime(v251);
           v218 = [v217 numberWithUnsignedLongLong:v278];
           [(MPCPlayPerfMetrics *)v272 set_checkpointLikelyToKeepUp:v218];
         }
@@ -3346,7 +3346,7 @@ LABEL_65:
         if (v143)
         {
           v219 = MEMORY[0x1E696AD98];
-          [v143 monotonicTime];
+          objc_msgSend_monotonicTime(v143);
           v220 = [v219 numberWithUnsignedLongLong:v277];
           [(MPCPlayPerfMetrics *)v272 set_checkpointReadyToPlay:v220];
         }
@@ -3355,7 +3355,7 @@ LABEL_65:
         if (v221)
         {
           v222 = MEMORY[0x1E696AD98];
-          [v221 monotonicTime];
+          objc_msgSend_monotonicTime(v221);
           v223 = [v222 numberWithUnsignedLongLong:v276];
           [(MPCPlayPerfMetrics *)v272 set_checkpointRateOne:v223];
         }
@@ -3365,7 +3365,7 @@ LABEL_65:
         [v225 doubleValue];
         v227 = v226;
 
-        [v13 monotonicTime];
+        objc_msgSend_monotonicTime(v13);
         info = 0;
         mach_timebase_info(&info);
         v228 = *(&v285 + 1);
@@ -3375,7 +3375,7 @@ LABEL_65:
         v232 = v294[5];
         if (v232)
         {
-          [v232 monotonicTime];
+          objc_msgSend_monotonicTime(v232);
           v233 = v275;
         }
 

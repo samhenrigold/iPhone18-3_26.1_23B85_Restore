@@ -26,7 +26,7 @@
 
 - (void)_handleCharacteristicsValueUpdatedNotification:(id)notification
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   workQueue = [(HMDDoorbellPressTracker *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -65,27 +65,25 @@
     v17 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v23 = HMFGetLogIdentifier();
+      v22 = HMFGetLogIdentifier();
       dateOfLastDoorbellPressByAccessoryUUID2 = [(HMDDoorbellPressTracker *)selfCopy dateOfLastDoorbellPressByAccessoryUUID];
       uuid2 = [accessory uuid];
       v19 = [dateOfLastDoorbellPressByAccessoryUUID2 objectForKeyedSubscript:uuid2];
       name = [accessory name];
       uuid3 = [accessory uuid];
       *buf = 138544130;
-      v27 = v23;
-      v28 = 2112;
-      v29 = v19;
-      v30 = 2112;
-      v31 = name;
-      v32 = 2112;
-      v33 = uuid3;
+      v26 = v22;
+      v27 = 2112;
+      v28 = v19;
+      v29 = 2112;
+      v30 = name;
+      v31 = 2112;
+      v32 = uuid3;
       _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Updated date of last doorbell press to: %@ for doorbell: %@/%@", buf, 0x2Au);
     }
 
     objc_autoreleasePoolPop(context);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __74__HMDDoorbellPressTracker__handleCharacteristicsValueUpdatedNotification___block_invoke(uint64_t a1, void *a2)
@@ -109,7 +107,7 @@ uint64_t __74__HMDDoorbellPressTracker__handleCharacteristicsValueUpdatedNotific
 
 - (BOOL)doorbellPressInDateInterval:(id)interval doorbellAccessory:(id)accessory
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   intervalCopy = interval;
   accessoryCopy = accessory;
   os_unfair_lock_lock_with_options();
@@ -126,15 +124,15 @@ uint64_t __74__HMDDoorbellPressTracker__handleCharacteristicsValueUpdatedNotific
     v14 = HMFGetLogIdentifier();
     name = [accessoryCopy name];
     uuid2 = [accessoryCopy uuid];
-    v20 = 138544130;
-    v21 = v14;
-    v22 = 2112;
-    v23 = v10;
-    v24 = 2112;
-    v25 = name;
-    v26 = 2112;
-    v27 = uuid2;
-    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Date of last doorbell press: %@ for doorbell accessory: %@/%@", &v20, 0x2Au);
+    v19 = 138544130;
+    v20 = v14;
+    v21 = 2112;
+    v22 = v10;
+    v23 = 2112;
+    v24 = name;
+    v25 = 2112;
+    v26 = uuid2;
+    _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Date of last doorbell press: %@ for doorbell accessory: %@/%@", &v19, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v11);
@@ -148,13 +146,12 @@ uint64_t __74__HMDDoorbellPressTracker__handleCharacteristicsValueUpdatedNotific
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 - (void)stopTrackingPressesForDoorbellAccessory:(id)accessory registration:(id)registration
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   registrationCopy = registration;
   os_unfair_lock_lock_with_options();
@@ -173,13 +170,13 @@ uint64_t __74__HMDDoorbellPressTracker__handleCharacteristicsValueUpdatedNotific
       name = [accessoryCopy name];
       uuid2 = [accessoryCopy uuid];
       *buf = 138544130;
-      v32 = v26;
-      v33 = 2112;
-      v34 = name;
-      v35 = 2112;
-      v36 = uuid2;
-      v37 = 2112;
-      v38 = registrationCopy;
+      v31 = v26;
+      v32 = 2112;
+      v33 = name;
+      v34 = 2112;
+      v35 = uuid2;
+      v36 = 2112;
+      v37 = registrationCopy;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@No existing registrations found for doorbell accessory: %@/%@ registration: %@", buf, 0x2Au);
     }
 
@@ -196,13 +193,13 @@ uint64_t __74__HMDDoorbellPressTracker__handleCharacteristicsValueUpdatedNotific
     name2 = [accessoryCopy name];
     uuid3 = [accessoryCopy uuid];
     *buf = 138544130;
-    v32 = v13;
-    v33 = 2112;
-    v34 = name2;
-    v35 = 2112;
-    v36 = uuid3;
-    v37 = 2112;
-    v38 = registrationCopy;
+    v31 = v13;
+    v32 = 2112;
+    v33 = name2;
+    v34 = 2112;
+    v35 = uuid3;
+    v36 = 2112;
+    v37 = registrationCopy;
     _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Stopped tracking presses for doorbell accessory: %@/%@ registration: %@", buf, 0x2Au);
   }
 
@@ -225,11 +222,11 @@ uint64_t __74__HMDDoorbellPressTracker__handleCharacteristicsValueUpdatedNotific
       name3 = [accessoryCopy name];
       uuid5 = [accessoryCopy uuid];
       *buf = 138543874;
-      v32 = v22;
-      v33 = 2112;
-      v34 = name3;
-      v35 = 2112;
-      v36 = uuid5;
+      v31 = v22;
+      v32 = 2112;
+      v33 = name3;
+      v34 = 2112;
+      v35 = uuid5;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@No more registrations for doorbell accessory: %@/%@", buf, 0x20u);
     }
 
@@ -239,12 +236,11 @@ LABEL_9:
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startTrackingPressesForDoorbellAccessory:(id)accessory registration:(id)registration
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   registrationCopy = registration;
   v8 = [accessoryCopy findCharacteristicType:*MEMORY[0x277CCF910] forServiceType:*MEMORY[0x277CD0E38]];
@@ -262,21 +258,21 @@ LABEL_9:
       v14 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v31 = v12;
+        v30 = v12;
         v15 = HMFGetLogIdentifier();
         name = [accessoryCopy name];
         uuid2 = [accessoryCopy uuid];
         *buf = 138544130;
-        v33 = v15;
-        v34 = 2112;
-        v35 = name;
-        v36 = 2112;
-        v37 = uuid2;
-        v38 = 2112;
-        v39 = registrationCopy;
+        v32 = v15;
+        v33 = 2112;
+        v34 = name;
+        v35 = 2112;
+        v36 = uuid2;
+        v37 = 2112;
+        v38 = registrationCopy;
         _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Already tracking presses for doorbell accessory: %@/%@ registration: %@", buf, 0x2Au);
 
-        v12 = v31;
+        v12 = v30;
       }
     }
 
@@ -295,26 +291,26 @@ LABEL_9:
       v14 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
-        v31 = v12;
+        v30 = v12;
         v27 = HMFGetLogIdentifier();
         name2 = [accessoryCopy name];
         uuid4 = [accessoryCopy uuid];
         *buf = 138544130;
-        v33 = v27;
-        v34 = 2112;
-        v35 = name2;
-        v36 = 2112;
-        v37 = uuid4;
-        v38 = 2112;
-        v39 = registrationCopy;
+        v32 = v27;
+        v33 = 2112;
+        v34 = name2;
+        v35 = 2112;
+        v36 = uuid4;
+        v37 = 2112;
+        v38 = registrationCopy;
         _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Started tracking presses for doorbell accessory: %@/%@ registration: %@", buf, 0x2Au);
 
-        v12 = v31;
+        v12 = v30;
       }
     }
 
     objc_autoreleasePoolPop(v12);
-    [weakObjectsHashTable addObject:{registrationCopy, v31}];
+    [weakObjectsHashTable addObject:{registrationCopy, v30}];
 
     os_unfair_lock_unlock(&self->_lock);
   }
@@ -330,18 +326,16 @@ LABEL_9:
       name3 = [accessoryCopy name];
       uuid5 = [accessoryCopy uuid];
       *buf = 138543874;
-      v33 = v21;
-      v34 = 2112;
-      v35 = name3;
-      v36 = 2112;
-      v37 = uuid5;
+      v32 = v21;
+      v33 = 2112;
+      v34 = name3;
+      v35 = 2112;
+      v36 = uuid5;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Accessory: %@/%@ is not a doorbell", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v18);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDDoorbellPressTracker)initWithWorkQueue:(id)queue notificationCenter:(id)center
@@ -383,10 +377,9 @@ LABEL_9:
 
 void __38__HMDDoorbellPressTracker_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v14_167664;
-  logCategory__hmf_once_v14_167664 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v14_167664;
+  logCategory__hmf_once_v14_167664 = v0;
 }
 
 @end

@@ -1,55 +1,54 @@
 @interface SCNScene(AVTExtensionMRR)
-+ (id)avt_newSceneWithURL:()AVTExtensionMRR options:error:;
-+ (id)avt_nodeNamed:()AVTExtensionMRR forSceneAtURL:options:error:;
-+ (id)avt_rootNodeForSceneAtURL:()AVTExtensionMRR options:error:;
-+ (uint64_t)avt_rootObjectForSceneAtURL:()AVTExtensionMRR options:error:;
-- (uint64_t)avt_writeByArchivingRootNodeInsteadOfScene:()AVTExtensionMRR toURL:options:error:;
++ (void)avt_newSceneWithURL:()AVTExtensionMRR options:error:;
++ (void)avt_nodeNamed:()AVTExtensionMRR forSceneAtURL:options:error:;
++ (void)avt_rootNodeForSceneAtURL:()AVTExtensionMRR options:error:;
++ (void)avt_rootObjectForSceneAtURL:()AVTExtensionMRR options:error:;
+- (void)avt_writeByArchivingRootNodeInsteadOfScene:()AVTExtensionMRR toURL:options:error:;
 @end
 
 @implementation SCNScene(AVTExtensionMRR)
 
-+ (uint64_t)avt_rootObjectForSceneAtURL:()AVTExtensionMRR options:error:
++ (void)avt_rootObjectForSceneAtURL:()AVTExtensionMRR options:error:
 {
   pathExtension = [a3 pathExtension];
-  v9 = [pathExtension isEqualToString:@"scn"];
-  v10 = [pathExtension isEqualToString:@"scnz"];
-  v11 = v10;
-  if ((v9 & 1) != 0 || v10)
+  v6 = [pathExtension isEqualToString:?];
+  v7 = [pathExtension isEqualToString:?];
+  v8 = v7;
+  if ((v6 & 1) != 0 || v7)
   {
-    v14 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:a3 options:1 error:a5];
-    v15 = v14;
-    if (v11)
+    v11 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:? options:? error:?];
+    if (v8)
     {
-      v15 = [v14 scn_uncompressedDataUsingCompressionAlgorithm:517];
+      [v11 scn_uncompressedDataUsingCompressionAlgorithm:?];
     }
 
-    v16 = [objc_alloc(MEMORY[0x1E697A890]) initForReadingWithData:v15 secure:0];
-    [v16 setDocumentURL:a3];
-    v17 = MEMORY[0x1E695DFD8];
-    v18 = objc_opt_class();
-    v19 = [v16 decodeObjectOfClasses:objc_msgSend(v17 forKey:{"setWithObjects:", v18, objc_opt_class(), 0), *MEMORY[0x1E696A508]}];
-    [v16 finishDecoding];
+    v12 = [objc_alloc(MEMORY[0x1E697A890]) initForReadingWithData:? secure:?];
+    [v12 setDocumentURL:?];
+    v13 = MEMORY[0x1E695DFD8];
+    objc_opt_class();
+    [v13 setWithObjects:{objc_opt_class(), 0}];
+    v14 = [v12 decodeObjectOfClasses:? forKey:?];
+    [v12 finishDecoding];
 
-    return v19;
+    return v14;
   }
 
   else
   {
-    v12 = MEMORY[0x1E697A8C8];
+    v9 = MEMORY[0x1E697A8C8];
 
-    return [v12 sceneWithURL:a3 options:a4 error:a5];
+    return [v9 sceneWithURL:? options:? error:?];
   }
 }
 
-+ (id)avt_newSceneWithURL:()AVTExtensionMRR options:error:
++ (void)avt_newSceneWithURL:()AVTExtensionMRR options:error:
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v9 = objc_autoreleasePoolPush();
-  v10 = [self avt_rootObjectForSceneAtURL:a3 options:a4 error:a5];
+  v6 = objc_autoreleasePoolPush();
+  v7 = [self avt_rootObjectForSceneAtURL:? options:? error:?];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v11 = v10;
+    v8 = v7;
   }
 
   else
@@ -57,59 +56,53 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v11 = objc_alloc_init(self);
-      rootNode = [v11 rootNode];
-      childNodes = [v10 childNodes];
-      v21 = 0u;
-      v22 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      v14 = [childNodes countByEnumeratingWithState:&v21 objects:v25 count:16];
-      if (v14)
+      v8 = objc_alloc_init(self);
+      rootNode = [v8 rootNode];
+      childNodes = [v7 childNodes];
+      v11 = [childNodes countByEnumeratingWithState:0 objects:? count:?];
+      if (v11)
       {
-        v15 = v14;
-        v16 = *v22;
+        v12 = v11;
+        v13 = MEMORY[0];
         do
         {
-          for (i = 0; i != v15; ++i)
+          for (i = 0; i != v12; i = (i + 1))
           {
-            if (*v22 != v16)
+            if (MEMORY[0] != v13)
             {
               objc_enumerationMutation(childNodes);
             }
 
-            v18 = *(*(&v21 + 1) + 8 * i);
-            [v18 removeFromParentNode];
-            [rootNode addChildNode:v18];
+            [*(8 * i) removeFromParentNode];
+            [rootNode addChildNode:?];
           }
 
-          v15 = [childNodes countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v12 = [childNodes countByEnumeratingWithState:? objects:? count:?];
         }
 
-        while (v15);
+        while (v12);
       }
     }
 
     else
     {
-      v11 = 0;
+      v8 = 0;
     }
   }
 
-  objc_autoreleasePoolPop(v9);
-  v19 = *MEMORY[0x1E69E9840];
-  return v11;
+  objc_autoreleasePoolPop(v6);
+  return v8;
 }
 
-+ (id)avt_rootNodeForSceneAtURL:()AVTExtensionMRR options:error:
++ (void)avt_rootNodeForSceneAtURL:()AVTExtensionMRR options:error:
 {
-  v9 = objc_autoreleasePoolPush();
-  v10 = [self avt_rootObjectForSceneAtURL:a3 options:a4 error:a5];
+  v6 = objc_autoreleasePoolPush();
+  v7 = [self avt_rootObjectForSceneAtURL:? options:? error:?];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    rootNode = [v10 rootNode];
-    v12 = rootNode;
+    rootNode = [v7 rootNode];
+    v9 = rootNode;
   }
 
   else
@@ -117,7 +110,7 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      rootNode = v10;
+      rootNode = v7;
     }
 
     else
@@ -126,23 +119,23 @@
     }
   }
 
-  objc_autoreleasePoolPop(v9);
+  objc_autoreleasePoolPop(v6);
 
   return rootNode;
 }
 
-+ (id)avt_nodeNamed:()AVTExtensionMRR forSceneAtURL:options:error:
++ (void)avt_nodeNamed:()AVTExtensionMRR forSceneAtURL:options:error:
 {
-  v11 = objc_autoreleasePoolPush();
-  rootNode = [self avt_rootObjectForSceneAtURL:a4 options:a5 error:a6];
+  v7 = objc_autoreleasePoolPush();
+  rootNode = [self avt_rootObjectForSceneAtURL:? options:? error:?];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     rootNode = [rootNode rootNode];
 LABEL_4:
-    v13 = [rootNode childNodeWithName:a3 recursively:1];
-    v14 = v13;
-    [v13 removeFromParentNode];
+    v9 = [rootNode childNodeWithName:? recursively:?];
+    v10 = v9;
+    [v9 removeFromParentNode];
     goto LABEL_6;
   }
 
@@ -152,91 +145,75 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  v13 = 0;
+  v9 = 0;
 LABEL_6:
-  objc_autoreleasePoolPop(v11);
+  objc_autoreleasePoolPop(v7);
 
-  return v13;
+  return v9;
 }
 
-- (uint64_t)avt_writeByArchivingRootNodeInsteadOfScene:()AVTExtensionMRR toURL:options:error:
+- (void)avt_writeByArchivingRootNodeInsteadOfScene:()AVTExtensionMRR toURL:options:error:
 {
-  v34[2] = *MEMORY[0x1E69E9840];
+  v7 = a3;
   pathExtension = [a4 pathExtension];
-  v13 = [pathExtension isEqualToString:@"scn"];
-  v14 = [pathExtension isEqualToString:@"scnz"];
-  v15 = v14;
-  if ((v13 & 1) != 0 || v14)
+  v10 = [pathExtension isEqualToString:?];
+  v11 = [pathExtension isEqualToString:?];
+  v12 = v11;
+  if ((v10 & 1) != 0 || v11)
   {
-    if (a3)
+    if (v7)
     {
-      v19 = [MEMORY[0x1E697A888] archivedDataWithRootObject:objc_msgSend(self options:{"rootNode"), a5}];
-      if (v15)
+      v16 = MEMORY[0x1E697A888];
+      [self rootNode];
+      v17 = [v16 archivedDataWithRootObject:? options:?];
+      if (v12)
       {
-        v19 = [v19 scn_compressedDataUsingCompressionAlgorithm:517];
+        v17 = [v17 scn_compressedDataUsingCompressionAlgorithm:?];
       }
 
-      v20 = *MEMORY[0x1E69E9840];
-
-      return [v19 writeToURL:a4 options:1 error:a6];
+      return [v17 writeToURL:? options:? error:?];
     }
 
     else
     {
-      v22 = *MEMORY[0x1E69E9840];
 
-      return [self writeToURL:a4 options:a5 delegate:0 progressHandler:0];
+      return [self writeToURL:? options:? delegate:? progressHandler:?];
     }
   }
 
   else
   {
-    v16 = [pathExtension isEqualToString:@"vfx-world"];
-    v17 = [pathExtension isEqualToString:@"vfxz-world"];
-    if ((v16 & 1) != 0 || v17)
+    v13 = [pathExtension isEqualToString:?];
+    v14 = [pathExtension isEqualToString:?];
+    if ((v13 & 1) != 0 || v14)
     {
-      v23 = [MEMORY[0x1E69DF388] worldWithSceneKitScene:self options:MEMORY[0x1E695E0F8]];
-      rootNode = [v23 rootNode];
-      AVTFixMaterialsContainingSceneKitShaderModifiersInVFXNodeHierarchy(rootNode, v25);
-      [objc_msgSend(v23 "rootNode")];
-      v26 = *MEMORY[0x1E69DF3D0];
-      v27 = *MEMORY[0x1E697A9A8];
-      v33[0] = *MEMORY[0x1E697A9A0];
-      v33[1] = v27;
-      v28 = *MEMORY[0x1E69DF3D8];
-      v34[0] = v26;
-      v34[1] = v28;
-      v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:v33 count:2];
+      v19 = [MEMORY[0x1E69DF388] worldWithSceneKitScene:? options:?];
+      AVTFixMaterialsContainingSceneKitShaderModifiersInVFXNodeHierarchy([v19 rootNode]);
+      [objc_msgSend(v19 "rootNode")];
+      [MEMORY[0x1E695DF20] dictionaryWithObjects:? forKeys:? count:?];
       if ([a5 count])
       {
-        v30 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(a5, "count")}];
+        v20 = objc_alloc(MEMORY[0x1E695DF90]);
+        [a5 count];
+        v21 = [v20 initWithCapacity:?];
       }
 
       else
       {
-        v30 = 0;
+        v21 = 0;
       }
 
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __92__SCNScene_AVTExtensionMRR__avt_writeByArchivingRootNodeInsteadOfScene_toURL_options_error___block_invoke_2;
-      v32[3] = &unk_1E7F47E50;
-      v32[4] = v29;
-      v32[5] = v30;
-      v32[6] = self;
-      v32[7] = a2;
-      [a5 enumerateKeysAndObjectsUsingBlock:v32];
-      v18 = [v23 avt_writeByArchivingRootNodeInsteadOfScene:a3 toURL:a4 options:v30 error:a6];
+      [a5 enumerateKeysAndObjectsUsingBlock:?];
+      v15 = [v19 avt_writeByArchivingRootNodeInsteadOfScene:? toURL:? options:? error:?];
     }
 
     else
     {
-      [self doesNotRecognizeSelector:a2];
-      v18 = 0;
+      [self doesNotRecognizeSelector:?];
+      return 0;
     }
 
-    v31 = *MEMORY[0x1E69E9840];
-    return v18;
+    return v15;
   }
 }
 

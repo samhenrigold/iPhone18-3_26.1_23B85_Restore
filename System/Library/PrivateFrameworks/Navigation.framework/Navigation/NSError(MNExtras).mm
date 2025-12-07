@@ -23,20 +23,18 @@
 + (id)_navigation_errorWithCode:()MNExtras userInfo:
 {
   v4 = a3;
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"MNErrorDomain" code:a3 userInfo:a4];
   v6 = MNGetErrorsLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     _navigation_errorCodeAsString = [v5 _navigation_errorCodeAsString];
-    v10 = 138412546;
-    v11 = _navigation_errorCodeAsString;
-    v12 = 1024;
-    v13 = v4;
-    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "Navigation service error: %@ (%d)", &v10, 0x12u);
+    v9 = 138412546;
+    v10 = _navigation_errorCodeAsString;
+    v11 = 1024;
+    v12 = v4;
+    _os_log_impl(&dword_1D311E000, v6, OS_LOG_TYPE_ERROR, "Navigation service error: %@ (%d)", &v9, 0x12u);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

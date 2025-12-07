@@ -329,7 +329,7 @@
 - (id)renderedBasicMonogramForString:(id)string color:(id)color scope:(id)scope prohibitedSources:(int64_t)sources
 {
   sourcesCopy = sources;
-  v57[1] = *MEMORY[0x1E69E9840];
+  v59[1] = *MEMORY[0x1E69E9840];
   stringCopy = string;
   colorCopy = color;
   scopeCopy = scope;
@@ -348,88 +348,88 @@
     {
       monogram = [(objc_class *)getPRMonogramClass() monogram];
       [monogram setText:stringCopy];
-      [monogram setMonogramColor:colorCopy];
-      PRLikenessClass = getPRLikenessClass();
+      v17 = [monogram setMonogramColor:colorCopy];
+      PRLikenessClass = getPRLikenessClass(v17);
       dataRepresentation = [monogram dataRepresentation];
-      v19 = [(objc_class *)PRLikenessClass monogramWithRecipe:dataRepresentation staticRepresentation:0];
+      v20 = [PRLikenessClass monogramWithRecipe:dataRepresentation staticRepresentation:0];
 
-      v20 = [[CNUIPRLikenessProvider alloc] initWithPRLikeness:v19];
-      v21 = objc_opt_class();
-      v57[0] = v20;
-      v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v57 count:1];
-      v23 = [v21 renderedLikenessesForProviders:v22 likenessBadgeProviders:MEMORY[0x1E695E0F0] scope:scopeCopy];
+      v21 = [[CNUIPRLikenessProvider alloc] initWithPRLikeness:v20];
+      v22 = objc_opt_class();
+      v59[0] = v21;
+      v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v59 count:1];
+      v24 = [v22 renderedLikenessesForProviders:v23 likenessBadgeProviders:MEMORY[0x1E695E0F0] scope:scopeCopy];
     }
 
     else
     {
       monogram = objc_alloc_init(MEMORY[0x1E695CF18]);
       [monogram setGivenName:stringCopy];
-      v56 = monogram;
-      v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v56 count:1];
+      v58 = monogram;
+      v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v58 count:1];
       schedulerProvider = [(_CNUILikenessRenderer *)self schedulerProvider];
       immediateScheduler = [schedulerProvider immediateScheduler];
-      v19 = [(_CNUILikenessRenderer *)self renderedLikenessesForContacts:v29 scope:scopeCopy workScheduler:immediateScheduler];
+      v20 = [(_CNUILikenessRenderer *)self renderedLikenessesForContacts:v31 scope:scopeCopy workScheduler:immediateScheduler];
 
-      v49 = 0;
-      v50 = &v49;
-      v51 = 0x3032000000;
-      v52 = __Block_byref_object_copy_;
-      v53 = __Block_byref_object_dispose_;
-      v54 = 0;
-      v32 = dispatch_semaphore_create(0);
-      v33 = MEMORY[0x1E69967A0];
+      v51 = 0;
+      v52 = &v51;
+      v53 = 0x3032000000;
+      v54 = __Block_byref_object_copy_;
+      v55 = __Block_byref_object_dispose_;
+      v56 = 0;
+      v34 = dispatch_semaphore_create(0);
+      v35 = MEMORY[0x1E69967A0];
+      v50[0] = MEMORY[0x1E69E9820];
+      v50[1] = 3221225472;
+      v50[2] = __86___CNUILikenessRenderer_renderedBasicMonogramForString_color_scope_prohibitedSources___block_invoke;
+      v50[3] = &unk_1E76E7CE8;
+      v50[4] = &v51;
       v48[0] = MEMORY[0x1E69E9820];
       v48[1] = 3221225472;
-      v48[2] = __86___CNUILikenessRenderer_renderedBasicMonogramForString_color_scope_prohibitedSources___block_invoke;
-      v48[3] = &unk_1E76E7CE8;
-      v48[4] = &v49;
-      v46[0] = MEMORY[0x1E69E9820];
-      v46[1] = 3221225472;
-      v46[2] = __86___CNUILikenessRenderer_renderedBasicMonogramForString_color_scope_prohibitedSources___block_invoke_2;
-      v46[3] = &unk_1E76E7D10;
-      v47 = v32;
-      v41 = MEMORY[0x1E69E9820];
-      v42 = 3221225472;
-      v43 = __86___CNUILikenessRenderer_renderedBasicMonogramForString_color_scope_prohibitedSources___block_invoke_3;
-      v44 = &unk_1E76E7970;
-      v34 = v47;
-      v45 = v34;
-      v35 = [v33 observerWithResultBlock:v48 completionBlock:v46 failureBlock:&v41];
-      v36 = [v19 subscribe:{v35, v41, v42, v43, v44}];
+      v48[2] = __86___CNUILikenessRenderer_renderedBasicMonogramForString_color_scope_prohibitedSources___block_invoke_2;
+      v48[3] = &unk_1E76E7D10;
+      v49 = v34;
+      v43 = MEMORY[0x1E69E9820];
+      v44 = 3221225472;
+      v45 = __86___CNUILikenessRenderer_renderedBasicMonogramForString_color_scope_prohibitedSources___block_invoke_3;
+      v46 = &unk_1E76E7970;
+      v36 = v49;
+      v47 = v36;
+      v37 = [v35 observerWithResultBlock:v50 completionBlock:v48 failureBlock:&v43];
+      v38 = [v20 subscribe:{v37, v43, v44, v45, v46}];
 
-      dispatch_semaphore_wait(v34, 0xFFFFFFFFFFFFFFFFLL);
-      v23 = v50[5];
+      dispatch_semaphore_wait(v36, 0xFFFFFFFFFFFFFFFFLL);
+      v24 = v52[5];
 
-      _Block_object_dispose(&v49, 8);
+      _Block_object_dispose(&v51, 8);
     }
   }
 
   else
   {
     monogram = [(objc_class *)getPRMonogramClass() monogram];
-    [monogram setText:stringCopy];
+    v25 = [monogram setText:stringCopy];
     if (colorCopy)
     {
-      [monogram setMonogramColor:colorCopy];
+      v25 = [monogram setMonogramColor:colorCopy];
     }
 
-    v24 = getPRLikenessClass();
+    v26 = getPRLikenessClass(v25);
     dataRepresentation2 = [monogram dataRepresentation];
-    v19 = [(objc_class *)v24 monogramWithRecipe:dataRepresentation2 staticRepresentation:0];
+    v20 = [v26 monogramWithRecipe:dataRepresentation2 staticRepresentation:0];
 
-    v26 = [[CNUIPRLikenessProvider alloc] initWithPRLikeness:v19];
-    v27 = objc_opt_class();
-    v55 = v26;
-    v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v55 count:1];
-    v23 = [v27 renderedLikenessesForProviders:v28 likenessBadgeProviders:MEMORY[0x1E695E0F0] scope:scopeCopy];
+    v28 = [[CNUIPRLikenessProvider alloc] initWithPRLikeness:v20];
+    v29 = objc_opt_class();
+    v57 = v28;
+    v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v57 count:1];
+    v24 = [v29 renderedLikenessesForProviders:v30 likenessBadgeProviders:MEMORY[0x1E695E0F0] scope:scopeCopy];
   }
 
-  if (!v23)
+  if (!v24)
   {
 LABEL_10:
     if ((sourcesCopy & 4) != 0)
     {
-      v23 = 0;
+      v24 = 0;
     }
 
     else
@@ -438,11 +438,11 @@ LABEL_10:
       placeholderProviderFactory = [likenessResolver placeholderProviderFactory];
       placeholderProvider = [placeholderProviderFactory placeholderProvider];
 
-      v23 = [(_CNUILikenessRenderer *)self renderedLoadingPlaceholderForContactCount:1 provider:placeholderProvider scope:scopeCopy];
+      v24 = [(_CNUILikenessRenderer *)self renderedLoadingPlaceholderForContactCount:1 provider:placeholderProvider scope:scopeCopy];
     }
   }
 
-  return v23;
+  return v24;
 }
 
 - (id)renderedLoadingPlaceholderForContactCount:(unint64_t)count provider:(id)provider scope:(id)scope

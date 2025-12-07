@@ -10,7 +10,7 @@
 
 - (NFCISO7816APDU)initWithInstructionClass:(uint8_t)instructionClass instructionCode:(uint8_t)instructionCode p1Parameter:(uint8_t)p1Parameter p2Parameter:(uint8_t)p2Parameter data:(NSData *)data expectedResponseLength:(NSInteger)expectedResponseLength
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v15 = data;
   if (!expectedResponseLength || (expectedResponseLength - 65537) <= 0xFFFFFFFFFFFEFFFDLL)
   {
@@ -46,13 +46,13 @@
       }
 
       *buf = 67109890;
-      v46 = v30;
-      v47 = 2082;
-      v48 = object_getClassName(self);
-      v49 = 2082;
-      v50 = sel_getName(a2);
-      v51 = 1024;
-      v52 = 33;
+      v45 = v30;
+      v46 = 2082;
+      v47 = object_getClassName(self);
+      v48 = 2082;
+      v49 = sel_getName(a2);
+      v50 = 1024;
+      v51 = 33;
       _os_log_impl(&dword_23728C000, v28, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid expectedResponseLength value; should be from 1 to 65536 or -1", buf, 0x22u);
     }
 
@@ -60,9 +60,9 @@
     goto LABEL_32;
   }
 
-  v44.receiver = self;
-  v44.super_class = NFCISO7816APDU;
-  v16 = [(NFCISO7816APDU *)&v44 init];
+  v43.receiver = self;
+  v43.super_class = NFCISO7816APDU;
+  v16 = [(NFCISO7816APDU *)&v43 init];
   if (v16)
   {
     v17 = v16;
@@ -77,21 +77,21 @@
     {
       if (expectedResponseLength > 256 || v19 >= 0x100)
       {
-        LOBYTE(v42) = 0;
-        HIBYTE(v42) = [(NSData *)v15 length]>> 8;
-        v43 = [(NSData *)v15 length];
+        LOBYTE(v41) = 0;
+        HIBYTE(v41) = [(NSData *)v15 length]>> 8;
+        v42 = [(NSData *)v15 length];
         v20 = v18;
         v21 = 3;
       }
 
       else
       {
-        LOBYTE(v42) = [(NSData *)v15 length];
+        LOBYTE(v41) = [(NSData *)v15 length];
         v20 = v18;
         v21 = 1;
       }
 
-      [(NSData *)v20 appendBytes:&v42 length:v21];
+      [(NSData *)v20 appendBytes:&v41 length:v21];
       v33 = [(NSData *)v18 length];
       v34 = [(NSData *)v15 length];
       v17->_payloadOffset.location = v33;
@@ -114,14 +114,14 @@
       {
         if (expectedResponseLength > 256 || v19 >= 0x100)
         {
-          v42 = bswap32(expectedResponseLength) >> 16;
+          v41 = bswap32(expectedResponseLength) >> 16;
           v36 = v18;
           v37 = 2;
         }
 
         else
         {
-          LOBYTE(v42) = expectedResponseLength;
+          LOBYTE(v41) = expectedResponseLength;
           v36 = v18;
           v37 = 1;
         }
@@ -129,14 +129,14 @@
 
       else
       {
-        LOBYTE(v42) = 0;
-        HIBYTE(v42) = BYTE1(expectedResponseLength);
-        v43 = expectedResponseLength;
+        LOBYTE(v41) = 0;
+        HIBYTE(v41) = BYTE1(expectedResponseLength);
+        v42 = expectedResponseLength;
         v36 = v18;
         v37 = 3;
       }
 
-      [(NSData *)v36 appendBytes:&v42 length:v37];
+      [(NSData *)v36 appendBytes:&v41 length:v37];
     }
 
     fullPacket = v17->_fullPacket;
@@ -152,17 +152,16 @@ LABEL_32:
   selfCopy = 0;
 LABEL_33:
 
-  v39 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (NFCISO7816APDU)initWithData:(NSData *)data
 {
-  v117 = *MEMORY[0x277D85DE8];
+  v116 = *MEMORY[0x277D85DE8];
   v5 = data;
-  v108.receiver = self;
-  v108.super_class = NFCISO7816APDU;
-  v6 = [(NFCISO7816APDU *)&v108 init];
+  v107.receiver = self;
+  v107.super_class = NFCISO7816APDU;
+  v6 = [(NFCISO7816APDU *)&v107 init];
   if (!v6)
   {
     goto LABEL_14;
@@ -180,51 +179,51 @@ LABEL_33:
       goto LABEL_16;
     }
 
-    v26 = (bytes + 4);
-    v27 = [(NSData *)v5 length];
-    v28 = (bytes + v27);
-    if (v27 < 5)
+    v25 = (bytes + 4);
+    v26 = [(NSData *)v5 length];
+    v27 = (bytes + v26);
+    if (v26 < 5)
     {
-      v43 = 0;
-      v30 = 0;
-      v32 = 0;
-      v31 = -1;
+      v42 = 0;
+      v29 = 0;
+      v31 = 0;
+      v30 = -1;
     }
 
     else
     {
-      v29 = *v26;
-      v30 = *v26 == 0;
-      if (*v26)
+      v28 = *v25;
+      v29 = *v25 == 0;
+      if (*v25)
       {
-        v26 = (bytes + 5);
-        v31 = v29;
+        v25 = (bytes + 5);
+        v30 = v28;
 LABEL_22:
-        v32 = v29 != 0;
-        if (v28 - v26 >= v31)
+        v31 = v28 != 0;
+        if (v27 - v25 >= v30)
         {
-          *(v6 + 1) = &v26[-bytes];
-          *(v6 + 2) = v31;
-          v26 += v31;
+          *(v6 + 1) = &v25[-bytes];
+          *(v6 + 2) = v30;
+          v25 += v30;
         }
 
-        else if (v28 - v26 >= 1)
+        else if (v27 - v25 >= 1)
         {
           Logger = NFLogGetLogger();
           if (Logger)
           {
-            v34 = Logger;
+            v33 = Logger;
             Class = object_getClass(v6);
             isMetaClass = class_isMetaClass(Class);
             ClassName = object_getClassName(v6);
             Name = sel_getName(a2);
-            v38 = 45;
+            v37 = 45;
             if (isMetaClass)
             {
-              v38 = 43;
+              v37 = 43;
             }
 
-            v34(3, "%c[%{public}s %{public}s]:%i Missing data specified by Lc", v38, ClassName, Name, 148);
+            v33(3, "%c[%{public}s %{public}s]:%i Missing data specified by Lc", v37, ClassName, Name, 148);
           }
 
           v15 = NFSharedLogGetLogger();
@@ -233,63 +232,63 @@ LABEL_22:
             goto LABEL_13;
           }
 
-          v39 = object_getClass(v6);
-          if (class_isMetaClass(v39))
+          v38 = object_getClass(v6);
+          if (class_isMetaClass(v38))
           {
-            v40 = 43;
+            v39 = 43;
           }
 
           else
           {
-            v40 = 45;
+            v39 = 45;
           }
 
-          v41 = object_getClassName(v6);
-          v42 = sel_getName(a2);
+          v40 = object_getClassName(v6);
+          v41 = sel_getName(a2);
           *buf = 67109890;
-          v110 = v40;
-          v111 = 2082;
-          v112 = v41;
-          v113 = 2082;
-          v114 = v42;
-          v115 = 1024;
-          v116 = 148;
+          v109 = v39;
+          v110 = 2082;
+          v111 = v40;
+          v112 = 2082;
+          v113 = v41;
+          v114 = 1024;
+          v115 = 148;
           v20 = "%c[%{public}s %{public}s]:%i Missing data specified by Lc";
           goto LABEL_12;
         }
 
-        v43 = 1;
+        v42 = 1;
         goto LABEL_38;
       }
 
-      if (v27 == 5)
+      if (v26 == 5)
       {
-        v43 = 0;
-        v31 = 0;
+        v42 = 0;
         v30 = 0;
-        v26 = (bytes + 5);
-        v32 = 1;
+        v29 = 0;
+        v25 = (bytes + 5);
+        v31 = 1;
       }
 
       else
       {
-        if (v27 <= 6)
+        if (v26 <= 6)
         {
-          v91 = NFLogGetLogger();
-          if (v91)
+          v90 = NFLogGetLogger();
+          if (v90)
           {
-            v92 = v91;
-            v93 = object_getClass(v6);
-            v94 = class_isMetaClass(v93);
-            v95 = object_getClassName(v6);
-            v107 = sel_getName(a2);
-            v96 = 45;
-            if (v94)
+            v91 = v90;
+            v92 = object_getClass(v6);
+            v93 = class_isMetaClass(v92);
+            v94 = object_getClassName(v6);
+            v106 = sel_getName(a2);
+            v95 = 45;
+            if (v93)
             {
-              v96 = 43;
+              v95 = 43;
             }
 
-            v92(3, "%c[%{public}s %{public}s]:%i Unexpected Lc & Le field combination", v96, v95, v107, 133);
+            v91(3, "%c[%{public}s %{public}s]:%i Unexpected Lc & Le field combination", v95, v94, v106, 133);
           }
 
           v15 = NFSharedLogGetLogger();
@@ -298,94 +297,94 @@ LABEL_22:
             goto LABEL_13;
           }
 
-          v97 = object_getClass(v6);
-          if (class_isMetaClass(v97))
+          v96 = object_getClass(v6);
+          if (class_isMetaClass(v96))
           {
-            v98 = 43;
+            v97 = 43;
           }
 
           else
           {
-            v98 = 45;
+            v97 = 45;
           }
 
-          v99 = object_getClassName(v6);
-          v100 = sel_getName(a2);
+          v98 = object_getClassName(v6);
+          v99 = sel_getName(a2);
           *buf = 67109890;
-          v110 = v98;
-          v111 = 2082;
-          v112 = v99;
-          v113 = 2082;
-          v114 = v100;
-          v115 = 1024;
-          v116 = 133;
+          v109 = v97;
+          v110 = 2082;
+          v111 = v98;
+          v112 = 2082;
+          v113 = v99;
+          v114 = 1024;
+          v115 = 133;
           v20 = "%c[%{public}s %{public}s]:%i Unexpected Lc & Le field combination";
           goto LABEL_12;
         }
 
-        v26 = (bytes + 7);
-        v31 = __rev16(*(bytes + 5));
-        if (v31)
+        v25 = (bytes + 7);
+        v30 = __rev16(*(bytes + 5));
+        if (v30)
         {
           goto LABEL_22;
         }
 
-        v43 = 0;
-        v32 = 0;
-        v30 = 1;
+        v42 = 0;
+        v31 = 0;
+        v29 = 1;
       }
     }
 
 LABEL_38:
-    if (v26 == v28)
+    if (v25 == v27)
     {
-      v55 = [(NSData *)v5 copy];
-      v56 = *(v6 + 4);
-      *(v6 + 4) = v55;
+      v54 = [(NSData *)v5 copy];
+      v55 = *(v6 + 4);
+      *(v6 + 4) = v54;
 
-      if ((v30 || v32) && *(v6 + 1) == 0x7FFFFFFFFFFFFFFFLL)
+      if ((v29 || v31) && *(v6 + 1) == 0x7FFFFFFFFFFFFFFFLL)
       {
-        if (v32)
+        if (v31)
         {
-          v57 = 256;
+          v56 = 256;
         }
 
         else
         {
-          v57 = 0x10000;
+          v56 = 0x10000;
         }
 
-        if (v31)
+        if (v30)
         {
-          v57 = v31;
+          v56 = v30;
         }
 
-        *(v6 + 3) = v57;
+        *(v6 + 3) = v56;
       }
 
       goto LABEL_17;
     }
 
-    v44 = v28 - v26;
-    if (v44 == 2)
+    v43 = v27 - v25;
+    if (v43 == 2)
     {
-      if (v32)
+      if (v31)
       {
-        v58 = NFLogGetLogger();
-        if (v58)
+        v57 = NFLogGetLogger();
+        if (v57)
         {
-          v59 = v58;
-          v60 = object_getClass(v6);
-          v61 = class_isMetaClass(v60);
-          v62 = object_getClassName(v6);
-          v104 = sel_getName(a2);
-          v63 = 45;
-          if (v61)
+          v58 = v57;
+          v59 = object_getClass(v6);
+          v60 = class_isMetaClass(v59);
+          v61 = object_getClassName(v6);
+          v103 = sel_getName(a2);
+          v62 = 45;
+          if (v60)
           {
-            v63 = 43;
+            v62 = 43;
           }
 
-          v59(3, "%c[%{public}s %{public}s]:%i Unexpected short Lc & extended Le combination", v63, v62, v104, 176);
+          v58(3, "%c[%{public}s %{public}s]:%i Unexpected short Lc & extended Le combination", v62, v61, v103, 176);
         }
 
         v15 = NFSharedLogGetLogger();
@@ -394,60 +393,60 @@ LABEL_38:
           goto LABEL_13;
         }
 
-        v64 = object_getClass(v6);
-        if (class_isMetaClass(v64))
+        v63 = object_getClass(v6);
+        if (class_isMetaClass(v63))
         {
-          v65 = 43;
+          v64 = 43;
         }
 
         else
         {
-          v65 = 45;
+          v64 = 45;
         }
 
-        v66 = object_getClassName(v6);
-        v67 = sel_getName(a2);
+        v65 = object_getClassName(v6);
+        v66 = sel_getName(a2);
         *buf = 67109890;
-        v110 = v65;
-        v111 = 2082;
-        v112 = v66;
-        v113 = 2082;
-        v114 = v67;
-        v115 = 1024;
-        v116 = 176;
+        v109 = v64;
+        v110 = 2082;
+        v111 = v65;
+        v112 = 2082;
+        v113 = v66;
+        v114 = 1024;
+        v115 = 176;
         v20 = "%c[%{public}s %{public}s]:%i Unexpected short Lc & extended Le combination";
         goto LABEL_12;
       }
 
-      v79 = *v26;
-      *(v6 + 3) = v79 << 8;
-      v80 = v26[1] | (v79 << 8);
-      v78 = 0x10000;
-      if (v80)
+      v78 = *v25;
+      *(v6 + 3) = v78 << 8;
+      v79 = v25[1] | (v78 << 8);
+      v77 = 0x10000;
+      if (v79)
       {
-        v78 = v80;
+        v77 = v79;
       }
     }
 
     else
     {
-      if (v44 != 1)
+      if (v43 != 1)
       {
-        v68 = NFLogGetLogger();
-        if (v68)
+        v67 = NFLogGetLogger();
+        if (v67)
         {
-          v69 = v68;
-          v70 = object_getClass(v6);
-          v71 = class_isMetaClass(v70);
-          v72 = object_getClassName(v6);
-          v105 = sel_getName(a2);
-          v73 = 45;
-          if (v71)
+          v68 = v67;
+          v69 = object_getClass(v6);
+          v70 = class_isMetaClass(v69);
+          v71 = object_getClassName(v6);
+          v104 = sel_getName(a2);
+          v72 = 45;
+          if (v70)
           {
-            v73 = 43;
+            v72 = 43;
           }
 
-          v69(3, "%c[%{public}s %{public}s]:%i Unexpected lc & le field combination", v73, v72, v105, 184);
+          v68(3, "%c[%{public}s %{public}s]:%i Unexpected lc & le field combination", v72, v71, v104, 184);
         }
 
         v15 = NFSharedLogGetLogger();
@@ -456,48 +455,48 @@ LABEL_38:
           goto LABEL_13;
         }
 
-        v74 = object_getClass(v6);
-        if (class_isMetaClass(v74))
+        v73 = object_getClass(v6);
+        if (class_isMetaClass(v73))
         {
-          v75 = 43;
+          v74 = 43;
         }
 
         else
         {
-          v75 = 45;
+          v74 = 45;
         }
 
-        v76 = object_getClassName(v6);
-        v77 = sel_getName(a2);
+        v75 = object_getClassName(v6);
+        v76 = sel_getName(a2);
         *buf = 67109890;
-        v110 = v75;
-        v111 = 2082;
-        v112 = v76;
-        v113 = 2082;
-        v114 = v77;
-        v115 = 1024;
-        v116 = 184;
+        v109 = v74;
+        v110 = 2082;
+        v111 = v75;
+        v112 = 2082;
+        v113 = v76;
+        v114 = 1024;
+        v115 = 184;
         v20 = "%c[%{public}s %{public}s]:%i Unexpected lc & le field combination";
         goto LABEL_12;
       }
 
-      if (v30)
+      if (v29)
       {
-        v45 = NFLogGetLogger();
-        if (v45)
+        v44 = NFLogGetLogger();
+        if (v44)
         {
-          v46 = v45;
-          v47 = object_getClass(v6);
-          v48 = class_isMetaClass(v47);
-          v49 = object_getClassName(v6);
-          v103 = sel_getName(a2);
-          v50 = 45;
-          if (v48)
+          v45 = v44;
+          v46 = object_getClass(v6);
+          v47 = class_isMetaClass(v46);
+          v48 = object_getClassName(v6);
+          v102 = sel_getName(a2);
+          v49 = 45;
+          if (v47)
           {
-            v50 = 43;
+            v49 = 43;
           }
 
-          v46(3, "%c[%{public}s %{public}s]:%i Unexpected extended Lc & short Le combination", v50, v49, v103, 170);
+          v45(3, "%c[%{public}s %{public}s]:%i Unexpected extended Lc & short Le combination", v49, v48, v102, 170);
         }
 
         v15 = NFSharedLogGetLogger();
@@ -506,52 +505,52 @@ LABEL_38:
           goto LABEL_13;
         }
 
-        v51 = object_getClass(v6);
-        if (class_isMetaClass(v51))
+        v50 = object_getClass(v6);
+        if (class_isMetaClass(v50))
         {
-          v52 = 43;
+          v51 = 43;
         }
 
         else
         {
-          v52 = 45;
+          v51 = 45;
         }
 
-        v53 = object_getClassName(v6);
-        v54 = sel_getName(a2);
+        v52 = object_getClassName(v6);
+        v53 = sel_getName(a2);
         *buf = 67109890;
-        v110 = v52;
-        v111 = 2082;
-        v112 = v53;
-        v113 = 2082;
-        v114 = v54;
-        v115 = 1024;
-        v116 = 170;
+        v109 = v51;
+        v110 = 2082;
+        v111 = v52;
+        v112 = 2082;
+        v113 = v53;
+        v114 = 1024;
+        v115 = 170;
         v20 = "%c[%{public}s %{public}s]:%i Unexpected extended Lc & short Le combination";
         goto LABEL_12;
       }
 
-      v78 = *v26;
+      v77 = *v25;
     }
 
-    *(v6 + 3) = v78;
-    if (v43 && *(v6 + 1) == 0x7FFFFFFFFFFFFFFFLL)
+    *(v6 + 3) = v77;
+    if (v42 && *(v6 + 1) == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v81 = NFLogGetLogger();
-      if (v81)
+      v80 = NFLogGetLogger();
+      if (v80)
       {
-        v82 = v81;
-        v83 = object_getClass(v6);
-        v84 = class_isMetaClass(v83);
-        v85 = object_getClassName(v6);
-        v106 = sel_getName(a2);
-        v86 = 45;
-        if (v84)
+        v81 = v80;
+        v82 = object_getClass(v6);
+        v83 = class_isMetaClass(v82);
+        v84 = object_getClassName(v6);
+        v105 = sel_getName(a2);
+        v85 = 45;
+        if (v83)
         {
-          v86 = 43;
+          v85 = 43;
         }
 
-        v82(3, "%c[%{public}s %{public}s]:%i Missing data when Lc is > 0", v86, v85, v106, 189);
+        v81(3, "%c[%{public}s %{public}s]:%i Missing data when Lc is > 0", v85, v84, v105, 189);
       }
 
       v15 = NFSharedLogGetLogger();
@@ -560,27 +559,27 @@ LABEL_38:
         goto LABEL_13;
       }
 
-      v87 = object_getClass(v6);
-      if (class_isMetaClass(v87))
+      v86 = object_getClass(v6);
+      if (class_isMetaClass(v86))
       {
-        v88 = 43;
+        v87 = 43;
       }
 
       else
       {
-        v88 = 45;
+        v87 = 45;
       }
 
-      v89 = object_getClassName(v6);
-      v90 = sel_getName(a2);
+      v88 = object_getClassName(v6);
+      v89 = sel_getName(a2);
       *buf = 67109890;
-      v110 = v88;
-      v111 = 2082;
-      v112 = v89;
-      v113 = 2082;
-      v114 = v90;
-      v115 = 1024;
-      v116 = 189;
+      v109 = v87;
+      v110 = 2082;
+      v111 = v88;
+      v112 = 2082;
+      v113 = v89;
+      v114 = 1024;
+      v115 = 189;
       v20 = "%c[%{public}s %{public}s]:%i Missing data when Lc is > 0";
       goto LABEL_12;
     }
@@ -602,14 +601,14 @@ LABEL_17:
     v11 = object_getClass(v6);
     v12 = class_isMetaClass(v11);
     v13 = object_getClassName(v6);
-    v101 = sel_getName(a2);
+    v100 = sel_getName(a2);
     v14 = 45;
     if (v12)
     {
       v14 = 43;
     }
 
-    v10(3, "%c[%{public}s %{public}s]:%i Invalid APDU format", v14, v13, v101, 106);
+    v10(3, "%c[%{public}s %{public}s]:%i Invalid APDU format", v14, v13, v100, 106);
   }
 
   v15 = NFSharedLogGetLogger();
@@ -632,13 +631,13 @@ LABEL_17:
   v18 = object_getClassName(v6);
   v19 = sel_getName(a2);
   *buf = 67109890;
-  v110 = v17;
-  v111 = 2082;
-  v112 = v18;
-  v113 = 2082;
-  v114 = v19;
-  v115 = 1024;
-  v116 = 106;
+  v109 = v17;
+  v110 = 2082;
+  v111 = v18;
+  v112 = 2082;
+  v113 = v19;
+  v114 = 1024;
+  v115 = 106;
   v20 = "%c[%{public}s %{public}s]:%i Invalid APDU format";
 LABEL_12:
   _os_log_impl(&dword_23728C000, v15, OS_LOG_TYPE_ERROR, v20, buf, 0x22u);
@@ -648,7 +647,6 @@ LABEL_14:
   v21 = 0;
 LABEL_18:
 
-  v24 = *MEMORY[0x277D85DE8];
   return v21;
 }
 

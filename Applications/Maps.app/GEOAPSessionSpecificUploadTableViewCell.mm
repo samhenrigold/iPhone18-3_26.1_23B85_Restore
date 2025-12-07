@@ -17,7 +17,7 @@
   if (v8)
   {
     v9 = type metadata accessor for GEOAPSessionSpecificUploadTableViewCellConfiguration();
-    v11 = sub_100529C18(&qword_101925F18, v10, type metadata accessor for GEOAPSessionSpecificUploadTableViewCellConfiguration);
+    v11 = sub_100529C18(&qword_101925F18, v10, type metadata accessor for GEOAPSessionSpecificUploadTableViewCellConfiguration, &unk_10120EE10);
   }
 
   else

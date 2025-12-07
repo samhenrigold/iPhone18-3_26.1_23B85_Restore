@@ -110,11 +110,10 @@
 {
   if (*&self->sticker[OBJC_IVAR___BlastDoorSticker_sticker + 184])
   {
-    v2 = *&self->sticker[OBJC_IVAR___BlastDoorSticker_sticker + 184];
 
-    v3 = sub_2146D98E8();
+    v2 = sub_2146D98E8();
 
-    return v3;
+    return v2;
   }
 
   else

@@ -38,27 +38,27 @@
 
 - (BOOL)exists
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   path = [(NSURL *)self->mFileURL path];
   v5 = [defaultManager fileExistsAtPath:path isDirectory:0];
 
-  v6 = _CRKLogGeneral_21();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _CRKLogGeneral_21(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     lastPathComponent = [(NSURL *)self->mFileURL lastPathComponent];
-    v8 = lastPathComponent;
-    v9 = @"does not exist";
+    v9 = lastPathComponent;
+    v10 = @"does not exist";
     if (v5)
     {
-      v9 = @"exists";
+      v10 = @"exists";
     }
 
-    v11 = 138543618;
-    v12 = lastPathComponent;
-    v13 = 2114;
-    v14 = v9;
-    _os_log_impl(&dword_243550000, v6, OS_LOG_TYPE_DEFAULT, "Marker '%{public}@' %{public}@", &v11, 0x16u);
+    v12 = 138543618;
+    v13 = lastPathComponent;
+    v14 = 2114;
+    v15 = v10;
+    _os_log_impl(&dword_243550000, v7, OS_LOG_TYPE_DEFAULT, "Marker '%{public}@' %{public}@", &v12, 0x16u);
   }
 
   return v5;
@@ -66,7 +66,7 @@
 
 - (BOOL)createWithError:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   if ([(CRKFileBackedMarker *)self exists])
   {
     return 1;
@@ -76,28 +76,28 @@
   mFileURL = self->mFileURL;
   p_mFileURL = &self->mFileURL;
   uRLByDeletingLastPathComponent = [(NSURL *)mFileURL URLByDeletingLastPathComponent];
-  v24 = 0;
-  v10 = [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v24];
-  v11 = v24;
+  v26 = 0;
+  v10 = [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v26];
+  v11 = v26;
 
   if (v10)
   {
-    v12 = objc_opt_new();
-    v13 = *p_mFileURL;
-    v23 = v11;
-    v14 = [v12 writeToURL:v13 options:1 error:&v23];
-    v15 = v23;
+    v13 = objc_opt_new();
+    v14 = *p_mFileURL;
+    v25 = v11;
+    v15 = [v13 writeToURL:v14 options:1 error:&v25];
+    v16 = v25;
 
-    v16 = _CRKLogGeneral_21();
-    v17 = v16;
-    if (v14)
+    v18 = _CRKLogGeneral_21(v17);
+    v19 = v18;
+    if (v15)
     {
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         lastPathComponent = [*p_mFileURL lastPathComponent];
         *buf = 138543362;
-        v26 = lastPathComponent;
-        _os_log_impl(&dword_243550000, v17, OS_LOG_TYPE_DEFAULT, "Created marker '%{public}@'", buf, 0xCu);
+        v28 = lastPathComponent;
+        _os_log_impl(&dword_243550000, v19, OS_LOG_TYPE_DEFAULT, "Created marker '%{public}@'", buf, 0xCu);
       }
 
       v5 = 1;
@@ -105,16 +105,16 @@
 
     else
     {
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [CRKFileBackedMarker createWithError:?];
       }
 
       if (error)
       {
-        v21 = v15;
+        v23 = v16;
         v5 = 0;
-        *error = v15;
+        *error = v16;
       }
 
       else
@@ -126,15 +126,15 @@
 
   else
   {
-    v19 = _CRKLogGeneral_21();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = _CRKLogGeneral_21(v12);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [CRKFileBackedMarker createWithError:?];
     }
 
     if (error)
     {
-      v20 = v11;
+      v22 = v11;
       v5 = 0;
       *error = v11;
     }
@@ -144,7 +144,7 @@
       v5 = 0;
     }
 
-    v15 = v11;
+    v16 = v11;
   }
 
   return v5;
@@ -152,37 +152,37 @@
 
 - (BOOL)deleteWithError:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   mFileURL = self->mFileURL;
   p_mFileURL = &self->mFileURL;
-  v15 = 0;
-  v8 = [defaultManager crk_safeRemoveItemAtURL:mFileURL error:&v15];
-  v9 = v15;
+  v16 = 0;
+  v8 = [defaultManager crk_safeRemoveItemAtURL:mFileURL error:&v16];
+  v9 = v16;
 
-  v10 = _CRKLogGeneral_21();
-  v11 = v10;
+  v11 = _CRKLogGeneral_21(v10);
+  v12 = v11;
   if (v8)
   {
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       lastPathComponent = [(NSURL *)*p_mFileURL lastPathComponent];
       *buf = 138543362;
-      v17 = lastPathComponent;
-      _os_log_impl(&dword_243550000, v11, OS_LOG_TYPE_DEFAULT, "Deleted marker '%{public}@'", buf, 0xCu);
+      v18 = lastPathComponent;
+      _os_log_impl(&dword_243550000, v12, OS_LOG_TYPE_DEFAULT, "Deleted marker '%{public}@'", buf, 0xCu);
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [CRKFileBackedMarker deleteWithError:?];
     }
 
     if (error)
     {
-      v13 = v9;
+      v14 = v9;
       *error = v9;
     }
   }
@@ -200,21 +200,21 @@
 {
   v1 = [*a1 lastPathComponent];
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_1_2(&dword_243550000, v2, v3, "Failed to create directory for '%{public}@' with error: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_2(&dword_243550000, v2, v3, "Failed to create directory for '%{public}@' with error: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)createWithError:(id *)a1 .cold.2(id *a1)
 {
   v1 = [*a1 lastPathComponent];
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_1_2(&dword_243550000, v2, v3, "Failed to create '%{public}@' with error: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_2(&dword_243550000, v2, v3, "Failed to create '%{public}@' with error: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)deleteWithError:(id *)a1 .cold.1(id *a1)
 {
   v1 = [*a1 lastPathComponent];
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_1_2(&dword_243550000, v2, v3, "Failed to delete '%{public}@' with error: %{public}@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_2(&dword_243550000, v2, v3, "Failed to delete '%{public}@' with error: %{public}@", v4, v5, v6, v7);
 }
 
 @end

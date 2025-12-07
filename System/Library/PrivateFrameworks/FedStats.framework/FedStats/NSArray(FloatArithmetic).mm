@@ -106,33 +106,33 @@ LABEL_7:
 
 - (id)arrayByScalingWith:()FloatArithmetic
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(self, "count")}];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   selfCopy = self;
-  v6 = [selfCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [selfCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v17 = [MEMORY[0x277CBEAD8] exceptionWithName:@"NSArrayElementwiseAdd" reason:@"ItemNotNSNumber" userInfo:{0, v18}];
-          objc_exception_throw(v17);
+          v16 = [MEMORY[0x277CBEAD8] exceptionWithName:@"NSArrayElementwiseAdd" reason:@"ItemNotNSNumber" userInfo:{0, v17}];
+          objc_exception_throw(v16);
         }
 
         v11 = MEMORY[0x277CCABB0];
@@ -142,13 +142,11 @@ LABEL_7:
         [v4 addObject:v14];
       }
 
-      v7 = [selfCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [selfCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

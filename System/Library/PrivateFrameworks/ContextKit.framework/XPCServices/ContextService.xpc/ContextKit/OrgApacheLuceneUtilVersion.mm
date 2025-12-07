@@ -20,19 +20,13 @@
 - (id)description
 {
   major = self->major_;
-  minor = self->minor_;
   if (self->prerelease_)
   {
-    prerelease = self->prerelease_;
-    bugfix = self->bugfix_;
-    v11 = self->minor_;
     return JreStrcat("ICICICI", a2, v2, v3, v4, v5, v6, v7, major);
   }
 
   else
   {
-    v14 = self->bugfix_;
-    v12 = self->minor_;
     return JreStrcat("ICICI", a2, v2, v3, v4, v5, v6, v7, major);
   }
 }

@@ -68,31 +68,31 @@
 
 - (id)retrieve:(id)retrieve
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
   Current = CFAbsoluteTimeGetCurrent();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   readStore = [(FSFBiomeFeatureStoreStream *)self readStore];
   v7 = [readStore fetchEventsFrom:0.0 to:Current + 2.5];
 
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        eventBody = [*(*(&v18 + 1) + 8 * i) eventBody];
+        eventBody = [*(*(&v17 + 1) + 8 * i) eventBody];
         v13 = eventBody;
         if (eventBody)
         {
@@ -105,20 +105,18 @@
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (id)retrieveEvents:(id)events startDate:(id)date endDate:(id)endDate
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   endDateCopy = endDate;
   v9 = objc_alloc_init(MEMORY[0x277CBEAB8]);
@@ -148,31 +146,31 @@
   v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (v13 <= v16)
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     readStore = [(FSFBiomeFeatureStoreStream *)self readStore];
     v19 = [readStore fetchEventsFrom:v13 to:v16];
 
-    v20 = [v19 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v27;
+      v22 = *v26;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v27 != v22)
+          if (*v26 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          [v17 addObject:*(*(&v26 + 1) + 8 * i)];
+          [v17 addObject:*(*(&v25 + 1) + 8 * i)];
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v21);
@@ -183,8 +181,6 @@
   {
     NSLog(&cfstr_StarttimeIsNew.isa, *&v13, *&v16);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

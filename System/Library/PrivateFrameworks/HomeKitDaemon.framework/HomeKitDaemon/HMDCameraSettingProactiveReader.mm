@@ -44,20 +44,20 @@
 
 - (id)_inUseStreamControlMessageHandlersForReadResponses:(id)responses
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   responsesCopy = responses;
   workQueue = [(HMDCameraSettingProactiveReader *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
   streamControlMessageHandlers = [(HMDCameraSettingProactiveReader *)self streamControlMessageHandlers];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __86__HMDCameraSettingProactiveReader__inUseStreamControlMessageHandlersForReadResponses___block_invoke;
-  v15[3] = &unk_27867A478;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __86__HMDCameraSettingProactiveReader__inUseStreamControlMessageHandlersForReadResponses___block_invoke;
+  v14[3] = &unk_27867A478;
   v7 = responsesCopy;
-  v16 = v7;
+  v15 = v7;
   selfCopy = self;
-  v8 = [streamControlMessageHandlers na_filter:v15];
+  v8 = [streamControlMessageHandlers na_filter:v14];
 
   v9 = objc_autoreleasePoolPush();
   selfCopy2 = self;
@@ -66,14 +66,13 @@
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v19 = v12;
-    v20 = 2112;
-    v21 = v8;
+    v18 = v12;
+    v19 = 2112;
+    v20 = v8;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Found inUseStreamControlMessageHandlers: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
-  v13 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -82,31 +81,30 @@ BOOL __86__HMDCameraSettingProactiveReader__inUseStreamControlMessageHandlersFor
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __86__HMDCameraSettingProactiveReader__inUseStreamControlMessageHandlersForReadResponses___block_invoke_2;
-  v11[3] = &unk_27867A450;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __86__HMDCameraSettingProactiveReader__inUseStreamControlMessageHandlersForReadResponses___block_invoke_2;
+  v10[3] = &unk_27867A450;
   v5 = v3;
-  v12 = v5;
-  v6 = [v4 na_firstObjectPassingTest:v11];
-  v7 = *(a1 + 40);
-  v8 = [objc_opt_class() _streamingStatusForResponse:v6];
+  v11 = v5;
+  v6 = [v4 na_firstObjectPassingTest:v10];
+  v7 = [objc_opt_class() _streamingStatusForResponse:v6];
   if ([v5 hasStreamSession])
   {
-    v9 = 1;
+    v8 = 1;
   }
 
-  else if (v8)
+  else if (v7)
   {
-    v9 = [v8 streamingStatus] == 1;
+    v8 = [v7 streamingStatus] == 1;
   }
 
   else
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  return v9;
+  return v8;
 }
 
 BOOL __86__HMDCameraSettingProactiveReader__inUseStreamControlMessageHandlersForReadResponses___block_invoke_2(uint64_t a1, void *a2)
@@ -122,20 +120,20 @@ BOOL __86__HMDCameraSettingProactiveReader__inUseStreamControlMessageHandlersFor
 
 - (id)_availableStreamControlMessageHandlersForReadResponses:(id)responses
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   responsesCopy = responses;
   workQueue = [(HMDCameraSettingProactiveReader *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
   streamControlMessageHandlers = [(HMDCameraSettingProactiveReader *)self streamControlMessageHandlers];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __90__HMDCameraSettingProactiveReader__availableStreamControlMessageHandlersForReadResponses___block_invoke;
-  v15[3] = &unk_27867A478;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __90__HMDCameraSettingProactiveReader__availableStreamControlMessageHandlersForReadResponses___block_invoke;
+  v14[3] = &unk_27867A478;
   v7 = responsesCopy;
-  v16 = v7;
+  v15 = v7;
   selfCopy = self;
-  v8 = [streamControlMessageHandlers na_filter:v15];
+  v8 = [streamControlMessageHandlers na_filter:v14];
 
   v9 = objc_autoreleasePoolPush();
   selfCopy2 = self;
@@ -144,14 +142,13 @@ BOOL __86__HMDCameraSettingProactiveReader__inUseStreamControlMessageHandlersFor
   {
     v12 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v19 = v12;
-    v20 = 2112;
-    v21 = v8;
+    v18 = v12;
+    v19 = 2112;
+    v20 = v8;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Found availableStreamControlMessageHandlers: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
-  v13 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -160,31 +157,30 @@ BOOL __90__HMDCameraSettingProactiveReader__availableStreamControlMessageHandler
 {
   v3 = a2;
   v4 = *(a1 + 32);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __90__HMDCameraSettingProactiveReader__availableStreamControlMessageHandlersForReadResponses___block_invoke_2;
-  v11[3] = &unk_27867A450;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __90__HMDCameraSettingProactiveReader__availableStreamControlMessageHandlersForReadResponses___block_invoke_2;
+  v10[3] = &unk_27867A450;
   v5 = v3;
-  v12 = v5;
-  v6 = [v4 na_firstObjectPassingTest:v11];
-  v7 = *(a1 + 40);
-  v8 = [objc_opt_class() _streamingStatusForResponse:v6];
+  v11 = v5;
+  v6 = [v4 na_firstObjectPassingTest:v10];
+  v7 = [objc_opt_class() _streamingStatusForResponse:v6];
   if ([v5 hasStreamSession])
   {
-    v9 = 0;
+    v8 = 0;
   }
 
-  else if (v8)
+  else if (v7)
   {
-    v9 = [v8 streamingStatus] == 0;
+    v8 = [v7 streamingStatus] == 0;
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
-  return v9;
+  return v8;
 }
 
 BOOL __90__HMDCameraSettingProactiveReader__availableStreamControlMessageHandlersForReadResponses___block_invoke_2(uint64_t a1, void *a2)
@@ -200,7 +196,7 @@ BOOL __90__HMDCameraSettingProactiveReader__availableStreamControlMessageHandler
 
 - (void)_handleStreamStatusMultireadResponse:(id)response
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   workQueue = [(HMDCameraSettingProactiveReader *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -232,19 +228,19 @@ BOOL __90__HMDCameraSettingProactiveReader__availableStreamControlMessageHandler
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
       HMFGetLogIdentifier();
-      v17 = v43 = v13;
+      v17 = v42 = v13;
       [(HMDCameraSettingProactiveReader *)selfCopy streamPreferences];
-      v18 = v42 = v14;
+      v18 = v41 = v14;
       *buf = 138543874;
-      v45 = v17;
-      v46 = 2048;
-      v47 = v43;
-      v48 = 2048;
+      v44 = v17;
+      v45 = 2048;
+      v46 = v42;
+      v47 = 2048;
       minimumRequiredAvailableOrInUseStreams2 = [v18 minimumRequiredAvailableOrInUseStreams];
       _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Comparing availableOrInUseStreamsCount: %ld, against minimumRequiredAvailableOrInUseStreams: %ld", buf, 0x20u);
 
-      v14 = v42;
-      v13 = v43;
+      v14 = v41;
+      v13 = v42;
     }
 
     objc_autoreleasePoolPop(v14);
@@ -260,7 +256,7 @@ BOOL __90__HMDCameraSettingProactiveReader__availableStreamControlMessageHandler
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v45 = v23;
+        v44 = v23;
         _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@availableOrInUseStreamsCount is less than minimumRequiredAvailableOrInUseStreams, so not starting stream", buf, 0xCu);
       }
 
@@ -286,7 +282,7 @@ LABEL_10:
         {
           v38 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v45 = v38;
+          v44 = v38;
           _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_ERROR, "%{public}@No camera streaming service is available", buf, 0xCu);
         }
 
@@ -325,21 +321,19 @@ LABEL_19:
     v33 = HMFGetLogIdentifier();
     sessionID = [(HMDCameraSettingProactiveReader *)selfCopy3 sessionID];
     *buf = 138543618;
-    v45 = v33;
-    v46 = 2112;
-    v47 = sessionID;
+    v44 = v33;
+    v45 = 2112;
+    v46 = sessionID;
     _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_INFO, "%{public}@Pending negotiate message for session with identifier: %@ has already been handled", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v30);
 LABEL_20:
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readSetting
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraSettingProactiveReader *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -350,46 +344,46 @@ LABEL_20:
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v42 = v6;
+    v41 = v6;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Starting proactive read of stream status", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   v7 = MEMORY[0x277CBEB18];
   streamControlMessageHandlers = [(HMDCameraSettingProactiveReader *)selfCopy streamControlMessageHandlers];
-  v35 = [v7 arrayWithCapacity:{objc_msgSend(streamControlMessageHandlers, "count")}];
+  v34 = [v7 arrayWithCapacity:{objc_msgSend(streamControlMessageHandlers, "count")}];
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   streamControlMessageHandlers2 = [(HMDCameraSettingProactiveReader *)selfCopy streamControlMessageHandlers];
-  v10 = [streamControlMessageHandlers2 countByEnumeratingWithState:&v37 objects:v45 count:16];
+  v10 = [streamControlMessageHandlers2 countByEnumeratingWithState:&v36 objects:v44 count:16];
   if (v10)
   {
     v12 = v10;
-    v13 = *v38;
+    v13 = *v37;
     v14 = *MEMORY[0x277CFE6F0];
     *&v11 = 138543618;
-    v32 = v11;
-    v33 = *v38;
+    v31 = v11;
+    v32 = *v37;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v38 != v13)
+        if (*v37 != v13)
         {
           objc_enumerationMutation(streamControlMessageHandlers2);
         }
 
-        v16 = *(*(&v37 + 1) + 8 * i);
+        v16 = *(*(&v36 + 1) + 8 * i);
         streamManagementService = [v16 streamManagementService];
         v18 = [streamManagementService findCharacteristicWithType:v14];
 
         if (v18)
         {
           v19 = [HMDCharacteristicRequest requestWithCharacteristic:v18];
-          [v35 addObject:v19];
+          [v34 addObject:v19];
         }
 
         else
@@ -403,14 +397,14 @@ LABEL_20:
             HMFGetLogIdentifier();
             v25 = v24 = streamControlMessageHandlers2;
             streamManagementService2 = [v16 streamManagementService];
-            *buf = v32;
-            v42 = v25;
-            v43 = 2112;
-            v44 = streamManagementService2;
+            *buf = v31;
+            v41 = v25;
+            v42 = 2112;
+            v43 = streamManagementService2;
             _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Cannot find the stream status characteristic in the given service %@", buf, 0x16u);
 
             streamControlMessageHandlers2 = v24;
-            v13 = v33;
+            v13 = v32;
           }
 
           objc_autoreleasePoolPop(v21);
@@ -418,7 +412,7 @@ LABEL_20:
         }
       }
 
-      v12 = [streamControlMessageHandlers2 countByEnumeratingWithState:&v37 objects:v45 count:16];
+      v12 = [streamControlMessageHandlers2 countByEnumeratingWithState:&v36 objects:v44 count:16];
     }
 
     while (v12);
@@ -439,19 +433,17 @@ LABEL_20:
   v29 = v28;
 
   workQueue2 = [(HMDCameraSettingProactiveReader *)selfCopy workQueue];
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __46__HMDCameraSettingProactiveReader_readSetting__block_invoke;
-  v36[3] = &unk_278682F48;
-  v36[4] = selfCopy;
-  [v29 readCharacteristicValues:v35 source:1070 queue:workQueue2 completionHandler:v36];
-
-  v31 = *MEMORY[0x277D85DE8];
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __46__HMDCameraSettingProactiveReader_readSetting__block_invoke;
+  v35[3] = &unk_278682F48;
+  v35[4] = selfCopy;
+  [v29 readCharacteristicValues:v34 source:1070 queue:workQueue2 completionHandler:v35];
 }
 
 void __46__HMDCameraSettingProactiveReader_readSetting__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -459,20 +451,18 @@ void __46__HMDCameraSettingProactiveReader_readSetting__block_invoke(uint64_t a1
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Received response for proactive read of stream status", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Received response for proactive read of stream status", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
   [*(a1 + 32) _handleStreamStatusMultireadResponse:v3];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleMessage:(id)message
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   workQueue = [(HMDCameraSettingProactiveReader *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -491,11 +481,11 @@ void __46__HMDCameraSettingProactiveReader_readSetting__block_invoke(uint64_t a1
   {
     v10 = HMFGetLogIdentifier();
     shortDescription = [messageCopy shortDescription];
-    v28 = 138543618;
-    v29 = v10;
-    v30 = 2112;
-    v31 = shortDescription;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Handling message: %@", &v28, 0x16u);
+    v27 = 138543618;
+    v28 = v10;
+    v29 = 2112;
+    v30 = shortDescription;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Handling message: %@", &v27, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
@@ -511,11 +501,11 @@ LABEL_7:
     {
       v18 = HMFGetLogIdentifier();
       sessionID = [(HMDCameraSettingProactiveReader *)v16 sessionID];
-      v28 = 138543618;
-      v29 = v18;
-      v30 = 2112;
-      v31 = sessionID;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Responding to pending negotiate message for session with identifier: %@", &v28, 0x16u);
+      v27 = 138543618;
+      v28 = v18;
+      v29 = 2112;
+      v30 = sessionID;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Responding to pending negotiate message for session with identifier: %@", &v27, 0x16u);
     }
 
     objc_autoreleasePoolPop(v15);
@@ -543,9 +533,9 @@ LABEL_7:
   if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
     v25 = HMFGetLogIdentifier();
-    v28 = 138543362;
-    v29 = v25;
-    _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Responding to message with error because it cannot be handled", &v28, 0xCu);
+    v27 = 138543362;
+    v28 = v25;
+    _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Responding to message with error because it cannot be handled", &v27, 0xCu);
   }
 
   objc_autoreleasePoolPop(v22);
@@ -553,7 +543,6 @@ LABEL_7:
   [messageCopy respondWithError:v26];
 
 LABEL_13:
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasPendingNegotiateMessageForSessionWithIdentifier:(id)identifier
@@ -693,15 +682,14 @@ LABEL_17:
 
 void __46__HMDCameraSettingProactiveReader_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v17_135627;
-  logCategory__hmf_once_v17_135627 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v17_135627;
+  logCategory__hmf_once_v17_135627 = v0;
 }
 
 + (id)_streamingStatusForResponse:(id)response
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   value = [responseCopy value];
   objc_opt_class();
@@ -733,11 +721,11 @@ void __46__HMDCameraSettingProactiveReader_logCategory__block_invoke()
       selfCopy2 = self;
       v17 = v16 = v9;
       *buf = 138543874;
-      v28 = v12;
-      v29 = 2114;
-      v30 = v13;
-      v31 = 2112;
-      v32 = v17;
+      v27 = v12;
+      v28 = 2114;
+      v29 = v13;
+      v30 = 2112;
+      v31 = v17;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Found streaming status: %{public}@ for streaming service: %@", buf, 0x20u);
 
       v9 = v16;
@@ -758,11 +746,11 @@ void __46__HMDCameraSettingProactiveReader_logCategory__block_invoke()
       characteristic2 = [request2 characteristic];
       service = [characteristic2 service];
       *buf = 138543874;
-      v28 = v19;
-      v29 = 2112;
-      v30 = value2;
-      v31 = 2112;
-      v32 = service;
+      v27 = v19;
+      v28 = 2112;
+      v29 = value2;
+      v30 = 2112;
+      v31 = service;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Received invalid value type: %@ for streaming service: %@ HAPCharacteristicUUID_StreamingStatus characteristic", buf, 0x20u);
     }
 
@@ -770,7 +758,6 @@ void __46__HMDCameraSettingProactiveReader_logCategory__block_invoke()
   }
 
   objc_autoreleasePoolPop(v9);
-  v24 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

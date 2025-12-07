@@ -149,39 +149,8 @@
   postProcessingPhaseProportion = compressedAppAssetSizeInBytes;
   v9 = compressedAppAssetSizeInBytes2;
   postProcessingPhaseProportion2 = v9;
-  if ((postProcessingPhaseProportion != 0) != (v9 != 0) || postProcessingPhaseProportion && v9 && ![postProcessingPhaseProportion isEqual:v9])
+  if ((postProcessingPhaseProportion != 0) != (v9 != 0) || postProcessingPhaseProportion && v9 && ![postProcessingPhaseProportion isEqual:v9] || (postProcessingPhaseProportion2, postProcessingPhaseProportion, postProcessingPhaseProportion2, postProcessingPhaseProportion, -[IXProgressHint uncompressedAppAssetSizeInBytes](self, "uncompressedAppAssetSizeInBytes"), v11 = objc_claimAutoreleasedReturnValue(), -[IXProgressHint uncompressedAppAssetSizeInBytes](v5, "uncompressedAppAssetSizeInBytes"), v12 = objc_claimAutoreleasedReturnValue(), postProcessingPhaseProportion = v11, v13 = v12, postProcessingPhaseProportion2 = v13, (postProcessingPhaseProportion != 0) ^ (v13 != 0)) || postProcessingPhaseProportion && v13 && !objc_msgSend(postProcessingPhaseProportion, "isEqual:", v13) || (postProcessingPhaseProportion2, postProcessingPhaseProportion, postProcessingPhaseProportion2, postProcessingPhaseProportion, -[IXProgressHint filesInAppAssetCount](self, "filesInAppAssetCount"), v14 = objc_claimAutoreleasedReturnValue(), -[IXProgressHint filesInAppAssetCount](v5, "filesInAppAssetCount"), v15 = objc_claimAutoreleasedReturnValue(), postProcessingPhaseProportion = v14, v16 = v15, postProcessingPhaseProportion2 = v16, (postProcessingPhaseProportion != 0) ^ (v16 != 0)) || postProcessingPhaseProportion && v16 && !objc_msgSend(postProcessingPhaseProportion, "isEqual:", v16) || (postProcessingPhaseProportion2, postProcessingPhaseProportion, postProcessingPhaseProportion2, postProcessingPhaseProportion, -[IXProgressHint totalODRAssetSizeInBytes](self, "totalODRAssetSizeInBytes"), v17 = objc_claimAutoreleasedReturnValue(), -[IXProgressHint totalODRAssetSizeInBytes](v5, "totalODRAssetSizeInBytes"), v18 = objc_claimAutoreleasedReturnValue(), postProcessingPhaseProportion = v17, v19 = v18, postProcessingPhaseProportion2 = v19, (postProcessingPhaseProportion != 0) ^ (v19 != 0)) || postProcessingPhaseProportion && v19 && !objc_msgSend(postProcessingPhaseProportion, "isEqual:", v19))
   {
-    goto LABEL_16;
-  }
-
-  uncompressedAppAssetSizeInBytes = [(IXProgressHint *)self uncompressedAppAssetSizeInBytes];
-  uncompressedAppAssetSizeInBytes2 = [(IXProgressHint *)v5 uncompressedAppAssetSizeInBytes];
-  postProcessingPhaseProportion = uncompressedAppAssetSizeInBytes;
-  v13 = uncompressedAppAssetSizeInBytes2;
-  postProcessingPhaseProportion2 = v13;
-  if ((postProcessingPhaseProportion != 0) != (v13 != 0) || postProcessingPhaseProportion && v13 && ![postProcessingPhaseProportion isEqual:v13])
-  {
-    goto LABEL_16;
-  }
-
-  filesInAppAssetCount = [(IXProgressHint *)self filesInAppAssetCount];
-  filesInAppAssetCount2 = [(IXProgressHint *)v5 filesInAppAssetCount];
-  postProcessingPhaseProportion = filesInAppAssetCount;
-  v16 = filesInAppAssetCount2;
-  postProcessingPhaseProportion2 = v16;
-  if ((postProcessingPhaseProportion != 0) != (v16 != 0) || postProcessingPhaseProportion && v16 && ![postProcessingPhaseProportion isEqual:v16])
-  {
-    goto LABEL_16;
-  }
-
-  totalODRAssetSizeInBytes = [(IXProgressHint *)self totalODRAssetSizeInBytes];
-  totalODRAssetSizeInBytes2 = [(IXProgressHint *)v5 totalODRAssetSizeInBytes];
-  postProcessingPhaseProportion = totalODRAssetSizeInBytes;
-  v19 = totalODRAssetSizeInBytes2;
-  postProcessingPhaseProportion2 = v19;
-  if ((postProcessingPhaseProportion != 0) != (v19 != 0) || postProcessingPhaseProportion && v19 && ![postProcessingPhaseProportion isEqual:v19])
-  {
-LABEL_16:
 
     v20 = 0;
   }
@@ -193,27 +162,8 @@ LABEL_16:
     totalExpectedEssentialAssetSizeInBytes2 = [(IXProgressHint *)v5 totalExpectedEssentialAssetSizeInBytes];
     v24 = sub_100007900(totalExpectedEssentialAssetSizeInBytes, totalExpectedEssentialAssetSizeInBytes2);
 
-    if (!v24)
+    if (!v24 || ([(IXProgressHint *)self totalExpectedDataImportSizeInBytes], v25 = objc_claimAutoreleasedReturnValue(), [(IXProgressHint *)v5 totalExpectedDataImportSizeInBytes], v26 = objc_claimAutoreleasedReturnValue(), v27 = sub_100007900(v25, v26), v26, v25, !v27) || ([(IXProgressHint *)self loadingPhaseProportion], v28 = objc_claimAutoreleasedReturnValue(), [(IXProgressHint *)v5 loadingPhaseProportion], v29 = objc_claimAutoreleasedReturnValue(), v30 = sub_100007900(v28, v29), v29, v28, !v30) || ([(IXProgressHint *)self installingPhaseProportion], v31 = objc_claimAutoreleasedReturnValue(), [(IXProgressHint *)v5 installingPhaseProportion], v32 = objc_claimAutoreleasedReturnValue(), v33 = sub_100007900(v31, v32), v32, v31, !v33))
     {
-      goto LABEL_30;
-    }
-
-    totalExpectedDataImportSizeInBytes = [(IXProgressHint *)self totalExpectedDataImportSizeInBytes];
-    totalExpectedDataImportSizeInBytes2 = [(IXProgressHint *)v5 totalExpectedDataImportSizeInBytes];
-    v27 = sub_100007900(totalExpectedDataImportSizeInBytes, totalExpectedDataImportSizeInBytes2);
-
-    if (!v27)
-    {
-      goto LABEL_30;
-    }
-
-    loadingPhaseProportion = [(IXProgressHint *)self loadingPhaseProportion];
-    loadingPhaseProportion2 = [(IXProgressHint *)v5 loadingPhaseProportion];
-    v30 = sub_100007900(loadingPhaseProportion, loadingPhaseProportion2);
-
-    if (!v30 || ([(IXProgressHint *)self installingPhaseProportion], v31 = objc_claimAutoreleasedReturnValue(), [(IXProgressHint *)v5 installingPhaseProportion], v32 = objc_claimAutoreleasedReturnValue(), v33 = sub_100007900(v31, v32), v32, v31, !v33))
-    {
-LABEL_30:
       v20 = 0;
       goto LABEL_18;
     }

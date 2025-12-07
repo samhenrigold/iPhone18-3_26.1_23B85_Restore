@@ -7,8 +7,12 @@
 {
   OUTLINED_FUNCTION_5_1();
   v0 = BSInterfaceOrientationDescription();
-  v7 = BSInterfaceOrientationDescription();
-  OUTLINED_FUNCTION_8(&dword_21ED4E000, v1, v2, "Participant's previous orientation:(%@) does not match our previous view controller orientation:(%@) ", v3, v4, v5, v6, 2u);
+  v1 = BSInterfaceOrientationDescription();
+  *v8 = 138412546;
+  *&v8[4] = v0;
+  *&v8[12] = 2112;
+  *&v8[14] = v1;
+  OUTLINED_FUNCTION_8(&dword_21ED4E000, v2, v3, "Participant's previous orientation:(%@) does not match our previous view controller orientation:(%@) ", v4, v5, v6, v7, *v8, *&v8[8], *&v8[16]);
 }
 
 - (void)hostOrientationDidChangeTo:()Private withPreviousOrientation:context:.cold.3()

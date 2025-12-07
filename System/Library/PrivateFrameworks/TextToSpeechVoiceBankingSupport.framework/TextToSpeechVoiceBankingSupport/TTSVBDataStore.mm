@@ -28,7 +28,7 @@
 {
   changedCopy = changed;
   selfCopy = self;
-  sub_2331E55C8();
+  sub_2331E55C8(changedCopy);
 }
 
 - (void)handleWillResetCloudSync:(id)sync

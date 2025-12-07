@@ -314,8 +314,8 @@
     objc_storeStrong(&self->_hostAuditToken, token);
     if (tokenCopy)
     {
-      [(BSAuditToken *)tokenCopy realToken:0];
-      v6 = _ShareSheetBundleIDFromAuditToken();
+      objc_msgSend_realToken(tokenCopy, 0, 0, 0, 0);
+      v6 = _ShareSheetBundleIDFromAuditToken(&v8);
       bundleIdentifier = self->_bundleIdentifier;
       self->_bundleIdentifier = v6;
     }

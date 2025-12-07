@@ -588,7 +588,7 @@ LABEL_35:
   else
   {
     v159 = 0;
-    v160 = (v268 + 8);
+    v160 = v268 + 8;
     v161 = 0.0;
     v162 = 0.0;
     v163 = 0.0;
@@ -646,7 +646,7 @@ LABEL_35:
 
       v165 = v165 + *(v160 + 2);
       ++v159;
-      v160 += 6;
+      v160 += 48;
       v164 = v167;
     }
 
@@ -686,7 +686,7 @@ LABEL_35:
     do
     {
       v176 = *v175;
-      v177 = v175[1];
+      v177 = *(v175 + 1);
       v178 = v176 - v242;
       v179 = v177 - v240;
       v180 = (v179 * v179) + (v178 * v178);
@@ -701,7 +701,7 @@ LABEL_35:
       *(v175 + 6) = bilinearLookup(a1, v182, v177);
       *(v175 + 9) = bilinearLookup(a1, v176 + (v172 * v178), v177 + (v172 * v179));
       *(v175 + 8) = bilinearLookup(a1, v176 + (v174 * v178), v177 + (v174 * v179));
-      v175 += 6;
+      v175 += 48;
       --v157;
     }
 
@@ -856,7 +856,7 @@ LABEL_166:
   return v106;
 }
 
-uint64_t computeOutlineByTracingSnake(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+unint64_t computeOutlineByTracingSnake(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v6 = MEMORY[0x1EEE9AC00](a1, a2, a3, a4, a5, a6);
   v180 = v7;
@@ -2506,8 +2506,8 @@ uint64_t redEyeDiscernment(uint64_t *a1, uint64_t a2, int *a3, uint64_t a4, floa
     v56 = HIDWORD(v143);
     v55 = v144;
     v57 = v143;
-    comparePlacedBitmasks(v154, v155, &v142, &v141, &v140);
-    comparePlacedBitmasks(v155, v146, &v139, &v138, &v137);
+    comparePlacedBitmasks(v154, v155, v142, v141, &v140);
+    comparePlacedBitmasks(v155, v146, v139, v138, &v137);
     v120 = *(v134 + 16);
     v58 = *(v134 + 112);
     v59 = *(v134 + 208);
@@ -2817,7 +2817,7 @@ uint64_t comparePlacedBitmasks(uint64_t a1, uint64_t a2, _DWORD *a3, _DWORD *a4,
   return result;
 }
 
-unsigned __int8 **snapToPupil(unsigned __int8 **result, int a2, int a3, _DWORD *a4, _DWORD *a5, _DWORD *a6)
+unsigned __int8 **snapToPupil(unsigned __int8 **result, int a2, int a3, int *a4, int *a5, _DWORD *a6)
 {
   v6 = 0;
   v7 = 0;
@@ -3653,7 +3653,7 @@ uint64_t maximumPointWithSamples(float *a1, float *a2, float a3, float a4, float
   return 1;
 }
 
-int *hopperInsert(int *result, float a2, float a3, double a4, double a5, float a6)
+unsigned int *hopperInsert(unsigned int *result, float a2, float a3, double a4, double a5, float a6)
 {
   v6 = *result;
   if (v6 < 1)
@@ -3662,11 +3662,11 @@ int *hopperInsert(int *result, float a2, float a3, double a4, double a5, float a
 LABEL_13:
     v11 = &result[10 * v7 + 2];
     *v11 = a2;
-    *(v11 + 4) = a3;
-    *(v11 + 8) = a6;
-    *(v11 + 16) = a4;
-    *(v11 + 24) = a5;
-    *(v11 + 32) = 0;
+    *(v11 + 1) = a3;
+    *(v11 + 2) = a6;
+    *(v11 + 2) = a4;
+    *(v11 + 3) = a5;
+    v11[8] = 0;
     if (*result < 4)
     {
       v12 = *result + 1;
@@ -3701,14 +3701,14 @@ LABEL_13:
     {
       if (v6 <= 3)
       {
-        v10 = *(v9 - 24);
-        *v9 = *(v9 - 40);
-        *(v9 + 16) = v10;
-        *(v9 + 32) = *(v9 - 8);
+        v10 = *(v9 - 6);
+        *v9 = *(v9 - 10);
+        *(v9 + 1) = v10;
+        *(v9 + 4) = *(v9 - 1);
       }
 
       --v6;
-      v9 -= 40;
+      v9 -= 10;
     }
 
     while (v6 > v7);
@@ -3723,7 +3723,7 @@ LABEL_12:
   return result;
 }
 
-int *minEnergyHopperInsert(int *result, int a2, float a3)
+unsigned int *minEnergyHopperInsert(unsigned int *result, int a2, float a3)
 {
   v3 = *result;
   if (v3 < 1)
@@ -3732,7 +3732,7 @@ int *minEnergyHopperInsert(int *result, int a2, float a3)
 LABEL_12:
     v6 = &result[2 * v4 + 1];
     *v6 = a3;
-    *(v6 + 4) = a2;
+    v6[1] = a2;
     if (*result < 4)
     {
       v7 = *result + 1;
@@ -3784,7 +3784,7 @@ LABEL_11:
   return result;
 }
 
-int *snakeHopperInsert(int *result, int a2, int a3, int a4, int a5, float a6)
+unsigned int *snakeHopperInsert(unsigned int *result, int a2, int a3, int a4, int a5, float a6)
 {
   v6 = *result;
   if (v6 < 1)
@@ -3793,10 +3793,10 @@ int *snakeHopperInsert(int *result, int a2, int a3, int a4, int a5, float a6)
 LABEL_13:
     v10 = &result[5 * v7 + 1];
     *v10 = a6;
-    *(v10 + 4) = a2;
-    *(v10 + 8) = a3;
-    *(v10 + 12) = a4;
-    *(v10 + 16) = a5;
+    v10[1] = a2;
+    v10[2] = a3;
+    v10[3] = a4;
+    v10[4] = a5;
     if (*result < 20)
     {
       v11 = *result + 1;
@@ -3831,12 +3831,12 @@ LABEL_13:
     {
       if (v6 <= 19)
       {
-        *v9 = *(v9 - 20);
-        *(v9 + 16) = *(v9 - 4);
+        *v9 = *(v9 - 5);
+        v9[4] = *(v9 - 1);
       }
 
       --v6;
-      v9 -= 20;
+      v9 -= 5;
     }
 
     while (v6 > v7);
@@ -3851,162 +3851,166 @@ LABEL_12:
   return result;
 }
 
-BOOL seedFill(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(uint64_t, uint64_t, uint64_t, uint64_t))
+BOOL seedFill(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(uint64_t, uint64_t, uint64_t, uint64_t))
 {
   v38 = 0;
   v37 = 0;
-  if ((a3 & 0x80000000) == 0 && (a4 & 0x80000000) == 0 && *(a2 + 8) > a3)
+  if ((a3 & 0x80000000) == 0 && (a4 & 0x80000000) == 0)
   {
-    v9 = *(a2 + 12);
-    if (v9 > a4)
+    v7 = a3;
+    if (*(a2 + 8) > a3)
     {
-      bzero(*a2, *(a2 + 16) * v9);
-      v13 = allocSpanStack();
-      if (!v13)
+      v9 = *(a2 + 12);
+      if (v9 > a4)
       {
-        puts("seedFill: can not allocate span stack");
-        return 0;
-      }
-
-      v14 = v13;
-      v40 = 0;
-      v39 = 0;
-      spanSearch(a1, a2, a3, a4, &v39, a5, a6);
-      v15 = HIWORD(v39);
-      if (HIWORD(v39) <= v40)
-      {
-        v16 = v39;
-        v17 = v40 + 1;
-        do
+        bzero(*a2, *(a2 + 16) * v9);
+        v13 = allocSpanStack();
+        if (!v13)
         {
-          setBitInBitmask(a2, v15++, v16, 1);
+          puts("seedFill: can not allocate span stack");
+          return 0;
         }
 
-        while (v17 != v15);
-      }
+        v14 = v13;
+        v40 = 0;
+        v39 = 0;
+        spanSearch(a1, a2, v7, a4, &v39, a5, a6);
+        v15 = HIWORD(v39);
+        if (HIWORD(v39) <= v40)
+        {
+          v16 = v39;
+          v17 = v40 + 1;
+          do
+          {
+            setBitInBitmask(a2, v15++, v16, 1);
+          }
 
-      pushSpan(v14, &v39);
-      v35 = v14;
-      v36 = a6;
-      while (1)
-      {
+          while (v17 != v15);
+        }
+
+        pushSpan(v14, &v39);
+        v35 = v14;
+        v36 = a6;
+        while (1)
+        {
 LABEL_10:
-        v19 = *(v14 + 8);
-        v18 = *(v14 + 16);
-        if (v18 == v19 + 16)
-        {
-          v20 = *(v19 + 8);
-          if (!v20)
+          v19 = *(v14 + 8);
+          v18 = *(v14 + 16);
+          if (v18 == v19 + 16)
           {
-            freeSpanStack(v14);
-            return 1;
+            v20 = *(v19 + 8);
+            if (!v20)
+            {
+              freeSpanStack(v14);
+              return 1;
+            }
+
+            *(v14 + 8) = v20;
+            v18 = v20 + 316;
           }
 
-          *(v14 + 8) = v20;
-          v18 = v20 + 316;
-        }
-
-        *(v14 + 16) = v18 - 6;
-        v39 = *(v18 - 6);
-        v40 = *(v18 - 2);
-        v21 = v39;
-        if (v39)
-        {
-          v22 = HIWORD(v39);
-          v23 = v40;
-          if (HIWORD(v39) <= v40)
+          *(v14 + 16) = v18 - 6;
+          v39 = *(v18 - 6);
+          v40 = *(v18 - 2);
+          v21 = v39;
+          if (v39)
           {
-            break;
+            v22 = HIWORD(v39);
+            v23 = v40;
+            if (HIWORD(v39) <= v40)
+            {
+              break;
+            }
           }
-        }
 
 LABEL_23:
-        v14 = v35;
-        if (*(a2 + 12) - 1 > v21)
-        {
-          v28 = HIWORD(v39);
-          v29 = v40;
-          if (HIWORD(v39) <= v40)
+          v14 = v35;
+          if (*(a2 + 12) - 1 > v21)
           {
-            while (1)
+            v28 = HIWORD(v39);
+            v29 = v40;
+            if (HIWORD(v39) <= v40)
             {
-              if (!bitValueFromBitmask(a2, v28, v21 + 1) && a6(a5, a1, v28, (v21 + 1)))
+              while (1)
               {
-                spanSearch(a1, a2, v28, (v21 + 1), &v37, a5, a6);
-                v30 = HIWORD(v37);
-                v31 = v38;
-                if (HIWORD(v37) <= v38)
+                if (!bitValueFromBitmask(a2, v28, v21 + 1) && a6(a5, a1, v28, (v21 + 1)))
                 {
-                  v32 = v37;
-                  do
+                  spanSearch(a1, a2, v28, (v21 + 1), &v37, a5, a6);
+                  v30 = HIWORD(v37);
+                  v31 = v38;
+                  if (HIWORD(v37) <= v38)
                   {
-                    setBitInBitmask(a2, v30++, v32, 1);
+                    v32 = v37;
+                    do
+                    {
+                      setBitInBitmask(a2, v30++, v32, 1);
+                    }
+
+                    while (v31 + 1 != v30);
                   }
 
-                  while (v31 + 1 != v30);
+                  if (!pushSpan(v35, &v37))
+                  {
+                    goto LABEL_39;
+                  }
+
+                  LODWORD(v28) = v31 + 2;
+                  a6 = v36;
                 }
 
-                if (!pushSpan(v35, &v37))
+                v27 = v28 < v29;
+                v28 = (v28 + 1);
+                if (!v27)
                 {
-                  goto LABEL_39;
+                  goto LABEL_10;
                 }
-
-                LODWORD(v28) = v31 + 2;
-                a6 = v36;
-              }
-
-              v27 = v28 < v29;
-              v28 = (v28 + 1);
-              if (!v27)
-              {
-                goto LABEL_10;
               }
             }
           }
         }
-      }
 
-      while (1)
-      {
-        if (!bitValueFromBitmask(a2, v22, v21 - 1) && a6(a5, a1, v22, (v21 - 1)))
+        while (1)
         {
-          spanSearch(a1, a2, v22, (v21 - 1), &v37, a5, a6);
-          v24 = HIWORD(v37);
-          v25 = v38;
-          if (HIWORD(v37) <= v38)
+          if (!bitValueFromBitmask(a2, v22, v21 - 1) && a6(a5, a1, v22, (v21 - 1)))
           {
-            v26 = v37;
-            do
+            spanSearch(a1, a2, v22, (v21 - 1), &v37, a5, a6);
+            v24 = HIWORD(v37);
+            v25 = v38;
+            if (HIWORD(v37) <= v38)
             {
-              setBitInBitmask(a2, v24++, v26, 1);
+              v26 = v37;
+              do
+              {
+                setBitInBitmask(a2, v24++, v26, 1);
+              }
+
+              while (v25 + 1 != v24);
             }
 
-            while (v25 + 1 != v24);
-          }
-
-          if (!pushSpan(v35, &v37))
-          {
+            if (!pushSpan(v35, &v37))
+            {
 LABEL_39:
-            puts("seedFill: can not push span onto stack");
-            freeSpanStack(v35);
-            return 0;
+              puts("seedFill: can not push span onto stack");
+              freeSpanStack(v35);
+              return 0;
+            }
+
+            LODWORD(v22) = v25 + 2;
+            a6 = v36;
           }
 
-          LODWORD(v22) = v25 + 2;
-          a6 = v36;
-        }
-
-        v27 = v22 < v23;
-        v22 = (v22 + 1);
-        if (!v27)
-        {
-          goto LABEL_23;
+          v27 = v22 < v23;
+          v22 = (v22 + 1);
+          if (!v27)
+          {
+            goto LABEL_23;
+          }
         }
       }
     }
   }
 
-  v33 = ci_logger_render();
+  v33 = ci_logger_render(a1, a2);
   result = os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG);
   if (result)
   {
@@ -4222,7 +4226,7 @@ uint64_t incrementalSeedFill(uint64_t a1, uint64_t a2, int a3, int a4, uint64_t 
             v26 = *a2;
             v27 = *(a2 + 16);
             v28 = *a2 + v27 * v18;
-            if ((v24 & 0x80000000) == 0)
+            if (v24 >= 0)
             {
               v29 = v24;
             }
@@ -4412,13 +4416,13 @@ LABEL_61:
   return 0;
 }
 
-void CI::PixelBufferImage::PixelBufferImage(uint64_t a1, void *a2, uint64_t a3, int a4, __int32 PixelBufferYCCMatrix, const void *a6, int a7, int a8, float a9, float a10, char a11, char a12)
+void CI::PixelBufferImage::PixelBufferImage(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, __int32 PixelBufferYCCMatrix, const void *a6, int a7, int a8, float a9, float a10, char a11, char a12)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   CI::Image::Image(a1);
   *(v22 + 120) = &unk_1F1033890;
   *(v22 + 128) = a2;
-  atomic_fetch_add(&dword_1ED7C47BC[19], 1u);
+  atomic_fetch_add(&dword_1ED7C47D8[12], 1u);
   *v22 = &unk_1F1033670;
   *(v22 + 136) = a3;
   *(v22 + 208) = 0;
@@ -4545,13 +4549,14 @@ LABEL_33:
             PixelBufferYCCMatrix = GetPixelBufferYCCMatrix(a2);
             if (!PixelBufferYCCMatrix)
             {
-              PixelBufferYCCMatrix = CI::format_get_default_ycc_color_matrix(a4);
-              v43 = ci_logger_api();
-              if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
+              default_ycc_color_matrix = CI::format_get_default_ycc_color_matrix(a4);
+              PixelBufferYCCMatrix = default_ycc_color_matrix;
+              v45 = ci_logger_api(default_ycc_color_matrix, v44);
+              if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
               {
                 buf[0].i32[0] = 67109120;
                 buf[0].i32[1] = PixelBufferYCCMatrix;
-                _os_log_impl(&dword_19CC36000, v43, OS_LOG_TYPE_INFO, "CIImage will use Rec. %d YCC Matrix because the CVPixelBuffer was not tagged with a supported kCVImageBufferYCbCrMatrixKey.", buf, 8u);
+                _os_log_impl(&dword_19CC36000, v45, OS_LOG_TYPE_INFO, "CIImage will use Rec. %d YCC Matrix because the CVPixelBuffer was not tagged with a supported kCVImageBufferYCbCrMatrixKey.", buf, 8u);
               }
             }
           }
@@ -4618,8 +4623,8 @@ LABEL_33:
         LODWORD(__src) = *(a1 + 208);
         XXH64_update(buf, &__src, 4uLL);
         *(a1 + 104) = XXH64_digest(buf);
-        v44 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-        *(a1 + 152) = dispatch_queue_create("PixelBufferImage_SurfaceCacheQueue", v44);
+        v46 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+        *(a1 + 152) = dispatch_queue_create("PixelBufferImage_SurfaceCacheQueue", v46);
         CFRetain(a2);
         CI::SharedCVPixelBuffer::SharedCVPixelBuffer(&__src, a2);
       }
@@ -4770,7 +4775,7 @@ void CI::PixelBufferImage::~PixelBufferImage(CI::PixelBufferImage *this)
 
   *(this + 24) = 0;
   *(this + 15) = &unk_1F1033890;
-  atomic_fetch_add(&dword_1ED7C47BC[19], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[12], 0xFFFFFFFF);
 
   CI::Image::~Image(this);
 }
@@ -5268,9 +5273,9 @@ uint64_t CI::PixelBufferImage::add_args_to_hash(uint64_t a1, uint64_t a2)
   return XXH64_update(a2, &__src, 4uLL);
 }
 
-void CI::PixelBufferImage::render_graph_core(uint64_t a1, id *a2, uint64_t a3, uint64_t a4)
+void CI::PixelBufferImage::render_graph_core(uint64_t a1, CI::MetalContext *a2, uint64_t a3, uint64_t a4)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   IOSurface = CVPixelBufferGetIOSurface(*(a1 + 128));
   v8 = *(a1 + 200);
   if (!IOSurface)
@@ -5280,38 +5285,39 @@ void CI::PixelBufferImage::render_graph_core(uint64_t a1, id *a2, uint64_t a3, u
 
   if (*(a1 + 220) != 1 && (*(a1 + 216) | 2) != 6)
   {
-    if ((*(*a2 + 2))(a2) == 82 || (v20 = CI::Image::lookup_union_roi(a1, a4), v22 = v21, v24 = v23, v26 = v25, v30.origin.x = (*(*a1 + 88))(a1), v31.origin.x = v20, v31.origin.y = v22, v31.size.width = v24, v31.size.height = v26, !CGRectContainsRect(v30, v31)))
+    if ((*(*a2 + 16))(a2) == 82 || (v21 = CI::Image::lookup_union_roi(a1, a4), v23 = v22, v25 = v24, v27 = v26, v31.origin.x = (*(*a1 + 88))(a1), v32.origin.x = v21, v32.origin.y = v23, v32.size.width = v25, v32.size.height = v27, !CGRectContainsRect(v31, v32)))
     {
-      if ((*(*a2 + 71))(a2, 0))
+      if ((*(*a2 + 568))(a2, 0))
       {
         CI::format_has_alpha(v8);
       }
     }
   }
 
-  v10 = CI::Context::swizzler_for_input(a2, v8);
-  if (v10)
+  v9 = CI::Context::swizzler_for_input(a2, v8);
+  v11 = v9;
+  if (v9)
   {
-    v11 = v9;
+    v12 = v10;
     if ((*(a1 + 224) & 1) == 0)
     {
-      (*(*a2 + 72))(a2, 1, v10);
+      (*(*a2 + 576))(a2, 1, v9);
     }
 
-    v13 = v10;
-    if (v11)
+    v14 = v11;
+    if (v12)
     {
-      v13 = CI::input_format_for_conversion(v11);
+      v14 = CI::input_format_for_conversion(v12);
     }
 
-    if ((*(*a2 + 2))(a2) == 85 && IOSurface && (v14 = a2[234]) != 0 && ((CI::format_is_ycc_biplanar(*(a1 + 200)), v15 = CIMetalFormatForFormat(*(a1 + 200), 0), v15) || CVPixelBufferGetPlaneCount(*(a1 + 128)) <= 1 && (v15 = CIMetalFormatForFormat(v13, 0), v15)) && (v16 = v15, CI::MetalContext::formatIsReadable(a2, v15)) && (width = CVPixelBufferGetWidthOfPlane(*(a1 + 128), 0), HeightOfPlane = CVPixelBufferGetHeightOfPlane(*(a1 + 128), 0), v18 = *(a1 + 128), image[0] = 0, CVMetalTextureCacheCreateTextureFromImage(0, v14, v18, 0, v16, width, HeightOfPlane, 0, image), (v19 = image[0]) != 0))
+    if ((*(*a2 + 16))(a2) == 85 && IOSurface && (v15 = *(a2 + 234)) != 0 && ((CI::format_is_ycc_biplanar(*(a1 + 200)), v16 = CIMetalFormatForFormat(*(a1 + 200), 0), v16) || CVPixelBufferGetPlaneCount(*(a1 + 128)) <= 1 && (v16 = CIMetalFormatForFormat(v14, 0), v16)) && (v17 = v16, CI::MetalContext::formatIsReadable(a2, v16)) && (width = CVPixelBufferGetWidthOfPlane(*(a1 + 128), 0), HeightOfPlane = CVPixelBufferGetHeightOfPlane(*(a1 + 128), 0), v19 = *(a1 + 128), image[0] = 0, CVMetalTextureCacheCreateTextureFromImage(0, v15, v19, 0, v17, width, HeightOfPlane, 0, image), (v20 = image[0]) != 0))
     {
       if (CVMetalTextureGetTexture(image[0]))
       {
         operator new();
       }
 
-      CFRelease(v19);
+      CFRelease(v20);
     }
 
     else if (!IOSurface)
@@ -5322,10 +5328,10 @@ void CI::PixelBufferImage::render_graph_core(uint64_t a1, id *a2, uint64_t a3, u
     operator new();
   }
 
-  v12 = ci_logger_render();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v13 = ci_logger_render(v9, v10);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    CI::PixelBufferImage::render_graph_core(v8, v12);
+    CI::PixelBufferImage::render_graph_core(v8, v13);
   }
 
   operator new();
@@ -5364,7 +5370,7 @@ double CI::Image::lookup_union_roi(uint64_t a1, uint64_t a2)
   return *v5;
 }
 
-void *CI::PixelBufferImage::node_for_graphviz(uint64_t a1, void *a2)
+CIGVNode *CI::PixelBufferImage::node_for_graphviz(uint64_t a1, void *a2)
 {
   v3 = CI::Image::node_for_graphviz(a1, a2);
   if (CI_PRINT_TREE_dump_inputs())
@@ -5518,14 +5524,14 @@ void std::__shared_weak_count::__release_shared[abi:nn200100](std::__shared_weak
 void *CI::InstanceCounted<(CI::Type)21>::~InstanceCounted(void *result)
 {
   *result = &unk_1F1033890;
-  atomic_fetch_add(&dword_1ED7C47BC[19], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[12], 0xFFFFFFFF);
   return result;
 }
 
 void CI::InstanceCounted<(CI::Type)21>::~InstanceCounted(void *a1)
 {
   *a1 = &unk_1F1033890;
-  atomic_fetch_add(&dword_1ED7C47BC[19], 0xFFFFFFFF);
+  atomic_fetch_add(&dword_1ED7C47D8[12], 0xFFFFFFFF);
   JUMPOUT(0x19EAF5590);
 }
 
@@ -8386,7 +8392,7 @@ void SurfaceSetYCCMatrix(__IOSurface *a1, int a2)
   }
 }
 
-__IOSurface *CreateCachedSurface(__CVBuffer *a1, size_t a2, unint64_t a3, uint64_t a4, uint64_t a5, int a6)
+IOSurfaceRef CreateCachedSurface(__CVBuffer *a1, size_t a2, unint64_t a3, uint64_t a4, uint64_t a5, int a6)
 {
   v8 = a4;
   v174 = *MEMORY[0x1E69E9840];
@@ -9047,7 +9053,7 @@ LABEL_121:
         v44 = a1;
         if (v40 != v45)
         {
-          v44 = (a1 + 1) >> 1;
+          v44 = ((a1 + 1) >> 1);
         }
 
 LABEL_152:
@@ -9170,8 +9176,8 @@ LABEL_175:
             keya = v102;
             v111 = ((v108 + v110 - 1) / v110 * v110);
             v150 = ((v109 + v110 - 1) / v110 * v110);
-            v148 = (v150 * v102);
-            v140 = (v111 * a2);
+            v148 = v150 * v102;
+            v140 = v111 * a2;
             v112 = *MEMORY[0x1E696CE58];
             *&valuePtr[0] = (v150 * v102 + v111 * a2) / a2;
             v113 = CFNumberCreate(0, kCFNumberLongType, valuePtr);

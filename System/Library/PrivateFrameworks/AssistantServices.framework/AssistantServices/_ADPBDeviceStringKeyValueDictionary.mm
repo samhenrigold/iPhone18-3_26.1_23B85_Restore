@@ -312,7 +312,7 @@
           v10 = *(*(&v14 + 1) + 8 * i);
           v11 = objc_alloc_init(_ADPBDeviceStringKeyValuePair);
           [(_ADPBDeviceStringKeyValuePair *)v11 setKey:v10, v14];
-          v12 = [v5 objectForKey:v10];
+          v12 = objc_msgSend_objectForKey_(v5);
           [(_ADPBDeviceStringKeyValuePair *)v11 setValue:v12];
 
           [(_ADPBDeviceStringKeyValueDictionary *)v4 addPairs:v11];

@@ -7,14 +7,13 @@
 
 + (id)userInterfaceClasses
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CFC6F8];
-  v6[0] = *MEMORY[0x277CFC710];
-  v6[1] = v2;
-  v7[0] = @"WFTrelloAccessResourceUserInterface";
-  v7[1] = @"WFTrelloAccessResourceUserInterface";
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
-  v4 = *MEMORY[0x277D85DE8];
+  v5[0] = *MEMORY[0x277CFC710];
+  v5[1] = v2;
+  v6[0] = @"WFTrelloAccessResourceUserInterface";
+  v6[1] = @"WFTrelloAccessResourceUserInterface";
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   return v3;
 }

@@ -155,7 +155,7 @@ uint64_t __34__PSSimStatusCache_sharedInstance__block_invoke()
 
 - (void)fetchSubscriptionContextsHasCacheLock:(BOOL)lock
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   getLogger = [(PSSimStatusCache *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
@@ -169,9 +169,9 @@ uint64_t __34__PSSimStatusCache_sharedInstance__block_invoke()
   }
 
   coreTelephonyClient = self->_coreTelephonyClient;
-  v12 = 0;
-  v7 = [(CoreTelephonyClient *)coreTelephonyClient getSubscriptionInfoWithError:&v12];
-  v8 = v12;
+  v11 = 0;
+  v7 = [(CoreTelephonyClient *)coreTelephonyClient getSubscriptionInfoWithError:&v11];
+  v8 = v11;
   getLogger2 = [(PSSimStatusCache *)self getLogger];
   v10 = getLogger2;
   if (v8)
@@ -179,7 +179,7 @@ uint64_t __34__PSSimStatusCache_sharedInstance__block_invoke()
     if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v14 = v8;
+      v13 = v8;
       _os_log_error_impl(&dword_2658CA000, v10, OS_LOG_TYPE_ERROR, "fetch failed: %@", buf, 0xCu);
     }
 
@@ -195,7 +195,7 @@ LABEL_9:
     if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v14 = v7;
+      v13 = v7;
       _os_log_impl(&dword_2658CA000, v10, OS_LOG_TYPE_DEFAULT, "fetch succeeded: %@", buf, 0xCu);
     }
 
@@ -205,13 +205,11 @@ LABEL_9:
       goto LABEL_9;
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchActiveDataSubscriptionContextIfNeeded
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_cacheLock);
   currentDataSubscriptionContext = [(PSSimStatusCache *)self currentDataSubscriptionContext];
 
@@ -223,7 +221,7 @@ LABEL_9:
     {
       currentDataSubscriptionContext2 = [(PSSimStatusCache *)self currentDataSubscriptionContext];
       *buf = 138412290;
-      v15 = currentDataSubscriptionContext2;
+      v14 = currentDataSubscriptionContext2;
       _os_log_impl(&dword_2658CA000, getLogger, OS_LOG_TYPE_DEFAULT, "No fetch needed, active data subscription context is: %@", buf, 0xCu);
     }
 
@@ -239,9 +237,9 @@ LABEL_9:
     }
 
     coreTelephonyClient = self->_coreTelephonyClient;
-    v13 = 0;
-    v8 = [(CoreTelephonyClient *)coreTelephonyClient getCurrentDataSubscriptionContextSync:&v13];
-    v9 = v13;
+    v12 = 0;
+    v8 = [(CoreTelephonyClient *)coreTelephonyClient getCurrentDataSubscriptionContextSync:&v12];
+    v9 = v12;
     getLogger2 = [(PSSimStatusCache *)self getLogger];
     v11 = getLogger2;
     if (v9)
@@ -249,7 +247,7 @@ LABEL_9:
       if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v15 = v9;
+        v14 = v9;
         _os_log_error_impl(&dword_2658CA000, v11, OS_LOG_TYPE_ERROR, "Fetch failed: %@", buf, 0xCu);
       }
     }
@@ -259,7 +257,7 @@ LABEL_9:
       if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v15 = v8;
+        v14 = v8;
         _os_log_impl(&dword_2658CA000, v11, OS_LOG_TYPE_DEFAULT, "Fetch succeeded: %@", buf, 0xCu);
       }
 
@@ -268,13 +266,11 @@ LABEL_9:
 
     os_unfair_lock_unlock(&self->_cacheLock);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchDefaultVoiceSubscriptionContextIfNeeded
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_cacheLock);
   userDefaultVoiceSubscriptionContext = [(PSSimStatusCache *)self userDefaultVoiceSubscriptionContext];
 
@@ -286,7 +282,7 @@ LABEL_9:
     {
       userDefaultVoiceSubscriptionContext2 = [(PSSimStatusCache *)self userDefaultVoiceSubscriptionContext];
       *buf = 138412290;
-      v15 = userDefaultVoiceSubscriptionContext2;
+      v14 = userDefaultVoiceSubscriptionContext2;
       _os_log_impl(&dword_2658CA000, getLogger, OS_LOG_TYPE_DEFAULT, "No fetch needed, default voice subscription context is: %@", buf, 0xCu);
     }
 
@@ -302,9 +298,9 @@ LABEL_9:
     }
 
     coreTelephonyClient = self->_coreTelephonyClient;
-    v13 = 0;
-    v8 = [(CoreTelephonyClient *)coreTelephonyClient getUserDefaultVoiceSubscriptionContext:&v13];
-    v9 = v13;
+    v12 = 0;
+    v8 = [(CoreTelephonyClient *)coreTelephonyClient getUserDefaultVoiceSubscriptionContext:&v12];
+    v9 = v12;
     getLogger2 = [(PSSimStatusCache *)self getLogger];
     v11 = getLogger2;
     if (v9)
@@ -312,7 +308,7 @@ LABEL_9:
       if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v15 = v9;
+        v14 = v9;
         _os_log_error_impl(&dword_2658CA000, v11, OS_LOG_TYPE_ERROR, "Fetch failed: %@", buf, 0xCu);
       }
     }
@@ -322,7 +318,7 @@ LABEL_9:
       if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v15 = v8;
+        v14 = v8;
         _os_log_impl(&dword_2658CA000, v11, OS_LOG_TYPE_DEFAULT, "Fetch succeeded: %@", buf, 0xCu);
       }
 
@@ -331,8 +327,6 @@ LABEL_9:
 
     os_unfair_lock_unlock(&self->_cacheLock);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)subscriptionContextsHasCacheLock:(BOOL)lock
@@ -423,7 +417,7 @@ LABEL_9:
 
 - (void)fetchSimStatusHasCacheLock:(BOOL)lock
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   getLogger = [(PSSimStatusCache *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
@@ -439,30 +433,30 @@ LABEL_9:
 
   v6 = [(PSSimStatusCache *)self subscriptionContextsHasCacheLock:1];
   v7 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v23;
+    v11 = *v22;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v23 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v22 + 1) + 8 * i);
+        v13 = *(*(&v21 + 1) + 8 * i);
         coreTelephonyClient = self->_coreTelephonyClient;
-        v21 = 0;
-        v15 = [(CoreTelephonyClient *)coreTelephonyClient getSIMStatus:v13 error:&v21];
-        v16 = v21;
+        v20 = 0;
+        v15 = [(CoreTelephonyClient *)coreTelephonyClient getSIMStatus:v13 error:&v20];
+        v16 = v20;
         getLogger2 = [(PSSimStatusCache *)self getLogger];
         v18 = getLogger2;
         if (v16)
@@ -470,9 +464,9 @@ LABEL_9:
           if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v27 = v13;
-            v28 = 2114;
-            v29 = v16;
+            v26 = v13;
+            v27 = 2114;
+            v28 = v16;
             _os_log_error_impl(&dword_2658CA000, v18, OS_LOG_TYPE_ERROR, "Fetch failed: %@, %{public}@", buf, 0x16u);
           }
         }
@@ -482,9 +476,9 @@ LABEL_9:
           if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v27 = v13;
-            v28 = 2114;
-            v29 = v15;
+            v26 = v13;
+            v27 = 2114;
+            v28 = v15;
             _os_log_impl(&dword_2658CA000, v18, OS_LOG_TYPE_DEFAULT, "Fetch succeeded: %@, %{public}@", buf, 0x16u);
           }
 
@@ -493,7 +487,7 @@ LABEL_9:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v10);
@@ -504,8 +498,6 @@ LABEL_9:
   {
     os_unfair_lock_unlock(&self->_cacheLock);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)simStatus:(id)status
@@ -530,7 +522,7 @@ LABEL_9:
 
 - (void)fetchSimHardwareInfoHasCacheLock:(BOOL)lock
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   getLogger = [(PSSimStatusCache *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
@@ -545,31 +537,31 @@ LABEL_9:
   }
 
   v6 = [(PSSimStatusCache *)self subscriptionContextsHasCacheLock:1];
-  v21 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v20 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v24;
+    v10 = *v23;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v24 != v10)
+        if (*v23 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v23 + 1) + 8 * i);
+        v12 = *(*(&v22 + 1) + 8 * i);
         coreTelephonyClient = self->_coreTelephonyClient;
-        v22 = 0;
-        v14 = [(CoreTelephonyClient *)coreTelephonyClient getSimHardwareInfo:v12 error:&v22];
-        v15 = v22;
+        v21 = 0;
+        v14 = [(CoreTelephonyClient *)coreTelephonyClient getSimHardwareInfo:v12 error:&v21];
+        v15 = v21;
         getLogger2 = [(PSSimStatusCache *)self getLogger];
         v17 = getLogger2;
         if (v15)
@@ -577,9 +569,9 @@ LABEL_9:
           if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v28 = v12;
-            v29 = 2114;
-            v30 = v15;
+            v27 = v12;
+            v28 = 2114;
+            v29 = v15;
             _os_log_error_impl(&dword_2658CA000, v17, OS_LOG_TYPE_ERROR, "Fetch failed: %@, %{public}@", buf, 0x16u);
           }
         }
@@ -589,31 +581,29 @@ LABEL_9:
           if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v28 = v12;
-            v29 = 2114;
-            v30 = v14;
+            v27 = v12;
+            v28 = 2114;
+            v29 = v14;
             _os_log_impl(&dword_2658CA000, v17, OS_LOG_TYPE_DEFAULT, "Fetch succeeded: %@, %{public}@", buf, 0x16u);
           }
 
           v17 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v14, "hardwareType")}];
           v18 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v12, "slotID")}];
-          [v21 setObject:v17 forKeyedSubscript:v18];
+          [v20 setObject:v17 forKeyedSubscript:v18];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v9);
   }
 
-  [(PSSimStatusCache *)self setSimHardwareTypeDict:v21];
+  [(PSSimStatusCache *)self setSimHardwareTypeDict:v20];
   if (!lockCopy)
   {
     os_unfair_lock_unlock(&self->_cacheLock);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)simHardwareInfo:(id)info
@@ -657,41 +647,41 @@ LABEL_9:
 
 - (void)updateIsAnySimPresent
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = [(PSSimStatusCache *)self subscriptionContextsHasCacheLock:0];
   self->_isAnySimPresent = 0;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v20;
+    v8 = *v19;
     v9 = *MEMORY[0x277CC3ED8];
     v10 = *MEMORY[0x277CC3F00];
     *&v6 = 138412546;
-    v18 = v6;
+    v17 = v6;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
-        v13 = [(PSSimStatusCache *)self simStatus:v12, v18, v19];
+        v12 = *(*(&v18 + 1) + 8 * i);
+        v13 = [(PSSimStatusCache *)self simStatus:v12, v17, v18];
         getLogger = [(PSSimStatusCache *)self getLogger];
         if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v18;
-          v24 = v12;
-          v25 = 2114;
-          v26 = v13;
+          *buf = v17;
+          v23 = v12;
+          v24 = 2114;
+          v25 = v13;
           _os_log_impl(&dword_2658CA000, getLogger, OS_LOG_TYPE_DEFAULT, "SIM status fetch succeeded: %@, %{public}@", buf, 0x16u);
         }
 
@@ -706,9 +696,9 @@ LABEL_9:
           if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315394;
-            v24 = "[PSSimStatusCache updateIsAnySimPresent]";
-            v25 = 2112;
-            v26 = @"PSSimStatusChangedToReadyNotification";
+            v23 = "[PSSimStatusCache updateIsAnySimPresent]";
+            v24 = 2112;
+            v25 = @"PSSimStatusChangedToReadyNotification";
             _os_log_impl(&dword_2658CA000, getLogger2, OS_LOG_TYPE_DEFAULT, "%s posting notification %@", buf, 0x16u);
           }
 
@@ -719,7 +709,7 @@ LABEL_9:
         }
       }
 
-      v7 = [v4 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v7 = [v4 countByEnumeratingWithState:&v18 objects:v26 count:16];
       if (v7)
       {
         continue;
@@ -730,23 +720,21 @@ LABEL_9:
   }
 
 LABEL_17:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)simStatusDidChange:(id)change status:(id)status
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   statusCopy = status;
   getLogger = [(PSSimStatusCache *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412546;
-    v15 = changeCopy;
-    v16 = 2114;
-    v17 = statusCopy;
-    _os_log_impl(&dword_2658CA000, getLogger, OS_LOG_TYPE_DEFAULT, "Context: %@, status: %{public}@", &v14, 0x16u);
+    v13 = 138412546;
+    v14 = changeCopy;
+    v15 = 2114;
+    v16 = statusCopy;
+    _os_log_impl(&dword_2658CA000, getLogger, OS_LOG_TYPE_DEFAULT, "Context: %@, status: %{public}@", &v13, 0x16u);
   }
 
   os_unfair_lock_lock(&self->_cacheLock);
@@ -761,15 +749,13 @@ LABEL_17:
   getLogger2 = [(PSSimStatusCache *)self getLogger];
   if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 138412290;
-    v15 = @"PSSimStatusChangedNotification";
-    _os_log_impl(&dword_2658CA000, getLogger2, OS_LOG_TYPE_DEFAULT, "Posting notification %@", &v14, 0xCu);
+    v13 = 138412290;
+    v14 = @"PSSimStatusChangedNotification";
+    _os_log_impl(&dword_2658CA000, getLogger2, OS_LOG_TYPE_DEFAULT, "Posting notification %@", &v13, 0xCu);
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"PSSimStatusChangedNotification" object:0];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)preferredDataSimChanged:(id)changed

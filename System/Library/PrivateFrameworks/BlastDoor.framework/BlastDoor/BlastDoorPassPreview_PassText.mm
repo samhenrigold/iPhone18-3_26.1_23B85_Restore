@@ -8,10 +8,6 @@
 
 - (NSString)description
 {
-  v4 = *(&self->super.isa + OBJC_IVAR___BlastDoorPassPreview_PassText_passPreview_PassText);
-  v5 = *&self->passPreview_PassText[OBJC_IVAR___BlastDoorPassPreview_PassText_passPreview_PassText];
-  v6 = *&self->passPreview_PassText[OBJC_IVAR___BlastDoorPassPreview_PassText_passPreview_PassText + 8];
-  v7 = *&self->passPreview_PassText[OBJC_IVAR___BlastDoorPassPreview_PassText_passPreview_PassText + 24];
 
   sub_2146D9608();
   v2 = sub_2146D9588();

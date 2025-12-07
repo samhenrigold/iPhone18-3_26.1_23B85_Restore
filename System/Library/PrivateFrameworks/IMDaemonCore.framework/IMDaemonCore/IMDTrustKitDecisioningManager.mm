@@ -38,11 +38,13 @@
 
 - (BOOL)shouldSkipTrustKitDecisioningForChat:(id)chat sender:(id)sender
 {
-  sub_22B7DB6A8();
+  v6 = sub_22B7DB6A8();
+  v8 = v7;
   chatCopy = chat;
   selfCopy = self;
-  LOBYTE(chat) = sub_22B77F408(chat);
+  LOBYTE(chat) = sub_22B77F408(chat, v6, v8);
 
+  v8, v11, v12, v13, v14, v15, v16, v17, v19, v20;
   return chat & 1;
 }
 
@@ -51,40 +53,39 @@
   reasonCopy = reason;
   senderCopy = sender;
   v16 = sub_22B6F0AD4(&qword_27D8CD5C0, &qword_22B7F8CF0);
-  v17 = *(*(v16 - 8) + 64);
   MEMORY[0x28223BE20](v16 - 8);
-  v19 = &reasonCopy - v18;
-  v20 = _Block_copy(handler);
-  v21 = swift_allocObject();
-  *(v21 + 16) = sender;
-  *(v21 + 24) = service;
-  *(v21 + 32) = indicator;
-  *(v21 + 40) = body;
-  v22 = reasonCopy;
-  *(v21 + 48) = code;
-  *(v21 + 56) = v22;
-  *(v21 + 64) = timeCode;
-  *(v21 + 72) = v20;
-  *(v21 + 80) = self;
-  v23 = sub_22B7DBA58();
-  (*(*(v23 - 8) + 56))(v19, 1, 1, v23);
+  v18 = &reasonCopy - v17;
+  v19 = _Block_copy(handler);
+  v20 = swift_allocObject();
+  *(v20 + 16) = sender;
+  *(v20 + 24) = service;
+  *(v20 + 32) = indicator;
+  *(v20 + 40) = body;
+  v21 = reasonCopy;
+  *(v20 + 48) = code;
+  *(v20 + 56) = v21;
+  *(v20 + 64) = timeCode;
+  *(v20 + 72) = v19;
+  *(v20 + 80) = self;
+  v22 = sub_22B7DBA58();
+  (*(*(v22 - 8) + 56))(v18, 1, 1, v22);
+  v23 = swift_allocObject();
+  v23[2] = 0;
+  v23[3] = 0;
+  v23[4] = &unk_22B7FBBE0;
+  v23[5] = v20;
   v24 = swift_allocObject();
   v24[2] = 0;
   v24[3] = 0;
-  v24[4] = &unk_22B7FBBE0;
-  v24[5] = v21;
-  v25 = swift_allocObject();
-  v25[2] = 0;
-  v25[3] = 0;
-  v25[4] = &unk_22B7F8D08;
-  v25[5] = v24;
-  v26 = senderCopy;
+  v24[4] = &unk_22B7F8D08;
+  v24[5] = v23;
+  v25 = senderCopy;
   serviceCopy = service;
   indicatorCopy = indicator;
   bodyCopy = body;
   codeCopy = code;
   selfCopy = self;
-  sub_22B7C0EFC(0, 0, v19, &unk_22B7F8D10, v25);
+  sub_22B7C0EFC(0, 0, v18, &unk_22B7F8D10, v24);
 }
 
 - (IMDTrustKitDecisioningManager)init

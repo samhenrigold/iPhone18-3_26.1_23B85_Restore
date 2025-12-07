@@ -45,9 +45,9 @@ void __37__VUIPlaybackSettings_sharedSettings__block_invoke()
 
 - (VUIPlaybackSettings)init
 {
-  v20.receiver = self;
-  v20.super_class = VUIPlaybackSettings;
-  v2 = [(VUIPlaybackSettings *)&v20 init];
+  v21.receiver = self;
+  v21.super_class = VUIPlaybackSettings;
+  v2 = [(VUIPlaybackSettings *)&v21 init];
   if (v2)
   {
     MRMediaRemoteSetWantsExternalScreenTypeChangeNotifications();
@@ -65,11 +65,11 @@ void __37__VUIPlaybackSettings_sharedSettings__block_invoke()
 
     objc_initWeak(&location, v2);
     v7 = MEMORY[0x1E69E96A0];
-    v14 = MEMORY[0x1E69E9820];
-    v15 = 3221225472;
-    v16 = __27__VUIPlaybackSettings_init__block_invoke;
-    v17 = &unk_1E8730448;
-    objc_copyWeak(&v18, &location);
+    v15 = MEMORY[0x1E69E9820];
+    v16 = 3221225472;
+    v17 = __27__VUIPlaybackSettings_init__block_invoke;
+    v18 = &unk_1E8730448;
+    objc_copyWeak(&v19, &location);
     MRMediaRemoteGetExternalScreenType();
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
@@ -77,11 +77,11 @@ void __37__VUIPlaybackSettings_sharedSettings__block_invoke()
 
     if (vuiIsNonLightningAVAdapterConnected)
     {
-      v10 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = VUIDefaultLogObject(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        *v13 = 0;
-        _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, "A non-Lightning AV adapter is connected", v13, 2u);
+        *v14 = 0;
+        _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, "A non-Lightning AV adapter is connected", v14, 2u);
       }
 
       mEMORY[0x1E69E15F0] = [MEMORY[0x1E69E15F0] sharedPreferences];
@@ -91,7 +91,7 @@ void __37__VUIPlaybackSettings_sharedSettings__block_invoke()
     [(VUIPlaybackSettings *)v2 _updateNetworkStatus];
     [(VUIPlaybackSettings *)v2 _updatePropertiesFromUserPrefs];
     [(VUIPlaybackSettings *)v2 _registerObserverForUserPrefsChange];
-    objc_destroyWeak(&v18);
+    objc_destroyWeak(&v19);
     objc_destroyWeak(&location);
   }
 
@@ -100,17 +100,17 @@ void __37__VUIPlaybackSettings_sharedSettings__block_invoke()
 
 - (void)_updateNetworkStatus
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69E4428] = [MEMORY[0x1E69E4428] sharedMonitor];
   networkType = [mEMORY[0x1E69E4428] networkType];
 
-  v5 = VUIDefaultLogObject();
-  if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = VUIDefaultLogObject(v5);
+  if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     goto LABEL_8;
   }
 
-  v6 = @"Unknown";
+  v7 = @"Unknown";
   if (networkType > 99)
   {
     if (networkType > 1000)
@@ -118,13 +118,13 @@ void __37__VUIPlaybackSettings_sharedSettings__block_invoke()
       switch(networkType)
       {
         case 1001:
-          v6 = @"Bridged WiFi";
+          v7 = @"Bridged WiFi";
           break;
         case 2000:
-          v6 = @"Wired Ethernet";
+          v7 = @"Wired Ethernet";
           break;
         case 3000:
-          v6 = @"Other";
+          v7 = @"Other";
           break;
       }
 
@@ -135,12 +135,12 @@ void __37__VUIPlaybackSettings_sharedSettings__block_invoke()
     {
       if (networkType == 500)
       {
-        v6 = @"Bluetooth";
+        v7 = @"Bluetooth";
       }
 
       else if (networkType == 1000)
       {
-        v6 = @"WiFi";
+        v7 = @"WiFi";
       }
 
       goto LABEL_5;
@@ -152,43 +152,43 @@ void __37__VUIPlaybackSettings_sharedSettings__block_invoke()
   if ((networkType - 1) < 8)
   {
 LABEL_4:
-    v6 = @"Cellular";
+    v7 = @"Cellular";
   }
 
 LABEL_5:
   mEMORY[0x1E69E4428]2 = [MEMORY[0x1E69E4428] sharedMonitor];
   isCurrentNetworkLinkExpensive = [mEMORY[0x1E69E4428]2 isCurrentNetworkLinkExpensive];
-  v9 = @"NO";
-  *v11 = 134218498;
-  *&v11[4] = networkType;
-  *&v11[12] = 2112;
+  v10 = @"NO";
+  *v12 = 134218498;
+  *&v12[4] = networkType;
+  *&v12[12] = 2112;
   if (isCurrentNetworkLinkExpensive)
   {
-    v9 = @"YES";
+    v10 = @"YES";
   }
 
-  *&v11[14] = v6;
-  v12 = 2112;
-  v13 = v9;
-  _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "Network type did change to %ld (%@) is expensive: %@", v11, 0x20u);
+  *&v12[14] = v7;
+  v13 = 2112;
+  v14 = v10;
+  _os_log_impl(&dword_1E323F000, v6, OS_LOG_TYPE_DEFAULT, "Network type did change to %ld (%@) is expensive: %@", v12, 0x20u);
 
 LABEL_8:
   if (ICEnvironmentNetworkTypeIsWiFi() & 1) != 0 || (ICEnvironmentNetworkTypeIsWired() & 1) != 0 || (ICEnvironmentNetworkTypeIsBluetooth())
   {
-    v10 = 1;
+    v11 = 1;
   }
 
   else if (ICEnvironmentNetworkTypeIsCellular())
   {
-    v10 = 2;
+    v11 = 2;
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  [(VUIPlaybackSettings *)self setNetworkStatus:v10, *v11];
+  [(VUIPlaybackSettings *)self setNetworkStatus:v11, *v12, *&v12[8]];
 }
 
 - (void)_updatePropertiesFromUserPrefs
@@ -271,7 +271,7 @@ void __27__VUIPlaybackSettings_init__block_invoke(uint64_t a1, uint64_t a2)
 {
   v9 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(WeakRetained);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = [WeakRetained _descriptionForExternalScreenType:a2];
@@ -403,13 +403,13 @@ void __27__VUIPlaybackSettings_init__block_invoke(uint64_t a1, uint64_t a2)
 
 - (void)updateSupplementaryAvailableAudioLanguageCodes:(id)codes
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   codesCopy = codes;
-  v4 = VUIDefaultLogObject();
+  v4 = VUIDefaultLogObject(codesCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v23 = codesCopy;
+    v24 = codesCopy;
     _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "Updating supplementary available audio language codes with %@", buf, 0xCu);
   }
 
@@ -423,44 +423,44 @@ void __27__VUIPlaybackSettings_init__block_invoke(uint64_t a1, uint64_t a2)
     v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
   }
 
-  v19 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
+  v19 = 0u;
   v9 = codesCopy;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v19;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * i);
-        if (([v8 containsObject:{v14, v17}] & 1) == 0)
+        v14 = *(*(&v18 + 1) + 8 * i);
+        if (([v8 containsObject:{v14, v18}] & 1) == 0)
         {
           [v8 addObject:v14];
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v11);
   }
 
-  v15 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = VUIDefaultLogObject(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v23 = v8;
-    _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_DEFAULT, "Updated supplementary available audio language codes: %@", buf, 0xCu);
+    v24 = v8;
+    _os_log_impl(&dword_1E323F000, v16, OS_LOG_TYPE_DEFAULT, "Updated supplementary available audio language codes: %@", buf, 0xCu);
   }
 
   mEMORY[0x1E69E15F0]2 = [MEMORY[0x1E69E15F0] sharedPreferences];
@@ -469,18 +469,18 @@ void __27__VUIPlaybackSettings_init__block_invoke(uint64_t a1, uint64_t a2)
 
 - (void)_externalScreenTypeDidChange:(id)change
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   userInfo = [change userInfo];
   v5 = [userInfo vui_numberForKey:*MEMORY[0x1E69B0DB8]];
   unsignedIntValue = [v5 unsignedIntValue];
 
-  v7 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = VUIDefaultLogObject(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = [(VUIPlaybackSettings *)self _descriptionForExternalScreenType:unsignedIntValue];
-    v10 = 138412290;
-    v11 = v8;
-    _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "External screen type did change to %@", &v10, 0xCu);
+    v9 = [(VUIPlaybackSettings *)self _descriptionForExternalScreenType:unsignedIntValue];
+    v11 = 138412290;
+    v12 = v9;
+    _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "External screen type did change to %@", &v11, 0xCu);
   }
 
   if (unsignedIntValue == 2)
@@ -493,13 +493,14 @@ void __27__VUIPlaybackSettings_init__block_invoke(uint64_t a1, uint64_t a2)
 - (void)_sceneWillConnect:(id)connect
 {
   object = [connect object];
-  if ([object vui_isNonLightningSecondScreenScene])
+  vui_isNonLightningSecondScreenScene = [object vui_isNonLightningSecondScreenScene];
+  if (vui_isNonLightningSecondScreenScene)
   {
-    v4 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = VUIDefaultLogObject(vui_isNonLightningSecondScreenScene);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "A non-Lightning AV adapter was connected", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "A non-Lightning AV adapter was connected", v7, 2u);
     }
 
     mEMORY[0x1E69E15F0] = [MEMORY[0x1E69E15F0] sharedPreferences];

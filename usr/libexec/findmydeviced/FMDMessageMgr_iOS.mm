@@ -21,7 +21,7 @@
   v2 = qword_1003144B8;
   if (!qword_1003144B8)
   {
-    v3 = sub_100002880();
+    v3 = sub_100002880(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *v5 = 0;
@@ -36,7 +36,7 @@
 
 - (FMDMessageMgr_iOS)init
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_100225854(v3);
@@ -47,26 +47,27 @@
 
 - (id)initSingleton
 {
-  v5.receiver = self;
-  v5.super_class = FMDMessageMgr_iOS;
-  v2 = [(FMDMessageMgr_iOS *)&v5 init];
+  v6.receiver = self;
+  v6.super_class = FMDMessageMgr_iOS;
+  v2 = [(FMDMessageMgr_iOS *)&v6 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_100002880();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = sub_100002880(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      sub_100225898(v3);
+      sub_100225898(v4);
     }
 
-    objc_storeStrong(&qword_1003144B8, v2);
+    objc_storeStrong(&qword_1003144B8, v3);
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)dealloc
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_1002258DC(self, v3);
@@ -130,7 +131,7 @@
     v20 = [NSBundle bundleWithPath:@"/System/Library/PrivateFrameworks/FindMyDevice.framework"];
     v21 = [v20 pathForResource:@"findiphone-asset-JINDO" ofType:@"ca"];
 
-    v50 = v21;
+    v52 = v21;
     v22 = [SBSUserNotificationCAPackageDefinition definitionWithCAPackagePath:v21];
     [v19 setLeadingAssetDefinition:v22];
     msgText2 = [messageCopy msgText];
@@ -150,95 +151,100 @@
     build = [v19 build];
     [v5 setObject:build forKeyedSubscript:SBUserNotificationSystemApertureContentDefinitionKey];
 
-    if ([messageCopy playSound])
+    playSound = [messageCopy playSound];
+    if (playSound)
     {
       if (v11)
       {
-        v28 = sub_100002880();
-        if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+        v29 = sub_100002880(playSound);
+        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Play sound will be activated, but sound playback is disabled.", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Play sound will be activated, but sound playback is disabled.", buf, 2u);
         }
       }
 
       else
       {
-        v30 = [NSBundle bundleWithPath:@"/System/Library/PrivateFrameworks/FindMyDevice.framework"];
+        v32 = [NSBundle bundleWithPath:@"/System/Library/PrivateFrameworks/FindMyDevice.framework"];
         soundName = [messageCopy soundName];
-        v28 = [v30 pathForResource:soundName ofType:@"caf"];
+        v29 = [v32 pathForResource:soundName ofType:@"caf"];
 
-        v32 = [[NSURL alloc] initFileURLWithPath:v28 isDirectory:0];
-        [v5 setObject:v32 forKeyedSubscript:kCFUserNotificationSoundURLKey];
+        v34 = [[NSURL alloc] initFileURLWithPath:v29 isDirectory:0];
+        [v5 setObject:v34 forKeyedSubscript:kCFUserNotificationSoundURLKey];
         [v5 setObject:&off_1002E78E8 forKeyedSubscript:SBUserNotificationSoundAlertTypeKey];
         [v5 setObject:TLAlertTopicSystemNotificationFindMyDevice forKeyedSubscript:SBUserNotificationSoundAlertTopicKey];
-        v33 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [messageCopy soundDuration]);
-        [v5 setObject:v33 forKeyedSubscript:SBUserNotificationSoundRepeatDurationKey];
+        v35 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [messageCopy soundDuration]);
+        [v5 setObject:v35 forKeyedSubscript:SBUserNotificationSoundRepeatDurationKey];
 
         if ([messageCopy vibrate])
         {
           _vibrationPattern = [(FMDMessageMgr_iOS *)self _vibrationPattern];
           -[FMDMessageMgr_iOS _fillVibrationPattern:toDuration:](self, "_fillVibrationPattern:toDuration:", _vibrationPattern, [messageCopy soundDuration]);
-          v35 = v49 = v32;
+          v37 = v51 = v34;
 
-          v53[0] = @"Intensity";
-          v53[1] = @"VibePattern";
-          v54[0] = &off_1002E7D00;
-          v54[1] = v35;
-          v36 = [NSDictionary dictionaryWithObjects:v54 forKeys:v53 count:2];
-          [v5 setObject:v36 forKeyedSubscript:SBUserNotificationSoundVibrationPatternKey];
+          v55[0] = @"Intensity";
+          v55[1] = @"VibePattern";
+          v56[0] = &off_1002E7D00;
+          v56[1] = v37;
+          v38 = [NSDictionary dictionaryWithObjects:v56 forKeys:v55 count:2];
+          [v5 setObject:v38 forKeyedSubscript:SBUserNotificationSoundVibrationPatternKey];
 
-          v32 = v49;
+          v34 = v51;
         }
       }
     }
 
     *buf = 0;
     [messageCopy timeout];
-    v38 = CFUserNotificationCreate(kCFAllocatorDefault, v37, 3uLL, buf, v5);
-    if (v38)
+    v40 = CFUserNotificationCreate(kCFAllocatorDefault, v39, 3uLL, buf, v5);
+    if (v40)
     {
-      v39 = v38;
+      v41 = v40;
       [(FMDMessageMgr_iOS *)self setActiveMessage:messageCopy];
-      [(FMDMessageMgr_iOS *)self setCfNotification:v39];
-      CFRelease(v39);
-      v40 = +[FMXPCTransactionManager sharedInstance];
-      v41 = [(FMDMessageMgr_iOS *)self _xpcTransactionNameFor:messageCopy];
-      [v40 beginTransaction:v41];
+      [(FMDMessageMgr_iOS *)self setCfNotification:v41];
+      CFRelease(v41);
+      v42 = +[FMXPCTransactionManager sharedInstance];
+      v43 = [(FMDMessageMgr_iOS *)self _xpcTransactionNameFor:messageCopy];
+      [v42 beginTransaction:v43];
 
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_10012AD8C;
       block[3] = &unk_1002CD2C8;
-      block[4] = v39;
+      block[4] = v41;
       dispatch_async(&_dispatch_main_q, block);
     }
 
     else
     {
-      v42 = sub_100002880();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v44 = sub_100002880(0);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
       {
-        sub_100225974(buf, v42, v43, v44, v45, v46, v47, v48);
+        sub_100225974(buf, v44, v45, v46, v47, v48, v49, v50);
       }
     }
   }
 
-  else if ([messageCopy playSound])
+  else
   {
-    if (v11)
+    playSound2 = [messageCopy playSound];
+    if (playSound2)
     {
-      v29 = sub_100002880();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      if (v11)
       {
-        *buf = 0;
-        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Play sound will be activated, but sound playback is disabled.", buf, 2u);
+        v31 = sub_100002880(playSound2);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Play sound will be activated, but sound playback is disabled.", buf, 2u);
+        }
       }
-    }
 
-    else
-    {
-      [(FMDMessageMgr_iOS *)self _playSoundFor:messageCopy];
+      else
+      {
+        [(FMDMessageMgr_iOS *)self _playSoundFor:messageCopy];
+      }
     }
   }
 }

@@ -46,7 +46,7 @@
   v9 = NSStringFromPoint(v24);
   [string appendFormat:@"\tanchorPoint:%@\n", v9];
 
-  [(NUTiledImageLayer *)self transform];
+  objc_msgSend_transform(self);
   v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"{%.15g, %.15g, %.15g, %.15g, %.15g, %.15g, %.15g, %.15g, %.15g, %.15g, %.15g, %.15g, %.15g, %.15g, %.15g, %.15g}", v13, v14, v15, v16, v17, v18, v19, v20, v21];
   [string appendFormat:@"\ttransform:%@\n", v10];
 
@@ -123,7 +123,7 @@ void __34__NUTiledImageLayer_snapshotImage__block_invoke(uint64_t a1)
         v11 = v10;
         v13 = v12;
         v14 = *(a1 + 72);
-        [v9 extent];
+        objc_msgSend_extent(v9);
         CGAffineTransformMakeTranslation(&v20, v11, v14 - (v13 + v15));
         v16 = [v9 imageByApplyingTransform:&v20];
 
@@ -228,7 +228,7 @@ void __37__NUTiledImageLayer__updateSublayers__block_invoke(uint64_t a1, void *a
   v37 = 0u;
   if (v3)
   {
-    [v3 frameRect];
+    objc_msgSend_frameRect(v3);
   }
 
   v5 = [v4 surface];
@@ -241,7 +241,7 @@ void __37__NUTiledImageLayer__updateSublayers__block_invoke(uint64_t a1, void *a
   v11 = *(a1 + 32);
   if (v4)
   {
-    [v4 contentRect];
+    objc_msgSend_contentRect(v4);
   }
 
   else
@@ -400,7 +400,7 @@ void __34__NUTiledImageLayer__recycleTiles__block_invoke(uint64_t a1)
     if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
     {
       v8 = log;
-      [(NUTiledImageLayer *)self transform];
+      objc_msgSend_transform(self);
       v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"{%.15g, %.15g, %.15g, %.15g, %.15g, %.15g, %.15g, %.15g, %.15g, %.15g, %.15g, %.15g, %.15g, %.15g, %.15g, %.15g}", *&buf.m11, *&buf.m12, *&buf.m13, *&buf.m21, *&buf.m23, *&buf.m31, *&buf.m33, *&buf.m41, *&buf.m43];
       LODWORD(buf.m11) = 136315394;
       *(&buf.m11 + 4) = "[NUTiledImageLayer setGeometry:]";

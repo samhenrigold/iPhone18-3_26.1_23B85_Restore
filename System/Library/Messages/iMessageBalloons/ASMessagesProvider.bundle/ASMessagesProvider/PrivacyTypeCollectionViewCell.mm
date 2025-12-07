@@ -39,7 +39,7 @@
   sub_756CC0();
   swift_beginAccess();
   selfCopy = self;
-  sub_BD88(&qword_941E18);
+  sub_BD88(&qword_941E18, &unk_781380);
   sub_767430();
   swift_endAccess();
 

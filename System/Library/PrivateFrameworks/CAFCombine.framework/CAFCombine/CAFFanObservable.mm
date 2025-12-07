@@ -25,21 +25,21 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFFanObservable.fanService(_:didUpdateFanLevel:)();
+  CAFFanObservable.fanService(_:didUpdateFanLevel:)(selfCopy, level);
 }
 
 - (void)fanService:(id)service didUpdateOn:(BOOL)on
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFFanObservable.fanService(_:didUpdateOn:)();
+  CAFFanObservable.fanService(_:didUpdateOn:)(selfCopy, on);
 }
 
 - (void)fanService:(id)service didUpdateAutoMode:(BOOL)mode
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFFanObservable.fanService(_:didUpdateAutoMode:)();
+  CAFFanObservable.fanService(_:didUpdateAutoMode:)(selfCopy, mode);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

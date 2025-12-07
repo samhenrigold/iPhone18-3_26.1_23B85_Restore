@@ -494,15 +494,15 @@ LABEL_18:
 
   if ((userInterfaceIdiom & 0xFFFFFFFFFFFFFFFBLL) == 1)
   {
-    v6 = [spotlightCopy isEqualToString:@"com.apple.Spotlight"];
+    isEqualToString = objc_msgSend_isEqualToString_(spotlightCopy);
   }
 
   else
   {
-    v6 = 0;
+    isEqualToString = 0;
   }
 
-  return v6;
+  return isEqualToString;
 }
 
 - (void)assertionActivationStateChangedToState:(BOOL)state forType:(unint64_t)type
@@ -721,7 +721,7 @@ LABEL_8:
 
   if (+[UIKeyboard isKeyboardProcess])
   {
-    if (([transitionCopy isEqualToString:0x1EFB7AC50] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(transitionCopy) & 1) == 0)
     {
       goto LABEL_25;
     }
@@ -771,7 +771,7 @@ LABEL_8:
         goto LABEL_25;
       }
 
-      if (![@"Placement" isEqualToString:transitionCopy])
+      if (!objc_msgSend_isEqualToString_(@"Placement"))
       {
         goto LABEL_20;
       }
@@ -1228,15 +1228,15 @@ LABEL_13:
   idCopy = id;
   if ([(_UIKeyboardArbiterClient *)self keyboardVisible]&& ![(_UIKeyboardArbiterClient *)self keyboardActive])
   {
-    v5 = [idCopy isEqual:@"inputui-keyboard-inputviews-preservation-key"];
+    isEqual = objc_msgSend_isEqual_(idCopy);
   }
 
   else
   {
-    v5 = 1;
+    isEqual = 1;
   }
 
-  return v5;
+  return isEqual;
 }
 
 - (void)controllerDidLayoutSubviews:(id)subviews
@@ -1330,13 +1330,13 @@ LABEL_13:
   sourceSceneIdentityString = [changeCopy sourceSceneIdentityString];
   currentClientState = [(_UIKeyboardArbiterClient *)self currentClientState];
   sourceSceneIdentityString2 = [currentClientState sourceSceneIdentityString];
-  v8 = [sourceSceneIdentityString isEqualToString:sourceSceneIdentityString2];
+  isEqualToString = objc_msgSend_isEqualToString_(sourceSceneIdentityString);
 
   currentUIState = [(_UIKeyboardArbiterClient *)self currentUIState];
   LODWORD(sourceSceneIdentityString) = [currentUIState keyboardOnScreen];
   LODWORD(currentClientState) = [changeCopy keyboardOnScreen];
 
-  return ((v8 | sourceSceneIdentityString ^ currentClientState) & 1) == 0;
+  return ((isEqualToString | sourceSceneIdentityString ^ currentClientState) & 1) == 0;
 }
 
 - (BOOL)_didHandleKeyboardClientChange:(id)change shouldConsiderSnapshottingKeyboard:(BOOL)keyboard isLocalEvent:(BOOL)event

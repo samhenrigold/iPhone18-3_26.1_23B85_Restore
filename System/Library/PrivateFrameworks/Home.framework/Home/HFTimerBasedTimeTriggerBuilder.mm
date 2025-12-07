@@ -224,41 +224,37 @@ LABEL_6:
 
 void __52__HFTimerBasedTimeTriggerBuilder__updateRecurrences__block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) recurrences];
     v4 = [*(a1 + 32) name];
-    v6 = 138412546;
-    v7 = v3;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Updated recurrences: %@ for trigger with name: %@", &v6, 0x16u);
+    v5 = 138412546;
+    v6 = v3;
+    v7 = 2112;
+    v8 = v4;
+    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Updated recurrences: %@ for trigger with name: %@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __52__HFTimerBasedTimeTriggerBuilder__updateRecurrences__block_invoke_33(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = [*(a1 + 32) recurrences];
-    v7 = [*(a1 + 32) name];
-    v8 = 138412802;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to update recurrences: %@ for trigger with name: %@. Error: %@", &v8, 0x20u);
+    v5 = [*(a1 + 32) recurrences];
+    v6 = [*(a1 + 32) name];
+    v7 = 138412802;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to update recurrences: %@ for trigger with name: %@. Error: %@", &v7, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_updateTimeZone
@@ -296,41 +292,37 @@ void __49__HFTimerBasedTimeTriggerBuilder__updateTimeZone__block_invoke(uint64_t
 
 void __49__HFTimerBasedTimeTriggerBuilder__updateTimeZone__block_invoke_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) timeZone];
     v4 = [*(a1 + 32) name];
-    v6 = 138412546;
-    v7 = v3;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Updated time zone: %@ for trigger with name: %@", &v6, 0x16u);
+    v5 = 138412546;
+    v6 = v3;
+    v7 = 2112;
+    v8 = v4;
+    _os_log_impl(&dword_20D9BF000, v2, OS_LOG_TYPE_DEFAULT, "Updated time zone: %@ for trigger with name: %@", &v5, 0x16u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __49__HFTimerBasedTimeTriggerBuilder__updateTimeZone__block_invoke_35(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x2BuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = [*(a1 + 32) timeZone];
-    v7 = [*(a1 + 32) name];
-    v8 = 138412802;
-    v9 = v6;
-    v10 = 2112;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to update time zone: %@ for trigger with name: %@. Error: %@", &v8, 0x20u);
+    v5 = [*(a1 + 32) timeZone];
+    v6 = [*(a1 + 32) name];
+    v7 = 138412802;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v6;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "Failed to update time zone: %@ for trigger with name: %@. Error: %@", &v7, 0x20u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyCurrentStateFromTriggerBuilder:(id)builder
@@ -387,8 +379,8 @@ void __49__HFTimerBasedTimeTriggerBuilder__updateTimeZone__block_invoke_35(uint6
 
 - (id)createNewTriggerBuilder
 {
-  home = [(HFItemBuilder *)self home];
-  newTimerTriggerBuilder = [home newTimerTriggerBuilder];
+  v2 = objc_msgSend_home(self, a2);
+  newTimerTriggerBuilder = [v2 newTimerTriggerBuilder];
 
   return newTimerTriggerBuilder;
 }
@@ -422,8 +414,8 @@ void __49__HFTimerBasedTimeTriggerBuilder__updateTimeZone__block_invoke_35(uint6
     v12 = [HFTimerTriggerTimeEventAdapter adapterWithEventBuilder:eventBuilder];
 
     recurrences = [(HFTimerBasedTimeTriggerBuilder *)self recurrences];
-    home = [(HFItemBuilder *)self home];
-    [v12 updateTriggerBuilder:v9 recurrences:recurrences inHome:home];
+    v14 = objc_msgSend_home(self);
+    [v12 updateTriggerBuilder:v9 recurrences:recurrences inHome:v14];
   }
 
   else

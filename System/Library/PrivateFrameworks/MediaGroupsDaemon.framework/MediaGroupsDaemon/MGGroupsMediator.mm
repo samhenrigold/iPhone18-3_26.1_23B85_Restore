@@ -196,7 +196,7 @@ LABEL_6:
   return v10;
 }
 
-uint64_t __31__MGGroupsMediator_description__block_invoke(uint64_t a1)
+void *__31__MGGroupsMediator_description__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) activities];
   v3 = *(*(a1 + 40) + 8);

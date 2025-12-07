@@ -25,29 +25,30 @@
     }
 
 LABEL_7:
-    v7 = 0;
+    v8 = 0;
     goto LABEL_8;
   }
 
-  if (![eventCopy starting])
+  starting2 = [eventCopy starting];
+  if (!starting2)
   {
     goto LABEL_7;
   }
 
 LABEL_3:
-  v6 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = __atxlog_handle_modes(starting2);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    *v12 = 0;
-    _os_log_impl(&dword_260C9F000, v6, OS_LOG_TYPE_DEFAULT, "ATXModeDrivingFeaturizer: Driving mode activated by Do Not Disturb While Driving", v12, 2u);
+    *v13 = 0;
+    _os_log_impl(&dword_260C9F000, v7, OS_LOG_TYPE_DEFAULT, "ATXModeDrivingFeaturizer: Driving mode activated by Do Not Disturb While Driving", v13, 2u);
   }
 
-  v7 = 1;
+  v8 = 1;
 LABEL_8:
-  v10 = objc_alloc_init(ATXModeFeatureSet);
-  [(ATXModeFeatureSet *)v10 setValue:v7 forBinaryFeatureOfType:4];
+  v11 = objc_alloc_init(ATXModeFeatureSet);
+  [(ATXModeFeatureSet *)v11 setValue:v8 forBinaryFeatureOfType:4];
 
-  return v10;
+  return v11;
 }
 
 - (void)_processNewDNDWDEvent:(id)event
@@ -89,7 +90,7 @@ void __54__ATXModeDrivingFeaturizer__fetchMostRecentDNDWDEvent__block_invoke(uin
 {
   v2 = a2;
   v3 = [v2 state];
-  v4 = __atxlog_handle_modes();
+  v4 = __atxlog_handle_modes(v3);
   v5 = v4;
   if (v3)
   {
@@ -108,10 +109,7 @@ void __54__ATXModeDrivingFeaturizer__fetchMostRecentDNDWDEvent__block_invoke(uin
 
 uint64_t __54__ATXModeDrivingFeaturizer__fetchMostRecentDNDWDEvent__block_invoke_12(uint64_t a1, void *a2)
 {
-  v3 = [a2 eventBody];
-  v4 = *(*(a1 + 32) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 32) + 8) + 40) = [a2 eventBody];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -145,7 +143,7 @@ void __57__ATXModeDrivingFeaturizer__beginListeningForDNDWDEvents__block_invoke(
 {
   v2 = a2;
   v3 = [v2 state];
-  v4 = __atxlog_handle_modes();
+  v4 = __atxlog_handle_modes(v3);
   v5 = v4;
   if (v3)
   {
@@ -169,16 +167,16 @@ void __57__ATXModeDrivingFeaturizer__beginListeningForDNDWDEvents__block_invoke_
 
   if (v4)
   {
-    v5 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_modes(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_260C9F000, v5, OS_LOG_TYPE_DEFAULT, "ATXModeDrivingFeaturizer: received new DNDWD event", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_260C9F000, v6, OS_LOG_TYPE_DEFAULT, "ATXModeDrivingFeaturizer: received new DNDWD event", v9, 2u);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v7 = [v3 eventBody];
-    [WeakRetained _processNewDNDWDEvent:v7];
+    v8 = [v3 eventBody];
+    [WeakRetained _processNewDNDWDEvent:v8];
   }
 }
 
@@ -214,20 +212,18 @@ void __57__ATXModeDrivingFeaturizer__beginListeningForDNDWDEvents__block_invoke_
 
 void __54__ATXModeDrivingFeaturizer__fetchMostRecentDNDWDEvent__block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
-  OUTLINED_FUNCTION_0_0(&dword_260C9F000, v2, v3, "ATXModeDrivingFeaturizer: error fetching last DNDWD event: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_260C9F000, v2, v3, "ATXModeDrivingFeaturizer: error fetching last DNDWD event: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __57__ATXModeDrivingFeaturizer__beginListeningForDNDWDEvents__block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 error];
-  OUTLINED_FUNCTION_0_0(&dword_260C9F000, v2, v3, "ATXModeDrivingFeaturizer: error listening to DNDWD events: %@", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_0(&dword_260C9F000, v2, v3, "ATXModeDrivingFeaturizer: error listening to DNDWD events: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

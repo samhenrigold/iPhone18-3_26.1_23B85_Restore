@@ -4,17 +4,17 @@
 - (BOOL)isEqual:(id)equal;
 - (NSString)debugDescription;
 - (SBKeyboardFocusPolicy)init;
+- (SBMutableKeyboardFocusPolicy)_init;
+- (SBMutableKeyboardFocusPolicy)_initWithCopyOf:(SBMutableKeyboardFocusPolicy *)of;
 - (SBWindowScene)sbWindowSceneAncestor;
-- (id)_initWithCopyOf:(id *)of;
 - (id)mutableCopyWithZone:(_NSZone *)zone;
 - (unint64_t)hash;
-- (void)_init;
 - (void)appendDescriptionToStream:(id)stream;
 @end
 
 @implementation SBKeyboardFocusPolicy
 
-- (void)_init
+- (SBMutableKeyboardFocusPolicy)_init
 {
   selfCopy = self;
   if (self)
@@ -32,12 +32,12 @@
 
     v8.receiver = selfCopy;
     v8.super_class = SBKeyboardFocusPolicy;
-    selfCopy = objc_msgSendSuper2(&v8, sel_init);
+    selfCopy = [(SBKeyboardFocusPolicy *)&v8 init];
     if (selfCopy)
     {
       v4 = objc_alloc_init(MEMORY[0x277CF0B88]);
-      v5 = selfCopy[4];
-      selfCopy[4] = v4;
+      auditHistory = selfCopy->super._auditHistory;
+      selfCopy->super._auditHistory = v4;
     }
   }
 
@@ -57,7 +57,7 @@
   _init = [(SBKeyboardFocusPolicy *)[SBMutableKeyboardFocusPolicy alloc] _init];
   buildCopy[2](buildCopy, _init);
 
-  v5 = [_init copy];
+  v5 = [(SBMutableKeyboardFocusPolicy *)_init copy];
 
   return v5;
 }
@@ -168,7 +168,7 @@ void __51__SBKeyboardFocusPolicy_appendDescriptionToStream___block_invoke(uint64
   }
 }
 
-- (id)_initWithCopyOf:(id *)of
+- (SBMutableKeyboardFocusPolicy)_initWithCopyOf:(SBMutableKeyboardFocusPolicy *)of
 {
   v3 = a2;
   if (of)
@@ -177,13 +177,13 @@ void __51__SBKeyboardFocusPolicy_appendDescriptionToStream___block_invoke(uint64
     of = _init;
     if (_init)
     {
-      objc_storeStrong(_init + 1, v3[1]);
-      of[2] = v3[2];
-      *(of + 24) = *(v3 + 24);
-      *(of + 25) = *(v3 + 25);
-      objc_storeStrong(of + 4, v3[4]);
+      objc_storeStrong(&_init->super._keyboardFocusTarget, *(v3 + 1));
+      of->super._selectionPolicy = *(v3 + 2);
+      of->super._shouldSuppressRemoteDeferring = *(v3 + 24);
+      of->super._suppressCameraButtonDeferringToApplications = *(v3 + 25);
+      objc_storeStrong(&of->super._auditHistory, *(v3 + 4));
       WeakRetained = objc_loadWeakRetained(v3 + 5);
-      objc_storeWeak(of + 5, WeakRetained);
+      objc_storeWeak(&of->super._sbWindowSceneAncestor, WeakRetained);
     }
   }
 
@@ -194,7 +194,7 @@ void __51__SBKeyboardFocusPolicy_appendDescriptionToStream___block_invoke(uint64
 {
   v4 = [SBMutableKeyboardFocusPolicy alloc];
 
-  return [(SBKeyboardFocusPolicy *)&v4->super.super.isa _initWithCopyOf:?];
+  return [(SBKeyboardFocusPolicy *)v4 _initWithCopyOf:?];
 }
 
 @end

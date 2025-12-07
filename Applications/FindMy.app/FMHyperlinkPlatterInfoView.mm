@@ -18,16 +18,17 @@
   v2 = *(&self->super.super.super.isa + OBJC_IVAR____TtC6FindMy26FMHyperlinkPlatterInfoView_actionHandler);
   if (v2)
   {
-    v3 = *(&self->super.super.super.isa + OBJC_IVAR____TtC6FindMy26FMHyperlinkPlatterInfoView_button);
-    v7[3] = sub_100100354();
-    v7[0] = v3;
+    v3 = *&self->style[OBJC_IVAR____TtC6FindMy26FMHyperlinkPlatterInfoView_actionHandler];
+    v4 = *(&self->super.super.super.isa + OBJC_IVAR____TtC6FindMy26FMHyperlinkPlatterInfoView_button);
+    v8[3] = sub_100100354();
+    v8[0] = v4;
     selfCopy = self;
-    sub_100062900(v2);
-    v6 = v3;
-    v2(v7);
+    sub_100062900(v2, v3);
+    v7 = v4;
+    v2(v8);
 
-    sub_10001835C(v2);
-    sub_100006060(v7);
+    sub_10001835C(v2, v3);
+    sub_100006060(v8);
   }
 }
 

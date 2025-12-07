@@ -88,44 +88,42 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    pending = self->_pending;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    success = self->_success;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_errorData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_paymentWebServiceContextData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_peerPaymentWebServiceContextData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_peerPaymentAccountData)
   {
     PBDataWriterWriteDataField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -217,7 +215,6 @@
     goto LABEL_25;
   }
 
-  v5 = *(equalCopy + 44);
   if (*&self->_has)
   {
     if ((*(equalCopy + 44) & 1) == 0)
@@ -225,7 +222,6 @@
       goto LABEL_25;
     }
 
-    v11 = *(equalCopy + 40);
     if (self->_pending)
     {
       if ((*(equalCopy + 40) & 1) == 0)
@@ -253,7 +249,7 @@
     }
 
 LABEL_25:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_26;
   }
 
@@ -262,7 +258,6 @@ LABEL_25:
     goto LABEL_25;
   }
 
-  v12 = *(equalCopy + 41);
   if (self->_success)
   {
     if ((*(equalCopy + 41) & 1) == 0)
@@ -304,17 +299,17 @@ LABEL_6:
   peerPaymentAccountData = self->_peerPaymentAccountData;
   if (peerPaymentAccountData | *(equalCopy + 3))
   {
-    v10 = [(NSData *)peerPaymentAccountData isEqual:?];
+    v9 = [(NSData *)peerPaymentAccountData isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_26:
 
-  return v10;
+  return v9;
 }
 
 - (unint64_t)hash

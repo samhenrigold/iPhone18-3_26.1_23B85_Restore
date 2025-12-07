@@ -16,7 +16,7 @@
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
 {
-  sub_10000905C(0, &qword_1006BBCB0);
+  sub_10000905C(0, &qword_1006BBCB0, CLLocation_ptr);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   managerCopy = manager;
   selfCopy = self;
@@ -36,7 +36,7 @@
   managerCopy = manager;
   errorCopy = error;
   selfCopy = self;
-  sub_10052A334();
+  sub_10052A334(errorCopy);
 }
 
 @end

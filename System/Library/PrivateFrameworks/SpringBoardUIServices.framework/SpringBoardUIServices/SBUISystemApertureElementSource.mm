@@ -620,11 +620,11 @@ void __71__SBUISystemApertureElementSource_requestAlertingAssertionWithOptions__
   }
 
   hasPendingCoordinatedAnimations = [(_SBUISystemApertureElementSourceAnimationContext *)self->_animationContext hasPendingCoordinatedAnimations];
-  transitionContext = [(SBUISystemApertureElementSource *)self transitionContext];
-  if (transitionContext)
+  v7 = objc_msgSend_transitionContext(self);
+  if (v7)
   {
-    transitionContext2 = [(SBUISystemApertureElementSource *)self transitionContext];
-    fromLayoutMode = [transitionContext2 fromLayoutMode];
+    v8 = objc_msgSend_transitionContext(self);
+    fromLayoutMode = [v8 fromLayoutMode];
     v10 = fromLayoutMode == [(SBUISystemApertureElementSource *)self layoutMode];
   }
 
@@ -1154,7 +1154,7 @@ id __68__SBUISystemApertureElementSource__performElementUpdateWithActions___bloc
   v7 = v6;
 
   [v7 applySettings:*(a1 + 32)];
-  v8 = [MEMORY[0x1E69DC6A0] transitionContext];
+  v8 = objc_msgSend_transitionContext(MEMORY[0x1E69DC6A0]);
   [v8 setActions:*(a1 + 40)];
 
   return v8;
@@ -2384,7 +2384,7 @@ void __65__SBUISystemApertureElementSource__animateWithSceneResizeAction___block
   }
 }
 
-uint64_t __65__SBUISystemApertureElementSource__animateWithSceneResizeAction___block_invoke_2(uint64_t a1)
+void *__65__SBUISystemApertureElementSource__animateWithSceneResizeAction___block_invoke_2(uint64_t a1)
 {
   if ((*(a1 + 104) & 1) == 0)
   {
@@ -2487,7 +2487,7 @@ uint64_t __65__SBUISystemApertureElementSource__animateWithSceneResizeAction___b
   return result;
 }
 
-uint64_t __65__SBUISystemApertureElementSource__animateWithSceneResizeAction___block_invoke_4(uint64_t a1)
+void *__65__SBUISystemApertureElementSource__animateWithSceneResizeAction___block_invoke_4(uint64_t a1)
 {
   v26 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) mutableConfiguration];

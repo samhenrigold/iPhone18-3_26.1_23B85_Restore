@@ -141,15 +141,15 @@
 
 - (void)invalidateWithError:(id)error
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = COCoreLogForCategory(17);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     shortDescription = [(COIDSTransport *)self shortDescription];
-    v15 = 138543362;
-    v16 = shortDescription;
-    _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ invalidated", &v15, 0xCu);
+    v14 = 138543362;
+    v15 = shortDescription;
+    _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ invalidated", &v14, 0xCu);
   }
 
   activity = [(COIDSTransport *)self activity];
@@ -179,8 +179,6 @@
   {
     [delegate transport:self didInvalidateWithError:errorCopy];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __38__COIDSTransport_invalidateWithError___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -282,7 +280,7 @@ void __57__COIDSTransport_registerRequestForClass_withCompletion___block_invoke(
 
 - (void)sendRequest:(id)request withResponseHandler:(id)handler
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   handlerCopy = handler;
   executionContext = [(COIDSTransport *)self executionContext];
@@ -302,40 +300,40 @@ void __57__COIDSTransport_registerRequestForClass_withCompletion___block_invoke(
     nw_activity_activate();
   }
 
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy__26;
-  v47 = __Block_byref_object_dispose__26;
-  v48 = 0;
-  v37 = 0;
-  v38 = &v37;
-  v39 = 0x3032000000;
-  v40 = __Block_byref_object_copy__26;
-  v41 = __Block_byref_object_dispose__26;
   v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy__26;
+  v46 = __Block_byref_object_dispose__26;
+  v47 = 0;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x3032000000;
+  v39 = __Block_byref_object_copy__26;
+  v40 = __Block_byref_object_dispose__26;
+  v41 = 0;
   director2 = [(COIDSTransport *)self director];
   dictionaryRepresentation = [v11 dictionaryRepresentation];
   record = [(COIDSTransport *)self record];
   deviceTokenURI = [record deviceTokenURI];
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __50__COIDSTransport_sendRequest_withResponseHandler___block_invoke;
-  v36[3] = &unk_278E18EA8;
-  v36[4] = &v37;
-  v36[5] = &v43;
-  [director2 sendMessage:dictionaryRepresentation toDestination:deviceTokenURI completionHandler:v36];
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __50__COIDSTransport_sendRequest_withResponseHandler___block_invoke;
+  v35[3] = &unk_278E18EA8;
+  v35[4] = &v36;
+  v35[5] = &v42;
+  [director2 sendMessage:dictionaryRepresentation toDestination:deviceTokenURI completionHandler:v35];
 
-  if (v44[5])
+  if (v43[5])
   {
     goto LABEL_4;
   }
 
-  if (!v38[5])
+  if (!v37[5])
   {
-    v32 = [MEMORY[0x277CCA9B8] errorWithDomain:@"COMeshNodeErrorDomain" code:-4001 userInfo:0];
-    v33 = v44[5];
-    v44[5] = v32;
+    v31 = [MEMORY[0x277CCA9B8] errorWithDomain:@"COMeshNodeErrorDomain" code:-4001 userInfo:0];
+    v32 = v43[5];
+    v43[5] = v31;
 
 LABEL_4:
     if (v15)
@@ -351,13 +349,13 @@ LABEL_4:
       nw_activity_complete_with_reason();
     }
 
-    handlerCopy[2](handlerCopy, requestCopy, 0, v44[5]);
+    handlerCopy[2](handlerCopy, requestCopy, 0, v43[5]);
     goto LABEL_17;
   }
 
   v22 = [[COIDSOutstandingRequestInfo alloc] initWithRequest:requestCopy at:clock_gettime_nsec_np(_CLOCK_UPTIME_RAW) callback:handlerCopy activity:v15];
   outstandingRequests = [(COIDSTransport *)self outstandingRequests];
-  [outstandingRequests setObject:v22 forKey:v38[5]];
+  [outstandingRequests setObject:v22 forKey:v37[5]];
 
   [(COIDSTransport *)self _timerRequestAdded:v22];
   if (!self->_resolvedIDSIdentifier)
@@ -370,13 +368,13 @@ LABEL_4:
       director3 = [(COIDSTransport *)self director];
       messageFactory2 = [director3 messageFactory];
       idsIdentifier = [messageFactory2 idsIdentifier];
-      v27 = v38[5];
+      v27 = v37[5];
       *buf = 138543874;
-      v50 = shortDescription;
-      v51 = 2114;
-      v52 = idsIdentifier;
-      v53 = 2114;
-      v54 = v27;
+      v49 = shortDescription;
+      v50 = 2114;
+      v51 = idsIdentifier;
+      v52 = 2114;
+      v53 = v27;
       _os_log_impl(&dword_244378000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@ advertised IDS identifier %{public}@ via message %{public}@", buf, 0x20u);
     }
   }
@@ -385,21 +383,20 @@ LABEL_4:
   if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
   {
     shortDescription2 = [(COIDSTransport *)self shortDescription];
-    v30 = v38[5];
+    v30 = v37[5];
     *buf = 138543874;
-    v50 = shortDescription2;
-    v51 = 2114;
-    v52 = requestCopy;
-    v53 = 2114;
-    v54 = v30;
+    v49 = shortDescription2;
+    v50 = 2114;
+    v51 = requestCopy;
+    v52 = 2114;
+    v53 = v30;
     _os_log_impl(&dword_244378000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@ sent request %{public}@ via message %{public}@", buf, 0x20u);
   }
 
 LABEL_17:
-  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v36, 8);
 
-  _Block_object_dispose(&v43, 8);
-  v31 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v42, 8);
 }
 
 void __50__COIDSTransport_sendRequest_withResponseHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -441,7 +438,7 @@ void __50__COIDSTransport_sendRequest_withResponseHandler___block_invoke(uint64_
 
 void __74__COIDSTransport_handleMessage_requestIdentifier_responseIdentifier_from___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) type];
   if ((*(*(a1 + 40) + 8) & 1) == 0)
   {
@@ -453,13 +450,13 @@ void __74__COIDSTransport_handleMessage_requestIdentifier_responseIdentifier_fro
     {
       v6 = [*(a1 + 40) shortDescription];
       v7 = *(a1 + 48);
-      v13 = 138543874;
-      v14 = v6;
-      v15 = 2114;
-      v16 = v4;
-      v17 = 2114;
-      v18 = v7;
-      _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ received IDS identifier %{public}@ from message %{public}@", &v13, 0x20u);
+      v12 = 138543874;
+      v13 = v6;
+      v14 = 2114;
+      v15 = v4;
+      v16 = 2114;
+      v17 = v7;
+      _os_log_impl(&dword_244378000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ received IDS identifier %{public}@ from message %{public}@", &v12, 0x20u);
     }
   }
 
@@ -475,13 +472,13 @@ void __74__COIDSTransport_handleMessage_requestIdentifier_responseIdentifier_fro
         v9 = [*(a1 + 40) shortDescription];
         v10 = *(a1 + 48);
         v11 = *(a1 + 64);
-        v13 = 138543874;
-        v14 = v9;
-        v15 = 2114;
-        v16 = v10;
-        v17 = 2114;
-        v18 = v11;
-        _os_log_impl(&dword_244378000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ received response %{public}@ for %{public}@", &v13, 0x20u);
+        v12 = 138543874;
+        v13 = v9;
+        v14 = 2114;
+        v15 = v10;
+        v16 = 2114;
+        v17 = v11;
+        _os_log_impl(&dword_244378000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ received response %{public}@ for %{public}@", &v12, 0x20u);
       }
 
       [*(a1 + 40) _handleResponseFromMessage:*(a1 + 32) incomingResponseIdentifier:*(a1 + 64) from:*(a1 + 56)];
@@ -490,8 +487,6 @@ void __74__COIDSTransport_handleMessage_requestIdentifier_responseIdentifier_fro
       [*(a1 + 40) _handleRequestFromMessage:*(a1 + 32) incomingRequestIdentifier:*(a1 + 48) from:*(a1 + 56)];
       break;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureTimer
@@ -540,7 +535,7 @@ void __33__COIDSTransport__configureTimer__block_invoke(uint64_t a1)
 
 void __29__COIDSTransport__timerFired__block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v2 = COCoreLogForCategory(17);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
@@ -558,41 +553,41 @@ void __29__COIDSTransport__timerFired__block_invoke(uint64_t a1)
   v8 = *(a1 + 32);
   v7 = (a1 + 32);
   v9 = [v8 outstandingRequests];
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __29__COIDSTransport__timerFired__block_invoke_35;
-  v34[3] = &unk_278E18ED0;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __29__COIDSTransport__timerFired__block_invoke_35;
+  v33[3] = &unk_278E18ED0;
   v10 = *v7;
-  v36 = v5;
-  v34[4] = v10;
+  v35 = v5;
+  v33[4] = v10;
   v11 = v6;
-  v35 = v11;
-  [v9 enumerateKeysAndObjectsUsingBlock:v34];
+  v34 = v11;
+  [v9 enumerateKeysAndObjectsUsingBlock:v33];
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v12 = v11;
-  v13 = [v12 countByEnumeratingWithState:&v30 objects:v39 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v29 objects:v38 count:16];
   if (v13)
   {
-    v14 = *v31;
+    v14 = *v30;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v31 != v14)
+        if (*v30 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v30 + 1) + 8 * i);
+        v16 = *(*(&v29 + 1) + 8 * i);
         v17 = [*v7 outstandingRequests];
         [v17 removeObjectForKey:v16];
       }
 
-      v13 = [v12 countByEnumeratingWithState:&v30 objects:v39 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v29 objects:v38 count:16];
     }
 
     while (v13);
@@ -611,14 +606,14 @@ void __29__COIDSTransport__timerFired__block_invoke(uint64_t a1)
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v38 = 0;
+    v37 = 0;
     v20 = [*v7 outstandingRequests];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __29__COIDSTransport__timerFired__block_invoke_2;
-    v29[3] = &unk_278E18EF8;
-    v29[4] = buf;
-    [v20 enumerateKeysAndObjectsUsingBlock:v29];
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __29__COIDSTransport__timerFired__block_invoke_2;
+    v28[3] = &unk_278E18EF8;
+    v28[4] = buf;
+    [v20 enumerateKeysAndObjectsUsingBlock:v28];
 
     v21 = *(*&buf[8] + 24);
     [*v7 requestTimeout];
@@ -636,8 +631,6 @@ void __29__COIDSTransport__timerFired__block_invoke(uint64_t a1)
 
     _Block_object_dispose(buf, 8);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __29__COIDSTransport__timerFired__block_invoke_35(uint64_t a1, void *a2, void *a3)
@@ -670,7 +663,7 @@ void __29__COIDSTransport__timerFired__block_invoke_35(uint64_t a1, void *a2, vo
   }
 }
 
-unint64_t __29__COIDSTransport__timerFired__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+void *__29__COIDSTransport__timerFired__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 enqeueStart];
   v5 = *(*(a1 + 32) + 8);
@@ -703,7 +696,7 @@ unint64_t __29__COIDSTransport__timerFired__block_invoke_2(uint64_t a1, uint64_t
 
 - (void)_handleResponseFromMessage:(id)message incomingResponseIdentifier:(id)identifier from:(id)from
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   identifierCopy = identifier;
   v9 = clock_gettime_nsec_np(_CLOCK_UPTIME_RAW);
@@ -716,11 +709,11 @@ unint64_t __29__COIDSTransport__timerFired__block_invoke_2(uint64_t a1, uint64_t
   {
     shortDescription = [(COIDSTransport *)self shortDescription];
     *buf = 138543874;
-    v30 = shortDescription;
-    v31 = 2114;
-    v32 = identifierCopy;
-    v33 = 2048;
-    v34 = v12;
+    v29 = shortDescription;
+    v30 = 2114;
+    v31 = identifierCopy;
+    v32 = 2048;
+    v33 = v12;
     _os_log_impl(&dword_244378000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ message %{public}@ round trip time: %lfs", buf, 0x20u);
   }
 
@@ -736,9 +729,9 @@ unint64_t __29__COIDSTransport__timerFired__block_invoke_2(uint64_t a1, uint64_t
     {
       request = [v11 request];
       v19 = [(COIDSTransport *)self acceptableResponsesForRequest:objc_opt_class()];
-      v28 = 0;
-      payload = [messageCopy unarchivePayloadOfTypes:v19 error:&v28];
-      v20 = v28;
+      v27 = 0;
+      payload = [messageCopy unarchivePayloadOfTypes:v19 error:&v27];
+      v20 = v27;
       v21 = 0;
       if (!payload)
       {
@@ -784,8 +777,6 @@ unint64_t __29__COIDSTransport__timerFired__block_invoke_2(uint64_t a1, uint64_t
       [COIDSTransport _handleResponseFromMessage:incomingResponseIdentifier:from:];
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleErrorFromMessage:(id)message incomingResponseIdentifier:(id)identifier from:(id)from
@@ -832,14 +823,14 @@ unint64_t __29__COIDSTransport__timerFired__block_invoke_2(uint64_t a1, uint64_t
 
 - (void)_handleRequestFromMessage:(id)message incomingRequestIdentifier:(id)identifier from:(id)from
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   identifierCopy = identifier;
   fromCopy = from;
   registeredCommands = [(COIDSTransport *)self registeredCommands];
-  v28 = 0;
-  v12 = [messageCopy unarchivePayloadOfTypes:registeredCommands error:&v28];
-  v13 = v28;
+  v27 = 0;
+  v12 = [messageCopy unarchivePayloadOfTypes:registeredCommands error:&v27];
+  v13 = v27;
 
   v14 = COCoreLogForCategory(17);
   v15 = v14;
@@ -849,11 +840,11 @@ unint64_t __29__COIDSTransport__timerFired__block_invoke_2(uint64_t a1, uint64_t
     {
       shortDescription = [(COIDSTransport *)self shortDescription];
       *buf = 138543874;
-      v30 = shortDescription;
-      v31 = 2114;
-      v32 = v12;
-      v33 = 2114;
-      v34 = identifierCopy;
+      v29 = shortDescription;
+      v30 = 2114;
+      v31 = v12;
+      v32 = 2114;
+      v33 = identifierCopy;
       _os_log_impl(&dword_244378000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ received request %{public}@ via message %{public}@", buf, 0x20u);
     }
 
@@ -861,17 +852,17 @@ unint64_t __29__COIDSTransport__timerFired__block_invoke_2(uint64_t a1, uint64_t
     if (objc_opt_respondsToSelector())
     {
       objc_initWeak(buf, self);
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __75__COIDSTransport__handleRequestFromMessage_incomingRequestIdentifier_from___block_invoke;
-      v24[3] = &unk_278E18F20;
-      objc_copyWeak(&v27, buf);
-      v24[4] = self;
-      v25 = identifierCopy;
-      v26 = fromCopy;
-      [delegate transport:self didReceiveRequest:v12 callback:v24];
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __75__COIDSTransport__handleRequestFromMessage_incomingRequestIdentifier_from___block_invoke;
+      v23[3] = &unk_278E18F20;
+      objc_copyWeak(&v26, buf);
+      v23[4] = self;
+      v24 = identifierCopy;
+      v25 = fromCopy;
+      [delegate transport:self didReceiveRequest:v12 callback:v23];
 
-      objc_destroyWeak(&v27);
+      objc_destroyWeak(&v26);
       objc_destroyWeak(buf);
     }
   }
@@ -892,8 +883,6 @@ unint64_t __29__COIDSTransport__timerFired__block_invoke_2(uint64_t a1, uint64_t
     dictionaryRepresentation = [v20 dictionaryRepresentation];
     [director2 sendResponse:dictionaryRepresentation responseIdentifier:identifierCopy toDestination:fromCopy];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __75__COIDSTransport__handleRequestFromMessage_incomingRequestIdentifier_from___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -933,58 +922,34 @@ void __75__COIDSTransport__handleRequestFromMessage_incomingRequestIdentifier_fr
 
 void __29__COIDSTransport__timerFired__block_invoke_cold_1(uint64_t *a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *a1;
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2048;
-  v8 = a2;
-  _os_log_debug_impl(&dword_244378000, log, OS_LOG_TYPE_DEBUG, "%{public}@ timer reconfiguring to %llu", &v5, 0x16u);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2048;
+  v7 = a2;
+  _os_log_debug_impl(&dword_244378000, log, OS_LOG_TYPE_DEBUG, "%{public}@ timer reconfiguring to %llu", &v4, 0x16u);
 }
 
 - (void)_timerRequestAdded:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_3();
-  _os_log_debug_impl(&dword_244378000, v0, OS_LOG_TYPE_DEBUG, "%{public}@ enabling timer for default duration", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_244378000, v0, OS_LOG_TYPE_DEBUG, "%{public}@ enabling timer for default duration", v1, 0xCu);
 }
 
 - (void)_handleResponseFromMessage:(void *)a1 incomingResponseIdentifier:from:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 shortDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_7(&dword_244378000, v2, v3, "%{public}@ error decoding response: %{public}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleResponseFromMessage:incomingResponseIdentifier:from:.cold.2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1(&dword_244378000, v0, v1, "%{public}@ No response callback for a response with identifier %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handleErrorFromMessage:incomingResponseIdentifier:from:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_1(&dword_244378000, v0, v1, "%{public}@ No response callback for a response with identifier %@");
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_7(&dword_244378000, v2, v3, "%{public}@ error decoding response: %{public}@", v4, v5, v6, v7);
 }
 
 - (void)_handleRequestFromMessage:(void *)a1 incomingRequestIdentifier:from:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 shortDescription];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_7(&dword_244378000, v2, v3, "%{public}@ error decoding request: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_7(&dword_244378000, v2, v3, "%{public}@ error decoding request: %@", v4, v5, v6, v7);
 }
 
 @end

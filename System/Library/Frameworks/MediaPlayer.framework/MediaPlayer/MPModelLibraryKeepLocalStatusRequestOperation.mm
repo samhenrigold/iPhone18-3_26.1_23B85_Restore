@@ -70,29 +70,29 @@
     aBlock[1] = 3321888768;
     aBlock[2] = __56__MPModelLibraryKeepLocalStatusRequestOperation_execute__block_invoke;
     aBlock[3] = &unk_1F1496948;
-    v28 = v16;
-    v29 = v17;
+    v29 = v16;
+    v30 = v17;
     if (v17)
     {
       atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     aBlock[4] = self;
-    v27 = uniqueIdentifier;
+    v28 = uniqueIdentifier;
     v8 = _Block_copy(aBlock);
     redownloadableItemCount = self->_redownloadableItemCount;
     if (!redownloadableItemCount)
     {
-      v25 = MEMORY[0x1A58E1100]();
-      v24 = 0;
-      std::allocate_shared[abi:ne200100]<mlcore::AggregateFunctionQuery,std::allocator<mlcore::AggregateFunctionQuery>,mlcore::EntityClass *,mlcore::AggregateFunctionQuery::AggregateFunction,decltype(nullptr),std::shared_ptr<mlcore::Predicate> &,0>();
+      v26 = MEMORY[0x1A58E1100]();
+      v25 = 0;
+      std::allocate_shared[abi:ne200100]<mlcore::AggregateFunctionQuery,std::allocator<mlcore::AggregateFunctionQuery>,mlcore::EntityClass *,mlcore::AggregateFunctionQuery::AggregateFunction,decltype(nullptr),std::shared_ptr<mlcore::Predicate> &,0>(&v18, &v26, &v25, &v16);
     }
 
     v8[2](v8, [(NSNumber *)redownloadableItemCount longValue]);
 
-    if (v29)
+    if (v30)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v29);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v30);
     }
 
     if (v17)
@@ -103,13 +103,13 @@
 
   else if (self->_downloadablePlaylistItemEntityQueryBlock)
   {
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __56__MPModelLibraryKeepLocalStatusRequestOperation_execute__block_invoke_2_13;
-    v22[3] = &unk_1E767A9E8;
-    v22[4] = self;
-    v23 = uniqueIdentifier;
-    v10 = _Block_copy(v22);
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __56__MPModelLibraryKeepLocalStatusRequestOperation_execute__block_invoke_2_13;
+    v23[3] = &unk_1E767A9E8;
+    v23[4] = self;
+    v24 = uniqueIdentifier;
+    v10 = _Block_copy(v23);
     v11 = self->_redownloadableItemCount;
     if (v11)
     {
@@ -120,22 +120,22 @@
     {
       (*(self->_downloadablePlaylistItemEntityQueryBlock + 2))(&v16);
       v14 = self->_libraryView;
-      v20 = v16;
-      v21 = v17;
+      v21 = v16;
+      v22 = v17;
       if (v17)
       {
         atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __56__MPModelLibraryKeepLocalStatusRequestOperation_execute__block_invoke_9;
-      v18[3] = &unk_1E767A950;
-      v19 = v10;
-      [(MPMediaLibraryView *)v14 performCoreQuery:&v20 withCompletion:v18];
-      if (v21)
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __56__MPModelLibraryKeepLocalStatusRequestOperation_execute__block_invoke_9;
+      v19[3] = &unk_1E767A950;
+      v20 = v10;
+      [(MPMediaLibraryView *)v14 performCoreQuery:&v21 withCompletion:v19];
+      if (v22)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v22);
       }
 
       if (v17)
@@ -160,8 +160,9 @@
   }
 }
 
-void __56__MPModelLibraryKeepLocalStatusRequestOperation_execute__block_invoke(uint64_t a1, unint64_t a2)
+void __56__MPModelLibraryKeepLocalStatusRequestOperation_execute__block_invoke(void *a1, unint64_t a2)
 {
+  v14[15] = *MEMORY[0x1E69E9840];
   if (a2)
   {
     if (a2 <= 0x96)
@@ -171,25 +172,32 @@ void __56__MPModelLibraryKeepLocalStatusRequestOperation_execute__block_invoke(u
     }
 
     v5 = MEMORY[0x1A58E1100]();
-    v6 = *(a1 + 56);
+    v12 = v5;
+    v11 = 0;
+    v6 = a1[7];
+    v14[3] = a1[6];
+    v14[4] = v6;
     if (v6)
     {
       atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
     }
 
-    mlcore::ItemPropertyKeepLocalStatus(v5);
-    std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<int>,std::allocator<mlcore::ComparisonPredicate<int>>,mlcore::ModelProperty<int> *&,mlcore::ComparisonOperator &,int const&,mlcore::ComparisonOptions &,0>();
+    v9 = 0;
+    *&v8 = mlcore::ItemPropertyKeepLocalStatus(v5);
+    v13 = 0;
+    LODWORD(v14[0]) = 2;
+    std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<int>,std::allocator<mlcore::ComparisonPredicate<int>>,mlcore::ModelProperty<int> *&,mlcore::ComparisonOperator &,int const&,mlcore::ComparisonOptions &,0>(&v10, &v8, v14, &v9, &v13);
   }
 
   v7 = objc_alloc_init(MPLibraryKeepLocalStatusObserverDetailedContainerConfiguration);
-  [(MPLibraryKeepLocalStatusObserverConfiguration *)v7 setEnableState:*(*(a1 + 32) + 280)];
-  [(MPLibraryKeepLocalStatusObserverConfiguration *)v7 setIdentifyingModelObject:*(*(a1 + 32) + 288)];
-  v3 = *(a1 + 32);
+  [(MPLibraryKeepLocalStatusObserverConfiguration *)v7 setEnableState:*(a1[4] + 280)];
+  [(MPLibraryKeepLocalStatusObserverConfiguration *)v7 setIdentifyingModelObject:*(a1[4] + 288)];
+  v3 = a1[4];
   v4 = v3[39];
   if (v4)
   {
     (*(v4 + 16))(v3[39], v7, 0);
-    v3 = *(a1 + 32);
+    v3 = a1[4];
   }
 
   [v3 finish];
@@ -219,12 +227,12 @@ void __56__MPModelLibraryKeepLocalStatusRequestOperation_execute__block_invoke_1
 
 void __56__MPModelLibraryKeepLocalStatusRequestOperation_execute__block_invoke_2_13(uint64_t a1, unint64_t a2)
 {
-  v32[2] = *MEMORY[0x1E69E9840];
+  v35[2] = *MEMORY[0x1E69E9840];
   if (a2)
   {
     if (a2 <= 0x96)
     {
-      v3 = (*(*(*(a1 + 32) + 272) + 16))(v25);
+      v3 = (*(*(*(a1 + 32) + 272) + 16))(v28);
       v4 = mlcore::PlaylistItemPropertyItemPersistentID(v3);
       v5 = mlcore::ItemPropertyPersistentID(v4);
       Property = MPMediaLibraryGetProperty(v4, v5);
@@ -240,24 +248,25 @@ void __56__MPModelLibraryKeepLocalStatusRequestOperation_execute__block_invoke_2
       v16 = mlcore::PlaylistItemPropertyItemPersistentID(v15);
       v17 = mlcore::ItemPropertyKeepLocalStatus(v16);
       v18 = MPMediaLibraryGetProperty(v16, v17);
-      v31[0] = Property;
-      v31[1] = v9;
-      v31[2] = v12;
-      v31[3] = v15;
-      v31[4] = v18;
-      memset(v28, 0, sizeof(v28));
-      std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase * const*,mlcore::ModelPropertyBase * const*>(v28, v31, v32, 5uLL);
+      v34[0] = Property;
+      v34[1] = v9;
+      v34[2] = v12;
+      v34[3] = v15;
+      v34[4] = v18;
+      memset(v31, 0, sizeof(v31));
+      std::vector<mlcore::ModelPropertyBase *>::__init_with_size[abi:ne200100]<mlcore::ModelPropertyBase * const*,mlcore::ModelPropertyBase * const*>(v31, v34, v35, 5uLL);
     }
 
-    (*(*(*(a1 + 32) + 272) + 16))(&v27);
-    v21 = mlcore::Query::predicate(&v26, v27);
-    memset(v25, 0, sizeof(v25));
+    (*(*(*(a1 + 32) + 272) + 16))(&v30);
+    v21 = mlcore::Query::predicate(&v29, v30);
+    memset(v28, 0, sizeof(v28));
     v22 = mlcore::PlaylistItemPropertyItemPersistentID(v21);
     v23 = mlcore::ItemPropertyKeepLocalStatus(v22);
-    MPMediaLibraryGetProperty(v22, v23);
-    v29 = 0;
-    LODWORD(v30) = 2;
-    std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<int>,std::allocator<mlcore::ComparisonPredicate<int>>,mlcore::ModelProperty<int> *&,mlcore::ComparisonOperator &,int const&,mlcore::ComparisonOptions &,0>();
+    v26 = 0;
+    v25[0] = MPMediaLibraryGetProperty(v22, v23);
+    v32 = 0;
+    LODWORD(v33) = 2;
+    std::allocate_shared[abi:ne200100]<mlcore::ComparisonPredicate<int>,std::allocator<mlcore::ComparisonPredicate<int>>,mlcore::ModelProperty<int> *&,mlcore::ComparisonOperator &,int const&,mlcore::ComparisonOptions &,0>(&v27, v25, &v33, &v26, &v32);
   }
 
   v24 = objc_alloc_init(MPLibraryKeepLocalStatusObserverDetailedContainerConfiguration);
@@ -452,17 +461,17 @@ void __56__MPModelLibraryKeepLocalStatusRequestOperation_execute__block_invoke_7
     v6 = mlcore::EntityQueryResult::entityCount(v6);
   }
 
-  memset(v10, 0, sizeof(v10));
+  memset(v11, 0, sizeof(v11));
   if (*(a1 + 40))
   {
-    v6 = std::vector<std::shared_ptr<mlcore::Predicate>>::push_back[abi:ne200100](v10, (a1 + 40));
+    v6 = std::vector<std::shared_ptr<mlcore::Predicate>>::push_back[abi:ne200100](v11, (a1 + 40));
   }
 
   v8 = mlcore::PlaylistItemPropertyItemPersistentID(v6);
   HasNonPurgeableAsset = mlcore::ItemPropertyHasNonPurgeableAsset(v8);
   Property = MPMediaLibraryGetProperty(v8, HasNonPurgeableAsset);
-  v11 = 0;
-  std::allocate_shared[abi:ne200100]<mlcore::UnaryPredicate<int>,std::allocator<mlcore::UnaryPredicate<int>>,mlcore::ModelProperty<int> *&,mlcore::UnaryOperator,0>();
+  v12 = 0;
+  std::allocate_shared[abi:ne200100]<mlcore::UnaryPredicate<int>,std::allocator<mlcore::UnaryPredicate<int>>,mlcore::ModelProperty<int> *&,mlcore::UnaryOperator,0>(&v10, &Property, &v12);
 }
 
 void __56__MPModelLibraryKeepLocalStatusRequestOperation_execute__block_invoke_8(void *a1, uint64_t a2, void *a3)
@@ -544,7 +553,7 @@ void __56__MPModelLibraryKeepLocalStatusRequestOperation_execute__block_invoke_6
   [v5 setSubscriptionAdamID:{objc_msgSend(v4, "longLongValue")}];
 }
 
-void __56__MPModelLibraryKeepLocalStatusRequestOperation_execute__block_invoke_2(uint64_t a1, void *a2, void *a3)
+void __56__MPModelLibraryKeepLocalStatusRequestOperation_execute__block_invoke_2(uint64_t a1, uint64_t *a2, void *a3)
 {
   v5 = a3;
   if (*a2)
@@ -576,7 +585,7 @@ void __56__MPModelLibraryKeepLocalStatusRequestOperation_execute__block_invoke_2
   [v8 finish];
 }
 
-void __56__MPModelLibraryKeepLocalStatusRequestOperation_execute__block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
+void __56__MPModelLibraryKeepLocalStatusRequestOperation_execute__block_invoke_3(void *a1, uint64_t a2, void *a3)
 {
   v11[1] = *MEMORY[0x1E69E9840];
   v5 = a3;
@@ -592,8 +601,8 @@ void __56__MPModelLibraryKeepLocalStatusRequestOperation_execute__block_invoke_3
     mlcore::AggregateFunctionQueryResult::value(v6);
   }
 
-  v8 = *(a1 + 48);
-  v10[0] = *(a1 + 40);
+  v8 = a1[6];
+  v10[0] = a1[5];
   v10[1] = v8;
   if (v8)
   {

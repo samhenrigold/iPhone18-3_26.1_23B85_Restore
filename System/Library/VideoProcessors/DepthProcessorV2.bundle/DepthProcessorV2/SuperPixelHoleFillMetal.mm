@@ -1,6 +1,7 @@
 @interface SuperPixelHoleFillMetal
 - (SuperPixelHoleFillMetal)initWithMetalContext:(id)context;
 - (int)RunSolver:(float)solver;
+- (int)allocateResources:(unsigned int)resources;
 - (int)computeStage0:(id *)stage0 inImageTexture:(id)texture inLabelTexture:(id)labelTexture inPersonMaskTexture:(id)maskTexture inInstanceSegmentationLayer0Texture:(id)layer0Texture inInstanceSegmentationLayer1Texture:(id)layer1Texture inInstanceSegmentationLayer2Texture:(id)layer2Texture inInstanceSegmentationLayer3Texture:(id)self0;
 - (int)computeStage4:(id *)stage4 inLabelTexture:(id)texture inDepthTex:(id)tex inConfTex:(id)confTex inDistanceTransformMapTex:(id)mapTex maxDist:(float)dist sigma_den:(float)sigma_den;
 - (int)computeStageSolver:(id *)solver inLabelTexture:(id)texture inConfTex:(id)tex inImageTex:(id)imageTex outDepthTex:(id)depthTex outConfTex:(id)confTex;
@@ -142,6 +143,92 @@ LABEL_23:
 LABEL_12:
 
   return self;
+}
+
+- (int)allocateResources:(unsigned int)resources
+{
+  if (self->_metalContext)
+  {
+    solverMemoryPointer = self->_solverMemoryPointer;
+    if (solverMemoryPointer)
+    {
+      self->_solverMemoryPointer = 0;
+      free(solverMemoryPointer);
+    }
+
+    if (resources - 0x4000 <= 0xFFFFC000)
+    {
+      sub_29572F194(&v38);
+    }
+
+    else
+    {
+      self->_maxNumSuperPixels = resources;
+      v9 = objc_msgSend_device(self->_metalContext, a2, *&resources, v3, v4, v5);
+      v13 = objc_msgSend_newBufferWithLength_options_(v9, v10, 224 * resources + 240, 0, v11, v12);
+      workMem = self->_workMem;
+      self->_workMem = v13;
+
+      if (self->_workMem)
+      {
+        v20 = objc_msgSend_device(self->_metalContext, v15, v16, v17, v18, v19);
+        v24 = objc_msgSend_newBufferWithLength_options_(v20, v21, 16 * resources, 0, v22, v23);
+        superPixelsBoundaries = self->_superPixelsBoundaries;
+        self->_superPixelsBoundaries = v24;
+
+        if (self->_superPixelsBoundaries)
+        {
+          v26 = 8 * resources + 8;
+          v27 = 84 * resources;
+          v28 = malloc_type_calloc(1uLL, v26 + 8 * resources + 2 * v27, 0x100004077774924uLL);
+          if (v28)
+          {
+            v29 = 0;
+            *&self->_matrixAtA.structure.attributes = *&self->_matrixAtA.structure.attributes & 0xFFF0 | 0xE;
+            self->_solverMemoryPointer = v28;
+            self->_matrixAtA.structure.rowCount = resources;
+            self->_matrixAtA.structure.columnCount = resources;
+            self->_matrixAtA.structure.columnStarts = v28;
+            self->_matrixAtA.structure.rowIndices = &v28[v26];
+            v30 = &v28[v26 + v27];
+            self->_matrixAtA.structure.blockSize = 1;
+            self->_matrixAtA.data = v30;
+            v31 = &v30[v27 / 4];
+            self->_vectorAtB.count = resources;
+            self->_vectorAtB.data = v31;
+            self->_vectorX.count = resources;
+            self->_vectorX.data = &v31[resources];
+            return v29;
+          }
+
+          sub_29572EF90(&v38);
+        }
+
+        else
+        {
+          sub_29572F03C(&v38);
+        }
+      }
+
+      else
+      {
+        sub_29572F0E8(&v38);
+      }
+    }
+  }
+
+  else
+  {
+    sub_29572F240(&v38);
+  }
+
+  v29 = v38;
+  if (v38)
+  {
+    objc_msgSend_releaseResources(self, v33, v34, v35, v36, v37);
+  }
+
+  return v29;
 }
 
 - (void)releaseResources

@@ -9,7 +9,9 @@
 - (unsigned)audioSessionId;
 - (void)encodeWithCoder:(id)coder;
 - (void)setAudibleContext:(id)context;
+- (void)setAudioSessionId:(unsigned int)id;
 - (void)setDidStartSpeaking:(id)speaking;
+- (void)setImmediate:(BOOL)immediate;
 - (void)setPlaybackVolume:(float)volume;
 - (void)setSiriAceViewId:(id)id;
 - (void)setSiriRequestId:(id)id;
@@ -26,7 +28,7 @@
 
 - (SiriTTSAudibleContext)audibleContext
 {
-  v2 = sub_1B1B10C28();
+  v2 = sub_1B1B10C28(self);
 
   return v2;
 }
@@ -35,7 +37,7 @@
 {
   contextCopy = context;
   selfCopy = self;
-  sub_1B1B10CC8();
+  sub_1B1B10CC8(contextCopy);
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -128,12 +130,26 @@
   return v4;
 }
 
+- (void)setImmediate:(BOOL)immediate
+{
+  immediateCopy = immediate;
+  audibleContext = [(SiriTTSAudioRequest *)self audibleContext];
+  [audibleContext setImmediate:immediateCopy];
+}
+
 - (BOOL)immediate
 {
   audibleContext = [(SiriTTSAudioRequest *)self audibleContext];
   immediate = [audibleContext immediate];
 
   return immediate;
+}
+
+- (void)setAudioSessionId:(unsigned int)id
+{
+  v3 = *&id;
+  audibleContext = [(SiriTTSAudioRequest *)self audibleContext];
+  [audibleContext setAudioSessionId:v3];
 }
 
 - (unsigned)audioSessionId

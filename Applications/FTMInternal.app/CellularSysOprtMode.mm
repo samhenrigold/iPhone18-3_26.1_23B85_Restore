@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)modeAsString:(int)string;
 - (int)StringAsMode:(id)mode;
 - (int)mode;
 - (unint64_t)hash;
@@ -44,6 +45,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)modeAsString:(int)string
+{
+  if ((string + 1) >= 0xD)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317A90 + (string + 1));
+  }
+
+  return v4;
 }
 
 - (int)StringAsMode:(id)mode
@@ -295,12 +311,11 @@ LABEL_11:
 {
   toCopy = to;
   has = self->_has;
-  v13 = toCopy;
+  v7 = toCopy;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v13;
+    toCopy = v7;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -319,35 +334,32 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  mode = self->_mode;
   PBDataWriterWriteInt32Field();
-  toCopy = v13;
+  toCopy = v7;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    durationMs = self->_durationMs;
     PBDataWriterWriteUint32Field();
-    toCopy = v13;
+    toCopy = v7;
   }
 
 LABEL_5:
   if (self->_simHplmn)
   {
     PBDataWriterWriteDataField();
-    toCopy = v13;
+    toCopy = v7;
   }
 
-  v7 = self->_has;
-  if ((v7 & 0x20) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x20) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
-    toCopy = v13;
-    v7 = self->_has;
-    if ((v7 & 8) == 0)
+    toCopy = v7;
+    v6 = self->_has;
+    if ((v6 & 8) == 0)
     {
 LABEL_9:
-      if ((v7 & 0x10) == 0)
+      if ((v6 & 0x10) == 0)
       {
         goto LABEL_11;
       }
@@ -361,22 +373,20 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  numSubs = self->_numSubs;
   PBDataWriterWriteUint32Field();
-  toCopy = v13;
+  toCopy = v7;
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_10:
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
-    toCopy = v13;
+    toCopy = v7;
   }
 
 LABEL_11:
   if (self->_plmn)
   {
     PBDataWriterWriteDataField();
-    toCopy = v13;
+    toCopy = v7;
   }
 }
 
@@ -556,7 +566,6 @@ LABEL_9:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 60);
   if (has)
   {
     if ((*(equalCopy + 60) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -602,14 +611,13 @@ LABEL_9:
     if (![(NSData *)simHplmn isEqual:?])
     {
 LABEL_37:
-      v10 = 0;
+      v8 = 0;
       goto LABEL_38;
     }
 
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 60);
   if ((has & 0x20) != 0)
   {
     if ((*(equalCopy + 60) & 0x20) == 0 || self->_subsId != *(equalCopy + 14))
@@ -652,17 +660,17 @@ LABEL_37:
   plmn = self->_plmn;
   if (plmn | *(equalCopy + 4))
   {
-    v10 = [(NSData *)plmn isEqual:?];
+    v8 = [(NSData *)plmn isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_38:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

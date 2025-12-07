@@ -86,145 +86,137 @@
   begin = self->super._spine.__begin_;
   if (self->super._spine.__end_ != begin)
   {
-    v11 = 0;
-    v12 = 0;
+    v5 = 0;
+    v6 = 0;
     do
     {
-      v13 = &begin[v11];
-      v14 = MEMORY[0x277CCACA8];
-      v15 = *v13;
-      v52 = v13[2];
-      sub_276152FD4("vec3(%f, %f, %f)", a2, v2, v3, v4, v5, v6, v7, SLOBYTE(v15));
-      if (v55 >= 0)
+      v7 = MEMORY[0x277CCACA8];
+      sub_276152FD4(__p, "vec3(%f, %f, %f)", *&begin[v5], *&begin[v5 + 4], *&begin[v5 + 8]);
+      if (v41 >= 0)
       {
-        objc_msgSend_stringWithUTF8String_(v14, v16, v17, v18, v19, __p);
+        objc_msgSend_stringWithUTF8String_(v7, v8, v9, v10, v11, __p);
       }
 
       else
       {
-        objc_msgSend_stringWithUTF8String_(v14, v16, v17, v18, v19, __p[0]);
+        objc_msgSend_stringWithUTF8String_(v7, v8, v9, v10, v11, __p[0]);
       }
-      v20 = ;
-      if (v55 < 0)
+      v12 = ;
+      if (v41 < 0)
       {
         operator delete(__p[0]);
       }
 
-      NSLog(&cfstr_SpineZu.isa, v12, v20, *&v52);
+      NSLog(&cfstr_SpineZu.isa, v6, v12);
 
-      ++v12;
+      ++v6;
       begin = p_spine->__begin_;
-      v11 += 12;
+      v5 += 12;
     }
 
-    while (v12 < 0xAAAAAAAAAAAAAAABLL * ((p_spine->__end_ - p_spine->__begin_) >> 2));
+    while (v6 < 0xAAAAAAAAAAAAAAABLL * ((p_spine->__end_ - p_spine->__begin_) >> 2));
   }
 
-  v21 = self->super._scale.__begin_;
-  if (self->super._scale.__end_ != v21)
+  v13 = self->super._scale.__begin_;
+  if (self->super._scale.__end_ != v13)
   {
-    v22 = 0;
+    v14 = 0;
+    v15 = 0;
+    do
+    {
+      v16 = MEMORY[0x277CCACA8];
+      sub_276152FD4(__p, "vec2(%f, %f)", *&v13[v14], *&v13[v14 + 4]);
+      if (v41 >= 0)
+      {
+        objc_msgSend_stringWithUTF8String_(v16, v17, v18, v19, v20, __p);
+      }
+
+      else
+      {
+        objc_msgSend_stringWithUTF8String_(v16, v17, v18, v19, v20, __p[0]);
+      }
+      v21 = ;
+      if (v41 < 0)
+      {
+        operator delete(__p[0]);
+      }
+
+      NSLog(&cfstr_ScaleZu.isa, v15, v21);
+
+      ++v15;
+      v13 = self->super._scale.__begin_;
+      v14 += 8;
+    }
+
+    while (v15 < (self->super._scale.__end_ - v13) >> 3);
+  }
+
+  v22 = self->super._crossSection.__begin_;
+  if (self->super._crossSection.__end_ != v22)
+  {
     v23 = 0;
+    v24 = 0;
     do
     {
-      v24 = MEMORY[0x277CCACA8];
-      v50 = *&v21[v22];
-      sub_276152FD4("vec2(%f, %f)", a2, v2, v3, v4, v5, v6, v7, SLOBYTE(v50));
-      if (v55 >= 0)
+      v25 = MEMORY[0x277CCACA8];
+      sub_276152FD4(__p, "vec2(%f, %f)", *&v22[v23], *&v22[v23 + 4]);
+      if (v41 >= 0)
       {
-        objc_msgSend_stringWithUTF8String_(v24, v25, v26, v27, v28, __p);
+        objc_msgSend_stringWithUTF8String_(v25, v26, v27, v28, v29, __p);
       }
 
       else
       {
-        objc_msgSend_stringWithUTF8String_(v24, v25, v26, v27, v28, __p[0]);
+        objc_msgSend_stringWithUTF8String_(v25, v26, v27, v28, v29, __p[0]);
       }
-      v29 = ;
-      if (v55 < 0)
+      v30 = ;
+      if (v41 < 0)
       {
         operator delete(__p[0]);
       }
 
-      NSLog(&cfstr_ScaleZu.isa, v23, v29);
+      NSLog(&cfstr_CsZu.isa, v24, v30);
 
-      ++v23;
-      v21 = self->super._scale.__begin_;
-      v22 += 8;
+      ++v24;
+      v22 = self->super._crossSection.__begin_;
+      v23 += 8;
     }
 
-    while (v23 < (self->super._scale.__end_ - v21) >> 3);
+    while (v24 < (self->super._crossSection.__end_ - v22) >> 3);
   }
 
-  v30 = self->super._crossSection.__begin_;
-  if (self->super._crossSection.__end_ != v30)
+  v31 = self->_normalizedSpine.__begin_;
+  if (self->_normalizedSpine.__end_ != v31)
   {
-    v31 = 0;
     v32 = 0;
+    v33 = 0;
     do
     {
-      v33 = MEMORY[0x277CCACA8];
-      v51 = *&v30[v31];
-      sub_276152FD4("vec2(%f, %f)", a2, v2, v3, v4, v5, v6, v7, SLOBYTE(v51));
-      if (v55 >= 0)
+      v34 = MEMORY[0x277CCACA8];
+      sub_276152FD4(__p, "vec3(%f, %f, %f)", *&v31[v32], *&v31[v32 + 4], *&v31[v32 + 8]);
+      if (v41 >= 0)
       {
-        objc_msgSend_stringWithUTF8String_(v33, v34, v35, v36, v37, __p);
+        objc_msgSend_stringWithUTF8String_(v34, v35, v36, v37, v38, __p);
       }
 
       else
       {
-        objc_msgSend_stringWithUTF8String_(v33, v34, v35, v36, v37, __p[0]);
+        objc_msgSend_stringWithUTF8String_(v34, v35, v36, v37, v38, __p[0]);
       }
-      v38 = ;
-      if (v55 < 0)
+      v39 = ;
+      if (v41 < 0)
       {
         operator delete(__p[0]);
       }
 
-      NSLog(&cfstr_CsZu.isa, v32, v38);
+      NSLog(&cfstr_NormSpineZu.isa, v33, v39);
 
-      ++v32;
-      v30 = self->super._crossSection.__begin_;
-      v31 += 8;
+      ++v33;
+      v31 = self->_normalizedSpine.__begin_;
+      v32 += 12;
     }
 
-    while (v32 < (self->super._crossSection.__end_ - v30) >> 3);
-  }
-
-  v39 = self->_normalizedSpine.__begin_;
-  if (self->_normalizedSpine.__end_ != v39)
-  {
-    v40 = 0;
-    v41 = 0;
-    do
-    {
-      v42 = &v39[v40];
-      v43 = MEMORY[0x277CCACA8];
-      v44 = *v42;
-      v53 = v42[2];
-      sub_276152FD4("vec3(%f, %f, %f)", a2, v2, v3, v4, v5, v6, v7, SLOBYTE(v44));
-      if (v55 >= 0)
-      {
-        objc_msgSend_stringWithUTF8String_(v43, v45, v46, v47, v48, __p);
-      }
-
-      else
-      {
-        objc_msgSend_stringWithUTF8String_(v43, v45, v46, v47, v48, __p[0]);
-      }
-      v49 = ;
-      if (v55 < 0)
-      {
-        operator delete(__p[0]);
-      }
-
-      NSLog(&cfstr_NormSpineZu.isa, v41, v49, *&v53);
-
-      ++v41;
-      v39 = self->_normalizedSpine.__begin_;
-      v40 += 12;
-    }
-
-    while (v41 < 0xAAAAAAAAAAAAAAABLL * ((self->_normalizedSpine.__end_ - v39) >> 2));
+    while (v33 < 0xAAAAAAAAAAAAAAABLL * ((self->_normalizedSpine.__end_ - v31) >> 2));
   }
 }
 
@@ -256,7 +248,7 @@
   {
     sub_276154744(begin, &v90, &v94, v10);
     sub_2761C14E8(&self->_normalizedSpine.__begin_, &v94);
-    begin += 12;
+    begin += 3;
   }
 
   started = objc_msgSend_bottomNonBevelStartIndex(generatorCopy, v6, *&v30, *&v31, v10);
@@ -315,14 +307,14 @@
 
 - (void)generateArrays
 {
-  v166 = *MEMORY[0x277D85DE8];
-  v160 = 0;
+  v167 = *MEMORY[0x277D85DE8];
   v161 = 0;
-  v162 = xmmword_2764D65E0;
-  v163 = xmmword_2764D65F0;
-  v164 = xmmword_2764D6600;
-  v165 = 1084227584;
-  v152 = objc_msgSend_generator(TSCH3DSplineGenerator, a2, COERCE_DOUBLE(1084227584), 0.0, v2);
+  v162 = 0;
+  v163 = xmmword_2764D65E0;
+  v164 = xmmword_2764D65F0;
+  v165 = xmmword_2764D6600;
+  v166 = 1084227584;
+  v153 = objc_msgSend_generator(TSCH3DSplineGenerator, a2, COERCE_DOUBLE(1084227584), 0.0, v2);
   v9 = objc_msgSend_generator(TSCH3DExtrusionDoubleBevelGenerator, v4, v5, v6, v7);
   if (!v9)
   {
@@ -335,7 +327,7 @@
   }
 
   v28 = objc_msgSend_inputSpinePoints(v9, v8, v10, v11, v12);
-  v34 = objc_msgSend_controlPts(v152, v29, v30, v31, v32);
+  v34 = objc_msgSend_controlPts(v153, v29, v30, v31, v32);
   stride = self->_extrusionSetting.details.spine.stride;
   if (stride <= 0)
   {
@@ -349,16 +341,16 @@
 
   v54 = 0;
   v55 = 0;
-  v56 = &v161;
+  v56 = &v162;
   do
   {
-    objc_msgSend_size(self, v33, v35, v36, v37);
+    objc_msgSend_size(self, v35, v36, v37);
     v58 = v57 * *(v56 - 1);
     v59 = *v56;
-    *v157 = *(v56 - 2);
-    *&v157[4] = v58;
-    *&v157[8] = v59;
-    sub_2761C14E8(v28, v157);
+    *v158 = *(v56 - 2);
+    *&v158[4] = v58;
+    *&v158[8] = v59;
+    sub_2761C14E8(v28, v158);
     v54 |= v55 == 5;
     v55 += stride;
     v56 += 3 * stride;
@@ -367,41 +359,42 @@
   while (v55 < 6);
   if ((v54 & 1) == 0)
   {
-    objc_msgSend_size(self, v33, v35, v36, v37);
-    *v157 = 0;
-    *&v157[4] = COERCE_UNSIGNED_INT(v60 * 5.0);
-    sub_2761C14E8(v28, v157);
+    objc_msgSend_size(self, v35, v36, v37);
+    *v158 = 0;
+    *&v158[4] = v61 * 5.0;
+    *&v158[8] = 0;
+    sub_2761C14E8(v28, v158);
   }
 
-  objc_msgSend_p_insertCrossPointsIntoVector_(self, v33, v35, v36, v37, v34);
-  *&v61 = self->_extrusionSetting.details.crossSection.detail;
-  objc_msgSend_setDetail_(v152, v62, v61, v63, v64);
-  *&v65 = self->_extrusionSetting.details.crossSection.tension;
-  objc_msgSend_setTension_(v152, v66, v65, v67, v68);
-  *&v69 = self->_extrusionSetting.details.crossSection.adaptiveThreshold;
-  objc_msgSend_setAdaptiveThreshold_(v152, v70, v69, v71, v72);
-  *&v73 = self->_extrusionSetting.details.crossSection.creaseAngle;
-  objc_msgSend_setCrossSectionCreaseAngle_(self, v74, v73, v75, v76);
-  *&v77 = self->_extrusionSetting.details.spine.bevelHeight;
-  objc_msgSend_setBevelHeight_(v9, v78, v77, v79, v80);
-  objc_msgSend_setBevelSlices_(v9, v81, v82, v83, v84, self->_extrusionSetting.details.spine.bevelSlices);
-  *&v85 = self->_extrusionSetting.details.spine.creaseAngle;
-  objc_msgSend_setSpineCreaseAngle_(self, v86, v85, v87, v88);
-  hasBottomBevel = objc_msgSend_hasBottomBevel(self, v89, v90, v91, v92);
-  objc_msgSend_setEnableBevelEdges_(v9, v94, v95, v96, v97, hasBottomBevel);
-  if (objc_msgSend_hasTopBevel(self, v98, v99, v100, v101))
+  objc_msgSend_p_insertCrossPointsIntoVector_(self, v60, v35, v36, v37, v34);
+  *&v62 = self->_extrusionSetting.details.crossSection.detail;
+  objc_msgSend_setDetail_(v153, v63, v62, v64, v65);
+  *&v66 = self->_extrusionSetting.details.crossSection.tension;
+  objc_msgSend_setTension_(v153, v67, v66, v68, v69);
+  *&v70 = self->_extrusionSetting.details.crossSection.adaptiveThreshold;
+  objc_msgSend_setAdaptiveThreshold_(v153, v71, v70, v72, v73);
+  *&v74 = self->_extrusionSetting.details.crossSection.creaseAngle;
+  objc_msgSend_setCrossSectionCreaseAngle_(self, v75, v74, v76, v77);
+  *&v78 = self->_extrusionSetting.details.spine.bevelHeight;
+  objc_msgSend_setBevelHeight_(v9, v79, v78, v80, v81);
+  objc_msgSend_setBevelSlices_(v9, v82, v83, v84, v85, self->_extrusionSetting.details.spine.bevelSlices);
+  *&v86 = self->_extrusionSetting.details.spine.creaseAngle;
+  objc_msgSend_setSpineCreaseAngle_(self, v87, v86, v88, v89);
+  hasBottomBevel = objc_msgSend_hasBottomBevel(self, v90, v91, v92, v93);
+  objc_msgSend_setEnableBevelEdges_(v9, v95, v96, v97, v98, hasBottomBevel);
+  if (objc_msgSend_hasTopBevel(self, v99, v100, v101, v102))
   {
-    objc_msgSend_generate(v9, v102, v103, v104, v105);
-    v111 = objc_msgSend_spinePoints(v9, v106, v107, v108, v109);
-    if (&self->super._spine != v111)
+    objc_msgSend_generate(v9, v103, v104, v105, v106);
+    v112 = objc_msgSend_spinePoints(v9, v107, v108, v109, v110);
+    if (&self->super._spine != v112)
     {
-      sub_2761ED280(&self->super._spine, v111->super.super.super.isa, v111->super.super._vertexBuffer, 0xAAAAAAAAAAAAAAABLL * ((v111->super.super._vertexBuffer - v111->super.super.super.isa) >> 2));
+      sub_2761ED280(&self->super._spine, v112->super.super.super.isa, v112->super.super._vertexBuffer, 0xAAAAAAAAAAAAAAABLL * ((v112->super.super._vertexBuffer - v112->super.super.super.isa) >> 2));
     }
 
-    v115 = objc_msgSend_scaleValues(v9, v110, v112, v113, v114);
-    if (&self->super._scale != v115)
+    v116 = objc_msgSend_scaleValues(v9, v111, v113, v114, v115);
+    if (&self->super._scale != v116)
     {
-      sub_2761ED484(&self->super._scale, v115->super.super.super.isa, v115->super.super._vertexBuffer, (v115->super.super._vertexBuffer - v115->super.super.super.isa) >> 3);
+      sub_2761ED484(&self->super._scale, v116->super.super.super.isa, v116->super.super._vertexBuffer, (v116->super.super._vertexBuffer - v116->super.super.super.isa) >> 3);
     }
   }
 
@@ -410,66 +403,67 @@
     sub_2761ED280(&self->super._spine, v28->__begin_, v28->__end_, 0xAAAAAAAAAAAAAAABLL * ((v28->__end_ - v28->__begin_) >> 2));
   }
 
-  objc_msgSend_generatePoints_(v152, v102, v103, v104, v105, &self->super._crossSection);
-  v159.receiver = self;
-  v159.super_class = TSCH3DBarExtrusionGeometry;
-  [(TSCH3DExtrusionGeometry *)&v159 generateArrays];
-  *v157 = 1065353216;
-  *&v157[4] = 0uLL;
-  *&v157[20] = 1065353216;
-  *&v157[24] = 0;
-  *v158 = 0;
-  *&v158[20] = 0;
+  objc_msgSend_generatePoints_(v153, v103, v104, v105, v106, &self->super._crossSection);
+  v160.receiver = self;
+  v160.super_class = TSCH3DBarExtrusionGeometry;
+  [(TSCH3DExtrusionGeometry *)&v160 generateArrays];
+  *v158 = 1065353216;
   *&v158[12] = 0;
-  *&v158[8] = 1065353216;
-  *&v158[28] = 1065353216;
+  *&v158[4] = 0;
+  *&v158[20] = 1065353216;
+  *&v158[24] = 0;
+  *v159 = 0;
+  *&v159[20] = 0;
+  *&v159[12] = 0;
+  *&v159[8] = 1065353216;
+  *&v159[28] = 1065353216;
   if (self->super.super._numVertices)
   {
-    v120 = objc_msgSend_vertexArray(self, v116, v117, v118, v119);
-    sub_2761ED628(v153, v120);
-    sub_2761EC524(v153, 0, v154, v121, v122);
-    *v157 = v154[0];
-    *&v157[16] = v154[1];
-    v117 = *&v155;
+    v121 = objc_msgSend_vertexArray(self, v117, v118, v119, v120);
+    sub_2761ED628(v154, v121);
+    sub_2761EC524(v154, 0, v155, v122, v123);
+    *v158 = v155[0];
+    *&v158[16] = v155[1];
     v118 = *&v156;
-    *v158 = v155;
-    *&v158[16] = v156;
+    v119 = *&v157;
+    *v159 = v156;
+    *&v159[16] = v157;
   }
 
-  objc_msgSend_p_updateNormalizedSpineScaleMappingsUsingTransform_forSpineGenerator_(self, v116, v117, v118, v119, v157, v9);
-  objc_msgSend_transformArrays_(self, v123, v124, v125, v126, v157);
+  objc_msgSend_p_updateNormalizedSpineScaleMappingsUsingTransform_forSpineGenerator_(self, v117, v118, v119, v120, v158, v9);
+  objc_msgSend_transformArrays_(self, v124, v125, v126, v127, v158);
   if (self->_extrusionSetting.details.crossSection.crossType == 3)
   {
-    v127 = 1;
+    v128 = 1;
   }
 
   else
   {
-    v127 = 2;
+    v128 = 2;
   }
 
-  v128 = [TSCH3DBarNormalDirectionMapper alloc];
+  v129 = [TSCH3DBarNormalDirectionMapper alloc];
   beginCapCount = self->super._beginCapCount;
   begin = self->super._crossSection.__begin_;
   end = self->super._crossSection.__end_;
-  v133 = self->super._spine.__begin_;
-  v132 = self->super._spine.__end_;
-  v138 = objc_msgSend_hasBottomBevel(self, v134, v135, v136, v137);
-  hasTopBevel = objc_msgSend_hasTopBevel(self, v139, v140, v141, v142);
-  v148 = ((end - begin) >> 3) - 1;
-  v149 = 0xAAAAAAAAAAAAAAABLL * ((v132 - v133) >> 2) - 1;
+  v134 = self->super._spine.__begin_;
+  v133 = self->super._spine.__end_;
+  v139 = objc_msgSend_hasBottomBevel(self, v135, v136, v137, v138);
+  hasTopBevel = objc_msgSend_hasTopBevel(self, v140, v141, v142, v143);
+  v149 = ((end - begin) >> 3) - 1;
+  v150 = 0xAAAAAAAAAAAAAAABLL * ((v133 - v134) >> 2) - 1;
   if (hasTopBevel)
   {
-    v150 = objc_msgSend_initWithWallOffset_crossSectionCount_spineCount_beginLimit_endLimit_(v128, v144, v145, v146, v147, beginCapCount, v148, v149, v138, v127);
+    v151 = objc_msgSend_initWithWallOffset_crossSectionCount_spineCount_beginLimit_endLimit_(v129, v145, v146, v147, v148, beginCapCount, v149, v150, v139, v128);
   }
 
   else
   {
-    v150 = objc_msgSend_initWithWallOffset_crossSectionCount_spineCount_beginLimit_endLimit_(v128, v144, v145, v146, v147, beginCapCount, v148, v149, v138, 0);
+    v151 = objc_msgSend_initWithWallOffset_crossSectionCount_spineCount_beginLimit_endLimit_(v129, v145, v146, v147, v148, beginCapCount, v149, v150, v139, 0);
   }
 
   normalDirectionMapper = self->_normalDirectionMapper;
-  self->_normalDirectionMapper = v150;
+  self->_normalDirectionMapper = v151;
 }
 
 - (id)selectionKnobPositions

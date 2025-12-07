@@ -81,7 +81,6 @@
 - (void)setBackgroundStyle:(unint64_t)style
 {
   self->_backgroundStyle = style;
-  cachedIdentifier = self->_cachedIdentifier;
   self->_cachedIdentifier = 0;
   _objc_release_x1();
 }
@@ -539,16 +538,14 @@ LABEL_6:
   if (_hasDarkLightVariants)
   {
     seasonalDarkColor = [(NTKExactitudesColorPalette *)self seasonalDarkColor];
-    Components = CGColorGetComponents([seasonalDarkColor CGColor]);
-    v7 = *(Components + 1);
-    v8 = vcvt_f32_f64(*Components);
+    CGColorGetComponents([seasonalDarkColor CGColor]);
     CLKUIConvertRGBtoLAB();
-    v10 = v9;
+    v7 = v6;
 
     result = 50.0;
-    if (v10 >= 50.0)
+    if (v7 >= 50.0)
     {
-      return v10;
+      return v7;
     }
   }
 
@@ -565,47 +562,45 @@ LABEL_6:
   }
 
   primaryColor = [(NTKExactitudesColorPalette *)self primaryColor];
-  Components = CGColorGetComponents([primaryColor CGColor]);
-  v7 = *(Components + 1);
-  v8 = vcvt_f32_f64(*Components);
+  CGColorGetComponents([primaryColor CGColor]);
   CLKUIConvertRGBtoLAB();
-  v17 = v9;
+  v14 = v6;
 
-  LODWORD(v10) = 1114636288;
-  v11.i64[0] = v17.i64[0];
-  if (*v17.i32 < 60.0)
+  LODWORD(v7) = 1114636288;
+  v8.i64[0] = v14.i64[0];
+  if (*v14.i32 < 60.0)
   {
     backgroundStyle = self->_backgroundStyle;
     if (backgroundStyle == 1)
     {
-      v13 = 1117782016;
+      v10 = 1117782016;
       goto LABEL_7;
     }
 
     if (!backgroundStyle)
     {
-      v13 = 1116471296;
+      v10 = 1116471296;
 LABEL_7:
-      LODWORD(v10) = v13;
-      v11 = v17;
-      v11.i32[0] = v13;
-      v17 = v11;
+      LODWORD(v7) = v10;
+      v8 = v14;
+      v8.i32[0] = v10;
+      v14 = v8;
     }
   }
 
-  [(NTKExactitudesColorPalette *)self _seasonalDarkColorLuminance:v10];
-  *v14.i32 = *v14.i32 + 15.0;
-  if (*v14.i32 > *v17.i32 && *v17.i32 < 90.0)
+  [(NTKExactitudesColorPalette *)self _seasonalDarkColorLuminance:v7];
+  *v11.i32 = *v11.i32 + 15.0;
+  if (*v11.i32 > *v14.i32 && *v14.i32 < 90.0)
   {
-    v16 = -1;
+    v13 = -1;
   }
 
   else
   {
-    v16 = 0;
+    v13 = 0;
   }
 
-  LODWORD(result) = vbslq_s8(vdupq_n_s32(v16), v14, v17).u32[0];
+  LODWORD(result) = vbslq_s8(vdupq_n_s32(v13), v11, v14).u32[0];
   return result;
 }
 
@@ -616,25 +611,23 @@ LABEL_7:
   if (_hasDarkLightVariants)
   {
     seasonalLightColor = [(NTKExactitudesColorPalette *)self seasonalLightColor];
-    Components = CGColorGetComponents([seasonalLightColor CGColor]);
-    v7 = *(Components + 1);
-    v8 = vcvt_f32_f64(*Components);
+    CGColorGetComponents([seasonalLightColor CGColor]);
     CLKUIConvertRGBtoLAB();
-    v13 = v9;
+    v10 = v6;
 
     [(NTKExactitudesColorPalette *)self _seasonalPrimaryColorLuminance];
-    *v10.i32 = *v10.i32 + 15.0;
-    if (*v10.i32 > *v13.i32 && *v13.i32 < 90.0)
+    *v7.i32 = *v7.i32 + 15.0;
+    if (*v7.i32 > *v10.i32 && *v10.i32 < 90.0)
     {
-      v12 = -1;
+      v9 = -1;
     }
 
     else
     {
-      v12 = 0;
+      v9 = 0;
     }
 
-    LODWORD(result) = vbslq_s8(vdupq_n_s32(v12), v10, v13).u32[0];
+    LODWORD(result) = vbslq_s8(vdupq_n_s32(v9), v7, v10).u32[0];
   }
 
   return result;
@@ -642,13 +635,11 @@ LABEL_7:
 
 - (id)_brightenUIColor:(id)color withLuminance:(float)luminance
 {
-  Components = CGColorGetComponents([color CGColor]);
-  v5 = *(Components + 1);
-  v6 = vcvt_f32_f64(*Components);
+  CGColorGetComponents([color CGColor]);
   CLKUIConvertRGBtoLAB();
   CLKUIConvertLABtoRGB();
-  v11 = [UIColor colorWithRed:v10 green:v7 blue:v8 alpha:v9];
-  cGColor = [v11 CGColor];
+  v8 = [UIColor colorWithRed:v7 green:v4 blue:v5 alpha:v6];
+  cGColor = [v8 CGColor];
 
   return [UIColor colorWithCGColor:cGColor];
 }

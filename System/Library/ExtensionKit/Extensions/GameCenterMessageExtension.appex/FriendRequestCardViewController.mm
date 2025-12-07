@@ -306,14 +306,14 @@
 {
   pressedCopy = pressed;
   selfCopy = self;
-  sub_10000EE6C();
+  sub_10000EE6C(selfCopy);
 }
 
 - (void)friendAvatarPressed:(id)pressed
 {
   pressedCopy = pressed;
   selfCopy = self;
-  sub_10000EFBC();
+  sub_10000EFBC(selfCopy);
 }
 
 - (void)viewGameCenterFriendsTapped:(id)tapped

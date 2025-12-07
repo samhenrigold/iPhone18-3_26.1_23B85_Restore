@@ -50,25 +50,24 @@
   y = point.y;
   x = point.x;
   v7 = sub_100001C28(&qword_100016460, &qword_100009CE8);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v16 - v9;
-  v11 = sub_100008D58();
-  (*(*(v11 - 8) + 56))(v10, 1, 1, v11);
-  v12 = swift_allocObject();
+  v9 = &v15 - v8;
+  v10 = sub_100008D58();
+  (*(*(v10 - 8) + 56))(v9, 1, 1, v10);
+  v11 = swift_allocObject();
   swift_unknownObjectWeakInit();
   sub_100008D38();
   selfCopy = self;
 
-  v14 = sub_100008D28();
-  v15 = swift_allocObject();
-  *(v15 + 2) = v14;
-  *(v15 + 3) = &protocol witness table for MainActor;
-  *(v15 + 4) = v12;
-  v15[5] = x;
-  v15[6] = y;
+  v13 = sub_100008D28();
+  v14 = swift_allocObject();
+  *(v14 + 2) = v13;
+  *(v14 + 3) = &protocol witness table for MainActor;
+  *(v14 + 4) = v11;
+  v14[5] = x;
+  v14[6] = y;
 
-  sub_100003D8C(0, 0, v10, &unk_100009CF8, v15);
+  sub_100003D8C(0, 0, v9, &unk_100009CF8, v14);
 }
 
 @end

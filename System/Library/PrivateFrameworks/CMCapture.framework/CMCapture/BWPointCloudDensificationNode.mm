@@ -143,13 +143,13 @@ LABEL_12:
         if (v13)
         {
           v14 = v13;
-          if (([key isEqualToString:0x1F219CD30] & 1) == 0 && (objc_msgSend(key, "isEqualToString:", 0x1F21AAE50) & 1) == 0 && objc_msgSend(v12, "passthroughMode"))
+          if ((objc_msgSend_isEqualToString_(key) & 1) == 0 && (objc_msgSend_isEqualToString_(key) & 1) == 0 && [v12 passthroughMode])
           {
             -[ADJasperColorV2Executor prepareForColorROI:](self->_executor, "prepareForColorROI:", 0.0, 0.0, [objc_msgSend(input "videoFormat")], objc_msgSend(objc_msgSend(input, "videoFormat"), "height"));
             v15 = [v12 mediaPropertiesForAttachedMediaKey:v14];
             if (!v15)
             {
-              if ([v14 isEqualToString:@"PrimaryFormat"])
+              if (objc_msgSend_isEqualToString_(v14))
               {
                 v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ output %@ has no media properties for the primary format (provided media key is %@)", self, v12, key];
                 objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0]);
@@ -180,54 +180,57 @@ LABEL_12:
   if (FigCaptureCreateColorCameraCalibrationForColorSampleBuffer(buffer, [(BWPointCloudDensificationNodeConfiguration *)self->_configuration rgbSensorConfiguration:buffer], [(BWPointCloudDensificationNodeConfiguration *)self->_configuration rgbCameraHorizontalSensorBinningFactor], [(BWPointCloudDensificationNodeConfiguration *)self->_configuration rgbCameraVerticalSensorBinningFactor], &v19) || (v14 = 0u, v15 = 0u, v12 = 0u, v13 = 0u, FigCaptureCreateJasperToColorCameraTransformForJasperSensorConfiguration([(BWPointCloudDensificationNodeConfiguration *)self->_configuration timeOfFlightSensorConfiguration], &v12)))
   {
     v6 = 0;
-    goto LABEL_13;
   }
 
-  v6 = [(BWPointCloudDensificationNode *)self _newPointCloudFromSampleBuffer:buffer];
-  if (!v6)
+  else
   {
-    fig_log_get_emitter();
-    OUTLINED_FUNCTION_12_1();
-LABEL_27:
-    FigDebugAssert3();
-    goto LABEL_13;
-  }
-
-  ImageBuffer = CMSampleBufferGetImageBuffer(buffer);
-  v16 = [objc_msgSend(-[BWNodeOutput mediaPropertiesForAttachedMediaKey:](self->super._output mediaPropertiesForAttachedMediaKey:{@"Depth", "livePixelBufferPool"), "newPixelBuffer"}];
-  if (v16 && !FigCaptureCreateDepthMetadataForColorCameraCalibration(v19, [(BWPointCloudDensificationNodeConfiguration *)self->_configuration filteringEnabled], &v18))
-  {
-    if ([(ADJasperColorV2Executor *)self->_executor executeWithColor:ImageBuffer pointCloud:v6 jasperToColorTransform:v19 colorCamera:&v16 outputDepthMap:0 outputConfidenceMap:*&v12, *&v13, *&v14, *&v15]|| !v16)
+    v6 = [(BWPointCloudDensificationNode *)self _newPointCloudFromSampleBuffer:buffer];
+    if (v6)
     {
-      goto LABEL_12;
-    }
+      ImageBuffer = CMSampleBufferGetImageBuffer(buffer);
+      v16 = [objc_msgSend(-[BWNodeOutput mediaPropertiesForAttachedMediaKey:](self->super._output mediaPropertiesForAttachedMediaKey:{@"Depth", "livePixelBufferPool"), "newPixelBuffer"}];
+      if (v16 && !FigCaptureCreateDepthMetadataForColorCameraCalibration(v19, [(BWPointCloudDensificationNodeConfiguration *)self->_configuration filteringEnabled], &v18))
+      {
+        if ([(ADJasperColorV2Executor *)self->_executor executeWithColor:ImageBuffer pointCloud:v6 jasperToColorTransform:v19 colorCamera:&v16 outputDepthMap:0 outputConfidenceMap:*&v12, *&v13, *&v14, *&v15]|| !v16)
+        {
+          goto LABEL_12;
+        }
 
-    formatDescriptionOut = 0;
-    v8 = *MEMORY[0x1E695E480];
-    CMVideoFormatDescriptionCreateForImageBuffer(*MEMORY[0x1E695E480], v16, &formatDescriptionOut);
-    memset(&sampleTiming.presentationTimeStamp, 0, 48);
-    *&sampleTiming.duration.value = *MEMORY[0x1E6960C70];
-    sampleTiming.duration.epoch = *(MEMORY[0x1E6960C70] + 16);
-    CMSampleBufferGetPresentationTimeStamp(&sampleTiming.presentationTimeStamp, buffer);
-    sampleTiming.decodeTimeStamp = sampleTiming.duration;
-    v9 = CMSampleBufferCreateForImageBuffer(v8, v16, 1u, 0, 0, formatDescriptionOut, &sampleTiming, &sampleBufferOut);
-    if (formatDescriptionOut)
-    {
-      CFRelease(formatDescriptionOut);
-    }
+        formatDescriptionOut = 0;
+        v8 = *MEMORY[0x1E695E480];
+        CMVideoFormatDescriptionCreateForImageBuffer(*MEMORY[0x1E695E480], v16, &formatDescriptionOut);
+        memset(&sampleTiming.presentationTimeStamp, 0, 48);
+        *&sampleTiming.duration.value = *MEMORY[0x1E6960C70];
+        sampleTiming.duration.epoch = *(MEMORY[0x1E6960C70] + 16);
+        CMSampleBufferGetPresentationTimeStamp(&sampleTiming.presentationTimeStamp, buffer);
+        sampleTiming.decodeTimeStamp = sampleTiming.duration;
+        v9 = CMSampleBufferCreateForImageBuffer(v8, v16, 1u, 0, 0, formatDescriptionOut, &sampleTiming, &sampleBufferOut);
+        if (formatDescriptionOut)
+        {
+          CFRelease(formatDescriptionOut);
+        }
 
-    if (!v9)
-    {
-      CMSetAttachment(sampleBufferOut, *off_1E798D2B8, v18, 1u);
-      BWSampleBufferSetAttachedMedia(buffer, @"Depth", sampleBufferOut);
+        if (!v9)
+        {
+          CMSetAttachment(sampleBufferOut, *off_1E798D2B8, v18, 1u);
+          BWSampleBufferSetAttachedMedia(buffer, @"Depth", sampleBufferOut);
 LABEL_12:
-      [(BWNodeOutput *)self->super._output emitSampleBuffer:buffer];
-      goto LABEL_13;
+          [(BWNodeOutput *)self->super._output emitSampleBuffer:buffer];
+          goto LABEL_13;
+        }
+
+        fig_log_get_emitter();
+        OUTLINED_FUNCTION_12_1();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v9);
+      }
     }
 
-    fig_log_get_emitter();
-    OUTLINED_FUNCTION_12_1();
-    goto LABEL_27;
+    else
+    {
+      fig_log_get_emitter();
+      OUTLINED_FUNCTION_12_1();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0);
+    }
   }
 
 LABEL_13:
@@ -255,34 +258,6 @@ LABEL_13:
   {
     CFRelease(v16);
   }
-}
-
-- (uint64_t)_newPointCloudFromSampleBuffer:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_newPointCloudFromSampleBuffer:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_newPointCloudFromSampleBuffer:.cold.3()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)_newPointCloudFromSampleBuffer:.cold.4()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 @end

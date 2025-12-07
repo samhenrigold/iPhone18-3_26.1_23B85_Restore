@@ -6,6 +6,8 @@
 - (void)allocateNormalizedBuffers;
 - (void)allocteRGBABuffersForBuffer:(__CVBuffer *)buffer;
 - (void)dealloc;
+- (void)postProcessNormalizedFrame:(__CVBuffer *)frame output:(__CVBuffer *)output timeScale:(float)scale waitForCompletion:(BOOL)completion;
+- (void)preProcessFirstInput:(__CVBuffer *)input secondInput:(__CVBuffer *)secondInput waitForCompletion:(BOOL)completion;
 - (void)releaseNormalizedBuffers;
 - (void)storeColorProperties:(__CVBuffer *)properties;
 @end
@@ -141,6 +143,84 @@
   return self->_width < Width || self->_height < v8;
 }
 
+- (void)preProcessFirstInput:(__CVBuffer *)input secondInput:(__CVBuffer *)secondInput waitForCompletion:(BOOL)completion
+{
+  completionCopy = completion;
+  kdebug_trace();
+  if (!input)
+  {
+    *&self->_normalizedFirst = vextq_s8(*&self->_normalizedFirst, *&self->_normalizedFirst, 8uLL);
+  }
+
+  [(FRCImageProcessor *)self storeColorProperties:secondInput];
+  PixelFormatType = CVPixelBufferGetPixelFormatType(secondInput);
+  v10 = 0;
+  if (PixelFormatType != 1882468912 && PixelFormatType != 1885745712)
+  {
+    v10 = isYUV420(secondInput);
+  }
+
+  self->_isYUV = isBufferYUV(secondInput);
+  v11 = [(FRCImageProcessor *)self shouldScaleBuffer:secondInput];
+  self->_inputScaling = v11;
+  if (!self->_inputRotation && !v11 && (v10 || !self->_isYUV))
+  {
+    self->_useGPUOnlyForPreProcessing = 1;
+    self->_rgbaFirst = input;
+    self->_rgbaSecond = secondInput;
+    self->_rgbaPixelFormat = [(FRCImageProcessor *)self rgbaPixelFormatForBuffer:secondInput useScaler:0];
+    goto LABEL_16;
+  }
+
+  if (!self->_rgbaPixelFormat)
+  {
+    [(FRCImageProcessor *)self allocteRGBABuffersForBuffer:secondInput];
+    if (input)
+    {
+      goto LABEL_12;
+    }
+
+LABEL_14:
+    v13 = *&self->_rgbaFirst;
+    *&self->_rgbaFirst = vextq_s8(v13, v13, 8uLL);
+    rgbaSecond = v13.i64[0];
+    goto LABEL_15;
+  }
+
+  if (!input)
+  {
+    goto LABEL_14;
+  }
+
+LABEL_12:
+  [(FRCScaler *)self->_scaler downScaleFrameSource:input destination:self->_rgbaFirst rotate:self->_inputRotation waitForCompletion:completionCopy];
+  rgbaSecond = self->_rgbaSecond;
+LABEL_15:
+  [(FRCScaler *)self->_scaler downScaleFrameSource:secondInput destination:rgbaSecond rotate:self->_inputRotation waitForCompletion:completionCopy];
+LABEL_16:
+  normalization = self->_normalization;
+  if (input)
+  {
+    rgbaFirst = self->_rgbaFirst;
+    normalizedFirst = self->_normalizedFirst;
+  }
+
+  else
+  {
+    rgbaFirst = 0;
+    normalizedFirst = 0;
+  }
+
+  v17 = self->_rgbaSecond;
+  normalizedSecond = self->_normalizedSecond;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __72__FRCImageProcessor_preProcessFirstInput_secondInput_waitForCompletion___block_invoke;
+  v19[3] = &unk_278FEA588;
+  v19[4] = self;
+  [(Normalization *)normalization normalizeFramesFirstInput:rgbaFirst secondInput:v17 firstOutput:normalizedFirst secondOutput:normalizedSecond callback:v19];
+}
+
 uint64_t __72__FRCImageProcessor_preProcessFirstInput_secondInput_waitForCompletion___block_invoke(uint64_t a1, __int128 *a2)
 {
   v2 = *(a1 + 32);
@@ -154,7 +234,7 @@ uint64_t __72__FRCImageProcessor_preProcessFirstInput_secondInput_waitForComplet
 
 - (void)storeColorProperties:(__CVBuffer *)properties
 {
-  v19[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277CC4C00];
   v6 = CMGetAttachment(properties, *MEMORY[0x277CC4C00], 0);
   v7 = *MEMORY[0x277CC4CC0];
@@ -175,22 +255,19 @@ uint64_t __72__FRCImageProcessor_preProcessFirstInput_secondInput_waitForComplet
   {
     colorProperties = self->_colorProperties;
     self->_colorProperties = 0;
-    v14 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v18[0] = v5;
-    v18[1] = v7;
-    v19[0] = v6;
-    v19[1] = v8;
-    v18[2] = v9;
-    v19[2] = v10;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
-    v16 = self->_colorProperties;
-    self->_colorProperties = v15;
-
-    v17 = *MEMORY[0x277D85DE8];
+    v16[0] = v5;
+    v16[1] = v7;
+    v17[0] = v6;
+    v17[1] = v8;
+    v16[2] = v9;
+    v17[2] = v10;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
+    v15 = self->_colorProperties;
+    self->_colorProperties = v14;
   }
 }
 
@@ -206,6 +283,90 @@ uint64_t __72__FRCImageProcessor_preProcessFirstInput_secondInput_waitForComplet
   }
 
   return Width < self->_width || Height < self->_height;
+}
+
+- (void)postProcessNormalizedFrame:(__CVBuffer *)frame output:(__CVBuffer *)output timeScale:(float)scale waitForCompletion:(BOOL)completion
+{
+  completionCopy = completion;
+  if (self->_inputRotation)
+  {
+    inputScaling = 1;
+  }
+
+  else
+  {
+    inputScaling = self->_inputScaling;
+  }
+
+  v12 = inputScaling;
+  colorProperties = self->_colorProperties;
+  if (colorProperties)
+  {
+    CMSetAttachments(output, colorProperties, 1u);
+  }
+
+  Width = CVPixelBufferGetWidth(output);
+  Height = CVPixelBufferGetHeight(output);
+  v16 = ((Width | Height) & 1) == 0;
+  if ((Width | Height))
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+    {
+      [FRCImageProcessor postProcessNormalizedFrame:Height output:? timeScale:? waitForCompletion:?];
+    }
+
+    pixelBufferOut = 0;
+    p_useGPUOnlyForPreProcessing = &self->_useGPUOnlyForPreProcessing;
+  }
+
+  else
+  {
+    pixelBufferOut = 0;
+    p_useGPUOnlyForPreProcessing = &self->_useGPUOnlyForPreProcessing;
+    if (self->_useGPUOnlyForPreProcessing)
+    {
+      pixelBufferOut = output;
+      goto LABEL_17;
+    }
+  }
+
+  denormalizedBufferPool = self->_denormalizedBufferPool;
+  if (!denormalizedBufferPool)
+  {
+    denormalizedBufferPool = createPixelBufferPool(self->_width, self->_height, self->_rgbaPixelFormat, 0);
+    self->_denormalizedBufferPool = denormalizedBufferPool;
+  }
+
+  CVPixelBufferPoolCreatePixelBuffer(0, denormalizedBufferPool, &pixelBufferOut);
+  v19 = self->_colorProperties;
+  if (v19 && *p_useGPUOnlyForPreProcessing)
+  {
+    CMSetAttachments(pixelBufferOut, v19, 1u);
+  }
+
+LABEL_17:
+  normalization = self->_normalization;
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __83__FRCImageProcessor_postProcessNormalizedFrame_output_timeScale_waitForCompletion___block_invoke;
+  v21[3] = &unk_278FEA5B0;
+  v22 = v12;
+  v23 = completionCopy;
+  v21[4] = self;
+  [(Normalization *)normalization denormalizeFrame:frame destination:pixelBufferOut params:&self->_normalizationParams timeScale:v21 callback:COERCE_DOUBLE(LODWORD(scale))];
+  if (v16 && self->_useGPUOnlyForPreProcessing)
+  {
+    if (completionCopy)
+    {
+      dispatch_semaphore_wait(self->_completionSemaphore, 0xFFFFFFFFFFFFFFFFLL);
+    }
+  }
+
+  else
+  {
+    [(FRCScaler *)self->_scaler upScaleAndCropFrameSource:pixelBufferOut destination:output upscale:self->_inputScaling rotate:FRCGetReverseRotation(self->_inputRotation) waitForCompletion:completionCopy];
+    CVPixelBufferRelease(pixelBufferOut);
+  }
 }
 
 intptr_t __83__FRCImageProcessor_postProcessNormalizedFrame_output_timeScale_waitForCompletion___block_invoke(intptr_t result)
@@ -272,13 +433,12 @@ intptr_t __83__FRCImageProcessor_postProcessNormalizedFrame_output_timeScale_wai
 
 - (void)postProcessNormalizedFrame:(uint64_t)a1 output:(uint64_t)a2 timeScale:waitForCompletion:.cold.1(uint64_t a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 134218240;
-  v4 = a1;
-  v5 = 2048;
-  v6 = a2;
-  _os_log_debug_impl(&dword_24A8C8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Output Buffer not aligned %ld x %ld", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 134218240;
+  v3 = a1;
+  v4 = 2048;
+  v5 = a2;
+  _os_log_debug_impl(&dword_24A8C8000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "Output Buffer not aligned %ld x %ld", &v2, 0x16u);
 }
 
 @end

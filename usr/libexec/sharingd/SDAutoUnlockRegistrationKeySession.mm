@@ -1,6 +1,7 @@
 @interface SDAutoUnlockRegistrationKeySession
 - (void)handleStepData:(id)data;
 - (void)onQueue_start;
+- (void)sendStepData:(id)data type:(unsigned __int16)type errorCode:(int64_t)code;
 - (void)start;
 - (void)transport:(id)transport didReceivePayload:(id)payload type:(unsigned __int16)type deviceID:(id)d;
 @end
@@ -126,6 +127,26 @@
   v15 = [NSError errorWithDomain:SFAutoUnlockErrorDomain code:v21 userInfo:0];
   [(SDAutoUnlockRegistrationSession *)self notifyDelegateWithError:v15];
 LABEL_27:
+}
+
+- (void)sendStepData:(id)data type:(unsigned __int16)type errorCode:(int64_t)code
+{
+  typeCopy = type;
+  dataCopy = data;
+  v9 = objc_alloc_init(SDAutoUnlockDeviceRegistrationStep);
+  [(SDAutoUnlockDeviceRegistrationStep *)v9 setStepData:dataCopy];
+
+  [(SDAutoUnlockDeviceRegistrationStep *)v9 setErrorCode:code];
+  v10 = +[SDAutoUnlockTransport sharedTransport];
+  data = [(SDAutoUnlockDeviceRegistrationStep *)v9 data];
+  deviceID = [(SDAutoUnlockPairingSession *)self deviceID];
+  sessionID = [(SDAutoUnlockPairingSession *)self sessionID];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_10017F4BC;
+  v14[3] = &unk_1008CDF90;
+  v14[4] = self;
+  [v10 sendPayload:data toDevice:deviceID type:typeCopy sessionID:sessionID timeout:&off_10090BE68 errorHandler:v14];
 }
 
 - (void)handleStepData:(id)data

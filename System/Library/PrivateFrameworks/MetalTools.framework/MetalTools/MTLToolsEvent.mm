@@ -2,6 +2,7 @@
 - (BOOL)enableBarrier;
 - (BOOL)supportsRollback;
 - (NSString)label;
+- (void)setEnableBarrier:(BOOL)barrier;
 - (void)setLabel:(id)label;
 @end
 
@@ -26,6 +27,14 @@
   baseObject = [(MTLToolsObject *)self baseObject];
 
   return [baseObject enableBarrier];
+}
+
+- (void)setEnableBarrier:(BOOL)barrier
+{
+  barrierCopy = barrier;
+  baseObject = [(MTLToolsObject *)self baseObject];
+
+  [baseObject setEnableBarrier:barrierCopy];
 }
 
 - (BOOL)supportsRollback

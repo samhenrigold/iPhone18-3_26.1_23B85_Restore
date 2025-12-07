@@ -483,54 +483,54 @@ LABEL_11:
 {
   accountsCopy = accounts;
   dispatch_assert_queue_V2(self->_queue);
-  v42 = 0u;
-  v43 = 0u;
   v40 = 0u;
   v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   obj = accountsCopy;
-  v27 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
-  if (v27)
+  v25 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
+  if (v25)
   {
-    v24 = 0;
-    v26 = *v41;
+    v22 = 0;
+    v24 = *v39;
     do
     {
-      for (i = 0; i != v27; i = i + 1)
+      for (i = 0; i != v25; i = i + 1)
       {
-        if (*v41 != v26)
+        if (*v39 != v24)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v40 + 1) + 8 * i);
+        v4 = *(*(&v38 + 1) + 8 * i);
         uniqueID = [v4 uniqueID];
-        v29 = [(NSMutableDictionary *)self->_observedStoresByAccountID objectForKeyedSubscript:?];
-        v5 = [[NSMutableArray alloc] initWithArray:v29];
+        v27 = [(NSMutableDictionary *)self->_observedStoresByAccountID objectForKeyedSubscript:?];
+        v5 = [[NSMutableArray alloc] initWithArray:v27];
         favoritesReader = [(MFUserNotificationCenterObserver *)self favoritesReader];
-        v31 = [v4 mailboxesToBeObserved:favoritesReader];
+        v29 = [v4 mailboxesToBeObserved:favoritesReader];
 
-        v38 = 0u;
-        v39 = 0u;
         v36 = 0u;
         v37 = 0u;
-        v7 = v29;
+        v34 = 0u;
+        v35 = 0u;
+        v7 = v27;
         v8 = 0;
-        v9 = [v7 countByEnumeratingWithState:&v36 objects:v45 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v34 objects:v43 count:16];
         if (v9)
         {
-          v10 = *v37;
+          v10 = *v35;
           do
           {
             for (j = 0; j != v9; j = j + 1)
             {
-              if (*v37 != v10)
+              if (*v35 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v12 = *(*(&v36 + 1) + 8 * j);
+              v12 = *(*(&v34 + 1) + 8 * j);
               mailbox = [v12 mailbox];
-              if (!mailbox || ([v31 containsObject:mailbox] & 1) == 0)
+              if (!mailbox || ([v29 containsObject:mailbox] & 1) == 0)
               {
                 [v5 removeObject:v12];
                 [(MFUserNotificationCenterObserver *)self _stopObservingStore:v12];
@@ -538,31 +538,31 @@ LABEL_11:
               }
             }
 
-            v9 = [v7 countByEnumeratingWithState:&v36 objects:v45 count:16];
+            v9 = [v7 countByEnumeratingWithState:&v34 objects:v43 count:16];
           }
 
           while (v9);
         }
 
-        v34 = 0u;
-        v35 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v14 = v31;
-        v15 = [v14 countByEnumeratingWithState:&v32 objects:v44 count:16];
+        v30 = 0u;
+        v31 = 0u;
+        v14 = v29;
+        v15 = [v14 countByEnumeratingWithState:&v30 objects:v42 count:16];
         if (v15)
         {
-          v16 = *v33;
+          v16 = *v31;
           do
           {
             for (k = 0; k != v15; k = k + 1)
             {
-              if (*v33 != v16)
+              if (*v31 != v16)
               {
                 objc_enumerationMutation(v14);
               }
 
-              v18 = [v4 storeForMailboxUid:*(*(&v32 + 1) + 8 * k)];
+              v18 = [v4 storeForMailboxUid:*(*(&v30 + 1) + 8 * k)];
               if (v18 && ([v7 containsObject:v18] & 1) == 0)
               {
                 [v5 addObject:v18];
@@ -571,7 +571,7 @@ LABEL_11:
               }
             }
 
-            v15 = [v14 countByEnumeratingWithState:&v32 objects:v44 count:16];
+            v15 = [v14 countByEnumeratingWithState:&v30 objects:v42 count:16];
           }
 
           while (v15);
@@ -579,35 +579,33 @@ LABEL_11:
 
         if (v8)
         {
-          v19 = [v5 count];
-          observedStoresByAccountID = self->_observedStoresByAccountID;
-          if (v19)
+          if ([v5 count])
           {
-            v21 = v5;
+            v19 = v5;
           }
 
           else
           {
-            v21 = 0;
+            v19 = 0;
           }
 
-          [(NSMutableDictionary *)self->_observedStoresByAccountID setObject:v21 forKeyedSubscript:uniqueID];
-          v24 = 1;
+          [(NSMutableDictionary *)self->_observedStoresByAccountID setObject:v19 forKeyedSubscript:uniqueID];
+          v22 = 1;
         }
       }
 
-      v27 = [obj countByEnumeratingWithState:&v40 objects:v46 count:16];
+      v25 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
     }
 
-    while (v27);
+    while (v25);
   }
 
   else
   {
-    v24 = 0;
+    v22 = 0;
   }
 
-  return v24 & 1;
+  return v22 & 1;
 }
 
 - (MFUserNotificationCenterObserverDelegate)delegate

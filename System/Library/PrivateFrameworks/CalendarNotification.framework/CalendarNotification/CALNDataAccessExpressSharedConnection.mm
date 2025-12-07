@@ -25,7 +25,6 @@
 
 uint64_t __57__CALNDataAccessExpressSharedConnection_sharedConnection__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedConnection_sharedConnection = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();

@@ -23,9 +23,11 @@
 
 uint64_t __35__HMIThermalMonitor_sharedInstance__block_invoke()
 {
-  sharedInstance_sharedInstance = objc_alloc_init(HMIThermalMonitor);
+  v0 = objc_alloc_init(HMIThermalMonitor);
+  v1 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (HMIThermalMonitor)init
@@ -88,12 +90,11 @@ void __25__HMIThermalMonitor_init__block_invoke(uint64_t a1)
 
 - (BOOL)readValueFromSensor:(int)sensor value:(double *)value
 {
-  v5 = *&sensor;
   v27 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock_with_options();
   services = [(HMIThermalMonitor *)self services];
-  v8 = [MEMORY[0x277CCABB0] numberWithInt:v5];
-  client = [services objectForKey:v8];
+  v8 = [MEMORY[0x277CCABB0] numberWithInt:?];
+  client = [services objectForKey:?];
 
   if (client)
   {
@@ -115,13 +116,13 @@ LABEL_24:
   }
 
   valuePtr = 65280;
-  v21 = v5;
+  sensorCopy = sensor;
   v19 = 5;
   *keys = xmmword_278752C40;
   v26 = @"LocationID";
   values = CFNumberCreate(v10, kCFNumberSInt32Type, &valuePtr);
   cf = CFNumberCreate(v10, kCFNumberSInt32Type, &v19);
-  v24 = CFNumberCreate(v10, kCFNumberSInt32Type, &v21);
+  v24 = CFNumberCreate(v10, kCFNumberSInt32Type, &sensorCopy);
   v11 = CFDictionaryCreate(v10, keys, &values, 3, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   if (!v11)
   {
@@ -173,10 +174,10 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  client = [[HMIThermalMonitorService alloc] initWithService:client];
+  client = [[HMIThermalMonitorService alloc] initWithService:?];
   services2 = [(HMIThermalMonitor *)self services];
-  v15 = [MEMORY[0x277CCABB0] numberWithInt:v5];
-  [services2 setObject:client forKey:v15];
+  v15 = [MEMORY[0x277CCABB0] numberWithInt:?];
+  [services2 setObject:? forKey:?];
 
 LABEL_19:
   if (value)
@@ -194,24 +195,14 @@ LABEL_22:
 
 - (BOOL)readMaxValue:(double *)value
 {
-  v5 = 0;
-  v6 = 0.0;
-  do
+  for (i = 0; i != 32; i += 4)
   {
-    v8 = 0.0;
-    [(HMIThermalMonitor *)self readValueFromSensor:dword_22D297F20[v5] value:&v8];
-    if (v6 < v8)
-    {
-      v6 = v8;
-    }
-
-    ++v5;
+    [HMIThermalMonitor readValueFromSensor:"readValueFromSensor:value:" value:?];
   }
 
-  while (v5 != 8);
   if (value)
   {
-    *value = v6;
+    *value = 0.0;
   }
 
   return 1;
@@ -242,7 +233,7 @@ LABEL_22:
 
   objc_autoreleasePoolPop(v3);
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-  [defaultCenter postNotificationName:@"HMIThermalLevelDidChangeNotification" object:selfCopy];
+  [defaultCenter postNotificationName:? object:?];
 }
 
 - (void)dealloc

@@ -8,28 +8,21 @@ uint64_t BiomeLibrary()
   return objc_opt_class();
 }
 
-uint64_t OUTLINED_FUNCTION_10(uint64_t result)
+id sub_184E969BC(uint64_t a1, uint64_t a2, void (*a3)(uint64_t, uint64_t), uint64_t a4)
 {
-  v1 = *(result + 24) >> 1;
-  v2 = *(result + 16) + 1;
-  return result;
-}
+  a3(a1, a2);
+  v4 = sub_1854FA970();
 
-id sub_184E969BC(uint64_t a1, uint64_t a2, void (*a3)(void))
-{
-  a3();
-  v3 = sub_1854FA970();
-
-  return v3;
+  return v4;
 }
 
 uint64_t OUTLINED_FUNCTION_17()
 {
 }
 
-id sub_184EA0050(uint64_t a1, uint64_t a2, void (*a3)(void))
+id sub_184EA0050(uint64_t a1, uint64_t a2, void (*a3)(uint64_t, uint64_t))
 {
-  a3();
+  a3(a1, a2);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8C4EE0, &qword_185542FF8);
   sub_1854FA9A0();
   OUTLINED_FUNCTION_17();
@@ -39,18 +32,18 @@ id sub_184EA0050(uint64_t a1, uint64_t a2, void (*a3)(void))
 
 uint64_t sub_184EA00C8(uint64_t (*a1)(void))
 {
-  v2 = sub_184EA011C();
-  OUTLINED_FUNCTION_26(v2);
-  v3 = swift_allocObject();
-  *(v3 + 16) = xmmword_185542970;
-  *(v3 + 32) = a1();
-  return v3;
+  sub_184EA011C();
+  OUTLINED_FUNCTION_26();
+  v2 = swift_allocObject();
+  *(v2 + 16) = xmmword_185542970;
+  *(v2 + 32) = a1();
+  return v2;
 }
 
 uint64_t sub_184EA011C()
 {
   v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EA8C4EE0, &qword_185542FF8);
-  if (dynamic_cast_existential_0_class_conditional(v0))
+  if (dynamic_cast_existential_0_class_conditional(v0, v0))
   {
     v1 = &unk_1EA8C4EF8;
     v2 = &unk_185543010;
@@ -65,7 +58,7 @@ uint64_t sub_184EA011C()
   return __swift_instantiateConcreteTypeFromMangledNameV2(v1, v2);
 }
 
-uint64_t dynamic_cast_existential_0_class_conditional(uint64_t a1)
+uint64_t dynamic_cast_existential_0_class_conditional(uint64_t a1, uint64_t a2)
 {
   if (swift_isClassType())
   {
@@ -78,40 +71,33 @@ uint64_t dynamic_cast_existential_0_class_conditional(uint64_t a1)
   }
 }
 
-void OUTLINED_FUNCTION_25(uint64_t a1@<X3>, uint64_t a2@<X8>)
-{
-  *(v2 + 32) = v3;
-  *(v2 + 40) = a2;
-  v4 = *(a1 + 24);
-}
-
 uint64_t static _BMIPBridgeGenerativeModelsGenerativeFunctionsLibraryNode.streamNames()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = OUTLINED_FUNCTION_11(a1, a2, a3, MEMORY[0x1E69E7CC0]);
-  v6 = OUTLINED_FUNCTION_10(v5);
-  if (!(!v13 & v12))
+  OUTLINED_FUNCTION_11(a1, a2, a3, MEMORY[0x1E69E7CC0]);
+  OUTLINED_FUNCTION_10();
+  if (!(!v12 & v11))
   {
-    v18 = OUTLINED_FUNCTION_5(v9, v10);
-    v6 = OUTLINED_FUNCTION_7(v18);
+    OUTLINED_FUNCTION_5(v8, v9);
+    OUTLINED_FUNCTION_7();
   }
 
-  *(v9 + 16) = v3;
-  v14 = v9 + 16 * v4;
-  *(v14 + 32) = 0x656D757274736E49;
-  *(v14 + 40) = 0xEF6E6F697461746ELL;
-  if (v11 < v4 + 2)
+  *(v8 + 16) = v3;
+  v13 = v8 + 16 * v4;
+  *(v13 + 32) = 0x656D757274736E49;
+  *(v13 + 40) = 0xEF6E6F697461746ELL;
+  if (v10 < v4 + 2)
   {
-    v6 = OUTLINED_FUNCTION_6(v9, v10);
-    v9 = v6;
+    v5 = OUTLINED_FUNCTION_6(v9, v8);
+    v8 = v5;
   }
 
-  OUTLINED_FUNCTION_3(v6, v7, v8, v9);
-  return OUTLINED_FUNCTION_13(v15, v16);
+  OUTLINED_FUNCTION_3(v5, v6, v7, v8);
+  return OUTLINED_FUNCTION_13(v14, v15);
 }
 
-id sub_184EA02AC(uint64_t a1, uint64_t a2, void (*a3)(void))
+id sub_184EA02AC(uint64_t a1, uint64_t a2, void (*a3)(uint64_t, uint64_t))
 {
-  a3();
+  a3(a1, a2);
   sub_1854FA9A0();
   OUTLINED_FUNCTION_17();
 
@@ -124,10 +110,10 @@ char *OUTLINED_FUNCTION_11(uint64_t a1, uint64_t a2, uint64_t a3, char *a4)
   return sub_184EA3BA0(0, 1, 1, a4);
 }
 
-char *OUTLINED_FUNCTION_6@<X0>(char *a1@<X3>, unint64_t a2@<X8>)
+char *OUTLINED_FUNCTION_6@<X0>(unint64_t a1@<X8>, char *a2@<X3>)
 {
 
-  return sub_184EA3BA0((a2 > 1), v2, 1, a1);
+  return sub_184EA3BA0((a1 > 1), v2, 1, a2);
 }
 
 id sub_184EA0348(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t))
@@ -241,20 +227,6 @@ uint64_t OUTLINED_FUNCTION_19(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4
   return MEMORY[0x1EEE14600](a9, a10);
 }
 
-void OUTLINED_FUNCTION_12(uint64_t a1@<X3>, uint64_t a2@<X8>)
-{
-  *(a2 + 32) = v2;
-  *(a2 + 40) = v3;
-  v4 = *(a1 + 24);
-}
-
-uint64_t OUTLINED_FUNCTION_26(uint64_t result)
-{
-  v1 = *(result + 52);
-  v2 = (*(result + 48) + 7) & 0x1FFFFFFF8;
-  return result;
-}
-
 char *OUTLINED_FUNCTION_5@<X0>(char *a1@<X3>, unint64_t a2@<X8>)
 {
 
@@ -263,109 +235,102 @@ char *OUTLINED_FUNCTION_5@<X0>(char *a1@<X3>, unint64_t a2@<X8>)
 
 uint64_t static _BMIPBridgeIntelligenceFlowLibraryNode.streamNames()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = OUTLINED_FUNCTION_11(a1, a2, a3, MEMORY[0x1E69E7CC0]);
-  v5 = OUTLINED_FUNCTION_22(v4);
-  if (!(!v11 & v10))
+  OUTLINED_FUNCTION_11(a1, a2, a3, MEMORY[0x1E69E7CC0]);
+  OUTLINED_FUNCTION_22();
+  if (!(!v10 & v9))
   {
-    v64 = OUTLINED_FUNCTION_5(v8, v9);
-    v5 = OUTLINED_FUNCTION_7(v64);
+    OUTLINED_FUNCTION_5(v7, v8);
+    OUTLINED_FUNCTION_7();
   }
 
-  OUTLINED_FUNCTION_21(v5, v6, v7, v8);
-  v17 = &v15[16 * v3];
-  *(v17 + 4) = 0xD000000000000011;
-  *(v17 + 5) = v18;
-  if (v19 < v3 + 2)
+  OUTLINED_FUNCTION_21(v4, v5, v6, v7);
+  v16 = &v14[16 * v3];
+  *(v16 + 4) = 0xD000000000000011;
+  *(v16 + 5) = v17;
+  if (v18 < v3 + 2)
   {
-    v12 = OUTLINED_FUNCTION_6(v15, v16);
-    v15 = v12;
+    v11 = OUTLINED_FUNCTION_6(v15, v14);
+    v14 = v11;
   }
 
-  OUTLINED_FUNCTION_18(v12, v13, v14, v15);
-  OUTLINED_FUNCTION_12(v20, v21);
-  if (v3 + 3 > (v23 >> 1))
+  OUTLINED_FUNCTION_18(v11, v12, v13, v14);
+  OUTLINED_FUNCTION_12(v19);
+  if (v3 + 3 > (v21 >> 1))
   {
-    OUTLINED_FUNCTION_20(v22, v23);
-  }
-
-  OUTLINED_FUNCTION_8();
-  *(v24 + 16) = v3 + 3;
-  v25 = v24 + 16 * (v3 + 2);
-  *(v25 + 32) = 0xD000000000000012;
-  *(v25 + 40) = v26;
-  v27 = *(v24 + 24);
-  if (v3 + 4 > (v27 >> 1))
-  {
-    OUTLINED_FUNCTION_5(v24, v27);
+    OUTLINED_FUNCTION_20(v20, v21);
   }
 
   OUTLINED_FUNCTION_8();
-  *(v28 + 16) = v3 + 4;
-  OUTLINED_FUNCTION_25(v28, v29);
-  if (v3 + 5 > (v34 >> 1))
+  *(v22 + 16) = v3 + 3;
+  v23 = v22 + 16 * (v3 + 2);
+  *(v23 + 32) = 0xD000000000000012;
+  *(v23 + 40) = v24;
+  v25 = *(v22 + 24);
+  if (v3 + 4 > (v25 >> 1))
   {
-    v30 = OUTLINED_FUNCTION_6(v33, v34);
-    v33 = v30;
-  }
-
-  OUTLINED_FUNCTION_3(v30, v31, v32, v33);
-  *(v37 + 32) = 0xD000000000000017;
-  *(v37 + 40) = v36;
-  v38 = *(v35 + 24);
-  if (v3 + 6 > (v38 >> 1))
-  {
-    OUTLINED_FUNCTION_20(v35, v38);
+    OUTLINED_FUNCTION_5(v22, v25);
   }
 
   OUTLINED_FUNCTION_8();
-  *(v39 + 16) = v3 + 6;
-  v40 = v39 + 16 * (v3 + 5);
-  *(v40 + 32) = 0xD000000000000017;
-  *(v40 + 40) = v41;
-  v42 = *(v39 + 24);
-  if (v3 + 7 > (v42 >> 1))
+  *(v26 + 16) = v3 + 4;
+  OUTLINED_FUNCTION_25(v27);
+  if (v3 + 5 > (v32 >> 1))
   {
-    OUTLINED_FUNCTION_5(v39, v42);
+    v28 = OUTLINED_FUNCTION_6(v32, v31);
+    v31 = v28;
+  }
+
+  OUTLINED_FUNCTION_3(v28, v29, v30, v31);
+  *(v35 + 32) = 0xD000000000000017;
+  *(v35 + 40) = v34;
+  v36 = *(v33 + 24);
+  if (v3 + 6 > (v36 >> 1))
+  {
+    OUTLINED_FUNCTION_20(v33, v36);
   }
 
   OUTLINED_FUNCTION_8();
-  *(v43 + 16) = v3 + 7;
-  OUTLINED_FUNCTION_25(v43, v44);
-  if (v3 + 8 > (v49 >> 1))
+  *(v37 + 16) = v3 + 6;
+  v38 = v37 + 16 * (v3 + 5);
+  *(v38 + 32) = 0xD000000000000017;
+  *(v38 + 40) = v39;
+  v40 = *(v37 + 24);
+  if (v3 + 7 > (v40 >> 1))
   {
-    v45 = OUTLINED_FUNCTION_6(v48, v49);
-    v48 = v45;
-  }
-
-  OUTLINED_FUNCTION_3(v45, v46, v47, v48);
-  *(v52 + 32) = 0xD000000000000012;
-  *(v52 + 40) = v51;
-  v53 = *(v50 + 24);
-  if (v3 + 9 > (v53 >> 1))
-  {
-    OUTLINED_FUNCTION_5(v50, v53);
+    OUTLINED_FUNCTION_5(v37, v40);
   }
 
   OUTLINED_FUNCTION_8();
-  *(v54 + 16) = v3 + 9;
-  OUTLINED_FUNCTION_25(v54, v55);
-  if (v3 + 10 > (v60 >> 1))
+  *(v41 + 16) = v3 + 7;
+  OUTLINED_FUNCTION_25(v42);
+  if (v3 + 8 > (v47 >> 1))
   {
-    v56 = OUTLINED_FUNCTION_6(v59, v60);
-    v59 = v56;
+    v43 = OUTLINED_FUNCTION_6(v47, v46);
+    v46 = v43;
   }
 
-  OUTLINED_FUNCTION_18(v56, v57, v58, v59);
-  *(v61 + 32) = 0x7274656D656C6554;
-  *(v61 + 40) = 0xE900000000000079;
-  return v62;
-}
+  OUTLINED_FUNCTION_3(v43, v44, v45, v46);
+  *(v50 + 32) = 0xD000000000000012;
+  *(v50 + 40) = v49;
+  v51 = *(v48 + 24);
+  if (v3 + 9 > (v51 >> 1))
+  {
+    OUTLINED_FUNCTION_5(v48, v51);
+  }
 
-uint64_t OUTLINED_FUNCTION_22(uint64_t result)
-{
-  v1 = *(result + 24) >> 1;
-  v2 = *(result + 16) + 1;
-  return result;
+  OUTLINED_FUNCTION_8();
+  *(v52 + 16) = v3 + 9;
+  OUTLINED_FUNCTION_25(v53);
+  if (v3 + 10 > (v58 >> 1))
+  {
+    v54 = OUTLINED_FUNCTION_6(v58, v57);
+    v57 = v54;
+  }
+
+  OUTLINED_FUNCTION_18(v54, v55, v56, v57);
+  *(v59 + 32) = 0x7274656D656C6554;
+  *(v59 + 40) = 0xE900000000000079;
+  return v60;
 }
 
 uint64_t static _BMIPBridgeIntelligenceFlowLibraryNode.stream(withName:)()
@@ -407,7 +372,6 @@ uint64_t static _BMIPBridgeLibrary.addToUnifiedLibrary(biomeLibraryNode:)(uint64
 
 uint64_t sub_184EABCA0()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
 
   return MEMORY[0x1EEE6BDD0](v0, 24, 7);
@@ -415,7 +379,6 @@ uint64_t sub_184EABCA0()
 
 uint64_t sub_184EABCD8()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x1EEE6BDD0](v0, 32, 7);
 }
@@ -561,43 +524,43 @@ uint64_t static _BMIPBridgeAdAttributionKitLibraryNode.stream(withName:)()
 
 uint64_t static _BMIPBridgeAdAttributionKitAggregatedReportingLibraryNode.streamNames()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = OUTLINED_FUNCTION_11(a1, a2, a3, MEMORY[0x1E69E7CC0]);
-  v6 = OUTLINED_FUNCTION_23(v5);
-  if (!(!v13 & v12))
+  OUTLINED_FUNCTION_11(a1, a2, a3, MEMORY[0x1E69E7CC0]);
+  OUTLINED_FUNCTION_23();
+  if (!(!v12 & v11))
   {
-    v28 = OUTLINED_FUNCTION_5(v9, v10);
-    v6 = OUTLINED_FUNCTION_7(v28);
+    OUTLINED_FUNCTION_5(v8, v9);
+    OUTLINED_FUNCTION_7();
   }
 
-  *(v9 + 16) = v3;
-  v14 = v9 + 16 * v4;
-  *(v14 + 32) = 0x69737265766E6F43;
-  *(v14 + 40) = 0xEA00000000006E6FLL;
-  if (v11 < v4 + 2)
+  *(v8 + 16) = v3;
+  v13 = v8 + 16 * v4;
+  *(v13 + 32) = 0x69737265766E6F43;
+  *(v13 + 40) = 0xEA00000000006E6FLL;
+  if (v10 < v4 + 2)
   {
-    v6 = OUTLINED_FUNCTION_6(v9, v10);
-    v9 = v6;
+    v5 = OUTLINED_FUNCTION_6(v9, v8);
+    v8 = v5;
   }
 
-  OUTLINED_FUNCTION_3(v6, v7, v8, v9);
-  OUTLINED_FUNCTION_25(v15, v16);
-  if (v4 + 3 > (v18 >> 1))
+  OUTLINED_FUNCTION_3(v5, v6, v7, v8);
+  OUTLINED_FUNCTION_25(v14);
+  if (v4 + 3 > (v16 >> 1))
   {
-    v17 = OUTLINED_FUNCTION_5(v17, v18);
+    v15 = OUTLINED_FUNCTION_5(v15, v16);
   }
 
-  *(v17 + 2) = v4 + 3;
-  OUTLINED_FUNCTION_12(v17, &v17[16 * v4 + 32]);
-  if (v4 + 4 > (v23 >> 1))
+  *(v15 + 2) = v4 + 3;
+  OUTLINED_FUNCTION_12(&v15[16 * v4 + 32]);
+  if (v4 + 4 > (v21 >> 1))
   {
-    v19 = OUTLINED_FUNCTION_6(v22, v23);
-    v22 = v19;
+    v17 = OUTLINED_FUNCTION_6(v21, v20);
+    v20 = v17;
   }
 
-  OUTLINED_FUNCTION_3(v19, v20, v21, v22);
-  *(v25 + 32) = 0xD000000000000016;
-  *(v25 + 40) = v24;
-  return v26;
+  OUTLINED_FUNCTION_3(v17, v18, v19, v20);
+  *(v23 + 32) = 0xD000000000000016;
+  *(v23 + 40) = v22;
+  return v24;
 }
 
 uint64_t static _BMIPBridgeAdAttributionKitAggregatedReportingLibraryNode.stream(withName:)()
@@ -626,28 +589,28 @@ uint64_t static _BMIPBridgeAppleIntelligenceLibraryNode.stream(withName:)()
 
 uint64_t static _BMIPBridgeAppleIntelligenceReportingLibraryNode.streamNames()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = OUTLINED_FUNCTION_11(a1, a2, a3, MEMORY[0x1E69E7CC0]);
-  v5 = OUTLINED_FUNCTION_10(v4);
-  if (!(!v11 & v10))
+  OUTLINED_FUNCTION_11(a1, a2, a3, MEMORY[0x1E69E7CC0]);
+  OUTLINED_FUNCTION_10();
+  if (!(!v10 & v9))
   {
-    v23 = OUTLINED_FUNCTION_5(v8, v9);
-    v5 = OUTLINED_FUNCTION_7(v23);
+    OUTLINED_FUNCTION_5(v7, v8);
+    OUTLINED_FUNCTION_7();
   }
 
-  OUTLINED_FUNCTION_21(v5, v6, v7, v8);
-  v17 = &v15[16 * v3];
-  *(v17 + 4) = 0xD000000000000010;
-  *(v17 + 5) = v18;
-  if (v19 < v3 + 2)
+  OUTLINED_FUNCTION_21(v4, v5, v6, v7);
+  v16 = &v14[16 * v3];
+  *(v16 + 4) = 0xD000000000000010;
+  *(v16 + 5) = v17;
+  if (v18 < v3 + 2)
   {
-    v12 = OUTLINED_FUNCTION_6(v15, v16);
-    v15 = v12;
+    v11 = OUTLINED_FUNCTION_6(v15, v14);
+    v14 = v11;
   }
 
-  OUTLINED_FUNCTION_18(v12, v13, v14, v15);
-  *(v20 + 32) = 0x764F797465666153;
-  *(v20 + 40) = 0xEF73656469727265;
-  return v21;
+  OUTLINED_FUNCTION_18(v11, v12, v13, v14);
+  *(v19 + 32) = 0x764F797465666153;
+  *(v19 + 40) = 0xEF73656469727265;
+  return v20;
 }
 
 uint64_t static _BMIPBridgeAppleIntelligenceReportingLibraryNode.stream(withName:)()
@@ -664,42 +627,42 @@ uint64_t static _BMIPBridgeAppleIntelligenceReportingLibraryNode.stream(withName
 
 uint64_t static _BMIPBridgeAppleIntelligenceReportingAssetDeliveryLogLibraryNode.streamNames()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = OUTLINED_FUNCTION_11(a1, a2, a3, MEMORY[0x1E69E7CC0]);
-  v6 = OUTLINED_FUNCTION_23(v5);
-  if (!(!v13 & v12))
+  OUTLINED_FUNCTION_11(a1, a2, a3, MEMORY[0x1E69E7CC0]);
+  OUTLINED_FUNCTION_23();
+  if (!(!v12 & v11))
   {
-    v27 = OUTLINED_FUNCTION_5(v9, v10);
-    v6 = OUTLINED_FUNCTION_7(v27);
+    OUTLINED_FUNCTION_5(v8, v9);
+    OUTLINED_FUNCTION_7();
   }
 
-  *(v9 + 16) = v3;
-  v14 = v9 + 16 * v4;
-  strcpy((v14 + 32), "Availability");
-  *(v14 + 45) = 0;
-  *(v14 + 46) = -5120;
-  if (v11 < v4 + 2)
+  *(v8 + 16) = v3;
+  v13 = v8 + 16 * v4;
+  strcpy((v13 + 32), "Availability");
+  *(v13 + 45) = 0;
+  *(v13 + 46) = -5120;
+  if (v10 < v4 + 2)
   {
-    v6 = OUTLINED_FUNCTION_6(v9, v10);
-    v9 = v6;
+    v5 = OUTLINED_FUNCTION_6(v9, v8);
+    v8 = v5;
   }
 
-  OUTLINED_FUNCTION_18(v6, v7, v8, v9);
-  OUTLINED_FUNCTION_12(v15, v16);
-  if (v4 + 3 > (v18 >> 1))
+  OUTLINED_FUNCTION_18(v5, v6, v7, v8);
+  OUTLINED_FUNCTION_12(v14);
+  if (v4 + 3 > (v16 >> 1))
   {
-    v17 = OUTLINED_FUNCTION_5(v17, v18);
+    v15 = OUTLINED_FUNCTION_5(v15, v16);
   }
 
-  *(v17 + 2) = v4 + 3;
-  OUTLINED_FUNCTION_12(v17, &v17[16 * v4 + 32]);
-  if (v4 + 4 > (v23 >> 1))
+  *(v15 + 2) = v4 + 3;
+  OUTLINED_FUNCTION_12(&v15[16 * v4 + 32]);
+  if (v4 + 4 > (v21 >> 1))
   {
-    v19 = OUTLINED_FUNCTION_6(v22, v23);
-    v22 = v19;
+    v17 = OUTLINED_FUNCTION_6(v21, v20);
+    v20 = v17;
   }
 
-  OUTLINED_FUNCTION_3(v19, v20, v21, v22);
-  return OUTLINED_FUNCTION_13(v24, v25);
+  OUTLINED_FUNCTION_3(v17, v18, v19, v20);
+  return OUTLINED_FUNCTION_13(v22, v23);
 }
 
 uint64_t static _BMIPBridgeAppleIntelligenceReportingAssetDeliveryLogLibraryNode.stream(withName:)()
@@ -791,28 +754,28 @@ uint64_t static _BMIPBridgeOasisAnalyticsHandsLibraryNode.stream(withName:)()
 
 uint64_t static _BMIPBridgeSensitiveContentAnalysisLibraryNode.streamNames()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v4 = OUTLINED_FUNCTION_11(a1, a2, a3, MEMORY[0x1E69E7CC0]);
-  v5 = OUTLINED_FUNCTION_10(v4);
-  if (!(!v11 & v10))
+  OUTLINED_FUNCTION_11(a1, a2, a3, MEMORY[0x1E69E7CC0]);
+  OUTLINED_FUNCTION_10();
+  if (!(!v10 & v9))
   {
-    v24 = OUTLINED_FUNCTION_5(v8, v9);
-    v5 = OUTLINED_FUNCTION_7(v24);
+    OUTLINED_FUNCTION_5(v7, v8);
+    OUTLINED_FUNCTION_7();
   }
 
-  OUTLINED_FUNCTION_21(v5, v6, v7, v8);
-  v17 = &v15[16 * v3];
-  *(v17 + 4) = 0xD000000000000016;
-  *(v17 + 5) = v18;
-  if (v19 < v3 + 2)
+  OUTLINED_FUNCTION_21(v4, v5, v6, v7);
+  v16 = &v14[16 * v3];
+  *(v16 + 4) = 0xD000000000000016;
+  *(v16 + 5) = v17;
+  if (v18 < v3 + 2)
   {
-    v12 = OUTLINED_FUNCTION_6(v15, v16);
-    v15 = v12;
+    v11 = OUTLINED_FUNCTION_6(v15, v14);
+    v14 = v11;
   }
 
-  OUTLINED_FUNCTION_3(v12, v13, v14, v15);
-  *(v21 + 32) = 0xD000000000000014;
-  *(v21 + 40) = v20;
-  return v22;
+  OUTLINED_FUNCTION_3(v11, v12, v13, v14);
+  *(v20 + 32) = 0xD000000000000014;
+  *(v20 + 40) = v19;
+  return v21;
 }
 
 uint64_t static _BMIPBridgeSensitiveContentAnalysisLibraryNode.stream(withName:)()
@@ -853,13 +816,13 @@ uint64_t static _BMIPBridgeTextUnderstandingLibraryNode.stream(withName:)()
 
 uint64_t sub_184EDA9C8(uint64_t (*a1)(void), uint64_t (*a2)(void))
 {
-  v4 = sub_184EA011C();
-  OUTLINED_FUNCTION_26(v4);
-  v5 = swift_allocObject();
-  *(v5 + 16) = xmmword_185542960;
-  *(v5 + 32) = a1();
-  *(v5 + 40) = a2();
-  return v5;
+  sub_184EA011C();
+  OUTLINED_FUNCTION_26();
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_185542960;
+  *(v4 + 32) = a1();
+  *(v4 + 40) = a2();
+  return v4;
 }
 
 uint64_t static _BMIPBridgeTextUnderstandingDeletionsLibraryNode.stream(withName:)()
@@ -876,66 +839,66 @@ uint64_t static _BMIPBridgeTextUnderstandingDeletionsLibraryNode.stream(withName
 
 uint64_t static _BMIPBridgeTextUnderstandingOutputLibraryNode.streamNames()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = OUTLINED_FUNCTION_11(a1, a2, a3, MEMORY[0x1E69E7CC0]);
-  v6 = OUTLINED_FUNCTION_22(v5);
-  if (!(!v13 & v12))
+  OUTLINED_FUNCTION_11(a1, a2, a3, MEMORY[0x1E69E7CC0]);
+  OUTLINED_FUNCTION_22();
+  if (!(!v12 & v11))
   {
-    v39 = OUTLINED_FUNCTION_5(v9, v10);
-    v6 = OUTLINED_FUNCTION_7(v39);
+    OUTLINED_FUNCTION_5(v8, v9);
+    OUTLINED_FUNCTION_7();
   }
 
-  *(v9 + 16) = v3;
-  v14 = v9 + 16 * v4;
-  *(v14 + 32) = 0x746361746E6F43;
-  *(v14 + 40) = 0xE700000000000000;
-  if (v11 < v4 + 2)
+  *(v8 + 16) = v3;
+  v13 = v8 + 16 * v4;
+  *(v13 + 32) = 0x746361746E6F43;
+  *(v13 + 40) = 0xE700000000000000;
+  if (v10 < v4 + 2)
   {
-    v6 = OUTLINED_FUNCTION_6(v9, v10);
-    v9 = v6;
+    v5 = OUTLINED_FUNCTION_6(v9, v8);
+    v8 = v5;
   }
 
-  OUTLINED_FUNCTION_18(v6, v7, v8, v9);
-  OUTLINED_FUNCTION_12(v15, v16);
-  v19 = v4 + 3;
-  if (v4 + 3 > (v18 >> 1))
+  OUTLINED_FUNCTION_18(v5, v6, v7, v8);
+  OUTLINED_FUNCTION_12(v14);
+  v17 = v4 + 3;
+  if (v4 + 3 > (v16 >> 1))
   {
-    v17 = OUTLINED_FUNCTION_20(v17, v18);
+    v15 = OUTLINED_FUNCTION_20(v15, v16);
   }
 
-  *(v17 + 2) = v19;
-  OUTLINED_FUNCTION_12(v17, &v17[16 * v4 + 32]);
-  if (v4 + 4 > (v21 >> 1))
+  *(v15 + 2) = v17;
+  OUTLINED_FUNCTION_12(&v15[16 * v4 + 32]);
+  if (v4 + 4 > (v19 >> 1))
   {
-    v20 = OUTLINED_FUNCTION_5(v20, v21);
+    v18 = OUTLINED_FUNCTION_5(v18, v19);
   }
 
-  *(v20 + 2) = v4 + 4;
-  OUTLINED_FUNCTION_12(v20, &v20[16 * v19]);
-  if (v4 + 5 > (v26 >> 1))
+  *(v18 + 2) = v4 + 4;
+  OUTLINED_FUNCTION_12(&v18[16 * v17]);
+  if (v4 + 5 > (v24 >> 1))
   {
-    v22 = OUTLINED_FUNCTION_6(v25, v26);
-    v25 = v22;
+    v20 = OUTLINED_FUNCTION_6(v24, v23);
+    v23 = v20;
   }
 
-  OUTLINED_FUNCTION_18(v22, v23, v24, v25);
-  OUTLINED_FUNCTION_12(v27, v28);
-  if (v4 + 6 > (v30 >> 1))
+  OUTLINED_FUNCTION_18(v20, v21, v22, v23);
+  OUTLINED_FUNCTION_12(v25);
+  if (v4 + 6 > (v27 >> 1))
   {
-    v29 = OUTLINED_FUNCTION_5(v29, v30);
+    v26 = OUTLINED_FUNCTION_5(v26, v27);
   }
 
-  *(v29 + 2) = v4 + 6;
-  OUTLINED_FUNCTION_12(v29, &v29[16 * v4 + 80]);
-  if (v4 + 7 > (v35 >> 1))
+  *(v26 + 2) = v4 + 6;
+  OUTLINED_FUNCTION_12(&v26[16 * v4 + 80]);
+  if (v4 + 7 > (v32 >> 1))
   {
-    v31 = OUTLINED_FUNCTION_6(v34, v35);
-    v34 = v31;
+    v28 = OUTLINED_FUNCTION_6(v32, v31);
+    v31 = v28;
   }
 
-  OUTLINED_FUNCTION_18(v31, v32, v33, v34);
-  *(v36 + 32) = 0x6369706F54;
-  *(v36 + 40) = 0xE500000000000000;
-  return v37;
+  OUTLINED_FUNCTION_18(v28, v29, v30, v31);
+  *(v33 + 32) = 0x6369706F54;
+  *(v33 + 40) = 0xE500000000000000;
+  return v34;
 }
 
 uint64_t static _BMIPBridgeTextUnderstandingOutputLibraryNode.stream(withName:)()
@@ -954,7 +917,7 @@ uint64_t *sub_184EDB004(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v13 = a3;
   v14 = a4;
-  v4 = MEMORY[0x1865F7E00]();
+  v4 = MEMORY[0x1865F7E00](a1, a2);
   OUTLINED_FUNCTION_19(v4, v5, v6, v7, v8, v9, v10, v11, v13, v14);
   OUTLINED_FUNCTION_17();
   return &v13;
@@ -999,7 +962,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -1025,7 +987,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -1051,13 +1012,6 @@ uint64_t OUTLINED_FUNCTION_13@<X0>(uint64_t a1@<X3>, uint64_t a2@<X8>)
   *(v2 + 32) = 0xD000000000000015;
   *(v2 + 40) = a2;
   return a1;
-}
-
-uint64_t OUTLINED_FUNCTION_23(uint64_t result)
-{
-  v1 = *(result + 24) >> 1;
-  v2 = *(result + 16) + 1;
-  return result;
 }
 
 _BYTE *BMAudioRouteChangeReasonFromString(const void *a1)
@@ -9512,4 +9466,49 @@ _BYTE *BMMomentsEventDataOnboardingFlowCompletionFromString(const void *a1)
   }
 
   return result;
+}
+
+__CFString *BMMomentsEventDataAgeRangeTypeAsString(uint64_t a1)
+{
+  if (a1 >= 7)
+  {
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", a1];
+  }
+
+  else
+  {
+    v2 = off_1E6E89060[a1];
+  }
+
+  return v2;
+}
+
+__CFString *BMMomentsEventDataBiologicalSexTypeAsString(uint64_t a1)
+{
+  if (a1 >= 4)
+  {
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", a1];
+  }
+
+  else
+  {
+    v2 = off_1E6E89098[a1];
+  }
+
+  return v2;
+}
+
+__CFString *BMMomentsEventDataOnboardingFlowCompletionAsString(uint64_t a1)
+{
+  if (a1 >= 6)
+  {
+    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", a1];
+  }
+
+  else
+  {
+    v2 = off_1E6E89780[a1];
+  }
+
+  return v2;
 }

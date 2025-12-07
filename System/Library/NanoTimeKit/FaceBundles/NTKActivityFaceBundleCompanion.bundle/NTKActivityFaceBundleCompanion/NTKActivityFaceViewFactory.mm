@@ -28,6 +28,8 @@
 - (int64_t)legacyLayoutOverrideforComplicationType:(unint64_t)type slot:(id)slot;
 - (unint64_t)_textLayoutStyleForSlot:(int64_t)slot;
 - (void)_configureComplicationFactory:(id)factory;
+- (void)_loadCurrentDataModelForce:(BOOL)force;
+- (void)_updateRingsForCurrentDataModelAnimated:(BOOL)animated;
 - (void)activityDataProviderCurrentDataModelUpdated:(id)updated;
 - (void)configureComplicationView:(id)view forSlot:(id)slot;
 - (void)dealloc;
@@ -195,6 +197,31 @@
       dispatch_async(&_dispatch_main_q, v8);
     }
   }
+}
+
+- (void)_loadCurrentDataModelForce:(BOOL)force
+{
+  if (!self->_isLoadingData || force)
+  {
+    v8[7] = v3;
+    v8[8] = v4;
+    self->_isLoadingData = 1;
+    v7 = +[FIUIActivityDataProvider sharedModel];
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_94BC;
+    v8[3] = &unk_20B38;
+    v8[4] = self;
+    [v7 getCurrentActivityDataModelWithHandler:v8];
+  }
+}
+
+- (void)_updateRingsForCurrentDataModelAnimated:(BOOL)animated
+{
+  animatedCopy = animated;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  currentDataModel = [(NTKActivityFaceViewFactory *)self currentDataModel];
+  [WeakRetained applyDataModel:currentDataModel animated:animatedCopy];
 }
 
 - (FIUIActivityDataModel)currentDataModel
@@ -487,10 +514,9 @@ LABEL_12:
   if ((state & 0xFFFFFFFFFFFFFFFELL) == 2)
   {
     NTKKeylineWidth();
-    v6 = v5;
-    device = self->_device;
+    v5 = v4;
     NTKColorFaceViewDeselectedKeylineInnerPadding();
-    return v6 + v8;
+    return v5 + v6;
   }
 
   return result;

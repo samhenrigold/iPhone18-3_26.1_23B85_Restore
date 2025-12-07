@@ -19,7 +19,7 @@
     return off_1E80C1280[string];
   }
 
-  v5 = __atxlog_handle_default();
+  v5 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     +[ATXActionPredictionTypes engagementTypeToString:];
@@ -36,7 +36,7 @@
     return off_1E80C12D8[string];
   }
 
-  v5 = __atxlog_handle_default();
+  v5 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     +[ATXActionPredictionTypes actionExperienceToString:];
@@ -53,7 +53,7 @@
     return off_1E80C1300[string];
   }
 
-  v5 = __atxlog_handle_default();
+  v5 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     +[ATXActionPredictionTypes actionTypeToString:];
@@ -70,7 +70,7 @@
     return off_1E80C1348[string];
   }
 
-  v5 = __atxlog_handle_default();
+  v5 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     +[ATXActionPredictionTypes actionFeedbackStageToString:];
@@ -87,7 +87,7 @@
     return off_1E80C1390[string];
   }
 
-  v5 = __atxlog_handle_default();
+  v5 = __atxlog_handle_default(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     +[ATXActionPredictionTypes actionFeedbackTypeToString:];

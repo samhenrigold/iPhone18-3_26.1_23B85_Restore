@@ -74,7 +74,7 @@ uint64_t __35__QLExtensionManager_sharedManager__block_invoke()
   return attributes;
 }
 
-uint64_t __50__QLExtensionManager_extension_supportsExactType___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__50__QLExtensionManager_extension_supportsExactType___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 caseInsensitiveCompare:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result == 0;
@@ -220,8 +220,8 @@ void __75__QLExtensionManager__cachesForExtensionType_shouldUseRestrictedExtensi
   onlyCopy = only;
   typesCopy = types;
   handlerCopy = handler;
-  LOBYTE(v21) = 0;
-  v18 = [(QLExtensionManager *)self extensionForContentType:type allowExtensionsForParentTypes:typesCopy firstPartyExtension:onlyCopy applicationBundleIdentifier:identifier extensionPath:path extensionType:extensionType generationType:generationType shouldUseRestrictedExtension:v21];
+  LOBYTE(v23) = 0;
+  v18 = [(QLExtensionManager *)self extensionForContentType:type allowExtensionsForParentTypes:typesCopy firstPartyExtension:onlyCopy applicationBundleIdentifier:identifier extensionPath:path extensionType:extensionType generationType:generationType shouldUseRestrictedExtension:v23];
   v19 = v18;
   if (!v18)
   {
@@ -230,58 +230,63 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  if (extensionType != 1 && ([v18 isGenerationPreview] & 1) == 0)
+  if (extensionType != 1)
   {
-    v20 = _qlsLogHandle;
-    if (!_qlsLogHandle)
+    isGenerationPreview = [v18 isGenerationPreview];
+    if ((isGenerationPreview & 1) == 0)
     {
-      QLSInitLogging();
-      v20 = _qlsLogHandle;
-    }
+      v22 = _qlsLogHandle;
+      if (!_qlsLogHandle)
+      {
+        QLSInitLogging(isGenerationPreview, v21);
+        v22 = _qlsLogHandle;
+      }
 
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_2615AE000, v20, OS_LOG_TYPE_ERROR, "Extension contexts can be provided for non-UI extensions only. #Remote", buf, 2u);
-    }
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_2615AE000, v22, OS_LOG_TYPE_ERROR, "Extension contexts can be provided for non-UI extensions only. #Remote", buf, 2u);
+      }
 
-    goto LABEL_9;
+      goto LABEL_9;
+    }
   }
 
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __192__QLExtensionManager_extensionContextForContentType_allowExtensionsForParentTypes_firstPartyExtensionOnly_appBundleIdentifier_extensionPath_extensionType_generationType_withCompletionHandler___block_invoke;
-  v22[3] = &unk_279ADB578;
-  v23 = v19;
-  v24 = handlerCopy;
-  [v23 beginExtensionRequestWithInputItems:0 completion:v22];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __192__QLExtensionManager_extensionContextForContentType_allowExtensionsForParentTypes_firstPartyExtensionOnly_appBundleIdentifier_extensionPath_extensionType_generationType_withCompletionHandler___block_invoke;
+  v24[3] = &unk_279ADB578;
+  v25 = v19;
+  v26 = handlerCopy;
+  [v25 beginExtensionRequestWithInputItems:0 completion:v24];
 
 LABEL_10:
 }
 
 void __192__QLExtensionManager_extensionContextForContentType_allowExtensionsForParentTypes_firstPartyExtensionOnly_appBundleIdentifier_extensionPath_extensionType_generationType_withCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    v7 = _qlsLogHandle;
+    v9 = _qlsLogHandle;
     if (!_qlsLogHandle)
     {
-      QLSInitLogging();
-      v7 = _qlsLogHandle;
+      QLSInitLogging(v6, v7);
+      v9 = _qlsLogHandle;
     }
 
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v9 = 138412290;
-      v10 = v6;
-      _os_log_impl(&dword_2615AE000, v7, OS_LOG_TYPE_FAULT, "Error while instantiating extension's object: %@ #Remote", &v9, 0xCu);
+      v11 = 138412290;
+      v12 = v8;
+      _os_log_impl(&dword_2615AE000, v9, OS_LOG_TYPE_FAULT, "Error while instantiating extension's object: %@ #Remote", &v11, 0xCu);
     }
   }
 
-  v8 = [*(a1 + 32) _extensionContextForUUID:v5];
+  v10 = [*(a1 + 32) _extensionContextForUUID:v5];
   (*(*(a1 + 40) + 16))();
 }
 
@@ -289,7 +294,7 @@ void __192__QLExtensionManager_extensionContextForContentType_allowExtensionsFor
 {
   extensionCopy = extension;
   typesCopy = types;
-  v50 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   identifierCopy = identifier;
   pathCopy = path;
@@ -308,30 +313,30 @@ void __192__QLExtensionManager_extensionContextForContentType_allowExtensionsFor
   }
 
   v23 = objc_opt_new();
-  v36 = identifierCopy;
-  v37 = typeCopy;
+  v38 = identifierCopy;
+  v39 = typeCopy;
   [(QLExtensionManager *)self _addQueryAttributesToExtensionQuery:v23 withContentType:typeCopy appBundleIdentifier:identifierCopy extensionType:extensionType generationType:generationType];
-  v38 = objc_opt_new();
-  v39 = 0u;
-  v40 = 0u;
+  v40 = objc_opt_new();
   v41 = 0u;
   v42 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v24 = [(QLExtensionManager *)self _cachesForExtensionType:extensionType shouldUseRestrictedExtension:restrictedExtension];
-  v25 = [v24 countByEnumeratingWithState:&v39 objects:v49 count:16];
+  v25 = [v24 countByEnumeratingWithState:&v41 objects:v51 count:16];
   if (v25)
   {
     v26 = v25;
-    v27 = *v40;
+    v27 = *v42;
     while (2)
     {
       for (i = 0; i != v26; ++i)
       {
-        if (*v40 != v27)
+        if (*v42 != v27)
         {
           objc_enumerationMutation(v24);
         }
 
-        v22 = [*(*(&v39 + 1) + 8 * i) extensionWithMatchingAttributes:v23 allowExtensionsForParentTypes:typesCopy extensionPath:v19 firstPartyExtension:extensionCopy];
+        v22 = [*(*(&v41 + 1) + 8 * i) extensionWithMatchingAttributes:v23 allowExtensionsForParentTypes:typesCopy extensionPath:v19 firstPartyExtension:extensionCopy];
         if (v22)
         {
           if (!restrictedExtension)
@@ -340,11 +345,11 @@ void __192__QLExtensionManager_extensionContextForContentType_allowExtensionsFor
             goto LABEL_28;
           }
 
-          [v38 addObject:v22];
+          [v40 addObject:v22];
         }
       }
 
-      v26 = [v24 countByEnumeratingWithState:&v39 objects:v49 count:16];
+      v26 = [v24 countByEnumeratingWithState:&v41 objects:v51 count:16];
       if (v26)
       {
         continue;
@@ -356,65 +361,65 @@ void __192__QLExtensionManager_extensionContextForContentType_allowExtensionsFor
 
   if (restrictedExtension)
   {
-    v29 = [v23 objectForKeyedSubscript:@"QLSupportedContentTypes"];
-    v22 = [QLExtensionManagerCache bestMatchingExtensionsFromSupportingExtensions:v38 includingExtensionsWithSupportingParentTypes:typesCopy byContentType:v29];
+    v31 = [v23 objectForKeyedSubscript:@"QLSupportedContentTypes"];
+    v22 = [QLExtensionManagerCache bestMatchingExtensionsFromSupportingExtensions:v40 includingExtensionsWithSupportingParentTypes:typesCopy byContentType:v31];
 
     if (v22)
     {
 LABEL_28:
-      v31 = _qlsLogHandle;
+      v33 = _qlsLogHandle;
       if (!_qlsLogHandle)
       {
-        QLSInitLogging();
-        v31 = _qlsLogHandle;
+        QLSInitLogging(v29, v30);
+        v33 = _qlsLogHandle;
       }
 
-      identifierCopy = v36;
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+      identifierCopy = v38;
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
       {
-        v32 = v31;
+        v34 = v33;
         extension = [v22 extension];
         identifier = [extension identifier];
         *buf = 138412802;
-        v44 = identifier;
-        v45 = 2112;
-        typeCopy = v37;
-        v46 = v37;
+        v46 = identifier;
         v47 = 2112;
-        v48 = v36;
-        _os_log_impl(&dword_2615AE000, v32, OS_LOG_TYPE_DEBUG, "Found extension: %@ for content type: %@, bundle identifier: %@. #Remote", buf, 0x20u);
+        typeCopy = v39;
+        v48 = v39;
+        v49 = 2112;
+        v50 = v38;
+        _os_log_impl(&dword_2615AE000, v34, OS_LOG_TYPE_DEBUG, "Found extension: %@ for content type: %@, bundle identifier: %@. #Remote", buf, 0x20u);
 
         goto LABEL_34;
       }
 
 LABEL_33:
-      typeCopy = v37;
+      typeCopy = v39;
       goto LABEL_34;
     }
   }
 
-  v30 = _qlsLogHandle;
+  v32 = _qlsLogHandle;
   if (!_qlsLogHandle)
   {
-    QLSInitLogging();
-    v30 = _qlsLogHandle;
+    QLSInitLogging(v29, v30);
+    v32 = _qlsLogHandle;
   }
 
-  identifierCopy = v36;
-  if (!os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+  identifierCopy = v38;
+  if (!os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
   {
     v22 = 0;
     goto LABEL_33;
   }
 
   *buf = 138412802;
-  typeCopy = v37;
-  v44 = v37;
-  v45 = 2112;
-  v46 = v36;
+  typeCopy = v39;
+  v46 = v39;
   v47 = 2112;
-  v48 = v19;
-  _os_log_impl(&dword_2615AE000, v30, OS_LOG_TYPE_DEBUG, "Did not find any extension matching content type: %@ and application bundle identifier: %@. with specified path %@ #Remote", buf, 0x20u);
+  v48 = v38;
+  v49 = 2112;
+  v50 = v19;
+  _os_log_impl(&dword_2615AE000, v32, OS_LOG_TYPE_DEBUG, "Did not find any extension matching content type: %@ and application bundle identifier: %@. with specified path %@ #Remote", buf, 0x20u);
   v22 = 0;
 LABEL_34:
 
@@ -447,7 +452,7 @@ LABEL_35:
 
 - (void)_addQueryAttributesToExtensionQuery:(id)query withContentType:(id)type appBundleIdentifier:(id)identifier extensionType:(unint64_t)extensionType generationType:(unint64_t)generationType
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   queryCopy = query;
   typeCopy = type;
   identifierCopy = identifier;
@@ -487,18 +492,18 @@ LABEL_9:
     goto LABEL_8;
   }
 
-  v18 = _qlsLogHandle;
+  v20 = _qlsLogHandle;
   if (!_qlsLogHandle)
   {
-    QLSInitLogging();
-    v18 = _qlsLogHandle;
+    QLSInitLogging(v17, v18);
+    v20 = _qlsLogHandle;
   }
 
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
   {
-    v19 = 138412290;
-    v20 = identifierCopy;
-    _os_log_impl(&dword_2615AE000, v18, OS_LOG_TYPE_ERROR, "Could not retrieve application extension because Quick Look could not figure out the path from the bundle identifier: %@. #Remote", &v19, 0xCu);
+    v21 = 138412290;
+    v22 = identifierCopy;
+    _os_log_impl(&dword_2615AE000, v20, OS_LOG_TYPE_ERROR, "Could not retrieve application extension because Quick Look could not figure out the path from the bundle identifier: %@. #Remote", &v21, 0xCu);
   }
 
 LABEL_11:

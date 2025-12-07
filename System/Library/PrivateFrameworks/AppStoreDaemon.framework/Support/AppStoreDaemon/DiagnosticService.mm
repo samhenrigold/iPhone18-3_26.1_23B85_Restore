@@ -24,7 +24,7 @@
     listenerLock = v2->_listenerLock;
     v2->_listenerLock = v5;
 
-    v7 = sub_1002EB36C();
+    v7 = sub_1002EB36C(XDCService);
     sub_1002EB6D8(v7, v2, "_handlePingMessage:fromDevice:", 1);
   }
 
@@ -48,7 +48,7 @@
 - (void)pingWithReplyHandler:(id)handler
 {
   handlerCopy = handler;
-  v4 = sub_1002C0D84();
+  v4 = sub_1002C0D84(AppInstallScheduler);
   sub_1002C13BC(v4, 2048);
 
   [NSMutableString stringWithString:@"\nExisting coordinators:"];
@@ -60,7 +60,7 @@
   [IXAppInstallCoordinator enumerateCoordinatorsWithError:0 usingBlock:v14];
   [v5 appendFormat:@"\n  ~ END ~"];
   [v5 appendString:@"\n\nActive installations:"];
-  v6 = sub_1003C27BC();
+  v6 = sub_1003C27BC(AppInstallsDatabaseStore);
   v9 = _NSConcreteStackBlock;
   v10 = 3221225472;
   v11 = sub_10030D71C;
@@ -142,7 +142,7 @@
             v9 = ASDLogHandleForCategory();
             if (os_log_type_enabled(&v9->super, OS_LOG_TYPE_DEFAULT))
             {
-              v57 = sub_100383448();
+              v57 = sub_100383448(HRNSupport);
               *buf = 67109120;
               *v125 = v57;
               v27 = "HRNMode: %d";
@@ -156,7 +156,7 @@ LABEL_88:
             goto LABEL_131;
           }
 
-          sub_100383988();
+          sub_100383988(HRNSupport);
           v9 = ASDLogHandleForCategory();
           if (!os_log_type_enabled(&v9->super, OS_LOG_TYPE_DEFAULT))
           {
@@ -188,7 +188,7 @@ LABEL_87:
           v32 = [NSArray arrayWithObjects:&v123 count:1];
           ams_activeiTunesAccount2 = sub_100402FDC(v30, v32);
 
-          v33 = sub_100284B90();
+          v33 = sub_100284B90(TaskQueue);
           v122 = ams_activeiTunesAccount2;
           present = [NSArray arrayWithObjects:&v122 count:1];
           if (v33)
@@ -324,13 +324,13 @@ LABEL_111:
           _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Set converting install to factory ledger event", buf, 2u);
         }
 
-        v13 = sub_1002AB1B0();
+        v13 = sub_1002AB1B0(AppLedger);
         sub_1002AC6A0(v13, &off_100549500);
 
         ams_activeiTunesAccount2 = [[LSApplicationRecord alloc] initWithBundleIdentifier:@"com.apple.Pages" allowPlaceholder:0 error:0];
         ams_activeiTunesAccount3 = objc_alloc_init(_TtC9appstored6LogKey);
         v16 = sub_1003BB60C([AppLedgerEvent alloc], ams_activeiTunesAccount2, ams_activeiTunesAccount3);
-        v17 = sub_1002AB1B0();
+        v17 = sub_1002AB1B0(AppLedger);
         v121 = v16;
         v18 = [NSArray arrayWithObjects:&v121 count:1];
         sub_1002ABA10(v17, v18);
@@ -433,7 +433,7 @@ LABEL_94:
             _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Sending arcade account event", buf, 2u);
           }
 
-          v29 = sub_100355E58();
+          v29 = sub_100355E58(ArcadeManager);
           sub_10035D09C(v29);
 
           v9 = ASDLogHandleForCategory();
@@ -488,7 +488,7 @@ LABEL_94:
     switch(handler)
     {
       case 601:
-        v9 = sub_1002C0D84();
+        v9 = sub_1002C0D84(AppInstallScheduler);
         sub_1002C13BC(v9, 256);
         goto LABEL_131;
       case 602:
@@ -507,23 +507,23 @@ LABEL_94:
 
         goto LABEL_111;
       case 603:
-        v9 = sub_1002856D4();
+        v9 = sub_1002856D4(RestoreManager);
         sub_10028E378(v9, &off_100549840);
         goto LABEL_131;
       case 604:
-        v95 = sub_1002856D4();
+        v95 = sub_1002856D4(RestoreManager);
         v9 = v95;
         v96 = &off_100547F08;
         goto LABEL_122;
       case 605:
-        v95 = sub_1002856D4();
+        v95 = sub_1002856D4(RestoreManager);
         v9 = v95;
         v96 = &off_100547F20;
 LABEL_122:
         sub_100287648(v95, v96);
         goto LABEL_131;
       case 606:
-        v9 = sub_1002856D4();
+        v9 = sub_1002856D4(RestoreManager);
         sub_10028EC60(v9);
         goto LABEL_131;
       case 607:
@@ -531,17 +531,17 @@ LABEL_122:
       case 609:
         goto LABEL_67;
       case 610:
-        v90 = sub_1002856D4();
+        v90 = sub_1002856D4(RestoreManager);
         v9 = v90;
         v91 = 1;
         goto LABEL_119;
       case 611:
-        v9 = sub_1002856D4();
+        v9 = sub_1002856D4(RestoreManager);
         sub_100285DDC(v9, 1);
         goto LABEL_131;
       case 612:
-        v9 = sub_1002856D4();
-        sub_10028BD74(v9, 1u);
+        v9 = sub_1002856D4(RestoreManager);
+        sub_10028BD74(v9, 1);
         goto LABEL_131;
       case 613:
         v87 = +[ACAccountStore ams_sharedAccountStore];
@@ -555,7 +555,7 @@ LABEL_122:
           _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_DEFAULT, "Kicking retry restores for  %@", buf, 0xCu);
         }
 
-        v33 = sub_1002856D4();
+        v33 = sub_1002856D4(RestoreManager);
         sub_1002898BC(v33, ams_activeiTunesAccount2, 0);
         goto LABEL_135;
       case 614:
@@ -589,7 +589,7 @@ LABEL_122:
         }
 
         ams_activeiTunesAccount2 = objc_alloc_init(_TtC9appstored6LogKey);
-        v98 = sub_1002856D4();
+        v98 = sub_1002856D4(RestoreManager);
         v33 = v98;
         v100 = @"com.dreamgames.royalmatch";
         v99 = ams_activeiTunesAccount2;
@@ -603,7 +603,7 @@ LABEL_122:
         }
 
         ams_activeiTunesAccount2 = objc_alloc_init(_TtC9appstored6LogKey);
-        v98 = sub_1002856D4();
+        v98 = sub_1002856D4(RestoreManager);
         v33 = v98;
         v99 = ams_activeiTunesAccount2;
         v100 = 0;
@@ -618,7 +618,7 @@ LABEL_128:
           _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_DEFAULT, "Retrying restores requiring distributor", buf, 2u);
         }
 
-        v9 = sub_1002856D4();
+        v9 = sub_1002856D4(RestoreManager);
         sub_100289F24(v9);
         goto LABEL_131;
       case 619:
@@ -629,7 +629,7 @@ LABEL_128:
           _os_log_impl(&_mh_execute_header, v101, OS_LOG_TYPE_DEFAULT, "Bootstrap Restores", buf, 2u);
         }
 
-        v90 = sub_1002856D4();
+        v90 = sub_1002856D4(RestoreManager);
         v9 = v90;
         v91 = 0;
 LABEL_119:
@@ -638,7 +638,7 @@ LABEL_119:
       default:
         if (handler == 300)
         {
-          v41 = sub_1001DFF60();
+          v41 = sub_1001DFF60(PurchaseManager);
           v9 = v41;
           v42 = 0;
         }
@@ -650,7 +650,7 @@ LABEL_119:
             goto LABEL_67;
           }
 
-          v41 = sub_1001DFF60();
+          v41 = sub_1001DFF60(PurchaseManager);
           v9 = v41;
           v42 = 1;
         }
@@ -668,8 +668,8 @@ LABEL_119:
     {
       if (handler == 100)
       {
-        ams_activeiTunesAccount2 = sub_10032C390();
-        ams_activeiTunesAccount3 = sub_100227468();
+        ams_activeiTunesAccount2 = sub_10032C390(CellularMonitor);
+        ams_activeiTunesAccount3 = sub_100227468(NetworkMonitor);
         v19 = ASDLogHandleForCategory();
         if (!os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
@@ -705,8 +705,8 @@ LABEL_45:
       goto LABEL_67;
     }
 
-    v43 = sub_1002EB36C();
-    v44 = sub_1002B0154();
+    v43 = sub_1002EB36C(XDCService);
+    v44 = sub_1002B0154(XDCDeviceManager);
     ams_activeiTunesAccount2 = sub_1002B0280(v44);
 
     if (ams_activeiTunesAccount2)
@@ -736,7 +736,7 @@ LABEL_45:
       }
 
       v51 = sub_1003420C0([XDCMessage alloc], v45, 1);
-      v52 = sub_1002EB36C();
+      v52 = sub_1002EB36C(XDCService);
       v116[0] = _NSConcreteStackBlock;
       v116[1] = 3221225472;
       v116[2] = sub_10030EED4;
@@ -820,7 +820,7 @@ LABEL_137:
           v30 = +[ACAccountStore ams_sharedAccountStore];
           ams_activeiTunesAccount = [v30 ams_activeiTunesAccount];
 
-          v32 = sub_100355E58();
+          v32 = sub_100355E58(ArcadeManager);
           v76[0] = _NSConcreteStackBlock;
           v76[1] = 3221225472;
           v76[2] = sub_100310A18;
@@ -838,7 +838,7 @@ LABEL_137:
           _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEFAULT, "Testing Arcade times", &buf, 2u);
         }
 
-        sub_1001E74A0();
+        sub_1001E74A0(AccountEventCoordinator);
         v19 = ASDLogHandleForCategory();
         if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
@@ -851,7 +851,7 @@ LABEL_137:
       {
         if (handler == 613)
         {
-          v45 = sub_1001E5E74();
+          v45 = sub_1001E5E74(AccountEventCoordinator);
           v46 = ASDLogHandleForCategory();
           if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
           {
@@ -878,7 +878,7 @@ LABEL_137:
           _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Terminating Arcade apps", &buf, 2u);
         }
 
-        v17 = sub_100355E58();
+        v17 = sub_100355E58(ArcadeManager);
         v18 = v17;
         if (v17)
         {
@@ -914,7 +914,7 @@ LABEL_137:
       if (handler == 411)
       {
         v105 = @"installs";
-        v11 = sub_1002C0D84();
+        v11 = sub_1002C0D84(AppInstallScheduler);
         v12 = sub_1002C1A74(v11);
         v106 = v12;
         v13 = [NSDictionary dictionaryWithObjects:&v106 forKeys:&v105 count:1];
@@ -931,11 +931,11 @@ LABEL_137:
       if (handler == 600)
       {
         v98[0] = @"restore";
-        v24 = sub_1002856D4();
+        v24 = sub_1002856D4(RestoreManager);
         v25 = sub_100289324(v24);
         v98[1] = @"installs";
         v99[0] = v25;
-        v26 = sub_1002C0D84();
+        v26 = sub_1002C0D84(AppInstallScheduler);
         v27 = sub_1002C1A74(v26);
         v99[1] = v27;
         v28 = [NSDictionary dictionaryWithObjects:v99 forKeys:v98 count:2];
@@ -948,7 +948,7 @@ LABEL_137:
     }
 
     v73 = objc_alloc_init(NSMutableDictionary);
-    v70 = sub_100227468();
+    v70 = sub_100227468(NetworkMonitor);
     v103[0] = @"isConnected";
     v48 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [v70 isConnected]);
     v104[0] = v48;
@@ -1055,7 +1055,7 @@ LABEL_137:
       v20->_refreshStoreOriginated = 1;
     }
 
-    v22 = sub_100284B90();
+    v22 = sub_100284B90(TaskQueue);
     v23 = v22;
     if (v22)
     {
@@ -1070,7 +1070,7 @@ LABEL_137:
     if (handler == 821)
     {
       v67 = sub_10039EFBC([HandleInvalidReceiptTask alloc], @"com.shazam.Shazam");
-      v68 = sub_100284B90();
+      v68 = sub_100284B90(TaskQueue);
       v97 = v67;
       v69 = [NSArray arrayWithObjects:&v97 count:1];
       if (v68)
@@ -1101,7 +1101,7 @@ LABEL_137:
       v94 = sub_10030F77C;
       v95 = sub_10030F78C;
       v96 = objc_opt_new();
-      v34 = sub_1003C27BC();
+      v34 = sub_1003C27BC(AppInstallsDatabaseStore);
       v75[0] = _NSConcreteStackBlock;
       v75[1] = 3221225472;
       v75[2] = sub_100310AA0;
@@ -1111,7 +1111,7 @@ LABEL_137:
 
       if ([*(*(&buf + 1) + 40) count])
       {
-        v35 = sub_1002C0D84();
+        v35 = sub_1002C0D84(AppInstallScheduler);
         sub_1002C13BC(v35, 128);
       }
 
@@ -1143,7 +1143,7 @@ LABEL_137:
         v94 = sub_10030F77C;
         v95 = sub_10030F78C;
         v96 = &__NSArray0__struct;
-        v64 = sub_1003C27BC();
+        v64 = sub_1003C27BC(AppInstallsDatabaseStore);
         v74[0] = _NSConcreteStackBlock;
         v74[1] = 3221225472;
         v74[2] = sub_100310D6C;
@@ -1267,7 +1267,7 @@ LABEL_90:
   sub_100268B54(v15, v17);
 
   v18 = sub_100342264(messageCopy, v15, 1);
-  v19 = sub_1002EB36C();
+  v19 = sub_1002EB36C(XDCService);
   v20 = v19;
   if (v19)
   {

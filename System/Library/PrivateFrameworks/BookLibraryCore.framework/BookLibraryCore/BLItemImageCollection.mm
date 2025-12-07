@@ -13,7 +13,7 @@
 
 - (BLItemImageCollection)initWithImageCollection:(id)collection
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   collectionCopy = collection;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (collectionCopy)
@@ -27,56 +27,56 @@
     }
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v6 = collectionCopy;
-  v7 = [v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v27;
+    v9 = *v26;
     do
     {
       v10 = 0;
       do
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v26 + 1) + 8 * v10);
+        v11 = *(*(&v25 + 1) + 8 * v10);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
           v12 = [(BLItemImageCollection *)self _newImagesForDictionary:v11];
+          v21 = 0u;
           v22 = 0u;
           v23 = 0u;
           v24 = 0u;
-          v25 = 0u;
           v13 = v12;
-          v14 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
+          v14 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
           if (v14)
           {
             v15 = v14;
-            v16 = *v23;
+            v16 = *v22;
             do
             {
               v17 = 0;
               do
               {
-                if (*v23 != v16)
+                if (*v22 != v16)
                 {
                   objc_enumerationMutation(v13);
                 }
 
-                [v4 addObject:*(*(&v22 + 1) + 8 * v17++)];
+                [v4 addObject:*(*(&v21 + 1) + 8 * v17++)];
               }
 
               while (v15 != v17);
-              v15 = [v13 countByEnumeratingWithState:&v22 objects:v30 count:16];
+              v15 = [v13 countByEnumeratingWithState:&v21 objects:v29 count:16];
             }
 
             while (v15);
@@ -87,14 +87,13 @@
       }
 
       while (v10 != v8);
-      v8 = [v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v8);
   }
 
   v18 = [(BLItemImageCollection *)self initWithItemImages:v4];
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -163,33 +162,33 @@
 
 - (id)imagesForKind:(id)kind
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   kindCopy = kind;
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
   GSMainScreenScaleFactor();
   v8 = v7;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v9 = self->_itemImages;
-  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v10)
   {
     v11 = v10;
     v12 = v8;
-    v13 = *v24;
+    v13 = *v23;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v24 != v13)
+        if (*v23 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v23 + 1) + 8 * i);
+        v15 = *(*(&v22 + 1) + 8 * i);
         imageKind = [v15 imageKind];
         v17 = [imageKind isEqualToString:kindCopy];
 
@@ -205,7 +204,7 @@
         }
       }
 
-      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v11);
@@ -221,9 +220,7 @@
     v19 = array;
   }
 
-  v20 = [v19 sortedArrayUsingFunction:sub_241D4F748 context:{0, v23}];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = [v19 sortedArrayUsingFunction:sub_241D4F748 context:{0, v22}];
 
   return v20;
 }
@@ -232,28 +229,28 @@
 {
   height = size.height;
   width = size.width;
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   v9 = self->_itemImages;
-  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v52 objects:v58 count:16];
+  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v51 objects:v57 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v53;
+    v12 = *v52;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v53 != v12)
+        if (*v52 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v52 + 1) + 8 * i);
+        v14 = *(*(&v51 + 1) + 8 * i);
         [v14 imageSize];
         if (width == v16 && height == v15)
         {
@@ -264,7 +261,7 @@
         }
       }
 
-      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v52 objects:v58 count:16];
+      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v51 objects:v57 count:16];
     }
 
     while (v11);
@@ -272,26 +269,26 @@
 
   if (![array count])
   {
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
     v19 = self->_itemImages;
-    v20 = [(NSArray *)v19 countByEnumeratingWithState:&v48 objects:v57 count:16];
+    v20 = [(NSArray *)v19 countByEnumeratingWithState:&v47 objects:v56 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v49;
+      v22 = *v48;
       do
       {
         for (j = 0; j != v21; ++j)
         {
-          if (*v49 != v22)
+          if (*v48 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v48 + 1) + 8 * j);
+          v24 = *(*(&v47 + 1) + 8 * j);
           [v24 imageSize];
           if (BLItemImageSizeEqualToSize(width, height, v25, v26))
           {
@@ -302,7 +299,7 @@
           }
         }
 
-        v21 = [(NSArray *)v19 countByEnumeratingWithState:&v48 objects:v57 count:16];
+        v21 = [(NSArray *)v19 countByEnumeratingWithState:&v47 objects:v56 count:16];
       }
 
       while (v21);
@@ -311,12 +308,12 @@
 
   if (![array count])
   {
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     v28 = self->_itemImages;
-    v29 = [(NSArray *)v28 countByEnumeratingWithState:&v44 objects:v56 count:16];
+    v29 = [(NSArray *)v28 countByEnumeratingWithState:&v43 objects:v55 count:16];
     if (!v29)
     {
       v31 = v28;
@@ -325,22 +322,22 @@
 
     v30 = v29;
     v31 = 0;
-    v32 = *v45;
+    v32 = *v44;
     v33 = 1.79769313e308;
     v34 = width / height;
     do
     {
       for (k = 0; k != v30; ++k)
       {
-        if (*v45 != v32)
+        if (*v44 != v32)
         {
           objc_enumerationMutation(v28);
         }
 
-        v36 = *(*(&v44 + 1) + 8 * k);
+        v36 = *(*(&v43 + 1) + 8 * k);
         if (scale >= 0.00000011920929)
         {
-          [*(*(&v44 + 1) + 8 * k) imageScale];
+          [*(*(&v43 + 1) + 8 * k) imageScale];
           if (v37 != scale)
           {
             continue;
@@ -358,7 +355,7 @@
         }
       }
 
-      v30 = [(NSArray *)v28 countByEnumeratingWithState:&v44 objects:v56 count:16];
+      v30 = [(NSArray *)v28 countByEnumeratingWithState:&v43 objects:v55 count:16];
     }
 
     while (v30);
@@ -370,40 +367,38 @@ LABEL_44:
     }
   }
 
-  v42 = *MEMORY[0x277D85DE8];
-
   return array;
 }
 
 - (id)_newImagesForDictionary:(id)dictionary
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v4 = [dictionaryCopy objectForKey:@"image-type"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v5 = dictionaryCopy;
-    v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v20;
+      v8 = *v19;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v8)
+          if (*v19 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v19 + 1) + 8 * i);
+          v10 = *(*(&v18 + 1) + 8 * i);
           v11 = [v5 objectForKey:v10];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
@@ -414,12 +409,12 @@ LABEL_44:
             if (uRLString)
             {
               [(BLItemArtworkImage *)v12 setImageKindWithTypeName:v4 variantName:v10];
-              [v18 addObject:v12];
+              [v17 addObject:v12];
             }
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v7);
@@ -433,12 +428,11 @@ LABEL_44:
 
     if (uRLString2)
     {
-      [v18 addObject:v14];
+      [v17 addObject:v14];
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v18;
+  return v17;
 }
 
 @end

@@ -44,15 +44,14 @@
 
 - (void)dealloc
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_lock_invalidated"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(self);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(self);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_lock_invalidated", v10, v11);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -225,7 +224,7 @@
 
 - (void)beginOperationWithIntervals:(id)intervals shouldReset:(BOOL)reset
 {
-  v69[1] = *MEMORY[0x277D85DE8];
+  v68[1] = *MEMORY[0x277D85DE8];
   intervalsCopy = intervals;
   os_unfair_lock_lock(&self->_lock);
   if (self->_lock_begun)
@@ -238,7 +237,7 @@
     [BLSHEngineRequestDatesOperation beginOperationWithIntervals:a2 shouldReset:?];
   }
 
-  v47 = a2;
+  v46 = a2;
   BSContinuousMachTimeNow();
   self->_lock_beginTime = v7;
   v8 = [(BLSHOSTimerProviding *)self->_osTimerProvider now];
@@ -255,8 +254,8 @@
   {
     v12 = MEMORY[0x277CF0868];
     v13 = [BLSHDisableFlipbookPowerSavingAttribute disablePowerSavingForReason:5];
-    v69[0] = v13;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v69 count:1];
+    v68[0] = v13;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v68 count:1];
     v15 = [v12 acquireWithExplanation:@"RequestDates" observer:0 attributes:v14];
     lock_flipbookPowerSavingAssertion = self->_lock_flipbookPowerSavingAssertion;
     self->_lock_flipbookPowerSavingAssertion = v15;
@@ -269,26 +268,26 @@
   lock_environmentIdentifiers = self->_lock_environmentIdentifiers;
   self->_lock_environmentIdentifiers = v17;
 
-  v59 = 0u;
-  v60 = 0u;
-  v57 = 0u;
   v58 = 0u;
+  v59 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   v19 = intervalsCopy;
-  v20 = [v19 countByEnumeratingWithState:&v57 objects:v68 count:16];
+  v20 = [v19 countByEnumeratingWithState:&v56 objects:v67 count:16];
   if (v20)
   {
-    v21 = *v58;
+    v21 = *v57;
     v22 = 0.0;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v58 != v21)
+        if (*v57 != v21)
         {
           objc_enumerationMutation(v19);
         }
 
-        v24 = *(*(&v57 + 1) + 8 * i);
+        v24 = *(*(&v56 + 1) + 8 * i);
         environment = [v24 environment];
         identifier = [environment identifier];
 
@@ -321,16 +320,16 @@
             environment2 = [v24 environment];
             *buf = 134218498;
             selfCopy = self;
-            v64 = 2114;
-            v65 = v24;
-            v66 = 2114;
-            v67 = environment2;
+            v63 = 2114;
+            v64 = v24;
+            v65 = 2114;
+            v66 = environment2;
             _os_log_error_impl(&dword_21FD11000, v30, OS_LOG_TYPE_ERROR, "%p nil environment identifier for interval:%{public}@ environment:%{public}@", buf, 0x20u);
           }
         }
       }
 
-      v20 = [v19 countByEnumeratingWithState:&v57 objects:v68 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v56 objects:v67 count:16];
     }
 
     while (v20);
@@ -344,12 +343,12 @@
   lock_environmentCount = self->_lock_environmentCount;
   if ([(NSArray *)self->_lock_environmentIdentifiers count]!= lock_environmentCount)
   {
-    [BLSHEngineRequestDatesOperation beginOperationWithIntervals:v47 shouldReset:?];
+    [BLSHEngineRequestDatesOperation beginOperationWithIntervals:v46 shouldReset:?];
   }
 
   if (![(NSMutableSet *)self->_lock_pendingEnvironments count])
   {
-    [BLSHEngineRequestDatesOperation beginOperationWithIntervals:v47 shouldReset:?];
+    [BLSHEngineRequestDatesOperation beginOperationWithIntervals:v46 shouldReset:?];
   }
 
   LODWORD(v33) = self->_lock_environmentCount;
@@ -357,25 +356,25 @@
   os_unfair_lock_unlock(&self->_lock);
   [(BLSHEngineRequestDatesOperation *)self scheduleTimeout];
   objc_initWeak(buf, self);
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
   v54 = 0u;
+  v55 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   obj = v19;
-  v34 = [obj countByEnumeratingWithState:&v53 objects:v61 count:16];
+  v34 = [obj countByEnumeratingWithState:&v52 objects:v60 count:16];
   if (v34)
   {
-    v35 = *v54;
+    v35 = *v53;
     do
     {
       for (j = 0; j != v34; ++j)
       {
-        if (*v54 != v35)
+        if (*v53 != v35)
         {
           objc_enumerationMutation(obj);
         }
 
-        v37 = *(*(&v53 + 1) + 8 * j);
+        v37 = *(*(&v52 + 1) + 8 * j);
         environment3 = [v37 environment];
         identifier2 = [environment3 identifier];
         v40 = identifier2 == 0;
@@ -395,27 +394,26 @@
             shouldReset = [v37 shouldReset];
           }
 
-          v50[0] = MEMORY[0x277D85DD0];
-          v50[1] = 3221225472;
-          v50[2] = __75__BLSHEngineRequestDatesOperation_beginOperationWithIntervals_shouldReset___block_invoke_73;
-          v50[3] = &unk_27841FF18;
-          objc_copyWeak(&v52, buf);
+          v49[0] = MEMORY[0x277D85DD0];
+          v49[1] = 3221225472;
+          v49[2] = __75__BLSHEngineRequestDatesOperation_beginOperationWithIntervals_shouldReset___block_invoke_73;
+          v49[3] = &unk_27841FF18;
+          objc_copyWeak(&v51, buf);
           v45 = environment4;
-          v51 = v45;
-          [v45 requestDateSpecifiersForDateInterval:presentationInterval2 previousPresentationDate:previousPresentationDate shouldReset:shouldReset completion:v50];
+          v50 = v45;
+          [v45 requestDateSpecifiersForDateInterval:presentationInterval2 previousPresentationDate:previousPresentationDate shouldReset:shouldReset completion:v49];
 
-          objc_destroyWeak(&v52);
+          objc_destroyWeak(&v51);
         }
       }
 
-      v34 = [obj countByEnumeratingWithState:&v53 objects:v61 count:16];
+      v34 = [obj countByEnumeratingWithState:&v52 objects:v60 count:16];
     }
 
     while (v34);
   }
 
   objc_destroyWeak(buf);
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 id __75__BLSHEngineRequestDatesOperation_beginOperationWithIntervals_shouldReset___block_invoke(uint64_t a1, void *a2)
@@ -505,27 +503,24 @@ void __50__BLSHEngineRequestDatesOperation_scheduleTimeout__block_invoke(uint64_
 
 - (void)timeoutTimerFired
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_1();
-  _os_log_debug_impl(&dword_21FD11000, v0, OS_LOG_TYPE_DEBUG, "%p request dates operation did not complete after ~15 seconds (+leeway), (invalidated), pending environments:%{public}@ ", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_21FD11000, v0, OS_LOG_TYPE_DEBUG, "%p request dates operation did not complete after ~15 seconds (+leeway), (invalidated), pending environments:%{public}@ ", v1, 0x16u);
 }
 
 - (void)beginOperationWithIntervals:(char *)a1 shouldReset:.cold.1(char *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_lock_environmentCount == [_lock_environmentIdentifiers count]"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"_lock_environmentCount == [_lock_environmentIdentifiers count]", v11, v12);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v13, v14);
   }
 
-  v10 = v2;
+  v12 = v2;
   [v2 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
@@ -533,19 +528,17 @@ void __50__BLSHEngineRequestDatesOperation_scheduleTimeout__block_invoke(uint64_
 
 - (void)beginOperationWithIntervals:(char *)a1 shouldReset:.cold.2(char *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_lock_pendingEnvironments count] > 0"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[_lock_pendingEnvironments count] > 0", v11, v12);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v13, v14);
   }
 
-  v10 = v2;
+  v12 = v2;
   [v2 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
@@ -553,19 +546,17 @@ void __50__BLSHEngineRequestDatesOperation_scheduleTimeout__block_invoke(uint64_
 
 - (void)beginOperationWithIntervals:(char *)a1 shouldReset:.cold.3(char *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"!_lock_invalidated"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"!_lock_invalidated", v11, v12);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v13, v14);
   }
 
-  v10 = v2;
+  v12 = v2;
   [v2 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
@@ -573,19 +564,17 @@ void __50__BLSHEngineRequestDatesOperation_scheduleTimeout__block_invoke(uint64_
 
 - (void)beginOperationWithIntervals:(char *)a1 shouldReset:.cold.4(char *a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"!_lock_begun"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_4();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_4(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"!_lock_begun", v11, v12);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v13, v14);
   }
 
-  v10 = v2;
+  v12 = v2;
   [v2 UTF8String];
   _bs_set_crash_log_message();
   __break(0);

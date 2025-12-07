@@ -237,7 +237,7 @@ LABEL_57:
 - (NEHelperSettingsManager)initWithFirstMessage:(id)message
 {
   v4 = xpc_dictionary_get_remote_connection(message);
-  if (sub_10000E080(NEHelperServer, v4))
+  if (sub_10000E080(NEHelperServer, v4, "com.apple.private.networkextension.configuration"))
   {
     v9.receiver = self;
     v9.super_class = NEHelperSettingsManager;

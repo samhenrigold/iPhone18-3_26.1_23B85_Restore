@@ -74,18 +74,18 @@
     editableTextField10 = [(UITableViewCell *)self->_cell editableTextField];
     [editableTextField10 setTextColor:labelColor];
 
-    if (CalInterfaceIsLeftToRight())
+    if (CalInterfaceIsLeftToRight(v22, v23))
     {
-      v22 = 4;
+      v24 = 4;
     }
 
     else
     {
-      v22 = 2;
+      v24 = 2;
     }
 
     editableTextField11 = [(UITableViewCell *)self->_cell editableTextField];
-    [editableTextField11 setTextAlignment:v22];
+    [editableTextField11 setTextAlignment:v24];
 
     [(UITableViewCell *)self->_cell setAccessibilityIdentifier:@"url-cell"];
     editableTextField12 = [(UITableViewCell *)self->_cell editableTextField];
@@ -194,7 +194,7 @@ LABEL_10:
     {
       [editableTextField setClearButtonMode:3];
 
-      [(UITableViewCell *)self->_cell tintColor];
+      objc_msgSend_tintColor(self->_cell);
     }
 
     else

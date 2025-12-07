@@ -116,35 +116,32 @@ void __47__APLocalEnforcementManager_adServicesEnabled___block_invoke_7()
 
 void __47__APLocalEnforcementManager_adServicesEnabled___block_invoke_10(void *a1, int a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = a1[4];
-    v8 = objc_opt_class();
-    v9 = @"not enabled";
+    v7 = objc_opt_class();
+    v8 = @"not enabled";
     if (a2)
     {
-      v9 = @"enabled";
+      v8 = @"enabled";
     }
 
-    v15 = 138412546;
+    v13 = 138412546;
+    v14 = v7;
+    v15 = 2114;
     v16 = v8;
-    v17 = 2114;
-    v18 = v9;
-    v10 = v8;
-    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] The localAdServicesEnabled flag is %{public}@.", &v15, 0x16u);
+    v9 = v7;
+    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] The localAdServicesEnabled flag is %{public}@.", &v13, 0x16u);
   }
 
   if (a2)
   {
-    v11 = (*(a1[5] + 16))(a1[5], v4, v5, v6);
-    v12 = [v11 lowercaseString];
-    v13 = [v12 hasPrefix:@"us"];
+    v10 = (*(a1[5] + 16))(a1[5], v4, v5, v6);
+    v11 = [v10 lowercaseString];
+    v12 = [v11 hasPrefix:@"us"];
 
-    *(*(a1[6] + 8) + 24) = v13;
+    *(*(a1[6] + 8) + 24) = v12;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)deviceRegionStorefrontEnabled
@@ -213,27 +210,25 @@ void __58__APLocalEnforcementManager_deviceRegionStorefrontEnabled__block_invoke
 
 void __58__APLocalEnforcementManager_deviceRegionStorefrontEnabled__block_invoke_23(uint64_t a1, int a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v5 = objc_opt_class();
-    v6 = @"not enabled";
+    v4 = objc_opt_class();
+    v5 = @"not enabled";
     if (a2)
     {
-      v6 = @"enabled";
+      v5 = @"enabled";
     }
 
-    v9 = 138412546;
+    v7 = 138412546;
+    v8 = v4;
+    v9 = 2114;
     v10 = v5;
-    v11 = 2114;
-    v12 = v6;
-    v7 = v5;
-    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] The deviceRegionStorefrontEnabled flag is %{public}@.", &v9, 0x16u);
+    v6 = v4;
+    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] The deviceRegionStorefrontEnabled flag is %{public}@.", &v7, 0x16u);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = a2;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isU13MAIDEDU
@@ -333,24 +328,21 @@ void __46__APLocalEnforcementManager_accountStorefront__block_invoke_29()
 
 void __46__APLocalEnforcementManager_accountStorefront__block_invoke_32(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v9 = 138412546;
-    v10 = objc_opt_class();
-    v11 = 2114;
-    v12 = v3;
-    v5 = v10;
-    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] The account storefront is %{public}@.", &v9, 0x16u);
+    v7 = 138412546;
+    v8 = objc_opt_class();
+    v9 = 2114;
+    v10 = v3;
+    v4 = v8;
+    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] The account storefront is %{public}@.", &v7, 0x16u);
   }
 
-  v6 = *(*(a1 + 40) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v3;
-
-  v8 = *MEMORY[0x277D85DE8];
+  v5 = *(*(a1 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v3;
 }
 
 - (id)appTrackingXPCConnection:(id)connection withInvalidation:(id)invalidation
@@ -374,21 +366,19 @@ void __46__APLocalEnforcementManager_accountStorefront__block_invoke_32(uint64_t
 
 void __53__APLocalEnforcementManager_appTrackingServiceProxy___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v3 = a2;
     v4 = [v3 code];
     v5 = [v3 localizedDescription];
 
-    v7 = 134218242;
-    v8 = v4;
-    v9 = 2112;
-    v10 = v5;
-    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Received error code %ld from remote call: %@", &v7, 0x16u);
+    v6 = 134218242;
+    v7 = v4;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Received error code %ld from remote call: %@", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldShowTCCWithAds
@@ -457,25 +447,22 @@ void __49__APLocalEnforcementManager_shouldShowTCCWithAds__block_invoke_56()
 
 void __49__APLocalEnforcementManager_shouldShowTCCWithAds__block_invoke_59(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    *v7 = 138412546;
-    *&v7[4] = objc_opt_class();
-    *&v7[12] = 2114;
-    *&v7[14] = v3;
-    v5 = *&v7[4];
-    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] The account storefront is %{public}@.", v7, 0x16u);
+    *v5 = 138412546;
+    *&v5[4] = objc_opt_class();
+    *&v5[12] = 2114;
+    *&v5[14] = v3;
+    v4 = *&v5[4];
+    _os_log_impl(&dword_255F62000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "[%@] The account storefront is %{public}@.", v5, 0x16u);
   }
 
-  if ([v3 containsString:{@"143441", *v7, *&v7[16], v8}])
+  if ([v3 containsString:{@"143441", *v5, *&v5[8], v6}])
   {
     *(*(*(a1 + 40) + 8) + 24) = 1;
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

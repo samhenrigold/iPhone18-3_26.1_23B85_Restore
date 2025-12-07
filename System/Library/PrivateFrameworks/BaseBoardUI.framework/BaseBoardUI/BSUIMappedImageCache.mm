@@ -660,7 +660,7 @@ LABEL_9:
   }
 
   v10 = __pathForKeyAndExtension(*(*(a1 + 32) + 24), *(a1 + 40), @"cpbitmap");
-  v11 = _readCPBitmapImageFromPathWithOptions(v10);
+  v11 = _readCPBitmapImageFromPathWithOptions(v10, *(a1 + 72));
 
   if (v11 || (v12 = *(a1 + 72), __pathForKeyAndExtension(*(*(a1 + 32) + 24), *(a1 + 40), @"surface"), v13 = objc_claimAutoreleasedReturnValue(), [BSUIMappedSurfaceImage mappedSurfaceImageFromPath:v13 loadEagerly:(v12 >> 1) & 1], v11 = objc_claimAutoreleasedReturnValue(), v13, v11))
   {

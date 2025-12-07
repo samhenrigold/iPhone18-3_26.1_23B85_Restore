@@ -45,7 +45,7 @@
   modelCopy = model;
   selfCopy = self;
 
-  sub_100521960();
+  sub_100521960(v6, v7);
 }
 
 - (_TtC4Maps25PlaceSummaryTableViewCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
@@ -88,14 +88,14 @@
 
 - (void)prepareForReuse
 {
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for PlaceSummaryTableViewCell();
-  v2 = v4.receiver;
-  [(PlaceSummaryTableViewCell *)&v4 prepareForReuse];
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for PlaceSummaryTableViewCell();
+  v2 = v6.receiver;
+  [(PlaceSummaryTableViewCell *)&v6 prepareForReuse];
   v3 = *&v2[OBJC_IVAR____TtC4Maps25PlaceSummaryTableViewCell_viewModel];
   *&v2[OBJC_IVAR____TtC4Maps25PlaceSummaryTableViewCell_viewModel] = 0;
 
-  sub_100521960();
+  sub_100521960(v4, v5);
   swift_unknownObjectWeakAssign();
 }
 

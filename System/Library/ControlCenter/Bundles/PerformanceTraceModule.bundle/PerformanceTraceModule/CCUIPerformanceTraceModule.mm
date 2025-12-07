@@ -10,15 +10,15 @@
   if (!viewController)
   {
     v5 = objc_alloc_init(CCUIPerformanceTraceModuleViewController);
-    v6 = [MEMORY[0x29EDB9F48] ccui_bundleForModuleInstance:self];
-    ccui_displayName = [v6 ccui_displayName];
-    [(CCUIMenuModuleViewController *)v5 setTitle:ccui_displayName];
+    v7 = objc_msgSend_ccui_bundleForModuleInstance_(MEMORY[0x29EDB9F48], v6, self);
+    v10 = objc_msgSend_ccui_displayName(v7, v8, v9);
+    objc_msgSend_setTitle_(v5, v11, v10);
 
-    v8 = self->_viewController;
+    v12 = self->_viewController;
     self->_viewController = v5;
-    v9 = v5;
+    v13 = v5;
 
-    [(CCUIMenuModuleViewController *)self->_viewController setContentModuleContext:self->_contentModuleContext];
+    objc_msgSend_setContentModuleContext_(self->_viewController, v14, self->_contentModuleContext);
     viewController = self->_viewController;
   }
 

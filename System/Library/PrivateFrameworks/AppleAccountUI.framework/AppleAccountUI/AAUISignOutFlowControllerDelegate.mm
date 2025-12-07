@@ -116,32 +116,32 @@
 
   if (WeakRetained)
   {
-    v10 = [objc_alloc(MEMORY[0x1E698B880]) initWithAccount:accountCopy];
+    v11 = [objc_alloc(MEMORY[0x1E698B880]) initWithAccount:accountCopy];
     dataclassActionsStore = self->_dataclassActionsStore;
-    self->_dataclassActionsStore = v10;
+    self->_dataclassActionsStore = v11;
 
-    v12 = [AAUISignOutOrEraseOfferFlow alloc];
+    v13 = [AAUISignOutOrEraseOfferFlow alloc];
     navController = self->_navController;
-    v14 = objc_loadWeakRetained(&self->_presentingViewController);
-    v15 = [(AAUISignOutOrEraseOfferFlow *)v12 initWithNavController:navController presentingController:v14 account:accountCopy dataclassActionsStore:self->_dataclassActionsStore];
+    v15 = objc_loadWeakRetained(&self->_presentingViewController);
+    v16 = [(AAUISignOutOrEraseOfferFlow *)v13 initWithNavController:navController presentingController:v15 account:accountCopy dataclassActionsStore:self->_dataclassActionsStore];
 
-    [(AAUISignOutOrEraseOfferFlow *)v15 beginFlowWithInvoker:self];
-    v16 = [completionCopy copy];
+    [(AAUISignOutOrEraseOfferFlow *)v16 beginFlowWithInvoker:self];
+    v17 = [completionCopy copy];
 
     pendingSignOutOfferFlowCompletion = self->_pendingSignOutOfferFlowCompletion;
-    self->_pendingSignOutOfferFlowCompletion = v16;
+    self->_pendingSignOutOfferFlowCompletion = v17;
   }
 
   else
   {
-    v18 = _AAUILogSystem();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v19 = _AAUILogSystem(v10);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       [AAUISignOutFlowControllerDelegate signOutFlowController:startSignOutForAccount:completion:];
     }
 
-    v19 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-4405];
-    (*(completionCopy + 2))(completionCopy, 0, v19);
+    v20 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-4405];
+    (*(completionCopy + 2))(completionCopy, 0, v20);
   }
 }
 
@@ -179,7 +179,7 @@
   v17 = *MEMORY[0x1E69E9840];
   accountCopy = account;
   completionCopy = completion;
-  v9 = _AAUILogSystem();
+  v9 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -201,7 +201,7 @@
 
 void __100__AAUISignOutFlowControllerDelegate_signOutFlowController_disableFindMyDeviceForAccount_completion___block_invoke(uint64_t a1, char a2)
 {
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
@@ -243,12 +243,12 @@ void __100__AAUISignOutFlowControllerDelegate_signOutFlowController_disableFindM
 
 void __100__AAUISignOutFlowControllerDelegate_signOutFlowController_disableFindMyDeviceForAccount_completion___block_invoke_50(uint64_t a1, uint64_t a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v4 = _AAUILogSystem();
+  v30 = *MEMORY[0x1E69E9840];
+  v4 = _AAUILogSystem(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v26 = a2;
+    v29 = a2;
     _os_log_impl(&dword_1C5355000, v4, OS_LOG_TYPE_DEFAULT, "FMIP state came back as %lu", buf, 0xCu);
   }
 
@@ -257,65 +257,65 @@ void __100__AAUISignOutFlowControllerDelegate_signOutFlowController_disableFindM
 
   if ((v6 & 1) == 0)
   {
-    v13 = _AAUILogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = _AAUILogSystem(v7);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C5355000, v13, OS_LOG_TYPE_DEFAULT, "FMiP state is unknown, so not allowing account removal!", buf, 2u);
+      _os_log_impl(&dword_1C5355000, v15, OS_LOG_TYPE_DEFAULT, "FMiP state is unknown, so not allowing account removal!", buf, 2u);
     }
 
-    v14 = *(a1 + 48);
-    v15 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-11];
-    (*(v14 + 16))(v14, 0, v15);
+    v16 = *(a1 + 48);
+    v17 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-11];
+    (*(v16 + 16))(v16, 0, v17);
     goto LABEL_19;
   }
 
-  v7 = +[AAUIDeviceLocatorService sharedInstance];
-  v8 = [v7 isEnabled];
+  v8 = +[AAUIDeviceLocatorService sharedInstance];
+  v9 = [v8 isEnabled];
 
-  if (v8)
+  if (v9)
   {
-    v9 = objc_alloc_init(MEMORY[0x1E69DD258]);
-    v10 = +[AAUIFeatureFlags isSignOutRedesignEnabled];
-    v11 = *(a1 + 32);
-    if (v10)
+    v11 = objc_alloc_init(MEMORY[0x1E69DD258]);
+    v12 = +[AAUIFeatureFlags isSignOutRedesignEnabled];
+    v13 = *(a1 + 32);
+    if (v12)
     {
-      WeakRetained = *(v11 + 48);
+      WeakRetained = *(v13 + 48);
     }
 
     else
     {
-      WeakRetained = objc_loadWeakRetained((v11 + 80));
+      WeakRetained = objc_loadWeakRetained((v13 + 80));
     }
 
-    v15 = WeakRetained;
+    v17 = WeakRetained;
 
-    if (v15)
+    if (v17)
     {
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __100__AAUISignOutFlowControllerDelegate_signOutFlowController_disableFindMyDeviceForAccount_completion___block_invoke_53;
-      v21[3] = &unk_1E820BFF8;
-      v17 = *(a1 + 40);
-      v21[4] = *(a1 + 32);
-      v22 = v17;
-      v23 = v15;
-      v24 = *(a1 + 48);
-      dispatch_async(MEMORY[0x1E69E96A0], v21);
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __100__AAUISignOutFlowControllerDelegate_signOutFlowController_disableFindMyDeviceForAccount_completion___block_invoke_53;
+      v24[3] = &unk_1E820BFF8;
+      v20 = *(a1 + 40);
+      v24[4] = *(a1 + 32);
+      v25 = v20;
+      v26 = v17;
+      v27 = *(a1 + 48);
+      dispatch_async(MEMORY[0x1E69E96A0], v24);
     }
 
     else
     {
-      v18 = _AAUILogSystem();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v21 = _AAUILogSystem(v19);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1C5355000, v18, OS_LOG_TYPE_DEFAULT, "No view controller provided for sign out, unable to disable FMiP!", buf, 2u);
+        _os_log_impl(&dword_1C5355000, v21, OS_LOG_TYPE_DEFAULT, "No view controller provided for sign out, unable to disable FMiP!", buf, 2u);
       }
 
-      v19 = *(a1 + 48);
-      v20 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-11];
-      (*(v19 + 16))(v19, 0, v20);
+      v22 = *(a1 + 48);
+      v23 = [MEMORY[0x1E696ABC0] aa_errorWithCode:-11];
+      (*(v22 + 16))(v22, 0, v23);
     }
 
 LABEL_19:
@@ -323,11 +323,11 @@ LABEL_19:
     return;
   }
 
-  v16 = _AAUILogSystem();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v18 = _AAUILogSystem(v10);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1C5355000, v16, OS_LOG_TYPE_DEFAULT, "Device locator not enabled, allowing account removal!", buf, 2u);
+    _os_log_impl(&dword_1C5355000, v18, OS_LOG_TYPE_DEFAULT, "Device locator not enabled, allowing account removal!", buf, 2u);
   }
 
   (*(*(a1 + 48) + 16))();
@@ -350,7 +350,7 @@ void __100__AAUISignOutFlowControllerDelegate_signOutFlowController_disableFindM
 {
   v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = _AAUILogSystem();
+  v6 = _AAUILogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = @"NO";
@@ -406,13 +406,14 @@ void __100__AAUISignOutFlowControllerDelegate_signOutFlowController_disableFindM
 void __97__AAUISignOutFlowControllerDelegate__disableDeviceLocatorForAccount_inViewController_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
   v5 = [a3 fmipWipeToken];
+  v6 = v5;
   if (a2)
   {
-    v6 = _AAUILogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _AAUILogSystem(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "User canceled FMiP password prompt.", buf, 2u);
+      _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "User canceled FMiP password prompt.", buf, 2u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -420,29 +421,29 @@ void __97__AAUISignOutFlowControllerDelegate__disableDeviceLocatorForAccount_inV
 
   else
   {
-    v7 = *(*(a1 + 32) + 72);
-    if (!v7)
+    v8 = *(*(a1 + 32) + 72);
+    if (!v8)
     {
-      v8 = +[AAUIDeviceLocatorService sharedInstance];
-      v9 = *(a1 + 32);
-      v10 = *(v9 + 72);
-      *(v9 + 72) = v8;
+      v9 = +[AAUIDeviceLocatorService sharedInstance];
+      v10 = *(a1 + 32);
+      v11 = *(v10 + 72);
+      *(v10 + 72) = v9;
 
-      v7 = *(*(a1 + 32) + 72);
+      v8 = *(*(a1 + 32) + 72);
     }
 
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __97__AAUISignOutFlowControllerDelegate__disableDeviceLocatorForAccount_inViewController_completion___block_invoke_63;
-    v11[3] = &unk_1E820C5F8;
-    v12 = *(a1 + 40);
-    [v7 disableInContext:2 withWipeToken:v5 completion:v11];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __97__AAUISignOutFlowControllerDelegate__disableDeviceLocatorForAccount_inViewController_completion___block_invoke_63;
+    v12[3] = &unk_1E820C5F8;
+    v13 = *(a1 + 40);
+    [v8 disableInContext:2 withWipeToken:v6 completion:v12];
   }
 }
 
 void __97__AAUISignOutFlowControllerDelegate__disableDeviceLocatorForAccount_inViewController_completion___block_invoke_63(uint64_t a1, int a2)
 {
-  v4 = _AAUILogSystem();
+  v4 = _AAUILogSystem(a1);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (a2)
   {
@@ -573,29 +574,30 @@ void __97__AAUISignOutFlowControllerDelegate__disableDeviceLocatorForAccount_inV
 void __85__AAUISignOutFlowControllerDelegate_signOutFlowController_signOutAccount_completion___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (a2)
   {
-    v6 = _Block_copy(*(a1 + 48));
-    v7 = *(a1 + 32);
-    v8 = *(v7 + 8);
-    *(v7 + 8) = v6;
+    v7 = _Block_copy(*(a1 + 48));
+    v8 = *(a1 + 32);
+    v9 = *(v8 + 8);
+    *(v8 + 8) = v7;
 
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __85__AAUISignOutFlowControllerDelegate_signOutFlowController_signOutAccount_completion___block_invoke_3;
-    v11[3] = &unk_1E820BEB8;
-    v9 = *(a1 + 40);
-    v11[4] = *(a1 + 32);
-    v12 = v9;
-    dispatch_async(MEMORY[0x1E69E96A0], v11);
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __85__AAUISignOutFlowControllerDelegate_signOutFlowController_signOutAccount_completion___block_invoke_3;
+    v12[3] = &unk_1E820BEB8;
+    v10 = *(a1 + 40);
+    v12[4] = *(a1 + 32);
+    v13 = v10;
+    dispatch_async(MEMORY[0x1E69E96A0], v12);
   }
 
   else
   {
-    v10 = _AAUILogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _AAUILogSystem(v5);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __85__AAUISignOutFlowControllerDelegate_signOutFlowController_signOutAccount_completion___block_invoke_2_cold_1(v5, v10);
+      __85__AAUISignOutFlowControllerDelegate_signOutFlowController_signOutAccount_completion___block_invoke_2_cold_1(v6, v11);
     }
 
     (*(*(a1 + 48) + 16))();
@@ -650,10 +652,10 @@ void __104__AAUISignOutFlowControllerDelegate_signOutFlowController_performWalru
 
   if (!a2)
   {
-    v23 = _AAUILogSystem();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v24 = _AAUILogSystem(v9);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      __104__AAUISignOutFlowControllerDelegate_signOutFlowController_performWalrusValidationForAccount_completion___block_invoke_cold_1(v5, v23);
+      __104__AAUISignOutFlowControllerDelegate_signOutFlowController_performWalrusValidationForAccount_completion___block_invoke_cold_1(v5, v24);
     }
 
     goto LABEL_8;
@@ -668,54 +670,54 @@ LABEL_8:
 
   if (WeakRetained)
   {
-    v9 = objc_alloc_init(MEMORY[0x1E69977E8]);
-    v10 = MEMORY[0x1E696AD98];
-    v11 = [a1[5] aida_dsid];
-    v12 = [v10 numberWithLongLong:{objc_msgSend(v11, "longLongValue")}];
-    [v9 setDsid:v12];
+    v10 = objc_alloc_init(MEMORY[0x1E69977E8]);
+    v11 = MEMORY[0x1E696AD98];
+    v12 = [a1[5] aida_dsid];
+    v13 = [v11 numberWithLongLong:{objc_msgSend(v12, "longLongValue")}];
+    [v10 setDsid:v13];
 
-    v13 = [a1[5] aida_alternateDSID];
-    [v9 setAltDSID:v13];
+    v14 = [a1[5] aida_alternateDSID];
+    [v10 setAltDSID:v14];
 
-    v14 = [a1[5] appleID];
-    [v9 setAppleID:v14];
+    v15 = [a1[5] appleID];
+    [v10 setAppleID:v15];
 
-    v15 = [a1[6] telemetryFlowID];
-    [v9 setTelemetryFlowID:v15];
+    v16 = [a1[6] telemetryFlowID];
+    [v10 setTelemetryFlowID:v16];
 
-    v16 = MEMORY[0x1E6985DB0];
-    v17 = *MEMORY[0x1E698BA40];
-    v18 = [a1[5] aida_alternateDSID];
-    v19 = [a1[6] telemetryFlowID];
-    v20 = [v16 analyticsEventWithName:v17 altDSID:v18 flowID:v19];
+    v17 = MEMORY[0x1E6985DB0];
+    v18 = *MEMORY[0x1E698BA40];
+    v19 = [a1[5] aida_alternateDSID];
+    v20 = [a1[6] telemetryFlowID];
+    v21 = [v17 analyticsEventWithName:v18 altDSID:v19 flowID:v20];
 
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __104__AAUISignOutFlowControllerDelegate_signOutFlowController_performWalrusValidationForAccount_completion___block_invoke_86;
-    v26[3] = &unk_1E820D760;
-    objc_copyWeak(&v31, a1 + 8);
-    v21 = v20;
-    v27 = v21;
-    v28 = a1[5];
-    v22 = v9;
-    v29 = v22;
-    v30 = a1[7];
-    [WeakRetained _offerManateeRepairWithContext:v22 completion:v26];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __104__AAUISignOutFlowControllerDelegate_signOutFlowController_performWalrusValidationForAccount_completion___block_invoke_86;
+    v27[3] = &unk_1E820D760;
+    objc_copyWeak(&v32, a1 + 8);
+    v22 = v21;
+    v28 = v22;
+    v29 = a1[5];
+    v23 = v10;
+    v30 = v23;
+    v31 = a1[7];
+    [WeakRetained _offerManateeRepairWithContext:v23 completion:v27];
 
-    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v32);
   }
 
   else
   {
-    v24 = _AALogSystem();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v25 = _AALogSystem();
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       __104__AAUISignOutFlowControllerDelegate_signOutFlowController_performWalrusValidationForAccount_completion___block_invoke_cold_2();
     }
 
-    v25 = a1[7];
-    v22 = [MEMORY[0x1E696ABC0] aa_errorWithCode:0];
-    v25[2](v25, 0, v22);
+    v26 = a1[7];
+    v23 = [MEMORY[0x1E696ABC0] aa_errorWithCode:0];
+    v26[2](v26, 0, v23);
   }
 
 LABEL_13:
@@ -771,7 +773,7 @@ void __104__AAUISignOutFlowControllerDelegate_signOutFlowController_performWalru
   accountCopy = account;
   contextCopy = context;
   completionCopy = completion;
-  v11 = _AAUILogSystem();
+  v11 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [AAUISignOutFlowControllerDelegate _performLastDeviceCheckForAccount:withContext:completion:];
@@ -808,7 +810,7 @@ void __104__AAUISignOutFlowControllerDelegate_signOutFlowController_performWalru
 
 void __94__AAUISignOutFlowControllerDelegate__performLastDeviceCheckForAccount_withContext_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v5, "count")}];
@@ -816,54 +818,54 @@ void __94__AAUISignOutFlowControllerDelegate__performLastDeviceCheckForAccount_w
 
   if ([v5 count] == 1 && (objc_msgSend(v5, "firstObject"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "isCurrentDevice"), v8, v9))
   {
-    v10 = _AAUILogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = _AAUILogSystem(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(a1 + 40);
+      v12 = *(a1 + 40);
       *buf = 138412290;
-      v26 = v11;
-      _os_log_impl(&dword_1C5355000, v10, OS_LOG_TYPE_DEFAULT, "Current device is determined to be the last escrow device for context (%@)", buf, 0xCu);
+      v28 = v12;
+      _os_log_impl(&dword_1C5355000, v11, OS_LOG_TYPE_DEFAULT, "Current device is determined to be the last escrow device for context (%@)", buf, 0xCu);
     }
 
-    v12 = [*(a1 + 48) _recoveryFactorController];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __94__AAUISignOutFlowControllerDelegate__performLastDeviceCheckForAccount_withContext_completion___block_invoke_89;
-    v19[3] = &unk_1E820D7D8;
-    v24 = *(a1 + 72);
-    v20 = *(a1 + 32);
-    v13 = *(a1 + 56);
-    v14 = *(a1 + 48);
-    v21 = v13;
-    v22 = v14;
-    v23 = *(a1 + 64);
-    [v12 availableRecoveryFactorsWithCompletion:v19];
+    v13 = [*(a1 + 48) _recoveryFactorController];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __94__AAUISignOutFlowControllerDelegate__performLastDeviceCheckForAccount_withContext_completion___block_invoke_89;
+    v21[3] = &unk_1E820D7D8;
+    v26 = *(a1 + 72);
+    v22 = *(a1 + 32);
+    v14 = *(a1 + 56);
+    v15 = *(a1 + 48);
+    v23 = v14;
+    v24 = v15;
+    v25 = *(a1 + 64);
+    [v13 availableRecoveryFactorsWithCompletion:v21];
   }
 
   else
   {
     *(*(*(a1 + 72) + 8) + 24) = v6 == 0;
     [*(a1 + 32) populateUnderlyingErrorsStartingWithRootError:v6];
-    v15 = [MEMORY[0x1E696AD98] numberWithBool:*(*(*(a1 + 72) + 8) + 24)];
-    [*(a1 + 32) setObject:v15 forKeyedSubscript:*MEMORY[0x1E6985E40]];
+    v16 = [MEMORY[0x1E696AD98] numberWithBool:*(*(*(a1 + 72) + 8) + 24)];
+    [*(a1 + 32) setObject:v16 forKeyedSubscript:*MEMORY[0x1E6985E40]];
 
-    v16 = _AAUILogSystem();
-    v17 = v16;
+    v18 = _AAUILogSystem(v17);
+    v19 = v18;
     if (v6)
     {
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        __94__AAUISignOutFlowControllerDelegate__performLastDeviceCheckForAccount_withContext_completion___block_invoke_cold_1(a1, v6, v17);
+        __94__AAUISignOutFlowControllerDelegate__performLastDeviceCheckForAccount_withContext_completion___block_invoke_cold_1(a1, v6, v19);
       }
     }
 
-    else if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    else if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       __94__AAUISignOutFlowControllerDelegate__performLastDeviceCheckForAccount_withContext_completion___block_invoke_cold_2();
     }
 
-    v18 = [MEMORY[0x1E698B810] reporter];
-    [v18 sendEvent:*(a1 + 32)];
+    v20 = [MEMORY[0x1E698B810] reporter];
+    [v20 sendEvent:*(a1 + 32)];
 
     (*(*(a1 + 64) + 16))();
   }
@@ -915,7 +917,7 @@ void __94__AAUISignOutFlowControllerDelegate__performLastDeviceCheckForAccount_w
   factorsCopy = factors;
   accountCopy = account;
   completionCopy = completion;
-  v9 = _AAUILogSystem();
+  v9 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [AAUISignOutFlowControllerDelegate _presentLastDeviceAlertForAccount:withRecoveryFactors:withCompletion:];
@@ -925,12 +927,12 @@ void __94__AAUISignOutFlowControllerDelegate__performLastDeviceCheckForAccount_w
   v11 = *MEMORY[0x1E698BA60];
   aida_alternateDSID = [accountCopy aida_alternateDSID];
   telemetryFlowID = [(AAUISignOutFlowControllerDelegate *)self telemetryFlowID];
-  v64 = [v10 analyticsEventWithName:v11 altDSID:aida_alternateDSID flowID:telemetryFlowID];
+  v65 = [v10 analyticsEventWithName:v11 altDSID:aida_alternateDSID flowID:telemetryFlowID];
 
   selfCopy = self;
   v14 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v15 = (factorsCopy & 4) == 0;
-  v62 = (factorsCopy & 4) >> 2;
+  v63 = (factorsCopy & 4) >> 2;
   v16 = @"CONTACT";
   if ((factorsCopy & 4) != 0)
   {
@@ -955,98 +957,98 @@ void __94__AAUISignOutFlowControllerDelegate__performLastDeviceCheckForAccount_w
 
   [v14 addObject:*v18];
   v23 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v69 = v20;
+  v70 = v20;
   v24 = [v23 localizedStringForKey:v20 value:&stru_1F447F790 table:@"Localizable"];
 
   v25 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v68 = v21;
+  v69 = v21;
   v26 = [v25 localizedStringForKey:v21 value:&stru_1F447F790 table:@"Localizable"];
 
   v27 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v67 = v22;
-  v71 = [v27 localizedStringForKey:v22 value:&stru_1F447F790 table:@"Localizable"];
+  v68 = v22;
+  v72 = [v27 localizedStringForKey:v22 value:&stru_1F447F790 table:@"Localizable"];
 
   v28 = MEMORY[0x1E6985DB0];
   v29 = *MEMORY[0x1E698BA68];
-  v70 = accountCopy;
+  v71 = accountCopy;
   aida_alternateDSID2 = [accountCopy aida_alternateDSID];
   telemetryFlowID2 = [(AAUISignOutFlowControllerDelegate *)self telemetryFlowID];
   v32 = [v28 analyticsEventWithName:v29 altDSID:aida_alternateDSID2 flowID:telemetryFlowID2];
 
-  v65 = v26;
-  v66 = v24;
+  v66 = v26;
+  v67 = v24;
   v33 = [MEMORY[0x1E69DC650] alertWithTitle:v24 message:v26];
   v34 = MEMORY[0x1E69DC648];
   v35 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v36 = [v35 localizedStringForKey:@"SIGN_OUT_CONFIRMATION_BUTTON" value:&stru_1F447F790 table:@"Localizable"];
-  v85[0] = MEMORY[0x1E69E9820];
-  v85[1] = 3221225472;
-  v85[2] = __106__AAUISignOutFlowControllerDelegate__presentLastDeviceAlertForAccount_withRecoveryFactors_withCompletion___block_invoke;
-  v85[3] = &unk_1E820D828;
+  v86[0] = MEMORY[0x1E69E9820];
+  v86[1] = 3221225472;
+  v86[2] = __106__AAUISignOutFlowControllerDelegate__presentLastDeviceAlertForAccount_withRecoveryFactors_withCompletion___block_invoke;
+  v86[3] = &unk_1E820D828;
   v37 = v32;
-  v86 = v37;
+  v87 = v37;
   v38 = completionCopy;
-  v87 = v38;
-  v39 = [v34 actionWithTitle:v36 style:2 handler:v85];
+  v88 = v38;
+  v39 = [v34 actionWithTitle:v36 style:2 handler:v86];
   [v33 addAction:v39];
 
   [v14 addObject:*MEMORY[0x1E698BB30]];
   v40 = MEMORY[0x1E69DC648];
-  v80[0] = MEMORY[0x1E69E9820];
-  v80[1] = 3221225472;
-  v80[2] = __106__AAUISignOutFlowControllerDelegate__presentLastDeviceAlertForAccount_withRecoveryFactors_withCompletion___block_invoke_2;
-  v80[3] = &unk_1E820D850;
-  v84 = v62;
+  v81[0] = MEMORY[0x1E69E9820];
+  v81[1] = 3221225472;
+  v81[2] = __106__AAUISignOutFlowControllerDelegate__presentLastDeviceAlertForAccount_withRecoveryFactors_withCompletion___block_invoke_2;
+  v81[3] = &unk_1E820D850;
+  v85 = v63;
   v41 = v37;
-  v81 = v41;
+  v82 = v41;
   selfCopy2 = self;
   v42 = v38;
-  v83 = v42;
-  v43 = [v40 actionWithTitle:v71 style:0 handler:v80];
+  v84 = v42;
+  v43 = [v40 actionWithTitle:v72 style:0 handler:v81];
   [v33 addAction:v43];
 
   v44 = MEMORY[0x1E69DC648];
   v45 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v46 = [v45 localizedStringForKey:@"SIGN_OUT_ADD_DATA_RECOVERY_SERVICE_BUTTON" value:&stru_1F447F790 table:@"Localizable"];
-  v76[0] = MEMORY[0x1E69E9820];
-  v76[1] = 3221225472;
-  v76[2] = __106__AAUISignOutFlowControllerDelegate__presentLastDeviceAlertForAccount_withRecoveryFactors_withCompletion___block_invoke_4;
-  v76[3] = &unk_1E820D878;
+  v77[0] = MEMORY[0x1E69E9820];
+  v77[1] = 3221225472;
+  v77[2] = __106__AAUISignOutFlowControllerDelegate__presentLastDeviceAlertForAccount_withRecoveryFactors_withCompletion___block_invoke_4;
+  v77[3] = &unk_1E820D878;
   v47 = v41;
-  v77 = v47;
+  v78 = v47;
   selfCopy3 = self;
   v48 = v42;
-  v79 = v48;
-  v49 = [v44 actionWithTitle:v46 style:0 handler:v76];
+  v80 = v48;
+  v49 = [v44 actionWithTitle:v46 style:0 handler:v77];
   [v33 addAction:v49];
 
   [v14 addObject:*MEMORY[0x1E698BB10]];
   v50 = MEMORY[0x1E69DC648];
   v51 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
   v52 = [v51 localizedStringForKey:@"SIGN_OUT_CANCEL_BUTTON" value:&stru_1F447F790 table:@"Localizable"];
-  v73[0] = MEMORY[0x1E69E9820];
-  v73[1] = 3221225472;
-  v73[2] = __106__AAUISignOutFlowControllerDelegate__presentLastDeviceAlertForAccount_withRecoveryFactors_withCompletion___block_invoke_5;
-  v73[3] = &unk_1E820D828;
+  v74[0] = MEMORY[0x1E69E9820];
+  v74[1] = 3221225472;
+  v74[2] = __106__AAUISignOutFlowControllerDelegate__presentLastDeviceAlertForAccount_withRecoveryFactors_withCompletion___block_invoke_5;
+  v74[3] = &unk_1E820D828;
   v53 = v47;
-  v74 = v53;
+  v75 = v53;
   v54 = v48;
-  v75 = v54;
-  v55 = [v50 actionWithTitle:v52 style:1 handler:v73];
+  v76 = v54;
+  v55 = [v50 actionWithTitle:v52 style:1 handler:v74];
   [v33 addAction:v55];
 
   [v14 addObject:*MEMORY[0x1E698BB28]];
   aaf_arrayAsCommaSeperatedString = [v14 aaf_arrayAsCommaSeperatedString];
-  [v64 setObject:aaf_arrayAsCommaSeperatedString forKeyedSubscript:*MEMORY[0x1E6997818]];
+  [v65 setObject:aaf_arrayAsCommaSeperatedString forKeyedSubscript:*MEMORY[0x1E6997818]];
 
   reporter = [MEMORY[0x1E698B810] reporter];
-  [reporter sendEvent:v64];
+  [reporter sendEvent:v65];
 
   if (+[AAUIFeatureFlags isSignOutRedesignEnabled])
   {
     topViewController = [(UINavigationController *)selfCopy->_navController topViewController];
 
-    v59 = v70;
+    v60 = v71;
     if (topViewController)
     {
       topViewController2 = [(UINavigationController *)selfCopy->_navController topViewController];
@@ -1055,8 +1057,8 @@ void __94__AAUISignOutFlowControllerDelegate__performLastDeviceCheckForAccount_w
 
     else
     {
-      v61 = _AAUISignOutLogSystem();
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+      v62 = _AAUISignOutLogSystem(v59);
+      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
       {
         [AAUISignOutFlowControllerDelegate _presentLastDeviceAlertForAccount:withRecoveryFactors:withCompletion:];
       }
@@ -1070,7 +1072,7 @@ void __94__AAUISignOutFlowControllerDelegate__performLastDeviceCheckForAccount_w
   {
     topViewController2 = [(AAUISignOutFlowControllerDelegate *)selfCopy presentingViewController];
     [topViewController2 presentViewController:v33 animated:1 completion:0];
-    v59 = v70;
+    v60 = v71;
   }
 }
 
@@ -1135,7 +1137,7 @@ void __106__AAUISignOutFlowControllerDelegate__presentLastDeviceAlertForAccount_
     v4 = *(v3 + 16);
     v5 = *(a1 + 32);
 
-    v4(v5);
+    v4(v5, a2);
   }
 }
 
@@ -1258,7 +1260,7 @@ LABEL_8:
 
   else
   {
-    v7 = _AAUISignOutLogSystem();
+    v7 = _AAUISignOutLogSystem(self);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [AAUISignOutFlowControllerDelegate signOutControllerDidCancel:];
@@ -1278,7 +1280,7 @@ LABEL_8:
 
   else
   {
-    v8 = _AAUISignOutLogSystem();
+    v8 = _AAUISignOutLogSystem(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [AAUISignOutFlowControllerDelegate signOutControllerDidCancel:];
@@ -1298,7 +1300,7 @@ LABEL_8:
 
   else
   {
-    v8 = _AAUISignOutLogSystem();
+    v8 = _AAUISignOutLogSystem(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [AAUISignOutFlowControllerDelegate signOutControllerDidCancel:];
@@ -1368,81 +1370,81 @@ void __102__AAUISignOutFlowControllerDelegate_recoveryFactorController_didFinish
 
 - (void)_completedRestoreFromiCloud:(id)cloud
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   cloudCopy = cloud;
-  v5 = _AAUISignpostLogSystem();
+  v5 = _AAUISignpostLogSystem(cloudCopy);
   v6 = _AAUISignpostCreate(v5);
   v8 = v7;
 
-  v9 = _AAUISignpostLogSystem();
-  v10 = v9;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v10 = _AAUISignpostLogSystem(v9);
+  v11 = v10;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C5355000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v6, "SignOutRestoreBackupCheck", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C5355000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v6, "SignOutRestoreBackupCheck", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v11 = _AAUISignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v13 = _AAUISignpostLogSystem(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v21 = v6;
-    _os_log_impl(&dword_1C5355000, v11, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: SignOutRestoreBackupCheck  enableTelemetry=YES ", buf, 0xCu);
+    v23 = v6;
+    _os_log_impl(&dword_1C5355000, v13, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: SignOutRestoreBackupCheck  enableTelemetry=YES ", buf, 0xCu);
   }
 
   backupManager = self->_backupManager;
   if (!backupManager)
   {
-    v13 = objc_alloc_init(MEMORY[0x1E69B1968]);
-    v14 = self->_backupManager;
-    self->_backupManager = v13;
+    v15 = objc_alloc_init(MEMORY[0x1E69B1968]);
+    v16 = self->_backupManager;
+    self->_backupManager = v15;
 
     backupManager = self->_backupManager;
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __65__AAUISignOutFlowControllerDelegate__completedRestoreFromiCloud___block_invoke;
-  v16[3] = &unk_1E820C648;
-  v18 = v6;
-  v19 = v8;
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __65__AAUISignOutFlowControllerDelegate__completedRestoreFromiCloud___block_invoke;
+  v18[3] = &unk_1E820C648;
+  v20 = v6;
+  v21 = v8;
+  v19 = cloudCopy;
   v17 = cloudCopy;
-  v15 = cloudCopy;
-  [(AAUIMBManagerStore *)backupManager aaui_fetchiCloudRestoreIsCompleteWithCompletion:v16];
+  [(AAUIMBManagerStore *)backupManager aaui_fetchiCloudRestoreIsCompleteWithCompletion:v18];
 }
 
 void __65__AAUISignOutFlowControllerDelegate__completedRestoreFromiCloud___block_invoke(void *a1, int a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a3;
   Nanoseconds = _AAUISignpostGetNanoseconds(a1[5], a1[6]);
-  v7 = _AAUISignpostLogSystem();
+  v7 = _AAUISignpostLogSystem(Nanoseconds);
   v8 = v7;
   v9 = a1[5];
   if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
   {
-    v14 = 67240448;
-    *v15 = a2;
-    *&v15[4] = 1026;
-    *&v15[6] = [v5 code];
-    _os_signpost_emit_with_name_impl(&dword_1C5355000, v8, OS_SIGNPOST_INTERVAL_END, v9, "SignOutRestoreBackupCheck", " RestoreIsComplete=%{public,signpost.telemetry:number1,name=RestoreIsComplete}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v14, 0xEu);
+    v15 = 67240448;
+    *v16 = a2;
+    *&v16[4] = 1026;
+    *&v16[6] = [v5 code];
+    _os_signpost_emit_with_name_impl(&dword_1C5355000, v8, OS_SIGNPOST_INTERVAL_END, v9, "SignOutRestoreBackupCheck", " RestoreIsComplete=%{public,signpost.telemetry:number1,name=RestoreIsComplete}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v15, 0xEu);
   }
 
-  v10 = _AAUISignpostLogSystem();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = _AAUISignpostLogSystem(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = Nanoseconds / 1000000000.0;
-    v12 = a1[5];
-    v13 = [v5 code];
-    v14 = 134218752;
-    *v15 = v12;
-    *&v15[8] = 2048;
-    v16 = v11;
-    v17 = 1026;
-    v18 = a2;
-    v19 = 1026;
-    v20 = v13;
-    _os_log_impl(&dword_1C5355000, v10, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: SignOutRestoreBackupCheck  RestoreIsComplete=%{public,signpost.telemetry:number1,name=RestoreIsComplete}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v14, 0x22u);
+    v12 = Nanoseconds / 1000000000.0;
+    v13 = a1[5];
+    v14 = [v5 code];
+    v15 = 134218752;
+    *v16 = v13;
+    *&v16[8] = 2048;
+    v17 = v12;
+    v18 = 1026;
+    v19 = a2;
+    v20 = 1026;
+    v21 = v14;
+    _os_log_impl(&dword_1C5355000, v11, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: SignOutRestoreBackupCheck  RestoreIsComplete=%{public,signpost.telemetry:number1,name=RestoreIsComplete}d  Error=%{public,signpost.telemetry:number2,name=Error}d ", &v15, 0x22u);
   }
 
   (*(a1[4] + 16))();
@@ -1454,18 +1456,19 @@ void __65__AAUISignOutFlowControllerDelegate__completedRestoreFromiCloud___block
   v5 = resultCopy;
   if (self->_pendingSignOutOfferFlowCompletion)
   {
-    if ([resultCopy outcome])
+    outcome = [resultCopy outcome];
+    if (outcome)
     {
-      v6 = _AAUILogSystem();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = _AAUILogSystem(outcome);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_1C5355000, v6, OS_LOG_TYPE_DEFAULT, "User cancelled sign out flow.", v9, 2u);
+        *v10 = 0;
+        _os_log_impl(&dword_1C5355000, v7, OS_LOG_TYPE_DEFAULT, "User cancelled sign out flow.", v10, 2u);
       }
 
       pendingSignOutOfferFlowCompletion = self->_pendingSignOutOfferFlowCompletion;
-      v8 = [MEMORY[0x1E696ABC0] aa_errorWithCode:0];
-      pendingSignOutOfferFlowCompletion[2](pendingSignOutOfferFlowCompletion, 0, v8);
+      v9 = [MEMORY[0x1E696ABC0] aa_errorWithCode:0];
+      pendingSignOutOfferFlowCompletion[2](pendingSignOutOfferFlowCompletion, 0, v9);
     }
 
     else

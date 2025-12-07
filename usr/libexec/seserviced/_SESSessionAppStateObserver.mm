@@ -209,48 +209,47 @@
   LODWORD(update) = [changedCopy pid];
   v6 = self->_connections;
   objc_sync_enter(v6);
-  connections = self->_connections;
-  v33 = _NSConcreteStackBlock;
-  v34 = 3221225472;
-  v35 = sub_1000629A8;
-  v36 = &unk_1004C3340;
+  v32 = _NSConcreteStackBlock;
+  v33 = 3221225472;
+  v34 = sub_1000629A8;
+  v35 = &unk_1004C3340;
   updateCopy2 = update;
   updateCopy3 = update;
-  v8 = Filter();
+  v7 = Filter();
   objc_sync_exit(v6);
 
   state = [updateCopy state];
   taskState = [state taskState];
-  v10 = SESDefaultLogObject();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+  v9 = SESDefaultLogObject();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 67109378;
-    v40 = taskState;
-    v41 = 2112;
-    v42 = state;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "applicationStateChanged currentTaskState %d state \n%@ ", buf, 0x12u);
+    v39 = taskState;
+    v40 = 2112;
+    v41 = state;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "applicationStateChanged currentTaskState %d state \n%@ ", buf, 0x12u);
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
-  v11 = v8;
-  v12 = [v11 countByEnumeratingWithState:&v29 objects:v38 count:16];
-  if (v12)
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v10 = v7;
+  v11 = [v10 countByEnumeratingWithState:&v28 objects:v37 count:16];
+  if (v11)
   {
-    v13 = *v30;
-    v14 = FBSSceneVisibilityEndowmentNamespace;
+    v12 = *v29;
+    v13 = FBSSceneVisibilityEndowmentNamespace;
     do
     {
-      for (i = 0; i != v12; i = i + 1)
+      for (i = 0; i != v11; i = i + 1)
       {
-        if (*v30 != v13)
+        if (*v29 != v12)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v29 + 1) + 8 * i);
+        v15 = *(*(&v28 + 1) + 8 * i);
         if (taskState != 4)
         {
           if (taskState != 3)
@@ -258,62 +257,62 @@
             continue;
           }
 
-          v17 = SESDefaultLogObject();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+          v16 = SESDefaultLogObject();
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
           {
             *buf = 67109120;
-            v40 = updateCopy2;
-            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "The application with PID %d has been suspended", buf, 8u);
+            v39 = updateCopy2;
+            _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "The application with PID %d has been suspended", buf, 8u);
           }
 
           WeakRetained = objc_loadWeakRetained(&self->_delegate);
-          [WeakRetained didAppGetSuspended:v16];
+          [WeakRetained didAppGetSuspended:v15];
           goto LABEL_21;
         }
 
         endowmentNamespaces = [state endowmentNamespaces];
-        v20 = [endowmentNamespaces containsObject:v14];
+        v19 = [endowmentNamespaces containsObject:v13];
 
-        v21 = SESDefaultLogObject();
-        v22 = os_log_type_enabled(v21, OS_LOG_TYPE_INFO);
-        if (!v20)
+        v20 = SESDefaultLogObject();
+        v21 = os_log_type_enabled(v20, OS_LOG_TYPE_INFO);
+        if (!v19)
         {
-          if (v22)
+          if (v21)
           {
             *buf = 67109120;
-            v40 = updateCopy2;
-            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "The application with PID %d has entered the background", buf, 8u);
+            v39 = updateCopy2;
+            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "The application with PID %d has entered the background", buf, 8u);
           }
 
           WeakRetained = objc_loadWeakRetained(&self->_delegate);
-          [WeakRetained didAppEnterBackground:v16];
+          [WeakRetained didAppEnterBackground:v15];
           goto LABEL_21;
         }
 
-        if (v22)
+        if (v21)
         {
           *buf = 67109120;
-          v40 = updateCopy2;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "The application with PID %d has entered the foreground", buf, 8u);
+          v39 = updateCopy2;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "The application with PID %d has entered the foreground", buf, 8u);
         }
 
-        v23 = objc_loadWeakRetained(&self->_delegate);
-        v24 = objc_opt_respondsToSelector();
+        v22 = objc_loadWeakRetained(&self->_delegate);
+        v23 = objc_opt_respondsToSelector();
 
-        if (v24)
+        if (v23)
         {
           WeakRetained = objc_loadWeakRetained(&self->_delegate);
-          [WeakRetained didAppEnterForeground:v16];
+          [WeakRetained didAppEnterForeground:v15];
 LABEL_21:
 
           continue;
         }
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v29 objects:v38 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v28 objects:v37 count:16];
     }
 
-    while (v12);
+    while (v11);
   }
 }
 

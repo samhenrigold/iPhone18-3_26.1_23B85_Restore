@@ -170,10 +170,10 @@
   *(&v11 + 1) = -v10.f32[0];
   v16 = vaddq_f32(v15, v11);
   WeakRetained = objc_loadWeakRetained(&self->_scene);
-  structure = [WeakRetained structure];
+  v13 = objc_msgSend_structure(WeakRetained);
 
-  v14 = NUNIComputeCameraView(self->_structure.type, *&vadd_f32(*&self->_anon_30[104], structure[13]), v20);
-  *v6 = vmlaq_n_f32(v16, vmulq_n_f32(vnegq_f32(v14), *&v18), structure[6].f32[0]);
+  v14 = NUNIComputeCameraView(self->_structure.type, *&vadd_f32(*&self->_anon_30[104], v13[13]), v20);
+  *v6 = vmlaq_n_f32(v16, vmulq_n_f32(vnegq_f32(v14), *&v18), v13[6].f32[0]);
   *v5 = v16;
 }
 

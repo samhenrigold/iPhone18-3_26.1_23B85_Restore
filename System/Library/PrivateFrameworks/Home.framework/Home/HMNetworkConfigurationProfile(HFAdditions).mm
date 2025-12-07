@@ -21,42 +21,42 @@
 
 - (uint64_t)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
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
   targetProtectionMode = [self targetProtectionMode];
 
-  return [v2 hf_localizedTitleForTargetProtectionMode:targetProtectionMode];
+  return [v3 hf_localizedTitleForTargetProtectionMode:targetProtectionMode];
 }
 
 - (uint64_t)hf_targetProtectionModeDetailedLocalizedTitle
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
   targetProtectionMode = [self targetProtectionMode];
 
-  return [v2 hf_detailedLocalizedTitleForTargetProtectionMode:targetProtectionMode];
+  return [v3 hf_detailedLocalizedTitleForTargetProtectionMode:targetProtectionMode];
 }
 
 - (uint64_t)hf_targetProtectionModeDetailedLocalizedDescription
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
   targetProtectionMode = [self targetProtectionMode];
 
-  return [v2 hf_detailedLocalizedDescriptionForTargetProtectionMode:targetProtectionMode];
+  return [v3 hf_detailedLocalizedDescriptionForTargetProtectionMode:targetProtectionMode];
 }
 
 - (uint64_t)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
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
   credentialType = [self credentialType];
 
-  return [v2 hf_localizedDescriptionForCredentialType:credentialType];
+  return [v3 hf_localizedDescriptionForCredentialType:credentialType];
 }
 
 - (uint64_t)hf_targetProtectionModeIsValid
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
   targetProtectionMode = [self targetProtectionMode];
 
-  return [v2 hf_targetProtectionModeIsValid:targetProtectionMode];
+  return [v3 hf_targetProtectionModeIsValid:targetProtectionMode];
 }
 
 - (uint64_t)hf_hasCurrentNetworkAccessViolation
@@ -94,7 +94,7 @@
 
 + (id)hf_localizedTitleForTargetProtectionMode:()HFAdditions
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     if (a3 == 3)
@@ -112,9 +112,9 @@
       v5 = HFLogForCategory(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v9 = 134217984;
-        v10 = a3;
-        _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "Invalid targetProtectionMode %li", &v9, 0xCu);
+        v8 = 134217984;
+        v9 = a3;
+        _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "Invalid targetProtectionMode %li", &v8, 0xCu);
       }
 
       v4 = @"HFNetworkProtectionLevelUnknown";
@@ -127,14 +127,13 @@
   }
 
   v6 = _HFLocalizedStringWithDefaultValue(v4, v4, 1);
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (id)hf_detailedLocalizedTitleForTargetProtectionMode:()HFAdditions
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     if (a3 == 3)
@@ -152,9 +151,9 @@
       v5 = HFLogForCategory(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v9 = 134217984;
-        v10 = a3;
-        _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "Invalid targetProtectionMode %li", &v9, 0xCu);
+        v8 = 134217984;
+        v9 = a3;
+        _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "Invalid targetProtectionMode %li", &v8, 0xCu);
       }
 
       v4 = @"HFNetworkProtectionLevelUnknown_Detail";
@@ -167,14 +166,13 @@
   }
 
   v6 = _HFLocalizedStringWithDefaultValue(v4, v4, 1);
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 + (id)hf_detailedLocalizedDescriptionForTargetProtectionMode:()HFAdditions
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (a3)
   {
     if (a3 == 3)
@@ -192,9 +190,9 @@
       v5 = HFLogForCategory(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v9 = 134217984;
-        v10 = a3;
-        _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "Invalid targetProtectionMode %li", &v9, 0xCu);
+        v8 = 134217984;
+        v9 = a3;
+        _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "Invalid targetProtectionMode %li", &v8, 0xCu);
       }
 
       v4 = @"HFNetworkProtectionLevelUnknown_Description";
@@ -207,7 +205,6 @@
   }
 
   v6 = _HFLocalizedStringWithDefaultValue(v4, v4, 1);
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

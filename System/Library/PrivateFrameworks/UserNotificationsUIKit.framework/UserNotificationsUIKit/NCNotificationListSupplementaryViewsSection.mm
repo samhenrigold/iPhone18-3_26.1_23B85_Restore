@@ -98,17 +98,18 @@ void __75__NCNotificationListSupplementaryViewsSection_supplementaryViewControll
   else
   {
     v5 = *MEMORY[0x277D77DD0];
-    if (os_log_type_enabled(*MEMORY[0x277D77DD0], OS_LOG_TYPE_FAULT))
+    v6 = os_log_type_enabled(*MEMORY[0x277D77DD0], OS_LOG_TYPE_FAULT);
+    if (v6)
     {
       [(NCNotificationListSupplementaryViewsGroup *)delegate animator];
     }
 
-    animator = NCDefaultAnimator();
+    animator = NCDefaultAnimator(v6);
   }
 
-  v6 = animator;
+  v7 = animator;
 
-  return v6;
+  return v7;
 }
 
 - (NCNotificationListBaseComponentDelegate)delegate

@@ -58,7 +58,7 @@
   if (!style)
   {
     v3 = MEMORY[0x277D755B8];
-    v4 = HRHeartRhythmUIFrameworkBundle();
+    v4 = HRHeartRhythmUIFrameworkBundle(self);
     blackColor = [v3 imageNamed:@"ECG-Setup" inBundle:v4 compatibleWithTraitCollection:0];
 
     v6 = [objc_alloc(MEMORY[0x277D755E8]) initWithImage:blackColor];

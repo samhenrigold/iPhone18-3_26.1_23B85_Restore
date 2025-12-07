@@ -38,14 +38,12 @@ uint64_t sub_1000011E4(uint64_t a1, void *a2, double a3)
 {
   if (a2 && [a2 count])
   {
-    v5 = *(a1 + 32);
     [IMDMessageServicesRoutingDictionaryKey UTF8String];
     IMInsertDictionariesToXPCDictionary();
   }
 
   if (a3 > 0.0)
   {
-    v6 = *(a1 + 32);
     [IMDMessageServicesCallbackIntervalKey UTF8String];
     IMInsertIntsToXPCDictionary();
   }
@@ -53,9 +51,9 @@ uint64_t sub_1000011E4(uint64_t a1, void *a2, double a3)
   result = *(a1 + 40);
   if (result)
   {
-    v8 = *(result + 16);
+    v6 = *(result + 16);
 
-    return v8();
+    return v6();
   }
 
   return result;
@@ -80,14 +78,12 @@ uint64_t sub_100001378(uint64_t a1, void *a2, double a3)
 {
   if (a2 && [a2 count])
   {
-    v5 = *(a1 + 32);
     [IMDMessageServicesExpireStateDictionaryKey UTF8String];
     IMInsertDictionariesToXPCDictionary();
   }
 
   if (a3 > 0.0)
   {
-    v6 = *(a1 + 32);
     [IMDMessageServicesCallbackIntervalKey UTF8String];
     IMInsertIntsToXPCDictionary();
   }
@@ -95,9 +91,9 @@ uint64_t sub_100001378(uint64_t a1, void *a2, double a3)
   result = *(a1 + 40);
   if (result)
   {
-    v8 = *(result + 16);
+    v6 = *(result + 16);
 
-    return v8();
+    return v6();
   }
 
   return result;
@@ -122,14 +118,12 @@ uint64_t sub_10000150C(uint64_t a1, void *a2, double a3)
 {
   if (a2 && [a2 count])
   {
-    v5 = *(a1 + 32);
     [IMDMessageServicesWatchdogDictionaryKey UTF8String];
     IMInsertDictionariesToXPCDictionary();
   }
 
   if (a3 > 0.0)
   {
-    v6 = *(a1 + 32);
     [IMDMessageServicesCallbackIntervalKey UTF8String];
     IMInsertIntsToXPCDictionary();
   }
@@ -137,9 +131,9 @@ uint64_t sub_10000150C(uint64_t a1, void *a2, double a3)
   result = *(a1 + 40);
   if (result)
   {
-    v8 = *(result + 16);
+    v6 = *(result + 16);
 
-    return v8();
+    return v6();
   }
 
   return result;
@@ -164,14 +158,12 @@ uint64_t sub_1000016A0(uint64_t a1, void *a2, double a3)
 {
   if (a2 && [a2 count])
   {
-    v5 = *(a1 + 32);
     [IMDMessageServicesScheduledMessagesDictionaryKey UTF8String];
     IMInsertDictionariesToXPCDictionary();
   }
 
   if (a3 > 0.0)
   {
-    v6 = *(a1 + 32);
     [IMDMessageServicesCallbackIntervalKey UTF8String];
     IMInsertIntsToXPCDictionary();
   }
@@ -179,9 +171,9 @@ uint64_t sub_1000016A0(uint64_t a1, void *a2, double a3)
   result = *(a1 + 40);
   if (result)
   {
-    v8 = *(result + 16);
+    v6 = *(result + 16);
 
-    return v8();
+    return v6();
   }
 
   return result;
@@ -208,44 +200,43 @@ void sub_1000017A4(_xpc_connection_s *a1)
 
 void sub_100001834(uint64_t a1, void *a2)
 {
-  v5 = (a1 + 32);
-  v4 = *(a1 + 32);
+  v4 = (a1 + 32);
   xpc_connection_get_audit_token();
   HasEntitlement = IMDAuditTokenTaskHasEntitlement();
-  v7 = *v5;
+  v6 = *v4;
   if (HasEntitlement)
   {
     if (xpc_get_type(a2) != &_xpc_type_error)
     {
       xpc_retain(a2);
-      xpc_retain(v7);
-      v8 = xpc_copy_description(a2);
+      xpc_retain(v6);
+      v7 = xpc_copy_description(a2);
       if (IMOSLoggingEnabled())
       {
-        v9 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+        v8 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
           *buf = 67109378;
-          *&buf[4] = xpc_connection_get_pid(v7);
+          *&buf[4] = xpc_connection_get_pid(v6);
           *&buf[8] = 2080;
-          *&buf[10] = v8;
-          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "received message from peer(%d): %s", buf, 0x12u);
+          *&buf[10] = v7;
+          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "received message from peer(%d): %s", buf, 0x12u);
         }
       }
 
-      free(v8);
+      free(v7);
       ++dword_100014C88;
-      v10 = os_transaction_create();
+      v9 = os_transaction_create();
       reply = xpc_dictionary_create_reply(a2);
       *buf = _NSConcreteStackBlock;
       *&buf[8] = 3221225472;
       *&buf[16] = sub_100001B30;
-      v17 = &unk_100010590;
-      v18 = v7;
-      v19 = reply;
-      v20 = a2;
-      v21 = v10;
-      v12 = [buf copy];
+      v16 = &unk_100010590;
+      v17 = v6;
+      v18 = reply;
+      v19 = a2;
+      v20 = v9;
+      v11 = [buf copy];
       if (qword_100014C98 != -1)
       {
         sub_100007E8C();
@@ -256,28 +247,28 @@ void sub_100001834(uint64_t a1, void *a2)
       block[2] = sub_100001D1C;
       block[3] = &unk_1000105D8;
       block[4] = a2;
-      block[5] = v7;
+      block[5] = v6;
       block[6] = reply;
-      block[7] = v12;
+      block[7] = v11;
       dispatch_async(qword_100014C90, block);
     }
   }
 
   else
   {
-    pid = xpc_connection_get_pid(v7);
+    pid = xpc_connection_get_pid(v6);
     if (IMOSLoggingEnabled())
     {
-      v14 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v13 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         *buf = 138412802;
         *&buf[4] = @"com.apple.private.imcore.imdmessageservices";
         *&buf[12] = 2112;
         *&buf[14] = IMProcessNameForPid();
         *&buf[22] = 1024;
-        LODWORD(v17) = pid;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Denying xpc connection, task does not have entitlement: %@  (%@:%d)", buf, 0x1Cu);
+        LODWORD(v16) = pid;
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Denying xpc connection, task does not have entitlement: %@  (%@:%d)", buf, 0x1Cu);
       }
     }
 
@@ -351,64 +342,63 @@ void sub_100001CC0(id a1)
 
 id sub_100001D1C(void *a1)
 {
-  v2 = a1[4];
-  v3 = IMGetXPCStringFromDictionary();
-  v4 = [v3 isEqualToString:@"route"];
-  if (v4)
+  v2 = IMGetXPCStringFromDictionary();
+  v3 = [v2 isEqualToString:@"route"];
+  if (v3)
   {
-    v5 = a1[4];
-    v6 = a1[6];
-    v7 = a1[7];
+    v4 = a1[4];
+    v5 = a1[6];
+    v6 = a1[7];
 
-    return sub_100001018(v4, v5, v6, v7);
+    return sub_100001018(v3, v4, v5, v6);
   }
 
   else
   {
-    v9 = [v3 isEqualToString:@"expire"];
-    if (v9)
+    v8 = [v2 isEqualToString:@"expire"];
+    if (v8)
     {
-      v10 = a1[4];
-      v11 = a1[6];
-      v12 = a1[7];
+      v9 = a1[4];
+      v10 = a1[6];
+      v11 = a1[7];
 
-      return sub_1000012C0(v9, v10, v11, v12);
+      return sub_1000012C0(v8, v9, v10, v11);
     }
 
     else
     {
-      v13 = [v3 isEqualToString:@"watchdog"];
-      if (v13)
+      v12 = [v2 isEqualToString:@"watchdog"];
+      if (v12)
       {
-        v14 = a1[4];
-        v15 = a1[6];
-        v16 = a1[7];
+        v13 = a1[4];
+        v14 = a1[6];
+        v15 = a1[7];
 
-        return sub_100001454(v13, v14, v15, v16);
+        return sub_100001454(v12, v13, v14, v15);
       }
 
       else
       {
-        v17 = [v3 isEqualToString:@"scheduled"];
-        if (v17)
+        v16 = [v2 isEqualToString:@"scheduled"];
+        if (v16)
         {
-          v18 = a1[4];
-          v19 = a1[6];
-          v20 = a1[7];
+          v17 = a1[4];
+          v18 = a1[6];
+          v19 = a1[7];
 
-          return sub_1000015E8(v17, v18, v19, v20);
+          return sub_1000015E8(v16, v17, v18, v19);
         }
 
         else
         {
           if (IMOSLoggingEnabled())
           {
-            v21 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+            v20 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
             {
-              v22 = 138412290;
-              v23 = v3;
-              _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "Unknown command: %@", &v22, 0xCu);
+              v21 = 138412290;
+              v22 = v2;
+              _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "Unknown command: %@", &v21, 0xCu);
             }
           }
 
@@ -573,13 +563,12 @@ uint64_t sub_1000031EC(uint64_t result)
       if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
       {
         v3 = *(v1 + 32);
-        v5 = 138412290;
-        v6 = v3;
-        _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Results of expire state check: %@", &v5, 0xCu);
+        v4 = 138412290;
+        v5 = v3;
+        _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Results of expire state check: %@", &v4, 0xCu);
       }
     }
 
-    v4 = *(v1 + 32);
     return (*(*(v1 + 40) + 16))(*(v1 + 48));
   }
 
@@ -597,13 +586,12 @@ uint64_t sub_1000035BC(uint64_t result)
       if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
       {
         v3 = *(v1 + 32);
-        v5 = 138412290;
-        v6 = v3;
-        _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Results of expire state check: %@", &v5, 0xCu);
+        v4 = 138412290;
+        v5 = v3;
+        _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Results of expire state check: %@", &v4, 0xCu);
       }
     }
 
-    v4 = *(v1 + 32);
     return (*(*(v1 + 40) + 16))(*(v1 + 48));
   }
 
@@ -643,13 +631,12 @@ uint64_t sub_1000039B4(uint64_t result)
       if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
       {
         v3 = *(v1 + 32);
-        v5 = 138412290;
-        v6 = v3;
-        _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Results of schedule message check : %@", &v5, 0xCu);
+        v4 = 138412290;
+        v5 = v3;
+        _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Results of schedule message check : %@", &v4, 0xCu);
       }
     }
 
-    v4 = *(v1 + 32);
     return (*(*(v1 + 40) + 16))(*(v1 + 48));
   }
 
@@ -659,60 +646,59 @@ uint64_t sub_1000039B4(uint64_t result)
 void sub_100003B24(uint64_t a1, void *a2)
 {
   v3 = objc_alloc_init(NSMutableDictionary);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v4 = [a2 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v4 = [a2 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v23;
+    v6 = *v22;
     v7 = IMDMessageServicesScheduledDateKey;
     v8 = 0.0;
     do
     {
-      for (i = 0; i != v5; i = i + 1)
+      for (i = 0; i != v5; ++i)
       {
-        if (*v23 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(a2);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
-        v11 = IMDMessageRecordCopyGUIDForMessage();
+        v10 = IMDMessageRecordCopyGUIDForMessage();
         Date = IMDMessageRecordGetDate();
-        if (v11)
+        if (v10)
         {
-          v13 = Date;
-          v14 = [[NSDictionary alloc] initWithObjectsAndKeys:{+[NSNumber numberWithLongLong:](NSNumber, "numberWithLongLong:", Date), v7, 0}];
-          [v3 setObject:v14 forKey:v11];
-          [+[NSDate __im_dateWithNanosecondTimeIntervalSinceReferenceDate:](NSDate __im_dateWithNanosecondTimeIntervalSinceReferenceDate:{v13), "timeIntervalSinceNow"}];
-          v16 = v15;
+          v12 = Date;
+          v13 = [[NSDictionary alloc] initWithObjectsAndKeys:{+[NSNumber numberWithLongLong:](NSNumber, "numberWithLongLong:", Date), v7, 0}];
+          [v3 setObject:v13 forKey:v10];
+          [+[NSDate __im_dateWithNanosecondTimeIntervalSinceReferenceDate:](NSDate __im_dateWithNanosecondTimeIntervalSinceReferenceDate:{v12), "timeIntervalSinceNow"}];
+          v15 = v14;
         }
 
         else
         {
-          v16 = 0.0;
+          v15 = 0.0;
         }
 
-        if (v8 >= v16 || v8 <= 0.0)
+        if (v8 >= v15 || v8 <= 0.0)
         {
-          v18 = v16;
+          v17 = v15;
         }
 
         else
         {
-          v18 = v8;
+          v17 = v8;
         }
 
-        if (v16 > 0.0)
+        if (v15 > 0.0)
         {
-          v8 = v18;
+          v8 = v17;
         }
       }
 
-      v5 = [a2 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v5 = [a2 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v5);
@@ -727,9 +713,9 @@ void sub_100003B24(uint64_t a1, void *a2)
   block[1] = 3221225472;
   block[2] = sub_100003D58;
   block[3] = &unk_1000106C0;
-  v19 = *(a1 + 32);
+  v18 = *(a1 + 32);
   block[4] = v3;
-  block[5] = v19;
+  block[5] = v18;
   *&block[6] = v8;
   dispatch_async(&_dispatch_main_q, block);
 }
@@ -745,13 +731,12 @@ uint64_t sub_100003D58(uint64_t result)
       if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
       {
         v3 = *(v1 + 32);
-        v5 = 138412290;
-        v6 = v3;
-        _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Results of scheduled messages check: %@", &v5, 0xCu);
+        v4 = 138412290;
+        v5 = v3;
+        _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Results of scheduled messages check: %@", &v4, 0xCu);
       }
     }
 
-    v4 = *(v1 + 32);
     return (*(*(v1 + 40) + 16))(*(v1 + 48));
   }
 
@@ -791,13 +776,12 @@ uint64_t sub_100004164(uint64_t result)
       if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
       {
         v3 = *(v1 + 32);
-        v5 = 138412290;
-        v6 = v3;
-        _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Results of watchdog check: %@", &v5, 0xCu);
+        v4 = 138412290;
+        v5 = v3;
+        _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Results of watchdog check: %@", &v4, 0xCu);
       }
     }
 
-    v4 = *(v1 + 32);
     return (*(*(v1 + 40) + 16))(*(v1 + 48));
   }
 
@@ -815,20 +799,19 @@ uint64_t sub_100004508(uint64_t result)
       if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
       {
         v3 = *(v1 + 32);
-        v5 = 138412290;
-        v6 = v3;
-        _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Results of watchdog check: %@", &v5, 0xCu);
+        v4 = 138412290;
+        v5 = v3;
+        _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Results of watchdog check: %@", &v4, 0xCu);
       }
     }
 
-    v4 = *(v1 + 32);
     return (*(*(v1 + 40) + 16))(*(v1 + 48));
   }
 
   return result;
 }
 
-uint64_t sub_1000045F0(uint64_t result, uint64_t *a2, _BYTE *a3, double *a4, void *a5, void *a6)
+BOOL sub_1000045F0(_BOOL8 result, uint64_t *a2, _BYTE *a3, double *a4, void *a5, void *a6)
 {
   if (!result)
   {
@@ -1001,7 +984,6 @@ uint64_t sub_1000049D8(uint64_t a1)
     if (*(v3 + 24) > result)
     {
       *(v3 + 24) = 0;
-      v4 = *(*(*(a1 + 32) + 8) + 24);
 
       return IMSetDomainIntForKey();
     }
@@ -1192,9 +1174,9 @@ void sub_100005C5C(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void sub_100005E00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100005E00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1351,15 +1333,16 @@ LABEL_28:
   return v15;
 }
 
-uint64_t sub_1000067A4(int a1)
+uint64_t sub_1000067A4(uint64_t a1)
 {
+  v1 = a1;
   if (IMOSLoggingEnabled())
   {
     v2 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
       v4[0] = 67109120;
-      v4[1] = a1;
+      v4[1] = v1;
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Updating watchdog message watermark to %d", v4, 8u);
     }
   }
@@ -1444,8 +1427,9 @@ double sub_100006A78(uint64_t a1, double a2)
   return result;
 }
 
-void sub_100007524(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_100007524(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   if (a2 == 1)
   {
     objc_begin_catch(exc_buf);
@@ -1455,8 +1439,8 @@ void sub_100007524(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, i
 
   _Block_object_dispose(&a19, 8);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 144), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 144), 8);
   _Unwind_Resume(exc_buf);
 }
 

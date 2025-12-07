@@ -74,7 +74,7 @@
 
 void __48__POPreferences_requireRootCAInSystemTrustStore__block_invoke(uint64_t a1)
 {
-  if (AppSSOCoreLibraryCore() && ![getSOUtilsClass() isInternalBuild])
+  if (AppSSOCoreLibraryCore(0) && ![getSOUtilsClass() isInternalBuild])
   {
     v3 = 1;
   }
@@ -88,7 +88,7 @@ void __48__POPreferences_requireRootCAInSystemTrustStore__block_invoke(uint64_t 
   }
 
   requireRootCAInSystemTrustStore_requireRootCAInSystemTrustStore = v3;
-  v4 = PO_LOG_POPreferences();
+  v4 = PO_LOG_POPreferences(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __48__POPreferences_requireRootCAInSystemTrustStore__block_invoke_cold_1();
@@ -116,11 +116,11 @@ void __41__POPreferences_forceKerberosTGTExchange__block_invoke(uint64_t a1)
   if (v2)
   {
     CFPreferencesSynchronize(@"com.apple.PlatformSSO", *MEMORY[0x277CBF040], *MEMORY[0x277CBF030]);
-    LOBYTE(v2) = [*(a1 + 32) BOOLValueForKey:@"ForceKerberosTGTExchange" defaultValue:0];
+    v2 = [*(a1 + 32) BOOLValueForKey:@"ForceKerberosTGTExchange" defaultValue:0];
   }
 
   forceKerberosTGTExchange_forceKerberosTGTExchange = v2;
-  v3 = PO_LOG_POPreferences();
+  v3 = PO_LOG_POPreferences(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     __41__POPreferences_forceKerberosTGTExchange__block_invoke_cold_1();
@@ -160,8 +160,8 @@ void __41__POPreferences_forceExtensionSDKVersion__block_invoke(uint64_t a1)
   v3 = forceExtensionSDKVersion_forceExtensionSDKVersion;
   forceExtensionSDKVersion_forceExtensionSDKVersion = v2;
 
-  v4 = PO_LOG_POPreferences();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = PO_LOG_POPreferences(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     __41__POPreferences_forceExtensionSDKVersion__block_invoke_cold_1();
   }
@@ -187,9 +187,10 @@ void __45__POPreferences_skipPreMDMDeviceRegistration__block_invoke(uint64_t a1)
   if ([getSOUtilsClass() isInternalBuild])
   {
     CFPreferencesSynchronize(@"com.apple.PlatformSSO", *MEMORY[0x277CBF020], *MEMORY[0x277CBF030]);
-    skipPreMDMDeviceRegistration_skipPreMDMDeviceRegistration = [*(a1 + 32) BOOLValueForKey:@"skipPreMDMDeviceRegistration" defaultValue:0];
-    v2 = PO_LOG_POPreferences();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v2 = [*(a1 + 32) BOOLValueForKey:@"skipPreMDMDeviceRegistration" defaultValue:0];
+    skipPreMDMDeviceRegistration_skipPreMDMDeviceRegistration = v2;
+    v3 = PO_LOG_POPreferences(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       __45__POPreferences_skipPreMDMDeviceRegistration__block_invoke_cold_1();
     }
@@ -221,9 +222,10 @@ void __30__POPreferences_buddyTestMode__block_invoke(uint64_t a1)
   if ([getSOUtilsClass() isInternalBuild])
   {
     CFPreferencesSynchronize(@"com.apple.PlatformSSO", *MEMORY[0x277CBF020], *MEMORY[0x277CBF030]);
-    buddyTestMode_buddyTestMode = [*(a1 + 32) BOOLValueForKey:@"BuddyTestMode" defaultValue:0];
-    v2 = PO_LOG_POPreferences();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v2 = [*(a1 + 32) BOOLValueForKey:@"BuddyTestMode" defaultValue:0];
+    buddyTestMode_buddyTestMode = v2;
+    v3 = PO_LOG_POPreferences(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
       __30__POPreferences_buddyTestMode__block_invoke_cold_1();
     }
@@ -233,46 +235,6 @@ void __30__POPreferences_buddyTestMode__block_invoke(uint64_t a1)
   {
     buddyTestMode_buddyTestMode = 0;
   }
-}
-
-void __48__POPreferences_requireRootCAInSystemTrustStore__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_6(&dword_25E8B1000, v0, v1, "requireRootCAInSystemTrustStore=%{public}s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __41__POPreferences_forceKerberosTGTExchange__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_6(&dword_25E8B1000, v0, v1, "forceKerberosTGTExchange=%{public}s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __41__POPreferences_forceExtensionSDKVersion__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_6(&dword_25E8B1000, v0, v1, "forceExtensionSDKVersion=%{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __45__POPreferences_skipPreMDMDeviceRegistration__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_6(&dword_25E8B1000, v0, v1, "skipPreMDMDeviceRegistration=%{public}s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __30__POPreferences_buddyTestMode__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_6(&dword_25E8B1000, v0, v1, "buddyTestMode=%{public}s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

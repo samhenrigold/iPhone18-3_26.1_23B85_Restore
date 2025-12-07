@@ -16,11 +16,11 @@
 
 - (MAPushChannel)initWithIdentifier:(id)identifier
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v13.receiver = self;
-  v13.super_class = MAPushChannel;
-  v6 = [(MAPushChannel *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = MAPushChannel;
+  v6 = [(MAPushChannel *)&v12 init];
   v7 = v6;
   if (!v6)
   {
@@ -49,23 +49,22 @@ LABEL_6:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     *buf = 138543362;
-    v15 = identifierCopy;
+    v14 = identifierCopy;
     _os_log_impl(&dword_197AD5000, v10, OS_LOG_TYPE_ERROR, "[WARNING] Channel ID is nil for identifier %{public}@", buf, 0xCu);
   }
 
   v9 = 0;
 LABEL_10:
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (MAPushChannel)initWithPopulationType:(int64_t)type
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v15.receiver = self;
-  v15.super_class = MAPushChannel;
-  v4 = [(MAPushChannel *)&v15 init];
+  v17 = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = MAPushChannel;
+  v4 = [(MAPushChannel *)&v14 init];
   p_isa = &v4->super.isa;
   if (!v4)
   {
@@ -93,14 +92,13 @@ LABEL_4:
   {
     v12 = p_isa[1];
     *buf = 138543362;
-    v17 = v12;
+    v16 = v12;
     _os_log_impl(&dword_197AD5000, v11, OS_LOG_TYPE_ERROR, "[WARNING] Channel ID is nil for identifier %{public}@", buf, 0xCu);
   }
 
   v10 = 0;
 LABEL_8:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -132,13 +130,13 @@ LABEL_8:
 
 - (id)channelIDForPopulationType
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = _MAClientLog(@"PushNotification");
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 134217984;
+    v8 = 134217984;
     populationType = [(MAPushChannel *)self populationType];
-    _os_log_impl(&dword_197AD5000, v3, OS_LOG_TYPE_DEFAULT, "Channel population type: %li", &v9, 0xCu);
+    _os_log_impl(&dword_197AD5000, v3, OS_LOG_TYPE_DEFAULT, "Channel population type: %li", &v8, 0xCu);
   }
 
   v4 = [(MAPushChannel *)self populationType]- 1;
@@ -147,8 +145,8 @@ LABEL_8:
     v6 = _MAClientLog(@"PushNotification");
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_197AD5000, v6, OS_LOG_TYPE_ERROR, "[WARNING] No population type ID for device!", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_197AD5000, v6, OS_LOG_TYPE_ERROR, "[WARNING] No population type ID for device!", &v8, 2u);
     }
 
     v5 = 0;
@@ -160,13 +158,12 @@ LABEL_8:
     v6 = _MAClientLog(@"PushNotification");
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543362;
+      v8 = 138543362;
       populationType = v5;
-      _os_log_impl(&dword_197AD5000, v6, OS_LOG_TYPE_DEFAULT, "Channel Population ID: %{public}@", &v9, 0xCu);
+      _os_log_impl(&dword_197AD5000, v6, OS_LOG_TYPE_DEFAULT, "Channel Population ID: %{public}@", &v8, 0xCu);
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

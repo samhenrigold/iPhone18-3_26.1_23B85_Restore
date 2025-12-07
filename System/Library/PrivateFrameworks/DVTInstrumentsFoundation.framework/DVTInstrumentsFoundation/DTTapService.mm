@@ -90,13 +90,13 @@
         delegate = v5->_delegate;
         v5->_delegate = v14;
 
-        p_super = sDTTapLogClient();
+        p_super = sDTTapLogClient(v16);
         if (os_log_type_enabled(p_super, OS_LOG_TYPE_INFO))
         {
           tapServiceID = v5->_tapServiceID;
-          v18 = NSStringFromClass(v28[3]);
-          v19 = v18;
-          uTF8String = [v18 UTF8String];
+          v19 = NSStringFromClass(v28[3]);
+          v20 = v19;
+          uTF8String = [v19 UTF8String];
           *buf = 67109378;
           v33 = tapServiceID;
           v34 = 2080;
@@ -126,17 +126,16 @@
       v5 = 0;
     }
 
-    v21 = 0;
+    v22 = 0;
     goto LABEL_11;
   }
 
 LABEL_9:
   v5 = v5;
-  v21 = v5;
+  v22 = v5;
 LABEL_11:
 
-  v22 = *MEMORY[0x277D85DE8];
-  return v21;
+  return v22;
 }
 
 - (void)messageReceived:(id)received
@@ -189,39 +188,38 @@ LABEL_11:
 
 - (void)stop
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = sub_247F7F008;
-  v24 = sub_247F7F018;
-  v25 = 0;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = sub_247F7F008;
-  serialQueue = self->_serialQueue;
-  v18 = sub_247F7F018;
+  v27 = *MEMORY[0x277D85DE8];
   v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = sub_247F7F008;
+  v23 = sub_247F7F018;
+  v24 = 0;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = sub_247F7F008;
+  serialQueue = self->_serialQueue;
+  v17 = sub_247F7F018;
+  v18 = 0;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = sub_247F7F4B8;
   block[3] = &unk_278EF1C28;
   block[4] = self;
-  block[5] = &v20;
-  block[6] = &v14;
+  block[5] = &v19;
+  block[6] = &v13;
   dispatch_sync(serialQueue, block);
-  v4 = v21[5];
-  if (v4 || v15[5])
+  v4 = v20[5];
+  if (v4 || v14[5])
   {
     [v4 waitUntilFinished];
-    [v15[5] waitUntilFinished];
-    v5 = sDTTapLogClient();
+    v5 = sDTTapLogClient([v14[5] waitUntilFinished]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       tapServiceID = self->_tapServiceID;
       *buf = 67109120;
-      v27 = tapServiceID;
+      v26 = tapServiceID;
       _os_log_impl(&dword_247F67000, v5, OS_LOG_TYPE_DEBUG, "DTTapService: (%d) Tap has been stopped and fully fetched from.", buf, 8u);
     }
 
@@ -232,21 +230,19 @@ LABEL_11:
     v9 = [MEMORY[0x277D03668] messageWithObject:v7];
     [(DTTapServiceMessageSender *)messageSender sendMessage:v9];
 
-    [(DTTapServiceMessageSender *)self->_messageSender sendBarrierMessage];
-    v10 = sDTTapLogClient();
+    v10 = sDTTapLogClient([(DTTapServiceMessageSender *)self->_messageSender sendBarrierMessage]);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = self->_tapServiceID;
       *buf = 67109120;
-      v27 = v11;
+      v26 = v11;
       _os_log_impl(&dword_247F67000, v10, OS_LOG_TYPE_INFO, "DTTapService: (%d) All stop related messages have been sent. Stop complete", buf, 8u);
     }
   }
 
-  _Block_object_dispose(&v14, 8);
+  _Block_object_dispose(&v13, 8);
 
-  _Block_object_dispose(&v20, 8);
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v19, 8);
 }
 
 - (void)pause

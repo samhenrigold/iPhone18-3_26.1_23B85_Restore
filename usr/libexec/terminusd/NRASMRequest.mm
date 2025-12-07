@@ -22,11 +22,7 @@
         dispatch_once(&qword_1002291B0, &stru_1001FBE70);
       }
 
-      v9 = 289;
-      selfCopy = self;
-      v7 = "";
-      v8 = "[NRASMRequest dealloc]";
-      _NRLogWithArgs();
+      _NRLogWithArgs(qword_1002291A8, 1, "%s%.30s:%-4d %@ removing policies", ", "[NRASMRequest dealloc]"", 289, self);
     }
 
     objc_opt_self();
@@ -49,9 +45,9 @@
     sub_10015A52C(v6);
   }
 
-  v11.receiver = self;
-  v11.super_class = NRASMRequest;
-  [(NRASMRequest *)&v11 dealloc:v7];
+  v7.receiver = self;
+  v7.super_class = NRASMRequest;
+  [(NRASMRequest *)&v7 dealloc];
 }
 
 - (id)description
@@ -85,8 +81,7 @@
 
   [v3 appendString:v4];
 LABEL_8:
-  identifier = self->_identifier;
-  [v3 appendFormat:@"%p, %@, %@", self->_client, identifier, self->_clientDescription];
+  [v3 appendFormat:@"%p, %@, %@", self->_client, self->_identifier, self->_clientDescription];
   [v3 appendFormat:@", %@", self->_metadata];
   [v3 appendString:@"]"];
 

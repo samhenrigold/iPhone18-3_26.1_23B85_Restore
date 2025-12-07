@@ -11,38 +11,38 @@
 
 - (HKNanoSyncPairedDevicesSnapshot)initWithPairedDeviceInfos:(id)infos
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   infosCopy = infos;
   if (!infosCopy)
   {
     [(HKNanoSyncPairedDevicesSnapshot *)a2 initWithPairedDeviceInfos:?];
   }
 
-  v21.receiver = self;
-  v21.super_class = HKNanoSyncPairedDevicesSnapshot;
-  v6 = [(HKNanoSyncPairedDevicesSnapshot *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = HKNanoSyncPairedDevicesSnapshot;
+  v6 = [(HKNanoSyncPairedDevicesSnapshot *)&v20 init];
   if (v6)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v7 = infosCopy;
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v18;
+      v10 = *v17;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v18 != v10)
+          if (*v17 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
+          v12 = *(*(&v16 + 1) + 8 * i);
           if ([v12 isActive])
           {
             objc_storeStrong(&v6->_activeDeviceInfo, v12);
@@ -50,7 +50,7 @@
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
         if (v9)
         {
           continue;
@@ -67,38 +67,37 @@ LABEL_14:
     v6->_allDeviceInfos = v13;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (id)deviceInfoForSourceBundleIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   if (!identifierCopy)
   {
     [(HKNanoSyncPairedDevicesSnapshot *)a2 deviceInfoForSourceBundleIdentifier:?];
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = self->_allDeviceInfos;
-  v7 = [(NSSet *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [(NSSet *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         sourceBundleIdentifier = [v10 sourceBundleIdentifier];
         if (sourceBundleIdentifier && ([identifierCopy isEqualToString:sourceBundleIdentifier] & 1) != 0)
         {
@@ -108,7 +107,7 @@ LABEL_14:
         }
       }
 
-      v7 = [(NSSet *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [(NSSet *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -119,8 +118,6 @@ LABEL_14:
   }
 
 LABEL_14:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -147,29 +144,29 @@ LABEL_14:
 
 - (id)description
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E696AD60]);
   [v3 appendFormat:@"<%@:%p devices={", objc_opt_class(), self];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v4 = self->_allDeviceInfos;
-  v5 = [(NSSet *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSSet *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        if (*(*(&v14 + 1) + 8 * i) == self->_activeDeviceInfo)
+        if (*(*(&v13 + 1) + 8 * i) == self->_activeDeviceInfo)
         {
           v9 = " (active)";
         }
@@ -179,10 +176,10 @@ LABEL_14:
           v9 = "";
         }
 
-        [v3 appendFormat:@"\n\t%@%s, ", *(*(&v14 + 1) + 8 * i), v9, v14];
+        [v3 appendFormat:@"\n\t%@%s, ", *(*(&v13 + 1) + 8 * i), v9, v13];
       }
 
-      v6 = [(NSSet *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSSet *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -196,7 +193,6 @@ LABEL_14:
   }
 
   [v3 appendFormat:@"%s}>", v11];
-  v12 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

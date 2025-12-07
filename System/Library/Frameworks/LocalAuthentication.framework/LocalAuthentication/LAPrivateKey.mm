@@ -17,9 +17,9 @@
 - (LAPrivateKey)initWithKey:(id)key
 {
   keyCopy = key;
-  v13.receiver = self;
-  v13.super_class = LAPrivateKey;
-  v6 = [(LAPrivateKey *)&v13 init];
+  v14.receiver = self;
+  v14.super_class = LAPrivateKey;
+  v6 = [(LAPrivateKey *)&v14 init];
   v7 = v6;
   if (v6)
   {
@@ -31,8 +31,8 @@
     mEMORY[0x1E696EE90] = [MEMORY[0x1E696EE90] sharedInstance];
     v7->_instanceID = [mEMORY[0x1E696EE90] nextInstanceIDInDomain:@"LAPrivateKey"];
 
-    v11 = LA_LOG_5();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = LA_LOG_5(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       [(LARightStore *)v7 init];
     }
@@ -43,7 +43,7 @@
 
 - (void)dealloc
 {
-  v3 = LA_LOG_5();
+  v3 = LA_LOG_5(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(LARightStore *)self dealloc];
@@ -115,7 +115,7 @@ void __52__LAPrivateKey_signData_secKeyAlgorithm_completion___block_invoke(uint6
 void __52__LAPrivateKey_signData_secKeyAlgorithm_completion___block_invoke_2(uint64_t a1)
 {
   v26 = *MEMORY[0x1E69E9840];
-  v2 = LA_LOG_5();
+  v2 = LA_LOG_5(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -133,32 +133,32 @@ void __52__LAPrivateKey_signData_secKeyAlgorithm_completion___block_invoke_2(uin
 
     if (v7)
     {
-      v16 = LA_LOG_5();
-      v17 = LALogTypeForInternalError();
-      if (os_log_type_enabled(v16, v17))
+      v17 = LA_LOG_5(v8);
+      v18 = LALogTypeForInternalError();
+      if (os_log_type_enabled(v17, v18))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A784E000, v16, v17, "The right associated with this key was deallocated", buf, 2u);
+        _os_log_impl(&dword_1A784E000, v17, v18, "The right associated with this key was deallocated", buf, 2u);
       }
 
-      v18 = *(a1 + 48);
-      v19 = [LAAuthorizationError genericErrorWithMessage:@"The right associated with this key was deallocated"];
-      (*(v18 + 16))(v18, 0, v19);
+      v19 = *(a1 + 48);
+      v20 = [LAAuthorizationError genericErrorWithMessage:@"The right associated with this key was deallocated"];
+      (*(v19 + 16))(v19, 0, v20);
     }
 
     else
     {
-      v8 = v5[2];
-      v9 = *(a1 + 40);
-      v10 = *(a1 + 64);
-      v11 = [(LAPrivateKey *)v5 context];
+      v9 = v5[2];
+      v10 = *(a1 + 40);
+      v11 = *(a1 + 64);
+      v12 = [(LAPrivateKey *)v5 context];
       v21[0] = MEMORY[0x1E69E9820];
       v21[1] = 3221225472;
       v21[2] = __52__LAPrivateKey_signData_secKeyAlgorithm_completion___block_invoke_12;
       v21[3] = &unk_1E77CB9C0;
       objc_copyWeak(&v23, (a1 + 56));
       v22 = *(a1 + 48);
-      [v8 signData:v9 secKeyAlgorithm:v10 context:v11 completion:v21];
+      [v9 signData:v10 secKeyAlgorithm:v11 context:v12 completion:v21];
 
       objc_destroyWeak(&v23);
     }
@@ -166,28 +166,26 @@ void __52__LAPrivateKey_signData_secKeyAlgorithm_completion___block_invoke_2(uin
 
   else
   {
-    v12 = LA_LOG_5();
-    v13 = LALogTypeForInternalError();
-    if (os_log_type_enabled(v12, v13))
+    v13 = LA_LOG_5(0);
+    v14 = LALogTypeForInternalError();
+    if (os_log_type_enabled(v13, v14))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A784E000, v12, v13, "Operation interrupted", buf, 2u);
+      _os_log_impl(&dword_1A784E000, v13, v14, "Operation interrupted", buf, 2u);
     }
 
-    v14 = *(a1 + 48);
-    v15 = [LAAuthorizationError genericErrorWithMessage:@"Operation interrupted"];
-    (*(v14 + 16))(v14, 0, v15);
+    v15 = *(a1 + 48);
+    v16 = [LAAuthorizationError genericErrorWithMessage:@"Operation interrupted"];
+    (*(v15 + 16))(v15, 0, v16);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __52__LAPrivateKey_signData_secKeyAlgorithm_completion___block_invoke_12(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
-  v7 = LA_LOG_5();
+  v7 = LA_LOG_5(v6);
   v8 = v7;
   if (v5)
   {
@@ -214,9 +212,9 @@ void __52__LAPrivateKey_signData_secKeyAlgorithm_completion___block_invoke_12(ui
   }
 
   *buf = 138543618;
-  v14 = WeakRetained;
-  v15 = 2114;
-  v16 = v11;
+  v13 = WeakRetained;
+  v14 = 2114;
+  v15 = v11;
   _os_log_impl(&dword_1A784E000, v8, v9, "%{public}@ sign finished %{public}@", buf, 0x16u);
   if (v5)
   {
@@ -224,8 +222,6 @@ void __52__LAPrivateKey_signData_secKeyAlgorithm_completion___block_invoke_12(ui
 
 LABEL_9:
   (*(*(a1 + 32) + 16))();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)canSignUsingSecKeyAlgorithm:(SecKeyAlgorithm)algorithm
@@ -249,7 +245,7 @@ LABEL_9:
   return algorithm;
 }
 
-uint64_t __44__LAPrivateKey_canSignUsingSecKeyAlgorithm___block_invoke(void *a1)
+void *__44__LAPrivateKey_canSignUsingSecKeyAlgorithm___block_invoke(void *a1)
 {
   result = [*(a1[4] + 16) canSignUsingSecKeyAlgorithm:a1[6]];
   *(*(a1[5] + 8) + 24) = result;
@@ -301,7 +297,7 @@ void __55__LAPrivateKey_decryptData_secKeyAlgorithm_completion___block_invoke(ui
 void __55__LAPrivateKey_decryptData_secKeyAlgorithm_completion___block_invoke_2(uint64_t a1)
 {
   v26 = *MEMORY[0x1E69E9840];
-  v2 = LA_LOG_5();
+  v2 = LA_LOG_5(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -319,32 +315,32 @@ void __55__LAPrivateKey_decryptData_secKeyAlgorithm_completion___block_invoke_2(
 
     if (v7)
     {
-      v16 = LA_LOG_5();
-      v17 = LALogTypeForInternalError();
-      if (os_log_type_enabled(v16, v17))
+      v17 = LA_LOG_5(v8);
+      v18 = LALogTypeForInternalError();
+      if (os_log_type_enabled(v17, v18))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A784E000, v16, v17, "The right associated with this key was deallocated", buf, 2u);
+        _os_log_impl(&dword_1A784E000, v17, v18, "The right associated with this key was deallocated", buf, 2u);
       }
 
-      v18 = *(a1 + 48);
-      v19 = [LAAuthorizationError genericErrorWithMessage:@"The right associated with this key was deallocated"];
-      (*(v18 + 16))(v18, 0, v19);
+      v19 = *(a1 + 48);
+      v20 = [LAAuthorizationError genericErrorWithMessage:@"The right associated with this key was deallocated"];
+      (*(v19 + 16))(v19, 0, v20);
     }
 
     else
     {
-      v8 = v5[2];
-      v9 = *(a1 + 40);
-      v10 = *(a1 + 64);
-      v11 = [(LAPrivateKey *)v5 context];
+      v9 = v5[2];
+      v10 = *(a1 + 40);
+      v11 = *(a1 + 64);
+      v12 = [(LAPrivateKey *)v5 context];
       v21[0] = MEMORY[0x1E69E9820];
       v21[1] = 3221225472;
       v21[2] = __55__LAPrivateKey_decryptData_secKeyAlgorithm_completion___block_invoke_22;
       v21[3] = &unk_1E77CB9C0;
       objc_copyWeak(&v23, (a1 + 56));
       v22 = *(a1 + 48);
-      [v8 decryptData:v9 secKeyAlgorithm:v10 context:v11 completion:v21];
+      [v9 decryptData:v10 secKeyAlgorithm:v11 context:v12 completion:v21];
 
       objc_destroyWeak(&v23);
     }
@@ -352,28 +348,26 @@ void __55__LAPrivateKey_decryptData_secKeyAlgorithm_completion___block_invoke_2(
 
   else
   {
-    v12 = LA_LOG_5();
-    v13 = LALogTypeForInternalError();
-    if (os_log_type_enabled(v12, v13))
+    v13 = LA_LOG_5(0);
+    v14 = LALogTypeForInternalError();
+    if (os_log_type_enabled(v13, v14))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A784E000, v12, v13, "Operation interrupted", buf, 2u);
+      _os_log_impl(&dword_1A784E000, v13, v14, "Operation interrupted", buf, 2u);
     }
 
-    v14 = *(a1 + 48);
-    v15 = [LAAuthorizationError genericErrorWithMessage:@"Operation interrupted"];
-    (*(v14 + 16))(v14, 0, v15);
+    v15 = *(a1 + 48);
+    v16 = [LAAuthorizationError genericErrorWithMessage:@"Operation interrupted"];
+    (*(v15 + 16))(v15, 0, v16);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __55__LAPrivateKey_decryptData_secKeyAlgorithm_completion___block_invoke_22(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
-  v7 = LA_LOG_5();
+  v7 = LA_LOG_5(v6);
   v8 = v7;
   if (v5)
   {
@@ -400,9 +394,9 @@ void __55__LAPrivateKey_decryptData_secKeyAlgorithm_completion___block_invoke_22
   }
 
   *buf = 138543618;
-  v14 = WeakRetained;
-  v15 = 2114;
-  v16 = v11;
+  v13 = WeakRetained;
+  v14 = 2114;
+  v15 = v11;
   _os_log_impl(&dword_1A784E000, v8, v9, "%{public}@ decrypt finished %{public}@", buf, 0x16u);
   if (v5)
   {
@@ -410,8 +404,6 @@ void __55__LAPrivateKey_decryptData_secKeyAlgorithm_completion___block_invoke_22
 
 LABEL_9:
   (*(*(a1 + 32) + 16))();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)canDecryptUsingSecKeyAlgorithm:(SecKeyAlgorithm)algorithm
@@ -435,7 +427,7 @@ LABEL_9:
   return algorithm;
 }
 
-uint64_t __47__LAPrivateKey_canDecryptUsingSecKeyAlgorithm___block_invoke(void *a1)
+void *__47__LAPrivateKey_canDecryptUsingSecKeyAlgorithm___block_invoke(void *a1)
 {
   result = [*(a1[4] + 16) canDecryptUsingSecKeyAlgorithm:a1[6]];
   *(*(a1[5] + 8) + 24) = result;
@@ -491,7 +483,7 @@ void __86__LAPrivateKey_exchangeKeysWithPublicKey_secKeyAlgorithm_secKeyParamete
 void __86__LAPrivateKey_exchangeKeysWithPublicKey_secKeyAlgorithm_secKeyParameters_completion___block_invoke_2(uint64_t a1)
 {
   v27 = *MEMORY[0x1E69E9840];
-  v2 = LA_LOG_5();
+  v2 = LA_LOG_5(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -509,33 +501,33 @@ void __86__LAPrivateKey_exchangeKeysWithPublicKey_secKeyAlgorithm_secKeyParamete
 
     if (v7)
     {
-      v17 = LA_LOG_5();
-      v18 = LALogTypeForInternalError();
-      if (os_log_type_enabled(v17, v18))
+      v18 = LA_LOG_5(v8);
+      v19 = LALogTypeForInternalError();
+      if (os_log_type_enabled(v18, v19))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A784E000, v17, v18, "The right associated with this key was deallocated", buf, 2u);
+        _os_log_impl(&dword_1A784E000, v18, v19, "The right associated with this key was deallocated", buf, 2u);
       }
 
-      v19 = *(a1 + 56);
-      v20 = [LAAuthorizationError genericErrorWithMessage:@"The right associated with this key was deallocated"];
-      (*(v19 + 16))(v19, 0, v20);
+      v20 = *(a1 + 56);
+      v21 = [LAAuthorizationError genericErrorWithMessage:@"The right associated with this key was deallocated"];
+      (*(v20 + 16))(v20, 0, v21);
     }
 
     else
     {
-      v8 = v5[2];
-      v9 = *(a1 + 72);
-      v11 = *(a1 + 40);
-      v10 = *(a1 + 48);
-      v12 = [(LAPrivateKey *)v5 context];
+      v9 = v5[2];
+      v10 = *(a1 + 72);
+      v12 = *(a1 + 40);
+      v11 = *(a1 + 48);
+      v13 = [(LAPrivateKey *)v5 context];
       v22[0] = MEMORY[0x1E69E9820];
       v22[1] = 3221225472;
       v22[2] = __86__LAPrivateKey_exchangeKeysWithPublicKey_secKeyAlgorithm_secKeyParameters_completion___block_invoke_23;
       v22[3] = &unk_1E77CB9C0;
       objc_copyWeak(&v24, (a1 + 64));
       v23 = *(a1 + 56);
-      [v8 exchangeKeysWithPublicKey:v11 secKeyAlgorithm:v9 secKeyParameters:v10 context:v12 completion:v22];
+      [v9 exchangeKeysWithPublicKey:v12 secKeyAlgorithm:v10 secKeyParameters:v11 context:v13 completion:v22];
 
       objc_destroyWeak(&v24);
     }
@@ -543,28 +535,26 @@ void __86__LAPrivateKey_exchangeKeysWithPublicKey_secKeyAlgorithm_secKeyParamete
 
   else
   {
-    v13 = LA_LOG_5();
-    v14 = LALogTypeForInternalError();
-    if (os_log_type_enabled(v13, v14))
+    v14 = LA_LOG_5(0);
+    v15 = LALogTypeForInternalError();
+    if (os_log_type_enabled(v14, v15))
     {
       *buf = 0;
-      _os_log_impl(&dword_1A784E000, v13, v14, "Operation interrupted", buf, 2u);
+      _os_log_impl(&dword_1A784E000, v14, v15, "Operation interrupted", buf, 2u);
     }
 
-    v15 = *(a1 + 56);
-    v16 = [LAAuthorizationError genericErrorWithMessage:@"Operation interrupted"];
-    (*(v15 + 16))(v15, 0, v16);
+    v16 = *(a1 + 56);
+    v17 = [LAAuthorizationError genericErrorWithMessage:@"Operation interrupted"];
+    (*(v16 + 16))(v16, 0, v17);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 void __86__LAPrivateKey_exchangeKeysWithPublicKey_secKeyAlgorithm_secKeyParameters_completion___block_invoke_23(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
-  v7 = LA_LOG_5();
+  v7 = LA_LOG_5(v6);
   v8 = v7;
   if (v5)
   {
@@ -591,9 +581,9 @@ void __86__LAPrivateKey_exchangeKeysWithPublicKey_secKeyAlgorithm_secKeyParamete
   }
 
   *buf = 138543618;
-  v14 = WeakRetained;
-  v15 = 2114;
-  v16 = v11;
+  v13 = WeakRetained;
+  v14 = 2114;
+  v15 = v11;
   _os_log_impl(&dword_1A784E000, v8, v9, "%{public}@ exchangeKeys finished %{public}@", buf, 0x16u);
   if (v5)
   {
@@ -601,8 +591,6 @@ void __86__LAPrivateKey_exchangeKeysWithPublicKey_secKeyAlgorithm_secKeyParamete
 
 LABEL_9:
   (*(*(a1 + 32) + 16))();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)canExchangeKeysUsingSecKeyAlgorithm:(SecKeyAlgorithm)algorithm
@@ -626,7 +614,7 @@ LABEL_9:
   return algorithm;
 }
 
-uint64_t __52__LAPrivateKey_canExchangeKeysUsingSecKeyAlgorithm___block_invoke(void *a1)
+void *__52__LAPrivateKey_canExchangeKeysUsingSecKeyAlgorithm___block_invoke(void *a1)
 {
   result = [*(a1[4] + 16) canExchangeKeysUsingSecKeyAlgorithm:a1[6]];
   *(*(a1[5] + 8) + 24) = result;

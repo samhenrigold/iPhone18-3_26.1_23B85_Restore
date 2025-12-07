@@ -19,6 +19,7 @@
 - (BOOL)executeSQLStatement:(const char *)statement usingTransaction:(BOOL)transaction;
 - (BOOL)forceCloseOpenBatches;
 - (BOOL)getIntValueForPragma:(id)pragma into:(int *)into;
+- (BOOL)initializeConnectionForUseBy:(int)by;
 - (BOOL)initializeNewBatch;
 - (BOOL)iteratePayloadForBatch:(id)batch codeblock:(id)codeblock;
 - (BOOL)iterateUploadsWithCodeblock:(id)codeblock;
@@ -31,6 +32,8 @@
 - (BOOL)tryPrepare:(const char *)prepare preparedStatement:(sqlite3_stmt *)statement;
 - (BOOL)tryRolloverBatchIfNecessary:(unint64_t)necessary preferredBatchSize:(unint64_t)size;
 - (BOOL)updateSchema;
+- (BOOL)updateStatusForBatch:(id)batch toStatus:(int)status;
+- (BOOL)updateStatusForUpload:(id)upload toStatus:(int)status;
 - (FLSQLitePersistence)initWithStoreId:(id)id dbConnection:(id)connection loggingContext:(id)context;
 - (FLSQLitePersistence)initWithStoreId:(id)id loggingContext:(id)context;
 - (id)_getBatchIdsHelper:(sqlite3_stmt *)helper;
@@ -86,7 +89,7 @@
 
 - (BOOL)__deleteStatementHelper:(const char *)helper forUploadId:(id)id
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v7 = objc_autoreleasePoolPush();
   pStmt = 0;
@@ -121,8 +124,8 @@ LABEL_6:
     {
       *buf = 136315394;
       helperCopy2 = helper;
-      v19 = 1024;
-      v20 = v9;
+      v18 = 1024;
+      v19 = v9;
       v11 = "deleteUpload (%s) failed: %d";
       v12 = v10;
       v13 = 18;
@@ -137,7 +140,6 @@ LABEL_9:
 LABEL_7:
   objc_autoreleasePoolPop(v7);
 
-  v14 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -192,7 +194,7 @@ LABEL_10:
 
 - (BOOL)iterateUploadsWithCodeblock:(id)codeblock
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   codeblockCopy = codeblock;
   if (![(FLSQLitePersistence *)self initializeConnectionForUseBy:1])
   {
@@ -228,13 +230,13 @@ LABEL_24:
   }
 
   v5 = objc_autoreleasePoolPush();
-  v26 = 0;
+  v25 = 0;
   while (1)
   {
     v6 = sqlite3_step(pStmt[0]);
     if (v6 != 100)
     {
-      v23 = v6;
+      v22 = v6;
       if (v6 == 101)
       {
 LABEL_15:
@@ -243,12 +245,12 @@ LABEL_15:
 
       else
       {
-        v24 = [(FLSQLitePersistence *)self log];
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v23 = [(FLSQLitePersistence *)self log];
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          v29 = v23;
-          _os_log_error_impl(&dword_24AB3F000, v24, OS_LOG_TYPE_ERROR, "SQLite iterate uploads, failed: %d", buf, 8u);
+          v28 = v22;
+          _os_log_error_impl(&dword_24AB3F000, v23, OS_LOG_TYPE_ERROR, "SQLite iterate uploads, failed: %d", buf, 8u);
         }
 
         v20 = 0;
@@ -287,18 +289,18 @@ LABEL_15:
     v16 = tryGetDateProperty(pStmt[0], 7);
     [(UploadRecord *)v7 setDateLastProcessed:v16];
 
-    codeblockCopy[2](codeblockCopy, v7, &v26);
-    if (v26)
+    codeblockCopy[2](codeblockCopy, v7, &v25);
+    if (v25)
     {
       goto LABEL_15;
     }
   }
 
-  v25 = [(FLSQLitePersistence *)self log];
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+  v24 = [(FLSQLitePersistence *)self log];
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_error_impl(&dword_24AB3F000, v25, OS_LOG_TYPE_ERROR, "Upload record has no creation date.", buf, 2u);
+    _os_log_error_impl(&dword_24AB3F000, v24, OS_LOG_TYPE_ERROR, "Upload record has no creation date.", buf, 2u);
   }
 
   sqlite3_finalize(pStmt[0]);
@@ -307,13 +309,12 @@ LABEL_12:
   v20 = 0;
 LABEL_13:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (id)getUploadRecordWithId:(id)id
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   idCopy = id;
   if ([(FLSQLitePersistence *)self initializeConnectionForUseBy:1])
   {
@@ -339,7 +340,7 @@ LABEL_18:
         if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          v24 = v6;
+          v23 = v6;
           _os_log_error_impl(&dword_24AB3F000, v13, OS_LOG_TYPE_ERROR, "SQLite iterate uploads, failed: %d", buf, 8u);
         }
 
@@ -378,11 +379,11 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      v21 = [(FLSQLitePersistence *)self log];
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+      v20 = [(FLSQLitePersistence *)self log];
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_24AB3F000, v21, OS_LOG_TYPE_ERROR, "Upload record has no creation date.", buf, 2u);
+        _os_log_error_impl(&dword_24AB3F000, v20, OS_LOG_TYPE_ERROR, "Upload record has no creation date.", buf, 2u);
       }
 
       sqlite3_finalize(pStmt[0]);
@@ -414,14 +415,12 @@ LABEL_19:
   v18 = 0;
 LABEL_20:
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (id)persistUploadPayload:(id)payload
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   if (![(FLSQLitePersistence *)self initializeConnectionForUseBy:0])
   {
@@ -483,9 +482,9 @@ LABEL_14:
       getCurrentDatabaseSize = [(FLSQLitePersistence *)self getCurrentDatabaseSize];
       maxAllowedDatabaseSizeInBytes = [(FLSQLitePersistence *)self maxAllowedDatabaseSizeInBytes];
       *buf = 134218240;
-      v34 = getCurrentDatabaseSize;
-      v35 = 2048;
-      v36 = maxAllowedDatabaseSizeInBytes;
+      v33 = getCurrentDatabaseSize;
+      v34 = 2048;
+      v35 = maxAllowedDatabaseSizeInBytes;
       _os_log_error_impl(&dword_24AB3F000, v19, OS_LOG_TYPE_ERROR, "Database quota exceeded, using %llu out of %llu bytes, failing persist request", buf, 0x16u);
     }
 
@@ -510,7 +509,7 @@ LABEL_14:
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      LODWORD(v34) = v17;
+      LODWORD(v33) = v17;
       _os_log_error_impl(&dword_24AB3F000, v19, OS_LOG_TYPE_ERROR, "Failed to insert upload record %d", buf, 8u);
     }
 
@@ -525,8 +524,6 @@ LABEL_22:
   objc_autoreleasePoolPop(v5);
   sqlite3_finalize(pStmt);
 LABEL_23:
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -546,7 +543,7 @@ LABEL_23:
 
 - (int64_t)doUploadHousekeeping
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   context = [(FLSQLitePersistence *)self context];
   userDefaults = [context userDefaults];
   v5 = [userDefaults BOOLForKey:@"DisableFileHousekeeping"];
@@ -558,27 +555,27 @@ LABEL_23:
     {
       if ([(FLSQLitePersistence *)self markUploadsForPurge])
       {
-        v23 = 0u;
-        v24 = 0u;
-        v21 = 0u;
         v22 = 0u;
+        v23 = 0u;
+        v20 = 0u;
+        v21 = 0u;
         v8 = getPurgableUploadIds;
-        v9 = [v8 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v20 objects:v28 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v22;
+          v11 = *v21;
           do
           {
             v12 = 0;
             do
             {
-              if (*v22 != v11)
+              if (*v21 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = [(FLSQLitePersistence *)self getUploadRecordWithId:*(*(&v21 + 1) + 8 * v12), v21];
+              v13 = [(FLSQLitePersistence *)self getUploadRecordWithId:*(*(&v20 + 1) + 8 * v12), v20];
               outcomeTelemetryDictionary = [v13 outcomeTelemetryDictionary];
               context2 = [(FLSQLitePersistence *)self context];
               [context2 reportTelemetry:@"com.apple.parsec-fbf.batchUploadOutcome" payload:outcomeTelemetryDictionary];
@@ -587,7 +584,7 @@ LABEL_23:
             }
 
             while (v10 != v12);
-            v10 = [v8 countByEnumeratingWithState:&v21 objects:v29 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v20 objects:v28 count:16];
           }
 
           while (v10);
@@ -606,9 +603,9 @@ LABEL_23:
         if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           *buf = 134218240;
-          v26 = v18;
-          v27 = 2048;
-          v28 = cleanupPurgableUploads;
+          v25 = v18;
+          v26 = 2048;
+          v27 = cleanupPurgableUploads;
           _os_log_error_impl(&dword_24AB3F000, v17, OS_LOG_TYPE_ERROR, "Expected %ld purged uploads from housekeeping, but there were %ld.", buf, 0x16u);
         }
       }
@@ -651,13 +648,37 @@ LABEL_23:
   cleanupPurgableUploads = 0;
 LABEL_25:
 
-  v19 = *MEMORY[0x277D85DE8];
   return cleanupPurgableUploads;
+}
+
+- (BOOL)updateStatusForUpload:(id)upload toStatus:(int)status
+{
+  v4 = *&status;
+  uploadCopy = upload;
+  if (v4 == 2)
+  {
+    LOBYTE(v8) = [(FLSQLitePersistence *)self _updateMetadataHelperForUpload:uploadCopy query:"UPDATE fileUploads SET dateUploaded=strftime('%s', datetime('now')) WHERE uploadId=?;"];
+  }
+
+  else if (v4 == 1)
+  {
+    v7 = [(FLSQLitePersistence *)self _updateMetadataHelperForUpload:uploadCopy query:"UPDATE fileUploads SET processedAttempts=processedAttempts+1 WHERE uploadId=?;"];
+    v8 = v7 & [(FLSQLitePersistence *)self _updateMetadataHelperForUpload:uploadCopy query:"UPDATE fileUploads SET dateLastProcessed=strftime('%s', datetime('now')) WHERE uploadId=?;"];
+  }
+
+  else
+  {
+    LOBYTE(v8) = 1;
+  }
+
+  v9 = [(FLSQLitePersistence *)self _updateStatusHelperForUpload:uploadCopy toStatus:v4];
+
+  return v8 & v9;
 }
 
 - (BOOL)_updateMetadataHelperForUpload:(id)upload query:(const char *)query
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   uploadCopy = upload;
   pStmt = 0;
   if (![(FLSQLitePersistence *)self tryPrepare:query preparedStatement:&pStmt])
@@ -675,7 +696,7 @@ LABEL_6:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = uploadCopy;
+      v12 = uploadCopy;
       _os_log_error_impl(&dword_24AB3F000, v8, OS_LOG_TYPE_ERROR, "Failed to update status metadata for upload %@", buf, 0xCu);
     }
 
@@ -685,13 +706,12 @@ LABEL_6:
 LABEL_7:
   sqlite3_finalize(pStmt);
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BOOL)_updateStatusHelperForUpload:(id)upload toStatus:(int)status
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   uploadCopy = upload;
   pStmt = 0;
   if (![(FLSQLitePersistence *)self tryPrepare:"UPDATE fileUploads SET status=? WHERE uploadId=?;" preparedStatement:&pStmt])
@@ -710,7 +730,7 @@ LABEL_6:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = uploadCopy;
+      v12 = uploadCopy;
       _os_log_error_impl(&dword_24AB3F000, v8, OS_LOG_TYPE_ERROR, "Failed to update status for upload %@", buf, 0xCu);
     }
 
@@ -720,7 +740,6 @@ LABEL_6:
 LABEL_7:
   sqlite3_finalize(pStmt);
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1009,7 +1028,7 @@ LABEL_8:
 
 - (BOOL)__purgeStatementHelper:(const char *)helper forBatchId:(id)id
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   idCopy = id;
   v7 = objc_autoreleasePoolPush();
   pStmt = 0;
@@ -1044,8 +1063,8 @@ LABEL_6:
     {
       *buf = 136315394;
       helperCopy2 = helper;
-      v19 = 1024;
-      v20 = v9;
+      v18 = 1024;
+      v19 = v9;
       v11 = "purgeBatch (%s) failed: %d";
       v12 = v10;
       v13 = 18;
@@ -1060,7 +1079,6 @@ LABEL_9:
 LABEL_7:
   objc_autoreleasePoolPop(v7);
 
-  v14 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -1143,57 +1161,49 @@ LABEL_14:
 
 - (BOOL)closeOpenBatch
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   currentBatchIdentifier = [(FLSQLitePersistence *)self currentBatchIdentifier];
 
   if (!currentBatchIdentifier)
   {
-    goto LABEL_5;
+    return 1;
   }
 
   pStmt = 0;
-  if (![(FLSQLitePersistence *)self tryPrepare:"UPDATE batchStatus SET status=1 WHERE status=0 AND batchId=?;" preparedStatement:&pStmt])
+  if ([(FLSQLitePersistence *)self tryPrepare:"UPDATE batchStatus SET status=1 WHERE status=0 AND batchId=?;" preparedStatement:&pStmt])
   {
-LABEL_9:
-    sqlite3_finalize(pStmt);
-    result = 0;
-    goto LABEL_10;
-  }
+    v4 = pStmt;
+    currentBatchIdentifier2 = [(FLSQLitePersistence *)self currentBatchIdentifier];
+    uTF8String = [currentBatchIdentifier2 UTF8String];
+    currentBatchIdentifier3 = [(FLSQLitePersistence *)self currentBatchIdentifier];
+    sqlite3_bind_text(v4, 1, uTF8String, [currentBatchIdentifier3 length], 0);
 
-  v4 = pStmt;
-  currentBatchIdentifier2 = [(FLSQLitePersistence *)self currentBatchIdentifier];
-  uTF8String = [currentBatchIdentifier2 UTF8String];
-  currentBatchIdentifier3 = [(FLSQLitePersistence *)self currentBatchIdentifier];
-  sqlite3_bind_text(v4, 1, uTF8String, [currentBatchIdentifier3 length], 0);
+    v8 = sqlite3_step(pStmt);
+    if (v8 == 101)
+    {
+      sqlite3_finalize(pStmt);
+      [(FLSQLitePersistence *)self setCurrentBatchCreationDate:0];
+      [(FLSQLitePersistence *)self setCurrentBatchIdentifier:0];
+      return 1;
+    }
 
-  v8 = sqlite3_step(pStmt);
-  if (v8 != 101)
-  {
     v10 = v8;
     v11 = [(FLSQLitePersistence *)self log];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v13 = sqlite3_errmsg([(FLSQLitePersistence *)self db]);
+      v12 = sqlite3_errmsg([(FLSQLitePersistence *)self db]);
       *buf = 138412802;
-      v16 = @"UPDATE batchStatus SET status=1 WHERE status=0 AND batchId=?;";
-      v17 = 1024;
-      v18 = v10;
-      v19 = 2080;
-      v20 = v13;
+      v15 = @"UPDATE batchStatus SET status=1 WHERE status=0 AND batchId=?;";
+      v16 = 1024;
+      v17 = v10;
+      v18 = 2080;
+      v19 = v12;
       _os_log_error_impl(&dword_24AB3F000, v11, OS_LOG_TYPE_ERROR, "Failed to close batch with statement %@ with status %d, error: %s", buf, 0x1Cu);
     }
-
-    goto LABEL_9;
   }
 
   sqlite3_finalize(pStmt);
-  [(FLSQLitePersistence *)self setCurrentBatchCreationDate:0];
-  [(FLSQLitePersistence *)self setCurrentBatchIdentifier:0];
-LABEL_5:
-  result = 1;
-LABEL_10:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (BOOL)forceCloseOpenBatches
@@ -1210,12 +1220,12 @@ LABEL_10:
 
 - (BOOL)closeOrphanedBatches
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   pStmt = 0;
   if ([(FLSQLitePersistence *)self tryPrepare:"SELECT batchId preparedStatement:dateCreated FROM batchStatus WHERE status=0 AND dateCreated < strftime('%s', datetime('now', '-16 minute'));", &pStmt])
   {
     *&v3 = 138412546;
-    v10 = v3;
+    v9 = v3;
     while (sqlite3_step(pStmt) == 100)
     {
       v4 = tryGetTextProperty(pStmt, 0);
@@ -1223,10 +1233,10 @@ LABEL_10:
       v6 = [(FLSQLitePersistence *)self log];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        *buf = v10;
-        v13 = v4;
-        v14 = 2112;
-        v15 = v5;
+        *buf = v9;
+        v12 = v4;
+        v13 = 2112;
+        v14 = v5;
         _os_log_error_impl(&dword_24AB3F000, v6, OS_LOG_TYPE_ERROR, "Found orphaned batch %@ created at %@", buf, 0x16u);
       }
     }
@@ -1244,14 +1254,12 @@ LABEL_10:
     }
   }
 
-  result = [(FLSQLitePersistence *)self executeSQLStatement:"UPDATE batchStatus SET status=1 WHERE status=0 AND dateCreated < strftime('%s', datetime('now', '-16 minute'));", v10];
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return [(FLSQLitePersistence *)self executeSQLStatement:"UPDATE batchStatus SET status=1 WHERE status=0 AND dateCreated < strftime('%s', datetime('now', '-16 minute'));", v9];
 }
 
 - (BOOL)initializeNewBatch
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   if (![(FLSQLitePersistence *)self closeOpenBatch])
   {
@@ -1302,7 +1310,7 @@ LABEL_10:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v24 = v16;
+      v23 = v16;
       _os_log_error_impl(&dword_24AB3F000, v19, OS_LOG_TYPE_ERROR, "SQLite initialize new batch failed: %d", buf, 8u);
     }
 
@@ -1321,7 +1329,6 @@ LABEL_13:
 LABEL_14:
 
   objc_autoreleasePoolPop(v3);
-  v20 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -1339,6 +1346,46 @@ LABEL_14:
   }
 
   return v6;
+}
+
+- (BOOL)updateStatusForBatch:(id)batch toStatus:(int)status
+{
+  v4 = *&status;
+  batchCopy = batch;
+  if ([(FLSQLitePersistence *)self initializeConnectionForUseBy:1])
+  {
+    if (v4 == 3)
+    {
+      v8 = [(FLSQLitePersistence *)self _updateMetadataHelperForBatch:batchCopy query:"UPDATE batchStatus SET dateUploaded=strftime('%s', datetime('now')) WHERE batchId=?;"];
+    }
+
+    else if (v4 == 2)
+    {
+      v7 = [(FLSQLitePersistence *)self _updateMetadataHelperForBatch:batchCopy query:"UPDATE batchStatus SET processedAttempts=processedAttempts+1 WHERE batchId=?;"];
+      v8 = v7 & [(FLSQLitePersistence *)self _updateMetadataHelperForBatch:batchCopy query:"UPDATE batchStatus SET dateLastProcessed=strftime('%s', datetime('now')) WHERE batchId=?;"];
+    }
+
+    else
+    {
+      v8 = 1;
+    }
+
+    LODWORD(v4) = v8 & [(FLSQLitePersistence *)self _updateStatusHelperForBatch:batchCopy toStatus:v4];
+  }
+
+  else
+  {
+    v4 = [(FLSQLitePersistence *)self log];
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      *v10 = 0;
+      _os_log_error_impl(&dword_24AB3F000, v4, OS_LOG_TYPE_ERROR, "Can't getBatchSize, initialization failed", v10, 2u);
+    }
+
+    LOBYTE(v4) = 0;
+  }
+
+  return v4;
 }
 
 - (BOOL)_updateMetadataHelperForBatch:(id)batch query:(const char *)query
@@ -1374,7 +1421,7 @@ LABEL_7:
 
 - (BOOL)_updateStatusHelperForBatch:(id)batch toStatus:(int)status
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   batchCopy = batch;
   pStmt = 0;
   if (![(FLSQLitePersistence *)self tryPrepare:"UPDATE batchStatus SET status=? WHERE batchId=?;" preparedStatement:&pStmt])
@@ -1393,7 +1440,7 @@ LABEL_6:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v13 = @"UPDATE batchStatus SET status=? WHERE batchId=?;";
+      v12 = @"UPDATE batchStatus SET status=? WHERE batchId=?;";
       _os_log_error_impl(&dword_24AB3F000, v8, OS_LOG_TYPE_ERROR, "Failed to update status for batch with statement: %@", buf, 0xCu);
     }
 
@@ -1403,13 +1450,12 @@ LABEL_6:
 LABEL_7:
   sqlite3_finalize(pStmt);
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (id)metadataForBatch:(id)batch bundleID:(id)d
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   batchCopy = batch;
   dCopy = d;
   if (![(FLSQLitePersistence *)self initializeConnectionForUseBy:1])
@@ -1446,80 +1492,80 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  v15 = objc_alloc_init(BatchMetadata);
-  [(BatchMetadata *)v15 setBatchIdentifier:batchCopy];
-  v16 = tryGetTextProperty(pStmt, 1);
-  [(BatchMetadata *)v15 setTimestampReferenceIdentifier:v16];
+  v14 = objc_alloc_init(BatchMetadata);
+  [(BatchMetadata *)v14 setBatchIdentifier:batchCopy];
+  v15 = tryGetTextProperty(pStmt, 1);
+  [(BatchMetadata *)v14 setTimestampReferenceIdentifier:v15];
 
-  [(BatchMetadata *)v15 setBatchSize:sqlite3_column_int(pStmt, 2)];
-  [(BatchMetadata *)v15 setBatchStatus:sqlite3_column_int(pStmt, 3)];
-  [(BatchMetadata *)v15 setProcessedAttempts:sqlite3_column_int(pStmt, 4)];
-  v17 = tryGetDateProperty(pStmt, 5);
-  if (v17)
+  [(BatchMetadata *)v14 setBatchSize:sqlite3_column_int(pStmt, 2)];
+  [(BatchMetadata *)v14 setBatchStatus:sqlite3_column_int(pStmt, 3)];
+  [(BatchMetadata *)v14 setProcessedAttempts:sqlite3_column_int(pStmt, 4)];
+  v16 = tryGetDateProperty(pStmt, 5);
+  if (v16)
   {
-    [(BatchMetadata *)v15 setDateCreated:v17];
-    v18 = tryGetDateProperty(pStmt, 6);
-    [(BatchMetadata *)v15 setDateUploaded:v18];
+    [(BatchMetadata *)v14 setDateCreated:v16];
+    v17 = tryGetDateProperty(pStmt, 6);
+    [(BatchMetadata *)v14 setDateUploaded:v17];
 
-    v19 = tryGetDateProperty(pStmt, 7);
-    [(BatchMetadata *)v15 setDateLastProcessed:v19];
+    v18 = tryGetDateProperty(pStmt, 7);
+    [(BatchMetadata *)v14 setDateLastProcessed:v18];
 
-    [(BatchMetadata *)v15 setBatchEventCount:sqlite3_column_int(pStmt, 8)];
-    v20 = [(FLSQLitePersistence *)self db];
-    v21 = [(FLSQLitePersistence *)self log];
-    v22 = tryGetDataProperty(v20, v21, pStmt, 9);
+    [(BatchMetadata *)v14 setBatchEventCount:sqlite3_column_int(pStmt, 8)];
+    v19 = [(FLSQLitePersistence *)self db];
+    v20 = [(FLSQLitePersistence *)self log];
+    v21 = tryGetDataProperty(v19, v20, pStmt, 9);
 
-    v23 = [FLLogger fixedCategoryForBundleID:dCopy];
-    if (v23)
+    v22 = [FLLogger fixedCategoryForBundleID:dCopy];
+    if (v22)
     {
-      [(BatchMetadata *)v15 setCategory:v23];
+      [(BatchMetadata *)v14 setCategory:v22];
     }
 
-    else if (v22)
+    else if (v21)
     {
       objc_initWeak(buf, self);
-      v31 = MEMORY[0x277D85DD0];
-      v32 = 3221225472;
-      v33 = __63__FLSQLitePersistence_BatchManager__metadataForBatch_bundleID___block_invoke;
-      v34 = &unk_278FF8BC0;
-      objc_copyWeak(&v37, buf);
-      v35 = dCopy;
-      v36 = v22;
-      v25 = _Block_copy(&v31);
-      v26 = [FLLogger alloc];
-      v27 = [(FLSQLitePersistence *)self context:v31];
-      v28 = [(FLLogger *)v26 initWithContext:v27];
+      v30 = MEMORY[0x277D85DD0];
+      v31 = 3221225472;
+      v32 = __63__FLSQLitePersistence_BatchManager__metadataForBatch_bundleID___block_invoke;
+      v33 = &unk_278FF8BC0;
+      objc_copyWeak(&v36, buf);
+      v34 = dCopy;
+      v35 = v21;
+      v24 = _Block_copy(&v30);
+      v25 = [FLLogger alloc];
+      v26 = [(FLSQLitePersistence *)self context:v30];
+      v27 = [(FLLogger *)v25 initWithContext:v26];
 
-      v29 = [(FLLogger *)v28 categoryForSiriPayload:v22 autoBugCaptureBlock:v25];
-      [(BatchMetadata *)v15 setCategory:v29];
+      v28 = [(FLLogger *)v27 categoryForSiriPayload:v21 autoBugCaptureBlock:v24];
+      [(BatchMetadata *)v14 setCategory:v28];
 
-      objc_destroyWeak(&v37);
+      objc_destroyWeak(&v36);
       objc_destroyWeak(buf);
     }
 
     else
     {
-      [(BatchMetadata *)v15 setCategory:0];
-      v30 = [(FLSQLitePersistence *)self log];
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      [(BatchMetadata *)v14 setCategory:0];
+      v29 = [(FLSQLitePersistence *)self log];
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v40 = dCopy;
-        _os_log_error_impl(&dword_24AB3F000, v30, OS_LOG_TYPE_ERROR, "Batch has no payload for bundleID %@", buf, 0xCu);
+        v39 = dCopy;
+        _os_log_error_impl(&dword_24AB3F000, v29, OS_LOG_TYPE_ERROR, "Batch has no payload for bundleID %@", buf, 0xCu);
       }
     }
 
     sqlite3_finalize(pStmt);
-    v12 = v15;
+    v12 = v14;
   }
 
   else
   {
-    v24 = [(FLSQLitePersistence *)self log];
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v23 = [(FLSQLitePersistence *)self log];
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_24AB3F000, v24, OS_LOG_TYPE_ERROR, "Batch has no creation date.", buf, 2u);
+      _os_log_error_impl(&dword_24AB3F000, v23, OS_LOG_TYPE_ERROR, "Batch has no creation date.", buf, 2u);
     }
 
     sqlite3_finalize(pStmt);
@@ -1527,7 +1573,6 @@ LABEL_11:
   }
 
 LABEL_12:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -1919,76 +1964,69 @@ LABEL_8:
 
 - (BOOL)recreateDatabase
 {
-  v14 = *MEMORY[0x277D85DE8];
-  if (![(FLSQLitePersistence *)self deleteDatabase]|| ![(FLSQLitePersistence *)self createDatabase])
+  v13 = *MEMORY[0x277D85DE8];
+  if ([(FLSQLitePersistence *)self deleteDatabase]&& [(FLSQLitePersistence *)self createDatabase])
+  {
+    v3 = [(FLSQLitePersistence *)self executeSQLStatement:"PRAGMA journal_mode=WAL;" usingTransaction:0];
+    v4 = [(FLSQLitePersistence *)self log];
+    v5 = v4;
+    if (v3)
+    {
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      {
+        v11 = 136315138;
+        v12 = "CREATE TABLE batchStatus(batchId TEXT NOT NULL PRIMARY KEY, timestampRefId TEXT NOT NULL, status INT DEFAULT 0, processedAttempts INT DEFAULT 0, dateCreated INT NOT NULL, dateUploaded INT DEFAULT NULL, dateLastProcessed INT DEFAULT NULL);CREATE TABLE records(batchId TEXT NOT NULL, payload BLOB, dateCreated INT NOT NULL, FOREIGN KEY (batchId) REFERENCES batchStatus(batchId));CREATE TABLE fileUploads(uploadId TEXT NOT NULL PRIMARY KEY, payload BLOB, timestampRefId TEXT NOT NULL, status INT DEFAULT 0, processedAttempts INT DEFAULT 0, dateCreated INT NOT NULL, dateUploaded INT DEFAULT NULL, dateLastProcessed INT DEFAULT NULL);";
+        _os_log_impl(&dword_24AB3F000, v5, OS_LOG_TYPE_DEFAULT, "migrating schema with: %s", &v11, 0xCu);
+      }
+
+      if ([(FLSQLitePersistence *)self executeSQLStatement:"DROP TABLE IF EXISTS records; DROP TABLE IF EXISTS batchStatus;"]&& [(FLSQLitePersistence *)self executeSQLStatement:"CREATE TABLE batchStatus(batchId TEXT NOT NULL PRIMARY KEY, timestampRefId TEXT NOT NULL, status INT DEFAULT 0, processedAttempts INT DEFAULT 0, dateCreated INT NOT NULL, dateUploaded INT DEFAULT NULL, dateLastProcessed INT DEFAULT NULL);CREATE TABLE records(batchId TEXT NOT NULL, payload BLOB, dateCreated INT NOT NULL, FOREIGN KEY (batchId) REFERENCES batchStatus(batchId));CREATE TABLE fileUploads(uploadId TEXT NOT NULL PRIMARY KEY, payload BLOB, timestampRefId TEXT NOT NULL, status INT DEFAULT 0, processedAttempts INT DEFAULT 0, dateCreated INT NOT NULL, dateUploaded INT DEFAULT NULL, dateLastProcessed INT DEFAULT NULL);"])
+      {
+        return 1;
+      }
+
+      v5 = [(FLSQLitePersistence *)self log];
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      {
+        v8 = sqlite3_errmsg([(FLSQLitePersistence *)self db]);
+        v11 = 136315138;
+        v12 = v8;
+        v7 = "%s";
+        goto LABEL_16;
+      }
+    }
+
+    else if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      v11 = 136315138;
+      v12 = sqlite3_errmsg([(FLSQLitePersistence *)self db]);
+      v7 = "%s";
+LABEL_16:
+      v9 = v5;
+      v10 = 12;
+LABEL_18:
+      _os_log_error_impl(&dword_24AB3F000, v9, OS_LOG_TYPE_ERROR, v7, &v11, v10);
+    }
+  }
+
+  else
   {
     v5 = [(FLSQLitePersistence *)self log];
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v12) = 0;
-      v8 = "could not recreate database for migration";
-      v10 = v5;
-      v11 = 2;
+      LOWORD(v11) = 0;
+      v7 = "could not recreate database for migration";
+      v9 = v5;
+      v10 = 2;
       goto LABEL_18;
     }
-
-    goto LABEL_10;
   }
 
-  v3 = [(FLSQLitePersistence *)self executeSQLStatement:"PRAGMA journal_mode=WAL;" usingTransaction:0];
-  v4 = [(FLSQLitePersistence *)self log];
-  v5 = v4;
-  if (!v3)
-  {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      v12 = 136315138;
-      v13 = sqlite3_errmsg([(FLSQLitePersistence *)self db]);
-      v8 = "%s";
-LABEL_16:
-      v10 = v5;
-      v11 = 12;
-LABEL_18:
-      _os_log_error_impl(&dword_24AB3F000, v10, OS_LOG_TYPE_ERROR, v8, &v12, v11);
-    }
-
-LABEL_10:
-
-    result = 0;
-    goto LABEL_11;
-  }
-
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-  {
-    v12 = 136315138;
-    v13 = "CREATE TABLE batchStatus(batchId TEXT NOT NULL PRIMARY KEY, timestampRefId TEXT NOT NULL, status INT DEFAULT 0, processedAttempts INT DEFAULT 0, dateCreated INT NOT NULL, dateUploaded INT DEFAULT NULL, dateLastProcessed INT DEFAULT NULL);CREATE TABLE records(batchId TEXT NOT NULL, payload BLOB, dateCreated INT NOT NULL, FOREIGN KEY (batchId) REFERENCES batchStatus(batchId));CREATE TABLE fileUploads(uploadId TEXT NOT NULL PRIMARY KEY, payload BLOB, timestampRefId TEXT NOT NULL, status INT DEFAULT 0, processedAttempts INT DEFAULT 0, dateCreated INT NOT NULL, dateUploaded INT DEFAULT NULL, dateLastProcessed INT DEFAULT NULL);";
-    _os_log_impl(&dword_24AB3F000, v5, OS_LOG_TYPE_DEFAULT, "migrating schema with: %s", &v12, 0xCu);
-  }
-
-  if (![(FLSQLitePersistence *)self executeSQLStatement:"DROP TABLE IF EXISTS records; DROP TABLE IF EXISTS batchStatus;"]|| ![(FLSQLitePersistence *)self executeSQLStatement:"CREATE TABLE batchStatus(batchId TEXT NOT NULL PRIMARY KEY, timestampRefId TEXT NOT NULL, status INT DEFAULT 0, processedAttempts INT DEFAULT 0, dateCreated INT NOT NULL, dateUploaded INT DEFAULT NULL, dateLastProcessed INT DEFAULT NULL);CREATE TABLE records(batchId TEXT NOT NULL, payload BLOB, dateCreated INT NOT NULL, FOREIGN KEY (batchId) REFERENCES batchStatus(batchId));CREATE TABLE fileUploads(uploadId TEXT NOT NULL PRIMARY KEY, payload BLOB, timestampRefId TEXT NOT NULL, status INT DEFAULT 0, processedAttempts INT DEFAULT 0, dateCreated INT NOT NULL, dateUploaded INT DEFAULT NULL, dateLastProcessed INT DEFAULT NULL);"])
-  {
-    v5 = [(FLSQLitePersistence *)self log];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      v9 = sqlite3_errmsg([(FLSQLitePersistence *)self db]);
-      v12 = 136315138;
-      v13 = v9;
-      v8 = "%s";
-      goto LABEL_16;
-    }
-
-    goto LABEL_10;
-  }
-
-  result = 1;
-LABEL_11:
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 - (BOOL)updateSchema
 {
-  *&v18[5] = *MEMORY[0x277D85DE8];
+  *&v17[5] = *MEMORY[0x277D85DE8];
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __50__FLSQLitePersistence_SchemaManager__updateSchema__block_invoke;
@@ -2000,9 +2038,9 @@ LABEL_11:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109376;
-    v18[0] = getSchemaVersion;
-    LOWORD(v18[1]) = 1024;
-    *(&v18[1] + 2) = 8;
+    v17[0] = getSchemaVersion;
+    LOWORD(v17[1]) = 1024;
+    *(&v17[1] + 2) = 8;
     _os_log_impl(&dword_24AB3F000, v5, OS_LOG_TYPE_DEFAULT, "db's schema version %d. required schema version %d.", buf, 0xEu);
   }
 
@@ -2052,9 +2090,9 @@ LABEL_26:
     {
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v15 = sqlite3_errmsg([(FLSQLitePersistence *)self db]);
+        v14 = sqlite3_errmsg([(FLSQLitePersistence *)self db]);
         *buf = 136315138;
-        *v18 = v15;
+        *v17 = v14;
         _os_log_error_impl(&dword_24AB3F000, v10, OS_LOG_TYPE_ERROR, "%s", buf, 0xCu);
       }
 
@@ -2064,7 +2102,7 @@ LABEL_26:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      *v18 = "CREATE TABLE fileUploads(uploadId TEXT NOT NULL PRIMARY KEY, payload BLOB, timestampRefId TEXT NOT NULL, status INT DEFAULT 0, processedAttempts INT DEFAULT 0, dateCreated INT NOT NULL, dateUploaded INT DEFAULT NULL, dateLastProcessed INT DEFAULT NULL);";
+      *v17 = "CREATE TABLE fileUploads(uploadId TEXT NOT NULL PRIMARY KEY, payload BLOB, timestampRefId TEXT NOT NULL, status INT DEFAULT 0, processedAttempts INT DEFAULT 0, dateCreated INT NOT NULL, dateUploaded INT DEFAULT NULL, dateLastProcessed INT DEFAULT NULL);";
       _os_log_impl(&dword_24AB3F000, v10, OS_LOG_TYPE_DEFAULT, "migrating schema with: %s", buf, 0xCu);
     }
 
@@ -2091,7 +2129,6 @@ LABEL_25:
   v12 = [(FLSQLitePersistence *)self getSchemaVersion]== 8;
 LABEL_27:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -2138,7 +2175,7 @@ LABEL_8:
 
 - (BOOL)deleteAllUploadsQueuedBefore:(id)before
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   beforeCopy = before;
   if ([(FLSQLitePersistence *)self initializeConnectionForUseBy:1])
   {
@@ -2148,7 +2185,7 @@ LABEL_8:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v18 = v6;
+      v17 = v6;
       _os_log_impl(&dword_24AB3F000, v7, OS_LOG_TYPE_DEFAULT, "Deleting all uploads queued before %lld (timestampInSecondsSince1970)", buf, 0xCu);
     }
 
@@ -2156,10 +2193,10 @@ LABEL_8:
     v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM fileUploads WHERE dateCreated <= %lld", v6];;
     v10 = -[FLSQLitePersistence executeSQLStatement:usingTransaction:](self, "executeSQLStatement:usingTransaction:", [v9 UTF8String], 0);
     v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM records     WHERE dateCreated <= %lld", v6];;
-    v16[0] = v11;
+    v15[0] = v11;
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"DELETE FROM batchStatus WHERE dateCreated <= %lld", v6];;
-    v16[1] = v12;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+    v15[1] = v12;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
     LODWORD(self) = v10 & [(FLSQLitePersistence *)self executeInTransactionMultipleSQLStatements:v13];
 
     objc_autoreleasePoolPop(v8);
@@ -2177,46 +2214,40 @@ LABEL_8:
     LOBYTE(self) = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return self;
 }
 
 - (BOOL)deleteDatabase
 {
-  v12 = *MEMORY[0x277D85DE8];
-  if ([(FLSQLiteDatabaseConnection *)self->_dbConnection db])
+  v11 = *MEMORY[0x277D85DE8];
+  if (![(FLSQLiteDatabaseConnection *)self->_dbConnection db])
   {
-    v3 = [(FLSQLitePersistence *)self log];
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-    {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_24AB3F000, v3, OS_LOG_TYPE_DEFAULT, "Resetting to an empty database file.", &v10, 2u);
-    }
-
-    [(FLSQLiteDatabaseConnection *)self->_dbConnection db];
-    v4 = _sqlite3_db_truncate();
-    v5 = v4 == 0;
-    if (v4)
-    {
-      v6 = [(FLSQLitePersistence *)self log];
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-      {
-        v9 = sqlite3_errmsg([(FLSQLiteDatabaseConnection *)self->_dbConnection db]);
-        v10 = 136315138;
-        v11 = v9;
-        _os_log_error_impl(&dword_24AB3F000, v6, OS_LOG_TYPE_ERROR, "%s", &v10, 0xCu);
-      }
-    }
-
-    [(FLSQLitePersistence *)self closeDatabase];
+    return 1;
   }
 
-  else
+  v3 = [(FLSQLitePersistence *)self log];
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 1;
+    LOWORD(v9) = 0;
+    _os_log_impl(&dword_24AB3F000, v3, OS_LOG_TYPE_DEFAULT, "Resetting to an empty database file.", &v9, 2u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
+  [(FLSQLiteDatabaseConnection *)self->_dbConnection db];
+  v4 = _sqlite3_db_truncate();
+  v5 = v4 == 0;
+  if (v4)
+  {
+    v6 = [(FLSQLitePersistence *)self log];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v8 = sqlite3_errmsg([(FLSQLiteDatabaseConnection *)self->_dbConnection db]);
+      v9 = 136315138;
+      v10 = v8;
+      _os_log_error_impl(&dword_24AB3F000, v6, OS_LOG_TYPE_ERROR, "%s", &v9, 0xCu);
+    }
+  }
+
+  [(FLSQLitePersistence *)self closeDatabase];
   return v5;
 }
 
@@ -2260,7 +2291,7 @@ LABEL_8:
 
 - (BOOL)getIntValueForPragma:(id)pragma into:(int *)into
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   pragmaCopy = pragma;
   v7 = objc_autoreleasePoolPush();
   pStmt = 0;
@@ -2281,7 +2312,7 @@ LABEL_7:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = pragmaCopy;
+      v15 = pragmaCopy;
       _os_log_error_impl(&dword_24AB3F000, v11, OS_LOG_TYPE_ERROR, "Could not infer PRAGMA %@", buf, 0xCu);
     }
 
@@ -2294,18 +2325,17 @@ LABEL_7:
 LABEL_8:
   objc_autoreleasePoolPop(v7);
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (BOOL)iteratePayloadForBatch:(id)batch codeblock:(id)codeblock
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   batchCopy = batch;
   codeblockCopy = codeblock;
   sqlite3_reset(self->_iteratePayloadStatement);
   sqlite3_bind_text(self->_iteratePayloadStatement, 1, [batchCopy UTF8String], objc_msgSend(batchCopy, "length"), 0);
-  v22 = 0;
+  v21 = 0;
   while (1)
   {
     v8 = objc_autoreleasePoolPush();
@@ -2333,10 +2363,10 @@ LABEL_8:
 
     v11 = [MEMORY[0x277CBEA90] dataWithBytes:v10 length:{sqlite3_column_bytes(self->_iteratePayloadStatement, 0)}];
     context = [(FLSQLitePersistence *)self context];
-    codeblockCopy[2](codeblockCopy, v11, &v22, context);
+    codeblockCopy[2](codeblockCopy, v11, &v21, context);
 
     objc_autoreleasePoolPop(v8);
-    if (v22 == 1)
+    if (v21 == 1)
     {
       v13 = 1;
       goto LABEL_13;
@@ -2355,9 +2385,9 @@ LABEL_8:
   {
     uTF8String = [batchCopy UTF8String];
     *buf = 136315394;
-    v24 = uTF8String;
-    v25 = 1024;
-    v26 = v14;
+    v23 = uTF8String;
+    v24 = 1024;
+    v25 = v14;
     v17 = "SQLite iterate payload for batch (%s) failed: %d";
     v18 = v15;
     v19 = 18;
@@ -2372,20 +2402,19 @@ LABEL_12:
   objc_autoreleasePoolPop(v8);
 LABEL_13:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (BOOL)executeInTransactionMultipleSQLStatements:(id)statements
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   statementsCopy = statements;
   if ([(FLSQLitePersistence *)self db]|| [(FLSQLitePersistence *)self open])
   {
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x2020000000;
-    v17 = 1;
+    v13 = 0;
+    v14 = &v13;
+    v15 = 0x2020000000;
+    v16 = 1;
     if (sqlite3_exec([(FLSQLitePersistence *)self db], "BEGIN TRANSACTION;", 0, 0, 0))
     {
       v5 = [(FLSQLitePersistence *)self log];
@@ -2398,18 +2427,18 @@ LABEL_13:
 LABEL_7:
       v6 = 0;
 LABEL_19:
-      _Block_object_dispose(&v14, 8);
+      _Block_object_dispose(&v13, 8);
       goto LABEL_20;
     }
 
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __65__FLSQLitePersistence_executeInTransactionMultipleSQLStatements___block_invoke;
-    v13[3] = &unk_278FF8C58;
-    v13[4] = self;
-    v13[5] = &v14;
-    [statementsCopy enumerateObjectsUsingBlock:v13];
-    if (*(v15 + 24) == 1)
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __65__FLSQLitePersistence_executeInTransactionMultipleSQLStatements___block_invoke;
+    v12[3] = &unk_278FF8C58;
+    v12[4] = self;
+    v12[5] = &v13;
+    [statementsCopy enumerateObjectsUsingBlock:v12];
+    if (*(v14 + 24) == 1)
     {
       errmsg = 0;
       v7 = sqlite3_exec([(FLSQLitePersistence *)self db], "COMMIT;", 0, 0, &errmsg);
@@ -2419,9 +2448,9 @@ LABEL_19:
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           *buf = 67109378;
-          v19 = v7;
-          v20 = 2080;
-          v21 = errmsg;
+          v18 = v7;
+          v19 = 2080;
+          v20 = errmsg;
           _os_log_error_impl(&dword_24AB3F000, v8, OS_LOG_TYPE_ERROR, "Failed to commit transaction - error-code: %d error-message: %s", buf, 0x12u);
         }
 
@@ -2440,20 +2469,19 @@ LABEL_19:
       }
     }
 
-    v6 = *(v15 + 24);
+    v6 = *(v14 + 24);
     goto LABEL_19;
   }
 
   v6 = 0;
 LABEL_20:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6 & 1;
 }
 
 void __65__FLSQLitePersistence_executeInTransactionMultipleSQLStatements___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v6 = a2;
   *(*(*(a1 + 40) + 8) + 24) &= [*(a1 + 32) executeSQLStatement:objc_msgSend(v6 usingTransaction:{"UTF8String"), 0}];
   if ((*(*(*(a1 + 40) + 8) + 24) & 1) == 0)
@@ -2462,19 +2490,17 @@ void __65__FLSQLitePersistence_executeInTransactionMultipleSQLStatements___block
     v7 = [*(a1 + 32) log];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 138412290;
-      v10 = v6;
-      _os_log_error_impl(&dword_24AB3F000, v7, OS_LOG_TYPE_ERROR, "Failed to execute (%@) in set, rolling back", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v6;
+      _os_log_error_impl(&dword_24AB3F000, v7, OS_LOG_TYPE_ERROR, "Failed to execute (%@) in set, rolling back", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)executeSQLStatement:(const char *)statement usingTransaction:(BOOL)transaction
 {
   transactionCopy = transaction;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   errmsg = 0;
   if ([(FLSQLitePersistence *)self db]|| (v7 = [(FLSQLitePersistence *)self open]))
   {
@@ -2486,91 +2512,89 @@ void __65__FLSQLitePersistence_executeInTransactionMultipleSQLStatements___block
         *buf = 0;
         _os_log_error_impl(&dword_24AB3F000, v8, OS_LOG_TYPE_ERROR, "Failed to start transaction", buf, 2u);
       }
+
+LABEL_18:
+      LOBYTE(v7) = 0;
+      return v7;
     }
 
-    else
+    v9 = sqlite3_exec([(FLSQLitePersistence *)self db], statement, 0, 0, &errmsg);
+    if (v9)
     {
-      v9 = sqlite3_exec([(FLSQLitePersistence *)self db], statement, 0, 0, &errmsg);
-      if (v9)
+      v10 = v9;
+      v11 = [(FLSQLitePersistence *)self log];
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v10 = v9;
-        v11 = [(FLSQLitePersistence *)self log];
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-        {
-          *buf = 136315650;
-          statementCopy2 = statement;
-          v20 = 1024;
-          v21 = v10;
-          v22 = 2080;
-          v23 = errmsg;
-          _os_log_error_impl(&dword_24AB3F000, v11, OS_LOG_TYPE_ERROR, "SQL statement failed - SQL:%s error-code: %d error-message: %s", buf, 0x1Cu);
-        }
-
-        sqlite3_free(errmsg);
-        if (transactionCopy)
-        {
-          sqlite3_exec([(FLSQLitePersistence *)self db], "ROLLBACK;", 0, 0, 0);
-        }
+        *buf = 136315650;
+        statementCopy2 = statement;
+        v19 = 1024;
+        v20 = v10;
+        v21 = 2080;
+        v22 = errmsg;
+        _os_log_error_impl(&dword_24AB3F000, v11, OS_LOG_TYPE_ERROR, "SQL statement failed - SQL:%s error-code: %d error-message: %s", buf, 0x1Cu);
       }
 
-      else
+      sqlite3_free(errmsg);
+      if (transactionCopy)
       {
-        if (!transactionCopy || (v12 = sqlite3_exec([(FLSQLitePersistence *)self db], "COMMIT;", 0, 0, &errmsg)) == 0)
-        {
-          LOBYTE(v7) = 1;
-          goto LABEL_19;
-        }
+        sqlite3_exec([(FLSQLitePersistence *)self db], "ROLLBACK;", 0, 0, 0);
+      }
 
+      goto LABEL_18;
+    }
+
+    if (transactionCopy)
+    {
+      v12 = sqlite3_exec([(FLSQLitePersistence *)self db], "COMMIT;", 0, 0, &errmsg);
+      if (v12)
+      {
         v13 = v12;
         v14 = [(FLSQLitePersistence *)self log];
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
           statementCopy2 = statement;
-          v20 = 1024;
-          v21 = v13;
-          v22 = 2080;
-          v23 = errmsg;
+          v19 = 1024;
+          v20 = v13;
+          v21 = 2080;
+          v22 = errmsg;
           _os_log_error_impl(&dword_24AB3F000, v14, OS_LOG_TYPE_ERROR, "SQL statement failed - SQL:%s error-code: %d error-message: %s", buf, 0x1Cu);
         }
 
         sqlite3_free(errmsg);
+        goto LABEL_18;
       }
     }
 
-    LOBYTE(v7) = 0;
+    LOBYTE(v7) = 1;
   }
 
-LABEL_19:
-  v15 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BOOL)tryPrepare:(const char *)prepare preparedStatement:(sqlite3_stmt *)statement
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v6 = sqlite3_prepare_v2([(FLSQLitePersistence *)self db], prepare, -1, statement, 0);
   if (v6)
   {
     v7 = [(FLSQLitePersistence *)self log];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315394;
+      v9 = 136315394;
       prepareCopy = prepare;
-      v12 = 1024;
-      v13 = v6;
-      _os_log_error_impl(&dword_24AB3F000, v7, OS_LOG_TYPE_ERROR, "SQLite statement (%s) prep failed: %d", &v10, 0x12u);
+      v11 = 1024;
+      v12 = v6;
+      _os_log_error_impl(&dword_24AB3F000, v7, OS_LOG_TYPE_ERROR, "SQLite statement (%s) prep failed: %d", &v9, 0x12u);
     }
   }
 
-  result = v6 == 0;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v6 == 0;
 }
 
 - (BOOL)tryRolloverBatchIfNecessary:(unint64_t)necessary preferredBatchSize:(unint64_t)size
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   currentBatchIdentifier = [(FLSQLitePersistence *)self currentBatchIdentifier];
 
   if (currentBatchIdentifier)
@@ -2589,8 +2613,8 @@ LABEL_19:
         if (v16 >= v14)
         {
 LABEL_17:
-          LOBYTE(initializeNewBatch) = 1;
-          goto LABEL_18;
+          LOBYTE(v17) = 1;
+          return v17;
         }
 
         v8 = [(FLSQLitePersistence *)self log];
@@ -2601,13 +2625,13 @@ LABEL_17:
 
         currentBatchCreationDate2 = [(FLSQLitePersistence *)self currentBatchCreationDate];
         [currentBatchCreationDate2 timeIntervalSinceNow];
-        v23 = v22;
+        v22 = v21;
         currentBatchIdentifier2 = [(FLSQLitePersistence *)self currentBatchIdentifier];
-        *v26 = 134218242;
-        *&v26[4] = v23;
-        *&v26[12] = 2080;
-        *&v26[14] = [currentBatchIdentifier2 UTF8String];
-        _os_log_error_impl(&dword_24AB3F000, v8, OS_LOG_TYPE_ERROR, "Batch exceeded maximum allowed life time (%f), rolling over Id(%s).", v26, 0x16u);
+        *v25 = 134218242;
+        *&v25[4] = v22;
+        *&v25[12] = 2080;
+        *&v25[14] = [currentBatchIdentifier2 UTF8String];
+        _os_log_error_impl(&dword_24AB3F000, v8, OS_LOG_TYPE_ERROR, "Batch exceeded maximum allowed life time (%f), rolling over Id(%s).", v25, 0x16u);
 
         goto LABEL_9;
       }
@@ -2616,8 +2640,8 @@ LABEL_17:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         currentBatchCreationDate2 = [(FLSQLitePersistence *)self currentBatchIdentifier];
-        *v26 = 136315138;
-        *&v26[4] = [currentBatchCreationDate2 UTF8String];
+        *v25 = 136315138;
+        *&v25[4] = [currentBatchCreationDate2 UTF8String];
         v10 = "Batch exceeded maximum size, rolling over Id(%s)";
         goto LABEL_8;
       }
@@ -2629,11 +2653,11 @@ LABEL_17:
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         currentBatchCreationDate2 = [(FLSQLitePersistence *)self currentBatchIdentifier];
-        *v26 = 136315138;
-        *&v26[4] = [currentBatchCreationDate2 UTF8String];
+        *v25 = 136315138;
+        *&v25[4] = [currentBatchCreationDate2 UTF8String];
         v10 = "Batch is already larger than preferred size, rolling over Id(%s)";
 LABEL_8:
-        _os_log_impl(&dword_24AB3F000, v8, OS_LOG_TYPE_INFO, v10, v26, 0xCu);
+        _os_log_impl(&dword_24AB3F000, v8, OS_LOG_TYPE_INFO, v10, v25, 0xCu);
 LABEL_9:
       }
     }
@@ -2641,30 +2665,28 @@ LABEL_9:
 LABEL_12:
   }
 
-  initializeNewBatch = [(FLSQLitePersistence *)self initializeNewBatch];
-  if (initializeNewBatch)
+  v17 = [(FLSQLitePersistence *)self initializeNewBatch:*v25];
+  if (v17)
   {
     v18 = [(FLSQLitePersistence *)self log];
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       currentBatchIdentifier3 = [(FLSQLitePersistence *)self currentBatchIdentifier];
       uTF8String = [currentBatchIdentifier3 UTF8String];
-      *v26 = 136315138;
-      *&v26[4] = uTF8String;
-      _os_log_impl(&dword_24AB3F000, v18, OS_LOG_TYPE_DEFAULT, "Rolled over to new batch with Id(%s)", v26, 0xCu);
+      *v25 = 136315138;
+      *&v25[4] = uTF8String;
+      _os_log_impl(&dword_24AB3F000, v18, OS_LOG_TYPE_DEFAULT, "Rolled over to new batch with Id(%s)", v25, 0xCu);
     }
 
     goto LABEL_17;
   }
 
-LABEL_18:
-  v21 = *MEMORY[0x277D85DE8];
-  return initializeNewBatch;
+  return v17;
 }
 
 - (id)persist:(id)persist preferredBatchSize:(unint64_t)size
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   persistCopy = persist;
   if (size <= 0x10000)
   {
@@ -2682,13 +2704,13 @@ LABEL_18:
     v9 = [(FLSQLitePersistence *)self log];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v34 = [persistCopy length];
+      v33 = [persistCopy length];
       maxBatchPayloadInBytes = self->_maxBatchPayloadInBytes;
-      v39 = 134218240;
-      v40 = v34;
-      v41 = 2048;
-      v42 = maxBatchPayloadInBytes;
-      _os_log_error_impl(&dword_24AB3F000, v9, OS_LOG_TYPE_ERROR, "Can't persist blob sizes(%lu) greater than maximum allowed(%llu)", &v39, 0x16u);
+      v38 = 134218240;
+      v39 = v33;
+      v40 = 2048;
+      v41 = maxBatchPayloadInBytes;
+      _os_log_error_impl(&dword_24AB3F000, v9, OS_LOG_TYPE_ERROR, "Can't persist blob sizes(%lu) greater than maximum allowed(%llu)", &v38, 0x16u);
     }
 
     v10 = MEMORY[0x277CCA9B8];
@@ -2703,8 +2725,8 @@ LABEL_36:
     v22 = [(FLSQLitePersistence *)self log];
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v39) = 0;
-      _os_log_error_impl(&dword_24AB3F000, v22, OS_LOG_TYPE_ERROR, "Can't persist, initialization failed", &v39, 2u);
+      LOWORD(v38) = 0;
+      _os_log_error_impl(&dword_24AB3F000, v22, OS_LOG_TYPE_ERROR, "Can't persist, initialization failed", &v38, 2u);
     }
 
     v10 = MEMORY[0x277CCA9B8];
@@ -2717,8 +2739,8 @@ LABEL_36:
     v23 = [(FLSQLitePersistence *)self log];
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v39) = 0;
-      _os_log_error_impl(&dword_24AB3F000, v23, OS_LOG_TYPE_ERROR, "Detected necessary rollover, but couldn't succeed, failing persist request", &v39, 2u);
+      LOWORD(v38) = 0;
+      _os_log_error_impl(&dword_24AB3F000, v23, OS_LOG_TYPE_ERROR, "Detected necessary rollover, but couldn't succeed, failing persist request", &v38, 2u);
     }
 
     v10 = MEMORY[0x277CCA9B8];
@@ -2742,19 +2764,19 @@ LABEL_36:
     {
       getCurrentDatabaseSize = [(FLSQLitePersistence *)self getCurrentDatabaseSize];
       maxAllowedDatabaseSizeInBytes = self->_maxAllowedDatabaseSizeInBytes;
-      v39 = 134218240;
-      v40 = getCurrentDatabaseSize;
-      v41 = 2048;
-      v42 = maxAllowedDatabaseSizeInBytes;
-      _os_log_error_impl(&dword_24AB3F000, v24, OS_LOG_TYPE_ERROR, "Database quota exceeded, using %llu out of %llu bytes, failing persist request", &v39, 0x16u);
+      v38 = 134218240;
+      v39 = getCurrentDatabaseSize;
+      v40 = 2048;
+      v41 = maxAllowedDatabaseSizeInBytes;
+      _os_log_error_impl(&dword_24AB3F000, v24, OS_LOG_TYPE_ERROR, "Database quota exceeded, using %llu out of %llu bytes, failing persist request", &v38, 0x16u);
     }
 
     v25 = FL_LOG_SIGNPOSTS;
     v26 = v25;
     if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
     {
-      LOWORD(v39) = 0;
-      _os_signpost_emit_with_name_impl(&dword_24AB3F000, v26, OS_SIGNPOST_EVENT, v8, "database quota exceeded", "", &v39, 2u);
+      LOWORD(v38) = 0;
+      _os_signpost_emit_with_name_impl(&dword_24AB3F000, v26, OS_SIGNPOST_EVENT, v8, "database quota exceeded", "", &v38, 2u);
     }
 
     v10 = MEMORY[0x277CCA9B8];
@@ -2769,25 +2791,25 @@ LABEL_36:
     v28 = v27;
     if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
     {
-      LOWORD(v39) = 0;
-      _os_signpost_emit_with_name_impl(&dword_24AB3F000, v28, OS_SIGNPOST_EVENT, v8, "persist request failed", "", &v39, 2u);
+      LOWORD(v38) = 0;
+      _os_signpost_emit_with_name_impl(&dword_24AB3F000, v28, OS_SIGNPOST_EVENT, v8, "persist request failed", "", &v38, 2u);
     }
 
     v29 = [(FLSQLitePersistence *)self log];
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      v39 = 67109120;
-      LODWORD(v40) = v16;
-      _os_log_error_impl(&dword_24AB3F000, v29, OS_LOG_TYPE_ERROR, "SQLite insertion failed: %d", &v39, 8u);
+      v38 = 67109120;
+      LODWORD(v39) = v16;
+      _os_log_error_impl(&dword_24AB3F000, v29, OS_LOG_TYPE_ERROR, "SQLite insertion failed: %d", &v38, 8u);
     }
 
     v30 = [(FLSQLitePersistence *)self log];
     if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
-      v38 = sqlite3_errmsg([(FLSQLitePersistence *)self db]);
-      v39 = 136315138;
-      v40 = v38;
-      _os_log_error_impl(&dword_24AB3F000, v30, OS_LOG_TYPE_ERROR, "Failure detail: %s", &v39, 0xCu);
+      v37 = sqlite3_errmsg([(FLSQLitePersistence *)self db]);
+      v38 = 136315138;
+      v39 = v37;
+      _os_log_error_impl(&dword_24AB3F000, v30, OS_LOG_TYPE_ERROR, "Failure detail: %s", &v38, 0xCu);
     }
 
     v31 = MEMORY[0x277CCA9B8];
@@ -2800,8 +2822,8 @@ LABEL_36:
   v18 = v17;
   if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
   {
-    LOWORD(v39) = 0;
-    _os_signpost_emit_with_name_impl(&dword_24AB3F000, v18, OS_SIGNPOST_EVENT, v8, "data persisted", "", &v39, 2u);
+    LOWORD(v38) = 0;
+    _os_signpost_emit_with_name_impl(&dword_24AB3F000, v18, OS_SIGNPOST_EVENT, v8, "data persisted", "", &v38, 2u);
   }
 
   v19 = [persistCopy length];
@@ -2811,9 +2833,139 @@ LABEL_36:
   *&self->_currentBatchPayloadSize = vaddq_s64(*&self->_currentBatchPayloadSize, v21);
 LABEL_37:
 
-  v32 = *MEMORY[0x277D85DE8];
-
   return v20;
+}
+
+- (BOOL)initializeConnectionForUseBy:(int)by
+{
+  v13 = *MEMORY[0x277D85DE8];
+  v3 = atomic_load(&self->_configured);
+  if ((v3 & 1) == 0)
+  {
+    v5 = *&by;
+    if (by > 0)
+    {
+      if (by != 2)
+      {
+        if (by != 1)
+        {
+LABEL_20:
+          v4 = 1;
+          atomic_store(1u, &self->_configured);
+          [(FLSQLitePersistence *)self setUser:v5];
+          return v4;
+        }
+
+        if (![(FLSQLitePersistence *)self open])
+        {
+          v8 = [(FLSQLitePersistence *)self log];
+          if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+          {
+            goto LABEL_33;
+          }
+
+          goto LABEL_34;
+        }
+
+        if (![(FLSQLitePersistence *)self prepareSchema])
+        {
+          v7 = [(FLSQLitePersistence *)self log];
+          if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+          {
+            LOWORD(v11) = 0;
+            _os_log_error_impl(&dword_24AB3F000, v7, OS_LOG_TYPE_ERROR, "Database is not yet initialized by client", &v11, 2u);
+          }
+
+          [(FLSQLitePersistence *)self closeDatabase];
+          return 0;
+        }
+
+        goto LABEL_18;
+      }
+    }
+
+    else
+    {
+      if (by == -1)
+      {
+        v9 = [(FLSQLitePersistence *)self log];
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        {
+          LOWORD(v11) = 0;
+          _os_log_error_impl(&dword_24AB3F000, v9, OS_LOG_TYPE_ERROR, "Can't open a connection for unknown user.", &v11, 2u);
+        }
+
+        return 0;
+      }
+
+      if (by)
+      {
+        goto LABEL_20;
+      }
+    }
+
+    if (![(FLSQLitePersistence *)self createDatabase])
+    {
+      v8 = [(FLSQLitePersistence *)self log];
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_33;
+      }
+
+      goto LABEL_34;
+    }
+
+    if (![(FLSQLitePersistence *)self prepareSchema])
+    {
+      v8 = [(FLSQLitePersistence *)self log];
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_33;
+      }
+
+      goto LABEL_34;
+    }
+
+    if (!v5)
+    {
+      [(FLSQLitePersistence *)self setDatabaseSizeLimit];
+      if ([(FLSQLitePersistence *)self tryPrepare:"INSERT INTO records (batchId preparedStatement:payload, dateCreated) VALUES (?, ?, ?);", &self->_insertRecordsStatement]&& [(FLSQLitePersistence *)self initializeNewBatch])
+      {
+        goto LABEL_20;
+      }
+
+      goto LABEL_32;
+    }
+
+    if (v5 == 2)
+    {
+LABEL_19:
+      if ([(FLSQLitePersistence *)self tryPrepare:"SELECT payload FROM records WHERE batchId=?;" preparedStatement:&self->_iteratePayloadStatement])
+      {
+        goto LABEL_20;
+      }
+
+LABEL_32:
+      v8 = [(FLSQLitePersistence *)self log];
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+LABEL_33:
+        v11 = 136315138;
+        v12 = sqlite3_errmsg([(FLSQLitePersistence *)self db]);
+        _os_log_error_impl(&dword_24AB3F000, v8, OS_LOG_TYPE_ERROR, "%s", &v11, 0xCu);
+      }
+
+LABEL_34:
+
+      return 0;
+    }
+
+LABEL_18:
+    [(FLSQLitePersistence *)self closeOrphanedBatches];
+    goto LABEL_19;
+  }
+
+  return 1;
 }
 
 - (void)dealloc
@@ -2861,13 +3013,13 @@ LABEL_37:
 
 - (FLSQLitePersistence)initWithStoreId:(id)id dbConnection:(id)connection loggingContext:(id)context
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   idCopy = id;
   connectionCopy = connection;
   contextCopy = context;
-  v25.receiver = self;
-  v25.super_class = FLSQLitePersistence;
-  v11 = [(FLSQLitePersistence *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = FLSQLitePersistence;
+  v11 = [(FLSQLitePersistence *)&v24 init];
   v12 = v11;
   if (FLSignpostLoggingInit_onceToken == -1)
   {
@@ -2917,13 +3069,12 @@ LABEL_37:
   {
     v22 = v12->_databasePath;
     *buf = 138412290;
-    v27 = v22;
+    v26 = v22;
     _os_log_impl(&dword_24AB3F000, v21, OS_LOG_TYPE_DEFAULT, "Initialized SQLite persistent store manager for %@", buf, 0xCu);
   }
 
 LABEL_5:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -2952,23 +3103,23 @@ LABEL_5:
 
 - (id)registerInsertionObserver:(id)observer
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   [(FLSQLitePersistence *)self open];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x2020000000;
   maxRowId = [(FLSQLitePersistence *)self maxRowId];
-  v17[0] = 0;
-  v17[1] = v17;
-  v17[2] = 0x2020000000;
-  v17[3] = v19[3] + 1;
+  v16[0] = 0;
+  v16[1] = v16;
+  v16[2] = 0x2020000000;
+  v16[3] = v18[3] + 1;
   v5 = [(FLSQLitePersistence *)self log];
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = v19[3];
+    v6 = v18[3];
     *buf = 134217984;
-    v23 = v6;
+    v22 = v6;
     _os_log_impl(&dword_24AB3F000, v5, OS_LOG_TYPE_DEFAULT, "Registering new insertion observer, starting max row: %lld", buf, 0xCu);
   }
 
@@ -2976,43 +3127,42 @@ LABEL_5:
   queue = [context queue];
   v9 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, queue);
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __59__FLSQLitePersistence_Observer__registerInsertionObserver___block_invoke;
-  v13[3] = &unk_278FF8CD0;
-  v15 = &v18;
-  v16 = v17;
-  v13[4] = self;
-  v14 = observerCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __59__FLSQLitePersistence_Observer__registerInsertionObserver___block_invoke;
+  v12[3] = &unk_278FF8CD0;
+  v14 = &v17;
+  v15 = v16;
+  v12[4] = self;
+  v13 = observerCopy;
   v10 = observerCopy;
-  dispatch_source_set_event_handler(v9, v13);
+  dispatch_source_set_event_handler(v9, v12);
   dispatch_source_set_timer(v9, 0, 0x3B9ACA00uLL, 0x3B9ACA00uLL);
   dispatch_activate(v9);
 
-  _Block_object_dispose(v17, 8);
-  _Block_object_dispose(&v18, 8);
-  v11 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v16, 8);
+  _Block_object_dispose(&v17, 8);
 
   return v9;
 }
 
-uint64_t __59__FLSQLitePersistence_Observer__registerInsertionObserver___block_invoke(uint64_t a1)
+void *__59__FLSQLitePersistence_Observer__registerInsertionObserver___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) maxRowId];
   *(*(*(a1 + 48) + 8) + 24) = result;
   if (*(*(*(a1 + 56) + 8) + 24) <= *(*(*(a1 + 48) + 8) + 24))
   {
     *&v3 = 134217984;
-    v7 = v3;
+    v6 = v3;
     do
     {
       v4 = [*(a1 + 32) log];
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         v5 = *(*(*(a1 + 56) + 8) + 24);
-        *buf = v7;
-        v9 = v5;
+        *buf = v6;
+        v8 = v5;
         _os_log_impl(&dword_24AB3F000, v4, OS_LOG_TYPE_DEFAULT, "Informing observer about insertion at row: %lld", buf, 0xCu);
       }
 
@@ -3022,7 +3172,6 @@ uint64_t __59__FLSQLitePersistence_Observer__registerInsertionObserver___block_i
     while (*(*(*(a1 + 56) + 8) + 24) <= *(*(*(a1 + 48) + 8) + 24));
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 

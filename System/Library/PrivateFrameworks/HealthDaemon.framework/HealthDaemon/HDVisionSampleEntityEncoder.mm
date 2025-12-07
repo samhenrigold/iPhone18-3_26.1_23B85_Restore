@@ -1,7 +1,7 @@
 @interface HDVisionSampleEntityEncoder
 - (BOOL)applyPropertiesToObject:(id)object persistentID:(int64_t)d row:(HDSQLiteRow *)row error:(id *)error;
 - (id)_quantityWithNumber:(void *)number unit:;
-- (id)_valueForOptionalDoubleProperty:(uint64_t)property row:(void *)row;
+- (id)_valueForOptionalDoubleProperty:(uint64_t)property row:;
 - (id)codableRepresentationForPersistentID:(int64_t)d row:(HDSQLiteRow *)row error:(id *)error;
 - (id)createBareObjectWithRow:(HDSQLiteRow *)row;
 - (id)orderedProperties;
@@ -11,39 +11,37 @@
 
 - (id)orderedProperties
 {
-  v9[26] = *MEMORY[0x277D85DE8];
-  v9[0] = @"prescription_type";
-  v9[1] = @"verifiable_data";
-  v9[2] = @"left_sphere";
-  v9[3] = @"right_sphere";
-  v9[4] = @"left_cylinder";
-  v9[5] = @"right_cylinder";
-  v9[6] = @"left_axis";
-  v9[7] = @"right_axis";
-  v9[8] = @"left_add_power";
-  v9[9] = @"right_add_power";
-  v9[10] = @"left_vertex_distance";
-  v9[11] = @"right_vertex_distance";
-  v9[12] = @"left_prism_amount";
-  v9[13] = @"right_prism_amount";
-  v9[14] = @"left_prism_angle";
-  v9[15] = @"right_prism_angle";
-  v9[16] = @"left_far_pupillary_distance";
-  v9[17] = @"right_far_pupillary_distance";
-  v9[18] = @"left_near_pupillary_distance";
-  v9[19] = @"right_near_pupillary_distance";
-  v9[20] = @"glasses_description";
-  v9[21] = @"left_base_curve";
-  v9[22] = @"right_base_curve";
-  v9[23] = @"left_contact_diameter";
-  v9[24] = @"right_contact_diameter";
-  v9[25] = @"brand";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:26];
+  v8[26] = *MEMORY[0x277D85DE8];
+  v8[0] = @"prescription_type";
+  v8[1] = @"verifiable_data";
+  v8[2] = @"left_sphere";
+  v8[3] = @"right_sphere";
+  v8[4] = @"left_cylinder";
+  v8[5] = @"right_cylinder";
+  v8[6] = @"left_axis";
+  v8[7] = @"right_axis";
+  v8[8] = @"left_add_power";
+  v8[9] = @"right_add_power";
+  v8[10] = @"left_vertex_distance";
+  v8[11] = @"right_vertex_distance";
+  v8[12] = @"left_prism_amount";
+  v8[13] = @"right_prism_amount";
+  v8[14] = @"left_prism_angle";
+  v8[15] = @"right_prism_angle";
+  v8[16] = @"left_far_pupillary_distance";
+  v8[17] = @"right_far_pupillary_distance";
+  v8[18] = @"left_near_pupillary_distance";
+  v8[19] = @"right_near_pupillary_distance";
+  v8[20] = @"glasses_description";
+  v8[21] = @"left_base_curve";
+  v8[22] = @"right_base_curve";
+  v8[23] = @"left_contact_diameter";
+  v8[24] = @"right_contact_diameter";
+  v8[25] = @"brand";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:26];
   superclassEncoder = [(HDEntityEncoder *)self superclassEncoder];
   orderedProperties = [superclassEncoder orderedProperties];
   v6 = [v3 arrayByAddingObjectsFromArray:orderedProperties];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -58,24 +56,24 @@
     v11 = objc_alloc_init(HDCodableVisionSample);
     [(HDCodableVisionSample *)v11 setSample:v10];
     v12 = HDSQLiteColumnWithNameAsInt64();
-    v13 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"left_sphere" row:?];
-    v21 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"right_sphere" row:?];
-    v37 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"left_cylinder" row:?];
-    v36 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"right_cylinder" row:?];
-    v35 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"left_axis" row:?];
-    v34 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"right_axis" row:?];
-    v33 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"left_add_power" row:?];
-    v32 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"right_add_power" row:?];
-    v31 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"left_vertex_distance" row:?];
-    v30 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"right_vertex_distance" row:?];
-    v29 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"left_prism_amount" row:?];
-    v28 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"right_prism_amount" row:?];
-    v27 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"left_prism_angle" row:?];
-    v26 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"right_prism_angle" row:?];
-    v25 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"left_far_pupillary_distance" row:?];
-    v24 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"right_far_pupillary_distance" row:?];
-    v23 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"left_near_pupillary_distance" row:?];
-    v22 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"right_near_pupillary_distance" row:?];
+    v13 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+    v21 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+    v37 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+    v36 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+    v35 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+    v34 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+    v33 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+    v32 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+    v31 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+    v30 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+    v29 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+    v28 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+    v27 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+    v26 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+    v25 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+    v24 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+    v23 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+    v22 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
     if (HDSQLiteColumnWithNameIsNull())
     {
       v14 = 0;
@@ -86,10 +84,10 @@
       v14 = HDSQLiteColumnWithNameAsString();
     }
 
-    v15 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"left_base_curve" row:?];
-    v16 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"right_base_curve" row:?];
-    v17 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"left_contact_diameter" row:?];
-    v18 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"right_contact_diameter" row:?];
+    v15 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+    v16 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+    v17 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+    v18 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
     if (HDSQLiteColumnWithNameIsNull())
     {
       v19 = 0;
@@ -252,61 +250,61 @@
   return v11;
 }
 
-- (id)_valueForOptionalDoubleProperty:(uint64_t)property row:(void *)row
+- (id)_valueForOptionalDoubleProperty:(uint64_t)property row:
 {
-  rowCopy = row;
-  if (property && (HDSQLiteColumnWithNameIsNull() & 1) == 0)
+  v4 = a2;
+  if (self && (HDSQLiteColumnWithNameIsNull() & 1) == 0)
   {
-    v5 = MEMORY[0x277CCABB0];
+    v6 = MEMORY[0x277CCABB0];
     HDSQLiteColumnWithNameAsDouble();
-    v4 = [v5 numberWithDouble:?];
+    v5 = [v6 numberWithDouble:?];
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 - (id)createBareObjectWithRow:(HDSQLiteRow *)row
 {
-  v4 = HDSQLiteColumnWithNameAsInt64();
-  v5 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"left_sphere" row:?];
+  v5 = HDSQLiteColumnWithNameAsInt64();
+  v6 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
   diopterUnit = [MEMORY[0x277CCDAB0] diopterUnit];
-  v7 = [(HDVisionSampleEntityEncoder *)self _quantityWithNumber:v5 unit:diopterUnit];
+  v8 = [(HDVisionSampleEntityEncoder *)self _quantityWithNumber:v6 unit:diopterUnit];
 
-  v8 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"right_sphere" row:?];
+  v9 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
   diopterUnit2 = [MEMORY[0x277CCDAB0] diopterUnit];
-  v10 = [(HDVisionSampleEntityEncoder *)self _quantityWithNumber:v8 unit:diopterUnit2];
+  v11 = [(HDVisionSampleEntityEncoder *)self _quantityWithNumber:v9 unit:diopterUnit2];
 
-  if (v7 | v10)
+  if (v8 | v11)
   {
-    if (v4 == 2)
+    if (v5 == 2)
     {
-      v11 = MEMORY[0x277CCD218];
+      v12 = MEMORY[0x277CCD218];
       goto LABEL_9;
     }
 
-    if (v4 == 1)
+    if (v5 == 1)
     {
-      v11 = MEMORY[0x277CCD488];
+      v12 = MEMORY[0x277CCD488];
       goto LABEL_9;
     }
 
     _HKInitializeLogging();
-    v12 = *MEMORY[0x277CCC2A0];
+    v13 = *MEMORY[0x277CCC2A0];
     if (os_log_type_enabled(*MEMORY[0x277CCC2A0], OS_LOG_TYPE_FAULT))
     {
-      *v15 = 0;
-      _os_log_fault_impl(&dword_228986000, v12, OS_LOG_TYPE_FAULT, "Unexpectedly reached execution point. Creating generic vision prescription bare object.", v15, 2u);
+      *v16 = 0;
+      _os_log_fault_impl(&dword_228986000, v13, OS_LOG_TYPE_FAULT, "Unexpectedly reached execution point. Creating generic vision prescription bare object.", v16, 2u);
     }
   }
 
-  v11 = MEMORY[0x277CCDBC8];
+  v12 = MEMORY[0x277CCDBC8];
 LABEL_9:
-  _init = [[v11 alloc] _init];
+  _init = [[v12 alloc] _init];
 
   return _init;
 }
@@ -335,35 +333,35 @@ LABEL_9:
   {
     v12 = HDSQLiteColumnWithNameAsInt64();
     [objectCopy _setPrescriptionType:v12];
-    v13 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"left_sphere" row:?];
+    v13 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
     diopterUnit = [MEMORY[0x277CCDAB0] diopterUnit];
     v15 = [(HDVisionSampleEntityEncoder *)self _quantityWithNumber:v13 unit:diopterUnit];
 
-    v16 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"right_sphere" row:?];
+    v16 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
     diopterUnit2 = [MEMORY[0x277CCDAB0] diopterUnit];
     v18 = [(HDVisionSampleEntityEncoder *)self _quantityWithNumber:v16 unit:diopterUnit2];
 
-    v19 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"left_cylinder" row:?];
+    v19 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
     diopterUnit3 = [MEMORY[0x277CCDAB0] diopterUnit];
     v112 = [(HDVisionSampleEntityEncoder *)self _quantityWithNumber:v19 unit:diopterUnit3];
 
-    v21 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"right_cylinder" row:?];
+    v21 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
     diopterUnit4 = [MEMORY[0x277CCDAB0] diopterUnit];
     v111 = [(HDVisionSampleEntityEncoder *)self _quantityWithNumber:v21 unit:diopterUnit4];
 
-    v23 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"left_axis" row:?];
+    v23 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
     radianAngleUnit = [MEMORY[0x277CCDAB0] radianAngleUnit];
     v110 = [(HDVisionSampleEntityEncoder *)self _quantityWithNumber:v23 unit:radianAngleUnit];
 
-    v25 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"right_axis" row:?];
+    v25 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
     radianAngleUnit2 = [MEMORY[0x277CCDAB0] radianAngleUnit];
     v109 = [(HDVisionSampleEntityEncoder *)self _quantityWithNumber:v25 unit:radianAngleUnit2];
 
-    v27 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"left_add_power" row:?];
+    v27 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
     diopterUnit5 = [MEMORY[0x277CCDAB0] diopterUnit];
     v108 = [(HDVisionSampleEntityEncoder *)self _quantityWithNumber:v27 unit:diopterUnit5];
 
-    v29 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"right_add_power" row:?];
+    v29 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
     diopterUnit6 = [MEMORY[0x277CCDAB0] diopterUnit];
     v31 = [(HDVisionSampleEntityEncoder *)self _quantityWithNumber:v29 unit:diopterUnit6];
 
@@ -381,10 +379,10 @@ LABEL_36:
       if (objc_opt_isKindOfClass())
       {
         v33 = objectCopy;
-        v61 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"left_base_curve" row:?];
-        v62 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"right_base_curve" row:?];
-        v103 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"left_contact_diameter" row:?];
-        v63 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"right_contact_diameter" row:?];
+        v61 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+        v62 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+        v103 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+        v63 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
         v99 = HDSQLiteColumnWithNameAsString();
         v101 = v62;
         v107 = v61;
@@ -456,16 +454,16 @@ LABEL_36:
       if (objc_opt_isKindOfClass())
       {
         v33 = objectCopy;
-        v107 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"left_vertex_distance" row:?];
-        v34 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"right_vertex_distance" row:?];
-        v35 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"left_prism_amount" row:?];
-        v98 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"right_prism_amount" row:?];
-        v36 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"left_prism_angle" row:?];
-        v96 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"right_prism_angle" row:?];
-        v89 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"left_far_pupillary_distance" row:?];
-        v100 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"right_far_pupillary_distance" row:?];
-        v88 = [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"left_near_pupillary_distance" row:?];
-        [HDVisionSampleEntityEncoder _valueForOptionalDoubleProperty:@"right_near_pupillary_distance" row:?];
+        v107 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+        v34 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+        v35 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+        v98 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+        v36 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+        v96 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+        v89 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+        v100 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+        v88 = [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
+        [(HDVisionSampleEntityEncoder *)self _valueForOptionalDoubleProperty:row row:?];
         v95 = 0;
         v102 = v36;
         v104 = v33;

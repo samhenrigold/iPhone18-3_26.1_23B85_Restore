@@ -33,7 +33,7 @@
 
 void __57__WFGetCurrentLocationAction_runAsynchronouslyWithInput___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -49,28 +49,28 @@ void __57__WFGetCurrentLocationAction_runAsynchronouslyWithInput___block_invoke(
   v11 = *(a1 + 32);
   v12 = v6;
   v13 = [v12 domain];
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x2020000000;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x2020000000;
   v14 = getkCLErrorDomainSymbolLoc_ptr;
-  v29 = getkCLErrorDomainSymbolLoc_ptr;
+  v28 = getkCLErrorDomainSymbolLoc_ptr;
   if (!getkCLErrorDomainSymbolLoc_ptr)
   {
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __getkCLErrorDomainSymbolLoc_block_invoke;
-    v25[3] = &unk_278C222B8;
-    v25[4] = &v26;
-    __getkCLErrorDomainSymbolLoc_block_invoke(v25);
-    v14 = v27[3];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __getkCLErrorDomainSymbolLoc_block_invoke;
+    v24[3] = &unk_278C222B8;
+    v24[4] = &v25;
+    __getkCLErrorDomainSymbolLoc_block_invoke(v24);
+    v14 = v26[3];
   }
 
-  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v25, 8);
   if (!v14)
   {
-    v23 = [MEMORY[0x277CCA890] currentHandler];
-    v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getkCLErrorDomain(void)"];
-    [v23 handleFailureInFunction:v24 file:@"WFGetCurrentLocationAction.m" lineNumber:19 description:{@"%s", dlerror()}];
+    v22 = [MEMORY[0x277CCA890] currentHandler];
+    v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"NSString *getkCLErrorDomain(void)"];
+    [v22 handleFailureInFunction:v23 file:@"WFGetCurrentLocationAction.m" lineNumber:19 description:{@"%s", dlerror()}];
 
     __break(1u);
   }
@@ -93,16 +93,14 @@ LABEL_10:
   v16 = MEMORY[0x277CCA9B8];
   v17 = [v12 domain];
   v18 = [v12 code];
-  v26 = *MEMORY[0x277CCA450];
+  v25 = *MEMORY[0x277CCA450];
   v19 = WFLocalizedString(@"Get Current Location failed because a network error occurred.");
-  v25[0] = v19;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v26 count:1];
+  v24[0] = v19;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v25 count:1];
   v21 = [v16 errorWithDomain:v17 code:v18 userInfo:v20];
 
 LABEL_11:
   [v11 finishRunningWithError:v21];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

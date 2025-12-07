@@ -6,13 +6,13 @@
 
 - (void)initWithEdge:()PXStory tiltedInset:rect:
 {
-  v3 = 0.0;
-  if (a3 <= 3)
+  v10 = 0.0;
+  if (a10 <= 3)
   {
-    v3 = dbl_1A5381C30[a3];
+    v10 = dbl_1A5381C30[a10];
   }
 
-  __sincos_stret(v3);
+  __sincos_stret(v10);
   PXRectGetCenter();
 }
 

@@ -8,18 +8,18 @@
 {
   ObjectType = swift_getObjectType();
   v4 = OBJC_IVAR___NAPAssembly_assemblies;
-  sub_1C6B0BE1C();
+  sub_1C6B0BE1C(0);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_1C6D7EB10;
   v6 = type metadata accessor for SuggestionsAssembly();
   v7 = swift_allocObject();
   *(v5 + 56) = v6;
-  *(v5 + 64) = sub_1C6B0C47C(qword_1EDCE7428, type metadata accessor for SuggestionsAssembly);
+  *(v5 + 64) = sub_1C6B0C47C(qword_1EDCE7428, type metadata accessor for SuggestionsAssembly, &unk_1C6D952C4);
   *(v5 + 32) = v7;
   v8 = type metadata accessor for ComputeServiceAssembly();
   v9 = swift_allocObject();
   *(v5 + 96) = v8;
-  *(v5 + 104) = sub_1C6B0C47C(&qword_1EDCE7168, type metadata accessor for ComputeServiceAssembly);
+  *(v5 + 104) = sub_1C6B0C47C(&qword_1EDCE7168, type metadata accessor for ComputeServiceAssembly, &unk_1C6D95888);
   *(v5 + 72) = v9;
   *(&self->super.isa + v4) = v5;
   v11.receiver = self;

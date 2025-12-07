@@ -80,7 +80,7 @@ uint64_t __49__SUScriptCalloutView_setTargetX_y_width_height___block_invoke(uint
   }
 }
 
-uint64_t __41__SUScriptCalloutView_setTitle_subtitle___block_invoke(uint64_t a1)
+void *__41__SUScriptCalloutView_setTitle_subtitle___block_invoke(uint64_t a1)
 {
   v2 = [*(*(a1 + 32) + 80) isEqualToString:*(a1 + 40)];
   if ((v2 & 1) == 0)
@@ -109,23 +109,23 @@ uint64_t __41__SUScriptCalloutView_setTitle_subtitle___block_invoke(uint64_t a1)
   return [v4 _reloadUntructedString];
 }
 
-uint64_t __43__SUScriptCalloutView_setVisible_animated___block_invoke(uint64_t result)
+void *__43__SUScriptCalloutView_setVisible_animated___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   v2 = *(result + 40);
   if (*(v1 + 72) != v2)
   {
     v3 = result;
     *(v1 + 72) = v2;
-    v4 = *(result + 32);
+    v4 = result[4];
     if (v4[72] == 1)
     {
       [v4 _setupCalloutBar];
     }
 
     [objc_msgSend(MEMORY[0x1E69DCC68] "sharedMenuController")];
-    result = *(v3 + 32);
-    if ((*(result + 72) & 1) == 0)
+    result = v3[4];
+    if ((result[9] & 1) == 0)
     {
 
       return [result _resetCalloutBar];
@@ -151,15 +151,15 @@ uint64_t __43__SUScriptCalloutView_setVisible_animated___block_invoke(uint64_t r
   }
 }
 
-uint64_t __35__SUScriptCalloutView_setSubtitle___block_invoke(uint64_t result)
+void *__35__SUScriptCalloutView_setSubtitle___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 80);
-  if (v1 != *(result + 40))
+  v1 = *(result[4] + 80);
+  if (v1 != result[5])
   {
     v2 = result;
 
-    *(*(v2 + 32) + 80) = [*(v2 + 40) copy];
-    v3 = *(v2 + 32);
+    *(v2[4] + 80) = [v2[5] copy];
+    v3 = v2[4];
 
     return [v3 _reloadUntructedString];
   }
@@ -183,15 +183,15 @@ uint64_t __35__SUScriptCalloutView_setSubtitle___block_invoke(uint64_t result)
   }
 }
 
-uint64_t __32__SUScriptCalloutView_setTitle___block_invoke(uint64_t result)
+void *__32__SUScriptCalloutView_setTitle___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 88);
-  if (v1 != *(result + 40))
+  v1 = *(result[4] + 88);
+  if (v1 != result[5])
   {
     v2 = result;
 
-    *(*(v2 + 32) + 88) = [*(v2 + 40) copy];
-    v3 = *(v2 + 32);
+    *(v2[4] + 88) = [v2[5] copy];
+    v3 = v2[4];
 
     return [v3 _reloadUntructedString];
   }
@@ -213,7 +213,7 @@ uint64_t __32__SUScriptCalloutView_setTitle___block_invoke(uint64_t result)
   return v2;
 }
 
-uint64_t __31__SUScriptCalloutView_subtitle__block_invoke(uint64_t a1)
+void *__31__SUScriptCalloutView_subtitle__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 80) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -234,7 +234,7 @@ uint64_t __31__SUScriptCalloutView_subtitle__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __28__SUScriptCalloutView_title__block_invoke(uint64_t a1)
+void *__28__SUScriptCalloutView_title__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 88) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;

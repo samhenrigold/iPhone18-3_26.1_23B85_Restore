@@ -10,7 +10,7 @@
 
 - (void)_releaseAssertionForAssertionId:(unsigned int *)id details:(__CFString *)details
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (*id)
   {
     v6 = IOPMAssertionRelease(*id);
@@ -19,32 +19,30 @@
     {
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
       {
-        v9 = 136315395;
-        v10 = "[CSPreventSystemSleepPowerAssertion _releaseAssertionForAssertionId:details:]";
-        v11 = 2113;
+        v8 = 136315395;
+        v9 = "[CSPreventSystemSleepPowerAssertion _releaseAssertionForAssertionId:details:]";
+        v10 = 2113;
         detailsCopy2 = details;
-        _os_log_error_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_ERROR, "%s Failed to released power assertion for %{private}@", &v9, 0x16u);
+        _os_log_error_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_ERROR, "%s Failed to released power assertion for %{private}@", &v8, 0x16u);
       }
     }
 
     else if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136315395;
-      v10 = "[CSPreventSystemSleepPowerAssertion _releaseAssertionForAssertionId:details:]";
-      v11 = 2113;
+      v8 = 136315395;
+      v9 = "[CSPreventSystemSleepPowerAssertion _releaseAssertionForAssertionId:details:]";
+      v10 = 2113;
       detailsCopy2 = details;
-      _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s Successfully released power assertion for %{private}@", &v9, 0x16u);
+      _os_log_impl(&dword_1DDA4B000, v7, OS_LOG_TYPE_DEFAULT, "%s Successfully released power assertion for %{private}@", &v8, 0x16u);
     }
 
     *id = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_acquireAssertionForType:(__CFString *)type withTimeout:(double)timeout assertionId:(unsigned int *)id details:(__CFString *)details
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   *id = 0;
   if (timeout == 0.0)
   {
@@ -75,11 +73,11 @@
       v15 = v13;
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
       {
-        v21 = 136315395;
-        v22 = "[CSPreventSystemSleepPowerAssertion _acquireAssertionForType:withTimeout:assertionId:details:]";
-        v23 = 1025;
+        v20 = 136315395;
+        v21 = "[CSPreventSystemSleepPowerAssertion _acquireAssertionForType:withTimeout:assertionId:details:]";
+        v22 = 1025;
         LODWORD(detailsCopy2) = v15;
-        _os_log_error_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_ERROR, "%s IOPMAssertionSetProperty failed : %{private}d", &v21, 0x12u);
+        _os_log_error_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_ERROR, "%s IOPMAssertionSetProperty failed : %{private}d", &v20, 0x12u);
         v14 = CSLogContextFacilityCoreSpeech;
       }
     }
@@ -89,12 +87,12 @@
     {
       if (!v16)
       {
-        goto LABEL_20;
+        return;
       }
 
-      v21 = 136315395;
-      v22 = "[CSPreventSystemSleepPowerAssertion _acquireAssertionForType:withTimeout:assertionId:details:]";
-      v23 = 2113;
+      v20 = 136315395;
+      v21 = "[CSPreventSystemSleepPowerAssertion _acquireAssertionForType:withTimeout:assertionId:details:]";
+      v22 = 2113;
       detailsCopy2 = details;
       v17 = "%s Taking power assertion %{private}@";
       v18 = v14;
@@ -105,55 +103,53 @@
     {
       if (!v16)
       {
-        goto LABEL_20;
+        return;
       }
 
-      v21 = 136315651;
-      v22 = "[CSPreventSystemSleepPowerAssertion _acquireAssertionForType:withTimeout:assertionId:details:]";
-      v23 = 2113;
+      v20 = 136315651;
+      v21 = "[CSPreventSystemSleepPowerAssertion _acquireAssertionForType:withTimeout:assertionId:details:]";
+      v22 = 2113;
       detailsCopy2 = details;
-      v25 = 2049;
+      v24 = 2049;
       timeoutCopy = timeout;
       v17 = "%s Taking power assertion %{private}@ for a max of %{private}f seconds";
       v18 = v14;
       v19 = 32;
     }
 
-    _os_log_impl(&dword_1DDA4B000, v18, OS_LOG_TYPE_DEFAULT, v17, &v21, v19);
-    goto LABEL_20;
+    _os_log_impl(&dword_1DDA4B000, v18, OS_LOG_TYPE_DEFAULT, v17, &v20, v19);
   }
 
-  v12 = CSLogContextFacilityCoreSpeech;
-  if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
+  else
   {
-    v21 = 136315138;
-    v22 = "[CSPreventSystemSleepPowerAssertion _acquireAssertionForType:withTimeout:assertionId:details:]";
-    _os_log_error_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_ERROR, "%s Could not take power assertion", &v21, 0xCu);
-  }
+    v12 = CSLogContextFacilityCoreSpeech;
+    if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
+    {
+      v20 = 136315138;
+      v21 = "[CSPreventSystemSleepPowerAssertion _acquireAssertionForType:withTimeout:assertionId:details:]";
+      _os_log_error_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_ERROR, "%s Could not take power assertion", &v20, 0xCu);
+    }
 
-  [(CSPreventSystemSleepPowerAssertion *)self _releaseAssertionForAssertionId:id details:details];
-LABEL_20:
-  v20 = *MEMORY[0x1E69E9840];
+    [(CSPreventSystemSleepPowerAssertion *)self _releaseAssertionForAssertionId:id details:details];
+  }
 }
 
 - (void)invalidate
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   p_preventUserIdleSystemSleepAssertionId = &self->_preventUserIdleSystemSleepAssertionId;
   if (self->_preventUserIdleSystemSleepAssertionId)
   {
     v4 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 136315138;
-      v7 = "[CSPreventSystemSleepPowerAssertion invalidate]";
-      _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s UserIdleSystemSleepAssertion", &v6, 0xCu);
+      v5 = 136315138;
+      v6 = "[CSPreventSystemSleepPowerAssertion invalidate]";
+      _os_log_impl(&dword_1DDA4B000, v4, OS_LOG_TYPE_DEFAULT, "%s UserIdleSystemSleepAssertion", &v5, 0xCu);
     }
 
     [(CSPreventSystemSleepPowerAssertion *)self _releaseAssertionForAssertionId:p_preventUserIdleSystemSleepAssertionId details:@"PreventUserIdleSystemSleep"];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

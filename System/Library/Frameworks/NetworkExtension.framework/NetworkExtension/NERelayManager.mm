@@ -9,6 +9,7 @@
 - (BOOL)isEnabled;
 - (BOOL)isFromProfile;
 - (BOOL)isUIToggleEnabled;
+- (NERelayManager)initWithGrade:(void *)grade;
 - (NERelayManagerDelegate)delegate;
 - (NSArray)excludedDomains;
 - (NSArray)excludedFQDNs;
@@ -19,12 +20,14 @@
 - (NSString)appBundleIdentifier;
 - (NSString)localizedDescription;
 - (NSUUID)identifier;
-- (_BYTE)initWithGrade:(void *)grade;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (void)createEmptyConfigurationWithGrade:(void *)grade;
 - (void)getLastClientErrors:(double)errors completionHandler:(id)handler;
 - (void)loadFromPreferencesWithCompletionHandler:(void *)completionHandler;
 - (void)removeFromPreferencesWithCompletionHandler:(void *)completionHandler;
 - (void)saveToPreferencesWithCompletionHandler:(void *)completionHandler;
+- (void)setAllowDNSFailover:(BOOL)failover;
+- (void)setEnabled:(BOOL)enabled;
 - (void)setExcludedDomains:(NSArray *)excludedDomains;
 - (void)setExcludedFQDNs:(id)ns;
 - (void)setLocalizedDescription:(NSString *)localizedDescription;
@@ -32,6 +35,7 @@
 - (void)setMatchFQDNs:(id)ns;
 - (void)setOnDemandRules:(NSArray *)onDemandRules;
 - (void)setRelays:(NSArray *)relays;
+- (void)setUIToggleEnabled:(BOOL)enabled;
 @end
 
 @implementation NERelayManager
@@ -76,6 +80,23 @@
   }
 
   return [(NERelayManager *)self identifier];
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  localizedDescription = [(NERelayManager *)self localizedDescription];
+  [v7 appendPrettyObject:localizedDescription withName:@"localizedDescription" andIndent:v5 options:options];
+
+  [v7 appendPrettyBOOL:-[NERelayManager isEnabled](self withName:"isEnabled") andIndent:@"enabled" options:{v5, options}];
+  relays = [(NERelayManager *)self relays];
+  [v7 appendPrettyObject:relays withName:@"relays" andIndent:v5 options:options];
+
+  onDemandRules = [(NERelayManager *)self onDemandRules];
+  [v7 appendPrettyObject:onDemandRules withName:@"onDemandRules" andIndent:v5 options:options];
+
+  return v7;
 }
 
 - (void)setLocalizedDescription:(NSString *)localizedDescription
@@ -391,6 +412,24 @@
   return relays;
 }
 
+- (void)setAllowDNSFailover:(BOOL)failover
+{
+  failoverCopy = failover;
+  selfa = self;
+  objc_sync_enter(selfa);
+  Property = selfa;
+  if (selfa)
+  {
+    Property = objc_getProperty(selfa, v4, 16, 1);
+  }
+
+  v6 = Property;
+  relay = [v6 relay];
+  [relay setAllowDNSFailover:failoverCopy];
+
+  objc_sync_exit(selfa);
+}
+
 - (BOOL)isDNSFailoverAllowed
 {
   selfCopy = self;
@@ -413,6 +452,24 @@
   return isDNSFailoverAllowed;
 }
 
+- (void)setUIToggleEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  selfa = self;
+  objc_sync_enter(selfa);
+  Property = selfa;
+  if (selfa)
+  {
+    Property = objc_getProperty(selfa, v4, 16, 1);
+  }
+
+  v6 = Property;
+  relay = [v6 relay];
+  [relay setUiToggleEnabled:enabledCopy];
+
+  objc_sync_exit(selfa);
+}
+
 - (BOOL)isUIToggleEnabled
 {
   selfCopy = self;
@@ -433,6 +490,24 @@
 
   objc_sync_exit(selfCopy);
   return isUIToggleEnabled;
+}
+
+- (void)setEnabled:(BOOL)enabled
+{
+  v3 = enabled;
+  selfa = self;
+  objc_sync_enter(selfa);
+  Property = selfa;
+  if (selfa)
+  {
+    Property = objc_getProperty(selfa, v4, 16, 1);
+  }
+
+  v6 = Property;
+  relay = [v6 relay];
+  [relay setEnabled:v3];
+
+  objc_sync_exit(selfa);
 }
 
 - (BOOL)isEnabled
@@ -509,20 +584,20 @@ void __57__NERelayManager_saveToPreferencesWithCompletionHandler___block_invoke(
 
 + (id)loadedManagers
 {
-  v0 = objc_opt_self();
+  v1 = objc_opt_self();
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __32__NERelayManager_loadedManagers__block_invoke;
   block[3] = &__block_descriptor_40_e5_v8__0l;
-  block[4] = v0;
+  block[4] = v1;
   if (loadedManagers_managers_init_28399 != -1)
   {
     dispatch_once(&loadedManagers_managers_init_28399, block);
   }
 
-  v1 = loadedManagers_loadedManagers_28400;
+  v2 = loadedManagers_loadedManagers_28400;
 
-  return v1;
+  return v2;
 }
 
 + (id)configurationManager
@@ -537,14 +612,14 @@ void __57__NERelayManager_saveToPreferencesWithCompletionHandler___block_invoke(
   {
     +[NEConfigurationManager sharedManager];
   }
-  v0 = ;
+  v1 = ;
 
-  return v0;
+  return v1;
 }
 
 void __57__NERelayManager_saveToPreferencesWithCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (v3 && [v3 code] != 9)
@@ -553,9 +628,9 @@ void __57__NERelayManager_saveToPreferencesWithCompletionHandler___block_invoke_
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v19 = "[NERelayManager saveToPreferencesWithCompletionHandler:]_block_invoke_2";
-      v20 = 2112;
-      v21 = v4;
+      v18 = "[NERelayManager saveToPreferencesWithCompletionHandler:]_block_invoke_2";
+      v19 = 2112;
+      v20 = v4;
       _os_log_error_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_ERROR, "%s: failed to save the new configuration: %@", buf, 0x16u);
     }
 
@@ -581,9 +656,9 @@ void __57__NERelayManager_saveToPreferencesWithCompletionHandler___block_invoke_
       v6 = ne_log_obj();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        v14 = *(a1 + 32);
+        v13 = *(a1 + 32);
         *buf = 138412290;
-        v19 = v14;
+        v18 = v13;
         _os_log_debug_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_DEBUG, "Post NERelayConfigurationDidChangeNotification to app for manager %@", buf, 0xCu);
       }
 
@@ -601,16 +676,14 @@ void __57__NERelayManager_saveToPreferencesWithCompletionHandler___block_invoke_
   v12 = *(a1 + 40);
   if (v12)
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __57__NERelayManager_saveToPreferencesWithCompletionHandler___block_invoke_42;
-    v15[3] = &unk_1E7F0B588;
-    v17 = v12;
-    v16 = v4;
-    dispatch_async(MEMORY[0x1E69E96A0], v15);
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __57__NERelayManager_saveToPreferencesWithCompletionHandler___block_invoke_42;
+    v14[3] = &unk_1E7F0B588;
+    v16 = v12;
+    v15 = v4;
+    dispatch_async(MEMORY[0x1E69E96A0], v14);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __32__NERelayManager_loadedManagers__block_invoke(uint64_t a1)
@@ -630,37 +703,37 @@ void __32__NERelayManager_loadedManagers__block_invoke(uint64_t a1)
 
 void __32__NERelayManager_loadedManagers__block_invoke_2(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       v7 = 0;
       do
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [loadedManagers_loadedManagers_28400 objectForKeyedSubscript:*(*(&v16 + 1) + 8 * v7)];
+        v8 = [loadedManagers_loadedManagers_28400 objectForKeyedSubscript:*(*(&v15 + 1) + 8 * v7)];
         if (v8 || ([*(a1 + 32) sharedManager], (v8 = objc_claimAutoreleasedReturnValue()) != 0))
         {
-          v14[0] = MEMORY[0x1E69E9820];
-          v14[1] = 3221225472;
-          v14[2] = __32__NERelayManager_loadedManagers__block_invoke_3;
-          v14[3] = &unk_1E7F0B4A8;
-          v15 = v8;
+          v13[0] = MEMORY[0x1E69E9820];
+          v13[1] = 3221225472;
+          v13[2] = __32__NERelayManager_loadedManagers__block_invoke_3;
+          v13[3] = &unk_1E7F0B4A8;
+          v14 = v8;
           v9 = v8;
-          [v9 loadFromPreferencesWithCompletionHandler:v14];
+          [v9 loadFromPreferencesWithCompletionHandler:v13];
         }
 
         else
@@ -668,8 +741,8 @@ void __32__NERelayManager_loadedManagers__block_invoke_2(uint64_t a1, void *a2)
           v10 = ne_log_obj();
           if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
           {
-            *v13 = 0;
-            _os_log_debug_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_DEBUG, "Post NERelayConfigurationDidChangeNotification to app", v13, 2u);
+            *v12 = 0;
+            _os_log_debug_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_DEBUG, "Post NERelayConfigurationDidChangeNotification to app", v12, 2u);
           }
 
           v9 = [MEMORY[0x1E696AD88] defaultCenter];
@@ -680,29 +753,27 @@ void __32__NERelayManager_loadedManagers__block_invoke_2(uint64_t a1, void *a2)
       }
 
       while (v5 != v7);
-      v11 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v11 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
       v5 = v11;
     }
 
     while (v11);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __32__NERelayManager_loadedManagers__block_invoke_3(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (!v2 || (*(v2 + 10) & 1) == 0)
   {
     v3 = ne_log_obj();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      v7 = *(a1 + 32);
-      v8 = 138412290;
-      v9 = v7;
-      _os_log_debug_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_DEBUG, "Post NERelayConfigurationDidChangeNotification to app for manager %@", &v8, 0xCu);
+      v6 = *(a1 + 32);
+      v7 = 138412290;
+      v8 = v6;
+      _os_log_debug_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_DEBUG, "Post NERelayConfigurationDidChangeNotification to app for manager %@", &v7, 0xCu);
     }
 
     v4 = *(a1 + 32);
@@ -714,8 +785,6 @@ void __32__NERelayManager_loadedManagers__block_invoke_3(uint64_t a1)
     v5 = [MEMORY[0x1E696AD88] defaultCenter];
     [v5 postNotificationName:@"com.apple.networkextension.relay-configuration-changed" object:*(a1 + 32)];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeFromPreferencesWithCompletionHandler:(void *)completionHandler
@@ -790,7 +859,7 @@ void __61__NERelayManager_removeFromPreferencesWithCompletionHandler___block_inv
 
 void __61__NERelayManager_removeFromPreferencesWithCompletionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -798,9 +867,9 @@ void __61__NERelayManager_removeFromPreferencesWithCompletionHandler___block_inv
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v22 = "[NERelayManager removeFromPreferencesWithCompletionHandler:]_block_invoke_3";
-      v23 = 2112;
-      v24 = v4;
+      v21 = "[NERelayManager removeFromPreferencesWithCompletionHandler:]_block_invoke_3";
+      v22 = 2112;
+      v23 = v4;
       _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "%s: failed to remove the configuration: %@", buf, 0x16u);
     }
   }
@@ -831,9 +900,9 @@ LABEL_12:
     v12 = ne_log_obj();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v17 = *(a1 + 32);
+      v16 = *(a1 + 32);
       *buf = 138412290;
-      v22 = v17;
+      v21 = v16;
       _os_log_debug_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_DEBUG, "Post NERelayConfigurationDidChangeNotification to app for manager %@", buf, 0xCu);
     }
 
@@ -850,16 +919,14 @@ LABEL_12:
   v15 = *(a1 + 40);
   if (v15)
   {
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __61__NERelayManager_removeFromPreferencesWithCompletionHandler___block_invoke_41;
-    v18[3] = &unk_1E7F0B588;
-    v20 = v15;
-    v19 = v4;
-    dispatch_async(MEMORY[0x1E69E96A0], v18);
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __61__NERelayManager_removeFromPreferencesWithCompletionHandler___block_invoke_41;
+    v17[3] = &unk_1E7F0B588;
+    v19 = v15;
+    v18 = v4;
+    dispatch_async(MEMORY[0x1E69E96A0], v17);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)loadFromPreferencesWithCompletionHandler:(void *)completionHandler
@@ -917,8 +984,8 @@ LABEL_12:
 
 void __59__NERelayManager_loadFromPreferencesWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v29 = a2;
+  v37 = *MEMORY[0x1E69E9840];
+  v28 = a2;
   v5 = a3;
   v6 = *(a1 + 32);
   objc_sync_enter(v6);
@@ -927,26 +994,26 @@ void __59__NERelayManager_loadFromPreferencesWithCompletionHandler___block_invok
     goto LABEL_26;
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
-  v7 = v29;
-  v8 = [v7 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v7 = v28;
+  v8 = [v7 countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v8)
   {
     v9 = 0;
-    v10 = *v34;
+    v10 = *v33;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v34 != v10)
+        if (*v33 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v33 + 1) + 8 * i);
+        v12 = *(*(&v32 + 1) + 8 * i);
         v13 = [v12 relay];
         v14 = v13 == 0;
 
@@ -970,7 +1037,7 @@ void __59__NERelayManager_loadFromPreferencesWithCompletionHandler___block_invok
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v32 objects:v36 count:16];
       if (v8)
       {
         continue;
@@ -1031,19 +1098,17 @@ LABEL_26:
     block[1] = 3221225472;
     block[2] = __59__NERelayManager_loadFromPreferencesWithCompletionHandler___block_invoke_2;
     block[3] = &unk_1E7F0B588;
-    v32 = v27;
-    v31 = v5;
+    v31 = v27;
+    v30 = v5;
     dispatch_async(MEMORY[0x1E69E96A0], block);
   }
 
   objc_sync_exit(v6);
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __59__NERelayManager_loadFromPreferencesWithCompletionHandler___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
@@ -1053,9 +1118,9 @@ void __59__NERelayManager_loadFromPreferencesWithCompletionHandler___block_invok
     v9 = ne_log_obj();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v24 = 138412290;
-      v25 = v6;
-      _os_log_error_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_ERROR, "Failed to load the configuration: %@", &v24, 0xCu);
+      v23 = 138412290;
+      v24 = v6;
+      _os_log_error_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_ERROR, "Failed to load the configuration: %@", &v23, 0xCu);
     }
 
     v10 = [NERelayManager mapError:v6];
@@ -1124,13 +1189,11 @@ void __59__NERelayManager_loadFromPreferencesWithCompletionHandler___block_invok
   }
 
   objc_sync_exit(v7);
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 + (id)mapError:(uint64_t)error
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v2 = a2;
   objc_opt_self();
   domain = [v2 domain];
@@ -1170,17 +1233,17 @@ LABEL_11:
       goto LABEL_13;
     }
 
-    v13 = MEMORY[0x1E696AEC0];
+    v12 = MEMORY[0x1E696AEC0];
     localizedDescription2 = [v2 localizedDescription];
-    localizedDescription = [v13 stringWithFormat:@"Unknown: %@", localizedDescription2];
+    localizedDescription = [v12 stringWithFormat:@"Unknown: %@", localizedDescription2];
 
 LABEL_12:
     v8 = 1;
 LABEL_13:
     v9 = MEMORY[0x1E696ABC0];
-    v16 = *MEMORY[0x1E696A578];
-    v17[0] = localizedDescription;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A578];
+    v16[0] = localizedDescription;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v7 = [v9 errorWithDomain:@"NERelayErrorDomain" code:v8 userInfo:v10];
 
     goto LABEL_14;
@@ -1195,8 +1258,6 @@ LABEL_13:
 
   v7 = 0;
 LABEL_14:
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -1232,7 +1293,7 @@ LABEL_14:
 
 - (void)getLastClientErrors:(double)errors completionHandler:(id)handler
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (self)
   {
@@ -1244,14 +1305,14 @@ LABEL_14:
     Property = 0;
   }
 
-  v11[0] = 0;
-  v11[1] = 0;
+  v10[0] = 0;
+  v10[1] = 0;
   identifier = [Property identifier];
-  [identifier getUUIDBytes:v11];
+  [identifier getUUIDBytes:v10];
 
   if (ne_session_create())
   {
-    v10 = handlerCopy;
+    v9 = handlerCopy;
     ne_session_get_info();
   }
 
@@ -1259,8 +1320,6 @@ LABEL_14:
   {
     (*(handlerCopy + 2))(handlerCopy, 0);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __56__NERelayManager_getLastClientErrors_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1269,24 +1328,23 @@ void __56__NERelayManager_getLastClientErrors_completionHandler___block_invoke(u
   v4 = v3;
   if (v3 && MEMORY[0x1BFAFC5E0](v3) == MEMORY[0x1E69E9E80])
   {
-    v8 = 0;
-    v9 = &v8;
-    v10 = 0x3032000000;
-    v11 = __Block_byref_object_copy__28423;
-    v12 = __Block_byref_object_dispose__28424;
-    v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v7[0] = 0;
+    v7[1] = v7;
+    v7[2] = 0x3032000000;
+    v7[3] = __Block_byref_object_copy__28423;
+    v7[4] = __Block_byref_object_dispose__28424;
+    v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v5 = xpc_dictionary_get_array(v4, "SortedRelayErrors");
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __56__NERelayManager_getLastClientErrors_completionHandler___block_invoke_22;
-    v7[3] = &unk_1E7F0B538;
-    v7[5] = *(a1 + 40);
-    v7[4] = &v8;
-    xpc_array_apply(v5, v7);
-    v6 = v9[5];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = __56__NERelayManager_getLastClientErrors_completionHandler___block_invoke_22;
+    v6[3] = &unk_1E7F0B538;
+    v6[5] = *(a1 + 40);
+    v6[4] = v7;
+    xpc_array_apply(v5, v6);
     (*(*(a1 + 32) + 16))();
 
-    _Block_object_dispose(&v8, 8);
+    _Block_object_dispose(v7, 8);
   }
 
   else
@@ -1394,43 +1452,39 @@ LABEL_29:
   return v13;
 }
 
-- (_BYTE)initWithGrade:(void *)grade
+- (NERelayManager)initWithGrade:(void *)grade
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (!grade)
   {
-LABEL_7:
-    v1 = 0;
-    goto LABEL_9;
+    return 0;
   }
 
-  v7.receiver = grade;
-  v7.super_class = NERelayManager;
-  v1 = objc_msgSendSuper2(&v7, sel_init);
+  v6.receiver = grade;
+  v6.super_class = NERelayManager;
+  v1 = objc_msgSendSuper2(&v6, sel_init);
   if (v1)
   {
     if (!+[NEProvider isRunningInProvider])
     {
       v1[10] = 0;
       [NERelayManager createEmptyConfigurationWithGrade:v1];
-      goto LABEL_9;
+      return v1;
     }
 
     v2 = ne_log_obj();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v5 = objc_opt_class();
+      v4 = objc_opt_class();
       *buf = 138412290;
-      v9 = v5;
-      v6 = v5;
+      v8 = v4;
+      v5 = v4;
       _os_log_error_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_ERROR, "%@ objects cannot be instantiated from NEProvider processes", buf, 0xCu);
     }
 
-    goto LABEL_7;
+    return 0;
   }
 
-LABEL_9:
-  v3 = *MEMORY[0x1E69E9840];
   return v1;
 }
 
@@ -1464,7 +1518,7 @@ LABEL_9:
 
 void __70__NERelayManager_loadAllManagersFromPreferencesWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (a3)
   {
@@ -1476,28 +1530,28 @@ void __70__NERelayManager_loadAllManagersFromPreferencesWithCompletionHandler___
 
   else
   {
-    v25 = v5;
-    v26 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v24 = v5;
+    v25 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v9 = v5;
-    v10 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v28;
+      v12 = *v27;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v28 != v12)
+          if (*v27 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v27 + 1) + 8 * i);
+          v14 = *(*(&v26 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -1507,7 +1561,7 @@ void __70__NERelayManager_loadAllManagersFromPreferencesWithCompletionHandler___
             {
               v16 = [NERelayManager alloc];
               v17 = v14;
-              if (v16 && (v31.receiver = v16, v31.super_class = NERelayManager, (v18 = objc_msgSendSuper2(&v31, sel_init)) != 0))
+              if (v16 && (v30.receiver = v16, v30.super_class = NERelayManager, (v18 = objc_msgSendSuper2(&v30, sel_init)) != 0))
               {
                 v19 = v18;
                 objc_storeStrong(v18 + 2, v14);
@@ -1521,7 +1575,7 @@ void __70__NERelayManager_loadAllManagersFromPreferencesWithCompletionHandler___
                 v19 = 0;
               }
 
-              [v26 addObject:v19];
+              [v25 addObject:v19];
               v20 = +[NERelayManager loadedManagers];
               v21 = [v17 identifier];
               [v20 setObject:v19 forKeyedSubscript:v21];
@@ -1529,20 +1583,18 @@ void __70__NERelayManager_loadAllManagersFromPreferencesWithCompletionHandler___
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
       while (v11);
     }
 
     v22 = *(a1 + 32);
-    v23 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v26];
+    v23 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v25];
     (*(v22 + 16))(v22, v23, 0);
 
-    v5 = v25;
+    v5 = v24;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 + (NERelayManager)sharedManager

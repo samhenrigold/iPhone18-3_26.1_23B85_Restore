@@ -269,15 +269,15 @@ LABEL_52:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v5 = [(NSUUID *)self->_identifier isEqual:equalCopy[1]];
+    isEqual = objc_msgSend_isEqual_(self->_identifier);
   }
 
   else
   {
-    v5 = 0;
+    isEqual = 0;
   }
 
-  return v5;
+  return isEqual;
 }
 
 @end

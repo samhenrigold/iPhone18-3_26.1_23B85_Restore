@@ -52,36 +52,38 @@
 
 void __21__RUIImageLoad_start__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = *(a1 + 32);
   v10 = a4;
-  if (([v9 receivedValidResponse:v8] & 1) == 0)
+  v11 = [v9 receivedValidResponse:v8];
+  if ((v11 & 1) == 0)
   {
-    if (_isInternalInstall())
+    isInternalInstall = _isInternalInstall(v11, v12);
+    if (isInternalInstall)
     {
-      v11 = _RUILoggingFacility();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v14 = _RUILoggingFacility(isInternalInstall);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = 138412290;
-        v17 = v8;
-        _os_log_impl(&dword_21B93D000, v11, OS_LOG_TYPE_DEFAULT, "RUIImageLoad received invalid response: %@", &v16, 0xCu);
+        v19 = 138412290;
+        v20 = v8;
+        _os_log_impl(&dword_21B93D000, v14, OS_LOG_TYPE_DEFAULT, "RUIImageLoad received invalid response: %@", &v19, 0xCu);
       }
     }
 
     v7 = 0;
   }
 
-  v12 = +[RUIImageLoader sharedImageLoader];
-  [v12 _setImageData:v7 forURL:*(*(a1 + 32) + 24) error:v10];
-
-  v13 = *(a1 + 32);
-  v14 = *(v13 + 16);
-  *(v13 + 16) = 0;
-
   v15 = +[RUIImageLoader sharedImageLoader];
-  [v15 _imageLoadFinished:*(a1 + 32)];
+  [v15 _setImageData:v7 forURL:*(*(a1 + 32) + 24) error:v10];
+
+  v16 = *(a1 + 32);
+  v17 = *(v16 + 16);
+  *(v16 + 16) = 0;
+
+  v18 = +[RUIImageLoader sharedImageLoader];
+  [v18 _imageLoadFinished:*(a1 + 32)];
 }
 
 @end

@@ -27,9 +27,11 @@
   attributedAddressCache = self->_attributedAddressCache;
   self->_attributedAddressCache = v7;
 
-  self->_listFormatter = objc_alloc_init(MUILocalizationListFormatter);
+  v9 = objc_alloc_init(MUILocalizationListFormatter);
+  listFormatter = self->_listFormatter;
+  self->_listFormatter = v9;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v9, listFormatter);
 }
 
 - (void)dealloc

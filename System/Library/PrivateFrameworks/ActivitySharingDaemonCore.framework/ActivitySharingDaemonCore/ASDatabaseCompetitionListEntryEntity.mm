@@ -12,11 +12,10 @@
 
 + (id)uniquedColumns
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"friend_uuid";
-  v5[1] = @"type";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"friend_uuid";
+  v4[1] = @"type";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }
@@ -34,15 +33,14 @@
 
 + (BOOL)saveCompetitionList:(id)list profile:(id)profile withError:(id *)error
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   listCopy = list;
   v9 = objc_opt_class();
-  v13[0] = listCopy;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = listCopy;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
 
   LOBYTE(error) = [v9 _insertCompetitionLists:v10 profile:profileCopy error:error];
-  v11 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -162,12 +160,11 @@ BOOL __94__ASDatabaseCompetitionListEntryEntity_enumerateAllCompetitionListsWith
 uint64_t __83__ASDatabaseCompetitionListEntryEntity_removeAllCompetitionListsWithProfile_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = [MEMORY[0x277D10B70] truePredicate];
-  v6 = *(a1 + 40);
-  v7 = objc_opt_class();
-  v8 = [*(a1 + 32) database];
-  v9 = [v7 deleteEntitiesWithPredicate:v5 healthDatabase:v8 error:a3];
+  v6 = objc_opt_class();
+  v7 = [*(a1 + 32) database];
+  v8 = [v6 deleteEntitiesWithPredicate:v5 healthDatabase:v7 error:a3];
 
-  return v9;
+  return v8;
 }
 
 uint64_t __83__ASDatabaseCompetitionListEntryEntity_removeAllCompetitionListsWithProfile_error___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -215,44 +212,43 @@ uint64_t __83__ASDatabaseCompetitionListEntryEntity_removeAllCompetitionListsWit
 
 uint64_t __78__ASDatabaseCompetitionListEntryEntity__insertCompetitionLists_profile_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = [a2 databaseForEntityClass:*(a1 + 40)];
+  v21 = 0u;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
   v6 = *(a1 + 32);
-  v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v24;
+    v9 = *v22;
     while (2)
     {
       v10 = 0;
       do
       {
-        if (*v24 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * v10);
-        v12 = *(a1 + 40);
-        v13 = objc_opt_class();
-        v22 = 0;
-        v14 = [v13 _insertCompetitionList:v11 database:v5 error:&v22];
-        v15 = v22;
-        v16 = v15;
-        if (!v14)
+        v11 = *(*(&v21 + 1) + 8 * v10);
+        v12 = objc_opt_class();
+        v20 = 0;
+        v13 = [v12 _insertCompetitionList:v11 database:v5 error:&v20];
+        v14 = v20;
+        v15 = v14;
+        if (!v13)
         {
-          v18 = v15;
-          if (v18)
+          v17 = v14;
+          if (v17)
           {
             if (a3)
             {
-              v19 = v18;
-              *a3 = v18;
+              v18 = v17;
+              *a3 = v17;
             }
 
             else
@@ -261,7 +257,7 @@ uint64_t __78__ASDatabaseCompetitionListEntryEntity__insertCompetitionLists_prof
             }
           }
 
-          v17 = 0;
+          v16 = 0;
           goto LABEL_15;
         }
 
@@ -269,7 +265,7 @@ uint64_t __78__ASDatabaseCompetitionListEntryEntity__insertCompetitionLists_prof
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v8)
       {
         continue;
@@ -279,47 +275,46 @@ uint64_t __78__ASDatabaseCompetitionListEntryEntity__insertCompetitionLists_prof
     }
   }
 
-  v17 = 1;
+  v16 = 1;
 LABEL_15:
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v17;
+  return v16;
 }
 
 uint64_t __78__ASDatabaseCompetitionListEntryEntity__insertCompetitionLists_profile_error___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(*(a1 + 32), "count")}];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v6 = *(a1 + 32);
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       v10 = 0;
       do
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * v10);
+        v11 = *(*(&v17 + 1) + 8 * v10);
         v12 = [ASDatabaseCompetitionListEntryJournalEntry alloc];
-        v13 = [(ASDatabaseCompetitionListEntryJournalEntry *)v12 initWithCompetitionList:v11, v18];
+        v13 = [(ASDatabaseCompetitionListEntryJournalEntry *)v12 initWithCompetitionList:v11, v17];
         [v5 addObject:v13];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
@@ -328,7 +323,6 @@ uint64_t __78__ASDatabaseCompetitionListEntryEntity__insertCompetitionLists_prof
   v14 = [*(a1 + 40) database];
   v15 = [v14 addJournalEntries:v5 error:a3];
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -366,31 +360,28 @@ void __78__ASDatabaseCompetitionListEntryEntity__insertCompetitionList_database_
 
 void __94__ASDatabaseCompetitionListEntryEntity_enumerateAllCompetitionListsWithProfile_error_handler___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_23E5E3000, a2, OS_LOG_TYPE_ERROR, "Error instantiating database competition lists during database retrieval: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_23E5E3000, a2, OS_LOG_TYPE_ERROR, "Error instantiating database competition lists during database retrieval: %{public}@", &v2, 0xCu);
 }
 
 + (void)removeAllCompetitionListsWithProfile:(uint64_t *)a1 error:(NSObject *)a2 .cold.1(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *a1;
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_23E5E3000, a2, OS_LOG_TYPE_ERROR, "Error removing competitions: %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_23E5E3000, a2, OS_LOG_TYPE_ERROR, "Error removing competitions: %{public}@", &v3, 0xCu);
 }
 
 + (void)_insertCompetitionLists:(uint64_t)a1 profile:(void *)a2 error:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  *v4 = 138543618;
-  *&v4[4] = a1;
-  *&v4[12] = 2114;
-  *&v4[14] = *a2;
-  OUTLINED_FUNCTION_3_0(&dword_23E5E3000, a2, a3, "Error inserting competition lists %{public}@: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138543618;
+  *&v3[4] = a1;
+  *&v3[12] = 2114;
+  *&v3[14] = *a2;
+  OUTLINED_FUNCTION_3_0(&dword_23E5E3000, a2, a3, "Error inserting competition lists %{public}@: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 @end

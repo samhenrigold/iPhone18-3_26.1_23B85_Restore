@@ -418,7 +418,7 @@ LABEL_43:
 
   if (!hasPrimaryColorRange)
   {
-    v27 = NTKInterpolateBetweenColors();
+    v27 = NTKInterpolateBetweenColors(0.7);
     goto LABEL_43;
   }
 
@@ -662,17 +662,17 @@ LABEL_87:
   if (!(v5 & 1 | !isEditingComplications))
   {
     blackColor = [*(v71 + 840) blackColor];
-    v79 = NTKInterpolateBetweenColors();
+    v79 = NTKInterpolateBetweenColors(0.8);
     v80 = self->_topApproximateBackgroundColor;
     self->_topApproximateBackgroundColor = v79;
 
     blackColor2 = [*(v71 + 840) blackColor];
-    v82 = NTKInterpolateBetweenColors();
+    v82 = NTKInterpolateBetweenColors(0.8);
     v83 = self->_centerApproximateBackgroundColor;
     self->_centerApproximateBackgroundColor = v82;
 
     blackColor3 = [*(v71 + 840) blackColor];
-    v85 = NTKInterpolateBetweenColors();
+    v85 = NTKInterpolateBetweenColors(0.8);
     v86 = self->_bottomApproximateBackgroundColor;
     self->_bottomApproximateBackgroundColor = v85;
   }
@@ -803,20 +803,20 @@ LABEL_119:
   if (isEditingComplications)
   {
     blackColor5 = [*(v71 + 840) blackColor];
-    v108 = NTKInterpolateBetweenColors();
+    v108 = NTKInterpolateBetweenColors(0.2);
     v109 = self->_infographModularTimeLabelColor;
     self->_infographModularTimeLabelColor = v108;
   }
 
   objc_storeStrong(&self->_infographModularDateAccentColor, self->_foregroundColor);
   whiteColor4 = [*(v71 + 840) whiteColor];
-  v111 = NTKInterpolateBetweenColors();
+  v111 = NTKInterpolateBetweenColors(0.3);
   xLargeSmallTimeTritiumOutlineColor = self->_xLargeSmallTimeTritiumOutlineColor;
   self->_xLargeSmallTimeTritiumOutlineColor = v111;
 
   objc_storeStrong(&self->_xLargeLargeTimeTritiumOutlineColor, self->_accentColor);
   blackColor6 = [*(v71 + 840) blackColor];
-  v114 = NTKInterpolateBetweenColors();
+  v114 = NTKInterpolateBetweenColors(0.5);
   xLargeLargeTimeTritiumFillColor = self->_xLargeLargeTimeTritiumFillColor;
   self->_xLargeLargeTimeTritiumFillColor = v114;
 }

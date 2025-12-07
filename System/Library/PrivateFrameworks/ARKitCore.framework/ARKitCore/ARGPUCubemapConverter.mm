@@ -8,10 +8,10 @@
 
 - (ARGPUCubemapConverter)init
 {
-  v50 = *MEMORY[0x1E69E9840];
-  v43.receiver = self;
-  v43.super_class = ARGPUCubemapConverter;
-  v2 = [(ARGPUCubemapConverter *)&v43 init];
+  v53 = *MEMORY[0x1E69E9840];
+  v46.receiver = self;
+  v46.super_class = ARGPUCubemapConverter;
+  v2 = [(ARGPUCubemapConverter *)&v46 init];
   v3 = +[ARSharedGPUDevice sharedInstance];
   device = [v3 device];
   device = v2->_device;
@@ -22,18 +22,19 @@
   v2->_commandQueue = newCommandQueue;
 
   [(MTLCommandQueue *)v2->_commandQueue setLabel:@"com.apple.arkit.cubemapconverter.queue"];
-  v2->_gpuFamilyAtleast4 = [(MTLDevice *)v2->_device supportsFamily:1004];
-  v8 = ARKitCoreBundle();
-  v9 = [v8 URLForResource:@"default" withExtension:@"metallib"];
-  v10 = [(MTLDevice *)v2->_device newLibraryWithURL:v9 error:0];
-  [v10 setLabel:@"com.apple.cubemapconverter.library"];
-  v11 = [v10 newFunctionWithName:@"compute_latlong_from_cubemap"];
-  v12 = v2->_device;
-  v42 = 0;
-  v13 = [(MTLDevice *)v12 newComputePipelineStateWithFunction:v11 error:&v42];
-  v14 = v42;
+  v8 = [(MTLDevice *)v2->_device supportsFamily:1004];
+  v2->_gpuFamilyAtleast4 = v8;
+  v9 = ARKitCoreBundle(v8);
+  v10 = [v9 URLForResource:@"default" withExtension:@"metallib"];
+  v11 = [(MTLDevice *)v2->_device newLibraryWithURL:v10 error:0];
+  [v11 setLabel:@"com.apple.cubemapconverter.library"];
+  v12 = [v11 newFunctionWithName:@"compute_latlong_from_cubemap"];
+  v13 = v2->_device;
+  v45 = 0;
+  v14 = [(MTLDevice *)v13 newComputePipelineStateWithFunction:v12 error:&v45];
+  v15 = v45;
   cubemapToLatLongPipelineState = v2->_cubemapToLatLongPipelineState;
-  v2->_cubemapToLatLongPipelineState = v13;
+  v2->_cubemapToLatLongPipelineState = v14;
 
   if (v2->_cubemapToLatLongPipelineState)
   {
@@ -45,63 +46,63 @@
     [ARGPUCubemapConverter init];
   }
 
-  v16 = ARShouldUseLogTypeError_internalOSVersion_39;
-  v17 = _ARLogGeneral_31();
-  v18 = v17;
-  if (v16 == 1)
+  v18 = ARShouldUseLogTypeError_internalOSVersion_39;
+  v19 = _ARLogGeneral_31(v17);
+  v20 = v19;
+  if (v18 == 1)
   {
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v19 = objc_opt_class();
-      v20 = NSStringFromClass(v19);
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
       *buf = 138543874;
-      v45 = v20;
-      v46 = 2048;
-      v47 = v2;
-      v48 = 2112;
-      v49 = v14;
-      v21 = "%{public}@ <%p>: Failed to create cube map conversion pipeline state, error %@";
-      v22 = v18;
-      v23 = OS_LOG_TYPE_ERROR;
+      v48 = v22;
+      v49 = 2048;
+      v50 = v2;
+      v51 = 2112;
+      v52 = v15;
+      v23 = "%{public}@ <%p>: Failed to create cube map conversion pipeline state, error %@";
+      v24 = v20;
+      v25 = OS_LOG_TYPE_ERROR;
 LABEL_9:
-      _os_log_impl(&dword_1C241C000, v22, v23, v21, buf, 0x20u);
+      _os_log_impl(&dword_1C241C000, v24, v25, v23, buf, 0x20u);
     }
   }
 
-  else if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  else if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
-    v24 = objc_opt_class();
-    v20 = NSStringFromClass(v24);
+    v26 = objc_opt_class();
+    v22 = NSStringFromClass(v26);
     *buf = 138543874;
-    v45 = v20;
-    v46 = 2048;
-    v47 = v2;
-    v48 = 2112;
-    v49 = v14;
-    v21 = "Error: %{public}@ <%p>: Failed to create cube map conversion pipeline state, error %@";
-    v22 = v18;
-    v23 = OS_LOG_TYPE_INFO;
+    v48 = v22;
+    v49 = 2048;
+    v50 = v2;
+    v51 = 2112;
+    v52 = v15;
+    v23 = "Error: %{public}@ <%p>: Failed to create cube map conversion pipeline state, error %@";
+    v24 = v20;
+    v25 = OS_LOG_TYPE_INFO;
     goto LABEL_9;
   }
 
 LABEL_11:
   if (v2->_gpuFamilyAtleast4)
   {
-    v25 = @"compute_cubemap_from_latlong";
+    v27 = @"compute_cubemap_from_latlong";
   }
 
   else
   {
-    v25 = @"compute_cubemap_from_latlong_views";
+    v27 = @"compute_cubemap_from_latlong_views";
   }
 
-  v26 = [v10 newFunctionWithName:v25];
-  v27 = v2->_device;
-  v41 = 0;
-  v28 = [(MTLDevice *)v27 newComputePipelineStateWithFunction:v26 error:&v41];
-  v29 = v41;
+  v28 = [v11 newFunctionWithName:v27];
+  v29 = v2->_device;
+  v44 = 0;
+  v30 = [(MTLDevice *)v29 newComputePipelineStateWithFunction:v28 error:&v44];
+  v31 = v44;
   latLongToCubemapPipelineState = v2->_latLongToCubemapPipelineState;
-  v2->_latLongToCubemapPipelineState = v28;
+  v2->_latLongToCubemapPipelineState = v30;
 
   if (!v2->_latLongToCubemapPipelineState)
   {
@@ -110,42 +111,42 @@ LABEL_11:
       [ARGPUCubemapConverter init];
     }
 
-    v31 = ARShouldUseLogTypeError_internalOSVersion_39;
-    v32 = _ARLogGeneral_31();
-    v33 = v32;
-    if (v31 == 1)
+    v34 = ARShouldUseLogTypeError_internalOSVersion_39;
+    v35 = _ARLogGeneral_31(v33);
+    v36 = v35;
+    if (v34 == 1)
     {
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
-        v34 = objc_opt_class();
-        v35 = NSStringFromClass(v34);
+        v37 = objc_opt_class();
+        v38 = NSStringFromClass(v37);
         *buf = 138543874;
-        v45 = v35;
-        v46 = 2048;
-        v47 = v2;
-        v48 = 2112;
-        v49 = v29;
-        v36 = "%{public}@ <%p>: Failed to create cube map conversion pipeline state, error %@";
-        v37 = v33;
-        v38 = OS_LOG_TYPE_ERROR;
+        v48 = v38;
+        v49 = 2048;
+        v50 = v2;
+        v51 = 2112;
+        v52 = v31;
+        v39 = "%{public}@ <%p>: Failed to create cube map conversion pipeline state, error %@";
+        v40 = v36;
+        v41 = OS_LOG_TYPE_ERROR;
 LABEL_22:
-        _os_log_impl(&dword_1C241C000, v37, v38, v36, buf, 0x20u);
+        _os_log_impl(&dword_1C241C000, v40, v41, v39, buf, 0x20u);
       }
     }
 
-    else if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
     {
-      v39 = objc_opt_class();
-      v35 = NSStringFromClass(v39);
+      v42 = objc_opt_class();
+      v38 = NSStringFromClass(v42);
       *buf = 138543874;
-      v45 = v35;
-      v46 = 2048;
-      v47 = v2;
-      v48 = 2112;
-      v49 = v29;
-      v36 = "Error: %{public}@ <%p>: Failed to create cube map conversion pipeline state, error %@";
-      v37 = v33;
-      v38 = OS_LOG_TYPE_INFO;
+      v48 = v38;
+      v49 = 2048;
+      v50 = v2;
+      v51 = 2112;
+      v52 = v31;
+      v39 = "Error: %{public}@ <%p>: Failed to create cube map conversion pipeline state, error %@";
+      v40 = v36;
+      v41 = OS_LOG_TYPE_INFO;
       goto LABEL_22;
     }
   }

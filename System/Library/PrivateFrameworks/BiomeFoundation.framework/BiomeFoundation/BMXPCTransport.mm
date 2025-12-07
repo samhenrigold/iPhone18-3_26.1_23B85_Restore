@@ -5,7 +5,7 @@
 
 void __32___BMXPCTransport__handleEvent___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) queue];
   dispatch_assert_queue_V2(v4);
@@ -43,11 +43,11 @@ void __32___BMXPCTransport__handleEvent___block_invoke(uint64_t a1, void *a2)
       v20 = __biome_log_for_category(0);
       if (os_log_type_enabled(v20, v19))
       {
-        v24 = 136446466;
-        v25 = v10;
-        v26 = 2082;
-        v27 = v18;
-        _os_log_impl(&dword_1AC15D000, v20, v19, "Connection to '%{public}s' invalidated: %{public}s", &v24, 0x16u);
+        v23 = 136446466;
+        v24 = v10;
+        v25 = 2082;
+        v26 = v18;
+        _os_log_impl(&dword_1AC15D000, v20, v19, "Connection to '%{public}s' invalidated: %{public}s", &v23, 0x16u);
       }
 
       free(v18);
@@ -137,50 +137,44 @@ LABEL_35:
   }
 
 LABEL_36:
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __32___BMXPCTransport__handleEvent___block_invoke_cold_1(const _xpc_type_s *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   xpc_type_get_name(a1);
   OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(&dword_1AC15D000, a2, OS_LOG_TYPE_ERROR, "_BMXPCTransport unhandled type: %s", v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1AC15D000, a2, OS_LOG_TYPE_ERROR, "_BMXPCTransport unhandled type: %s", v3, 0xCu);
 }
 
 void __32___BMXPCTransport__handleEvent___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_3();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_1AC15D000, v1, OS_LOG_TYPE_DEBUG, "Connection to '%{public}s' encountered unknown error type %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1AC15D000, v1, OS_LOG_TYPE_DEBUG, "Connection to '%{public}s' encountered unknown error type %@", v2, 0x16u);
 }
 
 void __32___BMXPCTransport__handleEvent___block_invoke_cold_3()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_3();
-  _os_log_debug_impl(&dword_1AC15D000, v0, OS_LOG_TYPE_DEBUG, "Connection to '%{public}s' termination imminent", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1AC15D000, v0, OS_LOG_TYPE_DEBUG, "Connection to '%{public}s' termination imminent", v1, 0xCu);
 }
 
 void __32___BMXPCTransport__handleEvent___block_invoke_cold_4()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(&dword_1AC15D000, v0, OS_LOG_TYPE_ERROR, "Connection to '%{public}s' failed peer code signing requirement", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1AC15D000, v0, OS_LOG_TYPE_ERROR, "Connection to '%{public}s' failed peer code signing requirement", v1, 0xCu);
 }
 
 void __32___BMXPCTransport__handleEvent___block_invoke_cold_5()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_3();
-  _os_log_debug_impl(&dword_1AC15D000, v0, OS_LOG_TYPE_DEBUG, "Connection to '%{public}s' interrupted", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1AC15D000, v0, OS_LOG_TYPE_DEBUG, "Connection to '%{public}s' interrupted", v1, 0xCu);
 }
 
 @end

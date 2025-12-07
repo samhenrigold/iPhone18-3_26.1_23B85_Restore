@@ -257,9 +257,9 @@ id NUAssertLogger_222()
   return v1;
 }
 
-void sub_1C0192A40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C0192A40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -319,9 +319,9 @@ id NUAssertLogger_530()
   return v1;
 }
 
-void sub_1C01983D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1C01983D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -340,9 +340,9 @@ void sub_1C019CAE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1C019D728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1C019D728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -440,9 +440,9 @@ id NUAssertLogger_981()
   return v1;
 }
 
-void sub_1C01A7BDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C01A7BDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -483,14 +483,14 @@ id NUAssertLogger_1288()
   return v1;
 }
 
-void sub_1C01AED4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1C01AED4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va1, 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -503,14 +503,14 @@ uint64_t __Block_byref_object_copy__1479(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C01AF1E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1C01AF1E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va1, 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -642,8 +642,9 @@ void ___ZN12_GLOBAL__N_114getCachedBrushElf_block_invoke_2(uint64_t a1, void *a2
 
 uint64_t ___ZN12_GLOBAL__N_114getCachedBrushElf_block_invoke()
 {
+  v0 = dispatch_queue_create("com.apple.photoapps.cached_brush_queue", 0);
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 id NUAssertLogger_1594()
@@ -658,9 +659,9 @@ id NUAssertLogger_1594()
   return v1;
 }
 
-void sub_1C01B08C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C01B08C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -672,18 +673,18 @@ uint64_t __Block_byref_object_copy__1610(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C01B3488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1C01B3488(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C01B44D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C01B44D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 48), 8);
+  _Block_object_dispose((v16 - 48), 8);
   _Unwind_Resume(a1);
 }
 
@@ -704,6 +705,20 @@ id NUAssertLogger_1900()
   v1 = _NUAssertLogger;
 
   return v1;
+}
+
+void sub_1C01B6240(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1C01B6AEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 id NUAssertLogger_2109()
@@ -851,9 +866,9 @@ id NUAssertLogger_2583()
   return v1;
 }
 
-void sub_1C01C183C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1C01C183C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -870,7 +885,7 @@ id NURenderLogger()
   return v1;
 }
 
-uint64_t ImageIOLibraryCore()
+uint64_t ImageIOLibraryCore(uint64_t a1)
 {
   if (!ImageIOLibraryCore_frameworkLibrary)
   {
@@ -902,29 +917,33 @@ uint64_t getCGImageSourceCopyAuxiliaryDataInfoAtIndexWithOptionsSymbolLoc()
   return v0;
 }
 
-void sub_1C01C40CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C01C40CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void *__getCGImageSourceCopyAuxiliaryDataInfoAtIndexWithOptionsSymbolLoc_block_invoke(void *a1)
 {
-  v2 = ImageIOLibraryCore();
-  if (v2)
-  {
-    v3 = v2;
-  }
-
-  else
+  v6 = 0;
+  v2 = ImageIOLibraryCore(&v6);
+  if (!v2)
   {
     a1 = [MEMORY[0x1E696AAA8] currentHandler];
     v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *ImageIOLibrary(void)"];
-    [a1 handleFailureInFunction:v3 file:@"NURenderSourceNode+CGImage.m" lineNumber:39 description:{@"%s", 0}];
+    [a1 handleFailureInFunction:v3 file:@"NURenderSourceNode+CGImage.m" lineNumber:39 description:{@"%s", v6}];
 
     __break(1u);
-    free(v5);
+    goto LABEL_5;
+  }
+
+  v3 = v2;
+  v4 = v6;
+  if (v6)
+  {
+LABEL_5:
+    free(v4);
   }
 
   result = dlsym(v3, "CGImageSourceCopyAuxiliaryDataInfoAtIndexWithOptions");
@@ -933,7 +952,7 @@ void *__getCGImageSourceCopyAuxiliaryDataInfoAtIndexWithOptionsSymbolLoc_block_i
   return result;
 }
 
-uint64_t __ImageIOLibraryCore_block_invoke()
+uint64_t __ImageIOLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   ImageIOLibraryCore_frameworkLibrary = result;
@@ -1405,7 +1424,7 @@ void ConfigureAssistantTimingFromTrack(void *a1, void *a2)
   if (v4)
   {
     memset(&v11, 0, sizeof(v11));
-    [v4 minFrameDuration];
+    objc_msgSend_minFrameDuration(v4);
     if (0 >> 96)
     {
       time1 = v11;
@@ -1523,9 +1542,9 @@ __CFString *NUChannelMediaTypeDescription(unint64_t a1)
   }
 }
 
-void sub_1C01E5E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C01E5E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1653,12 +1672,12 @@ __CFString *NUChannelExpressionTypeDescription(unint64_t a1)
   }
 }
 
-void sub_1C01FFF98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1C01FFF98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 112), 8);
-  _Block_object_dispose((v17 - 80), 8);
+  _Block_object_dispose((v24 - 112), 8);
+  _Block_object_dispose((v24 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1686,9 +1705,9 @@ id NUAssertLogger_5128()
   return v1;
 }
 
-void sub_1C020ACD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1C020ACD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1757,9 +1776,9 @@ id NULogger_6168()
   return v1;
 }
 
-void sub_1C0225378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C0225378(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1771,9 +1790,9 @@ uint64_t __Block_byref_object_copy__6249(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C023F768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C023F768(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1785,9 +1804,9 @@ uint64_t __Block_byref_object_copy__6984(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C023F944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C023F944(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2316,16 +2335,16 @@ BOOL _canExpandWithAbsoluteAnchor(uint64_t a1, float64x2_t a2, float64x2_t a3, f
   return canExpandWithAbsoluteAnchor(a1, v10, &v12, &v11);
 }
 
-void sub_1C024CD94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C024CD94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C024CF54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C024CF54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2393,7 +2412,7 @@ NUCVPixelBuffer *GenerateMaskForInstances(void *a1, void *a2, uint64_t a3, void 
 
   v21 = ApplyOrientation(v18, v20);
 
-  [v21 extent];
+  objc_msgSend_extent(v21);
   v24 = [NUVideoUtilities newPixelBufferOfSize:vcvtpd_s64_f64(v22) format:vcvtpd_s64_f64(v23), 1278226488];
 
   v25 = [objc_alloc(MEMORY[0x1E695F678]) initWithPixelBuffer:{-[NUCVPixelBuffer CVPixelBuffer](v24, "CVPixelBuffer")}];
@@ -2432,7 +2451,7 @@ id ApplyOrientation(void *a1, uint64_t a2)
   v4 = v3;
   if (a2 != 1)
   {
-    [v3 extent];
+    objc_msgSend_extent(v3);
     v11 = 0u;
     v12 = 0u;
     v10 = 0u;
@@ -2496,9 +2515,9 @@ id NUAssertLogger_9314()
   return v1;
 }
 
-void sub_1C02622E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C02622E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2682,16 +2701,16 @@ uint64_t __Block_byref_object_copy__9999(uint64_t result, uint64_t a2)
   return result;
 }
 
-void deriveTranslatedRectFromConstrainedRect(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, float64x2_t a9, double a10, double a11, double a12, __n128 a13, __n128 a14, __n128 a15, __n128 a16, float64x2_t a17)
+void deriveTranslatedRectFromConstrainedRect(float64x2_t a1, double a2, double a3, double a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, __n128 a13, __n128 a14, __n128 a15, __n128 a16, float64x2_t a17)
 {
-  v18.n128_f64[0] = a9.f64[0] + a11;
-  a9.f64[1] = a10;
-  v19.n128_f64[0] = a9.f64[0] + a11;
-  v19.n128_f64[1] = a10;
-  v20.n128_u64[0] = *&a9.f64[0];
-  v20.n128_f64[1] = a10 + a12;
-  v18.n128_f64[1] = a10 + a12;
-  v24[0] = deriveTranslatedQuadFromConstrainedQuad(a9, v19, v20, v18, a13, a14, a15, a16, a1, a2, a3, a4, a5, a6, a7, a8, a17);
+  v18.n128_f64[0] = a1.f64[0] + a3;
+  a1.f64[1] = a2;
+  v19.n128_f64[0] = a1.f64[0] + a3;
+  v19.n128_f64[1] = a2;
+  v20.n128_u64[0] = *&a1.f64[0];
+  v20.n128_f64[1] = a2 + a4;
+  v18.n128_f64[1] = a2 + a4;
+  v24[0] = deriveTranslatedQuadFromConstrainedQuad(a1, v19, v20, v18, a13, a14, a15, a16, a5, a6, a7, a8, a9, a10, a11, a12, a17);
   v24[1] = v21;
   v24[2] = v22;
   v24[3] = v23;
@@ -2754,7 +2773,7 @@ LABEL_8:
     *buf = a5;
     *&buf[16] = a6;
     v55 = vsubq_f64(v21, v46);
-    LODWORD(v73) = 0;
+    LODWORD(v73.f64[0]) = 0;
     v74 = a6;
     *v75 = a8;
     *&v75[16] = 0;
@@ -2996,10 +3015,10 @@ LABEL_5:
   }
 }
 
-double projectionPoint(uint64_t a1, float64x2_t a2)
+double projectionPoint(float64x2_t *a1, float64x2_t a2)
 {
   v13 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 16);
+  v2 = a1[1];
   v8 = *a1;
   v3 = vsubq_f64(v2, *a1);
   v2.f64[0] = -*&v3.i64[1];
@@ -4281,9 +4300,11 @@ uint64_t _NULogInit()
   v11 = _NUUILogger;
   _NUUILogger = v10;
 
-  _NUJSLogger = os_log_create("com.apple.photos.Neutrino", "js");
+  v12 = os_log_create("com.apple.photos.Neutrino", "js");
+  v13 = _NUJSLogger;
+  _NUJSLogger = v12;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v12, v13);
 }
 
 void NULogAdoptVoucher(void *a1, void *a2)
@@ -4296,9 +4317,9 @@ void NULogAdoptVoucher(void *a1, void *a2)
   v5 = voucher_adopt();
 }
 
-void sub_1C026A620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C026A620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4377,16 +4398,16 @@ id NUAssertLogger_11533()
   return v1;
 }
 
-void sub_1C0283DB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1C0283DB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4435,9 +4456,9 @@ id NUAssertLogger_12301()
   return v1;
 }
 
-void sub_1C0288698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_1C0288698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4506,9 +4527,9 @@ double NU::Sum(double **this, const DataSet *a2)
   return v4;
 }
 
-void sub_1C028CC94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C028CC94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4554,9 +4575,9 @@ double NU::Min(double **this, const DataSet *a2)
   return v4;
 }
 
-void sub_1C028CDA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C028CDA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4606,9 +4627,9 @@ double NU::Max(double **this, const DataSet *a2)
   return v4;
 }
 
-void sub_1C028CEB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C028CEB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4806,7 +4827,7 @@ void sub_1C028D238(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -4828,7 +4849,7 @@ void sub_1C028D2B0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<double>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<double>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -4871,7 +4892,7 @@ std::logic_error *std::length_error::length_error[abi:ne200100](std::logic_error
 
 long double NU::GeometricMean(NU *this, const NU::DataSet *a2)
 {
-  NU::Log(this, &v6);
+  NU::Log(&v6, this);
   v3 = NU::Sum(&v6, v2);
   if (v7 != v6)
   {
@@ -5069,13 +5090,13 @@ float64_t NU::Quad2d::findInscribedUnscaledFitRect(NU::Quad2d *this, const CGRec
   return origin.f64[0];
 }
 
-void NU::Quad2d::findInscribedAxisAlignedFitRectWithAnchor(float64x2_t *a1, float64x2_t *a2, uint64_t a3, uint64_t a4)
+void NU::Quad2d::findInscribedAxisAlignedFitRectWithAnchor(float64x2_t *a1, float64x2_t *a2, uint64_t a3, float64x2_t *a4)
 {
   v26 = *a4;
-  v27 = *(a4 + 16);
+  v27 = a4[1];
   v8 = vaddq_f64(v27, *a4);
   v9.f64[0] = v8.f64[0];
-  v9.f64[1] = *(a4 + 8);
+  v9.f64[1] = a4->f64[1];
   v42 = v26;
   v43 = v9;
   v24 = v9;
@@ -5118,7 +5139,7 @@ void NU::Quad2d::findInscribedAxisAlignedFitRectWithAnchor(float64x2_t *a1, floa
       v42.f64[1] = v17;
       v43.f64[0] = v19;
       v43.f64[1] = v21;
-      v22 = v21 / *(a4 + 24);
+      v22 = v21 / a4[1].f64[1];
       v29 = *a2;
       v32[0] = vsubq_f64(v32[0], *a2);
       NU::RectT<double>::scale(v32[0].f64, 1.0, v22);
@@ -5998,12 +6019,12 @@ uint64_t *nu::fill_rect<NUPixelRect>(uint64_t *result, uint64_t a2, uint64_t a3,
   return result;
 }
 
-void sub_1C02A0BC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_1C02A0BC4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = NUPurgeableImageAccessGuard;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -6122,6 +6143,13 @@ id NUAssertLogger_15131()
   return v1;
 }
 
+void sub_1C02B46A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
+{
+  va_start(va, a36);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t __Block_byref_object_copy__15239(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -6145,28 +6173,31 @@ id NUMediaCharacteristicForAuxiliaryImageType(uint64_t a1)
   return v3;
 }
 
-void sub_1C02B60D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55)
+void sub_1C02B60D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, ...)
 {
-  _Block_object_dispose((v55 - 208), 8);
+  va_start(va, a54);
+  _Block_object_dispose((v54 - 208), 8);
   _Block_object_dispose(&a51, 8);
-  _Block_object_dispose(&a55, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C02B69EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_1C02B69EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a33, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C02B71C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_1C02B71C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
+  va_start(va, a40);
   _Block_object_dispose(&a32, 8);
-  _Block_object_dispose((v41 - 192), 8);
-  _Block_object_dispose(&a41, 8);
-  _Block_object_dispose((v41 - 256), 8);
-  _Block_object_dispose((v41 - 224), 8);
+  _Block_object_dispose((v40 - 192), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v40 - 256), 8);
+  _Block_object_dispose((v40 - 224), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6178,16 +6209,16 @@ BOOL __NUCMSampleBufferIsSyncSample_block_invoke(uint64_t a1, void *a2)
   return v3;
 }
 
-void sub_1C02B88C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C02B88C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C02BB9CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1C02BB9CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6348,7 +6379,7 @@ id NUValueFromArrayAtTime(void *a1, CMTime *a2)
         v11 = *(*(&v30 + 1) + 8 * v9);
         if (v11)
         {
-          [*(*(&v30 + 1) + 8 * v9) time];
+          objc_msgSend_time(*(*(&v30 + 1) + 8 * v9));
         }
 
         else
@@ -6409,16 +6440,16 @@ id NUAssertLogger_15823()
   return v1;
 }
 
-void sub_1C02C63F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C02C63F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -6431,23 +6462,23 @@ uint64_t __Block_byref_object_copy__15874(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1C02C8120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C02C8120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C02CC7B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C02CC7B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1C02CCAD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C02CCAD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6459,9 +6490,9 @@ void __NURenderNodeDictionaryHash_block_invoke(uint64_t a1, void *a2, void *a3)
   *(*(*(a1 + 32) + 8) + 24) ^= 0x20E47795B02877 * a3;
 }
 
-void sub_1C02CCD68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C02CCD68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6491,9 +6522,9 @@ id NUAssertLogger_16336()
   return v1;
 }
 
-void sub_1C02CEF9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C02CEF9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6537,7 +6568,7 @@ void *nu_CVPixelBufferDataProviderGetBytePointer(__CVBuffer *a1)
   return CVPixelBufferGetBaseAddress(a1);
 }
 
-uint64_t ImageIOLibraryCore_16784()
+uint64_t ImageIOLibraryCore_16784(uint64_t a1)
 {
   if (!ImageIOLibraryCore_frameworkLibrary_16801)
   {
@@ -6569,9 +6600,9 @@ uint64_t getkCGImageAuxiliaryDataInfoPixelBufferSymbolLoc()
   return v0;
 }
 
-void sub_1C02D7ED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1C02D7ED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6590,20 +6621,24 @@ void getkCGImageAuxiliaryDataInfoPixelBuffer()
 
 void *__getkCGImageAuxiliaryDataInfoPixelBufferSymbolLoc_block_invoke(void *a1)
 {
-  v2 = ImageIOLibraryCore_16784();
-  if (v2)
-  {
-    v3 = v2;
-  }
-
-  else
+  v6 = 0;
+  v2 = ImageIOLibraryCore_16784(&v6);
+  if (!v2)
   {
     a1 = [MEMORY[0x1E696AAA8] currentHandler];
     v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *ImageIOLibrary(void)"];
-    [a1 handleFailureInFunction:v3 file:@"NUAuxiliaryImage.m" lineNumber:30 description:{@"%s", 0}];
+    [a1 handleFailureInFunction:v3 file:@"NUAuxiliaryImage.m" lineNumber:30 description:{@"%s", v6}];
 
     __break(1u);
-    free(v5);
+    goto LABEL_5;
+  }
+
+  v3 = v2;
+  v4 = v6;
+  if (v6)
+  {
+LABEL_5:
+    free(v4);
   }
 
   result = dlsym(v3, "kCGImageAuxiliaryDataInfoPixelBuffer");
@@ -6612,7 +6647,7 @@ void *__getkCGImageAuxiliaryDataInfoPixelBufferSymbolLoc_block_invoke(void *a1)
   return result;
 }
 
-uint64_t __ImageIOLibraryCore_block_invoke_16802()
+uint64_t __ImageIOLibraryCore_block_invoke_16802(uint64_t a1)
 {
   result = _sl_dlopen();
   ImageIOLibraryCore_frameworkLibrary_16801 = result;
@@ -6764,9 +6799,9 @@ id NUAssertLogger_17098()
   return v1;
 }
 
-void sub_1C02D9CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1C02D9CF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6877,7 +6912,7 @@ uint64_t NUPixelPointFromCGPoint(uint64_t a1, double a2, double a3)
   return v5;
 }
 
-double NUPixelRectContainingPoints@<D0>(float64x2_t *a1@<X0>, int a2@<W1>, _OWORD *a3@<X8>)
+double NUPixelRectContainingPoints@<D0>(float64x2_t *a1@<X0>, unsigned int a2@<W1>, _OWORD *a3@<X8>)
 {
   v4 = *a1;
   if (a2 < 2)
@@ -6911,7 +6946,7 @@ double NUPixelRectContainingPoints@<D0>(float64x2_t *a1@<X0>, int a2@<W1>, _OWOR
   return result;
 }
 
-void *NU::RectT<long>::RectT(void *a1, CGRect *a2, uint64_t a3)
+unint64_t *NU::RectT<long>::RectT(unint64_t *a1, CGRect *a2, uint64_t a3)
 {
   MinX = CGRectGetMinX(*a2);
   MinY = CGRectGetMinY(*a2);
@@ -6921,7 +6956,7 @@ void *NU::RectT<long>::RectT(void *a1, CGRect *a2, uint64_t a3)
   return a1;
 }
 
-void *NU::RectT<long>::setXYMinMax(void *result, uint64_t a2, double a3, double a4, double a5, double a6)
+unint64_t *NU::RectT<long>::setXYMinMax(unint64_t *result, uint64_t a2, double a3, double a4, double a5, double a6)
 {
   v8 = result;
   v35 = *MEMORY[0x1E69E9840];
@@ -6949,8 +6984,8 @@ void *NU::RectT<long>::setXYMinMax(void *result, uint64_t a2, double a3, double 
       v14 = vcvtpd_s64_f64(a4 + -0.000001);
       if (a6 - a4 < 1.000002)
       {
-        *(v8 + 8) = v14;
-        *(v8 + 24) = 0;
+        v8[1] = v14;
+        v8[3] = 0;
         return result;
       }
 
@@ -7289,7 +7324,7 @@ LABEL_6:
   return 0;
 }
 
-double NUPixelRectUnion@<D0>(__int128 *a1@<X0>, _OWORD *a2@<X1>, _OWORD *a3@<X8>)
+double NUPixelRectUnion@<D0>(__n128 *a1@<X0>, __n128 *a2@<X1>, _OWORD *a3@<X8>)
 {
   v4 = a2[1];
   v10[0] = *a2;
@@ -7298,20 +7333,20 @@ double NUPixelRectUnion@<D0>(__int128 *a1@<X0>, _OWORD *a2@<X1>, _OWORD *a3@<X8>
   v8 = *a1;
   v9 = v5;
   NU::RectT<long>::add(&v8, v10);
-  result = *&v8;
+  result = v8.n128_f64[0];
   v7 = v9;
   *a3 = v8;
   a3[1] = v7;
   return result;
 }
 
-__n128 NU::RectT<long>::add(uint64_t *a1, uint64_t *a2)
+__n128 NU::RectT<long>::add(__n128 *a1, __n128 *a2)
 {
-  if (a1[2] && a1[3])
+  if (a1[1].n128_u64[0] && a1[1].n128_u64[1])
   {
-    if (a2[2])
+    if (a2[1].n128_u64[0])
     {
-      v4 = a2[3] == 0;
+      v4 = a2[1].n128_u64[1] == 0;
     }
 
     else
@@ -7321,49 +7356,49 @@ __n128 NU::RectT<long>::add(uint64_t *a1, uint64_t *a2)
 
     if (!v4)
     {
-      if (*a2 >= *a1)
+      if (a2->n128_u64[0] >= a1->n128_u64[0])
       {
-        v5 = *a1;
+        v5 = a1->n128_u64[0];
       }
 
       else
       {
-        v5 = *a2;
+        v5 = a2->n128_u64[0];
       }
 
       NU::RectT<long>::setXMin(a1, v5);
-      v6 = a2[2];
-      if (a1[2] + *a1 <= v6 + *a2)
+      v6 = a2[1].n128_u64[0];
+      if ((a1[1].n128_u64[0] + a1->n128_u64[0]) <= (v6 + a2->n128_u64[0]))
       {
-        v7 = v6 + *a2;
+        v7 = v6 + a2->n128_u64[0];
       }
 
       else
       {
-        v7 = a1[2] + *a1;
+        v7 = a1[1].n128_u64[0] + a1->n128_u64[0];
       }
 
       NU::RectT<long>::setXMax(a1, v7);
-      if (a2[1] >= a1[1])
+      if (a2->n128_u64[1] >= a1->n128_u64[1])
       {
-        v8 = a1[1];
+        v8 = a1->n128_i64[1];
       }
 
       else
       {
-        v8 = a2[1];
+        v8 = a2->n128_i64[1];
       }
 
       NU::RectT<long>::setYMin(a1, v8);
-      v9 = a2[3];
-      if (a1[3] + a1[1] <= v9 + a2[1])
+      v9 = a2[1].n128_u64[1];
+      if ((a1[1].n128_u64[1] + a1->n128_u64[1]) <= (v9 + a2->n128_u64[1]))
       {
-        v10 = v9 + a2[1];
+        v10 = v9 + a2->n128_u64[1];
       }
 
       else
       {
-        v10 = a1[3] + a1[1];
+        v10 = a1[1].n128_u64[1] + a1->n128_u64[1];
       }
 
       NU::RectT<long>::setYMax(a1, v10);
@@ -7373,8 +7408,8 @@ __n128 NU::RectT<long>::add(uint64_t *a1, uint64_t *a2)
   else
   {
     *a1 = *a2;
-    result = *(a2 + 1);
-    *(a1 + 1) = result;
+    result = a2[1];
+    a1[1] = result;
   }
 
   return result;
@@ -7750,20 +7785,20 @@ __n128 NUPixelRectFlipYOrigin@<Q0>(__n128 *a1@<X0>, void *a2@<X1>, __n128 *a3@<X
   return result;
 }
 
-double NUPixelRectScale@<D0>(__int128 *a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>, double a4@<D0>, double a5@<D1>)
+double NUPixelRectScale@<D0>(__int128 *a1@<X0>, _OWORD *a2@<X8>, uint64_t a3@<X1>, double a4@<D0>, double a5@<D1>)
 {
   v6 = a1[1];
   v9 = *a1;
   v10 = v6;
-  NU::RectT<long>::scale(&v9, a2, a4, a5);
+  NU::RectT<long>::scale(&v9, a3, a4, a5);
   result = *&v9;
   v8 = v10;
-  *a3 = v9;
-  a3[1] = v8;
+  *a2 = v9;
+  a2[1] = v8;
   return result;
 }
 
-void *NU::RectT<long>::scale(uint64_t *a1, uint64_t a2, double a3, double a4)
+unint64_t *NU::RectT<long>::scale(uint64_t a1, uint64_t a2, double a3, double a4)
 {
   v42 = *MEMORY[0x1E69E9840];
   if (a3 < 0.0)
@@ -7848,10 +7883,10 @@ void *NU::RectT<long>::scale(uint64_t *a1, uint64_t a2, double a3, double a4)
     _NUAssertFailHandler("void NU::RectT<long>::scale(CGFloat, CGFloat, NUPixelRoundingPolicy) [T = long]", "/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/neutrino/Core/Geometry/NURect.h", 290, @"Negative y-scale values not supported", v33, v34, v35, v36, v37);
   }
 
-  v4 = *a1 * a3 + a1[2] * a3;
-  v5 = a1[1] * a4 + a1[3] * a4;
+  v4 = *a1 * a3 + *(a1 + 16) * a3;
+  v5 = *(a1 + 8) * a4 + *(a1 + 24) * a4;
   v6 = *a1 * a3;
-  v7 = a1[1] * a4;
+  v7 = *(a1 + 8) * a4;
 
   return NU::RectT<long>::setXYMinMax(a1, a2, v6, v7, v4, v5);
 }
@@ -7920,16 +7955,16 @@ double NUPixelRectScaleRational@<D0>(int64x2_t *a1@<X0>, uint64_t a2@<X1>, uint6
   return result;
 }
 
-double NUPixelRectInset@<D0>(__int128 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _OWORD *a4@<X8>)
+double NUPixelRectInset@<D0>(__int128 *a1@<X0>, _OWORD *a2@<X8>, uint64_t a3@<X1>, uint64_t a4@<X2>)
 {
   v5 = a1[1];
   v8 = *a1;
   v9 = v5;
-  NU::RectT<long>::shrink(&v8, a2, a3);
+  NU::RectT<long>::shrink(&v8, a3, a4);
   result = *&v8;
   v7 = v9;
-  *a4 = v8;
-  a4[1] = v7;
+  *a2 = v8;
+  a2[1] = v7;
   return result;
 }
 
@@ -7956,16 +7991,16 @@ double NUPixelRectErode@<D0>(__int128 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X
   return result;
 }
 
-double NUPixelRectDilate@<D0>(__int128 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _OWORD *a4@<X8>)
+double NUPixelRectDilate@<D0>(__int128 *a1@<X0>, _OWORD *a2@<X8>, uint64_t a3@<X1>, uint64_t a4@<X2>)
 {
   v5 = a1[1];
   v8 = *a1;
   v9 = v5;
-  NU::RectT<long>::grow(&v8, a2, a3);
+  NU::RectT<long>::grow(&v8, a3, a4);
   result = *&v8;
   v7 = v9;
-  *a4 = v8;
-  a4[1] = v7;
+  *a2 = v8;
+  a2[1] = v7;
   return result;
 }
 
@@ -8912,16 +8947,16 @@ uint64_t NUOrientationTransformRectVertex(uint64_t a1, unsigned int a2)
 
 double NUConvertImageRect(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, CGFloat a9, CGFloat a10, double a11, double a12)
 {
-  v20 = a11 / a7;
-  v21 = a12 / a8;
-  v24 = CGRectOffset(*&a1, -a5, -a6);
-  v24.origin.x = v20 * v24.origin.x;
-  v24.origin.y = v21 * v24.origin.y;
-  v24.size.width = v20 * v24.size.width;
-  v24.size.height = v21 * v24.size.height;
-  v25 = CGRectStandardize(v24);
+  v12 = a11 / a7;
+  v13 = a12 / a8;
+  v16 = CGRectOffset(*&a1, -a5, -a6);
+  v16.origin.x = v12 * v16.origin.x;
+  v16.origin.y = v13 * v16.origin.y;
+  v16.size.width = v12 * v16.size.width;
+  v16.size.height = v13 * v16.size.height;
+  v17 = CGRectStandardize(v16);
 
-  *&result = CGRectOffset(v25, a9, a10);
+  *&result = CGRectOffset(v17, a9, a10);
   return result;
 }
 
@@ -9066,13 +9101,13 @@ double NURectFlipYOrigin(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat
 
 double NUResizeRectByMovingRelativePoint(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9)
 {
-  v16 = a1 + a9 * a3;
+  v9 = a1 + a9 * a3;
   if (a5 != a9)
   {
-    a3 = (a1 + a5 * a3 + a7 - v16) / (a5 - a9);
+    a3 = (a1 + a5 * a3 + a7 - v9) / (a5 - a9);
   }
 
-  return v16 - a9 * a3;
+  return v9 - a9 * a3;
 }
 
 double NUPixelRectEnforceMinimumSizeAndAspectRatio(uint64_t a1, uint64_t a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9)
@@ -9163,51 +9198,51 @@ double NUPixelRectAspectConstrain(uint64_t a1, uint64_t a2, double a3, double a4
 
 CGFloat NUPixelRectResizeToFitInRect(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4, double a5, double a6, double a7, double a8, CGFloat a9, CGFloat a10, CGFloat a11, CGFloat a12)
 {
-  v38.size.width = a11;
-  v22 = a1 + a5 * a3;
-  v37 = v22;
+  v32.size.width = a11;
+  v16 = a1 + a5 * a3;
+  v31 = v16;
   rect_24 = a2 + a6 * a4;
-  v38.origin.x = a9;
+  v32.origin.x = a9;
+  v32.origin.y = a10;
+  v32.size.height = a12;
+  v17 = v16 - CGRectGetMinX(v32);
+  v33.origin.x = a1;
+  v33.origin.y = a2;
+  v33.size.width = a3;
+  v33.size.height = a4;
+  v27 = v17 / (a5 * CGRectGetWidth(v33));
+  v34.origin.x = a9;
+  v34.origin.y = a10;
+  v34.size.width = a11;
+  v34.size.height = a12;
+  MinY = CGRectGetMinY(v34);
+  v35.size.width = a3;
+  v25 = rect_24 - MinY;
+  v35.origin.x = a1;
+  v35.origin.y = a2;
+  v35.size.height = a4;
+  v26 = v25 / (a6 * CGRectGetHeight(v35));
+  v36.origin.x = a9;
+  v36.origin.y = a10;
+  v36.size.width = a11;
+  v36.size.height = a12;
+  v23 = CGRectGetMaxX(v36) - v31;
+  v37.origin.x = a1;
+  v37.origin.y = a2;
+  v37.size.width = a3;
+  v37.size.height = a4;
+  Width = CGRectGetWidth(v37);
   v38.origin.y = a10;
+  v24 = v23 / ((1.0 - a5) * Width);
+  v38.origin.x = a9;
+  v38.size.width = a11;
   v38.size.height = a12;
-  v23 = v22 - CGRectGetMinX(v38);
+  v20 = CGRectGetMaxY(v38) - rect_24;
   v39.origin.x = a1;
   v39.origin.y = a2;
   v39.size.width = a3;
   v39.size.height = a4;
-  v33 = v23 / (a5 * CGRectGetWidth(v39));
-  v40.origin.x = a9;
-  v40.origin.y = a10;
-  v40.size.width = a11;
-  v40.size.height = a12;
-  MinY = CGRectGetMinY(v40);
-  v41.size.width = a3;
-  v31 = rect_24 - MinY;
-  v41.origin.x = a1;
-  v41.origin.y = a2;
-  v41.size.height = a4;
-  v32 = v31 / (a6 * CGRectGetHeight(v41));
-  v42.origin.x = a9;
-  v42.origin.y = a10;
-  v42.size.width = a11;
-  v42.size.height = a12;
-  v29 = CGRectGetMaxX(v42) - v37;
-  v43.origin.x = a1;
-  v43.origin.y = a2;
-  v43.size.width = a3;
-  v43.size.height = a4;
-  Width = CGRectGetWidth(v43);
-  v44.origin.y = a10;
-  v30 = v29 / ((1.0 - a5) * Width);
-  v44.origin.x = a9;
-  v44.size.width = a11;
-  v44.size.height = a12;
-  v26 = CGRectGetMaxY(v44) - rect_24;
-  v45.origin.x = a1;
-  v45.origin.y = a2;
-  v45.size.width = a3;
-  v45.size.height = a4;
-  return v37 - a5 * (a3 * fmin(fmin(v33, v30), fmin(v32, v26 / ((1.0 - a6) * CGRectGetHeight(v45)))));
+  return v31 - a5 * (a3 * fmin(fmin(v27, v24), fmin(v26, v20 / ((1.0 - a6) * CGRectGetHeight(v39)))));
 }
 
 double NUPixelRectDenormalize@<D0>(int64x2_t *a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>, float64x2_t a4@<Q0>, float64_t a5@<D1>, float64x2_t a6@<Q2>, float64_t a7@<D3>)
@@ -9258,7 +9293,7 @@ uint64_t NUAspectRatioWithOrientation(uint64_t a1, uint64_t a2, uint64_t a3)
   return a2;
 }
 
-uint64_t NUAspectRatioConstrain(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+unint64_t NUAspectRatioConstrain(unint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v5 = result;
   v6 = a2;
@@ -9457,43 +9492,5 @@ double NUConvertDGCropRectToCICropRect(double a1, double a2, double a3, double a
   v19 = a4;
 
   *&result = CGRectOffset(*&v16, v13, v15);
-  return result;
-}
-
-double _rectWithAspectRatio(uint64_t a1, uint64_t a2, double a3, double a4, double a5, double a6, double a7)
-{
-  v7 = vcvtmd_s64_f64(sqrt(a6 * (a5 * a7) * a2 / a1) + 0.5);
-  v8 = v7 | 1;
-  v9 = (v7 & 1) + v7;
-  if (vcvtmd_s64_f64(a6))
-  {
-    v9 = v8;
-  }
-
-  v10 = vcvtmd_s64_f64(a5);
-  v11 = vcvtmd_s64_f64(floor(a1 * v9 / a2) + 0.5);
-  v12 = v11 | 1;
-  v13 = (v11 & 1) + v11;
-  if (v10)
-  {
-    v13 = v12;
-  }
-
-  return a3 - vcvts_n_f32_s32(v13 - v10, 1uLL);
-}
-
-__n128 NURecomposeAffineTransform@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v5 = __sincos_stret(*(a1 + 16));
-  v4.f64[0] = v5.__cosval;
-  v6 = *a1;
-  v7.f64[0] = -*a1;
-  v7.f64[1] = v5.__cosval;
-  v4.f64[1] = v5.__sinval;
-  v6.f64[0] = v5.__sinval;
-  *a2 = vmulq_f64(*a1, v4);
-  *(a2 + 16) = vmulq_f64(v7, v6);
-  result = *(a1 + 24);
-  *(a2 + 32) = result;
   return result;
 }

@@ -19,7 +19,7 @@
   if (v4)
   {
     v5 = v4;
-    v6 = sub_10000DFD0();
+    v6 = sub_10000DFD0(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       sub_10001F3B8(v3, v5, v6);
@@ -74,7 +74,7 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v10 = sub_10000DFD0();
+  v10 = sub_10000DFD0(updated);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v13 = 138543618;

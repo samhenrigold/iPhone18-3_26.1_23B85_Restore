@@ -115,7 +115,7 @@
   }
 }
 
-uint64_t __55__PXPhotosDetailsActionsUIWidget__updateLayoutIfNeeded__block_invoke(uint64_t result, __int128 *a2)
+id *__55__PXPhotosDetailsActionsUIWidget__updateLayoutIfNeeded__block_invoke(id *result, __int128 *a2)
 {
   if (*(a2 + 1) == 6200434)
   {
@@ -123,7 +123,7 @@ uint64_t __55__PXPhotosDetailsActionsUIWidget__updateLayoutIfNeeded__block_invok
     v18[6] = v3;
     v5 = result;
     v18[0] = 0;
-    v6 = [*(result + 32) _tilingController];
+    v6 = [result[4] _tilingController];
     v7 = a2[3];
     v14 = a2[2];
     v15 = v7;
@@ -134,7 +134,7 @@ uint64_t __55__PXPhotosDetailsActionsUIWidget__updateLayoutIfNeeded__block_invok
     v13 = v8;
     [v6 getTile:v18 geometry:0 group:0 userData:0 forTileWithIdentifier:&v12];
 
-    v9 = *(v5 + 32);
+    v9 = v5[4];
     v10 = a2[3];
     v14 = a2[2];
     v15 = v10;
@@ -636,7 +636,7 @@ void __64__PXPhotosDetailsActionsUIWidget_prepareForPopoverPresentation___block_
   v6 = _tilingController;
   if (_tilingController)
   {
-    [_tilingController tileIdentifierForTile:tileCopy];
+    objc_msgSend_tileIdentifierForTile_(_tilingController);
   }
 
   return 0;
@@ -661,7 +661,7 @@ void __64__PXPhotosDetailsActionsUIWidget_prepareForPopoverPresentation___block_
     v10 = _tilingController;
     if (_tilingController)
     {
-      [_tilingController tileIdentifierForTile:selectedCopy];
+      objc_msgSend_tileIdentifierForTile_(_tilingController);
     }
 
     else

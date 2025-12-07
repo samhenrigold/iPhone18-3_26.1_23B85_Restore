@@ -29,47 +29,47 @@
   return v3;
 }
 
-void __43__SpotlightDaemonServer_sharedDaemonServer__block_invoke()
+void __43__SpotlightDaemonServer_sharedDaemonServer__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = sharedDaemonServer_sSpotlightDaemonServer;
-  sharedDaemonServer_sSpotlightDaemonServer = v0;
+  v2 = objc_opt_new();
+  v3 = sharedDaemonServer_sSpotlightDaemonServer;
+  sharedDaemonServer_sSpotlightDaemonServer = v2;
 
-  v5 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-  v2 = 1u;
+  v7 = [MEMORY[0x277CBEBD0] standardUserDefaults];
+  v4 = 1u;
   do
   {
-    v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:*(&sDisabledClientCStrings + v2)];
-    v4 = [v5 BOOLForKey:v3];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:*(&sDisabledClientCStrings + v4)];
+    v6 = [v7 BOOLForKey:v5];
 
-    if (v4)
+    if (v6)
     {
-      sDisabledConnections[v2] = 1;
+      sDisabledConnections[v4] = 1;
     }
 
-    ++v2;
+    ++v4;
   }
 
-  while (v2 != 12);
+  while (v4 != 12);
 }
 
 - (BOOL)handleJob:(id)job bundleID:(id)d protectionClass:(id)class completionHandler:(id)handler
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   jobCopy = job;
   dCopy = d;
   classCopy = class;
   handlerCopy = handler;
   jobType = [jobCopy jobType];
-  v15 = logForCSLogCategoryDefault();
+  v15 = logForCSLogCategoryDefault(jobType);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218498;
-    v48 = jobType;
-    v49 = 2112;
-    v50 = dCopy;
-    v51 = 2112;
-    v52 = classCopy;
+    v47 = jobType;
+    v48 = 2112;
+    v49 = dCopy;
+    v50 = 2112;
+    v51 = classCopy;
     _os_log_impl(&dword_231A35000, v15, OS_LOG_TYPE_DEFAULT, "Handle job type %ld from %@ (pc: %@)", buf, 0x20u);
   }
 
@@ -79,7 +79,7 @@ void __43__SpotlightDaemonServer_sharedDaemonServer__block_invoke()
     goto LABEL_32;
   }
 
-  v34 = handlerCopy;
+  v33 = handlerCopy;
   if (jobType <= 7)
   {
     if (jobType <= 5)
@@ -87,14 +87,14 @@ void __43__SpotlightDaemonServer_sharedDaemonServer__block_invoke()
       if (jobType == 1)
       {
         identifiersToReindex = [jobCopy identifiersToReindex];
-        v41[0] = MEMORY[0x277D85DD0];
-        v41[1] = 3221225472;
-        v41[2] = __78__SpotlightDaemonServer_handleJob_bundleID_protectionClass_completionHandler___block_invoke_3;
-        v41[3] = &unk_2789341A8;
-        v42 = handlerCopy;
-        [(SpotlightDaemonServer *)self issueReindexItemsWithIdentifiers:identifiersToReindex bundleID:dCopy protectionClass:classCopy acknowledgementHandler:v41];
+        v40[0] = MEMORY[0x277D85DD0];
+        v40[1] = 3221225472;
+        v40[2] = __78__SpotlightDaemonServer_handleJob_bundleID_protectionClass_completionHandler___block_invoke_3;
+        v40[3] = &unk_2789341A8;
+        v41 = handlerCopy;
+        [(SpotlightDaemonServer *)self issueReindexItemsWithIdentifiers:identifiersToReindex bundleID:dCopy protectionClass:classCopy acknowledgementHandler:v40];
 
-        v20 = v42;
+        v20 = v41;
       }
 
       else
@@ -105,19 +105,19 @@ void __43__SpotlightDaemonServer_sharedDaemonServer__block_invoke()
         }
 
         reason = [jobCopy reason];
-        v43[0] = MEMORY[0x277D85DD0];
-        v43[1] = 3221225472;
-        v43[2] = __78__SpotlightDaemonServer_handleJob_bundleID_protectionClass_completionHandler___block_invoke_2;
-        v43[3] = &unk_2789341A8;
-        v44 = handlerCopy;
-        [(SpotlightDaemonServer *)self issueReindexAllItemsForBundleID:dCopy protectionClass:classCopy reason:reason acknowledgementHandler:v43];
+        v42[0] = MEMORY[0x277D85DD0];
+        v42[1] = 3221225472;
+        v42[2] = __78__SpotlightDaemonServer_handleJob_bundleID_protectionClass_completionHandler___block_invoke_2;
+        v42[3] = &unk_2789341A8;
+        v43 = handlerCopy;
+        [(SpotlightDaemonServer *)self issueReindexAllItemsForBundleID:dCopy protectionClass:classCopy reason:reason acknowledgementHandler:v42];
 
-        v20 = v44;
+        v20 = v43;
       }
 
 LABEL_21:
 
-      v32 = 0;
+      v31 = 0;
       v22 = 0;
       v24 = 0;
       v23 = 0;
@@ -130,7 +130,7 @@ LABEL_21:
       v16 = 0;
       v22 = 0;
       v24 = 0;
-      v32 = 1;
+      v31 = 1;
       v23 = 1;
       goto LABEL_25;
     }
@@ -149,7 +149,7 @@ LABEL_21:
         v22 = 0;
         v23 = 0;
         v24 = 1;
-        v32 = 2;
+        v31 = 2;
       }
 
       else
@@ -159,7 +159,7 @@ LABEL_21:
           goto LABEL_32;
         }
 
-        v32 = 0;
+        v31 = 0;
         v23 = 1;
         v22 = 0;
         v24 = 0;
@@ -175,7 +175,7 @@ LABEL_21:
         v16 = 0;
         v24 = 0;
         v23 = 0;
-        v32 = 1;
+        v31 = 1;
         v22 = 1;
         goto LABEL_25;
       }
@@ -187,37 +187,37 @@ LABEL_21:
 
       updatedItems = [jobCopy updatedItems];
       updatedItemsMask = [jobCopy updatedItemsMask];
-      v45[0] = MEMORY[0x277D85DD0];
-      v45[1] = 3221225472;
-      v45[2] = __78__SpotlightDaemonServer_handleJob_bundleID_protectionClass_completionHandler___block_invoke;
-      v45[3] = &unk_2789341A8;
-      v46 = handlerCopy;
-      [(SpotlightDaemonServer *)self notifyUpdatesForItems:updatedItems bundleID:dCopy interestedAttributeMask:updatedItemsMask acknowledgementHandler:v45];
+      v44[0] = MEMORY[0x277D85DD0];
+      v44[1] = 3221225472;
+      v44[2] = __78__SpotlightDaemonServer_handleJob_bundleID_protectionClass_completionHandler___block_invoke;
+      v44[3] = &unk_2789341A8;
+      v45 = handlerCopy;
+      [(SpotlightDaemonServer *)self notifyUpdatesForItems:updatedItems bundleID:dCopy interestedAttributeMask:updatedItemsMask acknowledgementHandler:v44];
 
-      v20 = v46;
+      v20 = v45;
       goto LABEL_21;
     }
   }
 
-  v32 = v17;
+  v31 = v17;
   v16 = 0;
   v22 = 0;
   v23 = 0;
   v24 = 1;
 LABEL_25:
-  v26 = [MEMORY[0x277CC3420] provideOptionsFromJobOptions:{objc_msgSend(jobCopy, "jobOptions", v32)}];
+  v26 = [MEMORY[0x277CC3420] provideOptionsFromJobOptions:{objc_msgSend(jobCopy, "jobOptions", v31)}];
   if (v23)
   {
     providerIdentifier = [jobCopy providerIdentifier];
     providerType = [jobCopy providerType];
-    v39[0] = MEMORY[0x277D85DD0];
-    v39[1] = 3221225472;
-    v39[2] = __78__SpotlightDaemonServer_handleJob_bundleID_protectionClass_completionHandler___block_invoke_4;
-    v39[3] = &unk_2789378C0;
-    v29 = &v40;
-    handlerCopy = v34;
-    v40 = v34;
-    [(SpotlightDaemonServer *)self provideDataForBundleID:dCopy protectionClass:classCopy itemIdentifier:providerIdentifier typeIdentifier:providerType options:v26 | v33 completionHandler:v39];
+    v38[0] = MEMORY[0x277D85DD0];
+    v38[1] = 3221225472;
+    v38[2] = __78__SpotlightDaemonServer_handleJob_bundleID_protectionClass_completionHandler___block_invoke_4;
+    v38[3] = &unk_2789378C0;
+    v29 = &v39;
+    handlerCopy = v33;
+    v39 = v33;
+    [(SpotlightDaemonServer *)self provideDataForBundleID:dCopy protectionClass:classCopy itemIdentifier:providerIdentifier typeIdentifier:providerType options:v26 | v32 completionHandler:v38];
 LABEL_31:
 
     v16 = 1;
@@ -228,35 +228,34 @@ LABEL_31:
   {
     providerIdentifier = [jobCopy providerIdentifier];
     providerType = [jobCopy providerType];
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __78__SpotlightDaemonServer_handleJob_bundleID_protectionClass_completionHandler___block_invoke_5;
-    v37[3] = &unk_2789378C0;
-    v29 = &v38;
-    handlerCopy = v34;
-    v38 = v34;
-    [(SpotlightDaemonServer *)self provideFileURLForBundleID:dCopy protectionClass:classCopy itemIdentifier:providerIdentifier typeIdentifier:providerType options:v26 | v33 completionHandler:v37];
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __78__SpotlightDaemonServer_handleJob_bundleID_protectionClass_completionHandler___block_invoke_5;
+    v36[3] = &unk_2789378C0;
+    v29 = &v37;
+    handlerCopy = v33;
+    v37 = v33;
+    [(SpotlightDaemonServer *)self provideFileURLForBundleID:dCopy protectionClass:classCopy itemIdentifier:providerIdentifier typeIdentifier:providerType options:v26 | v32 completionHandler:v36];
     goto LABEL_31;
   }
 
-  handlerCopy = v34;
+  handlerCopy = v33;
   if (v22)
   {
     providerIdentifier = [jobCopy providerIdentifiers];
     providerType = [jobCopy providerType];
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __78__SpotlightDaemonServer_handleJob_bundleID_protectionClass_completionHandler___block_invoke_6;
-    v35[3] = &unk_2789378C0;
-    v29 = &v36;
-    v36 = v34;
-    [(SpotlightDaemonServer *)self provideFileURLsForBundleID:dCopy protectionClass:classCopy itemIdentifiers:providerIdentifier typeIdentifier:providerType options:v26 | v33 completionHandler:v35];
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __78__SpotlightDaemonServer_handleJob_bundleID_protectionClass_completionHandler___block_invoke_6;
+    v34[3] = &unk_2789378C0;
+    v29 = &v35;
+    v35 = v33;
+    [(SpotlightDaemonServer *)self provideFileURLsForBundleID:dCopy protectionClass:classCopy itemIdentifiers:providerIdentifier typeIdentifier:providerType options:v26 | v32 completionHandler:v34];
     goto LABEL_31;
   }
 
 LABEL_32:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -678,23 +677,24 @@ uint64_t __106__SpotlightDaemonServer_issueReindexItemsWithIdentifiers_bundleID_
     if (v6 == 8)
     {
       allObjects = [fileProviderBundleIDs allObjects];
+      v9 = allObjects;
     }
 
     else
     {
-      v9 = [MEMORY[0x277CCACA8] stringWithCString:*(&sBundleStrings + v6) encoding:134217984];
-      v28[0] = v9;
-      allObjects = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+      v10 = [MEMORY[0x277CCACA8] stringWithCString:*(&sBundleStrings + v6) encoding:134217984];
+      v28[0] = v10;
+      v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
     }
 
     if (sDisabledConnections[v6] == 1)
     {
-      v10 = logForCSLogCategoryDefault();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = logForCSLogCategoryDefault(allObjects);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = v18;
-        v27 = allObjects;
-        _os_log_impl(&dword_231A35000, v10, OS_LOG_TYPE_DEFAULT, "Skipping disabled connection for %@", buf, 0xCu);
+        v27 = v9;
+        _os_log_impl(&dword_231A35000, v11, OS_LOG_TYPE_DEFAULT, "Skipping disabled connection for %@", buf, 0xCu);
       }
     }
 
@@ -704,32 +704,32 @@ uint64_t __106__SpotlightDaemonServer_issueReindexItemsWithIdentifiers_bundleID_
       v24 = 0u;
       v21 = 0u;
       v22 = 0u;
-      v10 = allObjects;
-      v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
-      if (v11)
+      v11 = v9;
+      v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      if (v12)
       {
-        v12 = v11;
-        v19 = allObjects;
-        v13 = *v22;
+        v13 = v12;
+        v19 = v9;
+        v14 = *v22;
         do
         {
-          for (i = 0; i != v12; ++i)
+          for (i = 0; i != v13; ++i)
           {
-            if (*v22 != v13)
+            if (*v22 != v14)
             {
-              objc_enumerationMutation(v10);
+              objc_enumerationMutation(v11);
             }
 
-            v15 = *(*(&v21 + 1) + 8 * i);
-            v16 = [(SpotlightDaemonServer *)self connectionForClientType:v6 jobType:type, v18];
-            connectionsCopy[2](connectionsCopy, v15, v16);
+            v16 = *(*(&v21 + 1) + 8 * i);
+            v17 = [(SpotlightDaemonServer *)self connectionForClientType:v6 jobType:type, v18];
+            connectionsCopy[2](connectionsCopy, v16, v17);
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
         }
 
-        while (v12);
-        allObjects = v19;
+        while (v13);
+        v9 = v19;
       }
     }
 
@@ -737,8 +737,6 @@ uint64_t __106__SpotlightDaemonServer_issueReindexItemsWithIdentifiers_bundleID_
   }
 
   while (v6 != 12);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleJob:(id)job protectionClass:(id)class perClientCompletionHandler:(id)handler completionHandler:(id)completionHandler
@@ -799,39 +797,38 @@ void __96__SpotlightDaemonServer_handleJob_protectionClass_perClientCompletionHa
       v16 = v9;
       v18 = *(a1 + 64);
       v17 = *(a1 + 40);
-      if (([v7 handleJob:v15 bundleID:v9 protectionClass:v8 completionHandler:v14] & 1) == 0)
+      v10 = [v7 handleJob:v15 bundleID:v9 protectionClass:v8 completionHandler:v14];
+      if ((v10 & 1) == 0)
       {
-        v10 = logForCSLogCategoryIndex();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v11 = logForCSLogCategoryIndex(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          v11 = *(a1 + 32);
+          v12 = *(a1 + 32);
           *buf = 138412546;
-          v20 = v11;
+          v20 = v12;
           v21 = 2112;
           v22 = v9;
-          _os_log_impl(&dword_231A35000, v10, OS_LOG_TYPE_DEFAULT, "Performing job:%@ failed for daemon client %@", buf, 0x16u);
+          _os_log_impl(&dword_231A35000, v11, OS_LOG_TYPE_DEFAULT, "Performing job:%@ failed for daemon client %@", buf, 0x16u);
         }
 
-        v12 = *(a1 + 64);
-        if (v12)
+        v13 = *(a1 + 64);
+        if (v13)
         {
-          (*(v12 + 16))(v12, v9, 0, 0);
+          (*(v13 + 16))(v13, v9, 0, 0);
         }
 
         dispatch_group_leave(*(a1 + 40));
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __96__SpotlightDaemonServer_handleJob_protectionClass_perClientCompletionHandler_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v7 = logForCSLogCategoryIndex();
+  v7 = logForCSLogCategoryIndex(v6);
   v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
   if (v6)
   {
@@ -842,12 +839,12 @@ void __96__SpotlightDaemonServer_handleJob_protectionClass_perClientCompletionHa
 
     v9 = *(a1 + 32);
     v10 = *(a1 + 40);
-    v18 = 138412802;
-    v19 = v9;
-    v20 = 2112;
-    v21 = v10;
-    v22 = 2112;
-    v23 = v6;
+    v17 = 138412802;
+    v18 = v9;
+    v19 = 2112;
+    v20 = v10;
+    v21 = 2112;
+    v22 = v6;
     v11 = "Failed performing job:%@ for daemon client %@: %@";
     v12 = v7;
     v13 = 32;
@@ -862,16 +859,16 @@ void __96__SpotlightDaemonServer_handleJob_protectionClass_perClientCompletionHa
 
     v14 = *(a1 + 32);
     v15 = *(a1 + 40);
-    v18 = 138412546;
-    v19 = v14;
-    v20 = 2112;
-    v21 = v15;
+    v17 = 138412546;
+    v18 = v14;
+    v19 = 2112;
+    v20 = v15;
     v11 = "Done performing job:%@ for daemon client %@";
     v12 = v7;
     v13 = 22;
   }
 
-  _os_log_impl(&dword_231A35000, v12, OS_LOG_TYPE_DEFAULT, v11, &v18, v13);
+  _os_log_impl(&dword_231A35000, v12, OS_LOG_TYPE_DEFAULT, v11, &v17, v13);
 LABEL_7:
 
   v16 = *(a1 + 56);
@@ -881,29 +878,26 @@ LABEL_7:
   }
 
   dispatch_group_leave(*(a1 + 48));
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __96__SpotlightDaemonServer_handleJob_protectionClass_perClientCompletionHandler_completionHandler___block_invoke_76(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = logForCSLogCategoryIndex();
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = logForCSLogCategoryIndex(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_231A35000, v2, OS_LOG_TYPE_DEFAULT, "Done performing job:%@ with daemon clients", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_231A35000, v2, OS_LOG_TYPE_DEFAULT, "Done performing job:%@ with daemon clients", &v5, 0xCu);
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = (*(result + 16))();
+    return (*(result + 16))();
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1121,35 +1115,35 @@ uint64_t __125__SpotlightDaemonServer_provideFileURLsForBundleID_protectionClass
   dCopy = d;
   handlerCopy = handler;
   v13 = [(SpotlightDaemonServer *)self connectionForBundleID:dCopy jobType:17];
-  v14 = logForCSLogCategoryDaemonClient();
+  v14 = logForCSLogCategoryDaemonClient(v13);
   v15 = os_signpost_id_generate(v14);
 
-  v16 = logForCSLogCategoryDaemonClient();
-  v17 = v16;
-  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  v17 = logForCSLogCategoryDaemonClient(v16);
+  v18 = v17;
+  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
   {
     if (itemsCopy)
     {
-      v18 = [itemsCopy count];
+      v19 = [itemsCopy count];
       if (dCopy)
       {
 LABEL_5:
         uTF8String = [dCopy UTF8String];
 LABEL_8:
         *buf = 134218498;
-        v25 = v18;
+        v25 = v19;
         v26 = 2048;
         maskCopy = mask;
         v28 = 2080;
         v29 = uTF8String;
-        _os_signpost_emit_with_name_impl(&dword_231A35000, v17, OS_SIGNPOST_EVENT, v15, "NotifyClient", "count:%ld, mask:0x%lx, bid:%s", buf, 0x20u);
+        _os_signpost_emit_with_name_impl(&dword_231A35000, v18, OS_SIGNPOST_EVENT, v15, "NotifyClient", "count:%ld, mask:0x%lx, bid:%s", buf, 0x20u);
         goto LABEL_9;
       }
     }
 
     else
     {
-      v18 = 0;
+      v19 = 0;
       if (dCopy)
       {
         goto LABEL_5;
@@ -1164,16 +1158,16 @@ LABEL_9:
 
   if (v13)
   {
-    v20 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_string(v20, "command", "siu");
+    v21 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_string(v21, "command", "siu");
     if ([itemsCopy count])
     {
-      [MEMORY[0x277CC3510] dictionary:v20 setArray:itemsCopy forKey:"si"];
+      [MEMORY[0x277CC3510] dictionary:v21 setArray:itemsCopy forKey:"si"];
     }
 
     if (mask)
     {
-      xpc_dictionary_set_uint64(v20, "iam", mask);
+      xpc_dictionary_set_uint64(v21, "iam", mask);
     }
 
     v22[0] = MEMORY[0x277D85DD0];
@@ -1181,15 +1175,13 @@ LABEL_9:
     v22[2] = __103__SpotlightDaemonServer_notifyUpdatesForItems_bundleID_interestedAttributeMask_acknowledgementHandler___block_invoke;
     v22[3] = &unk_2789378C0;
     v23 = handlerCopy;
-    [v13 sendMessageAsync:v20 completion:v22];
+    [v13 sendMessageAsync:v21 completion:v22];
   }
 
   else if (handlerCopy)
   {
     handlerCopy[2](handlerCopy);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __103__SpotlightDaemonServer_notifyUpdatesForItems_bundleID_interestedAttributeMask_acknowledgementHandler___block_invoke(uint64_t a1)
@@ -1206,7 +1198,7 @@ uint64_t __103__SpotlightDaemonServer_notifyUpdatesForItems_bundleID_interestedA
 - (void)updateFileProviderBundleIDs:(id)ds
 {
   dsCopy = ds;
-  v4 = logForCSLogCategoryDefault();
+  v4 = logForCSLogCategoryDefault(dsCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [(SpotlightDaemonServer *)dsCopy updateFileProviderBundleIDs:v4];
@@ -1219,11 +1211,10 @@ uint64_t __103__SpotlightDaemonServer_notifyUpdatesForItems_bundleID_interestedA
 
 - (void)updateFileProviderBundleIDs:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_231A35000, a2, OS_LOG_TYPE_DEBUG, "New list of fileProvider bundle IDs: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_231A35000, a2, OS_LOG_TYPE_DEBUG, "New list of fileProvider bundle IDs: %@", &v2, 0xCu);
 }
 
 @end

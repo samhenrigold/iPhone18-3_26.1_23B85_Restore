@@ -80,10 +80,10 @@
 - (void)validate
 {
   [(TSTTileIDKeyDict *)self->mTileStorage applyFunction:privateValidateTile withState:0];
-  TSTTableRBTreeValidate(self->mRowTileIndex);
+  TSTTableRBTreeValidate(&self->mRowTileIndex->var0);
   mRowTileIndex = self->mRowTileIndex;
 
-  TSTTableRBTreeApply(mRowTileIndex, p_validateTileCB, self);
+  TSTTableRBTreeApply(&mRowTileIndex->var0, p_validateTileCB, self);
 }
 
 @end

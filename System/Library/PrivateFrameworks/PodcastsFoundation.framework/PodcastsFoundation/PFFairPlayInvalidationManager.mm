@@ -39,19 +39,18 @@
 
   selfCopy = self;
   FairPlayInvalidationManager.invalidateFairPlayKey(for:completion:)(for, v6, v7);
-  sub_1D8D15664(v6);
+  sub_1D8D15664(v6, v7);
 }
 
 - (void)markKeyForInvalidationAt:(id)at shouldRemove:(BOOL)remove
 {
   v5 = sub_1D9176C2C();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &v10 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v9 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D9176B9C();
-  _s18PodcastsFoundation27FairPlayInvalidationManagerC010markKeyForE02at12shouldRemovey0B03URLV_SbtF_0(v9, remove);
-  (*(v6 + 8))(v9, v5);
+  _s18PodcastsFoundation27FairPlayInvalidationManagerC010markKeyForE02at12shouldRemovey0B03URLV_SbtF_0(v8, remove);
+  (*(v6 + 8))(v8, v5);
 }
 
 - (void)markAllFairPlayKeysForInvalidationWithShouldRemove:(BOOL)remove completion:(id)completion
@@ -71,7 +70,7 @@
 
   selfCopy = self;
   FairPlayInvalidationManager.markAllFairPlayKeysForInvalidation(shouldRemove:completion:)(remove, v6, v7);
-  sub_1D8D15664(v6);
+  sub_1D8D15664(v6, v7);
 }
 
 - (void)removalAllFairPlayKeysWithCompletion:(id)completion
@@ -93,7 +92,7 @@
 
   selfCopy = self;
   FairPlayInvalidationManager.removalAllFairPlayKeys(completion:)(v7, v6);
-  sub_1D8D15664(v7);
+  sub_1D8D15664(v7, v6);
 }
 
 - (void)removeKeyFor:(int64_t)for completion:(id)completion

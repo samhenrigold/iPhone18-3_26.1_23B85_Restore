@@ -26,103 +26,104 @@
 {
   bundleCopy = bundle;
   dictionaryCopy = dictionary;
-  v36.receiver = self;
-  v36.super_class = SLRemoteService;
-  v10 = [(SLRemoteService *)&v36 init];
-  if (!v10)
+  v48.receiver = self;
+  v48.super_class = SLRemoteService;
+  v15 = [(SLRemoteService *)&v48 init];
+  if (!v15)
   {
     goto LABEL_15;
   }
 
   if (!bundleCopy)
   {
-    v29 = v4;
-    v30 = @"Bundle cannot be nil for remote service";
+    v40 = v4;
+    v41 = @"Bundle cannot be nil for remote service";
 LABEL_12:
-    v31 = 3;
+    v42 = 3;
 LABEL_14:
-    _SLLog(v29, v31, v30);
+    _SLLog(v40, v42, v41, v10, v11, v12, v13, v14, v44);
 LABEL_15:
-    v28 = 0;
+    v39 = 0;
     goto LABEL_16;
   }
 
   if (![dictionaryCopy count])
   {
-    v29 = v4;
-    v30 = @"Social service info dictionary cannot be nil or empty";
+    v40 = v4;
+    v41 = @"Social service info dictionary cannot be nil or empty";
     goto LABEL_12;
   }
 
-  if (![(SLRemoteService *)v10 infoDictHasRequiredKeys:dictionaryCopy])
+  if (![(SLRemoteService *)v15 infoDictHasRequiredKeys:dictionaryCopy])
   {
-    _SLLog(v4, 3, @"Social service info dictionary has missing or invalid required keys");
-    v30 = @"Social info dict is %@";
-    v29 = v4;
-    v31 = 6;
+    _SLLog(v4, 3, @"Social service info dictionary has missing or invalid required keys", v16, v17, v18, v19, v20, v44);
+    v44 = dictionaryCopy;
+    v41 = @"Social info dict is %@";
+    v40 = v4;
+    v42 = 6;
     goto LABEL_14;
   }
 
-  objc_storeStrong(&v10->_serviceBundle, bundle);
+  objc_storeStrong(&v15->_serviceBundle, bundle);
   bundleURL = [bundleCopy bundleURL];
-  [(SLRemoteService *)v10 setServiceBundleURL:bundleURL];
+  [(SLRemoteService *)v15 setServiceBundleURL:bundleURL];
 
-  v12 = [dictionaryCopy objectForKeyedSubscript:@"SLServiceTypeIdentifier"];
-  [(SLRemoteService *)v10 setServiceTypeIdentifier:v12];
+  v22 = [dictionaryCopy objectForKeyedSubscript:@"SLServiceTypeIdentifier"];
+  [(SLRemoteService *)v15 setServiceTypeIdentifier:v22];
 
-  v13 = [dictionaryCopy objectForKeyedSubscript:@"SLServiceLocalizedName"];
+  v23 = [dictionaryCopy objectForKeyedSubscript:@"SLServiceLocalizedName"];
 
-  if (v13)
+  if (v23)
   {
-    v14 = SLSocialFrameworkBundle();
-    v15 = [dictionaryCopy objectForKeyedSubscript:@"SLServiceLocalizedName"];
-    v16 = [v14 localizedStringForKey:v15 value:&stru_1F41EC300 table:@"Localizable"];
-    [(SLRemoteService *)v10 setLocalizedServiceName:v16];
+    v25 = SLSocialFrameworkBundle(v24);
+    v26 = [dictionaryCopy objectForKeyedSubscript:@"SLServiceLocalizedName"];
+    v27 = [v25 localizedStringForKey:v26 value:&stru_1F41EC300 table:@"Localizable"];
+    [(SLRemoteService *)v15 setLocalizedServiceName:v27];
   }
 
-  v17 = [dictionaryCopy objectForKeyedSubscript:@"SLServiceActivityViewIcon"];
-  [(SLRemoteService *)v10 setActivityViewIconResourceName:v17];
+  v28 = [dictionaryCopy objectForKeyedSubscript:@"SLServiceActivityViewIcon"];
+  [(SLRemoteService *)v15 setActivityViewIconResourceName:v28];
 
-  v18 = [dictionaryCopy objectForKeyedSubscript:@"SLServiceTargetRegionChina"];
-  -[SLRemoteService setServiceRegionTargetIsChina:](v10, "setServiceRegionTargetIsChina:", [v18 BOOLValue]);
+  v29 = [dictionaryCopy objectForKeyedSubscript:@"SLServiceTargetRegionChina"];
+  -[SLRemoteService setServiceRegionTargetIsChina:](v15, "setServiceRegionTargetIsChina:", [v29 BOOLValue]);
 
-  v19 = [dictionaryCopy objectForKeyedSubscript:@"SLServiceAccountTypeIdentifier"];
-  [(SLRemoteService *)v10 setAccountTypeIdentifier:v19];
+  v30 = [dictionaryCopy objectForKeyedSubscript:@"SLServiceAccountTypeIdentifier"];
+  [(SLRemoteService *)v15 setAccountTypeIdentifier:v30];
 
-  v20 = [dictionaryCopy objectForKeyedSubscript:@"SLServiceAuthenticationStyle"];
-  [(SLRemoteService *)v10 setAuthenticationStyle:[(SLRemoteService *)v10 _authenticationStyleFromAuthenticationStyleIdentifier:v20]];
+  v31 = [dictionaryCopy objectForKeyedSubscript:@"SLServiceAuthenticationStyle"];
+  [(SLRemoteService *)v15 setAuthenticationStyle:[(SLRemoteService *)v15 _authenticationStyleFromAuthenticationStyleIdentifier:v31]];
 
-  v21 = [dictionaryCopy objectForKeyedSubscript:@"SLServiceAddDeviceClassToRequests"];
-  -[SLRemoteService setAddDeviceClassToRequest:](v10, "setAddDeviceClassToRequest:", [v21 BOOLValue]);
+  v32 = [dictionaryCopy objectForKeyedSubscript:@"SLServiceAddDeviceClassToRequests"];
+  -[SLRemoteService setAddDeviceClassToRequest:](v15, "setAddDeviceClassToRequest:", [v32 BOOLValue]);
 
-  v22 = [(SLRemoteService *)v10 _setFromArrayWithKey:@"SLServiceSupportedImageAssetURLSchemes" inDictionary:dictionaryCopy];
-  [(SLRemoteService *)v10 setSupportedImageAssetURLSchemes:v22];
+  v33 = [(SLRemoteService *)v15 _setFromArrayWithKey:@"SLServiceSupportedImageAssetURLSchemes" inDictionary:dictionaryCopy];
+  [(SLRemoteService *)v15 setSupportedImageAssetURLSchemes:v33];
 
-  v23 = [(SLRemoteService *)v10 _setFromArrayWithKey:@"SLServiceSupportedVideoAssetURLSchemes" inDictionary:dictionaryCopy];
-  [(SLRemoteService *)v10 setSupportedVideoAssetURLSchemes:v23];
+  v34 = [(SLRemoteService *)v15 _setFromArrayWithKey:@"SLServiceSupportedVideoAssetURLSchemes" inDictionary:dictionaryCopy];
+  [(SLRemoteService *)v15 setSupportedVideoAssetURLSchemes:v34];
 
-  v24 = [dictionaryCopy objectForKeyedSubscript:@"SLServiceActivityViewIcon"];
+  v35 = [dictionaryCopy objectForKeyedSubscript:@"SLServiceActivityViewIcon"];
 
-  if (v24)
+  if (v35)
   {
-    v25 = [dictionaryCopy objectForKeyedSubscript:@"SLServiceActivityViewIcon"];
-    [(SLRemoteService *)v10 setActivityImageName:v25];
+    v36 = [dictionaryCopy objectForKeyedSubscript:@"SLServiceActivityViewIcon"];
+    [(SLRemoteService *)v15 setActivityImageName:v36];
   }
 
-  integerPropertyKeyMappings = [(SLRemoteService *)v10 integerPropertyKeyMappings];
-  v33[0] = MEMORY[0x1E69E9820];
-  v33[1] = 3221225472;
-  v33[2] = __62__SLRemoteService_initWithServiceBundle_socialInfoDictionary___block_invoke;
-  v33[3] = &unk_1E8176790;
-  v34 = dictionaryCopy;
-  v27 = v10;
-  v35 = v27;
-  [integerPropertyKeyMappings enumerateKeysAndObjectsUsingBlock:v33];
+  integerPropertyKeyMappings = [(SLRemoteService *)v15 integerPropertyKeyMappings];
+  v45[0] = MEMORY[0x1E69E9820];
+  v45[1] = 3221225472;
+  v45[2] = __62__SLRemoteService_initWithServiceBundle_socialInfoDictionary___block_invoke;
+  v45[3] = &unk_1E8176790;
+  v46 = dictionaryCopy;
+  v38 = v15;
+  v47 = v38;
+  [integerPropertyKeyMappings enumerateKeysAndObjectsUsingBlock:v45];
 
-  v28 = v27;
+  v39 = v38;
 LABEL_16:
 
-  return v28;
+  return v39;
 }
 
 void __62__SLRemoteService_initWithServiceBundle_socialInfoDictionary___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -139,40 +140,39 @@ void __62__SLRemoteService_initWithServiceBundle_socialInfoDictionary___block_in
 
 - (BOOL)infoDictHasRequiredKeys:(id)keys
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
-  v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   _requiredInfoDictKeys = [(SLRemoteService *)self _requiredInfoDictKeys];
-  v7 = [_requiredInfoDictKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [_requiredInfoDictKeys countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v33;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v33 != v9)
         {
           objc_enumerationMutation(_requiredInfoDictKeys);
         }
 
-        v11 = [keysCopy objectForKeyedSubscript:*(*(&v19 + 1) + 8 * i)];
+        v11 = *(*(&v32 + 1) + 8 * i);
+        v12 = [keysCopy objectForKeyedSubscript:v11];
 
-        if (!v11)
+        if (!v12)
         {
-          _SLLog(v3, 3, @"Social Info Dictionary is missing required key %@");
-          v15 = @"Social info dict is %@";
-          v16 = v3;
-          v17 = 6;
+          _SLLog(v3, 3, @"Social Info Dictionary is missing required key %@", v13, v14, v15, v16, v17, v11);
+          _SLLog(v3, 6, @"Social info dict is %@", v21, v22, v23, v24, v25, keysCopy);
           goto LABEL_13;
         }
       }
 
-      v8 = [_requiredInfoDictKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v8 = [_requiredInfoDictKeys countByEnumeratingWithState:&v32 objects:v36 count:16];
       if (v8)
       {
         continue;
@@ -182,27 +182,24 @@ void __62__SLRemoteService_initWithServiceBundle_socialInfoDictionary___block_in
     }
   }
 
-  v12 = [keysCopy objectForKeyedSubscript:@"SLServiceAuthenticationStyle"];
-  v13 = [(SLRemoteService *)self _isValidAuthenicationStyleIdentifier:v12];
+  v18 = [keysCopy objectForKeyedSubscript:@"SLServiceAuthenticationStyle"];
+  v19 = [(SLRemoteService *)self _isValidAuthenicationStyleIdentifier:v18];
 
-  if (v13)
+  if (v19)
   {
-    v14 = 1;
+    v20 = 1;
   }
 
   else
   {
     _requiredInfoDictKeys = [keysCopy objectForKeyedSubscript:@"SLServiceAuthenticationStyle"];
-    v15 = @"Social Info Dictionary has invalid authentication style identifier %@";
-    v16 = v3;
-    v17 = 3;
+    _SLLog(v3, 3, @"Social Info Dictionary has invalid authentication style identifier %@", v26, v27, v28, v29, v30, _requiredInfoDictKeys);
 LABEL_13:
-    _SLLog(v16, v17, v15);
 
-    v14 = 0;
+    v20 = 0;
   }
 
-  return v14;
+  return v20;
 }
 
 - (id)_requiredInfoDictKeys
@@ -251,23 +248,23 @@ LABEL_13:
   if (identifierCopy)
   {
     _authenticationStyleIdentifierMappings = [(SLRemoteService *)self _authenticationStyleIdentifierMappings];
-    v7 = [_authenticationStyleIdentifierMappings objectForKeyedSubscript:identifierCopy];
-    v8 = v7;
-    if (v7)
+    v12 = [_authenticationStyleIdentifierMappings objectForKeyedSubscript:identifierCopy];
+    v18 = v12;
+    if (v12)
     {
-      integerValue = [v7 integerValue];
+      integerValue = [v12 integerValue];
     }
 
     else
     {
-      _SLLog(v3, 3, @"Invalid authentication style %@ in Social Service info dictionary");
+      _SLLog(v3, 3, @"Invalid authentication style %@ in Social Service info dictionary", v13, v14, v15, v16, v17, identifierCopy);
       integerValue = -1;
     }
   }
 
   else
   {
-    _SLLog(v3, 3, @"Invalid authentication style %@ in Social Service info dictionary");
+    _SLLog(v3, 3, @"Invalid authentication style %@ in Social Service info dictionary", v5, v6, v7, v8, v9, 0);
     integerValue = -1;
   }
 
@@ -288,20 +285,20 @@ LABEL_13:
 
     if (isKindOfClass)
     {
-      v11 = MEMORY[0x1E695DFD8];
-      v12 = [dictionaryCopy objectForKeyedSubscript:keyCopy];
-      v13 = [v11 setWithArray:v12];
+      v16 = MEMORY[0x1E695DFD8];
+      v17 = [dictionaryCopy objectForKeyedSubscript:keyCopy];
+      v18 = [v16 setWithArray:v17];
 
       goto LABEL_6;
     }
 
-    _SLLog(v4, 3, @"Incorrect type for SLService info key %@, must be of type NSArray");
+    _SLLog(v4, 3, @"Incorrect type for SLService info key %@, must be of type NSArray", v11, v12, v13, v14, v15, keyCopy);
   }
 
-  v13 = 0;
+  v18 = 0;
 LABEL_6:
 
-  return v13;
+  return v18;
 }
 
 - (id)_activityImageForImageResourceName:(id)name inBundle:(id)bundle
@@ -325,7 +322,7 @@ LABEL_6:
   else
   {
     serviceTypeIdentifier = [(SLRemoteService *)self serviceTypeIdentifier];
-    _SLLog(v4, 4, @"Unable to fetch activity image for Social XPC service %@");
+    _SLLog(v4, 4, @"Unable to fetch activity image for Social XPC service %@", v15, v16, v17, v18, v19, serviceTypeIdentifier);
   }
 
   return v12;
@@ -554,16 +551,16 @@ void __33__SLRemoteService_initWithCoder___block_invoke(uint64_t a1, void *a2)
   {
     activityImageName2 = [(SLRemoteService *)self activityImageName];
     serviceBundle = [(SLRemoteService *)self serviceBundle];
-    v7 = [(SLRemoteService *)self _activityImageForImageResourceName:activityImageName2 inBundle:serviceBundle];
+    v12 = [(SLRemoteService *)self _activityImageForImageResourceName:activityImageName2 inBundle:serviceBundle];
   }
 
   else
   {
-    _SLLog(v2, 4, @"Cannot create activity image, activityImageName is nil");
-    v7 = 0;
+    _SLLog(v2, 4, @"Cannot create activity image, activityImageName is nil", v5, v6, v7, v8, v9, v14);
+    v12 = 0;
   }
 
-  return v7;
+  return v12;
 }
 
 - (id)composeViewController

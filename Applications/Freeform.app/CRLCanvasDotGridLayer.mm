@@ -8,7 +8,7 @@
 - (void)layoutSublayers
 {
   selfCopy = self;
-  sub_101073978();
+  sub_101073978(selfCopy, v2);
 }
 
 - (_TtC8Freeform21CRLCanvasDotGridLayer)initWithLayer:(id)layer

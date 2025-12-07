@@ -24,6 +24,7 @@
 - (float)currentTwilightLux;
 - (float)getFloatValueFrom:(id)from key:(id)key;
 - (float)getFloatValueFrom:(id)from key:(id)key subkey:(id)subkey;
+- (float)sdrBrightnessProgressCallback:(float)callback rampContext:(id)context profile:(unint64_t)profile;
 - (float)transitionDurationFromCurrent:(float)current toTarget:(float)target;
 - (id)copyColourRampStatsWithLength:(float)length frequency:(float)frequency origin:(id)origin target:(id)target;
 - (id)copyContext;
@@ -58,6 +59,7 @@
 - (void)updateAmmoliteStrength:(float)strength;
 - (void)updateBrightnessLimit:(float)limit;
 - (void)updateColorRamp:(id)ramp;
+- (void)updateEDRHeadroom:(float)headroom;
 - (void)updateFlipBookEntryWithAAPFactor:(float)factor;
 - (void)updateFlipBookEntryWithBrightness:(float)brightness;
 - (void)updateFlipBookEntryWithBrightnessLimit:(float)limit;
@@ -72,50 +74,50 @@
 
 - (BOOL)cancelTransition
 {
-  v113 = &v128;
+  v112 = &v128;
   v153 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   v146 = a2;
   v145 = 0;
-  v114 = &OBJC_IVAR___CBAODState__thresholdsAPDeltaPBrightenBuckets;
+  v113 = &OBJC_IVAR___CBAODState__thresholdsAPDeltaPBrightenBuckets;
   [(CBRampManager *)self->_rampManager remainingLength];
   selfCopy->_targetWhitepoint.xy.y = v2;
   v3 = [(CBAODTransitionController *)selfCopy requestTransitionStopForIdentifier:@"SDR_RAMP"];
   v145 = v145 || v3;
-  v4 = [v113[42] requestTransitionStopForIdentifier:@"BRIGHTNESS_LIMIT_RAMP"];
+  v4 = [v112[42] requestTransitionStopForIdentifier:@"BRIGHTNESS_LIMIT_RAMP"];
   v145 = (v145 | v4) != 0;
-  v5 = [v113[42] requestTransitionStopForIdentifier:@"EDR_RAMP"];
+  v5 = [v112[42] requestTransitionStopForIdentifier:@"EDR_RAMP"];
   v145 = (v145 | v5) != 0;
-  v6 = [v113[42] requestTransitionStopForIdentifier:@"AAP_RAMP"];
+  v6 = [v112[42] requestTransitionStopForIdentifier:@"AAP_RAMP"];
   v145 = (v145 | v6) != 0;
-  v7 = [v113[42] requestTransitionStopForIdentifier:@"LUMA_BOOST_FACTOR_RAMP"];
+  v7 = [v112[42] requestTransitionStopForIdentifier:@"LUMA_BOOST_FACTOR_RAMP"];
   v145 = (v145 | v7) != 0;
-  v8 = [v113[42] requestTransitionStopForIdentifier:GCP_AOD_FACTOR_FADE_RAMP];
+  v8 = [v112[42] requestTransitionStopForIdentifier:GCP_AOD_FACTOR_FADE_RAMP];
   v145 = (v145 | v8) != 0;
-  v9 = [v113[42] requestTransitionStopForIdentifier:@"TWILIGHT_RAMP"];
+  v9 = [v112[42] requestTransitionStopForIdentifier:@"TWILIGHT_RAMP"];
   v145 = (v145 | v9) != 0;
-  v10 = [v113[42] requestTransitionStopForIdentifier:@"AMMOLITE_RAMP"];
+  v10 = [v112[42] requestTransitionStopForIdentifier:@"AMMOLITE_RAMP"];
   v145 = (v145 | v10) != 0;
-  requestColorRampTransitionStop = [v113[42] requestColorRampTransitionStop];
+  requestColorRampTransitionStop = [v112[42] requestColorRampTransitionStop];
   v145 = (v145 | requestColorRampTransitionStop) != 0;
-  if (([*(v113[42] + v114[263]) liveUpdates] & 1) == 0)
+  if (([*(v112[42] + v113[263]) liveUpdates] & 1) == 0)
   {
-    cancelDCPTransition = [v113[42] cancelDCPTransition];
+    cancelDCPTransition = [v112[42] cancelDCPTransition];
     v145 = (v145 | cancelDCPTransition) != 0;
     if (![+[CBAODState isDCPBasedAODSupported] sharedInstance]
     {
-      currentTransitionUpdateID = [v113[42] currentTransitionUpdateID];
-      v14 = v113;
-      *(v113 + 80) = currentTransitionUpdateID;
+      currentTransitionUpdateID = [v112[42] currentTransitionUpdateID];
+      v14 = v112;
+      *(v112 + 80) = currentTransitionUpdateID;
       if (*(v14 + 80) == -1)
       {
-        if (*(v113[42] + 248))
+        if (*(v112[42] + 248))
         {
           memset(__b, 0, 0x4CuLL);
-          v112 = *(v113[42] + 248);
-          if (v112)
+          v111 = *(v112[42] + 248);
+          if (v111)
           {
-            [v112 origin];
+            objc_msgSend_origin(v111, v114);
           }
 
           else
@@ -123,174 +125,174 @@
             memset(__b, 0, 0x4CuLL);
           }
 
-          v111 = *(v113[42] + 248);
-          if (v111)
+          v110 = *(v112[42] + 248);
+          if (v110)
           {
-            [v111 header];
+            objc_msgSend_header(v110, v114);
           }
 
           else
           {
-            v16 = v113;
-            v113[27] = 0;
+            v16 = v112;
+            v112[27] = 0;
             v16[28] = 0;
             v143 = 0;
           }
 
-          v109 = v142;
-          v110 = *(v113[42] + 248);
-          if (v110)
+          v108 = v142;
+          v109 = *(v112[42] + 248);
+          if (v109)
           {
-            [v110 header];
+            objc_msgSend_header(v109, v114);
           }
 
           else
           {
-            v17 = v113;
-            v113[24] = 0;
+            v17 = v112;
+            v112[24] = 0;
             v17[25] = 0;
             v141 = 0;
           }
 
-          v18 = v113;
-          v106 = 1.0;
-          *(v113[42] + 392) = v109 * (1.0 / v140);
-          v108 = __b;
+          v18 = v112;
+          v105 = 1.0;
+          *(v112[42] + 392) = v108 * (1.0 / v140);
+          v107 = __b;
           *(v18[42] + 84) = *(v18 + 61);
           *(v18[42] + 124) = *(v18 + 62);
           *(v18[42] + 116) = *(v18 + 63);
           LODWORD(v15) = *(v18 + 65);
           v19 = v18[42];
-          v104 = &OBJC_IVAR___CBAODState__thresholdsAPDeltaPBrightenBuckets;
+          v103 = &OBJC_IVAR___CBAODState__thresholdsAPDeltaPBrightenBuckets;
           [*(v19 + 408) setLux:v15];
-          LODWORD(v20) = *(v113 + 61);
-          [*(v113[42] + 408) setNits:v20];
-          [*(v113[42] + 408) currentStrength];
-          LODWORD(v21) = *(v113 + 67);
-          v22 = v113[42];
-          v105 = &OBJC_IVAR___CBAODState__thresholdsAPDeltaPBrightenBuckets;
+          LODWORD(v20) = *(v112 + 61);
+          [*(v112[42] + 408) setNits:v20];
+          [*(v112[42] + 408) currentStrength];
+          LODWORD(v21) = *(v112 + 67);
+          v22 = v112[42];
+          v104 = &OBJC_IVAR___CBAODState__thresholdsAPDeltaPBrightenBuckets;
           [*(v22 + 416) setLux:v21];
-          LODWORD(v23) = *(v113 + 61);
-          [*(v113[42] + 416) setNits:v23];
-          v24 = v113[42];
-          v107 = &OBJC_IVAR___CBAODState__thresholdsAPDeltaPBrightenBuckets;
-          CFXSetTarget(*(v24 + 272), v108 + 7, 1, 1, 0.0, v106);
+          LODWORD(v23) = *(v112 + 61);
+          [*(v112[42] + 416) setNits:v23];
+          v24 = v112[42];
+          v106 = &OBJC_IVAR___CBAODState__thresholdsAPDeltaPBrightenBuckets;
+          CFXSetTarget(*(v24 + 272), v107 + 7, 1, 1, 0.0, v105);
           Current = CFAbsoluteTimeGetCurrent();
-          v26 = v113;
-          *(v113 + 23) = Current;
-          CFXUpdateColorFade(*(*(v26 + 42) + 272), v26[23]);
-          memcpy((v113[42] + 280), v108 + 7, 0x30uLL);
-          if (*(v113[42] + 16))
+          v26 = v112;
+          *(v112 + 23) = Current;
+          CFXUpdateColorFade(*(v26[42] + 272), *(v26 + 23));
+          memcpy((v112[42] + 280), v107 + 7, 0x30uLL);
+          if (*(v112[42] + 16))
           {
-            v103 = *(v113[42] + 16);
+            v102 = *(v112[42] + 16);
           }
 
           else
           {
-            v102 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
-            v103 = v102;
+            v101 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+            v102 = v101;
           }
 
-          v27 = v113;
-          v113[22] = v103;
+          v27 = v112;
+          v112[22] = v102;
           type = OS_LOG_TYPE_DEFAULT;
           if (os_log_type_enabled(v27[22], OS_LOG_TYPE_DEFAULT))
           {
-            log = v113[22];
-            *v100 = type;
-            v98 = *(v113 + 23);
-            [*(v113[42] + 248) submissionTimestamp];
+            log = v112[22];
+            *v99 = type;
+            v97 = *(v112 + 23);
+            [*(v112[42] + 248) submissionTimestamp];
             buf = v152;
-            __os_log_helper_16_0_1_8_0(v152, COERCE__INT64(v98 - v28));
-            _os_log_impl(&dword_1DE8E5000, log, v100[0], "[Flipbook] No progress made on flipbook for %f sec", v152, 0xCu);
+            __os_log_helper_16_0_1_8_0(v152, COERCE__INT64(v97 - v28));
+            _os_log_impl(&dword_1DE8E5000, log, v99[0], "[Flipbook] No progress made on flipbook for %f sec", v152, 0xCu);
           }
         }
       }
 
       else
       {
-        v97 = v138;
+        v96 = v138;
         memset(v138, 0, sizeof(v138));
-        v137 = [v113[42] flipBookEntryForID:*(v113 + 80) entry:v138];
-        if ((v137 & 1) != 0 && *(v113[42] + 248))
+        v137 = [v112[42] flipBookEntryForID:*(v112 + 80) entry:v138];
+        if ((v137 & 1) != 0 && *(v112[42] + 248))
         {
-          v29 = v113;
+          v29 = v112;
           HIDWORD(v30) = 0;
-          *(v113[42] + 392) = 0;
-          v96 = *(v29[42] + 248);
-          if (v96)
+          *(v112[42] + 392) = 0;
+          v95 = *(v29[42] + 248);
+          if (v95)
           {
-            [v96 header];
+            objc_msgSend_header(v95, v114);
           }
 
           else
           {
-            v31 = v113;
-            v113[9] = 0;
+            v31 = v112;
+            v112[9] = 0;
             v31[10] = 0;
             v136 = 0;
           }
 
-          v95 = 0;
+          v94 = 0;
           if (v135)
           {
-            v94 = *(v113[42] + 248);
-            if (v94)
+            v93 = *(v112[42] + 248);
+            if (v93)
             {
-              [v94 header];
+              objc_msgSend_header(v93, v114);
             }
 
             else
             {
-              v32 = v113;
-              v113[6] = 0;
+              v32 = v112;
+              v112[6] = 0;
               v32[7] = 0;
               v134 = 0;
             }
 
-            v95 = v133 != 0;
+            v94 = v133 != 0;
           }
 
-          if (v95)
+          if (v94)
           {
-            v93 = *(v113[42] + 248);
-            if (v93)
+            v92 = *(v112[42] + 248);
+            if (v92)
             {
-              [v93 header];
+              objc_msgSend_header(v92, v114);
             }
 
             else
             {
-              v33 = v113;
-              v113[3] = 0;
+              v33 = v112;
+              v112[3] = 0;
               v33[4] = 0;
               v132 = 0;
             }
 
-            v91 = (v131 - 1 - *(v113 + 80));
-            v92 = *(v113[42] + 248);
-            if (v92)
+            v90 = (v131 - 1 - *(v112 + 80));
+            v91 = *(v112[42] + 248);
+            if (v91)
             {
-              [v92 header];
+              objc_msgSend_header(v91, v114);
             }
 
             else
             {
               v128 = 0;
-              v113[1] = 0;
+              v112[1] = 0;
               v130 = 0;
             }
 
-            v34 = v113;
-            *(v113[42] + 392) = v91 * (1.0 / v129);
+            v34 = v112;
+            *(v112[42] + 392) = v90 * (1.0 / v129);
             *(v34[42] + 392) = fminf(*(v34[42] + 392), 5.0);
           }
 
           else
           {
-            if (*(v113[42] + 16))
+            if (*(v112[42] + 16))
             {
-              v90 = *(v113[42] + 16);
+              v89 = *(v112[42] + 16);
             }
 
             else
@@ -305,19 +307,19 @@
                 inited = init_default_corebrightness_log();
               }
 
-              v90 = inited;
+              v89 = inited;
             }
 
-            oslog = v90;
+            oslog = v89;
             v126 = OS_LOG_TYPE_ERROR;
-            if (os_log_type_enabled(v90, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
             {
-              v86 = oslog;
-              *v87 = v126;
-              v88 = *(v113[42] + 248);
-              if (v88)
+              v85 = oslog;
+              *v86 = v126;
+              v87 = *(v112[42] + 248);
+              if (v87)
               {
-                [v88 header];
+                objc_msgSend_header(v87, v114);
               }
 
               else
@@ -325,11 +327,11 @@
                 memset(&v125[16], 0, 23);
               }
 
-              v84 = *&v125[29];
-              v85 = *(v113[42] + 248);
-              if (v85)
+              v83 = *&v125[29];
+              v84 = *(v112[42] + 248);
+              if (v84)
               {
-                [v85 header];
+                objc_msgSend_header(v84, v114);
               }
 
               else
@@ -339,92 +341,92 @@
                 *&v125[7] = 0;
               }
 
-              v83 = v151;
-              __os_log_helper_16_0_2_4_0_4_0(v151, v84, *&v125[1]);
-              _os_log_error_impl(&dword_1DE8E5000, v86, v87[0], "[Flipbook] Unexpected flipbook frequency = %d OR flipbook number of updates = %d", v151, 0xEu);
+              v82 = v151;
+              __os_log_helper_16_0_2_4_0_4_0(v151, v83, *&v125[1]);
+              _os_log_error_impl(&dword_1DE8E5000, v85, v86[0], "[Flipbook] Unexpected flipbook frequency = %d OR flipbook number of updates = %d", v151, 0xEu);
             }
           }
 
           if (v138[4])
           {
-            *(v113[42] + 84) = *&v138[5];
+            *(v112[42] + 84) = *&v138[5];
           }
 
           if (v138[51])
           {
-            *(v113[42] + 124) = *(v113 + 37);
+            *(v112[42] + 124) = *(v112 + 37);
           }
 
           if (v138[46])
           {
-            *(v113[42] + 116) = *&v138[47];
+            *(v112[42] + 116) = *&v138[47];
           }
 
-          LODWORD(v30) = *(v113[42] + 84);
-          [*(v113[42] + 408) setNits:v30];
+          LODWORD(v30) = *(v112[42] + 84);
+          [*(v112[42] + 408) setNits:v30];
           if (v138[56] & 1) != 0 || (v138[4])
           {
             LODWORD(v35) = *&v138[61];
-            [*(v113[42] + 408) setLux:v35];
+            [*(v112[42] + 408) setLux:v35];
           }
 
-          [*(v113[42] + 408) currentStrength];
-          LODWORD(v36) = *(v113[42] + 84);
-          [*(v113[42] + 416) setNits:v36];
+          [*(v112[42] + 408) currentStrength];
+          LODWORD(v36) = *(v112[42] + 84);
+          [*(v112[42] + 416) setNits:v36];
           if (v138[65] & 1) != 0 || (v138[4])
           {
             LODWORD(v37) = *&v138[70];
-            [*(v113[42] + 416) setLux:v37];
+            [*(v112[42] + 416) setLux:v37];
           }
 
-          if ([v113[42] gcp])
+          if ([v112[42] gcp])
           {
-            v82 = *(v113[42] + 84);
-            v38 = [v113[42] gcp];
-            LODWORD(v39) = v82;
+            v81 = *(v112[42] + 84);
+            v38 = [v112[42] gcp];
+            LODWORD(v39) = v81;
             [v38 setNits:v39];
           }
 
-          v40 = v113[42];
-          v79 = &OBJC_IVAR___CBAODState__thresholdsAPDeltaPBrightenBuckets;
+          v40 = v112[42];
+          v78 = &OBJC_IVAR___CBAODState__thresholdsAPDeltaPBrightenBuckets;
           v41 = *(v40 + 272);
-          v81 = v138;
-          v80 = 0;
+          v80 = v138;
+          v79 = 0;
           CFXSetTarget(v41, &v138[10], 1, 1, 0.0, 1.0);
           v123 = CFAbsoluteTimeGetCurrent();
-          CFXUpdateColorFade(*(v113[42] + 272), v123);
-          [v113[42] setCurrentWhitepointFromMatrix:&v138[10]];
+          CFXUpdateColorFade(*(v112[42] + 272), v123);
+          [v112[42] setCurrentWhitepointFromMatrix:&v138[10]];
           v122 = 0;
           v121 = 0;
-          [v113[42] chromaticity:&v122 andIlluminance:&v121 fromMatrix:&v138[10]];
-          if (*(v113[42] + 16))
+          [v112[42] chromaticity:&v122 andIlluminance:&v121 fromMatrix:&v138[10]];
+          if (*(v112[42] + 16))
           {
-            v78 = *(v113[42] + 16);
+            v77 = *(v112[42] + 16);
           }
 
           else
           {
             if (_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v77 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v76 = _COREBRIGHTNESS_LOG_DEFAULT;
             }
 
             else
             {
-              v77 = init_default_corebrightness_log();
+              v76 = init_default_corebrightness_log();
             }
 
-            v78 = v77;
+            v77 = v76;
           }
 
-          v120 = v78;
+          v120 = v77;
           v119 = OS_LOG_TYPE_DEFAULT;
-          if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
           {
-            v74 = v120;
-            *v75 = v119;
-            v42 = *(v113 + 24);
-            *&v43 = *(v113[42] + 392);
+            v73 = v120;
+            *v74 = v119;
+            v42 = *(v112 + 24);
+            *&v43 = *(v112[42] + 392);
             v44 = "set";
             if (v138[4])
             {
@@ -456,7 +458,7 @@
               v47 = "not set";
             }
 
-            *&v48 = *(v113 + 37);
+            *&v48 = *(v112 + 37);
             if (v138[51])
             {
               v49 = "set";
@@ -482,100 +484,98 @@
               v44 = "not set";
             }
 
-            v73 = &v61;
-            v76 = v150;
+            v72 = &v61;
+            v75 = v150;
             __os_log_helper_16_2_17_4_0_8_0_8_0_8_32_8_0_8_0_8_32_8_0_8_32_8_0_8_32_8_0_8_32_8_0_8_0_8_32_8_0(v150, v42, v43, COERCE__INT64(*&v138[5]), v45, COERCE__INT64(*&v122), COERCE__INT64(*(&v122 + 1)), v46, COERCE__INT64(*&v138[47]), v47, v48, v49, COERCE__INT64(*&v138[57]), v50, COERCE__INT64(*&v138[61]), COERCE__INT64(*&v138[66]), v44, COERCE__INT64(*&v138[70]));
-            _os_log_impl(&dword_1DE8E5000, v74, v75[0], "[Flipbook] Last update applied[%d], remaining transition length = %f, brightness = %f (%s); WP = (%f; %f) (%s), pcc = %f (%s), brightness limit = %f (%s), twilight = %f (%s), twilightLux = %f, ammolite = %f (%s), ammoliteLux = %f", v76, 0xA8u);
+            _os_log_impl(&dword_1DE8E5000, v73, v74[0], "[Flipbook] Last update applied[%d], remaining transition length = %f, brightness = %f (%s); WP = (%f; %f) (%s), pcc = %f (%s), brightness limit = %f (%s), twilight = %f (%s), twilightLux = %f, ammolite = %f (%s), ammoliteLux = %f", v75, 0xA8u);
           }
         }
 
         else
         {
-          if (*(v113[42] + 16))
+          if (*(v112[42] + 16))
           {
-            v72 = *(v113[42] + 16);
+            v71 = *(v112[42] + 16);
           }
 
           else
           {
             if (_COREBRIGHTNESS_LOG_DEFAULT)
             {
-              v71 = _COREBRIGHTNESS_LOG_DEFAULT;
+              v70 = _COREBRIGHTNESS_LOG_DEFAULT;
             }
 
             else
             {
-              v71 = init_default_corebrightness_log();
+              v70 = init_default_corebrightness_log();
             }
 
-            v72 = v71;
+            v71 = v70;
           }
 
-          v118 = v72;
+          v118 = v71;
           v117 = OS_LOG_TYPE_ERROR;
-          if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
           {
-            v68 = v118;
-            *v69 = v117;
-            v51 = *(v113 + 80);
-            v70 = v149;
+            v67 = v118;
+            *v68 = v117;
+            v51 = *(v112 + 80);
+            v69 = v149;
             __os_log_helper_16_0_1_4_0(v149, v51);
             _os_log_error_impl(&dword_1DE8E5000, v118, v117, "[Flipbook] currentID=%d (from DCP; adjusted) does not correspond to any entry", v149, 8u);
           }
 
-          *(v113[42] + 392) = 0;
+          *(v112[42] + 392) = 0;
         }
       }
     }
   }
 
-  if (*(v113[42] + 160))
+  if (*(v112[42] + 160))
   {
-    (*(*(v113[42] + 160) + 16))();
+    (*(*(v112[42] + 160) + 16))();
   }
 
-  [v113[42] releaseCallbacks];
-  if (*(v113[42] + 16))
+  [v112[42] releaseCallbacks];
+  if (*(v112[42] + 16))
   {
-    v67 = *(v113[42] + 16);
+    v66 = *(v112[42] + 16);
   }
 
   else
   {
     if (_COREBRIGHTNESS_LOG_DEFAULT)
     {
-      v66 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v65 = _COREBRIGHTNESS_LOG_DEFAULT;
     }
 
     else
     {
-      v66 = init_default_corebrightness_log();
+      v65 = init_default_corebrightness_log();
     }
 
-    v67 = v66;
+    v66 = v65;
   }
 
-  v116 = v67;
+  v116 = v66;
   v115 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
   {
-    v63 = v116;
-    *v64 = v115;
-    liveUpdates = [*(v113[42] + 72) liveUpdates];
-    v53 = v113[42];
+    v62 = v116;
+    *v63 = v115;
+    liveUpdates = [*(v112[42] + 72) liveUpdates];
+    v53 = v112[42];
     *&v54 = v53[21];
     *&v55 = v53[79];
     *&v56 = v53[80];
     *&v57 = v53[25];
     *&v58 = v53[29];
     *&v59 = v53[98];
-    v65 = v148;
+    v64 = v148;
     __os_log_helper_16_0_7_4_0_8_0_8_0_8_0_8_0_8_0_8_0(v148, liveUpdates, v54, v55, v56, v57, v58, v59);
-    _os_log_impl(&dword_1DE8E5000, v63, v64[0], "[AOD update] Cancel transition, liveUpdates=%d. Current SDR = %f, WP = (%f;%f), _currentEDRHeadroom = %f, AAP = %f, remaining transition length = %f", v65, 0x44u);
+    _os_log_impl(&dword_1DE8E5000, v62, v63[0], "[AOD update] Cancel transition, liveUpdates=%d. Current SDR = %f, WP = (%f;%f), _currentEDRHeadroom = %f, AAP = %f, remaining transition length = %f", v64, 0x44u);
   }
 
-  v62 = v145;
-  *MEMORY[0x1E69E9840];
   return v145;
 }
 
@@ -832,7 +832,6 @@
     [(CBAODTransitionController *)selfCopy checkBootArgsConfiguration];
   }
 
-  *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -992,7 +991,6 @@
     v24 = 0;
   }
 
-  *MEMORY[0x1E69E9840];
   return v24 & 1;
 }
 
@@ -1049,8 +1047,6 @@
       [(CBAODTransitionController *)selfCopy setLiveUpdates:v5];
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)copyCurrentDisplayState
@@ -1161,7 +1157,6 @@
   v32[9] = [MEMORY[0x1E696AD98] numberWithFloat:v13];
   v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:10];
   MEMORY[0x1E69E5928](v17);
-  *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -1243,12 +1238,11 @@
           _os_log_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_DEFAULT, "Get last update applied[%d] = %f", v14, 0x12u);
         }
 
-        currentSDRBrightness = *&__b[5];
+        return *&__b[5];
       }
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return currentSDRBrightness;
 }
 
@@ -1330,12 +1324,11 @@
           _os_log_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_DEFAULT, "Get last update applied[%d] PCC factor = %f", v14, 0x12u);
         }
 
-        currentAAPFactor = *&__b[47];
+        return *&__b[47];
       }
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return currentAAPFactor;
 }
 
@@ -1428,12 +1421,11 @@
           _os_log_impl(&dword_1DE8E5000, v6, OS_LOG_TYPE_DEFAULT, "Get last update applied[%d] Twilight Lux = %f (Twilight strength = %f (%s))", v16, 0x26u);
         }
 
-        v13 = *&__b[61];
+        return *&__b[61];
       }
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -1485,11 +1477,10 @@
         _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "Get last update applied[%d] Ammolite Lux = %f (Ammolite strength = %f (%s))", v11, 0x26u);
       }
 
-      v8 = *&__b[70];
+      return *&__b[70];
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -1523,7 +1514,6 @@
   }
 
   self->_edrRampDurationPerStop = ramp;
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)setDisplayON:(BOOL)n
@@ -1569,8 +1559,6 @@
 
     BYTE1(self->_targetWhitepoint.matrix[2][0]) = n;
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)startEternalIndicatorRamp
@@ -1720,8 +1708,6 @@
     __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v17, COERCE__INT64(self->_currentSDRBrightness), COERCE__INT64(self->_currentEDRHeadroom), COERCE__INT64(self->_currentAAPFactor), COERCE__INT64(self->_currentBrightnessLimit));
     _os_log_impl(&dword_1DE8E5000, v10, OS_LOG_TYPE_DEFAULT, "Normal mode SDR brightness = %f; EDR headroom = %f; AAP factor = %f; nitsCap = %f", v17, 0x2Au);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)startTransition:(id)transition length:(float)length forceUpdate:(BOOL)update rampDoneCallback:(id)callback rampCanceledCallback:(id)canceledCallback
@@ -1747,14 +1733,14 @@
 
 - (BOOL)startTransition:(id)transition transitionParameters:(id *)parameters rampDoneCallback:(id)callback rampCanceledCallback:(id)canceledCallback
 {
-  v200 = *MEMORY[0x1E69E9840];
+  v196 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v183 = a2;
+  v179 = a2;
   transitionCopy = transition;
   parametersCopy = parameters;
   aBlock = callback;
   canceledCallbackCopy = canceledCallback;
-  v178 = 0;
+  v174 = 0;
   if ([+[CBAODState isDCPBasedAODSupported]&& ![(CBRampManager *)selfCopy->_rampManager liveUpdates] sharedInstance]
   {
     if (parameters->var15)
@@ -1790,228 +1776,223 @@
       if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
       {
         log = oslog;
-        v136 = type;
-        __os_log_helper_16_0_0(v175);
-        _os_log_impl(&dword_1DE8E5000, log, v136, "Brightness Ramp will be done on DCP", v175, 2u);
+        v132 = type;
+        __os_log_helper_16_0_0(v171);
+        _os_log_impl(&dword_1DE8E5000, log, v132, "Brightness Ramp will be done on DCP", v171, 2u);
       }
     }
 
-    v185 = v178 & 1;
-    goto LABEL_292;
+    return v174 & 1;
   }
 
   var0 = parameters->var0;
   [CBAODTransitionController getFloatValueFrom:selfCopy key:"getFloatValueFrom:key:subkey:" subkey:transitionCopy];
-  v173 = v7;
+  v169 = v7;
   [(CBAODTransitionController *)selfCopy getFloatValueFrom:transitionCopy key:@"DisplayBrightness" subkey:@"NitsSDR"];
-  v172 = v8;
+  v168 = v8;
   [(CBAODTransitionController *)selfCopy getFloatValueFrom:transitionCopy key:@"DisplayBrightness" subkey:@"NitsCap"];
-  v171 = v9;
+  v167 = v9;
   [(CBAODTransitionController *)selfCopy getFloatValueFrom:transitionCopy key:@"DisplayAAPFactor"];
-  v170 = v10;
+  v166 = v10;
   memcpy(__dst, &identityMatrix, sizeof(__dst));
   [transitionCopy objectForKey:@"ColorRamp"];
   objc_opt_class();
-  v169 = objc_opt_isKindOfClass() & 1;
-  if (v169)
+  v165 = objc_opt_isKindOfClass() & 1;
+  if (v165)
   {
     [(CBAODTransitionController *)selfCopy colorMatrix:__dst fromState:transitionCopy];
   }
 
   [+[CBAODState sharedInstance](CBAODState nitsCap];
-  v168 = v11;
-  if (v11 > 0.0 && v172 > v168)
+  v164 = v11;
+  if (v11 > 0.0 && v168 > v164)
   {
     if (selfCopy->super._logHandle)
     {
-      v134 = selfCopy->super._logHandle;
+      v130 = selfCopy->super._logHandle;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v133 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v129 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v133 = init_default_corebrightness_log();
+        v129 = init_default_corebrightness_log();
       }
 
-      v134 = v133;
+      v130 = v129;
     }
 
-    v167 = v134;
-    v166 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v134, OS_LOG_TYPE_DEFAULT))
+    v163 = v130;
+    v162 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v130, OS_LOG_TYPE_DEFAULT))
     {
-      __os_log_helper_16_0_2_8_0_8_0(v198, COERCE__INT64(v172), COERCE__INT64(v168));
-      _os_log_impl(&dword_1DE8E5000, v167, v166, "Capping target SDR brightness %f -> %f", v198, 0x16u);
+      __os_log_helper_16_0_2_8_0_8_0(v194, COERCE__INT64(v168), COERCE__INT64(v164));
+      _os_log_impl(&dword_1DE8E5000, v163, v162, "Capping target SDR brightness %f -> %f", v194, 0x16u);
     }
 
-    v172 = v168;
+    v168 = v164;
   }
 
   if ([+[CBAODState AODState]!= 4 sharedInstance]
   {
     [+[CBAODState sharedInstance](CBAODState maxAODNits];
-    v171 = std::__math::fmin[abi:de200100](v171, v12);
+    v167 = std::__math::fmin[abi:de200100](v167, v12);
   }
 
   if (selfCopy->_targetWhitepoint.matrix[2][1] >= 0.0)
   {
-    v172 = selfCopy->_targetWhitepoint.matrix[2][1];
+    v168 = selfCopy->_targetWhitepoint.matrix[2][1];
   }
 
   [(CBAODTransitionController *)selfCopy getFloatValueFrom:transitionCopy key:@"TrustedLux"];
   selfCopy->_currentTrustedLux = *&v13;
-  if (v173 < 1.0)
+  if (v169 < 1.0)
   {
-    v165 = selfCopy->super._logHandle;
-    v164 = OS_LOG_TYPE_FAULT;
-    if (os_log_type_enabled(v165, OS_LOG_TYPE_FAULT))
+    v161 = selfCopy->super._logHandle;
+    v160 = OS_LOG_TYPE_FAULT;
+    if (os_log_type_enabled(v161, OS_LOG_TYPE_FAULT))
     {
-      __os_log_helper_16_0_1_8_0(v197, COERCE__INT64(v173));
-      _os_log_fault_impl(&dword_1DE8E5000, v165, v164, "Unexpected EDR Headroom target in AOD = %f < 1", v197, 0xCu);
+      __os_log_helper_16_0_1_8_0(v193, COERCE__INT64(v169));
+      _os_log_fault_impl(&dword_1DE8E5000, v161, v160, "Unexpected EDR Headroom target in AOD = %f < 1", v193, 0xCu);
     }
 
-    v173 = 1.0;
+    v169 = 1.0;
   }
 
-  v163 = 0;
-  v162 = 0;
-  *&v13 = v173;
-  v161 = v173 < selfCopy->_targetEDRHeadroom;
-  v160 = 0;
   v159 = 0;
   v158 = 0;
-  v157 = 0;
+  *&v13 = v169;
+  v157 = v169 < selfCopy->_targetEDRHeadroom;
   v156 = 0;
-  v132 = 1;
+  v155 = 0;
+  v154 = 0;
+  v153 = 0;
+  v152 = 0;
+  v128 = 1;
   if ([(CBAODState *)[(CBAODTransitionController *)selfCopy aodState] AODState]!= 3)
   {
-    v132 = [(CBAODState *)[(CBAODTransitionController *)selfCopy aodState] AODState]== 4;
+    v128 = [(CBAODState *)[(CBAODTransitionController *)selfCopy aodState] AODState]== 4;
   }
 
-  v155 = v132;
-  if (SLODWORD(v172) != SLODWORD(selfCopy->_targetSDRBrightness) || var0)
-  {
-    v163 = 1;
-  }
-
-  if (SLODWORD(v171) != SLODWORD(selfCopy->_targetBrightnessLimit) || var0)
+  v151 = v128;
+  if (SLODWORD(v168) != SLODWORD(selfCopy->_targetSDRBrightness) || var0)
   {
     v159 = 1;
   }
 
-  if ((v169 & 1) != 0 && ([(CBAODTransitionController *)selfCopy shallUpdateWhitepointFrom:selfCopy->_currentWhitepoint.matrix[2] target:__dst]|| var0))
+  if (SLODWORD(v167) != SLODWORD(selfCopy->_targetBrightnessLimit) || var0)
   {
-    v162 = 1;
+    v155 = 1;
   }
 
-  if (COERCE_INT(v170 * 100.0) != COERCE_INT(selfCopy->_targetAAPFactor * 100.0))
+  if ((v165 & 1) != 0 && ([(CBAODTransitionController *)selfCopy shallUpdateWhitepointFrom:selfCopy->_currentWhitepoint.matrix[2] target:__dst]|| var0))
   {
-    v160 = 1;
+    v158 = 1;
+  }
+
+  if (COERCE_INT(v166 * 100.0) != COERCE_INT(selfCopy->_targetAAPFactor * 100.0))
+  {
+    v156 = 1;
   }
 
   if (*&selfCopy->_currentDisplayNits)
   {
-    v131 = *&selfCopy->_currentDisplayNits;
-    [v131 targetLux];
-    currentTrustedLux = selfCopy->_currentTrustedLux;
-    if ([v131 shouldRampFromStartLux:? toTargetLux:?])
+    v127 = *&selfCopy->_currentDisplayNits;
+    [v127 targetLux];
+    if ([v127 shouldRampFromStartLux:? toTargetLux:?])
     {
-      *&v15 = v172;
-      if ([*&selfCopy->_currentDisplayNits nitsAreInActiveRange:v15] & 1) != 0 || (*&v16 = selfCopy->_targetSDRBrightness, (objc_msgSend(*&selfCopy->_currentDisplayNits, "nitsAreInActiveRange:", v16)))
+      *&v14 = v168;
+      if ([*&selfCopy->_currentDisplayNits nitsAreInActiveRange:v14] & 1) != 0 || (*&v15 = selfCopy->_targetSDRBrightness, (objc_msgSend(*&selfCopy->_currentDisplayNits, "nitsAreInActiveRange:", v15)))
       {
-        v157 = 1;
+        v153 = 1;
       }
     }
   }
 
   if (*&selfCopy->_remainingTransitionLength)
   {
-    v130 = *&selfCopy->_remainingTransitionLength;
-    [v130 targetLux];
-    v17 = selfCopy->_currentTrustedLux;
-    if ([v130 shouldRampFromStartLux:? toTargetLux:?])
+    v126 = *&selfCopy->_remainingTransitionLength;
+    [v126 targetLux];
+    if ([v126 shouldRampFromStartLux:? toTargetLux:?])
     {
-      *&v18 = v172;
-      if ([*&selfCopy->_remainingTransitionLength nitsAreInActiveRange:v18] & 1) != 0 || (*&v19 = selfCopy->_targetSDRBrightness, (objc_msgSend(*&selfCopy->_remainingTransitionLength, "nitsAreInActiveRange:", v19)))
+      *&v16 = v168;
+      if ([*&selfCopy->_remainingTransitionLength nitsAreInActiveRange:v16] & 1) != 0 || (*&v17 = selfCopy->_targetSDRBrightness, (objc_msgSend(*&selfCopy->_remainingTransitionLength, "nitsAreInActiveRange:", v17)))
       {
-        v156 = 1;
+        v152 = 1;
       }
     }
   }
 
   if ((CBU_RampLumaBoostFactorInAOD() & 1) != 0 && ([+[CBAODState sharedInstance](CBAODState AODState]== 3 || [+[CBAODState AODState]== 4 sharedInstance])
   {
-    v158 = 1;
+    v154 = 1;
   }
 
-  v129 = 1;
-  if ((v163 & 1) == 0)
+  v125 = 1;
+  if ((v159 & 1) == 0)
   {
-    v129 = 1;
-    if ((v160 & 1) == 0)
+    v125 = 1;
+    if ((v156 & 1) == 0)
     {
-      v129 = 1;
-      if ((v162 & 1) == 0)
+      v125 = 1;
+      if ((v158 & 1) == 0)
       {
-        v129 = 1;
-        if (!v161)
+        v125 = 1;
+        if (!v157)
         {
-          v129 = v158;
+          v125 = v154;
         }
       }
     }
   }
 
-  v154 = v129;
-  v128 = 1;
-  if ((v129 & 1) == 0)
+  v150 = v125;
+  v124 = 1;
+  if ((v125 & 1) == 0)
   {
-    v128 = 1;
-    if ((v157 & 1) == 0)
+    v124 = 1;
+    if ((v153 & 1) == 0)
     {
-      v128 = v156;
+      v124 = v152;
     }
   }
 
-  v154 = v128;
-  if ((v128 & 1) != 0 && (BYTE1(selfCopy->_targetWhitepoint.matrix[2][0]) & 1) == 0)
+  v150 = v124;
+  if ((v124 & 1) != 0 && (BYTE1(selfCopy->_targetWhitepoint.matrix[2][0]) & 1) == 0)
   {
     if (selfCopy->super._logHandle)
     {
-      v127 = selfCopy->super._logHandle;
+      v123 = selfCopy->super._logHandle;
     }
 
     else
     {
-      v126 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
-      v127 = v126;
+      v122 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+      v123 = v122;
     }
 
-    v153 = v127;
-    v152 = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(v127, OS_LOG_TYPE_ERROR))
+    v149 = v123;
+    v148 = OS_LOG_TYPE_ERROR;
+    if (os_log_type_enabled(v123, OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_2_1_8_64(v196, transitionCopy);
-      _os_log_error_impl(&dword_1DE8E5000, v153, v152, "Display is OFF -> discard AOD update %@", v196, 0xCu);
+      __os_log_helper_16_2_1_8_64(v192, transitionCopy);
+      _os_log_error_impl(&dword_1DE8E5000, v149, v148, "Display is OFF -> discard AOD update %@", v192, 0xCu);
     }
   }
 
-  if ((v154 & 1) == 0 || (BYTE1(selfCopy->_targetWhitepoint.matrix[2][0]) & 1) == 0)
+  if ((v150 & 1) == 0 || (BYTE1(selfCopy->_targetWhitepoint.matrix[2][0]) & 1) == 0)
   {
-LABEL_291:
-    v185 = v178 & 1;
-    goto LABEL_292;
+    return v174 & 1;
   }
 
   [+[CBAODState sharedInstance](CBAODState acquirePowerAssertion];
-  memcpy(v151, parameters, 0x34uLL);
-  [(CBAODTransitionController *)selfCopy logTransitionParameters:v151];
+  memcpy(v147, parameters, 0x34uLL);
+  [(CBAODTransitionController *)selfCopy logTransitionParameters:v147];
   if (!*&selfCopy->_currentFlipBookEntry.reserved[4])
   {
 LABEL_97:
@@ -2024,8 +2005,8 @@ LABEL_97:
 
     if (aBlock)
     {
-      v23 = _Block_copy(aBlock);
-      selfCopy->_rampDoneCallback = v23;
+      v21 = _Block_copy(aBlock);
+      selfCopy->_rampDoneCallback = v21;
     }
 
     if (selfCopy->_rampCanceledCallback)
@@ -2036,68 +2017,66 @@ LABEL_97:
 
     if (canceledCallbackCopy)
     {
-      v24 = _Block_copy(canceledCallbackCopy);
-      selfCopy->_rampCanceledCallback = v24;
+      v22 = _Block_copy(canceledCallbackCopy);
+      selfCopy->_rampCanceledCallback = v22;
     }
 
-    if ((v163 & 1) == 0 && selfCopy->_currentSDRBrightness != v172)
+    if ((v159 & 1) == 0 && selfCopy->_currentSDRBrightness != v168)
     {
-      v163 = 1;
+      v159 = 1;
     }
 
-    if ((v159 & 1) == 0 && selfCopy->_currentBrightnessLimit != v171)
+    if ((v155 & 1) == 0 && selfCopy->_currentBrightnessLimit != v167)
     {
-      v163 = 1;
+      v159 = 1;
     }
 
-    if ((v169 & 1) != 0 && (v162 & 1) == 0 && [(CBAODTransitionController *)selfCopy shallUpdateWhitepointFrom:&selfCopy->_thresholdModule target:__dst])
+    if ((v165 & 1) != 0 && (v158 & 1) == 0 && [(CBAODTransitionController *)selfCopy shallUpdateWhitepointFrom:&selfCopy->_thresholdModule target:__dst])
     {
-      v162 = 1;
+      v158 = 1;
     }
 
-    if ((v160 & 1) == 0 && COERCE_INT(v170 * 1000.0) != COERCE_INT(selfCopy->_currentAAPFactor * 1000.0))
+    if ((v156 & 1) == 0 && COERCE_INT(v166 * 1000.0) != COERCE_INT(selfCopy->_currentAAPFactor * 1000.0))
     {
-      v160 = 1;
+      v156 = 1;
     }
 
-    if ((v157 & 1) == 0)
+    if ((v153 & 1) == 0)
     {
       if (*&selfCopy->_currentDisplayNits)
       {
-        v123 = *&selfCopy->_currentDisplayNits;
-        [v123 lux];
-        v25 = selfCopy->_currentTrustedLux;
-        if ([v123 shouldRampFromStartLux:? toTargetLux:?])
+        v119 = *&selfCopy->_currentDisplayNits;
+        [v119 lux];
+        if ([v119 shouldRampFromStartLux:? toTargetLux:?])
         {
-          *&v26 = v172;
-          if ([*&selfCopy->_currentDisplayNits nitsAreInActiveRange:v26] & 1) != 0 || (*&v27 = selfCopy->_targetSDRBrightness, (objc_msgSend(*&selfCopy->_currentDisplayNits, "nitsAreInActiveRange:", v27)))
+          *&v23 = v168;
+          if ([*&selfCopy->_currentDisplayNits nitsAreInActiveRange:v23] & 1) != 0 || (*&v24 = selfCopy->_targetSDRBrightness, (objc_msgSend(*&selfCopy->_currentDisplayNits, "nitsAreInActiveRange:", v24)))
           {
-            v157 = 1;
+            v153 = 1;
           }
         }
       }
     }
 
-    if ((v156 & 1) == 0)
+    if ((v152 & 1) == 0)
     {
       if (*&selfCopy->_remainingTransitionLength)
       {
-        v122 = *&selfCopy->_remainingTransitionLength;
-        [v122 lux];
-        v28 = selfCopy->_currentTrustedLux;
-        if ([v122 shouldRampFromStartLux:? toTargetLux:?])
+        v118 = *&selfCopy->_remainingTransitionLength;
+        [v118 lux];
+        if ([v118 shouldRampFromStartLux:? toTargetLux:?])
         {
-          *&v29 = v172;
-          if ([*&selfCopy->_remainingTransitionLength nitsAreInActiveRange:v29] & 1) != 0 || (*&v30 = selfCopy->_targetSDRBrightness, (objc_msgSend(*&selfCopy->_remainingTransitionLength, "nitsAreInActiveRange:", v30)))
+          *&v25 = v168;
+          if ([*&selfCopy->_remainingTransitionLength nitsAreInActiveRange:v25] & 1) != 0 || (*&v26 = selfCopy->_targetSDRBrightness, (objc_msgSend(*&selfCopy->_remainingTransitionLength, "nitsAreInActiveRange:", v26)))
           {
-            v156 = 1;
+            v152 = 1;
           }
         }
       }
     }
 
     selfCopy->_currentFrequency = 60;
-    HIDWORD(v31) = 0;
+    HIDWORD(v27) = 0;
     if (parameters->var3)
     {
       var4 = parameters->var4;
@@ -2105,10 +2084,10 @@ LABEL_97:
 
     else
     {
-      *&v31 = selfCopy->_currentSDRBrightness;
-      *&v21 = v172;
-      [(CBAODTransitionController *)selfCopy transitionDurationFromCurrent:v31 toTarget:v21];
-      var4 = *&v31;
+      *&v27 = selfCopy->_currentSDRBrightness;
+      *&v19 = v168;
+      [(CBAODTransitionController *)selfCopy transitionDurationFromCurrent:v27 toTarget:v19];
+      var4 = *&v27;
     }
 
     if (parameters->var5)
@@ -2131,7 +2110,7 @@ LABEL_97:
       var8 = var4;
     }
 
-    v149 = var8;
+    v145 = var8;
     if (parameters->var9)
     {
       var10 = parameters->var10;
@@ -2152,7 +2131,7 @@ LABEL_97:
       var14 = var4;
     }
 
-    v148 = var14;
+    v144 = var14;
     if (parameters->var11)
     {
       var12 = parameters->var12;
@@ -2163,204 +2142,129 @@ LABEL_97:
       var12 = var4;
     }
 
-    v147 = var12;
+    v143 = var12;
     if (parameters->var3)
     {
-      v116 = parameters->var4;
+      v112 = parameters->var4;
     }
 
     else
     {
       [*&selfCopy->_currentDisplayNits aodRampDuration];
-      v116 = *&v31;
+      v112 = *&v27;
     }
 
     if (parameters->var3)
     {
-      v115 = parameters->var4;
+      v111 = parameters->var4;
     }
 
     else
     {
       [*&selfCopy->_remainingTransitionLength aodRampDuration];
-      v115 = *&v31;
-    }
-
-    if (v163)
-    {
-      *&v31 = v172;
-      *&v21 = v171;
-      *&v22 = selfCopy->_currentTrustedLux;
-      [*&selfCopy->_currentFlipBookEntry.ammoliteLux updateALSThresholdsWithBrightness:v31 brightnessLimit:v21 lux:v22];
-      selfCopy->_targetSDRBrightness = v172;
-      if (selfCopy->super._logHandle)
-      {
-        v114 = selfCopy->super._logHandle;
-      }
-
-      else
-      {
-        if (_COREBRIGHTNESS_LOG_DEFAULT)
-        {
-          v113 = _COREBRIGHTNESS_LOG_DEFAULT;
-        }
-
-        else
-        {
-          v113 = init_default_corebrightness_log();
-        }
-
-        v114 = v113;
-      }
-
-      if (os_log_type_enabled(v114, OS_LOG_TYPE_DEFAULT))
-      {
-        __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v194, COERCE__INT64(selfCopy->_currentSDRBrightness), COERCE__INT64(v172), COERCE__INT64(var6), COERCE__INT64(selfCopy->_currentTrustedLux));
-        _os_log_impl(&dword_1DE8E5000, v114, OS_LOG_TYPE_DEFAULT, "[AOD update] Update target with SDRBrightness %f -> %f, Length = %f, Lux = %f", v194, 0x2Au);
-      }
-
-      if ([+[CBAODState AODState]== 3 sharedInstance]
-      {
-        *&v32 = v172;
-        if (v172 > selfCopy->_currentSDRBrightness)
-        {
-          if (selfCopy->super._logHandle)
-          {
-            v112 = selfCopy->super._logHandle;
-          }
-
-          else
-          {
-            v111 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
-            v112 = v111;
-          }
-
-          if (os_log_type_enabled(v112, OS_LOG_TYPE_ERROR))
-          {
-            __os_log_helper_16_0_2_8_0_8_0(v193, COERCE__INT64(selfCopy->_currentSDRBrightness), COERCE__INT64(v172));
-            _os_log_error_impl(&dword_1DE8E5000, v112, OS_LOG_TYPE_ERROR, "SDR brightness is ramping up during AOD enter transition %f -> %f", v193, 0x16u);
-          }
-        }
-      }
-
-      if ([+[CBAODState AODState:v32]]== 4 && v172 < selfCopy->_currentSDRBrightness)
-      {
-        if (selfCopy->super._logHandle)
-        {
-          v110 = selfCopy->super._logHandle;
-        }
-
-        else
-        {
-          v109 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
-          v110 = v109;
-        }
-
-        if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
-        {
-          __os_log_helper_16_0_2_8_0_8_0(v192, COERCE__INT64(selfCopy->_currentSDRBrightness), COERCE__INT64(v172));
-          _os_log_error_impl(&dword_1DE8E5000, v110, OS_LOG_TYPE_ERROR, "SDR brightness is ramping down during AOD exit transition %f -> %f", v192, 0x16u);
-        }
-      }
-    }
-
-    if (v162)
-    {
-      if (!parameters->var7 && !parameters->var3)
-      {
-        v108 = selfCopy->_currentTrustedLux;
-        [+[CBAODState sharedInstance](CBAODState whitepointTransitionLengthLuxThreshold];
-        v33 = *&v34;
-        *&v34 = v108;
-        if (v108 <= v33)
-        {
-          [+[CBAODState whitepointTransitionLengthLowLux:v34]];
-        }
-
-        else
-        {
-          [+[CBAODState whitepointTransitionLength:v34]];
-        }
-
-        v149 = v35;
-      }
-
-      [(CBAODTransitionController *)selfCopy setTargetWhitepointFromMatrix:__dst];
-      if (selfCopy->super._logHandle)
-      {
-        v107 = selfCopy->super._logHandle;
-      }
-
-      else
-      {
-        if (_COREBRIGHTNESS_LOG_DEFAULT)
-        {
-          v106 = _COREBRIGHTNESS_LOG_DEFAULT;
-        }
-
-        else
-        {
-          v106 = init_default_corebrightness_log();
-        }
-
-        v107 = v106;
-      }
-
-      if (os_log_type_enabled(v107, OS_LOG_TYPE_DEFAULT))
-      {
-        __os_log_helper_16_0_5_8_0_8_0_8_0_8_0_8_0(v191, COERCE__INT64(selfCopy->_currentWhitepoint.matrix[1][0]), COERCE__INT64(selfCopy->_currentWhitepoint.matrix[1][1]), COERCE__INT64(selfCopy->_targetWhitepoint.matrix[1][0]), COERCE__INT64(selfCopy->_targetWhitepoint.matrix[1][1]), COERCE__INT64(v149));
-        _os_log_impl(&dword_1DE8E5000, v107, OS_LOG_TYPE_DEFAULT, "[AOD update] Update target with Whitepoint (%f;%f) -> (%f;%f), Length = %f", v191, 0x34u);
-      }
-    }
-
-    if (v160)
-    {
-      if (selfCopy->super._logHandle)
-      {
-        v105 = selfCopy->super._logHandle;
-      }
-
-      else
-      {
-        if (_COREBRIGHTNESS_LOG_DEFAULT)
-        {
-          v104 = _COREBRIGHTNESS_LOG_DEFAULT;
-        }
-
-        else
-        {
-          v104 = init_default_corebrightness_log();
-        }
-
-        v105 = v104;
-      }
-
-      if (os_log_type_enabled(v105, OS_LOG_TYPE_DEFAULT))
-      {
-        __os_log_helper_16_0_3_8_0_8_0_8_0(v190, COERCE__INT64(selfCopy->_currentAAPFactor), COERCE__INT64(v170), COERCE__INT64(var10));
-        _os_log_impl(&dword_1DE8E5000, v105, OS_LOG_TYPE_DEFAULT, "[AOD update] Update target with AAPFactor %f -> %f, Length = %f", v190, 0x20u);
-      }
-
-      selfCopy->_targetAAPFactor = v170;
-    }
-
-    if (v161)
-    {
-      if (!parameters->var11)
-      {
-        *&v31 = selfCopy->_currentEDRHeadroom;
-        *&v21 = v173;
-        *&v22 = selfCopy->_edrRampDurationPerStop;
-        [CBEDR overallRampDuration:v31 target:v21 durationPerStop:v22];
-        v147 = *&v31;
-      }
-
-      v148 = fmaxf(v147, var14);
+      v111 = *&v27;
     }
 
     if (v159)
     {
-      selfCopy->_targetBrightnessLimit = v171;
+      *&v27 = v168;
+      *&v19 = v167;
+      *&v20 = selfCopy->_currentTrustedLux;
+      [*&selfCopy->_currentFlipBookEntry.ammoliteLux updateALSThresholdsWithBrightness:v27 brightnessLimit:v19 lux:v20];
+      selfCopy->_targetSDRBrightness = v168;
+      if (selfCopy->super._logHandle)
+      {
+        v110 = selfCopy->super._logHandle;
+      }
+
+      else
+      {
+        if (_COREBRIGHTNESS_LOG_DEFAULT)
+        {
+          v109 = _COREBRIGHTNESS_LOG_DEFAULT;
+        }
+
+        else
+        {
+          v109 = init_default_corebrightness_log();
+        }
+
+        v110 = v109;
+      }
+
+      if (os_log_type_enabled(v110, OS_LOG_TYPE_DEFAULT))
+      {
+        __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v190, COERCE__INT64(selfCopy->_currentSDRBrightness), COERCE__INT64(v168), COERCE__INT64(var6), COERCE__INT64(selfCopy->_currentTrustedLux));
+        _os_log_impl(&dword_1DE8E5000, v110, OS_LOG_TYPE_DEFAULT, "[AOD update] Update target with SDRBrightness %f -> %f, Length = %f, Lux = %f", v190, 0x2Au);
+      }
+
+      if ([+[CBAODState AODState]== 3 sharedInstance]
+      {
+        *&v28 = v168;
+        if (v168 > selfCopy->_currentSDRBrightness)
+        {
+          if (selfCopy->super._logHandle)
+          {
+            v108 = selfCopy->super._logHandle;
+          }
+
+          else
+          {
+            v107 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+            v108 = v107;
+          }
+
+          if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
+          {
+            __os_log_helper_16_0_2_8_0_8_0(v189, COERCE__INT64(selfCopy->_currentSDRBrightness), COERCE__INT64(v168));
+            _os_log_error_impl(&dword_1DE8E5000, v108, OS_LOG_TYPE_ERROR, "SDR brightness is ramping up during AOD enter transition %f -> %f", v189, 0x16u);
+          }
+        }
+      }
+
+      if ([+[CBAODState AODState:v28]]== 4 && v168 < selfCopy->_currentSDRBrightness)
+      {
+        if (selfCopy->super._logHandle)
+        {
+          v106 = selfCopy->super._logHandle;
+        }
+
+        else
+        {
+          v105 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+          v106 = v105;
+        }
+
+        if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
+        {
+          __os_log_helper_16_0_2_8_0_8_0(v188, COERCE__INT64(selfCopy->_currentSDRBrightness), COERCE__INT64(v168));
+          _os_log_error_impl(&dword_1DE8E5000, v106, OS_LOG_TYPE_ERROR, "SDR brightness is ramping down during AOD exit transition %f -> %f", v188, 0x16u);
+        }
+      }
+    }
+
+    if (v158)
+    {
+      if (!parameters->var7 && !parameters->var3)
+      {
+        currentTrustedLux = selfCopy->_currentTrustedLux;
+        [+[CBAODState sharedInstance](CBAODState whitepointTransitionLengthLuxThreshold];
+        v29 = *&v30;
+        *&v30 = currentTrustedLux;
+        if (currentTrustedLux <= v29)
+        {
+          [+[CBAODState whitepointTransitionLengthLowLux:v30]];
+        }
+
+        else
+        {
+          [+[CBAODState whitepointTransitionLength:v30]];
+        }
+
+        v145 = v31;
+      }
+
+      [(CBAODTransitionController *)selfCopy setTargetWhitepointFromMatrix:__dst];
       if (selfCopy->super._logHandle)
       {
         v103 = selfCopy->super._logHandle;
@@ -2368,21 +2272,28 @@ LABEL_97:
 
       else
       {
-        v102 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+        if (_COREBRIGHTNESS_LOG_DEFAULT)
+        {
+          v102 = _COREBRIGHTNESS_LOG_DEFAULT;
+        }
+
+        else
+        {
+          v102 = init_default_corebrightness_log();
+        }
+
         v103 = v102;
       }
 
       if (os_log_type_enabled(v103, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_0_3_8_0_8_0_8_0(v189, COERCE__INT64(selfCopy->_currentBrightnessLimit), COERCE__INT64(selfCopy->_targetBrightnessLimit), COERCE__INT64(v148));
-        _os_log_impl(&dword_1DE8E5000, v103, OS_LOG_TYPE_DEFAULT, "[AOD update] Update target with brightness limit %f -> %f, Length = %f", v189, 0x20u);
+        __os_log_helper_16_0_5_8_0_8_0_8_0_8_0_8_0(v187, COERCE__INT64(selfCopy->_currentWhitepoint.matrix[1][0]), COERCE__INT64(selfCopy->_currentWhitepoint.matrix[1][1]), COERCE__INT64(selfCopy->_targetWhitepoint.matrix[1][0]), COERCE__INT64(selfCopy->_targetWhitepoint.matrix[1][1]), COERCE__INT64(v145));
+        _os_log_impl(&dword_1DE8E5000, v103, OS_LOG_TYPE_DEFAULT, "[AOD update] Update target with Whitepoint (%f;%f) -> (%f;%f), Length = %f", v187, 0x34u);
       }
     }
 
-    if (v157)
+    if (v156)
     {
-      *&v31 = selfCopy->_currentTrustedLux;
-      [*&selfCopy->_currentDisplayNits handleLuxUpdate:v31];
       if (selfCopy->super._logHandle)
       {
         v101 = selfCopy->super._logHandle;
@@ -2390,270 +2301,338 @@ LABEL_97:
 
       else
       {
-        v100 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+        if (_COREBRIGHTNESS_LOG_DEFAULT)
+        {
+          v100 = _COREBRIGHTNESS_LOG_DEFAULT;
+        }
+
+        else
+        {
+          v100 = init_default_corebrightness_log();
+        }
+
         v101 = v100;
       }
 
       if (os_log_type_enabled(v101, OS_LOG_TYPE_DEFAULT))
       {
-        [*&selfCopy->_currentDisplayNits lux];
-        *&v99 = v36;
-        [*&selfCopy->_currentDisplayNits targetLux];
-        __os_log_helper_16_0_5_8_0_8_0_8_0_8_0_8_0(v188, v99, COERCE__INT64(v37), COERCE__INT64(selfCopy->_currentSDRBrightness), COERCE__INT64(v172), COERCE__INT64(v116));
-        _os_log_impl(&dword_1DE8E5000, v101, OS_LOG_TYPE_DEFAULT, "[AOD update] Update target with Twilight lux %f -> %f, nits %f -> %f, Length = %f", v188, 0x34u);
+        __os_log_helper_16_0_3_8_0_8_0_8_0(v186, COERCE__INT64(selfCopy->_currentAAPFactor), COERCE__INT64(v166), COERCE__INT64(var10));
+        _os_log_impl(&dword_1DE8E5000, v101, OS_LOG_TYPE_DEFAULT, "[AOD update] Update target with AAPFactor %f -> %f, Length = %f", v186, 0x20u);
       }
+
+      selfCopy->_targetAAPFactor = v166;
     }
 
-    if (v156)
+    if (v157)
     {
-      *&v31 = selfCopy->_currentTrustedLux;
-      [*&selfCopy->_remainingTransitionLength handleLuxUpdate:v31];
+      if (!parameters->var11)
+      {
+        *&v27 = selfCopy->_currentEDRHeadroom;
+        *&v19 = v169;
+        *&v20 = selfCopy->_edrRampDurationPerStop;
+        [CBEDR overallRampDuration:v27 target:v19 durationPerStop:v20];
+        v143 = *&v27;
+      }
+
+      v144 = fmaxf(v143, var14);
+    }
+
+    if (v155)
+    {
+      selfCopy->_targetBrightnessLimit = v167;
       if (selfCopy->super._logHandle)
       {
-        v98 = selfCopy->super._logHandle;
+        v99 = selfCopy->super._logHandle;
       }
 
       else
       {
-        v97 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
-        v98 = v97;
+        v98 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+        v99 = v98;
       }
 
-      if (os_log_type_enabled(v98, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v99, OS_LOG_TYPE_DEFAULT))
+      {
+        __os_log_helper_16_0_3_8_0_8_0_8_0(v185, COERCE__INT64(selfCopy->_currentBrightnessLimit), COERCE__INT64(selfCopy->_targetBrightnessLimit), COERCE__INT64(v144));
+        _os_log_impl(&dword_1DE8E5000, v99, OS_LOG_TYPE_DEFAULT, "[AOD update] Update target with brightness limit %f -> %f, Length = %f", v185, 0x20u);
+      }
+    }
+
+    if (v153)
+    {
+      *&v27 = selfCopy->_currentTrustedLux;
+      [*&selfCopy->_currentDisplayNits handleLuxUpdate:v27];
+      if (selfCopy->super._logHandle)
+      {
+        v97 = selfCopy->super._logHandle;
+      }
+
+      else
+      {
+        v96 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+        v97 = v96;
+      }
+
+      if (os_log_type_enabled(v97, OS_LOG_TYPE_DEFAULT))
+      {
+        [*&selfCopy->_currentDisplayNits lux];
+        *&v95 = v32;
+        [*&selfCopy->_currentDisplayNits targetLux];
+        __os_log_helper_16_0_5_8_0_8_0_8_0_8_0_8_0(v184, v95, COERCE__INT64(v33), COERCE__INT64(selfCopy->_currentSDRBrightness), COERCE__INT64(v168), COERCE__INT64(v112));
+        _os_log_impl(&dword_1DE8E5000, v97, OS_LOG_TYPE_DEFAULT, "[AOD update] Update target with Twilight lux %f -> %f, nits %f -> %f, Length = %f", v184, 0x34u);
+      }
+    }
+
+    if (v152)
+    {
+      *&v27 = selfCopy->_currentTrustedLux;
+      [*&selfCopy->_remainingTransitionLength handleLuxUpdate:v27];
+      if (selfCopy->super._logHandle)
+      {
+        v94 = selfCopy->super._logHandle;
+      }
+
+      else
+      {
+        v93 = _COREBRIGHTNESS_LOG_DEFAULT ? _COREBRIGHTNESS_LOG_DEFAULT : init_default_corebrightness_log();
+        v94 = v93;
+      }
+
+      if (os_log_type_enabled(v94, OS_LOG_TYPE_DEFAULT))
       {
         [*&selfCopy->_remainingTransitionLength lux];
-        *&v96 = v38;
+        *&v92 = v34;
         [*&selfCopy->_remainingTransitionLength targetLux];
-        __os_log_helper_16_0_5_8_0_8_0_8_0_8_0_8_0(v187, v96, COERCE__INT64(v39), COERCE__INT64(selfCopy->_currentSDRBrightness), COERCE__INT64(v172), COERCE__INT64(v115));
-        _os_log_impl(&dword_1DE8E5000, v98, OS_LOG_TYPE_DEFAULT, "[AOD update] Update target with Ammolite lux %f -> %f, nits %f -> %f, Length = %f", v187, 0x34u);
+        __os_log_helper_16_0_5_8_0_8_0_8_0_8_0_8_0(v183, v92, COERCE__INT64(v35), COERCE__INT64(selfCopy->_currentSDRBrightness), COERCE__INT64(v168), COERCE__INT64(v111));
+        _os_log_impl(&dword_1DE8E5000, v94, OS_LOG_TYPE_DEFAULT, "[AOD update] Update target with Ammolite lux %f -> %f, nits %f -> %f, Length = %f", v183, 0x34u);
       }
     }
 
     if ([(CBRampManager *)selfCopy->_rampManager liveUpdates])
     {
-      *&v40 = selfCopy->_currentTrustedLux;
-      [(CBAODTransitionController *)selfCopy updateAmbient:v40];
+      *&v36 = selfCopy->_currentTrustedLux;
+      [(CBAODTransitionController *)selfCopy updateAmbient:v36];
     }
 
     else
     {
-      v41 = MEMORY[0x1E69E5920](*&selfCopy->_currentFlipBookEntry.ammoliteStrength_set);
+      v37 = MEMORY[0x1E69E5920](*&selfCopy->_currentFlipBookEntry.ammoliteStrength_set);
       *&selfCopy->_currentFlipBookEntry.ammoliteStrength_set = 0;
-      v41.n128_f32[0] = fmaxf(fmaxf(fmaxf(var6, v148), var10), v149);
-      *&v42 = selfCopy->_currentTrustedLux;
-      [(CBAODTransitionController *)selfCopy initialiseFlipBookWithLength:selfCopy->_currentFrequency frequency:v41.n128_f64[0] lux:v42];
+      v37.n128_f32[0] = fmaxf(fmaxf(fmaxf(var6, v144), var10), v145);
+      *&v38 = selfCopy->_currentTrustedLux;
+      [(CBAODTransitionController *)selfCopy initialiseFlipBookWithLength:selfCopy->_currentFrequency frequency:v37.n128_f64[0] lux:v38];
     }
 
-    v146 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    if (v163)
+    v142 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    if (v159)
     {
-      *&v43 = var6;
-      *&v44 = selfCopy->_currentFrequency;
-      *&v45 = selfCopy->_currentSDRBrightness;
-      *&v46 = v172;
-      v145 = [(CBAODTransitionController *)selfCopy copyRampStatsWithLength:v43 frequency:v44 origin:v45 target:v46];
-      if (v145)
+      *&v39 = var6;
+      *&v40 = selfCopy->_currentFrequency;
+      *&v41 = selfCopy->_currentSDRBrightness;
+      *&v42 = v168;
+      v141 = [(CBAODTransitionController *)selfCopy copyRampStatsWithLength:v39 frequency:v40 origin:v41 target:v42];
+      if (v141)
       {
-        [v146 setObject:v145 forKeyedSubscript:@"SDRRampStats"];
-        MEMORY[0x1E69E5920](v145);
+        [v142 setObject:v141 forKeyedSubscript:@"SDRRampStats"];
+        MEMORY[0x1E69E5920](v141);
       }
 
       if ([+[CBAODState sharedInstance](CBAODState AODState]== 3 || [+[CBAODState AODState]== 4 sharedInstance]
       {
         [+[CBAODState sharedInstance](CBAODState AODTransitionProfile];
-        *&v51 = selfCopy->_currentSDRBrightness;
-        *&v52 = v172;
-        *&v53 = var6;
-        *&v54 = selfCopy->_currentFrequency;
-        [(CBRampManager *)selfCopy->_rampManager insertNewRampOrigin:0 target:@"SDR_RAMP" length:v51 frequency:v52 startRamp:v53 identifier:v54 progressCallback:?];
-      }
-
-      else
-      {
         *&v47 = selfCopy->_currentSDRBrightness;
-        *&v48 = v172;
+        *&v48 = v168;
         *&v49 = var6;
         *&v50 = selfCopy->_currentFrequency;
         [(CBRampManager *)selfCopy->_rampManager insertNewRampOrigin:0 target:@"SDR_RAMP" length:v47 frequency:v48 startRamp:v49 identifier:v50 progressCallback:?];
       }
 
-      if (parameters->var2)
+      else
       {
         *&v43 = selfCopy->_currentSDRBrightness;
-        [(CBAODTransitionController *)selfCopy commitBrightness:1 force:v43];
+        *&v44 = v168;
+        *&v45 = var6;
+        *&v46 = selfCopy->_currentFrequency;
+        [(CBRampManager *)selfCopy->_rampManager insertNewRampOrigin:0 target:@"SDR_RAMP" length:v43 frequency:v44 startRamp:v45 identifier:v46 progressCallback:?];
+      }
+
+      if (parameters->var2)
+      {
+        *&v39 = selfCopy->_currentSDRBrightness;
+        [(CBAODTransitionController *)selfCopy commitBrightness:1 force:v39];
       }
     }
 
-    if (v159)
+    if (v155)
     {
-      *&v43 = selfCopy->_currentBrightnessLimit;
-      *&v44 = selfCopy->_targetBrightnessLimit;
-      *&v45 = v148;
-      *&v46 = selfCopy->_currentFrequency;
-      [(CBRampManager *)selfCopy->_rampManager insertNewRampOrigin:0 target:@"BRIGHTNESS_LIMIT_RAMP" length:v43 frequency:v44 startRamp:v45 identifier:v46 progressCallback:?];
+      *&v39 = selfCopy->_currentBrightnessLimit;
+      *&v40 = selfCopy->_targetBrightnessLimit;
+      *&v41 = v144;
+      *&v42 = selfCopy->_currentFrequency;
+      [(CBRampManager *)selfCopy->_rampManager insertNewRampOrigin:0 target:@"BRIGHTNESS_LIMIT_RAMP" length:v39 frequency:v40 startRamp:v41 identifier:v42 progressCallback:?];
     }
 
-    if (v162 & 1) != 0 && (CFXSetTarget(selfCopy->_flipbookCache, selfCopy->_currentWhitepoint.matrix[2], 1, 1, v149, 1.0))
+    if (v158 & 1) != 0 && (CFXSetTarget(selfCopy->_flipbookCache, selfCopy->_currentWhitepoint.matrix[2], 1, 1, v145, 1.0))
     {
-      *&v43 = v149;
-      *&v44 = selfCopy->_currentFrequency;
-      LODWORD(v46) = HIDWORD(*&selfCopy->_currentWhitepoint.matrix[1][0]);
-      LODWORD(v45) = *&selfCopy->_currentWhitepoint.matrix[1][0];
-      LODWORD(v56) = HIDWORD(*&selfCopy->_targetWhitepoint.matrix[1][0]);
-      LODWORD(v55) = *&selfCopy->_targetWhitepoint.matrix[1][0];
-      v144 = [(CBAODTransitionController *)selfCopy copyColourRampStatsWithLength:v43 frequency:v44 origin:v45 target:v46, v55, v56];
-      if (v144)
+      *&v39 = v145;
+      *&v40 = selfCopy->_currentFrequency;
+      LODWORD(v42) = HIDWORD(*&selfCopy->_currentWhitepoint.matrix[1][0]);
+      LODWORD(v41) = *&selfCopy->_currentWhitepoint.matrix[1][0];
+      LODWORD(v52) = HIDWORD(*&selfCopy->_targetWhitepoint.matrix[1][0]);
+      LODWORD(v51) = *&selfCopy->_targetWhitepoint.matrix[1][0];
+      v140 = [(CBAODTransitionController *)selfCopy copyColourRampStatsWithLength:v39 frequency:v40 origin:v41 target:v42, v51, v52];
+      if (v140)
       {
-        [v146 setObject:v144 forKeyedSubscript:@"ColourRampStats"];
-        MEMORY[0x1E69E5920](v144);
+        [v142 setObject:v140 forKeyedSubscript:@"ColourRampStats"];
+        MEMORY[0x1E69E5920](v140);
       }
 
-      *&v58 = v149;
-      *&v59 = selfCopy->_currentFrequency;
-      LODWORD(v57) = 1.0;
-      [(CBRampManager *)selfCopy->_rampManager insertNewLinearRampOrigin:0 target:@"COLOR_RAMP" length:0.0 frequency:v57 startRamp:v58 identifier:v59];
+      *&v54 = v145;
+      *&v55 = selfCopy->_currentFrequency;
+      LODWORD(v53) = 1.0;
+      [(CBRampManager *)selfCopy->_rampManager insertNewLinearRampOrigin:0 target:@"COLOR_RAMP" length:0.0 frequency:v53 startRamp:v54 identifier:v55];
     }
 
-    if (v161)
+    if (v157)
     {
-      *&v43 = v147;
-      *&v45 = selfCopy->_currentEDRHeadroom;
-      *&v46 = v173;
-      LODWORD(v44) = 1123024896;
-      v143 = [(CBAODTransitionController *)selfCopy copyRampStatsWithLength:v43 frequency:v44 origin:v45 target:v46];
-      if (v143)
+      *&v39 = v143;
+      *&v41 = selfCopy->_currentEDRHeadroom;
+      *&v42 = v169;
+      LODWORD(v40) = 1123024896;
+      v139 = [(CBAODTransitionController *)selfCopy copyRampStatsWithLength:v39 frequency:v40 origin:v41 target:v42];
+      if (v139)
       {
-        [v146 setObject:v143 forKeyedSubscript:@"EDRRampStats"];
-        MEMORY[0x1E69E5920](v143);
+        [v142 setObject:v139 forKeyedSubscript:@"EDRRampStats"];
+        MEMORY[0x1E69E5920](v139);
       }
 
       if (selfCopy->super._logHandle)
       {
-        v95 = selfCopy->super._logHandle;
+        v91 = selfCopy->super._logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v94 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v90 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v94 = init_default_corebrightness_log();
+          v90 = init_default_corebrightness_log();
         }
 
-        v95 = v94;
+        v91 = v90;
       }
 
-      if (os_log_type_enabled(v95, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v91, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_0_3_8_0_8_0_8_0(v186, COERCE__INT64(selfCopy->_currentEDRHeadroom), COERCE__INT64(v173), COERCE__INT64(v147));
-        _os_log_impl(&dword_1DE8E5000, v95, OS_LOG_TYPE_DEFAULT, "[AOD update] Update target with EDR %f -> %f, length = %f", v186, 0x20u);
+        __os_log_helper_16_0_3_8_0_8_0_8_0(v182, COERCE__INT64(selfCopy->_currentEDRHeadroom), COERCE__INT64(v169), COERCE__INT64(v143));
+        _os_log_impl(&dword_1DE8E5000, v91, OS_LOG_TYPE_DEFAULT, "[AOD update] Update target with EDR %f -> %f, length = %f", v182, 0x20u);
       }
 
-      selfCopy->_targetEDRHeadroom = v173;
-      *&v60 = selfCopy->_currentEDRHeadroom;
-      *&v61 = v173;
-      *&v62 = v147;
-      LODWORD(v63) = 1123024896;
-      [(CBRampManager *)selfCopy->_rampManager insertNewRampOrigin:0 target:@"EDR_RAMP" length:&__block_literal_global_13 frequency:v60 startRamp:v61 identifier:v62 progressCallback:v63];
+      selfCopy->_targetEDRHeadroom = v169;
+      *&v56 = selfCopy->_currentEDRHeadroom;
+      *&v57 = v169;
+      *&v58 = v143;
+      LODWORD(v59) = 1123024896;
+      [(CBRampManager *)selfCopy->_rampManager insertNewRampOrigin:0 target:@"EDR_RAMP" length:&__block_literal_global_13 frequency:v56 startRamp:v57 identifier:v58 progressCallback:v59];
     }
 
-    if (v160)
+    if (v156)
     {
-      *&v43 = var10;
-      *&v44 = selfCopy->_currentFrequency;
-      *&v45 = selfCopy->_currentAAPFactor;
-      *&v46 = v170;
-      v142 = [(CBAODTransitionController *)selfCopy copyRampStatsWithLength:v43 frequency:v44 origin:v45 target:v46];
-      if (v142)
+      *&v39 = var10;
+      *&v40 = selfCopy->_currentFrequency;
+      *&v41 = selfCopy->_currentAAPFactor;
+      *&v42 = v166;
+      v138 = [(CBAODTransitionController *)selfCopy copyRampStatsWithLength:v39 frequency:v40 origin:v41 target:v42];
+      if (v138)
       {
-        [v146 setObject:v142 forKeyedSubscript:@"AAPRampStats"];
-        v64 = MEMORY[0x1E69E5920](v142);
+        [v142 setObject:v138 forKeyedSubscript:@"AAPRampStats"];
+        v60 = MEMORY[0x1E69E5920](v138);
       }
 
-      v64.n128_u32[0] = LODWORD(selfCopy->_currentAAPFactor);
-      *&v65 = v170;
-      *&v66 = var10;
-      *&v67 = selfCopy->_currentFrequency;
-      [(CBRampManager *)selfCopy->_rampManager insertNewLinearRampOrigin:0 target:@"AAP_RAMP" length:v64.n128_f64[0] frequency:v65 startRamp:v66 identifier:v67];
+      v60.n128_u32[0] = LODWORD(selfCopy->_currentAAPFactor);
+      *&v61 = v166;
+      *&v62 = var10;
+      *&v63 = selfCopy->_currentFrequency;
+      [(CBRampManager *)selfCopy->_rampManager insertNewLinearRampOrigin:0 target:@"AAP_RAMP" length:v60.n128_f64[0] frequency:v61 startRamp:v62 identifier:v63];
     }
 
-    if (v158)
+    if (v154)
     {
-      v141 = 0.0;
+      v137 = 0.0;
       if ([+[CBAODState AODState]== 3 sharedInstance]
       {
-        v141 = 1.0;
+        v137 = 1.0;
       }
 
-      *&v68 = selfCopy->_currentLumaBoostFactor;
-      *&v69 = v141;
-      *&v70 = var4;
-      *&v71 = selfCopy->_currentFrequency;
-      [(CBRampManager *)selfCopy->_rampManager insertNewLinearRampOrigin:@"LUMA_BOOST_FACTOR_RAMP" target:v68 length:v69 frequency:v70 identifier:v71];
+      *&v64 = selfCopy->_currentLumaBoostFactor;
+      *&v65 = v137;
+      *&v66 = var4;
+      *&v67 = selfCopy->_currentFrequency;
+      [(CBRampManager *)selfCopy->_rampManager insertNewLinearRampOrigin:@"LUMA_BOOST_FACTOR_RAMP" target:v64 length:v65 frequency:v66 identifier:v67];
     }
 
-    if (v155 && [(CBAODTransitionController *)selfCopy gcp])
+    if (v151 && [(CBAODTransitionController *)selfCopy gcp])
     {
       if ([(CBAODState *)[(CBAODTransitionController *)selfCopy aodState] AODState]== 3)
       {
         [(CBGammaContrastPreservation *)[(CBAODTransitionController *)selfCopy gcp] setRampManager:selfCopy->_rampManager];
       }
 
-      v140 = ([(CBAODState *)[(CBAODTransitionController *)selfCopy aodState] AODState]!= 3);
+      v136 = ([(CBAODState *)[(CBAODTransitionController *)selfCopy aodState] AODState]!= 3);
       [(CBGammaContrastPreservation *)[(CBAODTransitionController *)selfCopy gcp] AODFadeFactor];
-      *&v72 = v140;
-      *&v73 = var4;
-      *&v74 = selfCopy->_currentFrequency;
-      [(CBRampManager *)selfCopy->_rampManager insertNewLinearRampOrigin:GCP_AOD_FACTOR_FADE_RAMP target:v75 length:v72 frequency:v73 identifier:v74];
+      *&v68 = v136;
+      *&v69 = var4;
+      *&v70 = selfCopy->_currentFrequency;
+      [(CBRampManager *)selfCopy->_rampManager insertNewLinearRampOrigin:GCP_AOD_FACTOR_FADE_RAMP target:v71 length:v68 frequency:v69 identifier:v70];
     }
 
-    if (v157)
+    if (v153)
     {
       rampManager = selfCopy->_rampManager;
       [*&selfCopy->_currentDisplayNits lux];
-      v93 = v76;
+      v89 = v72;
       [*&selfCopy->_currentDisplayNits targetLux];
-      LODWORD(v78) = v77;
-      LODWORD(v79) = v93;
-      *&v80 = v116;
-      *&v81 = selfCopy->_currentFrequency;
-      [(CBRampManager *)rampManager insertNewRampOrigin:0 target:@"TWILIGHT_RAMP" length:v79 frequency:v78 startRamp:v80 identifier:v81 progressCallback:?];
+      LODWORD(v74) = v73;
+      LODWORD(v75) = v89;
+      *&v76 = v112;
+      *&v77 = selfCopy->_currentFrequency;
+      [(CBRampManager *)rampManager insertNewRampOrigin:0 target:@"TWILIGHT_RAMP" length:v75 frequency:v74 startRamp:v76 identifier:v77 progressCallback:?];
     }
 
-    if (v156)
+    if (v152)
     {
-      v90 = selfCopy->_rampManager;
+      v86 = selfCopy->_rampManager;
       [*&selfCopy->_remainingTransitionLength lux];
-      v91 = v82;
+      v87 = v78;
       [*&selfCopy->_remainingTransitionLength targetLux];
-      LODWORD(v84) = v83;
-      LODWORD(v85) = v91;
-      *&v86 = v115;
-      *&v87 = selfCopy->_currentFrequency;
-      [(CBRampManager *)v90 insertNewRampOrigin:0 target:@"AMMOLITE_RAMP" length:v85 frequency:v84 startRamp:v86 identifier:v87 progressCallback:?];
+      LODWORD(v80) = v79;
+      LODWORD(v81) = v87;
+      *&v82 = v111;
+      *&v83 = selfCopy->_currentFrequency;
+      [(CBRampManager *)v86 insertNewRampOrigin:0 target:@"AMMOLITE_RAMP" length:v81 frequency:v80 startRamp:v82 identifier:v83 progressCallback:?];
     }
 
     [(CBRampManager *)selfCopy->_rampManager startRamps];
     selfCopy->_targetWhitepoint.xy.y = 0.0;
     if (![(CBRampManager *)selfCopy->_rampManager liveUpdates])
     {
-      v88 = MEMORY[0x1E695E118];
+      v84 = MEMORY[0x1E695E118];
     }
 
     else
     {
-      v88 = MEMORY[0x1E695E110];
+      v84 = MEMORY[0x1E695E110];
     }
 
-    [v146 setObject:v88 forKeyedSubscript:@"isFlipbookActive"];
-    [(CBAODTransitionController *)selfCopy sendNotificationForKey:@"AODRampTelemetry" andValue:v146];
-    MEMORY[0x1E69E5920](v146);
-    v178 = 1;
-    goto LABEL_291;
+    [v142 setObject:v84 forKeyedSubscript:@"isFlipbookActive"];
+    [(CBAODTransitionController *)selfCopy sendNotificationForKey:@"AODRampTelemetry" andValue:v142];
+    MEMORY[0x1E69E5920](v142);
+    v174 = 1;
+    return v174 & 1;
   }
 
   if (selfCopy->_pendingState)
@@ -2668,38 +2647,35 @@ LABEL_97:
     goto LABEL_97;
   }
 
-  v20 = MEMORY[0x1E69E5928](transitionCopy);
-  selfCopy->_pendingState = v20;
+  v18 = MEMORY[0x1E69E5928](transitionCopy);
+  selfCopy->_pendingState = v18;
   if (selfCopy->super._logHandle)
   {
-    v125 = selfCopy->super._logHandle;
+    v121 = selfCopy->super._logHandle;
   }
 
   else
   {
     if (_COREBRIGHTNESS_LOG_DEFAULT)
     {
-      v124 = _COREBRIGHTNESS_LOG_DEFAULT;
+      v120 = _COREBRIGHTNESS_LOG_DEFAULT;
     }
 
     else
     {
-      v124 = init_default_corebrightness_log();
+      v120 = init_default_corebrightness_log();
     }
 
-    v125 = v124;
+    v121 = v120;
   }
 
-  if (os_log_type_enabled(v125, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v121, OS_LOG_TYPE_DEFAULT))
   {
-    __os_log_helper_16_0_1_8_0(v195, COERCE__INT64(v172));
-    _os_log_impl(&dword_1DE8E5000, v125, OS_LOG_TYPE_DEFAULT, "Last update was not swapped on the display -> pending update with Nits = %f", v195, 0xCu);
+    __os_log_helper_16_0_1_8_0(v191, COERCE__INT64(v168));
+    _os_log_impl(&dword_1DE8E5000, v121, OS_LOG_TYPE_DEFAULT, "Last update was not swapped on the display -> pending update with Nits = %f", v191, 0xCu);
   }
 
-  v185 = 0;
-LABEL_292:
-  *MEMORY[0x1E69E9840];
-  return v185 & 1;
+  return 0;
 }
 
 uint64_t __104__CBAODTransitionController_startTransition_transitionParameters_rampDoneCallback_rampCanceledCallback___block_invoke_189(float a1, uint64_t a2, void *a3)
@@ -2794,115 +2770,114 @@ uint64_t __104__CBAODTransitionController_startTransition_transitionParameters_r
 
 - (void)clockUpdateHandler:(id)handler
 {
-  v122 = *MEMORY[0x1E69E9840];
+  v121 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v117 = a2;
+  v116 = a2;
   handlerCopy = handler;
-  v77 = [handler rampForIdentifier:@"SDR_RAMP"];
-  v115 = MEMORY[0x1E69E5928](v77);
-  v76 = [handlerCopy rampForIdentifier:@"COLOR_RAMP"];
+  v76 = [handler rampForIdentifier:@"SDR_RAMP"];
   v114 = MEMORY[0x1E69E5928](v76);
-  v75 = [handlerCopy rampForIdentifier:@"EDR_RAMP"];
+  v75 = [handlerCopy rampForIdentifier:@"COLOR_RAMP"];
   v113 = MEMORY[0x1E69E5928](v75);
-  v74 = [handlerCopy rampForIdentifier:@"AAP_RAMP"];
+  v74 = [handlerCopy rampForIdentifier:@"EDR_RAMP"];
   v112 = MEMORY[0x1E69E5928](v74);
-  v73 = [handlerCopy rampForIdentifier:@"BRIGHTNESS_LIMIT_RAMP"];
+  v73 = [handlerCopy rampForIdentifier:@"AAP_RAMP"];
   v111 = MEMORY[0x1E69E5928](v73);
-  v72 = [handlerCopy rampForIdentifier:@"LUMA_BOOST_FACTOR_RAMP"];
+  v72 = [handlerCopy rampForIdentifier:@"BRIGHTNESS_LIMIT_RAMP"];
   v110 = MEMORY[0x1E69E5928](v72);
-  v71 = [handlerCopy rampForIdentifier:GCP_AOD_FACTOR_FADE_RAMP];
+  v71 = [handlerCopy rampForIdentifier:@"LUMA_BOOST_FACTOR_RAMP"];
   v109 = MEMORY[0x1E69E5928](v71);
-  v70 = [handlerCopy rampForIdentifier:@"TWILIGHT_RAMP"];
+  v70 = [handlerCopy rampForIdentifier:GCP_AOD_FACTOR_FADE_RAMP];
   v108 = MEMORY[0x1E69E5928](v70);
-  v69 = [handlerCopy rampForIdentifier:@"AMMOLITE_RAMP"];
+  v69 = [handlerCopy rampForIdentifier:@"TWILIGHT_RAMP"];
   v107 = MEMORY[0x1E69E5928](v69);
-  v68 = [handlerCopy rampForIdentifier:@"INDICATOR_RAMP"];
+  v68 = [handlerCopy rampForIdentifier:@"AMMOLITE_RAMP"];
   v106 = MEMORY[0x1E69E5928](v68);
+  v67 = [handlerCopy rampForIdentifier:@"INDICATOR_RAMP"];
+  v105 = MEMORY[0x1E69E5928](v67);
   if ([(CBRampManager *)selfCopy->_rampManager liveUpdates])
   {
-    if (v115)
-    {
-      [v115 currentValue];
-      [(CBAODTransitionController *)selfCopy updateSDRBrightness:v5];
-      [v115 currentValue];
-      [*&selfCopy->_currentDisplayNits setNits:v6];
-      [v115 currentValue];
-      [*&selfCopy->_remainingTransitionLength setNits:v7];
-    }
-
     if (v114)
     {
-      [(CBAODTransitionController *)selfCopy updateColorRamp:v114];
+      [v114 currentValue];
+      [(CBAODTransitionController *)selfCopy updateSDRBrightness:v5];
+      [v114 currentValue];
+      [*&selfCopy->_currentDisplayNits setNits:v6];
+      [v114 currentValue];
+      [*&selfCopy->_remainingTransitionLength setNits:v7];
     }
 
     if (v113)
     {
-      [v113 currentValue];
-      [(CBAODTransitionController *)selfCopy updateEDRHeadroom:v8];
+      [(CBAODTransitionController *)selfCopy updateColorRamp:v113];
     }
 
     if (v112)
     {
       [v112 currentValue];
-      [(CBAODTransitionController *)selfCopy updateAAPFactor:v9];
+      [(CBAODTransitionController *)selfCopy updateEDRHeadroom:v8];
     }
 
     if (v111)
     {
       [v111 currentValue];
-      [(CBAODTransitionController *)selfCopy updateBrightnessLimit:v10];
+      [(CBAODTransitionController *)selfCopy updateAAPFactor:v9];
     }
 
     if (v110)
     {
       [v110 currentValue];
-      [(CBAODTransitionController *)selfCopy updateLumaBoostFactor:v11];
+      [(CBAODTransitionController *)selfCopy updateBrightnessLimit:v10];
     }
 
     if (v109)
     {
       [v109 currentValue];
-      v67 = v12;
-      v66 = [(CBAODTransitionController *)selfCopy gcp];
-      LODWORD(v13) = v67;
-      [(CBGammaContrastPreservation *)v66 setAODFadeFactor:v13];
-      brtCtl = selfCopy->_brtCtl;
+      [(CBAODTransitionController *)selfCopy updateLumaBoostFactor:v11];
+    }
+
+    if (v108)
+    {
+      [v108 currentValue];
+      v66 = v12;
+      v65 = [(CBAODTransitionController *)selfCopy gcp];
+      LODWORD(v13) = v66;
+      [(CBGammaContrastPreservation *)v65 setAODFadeFactor:v13];
       if (objc_opt_respondsToSelector())
       {
-        v65 = selfCopy->_brtCtl;
+        brtCtl = selfCopy->_brtCtl;
         [(CBGammaContrastPreservation *)[(CBAODTransitionController *)selfCopy gcp] currentStrength];
-        [(CBBrightnessProxy *)v65 setContrastPreservation:v15];
+        [(CBBrightnessProxy *)brtCtl setContrastPreservation:v14];
       }
     }
 
-    *&v105 = NAN;
-    if (*&selfCopy->_currentDisplayNits && (v115 || v108))
+    *&v104 = NAN;
+    if (*&selfCopy->_currentDisplayNits && (v114 || v107))
     {
       [*&selfCopy->_currentDisplayNits currentStrength];
-      v105 = SLODWORD(v16);
-      [(CBAODTransitionController *)selfCopy updateTwilightStrength:v16];
+      v104 = SLODWORD(v15);
+      [(CBAODTransitionController *)selfCopy updateTwilightStrength:v15];
     }
 
-    *&v104 = NAN;
-    if (*&selfCopy->_remainingTransitionLength && (v115 || v107))
+    *&v103 = NAN;
+    if (*&selfCopy->_remainingTransitionLength && (v114 || v106))
     {
       [*&selfCopy->_remainingTransitionLength currentStrength];
-      v104 = SLODWORD(v17);
-      [(CBAODTransitionController *)selfCopy updateAmmoliteStrength:v17];
+      v103 = SLODWORD(v16);
+      [(CBAODTransitionController *)selfCopy updateAmmoliteStrength:v16];
     }
 
-    v103 = NAN;
+    v102 = NAN;
     if (selfCopy->_displayContext)
     {
       *&v3 = selfCopy->_currentSDRBrightness;
       [(CBDisplayContextiOS *)selfCopy->_displayContext setSDRBrightness:v3];
-      *&v18 = selfCopy->_currentEDRHeadroom;
-      [(CBDisplayContextiOS *)selfCopy->_displayContext setAppliedHeadroom:v18];
+      *&v17 = selfCopy->_currentEDRHeadroom;
+      [(CBDisplayContextiOS *)selfCopy->_displayContext setAppliedHeadroom:v17];
       if ((CBU_IsSecureIndicatorSupported() & 1) != 0 && [+[CBSILState isSILActive] sharedInstance]
       {
-        if (v106)
+        if (v105)
         {
-          [v106 currentValue];
+          [v105 currentValue];
         }
 
         else
@@ -2910,16 +2885,16 @@ uint64_t __104__CBAODTransitionController_startTransition_transitionParameters_r
           [(CBDisplayContextiOS *)selfCopy->_displayContext currentIndicatorBrightness];
         }
 
-        v103 = *&v3;
+        v102 = *&v3;
       }
     }
 
-    v102 = fmaxf(v103, selfCopy->_currentBrightnessLimit);
-    *&v3 = v103;
-    *&v4 = v102;
+    v101 = fmaxf(v102, selfCopy->_currentBrightnessLimit);
+    *&v3 = v102;
+    *&v4 = v101;
     [(CBAODTransitionController *)selfCopy updateIndicatorBrightness:v3 andLimit:v4];
-    v101 = 0;
     v100 = 0;
+    v99 = 0;
     if (selfCopy->super._logHandle)
     {
       logHandle = selfCopy->super._logHandle;
@@ -2940,25 +2915,14 @@ uint64_t __104__CBAODTransitionController_startTransition_transitionParameters_r
       logHandle = inited;
     }
 
-    v99 = logHandle;
+    v98 = logHandle;
     type = OS_LOG_TYPE_DEFAULT;
     if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
     {
-      if (v115)
+      if (v114)
       {
-        [v115 currentValue];
-        v62 = v19;
-      }
-
-      else
-      {
-        v62 = -1.0;
-      }
-
-      if (v113)
-      {
-        [v113 currentValue];
-        v61 = v20;
+        [v114 currentValue];
+        v61 = v18;
       }
 
       else
@@ -2966,10 +2930,10 @@ uint64_t __104__CBAODTransitionController_startTransition_transitionParameters_r
         v61 = -1.0;
       }
 
-      if (v111)
+      if (v112)
       {
-        [v111 currentValue];
-        v60 = v21;
+        [v112 currentValue];
+        v60 = v19;
       }
 
       else
@@ -2977,10 +2941,10 @@ uint64_t __104__CBAODTransitionController_startTransition_transitionParameters_r
         v60 = -1.0;
       }
 
-      if (v112)
+      if (v110)
       {
-        [v112 currentValue];
-        v59 = v22;
+        [v110 currentValue];
+        v59 = v20;
       }
 
       else
@@ -2988,9 +2952,10 @@ uint64_t __104__CBAODTransitionController_startTransition_transitionParameters_r
         v59 = -1.0;
       }
 
-      if (v114)
+      if (v111)
       {
-        v58 = selfCopy->_currentWhitepoint.matrix[1][0];
+        [v111 currentValue];
+        v58 = v21;
       }
 
       else
@@ -2998,9 +2963,9 @@ uint64_t __104__CBAODTransitionController_startTransition_transitionParameters_r
         v58 = -1.0;
       }
 
-      if (v114)
+      if (v113)
       {
-        v57 = selfCopy->_currentWhitepoint.matrix[1][1];
+        v57 = selfCopy->_currentWhitepoint.matrix[1][0];
       }
 
       else
@@ -3008,9 +2973,9 @@ uint64_t __104__CBAODTransitionController_startTransition_transitionParameters_r
         v57 = -1.0;
       }
 
-      if (v115 || v108)
+      if (v113)
       {
-        v56 = *&v105;
+        v56 = selfCopy->_currentWhitepoint.matrix[1][1];
       }
 
       else
@@ -3018,7 +2983,7 @@ uint64_t __104__CBAODTransitionController_startTransition_transitionParameters_r
         v56 = -1.0;
       }
 
-      if (v115 || v107)
+      if (v114 || v107)
       {
         v55 = *&v104;
       }
@@ -3028,10 +2993,9 @@ uint64_t __104__CBAODTransitionController_startTransition_transitionParameters_r
         v55 = -1.0;
       }
 
-      if (v109)
+      if (v114 || v106)
       {
-        [(CBGammaContrastPreservation *)[(CBAODTransitionController *)selfCopy gcp] currentStrength];
-        v54 = v23;
+        v54 = *&v103;
       }
 
       else
@@ -3039,94 +3003,105 @@ uint64_t __104__CBAODTransitionController_startTransition_transitionParameters_r
         v54 = -1.0;
       }
 
-      __os_log_helper_16_0_12_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0(v121, COERCE__INT64(v62), COERCE__INT64(v61), COERCE__INT64(v60), COERCE__INT64(v59), COERCE__INT64(v58), COERCE__INT64(v57), COERCE__INT64(v56), COERCE__INT64(v55), COERCE__INT64(v54), COERCE__INT64(v103), COERCE__INT64(v102), COERCE__INT64(selfCopy->_currentTrustedLux));
-      _os_log_impl(&dword_1DE8E5000, v99, type, "[AOD update][CA] Pushing sdrBrightness: %f, capped _appliedHeadroom: %f, brightnessLimit: %f, PCC: %f, Whitepoint:(%f | %f), TwilightStrength: %f, AmmoliteStrength: %f, GCPStrength: %f, IndicatorBrightness: %f, IndicatorBrightnessLimit: %f, Ambient: %f", v121, 0x7Au);
+      if (v108)
+      {
+        [(CBGammaContrastPreservation *)[(CBAODTransitionController *)selfCopy gcp] currentStrength];
+        v53 = v22;
+      }
+
+      else
+      {
+        v53 = -1.0;
+      }
+
+      __os_log_helper_16_0_12_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0(v120, COERCE__INT64(v61), COERCE__INT64(v60), COERCE__INT64(v59), COERCE__INT64(v58), COERCE__INT64(v57), COERCE__INT64(v56), COERCE__INT64(v55), COERCE__INT64(v54), COERCE__INT64(v53), COERCE__INT64(v102), COERCE__INT64(v101), COERCE__INT64(selfCopy->_currentTrustedLux));
+      _os_log_impl(&dword_1DE8E5000, v98, type, "[AOD update][CA] Pushing sdrBrightness: %f, capped _appliedHeadroom: %f, brightnessLimit: %f, PCC: %f, Whitepoint:(%f | %f), TwilightStrength: %f, AmmoliteStrength: %f, GCPStrength: %f, IndicatorBrightness: %f, IndicatorBrightnessLimit: %f, Ambient: %f", v120, 0x7Au);
     }
 
-    if (v115 && ([v115 isFinished] & 1) == 0 || v114 && (objc_msgSend(v114, "isFinished") & 1) == 0 || v113 && (objc_msgSend(v113, "isFinished") & 1) == 0 || v112 && (objc_msgSend(v112, "isFinished") & 1) == 0 || v111 && (objc_msgSend(v111, "isFinished") & 1) == 0)
+    if (v114 && ([v114 isFinished] & 1) == 0 || v113 && (objc_msgSend(v113, "isFinished") & 1) == 0 || v112 && (objc_msgSend(v112, "isFinished") & 1) == 0 || v111 && (objc_msgSend(v111, "isFinished") & 1) == 0 || v110 && (objc_msgSend(v110, "isFinished") & 1) == 0)
     {
-      v100 = [(CBBrightnessProxy *)selfCopy->_brtCtl commitBrightness:&v101];
+      v99 = [(CBBrightnessProxy *)selfCopy->_brtCtl commitBrightness:&v100];
     }
 
     else
     {
       if (selfCopy->super._logHandle)
       {
-        v53 = selfCopy->super._logHandle;
+        v52 = selfCopy->super._logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v52 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v51 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v52 = init_default_corebrightness_log();
+          v51 = init_default_corebrightness_log();
         }
 
-        v53 = v52;
+        v52 = v51;
       }
 
-      v97 = v53;
-      v96 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+      v96 = v52;
+      v95 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
       {
-        [v115 currentValue];
-        __os_log_helper_16_0_1_8_0(v120, COERCE__INT64(v24));
-        _os_log_impl(&dword_1DE8E5000, v97, v96, "CommitBrightness: %f with swap done callback", v120, 0xCu);
+        [v114 currentValue];
+        __os_log_helper_16_0_1_8_0(v119, COERCE__INT64(v23));
+        _os_log_impl(&dword_1DE8E5000, v96, v95, "CommitBrightness: %f with swap done callback", v119, 0xCu);
       }
 
-      v92[0] = 0;
-      v92[1] = v92;
-      v93 = 0x20000000;
-      v94 = 32;
-      [v115 currentValue];
-      v95 = v25;
-      v26 = selfCopy->_brtCtl;
-      v85 = MEMORY[0x1E69E9820];
-      v86 = -1073741824;
-      v87 = 0;
-      v88 = __48__CBAODTransitionController_clockUpdateHandler___block_invoke;
-      v89 = &unk_1E867C6C8;
-      v90 = selfCopy;
-      v91 = v92;
-      v100 = [(CBBrightnessProxy *)v26 commitBrightness:&v101 withBlock:?];
-      LODWORD(v27) = 0.5;
-      [(CBAODTransitionController *)selfCopy activateLastUpdateSwappedTimerWithTimeout:v27];
-      _Block_object_dispose(v92, 8);
+      v91[0] = 0;
+      v91[1] = v91;
+      v92 = 0x20000000;
+      v93 = 32;
+      [v114 currentValue];
+      v94 = v24;
+      v25 = selfCopy->_brtCtl;
+      v84 = MEMORY[0x1E69E9820];
+      v85 = -1073741824;
+      v86 = 0;
+      v87 = __48__CBAODTransitionController_clockUpdateHandler___block_invoke;
+      v88 = &unk_1E867C6C8;
+      v89 = selfCopy;
+      v90 = v91;
+      v99 = [(CBBrightnessProxy *)v25 commitBrightness:&v100 withBlock:?];
+      LODWORD(v26) = 0.5;
+      [(CBAODTransitionController *)selfCopy activateLastUpdateSwappedTimerWithTimeout:v26];
+      _Block_object_dispose(v91, 8);
     }
 
-    if ((v100 & 1) == 0 || v101)
+    if ((v99 & 1) == 0 || v100)
     {
       if (selfCopy->super._logHandle)
       {
-        v51 = selfCopy->super._logHandle;
+        v50 = selfCopy->super._logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v50 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v49 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v50 = init_default_corebrightness_log();
+          v49 = init_default_corebrightness_log();
         }
 
-        v51 = v50;
+        v50 = v49;
       }
 
-      v84 = v51;
-      v83 = OS_LOG_TYPE_ERROR;
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+      v83 = v50;
+      v82 = OS_LOG_TYPE_ERROR;
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
       {
-        __os_log_helper_16_2_1_8_64(v119, v101);
-        _os_log_error_impl(&dword_1DE8E5000, v84, v83, "failed to commit brightness update (%@)", v119, 0xCu);
+        __os_log_helper_16_2_1_8_64(v118, v100);
+        _os_log_error_impl(&dword_1DE8E5000, v83, v82, "failed to commit brightness update (%@)", v118, 0xCu);
       }
     }
 
@@ -3137,74 +3112,73 @@ uint64_t __104__CBAODTransitionController_startTransition_transitionParameters_r
   {
     memset(__b, 0, sizeof(__b));
     memcpy(&selfCopy->_currentFlipBookEntry, __b, 0x4FuLL);
-    if (v115)
-    {
-      v49 = selfCopy;
-      [v115 currentValue];
-      [(CBAODTransitionController *)v49 updateFlipBookEntryWithBrightness:v28];
-    }
-
-    if (v112)
+    if (v114)
     {
       v48 = selfCopy;
-      [v112 currentValue];
-      [(CBAODTransitionController *)v48 updateFlipBookEntryWithAAPFactor:v29];
+      [v114 currentValue];
+      [(CBAODTransitionController *)v48 updateFlipBookEntryWithBrightness:v27];
     }
 
     if (v111)
     {
       v47 = selfCopy;
       [v111 currentValue];
-      [(CBAODTransitionController *)v47 updateFlipBookEntryWithBrightnessLimit:v30];
+      [(CBAODTransitionController *)v47 updateFlipBookEntryWithAAPFactor:v28];
     }
 
-    if (*&selfCopy->_currentDisplayNits && (v115 || v108))
+    if (v110)
+    {
+      v46 = selfCopy;
+      [v110 currentValue];
+      [(CBAODTransitionController *)v46 updateFlipBookEntryWithBrightnessLimit:v29];
+    }
+
+    if (*&selfCopy->_currentDisplayNits && (v114 || v107))
     {
       [*&selfCopy->_currentDisplayNits nits];
-      v81 = v31;
-      *&v32 = selfCopy->_currentSDRBrightness;
-      [*&selfCopy->_currentDisplayNits setNits:v32];
-      v46 = selfCopy;
+      v80 = v30;
+      *&v31 = selfCopy->_currentSDRBrightness;
+      [*&selfCopy->_currentDisplayNits setNits:v31];
+      v45 = selfCopy;
       [*&selfCopy->_currentDisplayNits lux];
-      [(CBAODTransitionController *)v46 updateFlipBookEntryWithTwilightLux:v33];
-      *&v34 = selfCopy->_currentSDRBrightness;
-      if ([*&selfCopy->_currentDisplayNits nitsAreInActiveRange:v34] & 1) != 0 || (LODWORD(v35) = v81, (objc_msgSend(*&selfCopy->_currentDisplayNits, "nitsAreInActiveRange:", v35)))
+      [(CBAODTransitionController *)v45 updateFlipBookEntryWithTwilightLux:v32];
+      *&v33 = selfCopy->_currentSDRBrightness;
+      if ([*&selfCopy->_currentDisplayNits nitsAreInActiveRange:v33] & 1) != 0 || (LODWORD(v34) = v80, (objc_msgSend(*&selfCopy->_currentDisplayNits, "nitsAreInActiveRange:", v34)))
       {
-        v45 = selfCopy;
+        v44 = selfCopy;
         [*&selfCopy->_currentDisplayNits currentStrength];
-        [(CBAODTransitionController *)v45 updateFlipBookEntryWithTwilightStrength:v36];
+        [(CBAODTransitionController *)v44 updateFlipBookEntryWithTwilightStrength:v35];
       }
     }
 
-    if (*&selfCopy->_remainingTransitionLength && (v115 || v107))
+    if (*&selfCopy->_remainingTransitionLength && (v114 || v106))
     {
       [*&selfCopy->_remainingTransitionLength nits];
-      v80 = v37;
-      *&v38 = selfCopy->_currentSDRBrightness;
-      [*&selfCopy->_remainingTransitionLength setNits:v38];
-      v44 = selfCopy;
+      v79 = v36;
+      *&v37 = selfCopy->_currentSDRBrightness;
+      [*&selfCopy->_remainingTransitionLength setNits:v37];
+      v43 = selfCopy;
       [*&selfCopy->_remainingTransitionLength lux];
-      [(CBAODTransitionController *)v44 updateFlipBookEntryWithAmmoliteLux:v39];
-      *&v40 = selfCopy->_currentSDRBrightness;
-      if ([*&selfCopy->_remainingTransitionLength nitsAreInActiveRange:v40] & 1) != 0 || (LODWORD(v41) = v80, (objc_msgSend(*&selfCopy->_remainingTransitionLength, "nitsAreInActiveRange:", v41)))
+      [(CBAODTransitionController *)v43 updateFlipBookEntryWithAmmoliteLux:v38];
+      *&v39 = selfCopy->_currentSDRBrightness;
+      if ([*&selfCopy->_remainingTransitionLength nitsAreInActiveRange:v39] & 1) != 0 || (LODWORD(v40) = v79, (objc_msgSend(*&selfCopy->_remainingTransitionLength, "nitsAreInActiveRange:", v40)))
       {
-        v43 = selfCopy;
+        v42 = selfCopy;
         [*&selfCopy->_remainingTransitionLength currentStrength];
-        [(CBAODTransitionController *)v43 updateFlipBookEntryWithAmmoliteStrength:v42];
+        [(CBAODTransitionController *)v42 updateFlipBookEntryWithAmmoliteStrength:v41];
       }
     }
 
-    [(CBAODTransitionController *)selfCopy updateColorRamp:v114];
+    [(CBAODTransitionController *)selfCopy updateColorRamp:v113];
     memcpy(__dst, &selfCopy->_currentFlipBookEntry, sizeof(__dst));
     [(CBAODTransitionController *)selfCopy addFlipBookEntry:__dst];
     if (*&selfCopy->_currentFlipBookEntry.ammoliteStrength_set && [*&selfCopy->_currentFlipBookEntry.ammoliteStrength_set entryCount] == 1)
     {
-      memcpy(v78, &selfCopy->_currentFlipBookEntry, sizeof(v78));
-      [(CBAODTransitionController *)selfCopy addFlipBookEntry:v78];
+      memcpy(v77, &selfCopy->_currentFlipBookEntry, sizeof(v77));
+      [(CBAODTransitionController *)selfCopy addFlipBookEntry:v77];
     }
   }
 
-  MEMORY[0x1E69E5920](v115);
   MEMORY[0x1E69E5920](v114);
   MEMORY[0x1E69E5920](v113);
   MEMORY[0x1E69E5920](v112);
@@ -3214,7 +3188,7 @@ uint64_t __104__CBAODTransitionController_startTransition_transitionParameters_r
   MEMORY[0x1E69E5920](v108);
   MEMORY[0x1E69E5920](v107);
   MEMORY[0x1E69E5920](v106);
-  *MEMORY[0x1E69E9840];
+  MEMORY[0x1E69E5920](v105);
 }
 
 void __48__CBAODTransitionController_clockUpdateHandler___block_invoke(uint64_t a1, uint64_t a2)
@@ -3263,8 +3237,6 @@ void __48__CBAODTransitionController_clockUpdateHandler___block_invoke_2(uint64_
     __os_log_helper_16_0_1_8_0(v4, COERCE__INT64(*(*(*(a1 + 40) + 8) + 24)));
     _os_log_impl(&dword_1DE8E5000, v2, OS_LOG_TYPE_DEFAULT, "CommitBrightness: Last update with brightness (%f) has been swapped on the display", v4, 0xCu);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)rampsDoneCallback:(id)callback
@@ -3391,9 +3363,7 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
   }
 
   [*(a1 + 32) releaseLastUpdateSwappedTimer];
-  result = [*(a1 + 32) applyPendingUpdates];
-  *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) applyPendingUpdates];
 }
 
 - (BOOL)applyPendingUpdates
@@ -3436,7 +3406,6 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -3537,7 +3506,6 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v12 & 1;
 }
 
@@ -3639,7 +3607,6 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
     _os_log_impl(&dword_1DE8E5000, v12, OS_LOG_TYPE_DEFAULT, "[AOD update][CA] Pushing: %scommit all features: brightness = %f; WP = (%f; %f), pcc = %f, brightness limit = %f, twilight = %f, ammolite = %f", v22, 0x52u);
   }
 
-  *MEMORY[0x1E69E9840];
   return v15 & 1;
 }
 
@@ -3691,7 +3658,6 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
 
   MEMORY[0x1E69E5920](v7);
   objc_autoreleasePoolPop(context);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)updateSDRBrightness:(float)brightness
@@ -3732,8 +3698,6 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
     *&v5 = brightness;
     [(CBChromaticCorrection *)v4 setNits:v5];
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)updateBrightnessLimit:(float)limit
@@ -3768,7 +3732,6 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
   self->_currentBrightnessLimit = limit;
   *&v3 = limit;
   [(CBBrightnessProxy *)self->_brtCtl setBrightnessLimit:v3];
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)updateLumaBoostFactor:(float)factor
@@ -3803,7 +3766,6 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
   self->_currentLumaBoostFactor = factor;
   *&v3 = factor;
   [(CBBrightnessProxy *)self->_brtCtl setLowAmbientAdaptation:v3];
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)updateTwilightStrength:(float)strength
@@ -3837,7 +3799,6 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
 
   *&v3 = strength;
   [(CBBrightnessProxy *)self->_brtCtl setLowAmbientAdaptation:v3];
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)updateAmmoliteStrength:(float)strength
@@ -3871,7 +3832,6 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
 
   *&v3 = strength;
   [(CBBrightnessProxy *)self->_brtCtl setHighAmbientAdaptation:v3];
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)updateAmbient:(float)ambient
@@ -3905,7 +3865,78 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
 
   *&v3 = ambient;
   [(CBBrightnessProxy *)self->_brtCtl setAmbient:v3];
-  *MEMORY[0x1E69E9840];
+}
+
+- (float)sdrBrightnessProgressCallback:(float)callback rampContext:(id)context profile:(unint64_t)profile
+{
+  v30 = *MEMORY[0x1E69E9840];
+  callbackCopy = callback;
+  if (callback < 1.0)
+  {
+    if (profile == 2)
+    {
+      [(CBAODTransitionController *)self calculateSpringProgressForLinearProgress:*&callback];
+      v25 = v9;
+      LODWORD(v10) = 1.0;
+      [(CBAODTransitionController *)self calculateSpringProgressForLinearProgress:v10];
+      v12 = clamp(v25 / v11, 0.0, 1.0);
+    }
+
+    else
+    {
+      if (profile == 1)
+      {
+        [(CBAODTransitionController *)self calculateSigmoidProgressForLinearProgress:*&callback];
+        callbackCopy = v13;
+      }
+
+      v12 = clamp(callbackCopy, 0.0, 1.0);
+    }
+
+    v26 = v12;
+    [context originalValue];
+    v22 = BULuminanceToPerceptual(v14, self->_minNits, self->_maxNits);
+    [context targetValue];
+    v21 = v22 - ((v22 - BULuminanceToPerceptual(v15, self->_minNits, self->_maxNits)) * v26);
+    return BUPerceptualToLuminance(v21, self->_minNits, self->_maxNits);
+  }
+
+  else
+  {
+    if (self->super._logHandle)
+    {
+      logHandle = self->super._logHandle;
+    }
+
+    else
+    {
+      if (_COREBRIGHTNESS_LOG_DEFAULT)
+      {
+        inited = _COREBRIGHTNESS_LOG_DEFAULT;
+      }
+
+      else
+      {
+        inited = init_default_corebrightness_log();
+      }
+
+      logHandle = inited;
+    }
+
+    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
+    {
+      [context originalValue];
+      *&v17 = v5;
+      [context targetValue];
+      *&v18 = v6;
+      [context targetValue];
+      __os_log_helper_16_0_4_8_0_8_0_8_0_8_0(v29, v17, v18, COERCE__INT64((callbackCopy * 100.0)), COERCE__INT64(v7));
+      _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "Ramp ended - SDR - perceptual ramp clocked: %f -> %f - %f%% (%f Nits)", v29, 0x2Au);
+    }
+
+    [context targetValue];
+    return v8;
+  }
 }
 
 - (float)brightnessLimitProgressCallback:(float)callback rampContext:(id)context
@@ -3947,7 +3978,7 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
       _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "Brightness limit - perceptual ramp clocked: %f -> %f - %f%% (%f Nits)", v27, 0x2Au);
     }
 
-    v26 = v20;
+    return v20;
   }
 
   else
@@ -3984,11 +4015,8 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
     }
 
     [context targetValue];
-    v26 = v7;
+    return v7;
   }
-
-  *MEMORY[0x1E69E9840];
-  return v26;
 }
 
 - (BOOL)requestTransitionStopForIdentifier:(id)identifier
@@ -4025,7 +4053,6 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
     [(CBRampManager *)self->_rampManager removeRampWithIdentifier:identifier];
   }
 
-  *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -4195,7 +4222,6 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
   }
 
   objc_autoreleasePoolPop(context);
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)updateColorRamp:(id)ramp
@@ -4295,8 +4321,6 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
     memcpy(&self->_currentFlipBookEntry.brightness + 2, &self->_thresholdModule, 0x24uLL);
     BYTE1(self->_currentFlipBookEntry.brightness) = 0;
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)processInitialColorMatrixFromState:(id)state
@@ -4314,8 +4338,6 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
     Current = CFAbsoluteTimeGetCurrent();
     CFXUpdateColorFade(self->_flipbookCache, Current);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)colorMatrix:(float)matrix[3][3] fromState:(id)state
@@ -4365,8 +4387,6 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)shallUpdateWhitepointFrom:(float)from[3][3] target:(float)target[3][3]
@@ -4420,8 +4440,14 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
     _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "WP update = %d    delta uv = %f   current (%f;%f) CCT = %f -> target (%f;%f) CCT = %f", v20, 0x4Eu);
   }
 
-  *MEMORY[0x1E69E9840];
   return v15 & 1;
+}
+
+- (void)updateEDRHeadroom:(float)headroom
+{
+  self->_currentEDRHeadroom = headroom;
+  *&v3 = self->_currentEDRHeadroom;
+  [(CBBrightnessProxy *)self->_brtCtl setHeadroom:v3];
 }
 
 - (void)initialiseFlipBookWithLength:(float)length frequency:(int)frequency lux:(float)lux
@@ -4481,19 +4507,19 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
 - (void)addFlipBookEntry:(id *)entry
 {
   entryCopy = entry;
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   p_isa = &self->super.super.isa;
-  v36[2] = a2;
-  v36[1] = entry;
+  v35[2] = a2;
+  v35[1] = entry;
   if (*&self->_currentFlipBookEntry.ammoliteStrength_set)
   {
     [p_isa[31] appendFlipBookEntry:entryCopy];
-    v36[0] = 0;
-    v35 = 0;
-    [p_isa chromaticity:v36 andIlluminance:&v35 fromMatrix:&entryCopy->var2 + 2];
+    v35[0] = 0;
+    v34 = 0;
+    [p_isa chromaticity:v35 andIlluminance:&v34 fromMatrix:&entryCopy->var2 + 2];
     if (p_isa[2])
     {
-      v28 = p_isa[2];
+      v27 = p_isa[2];
     }
 
     else
@@ -4508,15 +4534,15 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
         inited = init_default_corebrightness_log();
       }
 
-      v28 = inited;
+      v27 = inited;
     }
 
-    oslog = v28;
+    oslog = v27;
     type = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       log = oslog;
-      *v25 = type;
+      *v24 = type;
       var0 = entryCopy->var0;
       *&v4 = *(&entryCopy->var1 + 1);
       v5 = "set";
@@ -4581,10 +4607,10 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
       }
 
       *&v16 = *(&entryCopy->var9 + 2);
-      v23 = &v17;
-      buf = v38;
-      __os_log_helper_16_2_16_4_0_8_0_8_32_8_0_8_0_8_32_8_0_8_32_8_0_8_32_8_0_8_32_8_0_8_0_8_32_8_0(v38, var0, v4, v6, COERCE__INT64(*v36), COERCE__INT64(*(v36 + 1)), v7, v8, v9, v10, v11, v12, v13, v14, v15, v5, v16);
-      _os_log_impl(&dword_1DE8E5000, log, v25[0], "[AOD update][DCP] Pushing FB entry[%d], brightness = %f (%s); WP = (%f; %f) (%s), pcc = %f (%s), brightness limit = %f (%s), twilight = %f (%s), twilightLux = %f, ammolite = %f (%s), ammoliteLux = %f", buf, 0x9Eu);
+      v22 = &v17;
+      buf = v37;
+      __os_log_helper_16_2_16_4_0_8_0_8_32_8_0_8_0_8_32_8_0_8_32_8_0_8_32_8_0_8_32_8_0_8_0_8_32_8_0(v37, var0, v4, v6, COERCE__INT64(*v35), COERCE__INT64(*(v35 + 1)), v7, v8, v9, v10, v11, v12, v13, v14, v15, v5, v16);
+      _os_log_impl(&dword_1DE8E5000, log, v24[0], "[AOD update][DCP] Pushing FB entry[%d], brightness = %f (%s); WP = (%f; %f) (%s), pcc = %f (%s), brightness limit = %f (%s), twilight = %f (%s), twilightLux = %f, ammolite = %f (%s), ammoliteLux = %f", buf, 0x9Eu);
     }
   }
 
@@ -4592,37 +4618,34 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
   {
     if (p_isa[2])
     {
-      v22 = p_isa[2];
+      v21 = p_isa[2];
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v21 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v20 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v21 = init_default_corebrightness_log();
+        v20 = init_default_corebrightness_log();
       }
 
-      v22 = v21;
+      v21 = v20;
     }
 
-    v32 = v22;
-    v31 = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v31 = v21;
+    v30 = OS_LOG_TYPE_ERROR;
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v18 = v32;
-      *v19 = v31;
-      v20 = v30;
-      __os_log_helper_16_0_0(v30);
-      _os_log_error_impl(&dword_1DE8E5000, v18, v19[0], "[AOD update][DCP] Flipbook cache doesn't exists. failed to add Flipbook entry.", v30, 2u);
+      v18 = v31;
+      v19[0] = v30;
+      __os_log_helper_16_0_0(v29);
+      _os_log_error_impl(&dword_1DE8E5000, v18, v19[0], "[AOD update][DCP] Flipbook cache doesn't exists. failed to add Flipbook entry.", v29, 2u);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)sendCurrentFlipBook
@@ -4662,7 +4685,7 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
       v9 = *&selfCopy->_currentFlipBookEntry.ammoliteStrength_set;
       if (v9)
       {
-        [v9 header];
+        objc_msgSend_header(v9);
       }
 
       else
@@ -4673,7 +4696,7 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
       v7 = *&selfCopy->_currentFlipBookEntry.ammoliteStrength_set;
       if (v7)
       {
-        [v7 header];
+        objc_msgSend_header(v7);
       }
 
       else
@@ -4725,7 +4748,6 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return v20 & 1;
 }
 
@@ -4753,9 +4775,9 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
 
 - (void)setLiveUpdates:(BOOL)updates
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v25 = a2;
+  v24 = a2;
   updatesCopy = updates;
   if (LOBYTE(self->_targetWhitepoint.matrix[2][0]))
   {
@@ -4780,12 +4802,12 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
       logHandle = inited;
     }
 
-    v23 = logHandle;
-    v22 = OS_LOG_TYPE_DEFAULT;
+    v22 = logHandle;
+    v21 = OS_LOG_TYPE_DEFAULT;
     if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
     {
-      __os_log_helper_16_2_1_8_32(v28, "enabled");
-      _os_log_impl(&dword_1DE8E5000, v23, v22, "Live updates overrided to %s", v28, 0xCu);
+      __os_log_helper_16_2_1_8_32(v27, "enabled");
+      _os_log_impl(&dword_1DE8E5000, v22, v21, "Live updates overrided to %s", v27, 0xCu);
     }
   }
 
@@ -4793,27 +4815,27 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
   {
     if (selfCopy->super._logHandle)
     {
-      v14 = selfCopy->super._logHandle;
+      v13 = selfCopy->super._logHandle;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        v13 = _COREBRIGHTNESS_LOG_DEFAULT;
+        v12 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        v13 = init_default_corebrightness_log();
+        v12 = init_default_corebrightness_log();
       }
 
-      v14 = v13;
+      v13 = v12;
     }
 
-    v21 = v14;
-    v20 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v20 = v13;
+    v19 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       if (updatesCopy)
       {
@@ -4825,8 +4847,8 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
         v3 = "disabled";
       }
 
-      __os_log_helper_16_2_1_8_32(v27, v3);
-      _os_log_impl(&dword_1DE8E5000, v21, v20, "Live updates %s", v27, 0xCu);
+      __os_log_helper_16_2_1_8_32(v26, v3);
+      _os_log_impl(&dword_1DE8E5000, v20, v19, "Live updates %s", v26, 0xCu);
     }
   }
 
@@ -4837,32 +4859,32 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
       [(CBAODTransitionController *)selfCopy stopEternalIndicatorRamp];
       if (selfCopy->super._logHandle)
       {
-        v12 = selfCopy->super._logHandle;
+        v11 = selfCopy->super._logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v11 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v10 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v11 = init_default_corebrightness_log();
+          v10 = init_default_corebrightness_log();
         }
 
-        v12 = v11;
+        v11 = v10;
       }
 
-      v19 = v12;
-      v18 = 2;
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v18 = v11;
+      v17 = 2;
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v9 = v19;
-        v10 = v18;
-        __os_log_helper_16_0_0(v17);
-        _os_log_debug_impl(&dword_1DE8E5000, v9, v10, "Transitioning to Flipbook, forcing NaN IB to CA!", v17, 2u);
+        v8 = v18;
+        v9 = v17;
+        __os_log_helper_16_0_0(v16);
+        _os_log_debug_impl(&dword_1DE8E5000, v8, v9, "Transitioning to Flipbook, forcing NaN IB to CA!", v16, 2u);
       }
 
       *&v5 = selfCopy->_currentBrightnessLimit;
@@ -4872,7 +4894,6 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
       [(CBAODTransitionController *)selfCopy commitBrightness:1 force:v6];
     }
 
-    brtCtl = selfCopy->_brtCtl;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
@@ -4888,8 +4909,6 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
       [(CBAODTransitionController *)selfCopy syncLiveStateWithDCP:updatesCopy];
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)cancelDCPTransition
@@ -4974,7 +4993,6 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
   }
 
   [(CBAPEndpoint *)selfCopy->_endpoint sendCommand:237 inputBuffer:&updatesCopy inputBufferSize:1];
-  *MEMORY[0x1E69E9840];
 }
 
 - (int)currentTransitionUpdateID
@@ -5044,7 +5062,6 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
   }
 
   MEMORY[0x1E69E5920](v8);
-  *MEMORY[0x1E69E9840];
   return intValue;
 }
 
@@ -5142,8 +5159,6 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
     __os_log_helper_16_0_4_4_0_8_0_8_0_8_0(v32, v14, v15, v16, COERCE__INT64(v13));
     _os_log_impl(&dword_1DE8E5000, v18, OS_LOG_TYPE_DEFAULT, "Syncing with DCP. liveUpdates = %d, currentBrightness = %f currentAAPFactor = %f, twilightLux = %f", v32, 0x26u);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)startTransitionOnDCP:(id)p transitionLength:(float)length
@@ -5187,7 +5202,6 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
   [(CBAPEndpoint *)selfCopy->_endpoint sendCommand:226 inputBuffer:&v8 inputBufferSize:?];
   v7 = (lengthCopy * 65536.0);
   [(CBAPEndpoint *)selfCopy->_endpoint sendCommand:231 inputBuffer:&v7 inputBufferSize:4];
-  *MEMORY[0x1E69E9840];
 }
 
 - (float)transitionDurationFromCurrent:(float)current toTarget:(float)target
@@ -5216,15 +5230,15 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
 
 - (id)copyContext
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v19 = a2;
-  v15 = objc_alloc(MEMORY[0x1E695DF90]);
-  v13 = 0x1E696A000uLL;
+  v18 = a2;
+  v14 = objc_alloc(MEMORY[0x1E695DF90]);
+  v12 = 0x1E696A000uLL;
   *&v2 = selfCopy->_currentSDRBrightness;
-  v14 = [MEMORY[0x1E696AD98] numberWithFloat:v2];
+  v13 = [MEMORY[0x1E696AD98] numberWithFloat:v2];
   *&v3 = selfCopy->_currentEDRHeadroom;
-  v18 = [v15 initWithObjectsAndKeys:{v14, @"NitsPhysical", objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v3), @"EDRHeadroom", 0}];
+  v17 = [v14 initWithObjectsAndKeys:{v13, @"NitsPhysical", objc_msgSend(MEMORY[0x1E696AD98], "numberWithFloat:", v3), @"EDRHeadroom", 0}];
   if (selfCopy->super._logHandle)
   {
     logHandle = selfCopy->super._logHandle;
@@ -5245,22 +5259,20 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
     logHandle = inited;
   }
 
-  v17 = logHandle;
-  v16 = 0;
+  v16 = logHandle;
+  v15 = 0;
   if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
   {
-    log = v17;
-    *type = v16;
+    log = v16;
+    *type = v15;
     *&v4 = selfCopy->_currentSDRBrightness;
     *&v5 = selfCopy->_currentEDRHeadroom;
-    buf = v21;
-    __os_log_helper_16_0_2_8_0_8_0(v21, v4, v5);
+    buf = v20;
+    __os_log_helper_16_0_2_8_0_8_0(v20, v4, v5);
     _os_log_impl(&dword_1DE8E5000, log, type[0], "Captured context, current Nits = %f, _currentEDRHeadroom = %f", buf, 0x16u);
   }
 
-  v7 = v18;
-  *MEMORY[0x1E69E9840];
-  return v18;
+  return v17;
 }
 
 - (float)getFloatValueFrom:(id)from key:(id)key
@@ -5416,8 +5428,6 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
     __os_log_helper_16_0_9_4_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0_8_0(v18, var0, COERCE__INT64(var4), COERCE__INT64(var6), COERCE__INT64(var8), COERCE__INT64(var10), COERCE__INT64(var12), COERCE__INT64(v7), COERCE__INT64(v6), COERCE__INT64(var14));
     _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "[Transition Parameters] force update = %d, transition lengths: general = %f, brightness = %f, whitepoint = %f, pcc = %f, EDR = %f, Twilight = %f, Ammolite = %f, brightness limit = %f", v18, 0x58u);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)sendNotificationForKey:(id)key andValue:(id)value
@@ -5481,7 +5491,6 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
     _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "spring (mass=%f | stiff=%f | vel=%f | damp=%f) = %f for input = %f", v23, 0x3Eu);
   }
 
-  *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -5524,7 +5533,6 @@ uint64_t __71__CBAODTransitionController_activateLastUpdateSwappedTimerWithTimeo
     _os_log_debug_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEBUG, "sigmoid (K=%f) = %f for input = %f", v16, 0x20u);
   }
 
-  *MEMORY[0x1E69E9840];
   return v12;
 }
 

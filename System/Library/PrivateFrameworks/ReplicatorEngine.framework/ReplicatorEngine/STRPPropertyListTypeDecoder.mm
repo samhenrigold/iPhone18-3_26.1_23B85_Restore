@@ -59,7 +59,6 @@
 
 - (id)decodeRootObjectOfClass:(Class)class fromEncoded:(id)encoded error:(id *)error
 {
-  v17 = *MEMORY[0x1E69E9840];
   encodedCopy = encoded;
   if (objc_opt_class() == class)
   {
@@ -112,9 +111,9 @@ LABEL_19:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && objc_opt_class() == class)
   {
-    v16 = MEMORY[0x1E695DF00];
+    v15 = MEMORY[0x1E695DF00];
     [encodedCopy doubleValue];
-    v10 = [v16 dateWithTimeIntervalSinceReferenceDate:?];
+    v10 = [v15 dateWithTimeIntervalSinceReferenceDate:?];
     goto LABEL_19;
   }
 
@@ -132,10 +131,10 @@ LABEL_18:
       goto LABEL_37;
     }
 
-    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Top level array representations are unsupported, a boxing type must be provided."];
-    v15 = [(STRPPropertyListTypeDecoder *)self _errorWithCode:1 message:v14];
+    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Top level array representations are unsupported, a boxing type must be provided."];
+    v14 = [(STRPPropertyListTypeDecoder *)self _errorWithCode:1 message:v13];
 LABEL_36:
-    *error = v15;
+    *error = v14;
 
     goto LABEL_37;
   }
@@ -147,8 +146,8 @@ LABEL_36:
       goto LABEL_37;
     }
 
-    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Top level dictionary representations are unsupported, a boxing type must be provided."];
-    v15 = [(STRPPropertyListTypeDecoder *)self _errorWithCode:1 message:v14];
+    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Top level dictionary representations are unsupported, a boxing type must be provided."];
+    v14 = [(STRPPropertyListTypeDecoder *)self _errorWithCode:1 message:v13];
     goto LABEL_36;
   }
 
@@ -162,16 +161,14 @@ LABEL_36:
 
   if (error)
   {
-    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Type must be a dictionary representation of a non-primitive type."];
-    v15 = [(STRPPropertyListTypeDecoder *)self _errorWithCode:1 message:v14];
+    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Type must be a dictionary representation of a non-primitive type."];
+    v14 = [(STRPPropertyListTypeDecoder *)self _errorWithCode:1 message:v13];
     goto LABEL_36;
   }
 
 LABEL_37:
   v11 = 0;
 LABEL_20:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -288,20 +285,20 @@ LABEL_35:
   v14 = v80[3];
   if (v14 == objc_opt_class() || (v15 = v80[3], v15 == objc_opt_class()))
   {
-    v40 = v7;
-    v41 = [v40 count];
-    v42 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v41];
-    v43 = [classesCopy mutableCopy];
-    v44 = MEMORY[0x1E695DFD8];
-    v45 = objc_opt_class();
-    v46 = [v44 setWithObjects:{v45, objc_opt_class(), 0}];
-    [v43 minusSet:v46];
+    v39 = v7;
+    v40 = [v39 count];
+    v41 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v40];
+    v42 = [classesCopy mutableCopy];
+    v43 = MEMORY[0x1E695DFD8];
+    v44 = objc_opt_class();
+    v45 = [v43 setWithObjects:{v44, objc_opt_class(), 0}];
+    [v42 minusSet:v45];
 
-    if ([v43 count] == 1)
+    if ([v42 count] == 1)
     {
-      anyObject = [v43 anyObject];
+      anyObject = [v42 anyObject];
       _supportedCoreTypesForEncoding2 = [objc_opt_class() _supportedCoreTypesForEncoding];
-      v49 = [_supportedCoreTypesForEncoding2 containsObject:anyObject];
+      v48 = [_supportedCoreTypesForEncoding2 containsObject:anyObject];
 
       v68 = 0;
       v69 = &v68;
@@ -311,14 +308,14 @@ LABEL_35:
       v62[1] = 3221225472;
       v62[2] = __65__STRPPropertyListTypeDecoder__decodeObjectOfClasses_fromObject___block_invoke_2;
       v62[3] = &unk_1E86A29A8;
-      v67 = v49 ^ 1;
+      v67 = v48 ^ 1;
       v62[4] = self;
-      v63 = v43;
+      v63 = v42;
       v65 = &v68;
       v66 = anyObject;
-      v50 = v42;
-      v64 = v50;
-      [v40 enumerateObjectsUsingBlock:v62];
+      v49 = v41;
+      v64 = v49;
+      [v39 enumerateObjectsUsingBlock:v62];
       if (v69[3])
       {
         v27 = 0;
@@ -326,7 +323,7 @@ LABEL_35:
 
       else
       {
-        v27 = [v50 copy];
+        v27 = [v49 copy];
       }
 
       _Block_object_dispose(&v68, 8);
@@ -334,8 +331,8 @@ LABEL_35:
 
     else
     {
-      v51 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Ambiguous types for NSArray: %@ we only support single value types in the array, but found more than 1 type.", v43];;
-      v27 = [(STRPPropertyListTypeDecoder *)self _failWithCode:0 message:v51];
+      v50 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Ambiguous types for NSArray: %@ we only support single value types in the array, but found more than 1 type.", v42];;
+      v27 = [(STRPPropertyListTypeDecoder *)self _failWithCode:0 message:v50];
     }
   }
 
@@ -360,7 +357,8 @@ LABEL_35:
       v25 = [v23 setWithObjects:{v24, objc_opt_class(), 0}];
       if ([v17 count] && objc_msgSend(v17, "count") < 3)
       {
-        if ([v17 intersectsSet:v25])
+        v51 = [v17 intersectsSet:v25];
+        if (v51)
         {
           v68 = 0;
           v69 = &v68;
@@ -391,7 +389,7 @@ LABEL_35:
 
         else
         {
-          v53 = STRPLogCoding();
+          v53 = STRPLogCoding(v51);
           if (os_log_type_enabled(v53, OS_LOG_TYPE_FAULT))
           {
             [STRPPropertyListTypeDecoder _decodeObjectOfClasses:v17 fromObject:v53];
@@ -418,14 +416,12 @@ LABEL_35:
 LABEL_36:
 
   _Block_object_dispose(&v79, 8);
-  v38 = *MEMORY[0x1E69E9840];
 
   return v27;
 }
 
 uint64_t __65__STRPPropertyListTypeDecoder__decodeObjectOfClasses_fromObject___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
-  v6 = *(a1 + 32);
   result = objc_opt_isKindOfClass();
   if (result)
   {
@@ -438,41 +434,40 @@ uint64_t __65__STRPPropertyListTypeDecoder__decodeObjectOfClasses_fromObject___b
 
 void __65__STRPPropertyListTypeDecoder__decodeObjectOfClasses_fromObject___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v18 = a2;
+  v17 = a2;
   if (*(a1 + 72) == 1)
   {
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       *(*(*(a1 + 56) + 8) + 24) = 1;
-      v11 = *(a1 + 32);
-      v12 = MEMORY[0x1E696AEC0];
-      v13 = NSStringFromClass(*(a1 + 64));
-      v14 = objc_opt_class();
-      v15 = NSStringFromClass(v14);
-      v16 = [v12 stringWithFormat:@"Type mismatch - expected NSDictionary representation of %@, but found: %@ instead.", v13, v15];
-      v17 = [v11 _failWithCode:1 message:v16];
+      v10 = *(a1 + 32);
+      v11 = MEMORY[0x1E696AEC0];
+      v12 = NSStringFromClass(*(a1 + 64));
+      v13 = objc_opt_class();
+      v14 = NSStringFromClass(v13);
+      v15 = [v11 stringWithFormat:@"Type mismatch - expected NSDictionary representation of %@, but found: %@ instead.", v12, v14];
+      v16 = [v10 _failWithCode:1 message:v15];
 
       *a4 = 1;
       goto LABEL_8;
     }
 
-    v6 = *(a1 + 32);
-    v7 = [objc_alloc(objc_opt_class()) initWithDictionary:v18];
-    v8 = [*(a1 + 40) anyObject];
-    v9 = [objc_msgSend(v8 "alloc")];
+    v6 = [objc_alloc(objc_opt_class()) initWithDictionary:v17];
+    v7 = [*(a1 + 40) anyObject];
+    v8 = [objc_msgSend(v7 "alloc")];
   }
 
   else
   {
-    v10 = *(a1 + 32);
-    v7 = [objc_opt_class() _supportedCoreTypesForEncoding];
-    v9 = [v10 _decodeObjectOfClasses:v7 fromObject:v18];
+    v9 = *(a1 + 32);
+    v6 = [objc_opt_class() _supportedCoreTypesForEncoding];
+    v8 = [v9 _decodeObjectOfClasses:v6 fromObject:v17];
   }
 
-  if (v9)
+  if (v8)
   {
-    [*(a1 + 48) addObject:v9];
+    [*(a1 + 48) addObject:v8];
   }
 
 LABEL_8:
@@ -480,61 +475,56 @@ LABEL_8:
 
 void __65__STRPPropertyListTypeDecoder__decodeObjectOfClasses_fromObject___block_invoke_38(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v39 = a2;
+  v34 = a2;
   v7 = a3;
-  v8 = 0x1E696AEC0;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v8 = 0x1E696AD98;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       *(*(*(a1 + 56) + 8) + 24) = 1;
-      v22 = *(a1 + 32);
-      v23 = MEMORY[0x1E696AEC0];
-      v24 = objc_opt_class();
-      v25 = NSStringFromClass(v24);
-      v26 = [v23 stringWithFormat:@"Type mismatch - expected NSDictionary with String or Number keys found keys with representation %@ instead.", v25];;
-      v27 = [v22 _failWithCode:1 message:v26];
+      v18 = *(a1 + 32);
+      v19 = MEMORY[0x1E696AEC0];
+      v20 = objc_opt_class();
+      v21 = NSStringFromClass(v20);
+      v22 = [v19 stringWithFormat:@"Type mismatch - expected NSDictionary with String or Number keys found keys with representation %@ instead.", v21];;
+      v23 = [v18 _failWithCode:1 message:v22];
 
       *a4 = 1;
       goto LABEL_19;
     }
   }
 
-  v9 = *v8;
-  v10 = objc_opt_class();
+  v8 = objc_opt_class();
   if ([*(a1 + 40) count] >= 2)
   {
-    [*(a1 + 40) removeObject:v10];
+    [*(a1 + 40) removeObject:v8];
   }
 
   if (![*(a1 + 40) count])
   {
     *(*(*(a1 + 56) + 8) + 24) = 1;
-    v19 = *(a1 + 32);
-    v20 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Type mismatch - expected NSDictionary with homogenous key types."];
-    v21 = [v19 _failWithCode:1 message:v20];
+    v15 = *(a1 + 32);
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Type mismatch - expected NSDictionary with homogenous key types."];
+    v17 = [v15 _failWithCode:1 message:v16];
 
     *a4 = 1;
     goto LABEL_19;
   }
 
-  v11 = [*(a1 + 40) anyObject];
-  v12 = *(a1 + 32);
-  v13 = [objc_opt_class() _supportedCoreTypesForEncoding];
-  v14 = [v13 containsObject:v11];
+  v9 = [*(a1 + 40) anyObject];
+  v10 = [objc_opt_class() _supportedCoreTypesForEncoding];
+  v11 = [v10 containsObject:v9];
 
-  if ((v14 & 1) == 0)
+  if ((v11 & 1) == 0)
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v28 = *(a1 + 32);
-      v29 = [objc_alloc(objc_opt_class()) initWithDictionary:v7];
-      v30 = [*(a1 + 40) anyObject];
-      v31 = [objc_msgSend(v30 "alloc")];
+      v24 = [objc_alloc(objc_opt_class()) initWithDictionary:v7];
+      v25 = [*(a1 + 40) anyObject];
+      v26 = [objc_msgSend(v25 "alloc")];
 
       goto LABEL_17;
     }
@@ -543,42 +533,41 @@ void __65__STRPPropertyListTypeDecoder__decodeObjectOfClasses_fromObject___block
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       *(*(*(a1 + 56) + 8) + 24) = 1;
-      v32 = *(a1 + 32);
-      v33 = MEMORY[0x1E696AEC0];
-      v34 = NSStringFromClass(v11);
-      v35 = objc_opt_class();
-      v36 = NSStringFromClass(v35);
-      v37 = [v33 stringWithFormat:@"Type mismatch - expected NSDictionary representation of %@, but found: %@ instead.", v34, v36];
-      v38 = [v32 _failWithCode:1 message:v37];
+      v27 = *(a1 + 32);
+      v28 = MEMORY[0x1E696AEC0];
+      v29 = NSStringFromClass(v9);
+      v30 = objc_opt_class();
+      v31 = NSStringFromClass(v30);
+      v32 = [v28 stringWithFormat:@"Type mismatch - expected NSDictionary representation of %@, but found: %@ instead.", v29, v31];
+      v33 = [v27 _failWithCode:1 message:v32];
 
       *a4 = 1;
       goto LABEL_19;
     }
 
-    v16 = *(a1 + 32);
+    v13 = *(a1 + 32);
     goto LABEL_15;
   }
 
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v16 = *(a1 + 32);
+  v13 = *(a1 + 32);
   if (isKindOfClass)
   {
 LABEL_15:
-    v18 = [*(a1 + 40) setByAddingObject:objc_opt_class()];
+    v14 = [*(a1 + 40) setByAddingObject:objc_opt_class()];
     goto LABEL_16;
   }
 
-  v17 = *(a1 + 32);
-  v18 = [objc_opt_class() _supportedCoreTypesForEncoding];
+  v14 = [objc_opt_class() _supportedCoreTypesForEncoding];
 LABEL_16:
-  v29 = v18;
-  v31 = [v16 _decodeObjectOfClasses:v18 fromObject:v7];
+  v24 = v14;
+  v26 = [v13 _decodeObjectOfClasses:v14 fromObject:v7];
 LABEL_17:
 
-  if (v31)
+  if (v26)
   {
-    [*(a1 + 48) setObject:v31 forKeyedSubscript:v39];
+    [*(a1 + 48) setObject:v26 forKeyedSubscript:v34];
   }
 
 LABEL_19:
@@ -682,7 +671,8 @@ LABEL_19:
   keyCopy = key;
   v7 = [(NSDictionary *)self->_storage objectForKey:keyCopy];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     if (length)
     {
@@ -694,10 +684,10 @@ LABEL_19:
 
   else
   {
-    v9 = STRPLogCoding();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = STRPLogCoding(isKindOfClass);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      [(STRPPropertyListTypeDecoder *)v7 decodeBytesForKey:keyCopy returnedLength:v9];
+      [(STRPPropertyListTypeDecoder *)v7 decodeBytesForKey:keyCopy returnedLength:v10];
     }
 
     bytes = 0;
@@ -770,16 +760,14 @@ LABEL_19:
 
 - (id)_errorWithCode:(int64_t)code message:(id)message
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696ABC0];
-  v12 = *MEMORY[0x1E695E650];
-  v13[0] = message;
+  v11 = *MEMORY[0x1E695E650];
+  v12[0] = message;
   v6 = MEMORY[0x1E695DF20];
   messageCopy = message;
-  v8 = [v6 dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v8 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
   v9 = [v5 errorWithDomain:@"STRPCodingErrorDomain" code:code userInfo:v8];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -794,24 +782,21 @@ LABEL_19:
 
 - (void)_decodeObjectOfClasses:(uint64_t)a1 fromObject:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
 }
 
 - (void)decodeBytesForKey:(NSObject *)a3 returnedLength:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v8 = 138412546;
-  v9 = v6;
-  v10 = 2112;
-  v11 = a2;
-  _os_log_fault_impl(&dword_1DEE0F000, a3, OS_LOG_TYPE_FAULT, "-decodeBytesForKey:returnedLength: called with class %@ for key '%@'.", &v8, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412546;
+  v8 = v6;
+  v9 = 2112;
+  v10 = a2;
+  _os_log_fault_impl(&dword_1DEE0F000, a3, OS_LOG_TYPE_FAULT, "-decodeBytesForKey:returnedLength: called with class %@ for key '%@'.", &v7, 0x16u);
 }
 
 @end

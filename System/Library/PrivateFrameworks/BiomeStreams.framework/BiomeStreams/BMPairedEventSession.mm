@@ -10,7 +10,7 @@
 
 - (BMPairedEventSession)initWithKey:(id)key startEvent:(id)event endEvent:(id)endEvent
 {
-  v18[2] = *MEMORY[0x1E69E9840];
+  v17[2] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   eventCopy = event;
   endEventCopy = endEvent;
@@ -20,18 +20,18 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[0] = null;
+  v17[0] = null;
   null2 = endEventCopy;
   if (!endEventCopy)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[1] = null2;
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:2];
-  v17.receiver = self;
-  v17.super_class = BMPairedEventSession;
-  v14 = [(BMEventSession *)&v17 initWithKey:keyCopy events:v13];
+  v17[1] = null2;
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+  v16.receiver = self;
+  v16.super_class = BMPairedEventSession;
+  v14 = [(BMEventSession *)&v16 initWithKey:keyCopy events:v13];
 
   if (!endEventCopy)
   {
@@ -53,7 +53,6 @@ LABEL_9:
 
 LABEL_7:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

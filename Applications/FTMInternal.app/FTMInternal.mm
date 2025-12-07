@@ -6941,7 +6941,7 @@ LABEL_62:
   return [a2 hasError] ^ 1;
 }
 
-_BYTE *sub_1000182E8(_BYTE *a1, char *__s)
+void *sub_1000182E8(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -6955,13 +6955,13 @@ _BYTE *sub_1000182E8(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -7026,24 +7026,24 @@ void sub_1000195D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_10001964C(uint64_t a1)
+void sub_10001964C(uint64_t a1, uint64_t a2)
 {
-  v2 = _CFXPCCreateCFObjectFromXPCObject();
-  CFRetain(v2);
-  v3 = [*(a1 + 32) delegate];
+  v3 = _CFXPCCreateCFObjectFromXPCObject();
+  CFRetain(v3);
+  v4 = [*(a1 + 32) delegate];
 
-  if (v3)
+  if (v4)
   {
-    v4[0] = _NSConcreteStackBlock;
-    v4[1] = 3221225472;
-    v4[2] = sub_100019708;
-    v4[3] = &unk_100317310;
-    v4[4] = *(a1 + 32);
-    v4[5] = v2;
-    dispatch_async(&_dispatch_main_q, v4);
+    v5[0] = _NSConcreteStackBlock;
+    v5[1] = 3221225472;
+    v5[2] = sub_100019708;
+    v5[3] = &unk_100317310;
+    v5[4] = *(a1 + 32);
+    v5[5] = v3;
+    dispatch_async(&_dispatch_main_q, v5);
   }
 
-  CFRelease(v2);
+  CFRelease(v3);
 }
 
 void sub_100019708(uint64_t a1)
@@ -7057,51 +7057,51 @@ void sub_100019708(uint64_t a1)
   objc_destroyWeak(&location);
 }
 
-void sub_1000197A4(uint64_t a1)
+void sub_1000197A4(uint64_t a1, uint64_t a2)
 {
-  v2 = _CFXPCCreateCFObjectFromXPCObject();
-  v3 = [v2 allKeys];
-  v4 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [v3 count]);
+  v3 = _CFXPCCreateCFObjectFromXPCObject();
+  v4 = [v3 allKeys];
+  v5 = +[NSMutableDictionary dictionaryWithCapacity:](NSMutableDictionary, "dictionaryWithCapacity:", [v4 count]);
 
-  v5 = [v2 objectForKeyedSubscript:@"kKeyTriggerRef"];
-  [v4 setObject:v5 forKeyedSubscript:@"kKeyTriggerRef"];
+  v6 = [v3 objectForKeyedSubscript:@"kKeyTriggerRef"];
+  [v5 setObject:v6 forKeyedSubscript:@"kKeyTriggerRef"];
 
-  v6 = [v2 objectForKeyedSubscript:@"kKeyProfileID"];
-  [v4 setObject:v6 forKeyedSubscript:@"kKeyProfileID"];
+  v7 = [v3 objectForKeyedSubscript:@"kKeyProfileID"];
+  [v5 setObject:v7 forKeyedSubscript:@"kKeyProfileID"];
 
-  v7 = [v2 objectForKeyedSubscript:@"kKeyAppID"];
-  [v4 setObject:v7 forKeyedSubscript:@"kKeyAppID"];
+  v8 = [v3 objectForKeyedSubscript:@"kKeyAppID"];
+  [v5 setObject:v8 forKeyedSubscript:@"kKeyAppID"];
 
-  v8 = [v2 objectForKeyedSubscript:@"kKeyMetricID"];
-  [v4 setObject:v8 forKeyedSubscript:@"kKeyMetricID"];
+  v9 = [v3 objectForKeyedSubscript:@"kKeyMetricID"];
+  [v5 setObject:v9 forKeyedSubscript:@"kKeyMetricID"];
 
-  v9 = [v2 objectForKeyedSubscript:@"kKeyPayload"];
-  [v4 setObject:v9 forKeyedSubscript:@"kKeyPayload"];
+  v10 = [v3 objectForKeyedSubscript:@"kKeyPayload"];
+  [v5 setObject:v10 forKeyedSubscript:@"kKeyPayload"];
 
   if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = [v4 objectForKeyedSubscript:@"kKeyMetricID"];
-    v11 = +[NSDate date];
-    [v11 timeIntervalSince1970];
+    v11 = [v5 objectForKeyedSubscript:@"kKeyMetricID"];
+    v12 = +[NSDate date];
+    [v12 timeIntervalSince1970];
     *buf = 138543618;
-    v18 = v10;
-    v19 = 2050;
-    v20 = v12;
+    v19 = v11;
+    v20 = 2050;
+    v21 = v13;
     _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "received - metricId %{public}@, initialTimestamp: %{public}ld", buf, 0x16u);
   }
 
-  v13 = [*(a1 + 32) delegate];
-  v14 = v13 == 0;
+  v14 = [*(a1 + 32) delegate];
+  v15 = v14 == 0;
 
-  if (!v14)
+  if (!v15)
   {
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_100019AB8;
-    v15[3] = &unk_100317360;
-    v15[4] = *(a1 + 32);
-    v16 = v4;
-    dispatch_async(&_dispatch_main_q, v15);
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_100019AB8;
+    v16[3] = &unk_100317360;
+    v16[4] = *(a1 + 32);
+    v17 = v5;
+    dispatch_async(&_dispatch_main_q, v16);
   }
 }
 

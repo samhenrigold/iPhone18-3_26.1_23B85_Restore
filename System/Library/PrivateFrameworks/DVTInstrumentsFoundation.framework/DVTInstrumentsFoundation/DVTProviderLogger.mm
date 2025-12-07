@@ -51,15 +51,15 @@
 
 - (void)failWithReason:(id)reason
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   v5 = MEMORY[0x277CCA9B8];
-  v11[0] = *MEMORY[0x277CCA450];
-  v11[1] = @"DVTKtraceSessionProviderName";
+  v10[0] = *MEMORY[0x277CCA450];
+  v10[1] = @"DVTKtraceSessionProviderName";
   providerName = self->_providerName;
-  v12[0] = reasonCopy;
-  v12[1] = providerName;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[0] = reasonCopy;
+  v11[1] = providerName;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
   v8 = [v5 errorWithDomain:@"com.apple.dt.ktrace_recording.provider" code:1 userInfo:v7];
 
   [(NSMutableArray *)self->_errors addObject:v8];
@@ -68,33 +68,29 @@
   {
     sub_24802C17C(reasonCopy, log);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)warnWithMessage:(id)message
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = MEMORY[0x277CCA9B8];
-  v13[0] = *MEMORY[0x277CCA450];
-  v13[1] = @"DVTKtraceSessionProviderName";
+  v12[0] = *MEMORY[0x277CCA450];
+  v12[1] = @"DVTKtraceSessionProviderName";
   providerName = self->_providerName;
-  v14[0] = messageCopy;
-  v14[1] = providerName;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[0] = messageCopy;
+  v13[1] = providerName;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
   v8 = [v5 errorWithDomain:@"com.apple.dt.ktrace_recording.provider" code:1 userInfo:v7];
 
   [(NSMutableArray *)self->_warnings addObject:v8];
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138543362;
-    v12 = messageCopy;
-    _os_log_impl(&dword_247F67000, log, OS_LOG_TYPE_DEFAULT, "Provider warning: %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = messageCopy;
+    _os_log_impl(&dword_247F67000, log, OS_LOG_TYPE_DEFAULT, "Provider warning: %{public}@", &v10, 0xCu);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

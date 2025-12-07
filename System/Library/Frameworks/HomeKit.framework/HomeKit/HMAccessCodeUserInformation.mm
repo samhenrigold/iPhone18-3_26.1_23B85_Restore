@@ -11,28 +11,26 @@
 
 - (NSArray)attributeDescriptions
 {
-  v20[4] = *MEMORY[0x1E69E9840];
+  v19[4] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   simpleLabel = [(HMAccessCodeUserInformation *)self simpleLabel];
   defaultFormatter = [MEMORY[0x1E69A2A48] defaultFormatter];
   v5 = [v3 initWithName:@"simpleLabel" value:simpleLabel options:2 formatter:defaultFormatter];
-  v20[0] = v5;
+  v19[0] = v5;
   v6 = objc_alloc(MEMORY[0x1E69A29C8]);
   labelIdentifier = [(HMAccessCodeUserInformation *)self labelIdentifier];
   defaultFormatter2 = [MEMORY[0x1E69A2A48] defaultFormatter];
   v9 = [v6 initWithName:@"labelIdentifier" value:labelIdentifier options:2 formatter:defaultFormatter2];
-  v20[1] = v9;
+  v19[1] = v9;
   v10 = objc_alloc(MEMORY[0x1E69A29C8]);
   user = [(HMAccessCodeUserInformation *)self user];
   v12 = [v10 initWithName:@"user" value:user];
-  v20[2] = v12;
+  v19[2] = v12;
   v13 = objc_alloc(MEMORY[0x1E69A29C8]);
   removedUserInfo = [(HMAccessCodeUserInformation *)self removedUserInfo];
   v15 = [v13 initWithName:@"removedUserInfo" value:removedUserInfo];
-  v20[3] = v15;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:4];
-
-  v17 = *MEMORY[0x1E69E9840];
+  v19[3] = v15;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:4];
 
   return v16;
 }

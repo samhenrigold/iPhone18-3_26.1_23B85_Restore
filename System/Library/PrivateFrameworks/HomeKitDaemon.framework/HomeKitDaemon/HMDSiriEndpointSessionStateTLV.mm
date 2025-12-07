@@ -97,37 +97,37 @@ LABEL_15:
 
 - (id)serializeWithError:(id *)error
 {
-  v46 = *MEMORY[0x277D85DE8];
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
+  v45 = *MEMORY[0x277D85DE8];
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
-  v38 = 0u;
+  v42 = 0u;
   v39 = 0u;
-  v36 = 0u;
+  v40 = 0u;
   v37 = 0u;
-  v34 = 0u;
+  v38 = 0u;
   v35 = 0u;
-  v32 = 0u;
+  v36 = 0u;
   v33 = 0u;
-  v30 = 0u;
+  v34 = 0u;
   v31 = 0u;
-  v28 = 0u;
+  v32 = 0u;
   v29 = 0u;
-  v26 = 0u;
+  v30 = 0u;
   v27 = 0u;
+  v28 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v24 = 0u;
   TLV8BufferInit();
   sessionState = [(HMDSiriEndpointSessionStateTLV *)self sessionState];
 
   if (sessionState)
   {
     sessionState2 = [(HMDSiriEndpointSessionStateTLV *)self sessionState];
-    v24 = 0;
-    v7 = [sessionState2 serializeWithError:&v24];
-    v8 = v24;
+    v23 = 0;
+    v7 = [sessionState2 serializeWithError:&v23];
+    v8 = v23;
 
     if (v8)
     {
@@ -159,15 +159,15 @@ LABEL_21:
   if (!hubIdentifier)
   {
 LABEL_23:
-    v13 = [MEMORY[0x277CBEA90] dataWithBytes:v25 length:?];
+    v13 = [MEMORY[0x277CBEA90] dataWithBytes:v24 length:?];
     v8 = 0;
     goto LABEL_26;
   }
 
   hubIdentifier2 = [(HMDSiriEndpointSessionStateTLV *)self hubIdentifier];
-  v23 = 0;
-  v7 = [hubIdentifier2 serializeWithError:&v23];
-  v8 = v23;
+  v22 = 0;
+  v7 = [hubIdentifier2 serializeWithError:&v22];
+  v8 = v22;
 
   if (!v8)
   {
@@ -233,8 +233,6 @@ LABEL_25:
   v13 = 0;
 LABEL_26:
   TLV8BufferFree();
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -408,28 +406,26 @@ LABEL_23:
 
 - (NSUUID)hubUUID
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v9[0] = 0;
-  v9[1] = 0;
+  v8[2] = *MEMORY[0x277D85DE8];
+  v8[0] = 0;
+  v8[1] = 0;
   hubIdentifier = [(HMDSiriEndpointSessionStateTLV *)self hubIdentifier];
-  [hubIdentifier getBytes:v9 length:16];
+  [hubIdentifier getBytes:v8 length:16];
 
   v3 = 0;
   for (i = 15; i > v3; --i)
   {
-    v5 = *(v9 + v3);
-    *(v9 + v3) = *(v9 + i);
-    *(v9 + i) = v5;
+    v5 = *(v8 + v3);
+    *(v8 + v3) = *(v8 + i);
+    *(v8 + i) = v5;
     ++v3;
   }
 
-  hmf_zeroUUID = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v9];
+  hmf_zeroUUID = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDBytes:v8];
   if (!hmf_zeroUUID)
   {
     hmf_zeroUUID = [MEMORY[0x277CCAD78] hmf_zeroUUID];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return hmf_zeroUUID;
 }

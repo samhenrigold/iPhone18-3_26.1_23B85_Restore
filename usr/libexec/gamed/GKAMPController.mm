@@ -52,15 +52,15 @@
     playerMetadata = v8->_playerMetadata;
     v8->_playerMetadata = &off_100383258;
 
-    v24[0] = @"hardwareModel";
+    v24 = @"hardwareModel";
     v14 = +[GKDevice currentDevice];
     deviceType = [v14 deviceType];
-    v24[1] = @"osBuildNumber";
-    v25[0] = deviceType;
+    v25 = @"osBuildNumber";
+    v26 = deviceType;
     v16 = +[GKDevice currentDevice];
     buildVersion = [v16 buildVersion];
-    v25[1] = buildVersion;
-    v18 = [NSDictionary dictionaryWithObjects:v25 forKeys:v24 count:2];
+    v27 = buildVersion;
+    v18 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
     systemMetadata = v8->_systemMetadata;
     v8->_systemMetadata = v18;
 
@@ -229,41 +229,31 @@
     if (objc_opt_isKindOfClass())
     {
       v6 = @"needsAuthentication";
-      v7 = @"false";
     }
 
     else
     {
       isArcadeSubscriber = [playerCopy isArcadeSubscriber];
-      v10 = @"notSubscribed";
+      v9 = @"notSubscribed";
       if (isArcadeSubscriber)
       {
-        v10 = @"subscribed";
+        v9 = @"subscribed";
       }
 
-      v6 = v10;
-      v7 = @"true";
+      v6 = v9;
     }
 
-    v14[0] = @"friendCount";
     v11 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", -[GKMetricsIntBucketer clamp:](v4, "clamp:", [playerCopy numberOfFriends]));
-    v15[0] = v11;
-    v14[1] = @"gameCount";
     v12 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", -[GKMetricsIntBucketer clamp:](v5, "clamp:", [playerCopy numberOfGames]));
-    v15[1] = v12;
-    v15[2] = v7;
-    v14[2] = @"isSignedIn";
-    v14[3] = @"subscriptionStatus";
-    v15[3] = v6;
-    v8 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:4];
+    v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   }
 
   else
   {
-    v8 = &off_100383280;
+    v7 = &off_100383280;
   }
 
-  return v8;
+  return v7;
 }
 
 - (NSDictionary)metadata
@@ -399,12 +389,12 @@
   [v4 addEntriesFromDictionary:metadata];
 
   v6 = GKDaemonIdentifier;
-  v9[0] = @"app";
-  v9[1] = @"topic";
+  v9 = @"app";
+  v10 = @"topic";
   v7 = GKReporterGCPerformanceTopic;
-  v10[0] = GKDaemonIdentifier;
-  v10[1] = GKReporterGCPerformanceTopic;
-  v8 = [NSDictionary dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v11 = GKDaemonIdentifier;
+  v12 = GKReporterGCPerformanceTopic;
+  v8 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
   [v4 addEntriesFromDictionary:v8];
 
   [(GKAMPController *)self reportMetricsEventWithTopic:v7 hostAppBundleId:v6 shouldFlush:&__kCFBooleanFalse metricsFields:v4];

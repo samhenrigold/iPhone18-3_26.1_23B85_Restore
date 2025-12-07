@@ -1,16 +1,2328 @@
+ot::Utils::Heap *ot::Utils::Heap::Free(ot::Utils::Heap *this, void *a2)
+{
+  v16 = this;
+  if (a2)
+  {
+    v22 = ot::Utils::Heap::BlockOf(this, a2);
+    v21 = ot::Utils::Heap::BlockRight(v16, v22);
+    *v16 += ot::Utils::Block::GetSize(v22);
+    if (ot::Utils::Heap::IsLeftFree(v16, v22))
+    {
+      v20 = ot::Utils::Heap::BlockSuper(v16);
+      v19 = ot::Utils::Heap::BlockNext(v16, v20);
+      *v16 += 4;
+      LeftNext = ot::Utils::Block::GetLeftNext(v22);
+      for (i = ot::Utils::Block::GetNext(v19); i != LeftNext; i = ot::Utils::Block::GetNext(v19))
+      {
+        v20 = v19;
+        v19 = ot::Utils::Heap::BlockNext(v16, v19);
+      }
+
+      Next = ot::Utils::Block::GetNext(v19);
+      ot::Utils::Block::SetNext(v20, Next);
+      ot::Utils::Block::SetNext(v19, 0);
+      if (ot::Utils::Block::IsFree(v21))
+      {
+        *v16 += 4;
+        Size = ot::Utils::Block::GetSize(v21);
+        if (Size <= ot::Utils::Block::GetSize(v19))
+        {
+          v20 = ot::Utils::Heap::BlockPrev(v16, v21);
+        }
+
+        else
+        {
+          v17 = ot::Utils::Heap::BlockOffset(v16, v21);
+          for (j = ot::Utils::Block::GetNext(v20); j != v17; j = ot::Utils::Block::GetNext(v20))
+          {
+            v20 = ot::Utils::Heap::BlockNext(v16, v20);
+          }
+        }
+
+        v5 = ot::Utils::Block::GetNext(v21);
+        ot::Utils::Block::SetNext(v20, v5);
+        ot::Utils::Block::SetNext(v21, 0);
+        v14 = ot::Utils::Block::GetSize(v19);
+        v6 = ot::Utils::Block::GetSize(v21);
+        ot::Utils::Block::SetSize(v19, v14 + v6 + 4);
+      }
+
+      v13 = ot::Utils::Block::GetSize(v19);
+      v7 = ot::Utils::Block::GetSize(v22);
+      ot::Utils::Block::SetSize(v19, v13 + v7 + 4);
+      return ot::Utils::Heap::BlockInsert(v16, v20, v19);
+    }
+
+    else if (ot::Utils::Block::IsFree(v21))
+    {
+      v11 = ot::Utils::Heap::BlockPrev(v16, v21);
+      v8 = ot::Utils::Block::GetNext(v21);
+      ot::Utils::Block::SetNext(v11, v8);
+      v12 = ot::Utils::Block::GetSize(v22);
+      v9 = ot::Utils::Block::GetSize(v21);
+      ot::Utils::Block::SetSize(v22, v12 + v9 + 4);
+      this = ot::Utils::Heap::BlockInsert(v16, v11, v22);
+      *v16 += 4;
+    }
+
+    else
+    {
+      v10 = ot::Utils::Heap::BlockSuper(v16);
+      return ot::Utils::Heap::BlockInsert(v16, v10, v22);
+    }
+  }
+
+  return this;
+}
+
+uint64_t ot::Utils::Heap::BlockOf(ot::Utils::Heap *this, void *a2)
+{
+  return ot::Utils::Heap::BlockAt(this, a2 - this - 2);
+}
+
+{
+  return ot::Utils::Heap::BlockOf(this, a2);
+}
+
+BOOL ot::Utils::Heap::IsLeftFree(ot::Utils::Heap *this, const ot::Utils::Block *a2)
+{
+  v3 = 0;
+  if (ot::Utils::Heap::BlockOffset(this, a2) != 14)
+  {
+    return ot::Utils::Block::IsLeftFree(a2);
+  }
+
+  return v3;
+}
+
+{
+  return ot::Utils::Heap::IsLeftFree(this, a2);
+}
+
+uint64_t ot::Utils::Block::GetLeftNext(ot::Utils::Block *this)
+{
+  return *(this - 1);
+}
+
+{
+  return ot::Utils::Block::GetLeftNext(this);
+}
+
+BOOL ot::Utils::Block::IsLeftFree(ot::Utils::Block *this)
+{
+  return ot::Utils::Block::GetLeftNext(this) != 0;
+}
+
+{
+  return ot::Utils::Block::IsLeftFree(this);
+}
+
+uint64_t ot::Utils::CmdLineParser::ParseCmd(ot::Utils::CmdLineParser *this, char *a2, ot::Utils::CmdLineParser::Arg *a3)
+{
+  v10 = a3;
+  v9 = 0;
+  v8 = 0;
+  while (*this)
+  {
+    if (*this == 92 && ot::Utils::CmdLineParser::IsEscapable(*(this + 1), a2))
+    {
+      v3 = strlen(this);
+      memmove(this, this + 1, v3);
+    }
+
+    else if (ot::Utils::CmdLineParser::IsSeparator(*this))
+    {
+      *this = 0;
+    }
+
+    if (*this && (!v8 || !*(this - 1)))
+    {
+      if (v8 == v10 - 1)
+      {
+        v9 = 7;
+        break;
+      }
+
+      v4 = v8++;
+      ot::Utils::CmdLineParser::Arg::SetCString(&a2[8 * v4], this);
+    }
+
+    this = (this + 1);
+  }
+
+  while (v8 < v10)
+  {
+    v5 = v8++;
+    ot::Utils::CmdLineParser::Arg::Clear(&a2[8 * v5]);
+  }
+
+  return v9;
+}
+
+BOOL ot::Utils::CmdLineParser::IsEscapable(ot::Utils::CmdLineParser *this, char a2)
+{
+  v4 = this;
+  v3 = 1;
+  if (!ot::Utils::CmdLineParser::IsSeparator(this))
+  {
+    return v4 == 92;
+  }
+
+  return v3;
+}
+
+BOOL ot::Utils::CmdLineParser::IsSeparator(ot::Utils::CmdLineParser *this)
+{
+  v2 = 1;
+  if (this != 32)
+  {
+    v2 = 1;
+    if (this != 9)
+    {
+      v2 = 1;
+      if (this != 13)
+      {
+        return this == 10;
+      }
+    }
+  }
+
+  return v2;
+}
+
+void *ot::Utils::CmdLineParser::Arg::SetCString(void *this, char *a2)
+{
+  *this = a2;
+  return this;
+}
+
+{
+  return ot::Utils::CmdLineParser::Arg::SetCString(this, a2);
+}
+
+uint64_t ot::Utils::CmdLineParser::ParseUint<unsigned char>(ot::Utils::CmdLineParser *a1, _BYTE *a2, unsigned __int8 *a3)
+{
+  v7 = a1;
+  v6 = a2;
+  v5 = 0;
+  v4 = 0;
+  v5 = ot::Utils::CmdLineParser::ParseAsUint64(a1, &v4, a3);
+  if (!v5)
+  {
+    if (v4 <= 0xFF)
+    {
+      *v6 = v4;
+    }
+
+    else
+    {
+      return 7;
+    }
+  }
+
+  return v5;
+}
+
+{
+  return ot::Utils::CmdLineParser::ParseUint<unsigned char>(a1, a2, a3);
+}
+
+uint64_t ot::Utils::CmdLineParser::ParseUint<unsigned short>(ot::Utils::CmdLineParser *a1, _WORD *a2, unsigned __int8 *a3)
+{
+  v7 = a1;
+  v6 = a2;
+  v5 = 0;
+  v4 = 0;
+  v5 = ot::Utils::CmdLineParser::ParseAsUint64(a1, &v4, a3);
+  if (!v5)
+  {
+    if (v4 < 0x10000)
+    {
+      *v6 = v4;
+    }
+
+    else
+    {
+      return 7;
+    }
+  }
+
+  return v5;
+}
+
+{
+  return ot::Utils::CmdLineParser::ParseUint<unsigned short>(a1, a2, a3);
+}
+
+uint64_t ot::Utils::CmdLineParser::ParseUint<unsigned int>(ot::Utils::CmdLineParser *a1, _DWORD *a2, unsigned __int8 *a3)
+{
+  v7 = a1;
+  v6 = a2;
+  v5 = 0;
+  v4 = 0;
+  v5 = ot::Utils::CmdLineParser::ParseAsUint64(a1, &v4, a3);
+  if (!v5)
+  {
+    if (v4 <= 0xFFFFFFFF)
+    {
+      *v6 = v4;
+    }
+
+    else
+    {
+      return 7;
+    }
+  }
+
+  return v5;
+}
+
+{
+  return ot::Utils::CmdLineParser::ParseUint<unsigned int>(a1, a2, a3);
+}
+
+uint64_t ot::Utils::CmdLineParser::ParseAsUint64(ot::Utils::CmdLineParser *this, char *a2, unsigned __int8 *a3)
+{
+  v13 = this;
+  v12 = a2;
+  v11 = 0;
+  v10 = 0;
+  v9 = this;
+  v8 = 0;
+  if (this)
+  {
+    if (*v9 == 48 && (*(v9 + 1) == 120 || *(v9 + 1) == 88))
+    {
+      v9 = (v9 + 2);
+      v8 = 1;
+    }
+
+    while (1)
+    {
+      v7 = 0;
+      v6 = (v8 & 1) != 0 ? ot::ParseHexDigit(*v9, &v7, a3) : ot::ParseDigit(*v9, &v7, a3);
+      v11 = v6;
+      if (v6)
+      {
+        break;
+      }
+
+      v3 = 0xFFFFFFFFFFFFFFFLL;
+      if ((v8 & 1) == 0)
+      {
+        v3 = 0x1999999999999999;
+      }
+
+      if (v10 > v3)
+      {
+        return 7;
+      }
+
+      if (v8)
+      {
+        v5 = 16 * v10;
+      }
+
+      else
+      {
+        v5 = 10 * v10;
+      }
+
+      v10 = v5;
+      if (v5 + v7 < v5)
+      {
+        return 7;
+      }
+
+      v10 = v5 + v7;
+      v9 = (v9 + 1);
+      if (!*v9)
+      {
+        *v12 = v10;
+        return v11;
+      }
+    }
+  }
+
+  else
+  {
+    return 7;
+  }
+
+  return v11;
+}
+
+uint64_t ot::Utils::CmdLineParser::ParseInt<signed char>(ot::Utils::CmdLineParser *a1, _BYTE *a2, unsigned __int8 *a3)
+{
+  v7 = a1;
+  v6 = a2;
+  v5 = 0;
+  *v4 = 0;
+  v5 = ot::Utils::CmdLineParser::ParseAsInt32(a1, v4, a3);
+  if (!v5)
+  {
+    if (*v4 >= -128 && *v4 <= 127)
+    {
+      *v6 = v4[0];
+    }
+
+    else
+    {
+      return 7;
+    }
+  }
+
+  return v5;
+}
+
+{
+  return ot::Utils::CmdLineParser::ParseInt<signed char>(a1, a2, a3);
+}
+
+uint64_t ot::Utils::CmdLineParser::ParseInt<short>(ot::Utils::CmdLineParser *a1, _WORD *a2, unsigned __int8 *a3)
+{
+  v7 = a1;
+  v6 = a2;
+  v5 = 0;
+  *v4 = 0;
+  v5 = ot::Utils::CmdLineParser::ParseAsInt32(a1, v4, a3);
+  if (!v5)
+  {
+    if (*v4 >= -32768 && *v4 < 0x8000)
+    {
+      *v6 = *v4;
+    }
+
+    else
+    {
+      return 7;
+    }
+  }
+
+  return v5;
+}
+
+{
+  return ot::Utils::CmdLineParser::ParseInt<short>(a1, a2, a3);
+}
+
+uint64_t ot::Utils::CmdLineParser::ParseAsInt32(ot::Utils::CmdLineParser *this, char *a2, unsigned __int8 *a3)
+{
+  v10 = this;
+  v9 = a2;
+  v8 = 0;
+  *v7 = 0;
+  v6 = 0;
+  if (this)
+  {
+    if (*v10 == 45)
+    {
+      v10 = (v10 + 1);
+      v6 = 1;
+    }
+
+    else if (*v10 == 43)
+    {
+      v10 = (v10 + 1);
+    }
+
+    v8 = ot::Utils::CmdLineParser::ParseAsUint64(v10, v7, a3);
+    if (!v8)
+    {
+      v3 = 0x80000000;
+      if ((v6 & 1) == 0)
+      {
+        v3 = 0x7FFFFFFFLL;
+      }
+
+      if (*v7 <= v3)
+      {
+        if (v6)
+        {
+          v5 = -*v7;
+        }
+
+        else
+        {
+          LODWORD(v5) = *v7;
+        }
+
+        *v9 = v5;
+      }
+
+      else
+      {
+        return 7;
+      }
+    }
+  }
+
+  else
+  {
+    return 7;
+  }
+
+  return v8;
+}
+
+uint64_t ot::Utils::CmdLineParser::ParseAsBool(ot::Utils::CmdLineParser *this, char *a2, BOOL *a3)
+{
+  v7 = this;
+  v6 = a2;
+  v5 = 0;
+  *v4 = 0;
+  v5 = ot::Utils::CmdLineParser::ParseAsUint32(this, v4, a3);
+  if (!v5)
+  {
+    *v6 = *v4 != 0;
+  }
+
+  return v5;
+}
+
+uint64_t ot::Utils::CmdLineParser::ParseAsIp6Address(const char *a1, uint64_t a2)
+{
+  if (a1)
+  {
+    return otIp6AddressFromString(a1, a2);
+  }
+
+  else
+  {
+    return 7;
+  }
+}
+
+uint64_t ot::Utils::CmdLineParser::ParseAsIp4Address(const char *a1, uint64_t a2)
+{
+  if (a1)
+  {
+    return otIp4AddressFromString(a1, a2);
+  }
+
+  else
+  {
+    return 7;
+  }
+}
+
+uint64_t ot::Utils::CmdLineParser::ParseAsIp6Prefix(ot *a1, uint64_t a2)
+{
+  if (a1)
+  {
+    return otIp6PrefixFromString(a1, a2);
+  }
+
+  else
+  {
+    return 7;
+  }
+}
+
+uint64_t ot::Utils::CmdLineParser::ParseAsHexString(ot::Utils::CmdLineParser *this, char *a2, unsigned __int8 *a3)
+{
+  v6 = this;
+  v5 = a2;
+  v4 = a3;
+  return ot::Utils::CmdLineParser::ParseHexString(&v6, &v4, a2, 0);
+}
+
+uint64_t ot::Utils::CmdLineParser::ParseHexString(const char **a1, _WORD *a2, _BYTE *a3, int a4)
+{
+  v15 = a1;
+  v14 = a2;
+  v13 = a3;
+  v12 = a4;
+  v11 = 0;
+  v10 = 0;
+  v9 = 0;
+  v8 = 0;
+  v7 = 0;
+  if (*a1)
+  {
+    v9 = strlen(*v15);
+    v8 = (v9 + 1) / 2;
+    if (v12)
+    {
+      if (v12 == 1 && v8 > *v14)
+      {
+        return 7;
+      }
+    }
+
+    else if (v8 != *v14)
+    {
+      return 7;
+    }
+
+    v7 = (v9 & 1) != 0;
+    while (v10 < v8)
+    {
+      v6 = 0;
+      if (v12 == 2 && v10 == *v14)
+      {
+        return 36;
+      }
+
+      if (v7)
+      {
+        *v13 = 0;
+        v7 = 0;
+      }
+
+      else
+      {
+        v11 = ot::ParseHexDigit(**v15, &v6, v4);
+        if (v11)
+        {
+          return v11;
+        }
+
+        ++*v15;
+        *v13 = 16 * v6;
+      }
+
+      v11 = ot::ParseHexDigit(**v15, &v6, v4);
+      if (v11)
+      {
+        return v11;
+      }
+
+      ++*v15;
+      *v13++ |= v6;
+      ++v10;
+    }
+
+    *v14 = v10;
+  }
+
+  else
+  {
+    return 7;
+  }
+
+  return v11;
+}
+
+uint64_t ot::Utils::CmdLineParser::Arg::GetLength(const char **this)
+{
+  if (ot::Utils::CmdLineParser::Arg::IsEmpty(this))
+  {
+    return 0;
+  }
+
+  else
+  {
+    return strlen(*this);
+  }
+}
+
+BOOL ot::Utils::CmdLineParser::Arg::operator==(const char **a1, const char *a2)
+{
+  v4 = 0;
+  if (!ot::Utils::CmdLineParser::Arg::IsEmpty(a1))
+  {
+    return strcmp(*a1, a2) == 0;
+  }
+
+  return v4;
+}
+
+BOOL ot::Utils::CmdLineParser::Arg::CopyArgsToStringArray(ot::Utils::CmdLineParser::Arg *this, ot::Utils::CmdLineParser::Arg *a2, char **a3)
+{
+  for (i = 0; ; ++i)
+  {
+    result = ot::Utils::CmdLineParser::Arg::IsEmpty((this + 8 * i));
+    if (result)
+    {
+      break;
+    }
+
+    *(a2 + i) = ot::Utils::CmdLineParser::Arg::GetCString((this + 8 * i));
+  }
+
+  return result;
+}
+
+uint64_t ot::Utils::CmdLineParser::Arg::GetArgsLength(ot::Utils::CmdLineParser::Arg *this, ot::Utils::CmdLineParser::Arg *a2)
+{
+    ;
+  }
+
+  return i;
+}
+
+uint64_t ot::Utils::PingSender::Config::SetUnspecifiedToDefault(uint64_t this)
+{
+  if (!*(this + 56))
+  {
+    *(this + 56) = 8;
+  }
+
+  if (!*(this + 58))
+  {
+    *(this + 58) = 1;
+  }
+
+  if (!*(this + 60))
+  {
+    *(this + 60) = 1000;
+  }
+
+  if (!*(this + 64))
+  {
+    *(this + 64) = 3000;
+  }
+
+  return this;
+}
+
+uint64_t ot::Utils::PingSender::HandleTimer(ot::Utils::PingSender *this)
+{
+  if (*(this + 29))
+  {
+    return ot::Utils::PingSender::SendPing(this);
+  }
+
+  else
+  {
+    return ot::Utils::PingSender::Config::InvokeStatisticsCallback(this, this + 72);
+  }
+}
+
+uint64_t ot::Utils::PingSender::Config::InvokeReplyCallback(uint64_t result, uint64_t a2)
+{
+  if (*(result + 32))
+  {
+    return (*(result + 32))(a2, *(result + 48));
+  }
+
+  return result;
+}
+
+uint64_t ot::Utils::PingSender::Config::InvokeStatisticsCallback(uint64_t result, uint64_t a2)
+{
+  if (*(result + 40))
+  {
+    return (*(result + 40))(a2, *(result + 48));
+  }
+
+  return result;
+}
+
+ot::Utils::PingSender *ot::Utils::PingSender::PingSender(ot::Utils::PingSender *this, ot::Instance *a2)
+{
+  ot::InstanceLocator::InstanceLocator(this, a2);
+  ot::Utils::PingSender::Statistics::Statistics((this + 72));
+  *(this + 44) = 0;
+  *(this + 45) = 0;
+  ot::TimerMilliIn<ot::Utils::PingSender,&ot::Utils::PingSender::HandleTimer>::TimerMilliIn((this + 96), a2);
+  ot::Ip6::Icmp::Handler::Handler(this + 15, ot::Utils::PingSender::HandleIcmpReceive, this);
+  v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Ip6::Icmp>(this);
+  ot::Ip6::Icmp::RegisterHandler(v2, (this + 120));
+  IgnoreError();
+  return this;
+}
+
+{
+  ot::Utils::PingSender::PingSender(this, a2);
+  return this;
+}
+
+ot::Utils::PingSender::Statistics *ot::Utils::PingSender::Statistics::Statistics(ot::Utils::PingSender::Statistics *this)
+{
+  ot::Utils::PingSender::Statistics::Statistics(this);
+  return this;
+}
+
+{
+  ot::Utils::PingSender::Statistics::Clear(this);
+  return this;
+}
+
+ot::TimerMilli *ot::TimerMilliIn<ot::Utils::PingSender,&ot::Utils::PingSender::HandleTimer>::TimerMilliIn(ot::TimerMilli *a1, ot::Instance *a2)
+{
+  ot::TimerMilliIn<ot::Utils::PingSender,&ot::Utils::PingSender::HandleTimer>::TimerMilliIn(a1, a2);
+  return a1;
+}
+
+{
+  ot::TimerMilli::TimerMilli(a1, a2, ot::TimerMilliIn<ot::Utils::PingSender,&ot::Utils::PingSender::HandleTimer>::HandleTimer);
+  return a1;
+}
+
+uint64_t ot::Utils::PingSender::HandleIcmpReceive(ot::Utils::PingSender *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  ot::AsCoreType<otMessage>(a2);
+  v8 = v4;
+  ot::AsCoreType<otMessageInfo>(a3);
+  v9 = v5;
+  ot::AsCoreType<otIcmp6Header>(a4);
+  return ot::Utils::PingSender::HandleIcmpReceive(a1, v8, v9, v6);
+}
+
+uint64_t ot::Utils::PingSender::Ping(ot::Utils::PingSender *this, const ot::Utils::PingSender::Config *a2)
+{
+  v5 = 0;
+  if (ot::Timer::IsRunning((this + 96)))
+  {
+    return 5;
+  }
+
+  else
+  {
+    memcpy(this, a2, 0x48uLL);
+    ot::Utils::PingSender::Config::SetUnspecifiedToDefault(this);
+    if (*(this + 15) > 0x7FFFFFFFu)
+    {
+      return 7;
+    }
+
+    else
+    {
+      ot::Utils::PingSender::Statistics::Clear(this + 72);
+      ot::AsCoreType<otIp6Address>(this + 16);
+      *(this + 84) = ot::Ip6::Address::IsMulticast(v2);
+      ++*(this + 44);
+      ot::Utils::PingSender::SendPing(this);
+    }
+  }
+
+  return v5;
+}
+
+uint64_t ot::Utils::PingSender::Statistics::Clear(uint64_t this)
+{
+  *this = 0;
+  *(this + 2) = 0;
+  *(this + 4) = 0;
+  *(this + 8) = -1;
+  *(this + 10) = 0;
+  *(this + 12) = 0;
+  return this;
+}
+
+{
+  return ot::Utils::PingSender::Statistics::Clear(this);
+}
+
+uint64_t ot::Utils::PingSender::SendPing(ot::Utils::PingSender *this)
+{
+  v18 = this;
+  Now = ot::TimerMilli::GetNow(this);
+  v16 = 0;
+  ot::Ip6::MessageInfo::MessageInfo(v13);
+  ot::Utils::PingSender::Config::GetSource(this);
+  ot::Ip6::MessageInfo::SetSockAddr(v13, v1);
+  ot::Utils::PingSender::Config::GetDestination(this);
+  ot::Ip6::MessageInfo::SetPeerAddr(v13, v2);
+  v14 = *(this + 66);
+  v15 = v15 & 0xF7 | (8 * (*(this + 67) & 1));
+  v15 = v15 & 0xEF | (16 * (*(this + 68) & 1));
+  v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Ip6::Icmp>(this);
+  v16 = ot::Ip6::Icmp::NewMessage(v3);
+  if (v16)
+  {
+    v10 = v16;
+    Value = ot::Time::GetValue(&Now);
+    v12 = ot::BigEndian::HostSwap32(Value, v5);
+    if (!ot::Message::Append<unsigned int>(v10, &v12))
+    {
+      v9 = *(this + 28);
+      if (v9 <= ot::Message::GetLength(v16) || !ot::Message::SetLength(v16, *(this + 28)))
+      {
+        v6 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Ip6::Icmp>(this);
+        *(this + 45) = ot::Ip6::Icmp::GetEchoSequence(v6);
+        v7 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Ip6::Icmp>(this);
+        if (!ot::Ip6::Icmp::SendEchoRequest(v7, v16, v13, *(this + 44)))
+        {
+          ++*(this + 36);
+          v16 = 0;
+        }
+      }
+    }
+  }
+
+  if (v16)
+  {
+    ot::Message::Free(v16);
+  }
+
+  if (--*(this + 29))
+  {
+    return ot::TimerMilli::Start((this + 96), *(this + 15));
+  }
+
+  else
+  {
+    return ot::TimerMilli::Start((this + 96), *(this + 32));
+  }
+}
+
+uint64_t ot::Utils::PingSender::Stop(ot::Utils::PingSender *this)
+{
+  result = ot::TimerMilli::Stop((this + 96));
+  ++*(this + 44);
+  return result;
+}
+
+void ot::Utils::PingSender::Config::GetSource(ot::Utils::PingSender::Config *this)
+{
+  ot::AsCoreType<otIp6Address>(this);
+}
+
+{
+  ot::Utils::PingSender::Config::GetSource(this);
+}
+
+void ot::Utils::PingSender::Config::GetDestination(ot::Utils::PingSender::Config *this)
+{
+  ot::AsCoreType<otIp6Address>(this + 16);
+}
+
+{
+  ot::Utils::PingSender::Config::GetDestination(this);
+}
+
+uint64_t ot::Message::Append<unsigned int>(ot::Message *a1, char *a2)
+{
+  return ot::Message::AppendBytes(a1, a2, 4u);
+}
+
+{
+  return ot::Message::Append<unsigned int>(a1, a2);
+}
+
+uint64_t ot::Ip6::Icmp::GetEchoSequence(ot::Ip6::Icmp *this)
+{
+  return *(this + 4);
+}
+
+{
+  return ot::Ip6::Icmp::GetEchoSequence(this);
+}
+
+uint64_t ot::Utils::PingSender::HandleIcmpReceive(ot::Utils::PingSender *this, const ot::Message *a2, const ot::Ip6::MessageInfo *a3, const ot::Ip6::Icmp::Header *a4)
+{
+  v25 = this;
+  v24 = a2;
+  v23 = a3;
+  v22 = a4;
+  v17[0] = 0;
+  result = ot::Timer::IsRunning((this + 96));
+  if (result)
+  {
+    result = ot::Ip6::Icmp::Header::GetType(v22);
+    if (result == 129)
+    {
+      result = ot::Ip6::Icmp::Header::GetId(v22, v5);
+      if (result == *(this + 44))
+      {
+        Offset = ot::Message::GetOffset(v24);
+        result = ot::Message::Read<unsigned int>(v24, Offset, v17);
+        if (!result)
+        {
+          v17[0] = ot::BigEndian::HostSwap32(v17[0], v7);
+          ot::Ip6::MessageInfo::GetPeerAddr(v23);
+          *&v17[1] = *v8;
+          Now = ot::TimerMilli::GetNow(v8);
+          ot::Time::Time(&v15, v17[0]);
+          v9 = ot::Time::operator-(&Now, &v15);
+          v18 = ot::ClampToUint16<unsigned int>(v9);
+          Length = ot::Message::GetLength(v24);
+          v19 = Length - ot::Message::GetOffset(v24);
+          Sequence = ot::Ip6::Icmp::Header::GetSequence(v22, v10);
+          HopLimit = ot::Ip6::MessageInfo::GetHopLimit(v23);
+          ++*(this + 37);
+          *(this + 19) += v18;
+          *(this + 41) = ot::Max<unsigned short>(*(this + 41), v18);
+          *(this + 40) = ot::Min<unsigned short>(*(this + 40), v18);
+          if ((*(this + 84) & 1) == 0 && !*(this + 29) && ot::Ip6::Icmp::Header::GetSequence(v22, v11) == *(this + 45))
+          {
+            ot::TimerMilli::Stop((this + 96));
+          }
+
+          result = ot::Utils::PingSender::Config::InvokeReplyCallback(this, &v17[1]);
+          if ((*(this + 84) & 1) == 0 && !*(this + 29))
+          {
+            result = ot::Ip6::Icmp::Header::GetSequence(v22, v12);
+            if (result == *(this + 45))
+            {
+              return ot::Utils::PingSender::Config::InvokeStatisticsCallback(this, this + 72);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t ot::Ip6::Icmp::Header::GetId(ot::Ip6::Icmp::Header *this, unsigned __int16 a2)
+{
+  return ot::BigEndian::HostSwap16(*(this + 2), a2);
+}
+
+{
+  return ot::Ip6::Icmp::Header::GetId(this, a2);
+}
+
+uint64_t ot::GetProvider<ot::InstanceLocator>::Get<ot::Utils::PingSender>(ot::InstanceLocator *a1)
+{
+  Instance = ot::InstanceLocator::GetInstance(a1);
+  return ot::Instance::Get<ot::Utils::PingSender>(Instance);
+}
+
+{
+  return ot::GetProvider<ot::InstanceLocator>::Get<ot::Utils::PingSender>(a1);
+}
+
+ot::Utils::Slaac *ot::Utils::Slaac::Slaac(ot::Utils::Slaac *this, ot::Instance *a2)
+{
+  ot::InstanceLocator::InstanceLocator(this, a2);
+  *this = 1;
+  *(this + 1) = 0;
+  ot::TimerMilliIn<ot::Utils::Slaac,&ot::Utils::Slaac::HandleTimer>::TimerMilliIn((this + 16), a2);
+  ot::ClearAllBytes<ot::Utils::Slaac::SlaacAddress [4]>(this + 40);
+  return this;
+}
+
+{
+  ot::Utils::Slaac::Slaac(this, a2);
+  return this;
+}
+
+uint64_t ot::Utils::Slaac::HandleTimer(ot::Utils::Slaac *this)
+{
+  v11 = this;
+  ot::NextFireTime::NextFireTime(&v10);
+  v9 = this + 40;
+  v8 = (this + 40);
+  v7 = (this + 200);
+  while (v8 != v7)
+  {
+    v6 = v8;
+    if ((ot::Utils::Slaac::SlaacAddress::IsInUse(v8) & 1) != 0 && ot::Utils::Slaac::SlaacAddress::IsDeprecating(v6))
+    {
+      ExpirationTime = ot::Utils::Slaac::SlaacAddress::GetExpirationTime(v6);
+      Now = ot::NextFireTime::GetNow(&v10);
+      if (ot::Time::operator<=(&ExpirationTime, &Now))
+      {
+        ot::Utils::Slaac::RemoveAddress(this, v6);
+      }
+
+      else
+      {
+        v3 = ot::Utils::Slaac::SlaacAddress::GetExpirationTime(v6);
+        ot::NextFireTime::UpdateIfEarlier(&v10, v3);
+      }
+    }
+
+    v8 = (v8 + 40);
+  }
+
+  return ot::TimerMilli::FireAtIfEarlier((this + 16), &v10);
+}
+
+ot::TimerMilli *ot::TimerMilliIn<ot::Utils::Slaac,&ot::Utils::Slaac::HandleTimer>::TimerMilliIn(ot::TimerMilli *a1, ot::Instance *a2)
+{
+  ot::TimerMilliIn<ot::Utils::Slaac,&ot::Utils::Slaac::HandleTimer>::TimerMilliIn(a1, a2);
+  return a1;
+}
+
+{
+  ot::TimerMilli::TimerMilli(a1, a2, ot::TimerMilliIn<ot::Utils::Slaac,&ot::Utils::Slaac::HandleTimer>::HandleTimer);
+  return a1;
+}
+
+void *ot::ClearAllBytes<ot::Utils::Slaac::SlaacAddress [4]>(void *a1)
+{
+  return memset(a1, 0, 0xA0uLL);
+}
+
+{
+  return ot::ClearAllBytes<ot::Utils::Slaac::SlaacAddress [4]>(a1);
+}
+
+ot::Utils::Slaac *ot::Utils::Slaac::Enable(ot::Utils::Slaac *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v8 = this;
+  if ((*this & 1) == 0)
+  {
+    *this = 1;
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>("Slaac", "Enabled", a3, a4, a5, a6, a7, a8);
+    return ot::Utils::Slaac::AddAddresses(v8);
+  }
+
+  return this;
+}
+
+uint64_t ot::Utils::Slaac::AddAddresses(ot::Utils::Slaac *this)
+{
+  v25 = this;
+  v24 = 0;
+  while (1)
+  {
+    v1 = ot::GetProvider<ot::InstanceLocator>::Get<ot::NetworkData::Leader>(this);
+    result = ot::NetworkData::NetworkData::GetNextOnMeshPrefix(v1, &v24, v23);
+    if (result)
+    {
+      return result;
+    }
+
+    v22 = 0;
+    if (ot::Utils::Slaac::IsSlaac(this, v23) && (ot::Utils::Slaac::IsFiltered(this, v23) & 1) == 0)
+    {
+      v21 = this + 40;
+      v20 = (this + 40);
+      v19 = (this + 200);
+      while (v20 != v19)
+      {
+        v18 = v20;
+        if ((ot::Utils::Slaac::SlaacAddress::IsInUse(v20) & 1) != 0 && ot::Utils::Slaac::DoesConfigMatchNetifAddr(v23, v18, v3))
+        {
+          if (ot::Utils::Slaac::SlaacAddress::IsDeprecating(v18) && (v23[17] & 4) != 0)
+          {
+            ot::Utils::Slaac::SlaacAddress::MarkAsNotDeprecating(v18);
+            v4 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(this);
+            ot::Ip6::Netif::UpdatePreferredFlagOn(v4, v18, 1);
+          }
+
+          v22 = 1;
+          break;
+        }
+
+        v20 = (v20 + 40);
+      }
+
+      if ((v22 & 1) == 0)
+      {
+        v5 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(this);
+        ot::Ip6::Netif::GetUnicastAddresses(v5);
+        v17[1] = v6;
+        v17[0] = ot::LinkedList<ot::Ip6::Netif::UnicastAddress>::begin(v6);
+        v16 = ot::LinkedList<ot::Ip6::Netif::UnicastAddress>::end();
+        while (ot::ItemPtrIterator<ot::Ip6::Netif::UnicastAddress,ot::LinkedList<ot::Ip6::Netif::UnicastAddress>::Iterator>::operator!=(v17, &v16))
+        {
+          v15 = ot::ItemPtrIterator<ot::Ip6::Netif::UnicastAddress,ot::LinkedList<ot::Ip6::Netif::UnicastAddress>::Iterator>::operator*(v17);
+          if (ot::Utils::Slaac::DoesConfigMatchNetifAddr(v23, v15, v13))
+          {
+            v22 = 1;
+            break;
+          }
+
+          ot::ItemPtrIterator<ot::Ip6::Netif::UnicastAddress,ot::LinkedList<ot::Ip6::Netif::UnicastAddress>::Iterator>::operator++(v17);
+        }
+
+        if ((v22 & 1) == 0)
+        {
+          ot::Utils::Slaac::AddAddressFor(this, v23, v7, v8, v9, v10, v11, v12);
+        }
+      }
+    }
+  }
+}
+
+void ot::Utils::Slaac::Disable(ot::Utils::Slaac *this)
+{
+  if (*this)
+  {
+    ot::Utils::Slaac::RemoveAllAddresses(this);
+    ot::TimerMilli::Stop((this + 16));
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>("Slaac", "Disabled", v1, v2, v3, v4, v5, v6);
+    *this = 0;
+  }
+}
+
+uint64_t ot::Utils::Slaac::RemoveAllAddresses(uint64_t this)
+{
+  v1 = this;
+  v3 = (this + 40);
+  v2 = (this + 200);
+  while (v3 != v2)
+  {
+    this = ot::Utils::Slaac::SlaacAddress::IsInUse(v3);
+    if (this)
+    {
+      this = ot::Utils::Slaac::RemoveAddress(v1, v3);
+    }
+
+    v3 = (v3 + 40);
+  }
+
+  return this;
+}
+
+void ot::Utils::Slaac::SetFilter(ot::Utils::Slaac *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  if (a2 != *(result + 1))
+  {
+    *(result + 1) = a2;
+    v8 = "updated";
+    if (!*(result + 1))
+    {
+      v8 = "disabled";
+    }
+
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>("Slaac", "Filter %s", a3, a4, a5, a6, a7, a8, v8);
+    if (*result)
+    {
+      ot::Utils::Slaac::RemoveOrDeprecateAddresses(result);
+      ot::Utils::Slaac::AddAddresses(result);
+    }
+  }
+}
+
+uint64_t ot::Utils::Slaac::RemoveOrDeprecateAddresses(uint64_t this)
+{
+  v11 = this;
+  v3 = this;
+  v10 = this + 40;
+  v9 = (this + 40);
+  v8 = (this + 200);
+  while (v9 != v8)
+  {
+    v7 = v9;
+    v6 = 0;
+    v4 = 0;
+    this = ot::Utils::Slaac::SlaacAddress::IsInUse(v9);
+    if (this)
+    {
+      v6 = 0;
+      while (1)
+      {
+        v1 = ot::GetProvider<ot::InstanceLocator>::Get<ot::NetworkData::Leader>(v3);
+        if (ot::NetworkData::NetworkData::GetNextOnMeshPrefix(v1, &v6, v5))
+        {
+          break;
+        }
+
+        if (ot::Utils::Slaac::IsSlaac(v3, v5) && ot::Utils::Slaac::DoesConfigMatchNetifAddr(v5, v7, v2))
+        {
+          v4 = 1;
+          break;
+        }
+      }
+
+      if (v4)
+      {
+        this = ot::Utils::Slaac::IsFiltered(v3, v5);
+        if (this)
+        {
+          this = ot::Utils::Slaac::RemoveAddress(v3, v7);
+        }
+      }
+
+      else
+      {
+        this = ot::Utils::Slaac::SlaacAddress::IsDeprecating(v7);
+        if ((this & 1) == 0)
+        {
+          if (*(v7 + 9))
+          {
+            this = ot::Utils::Slaac::DeprecateAddress(v3, v7);
+          }
+
+          else
+          {
+            this = ot::Utils::Slaac::RemoveAddress(v3, v7);
+          }
+        }
+      }
+    }
+
+    v9 = (v9 + 40);
+  }
+
+  return this;
+}
+
+uint64_t ot::Utils::Slaac::FindDomainIdFor(ot::Utils::Slaac *this, const ot::Ip6::Address *a2, unsigned __int8 *a3)
+{
+  v7 = 23;
+  v6 = (this + 40);
+  v5 = (this + 200);
+  while (v6 != v5)
+  {
+    if ((ot::Utils::Slaac::SlaacAddress::IsInUse(v6) & 1) != 0 && ot::Utils::Slaac::SlaacAddress::IsDeprecating(v6))
+    {
+      ot::Ip6::Netif::UnicastAddress::GetAddress(v6);
+      if (ot::Ip6::Address::PrefixMatch(a2, v3) >= 64)
+      {
+        *a3 = ot::Utils::Slaac::SlaacAddress::GetDomainId(v6);
+        return 0;
+      }
+    }
+
+    v6 = (v6 + 40);
+  }
+
+  return v7;
+}
+
+uint64_t ot::Utils::Slaac::SlaacAddress::IsInUse(ot::Utils::Slaac::SlaacAddress *this)
+{
+  return (*(this + 9) >> 1) & 1;
+}
+
+{
+  return ot::Utils::Slaac::SlaacAddress::IsInUse(this);
+}
+
+BOOL ot::Utils::Slaac::SlaacAddress::IsDeprecating(ot::Utils::Slaac::SlaacAddress *this)
+{
+  return ot::Time::GetValue((this + 36)) != 0;
+}
+
+{
+  return ot::Utils::Slaac::SlaacAddress::IsDeprecating(this);
+}
+
+uint64_t ot::Utils::Slaac::SlaacAddress::GetDomainId(ot::Utils::Slaac::SlaacAddress *this)
+{
+  return *(this + 32);
+}
+
+{
+  return ot::Utils::Slaac::SlaacAddress::GetDomainId(this);
+}
+
+BOOL ot::Utils::Slaac::IsSlaac(ot::Utils::Slaac *this, const ot::NetworkData::OnMeshPrefixConfig *a2)
+{
+  v4 = 0;
+  if ((*(a2 + 17) & 8) != 0)
+  {
+    v4 = 0;
+    if ((*(a2 + 17) & 0x400) == 0)
+    {
+      ot::NetworkData::OnMeshPrefixConfig::GetPrefix(a2);
+      return ot::Ip6::Prefix::GetLength(v2) == 64;
+    }
+  }
+
+  return v4;
+}
+
+uint64_t ot::Utils::Slaac::IsFiltered(ot::Utils::Slaac *this, const ot::NetworkData::OnMeshPrefixConfig *a2)
+{
+  if (*(this + 1))
+  {
+    v4 = *(this + 1);
+    Instance = ot::InstanceLocator::GetInstance(this);
+    ot::NetworkData::OnMeshPrefixConfig::GetPrefix(a2);
+    v6 = v4(Instance, v2);
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  return v6 & 1;
+}
+
+uint64_t ot::Utils::Slaac::HandleNotifierEvents(uint64_t result, uint64_t a2)
+{
+  v3 = a2;
+  v2 = result;
+  if (*result)
+  {
+    if (ot::Events::Contains(&v3, 512))
+    {
+      ot::Utils::Slaac::RemoveOrDeprecateAddresses(v2);
+      return ot::Utils::Slaac::AddAddresses(v2);
+    }
+
+    else
+    {
+      result = ot::Events::Contains(&v3, 2);
+      if (result)
+      {
+        return ot::Utils::Slaac::AddAddresses(v2);
+      }
+    }
+  }
+
+  return result;
+}
+
+BOOL ot::Utils::Slaac::DoesConfigMatchNetifAddr(ot::Utils::Slaac *this, const ot::NetworkData::OnMeshPrefixConfig *a2, const ot::Ip6::Netif::UnicastAddress *a3)
+{
+  if ((*(this + 17) & 0x80) != 0 && *(a2 + 16) == *(this + 16) || (v7 = 0, (*(this + 17) & 0x80) == 0) && (v7 = 0, *(a2 + 16) == 128))
+  {
+    ot::Ip6::Netif::UnicastAddress::GetAddress(a2);
+    v6 = v3;
+    ot::NetworkData::OnMeshPrefixConfig::GetPrefix(this);
+    return ot::Ip6::Address::MatchesPrefix(v6, v4);
+  }
+
+  return v7;
+}
+
+uint64_t ot::Utils::Slaac::RemoveAddress(ot::Utils::Slaac *this, ot::Utils::Slaac::SlaacAddress *a2)
+{
+  ot::Utils::Slaac::LogAddress(this, 1u, a2);
+  v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(this);
+  ot::Ip6::Netif::RemoveUnicastAddress(v2, a2);
+  return ot::Utils::Slaac::SlaacAddress::MarkAsNotInUse(a2);
+}
+
+uint64_t ot::Utils::Slaac::DeprecateAddress(ot::Utils::Slaac *this, ot::Utils::Slaac::SlaacAddress *a2)
+{
+  v11 = this;
+  v10 = a2;
+  ot::Utils::Slaac::LogAddress(this, 2u, a2);
+  v5 = v10;
+  Now = ot::TimerMilli::GetNow(v2);
+  v9 = ot::Time::operator+(&Now, 300000);
+  ot::Utils::Slaac::SlaacAddress::SetExpirationTime(v5, v9);
+  ExpirationTime = ot::Utils::Slaac::SlaacAddress::GetExpirationTime(v10);
+  ot::TimerMilli::FireAtIfEarlier((this + 16), ExpirationTime);
+  v3 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(this);
+  return ot::Ip6::Netif::UpdatePreferredFlagOn(v3, v10, 0);
+}
+
+void ot::Utils::Slaac::LogAddress(uint64_t a1, unsigned __int8 a2, ot::Ip6::Netif::UnicastAddress *a3)
+{
+  v15 = a1;
+  v14 = a2;
+  v13 = a3;
+  v12 = ot::Utils::Slaac::LogAddress(ot::Utils::Slaac::Action,ot::Utils::Slaac::SlaacAddress const&)::kActionStrings[a2];
+  ot::Ip6::Netif::UnicastAddress::GetAddress(a3);
+  v11 = v16;
+  ot::Ip6::Address::ToString(v16, v3);
+  v4 = ot::String<(unsigned short)40>::AsCString(v16);
+  ot::Logger::LogAtLevel<(ot::LogLevel)4>("Slaac", "%s %s", v5, v6, v7, v8, v9, v10, v12, v4);
+}
+
+_DWORD *ot::Utils::Slaac::SlaacAddress::SetExpirationTime(uint64_t a1, int a2)
+{
+  *(a1 + 36) = a2;
+  result = ot::Time::GetValue((a1 + 36));
+  if (!result)
+  {
+    return ot::Time::SetValue((a1 + 36), 1);
+  }
+
+  return result;
+}
+
+{
+  return ot::Utils::Slaac::SlaacAddress::SetExpirationTime(a1, a2);
+}
+
+uint64_t ot::Utils::Slaac::SlaacAddress::GetExpirationTime(ot::Utils::Slaac::SlaacAddress *this)
+{
+  return *(this + 9);
+}
+
+{
+  return ot::Utils::Slaac::SlaacAddress::GetExpirationTime(this);
+}
+
+uint64_t ot::Utils::Slaac::SlaacAddress::MarkAsNotInUse(uint64_t this)
+{
+  *(this + 18) &= ~2u;
+  return this;
+}
+
+{
+  return ot::Utils::Slaac::SlaacAddress::MarkAsNotInUse(this);
+}
+
+_DWORD *ot::Utils::Slaac::SlaacAddress::MarkAsNotDeprecating(ot::Utils::Slaac::SlaacAddress *this)
+{
+  return ot::Time::SetValue(this + 9, 0);
+}
+
+{
+  return ot::Utils::Slaac::SlaacAddress::MarkAsNotDeprecating(this);
+}
+
+void ot::Utils::Slaac::AddAddressFor(ot::Utils::Slaac *this, const ot::NetworkData::OnMeshPrefixConfig *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v28 = this;
+  v27 = a2;
+  v26 = 0;
+  v25 = 0;
+  v24 = 0;
+  v23 = this + 40;
+  v22 = (this + 40);
+  v21 = (this + 200);
+  while (v22 != v21)
+  {
+    v20 = v22;
+    if ((ot::Utils::Slaac::SlaacAddress::IsInUse(v22) & 1) == 0)
+    {
+      v26 = v20;
+      break;
+    }
+
+    if (ot::Utils::Slaac::SlaacAddress::IsDeprecating(v20))
+    {
+      v16 = 1;
+      if (v26)
+      {
+        ExpirationTime = ot::Utils::Slaac::SlaacAddress::GetExpirationTime(v20);
+        v18 = ot::Utils::Slaac::SlaacAddress::GetExpirationTime(v26);
+        v16 = ot::Time::operator<(&ExpirationTime, &v18);
+      }
+
+      if (v16)
+      {
+        v26 = v20;
+      }
+    }
+
+    v22 = (v22 + 40);
+  }
+
+  if (v26)
+  {
+    if (ot::Utils::Slaac::SlaacAddress::IsInUse(v26))
+    {
+      ot::Utils::Slaac::RemoveAddress(this, v26);
+    }
+
+    ot::Utils::Slaac::SlaacAddress::MarkAsNotDeprecating(v26);
+    v15 = v26;
+    if ((*(v27 + 17) & 0x80) != 0)
+    {
+      ot::NetworkData::OnMeshPrefixConfig::GetPrefix(v27);
+      ot::Ip6::Netif::UnicastAddress::InitAsSlaacOrigin(v15, *(v8 + 16), (*(v27 + 17) & 4) != 0);
+    }
+
+    else
+    {
+      ot::Ip6::Netif::UnicastAddress::InitAsSlaacOrigin(v26, 128, (*(v27 + 17) & 4) != 0);
+    }
+
+    ot::Ip6::Netif::UnicastAddress::GetAddress(v26);
+    v13 = v9;
+    ot::NetworkData::OnMeshPrefixConfig::GetPrefix(v27);
+    ot::Ip6::Address::SetPrefix(v13, v10);
+    v14 = ot::GetProvider<ot::InstanceLocator>::Get<ot::NetworkData::Leader>(this);
+    ot::NetworkData::OnMeshPrefixConfig::GetPrefix(v27);
+    ot::NetworkData::NetworkData::FindDomainIdFor(v14, v11, &v24);
+    IgnoreError();
+    ot::Utils::Slaac::SlaacAddress::SetDomainId(v26, v24);
+    ot::Utils::Slaac::GenerateIid(this, v26, &v25);
+    IgnoreError();
+    ot::Utils::Slaac::LogAddress(this, 0, v26);
+    v12 = ot::GetProvider<ot::InstanceLocator>::Get<ot::ThreadNetif>(this);
+    ot::Ip6::Netif::AddUnicastAddress(v12, v26);
+  }
+
+  else
+  {
+    ot::Logger::LogAtLevel<(ot::LogLevel)2>("Slaac", "Failed to add - already have max %u addresses", a3, a4, a5, a6, a7, a8, 4);
+  }
+}
+
+uint64_t ot::Utils::Slaac::SlaacAddress::SetDomainId(uint64_t this, char a2)
+{
+  *(this + 32) = a2;
+  return this;
+}
+
+{
+  return ot::Utils::Slaac::SlaacAddress::SetDomainId(this, a2);
+}
+
+uint64_t ot::Utils::Slaac::GenerateIid(ot::Utils::Slaac *this, ot::Ip6::Netif::UnicastAddress *a2, unsigned __int8 *a3)
+{
+  v23 = this;
+  v22 = a2;
+  v21 = a3;
+  v20 = 1;
+  v19 = 1851879543;
+  ot::Crypto::Sha256::Sha256(v18);
+  ot::Utils::Slaac::GetIidSecretKey(this, v25);
+  for (i = 0; i < 0x100u; ++i)
+  {
+    ot::Crypto::Sha256::Start(v18);
+    ot::Crypto::Sha256::Update(v18, v22, ((*(v22 + 16) + 7) / 8));
+    ot::Crypto::Sha256::Update<unsigned char [4]>(v18, &v19);
+    ot::Crypto::Sha256::Update<unsigned char>(v18, v21);
+    ot::Crypto::Sha256::Update<ot::Utils::Slaac::IidSecretKey>(v18, v25);
+    ot::Crypto::Sha256::Finish(v18, v24);
+    ot::Ip6::Netif::UnicastAddress::GetAddress(v22);
+    Iid = ot::Ip6::Address::GetIid(v9);
+    ot::Crypto::Sha256::Hash::GetBytes(v24);
+    ot::Ip6::InterfaceIdentifier::SetBytes(Iid, v10);
+    ot::Ip6::Netif::UnicastAddress::GetAddress(v22);
+    v12 = ot::Ip6::Address::GetIid(v11);
+    if (!ot::Ip6::InterfaceIdentifier::IsReserved(v12))
+    {
+      v20 = 0;
+      goto LABEL_7;
+    }
+
+    ++*v21;
+  }
+
+  ot::Logger::LogAtLevel<(ot::LogLevel)2>("Slaac", "Failed to generate a non-reserved IID after %d attempts", v3, v4, v5, v6, v7, v8, 256);
+LABEL_7:
+  v14 = v20;
+  ot::Crypto::Sha256::~Sha256(v18);
+  return v14;
+}
+
+void ot::Utils::Slaac::GetIidSecretKey(ot::InstanceLocator *a1, ot::Random::Crypto *a2)
+{
+  v2 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Settings>(a1);
+  if (ot::Settings::Read<ot::SettingsBase::SlaacIidSecretKey>(v2, a2))
+  {
+    if (ot::Random::Crypto::Fill<ot::Utils::Slaac::IidSecretKey>(a2, v3, v4))
+    {
+      ot::Random::Crypto::Fill<ot::Utils::Slaac::IidSecretKey>(a2, v5, v6);
+      IgnoreError();
+    }
+
+    v7 = ot::GetProvider<ot::InstanceLocator>::Get<ot::Settings>(a1);
+    ot::Settings::Save<ot::SettingsBase::SlaacIidSecretKey>(v7, a2);
+    IgnoreError();
+    ot::Logger::LogAtLevel<(ot::LogLevel)4>("Slaac", "Generated and saved secret key", v8, v9, v10, v11, v12, v13);
+  }
+}
+
+uint64_t ot::Crypto::Sha256::Update<unsigned char [4]>(ot::Crypto::Sha256 *a1, uint64_t a2)
+{
+  return ot::Crypto::Sha256::Update(a1, a2, 4u);
+}
+
+{
+  return ot::Crypto::Sha256::Update<unsigned char [4]>(a1, a2);
+}
+
+uint64_t ot::Crypto::Sha256::Update<unsigned char>(ot::Crypto::Sha256 *a1, uint64_t a2)
+{
+  return ot::Crypto::Sha256::Update(a1, a2, 1u);
+}
+
+{
+  return ot::Crypto::Sha256::Update<unsigned char>(a1, a2);
+}
+
+uint64_t ot::Crypto::Sha256::Update<ot::Utils::Slaac::IidSecretKey>(ot::Crypto::Sha256 *a1, uint64_t a2)
+{
+  return ot::Crypto::Sha256::Update(a1, a2, 0x20u);
+}
+
+{
+  return ot::Crypto::Sha256::Update<ot::Utils::Slaac::IidSecretKey>(a1, a2);
+}
+
+uint64_t ot::Settings::Read<ot::SettingsBase::SlaacIidSecretKey>(ot::InstanceLocator *a1, void *a2)
+{
+  return ot::Settings::ReadEntry(a1, 7u, a2, 0x20u);
+}
+
+{
+  return ot::Settings::Read<ot::SettingsBase::SlaacIidSecretKey>(a1, a2);
+}
+
+uint64_t ot::Random::Crypto::Fill<ot::Utils::Slaac::IidSecretKey>(ot::Random::Crypto *a1, uint64_t a2, unsigned __int16 a3)
+{
+  return ot::Random::Crypto::FillBuffer(a1, 0x20, a3);
+}
+
+{
+  return ot::Random::Crypto::Fill<ot::Utils::Slaac::IidSecretKey>(a1, a2, a3);
+}
+
+uint64_t ot::Settings::Save<ot::SettingsBase::SlaacIidSecretKey>(ot::InstanceLocator *a1, ot::SettingsBase::NetworkInfo *a2)
+{
+  return ot::Settings::SaveEntry(a1, 7u, a2, v3, 0x20u);
+}
+
+{
+  return ot::Settings::Save<ot::SettingsBase::SlaacIidSecretKey>(a1, a2);
+}
+
+uint64_t ot::Hdlc::Encoder::Encoder(uint64_t this, ot::Spinel::FrameWritePointer *a2)
+{
+  *this = a2;
+  *(this + 8) = 0;
+  return this;
+}
+
+uint64_t ot::Spinel::FrameWritePointer::WriteByte(ot::Spinel::FrameWritePointer *this, char a2)
+{
+  if (ot::Spinel::FrameWritePointer::CanWrite(this, 1u))
+  {
+    v2 = (*this)++;
+    *v2 = a2;
+    --*(this + 4);
+    return 0;
+  }
+
+  else
+  {
+    return 3;
+  }
+}
+
+{
+  return ot::Spinel::FrameWritePointer::WriteByte(this, a2);
+}
+
+uint64_t ot::Hdlc::Encoder::Encode(ot::Spinel::FrameWritePointer **this, char a2)
+{
+  v4 = 0;
+  if (!ot::Hdlc::HdlcByteNeedsEscape(a2))
+  {
+    v4 = ot::Spinel::FrameWritePointer::WriteByte(*this, a2);
+    if (v4)
+    {
+      return v4;
+    }
+
+LABEL_6:
+    *(this + 4) = ot::Hdlc::UpdateFcs(*(this + 4), a2);
+    return v4;
+  }
+
+  if (ot::Spinel::FrameWritePointer::CanWrite(*this, 2u))
+  {
+    ot::Spinel::FrameWritePointer::WriteByte(*this, 125);
+    ot::Spinel::FrameWritePointer::WriteByte(*this, a2 ^ 0x20);
+    goto LABEL_6;
+  }
+
+  return 3;
+}
+
+BOOL ot::Spinel::FrameWritePointer::CanWrite(ot::Spinel::FrameWritePointer *this, unsigned __int16 a2)
+{
+  return *(this + 4) >= a2;
+}
+
+{
+  return ot::Spinel::FrameWritePointer::CanWrite(this, a2);
+}
+
+uint64_t ot::Hdlc::Encoder::Encode(ot::Spinel::FrameWritePointer **this, char *a2, __int16 a3)
+{
+  *&v9[4] = 0;
+  *v9 = *(this + 4);
+  v8 = **this;
+  do
+  {
+    if (!a3--)
+    {
+      break;
+    }
+
+    v4 = a2++;
+    *&v9[2] = ot::Hdlc::Encoder::Encode(this, *v4);
+  }
+
+  while (!*&v9[2]);
+  if (*&v9[2])
+  {
+    v5 = *this;
+    *v5 = v8;
+    *(v5 + 4) = WORD4(v8);
+    *(this + 4) = *v9;
+  }
+
+  return *&v9[2];
+}
+
+uint64_t ot::Hdlc::Encoder::EndFrame(__int128 **this)
+{
+  v5 = **this;
+  v4 = *(this + 4);
+  v6 = ot::Hdlc::Encoder::Encode(this, ~v4);
+  if (!v6)
+  {
+    v6 = ot::Hdlc::Encoder::Encode(this, ~HIBYTE(v4));
+    if (!v6)
+    {
+      v6 = ot::Spinel::FrameWritePointer::WriteByte(*this, 126);
+    }
+  }
+
+  if (v6)
+  {
+    v1 = *this;
+    *v1 = v5;
+    *(v1 + 4) = WORD4(v5);
+    *(this + 4) = v4;
+  }
+
+  return v6;
+}
+
+uint64_t ot::Hdlc::Decoder::Decoder(uint64_t this)
+{
+  *this = 0;
+  *(this + 8) = 0;
+  *(this + 16) = 0;
+  *(this + 24) = 0;
+  *(this + 32) = 0;
+  *(this + 34) = 0;
+  return this;
+}
+
+void *ot::Hdlc::Decoder::Init(void *result, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result[1] = a2;
+  result[2] = a3;
+  result[3] = a4;
+  return result;
+}
+
+uint64_t ot::Hdlc::Decoder::Reset(uint64_t this)
+{
+  *this = 0;
+  *(this + 32) = 0;
+  *(this + 34) = 0;
+  return this;
+}
+
+uint64_t ot::Hdlc::Decoder::DecodeByPass(ot::Hdlc::Decoder *this, char *a2, __int16 a3)
+{
+  *(this + 17) = 0;
+  while (a3--)
+  {
+    v4 = a2++;
+    v7 = *v4;
+    if (!ot::Spinel::FrameWritePointer::CanWrite(*(this + 1), 1u))
+    {
+      break;
+    }
+
+    ot::Spinel::FrameWritePointer::WriteByte(*(this + 1), v7);
+    ++*(this + 17);
+    *this = 1;
+  }
+
+  *(this + 17) = 0;
+  *this = 1;
+  *(this + 16) = -1;
+  return (*(this + 2))(*(this + 3), 0);
+}
+
+uint64_t ot::Hdlc::Decoder::Decode(uint64_t this, char *a2, __int16 a3)
+{
+  v6 = this;
+  while (a3--)
+  {
+    v4 = a2++;
+    v8 = *v4;
+    v5 = *v6;
+    if (*v6)
+    {
+      if (v5 == 1)
+      {
+        if (v8 == 125)
+        {
+          *v6 = 2;
+        }
+
+        else if (v8 == 126)
+        {
+          if (*(v6 + 34))
+          {
+            v7 = 6;
+            if (*(v6 + 34) >= 2u && *(v6 + 32) == 61624)
+            {
+              ot::Spinel::FrameWritePointer::UndoLastWrites(*(v6 + 8), 2u);
+              v7 = 0;
+            }
+
+            this = (*(v6 + 16))(*(v6 + 24), v7);
+          }
+
+          *(v6 + 34) = 0;
+          *(v6 + 32) = -1;
+        }
+
+        else if (ot::Spinel::FrameWritePointer::CanWrite(*(v6 + 8), 1u))
+        {
+          *(v6 + 32) = ot::Hdlc::UpdateFcs(*(v6 + 32), v8);
+          this = ot::Spinel::FrameWritePointer::WriteByte(*(v6 + 8), v8);
+          ++*(v6 + 34);
+        }
+
+        else
+        {
+LABEL_25:
+          this = (*(v6 + 16))(*(v6 + 24), 3);
+          *v6 = 0;
+        }
+      }
+
+      else if (v5 == 2)
+      {
+        if (!ot::Spinel::FrameWritePointer::CanWrite(*(v6 + 8), 1u))
+        {
+          goto LABEL_25;
+        }
+
+        v9 = v8 ^ 0x20;
+        *(v6 + 32) = ot::Hdlc::UpdateFcs(*(v6 + 32), v9);
+        this = ot::Spinel::FrameWritePointer::WriteByte(*(v6 + 8), v9);
+        ++*(v6 + 34);
+        *v6 = 1;
+      }
+    }
+
+    else if (v8 == 126)
+    {
+      *v6 = 1;
+      *(v6 + 34) = 0;
+      *(v6 + 32) = -1;
+    }
+  }
+
+  return this;
+}
+
+uint64_t ot::Spinel::FrameWritePointer::UndoLastWrites(uint64_t this, unsigned __int16 a2)
+{
+  *this -= a2;
+  *(this + 8) += a2;
+  return this;
+}
+
+{
+  return ot::Spinel::FrameWritePointer::UndoLastWrites(this, a2);
+}
+
+char *otExitCodeToString(char a1)
+{
+  switch(a1)
+  {
+    case 0:
+      return "Success";
+    case 1:
+      return "Failure";
+    case 2:
+      return "InvalidArgument";
+    case 3:
+      return "RadioSpinelIncompatible";
+    case 4:
+      return "RadioSpinelReset";
+    case 5:
+      v1 = __error();
+      return strerror(*v1);
+    case 6:
+      return "RadioSpinelNoResponse";
+    default:
+      __assert_rtn("otExitCodeToString", "exit_code.c", 79, "false");
+  }
+}
+
+void *ot::Url::Url::Url(void *this)
+{
+  *this = 0;
+  this[1] = 0;
+  this[2] = 0;
+  this[3] = 0;
+  return this;
+}
+
+uint64_t ot::Url::Url::Init(ot::Url::Url *this, char *a2)
+{
+  v8 = 0;
+  *(this + 3) = &a2[strlen(a2)];
+  *this = a2;
+  __str = strstr[abi:dn200100](a2, "://");
+  if (__str)
+  {
+    *__str = 0;
+    *(this + 1) = __str + 3;
+    __stra = strstr[abi:dn200100](__str + 3, "?");
+    if (__stra)
+    {
+      __strb = __stra + 1;
+      *(this + 2) = __strb;
+      for (i = strtok(__strb, "&"); i; i = strtok(0, "&"))
+      {
+        *(i - 1) = 0;
+      }
+    }
+
+    else
+    {
+      *(this + 2) = *(this + 3);
+    }
+  }
+
+  else
+  {
+    return 6;
+  }
+
+  return v8;
+}
+
+char *ot::Url::Url::GetValue(ot::Url::Url *this, const char *a2, const char *a3)
+{
+  v7 = 0;
+  __n = strlen(a2);
+  if (!a3)
+  {
+    __s2 = *(this + 2);
+    goto LABEL_7;
+  }
+
+  if (a3 > *(this + 2) && a3 < *(this + 3))
+  {
+    __s2 = &a3[strlen(a3) + 1];
+LABEL_7:
+    while (__s2 < *(this + 3))
+    {
+      if (!strncmp(a2, __s2, __n))
+      {
+        if (__s2[__n] == 61)
+        {
+          return &__s2[__n + 1];
+        }
+
+        if (!__s2[__n])
+        {
+          return &__s2[__n];
+        }
+      }
+
+      __s2 += strlen(__s2) + 1;
+    }
+  }
+
+  return v7;
+}
+
+uint64_t ot::Url::Url::ParseUint32(ot::Url::Url *this, const char *a2, unsigned int *a3)
+{
+  v6 = 0;
+  __str = ot::Url::Url::GetValue(this, a2, 0);
+  if (__str)
+  {
+    v4 = strtoll(__str, 0, 0);
+    if (v4 < 0x100000000)
+    {
+      *a3 = v4;
+    }
+
+    else
+    {
+      return 7;
+    }
+  }
+
+  else
+  {
+    return 23;
+  }
+
+  return v6;
+}
+
+uint64_t ot::Url::Url::ParseUint16(ot::Url::Url *this, const char *a2, unsigned __int16 *a3)
+{
+  v8 = this;
+  v7 = a2;
+  v6 = a3;
+  v5 = 0;
+  v4 = 0;
+  v5 = ot::Url::Url::ParseUint32(this, a2, &v4);
+  if (!v5)
+  {
+    if (v4 < 0x10000)
+    {
+      *v6 = v4;
+    }
+
+    else
+    {
+      return 7;
+    }
+  }
+
+  return v5;
+}
+
+uint64_t ot::Url::Url::ParseUint8(ot::Url::Url *this, const char *a2, unsigned __int8 *a3)
+{
+  v8 = this;
+  v7 = a2;
+  v6 = a3;
+  v5 = 0;
+  v4 = 0;
+  v5 = ot::Url::Url::ParseUint32(this, a2, &v4);
+  if (!v5)
+  {
+    if (v4 <= 0xFF)
+    {
+      *v6 = v4;
+    }
+
+    else
+    {
+      return 7;
+    }
+  }
+
+  return v5;
+}
+
+uint64_t ot::Url::Url::ParseInt32(ot::Url::Url *this, const char *a2, int *a3)
+{
+  v6 = 0;
+  __str = ot::Url::Url::GetValue(this, a2, 0);
+  if (__str)
+  {
+    v4 = strtoll(__str, 0, 0);
+    if (v4 >= 0xFFFFFFFF80000000 && v4 <= 0x7FFFFFFF)
+    {
+      *a3 = v4;
+    }
+
+    else
+    {
+      return 7;
+    }
+  }
+
+  else
+  {
+    return 23;
+  }
+
+  return v6;
+}
+
+uint64_t ot::Url::Url::ParseInt16(ot::Url::Url *this, const char *a2, __int16 *a3)
+{
+  v8 = this;
+  v7 = a2;
+  v6 = a3;
+  v5 = 0;
+  v4 = 0;
+  v5 = ot::Url::Url::ParseInt32(this, a2, &v4);
+  if (!v5)
+  {
+    if (v4 >= -32768 && v4 < 0x8000)
+    {
+      *v6 = v4;
+    }
+
+    else
+    {
+      return 7;
+    }
+  }
+
+  return v5;
+}
+
+uint64_t ot::Url::Url::ParseInt8(ot::Url::Url *this, const char *a2, signed __int8 *a3)
+{
+  v8 = this;
+  v7 = a2;
+  v6 = a3;
+  v5 = 0;
+  v4 = 0;
+  v5 = ot::Url::Url::ParseInt32(this, a2, &v4);
+  if (!v5)
+  {
+    if (v4 >= -128 && v4 <= 127)
+    {
+      *v6 = v4;
+    }
+
+    else
+    {
+      return 7;
+    }
+  }
+
+  return v5;
+}
+
+uint64_t otbr::Ncp::NcpNetworkProperties::NcpNetworkProperties(uint64_t this, uint64_t *a2)
+{
+  *this = &off_1004CDAE8;
+  v2 = *a2;
+  *this = *a2;
+  *(this + *(v2 - 24)) = a2[1];
+  *(this + 8) = 0;
+  return this;
+}
+
+uint64_t otbr::Ncp::NcpNetworkProperties::NcpNetworkProperties(uint64_t this)
+{
+  *this = off_1004CD790;
+  *(this + 16) = &off_1004CD7D0;
+  *(this + 8) = 0;
+  return this;
+}
+
+void *otbr::Ncp::NcpHost::Init(otbr::Ncp::NcpHost *this)
+{
+  otSysInit(this + 40);
+  v2 = *(this + 4);
+
+  return otbr::Ncp::NcpSpinel::Init(this + 12, v2, this + 16);
+}
+
+void *non-virtual thunk tootbr::Ncp::NcpHost::Init(otbr::Ncp::NcpHost *this)
+{
+  otSysInit(this + 32);
+  v2 = *(this + 3);
+
+  return otbr::Ncp::NcpSpinel::Init(this + 11, v2, this + 8);
+}
+
+void otbr::Ncp::NcpHost::Deinit(otbr::Ncp::NcpHost *this)
+{
+  v1 = otbr::Ncp::NcpSpinel::Deinit(this + 12);
+
+  otSysDeinit(v1);
+}
+
+void non-virtual thunk tootbr::Ncp::NcpHost::Deinit(otbr::Ncp::NcpHost *this)
+{
+  v1 = otbr::Ncp::NcpSpinel::Deinit(this + 11);
+
+  otSysDeinit(v1);
+}
+
+uint64_t otbr::Ncp::NcpHost::Update(uint64_t a1, uint64_t a2)
+{
+  result = (*(**(*(a1 + 32) + 8224) + 32))(*(*(a1 + 32) + 8224));
+  if (*(*(a1 + 32) + 8216) != *(a1 + 32) + 18)
+  {
+    *(a2 + 392) = 0;
+    *(a2 + 400) = 0;
+  }
+
+  return result;
+}
+
+void otbr::Ncp::NcpHost::~NcpHost(otbr::Ncp::NcpHost *this)
+{
+}
+
+{
+
+  operator delete();
+}
+
+void non-virtual thunk tootbr::Ncp::NcpHost::~NcpHost(otbr::Ncp::NcpHost *this)
+{
+}
+
+{
+
+  operator delete();
+}
+
+{
+}
+
+{
+
+  operator delete();
+}
+
+void otbr::Ncp::NcpHost::~NcpHost(otbr::Ncp::NcpHost *this, uint64_t *a2)
+{
+  v3 = *a2;
+  *this = *a2;
+  *(this + 1) = a2[5];
+  *(this + *(v3 - 24)) = a2[6];
+  *(this + 2) = a2[7];
+  otbr::TaskRunner::~TaskRunner((this + 176));
+
+  otbr::MainloopProcessor::~MainloopProcessor(this);
+}
+
+otbr::Ncp::NcpSpinel *otbr::Ncp::NcpSpinel::NcpSpinel(otbr::Ncp::NcpSpinel *this)
+{
+  *this = 0;
+  *(this + 4) = 0;
+  *(this + 10) = 1;
+  otbr::TaskRunner::TaskRunner((this + 80));
+  *(this + 28) = 0;
+  *&v2 = -1;
+  *(&v2 + 1) = -1;
+  *(this + 12) = v2;
+  *(this + 28) = v2;
+  *(this + 44) = v2;
+  *(this + 60) = v2;
+  return this;
+}
+
+{
+  *this = 0;
+  *(this + 4) = 0;
+  *(this + 10) = 1;
+  otbr::TaskRunner::TaskRunner((this + 80));
+  *(this + 28) = 0;
+  *&v2 = -1;
+  *(&v2 + 1) = -1;
+  *(this + 12) = v2;
+  *(this + 28) = v2;
+  *(this + 44) = v2;
+  *(this + 60) = v2;
+  return this;
+}
+
+void *otbr::Ncp::NcpSpinel::Init(void *a1, ot::Spinel::SpinelDriver *this, uint64_t a3)
+{
+  *a1 = this;
+  a1[28] = a3;
+  return ot::Spinel::SpinelDriver::SetFrameHandler(this, otbr::Ncp::NcpSpinel::HandleReceivedFrame, otbr::Ncp::NcpSpinel::HandleSavedFrame, a1);
+}
+
+uint64_t otbr::Ncp::NcpSpinel::SpinelDataUnpack(otbr::Ncp::NcpSpinel *this, const unsigned __int8 *a2, _BYTE *a3, const char *a4, ...)
+{
+  va_start(va, a4);
+  if (spinel_datatype_vunpack(this, a2, a3, va) <= 0)
+  {
+    return 4294967288;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void otbr::Ncp::NcpSpinel::HandleReceivedFrame(otbr::Ncp::NcpSpinel *this, otbr::Ncp::NcpSpinel *a2, unsigned __int8 *a3, const char *a4, BOOL *a5)
+{
+  if ((a4 & 0xF) != 0)
+  {
+    otbr::Ncp::NcpSpinel::HandleResponse(this, a4 & 0xF, a2, a3);
+  }
+
+  else
+  {
+    otbr::Ncp::NcpSpinel::HandleNotification(this, a2, a3, a4);
+  }
+
+  *a5 = 0;
+}
+
 void otbr::Ncp::NcpSpinel::HandleNotification(otbr::Ncp::NcpSpinel *this, otbr::Ncp::NcpSpinel *a2, unsigned __int8 *a3, const char *a4)
 {
-  v14 = 0;
-  v15 = 0;
-  v13 = 0;
-  v12 = 0;
-  v5 = otbr::Ncp::NcpSpinel::SpinelDataUnpack(a2, a3, "CiiD", a4, &v12, &v13, &v15 + 4, &v14, &v15);
+  v10 = 0;
+  v11 = 0;
+  v9 = 0;
+  v8 = 0;
+  v5 = otbr::Ncp::NcpSpinel::SpinelDataUnpack(a2, a3, "CiiD", a4, &v8, &v9, &v11 + 4, &v10, &v11);
   if (v5)
   {
     v6 = 4;
   }
 
-  else if ((v12 & 0xF) != 0)
+  else if ((v8 & 0xF) != 0)
   {
     v6 = 4;
     v5 = -8;
@@ -18,31 +2330,31 @@ void otbr::Ncp::NcpSpinel::HandleNotification(otbr::Ncp::NcpSpinel *this, otbr::
 
   else
   {
-    if (v13 == 6)
+    if (v9 == 6)
     {
-      otbr::Ncp::NcpSpinel::HandleValueIs(this, SHIDWORD(v15), v14, v15);
+      otbr::Ncp::NcpSpinel::HandleValueIs(this, SHIDWORD(v11), v10, v11);
     }
 
     v5 = 0;
     v6 = 6;
   }
 
-  otbrErrorString(v5);
-  otbrLog(v6, "NcpSpinel", "HandleNotification: %s: %s", v7, v8, v9, v10, v11, "HandleNotification");
+  v7 = otbrErrorString(v5);
+  otbrLog(v6, "NcpSpinel", "HandleNotification: %s: %s", "HandleNotification", v7);
 }
 
 uint64_t otbr::Ncp::NcpSpinel::HandleResponse(otbr::Ncp::NcpSpinel *this, unsigned int a2, otbr::Ncp::NcpSpinel *a3, unsigned __int8 *a4)
 {
-  v16 = 0;
-  v17[0] = 0;
-  v15 = 0;
+  v10 = 0;
+  v11 = 0;
+  v9 = 0;
+  v8 = 0;
+  v7 = 0;
   v14 = 0;
-  v13 = 0;
-  v19 = 0;
-  result = otbr::Ncp::NcpSpinel::SpinelDataUnpack(a3, a4, "CiiD", a4, &v13, &v14, v17, &v15, &v16);
+  result = otbr::Ncp::NcpSpinel::SpinelDataUnpack(a3, a4, "CiiD", a4, &v7, &v8, &v11, &v9, &v10);
   if (!result)
   {
-    if (v14 != 6)
+    if (v8 != 6)
     {
       goto LABEL_6;
     }
@@ -52,7 +2364,7 @@ uint64_t otbr::Ncp::NcpSpinel::HandleResponse(otbr::Ncp::NcpSpinel *this, unsign
       goto LABEL_14;
     }
 
-    if (v17[0] == *(this + a2 + 3))
+    if (v11 == *(this + a2 + 3))
     {
       result = 0;
     }
@@ -67,26 +2379,25 @@ LABEL_6:
   *(this + 4) &= ~(1 << a2);
   if (result == -8)
   {
-    otbrLog(2u, "NcpSpinel", "Error parsing response with tid:%u", v7, v8, v9, v10, v11, a2);
-    if (v19)
+    otbrLog(2, "NcpSpinel", "Error parsing response with tid:%u", a2);
+    if (v14)
     {
-      v17[1] = otbr::OtbrErrorToOtError(0xFFFFFFF8);
-      std::__function::__value_func<void ()(otError)>::operator()[abi:ne200100](v18);
+      v12 = otbr::OtbrErrorToOtError(0xFFFFFFF8);
+      std::__function::__value_func<void ()(otError)>::operator()[abi:ne200100](v13, &v12);
     }
 
-    return std::__function::__value_func<void ()(otError)>::~__value_func[abi:ne200100](v18);
+    return std::__function::__value_func<void ()(otError)>::~__value_func[abi:ne200100](v13);
   }
 
   if (result != -13)
   {
-    return std::__function::__value_func<void ()(otError)>::~__value_func[abi:ne200100](v18);
+    return std::__function::__value_func<void ()(otError)>::~__value_func[abi:ne200100](v13);
   }
 
   if (a2 <= 0xF)
   {
-    v12 = *(this + a2 + 3);
-    otbrLog(2u, "NcpSpinel", "Received unexpected response with cmd:%u, key:%u, waiting key:%u for tid:%u", v7, v8, v9, v10, v11, v14);
-    return std::__function::__value_func<void ()(otError)>::~__value_func[abi:ne200100](v18);
+    otbrLog(2, "NcpSpinel", "Received unexpected response with cmd:%u, key:%u, waiting key:%u for tid:%u", v8, v11, *(this + a2 + 3), a2);
+    return std::__function::__value_func<void ()(otError)>::~__value_func[abi:ne200100](v13);
   }
 
 LABEL_14:
@@ -98,15 +2409,15 @@ void otbr::Ncp::NcpSpinel::HandleValueIs(otbr::Ncp::NcpSpinel *this, int a2, otb
 {
   if (a2 == 67)
   {
-    v32 = 0;
-    v4 = otbr::Ncp::NcpSpinel::SpinelDataUnpack(a3, a4, "C", a4, &v32);
+    v9 = 0;
+    v4 = otbr::Ncp::NcpSpinel::SpinelDataUnpack(a3, a4, "C", a4, &v9);
     if (!v4)
     {
-      v20 = otbr::Ncp::NcpSpinel::SpinelRoleToDeviceRole(v32, v12, v13, v14, v15, v16, v17, v18);
-      (***(this + 28))(*(this + 28), v20);
-      v21 = otThreadDeviceRoleToString(v20);
-      otbrLog(6u, "NcpSpinel", "Device role changed to %s", v22, v23, v24, v25, v26, v21);
-      goto LABEL_9;
+      v7 = otbr::Ncp::NcpSpinel::SpinelRoleToDeviceRole(v9);
+      (***(this + 28))(*(this + 28), v7);
+      otThreadDeviceRoleToString(v7);
+      otbrLog(6, "NcpSpinel", "Device role changed to %s");
+      goto LABEL_8;
     }
   }
 
@@ -114,41 +2425,36 @@ void otbr::Ncp::NcpSpinel::HandleValueIs(otbr::Ncp::NcpSpinel *this, int a2, otb
   {
     if (a2)
     {
-LABEL_9:
+LABEL_8:
       v4 = 0;
-      v19 = 6;
-      goto LABEL_10;
-    }
-
-    v33 = 0;
-    v4 = otbr::Ncp::NcpSpinel::SpinelDataUnpack(a3, a4, "i", a4, &v33);
-    if (!v4)
-    {
-      v5 = spinel_status_to_cstr(v33);
-      otbrLog(6u, "NcpSpinel", "NCP last status: %s", v6, v7, v8, v9, v10, v5);
+      v6 = 6;
       goto LABEL_9;
     }
+
+    v10 = 0;
+    v4 = otbr::Ncp::NcpSpinel::SpinelDataUnpack(a3, a4, "i", a4, &v10);
+    if (!v4)
+    {
+      spinel_status_to_cstr(v10);
+      otbrLog(6, "NcpSpinel", "NCP last status: %s");
+      goto LABEL_8;
+    }
   }
 
-  if (!v4)
-  {
-    goto LABEL_9;
-  }
-
-  v19 = 4;
-LABEL_10:
-  otbrErrorString(v4);
-  otbrLog(v19, "NcpSpinel", "NcpSpinel: %s: %s", v27, v28, v29, v30, v31, "HandleValueIs");
+  v6 = 4;
+LABEL_9:
+  v8 = otbrErrorString(v4);
+  otbrLog(v6, "NcpSpinel", "NcpSpinel: %s: %s", "HandleValueIs", v8);
 }
 
-uint64_t otbr::Ncp::NcpSpinel::SpinelRoleToDeviceRole(unsigned int a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t otbr::Ncp::NcpSpinel::SpinelRoleToDeviceRole(unsigned int a1)
 {
   if (a1 < 5)
   {
     return dword_10044B678[a1];
   }
 
-  otbrLog(4u, "NcpSpinel", "Received invalid spinel net role!", a4, a5, a6, a7, a8, v8);
+  otbrLog(4, "NcpSpinel", "Received invalid spinel net role!", v1, v2);
   return 0;
 }
 
@@ -206,17 +2512,17 @@ uint64_t std::__function::__value_func<void ()(otError)>::~__value_func[abi:ne20
   return a1;
 }
 
-uint64_t std::__function::__value_func<void ()(otError)>::operator()[abi:ne200100](uint64_t a1)
+uint64_t std::__function::__value_func<void ()(otError)>::operator()[abi:ne200100](uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 24);
-  if (!v2)
+  v3 = *(a1 + 24);
+  if (!v3)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  v3 = *(*v2 + 48);
+  v4 = *(*v3 + 48);
 
-  return v3();
+  return v4();
 }
 
 void std::__throw_bad_function_call[abi:ne200100]()
@@ -240,32 +2546,22 @@ void *otbr::Ncp::OtNetworkProperties::OtNetworkProperties(void *this)
   return this;
 }
 
-void otbr::Ncp::RcpHost::RcpHost(otbr::MainloopProcessor *a1)
-{
-  otbr::MainloopProcessor::MainloopProcessor(a1);
-}
-
-{
-  *(a1 + 1) = &off_1004CDB10;
-  otbr::MainloopProcessor::MainloopProcessor(a1);
-}
-
-void sub_1003CAA28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
+void sub_1003CAA28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, char *a12)
 {
   std::vector<std::function<void ()(unsigned long long)>>::__destroy_vector::operator()[abi:ne200100](&a12);
   otbr::TaskRunner::~TaskRunner((v13 + 4));
-  a12 = v12 + 13;
+  a12 = v12 + 104;
   std::vector<std::function<void ()(void)>>::__destroy_vector::operator()[abi:ne200100](&a12);
   std::unique_ptr<otbr::agent::ThreadHelper>::reset[abi:ne200100](v13, 0);
   otbr::MainloopProcessor::~MainloopProcessor(v12);
   _Unwind_Resume(a1);
 }
 
-void sub_1003CAC34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void **a12)
+void sub_1003CAC34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12)
 {
   std::vector<std::function<void ()(unsigned long long)>>::__destroy_vector::operator()[abi:ne200100](&a12);
-  otbr::TaskRunner::~TaskRunner((v12 + 16));
-  a12 = v12 + 13;
+  otbr::TaskRunner::~TaskRunner((v12 + 128));
+  a12 = v12 + 104;
   std::vector<std::function<void ()(void)>>::__destroy_vector::operator()[abi:ne200100](&a12);
   std::unique_ptr<otbr::agent::ThreadHelper>::reset[abi:ne200100](v13, 0);
   otbr::MainloopProcessor::~MainloopProcessor(v12);
@@ -339,38 +2635,38 @@ uint64_t otbr::Ncp::RcpHost::ConvertToOtbrLogLevel(otbr::Ncp::RcpHost *this)
 uint64_t otbr::Ncp::RcpHost::SetOtbrAndOtLogLevel(uint64_t a1, uint64_t a2)
 {
   v2 = a2;
-  otbrLogSetLevel(a2);
+  otbrLogSetLevel(a2, a2);
   v3 = otbr::Ncp::ThreadHost::ConvertToOtLogLevel(v2);
 
-  return otLoggingSetLevel(v3);
+  return otLoggingSetLevel(v3, v4);
 }
 
 void otbr::Ncp::RcpHost::Init(otbr::Ncp::RcpHost *this)
 {
   Level = otbrLogGetLevel();
   v3 = otbr::Ncp::ThreadHost::ConvertToOtLogLevel(Level);
-  if (!otLoggingSetLevel(v3))
+  if (!otLoggingSetLevel(v3, v4))
   {
-    v9 = *(this + 4);
-    if (!v9)
+    v5 = *(this + 4);
+    if (!v5)
     {
-      v9 = otSysInit(this + 40);
-      *(this + 4) = v9;
-      if (!v9)
+      v5 = otSysInit(this + 40);
+      *(this + 4) = v5;
+      if (!v5)
       {
         otbr::Ncp::RcpHost::Init();
       }
     }
 
-    v10 = otSetStateChangedCallback(v9, otbr::Ncp::RcpHost::HandleStateChanged, this);
-    otbr::agent::ThreadHelper::LogOpenThreadResult("Set state callback", v10);
-    if (!v10)
+    v6 = otSetStateChangedCallback(v5, otbr::Ncp::RcpHost::HandleStateChanged, this);
+    otbr::agent::ThreadHelper::LogOpenThreadResult("Set state callback", v6);
+    if (!v6)
     {
       MakeUnique<otbr::agent::ThreadHelper,otInstance *&,otbr::Ncp::RcpHost *>();
     }
   }
 
-  otbrLog(0, "RCP_HOST", "FAILED %s:%d - %d: %s", v4, v5, v6, v7, v8, "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread_border_router/src/ncp/rcp_host.cpp");
+  otbrLog(0, "RCP_HOST", "FAILED %s:%d - %d: %s", "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread_border_router/src/ncp/rcp_host.cpp", 267, -4, "Failed to initialize the RCP Host!");
   exit(-1);
 }
 
@@ -421,7 +2717,7 @@ BOOL otbr::Ncp::RcpHost::Update(uint64_t a1, uint64_t a2)
   return otSysMainloopUpdate(v4, a2);
 }
 
-void otbr::Ncp::RcpHost::Process(uint64_t a1, const void *a2)
+void otbr::Ncp::RcpHost::Process(uint64_t a1, void *a2)
 {
   otTaskletsProcess(*(a1 + 32));
   otSysMainloopProcess(*(a1 + 32), a2);
@@ -438,14 +2734,14 @@ uint64_t otbr::Ncp::RcpHost::PostTimerTask(uint64_t a1, uint64_t a2, uint64_t a3
   return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v6);
 }
 
-void sub_1003CB37C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1003CB37C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t otbr::Ncp::RcpHost::RegisterResetHandler(uint64_t *a1, uint64_t a2)
+uint64_t otbr::Ncp::RcpHost::RegisterResetHandler(void *a1, uint64_t a2)
 {
   v3 = a1[14];
   if (v3 >= a1[15])
@@ -509,7 +2805,7 @@ char *otbr::Ncp::RcpHost::GetThreadVersion(otbr::Ncp::RcpHost *this)
   if (v1 >= 4u)
   {
     Version = otThreadGetVersion();
-    otbrLog(0, "RCP_HOST", "Unexpected thread version %hu", v4, v5, v6, v7, v8, Version);
+    otbrLog(0, "RCP_HOST", "Unexpected thread version %hu", Version);
     exit(-1);
   }
 
@@ -532,21 +2828,20 @@ void otPlatLog(unsigned int a1, uint64_t a2, char *a3, ...)
   otbrLogvNoFilter(v3, a3, va);
 }
 
-void otPlatLogHandleLevelChanged(unsigned int a1)
+void otPlatLogHandleLevelChanged(unsigned int a1, uint64_t a2)
 {
-  v1 = a1;
   if (a1 > 4)
   {
-    v2 = 7;
+    v3 = 7;
   }
 
   else
   {
-    v2 = dword_10044B6DC[a1];
+    v3 = dword_10044B6DC[a1];
   }
 
-  otbrLogSetLevel(v2);
-  otbrLog(6u, "RCP_HOST", "OpenThread log level changed to %d", v3, v4, v5, v6, v7, v1);
+  otbrLogSetLevel(v3, a2);
+  otbrLog(6, "RCP_HOST", "OpenThread log level changed to %d", a1);
 }
 
 uint64_t std::__function::__value_func<void ()(void)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
@@ -931,7 +3226,7 @@ uint64_t std::__function::__value_func<void ()(unsigned long long)>::operator()[
   return v3();
 }
 
-uint64_t std::vector<std::function<void ()(void)>>::__emplace_back_slow_path<std::function<void ()(void)>>(uint64_t *a1, uint64_t a2)
+uint64_t std::vector<std::function<void ()(void)>>::__emplace_back_slow_path<std::function<void ()(void)>>(void *a1, uint64_t a2)
 {
   v2 = (a1[1] - *a1) >> 5;
   v3 = v2 + 1;
@@ -989,9 +3284,9 @@ LABEL_12:
   return v13;
 }
 
-void sub_1003CBF5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1003CBF5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::function<void ()(void)>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1111,9 +3406,9 @@ LABEL_12:
   return v13;
 }
 
-void sub_1003CC188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1003CC188(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::function<void ()(unsigned long long)>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1192,24 +3487,30 @@ void *std::__split_buffer<std::function<void ()(unsigned long long)>>::~__split_
 
 void otbr::Ncp::ThreadHost::Create(uint64_t a1, uint64_t **a2, uint64_t a3, char a4, char a5, uint64_t a6)
 {
-  v26 = a3;
-  v27 = a1;
-  v25 = a4;
-  v24 = a5;
-  v23 = a6;
+  v25 = a3;
+  v26 = a1;
+  v24 = a4;
+  v23 = a5;
+  v22 = a6;
   Level = otbrLogGetLevel();
-  v8 = otbr::Ncp::ThreadHost::ConvertToOtLogLevel(Level);
-  v15 = *a2;
-  v14 = a2[1];
-  if ((v14 - *a2) < 0x11)
+  v9 = otbr::Ncp::ThreadHost::ConvertToOtLogLevel(Level);
+  v12 = *a2;
+  v11 = a2[1];
+  if ((v11 - *a2) < 0x11)
   {
-    v22 = 0;
-    if (v15 == v14)
+    v21 = 0;
+    if (v12 == v11)
     {
 LABEL_7:
-      if (!otLoggingSetLevel(v8))
+      if (otLoggingSetLevel(v9, v10))
       {
-        inited = otSysInitCoprocessor(v21);
+        v18 = "Failed to set OT log Level!";
+        v19 = 75;
+      }
+
+      else
+      {
+        inited = otSysInitCoprocessor(v20);
         if (inited == 2)
         {
           MakeUnique<otbr::Ncp::NcpHost,char const*&,BOOL &>();
@@ -1219,38 +3520,43 @@ LABEL_7:
         {
           MakeUnique<otbr::Ncp::RcpHost,char const*&,std::vector<char const*> const&,char const*&,BOOL &,BOOL &,otInstance *&>();
         }
+
+        v18 = "Unknown coprocessor type!";
+        v19 = 94;
       }
+
+LABEL_16:
+      otbrLog(0, "CTRLR", "FAILED %s:%d - %s", "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread_border_router/src/ncp/thread_host.cpp", v19, v18);
+      exit(-1);
     }
 
-    else
+    v13 = v20;
+    v14 = 1;
+    while (1)
     {
-      v16 = v21;
-      v17 = 1;
-      while (1)
+      v15 = v14;
+      if (v14 == 3)
       {
-        v18 = v17;
-        if (v17 == 3)
-        {
-          break;
-        }
-
-        v19 = *v15++;
-        *v16++ = v19;
-        ++v17;
-        if (v15 == v14)
-        {
-          v22 = v18;
-          goto LABEL_7;
-        }
+        break;
       }
 
-      v22 = 3;
-      __break(0x5512u);
+      v16 = *v12++;
+      *v13++ = v16;
+      ++v14;
+      if (v12 == v11)
+      {
+        v21 = v15;
+        goto LABEL_7;
+      }
     }
+
+    v21 = 3;
+    __break(0x5512u);
   }
 
-  otbrLog(0, "CTRLR", "FAILED %s:%d - %s", v9, v10, v11, v12, v13, "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread_border_router/src/ncp/thread_host.cpp");
-  exit(-1);
+  v18 = "Too many Radio URLs!";
+  v19 = 67;
+  goto LABEL_16;
 }
 
 uint64_t otbr::Ncp::ThreadHost::ConvertToOtLogLevel(unsigned int a1)
@@ -1266,7 +3572,7 @@ uint64_t otbr::Ncp::ThreadHost::ConvertToOtLogLevel(unsigned int a1)
   }
 }
 
-void sub_1003CC724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t **a10)
+void sub_1003CC724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   v13 = v12;
   std::vector<_DNSServiceRef_t *>::~vector[abi:ne200100](v10 + 520);
@@ -1298,44 +3604,44 @@ void *std::vector<_DNSServiceRef_t *>::~vector[abi:ne200100](uint64_t a1)
   return result;
 }
 
-void otbr::Mdns::Publisher::~Publisher(otbr::Mdns::Publisher *this)
+void otbr::Mdns::Publisher::~Publisher(char **this)
 {
   *this = &off_1004CE010;
-  std::__tree<std::__value_type<std::string,trackerInfo>,std::__map_value_compare<std::string,std::__value_type<std::string,trackerInfo>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,trackerInfo>>>::destroy(this + 208, *(this + 27));
-  std::__tree<std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::__map_value_compare<std::pair<std::string,std::string>,std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::less<std::pair<std::string,std::string>>,true>,std::allocator<std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>>>::destroy(this + 184, *(this + 24));
-  std::__tree<std::__value_type<std::string,trackerInfo>,std::__map_value_compare<std::string,std::__value_type<std::string,trackerInfo>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,trackerInfo>>>::destroy(this + 160, *(this + 21));
-  std::__tree<std::__value_type<std::string,trackerInfo>,std::__map_value_compare<std::string,std::__value_type<std::string,trackerInfo>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,trackerInfo>>>::destroy(this + 136, *(this + 18));
-  std::__tree<std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::__map_value_compare<std::pair<std::string,std::string>,std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::less<std::pair<std::string,std::string>>,true>,std::allocator<std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>>>::destroy(this + 112, *(this + 15));
+  std::__tree<std::__value_type<std::string,trackerInfo>,std::__map_value_compare<std::string,std::__value_type<std::string,trackerInfo>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,trackerInfo>>>::destroy((this + 26), this[27]);
+  std::__tree<std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::__map_value_compare<std::pair<std::string,std::string>,std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::less<std::pair<std::string,std::string>>,true>,std::allocator<std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>>>::destroy((this + 23), this[24]);
+  std::__tree<std::__value_type<std::string,trackerInfo>,std::__map_value_compare<std::string,std::__value_type<std::string,trackerInfo>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,trackerInfo>>>::destroy((this + 20), this[21]);
+  std::__tree<std::__value_type<std::string,trackerInfo>,std::__map_value_compare<std::string,std::__value_type<std::string,trackerInfo>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,trackerInfo>>>::destroy((this + 17), this[18]);
+  std::__tree<std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::__map_value_compare<std::pair<std::string,std::string>,std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::less<std::pair<std::string,std::string>>,true>,std::allocator<std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>>>::destroy((this + 14), this[15]);
   std::__list_imp<otbr::Mdns::Publisher::DiscoverCallback>::clear(this + 11);
-  std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::KeyRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::KeyRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::KeyRegistration>>>>::destroy(this + 56, *(this + 8));
-  std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::KeyRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::KeyRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::KeyRegistration>>>>::destroy(this + 32, *(this + 5));
-  std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::KeyRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::KeyRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::KeyRegistration>>>>::destroy(this + 8, *(this + 2));
+  std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::KeyRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::KeyRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::KeyRegistration>>>>::destroy((this + 7), this[8]);
+  std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::KeyRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::KeyRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::KeyRegistration>>>>::destroy((this + 4), this[5]);
+  std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::KeyRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::KeyRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::KeyRegistration>>>>::destroy((this + 1), this[2]);
 }
 
-void otbr::Mdns::PublisherMDnsSd::~PublisherMDnsSd(otbr::Mdns::PublisherMDnsSd *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void otbr::Mdns::PublisherMDnsSd::~PublisherMDnsSd(otbr::Mdns::PublisherMDnsSd *this)
 {
   *this = off_1004CDE40;
-  v9 = (this + 8);
+  v2 = (this + 8);
   *(this + 1) = off_1004CDEF0;
-  otbrLog(6u, "MDNS", "PublisherMDnsSd::~PublisherMDnsSd", a4, a5, a6, a7, a8, v17);
-  otbr::Mdns::PublisherMDnsSd::Stop(this, 0, v10, v11, v12, v13, v14, v15);
-  v16 = *(this + 65);
-  if (!v16)
+  otbrLog(6, "MDNS", "PublisherMDnsSd::~PublisherMDnsSd");
+  otbr::Mdns::PublisherMDnsSd::Stop(this, 0);
+  v3 = *(this + 65);
+  if (!v3)
   {
     goto LABEL_4;
   }
 
-  *(this + 66) = v16;
-  if ((*(this + 67) - v16) >= 0)
+  *(this + 66) = v3;
+  if ((*(this + 67) - v3) >= 0)
   {
-    operator delete(v16);
+    operator delete(v3);
 LABEL_4:
-    v18 = (this + 496);
-    std::vector<std::unique_ptr<otbr::Mdns::PublisherMDnsSd::HostSubscription>>::__destroy_vector::operator()[abi:ne200100](&v18);
-    v18 = (this + 472);
-    std::vector<std::unique_ptr<otbr::Mdns::PublisherMDnsSd::ServiceSubscription>>::__destroy_vector::operator()[abi:ne200100](&v18);
+    v4 = (this + 496);
+    std::vector<std::unique_ptr<otbr::Mdns::PublisherMDnsSd::HostSubscription>>::__destroy_vector::operator()[abi:ne200100](&v4);
+    v4 = (this + 472);
+    std::vector<std::unique_ptr<otbr::Mdns::PublisherMDnsSd::ServiceSubscription>>::__destroy_vector::operator()[abi:ne200100](&v4);
     std::__function::__value_func<void ()(otbr::Mdns::Publisher::State)>::~__value_func[abi:ne200100](this + 440);
-    otbr::Mdns::Publisher::~Publisher(v9);
+    otbr::Mdns::Publisher::~Publisher(v2);
     otbr::MainloopProcessor::~MainloopProcessor(this);
     return;
   }
@@ -1344,14 +3650,14 @@ LABEL_4:
 }
 
 {
-  otbr::Mdns::PublisherMDnsSd::~PublisherMDnsSd(this, a2, a3, a4, a5, a6, a7, a8);
+  otbr::Mdns::PublisherMDnsSd::~PublisherMDnsSd(this);
 
   operator delete();
 }
 
-void otbr::Mdns::PublisherMDnsSd::Stop(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void otbr::Mdns::PublisherMDnsSd::Stop(uint64_t a1, int a2)
 {
-  otbrLog(6u, "MDNS", "PublisherMDnsSd::Stop mState:%d", a4, a5, a6, a7, a8, *(a1 + 432));
+  otbrLog(6, "MDNS", "PublisherMDnsSd::Stop mState:%d", *(a1 + 432));
   if (*(a1 + 432) == 1)
   {
     if (a2 == 1)
@@ -1372,39 +3678,39 @@ void otbr::Mdns::PublisherMDnsSd::Stop(uint64_t a1, int a2, uint64_t a3, uint64_
     *(a1 + 80) = 0;
     *(a1 + 72) = 0;
     otbr::Mdns::PublisherMDnsSd::DeallocateHostsRef(a1);
-    v16 = *(a1 + 472);
-    for (i = *(a1 + 480); i != v16; std::unique_ptr<otbr::Mdns::PublisherMDnsSd::ServiceSubscription>::reset[abi:ne200100](i, 0))
+    v5 = *(a1 + 472);
+    for (i = *(a1 + 480); i != v5; std::unique_ptr<otbr::Mdns::PublisherMDnsSd::ServiceSubscription>::reset[abi:ne200100](i, 0))
     {
       --i;
     }
 
-    *(a1 + 480) = v16;
-    v18 = *(a1 + 496);
-    for (j = *(a1 + 504); j != v18; std::unique_ptr<otbr::Mdns::PublisherMDnsSd::HostSubscription>::reset[abi:ne200100](j, 0))
+    *(a1 + 480) = v5;
+    v7 = *(a1 + 496);
+    for (j = *(a1 + 504); j != v7; std::unique_ptr<otbr::Mdns::PublisherMDnsSd::HostSubscription>::reset[abi:ne200100](j, 0))
     {
       --j;
     }
 
-    *(a1 + 504) = v18;
+    *(a1 + 504) = v7;
     *(a1 + 432) = 0;
-    otbrLog(6u, "MDNS", "PublisherMDnsSd::Stop return mState:%d", v10, v11, v12, v13, v14, 0);
+    otbrLog(6, "MDNS", "PublisherMDnsSd::Stop return mState:%d", 0);
   }
 }
 
-void non-virtual thunk tootbr::Mdns::PublisherMDnsSd::~PublisherMDnsSd(otbr::Mdns::PublisherMDnsSd *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void non-virtual thunk tootbr::Mdns::PublisherMDnsSd::~PublisherMDnsSd(otbr::Mdns::PublisherMDnsSd *this)
 {
-  otbr::Mdns::PublisherMDnsSd::~PublisherMDnsSd((this - 8), a2, a3, a4, a5, a6, a7, a8);
+  otbr::Mdns::PublisherMDnsSd::~PublisherMDnsSd((this - 8));
 }
 
 {
-  otbr::Mdns::PublisherMDnsSd::~PublisherMDnsSd((this - 8), a2, a3, a4, a5, a6, a7, a8);
+  otbr::Mdns::PublisherMDnsSd::~PublisherMDnsSd((this - 8));
 
   operator delete();
 }
 
-uint64_t otbr::Mdns::PublisherMDnsSd::Start(otbr::Mdns::PublisherMDnsSd *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t otbr::Mdns::PublisherMDnsSd::Start(otbr::Mdns::PublisherMDnsSd *this)
 {
-  otbrLog(6u, "MDNS", "PublisherMDnsSd::Start mState:%d", a4, a5, a6, a7, a8, *(this + 108));
+  otbrLog(6, "MDNS", "PublisherMDnsSd::Start mState:%d", *(this + 108));
   *(this + 108) = 1;
   std::__function::__value_func<void ()(otbr::Mdns::Publisher::State)>::operator()[abi:ne200100](this + 440);
   return 0;
@@ -1434,7 +3740,7 @@ void otbr::Mdns::PublisherMDnsSd::DeallocateHostsRef(otbr::Mdns::PublisherMDnsSd
     }
 
     DNSServiceRefDeallocate(v2);
-    otbrLog(7u, "MDNS", "Deallocated DNSServiceRef for hosts: %p", v5, v6, v7, v8, v9, *(this + 53));
+    otbrLog(7, "MDNS", "Deallocated DNSServiceRef for hosts: %p", *(this + 53));
     *(this + 53) = 0;
   }
 }
@@ -1447,7 +3753,7 @@ uint64_t otbr::Mdns::PublisherMDnsSd::CreateSharedHostsRef(otbr::Mdns::Publisher
   }
 
   Connection = DNSServiceCreateConnection(this + 53);
-  otbrLog(7u, "MDNS", "Created new shared DNSServiceRef: %p", v4, v5, v6, v7, v8, *(this + 53));
+  otbrLog(7, "MDNS", "Created new shared DNSServiceRef: %p", *(this + 53));
   return Connection;
 }
 
@@ -1579,19 +3885,19 @@ _DNSServiceRef_t *otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration::Update(
   return result;
 }
 
-_DNSServiceRef_t *otbr::Mdns::PublisherMDnsSd::ServiceSubscription::UpdateAll(uint64_t a1, _DWORD *a2)
+_DNSServiceRef_t *otbr::Mdns::PublisherMDnsSd::ServiceSubscription::UpdateAll(_DNSServiceRef_t **a1, _DWORD *a2)
 {
   result = otbr::Mdns::PublisherMDnsSd::ServiceRef::Update(a1, a2);
-  v5 = *(a1 + 64);
-  v6 = *(a1 + 72);
+  v5 = a1[8];
+  v6 = a1[9];
   while (v5 != v6)
   {
     v7 = *v5++;
     result = otbr::Mdns::PublisherMDnsSd::ServiceRef::Update(v7, a2);
   }
 
-  v9 = *(a1 + 88);
-  v8 = *(a1 + 96);
+  v9 = a1[11];
+  v8 = a1[12];
   while (v9 != v8)
   {
     v10 = *v9++;
@@ -1631,11 +3937,11 @@ _DNSServiceRef_t *otbr::Mdns::PublisherMDnsSd::ServiceRef::Update(_DNSServiceRef
   return result;
 }
 
-void otbr::Mdns::PublisherMDnsSd::Process(uint64_t *a1, char *a2)
+void otbr::Mdns::PublisherMDnsSd::Process(const void **a1, char *a2)
 {
   a1[66] = a1[65];
   v4 = a1[2];
-  v5 = a1 + 3;
+  v5 = (a1 + 3);
   if (v4 != a1 + 3)
   {
     do
@@ -1658,11 +3964,11 @@ void otbr::Mdns::PublisherMDnsSd::Process(uint64_t *a1, char *a2)
         do
         {
           v7 = v4[2];
-          v39 = *v7 == v4;
+          v24 = *v7 == v4;
           v4 = v7;
         }
 
-        while (!v39);
+        while (!v24);
       }
 
       v4 = v7;
@@ -1706,17 +4012,18 @@ void otbr::Mdns::PublisherMDnsSd::Process(uint64_t *a1, char *a2)
   {
     while (1)
     {
+      v18 = *v16;
       if (*v16)
       {
-        v18 = DNSServiceProcessResult(*v16);
-        if (v18)
+        v19 = DNSServiceProcessResult(*v16);
+        if (v19)
         {
-          v26 = v18;
-          v27 = v18 == -65541 ? 6 : 4;
-          v28 = otbr::Mdns::DNSErrorToString(v18, v19, v20, v21, v22, v23, v24, v25);
-          otbrLog(v27, "MDNS", "DNSServiceProcessResult failed: %s (serviceRef = %p)", v29, v30, v31, v32, v33, v28);
-          v39 = v26 == -65541 || v26 == -65563;
-          if (v39)
+          v21 = v19;
+          v22 = v19 == -65541 ? 6 : 4;
+          v23 = otbr::Mdns::DNSErrorToString(v19, v20);
+          otbrLog(v22, "MDNS", "DNSServiceProcessResult failed: %s (serviceRef = %p)", v23, v18);
+          v24 = v21 == -65541 || v21 == -65563;
+          if (v24)
           {
             break;
           }
@@ -1729,15 +4036,15 @@ void otbr::Mdns::PublisherMDnsSd::Process(uint64_t *a1, char *a2)
       }
     }
 
-    otbrLog(4u, "MDNS", "Need to reconnect to mdnsd", v34, v35, v36, v37, v38, v47);
-    otbr::Mdns::PublisherMDnsSd::Stop(a1, 1, v40, v41, v42, v43, v44, v45);
-    v46 = *(*a1 + 88);
+    otbrLog(4, "MDNS", "Need to reconnect to mdnsd");
+    otbr::Mdns::PublisherMDnsSd::Stop(a1, 1);
+    v25 = *(*a1 + 11);
 
-    v46(a1);
+    v25(a1);
   }
 }
 
-uint64_t *otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration::Process(uint64_t a1, char *a2, uint64_t *a3)
+_DNSServiceRef_t *otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration::Process(uint64_t a1, char *a2, const void **a3)
 {
   v4 = (a1 + 176);
   result = *(a1 + 176);
@@ -1762,7 +4069,7 @@ uint64_t *otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration::Process(uint64_
   return result;
 }
 
-uint64_t *std::vector<_DNSServiceRef_t *>::push_back[abi:ne200100](uint64_t *result, void *a2)
+const void **std::vector<_DNSServiceRef_t *>::push_back[abi:ne200100](const void **result, const void **a2)
 {
   v3 = result;
   v5 = result[1];
@@ -1770,7 +4077,7 @@ uint64_t *std::vector<_DNSServiceRef_t *>::push_back[abi:ne200100](uint64_t *res
   if (v5 < v4)
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
 LABEL_14:
     v3[1] = v6;
     return result;
@@ -1820,7 +4127,7 @@ LABEL_16:
   if (v13 >= 0)
   {
     v6 = (v12 + 8);
-    v14 = v12 - v13;
+    v14 = (v12 - v13);
     memcpy((v12 - v13), *v3, v13);
     v15 = *v3;
     *v3 = v14;
@@ -1839,19 +4146,19 @@ LABEL_16:
   return result;
 }
 
-uint64_t *otbr::Mdns::PublisherMDnsSd::ServiceSubscription::ProcessAll(uint64_t a1, char *a2, uint64_t *a3)
+const void **otbr::Mdns::PublisherMDnsSd::ServiceSubscription::ProcessAll(const void **a1, char *a2, const void **a3)
 {
   result = otbr::Mdns::PublisherMDnsSd::ServiceRef::Process(a1, a2, a3);
-  v7 = *(a1 + 64);
-  v8 = *(a1 + 72);
+  v7 = a1[8];
+  v8 = a1[9];
   while (v7 != v8)
   {
     v9 = *v7++;
     result = otbr::Mdns::PublisherMDnsSd::ServiceRef::Process(v9, a2, a3);
   }
 
-  v11 = *(a1 + 88);
-  v10 = *(a1 + 96);
+  v11 = a1[11];
+  v10 = a1[12];
   while (v11 != v10)
   {
     v12 = *v11++;
@@ -1861,7 +4168,7 @@ uint64_t *otbr::Mdns::PublisherMDnsSd::ServiceSubscription::ProcessAll(uint64_t 
   return result;
 }
 
-uint64_t *otbr::Mdns::PublisherMDnsSd::ServiceRef::Process(uint64_t **a1, char *a2, uint64_t *a3)
+const void **otbr::Mdns::PublisherMDnsSd::ServiceRef::Process(const void **a1, char *a2, const void **a3)
 {
   result = *a1;
   if (result)
@@ -1884,7 +4191,7 @@ uint64_t *otbr::Mdns::PublisherMDnsSd::ServiceRef::Process(uint64_t **a1, char *
   return result;
 }
 
-const char *otbr::Mdns::DNSErrorToString(otbr::Mdns *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+const char *otbr::Mdns::DNSErrorToString(otbr::Mdns *this, uint64_t a2)
 {
   switch(this)
   {
@@ -1956,7 +4263,7 @@ const char *otbr::Mdns::DNSErrorToString(otbr::Mdns *this, uint64_t a2, uint64_t
       if (this)
       {
 LABEL_35:
-        otbr::Mdns::DNSErrorToString(this, a2, a3, a4, a5, a6, a7, a8);
+        otbr::Mdns::DNSErrorToString(this);
       }
 
       return "OK";
@@ -1965,12 +4272,12 @@ LABEL_35:
 
 std::string *otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration::Register(otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration *this)
 {
-  v40 = 0uLL;
-  v41 = 0;
-  memset(v38, 0, sizeof(v38));
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v38, *(this + 15), *(this + 16), 0xAAAAAAAAAAAAAAABLL * ((*(this + 16) - *(this + 15)) >> 3));
-  otbr::Mdns::PublisherMDnsSd::MakeRegType(this + 96, v38, &v39);
-  __p[0] = v38;
+  v27 = 0uLL;
+  v28 = 0;
+  memset(v25, 0, sizeof(v25));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v25, *(this + 15), *(this + 16), 0xAAAAAAAAAAAAAAABLL * ((*(this + 16) - *(this + 15)) >> 3));
+  otbr::Mdns::PublisherMDnsSd::MakeRegType(this + 96, v25, &v26);
+  __p[0] = v25;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](__p);
   std::string::basic_string[abi:ne200100]<0>(__p, "_trel._udp");
   if ((*(this + 71) & 0x8000000000000000) != 0)
@@ -1984,22 +4291,22 @@ std::string *otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration::Register(otb
   else if (*(this + 71))
   {
 LABEL_3:
-    otbr::Mdns::Publisher::MakeFullName(this + 6, &v34);
-    if (SHIBYTE(v41) < 0)
+    otbr::Mdns::Publisher::MakeFullName(this + 6, &v21);
+    if (SHIBYTE(v28) < 0)
     {
-      operator delete(v40);
+      operator delete(v27);
     }
 
-    v40 = v34;
-    v41 = v35;
-    if (v35 >= 0)
+    v27 = v21;
+    v28 = v22;
+    if (v22 >= 0)
     {
-      v2 = &v40;
+      v2 = &v27;
     }
 
     else
     {
-      v2 = v40;
+      v2 = v27;
     }
 
     goto LABEL_10;
@@ -2007,7 +4314,7 @@ LABEL_3:
 
   v2 = 0;
 LABEL_10:
-  v3 = (this + 72);
+  v3 = this + 72;
   if (*(this + 95) < 0)
   {
     if (*(this + 10))
@@ -2034,14 +4341,14 @@ LABEL_10:
   result = *(this + 5);
   if (!result)
   {
-    goto LABEL_61;
+    goto LABEL_64;
   }
 
   KeyRegistration = otbr::Mdns::Publisher::FindKeyRegistration(result, this + 9, this + 96);
-  v14 = KeyRegistration;
+  v7 = KeyRegistration;
   if (KeyRegistration)
   {
-    otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::Unregister(KeyRegistration, v7, v8, v9, v10, v11, v12, v13);
+    otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::Unregister(KeyRegistration);
   }
 
   if (*(this + 95) < 0)
@@ -2049,138 +4356,148 @@ LABEL_10:
     v3 = *v3;
   }
 
-  otbrLog(6u, "MDNS", "Registering service %s.%s", v9, v10, v11, v12, v13, v3);
-  size = HIBYTE(v39.__r_.__value_.__r.__words[2]);
-  if ((v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v16 = &v39;
+    v8 = &v26;
   }
 
   else
   {
-    v16 = v39.__r_.__value_.__r.__words[0];
+    v8 = v26.__r_.__value_.__r.__words[0];
   }
 
-  if ((v39.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  otbrLog(6, "MDNS", "Registering service %s.%s", v3, v8);
+  size = HIBYTE(v26.__r_.__value_.__r.__words[2]);
+  if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = v39.__r_.__value_.__l.__size_;
-  }
-
-  if ((v37 & 0x80u) == 0)
-  {
-    v17 = __p;
+    v10 = &v26;
   }
 
   else
   {
-    v17 = __p[0];
+    v10 = v26.__r_.__value_.__r.__words[0];
   }
 
-  if ((v37 & 0x80u) == 0)
+  if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v18 = v37;
+    size = v26.__r_.__value_.__l.__size_;
+  }
+
+  if ((v24 & 0x80u) == 0)
+  {
+    v11 = __p;
   }
 
   else
   {
-    v18 = __p[1];
+    v11 = __p[0];
   }
 
-  if (v18)
+  if ((v24 & 0x80u) == 0)
   {
-    if (size < v18)
+    v12 = v24;
+  }
+
+  else
+  {
+    v12 = __p[1];
+  }
+
+  if (v12)
+  {
+    if (size < v12)
     {
-      goto LABEL_35;
+      goto LABEL_38;
     }
 
-    v28 = v16 + size;
-    v29 = *v17;
-    result = v16;
+    v15 = v10 + size;
+    v16 = *v11;
+    result = v10;
     while (1)
     {
-      v30 = __OFSUB__(size, v18);
-      v31 = size - v18;
-      if (v30)
+      v17 = __OFSUB__(size, v12);
+      v18 = size - v12;
+      if (v17)
       {
-        goto LABEL_60;
+        goto LABEL_63;
       }
 
-      if (__OFADD__(v31, 1))
+      if (__OFADD__(v18, 1))
       {
         __break(0x5500u);
-LABEL_60:
+LABEL_63:
         __break(0x5515u);
-        goto LABEL_61;
+        goto LABEL_64;
       }
 
-      if (v31 == -1)
+      if (v18 == -1)
       {
-        goto LABEL_35;
+        goto LABEL_38;
       }
 
-      v32 = memchr(result, v29, v31 + 1);
-      if (!v32)
+      v19 = memchr(result, v16, v18 + 1);
+      if (!v19)
       {
-        goto LABEL_35;
+        goto LABEL_38;
       }
 
-      v33 = v32;
-      if (!memcmp(v32, v17, v18))
+      v20 = v19;
+      if (!memcmp(v19, v11, v12))
       {
         break;
       }
 
-      result = (v33 + 1);
-      size = v28 - (v33 + 1);
-      if (size < v18)
+      result = (v20 + 1);
+      size = v15 - (v20 + 1);
+      if (size < v12)
       {
-        goto LABEL_35;
+        goto LABEL_38;
       }
     }
 
-    if (v33 == v28 || v33 - v16 == -1)
+    if (v20 == v15 || v20 - v10 == -1)
     {
-LABEL_35:
+LABEL_38:
       v4 = 0;
     }
   }
 
-  v26 = DNSServiceRegister(this + 22, 8u, 0, v4, v16, 0, v2, bswap32(*(this + 72)) >> 16, *(this + 80) - *(this + 19), *(this + 19), otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration::HandleRegisterResult, this);
-  if (v26)
+  v13 = DNSServiceRegister(this + 22, 8u, 0, v4, v10, 0, v2, bswap32(*(this + 72)) >> 16, *(this + 80) - *(this + 19), *(this + 19), otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration::HandleRegisterResult, this);
+  if (v13)
   {
-    otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration::HandleRegisterResult(this, 0, v26, v21, v22, v23, v24, v25);
+    otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration::HandleRegisterResult(this, 0, v13);
   }
 
-  if (v14)
+  if (v7)
   {
-    otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::Register(v14, v19, v20, v21, v22, v23, v24, v25);
+    otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::Register(v7);
   }
 
   result = *(this + 5);
   if (result)
   {
-    v27 = (*(result[-1].__r_.__value_.__r.__words[2] + 152))();
-    if (v37 < 0)
+    v14 = (*(result[-1].__r_.__value_.__r.__words[2] + 152))();
+    if (v24 < 0)
     {
       operator delete(__p[0]);
     }
 
-    if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v39.__r_.__value_.__l.__data_);
+      operator delete(v26.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v41) < 0)
+    if (SHIBYTE(v28) < 0)
     {
-      operator delete(v40);
+      operator delete(v27);
     }
 
-    return v27;
+    return v14;
   }
 
   else
   {
-LABEL_61:
+LABEL_64:
     __break(0x5516u);
   }
 
@@ -2216,8 +4533,7 @@ void otbr::Mdns::PublisherMDnsSd::MakeRegType(uint64_t a1@<X0>, const void ***a2
 
   else
   {
-    *&a3->__r_.__value_.__l.__data_ = *a1;
-    a3->__r_.__value_.__r.__words[2] = *(a1 + 16);
+    *a3 = *a1;
   }
 
   v5 = a2[1];
@@ -2283,92 +4599,81 @@ void sub_1003CDA6C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::Unregister(otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::Unregister(void *this)
 {
-  if (*(this + 12))
+  if (this[12])
   {
-    v9 = *(this + 13);
-    if (v9)
+    v2 = this[13];
+    if (v2)
     {
-      v10 = *(v9 + 176);
-      *(v9 + 184) = 0;
-      *(this + 13) = 0;
-      v11 = (this + 48);
-      if (*(this + 71) < 0)
-      {
-        v11 = *v11;
-      }
-
-      otbrLog(6u, "MDNS", "Unregistering key %s (was registered as a record of a service)", a4, a5, a6, a7, a8, v11);
+      v3 = *(v2 + 176);
+      *(v2 + 184) = 0;
+      this[13] = 0;
+      otbrLog(6, "MDNS", "Unregistering key %s (was registered as a record of a service)");
     }
 
     else
     {
-      v12 = *(this + 5);
-      if (!v12)
+      v4 = this[5];
+      if (!v4)
       {
         __break(0x5516u);
         return;
       }
 
-      v10 = *(v12 + 416);
-      v13 = (this + 48);
-      if (*(this + 71) < 0)
-      {
-        v13 = *v13;
-      }
-
-      otbrLog(6u, "MDNS", "Unregistering key %s (was registered individually)", a4, a5, a6, a7, a8, v13);
+      v3 = *(v4 + 416);
+      otbrLog(6, "MDNS", "Unregistering key %s (was registered individually)");
     }
 
-    if (v10)
+    if (v3)
     {
-      v14 = DNSServiceRemoveRecord(v10, *(this + 12), 0);
-      v22 = (this + 48);
+      v5 = DNSServiceRemoveRecord(v3, this[12], 0);
+      v7 = (this + 6);
       if (*(this + 71) < 0)
       {
-        v22 = *v22;
+        v7 = *v7;
       }
 
-      otbr::Mdns::DNSErrorToString(v14, v15, v16, v17, v18, v19, v20, v21);
-      otbrLog(6u, "MDNS", "Unregistered key %s: error:%s", v23, v24, v25, v26, v27, v22);
+      v8 = otbr::Mdns::DNSErrorToString(v5, v6);
+      otbrLog(6, "MDNS", "Unregistered key %s: error:%s", v7, v8);
     }
   }
 }
 
-void otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration::HandleRegisterResult(otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration *this, uint64_t a2, otbr::Mdns *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration::HandleRegisterResult(otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration *this, uint64_t a2, otbr::Mdns *a3)
 {
-  v9 = a2;
-  v11 = *(this + 23);
-  if (v11)
+  v4 = a2;
+  v6 = *(this + 23);
+  if (v6)
   {
-    otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::HandleRegisterResult(v11, a3, a3, a4, a5, a6, a7, a8);
+    otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::HandleRegisterResult(v6, a3);
   }
 
-  v12 = (this + 72);
-  v13 = *(this + 95);
-  if (a3 || (v9 & 2) == 0)
+  v7 = this + 72;
+  v8 = *(this + 95);
+  if (a3 || (v4 & 2) == 0)
   {
-    LOBYTE(v15) = this + 72;
-    if (v13 < 0)
+    v10 = this + 72;
+    if (v8 < 0)
     {
-      v15 = *v12;
+      v10 = *v7;
     }
 
-    v16 = (this + 96);
+    v11 = (this + 96);
+    v12 = this + 96;
     if (*(this + 119) < 0)
     {
-      v17 = *v16;
+      v12 = *v11;
     }
 
-    otbr::Mdns::DNSErrorToString(a3, a2, a3, a4, a5, a6, a7, a8);
-    otbrLog(3u, "MDNS", "Failed to register service %s.%s: %s", v18, v19, v20, v21, v22, v15);
-    v23 = *(this + 5);
-    if (v23)
+    v13 = otbr::Mdns::DNSErrorToString(a3, a2);
+    otbrLog(3, "MDNS", "Failed to register service %s.%s: %s", v10, v12, v13);
+    v14 = *(this + 5);
+    if (v14)
     {
-      v24 = otbr::Mdns::DNSErrorToOtbrError(a3);
+      v15 = otbr::Mdns::DNSErrorToOtbrError(a3);
 
-      otbr::Mdns::Publisher::RemoveServiceRegistration(v23, v12, v16, v24);
+      otbr::Mdns::Publisher::RemoveServiceRegistration(v14, v7, v11, v15);
     }
 
     else
@@ -2379,127 +4684,126 @@ void otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration::HandleRegisterResult
 
   else
   {
-    if (v13 < 0)
+    if (v8 < 0)
     {
-      v12 = *v12;
+      v7 = *v7;
     }
 
+    v9 = this + 96;
     if (*(this + 119) < 0)
     {
-      v14 = *(this + 12);
+      v9 = *v9;
     }
 
-    otbrLog(6u, "MDNS", "Successfully registered service %s.%s", a4, a5, a6, a7, a8, v12);
+    otbrLog(6, "MDNS", "Successfully registered service %s.%s", v7, v9);
 
     otbr::Mdns::Publisher::ServiceRegistration::Complete(this, 0);
   }
 }
 
-void otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::Register(otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::Register(otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration *this)
 {
-  v9 = (this + 48);
-  LOBYTE(v10) = this + 48;
+  v2 = (this + 48);
+  v3 = this + 48;
   if (*(this + 71) < 0)
   {
-    v10 = *v9;
+    v3 = *v2;
   }
 
-  otbrLog(6u, "MDNS", "Registering new key %s", a4, a5, a6, a7, a8, v10);
-  v11 = *(this + 5);
-  if (!v11)
+  otbrLog(6, "MDNS", "Registering new key %s", v3);
+  v4 = *(this + 5);
+  if (!v4)
   {
     goto LABEL_29;
   }
 
-  ServiceRegistration = otbr::Mdns::Publisher::FindServiceRegistration(v11, v9);
-  if (!ServiceRegistration || (v18 = ServiceRegistration, !*(ServiceRegistration + 176)))
+  ServiceRegistration = otbr::Mdns::Publisher::FindServiceRegistration(v4, v2);
+  if (!ServiceRegistration || (v6 = ServiceRegistration, !*(ServiceRegistration + 176)))
   {
-    LOBYTE(v28) = v9;
+    v8 = v2;
     if (*(this + 71) < 0)
     {
-      v28 = *v9;
+      v8 = *v2;
     }
 
-    otbrLog(6u, "MDNS", "Key %s is being registered individually", v13, v14, v15, v16, v17, v28);
-    v29 = *(this + 5);
-    if (!v29)
+    otbrLog(6, "MDNS", "Key %s is being registered individually", v8);
+    v9 = *(this + 5);
+    if (!v9)
     {
       goto LABEL_29;
     }
 
-    SharedHostsRef = otbr::Mdns::PublisherMDnsSd::CreateSharedHostsRef((v29 - 8));
+    SharedHostsRef = otbr::Mdns::PublisherMDnsSd::CreateSharedHostsRef((v9 - 8));
     if (!SharedHostsRef)
     {
-      v32 = *(this + 5);
-      if (!v32)
+      v12 = *(this + 5);
+      if (!v12)
       {
         goto LABEL_29;
       }
 
-      v33 = *(v32 + 416);
-      otbr::Mdns::Publisher::MakeFullName(v9, __p);
-      if (v37 >= 0)
+      v13 = *(v12 + 416);
+      otbr::Mdns::Publisher::MakeFullName(v2, __p);
+      if (v17 >= 0)
       {
-        v34 = __p;
+        v14 = __p;
       }
 
       else
       {
-        v34 = __p[0];
+        v14 = __p[0];
       }
 
-      v35 = DNSServiceRegisterRecord(v33, this + 12, 0x20u, 0, v34, 0x19u, 1u, *(this + 40) - *(this + 9), *(this + 9), 0, otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::HandleRegisterResult, this);
-      v30 = v35;
-      if (v37 < 0)
+      v15 = DNSServiceRegisterRecord(v13, this + 12, 0x20u, 0, v14, 0x19u, 1u, *(this + 40) - *(this + 9), *(this + 9), 0, otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::HandleRegisterResult, this);
+      v10 = v15;
+      if (v17 < 0)
       {
         operator delete(__p[0]);
-        if (!v30)
+        if (!v10)
         {
           goto LABEL_18;
         }
       }
 
-      else if (!v35)
+      else if (!v15)
       {
         goto LABEL_18;
       }
 
 LABEL_17:
-      otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::HandleRegisterResult(this, v30, v22, v23, v24, v25, v26, v27);
+      otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::HandleRegisterResult(this, v10);
       goto LABEL_18;
     }
 
 LABEL_16:
-    v30 = SharedHostsRef;
+    v10 = SharedHostsRef;
     goto LABEL_17;
   }
 
   if (*(this + 71) < 0)
   {
-    v9 = *v9;
+    v2 = *v2;
   }
 
-  otbrLog(6u, "MDNS", "Key %s is being registered as a record of an existing service registration", v13, v14, v15, v16, v17, v9);
-  v19 = *(this + 9);
-  v20 = (*(this + 20) - v19);
-  SharedHostsRef = DNSServiceAddRecord(*(v18 + 176), this + 12, 0x20u, 0x19u, *(this + 40) - v19, v19, 0);
+  otbrLog(6, "MDNS", "Key %s is being registered as a record of an existing service registration", v2);
+  SharedHostsRef = DNSServiceAddRecord(*(v6 + 176), this + 12, 0x20u, 0x19u, *(this + 40) - *(this + 9), *(this + 9), 0);
   if (SharedHostsRef)
   {
     goto LABEL_16;
   }
 
-  *(this + 13) = v18;
-  *(v18 + 184) = this;
-  if (!*(v18 + 32))
+  *(this + 13) = v6;
+  *(v6 + 184) = this;
+  if (!*(v6 + 32))
   {
-    otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::HandleRegisterResult(this, 0, v22, v23, v24, v25, v26, v27);
+    otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::HandleRegisterResult(this, 0);
   }
 
 LABEL_18:
-  v31 = *(this + 5);
-  if (v31)
+  v11 = *(this + 5);
+  if (v11)
   {
-    (*(*(v31 - 8) + 152))();
+    (*(*(v11 - 8) + 152))();
     return;
   }
 
@@ -2517,37 +4821,37 @@ void sub_1003CDEE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration::Unregister(otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration::Unregister(otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration *this)
 {
   if (*(this + 22))
   {
-    v9 = *(this + 23);
-    if (v9)
+    v2 = *(this + 23);
+    if (v2)
     {
-      otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::Unregister(*(this + 23), a2, a3, a4, a5, a6, a7, a8);
+      otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::Unregister(*(this + 23));
     }
 
-    v10 = *(this + 5);
-    if (v10)
+    v3 = *(this + 5);
+    if (v3)
     {
-      v11 = *(v10 + 512);
-      v12 = *(v10 + 520);
-      while (v11 != v12)
+      v4 = *(v3 + 512);
+      v5 = *(v3 + 520);
+      while (v4 != v5)
       {
-        if (*v11 == *(this + 22))
+        if (*v4 == *(this + 22))
         {
-          *v11 = 0;
+          *v4 = 0;
         }
 
-        ++v11;
+        ++v4;
       }
 
       DNSServiceRefDeallocate(*(this + 22));
       *(this + 22) = 0;
-      if (v9)
+      if (v2)
       {
 
-        otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::Register(v9, v13, v14, v15, v16, v17, v18, v19);
+        otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::Register(v2);
       }
     }
 
@@ -2558,26 +4862,26 @@ void otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration::Unregister(otbr::Mdn
   }
 }
 
-void otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::HandleRegisterResult(otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration *this, otbr::Mdns *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::HandleRegisterResult(otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration *this, otbr::Mdns *a2)
 {
-  v9 = (this + 48);
-  v10 = *(this + 71);
+  v3 = this + 48;
+  v4 = *(this + 71);
   if (a2)
   {
-    LOBYTE(v12) = this + 48;
-    if (v10 < 0)
+    v6 = this + 48;
+    if (v4 < 0)
     {
-      v12 = *v9;
+      v6 = *v3;
     }
 
-    otbr::Mdns::DNSErrorToString(a2, a2, a3, a4, a5, a6, a7, a8);
-    otbrLog(3u, "MDNS", "Failed to register key %s: %s", v13, v14, v15, v16, v17, v12);
-    v18 = *(this + 5);
-    if (v18)
+    v7 = otbr::Mdns::DNSErrorToString(a2, a2);
+    otbrLog(3, "MDNS", "Failed to register key %s: %s", v6, v7);
+    v8 = *(this + 5);
+    if (v8)
     {
-      v19 = otbr::Mdns::DNSErrorToOtbrError(a2);
+      v9 = otbr::Mdns::DNSErrorToOtbrError(a2);
 
-      otbr::Mdns::Publisher::RemoveKeyRegistration(v18, v9, v19);
+      otbr::Mdns::Publisher::RemoveKeyRegistration(v8, v3, v9);
     }
 
     else
@@ -2588,12 +4892,12 @@ void otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::HandleRegisterResult(otb
 
   else
   {
-    if (v10 < 0)
+    if (v4 < 0)
     {
-      v9 = *v9;
+      v3 = *v3;
     }
 
-    otbrLog(6u, "MDNS", "Successfully registered key %s", a4, a5, a6, a7, a8, v9);
+    otbrLog(6, "MDNS", "Successfully registered key %s", v3);
 
     otbr::Mdns::Publisher::KeyRegistration::Complete(this, 0);
   }
@@ -2672,148 +4976,148 @@ LABEL_10:
   return 4294967293;
 }
 
-void otbr::Mdns::PublisherMDnsSd::DnssdHostRegistration::Register(otbr::Mdns::PublisherMDnsSd::DnssdHostRegistration *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void otbr::Mdns::PublisherMDnsSd::DnssdHostRegistration::Register(otbr::Mdns::PublisherMDnsSd::DnssdHostRegistration *this)
 {
-  v9 = (this + 48);
-  LOBYTE(v10) = this + 48;
+  v2 = (this + 48);
+  v3 = this + 48;
   if (*(this + 71) < 0)
   {
-    v10 = *v9;
+    v3 = *v2;
   }
 
-  otbrLog(6u, "MDNS", "Registering new host %s", a4, a5, a6, a7, a8, v10);
+  otbrLog(6, "MDNS", "Registering new host %s", v3);
   rdata = *(this + 9);
-  v17 = *(this + 10);
-  if (rdata == v17)
+  v5 = *(this + 10);
+  if (rdata == v5)
   {
-    v24 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v18 = (this + 96);
+    v6 = (this + 96);
     do
     {
       RecordRef = 0;
-      v19 = *(this + 5);
-      if (!v19)
+      v7 = *(this + 5);
+      if (!v7)
       {
         goto LABEL_35;
       }
 
-      SharedHostsRef = otbr::Mdns::PublisherMDnsSd::CreateSharedHostsRef((v19 - 8));
+      SharedHostsRef = otbr::Mdns::PublisherMDnsSd::CreateSharedHostsRef((v7 - 8));
       if (SharedHostsRef)
       {
-        v24 = SharedHostsRef;
+        v12 = SharedHostsRef;
         goto LABEL_32;
       }
 
-      v21 = *(this + 5);
-      if (!v21)
+      v9 = *(this + 5);
+      if (!v9)
       {
         goto LABEL_35;
       }
 
-      v22 = *(v21 + 416);
-      otbr::Mdns::Publisher::MakeFullName(v9, __p);
-      if (SHIBYTE(v41) >= 0)
+      v10 = *(v9 + 416);
+      otbr::Mdns::Publisher::MakeFullName(v2, __p);
+      if (SHIBYTE(v29) >= 0)
       {
-        v23 = __p;
+        v11 = __p;
       }
 
       else
       {
-        v23 = __p[0];
+        v11 = __p[0];
       }
 
-      v24 = DNSServiceRegisterRecord(v22, &RecordRef, 0x10u, 0, v23, 0x1Cu, 1u, 0x10u, rdata, 0, otbr::Mdns::PublisherMDnsSd::DnssdHostRegistration::HandleRegisterResult, this);
-      if (SHIBYTE(v41) < 0)
+      v12 = DNSServiceRegisterRecord(v10, &RecordRef, 0x10u, 0, v11, 0x1Cu, 1u, 0x10u, rdata, 0, otbr::Mdns::PublisherMDnsSd::DnssdHostRegistration::HandleRegisterResult, this);
+      if (SHIBYTE(v29) < 0)
       {
         operator delete(__p[0]);
       }
 
-      if (v24)
+      if (v12)
       {
         goto LABEL_32;
       }
 
-      v26 = *(this + 13);
-      v25 = *(this + 14);
-      if (v26 >= v25)
+      v14 = *(this + 13);
+      v13 = *(this + 14);
+      if (v14 >= v13)
       {
-        v28 = (v26 - *v18) >> 3;
-        v29 = v28 + 1;
-        if (v28 == -1)
+        v16 = (v14 - *v6) >> 3;
+        v17 = v16 + 1;
+        if (v16 == -1)
         {
           __break(0x5500u);
           return;
         }
 
-        if (v29 >> 61)
+        if (v17 >> 61)
         {
           goto LABEL_37;
         }
 
-        v30 = v25 - *v18;
-        v31 = v30 >> 2;
-        if (v30 >> 2 <= v29)
+        v18 = v13 - *v6;
+        v19 = v18 >> 2;
+        if (v18 >> 2 <= v17)
         {
-          v31 = v28 + 1;
+          v19 = v16 + 1;
         }
 
-        if (v30 >= 0x7FFFFFFFFFFFFFF8)
+        if (v18 >= 0x7FFFFFFFFFFFFFF8)
         {
-          v32 = 0x1FFFFFFFFFFFFFFFLL;
+          v20 = 0x1FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v32 = v31;
+          v20 = v19;
         }
 
-        v43 = this + 96;
-        if (v32)
+        v31 = this + 96;
+        if (v20)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<_DNSServiceRef_t *>>(this + 96, v32);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<_DNSServiceRef_t *>>(this + 96, v20);
         }
 
-        v33 = 8 * v28;
-        *(8 * v28) = RecordRef;
-        v34 = *(this + 13) - *(this + 12);
-        if (v34 < 0)
+        v21 = 8 * v16;
+        *(8 * v16) = RecordRef;
+        v22 = *(this + 13) - *(this + 12);
+        if (v22 < 0)
         {
           goto LABEL_36;
         }
 
-        v27 = (v33 + 8);
-        v35 = v33 - v34;
-        memcpy((v33 - v34), *(this + 12), v34);
-        v36 = *(this + 12);
-        *(this + 12) = v35;
-        *(this + 13) = v27;
-        v37 = *(this + 14);
+        v15 = (v21 + 8);
+        v23 = v21 - v22;
+        memcpy((v21 - v22), *(this + 12), v22);
+        v24 = *(this + 12);
+        *(this + 12) = v23;
+        *(this + 13) = v15;
+        v25 = *(this + 14);
         *(this + 14) = 0;
-        v41 = v36;
-        v42 = v37;
-        __p[0] = v36;
-        __p[1] = v36;
+        v29 = v24;
+        v30 = v25;
+        __p[0] = v24;
+        __p[1] = v24;
         std::__split_buffer<_DNSServiceRef_t *>::~__split_buffer(__p);
       }
 
       else
       {
-        *v26 = RecordRef;
-        v27 = v26 + 1;
+        *v14 = RecordRef;
+        v15 = v14 + 1;
       }
 
-      *(this + 13) = v27;
+      *(this + 13) = v15;
       LOBYTE(__p[0]) = 0;
       std::vector<BOOL>::push_back(this + 120, __p);
       rdata += 16;
     }
 
-    while (rdata != v17);
-    v24 = 0;
+    while (rdata != v5);
+    v12 = 0;
     if (*(this + 9) != *(this + 10))
     {
       goto LABEL_33;
@@ -2821,10 +5125,10 @@ void otbr::Mdns::PublisherMDnsSd::DnssdHostRegistration::Register(otbr::Mdns::Pu
   }
 
 LABEL_32:
-  otbr::Mdns::PublisherMDnsSd::DnssdHostRegistration::HandleRegisterResult(this, 0, v24, v11, v12, v13, v14, v15);
+  otbr::Mdns::PublisherMDnsSd::DnssdHostRegistration::HandleRegisterResult(this, 0, v12);
 LABEL_33:
-  v38 = *(this + 5);
-  if (!v38)
+  v26 = *(this + 5);
+  if (!v26)
   {
 LABEL_35:
     __break(0x5516u);
@@ -2834,7 +5138,7 @@ LABEL_37:
     std::vector<std::string>::__throw_length_error[abi:ne200100]();
   }
 
-  (*(*(v38 - 8) + 152))();
+  (*(*(v26 - 8) + 152))();
 }
 
 void sub_1003CE3F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -2847,7 +5151,7 @@ void sub_1003CE3F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
+void std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
 {
   v2 = *(result + 16);
   if (v2 >> 58)
@@ -2856,7 +5160,6 @@ uint64_t std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
     goto LABEL_16;
   }
 
-  v4 = result;
   v5 = *(result + 8);
   if (v5 == v2 << 6)
   {
@@ -2883,8 +5186,8 @@ uint64_t std::vector<BOOL>::push_back(uint64_t result, _BYTE *a2)
       v9 = v8;
     }
 
-    result = std::vector<BOOL>::reserve(result, v9);
-    v5 = v4[1];
+    std::vector<BOOL>::reserve(result, v9);
+    v5 = *(result + 8);
   }
 
   v10 = __CFADD__(v5, 1);
@@ -2897,44 +5200,43 @@ LABEL_17:
     std::vector<std::string>::__throw_length_error[abi:ne200100]();
   }
 
-  v4[1] = v11;
+  *(result + 8) = v11;
   v12 = v11 - 1;
   v13 = 1 << (v11 - 1);
-  v14 = *v4;
+  v14 = *result;
   v15 = v12 >> 6;
   if (*a2 == 1)
   {
-    v16 = *(v14 + 8 * v15) | v13;
+    v16 = v14[v15] | v13;
   }
 
   else
   {
-    v16 = *(v14 + 8 * v15) & ~v13;
+    v16 = v14[v15] & ~v13;
   }
 
-  *(v14 + 8 * v15) = v16;
-  return result;
+  v14[v15] = v16;
 }
 
-void otbr::Mdns::PublisherMDnsSd::DnssdHostRegistration::HandleRegisterResult(otbr::Mdns::PublisherMDnsSd::DnssdHostRegistration *this, _DNSRecordRef_t *a2, otbr::Mdns *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void otbr::Mdns::PublisherMDnsSd::DnssdHostRegistration::HandleRegisterResult(otbr::Mdns::PublisherMDnsSd::DnssdHostRegistration *this, _DNSRecordRef_t *a2, otbr::Mdns *a3)
 {
   if (a3)
   {
-    v10 = (this + 48);
-    LOBYTE(v11) = this + 48;
+    v5 = (this + 48);
+    v6 = this + 48;
     if (*(this + 71) < 0)
     {
-      v11 = *v10;
+      v6 = *v5;
     }
 
-    otbr::Mdns::DNSErrorToString(a3, a2, a3, a4, a5, a6, a7, a8);
-    otbrLog(3u, "MDNS", "Failed to register host %s: %s", v12, v13, v14, v15, v16, v11);
-    v17 = *(this + 5);
-    if (v17)
+    v7 = otbr::Mdns::DNSErrorToString(a3, a2);
+    otbrLog(3, "MDNS", "Failed to register host %s: %s", v6, v7);
+    v8 = *(this + 5);
+    if (v8)
     {
-      v18 = otbr::Mdns::DNSErrorToOtbrError(a3);
+      v9 = otbr::Mdns::DNSErrorToOtbrError(a3);
 
-      otbr::Mdns::Publisher::RemoveHostRegistration(v17, v10, v18);
+      otbr::Mdns::Publisher::RemoveHostRegistration(v8, v5, v9);
     }
 
     else
@@ -2945,55 +5247,61 @@ void otbr::Mdns::PublisherMDnsSd::DnssdHostRegistration::HandleRegisterResult(ot
 
   else
   {
-    v19 = (this + 48);
-    v20 = *(this + 4) != 0;
-    v21 = *(this + 12);
-    if (*(this + 13) != v21)
+    v10 = this + 48;
+    v11 = *(this + 4) != 0;
+    v12 = *(this + 12);
+    if (*(this + 13) != v12)
     {
-      v23 = 0;
-      v24 = 0;
+      v14 = 0;
+      v15 = 0;
       do
       {
-        if (*(v21 + 8 * v24) == a2)
+        if (*(v12 + 8 * v15) == a2)
         {
-          v25 = *(this + 15);
-          v26 = *(v25 + 8 * (v24 >> 6));
-          if ((v26 & (1 << v24)) == 0)
+          v16 = *(this + 15);
+          v17 = *(v16 + 8 * (v15 >> 6));
+          if ((v17 & (1 << v15)) == 0)
           {
-            *(v25 + 8 * (v24 >> 6)) = v26 | (1 << v24);
-            LOBYTE(v27) = this + 48;
+            *(v16 + 8 * (v15 >> 6)) = v17 | (1 << v15);
+            v18 = this + 48;
             if (*(this + 71) < 0)
             {
-              v27 = *v19;
+              v18 = *v10;
             }
 
-            otbr::Ip6Address::ToString((*(this + 9) + v23), &__p);
-            otbrLog(6u, "MDNS", "Successfully registered host %s address %s", v28, v29, v30, v31, v32, v27);
-            if (v35 < 0)
+            otbr::Ip6Address::ToString(__p, (*(this + 9) + v14));
+            v19 = __p;
+            if (v22 < 0)
             {
-              operator delete(__p);
+              v19 = __p[0];
+            }
+
+            otbrLog(6, "MDNS", "Successfully registered host %s address %s", v18, v19);
+            if (v22 < 0)
+            {
+              operator delete(__p[0]);
             }
           }
         }
 
-        v33 = *(*(this + 15) + ((v24 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v24;
-        ++v24;
-        v20 &= v33;
-        v21 = *(this + 12);
-        v23 += 16;
+        v20 = *(*(this + 15) + ((v15 >> 3) & 0x1FFFFFFFFFFFFFF8)) >> v15;
+        ++v15;
+        v11 &= v20;
+        v12 = *(this + 12);
+        v14 += 16;
       }
 
-      while (v24 < (*(this + 13) - v21) >> 3);
+      while (v15 < (*(this + 13) - v12) >> 3);
     }
 
-    if (v20)
+    if (v11)
     {
       if (*(this + 71) < 0)
       {
-        v19 = *v19;
+        v10 = *v10;
       }
 
-      otbrLog(6u, "MDNS", "Successfully registered all host %s addresses", a4, a5, a6, a7, a8, v19);
+      otbrLog(6, "MDNS", "Successfully registered all host %s addresses", v10);
       otbr::Mdns::Publisher::HostRegistration::Complete(this, 0);
     }
   }
@@ -3016,7 +5324,7 @@ void otbr::Mdns::PublisherMDnsSd::DnssdHostRegistration::Unregister(otbr::Mdns::
   {
     if (!*(v1 + 416) || (v3 = *(this + 12), *(this + 13) == v3))
     {
-LABEL_30:
+LABEL_36:
       *(this + 16) = 0;
       *(this + 13) = *(this + 12);
       return;
@@ -3047,29 +5355,39 @@ LABEL_30:
           v10 = 6;
         }
 
-        otbr::Mdns::Publisher::MakeFullName(this + 6, v42);
-        if (v43 >= 0)
+        otbr::Mdns::Publisher::MakeFullName(this + 6, v26);
+        if (v27 >= 0)
         {
-          v11 = v42;
+          v11 = v26;
         }
 
         else
         {
-          LOBYTE(v11) = v42[0];
+          v11 = v26[0];
         }
 
-        otbr::Ip6Address::ToString((v6 + v4), __p);
-        otbr::Mdns::DNSErrorToString(updated, v12, v13, v14, v15, v16, v17, v18);
-        otbrErrorString(v9);
-        otbrLog(v10, "MDNS", "Send goodbye message for host %s address %s: %s: %s", v19, v20, v21, v22, v23, v11);
-        if (v41 < 0)
+        otbr::Ip6Address::ToString(__p, (v6 + v4));
+        if (v25 >= 0)
+        {
+          v13 = __p;
+        }
+
+        else
+        {
+          v13 = __p[0];
+        }
+
+        v14 = otbr::Mdns::DNSErrorToString(updated, v12);
+        v15 = otbrErrorString(v9);
+        otbrLog(v10, "MDNS", "Send goodbye message for host %s address %s: %s: %s", v11, v13, v14, v15);
+        if (v25 < 0)
         {
           operator delete(__p[0]);
         }
 
-        if (v43 < 0)
+        if (v27 < 0)
         {
-          operator delete(v42[0]);
+          operator delete(v26[0]);
         }
 
         v7 = *(this + 5);
@@ -3080,41 +5398,51 @@ LABEL_30:
         break;
       }
 
-      v24 = DNSServiceRemoveRecord(*(v7 + 416), *(*(this + 12) + 8 * v5), 0);
-      v25 = otbr::Mdns::DNSErrorToOtbrError(v24);
-      if (v25)
+      v16 = DNSServiceRemoveRecord(*(v7 + 416), *(*(this + 12) + 8 * v5), 0);
+      v17 = otbr::Mdns::DNSErrorToOtbrError(v16);
+      if (v17)
       {
-        v26 = 4;
+        v18 = 4;
       }
 
       else
       {
-        v26 = 6;
+        v18 = 6;
       }
 
-      otbr::Mdns::Publisher::MakeFullName(this + 6, v42);
-      if (v43 >= 0)
+      otbr::Mdns::Publisher::MakeFullName(this + 6, v26);
+      if (v27 >= 0)
       {
-        v27 = v42;
+        v19 = v26;
       }
 
       else
       {
-        LOBYTE(v27) = v42[0];
+        v19 = v26[0];
       }
 
-      otbr::Ip6Address::ToString((v6 + v4), __p);
-      otbr::Mdns::DNSErrorToString(v24, v28, v29, v30, v31, v32, v33, v34);
-      otbrErrorString(v25);
-      otbrLog(v26, "MDNS", "Remove record for host %s address %s: %s: %s", v35, v36, v37, v38, v39, v27);
-      if (v41 < 0)
+      otbr::Ip6Address::ToString(__p, (v6 + v4));
+      if (v25 >= 0)
+      {
+        v21 = __p;
+      }
+
+      else
+      {
+        v21 = __p[0];
+      }
+
+      v22 = otbr::Mdns::DNSErrorToString(v16, v20);
+      v23 = otbrErrorString(v17);
+      otbrLog(v18, "MDNS", "Remove record for host %s address %s: %s: %s", v19, v21, v22, v23);
+      if (v25 < 0)
       {
         operator delete(__p[0]);
       }
 
-      if (v43 < 0)
+      if (v27 < 0)
       {
-        operator delete(v42[0]);
+        operator delete(v26[0]);
       }
 
       ++v5;
@@ -3122,7 +5450,7 @@ LABEL_30:
       v4 += 16;
       if (v5 >= (*(this + 13) - v3) >> 3)
       {
-        goto LABEL_30;
+        goto LABEL_36;
       }
     }
   }
@@ -3140,59 +5468,65 @@ void sub_1003CE94C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t otbr::Mdns::PublisherMDnsSd::PublishServiceImpl(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t *a5, int a6, uint64_t a7, uint64_t a8)
+uint64_t otbr::Mdns::PublisherMDnsSd::PublishServiceImpl(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  memset(v25, 0, sizeof(v25));
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v25, *a5, a5[1], 0xAAAAAAAAAAAAAAABLL * ((a5[1] - *a5) >> 3));
-  otbr::Mdns::Publisher::SortSubTypeList(v25, &v26);
-  v28[0] = v25;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v28);
-  memset(v23, 0, sizeof(v23));
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v23, v26, v27, 0xAAAAAAAAAAAAAAABLL * ((v27 - v26) >> 3));
-  otbr::Mdns::PublisherMDnsSd::MakeRegType(a4, v23, &v24);
-  v28[0] = v23;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v28);
+  memset(v21, 0, sizeof(v21));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v21, *a5, a5[1], 0xAAAAAAAAAAAAAAABLL * ((a5[1] - *a5) >> 3));
+  otbr::Mdns::Publisher::SortSubTypeList(v21, &v22);
+  v24[0] = v21;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v24);
+  memset(v19, 0, sizeof(v19));
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(v19, v22, v23, 0xAAAAAAAAAAAAAAABLL * ((v23 - v22) >> 3));
+  otbr::Mdns::PublisherMDnsSd::MakeRegType(a4, v19, &v20);
+  v24[0] = v19;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v24);
   if (*(a1 + 432) == 1)
   {
-    otbr::Mdns::Publisher::HandleDuplicateServiceRegistration(a1 + 8, a2, a3, a4, &v26, a6, a7, a8, v28);
-    otbr::OnceCallback<void ()(otbrError)>::operator=(a8, v28);
-    std::__function::__value_func<void ()(otbrError)>::~__value_func[abi:ne200100](v28);
+    otbr::Mdns::Publisher::HandleDuplicateServiceRegistration(a1 + 8, a2, a3, a4, &v22, a6, a7, a8, v24);
+    otbr::OnceCallback<void ()(otbrError)>::operator=(a8, v24);
+    std::__function::__value_func<void ()(otbrError)>::~__value_func[abi:ne200100](v24);
     if (*(a8 + 24))
     {
       if (*(a3 + 23) >= 0)
       {
-        LOBYTE(v20) = a3;
+        v15 = a3;
       }
 
       else
       {
-        v20 = *a3;
+        v15 = *a3;
       }
 
-      otbrLog(6u, "MDNS", "PublisherMDnsSd::PublishService: MDNS register current service name:%s port:%d type:%s", v15, v16, v17, v18, v19, v20);
+      v16 = &v20;
+      if ((v20.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      {
+        v16 = v20.__r_.__value_.__r.__words[0];
+      }
+
+      otbrLog(6, "MDNS", "PublisherMDnsSd::PublishService: MDNS register current service name:%s port:%d type:%s", v15, a6, v16);
       operator new();
     }
 
-    v21 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v21 = 4294967283;
-    otbr::OnceCallback<void ()(otbrError)>::operator()(a8);
+    v17 = 4294967283;
+    otbr::OnceCallback<void ()(otbrError)>::operator()(a8, -13);
   }
 
-  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v24.__r_.__value_.__l.__data_);
+    operator delete(v20.__r_.__value_.__l.__data_);
   }
 
-  v28[0] = &v26;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v28);
-  return v21;
+  v24[0] = &v22;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v24);
+  return v17;
 }
 
-void sub_1003CED3C(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47)
+void sub_1003CED3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, void *__p, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, void *a33, uint64_t a34, int a35, __int16 a36, char a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, void *a42, uint64_t a43, int a44, __int16 a45, char a46, char a47)
 {
   if (a31 < 0)
   {
@@ -3207,17 +5541,17 @@ void sub_1003CED3C(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   operator delete();
 }
 
-uint64_t otbr::OnceCallback<void ()(otbrError)>::operator()(uint64_t a1)
+uint64_t otbr::OnceCallback<void ()(otbrError)>::operator()(uint64_t a1, int a2)
 {
-  std::__function::__value_func<void ()(otbrError)>::__value_func[abi:ne200100](v3, a1);
+  std::__function::__value_func<void ()(otbrError)>::__value_func[abi:ne200100](v4, a1);
   std::__function::__value_func<void ()(otbrError)>::operator=[abi:ne200100](a1);
-  std::__function::__value_func<void ()(otbrError)>::operator()[abi:ne200100](v3);
-  return std::__function::__value_func<void ()(otbrError)>::~__value_func[abi:ne200100](v3);
+  std::__function::__value_func<void ()(otbrError)>::operator()[abi:ne200100](v4);
+  return std::__function::__value_func<void ()(otbrError)>::~__value_func[abi:ne200100](v4);
 }
 
-void sub_1003CEED4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1003CEED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(otbrError)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3229,41 +5563,58 @@ uint64_t otbr::OnceCallback<void ()(otbrError)>::operator=(uint64_t a1, uint64_t
   return a1;
 }
 
-uint64_t otbr::Mdns::PublisherMDnsSd::UnpublishService(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t otbr::Mdns::PublisherMDnsSd::UnpublishService(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v12 = *(a3 + 23);
-  v13 = v12;
-  if ((v12 & 0x80u) != 0)
+  v8 = *(a3 + 23);
+  v9 = v8;
+  if ((v8 & 0x80u) != 0)
   {
-    v12 = *(a3 + 8);
+    v8 = *(a3 + 8);
   }
 
-  if (v12)
+  if (v8)
   {
-    v14 = *(a2 + 23);
-    if ((v14 & 0x80u) != 0)
+    v10 = *(a2 + 23);
+    v11 = v10;
+    if ((v10 & 0x80u) != 0)
     {
-      v14 = *(a2 + 8);
+      v10 = *(a2 + 8);
     }
 
-    if (v14)
+    if (v10)
     {
-      v15 = *a2;
-      if (v13 < 0)
+      v12 = *a2;
+      if (v11 >= 0)
       {
-        v16 = *a3;
+        v12 = a2;
       }
 
-      otbrLog(6u, "MDNS", "PublisherMDnsSd::UnpublishService mState:%d aName:%s aType:%s", a4, a5, a6, a7, a8, *(a1 + 432));
+      if (v9 >= 0)
+      {
+        v13 = a3;
+      }
+
+      else
+      {
+        v13 = *a3;
+      }
+
+      otbrLog(6, "MDNS", "PublisherMDnsSd::UnpublishService mState:%d aName:%s aType:%s", *(a1 + 432), v12, v13);
     }
   }
 
   if (*(a1 + 432) == 1)
   {
-    otbr::Mdns::Publisher::RemoveServiceRegistration(a1 + 8, a2, a3, -12);
+    otbr::Mdns::Publisher::RemoveServiceRegistration(a1 + 8, a2, a3, 4294967284);
+    v14 = 0;
   }
 
-  return otbr::OnceCallback<void ()(otbrError)>::operator()(a4);
+  else
+  {
+    v14 = -13;
+  }
+
+  return otbr::OnceCallback<void ()(otbrError)>::operator()(a4, v14);
 }
 
 uint64_t otbr::Mdns::PublisherMDnsSd::PublishHostImpl(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -3284,7 +5635,7 @@ uint64_t otbr::Mdns::PublisherMDnsSd::PublishHostImpl(uint64_t a1, uint64_t a2, 
   else
   {
     v5 = 4294967283;
-    otbr::OnceCallback<void ()(otbrError)>::operator()(a4);
+    otbr::OnceCallback<void ()(otbrError)>::operator()(a4, -13);
   }
 
   return v5;
@@ -3294,10 +5645,16 @@ uint64_t otbr::Mdns::PublisherMDnsSd::UnpublishHost(uint64_t a1, uint64_t a2, ui
 {
   if (*(a1 + 432) == 1)
   {
-    otbr::Mdns::Publisher::RemoveHostRegistration(a1 + 8, a2, -12);
+    otbr::Mdns::Publisher::RemoveHostRegistration(a1 + 8, a2, 4294967284);
+    v4 = 0;
   }
 
-  return otbr::OnceCallback<void ()(otbrError)>::operator()(a3);
+  else
+  {
+    v4 = -13;
+  }
+
+  return otbr::OnceCallback<void ()(otbrError)>::operator()(a3, v4);
 }
 
 uint64_t otbr::Mdns::PublisherMDnsSd::PublishKeyImpl(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -3318,7 +5675,7 @@ uint64_t otbr::Mdns::PublisherMDnsSd::PublishKeyImpl(uint64_t a1, uint64_t a2, u
   else
   {
     v5 = 4294967283;
-    otbr::OnceCallback<void ()(otbrError)>::operator()(a4);
+    otbr::OnceCallback<void ()(otbrError)>::operator()(a4, -13);
   }
 
   return v5;
@@ -3328,20 +5685,24 @@ uint64_t otbr::Mdns::PublisherMDnsSd::UnpublishKey(uint64_t a1, uint64_t a2, uin
 {
   if (*(a1 + 432) == 1)
   {
-    otbr::Mdns::Publisher::RemoveKeyRegistration(a1 + 8, a2, -12);
+    otbr::Mdns::Publisher::RemoveKeyRegistration(a1 + 8, a2, 4294967284);
+    v4 = 0;
   }
 
-  return otbr::OnceCallback<void ()(otbrError)>::operator()(a3);
+  else
+  {
+    v4 = -13;
+  }
+
+  return otbr::OnceCallback<void ()(otbrError)>::operator()(a3, v4);
 }
 
-uint64_t otbr::Mdns::PublisherMDnsSd::SubscribeService(uint64_t result)
+void otbr::Mdns::PublisherMDnsSd::SubscribeService(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (*(result + 432) == 1)
+  if (*(a1 + 432) == 1)
   {
     MakeUnique<otbr::Mdns::PublisherMDnsSd::ServiceSubscription,otbr::Mdns::PublisherMDnsSd&,std::string const&,std::string const&>();
   }
-
-  return result;
 }
 
 void sub_1003CF750(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -3354,7 +5715,7 @@ void sub_1003CF750(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1003CF868(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+void sub_1003CF868(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
 {
   if (a18 < 0)
   {
@@ -3364,97 +5725,97 @@ void sub_1003CF868(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   operator delete();
 }
 
-uint64_t otbr::Mdns::PublisherMDnsSd::ServiceSubscription::Browse(DNSServiceRef *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t otbr::Mdns::PublisherMDnsSd::ServiceSubscription::Browse(DNSServiceRef *this)
 {
   if (*this)
   {
     otbr::Mdns::PublisherMDnsSd::ServiceSubscription::Browse();
   }
 
-  v9 = (this + 2);
-  LOBYTE(v10) = this + 16;
+  v2 = (this + 2);
+  v3 = (this + 2);
   if (*(this + 39) < 0)
   {
-    v10 = *v9;
+    v3 = *v2;
   }
 
-  otbrLog(6u, "MDNS", "DNSServiceBrowse %s", a4, a5, a6, a7, a8, v10);
+  otbrLog(6, "MDNS", "DNSServiceBrowse %s", v3);
   if (*(this + 39) < 0)
   {
-    v9 = *v9;
+    v2 = *v2;
   }
 
-  return DNSServiceBrowse(this, 0, 0, v9, 0, otbr::Mdns::PublisherMDnsSd::ServiceSubscription::HandleBrowseResult, this);
+  return DNSServiceBrowse(this, 0, 0, v2, 0, otbr::Mdns::PublisherMDnsSd::ServiceSubscription::HandleBrowseResult, this);
 }
 
-uint64_t otbr::Mdns::PublisherMDnsSd::ServiceSubscription::Resolve(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t otbr::Mdns::PublisherMDnsSd::ServiceSubscription::Resolve(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = *(a1 + 88);
-  v5 = *(a1 + 96);
-  if (v4 == v5)
+  v5 = a1[11];
+  v6 = a1[12];
+  if (v5 == v6)
   {
 LABEL_31:
     MakeUnique<otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution,otbr::Mdns::PublisherMDnsSd::ServiceSubscription &,std::string const&,std::string const&,std::string const&,unsigned int &>();
   }
 
-  v6 = *(a3 + 23);
-  if (v6 < 0)
+  v7 = *(a3 + 23);
+  if (v7 < 0)
   {
-    v7 = *a3;
+    v8 = *a3;
   }
 
   else
   {
-    v7 = a3;
+    v8 = a3;
   }
 
-  v8 = *(a4 + 23);
-  if (v6 < 0)
+  v9 = *(a4 + 23);
+  if (v7 < 0)
   {
-    v9 = *(a3 + 8);
-  }
-
-  else
-  {
-    v9 = *(a3 + 23);
-  }
-
-  if (v8 < 0)
-  {
-    v10 = *a4;
+    v10 = *(a3 + 8);
   }
 
   else
   {
-    v10 = a4;
+    v10 = *(a3 + 23);
   }
 
-  if (v8 < 0)
+  if (v9 < 0)
   {
-    v11 = *(a4 + 8);
+    v11 = *a4;
   }
 
   else
   {
-    v11 = *(a4 + 23);
+    v11 = a4;
+  }
+
+  if (v9 < 0)
+  {
+    v12 = *(a4 + 8);
+  }
+
+  else
+  {
+    v12 = *(a4 + 23);
   }
 
   while (1)
   {
-    v12 = *v4;
-    v13 = *(*v4 + 47);
-    v14 = v13 < 0 ? *(v12 + 32) : *(*v4 + 47);
-    if (v14 == v9)
+    v13 = *v5;
+    v14 = *(*v5 + 47);
+    v15 = v14 < 0 ? *(v13 + 32) : *(*v5 + 47);
+    if (v15 == v10)
     {
-      v15 = v13 >= 0 ? (v12 + 24) : *(v12 + 24);
-      if (!memcmp(v15, v7, v14))
+      v16 = v14 >= 0 ? (v13 + 24) : *(v13 + 24);
+      if (!memcmp(v16, v8, v15))
       {
-        v16 = *(v12 + 71);
-        v17 = v16 < 0 ? *(v12 + 56) : *(v12 + 71);
-        if (v17 == v11)
+        v17 = *(v13 + 71);
+        v18 = v17 < 0 ? *(v13 + 56) : *(v13 + 71);
+        if (v18 == v12)
         {
-          v18 = v16 >= 0 ? (v12 + 48) : *(v12 + 48);
-          result = memcmp(v18, v10, v17);
+          v19 = v17 >= 0 ? (v13 + 48) : *(v13 + 48);
+          result = memcmp(v19, v11, v18);
           if (!result)
           {
             return result;
@@ -3463,86 +5824,86 @@ LABEL_31:
       }
     }
 
-    if (++v4 == v5)
+    if (++v5 == v6)
     {
       goto LABEL_31;
     }
   }
 }
 
-void sub_1003CFC5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1003CFC5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::unique_ptr<otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void otbr::Mdns::PublisherMDnsSd::UnsubscribeService(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void otbr::Mdns::PublisherMDnsSd::UnsubscribeService(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  if (*(a1 + 432) == 1)
+  if (*(result + 432) == 1)
   {
-    v12 = *(a1 + 472);
-    v11 = *(a1 + 480);
-    if (v12 != v11)
+    v7 = *(result + 472);
+    v6 = *(result + 480);
+    if (v7 != v6)
     {
-      v13 = *(a2 + 23);
-      if (v13 < 0)
+      v8 = *(a2 + 23);
+      if (v8 < 0)
       {
-        v14 = *a2;
+        v9 = *a2;
       }
 
       else
       {
-        v14 = a2;
+        v9 = a2;
       }
 
-      v15 = *(a3 + 23);
-      if (v13 < 0)
+      v10 = *(a3 + 23);
+      if (v8 < 0)
       {
-        v16 = *(a2 + 8);
-      }
-
-      else
-      {
-        v16 = *(a2 + 23);
-      }
-
-      if (v15 < 0)
-      {
-        v17 = *a3;
+        v11 = *(a2 + 8);
       }
 
       else
       {
-        v17 = a3;
+        v11 = *(a2 + 23);
       }
 
-      if (v15 < 0)
+      if (v10 < 0)
       {
-        v18 = *(a3 + 8);
+        v12 = *a3;
       }
 
       else
       {
-        v18 = *(a3 + 23);
+        v12 = a3;
+      }
+
+      if (v10 < 0)
+      {
+        v13 = *(a3 + 8);
+      }
+
+      else
+      {
+        v13 = *(a3 + 23);
       }
 
       while (1)
       {
-        v19 = *v12;
-        v20 = *(*v12 + 39);
-        v21 = v20 < 0 ? *(v19 + 24) : *(*v12 + 39);
-        if (v21 == v16)
+        v14 = *v7;
+        v15 = *(*v7 + 39);
+        v16 = v15 < 0 ? *(v14 + 24) : *(*v7 + 39);
+        if (v16 == v11)
         {
-          v22 = v20 >= 0 ? (v19 + 16) : *(v19 + 16);
-          if (!memcmp(v22, v14, v21))
+          v17 = v15 >= 0 ? (v14 + 16) : *(v14 + 16);
+          if (!memcmp(v17, v9, v16))
           {
-            v23 = *(v19 + 63);
-            v24 = v23 < 0 ? *(v19 + 48) : *(v19 + 63);
-            if (v24 == v18)
+            v18 = *(v14 + 63);
+            v19 = v18 < 0 ? *(v14 + 48) : *(v14 + 63);
+            if (v19 == v13)
             {
-              v25 = v23 >= 0 ? (v19 + 40) : *(v19 + 40);
-              if (!memcmp(v25, v17, v24))
+              v20 = v18 >= 0 ? (v14 + 40) : *(v14 + 40);
+              if (!memcmp(v20, v12, v19))
               {
                 break;
               }
@@ -3550,110 +5911,119 @@ void otbr::Mdns::PublisherMDnsSd::UnsubscribeService(uint64_t a1, uint64_t a2, u
           }
         }
 
-        if (++v12 == v11)
+        if (++v7 == v6)
         {
-          v12 = v11;
+          v7 = v6;
           break;
         }
       }
     }
 
-    if (v11 != v12)
+    if (v6 != v7)
     {
-      v26 = v12 + 1;
-      if (v12 + 1 != v11)
+      v21 = v7 + 1;
+      if (v7 + 1 != v6)
       {
         do
         {
-          v27 = v26 - 1;
-          v28 = *v26;
-          *v26++ = 0;
-          std::unique_ptr<otbr::Mdns::PublisherMDnsSd::ServiceSubscription>::reset[abi:ne200100](v27, v28);
+          v22 = v21 - 1;
+          v23 = *v21;
+          *v21++ = 0;
+          std::unique_ptr<otbr::Mdns::PublisherMDnsSd::ServiceSubscription>::reset[abi:ne200100](v22, v23);
         }
 
-        while (v26 != v11);
-        v11 = *(a1 + 480);
-        v12 = v26 - 1;
+        while (v21 != v6);
+        v6 = *(result + 480);
+        v7 = v21 - 1;
       }
 
-      while (v11 != v12)
+      while (v6 != v7)
       {
-        std::unique_ptr<otbr::Mdns::PublisherMDnsSd::ServiceSubscription>::reset[abi:ne200100](--v11, 0);
+        std::unique_ptr<otbr::Mdns::PublisherMDnsSd::ServiceSubscription>::reset[abi:ne200100](--v6, 0);
       }
 
-      *(a1 + 480) = v12;
+      *(result + 480) = v7;
       if (*(a3 + 23) >= 0)
       {
-        LOBYTE(v29) = a3;
+        v24 = a3;
       }
 
       else
       {
-        v29 = *a3;
+        v24 = *a3;
       }
 
-      if (*(a2 + 23) < 0)
+      if (*(a2 + 23) >= 0)
       {
-        v30 = *a2;
+        v25 = a2;
       }
 
-      v31 = (v12 - *(a1 + 472)) >> 3;
-      otbrLog(6u, "MDNS", "Unsubscribe service %s.%s (left %zu)", a4, a5, a6, a7, a8, v29);
+      else
+      {
+        v25 = *a2;
+      }
+
+      otbrLog(6, "MDNS", "Unsubscribe service %s.%s (left %zu)", v24, v25, (v7 - *(result + 472)) >> 3);
     }
   }
 }
 
-void otbr::Mdns::PublisherMDnsSd::OnServiceResolveFailedImpl(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void otbr::Mdns::PublisherMDnsSd::OnServiceResolveFailedImpl(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
 {
   if (*(a3 + 23) >= 0)
   {
-    LOBYTE(v8) = a3;
+    v4 = a3;
   }
 
   else
   {
-    v8 = *a3;
+    v4 = *a3;
   }
 
-  if (*(a2 + 23) < 0)
+  if (*(a2 + 23) >= 0)
   {
-    v9 = *a2;
+    v5 = a2;
   }
 
-  otbrLog(4u, "MDNS", "Resolve service %s.%s failed: code=%d", a4, a5, a6, a7, a8, v8);
+  else
+  {
+    v5 = *a2;
+  }
+
+  otbrLog(4, "MDNS", "Resolve service %s.%s failed: code=%d", v4, v5, a4);
 }
 
-void otbr::Mdns::PublisherMDnsSd::OnHostResolveFailedImpl(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void otbr::Mdns::PublisherMDnsSd::OnHostResolveFailedImpl(uint64_t a1, uint64_t a2, int a3)
 {
   if (*(a2 + 23) >= 0)
   {
-    LOBYTE(v8) = a2;
+    v3 = a2;
   }
 
   else
   {
-    v8 = *a2;
+    v3 = *a2;
   }
 
-  otbrLog(4u, "MDNS", "Resolve host %s failed: code=%d", a4, a5, a6, a7, a8, v8);
+  otbrLog(4, "MDNS", "Resolve host %s failed: code=%d", v3, a3);
 }
 
-void non-virtual thunk tootbr::Mdns::PublisherMDnsSd::OnHostResolveFailedImpl(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void non-virtual thunk tootbr::Mdns::PublisherMDnsSd::OnHostResolveFailedImpl(uint64_t a1, uint64_t a2, int a3)
 {
   if (*(a2 + 23) >= 0)
   {
-    LOBYTE(v8) = a2;
+    v3 = a2;
   }
 
   else
   {
-    v8 = *a2;
+    v3 = *a2;
   }
 
-  otbrLog(4u, "MDNS", "Resolve host %s failed: code=%d", a4, a5, a6, a7, a8, v8);
+  otbrLog(4, "MDNS", "Resolve host %s failed: code=%d", v3, a3);
 }
 
-uint64_t otbr::Mdns::PublisherMDnsSd::SubscribeHost(uint64_t result)
+uint64_t otbr::Mdns::PublisherMDnsSd::SubscribeHost(uint64_t result, uint64_t a2)
 {
   if (*(result + 432) == 1)
   {
@@ -3663,9 +6033,9 @@ uint64_t otbr::Mdns::PublisherMDnsSd::SubscribeHost(uint64_t result)
   return result;
 }
 
-void sub_1003D00C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1003D00C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::unique_ptr<otbr::Mdns::PublisherMDnsSd::HostSubscription>::reset[abi:ne200100](va, 0);
   _Unwind_Resume(a1);
 }
@@ -3674,12 +6044,12 @@ void otbr::Mdns::PublisherMDnsSd::HostSubscription::Resolve(otbr::Mdns::Publishe
 {
   if (*(this + 39) < 0)
   {
-    std::string::__init_copy_ctor_external(&v10, *(this + 2), *(this + 3));
+    std::string::__init_copy_ctor_external(&v5, *(this + 2), *(this + 3));
   }
 
   else
   {
-    v10 = *(this + 16);
+    v5 = *(this + 16);
   }
 
   if (*this)
@@ -3688,32 +6058,32 @@ void otbr::Mdns::PublisherMDnsSd::HostSubscription::Resolve(otbr::Mdns::Publishe
   }
 
   rep = std::chrono::steady_clock::now().__d_.__rep_;
-  *std::map<std::string,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>::operator[](*(this + 1) + 216, this + 2) = rep;
-  if ((v10.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  *std::map<std::string,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>::operator[]((*(this + 1) + 216), this + 2) = rep;
+  if ((v5.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v8 = &v10;
+    v3 = &v5;
   }
 
   else
   {
-    LOBYTE(v8) = v10.__r_.__value_.__s.__data_[0];
+    v3 = v5.__r_.__value_.__r.__words[0];
   }
 
-  otbrLog(6u, "MDNS", "DNSServiceGetAddrInfo %s inf %d", v3, v4, v5, v6, v7, v8);
-  if ((v10.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  otbrLog(6, "MDNS", "DNSServiceGetAddrInfo %s inf %d", v3, 0);
+  if ((v5.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v9 = &v10;
+    v4 = &v5;
   }
 
   else
   {
-    v9 = v10.__r_.__value_.__r.__words[0];
+    v4 = v5.__r_.__value_.__r.__words[0];
   }
 
-  DNSServiceGetAddrInfo(this, 0, 0, 3u, v9, otbr::Mdns::PublisherMDnsSd::HostSubscription::HandleResolveResult, this);
-  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
+  DNSServiceGetAddrInfo(this, 0, 0, 3u, v4, otbr::Mdns::PublisherMDnsSd::HostSubscription::HandleResolveResult, this);
+  if (SHIBYTE(v5.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v10.__r_.__value_.__l.__data_);
+    operator delete(v5.__r_.__value_.__l.__data_);
   }
 }
 
@@ -3727,103 +6097,102 @@ void sub_1003D02B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void otbr::Mdns::PublisherMDnsSd::UnsubscribeHost(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void otbr::Mdns::PublisherMDnsSd::UnsubscribeHost(uint64_t result, uint64_t a2)
 {
-  if (*(a1 + 432) == 1)
+  if (*(result + 432) == 1)
   {
-    v11 = *(a1 + 496);
-    v10 = *(a1 + 504);
-    if (v11 != v10)
+    v5 = *(result + 496);
+    v4 = *(result + 504);
+    if (v5 != v4)
     {
-      v12 = *(a2 + 23);
-      if (v12 < 0)
+      v6 = *(a2 + 23);
+      if (v6 < 0)
       {
-        v13 = *a2;
+        v7 = *a2;
       }
 
       else
       {
-        v13 = a2;
+        v7 = a2;
       }
 
-      if (v12 < 0)
+      if (v6 < 0)
       {
-        v14 = *(a2 + 8);
+        v8 = *(a2 + 8);
       }
 
       else
       {
-        v14 = *(a2 + 23);
+        v8 = *(a2 + 23);
       }
 
       while (1)
       {
-        v15 = *v11;
-        v16 = *(*v11 + 39);
-        v17 = v16 < 0 ? *(v15 + 24) : *(*v11 + 39);
-        if (v17 == v14)
+        v9 = *v5;
+        v10 = *(*v5 + 39);
+        v11 = v10 < 0 ? *(v9 + 24) : *(*v5 + 39);
+        if (v11 == v8)
         {
-          v20 = *(v15 + 16);
-          v18 = v15 + 16;
-          v19 = v20;
-          v21 = (v16 >= 0 ? v18 : v19);
-          if (!memcmp(v21, v13, v17))
+          v14 = *(v9 + 16);
+          v12 = v9 + 16;
+          v13 = v14;
+          v15 = (v10 >= 0 ? v12 : v13);
+          if (!memcmp(v15, v7, v11))
           {
             break;
           }
         }
 
-        if (++v11 == v10)
+        if (++v5 == v4)
         {
-          v11 = v10;
+          v5 = v4;
           break;
         }
       }
     }
 
-    if (v10 != v11)
+    if (v4 != v5)
     {
-      v22 = v11 + 1;
-      if (v11 + 1 != v10)
+      v16 = v5 + 1;
+      if (v5 + 1 != v4)
       {
         do
         {
-          v23 = v22 - 1;
-          v24 = *v22;
-          *v22++ = 0;
-          std::unique_ptr<otbr::Mdns::PublisherMDnsSd::HostSubscription>::reset[abi:ne200100](v23, v24);
+          v17 = v16 - 1;
+          v18 = *v16;
+          *v16++ = 0;
+          std::unique_ptr<otbr::Mdns::PublisherMDnsSd::HostSubscription>::reset[abi:ne200100](v17, v18);
         }
 
-        while (v22 != v10);
-        v10 = *(a1 + 504);
-        v11 = v22 - 1;
+        while (v16 != v4);
+        v4 = *(result + 504);
+        v5 = v16 - 1;
       }
 
-      while (v10 != v11)
+      while (v4 != v5)
       {
-        std::unique_ptr<otbr::Mdns::PublisherMDnsSd::HostSubscription>::reset[abi:ne200100](--v10, 0);
+        std::unique_ptr<otbr::Mdns::PublisherMDnsSd::HostSubscription>::reset[abi:ne200100](--v4, 0);
       }
 
-      *(a1 + 504) = v11;
+      *(result + 504) = v5;
       if (*(a2 + 23) >= 0)
       {
-        LOBYTE(v25) = a2;
+        v19 = a2;
       }
 
       else
       {
-        v25 = *a2;
+        v19 = *a2;
       }
 
-      v26 = (v11 - *(a1 + 496)) >> 3;
-      otbrLog(6u, "MDNS", "Unsubscribe host %s (remaining %d)", a4, a5, a6, a7, a8, v25);
+      otbrLog(6, "MDNS", "Unsubscribe host %s (remaining %d)", v19, (v5 - *(result + 496)) >> 3);
     }
   }
 }
 
-void sub_1003D04C8(uint64_t a1, ...)
+void sub_1003D04C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a1);
+  va_start(va, a3);
   std::__function::__value_func<void ()(otbr::Mdns::Publisher::State)>::~__value_func[abi:ne200100](va);
   operator delete();
 }
@@ -3867,47 +6236,48 @@ void otbr::Mdns::PublisherMDnsSd::ServiceRef::DeallocateServiceRef(_DNSServiceRe
   }
 }
 
-void otbr::Mdns::PublisherMDnsSd::ServiceSubscription::HandleBrowseResult(otbr::Mdns::PublisherMDnsSd::ServiceSubscription *this, _DNSServiceRef_t *a2, char a3, uint64_t a4, uint64_t a5, char *a6, char *a7, char *a8)
+void otbr::Mdns::PublisherMDnsSd::ServiceSubscription::HandleBrowseResult(otbr::Mdns::PublisherMDnsSd::ServiceSubscription *this, _DNSServiceRef_t *a2, int a3, int a4, uint64_t a5, char *a6, char *a7, char *a8)
 {
+  v13 = a3;
   v15 = "add";
   if ((a3 & 2) == 0)
   {
     v15 = "remove";
   }
 
-  otbrLog(6u, "MDNS", "DNSServiceBrowse reply: %s %s.%s inf %u, flags=%u, error=%d", a4, a5, a6, a7, a8, v15);
+  otbrLog(6, "MDNS", "DNSServiceBrowse reply: %s %s.%s inf %u, flags=%u, error=%d", v15, a6, a7, a4, a3, a5);
   if (a5)
   {
-    v21 = *(this + 1);
+    v16 = *(this + 1);
     if (*(this + 39) < 0)
     {
-      std::string::__init_copy_ctor_external(&v24, *(this + 2), *(this + 3));
+      std::string::__init_copy_ctor_external(&v18, *(this + 2), *(this + 3));
     }
 
     else
     {
-      v24 = *(this + 16);
+      v18 = *(this + 16);
     }
 
     if (*(this + 63) < 0)
     {
-      std::string::__init_copy_ctor_external(&v23, *(this + 5), *(this + 6));
+      std::string::__init_copy_ctor_external(&v17, *(this + 5), *(this + 6));
     }
 
     else
     {
-      v23 = *(this + 40);
+      v17 = *(this + 40);
     }
 
-    otbr::Mdns::Publisher::OnServiceResolveFailed((v21 + 8), &v24, &v23, a5);
-    if (SHIBYTE(v23.__r_.__value_.__r.__words[2]) < 0)
+    otbr::Mdns::Publisher::OnServiceResolveFailed((v16 + 8), &v18, &v17, a5);
+    if (SHIBYTE(v17.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v23.__r_.__value_.__l.__data_);
+      operator delete(v17.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v24.__r_.__value_.__l.__data_);
+      operator delete(v18.__r_.__value_.__l.__data_);
     }
 
     otbr::Mdns::PublisherMDnsSd::ServiceRef::DeallocateServiceRef(this);
@@ -3915,34 +6285,34 @@ void otbr::Mdns::PublisherMDnsSd::ServiceSubscription::HandleBrowseResult(otbr::
 
   else
   {
-    if ((a3 & 2) != 0)
+    if ((v13 & 2) != 0)
     {
-      std::string::basic_string[abi:ne200100]<0>(v29, a6);
-      std::string::basic_string[abi:ne200100]<0>(v27, a7);
-      std::string::basic_string[abi:ne200100]<0>(&__p, a8);
-      otbr::Mdns::PublisherMDnsSd::ServiceSubscription::Resolve(this, a4, v29, v27);
-      if (v26 < 0)
+      std::string::basic_string[abi:ne200100]<0>(v23, a6);
+      std::string::basic_string[abi:ne200100]<0>(v21, a7);
+      std::string::basic_string[abi:ne200100]<0>(__p, a8);
+      otbr::Mdns::PublisherMDnsSd::ServiceSubscription::Resolve(this, a4, v23, v21, __p);
+      if (v20 < 0)
       {
-        operator delete(__p);
+        operator delete(__p[0]);
       }
 
-      if (v28 < 0)
+      if (v22 < 0)
       {
-        operator delete(v27[0]);
+        operator delete(v21[0]);
       }
 
-      if (v30 < 0)
+      if (v24 < 0)
       {
-        operator delete(v29[0]);
+        operator delete(v23[0]);
       }
     }
 
-    else if (a3)
+    else if (v13)
     {
-      otbrLog(6u, "MDNS", "DNSServiceBrowse reply: with kDNSServiceFlagsMoreComing flag set", v16, v17, v18, v19, v20, v22);
+      otbrLog(6, "MDNS", "DNSServiceBrowse reply: with kDNSServiceFlagsMoreComing flag set");
     }
 
-    otbrLog(4u, "MDNS", "DNSServiceBrowse reply: ignore RMV event", v16, v17, v18, v19, v20, v22);
+    otbrLog(4, "MDNS", "DNSServiceBrowse reply: ignore RMV event");
   }
 }
 
@@ -3966,7 +6336,7 @@ void sub_1003D077C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_1003D0930(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
+void sub_1003D0930(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
 {
   if (a18 < 0)
   {
@@ -4005,31 +6375,31 @@ uint64_t otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::Resolve(otbr::M
   v3 = *(*(this + 2) + 8);
   v4 = this + 24;
   v5 = this + 48;
-  std::pair<std::string,std::string>::pair[abi:ne200100]<std::string&,std::string&,0>(&v16, (this + 24), this + 3);
-  *std::map<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>::operator[](v3 + 192, &v16.__r_.__value_.__l.__data_) = rep;
-  if (v18 < 0)
+  std::pair<std::string,std::string>::pair[abi:ne200100]<std::string&,std::string&,0>(&v10, (this + 24), this + 3);
+  *std::map<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>::operator[](v3 + 192, &v10) = rep;
+  if (v12 < 0)
   {
     operator delete(__p);
   }
 
-  if (SHIBYTE(v16.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v10.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v16.__r_.__value_.__l.__data_);
+    operator delete(v10.__r_.__value_.__l.__data_);
   }
 
-  LOBYTE(v11) = this + 24;
+  v6 = this + 24;
   if (*(this + 47) < 0)
   {
-    v11 = *v4;
+    v6 = *v4;
   }
 
+  v7 = this + 48;
   if (*(this + 71) < 0)
   {
-    v12 = *v5;
+    v7 = *v5;
   }
 
-  v15 = *(this + 24);
-  otbrLog(6u, "MDNS", "DNSServiceResolve %s %s inf %u", v6, v7, v8, v9, v10, v11);
+  otbrLog(6, "MDNS", "DNSServiceResolve %s %s inf %u", v6, v7, *(this + 24));
   if (*(this + 47) < 0)
   {
     v4 = *v4;
@@ -4040,23 +6410,23 @@ uint64_t otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::Resolve(otbr::M
     v5 = *v5;
   }
 
-  v13 = this + 72;
+  v8 = this + 72;
   if (*(this + 95) < 0)
   {
-    v13 = *v13;
+    v8 = *v8;
   }
 
-  return DNSServiceResolve(this, 0x10000u, *(this + 24), v4, v5, v13, otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::HandleResolveResult, this);
+  return DNSServiceResolve(this, 0x10000u, *(this + 24), v4, v5, v8, otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::HandleResolveResult, this);
 }
 
-void sub_1003D0AF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1003D0AF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::pair<std::string const,std::string>::~pair(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1003D0C64(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
+void sub_1003D0C64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
 {
   if (a18 < 0)
   {
@@ -4071,77 +6441,78 @@ void sub_1003D0C64(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   operator delete();
 }
 
-void otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::HandleQueryrecordResult(otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution *this, _DNSServiceRef_t *a2, unsigned int a3, uint64_t a4, char *a5, const char *a6, unsigned __int16 a7, size_t __n, size_t __na, void *__src, otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution *a11, void *a12)
+void otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::HandleQueryrecordResult(otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution *this, _DNSServiceRef_t *a2, unsigned int a3, unsigned int a4, char *a5, const char *a6, unsigned __int16 a7, size_t __n, size_t __na, void *__src, otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution *a11, void *a12)
 {
   __srca = __na;
   LOWORD(__na) = __n;
   otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::HandleQueryrecordResult(a11, a2, a2, a4, a4, a5, a6, 0, __na, __srca, a11);
 }
 
-void otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::HandleQueryrecordResult(otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution *this, _DNSServiceRef_t *a2, char a3, uint64_t a4, uint64_t a5, const char *a6, uint64_t a7, uint64_t a8, size_t __n, void *__src, unsigned int a11)
+void otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::HandleQueryrecordResult(otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution *this, _DNSServiceRef_t *a2, char a3, unsigned int a4, int a5, const char *a6, int a7, unsigned __int16 a8, size_t __n, void *__src, unsigned int a11)
 {
   if (!a5)
   {
     if ((a3 & 2) == 0)
     {
-      otbrLog(4u, "MDNS", "%s: Ignoring the RMV interface for %s", a4, a5, a6, a7, a8, "HandleQueryrecordResult");
+      otbrLog(4, "MDNS", "%s: Ignoring the RMV interface for %s", "HandleQueryrecordResult", a6);
       return;
     }
 
     if (a7 == 33 && __n - 1 <= 0xFD)
     {
       memcpy(__dst, __src, __n);
-      *(this + 92) = __rev16(v36);
-      otbrLog(6u, "MDNS", "%s: Got an ADD interface for %s at port=%u", v12, v13, v14, v15, v16, "HandleQueryrecordResult");
+      v13 = __rev16(v28);
+      *(this + 92) = v13;
+      otbrLog(6, "MDNS", "%s: Got an ADD interface for %s at port=%u", "HandleQueryrecordResult", a6, v13);
     }
 
-    v17 = *(this + 2);
-    if (v17)
+    v14 = *(this + 2);
+    if (v14)
     {
-      v18 = *(v17 + 8);
-      if (*(v17 + 39) < 0)
+      v15 = *(v14 + 8);
+      if (*(v14 + 39) < 0)
       {
-        std::string::__init_copy_ctor_external(&v34, *(v17 + 16), *(v17 + 24));
+        std::string::__init_copy_ctor_external(&v26, *(v14 + 16), *(v14 + 24));
       }
 
       else
       {
-        v34 = *(v17 + 16);
+        v26 = *(v14 + 16);
       }
 
-      otbr::Mdns::Publisher::DiscoveredInstanceInfo::DiscoveredInstanceInfo(v24, (this + 104));
-      otbr::Mdns::Publisher::OnServiceResolved(v18 + 8, &v34, v24, v19, v20, v21, v22, v23);
+      otbr::Mdns::Publisher::DiscoveredInstanceInfo::DiscoveredInstanceInfo(v16, (this + 104));
+      otbr::Mdns::Publisher::OnServiceResolved(v15 + 8, &v26, v16);
       if (__p)
       {
-        v33 = __p;
+        v25 = __p;
         operator delete(__p);
       }
 
-      if (v29)
+      if (v21)
       {
-        v30 = v29;
-        if (v31 - v29 < 0)
+        v22 = v21;
+        if (v23 - v21 < 0)
         {
           __break(0x550Cu);
           return;
         }
 
-        operator delete(v29);
+        operator delete(v21);
       }
 
-      if (v28 < 0)
+      if (v20 < 0)
       {
-        operator delete(v27);
+        operator delete(v19);
       }
 
-      if (v26 < 0)
+      if (v18 < 0)
       {
-        operator delete(v25);
+        operator delete(v17);
       }
 
-      if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v34.__r_.__value_.__l.__data_);
+        operator delete(v26.__r_.__value_.__l.__data_);
       }
     }
   }
@@ -4180,27 +6551,25 @@ void otbr::Mdns::Publisher::DiscoveredInstanceInfo::~DiscoveredInstanceInfo(otbr
   }
 }
 
-void otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::HandleResolveResult(otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution *this, _DNSServiceRef_t *a2, unsigned int a3, uint64_t a4, uint64_t a5, char *a6, const char *a7, uint64_t a8, unsigned __int16 a9, char *__src)
+void otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::HandleResolveResult(otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution *this, _DNSServiceRef_t *a2, int a3, uint32_t a4, uint64_t a5, char *a6, const char *a7, unsigned int a8, unsigned __int16 a9, char *__src)
 {
-  v10 = a8;
-  v14 = a4;
   memset(&__str, 0, sizeof(__str));
-  v37[0] = 0;
-  v37[1] = 0;
-  v38 = 0;
-  v35[0] = 0;
-  v35[1] = 0;
-  v36 = 0;
-  otbrLog(6u, "MDNS", "DNSServiceResolve reply: %s host %s:%d, TXT=%dB inf %u, flags=%u", a4, a5, a6, a7, a8, a6);
+  v26[0] = 0;
+  v26[1] = 0;
+  v27 = 0;
+  v24[0] = 0;
+  v24[1] = 0;
+  v25 = 0;
+  otbrLog(6, "MDNS", "DNSServiceResolve reply: %s host %s:%d, TXT=%dB inf %u, flags=%u", a6, a7, a8, a9, a4, a3);
   if (!a5)
   {
     std::string::basic_string[abi:ne200100]<0>(__p, a6);
-    v16 = SplitFullServiceInstanceName(__p, &__str, v37, v35);
-    v22 = v16;
-    if (v34 < 0)
+    v16 = SplitFullServiceInstanceName(__p, &__str, v26, v24);
+    v17 = v16;
+    if (v23 < 0)
     {
       operator delete(__p[0]);
-      if (!v22)
+      if (!v17)
       {
         goto LABEL_6;
       }
@@ -4209,65 +6578,65 @@ void otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::HandleResolveResult
     else if (!v16)
     {
 LABEL_6:
-      *(this + 27) = v14;
+      *(this + 27) = a4;
       std::string::operator=((this + 112), &__str);
       std::string::assign((this + 136), a7);
-      *(this + 92) = __rev16(v10);
+      *(this + 92) = __rev16(a8);
       std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(this + 24, __src, &__src[a9], a9);
       *(this + 186) = 0;
       otbr::Mdns::PublisherMDnsSd::ServiceRef::DeallocateServiceRef(this);
-      if (!otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::GetAddrInfo(this, v14, v23, v24, v25, v26, v27, v28))
+      if (!otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::GetAddrInfo(this, a4))
       {
         goto LABEL_19;
       }
     }
 
-    otbrLog(4u, "MDNS", "Failed to resolve service instance %s", v17, v18, v19, v20, v21, a6);
+    otbrLog(4, "MDNS", "Failed to resolve service instance %s", a6);
   }
 
-  v29 = *(this + 2);
-  v30 = *(v29 + 8);
-  if (*(v29 + 39) < 0)
+  v18 = *(this + 2);
+  v19 = *(v18 + 8);
+  if (*(v18 + 39) < 0)
   {
-    std::string::__init_copy_ctor_external(&v32, *(v29 + 16), *(v29 + 24));
+    std::string::__init_copy_ctor_external(&v21, *(v18 + 16), *(v18 + 24));
   }
 
   else
   {
-    v32 = *(v29 + 16);
+    v21 = *(v18 + 16);
   }
 
   if (*(this + 47) < 0)
   {
-    std::string::__init_copy_ctor_external(&v31, *(this + 3), *(this + 4));
+    std::string::__init_copy_ctor_external(&v20, *(this + 3), *(this + 4));
   }
 
   else
   {
-    v31 = *(this + 1);
+    v20 = *(this + 1);
   }
 
-  otbr::Mdns::Publisher::OnServiceResolveFailed((v30 + 8), &v32, &v31, a5);
-  if (SHIBYTE(v31.__r_.__value_.__r.__words[2]) < 0)
+  otbr::Mdns::Publisher::OnServiceResolveFailed((v19 + 8), &v21, &v20, a5);
+  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v31.__r_.__value_.__l.__data_);
+    operator delete(v20.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v32.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v32.__r_.__value_.__l.__data_);
+    operator delete(v21.__r_.__value_.__l.__data_);
   }
 
   otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::FinishResolution(this);
 LABEL_19:
-  if (SHIBYTE(v36) < 0)
+  if (SHIBYTE(v25) < 0)
   {
-    operator delete(v35[0]);
+    operator delete(v24[0]);
   }
 
-  if (SHIBYTE(v38) < 0)
+  if (SHIBYTE(v27) < 0)
   {
-    operator delete(v37[0]);
+    operator delete(v26[0]);
   }
 
   if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -4301,31 +6670,31 @@ void sub_1003D118C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::GetAddrInfo(DNSServiceRef *this, uint32_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::GetAddrInfo(DNSServiceRef *this, uint32_t a2)
 {
   if (*this)
   {
     otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::GetAddrInfo();
   }
 
-  v10 = (this + 17);
-  LOBYTE(v11) = this - 120;
+  v4 = (this + 17);
+  v5 = (this + 17);
   if (*(this + 159) < 0)
   {
-    v11 = *v10;
+    v5 = *v4;
   }
 
-  otbrLog(6u, "MDNS", "DNSServiceGetAddrInfo %s inf %d", a4, a5, a6, a7, a8, v11);
+  otbrLog(6, "MDNS", "DNSServiceGetAddrInfo %s inf %d", v5, a2);
   if (*(this + 159) < 0)
   {
-    v10 = *v10;
+    v4 = *v4;
   }
 
-  result = DNSServiceGetAddrInfo(this, 0, a2, 3u, v10, otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::HandleGetAddrInfoResult, this);
+  result = DNSServiceGetAddrInfo(this, 0, a2, 3u, v4, otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::HandleGetAddrInfoResult, this);
   if (result)
   {
-    v20 = otbr::Mdns::DNSErrorToString(result, v13, v14, v15, v16, v17, v18, v19);
-    otbrLog(4u, "MDNS", "DNSServiceGetAddrInfo failed: %s", v21, v22, v23, v24, v25, v20);
+    v8 = otbr::Mdns::DNSErrorToString(result, v7);
+    otbrLog(4, "MDNS", "DNSServiceGetAddrInfo failed: %s", v8);
     return 4294967293;
   }
 
@@ -4337,43 +6706,84 @@ void otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::FinishResolution(ot
   v2 = *(this + 2);
   if (*(v2 + 39) < 0)
   {
-    std::string::__init_copy_ctor_external(&v35, *(v2 + 16), *(v2 + 24));
+    std::string::__init_copy_ctor_external(&v26, *(v2 + 16), *(v2 + 24));
   }
 
   else
   {
-    v35 = *(v2 + 16);
+    v26 = *(v2 + 16);
   }
 
-  otbr::Mdns::Publisher::DiscoveredInstanceInfo::DiscoveredInstanceInfo(v25, (this + 104));
-  otbrLog(6u, "MDNS", "ServiceInstanceResolution orig inf %u and inf %d", v3, v4, v5, v6, v7, *(this + 27));
-  v8 = *(v2 + 8);
-  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
+  otbr::Mdns::Publisher::DiscoveredInstanceInfo::DiscoveredInstanceInfo(v15, (this + 104));
+  otbrLog(6, "MDNS", "ServiceInstanceResolution orig inf %u and inf %d", *(this + 27), v16);
+  v3 = *(v2 + 8);
+  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
   {
-    std::string::__init_copy_ctor_external(&v24, v35.__r_.__value_.__l.__data_, v35.__r_.__value_.__l.__size_);
+    std::string::__init_copy_ctor_external(&v14, v26.__r_.__value_.__l.__data_, v26.__r_.__value_.__l.__size_);
   }
 
   else
   {
-    v24 = v35;
+    v14 = v26;
   }
 
-  otbr::Mdns::Publisher::DiscoveredInstanceInfo::DiscoveredInstanceInfo(v14, v25);
-  otbr::Mdns::Publisher::OnServiceResolved(v8 + 8, &v24, v14, v9, v10, v11, v12, v13);
+  otbr::Mdns::Publisher::DiscoveredInstanceInfo::DiscoveredInstanceInfo(v4, v15);
+  otbr::Mdns::Publisher::OnServiceResolved(v3 + 8, &v14, v4);
   if (__p)
   {
-    v23 = __p;
+    v13 = __p;
     operator delete(__p);
   }
 
-  if (v19)
+  if (v9)
   {
-    v20 = v19;
-    if (v21 - v19 < 0)
+    v10 = v9;
+    if (v11 - v9 < 0)
     {
       goto LABEL_30;
     }
 
+    operator delete(v9);
+  }
+
+  if (v8 < 0)
+  {
+    operator delete(v7);
+  }
+
+  if (v6 < 0)
+  {
+    operator delete(v5);
+  }
+
+  if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v14.__r_.__value_.__l.__data_);
+  }
+
+  if (v24)
+  {
+    v25 = v24;
+    operator delete(v24);
+  }
+
+  if (!v21)
+  {
+    goto LABEL_23;
+  }
+
+  v22 = v21;
+  if (v23 - v21 < 0)
+  {
+LABEL_30:
+    __break(0x550Cu);
+    return;
+  }
+
+  operator delete(v21);
+LABEL_23:
+  if (v20 < 0)
+  {
     operator delete(v19);
   }
 
@@ -4382,54 +6792,13 @@ void otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::FinishResolution(ot
     operator delete(v17);
   }
 
-  if (v16 < 0)
+  if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v15);
-  }
-
-  if (SHIBYTE(v24.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v24.__r_.__value_.__l.__data_);
-  }
-
-  if (v33)
-  {
-    v34 = v33;
-    operator delete(v33);
-  }
-
-  if (!v30)
-  {
-    goto LABEL_23;
-  }
-
-  v31 = v30;
-  if (v32 - v30 < 0)
-  {
-LABEL_30:
-    __break(0x550Cu);
-    return;
-  }
-
-  operator delete(v30);
-LABEL_23:
-  if (v29 < 0)
-  {
-    operator delete(v28);
-  }
-
-  if (v27 < 0)
-  {
-    operator delete(v26);
-  }
-
-  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v35.__r_.__value_.__l.__data_);
+    operator delete(v26.__r_.__value_.__l.__data_);
   }
 }
 
-void sub_1003D1474(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32, char a33)
+void sub_1003D1474(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32, char a33)
 {
   otbr::Mdns::Publisher::DiscoveredInstanceInfo::~DiscoveredInstanceInfo(&a12);
   if (a32 < 0)
@@ -4446,11 +6815,10 @@ void sub_1003D1474(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::HandleGetAddrInfoResult(otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution *this, _DNSServiceRef_t *a2, char a3, uint64_t a4, uint64_t a5, const char *a6, const sockaddr_in6 *a7, uint64_t a8)
+void otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::HandleGetAddrInfoResult(otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution *this, _DNSServiceRef_t *a2, int a3, unsigned int a4, int a5, const char *a6, const sockaddr_in6 *a7, int a8)
 {
-  v8 = a8;
-  v10 = a5;
-  memset(v65, 0, sizeof(v65));
+  v11 = a3;
+  memset(v37, 0, sizeof(v37));
   if (a5)
   {
     v13 = 4;
@@ -4461,10 +6829,9 @@ void otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::HandleGetAddrInfoRe
     v13 = 6;
   }
 
-  v64 = 0uLL;
-  sin6_family = a7->sin6_family;
-  otbrLog(v13, "MDNS", "DNSServiceGetAddrInfo reply: flags=%u, host=%s, sa_family=%u, error=%d", a4, a5, a6, a7, a8, a3);
-  if (v10)
+  v36 = 0uLL;
+  otbrLog(v13, "MDNS", "DNSServiceGetAddrInfo reply: flags=%u, host=%s, sa_family=%u, error=%d", a3, a6, a7->sin6_family, a5);
+  if (a5)
   {
     v14 = 1;
     goto LABEL_14;
@@ -4477,10 +6844,10 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  otbr::Ip6Address::CopyFrom(&v64, a7);
-  if (*&v64 == 0 || (v64.n128_u16[0] & 0xC0FF) == 0x80FELL || v64.n128_u8[0] == 255 || !v64.n128_u32[0] && !HIDWORD(v64.n128_u64[0]) && v64.n128_u64[1] == 0x100000000000000)
+  otbr::Ip6Address::CopyFrom(&v36, a7);
+  if (*&v36 == 0 || (v36.n128_u16[0] & 0xC0FF) == 0x80FELL || v36.n128_u8[0] == 255 || !v36.n128_u32[0] && !HIDWORD(v36.n128_u64[0]) && v36.n128_u64[1] == 0x100000000000000)
   {
-    otbr::Ip6Address::ToString(&v64, &__p);
+    otbr::Ip6Address::ToString(&__p, &v36);
     if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
       p_p = &__p;
@@ -4488,10 +6855,10 @@ LABEL_13:
 
     else
     {
-      LOBYTE(p_p) = __p.__r_.__value_.__s.__data_[0];
+      p_p = __p.__r_.__value_.__r.__words[0];
     }
 
-    otbrLog(7u, "MDNS", "DNSServiceGetAddrInfo ignores address %s", v15, v16, v17, v18, v19, p_p);
+    otbrLog(7, "MDNS", "DNSServiceGetAddrInfo ignores address %s", p_p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
@@ -4501,137 +6868,145 @@ LABEL_13:
   }
 
   *(this + 21) = *(this + 20);
-  v21 = (this + 112);
-  std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("._trel._udp.", this + 14, &__p.__r_.__value_.__l.__data_);
-  v22 = std::string::append(&__p, "local.");
-  v28 = v22->__r_.__value_.__s.__data_[0];
-  *v66 = *(&v22->__r_.__value_.__l.__data_ + 1);
-  *&v66[14] = *(&v22->__r_.__value_.__r.__words[1] + 7);
-  v29 = HIBYTE(v22->__r_.__value_.__r.__words[2]);
-  v22->__r_.__value_.__l.__size_ = 0;
-  v22->__r_.__value_.__r.__words[2] = 0;
-  v22->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v65[2]) < 0)
+  std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, "._trel._udp.", this + 14);
+  v16 = std::string::append(&__p, "local.");
+  v17 = v16->__r_.__value_.__s.__data_[0];
+  *v38 = *(&v16->__r_.__value_.__l.__data_ + 1);
+  *&v38[14] = *(&v16->__r_.__value_.__r.__words[1] + 7);
+  v18 = HIBYTE(v16->__r_.__value_.__r.__words[2]);
+  v16->__r_.__value_.__l.__size_ = 0;
+  v16->__r_.__value_.__r.__words[2] = 0;
+  v16->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v37[2]) < 0)
   {
-    operator delete(v65[0]);
+    operator delete(v37[0]);
   }
 
-  LOBYTE(v65[0]) = v28;
-  *(v65 + 1) = *v66;
-  *(&v65[1] + 7) = *&v66[14];
-  HIBYTE(v65[2]) = v29;
+  LOBYTE(v37[0]) = v17;
+  *(v37 + 1) = *v38;
+  *(&v37[1] + 7) = *&v38[14];
+  HIBYTE(v37[2]) = v18;
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  v30 = *(this + 2);
-  v32 = v30[11];
-  v31 = v30[12];
-  if (v32 == v31)
+  v19 = *(this + 2);
+  v21 = v19[11];
+  v20 = v19[12];
+  if (v21 == v20)
   {
     v14 = 0;
   }
 
   else
   {
-    Record = 0;
+    v22 = 0;
     do
     {
-      v34 = *v32;
-      v35 = *(*v32 + 47);
-      if (v35 < 0)
+      v23 = *v21;
+      v24 = *(*v21 + 47);
+      if (v24 < 0)
       {
-        v36 = *(v34 + 32);
+        v25 = *(v23 + 32);
       }
 
       else
       {
-        v36 = *(*v32 + 47);
+        v25 = *(*v21 + 47);
       }
 
-      v37 = *(this + 135);
-      if (v37 < 0)
+      v26 = *(this + 135);
+      if (v26 < 0)
       {
-        v38 = *(this + 15);
+        v27 = *(this + 15);
       }
 
       else
       {
-        v38 = *(this + 135);
+        v27 = *(this + 135);
       }
 
-      if (v36 == v38)
+      if (v25 == v27)
       {
-        v39 = v35 >= 0 ? (v34 + 24) : *(v34 + 24);
-        v40 = *v21;
-        v41 = v37 >= 0 ? (this + 112) : *v21;
-        if (!memcmp(v39, v41, v36) && !*v34)
+        v28 = v24 >= 0 ? (v23 + 24) : *(v23 + 24);
+        v29 = v26 >= 0 ? (this + 112) : *(this + 14);
+        if (!memcmp(v28, v29, v25) && !*v23)
         {
-          if (SHIBYTE(v65[2]) >= 0)
+          if (SHIBYTE(v37[2]) >= 0)
           {
-            v42 = v65;
+            v30 = v37;
           }
 
           else
           {
-            v42 = v65[0];
+            v30 = v37[0];
           }
 
-          Record = DNSServiceQueryRecord(v34, 0x100u, *(this + 24), v42, 0x21u, 1u, otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::HandleQueryrecordResult, this);
-          if (SHIBYTE(v65[2]) >= 0)
+          Record = DNSServiceQueryRecord(v23, 0x100u, *(this + 24), v30, 0x21u, 1u, otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::HandleQueryrecordResult, this);
+          v22 = Record;
+          if (SHIBYTE(v37[2]) >= 0)
           {
-            v48 = v65;
+            v32 = v37;
           }
 
           else
           {
-            LOBYTE(v48) = v65[0];
+            v32 = v37[0];
           }
 
-          otbrLog(6u, "MDNS", "QueryRecord submitted for instance=%s err=%d", v43, v44, v45, v46, v47, v48);
+          otbrLog(6, "MDNS", "QueryRecord submitted for instance=%s err=%d", v32, Record);
         }
       }
 
-      ++v32;
+      ++v21;
     }
 
-    while (v32 != v31);
-    v30 = *(this + 2);
-    v14 = Record != 0;
+    while (v21 != v20);
+    v19 = *(this + 2);
+    v14 = v22 != 0;
   }
 
-  v61 = (v30[9] - v30[8]) >> 3;
-  otbrLog(6u, "MDNS", "QueryRecord list size=%zu resolving list size=%zu", v23, v24, v25, v26, v27, (v30[12] - v30[11]) >> 3);
-  otbr::Ip6Address::ToString(&v64, &__p);
-  v54 = "add";
-  if ((a3 & 2) == 0)
+  otbrLog(6, "MDNS", "QueryRecord list size=%zu resolving list size=%zu", (v19[12] - v19[11]) >> 3, (v19[9] - v19[8]) >> 3);
+  otbr::Ip6Address::ToString(&__p, &v36);
+  v33 = "add";
+  if ((v11 & 2) == 0)
   {
-    v54 = "remove";
+    v33 = "remove";
   }
 
-  otbrLog(6u, "MDNS", "DNSServiceGetAddrInfo reply: %s address=%s, ttl=%u", v49, v50, v51, v52, v53, v54);
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v34 = &__p;
+  }
+
+  else
+  {
+    v34 = __p.__r_.__value_.__r.__words[0];
+  }
+
+  otbrLog(6, "MDNS", "DNSServiceGetAddrInfo reply: %s address=%s, ttl=%u", v33, v34, a8);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  if ((a3 & 2) != 0)
+  if ((v11 & 2) != 0)
   {
-    otbr::Mdns::Publisher::AddAddress(this + 20, &v64);
+    otbr::Mdns::Publisher::AddAddress(this + 20, &v36);
   }
 
-  otbrLog(4u, "MDNS", "Ignore the RMV event for GetAddrInfo", v55, v56, v57, v58, v59, v60);
-  *(this + 54) = v8;
+  otbrLog(4, "MDNS", "Ignore the RMV event for GetAddrInfo");
+  *(this + 54) = a8;
 LABEL_14:
   if (*(this + 20) != *(this + 21) || v14)
   {
     otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::FinishResolution(this);
   }
 
-  if (SHIBYTE(v65[2]) < 0)
+  if (SHIBYTE(v37[2]) < 0)
   {
-    operator delete(v65[0]);
+    operator delete(v37[0]);
   }
 }
 
@@ -4650,16 +7025,16 @@ void sub_1003D18E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(char *__s@<X1>, const void **a2@<X0>, void **a3@<X8>)
+uint64_t *std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(uint64_t ***__return_ptr a1@<X8>, char *__s@<X1>, const void ***a3@<X0>)
 {
-  if (*(a2 + 23) >= 0)
+  if (*(a3 + 23) >= 0)
   {
-    v6 = *(a2 + 23);
+    v6 = *(a3 + 23);
   }
 
   else
   {
-    v6 = a2[1];
+    v6 = a3[1];
   }
 
   result = strlen(__s);
@@ -4671,42 +7046,41 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
   else
   {
     v8 = result;
-    result = std::string::basic_string[abi:ne200100](a3, v6 + result);
-    if (*(a3 + 23) < 0)
+    result = std::string::basic_string[abi:ne200100](a1, result + v6);
+    if (*(a1 + 23) < 0)
     {
-      a3 = *a3;
+      a1 = *a1;
     }
 
     if (v6)
     {
-      if (*(a2 + 23) >= 0)
+      if (*(a3 + 23) >= 0)
       {
-        v9 = a2;
+        v9 = a3;
       }
 
       else
       {
-        v9 = *a2;
+        v9 = *a3;
       }
 
-      result = memmove(a3, v9, v6);
+      result = memmove(a1, v9, v6);
     }
 
     if (v8)
     {
-      result = memmove(a3 + v6, __s, v8);
+      result = memmove(a1 + v6, __s, v8);
     }
 
-    *(a3 + v6 + v8) = 0;
+    *(v8 + a1 + v6) = 0;
   }
 
   return result;
 }
 
-void otbr::Mdns::PublisherMDnsSd::HostSubscription::HandleResolveResult(otbr::Mdns::PublisherMDnsSd::HostSubscription *this, _DNSServiceRef_t *a2, char a3, uint64_t a4, uint64_t a5, char *a6, const sockaddr_in6 *a7, uint64_t a8)
+void otbr::Mdns::PublisherMDnsSd::HostSubscription::HandleResolveResult(otbr::Mdns::PublisherMDnsSd::HostSubscription *this, _DNSServiceRef_t *a2, int a3, int a4, uint64_t a5, char *a6, const sockaddr_in6 *a7, int a8)
 {
-  v8 = a8;
-  v12 = a4;
+  v13 = a3;
   if (a5)
   {
     v15 = 4;
@@ -4717,15 +7091,14 @@ void otbr::Mdns::PublisherMDnsSd::HostSubscription::HandleResolveResult(otbr::Md
     v15 = 6;
   }
 
-  v48 = 0uLL;
-  sin6_family = a7->sin6_family;
-  otbrLog(v15, "MDNS", "DNSServiceGetAddrInfo reply: flags=%u, host=%s, sa_family=%u, error=%d", a4, a5, a6, a7, a8, a3);
+  v33 = 0uLL;
+  otbrLog(v15, "MDNS", "DNSServiceGetAddrInfo reply: flags=%u, host=%s, sa_family=%u, error=%d", a3, a6, a7->sin6_family, a5);
   if (a5)
   {
     v16 = *(this + 1);
     std::string::basic_string[abi:ne200100]<0>(__p, a6);
     otbr::Mdns::Publisher::OnHostResolveFailed((v16 + 8), __p, a5);
-    if (v39 < 0)
+    if (v24 < 0)
     {
       v17 = __p[0];
 LABEL_7:
@@ -4735,104 +7108,114 @@ LABEL_7:
 
   else if (a7->sin6_family == 30)
   {
-    otbr::Ip6Address::CopyFrom(&v48, a7);
-    if ((v48.n128_u16[0] & 0xC0FF) == 0x80FE)
+    otbr::Ip6Address::CopyFrom(&v33, a7);
+    if ((v33.n128_u16[0] & 0xC0FF) == 0x80FE)
     {
-      otbr::Ip6Address::ToString(&v48, v46);
-      if (v47 >= 0)
+      otbr::Ip6Address::ToString(v31, &v33);
+      if (v32 >= 0)
       {
-        v23 = v46;
+        v18 = v31;
       }
 
       else
       {
-        LOBYTE(v23) = v46[0];
+        v18 = v31[0];
       }
 
-      otbrLog(7u, "MDNS", "DNSServiceGetAddrInfo ignore link-local address %s", v18, v19, v20, v21, v22, v23);
-      if (v47 < 0)
+      otbrLog(7, "MDNS", "DNSServiceGetAddrInfo ignore link-local address %s", v18);
+      if (v32 < 0)
       {
-        v17 = v46[0];
+        v17 = v31[0];
         goto LABEL_7;
       }
     }
 
     else
     {
-      otbr::Ip6Address::ToString(&v48, v46);
-      v29 = "add";
-      if ((a3 & 2) == 0)
+      otbr::Ip6Address::ToString(v31, &v33);
+      v19 = "add";
+      if ((v13 & 2) == 0)
       {
-        v29 = "remove";
+        v19 = "remove";
       }
 
-      otbrLog(6u, "MDNS", "DNSServiceGetAddrInfo reply: %s address=%s, ttl=%u", v24, v25, v26, v27, v28, v29);
-      if (v47 < 0)
+      if (v32 >= 0)
       {
-        operator delete(v46[0]);
-      }
-
-      v30 = (this + 64);
-      if ((a3 & 2) != 0)
-      {
-        otbr::Mdns::Publisher::AddAddress(v30, &v48);
+        v20 = v31;
       }
 
       else
       {
-        otbr::Mdns::Publisher::RemoveAddress(v30, &v48);
+        v20 = v31[0];
+      }
+
+      otbrLog(6, "MDNS", "DNSServiceGetAddrInfo reply: %s address=%s, ttl=%u", v19, v20, a8);
+      if (v32 < 0)
+      {
+        operator delete(v31[0]);
+      }
+
+      v21 = (this + 64);
+      if ((v13 & 2) != 0)
+      {
+        otbr::Mdns::Publisher::AddAddress(v21, &v33);
+      }
+
+      else
+      {
+        otbr::Mdns::Publisher::RemoveAddress(v21, &v33);
       }
 
       std::string::assign((this + 40), a6);
-      *(this + 22) = v12;
-      *(this + 23) = v8;
-      v31 = *(this + 1);
+      *(this + 22) = a4;
+      *(this + 23) = a8;
+      v22 = *(this + 1);
       if (*(this + 39) < 0)
       {
-        std::string::__init_copy_ctor_external(&v45, *(this + 2), *(this + 3));
+        std::string::__init_copy_ctor_external(&v30, *(this + 2), *(this + 3));
       }
 
       else
       {
-        v45 = *(this + 16);
+        v30 = *(this + 16);
       }
 
       if (*(this + 63) < 0)
       {
-        std::string::__init_copy_ctor_external(&v40, *(this + 5), *(this + 6));
+        std::string::__init_copy_ctor_external(&v25, *(this + 5), *(this + 6));
       }
 
       else
       {
-        v40 = *(this + 40);
+        v25 = *(this + 40);
       }
 
-      v41 = 0;
-      v42 = 0;
-      v43 = 0;
-      std::vector<otbr::Ip6Address>::__init_with_size[abi:ne200100]<otbr::Ip6Address*,otbr::Ip6Address*>(&v41, *(this + 8), *(this + 9), (*(this + 9) - *(this + 8)) >> 4);
-      v44 = *(this + 11);
-      otbr::Mdns::Publisher::OnHostResolved(v31 + 8, &v45, &v40, v32, v33, v34, v35, v36);
-      if (v41)
+      v26 = 0;
+      v27 = 0;
+      v28 = 0;
+      std::vector<otbr::Ip6Address>::__init_with_size[abi:ne200100]<otbr::Ip6Address*,otbr::Ip6Address*>(&v26, *(this + 8), *(this + 9), (*(this + 9) - *(this + 8)) >> 4);
+      v29 = *(this + 11);
+      otbr::Mdns::Publisher::OnHostResolved(v22 + 8, &v30, &v25);
+      if (v26)
       {
-        v42 = v41;
-        if (v43 - v41 < 0)
+        v27 = v26;
+        if (v28 - v26 < 0)
         {
           __break(0x550Cu);
           return;
         }
 
-        operator delete(v41);
+        operator delete(v26);
       }
 
-      if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v25.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v40.__r_.__value_.__l.__data_);
+        operator delete(v25.__r_.__value_.__l.__data_);
       }
 
-      if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v30.__r_.__value_.__r.__words[2]) < 0)
       {
-        v17 = v45.__r_.__value_.__r.__words[0];
+        v17 = v30.__r_.__value_.__r.__words[0];
         goto LABEL_7;
       }
     }
@@ -4876,29 +7259,29 @@ void std::__destroy_at[abi:ne200100]<std::pair<std::pair<std::string,std::string
   }
 }
 
-void std::__list_imp<otbr::Mdns::Publisher::DiscoverCallback>::clear(uint64_t *a1)
+void std::__list_imp<otbr::Mdns::Publisher::DiscoverCallback>::clear(uint64_t *result)
 {
-  if (a1[2])
+  if (result[2])
   {
-    v3 = *a1;
-    v2 = a1[1];
+    v3 = *result;
+    v2 = result[1];
     v4 = *v2;
-    *(v4 + 8) = *(*a1 + 8);
+    *(v4 + 8) = *(*result + 8);
     **(v3 + 8) = v4;
-    a1[2] = 0;
-    while (v2 != a1)
+    result[2] = 0;
+    while (v2 != result)
     {
-      v5 = v2[1];
-      std::__list_imp<otbr::Mdns::Publisher::DiscoverCallback>::__delete_node[abi:ne200100](a1, v2);
+      v5 = *(v2 + 8);
+      std::__list_imp<otbr::Mdns::Publisher::DiscoverCallback>::__delete_node[abi:ne200100](result, v2);
       v2 = v5;
     }
   }
 }
 
-void std::__list_imp<otbr::Mdns::Publisher::DiscoverCallback>::__delete_node[abi:ne200100](uint64_t a1, void *a2)
+void std::__list_imp<otbr::Mdns::Publisher::DiscoverCallback>::__delete_node[abi:ne200100](uint64_t a1, char *a2)
 {
-  std::__function::__value_func<void ()(std::string const&,otbr::Mdns::Publisher::DiscoveredHostInfo const&)>::~__value_func[abi:ne200100](a2 + 56);
-  std::__function::__value_func<void ()(std::string const&,otbr::Mdns::Publisher::DiscoveredInstanceInfo const&)>::~__value_func[abi:ne200100](a2 + 24);
+  std::__function::__value_func<void ()(std::string const&,otbr::Mdns::Publisher::DiscoveredHostInfo const&)>::~__value_func[abi:ne200100]((a2 + 56));
+  std::__function::__value_func<void ()(std::string const&,otbr::Mdns::Publisher::DiscoveredInstanceInfo const&)>::~__value_func[abi:ne200100]((a2 + 24));
 
   operator delete(a2);
 }
@@ -5025,30 +7408,30 @@ uint64_t otbr::Mdns::Publisher::ServiceRegistration::ServiceRegistration(uint64_
   return a1;
 }
 
-void sub_1003D2274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1003D2274(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
-  if (*(v4 + 119) < 0)
+  if (*(v7 + 119) < 0)
   {
-    operator delete(*(v4 + 96));
+    operator delete(*(v7 + 96));
   }
 
-  otbr::Mdns::Publisher::ServiceRegistration::ServiceRegistration(v4, (v4 + 72), (v4 + 48));
-  otbr::Mdns::Publisher::Registration::~Registration(v4);
+  otbr::Mdns::Publisher::ServiceRegistration::ServiceRegistration(v7, (v7 + 72), (v7 + 48));
+  otbr::Mdns::Publisher::Registration::~Registration(v7);
   _Unwind_Resume(a1);
 }
 
-void otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration::~DnssdServiceRegistration(otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration::~DnssdServiceRegistration(otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration *this)
 {
-  otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration::~DnssdServiceRegistration(this, a2, a3, a4, a5, a6, a7, a8);
+  otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration::~DnssdServiceRegistration(this);
 
   operator delete();
 }
 
 {
   *this = off_1004CE0C0;
-  otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration::Unregister(this, a2, a3, a4, a5, a6, a7, a8);
+  otbr::Mdns::PublisherMDnsSd::DnssdServiceRegistration::Unregister(this);
 
   otbr::Mdns::Publisher::ServiceRegistration::~ServiceRegistration(this);
 }
@@ -5062,7 +7445,7 @@ void otbr::Mdns::Publisher::ServiceRegistration::~ServiceRegistration(otbr::Mdns
 
 {
   *this = off_1004CE110;
-  otbr::Mdns::Publisher::ServiceRegistration::OnComplete(this, -12);
+  otbr::Mdns::Publisher::ServiceRegistration::OnComplete(this, 4294967284);
   v2 = *(this + 19);
   if (v2)
   {
@@ -5150,7 +7533,7 @@ void *otbr::Mdns::Publisher::HostRegistration::HostRegistration(uint64_t a1, __i
   *a3 = 0;
   *(a3 + 8) = 0;
   *(a3 + 16) = 0;
-  otbr::Mdns::Publisher::SortAddressList(__p, a1 + 72);
+  otbr::Mdns::Publisher::SortAddressList(__p, (a1 + 72));
   result = __p[0];
   if (!__p[0])
   {
@@ -5218,7 +7601,7 @@ void otbr::Mdns::Publisher::HostRegistration::~HostRegistration(otbr::Mdns::Publ
 
 {
   *this = off_1004CE180;
-  otbr::Mdns::Publisher::HostRegistration::OnComplete(this, -12);
+  otbr::Mdns::Publisher::HostRegistration::OnComplete(this, 4294967284);
   v2 = *(this + 9);
   if (v2)
   {
@@ -5264,16 +7647,16 @@ uint64_t otbr::Mdns::Publisher::KeyRegistration::KeyRegistration(uint64_t a1, __
   return a1;
 }
 
-void otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::~DnssdKeyRegistration(otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::~DnssdKeyRegistration(otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration *this)
 {
-  otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::~DnssdKeyRegistration(this, a2, a3, a4, a5, a6, a7, a8);
+  otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::~DnssdKeyRegistration(this);
 
   operator delete();
 }
 
 {
   *this = off_1004CE1A0;
-  otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::Unregister(this, a2, a3, a4, a5, a6, a7, a8);
+  otbr::Mdns::PublisherMDnsSd::DnssdKeyRegistration::Unregister(this);
 
   otbr::Mdns::Publisher::KeyRegistration::~KeyRegistration(this);
 }
@@ -5287,7 +7670,7 @@ void otbr::Mdns::Publisher::KeyRegistration::~KeyRegistration(otbr::Mdns::Publis
 
 {
   *this = off_1004CE1F0;
-  otbr::Mdns::Publisher::KeyRegistration::OnComplete(this, -12);
+  otbr::Mdns::Publisher::KeyRegistration::OnComplete(this, 4294967284);
   v2 = *(this + 9);
   if (v2)
   {
@@ -5333,7 +7716,7 @@ otbr::Mdns::Publisher::DiscoveredInstanceInfo *otbr::Mdns::Publisher::Discovered
   *(this + 7) = 0;
   *(this + 8) = 0;
   *(this + 9) = 0;
-  std::vector<otbr::Ip6Address>::__init_with_size[abi:ne200100]<otbr::Ip6Address*,otbr::Ip6Address*>(this + 56, *(a2 + 7), *(a2 + 8), (*(a2 + 8) - *(a2 + 7)) >> 4);
+  std::vector<otbr::Ip6Address>::__init_with_size[abi:ne200100]<otbr::Ip6Address*,otbr::Ip6Address*>(this + 7, *(a2 + 7), *(a2 + 8), (*(a2 + 8) - *(a2 + 7)) >> 4);
   v6 = *(a2 + 20);
   v7 = *(a2 + 42);
   *(this + 11) = 0;
@@ -5341,7 +7724,7 @@ otbr::Mdns::Publisher::DiscoveredInstanceInfo *otbr::Mdns::Publisher::Discovered
   *(this + 20) = v6;
   *(this + 12) = 0;
   *(this + 13) = 0;
-  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(this + 88, *(a2 + 11), *(a2 + 12), *(a2 + 12) - *(a2 + 11));
+  std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(this + 11, *(a2 + 11), *(a2 + 12), *(a2 + 12) - *(a2 + 11));
   *(this + 28) = *(a2 + 28);
   return this;
 }
@@ -5550,7 +7933,7 @@ uint64_t std::__function::__value_func<void ()(otbr::Mdns::Publisher::State)>::~
   return a1;
 }
 
-void std::vector<std::unique_ptr<otbr::Mdns::PublisherMDnsSd::ServiceSubscription>>::__destroy_vector::operator()[abi:ne200100](uint64_t ***a1)
+void std::vector<std::unique_ptr<otbr::Mdns::PublisherMDnsSd::ServiceSubscription>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -5583,7 +7966,7 @@ void std::vector<std::unique_ptr<otbr::Mdns::PublisherMDnsSd::ServiceSubscriptio
   }
 }
 
-void std::vector<std::unique_ptr<otbr::Mdns::PublisherMDnsSd::HostSubscription>>::__destroy_vector::operator()[abi:ne200100](uint64_t ***a1)
+void std::vector<std::unique_ptr<otbr::Mdns::PublisherMDnsSd::HostSubscription>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -5664,7 +8047,7 @@ void *std::__split_buffer<_DNSServiceRef_t *>::~__split_buffer(uint64_t a1)
   return result;
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5681,7 +8064,7 @@ void sub_1003D30E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -5755,9 +8138,9 @@ void std::_AllocatorDestroyRangeReverse<std::allocator<std::string>,std::string*
   }
 }
 
-uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
+void std::vector<BOOL>::reserve(void **a1, unint64_t a2)
 {
-  v2 = *(result + 16);
+  v2 = a1[2];
   if (v2 >> 58)
   {
     __break(0x550Cu);
@@ -5774,11 +8157,9 @@ uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
 
     std::vector<std::string>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -5798,9 +8179,9 @@ void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
   std::vector<std::string>::__throw_length_error[abi:ne200100]();
 }
 
-void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>>(void *result, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
-  v6 = a1[1];
+  v6 = result[1];
   v7 = v6 + a4;
   if (__CFADD__(v6, a4))
   {
@@ -5809,7 +8190,7 @@ void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>
 
   else
   {
-    a1[1] = v7;
+    result[1] = v7;
     if (!v6)
     {
       goto LABEL_5;
@@ -5822,17 +8203,17 @@ void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>
 LABEL_9:
         v20 = v4;
         v21 = v5;
-        v9 = *(a2 + 8);
+        v9 = *(a2 + 2);
         v10 = *a3;
-        v11 = *(a3 + 8);
-        v12 = *a1 + 8 * (v6 >> 6);
+        v11 = *(a3 + 2);
+        v12 = *result + 8 * (v6 >> 6);
         v18 = *a2;
         v19 = v9;
         v16 = v10;
         v17 = v11;
         v14 = v12;
         v15 = v6 & 0x3F;
-        std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(&v18, &v16, &v14, &v13);
+        std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(&v18, &v16, &v14, v13);
         return;
       }
 
@@ -5847,7 +8228,7 @@ LABEL_5:
         v8 = 0;
       }
 
-      *(*a1 + 8 * v8) = 0;
+      *(*result + 8 * v8) = 0;
       goto LABEL_9;
     }
   }
@@ -5975,7 +8356,7 @@ uint64_t std::__function::__value_func<void ()(otbrError)>::operator=[abi:ne2001
   return a1;
 }
 
-uint64_t std::vector<otbr::Ip6Address>::__init_with_size[abi:ne200100]<otbr::Ip6Address*,otbr::Ip6Address*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<otbr::Ip6Address>::__init_with_size[abi:ne200100]<otbr::Ip6Address*,otbr::Ip6Address*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5985,7 +8366,7 @@ uint64_t std::vector<otbr::Ip6Address>::__init_with_size[abi:ne200100]<otbr::Ip6
   return result;
 }
 
-void std::vector<otbr::Ip6Address>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<otbr::Ip6Address>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -6005,11 +8386,11 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<otbr::Ip6Address>>(ui
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,false>(const void **a1, const void **a2, uint64_t a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,false>(const void **result, const void **a2, uint64_t a3, uint64_t a4, char a5)
 {
 LABEL_1:
-  v10 = a1;
-  v88 = a1 - 3;
+  v10 = result;
+  v88 = result - 3;
   while (1)
   {
     v11 = a2 - v10;
@@ -6517,7 +8898,7 @@ LABEL_38:
 LABEL_61:
     if (!std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, v88, v10))
     {
-      a1 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::string *,std::__less<void,void> &>(v10, a2, a3);
+      result = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::string *,std::__less<void,void> &>(v10, a2, a3);
       a5 = 0;
       goto LABEL_1;
     }
@@ -6531,8 +8912,8 @@ LABEL_62:
 
     std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>(v10, v64, a3);
     v67 = v66;
-    a1 = v64 + 3;
-    std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>((v64 + 3), a2, a3);
+    result = (v64 + 24);
+    std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>((v64 + 24), a2, a3);
     if (!v68)
     {
       if (v67)
@@ -6543,7 +8924,7 @@ LABEL_62:
 LABEL_67:
       std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,false>(v10, v64, a3, a4, a5 & 1);
       a5 = 0;
-      a1 = v64 + 3;
+      result = (v64 + 24);
       goto LABEL_1;
     }
 
@@ -6717,14 +9098,14 @@ LABEL_10:
   return result;
 }
 
-void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>(uint64_t a1, const void **a2, uint64_t a3)
+void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>(const void **a1, const void **a2, uint64_t a3)
 {
   if (a1 != a2)
   {
     v17 = v3;
     v18 = v4;
-    v7 = (a1 + 24);
-    if ((a1 + 24) != a2)
+    v7 = a1 + 3;
+    if (a1 + 3 != a2)
     {
       v9 = 0;
       v10 = a1;
@@ -6742,14 +9123,14 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void
           v12 = v9;
           while (1)
           {
-            v13 = a1 + v12;
+            v13 = (a1 + v12);
             if (*(a1 + v12 + 47) < 0)
             {
-              operator delete(*(v13 + 24));
+              operator delete(v13[3]);
             }
 
-            *(v13 + 24) = *v13;
-            *(v13 + 40) = *(v13 + 16);
+            *(v13 + 3) = *v13;
+            v13[5] = v13[2];
             *(v13 + 23) = 0;
             *v13 = 0;
             if (!v12)
@@ -6758,7 +9139,7 @@ void std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void
             }
 
             v12 -= 24;
-            if (!std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, &v15, (v12 + a1)))
+            if (!std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, &v15, (a1 + v12)))
             {
               v14 = a1 + v12 + 24;
               goto LABEL_12;
@@ -6940,13 +9321,12 @@ const void **std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlg
   return v6;
 }
 
-unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::string *,std::__less<void,void> &>(__int128 *a1, const void **a2, uint64_t a3)
+char *std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolicy,std::string *,std::__less<void,void> &>(__int128 *a1, const void **a2, uint64_t a3)
 {
   v6 = 0;
   v17 = *a1;
   v18 = *(a1 + 2);
-  *(a1 + 1) = 0;
-  *(a1 + 2) = 0;
+  *(a1 + 8) = 0uLL;
   *a1 = 0;
   do
   {
@@ -6993,11 +9373,11 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
     {
       v19 = *v9;
       v10 = v19;
-      v20 = *(v9 + 16);
+      v20 = *(v9 + 2);
       v11 = v20;
       v12 = v8[2];
       *v9 = *v8;
-      *(v9 + 16) = v12;
+      *(v9 + 2) = v12;
       v8[2] = v11;
       *v8 = v10;
       do
@@ -7018,7 +9398,7 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
   }
 
   v13 = (v9 - 24);
-  if ((v9 - 24) != a1)
+  if (v9 - 24 != a1)
   {
     if (*(a1 + 23) < 0)
     {
@@ -7026,7 +9406,7 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
     }
 
     v14 = *v13;
-    *(a1 + 2) = *(v9 - 8);
+    *(a1 + 2) = *(v9 - 1);
     *a1 = v14;
     *(v9 - 1) = 0;
     *(v9 - 24) = 0;
@@ -7038,12 +9418,12 @@ unint64_t std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPo
   }
 
   v15 = v17;
-  *(v9 - 8) = v18;
+  *(v9 - 1) = v18;
   *v13 = v15;
   return v9 - 24;
 }
 
-void std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>(uint64_t a1, const void **a2, uint64_t a3)
+void std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>(__int128 *a1, const void **a2, uint64_t a3)
 {
   v6 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 3);
   if (v6 <= 2)
@@ -7065,63 +9445,63 @@ void std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
     }
 
 LABEL_17:
-    v21 = (a1 + 48);
-    v22 = std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, (a1 + 24), a1);
-    v23 = std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, (a1 + 48), (a1 + 24));
+    v21 = (a1 + 3);
+    v22 = std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, a1 + 3, a1);
+    v23 = std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, a1 + 6, a1 + 3);
     if (v22)
     {
       if (v23)
       {
-        v24 = *(a1 + 16);
+        v24 = *(a1 + 2);
         v25 = *a1;
         *a1 = *v21;
-        *(a1 + 16) = *(a1 + 64);
+        *(a1 + 2) = *(a1 + 8);
       }
 
       else
       {
-        v38 = *(a1 + 16);
+        v38 = *(a1 + 2);
         v39 = *a1;
         *a1 = *(a1 + 24);
-        *(a1 + 16) = *(a1 + 40);
+        *(a1 + 2) = *(a1 + 5);
         *(a1 + 24) = v39;
-        *(a1 + 40) = v38;
-        if (!std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, (a1 + 48), (a1 + 24)))
+        *(a1 + 5) = v38;
+        if (!std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, a1 + 6, a1 + 3))
         {
           goto LABEL_33;
         }
 
-        v24 = *(a1 + 40);
+        v24 = *(a1 + 5);
         v25 = *(a1 + 24);
         *(a1 + 24) = *v21;
-        *(a1 + 40) = *(a1 + 64);
+        *(a1 + 5) = *(a1 + 8);
       }
 
       *v21 = v25;
-      *(a1 + 64) = v24;
+      *(a1 + 8) = v24;
     }
 
     else if (v23)
     {
-      v31 = *(a1 + 40);
+      v31 = *(a1 + 5);
       v32 = *(a1 + 24);
       *(a1 + 24) = *v21;
-      *(a1 + 40) = *(a1 + 64);
+      *(a1 + 5) = *(a1 + 8);
       *v21 = v32;
-      *(a1 + 64) = v31;
-      if (std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, (a1 + 24), a1))
+      *(a1 + 8) = v31;
+      if (std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, a1 + 3, a1))
       {
-        v33 = *(a1 + 16);
+        v33 = *(a1 + 2);
         v34 = *a1;
         *a1 = *(a1 + 24);
-        *(a1 + 16) = *(a1 + 40);
+        *(a1 + 2) = *(a1 + 5);
         *(a1 + 24) = v34;
-        *(a1 + 40) = v33;
+        *(a1 + 5) = v33;
       }
     }
 
 LABEL_33:
-    v40 = (a1 + 72);
+    v40 = a1 + 9;
     if ((a1 + 72) != a2)
     {
       v41 = 0;
@@ -7203,7 +9583,7 @@ LABEL_43:
   {
     if (v6 == 4)
     {
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,0>(a1, (a1 + 24), (a1 + 48), (a2 - 3), a3);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,0>(a1, a1 + 3, a1 + 6, (a2 - 3), a3);
       return;
     }
 
@@ -7213,58 +9593,58 @@ LABEL_43:
     }
 
     v8 = a2 - 3;
-    std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,0>(a1, (a1 + 24), (a1 + 48), (a1 + 72), a3);
-    if (!std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, v8, (a1 + 72)))
+    std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,0>(a1, a1 + 3, a1 + 6, (a1 + 72), a3);
+    if (!std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, v8, a1 + 9))
     {
       return;
     }
 
-    v9 = *(a1 + 88);
+    v9 = *(a1 + 11);
     v10 = *(a1 + 72);
     v11 = v8[2];
     *(a1 + 72) = *v8;
-    *(a1 + 88) = v11;
+    *(a1 + 11) = v11;
     *v8 = v10;
     v8[2] = v9;
-    if (!std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, (a1 + 72), (a1 + 48)))
+    if (!std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, a1 + 9, a1 + 6))
     {
       return;
     }
 
-    v12 = *(a1 + 64);
-    v13 = *(a1 + 48);
-    *(a1 + 48) = *(a1 + 72);
-    *(a1 + 64) = *(a1 + 88);
+    v12 = *(a1 + 8);
+    v13 = a1[3];
+    a1[3] = *(a1 + 72);
+    *(a1 + 8) = *(a1 + 11);
     *(a1 + 72) = v13;
-    *(a1 + 88) = v12;
-    if (!std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, (a1 + 48), (a1 + 24)))
+    *(a1 + 11) = v12;
+    if (!std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, a1 + 6, a1 + 3))
     {
       return;
     }
 
-    v14 = *(a1 + 40);
+    v14 = *(a1 + 5);
     v15 = *(a1 + 24);
-    *(a1 + 24) = *(a1 + 48);
-    *(a1 + 40) = *(a1 + 64);
-    *(a1 + 48) = v15;
-    *(a1 + 64) = v14;
+    *(a1 + 24) = a1[3];
+    *(a1 + 5) = *(a1 + 8);
+    a1[3] = v15;
+    *(a1 + 8) = v14;
 LABEL_23:
-    if (std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, (a1 + 24), a1))
+    if (std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, a1 + 3, a1))
     {
-      v29 = *(a1 + 16);
+      v29 = *(a1 + 2);
       v30 = *a1;
       *a1 = *(a1 + 24);
-      *(a1 + 16) = *(a1 + 40);
+      *(a1 + 2) = *(a1 + 5);
       *(a1 + 24) = v30;
-      *(a1 + 40) = v29;
+      *(a1 + 5) = v29;
     }
 
     return;
   }
 
   v7 = a2 - 3;
-  v16 = std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, (a1 + 24), a1);
-  v17 = std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, v7, (a1 + 24));
+  v16 = std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, a1 + 3, a1);
+  v17 = std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, v7, a1 + 3);
   if (!v16)
   {
     if (!v17)
@@ -7272,11 +9652,11 @@ LABEL_23:
       return;
     }
 
-    v26 = *(a1 + 40);
+    v26 = *(a1 + 5);
     v27 = *(a1 + 24);
     v28 = v7[2];
     *(a1 + 24) = *v7;
-    *(a1 + 40) = v28;
+    *(a1 + 5) = v28;
     *v7 = v27;
     v7[2] = v26;
     goto LABEL_23;
@@ -7285,35 +9665,35 @@ LABEL_23:
   if (v17)
   {
 LABEL_15:
-    v18 = *(a1 + 16);
+    v18 = *(a1 + 2);
     v19 = *a1;
     v20 = v7[2];
     *a1 = *v7;
-    *(a1 + 16) = v20;
+    *(a1 + 2) = v20;
 LABEL_16:
     *v7 = v19;
     v7[2] = v18;
     return;
   }
 
-  v35 = *(a1 + 16);
+  v35 = *(a1 + 2);
   v36 = *a1;
   *a1 = *(a1 + 24);
-  *(a1 + 16) = *(a1 + 40);
+  *(a1 + 2) = *(a1 + 5);
   *(a1 + 24) = v36;
-  *(a1 + 40) = v35;
-  if (std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, v7, (a1 + 24)))
+  *(a1 + 5) = v35;
+  if (std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a3, v7, a1 + 3))
   {
-    v18 = *(a1 + 40);
+    v18 = *(a1 + 5);
     v19 = *(a1 + 24);
     v37 = v7[2];
     *(a1 + 24) = *v7;
-    *(a1 + 40) = v37;
+    *(a1 + 5) = v37;
     goto LABEL_16;
   }
 }
 
-__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,std::string *>(uint64_t a1, __int128 *a2, __int128 *a3, uint64_t a4)
+__int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,std::string *>(__int128 *a1, __int128 *a2, __int128 *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
@@ -7344,11 +9724,11 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__l
         {
           v14 = *(v13 + 2);
           v15 = *v13;
-          v16 = *(a1 + 16);
+          v16 = *(a1 + 2);
           *v13 = *a1;
           *(v13 + 2) = v16;
           *a1 = v15;
-          *(a1 + 16) = v14;
+          *(a1 + 2) = v14;
           std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>(a1, a4, v9, a1);
         }
 
@@ -7361,17 +9741,17 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__l
     if (v8 >= 25)
     {
       v17 = 0xAAAAAAAAAAAAAAABLL * (v8 >> 3);
-      v18 = (a2 - 24);
+      v18 = a2 - 24;
       do
       {
         if (v17 >= 2)
         {
           v19 = *a1;
-          *v27 = *(a1 + 8);
+          *v27 = *(a1 + 1);
           *&v27[7] = *(a1 + 15);
           v20 = *(a1 + 23);
-          *(a1 + 8) = 0;
-          *(a1 + 16) = 0;
+          *(a1 + 1) = 0;
+          *(a1 + 2) = 0;
           *a1 = 0;
           std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>(a1, a4, v17);
           v22 = v21;
@@ -7402,12 +9782,12 @@ __int128 *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__l
             *v18 = v19;
             *(v18 + 1) = *v27;
             *(v18 + 15) = *&v27[7];
-            *(v18 + 23) = v20;
+            v18[23] = v20;
             std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>(a1, v22 + 24, a4, 0xAAAAAAAAAAAAAAABLL * ((v22 + 24 - a1) >> 3));
           }
         }
 
-        v18 = (v18 - 24);
+        v18 -= 24;
       }
 
       while (v17-- > 2);
@@ -7439,12 +9819,12 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void
     if ((v4 >> 1) >= (0xAAAAAAAAAAAAAAABLL * ((a4 - a1) >> 3)))
     {
       v10 = (0x5555555555555556 * ((a4 - a1) >> 3)) | 1;
-      v11 = (a1 + 24 * v10);
+      v11 = a1 + 24 * v10;
       v12 = 0x5555555555555556 * ((a4 - a1) >> 3) + 2;
-      if (v12 < a3 && std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a2, (a1 + 24 * v10), v11 + 3))
+      if (v12 < a3 && std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a2, (a1 + 24 * v10), (v11 + 24)))
       {
         v10 = v12;
-        v11 = (v11 + 24);
+        v11 += 24;
       }
 
       if (!std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a2, v11, v5))
@@ -7463,7 +9843,7 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void
           }
 
           v14 = *v11;
-          *(v5 + 2) = *(v11 + 2);
+          *(v5 + 2) = *(v11 + 16);
           *v5 = v14;
           *(v11 + 23) = 0;
           *v11 = 0;
@@ -7483,10 +9863,10 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void
           }
 
           v15 = (2 * v10) | 1;
-          v11 = (a1 + 24 * v15);
+          v11 = a1 + 24 * v15;
           if (2 * v10 + 2 < a3)
           {
-            v16 = std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a2, (a1 + 24 * v15), v11 + 3);
+            v16 = std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a2, (a1 + 24 * v15), (v11 + 24));
             if (v16)
             {
               v17 = 24;
@@ -7497,7 +9877,7 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void
               v17 = 0;
             }
 
-            v11 = (v11 + v17);
+            v11 += v17;
             if (v16)
             {
               v15 = 2 * v10 + 2;
@@ -7515,7 +9895,7 @@ void std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void
 
 LABEL_22:
             v18 = v19;
-            *(v13 + 2) = v20;
+            *(v13 + 16) = v20;
             *v13 = v18;
             return;
           }
@@ -7545,8 +9925,8 @@ LABEL_18:
       break;
     }
 
-    v9 = a1 + 24 * v5;
-    v10 = (v9 + 24);
+    v9 = a1 + 3 * v5;
+    v10 = (v9 + 3);
     v11 = (2 * v5) | 1;
     if (v8 >= a3)
     {
@@ -7555,8 +9935,8 @@ LABEL_18:
 
     else
     {
-      v12 = (v9 + 48);
-      if (std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a2, (v9 + 24), (v9 + 48)))
+      v12 = (v9 + 6);
+      if (std::__less<void,void>::operator()[abi:ne200100]<std::string,std::string>(a2, v9 + 3, v9 + 6))
       {
         v10 = v12;
         v5 = v8;
@@ -7576,7 +9956,7 @@ LABEL_18:
     v13 = *v10;
     *(a1 + 2) = *(v10 + 2);
     *a1 = v13;
-    *(v10 + 23) = 0;
+    v10[23] = 0;
     *v10 = 0;
     if (v6)
     {
@@ -7835,20 +10215,17 @@ __n128 otbr::Mdns::PublisherMDnsSd::ServiceInstanceResolution::ServiceInstanceRe
   v7 = *a3;
   *(a1 + 40) = *(a3 + 2);
   *(a1 + 24) = v7;
-  *(a3 + 1) = 0;
-  *(a3 + 2) = 0;
+  *(a3 + 8) = 0uLL;
   *a3 = 0;
   v8 = *a4;
   *(a1 + 64) = *(a4 + 2);
   *(a1 + 48) = v8;
-  *(a4 + 1) = 0;
-  *(a4 + 2) = 0;
+  *(a4 + 8) = 0uLL;
   *a4 = 0;
   result = *a5;
   *(a1 + 88) = a5[1].n128_u64[0];
   *(a1 + 72) = result;
-  a5->n128_u64[1] = 0;
-  a5[1].n128_u64[0] = 0;
+  *(a5 + 8) = 0uLL;
   a5->n128_u64[0] = 0;
   *(a1 + 96) = a6;
   *(a1 + 104) = 0;
@@ -7946,15 +10323,15 @@ void *std::__split_buffer<std::unique_ptr<otbr::Mdns::PublisherMDnsSd::ServiceIn
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::__map_value_compare<std::pair<std::string,std::string>,std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::less<std::pair<std::string,std::string>>,true>,std::allocator<std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>>>::__emplace_unique_key_args<std::pair<std::string,std::string>,std::piecewise_construct_t const&,std::tuple<std::pair<std::string,std::string>&&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::__map_value_compare<std::pair<std::string,std::string>,std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::less<std::pair<std::string,std::string>>,true>,std::allocator<std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>>>::__emplace_unique_key_args<std::pair<std::string,std::string>,std::piecewise_construct_t const&,std::tuple<std::pair<std::string,std::string>&&>,std::tuple<>>(uint64_t a1, const void **a2, uint64_t a3, __int128 **a4)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::__map_value_compare<std::pair<std::string,std::string>,std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::less<std::pair<std::string,std::string>>,true>,std::allocator<std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>>>::__find_equal<std::pair<std::string,std::string>>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::__map_value_compare<std::pair<std::string,std::string>,std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::less<std::pair<std::string,std::string>>,true>,std::allocator<std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>>>::__find_equal<std::pair<std::string,std::string>>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 uint64_t std::__tree<std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::__map_value_compare<std::pair<std::string,std::string>,std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::less<std::pair<std::string,std::string>>,true>,std::allocator<std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>>>::__find_equal<std::pair<std::string,std::string>>(uint64_t a1, uint64_t *a2, const void **a3)
@@ -8003,7 +10380,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t *std::__tree<std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::__map_value_compare<std::pair<std::string,std::string>,std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::less<std::pair<std::string,std::string>>,true>,std::allocator<std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::__map_value_compare<std::pair<std::string,std::string>,std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::less<std::pair<std::string,std::string>>,true>,std::allocator<std::__value_type<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -8032,7 +10409,7 @@ uint64_t *std::__tree<std::__value_type<std::pair<std::string,std::string>,std::
   return result;
 }
 
-void *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char const*,unsigned char const*>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -8096,7 +10473,7 @@ void *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char
   {
     result = memmove(*result, __src, v12 - v9);
     v12 = v7[1];
-    v14 = &v12[-*v7];
+    v14 = v12 - *v7;
   }
 
   if (v14 <= a4)
@@ -8127,9 +10504,9 @@ LABEL_23:
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t *std::__tree<std::__value_type<std::string,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  result = *std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__find_equal<std::string>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__find_equal<std::string>(a1, &v6, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -8167,7 +10544,7 @@ int *otbr::Mdns::Publisher::PublishService(int *a1, uint64_t a2, __int128 *a3, _
 {
   rep = std::chrono::steady_clock::now().__d_.__rep_;
   std::pair<std::string,std::string>::pair[abi:ne200100]<std::string&,std::string&,0>(&v18, a3, a4);
-  *std::map<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>::operator[]((a1 + 28), &v18.__r_.__value_.__l.__data_) = rep;
+  *std::map<std::pair<std::string,std::string>,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>::operator[]((a1 + 28), &v18) = rep;
   if (v20 < 0)
   {
     operator delete(__p);
@@ -8278,7 +10655,7 @@ LABEL_18:
 int *otbr::Mdns::Publisher::PublishHost(int *a1, const void **a2, uint64_t a3, uint64_t a4)
 {
   rep = std::chrono::steady_clock::now().__d_.__rep_;
-  *std::map<std::string,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>::operator[]((a1 + 34), a2) = rep;
+  *std::map<std::string,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>::operator[](a1 + 17, a2) = rep;
   result = (*(*a1 + 120))(a1, a2, a3, a4);
   if (result)
   {
@@ -8292,7 +10669,7 @@ int *otbr::Mdns::Publisher::PublishHost(int *a1, const void **a2, uint64_t a3, u
 int *otbr::Mdns::Publisher::PublishKey(int *a1, const void **a2, uint64_t a3, uint64_t a4)
 {
   rep = std::chrono::steady_clock::now().__d_.__rep_;
-  *std::map<std::string,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>::operator[]((a1 + 40), a2) = rep;
+  *std::map<std::string,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>::operator[](a1 + 20, a2) = rep;
   result = (*(*a1 + 128))(a1, a2, a3, a4);
   if (result)
   {
@@ -8429,11 +10806,11 @@ LABEL_8:
   return std::__tree<std::__value_type<std::string,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>>>::erase((a1 + 208), v6);
 }
 
-char *otbr::Mdns::Publisher::EncodeTxtData(char *result, uint64_t a2)
+uint64_t otbr::Mdns::Publisher::EncodeTxtData(uint64_t result, uint64_t a2)
 {
   *(a2 + 8) = *a2;
   v3 = *result;
-  v4 = *(result + 1);
+  v4 = *(result + 8);
   if (*result != v4)
   {
     do
@@ -8498,13 +10875,13 @@ char *otbr::Mdns::Publisher::EncodeTxtData(char *result, uint64_t a2)
   return 0;
 }
 
-void *std::vector<unsigned char>::push_back[abi:ne200100](void *result, _BYTE *a2)
+void std::vector<unsigned char>::push_back[abi:ne200100](void *a1, _BYTE *a2)
 {
-  v3 = result[1];
-  v2 = result[2];
+  v3 = a1[1];
+  v2 = a1[2];
   if (v3 >= v2)
   {
-    v4 = &v3[-*result];
+    v4 = &v3[-*a1];
     if (v4 == -1)
     {
       __break(0x5500u);
@@ -8512,7 +10889,6 @@ void *std::vector<unsigned char>::push_back[abi:ne200100](void *result, _BYTE *a
 
     else if (((v4 + 1) & 0x8000000000000000) == 0)
     {
-      *result;
       operator new();
     }
 
@@ -8520,11 +10896,10 @@ void *std::vector<unsigned char>::push_back[abi:ne200100](void *result, _BYTE *a
   }
 
   *v3 = *a2;
-  result[1] = v3 + 1;
-  return result;
+  a1[1] = v3 + 1;
 }
 
-uint64_t otbr::Mdns::Publisher::DecodeTxtData(uint64_t *a1, uint64_t a2, unsigned int a3)
+uint64_t otbr::Mdns::Publisher::DecodeTxtData(unint64_t *a1, uint64_t a2, unsigned int a3)
 {
   v6 = *a1;
   for (i = a1[1]; i != v6; std::allocator<otbr::Mdns::Publisher::TxtEntry>::destroy[abi:ne200100](a1, i))
@@ -8672,22 +11047,23 @@ LABEL_11:
   std::__list_imp<otbr::Mdns::Publisher::DiscoverCallback>::clear(v8);
 }
 
-void sub_1003D6A0C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1003D6A0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__list_imp<otbr::Mdns::Publisher::DiscoverCallback>::clear(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t otbr::Mdns::Publisher::AddSubscriptionCallbacks(uint64_t result)
+uint64_t otbr::Mdns::Publisher::AddSubscriptionCallbacks(uint64_t result, uint64_t a2, uint64_t a3)
 {
-  v1 = *(result + 80);
-  if (v1 != -1)
+  v3 = *(result + 80);
+  if (v3 != -1)
   {
-    *(result + 80) = v1 + 1;
-    if (v1)
+    *(result + 80) = v3 + 1;
+    v4 = v3;
+    if (v3)
     {
-      std::list<otbr::Mdns::Publisher::DiscoverCallback>::emplace_back<unsigned long long &,std::function<void ()(std::string const&,otbr::Mdns::Publisher::DiscoveredInstanceInfo const&)> &,std::function<void ()(std::string const&,otbr::Mdns::Publisher::DiscoveredHostInfo const&)> &>();
+      std::list<otbr::Mdns::Publisher::DiscoverCallback>::emplace_back<unsigned long long &,std::function<void ()(std::string const&,otbr::Mdns::Publisher::DiscoveredInstanceInfo const&)> &,std::function<void ()(std::string const&,otbr::Mdns::Publisher::DiscoveredHostInfo const&)> &>((result + 88), &v4, a2, a3);
     }
 
     otbr::Mdns::Publisher::AddSubscriptionCallbacks();
@@ -8697,117 +11073,122 @@ uint64_t otbr::Mdns::Publisher::AddSubscriptionCallbacks(uint64_t result)
   return result;
 }
 
-void otbr::Mdns::Publisher::OnServiceResolved(uint64_t a1, std::string *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void otbr::Mdns::Publisher::OnServiceResolved(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  LOBYTE(v11) = a2;
-  if (SHIBYTE(a2->__r_.__value_.__r.__words[2]) < 0)
+  v6 = a2;
+  if (*(a2 + 23) < 0)
   {
-    v11 = a2->__r_.__value_.__r.__words[0];
+    v6 = *a2;
   }
 
-  *a3;
+  v7 = "add";
+  if (*a3)
+  {
+    v7 = "remove";
+  }
+
+  v8 = (a3 + 8);
   if (*(a3 + 31) < 0)
   {
-    v12 = *(a3 + 8);
+    v8 = *(a3 + 8);
   }
 
+  v9 = (a3 + 32);
   if (*(a3 + 55) < 0)
   {
-    v13 = *(a3 + 32);
+    v9 = *(a3 + 32);
   }
 
-  v35 = (*(a3 + 64) - *(a3 + 56)) >> 4;
-  v36 = *(a3 + 4);
-  otbrLog(6u, "MDNS", "Service %s is resolved successfully: %s %s host %s addresses %zu", a4, a5, a6, a7, a8, v11);
+  otbrLog(6, "MDNS", "Service %s is resolved successfully: %s %s host %s addresses %zu", v6, v7, v8, v9, (*(a3 + 64) - *(a3 + 56)) >> 4);
   if ((*a3 & 1) == 0)
   {
-    memset(&v40, 0, sizeof(v40));
-    v19 = *(a3 + 56);
-    v20 = *(a3 + 64);
-    if (v19 != v20)
+    memset(&v29, 0, sizeof(v29));
+    v10 = *(a3 + 56);
+    v11 = *(a3 + 64);
+    if (v10 != v11)
     {
       do
       {
-        otbr::Ip6Address::ToString(v19, &v37);
-        v21 = std::string::append(&v37, ",");
-        v22 = *&v21->__r_.__value_.__l.__data_;
-        v39 = v21->__r_.__value_.__r.__words[2];
-        *__p = v22;
-        v21->__r_.__value_.__l.__size_ = 0;
-        v21->__r_.__value_.__r.__words[2] = 0;
-        v21->__r_.__value_.__r.__words[0] = 0;
-        if (v39 >= 0)
+        otbr::Ip6Address::ToString(&v26, v10);
+        v12 = std::string::append(&v26, ",");
+        v13 = *&v12->__r_.__value_.__l.__data_;
+        v28 = v12->__r_.__value_.__r.__words[2];
+        *__p = v13;
+        v12->__r_.__value_.__l.__size_ = 0;
+        v12->__r_.__value_.__r.__words[2] = 0;
+        v12->__r_.__value_.__r.__words[0] = 0;
+        if (v28 >= 0)
         {
-          v23 = __p;
+          v14 = __p;
         }
 
         else
         {
-          v23 = __p[0];
+          v14 = __p[0];
         }
 
-        if (v39 >= 0)
+        if (v28 >= 0)
         {
-          v24 = HIBYTE(v39);
+          v15 = HIBYTE(v28);
         }
 
         else
         {
-          v24 = __p[1];
+          v15 = __p[1];
         }
 
-        std::string::append(&v40, v23, v24);
-        if (SHIBYTE(v39) < 0)
+        std::string::append(&v29, v14, v15);
+        if (SHIBYTE(v28) < 0)
         {
           operator delete(__p[0]);
         }
 
-        if (SHIBYTE(v37.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v26.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v37.__r_.__value_.__l.__data_);
+          operator delete(v26.__r_.__value_.__l.__data_);
         }
 
-        v19 = (v19 + 16);
+        v10 = (v10 + 16);
       }
 
-      while (v19 != v20);
-      if ((SHIBYTE(v40.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+      while (v10 != v11);
+      if ((SHIBYTE(v29.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
       {
-        if (!v40.__r_.__value_.__l.__size_)
+        if (!v29.__r_.__value_.__l.__size_)
         {
-          goto LABEL_27;
+          goto LABEL_29;
         }
 
-        v25 = v40.__r_.__value_.__l.__size_ - 1;
-        v26 = v40.__r_.__value_.__r.__words[0];
-        --v40.__r_.__value_.__l.__size_;
-LABEL_26:
-        v26->__r_.__value_.__s.__data_[v25] = 0;
-LABEL_27:
-        v27 = &v40;
-        if ((v40.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        v16 = v29.__r_.__value_.__l.__size_ - 1;
+        v17 = v29.__r_.__value_.__r.__words[0];
+        --v29.__r_.__value_.__l.__size_;
+LABEL_28:
+        v17->__r_.__value_.__s.__data_[v16] = 0;
+LABEL_29:
+        v18 = &v29;
+        if ((v29.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          LOBYTE(v27) = v40.__r_.__value_.__s.__data_[0];
+          v18 = v29.__r_.__value_.__r.__words[0];
         }
 
-        goto LABEL_29;
+        goto LABEL_31;
       }
 
-      if (*(&v40.__r_.__value_.__s + 23))
+      if (*(&v29.__r_.__value_.__s + 23))
       {
-        v25 = SHIBYTE(v40.__r_.__value_.__r.__words[2]) - 1;
-        --*(&v40.__r_.__value_.__s + 23);
-        v26 = &v40;
-        goto LABEL_26;
+        v16 = SHIBYTE(v29.__r_.__value_.__r.__words[2]) - 1;
+        --*(&v29.__r_.__value_.__s + 23);
+        v17 = &v29;
+        goto LABEL_28;
       }
     }
 
-    v27 = &v40;
-LABEL_29:
-    otbrLog(6u, "MDNS", "addresses: [ %s ]", v14, v15, v16, v17, v18, v27);
-    if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+    v18 = &v29;
+LABEL_31:
+    otbrLog(6, "MDNS", "addresses: [ %s ]", v18);
+    if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v40.__r_.__value_.__l.__data_);
+      operator delete(v29.__r_.__value_.__l.__data_);
     }
   }
 
@@ -8817,45 +11198,45 @@ LABEL_29:
     otbr::DnsUtils::CheckHostnameSanity((a3 + 32));
   }
 
-  v28 = *(a1 + 360);
-  v29 = __CFADD__(v28, 1);
-  v30 = v28 + 1;
-  if (v29)
+  v19 = *(a1 + 360);
+  v20 = __CFADD__(v19, 1);
+  v21 = v19 + 1;
+  if (v20)
   {
     __break(0x5500u);
   }
 
   else
   {
-    *(a1 + 360) = v30;
+    *(a1 + 360) = v21;
     otbr::Mdns::Publisher::UpdateServiceInstanceResolutionEmaLatency(a1, (a3 + 8), a2, 0);
-    v31 = a1 + 88;
-    v32 = *(a1 + 96);
-    if (v32 != a1 + 88)
+    v22 = a1 + 88;
+    v23 = *(a1 + 96);
+    if (v23 != a1 + 88)
     {
-      v33 = 0;
+      v24 = 0;
       do
       {
-        if (*(v32 + 48))
+        if (*(v23 + 48))
         {
-          v33 = 1;
-          *(v32 + 88) = 1;
+          v24 = 1;
+          *(v23 + 88) = 1;
         }
 
-        v32 = *(v32 + 8);
+        v23 = *(v23 + 8);
       }
 
-      while (v32 != v31);
-      if (v33)
+      while (v23 != v22);
+      if (v24)
       {
-LABEL_40:
-        for (i = *(a1 + 96); i != v31; i = *(i + 8))
+LABEL_42:
+        for (i = *(a1 + 96); i != v22; i = *(i + 8))
         {
           if (*(i + 88) == 1)
           {
             *(i + 88) = 0;
             std::__function::__value_func<void ()(std::string const&,otbr::Mdns::Publisher::DiscoveredInstanceInfo const&)>::operator()[abi:ne200100](i + 24);
-            goto LABEL_40;
+            goto LABEL_42;
           }
         }
       }
@@ -8873,108 +11254,109 @@ void sub_1003D6D78(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void otbr::Mdns::Publisher::OnServiceRemoved(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void otbr::Mdns::Publisher::OnServiceRemoved(uint64_t a1, int a2, uint64_t a3, uint64_t a4)
 {
-  LOBYTE(v30[0]) = 0;
-  memset(&v30[1], 0, 48);
-  memset(v31, 0, sizeof(v31));
-  v32 = 0;
-  v34 = 0;
-  v35 = 0;
-  v33 = 0;
-  v36 = 0;
-  LOBYTE(v12) = a4;
+  LOBYTE(v21[0]) = 0;
+  memset(&v21[1], 0, 48);
+  memset(v22, 0, sizeof(v22));
+  v23 = 0;
+  v25 = 0;
+  v26 = 0;
+  v24 = 0;
+  v27 = 0;
+  v8 = a4;
   if (*(a4 + 23) < 0)
   {
-    v12 = *a4;
+    v8 = *a4;
   }
 
+  v9 = a3;
   if (*(a3 + 23) < 0)
   {
-    v13 = *a3;
+    v9 = *a3;
   }
 
-  otbrLog(6u, "MDNS", "Service %s.%s is removed from netif %u.", a4, a5, a6, a7, a8, v12);
-  LOBYTE(v30[0]) = 1;
-  v30[1] = a2;
-  std::string::operator=(&v30[2], a4);
+  otbrLog(6, "MDNS", "Service %s.%s is removed from netif %u.", v8, v9, a2);
+  LOBYTE(v21[0]) = 1;
+  v21[1] = a2;
+  std::string::operator=(&v21[2], a4);
   if (*(a3 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v29, *a3, *(a3 + 8));
+    std::string::__init_copy_ctor_external(&v20, *a3, *(a3 + 8));
   }
 
   else
   {
-    v29 = *a3;
+    v20 = *a3;
   }
 
-  otbr::Mdns::Publisher::DiscoveredInstanceInfo::DiscoveredInstanceInfo(v19, v30);
-  otbr::Mdns::Publisher::OnServiceResolved(a1, &v29, v19, v14, v15, v16, v17, v18);
+  otbr::Mdns::Publisher::DiscoveredInstanceInfo::DiscoveredInstanceInfo(v10, v21);
+  otbr::Mdns::Publisher::OnServiceResolved(a1, &v20, v10);
   if (__p)
   {
-    v28 = __p;
+    v19 = __p;
     operator delete(__p);
+  }
+
+  if (v15)
+  {
+    v16 = v15;
+    if (v17 - v15 < 0)
+    {
+      goto LABEL_29;
+    }
+
+    operator delete(v15);
+  }
+
+  if (v14 < 0)
+  {
+    operator delete(v13);
+  }
+
+  if (v12 < 0)
+  {
+    operator delete(v11);
+  }
+
+  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v20.__r_.__value_.__l.__data_);
   }
 
   if (v24)
   {
     v25 = v24;
-    if (v26 - v24 < 0)
-    {
-      goto LABEL_29;
-    }
-
     operator delete(v24);
   }
 
-  if (v23 < 0)
-  {
-    operator delete(v22);
-  }
-
-  if (v21 < 0)
-  {
-    operator delete(v20);
-  }
-
-  if (SHIBYTE(v29.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v29.__r_.__value_.__l.__data_);
-  }
-
-  if (v33)
-  {
-    v34 = v33;
-    operator delete(v33);
-  }
-
-  if (!*&v31[1])
+  if (!*&v22[1])
   {
     goto LABEL_24;
   }
 
-  *&v31[3] = *&v31[1];
-  if ((*&v31[5] - *&v31[1]) < 0)
+  *&v22[3] = *&v22[1];
+  if ((*&v22[5] - *&v22[1]) < 0)
   {
 LABEL_29:
     __break(0x550Cu);
     return;
   }
 
-  operator delete(*&v31[1]);
+  operator delete(*&v22[1]);
 LABEL_24:
-  if (SHIBYTE(v31[0]) < 0)
+  if (SHIBYTE(v22[0]) < 0)
   {
-    operator delete(*&v30[8]);
+    operator delete(*&v21[8]);
   }
 
-  if (SHIBYTE(v30[7]) < 0)
+  if (SHIBYTE(v21[7]) < 0)
   {
-    operator delete(*&v30[2]);
+    operator delete(*&v21[2]);
   }
 }
 
-void sub_1003D6F84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32, char a33)
+void sub_1003D6F84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *__p, uint64_t a28, int a29, __int16 a30, char a31, char a32, char a33)
 {
   otbr::Mdns::Publisher::DiscoveredInstanceInfo::~DiscoveredInstanceInfo(&a12);
   if (a32 < 0)
@@ -8986,66 +11368,65 @@ void sub_1003D6F84(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void otbr::Mdns::Publisher::OnHostResolved(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void otbr::Mdns::Publisher::OnHostResolved(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  LOBYTE(v11) = a2;
+  v6 = a2;
   if (*(a2 + 23) < 0)
   {
-    v11 = *a2;
+    v6 = *a2;
   }
 
+  v7 = a3;
   if (*(a3 + 23) < 0)
   {
-    v12 = *a3;
+    v7 = *a3;
   }
 
-  v21 = (*(a3 + 32) - *(a3 + 24)) >> 4;
-  v22 = *(a3 + 52);
-  otbrLog(6u, "MDNS", "Host %s is resolved successfully: host %s addresses %zu ttl %u", a4, a5, a6, a7, a8, v11);
-  v13 = *(a3 + 23);
-  if (v13 < 0)
+  otbrLog(6, "MDNS", "Host %s is resolved successfully: host %s addresses %zu ttl %u", v6, v7, (*(a3 + 32) - *(a3 + 24)) >> 4, *(a3 + 52));
+  v8 = *(a3 + 23);
+  if (v8 < 0)
   {
-    v13 = *(a3 + 8);
+    v8 = *(a3 + 8);
   }
 
-  if (v13)
+  if (v8)
   {
     otbr::DnsUtils::CheckHostnameSanity(a3);
   }
 
-  v14 = *(a1 + 328);
-  v15 = __CFADD__(v14, 1);
-  v16 = v14 + 1;
-  if (v15)
+  v9 = *(a1 + 328);
+  v10 = __CFADD__(v9, 1);
+  v11 = v9 + 1;
+  if (v10)
   {
     __break(0x5500u);
   }
 
   else
   {
-    *(a1 + 328) = v16;
+    *(a1 + 328) = v11;
     otbr::Mdns::Publisher::UpdateHostResolutionEmaLatency(a1, a2, 0);
-    v17 = a1 + 88;
-    v18 = *(a1 + 96);
-    if (v18 != a1 + 88)
+    v12 = a1 + 88;
+    v13 = *(a1 + 96);
+    if (v13 != a1 + 88)
     {
-      v19 = 0;
+      v14 = 0;
       do
       {
-        if (*(v18 + 80))
+        if (*(v13 + 80))
         {
-          v19 = 1;
-          *(v18 + 88) = 1;
+          v14 = 1;
+          *(v13 + 88) = 1;
         }
 
-        v18 = *(v18 + 8);
+        v13 = *(v13 + 8);
       }
 
-      while (v18 != v17);
-      if (v19)
+      while (v13 != v12);
+      if (v14)
       {
 LABEL_16:
-        for (i = *(a1 + 96); i != v17; i = *(i + 8))
+        for (i = *(a1 + 96); i != v12; i = *(i + 8))
         {
           if (*(i + 88) == 1)
           {
@@ -9059,10 +11440,10 @@ LABEL_16:
   }
 }
 
-__n128 otbr::Mdns::Publisher::SortSubTypeList@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+__n128 otbr::Mdns::Publisher::SortSubTypeList@<Q0>(const void ***a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = *a1;
-  v5 = *(a1 + 8);
+  v5 = a1[1];
   v6 = (2 * __clz(0xAAAAAAAAAAAAAAABLL * (v5 - v4))) ^ 0x7E;
   if (v5 == v4)
   {
@@ -9077,17 +11458,17 @@ __n128 otbr::Mdns::Publisher::SortSubTypeList@<Q0>(uint64_t a1@<X0>, uint64_t a2
   std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *,false>(v4, v5, &v9, v7, 1);
   result = *a1;
   *a2 = *a1;
-  *(a2 + 16) = *(a1 + 16);
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
+  *(a2 + 16) = a1[2];
+  a1[1] = 0;
+  a1[2] = 0;
   *a1 = 0;
   return result;
 }
 
-__n128 otbr::Mdns::Publisher::SortAddressList@<Q0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+__n128 otbr::Mdns::Publisher::SortAddressList@<Q0>(__n128 *a1@<X0>, __n128 *a2@<X8>)
 {
-  v4 = *a1;
-  v5 = *(a1 + 8);
+  v4 = a1->n128_u64[0];
+  v5 = a1->n128_u64[1];
   v6 = (2 * __clz((v5 - v4) >> 4)) ^ 0x7E;
   if (v5 == v4)
   {
@@ -9102,10 +11483,10 @@ __n128 otbr::Mdns::Publisher::SortAddressList@<Q0>(uint64_t a1@<X0>, uint64_t a2
   std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,otbr::Ip6Address *,false>(v4, v5, &v9, v7, 1);
   result = *a1;
   *a2 = *a1;
-  *(a2 + 16) = *(a1 + 16);
-  *(a1 + 8) = 0;
-  *(a1 + 16) = 0;
-  *a1 = 0;
+  a2[1].n128_u64[0] = a1[1].n128_u64[0];
+  a1->n128_u64[1] = 0;
+  a1[1].n128_u64[0] = 0;
+  a1->n128_u64[0] = 0;
   return result;
 }
 
@@ -9211,7 +11592,7 @@ void sub_1003D7304(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t otbr::Mdns::Publisher::MakeFullName@<X0>(const void **a1@<X0>, uint64_t a2@<X8>)
+char *otbr::Mdns::Publisher::MakeFullName@<X0>(const void **a1@<X0>, char *a2@<X8>)
 {
   result = a2;
   if (*(a1 + 23) >= 0)
@@ -9232,7 +11613,7 @@ uint64_t otbr::Mdns::Publisher::MakeFullName@<X0>(const void **a1@<X0>, uint64_t
   else
   {
     result = std::string::basic_string[abi:ne200100](a2, v4 + 6);
-    if (*(result + 23) >= 0)
+    if (result[23] >= 0)
     {
       v5 = result;
     }
@@ -9257,16 +11638,16 @@ uint64_t otbr::Mdns::Publisher::MakeFullName@<X0>(const void **a1@<X0>, uint64_t
       result = memmove(v5, v6, v4);
     }
 
-    strcpy(v5 + v4, ".local");
+    strcpy(&v5[v4], ".local");
   }
 
   return result;
 }
 
-void otbr::Mdns::Publisher::AddServiceRegistration(uint64_t a1, uint64_t a2)
+void otbr::Mdns::Publisher::AddServiceRegistration(uint64_t a1, uint64_t *a2)
 {
   otbr::Mdns::Publisher::MakeFullServiceName((*a2 + 72), *a2 + 96, &__p);
-  std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>>>::__emplace_unique_key_args<std::string,std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>(a1 + 8, &__p.__r_.__value_.__l.__data_);
+  std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>>>::__emplace_unique_key_args<std::string,std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>((a1 + 8), &__p.__r_.__value_.__l.__data_, &__p, a2);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -9283,10 +11664,10 @@ void sub_1003D7444(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void otbr::Mdns::Publisher::RemoveServiceRegistration(uint64_t a1, uint64_t a2, uint64_t a3, int a4)
+void otbr::Mdns::Publisher::RemoveServiceRegistration(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   otbr::Mdns::Publisher::MakeFullServiceName(a2, a3, &__p);
-  v13 = std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>>>::find<std::string>(a1 + 8, &__p.__r_.__value_.__l.__data_);
+  v8 = std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>>>::find<std::string>(a1 + 8, &__p.__r_.__value_.__l.__data_);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -9294,29 +11675,34 @@ void otbr::Mdns::Publisher::RemoveServiceRegistration(uint64_t a1, uint64_t a2, 
 
   if (*(a2 + 23) >= 0)
   {
-    LOBYTE(v14) = a2;
+    v9 = a2;
   }
 
   else
   {
-    v14 = *a2;
+    v9 = *a2;
   }
 
-  if (*(a3 + 23) < 0)
+  if (*(a3 + 23) >= 0)
   {
-    v15 = *a3;
+    v10 = a3;
   }
 
-  otbrLog(6u, "MDNS", "Removing service %s.%s", v8, v9, v10, v11, v12, v14);
-  if ((a1 + 16) != v13)
+  else
   {
-    v16 = v13[7];
-    v13[7] = 0;
-    std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>>>::erase((a1 + 8), v13);
-    otbr::Mdns::Publisher::ServiceRegistration::Complete(v16, a4);
-    if (v16)
+    v10 = *a3;
+  }
+
+  otbrLog(6, "MDNS", "Removing service %s.%s", v9, v10);
+  if ((a1 + 16) != v8)
+  {
+    v11 = v8[7];
+    v8[7] = 0;
+    std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>>>::erase((a1 + 8), v8);
+    otbr::Mdns::Publisher::ServiceRegistration::Complete(v11, a4);
+    if (v11)
     {
-      (*(*v16 + 8))(v16);
+      (*(*v11 + 8))(v11);
     }
   }
 }
@@ -9331,13 +11717,14 @@ void sub_1003D7568(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void otbr::Mdns::Publisher::ServiceRegistration::Complete(uint64_t a1, int a2)
+void otbr::Mdns::Publisher::ServiceRegistration::Complete(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   otbr::Mdns::Publisher::ServiceRegistration::OnComplete(a1, a2);
   if (*(a1 + 32))
   {
 
-    otbr::OnceCallback<void ()(otbrError)>::operator()(a1 + 8);
+    otbr::OnceCallback<void ()(otbrError)>::operator()(a1 + 8, v2);
   }
 }
 
@@ -9401,31 +11788,37 @@ void sub_1003D76E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t otbr::Mdns::Publisher::HandleDuplicateServiceRegistration@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X4>, int a6@<W5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
+uint64_t otbr::Mdns::Publisher::HandleDuplicateServiceRegistration@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>)
 {
+  v11 = a6;
   ServiceRegistration = otbr::Mdns::Publisher::FindServiceRegistration(a1, a3, a4);
   if (ServiceRegistration)
   {
     v19 = ServiceRegistration;
-    if (otbr::Mdns::Publisher::ServiceRegistration::IsOutdated(ServiceRegistration, a2, a3, a4, a5, a6, a7))
+    if (otbr::Mdns::Publisher::ServiceRegistration::IsOutdated(ServiceRegistration, a2, a3, a4, a5, v11, a7))
     {
       if (*(a3 + 23) >= 0)
       {
-        LOBYTE(v25) = a3;
+        v20 = a3;
       }
 
       else
       {
-        v25 = *a3;
+        v20 = *a3;
       }
 
-      if (*(a4 + 23) < 0)
+      if (*(a4 + 23) >= 0)
       {
-        v26 = *a4;
+        v21 = a4;
       }
 
-      otbrLog(6u, "MDNS", "Removing existing service %s.%s: outdated", v20, v21, v22, v23, v24, v25);
-      otbr::Mdns::Publisher::RemoveServiceRegistration(a1, a3, a4, -12);
+      else
+      {
+        v21 = *a4;
+      }
+
+      otbrLog(6, "MDNS", "Removing existing service %s.%s: outdated", v20, v21);
+      otbr::Mdns::Publisher::RemoveServiceRegistration(a1, a3, a4, 4294967284);
     }
 
     else
@@ -9435,7 +11828,7 @@ uint64_t otbr::Mdns::Publisher::HandleDuplicateServiceRegistration@<X0>(uint64_t
         std::allocate_shared[abi:ne200100]<otbr::OnceCallback<void ()(otbrError)>,std::allocator<otbr::OnceCallback<void ()(otbrError)>>,otbr::OnceCallback<void ()(otbrError)>,0>();
       }
 
-      otbr::OnceCallback<void ()(otbrError)>::operator()(a8);
+      otbr::OnceCallback<void ()(otbrError)>::operator()(a8, 0);
     }
   }
 
@@ -9443,25 +11836,25 @@ uint64_t otbr::Mdns::Publisher::HandleDuplicateServiceRegistration@<X0>(uint64_t
   return std::__function::__value_func<void ()(otbrError)>::operator=[abi:ne200100](a8);
 }
 
-void sub_1003D78F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, std::__shared_weak_count *a9, uint64_t a10, std::__shared_weak_count *a11, ...)
+void sub_1003D78F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, std::__shared_weak_count *a18, ...)
 {
-  va_start(va, a11);
-  std::__bind<otbr::Mdns::Publisher::HandleDuplicateServiceRegistration(std::string const&,std::string const&,std::string const&,std::vector<std::string> const&,unsigned short,std::vector<unsigned char> const&,otbr::OnceCallback<void ()(otbrError)> &&)::$_0,std::shared_ptr<otbr::OnceCallback<void ()(otbrError)>>,std::shared_ptr,std::placeholders::__ph<1> const&>::~__bind(v11 - 136);
+  va_start(va, a18);
+  std::__bind<otbr::Mdns::Publisher::HandleDuplicateServiceRegistration(std::string const&,std::string const&,std::string const&,std::vector<std::string> const&,unsigned short,std::vector<unsigned char> const&,otbr::OnceCallback<void ()(otbrError)> &&)::$_0,std::shared_ptr<otbr::OnceCallback<void ()(otbrError)>>,std::shared_ptr,std::placeholders::__ph<1> const&>::~__bind(v18 - 136);
   std::__bind<otbr::Mdns::Publisher::HandleDuplicateServiceRegistration(std::string const&,std::string const&,std::string const&,std::vector<std::string> const&,unsigned short,std::vector<unsigned char> const&,otbr::OnceCallback<void ()(otbrError)> &&)::$_0,std::shared_ptr<otbr::OnceCallback<void ()(otbrError)>>,std::shared_ptr,std::placeholders::__ph<1> const&>::~__bind(va);
-  if (a9)
+  if (a16)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a9);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a16);
   }
 
-  if (a11)
+  if (a18)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a11);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a18);
   }
 
   _Unwind_Resume(a1);
 }
 
-BOOL otbr::Mdns::Publisher::ServiceRegistration::IsOutdated(uint64_t a1, void *a2, uint64_t *a3, uint64_t *a4, void *a5, int a6, uint64_t a7)
+BOOL otbr::Mdns::Publisher::ServiceRegistration::IsOutdated(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5, int a6, uint64_t a7)
 {
   v13 = *(a1 + 71);
   if (v13 < 0)
@@ -9496,7 +11889,6 @@ BOOL otbr::Mdns::Publisher::ServiceRegistration::IsOutdated(uint64_t a1, void *a
     v17 = *(a1 + 48);
   }
 
-  v18 = *a2;
   if (v16 < 0)
   {
     a2 = *a2;
@@ -9507,121 +11899,118 @@ BOOL otbr::Mdns::Publisher::ServiceRegistration::IsOutdated(uint64_t a1, void *a
     return 1;
   }
 
-  v19 = *(a1 + 95);
-  if (v19 < 0)
+  v18 = *(a1 + 95);
+  if (v18 < 0)
   {
-    v20 = *(a1 + 80);
+    v19 = *(a1 + 80);
   }
 
   else
   {
-    v20 = *(a1 + 95);
+    v19 = *(a1 + 95);
   }
 
-  v21 = *(a3 + 23);
-  v22 = v21;
-  if ((v21 & 0x80u) != 0)
+  v20 = *(a3 + 23);
+  v21 = v20;
+  if ((v20 & 0x80u) != 0)
   {
-    v21 = a3[1];
+    v20 = *(a3 + 8);
   }
 
-  if (v20 != v21)
-  {
-    return 1;
-  }
-
-  v23 = v19 >= 0 ? (a1 + 72) : *(a1 + 72);
-  v24 = *a3;
-  v25 = v22 >= 0 ? a3 : *a3;
-  if (memcmp(v23, v25, v20))
+  if (v19 != v20)
   {
     return 1;
   }
 
-  v26 = *(a1 + 119);
-  if (v26 < 0)
+  v22 = v18 >= 0 ? (a1 + 72) : *(a1 + 72);
+  v23 = v21 >= 0 ? a3 : *a3;
+  if (memcmp(v22, v23, v19))
   {
-    v27 = *(a1 + 104);
+    return 1;
+  }
+
+  v24 = *(a1 + 119);
+  if (v24 < 0)
+  {
+    v25 = *(a1 + 104);
   }
 
   else
   {
-    v27 = *(a1 + 119);
+    v25 = *(a1 + 119);
   }
 
-  v28 = *(a4 + 23);
-  v29 = v28;
-  if ((v28 & 0x80u) != 0)
+  v26 = *(a4 + 23);
+  v27 = v26;
+  if ((v26 & 0x80u) != 0)
   {
-    v28 = a4[1];
+    v26 = *(a4 + 8);
   }
 
-  if (v27 != v28)
-  {
-    return 1;
-  }
-
-  v30 = v26 >= 0 ? (a1 + 96) : *(a1 + 96);
-  v31 = *a4;
-  v32 = v29 >= 0 ? a4 : *a4;
-  if (memcmp(v30, v32, v27))
+  if (v25 != v26)
   {
     return 1;
   }
 
-  v34 = *(a1 + 120);
-  v33 = *(a1 + 128);
-  v36 = a5;
-  v35 = *a5;
-  if (v33 - v34 != v36[1] - v35)
+  v28 = v24 >= 0 ? (a1 + 96) : *(a1 + 96);
+  v29 = v27 >= 0 ? a4 : *a4;
+  if (memcmp(v28, v29, v25))
   {
     return 1;
   }
 
-  while (v34 != v33)
+  v31 = *(a1 + 120);
+  v30 = *(a1 + 128);
+  v33 = a5;
+  v32 = *a5;
+  if (v30 - v31 != v33[1] - v32)
   {
-    v37 = *(v34 + 23);
-    if (v37 < 0)
+    return 1;
+  }
+
+  while (v31 != v30)
+  {
+    v34 = *(v31 + 23);
+    if (v34 < 0)
     {
-      v38 = *(v34 + 8);
+      v35 = *(v31 + 8);
     }
 
     else
     {
-      v38 = *(v34 + 23);
+      v35 = *(v31 + 23);
     }
 
-    v39 = *(v35 + 23);
-    if (v39 < 0)
+    v36 = *(v32 + 23);
+    if (v36 < 0)
     {
-      v40 = v35[1];
+      v37 = *(v32 + 8);
     }
 
     else
     {
-      v40 = *(v35 + 23);
+      v37 = *(v32 + 23);
     }
 
-    if (v38 != v40)
+    if (v35 != v37)
     {
       return 1;
     }
 
-    v41 = v37 >= 0 ? v34 : *v34;
-    v42 = *v35;
-    v43 = v39 >= 0 ? v35 : *v35;
-    if (memcmp(v41, v43, v38))
+    v38 = v34 >= 0 ? v31 : *v31;
+    v39 = v36 >= 0 ? v32 : *v32;
+    if (memcmp(v38, v39, v35))
     {
       return 1;
     }
 
-    v34 += 24;
-    v35 += 3;
+    v31 += 24;
+    v32 += 24;
   }
 
-  if (*(a1 + 144) == a6 && (v44 = *(a1 + 152), v45 = *(a1 + 160) - v44, v45 == *(a7 + 8) - *a7))
+  if (*(a1 + 144) == a6 && (v40 = *(a1 + 152), v41 = *(a1 + 160) - v40, v41 == *(a7 + 8) - *a7))
   {
-    return memcmp(v44, *a7, v45) != 0;
+    return memcmp(v40, *a7, v41) != 0;
   }
 
   else
@@ -9657,16 +12046,16 @@ uint64_t otbr::Mdns::Publisher::HandleDuplicateHostRegistration@<X0>(uint64_t a1
     {
       if (*(a2 + 23) >= 0)
       {
-        LOBYTE(v17) = a2;
+        v12 = a2;
       }
 
       else
       {
-        v17 = *a2;
+        v12 = *a2;
       }
 
-      otbrLog(6u, "MDNS", "Removing existing host %s: outdated", v12, v13, v14, v15, v16, v17);
-      otbr::Mdns::Publisher::RemoveHostRegistration(a1, v11 + 48, -12);
+      otbrLog(6, "MDNS", "Removing existing host %s: outdated", v12);
+      otbr::Mdns::Publisher::RemoveHostRegistration(a1, v11 + 48, 4294967284);
     }
 
     else
@@ -9676,7 +12065,7 @@ uint64_t otbr::Mdns::Publisher::HandleDuplicateHostRegistration@<X0>(uint64_t a1
         std::allocate_shared[abi:ne200100]<otbr::OnceCallback<void ()(otbrError)>,std::allocator<otbr::OnceCallback<void ()(otbrError)>>,otbr::OnceCallback<void ()(otbrError)>,0>();
       }
 
-      otbr::OnceCallback<void ()(otbrError)>::operator()(a4);
+      otbr::OnceCallback<void ()(otbrError)>::operator()(a4, 0);
     }
   }
 
@@ -9684,19 +12073,19 @@ uint64_t otbr::Mdns::Publisher::HandleDuplicateHostRegistration@<X0>(uint64_t a1
   return std::__function::__value_func<void ()(otbrError)>::operator=[abi:ne200100](a4);
 }
 
-void sub_1003D7D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, std::__shared_weak_count *a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, ...)
+void sub_1003D7D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, std::__shared_weak_count *a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
-  std::__bind<otbr::Mdns::Publisher::HandleDuplicateServiceRegistration(std::string const&,std::string const&,std::string const&,std::vector<std::string> const&,unsigned short,std::vector<unsigned char> const&,otbr::OnceCallback<void ()(otbrError)> &&)::$_0,std::shared_ptr<otbr::OnceCallback<void ()(otbrError)>>,std::shared_ptr,std::placeholders::__ph<1> const&>::~__bind(v12 - 112);
+  va_start(va, a19);
+  std::__bind<otbr::Mdns::Publisher::HandleDuplicateServiceRegistration(std::string const&,std::string const&,std::string const&,std::vector<std::string> const&,unsigned short,std::vector<unsigned char> const&,otbr::OnceCallback<void ()(otbrError)> &&)::$_0,std::shared_ptr<otbr::OnceCallback<void ()(otbrError)>>,std::shared_ptr,std::placeholders::__ph<1> const&>::~__bind(v19 - 112);
   std::__bind<otbr::Mdns::Publisher::HandleDuplicateServiceRegistration(std::string const&,std::string const&,std::string const&,std::vector<std::string> const&,unsigned short,std::vector<unsigned char> const&,otbr::OnceCallback<void ()(otbrError)> &&)::$_0,std::shared_ptr<otbr::OnceCallback<void ()(otbrError)>>,std::shared_ptr,std::placeholders::__ph<1> const&>::~__bind(va);
-  if (a9)
+  if (a16)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a9);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a16);
   }
 
-  if (a11)
+  if (a18)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a11);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a18);
   }
 
   _Unwind_Resume(a1);
@@ -9758,7 +12147,6 @@ uint64_t otbr::Mdns::Publisher::HostRegistration::IsOutdated(uint64_t a1, void *
   }
 
   v9 = v5 >= 0 ? (a1 + 48) : *(a1 + 48);
-  v10 = *a2;
   if (v8 < 0)
   {
     a2 = *a2;
@@ -9769,22 +12157,22 @@ uint64_t otbr::Mdns::Publisher::HostRegistration::IsOutdated(uint64_t a1, void *
     return 1;
   }
 
-  v12 = *(a1 + 72);
-  v11 = *(a1 + 80);
-  v13 = *a3;
-  if (v11 - v12 != *(a3 + 8) - *a3)
+  v11 = *(a1 + 72);
+  v10 = *(a1 + 80);
+  v12 = *a3;
+  if (v10 - v11 != *(a3 + 8) - *a3)
   {
     return 1;
   }
 
-  if (v12 != v11)
+  if (v11 != v10)
   {
-    while (*v12 == *v13 && *(v12 + 1) == v13[1])
+    while (*v11 == *v12 && *(v11 + 1) == v12[1])
     {
       result = 0;
-      v12 += 16;
-      v13 += 2;
-      if (v12 == v11)
+      v11 += 16;
+      v12 += 2;
+      if (v11 == v10)
       {
         return result;
       }
@@ -9796,46 +12184,46 @@ uint64_t otbr::Mdns::Publisher::HostRegistration::IsOutdated(uint64_t a1, void *
   return 0;
 }
 
-void otbr::Mdns::Publisher::RemoveHostRegistration(uint64_t a1, uint64_t a2, int a3)
+void otbr::Mdns::Publisher::RemoveHostRegistration(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   otbr::Mdns::Publisher::MakeFullName(a2, __p);
-  v11 = std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>>>::find<std::string>(a1 + 32, __p);
-  if (v21 < 0)
+  v6 = std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>>>::find<std::string>(a1 + 32, __p);
+  if (v11 < 0)
   {
     operator delete(__p[0]);
   }
 
   if (*(a2 + 23) >= 0)
   {
-    LOBYTE(v12) = a2;
+    v7 = a2;
   }
 
   else
   {
-    v12 = *a2;
+    v7 = *a2;
   }
 
-  otbrLog(6u, "MDNS", "Removing host %s", v6, v7, v8, v9, v10, v12);
-  if ((a1 + 40) != v11)
+  otbrLog(6, "MDNS", "Removing host %s", v7);
+  if ((a1 + 40) != v6)
   {
-    v13 = v11[7];
-    v11[7] = 0;
-    std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>>>::erase((a1 + 32), v11);
-    otbr::Mdns::Publisher::HostRegistration::Complete(v13, a3);
+    v8 = v6[7];
+    v6[7] = 0;
+    std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>>>::erase((a1 + 32), v6);
+    otbr::Mdns::Publisher::HostRegistration::Complete(v8, a3);
     if (*(a2 + 23) >= 0)
     {
-      LOBYTE(v19) = a2;
+      v9 = a2;
     }
 
     else
     {
-      v19 = *a2;
+      v9 = *a2;
     }
 
-    otbrLog(6u, "MDNS", "Removed host %s", v14, v15, v16, v17, v18, v19);
-    if (v13)
+    otbrLog(6, "MDNS", "Removed host %s", v9);
+    if (v8)
     {
-      (*(*v13 + 8))(v13);
+      (*(*v8 + 8))(v8);
     }
   }
 }
@@ -9850,11 +12238,11 @@ void sub_1003D7FE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void otbr::Mdns::Publisher::AddHostRegistration(uint64_t a1, uint64_t a2)
+void otbr::Mdns::Publisher::AddHostRegistration(uint64_t a1, uint64_t *a2)
 {
   otbr::Mdns::Publisher::MakeFullName((*a2 + 48), __p);
-  std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>>>::__emplace_unique_key_args<std::string,std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>(a1 + 32, __p);
-  if (v4 < 0)
+  std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>>>::__emplace_unique_key_args<std::string,std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>((a1 + 32), __p, __p, a2);
+  if (v5 < 0)
   {
     operator delete(__p[0]);
   }
@@ -9870,13 +12258,14 @@ void sub_1003D8070(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t **otbr::Mdns::Publisher::HostRegistration::Complete(uint64_t a1, int a2)
+uint64_t **otbr::Mdns::Publisher::HostRegistration::Complete(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   result = otbr::Mdns::Publisher::HostRegistration::OnComplete(a1, a2);
   if (*(a1 + 32))
   {
 
-    return otbr::OnceCallback<void ()(otbrError)>::operator()(a1 + 8);
+    return otbr::OnceCallback<void ()(otbrError)>::operator()(a1 + 8, v2);
   }
 
   return result;
@@ -9892,16 +12281,16 @@ uint64_t otbr::Mdns::Publisher::HandleDuplicateKeyRegistration@<X0>(uint64_t a1@
     {
       if (*(a2 + 23) >= 0)
       {
-        LOBYTE(v17) = a2;
+        v12 = a2;
       }
 
       else
       {
-        v17 = *a2;
+        v12 = *a2;
       }
 
-      otbrLog(6u, "MDNS", "Removing existing key %s: outdated", v12, v13, v14, v15, v16, v17);
-      otbr::Mdns::Publisher::RemoveKeyRegistration(a1, v11 + 48, -12);
+      otbrLog(6, "MDNS", "Removing existing key %s: outdated", v12);
+      otbr::Mdns::Publisher::RemoveKeyRegistration(a1, v11 + 48, 4294967284);
     }
 
     else
@@ -9911,7 +12300,7 @@ uint64_t otbr::Mdns::Publisher::HandleDuplicateKeyRegistration@<X0>(uint64_t a1@
         std::allocate_shared[abi:ne200100]<otbr::OnceCallback<void ()(otbrError)>,std::allocator<otbr::OnceCallback<void ()(otbrError)>>,otbr::OnceCallback<void ()(otbrError)>,0>();
       }
 
-      otbr::OnceCallback<void ()(otbrError)>::operator()(a4);
+      otbr::OnceCallback<void ()(otbrError)>::operator()(a4, 0);
     }
   }
 
@@ -9919,19 +12308,19 @@ uint64_t otbr::Mdns::Publisher::HandleDuplicateKeyRegistration@<X0>(uint64_t a1@
   return std::__function::__value_func<void ()(otbrError)>::operator=[abi:ne200100](a4);
 }
 
-void sub_1003D8294(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, std::__shared_weak_count *a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, ...)
+void sub_1003D8294(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, std::__shared_weak_count *a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
-  std::__bind<otbr::Mdns::Publisher::HandleDuplicateServiceRegistration(std::string const&,std::string const&,std::string const&,std::vector<std::string> const&,unsigned short,std::vector<unsigned char> const&,otbr::OnceCallback<void ()(otbrError)> &&)::$_0,std::shared_ptr<otbr::OnceCallback<void ()(otbrError)>>,std::shared_ptr,std::placeholders::__ph<1> const&>::~__bind(v12 - 112);
+  va_start(va, a19);
+  std::__bind<otbr::Mdns::Publisher::HandleDuplicateServiceRegistration(std::string const&,std::string const&,std::string const&,std::vector<std::string> const&,unsigned short,std::vector<unsigned char> const&,otbr::OnceCallback<void ()(otbrError)> &&)::$_0,std::shared_ptr<otbr::OnceCallback<void ()(otbrError)>>,std::shared_ptr,std::placeholders::__ph<1> const&>::~__bind(v19 - 112);
   std::__bind<otbr::Mdns::Publisher::HandleDuplicateServiceRegistration(std::string const&,std::string const&,std::string const&,std::vector<std::string> const&,unsigned short,std::vector<unsigned char> const&,otbr::OnceCallback<void ()(otbrError)> &&)::$_0,std::shared_ptr<otbr::OnceCallback<void ()(otbrError)>>,std::shared_ptr,std::placeholders::__ph<1> const&>::~__bind(va);
-  if (a9)
+  if (a16)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a9);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a16);
   }
 
-  if (a11)
+  if (a18)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a11);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a18);
   }
 
   _Unwind_Resume(a1);
@@ -9993,15 +12382,14 @@ BOOL otbr::Mdns::Publisher::KeyRegistration::IsOutdated(uint64_t a1, void *a2, u
   }
 
   v9 = v5 >= 0 ? (a1 + 48) : *(a1 + 48);
-  v10 = *a2;
   if (v8 < 0)
   {
     a2 = *a2;
   }
 
-  if (!memcmp(v9, a2, v6) && (v11 = *(a1 + 72), v12 = *(a1 + 80) - v11, v12 == *(a3 + 8) - *a3))
+  if (!memcmp(v9, a2, v6) && (v10 = *(a1 + 72), v11 = *(a1 + 80) - v10, v11 == *(a3 + 8) - *a3))
   {
-    return memcmp(v11, *a3, v12) != 0;
+    return memcmp(v10, *a3, v11) != 0;
   }
 
   else
@@ -10010,46 +12398,46 @@ BOOL otbr::Mdns::Publisher::KeyRegistration::IsOutdated(uint64_t a1, void *a2, u
   }
 }
 
-void otbr::Mdns::Publisher::RemoveKeyRegistration(uint64_t a1, uint64_t a2, int a3)
+void otbr::Mdns::Publisher::RemoveKeyRegistration(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   otbr::Mdns::Publisher::MakeFullName(a2, __p);
-  v11 = std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>>>::find<std::string>(a1 + 56, __p);
-  if (v21 < 0)
+  v6 = std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>>>::find<std::string>(a1 + 56, __p);
+  if (v11 < 0)
   {
     operator delete(__p[0]);
   }
 
   if (*(a2 + 23) >= 0)
   {
-    LOBYTE(v12) = a2;
+    v7 = a2;
   }
 
   else
   {
-    v12 = *a2;
+    v7 = *a2;
   }
 
-  otbrLog(6u, "MDNS", "Removing key %s", v6, v7, v8, v9, v10, v12);
-  if ((a1 + 64) != v11)
+  otbrLog(6, "MDNS", "Removing key %s", v7);
+  if ((a1 + 64) != v6)
   {
-    v13 = v11[7];
-    v11[7] = 0;
-    std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>>>::erase((a1 + 56), v11);
-    otbr::Mdns::Publisher::KeyRegistration::Complete(v13, a3);
+    v8 = v6[7];
+    v6[7] = 0;
+    std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>>>::erase((a1 + 56), v6);
+    otbr::Mdns::Publisher::KeyRegistration::Complete(v8, a3);
     if (*(a2 + 23) >= 0)
     {
-      LOBYTE(v19) = a2;
+      v9 = a2;
     }
 
     else
     {
-      v19 = *a2;
+      v9 = *a2;
     }
 
-    otbrLog(6u, "MDNS", "Removed key %s", v14, v15, v16, v17, v18, v19);
-    if (v13)
+    otbrLog(6, "MDNS", "Removed key %s", v9);
+    if (v8)
     {
-      (*(*v13 + 8))(v13);
+      (*(*v8 + 8))(v8);
     }
   }
 }
@@ -10064,11 +12452,11 @@ void sub_1003D8520(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void otbr::Mdns::Publisher::AddKeyRegistration(uint64_t a1, uint64_t a2)
+void otbr::Mdns::Publisher::AddKeyRegistration(uint64_t a1, uint64_t *a2)
 {
   otbr::Mdns::Publisher::MakeFullName((*a2 + 48), __p);
-  std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>>>::__emplace_unique_key_args<std::string,std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>(a1 + 56, __p);
-  if (v4 < 0)
+  std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>>>::__emplace_unique_key_args<std::string,std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>((a1 + 56), __p, __p, a2);
+  if (v5 < 0)
   {
     operator delete(__p[0]);
   }
@@ -10084,13 +12472,14 @@ void sub_1003D85B0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t **otbr::Mdns::Publisher::KeyRegistration::Complete(uint64_t a1, int a2)
+uint64_t **otbr::Mdns::Publisher::KeyRegistration::Complete(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   result = otbr::Mdns::Publisher::KeyRegistration::OnComplete(a1, a2);
   if (*(a1 + 32))
   {
 
-    return otbr::OnceCallback<void ()(otbrError)>::operator()(a1 + 8);
+    return otbr::OnceCallback<void ()(otbrError)>::operator()(a1 + 8, v2);
   }
 
   return result;
@@ -10131,7 +12520,7 @@ void otbr::Mdns::Publisher::Registration::~Registration(otbr::Mdns::Publisher::R
   *this = off_1004CE210;
   if (*(this + 4))
   {
-    otbr::OnceCallback<void ()(otbrError)>::operator()(this + 8);
+    otbr::OnceCallback<void ()(otbrError)>::operator()(this + 8, -12);
   }
 
   std::__function::__value_func<void ()(otbrError)>::~__value_func[abi:ne200100](this + 8);
@@ -10143,14 +12532,15 @@ void otbr::Mdns::Publisher::Registration::~Registration(otbr::Mdns::Publisher::R
   operator delete();
 }
 
-void otbr::Mdns::Publisher::ServiceRegistration::OnComplete(uint64_t a1, int a2)
+void otbr::Mdns::Publisher::ServiceRegistration::OnComplete(uint64_t result, uint64_t a2)
 {
-  if (*(a1 + 32))
+  if (*(result + 32))
   {
-    otbr::Mdns::Publisher::UpdateMdnsResponseCounters((*(a1 + 40) + 296), a2);
-    v4 = *(a1 + 40);
+    v2 = a2;
+    otbr::Mdns::Publisher::UpdateMdnsResponseCounters((*(result + 40) + 296), a2);
+    v4 = *(result + 40);
 
-    otbr::Mdns::Publisher::UpdateServiceRegistrationEmaLatency(v4, (a1 + 72), (a1 + 96), a2);
+    otbr::Mdns::Publisher::UpdateServiceRegistrationEmaLatency(v4, (result + 72), (result + 96), v2);
   }
 }
 
@@ -10210,15 +12600,16 @@ LABEL_11:
   }
 }
 
-uint64_t **otbr::Mdns::Publisher::HostRegistration::OnComplete(uint64_t **result, int a2)
+uint64_t **otbr::Mdns::Publisher::HostRegistration::OnComplete(uint64_t **result, uint64_t a2)
 {
   if (result[4])
   {
+    v2 = a2;
     v3 = result;
     otbr::Mdns::Publisher::UpdateMdnsResponseCounters(result[5] + 58, a2);
     v4 = v3[5];
 
-    return otbr::Mdns::Publisher::UpdateHostRegistrationEmaLatency(v4, v3 + 6, a2);
+    return otbr::Mdns::Publisher::UpdateHostRegistrationEmaLatency(v4, v3 + 6, v2);
   }
 
   return result;
@@ -10272,15 +12663,16 @@ LABEL_8:
   return std::__tree<std::__value_type<std::string,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::chrono::time_point<std::chrono::steady_clock,std::chrono::duration<long long,std::ratio<1l,1000000000l>>>>>>::erase((a1 + 136), v6);
 }
 
-uint64_t **otbr::Mdns::Publisher::KeyRegistration::OnComplete(uint64_t **result, int a2)
+uint64_t **otbr::Mdns::Publisher::KeyRegistration::OnComplete(uint64_t **result, uint64_t a2)
 {
   if (result[4])
   {
+    v2 = a2;
     v3 = result;
     otbr::Mdns::Publisher::UpdateMdnsResponseCounters(result[5] + 66, a2);
     v4 = v3[5];
 
-    return otbr::Mdns::Publisher::UpdateKeyRegistrationEmaLatency(v4, v3 + 6, a2);
+    return otbr::Mdns::Publisher::UpdateKeyRegistrationEmaLatency(v4, v3 + 6, v2);
   }
 
   return result;
@@ -10358,7 +12750,7 @@ unsigned int *otbr::Mdns::Publisher::UpdateEmaLatency(unsigned int *result, unsi
   return result;
 }
 
-uint64_t *otbr::Mdns::Publisher::AddAddress(uint64_t *result, _OWORD *a2)
+const void **otbr::Mdns::Publisher::AddAddress(const void **result, _OWORD *a2)
 {
   v3 = result;
   v5 = result[1];
@@ -10366,7 +12758,7 @@ uint64_t *otbr::Mdns::Publisher::AddAddress(uint64_t *result, _OWORD *a2)
   if (v5 < v4)
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 16;
 LABEL_14:
     v3[1] = v6;
     return result;
@@ -10416,7 +12808,7 @@ LABEL_16:
   if (v13 >= 0)
   {
     v6 = (v12 + 16);
-    v14 = v12 - v13;
+    v14 = (v12 - v13);
     memcpy((v12 - v13), *v3, v13);
     v15 = *v3;
     *v3 = v14;
@@ -10443,9 +12835,9 @@ void *otbr::Mdns::Publisher::RemoveAddress(void *result, void *a2)
   if (*result != v3)
   {
     v5 = *result;
-    while (*v5 != *a2 || *(v5 + 1) != a2[1])
+    while (*v5 != *a2 || v5[1] != a2[1])
     {
-      v5 += 16;
+      v5 += 2;
       v4 += 16;
       if (v5 == v3)
       {
@@ -10457,8 +12849,8 @@ void *otbr::Mdns::Publisher::RemoveAddress(void *result, void *a2)
 
   if (v3 != v4)
   {
-    v6 = v3 - (v4 + 16);
-    if (v3 != v4 + 16)
+    v6 = v3 - v4 - 16;
+    if (v3 != (v4 + 16))
     {
       if ((v6 & 0x8000000000000000) != 0)
       {
@@ -10467,7 +12859,7 @@ void *otbr::Mdns::Publisher::RemoveAddress(void *result, void *a2)
 
       else if (v6 - 16 < 0xFFFFFFFFFFFFFFF0)
       {
-        result = memmove(v4, v4 + 16, v6);
+        result = memmove(v4, (v4 + 16), v6);
         goto LABEL_12;
       }
 
@@ -10476,7 +12868,7 @@ void *otbr::Mdns::Publisher::RemoveAddress(void *result, void *a2)
     }
 
 LABEL_12:
-    v2[1] = &v4[v6];
+    v2[1] = v4 + v6;
   }
 
   return result;
@@ -10491,11 +12883,11 @@ char *std::vector<unsigned char>::__insert_with_size[abi:ne200100]<std::__wrap_i
 
   v8 = *(result + 1);
   v9 = *(result + 2);
-  if (v9 - v8 < a5)
+  if ((v9 - v8) < a5)
   {
-    v10 = &v8[-*result];
+    v10 = v8 - *result;
     v11 = __CFADD__(v10, a5);
-    v12 = &v10[a5];
+    v12 = v10 + a5;
     if (!v11)
     {
       if ((v12 & 0x8000000000000000) != 0)
@@ -10533,10 +12925,10 @@ LABEL_33:
   }
 
   v15 = v8 - __dst;
-  if (v8 - __dst >= a5)
+  if ((v8 - __dst) >= a5)
   {
     v19 = &__dst[a5];
-    v20 = &v8[-a5];
+    v20 = (v8 - a5);
     v21 = *(result + 1);
     if (v8 >= a5)
     {
@@ -10574,7 +12966,7 @@ LABEL_30:
 
     else
     {
-      v17 = (&v8[a4] - v16);
+      v17 = (&a4[v8] - v16);
       v18 = *(result + 1);
       do
       {
@@ -10638,7 +13030,7 @@ void std::allocator<otbr::Mdns::Publisher::TxtEntry>::destroy[abi:ne200100](uint
   }
 }
 
-uint64_t std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const*,int>(uint64_t *a1, void **a2, int *a3)
+uint64_t std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const*,int>(char **a1, void **a2, int *a3)
 {
   v3 = 0x6DB6DB6DB6DB6DB7 * ((a1[1] - *a1) >> 3);
   v4 = v3 + 1;
@@ -10679,13 +13071,13 @@ LABEL_12:
   v16 = 56 * v3;
   v17 = (56 * v3);
   v8 = std::string::basic_string[abi:ne200100]((56 * v3), *a2, *a3);
-  *(v8 + 3) = 0;
-  *(v8 + 4) = 0;
-  *(v8 + 5) = 0;
-  v8[48] = 1;
+  v8[3] = 0;
+  v8[4] = 0;
+  v8[5] = 0;
+  *(v8 + 48) = 1;
   *&v17 = v17 + 56;
   v9 = a1[1];
-  v10 = v16 + *a1 - v9;
+  v10 = (v16 + *a1 - v9);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<otbr::Mdns::Publisher::TxtEntry>,otbr::Mdns::Publisher::TxtEntry*>(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
@@ -10700,14 +13092,14 @@ LABEL_12:
   return v14;
 }
 
-void sub_1003D9094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1003D9094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<otbr::Mdns::Publisher::TxtEntry>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t __len)
+void *std::string::basic_string[abi:ne200100](void *__dst, void *__src, size_t __len)
 {
   if (__len >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -10727,14 +13119,14 @@ _BYTE *std::string::basic_string[abi:ne200100](_BYTE *__dst, void *__src, size_t
 
   else
   {
-    __dst[23] = __len;
+    *(__dst + 23) = __len;
     v5 = __dst;
     if (__len)
     {
       memmove(__dst, __src, __len);
     }
 
-    v5[__len] = 0;
+    *(v5 + __len) = 0;
     return v4;
   }
 
@@ -10860,7 +13252,7 @@ void std::__split_buffer<otbr::Mdns::Publisher::TxtEntry>::clear[abi:ne200100](v
   }
 }
 
-uint64_t std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const*,int,unsigned char const*,int>(uint64_t *a1, char **a2, int *a3, const unsigned __int8 **a4, int *a5)
+uint64_t std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const*,int,unsigned char const*,int>(uint64_t *a1, char **a2, int *a3, char **a4, int *a5)
 {
   v5 = 0x6DB6DB6DB6DB6DB7 * ((a1[1] - *a1) >> 3);
   v6 = v5 + 1;
@@ -10918,14 +13310,14 @@ LABEL_12:
   return v15;
 }
 
-void sub_1003D9544(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1003D9544(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<otbr::Mdns::Publisher::TxtEntry>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-otbr::Mdns::Publisher::TxtEntry *otbr::Mdns::Publisher::TxtEntry::TxtEntry(otbr::Mdns::Publisher::TxtEntry *this, char *a2, size_t a3, const unsigned __int8 *a4, uint64_t a5)
+otbr::Mdns::Publisher::TxtEntry *otbr::Mdns::Publisher::TxtEntry::TxtEntry(otbr::Mdns::Publisher::TxtEntry *this, char *a2, size_t a3, char *a4, uint64_t a5)
 {
   v8 = std::string::basic_string[abi:ne200100](this, a2, a3);
   v8[3] = 0;
@@ -11036,9 +13428,9 @@ uint64_t std::allocator<std::__list_node<otbr::Mdns::Publisher::DiscoverCallback
   return std::__function::__value_func<void ()(std::string const&,otbr::Mdns::Publisher::DiscoveredInstanceInfo const&)>::~__value_func[abi:ne200100](v10);
 }
 
-void sub_1003D97B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1003D97B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<void ()(std::string const&,otbr::Mdns::Publisher::DiscoveredInstanceInfo const&)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -11182,16 +13574,16 @@ uint64_t std::string::operator=[abi:ne200100](uint64_t a1, __int128 *a2)
   return a1;
 }
 
-void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void>,std::string *>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void>,std::string *>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4 >= 2)
   {
     v7 = *a1;
-    *v12 = *(a1 + 8);
+    *v12 = a1[1];
     *&v12[7] = *(a1 + 15);
     v8 = *(a1 + 23);
-    *(a1 + 8) = 0;
-    *(a1 + 16) = 0;
+    a1[1] = 0;
+    a1[2] = 0;
     *a1 = 0;
     std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::string *>(a1, a3, a4);
     v10 = v9;
@@ -11236,10 +13628,10 @@ void sub_1003D9C10(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,otbr::Ip6Address *,false>(unint64_t *a1, unint64_t *a2, uint64_t a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,otbr::Ip6Address *,false>(unint64_t *result, unint64_t *a2, uint64_t a3, uint64_t a4, char a5)
 {
 LABEL_1:
-  v10 = a1;
+  v10 = result;
   while (1)
   {
     v11 = (a2 - v10) >> 4;
@@ -11443,7 +13835,7 @@ LABEL_9:
 
     if ((v17 & 0x80000000) == 0)
     {
-      a1 = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,otbr::Ip6Address *,std::__less<void,void> &>(v10, a2);
+      result = std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,otbr::Ip6Address *,std::__less<void,void> &>(v10, a2);
       a5 = 0;
       goto LABEL_1;
     }
@@ -11456,7 +13848,7 @@ LABEL_23:
     }
 
     v20 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,otbr::Ip6Address *>(v10, v18);
-    a1 = v18 + 2;
+    result = v18 + 2;
     if (!std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,otbr::Ip6Address *>(v18 + 2, a2))
     {
       if (v20)
@@ -11467,7 +13859,7 @@ LABEL_23:
 LABEL_28:
       std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,otbr::Ip6Address *,false>(v10, v18, a3, a4, a5 & 1);
       a5 = 0;
-      a1 = v18 + 2;
+      result = v18 + 2;
       goto LABEL_1;
     }
 
@@ -12439,7 +14831,7 @@ LABEL_33:
   return result;
 }
 
-unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,otbr::Ip6Address *,otbr::Ip6Address *>(unint64_t *a1, unint64_t *a2, unint64_t *a3, uint64_t a4)
+unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,otbr::Ip6Address *,otbr::Ip6Address *>(char *a1, char *a2, unint64_t *a3, uint64_t a4)
 {
   if (a1 != a2)
   {
@@ -12448,7 +14840,7 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = &a1[2 * v9];
+      v11 = &a1[16 * v9];
       do
       {
         std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,otbr::Ip6Address *>(a1, a4, v8, v11);
@@ -12467,7 +14859,7 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__
       {
         v13 = bswap64(*v12);
         v14 = bswap64(*a1);
-        if (v13 != v14 || (v13 = bswap64(v12[1]), v14 = bswap64(a1[1]), v13 != v14))
+        if (v13 != v14 || (v13 = bswap64(v12[1]), v14 = bswap64(*(a1 + 1)), v13 != v14))
         {
           v15 = v13 < v14 ? -1 : 1;
           if (v15 < 0)
@@ -12487,7 +14879,7 @@ unint64_t *std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__
 
     if (v8 >= 2)
     {
-      v17 = a2 - 2;
+      v17 = (a2 - 16);
       do
       {
         v21 = *a1;
@@ -12767,15 +15159,15 @@ __n128 std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>>>::__emplace_unique_key_args<std::string,std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>(uint64_t a1, const void **a2)
+uint64_t std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>>>::__emplace_unique_key_args<std::string,std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t *a4)
 {
-  v2 = *std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__find_equal<std::string>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 uint64_t std::__tree<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::unique_ptr<otbr::Mdns::Publisher::ServiceRegistration>>>>::find<std::string>(uint64_t a1, const void **a2)
@@ -12970,14 +15362,14 @@ void *std::__function::__func<std::__bind<otbr::Mdns::Publisher::HandleDuplicate
   return result;
 }
 
-void std::__function::__func<std::__bind<otbr::Mdns::Publisher::HandleDuplicateServiceRegistration(std::string const&,std::string const&,std::string const&,std::vector<std::string> const&,unsigned short,std::vector<unsigned char> const&,otbr::OnceCallback<void ()(otbrError)> &&)::$_0,std::shared_ptr<otbr::OnceCallback<void ()(otbrError)>>,std::shared_ptr,std::placeholders::__ph<1> const&>,std::allocator<std::placeholders::__ph<1> const&>,void ()(otbrError)>::destroy_deallocate(void *a1)
+void std::__function::__func<std::__bind<otbr::Mdns::Publisher::HandleDuplicateServiceRegistration(std::string const&,std::string const&,std::string const&,std::vector<std::string> const&,unsigned short,std::vector<unsigned char> const&,otbr::OnceCallback<void ()(otbrError)> &&)::$_0,std::shared_ptr<otbr::OnceCallback<void ()(otbrError)>>,std::shared_ptr,std::placeholders::__ph<1> const&>,std::allocator<std::placeholders::__ph<1> const&>,void ()(otbrError)>::destroy_deallocate(char *a1)
 {
-  std::__function::__alloc_func<std::__bind<otbr::Mdns::Publisher::HandleDuplicateServiceRegistration(std::string const&,std::string const&,std::string const&,std::vector<std::string> const&,unsigned short,std::vector<unsigned char> const&,otbr::OnceCallback<void ()(otbrError)> &&)::$_0,std::shared_ptr<otbr::OnceCallback<void ()(otbrError)>>,std::shared_ptr,std::placeholders::__ph<1> const&>,std::allocator<std::placeholders::__ph<1> const&>,void ()(otbrError)>::destroy[abi:ne200100](a1 + 8);
+  std::__function::__alloc_func<std::__bind<otbr::Mdns::Publisher::HandleDuplicateServiceRegistration(std::string const&,std::string const&,std::string const&,std::vector<std::string> const&,unsigned short,std::vector<unsigned char> const&,otbr::OnceCallback<void ()(otbrError)> &&)::$_0,std::shared_ptr<otbr::OnceCallback<void ()(otbrError)>>,std::shared_ptr,std::placeholders::__ph<1> const&>,std::allocator<std::placeholders::__ph<1> const&>,void ()(otbrError)>::destroy[abi:ne200100]((a1 + 8));
 
   operator delete(a1);
 }
 
-void std::__function::__func<std::__bind<otbr::Mdns::Publisher::HandleDuplicateServiceRegistration(std::string const&,std::string const&,std::string const&,std::vector<std::string> const&,unsigned short,std::vector<unsigned char> const&,otbr::OnceCallback<void ()(otbrError)> &&)::$_0,std::shared_ptr<otbr::OnceCallback<void ()(otbrError)>>,std::shared_ptr,std::placeholders::__ph<1> const&>,std::allocator<std::placeholders::__ph<1> const&>,void ()(otbrError)>::operator()(void *a1, unsigned int *a2)
+void std::__function::__func<std::__bind<otbr::Mdns::Publisher::HandleDuplicateServiceRegistration(std::string const&,std::string const&,std::string const&,std::vector<std::string> const&,unsigned short,std::vector<unsigned char> const&,otbr::OnceCallback<void ()(otbrError)> &&)::$_0,std::shared_ptr<otbr::OnceCallback<void ()(otbrError)>>,std::shared_ptr,std::placeholders::__ph<1> const&>,std::allocator<std::placeholders::__ph<1> const&>,void ()(otbrError)>::operator()(void *a1, int *a2)
 {
   v3 = a1[2];
   v4 = a1[3];
@@ -12994,8 +15386,8 @@ void std::__function::__func<std::__bind<otbr::Mdns::Publisher::HandleDuplicateS
   }
 
   v7 = *a2;
-  otbr::OnceCallback<void ()(otbrError)>::operator()(v3);
-  otbr::OnceCallback<void ()(otbrError)>::operator()(v6);
+  otbr::OnceCallback<void ()(otbrError)>::operator()(v3, *a2);
+  otbr::OnceCallback<void ()(otbrError)>::operator()(v6, v7);
   if (v5)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v5);
@@ -13116,7 +15508,7 @@ void std::__function::__func<std::__bind<otbr::Mdns::Publisher::HandleDuplicateH
   operator delete(a1);
 }
 
-void std::__function::__func<std::__bind<otbr::Mdns::Publisher::HandleDuplicateHostRegistration(std::string const&,std::vector<otbr::Ip6Address> const&,otbr::OnceCallback<void ()(otbrError)> &&)::$_0,std::shared_ptr<otbr::OnceCallback<void ()(otbrError)>>,std::shared_ptr,std::placeholders::__ph<1> const&>,std::allocator<std::placeholders::__ph<1> const&>,void ()(otbrError)>::operator()(void *a1, unsigned int *a2)
+void std::__function::__func<std::__bind<otbr::Mdns::Publisher::HandleDuplicateHostRegistration(std::string const&,std::vector<otbr::Ip6Address> const&,otbr::OnceCallback<void ()(otbrError)> &&)::$_0,std::shared_ptr<otbr::OnceCallback<void ()(otbrError)>>,std::shared_ptr,std::placeholders::__ph<1> const&>,std::allocator<std::placeholders::__ph<1> const&>,void ()(otbrError)>::operator()(void *a1, int *a2)
 {
   v3 = a1[2];
   v4 = a1[3];
@@ -13133,8 +15525,8 @@ void std::__function::__func<std::__bind<otbr::Mdns::Publisher::HandleDuplicateH
   }
 
   v7 = *a2;
-  otbr::OnceCallback<void ()(otbrError)>::operator()(v3);
-  otbr::OnceCallback<void ()(otbrError)>::operator()(v6);
+  otbr::OnceCallback<void ()(otbrError)>::operator()(v3, *a2);
+  otbr::OnceCallback<void ()(otbrError)>::operator()(v6, v7);
   if (v5)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v5);
@@ -13239,7 +15631,7 @@ void std::__function::__func<std::__bind<otbr::Mdns::Publisher::HandleDuplicateK
   operator delete(a1);
 }
 
-void std::__function::__func<std::__bind<otbr::Mdns::Publisher::HandleDuplicateKeyRegistration(std::string const&,std::vector<unsigned char> const&,otbr::OnceCallback<void ()(otbrError)> &&)::$_0,std::shared_ptr<otbr::OnceCallback<void ()(otbrError)>>,std::shared_ptr,std::placeholders::__ph<1> const&>,std::allocator<std::placeholders::__ph<1> const&>,void ()(otbrError)>::operator()(void *a1, unsigned int *a2)
+void std::__function::__func<std::__bind<otbr::Mdns::Publisher::HandleDuplicateKeyRegistration(std::string const&,std::vector<unsigned char> const&,otbr::OnceCallback<void ()(otbrError)> &&)::$_0,std::shared_ptr<otbr::OnceCallback<void ()(otbrError)>>,std::shared_ptr,std::placeholders::__ph<1> const&>,std::allocator<std::placeholders::__ph<1> const&>,void ()(otbrError)>::operator()(void *a1, int *a2)
 {
   v3 = a1[2];
   v4 = a1[3];
@@ -13256,8 +15648,8 @@ void std::__function::__func<std::__bind<otbr::Mdns::Publisher::HandleDuplicateK
   }
 
   v7 = *a2;
-  otbr::OnceCallback<void ()(otbrError)>::operator()(v3);
-  otbr::OnceCallback<void ()(otbrError)>::operator()(v6);
+  otbr::OnceCallback<void ()(otbrError)>::operator()(v3, *a2);
+  otbr::OnceCallback<void ()(otbrError)>::operator()(v6, v7);
   if (v5)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v5);
@@ -13438,9 +15830,9 @@ uint64_t otbr::TaskRunner::Post(uint64_t a1, uint64_t a2)
   return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v4);
 }
 
-void sub_1003DC7F8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1003DC7F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -13453,18 +15845,18 @@ uint64_t otbr::TaskRunner::Post(uint64_t a1, uint64_t a2, uint64_t a3)
   return v5;
 }
 
-void sub_1003DC890(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1003DC890(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 uint64_t otbr::TaskRunner::PushTask(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v24 = a2;
+  v16 = a2;
   __buf = 1;
-  v22 = 0;
+  v14 = 0;
   std::mutex::lock((a1 + 80));
   v5 = *(a1 + 72);
   if (v5 == -1)
@@ -13474,29 +15866,29 @@ uint64_t otbr::TaskRunner::PushTask(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 
   *(a1 + 72) = v5 + 1;
-  v22 = v5;
-  std::__tree<unsigned long long>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(a1 + 48, &v22);
+  v14 = v5;
+  std::__tree<unsigned long long>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>((a1 + 48), &v14, &v14);
   v6 = *(a1 + 24);
   if (v6 >= *(a1 + 32))
   {
-    v7 = std::vector<otbr::TaskRunner::DelayedTask>::__emplace_back_slow_path<unsigned long long &,std::chrono::duration<long long,std::ratio<1l,1000l>> &,std::function<void ()(void)>>(a1 + 16, &v22, &v24, a3);
+    v7 = std::vector<otbr::TaskRunner::DelayedTask>::__emplace_back_slow_path<unsigned long long &,std::chrono::duration<long long,std::ratio<1l,1000l>> &,std::function<void ()(void)>>((a1 + 16), &v14, &v16, a3);
   }
 
   else
   {
-    std::allocator<otbr::TaskRunner::DelayedTask>::construct[abi:ne200100]<otbr::TaskRunner::DelayedTask,unsigned long long &,std::chrono::duration<long long,std::ratio<1l,1000l>> &,std::function<void ()(void)>>(a1 + 16, *(a1 + 24), &v22, &v24, a3);
+    std::allocator<otbr::TaskRunner::DelayedTask>::construct[abi:ne200100]<otbr::TaskRunner::DelayedTask,unsigned long long &,std::chrono::duration<long long,std::ratio<1l,1000l>> &,std::function<void ()(void)>>(a1 + 16, *(a1 + 24), &v14, &v16, a3);
     v7 = v6 + 48;
     *(a1 + 24) = v6 + 48;
   }
 
   *(a1 + 24) = v7;
-  std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,otbr::TaskRunner::DelayedTask::Comparator &,std::__wrap_iter<otbr::TaskRunner::DelayedTask*>>(*(a1 + 16), v7, &v25, 0xAAAAAAAAAAAAAAABLL * ((v7 - *(a1 + 16)) >> 4));
+  std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,otbr::TaskRunner::DelayedTask::Comparator &,std::__wrap_iter<otbr::TaskRunner::DelayedTask*>>(*(a1 + 16), v7, &v17, 0xAAAAAAAAAAAAAAABLL * ((v7 - *(a1 + 16)) >> 4));
   std::mutex::unlock((a1 + 80));
   do
   {
     if (write(*(a1 + 12), &__buf, 1uLL) != -1)
     {
-      return v22;
+      return v14;
     }
   }
 
@@ -13504,17 +15896,17 @@ uint64_t otbr::TaskRunner::PushTask(uint64_t a1, uint64_t a2, uint64_t a3)
   if (*__error() != 35 && *__error() != 35)
   {
 LABEL_13:
-    v16 = __error();
-    strerror(*v16);
-    otbrLog(0, "UTILS", "FAILED %s:%d - %s", v17, v18, v19, v20, v21, "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread_border_router/src/common/task_runner.cpp");
+    v12 = __error();
+    v13 = strerror(*v12);
+    otbrLog(0, "UTILS", "FAILED %s:%d - %s", "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread_border_router/src/common/task_runner.cpp", 155, v13);
     exit(-1);
   }
 
   v8 = *(a1 + 12);
   v9 = __error();
-  strerror(*v9);
-  otbrLog(4u, "UTILS", "Failed to write fd %d: %s", v10, v11, v12, v13, v14, v8);
-  return v22;
+  v10 = strerror(*v9);
+  otbrLog(4, "UTILS", "Failed to write fd %d: %s", v8, v10);
+  return v14;
 }
 
 void sub_1003DCA44(_Unwind_Exception *a1)
@@ -13593,14 +15985,14 @@ LABEL_14:
   std::mutex::unlock((a1 + 80));
 }
 
-uint64_t otbr::TaskRunner::Process(int *a1)
+uint64_t otbr::TaskRunner::Process(otbr::TaskRunner *a1)
 {
   do
   {
     do
     {
-      v10 = 0;
-      v2 = read(a1[2], &v10, 1uLL);
+      v6 = 0;
+      v2 = read(*(a1 + 2), &v6, 1uLL);
     }
 
     while (v2 > 0);
@@ -13610,8 +16002,8 @@ uint64_t otbr::TaskRunner::Process(int *a1)
   if (*__error() != 35 && *__error() != 35)
   {
     v4 = __error();
-    strerror(*v4);
-    otbrLog(0, "UTILS", "FAILED %s:%d - %s", v5, v6, v7, v8, v9, "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread_border_router/src/common/task_runner.cpp");
+    v5 = strerror(*v4);
+    otbrLog(0, "UTILS", "FAILED %s:%d - %s", "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread_border_router/src/common/task_runner.cpp", 127, v5);
     exit(-1);
   }
 
@@ -13663,9 +16055,9 @@ uint64_t otbr::TaskRunner::PopTasks(otbr::TaskRunner *this)
   return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v11);
 }
 
-void sub_1003DCD98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1003DCD98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -13721,50 +16113,50 @@ void std::vector<otbr::TaskRunner::DelayedTask>::__destroy_vector::operator()[ab
   }
 }
 
-void *std::__tree<unsigned long long>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(uint64_t a1, unint64_t *a2)
+uint64_t *std::__tree<unsigned long long>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(uint64_t **a1, unint64_t *a2, uint64_t *a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_8:
     operator new();
   }
 
-  v3 = *a2;
+  v4 = *a2;
   while (1)
   {
     while (1)
     {
-      v4 = v2;
-      v5 = v2[4];
-      if (v3 >= v5)
+      v5 = v3;
+      v6 = v3[4];
+      if (v4 >= v6)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_8;
       }
     }
 
-    if (v5 >= v3)
+    if (v6 >= v4)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-uint64_t std::vector<otbr::TaskRunner::DelayedTask>::__emplace_back_slow_path<unsigned long long &,std::chrono::duration<long long,std::ratio<1l,1000l>> &,std::function<void ()(void)>>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
+uint64_t std::vector<otbr::TaskRunner::DelayedTask>::__emplace_back_slow_path<unsigned long long &,std::chrono::duration<long long,std::ratio<1l,1000l>> &,std::function<void ()(void)>>(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
-  v4 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 4);
+  v4 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
   v5 = v4 + 1;
   if (v4 == -1)
   {
@@ -13778,12 +16170,12 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 4) > v5)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 4) > v5)
   {
-    v5 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 4);
+    v5 = 0x5555555555555556 * ((a1[2] - *a1) >> 4);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 4) >= 0x2AAAAAAAAAAAAAALL)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 4) >= 0x2AAAAAAAAAAAAAALL)
   {
     v8 = 0x555555555555555;
   }
@@ -13803,14 +16195,14 @@ LABEL_12:
   v16 = 48 * v4;
   std::allocator<otbr::TaskRunner::DelayedTask>::construct[abi:ne200100]<otbr::TaskRunner::DelayedTask,unsigned long long &,std::chrono::duration<long long,std::ratio<1l,1000l>> &,std::function<void ()(void)>>(a1, (48 * v4), a2, a3, a4);
   v17 = 48 * v4 + 48;
-  v9 = *(a1 + 8);
+  v9 = a1[1];
   v10 = 48 * v4 + *a1 - v9;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<otbr::TaskRunner::DelayedTask>,otbr::TaskRunner::DelayedTask*>(a1, *a1, v9, v10);
   v11 = *a1;
   *a1 = v10;
-  v12 = *(a1 + 16);
+  v12 = a1[2];
   v14 = v17;
-  *(a1 + 8) = v17;
+  *(a1 + 1) = v17;
   *&v17 = v11;
   *(&v17 + 1) = v12;
   v15 = v11;
@@ -13819,9 +16211,9 @@ LABEL_12:
   return v14;
 }
 
-void sub_1003DD15C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1003DD15C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<otbr::TaskRunner::DelayedTask>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -13835,9 +16227,9 @@ uint64_t std::allocator<otbr::TaskRunner::DelayedTask>::construct[abi:ne200100]<
   return std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v9);
 }
 
-void sub_1003DD1FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1003DD1FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -14122,7 +16514,7 @@ void sub_1003DD9CC(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-_OWORD *std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,otbr::TaskRunner::DelayedTask::Comparator,std::__wrap_iter<otbr::TaskRunner::DelayedTask*>>(_OWORD *result, uint64_t a2, uint64_t a3, uint64_t a4)
+__int128 *std::__pop_heap[abi:ne200100]<std::_ClassicAlgPolicy,otbr::TaskRunner::DelayedTask::Comparator,std::__wrap_iter<otbr::TaskRunner::DelayedTask*>>(__int128 *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a4 >= 2)
   {
@@ -14294,44 +16686,44 @@ void sub_1003DDD7C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void otbr::agent::ThreadHelper::StateChangedCallback(otbr::agent::ThreadHelper *this, int a2)
+void otbr::agent::ThreadHelper::StateChangedCallback(uint64_t this, int a2)
 {
   if ((a2 & 4) == 0)
   {
     goto LABEL_17;
   }
 
-  v9 = (**(*(this + 1) + 16))();
-  v10 = *(this + 16);
-  v11 = *(this + 17);
-  while (v10 != v11)
+  v4 = (**(*(this + 8) + 16))();
+  v5 = *(this + 128);
+  v6 = *(this + 136);
+  while (v5 != v6)
   {
-    LODWORD(v15[0]) = v9;
-    std::__function::__value_func<void ()(otDeviceRole)>::operator()[abi:ne200100](v10);
-    v10 += 32;
+    LODWORD(v9[0]) = v4;
+    std::__function::__value_func<void ()(otDeviceRole)>::operator()[abi:ne200100](v5);
+    v5 += 32;
   }
 
-  if (v9 <= 1)
+  if (v4 <= 1)
   {
     goto LABEL_17;
   }
 
-  if (*(this + 30))
+  if (*(this + 240))
   {
     if (*(this + 200) == 1)
     {
-      otbrLog(6u, "UTILS", "StateChangedCallback is called during waiting for Mgmt Set Response", v4, v5, v6, v7, v8, v13);
+      otbrLog(6, "UTILS", "StateChangedCallback is called during waiting for Mgmt Set Response");
       return;
     }
 
-    v12 = *(this + 566);
-    if (v12)
+    v7 = *(this + 566);
+    if (v7)
     {
-      v16 = 0;
-      memset(v15, 0, sizeof(v15));
-      if (otDatasetSendMgmtPendingSet(*this, v15, this + 312, v12, otbr::agent::ThreadHelper::MgmtSetResponseHandler, this))
+      v10 = 0;
+      memset(v9, 0, sizeof(v9));
+      if (otDatasetSendMgmtPendingSet(*this, v9, (this + 312), v7, otbr::agent::ThreadHelper::MgmtSetResponseHandler, this))
       {
-        std::__function::__value_func<void ()(otError,long long)>::__value_func[abi:ne200100](v14, this + 216);
+        std::__function::__value_func<void ()(otError,long long)>::__value_func[abi:ne200100](v8, this + 216);
         std::__function::__value_func<void ()(otError,long long)>::operator=[abi:ne200100](this + 216);
         *(this + 312) = 0u;
         *(this + 328) = 0u;
@@ -14350,8 +16742,8 @@ void otbr::agent::ThreadHelper::StateChangedCallback(otbr::agent::ThreadHelper *
         *(this + 536) = 0u;
         *(this + 551) = 0u;
         *(this + 200) = 0;
-        std::__function::__value_func<void ()(otError,long long)>::operator()[abi:ne200100](v14);
-        std::__function::__value_func<void ()(otError,long long)>::~__value_func[abi:ne200100](v14);
+        std::__function::__value_func<void ()(otError,long long)>::operator()[abi:ne200100](v8);
+        std::__function::__value_func<void ()(otError,long long)>::~__value_func[abi:ne200100](v8);
         if ((a2 & 0x10000000) == 0)
         {
           return;
@@ -14370,11 +16762,11 @@ void otbr::agent::ThreadHelper::StateChangedCallback(otbr::agent::ThreadHelper *
       goto LABEL_18;
     }
 
-    std::__function::__value_func<void ()(otError,long long)>::__value_func[abi:ne200100](v15, this + 216);
+    std::__function::__value_func<void ()(otError,long long)>::__value_func[abi:ne200100](v9, this + 216);
     std::__function::__value_func<void ()(otError,long long)>::operator=[abi:ne200100](this + 216);
-    v14[0] = *(this + 26);
-    std::__function::__value_func<void ()(otError,long long)>::operator()[abi:ne200100](v15);
-    std::__function::__value_func<void ()(otError,long long)>::~__value_func[abi:ne200100](v15);
+    v8[0] = *(this + 208);
+    std::__function::__value_func<void ()(otError,long long)>::operator()[abi:ne200100](v9);
+    std::__function::__value_func<void ()(otError,long long)>::~__value_func[abi:ne200100](v9);
 LABEL_17:
     if ((a2 & 0x10000000) == 0)
     {
@@ -14384,13 +16776,13 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  if (!*(this + 34))
+  if (!*(this + 272))
   {
     goto LABEL_17;
   }
 
-  LODWORD(v15[0]) = 0;
-  std::__function::__value_func<void ()(otError)>::operator()[abi:ne200100](this + 248);
+  LODWORD(v9[0]) = 0;
+  std::__function::__value_func<void ()(otError)>::operator()[abi:ne200100](this + 248, v9);
   std::__function::__value_func<void ()(otError)>::operator=[abi:ne200100](this + 248);
   if ((a2 & 0x10000000) == 0)
   {
@@ -14401,30 +16793,30 @@ LABEL_18:
   otbr::agent::ThreadHelper::ActiveDatasetChangedCallback(this);
 }
 
-void sub_1003DDFD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1003DDFD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::__function::__value_func<void ()(otError,long long)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
 void otbr::agent::ThreadHelper::ActiveDatasetChangedCallback(otbr::agent::ThreadHelper *this)
 {
-  ActiveTlvs = otDatasetGetActiveTlvs(*this, v11);
+  ActiveTlvs = otDatasetGetActiveTlvs(*this, v6);
   if (ActiveTlvs)
   {
     v3 = otThreadErrorToString(ActiveTlvs);
-    otbrLog(4u, "UTILS", "Error handling active dataset change: %s", v4, v5, v6, v7, v8, v3);
+    otbrLog(4, "UTILS", "Error handling active dataset change: %s", v3);
   }
 
   else
   {
-    v9 = *(this + 19);
-    v10 = *(this + 20);
-    while (v9 != v10)
+    v4 = *(this + 19);
+    v5 = *(this + 20);
+    while (v4 != v5)
     {
-      std::__function::__value_func<void ()(otOperationalDatasetTlvs const&)>::operator()[abi:ne200100](v9);
-      v9 += 32;
+      std::__function::__value_func<void ()(otOperationalDatasetTlvs const&)>::operator()[abi:ne200100](v4);
+      v4 += 32;
     }
   }
 }
@@ -14448,12 +16840,12 @@ uint64_t otbr::agent::ThreadHelper::AddDeviceRoleHandler(uint64_t *a1, uint64_t 
   return result;
 }
 
-uint64_t otbr::agent::ThreadHelper::Scan(uint64_t result, uint64_t a2)
+uint64_t *otbr::agent::ThreadHelper::Scan(uint64_t *result, uint64_t a2)
 {
   if (*(a2 + 24))
   {
     v3 = result;
-    std::function<void ()(otError,std::vector<otActiveScanResult> const&)>::operator=((result + 16), a2);
+    std::function<void ()(otError,std::vector<otActiveScanResult> const&)>::operator=(result + 2, a2);
     v3[7] = v3[6];
     result = otLinkActiveScan(*v3, 0, 0, otbr::agent::ThreadHelper::ActiveScanHandler, v3);
     if (result)
@@ -14491,7 +16883,6 @@ void *std::function<void ()(otError,std::vector<otActiveScanResult> const&)>::op
 
 uint64_t otbr::agent::ThreadHelper::EnergyScan(uint64_t *a1, unsigned int a2, uint64_t a3)
 {
-  v6 = *a1;
   PreferredChannelMask = otPlatRadioGetPreferredChannelMask();
   if (*(a3 + 24))
   {
@@ -14500,10 +16891,10 @@ uint64_t otbr::agent::ThreadHelper::EnergyScan(uint64_t *a1, unsigned int a2, ui
       goto LABEL_5;
     }
 
-    v8 = PreferredChannelMask;
+    v7 = PreferredChannelMask;
     std::function<void ()(otError,std::vector<otEnergyScanResult> const&)>::operator=(a1 + 9, a3);
     a1[14] = a1[13];
-    result = otLinkEnergyScan(*a1, v8, a2, otbr::agent::ThreadHelper::EnergyScanCallback, a1);
+    result = otLinkEnergyScan(*a1, v7, a2, otbr::agent::ThreadHelper::EnergyScanCallback, a1);
     if (!result)
     {
       return result;
@@ -14579,7 +16970,7 @@ LABEL_17:
       return result;
     }
 
-    v10 = (result + 6);
+    v10 = result + 6;
     v11 = v2[6];
     v12 = 0xEEEEEEEEEEEEEEEFLL * ((v5 - v11) >> 2);
     v13 = v12 + 1;
@@ -14672,7 +17063,7 @@ LABEL_18:
       return result;
     }
 
-    v7 = (result + 13);
+    v7 = result + 13;
     v8 = v2[13];
     v9 = (v5 - v8) >> 1;
     v10 = v9 + 1;
@@ -14782,13 +17173,13 @@ LABEL_8:
 
 uint64_t otbr::agent::ThreadHelper::Attach(uint64_t result, uint64_t a2, int a3, unint64_t a4, __int128 **a5, uint64_t a6, int a7, uint64_t a8)
 {
-  v33 = 0;
-  v32 = 0u;
-  v30 = 0u;
-  memset(v31, 0, sizeof(v31));
-  v28 = 0u;
-  v29 = 0u;
-  memset(v27, 0, sizeof(v27));
+  v27 = 0;
+  v26 = 0u;
+  v24 = 0u;
+  memset(v25, 0, sizeof(v25));
+  v22 = 0u;
+  v23 = 0u;
+  memset(v21, 0, sizeof(v21));
   if (*(a8 + 24))
   {
     v9 = result;
@@ -14830,7 +17221,7 @@ LABEL_5:
       }
     }
 
-    result = otDatasetCreateNewNetwork(*v9, v27);
+    result = otDatasetCreateNewNetwork(*v9, v21);
     if (result)
     {
       goto LABEL_5;
@@ -14839,37 +17230,37 @@ LABEL_5:
     if (a4 != -1)
     {
       v18 = vdupq_n_s64(a4);
-      *(&v30 + 1) = vmovn_s16(vuzp1q_s16(vuzp1q_s32(vshlq_u64(v18, xmmword_10044CB60), vshlq_u64(v18, xmmword_10044CB50)), vuzp1q_s32(vshlq_u64(v18, xmmword_10044CB80), vshlq_u64(v18, xmmword_10044CB70))));
+      *(&v24 + 1) = vmovn_s16(vuzp1q_s16(vuzp1q_s32(vshlq_u64(v18, xmmword_10044CB60), vshlq_u64(v18, xmmword_10044CB50)), vuzp1q_s32(vshlq_u64(v18, xmmword_10044CB80), vshlq_u64(v18, xmmword_10044CB70))));
     }
 
     if (*a5 != a5[1])
     {
-      v28 = **a5;
+      v22 = **a5;
     }
 
     if (a3 != 0xFFFF)
     {
-      WORD4(v31[0]) = a3;
+      WORD4(v25[0]) = a3;
     }
 
     if (*a6 != *(a6 + 8))
     {
-      *(v31 + 14) = **a6;
+      *(v25 + 14) = **a6;
     }
 
     v19 = *(a2 + 23) >= 0 ? a2 : *a2;
-    result = otNetworkNameFromString(&v29, v19);
+    result = otNetworkNameFromString(&v23, v19);
     if (result)
     {
       goto LABEL_5;
     }
 
-    v25 = DWORD1(v32) & a7;
-    DWORD1(v32) &= a7;
-    if (DWORD1(v32))
+    v20 = DWORD1(v26) & a7;
+    DWORD1(v26) &= a7;
+    if (DWORD1(v26))
     {
-      WORD5(v31[0]) = otbr::agent::ThreadHelper::RandomChannelFromChannelMask(v9, v25);
-      result = otDatasetSetActive(*v9, v27);
+      WORD5(v25[0]) = otbr::agent::ThreadHelper::RandomChannelFromChannelMask(v9, v20);
+      result = otDatasetSetActive(*v9, v21);
       if (!result)
       {
         if ((otIp6IsEnabled(*v9) & 1) != 0 || (result = otIp6SetEnabled(*v9, 1), !result))
@@ -14886,7 +17277,7 @@ LABEL_5:
       goto LABEL_5;
     }
 
-    otbrLog(4u, "UTILS", "Invalid channel mask", v20, v21, v22, v23, v24, v26);
+    otbrLog(4, "UTILS", "Invalid channel mask");
     goto LABEL_10;
   }
 
@@ -14970,7 +17361,8 @@ uint64_t otbr::agent::ThreadHelper::JoinerStart(uint64_t result, uint64_t a2, ui
 LABEL_5:
       if (*(a8 + 24))
       {
-        return std::__function::__value_func<void ()(otError)>::operator()[abi:ne200100](a8);
+        v22 = result;
+        return std::__function::__value_func<void ()(otError)>::operator()[abi:ne200100](a8, &v22);
       }
 
       return result;
@@ -15015,31 +17407,32 @@ void otbr::agent::ThreadHelper::JoinerCallback(uint64_t *a1, int a2)
 {
   if (a2)
   {
-    v3 = otThreadErrorToString(a2);
-    otbrLog(4u, "UTILS", "Failed to join Thread network: %s", v4, v5, v6, v7, v8, v3);
-    std::__function::__value_func<void ()(otError)>::operator()[abi:ne200100]((a1 + 31));
+    v4 = otThreadErrorToString(a2);
+    otbrLog(4, "UTILS", "Failed to join Thread network: %s", v4);
+    v8 = a2;
+    std::__function::__value_func<void ()(otError)>::operator()[abi:ne200100]((a1 + 31), &v8);
     std::__function::__value_func<void ()(otError)>::operator=[abi:ne200100]((a1 + 31));
   }
 
   else
   {
-    v9 = otThreadSetEnabled(*a1, 1);
-    if (v9)
+    v5 = otThreadSetEnabled(*a1, 1);
+    if (v5)
     {
-      v10 = 4;
+      v6 = 4;
     }
 
     else
     {
-      v10 = 6;
+      v6 = 6;
     }
 
-    otThreadErrorToString(v9);
-    otbrLog(v10, "UTILS", "%s: %s", v11, v12, v13, v14, v15, "Start Thread network");
+    v7 = otThreadErrorToString(v5);
+    otbrLog(v6, "UTILS", "%s: %s", "Start Thread network", v7);
   }
 }
 
-void otbr::agent::ThreadHelper::LogOpenThreadResult(char a1, int a2)
+void otbr::agent::ThreadHelper::LogOpenThreadResult(const char *a1, int a2)
 {
   if (a2)
   {
@@ -15051,8 +17444,8 @@ void otbr::agent::ThreadHelper::LogOpenThreadResult(char a1, int a2)
     v3 = 6;
   }
 
-  otThreadErrorToString(a2);
-  otbrLog(v3, "UTILS", "%s: %s", v4, v5, v6, v7, v8, a1);
+  v4 = otThreadErrorToString(a2);
+  otbrLog(v3, "UTILS", "%s: %s", a1, v4);
 }
 
 uint64_t otbr::agent::ThreadHelper::TryResumeNetwork(otbr::agent::ThreadHelper *this)
@@ -15083,90 +17476,90 @@ uint64_t otbr::agent::ThreadHelper::TryResumeNetwork(otbr::agent::ThreadHelper *
 
 uint64_t otbr::agent::ThreadHelper::AttachAllNodesTo(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v51 = 0;
+  v46 = 0;
   v6 = *(a1 + 8);
-  memset(v50, 0, sizeof(v50));
+  memset(v45, 0, sizeof(v45));
   v7 = (**(v6 + 16))();
   if (!*(a3 + 24))
   {
-    otbrLog(4u, "UTILS", "Attach Handler is nullptr", v8, v9, v10, v11, v12, v47.tv_sec);
+    otbrLog(4, "UTILS", "Attach Handler is nullptr");
     goto LABEL_6;
   }
 
   if (!*(a1 + 240) && !*(a1 + 272))
   {
-    v14 = *a2;
-    v15 = *(a2 + 8);
-    v16 = v15 - *a2;
-    if (v16 <= 0xFE)
+    v9 = *a2;
+    v10 = *(a2 + 8);
+    v11 = v10 - *a2;
+    if (v11 <= 0xFE)
     {
-      v17 = v7;
-      if (v15 != v14)
+      v12 = v7;
+      if (v10 != v9)
       {
-        memmove(__dst, v14, v16);
+        memmove(__dst, v9, v11);
       }
 
-      v54[30] = v16;
-      result = otDatasetParseTlvs(__dst, v52);
+      v49[30] = v11;
+      result = otDatasetParseTlvs(__dst, v47);
       if (result)
       {
         goto LABEL_7;
       }
 
-      if (v52[120] == 1 && v52[122] == 1 && v52[123] == 1 && v52[124] == 1 && v52[125] == 1 && v52[127] == 1 && v52[128] == 1 && v52[129] == 1 && v52[130] == 1 && v52[131] == 1)
+      if (v47[120] == 1 && v47[122] == 1 && v47[123] == 1 && v47[124] == 1 && v47[125] == 1 && v47[127] == 1 && v47[128] == 1 && v47[129] == 1 && v47[130] == 1 && v47[131] == 1)
       {
-        v18 = v54[30];
-        v19 = __dst;
-        v20 = __dst + v54[30];
-        if (v54[30] < 3u)
+        v13 = v49[30];
+        v14 = __dst;
+        v15 = __dst + v49[30];
+        if (v49[30] < 3u)
         {
 LABEL_45:
-          if (v54[30] != 255)
+          if (v49[30] != 255)
           {
-            *v20 = 51;
-            result = clock_gettime(_CLOCK_REALTIME, &v47);
-            if (v47.tv_nsec >> 49)
+            *v15 = 51;
+            result = clock_gettime(_CLOCK_REALTIME, &v42);
+            if (v42.tv_nsec >> 49)
             {
 LABEL_74:
               __break(0x550Cu);
               return result;
             }
 
-            if (v18 != 254)
+            if (v13 != 254)
             {
-              v33 = (((((v47.tv_nsec & 0x1FFFFFFFFFFFFuLL) << 6) * 0x44B82FA09B5A53uLL) >> 64) >> 10) & 0xFFFE | (v47.tv_sec << 16);
-              v20[1] = 8;
-              v34 = v18 + 2;
-              v35 = 56;
-              while (v34 <= 0xFE)
+              v28 = (((((v42.tv_nsec & 0x1FFFFFFFFFFFFuLL) << 6) * 0x44B82FA09B5A53uLL) >> 64) >> 10) & 0xFFFE | (v42.tv_sec << 16);
+              v15[1] = 8;
+              v29 = v13 + 2;
+              v30 = 56;
+              while (v29 <= 0xFE)
               {
-                *(__dst + v34++) = v33 >> v35;
-                v35 -= 8;
-                if (v35 == -8)
+                *(__dst + v29++) = v28 >> v30;
+                v30 -= 8;
+                if (v30 == -8)
                 {
-                  if (v18 <= 0xF4)
+                  if (v13 <= 0xF4)
                   {
-                    v20[10] = 52;
-                    if (v18 != 244)
+                    v15[10] = 52;
+                    if (v13 != 244)
                     {
-                      v20[11] = 4;
-                      v36 = v18 + 12;
-                      v37 = 32;
-                      while (v36 <= 0xFE)
+                      v15[11] = 4;
+                      v31 = v13 + 12;
+                      v32 = 32;
+                      while (v31 <= 0xFE)
                       {
-                        v37 -= 8;
-                        *(__dst + v36++) = 0x493E0u >> v37;
-                        if (!v37)
+                        v32 -= 8;
+                        *(__dst + v31++) = 0x493E0u >> v32;
+                        if (!v32)
                         {
-                          v54[30] = v20 - __dst + 16;
-                          if ((v20 - __dst) == 0xF0)
+                          v49[30] = v15 - __dst + 16;
+                          if ((v15 - __dst) == 0xF0)
                           {
                             otbr::agent::ThreadHelper::AttachAllNodesTo();
                           }
 
-                          if (v17 > 1)
+                          if (v12 > 1)
                           {
-                            LODWORD(result) = otDatasetSendMgmtPendingSet(*a1, v50, __dst, (v20 - __dst) + 16, otbr::agent::ThreadHelper::MgmtSetResponseHandler, a1);
+                            LODWORD(result) = otDatasetSendMgmtPendingSet(*a1, v45, __dst, (v15 - __dst) + 16, otbr::agent::ThreadHelper::MgmtSetResponseHandler, a1);
                             if (result)
                             {
                               goto LABEL_7;
@@ -15178,8 +17571,8 @@ LABEL_74:
                             return result;
                           }
 
-                          LODWORD(result) = otDatasetGetActive(*a1, v49);
-                          v38 = result;
+                          LODWORD(result) = otDatasetGetActive(*a1, v44);
+                          v33 = result;
                           if (result == 23 || !result)
                           {
                             if (!result || (LODWORD(result) = otDatasetSetActiveTlvs(*a1, __dst), !result))
@@ -15189,11 +17582,11 @@ LABEL_74:
                                 LODWORD(result) = otThreadSetEnabled(*a1, 1);
                                 if (!result)
                                 {
-                                  v39 = (a1 + 312);
-                                  if (v38)
+                                  v34 = (a1 + 312);
+                                  if (v33)
                                   {
                                     *(a1 + 208) = 0;
-                                    *v39 = 0u;
+                                    *v34 = 0u;
                                     *(a1 + 328) = 0u;
                                     *(a1 + 344) = 0u;
                                     *(a1 + 360) = 0u;
@@ -15214,29 +17607,29 @@ LABEL_74:
                                   else
                                   {
                                     *(a1 + 208) = 300000;
-                                    v40 = __dst[13];
+                                    v35 = __dst[13];
                                     *(a1 + 504) = __dst[12];
-                                    *(a1 + 520) = v40;
-                                    *(a1 + 536) = *v54;
-                                    *(a1 + 551) = *&v54[15];
-                                    v41 = __dst[9];
+                                    *(a1 + 520) = v35;
+                                    *(a1 + 536) = *v49;
+                                    *(a1 + 551) = *&v49[15];
+                                    v36 = __dst[9];
                                     *(a1 + 440) = __dst[8];
-                                    *(a1 + 456) = v41;
-                                    v42 = __dst[11];
+                                    *(a1 + 456) = v36;
+                                    v37 = __dst[11];
                                     *(a1 + 472) = __dst[10];
-                                    *(a1 + 488) = v42;
-                                    v43 = __dst[5];
+                                    *(a1 + 488) = v37;
+                                    v38 = __dst[5];
                                     *(a1 + 376) = __dst[4];
-                                    *(a1 + 392) = v43;
-                                    v44 = __dst[7];
+                                    *(a1 + 392) = v38;
+                                    v39 = __dst[7];
                                     *(a1 + 408) = __dst[6];
-                                    *(a1 + 424) = v44;
-                                    v45 = __dst[1];
-                                    *v39 = __dst[0];
-                                    *(a1 + 328) = v45;
-                                    v46 = __dst[3];
+                                    *(a1 + 424) = v39;
+                                    v40 = __dst[1];
+                                    *v34 = __dst[0];
+                                    *(a1 + 328) = v40;
+                                    v41 = __dst[3];
                                     *(a1 + 344) = __dst[2];
-                                    *(a1 + 360) = v46;
+                                    *(a1 + 360) = v41;
                                   }
 
                                   *(a1 + 200) = 0;
@@ -15261,85 +17654,85 @@ LABEL_74:
 
         else
         {
-          v21 = 0;
-          v22 = __dst + 2;
-          v23 = 2;
-          v24 = __dst + 2;
-          while (v21 <= 0xFE)
+          v16 = 0;
+          v17 = __dst + 2;
+          v18 = 2;
+          v19 = __dst + 2;
+          while (v16 <= 0xFE)
           {
-            if (*v19 == 51)
+            if (*v14 == 51)
             {
               goto LABEL_6;
             }
 
-            if (v21 == 254)
+            if (v16 == 254)
             {
               break;
             }
 
-            v25 = v19 + 1;
-            v26 = v19[1];
-            if (v26 == 255)
+            v20 = v14 + 1;
+            v21 = v14[1];
+            if (v21 == 255)
             {
-              if (v23 > 0xFE || v21 > 0xFB)
+              if (v18 > 0xFE || v16 > 0xFB)
               {
                 break;
               }
 
-              v26 = v19[3] | (*v24 << 8);
-              v27 = 3;
+              v21 = v14[3] | (*v19 << 8);
+              v22 = 3;
             }
 
             else
             {
-              v27 = 1;
+              v22 = 1;
             }
 
-            v21 += 1 + v27 + v26;
-            v19 = &v25[v27 + v26];
-            v23 = v21 + 2;
-            v24 = v19 + 2;
-            if (v19 + 2 >= v20)
+            v16 += 1 + v22 + v21;
+            v14 = &v20[v22 + v21];
+            v18 = v16 + 2;
+            v19 = v14 + 2;
+            if (v14 + 2 >= v15)
             {
-              v28 = 0;
-              v29 = __dst;
-              v30 = 2;
-              while (v28 <= 0xFE)
+              v23 = 0;
+              v24 = __dst;
+              v25 = 2;
+              while (v23 <= 0xFE)
               {
-                if (*v29 == 52)
+                if (*v24 == 52)
                 {
                   goto LABEL_6;
                 }
 
-                if (v28 == 254)
+                if (v23 == 254)
                 {
                   break;
                 }
 
-                v31 = v29[1];
-                if (v31 == 255)
+                v26 = v24[1];
+                if (v26 == 255)
                 {
-                  if (v30 > 0xFE || v28 > 0xFB)
+                  if (v25 > 0xFE || v23 > 0xFB)
                   {
                     goto LABEL_73;
                   }
 
-                  v31 = v29[3] | (*v22 << 8);
-                  v32 = 3;
+                  v26 = v24[3] | (*v17 << 8);
+                  v27 = 3;
                 }
 
                 else
                 {
-                  v32 = 1;
+                  v27 = 1;
                 }
 
-                v28 += 1 + v32 + v31;
-                v29 += v32 + v31 + 1;
-                v30 = v28 + 2;
-                v22 = v29 + 2;
-                if (v29 + 2 >= v20)
+                v23 += 1 + v27 + v26;
+                v24 += v27 + v26 + 1;
+                v25 = v23 + 2;
+                v17 = v24 + 2;
+                if (v24 + 2 >= v15)
                 {
-                  if (v54[30] > 0xEEu)
+                  if (v49[30] > 0xEEu)
                   {
                     goto LABEL_6;
                   }
@@ -15366,31 +17759,30 @@ LABEL_6:
 
   LODWORD(result) = 5;
 LABEL_7:
-  v48 = result;
-  v49[0] = 0;
+  v43 = result;
+  v44[0] = 0;
   return std::__function::__value_func<void ()(otError,long long)>::operator()[abi:ne200100](a3);
 }
 
 uint64_t otbr::agent::ThreadHelper::MgmtSetResponseHandler(uint64_t a1, int a2)
 {
-  v18[3] = 0;
-  otThreadErrorToString(a2);
+  v7[3] = 0;
+  v4 = otThreadErrorToString(a2);
   if (a2)
   {
-    v9 = 4;
+    v5 = 4;
   }
 
   else
   {
-    v9 = 6;
+    v5 = 6;
   }
 
-  otbrLog(v9, "UTILS", "%s: %s", v4, v5, v6, v7, v8, "MgmtSetResponseHandler()");
+  otbrLog(v5, "UTILS", "%s: %s", "MgmtSetResponseHandler()", v4);
   *(a1 + 200) = 0;
   if (*(a1 + 240))
   {
-    v15 = *(a1 + 208);
-    std::function<void ()(otError,long long)>::operator=(v18, a1 + 216);
+    std::function<void ()(otError,long long)>::operator=(v7, a1 + 216);
     *(a1 + 208) = 0;
     std::__function::__value_func<void ()(otError,long long)>::operator=[abi:ne200100](a1 + 216);
     *(a1 + 312) = 0u;
@@ -15409,12 +17801,12 @@ uint64_t otbr::agent::ThreadHelper::MgmtSetResponseHandler(uint64_t a1, int a2)
     *(a1 + 520) = 0u;
     *(a1 + 536) = 0u;
     *(a1 + 551) = 0u;
-    std::__function::__value_func<void ()(otError,long long)>::operator()[abi:ne200100](v18);
+    std::__function::__value_func<void ()(otError,long long)>::operator()[abi:ne200100](v7);
   }
 
   else
   {
-    otbrLog(4u, "UTILS", "mAttachHandler is nullptr", v10, v11, v12, v13, v14, v17);
+    otbrLog(4, "UTILS", "mAttachHandler is nullptr");
     *(a1 + 208) = 0;
     *(a1 + 312) = 0u;
     *(a1 + 328) = 0u;
@@ -15434,12 +17826,12 @@ uint64_t otbr::agent::ThreadHelper::MgmtSetResponseHandler(uint64_t a1, int a2)
     *(a1 + 551) = 0u;
   }
 
-  return std::__function::__value_func<void ()(otError,long long)>::~__value_func[abi:ne200100](v18);
+  return std::__function::__value_func<void ()(otError,long long)>::~__value_func[abi:ne200100](v7);
 }
 
-void sub_1003DF638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1003DF638(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   std::__function::__value_func<void ()(otError,long long)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -15463,9 +17855,18 @@ uint64_t otbr::agent::ThreadHelper::AddActiveDatasetChangeHandler(uint64_t *a1, 
 
 void *otbr::agent::ThreadHelper::DetachGracefully(uint64_t *a1, uint64_t a2)
 {
-  if (a1[38] || otThreadDetachGracefully(*a1, otbr::agent::ThreadHelper::DetachGracefullyCallback, a1))
+  if (a1[38])
   {
-    return std::__function::__value_func<void ()(otError)>::operator()[abi:ne200100](a2);
+    v3 = 5;
+LABEL_4:
+    v6 = v3;
+    return std::__function::__value_func<void ()(otError)>::operator()[abi:ne200100](a2, &v6);
+  }
+
+  v3 = otThreadDetachGracefully(*a1, otbr::agent::ThreadHelper::DetachGracefullyCallback, a1);
+  if (v3)
+  {
+    goto LABEL_4;
   }
 
   return std::function<void ()(otError)>::operator=(a1 + 35, a2);
@@ -15475,7 +17876,8 @@ uint64_t otbr::agent::ThreadHelper::DetachGracefullyCallback(uint64_t this, void
 {
   if (*(this + 304))
   {
-    return std::__function::__value_func<void ()(otError)>::operator()[abi:ne200100](this + 280);
+    v2 = 0;
+    return std::__function::__value_func<void ()(otError)>::operator()[abi:ne200100](this + 280, &v2);
   }
 
   return this;
@@ -15485,7 +17887,8 @@ uint64_t otbr::agent::ThreadHelper::DetachGracefullyCallback(uint64_t this)
 {
   if (*(this + 304))
   {
-    return std::__function::__value_func<void ()(otError)>::operator()[abi:ne200100](this + 280);
+    v1 = 0;
+    return std::__function::__value_func<void ()(otError)>::operator()[abi:ne200100](this + 280, &v1);
   }
 
   return this;
@@ -15647,9 +18050,9 @@ LABEL_12:
   return v13;
 }
 
-void sub_1003DFB14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1003DFB14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::function<void ()(otDeviceRole)>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -16333,9 +18736,9 @@ LABEL_12:
   return v13;
 }
 
-void sub_1003E0D64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1003E0D64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::function<void ()(otOperationalDatasetTlvs const&)>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -16414,20 +18817,21 @@ void *std::__split_buffer<std::function<void ()(otOperationalDatasetTlvs const&)
 
 void otbr::MainloopManager::AddMainloopProcessor(otbr::MainloopManager *this, otbr::MainloopProcessor *a2)
 {
+  v2 = a2;
   if (a2)
   {
-    std::list<otbr::MainloopProcessor *>::emplace_back<otbr::MainloopProcessor *&>();
+    std::list<otbr::MainloopProcessor *>::emplace_back<otbr::MainloopProcessor *&>(this, &v2);
   }
 
   otbr::MainloopManager::AddMainloopProcessor();
 }
 
-void *std::list<otbr::MainloopProcessor *>::remove(uint64_t a1, void *a2)
+void *std::list<otbr::MainloopProcessor *>::remove(void *a1, void *a2)
 {
   v10[0] = v10;
   v10[1] = v10;
   v10[2] = 0;
-  v2 = *(a1 + 8);
+  v2 = a1[1];
   if (v2 != a1)
   {
     do
@@ -16472,9 +18876,9 @@ LABEL_11:
   return std::__list_imp<otbr::MainloopProcessor *>::clear(v10);
 }
 
-void sub_1003E1054(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1003E1054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__list_imp<otbr::MainloopProcessor *>::clear(va);
   _Unwind_Resume(a1);
 }
@@ -16599,26 +19003,26 @@ void sub_1003E142C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_1003E14C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1003E14C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  va_start(va, a5);
+  va_start(va, a10);
   std::__function::__value_func<void ()(otbr::Mdns::Publisher::State)>::~__value_func[abi:ne200100](va);
   JUMPOUT(0x1003E14B4);
 }
 
-void otbr::BorderAgent::SetEnabled(otbr::BorderAgent *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void otbr::BorderAgent::SetEnabled(otbr::BorderAgent *this, int a2)
 {
   if (*(this + 24) != a2)
   {
     *(this + 24) = a2;
     if (a2)
     {
-      otbr::BorderAgent::Start(this, a2, a3, a4, a5, a6, a7, a8);
+      otbr::BorderAgent::Start(this);
     }
 
     else
     {
-      otbr::BorderAgent::Stop(this, a2, a3, a4, a5, a6, a7, a8);
+      otbr::BorderAgent::Stop(this);
     }
   }
 }
@@ -16698,7 +19102,7 @@ uint64_t otbr::BorderAgent::SetMeshCopServiceValues(uint64_t a1, const std::stri
     v19 = v17 + 24;
     do
     {
-      v20 = std::map<std::string,std::vector<unsigned char>>::operator[](a1 + 32, (v19 - 24));
+      v20 = std::map<std::string,std::vector<unsigned char>>::operator[]((a1 + 32), (v19 - 24));
       if (v19 != v20)
       {
         std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v20, *v19, *(v19 + 8), *(v19 + 8) - *v19);
@@ -16715,103 +19119,94 @@ uint64_t otbr::BorderAgent::SetMeshCopServiceValues(uint64_t a1, const std::stri
   return 0;
 }
 
-void otbr::BorderAgent::Start(otbr::BorderAgent *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void otbr::BorderAgent::Start(otbr::BorderAgent *this)
 {
-  otbrLog(6u, "BA", "Start Thread Border Agent", a4, a5, a6, a7, a8, v9);
+  otbrLog(6, "BA", "Start Thread Border Agent");
   (***(this + 2))();
-  otbr::BorderAgent::GetServiceInstanceNameWithExtAddr(this, this + 128, &v10);
+  otbr::BorderAgent::GetServiceInstanceNameWithExtAddr(this, this + 16, &v2);
   if (*(this + 175) < 0)
   {
     operator delete(*(this + 19));
   }
 
-  *(this + 152) = v10;
-  *(this + 21) = v11;
+  *(this + 152) = v2;
+  *(this + 21) = v3;
   otbr::BorderAgent::UpdateMeshCopService(this);
 }
 
-uint64_t otbr::BorderAgent::Stop(otbr::BorderAgent *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t otbr::BorderAgent::Stop(otbr::BorderAgent *this)
 {
-  otbrLog(6u, "BA", "Stop Thread Border Agent", a4, a5, a6, a7, a8, v18);
-  otbr::BorderAgent::UnpublishMeshCopService(this, v9, v10, v11, v12, v13, v14, v15);
-  v16 = *(**(this + 2) + 8);
+  otbrLog(6, "BA", "Stop Thread Border Agent");
+  otbr::BorderAgent::UnpublishMeshCopService(this);
+  v2 = *(**(this + 2) + 8);
 
-  return v16();
+  return v2();
 }
 
-void otbr::BorderAgent::GetServiceInstanceNameWithExtAddr(uint64_t a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void otbr::BorderAgent::GetServiceInstanceNameWithExtAddr(uint64_t a1@<X0>, uint64_t **a2@<X1>, void *a3@<X8>)
 {
   v3 = *(*(a1 + 8) + 32);
   if (v3)
   {
-    ExtendedAddress = otLinkGetExtendedAddress(v3);
-    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v22);
-    v6 = *(a2 + 23);
-    if (v6 >= 0)
+    otLinkGetExtendedAddress(v3);
+    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v19);
+    v5 = *(a2 + 23);
+    if (v5 >= 0)
     {
-      v7 = a2;
+      v6 = a2;
     }
 
     else
     {
-      v7 = *a2;
+      v6 = *a2;
     }
 
-    if (v6 >= 0)
+    if (v5 >= 0)
     {
-      v8 = *(a2 + 23);
+      v7 = *(a2 + 23);
     }
 
     else
     {
-      v8 = *(a2 + 8);
+      v7 = a2[1];
     }
 
-    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, v7, v8);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, " #", 2);
-    v10 = v23;
-    v11 = v23;
-    v12 = *(v23 - 24);
+    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v20, v6, v7);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, " #", 2);
+    v9 = v20;
+    v10 = v20;
+    v11 = *(v20 - 24);
+    if ((v11 - 253) < 0xFFFFFFFFFFFFFEEBLL)
+    {
+      goto LABEL_23;
+    }
+
+    *(&v20 + v11 + 8) |= 0x4000u;
+    v12 = *(v10 - 24);
     if ((v12 - 253) < 0xFFFFFFFFFFFFFEEBLL)
     {
       goto LABEL_23;
     }
 
-    *(&v23 + v12 + 8) |= 0x4000u;
-    v13 = *(v11 - 24);
-    if ((v13 - 253) < 0xFFFFFFFFFFFFFEEBLL)
+    *(&v20 + v12 + 8) = *(&v20 + v12 + 8) & 0xFFFFFFB5 | 8;
+    v13 = *(v10 - 24);
+    if ((v13 - 117) < 0xFFFFFFFFFFFFFEEBLL)
     {
       goto LABEL_23;
     }
 
-    *(&v23 + v13 + 8) = *(&v23 + v13 + 8) & 0xFFFFFFB5 | 8;
-    v14 = *(v11 - 24);
-    if ((v14 - 117) < 0xFFFFFFFFFFFFFEEBLL)
+    v14 = (&v20 + v13);
+    if (*&v24[v13] == -1)
     {
-      goto LABEL_23;
+      std::ios_base::getloc(v14);
+      v15 = std::locale::use_facet(&v25, &std::ctype<char>::id);
+      (v15->__vftable[2].~facet_0)(v15, 32);
+      std::locale::~locale(&v25);
+      v9 = v20;
     }
 
-    v15 = (&v23 + v14);
-    if (*&v27[v14] == -1)
-    {
-      std::ios_base::getloc(v15);
-      v16 = std::locale::use_facet(&v28, &std::ctype<char>::id);
-      (v16->__vftable[2].~facet_0)(v16, 32);
-      std::locale::~locale(&v28);
-      v10 = v23;
-    }
-
-    v15[1].__fmtflags_ = 48;
-    v17 = *(v10 - 24);
-    if ((v17 - 233) < 0xFFFFFFFFFFFFFEEFLL)
-    {
-      goto LABEL_23;
-    }
-
-    *(&v25[1].__locale_ + v17) = 2;
-    v18 = *(ExtendedAddress + 6);
-    std::ostream::operator<<();
-    v19 = *(v23 - 24);
+    v14[1].__fmtflags_ = 48;
+    v16 = *(v9 - 24);
     {
 LABEL_23:
       __break(1u);
@@ -16819,12 +19214,12 @@ LABEL_23:
 
     else
     {
-      if (v26 < 0)
+      if (v23 < 0)
       {
-        operator delete(v25[7].__locale_);
+        operator delete(v22[7].__locale_);
       }
 
-      std::locale::~locale(v25);
+      std::locale::~locale(v22);
       std::iostream::~basic_iostream();
       std::ios::~ios();
     }
@@ -16837,7 +19232,7 @@ LABEL_23:
   }
 }
 
-void otbr::BorderAgent::UpdateMeshCopService(void (****this)(void))
+void otbr::BorderAgent::UpdateMeshCopService(uint64_t (****this)(void))
 {
   if (otbr::BorderAgent::IsThreadStarted(this) && *(this + 24) == 1)
   {
@@ -16856,24 +19251,24 @@ void otbr::BorderAgent::UpdateMeshCopService(void (****this)(void))
   }
 }
 
-void otbr::BorderAgent::UnpublishMeshCopService(otbr::BorderAgent *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void otbr::BorderAgent::UnpublishMeshCopService(otbr::BorderAgent *this)
 {
-  v9 = (this + 152);
-  LOBYTE(v10) = this - 104;
+  v2 = (this + 152);
+  v3 = this + 152;
   if (*(this + 175) < 0)
   {
-    v10 = *v9;
+    v3 = *v2;
   }
 
-  otbrLog(6u, "BA", "Unpublish meshcop service %s.%s.local", a4, a5, a6, a7, a8, v10);
-  v11 = *(this + 2);
+  otbrLog(6, "BA", "Unpublish meshcop service %s.%s.local", v3, "_meshcop._udp");
+  v4 = *(this + 2);
   std::string::basic_string[abi:ne200100]<0>(__p, "_meshcop._udp");
-  v14[0] = off_1004CE818;
-  v14[1] = this;
-  v14[3] = v14;
-  (*(*v11 + 40))(v11, v9, __p, v14);
-  std::__function::__value_func<void ()(otbrError)>::~__value_func[abi:ne200100](v14);
-  if (v13 < 0)
+  v7[0] = off_1004CE818;
+  v7[1] = this;
+  v7[3] = v7;
+  (*(*v4 + 40))(v4, v2, __p, v7);
+  std::__function::__value_func<void ()(otbrError)>::~__value_func[abi:ne200100](v7);
+  if (v6 < 0)
   {
     operator delete(__p[0]);
   }
@@ -16890,18 +19285,18 @@ void sub_1003E1D58(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void otbr::BorderAgent::HandleMdnsState(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void otbr::BorderAgent::HandleMdnsState(uint64_t result, int a2)
 {
-  if (*(a1 + 24) == 1)
+  if (*(result + 24) == 1)
   {
     if (a2 == 1)
     {
-      otbr::BorderAgent::UpdateMeshCopService(a1);
+      otbr::BorderAgent::UpdateMeshCopService(result);
     }
 
     else
     {
-      otbrLog(4u, "BA", "mDNS publisher not available!", a4, a5, a6, a7, a8, a9);
+      otbrLog(4, "BA", "mDNS publisher not available!");
     }
   }
 }
@@ -17025,32 +19420,32 @@ uint64_t otbr::AppendBbrTxtEntries(uint64_t a1, char a2, uint64_t *a3)
 
 void otbr::AppendActiveTimestampTxtEntry(uint64_t a1, uint64_t *a2)
 {
-  Active = otDatasetGetActive(a1, &v15);
+  Active = otDatasetGetActive(a1, &v10);
   if (Active)
   {
     v4 = otThreadErrorToString(Active);
-    otbrLog(4u, "BA", "Failed to get active dataset: %s", v5, v6, v7, v8, v9, v4);
+    otbrLog(4, "BA", "Failed to get active dataset: %s", v4);
   }
 
   else
   {
-    v13 = &v14;
-    v14 = bswap64((2 * v16) | (v15 << 16) | v17);
-    v12 = 8;
-    v10 = a2[1];
-    if (v10 >= a2[2])
+    v8 = &v9;
+    v9 = bswap64((2 * v11) | (v10 << 16) | v12);
+    v7 = 8;
+    v5 = a2[1];
+    if (v5 >= a2[2])
     {
-      v11 = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],unsigned char *,unsigned long>(a2, "at", &v13, &v12);
+      v6 = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],unsigned char *,unsigned long>(a2, "at", &v8, &v7);
     }
 
     else
     {
-      std::allocator_traits<std::allocator<otbr::Mdns::Publisher::TxtEntry>>::construct[abi:ne200100]<otbr::Mdns::Publisher::TxtEntry,char const(&)[3],unsigned char *,unsigned long,0>(a2, a2[1], "at", &v13, &v12);
-      v11 = v10 + 56;
-      a2[1] = v10 + 56;
+      std::allocator_traits<std::allocator<otbr::Mdns::Publisher::TxtEntry>>::construct[abi:ne200100]<otbr::Mdns::Publisher::TxtEntry,char const(&)[3],unsigned char *,unsigned long,0>(a2, a2[1], "at", &v8, &v7);
+      v6 = v5 + 56;
+      a2[1] = v5 + 56;
     }
 
-    a2[1] = v11;
+    a2[1] = v6;
   }
 }
 
@@ -17100,9 +19495,8 @@ LABEL_24:
           if (v11 == v12)
           {
             v13 = v10 >= 0 ? v7 : *v7;
-            v14 = *v5;
-            v15 = (v8 & 0x80u) == 0 ? v3 + 32 : *v5;
-            if (!memcmp(v13, v15, v11))
+            v14 = (v8 & 0x80u) == 0 ? v3 + 32 : *v5;
+            if (!memcmp(v13, v14, v11))
             {
               result = (v7 + 24);
               if ((v7 + 24) != v3 + 56)
@@ -17125,52 +19519,52 @@ LABEL_24:
         }
       }
 
-      v16 = *(v3 + 8);
-      v21 = *(v3 + 7);
-      v22 = v5;
-      v20 = v16 - v21;
+      v15 = *(v3 + 8);
+      v20 = *(v3 + 7);
+      v21 = v5;
+      v19 = v15 - v20;
       if (v6 >= a2[2])
       {
-        result = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const*,unsigned char const*,unsigned long>(a2, &v22, &v21, &v20);
+        result = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const*,unsigned char const*,unsigned long>(a2, &v21, &v20, &v19);
       }
 
       else
       {
-        std::allocator_traits<std::allocator<otbr::Mdns::Publisher::TxtEntry>>::construct[abi:ne200100]<otbr::Mdns::Publisher::TxtEntry,char const*,unsigned char const*,unsigned long,0>(a2, v6, &v22, &v21, &v20);
-        result = (v6 + 56);
-        a2[1] = v6 + 56;
+        std::allocator_traits<std::allocator<otbr::Mdns::Publisher::TxtEntry>>::construct[abi:ne200100]<otbr::Mdns::Publisher::TxtEntry,char const*,unsigned char const*,unsigned long,0>(a2, v6, &v21, &v20, &v19);
+        result = v6 + 7;
+        a2[1] = (v6 + 7);
       }
 
       a2[1] = result;
 LABEL_28:
-      v17 = *(v3 + 1);
-      if (v17)
+      v16 = *(v3 + 1);
+      if (v16)
       {
         do
         {
-          v18 = v17;
-          v17 = *v17;
+          v17 = v16;
+          v16 = *v16;
         }
 
-        while (v17);
+        while (v16);
       }
 
       else
       {
         do
         {
-          v18 = *(v3 + 2);
-          v19 = *v18 == v3;
-          v3 = v18;
+          v17 = *(v3 + 2);
+          v18 = *v17 == v3;
+          v3 = v17;
         }
 
-        while (!v19);
+        while (!v18);
       }
 
-      v3 = v18;
+      v3 = v17;
     }
 
-    while (v18 != v2);
+    while (v17 != v2);
   }
 
   return result;
@@ -17178,62 +19572,62 @@ LABEL_28:
 
 void otbr::BorderAgent::PublishMeshCopService(otbr::BorderAgent *this)
 {
-  v62 = 0;
+  v53 = 0;
   v2 = *(*(this + 1) + 32);
   otThreadGetExtendedPanId(v2);
   v4 = v3;
   ExtendedAddress = otLinkGetExtendedAddress(v2);
   otThreadGetNetworkName(v2);
-  v61 = v6;
-  otbr::Mdns::Publisher::TxtEntry::TxtEntry(v63, "rv", "1");
-  v58 = 0;
-  v59 = 0;
-  v60 = 0;
-  std::vector<otbr::Mdns::Publisher::TxtEntry>::__init_with_size[abi:ne200100]<otbr::Mdns::Publisher::TxtEntry const*,otbr::Mdns::Publisher::TxtEntry const*>(&v58, v63, &v67, 1uLL);
-  if (v65)
+  v52 = v6;
+  otbr::Mdns::Publisher::TxtEntry::TxtEntry(v54, "rv", "1");
+  v49 = 0;
+  v50 = 0;
+  v51 = 0;
+  std::vector<otbr::Mdns::Publisher::TxtEntry>::__init_with_size[abi:ne200100]<otbr::Mdns::Publisher::TxtEntry const*,otbr::Mdns::Publisher::TxtEntry const*>(&v49, v54, &v58, 1uLL);
+  if (v56)
   {
-    v66 = v65;
-    operator delete(v65);
+    v57 = v56;
+    operator delete(v56);
   }
 
-  if (v64 < 0)
+  if (v55 < 0)
   {
-    operator delete(v63[0]);
+    operator delete(v54[0]);
   }
 
-  v55 = 0;
-  v56 = 0;
-  v57 = 0;
-  LOBYTE(v7) = this - 104;
+  v46 = 0;
+  v47 = 0;
+  v48 = 0;
+  v7 = this + 152;
   if (*(this + 175) < 0)
   {
     v7 = *(this + 19);
   }
 
-  otBorderAgentGetUdpPort(v2);
-  otbrLog(6u, "BA", "Publish meshcop service %s.%s.local. xa:0x%llx xp:%llx port:%d", v8, v9, v10, v11, v12, v7);
-  v13 = *(this + 7);
-  v14 = *(this + 8);
-  if (v13 != v14)
+  UdpPort = otBorderAgentGetUdpPort(v2);
+  otbrLog(6, "BA", "Publish meshcop service %s.%s.local. xa:0x%llx xp:%llx port:%d", v7, "_meshcop._udp", ExtendedAddress, v4, UdpPort);
+  v9 = *(this + 7);
+  v10 = *(this + 8);
+  if (v9 != v10)
   {
-    v63[0] = *(this + 7);
-    v53[0] = (v14 - v13);
-    v15 = v59;
-    if (v59 >= v60)
+    v54[0] = *(this + 7);
+    v44[0] = (v10 - v9);
+    v11 = v50;
+    if (v50 >= v51)
     {
-      v16 = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],unsigned char *,unsigned long>(&v58, "vo", v63, v53);
+      v12 = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],unsigned char *,unsigned long>(&v49, "vo", v54, v44);
     }
 
     else
     {
-      std::allocator_traits<std::allocator<otbr::Mdns::Publisher::TxtEntry>>::construct[abi:ne200100]<otbr::Mdns::Publisher::TxtEntry,char const(&)[3],unsigned char *,unsigned long,0>(&v58, v59, "vo", v63, v53);
-      v16 = (v15 + 56);
+      std::allocator_traits<std::allocator<otbr::Mdns::Publisher::TxtEntry>>::construct[abi:ne200100]<otbr::Mdns::Publisher::TxtEntry,char const(&)[3],unsigned char *,unsigned long,0>(&v49, v50, "vo", v54, v44);
+      v12 = (v11 + 56);
     }
 
-    v59 = v16;
+    v50 = v12;
   }
 
-  v17 = (this + 80);
+  v13 = this + 80;
   if (*(this + 103) < 0)
   {
     if (!*(this + 11))
@@ -17241,7 +19635,7 @@ void otbr::BorderAgent::PublishMeshCopService(otbr::BorderAgent *this)
       goto LABEL_21;
     }
 
-    v17 = *v17;
+    v13 = *v13;
   }
 
   else if (!*(this + 103))
@@ -17249,22 +19643,22 @@ void otbr::BorderAgent::PublishMeshCopService(otbr::BorderAgent *this)
     goto LABEL_21;
   }
 
-  v63[0] = v17;
-  v18 = v59;
-  if (v59 >= v60)
+  v54[0] = v13;
+  v14 = v50;
+  if (v50 >= v51)
   {
-    v19 = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],char const*>(&v58, "vn", v63);
+    v15 = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],char const*>(&v49, "vn", v54);
   }
 
   else
   {
-    otbr::Mdns::Publisher::TxtEntry::TxtEntry(v59, "vn", v17);
-    v19 = (v18 + 56);
+    otbr::Mdns::Publisher::TxtEntry::TxtEntry(v50, "vn", v13);
+    v15 = (v14 + 56);
   }
 
-  v59 = v19;
+  v50 = v15;
 LABEL_21:
-  v20 = (this + 104);
+  v16 = this + 104;
   if (*(this + 127) < 0)
   {
     if (!*(this + 14))
@@ -17272,7 +19666,7 @@ LABEL_21:
       goto LABEL_30;
     }
 
-    v20 = *v20;
+    v16 = *v16;
   }
 
   else if (!*(this + 127))
@@ -17280,204 +19674,204 @@ LABEL_21:
     goto LABEL_30;
   }
 
-  v63[0] = v20;
-  v21 = v59;
-  if (v59 >= v60)
+  v54[0] = v16;
+  v17 = v50;
+  if (v50 >= v51)
   {
-    v22 = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],char const*>(&v58, "mn", v63);
+    v18 = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],char const*>(&v49, "mn", v54);
   }
 
   else
   {
-    otbr::Mdns::Publisher::TxtEntry::TxtEntry(v59, "mn", v20);
-    v22 = (v21 + 56);
+    otbr::Mdns::Publisher::TxtEntry::TxtEntry(v50, "mn", v16);
+    v18 = (v17 + 56);
   }
 
-  v59 = v22;
+  v50 = v18;
 LABEL_30:
-  v23 = v59;
-  if (v59 >= v60)
+  v19 = v50;
+  if (v50 >= v51)
   {
-    v24 = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],char const*>(&v58, "nn", &v61);
+    v20 = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],char const*>(&v49, "nn", &v52);
   }
 
   else
   {
-    otbr::Mdns::Publisher::TxtEntry::TxtEntry(v59, "nn", v61);
+    otbr::Mdns::Publisher::TxtEntry::TxtEntry(v50, "nn", v52);
+    v20 = (v19 + 56);
+  }
+
+  v50 = v20;
+  v54[0] = 8;
+  if (v20 >= v51)
+  {
+    v21 = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],unsigned char const(&)[8],unsigned long>(&v49, "xp", v4, v54);
+  }
+
+  else
+  {
+    otbr::Mdns::Publisher::TxtEntry::TxtEntry(v20, "xp", 2uLL, v4, 8);
+    v21 = (v20 + 56);
+  }
+
+  v50 = v21;
+  ThreadVersion = otbr::Ncp::RcpHost::GetThreadVersion(v21);
+  v54[0] = ThreadVersion;
+  v23 = v50;
+  if (v50 >= v51)
+  {
+    v24 = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],char const*>(&v49, "tv", v54);
+  }
+
+  else
+  {
+    otbr::Mdns::Publisher::TxtEntry::TxtEntry(v50, "tv", ThreadVersion);
     v24 = (v23 + 56);
   }
 
-  v59 = v24;
-  v63[0] = 8;
-  if (v24 >= v60)
+  v50 = v24;
+  v54[0] = 8;
+  if (v24 >= v51)
   {
-    v25 = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],unsigned char const(&)[8],unsigned long>(&v58, "xp", v4, v63);
+    v25 = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],unsigned char const(&)[8],unsigned long>(&v49, "xa", ExtendedAddress, v54);
   }
 
   else
   {
-    otbr::Mdns::Publisher::TxtEntry::TxtEntry(v24, "xp", 2uLL, v4, 8);
+    otbr::Mdns::Publisher::TxtEntry::TxtEntry(v24, "xa", 2uLL, ExtendedAddress, 8);
     v25 = (v24 + 56);
   }
 
-  v59 = v25;
-  ThreadVersion = otbr::Ncp::RcpHost::GetThreadVersion(v25);
-  v63[0] = ThreadVersion;
-  v27 = v59;
-  if (v59 >= v60)
+  v50 = v25;
+  v54[0] = 8;
+  if (v25 >= v51)
   {
-    v28 = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],char const*>(&v58, "tv", v63);
+    v26 = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],unsigned char const(&)[8],unsigned long>(&v49, "dd", ExtendedAddress, v54);
   }
 
   else
   {
-    otbr::Mdns::Publisher::TxtEntry::TxtEntry(v59, "tv", ThreadVersion);
-    v28 = (v27 + 56);
+    otbr::Mdns::Publisher::TxtEntry::TxtEntry(v25, "dd", 2uLL, ExtendedAddress, 8);
+    v26 = (v25 + 56);
   }
 
-  v59 = v28;
-  v63[0] = 8;
-  if (v28 >= v60)
-  {
-    v29 = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],unsigned char const(&)[8],unsigned long>(&v58, "xa", ExtendedAddress, v63);
-  }
-
-  else
-  {
-    otbr::Mdns::Publisher::TxtEntry::TxtEntry(v28, "xa", 2uLL, ExtendedAddress, 8);
-    v29 = (v28 + 56);
-  }
-
-  v59 = v29;
-  v63[0] = 8;
-  if (v29 >= v60)
-  {
-    v30 = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],unsigned char const(&)[8],unsigned long>(&v58, "dd", ExtendedAddress, v63);
-  }
-
-  else
-  {
-    otbr::Mdns::Publisher::TxtEntry::TxtEntry(v29, "dd", 2uLL, ExtendedAddress, 8);
-    v30 = (v29 + 56);
-  }
-
-  v59 = v30;
+  v50 = v26;
   IsPrimaryResident = otbr::Ncp::RcpHost::IsPrimaryResident(*(this + 1));
-  v32 = v59;
+  v28 = v50;
   if (IsPrimaryResident)
   {
-    if (v59 < v60)
+    if (v50 < v51)
     {
-      otbr::Mdns::Publisher::TxtEntry::TxtEntry(v59, "vp", "1");
+      otbr::Mdns::Publisher::TxtEntry::TxtEntry(v50, "vp", "1");
 LABEL_50:
-      v33 = (v32 + 56);
+      v29 = (v28 + 56);
       goto LABEL_54;
     }
 
-    v34 = "1";
+    v30 = "1";
   }
 
   else
   {
-    if (v59 < v60)
+    if (v50 < v51)
     {
-      otbr::Mdns::Publisher::TxtEntry::TxtEntry(v59, "vp", "0");
+      otbr::Mdns::Publisher::TxtEntry::TxtEntry(v50, "vp", "0");
       goto LABEL_50;
     }
 
-    v34 = "0";
+    v30 = "0";
   }
 
-  v33 = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],char const(&)[2]>(&v58, "vp", v34);
+  v29 = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],char const(&)[2]>(&v49, "vp", v30);
 LABEL_54:
-  v59 = v33;
+  v50 = v29;
   StateBitmap = otbr::GetStateBitmap(v2);
-  v36 = StateBitmap;
-  v37 = StateBitmap;
-  v62 = bswap32(StateBitmap & 0xFFF);
-  v63[0] = &v62;
-  v53[0] = 4;
-  v38 = v59;
-  if (v59 >= v60)
+  v32 = StateBitmap;
+  v33 = StateBitmap & 0xFFF;
+  v53 = bswap32(v33);
+  v54[0] = &v53;
+  v44[0] = 4;
+  v34 = v50;
+  if (v50 >= v51)
   {
-    v44 = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],unsigned char *,unsigned long>(&v58, "sb", v63, v53);
+    v35 = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],unsigned char *,unsigned long>(&v49, "sb", v54, v44);
   }
 
   else
   {
-    std::allocator_traits<std::allocator<otbr::Mdns::Publisher::TxtEntry>>::construct[abi:ne200100]<otbr::Mdns::Publisher::TxtEntry,char const(&)[3],unsigned char *,unsigned long,0>(&v58, v59, "sb", v63, v53);
-    v44 = (v38 + 56);
+    std::allocator_traits<std::allocator<otbr::Mdns::Publisher::TxtEntry>>::construct[abi:ne200100]<otbr::Mdns::Publisher::TxtEntry,char const(&)[3],unsigned char *,unsigned long,0>(&v49, v50, "sb", v54, v44);
+    v35 = (v34 + 56);
   }
 
-  v59 = v44;
-  otbrLog(6u, "BA", "Meshcop entry state bitmap sb entry:0x%x stateUint32:%llu", v39, v40, v41, v42, v43, v37);
-  if ((v36 & 0x18) == 0x10)
+  v50 = v35;
+  otbrLog(6, "BA", "Meshcop entry state bitmap sb entry:0x%x stateUint32:%llu", v33, v53);
+  if ((v32 & 0x18) == 0x10)
   {
-    otbr::AppendActiveTimestampTxtEntry(v2, &v58);
+    otbr::AppendActiveTimestampTxtEntry(v2, &v49);
     LODWORD(__p[0]) = otThreadGetPartitionId(v2);
-    v63[0] = __p;
-    v53[0] = 4;
-    v45 = v59;
-    if (v59 >= v60)
+    v54[0] = __p;
+    v44[0] = 4;
+    v36 = v50;
+    if (v50 >= v51)
     {
-      v46 = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],unsigned char *,unsigned long>(&v58, "pt", v63, v53);
+      v37 = std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],unsigned char *,unsigned long>(&v49, "pt", v54, v44);
     }
 
     else
     {
-      std::allocator_traits<std::allocator<otbr::Mdns::Publisher::TxtEntry>>::construct[abi:ne200100]<otbr::Mdns::Publisher::TxtEntry,char const(&)[3],unsigned char *,unsigned long,0>(&v58, v59, "pt", v63, v53);
-      v46 = (v45 + 56);
+      std::allocator_traits<std::allocator<otbr::Mdns::Publisher::TxtEntry>>::construct[abi:ne200100]<otbr::Mdns::Publisher::TxtEntry,char const(&)[3],unsigned char *,unsigned long,0>(&v49, v50, "pt", v54, v44);
+      v37 = (v36 + 56);
     }
 
-    v59 = v46;
+    v50 = v37;
   }
 
-  otbr::AppendBbrTxtEntries(v2, v36, &v58);
-  otbr::AppendVendorTxtEntries(this + 4, &v58);
+  otbr::AppendBbrTxtEntries(v2, v32, &v49);
+  otbr::AppendVendorTxtEntries(this + 4, &v49);
   if (otBorderAgentGetState(v2))
   {
-    UdpPort = otBorderAgentGetUdpPort(v2);
+    v38 = otBorderAgentGetUdpPort(v2);
   }
 
   else
   {
-    UdpPort = 49152;
+    v38 = 49152;
   }
 
-  if (otbr::Mdns::Publisher::EncodeTxtData(&v58, &v55))
+  if (otbr::Mdns::Publisher::EncodeTxtData(&v49, &v46))
   {
     __assert_rtn("PublishMeshCopService", "border_agent.cpp", 672, "error == OTBR_ERROR_NONE");
   }
 
-  v48 = *(this + 2);
-  std::string::basic_string[abi:ne200100]<0>(v53, "");
+  v39 = *(this + 2);
+  std::string::basic_string[abi:ne200100]<0>(v44, "");
   std::string::basic_string[abi:ne200100]<0>(__p, "_meshcop._udp");
-  memset(v50, 0, sizeof(v50));
-  v63[0] = off_1004CE798;
-  v63[1] = this;
-  v65 = v63;
-  otbr::Mdns::Publisher::PublishService(v48, v53, (this + 152), __p, v50, UdpPort, &v55, v63);
-  v49 = std::__function::__value_func<void ()(otbrError)>::~__value_func[abi:ne200100](v63);
-  v63[0] = v50;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v49);
-  if (v52 < 0)
+  memset(v41, 0, sizeof(v41));
+  v54[0] = off_1004CE798;
+  v54[1] = this;
+  v56 = v54;
+  otbr::Mdns::Publisher::PublishService(v39, v44, (this + 152), __p, v41, v38, &v46, v54);
+  v40 = std::__function::__value_func<void ()(otbrError)>::~__value_func[abi:ne200100](v54);
+  v54[0] = v41;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v40);
+  if (v43 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v54 < 0)
+  if (v45 < 0)
   {
-    operator delete(v53[0]);
+    operator delete(v44[0]);
   }
 
-  if (v55)
+  if (v46)
   {
-    v56 = v55;
-    operator delete(v55);
+    v47 = v46;
+    operator delete(v46);
   }
 
-  v63[0] = &v58;
-  std::vector<otbr::Mdns::Publisher::TxtEntry>::__destroy_vector::operator()[abi:ne200100](v63);
+  v54[0] = &v49;
+  std::vector<otbr::Mdns::Publisher::TxtEntry>::__destroy_vector::operator()[abi:ne200100](v54);
 }
 
 void sub_1003E2994(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *__p, uint64_t a30, uint64_t a31, char a32, uint64_t a33)
@@ -17492,7 +19886,7 @@ void sub_1003E2994(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-otbr::Mdns::Publisher::TxtEntry *otbr::Mdns::Publisher::TxtEntry::TxtEntry(otbr::Mdns::Publisher::TxtEntry *this, char *a2, const char *__s)
+otbr::Mdns::Publisher::TxtEntry *otbr::Mdns::Publisher::TxtEntry::TxtEntry(otbr::Mdns::Publisher::TxtEntry *this, char *a2, char *__s)
 {
   v6 = strlen(__s);
   v7 = strlen(a2);
@@ -17524,17 +19918,17 @@ void otbr::BorderAgent::HandleThreadStateChanged(otbr::BorderAgent *this, int a2
     }
 
     IsThreadStarted = otbr::BorderAgent::IsThreadStarted(this);
-    v10 = "down";
+    v5 = "down";
     if (IsThreadStarted)
     {
-      v10 = "up";
+      v5 = "up";
     }
 
-    otbrLog(6u, "BA", "Thread is %s", v5, v6, v7, v8, v9, v10);
+    otbrLog(6, "BA", "Thread is %s", v5);
     if (!otbr::BorderAgent::IsThreadStarted(this))
     {
 
-      otbr::BorderAgent::Stop(this, v11, v12, v13, v14, v15, v16, v17);
+      otbr::BorderAgent::Stop(this);
     }
 
     else
@@ -17549,71 +19943,71 @@ LABEL_6:
   }
 }
 
-void otbr::BorderAgent::GetAlternativeServiceInstanceName(otbr::BorderAgent *this)
+void otbr::BorderAgent::GetAlternativeServiceInstanceName(uint64_t **this)
 {
-  v2 = std::random_device::random_device[abi:ne200100](&v19);
-  v3 = std::random_device::operator()(v2);
-  if (v3 + ((v3 / 0x7FFFFFFF) | ((v3 / 0x7FFFFFFF) << 31)) <= 1)
+  v3 = std::random_device::random_device[abi:ne200100](&v20);
+  v4 = std::random_device::operator()(v3);
+  if (v4 + ((v4 / 0x7FFFFFFF) | ((v4 / 0x7FFFFFFF) << 31)) <= 1)
   {
-    v4 = 1;
+    v5 = 1;
   }
 
   else
   {
-    v4 = v3 + ((v3 / 0x7FFFFFFF) | ((v3 / 0x7FFFFFFF) << 31));
+    v5 = v4 + ((v4 / 0x7FFFFFFF) | ((v4 / 0x7FFFFFFF) << 31));
   }
 
-  v17 = -65535;
-  v18 = v4;
-  std::uniform_int_distribution<unsigned short>::operator()<std::linear_congruential_engine<unsigned int,48271u,0u,2147483647u>>(&v17, &v18, &v17);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v12);
-  otbr::BorderAgent::GetServiceInstanceNameWithExtAddr(this, this + 128, __p);
-  if ((v11 & 0x80u) == 0)
+  v18 = -65535;
+  v19 = v5;
+  std::uniform_int_distribution<unsigned short>::operator()<std::linear_congruential_engine<unsigned int,48271u,0u,2147483647u>>(&v18, &v19, &v18);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v13);
+  otbr::BorderAgent::GetServiceInstanceNameWithExtAddr(this, this + 16, __p);
+  if ((v12 & 0x80u) == 0)
   {
-    v5 = __p;
+    v6 = __p;
   }
 
   else
   {
-    v5 = __p[0];
+    v6 = __p[0];
   }
 
-  if ((v11 & 0x80u) == 0)
+  if ((v12 & 0x80u) == 0)
   {
-    v6 = v11;
+    v7 = v12;
   }
 
   else
   {
-    v6 = __p[1];
+    v7 = __p[1];
   }
 
-  v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v13, v5, v6);
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, " (", 2);
-  v8 = std::ostream::operator<<();
-  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, ")", 1);
-  if (v11 < 0)
+  v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v14, v6, v7);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, " (", 2);
+  v9 = std::ostream::operator<<();
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, ")", 1);
+  if (v12 < 0)
   {
     operator delete(__p[0]);
   }
 
   std::stringbuf::str();
-  if (v9 > 0x110)
+  if (v10 > 0x110)
   {
     __break(1u);
   }
 
   else
   {
-    if (v16 < 0)
+    if (v17 < 0)
     {
-      operator delete(v15[7].__locale_);
+      operator delete(v16[7].__locale_);
     }
 
-    std::locale::~locale(v15);
+    std::locale::~locale(v16);
     std::iostream::~basic_iostream();
     std::ios::~ios();
-    std::random_device::~random_device(&v19);
+    std::random_device::~random_device(&v20);
   }
 }
 
@@ -17749,9 +20143,9 @@ uint64_t std::__function::__func<otbr::BorderAgent::BorderAgent(otbr::Ncp::RcpHo
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,std::vector<unsigned char>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<unsigned char>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<unsigned char>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, const void **a2)
+uint64_t *std::__tree<std::__value_type<std::string,std::vector<unsigned char>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<unsigned char>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<unsigned char>>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, const void **a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  result = *std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__find_equal<std::string>(a1, &v3, a2);
+  result = *std::__tree<std::__value_type<std::string,boost::any>,std::__map_value_compare<std::string,std::__value_type<std::string,boost::any>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,boost::any>>>::__find_equal<std::string>(a1, &v6, a2);
   if (!result)
   {
     std::__tree<std::__value_type<std::string,std::vector<unsigned char>>,std::__map_value_compare<std::string,std::__value_type<std::string,std::vector<unsigned char>>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::vector<unsigned char>>>>::__construct_node<std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>();
@@ -17801,7 +20195,7 @@ void std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_ty
   }
 }
 
-uint64_t std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],unsigned char *,unsigned long>(uint64_t *a1, char *a2, const unsigned __int8 **a3, uint64_t *a4)
+uint64_t std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],unsigned char *,unsigned long>(uint64_t *a1, char *a2, char **a3, uint64_t *a4)
 {
   v4 = 0x6DB6DB6DB6DB6DB7 * ((a1[1] - *a1) >> 3);
   v5 = v4 + 1;
@@ -17858,14 +20252,14 @@ LABEL_12:
   return v14;
 }
 
-void sub_1003E35FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1003E35FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<otbr::Mdns::Publisher::TxtEntry>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-otbr::Mdns::Publisher::TxtEntry *std::allocator_traits<std::allocator<otbr::Mdns::Publisher::TxtEntry>>::construct[abi:ne200100]<otbr::Mdns::Publisher::TxtEntry,char const(&)[3],unsigned char *,unsigned long,0>(int a1, otbr::Mdns::Publisher::TxtEntry *a2, char *__s, const unsigned __int8 **a4, uint64_t *a5)
+otbr::Mdns::Publisher::TxtEntry *std::allocator_traits<std::allocator<otbr::Mdns::Publisher::TxtEntry>>::construct[abi:ne200100]<otbr::Mdns::Publisher::TxtEntry,char const(&)[3],unsigned char *,unsigned long,0>(int a1, otbr::Mdns::Publisher::TxtEntry *a2, char *__s, char **a4, uint64_t *a5)
 {
   v7 = *a4;
   v8 = *a5;
@@ -17874,7 +20268,7 @@ otbr::Mdns::Publisher::TxtEntry *std::allocator_traits<std::allocator<otbr::Mdns
   return otbr::Mdns::Publisher::TxtEntry::TxtEntry(a2, __s, v9, v7, v8);
 }
 
-uint64_t std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],char const*>(uint64_t *a1, char *a2, const char **a3)
+uint64_t std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],char const*>(uint64_t *a1, char *a2, char **a3)
 {
   v3 = 0x6DB6DB6DB6DB6DB7 * ((a1[1] - *a1) >> 3);
   v4 = v3 + 1;
@@ -17932,14 +20326,14 @@ LABEL_12:
   return v13;
 }
 
-void sub_1003E37B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1003E37B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<otbr::Mdns::Publisher::TxtEntry>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const*,unsigned char const*,unsigned long>(uint64_t *a1, const char **a2, const unsigned __int8 **a3, uint64_t *a4)
+uint64_t std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const*,unsigned char const*,unsigned long>(uint64_t *a1, char **a2, char **a3, uint64_t *a4)
 {
   v4 = 0x6DB6DB6DB6DB6DB7 * ((a1[1] - *a1) >> 3);
   v5 = v4 + 1;
@@ -17996,14 +20390,14 @@ LABEL_12:
   return v14;
 }
 
-void sub_1003E3920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1003E3920(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<otbr::Mdns::Publisher::TxtEntry>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-otbr::Mdns::Publisher::TxtEntry *std::allocator_traits<std::allocator<otbr::Mdns::Publisher::TxtEntry>>::construct[abi:ne200100]<otbr::Mdns::Publisher::TxtEntry,char const*,unsigned char const*,unsigned long,0>(uint64_t a1, otbr::Mdns::Publisher::TxtEntry *a2, const char **a3, const unsigned __int8 **a4, uint64_t *a5)
+otbr::Mdns::Publisher::TxtEntry *std::allocator_traits<std::allocator<otbr::Mdns::Publisher::TxtEntry>>::construct[abi:ne200100]<otbr::Mdns::Publisher::TxtEntry,char const*,unsigned char const*,unsigned long,0>(uint64_t a1, otbr::Mdns::Publisher::TxtEntry *a2, char **a3, char **a4, uint64_t *a5)
 {
   v6 = *a3;
   v7 = *a4;
@@ -18013,7 +20407,7 @@ otbr::Mdns::Publisher::TxtEntry *std::allocator_traits<std::allocator<otbr::Mdns
   return otbr::Mdns::Publisher::TxtEntry::TxtEntry(a2, v6, v9, v7, v8);
 }
 
-uint64_t std::vector<otbr::Mdns::Publisher::TxtEntry>::__init_with_size[abi:ne200100]<otbr::Mdns::Publisher::TxtEntry const*,otbr::Mdns::Publisher::TxtEntry const*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<otbr::Mdns::Publisher::TxtEntry>::__init_with_size[abi:ne200100]<otbr::Mdns::Publisher::TxtEntry const*,otbr::Mdns::Publisher::TxtEntry const*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -18023,14 +20417,14 @@ uint64_t std::vector<otbr::Mdns::Publisher::TxtEntry>::__init_with_size[abi:ne20
   return result;
 }
 
-void sub_1003E39FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_1003E39FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<otbr::Mdns::Publisher::TxtEntry>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<otbr::Mdns::Publisher::TxtEntry>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<otbr::Mdns::Publisher::TxtEntry>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x492492492492493)
   {
@@ -18118,7 +20512,7 @@ void std::vector<otbr::Mdns::Publisher::TxtEntry>::__destroy_vector::operator()[
   }
 }
 
-uint64_t std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],unsigned char const(&)[8],unsigned long>(uint64_t *a1, char *a2, const unsigned __int8 *a3, uint64_t *a4)
+uint64_t std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],unsigned char const(&)[8],unsigned long>(uint64_t *a1, char *a2, char *a3, uint64_t *a4)
 {
   v4 = 0x6DB6DB6DB6DB6DB7 * ((a1[1] - *a1) >> 3);
   v5 = v4 + 1;
@@ -18175,14 +20569,14 @@ LABEL_12:
   return v14;
 }
 
-void sub_1003E3D7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1003E3D7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<otbr::Mdns::Publisher::TxtEntry>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-otbr::Mdns::Publisher::TxtEntry *std::allocator<otbr::Mdns::Publisher::TxtEntry>::construct[abi:ne200100]<otbr::Mdns::Publisher::TxtEntry,char const(&)[3],unsigned char const(&)[8],unsigned long>(int a1, otbr::Mdns::Publisher::TxtEntry *a2, char *__s, const unsigned __int8 *a4, uint64_t *a5)
+otbr::Mdns::Publisher::TxtEntry *std::allocator<otbr::Mdns::Publisher::TxtEntry>::construct[abi:ne200100]<otbr::Mdns::Publisher::TxtEntry,char const(&)[3],unsigned char const(&)[8],unsigned long>(int a1, otbr::Mdns::Publisher::TxtEntry *a2, char *__s, char *a4, uint64_t *a5)
 {
   v8 = *a5;
   v9 = strlen(__s);
@@ -18190,7 +20584,7 @@ otbr::Mdns::Publisher::TxtEntry *std::allocator<otbr::Mdns::Publisher::TxtEntry>
   return otbr::Mdns::Publisher::TxtEntry::TxtEntry(a2, __s, v9, a4, v8);
 }
 
-uint64_t std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],char const(&)[2]>(uint64_t *a1, char *a2, const char *a3)
+uint64_t std::vector<otbr::Mdns::Publisher::TxtEntry>::__emplace_back_slow_path<char const(&)[3],char const(&)[2]>(uint64_t *a1, char *a2, char *a3)
 {
   v3 = 0x6DB6DB6DB6DB6DB7 * ((a1[1] - *a1) >> 3);
   v4 = v3 + 1;
@@ -18247,9 +20641,9 @@ LABEL_12:
   return v13;
 }
 
-void sub_1003E3F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1003E3F34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<otbr::Mdns::Publisher::TxtEntry>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -18262,54 +20656,54 @@ uint64_t std::__function::__func<otbr::BorderAgent::PublishMeshCopService(void):
   return result;
 }
 
-void std::__function::__func<otbr::BorderAgent::PublishMeshCopService(void)::$_0,std::allocator<otbr::BorderAgent::PublishMeshCopService(void)::$_0>,void ()(otbrError)>::operator()(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void std::__function::__func<otbr::BorderAgent::PublishMeshCopService(void)::$_0,std::allocator<otbr::BorderAgent::PublishMeshCopService(void)::$_0>,void ()(otbrError)>::operator()(uint64_t a1, unsigned int *a2)
 {
-  v8 = *a2;
-  v9 = *(a1 + 8);
+  v2 = *a2;
+  v3 = *(a1 + 8);
   if (*a2 == -12)
   {
-    v10 = (v9 + 152);
-    if (*(v9 + 175) < 0)
+    v4 = (v3 + 152);
+    if (*(v3 + 175) < 0)
     {
-      v10 = *v10;
+      v4 = *v4;
     }
 
-    otbrLog(6u, "BA", "Cancelled previous publishing meshcop service %s.%s.local", a4, a5, a6, a7, a8, v10);
+    otbrLog(6, "BA", "Cancelled previous publishing meshcop service %s.%s.local", v4, "_meshcop._udp");
   }
 
   else
   {
-    if (v8)
+    if (v2)
     {
-      v11 = 4;
+      v5 = 4;
     }
 
     else
     {
-      v11 = 6;
+      v5 = 6;
     }
 
-    v12 = (v9 + 152);
-    LOBYTE(v13) = v9 - 104;
-    if (*(v9 + 175) < 0)
+    v6 = (v3 + 152);
+    v7 = (v3 + 152);
+    if (*(v3 + 175) < 0)
     {
-      v13 = *v12;
+      v7 = *v6;
     }
 
-    otbrErrorString(*a2);
-    otbrLog(v11, "BA", "Result of publish meshcop service %s.%s.local: %s", v14, v15, v16, v17, v18, v13);
-    if (v8 == -11)
+    v8 = otbrErrorString(*a2);
+    otbrLog(v5, "BA", "Result of publish meshcop service %s.%s.local: %s", v7, "_meshcop._udp", v8);
+    if (v2 == -11)
     {
-      otbr::BorderAgent::UnpublishMeshCopService(v9, v19, v20, v21, v22, v23, v24, v25);
-      otbr::BorderAgent::GetAlternativeServiceInstanceName(v9);
-      if (*(v9 + 175) < 0)
+      otbr::BorderAgent::UnpublishMeshCopService(v3);
+      otbr::BorderAgent::GetAlternativeServiceInstanceName(v3);
+      if (*(v3 + 175) < 0)
       {
-        operator delete(*v12);
+        operator delete(*v6);
       }
 
-      *v12 = v26;
-      *(v9 + 168) = v27;
-      otbr::BorderAgent::PublishMeshCopService(v9);
+      *v6 = v9;
+      *(v3 + 168) = v10;
+      otbr::BorderAgent::PublishMeshCopService(v3);
     }
   }
 }
@@ -18334,7 +20728,7 @@ uint64_t std::__function::__func<otbr::BorderAgent::UnpublishMeshCopService(void
   return result;
 }
 
-void std::__function::__func<otbr::BorderAgent::UnpublishMeshCopService(void)::$_0,std::allocator<otbr::BorderAgent::UnpublishMeshCopService(void)::$_0>,void ()(otbrError)>::operator()(uint64_t a1, int *a2)
+void std::__function::__func<otbr::BorderAgent::UnpublishMeshCopService(void)::$_0,std::allocator<otbr::BorderAgent::UnpublishMeshCopService(void)::$_0>,void ()(otbrError)>::operator()(uint64_t a1, unsigned int *a2)
 {
   v3 = *a2;
   v4 = *(a1 + 8);
@@ -18354,8 +20748,8 @@ void std::__function::__func<otbr::BorderAgent::UnpublishMeshCopService(void)::$
     v6 = 6;
   }
 
-  otbrErrorString(v3);
-  otbrLog(v6, "BA", "Result of unpublish meshcop service %s.%s.local: %s", v7, v8, v9, v10, v11, v5);
+  v7 = otbrErrorString(v3);
+  otbrLog(v6, "BA", "Result of unpublish meshcop service %s.%s.local: %s", v5, "_meshcop._udp", v7);
 }
 
 uint64_t std::__function::__func<otbr::BorderAgent::UnpublishMeshCopService(void)::$_0,std::allocator<otbr::BorderAgent::UnpublishMeshCopService(void)::$_0>,void ()(otbrError)>::target(uint64_t a1, uint64_t a2)
@@ -18624,7 +21018,7 @@ LABEL_32:
   return result;
 }
 
-uint64_t otbrLogSetLevel(uint64_t result)
+uint64_t otbrLogSetLevel(uint64_t result, uint64_t a2)
 {
   if (result >= 8)
   {
@@ -18678,13 +21072,14 @@ void otbrLogInit(char *a1, unsigned int a2, int a3, char a4)
   sDefaultLevel = a2;
 }
 
-void otbrLog(unsigned int a1, const char *a2, const char *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void otbrLog(int a1, const char *a2, const char *a3, ...)
 {
+  va_start(va, a3);
   logging_obg = log_get_logging_obg("com.apple.wpantund.commissioning", "commissioning");
   if (sLevel >= a1)
   {
-    v13 = logging_obg;
-    if (vsnprintf(__str, 0x400uLL, a3, &a9) >= 1)
+    v7 = logging_obg;
+    if (vsnprintf(__str, 0x400uLL, a3, va) >= 1)
     {
       if (sSyslogDisabled == 1)
       {
@@ -18702,33 +21097,33 @@ LABEL_17:
 
       if (a1 >= 5)
       {
-        if (a1 - 5 >= 2)
+        if ((a1 - 5) >= 2)
         {
           if (a1 != 7)
           {
             goto LABEL_17;
           }
 
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+          if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
           {
-            otbrLog(a2, __str, v13);
+            otbrLog(a2, __str, v7);
           }
         }
 
-        else if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+        else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
           GetPrefix(a2);
           *buf = 136315394;
-          v15 = GetPrefix(char const*)::prefix;
-          v16 = 2080;
-          v17 = __str;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "%s: %s", buf, 0x16u);
+          v9 = GetPrefix(char const*)::prefix;
+          v10 = 2080;
+          v11 = __str;
+          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%s: %s", buf, 0x16u);
         }
       }
 
-      else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        otbrLog(a2, __str, v13);
+        otbrLog(a2, __str, v7);
       }
     }
   }
@@ -18765,17 +21160,17 @@ const char *GetPrefix(const char *result)
   return result;
 }
 
-void otbrLogv(int a1, char *a2, va_list a3)
+void otbrLogv(uint64_t result, char *a2, va_list a3)
 {
   if (!a2)
   {
     otbrLogv();
   }
 
-  if (sLevel >= a1)
+  if (sLevel >= result)
   {
 
-    otbrLogvNoFilter(a1, a2, a3);
+    otbrLogvNoFilter(result, a2, a3);
   }
 }
 
@@ -19459,22 +21854,15 @@ __n128 otbr::Ip6Address::Ip6Address(__n128 *this, __n128 *a2)
   return result;
 }
 
-_BYTE *otbr::Ip6Address::ToString@<X0>(otbr::Ip6Address *this@<X0>, _BYTE *a2@<X8>)
+uint64_t *otbr::Ip6Address::ToString@<X0>(uint64_t *__return_ptr a1@<X8>, otbr::Ip6Address *this@<X0>)
 {
   if (!inet_ntop(30, this, __s, 0x2Eu))
   {
-    otbrLog(0, "UTILS", "FAILED %s:%d - %s", v3, v4, v5, v6, v7, "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread_border_router/src/common/types.cpp");
+    otbrLog(0, "UTILS", "FAILED %s:%d - %s", "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread_border_router/src/common/types.cpp", 49, "Failed to convert Ip6 address to string");
     exit(-1);
   }
 
-  return std::string::basic_string[abi:ne200100]<0>(a2, __s);
-}
-
-uint64_t otbr::Ip6Address::ToSolicitedNodeMulticastAddress(otbr::Ip6Address *this)
-{
-  SolicitedMulticastAddressPrefix = otbr::Ip6Address::GetSolicitedMulticastAddressPrefix(this);
-  v3 = SolicitedMulticastAddressPrefix[1] & 0xFFFFFFFFFFLL | (*(this + 13) << 40) | (*(this + 14) << 48) | (*(this + 15) << 56);
-  return *SolicitedMulticastAddressPrefix;
+  return std::string::basic_string[abi:ne200100]<0>(a1, __s);
 }
 
 uint64_t *otbr::Ip6Address::GetSolicitedMulticastAddressPrefix(otbr::Ip6Address *this)
@@ -19513,7 +21901,7 @@ __n128 otbr::Ip6Address::CopyFrom(__n128 *this, const sockaddr_in6 *a2)
   return result;
 }
 
-__n128 otbr::Ip6Address::CopyFrom(in6_addr *this, __n128 *a2)
+__n128 otbr::Ip6Address::CopyFrom(in6_addr *this, in6_addr *a2)
 {
   result = *a2;
   *this = *a2;
@@ -19535,16 +21923,16 @@ uint64_t otbr::Ip6Address::FromString(otbr::Ip6Address *this, char *a2, otbr::Ip
 
 uint64_t otbr::Ip6Address::FromString(otbr::Ip6Address *this, const char *a2)
 {
-  *v10 = 0;
-  v11 = 0;
-  if (inet_pton(30, this, v10) != 1)
+  *v6 = 0;
+  v7 = 0;
+  if (inet_pton(30, this, v6) != 1)
   {
-    otbr::Ip6Address::FromString(this, v10, v3);
-    otbrLog(0, "UTILS", "FAILED %s:%d - %d: %s", v5, v6, v7, v8, v9, "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread_border_router/src/common/types.cpp");
+    v5 = otbr::Ip6Address::FromString(this, v6, v3);
+    otbrLog(0, "UTILS", "FAILED %s:%d - %d: %s", "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread_border_router/src/common/types.cpp", 102, v5, "inet_pton failed");
     exit(-1);
   }
 
-  return *v10;
+  return *v6;
 }
 
 uint64_t otbr::Ip6Prefix::operator==(unsigned __int8 *a1, unsigned __int8 *a2)
@@ -19585,37 +21973,37 @@ __n128 otbr::Ip6Prefix::Set(__n128 *a1, __n128 *a2)
 
 void otbr::Ip6Prefix::ToString(otbr::Ip6Prefix *this)
 {
-  std::stringbuf::basic_stringbuf[abi:ne200100](&v10);
+  std::stringbuf::basic_stringbuf[abi:ne200100](&v6);
   if (!inet_ntop(30, this, __s, 0x2Eu))
   {
-    otbrLog(0, "UTILS", "FAILED %s:%d - %s", v2, v3, v4, v5, v6, "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread_border_router/src/common/types.cpp");
+    otbrLog(0, "UTILS", "FAILED %s:%d - %s", "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/openthread_border_router/src/common/types.cpp", 147, "Failed to convert Ip6 prefix to string");
     exit(-1);
   }
 
-  v7 = strlen(__s);
-  v10[12](&v10, __s, v7);
-  v8 = v12;
-  if (v12 == v13)
+  v3 = strlen(__s);
+  v6[12](&v6, __s, v3);
+  v4 = v8;
+  if (v8 == v9)
   {
-    (v10[13])(&v10, 47);
+    (v6[13])(&v6, 47);
   }
 
   else
   {
-    ++v12;
-    *v8 = 47;
+    ++v8;
+    *v4 = 47;
   }
 
   snprintf(__s, 0x2EuLL, "%d", *(this + 16));
-  v9 = strlen(__s);
-  v10[12](&v10, __s, v9);
+  v5 = strlen(__s);
+  v6[12](&v6, __s, v5);
   std::stringbuf::str();
-  if (v15 < 0)
+  if (v11 < 0)
   {
     operator delete(__p);
   }
 
-  std::locale::~locale(&v11);
+  std::locale::~locale(&v7);
 }
 
 uint64_t otbr::OtbrErrorToOtError(unsigned int a1)
@@ -19658,10 +22046,9 @@ void sub_1003E5D60(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void otbr::DnsUtils::UnescapeInstanceName(uint64_t *a1@<X0>, std::string *a2@<X8>)
+void otbr::DnsUtils::UnescapeInstanceName(uint64_t **a1@<X0>, std::string *a2@<X8>)
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   if (*(a1 + 23) >= 0)
   {
@@ -19836,8 +22223,9 @@ void ThreadPowerAssertDispatchTask_cold_5(os_log_t log)
 
 void CoreAnalyticsHistogramMetricsHelper::ProcessGetRouteCostMetricsHistograms()
 {
+  v5 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&_mh_execute_header, &_os_log_default, v0, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&_mh_execute_header, &_os_log_default, v0, "Logging1 Module is not defined for SubSystem: %s, Category: %s", v1, v2, v3, v4, v5);
 }
 
 {
@@ -19929,6 +22317,14 @@ void PcapManager::start_pcap_capture()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
+{
+  v0 = __error();
+  strerror(*v0);
+  __error();
+  OUTLINED_FUNCTION_4_0();
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+}
+
 void PcapManager::start_pcap_capture(char *a1, void *a2, NSObject *a3)
 {
   if (*a1 < 0)
@@ -19939,20 +22335,6 @@ void PcapManager::start_pcap_capture(char *a1, void *a2, NSObject *a3)
   LODWORD(v3) = 136315138;
   HIDWORD(v3) = a2;
   OUTLINED_FUNCTION_5_0(&_mh_execute_header, a2, a3, "SNIFFER_TLF::Starting pcap, checking fd path : %s", v3);
-}
-
-void PcapManager::start_pcap_capture(char *a1, uint64_t *a2)
-{
-  if (*a1 < 0)
-  {
-    v2 = *a2;
-  }
-
-  v3 = __error();
-  strerror(*v3);
-  v9 = *__error();
-  OUTLINED_FUNCTION_4_0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x1Cu);
 }
 
 void PcapManager::stop_pcap_capture()
@@ -19972,7 +22354,7 @@ void PcapManager::insert_fd()
 {
   v0 = __error();
   strerror(*v0);
-  v6 = *__error();
+  __error();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
 }
@@ -19981,7 +22363,7 @@ void PcapManager::new_fd()
 {
   v0 = __error();
   strerror(*v0);
-  v6 = *__error();
+  __error();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
 }
@@ -20168,32 +22550,109 @@ void dskeychainRcp::FindAndGetDataSet()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void XPCIPCAPI_v1_rcp::interface_prop_get_handler(char *a1, uint64_t *a2)
+void XPCIPCAPI_v1_rcp::interface_update_accessory_addr()
 {
-  OUTLINED_FUNCTION_4_2(a1, a2, __stack_chk_guard);
-  LODWORD(v5) = 136315138;
-  HIDWORD(v5) = v2;
-  OUTLINED_FUNCTION_5_1(&_mh_execute_header, v3, v4, "property_get_value: Unsupported property %s", v5);
-}
-
-void RcpHostContext::otctl_OutputFormatV(unsigned __int16 *a1)
-{
-  v6 = *a1;
   OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 {
-  v6 = *a1;
   OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void RcpHostContext::is_device_state_valid_for_service_or_route_modification(uint64_t *a1)
 {
-  OUTLINED_FUNCTION_6(a1, __stack_chk_guard);
   OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+{
+  OUTLINED_FUNCTION_2_1();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+void XPCIPCAPI_v1_rcp::interface_prop_get_handler()
+{
+  OUTLINED_FUNCTION_2_1();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+{
+  OUTLINED_FUNCTION_4_2(__stack_chk_guard);
+  LODWORD(v3) = 136315138;
+  HIDWORD(v3) = v0;
+  OUTLINED_FUNCTION_5_1(&_mh_execute_header, v1, v2, "property_get_value: Unsupported property %s", v3);
+}
+
+void RcpHostContext::otctl_OutputFormatV()
+{
+  OUTLINED_FUNCTION_2_1();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_2_1();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+void RcpHostContext::GetThreadStartMetrics()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_1_1();
+  OUTLINED_FUNCTION_4_3(&_mh_execute_header, v0, v1, "%s: %u ms", v2, v3, v4, v5, v6);
+}
+
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_1_1();
+  OUTLINED_FUNCTION_4_3(&_mh_execute_header, v0, v1, "%s: %u ms", v2, v3, v4, v5, v6);
+}
+
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_1_1();
+  OUTLINED_FUNCTION_4_3(&_mh_execute_header, v0, v1, "%s: %u ms", v2, v3, v4, v5, v6);
+}
+
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_1_1();
+  OUTLINED_FUNCTION_4_3(&_mh_execute_header, v0, v1, "%s: %u ms", v2, v3, v4, v5, v6);
+}
+
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_1_1();
+  OUTLINED_FUNCTION_4_3(&_mh_execute_header, v0, v1, "%s: %d", v2, v3, v4, v5, v6);
+}
+
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_1_1();
+  OUTLINED_FUNCTION_4_3(&_mh_execute_header, v0, v1, "%s: %d", v2, v3, v4, v5, v6);
+}
+
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_1_1();
+  OUTLINED_FUNCTION_4_3(&_mh_execute_header, v0, v1, "%s: %d", v2, v3, v4, v5, v6);
+}
+
+void RcpHostContext::is_device_state_valid_for_service_or_route_modification()
+{
+  OUTLINED_FUNCTION_6(__stack_chk_guard);
+  OUTLINED_FUNCTION_2_1();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+void RcpHostContext::captureABC()
+{
+  OUTLINED_FUNCTION_6(__stack_chk_guard);
+  *v7 = 136315394;
+  *&v7[4] = "captureABC";
+  *&v7[12] = 2080;
+  *&v7[14] = v0;
+  OUTLINED_FUNCTION_1(&_mh_execute_header, v1, v2, "%s:: rcp state[%s]", v3, v4, v5, v6, *v7, *&v7[8], *&v7[16]);
 }
 
 void RcpHostContext::too_many_partitions(uint64_t a1, uint64_t *a2, os_log_t log)
@@ -20248,6 +22707,34 @@ void InternalIPCAPI::interface_send_network_diagnostics_req(int a1, NSObject *a2
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "TDM: WPANTUND_v1 Error dest_addr_len=%d does not match sizeof(dest)=%d\n", v2, 0xEu);
 }
 
+void ___Z17create_xpc_serverP16dispatch_queue_sS0__block_invoke_cold_1(const std::exception *a1)
+{
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = std::exception::what(a1);
+  OUTLINED_FUNCTION_2_3(&_mh_execute_header, v1, v2, "xpc_server_helper: Unable to start XPCIPCServer_rcp %s", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+void ___Z17create_xpc_serverP16dispatch_queue_sS0__block_invoke_cold_3(const std::exception *a1)
+{
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = std::exception::what(a1);
+  OUTLINED_FUNCTION_2_3(&_mh_execute_header, v1, v2, "xpc_server_helper: Unable to start InternalClient-IPC %s", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+void setDaemonExit_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "setDaemonExit";
+  OUTLINED_FUNCTION_0_3(&_mh_execute_header, &_os_log_default, a3, "%s: Daemon exit in progress, log domain unavailable", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void log_create_log_domain_cold_1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "log_create_log_domain";
+  OUTLINED_FUNCTION_0_3(&_mh_execute_header, &_os_log_default, a3, "%s: Input is null, return", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void log_get_logging_obg_cold_1(uint64_t a1, uint64_t a2)
 {
   v2 = 136315394;
@@ -20257,12 +22744,32 @@ void log_get_logging_obg_cold_1(uint64_t a1, uint64_t a2)
   _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "Logging Module is not defined for SubSystem: %s, Category: %s, using default logObj", &v2, 0x16u);
 }
 
+void log_get_logging_obg_cold_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "log_get_logging_obg";
+  OUTLINED_FUNCTION_0_3(&_mh_execute_header, &_os_log_default, a3, "%s: Input memory is corrupt, return default logObj", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void log_get_logging_obg_cold_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "log_get_logging_obg";
+  OUTLINED_FUNCTION_0_3(&_mh_execute_header, &_os_log_default, a3, "%s: Input is null, return default logObj", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void OpenFile1M()
 {
   perror("tcsetattr");
-  strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/Rcp/host-ot-adaptation/RcpConfigHelper.cpp", 47);
-  otExitCodeToString(1);
-  otLogCritPlat("%s() at %s:%d: %s", v0, v1, v2, v3, v4, v5, v6, "OpenFile1M");
+  v0 = "/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/Rcp/host-ot-adaptation/RcpConfigHelper.cpp";
+  v1 = strrchr[abi:ne200100]("/Library/Caches/com.apple.xbs/Sources/CoreThreadRadio/Rcp/host-ot-adaptation/RcpConfigHelper.cpp", 47);
+  if (v1)
+  {
+    v0 = v1 + 1;
+  }
+
+  v2 = otExitCodeToString(1);
+  otLogCritPlat("%s() at %s:%d: %s", "OpenFile1M", v0, 85, v2);
   handle_daemon_exit();
   exit(1);
 }
@@ -20277,27 +22784,23 @@ void ot::Spinel::MultiFrameBuffer<(unsigned short)8192>::GetNextSavedFrame(uint6
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "[GetNextSavedFrame]:  mBuffer[%p] aFrame[%p]", &v4, 0x16u);
 }
 
-void HostInterpreter::ProcessDatasetUpdate(uint64_t a1)
+void HostInterpreter::ProcessDatasetUpdate()
 {
-  v1 = *(a1 + 254);
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void HostInterpreter::ProcessDatasetUpdate()
 {
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void HostInterpreter::ProcessDatasetUpdate(unsigned int *a1)
 {
-  v1 = *a1;
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_12();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
 void HostInterpreter::ProcessGeneratePSKc()
@@ -20325,6 +22828,15 @@ void HostInterpreter::ProcessInitialize()
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_2_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+void HostInterpreter::ProcessInitialize(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  *v8 = 136315394;
+  *&v8[4] = "otError HostInterpreter::ProcessInitialize(uint8_t, char **, void *)";
+  *&v8[12] = 2048;
+  *&v8[14] = *(a1 + 176);
+  OUTLINED_FUNCTION_1(&_mh_execute_header, a2, a3, "%s, BT Load, Audio detection: current load during initialization = 0x%llx", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16]);
 }
 
 void HostInterpreter::ProcessPeekCmd()
@@ -20413,6 +22925,12 @@ void HostInterpreter::ProcessPropertyGet()
 }
 
 {
+  OUTLINED_FUNCTION_18(__stack_chk_guard);
+  OUTLINED_FUNCTION_12();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+{
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
@@ -20422,6 +22940,12 @@ void HostInterpreter::ProcessPropertyGet()
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x20u);
+}
+
+{
+  OUTLINED_FUNCTION_14();
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x1Cu);
 }
 
 {
@@ -20448,36 +22972,11 @@ void HostInterpreter::ProcessPropertyGet()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void HostInterpreter::ProcessPropertyGet(char *a1)
+void HostInterpreter::ProcessPropertySet()
 {
-  OUTLINED_FUNCTION_18(a1, __stack_chk_guard);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
+  OUTLINED_FUNCTION_18(__stack_chk_guard);
   OUTLINED_FUNCTION_12();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-}
-
-void HostInterpreter::ProcessPropertyGet(unsigned __int8 *a1)
-{
-  v1 = *a1;
-  OUTLINED_FUNCTION_14();
-  OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x1Cu);
-}
-
-void HostInterpreter::ProcessPropertySet(char *a1)
-{
-  OUTLINED_FUNCTION_18(a1, __stack_chk_guard);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
-  OUTLINED_FUNCTION_12();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void HostInterpreter::ProcessRcpReportCrashInfo()
@@ -20542,16 +23041,13 @@ void HostInterpreter::ProcessRouteRemove()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void HostInterpreter::ProcessServiceAdd(uint64_t a1)
+void HostInterpreter::ProcessServiceAdd()
 {
-  v1 = *(a1 + 505);
-  v2 = *(a1 + 252);
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x14u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x14u);
 }
 
-void HostInterpreter::ProcessServiceAdd()
 {
   OUTLINED_FUNCTION_10();
   OUTLINED_FUNCTION_2_1();
@@ -20583,37 +23079,32 @@ void HostInterpreter::ProcessServiceRemove()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
-void HostInterpreter::ProcessWedStart(uint64_t *a1)
+void HostInterpreter::ProcessWedStart()
 {
-  if (*(a1 + 23) < 0)
-  {
-    v1 = *a1;
-  }
-
   OUTLINED_FUNCTION_14();
   OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 {
-  v1 = *a1;
   OUTLINED_FUNCTION_14();
   OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void HostInterpreter::ProcessWedStart(unsigned __int8 *a1)
 {
-  v6 = *a1;
-  v7 = a1[1];
-  v8 = a1[2];
-  v9 = a1[3];
-  v10 = a1[4];
-  v11 = a1[5];
-  v12 = a1[6];
-  v13 = a1[7];
   OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x3Cu);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x3Cu);
+}
+
+{
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
+}
+
+{
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void HostInterpreter::ProcessWedStart(char a1, char a2, uint8_t *buf, os_log_t log)
@@ -20625,17 +23116,6 @@ void HostInterpreter::ProcessWedStart(char a1, char a2, uint8_t *buf, os_log_t l
   *(buf + 9) = 1024;
   *(buf + 5) = a2 & 1;
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "Wed operation is in progress, reject %s request Peer Unlinking = [%d], Peer linking = [%d]", buf, 0x18u);
-}
-
-void HostInterpreter::ProcessWedStart()
-{
-  OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-}
-
-{
-  OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void HostInterpreter::ProcessWedStop()
@@ -20738,20 +23218,15 @@ void HostInterpreter::ProcessUpdateAccessoryAddr()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void HostInterpreter::DeviceModeConfig(char *a1)
+void HostInterpreter::DeviceModeConfig()
 {
-  OUTLINED_FUNCTION_18(a1, __stack_chk_guard);
-  if (v2 < 0)
-  {
-    v3 = *v1;
-  }
-
-  *v6 = 136315650;
+  OUTLINED_FUNCTION_18(__stack_chk_guard);
+  *v2 = 136315650;
   OUTLINED_FUNCTION_15();
-  *&v6[7] = 11047;
-  v6[9] = 2080;
-  v7 = v4;
-  _os_log_debug_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "ThreadConnection: %s:%d: Node Type:%s", v6, 0x1Cu);
+  *&v2[7] = 11047;
+  v2[9] = 2080;
+  v3 = v0;
+  _os_log_debug_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEBUG, "ThreadConnection: %s:%d: Node Type:%s", v2, 0x1Cu);
 }
 
 void ___ZN15HostInterpreter18CAStabilityMetricsENSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEE_block_invoke_cold_1()
@@ -20792,8 +23267,9 @@ void HostInterpreter::HandleDiagnosticGetResponseFromLeader(uint64_t *a1, int a2
 
 void HostInterpreter::HandleDiagGetSingleHopPeerResponseIPAddr()
 {
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&_mh_execute_header, v0, v1, "%s: for peer:%s", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_1(&_mh_execute_header, v0, v1, "%s: for peer:%s", v2, v3, v4, v5, v6);
 }
 
 {
@@ -20813,19 +23289,17 @@ void HostInterpreter::HandleDiagnosticGetResponse()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void HostInterpreter::ProcessUpdateLeaderInfo(unsigned __int16 *a1)
+void HostInterpreter::ProcessUpdateLeaderInfo()
 {
-  v1 = *a1;
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 {
-  v1 = *a1;
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void HostInterpreter::ProcessDiagGetSingleHopPeerMeshLocalIPAddr(uint8_t *buf, void *a2, os_log_t log)
@@ -20835,22 +23309,12 @@ void HostInterpreter::ProcessDiagGetSingleHopPeerMeshLocalIPAddr(uint8_t *buf, v
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "%s: start setRcpSrpSignalMeshLocalAddressTimer", buf, 0xCu);
 }
 
-void HostInterpreter::ProcessDiagGetSingleHopPeerMeshLocalIPAddr(unsigned __int8 *a1)
+void HostInterpreter::ProcessDiagGetSingleHopPeerMeshLocalIPAddr()
 {
-  v6 = *(a1 + 4);
-  v7 = *a1;
-  v8 = a1[1];
-  v9 = a1[2];
-  v10 = a1[3];
-  v11 = a1[4];
-  v12 = a1[5];
-  v13 = a1[6];
-  v14 = a1[7];
   OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x42u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x42u);
 }
 
-void HostInterpreter::ProcessDiagGetSingleHopPeerMeshLocalIPAddr()
 {
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_7();
@@ -20870,7 +23334,109 @@ void HostInterpreter::GetRcpStateInfo()
 }
 
 {
+  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
   OUTLINED_FUNCTION_10();
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+{
+  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+{
+  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
+  OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_7();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
@@ -20900,103 +23466,94 @@ void HostInterpreter::GetRcpStateInfo()
 }
 
 {
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-{
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-{
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-{
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void HostInterpreter::GetRcpStateInfo(unsigned __int8 *a1)
-{
-  v1 = *a1;
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void HostInterpreter::GetRcpStateInfo(unsigned __int16 *a1)
 {
-  v1 = *a1;
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 {
-  v1 = *a1;
-  v2 = *(a1 + 2);
+  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+{
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void HostInterpreter::GetRcpStateInfo(unsigned int *a1)
 {
-  v1 = *a1;
-  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void HostInterpreter::GetThreadHealthMetrics(unsigned int *a1)
 {
-  v1 = *a1;
+  OUTLINED_FUNCTION_2_4();
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+{
+  OUTLINED_FUNCTION_2_4();
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+{
+  OUTLINED_FUNCTION_2_4();
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+{
+  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+void HostInterpreter::GetThreadHealthMetrics()
+{
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
-}
-
-void HostInterpreter::GetThreadHealthMetrics(uint64_t a1)
-{
-  v1 = *(a1 + 5964);
-  OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 {
-  v1 = *(a1 + 5965);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 {
-  v1 = *(a1 + 5966);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 {
-  v1 = *(a1 + 5967);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 {
-  v1 = *(a1 + 5968);
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_7();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
+}
+
+{
+  OUTLINED_FUNCTION_1_1();
+  OUTLINED_FUNCTION_7();
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void HostInterpreter::persist_awd_stability_counters()
@@ -21074,17 +23631,15 @@ void HostInterpreter::processCommand()
 }
 
 {
+  OUTLINED_FUNCTION_9();
+  OUTLINED_FUNCTION_2_1();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+{
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void HostInterpreter::processCommand(uint64_t a1)
-{
-  v1 = *(*a1 + 12);
-  OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
 }
 
 void HostInterpreter::rcp_ot_dataset_update()
@@ -21176,6 +23731,13 @@ void handle_captureABC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
+void handle_host_reset_dueto_rcp_captureABC()
+{
+  v6 = 136315394;
+  OUTLINED_FUNCTION_0();
+  OUTLINED_FUNCTION_1(&_mh_execute_header, v0, v1, "%s: Raise ABC without the FW crash dump file case subtype %s", v2, v3, v4, v5, v6);
+}
+
 void handle_getnextframe_captureABC()
 {
   OUTLINED_FUNCTION_1_0();
@@ -21195,17 +23757,6 @@ void host_crash_dump_collection()
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_2_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void persist_host_reset_dueto_rcp(char *a1, uint64_t *a2)
-{
-  if (*a1 < 0)
-  {
-    v2 = *a2;
-  }
-
-  OUTLINED_FUNCTION_6_0();
-  _os_log_error_impl(v3, v4, OS_LOG_TYPE_ERROR, v5, v6, 0xCu);
 }
 
 void resetThreadWedSession()
@@ -21399,14 +23950,14 @@ void main_cold_35(const std::exception *a1)
 {
   std::exception::what(a1);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_2_3(&_mh_execute_header, v1, v2, "Exception thrown while starting up, %s", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_2_3(&_mh_execute_header, v1, v2, "Exception thrown while starting up, %s", v3, v4, v5, v6);
 }
 
 void main_cold_37(const std::runtime_error *a1)
 {
   std::runtime_error::what(a1);
   OUTLINED_FUNCTION_4_1();
-  OUTLINED_FUNCTION_2_3(&_mh_execute_header, v1, v2, "Runtime error thrown while starting up, %s", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_2_3(&_mh_execute_header, v1, v2, "Runtime error thrown while starting up, %s", v3, v4, v5, v6);
 }
 
 void main_cold_39()
@@ -21439,14 +23990,14 @@ void __main_block_invoke_cold_3()
 
 void boost::filesystem::filesystem_error::get_empty_path()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_15))
+  if (__cxa_guard_acquire(_MergedGlobals_15))
   {
     qword_10052D7C0 = 0;
     unk_10052D7C8 = 0;
     qword_10052D7B8 = 0;
     __cxa_atexit(boost::filesystem::path::~path, &qword_10052D7B8, &_mh_execute_header);
 
-    __cxa_guard_release(&_MergedGlobals_15);
+    __cxa_guard_release(_MergedGlobals_15);
   }
 }
 
@@ -21549,13 +24100,14 @@ void boost::filesystem::detail::relative(uint64_t a1, uint64_t a2)
 
 void boost::filesystem::detail::initial_path()
 {
-  if (__cxa_guard_acquire(&_MergedGlobals_16))
+  if (__cxa_guard_acquire(_MergedGlobals_16))
   {
-    unk_10052D7F8 = 0;
-    xmmword_10052D7E8 = 0uLL;
-    __cxa_atexit(boost::filesystem::path::~path, &xmmword_10052D7E8, &_mh_execute_header);
+    *&byte_10052D7E8[8] = 0;
+    *&byte_10052D7E8[16] = 0;
+    *byte_10052D7E8 = 0;
+    __cxa_atexit(boost::filesystem::path::~path, byte_10052D7E8, &_mh_execute_header);
 
-    __cxa_guard_release(&_MergedGlobals_16);
+    __cxa_guard_release(_MergedGlobals_16);
   }
 }
 
@@ -21644,248 +24196,6 @@ void otbr::DnsUtils::CheckServiceNameSanity()
 
 {
   __assert_rtn("CheckServiceNameSanity", "dns_utils.cpp", 91, "aServiceName.length() > 0");
-}
-
-uint64_t ot::AsCoreType<otSockAddr>(uint64_t a1)
-{
-  ot::AsCoreType<otSockAddr>(a1);
-  return a1;
-}
-
-{
-  ot::AsCoreType<otSockAddr>(a1);
-  return a1;
-}
-
-uint64_t ot::AsCoreType<otIp6Prefix>(uint64_t a1)
-{
-  ot::AsCoreType<otIp6Prefix>(a1);
-  return a1;
-}
-
-{
-  ot::AsCoreType<otIp6Prefix>(a1);
-  return a1;
-}
-
-uint64_t ot::AsCoreType<otUdpSocket>(uint64_t a1)
-{
-  ot::AsCoreType<otUdpSocket>(a1);
-  return a1;
-}
-
-{
-  ot::AsCoreType<otUdpSocket>(a1);
-  return a1;
-}
-
-uint64_t ot::AsCoreType<otExtAddress>(uint64_t a1)
-{
-  ot::AsCoreType<otExtAddress>(a1);
-  return a1;
-}
-
-{
-  ot::AsCoreType<otExtAddress>(a1);
-  return a1;
-}
-
-uint64_t ot::AsCoreType<otIp4Address>(uint64_t a1)
-{
-  ot::AsCoreType<otIp4Address>(a1);
-  return a1;
-}
-
-{
-  ot::AsCoreType<otIp4Address>(a1);
-  return a1;
-}
-
-uint64_t ot::AsCoreType<otIp6Address>(uint64_t a1)
-{
-  ot::AsCoreType<otIp6Address>(a1);
-  return a1;
-}
-
-{
-  ot::AsCoreType<otIp6Address>(a1);
-  return a1;
-}
-
-uint64_t ot::AsCoreType<otNetworkKey>(uint64_t a1)
-{
-  ot::AsCoreType<otNetworkKey>(a1);
-  return a1;
-}
-
-{
-  ot::AsCoreType<otNetworkKey>(a1);
-  return a1;
-}
-
-uint64_t ot::AsCoreType<otMessageInfo>(uint64_t a1)
-{
-  ot::AsCoreType<otMessageInfo>(a1);
-  return a1;
-}
-
-{
-  ot::AsCoreType<otMessageInfo>(a1);
-  return a1;
-}
-
-uint64_t ot::AsCoreType<otNetworkName>(uint64_t a1)
-{
-  ot::AsCoreType<otNetworkName>(a1);
-  return a1;
-}
-
-{
-  ot::AsCoreType<otNetworkName>(a1);
-  return a1;
-}
-
-uint64_t ot::AsCoreType<otSteeringData>(uint64_t a1)
-{
-  ot::AsCoreType<otSteeringData>(a1);
-  return a1;
-}
-
-{
-  ot::AsCoreType<otSteeringData>(a1);
-  return a1;
-}
-
-uint64_t ot::AsCoreType<otBorderAgentId>(uint64_t a1)
-{
-  ot::AsCoreType<otBorderAgentId>(a1);
-  return a1;
-}
-
-{
-  ot::AsCoreType<otBorderAgentId>(a1);
-  return a1;
-}
-
-uint64_t ot::AsCoreType<otExtendedPanId>(uint64_t a1)
-{
-  ot::AsCoreType<otExtendedPanId>(a1);
-  return a1;
-}
-
-{
-  ot::AsCoreType<otExtendedPanId>(a1);
-  return a1;
-}
-
-uint64_t ot::AsCoreType<otSecurityPolicy>(uint64_t a1)
-{
-  ot::AsCoreType<otSecurityPolicy>(a1);
-  return a1;
-}
-
-{
-  ot::AsCoreType<otSecurityPolicy>(a1);
-  return a1;
-}
-
-uint64_t ot::AsCoreType<otJoinerDiscerner>(uint64_t a1)
-{
-  ot::AsCoreType<otJoinerDiscerner>(a1);
-  return a1;
-}
-
-{
-  ot::AsCoreType<otJoinerDiscerner>(a1);
-  return a1;
-}
-
-uint64_t ot::AsCoreType<otIp6NetworkPrefix>(uint64_t a1)
-{
-  ot::AsCoreType<otIp6NetworkPrefix>(a1);
-  return a1;
-}
-
-{
-  ot::AsCoreType<otIp6NetworkPrefix>(a1);
-  return a1;
-}
-
-uint64_t ot::AsCoreType<otBorderRouterConfig>(uint64_t a1)
-{
-  ot::AsCoreType<otBorderRouterConfig>(a1);
-  return a1;
-}
-
-{
-  ot::AsCoreType<otBorderRouterConfig>(a1);
-  return a1;
-}
-
-uint64_t ot::AsCoreType<otOperationalDataset>(uint64_t a1)
-{
-  ot::AsCoreType<otOperationalDataset>(a1);
-  return a1;
-}
-
-{
-  ot::AsCoreType<otOperationalDataset>(a1);
-  return a1;
-}
-
-uint64_t ot::AsCoreType<otExternalRouteConfig>(uint64_t a1)
-{
-  ot::AsCoreType<otExternalRouteConfig>(a1);
-  return a1;
-}
-
-{
-  ot::AsCoreType<otExternalRouteConfig>(a1);
-  return a1;
-}
-
-uint64_t ot::AsCoreType<otCommissioningDataset>(uint64_t a1)
-{
-  ot::AsCoreType<otCommissioningDataset>(a1);
-  return a1;
-}
-
-{
-  ot::AsCoreType<otCommissioningDataset>(a1);
-  return a1;
-}
-
-uint64_t ot::AsCoreType<otPskc>(uint64_t a1)
-{
-  ot::AsCoreType<otPskc>(a1);
-  return a1;
-}
-
-{
-  ot::AsCoreType<otPskc>(a1);
-  return a1;
-}
-
-uint64_t ot::AsCoreType<otIp4Cidr>(uint64_t a1)
-{
-  ot::AsCoreType<otIp4Cidr>(a1);
-  return a1;
-}
-
-{
-  ot::AsCoreType<otIp4Cidr>(a1);
-  return a1;
-}
-
-uint64_t ot::AsCoreType<otMessage>(uint64_t a1)
-{
-  ot::AsCoreType<otMessage>(a1);
-  return a1;
-}
-
-{
-  ot::AsCoreType<otMessage>(a1);
-  return a1;
 }
 
 uint64_t std::stringbuf::str()

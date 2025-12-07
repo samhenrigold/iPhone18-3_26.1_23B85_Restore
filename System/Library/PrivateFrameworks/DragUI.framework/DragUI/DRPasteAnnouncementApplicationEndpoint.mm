@@ -43,15 +43,14 @@
 
 void __60__DRPasteAnnouncementApplicationEndpoint_homeScreenEndpoint__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v7 = [v2 localizedStringForKey:@"SYSTEM_APP_NAME" value:@"Home Screen" table:@"Localizable"];
+  v1 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v6 = [v1 localizedStringForKey:@"SYSTEM_APP_NAME" value:@"Home Screen" table:@"Localizable"];
 
-  v3 = [MEMORY[0x277CC1E90] bundleRecordWithBundleIdentifier:@"com.apple.springboard" allowPlaceholder:0 error:0];
-  v4 = [v3 persistentIdentifier];
-  v5 = [[DRPasteAnnouncementApplicationEndpoint alloc] initWithLocalizedName:v7 persistentIdentifier:v4];
-  v6 = homeScreenEndpoint_sharedInstance;
-  homeScreenEndpoint_sharedInstance = v5;
+  v2 = [MEMORY[0x277CC1E90] bundleRecordWithBundleIdentifier:@"com.apple.springboard" allowPlaceholder:0 error:0];
+  v3 = [v2 persistentIdentifier];
+  v4 = [[DRPasteAnnouncementApplicationEndpoint alloc] initWithLocalizedName:v6 persistentIdentifier:v3];
+  v5 = homeScreenEndpoint_sharedInstance;
+  homeScreenEndpoint_sharedInstance = v4;
 
   *(homeScreenEndpoint_sharedInstance + 16) |= 1u;
 }

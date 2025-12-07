@@ -124,7 +124,7 @@ id __45__MFAttachmentSecurityScope_startWriteAccess__block_invoke(uint64_t a1, v
 
 - (id)startReadAccess
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277CCACC8] isMainThread])
   {
     v3 = MFLogGeneral();
@@ -139,23 +139,23 @@ id __45__MFAttachmentSecurityScope_startWriteAccess__block_invoke(uint64_t a1, v
     [(MFAttachmentSecurityScope *)self _attachSecurityScope];
     if (self->_securedRead || (v4 = [(NSURL *)self->_securityScopedURL startAccessingSecurityScopedResource], self->_securedRead = v4, v4))
     {
-      v21 = 0;
-      v22 = &v21;
-      v23 = 0x3052000000;
-      v24 = __Block_byref_object_copy__1;
-      v25 = __Block_byref_object_dispose__1;
-      v26 = 0;
-      if ([(NSURL *)self->_securityScopedURL checkPromisedItemIsReachableAndReturnError:&v26])
+      v20 = 0;
+      v21 = &v20;
+      v22 = 0x3052000000;
+      v23 = __Block_byref_object_copy__1;
+      v24 = __Block_byref_object_dispose__1;
+      v25 = 0;
+      if ([(NSURL *)self->_securityScopedURL checkPromisedItemIsReachableAndReturnError:&v25])
       {
         fileCoordinator = self->_fileCoordinator;
         securityScopedURL = self->_securityScopedURL;
-        v20[0] = MEMORY[0x277D85DD0];
-        v20[1] = 3221225472;
-        v20[2] = __44__MFAttachmentSecurityScope_startReadAccess__block_invoke;
-        v20[3] = &unk_2798B7200;
-        v20[4] = self;
-        v20[5] = &v21;
-        [(NSFileCoordinator *)fileCoordinator coordinateReadingItemAtURL:securityScopedURL options:8 error:v22 + 5 byAccessor:v20];
+        v19[0] = MEMORY[0x277D85DD0];
+        v19[1] = 3221225472;
+        v19[2] = __44__MFAttachmentSecurityScope_startReadAccess__block_invoke;
+        v19[3] = &unk_2798B7200;
+        v19[4] = self;
+        v19[5] = &v20;
+        [(NSFileCoordinator *)fileCoordinator coordinateReadingItemAtURL:securityScopedURL options:8 error:v21 + 5 byAccessor:v19];
       }
 
       if (!self->_secureReadURL)
@@ -163,7 +163,7 @@ id __45__MFAttachmentSecurityScope_startWriteAccess__block_invoke(uint64_t a1, v
         v7 = MFLogGeneral();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
-          -[MFAttachmentSecurityScope startReadAccess].cold.3([v22[5] ef_publicDescription], buf, v7);
+          -[MFAttachmentSecurityScope startReadAccess].cold.3([v21[5] ef_publicDescription], buf, v7);
         }
 
         [(MFAttachmentSecurityScope *)self stopAccess];
@@ -174,37 +174,34 @@ id __45__MFAttachmentSecurityScope_startWriteAccess__block_invoke(uint64_t a1, v
 
     if ([objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")])
     {
-      v21 = 0;
-      v22 = &v21;
-      v23 = 0x3052000000;
-      v24 = __Block_byref_object_copy__1;
-      v25 = __Block_byref_object_dispose__1;
-      v26 = 0;
+      v20 = 0;
+      v21 = &v20;
+      v22 = 0x3052000000;
+      v23 = __Block_byref_object_copy__1;
+      v24 = __Block_byref_object_dispose__1;
+      v25 = 0;
       v8 = self->_fileCoordinator;
       v9 = self->_securityScopedURL;
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __44__MFAttachmentSecurityScope_startReadAccess__block_invoke_64;
-      v19[3] = &unk_2798B7200;
-      v19[4] = self;
-      v19[5] = &v21;
-      [(NSFileCoordinator *)v8 coordinateReadingItemAtURL:v9 options:8 error:&v26 byAccessor:v19];
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __44__MFAttachmentSecurityScope_startReadAccess__block_invoke_64;
+      v18[3] = &unk_2798B7200;
+      v18[4] = self;
+      v18[5] = &v20;
+      [(NSFileCoordinator *)v8 coordinateReadingItemAtURL:v9 options:8 error:&v25 byAccessor:v18];
 LABEL_15:
-      _Block_object_dispose(&v21, 8);
-      goto LABEL_16;
+      _Block_object_dispose(&v20, 8);
+      return self->_secureReadURL;
     }
 
-    v12 = MFLogGeneral();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = MFLogGeneral();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(MFAttachmentSecurityScope *)&self->_securityScopedURL startReadAccess:v12];
+      [(MFAttachmentSecurityScope *)&self->_securityScopedURL startReadAccess:v11];
     }
   }
 
-LABEL_16:
-  result = self->_secureReadURL;
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return self->_secureReadURL;
 }
 
 id __44__MFAttachmentSecurityScope_startReadAccess__block_invoke(uint64_t a1, uint64_t a2)
@@ -255,12 +252,11 @@ id __44__MFAttachmentSecurityScope_startReadAccess__block_invoke_64(uint64_t a1,
 
 - (void)_removeTemporaryReadURL
 {
-  *v4 = 138412546;
-  *&v4[4] = self;
-  *&v4[12] = 2112;
-  *&v4[14] = *a2;
-  OUTLINED_FUNCTION_3(&dword_258BDA000, a2, a3, "Failed to remove temporary read directory [%@] error [%@]", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
+  *v3 = 138412546;
+  *&v3[4] = self;
+  *&v3[12] = 2112;
+  *&v3[14] = *a2;
+  OUTLINED_FUNCTION_3(&dword_258BDA000, a2, a3, "Failed to remove temporary read directory [%@] error [%@]", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 - (void)stopAccess
@@ -297,13 +293,11 @@ id __44__MFAttachmentSecurityScope_startReadAccess__block_invoke_64(uint64_t a1,
   result = self->_securityScopeToken;
   if (!result)
   {
-    v4 = *MEMORY[0x277D861C0];
     [(NSString *)[(NSURL *)self->_securityScopedURL path] fileSystemRepresentation];
-    v5 = *MEMORY[0x277D861E0];
-    v6 = sandbox_extension_issue_file();
-    if (v6)
+    v4 = sandbox_extension_issue_file();
+    if (v4)
     {
-      result = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:v6 length:strlen(v6) + 1];
+      result = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytesNoCopy:v4 length:strlen(v4) + 1];
       self->_securityScopeToken = result;
     }
 
@@ -320,7 +314,6 @@ id __44__MFAttachmentSecurityScope_startReadAccess__block_invoke_64(uint64_t a1,
 {
   if ([(MFAttachmentSecurityScope *)self securityScopeToken])
   {
-    securityScopedURL = self->_securityScopedURL;
     [(MFAttachmentSecurityScope *)self securityScopeToken];
 
     JUMPOUT(0x259C97090);
@@ -356,12 +349,11 @@ id __44__MFAttachmentSecurityScope_startReadAccess__block_invoke_64(uint64_t a1,
 
 - (void)startWriteAccess
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   ef_publicDescription = [*self ef_publicDescription];
-  v5 = 138543362;
-  v6 = ef_publicDescription;
-  _os_log_error_impl(&dword_258BDA000, a2, OS_LOG_TYPE_ERROR, "#Attachments Error accessing secure write URL [%{public}@]", &v5, 0xCu);
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138543362;
+  v5 = ef_publicDescription;
+  _os_log_error_impl(&dword_258BDA000, a2, OS_LOG_TYPE_ERROR, "#Attachments Error accessing secure write URL [%{public}@]", &v4, 0xCu);
 }
 
 - (void)startReadAccess
@@ -373,14 +365,14 @@ id __44__MFAttachmentSecurityScope_startReadAccess__block_invoke_64(uint64_t a1,
 
 - (void)_temporaryReadURL:(uint64_t)a3 error:(uint64_t)a4 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3(&dword_258BDA000, a2, a3, "#Attachments Failed to create temporary read directory [%@]", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_3(&dword_258BDA000, a2, a3, "#Attachments Failed to create temporary read directory [%@]", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_temporaryReadURL:(os_log_t)log error:.cold.2(uint64_t a1, id *a2, os_log_t log)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v5 = [*a2 ef_publicDescription];
@@ -391,12 +383,11 @@ id __44__MFAttachmentSecurityScope_startReadAccess__block_invoke_64(uint64_t a1,
     v5 = @"unknown";
   }
 
-  v7 = 138412546;
-  v8 = a1;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_error_impl(&dword_258BDA000, log, OS_LOG_TYPE_ERROR, "#Attachments Failed to create temporary read URL [%@] error [%{public}@]", &v7, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = a1;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_error_impl(&dword_258BDA000, log, OS_LOG_TYPE_ERROR, "#Attachments Failed to create temporary read URL [%@] error [%{public}@]", &v6, 0x16u);
 }
 
 @end

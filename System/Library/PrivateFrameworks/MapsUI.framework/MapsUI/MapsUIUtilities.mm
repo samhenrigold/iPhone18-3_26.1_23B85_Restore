@@ -217,43 +217,42 @@ LABEL_11:
 
 + (BOOL)isInApplicationContext:(unint64_t)context
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:context];
-  v8[0] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   LOBYTE(self) = [self isInApplicationContexts:v5];
 
-  v6 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 + (BOOL)isInApplicationContexts:(id)contexts
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   contextsCopy = contexts;
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
   bundleIdentifier = [mainBundle bundleIdentifier];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v7 = contextsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [self bundleIdentifierForContext:{objc_msgSend(*(*(&v17 + 1) + 8 * i), "unsignedIntegerValue", v17)}];
+        v12 = [self bundleIdentifierForContext:{objc_msgSend(*(*(&v16 + 1) + 8 * i), "unsignedIntegerValue", v16)}];
         v13 = [bundleIdentifier isEqual:v12];
 
         if (v13)
@@ -263,7 +262,7 @@ LABEL_11:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v9)
       {
         continue;
@@ -276,7 +275,6 @@ LABEL_11:
   v14 = 0;
 LABEL_11:
 
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 

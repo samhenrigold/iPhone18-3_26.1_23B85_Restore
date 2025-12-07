@@ -161,7 +161,7 @@
             }
 
             [v29 setPosition:{v53, v51}];
-            [v29 frame];
+            objc_msgSend_frame(v29);
             v154.origin.y = v129;
             v154.origin.x = v130;
             v154.size.height = v134;
@@ -277,7 +277,7 @@ LABEL_42:
 
           v91 = *(*(&v140 + 1) + 8 * v90);
           displayItem = [v91 displayItem];
-          v93 = [sizeSnappingCopy containsObject:displayItem];
+          v93 = objc_msgSend_containsObject_(sizeSnappingCopy);
 
           if (v93)
           {
@@ -342,7 +342,7 @@ LABEL_57:
 
         v101 = *(*(&v136 + 1) + 8 * v100);
         displayItem2 = [v101 displayItem];
-        v103 = [snappingCopy containsObject:displayItem2];
+        v103 = objc_msgSend_containsObject_(snappingCopy);
 
         if (v103)
         {
@@ -439,7 +439,7 @@ LABEL_6:
         v22 = *(*(&v25 + 1) + 8 * v21);
         if ((BSEqualObjects() & 1) == 0)
         {
-          [v22 frame];
+          objc_msgSend_frame(v22);
           maskCopy = [(SBFlexibleWindowingAutoLayoutController *)selfCopy _snapPositionOfItem:v24 toRect:spaceCopy inSpace:configurationCopy autoLayoutConfiguration:1 considerAdjacency:maskCopy snappedEdgesMask:v22 itemForPotentialPairing:?];
         }
 
@@ -480,7 +480,7 @@ LABEL_6:
     goto LABEL_5;
   }
 
-  [itemCopy frame];
+  objc_msgSend_frame(itemCopy);
   v27 = v23;
   v28 = v24;
   v29 = maskCopy & 0xC;
@@ -779,7 +779,7 @@ LABEL_5:
   configurationCopy = configuration;
   windowingConfiguration = [configurationCopy windowingConfiguration];
   v15 = itemCopy;
-  [v15 frame];
+  objc_msgSend_frame(v15);
   v36.origin.x = v16;
   v36.origin.y = v17;
   v36.size.width = v18;
@@ -820,7 +820,7 @@ LABEL_6:
         v25 = *(*(&v32 + 1) + 8 * v24);
         if ((BSEqualObjects() & 1) == 0)
         {
-          [v25 frame];
+          objc_msgSend_frame(v25);
           maskCopy = [(SBFlexibleWindowingAutoLayoutController *)self _snapSizeOfItem:v15 toRect:spaceCopy inSpace:windowingConfiguration windowingConfiguration:1 considerAdjacency:maskCopy snappedEdgesMask:&v36 newFrame:?];
         }
 
@@ -842,7 +842,7 @@ LABEL_6:
 
   if (maskCopy)
   {
-    [v15 frame];
+    objc_msgSend_frame(v15);
     v39.origin.x = v26;
     v39.origin.y = v27;
     v39.size.width = v28;
@@ -888,7 +888,7 @@ LABEL_6:
 
   if ((~mask & 0xFLL) != 0)
   {
-    [itemCopy frame];
+    objc_msgSend_frame(itemCopy);
     v32 = v29 + v31;
     v34 = v30 + v33;
     v35 = x + width;
@@ -1143,7 +1143,7 @@ LABEL_89:
         }
 
         v12 = *(*(&v19 + 1) + 8 * i);
-        [v12 frame];
+        objc_msgSend_frame(v12);
         v13 = SBSafeAutoreleasedRegionFromCGRect();
         if (v9)
         {
@@ -1233,7 +1233,7 @@ LABEL_89:
     do
     {
       v19 = [autoLayoutItems objectAtIndex:{v17, *&v33}];
-      [v19 frame];
+      objc_msgSend_frame(v19);
       v39.origin.x = v8;
       v39.origin.y = v10;
       v39.size.width = v12;
@@ -1339,13 +1339,13 @@ LABEL_89:
     while (1)
     {
       v13 = [MEMORY[0x277CCABB0] numberWithInteger:v11];
-      if (([v8 containsObject:v13] & 1) == 0)
+      if ((objc_msgSend_containsObject_(v8) & 1) == 0)
       {
         break;
       }
 
       v14 = [MEMORY[0x277CCABB0] numberWithInteger:v11];
-      v15 = [v9 containsObject:v14];
+      v15 = objc_msgSend_containsObject_(v9);
 
       if (!v15)
       {
@@ -1375,10 +1375,10 @@ LABEL_34:
     while (1)
     {
       v19 = [MEMORY[0x277CCABB0] numberWithInteger:v18];
-      if ([v8 containsObject:v19])
+      if (objc_msgSend_containsObject_(v8))
       {
         v20 = [MEMORY[0x277CCABB0] numberWithInteger:v18];
-        v21 = [v9 containsObject:v20];
+        v21 = objc_msgSend_containsObject_(v9);
 
         if (v21)
         {
@@ -1393,12 +1393,12 @@ LABEL_34:
       v22 = [autoLayoutItems objectAtIndex:v18];
       if (([v17 isOverlapped] & 1) == 0 && (objc_msgSend(v22, "isOverlapped") & 1) == 0 && (objc_msgSend(v17, "isInSlideOver") & 1) == 0 && (objc_msgSend(v22, "isInSlideOver") & 1) == 0)
       {
-        [v17 frame];
+        objc_msgSend_frame(v17);
         v24 = v23;
         v26 = v25;
         v28 = v27;
         v30 = v29;
-        [v22 frame];
+        objc_msgSend_frame(v22);
         v34 = v33;
         v35 = v26 + v30;
         v37 = v31 + v36;
@@ -1417,14 +1417,14 @@ LABEL_34:
           if (vabdd_f64(v24, v34 + v32) <= v12)
           {
             v38 = [MEMORY[0x277CCABB0] numberWithInteger:v11];
-            if ([v8 containsObject:v38])
+            if (objc_msgSend_containsObject_(v8))
             {
             }
 
             else
             {
               v39 = [MEMORY[0x277CCABB0] numberWithInteger:v18];
-              v49 = [v9 containsObject:v39];
+              v49 = objc_msgSend_containsObject_(v9);
 
               if ((v49 & 1) == 0)
               {
@@ -1446,13 +1446,13 @@ LABEL_34:
           if (vabdd_f64(v34, v24 + v28) <= v12)
           {
             v40 = [MEMORY[0x277CCABB0] numberWithInteger:v11];
-            if ([v9 containsObject:v40])
+            if (objc_msgSend_containsObject_(v9))
             {
               goto LABEL_31;
             }
 
             v41 = [MEMORY[0x277CCABB0] numberWithInteger:v18];
-            v50 = [v8 containsObject:v41];
+            v50 = objc_msgSend_containsObject_(v8);
 
             if ((v50 & 1) == 0)
             {
@@ -1544,7 +1544,7 @@ void __78__SBFlexibleWindowingAutoLayoutController__boundingBoxForSpace_configur
 {
   v3 = *(*(a1[4] + 8) + 24);
   v4 = a2;
-  [v4 frame];
+  objc_msgSend_frame(v4);
   if (v3 < v5)
   {
     v5 = v3;
@@ -1552,7 +1552,7 @@ void __78__SBFlexibleWindowingAutoLayoutController__boundingBoxForSpace_configur
 
   *(*(a1[4] + 8) + 24) = v5;
   v6 = *(*(a1[5] + 8) + 24);
-  [v4 frame];
+  objc_msgSend_frame(v4);
   v9 = v7 + v8;
   if (v6 >= v9)
   {
@@ -1561,7 +1561,7 @@ void __78__SBFlexibleWindowingAutoLayoutController__boundingBoxForSpace_configur
 
   *(*(a1[5] + 8) + 24) = v9;
   v10 = *(*(a1[6] + 8) + 24);
-  [v4 frame];
+  objc_msgSend_frame(v4);
   if (v10 >= v11)
   {
     v12 = v11;
@@ -1574,7 +1574,7 @@ void __78__SBFlexibleWindowingAutoLayoutController__boundingBoxForSpace_configur
 
   *(*(a1[6] + 8) + 24) = v12;
   v13 = *(*(a1[7] + 8) + 24);
-  [v4 frame];
+  objc_msgSend_frame(v4);
   v15 = v14;
   v17 = v16;
 
@@ -1733,7 +1733,7 @@ void __78__SBFlexibleWindowingAutoLayoutController__boundingBoxForSpace_configur
   {
     windowingConfiguration = [configurationCopy windowingConfiguration];
     userInterfaceLayoutDirection = [*v12 userInterfaceLayoutDirection];
-    [itemCopy frame];
+    objc_msgSend_frame(itemCopy);
     v20 = v18;
     if (userInterfaceLayoutDirection == 1)
     {
@@ -1825,7 +1825,7 @@ LABEL_10:
     v14 = prefersDockHidden ^ 1;
     if (itemCopy && (prefersDockHidden & 1) == 0)
     {
-      [itemCopy frame];
+      objc_msgSend_frame(itemCopy);
       v18 = v16 + v17;
       [windowingConfiguration slideOverBorderWidth];
       v20 = v19 + v18;
@@ -1951,7 +1951,7 @@ LABEL_10:
         v27 = v26 * 0.5;
         v29 = v28 * 0.5;
         [v21 setOwnedDisplayRectCorners:0];
-        [v21 frame];
+        objc_msgSend_frame(v21);
         v30 = SBSafeAutoreleasedRegionFromCGRect();
         v31 = vabdd_f64(v23, v27);
         v32 = vabdd_f64(v25, v29);

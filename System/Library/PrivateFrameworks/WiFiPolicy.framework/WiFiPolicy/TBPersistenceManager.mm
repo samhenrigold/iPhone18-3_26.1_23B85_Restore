@@ -108,17 +108,17 @@ LABEL_12:
 
 void __63__TBPersistenceManager_addPersistentStorage_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   if (a3)
   {
     v5 = a3;
     NSLog(&cfstr_ErrorAddingPer.isa, v5, a2);
     v6 = *MEMORY[0x277CCA7E8];
-    v12[0] = *MEMORY[0x277CCA450];
-    v12[1] = v6;
-    v13[0] = @"Failed to add persistent store.";
-    v13[1] = v5;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+    v11[0] = *MEMORY[0x277CCA450];
+    v11[1] = v6;
+    v12[0] = @"Failed to add persistent store.";
+    v12[1] = v5;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
     v8 = [[TBError alloc] initWithType:104 userInfo:v7];
     (*(*(a1 + 32) + 16))();
   }
@@ -130,8 +130,6 @@ void __63__TBPersistenceManager_addPersistentStorage_completionHandler___block_i
     v7 = 0;
     v10(v9, 0);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isStoreCompatibleAtURL:(id)l withModel:(id)model

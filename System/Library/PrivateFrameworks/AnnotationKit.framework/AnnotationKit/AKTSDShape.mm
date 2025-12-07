@@ -176,8 +176,9 @@
 - (void)p_invalidateClippedPath
 {
   *&self->mShapeInvalidFlags |= 0x200u;
+  mCachedClippedPath = self->mCachedClippedPath;
   self->mCachedClippedPath = 0;
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](self, mCachedClippedPath);
 }
 
 - (void)p_validateHeadAndTail
@@ -240,81 +241,84 @@
     [(AKTSDShape *)self strokeTailLineEnd];
   }
   v17 = ;
-  if (v17 && (v40 = v17, ([v17 isNone] & 1) == 0))
+  v18 = v17;
+  if (v17 && (v41 = v17, v17 = [v17 isNone], v18 = v41, (v17 & 1) == 0))
   {
-    BoundingBox = CGPathGetBoundingBox([v40 path]);
+    BoundingBox = CGPathGetBoundingBox([v41 path]);
     MaxY = CGRectGetMaxY(BoundingBox);
-    [v40 endPoint];
-    v20 = MaxY - v19;
-    if (![v40 isFilled])
+    [v41 endPoint];
+    v21 = MaxY - v20;
+    if (![v41 isFilled])
     {
-      v20 = v20 + 0.75;
+      v21 = v21 + 0.75;
     }
 
     [(AKTSDShape *)self lineEndScale];
-    v22 = v21 * v20;
-    v23 = [AKTSDBezierPath bezierPathWithOvalInRect:v15 - v22, v16 - v22, v22 + v22, v22 + v22];
-    v24 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v23 = v22 * v21;
+    v24 = [AKTSDBezierPath bezierPathWithOvalInRect:v15 - v23, v16 - v23, v23 + v23, v23 + v23];
+    v25 = objc_alloc_init(MEMORY[0x277CBEB18]);
     path = [(AKTSDShape *)self path];
-    [path addIntersectionsWithPath:v23 to:v24 allIntersections:0 reversed:headCopy];
+    [path addIntersectionsWithPath:v24 to:v25 allIntersections:0 reversed:headCopy];
 
-    if ([v24 count])
+    if ([v25 count])
     {
-      [v24 sortUsingSelector:sel_compareSegmentAndT_];
+      [v25 sortUsingSelector:sel_compareSegmentAndT_];
       if (headCopy)
       {
-        [v24 lastObject];
+        [v25 lastObject];
       }
 
       else
       {
-        [v24 objectAtIndex:0];
+        [v25 objectAtIndex:0];
       }
-      v26 = ;
-      [v26 point];
-      x = v29;
-      y = v30;
+      v27 = ;
+      [v27 point];
+      x = v30;
+      y = v31;
     }
 
     else if (headCopy)
     {
-      v26 = 0;
+      v27 = 0;
       x = self->mTailPoint.x;
       y = self->mTailPoint.y;
     }
 
     else
     {
-      v26 = 0;
+      v27 = 0;
       x = self->mHeadPoint.x;
       y = self->mHeadPoint.y;
     }
 
-    v31 = sub_23F4659D0(v15, v16, x);
-    *angle = sub_23F465A48(v31, v32) + -1.57079633;
-    v33 = sub_23F4659D0(x, y, v15);
-    v35 = *MEMORY[0x277CBF348];
-    if (v33 != *MEMORY[0x277CBF348] || v34 != *(MEMORY[0x277CBF348] + 8))
+    v32 = sub_23F4659D0(v15, v16, x);
+    *angle = sub_23F465A48(v32, v33) + -1.57079633;
+    v34 = sub_23F4659D0(x, y, v15);
+    v36 = *MEMORY[0x277CBF348];
+    if (v34 != *MEMORY[0x277CBF348] || v35 != *(MEMORY[0x277CBF348] + 8))
     {
-      v36 = sub_23F465A1C(v33, v34);
-      v35 = sub_23F4659DC(v36, v37, v22);
+      v37 = sub_23F465A1C(v34, v35);
+      v36 = sub_23F4659DC(v37, v38, v23);
     }
 
-    point->x = sub_23F4659C4(v15, v16, v35);
-    point->y = v38;
-    if (v26)
+    point->x = sub_23F4659C4(v15, v16, v36);
+    point->y = v39;
+    if (v27)
     {
-      *segment = [v26 segment];
-      [v26 t];
+      *segment = [v27 segment];
+      [v27 t];
     }
 
     else
     {
       *segment = 0;
-      v39 = 0;
+      v40 = 0;
     }
 
-    *t = v39;
+    *t = v40;
+
+    v18 = v41;
   }
 
   else
@@ -326,7 +330,7 @@
     *t = 0.0;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](v17, v18);
 }
 
 - (id)_newClippedPath

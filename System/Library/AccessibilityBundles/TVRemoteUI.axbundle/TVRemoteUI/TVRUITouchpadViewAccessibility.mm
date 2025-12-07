@@ -5,6 +5,7 @@
 - (id)accessibilityLabel;
 - (unint64_t)accessibilityTraits;
 - (void)_accessibilityFocusChanged:(id)changed;
+- (void)_accessibilitySetIsDirectTouching:(BOOL)touching;
 @end
 
 @implementation TVRUITouchpadViewAccessibility
@@ -91,6 +92,14 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)_accessibilitySetIsDirectTouching:(BOOL)touching
+{
+  touchingCopy = touching;
+  NSLog(&cfstr_SettingDirectT.isa, a2, touching);
+  v5 = [MEMORY[0x29EDBA070] numberWithBool:touchingCopy];
+  objc_setAssociatedObject(self, &isDirectTouching_0, v5, 1);
 }
 
 @end

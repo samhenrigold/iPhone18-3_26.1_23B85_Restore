@@ -1245,7 +1245,8 @@ void __81__UIEditMenuInteraction_contextMenuInteraction_willEndForConfiguration_
   if (_activeHandoffContext)
   {
     [v5 setShouldMenuOverlapSourcePreview:1];
-    -[UIEditMenuInteraction _anchorForPreferredArrowDirection:](self, "_anchorForPreferredArrowDirection:", [_activeHandoffContext arrowDirection]);
+    [_activeHandoffContext arrowDirection];
+    objc_msgSend__anchorForPreferredArrowDirection_(self);
     v9[0] = v11;
     v9[1] = v12;
     v10 = v13;

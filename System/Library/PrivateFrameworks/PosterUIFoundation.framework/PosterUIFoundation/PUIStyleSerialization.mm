@@ -8,64 +8,64 @@
 + (id)dataForStyle:(id)style error:(id *)error
 {
   styleCopy = style;
-  v13 = 0;
-  v6 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:styleCopy requiringSecureCoding:1 error:&v13];
-  v7 = v13;
+  v12 = 0;
+  v6 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:styleCopy requiringSecureCoding:1 error:&v12];
+  v7 = v12;
   v8 = v7;
   if (v7)
   {
     if (error)
     {
-      v9 = v7;
+      v7 = v7;
       *error = v8;
     }
 
-    v10 = PUILogCommon();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = PUILogCommon(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(PUIStyleSerialization *)styleCopy dataForStyle:v8 error:v10];
+      [(PUIStyleSerialization *)styleCopy dataForStyle:v8 error:v9];
     }
 
-    v11 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v11 = v6;
+    v10 = v6;
   }
 
-  return v11;
+  return v10;
 }
 
 + (id)styleForData:(id)data error:(id *)error
 {
-  v16[5] = *MEMORY[0x1E69E9840];
+  v17[5] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696ACD0];
   v6 = MEMORY[0x1E695DFD8];
   dataCopy = data;
-  v16[0] = objc_opt_class();
-  v16[1] = objc_opt_class();
-  v16[2] = objc_opt_class();
-  v16[3] = objc_opt_class();
-  v16[4] = objc_opt_class();
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:5];
+  v17[0] = objc_opt_class();
+  v17[1] = objc_opt_class();
+  v17[2] = objc_opt_class();
+  v17[3] = objc_opt_class();
+  v17[4] = objc_opt_class();
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:5];
   v9 = [v6 setWithArray:v8];
-  v15 = 0;
-  v10 = [v5 _strictlyUnarchivedObjectOfClasses:v9 fromData:dataCopy error:&v15];
+  v16 = 0;
+  v10 = [v5 _strictlyUnarchivedObjectOfClasses:v9 fromData:dataCopy error:&v16];
 
-  v11 = v15;
+  v11 = v16;
   if (!v10)
   {
-    v12 = PUILogCommon();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = PUILogCommon(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      [PUIStyleSerialization styleForData:v11 error:v12];
+      [PUIStyleSerialization styleForData:v11 error:v13];
     }
   }
 
   if (error && v11)
   {
-    v13 = v11;
+    v14 = v11;
     *error = v11;
   }
 

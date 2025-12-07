@@ -77,8 +77,8 @@ void __38__ATXDNDModeConfigurationClient__init__block_invoke(uint64_t a1, char a
     WeakRetained = objc_loadWeakRetained((a1 + 32));
     [WeakRetained invalidateCaches];
 
-    v7 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_modes(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __38__ATXDNDModeConfigurationClient__init__block_invoke_cold_1((a1 + 32));
     }
@@ -109,10 +109,10 @@ void __47__ATXDNDModeConfigurationClient_sharedInstance__block_invoke()
 
 - (void)refreshCachedConfigs
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_1_4(&dword_1BF549000, v2, v3, "[%@] Failed to fetch configs with error %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_4(&dword_1BF549000, v3, v4, "[%@] Failed to fetch configs with error %@", v5, v6, v7, v8);
 }
 
 - (void)invalidateCaches
@@ -170,38 +170,39 @@ void __47__ATXDNDModeConfigurationClient_sharedInstance__block_invoke()
 
 - (id)dndModeForDNDModeWithUUID:(id)d useCache:(BOOL)cache
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   dCopy = d;
+  v7 = dCopy;
   if (!cache)
   {
-    v7 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = __atxlog_handle_notification_management(dCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136315138;
-      v13 = "[ATXDNDModeConfigurationClient dndModeForDNDModeWithUUID:useCache:]";
-      _os_log_impl(&dword_1BF549000, v7, OS_LOG_TYPE_DEFAULT, "%s: Invalidating cache in order to mitigate stale cache bugs", &v12, 0xCu);
+      v13 = 136315138;
+      v14 = "[ATXDNDModeConfigurationClient dndModeForDNDModeWithUUID:useCache:]";
+      _os_log_impl(&dword_1BF549000, v8, OS_LOG_TYPE_DEFAULT, "%s: Invalidating cache in order to mitigate stale cache bugs", &v13, 0xCu);
     }
 
     [(ATXDNDModeConfigurationClient *)self invalidateCaches];
   }
 
   configuredModes = [(ATXDNDModeConfigurationClient *)self configuredModes];
-  v9 = configuredModes;
-  v10 = 0;
-  if (dCopy)
+  v10 = configuredModes;
+  v11 = 0;
+  if (v7)
   {
     if (configuredModes)
     {
-      v10 = [configuredModes objectForKeyedSubscript:dCopy];
+      v11 = [configuredModes objectForKeyedSubscript:v7];
 
-      if (v10)
+      if (v11)
       {
-        v10 = [v9 objectForKeyedSubscript:dCopy];
+        v11 = [v10 objectForKeyedSubscript:v7];
       }
     }
   }
 
-  return v10;
+  return v11;
 }
 
 - (unint64_t)atxModeForDNDMode:(id)mode
@@ -234,7 +235,7 @@ void __47__ATXDNDModeConfigurationClient_sharedInstance__block_invoke()
 
   else
   {
-    v10 = __atxlog_handle_notification_management();
+    v10 = __atxlog_handle_notification_management(modesByModeIdentifiers);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [ATXDNDModeConfigurationClient dndModeUUIDForDNDModeIdentifier:];
@@ -252,17 +253,18 @@ void __47__ATXDNDModeConfigurationClient_sharedInstance__block_invoke()
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:type];
   v6 = [_configuredModesBySemanticType objectForKeyedSubscript:v5];
 
-  if ([v6 count] < 2)
+  v7 = [v6 count];
+  if (v7 < 2)
   {
     firstObject = [v6 firstObject];
   }
 
   else
   {
-    v7 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = __atxlog_handle_notification_management(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      [(ATXDNDModeConfigurationClient *)type dndModeUUIDForDNDModeSemanticType:v7];
+      [(ATXDNDModeConfigurationClient *)type dndModeUUIDForDNDModeSemanticType:v8];
     }
 
     firstObject = 0;
@@ -336,36 +338,37 @@ id __58__ATXDNDModeConfigurationClient_debug_allModeDescriptions__block_invoke(u
 - (id)iOSAppListForMode:(int64_t)mode configurationType:(unint64_t)type
 {
   dndConfigurationService = self->_dndConfigurationService;
-  v17 = 0;
-  v7 = [(DNDModeConfigurationService *)dndConfigurationService modeConfigurationsReturningError:&v17];
-  v8 = v17;
+  v18 = 0;
+  v7 = [(DNDModeConfigurationService *)dndConfigurationService modeConfigurationsReturningError:&v18];
+  v8 = v18;
+  v9 = v8;
   if (v7)
   {
-    v9 = objc_opt_new();
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __69__ATXDNDModeConfigurationClient_iOSAppListForMode_configurationType___block_invoke;
-    v13[3] = &unk_1E80C43D8;
+    v10 = objc_opt_new();
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __69__ATXDNDModeConfigurationClient_iOSAppListForMode_configurationType___block_invoke;
+    v14[3] = &unk_1E80C43D8;
     modeCopy = mode;
     typeCopy = type;
-    v10 = v9;
-    v14 = v10;
-    [v7 enumerateKeysAndObjectsUsingBlock:v13];
-    v11 = v14;
+    v11 = v10;
+    v15 = v11;
+    [v7 enumerateKeysAndObjectsUsingBlock:v14];
+    v12 = v15;
   }
 
   else
   {
-    v11 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_notification_management(v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ATXDNDModeConfigurationClient iOSAppListForMode:configurationType:];
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 void __69__ATXDNDModeConfigurationClient_iOSAppListForMode_configurationType___block_invoke(void *a1, uint64_t a2, void *a3)
@@ -426,41 +429,42 @@ void __69__ATXDNDModeConfigurationClient_iOSAppListForMode_configurationType___b
 - (id)iOSContactListForMode:(int64_t)mode configurationType:(unint64_t)type
 {
   dndConfigurationService = self->_dndConfigurationService;
-  v17 = 0;
-  v7 = [(DNDModeConfigurationService *)dndConfigurationService modeConfigurationsReturningError:&v17];
-  v8 = v17;
+  v18 = 0;
+  v7 = [(DNDModeConfigurationService *)dndConfigurationService modeConfigurationsReturningError:&v18];
+  v8 = v18;
+  v9 = v8;
   if (v7)
   {
-    v9 = objc_opt_new();
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __73__ATXDNDModeConfigurationClient_iOSContactListForMode_configurationType___block_invoke;
-    v13[3] = &unk_1E80C43D8;
+    v10 = objc_opt_new();
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __73__ATXDNDModeConfigurationClient_iOSContactListForMode_configurationType___block_invoke;
+    v14[3] = &unk_1E80C43D8;
     modeCopy = mode;
     typeCopy = type;
-    v10 = v9;
-    v14 = v10;
-    [v7 enumerateKeysAndObjectsUsingBlock:v13];
-    v11 = v14;
+    v11 = v10;
+    v15 = v11;
+    [v7 enumerateKeysAndObjectsUsingBlock:v14];
+    v12 = v15;
   }
 
   else
   {
-    v11 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_notification_management(v8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ATXDNDModeConfigurationClient iOSContactListForMode:configurationType:];
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 void __73__ATXDNDModeConfigurationClient_iOSContactListForMode_configurationType___block_invoke(void *a1, uint64_t a2, void *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = [v4 mode];
   v6 = [v5 semanticType];
@@ -474,50 +478,50 @@ void __73__ATXDNDModeConfigurationClient_iOSContactListForMode_configurationType
 
     if (v9 == v10)
     {
-      v23 = 0u;
       v24 = 0u;
-      v21 = 0u;
+      v25 = 0u;
       v22 = 0u;
+      v23 = 0u;
       v11 = [v4 configuration];
       v12 = [v11 contactsWithExceptions];
 
-      v13 = [v12 countByEnumeratingWithState:&v21 objects:v27 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v22 objects:v28 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v22;
+        v15 = *v23;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v22 != v15)
+            if (*v23 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v17 = *(*(&v21 + 1) + 8 * i);
+            v17 = *(*(&v22 + 1) + 8 * i);
             v18 = [v17 contactIdentifier];
 
             if (v18)
             {
-              v19 = a1[4];
-              v20 = [v17 contactIdentifier];
-              [v19 addObject:v20];
+              v20 = a1[4];
+              v21 = [v17 contactIdentifier];
+              [v20 addObject:v21];
             }
 
             else
             {
-              v20 = __atxlog_handle_notification_management();
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+              v21 = __atxlog_handle_notification_management(v19);
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                v26 = v17;
-                _os_log_impl(&dword_1BF549000, v20, OS_LOG_TYPE_INFO, "Contact Identifier for %@ is nil. Skipping to next", buf, 0xCu);
+                v27 = v17;
+                _os_log_impl(&dword_1BF549000, v21, OS_LOG_TYPE_INFO, "Contact Identifier for %@ is nil. Skipping to next", buf, 0xCu);
               }
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v21 objects:v27 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v22 objects:v28 count:16];
         }
 
         while (v14);
@@ -541,7 +545,7 @@ void __73__ATXDNDModeConfigurationClient_iOSContactListForMode_configurationType
     v12 = v11;
     if (!v10 && v11)
     {
-      v13 = __atxlog_handle_notification_management();
+      v13 = __atxlog_handle_notification_management(v11);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [ATXDNDModeConfigurationClient modeConfigurationForDNDModeWithUUID:useCache:];
@@ -551,7 +555,7 @@ void __73__ATXDNDModeConfigurationClient_iOSContactListForMode_configurationType
 
   else
   {
-    v12 = __atxlog_handle_notification_management();
+    v12 = __atxlog_handle_notification_management(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [ATXDNDModeConfigurationClient modeConfigurationForDNDModeWithUUID:useCache:];
@@ -566,26 +570,27 @@ void __73__ATXDNDModeConfigurationClient_iOSContactListForMode_configurationType
 - (id)getAllModeConfigurationsWithoutCache
 {
   dndConfigurationService = self->_dndConfigurationService;
-  v8 = 0;
-  v3 = [(DNDModeConfigurationService *)dndConfigurationService modeConfigurationsReturningError:&v8];
-  v4 = v8;
-  if (v4)
+  v10 = 0;
+  v4 = [(DNDModeConfigurationService *)dndConfigurationService modeConfigurationsReturningError:&v10];
+  v5 = v10;
+  v6 = v5;
+  if (v5)
   {
-    v5 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = __atxlog_handle_notification_management(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [ATXDNDModeConfigurationClient getAllModeConfigurationsWithoutCache];
+      [(ATXDNDModeConfigurationClient *)self getAllModeConfigurationsWithoutCache];
     }
 
-    v6 = 0;
+    v8 = 0;
   }
 
   else
   {
-    v6 = v3;
+    v8 = v4;
   }
 
-  return v6;
+  return v8;
 }
 
 - (void)registerObserver:(id)observer
@@ -659,7 +664,7 @@ void __38__ATXDNDModeConfigurationClient__init__block_invoke_cold_1(id *a1)
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_1_4(&dword_1BF549000, v4, v5, "[%@] Configuration update handler failed with error %@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_1_4(&dword_1BF549000, v4, v5, "[%@] Configuration update handler failed with error %@", v6, v7, v8, v9);
 }
 
 - (void)dndModeUUIDForDNDModeSemanticType:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
@@ -680,10 +685,10 @@ void __38__ATXDNDModeConfigurationClient__init__block_invoke_cold_1(id *a1)
 
 - (void)getAllModeConfigurationsWithoutCache
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_1_4(&dword_1BF549000, v2, v3, "%@ - Unable to fetch mode configurations with err: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_4(&dword_1BF549000, v3, v4, "%@ - Unable to fetch mode configurations with err: %@", v5, v6, v7, v8);
 }
 
 @end

@@ -1,4 +1,5 @@
 @interface CCSetsAccessDaemonDelegate
++ (id)_loadResourceGenerationCounter:(BOOL)counter baseSystemPath:(id)path error:(id *)error;
 + (id)defaultInstance;
 + (id)readDefaultLocalDeviceUUID:(id *)d;
 - (BOOL)_validateCurrentLocalDeviceUUIDsAgainstContainerInfo:(id)info container:(id)container;
@@ -10,6 +11,7 @@
 - (BOOL)setLastMaintenanceDateForResourceContainer:(id)container date:(id)date error:(id *)error;
 - (BOOL)teardownResource:(id)resource inContainer:(id)container;
 - (CCSetsAccessDaemonDelegate)initWithBaseSystemPath:(id)path notifySourcesOnReset:(BOOL)reset;
+- (id)_loadOrCreateContainerInfo:(id)info readOnly:(BOOL)only;
 - (id)_resetSetsDirectory:(id)directory;
 - (id)_storedLocalIDSIdentifierInContainer:(id)container;
 - (id)incrementResourceGenerationCounter;
@@ -23,65 +25,61 @@
 
 - (BOOL)loadOrCreateResourceGenerationCounter
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   p_resourceGenerationCounter = &self->_resourceGenerationCounter;
   if (self->_resourceGenerationCounter)
   {
-    v3 = 1;
+    return 1;
+  }
+
+  v5 = objc_opt_class();
+  baseSystemPath = self->_baseSystemPath;
+  v20 = 0;
+  v7 = [v5 _loadResourceGenerationCounter:0 baseSystemPath:baseSystemPath error:&v20];
+  v8 = v20;
+  v9 = v8;
+  if (v7)
+  {
+    v10 = v8 == 0;
   }
 
   else
   {
-    v5 = objc_opt_class();
-    baseSystemPath = self->_baseSystemPath;
-    v21 = 0;
-    v7 = [v5 _loadResourceGenerationCounter:0 baseSystemPath:baseSystemPath error:&v21];
-    v8 = v21;
-    v9 = v8;
-    if (v7)
-    {
-      v10 = v8 == 0;
-    }
+    v10 = 0;
+  }
 
-    else
-    {
-      v10 = 0;
-    }
+  v3 = v10;
+  if (v10)
+  {
+    objc_storeStrong(p_resourceGenerationCounter, v7);
+    fileUUID = [(BMFileBackedCounter *)self->_resourceGenerationCounter fileUUID];
+    localDeviceUUID = self->_localDeviceUUID;
+    self->_localDeviceUUID = fileUUID;
 
-    v3 = v10;
-    if (v10)
+    v17 = __biome_log_for_category();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      objc_storeStrong(p_resourceGenerationCounter, v7);
-      fileUUID = [(BMFileBackedCounter *)self->_resourceGenerationCounter fileUUID];
-      localDeviceUUID = self->_localDeviceUUID;
-      self->_localDeviceUUID = fileUUID;
-
-      v17 = __biome_log_for_category();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
-      {
-        v13 = objc_opt_class();
-        v14 = self->_localDeviceUUID;
-        v15 = v13;
-        uUIDString = [(NSUUID *)v14 UUIDString];
-        *buf = 138412546;
-        v23 = v13;
-        v24 = 2112;
-        v25 = uUIDString;
-        _os_log_impl(&dword_1B6DB2000, v17, OS_LOG_TYPE_INFO, "%@ resourceGeneration counter loaded with deviceUUID: %@", buf, 0x16u);
-      }
-    }
-
-    else
-    {
-      v17 = __biome_log_for_category();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
-      {
-        [CCSetsAccessDaemonDelegate loadOrCreateResourceGenerationCounter];
-      }
+      v13 = objc_opt_class();
+      v14 = self->_localDeviceUUID;
+      v15 = v13;
+      uUIDString = [(NSUUID *)v14 UUIDString];
+      *buf = 138412546;
+      v22 = v13;
+      v23 = 2112;
+      v24 = uUIDString;
+      _os_log_impl(&dword_1B6DB2000, v17, OS_LOG_TYPE_INFO, "%@ resourceGeneration counter loaded with deviceUUID: %@", buf, 0x16u);
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
+  else
+  {
+    v17 = __biome_log_for_category();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    {
+      [CCSetsAccessDaemonDelegate loadOrCreateResourceGenerationCounter];
+    }
+  }
+
   return v3;
 }
 
@@ -113,6 +111,15 @@
   }
 
   return v9;
+}
+
++ (id)_loadResourceGenerationCounter:(BOOL)counter baseSystemPath:(id)path error:(id *)error
+{
+  counterCopy = counter;
+  v7 = [MEMORY[0x1E695DFF8] fileURLWithPath:path isDirectory:1];
+  v8 = [objc_alloc(MEMORY[0x1E698E9A8]) initWithFilename:@"resourceGeneration" protectionClass:4 directory:v7 domain:1 readOnly:counterCopy error:error];
+
+  return v8;
 }
 
 + (id)readDefaultLocalDeviceUUID:(id *)d
@@ -162,7 +169,7 @@
 - (BOOL)prepareResource:(id)resource withMode:(unint64_t)mode inContainer:(id)container
 {
   modeCopy = mode;
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   resourceCopy = resource;
   containerCopy = container;
   v10 = __biome_log_for_category();
@@ -172,13 +179,13 @@
     v28 = v27;
     v29 = BMAccessModePrintableDescription();
     *buf = 138413058;
-    v34 = v27;
-    v35 = 2114;
-    v36 = resourceCopy;
-    v37 = 2114;
-    v38 = v29;
-    v39 = 2114;
-    v40 = containerCopy;
+    v33 = v27;
+    v34 = 2114;
+    v35 = resourceCopy;
+    v36 = 2114;
+    v37 = v29;
+    v38 = 2114;
+    v39 = containerCopy;
     _os_log_debug_impl(&dword_1B6DB2000, v10, OS_LOG_TYPE_DEBUG, "%@ preparing resource %{public}@ for mode %{public}@ with container %{public}@", buf, 0x2Au);
   }
 
@@ -197,9 +204,9 @@
       else
       {
         v14 = [CCDataResource dataResourceFromSpecifier:resourceCopy inContainer:containerCopy];
-        v32 = 0;
-        v15 = [v14 databaseFileExists:&v32];
-        v16 = v32;
+        v31 = 0;
+        v15 = [v14 databaseFileExists:&v31];
+        v16 = v31;
         if (v15)
         {
           v11 = 1;
@@ -213,11 +220,11 @@
             v18 = objc_opt_class();
             localizedFailureReason = [v16 localizedFailureReason];
             *buf = 138412802;
-            v34 = v18;
-            v35 = 2112;
-            v36 = resourceCopy;
-            v37 = 2112;
-            v38 = localizedFailureReason;
+            v33 = v18;
+            v34 = 2112;
+            v35 = resourceCopy;
+            v36 = 2112;
+            v37 = localizedFailureReason;
             _os_log_impl(&dword_1B6DB2000, v17, OS_LOG_TYPE_DEFAULT, "%@ Resource %@ has not been prepared yet (%@)", buf, 0x20u);
           }
 
@@ -265,25 +272,24 @@
     v11 = [(CCSetsAccessDaemonDelegate *)self _validateReadOnlyContainer:containerCopy];
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (BOOL)teardownResource:(id)resource inContainer:(id)container
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   resourceCopy = resource;
   containerCopy = container;
   v8 = __biome_log_for_category();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v20 = objc_opt_class();
-    v21 = 2114;
-    v22 = resourceCopy;
-    v23 = 2114;
-    v24 = containerCopy;
-    v17 = v20;
+    v19 = objc_opt_class();
+    v20 = 2114;
+    v21 = resourceCopy;
+    v22 = 2114;
+    v23 = containerCopy;
+    v16 = v19;
     _os_log_debug_impl(&dword_1B6DB2000, v8, OS_LOG_TYPE_DEBUG, "%@ tearing down resource %{public}@ with container %{public}@", buf, 0x20u);
   }
 
@@ -291,9 +297,9 @@
   {
     v9 = [CCDataResource dataResourceFromSpecifier:resourceCopy inContainer:containerCopy];
     v10 = [[CCDataResourceWriter alloc] initWithDataResource:v9 accessAssertion:0];
-    v18 = 0;
-    v11 = [(CCDataResourceWriter *)v10 removeResource:&v18];
-    v12 = v18;
+    v17 = 0;
+    v11 = [(CCDataResourceWriter *)v10 removeResource:&v17];
+    v12 = v17;
     if (v12)
     {
       v11 = 0;
@@ -320,7 +326,6 @@
     v11 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -349,7 +354,7 @@
 
 void __47__CCSetsAccessDaemonDelegate_prepareContainer___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([*(a1 + 32) loadOrCreateResourceGenerationCounter])
   {
@@ -377,13 +382,13 @@ LABEL_20:
         v9 = __biome_log_for_category();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
-          v14 = *(a1 + 40);
+          v13 = *(a1 + 40);
           *buf = 138412802;
-          v16 = v5;
-          v17 = 2112;
-          v18 = v14;
-          v19 = 2112;
-          v20 = v7;
+          v15 = v5;
+          v16 = 2112;
+          v17 = v13;
+          v18 = 2112;
+          v19 = v7;
           _os_log_error_impl(&dword_1B6DB2000, v9, OS_LOG_TYPE_ERROR, "Failed to resolve / create sets directory (%@) in container: %@ error: %@", buf, 0x20u);
         }
 
@@ -404,7 +409,7 @@ LABEL_15:
           {
             v12 = *(a1 + 40);
             *buf = 138412290;
-            v16 = v12;
+            v15 = v12;
             _os_log_impl(&dword_1B6DB2000, v11, OS_LOG_TYPE_DEFAULT, "Prepared container: %@", buf, 0xCu);
           }
 
@@ -432,8 +437,6 @@ LABEL_15:
 
   *(*(*(a1 + 48) + 8) + 24) = 0;
 LABEL_21:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_storedLocalIDSIdentifierInContainer:(id)container
@@ -472,7 +475,7 @@ void __67__CCSetsAccessDaemonDelegate__storedLocalIDSIdentifierInContainer___blo
 
 - (BOOL)_validateCurrentLocalDeviceUUIDsAgainstContainerInfo:(id)info container:(id)container
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   containerCopy = container;
   v8 = [infoCopy objectForKey:@"localDeviceUUID"];
@@ -498,16 +501,16 @@ void __67__CCSetsAccessDaemonDelegate__storedLocalIDSIdentifierInContainer___blo
         v13 = __biome_log_for_category();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          v21 = 138413058;
-          v22 = objc_opt_class();
-          v23 = 2112;
-          v24 = localIDSDeviceId;
-          v25 = 2112;
-          v26 = v11;
-          v27 = 2112;
-          v28 = containerCopy;
-          v14 = v22;
-          _os_log_impl(&dword_1B6DB2000, v13, OS_LOG_TYPE_DEFAULT, "%@ Local IDS device identifier %@ is not equal to stored %@ in container: %@", &v21, 0x2Au);
+          v20 = 138413058;
+          v21 = objc_opt_class();
+          v22 = 2112;
+          v23 = localIDSDeviceId;
+          v24 = 2112;
+          v25 = v11;
+          v26 = 2112;
+          v27 = containerCopy;
+          v14 = v21;
+          _os_log_impl(&dword_1B6DB2000, v13, OS_LOG_TYPE_DEFAULT, "%@ Local IDS device identifier %@ is not equal to stored %@ in container: %@", &v20, 0x2Au);
         }
       }
     }
@@ -517,7 +520,7 @@ void __67__CCSetsAccessDaemonDelegate__storedLocalIDSIdentifierInContainer___blo
       v11 = __biome_log_for_category();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        [CCSetsAccessDaemonDelegate _validateCurrentLocalDeviceUUIDsAgainstContainerInfo:container:];
+        [CCSetsAccessDaemonDelegate _validateCurrentLocalDeviceUUIDsAgainstContainerInfo:? container:?];
       }
 
       v12 = 1;
@@ -533,27 +536,26 @@ void __67__CCSetsAccessDaemonDelegate__storedLocalIDSIdentifierInContainer___blo
       localDeviceUUID = self->_localDeviceUUID;
       v17 = v15;
       uUIDString = [v9 UUIDString];
-      v21 = 138413058;
-      v22 = v15;
-      v23 = 2112;
-      v24 = localDeviceUUID;
-      v25 = 2112;
-      v26 = uUIDString;
-      v27 = 2112;
-      v28 = containerCopy;
-      _os_log_impl(&dword_1B6DB2000, localIDSDeviceId, OS_LOG_TYPE_DEFAULT, "%@ Local device identifier %@ is not equal to stored: %@ in container: %@", &v21, 0x2Au);
+      v20 = 138413058;
+      v21 = v15;
+      v22 = 2112;
+      v23 = localDeviceUUID;
+      v24 = 2112;
+      v25 = uUIDString;
+      v26 = 2112;
+      v27 = containerCopy;
+      _os_log_impl(&dword_1B6DB2000, localIDSDeviceId, OS_LOG_TYPE_DEFAULT, "%@ Local device identifier %@ is not equal to stored: %@ in container: %@", &v20, 0x2Au);
     }
 
     v12 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 - (BOOL)_validateCurrentSchemaAgainstContainerInfo:(id)info container:(id)container
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   containerCopy = container;
   v7 = [info objectForKey:@"schemaVersion"];
   currentSchemaVersion = [(CCSetsAccessDaemonDelegate *)self currentSchemaVersion];
@@ -565,22 +567,21 @@ void __67__CCSetsAccessDaemonDelegate__storedLocalIDSIdentifierInContainer___blo
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = @"empty";
-      v14 = 138412802;
-      v15 = &unk_1F2EC9420;
-      v16 = 2112;
+      v13 = 138412802;
+      v14 = &unk_1F2EC9420;
+      v15 = 2112;
       if (v7)
       {
         v11 = v7;
       }
 
-      v17 = v11;
-      v18 = 2112;
-      v19 = containerCopy;
-      _os_log_impl(&dword_1B6DB2000, v10, OS_LOG_TYPE_DEFAULT, "Current schema (expected: %@) not initialized yet (found: %@) in container: %@", &v14, 0x20u);
+      v16 = v11;
+      v17 = 2112;
+      v18 = containerCopy;
+      _os_log_impl(&dword_1B6DB2000, v10, OS_LOG_TYPE_DEFAULT, "Current schema (expected: %@) not initialized yet (found: %@) in container: %@", &v13, 0x20u);
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -632,101 +633,121 @@ void __57__CCSetsAccessDaemonDelegate__validateReadOnlyContainer___block_invoke(
   return v5;
 }
 
+- (id)_loadOrCreateContainerInfo:(id)info readOnly:(BOOL)only
+{
+  onlyCopy = only;
+  v5 = MEMORY[0x1E698E9B0];
+  infoCopy = info;
+  v11 = 0;
+  v7 = [[v5 alloc] initWithFilename:@"info" protectionClass:4 directory:infoCopy readOnly:onlyCopy create:onlyCopy ^ 1 initialDictionary:0 error:&v11];
+
+  v8 = v11;
+  if (!v7)
+  {
+    v9 = __biome_log_for_category();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      [CCSetsAccessDaemonDelegate _loadOrCreateContainerInfo:readOnly:];
+    }
+  }
+
+  return v7;
+}
+
 - (id)_resetSetsDirectory:(id)directory
 {
-  v45[2] = *MEMORY[0x1E69E9840];
+  v43[2] = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
   v5 = __biome_log_for_category();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v37 = directoryCopy;
+    v35 = directoryCopy;
     _os_log_impl(&dword_1B6DB2000, v5, OS_LOG_TYPE_DEFAULT, "Clearing sets directory: %@", buf, 0xCu);
   }
 
-  v35 = 0;
+  v33 = 0;
   v6 = BMRemoveItemIfExistsAtURL();
   v7 = 0;
   v8 = v7;
   if (v6)
   {
-    v34 = v7;
+    v32 = v7;
     v9 = BMGetOrCreateDirectoryURL();
-    v10 = v34;
+    v10 = v32;
 
     if (v9)
     {
       v11 = [(CCSetsAccessDaemonDelegate *)self _loadOrCreateContainerInfo:directoryCopy readOnly:0];
       currentSchemaVersion = [(CCSetsAccessDaemonDelegate *)self currentSchemaVersion];
       v13 = MEMORY[0x1E695DF70];
-      v31 = currentSchemaVersion;
-      v45[0] = currentSchemaVersion;
-      localDeviceUUID = self->_localDeviceUUID;
-      v15 = BMDataFromNSUUID();
-      v45[1] = v15;
-      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2];
-      v17 = [v13 arrayWithArray:v16];
+      v29 = currentSchemaVersion;
+      v43[0] = currentSchemaVersion;
+      v14 = BMDataFromNSUUID();
+      v43[1] = v14;
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:2];
+      v16 = [v13 arrayWithArray:v15];
 
-      v18 = MEMORY[0x1E695DF70];
-      v44[0] = @"schemaVersion";
-      v44[1] = @"localDeviceUUID";
-      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:2];
-      v20 = [v18 arrayWithArray:v19];
+      v17 = MEMORY[0x1E695DF70];
+      v42[0] = @"schemaVersion";
+      v42[1] = @"localDeviceUUID";
+      v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:2];
+      v19 = [v17 arrayWithArray:v18];
 
       localIDSDeviceId = [(CCSetsAccessDaemonDelegate *)self localIDSDeviceId];
       if (localIDSDeviceId)
       {
-        [v17 addObject:localIDSDeviceId];
-        [v20 addObject:@"idsDeviceId"];
+        [v16 addObject:localIDSDeviceId];
+        [v19 addObject:@"idsDeviceId"];
       }
 
-      v33 = v10;
-      v22 = [v11 writeUpdatedObjects:v17 forKeys:v20 error:&v33, v31];
-      v8 = v33;
+      v31 = v10;
+      v21 = [v11 writeUpdatedObjects:v16 forKeys:v19 error:&v31, v29];
+      v8 = v31;
 
-      v23 = __biome_log_for_category();
-      v24 = v23;
-      if (v22)
+      v22 = __biome_log_for_category();
+      v23 = v22;
+      if (v21)
       {
-        v25 = v32;
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v24 = v30;
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           uUIDString = [(NSUUID *)self->_localDeviceUUID UUIDString];
           *buf = 138413058;
-          v37 = directoryCopy;
+          v35 = directoryCopy;
+          v36 = 2112;
+          v37 = v30;
           v38 = 2112;
-          v39 = v32;
+          v39 = uUIDString;
           v40 = 2112;
-          v41 = uUIDString;
-          v42 = 2112;
-          v43 = localIDSDeviceId;
-          _os_log_impl(&dword_1B6DB2000, v24, OS_LOG_TYPE_DEFAULT, "Sets directory (%@) initialized with schema version: %@ localDeviceId: %@ idsDeviceId: %@", buf, 0x2Au);
+          v41 = localIDSDeviceId;
+          _os_log_impl(&dword_1B6DB2000, v23, OS_LOG_TYPE_DEFAULT, "Sets directory (%@) initialized with schema version: %@ localDeviceId: %@ idsDeviceId: %@", buf, 0x2Au);
         }
 
         if (self->_notifySourcesOnReset)
         {
           notify_post([@"com.apple.CascadeSets.DonateNow" UTF8String]);
-          v27 = __biome_log_for_category();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+          v26 = __biome_log_for_category();
+          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v37 = @"com.apple.CascadeSets.DonateNow";
-            _os_log_impl(&dword_1B6DB2000, v27, OS_LOG_TYPE_DEFAULT, "Posted notification %@", buf, 0xCu);
+            v35 = @"com.apple.CascadeSets.DonateNow";
+            _os_log_impl(&dword_1B6DB2000, v26, OS_LOG_TYPE_DEFAULT, "Posted notification %@", buf, 0xCu);
           }
         }
 
-        v28 = v11;
+        v27 = v11;
       }
 
       else
       {
-        v25 = v32;
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        v24 = v30;
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
           [CCSetsAccessDaemonDelegate _resetSetsDirectory:];
         }
 
-        v28 = 0;
+        v27 = 0;
       }
     }
 
@@ -738,7 +759,7 @@ void __57__CCSetsAccessDaemonDelegate__validateReadOnlyContainer___block_invoke(
         [CCSetsAccessDaemonDelegate _resetSetsDirectory:];
       }
 
-      v28 = 0;
+      v27 = 0;
       v8 = v10;
     }
   }
@@ -751,12 +772,10 @@ void __57__CCSetsAccessDaemonDelegate__validateReadOnlyContainer___block_invoke(
       [CCSetsAccessDaemonDelegate _resetSetsDirectory:];
     }
 
-    v28 = 0;
+    v27 = 0;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
-
-  return v28;
+  return v27;
 }
 
 - (id)lastMaintenanceDateForResourceContainer:(id)container
@@ -875,125 +894,63 @@ void __84__CCSetsAccessDaemonDelegate_setLastMaintenanceDateForResourceContainer
 - (void)loadOrCreateResourceGenerationCounter
 {
   OUTLINED_FUNCTION_4_0();
-  v7 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_0_8();
   v1 = v0;
   OUTLINED_FUNCTION_3_1();
   _os_log_fault_impl(v2, v3, OS_LOG_TYPE_FAULT, v4, v5, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)incrementResourceGenerationCounter
 {
   OUTLINED_FUNCTION_4_0();
-  v5 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)prepareResource:withMode:inContainer:.cold.1()
 {
   OUTLINED_FUNCTION_4_0();
-  v5 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)prepareResource:withMode:inContainer:.cold.2()
 {
   OUTLINED_FUNCTION_4_0();
-  v5 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_0_8();
   OUTLINED_FUNCTION_3_1();
   _os_log_debug_impl(v0, v1, OS_LOG_TYPE_DEBUG, v2, v3, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)teardownResource:inContainer:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_1B6DB2000, v1, OS_LOG_TYPE_ERROR, "Could not remove resource: %@ error: %@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_1B6DB2000, v1, OS_LOG_TYPE_ERROR, "Could not remove resource: %@ error: %@", v2, 0x16u);
 }
 
 - (void)teardownResource:inContainer:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
-  _os_log_debug_impl(&dword_1B6DB2000, v0, OS_LOG_TYPE_DEBUG, "Removed resource: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1B6DB2000, v0, OS_LOG_TYPE_DEBUG, "Removed resource: %@", v1, 0xCu);
 }
 
-- (void)_validateCurrentLocalDeviceUUIDsAgainstContainerInfo:container:.cold.1()
+- (void)_validateCurrentLocalDeviceUUIDsAgainstContainerInfo:(uint64_t)a1 container:.cold.1(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_0();
-  v1 = v0;
+  v2 = v1;
   OUTLINED_FUNCTION_3_1();
-  _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_loadOrCreateContainerInfo:readOnly:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "Failed to load container info: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_resetSetsDirectory:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "Failed to remove sets directory: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_resetSetsDirectory:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "Failed to write container info: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_resetSetsDirectory:.cold.3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "Failed to create sets directory: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)lastMaintenanceDateForResourceContainer:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "Failed to prepare container %@ when looking up last maintenance date", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)setLastMaintenanceDateForResourceContainer:date:error:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B6DB2000, v0, v1, "Failed to prepare container %@ when setting last maintenance date", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 0xCu);
 }
 
 @end

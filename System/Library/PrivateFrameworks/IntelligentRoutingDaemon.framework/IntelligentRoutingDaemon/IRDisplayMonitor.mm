@@ -138,7 +138,7 @@ void __24__IRDisplayMonitor_init__block_invoke_2(uint64_t a1, uint64_t a2, void 
 
 - (void)_didUpdateMainDisplayLayout:(id)layout
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   layoutCopy = layout;
   os_unfair_lock_lock(&self->_lock);
   appInFocus = [(IRDisplayMonitor *)self appInFocus];
@@ -162,32 +162,32 @@ void __24__IRDisplayMonitor_init__block_invoke_2(uint64_t a1, uint64_t a2, void 
       }
 
       *buf = 138412290;
-      v49 = v11;
+      v48 = v11;
       _os_log_impl(&dword_25543D000, v9, OS_LOG_TYPE_DEFAULT, "#display-monitor, Display: %@", buf, 0xCu);
     }
 
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     observers = [(IRDisplayMonitor *)self observers];
-    v13 = [observers countByEnumeratingWithState:&v42 objects:v47 count:16];
+    v13 = [observers countByEnumeratingWithState:&v41 objects:v46 count:16];
     if (v13)
     {
-      v14 = *v43;
+      v14 = *v42;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v43 != v14)
+          if (*v42 != v14)
           {
             objc_enumerationMutation(observers);
           }
 
-          [*(*(&v42 + 1) + 8 * i) monitor:self didUpdateDisplayOn:{-[IRDisplayMonitor displayOn](self, "displayOn")}];
+          [*(*(&v41 + 1) + 8 * i) monitor:self didUpdateDisplayOn:{-[IRDisplayMonitor displayOn](self, "displayOn")}];
         }
 
-        v13 = [observers countByEnumeratingWithState:&v42 objects:v47 count:16];
+        v13 = [observers countByEnumeratingWithState:&v41 objects:v46 count:16];
       }
 
       while (v13);
@@ -217,7 +217,7 @@ void __24__IRDisplayMonitor_init__block_invoke_2(uint64_t a1, uint64_t a2, void 
       }
 
       *buf = 138412290;
-      v49 = v21;
+      v48 = v21;
       _os_log_impl(&dword_25543D000, v19, OS_LOG_TYPE_DEFAULT, "#display-monitor, Display: %@", buf, 0xCu);
     }
 
@@ -268,30 +268,30 @@ void __24__IRDisplayMonitor_init__block_invoke_2(uint64_t a1, uint64_t a2, void 
       [(IRDisplayMonitor *)self setAppInFocusTimestamp:0];
     }
 
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     observers2 = [(IRDisplayMonitor *)self observers];
-    v32 = [observers2 countByEnumeratingWithState:&v38 objects:v46 count:16];
+    v32 = [observers2 countByEnumeratingWithState:&v37 objects:v45 count:16];
     if (v32)
     {
-      v33 = *v39;
+      v33 = *v38;
       do
       {
         for (j = 0; j != v32; ++j)
         {
-          if (*v39 != v33)
+          if (*v38 != v33)
           {
             objc_enumerationMutation(observers2);
           }
 
-          v35 = *(*(&v38 + 1) + 8 * j);
+          v35 = *(*(&v37 + 1) + 8 * j);
           appInFocus4 = [(IRDisplayMonitor *)self appInFocus];
           [v35 monitor:self didUpdateAppInFocus:appInFocus4 isScreenUnlockEvent:v22];
         }
 
-        v32 = [observers2 countByEnumeratingWithState:&v38 objects:v46 count:16];
+        v32 = [observers2 countByEnumeratingWithState:&v37 objects:v45 count:16];
       }
 
       while (v32);
@@ -299,7 +299,6 @@ void __24__IRDisplayMonitor_init__block_invoke_2(uint64_t a1, uint64_t a2, void 
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __48__IRDisplayMonitor__didUpdateMainDisplayLayout___block_invoke(uint64_t a1, void *a2)
@@ -329,7 +328,7 @@ uint64_t __48__IRDisplayMonitor__didUpdateMainDisplayLayout___block_invoke_29(ui
 
 - (void)_didUpdateContinuityDisplay:(id)display
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   displayCopy = display;
   os_unfair_lock_lock(&self->_lock);
   isContinuityDisplay = [(IRDisplayMonitor *)self isContinuityDisplay];
@@ -350,34 +349,34 @@ uint64_t __48__IRDisplayMonitor__didUpdateMainDisplayLayout___block_invoke_29(ui
       }
 
       *buf = 138412290;
-      v22 = v10;
+      v21 = v10;
       _os_log_impl(&dword_25543D000, v8, OS_LOG_TYPE_DEFAULT, "#display-monitor, Continuity Display: %@", buf, 0xCu);
     }
 
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     observers = [(IRDisplayMonitor *)self observers];
-    v12 = [observers countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v12 = [observers countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v12)
     {
-      v13 = *v17;
+      v13 = *v16;
       do
       {
         v14 = 0;
         do
         {
-          if (*v17 != v13)
+          if (*v16 != v13)
           {
             objc_enumerationMutation(observers);
           }
 
-          [*(*(&v16 + 1) + 8 * v14++) monitor:self didUpdateIsContinuityDisplay:{-[IRDisplayMonitor isContinuityDisplay](self, "isContinuityDisplay")}];
+          [*(*(&v15 + 1) + 8 * v14++) monitor:self didUpdateIsContinuityDisplay:{-[IRDisplayMonitor isContinuityDisplay](self, "isContinuityDisplay")}];
         }
 
         while (v12 != v14);
-        v12 = [observers countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v12 = [observers countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v12);
@@ -385,8 +384,6 @@ uint64_t __48__IRDisplayMonitor__didUpdateMainDisplayLayout___block_invoke_29(ui
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

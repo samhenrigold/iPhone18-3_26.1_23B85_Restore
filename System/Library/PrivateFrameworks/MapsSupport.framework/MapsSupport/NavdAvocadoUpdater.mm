@@ -18,31 +18,30 @@
   registerCopy = register;
   if (!depotCopy)
   {
-    v77 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v77, OS_LOG_TYPE_FAULT))
+    v69 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v69, OS_LOG_TYPE_FAULT))
     {
       *buf = 136446978;
-      v81 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/navd/AvocadoUpdater/NavdAvocadoUpdater.mm";
-      v82 = 1024;
-      v83 = 119;
-      v84 = 2082;
-      v85 = "[NavdAvocadoUpdater initFromResourceDepot:sharedRegister:]";
-      v86 = 2082;
-      v87 = "nil == (resourceDepot)";
-      _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_FAULT, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a resource depot", buf, 0x26u);
+      v73 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/navd/AvocadoUpdater/NavdAvocadoUpdater.mm";
+      v74 = 1024;
+      v75 = 119;
+      v76 = 2082;
+      v77 = "[NavdAvocadoUpdater initFromResourceDepot:sharedRegister:]";
+      v78 = 2082;
+      v79 = "nil == (resourceDepot)";
+      _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_FAULT, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a resource depot", buf, 0x26u);
     }
 
     goto LABEL_13;
   }
 
-  v8 = GEOConfigNavdAvocadoUpdaterEnabled[1];
   if ((GEOConfigGetBOOL() & 1) == 0)
   {
-    v77 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
+    v69 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v77, OS_LOG_TYPE_DEBUG, "NavdAvocadoUpdater is Disabled", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_DEBUG, "NavdAvocadoUpdater is Disabled", buf, 2u);
     }
 
 LABEL_13:
@@ -51,118 +50,111 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v79.receiver = self;
-  v79.super_class = NavdAvocadoUpdater;
-  v9 = [(NavdAvocadoUpdater *)&v79 init];
-  p_isa = &v9->super.isa;
-  if (v9)
+  v71.receiver = self;
+  v71.super_class = NavdAvocadoUpdater;
+  v8 = [(NavdAvocadoUpdater *)&v71 init];
+  p_isa = &v8->super.isa;
+  if (v8)
   {
-    previousEntryHashes = v9->_previousEntryHashes;
-    v9->_previousEntryHashes = &__NSArray0__struct;
+    previousEntryHashes = v8->_previousEntryHashes;
+    v8->_previousEntryHashes = &__NSArray0__struct;
 
-    v12 = objc_alloc_init(MapsSuggestionsShortcutFilter);
-    v13 = [NSSet setWithObjects:v12, 0];
+    v11 = objc_alloc_init(MapsSuggestionsShortcutFilter);
+    v12 = [NSSet setWithObjects:v11, 0];
 
-    v14 = +[MapsSuggestionsEngineBuilder forDevice];
-    v15 = [v14 withResourceDepot:depotCopy];
+    v13 = +[MapsSuggestionsEngineBuilder forDevice];
+    v14 = [v13 withResourceDepot:depotCopy];
 
-    v16 = +[MapsSuggestionsNavdMapsAppLocationManager sharedLocationManager];
-    v17 = [v15 withLocationUpdater:v16];
+    v15 = +[MapsSuggestionsNavdMapsAppLocationManager sharedLocationManager];
+    v16 = [v14 withLocationUpdater:v15];
 
-    v18 = [v17 withPreFilters:v13];
+    v17 = [v16 withPreFilters:v12];
 
-    withoutTracker = [v18 withoutTracker];
+    withoutTracker = [v17 withoutTracker];
 
-    v20 = [MapsSuggestionsEngineRunner alloc];
-    v21 = GEOConfigNavdAvocadoUpdaterMinRunTime[1];
+    v19 = [MapsSuggestionsEngineRunner alloc];
+    GEOConfigGetDouble();
+    v21 = v20;
     GEOConfigGetDouble();
     v23 = v22;
-    v24 = GEOConfigNavdAvocadoUpdaterMaxRunTime[1];
     GEOConfigGetDouble();
-    v26 = v25;
-    v27 = GEOConfigNavdAvocadoUpdaterMinSleepTime[1];
+    v25 = v24;
+    GEOConfigGetDouble();
+    v27 = v26;
     GEOConfigGetDouble();
     v29 = v28;
-    v30 = GEOConfigNavdAvocadoUpdaterMaxSleepTime[1];
     GEOConfigGetDouble();
-    v32 = v31;
-    v33 = GEOConfigNavdAvocadoUpdaterRunTimeLeeway[1];
-    GEOConfigGetDouble();
-    v35 = v34;
-    v36 = GEOConfigNavdAvocadoUpdaterSleepTimeLeeway[1];
-    GEOConfigGetDouble();
-    v37 = GEOConfigNavdAvocadoUpdaterEngineRunnerMaxEntries[1];
-    v39 = [v20 initWithEngineBuilder:withoutTracker name:@"NavdAvocadoUpdaterRunner" minRunTime:GEOConfigGetInteger() maxRunTime:1 minSleepTime:v23 maxSleepTime:v26 runTimeLeeway:v29 sleepTimeLeeway:v32 maxEntries:v35 nilledWhenAsleep:v38];
-    v40 = p_isa[1];
-    p_isa[1] = v39;
+    v31 = [v19 initWithEngineBuilder:withoutTracker name:@"NavdAvocadoUpdaterRunner" minRunTime:GEOConfigGetInteger() maxRunTime:1 minSleepTime:v21 maxSleepTime:v23 runTimeLeeway:v25 sleepTimeLeeway:v27 maxEntries:v29 nilledWhenAsleep:v30];
+    v32 = p_isa[1];
+    p_isa[1] = v31;
 
     [p_isa[1] registerObserver:p_isa];
+    v33 = p_isa[1];
+    v34 = +[MapsSuggestionsDestinationdTrigger description];
+    v35 = [registerCopy objectForKeyedSubscript:v34];
+    [v33 addTrigger:v35];
+
+    v36 = p_isa[1];
+    v37 = +[MapsSuggestionsSiri isEnabledCondition];
+    uniqueName = [v37 uniqueName];
+    v39 = [registerCopy objectForKeyedSubscript:uniqueName];
+    [v36 addCondition:v39];
+
+    v40 = [[MapsSuggestionsBlockFilter alloc] initWithBlock:&stru_1000652D0];
+    [p_isa[1] addPostFilter:v40];
     v41 = p_isa[1];
-    v42 = +[MapsSuggestionsDestinationdTrigger description];
+    v42 = +[MapsSuggestionsMapsInstalledTriggeringToggle description];
     v43 = [registerCopy objectForKeyedSubscript:v42];
     [v41 addTrigger:v43];
 
     v44 = p_isa[1];
-    v45 = +[MapsSuggestionsSiri isEnabledCondition];
-    uniqueName = [v45 uniqueName];
-    v47 = [registerCopy objectForKeyedSubscript:uniqueName];
-    [v44 addCondition:v47];
+    v45 = +[MapsSuggestionsMapsInstalledTriggeringToggle description];
+    v46 = [registerCopy objectForKeyedSubscript:v45];
+    [v44 addCondition:v46];
 
-    v48 = [[MapsSuggestionsBlockFilter alloc] initWithBlock:&stru_1000652D0];
-    [p_isa[1] addPostFilter:v48];
-    v49 = p_isa[1];
-    v50 = +[MapsSuggestionsMapsInstalledTriggeringToggle description];
-    v51 = [registerCopy objectForKeyedSubscript:v50];
-    [v49 addTrigger:v51];
+    v47 = p_isa[1];
+    v48 = +[MapsSuggestionsFirstUnlockTrigger description];
+    v49 = [registerCopy objectForKeyedSubscript:v48];
+    [v47 addTrigger:v49];
 
-    v52 = p_isa[1];
-    v53 = +[MapsSuggestionsMapsInstalledTriggeringToggle description];
-    v54 = [registerCopy objectForKeyedSubscript:v53];
-    [v52 addCondition:v54];
+    v50 = p_isa[1];
+    v51 = +[MapsSuggestionsFirstUnlockTrigger description];
+    v52 = [registerCopy objectForKeyedSubscript:v51];
+    [v50 addCondition:v52];
 
-    v55 = p_isa[1];
-    v56 = +[MapsSuggestionsFirstUnlockTrigger description];
-    v57 = [registerCopy objectForKeyedSubscript:v56];
-    [v55 addTrigger:v57];
+    v53 = p_isa[1];
+    v54 = +[MapsSuggestionsBluetoothVehicleConnectionTrigger description];
+    v55 = [registerCopy objectForKeyedSubscript:v54];
+    [v53 addTrigger:v55];
 
-    v58 = p_isa[1];
-    v59 = +[MapsSuggestionsFirstUnlockTrigger description];
-    v60 = [registerCopy objectForKeyedSubscript:v59];
-    [v58 addCondition:v60];
+    v56 = p_isa[1];
+    v57 = +[MapsSuggestionsEventKitChangedTrigger description];
+    v58 = [registerCopy objectForKeyedSubscript:v57];
+    [v56 addTrigger:v58];
 
-    v61 = p_isa[1];
-    v62 = +[MapsSuggestionsBluetoothVehicleConnectionTrigger description];
-    v63 = [registerCopy objectForKeyedSubscript:v62];
-    [v61 addTrigger:v63];
+    v59 = p_isa[1];
+    v60 = +[MapsSuggestionsPreferredTransportTypeTrigger description];
+    v61 = [registerCopy objectForKeyedSubscript:v60];
+    [v59 addTrigger:v61];
 
-    v64 = p_isa[1];
-    v65 = +[MapsSuggestionsEventKitChangedTrigger description];
-    v66 = [registerCopy objectForKeyedSubscript:v65];
-    [v64 addTrigger:v66];
+    v62 = p_isa[1];
+    v63 = +[MapsSuggestionsUserDeletedSuggestionTrigger description];
+    v64 = [registerCopy objectForKeyedSubscript:v63];
+    [v62 addTrigger:v64];
 
-    v67 = p_isa[1];
-    v68 = +[MapsSuggestionsPreferredTransportTypeTrigger description];
-    v69 = [registerCopy objectForKeyedSubscript:v68];
-    [v67 addTrigger:v69];
-
-    v70 = p_isa[1];
-    v71 = +[MapsSuggestionsUserDeletedSuggestionTrigger description];
-    v72 = [registerCopy objectForKeyedSubscript:v71];
-    [v70 addTrigger:v72];
-
-    v73 = objc_alloc_init(NavdAvocadoNavigationSessionTrigger);
-    v74 = p_isa[3];
-    p_isa[3] = v73;
+    v65 = objc_alloc_init(NavdAvocadoNavigationSessionTrigger);
+    v66 = p_isa[3];
+    p_isa[3] = v65;
 
     [p_isa[3] registerObserver:p_isa];
     [p_isa[1] addTrigger:p_isa[3]];
     [p_isa[1] addCondition:p_isa[3]];
     [p_isa[1] runASAP];
-    v75 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
+    v67 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v67, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEBUG, "initialized", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEBUG, "initialized", buf, 2u);
     }
 
     [p_isa _logStateForStep:@"featureInitialized"];
@@ -357,25 +349,24 @@ LABEL_9:
   reasonCopy = reason;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v18[0] = @"step";
+  v17[0] = @"step";
   v9 = MSg::jsonFor();
-  v19[0] = v9;
-  v18[1] = @"stopReason";
+  v18[0] = v9;
+  v17[1] = @"stopReason";
   v10 = MSg::jsonFor();
-  v19[1] = v10;
-  v18[2] = @"engineRunner";
-  lastEngineRunnerState = selfCopy->_lastEngineRunnerState;
-  v12 = MSg::jsonFor();
-  v19[2] = v12;
-  v13 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:3];
+  v18[1] = v10;
+  v17[2] = @"engineRunner";
+  v11 = MSg::jsonFor();
+  v18[2] = v11;
+  v12 = [NSDictionary dictionaryWithObjects:v18 forKeys:v17 count:3];
 
-  v14 = GEOFindOrCreateLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  v13 = GEOFindOrCreateLog();
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v15 = NSStringFromMapsSuggestionsJSON();
-    v16 = 138412290;
-    v17 = v15;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "EVAL{AvocadoUpdater}=%@", &v16, 0xCu);
+    v14 = NSStringFromMapsSuggestionsJSON();
+    v15 = 138412290;
+    v16 = v14;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "EVAL{AvocadoUpdater}=%@", &v15, 0xCu);
   }
 
   objc_sync_exit(selfCopy);

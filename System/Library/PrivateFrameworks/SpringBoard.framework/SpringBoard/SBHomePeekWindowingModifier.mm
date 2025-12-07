@@ -223,7 +223,7 @@
   if ([(SBAppLayout *)self->_peekingAppLayout isOrContainsAppLayout:appLayout])
   {
     [(SBHomePeekWindowingModifier *)self bestSupportedDefaultCornerRadiusForAppLayout:appLayout];
-    [(SBHomePeekWindowingModifier *)self frameForItem:v6];
+    objc_msgSend_frameForItem_(self);
     SBRectCornerRadiiForRadius();
     SBWindowingItemCornersMake(15, retstr, v8, v9, v10, v11);
   }
@@ -415,7 +415,7 @@
   v21.receiver = self;
   v21.super_class = SBHomePeekWindowingModifier;
   v5 = [(SBHomePeekWindowingModifier *)&v21 adjustedAppLayoutsForAppLayouts:layoutsCopy];
-  if ([v5 containsObject:self->_peekingAppLayout])
+  if (objc_msgSend_containsObject_(v5))
   {
     v6 = v5;
   }
@@ -554,7 +554,7 @@ void __63__SBHomePeekWindowingModifier_adjustedAppLayoutsForAppLayouts___block_i
     v37 = v35;
   }
 
-  [v16 frame];
+  objc_msgSend_frame(v16);
   v39 = v38;
 
   v40 = v37;

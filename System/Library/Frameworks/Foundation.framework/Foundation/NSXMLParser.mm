@@ -403,7 +403,7 @@
     v13 = allowedExternalEntityURLs;
     v14 = [[NSString alloc] initWithUTF8String:l];
     v15 = [objc_alloc(MEMORY[0x1E695DFF8]) initWithString:v14];
-    if ([objc_msgSend(v15 "scheme")])
+    if (objc_msgSend_isEqualToString_([v15 scheme]))
     {
       v16 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithPath:{objc_msgSend(v15, "path")}];
 
@@ -422,15 +422,19 @@
         }
 
 LABEL_18:
-        if (![objc_msgSend(v15 "host")] || (objc_msgSend(v15, "port") || -[NSURL port](url, "port")) && (objc_msgSend(objc_msgSend(v15, "port"), "isEqualToNumber:", -[NSURL port](url, "port")) & 1) == 0)
+        host = [v15 host];
+        [(NSURL *)url host];
+        if (!objc_msgSend_isEqualToString_(host) || ([v15 port] || -[NSURL port](url, "port")) && (objc_msgSend(objc_msgSend(v15, "port"), "isEqualToNumber:", -[NSURL port](url, "port")) & 1) == 0)
         {
         }
 
         else
         {
-          v20 = [objc_msgSend(v15 "scheme")];
+          scheme = [v15 scheme];
+          [(NSURL *)url scheme];
+          isEqualToString = objc_msgSend_isEqualToString_(scheme);
 
-          if (v20)
+          if (isEqualToString)
           {
             goto LABEL_31;
           }

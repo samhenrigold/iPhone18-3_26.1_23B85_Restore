@@ -44,7 +44,7 @@
 - (__CFString)initWithOcText:()OCBStringAdditions
 {
   selfCopy = self;
-  if (!a3 || !*(a3 + 16))
+  if (!a3 || !LODWORD(a3->data))
   {
     v6 = [(__CFString *)self init];
 LABEL_14:
@@ -53,17 +53,17 @@ LABEL_14:
     goto LABEL_15;
   }
 
-  v5 = *(a3 + 8);
-  if (v5 == 2)
+  info = a3->info;
+  if (info == 2)
   {
     operator new();
   }
 
   v7 = 0;
-  v8 = *(a3 + 24);
-  isSingleByteEncoding = OcText::isSingleByteEncoding(v5);
-  v10 = *(a3 + 16);
-  v11 = OCNsEncodingForOcEncoding(*(a3 + 8));
+  length = a3->length;
+  isSingleByteEncoding = OcText::isSingleByteEncoding(info);
+  data = a3->data;
+  v11 = OCNsEncodingForOcEncoding(a3->info);
   if (isSingleByteEncoding)
   {
     v12 = 1;
@@ -78,14 +78,14 @@ LABEL_14:
   {
 LABEL_13:
     v15 = CFStringConvertNSStringEncodingToEncoding(v11);
-    v6 = CFStringCreateWithBytes(0, v8, v10 * v12, v15, 0);
+    v6 = CFStringCreateWithBytes(0, length, data * v12, v15, 0);
 
     goto LABEL_14;
   }
 
-  v14 = *(a3 + 16);
-  v13 = *(a3 + 20);
-  if (v13 == v14 || v13 == v14 + 1)
+  data_low = LODWORD(a3->data);
+  data_high = HIDWORD(a3->data);
+  if (data_high == data_low || data_high == data_low + 1)
   {
     v12 = 1;
     v11 = 4;
@@ -94,7 +94,7 @@ LABEL_13:
 
   v12 = 2;
   v11 = 10;
-  if (v13 == 2 * v14 || 2 * (v14 + 1) == v13)
+  if (data_high == 2 * data_low || 2 * (data_low + 1) == data_high)
   {
     goto LABEL_13;
   }

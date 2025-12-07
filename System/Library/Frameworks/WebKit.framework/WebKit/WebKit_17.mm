@@ -1,3 +1,342 @@
+uint64_t WTF::Vector<WTF::Ref<WebCore::AuthenticatorAssertionResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAssertionResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAssertionResponse>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(uint64_t a1, uint64_t a2)
+{
+  WTF::Vector<WTF::Ref<WebCore::AuthenticatorAssertionResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAssertionResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAssertionResponse>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(a1, a2);
+  return a1;
+}
+
+{
+  v3 = WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::size(a2);
+  v4 = WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::size(a2);
+  WTF::VectorBuffer<WTF::Ref<WebCore::AuthenticatorAssertionResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAssertionResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAssertionResponse>>,0ul,WTF::FastMalloc>::VectorBuffer(a1, v3, v4);
+  WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::size(a2);
+  WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::asanSetInitialBufferSizeTo();
+  if (WTF::Vector<WTF::Ref<WebKit::AuthenticatorTransportService,WTF::RawPtrTraits<WebKit::AuthenticatorTransportService>,WTF::DefaultRefDerefTraits<WebKit::AuthenticatorTransportService>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::begin(a1))
+  {
+    v5 = WTF::Vector<WTF::Ref<WebKit::AuthenticatorTransportService,WTF::RawPtrTraits<WebKit::AuthenticatorTransportService>,WTF::DefaultRefDerefTraits<WebKit::AuthenticatorTransportService>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::begin(a2);
+    v6 = WTF::Vector<WTF::Ref<WebKit::AuthenticatorTransportService,WTF::RawPtrTraits<WebKit::AuthenticatorTransportService>,WTF::DefaultRefDerefTraits<WebKit::AuthenticatorTransportService>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::end(a2);
+    v7 = WTF::Vector<WTF::Ref<WebKit::AuthenticatorTransportService,WTF::RawPtrTraits<WebKit::AuthenticatorTransportService>,WTF::DefaultRefDerefTraits<WebKit::AuthenticatorTransportService>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::begin(a1);
+    WTF::VectorTypeOperations<WTF::Ref<WebCore::AuthenticatorAssertionResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAssertionResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAssertionResponse>>>::uninitializedCopy(v5, v6, v7);
+  }
+
+  return a1;
+}
+
+uint64_t *WTF::CompletionHandler<void ()(WebCore::AuthenticatorAssertionResponse *)>::CompletionHandler<WebKit::CtapAuthenticator::continueGetNextAssertionAfterResponseReceived(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::$_0,void>(uint64_t *a1, uint64_t *a2, uint64_t a3)
+{
+  WTF::CompletionHandler<void ()(WebCore::AuthenticatorAssertionResponse *)>::CompletionHandler<WebKit::CtapAuthenticator::continueGetNextAssertionAfterResponseReceived(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::$_0,void>(a1, a2, a3);
+  return a1;
+}
+
+{
+  WTF::Function<void ()(WebCore::AuthenticatorAssertionResponse *)>::Function<WebKit::CtapAuthenticator::continueGetNextAssertionAfterResponseReceived(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::$_0,void>(a1, a2);
+  WTF::ThreadLikeAssertion::ThreadLikeAssertion(a1, a3);
+  return a1;
+}
+
+uint64_t *WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::Function<WebKit::CtapAuthenticator::continueGetNextAssertionAfterResponseReceived(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &)::$_1,void>(uint64_t *a1, uint64_t *a2)
+{
+  WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::Function<WebKit::CtapAuthenticator::continueGetNextAssertionAfterResponseReceived(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &)::$_1,void>(a1, a2);
+  return a1;
+}
+
+{
+  v4[2] = a1;
+  v4[1] = a2;
+  v4[4] = v4;
+  v4[3] = a2;
+  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetNextAssertionAfterResponseReceived(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::$_1,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>(v4, a2, a2);
+  std::unique_ptr<WTF::Detail::CallableWrapperBase<void>>::unique_ptr[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>,void,void>(a1, v4);
+  std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::makeCredential(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,std::default_delete<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>>::~unique_ptr[abi:sn200100](v4);
+  return a1;
+}
+
+uint64_t WebKit::CtapAuthenticator::getRetries(WebKit::CtapAuthenticator *this)
+{
+  v46 = *MEMORY[0x1E69E9840];
+  v23 = this;
+  fido::pin::encodeAsCBOR();
+  oslog = qword_1ED641530;
+  v20 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(qword_1ED641530, OS_LOG_TYPE_DEFAULT))
+  {
+    v2 = oslog;
+    v3 = v20;
+    WebKit::CtapAuthenticator::aaguidForDebugging(&v18, this);
+    WTF::String::utf8();
+    v4 = WTF::CString::data(&v19);
+    WebKit::FidoAuthenticator::transportForDebugging();
+    WTF::String::utf8();
+    v5 = WTF::CString::data(&v17);
+    std::span<unsigned char const,18446744073709551615ul>::span[abi:sn200100]<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>(v13, v22);
+    v12 = 0;
+    WTF::OptionSet<WTF::Base64EncodeOption>::OptionSet(&v12);
+    WTF::base64EncodeToString(&v14, v13[0], v13[1], v12);
+    WTF::String::utf8();
+    v6 = WTF::CString::data(&v15);
+    __os_log_helper_16_2_4_8_0_8_32_8_32_8_32(buf, this, v4, v5, v6);
+    _os_log_impl(&dword_19D52D000, v2, v3, "%p [aaguid=%s, transport=%s] - CtapAuthenticator::getRetries: Sending %s", buf, 0x2Au);
+    WTF::CString::~CString(&v15);
+    v26 = &v14;
+    v27 = &v14;
+    v32 = &v14;
+    v33[1] = &v14;
+    v33[0] = 0;
+    v44 = &v14;
+    v43 = v33;
+    v38 = std::exchange[abi:sn200100]<WTF::StringImpl *,decltype(nullptr) &>(&v14);
+    if (v38)
+    {
+      WTF::StringImpl::deref(v38);
+    }
+
+    WTF::CString::~CString(&v17);
+    v25 = &v16;
+    v28 = &v16;
+    v31 = &v16;
+    v34[1] = &v16;
+    v34[0] = 0;
+    v42 = &v16;
+    v41 = v34;
+    v37 = std::exchange[abi:sn200100]<WTF::StringImpl *,decltype(nullptr) &>(&v16);
+    if (v37)
+    {
+      WTF::StringImpl::deref(v37);
+    }
+
+    WTF::CString::~CString(&v19);
+    v24 = &v18;
+    v29 = &v18;
+    v30 = &v18;
+    v35[1] = &v18;
+    v35[0] = 0;
+    v40 = &v18;
+    v39 = v35;
+    v36 = std::exchange[abi:sn200100]<WTF::StringImpl *,decltype(nullptr) &>(&v18);
+    if (v36)
+    {
+      WTF::StringImpl::deref(v36);
+    }
+  }
+
+  WebKit::FidoAuthenticator::protectedDriver(&v11, this);
+  v7 = WTF::RefPtr<API::WebAuthenticationPanel,WTF::RawPtrTraits<API::WebAuthenticationPanel>,WTF::DefaultRefDerefTraits<API::WebAuthenticationPanel>>::get(&v11);
+  WTF::WeakPtr<WebKit::AuthenticatorManager,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::WeakPtr<void>(&v9, this);
+  WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::Function<WebKit::CtapAuthenticator::getRetries(void)::$_0,void>(&v10, &v9);
+  (*(*v7 + 16))(v7, v22, &v10);
+  WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::~Function(&v10);
+  WebKit::CtapAuthenticator::makeCredential(void)::$_0::~$_0(&v9);
+  WTF::Ref<WebKit::CtapDriver,WTF::RawPtrTraits<WebKit::CtapDriver>,WTF::DefaultRefDerefTraits<WebKit::CtapDriver>>::~Ref(&v11);
+  return WTF::Vector<WebCore::AuthenticatorTransport,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v22);
+}
+
+uint64_t *WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::Function<WebKit::CtapAuthenticator::getRetries(void)::$_0,void>(uint64_t *a1, uint64_t *a2)
+{
+  WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::Function<WebKit::CtapAuthenticator::getRetries(void)::$_0,void>(a1, a2);
+  return a1;
+}
+
+{
+  v4[2] = a1;
+  v4[1] = a2;
+  v4[4] = v4;
+  v4[3] = a2;
+  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::getRetries(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapAuthenticator::getRetries(void)::$_0,0>(v4, a2, a2);
+  std::unique_ptr<WTF::Detail::CallableWrapperBase<void>>::unique_ptr[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>,void,void>(a1, v4);
+  std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::makeCredential(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,std::default_delete<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>>::~unique_ptr[abi:sn200100](v4);
+  return a1;
+}
+
+void WebKit::CtapAuthenticator::continueGetKeyAgreementAfterGetRetries(WebKit::FidoAuthenticator *a1, uint64_t a2)
+{
+  v113 = *MEMORY[0x1E69E9840];
+  v58 = a1;
+  v57 = a2;
+  oslog = qword_1ED641530;
+  v55 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(qword_1ED641530, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = oslog;
+    v4 = v55;
+    WebKit::CtapAuthenticator::aaguidForDebugging(&v53, a1);
+    WTF::String::utf8();
+    v5 = WTF::CString::data(&v54);
+    WebKit::FidoAuthenticator::transportForDebugging();
+    WTF::String::utf8();
+    v6 = WTF::CString::data(&v52);
+    __os_log_helper_16_2_3_8_0_8_32_8_32(buf, a1, v5, v6);
+    _os_log_impl(&dword_19D52D000, v3, v4, "%p [aaguid=%s, transport=%s] - CtapAuthenticator::continueGetKeyAgreementAfterGetRetries", buf, 0x20u);
+    WTF::CString::~CString(&v52);
+    v65 = &v51;
+    v66 = &v51;
+    v79 = &v51;
+    v80[1] = &v51;
+    v80[0] = 0;
+    v107 = &v51;
+    v106 = v80;
+    v93 = std::exchange[abi:sn200100]<WTF::StringImpl *,decltype(nullptr) &>(&v51);
+    if (v93)
+    {
+      WTF::StringImpl::deref(v93);
+    }
+
+    WTF::CString::~CString(&v54);
+    v64 = &v53;
+    v67 = &v53;
+    v78 = &v53;
+    v81[1] = &v53;
+    v81[0] = 0;
+    v105 = &v53;
+    v104 = v81;
+    v92 = std::exchange[abi:sn200100]<WTF::StringImpl *,decltype(nullptr) &>(&v53);
+    if (v92)
+    {
+      WTF::StringImpl::deref(v92);
+    }
+  }
+
+  v7 = fido::pin::RetriesResponse::parse();
+  v111 = v8;
+  v110 = v7;
+  v49 = v7;
+  v50 = v8;
+  if (std::optional<WTF::ObjectIdentifierGeneric<WebCore::FrameIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>::operator BOOL[abi:sn200100](&v49))
+  {
+    fido::pin::encodeAsCBOR();
+    v35 = qword_1ED641530;
+    v34 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(qword_1ED641530, OS_LOG_TYPE_DEFAULT))
+    {
+      v16 = v35;
+      v17 = v34;
+      WebKit::CtapAuthenticator::aaguidForDebugging(&v32, a1);
+      WTF::String::utf8();
+      v18 = WTF::CString::data(&v33);
+      WebKit::FidoAuthenticator::transportForDebugging();
+      WTF::String::utf8();
+      v19 = WTF::CString::data(&v31);
+      std::span<unsigned char const,18446744073709551615ul>::span[abi:sn200100]<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>(v27, v36);
+      v26 = 0;
+      WTF::OptionSet<WTF::Base64EncodeOption>::OptionSet(&v26);
+      WTF::base64EncodeToString(&v28, v27[0], v27[1], v26);
+      WTF::String::utf8();
+      v20 = WTF::CString::data(&v29);
+      __os_log_helper_16_2_4_8_0_8_32_8_32_8_32(v108, a1, v18, v19, v20);
+      _os_log_impl(&dword_19D52D000, v16, v17, "%p [aaguid=%s, transport=%s] - CtapAuthenticator::continueGetKeyAgreementAfterGetRetries: Sending %s", v108, 0x2Au);
+      WTF::CString::~CString(&v29);
+      v61 = &v28;
+      v70 = &v28;
+      v75 = &v28;
+      v84[1] = &v28;
+      v84[0] = 0;
+      v99 = &v28;
+      v98 = v84;
+      v89 = std::exchange[abi:sn200100]<WTF::StringImpl *,decltype(nullptr) &>(&v28);
+      if (v89)
+      {
+        WTF::StringImpl::deref(v89);
+      }
+
+      WTF::CString::~CString(&v31);
+      v60 = &v30;
+      v71 = &v30;
+      v74 = &v30;
+      v85[1] = &v30;
+      v85[0] = 0;
+      v97 = &v30;
+      v96 = v85;
+      v88 = std::exchange[abi:sn200100]<WTF::StringImpl *,decltype(nullptr) &>(&v30);
+      if (v88)
+      {
+        WTF::StringImpl::deref(v88);
+      }
+
+      WTF::CString::~CString(&v33);
+      v59 = &v32;
+      v72 = &v32;
+      v73 = &v32;
+      v86[1] = &v32;
+      v86[0] = 0;
+      v95 = &v32;
+      v94 = v86;
+      v87 = std::exchange[abi:sn200100]<WTF::StringImpl *,decltype(nullptr) &>(&v32);
+      if (v87)
+      {
+        WTF::StringImpl::deref(v87);
+      }
+    }
+
+    WebKit::FidoAuthenticator::protectedDriver(&v25, a1);
+    v21 = WTF::RefPtr<API::WebAuthenticationPanel,WTF::RawPtrTraits<API::WebAuthenticationPanel>,WTF::DefaultRefDerefTraits<API::WebAuthenticationPanel>>::get(&v25);
+    WTF::WeakPtr<WebKit::AuthenticatorManager,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::WeakPtr<void>(v23, a1);
+    std::optional<WTF::ObjectIdentifierGeneric<WebCore::FrameIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>::operator*[abi:sn200100](&v49);
+    v23[1] = *v22;
+    WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::Function<WebKit::CtapAuthenticator::continueGetKeyAgreementAfterGetRetries(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &)::$_0,void>(&v24, v23);
+    (*(*v21 + 16))(v21, v36, &v24);
+    WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::~Function(&v24);
+    WebKit::CtapAuthenticator::makeCredential(void)::$_0::~$_0(v23);
+    WTF::Ref<WebKit::CtapDriver,WTF::RawPtrTraits<WebKit::CtapDriver>,WTF::DefaultRefDerefTraits<WebKit::CtapDriver>>::~Ref(&v25);
+    WTF::Vector<WebCore::AuthenticatorTransport,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v36);
+  }
+
+  else
+  {
+    ResponseCode = fido::getResponseCode();
+    v47 = qword_1ED641530;
+    v46 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(qword_1ED641530, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = v47;
+      v10 = v46;
+      WebKit::CtapAuthenticator::aaguidForDebugging(&v44, a1);
+      WTF::String::utf8();
+      v11 = WTF::CString::data(&v45);
+      WebKit::FidoAuthenticator::transportForDebugging();
+      WTF::String::utf8();
+      v12 = WTF::CString::data(&v43);
+      v13 = WTF::enumToUnderlyingType<fido::CtapDeviceResponseCode>(ResponseCode);
+      __os_log_helper_16_2_4_8_0_8_32_8_32_4_0(v109, a1, v11, v12, v13);
+      _os_log_impl(&dword_19D52D000, v9, v10, "%p [aaguid=%s, transport=%s] - CtapAuthenticator::continueGetKeyAgreementAfterGetRetries: Error code: %hhu", v109, 0x26u);
+      WTF::CString::~CString(&v43);
+      v63 = &v42;
+      v68 = &v42;
+      v77 = &v42;
+      v82[1] = &v42;
+      v82[0] = 0;
+      v103 = &v42;
+      v102 = v82;
+      v91 = std::exchange[abi:sn200100]<WTF::StringImpl *,decltype(nullptr) &>(&v42);
+      if (v91)
+      {
+        WTF::StringImpl::deref(v91);
+      }
+
+      WTF::CString::~CString(&v45);
+      v62 = &v44;
+      v69 = &v44;
+      v76 = &v44;
+      v83[1] = &v44;
+      v83[0] = 0;
+      v101 = &v44;
+      v100 = v83;
+      v90 = std::exchange[abi:sn200100]<WTF::StringImpl *,decltype(nullptr) &>(&v44);
+      if (v90)
+      {
+        WTF::StringImpl::deref(v90);
+      }
+    }
+
+    v39[0] = 24;
+    v14 = WTF::StringLiterals::operator"" _s("Unknown internal error. Error code: ", 0x24);
+    v38 = v15;
+    v37 = v14;
+    WTF::makeString<WTF::ASCIILiteral,unsigned char>(&v40, v14, v15, ResponseCode);
+    mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::variant<WebCore::ExceptionData,WebCore::ExceptionData,0,0,0,1ul,WebCore::ExceptionData,0>(v41, v39);
+    WebKit::Authenticator::receiveRespond(a1, v41);
+    mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::~variant(v41);
+    WebCore::ExceptionData::~ExceptionData(v39);
+  }
+}
+
 uint64_t *WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::Function<WebKit::CtapAuthenticator::continueGetKeyAgreementAfterGetRetries(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &)::$_0,void>(uint64_t *a1, uint64_t *a2)
 {
   WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::Function<WebKit::CtapAuthenticator::continueGetKeyAgreementAfterGetRetries(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &)::$_0,void>(a1, a2);
@@ -9,7 +348,7 @@ uint64_t *WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverfl
   v4[1] = a2;
   v4[4] = v4;
   v4[3] = a2;
-  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetKeyAgreementAfterGetRetries(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>(v4, a2);
+  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetKeyAgreementAfterGetRetries(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>(v4, a2, a2);
   std::unique_ptr<WTF::Detail::CallableWrapperBase<void>>::unique_ptr[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>,void,void>(a1, v4);
   std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::makeCredential(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,std::default_delete<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>>::~unique_ptr[abi:sn200100](v4);
   return a1;
@@ -30,7 +369,7 @@ fido::pin::KeyAgreementResponse *WebKit::CtapAuthenticator::continueRequestPinAf
     WebKit::CtapAuthenticator::aaguidForDebugging(&v38, a1);
     WTF::String::utf8();
     v6 = WTF::CString::data(&v39);
-    WebKit::FidoAuthenticator::transportForDebugging(&v36, a1);
+    WebKit::FidoAuthenticator::transportForDebugging();
     WTF::String::utf8();
     v7 = WTF::CString::data(&v37);
     __os_log_helper_16_2_3_8_0_8_32_8_32(buf, a1, v6, v7);
@@ -90,7 +429,7 @@ fido::pin::KeyAgreementResponse *WebKit::CtapAuthenticator::continueRequestPinAf
         WebKit::CtapAuthenticator::aaguidForDebugging(&v23, a1);
         WTF::String::utf8();
         v13 = WTF::CString::data(&v24);
-        WebKit::FidoAuthenticator::transportForDebugging(&v21, a1);
+        WebKit::FidoAuthenticator::transportForDebugging();
         WTF::String::utf8();
         v14 = WTF::CString::data(&v22);
         __os_log_helper_16_2_3_8_0_8_32_8_32(v85, a1, v13, v14);
@@ -132,8 +471,8 @@ fido::pin::KeyAgreementResponse *WebKit::CtapAuthenticator::continueRequestPinAf
       std::optional<WTF::ObjectIdentifierGeneric<WebCore::FrameIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>::operator*[abi:sn200100](v35);
       fido::pin::KeyAgreementResponse::KeyAgreementResponse();
       WTF::ThreadLikeAssertion::ThreadLikeAssertion(&v18);
-      WTF::CompletionHandler<void ()(WTF::String const&)>::CompletionHandler<WebKit::CtapAuthenticator::continueRequestPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,unsigned long long)::$_0,void>(&v20, v19);
-      (*(*v15 + 56))(v15, v16, &v20);
+      WTF::CompletionHandler<void ()(WTF::String const&)>::CompletionHandler<WebKit::CtapAuthenticator::continueRequestPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,unsigned long long)::$_0,void>(&v20, v19, &v18);
+      ((*v15)[7])(v15, v16, &v20);
       WTF::CompletionHandler<void ()(WTF::String const&)>::~CompletionHandler(&v20);
       WTF::ThreadLikeAssertion::~ThreadLikeAssertion(&v18);
       WebKit::CtapAuthenticator::continueRequestPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,unsigned long long)::$_0::~$_0(v19);
@@ -161,7 +500,7 @@ fido::pin::KeyAgreementResponse *WebKit::CtapAuthenticator::continueRequestPinAf
     v30 = v9;
     v29 = v8;
     WTF::makeString<WTF::ASCIILiteral,unsigned char>(&v32, v8, v9, ResponseCode);
-    mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::variant<WebCore::ExceptionData,WebCore::ExceptionData,0,0,0,1ul,WebCore::ExceptionData,0>(v33);
+    mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::variant<WebCore::ExceptionData,WebCore::ExceptionData,0,0,0,1ul,WebCore::ExceptionData,0>(v33, v31);
     WebKit::Authenticator::receiveRespond(a1, v33);
     mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::~variant(v33);
     WebCore::ExceptionData::~ExceptionData(v31);
@@ -171,15 +510,15 @@ fido::pin::KeyAgreementResponse *WebKit::CtapAuthenticator::continueRequestPinAf
   return std::optional<fido::pin::KeyAgreementResponse>::~optional(v35);
 }
 
-uint64_t *WTF::CompletionHandler<void ()(WTF::String const&)>::CompletionHandler<WebKit::CtapAuthenticator::continueRequestPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,unsigned long long)::$_0,void>(uint64_t *a1, uint64_t *a2)
+uint64_t *WTF::CompletionHandler<void ()(WTF::String const&)>::CompletionHandler<WebKit::CtapAuthenticator::continueRequestPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,unsigned long long)::$_0,void>(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
-  WTF::CompletionHandler<void ()(WTF::String const&)>::CompletionHandler<WebKit::CtapAuthenticator::continueRequestPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,unsigned long long)::$_0,void>(a1, a2);
+  WTF::CompletionHandler<void ()(WTF::String const&)>::CompletionHandler<WebKit::CtapAuthenticator::continueRequestPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,unsigned long long)::$_0,void>(a1, a2, a3);
   return a1;
 }
 
 {
   WTF::Function<void ()(WTF::String const&)>::Function<WebKit::CtapAuthenticator::continueRequestPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,unsigned long long)::$_0,void>(a1, a2);
-  WTF::ThreadLikeAssertion::ThreadLikeAssertion(a1);
+  WTF::ThreadLikeAssertion::ThreadLikeAssertion(a1, a3);
   return a1;
 }
 
@@ -221,7 +560,7 @@ void WebKit::CtapAuthenticator::continueGetPinTokenAfterRequestPin(WebKit::FidoA
     WebKit::CtapAuthenticator::aaguidForDebugging(&v51, a1);
     WTF::String::utf8();
     v6 = WTF::CString::data(&v52);
-    WebKit::FidoAuthenticator::transportForDebugging(&v49, a1);
+    WebKit::FidoAuthenticator::transportForDebugging();
     WTF::String::utf8();
     v7 = WTF::CString::data(&v50);
     __os_log_helper_16_2_3_8_0_8_32_8_32(buf, a1, v6, v7);
@@ -262,7 +601,7 @@ void WebKit::CtapAuthenticator::continueGetPinTokenAfterRequestPin(WebKit::FidoA
     v45[3] = v10;
     v45[2] = v9;
     WTF::String::String(&v47, v9, v10);
-    mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::variant<WebCore::ExceptionData,WebCore::ExceptionData,0,0,0,1ul,WebCore::ExceptionData,0>(v48);
+    mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::variant<WebCore::ExceptionData,WebCore::ExceptionData,0,0,0,1ul,WebCore::ExceptionData,0>(v48, v46);
     WebKit::Authenticator::receiveRespond(a1, v48);
     mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::~variant(v48);
     WebCore::ExceptionData::~ExceptionData(v46);
@@ -288,13 +627,13 @@ void WebKit::CtapAuthenticator::continueGetPinTokenAfterRequestPin(WebKit::FidoA
           WebKit::CtapAuthenticator::aaguidForDebugging(&v31, a1);
           WTF::String::utf8();
           v16 = WTF::CString::data(&v32);
-          WebKit::FidoAuthenticator::transportForDebugging(&v29, a1);
+          WebKit::FidoAuthenticator::transportForDebugging();
           WTF::String::utf8();
           v17 = WTF::CString::data(&v30);
           std::span<unsigned char const,18446744073709551615ul>::span[abi:sn200100]<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>(v26, v35);
           v25 = 0;
           WTF::OptionSet<WTF::Base64EncodeOption>::OptionSet(&v25);
-          WTF::base64EncodeToString(&v27, v26[0], v26[1]);
+          WTF::base64EncodeToString(&v27, v26[0], v26[1], v25);
           WTF::String::utf8();
           v18 = WTF::CString::data(&v28);
           __os_log_helper_16_2_4_8_0_8_32_8_32_8_32(v105, a1, v16, v17, v18);
@@ -342,7 +681,7 @@ void WebKit::CtapAuthenticator::continueGetPinTokenAfterRequestPin(WebKit::FidoA
           }
         }
 
-        WebKit::FidoAuthenticator::protectedDriver(a1, &v24);
+        WebKit::FidoAuthenticator::protectedDriver(&v24, a1);
         v19 = WTF::RefPtr<API::WebAuthenticationPanel,WTF::RawPtrTraits<API::WebAuthenticationPanel>,WTF::DefaultRefDerefTraits<API::WebAuthenticationPanel>>::get(&v24);
         WTF::WeakPtr<WebKit::AuthenticatorManager,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::WeakPtr<void>(&v21, a1);
         std::optional<fido::pin::TokenRequest>::operator*[abi:sn200100](v41);
@@ -363,7 +702,7 @@ void WebKit::CtapAuthenticator::continueGetPinTokenAfterRequestPin(WebKit::FidoA
         v37 = v13;
         v36 = v12;
         WTF::String::String(&v39, v12, v13);
-        mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::variant<WebCore::ExceptionData,WebCore::ExceptionData,0,0,0,1ul,WebCore::ExceptionData,0>(v40);
+        mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::variant<WebCore::ExceptionData,WebCore::ExceptionData,0,0,0,1ul,WebCore::ExceptionData,0>(v40, v38);
         WebKit::Authenticator::receiveRespond(a1, v40);
         mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::~variant(v40);
         WebCore::ExceptionData::~ExceptionData(v38);
@@ -448,7 +787,7 @@ uint64_t *WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverfl
   v4[1] = a2;
   v4[4] = v4;
   v4[3] = a2;
-  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetPinTokenAfterRequestPin(WTF::String const&,WebCore::CryptoKeyEC const&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapAuthenticator::continueGetPinTokenAfterRequestPin(WTF::String const&,WebCore::CryptoKeyEC const&)::$_0,0>(v4, a2);
+  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetPinTokenAfterRequestPin(WTF::String const&,WebCore::CryptoKeyEC const&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapAuthenticator::continueGetPinTokenAfterRequestPin(WTF::String const&,WebCore::CryptoKeyEC const&)::$_0,0>(v4, a2, a2);
   std::unique_ptr<WTF::Detail::CallableWrapperBase<void>>::unique_ptr[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>,void,void>(a1, v4);
   std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::makeCredential(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,std::default_delete<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>>::~unique_ptr[abi:sn200100](v4);
   return a1;
@@ -503,7 +842,7 @@ fido::pin::TokenResponse *WebKit::CtapAuthenticator::continueRequestAfterGetPinT
     WebKit::CtapAuthenticator::aaguidForDebugging(&v38, a1);
     WTF::String::utf8();
     v6 = WTF::CString::data(&v39);
-    WebKit::FidoAuthenticator::transportForDebugging(&v36, a1);
+    WebKit::FidoAuthenticator::transportForDebugging();
     WTF::String::utf8();
     v7 = WTF::CString::data(&v37);
     __os_log_helper_16_2_3_8_0_8_32_8_32(buf, a1, v6, v7);
@@ -761,7 +1100,7 @@ LABEL_63:
       v55 = &v33;
       v96 = &v33;
       v9 = v33;
-      (*(*v9 + 48))(v9, v10);
+      ((*v9)[6])(v9, v10);
     }
 
     v58 = &v33;
@@ -801,7 +1140,7 @@ LABEL_16:
         v97 = &v31;
         v12 = v31;
         v30 = 0;
-        (*(*v12 + 48))(v12, v13);
+        ((*v12)[6])(v12, v13);
       }
 
       v57 = &v31;
@@ -820,7 +1159,7 @@ LABEL_16:
       v26[2] = v15;
       v26[1] = v14;
       WTF::makeString<WTF::ASCIILiteral,unsigned char>(&v28, v14, v15, ResponseCode);
-      mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::variant<WebCore::ExceptionData,WebCore::ExceptionData,0,0,0,1ul,WebCore::ExceptionData,0>(v29);
+      mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::variant<WebCore::ExceptionData,WebCore::ExceptionData,0,0,0,1ul,WebCore::ExceptionData,0>(v29, v27);
       WebKit::Authenticator::receiveRespond(a1, v29);
       mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::~variant(v29);
       WebCore::ExceptionData::~ExceptionData(v27);
@@ -842,9 +1181,9 @@ fido::pin::TokenResponse *std::optional<fido::pin::TokenResponse>::~optional(fid
   return a1;
 }
 
-void *WebKit::U2fAuthenticator::create(void *a1, uint64_t a2)
+void *WebKit::U2fAuthenticator::create(void *a1, uint64_t *a2)
 {
-  v3 = WTF::RefCounted<WebKit::Authenticator>::operator new();
+  v3 = WTF::RefCounted<WebKit::Authenticator>::operator new(a1, a2);
   WebKit::U2fAuthenticator::U2fAuthenticator(v3, a2);
   return WTF::adoptRef<WebKit::AuthenticatorManager,WTF::RawPtrTraits<WebKit::AuthenticatorManager>,WTF::DefaultRefDerefTraits<WebKit::AuthenticatorManager>>(a1, v3);
 }
@@ -911,7 +1250,7 @@ uint64_t WTF::UUID::UUID(uint64_t a1, uint64_t a2)
   return a1;
 }
 
-WTF::CString *WebKit::CtapAuthenticator::continueSetupPinAfterCommand(uint64_t a1, uint64_t a2, fido::pin *a3, uint64_t a4)
+WTF::CString *WebKit::CtapAuthenticator::continueSetupPinAfterCommand(uint64_t *a1, uint64_t a2, fido::pin *a3, uint64_t a4)
 {
   v170 = *MEMORY[0x1E69E9840];
   v81 = a1;
@@ -929,13 +1268,13 @@ WTF::CString *WebKit::CtapAuthenticator::continueSetupPinAfterCommand(uint64_t a
       WebKit::CtapAuthenticator::aaguidForDebugging(&v73, a1);
       WTF::String::utf8();
       v8 = WTF::CString::data(&v74);
-      WebKit::FidoAuthenticator::transportForDebugging(&v71, a1);
+      WebKit::FidoAuthenticator::transportForDebugging();
       WTF::String::utf8();
       v9 = WTF::CString::data(&v72);
       std::span<unsigned char const,18446744073709551615ul>::span[abi:sn200100]<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>(v68, v80);
       v67 = 0;
       WTF::OptionSet<WTF::Base64EncodeOption>::OptionSet(&v67);
-      WTF::base64EncodeToString(&v69, v68[0], v68[1]);
+      WTF::base64EncodeToString(&v69, v68[0], v68[1], v67);
       WTF::String::utf8();
       v10 = WTF::CString::data(&v70);
       __os_log_helper_16_2_4_8_0_8_32_8_32_8_32(buf, a1, v8, v9, v10);
@@ -1002,7 +1341,7 @@ WTF::CString *WebKit::CtapAuthenticator::continueSetupPinAfterCommand(uint64_t a
 
   else
   {
-    fido::AuthenticatorGetInfoResponse::options((a1 + 840));
+    fido::AuthenticatorGetInfoResponse::options((a1 + 105));
     fido::AuthenticatorSupportedOptions::setClientPinAvailability();
     fido::pin::validateAndConvertToUTF8(v65, v79, v12);
     if (std::optional<WTF::ObjectIdentifierGeneric<WebCore::FrameIdentifierType,WTF::ObjectIdentifierMainThreadAccessTraits<unsigned long long>,unsigned long long>>::operator BOOL[abi:sn200100](v65))
@@ -1023,13 +1362,13 @@ WTF::CString *WebKit::CtapAuthenticator::continueSetupPinAfterCommand(uint64_t a
           WebKit::CtapAuthenticator::aaguidForDebugging(&v40, a1);
           WTF::String::utf8();
           v25 = WTF::CString::data(&v41);
-          WebKit::FidoAuthenticator::transportForDebugging(&v38, a1);
+          WebKit::FidoAuthenticator::transportForDebugging();
           WTF::String::utf8();
           v26 = WTF::CString::data(&v39);
           std::span<unsigned char const,18446744073709551615ul>::span[abi:sn200100]<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>(v35, v44);
           v34 = 0;
           WTF::OptionSet<WTF::Base64EncodeOption>::OptionSet(&v34);
-          WTF::base64EncodeToString(&v36, v35[0], v35[1]);
+          WTF::base64EncodeToString(&v36, v35[0], v35[1], v34);
           WTF::String::utf8();
           v27 = WTF::CString::data(&v37);
           __os_log_helper_16_2_4_8_0_8_32_8_32_8_32(v166, a1, v25, v26, v27);
@@ -1077,7 +1416,7 @@ WTF::CString *WebKit::CtapAuthenticator::continueSetupPinAfterCommand(uint64_t a
           }
         }
 
-        WebKit::FidoAuthenticator::protectedDriver(a1, &v33);
+        WebKit::FidoAuthenticator::protectedDriver(&v33, a1);
         v28 = WTF::RefPtr<API::WebAuthenticationPanel,WTF::RawPtrTraits<API::WebAuthenticationPanel>,WTF::DefaultRefDerefTraits<API::WebAuthenticationPanel>>::get(&v33);
         WTF::WeakPtr<WebKit::AuthenticatorManager,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::WeakPtr<void>(&v30, a1);
         std::optional<fido::pin::TokenRequest>::operator*[abi:sn200100](v56);
@@ -1102,7 +1441,7 @@ WTF::CString *WebKit::CtapAuthenticator::continueSetupPinAfterCommand(uint64_t a
           WebKit::CtapAuthenticator::aaguidForDebugging(&v52, a1);
           WTF::String::utf8();
           v19 = WTF::CString::data(&v53);
-          WebKit::FidoAuthenticator::transportForDebugging(&v50, a1);
+          WebKit::FidoAuthenticator::transportForDebugging();
           WTF::String::utf8();
           v20 = WTF::CString::data(&v51);
           __os_log_helper_16_2_3_8_0_8_32_8_32(v167, a1, v19, v20);
@@ -1141,7 +1480,7 @@ WTF::CString *WebKit::CtapAuthenticator::continueSetupPinAfterCommand(uint64_t a
         v46 = v22;
         v45 = v21;
         WTF::String::String(&v48, v21, v22);
-        mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::variant<WebCore::ExceptionData,WebCore::ExceptionData,0,0,0,1ul,WebCore::ExceptionData,0>(v49);
+        mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::variant<WebCore::ExceptionData,WebCore::ExceptionData,0,0,0,1ul,WebCore::ExceptionData,0>(v49, v47);
         WebKit::Authenticator::receiveRespond(a1, v49);
         mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::~variant(v49);
         WebCore::ExceptionData::~ExceptionData(v47);
@@ -1162,7 +1501,7 @@ WTF::CString *WebKit::CtapAuthenticator::continueSetupPinAfterCommand(uint64_t a
         WebKit::CtapAuthenticator::aaguidForDebugging(&v61, a1);
         WTF::String::utf8();
         v15 = WTF::CString::data(&v62);
-        WebKit::FidoAuthenticator::transportForDebugging(&v59, a1);
+        WebKit::FidoAuthenticator::transportForDebugging();
         WTF::String::utf8();
         v16 = WTF::CString::data(&v60);
         __os_log_helper_16_2_3_8_0_8_32_8_32(v168, a1, v15, v16);
@@ -1231,13 +1570,13 @@ uint64_t *WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverfl
   v4[1] = a2;
   v4[4] = v4;
   v4[3] = a2;
-  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueSetupPinAfterCommand(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::String const&,WTF::Ref<WebCore::CryptoKeyEC,WTF::RawPtrTraits<WebCore>,WTF::DefaultRefDerefTraits<WebCore>>)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>,WTF::Ref<WebCore::CryptoKeyEC,WTF::RawPtrTraits<WebCore>,WTF::DefaultRefDerefTraits<WebCore>>,0>(v4, a2);
+  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueSetupPinAfterCommand(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::String const&,WTF::Ref<WebCore::CryptoKeyEC,WTF::RawPtrTraits<WebCore>,WTF::DefaultRefDerefTraits<WebCore>>)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>,WTF::Ref<WebCore::CryptoKeyEC,WTF::RawPtrTraits<WebCore>,WTF::DefaultRefDerefTraits<WebCore>>,0>(v4, a2, a2);
   std::unique_ptr<WTF::Detail::CallableWrapperBase<void>>::unique_ptr[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>,void,void>(a1, v4);
   std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::makeCredential(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,std::default_delete<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>>::~unique_ptr[abi:sn200100](v4);
   return a1;
 }
 
-fido::pin::KeyAgreementResponse *WebKit::CtapAuthenticator::continueSetupPinAfterGetKeyAgreement(uint64_t a1, uint64_t a2, atomic_uint **a3)
+fido::pin::KeyAgreementResponse *WebKit::CtapAuthenticator::continueSetupPinAfterGetKeyAgreement(WebKit::FidoAuthenticator *a1, uint64_t a2, atomic_uint **a3)
 {
   v36 = a1;
   v35 = a2;
@@ -1255,7 +1594,7 @@ fido::pin::KeyAgreementResponse *WebKit::CtapAuthenticator::continueSetupPinAfte
       WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=((a1 + 1088), v10);
       std::optional<fido::pin::SetPinRequest>::operator->[abi:sn200100](v25);
       fido::pin::encodeAsCBOR();
-      WebKit::FidoAuthenticator::protectedDriver(a1, &v18);
+      WebKit::FidoAuthenticator::protectedDriver(&v18, a1);
       v11 = WTF::RefPtr<API::WebAuthenticationPanel,WTF::RawPtrTraits<API::WebAuthenticationPanel>,WTF::DefaultRefDerefTraits<API::WebAuthenticationPanel>>::get(&v18);
       WTF::WeakPtr<WebKit::AuthenticatorManager,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::WeakPtr<void>(&v14, a1);
       WTF::String::String(&v15, v34);
@@ -1277,7 +1616,7 @@ fido::pin::KeyAgreementResponse *WebKit::CtapAuthenticator::continueSetupPinAfte
       v21 = v8;
       v20 = v7;
       WTF::String::String(&v23, v7, v8);
-      mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::variant<WebCore::ExceptionData,WebCore::ExceptionData,0,0,0,1ul,WebCore::ExceptionData,0>(v24);
+      mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::variant<WebCore::ExceptionData,WebCore::ExceptionData,0,0,0,1ul,WebCore::ExceptionData,0>(v24, v22);
       WebKit::Authenticator::receiveRespond(a1, v24);
       mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::~variant(v24);
       WebCore::ExceptionData::~ExceptionData(v22);
@@ -1295,7 +1634,7 @@ fido::pin::KeyAgreementResponse *WebKit::CtapAuthenticator::continueSetupPinAfte
     v28 = v5;
     v27 = v4;
     WTF::makeString<WTF::ASCIILiteral,unsigned char>(&v30, v4, v5, ResponseCode);
-    mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::variant<WebCore::ExceptionData,WebCore::ExceptionData,0,0,0,1ul,WebCore::ExceptionData,0>(v31);
+    mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::variant<WebCore::ExceptionData,WebCore::ExceptionData,0,0,0,1ul,WebCore::ExceptionData,0>(v31, v29);
     WebKit::Authenticator::receiveRespond(a1, v31);
     mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::~variant(v31);
     WebCore::ExceptionData::~ExceptionData(v29);
@@ -1315,7 +1654,7 @@ void std::optional<fido::pin::SetPinRequest>::operator->[abi:sn200100](uint64_t 
   std::__to_address[abi:sn200100]<char const>();
 }
 
-uint64_t *WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::Function<WebKit::CtapAuthenticator::continueSetupPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &,WTF::String const&)::$_0,void>(uint64_t *a1, uint64_t a2)
+uint64_t *WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::Function<WebKit::CtapAuthenticator::continueSetupPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &,WTF::String const&)::$_0,void>(uint64_t *a1, uint64_t *a2)
 {
   WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::Function<WebKit::CtapAuthenticator::continueSetupPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &,WTF::String const&)::$_0,void>(a1, a2);
   return a1;
@@ -1326,7 +1665,7 @@ uint64_t *WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverfl
   v4[1] = a2;
   v4[4] = v4;
   v4[3] = a2;
-  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueSetupPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::String const&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>,WTF::String const&,0>(v4, a2);
+  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueSetupPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::String const&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>,WTF::String const&,0>(v4, a2, a2);
   std::unique_ptr<WTF::Detail::CallableWrapperBase<void>>::unique_ptr[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>,void,void>(a1, v4);
   std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::makeCredential(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,std::default_delete<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>>::~unique_ptr[abi:sn200100](v4);
   return a1;
@@ -1396,7 +1735,7 @@ uint64_t WebKit::CtapAuthenticator::setupPin(WebKit::CtapAuthenticator *this)
       WebKit::CtapAuthenticator::aaguidForDebugging(&v17, this);
       WTF::String::utf8();
       v4 = WTF::CString::data(&v18);
-      WebKit::FidoAuthenticator::transportForDebugging(&v15, this);
+      WebKit::FidoAuthenticator::transportForDebugging();
       WTF::String::utf8();
       v5 = WTF::CString::data(&v16);
       __os_log_helper_16_2_3_8_0_8_32_8_32(buf, this, v4, v5);
@@ -1440,7 +1779,7 @@ uint64_t WebKit::CtapAuthenticator::setupPin(WebKit::CtapAuthenticator *this)
     v8 = v14;
     WTF::WeakPtr<WebKit::AuthenticatorManager,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::WeakPtr<void>(&v11, this);
     WTF::ThreadLikeAssertion::ThreadLikeAssertion(&v10);
-    WTF::CompletionHandler<void ()(WTF::String const&)>::CompletionHandler<WebKit::CtapAuthenticator::setupPin(void)::$_0,void>(&v12, &v11);
+    WTF::CompletionHandler<void ()(WTF::String const&)>::CompletionHandler<WebKit::CtapAuthenticator::setupPin(void)::$_0,void>(&v12, &v11, &v10);
     (*(*v7 + 64))(v7, v8, &v12);
     WTF::CompletionHandler<void ()(WTF::String const&)>::~CompletionHandler(&v12);
     WTF::ThreadLikeAssertion::~ThreadLikeAssertion(&v10);
@@ -1474,25 +1813,25 @@ uint64_t std::optional<unsigned int>::value_or[abi:sn200100]<int>(uint64_t a1, u
   return *v2;
 }
 
-uint64_t *WTF::CompletionHandler<void ()(WTF::String const&)>::CompletionHandler<WebKit::CtapAuthenticator::setupPin(void)::$_0,void>(uint64_t *a1, uint64_t *a2)
+uint64_t *WTF::CompletionHandler<void ()(WTF::String const&)>::CompletionHandler<WebKit::CtapAuthenticator::setupPin(void)::$_0,void>(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
-  WTF::CompletionHandler<void ()(WTF::String const&)>::CompletionHandler<WebKit::CtapAuthenticator::setupPin(void)::$_0,void>(a1, a2);
+  WTF::CompletionHandler<void ()(WTF::String const&)>::CompletionHandler<WebKit::CtapAuthenticator::setupPin(void)::$_0,void>(a1, a2, a3);
   return a1;
 }
 
 {
   WTF::Function<void ()(WTF::String const&)>::Function<WebKit::CtapAuthenticator::setupPin(void)::$_0,void>(a1, a2);
-  WTF::ThreadLikeAssertion::ThreadLikeAssertion(a1);
+  WTF::ThreadLikeAssertion::ThreadLikeAssertion(a1, a3);
   return a1;
 }
 
 BOOL std::set<fido::ProtocolVersion,std::less<fido::ProtocolVersion>,WTF::FastAllocator<fido::ProtocolVersion>>::contains[abi:sn200100](uint64_t a1, _DWORD *a2)
 {
-  v4[2] = a1;
-  v4[1] = a2;
-  v4[0] = std::set<fido::ProtocolVersion,std::less<fido::ProtocolVersion>,WTF::FastAllocator<fido::ProtocolVersion>>::find[abi:sn200100](a1, a2);
-  v3 = std::set<fido::ProtocolVersion,std::less<fido::ProtocolVersion>,WTF::FastAllocator<fido::ProtocolVersion>>::end[abi:sn200100]();
-  return std::operator!=[abi:sn200100](v4, &v3);
+  v5[2] = a1;
+  v5[1] = a2;
+  v5[0] = std::set<fido::ProtocolVersion,std::less<fido::ProtocolVersion>,WTF::FastAllocator<fido::ProtocolVersion>>::find[abi:sn200100](a1, a2);
+  v4 = std::set<fido::ProtocolVersion,std::less<fido::ProtocolVersion>,WTF::FastAllocator<fido::ProtocolVersion>>::end[abi:sn200100](a1);
+  return std::operator!=[abi:sn200100](v5, &v4);
 }
 
 uint64_t *WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::Function<WebKit::CtapAuthenticator::performAuthenticatorSelectionForSetupPin(void)::$_0,void>(uint64_t *a1, uint64_t *a2)
@@ -1506,7 +1845,7 @@ uint64_t *WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverfl
   v4[1] = a2;
   v4[4] = v4;
   v4[3] = a2;
-  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::performAuthenticatorSelectionForSetupPin(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapAuthenticator::performAuthenticatorSelectionForSetupPin(void)::$_0,0>(v4, a2);
+  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::performAuthenticatorSelectionForSetupPin(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapAuthenticator::performAuthenticatorSelectionForSetupPin(void)::$_0,0>(v4, a2, a2);
   std::unique_ptr<WTF::Detail::CallableWrapperBase<void>>::unique_ptr[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>,void,void>(a1, v4);
   std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::makeCredential(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,std::default_delete<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>>::~unique_ptr[abi:sn200100](v4);
   return a1;
@@ -1535,7 +1874,7 @@ uint64_t *WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverfl
   v4[1] = a2;
   v4[4] = v4;
   v4[3] = a2;
-  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::performAuthenticatorSelectionForSetupPin(void)::$_1,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapAuthenticator::performAuthenticatorSelectionForSetupPin(void)::$_1,0>(v4, a2);
+  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::performAuthenticatorSelectionForSetupPin(void)::$_1,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapAuthenticator::performAuthenticatorSelectionForSetupPin(void)::$_1,0>(v4, a2, a2);
   std::unique_ptr<WTF::Detail::CallableWrapperBase<void>>::unique_ptr[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>,void,void>(a1, v4);
   std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::makeCredential(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,std::default_delete<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>>::~unique_ptr[abi:sn200100](v4);
   return a1;
@@ -1721,35 +2060,6 @@ WebCore::BufferSource *WebCore::BufferSource::BufferSource(WebCore::BufferSource
 {
   mpark::variant<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>::variant(this, a2);
   return this;
-}
-
-_BYTE *mpark::variant<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>::variant(_BYTE *a1, uint64_t a2)
-{
-  mpark::variant<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>::variant(a1, a2);
-  return a1;
-}
-
-{
-  mpark::detail::impl<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>::impl(a1, a2);
-  return a1;
-}
-
-_BYTE *mpark::detail::impl<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>::impl(_BYTE *a1, uint64_t a2)
-{
-  mpark::detail::impl<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>::impl(a1, a2);
-  return a1;
-}
-
-{
-  mpark::detail::copy_assignment<mpark::detail::traits<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>,(mpark::detail::Trait)1>::copy_assignment(a1, a2);
-  return a1;
-}
-
-_BYTE *mpark::detail::copy_constructor<mpark::detail::traits<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>,(mpark::detail::Trait)1>::copy_constructor(_BYTE *a1, uint64_t a2)
-{
-  _ZN5mpark6detail16copy_constructorINS0_6traitsIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENS3_12RawPtrTraitsIS6_EENS3_21DefaultRefDerefTraitsIS6_EEEENS4_INS5_11ArrayBufferENS7_ISC_EENS9_ISC_EEEEEEELNS0_5TraitE1EECI2NS0_4baseILSH_1EJSB_SF_EEEENS0_11valueless_tE(a1);
-  mpark::detail::constructor<mpark::detail::traits<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>>::generic_construct<mpark::detail::copy_constructor<mpark::detail::traits<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>,(mpark::detail::Trait)1> const&>(a1, a2);
-  return a1;
 }
 
 void mpark::detail::constructor<mpark::detail::traits<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>>::generic_construct<mpark::detail::copy_constructor<mpark::detail::traits<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>,(mpark::detail::Trait)1> const&>(uint64_t a1, uint64_t a2)
@@ -2033,9 +2343,11 @@ WTF::RefCountedBase **_ZN5mpark3lib5cpp176invokeIZNS_6detail11constructorINS3_6t
 WTF::RefCountedBase **_ZN5mpark3lib5cpp176detail6invokeIZNS_6detail11constructorINS4_6traitsIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENS7_12RawPtrTraitsISA_EENS7_21DefaultRefDerefTraitsISA_EEEENS8_INS9_11ArrayBufferENSB_ISG_EENSD_ISG_EEEEEEEE17generic_constructIRKNS4_16copy_constructorISK_LNS4_5TraitE1EEEEEvRSL_OT_EUlRST_OT0_E_JRNS4_3altILm0ESF_EERKS10_EEEDTclclsr3libE7forwardIST_Efp_Espclsr3libE7forwardIT0_Efp0_EEESU_DpOS14_()
 {
   std::__to_address[abi:sn200100]<char const>();
+  v1 = v0;
   std::__to_address[abi:sn200100]<char const>();
+  v3 = v2;
   std::__to_address[abi:sn200100]<char const>();
-  return _ZZN5mpark6detail11constructorINS0_6traitsIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENS3_12RawPtrTraitsIS6_EENS3_21DefaultRefDerefTraitsIS6_EEEENS4_INS5_11ArrayBufferENS7_ISC_EENS9_ISC_EEEEEEEE17generic_constructIRKNS0_16copy_constructorISG_LNS0_5TraitE1EEEEEvRSH_OT_ENKUlRSP_OT0_E_clINS0_3altILm0ESB_EERKSX_EEDaSR_ST_();
+  return _ZZN5mpark6detail11constructorINS0_6traitsIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENS3_12RawPtrTraitsIS6_EENS3_21DefaultRefDerefTraitsIS6_EEEENS4_INS5_11ArrayBufferENS7_ISC_EENS9_ISC_EEEEEEEE17generic_constructIRKNS0_16copy_constructorISG_LNS0_5TraitE1EEEEEvRSH_OT_ENKUlRSP_OT0_E_clINS0_3altILm0ESB_EERKSX_EEDaSR_ST_(v1, v3);
 }
 
 WTF::RefCountedBase **mpark::detail::constructor<mpark::detail::traits<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>>::construct_alt<0ul,WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>,WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>> const&>()
@@ -2043,16 +2355,11 @@ WTF::RefCountedBase **mpark::detail::constructor<mpark::detail::traits<WTF::RefP
   std::__to_address[abi:sn200100]<char const>();
   v1 = v0;
   std::__to_address[abi:sn200100]<char const>();
-  mpark::detail::alt<0ul,WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>>::alt<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>> const&>(v1);
+  mpark::detail::alt<0ul,WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>>::alt<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>> const&>(v1, v2);
   return v1;
 }
 
 WTF::RefCountedBase **mpark::detail::alt<0ul,WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>>::alt<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>> const&>(WTF::RefCountedBase **a1)
-{
-  mpark::detail::alt<0ul,WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>>::alt<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>> const&>(a1);
-  return a1;
-}
-
 {
   std::__to_address[abi:sn200100]<char const>();
   v4 = *v2;
@@ -2065,7 +2372,7 @@ WTF::RefCountedBase **mpark::detail::alt<0ul,WTF::RefPtr<JSC::ArrayBufferView,WT
   return a1;
 }
 
-void *_ZN5mpark6detail10visitation4base23visit_return_type_checkIvvE6invokeIZNS0_11constructorINS0_6traitsIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENS8_12RawPtrTraitsISB_EENS8_21DefaultRefDerefTraitsISB_EEEENS9_INSA_11ArrayBufferENSC_ISH_EENSE_ISH_EEEEEEEE17generic_constructIRKNS0_16copy_constructorISL_LNS0_5TraitE1EEEEEvRSM_OT_EUlRSU_OT0_E_JRNS0_3altILm1ESK_EERKS11_EEEDcSV_DpOT0_()
+WTF::DeferrableRefCountedBase **_ZN5mpark6detail10visitation4base23visit_return_type_checkIvvE6invokeIZNS0_11constructorINS0_6traitsIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENS8_12RawPtrTraitsISB_EENS8_21DefaultRefDerefTraitsISB_EEEENS9_INSA_11ArrayBufferENSC_ISH_EENSE_ISH_EEEEEEEE17generic_constructIRKNS0_16copy_constructorISL_LNS0_5TraitE1EEEEEvRSM_OT_EUlRSU_OT0_E_JRNS0_3altILm1ESK_EERKS11_EEEDcSV_DpOT0_()
 {
   std::__to_address[abi:sn200100]<char const>();
   std::__to_address[abi:sn200100]<char const>();
@@ -2073,7 +2380,7 @@ void *_ZN5mpark6detail10visitation4base23visit_return_type_checkIvvE6invokeIZNS0
   return _ZN5mpark3lib5cpp176invokeIZNS_6detail11constructorINS3_6traitsIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENS6_12RawPtrTraitsIS9_EENS6_21DefaultRefDerefTraitsIS9_EEEENS7_INS8_11ArrayBufferENSA_ISF_EENSC_ISF_EEEEEEEE17generic_constructIRKNS3_16copy_constructorISJ_LNS3_5TraitE1EEEEEvRSK_OT_EUlRSS_OT0_E_JRNS3_3altILm1ESI_EERKSZ_EEEDTclsr6detailE6invokeclsr3libE7forwardISS_Efp_Espclsr3libE7forwardIT0_Efp0_EEEST_DpOS13_();
 }
 
-void *_ZN5mpark3lib5cpp176invokeIZNS_6detail11constructorINS3_6traitsIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENS6_12RawPtrTraitsIS9_EENS6_21DefaultRefDerefTraitsIS9_EEEENS7_INS8_11ArrayBufferENSA_ISF_EENSC_ISF_EEEEEEEE17generic_constructIRKNS3_16copy_constructorISJ_LNS3_5TraitE1EEEEEvRSK_OT_EUlRSS_OT0_E_JRNS3_3altILm1ESI_EERKSZ_EEEDTclsr6detailE6invokeclsr3libE7forwardISS_Efp_Espclsr3libE7forwardIT0_Efp0_EEEST_DpOS13_()
+WTF::DeferrableRefCountedBase **_ZN5mpark3lib5cpp176invokeIZNS_6detail11constructorINS3_6traitsIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENS6_12RawPtrTraitsIS9_EENS6_21DefaultRefDerefTraitsIS9_EEEENS7_INS8_11ArrayBufferENSA_ISF_EENSC_ISF_EEEEEEEE17generic_constructIRKNS3_16copy_constructorISJ_LNS3_5TraitE1EEEEEvRSK_OT_EUlRSS_OT0_E_JRNS3_3altILm1ESI_EERKSZ_EEEDTclsr6detailE6invokeclsr3libE7forwardISS_Efp_Espclsr3libE7forwardIT0_Efp0_EEEST_DpOS13_()
 {
   std::__to_address[abi:sn200100]<char const>();
   std::__to_address[abi:sn200100]<char const>();
@@ -2081,29 +2388,26 @@ void *_ZN5mpark3lib5cpp176invokeIZNS_6detail11constructorINS3_6traitsIJN3WTF6Ref
   return _ZN5mpark3lib5cpp176detail6invokeIZNS_6detail11constructorINS4_6traitsIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENS7_12RawPtrTraitsISA_EENS7_21DefaultRefDerefTraitsISA_EEEENS8_INS9_11ArrayBufferENSB_ISG_EENSD_ISG_EEEEEEEE17generic_constructIRKNS4_16copy_constructorISK_LNS4_5TraitE1EEEEEvRSL_OT_EUlRST_OT0_E_JRNS4_3altILm1ESJ_EERKS10_EEEDTclclsr3libE7forwardIST_Efp_Espclsr3libE7forwardIT0_Efp0_EEESU_DpOS14_();
 }
 
-void *_ZN5mpark3lib5cpp176detail6invokeIZNS_6detail11constructorINS4_6traitsIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENS7_12RawPtrTraitsISA_EENS7_21DefaultRefDerefTraitsISA_EEEENS8_INS9_11ArrayBufferENSB_ISG_EENSD_ISG_EEEEEEEE17generic_constructIRKNS4_16copy_constructorISK_LNS4_5TraitE1EEEEEvRSL_OT_EUlRST_OT0_E_JRNS4_3altILm1ESJ_EERKS10_EEEDTclclsr3libE7forwardIST_Efp_Espclsr3libE7forwardIT0_Efp0_EEESU_DpOS14_()
-{
-  std::__to_address[abi:sn200100]<char const>();
-  std::__to_address[abi:sn200100]<char const>();
-  std::__to_address[abi:sn200100]<char const>();
-  return _ZZN5mpark6detail11constructorINS0_6traitsIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENS3_12RawPtrTraitsIS6_EENS3_21DefaultRefDerefTraitsIS6_EEEENS4_INS5_11ArrayBufferENS7_ISC_EENS9_ISC_EEEEEEEE17generic_constructIRKNS0_16copy_constructorISG_LNS0_5TraitE1EEEEEvRSH_OT_ENKUlRSP_OT0_E_clINS0_3altILm1ESF_EERKSX_EEDaSR_ST_();
-}
-
-void *mpark::detail::constructor<mpark::detail::traits<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>>::construct_alt<1ul,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>> const&>()
+WTF::DeferrableRefCountedBase **_ZN5mpark3lib5cpp176detail6invokeIZNS_6detail11constructorINS4_6traitsIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENS7_12RawPtrTraitsISA_EENS7_21DefaultRefDerefTraitsISA_EEEENS8_INS9_11ArrayBufferENSB_ISG_EENSD_ISG_EEEEEEEE17generic_constructIRKNS4_16copy_constructorISK_LNS4_5TraitE1EEEEEvRSL_OT_EUlRST_OT0_E_JRNS4_3altILm1ESJ_EERKS10_EEEDTclclsr3libE7forwardIST_Efp_Espclsr3libE7forwardIT0_Efp0_EEESU_DpOS14_()
 {
   std::__to_address[abi:sn200100]<char const>();
   v1 = v0;
   std::__to_address[abi:sn200100]<char const>();
-  mpark::detail::alt<1ul,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>::alt<WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>> const&>(v1);
+  v3 = v2;
+  std::__to_address[abi:sn200100]<char const>();
+  return _ZZN5mpark6detail11constructorINS0_6traitsIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENS3_12RawPtrTraitsIS6_EENS3_21DefaultRefDerefTraitsIS6_EEEENS4_INS5_11ArrayBufferENS7_ISC_EENS9_ISC_EEEEEEEE17generic_constructIRKNS0_16copy_constructorISG_LNS0_5TraitE1EEEEEvRSH_OT_ENKUlRSP_OT0_E_clINS0_3altILm1ESF_EERKSX_EEDaSR_ST_(v1, v3);
+}
+
+WTF::DeferrableRefCountedBase **mpark::detail::constructor<mpark::detail::traits<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>>::construct_alt<1ul,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>> const&>()
+{
+  std::__to_address[abi:sn200100]<char const>();
+  v1 = v0;
+  std::__to_address[abi:sn200100]<char const>();
+  mpark::detail::alt<1ul,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>::alt<WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>> const&>(v1, v2);
   return v1;
 }
 
-void *mpark::detail::alt<1ul,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>::alt<WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>> const&>(void *a1)
-{
-  mpark::detail::alt<1ul,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>::alt<WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>> const&>(a1);
-  return a1;
-}
-
+WTF::DeferrableRefCountedBase **mpark::detail::alt<1ul,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>::alt<WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>> const&>(WTF::DeferrableRefCountedBase **a1)
 {
   std::__to_address[abi:sn200100]<char const>();
   v4 = *v2;
@@ -2116,22 +2420,23 @@ void *mpark::detail::alt<1ul,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC:
   return a1;
 }
 
-unint64_t _ZN5mpark5visitIZNK7WebCore12BufferSource6lengthEvEUlRT_E_JRKNS_7variantIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENS7_12RawPtrTraitsISA_EENS7_21DefaultRefDerefTraitsISA_EEEENS8_INS9_11ArrayBufferENSB_ISG_EENSD_ISG_EEEEEEEEEEDcOS3_DpOT0_(uint64_t a1, uint64_t a2)
+JSC::SharedArrayBufferContents *_ZN5mpark5visitIZNK7WebCore12BufferSource6lengthEvEUlRT_E_JRKNS_7variantIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENS7_12RawPtrTraitsISA_EENS7_21DefaultRefDerefTraitsISA_EEEENS8_INS9_11ArrayBufferENSB_ISG_EENSD_ISG_EEEEEEEEEEDcOS3_DpOT0_(uint64_t a1, uint64_t a2)
 {
-  v8 = a1;
-  v7 = a2;
-  v4 = mpark::variant<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>::valueless_by_exception(a2);
-  v5 = &v4;
-  v6 = 1;
-  v2 = mpark::detail::any(&v4, 1);
+  v11 = a1;
+  v10 = a2;
+  v7 = mpark::variant<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>::valueless_by_exception(a2);
+  v8 = &v7;
+  v9 = 1;
+  v2 = mpark::detail::any(&v7, 1);
   if (v2)
   {
     mpark::throw_bad_variant_access(v2);
   }
 
   std::__to_address[abi:sn200100]<char const>();
+  v4 = v3;
   std::__to_address[abi:sn200100]<char const>();
-  return _ZN5mpark6detail10visitation7variant11visit_valueIZNK7WebCore12BufferSource6lengthEvEUlRT_E_JRKNS_7variantIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENSA_12RawPtrTraitsISD_EENSA_21DefaultRefDerefTraitsISD_EEEENSB_INSC_11ArrayBufferENSE_ISJ_EENSG_ISJ_EEEEEEEEEEDcOS6_DpOT0_();
+  return _ZN5mpark6detail10visitation7variant11visit_valueIZNK7WebCore12BufferSource6lengthEvEUlRT_E_JRKNS_7variantIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENSA_12RawPtrTraitsISD_EENSA_21DefaultRefDerefTraitsISD_EEEENSB_INSC_11ArrayBufferENSE_ISJ_EENSG_ISJ_EEEEEEEEEEDcOS6_DpOT0_(v4, v5);
 }
 
 uint64_t mpark::detail::any(uint64_t a1, uint64_t a2)
@@ -2155,7 +2460,7 @@ uint64_t mpark::detail::any(uint64_t a1, uint64_t a2)
   return v6 & 1;
 }
 
-unint64_t _ZN5mpark6detail10visitation7variant11visit_valueIZNK7WebCore12BufferSource6lengthEvEUlRT_E_JRKNS_7variantIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENSA_12RawPtrTraitsISD_EENSA_21DefaultRefDerefTraitsISD_EEEENSB_INSC_11ArrayBufferENSE_ISJ_EENSG_ISJ_EEEEEEEEEEDcOS6_DpOT0_()
+JSC::SharedArrayBufferContents *_ZN5mpark6detail10visitation7variant11visit_valueIZNK7WebCore12BufferSource6lengthEvEUlRT_E_JRKNS_7variantIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENSA_12RawPtrTraitsISD_EENSA_21DefaultRefDerefTraitsISD_EEEENSB_INSC_11ArrayBufferENSE_ISJ_EENSG_ISJ_EEEEEEEEEEDcOS6_DpOT0_(uint64_t a1, uint64_t a2)
 {
   std::__to_address[abi:sn200100]<char const>();
   _ZN5mpark6detail10visitation7variant18make_value_visitorIZNK7WebCore12BufferSource6lengthEvEUlRT_E_EEDaOS6_();
@@ -2163,14 +2468,14 @@ unint64_t _ZN5mpark6detail10visitation7variant11visit_valueIZNK7WebCore12BufferS
   return _ZN5mpark6detail10visitation7variant9visit_altINS2_13value_visitorIZNK7WebCore12BufferSource6lengthEvEUlRT_E_EEJRKNS_7variantIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENSC_12RawPtrTraitsISF_EENSC_21DefaultRefDerefTraitsISF_EEEENSD_INSE_11ArrayBufferENSG_ISL_EENSI_ISL_EEEEEEEEEEDcOS7_DpOT0_();
 }
 
-unint64_t _ZN5mpark6detail10visitation7variant9visit_altINS2_13value_visitorIZNK7WebCore12BufferSource6lengthEvEUlRT_E_EEJRKNS_7variantIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENSC_12RawPtrTraitsISF_EENSC_21DefaultRefDerefTraitsISF_EEEENSD_INSE_11ArrayBufferENSG_ISL_EENSI_ISL_EEEEEEEEEEDcOS7_DpOT0_()
+JSC::SharedArrayBufferContents *_ZN5mpark6detail10visitation7variant9visit_altINS2_13value_visitorIZNK7WebCore12BufferSource6lengthEvEUlRT_E_EEJRKNS_7variantIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENSC_12RawPtrTraitsISF_EENSC_21DefaultRefDerefTraitsISF_EEEENSD_INSE_11ArrayBufferENSG_ISL_EENSI_ISL_EEEEEEEEEEDcOS7_DpOT0_()
 {
   std::__to_address[abi:sn200100]<char const>();
   std::__to_address[abi:sn200100]<char const>();
   return _ZN5mpark6detail10visitation3alt9visit_altINS1_7variant13value_visitorIZNK7WebCore12BufferSource6lengthEvEUlRT_E_EEJRKNS0_4implIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENSD_12RawPtrTraitsISG_EENSD_21DefaultRefDerefTraitsISG_EEEENSE_INSF_11ArrayBufferENSH_ISM_EENSJ_ISM_EEEEEEEEEEDcOS8_DpOT0_();
 }
 
-unint64_t _ZN5mpark6detail10visitation3alt9visit_altINS1_7variant13value_visitorIZNK7WebCore12BufferSource6lengthEvEUlRT_E_EEJRKNS0_4implIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENSD_12RawPtrTraitsISG_EENSD_21DefaultRefDerefTraitsISG_EEEENSE_INSF_11ArrayBufferENSH_ISM_EENSJ_ISM_EEEEEEEEEEDcOS8_DpOT0_()
+JSC::SharedArrayBufferContents *_ZN5mpark6detail10visitation3alt9visit_altINS1_7variant13value_visitorIZNK7WebCore12BufferSource6lengthEvEUlRT_E_EEJRKNS0_4implIJN3WTF6RefPtrIN3JSC15ArrayBufferViewENSD_12RawPtrTraitsISG_EENSD_21DefaultRefDerefTraitsISG_EEEENSE_INSF_11ArrayBufferENSH_ISM_EENSJ_ISM_EEEEEEEEEEDcOS8_DpOT0_()
 {
   std::__to_address[abi:sn200100]<char const>();
   std::__to_address[abi:sn200100]<char const>();
@@ -2430,7 +2735,7 @@ uint64_t _ZN5mpark3lib5cpp176detail6invokeIZNK7WebCore12BufferSource6lengthEvEUl
   return _ZZNK7WebCore12BufferSource6lengthEvENKUlRT_E_clIKN3WTF6RefPtrIN3JSC15ArrayBufferViewENS5_12RawPtrTraitsIS8_EENS5_21DefaultRefDerefTraitsIS8_EEEEEEDaS2_(v1, v2);
 }
 
-uint64_t _ZZNK7WebCore12BufferSource6lengthEvENKUlRT_E_clIKN3WTF6RefPtrIN3JSC15ArrayBufferViewENS5_12RawPtrTraitsIS8_EENS5_21DefaultRefDerefTraitsIS8_EEEEEEDaS2_(uint64_t a1, JSC::ArrayBufferView **a2)
+uint64_t _ZZNK7WebCore12BufferSource6lengthEvENKUlRT_E_clIKN3WTF6RefPtrIN3JSC15ArrayBufferViewENS5_12RawPtrTraitsIS8_EENS5_21DefaultRefDerefTraitsIS8_EEEEEEDaS2_(uint64_t a1, JSC::ArrayBuffer ***a2)
 {
   if (WTF::RefPtr<WebKit::AuthenticatorPresenterCoordinator,WTF::RawPtrTraits<WebKit::AuthenticatorPresenterCoordinator>,WTF::DefaultRefDerefTraits<WebKit::AuthenticatorPresenterCoordinator>>::operator BOOL(a2))
   {
@@ -2443,7 +2748,7 @@ uint64_t _ZZNK7WebCore12BufferSource6lengthEvENKUlRT_E_clIKN3WTF6RefPtrIN3JSC15A
   }
 }
 
-uint64_t JSC::ArrayBufferView::byteLength(JSC::ArrayBufferView *this)
+uint64_t JSC::ArrayBufferView::byteLength(JSC::ArrayBuffer **this)
 {
   if (JSC::ArrayBufferView::isDetached(this))
   {
@@ -2452,7 +2757,7 @@ uint64_t JSC::ArrayBufferView::byteLength(JSC::ArrayBufferView *this)
 
   if (JSC::ArrayBufferView::isResizableOrGrowableShared(this))
   {
-    v6 = JSC::ArrayBuffer::byteLength(*(this + 4), 5);
+    v6 = JSC::ArrayBuffer::byteLength(this[4], 5);
     v5 = std::span<char const,18446744073709551615ul>::size_bytes[abi:sn200100](this);
     if (JSC::ArrayBufferView::isAutoLength(this))
     {
@@ -2461,7 +2766,7 @@ uint64_t JSC::ArrayBufferView::byteLength(JSC::ArrayBufferView *this)
 
     else
     {
-      v4 = v5 + JSC::ArrayBufferView::byteLengthRaw(this);
+      v4 = (v5 + JSC::ArrayBufferView::byteLengthRaw(this));
     }
 
     if (v5 > v6 || v4 > v6)
@@ -2502,7 +2807,7 @@ BOOL JSC::ArrayBufferView::isResizableOrGrowableShared(JSC::ArrayBufferView *thi
   return v1;
 }
 
-unint64_t JSC::ArrayBufferContents::sizeInBytes(atomic_ullong **this, int a2)
+JSC::SharedArrayBufferContents *JSC::ArrayBufferContents::sizeInBytes(JSC::SharedArrayBufferContents **this, int a2)
 {
   if ((this[6] & 1) != 0 && WTF::RefPtr<WebKit::AuthenticatorPresenterCoordinator,WTF::RawPtrTraits<WebKit::AuthenticatorPresenterCoordinator>,WTF::DefaultRefDerefTraits<WebKit::AuthenticatorPresenterCoordinator>>::operator BOOL(this + 2))
   {
@@ -2558,49 +2863,49 @@ uint64_t JSC::logElementSize(unsigned __int8 a1)
   return 0;
 }
 
-unint64_t _ZN5mpark6detail10visitation4base23visit_return_type_checkImmE6invokeINS1_7variant13value_visitorIZNK7WebCore12BufferSource6lengthEvEUlRT_E_EEJRKNS0_3altILm1EN3WTF6RefPtrIN3JSC11ArrayBufferENSF_12RawPtrTraitsISI_EENSF_21DefaultRefDerefTraitsISI_EEEEEEEEEDcOSA_DpOT0_()
+JSC::SharedArrayBufferContents *_ZN5mpark6detail10visitation4base23visit_return_type_checkImmE6invokeINS1_7variant13value_visitorIZNK7WebCore12BufferSource6lengthEvEUlRT_E_EEJRKNS0_3altILm1EN3WTF6RefPtrIN3JSC11ArrayBufferENSF_12RawPtrTraitsISI_EENSF_21DefaultRefDerefTraitsISI_EEEEEEEEEDcOSA_DpOT0_()
 {
   std::__to_address[abi:sn200100]<char const>();
   std::__to_address[abi:sn200100]<char const>();
   return _ZN5mpark3lib5cpp176invokeINS_6detail10visitation7variant13value_visitorIZNK7WebCore12BufferSource6lengthEvEUlRT_E_EEJRKNS3_3altILm1EN3WTF6RefPtrIN3JSC11ArrayBufferENSE_12RawPtrTraitsISH_EENSE_21DefaultRefDerefTraitsISH_EEEEEEEEEDTclsr6detailE6invokeclsr3libE7forwardIS9_Efp_Espclsr3libE7forwardIT0_Efp0_EEEOS9_DpOSQ_();
 }
 
-unint64_t _ZN5mpark3lib5cpp176invokeINS_6detail10visitation7variant13value_visitorIZNK7WebCore12BufferSource6lengthEvEUlRT_E_EEJRKNS3_3altILm1EN3WTF6RefPtrIN3JSC11ArrayBufferENSE_12RawPtrTraitsISH_EENSE_21DefaultRefDerefTraitsISH_EEEEEEEEEDTclsr6detailE6invokeclsr3libE7forwardIS9_Efp_Espclsr3libE7forwardIT0_Efp0_EEEOS9_DpOSQ_()
+JSC::SharedArrayBufferContents *_ZN5mpark3lib5cpp176invokeINS_6detail10visitation7variant13value_visitorIZNK7WebCore12BufferSource6lengthEvEUlRT_E_EEJRKNS3_3altILm1EN3WTF6RefPtrIN3JSC11ArrayBufferENSE_12RawPtrTraitsISH_EENSE_21DefaultRefDerefTraitsISH_EEEEEEEEEDTclsr6detailE6invokeclsr3libE7forwardIS9_Efp_Espclsr3libE7forwardIT0_Efp0_EEEOS9_DpOSQ_()
 {
   std::__to_address[abi:sn200100]<char const>();
   std::__to_address[abi:sn200100]<char const>();
   return _ZN5mpark3lib5cpp176detail6invokeINS_6detail10visitation7variant13value_visitorIZNK7WebCore12BufferSource6lengthEvEUlRT_E_EEJRKNS4_3altILm1EN3WTF6RefPtrIN3JSC11ArrayBufferENSF_12RawPtrTraitsISI_EENSF_21DefaultRefDerefTraitsISI_EEEEEEEEEDTclclsr3libE7forwardISA_Efp_Espclsr3libE7forwardIT0_Efp0_EEEOSA_DpOSR_();
 }
 
-unint64_t _ZN5mpark3lib5cpp176detail6invokeINS_6detail10visitation7variant13value_visitorIZNK7WebCore12BufferSource6lengthEvEUlRT_E_EEJRKNS4_3altILm1EN3WTF6RefPtrIN3JSC11ArrayBufferENSF_12RawPtrTraitsISI_EENSF_21DefaultRefDerefTraitsISI_EEEEEEEEEDTclclsr3libE7forwardISA_Efp_Espclsr3libE7forwardIT0_Efp0_EEEOSA_DpOSR_()
+JSC::SharedArrayBufferContents *_ZN5mpark3lib5cpp176detail6invokeINS_6detail10visitation7variant13value_visitorIZNK7WebCore12BufferSource6lengthEvEUlRT_E_EEJRKNS4_3altILm1EN3WTF6RefPtrIN3JSC11ArrayBufferENSF_12RawPtrTraitsISI_EENSF_21DefaultRefDerefTraitsISI_EEEEEEEEEDTclclsr3libE7forwardISA_Efp_Espclsr3libE7forwardIT0_Efp0_EEEOSA_DpOSR_()
 {
   std::__to_address[abi:sn200100]<char const>();
   std::__to_address[abi:sn200100]<char const>();
   return _ZNK5mpark6detail10visitation7variant13value_visitorIZNK7WebCore12BufferSource6lengthEvEUlRT_E_EclIJRKNS0_3altILm1EN3WTF6RefPtrIN3JSC11ArrayBufferENSC_12RawPtrTraitsISF_EENSC_21DefaultRefDerefTraitsISF_EEEEEEEEEDcDpOT_();
 }
 
-unint64_t _ZNK5mpark6detail10visitation7variant13value_visitorIZNK7WebCore12BufferSource6lengthEvEUlRT_E_EclIJRKNS0_3altILm1EN3WTF6RefPtrIN3JSC11ArrayBufferENSC_12RawPtrTraitsISF_EENSC_21DefaultRefDerefTraitsISF_EEEEEEEEEDcDpOT_()
+JSC::SharedArrayBufferContents *_ZNK5mpark6detail10visitation7variant13value_visitorIZNK7WebCore12BufferSource6lengthEvEUlRT_E_EclIJRKNS0_3altILm1EN3WTF6RefPtrIN3JSC11ArrayBufferENSC_12RawPtrTraitsISF_EENSC_21DefaultRefDerefTraitsISF_EEEEEEEEEDcDpOT_()
 {
   std::__to_address[abi:sn200100]<char const>();
   std::__to_address[abi:sn200100]<char const>();
   return _ZN5mpark6detail10visitation7variant26visit_exhaustiveness_checkIZNK7WebCore12BufferSource6lengthEvEUlRT_E_JRKN3WTF6RefPtrIN3JSC11ArrayBufferENS9_12RawPtrTraitsISC_EENS9_21DefaultRefDerefTraitsISC_EEEEEE6invokeEOS8_SJ_();
 }
 
-unint64_t _ZN5mpark6detail10visitation7variant26visit_exhaustiveness_checkIZNK7WebCore12BufferSource6lengthEvEUlRT_E_JRKN3WTF6RefPtrIN3JSC11ArrayBufferENS9_12RawPtrTraitsISC_EENS9_21DefaultRefDerefTraitsISC_EEEEEE6invokeEOS8_SJ_()
+JSC::SharedArrayBufferContents *_ZN5mpark6detail10visitation7variant26visit_exhaustiveness_checkIZNK7WebCore12BufferSource6lengthEvEUlRT_E_JRKN3WTF6RefPtrIN3JSC11ArrayBufferENS9_12RawPtrTraitsISC_EENS9_21DefaultRefDerefTraitsISC_EEEEEE6invokeEOS8_SJ_()
 {
   std::__to_address[abi:sn200100]<char const>();
   std::__to_address[abi:sn200100]<char const>();
   return _ZN5mpark3lib5cpp176invokeIZNK7WebCore12BufferSource6lengthEvEUlRT_E_JRKN3WTF6RefPtrIN3JSC11ArrayBufferENS8_12RawPtrTraitsISB_EENS8_21DefaultRefDerefTraitsISB_EEEEEEEDTclsr6detailE6invokeclsr3libE7forwardIS5_Efp_Espclsr3libE7forwardIT0_Efp0_EEEOS5_DpOSJ_();
 }
 
-unint64_t _ZN5mpark3lib5cpp176invokeIZNK7WebCore12BufferSource6lengthEvEUlRT_E_JRKN3WTF6RefPtrIN3JSC11ArrayBufferENS8_12RawPtrTraitsISB_EENS8_21DefaultRefDerefTraitsISB_EEEEEEEDTclsr6detailE6invokeclsr3libE7forwardIS5_Efp_Espclsr3libE7forwardIT0_Efp0_EEEOS5_DpOSJ_()
+JSC::SharedArrayBufferContents *_ZN5mpark3lib5cpp176invokeIZNK7WebCore12BufferSource6lengthEvEUlRT_E_JRKN3WTF6RefPtrIN3JSC11ArrayBufferENS8_12RawPtrTraitsISB_EENS8_21DefaultRefDerefTraitsISB_EEEEEEEDTclsr6detailE6invokeclsr3libE7forwardIS5_Efp_Espclsr3libE7forwardIT0_Efp0_EEEOS5_DpOSJ_()
 {
   std::__to_address[abi:sn200100]<char const>();
   std::__to_address[abi:sn200100]<char const>();
   return _ZN5mpark3lib5cpp176detail6invokeIZNK7WebCore12BufferSource6lengthEvEUlRT_E_JRKN3WTF6RefPtrIN3JSC11ArrayBufferENS9_12RawPtrTraitsISC_EENS9_21DefaultRefDerefTraitsISC_EEEEEEEDTclclsr3libE7forwardIS6_Efp_Espclsr3libE7forwardIT0_Efp0_EEEOS6_DpOSK_();
 }
 
-unint64_t _ZN5mpark3lib5cpp176detail6invokeIZNK7WebCore12BufferSource6lengthEvEUlRT_E_JRKN3WTF6RefPtrIN3JSC11ArrayBufferENS9_12RawPtrTraitsISC_EENS9_21DefaultRefDerefTraitsISC_EEEEEEEDTclclsr3libE7forwardIS6_Efp_Espclsr3libE7forwardIT0_Efp0_EEEOS6_DpOSK_()
+JSC::SharedArrayBufferContents *_ZN5mpark3lib5cpp176detail6invokeIZNK7WebCore12BufferSource6lengthEvEUlRT_E_JRKN3WTF6RefPtrIN3JSC11ArrayBufferENS9_12RawPtrTraitsISC_EENS9_21DefaultRefDerefTraitsISC_EEEEEEEDTclclsr3libE7forwardIS6_Efp_Espclsr3libE7forwardIT0_Efp0_EEEOS6_DpOSK_()
 {
   std::__to_address[abi:sn200100]<char const>();
   v1 = v0;
@@ -2608,7 +2913,7 @@ unint64_t _ZN5mpark3lib5cpp176detail6invokeIZNK7WebCore12BufferSource6lengthEvEU
   return _ZZNK7WebCore12BufferSource6lengthEvENKUlRT_E_clIKN3WTF6RefPtrIN3JSC11ArrayBufferENS5_12RawPtrTraitsIS8_EENS5_21DefaultRefDerefTraitsIS8_EEEEEEDaS2_(v1, v2);
 }
 
-unint64_t _ZZNK7WebCore12BufferSource6lengthEvENKUlRT_E_clIKN3WTF6RefPtrIN3JSC11ArrayBufferENS5_12RawPtrTraitsIS8_EENS5_21DefaultRefDerefTraitsIS8_EEEEEEDaS2_(uint64_t a1, atomic_ullong ***a2)
+JSC::SharedArrayBufferContents *_ZZNK7WebCore12BufferSource6lengthEvENKUlRT_E_clIKN3WTF6RefPtrIN3JSC11ArrayBufferENS5_12RawPtrTraitsIS8_EENS5_21DefaultRefDerefTraitsIS8_EEEEEEDaS2_(uint64_t a1, JSC::SharedArrayBufferContents ***a2)
 {
   if (WTF::RefPtr<WebKit::AuthenticatorPresenterCoordinator,WTF::RawPtrTraits<WebKit::AuthenticatorPresenterCoordinator>,WTF::DefaultRefDerefTraits<WebKit::AuthenticatorPresenterCoordinator>>::operator BOOL(a2))
   {
@@ -2621,7 +2926,7 @@ unint64_t _ZZNK7WebCore12BufferSource6lengthEvENKUlRT_E_clIKN3WTF6RefPtrIN3JSC11
   }
 }
 
-uint64_t WTF::Vector<WTF::Vector<WebCore::PublicKeyCredentialDescriptor,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::at(uint64_t a1, unint64_t a2)
+unint64_t WTF::Vector<WTF::Vector<WebCore::PublicKeyCredentialDescriptor,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::at(uint64_t a1, unint64_t a2)
 {
   v4 = WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::size(a1);
   if (a2 >= v4)
@@ -2692,7 +2997,7 @@ uint64_t WTF::Vector<WTF::Vector<WebCore::PublicKeyCredentialDescriptor,0ul,WTF:
   return 1;
 }
 
-uint64_t WTF::VectorMover<false,WTF::Vector<WebCore::PublicKeyCredentialDescriptor,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>::move(uint64_t result, uint64_t *a2, uint64_t a3)
+uint64_t *WTF::VectorMover<false,WTF::Vector<WebCore::PublicKeyCredentialDescriptor,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>>::move(uint64_t *result, uint64_t *a2, uint64_t a3)
 {
   for (i = result; i != a2; i += 2)
   {
@@ -2778,7 +3083,7 @@ uint64_t WTF::Vector<WebCore::PublicKeyCredentialDescriptor,0ul,WTF::CrashOnOver
   return 1;
 }
 
-uint64_t WTF::VectorBufferBase<WebCore::PublicKeyCredentialDescriptor,WTF::FastMalloc>::allocateBuffer<(WTF::FailureAction)0>(uint64_t a1, unint64_t a2)
+uint64_t *WTF::VectorBufferBase<WebCore::PublicKeyCredentialDescriptor,WTF::FastMalloc>::allocateBuffer<(WTF::FailureAction)0>(uint64_t a1, unint64_t a2)
 {
   if (!WTF::isValidCapacityForVector<WebCore::PublicKeyCredentialDescriptor>(a2))
   {
@@ -2786,7 +3091,7 @@ uint64_t WTF::VectorBufferBase<WebCore::PublicKeyCredentialDescriptor,WTF::FastM
     JUMPOUT(0x19D69F370);
   }
 
-  result = WTF::FastMalloc::malloc((40 * a2));
+  result = WTF::FastMalloc::malloc((40 * a2), (40 * a2));
   *(a1 + 8) = 40 * a2 / 0x28;
   *a1 = result;
   return result;
@@ -2804,7 +3109,7 @@ void WTF::VectorMover<false,WebCore::PublicKeyCredentialDescriptor>::move(WebCor
   }
 }
 
-_BYTE *WebCore::PublicKeyCredentialDescriptor::PublicKeyCredentialDescriptor(_BYTE *a1, uint64_t a2)
+_BYTE *WebCore::PublicKeyCredentialDescriptor::PublicKeyCredentialDescriptor(_BYTE *a1, uint64_t *a2)
 {
   WebCore::PublicKeyCredentialDescriptor::PublicKeyCredentialDescriptor(a1, a2);
   return a1;
@@ -2812,8 +3117,8 @@ _BYTE *WebCore::PublicKeyCredentialDescriptor::PublicKeyCredentialDescriptor(_BY
 
 {
   *a1 = *a2 & 1;
-  WebCore::BufferSource::BufferSource(a1 + 8);
-  WTF::Vector<WTF::Ref<WebCore::AuthenticatorAssertionResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAssertionResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAssertionResponse>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector((a1 + 24), (a2 + 24));
+  WebCore::BufferSource::BufferSource(a1 + 8, (a2 + 1));
+  WTF::Vector<WTF::Ref<WebCore::AuthenticatorAssertionResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAssertionResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAssertionResponse>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector((a1 + 24), a2 + 3);
   return a1;
 }
 
@@ -2824,14 +3129,14 @@ _BYTE *std::__optional_destruct_base<fido::PinParameters,false>::__optional_dest
   return result;
 }
 
-_DWORD *std::__optional_storage_base<fido::PinParameters,false>::__construct[abi:sn200100]<fido::PinParameters>(uint64_t a1, uint64_t a2)
+_DWORD *std::__optional_storage_base<fido::PinParameters,false>::__construct[abi:sn200100]<fido::PinParameters>(uint64_t a1, uint64_t *a2)
 {
   result = std::__construct_at[abi:sn200100]<fido::PinParameters,fido::PinParameters,fido::PinParameters*>(a1, a2);
   *(a1 + 24) = 1;
   return result;
 }
 
-_DWORD *std::construct_at[abi:sn200100]<fido::PinParameters,fido::PinParameters,fido::PinParameters*>(_DWORD *a1, uint64_t a2)
+_DWORD *std::construct_at[abi:sn200100]<fido::PinParameters,fido::PinParameters,fido::PinParameters*>(_DWORD *a1, uint64_t *a2)
 {
   if (!a1)
   {
@@ -2841,7 +3146,7 @@ _DWORD *std::construct_at[abi:sn200100]<fido::PinParameters,fido::PinParameters,
   return fido::PinParameters::PinParameters(a1, a2);
 }
 
-_DWORD *fido::PinParameters::PinParameters(_DWORD *a1, uint64_t a2)
+_DWORD *fido::PinParameters::PinParameters(_DWORD *a1, uint64_t *a2)
 {
   fido::PinParameters::PinParameters(a1, a2);
   return a1;
@@ -2849,7 +3154,7 @@ _DWORD *fido::PinParameters::PinParameters(_DWORD *a1, uint64_t a2)
 
 {
   *a1 = *a2;
-  WTF::Vector<WTF::Ref<WebCore::AuthenticatorAssertionResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAssertionResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAssertionResponse>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector((a1 + 2), (a2 + 8));
+  WTF::Vector<WTF::Ref<WebCore::AuthenticatorAssertionResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAssertionResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAssertionResponse>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector((a1 + 2), a2 + 1);
   return a1;
 }
 
@@ -3054,7 +3359,7 @@ uint64_t std::__optional_destruct_base<WTF::Vector<WebCore::PublicKeyCredentialD
   return a1;
 }
 
-uint64_t std::__optional_destruct_base<fido::PinParameters,false>::__optional_destruct_base[abi:sn200100]<fido::PinParameters>(uint64_t a1, uint64_t a2)
+uint64_t std::__optional_destruct_base<fido::PinParameters,false>::__optional_destruct_base[abi:sn200100]<fido::PinParameters>(uint64_t a1, uint64_t *a2)
 {
   fido::PinParameters::PinParameters(a1, a2);
   *(a1 + 24) = 1;
@@ -3210,32 +3515,29 @@ void WebCore::AuthenticationExtensionsClientOutputs::LargeBlobOutputs::~LargeBlo
   }
 }
 
+uint64_t mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::variant<WTF::Ref<WebCore::AuthenticatorAttestationResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAttestationResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAttestationResponse>>,WTF::Ref<WebCore::AuthenticatorAttestationResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAttestationResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAttestationResponse>>,0,0,0,0ul,WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,0>(uint64_t a1)
+{
+  std::__to_address[abi:sn200100]<char const>();
+  _ZN5mpark6detail4implIJN3WTF3RefIN7WebCore21AuthenticatorResponseENS2_12RawPtrTraitsIS5_EENS2_21DefaultRefDerefTraitsIS5_EEEENS4_13ExceptionDataEEECI1NS0_4baseILNS0_5TraitE1EJSA_SB_EEEILm0EJNS3_INS4_32AuthenticatorAttestationResponseENS6_ISF_EENS8_ISF_EEEEEEENS_16in_place_index_tIXT_EEEDpOT0_(a1, v2);
+  return a1;
+}
+
 uint64_t mpark::detail::base<(mpark::detail::Trait)1,WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::base<0ul,WTF::Ref<WebCore::AuthenticatorAttestationResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAttestationResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAttestationResponse>>>(uint64_t a1)
 {
   std::__to_address[abi:sn200100]<char const>();
-  mpark::detail::recursive_union<(mpark::detail::Trait)1,0ul,WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::recursive_union<WTF::Ref<WebCore::AuthenticatorAttestationResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAttestationResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAttestationResponse>>>(a1);
+  mpark::detail::recursive_union<(mpark::detail::Trait)1,0ul,WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::recursive_union<WTF::Ref<WebCore::AuthenticatorAttestationResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAttestationResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAttestationResponse>>>(a1, v2);
   *(a1 + 16) = 0;
   return a1;
 }
 
 uint64_t *mpark::detail::recursive_union<(mpark::detail::Trait)1,0ul,WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::recursive_union<WTF::Ref<WebCore::AuthenticatorAttestationResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAttestationResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAttestationResponse>>>(uint64_t *a1)
 {
-  mpark::detail::recursive_union<(mpark::detail::Trait)1,0ul,WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::recursive_union<WTF::Ref<WebCore::AuthenticatorAttestationResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAttestationResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAttestationResponse>>>(a1);
-  return a1;
-}
-
-{
   std::__to_address[abi:sn200100]<char const>();
-  mpark::detail::alt<0ul,WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>>::alt<WTF::Ref<WebCore::AuthenticatorAttestationResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAttestationResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAttestationResponse>>>(a1);
+  mpark::detail::alt<0ul,WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>>::alt<WTF::Ref<WebCore::AuthenticatorAttestationResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAttestationResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAttestationResponse>>>(a1, v2);
   return a1;
 }
 
 uint64_t *mpark::detail::alt<0ul,WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>>::alt<WTF::Ref<WebCore::AuthenticatorAttestationResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAttestationResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAttestationResponse>>>(uint64_t *a1)
-{
-  mpark::detail::alt<0ul,WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>>::alt<WTF::Ref<WebCore::AuthenticatorAttestationResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAttestationResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAttestationResponse>>>(a1);
-  return a1;
-}
-
 {
   std::__to_address[abi:sn200100]<char const>();
   WTF::RefPtr<WTF::StringImpl,WTF::RawPtrTraits<WTF::StringImpl>,WTF::DefaultRefDerefTraits<WTF::StringImpl>>::RefPtr<WTF::StringImpl,WTF::RawPtrTraits<WTF::StringImpl>>(a1, v2);
@@ -3257,6 +3559,13 @@ uint64_t std::construct_at[abi:sn200100]<WTF::Vector<WebCore::PublicKeyCredentia
   }
 
   return WTF::Vector<WebCore::PublicKeyCredentialDescriptor,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(a1, a2);
+}
+
+uint64_t mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::variant<WTF::Ref<WebCore::AuthenticatorAssertionResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAssertionResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAssertionResponse>>,WTF::Ref<WebCore::AuthenticatorAssertionResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAssertionResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAssertionResponse>>,0,0,0,0ul,WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,0>(uint64_t a1)
+{
+  std::__to_address[abi:sn200100]<char const>();
+  _ZN5mpark6detail4implIJN3WTF3RefIN7WebCore21AuthenticatorResponseENS2_12RawPtrTraitsIS5_EENS2_21DefaultRefDerefTraitsIS5_EEEENS4_13ExceptionDataEEECI1NS0_4baseILNS0_5TraitE1EJSA_SB_EEEILm0EJNS3_INS4_30AuthenticatorAssertionResponseENS6_ISF_EENS8_ISF_EEEEEEENS_16in_place_index_tIXT_EEEDpOT0_(a1, v2);
+  return a1;
 }
 
 fido::pin::KeyAgreementResponse *std::__optional_destruct_base<fido::pin::KeyAgreementResponse,false>::~__optional_destruct_base[abi:sn200100](fido::pin::KeyAgreementResponse *a1)
@@ -3348,7 +3657,7 @@ uint64_t std::__tree<std::__value_type<cbor::CBORValue,cbor::CBORValue>,std::__m
     std::__to_address[abi:sn200100]<char const>();
     v6 = v3;
     v4 = v3;
-    std::__tree_key_value_types<std::__value_type<cbor::CBORValue,cbor::CBORValue>>::__get_ptr[abi:sn200100]();
+    std::__tree_key_value_types<std::__value_type<cbor::CBORValue,cbor::CBORValue>>::__get_ptr[abi:sn200100](a2 + 32);
     std::allocator_traits<WTF::FastAllocator<std::__tree_node<std::__value_type<cbor::CBORValue,cbor::CBORValue>,void *>>>::destroy[abi:sn200100]<std::pair<cbor::CBORValue const,cbor::CBORValue>,void,0>(v4, v5);
     return std::allocator_traits<WTF::FastAllocator<std::__tree_node<std::__value_type<cbor::CBORValue,cbor::CBORValue>,void *>>>::deallocate[abi:sn200100](v6, a2);
   }
@@ -3441,8 +3750,8 @@ void *WTF::memcpySpan<unsigned char,18446744073709551615ul,unsigned char const,1
   WTF::RefCountedBase::applyRefDerefThreadingCheck(&v9);
   if (v3 < 0x10)
   {
-    isIntegralOrPointerType = WTF::isIntegralOrPointerType(v4);
-    WTF::isIntegralOrPointerType(isIntegralOrPointerType);
+    WTF::isIntegralOrPointerType(v4);
+    WTF::isIntegralOrPointerType(v5);
     v14 = 1067;
     v13 = "/AppleInternal/Library/BuildRoots/4~CAtBugAdX2ypK3woS13W0YBGfMX4uuy1xhucdh4/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/local/include/wtf/StdLibExtras.h";
     v12 = "void WTF::memcpySpan(std::span<T, TExtent>, std::span<U, UExtent>) [T = unsigned char, TExtent = 18446744073709551615UL, U = const unsigned char, UExtent = 16UL]";
@@ -3698,11 +4007,11 @@ uint64_t *std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator
   return a1;
 }
 
-void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::makeCredential(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapAuthenticator::makeCredential(void)::$_0,0>(void *a1, uint64_t *a2)
+void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::makeCredential(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapAuthenticator::makeCredential(void)::$_0,0>@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v3 = WTF::FastMalloc::malloc(0x10);
-  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::makeCredential(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(v3, a2);
-  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v3);
+  v4 = WTF::FastMalloc::malloc(0x10, a3);
+  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::makeCredential(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(v4, a2);
+  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v4);
 }
 
 void *WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::makeCredential(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(void *a1, uint64_t *a2)
@@ -3760,13 +4069,13 @@ uint64_t *WebKit::CtapAuthenticator::makeCredential(void)::$_0::operator()(uint6
   {
     v4 = WTF::WeakPtr<WebKit::CtapAuthenticator,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::operator->(a1);
     v5 = v9;
-    WTF::WeakPtr<API::WebAuthenticationPanel,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::WeakPtr(&v7, a1);
+    WTF::WeakPtr<API::WebAuthenticationPanel,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::WeakPtr(v7, a1);
     WTF::ThreadLikeAssertion::ThreadLikeAssertion(&v6);
-    WTF::CompletionHandler<void ()(BOOL)>::CompletionHandler<WebKit::CtapAuthenticator::makeCredential(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void>(&v8, &v7);
-    WebKit::CtapAuthenticator::continueSilentlyCheckCredentials(v4, v5, &v8);
-    WTF::CompletionHandler<void ()(BOOL)>::~CompletionHandler(&v8);
+    WTF::CompletionHandler<void ()(BOOL)>::CompletionHandler<WebKit::CtapAuthenticator::makeCredential(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void>(v8, v7, &v6);
+    WebKit::CtapAuthenticator::continueSilentlyCheckCredentials(v4, v5, v8);
+    WTF::CompletionHandler<void ()(BOOL)>::~CompletionHandler(v8);
     WTF::ThreadLikeAssertion::~ThreadLikeAssertion(&v6);
-    return WebKit::CtapAuthenticator::makeCredential(void)::$_0::~$_0(&v7);
+    return WebKit::CtapAuthenticator::makeCredential(void)::$_0::~$_0(v7);
   }
 
   return result;
@@ -3777,8 +4086,8 @@ uint64_t WTF::WeakPtr<WebKit::CtapAuthenticator,WTF::DefaultWeakPtrImpl,WTF::Raw
   result = WTF::WeakPtr<WebKit::AuthenticatorManager,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::get(a1);
   if (!result)
   {
-    isIntegralOrPointerType = WTF::isIntegralOrPointerType(0);
-    WTF::isIntegralOrPointerType(isIntegralOrPointerType);
+    WTF::isIntegralOrPointerType(0);
+    WTF::isIntegralOrPointerType(v2);
     __break(0xC471u);
     JUMPOUT(0x19D6A3F30);
   }
@@ -3786,15 +4095,15 @@ uint64_t WTF::WeakPtr<WebKit::CtapAuthenticator,WTF::DefaultWeakPtrImpl,WTF::Raw
   return result;
 }
 
-uint64_t *WTF::CompletionHandler<void ()(BOOL)>::CompletionHandler<WebKit::CtapAuthenticator::makeCredential(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void>(uint64_t *a1, uint64_t *a2)
+uint64_t *WTF::CompletionHandler<void ()(BOOL)>::CompletionHandler<WebKit::CtapAuthenticator::makeCredential(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void>(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
-  WTF::CompletionHandler<void ()(BOOL)>::CompletionHandler<WebKit::CtapAuthenticator::makeCredential(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void>(a1, a2);
+  WTF::CompletionHandler<void ()(BOOL)>::CompletionHandler<WebKit::CtapAuthenticator::makeCredential(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void>(a1, a2, a3);
   return a1;
 }
 
 {
   WTF::Function<void ()(BOOL)>::Function<WebKit::CtapAuthenticator::makeCredential(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void>(a1, a2);
-  WTF::ThreadLikeAssertion::ThreadLikeAssertion(a1);
+  WTF::ThreadLikeAssertion::ThreadLikeAssertion(a1, a3);
   return a1;
 }
 
@@ -3809,7 +4118,7 @@ uint64_t *WTF::Function<void ()(BOOL)>::Function<WebKit::CtapAuthenticator::make
   v4[1] = a2;
   v4[4] = v4;
   v4[3] = a2;
-  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::makeCredential(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void,BOOL>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>(v4, a2);
+  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::makeCredential(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void,BOOL>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>(v4, a2, a2);
   std::unique_ptr<WTF::Detail::CallableWrapperBase<void>>::unique_ptr[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>,void,void>(a1, v4);
   std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::makeCredential(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void,BOOL>,std::default_delete<WebKit::CtapAuthenticator::makeCredential(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1}>>::~unique_ptr[abi:sn200100](v4);
   return a1;
@@ -3826,11 +4135,11 @@ uint64_t *std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator
   return a1;
 }
 
-void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::makeCredential(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void,BOOL>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>(void *a1, uint64_t *a2)
+void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::makeCredential(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void,BOOL>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v3 = WTF::FastMalloc::malloc(0x10);
-  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::makeCredential(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void,BOOL>::CallableWrapper(v3, a2);
-  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v3);
+  v4 = WTF::FastMalloc::malloc(0x10, a3);
+  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::makeCredential(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void,BOOL>::CallableWrapper(v4, a2);
+  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v4);
 }
 
 void *WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::makeCredential(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void,BOOL>::CallableWrapper(void *a1, uint64_t *a2)
@@ -3961,11 +4270,11 @@ void *WTF::Visitor<WebKit::CtapAuthenticator::continueSilentlyCheckCredentials(W
   return result;
 }
 
-void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueSilentlyCheckCredentials(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::CompletionHandler<void ()(BOOL)> &&)::$_2,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>,WTF::CompletionHandler<void ()(BOOL)> &,0>(void *a1, uint64_t *a2)
+void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueSilentlyCheckCredentials(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::CompletionHandler<void ()(BOOL)> &&)::$_2,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>,WTF::CompletionHandler<void ()(BOOL)> &,0>@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v3 = WTF::FastMalloc::malloc(0x18);
-  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueSilentlyCheckCredentials(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::CompletionHandler<void ()(BOOL)> &&)::$_2,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>::CallableWrapper(v3, a2);
-  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v3);
+  v4 = WTF::FastMalloc::malloc(0x18, a3);
+  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueSilentlyCheckCredentials(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::CompletionHandler<void ()(BOOL)> &&)::$_2,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>::CallableWrapper(v4, a2);
+  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v4);
 }
 
 void *WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueSilentlyCheckCredentials(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::CompletionHandler<void ()(BOOL)> &&)::$_2,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>::CallableWrapper(void *a1, uint64_t *a2)
@@ -4087,7 +4396,7 @@ uint64_t std::__copy_move_unwrap_iters[abi:sn200100]<std::__copy_impl,WebCore::P
   v16 = v3;
   v5 = v3;
   v6 = v4;
-  std::__value_type<cbor::CBORValue,cbor::CBORValue>::__get_value[abi:sn200100]();
+  std::__value_type<cbor::CBORValue,cbor::CBORValue>::__get_value[abi:sn200100](v18);
   v8 = std::__copy_impl::operator()[abi:sn200100]<WebCore::PublicKeyCredentialDescriptor const*,WebCore::PublicKeyCredentialDescriptor const*,WebCore::PublicKeyCredentialDescriptor*>(&v13, v5, v6, v7);
   v15 = v9;
   v14 = v8;
@@ -4119,7 +4428,7 @@ WTF::RefCountedBase *WebCore::PublicKeyCredentialDescriptor::operator=(_BYTE *a1
   return WTF::Vector<WebCore::AuthenticatorTransport,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=((a1 + 24), (a2 + 24));
 }
 
-WTF::RefCountedBase *WTF::Vector<WebCore::AuthenticatorTransport,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(WTF::RefCountedBase *a1, uint64_t a2)
+WTF::RefCountedBase *WTF::Vector<WebCore::AuthenticatorTransport,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(WTF::RefCountedBase *a1, WTF::RefCountedBase *a2)
 {
   if (a2 == a1)
   {
@@ -4613,14 +4922,14 @@ uint64_t *WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::
   return a1;
 }
 
-void *mpark::detail::assignment<mpark::detail::traits<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>>::assign_alt<1ul,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>> const&>(mpark::detail::alt<1ul,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>> &,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>> const&)::{unnamed type#1}::operator()(uint64_t *a1)
+WTF::DeferrableRefCountedBase **mpark::detail::assignment<mpark::detail::traits<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>>::assign_alt<1ul,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>> const&>(mpark::detail::alt<1ul,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>> &,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>> const&)::{unnamed type#1}::operator()(uint64_t *a1)
 {
   v1 = *a1;
   std::__to_address[abi:sn200100]<char const>();
   return mpark::detail::assignment<mpark::detail::traits<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>>::emplace<1ul,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>> const&>(v1);
 }
 
-void *mpark::detail::assignment<mpark::detail::traits<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>>::emplace<1ul,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>> const&>(uint64_t a1)
+WTF::DeferrableRefCountedBase **mpark::detail::assignment<mpark::detail::traits<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>>::emplace<1ul,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>> const&>(uint64_t a1)
 {
   mpark::detail::destructor<mpark::detail::traits<WTF::RefPtr<JSC::ArrayBufferView,WTF::RawPtrTraits<JSC::ArrayBufferView>,WTF::DefaultRefDerefTraits<JSC::ArrayBufferView>>,WTF::RefPtr<JSC::ArrayBuffer,WTF::RawPtrTraits<JSC::ArrayBuffer>,WTF::DefaultRefDerefTraits<JSC::ArrayBuffer>>>,(mpark::detail::Trait)1>::destroy(a1);
   mpark::detail::access::base::get_alt<1ul,mpark::detail::base<(mpark::detail::Trait)1,WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData> &>();
@@ -4660,7 +4969,7 @@ uint64_t std::span<WebCore::AuthenticatorTransport,18446744073709551615ul>::subs
   return v7;
 }
 
-void WTF::Vector<WebCore::AuthenticatorTransport,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(WTF::RefCountedBase *a1, void *a2)
+void WTF::Vector<WebCore::AuthenticatorTransport,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::shrinkCapacity(WTF::RefCountedBase *a1, WTF::FastMalloc *a2)
 {
   if (a2 < WTF::Vector<WTF::Ref<WebKit::AuthenticatorTransportService,WTF::RawPtrTraits<WebKit::AuthenticatorTransportService>,WTF::DefaultRefDerefTraits<WebKit::AuthenticatorTransportService>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::capacity(a1))
   {
@@ -4706,16 +5015,16 @@ uint64_t WTF::VectorBufferBase<WebCore::AuthenticatorTransport,WTF::FastMalloc>:
   }
 
   *(a1 + 8) = a2;
-  result = WTF::FastMalloc::realloc(*a1, a2);
+  result = WTF::FastMalloc::realloc(*a1, a2, v3);
   *a1 = result;
   return result;
 }
 
-void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueMakeCredentialAfterCheckExcludedCredentials(BOOL)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapAuthenticator::continueMakeCredentialAfterCheckExcludedCredentials(BOOL)::$_0,0>(void *a1, uint64_t *a2)
+void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueMakeCredentialAfterCheckExcludedCredentials(BOOL)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapAuthenticator::continueMakeCredentialAfterCheckExcludedCredentials(BOOL)::$_0,0>@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v3 = WTF::FastMalloc::malloc(0x10);
-  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueMakeCredentialAfterCheckExcludedCredentials(BOOL)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(v3, a2);
-  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v3);
+  v4 = WTF::FastMalloc::malloc(0x10, a3);
+  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueMakeCredentialAfterCheckExcludedCredentials(BOOL)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(v4, a2);
+  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v4);
 }
 
 void *WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueMakeCredentialAfterCheckExcludedCredentials(BOOL)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(void *a1, uint64_t *a2)
@@ -4774,8 +5083,8 @@ atomic_uint *WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILit
   v11 = a3;
   v4 = WTF::StringTypeAdapter<std::span<unsigned char const,18446744073709551615ul>,void>::length(a2);
   v5 = WTF::StringTypeAdapter<unsigned char,void>::length(v11);
-  WTF::checkedSum<int,unsigned int,unsigned int>(&v10, v4, v5);
-  if (WTF::RecordOverflow::hasOverflowed(&v10))
+  WTF::checkedSum<int,unsigned int,unsigned int>(v10, v4, v5);
+  if (WTF::RecordOverflow::hasOverflowed(v10))
   {
     memset(a1, 0, sizeof(void));
     return WTF::WeakPtr<WebKit::WebPageProxy,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::WeakPtr(a1);
@@ -4785,7 +5094,7 @@ atomic_uint *WTF::tryMakeStringFromAdapters<WTF::StringTypeAdapter<WTF::ASCIILit
   {
     WTF::are8Bit<WTF::StringTypeAdapter<WTF::ASCIILiteral,void> &,WTF::StringTypeAdapter<unsigned char,void> &>(v12, v11);
     v9 = 1;
-    v7 = WTF::Checked<int,WTF::RecordOverflow>::operator int(&v10);
+    v7 = WTF::Checked<int,WTF::RecordOverflow>::operator int(v10);
     WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<unsigned char,void>>(&v8, v7, 1, *v12, *(v12 + 1), *v11);
     WTF::WeakPtr<API::WebAuthenticationPanel,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::WeakPtr(a1, &v8);
     v14 = &v8;
@@ -4817,7 +5126,7 @@ void *WTF::StringTypeAdapter<WTF::ASCIILiteral,void>::StringTypeAdapter(void *a1
   return a1;
 }
 
-uint64_t WTF::checkedSum<int,unsigned int,unsigned int>(uint64_t a1, unsigned int a2, unsigned int a3)
+WTF::RecordOverflow *WTF::checkedSum<int,unsigned int,unsigned int>(WTF::RecordOverflow *a1, unsigned int a2, unsigned int a3)
 {
   v9 = a1;
   v8 = a2;
@@ -4827,259 +5136,259 @@ uint64_t WTF::checkedSum<int,unsigned int,unsigned int>(uint64_t a1, unsigned in
   return WTF::operator+<int,int,WTF::RecordOverflow>(a1, v6, &v5);
 }
 
-atomic_uint *WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<unsigned char,void>>(uint64_t *a1, unsigned int a2, char a3, uint64_t a4, uint64_t a5, unsigned __int8 a6)
+atomic_uint *WTF::tryMakeStringImplFromAdaptersInternal<WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<unsigned char,void>>(uint64_t *a1, unsigned int a2, char a3, uint64_t a4, uint64_t a5, char a6)
 {
-  v42 = a1;
-  *(&v41 + 1) = a5;
-  *&v41 = a4;
-  v40 = a6;
-  v39 = a2;
-  v38 = a3;
+  v44 = a1;
+  *(&v43 + 1) = a5;
+  *&v43 = a4;
+  v42 = a6;
+  v41 = a2;
+  v40 = a3;
   if (a3)
   {
-    std::span<unsigned char,18446744073709551615ul>::span[abi:sn200100](&v37);
-    v78 = &v36;
-    v77 = v39;
-    v76 = &v37;
-    if (v39)
+    std::span<unsigned char,18446744073709551615ul>::span[abi:sn200100](&v39);
+    v81 = &v38;
+    v80 = v41;
+    v79 = &v39;
+    if (v41)
     {
-      v8 = v77;
+      v8 = v80;
       if (v8 <= WTF::StringImpl::maxInternalLength<unsigned char>())
       {
-        WTF::Checked<unsigned long,WTF::CrashOnOverflow>::Checked<unsigned long>(&v72, v77);
-        v10 = WTF::StringImpl::allocationSize<unsigned char>(&v72);
-        v73 = WTF::FastCompactMalloc::tryMalloc(v10);
-        if (v73)
+        WTF::Checked<unsigned long,WTF::CrashOnOverflow>::Checked<unsigned long>(v75, v80);
+        v10 = WTF::StringImpl::allocationSize<unsigned char>(v75);
+        v76 = WTF::FastCompactMalloc::tryMalloc(v10, v11);
+        if (v76)
         {
-          v12 = WTF::StringImpl::tailPointer<unsigned char>(v73);
-          v13 = WTF::unsafeMakeSpan<char const,18446744073709551615ul>(v12, v77);
-          v70 = v14;
-          v69[1] = v13;
-          v15 = v76;
-          *v76 = v13;
-          v15[1] = v70;
-          v111 = v69;
-          v110 = v73;
-          v109 = v77;
+          v13 = WTF::StringImpl::tailPointer<unsigned char>(v76);
+          v14 = WTF::unsafeMakeSpan<char const,18446744073709551615ul>(v13, v80);
+          v73 = v15;
+          v72 = v14;
+          v16 = v79;
+          *v79 = v14;
+          v16[1] = v73;
+          v115 = v71;
+          v114 = v76;
+          v113 = v80;
           WTF::StringImpl::operator new();
-          v17 = v16;
-          WTF::StringImpl::StringImpl(v16, v109);
-          WTF::adoptRef<WebKit::AuthenticatorManager,WTF::RawPtrTraits<WebKit::AuthenticatorManager>,WTF::DefaultRefDerefTraits<WebKit::AuthenticatorManager>>(v69, v17);
-          WTF::RefPtr<WTF::StringImpl,WTF::RawPtrTraits<WTF::StringImpl>,WTF::DefaultRefDerefTraits<WTF::StringImpl>>::RefPtr<WTF::StringImpl,WTF::RawPtrTraits<WTF::StringImpl>>(&v36, v69);
-          WTF::Ref<WTF::StringImpl,WTF::RawPtrTraits<WTF::StringImpl>,WTF::DefaultRefDerefTraits<WTF::StringImpl>>::~Ref(v69);
+          v18 = v17;
+          WTF::StringImpl::StringImpl(v17, v113);
+          WTF::adoptRef<WebKit::AuthenticatorManager,WTF::RawPtrTraits<WebKit::AuthenticatorManager>,WTF::DefaultRefDerefTraits<WebKit::AuthenticatorManager>>(v71, v18);
+          WTF::RefPtr<WTF::StringImpl,WTF::RawPtrTraits<WTF::StringImpl>,WTF::DefaultRefDerefTraits<WTF::StringImpl>>::RefPtr<WTF::StringImpl,WTF::RawPtrTraits<WTF::StringImpl>>(&v38, v71);
+          WTF::Ref<WTF::StringImpl,WTF::RawPtrTraits<WTF::StringImpl>,WTF::DefaultRefDerefTraits<WTF::StringImpl>>::~Ref(v71);
         }
 
         else
         {
-          std::span<unsigned char,18446744073709551615ul>::span[abi:sn200100](v71);
-          v11 = v76;
-          *v76 = v71[0];
-          v11[1] = v71[1];
-          v80 = &v36;
-          v79 = 0;
-          v86 = &v36;
-          v85 = 0;
-          v36 = 0;
+          std::span<unsigned char,18446744073709551615ul>::span[abi:sn200100](v74);
+          v12 = v79;
+          *v79 = v74[0];
+          v12[1] = v74[1];
+          v83 = &v38;
+          v82 = 0;
+          v89 = &v38;
+          v88 = 0;
+          v38 = 0;
         }
       }
 
       else
       {
-        std::span<unsigned char,18446744073709551615ul>::span[abi:sn200100](v74);
-        v9 = v76;
-        *v76 = v74[0];
-        v9[1] = v74[1];
-        v82 = &v36;
-        v81 = 0;
-        v84 = &v36;
-        v83 = 0;
-        v36 = 0;
+        std::span<unsigned char,18446744073709551615ul>::span[abi:sn200100](v77);
+        v9 = v79;
+        *v79 = v77[0];
+        v9[1] = v77[1];
+        v85 = &v38;
+        v84 = 0;
+        v87 = &v38;
+        v86 = 0;
+        v38 = 0;
       }
     }
 
     else
     {
-      std::span<unsigned char,18446744073709551615ul>::span[abi:sn200100](v75);
-      v7 = v76;
-      *v76 = v75[0];
-      v7[1] = v75[1];
-      v108 = &v36;
-      v107 = MEMORY[0x1E696EB88];
-      v113 = &v36;
-      v112 = MEMORY[0x1E696EB88];
-      v114 = MEMORY[0x1E696EB88];
+      std::span<unsigned char,18446744073709551615ul>::span[abi:sn200100](v78);
+      v7 = v79;
+      *v79 = v78[0];
+      v7[1] = v78[1];
+      v112 = &v38;
+      v111 = MEMORY[0x1E696EB88];
+      v117 = &v38;
+      v116 = MEMORY[0x1E696EB88];
+      v118 = MEMORY[0x1E696EB88];
       if (MEMORY[0x1E696EB88])
       {
-        WTF::StringImpl::ref(v114);
+        WTF::StringImpl::ref(v118);
       }
 
-      v36 = v114;
+      v38 = v118;
     }
 
-    if (WTF::RefPtr<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>::operator!(&v36))
+    if (WTF::RefPtr<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>::operator!(&v38))
     {
-      v56 = a1;
-      v55 = 0;
       v58 = a1;
       v57 = 0;
+      v60 = a1;
+      v59 = 0;
       *a1 = 0;
-      v35 = 1;
+      v37 = 1;
     }
 
     else
     {
-      if (std::span<char const,18446744073709551615ul>::data[abi:sn200100](&v37))
+      if (std::span<char const,18446744073709551615ul>::data[abi:sn200100](&v39))
       {
-        v34 = v37;
-        v33 = v41;
-        v32 = v40;
-        WTF::stringTypeAdapterAccumulator<unsigned char,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<unsigned char,void>>(v37, *(&v37 + 1), v41, *(&v41 + 1), v40);
+        v36 = v39;
+        v35 = v43;
+        v34 = v42;
+        WTF::stringTypeAdapterAccumulator<unsigned char,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<unsigned char,void>>(v39, *(&v39 + 1), v43, *(&v43 + 1), v42);
       }
 
-      v64 = a1;
-      v63 = &v36;
       v66 = a1;
-      v65 = &v36;
-      *a1 = WTF::RefPtr<WTF::StringImpl,WTF::RawPtrTraits<WTF::StringImpl>,WTF::DefaultRefDerefTraits<WTF::StringImpl>>::leakRef(&v36);
-      v35 = 1;
+      v65 = &v38;
+      v68 = a1;
+      v67 = &v38;
+      *a1 = WTF::RefPtr<WTF::StringImpl,WTF::RawPtrTraits<WTF::StringImpl>,WTF::DefaultRefDerefTraits<WTF::StringImpl>>::leakRef(&v38);
+      v37 = 1;
     }
 
-    v44 = &v36;
-    v45[1] = &v36;
-    v45[0] = 0;
-    v52 = &v36;
-    v51 = v45;
-    result = std::exchange[abi:sn200100]<WTF::StringImpl *,decltype(nullptr) &>(&v36);
-    v48 = result;
+    v46 = &v38;
+    v47[1] = &v38;
+    v47[0] = 0;
+    v54 = &v38;
+    v53 = v47;
+    result = std::exchange[abi:sn200100]<WTF::StringImpl *,decltype(nullptr) &>(&v38);
+    v50 = result;
     if (result)
     {
-      return WTF::StringImpl::deref(v48);
+      return WTF::StringImpl::deref(v50);
     }
   }
 
   else
   {
-    std::span<unsigned char,18446744073709551615ul>::span[abi:sn200100](v31);
-    v96 = &v30;
-    v95 = v39;
-    v94 = v31;
-    if (v39)
+    std::span<unsigned char,18446744073709551615ul>::span[abi:sn200100](v33);
+    v100 = &v32;
+    v99 = v41;
+    v98 = v33;
+    if (v41)
     {
-      v20 = v95;
-      if (v20 <= WTF::StringImpl::maxInternalLength<char16_t>())
+      v21 = v99;
+      if (v21 <= WTF::StringImpl::maxInternalLength<char16_t>())
       {
-        WTF::Checked<unsigned long,WTF::CrashOnOverflow>::Checked<unsigned long>(&v90, v95);
-        v22 = WTF::StringImpl::allocationSize<char16_t>(&v90);
-        v91 = WTF::FastCompactMalloc::tryMalloc(v22);
-        if (v91)
+        WTF::Checked<unsigned long,WTF::CrashOnOverflow>::Checked<unsigned long>(v94, v99);
+        v23 = WTF::StringImpl::allocationSize<char16_t>(v94);
+        v95 = WTF::FastCompactMalloc::tryMalloc(v23, v24);
+        if (v95)
         {
-          v24 = WTF::StringImpl::tailPointer<char16_t>(v91);
-          v25 = WTF::unsafeMakeSpan<char const,18446744073709551615ul>(v24, v95);
-          v88 = v26;
-          v87[1] = v25;
-          v27 = v94;
-          *v94 = v25;
-          v27[1] = v88;
-          v120 = v87;
-          v119 = v91;
-          v118 = v95;
+          v26 = WTF::StringImpl::tailPointer<char16_t>(v95);
+          v27 = WTF::unsafeMakeSpan<char const,18446744073709551615ul>(v26, v99);
+          v92 = v28;
+          v91 = v27;
+          v29 = v98;
+          *v98 = v27;
+          v29[1] = v92;
+          v124 = v90;
+          v123 = v95;
+          v122 = v99;
           WTF::StringImpl::operator new();
-          v29 = v28;
-          WTF::StringImpl::StringImpl(v28, v118);
-          WTF::adoptRef<WebKit::AuthenticatorManager,WTF::RawPtrTraits<WebKit::AuthenticatorManager>,WTF::DefaultRefDerefTraits<WebKit::AuthenticatorManager>>(v87, v29);
-          WTF::RefPtr<WTF::StringImpl,WTF::RawPtrTraits<WTF::StringImpl>,WTF::DefaultRefDerefTraits<WTF::StringImpl>>::RefPtr<WTF::StringImpl,WTF::RawPtrTraits<WTF::StringImpl>>(&v30, v87);
-          WTF::Ref<WTF::StringImpl,WTF::RawPtrTraits<WTF::StringImpl>,WTF::DefaultRefDerefTraits<WTF::StringImpl>>::~Ref(v87);
+          v31 = v30;
+          WTF::StringImpl::StringImpl(v30, v122);
+          WTF::adoptRef<WebKit::AuthenticatorManager,WTF::RawPtrTraits<WebKit::AuthenticatorManager>,WTF::DefaultRefDerefTraits<WebKit::AuthenticatorManager>>(v90, v31);
+          WTF::RefPtr<WTF::StringImpl,WTF::RawPtrTraits<WTF::StringImpl>,WTF::DefaultRefDerefTraits<WTF::StringImpl>>::RefPtr<WTF::StringImpl,WTF::RawPtrTraits<WTF::StringImpl>>(&v32, v90);
+          WTF::Ref<WTF::StringImpl,WTF::RawPtrTraits<WTF::StringImpl>,WTF::DefaultRefDerefTraits<WTF::StringImpl>>::~Ref(v90);
         }
 
         else
         {
-          std::span<unsigned char,18446744073709551615ul>::span[abi:sn200100](v89);
-          v23 = v94;
-          *v94 = v89[0];
-          v23[1] = v89[1];
-          v98 = &v30;
-          v97 = 0;
-          v104 = &v30;
-          v103 = 0;
-          v30 = 0;
+          std::span<unsigned char,18446744073709551615ul>::span[abi:sn200100](v93);
+          v25 = v98;
+          *v98 = v93[0];
+          v25[1] = v93[1];
+          v102 = &v32;
+          v101 = 0;
+          v108 = &v32;
+          v107 = 0;
+          v32 = 0;
         }
       }
 
       else
       {
-        std::span<unsigned char,18446744073709551615ul>::span[abi:sn200100](v92);
-        v21 = v94;
-        *v94 = v92[0];
-        v21[1] = v92[1];
-        v100 = &v30;
-        v99 = 0;
-        v102 = &v30;
-        v101 = 0;
-        v30 = 0;
+        std::span<unsigned char,18446744073709551615ul>::span[abi:sn200100](v96);
+        v22 = v98;
+        *v98 = v96[0];
+        v22[1] = v96[1];
+        v104 = &v32;
+        v103 = 0;
+        v106 = &v32;
+        v105 = 0;
+        v32 = 0;
       }
     }
 
     else
     {
-      std::span<unsigned char,18446744073709551615ul>::span[abi:sn200100](v93);
-      v19 = v94;
-      *v94 = v93[0];
-      v19[1] = v93[1];
-      v106 = &v30;
-      v105 = MEMORY[0x1E696EB88];
-      v116 = &v30;
-      v115 = MEMORY[0x1E696EB88];
-      v117 = MEMORY[0x1E696EB88];
+      std::span<unsigned char,18446744073709551615ul>::span[abi:sn200100](v97);
+      v20 = v98;
+      *v98 = v97[0];
+      v20[1] = v97[1];
+      v110 = &v32;
+      v109 = MEMORY[0x1E696EB88];
+      v120 = &v32;
+      v119 = MEMORY[0x1E696EB88];
+      v121 = MEMORY[0x1E696EB88];
       if (MEMORY[0x1E696EB88])
       {
-        WTF::StringImpl::ref(v117);
+        WTF::StringImpl::ref(v121);
       }
 
-      v30 = v117;
+      v32 = v121;
     }
 
-    if (WTF::RefPtr<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>::operator!(&v30))
+    if (WTF::RefPtr<WebKit::WebPageProxy,WTF::RawPtrTraits<WebKit::WebPageProxy>,WTF::DefaultRefDerefTraits<WebKit::WebPageProxy>>::operator!(&v32))
     {
-      v54 = a1;
-      v53 = 0;
-      v60 = a1;
-      v59 = 0;
+      v56 = a1;
+      v55 = 0;
+      v62 = a1;
+      v61 = 0;
       *a1 = 0;
-      v35 = 1;
+      v37 = 1;
     }
 
     else
     {
-      if (std::span<char const,18446744073709551615ul>::data[abi:sn200100](v31))
+      if (std::span<char const,18446744073709551615ul>::data[abi:sn200100](v33))
       {
-        WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<unsigned char,void>>(v31[0], v31[1], v41, *(&v41 + 1), v40);
+        WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<unsigned char,void>>(v33[0], v33[1], v43, *(&v43 + 1), v42);
       }
 
-      v62 = a1;
-      v61 = &v30;
-      v68 = a1;
-      v67 = &v30;
-      *a1 = WTF::RefPtr<WTF::StringImpl,WTF::RawPtrTraits<WTF::StringImpl>,WTF::DefaultRefDerefTraits<WTF::StringImpl>>::leakRef(&v30);
-      v35 = 1;
+      v64 = a1;
+      v63 = &v32;
+      v70 = a1;
+      v69 = &v32;
+      *a1 = WTF::RefPtr<WTF::StringImpl,WTF::RawPtrTraits<WTF::StringImpl>,WTF::DefaultRefDerefTraits<WTF::StringImpl>>::leakRef(&v32);
+      v37 = 1;
     }
 
-    v43 = &v30;
-    v46[1] = &v30;
-    v46[0] = 0;
-    v50 = &v30;
-    v49 = v46;
-    result = std::exchange[abi:sn200100]<WTF::StringImpl *,decltype(nullptr) &>(&v30);
-    v47 = result;
+    v45 = &v32;
+    v48[1] = &v32;
+    v48[0] = 0;
+    v52 = &v32;
+    v51 = v48;
+    result = std::exchange[abi:sn200100]<WTF::StringImpl *,decltype(nullptr) &>(&v32);
+    v49 = result;
     if (result)
     {
-      return WTF::StringImpl::deref(v47);
+      return WTF::StringImpl::deref(v49);
     }
   }
 
   return result;
 }
 
-uint64_t WTF::Checked<int,WTF::RecordOverflow>::operator int(unsigned int *a1)
+uint64_t WTF::Checked<int,WTF::RecordOverflow>::operator int(WTF::RecordOverflow *a1)
 {
   hasOverflowed = WTF::RecordOverflow::hasOverflowed(a1);
   if (hasOverflowed)
@@ -5087,10 +5396,10 @@ uint64_t WTF::Checked<int,WTF::RecordOverflow>::operator int(unsigned int *a1)
     WTF::CrashOnOverflow::crash(hasOverflowed);
   }
 
-  return a1[1];
+  return *(a1 + 1);
 }
 
-uint64_t WTF::operator+<int,int,WTF::RecordOverflow>(uint64_t a1, WTF::RecordOverflow *this, WTF::RecordOverflow *a3)
+WTF::RecordOverflow *WTF::operator+<int,int,WTF::RecordOverflow>(WTF::RecordOverflow *a1, WTF::RecordOverflow *this, WTF::RecordOverflow *a3)
 {
   v12 = a1;
   v11 = this;
@@ -5131,7 +5440,7 @@ uint64_t WTF::Checked<int,WTF::RecordOverflow>::Checked<unsigned int>(uint64_t a
   return a1;
 }
 
-uint64_t WTF::Checked<int,WTF::RecordOverflow>::Checked(uint64_t a1)
+WTF::RecordOverflow *WTF::Checked<int,WTF::RecordOverflow>::Checked(WTF::RecordOverflow *a1)
 {
   WTF::Checked<int,WTF::RecordOverflow>::Checked(a1);
   return a1;
@@ -5139,12 +5448,12 @@ uint64_t WTF::Checked<int,WTF::RecordOverflow>::Checked(uint64_t a1)
 
 {
   WTF::RecordOverflow::RecordOverflow(a1);
-  *(a1 + 4) = 0;
+  *(a1 + 1) = 0;
   WTF::RecordOverflow::overflowed(a1);
   return a1;
 }
 
-uint64_t WTF::Checked<int,WTF::RecordOverflow>::Checked<int>(uint64_t a1, int a2)
+uint64_t WTF::Checked<int,WTF::RecordOverflow>::Checked<int>(uint64_t a1, unsigned int a2)
 {
   WTF::Checked<int,WTF::RecordOverflow>::Checked<int>(a1, a2);
   return a1;
@@ -5152,7 +5461,7 @@ uint64_t WTF::Checked<int,WTF::RecordOverflow>::Checked<int>(uint64_t a1, int a2
 
 {
   WTF::RecordOverflow::RecordOverflow(a1);
-  WTF::isInBounds<int,int>();
+  WTF::isInBounds<int,int>(a2);
   *(a1 + 4) = a2;
   return a1;
 }
@@ -5193,7 +5502,7 @@ uint64_t WTF::lengthOfIntegerAsStringImpl<unsigned char,(WTF::PositiveOrNegative
   return v2;
 }
 
-double WTF::stringTypeAdapterAccumulator<unsigned char,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<unsigned char,void>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned __int8 a5)
+double WTF::stringTypeAdapterAccumulator<unsigned char,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<unsigned char,void>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
 {
   v11[0] = a1;
   v11[1] = a2;
@@ -5205,7 +5514,7 @@ double WTF::stringTypeAdapterAccumulator<unsigned char,WTF::StringTypeAdapter<WT
   return WTF::stringTypeAdapterAccumulator<unsigned char,WTF::StringTypeAdapter<unsigned char,void>>(v6, v7, a5);
 }
 
-double WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<unsigned char,void>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned __int8 a5)
+double WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<WTF::ASCIILiteral,void>,WTF::StringTypeAdapter<unsigned char,void>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
 {
   v11[0] = a1;
   v11[1] = a2;
@@ -5231,23 +5540,23 @@ uint64_t WTF::StringImpl::maxInternalLength<unsigned char>()
   return *std::min[abi:sn200100]<unsigned long>(&v2, &v1);
 }
 
-uint64_t WTF::FastCompactMalloc::tryMalloc(WTF::FastCompactMalloc *this)
+uint64_t WTF::FastCompactMalloc::tryMalloc(WTF::FastCompactMalloc *this, unint64_t a2)
 {
-  v3[1] = this;
-  WTF::tryFastCompactMalloc(this);
-  v2 = 0;
-  if (WTF::TryMallocReturnValue::getValue<void>(v3, &v2))
+  v4[1] = this;
+  WTF::tryFastCompactMalloc(v4, this);
+  v3 = 0;
+  if (WTF::TryMallocReturnValue::getValue<void>(v4, &v3))
   {
-    v4 = v2;
+    v5 = v3;
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  mpark::detail::recursive_union<(mpark::detail::Trait)1,0ul,WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::~recursive_union(v3);
-  return v4;
+  mpark::detail::recursive_union<(mpark::detail::Trait)1,0ul,WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::~recursive_union(v4);
+  return v5;
 }
 
 uint64_t WTF::StringImpl::allocationSize<unsigned char>(WTF::RefCountedBase *a1)
@@ -5440,8 +5749,8 @@ uint64_t WTF::StringImplShape::StringImplShape(uint64_t a1, uint64_t a2, uint64_
   v4 = std::span<char const,18446744073709551615ul>::size_bytes[abi:sn200100](v7);
   if (v4 > 0x7FFFFFFF)
   {
-    isIntegralOrPointerType = WTF::isIntegralOrPointerType(v4);
-    WTF::isIntegralOrPointerType(isIntegralOrPointerType);
+    WTF::isIntegralOrPointerType(v4);
+    WTF::isIntegralOrPointerType(v5);
     v20 = 840;
     v19 = "/AppleInternal/Library/BuildRoots/4~CAtBugAdX2ypK3woS13W0YBGfMX4uuy1xhucdh4/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/local/include/wtf/text/StringImpl.h";
     v18 = "WTF::StringImplShape::StringImplShape(unsigned int, std::span<const LChar>, unsigned int)";
@@ -5472,8 +5781,8 @@ uint64_t WTF::StringImplShape::StringImplShape(uint64_t a1, uint64_t a2, uint64_
   v4 = std::span<char const,18446744073709551615ul>::size_bytes[abi:sn200100](v7);
   if (v4 > 0x7FFFFFFF)
   {
-    isIntegralOrPointerType = WTF::isIntegralOrPointerType(v4);
-    WTF::isIntegralOrPointerType(isIntegralOrPointerType);
+    WTF::isIntegralOrPointerType(v4);
+    WTF::isIntegralOrPointerType(v5);
     v20 = 849;
     v19 = "/AppleInternal/Library/BuildRoots/4~CAtBugAdX2ypK3woS13W0YBGfMX4uuy1xhucdh4/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/local/include/wtf/text/StringImpl.h";
     v18 = "WTF::StringImplShape::StringImplShape(unsigned int, std::span<const char16_t>, unsigned int)";
@@ -5493,7 +5802,7 @@ uint64_t WTF::StringImplShape::StringImplShape(uint64_t a1, uint64_t a2, uint64_
   return v8;
 }
 
-double WTF::stringTypeAdapterAccumulator<unsigned char,WTF::StringTypeAdapter<unsigned char,void>>(uint64_t a1, uint64_t a2, unsigned __int8 a3)
+double WTF::stringTypeAdapterAccumulator<unsigned char,WTF::StringTypeAdapter<unsigned char,void>>(uint64_t a1, uint64_t a2, char a3)
 {
   v5 = a1;
   v6 = a2;
@@ -5648,7 +5957,7 @@ unint64_t WTF::StringTypeAdapter<std::span<unsigned char const,18446744073709551
   return WTF::copyElements(v5, v6, v10, v11);
 }
 
-double WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<unsigned char,void>>(uint64_t a1, uint64_t a2, unsigned __int8 a3)
+double WTF::stringTypeAdapterAccumulator<char16_t,WTF::StringTypeAdapter<unsigned char,void>>(uint64_t a1, uint64_t a2, char a3)
 {
   v5 = a1;
   v6 = a2;
@@ -5807,7 +6116,7 @@ void WTF::writeIntegerToBufferImpl<char16_t,unsigned char,(WTF::PositiveOrNegati
   }
 }
 
-uint64_t std::span<char16_t,18446744073709551615ul>::operator[][abi:sn200100](void *a1, unint64_t a2)
+unint64_t std::span<char16_t,18446744073709551615ul>::operator[][abi:sn200100](void *a1, unint64_t a2)
 {
   if (a2 >= std::span<char const,18446744073709551615ul>::size_bytes[abi:sn200100](a1))
   {
@@ -5824,8 +6133,8 @@ void *WTF::StringTypeAdapter<std::span<unsigned char const,18446744073709551615u
   v3 = std::span<char const,18446744073709551615ul>::size_bytes[abi:sn200100](a1);
   if (v3 > 0x7FFFFFFF)
   {
-    isIntegralOrPointerType = WTF::isIntegralOrPointerType(v3);
-    WTF::isIntegralOrPointerType(isIntegralOrPointerType);
+    WTF::isIntegralOrPointerType(v3);
+    WTF::isIntegralOrPointerType(v4);
     __break(0xC471u);
     JUMPOUT(0x19D6A90E0);
   }
@@ -5833,11 +6142,11 @@ void *WTF::StringTypeAdapter<std::span<unsigned char const,18446744073709551615u
   return a1;
 }
 
-void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::getAssertion(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapAuthenticator::getAssertion(void)::$_0,0>(void *a1, uint64_t *a2)
+void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::getAssertion(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapAuthenticator::getAssertion(void)::$_0,0>@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v3 = WTF::FastMalloc::malloc(0x10);
-  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::getAssertion(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(v3, a2);
-  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v3);
+  v4 = WTF::FastMalloc::malloc(0x10, a3);
+  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::getAssertion(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(v4, a2);
+  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v4);
 }
 
 void *WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::getAssertion(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(void *a1, uint64_t *a2)
@@ -5875,27 +6184,27 @@ uint64_t *WebKit::CtapAuthenticator::getAssertion(void)::$_0::operator()(uint64_
   {
     v4 = WTF::WeakPtr<WebKit::CtapAuthenticator,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::operator->(a1);
     v5 = v9;
-    WTF::WeakPtr<API::WebAuthenticationPanel,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::WeakPtr(&v7, a1);
+    WTF::WeakPtr<API::WebAuthenticationPanel,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::WeakPtr(v7, a1);
     WTF::ThreadLikeAssertion::ThreadLikeAssertion(&v6);
-    WTF::CompletionHandler<void ()(BOOL)>::CompletionHandler<WebKit::CtapAuthenticator::getAssertion(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void>(&v8, &v7);
-    WebKit::CtapAuthenticator::continueSilentlyCheckCredentials(v4, v5, &v8);
-    WTF::CompletionHandler<void ()(BOOL)>::~CompletionHandler(&v8);
+    WTF::CompletionHandler<void ()(BOOL)>::CompletionHandler<WebKit::CtapAuthenticator::getAssertion(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void>(v8, v7, &v6);
+    WebKit::CtapAuthenticator::continueSilentlyCheckCredentials(v4, v5, v8);
+    WTF::CompletionHandler<void ()(BOOL)>::~CompletionHandler(v8);
     WTF::ThreadLikeAssertion::~ThreadLikeAssertion(&v6);
-    return WebKit::CtapAuthenticator::makeCredential(void)::$_0::~$_0(&v7);
+    return WebKit::CtapAuthenticator::makeCredential(void)::$_0::~$_0(v7);
   }
 
   return result;
 }
 
-uint64_t *WTF::CompletionHandler<void ()(BOOL)>::CompletionHandler<WebKit::CtapAuthenticator::getAssertion(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void>(uint64_t *a1, uint64_t *a2)
+uint64_t *WTF::CompletionHandler<void ()(BOOL)>::CompletionHandler<WebKit::CtapAuthenticator::getAssertion(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void>(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
-  WTF::CompletionHandler<void ()(BOOL)>::CompletionHandler<WebKit::CtapAuthenticator::getAssertion(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void>(a1, a2);
+  WTF::CompletionHandler<void ()(BOOL)>::CompletionHandler<WebKit::CtapAuthenticator::getAssertion(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void>(a1, a2, a3);
   return a1;
 }
 
 {
   WTF::Function<void ()(BOOL)>::Function<WebKit::CtapAuthenticator::getAssertion(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void>(a1, a2);
-  WTF::ThreadLikeAssertion::ThreadLikeAssertion(a1);
+  WTF::ThreadLikeAssertion::ThreadLikeAssertion(a1, a3);
   return a1;
 }
 
@@ -5910,17 +6219,17 @@ uint64_t *WTF::Function<void ()(BOOL)>::Function<WebKit::CtapAuthenticator::getA
   v4[1] = a2;
   v4[4] = v4;
   v4[3] = a2;
-  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::getAssertion(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void,BOOL>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>(v4, a2);
+  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::getAssertion(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void,BOOL>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>(v4, a2, a2);
   std::unique_ptr<WTF::Detail::CallableWrapperBase<void>>::unique_ptr[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>,void,void>(a1, v4);
   std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::makeCredential(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void,BOOL>,std::default_delete<WebKit::CtapAuthenticator::makeCredential(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1}>>::~unique_ptr[abi:sn200100](v4);
   return a1;
 }
 
-void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::getAssertion(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void,BOOL>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>(void *a1, uint64_t *a2)
+void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::getAssertion(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void,BOOL>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v3 = WTF::FastMalloc::malloc(0x10);
-  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::getAssertion(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void,BOOL>::CallableWrapper(v3, a2);
-  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v3);
+  v4 = WTF::FastMalloc::malloc(0x10, a3);
+  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::getAssertion(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void,BOOL>::CallableWrapper(v4, a2);
+  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v4);
 }
 
 void *WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::getAssertion(void)::$_0::operator() const(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::{lambda(BOOL)#1},void,BOOL>::CallableWrapper(void *a1, uint64_t *a2)
@@ -5961,11 +6270,11 @@ uint64_t WebKit::CtapAuthenticator::getAssertion(void)::$_0::operator() const(WT
   return result;
 }
 
-void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetAssertionAfterCheckAllowCredentials(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapAuthenticator::continueGetAssertionAfterCheckAllowCredentials(void)::$_0,0>(void *a1, uint64_t *a2)
+void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetAssertionAfterCheckAllowCredentials(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapAuthenticator::continueGetAssertionAfterCheckAllowCredentials(void)::$_0,0>@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v3 = WTF::FastMalloc::malloc(0x10);
-  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetAssertionAfterCheckAllowCredentials(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(v3, a2);
-  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v3);
+  v4 = WTF::FastMalloc::malloc(0x10, a3);
+  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetAssertionAfterCheckAllowCredentials(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(v4, a2);
+  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v4);
 }
 
 void *WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetAssertionAfterCheckAllowCredentials(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(void *a1, uint64_t *a2)
@@ -6066,11 +6375,11 @@ uint64_t WTF::Vector<WTF::Ref<WebCore::AuthenticatorAssertionResponse,WTF::RawPt
   return 1;
 }
 
-void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetAssertionAfterResponseReceived(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>(void *a1, uint64_t *a2)
+void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetAssertionAfterResponseReceived(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v3 = WTF::FastMalloc::malloc(0x10);
-  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetAssertionAfterResponseReceived(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>::CallableWrapper(v3, a2);
-  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v3);
+  v4 = WTF::FastMalloc::malloc(0x10, a3);
+  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetAssertionAfterResponseReceived(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>::CallableWrapper(v4, a2);
+  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v4);
 }
 
 void *WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetAssertionAfterResponseReceived(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>::CallableWrapper(void *a1, uint64_t *a2)
@@ -6178,7 +6487,7 @@ uint64_t *std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator
 
 void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetNextAssertionAfterResponseReceived(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::$_0,void,WebCore::AuthenticatorAssertionResponse *>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>(void *a1, uint64_t *a2)
 {
-  v3 = WTF::Detail::CallableWrapperBase<void,WebCore::AuthenticatorAssertionResponse *>::operator new();
+  v3 = WTF::Detail::CallableWrapperBase<void,WebCore::AuthenticatorAssertionResponse *>::operator new(a1, a2);
   WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetNextAssertionAfterResponseReceived(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::$_0,void,WebCore::AuthenticatorAssertionResponse *>::CallableWrapper(v3, a2);
   return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v3);
 }
@@ -6225,8 +6534,8 @@ uint64_t WebKit::CtapAuthenticator::continueGetNextAssertionAfterResponseReceive
   isMain = WTF::RunLoop::isMain(a1);
   if ((isMain ^ 1))
   {
-    isIntegralOrPointerType = WTF::isIntegralOrPointerType(isMain);
-    WTF::isIntegralOrPointerType(isIntegralOrPointerType);
+    WTF::isIntegralOrPointerType(isMain);
+    WTF::isIntegralOrPointerType(v4);
     v24 = "/Library/Caches/com.apple.xbs/Sources/WebKit/Source/WebKit/UIProcess/WebAuthentication/fido/CtapAuthenticator.cpp";
     v23 = "auto WebKit::CtapAuthenticator::continueGetNextAssertionAfterResponseReceived(Vector<uint8_t> &&)::(anonymous class)::operator()(AuthenticatorAssertionResponse *) const";
     v22 = 172;
@@ -6276,7 +6585,7 @@ uint64_t WebKit::CtapAuthenticator::continueGetNextAssertionAfterResponseReceive
       v36 = &v13;
       v6 = WTF::Vector<WTF::Ref<WebCore::AuthenticatorAssertionResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAssertionResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAssertionResponse>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator[](v13 + 1056, NextAssertionAfterResponseReceivedEONS0_IhLm0ES9_Lm16ESA_EEENK3__0clEPS3_EUlRT_E_EEmRKSJ);
       WTF::Ref<WebCore::AuthenticatorAssertionResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAssertionResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAssertionResponse>>::copyRef(&v8, v6);
-      mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::variant<WTF::Ref<WebCore::AuthenticatorAssertionResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAssertionResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAssertionResponse>>,WTF::Ref<WebCore::AuthenticatorAssertionResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAssertionResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAssertionResponse>>,0,0,0,0ul,WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,0>(v9);
+      mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::variant<WTF::Ref<WebCore::AuthenticatorAssertionResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAssertionResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAssertionResponse>>,WTF::Ref<WebCore::AuthenticatorAssertionResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAssertionResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAssertionResponse>>,0,0,0,0ul,WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,0>(v9, &v8);
       WebKit::Authenticator::receiveRespond(v5, v9);
       mpark::variant<WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>,WebCore::ExceptionData>::~variant(v9);
       WTF::Ref<WebCore::AuthenticatorResponse,WTF::RawPtrTraits<WebCore::AuthenticatorResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorResponse>>::~Ref(&v8);
@@ -6299,7 +6608,7 @@ uint64_t WebKit::CtapAuthenticator::continueGetNextAssertionAfterResponseReceive
   return result;
 }
 
-uint64_t _ZNK3WTF6VectorINS_3RefIN7WebCore30AuthenticatorAssertionResponseENS_12RawPtrTraitsIS3_EENS_21DefaultRefDerefTraitsIS3_EEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEE6findIfIZZN6WebKit17CtapAuthenticator45continueGetNextAssertionAfterResponseReceivedEONS0_IhLm0ES9_Lm16ESA_EEENK3__0clEPS3_EUlRT_E_EEmRKSJ_(uint64_t a1, void *a2)
+unint64_t _ZNK3WTF6VectorINS_3RefIN7WebCore30AuthenticatorAssertionResponseENS_12RawPtrTraitsIS3_EENS_21DefaultRefDerefTraitsIS3_EEEELm0ENS_15CrashOnOverflowELm16ENS_10FastMallocEE6findIfIZZN6WebKit17CtapAuthenticator45continueGetNextAssertionAfterResponseReceivedEONS0_IhLm0ES9_Lm16ESA_EEENK3__0clEPS3_EUlRT_E_EEmRKSJ_(uint64_t a1, void *a2)
 {
   for (i = 0; i < WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::size(a1); ++i)
   {
@@ -6313,7 +6622,7 @@ uint64_t _ZNK3WTF6VectorINS_3RefIN7WebCore30AuthenticatorAssertionResponseENS_12
   return -1;
 }
 
-uint64_t WTF::Vector<WTF::Ref<WebCore::AuthenticatorAssertionResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAssertionResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAssertionResponse>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::at(uint64_t a1, unint64_t a2)
+unint64_t WTF::Vector<WTF::Ref<WebCore::AuthenticatorAssertionResponse,WTF::RawPtrTraits<WebCore::AuthenticatorAssertionResponse>,WTF::DefaultRefDerefTraits<WebCore::AuthenticatorAssertionResponse>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::at(uint64_t a1, unint64_t a2)
 {
   v4 = WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::size(a1);
   if (a2 >= v4)
@@ -6348,11 +6657,11 @@ uint64_t *std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator
   return result;
 }
 
-void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetNextAssertionAfterResponseReceived(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::$_1,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>(void *a1, uint64_t *a2)
+void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetNextAssertionAfterResponseReceived(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::$_1,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v3 = WTF::FastMalloc::malloc(0x10);
-  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetNextAssertionAfterResponseReceived(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::$_1,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>::CallableWrapper(v3, a2);
-  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v3);
+  v4 = WTF::FastMalloc::malloc(0x10, a3);
+  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetNextAssertionAfterResponseReceived(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::$_1,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>::CallableWrapper(v4, a2);
+  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v4);
 }
 
 void *WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetNextAssertionAfterResponseReceived(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::$_1,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>::CallableWrapper(void *a1, uint64_t *a2)
@@ -6381,11 +6690,11 @@ void *WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetNextAss
   return a1;
 }
 
-void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::getRetries(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapAuthenticator::getRetries(void)::$_0,0>(void *a1, uint64_t *a2)
+void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::getRetries(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapAuthenticator::getRetries(void)::$_0,0>@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v3 = WTF::FastMalloc::malloc(0x10);
-  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::getRetries(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(v3, a2);
-  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v3);
+  v4 = WTF::FastMalloc::malloc(0x10, a3);
+  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::getRetries(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(v4, a2);
+  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v4);
 }
 
 void *WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::getRetries(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(void *a1, uint64_t *a2)
@@ -6451,13 +6760,13 @@ uint64_t WebKit::CtapAuthenticator::getRetries(void)::$_0::operator()(uint64_t *
       v5 = WTF::CString::data(&v16);
       v47 = &v20;
       v54 = &v20;
-      WebKit::FidoAuthenticator::transportForDebugging(&v13, v20);
+      WebKit::FidoAuthenticator::transportForDebugging();
       WTF::String::utf8();
       v6 = WTF::CString::data(&v14);
       std::span<unsigned char const,18446744073709551615ul>::span[abi:sn200100]<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>(v10, v21);
       v9 = 0;
       WTF::OptionSet<WTF::Base64EncodeOption>::OptionSet(&v9);
-      WTF::base64EncodeToString(&v11, v10[0], v10[1]);
+      WTF::base64EncodeToString(&v11, v10[0], v10[1], v9);
       WTF::String::utf8();
       v7 = WTF::CString::data(&v12);
       __os_log_helper_16_2_4_8_0_8_32_8_32_8_32(buf, v4, v5, v6, v7);
@@ -6526,11 +6835,11 @@ uint64_t WebKit::CtapAuthenticator::getRetries(void)::$_0::operator()(uint64_t *
   return result;
 }
 
-void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetKeyAgreementAfterGetRetries(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>(void *a1, uint64_t *a2)
+void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetKeyAgreementAfterGetRetries(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v3 = WTF::FastMalloc::malloc(0x18);
-  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetKeyAgreementAfterGetRetries(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>::CallableWrapper(v3, a2);
-  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v3);
+  v4 = WTF::FastMalloc::malloc(0x18, a3);
+  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetKeyAgreementAfterGetRetries(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>::CallableWrapper(v4, a2);
+  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v4);
 }
 
 void *WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetKeyAgreementAfterGetRetries(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>::CallableWrapper(void *a1, uint64_t *a2)
@@ -6608,13 +6917,13 @@ uint64_t WebKit::CtapAuthenticator::continueGetKeyAgreementAfterGetRetries(WTF::
       v6 = WTF::CString::data(&v17);
       v48 = &v21;
       v55 = &v21;
-      WebKit::FidoAuthenticator::transportForDebugging(&v14, v21);
+      WebKit::FidoAuthenticator::transportForDebugging();
       WTF::String::utf8();
       v7 = WTF::CString::data(&v15);
       std::span<unsigned char const,18446744073709551615ul>::span[abi:sn200100]<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>(v11, v22);
       v10 = 0;
       WTF::OptionSet<WTF::Base64EncodeOption>::OptionSet(&v10);
-      WTF::base64EncodeToString(&v12, v11[0], v11[1]);
+      WTF::base64EncodeToString(&v12, v11[0], v11[1], v10);
       WTF::String::utf8();
       v8 = WTF::CString::data(&v13);
       __os_log_helper_16_2_4_8_0_8_32_8_32_8_32(buf, v5, v6, v7, v8);
@@ -6694,17 +7003,17 @@ uint64_t *WTF::Function<void ()(WTF::String const&)>::Function<WebKit::CtapAuthe
   v4[1] = a2;
   v4[4] = v4;
   v4[3] = a2;
-  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueRequestPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,unsigned long long)::$_0,void,WTF::String const&>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>(v4, a2);
+  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueRequestPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,unsigned long long)::$_0,void,WTF::String const&>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>(v4, a2, a2);
   std::unique_ptr<WTF::Detail::CallableWrapperBase<void>>::unique_ptr[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>,void,void>(a1, v4);
   std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::AuthenticatorManager::requestPin(unsigned long long,WTF::CompletionHandler<void ()(WTF::String const&)> &&)::$_0,void,WTF::String const&>,std::default_delete<WebKit::AuthenticatorManager::requestPin(unsigned long long,WTF::CompletionHandler<void ()(WTF::String const&)> &&)::$_0>>::~unique_ptr[abi:sn200100](v4);
   return a1;
 }
 
-void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueRequestPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,unsigned long long)::$_0,void,WTF::String const&>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>(void *a1, uint64_t *a2)
+void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueRequestPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,unsigned long long)::$_0,void,WTF::String const&>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v3 = WTF::FastMalloc::malloc(0x18);
-  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueRequestPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,unsigned long long)::$_0,void,WTF::String const&>::CallableWrapper(v3, a2);
-  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v3);
+  v4 = WTF::FastMalloc::malloc(0x18, a3);
+  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueRequestPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,unsigned long long)::$_0,void,WTF::String const&>::CallableWrapper(v4, a2);
+  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v4);
 }
 
 void *WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueRequestPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,unsigned long long)::$_0,void,WTF::String const&>::CallableWrapper(void *a1, uint64_t *a2)
@@ -6753,8 +7062,8 @@ uint64_t WebKit::CtapAuthenticator::continueRequestPinAfterGetKeyAgreement(WTF::
   isMain = WTF::RunLoop::isMain(a1);
   if ((isMain ^ 1))
   {
-    isIntegralOrPointerType = WTF::isIntegralOrPointerType(isMain);
-    WTF::isIntegralOrPointerType(isIntegralOrPointerType);
+    WTF::isIntegralOrPointerType(isMain);
+    WTF::isIntegralOrPointerType(v4);
     v37 = 492;
     v36 = "/Library/Caches/com.apple.xbs/Sources/WebKit/Source/WebKit/UIProcess/WebAuthentication/fido/CtapAuthenticator.cpp";
     v35 = "auto WebKit::CtapAuthenticator::continueRequestPinAfterGetKeyAgreement(Vector<uint8_t> &&, uint64_t)::(anonymous class)::operator()(const String &) const";
@@ -6803,7 +7112,7 @@ uint64_t WebKit::CtapAuthenticator::continueRequestPinAfterGetKeyAgreement(WTF::
       v8 = WTF::CString::data(&v17);
       v53 = &v21;
       v60 = &v21;
-      WebKit::FidoAuthenticator::transportForDebugging(&v14, v21);
+      WebKit::FidoAuthenticator::transportForDebugging();
       WTF::String::utf8();
       v9 = WTF::CString::data(&v15);
       __os_log_helper_16_2_3_8_0_8_32_8_32(buf, v7, v8, v9);
@@ -6861,11 +7170,11 @@ uint64_t WebKit::CtapAuthenticator::continueRequestPinAfterGetKeyAgreement(WTF::
   return result;
 }
 
-void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetPinTokenAfterRequestPin(WTF::String const&,WebCore::CryptoKeyEC const&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapAuthenticator::continueGetPinTokenAfterRequestPin(WTF::String const&,WebCore::CryptoKeyEC const&)::$_0,0>(void *a1, uint64_t *a2)
+void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetPinTokenAfterRequestPin(WTF::String const&,WebCore::CryptoKeyEC const&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapAuthenticator::continueGetPinTokenAfterRequestPin(WTF::String const&,WebCore::CryptoKeyEC const&)::$_0,0>@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v3 = WTF::FastMalloc::malloc(0x40);
-  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetPinTokenAfterRequestPin(WTF::String const&,WebCore::CryptoKeyEC const&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(v3, a2);
-  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v3);
+  v4 = WTF::FastMalloc::malloc(0x40, a3);
+  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetPinTokenAfterRequestPin(WTF::String const&,WebCore::CryptoKeyEC const&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(v4, a2);
+  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v4);
 }
 
 void *WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueGetPinTokenAfterRequestPin(WTF::String const&,WebCore::CryptoKeyEC const&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(void *a1, uint64_t *a2)
@@ -6943,13 +7252,13 @@ uint64_t WebKit::CtapAuthenticator::continueGetPinTokenAfterRequestPin(WTF::Stri
       v6 = WTF::CString::data(&v17);
       v48 = &v21;
       v55 = &v21;
-      WebKit::FidoAuthenticator::transportForDebugging(&v14, v21);
+      WebKit::FidoAuthenticator::transportForDebugging();
       WTF::String::utf8();
       v7 = WTF::CString::data(&v15);
       std::span<unsigned char const,18446744073709551615ul>::span[abi:sn200100]<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>(v11, v22);
       v10 = 0;
       WTF::OptionSet<WTF::Base64EncodeOption>::OptionSet(&v10);
-      WTF::base64EncodeToString(&v12, v11[0], v11[1]);
+      WTF::base64EncodeToString(&v12, v11[0], v11[1], v10);
       WTF::String::utf8();
       v8 = WTF::CString::data(&v13);
       __os_log_helper_16_2_4_8_0_8_32_8_32_8_32(buf, v5, v6, v7, v8);
@@ -7048,14 +7357,14 @@ uint64_t std::__tree<fido::ProtocolVersion,std::less<fido::ProtocolVersion>,WTF:
   }
 }
 
-uint64_t std::__tree<fido::ProtocolVersion,std::less<fido::ProtocolVersion>,WTF::FastAllocator<fido::ProtocolVersion>>::__lower_bound<fido::ProtocolVersion>(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4)
+uint64_t std::__tree<fido::ProtocolVersion,std::less<fido::ProtocolVersion>,WTF::FastAllocator<fido::ProtocolVersion>>::__lower_bound<fido::ProtocolVersion>(uint64_t a1, _DWORD *a2, void *a3, void *a4)
 {
   while (a3)
   {
     std::__to_address[abi:sn200100]<char const>();
-    if (std::less<fido::ProtocolVersion>::operator()[abi:sn200100](v4, (a3 + 28), a2))
+    if (std::less<fido::ProtocolVersion>::operator()[abi:sn200100](v4, a3 + 7, a2))
     {
-      a3 = *(a3 + 8);
+      a3 = a3[1];
     }
 
     else
@@ -7105,11 +7414,11 @@ uint64_t WTF::Vector<WebCore::AuthenticatorTransport,0ul,WTF::CrashOnOverflow,16
   return v3 & 1;
 }
 
-void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueSetupPinAfterCommand(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::String const&,WTF::Ref<WebCore::CryptoKeyEC,WTF::RawPtrTraits<WebCore>,WTF::DefaultRefDerefTraits<WebCore>>)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>,WTF::Ref<WebCore::CryptoKeyEC,WTF::RawPtrTraits<WebCore>,WTF::DefaultRefDerefTraits<WebCore>>,0>(void *a1, uint64_t *a2)
+void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueSetupPinAfterCommand(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::String const&,WTF::Ref<WebCore::CryptoKeyEC,WTF::RawPtrTraits<WebCore>,WTF::DefaultRefDerefTraits<WebCore>>)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>,WTF::Ref<WebCore::CryptoKeyEC,WTF::RawPtrTraits<WebCore>,WTF::DefaultRefDerefTraits<WebCore>>,0>@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v3 = WTF::FastMalloc::malloc(0x40);
-  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueSetupPinAfterCommand(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::String const&,WTF::Ref<WebCore::CryptoKeyEC,WTF::RawPtrTraits<WebCore>,WTF::DefaultRefDerefTraits<WebCore>>)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>::CallableWrapper(v3, a2);
-  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v3);
+  v4 = WTF::FastMalloc::malloc(0x40, a3);
+  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueSetupPinAfterCommand(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::String const&,WTF::Ref<WebCore::CryptoKeyEC,WTF::RawPtrTraits<WebCore>,WTF::DefaultRefDerefTraits<WebCore>>)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>::CallableWrapper(v4, a2);
+  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v4);
 }
 
 void *WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueSetupPinAfterCommand(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::String const&,WTF::Ref<WebCore::CryptoKeyEC,WTF::RawPtrTraits<WebCore>,WTF::DefaultRefDerefTraits<WebCore>>)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>::CallableWrapper(void *a1, uint64_t *a2)
@@ -7155,11 +7464,11 @@ void WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::s
   *(a1 + 12) = v9;
 }
 
-void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueSetupPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::String const&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>,WTF::String const&,0>(void *a1, uint64_t a2)
+void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueSetupPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::String const&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>,WTF::String const&,0>@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
-  v3 = WTF::FastMalloc::malloc(0x20);
-  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueSetupPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::String const&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>::CallableWrapper(v3, a2);
-  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v3);
+  v4 = WTF::FastMalloc::malloc(0x20, a3);
+  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueSetupPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::String const&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>::CallableWrapper(v4, a2);
+  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v4);
 }
 
 void *WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::continueSetupPinAfterGetKeyAgreement(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::String const&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>::CallableWrapper(void *a1, uint64_t a2)
@@ -7259,17 +7568,17 @@ uint64_t *WTF::Function<void ()(WTF::String const&)>::Function<WebKit::CtapAuthe
   v4[1] = a2;
   v4[4] = v4;
   v4[3] = a2;
-  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::setupPin(void)::$_0,void,WTF::String const&>,WebKit::CtapAuthenticator::setupPin(void)::$_0,0>(v4, a2);
+  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::setupPin(void)::$_0,void,WTF::String const&>,WebKit::CtapAuthenticator::setupPin(void)::$_0,0>(v4, a2, a2);
   std::unique_ptr<WTF::Detail::CallableWrapperBase<void>>::unique_ptr[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>,void,void>(a1, v4);
   std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::AuthenticatorManager::requestPin(unsigned long long,WTF::CompletionHandler<void ()(WTF::String const&)> &&)::$_0,void,WTF::String const&>,std::default_delete<WebKit::AuthenticatorManager::requestPin(unsigned long long,WTF::CompletionHandler<void ()(WTF::String const&)> &&)::$_0>>::~unique_ptr[abi:sn200100](v4);
   return a1;
 }
 
-void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::setupPin(void)::$_0,void,WTF::String const&>,WebKit::CtapAuthenticator::setupPin(void)::$_0,0>(void *a1, uint64_t *a2)
+void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::setupPin(void)::$_0,void,WTF::String const&>,WebKit::CtapAuthenticator::setupPin(void)::$_0,0>@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v3 = WTF::FastMalloc::malloc(0x10);
-  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::setupPin(void)::$_0,void,WTF::String const&>::CallableWrapper(v3, a2);
-  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v3);
+  v4 = WTF::FastMalloc::malloc(0x10, a3);
+  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::setupPin(void)::$_0,void,WTF::String const&>::CallableWrapper(v4, a2);
+  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v4);
 }
 
 void *WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::setupPin(void)::$_0,void,WTF::String const&>::CallableWrapper(void *a1, uint64_t *a2)
@@ -7310,7 +7619,7 @@ uint64_t WebKit::CtapAuthenticator::setupPin(void)::$_0::operator()(uint64_t *a1
   v85 = v72;
   if (v72)
   {
-    WTF::RefCountedAndCanMakeWeakPtr<WebKit::AuthenticatorPresenterCoordinator>::ref(v85 + 8);
+    WTF::RefCountedAndCanMakeWeakPtr<WebKit::AuthenticatorPresenterCoordinator>::ref((v85 + 1));
   }
 
   v34 = v85;
@@ -7323,7 +7632,7 @@ uint64_t WebKit::CtapAuthenticator::setupPin(void)::$_0::operator()(uint64_t *a1
   {
     v81 = &v34;
     v86 = &v34;
-    v3 = fido::AuthenticatorGetInfoResponse::minPINLength((v34 + 840));
+    v3 = fido::AuthenticatorGetInfoResponse::minPINLength((v34 + 105));
     v32[0] = *v3;
     v32[1] = v3[1];
     v4 = WTF::String::length(v35);
@@ -7357,13 +7666,13 @@ uint64_t WebKit::CtapAuthenticator::setupPin(void)::$_0::operator()(uint64_t *a1
           v10 = WTF::CString::data(&v26);
           v75 = &v34;
           v92 = &v34;
-          WebKit::FidoAuthenticator::transportForDebugging(&v23, v34);
+          WebKit::FidoAuthenticator::transportForDebugging();
           WTF::String::utf8();
           v11 = WTF::CString::data(&v24);
           std::span<unsigned char const,18446744073709551615ul>::span[abi:sn200100]<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>(v20, v29);
           v19 = 0;
           WTF::OptionSet<WTF::Base64EncodeOption>::OptionSet(&v19);
-          WTF::base64EncodeToString(&v21, v20[0], v20[1]);
+          WTF::base64EncodeToString(&v21, v20[0], v20[1], v19);
           WTF::String::utf8();
           v12 = WTF::CString::data(&v22);
           __os_log_helper_16_2_4_8_0_8_32_8_32_8_32(buf, v9, v10, v11, v12);
@@ -7413,7 +7722,7 @@ uint64_t WebKit::CtapAuthenticator::setupPin(void)::$_0::operator()(uint64_t *a1
 
         v74 = &v34;
         v93 = &v34;
-        WebKit::FidoAuthenticator::protectedDriver(v34, &v18);
+        WebKit::FidoAuthenticator::protectedDriver(&v18, v34);
         v13 = WTF::RefPtr<API::WebAuthenticationPanel,WTF::RawPtrTraits<API::WebAuthenticationPanel>,WTF::DefaultRefDerefTraits<API::WebAuthenticationPanel>>::get(&v18);
         WTF::WeakPtr<API::WebAuthenticationPanel,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::WeakPtr(&v15, a1);
         WTF::String::String(&v16, v35);
@@ -7524,7 +7833,7 @@ uint64_t WTF::String::sizeInBytes(fido::AuthenticatorSupportedOptions **this)
   return v2 * v4;
 }
 
-uint64_t *WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::Function<WebKit::CtapAuthenticator::setupPin(void)::$_0::operator() const(WTF::String const&)::{lambda(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &)#1},void>(uint64_t *a1, uint64_t a2)
+uint64_t *WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::Function<WebKit::CtapAuthenticator::setupPin(void)::$_0::operator() const(WTF::String const&)::{lambda(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &)#1},void>(uint64_t *a1, uint64_t *a2)
 {
   WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::Function<WebKit::CtapAuthenticator::setupPin(void)::$_0::operator() const(WTF::String const&)::{lambda(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &)#1},void>(a1, a2);
   return a1;
@@ -7535,7 +7844,7 @@ uint64_t *WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverfl
   v4[1] = a2;
   v4[4] = v4;
   v4[3] = a2;
-  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::setupPin(void)::$_0::operator() const(WTF::String const&)::{lambda(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)#1},void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>(v4, a2);
+  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::setupPin(void)::$_0::operator() const(WTF::String const&)::{lambda(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)#1},void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>(v4, a2, a2);
   std::unique_ptr<WTF::Detail::CallableWrapperBase<void>>::unique_ptr[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>,void,void>(a1, v4);
   std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::makeCredential(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,std::default_delete<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>>::~unique_ptr[abi:sn200100](v4);
   return a1;
@@ -7574,11 +7883,11 @@ BOOL WTF::String::is8Bit(WTF::StringImpl **this)
   return v3;
 }
 
-void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::setupPin(void)::$_0::operator() const(WTF::String const&)::{lambda(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)#1},void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>(void *a1, uint64_t a2)
+void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::setupPin(void)::$_0::operator() const(WTF::String const&)::{lambda(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)#1},void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,0>@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
-  v3 = WTF::FastMalloc::malloc(0x18);
-  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::setupPin(void)::$_0::operator() const(WTF::String const&)::{lambda(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)#1},void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>::CallableWrapper(v3, a2);
-  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v3);
+  v4 = WTF::FastMalloc::malloc(0x18, a3);
+  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::setupPin(void)::$_0::operator() const(WTF::String const&)::{lambda(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)#1},void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>::CallableWrapper(v4, a2);
+  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v4);
 }
 
 void *WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::setupPin(void)::$_0::operator() const(WTF::String const&)::{lambda(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)#1},void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>::CallableWrapper(void *a1, uint64_t a2)
@@ -7619,7 +7928,7 @@ void *WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::setupPin(void)::$_
   return a1;
 }
 
-uint64_t WebKit::CtapAuthenticator::setupPin(void)::$_0::operator() const(WTF::String const&)::{lambda(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)#1}::operator()(uint64_t a1, uint64_t a2)
+uint64_t WebKit::CtapAuthenticator::setupPin(void)::$_0::operator() const(WTF::String const&)::{lambda(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)#1}::operator()(uint64_t *a1, uint64_t a2)
 {
   v62 = *MEMORY[0x1E69E9840];
   v23 = a1;
@@ -7656,13 +7965,13 @@ uint64_t WebKit::CtapAuthenticator::setupPin(void)::$_0::operator() const(WTF::S
       v6 = WTF::CString::data(&v17);
       v48 = &v21;
       v55 = &v21;
-      WebKit::FidoAuthenticator::transportForDebugging(&v14, v21);
+      WebKit::FidoAuthenticator::transportForDebugging();
       WTF::String::utf8();
       v7 = WTF::CString::data(&v15);
       std::span<unsigned char const,18446744073709551615ul>::span[abi:sn200100]<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>(v11, v22);
       v10 = 0;
       WTF::OptionSet<WTF::Base64EncodeOption>::OptionSet(&v10);
-      WTF::base64EncodeToString(&v12, v11[0], v11[1]);
+      WTF::base64EncodeToString(&v12, v11[0], v11[1], v10);
       WTF::String::utf8();
       v8 = WTF::CString::data(&v13);
       __os_log_helper_16_2_4_8_0_8_32_8_32_8_32(buf, v5, v6, v7, v8);
@@ -7712,7 +8021,7 @@ uint64_t WebKit::CtapAuthenticator::setupPin(void)::$_0::operator() const(WTF::S
 
     v47 = &v21;
     v56 = &v21;
-    WebKit::CtapAuthenticator::continueSetupPinAfterGetKeyAgreement(v21, v22, (a1 + 8));
+    WebKit::CtapAuthenticator::continueSetupPinAfterGetKeyAgreement(v21, v22, a1 + 1);
     v20 = 0;
   }
 
@@ -7731,11 +8040,11 @@ uint64_t WebKit::CtapAuthenticator::setupPin(void)::$_0::operator() const(WTF::S
   return result;
 }
 
-void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::performAuthenticatorSelectionForSetupPin(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapAuthenticator::performAuthenticatorSelectionForSetupPin(void)::$_0,0>(void *a1, uint64_t *a2)
+void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::performAuthenticatorSelectionForSetupPin(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapAuthenticator::performAuthenticatorSelectionForSetupPin(void)::$_0,0>@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v3 = WTF::FastMalloc::malloc(0x18);
-  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::performAuthenticatorSelectionForSetupPin(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(v3, a2);
-  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v3);
+  v4 = WTF::FastMalloc::malloc(0x18, a3);
+  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::performAuthenticatorSelectionForSetupPin(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(v4, a2);
+  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v4);
 }
 
 void *WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::performAuthenticatorSelectionForSetupPin(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(void *a1, uint64_t *a2)
@@ -7801,11 +8110,11 @@ uint64_t WebKit::CtapAuthenticator::performAuthenticatorSelectionForSetupPin(voi
   return result;
 }
 
-void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::performAuthenticatorSelectionForSetupPin(void)::$_1,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapAuthenticator::performAuthenticatorSelectionForSetupPin(void)::$_1,0>(void *a1, uint64_t *a2)
+void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::performAuthenticatorSelectionForSetupPin(void)::$_1,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapAuthenticator::performAuthenticatorSelectionForSetupPin(void)::$_1,0>@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v3 = WTF::FastMalloc::malloc(0x18);
-  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::performAuthenticatorSelectionForSetupPin(void)::$_1,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(v3, a2);
-  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v3);
+  v4 = WTF::FastMalloc::malloc(0x18, a3);
+  WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::performAuthenticatorSelectionForSetupPin(void)::$_1,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(v4, a2);
+  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v4);
 }
 
 void *WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::performAuthenticatorSelectionForSetupPin(void)::$_1,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(void *a1, uint64_t *a2)
@@ -7836,7 +8145,7 @@ void *WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::performAuthenticat
 
 void WebKit::CtapCcidDriver::transact(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (fido::isCtap2Protocol())
   {
     v6 = *(a2 + 12);
@@ -7846,7 +8155,7 @@ void WebKit::CtapCcidDriver::transact(uint64_t a1, uint64_t a2, uint64_t *a3)
       if (os_log_type_enabled(qword_1ED641530, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        *v21 = v6;
+        *v22 = v6;
         _os_log_impl(&dword_19D52D000, v7, OS_LOG_TYPE_DEFAULT, "CtapCcidDriver::transact Sending data larger than maxSize. msgSize=%ld", buf, 0xCu);
         LODWORD(v6) = *(a2 + 12);
       }
@@ -7857,49 +8166,49 @@ void WebKit::CtapCcidDriver::transact(uint64_t a1, uint64_t a2, uint64_t *a3)
     v9 = *a2;
     *a2 = 0;
     *(a2 + 8) = 0;
-    v23 = v8;
-    v24 = v6;
-    *&v21[4] = 0x10000;
-    v22 = v9;
+    v24 = v8;
+    v25 = v6;
+    *&v22[4] = 0x10000;
+    v23 = v9;
     v10 = *a3;
     *a3 = 0;
     ++*(a1 + 16);
     v11 = *(a1 + 40);
-    apdu::ApduCommand::getEncodedCommand(&v18, buf);
-    v12 = WTF::fastMalloc(0x20);
-    *v12 = &unk_1F10E79E8;
-    v12[1] = v10;
-    v12[2] = a1;
-    v12[3] = a1;
-    v17 = v12;
-    WebKit::CcidConnection::transact(v11, &v18, &v17);
-    if (v17)
-    {
-      (*(*v17 + 8))(v17);
-    }
-
-    v14 = v18;
+    apdu::ApduCommand::getEncodedCommand(&v19, buf);
+    v13 = WTF::fastMalloc(v12, 0x20);
+    *v13 = &unk_1F10E79E8;
+    v13[1] = v10;
+    v13[2] = a1;
+    v13[3] = a1;
+    v18 = v13;
+    WebKit::CcidConnection::transact(v11, &v19, &v18);
     if (v18)
     {
-      v18 = 0;
-      v19 = 0;
-      WTF::fastFree(v14, v13);
+      (*(*v18 + 8))(v18);
     }
 
-    v15 = v22;
-    if (v22)
+    v15 = v19;
+    if (v19)
     {
-      v22 = 0;
+      v19 = 0;
+      v20 = 0;
+      WTF::fastFree(v15, v14);
+    }
+
+    v16 = v23;
+    if (v23)
+    {
       v23 = 0;
-      WTF::fastFree(v15, v13);
+      v24 = 0;
+      WTF::fastFree(v16, v14);
     }
   }
 
   else
   {
-    v16 = *(a1 + 40);
+    v17 = *(a1 + 40);
 
-    WebKit::CcidConnection::transact(v16, a2, a3);
+    WebKit::CcidConnection::transact(v17, a2, a3);
   }
 }
 
@@ -7912,17 +8221,17 @@ uint64_t WebKit::CtapCcidDriver::respondAsync(WTF::RunLoop *a1, uint64_t *a2)
   v6 = a2[1];
   *a2 = 0;
   a2[1] = 0;
-  v7 = WTF::fastMalloc(0x20);
-  *v7 = &unk_1F10E7A10;
-  v7[1] = v4;
-  v7[2] = v5;
-  v7[3] = v6;
-  v9 = v7;
+  v8 = WTF::fastMalloc(v7, 0x20);
+  *v8 = &unk_1F10E7A10;
+  v8[1] = v4;
+  v8[2] = v5;
+  v8[3] = v6;
+  v10 = v8;
   WTF::RunLoop::dispatch();
-  result = v9;
-  if (v9)
+  result = v10;
+  if (v10)
   {
-    return (*(*v9 + 8))(v9);
+    return (*(*v10 + 8))(v10);
   }
 
   return result;
@@ -8006,7 +8315,7 @@ atomic_uchar *WTF::ThreadSafeWeakPtrControlBlock::strongDeref<WebKit::CcidConnec
   atomic_compare_exchange_strong_explicit(this, &v3, 1u, memory_order_acquire, memory_order_acquire);
   if (v3)
   {
-    this = MEMORY[0x19EB01E30](this);
+    this = MEMORY[0x19EB01E30](this, a2);
   }
 
   v4 = *(v2 + 1) - 1;
@@ -8118,7 +8427,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::CtapCcidDriver::transact(WTF::Vect
   {
     if (v3[4] == 1)
     {
-      (*(*v3 + 8))(v3);
+      (*(*v3 + 8))(v3, a2);
     }
 
     else
@@ -8131,46 +8440,46 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::CtapCcidDriver::transact(WTF::Vect
   *(this + 1) = 0;
   if (v4)
   {
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
   }
 
   return WTF::fastFree(this, a2);
 }
 
-WTF *WTF::Detail::CallableWrapper<WebKit::CtapCcidDriver::transact(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &)> &&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>::call(uint64_t a1)
+WTF *WTF::Detail::CallableWrapper<WebKit::CtapCcidDriver::transact(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &)> &&)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &>::call(uint64_t a1, uint64_t a2)
 {
   apdu::ApduResponse::createFromMessage();
-  if ((v10 & 1) == 0)
+  if ((v11 & 1) == 0)
   {
     goto LABEL_6;
   }
 
-  if (v9 != 36864)
+  if (v10 != 36864)
   {
-    if (v9 == 27904)
+    if (v10 == 27904)
     {
-      v4 = 1;
-      WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(&v5, &v4, 1);
-      WebKit::CtapCcidDriver::respondAsync((a1 + 8), &v5);
-      result = v5;
-      if (!v5)
+      v5 = 1;
+      WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(&v6, &v5, 1);
+      WebKit::CtapCcidDriver::respondAsync((a1 + 8), &v6);
+      result = v6;
+      if (!v6)
       {
         goto LABEL_9;
       }
 
-      v5 = 0;
-      LODWORD(v6) = 0;
+      v6 = 0;
+      LODWORD(v7) = 0;
 LABEL_7:
-      result = WTF::fastFree(result, v2);
+      result = WTF::fastFree(result, v3);
       goto LABEL_9;
     }
 
 LABEL_6:
-    v5 = 0;
     v6 = 0;
-    WebKit::CtapCcidDriver::respondAsync((a1 + 8), &v5);
-    result = v5;
-    if (!v5)
+    v7 = 0;
+    WebKit::CtapCcidDriver::respondAsync((a1 + 8), &v6);
+    result = v6;
+    if (!v6)
     {
       goto LABEL_9;
     }
@@ -8178,23 +8487,23 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  result = WebKit::CtapCcidDriver::respondAsync((a1 + 8), &v7);
+  result = WebKit::CtapCcidDriver::respondAsync((a1 + 8), &v8);
 LABEL_9:
-  if (v10 == 1)
+  if (v11 == 1)
   {
-    result = v7;
-    if (v7)
+    result = v8;
+    if (v8)
     {
-      v7 = 0;
       v8 = 0;
-      return WTF::fastFree(result, v2);
+      v9 = 0;
+      return WTF::fastFree(result, v3);
     }
   }
 
   return result;
 }
 
-uint64_t *WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(uint64_t *result, char *a2, WTF *this)
+uint64_t **WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(uint64_t **result, char *a2, WTF *this)
 {
   v3 = result;
   *result = 0;
@@ -8207,7 +8516,7 @@ uint64_t *WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMallo
   v4 = this;
   if (!(this >> 32))
   {
-    v6 = WTF::fastMalloc(this);
+    v6 = WTF::fastMalloc(0, this);
     *(v3 + 2) = v4;
     *v3 = v6;
     v7 = *(v3 + 3);
@@ -8243,7 +8552,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::CtapCcidDriver::respondAsync(WTF::
   *(a1 + 8) = 0;
   if (v4)
   {
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
   }
 
   return a1;
@@ -8264,7 +8573,7 @@ uint64_t WTF::Detail::CallableWrapper<WebKit::CtapCcidDriver::respondAsync(WTF::
   *(this + 1) = 0;
   if (v4)
   {
-    (*(*v4 + 8))(v4);
+    (*(*v4 + 8))(v4, a2);
   }
 
   return WTF::fastFree(this, a2);
@@ -8399,7 +8708,7 @@ uint64_t WebKit::CtapHidDriverWorker::transact(uint64_t a1, uint64_t a2, uint64_
   fido::FidoHidMessage::popNextPacket(v11, v6);
   WTF::WeakPtr<WebKit::CtapHidDriverWorker,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::WeakPtr<void>(&v9, a1);
   WTF::ThreadLikeAssertion::ThreadLikeAssertion(&v8);
-  WTF::CompletionHandler<void ()(WebKit::HidConnection::DataSent)>::CompletionHandler<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0,void>(&v10, &v9);
+  WTF::CompletionHandler<void ()(WebKit::HidConnection::DataSent)>::CompletionHandler<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0,void>(&v10, &v9, &v8);
   (*(*v5 + 40))(v5, v11, &v10);
   WTF::CompletionHandler<void ()(WebKit::HidConnection::DataSent)>::~CompletionHandler(&v10);
   WTF::ThreadLikeAssertion::~ThreadLikeAssertion(&v8);
@@ -8447,15 +8756,15 @@ WTF::ThreadSafeRefCountedBase **WTF::WeakPtr<WebKit::CtapHidDriverWorker,WTF::De
   return a1;
 }
 
-uint64_t *WTF::CompletionHandler<void ()(WebKit::HidConnection::DataSent)>::CompletionHandler<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0,void>(uint64_t *a1, uint64_t *a2)
+uint64_t *WTF::CompletionHandler<void ()(WebKit::HidConnection::DataSent)>::CompletionHandler<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0,void>(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
-  WTF::CompletionHandler<void ()(WebKit::HidConnection::DataSent)>::CompletionHandler<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0,void>(a1, a2);
+  WTF::CompletionHandler<void ()(WebKit::HidConnection::DataSent)>::CompletionHandler<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0,void>(a1, a2, a3);
   return a1;
 }
 
 {
   WTF::Function<void ()(WebKit::HidConnection::DataSent)>::Function<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0,void>(a1, a2);
-  WTF::ThreadLikeAssertion::ThreadLikeAssertion(a1);
+  WTF::ThreadLikeAssertion::ThreadLikeAssertion(a1, a3);
   return a1;
 }
 
@@ -8498,12 +8807,12 @@ uint64_t *WebKit::CtapHidDriverWorker::write(uint64_t *result, unsigned __int8 a
       std::optional<fido::pin::TokenRequest>::operator*[abi:sn200100]((result + 4));
       if (fido::FidoHidMessage::numPackets(v3))
       {
-        v5 = WTF::RefPtr<API::WebAuthenticationPanel,WTF::RawPtrTraits<API::WebAuthenticationPanel>,WTF::DefaultRefDerefTraits<API::WebAuthenticationPanel>>::get((v2 + 2));
-        std::optional<fido::pin::TokenRequest>::operator*[abi:sn200100]((v2 + 4));
+        v5 = WTF::RefPtr<API::WebAuthenticationPanel,WTF::RawPtrTraits<API::WebAuthenticationPanel>,WTF::DefaultRefDerefTraits<API::WebAuthenticationPanel>>::get(v2 + 16);
+        std::optional<fido::pin::TokenRequest>::operator*[abi:sn200100](v2 + 32);
         fido::FidoHidMessage::popNextPacket(v10, v6);
         WTF::WeakPtr<WebKit::CtapHidDriverWorker,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::WeakPtr<void>(&v8, v2);
         WTF::ThreadLikeAssertion::ThreadLikeAssertion(&v7);
-        WTF::CompletionHandler<void ()(WebKit::HidConnection::DataSent)>::CompletionHandler<WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_1,void>(&v9, &v8);
+        WTF::CompletionHandler<void ()(WebKit::HidConnection::DataSent)>::CompletionHandler<WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_1,void>(&v9, &v8, &v7);
         (*(*v5 + 40))(v5, v10, &v9);
         WTF::CompletionHandler<void ()(WebKit::HidConnection::DataSent)>::~CompletionHandler(&v9);
         WTF::ThreadLikeAssertion::~ThreadLikeAssertion(&v7);
@@ -8514,7 +8823,7 @@ uint64_t *WebKit::CtapHidDriverWorker::write(uint64_t *result, unsigned __int8 a
       else
       {
         *(v2 + 24) = 2;
-        v4 = WTF::RefPtr<API::WebAuthenticationPanel,WTF::RawPtrTraits<API::WebAuthenticationPanel>,WTF::DefaultRefDerefTraits<API::WebAuthenticationPanel>>::get((v2 + 2));
+        v4 = WTF::RefPtr<API::WebAuthenticationPanel,WTF::RawPtrTraits<API::WebAuthenticationPanel>,WTF::DefaultRefDerefTraits<API::WebAuthenticationPanel>>::get(v2 + 16);
         WTF::WeakPtr<WebKit::CtapHidDriverWorker,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::WeakPtr<void>(&v11, v2);
         WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::Function<WebKit::CtapHidDriverWorker::write(WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&)>::Function::HidConnection::DataSent)::$_0,void>(&v12, &v11);
         WebKit::HidConnection::registerDataReceivedCallback(v4, &v12);
@@ -8555,28 +8864,28 @@ uint64_t *WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverfl
   v4[1] = a2;
   v4[4] = v4;
   v4[3] = a2;
-  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_0,0>(v4, a2);
+  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_0,0>(v4, a2, a2);
   std::unique_ptr<WTF::Detail::CallableWrapperBase<void>>::unique_ptr[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>,void,void>(a1, v4);
   std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapAuthenticator::makeCredential(void)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,std::default_delete<WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>>::~unique_ptr[abi:sn200100](v4);
   return a1;
 }
 
-uint64_t *WTF::CompletionHandler<void ()(WebKit::HidConnection::DataSent)>::CompletionHandler<WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_1,void>(uint64_t *a1, uint64_t *a2)
+uint64_t *WTF::CompletionHandler<void ()(WebKit::HidConnection::DataSent)>::CompletionHandler<WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_1,void>(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
-  WTF::CompletionHandler<void ()(WebKit::HidConnection::DataSent)>::CompletionHandler<WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_1,void>(a1, a2);
+  WTF::CompletionHandler<void ()(WebKit::HidConnection::DataSent)>::CompletionHandler<WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_1,void>(a1, a2, a3);
   return a1;
 }
 
 {
   WTF::Function<void ()(WebKit::HidConnection::DataSent)>::Function<WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_1,void>(a1, a2);
-  WTF::ThreadLikeAssertion::ThreadLikeAssertion(a1);
+  WTF::ThreadLikeAssertion::ThreadLikeAssertion(a1, a3);
   return a1;
 }
 
 void WebKit::CtapHidDriverWorker::read(_BYTE *a1, uint64_t a2)
 {
-  v10 = a1;
-  v9 = a2;
+  v8[8] = a1;
+  v8[7] = a2;
   if (a1[24] == 2)
   {
     if (std::optional<fido::pin::TokenRequest>::operator BOOL[abi:sn200100]((a1 + 88)))
@@ -8653,11 +8962,11 @@ uint64_t WebKit::CtapHidDriverWorker::cancel(WebKit::CtapHidDriverWorker *a1, fi
   return WTF::Vector<WebCore::AuthenticatorTransport,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v6);
 }
 
-void *WebKit::CtapHidDriver::create@<X0>(WebKit::CtapDriver *a1@<X0>, void *a2@<X8>)
+void *WebKit::CtapHidDriver::create@<X0>(WebKit::CtapDriver *a1@<X0>, void *a3@<X8>)
 {
-  v3 = WebKit::CtapDriver::operator new(a1);
-  WebKit::CtapHidDriver::CtapHidDriver(v3, a1);
-  return WTF::adoptRef<WebKit::AuthenticatorManager,WTF::RawPtrTraits<WebKit::AuthenticatorManager>,WTF::DefaultRefDerefTraits<WebKit::AuthenticatorManager>>(a2, v3);
+  v4 = WebKit::CtapDriver::operator new(a1);
+  WebKit::CtapHidDriver::CtapHidDriver(v4, a1);
+  return WTF::adoptRef<WebKit::AuthenticatorManager,WTF::RawPtrTraits<WebKit::AuthenticatorManager>,WTF::DefaultRefDerefTraits<WebKit::AuthenticatorManager>>(a3, v4);
 }
 
 void *WebKit::CtapHidDriver::CtapHidDriver(void *a1, uint64_t *a2)
@@ -8680,7 +8989,7 @@ void *WebKit::CtapHidDriver::CtapHidDriver(void *a1, uint64_t *a2)
 
 uint64_t WebKit::CtapDriver::CtapDriver(uint64_t a1)
 {
-  WTF::RefCountedAndCanMakeWeakPtr<WebKit::CtapDriver>::RefCountedAndCanMakeWeakPtr(a1 + 8);
+  WTF::RefCountedAndCanMakeWeakPtr<WebKit::CtapDriver>::RefCountedAndCanMakeWeakPtr((a1 + 8));
   *a1 = &unk_1F10E7A68;
   *(a1 + 20) = 0;
   *(a1 + 24) = 0;
@@ -8770,8 +9079,8 @@ void *WTF::memcpySpan<unsigned char,18446744073709551615ul,unsigned char const,1
   v5 = std::span<char const,18446744073709551615ul>::size_bytes[abi:sn200100](v11);
   if (v4 < v5)
   {
-    isIntegralOrPointerType = WTF::isIntegralOrPointerType(v5);
-    WTF::isIntegralOrPointerType(isIntegralOrPointerType);
+    WTF::isIntegralOrPointerType(v5);
+    WTF::isIntegralOrPointerType(v6);
     v16 = 1067;
     v15 = "/AppleInternal/Library/BuildRoots/4~CAtBugAdX2ypK3woS13W0YBGfMX4uuy1xhucdh4/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/local/include/wtf/StdLibExtras.h";
     v14 = "void WTF::memcpySpan(std::span<T, TExtent>, std::span<U, UExtent>) [T = unsigned char, TExtent = 18446744073709551615UL, U = const unsigned char, UExtent = 18446744073709551615UL]";
@@ -8881,7 +9190,7 @@ uint64_t WebKit::CtapHidDriver::continueAfterChannelAllocated(uint64_t result, u
   return result;
 }
 
-uint64_t *WebKit::CtapHidDriver::returnResponse(uint64_t *a1, uint64_t a2)
+uint64_t *WebKit::CtapHidDriver::returnResponse(WebKit::CtapHidDriver *a1, uint64_t a2)
 {
   v4[2] = a1;
   v4[1] = a2;
@@ -8923,7 +9232,7 @@ uint64_t *WTF::Function<void ()(void)>::Function<WebKit::CtapHidDriver::continue
   v4[1] = a2;
   v4[4] = v4;
   v4[3] = a2;
-  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapHidDriver::continueAfterChannelAllocated(std::optional<fido::FidoHidMessage> &&)::$_0,void>,std::optional<fido::FidoHidMessage> &&,0>(v4, a2);
+  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapHidDriver::continueAfterChannelAllocated(std::optional<fido::FidoHidMessage> &&)::$_0,void>,std::optional<fido::FidoHidMessage> &&,0>(v4, a2, a2);
   std::unique_ptr<WTF::Detail::CallableWrapperBase<void>>::unique_ptr[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>,void,void>(a1, v4);
   std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::~unique_ptr[abi:sn200100](v4);
   return a1;
@@ -8959,7 +9268,7 @@ uint64_t *WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)>::Functi
   return a1;
 }
 
-uint64_t WebKit::CtapHidDriver::continueAfterResponseReceived(uint64_t result, uint64_t a2)
+WebKit::CtapHidDriver *WebKit::CtapHidDriver::continueAfterResponseReceived(WebKit::CtapHidDriver *result, uint64_t a2)
 {
   v6 = result;
   v5 = a2;
@@ -9285,7 +9594,7 @@ void WTF::Deque<std::unique_ptr<fido::FidoHidPacket>,0ul>::swap(uint64_t *a1, ui
   WTF::RefCountedBase::applyRefDerefThreadingCheck(a1);
   std::swap[abi:sn200100]<JSC::ArrayBufferView *>(a1, a2);
   std::swap[abi:sn200100]<JSC::ArrayBufferView *>(a1 + 1, a2 + 1);
-  WTF::VectorBuffer<std::unique_ptr<fido::FidoHidPacket>,0ul,WTF::FastMalloc>::swap((a1 + 2), (a2 + 2));
+  WTF::VectorBuffer<std::unique_ptr<fido::FidoHidPacket>,0ul,WTF::FastMalloc>::swap(a1 + 2, a2 + 2);
   WTF::RefCountedBase::applyRefDerefThreadingCheck(a1);
   WTF::RefCountedBase::applyRefDerefThreadingCheck(a2);
 }
@@ -9484,10 +9793,10 @@ uint64_t std::__optional_storage_base<fido::FidoHidMessage,false>::__construct_f
   return result;
 }
 
-uint64_t WTF::RefCountedAndCanMakeWeakPtr<WebKit::CtapDriver>::RefCountedAndCanMakeWeakPtr(uint64_t a1)
+void *WTF::RefCountedAndCanMakeWeakPtr<WebKit::CtapDriver>::RefCountedAndCanMakeWeakPtr(void *a1)
 {
   WTF::CanMakeWeakPtrBase<WTF::WeakPtrFactory<WebKit::AuthenticatorTransportServiceObserver,WTF::DefaultWeakPtrImpl>,(WTF::WeakPtrFactoryInitialization)0>::CanMakeWeakPtrBase(a1);
-  WTF::RefCounted<WebKit::AuthenticatorManager>::RefCounted((a1 + 8));
+  WTF::RefCounted<WebKit::AuthenticatorManager>::RefCounted((a1 + 1));
   return a1;
 }
 
@@ -9601,319 +9910,5 @@ uint64_t *WTF::Function<void ()(WebKit::HidConnection::DataSent)>::Function<WebK
   std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0,void,WebKit::HidConnection::DataSent>,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)>,0>(v4, a2);
   std::unique_ptr<WTF::Detail::CallableWrapperBase<void>>::unique_ptr[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>,void,void>(a1, v4);
   std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0,void,WebKit::HidConnection::DataSent>,std::default_delete<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0>>::~unique_ptr[abi:sn200100](v4);
-  return a1;
-}
-
-uint64_t *std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0,void,WebKit::HidConnection::DataSent>,std::default_delete<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0>>::~unique_ptr[abi:sn200100](uint64_t *a1)
-{
-  std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0,void,WebKit::HidConnection::DataSent>,std::default_delete<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0>>::~unique_ptr[abi:sn200100](a1);
-  return a1;
-}
-
-{
-  std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0,void,WebKit::HidConnection::DataSent>,std::default_delete<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0>>::reset[abi:sn200100](a1);
-  return a1;
-}
-
-void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0,void,WebKit::HidConnection::DataSent>,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)>,0>(void *a1, uint64_t *a2)
-{
-  v3 = WTF::Detail::CallableWrapperBase<void,WebCore::AuthenticatorAssertionResponse *>::operator new();
-  WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0,void,WebKit::HidConnection::DataSent>::CallableWrapper(v3, a2);
-  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v3);
-}
-
-void *WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0,void,WebKit::HidConnection::DataSent>::CallableWrapper(void *a1, uint64_t *a2)
-{
-  WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0,void,WebKit::HidConnection::DataSent>::CallableWrapper(a1, a2);
-  return a1;
-}
-
-{
-  WTF::Detail::CallableWrapperBase<void,WebKit::HidConnection::DataSent>::CallableWrapperBase(a1);
-  *a1 = &unk_1F10E7A98;
-  WebKit::CtapAuthenticator::makeCredential(void)::$_0::$_0(a1 + 1, a2);
-  return a1;
-}
-
-void *WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0,void,WebKit::HidConnection::DataSent>::~CallableWrapper(void *a1)
-{
-  WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0,void,WebKit::HidConnection::DataSent>::~CallableWrapper(a1);
-  return a1;
-}
-
-{
-  *a1 = &unk_1F10E7A98;
-  WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0::~$_0(a1 + 1);
-  std::__to_address[abi:sn200100]<char const>();
-  return a1;
-}
-
-void WTF::Detail::CallableWrapperBase<void,WebKit::HidConnection::DataSent>::~CallableWrapperBase()
-{
-  __break(1u);
-}
-
-{
-  __break(1u);
-}
-
-uint64_t *WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0::operator()(uint64_t *a1, char a2)
-{
-  result = WTF::WeakPtr<API::WebAuthenticationPanel,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::operator!(a1);
-  if ((result & 1) == 0)
-  {
-    v4 = WTF::WeakPtr<WebKit::CtapHidDriverWorker,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::operator->(a1);
-    return WebKit::CtapHidDriverWorker::write(v4, a2 & 1);
-  }
-
-  return result;
-}
-
-uint64_t WTF::WeakPtr<WebKit::CtapHidDriverWorker,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::operator->(uint64_t *a1)
-{
-  result = WTF::WeakPtr<WebKit::AuthenticatorManager,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::get(a1);
-  if (!result)
-  {
-    isIntegralOrPointerType = WTF::isIntegralOrPointerType(0);
-    WTF::isIntegralOrPointerType(isIntegralOrPointerType);
-    __break(0xC471u);
-    JUMPOUT(0x19D6B2EF4);
-  }
-
-  return result;
-}
-
-uint64_t *std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0,void,WebKit::HidConnection::DataSent>,std::default_delete<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0>>::reset[abi:sn200100](uint64_t *result)
-{
-  v1 = *result;
-  *result = 0;
-  if (v1)
-  {
-    return std::default_delete<WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0,void,WebKit::HidConnection::DataSent>>::operator()[abi:sn200100](result, v1);
-  }
-
-  return result;
-}
-
-uint64_t std::default_delete<WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0,void,WebKit::HidConnection::DataSent>>::operator()[abi:sn200100](uint64_t a1, uint64_t a2)
-{
-  result = a2;
-  if (a2)
-  {
-    return (*(*a2 + 8))(a2, a2);
-  }
-
-  return result;
-}
-
-uint64_t *WTF::Function<void ()(WebKit::HidConnection::DataSent)>::~Function(uint64_t *a1)
-{
-  WTF::Function<void ()(WebKit::HidConnection::DataSent)>::~Function(a1);
-  return a1;
-}
-
-{
-  std::unique_ptr<WTF::Detail::CallableWrapperBase<void,WebKit::HidConnection::DataSent>>::~unique_ptr[abi:sn200100](a1);
-  return a1;
-}
-
-uint64_t *std::unique_ptr<WTF::Detail::CallableWrapperBase<void,WebKit::HidConnection::DataSent>>::~unique_ptr[abi:sn200100](uint64_t *a1)
-{
-  std::unique_ptr<WTF::Detail::CallableWrapperBase<void,WebKit::HidConnection::DataSent>>::~unique_ptr[abi:sn200100](a1);
-  return a1;
-}
-
-{
-  std::unique_ptr<WTF::Detail::CallableWrapperBase<void,WebKit::HidConnection::DataSent>>::reset[abi:sn200100](a1, 0);
-  return a1;
-}
-
-uint64_t *std::unique_ptr<WTF::Detail::CallableWrapperBase<void,WebKit::HidConnection::DataSent>>::reset[abi:sn200100](uint64_t *result, uint64_t a2)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    return std::default_delete<WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0,void,WebKit::HidConnection::DataSent>>::operator()[abi:sn200100](result, v2);
-  }
-
-  return result;
-}
-
-void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>,WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_0,0>(void *a1, uint64_t *a2)
-{
-  v3 = WTF::FastMalloc::malloc(0x10);
-  WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(v3, a2);
-  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v3);
-}
-
-void *WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(void *a1, uint64_t *a2)
-{
-  WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapper(a1, a2);
-  return a1;
-}
-
-{
-  WTF::Detail::CallableWrapperBase<void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::CallableWrapperBase(a1);
-  *a1 = &unk_1F10E7AE8;
-  WebKit::CtapAuthenticator::makeCredential(void)::$_0::$_0(a1 + 1, a2);
-  return a1;
-}
-
-void *WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::~CallableWrapper(void *a1)
-{
-  WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_0,void,WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&>::~CallableWrapper(a1);
-  return a1;
-}
-
-{
-  *a1 = &unk_1F10E7AE8;
-  WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0::~$_0(a1 + 1);
-  std::__to_address[abi:sn200100]<char const>();
-  return a1;
-}
-
-void WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_0::operator()(uint64_t *a1, uint64_t a2)
-{
-  if (!WTF::WeakPtr<API::WebAuthenticationPanel,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::operator!(a1))
-  {
-    v3 = WTF::WeakPtr<WebKit::CtapHidDriverWorker,WTF::DefaultWeakPtrImpl,WTF::RawPtrTraits<WTF::DefaultWeakPtrImpl>>::operator->(a1);
-    WebKit::CtapHidDriverWorker::read(v3, a2);
-  }
-}
-
-uint64_t *WTF::Function<void ()(WebKit::HidConnection::DataSent)>::Function<WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_1,void>(uint64_t *a1, uint64_t *a2)
-{
-  WTF::Function<void ()(WebKit::HidConnection::DataSent)>::Function<WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_1,void>(a1, a2);
-  return a1;
-}
-
-{
-  v4[2] = a1;
-  v4[1] = a2;
-  v4[4] = v4;
-  v4[3] = a2;
-  std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_1,void,WebKit::HidConnection::DataSent>,WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_1,0>(v4, a2);
-  std::unique_ptr<WTF::Detail::CallableWrapperBase<void>>::unique_ptr[abi:sn200100]<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>,void,void>(a1, v4);
-  std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0,void,WebKit::HidConnection::DataSent>,std::default_delete<WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0>>::~unique_ptr[abi:sn200100](v4);
-  return a1;
-}
-
-void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_1,void,WebKit::HidConnection::DataSent>,WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_1,0>(void *a1, uint64_t *a2)
-{
-  v3 = WTF::Detail::CallableWrapperBase<void,WebCore::AuthenticatorAssertionResponse *>::operator new();
-  WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_1,void,WebKit::HidConnection::DataSent>::CallableWrapper(v3, a2);
-  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v3);
-}
-
-void *WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_1,void,WebKit::HidConnection::DataSent>::CallableWrapper(void *a1, uint64_t *a2)
-{
-  WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_1,void,WebKit::HidConnection::DataSent>::CallableWrapper(a1, a2);
-  return a1;
-}
-
-{
-  WTF::Detail::CallableWrapperBase<void,WebKit::HidConnection::DataSent>::CallableWrapperBase(a1);
-  *a1 = &unk_1F10E7B10;
-  WebKit::CtapAuthenticator::makeCredential(void)::$_0::$_0(a1 + 1, a2);
-  return a1;
-}
-
-void *WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_1,void,WebKit::HidConnection::DataSent>::~CallableWrapper(void *a1)
-{
-  WTF::Detail::CallableWrapper<WebKit::CtapHidDriverWorker::write(WebKit::HidConnection::DataSent)::$_1,void,WebKit::HidConnection::DataSent>::~CallableWrapper(a1);
-  return a1;
-}
-
-{
-  *a1 = &unk_1F10E7B10;
-  WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0::~$_0(a1 + 1);
-  std::__to_address[abi:sn200100]<char const>();
-  return a1;
-}
-
-void *WTF::makeUniqueRefWithoutFastMallocCheck<WebKit::CtapHidDriverWorker,WebKit::CtapHidDriver &,WTF::Ref<WebKit::HidConnection,WTF::RawPtrTraits<WebKit::HidConnection>,WTF::DefaultRefDerefTraits<WebKit::HidConnection>>>(void *a1, void *a2, uint64_t *a3)
-{
-  v4 = WebKit::CtapHidDriverWorker::operator new(0x98, a2);
-  WebKit::CtapHidDriverWorker::CtapHidDriverWorker(v4, a2, a3);
-  return WTF::UniqueRef<WebKit::CtapHidDriverWorker>::UniqueRef(a1, v4);
-}
-
-uint64_t WebKit::CtapHidDriverWorker::operator new(WebKit::CtapHidDriverWorker *this, void *a2)
-{
-  if (WebKit::CtapHidDriverWorker::s_heapRef)
-  {
-    return bmalloc::api::tzoneAllocateNonCompact(WebKit::CtapHidDriverWorker::s_heapRef, a2);
-  }
-
-  return WebKit::CtapHidDriverWorker::operatorNewSlow(0x98);
-}
-
-void *WTF::UniqueRef<WebKit::CtapHidDriverWorker>::UniqueRef(void *a1, uint64_t a2)
-{
-  WTF::UniqueRef<WebKit::CtapHidDriverWorker>::UniqueRef(a1, a2);
-  return a1;
-}
-
-{
-  std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, a2);
-  return a1;
-}
-
-uint64_t WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(uint64_t a1, WTF::FastMalloc *a2)
-{
-  WTF::VectorBuffer<unsigned char,0ul,WTF::FastMalloc>::VectorBuffer(a1, a2, a2);
-  WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::asanSetInitialBufferSizeTo();
-  if (WTF::Vector<WTF::Ref<WebKit::AuthenticatorTransportService,WTF::RawPtrTraits<WebKit::AuthenticatorTransportService>,WTF::DefaultRefDerefTraits<WebKit::AuthenticatorTransportService>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::begin(a1))
-  {
-    WTF::Vector<WTF::Ref<WebKit::AuthenticatorTransportService,WTF::RawPtrTraits<WebKit::AuthenticatorTransportService>,WTF::DefaultRefDerefTraits<WebKit::AuthenticatorTransportService>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::begin(a1);
-    WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::end(a1);
-    WTF::VectorTypeOperations<unsigned char>::destruct();
-  }
-
-  return a1;
-}
-
-uint64_t *std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapHidDriver::transact(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &)> &&)::$_0,void,std::optional<fido::FidoHidMessage> &&>>::~unique_ptr[abi:sn200100](uint64_t *a1)
-{
-  std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapHidDriver::transact(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &)> &&)::$_0,void,std::optional<fido::FidoHidMessage> &&>>::~unique_ptr[abi:sn200100](a1);
-  return a1;
-}
-
-{
-  std::unique_ptr<WTF::Detail::CallableWrapper<WebKit::CtapHidDriver::transact(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &)> &&)::$_0,void,std::optional<fido::FidoHidMessage> &&>>::reset[abi:sn200100](a1);
-  return a1;
-}
-
-void *std::make_unique[abi:sn200100]<WTF::Detail::CallableWrapper<WebKit::CtapHidDriver::transact(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &)> &&)::$_0,void,std::optional<fido::FidoHidMessage> &&>,WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &)> &,0>(void *a1, uint64_t *a2)
-{
-  v3 = WTF::Detail::CallableWrapperBase<void,WebCore::AuthenticatorAssertionResponse *>::operator new();
-  WTF::Detail::CallableWrapper<WebKit::CtapHidDriver::transact(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &)> &&)::$_0,void,std::optional<fido::FidoHidMessage> &&>::CallableWrapper(v3, a2);
-  return std::unique_ptr<WTF::Detail::CallableWrapper<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1},void>,std::default_delete<WTF::RunLoop::Timer::Timer<WebKit::AuthenticatorManager>(WTF::Ref<WTF::RunLoop,WTF::RawPtrTraits<WTF::RunLoop>,WTF::DefaultRefDerefTraits<WTF::RunLoop>> &&,WTF::ASCIILiteral,WebKit::AuthenticatorManager *,void (WTF::ASCIILiteral::*)(void))::{lambda(void)#1}>>::unique_ptr[abi:sn200100]<true,void>(a1, v3);
-}
-
-void *WTF::Detail::CallableWrapper<WebKit::CtapHidDriver::transact(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &)> &&)::$_0,void,std::optional<fido::FidoHidMessage> &&>::CallableWrapper(void *a1, uint64_t *a2)
-{
-  WTF::Detail::CallableWrapper<WebKit::CtapHidDriver::transact(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &)> &&)::$_0,void,std::optional<fido::FidoHidMessage> &&>::CallableWrapper(a1, a2);
-  return a1;
-}
-
-{
-  WTF::Detail::CallableWrapperBase<void,std::optional<fido::FidoHidMessage> &&>::CallableWrapperBase(a1);
-  *a1 = &unk_1F10E7B38;
-  WebKit::CtapAuthenticator::makeCredential(void)::$_0::$_0(a1 + 1, a2);
-  return a1;
-}
-
-void *WTF::Detail::CallableWrapper<WebKit::CtapHidDriver::transact(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &)> &&)::$_0,void,std::optional<fido::FidoHidMessage> &&>::~CallableWrapper(void *a1)
-{
-  WTF::Detail::CallableWrapper<WebKit::CtapHidDriver::transact(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &&,WTF::Function<void ()(WTF::Vector<unsigned char,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc> &)> &&)::$_0,void,std::optional<fido::FidoHidMessage> &&>::~CallableWrapper(a1);
-  return a1;
-}
-
-{
-  *a1 = &unk_1F10E7B38;
-  WebKit::CtapHidDriverWorker::transact(fido::FidoHidMessage &&,WTF::Function<void ()(std::optional<fido::FidoHidMessage> &&)> &&)::$_0::~$_0(a1 + 1);
-  std::__to_address[abi:sn200100]<char const>();
   return a1;
 }

@@ -11,7 +11,6 @@
 - (void)reset
 {
   self->_deltaType = 0;
-  contactIdentifier = self->_contactIdentifier;
   self->_contactIdentifier = 0;
   MEMORY[0x2821F96F8]();
 }
@@ -19,9 +18,7 @@
 - (void)visitDeleteContactEvent:(id)event
 {
   self->_deltaType = 3;
-  contactIdentifier = [event contactIdentifier];
-  contactIdentifier = self->_contactIdentifier;
-  self->_contactIdentifier = contactIdentifier;
+  self->_contactIdentifier = [event contactIdentifier];
 
   MEMORY[0x2821F96F8]();
 }

@@ -11,7 +11,7 @@
   if (bundle)
   {
     v3 = MEMORY[0x277CF0B98];
-    [self auditToken];
+    objc_msgSend_auditToken(self);
     v4 = [v3 tokenFromAuditToken:&v8];
     v5 = [v4 hasEntitlement:@"com.apple.QuartzCore.secure-mode"];
     v6 = v5 & [self sb_showsViewsWhileLockedForBundle:bundle];

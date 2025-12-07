@@ -194,7 +194,7 @@
 + (id)itemIdentifierForDefaultCollectionID:(id)d
 {
   dCopy = d;
-  _s5Books20RootBarItemsProviderC14itemIdentifier22forDefaultCollectionIDSSSgSo09BCDefaultjK0a_tFZ_0();
+  _s5Books20RootBarItemsProviderC14itemIdentifier22forDefaultCollectionIDSSSgSo09BCDefaultjK0a_tFZ_0(dCopy);
   v5 = v4;
 
   if (v5)
@@ -252,7 +252,7 @@
   v3 = sub_1007A2254();
   v5 = v4;
   v6 = sub_1007A2214();
-  _s5Books20RootBarItemsProviderC14itemIdentifier22forDefaultCollectionIDSSSgSo09BCDefaultjK0a_tFZ_0();
+  _s5Books20RootBarItemsProviderC14itemIdentifier22forDefaultCollectionIDSSSgSo09BCDefaultjK0a_tFZ_0(v6);
   v8 = v7;
 
   if (!v8)

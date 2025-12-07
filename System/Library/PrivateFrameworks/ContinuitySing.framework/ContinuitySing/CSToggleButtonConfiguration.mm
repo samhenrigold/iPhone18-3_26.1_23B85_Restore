@@ -75,17 +75,18 @@
 - (void)setImage:(id)image forState:(unint64_t)state
 {
   imageCopy = image;
-  if ([(CSToggleButtonConfiguration *)self lightCount]>= state)
+  lightCount = [(CSToggleButtonConfiguration *)self lightCount];
+  if (lightCount >= state)
   {
     [(NSMutableArray *)self->_iconImages setObject:imageCopy atIndexedSubscript:state];
   }
 
   else
   {
-    v7 = ContinuitySingLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = ContinuitySingLog(lightCount);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      [(CSToggleButtonConfiguration *)self setImage:state forState:v7];
+      [(CSToggleButtonConfiguration *)self setImage:state forState:v8];
     }
   }
 }

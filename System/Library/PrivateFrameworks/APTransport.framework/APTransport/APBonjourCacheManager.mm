@@ -2,6 +2,8 @@
 - (APBonjourCacheManager)init;
 - (BOOL)_writeCachedItems:(id)items;
 - (BOOL)deviceLost:(id)lost;
+- (id)_getCacheDirectoryURLCreateIfNecessary:(BOOL)necessary error:(id *)error;
+- (id)_getCacheFileURLCreateIfNecessary:(BOOL)necessary error:(id *)error;
 - (id)_readCachedItems;
 - (int)_migrateCacheDirectoryIfNecessary;
 - (void)_activateWithCompletion:(id)completion;
@@ -50,32 +52,31 @@
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __49__APBonjourCacheManager_forceReportCachedDevices__block_invoke(uint64_t a1)
+void *__49__APBonjourCacheManager_forceReportCachedDevices__block_invoke(uint64_t a1)
 {
   result = *(a1 + 32);
-  v3 = **(result + 104);
-  if (v3 <= 30)
+  v3 = result[13];
+  if (*v3 <= 30)
   {
-    if (v3 != -1)
+    if (*v3 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(v3, "[APBonjourCacheManager forceReportCachedDevices]_block_invoke", 30, "ForceReporting cached devices\n");
       result = *(a1 + 32);
       goto LABEL_5;
     }
 
-    v4 = *(result + 104);
-    v5 = _LogCategory_Initialize();
+    v4 = _LogCategory_Initialize();
     result = *(a1 + 32);
-    if (v5)
+    if (v4)
     {
-      v6 = *(result + 104);
+      v3 = result[13];
       goto LABEL_3;
     }
   }
 
 LABEL_5:
-  if (*(result + 96))
+  if (result[12])
   {
 
     return [result _reportCachedItemsFound:5];
@@ -86,28 +87,28 @@ LABEL_5:
 
 - (APBonjourCacheManager)init
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v15 = 0u;
-  v16 = 0u;
-  *label = 0u;
+  v16 = *MEMORY[0x277D85DE8];
   v14 = 0u;
-  v12.receiver = self;
-  v12.super_class = APBonjourCacheManager;
-  v2 = [(APBonjourCacheManager *)&v12 init];
+  v15 = 0u;
+  *label = 0u;
+  v13 = 0u;
+  v11.receiver = self;
+  v11.super_class = APBonjourCacheManager;
+  v2 = [(APBonjourCacheManager *)&v11 init];
   v3 = v2;
   if (v2)
   {
     objc_storeStrong(&v2->_dispatchQueue, MEMORY[0x277D85CD0]);
     v3->_pairedPeersChangedToken = -1;
     v3->_ucat = &gLogCategory_APBonjourCache;
-    SNPrintF();
+    SNPrintF(label, 64, "APBonjourCache.corewifi.%{ptr}", v3);
     v4 = dispatch_queue_create(label, 0);
     coreWiFiQueue = v3->_coreWiFiQueue;
     v3->_coreWiFiQueue = v4;
 
     if (v3->_coreWiFiQueue)
     {
-      v6 = [objc_alloc(MEMORY[0x277D02B18]) initWithServiceType:{2, v3}];
+      v6 = [objc_alloc(MEMORY[0x277D02B18]) initWithServiceType:2];
       coreWiFiInterface = v3->_coreWiFiInterface;
       v3->_coreWiFiInterface = v6;
 
@@ -117,23 +118,21 @@ LABEL_5:
         [(CWFInterface *)v8 activate];
         v3->_auditCaches = APSSettingsGetInt64() != 0;
         [(APBonjourCacheManager *)v3 _migrateCacheDirectoryIfNecessary];
-        goto LABEL_5;
+        return v3;
       }
 
-      v11 = 117;
+      v10 = 117;
     }
 
     else
     {
-      v11 = 114;
+      v10 = 114;
     }
 
-    [(APBonjourCacheManager *)v11 init];
-    v3 = 0;
+    [(APBonjourCacheManager *)v10 init];
+    return 0;
   }
 
-LABEL_5:
-  v9 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -155,9 +154,9 @@ LABEL_5:
 {
   objc_storeStrong(&self->_label, label);
   labelCopy = label;
-  v4 = labelCopy;
-  [labelCopy UTF8String];
-  LogCategoryReplaceF();
+  v5 = qword_281309A28;
+  v6 = labelCopy;
+  LogCategoryReplaceF(&self->_ucat, "%s-%s", v5, [labelCopy UTF8String]);
 }
 
 - (void)activateWithCompletion:(id)completion
@@ -235,31 +234,30 @@ LABEL_5:
   }
 }
 
-uint64_t __49__APBonjourCacheManager__activateWithCompletion___block_invoke_3(uint64_t a1)
+_DWORD *__49__APBonjourCacheManager__activateWithCompletion___block_invoke_3(uint64_t a1)
 {
   result = *(a1 + 32);
-  if (*(result + 40) == -1)
+  if (result[10] == -1)
   {
     return result;
   }
 
-  v3 = **(result + 104);
-  if (v3 <= 30)
+  v3 = *(result + 13);
+  if (*v3 <= 30)
   {
-    if (v3 == -1)
+    if (*v3 == -1)
     {
-      v4 = *(result + 104);
-      v5 = _LogCategory_Initialize();
+      v4 = _LogCategory_Initialize();
       result = *(a1 + 32);
-      if (!v5)
+      if (!v4)
       {
         goto LABEL_7;
       }
 
-      v6 = *(result + 104);
+      v3 = *(result + 13);
     }
 
-    LogPrintF();
+    LogPrintF(v3, "[APBonjourCacheManager _activateWithCompletion:]_block_invoke_3", 30, "Paired peers changed\n");
     result = *(a1 + 32);
   }
 
@@ -371,31 +369,46 @@ uint64_t __68__APBonjourCacheManager__ensureKnownNetworkProfileMonitoringStarted
   }
 
   v4 = *(a1 + 40);
-  v5 = *v4[13];
-  if (v3 >= v5)
+  v5 = v4[13];
+  if (v3 >= *v5)
   {
-    if (v5 != -1)
+    if (*v5 == -1)
     {
-LABEL_9:
-      LogPrintF();
+      v8 = _LogCategory_Initialize();
       v4 = *(a1 + 40);
-      goto LABEL_11;
+      if (!v8)
+      {
+        goto LABEL_16;
+      }
+
+      v5 = v4[13];
+      v2 = *(a1 + 32);
     }
 
-    v6 = _LogCategory_Initialize();
-    v4 = *(a1 + 40);
-    if (v6)
+    if (v2)
     {
-      v9 = v4[13];
-      v10 = *(a1 + 32);
-      goto LABEL_9;
+      v6 = 90;
     }
+
+    else
+    {
+      v6 = 30;
+    }
+
+    v7 = "Failed to start";
+    if (!v2)
+    {
+      v7 = "Started";
+    }
+
+    LogPrintF(v5, "[APBonjourCacheManager _ensureKnownNetworkProfileMonitoringStarted]_block_invoke_4", v6, "%s monitoring known network profile%?{end}: %@", v7, v2 == 0, v2);
+    v4 = *(a1 + 40);
   }
 
-LABEL_11:
-  v7 = *(a1 + 48);
+LABEL_16:
+  v9 = *(a1 + 48);
 
-  return [v4 _handleKnownNetworkProfileUpdate:v7];
+  return [v4 _handleKnownNetworkProfileUpdate:v9];
 }
 
 - (void)invalidate
@@ -416,13 +429,13 @@ LABEL_11:
     return;
   }
 
-  v17 = v3;
-  v18 = v2;
+  v15 = v3;
+  v16 = v2;
   self->_invalidateCalled = 1;
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -432,16 +445,16 @@ LABEL_11:
       ucat = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[APBonjourCacheManager _invalidate]", 30, "Invalidate\n", v3, v16);
   }
 
 LABEL_6:
   retryTimer = self->_retryTimer;
   if (retryTimer)
   {
-    v9 = retryTimer;
-    dispatch_source_cancel(v9);
-    v10 = self->_retryTimer;
+    v8 = retryTimer;
+    dispatch_source_cancel(v8);
+    v9 = self->_retryTimer;
     self->_retryTimer = 0;
   }
 
@@ -458,7 +471,7 @@ LABEL_6:
     self->_pairedPeersChangedToken = -1;
   }
 
-  [(CUCoalescer *)self->_writeCoaleser invalidate:v17];
+  [(CUCoalescer *)self->_writeCoaleser invalidate:v15];
   writeCoaleser = self->_writeCoaleser;
   self->_writeCoaleser = 0;
 
@@ -504,10 +517,10 @@ LABEL_6:
     self->_reportDeviceLostHandler = 0;
 
     self->_invalidateDone = 1;
-    var0 = self->_ucat->var0;
-    if (var0 <= 30)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -517,7 +530,7 @@ LABEL_6:
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[APBonjourCacheManager _invalidated]", 30, "Invalidated\n");
     }
   }
 }
@@ -593,12 +606,12 @@ LABEL_7:
       DeviceID = v19;
 LABEL_14:
       v25 = BonjourDevice_CopyCFString();
-      v62 = BonjourDevice_CopyCFString();
+      v53 = BonjourDevice_CopyCFString();
       [APBonjourCacheManager _removeIfDuplicatesFoundOrIfNoLongerCacheable:"_removeIfDuplicatesFoundOrIfNoLongerCacheable:identifier:serialNumber:manufacturer:isCacheable:" identifier:DeviceID serialNumber:v18 manufacturer:v25 isCacheable:?];
       if (v17)
       {
-        v58 = recheckCopy;
-        v59 = v25;
+        v49 = recheckCopy;
+        v50 = v25;
         v26 = [(NSMutableDictionary *)self->_pairedPeersMap objectForKeyedSubscript:v18];
         if (!v26)
         {
@@ -607,7 +620,7 @@ LABEL_14:
 
         v27 = DeviceID;
         v28 = [(NSMutableDictionary *)self->_cachedItems objectForKeyedSubscript:v18];
-        v60 = v28;
+        v51 = v28;
         if (v28)
         {
           [v28 objectForKeyedSubscript:@"HKPeer"];
@@ -624,176 +637,190 @@ LABEL_14:
           v32 = 1;
         }
 
-        v36 = (BonjourDevice_GetInt64() & 0x400) == 0 || v32;
-        v37 = v26;
-        if (!v26 && v36)
+        v37 = (BonjourDevice_GetInt64() & 0x400) == 0 || v32;
+        v38 = v26;
+        if (!v26 && v37)
         {
-          var0 = self->_ucat->var0;
-          if (var0 > 30)
+          ucat = self->_ucat;
+          if (ucat->var0 <= 30)
           {
-LABEL_74:
-
-            v25 = v59;
-            goto LABEL_75;
-          }
-
-          if (var0 == -1)
-          {
-            if (!_LogCategory_Initialize())
+            if (ucat->var0 != -1)
             {
-              goto LABEL_74;
+LABEL_38:
+              v40 = "";
+              if (v49)
+              {
+                v40 = "(recheck)";
+              }
+
+              LogPrintF(ucat, "[APBonjourCacheManager _deviceFound:altPairedInfo:recheck:event:]", 30, "Ignoring device found unpaired: %llu, '%@' %s\n", v27, v13, v40);
+              goto LABEL_80;
             }
 
-            ucat = self->_ucat;
+            if (_LogCategory_Initialize())
+            {
+              ucat = self->_ucat;
+              goto LABEL_38;
+            }
           }
 
-LABEL_38:
-          LogPrintF();
-          goto LABEL_74;
+          goto LABEL_80;
         }
 
-        if (v60)
+        if (v51)
         {
           [(APBonjourCacheManager *)self _updateCachedDeviceInfoWhenRealDeviceIsFound:foundCopy event:eventCopy];
-          goto LABEL_74;
+          goto LABEL_80;
         }
 
-        if (CFAbsoluteTimeGetCurrent() - self->_networkSignatureWasValidAt < 10.0)
+        v41 = CFAbsoluteTimeGetCurrent() - self->_networkSignatureWasValidAt;
+        if (v41 < 10.0)
         {
-          v40 = self->_ucat->var0;
-          if (v40 > 30)
+          v42 = self->_ucat;
+          if (v42->var0 <= 30)
           {
-            goto LABEL_74;
-          }
-
-          if (v40 == -1)
-          {
-            if (!_LogCategory_Initialize())
+            if (v42->var0 == -1)
             {
-              goto LABEL_74;
+              if (!_LogCategory_Initialize())
+              {
+                goto LABEL_80;
+              }
+
+              v42 = self->_ucat;
             }
 
-            v49 = self->_ucat;
+            v43 = "";
+            if (v49)
+            {
+              v43 = "(recheck)";
+            }
+
+            LogPrintF(v42, "[APBonjourCacheManager _deviceFound:altPairedInfo:recheck:event:]", 30, "Ignoring add device found too soon after signature change: %llu, '%@' %s Seconds %.3f\n", v27, v13, v43, *&v41);
           }
 
-          goto LABEL_38;
+LABEL_80:
+
+          v25 = v50;
+          goto LABEL_81;
         }
 
         if (!v26)
         {
-          v46 = self->_ucat->var0;
-          if (v46 > 30)
+          v46 = self->_ucat;
+          if (v46->var0 <= 30)
           {
-            goto LABEL_74;
-          }
-
-          if (v46 == -1)
-          {
-            if (!_LogCategory_Initialize())
+            if (v46->var0 == -1)
             {
-              goto LABEL_74;
+              if (!_LogCategory_Initialize())
+              {
+                goto LABEL_80;
+              }
+
+              v46 = self->_ucat;
             }
 
-            v50 = self->_ucat;
+            v47 = "";
+            if (v49)
+            {
+              v47 = "(recheck)";
+            }
+
+            LogPrintF(v46, "[APBonjourCacheManager _deviceFound:altPairedInfo:recheck:event:]", 30, "Ignoring add for unpaired device: %llu, '%@' %s\n", v27, v13, v47);
+            goto LABEL_80;
           }
 
-          goto LABEL_38;
+          goto LABEL_80;
         }
 
         [(APBonjourCacheManager *)self _auditCachesIfNecessary:foundCopy event:eventCopy];
-        v42 = self->_ucat->var0;
+        v44 = self->_ucat;
+        var0 = v44->var0;
         if (self->_isPublicAirPlayNetwork)
         {
-          v37 = v26;
-          if (v42 > 30)
+          v38 = v26;
+          if (var0 <= 30)
           {
-            goto LABEL_74;
-          }
-
-          if (v42 == -1)
-          {
-            if (!_LogCategory_Initialize())
+            if (var0 == -1)
             {
-              goto LABEL_74;
+              if (!_LogCategory_Initialize())
+              {
+                goto LABEL_80;
+              }
+
+              v44 = self->_ucat;
             }
 
-            v51 = self->_ucat;
+            LogPrintF(v44, "[APBonjourCacheManager _deviceFound:altPairedInfo:recheck:event:]", 30, "Ignoring device found on public AirPlay network: %llu, '%@'", v27, v13);
           }
 
-          goto LABEL_38;
+          goto LABEL_80;
         }
 
-        if (v42 <= 30)
+        if (var0 <= 30)
         {
-          if (v42 != -1)
+          if (var0 != -1)
           {
-LABEL_63:
-            networkSignature = self->_networkSignature;
+LABEL_69:
             v48 = "";
-            if (v58)
+            if (v49)
             {
               v48 = "(recheck)";
             }
 
-            v55 = self->_networkSignature;
-            v57 = v48;
-            v53 = v27;
-            v54 = v13;
-            LogPrintF();
-            goto LABEL_73;
+            LogPrintF(v44, "[APBonjourCacheManager _deviceFound:altPairedInfo:recheck:event:]", 30, "Cache device add: %llu, '%@' Network Signature: %@ %s\n", v27, v13, self->_networkSignature, v48);
+            goto LABEL_79;
           }
 
           if (_LogCategory_Initialize())
           {
-            v52 = self->_ucat;
-            goto LABEL_63;
+            v44 = self->_ucat;
+            goto LABEL_69;
           }
         }
 
-LABEL_73:
-        v37 = v26;
-        [(APBonjourCacheManager *)self _addDeviceToCache:foundCopy pairedPeerInfo:v26 event:eventCopy, v53, v54, v55, v57];
-        goto LABEL_74;
+LABEL_79:
+        v38 = v26;
+        [(APBonjourCacheManager *)self _addDeviceToCache:foundCopy pairedPeerInfo:v26 event:eventCopy];
+        goto LABEL_80;
       }
 
-      v34 = self->_ucat->var0;
-      if (v34 <= 30)
+      v34 = self->_ucat;
+      if (v34->var0 <= 30)
       {
-        if (v34 == -1)
+        if (v34->var0 == -1)
         {
           if (!_LogCategory_Initialize())
           {
-            goto LABEL_75;
+            goto LABEL_81;
           }
 
-          v41 = self->_ucat;
+          v34 = self->_ucat;
         }
 
-        LogPrintF();
+        LogPrintF(v34, "[APBonjourCacheManager _deviceFound:altPairedInfo:recheck:event:]", 30, "Ignoring device found non-cacheable: %llu, '%@', %@\n", DeviceID, v13, v15);
       }
 
-LABEL_75:
+LABEL_81:
 
-      goto LABEL_76;
+      goto LABEL_82;
     }
 
-    v35 = self->_ucat->var0;
+    v35 = self->_ucat;
     infoCopy = v20;
-    if (v35 <= 30)
+    if (v35->var0 <= 30)
     {
-      if (v35 == -1)
+      if (v35->var0 == -1)
       {
-        v44 = self->_ucat;
         if (!_LogCategory_Initialize())
         {
-          goto LABEL_76;
+          goto LABEL_82;
         }
 
-        v45 = self->_ucat;
+        v35 = self->_ucat;
       }
 
       primaryNetworkSignature2 = [(CUSystemMonitor *)self->_systemMonitor primaryNetworkSignature];
-      LogPrintF();
+      LogPrintF(v35, "[APBonjourCacheManager _deviceFound:altPairedInfo:recheck:event:]", 30, "### Ignoring device %llu, '%@' that does not belong to this network: %@\n", v19, v13, primaryNetworkSignature2);
 
       infoCopy = v20;
     }
@@ -801,24 +828,24 @@ LABEL_75:
 
   else
   {
-    v33 = self->_ucat->var0;
-    if (v33 <= 90)
+    v33 = self->_ucat;
+    if (v33->var0 <= 90)
     {
-      if (v33 == -1)
+      if (v33->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
-          goto LABEL_76;
+          goto LABEL_82;
         }
 
-        v39 = self->_ucat;
+        v33 = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(v33, "[APBonjourCacheManager _deviceFound:altPairedInfo:recheck:event:]", 90, "### Ignoring device found without pairing ID: %llu, '%@'\n", DeviceID, v13);
     }
   }
 
-LABEL_76:
+LABEL_82:
 }
 
 - (BOOL)deviceLost:(id)lost
@@ -841,12 +868,12 @@ LABEL_14:
         goto LABEL_15;
       }
 
-      BonjourDevice_GetDeviceID();
-      v9 = [v7 objectForKeyedSubscript:@"name"];
-      var0 = self->_ucat->var0;
-      if (var0 <= 30)
+      DeviceID = BonjourDevice_GetDeviceID();
+      v10 = [v7 objectForKeyedSubscript:@"name"];
+      ucat = self->_ucat;
+      if (ucat->var0 <= 30)
       {
-        if (var0 == -1)
+        if (ucat->var0 == -1)
         {
           if (!_LogCategory_Initialize())
           {
@@ -856,7 +883,7 @@ LABEL_14:
           ucat = self->_ucat;
         }
 
-        LogPrintF();
+        LogPrintF(ucat, "[APBonjourCacheManager deviceLost:]", 30, "Cached device refill: %llu, '%@'\n", DeviceID, v10);
       }
 
 LABEL_13:
@@ -868,12 +895,12 @@ LABEL_13:
 
   else
   {
-    BonjourDevice_GetDeviceID();
+    v12 = BonjourDevice_GetDeviceID();
     v6 = [lostCopy objectForKeyedSubscript:@"name"];
-    v11 = self->_ucat->var0;
-    if (v11 <= 90)
+    v13 = self->_ucat;
+    if (v13->var0 <= 90)
     {
-      if (v11 == -1)
+      if (v13->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -883,7 +910,7 @@ LABEL_13:
         v13 = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(v13, "[APBonjourCacheManager deviceLost:]", 90, "### Ignoring device lost without pairing ID: %llu, '%@'\n", v12, v6);
     }
   }
 
@@ -899,32 +926,30 @@ LABEL_15:
   neededCopy = needed;
   infoCopy = info;
   DeviceID = BonjourDevice_GetDeviceID();
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
     v9 = DeviceID;
     v10 = neededCopy;
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_3:
-      [v10 objectForKeyedSubscript:@"name"];
-      v14 = v13 = v9;
-      LogPrintF();
+      v11 = [v10 objectForKeyedSubscript:@"name"];
+      LogPrintF(ucat, "[APBonjourCacheManager cacheHKPeerIfNeeded:pairedPeerInfo:]", 30, "Got notified about HK paired peer: ID %llu, Name '%@'\n", v9, v11);
 
       goto LABEL_5;
     }
 
-    ucat = self->_ucat;
     if (_LogCategory_Initialize())
     {
-      v12 = self->_ucat;
+      ucat = self->_ucat;
       v10 = neededCopy;
       goto LABEL_3;
     }
   }
 
 LABEL_5:
-  [(APBonjourCacheManager *)self _deviceFound:neededCopy altPairedInfo:infoCopy recheck:1 event:6, v13, v14];
+  [(APBonjourCacheManager *)self _deviceFound:neededCopy altPairedInfo:infoCopy recheck:1 event:6];
 }
 
 - (void)_refreshOrRemoveCachedItem:(id)item
@@ -937,10 +962,11 @@ LABEL_5:
     v6 = BonjourDevice_CopyCFString();
     if (!v6)
     {
-      var0 = self->_ucat->var0;
-      if (var0 <= 90)
+      ucat = self->_ucat;
+      if (ucat->var0 <= 90)
       {
-        if (var0 == -1)
+        v12 = itemCopy;
+        if (ucat->var0 == -1)
         {
           if (!_LogCategory_Initialize())
           {
@@ -948,9 +974,10 @@ LABEL_5:
           }
 
           ucat = self->_ucat;
+          v12 = itemCopy;
         }
 
-        LogPrintF();
+        LogPrintF(ucat, "[APBonjourCacheManager _refreshOrRemoveCachedItem:]", 90, "### Check cached item without ID: %##.32@\n", v12);
       }
 
 LABEL_11:
@@ -963,29 +990,26 @@ LABEL_11:
     [(NSMutableSet *)self->_removedItems removeObject:v6];
     self->_cacheChanged = 1;
     DeviceID = BonjourDevice_GetDeviceID();
-    v8 = self->_ucat->var0;
-    if (v8 <= 30)
+    v8 = self->_ucat;
+    if (v8->var0 <= 30)
     {
       v9 = DeviceID;
-      if (v8 != -1)
+      if (v8->var0 == -1)
       {
-LABEL_5:
-        v16 = [itemCopy objectForKeyedSubscript:@"name"];
-        LogPrintF();
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_10;
+        }
 
-        [(CUCoalescer *)self->_writeCoaleser trigger:v9];
-        goto LABEL_11;
+        v8 = self->_ucat;
       }
 
-      v11 = self->_ucat;
-      if (_LogCategory_Initialize())
-      {
-        v13 = self->_ucat;
-        goto LABEL_5;
-      }
+      v10 = [itemCopy objectForKeyedSubscript:@"name"];
+      LogPrintF(v8, "[APBonjourCacheManager _refreshOrRemoveCachedItem:]", 30, "Old cached record removed: ID %llu, Name '%@', Seconds %.3f\n", v9, v10, *&v5);
     }
 
-    [(CUCoalescer *)self->_writeCoaleser trigger:v14];
+LABEL_10:
+    [(CUCoalescer *)self->_writeCoaleser trigger];
     goto LABEL_11;
   }
 
@@ -1016,38 +1040,37 @@ LABEL_12:
 
 void __120__APBonjourCacheManager__removeIfDuplicatesFoundOrIfNoLongerCacheable_identifier_serialNumber_manufacturer_isCacheable___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = a2;
+  v15 = a2;
   v5 = a3;
   DeviceID = BonjourDevice_GetDeviceID();
-  if (!v20 || ![v20 caseInsensitiveCompare:*(a1 + 32)])
+  if (!v15 || ![v15 caseInsensitiveCompare:*(a1 + 32)])
   {
     if (*(a1 + 72))
     {
       goto LABEL_25;
     }
 
-    v11 = **(*(a1 + 56) + 104);
-    if (v11 > 30)
+    v12 = *(*(a1 + 56) + 104);
+    if (*v12 > 30)
     {
       goto LABEL_19;
     }
 
-    if (v11 == -1)
+    if (*v12 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_19;
       }
 
-      v15 = *(*(a1 + 56) + 104);
+      v12 = *(*(a1 + 56) + 104);
     }
 
-    v17 = DeviceID;
-    LogPrintF();
+    LogPrintF(v12, "[APBonjourCacheManager _removeIfDuplicatesFoundOrIfNoLongerCacheable:identifier:serialNumber:manufacturer:isCacheable:]_block_invoke", 30, "Cached device no longer supports caching: %llu. Removing...\n", DeviceID);
 LABEL_19:
-    v12 = 8;
+    v13 = 8;
 LABEL_23:
-    [*(a1 + 56) _reportCachedItemLost:v5 event:{v12, v17, v18, v19}];
+    [*(a1 + 56) _reportCachedItemLost:v5 event:v13];
     goto LABEL_24;
   }
 
@@ -1060,24 +1083,21 @@ LABEL_23:
     goto LABEL_25;
   }
 
-  v10 = **(*(a1 + 56) + 104);
-  if (v10 <= 30)
+  v10 = *(*(a1 + 56) + 104);
+  if (*v10 <= 30)
   {
-    if (v10 != -1)
+    if (*v10 != -1)
     {
 LABEL_6:
-      v18 = [v5 objectForKeyedSubscript:@"name"];
-      v19 = v9;
-      v17 = DeviceID;
-      LogPrintF();
+      v11 = [v5 objectForKeyedSubscript:@"name"];
+      LogPrintF(v10, "[APBonjourCacheManager _removeIfDuplicatesFoundOrIfNoLongerCacheable:identifier:serialNumber:manufacturer:isCacheable:]_block_invoke", 30, "Found duplicate cached entry: ID %llu, Name '%@', manufacturer '%@'. Removing...\n", DeviceID, v11, v9);
 
       goto LABEL_21;
     }
 
-    v13 = *(*(a1 + 56) + 104);
     if (_LogCategory_Initialize())
     {
-      v16 = *(*(a1 + 56) + 104);
+      v10 = *(*(a1 + 56) + 104);
       goto LABEL_6;
     }
   }
@@ -1087,14 +1107,14 @@ LABEL_21:
 
   if (DeviceID != v14)
   {
-    v12 = 7;
+    v13 = 7;
     goto LABEL_23;
   }
 
 LABEL_24:
-  [*(*(a1 + 56) + 16) setObject:0 forKeyedSubscript:{v20, v17}];
-  [*(*(a1 + 56) + 32) setObject:0 forKeyedSubscript:v20];
-  [*(*(a1 + 56) + 24) removeObject:v20];
+  [*(*(a1 + 56) + 16) setObject:0 forKeyedSubscript:v15];
+  [*(*(a1 + 56) + 32) setObject:0 forKeyedSubscript:v15];
+  [*(*(a1 + 56) + 24) removeObject:v15];
   *(*(a1 + 56) + 9) = 1;
   [*(*(a1 + 56) + 88) trigger];
 LABEL_25:
@@ -1151,14 +1171,14 @@ LABEL_25:
   [(APBonjourCacheManager *)self _ensureKnownNetworkProfileMonitoringStarted];
   primaryNetworkSignature = [(CUSystemMonitor *)self->_systemMonitor primaryNetworkSignature];
   networkSignature = self->_networkSignature;
-  v17 = primaryNetworkSignature;
+  v14 = primaryNetworkSignature;
   v5 = networkSignature;
   v6 = v5;
-  if (v17 != v5)
+  if (v14 != v5)
   {
-    if ((v17 != 0) != (v5 == 0))
+    if ((v14 != 0) != (v5 == 0))
     {
-      v7 = [(NSString *)v17 isEqual:v5];
+      v7 = [(NSString *)v14 isEqual:v5];
 
       if (v7)
       {
@@ -1170,22 +1190,21 @@ LABEL_25:
     {
     }
 
-    var0 = self->_ucat->var0;
-    if (var0 <= 30)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 30)
     {
-      v9 = v17;
-      if (var0 != -1)
+      v9 = v14;
+      if (ucat->var0 != -1)
       {
 LABEL_11:
-        v16 = v9;
-        LogPrintF();
+        LogPrintF(ucat, "[APBonjourCacheManager _networkSignatureChanged]", 30, "Network signature changed: %@\n", v9);
         goto LABEL_13;
       }
 
       if (_LogCategory_Initialize())
       {
         ucat = self->_ucat;
-        v9 = v17;
+        v9 = v14;
         goto LABEL_11;
       }
     }
@@ -1196,12 +1215,12 @@ LABEL_13:
       [(APBonjourCacheManager *)self _flushCachedItems];
     }
 
-    [(APBonjourCacheManager *)self _reportCachedItemsLost:3, v16];
-    if (![(NSString *)v17 containsString:@"Cellular"])
+    [(APBonjourCacheManager *)self _reportCachedItemsLost:3];
+    if (![(NSString *)v14 containsString:@"Cellular"])
     {
-      v11 = v17;
+      v11 = v14;
 LABEL_22:
-      v17 = v11;
+      v14 = v11;
       objc_storeStrong(&self->_networkSignature, v11);
       self->_networkSignatureWasValidAt = CFAbsoluteTimeGetCurrent();
       [(APBonjourCacheManager *)self _auditCachesIfNecessary:0 event:3];
@@ -1215,20 +1234,20 @@ LABEL_22:
       goto LABEL_23;
     }
 
-    v10 = self->_ucat->var0;
-    if (v10 <= 30)
+    v10 = self->_ucat;
+    if (v10->var0 <= 30)
     {
-      if (v10 == -1)
+      if (v10->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_21;
         }
 
-        v15 = self->_ucat;
+        v10 = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(v10, "[APBonjourCacheManager _networkSignatureChanged]", 30, "Ignoring Cellular network signature\n");
     }
 
 LABEL_21:
@@ -1245,10 +1264,10 @@ LABEL_23:
   if (!self->_pairedPeersGetting)
   {
     self->_pairedPeersGetting = 1;
-    var0 = self->_ucat->var0;
-    if (var0 <= 30)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -1258,25 +1277,25 @@ LABEL_23:
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[APBonjourCacheManager _pairedPeersChanged]", 30, "Getting paired peers\n");
     }
 
 LABEL_6:
     v4 = objc_alloc_init(MEMORY[0x277D028E0]);
     [v4 setDispatchQueue:self->_dispatchQueue];
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __44__APBonjourCacheManager__pairedPeersChanged__block_invoke;
-    v6[3] = &unk_278BC8E50;
-    v6[4] = self;
-    v6[5] = v4;
-    [v4 getPairedPeersWithOptions:4 completion:v6];
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __44__APBonjourCacheManager__pairedPeersChanged__block_invoke;
+    v5[3] = &unk_278BC8E50;
+    v5[4] = self;
+    v5[5] = v4;
+    [v4 getPairedPeersWithOptions:4 completion:v5];
   }
 }
 
 void __44__APBonjourCacheManager__pairedPeersChanged__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   *(*(a1 + 32) + 44) = 0;
@@ -1286,27 +1305,27 @@ void __44__APBonjourCacheManager__pairedPeersChanged__block_invoke(uint64_t a1, 
   {
     [v7 _cancelRetryGetPairedPeers];
     v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v27 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v30 = 0u;
-    v26 = v5;
+    v22 = 0u;
+    v23 = 0u;
+    v24 = 0u;
+    v25 = 0u;
+    v21 = v5;
     v10 = v5;
-    v11 = [v10 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v28;
+      v13 = *v23;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v28 != v13)
+          if (*v23 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v27 + 1) + 8 * i);
+          v15 = *(*(&v22 + 1) + 8 * i);
           v16 = [v15 identifier];
           v17 = [v16 UUIDString];
 
@@ -1316,7 +1335,7 @@ void __44__APBonjourCacheManager__pairedPeersChanged__block_invoke(uint64_t a1, 
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v12);
@@ -1324,50 +1343,47 @@ void __44__APBonjourCacheManager__pairedPeersChanged__block_invoke(uint64_t a1, 
 
     objc_storeStrong((*(a1 + 32) + 48), v9);
     v18 = *(a1 + 32);
-    v19 = *v18[13];
-    if (v19 > 30)
+    v19 = v18[13];
+    if (*v19 > 30)
     {
       goto LABEL_22;
     }
 
-    if (v19 == -1)
+    if (*v19 == -1)
     {
-      v20 = v18[13];
-      v21 = _LogCategory_Initialize();
+      v20 = _LogCategory_Initialize();
       v18 = *(a1 + 32);
-      if (!v21)
+      if (!v20)
       {
         goto LABEL_22;
       }
 
-      v24 = v18[13];
+      v19 = v18[13];
     }
 
-    v25 = [v9 count];
-    LogPrintF();
+    LogPrintF(v19, "-[APBonjourCacheManager _pairedPeersChanged]_block_invoke", 30, "Paired peers map updated: %d peers\n", [v9 count]);
     v18 = *(a1 + 32);
 LABEL_22:
-    [v18 _recheckDevices:{4, v25}];
+    [v18 _recheckDevices:4];
 
-    v5 = v26;
+    v5 = v21;
     goto LABEL_23;
   }
 
-  v8 = *v7[13];
-  if (v8 <= 90)
+  v8 = v7[13];
+  if (*v8 <= 90)
   {
-    if (v8 == -1)
+    if (*v8 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_18;
       }
 
-      v23 = *(*(a1 + 32) + 104);
+      v8 = *(*(a1 + 32) + 104);
     }
 
-    v25 = v6;
-    LogPrintF();
+    LogPrintF(v8, "[APBonjourCacheManager _pairedPeersChanged]_block_invoke", 90, "### Get paired peers failed: %{error}\n", v6);
   }
 
 LABEL_18:
@@ -1377,19 +1393,17 @@ LABEL_18:
   }
 
 LABEL_23:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startRetryGetPairedPeersTimer
 {
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(ucat, "[APBonjourCacheManager _startRetryGetPairedPeersTimer]", 30, "Start retry timer\n");
       goto LABEL_5;
     }
 
@@ -1421,7 +1435,6 @@ LABEL_5:
   handler[3] = &unk_278BC8D38;
   handler[4] = self;
   dispatch_source_set_event_handler(v9, handler);
-  v10 = self->_retryTimer;
   CUDispatchTimerSet();
   dispatch_resume(self->_retryTimer);
 }
@@ -1435,7 +1448,7 @@ int *__55__APBonjourCacheManager__startRetryGetPairedPeersTimer__block_invoke(ui
     if (*result != -1)
     {
 LABEL_3:
-      result = LogPrintF();
+      result = LogPrintF(result, "[APBonjourCacheManager _startRetryGetPairedPeersTimer]_block_invoke", 30, "Retry timer fired\n");
       v2 = *(a1 + 32);
       goto LABEL_5;
     }
@@ -1444,7 +1457,7 @@ LABEL_3:
     v2 = *(a1 + 32);
     if (result)
     {
-      v9 = *(v2 + 104);
+      result = *(v2 + 104);
       goto LABEL_3;
     }
   }
@@ -1477,13 +1490,13 @@ LABEL_5:
     return;
   }
 
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_4:
-      LogPrintF();
+      LogPrintF(ucat, "[APBonjourCacheManager _cancelRetryGetPairedPeers]", 30, "Cancel retry timer\n");
       goto LABEL_6;
     }
 
@@ -1498,8 +1511,8 @@ LABEL_6:
   retryTimer = self->_retryTimer;
   if (retryTimer)
   {
-    v7 = retryTimer;
-    dispatch_source_cancel(v7);
+    v6 = retryTimer;
+    dispatch_source_cancel(v6);
     v5 = self->_retryTimer;
     self->_retryTimer = 0;
   }
@@ -1543,23 +1556,23 @@ void __41__APBonjourCacheManager__recheckDevices___block_invoke(uint64_t a1, uin
   if (!self->_isPublicAirPlayNetwork)
   {
     cachedItems = self->_cachedItems;
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __49__APBonjourCacheManager__reportCachedItemsFound___block_invoke;
-    v7[3] = &unk_278BC8E78;
-    v7[4] = self;
-    v7[5] = found;
-    [(NSMutableDictionary *)cachedItems enumerateKeysAndObjectsUsingBlock:v7];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __49__APBonjourCacheManager__reportCachedItemsFound___block_invoke;
+    v6[3] = &unk_278BC8E78;
+    v6[4] = self;
+    v6[5] = found;
+    [(NSMutableDictionary *)cachedItems enumerateKeysAndObjectsUsingBlock:v6];
     return;
   }
 
-  var0 = self->_ucat->var0;
-  if (var0 > 30)
+  ucat = self->_ucat;
+  if (ucat->var0 > 30)
   {
     return;
   }
 
-  if (var0 == -1)
+  if (ucat->var0 == -1)
   {
     if (!_LogCategory_Initialize())
     {
@@ -1569,7 +1582,7 @@ void __41__APBonjourCacheManager__recheckDevices___block_invoke(uint64_t a1, uin
     ucat = self->_ucat;
   }
 
-  LogPrintF();
+  LogPrintF(ucat, "[APBonjourCacheManager _reportCachedItemsFound:]", 30, "Ignoring request to report cached devices while on public AirPlay network");
 }
 
 void __49__APBonjourCacheManager__reportCachedItemsFound___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -1578,12 +1591,12 @@ void __49__APBonjourCacheManager__reportCachedItemsFound___block_invoke(uint64_t
   v4 = _Block_copy(*(*(a1 + 32) + 160));
   if (v4)
   {
-    BonjourDevice_GetDeviceID();
-    v5 = [v8 objectForKeyedSubscript:@"name"];
-    v6 = **(*(a1 + 32) + 104);
-    if (v6 <= 30)
+    DeviceID = BonjourDevice_GetDeviceID();
+    v6 = [v8 objectForKeyedSubscript:@"name"];
+    v7 = *(*(a1 + 32) + 104);
+    if (*v7 <= 30)
     {
-      if (v6 == -1)
+      if (*v7 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -1593,7 +1606,7 @@ void __49__APBonjourCacheManager__reportCachedItemsFound___block_invoke(uint64_t
         v7 = *(*(a1 + 32) + 104);
       }
 
-      LogPrintF();
+      LogPrintF(v7, "[APBonjourCacheManager _reportCachedItemsFound:]_block_invoke", 30, "Cached device found: %llu, '%@'\n", DeviceID, v6);
     }
 
 LABEL_6:
@@ -1632,36 +1645,33 @@ LABEL_6:
 
 void __48__APBonjourCacheManager__reportCachedItemsLost___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = a3;
+  v10 = a3;
   DeviceID = BonjourDevice_GetDeviceID();
-  v5 = [v14 objectForKeyedSubscript:@"name"];
+  v5 = [v10 objectForKeyedSubscript:@"name"];
   v6 = *(a1 + 32);
-  v7 = *v6[13];
-  if (v7 <= 30)
+  v7 = v6[13];
+  if (*v7 <= 30)
   {
-    if (v7 != -1)
+    if (*v7 != -1)
     {
 LABEL_3:
-      v12 = v5;
-      v13 = APBonjourCacheEventToString(*(a1 + 40));
-      v11 = DeviceID;
-      LogPrintF();
+      v8 = APBonjourCacheEventToString(*(a1 + 40));
+      LogPrintF(v7, "[APBonjourCacheManager _reportCachedItemsLost:]_block_invoke", 30, "Cached device lost: %llu, '%@' reason: %s\n", DeviceID, v5, v8);
       v6 = *(a1 + 32);
       goto LABEL_5;
     }
 
-    v8 = v6[13];
     v9 = _LogCategory_Initialize();
     v6 = *(a1 + 32);
     if (v9)
     {
-      v10 = v6[13];
+      v7 = v6[13];
       goto LABEL_3;
     }
   }
 
 LABEL_5:
-  [v6 _reportCachedItemLost:v14 event:{*(a1 + 40), v11, v12, v13}];
+  [v6 _reportCachedItemLost:v10 event:*(a1 + 40)];
 }
 
 - (void)_updateLastSeenTimestamp:(id)timestamp
@@ -1670,13 +1680,13 @@ LABEL_5:
   v4 = BonjourDevice_CopyCFString();
   if (!v4)
   {
-    var0 = self->_ucat->var0;
-    if (var0 > 90)
+    ucat = self->_ucat;
+    if (ucat->var0 > 90)
     {
       goto LABEL_13;
     }
 
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -1686,7 +1696,7 @@ LABEL_5:
       ucat = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(ucat, "[APBonjourCacheManager _updateLastSeenTimestamp:]", 90, "### Update LastSeen item without ID: %##.32@\n", timestampCopy);
     goto LABEL_13;
   }
 
@@ -1705,28 +1715,26 @@ LABEL_5:
   [(NSMutableDictionary *)self->_cachedItems setObject:v6 forKeyedSubscript:v4];
   self->_cacheChanged = 1;
   DeviceID = BonjourDevice_GetDeviceID();
-  v9 = self->_ucat->var0;
-  if (v9 <= 30)
+  v9 = self->_ucat;
+  if (v9->var0 <= 30)
   {
     v10 = DeviceID;
-    if (v9 == -1)
+    if (v9->var0 == -1)
     {
-      v13 = self->_ucat;
       if (!_LogCategory_Initialize())
       {
         goto LABEL_12;
       }
 
-      v14 = self->_ucat;
+      v9 = self->_ucat;
     }
 
-    [timestampCopy objectForKeyedSubscript:@"name"];
-    v16 = v15 = v10;
-    LogPrintF();
+    v11 = [timestampCopy objectForKeyedSubscript:@"name"];
+    LogPrintF(v9, "[APBonjourCacheManager _updateLastSeenTimestamp:]", 30, "Cached record update last seen: %llu '%@'\n", v10, v11);
   }
 
 LABEL_12:
-  [(CUCoalescer *)self->_writeCoaleser trigger:v15];
+  [(CUCoalescer *)self->_writeCoaleser trigger];
 
 LABEL_13:
 }
@@ -1753,7 +1761,7 @@ LABEL_21:
     if ([v10 isEqualToString:v12])
     {
       [v9 objectForKeyedSubscript:@"txt"];
-      v36 = DeviceID;
+      v32 = DeviceID;
       v13 = v10;
       eventCopy = event;
       v16 = v15 = v11;
@@ -1763,15 +1771,15 @@ LABEL_21:
       v11 = v15;
       event = eventCopy;
       v10 = v13;
-      DeviceID = v36;
+      DeviceID = v32;
 
       if (v18)
       {
 LABEL_12:
-        var0 = self->_ucat->var0;
-        if (var0 <= 30)
+        ucat = self->_ucat;
+        if (ucat->var0 <= 30)
         {
-          if (var0 == -1)
+          if (ucat->var0 == -1)
           {
             if (!_LogCategory_Initialize())
             {
@@ -1781,9 +1789,7 @@ LABEL_12:
             ucat = self->_ucat;
           }
 
-          v34 = v11;
-          v35 = v10;
-          LogPrintF();
+          LogPrintF(ucat, "[APBonjourCacheManager _updateCachedDeviceInfoWhenRealDeviceIsFound:event:]", 30, "Cached device lost: %llu, '%@' (real found)\n", v11, v10);
         }
 
 LABEL_16:
@@ -1797,7 +1803,7 @@ LABEL_16:
           removedItems = self->_removedItems;
         }
 
-        [(NSMutableSet *)removedItems addObject:v7, v34, v35];
+        [(NSMutableSet *)removedItems addObject:v7];
         [(APBonjourCacheManager *)self _updateLastSeenTimestamp:foundCopy];
         v29 = [v9 mutableCopy];
         [v29 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:@"cached"];
@@ -1827,27 +1833,25 @@ LABEL_16:
     [v19 setObject:v22 forKey:@"services"];
 
     [(APBonjourCacheManager *)self _sanitizeDNSStrings:v19];
-    v23 = self->_ucat->var0;
-    if (v23 <= 30)
+    v23 = self->_ucat;
+    if (v23->var0 <= 30)
     {
-      if (v23 == -1)
+      if (v23->var0 == -1)
       {
-        v24 = self->_ucat;
         if (!_LogCategory_Initialize())
         {
           goto LABEL_11;
         }
 
-        v33 = self->_ucat;
+        v23 = self->_ucat;
       }
 
-      [foundCopy objectForKeyedSubscript:@"name"];
-      v35 = v34 = DeviceID;
-      LogPrintF();
+      v24 = [foundCopy objectForKeyedSubscript:@"name"];
+      LogPrintF(v23, "[APBonjourCacheManager _updateCachedDeviceInfoWhenRealDeviceIsFound:event:]", 30, "Cached record updated: %llu '%@'\n", DeviceID, v24);
     }
 
 LABEL_11:
-    [(NSMutableDictionary *)self->_cachedItems setObject:v19 forKeyedSubscript:v7, v34, v35];
+    [(NSMutableDictionary *)self->_cachedItems setObject:v19 forKeyedSubscript:v7];
     self->_cacheChanged = 1;
     [(CUCoalescer *)self->_writeCoaleser trigger];
 
@@ -1915,17 +1919,195 @@ LABEL_22:
   }
 }
 
+- (id)_getCacheDirectoryURLCreateIfNecessary:(BOOL)necessary error:(id *)error
+{
+  necessaryCopy = necessary;
+  defaultManager = [MEMORY[0x277CCAA00] defaultManager];
+  v17 = 0;
+  v7 = [defaultManager URLForDirectory:13 inDomain:1 appropriateForURL:0 create:necessaryCopy error:&v17];
+  v8 = v17;
+  if (v8)
+  {
+    v13 = v8;
+    [APBonjourCacheManager _getCacheDirectoryURLCreateIfNecessary:error:];
+    v10 = 0;
+  }
+
+  else
+  {
+    v9 = [v7 URLByAppendingPathComponent:@"com.apple.airplay/APBonjourCache" isDirectory:1];
+    v10 = v9;
+    if (v9)
+    {
+      path = [v9 path];
+      v12 = [defaultManager fileExistsAtPath:path isDirectory:0];
+
+      if (v12)
+      {
+        v13 = 0;
+      }
+
+      else if (necessaryCopy)
+      {
+        v16 = 0;
+        [defaultManager createDirectoryAtURL:v10 withIntermediateDirectories:1 attributes:0 error:&v16];
+        v13 = v16;
+        if (v13)
+        {
+          [APBonjourCacheManager _getCacheDirectoryURLCreateIfNecessary:error:];
+        }
+      }
+
+      else
+      {
+        v13 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:-6727 userInfo:0];
+      }
+    }
+
+    else
+    {
+      [APBonjourCacheManager _getCacheDirectoryURLCreateIfNecessary:? error:?];
+      v13 = v18;
+    }
+  }
+
+  if (error)
+  {
+    v14 = v13;
+    *error = v13;
+  }
+
+  if (v13)
+  {
+
+    v10 = 0;
+  }
+
+  return v10;
+}
+
+- (id)_getCacheFileURLCreateIfNecessary:(BOOL)necessary error:(id *)error
+{
+  if (necessary)
+  {
+    v6 = "write";
+  }
+
+  else
+  {
+    v6 = "read";
+  }
+
+  if (!self->_serviceType)
+  {
+    ucat = self->_ucat;
+    if (ucat->var0 <= 90)
+    {
+      if (ucat->var0 == -1)
+      {
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_28;
+        }
+
+        ucat = self->_ucat;
+      }
+
+      LogPrintF(ucat, "[APBonjourCacheManager _getCacheFileURLCreateIfNecessary:error:]", 90, "### No service type to %s cache\n");
+    }
+
+LABEL_28:
+    v10 = 0;
+    v9 = 0;
+    v12 = 0;
+    goto LABEL_8;
+  }
+
+  necessaryCopy = necessary;
+  if (![(NSString *)self->_networkSignature UTF8String])
+  {
+    v17 = self->_ucat;
+    if (v17->var0 <= 90)
+    {
+      if (v17->var0 != -1)
+      {
+LABEL_19:
+        LogPrintF(v17, "[APBonjourCacheManager _getCacheFileURLCreateIfNecessary:error:]", 90, "No network signature to %s cache\n");
+        goto LABEL_28;
+      }
+
+      if (_LogCategory_Initialize())
+      {
+        v17 = self->_ucat;
+        goto LABEL_19;
+      }
+    }
+
+    goto LABEL_28;
+  }
+
+  [(NSString *)self->_networkSignature UTF8String];
+  strlen([(NSString *)self->_networkSignature UTF8String]);
+  v8 = SipHash();
+  v9 = NSPrintF("%@-%016llX.plist", self->_serviceType, v8);
+  v19 = 0;
+  v10 = [(APBonjourCacheManager *)self _getCacheDirectoryURLCreateIfNecessary:necessaryCopy error:&v19];
+  v11 = v19;
+  if (v11)
+  {
+    v13 = v11;
+    v18 = self->_ucat;
+    if (v18->var0 <= 90)
+    {
+      if (v18->var0 == -1)
+      {
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_30;
+        }
+
+        v18 = self->_ucat;
+      }
+
+      LogPrintF(v18, "[APBonjourCacheManager _getCacheFileURLCreateIfNecessary:error:]", 90, "### Caches directory not found to %s: %{error}\n", v6, v13);
+    }
+
+LABEL_30:
+    v12 = 0;
+    goto LABEL_9;
+  }
+
+  v12 = [v10 URLByAppendingPathComponent:v9 isDirectory:0];
+  if (v12)
+  {
+LABEL_8:
+    v13 = 0;
+    goto LABEL_9;
+  }
+
+  [APBonjourCacheManager _getCacheFileURLCreateIfNecessary:? error:?];
+  v13 = v20;
+LABEL_9:
+  if (error)
+  {
+    v14 = v13;
+    *error = v13;
+  }
+
+  return v12;
+}
+
 - (id)_readCachedItems
 {
-  v24 = 0;
-  v3 = [(APBonjourCacheManager *)self _getCacheFileURLCreateIfNecessary:0 error:&v24];
-  v4 = v24;
+  v18 = 0;
+  v3 = [(APBonjourCacheManager *)self _getCacheFileURLCreateIfNecessary:0 error:&v18];
+  v4 = v18;
   if (!v3)
   {
-    var0 = self->_ucat->var0;
-    if (var0 <= 90)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 90)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -1935,11 +2117,11 @@ LABEL_22:
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[APBonjourCacheManager _readCachedItems]", 90, "### Read cache file failed%?{end}: %{error}\n", v4 == 0, v4);
     }
 
 LABEL_18:
-    v14 = 0;
+    v15 = 0;
     v9 = v4;
     goto LABEL_27;
   }
@@ -1953,231 +2135,226 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  v23 = v4;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v3 error:&v23];
-  v9 = v23;
+  v17 = v4;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithContentsOfURL:v3 error:&v17];
+  v9 = v17;
 
   if (v8)
   {
     CFDictionaryGetTypeID();
     v10 = CFDictionaryGetTypedValue();
-    v11 = self->_ucat->var0;
+    v11 = self->_ucat;
+    var0 = v11->var0;
     if (v10)
     {
-      if (v11 <= 30)
+      if (var0 <= 30)
       {
-        if (v11 == -1)
+        if (var0 == -1)
         {
-          v15 = self->_ucat;
           if (!_LogCategory_Initialize())
           {
             goto LABEL_20;
           }
 
-          v19 = self->_ucat;
+          v11 = self->_ucat;
         }
 
-        v22 = [v10 count];
-        LogPrintF();
+        LogPrintF(v11, "-[APBonjourCacheManager _readCachedItems]", 30, "Read cache: %d item(s)\n", [v10 count]);
       }
 
 LABEL_20:
-      v14 = [v10 mutableCopy];
+      v15 = [v10 mutableCopy];
 LABEL_25:
 
       goto LABEL_26;
     }
 
-    if (v11 <= 90)
+    if (var0 <= 90)
     {
-      if (v11 == -1)
+      if (var0 == -1)
       {
-        v16 = self->_ucat;
         if (!_LogCategory_Initialize())
         {
           goto LABEL_24;
         }
 
-        v21 = self->_ucat;
+        v11 = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(v11, "[APBonjourCacheManager _readCachedItems]", 90, "### Cache content incomplete: %@, %#m\n", v3, 0);
     }
 
 LABEL_24:
-    v14 = 0;
+    v15 = 0;
     goto LABEL_25;
   }
 
-  v13 = self->_ucat->var0;
-  if (v13 <= 30)
+  v14 = self->_ucat;
+  if (v14->var0 <= 30)
   {
-    if (v13 == -1)
+    if (v14->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_22;
       }
 
-      v20 = self->_ucat;
+      v14 = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(v14, "[APBonjourCacheManager _readCachedItems]", 30, "### Cache read failed: %@, %{error}\n", v3, v9);
   }
 
 LABEL_22:
-  v14 = 0;
+  v15 = 0;
 LABEL_26:
 
 LABEL_27:
 
-  return v14;
+  return v15;
 }
 
 - (BOOL)_writeCachedItems:(id)items
 {
-  v30[3] = *MEMORY[0x277D85DE8];
+  v23[3] = *MEMORY[0x277D85DE8];
   itemsCopy = items;
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_3:
-      v25 = [itemsCopy count];
-      LogPrintF();
+      LogPrintF(ucat, "-[APBonjourCacheManager _writeCachedItems:]", 30, "Write cache: %d item(s)\n", [itemsCopy count]);
       goto LABEL_5;
     }
 
-    ucat = self->_ucat;
     if (_LogCategory_Initialize())
     {
-      v21 = self->_ucat;
+      ucat = self->_ucat;
       goto LABEL_3;
     }
   }
 
 LABEL_5:
-  v28 = 0;
-  v7 = [(APBonjourCacheManager *)self _getCacheFileURLCreateIfNecessary:1 error:&v28, v25];
-  v8 = v28;
-  if (v7)
+  v21 = 0;
+  v6 = [(APBonjourCacheManager *)self _getCacheFileURLCreateIfNecessary:1 error:&v21];
+  v7 = v21;
+  if (v6)
   {
-    v29[0] = @"cachedItems";
-    v29[1] = @"networkSignature";
+    v22[0] = @"cachedItems";
+    v22[1] = @"networkSignature";
     networkSignature = self->_networkSignature;
-    v30[0] = itemsCopy;
-    v30[1] = networkSignature;
-    v29[2] = @"serviceType";
-    v30[2] = self->_serviceType;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:3];
-    v27 = 0;
-    v11 = [MEMORY[0x277CCAC58] dataWithPropertyList:v10 format:200 options:0 error:&v27];
-    v12 = v27;
+    v23[0] = itemsCopy;
+    v23[1] = networkSignature;
+    v22[2] = @"serviceType";
+    v23[2] = self->_serviceType;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
+    v20 = 0;
+    v10 = [MEMORY[0x277CCAC58] dataWithPropertyList:v9 format:200 options:0 error:&v20];
+    v11 = v20;
 
-    if (v11)
+    if (v10)
     {
-      v26 = v12;
-      v13 = 1;
-      v14 = [v11 writeToURL:v7 options:1 error:&v26];
-      v15 = v26;
+      v19 = v11;
+      v12 = 1;
+      v13 = [v10 writeToURL:v6 options:1 error:&v19];
+      v14 = v19;
 
-      if (v14)
+      if (v13)
       {
 LABEL_23:
-        v12 = v15;
+        v11 = v14;
         goto LABEL_24;
       }
 
-      v16 = self->_ucat->var0;
-      if (v16 <= 90)
+      v15 = self->_ucat;
+      if (v15->var0 <= 90)
       {
-        if (v16 == -1)
+        if (v15->var0 == -1)
         {
           if (!_LogCategory_Initialize())
           {
             goto LABEL_22;
           }
 
-          v24 = self->_ucat;
+          v15 = self->_ucat;
         }
 
-        LogPrintF();
+        LogPrintF(v15, "[APBonjourCacheManager _writeCachedItems:]", 90, "### Write cache file failed: %{error}\n", v14);
       }
 
 LABEL_22:
-      v13 = 0;
+      v12 = 0;
       goto LABEL_23;
     }
 
-    v18 = self->_ucat->var0;
-    if (v18 <= 90)
+    v17 = self->_ucat;
+    if (v17->var0 <= 90)
     {
-      if (v18 == -1)
+      if (v17->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_20;
         }
 
-        v23 = self->_ucat;
+        v17 = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(v17, "[APBonjourCacheManager _writeCachedItems:]", 90, "### Convert cache to plist failed: %{error}\n", v11);
     }
 
 LABEL_20:
-    v13 = 0;
+    v12 = 0;
 LABEL_24:
 
-    v8 = v12;
+    v7 = v11;
     goto LABEL_25;
   }
 
-  v17 = self->_ucat->var0;
-  if (v17 <= 90)
+  v16 = self->_ucat;
+  if (v16->var0 <= 90)
   {
-    if (v17 == -1)
+    if (v16->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_18;
       }
 
-      v22 = self->_ucat;
+      v16 = self->_ucat;
     }
 
-    LogPrintF();
+    LogPrintF(v16, "[APBonjourCacheManager _writeCachedItems:]", 90, "### Write cache file failed%?{end}: %{error}\n", v7 == 0, v7);
   }
 
 LABEL_18:
-  v13 = 0;
+  v12 = 0;
 LABEL_25:
 
-  v19 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v12;
 }
 
 - (void)_migrateCacheDirectoryIfNecessary
 {
-  v85 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v81 = 0;
+  v71 = 0;
   selfCopy = self;
-  v3 = [(APBonjourCacheManager *)self _getCacheDirectoryURLCreateIfNecessary:1 error:&v81];
-  v4 = v81;
-  v66 = v3;
+  v3 = [(APBonjourCacheManager *)self _getCacheDirectoryURLCreateIfNecessary:1 error:&v71];
+  v4 = v71;
+  v56 = v3;
   if (!v3)
   {
     [(APBonjourCacheManager *)selfCopy _migrateCacheDirectoryIfNecessary];
-    v7 = v82;
+    v7 = v72;
     goto LABEL_74;
   }
 
   defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-  v80 = v4;
-  v6 = [defaultManager2 URLForDirectory:13 inDomain:1 appropriateForURL:0 create:0 error:&v80];
-  v7 = v80;
+  v70 = v4;
+  v6 = [defaultManager2 URLForDirectory:13 inDomain:1 appropriateForURL:0 create:0 error:&v70];
+  v7 = v70;
 
   if (!v6)
   {
@@ -2185,292 +2362,281 @@ LABEL_25:
     goto LABEL_74;
   }
 
-  v78 = 0u;
-  v79 = 0u;
-  v76 = 0u;
-  v77 = 0u;
-  v8 = [&unk_284F652C0 countByEnumeratingWithState:&v76 objects:v84 count:16];
+  v68 = 0u;
+  v69 = 0u;
+  v66 = 0u;
+  v67 = 0u;
+  v8 = [&unk_284F652C0 countByEnumeratingWithState:&v66 objects:v74 count:16];
   if (!v8)
   {
     goto LABEL_73;
   }
 
   v9 = v8;
-  v67 = 0;
-  v10 = *v77;
-  v60 = *v77;
-  v61 = v6;
+  v57 = 0;
+  v10 = *v67;
+  v50 = *v67;
+  v51 = v6;
   do
   {
     v11 = 0;
-    v62 = v9;
+    v52 = v9;
     do
     {
-      if (*v77 != v10)
+      if (*v67 != v10)
       {
         objc_enumerationMutation(&unk_284F652C0);
       }
 
-      v12 = [v6 URLByAppendingPathComponent:*(*(&v76 + 1) + 8 * v11) isDirectory:{1, v58, v59}];
+      v12 = [v6 URLByAppendingPathComponent:*(*(&v66 + 1) + 8 * v11) isDirectory:1];
 
-      v67 = v12;
-      if ([v66 isEqual:v12])
+      v57 = v12;
+      if ([v56 isEqual:v12])
       {
-        var0 = selfCopy->_ucat->var0;
-        if (var0 > 90)
+        p_var0 = &selfCopy->_ucat->var0;
+        if (*p_var0 > 90)
         {
           goto LABEL_66;
         }
 
-        if (var0 == -1)
+        if (*p_var0 == -1)
         {
           if (!_LogCategory_Initialize())
           {
             goto LABEL_66;
           }
 
-          ucat = selfCopy->_ucat;
+          p_var0 = &selfCopy->_ucat->var0;
         }
 
-        v58 = v12;
-        LogPrintF();
+        LogPrintF(p_var0, "[APBonjourCacheManager _migrateCacheDirectoryIfNecessary]", 90, "Cannot migrate with the same source and destination directory: %@", v12);
         goto LABEL_66;
       }
 
-      v63 = v11;
+      v53 = v11;
       path = [v12 path];
       v15 = [defaultManager fileExistsAtPath:path isDirectory:0];
 
       if (!v15)
       {
-        v11 = v63;
+        v11 = v53;
         goto LABEL_66;
       }
 
-      v16 = selfCopy->_ucat->var0;
-      if (v16 > 30)
+      v16 = &selfCopy->_ucat->var0;
+      if (*v16 > 30)
       {
         goto LABEL_20;
       }
 
-      if (v16 == -1)
+      if (*v16 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_20;
         }
 
-        v53 = selfCopy->_ucat;
+        v16 = &selfCopy->_ucat->var0;
       }
 
-      v58 = v67;
-      LogPrintF();
+      LogPrintF(v16, "[APBonjourCacheManager _migrateCacheDirectoryIfNecessary]", 30, "Legacy cache found: %@", v57);
 LABEL_20:
-      path2 = [v67 path];
-      v75 = v7;
-      v19 = [defaultManager contentsOfDirectoryAtPath:path2 error:&v75];
-      v20 = v75;
+      path2 = [v57 path];
+      v65 = v7;
+      v18 = [defaultManager contentsOfDirectoryAtPath:path2 error:&v65];
+      v19 = v65;
 
-      if (v20)
+      if (v19)
       {
-        v21 = selfCopy->_ucat->var0;
-        v11 = v63;
-        if (v21 > 90)
+        v20 = &selfCopy->_ucat->var0;
+        v11 = v53;
+        if (*v20 > 90)
         {
           goto LABEL_64;
         }
 
-        if (v21 == -1)
+        if (*v20 == -1)
         {
           if (!_LogCategory_Initialize())
           {
             goto LABEL_64;
           }
 
-          v50 = selfCopy->_ucat;
+          v20 = &selfCopy->_ucat->var0;
         }
 
-        v58 = v20;
-        goto LABEL_24;
+        LogPrintF(v20, "[APBonjourCacheManager _migrateCacheDirectoryIfNecessary]", 90, "Failed to read contents of source directory: %@", v19);
+LABEL_64:
+
+        goto LABEL_65;
       }
 
-      v73 = 0u;
-      v74 = 0u;
-      v71 = 0u;
-      v72 = 0u;
-      obj = v19;
-      v22 = [obj countByEnumeratingWithState:&v71 objects:v83 count:16];
-      v23 = v67;
-      if (!v22)
+      v63 = 0u;
+      v64 = 0u;
+      v61 = 0u;
+      v62 = 0u;
+      obj = v18;
+      v21 = [obj countByEnumeratingWithState:&v61 objects:v73 count:16];
+      v22 = v57;
+      if (!v21)
       {
         goto LABEL_52;
       }
 
-      v24 = v22;
-      v25 = *v72;
+      v23 = v21;
+      v24 = *v62;
       do
       {
-        v26 = 0;
+        v25 = 0;
         do
         {
-          if (*v72 != v25)
+          if (*v62 != v24)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v71 + 1) + 8 * v26);
-          v28 = selfCopy->_ucat->var0;
-          if (v28 <= 30)
+          v26 = *(*(&v61 + 1) + 8 * v25);
+          ucat = selfCopy->_ucat;
+          if (ucat->var0 <= 30)
           {
-            if (v28 != -1)
+            if (ucat->var0 != -1)
             {
               goto LABEL_32;
             }
 
-            v32 = selfCopy->_ucat;
             if (_LogCategory_Initialize())
             {
-              v43 = selfCopy->_ucat;
+              ucat = selfCopy->_ucat;
 LABEL_32:
-              path3 = [v23 path];
-              v30 = [path3 stringByAppendingPathComponent:v27];
-              path4 = [v66 path];
-              [path4 stringByAppendingPathComponent:v27];
-              v59 = v58 = v30;
-              LogPrintF();
+              path3 = [v22 path];
+              v29 = [path3 stringByAppendingPathComponent:v26];
+              path4 = [v56 path];
+              v31 = [path4 stringByAppendingPathComponent:v26];
+              LogPrintF(ucat, "[APBonjourCacheManager _migrateCacheDirectoryIfNecessary]", 30, "Migrating %@ to %@", v29, v31);
 
-              v23 = v67;
+              v22 = v57;
             }
           }
 
-          path5 = [v23 path];
-          v34 = [path5 stringByAppendingPathComponent:v27];
-          path6 = [v66 path];
-          v36 = [path6 stringByAppendingPathComponent:v27];
-          v70 = 0;
-          [defaultManager moveItemAtPath:v34 toPath:v36 error:&v70];
-          v37 = v70;
+          path5 = [v22 path];
+          v33 = [path5 stringByAppendingPathComponent:v26];
+          path6 = [v56 path];
+          v35 = [path6 stringByAppendingPathComponent:v26];
+          v60 = 0;
+          [defaultManager moveItemAtPath:v33 toPath:v35 error:&v60];
+          v36 = v60;
 
-          v23 = v67;
-          if (!v37)
+          v22 = v57;
+          if (!v36)
           {
             goto LABEL_45;
           }
 
-          code = [v37 code];
-          v39 = selfCopy->_ucat->var0;
+          code = [v36 code];
+          v38 = selfCopy->_ucat;
+          var0 = v38->var0;
           if (code == 516)
           {
-            if (v39 <= 30)
+            if (var0 <= 30)
             {
-              if (v39 != -1)
+              if (var0 != -1)
               {
                 goto LABEL_38;
               }
 
               if (_LogCategory_Initialize())
               {
-                v44 = selfCopy->_ucat;
+                v38 = selfCopy->_ucat;
 LABEL_38:
-                v58 = v27;
-                LogPrintF();
+                LogPrintF(v38, "[APBonjourCacheManager _migrateCacheDirectoryIfNecessary]", 30, "%@ already migrated", v26);
               }
             }
 
-            path7 = [v67 path];
-            v41 = [path7 stringByAppendingPathComponent:v27];
+            path7 = [v57 path];
+            v41 = [path7 stringByAppendingPathComponent:v26];
             [defaultManager removeItemAtPath:v41 error:0];
 
             goto LABEL_44;
           }
 
-          if (v39 <= 90)
+          if (var0 <= 90)
           {
-            if (v39 == -1)
+            if (var0 == -1)
             {
               if (!_LogCategory_Initialize())
               {
                 goto LABEL_44;
               }
 
-              v42 = selfCopy->_ucat;
+              v38 = selfCopy->_ucat;
             }
 
-            v58 = v27;
-            v59 = v37;
-            LogPrintF();
+            LogPrintF(v38, "[APBonjourCacheManager _migrateCacheDirectoryIfNecessary]", 90, "Failed to migrate %@: %@", v26, v36);
           }
 
 LABEL_44:
 
 LABEL_45:
-          ++v26;
+          ++v25;
         }
 
-        while (v24 != v26);
-        v45 = [obj countByEnumeratingWithState:&v71 objects:v83 count:16];
-        v24 = v45;
+        while (v23 != v25);
+        v42 = [obj countByEnumeratingWithState:&v61 objects:v73 count:16];
+        v23 = v42;
       }
 
-      while (v45);
+      while (v42);
 LABEL_52:
 
-      path8 = [v23 path];
-      v47 = [defaultManager contentsOfDirectoryAtPath:path8 error:0];
-      v48 = [v47 count];
+      path8 = [v22 path];
+      v44 = [defaultManager contentsOfDirectoryAtPath:path8 error:0];
+      v45 = [v44 count];
 
-      v6 = v61;
-      v9 = v62;
-      v10 = v60;
-      v11 = v63;
-      if (!v48)
+      v6 = v51;
+      v9 = v52;
+      v10 = v50;
+      v11 = v53;
+      if (!v45)
       {
-        v49 = selfCopy->_ucat->var0;
-        if (v49 <= 50)
+        v46 = selfCopy->_ucat;
+        if (v46->var0 <= 50)
         {
-          if (v49 != -1)
+          if (v46->var0 != -1)
           {
             goto LABEL_55;
           }
 
           if (_LogCategory_Initialize())
           {
-            v54 = selfCopy->_ucat;
+            v46 = selfCopy->_ucat;
 LABEL_55:
-            LogPrintF();
+            LogPrintF(v46, "[APBonjourCacheManager _migrateCacheDirectoryIfNecessary]", 50, "Migration complete.");
           }
         }
 
-        path9 = [v67 path];
-        v69 = 0;
-        [defaultManager removeItemAtPath:path9 error:&v69];
-        v20 = v69;
+        path9 = [v57 path];
+        v59 = 0;
+        [defaultManager removeItemAtPath:path9 error:&v59];
+        v19 = v59;
 
-        if (v20)
+        if (v19)
         {
-          v52 = selfCopy->_ucat->var0;
-          if (v52 > 90)
+          v48 = selfCopy->_ucat;
+          if (v48->var0 <= 90)
           {
-            goto LABEL_64;
-          }
+            if (v48->var0 != -1)
+            {
+              goto LABEL_62;
+            }
 
-          if (v52 != -1)
-          {
-            goto LABEL_62;
-          }
-
-          if (!_LogCategory_Initialize())
-          {
-LABEL_64:
-
-            goto LABEL_65;
-          }
-
-          v55 = selfCopy->_ucat;
+            if (_LogCategory_Initialize())
+            {
+              v48 = selfCopy->_ucat;
 LABEL_62:
-          v58 = v20;
-LABEL_24:
-          LogPrintF();
+              LogPrintF(v48, "[APBonjourCacheManager _migrateCacheDirectoryIfNecessary]", 90, "Failed to remove source directory: %@", v19);
+            }
+          }
+
           goto LABEL_64;
         }
       }
@@ -2483,16 +2649,14 @@ LABEL_66:
     }
 
     while (v11 != v9);
-    v56 = [&unk_284F652C0 countByEnumeratingWithState:&v76 objects:v84 count:16];
-    v9 = v56;
+    v49 = [&unk_284F652C0 countByEnumeratingWithState:&v66 objects:v74 count:16];
+    v9 = v49;
   }
 
-  while (v56);
+  while (v49);
 
 LABEL_73:
 LABEL_74:
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleKnownNetworkProfileUpdate:(BOOL)update
@@ -2504,10 +2668,10 @@ LABEL_74:
   }
 
   updateCopy = update;
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_4:
       v7 = "no";
@@ -2526,9 +2690,7 @@ LABEL_4:
         v7 = "yes";
       }
 
-      v10 = v8;
-      v11 = v7;
-      LogPrintF();
+      LogPrintF(ucat, "[APBonjourCacheManager _handleKnownNetworkProfileUpdate:]", 30, "Detected network profile updated, isPublicAirPlayNetwork: %s -> %s", v8, v7);
       goto LABEL_11;
     }
 
@@ -2542,7 +2704,7 @@ LABEL_4:
 
 LABEL_11:
   self->_isPublicAirPlayNetwork = updateCopy;
-  [(APBonjourCacheManager *)self _auditCachesIfNecessary:0 event:9, v10, v11];
+  [(APBonjourCacheManager *)self _auditCachesIfNecessary:0 event:9];
   if (self->_isPublicAirPlayNetwork)
   {
 
@@ -2558,29 +2720,28 @@ LABEL_11:
 
 - (void)_auditCachesIfNecessary:(id)necessary event:(int64_t)event
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   necessaryCopy = necessary;
   Current = CFAbsoluteTimeGetCurrent();
   if (!self->_auditCaches)
   {
-    v18 = 0;
-    v13 = 0;
-    goto LABEL_56;
+    v17 = 0;
+    v12 = 0;
+    goto LABEL_58;
   }
 
   v8 = Current;
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
-      ucat = self->_ucat;
       if (!_LogCategory_Initialize())
       {
         goto LABEL_8;
       }
 
-      v43 = self->_ucat;
+      ucat = self->_ucat;
     }
 
     v10 = APBonjourCacheEventToString(event);
@@ -2590,208 +2751,204 @@ LABEL_11:
       v11 = "no";
     }
 
-    v45 = v10;
-    v47 = v11;
-    LogPrintF();
+    LogPrintF(ucat, "[APBonjourCacheManager _auditCachesIfNecessary:event:]", 30, "Auditing caches for event: %s device info: %s", v10, v11);
   }
 
 LABEL_8:
   if (necessaryCopy)
   {
-    v13 = BonjourDevice_CopyCFString();
-    if (v13)
+    v12 = BonjourDevice_CopyCFString();
+    if (v12)
     {
       DeviceID = BonjourDevice_GetDeviceID();
       goto LABEL_12;
     }
 
     APSLogErrorAt();
+    v17 = 0;
+LABEL_58:
+    v13 = 0;
     v18 = 0;
-LABEL_56:
-    v14 = 0;
-    v19 = 0;
-    goto LABEL_52;
+    goto LABEL_54;
   }
 
-  v13 = 0;
+  v12 = 0;
   DeviceID = 0;
 LABEL_12:
-  v64 = 0;
-  v14 = [(APBonjourCacheManager *)self _getCacheDirectoryURLCreateIfNecessary:0 error:&v64, v45, v47];
-  v15 = v64;
+  v52 = 0;
+  v13 = [(APBonjourCacheManager *)self _getCacheDirectoryURLCreateIfNecessary:0 error:&v52];
+  v14 = v52;
   if (NSErrorToOSStatus())
   {
-    v18 = 0;
-    v19 = v15;
-    goto LABEL_52;
+    v17 = 0;
+    v18 = v14;
+    goto LABEL_54;
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  path = [v14 path];
-  v63 = v15;
-  v18 = [defaultManager contentsOfDirectoryAtPath:path error:&v63];
-  v19 = v63;
+  path = [v13 path];
+  v51 = v14;
+  v17 = [defaultManager contentsOfDirectoryAtPath:path error:&v51];
+  v18 = v51;
 
   if (!NSErrorToOSStatus())
   {
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
-    v60 = 0u;
-    v18 = v18;
-    v57 = [v18 countByEnumeratingWithState:&v59 objects:v65 count:16];
-    if (!v57)
+    v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
+    v17 = v17;
+    v45 = [v17 countByEnumeratingWithState:&v47 objects:v53 count:16];
+    if (!v45)
     {
 
-      goto LABEL_52;
+      goto LABEL_54;
     }
 
-    v52 = v19;
-    obj = v18;
-    v58 = 0;
-    v55 = v14;
-    v56 = *v60;
+    v40 = v18;
+    obj = v17;
+    v46 = 0;
+    v43 = v13;
+    v44 = *v48;
     while (1)
     {
-      v20 = 0;
+      v19 = 0;
       do
       {
-        if (*v60 != v56)
+        if (*v48 != v44)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v59 + 1) + 8 * v20);
-        v22 = MEMORY[0x277CBEAC0];
-        path2 = [v14 path];
-        v24 = [path2 stringByAppendingPathComponent:v21];
-        v25 = [v22 dictionaryWithContentsOfFile:v24];
+        v20 = *(*(&v47 + 1) + 8 * v19);
+        v21 = MEMORY[0x277CBEAC0];
+        path2 = [v13 path];
+        v23 = [path2 stringByAppendingPathComponent:v20];
+        v24 = [v21 dictionaryWithContentsOfFile:v23];
 
-        if (!v25)
+        if (!v24)
         {
           APSLogErrorAt();
+          v29 = 0;
           v30 = 0;
-          v31 = 0;
-          v26 = 0.0;
+          v25 = 0;
           goto LABEL_36;
         }
 
-        [v25 objectForKeyedSubscript:@"networkSignature"];
-        v26 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-        v27 = [*&v26 isEqualToString:self->_networkSignature];
-        if (v27)
+        v25 = [v24 objectForKeyedSubscript:@"networkSignature"];
+        v26 = [v25 isEqualToString:self->_networkSignature];
+        if (v26)
         {
           if (self->_isPublicAirPlayNetwork)
           {
-            v28 = self->_ucat->var0;
-            if (v28 <= 60)
+            v27 = self->_ucat;
+            if (v27->var0 <= 60)
             {
-              if (v28 != -1)
+              if (v27->var0 != -1)
               {
                 goto LABEL_24;
               }
 
               if (_LogCategory_Initialize())
               {
-                v39 = self->_ucat;
+                v27 = self->_ucat;
 LABEL_24:
-                v46 = v21;
-                v48 = v26;
-                LogPrintF();
+                LogPrintF(v27, "[APBonjourCacheManager _auditCachesIfNecessary:event:]", 60, "Unexpectedly found cache file %'@ for current network signature %'@ which is a public AirPlay network", v20, v25);
               }
             }
           }
         }
 
-        if (!v13)
+        if (!v12)
         {
-          v30 = 0;
+          v29 = 0;
 LABEL_41:
-          v31 = 0;
+          v30 = 0;
           goto LABEL_36;
         }
 
         CFDictionaryGetTypeID();
-        v29 = CFDictionaryGetTypedValue();
-        v30 = v29;
-        if (!v29)
+        v28 = CFDictionaryGetTypedValue();
+        v29 = v28;
+        if (!v28)
         {
           APSLogErrorAt();
           goto LABEL_41;
         }
 
-        v31 = [v29 objectForKeyedSubscript:v13];
-        if (v31)
+        v30 = [v28 objectForKeyedSubscript:v12];
+        if (v30)
         {
           CFDictionaryGetDouble();
-          v33 = v32;
+          v32 = v31;
           CFDictionaryGetDouble();
-          v58 += v27 ^ 1;
-          v35 = self->_ucat->var0;
-          if (v35 <= 30)
+          v46 += v26 ^ 1;
+          v34 = self->_ucat;
+          if (v34->var0 <= 30)
           {
-            v36 = v34;
-            if (v35 == -1)
+            v35 = v33;
+            if (v34->var0 == -1)
             {
               if (!_LogCategory_Initialize())
               {
                 goto LABEL_36;
               }
 
-              v38 = self->_ucat;
+              v34 = self->_ucat;
             }
 
-            v37 = "Other";
-            if (v27)
+            v36 = "Other";
+            if (v26)
             {
-              v37 = "Current";
+              v36 = "Current";
             }
 
-            v48 = v8 - v33;
-            v49 = v8 - v36;
-            v46 = DeviceID;
-            v50 = v26;
-            v51 = v37;
-            LogPrintF();
+            LogPrintF(v34, "[APBonjourCacheManager _auditCachesIfNecessary:event:]", 30, "Found existing cache entry for device: %llu cachedLastSeen: %.3fs ago deviceLastSeen: %.3fs ago networkSignature: %@ (%s)", DeviceID, v8 - v32, v8 - v35, v25, v36);
           }
         }
 
 LABEL_36:
 
-        ++v20;
-        v14 = v55;
+        ++v19;
+        v13 = v43;
       }
 
-      while (v57 != v20);
-      v18 = obj;
-      v40 = [obj countByEnumeratingWithState:&v59 objects:v65 count:16];
-      v57 = v40;
-      if (!v40)
+      while (v45 != v19);
+      v17 = obj;
+      v37 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
+      v45 = v37;
+      if (!v37)
       {
 
-        if (v58)
+        if (v46)
         {
-          v41 = self->_ucat->var0;
-          v19 = v52;
-          if (v41 <= 90)
+          v38 = self->_ucat;
+          v18 = v40;
+          if (v38->var0 <= 90)
           {
-            if (v41 != -1)
+            if (v38->var0 != -1)
             {
               goto LABEL_48;
             }
 
             if (_LogCategory_Initialize())
             {
-              v44 = self->_ucat;
+              v38 = self->_ucat;
 LABEL_48:
-              LogPrintF();
+              v39 = "s";
+              if (v46 == 1)
+              {
+                v39 = "";
+              }
+
+              LogPrintF(v38, "[APBonjourCacheManager _auditCachesIfNecessary:event:]", 90, "Device: %llu exists across %u other network signature%s", DeviceID, v46, v39);
             }
           }
         }
 
         else
         {
-          v19 = v52;
+          v18 = v40;
         }
 
         break;
@@ -2799,9 +2956,7 @@ LABEL_48:
     }
   }
 
-LABEL_52:
-
-  v42 = *MEMORY[0x277D85DE8];
+LABEL_54:
 }
 
 - (uint64_t)_getCacheDirectoryURLCreateIfNecessary:(uint64_t *)a1 error:.cold.3(uint64_t *a1)
@@ -2833,10 +2988,10 @@ LABEL_52:
         goto LABEL_5;
       }
 
-      v7 = *(self + 104);
+      result = *(self + 104);
     }
 
-    result = LogPrintF();
+    result = LogPrintF(result, "[APBonjourCacheManager _migrateCacheDirectoryIfNecessary]", 90, "Migration failed to get destination directory: %{error}", a2);
   }
 
 LABEL_5:

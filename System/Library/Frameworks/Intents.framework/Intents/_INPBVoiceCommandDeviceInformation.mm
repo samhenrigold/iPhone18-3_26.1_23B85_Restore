@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (_INPBVoiceCommandDeviceInformation)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)deviceIdiomAsString:(int)string;
 - (id)dictionaryRepresentation;
 - (int)StringAsDeviceIdiom:(id)idiom;
 - (unint64_t)hash;
@@ -137,13 +138,11 @@
   toCopy = to;
   if ([(_INPBVoiceCommandDeviceInformation *)self hasDeviceIdiom])
   {
-    deviceIdiom = self->_deviceIdiom;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBVoiceCommandDeviceInformation *)self hasIsHomePodInUltimateMode])
   {
-    isHomePodInUltimateMode = self->_isHomePodInUltimateMode;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -204,6 +203,21 @@
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)deviceIdiomAsString:(int)string
+{
+  if ((string - 1) >= 7)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E727DF48[string - 1];
   }
 
   return v4;

@@ -1,88 +1,87 @@
 uint64_t WorkoutRemoteViewServiceAdaptor.presentRemoteViewController(on:with:dismissCompletion:completion:)(void *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v8 = v7;
-  v49 = a5;
-  v50 = a1;
+  v48 = a5;
+  v49 = a1;
   v14 = type metadata accessor for WorkoutPlan();
   v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
-  v17 = (MEMORY[0x28223BE20])();
-  v19 = &v42 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v17);
-  v21 = &v42 - v20;
+  v16 = MEMORY[0x28223BE20](v14);
+  v18 = &v41 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v16);
+  v20 = &v41 - v19;
   outlined copy of Data._Representation(a2, a3);
   WorkoutPlan.init(from:)();
-  v47 = a6;
-  v48 = a7;
-  v45 = OBJC_IVAR____TtC12WorkoutKitUI31WorkoutRemoteViewServiceAdaptor_lastPresenter;
+  v46 = a6;
+  v47 = a7;
+  v44 = OBJC_IVAR____TtC12WorkoutKitUI31WorkoutRemoteViewServiceAdaptor_lastPresenter;
   swift_unknownObjectWeakAssign();
-  v46 = v8;
-  v22 = (v8 + OBJC_IVAR____TtC12WorkoutKitUI31WorkoutRemoteViewServiceAdaptor_dismissCompletion);
-  v23 = *(v8 + OBJC_IVAR____TtC12WorkoutKitUI31WorkoutRemoteViewServiceAdaptor_dismissCompletion);
-  v24 = *(v8 + OBJC_IVAR____TtC12WorkoutKitUI31WorkoutRemoteViewServiceAdaptor_dismissCompletion + 8);
-  v43 = a4;
-  v25 = v49;
-  *v22 = a4;
-  v22[1] = v25;
+  v45 = v8;
+  v21 = (v8 + OBJC_IVAR____TtC12WorkoutKitUI31WorkoutRemoteViewServiceAdaptor_dismissCompletion);
+  v22 = *(v8 + OBJC_IVAR____TtC12WorkoutKitUI31WorkoutRemoteViewServiceAdaptor_dismissCompletion);
+  v23 = *(v8 + OBJC_IVAR____TtC12WorkoutKitUI31WorkoutRemoteViewServiceAdaptor_dismissCompletion + 8);
+  v42 = a4;
+  v24 = v48;
+  *v21 = a4;
+  v21[1] = v24;
   swift_retain_n();
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v23);
-  v26 = v15;
-  v27 = *(v15 + 16);
-  v44 = v21;
-  v27(v19, v21, v14);
-  v28 = type metadata accessor for WorkoutHostingRemoteViewController();
-  v29 = objc_allocWithZone(v28);
-  v30 = v14;
-  v31 = &v29[OBJC_IVAR____TtC12WorkoutKitUI34WorkoutHostingRemoteViewController_dismissCompletion];
-  *v31 = 0;
-  *(v31 + 1) = 0;
-  *&v29[OBJC_IVAR____TtC12WorkoutKitUI34WorkoutHostingRemoteViewController_presentedRemoteViewController] = 0;
-  v27(&v29[OBJC_IVAR____TtC12WorkoutKitUI34WorkoutHostingRemoteViewController_workout], v19, v30);
-  *v31 = v43;
-  *(v31 + 1) = v25;
-  v32 = v30;
-  v52.receiver = v29;
-  v52.super_class = v28;
-  v33 = objc_msgSendSuper2(&v52, sel_initWithNibName_bundle_, 0, 0);
-  v34 = *(v26 + 8);
-  v34(v19, v32);
-  v35 = v50;
-  v36 = [v35 presentedViewController];
-  if (v36)
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v22, v23);
+  v25 = v15;
+  v26 = *(v15 + 16);
+  v43 = v20;
+  v26(v18, v20, v14);
+  v27 = type metadata accessor for WorkoutHostingRemoteViewController(0);
+  v28 = objc_allocWithZone(v27);
+  v29 = v14;
+  v30 = &v28[OBJC_IVAR____TtC12WorkoutKitUI34WorkoutHostingRemoteViewController_dismissCompletion];
+  *v30 = 0;
+  v30[1] = 0;
+  *&v28[OBJC_IVAR____TtC12WorkoutKitUI34WorkoutHostingRemoteViewController_presentedRemoteViewController] = 0;
+  v26(&v28[OBJC_IVAR____TtC12WorkoutKitUI34WorkoutHostingRemoteViewController_workout], v18, v29);
+  *v30 = v42;
+  v30[1] = v24;
+  v31 = v29;
+  v51.receiver = v28;
+  v51.super_class = v27;
+  v32 = objc_msgSendSuper2(&v51, sel_initWithNibName_bundle_, 0, 0);
+  v33 = *(v25 + 8);
+  v33(v18, v31);
+  v34 = v49;
+  v35 = [v34 presentedViewController];
+  if (v35)
   {
     do
     {
-      v37 = v36;
+      v36 = v35;
 
-      v36 = [v37 presentedViewController];
-      v35 = v37;
+      v35 = [v36 presentedViewController];
+      v34 = v36;
     }
 
-    while (v36);
+    while (v35);
   }
 
   else
   {
-    v37 = v35;
+    v36 = v34;
   }
 
   swift_unknownObjectWeakAssign();
-  v38 = swift_allocObject();
-  v39 = v48;
-  *(v38 + 16) = v47;
-  *(v38 + 24) = v39;
+  v37 = swift_allocObject();
+  v38 = v47;
+  *(v37 + 16) = v46;
+  *(v37 + 24) = v38;
   aBlock[4] = partial apply for closure #1 in WorkoutRemoteViewServiceAdaptor.presentRemoteViewController(on:with:dismissCompletion:completion:);
-  aBlock[5] = v38;
+  aBlock[5] = v37;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
   aBlock[3] = &block_descriptor;
-  v40 = _Block_copy(aBlock);
+  v39 = _Block_copy(aBlock);
 
-  [v37 presentViewController:v33 animated:1 completion:v40];
-  _Block_release(v40);
+  [v36 presentViewController:v32 animated:1 completion:v39];
+  _Block_release(v39);
 
-  return (v34)(v44, v32);
+  return (v33)(v43, v31);
 }
 
 void thunk for @escaping @callee_unowned @convention(block) (@unowned ObjCBool, @unowned NSError?) -> ()(char a1, uint64_t a2, uint64_t a3)
@@ -103,89 +102,88 @@ void thunk for @escaping @callee_unowned @convention(block) (@unowned ObjCBool, 
 
 void WorkoutRemoteViewServiceAdaptor.presentRemoteViewController(on:with:dismissCompletion:completion:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v34 = a5;
-  v35 = a6;
-  v31 = a1;
+  v33 = a5;
+  v34 = a6;
+  v30 = a1;
   v10 = type metadata accessor for WorkoutPlan();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
   MEMORY[0x28223BE20](v10);
-  v14 = &v30 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v32 = OBJC_IVAR____TtC12WorkoutKitUI31WorkoutRemoteViewServiceAdaptor_lastPresenter;
+  v13 = &v29 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v31 = OBJC_IVAR____TtC12WorkoutKitUI31WorkoutRemoteViewServiceAdaptor_lastPresenter;
   swift_unknownObjectWeakAssign();
-  v33 = v6;
-  v15 = (v6 + OBJC_IVAR____TtC12WorkoutKitUI31WorkoutRemoteViewServiceAdaptor_dismissCompletion);
-  v17 = *(v6 + OBJC_IVAR____TtC12WorkoutKitUI31WorkoutRemoteViewServiceAdaptor_dismissCompletion);
-  v16 = *(v6 + OBJC_IVAR____TtC12WorkoutKitUI31WorkoutRemoteViewServiceAdaptor_dismissCompletion + 8);
-  *v15 = a3;
-  v15[1] = a4;
-  v18 = a3;
+  v32 = v6;
+  v14 = (v6 + OBJC_IVAR____TtC12WorkoutKitUI31WorkoutRemoteViewServiceAdaptor_dismissCompletion);
+  v16 = *(v6 + OBJC_IVAR____TtC12WorkoutKitUI31WorkoutRemoteViewServiceAdaptor_dismissCompletion);
+  v15 = *(v6 + OBJC_IVAR____TtC12WorkoutKitUI31WorkoutRemoteViewServiceAdaptor_dismissCompletion + 8);
+  *v14 = a3;
+  v14[1] = a4;
+  v17 = a3;
   swift_retain_n();
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v17);
-  v19 = *(v11 + 16);
-  v19(v14, a2, v10);
-  v20 = type metadata accessor for WorkoutHostingRemoteViewController();
-  v21 = objc_allocWithZone(v20);
-  v22 = &v21[OBJC_IVAR____TtC12WorkoutKitUI34WorkoutHostingRemoteViewController_dismissCompletion];
-  *v22 = 0;
-  *(v22 + 1) = 0;
-  *&v21[OBJC_IVAR____TtC12WorkoutKitUI34WorkoutHostingRemoteViewController_presentedRemoteViewController] = 0;
-  v19(&v21[OBJC_IVAR____TtC12WorkoutKitUI34WorkoutHostingRemoteViewController_workout], v14, v10);
-  *v22 = v18;
-  *(v22 + 1) = a4;
-  v37.receiver = v21;
-  v37.super_class = v20;
-  v23 = objc_msgSendSuper2(&v37, sel_initWithNibName_bundle_, 0, 0);
-  (*(v11 + 8))(v14, v10);
-  v24 = v31;
-  v25 = [v24 presentedViewController];
-  if (v25)
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v16, v15);
+  v18 = *(v11 + 16);
+  v18(v13, a2, v10);
+  v19 = type metadata accessor for WorkoutHostingRemoteViewController(0);
+  v20 = objc_allocWithZone(v19);
+  v21 = &v20[OBJC_IVAR____TtC12WorkoutKitUI34WorkoutHostingRemoteViewController_dismissCompletion];
+  *v21 = 0;
+  v21[1] = 0;
+  *&v20[OBJC_IVAR____TtC12WorkoutKitUI34WorkoutHostingRemoteViewController_presentedRemoteViewController] = 0;
+  v18(&v20[OBJC_IVAR____TtC12WorkoutKitUI34WorkoutHostingRemoteViewController_workout], v13, v10);
+  *v21 = v17;
+  v21[1] = a4;
+  v36.receiver = v20;
+  v36.super_class = v19;
+  v22 = objc_msgSendSuper2(&v36, sel_initWithNibName_bundle_, 0, 0);
+  (*(v11 + 8))(v13, v10);
+  v23 = v30;
+  v24 = [v23 presentedViewController];
+  if (v24)
   {
     do
     {
-      v26 = v25;
+      v25 = v24;
 
-      v25 = [v26 presentedViewController];
-      v24 = v26;
+      v24 = [v25 presentedViewController];
+      v23 = v25;
     }
 
-    while (v25);
+    while (v24);
   }
 
   else
   {
-    v26 = v24;
+    v25 = v23;
   }
 
   swift_unknownObjectWeakAssign();
-  v27 = swift_allocObject();
-  v28 = v35;
-  *(v27 + 16) = v34;
-  *(v27 + 24) = v28;
+  v26 = swift_allocObject();
+  v27 = v34;
+  *(v26 + 16) = v33;
+  *(v26 + 24) = v27;
   aBlock[4] = closure #1 in WorkoutRemoteViewServiceAdaptor.presentRemoteViewController(on:with:dismissCompletion:completion:)partial apply;
-  aBlock[5] = v27;
+  aBlock[5] = v26;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = thunk for @escaping @callee_guaranteed () -> ();
   aBlock[3] = &block_descriptor_7;
-  v29 = _Block_copy(aBlock);
+  v28 = _Block_copy(aBlock);
 
-  [v26 presentViewController:v23 animated:1 completion:v29];
-  _Block_release(v29);
+  [v25 presentViewController:v22 animated:1 completion:v28];
+  _Block_release(v28);
 }
 
-uint64_t outlined copy of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined copy of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
-uint64_t outlined consume of (@escaping @callee_guaranteed () -> ())?(uint64_t result)
+uint64_t outlined consume of (@escaping @callee_guaranteed () -> ())?(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -194,7 +192,7 @@ uint64_t outlined consume of (@escaping @callee_guaranteed () -> ())?(uint64_t r
   return result;
 }
 
-uint64_t type metadata accessor for WorkoutHostingRemoteViewController()
+uint64_t type metadata accessor for WorkoutHostingRemoteViewController(uint64_t a1)
 {
   result = type metadata singleton initialization cache for WorkoutHostingRemoteViewController;
   if (!type metadata singleton initialization cache for WorkoutHostingRemoteViewController)
@@ -207,24 +205,15 @@ uint64_t type metadata accessor for WorkoutHostingRemoteViewController()
 
 uint64_t sub_274C93EE0()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
-}
-
-uint64_t partial apply for closure #1 in WorkoutRemoteViewServiceAdaptor.presentRemoteViewController(on:with:dismissCompletion:completion:)()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return v1(1, 0);
 }
 
 uint64_t thunk for @escaping @callee_guaranteed () -> ()(uint64_t a1)
 {
   v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
 
-  v1(v3);
+  v1(v2);
 }
 
 uint64_t block_copy_helper(uint64_t a1, uint64_t a2)
@@ -240,7 +229,7 @@ Swift::Void __swiftcall WorkoutRemoteViewServiceAdaptor.dismissRemoteViewControl
   if (v2)
   {
     v3 = v2;
-    type metadata accessor for WorkoutHostingRemoteViewController();
+    type metadata accessor for WorkoutHostingRemoteViewController(0);
     v4 = swift_dynamicCastClass();
     if (v4)
     {
@@ -255,7 +244,7 @@ Swift::Void __swiftcall WorkoutRemoteViewServiceAdaptor.dismissRemoteViewControl
   *v5 = 0;
   v5[1] = 0;
 
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v6);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v6, v7);
 }
 
 uint64_t WorkoutRemoteViewServiceAdaptor.closeButtonTapped()()
@@ -268,7 +257,7 @@ uint64_t WorkoutRemoteViewServiceAdaptor.closeButtonTapped()()
     if (v3)
     {
       v4 = v3;
-      type metadata accessor for WorkoutHostingRemoteViewController();
+      type metadata accessor for WorkoutHostingRemoteViewController(0);
       v5 = swift_dynamicCastClass();
       if (v5)
       {
@@ -292,7 +281,7 @@ uint64_t WorkoutRemoteViewServiceAdaptor.closeButtonTapped()()
     v9 = v7[1];
 
     v8(v10);
-    outlined consume of (@escaping @callee_guaranteed () -> ())?(v8);
+    outlined consume of (@escaping @callee_guaranteed () -> ())?(v8, v9);
     v11 = *v7;
   }
 
@@ -305,7 +294,7 @@ uint64_t WorkoutRemoteViewServiceAdaptor.closeButtonTapped()()
   *v7 = 0;
   v7[1] = 0;
 
-  return outlined consume of (@escaping @callee_guaranteed () -> ())?(v11);
+  return outlined consume of (@escaping @callee_guaranteed () -> ())?(v11, v12);
 }
 
 id WorkoutRemoteViewServiceAdaptor.__allocating_init()()
@@ -339,7 +328,7 @@ uint64_t dispatch thunk of WorkoutRemoteViewServiceAdaptor.presentRemoteViewCont
 Swift::Void __swiftcall WorkoutHostingRemoteViewController.viewDidLoad()()
 {
   v26.receiver = v0;
-  v26.super_class = type metadata accessor for WorkoutHostingRemoteViewController();
+  v26.super_class = type metadata accessor for WorkoutHostingRemoteViewController(0);
   objc_msgSendSuper2(&v26, sel_viewDidLoad);
   v1 = [objc_allocWithZone(MEMORY[0x277D750E8]) init];
   [v1 setTranslatesAutoresizingMaskIntoConstraints_];
@@ -429,7 +418,7 @@ uint64_t closure #1 in WorkoutHostingRemoteViewController.viewDidLoad()(uint64_t
 
     v1(v3);
 
-    return outlined consume of (@escaping @callee_guaranteed () -> ())?(v1);
+    return outlined consume of (@escaping @callee_guaranteed () -> ())?(v1, v2);
   }
 
   return result;
@@ -459,107 +448,107 @@ LABEL_6:
 
     else
     {
-      v15 = a1;
-      v16 = [v15 view];
-      if (v16)
+      v16 = a1;
+      v17 = [v16 view];
+      if (v17)
       {
-        v17 = v16;
-        v18 = [objc_opt_self() currentDevice];
-        v19 = [v18 userInterfaceIdiom];
+        v18 = v17;
+        v19 = [objc_opt_self() currentDevice];
+        v20 = [v19 userInterfaceIdiom];
 
-        if (v19 == 1)
+        if (v20 == 1)
         {
-          [v15 setModalPresentationStyle_];
-          [v15 setPreferredContentSize_];
+          [v16 setModalPresentationStyle_];
+          [v16 setPreferredContentSize_];
         }
 
-        v20 = v8;
-        [v20 addChildViewController_];
-        [v17 setAlpha_];
-        [v17 setTranslatesAutoresizingMaskIntoConstraints_];
-        v21 = [v20 view];
-        if (v21)
+        v21 = v8;
+        [v21 addChildViewController_];
+        [v18 setAlpha_];
+        [v18 setTranslatesAutoresizingMaskIntoConstraints_];
+        v22 = [v21 view];
+        if (v22)
         {
-          v22 = v21;
-          [v21 addSubview_];
+          v23 = v22;
+          [v22 addSubview_];
 
           __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
-          v23 = swift_allocObject();
-          *(v23 + 16) = xmmword_274C96880;
-          v24 = [v17 leadingAnchor];
-          v25 = [v20 view];
+          v24 = swift_allocObject();
+          *(v24 + 16) = xmmword_274C96880;
+          v25 = [v18 leadingAnchor];
+          v26 = [v21 view];
 
-          if (v25)
+          if (v26)
           {
-            v26 = [v25 leadingAnchor];
+            v27 = [v26 leadingAnchor];
 
-            v27 = [v24 constraintEqualToAnchor_];
-            *(v23 + 32) = v27;
-            v28 = [v17 trailingAnchor];
-            v29 = [v20 view];
+            v28 = [v25 constraintEqualToAnchor_];
+            *(v24 + 32) = v28;
+            v29 = [v18 trailingAnchor];
+            v30 = [v21 view];
 
-            if (v29)
+            if (v30)
             {
-              v30 = [v29 trailingAnchor];
+              v31 = [v30 trailingAnchor];
 
-              v31 = [v28 constraintEqualToAnchor_];
-              *(v23 + 40) = v31;
-              v32 = [v17 topAnchor];
-              v33 = [v20 view];
+              v32 = [v29 constraintEqualToAnchor_];
+              *(v24 + 40) = v32;
+              v33 = [v18 topAnchor];
+              v34 = [v21 view];
 
-              if (v33)
+              if (v34)
               {
-                v34 = [v33 topAnchor];
+                v35 = [v34 topAnchor];
 
-                v35 = [v32 constraintEqualToAnchor_];
-                *(v23 + 48) = v35;
-                v36 = [v17 bottomAnchor];
-                v37 = [v20 0x279EF8AF8];
+                v36 = [v33 constraintEqualToAnchor_];
+                *(v24 + 48) = v36;
+                v37 = [v18 bottomAnchor];
+                v38 = [v21 0x279EF8AF8];
 
-                if (v37)
+                if (v38)
                 {
-                  v38 = objc_opt_self();
-                  v39 = [v37 bottomAnchor];
+                  v39 = objc_opt_self();
+                  v40 = [v38 bottomAnchor];
 
-                  v40 = [v36 constraintEqualToAnchor_];
-                  *(v23 + 56) = v40;
+                  v41 = [v37 constraintEqualToAnchor_];
+                  *(v24 + 56) = v41;
                   type metadata accessor for NSLayoutConstraint();
                   isa = Array._bridgeToObjectiveC()().super.isa;
 
-                  [v38 activateConstraints_];
+                  [v39 activateConstraints_];
 
-                  [v15 didMoveToParentViewController_];
-                  v42 = objc_opt_self();
-                  v43 = swift_allocObject();
-                  *(v43 + 16) = v17;
-                  *(v43 + 24) = a4;
+                  [v16 didMoveToParentViewController_];
+                  v43 = objc_opt_self();
+                  v44 = swift_allocObject();
+                  *(v44 + 16) = v18;
+                  *(v44 + 24) = a4;
                   v57 = partial apply for closure #1 in closure #2 in WorkoutHostingRemoteViewController.viewDidLoad();
-                  v58 = v43;
+                  v58 = v44;
                   aBlock = MEMORY[0x277D85DD0];
                   v54 = 1107296256;
                   v55 = thunk for @escaping @callee_guaranteed () -> ();
                   v56 = &block_descriptor_40;
-                  v44 = _Block_copy(&aBlock);
-                  v45 = v17;
-                  v46 = a4;
+                  v45 = _Block_copy(&aBlock);
+                  v46 = v18;
+                  v47 = a4;
 
-                  v47 = swift_allocObject();
-                  *(v47 + 16) = v46;
+                  v48 = swift_allocObject();
+                  *(v48 + 16) = v47;
                   v57 = partial apply for closure #2 in closure #2 in WorkoutHostingRemoteViewController.viewDidLoad();
-                  v58 = v47;
+                  v58 = v48;
                   aBlock = MEMORY[0x277D85DD0];
                   v54 = 1107296256;
                   v55 = thunk for @escaping @callee_guaranteed (@unowned Bool) -> ();
                   v56 = &block_descriptor_46;
-                  v48 = _Block_copy(&aBlock);
-                  v49 = v46;
+                  v49 = _Block_copy(&aBlock);
+                  v50 = v47;
 
-                  [v42 animateWithDuration:v44 animations:v48 completion:0.2];
+                  [v43 animateWithDuration:v45 animations:v49 completion:0.2];
 
-                  _Block_release(v48);
-                  _Block_release(v44);
-                  v50 = *&v20[OBJC_IVAR____TtC12WorkoutKitUI34WorkoutHostingRemoteViewController_presentedRemoteViewController];
-                  *&v20[OBJC_IVAR____TtC12WorkoutKitUI34WorkoutHostingRemoteViewController_presentedRemoteViewController] = a1;
+                  _Block_release(v49);
+                  _Block_release(v45);
+                  v51 = *&v21[OBJC_IVAR____TtC12WorkoutKitUI34WorkoutHostingRemoteViewController_presentedRemoteViewController];
+                  *&v21[OBJC_IVAR____TtC12WorkoutKitUI34WorkoutHostingRemoteViewController_presentedRemoteViewController] = a1;
 
                   return;
                 }
@@ -596,12 +585,12 @@ LABEL_26:
         return;
       }
 
-      v51 = *&v8[OBJC_IVAR____TtC12WorkoutKitUI34WorkoutHostingRemoteViewController_dismissCompletion + 8];
+      v10 = *&v8[OBJC_IVAR____TtC12WorkoutKitUI34WorkoutHostingRemoteViewController_dismissCompletion + 8];
 
       v9(v52);
     }
 
-    outlined consume of (@escaping @callee_guaranteed () -> ())?(v9);
+    outlined consume of (@escaping @callee_guaranteed () -> ())?(v9, v10);
     goto LABEL_6;
   }
 
@@ -610,38 +599,37 @@ LABEL_26:
   if (v12)
   {
     v13 = *(v12 + OBJC_IVAR____TtC12WorkoutKitUI34WorkoutHostingRemoteViewController_dismissCompletion);
-    v14 = v12;
-    outlined copy of (@escaping @callee_guaranteed () -> ())?(v13);
+    v14 = *(v12 + OBJC_IVAR____TtC12WorkoutKitUI34WorkoutHostingRemoteViewController_dismissCompletion + 8);
+    v15 = v12;
+    outlined copy of (@escaping @callee_guaranteed () -> ())?(v13, v14);
 
     if (v13)
     {
       v13();
-      outlined consume of (@escaping @callee_guaranteed () -> ())?(v13);
+      outlined consume of (@escaping @callee_guaranteed () -> ())?(v13, v14);
     }
   }
 }
 
 uint64_t thunk for @escaping @callee_guaranteed (@unowned Bool) -> ()(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v4(a2);
+  v3(a2);
 }
 
-id WorkoutRemoteViewServiceAdaptor.__deallocating_deinit(uint64_t a1, uint64_t (*a2)(void))
+id WorkoutRemoteViewServiceAdaptor.__deallocating_deinit(uint64_t a1, uint64_t (*a2)(uint64_t))
 {
   v4.receiver = v2;
-  v4.super_class = a2();
+  v4.super_class = a2(a1);
   return objc_msgSendSuper2(&v4, sel_dealloc);
 }
 
-uint64_t type metadata completion function for WorkoutHostingRemoteViewController()
+uint64_t type metadata completion function for WorkoutHostingRemoteViewController(uint64_t a1)
 {
   result = type metadata accessor for WorkoutPlan();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -657,7 +645,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -693,12 +680,11 @@ uint64_t sub_274C95268()
 
 uint64_t sub_274C952A0()
 {
-  v1 = *(v0 + 16);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
-uint64_t outlined copy of (@escaping @callee_guaranteed () -> ())?(uint64_t result)
+uint64_t outlined copy of (@escaping @callee_guaranteed () -> ())?(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -728,13 +714,13 @@ uint64_t sub_274C95394()
   return MEMORY[0x2821FE8E8](v0, 24, 7);
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -778,7 +764,7 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Workout
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance WorkoutRemoteViewError()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance WorkoutRemoteViewError(uint64_t a1)
 {
   Hasher.init(_seed:)();
   MEMORY[0x277C67990](0);
@@ -796,75 +782,73 @@ void closure #1 in static WorkoutRemoteViewController.retrieve(with:dismissHandl
 {
   v12 = type metadata accessor for WorkoutPlan.SerializationFormat();
   v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
   MEMORY[0x28223BE20](v12);
-  v16 = &v33 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = &v32 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (a2)
   {
-    v17 = a2;
+    v16 = a2;
     a3(0, a2);
-    v18 = a2;
+    v17 = a2;
 LABEL_7:
 
     return;
   }
 
-  if (!a1 || (type metadata accessor for WorkoutRemoteViewController(), (v19 = swift_dynamicCastClass()) == 0))
+  if (!a1 || (type metadata accessor for WorkoutRemoteViewController(), (v18 = swift_dynamicCastClass()) == 0))
   {
     lazy protocol witness table accessor for type WorkoutRemoteViewError and conformance WorkoutRemoteViewError();
-    v22 = swift_allocError();
-    a3(0, v22);
-    v18 = v22;
+    v21 = swift_allocError();
+    a3(0, v21);
+    v17 = v21;
     goto LABEL_7;
   }
 
-  v20 = v19;
-  (*(v13 + 104))(v16, *MEMORY[0x277CE3FA0], v12);
-  v34 = a1;
-  v21 = WorkoutPlan.dataRepresentation(as:)();
-  v24 = v23;
-  v35 = v21;
-  (*(v13 + 8))(v16, v12);
-  v25 = WorkoutRemoteViewServiceInterfaceFunc([v20 serviceViewControllerProxy]);
+  v19 = v18;
+  (*(v13 + 104))(v15, *MEMORY[0x277CE3FA0], v12);
+  v33 = a1;
+  v20 = WorkoutPlan.dataRepresentation(as:)();
+  v23 = v22;
+  v34 = v20;
+  (*(v13 + 8))(v15, v12);
+  v24 = WorkoutRemoteViewServiceInterfaceFunc([v19 serviceViewControllerProxy]);
   swift_unknownObjectRelease();
-  v26 = v35;
-  v27 = v24;
-  if (v25)
+  v25 = v34;
+  v26 = v23;
+  if (v24)
   {
     isa = Data._bridgeToObjectiveC()().super.isa;
-    [v25 presentWorkoutDataRepresentation_];
+    [v24 presentWorkoutDataRepresentation_];
 
     swift_unknownObjectRelease();
   }
 
-  v29 = &v20[OBJC_IVAR____TtC12WorkoutKitUI27WorkoutRemoteViewController_dismissHandler];
-  v30 = *&v20[OBJC_IVAR____TtC12WorkoutKitUI27WorkoutRemoteViewController_dismissHandler];
-  v31 = *&v20[OBJC_IVAR____TtC12WorkoutKitUI27WorkoutRemoteViewController_dismissHandler + 8];
-  *v29 = a6;
-  *(v29 + 1) = a7;
+  v28 = &v19[OBJC_IVAR____TtC12WorkoutKitUI27WorkoutRemoteViewController_dismissHandler];
+  v29 = *&v19[OBJC_IVAR____TtC12WorkoutKitUI27WorkoutRemoteViewController_dismissHandler];
+  v30 = *&v19[OBJC_IVAR____TtC12WorkoutKitUI27WorkoutRemoteViewController_dismissHandler + 8];
+  *v28 = a6;
+  *(v28 + 1) = a7;
 
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v30);
-  v32 = v34;
-  a3(v20, 0);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v29, v30);
+  v31 = v33;
+  a3(v19, 0);
 
-  outlined consume of Data._Representation(v26, v27);
+  outlined consume of Data._Representation(v25, v26);
 }
 
 void thunk for @escaping @callee_guaranteed (@guaranteed _UIRemoteViewController?, @guaranteed Error?) -> ()(uint64_t a1, void *a2, void *a3)
 {
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
+  v5 = *(a1 + 32);
 
-  v8 = a2;
-  v7 = a3;
-  v6(a2, a3);
+  v7 = a2;
+  v6 = a3;
+  v5(a2, a3);
 }
 
-id WorkoutRemoteViewController.__deallocating_deinit()
+id WorkoutRemoteViewController.__deallocating_deinit(uint64_t a1)
 {
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for WorkoutRemoteViewController();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
+  v3.receiver = v1;
+  v3.super_class = type metadata accessor for WorkoutRemoteViewController();
+  return objc_msgSendSuper2(&v3, sel_dealloc);
 }
 
 uint64_t sub_274C95DF4()
@@ -874,10 +858,8 @@ uint64_t sub_274C95DF4()
   v3 = *(v2 + 80);
   v4 = (v3 + 32) & ~v3;
   v5 = (*(v2 + 64) + v4 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v6 = *(v0 + 24);
 
   (*(v2 + 8))(v0 + v4, v1);
-  v7 = *(v0 + v5 + 8);
 
   return MEMORY[0x2821FE8E8](v0, v5 + 16, v3 | 7);
 }

@@ -25,7 +25,7 @@
     v20 = 0;
     __p = 0;
     v18 = 0uLL;
-    getEmbeddingArray(self->_videoEmbeddings, size, &v15);
+    getEmbeddingArray(&v15, self->_videoEmbeddings, size);
     std::vector<dlib::matrix<float,1l,0l,dlib::memory_manager_stateless_kernel_1<char>,dlib::row_major_layout>>::__vdeallocate(&v21);
     v21 = v15;
     v22 = v16;
@@ -37,7 +37,7 @@
     {
       if (0xAAAAAAAAAAAAAAABLL * ((*(&v21 + 1) - v21) >> 3) <= 0x3E8)
       {
-        partitionEmbeddingsBySpectralClustering();
+        partitionEmbeddingsBySpectralClustering(&v21);
       }
 
       partitionEmbeddingsByKmeansWithSilhouetteScore(&v21, &v15);

@@ -9,8 +9,11 @@
 - (void)deleteItems:(id)items;
 - (void)emptyTrash;
 - (void)reloadSpecs;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation STStorageFPFSController
@@ -41,6 +44,34 @@
     navigationItem = [(STStorageFPFSController *)self navigationItem];
     [navigationItem setTitle:displayName];
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = STStorageFPFSController;
+  [(STStorageFPFSController *)&v4 viewWillAppear:appear];
+  [*(&self->_hideEdit + 2) startObserving];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [*(&self->_hideEdit + 2) stopObserving];
+  v5.receiver = self;
+  v5.super_class = STStorageFPFSController;
+  [(STStorageFPFSController *)&v5 viewWillDisappear:disappearCopy];
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  editingCopy = editing;
+  v8.receiver = self;
+  v8.super_class = STStorageFPFSController;
+  [STStorageFPFSController setEditing:"setEditing:animated:" animated:?];
+  table = [(STStorageFPFSController *)self table];
+  [table setEditing:editingCopy animated:animatedCopy];
 }
 
 - (id)specifiers

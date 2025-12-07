@@ -168,7 +168,7 @@ LABEL_9:
 {
   v5 = 0;
   v6 = 0;
-  if (sub_10002EB7C(0, ago, 0, &v6, &v5))
+  if (sub_10002EB7C(0, *&ago, 0, &v6, &v5))
   {
     v3 = objc_alloc_init(NSMutableDictionary);
     NSDictFromStatsBuffer(v6, v5, v3);

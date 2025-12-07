@@ -10,38 +10,39 @@
   notificationCopy = notification;
   v4 = objc_alloc_init(ATXMegadomeContextualPersonRelationships);
   title = [notificationCopy title];
-  v20 = 0;
-  v6 = [(ATXMegadomeContextualPersonRelationships *)v4 megadomePersonIDFromName:title error:&v20];
-  v7 = v20;
+  v21 = 0;
+  v6 = [(ATXMegadomeContextualPersonRelationships *)v4 megadomePersonIDFromName:title error:&v21];
+  v7 = v21;
 
   if (![v6 length])
   {
     contactIDs = [notificationCopy contactIDs];
     firstObject = [contactIDs firstObject];
-    v19 = v7;
-    v10 = [(ATXMegadomeContextualPersonRelationships *)v4 megadomePersonIDFromContactID:firstObject error:&v19];
-    v11 = v19;
+    v20 = v7;
+    v10 = [(ATXMegadomeContextualPersonRelationships *)v4 megadomePersonIDFromContactID:firstObject error:&v20];
+    v11 = v20;
 
     v6 = v10;
     v7 = v11;
   }
 
-  if (![v6 length])
+  v12 = [v6 length];
+  if (!v12)
   {
     threadID = [notificationCopy threadID];
-    v18 = v7;
-    v15 = [(ATXMegadomeContextualPersonRelationships *)v4 megadomePersonIDFromPhoneNumber:threadID error:&v18];
-    v16 = v18;
+    v19 = v7;
+    v16 = [(ATXMegadomeContextualPersonRelationships *)v4 megadomePersonIDFromPhoneNumber:threadID error:&v19];
+    v17 = v19;
 
-    v6 = v15;
-    v7 = v16;
-    if (v16)
+    v6 = v16;
+    v7 = v17;
+    if (v17)
     {
       goto LABEL_5;
     }
 
 LABEL_9:
-    v13 = v6;
+    v14 = v6;
     goto LABEL_10;
   }
 
@@ -51,16 +52,16 @@ LABEL_9:
   }
 
 LABEL_5:
-  v12 = __atxlog_handle_notification_categorization();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v13 = __atxlog_handle_notification_categorization(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    [(ATXNotificationCategorizationUtils *)v7 megadomeEntityIDFromNotification:v12];
+    [(ATXNotificationCategorizationUtils *)v7 megadomeEntityIDFromNotification:v13];
   }
 
-  v13 = 0;
+  v14 = 0;
 LABEL_10:
 
-  return v13;
+  return v14;
 }
 
 + (id)megadomePersonRelationshipFromEntityID:(id)d
@@ -109,41 +110,40 @@ void __77__ATXNotificationCategorizationUtils_megadomePersonRelationshipFromEnti
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = __atxlog_handle_notification_categorization();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_notification_categorization(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __77__ATXNotificationCategorizationUtils_megadomePersonRelationshipFromEntityID___block_invoke_cold_1(v6, v7);
+      __77__ATXNotificationCategorizationUtils_megadomePersonRelationshipFromEntityID___block_invoke_cold_1(v7, v8);
     }
 
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
   }
 
-  v8 = *(*(a1 + 48) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v5;
-  v10 = v5;
+  v9 = *(*(a1 + 48) + 8);
+  v10 = *(v9 + 40);
+  *(v9 + 40) = v5;
+  v11 = v5;
 
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
 + (void)megadomeEntityIDFromNotification:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXNotificationCategorizationUtils: Error getting megadomeEntityID from Name, contactID or phone number: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXNotificationCategorizationUtils: Error getting megadomeEntityID from Name, contactID or phone number: %@", &v2, 0xCu);
 }
 
 void __77__ATXNotificationCategorizationUtils_megadomePersonRelationshipFromEntityID___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXNotificationCategorizationUtils: Error getting Megadome relationships: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXNotificationCategorizationUtils: Error getting Megadome relationships: %@", &v2, 0xCu);
 }
 
 @end

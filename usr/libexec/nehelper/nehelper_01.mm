@@ -215,24 +215,22 @@ void sub_10001AE5C(uint64_t a1, void *a2)
   {
     v4 = 0;
 LABEL_4:
-    v5 = *(a1 + 40);
-    v6 = *(a1 + 56);
     (*(*(*(*(a1 + 48) + 8) + 40) + 16))();
     goto LABEL_5;
   }
 
   int64 = xpc_dictionary_get_int64(xdict, "result-code");
-  v8 = xpc_dictionary_get_value(xdict, "result-data");
-  v4 = v8;
-  if (int64 || !v8 || xpc_get_type(v8) != &_xpc_type_endpoint)
+  v6 = xpc_dictionary_get_value(xdict, "result-data");
+  v4 = v6;
+  if (int64 || !v6 || xpc_get_type(v6) != &_xpc_type_endpoint)
   {
     goto LABEL_4;
   }
 
   sub_10000BA0C(NEHelperServer, *(a1 + 32), 0, v4);
-  v9 = *(*(a1 + 48) + 8);
-  v10 = *(v9 + 40);
-  *(v9 + 40) = 0;
+  v7 = *(*(a1 + 48) + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = 0;
 
 LABEL_5:
 }
@@ -378,7 +376,7 @@ void sub_10001AFE8(unsigned __int8 *a1, void *a2, void *a3, void *a4)
     v36 = [v46 contentFilter];
     if (v36 && (v37 = v47[16], v36, v37 == 1))
     {
-      v38 = sub_10001B748();
+      v38 = sub_10001B748(NEHelperConfigurationManager);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_10001B7A0;
@@ -477,7 +475,7 @@ void sub_10001B4F4(uint64_t a1, void *a2)
   }
 }
 
-id sub_10001B748()
+id sub_10001B748(uint64_t a1)
 {
   objc_opt_self();
   if (qword_100046B58 != -1)
@@ -485,9 +483,9 @@ id sub_10001B748()
     dispatch_once(&qword_100046B58, &stru_10003D118);
   }
 
-  v0 = qword_100046B50;
+  v1 = qword_100046B50;
 
-  return v0;
+  return v1;
 }
 
 void sub_10001B7A0(uint64_t a1)
@@ -497,7 +495,7 @@ void sub_10001B7A0(uint64_t a1)
 
   if (v3)
   {
-    v4 = sub_10001B748();
+    v4 = sub_10001B748(NEHelperConfigurationManager);
     dispatch_suspend(v4);
 
     v6 = +[NEConfigurationManager sharedManagerForAllUsers];
@@ -559,7 +557,7 @@ uint64_t sub_10001B9C0(uint64_t a1, void *a2)
 uint64_t sub_10001BA08(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_10001B748();
+  v4 = sub_10001B748(NEHelperConfigurationManager);
   dispatch_resume(v4);
 
   v5 = *(a1 + 32);
@@ -578,7 +576,7 @@ void sub_10001BA8C(id a1)
   qword_100046B50 = v1;
 }
 
-void sub_10001BAF0()
+void sub_10001BAF0(uint64_t a1)
 {
   objc_opt_self();
   if (qword_100046B98 != -1)
@@ -903,7 +901,7 @@ void sub_10001C3F0(uint64_t a1, void *a2)
 
   else
   {
-    v4 = sub_100020804();
+    v4 = sub_100020804(NEHelperCacheManager);
     v6 = [*(a1 + 32) UUIDString];
     if (v4)
     {
@@ -2299,7 +2297,7 @@ void sub_10001E6EC(uint64_t a1, uint64_t a2)
         }
       }
 
-      sub_10001BAF0();
+      sub_10001BAF0(NEHelperPendingOperation);
       v19 = qword_100046B90;
       block.receiver = _NSConcreteStackBlock;
       block.super_class = 3221225472;
@@ -2749,7 +2747,7 @@ void sub_10001FFB0(uint64_t a1, void *a2)
   v8[3] = sub_1000169A0;
   v8[4] = sub_1000169B0;
   v9 = os_transaction_create();
-  v3 = sub_10001B748();
+  v3 = sub_10001B748(NEHelperConfigurationManager);
   v5[0] = _NSConcreteStackBlock;
   v5[1] = 3221225472;
   v5[2] = sub_1000200E8;
@@ -2762,9 +2760,9 @@ void sub_10001FFB0(uint64_t a1, void *a2)
   _Block_object_dispose(v8, 8);
 }
 
-void sub_1000200D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000200D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2833,7 +2831,7 @@ void sub_1000200E8(uint64_t a1)
     v10 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
     v11 = dispatch_queue_create("Remove filters queue", v10);
 
-    v12 = sub_10001B748();
+    v12 = sub_10001B748(NEHelperConfigurationManager);
     dispatch_suspend(v12);
 
     v13 = +[NEConfigurationManager sharedManagerForAllUsers];
@@ -2936,7 +2934,7 @@ LABEL_3:
 LABEL_9:
 
 LABEL_14:
-    v23 = sub_10001B748();
+    v23 = sub_10001B748(NEHelperConfigurationManager);
     dispatch_resume(v23);
 
     v24 = *(*(a1 + 40) + 8);
@@ -2962,7 +2960,7 @@ void sub_100020614(uint64_t a1, uint64_t a2)
     }
   }
 
-  v4 = sub_10001B748();
+  v4 = sub_10001B748(NEHelperConfigurationManager);
   dispatch_resume(v4);
 
   v5 = *(*(a1 + 48) + 8);
@@ -2970,7 +2968,7 @@ void sub_100020614(uint64_t a1, uint64_t a2)
   *(v5 + 40) = 0;
 }
 
-id sub_100020804()
+id sub_100020804(uint64_t a1)
 {
   objc_opt_self();
   if (qword_100046BC8 != -1)
@@ -2978,9 +2976,9 @@ id sub_100020804()
     dispatch_once(&qword_100046BC8, &stru_10003D720);
   }
 
-  v0 = qword_100046BD0;
+  v1 = qword_100046BD0;
 
-  return v0;
+  return v1;
 }
 
 void sub_10002085C(SCPreferencesRef *a1, void *a2)
@@ -3008,7 +3006,7 @@ LABEL_108:
       if (uint64 == 3)
       {
         v38 = xpc_dictionary_get_remote_connection(v4);
-        v39 = sub_10000E080(NEHelperServer, v38) || sub_10000E080(NEHelperServer, v38);
+        v39 = sub_10000E080(NEHelperServer, v38, "com.apple.private.network.socket-delegate") || sub_10000E080(NEHelperServer, v38, "com.apple.private.necp.policies");
         v19 = xpc_dictionary_create(0, 0, 0);
         if (v19)
         {
@@ -3105,7 +3103,7 @@ LABEL_108:
       }
 
       v23 = xpc_dictionary_get_remote_connection(v4);
-      v24 = sub_10000E080(NEHelperServer, v23);
+      v24 = sub_10000E080(NEHelperServer, v23, "com.apple.private.nehelper.privileged");
 
       v25 = xpc_dictionary_get_string(v4, "cache-service");
       v26 = xpc_dictionary_get_value(v4, "cache-domain-dictionaries");
@@ -3205,7 +3203,7 @@ LABEL_102:
       }
 
       v15 = xpc_dictionary_get_remote_connection(v4);
-      v16 = sub_10000E080(NEHelperServer, v15);
+      v16 = sub_10000E080(NEHelperServer, v15, "com.apple.private.nehelper.privileged");
 
       v17 = xpc_dictionary_get_string(v4, "cache-service");
       v18 = xpc_dictionary_get_value(v4, "cache-routes");
@@ -3251,7 +3249,7 @@ LABEL_105:
       }
 
       v30 = xpc_dictionary_get_remote_connection(v4);
-      v31 = sub_10000E080(NEHelperServer, v30);
+      v31 = sub_10000E080(NEHelperServer, v30, "com.apple.private.nehelper.privileged");
 
       if (v31)
       {
@@ -3280,7 +3278,7 @@ LABEL_105:
     }
 
     v43 = xpc_dictionary_get_remote_connection(v4);
-    v44 = sub_10000E080(NEHelperServer, v43);
+    v44 = sub_10000E080(NEHelperServer, v43, "com.apple.private.nehelper.privileged");
 
     v45 = xpc_dictionary_get_value(v4, "cache-redirected-address");
     v19 = v45;
@@ -3359,7 +3357,7 @@ LABEL_101:
   if (uint64 == 9)
   {
     v51 = xpc_dictionary_get_remote_connection(v4);
-    v52 = sub_10000E080(NEHelperServer, v51);
+    v52 = sub_10000E080(NEHelperServer, v51, "com.apple.private.nehelper.privileged");
 
     if (v52)
     {
@@ -4030,13 +4028,15 @@ LABEL_10:
 LABEL_12:
 }
 
-id sub_1000224D8(void *a1, void *a2, void *a3, int a4, unsigned int a5, _BYTE *a6)
+id sub_1000224D8(void *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, _BYTE *a6)
 {
+  v7 = a5;
+  v8 = a4;
   v11 = a2;
   if (a1)
   {
     v39 = 0;
-    v12 = sub_1000239B4(a1, v11, a3, a4, a5, 0, a6, &v39);
+    v12 = sub_1000239B4(a1, v11, a3, v8, v7, 0, a6, &v39);
     v13 = v12;
     if (byte_100046BD8)
     {
@@ -5916,25 +5916,19 @@ void sub_100025D30(void *a1, const char *a2)
 void sub_100025DBC(uint64_t a1)
 {
   +[NEProcessInfo clearUUIDCache];
-  v2 = *(a1 + 32);
-  if (v2)
-  {
-    v3 = *(v2 + 16);
-  }
-
   if (SCPreferencesRemoveAllValues())
   {
-    v4 = *(a1 + 32);
-    v5 = v4 ? *(v4 + 16) : 0;
-    if (SCPreferencesCommitChanges(v5))
+    v2 = *(a1 + 32);
+    v3 = v2 ? *(v2 + 16) : 0;
+    if (SCPreferencesCommitChanges(v3))
     {
-      sub_1000230CC(*(a1 + 32), v6);
+      sub_1000230CC(*(a1 + 32), v4);
     }
   }
 
-  v7 = *(a1 + 32);
+  v5 = *(a1 + 32);
 
-  sub_100022AC0(v7);
+  sub_100022AC0(v5);
 }
 
 void sub_100025E3C(void *a1, void *a2, void *a3)

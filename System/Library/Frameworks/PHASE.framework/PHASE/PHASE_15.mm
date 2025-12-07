@@ -1,6 +1,6 @@
-void sub_23A417B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_23A417B88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__function::__value_func<double ()(double)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -45,9 +45,9 @@ void *Phase::Controller::GroupManager::SetGain(Phase::Controller::GroupManager *
   return result;
 }
 
-void sub_23A417CE4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A417CE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<double ()(double)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -69,9 +69,9 @@ void *Phase::Controller::GroupManager::SetGainHighFreq(Phase::Controller::GroupM
   return result;
 }
 
-void sub_23A417DBC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A417DBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<double ()(double)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -93,9 +93,9 @@ void *Phase::Controller::GroupManager::SetGainLowFreq(Phase::Controller::GroupMa
   return result;
 }
 
-void sub_23A417E94(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A417E94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<double ()(double)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -117,9 +117,9 @@ void *Phase::Controller::GroupManager::SetRate(Phase::Controller::GroupManager *
   return result;
 }
 
-void sub_23A417F6C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A417F6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<double ()(double)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -130,7 +130,7 @@ uint64_t Phase::Controller::GroupManager::StartDuck(Phase::Controller::GroupMana
   v4 = [(PHASEDucker *)v3 identifier];
   StringHashId = Phase::GetStringHashId(v4, v5);
   Phase::Controller::Ducker::Ducker(v8, v3, *(this + 22));
-  std::__hash_table<std::__hash_value_type<unsigned long long,Phase::Controller::Ducker>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::Ducker>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::Ducker>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::Controller::Ducker>>>::__emplace_unique_key_args<unsigned long long,unsigned long long,Phase::Controller::Ducker>(this + 10, &StringHashId);
+  std::__hash_table<std::__hash_value_type<unsigned long long,Phase::Controller::Ducker>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::Ducker>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::Ducker>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::Controller::Ducker>>>::__emplace_unique_key_args<unsigned long long,unsigned long long,Phase::Controller::Ducker>(this + 20, &StringHashId, &StringHashId, v8);
   LOBYTE(this) = v6;
   v14 = &v12;
   std::vector<Phase::Envelope<double>::SegmentInternal,std::allocator<Phase::Envelope<double>::SegmentInternal>>::__destroy_vector::operator()[abi:ne200100](&v14);
@@ -144,9 +144,9 @@ uint64_t Phase::Controller::GroupManager::StartDuck(Phase::Controller::GroupMana
   return this & 1;
 }
 
-void sub_23A418054(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A418054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   Phase::Controller::Ducker::~Ducker(va);
 
   _Unwind_Resume(a1);
@@ -425,32 +425,32 @@ void Phase::Controller::Ducker::~Ducker(Phase::Controller::Ducker *this)
   std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::~__hash_table(this);
 }
 
-void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long>(void *result, unint64_t a2)
+void *std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long>(void *result, unint64_t a2, void *a3)
 {
-  v2 = result[1];
-  if (!*&v2)
+  v3 = result[1];
+  if (!*&v3)
   {
     goto LABEL_18;
   }
 
-  v3 = vcnt_s8(v2);
-  v3.i16[0] = vaddlv_u8(v3);
-  if (v3.u32[0] > 1uLL)
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
   {
-    v4 = a2;
-    if (*&v2 <= a2)
+    v5 = a2;
+    if (*&v3 <= a2)
     {
-      v4 = a2 % *&v2;
+      v5 = a2 % *&v3;
     }
   }
 
   else
   {
-    v4 = (*&v2 - 1) & a2;
+    v5 = (*&v3 - 1) & a2;
   }
 
-  v5 = *(*result + 8 * v4);
-  if (!v5 || (v6 = *v5) == 0)
+  v6 = *(*result + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
   {
 LABEL_18:
     operator new();
@@ -458,39 +458,39 @@ LABEL_18:
 
   while (1)
   {
-    v7 = v6[1];
-    if (v7 == a2)
+    v8 = v7[1];
+    if (v8 == a2)
     {
       break;
     }
 
-    if (v3.u32[0] > 1uLL)
+    if (v4.u32[0] > 1uLL)
     {
-      if (v7 >= *&v2)
+      if (v8 >= *&v3)
       {
-        v7 %= *&v2;
+        v8 %= *&v3;
       }
     }
 
     else
     {
-      v7 &= *&v2 - 1;
+      v8 &= *&v3 - 1;
     }
 
-    if (v7 != v4)
+    if (v8 != v5)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v6 = *v6;
-    if (!v6)
+    v7 = *v7;
+    if (!v7)
     {
       goto LABEL_18;
     }
   }
 
-  if (v6[2] != a2)
+  if (v7[2] != a2)
   {
     goto LABEL_17;
   }
@@ -573,33 +573,33 @@ uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,Phase::Cont
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,Phase::Controller::Group>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::Group>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::Group>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::Controller::Group>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,Phase::Controller::Group>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,Phase::Controller::Group>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::Group>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::Group>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::Controller::Group>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,Phase::Controller::Group>(float *a1, unint64_t *a2, void *a3, uint64_t *a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = *(a1 + 2);
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (result = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (result = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -607,26 +607,26 @@ LABEL_18:
 
   while (1)
   {
-    v8 = result[1];
-    if (v8 == v2)
+    v10 = result[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
@@ -639,7 +639,7 @@ LABEL_17:
     }
   }
 
-  if (result[2] != v2)
+  if (result[2] != v4)
   {
     goto LABEL_17;
   }
@@ -687,7 +687,7 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(a2);
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<unsigned long long,Phase::Controller::Group>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::Group>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::Group>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::Controller::Group>>>::__erase_unique<unsigned long long>(void *a1, unint64_t *a2)
+uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,Phase::Controller::Group>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::Group>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::Group>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::Controller::Group>>>::__erase_unique<unsigned long long>(void *a1, unint64_t *a2)
 {
   result = std::__hash_table<std::__hash_value_type<unsigned long long,int>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,int>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,int>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,int>>>::find<unsigned long long>(a1, a2);
   if (result)
@@ -730,33 +730,33 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(__p);
 }
 
-void *std::__hash_table<std::__hash_value_type<unsigned long long,Phase::Controller::Ducker>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::Ducker>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::Ducker>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::Controller::Ducker>>>::__emplace_unique_key_args<unsigned long long,unsigned long long,Phase::Controller::Ducker>(void *a1, unint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<unsigned long long,Phase::Controller::Ducker>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::Ducker>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,Phase::Controller::Ducker>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,Phase::Controller::Ducker>>>::__emplace_unique_key_args<unsigned long long,unsigned long long,Phase::Controller::Ducker>(float *a1, unint64_t *a2, void *a3, uint64_t a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = *(a1 + 2);
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (v2 >= *&v3)
+    v7 = *a2;
+    if (v4 >= *&v5)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -764,58 +764,58 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v9[2] != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void *Phase::HeapAllocator::Destroy(Phase::HeapAllocator *this)
+void *Phase::HeapAllocator::Destroy(Phase::HeapAllocator *this, uint64_t a2, unint64_t a3)
 {
-  v2 = *(this + 8);
-  if ((v2 & 0x10) != 0)
+  v4 = *(this + 8);
+  if ((v4 & 0x10) != 0)
   {
     Phase::SpinLock::Lock(this);
   }
 
-  v3 = *(this + 118);
-  if (v3)
+  v5 = *(this + 118);
+  if (v5)
   {
-    Phase::VirtualAllocator::DecommitPages(v3, *(this + 239));
+    Phase::VirtualAllocator::DecommitPages(v5, *(this + 239));
     Phase::VirtualAllocator::ReleaseAddressSpace(*(this + 118), *(this + 238));
   }
 
@@ -845,7 +845,7 @@ void *Phase::HeapAllocator::Destroy(Phase::HeapAllocator *this)
   *(this + 59) = 0u;
   *(this + 60) = 0u;
   *(this + 122) = 0;
-  if ((v2 & 0x10) != 0)
+  if ((v4 & 0x10) != 0)
   {
     atomic_store(0, this);
   }
@@ -865,19 +865,19 @@ void sub_23A419C0C(_Unwind_Exception *a1)
 
 void Phase::HeapAllocator::InitializeWithBacking(Phase::HeapAllocator *this, unint64_t a2, const char *a3, int a4, uint64_t a5, int a6)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   if (HIDWORD(a2))
   {
-    v45 = **(Phase::Logger::GetInstance(this) + 64);
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v47 = **(Phase::Logger::GetInstance(this) + 64);
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
     {
-      v57 = 136315650;
-      v58 = "HeapAllocator.cpp";
-      v59 = 1024;
-      v60 = 1100;
-      v61 = 2048;
-      v62 = a2;
-      _os_log_impl(&dword_23A302000, v45, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::invalid_argument) [inMaxSizeInBytes > 0xffffffff is true]: Invalid inMaxSizeInBytes: %zu!\\n", &v57, 0x1Cu);
+      v59 = 136315650;
+      v60 = "HeapAllocator.cpp";
+      v61 = 1024;
+      v62 = 1100;
+      v63 = 2048;
+      v64 = a2;
+      _os_log_impl(&dword_23A302000, v47, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::invalid_argument) [inMaxSizeInBytes > 0xffffffff is true]: Invalid inMaxSizeInBytes: %zu!\\n", &v59, 0x1Cu);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -886,20 +886,20 @@ void Phase::HeapAllocator::InitializeWithBacking(Phase::HeapAllocator *this, uni
 
   if ((a5 ^ (a5 - 1)) <= a5 - 1)
   {
-    v47 = **(Phase::Logger::GetInstance(this) + 64);
-    if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+    v49 = **(Phase::Logger::GetInstance(this) + 64);
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
     {
-      v57 = 136315650;
-      v58 = "HeapAllocator.cpp";
-      v59 = 1024;
-      v60 = 1107;
-      v61 = 2048;
-      v62 = a5;
-      _os_log_impl(&dword_23A302000, v47, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::invalid_argument) [!IsPowerOfTwo(inAlignmentInBytes) is true]: Invalid inAlignmentInBytes: %zu!\\n", &v57, 0x1Cu);
+      v59 = 136315650;
+      v60 = "HeapAllocator.cpp";
+      v61 = 1024;
+      v62 = 1107;
+      v63 = 2048;
+      v64 = a5;
+      _os_log_impl(&dword_23A302000, v49, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::invalid_argument) [!IsPowerOfTwo(inAlignmentInBytes) is true]: Invalid inAlignmentInBytes: %zu!\\n", &v59, 0x1Cu);
     }
 
-    v48 = __cxa_allocate_exception(0x10uLL);
-    std::invalid_argument::invalid_argument[abi:ne200100](v48, "Invalid inAlignmentInBytes: %zu!\n");
+    v50 = __cxa_allocate_exception(0x10uLL);
+    std::invalid_argument::invalid_argument[abi:ne200100](v50, "Invalid inAlignmentInBytes: %zu!\n");
   }
 
   *(this + 40) = 0u;
@@ -944,89 +944,89 @@ void Phase::HeapAllocator::InitializeWithBacking(Phase::HeapAllocator *this, uni
   *(v12 + 113) = v18;
   if (!v18)
   {
-    v49 = Phase::HeapAllocator::Destroy(this);
-    v50 = **(Phase::Logger::GetInstance(v49) + 32);
-    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
-    {
-      v57 = 136315394;
-      v58 = "HeapAllocator.cpp";
-      v59 = 1024;
-      v60 = 195;
-      _os_log_impl(&dword_23A302000, v50, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (OutOfMemory): Could not acquire the specified amount of address space from the virtual allocator!", &v57, 0x12u);
-    }
-
-    v51 = __cxa_allocate_exception(0x10uLL);
-    _ZN5Phase11OutOfMemoryCI1St11logic_errorEPKc(v51, "Could not acquire the specified amount of address space from the virtual allocator!");
-  }
-
-  v19 = v18;
-  v20 = 8;
-  if (a5 > 8)
-  {
-    v20 = a5;
-  }
-
-  v21 = __clz(v20) ^ 0x3F;
-  *(this + 6) = v21;
-  *(this + 116) = v18;
-  if (a6 < 0)
-  {
-    v52 = **(Phase::Logger::GetInstance(v18) + 64);
+    v51 = Phase::HeapAllocator::Destroy(this, v19, v20);
+    v52 = **(Phase::Logger::GetInstance(v51) + 32);
     if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
     {
-      v57 = 136315650;
-      v58 = "HeapAllocator.cpp";
-      v59 = 1024;
-      v60 = 89;
-      v61 = 2048;
-      v62 = a6;
-      _os_log_impl(&dword_23A302000, v52, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::invalid_argument) [inMaximumAllocationCount < 0 is true]: Invalid inMaximumAllocationCount: %lld!\\n", &v57, 0x1Cu);
+      v59 = 136315394;
+      v60 = "HeapAllocator.cpp";
+      v61 = 1024;
+      v62 = 195;
+      _os_log_impl(&dword_23A302000, v52, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (OutOfMemory): Could not acquire the specified amount of address space from the virtual allocator!", &v59, 0x12u);
     }
 
     v53 = __cxa_allocate_exception(0x10uLL);
-    std::invalid_argument::invalid_argument[abi:ne200100](v53, "Invalid inMaximumAllocationCount: %lld!\n");
+    _ZN5Phase11OutOfMemoryCI1St11logic_errorEPKc(v53, "Could not acquire the specified amount of address space from the virtual allocator!");
   }
 
-  v22 = (((2454267027u * (((a6 + 15) & 0xFFFFFFF0) >> 1)) >> 32 << 6) & 0xFFFFFF00) + (((((a6 + 15) & 0xFFFFFFF0) + 34) / 0x1F) << 9) + 688 * ((((a6 + 15) & 0xFFFFFFF0) + 24) / 0x15) + 11008;
-  *(this + 235) = v22;
-  v23 = (v22 + ~(-1 << v21)) >> v21;
-  *(this + 2) = v18 + (v23 << v21);
-  if (v23 >= (a2 >> v21))
+  v21 = v18;
+  v22 = 8;
+  if (a5 > 8)
   {
-    v54 = Phase::HeapAllocator::Destroy(this);
-    v55 = **(Phase::Logger::GetInstance(v54) + 32);
-    if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
+    v22 = a5;
+  }
+
+  v23 = __clz(v22) ^ 0x3F;
+  *(this + 6) = v23;
+  *(this + 116) = v18;
+  if (a6 < 0)
+  {
+    v54 = **(Phase::Logger::GetInstance(v18) + 64);
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
     {
-      v57 = 136315394;
-      v58 = "HeapAllocator.cpp";
-      v59 = 1024;
-      v60 = 211;
-      _os_log_impl(&dword_23A302000, v55, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::invalid_argument): InitializeWithBacking failed!", &v57, 0x12u);
+      v59 = 136315650;
+      v60 = "HeapAllocator.cpp";
+      v61 = 1024;
+      v62 = 89;
+      v63 = 2048;
+      v64 = a6;
+      _os_log_impl(&dword_23A302000, v54, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::invalid_argument) [inMaximumAllocationCount < 0 is true]: Invalid inMaximumAllocationCount: %lld!\\n", &v59, 0x1Cu);
     }
 
-    v56 = __cxa_allocate_exception(0x10uLL);
-    std::invalid_argument::invalid_argument[abi:ne200100](v56, "InitializeWithBacking failed!");
+    v55 = __cxa_allocate_exception(0x10uLL);
+    std::invalid_argument::invalid_argument[abi:ne200100](v55, "Invalid inMaximumAllocationCount: %lld!\n");
   }
 
-  v24 = *(this + 8);
-  if ((v24 & 0x10) != 0 && (Phase::SpinLock::Lock(this), (v19 = *(this + 118)) == 0))
+  v24 = (((2454267027u * (((a6 + 15) & 0xFFFFFFF0) >> 1)) >> 32 << 6) & 0xFFFFFF00) + (((((a6 + 15) & 0xFFFFFFF0) + 34) / 0x1F) << 9) + 688 * ((((a6 + 15) & 0xFFFFFFF0) + 24) / 0x15) + 11008;
+  *(this + 235) = v24;
+  v25 = (v24 + ~(-1 << v23)) >> v23;
+  *(this + 2) = v18 + (v25 << v23);
+  if (v25 >= (a2 >> v23))
   {
-    v26 = 1;
+    v56 = Phase::HeapAllocator::Destroy(this, v19, v20);
+    v57 = **(Phase::Logger::GetInstance(v56) + 32);
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+    {
+      v59 = 136315394;
+      v60 = "HeapAllocator.cpp";
+      v61 = 1024;
+      v62 = 211;
+      _os_log_impl(&dword_23A302000, v57, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::invalid_argument): InitializeWithBacking failed!", &v59, 0x12u);
+    }
+
+    v58 = __cxa_allocate_exception(0x10uLL);
+    std::invalid_argument::invalid_argument[abi:ne200100](v58, "InitializeWithBacking failed!");
+  }
+
+  v26 = *(this + 8);
+  if ((v26 & 0x10) != 0 && (Phase::SpinLock::Lock(this), (v21 = *(this + 118)) == 0))
+  {
+    v28 = 1;
   }
 
   else
   {
-    v25 = *(this + 239);
-    if (v25)
+    v27 = *(this + 239);
+    if (v27)
     {
-      Phase::VirtualAllocator::DecommitPages(v19, v25);
-      v19 = *(this + 118);
-      v26 = v19 == 0;
+      Phase::VirtualAllocator::DecommitPages(v21, v27);
+      v21 = *(this + 118);
+      v28 = v21 == 0;
     }
 
     else
     {
-      v26 = 0;
+      v28 = 0;
     }
   }
 
@@ -1049,102 +1049,102 @@ void Phase::HeapAllocator::InitializeWithBacking(Phase::HeapAllocator *this, uni
   v14[5] = 0u;
   v14[6] = 0u;
   v14[7] = 0u;
-  if (!v26)
+  if (!v28)
   {
-    v27 = *(this + 235);
-    if (v27)
+    v29 = *(this + 235);
+    if (v29)
     {
-      v28 = (*v15 + v27) >> *v16;
+      v30 = (*v15 + v29) >> *v16;
     }
 
     else
     {
-      v28 = 0;
+      v30 = 0;
     }
 
-    Phase::VirtualAllocator::CommitPages(v19, v28);
-    *(this + 239) = v28;
-    *(this + 7) = (*(this + 236) + *MEMORY[0x277D85FA0] * v28 - *(this + 4)) >> *(this + 6);
+    Phase::VirtualAllocator::CommitPages(v21, v30);
+    *(this + 239) = v30;
+    *(this + 7) = (*(this + 236) + *MEMORY[0x277D85FA0] * v30 - *(this + 4)) >> *(this + 6);
   }
 
-  v29 = *(this + 116);
-  if (v29)
+  v31 = *(this + 116);
+  if (v31)
   {
-    v30 = *(this + 234);
+    v32 = *(this + 234);
     for (i = 132; i != 644; i += 8)
     {
-      v32 = Phase::HeapAllocator::AddLookupSet(this, (v29 + v30));
-      v30 = *(this + 234) + 128;
-      *(this + 234) = v30;
-      v29 = *(this + 116);
-      *(this + i) = vdup_n_s32(v32 - v29);
+      v34 = Phase::HeapAllocator::AddLookupSet(this, (v31 + v32));
+      v32 = *(this + 234) + 128;
+      *(this + 234) = v32;
+      v31 = *(this + 116);
+      *(this + i) = vdup_n_s32(v34 - v31);
     }
 
     do
     {
-      v33 = Phase::HeapAllocator::AddLookupSet(this, (v29 + v30));
-      v30 = *(this + 234) + 128;
-      *(this + 234) = v30;
-      v29 = *(this + 116);
-      *(this + i) = vdup_n_s32(v33 - v29);
+      v35 = Phase::HeapAllocator::AddLookupSet(this, (v31 + v32));
+      v32 = *(this + 234) + 128;
+      *(this + 234) = v32;
+      v31 = *(this + 116);
+      *(this + i) = vdup_n_s32(v35 - v31);
       i += 8;
     }
 
     while (i != 772);
-    v34 = 6;
+    v36 = 6;
     do
     {
-      v35 = Phase::HeapAllocator::AddLookupSet(this, (*(this + 116) + v30));
-      v30 = *(this + 234) + 128;
-      *(this + 234) = v30;
-      v36 = *(this + 15);
-      if (v36)
+      v37 = Phase::HeapAllocator::AddLookupSet(this, (*(this + 116) + v32));
+      v32 = *(this + 234) + 128;
+      *(this + 234) = v32;
+      v38 = *(this + 15);
+      if (v38)
       {
-        v35[29] = v36 - *(this + 232);
+        v37[29] = v38 - *(this + 232);
       }
 
-      *(this + 15) = v35;
+      *(this + 15) = v37;
       ++*(this + 32);
-      --v34;
+      --v36;
     }
 
-    while (v34);
-    Phase::HeapAllocator::AddBlockSet(this, (*(this + 116) + v30));
-    v37 = (*(this + 234) + 688);
-    *(this + 234) = v37;
-    Phase::HeapAllocator::AddGapSet(this, (*(this + 116) + v37));
+    while (v36);
+    Phase::HeapAllocator::AddBlockSet(this, (*(this + 116) + v32));
+    v39 = (*(this + 234) + 688);
+    *(this + 234) = v39;
+    Phase::HeapAllocator::AddGapSet(this, (*(this + 116) + v39));
     *(this + 234) += 512;
-    v38 = *(this + 7);
-    if (v38 > 0)
+    v40 = *(this + 7);
+    if (v40 > 0)
     {
-      Phase::HeapAllocator::AddGap(this, 0, v38, 0xFFFFFFFF, 0xFFFFFFFF);
+      Phase::HeapAllocator::AddGap(this, 0, v40, 0xFFFFFFFF, 0xFFFFFFFF);
     }
 
-    v39 = *(this + 8);
-    if (v39)
+    v41 = *(this + 8);
+    if (v41)
     {
       Phase::Memset8(*(this + 2), 0xCDCDCDCDCDCDCDCDLL, (*(this + 7) << *(this + 6)));
-      v39 = *(this + 8);
+      v41 = *(this + 8);
     }
 
-    if ((v39 & 0x20) != 0)
+    if ((v41 & 0x20) != 0)
     {
-      v40 = *(this + 118);
-      v41 = v40 ? v40 + *MEMORY[0x277D85FA0] * *(this + 238) - *(this + 2) : (*(this + 7) << *(this + 6));
-      v42 = ((0x8000000 - v41) & ((0x8000000 - v41) >> 63)) + v41;
-      v43 = ((v42 >> 10) + 63) >> 3;
-      Internal = Phase::HeapAllocator::AllocateInternal(this, v43 & 0x1FFFFFFFFFFFFFF8, "Internal Small Allocation Bits", 0, 0);
+      v42 = *(this + 118);
+      v43 = v42 ? v42 + *MEMORY[0x277D85FA0] * *(this + 238) - *(this + 2) : (*(this + 7) << *(this + 6));
+      v44 = ((0x8000000 - v43) & ((0x8000000 - v43) >> 63)) + v43;
+      v45 = ((v44 >> 10) + 63) >> 3;
+      Internal = Phase::HeapAllocator::AllocateInternal(this, v45 & 0x1FFFFFFFFFFFFFF8, "Internal Small Allocation Bits", 0, 0);
       *(this + 98) = Internal;
       if (Internal)
       {
         *(this + 97) = (*(this + 2) + 1023) & 0xFFFFFFFFFFFFFC00;
-        *(this + 198) = v42 >> 10;
-        Phase::Memset8(Internal, 0, v43 & 0x1FFFFFFFFFFFFFF8);
+        *(this + 198) = v44 >> 10;
+        Phase::Memset8(Internal, 0, v45 & 0x1FFFFFFFFFFFFFF8);
       }
     }
   }
 
-  if ((v24 & 0x10) != 0)
+  if ((v26 & 0x10) != 0)
   {
     atomic_store(0, this);
   }
@@ -1345,8 +1345,7 @@ void *Phase::HeapAllocator::AddGapSet(Phase::HeapAllocator *this, _OWORD *a2)
 
   else
   {
-    *(a2 + 62) = 0;
-    *(a2 + 63) = 0;
+    a2[31] = 0uLL;
     *(this + 11) = a2;
     result = (this + 96);
   }
@@ -2574,7 +2573,7 @@ void Phase::HeapAllocator::AllocateBookkeeping(Phase::HeapAllocator *this)
       do
       {
         Phase::HeapAllocator::AddGapSet(this, v7);
-        v7 += 32;
+        v7 = (v7 + 512);
         --v8;
       }
 
@@ -2699,7 +2698,7 @@ LABEL_14:
   return 1;
 }
 
-Phase::Logger *Phase::HeapAllocator::RemoveGap(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
+Phase::Logger *Phase::HeapAllocator::RemoveGap(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v25 = *MEMORY[0x277D85DE8];
   v4 = (a3 + 8 * a4);
@@ -2788,7 +2787,7 @@ LABEL_12:
   return Phase::HeapAllocator::RemoveLookup(a1, (a1 + 8 * (((15 - v17) & ((15 - v17) >> 31)) + v17) + 644), a3, a4);
 }
 
-uint64_t Phase::HeapAllocator::ResizeGap(uint64_t result, uint64_t a2, uint64_t a3, unsigned int a4, int a5)
+uint64_t Phase::HeapAllocator::ResizeGap(uint64_t result, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5)
 {
   v7 = result;
   v25 = *MEMORY[0x277D85DE8];
@@ -3219,8 +3218,8 @@ CFTypeID applesauce::CF::make_DictionaryRef@<X0>(CFDataRef *this@<X0>, void *a2@
     goto LABEL_10;
   }
 
-  v4 = CFPropertyListCreateWithData(0, *this, 0, 0, 0);
-  if (!v4)
+  v3 = CFPropertyListCreateWithData(0, *this, 0, 0, 0);
+  if (!v3)
   {
     result = CFDictionaryGetTypeID();
     if (!result)
@@ -3234,21 +3233,21 @@ LABEL_10:
     applesauce::CF::construct_error(exception);
   }
 
-  v5 = v4;
-  v6 = CFGetTypeID(v4);
-  if (v6 != CFDictionaryGetTypeID())
+  v4 = v3;
+  v5 = CFGetTypeID(v3);
+  if (v5 != CFDictionaryGetTypeID())
   {
-    CFRelease(v5);
+    CFRelease(v4);
     goto LABEL_10;
   }
 
-  *a2 = v5;
-  v7 = CFGetTypeID(v5);
+  *a2 = v4;
+  v6 = CFGetTypeID(v4);
   result = CFDictionaryGetTypeID();
-  if (v7 != result)
+  if (v6 != result)
   {
-    v9 = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(v9, "Could not construct");
+    v8 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v8, "Could not construct");
   }
 
   return result;
@@ -3283,7 +3282,7 @@ const void **applesauce::CF::ObjectRef<__CFData const*>::~ObjectRef(const void *
   return a1;
 }
 
-void std::vector<Phase::Controller::HrirAsset::Implementation::Node>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<Phase::Controller::HrirAsset::Implementation::Node>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v2 = *a1;
   if (*v2)
@@ -4250,7 +4249,7 @@ void Phase::Controller::InMemoryAudioFile::CloseAudioFile(Phase::Controller::InM
   }
 }
 
-void Phase::Controller::InMemoryAudioFile::Description(id *this@<X0>, _BYTE *a2@<X8>)
+void Phase::Controller::InMemoryAudioFile::Description(id *this@<X0>, void *a2@<X8>)
 {
   v6 = [*this description];
   v3 = [v6 UTF8String];
@@ -4266,13 +4265,13 @@ void Phase::Controller::InMemoryAudioFile::Description(id *this@<X0>, _BYTE *a2@
     operator new();
   }
 
-  a2[23] = v4;
+  *(a2 + 23) = v4;
   if (v4)
   {
     memmove(a2, v3, v4);
   }
 
-  a2[v5] = 0;
+  *(a2 + v5) = 0;
 }
 
 uint64_t Phase::Controller::IR::IRBuilder::IRBuilder(uint64_t a1, _OWORD *a2, const Phase::Controller::Spatializer *a3)
@@ -4321,11 +4320,12 @@ uint64_t Phase::Controller::IR::IRBuilder::IRBuilder(uint64_t a1, _OWORD *a2, co
   return a1;
 }
 
-void sub_23A41FA38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_23A41FA38(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  operator delete(v30);
-  std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::~__hash_table(&a29);
-  std::__hash_table<std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::__unordered_map_hasher<Phase::Controller::IR::IRBuilder::Processor,std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::hash<Phase::Controller::IR::IRBuilder::Processor>,std::equal_to<Phase::Controller::IR::IRBuilder::Processor>,true>,std::__unordered_map_equal<Phase::Controller::IR::IRBuilder::Processor,std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::equal_to<Phase::Controller::IR::IRBuilder::Processor>,std::hash<Phase::Controller::IR::IRBuilder::Processor>,true>,std::allocator<std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>>>::~__hash_table(v29);
+  va_start(va, a28);
+  operator delete(v29);
+  std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::~__hash_table(va);
+  std::__hash_table<std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::__unordered_map_hasher<Phase::Controller::IR::IRBuilder::Processor,std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::hash<Phase::Controller::IR::IRBuilder::Processor>,std::equal_to<Phase::Controller::IR::IRBuilder::Processor>,true>,std::__unordered_map_equal<Phase::Controller::IR::IRBuilder::Processor,std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::equal_to<Phase::Controller::IR::IRBuilder::Processor>,std::hash<Phase::Controller::IR::IRBuilder::Processor>,true>,std::allocator<std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>>>::~__hash_table(v28);
   std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::~__hash_table(a12 + 16);
   _Unwind_Resume(a1);
 }
@@ -4335,7 +4335,7 @@ void Phase::Controller::IR::IRBuilder::SetSpatializer(Phase::Controller::IR::IRB
   v20 = *MEMORY[0x277D85DE8];
   if (*(this + 12) != a2)
   {
-    Phase::Controller::Spatializer::AcquireFilters(a2, v9);
+    Phase::Controller::Spatializer::AcquireFilters(&v9, a2);
     v5 = **(Phase::Logger::GetInstance(v4) + 288);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
@@ -4372,9 +4372,9 @@ void Phase::Controller::IR::IRBuilder::SetSpatializer(Phase::Controller::IR::IRB
   }
 }
 
-void sub_23A41FCF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_23A41FCF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
 
   Phase::Controller::SpatializerFilterHandle::~SpatializerFilterHandle(va);
   _Unwind_Resume(a1);
@@ -4398,15 +4398,16 @@ void Phase::Controller::IR::IRBuilder::~IRBuilder(Phase::Controller::IR::IRBuild
   std::__hash_table<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::__unordered_map_hasher<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::hash<Phase::SpatialCategory>,std::equal_to<Phase::SpatialCategory>,true>,std::__unordered_map_equal<Phase::SpatialCategory,std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>,std::equal_to<Phase::SpatialCategory>,std::hash<Phase::SpatialCategory>,true>,std::allocator<std::__hash_value_type<Phase::SpatialCategory,Phase::Controller::SpatialCategoryParameters>>>::~__hash_table(this + 16);
 }
 
-uint64_t Phase::Controller::IR::IRBuilder::GetWorkBufferSizeInBytes(uint64_t a1, uint64_t a2, int a3, int a4)
+uint64_t Phase::Controller::IR::IRBuilder::GetWorkBufferSizeInBytes(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v4 = a4;
   v6 = std::__hash_table<std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::__unordered_map_hasher<Phase::Controller::IR::IRBuilder::Processor,std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::hash<Phase::Controller::IR::IRBuilder::Processor>,std::equal_to<Phase::Controller::IR::IRBuilder::Processor>,true>,std::__unordered_map_equal<Phase::Controller::IR::IRBuilder::Processor,std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::equal_to<Phase::Controller::IR::IRBuilder::Processor>,std::hash<Phase::Controller::IR::IRBuilder::Processor>,true>,std::allocator<std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>>>::find<Phase::Controller::IR::IRBuilder::Processor>((a1 + 56), a3);
   if (!v6)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
   }
 
-  v7 = std::__hash_table<std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::__unordered_map_hasher<Phase::Controller::IR::IRBuilder::Processor,std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::hash<Phase::Controller::IR::IRBuilder::Processor>,std::equal_to<Phase::Controller::IR::IRBuilder::Processor>,true>,std::__unordered_map_equal<Phase::Controller::IR::IRBuilder::Processor,std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::equal_to<Phase::Controller::IR::IRBuilder::Processor>,std::hash<Phase::Controller::IR::IRBuilder::Processor>,true>,std::allocator<std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>>>::find<Phase::Controller::IR::IRBuilder::Processor>(v6 + 3, a4);
+  v7 = std::__hash_table<std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::__unordered_map_hasher<Phase::Controller::IR::IRBuilder::Processor,std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::hash<Phase::Controller::IR::IRBuilder::Processor>,std::equal_to<Phase::Controller::IR::IRBuilder::Processor>,true>,std::__unordered_map_equal<Phase::Controller::IR::IRBuilder::Processor,std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::equal_to<Phase::Controller::IR::IRBuilder::Processor>,std::hash<Phase::Controller::IR::IRBuilder::Processor>,true>,std::allocator<std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>>>::find<Phase::Controller::IR::IRBuilder::Processor>(v6 + 3, v4);
   if (!v7)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -4456,8 +4457,10 @@ uint64_t Phase::Controller::IR::IRBuilder::GetOutputBufferSizeInSamples(Phase::C
   return ((*(*v3 + 48))(v3) * v2);
 }
 
-void Phase::Controller::IR::IRBuilder::Build(Phase::Logger *a1, uint64_t a2, int a3, int a4, uint64_t a5, uint64_t a6)
+void Phase::Controller::IR::IRBuilder::Build(Phase::Logger *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
+  v8 = a4;
+  v9 = a3;
   v26 = *MEMORY[0x277D85DE8];
   Instance = Phase::Logger::GetInstance(a1);
   v13 = os_signpost_id_generate(**(Instance + 288));
@@ -4492,13 +4495,13 @@ void Phase::Controller::IR::IRBuilder::Build(Phase::Logger *a1, uint64_t a2, int
     }
   }
 
-  v18 = std::__hash_table<std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::__unordered_map_hasher<Phase::Controller::IR::IRBuilder::Processor,std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::hash<Phase::Controller::IR::IRBuilder::Processor>,std::equal_to<Phase::Controller::IR::IRBuilder::Processor>,true>,std::__unordered_map_equal<Phase::Controller::IR::IRBuilder::Processor,std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::equal_to<Phase::Controller::IR::IRBuilder::Processor>,std::hash<Phase::Controller::IR::IRBuilder::Processor>,true>,std::allocator<std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>>>::find<Phase::Controller::IR::IRBuilder::Processor>(a1 + 7, a3);
+  v18 = std::__hash_table<std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::__unordered_map_hasher<Phase::Controller::IR::IRBuilder::Processor,std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::hash<Phase::Controller::IR::IRBuilder::Processor>,std::equal_to<Phase::Controller::IR::IRBuilder::Processor>,true>,std::__unordered_map_equal<Phase::Controller::IR::IRBuilder::Processor,std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::equal_to<Phase::Controller::IR::IRBuilder::Processor>,std::hash<Phase::Controller::IR::IRBuilder::Processor>,true>,std::allocator<std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>>>::find<Phase::Controller::IR::IRBuilder::Processor>(a1 + 7, v9);
   if (!v18)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
   }
 
-  v19 = std::__hash_table<std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::__unordered_map_hasher<Phase::Controller::IR::IRBuilder::Processor,std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::hash<Phase::Controller::IR::IRBuilder::Processor>,std::equal_to<Phase::Controller::IR::IRBuilder::Processor>,true>,std::__unordered_map_equal<Phase::Controller::IR::IRBuilder::Processor,std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::equal_to<Phase::Controller::IR::IRBuilder::Processor>,std::hash<Phase::Controller::IR::IRBuilder::Processor>,true>,std::allocator<std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>>>::find<Phase::Controller::IR::IRBuilder::Processor>(v18 + 3, a4);
+  v19 = std::__hash_table<std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::__unordered_map_hasher<Phase::Controller::IR::IRBuilder::Processor,std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::hash<Phase::Controller::IR::IRBuilder::Processor>,std::equal_to<Phase::Controller::IR::IRBuilder::Processor>,true>,std::__unordered_map_equal<Phase::Controller::IR::IRBuilder::Processor,std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>,std::equal_to<Phase::Controller::IR::IRBuilder::Processor>,std::hash<Phase::Controller::IR::IRBuilder::Processor>,true>,std::allocator<std::__hash_value_type<Phase::Controller::IR::IRBuilder::Processor,std::unordered_map<Phase::Controller::IR::IRBuilder::Method,Phase::Controller::IR::IRBuilderBase *>>>>::find<Phase::Controller::IR::IRBuilder::Processor>(v18 + 3, v8);
   if (!v19)
   {
     std::__throw_out_of_range[abi:ne200100]("unordered_map::at: key not found");
@@ -4837,7 +4840,7 @@ void sub_23A420AD4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void Phase::Controller::IR::FIRUtilManager::AddNewFFTSizeSupport(Phase::Controller::IR::FIRUtilManager *this, int a2)
+void Phase::Controller::IR::FIRUtilManager::AddNewFFTSizeSupport(Phase::Controller::IR::FIRUtilManager *this, unsigned int a2)
 {
   v3 = a2;
   if (a2 <= 0)
@@ -5041,7 +5044,7 @@ void Phase::Controller::IR::IRBuilderCpuFIRCrossover::Build(int8x8_t *this, cons
   {
     v30 = (v22 + 15) & 0xFFFFFFFFFFFFFFF0;
     *(a3 + 2) = v30;
-    v91 = (a3 + 16);
+    v91 = a3 + 16;
     v28 = v30 + v21;
   }
 
@@ -5070,7 +5073,7 @@ void Phase::Controller::IR::IRBuilderCpuFIRCrossover::Build(int8x8_t *this, cons
     }
 
     while (8 * v8 != v26);
-    v91 = (a3 + 16);
+    v91 = a3 + 16;
   }
 
   v31 = (v28 + 15) & 0xFFFFFFFFFFFFFFF0;
@@ -5135,7 +5138,7 @@ void Phase::Controller::IR::IRBuilderCpuFIRCrossover::Build(int8x8_t *this, cons
   v98.imagp = 0;
   __D.realp = 0;
   __D.imagp = 0;
-  Phase::Controller::IR::FIRUtilManager::AddNewFFTSizeSupport(&this[1], SHIDWORD(v12));
+  Phase::Controller::IR::FIRUtilManager::AddNewFFTSizeSupport(&this[1], HIDWORD(v12));
   FIRUtils = Phase::Controller::IR::FIRUtilManager::GetFIRUtils(&this[1], SHIDWORD(v12));
   v96 = FIRUtils;
   v44 = this[30];
@@ -5427,10 +5430,11 @@ uint64_t *Phase::Controller::IR::FIRUtilManager::GetFIRUtils(Phase::Controller::
   return v4 + 3;
 }
 
-void sub_23A421A0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
+void sub_23A421A0C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, ...)
 {
-  __cxa_free_exception(v10);
-  std::shared_lock<std::shared_mutex>::~shared_lock[abi:ne200100](&a10);
+  va_start(va, a9);
+  __cxa_free_exception(v9);
+  std::shared_lock<std::shared_mutex>::~shared_lock[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
@@ -5458,7 +5462,7 @@ uint64_t std::__hash_table<std::__hash_value_type<int,Phase::Controller::IR::FIR
   return a1;
 }
 
-void std::__hash_table<std::__hash_value_type<int,Phase::Controller::IR::FIRUtilManager::FIRUtils>,std::__unordered_map_hasher<int,std::__hash_value_type<int,Phase::Controller::IR::FIRUtilManager::FIRUtils>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,Phase::Controller::IR::FIRUtilManager::FIRUtils>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,Phase::Controller::IR::FIRUtilManager::FIRUtils>>>::__deallocate_node(uint64_t a1, void *a2)
+void std::__hash_table<std::__hash_value_type<int,Phase::Controller::IR::FIRUtilManager::FIRUtils>,std::__unordered_map_hasher<int,std::__hash_value_type<int,Phase::Controller::IR::FIRUtilManager::FIRUtils>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,Phase::Controller::IR::FIRUtilManager::FIRUtils>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,Phase::Controller::IR::FIRUtilManager::FIRUtils>>>::__deallocate_node(uint64_t a1, Phase::FIRFilterUtils *a2)
 {
   if (a2)
   {
@@ -5652,7 +5656,7 @@ void sub_23A421F60(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void Phase::Controller::IR::FIRUtilManager::FIRUtils::FIRUtils(Phase::Controller::IR::FIRUtilManager::FIRUtils *this, double a2)
+void Phase::Controller::IR::FIRUtilManager::FIRUtils::FIRUtils(Phase::Controller::IR::FIRUtilManager::FIRUtils *this, double a2, int a3)
 {
   *(this + 1) = 0u;
   *(this + 4) = 0;
@@ -5735,33 +5739,33 @@ void std::__hash_table<std::__hash_value_type<int,std::unique_ptr<Phase::Linkwit
   }
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,std::unique_ptr<Phase::LinkwitzRileyFilterBank>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unique_ptr<Phase::LinkwitzRileyFilterBank>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unique_ptr<Phase::LinkwitzRileyFilterBank>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unique_ptr<Phase::LinkwitzRileyFilterBank>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,std::unique_ptr<Phase::LinkwitzRileyFilterBank>>,std::__unordered_map_hasher<int,std::__hash_value_type<int,std::unique_ptr<Phase::LinkwitzRileyFilterBank>>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,std::unique_ptr<Phase::LinkwitzRileyFilterBank>>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,std::unique_ptr<Phase::LinkwitzRileyFilterBank>>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(void *a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -5769,54 +5773,54 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
-void sub_23A422454(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A422454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<int,std::unique_ptr<Phase::LinkwitzRileyFilterBank>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<int,std::unique_ptr<Phase::LinkwitzRileyFilterBank>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::unique_ptr<std::__hash_node<std::__hash_value_type<int,std::unique_ptr<Phase::LinkwitzRileyFilterBank>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<int,std::unique_ptr<Phase::LinkwitzRileyFilterBank>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+Phase::LinkwitzRileyFilterBank ***std::unique_ptr<std::__hash_node<std::__hash_value_type<int,std::unique_ptr<Phase::LinkwitzRileyFilterBank>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<int,std::unique_ptr<Phase::LinkwitzRileyFilterBank>>,void *>>>>::~unique_ptr[abi:ne200100](Phase::LinkwitzRileyFilterBank ***a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -6074,24 +6078,24 @@ void Phase::Controller::IR::IRBuilderCpuFIREq::Build(Phase::Controller::IR::IRBu
   }
 }
 
-uint64_t Phase::Controller::IR::IRBuilderCpuIIRCrossover::IRBuilderCpuIIRCrossover(uint64_t result, uint64_t a2)
+uint64_t Phase::Controller::IR::IRBuilderCpuIIRCrossover::IRBuilderCpuIIRCrossover(uint64_t a1, uint64_t a2)
 {
-  *result = &unk_284D35450;
-  *(result + 8) = 0u;
-  *(result + 24) = 0u;
-  *(result + 40) = 1065353216;
-  *(result + 48) = 0u;
-  *(result + 64) = 0u;
-  *(result + 80) = 1065353216;
-  *(result + 88) = 0u;
-  *(result + 104) = 0u;
-  *(result + 120) = 1065353216;
+  *a1 = &unk_284D35450;
+  *(a1 + 8) = 0u;
+  *(a1 + 24) = 0u;
+  *(a1 + 40) = 1065353216;
+  *(a1 + 48) = 0u;
+  *(a1 + 64) = 0u;
+  *(a1 + 80) = 1065353216;
+  *(a1 + 88) = 0u;
+  *(a1 + 104) = 0u;
+  *(a1 + 120) = 1065353216;
   if (*(a2 + 16))
   {
     operator new();
   }
 
-  return result;
+  return a1;
 }
 
 void sub_23A4235E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
@@ -6245,7 +6249,7 @@ void Phase::Controller::IR::IRBuilderCpuIIRCrossover::Build(Phase::Controller::I
   {
     v37 = (v27 + 15) & 0xFFFFFFFFFFFFFFF0;
     *(a3 + 4) = v37;
-    v34 = (a3 + 32);
+    v34 = a3 + 32;
     v35 = v37 + v26;
   }
 
@@ -6265,7 +6269,7 @@ void Phase::Controller::IR::IRBuilderCpuIIRCrossover::Build(Phase::Controller::I
     v32 = 0;
     v33 = (v27 + 15) & 0xFFFFFFFFFFFFFFF0;
     *(a3 + 4) = v33;
-    v34 = (a3 + 32);
+    v34 = a3 + 32;
     v35 = v33 + v26;
     do
     {
@@ -6794,7 +6798,7 @@ uint64_t Phase::Controller::IR::Metadata::Metadata(uint64_t a1, uint64_t a2, Pha
   *(a1 + 16) = 0u;
   *(a1 + 32) = 0u;
   *(a1 + 48) = 0u;
-  Phase::Controller::Spatializer::AcquireFilters(this, &v15);
+  Phase::Controller::Spatializer::AcquireFilters(&v15, this);
   v6 = v15;
   v5 = v16;
   if (v16)
@@ -7216,7 +7220,7 @@ LABEL_10:
       v7 = **(v6 + 8);
       v17 = 0;
       v16 = 1;
-      v8 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v7, 16, &v17, &v16);
+      v8 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v7, 0x10uLL, &v17, &v16);
       if (!v8)
       {
         Instance = Phase::Logger::GetInstance(0);
@@ -7407,7 +7411,7 @@ LABEL_11:
   v14 = *(v9 + 32);
   v15 = v11;
   atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
-  Phase::JobManager::GetRootJob(a1, &v14);
+  Phase::JobManager::GetRootJob(a1, &v14, a3);
   if (v15)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v15);
@@ -7726,7 +7730,7 @@ void Phase::JobManager::ScheduleJobWithPeriod(uint64_t a1, uint64_t *a2, uint64_
         *&buf[4] = "JobManager.mm";
         *&buf[12] = 1024;
         *&buf[14] = 262;
-        _os_log_impl(&dword_23A302000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::invalid_argument): \\Job graph containing at least one manual job can't be scheduled.\\"", buf, 0x12u);
+        _os_log_impl(&dword_23A302000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::invalid_argument): \\Job graph containing at least one manual job can't be scheduled.\", buf, 0x12u);
       }
 
       exception = __cxa_allocate_exception(0x10uLL);
@@ -7777,7 +7781,7 @@ void Phase::JobManager::ScheduleJobWithPeriod(uint64_t a1, uint64_t *a2, uint64_
         *&buf[14] = 268;
         v42 = 2048;
         v43 = a4;
-        _os_log_impl(&dword_23A302000, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::invalid_argument): \\Job graph job can't be scheduled with invalid period %f\\"", buf, 0x1Cu);
+        _os_log_impl(&dword_23A302000, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::invalid_argument): \\Job graph job can't be scheduled with invalid period %f\", buf, 0x1Cu);
       }
 
       v31 = __cxa_allocate_exception(0x10uLL);
@@ -7872,7 +7876,7 @@ void Phase::JobManager::ScheduleJobWithPeriod(uint64_t a1, uint64_t *a2, uint64_
         *&buf[14] = 280;
         v42 = 1024;
         LODWORD(v43) = v16;
-        _os_log_impl(&dword_23A302000, v26, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::invalid_argument): \\Job graph prepare error %i\\"", buf, 0x18u);
+        _os_log_impl(&dword_23A302000, v26, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::invalid_argument): \\Job graph prepare error %i\", buf, 0x18u);
       }
 
       v32 = __cxa_allocate_exception(0x10uLL);
@@ -7917,7 +7921,7 @@ void Phase::JobManager::ScheduleJobWithPeriod(uint64_t a1, uint64_t *a2, uint64_
   }
 }
 
-uint64_t Phase::JobManager::HasManualJobs(uint64_t a1)
+BOOL Phase::JobManager::HasManualJobs(uint64_t a1)
 {
   if (*(a1 + 528) == 1)
   {
@@ -7963,10 +7967,10 @@ void sub_23A426B14(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void Phase::JobManager::ScheduleJobsWithPeriods(Phase::Logger *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void Phase::JobManager::ScheduleJobsWithPeriods(Phase::Logger *a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v41 = *MEMORY[0x277D85DE8];
-  if (*(a2 + 16) != *(a3 + 16))
+  if (a2[2] != *(a3 + 16))
   {
     v15 = *(a4 + 24);
     v16 = **(Phase::Logger::GetInstance(a1) + 480);
@@ -7975,7 +7979,7 @@ void Phase::JobManager::ScheduleJobsWithPeriods(Phase::Logger *a1, uint64_t a2, 
     {
       if (v17)
       {
-        v24 = *(a2 + 16);
+        v24 = a2[2];
         v25 = *(a3 + 16);
         *buf = 136315906;
         v34 = "JobManager.mm";
@@ -7985,7 +7989,7 @@ void Phase::JobManager::ScheduleJobsWithPeriods(Phase::Logger *a1, uint64_t a2, 
         v38 = v24;
         v39 = 2048;
         v40 = v25;
-        _os_log_impl(&dword_23A302000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::invalid_argument): \\Argument list size mismatch %lu jobs / %lu periods\\"", buf, 0x26u);
+        _os_log_impl(&dword_23A302000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::invalid_argument): \\Argument list size mismatch %lu jobs / %lu periods\", buf, 0x26u);
       }
 
       exception = __cxa_allocate_exception(0x10uLL);
@@ -7994,7 +7998,7 @@ void Phase::JobManager::ScheduleJobsWithPeriods(Phase::Logger *a1, uint64_t a2, 
 
     if (v17)
     {
-      v18 = *(a2 + 16);
+      v18 = a2[2];
       v19 = *(a3 + 16);
       *buf = 136315906;
       v34 = "JobManager.mm";
@@ -8020,7 +8024,7 @@ void Phase::JobManager::ScheduleJobsWithPeriods(Phase::Logger *a1, uint64_t a2, 
     goto LABEL_22;
   }
 
-  v8 = *(a2 + 8);
+  v8 = a2[1];
   if (v8 == a2)
   {
 LABEL_16:
@@ -8110,9 +8114,10 @@ LABEL_30:
   }
 }
 
-void sub_23A426FB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
+void sub_23A426FB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  std::__function::__value_func<void ()(BOOL,std::list<std::shared_ptr<Phase::Job>>)>::~__value_func[abi:ne200100](&a23);
+  va_start(va, a22);
+  std::__function::__value_func<void ()(BOOL,std::list<std::shared_ptr<Phase::Job>>)>::~__value_func[abi:ne200100](va);
   std::__list_imp<Phase::Controller::AssetUnloader::ObjectUnloadRequest>::clear(&a9);
   std::__list_imp<std::shared_ptr<Phase::Job>>::clear(&a12);
   _Unwind_Resume(a1);
@@ -8164,7 +8169,7 @@ void sub_23A426FF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
       *(v22 + 14) = 333;
       *(v23 - 110) = 2080;
       *(v22 + 20) = v32;
-      _os_log_impl(&dword_23A302000, v31, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::invalid_argument): \\Job graph prepare error %s\\"", (v23 - 128), 0x1Cu);
+      _os_log_impl(&dword_23A302000, v31, OS_LOG_TYPE_ERROR, "%25s:%-5d EXCEPTION (std::invalid_argument): \\Job graph prepare error %s\", (v23 - 128), 0x1Cu);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -8313,17 +8318,17 @@ uint64_t Phase::JobObserverSignpost::Finalize(uint64_t a1, uint64_t a2, uint64_t
   return result;
 }
 
-void *std::list<std::shared_ptr<Phase::Job>>::list(void *result, uint64_t a2, uint64_t a3)
+uint64_t *std::list<std::shared_ptr<Phase::Job>>::list(uint64_t *a1, uint64_t *a2, uint64_t a3)
 {
-  *result = result;
-  result[1] = result;
-  result[2] = 0;
+  *a1 = a1;
+  a1[1] = a1;
+  a1[2] = 0;
   if (a3)
   {
-    std::list<std::shared_ptr<Phase::Job>>::push_back();
+    std::list<std::shared_ptr<Phase::Job>>::push_back(a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t std::__function::__value_func<void ()(BOOL,std::list<std::shared_ptr<Phase::Job>>)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
@@ -8440,18 +8445,18 @@ void sub_23A427C38(void *a1)
 
 uint64_t Phase::JobManagerDispatch::AddDependency(Phase::Logger *a1, Phase::Job **a2, Phase::Job **a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = *a2;
   if (!*a2)
   {
-    v17 = **(Phase::Logger::GetInstance(a1) + 480);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = **(Phase::Logger::GetInstance(a1) + 480);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "JobManagerDispatch.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 107;
-      _os_log_impl(&dword_23A302000, v17, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInDependent is false.", buf, 0x12u);
+      _os_log_impl(&dword_23A302000, v18, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInDependent is false.", buf, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -8461,29 +8466,29 @@ uint64_t Phase::JobManagerDispatch::AddDependency(Phase::Logger *a1, Phase::Job 
   v5 = *a3;
   if (!*a3)
   {
-    v19 = **(Phase::Logger::GetInstance(a1) + 480);
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = **(Phase::Logger::GetInstance(a1) + 480);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "JobManagerDispatch.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 108;
-      _os_log_impl(&dword_23A302000, v19, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInDependency is false.", buf, 0x12u);
+      _os_log_impl(&dword_23A302000, v20, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInDependency is false.", buf, 0x12u);
     }
 
-    v20 = __cxa_allocate_exception(0x10uLL);
-    std::logic_error::logic_error(v20, "PRECONDITION: nullptr != pInDependency is false.");
+    v21 = __cxa_allocate_exception(0x10uLL);
+    std::logic_error::logic_error(v21, "PRECONDITION: nullptr != pInDependency is false.");
   }
 
   v8 = a2[1];
-  v23[0] = *a2;
-  v23[1] = v8;
+  v24[0] = *a2;
+  v24[1] = v8;
   if (v8)
   {
     atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  Phase::JobManager::TreeLock::TreeLock(buf, a1, v23);
+  Phase::JobManager::TreeLock::TreeLock(buf, a1, v24);
   if (v8)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v8);
@@ -8491,25 +8496,25 @@ uint64_t Phase::JobManagerDispatch::AddDependency(Phase::Logger *a1, Phase::Job 
 
   if ((*(v3 + 592) & 2) != 0 || (*(v5 + 592) & 2) != 0)
   {
-    v15 = 3;
+    v16 = 3;
   }
 
   else
   {
     Dependents = Phase::JobManager::GetDependents(a1, v5);
     v10 = a2[1];
-    v21 = *a2;
-    v22 = v10;
+    v22 = *a2;
+    v23 = v10;
     if (v10)
     {
       atomic_fetch_add_explicit(&v10->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     }
 
-    std::__tree<std::weak_ptr<Phase::Job>,std::owner_less<std::weak_ptr<Phase::Job>>,std::allocator<std::weak_ptr<Phase::Job>>>::__emplace_unique_key_args<std::weak_ptr<Phase::Job>,std::weak_ptr<Phase::Job>>(Dependents, &v21);
+    std::__tree<std::weak_ptr<Phase::Job>,std::owner_less<std::weak_ptr<Phase::Job>>,std::allocator<std::weak_ptr<Phase::Job>>>::__emplace_unique_key_args<std::weak_ptr<Phase::Job>,std::weak_ptr<Phase::Job>>(Dependents, &v22, &v22);
     v12 = v11;
-    if (v22)
+    if (v23)
     {
-      std::__shared_weak_count::__release_weak(v22);
+      std::__shared_weak_count::__release_weak(v23);
     }
 
     if (v12)
@@ -8523,11 +8528,11 @@ uint64_t Phase::JobManagerDispatch::AddDependency(Phase::Logger *a1, Phase::Job 
 
       *(v13 + 131) = v14;
       atomic_store(1u, v13 + 40);
-      Phase::JobManager::GetDependencies(a1, v3);
-      std::list<std::shared_ptr<Phase::Job>>::push_back();
+      Dependencies = Phase::JobManager::GetDependencies(a1, v3);
+      std::list<std::shared_ptr<Phase::Job>>::push_back(Dependencies, a3);
     }
 
-    v15 = 2;
+    v16 = 2;
   }
 
   std::recursive_mutex::unlock((*buf + 96));
@@ -8536,99 +8541,99 @@ uint64_t Phase::JobManagerDispatch::AddDependency(Phase::Logger *a1, Phase::Job 
     std::__shared_weak_count::__release_shared[abi:ne200100](*&buf[8]);
   }
 
-  return v15;
+  return v16;
 }
 
-uint64_t Phase::JobManagerDispatch::AddEnqueuedDependency(Phase::Logger *a1, Phase::Job **a2, uint64_t *a3)
+uint64_t Phase::JobManagerDispatch::AddEnqueuedDependency(Phase::Logger *a1, dispatch_group_t **a2, uint64_t *a3, double a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v3 = *a2;
+  v27 = *MEMORY[0x277D85DE8];
+  v4 = *a2;
   if (!*a2)
   {
-    v16 = **(Phase::Logger::GetInstance(a1) + 480);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v19 = **(Phase::Logger::GetInstance(a1) + 480);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "JobManagerDispatch.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 131;
-      _os_log_impl(&dword_23A302000, v16, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInDependent is false.", buf, 0x12u);
+      _os_log_impl(&dword_23A302000, v19, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInDependent is false.", buf, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
     std::logic_error::logic_error(exception, "PRECONDITION: nullptr != pInDependent is false.");
   }
 
-  v4 = *a3;
+  v6 = *a3;
   if (!*a3)
   {
-    v18 = **(Phase::Logger::GetInstance(a1) + 480);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v21 = **(Phase::Logger::GetInstance(a1) + 480);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "JobManagerDispatch.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 132;
-      _os_log_impl(&dword_23A302000, v18, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInDependency is false.", buf, 0x12u);
+      _os_log_impl(&dword_23A302000, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInDependency is false.", buf, 0x12u);
     }
 
-    v19 = __cxa_allocate_exception(0x10uLL);
-    std::logic_error::logic_error(v19, "PRECONDITION: nullptr != pInDependency is false.");
+    v22 = __cxa_allocate_exception(0x10uLL);
+    std::logic_error::logic_error(v22, "PRECONDITION: nullptr != pInDependency is false.");
   }
 
-  v7 = a2[1];
-  v22[0] = *a2;
-  v22[1] = v7;
-  if (v7)
+  v9 = a2[1];
+  v25[0] = *a2;
+  v25[1] = v9;
+  if (v9)
   {
-    atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  Phase::JobManager::TreeLock::TreeLock(buf, a1, v22);
-  if (v7)
+  Phase::JobManager::TreeLock::TreeLock(buf, a1, v25);
+  if (v9)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
 
-  v8 = atomic_load(Phase::JobManager::GetExecutionState(a1, v3));
-  if (v8 == 3)
+  v10 = atomic_load(Phase::JobManager::GetExecutionState(a1, v4));
+  if (v10 == 3)
   {
-    v9 = 3;
+    v11 = 3;
   }
 
   else
   {
-    Dependents = Phase::JobManager::GetDependents(a1, v4);
-    v11 = a2[1];
-    v20 = *a2;
-    v21 = v11;
-    if (v11)
-    {
-      atomic_fetch_add_explicit(&v11->__shared_weak_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    std::__tree<std::weak_ptr<Phase::Job>,std::owner_less<std::weak_ptr<Phase::Job>>,std::allocator<std::weak_ptr<Phase::Job>>>::__emplace_unique_key_args<std::weak_ptr<Phase::Job>,std::weak_ptr<Phase::Job>>(Dependents, &v20);
-    v13 = v12;
-    if (v21)
-    {
-      std::__shared_weak_count::__release_weak(v21);
-    }
-
+    Dependents = Phase::JobManager::GetDependents(a1, v6);
+    v13 = a2[1];
+    v23 = *a2;
+    v24 = v13;
     if (v13)
     {
-      v14 = *(v4 + 524);
-      if (v14 <= *(*a2 + 131))
-      {
-        v14 = *(*a2 + 131);
-      }
-
-      *(v4 + 524) = v14;
-      atomic_store(1u, (v4 + 40));
-      Phase::JobManager::GetDependencies(a1, v3);
-      std::list<std::shared_ptr<Phase::Job>>::push_back();
+      atomic_fetch_add_explicit(&v13->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v9 = 2;
+    std::__tree<std::weak_ptr<Phase::Job>,std::owner_less<std::weak_ptr<Phase::Job>>,std::allocator<std::weak_ptr<Phase::Job>>>::__emplace_unique_key_args<std::weak_ptr<Phase::Job>,std::weak_ptr<Phase::Job>>(Dependents, &v23, &v23);
+    v15 = v14;
+    if (v24)
+    {
+      std::__shared_weak_count::__release_weak(v24);
+    }
+
+    if (v15)
+    {
+      v16 = *(v6 + 524);
+      if (v16 <= *(*a2 + 131))
+      {
+        v16 = *(*a2 + 131);
+      }
+
+      *(v6 + 524) = v16;
+      atomic_store(1u, (v6 + 40));
+      Dependencies = Phase::JobManager::GetDependencies(a1, v4);
+      std::list<std::shared_ptr<Phase::Job>>::push_back(Dependencies, a3);
+    }
+
+    v11 = 2;
   }
 
   std::recursive_mutex::unlock((*buf + 96));
@@ -8637,7 +8642,7 @@ uint64_t Phase::JobManagerDispatch::AddEnqueuedDependency(Phase::Logger *a1, Pha
     std::__shared_weak_count::__release_shared[abi:ne200100](*&buf[8]);
   }
 
-  return v9;
+  return v11;
 }
 
 void sub_23A4282D4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, std::__shared_weak_count *a12, uint64_t a13, uint64_t a14, std::__shared_weak_count *a15)
@@ -8798,27 +8803,27 @@ LABEL_33:
   return v16;
 }
 
-void sub_23A428614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_23A428614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   Phase::JobManager::TreeLock::~TreeLock(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t Phase::JobManagerDispatch::InsertDependency(Phase::Logger *a1, uint64_t *a2, uint64_t a3, Phase::Job **a4)
+uint64_t Phase::JobManagerDispatch::InsertDependency(Phase::Logger *a1, uint64_t *a2, Phase::Job **a3, Phase::Job **a4)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v4 = *a2;
   if (!*a2)
   {
-    v26 = **(Phase::Logger::GetInstance(a1) + 480);
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v27 = **(Phase::Logger::GetInstance(a1) + 480);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "JobManagerDispatch.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 162;
-      _os_log_impl(&dword_23A302000, v26, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInInsertor is false.", buf, 0x12u);
+      _os_log_impl(&dword_23A302000, v27, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInInsertor is false.", buf, 0x12u);
     }
 
     exception = __cxa_allocate_exception(0x10uLL);
@@ -8828,46 +8833,46 @@ uint64_t Phase::JobManagerDispatch::InsertDependency(Phase::Logger *a1, uint64_t
   v6 = *a3;
   if (!*a3)
   {
-    v28 = **(Phase::Logger::GetInstance(a1) + 480);
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v29 = **(Phase::Logger::GetInstance(a1) + 480);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "JobManagerDispatch.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 163;
-      _os_log_impl(&dword_23A302000, v28, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInDependent is false.", buf, 0x12u);
+      _os_log_impl(&dword_23A302000, v29, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInDependent is false.", buf, 0x12u);
     }
 
-    v29 = __cxa_allocate_exception(0x10uLL);
-    std::logic_error::logic_error(v29, "PRECONDITION: nullptr != pInDependent is false.");
+    v30 = __cxa_allocate_exception(0x10uLL);
+    std::logic_error::logic_error(v30, "PRECONDITION: nullptr != pInDependent is false.");
   }
 
   v8 = *a4;
   if (!*a4)
   {
-    v30 = **(Phase::Logger::GetInstance(a1) + 480);
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+    v31 = **(Phase::Logger::GetInstance(a1) + 480);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "JobManagerDispatch.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 164;
-      _os_log_impl(&dword_23A302000, v30, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInDependency is false.", buf, 0x12u);
+      _os_log_impl(&dword_23A302000, v31, OS_LOG_TYPE_ERROR, "%25s:%-5d PRECONDITION: nullptr != pInDependency is false.", buf, 0x12u);
     }
 
-    v31 = __cxa_allocate_exception(0x10uLL);
-    std::logic_error::logic_error(v31, "PRECONDITION: nullptr != pInDependency is false.");
+    v32 = __cxa_allocate_exception(0x10uLL);
+    std::logic_error::logic_error(v32, "PRECONDITION: nullptr != pInDependency is false.");
   }
 
-  v11 = *(a3 + 8);
-  v36[0] = *a3;
-  v36[1] = v11;
+  v11 = a3[1];
+  v37[0] = *a3;
+  v37[1] = v11;
   if (v11)
   {
     atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  Phase::JobManager::TreeLock::TreeLock(buf, a1, v36);
+  Phase::JobManager::TreeLock::TreeLock(buf, a1, v37);
   if (v11)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v11);
@@ -8900,30 +8905,30 @@ uint64_t Phase::JobManagerDispatch::InsertDependency(Phase::Logger *a1, uint64_t
     {
       Dependents = Phase::JobManager::GetDependents(a1, v8);
       v19 = a2[1];
-      v34 = *a2;
-      v35 = v19;
+      v35 = *a2;
+      v36 = v19;
       if (v19)
       {
         atomic_fetch_add_explicit(&v19->__shared_weak_owners_, 1uLL, memory_order_relaxed);
       }
 
-      std::__tree<std::weak_ptr<Phase::Job>,std::owner_less<std::weak_ptr<Phase::Job>>,std::allocator<std::weak_ptr<Phase::Job>>>::__emplace_unique_key_args<std::weak_ptr<Phase::Job>,std::weak_ptr<Phase::Job>>(Dependents, &v34);
+      std::__tree<std::weak_ptr<Phase::Job>,std::owner_less<std::weak_ptr<Phase::Job>>,std::allocator<std::weak_ptr<Phase::Job>>>::__emplace_unique_key_args<std::weak_ptr<Phase::Job>,std::weak_ptr<Phase::Job>>(Dependents, &v35, &v35);
       if (v20)
       {
         v21 = Phase::JobManager::GetDependents(a1, v4);
-        v22 = *(a3 + 8);
-        v32 = *a3;
-        v33 = v22;
+        v22 = a3[1];
+        v33 = *a3;
+        v34 = v22;
         if (v22)
         {
           atomic_fetch_add_explicit(&v22->__shared_weak_owners_, 1uLL, memory_order_relaxed);
         }
 
-        std::__tree<std::weak_ptr<Phase::Job>,std::owner_less<std::weak_ptr<Phase::Job>>,std::allocator<std::weak_ptr<Phase::Job>>>::__emplace_unique_key_args<std::weak_ptr<Phase::Job>,std::weak_ptr<Phase::Job>>(v21, &v32);
+        std::__tree<std::weak_ptr<Phase::Job>,std::owner_less<std::weak_ptr<Phase::Job>>,std::allocator<std::weak_ptr<Phase::Job>>>::__emplace_unique_key_args<std::weak_ptr<Phase::Job>,std::weak_ptr<Phase::Job>>(v21, &v33, &v33);
         v24 = v23;
-        if (v33)
+        if (v34)
         {
-          std::__shared_weak_count::__release_weak(v33);
+          std::__shared_weak_count::__release_weak(v34);
         }
       }
 
@@ -8932,9 +8937,9 @@ uint64_t Phase::JobManagerDispatch::InsertDependency(Phase::Logger *a1, uint64_t
         v24 = 0;
       }
 
-      if (v35)
+      if (v36)
       {
-        std::__shared_weak_count::__release_weak(v35);
+        std::__shared_weak_count::__release_weak(v36);
       }
 
       if (v24)
@@ -8947,8 +8952,8 @@ uint64_t Phase::JobManagerDispatch::InsertDependency(Phase::Logger *a1, uint64_t
 
         *(v4 + 524) = v25;
         atomic_store(1u, (v4 + 40));
-        Phase::JobManager::GetDependencies(a1, v6);
-        std::list<std::shared_ptr<Phase::Job>>::push_back();
+        v26 = Phase::JobManager::GetDependencies(a1, v6);
+        std::list<std::shared_ptr<Phase::Job>>::push_back(v26, a2);
       }
     }
 
@@ -9032,7 +9037,7 @@ BOOL Phase::JobManagerDispatch::PrepareJobForExecution(Phase::JobManager *this, 
   return v6 != 3;
 }
 
-void sub_23A428DAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, std::__shared_weak_count *a22)
+void sub_23A428DAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, std::__shared_weak_count *a22)
 {
   _Block_object_dispose(&a16, 8);
   if (a22)
@@ -9043,25 +9048,25 @@ void sub_23A428DAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t Phase::JobManagerDispatch::GetConcurrentQueue(uint64_t a1, int a2)
+uint64_t Phase::JobManagerDispatch::GetConcurrentQueue(void *a1, int a2)
 {
   v37 = *MEMORY[0x277D85DE8];
-  v5 = (a1 + 232);
-  v4 = *(a1 + 232);
+  v5 = a1 + 29;
+  v4 = a1[29];
   if (!v4)
   {
     goto LABEL_8;
   }
 
-  v6 = (a1 + 232);
+  v6 = a1 + 29;
   do
   {
-    if (*(v4 + 8) >= a2)
+    if (*(v4 + 32) >= a2)
     {
       v6 = v4;
     }
 
-    v4 = v4[*(v4 + 8) < a2];
+    v4 = *(v4 + 8 * (*(v4 + 32) < a2));
   }
 
   while (v4);
@@ -9123,7 +9128,7 @@ LABEL_8:
       std::logic_error::logic_error(exception, "INVARIANT: false is false.");
     }
 
-    v11 = *(a1 + 224);
+    v11 = a1[28];
     v12 = dispatch_queue_attr_make_with_qos_class(MEMORY[0x277D85CD8], dword_23A555ED8[a2], 0);
     if (v35 >= 0)
     {
@@ -9139,7 +9144,7 @@ LABEL_8:
     if (v5 == v11 || (v15 = *(v11 + 8), v15 > a2))
     {
       v16 = *v11;
-      if (*(a1 + 224) == v11)
+      if (a1[28] == v11)
       {
         v18 = v11;
         goto LABEL_37;
@@ -9460,7 +9465,7 @@ LABEL_13:
       atomic_fetch_add_explicit(&v22->__shared_weak_owners_, 1uLL, memory_order_relaxed);
     }
 
-    std::__tree<std::weak_ptr<Phase::Job>,std::owner_less<std::weak_ptr<Phase::Job>>,std::allocator<std::weak_ptr<Phase::Job>>>::__emplace_unique_key_args<std::weak_ptr<Phase::Job>,std::weak_ptr<Phase::Job>>(v21, &v43);
+    std::__tree<std::weak_ptr<Phase::Job>,std::owner_less<std::weak_ptr<Phase::Job>>,std::allocator<std::weak_ptr<Phase::Job>>>::__emplace_unique_key_args<std::weak_ptr<Phase::Job>,std::weak_ptr<Phase::Job>>(v21, &v43, &v43);
     if (v44)
     {
       std::__shared_weak_count::__release_weak(v44);

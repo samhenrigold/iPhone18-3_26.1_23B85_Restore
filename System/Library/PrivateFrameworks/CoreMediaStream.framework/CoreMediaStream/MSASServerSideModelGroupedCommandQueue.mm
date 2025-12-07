@@ -472,7 +472,7 @@ void __73__MSASServerSideModelGroupedCommandQueue_MSASModel_didFindNewAlbum_info
 
 - (void)workQueueEnqueueCommand:(id)command variantParam:(id)param invariantParam:(id)invariantParam
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   paramCopy = param;
   invariantParamCopy = invariantParam;
@@ -480,11 +480,11 @@ void __73__MSASServerSideModelGroupedCommandQueue_MSASModel_didFindNewAlbum_info
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v19 = 138543618;
+      v18 = 138543618;
       selfCopy3 = self;
-      v21 = 2114;
-      v22 = commandCopy;
-      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Not enqueueing command %{public}@ because we're shutting down.", &v19, 0x16u);
+      v20 = 2114;
+      v21 = commandCopy;
+      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: Not enqueueing command %{public}@ because we're shutting down.", &v18, 0x16u);
     }
 
     goto LABEL_16;
@@ -506,13 +506,13 @@ void __73__MSASServerSideModelGroupedCommandQueue_MSASModel_didFindNewAlbum_info
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
       command = [(MSASEnqueuedCommand *)self->_lastEnqueuedCommand command];
-      v19 = 138543874;
+      v18 = 138543874;
       selfCopy3 = self;
-      v21 = 2114;
-      v22 = commandCopy;
-      v23 = 2114;
-      v24 = command;
-      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: New command %{public}@ cannot be grouped with command %{public}@. Flushing.", &v19, 0x20u);
+      v20 = 2114;
+      v21 = commandCopy;
+      v22 = 2114;
+      v23 = command;
+      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: New command %{public}@ cannot be grouped with command %{public}@. Flushing.", &v18, 0x20u);
     }
 
     goto LABEL_12;
@@ -522,11 +522,11 @@ void __73__MSASServerSideModelGroupedCommandQueue_MSASModel_didFindNewAlbum_info
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v19 = 138543618;
+      v18 = 138543618;
       selfCopy3 = self;
-      v21 = 1024;
-      LODWORD(v22) = commandCount;
-      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: There are already %d commands in the queue. Flushing.", &v19, 0x12u);
+      v20 = 1024;
+      LODWORD(v21) = commandCount;
+      _os_log_debug_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%{public}@: There are already %d commands in the queue. Flushing.", &v18, 0x12u);
     }
 
 LABEL_12:
@@ -545,30 +545,29 @@ LABEL_12:
   [(MSASGroupedQueue *)self workQueueDidEnqueueSubsequentItem];
 
 LABEL_16:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)workQueueFlushQueue
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (![(MSASGroupedQueue *)self isShuttingDown])
   {
     [(MSASServerSideModelGroupedCommandQueue *)self setLastEnqueuedCommand:0];
     v3 = 0;
     v4 = 0;
-    v19 = 0;
+    v18 = 0;
     v5 = MEMORY[0x277D86220];
     *&v6 = 138544130;
-    v17 = v6;
+    v16 = v6;
     while (1)
     {
       v7 = v4;
       v8 = v3;
       model = [(MSASGroupedQueue *)self model];
       maxGroupedCallbackEventBatchCount = [(MSASGroupedQueue *)self maxGroupedCallbackEventBatchCount];
-      v18 = v4;
-      v3 = [model nextCommandGroupMaxCount:maxGroupedCallbackEventBatchCount outCommand:&v18 outLastCommandIndex:&v19];
-      v4 = v18;
+      v17 = v4;
+      v3 = [model nextCommandGroupMaxCount:maxGroupedCallbackEventBatchCount outCommand:&v17 outLastCommandIndex:&v18];
+      v4 = v17;
 
       if (!v3)
       {
@@ -585,24 +584,22 @@ LABEL_16:
 
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
         {
-          *buf = v17;
+          *buf = v16;
           selfCopy = self;
-          v22 = 1024;
-          v23 = v12;
-          v24 = 2114;
-          v25 = v4;
-          v26 = 2114;
-          v27 = invariantParam;
+          v21 = 1024;
+          v22 = v12;
+          v23 = 2114;
+          v24 = v4;
+          v25 = 2114;
+          v26 = invariantParam;
           _os_log_debug_impl(&dword_245B99000, v5, OS_LOG_TYPE_DEBUG, "%{public}@: Flushing %d events with command %{public}@. Invariant:%{public}@", buf, 0x26u);
         }
       }
 
       model2 = [(MSASGroupedQueue *)self model];
-      [model2 removeCommandsUpToCommandIndex:v19];
+      [model2 removeCommandsUpToCommandIndex:v18];
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)flushQueue
@@ -626,7 +623,7 @@ LABEL_16:
 
 + (id)calloutBlockForCommand:(id)command
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   if (calloutBlockForCommand__onceToken != -1)
   {
@@ -638,19 +635,17 @@ LABEL_16:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v9 = 138543618;
+      v8 = 138543618;
       selfCopy = self;
-      v11 = 2114;
-      v12 = commandCopy;
-      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Cannot find callout block for command: %{public}@", &v9, 0x16u);
+      v10 = 2114;
+      v11 = commandCopy;
+      _os_log_error_impl(&dword_245B99000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%{public}@: Cannot find callout block for command: %{public}@", &v8, 0x16u);
     }
 
     v5 = &__block_literal_global_128;
   }
 
   v6 = MEMORY[0x245D7BA50](v5);
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -677,20 +672,20 @@ uint64_t __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___b
 
 uint64_t __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_20(uint64_t a1, void *a2, void *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
-  v26 = [MEMORY[0x277CBEB18] array];
+  v25 = [MEMORY[0x277CBEB18] array];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (!v7)
   {
     v11 = 0;
-    v27 = 0;
+    v26 = 0;
     v10 = 0;
     v9 = 0;
     v22 = v6;
@@ -700,29 +695,29 @@ LABEL_20:
   }
 
   v8 = v7;
-  v25 = v4;
+  v24 = v4;
   v9 = 0;
   v10 = 0;
-  v27 = 0;
+  v26 = 0;
   v11 = 0;
-  v12 = *v35;
+  v12 = *v34;
   do
   {
     v13 = 0;
     do
     {
-      if (*v35 != v12)
+      if (*v34 != v12)
       {
         objc_enumerationMutation(v6);
       }
 
-      v14 = *(*(&v34 + 1) + 8 * v13);
+      v14 = *(*(&v33 + 1) + 8 * v13);
       v15 = [v14 variantParam];
       v16 = [v15 objectForKey:@"comment"];
 
       if (v16)
       {
-        if (v27)
+        if (v26)
         {
           if (v9)
           {
@@ -742,7 +737,7 @@ LABEL_14:
         else
         {
           v17 = [v14 invariantParam];
-          v27 = [v17 objectForKey:@"assetCollection"];
+          v26 = [v17 objectForKey:@"assetCollection"];
 
           if (!v9)
           {
@@ -758,7 +753,7 @@ LABEL_15:
           }
         }
 
-        [v26 addObject:v16];
+        [v25 addObject:v16];
         v11 = (v11 + 1);
       }
 
@@ -766,7 +761,7 @@ LABEL_15:
     }
 
     while (v8 != v13);
-    v20 = [v6 countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v20 = [v6 countByEnumeratingWithState:&v33 objects:v37 count:16];
     v8 = v20;
   }
 
@@ -774,30 +769,29 @@ LABEL_15:
 
   if (v11)
   {
-    v4 = v25;
-    v21 = [v25 model];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_21;
-    v28[3] = &unk_278E92610;
+    v4 = v24;
+    v21 = [v24 model];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_21;
+    v27[3] = &unk_278E92610;
+    v28 = v24;
     v29 = v25;
+    v26 = v26;
     v30 = v26;
-    v27 = v27;
-    v31 = v27;
     v9 = v9;
-    v32 = v9;
+    v31 = v9;
     v10 = v10;
-    v33 = v10;
-    [v21 performBlockOnObservers:v28];
+    v32 = v10;
+    [v21 performBlockOnObservers:v27];
 
-    v22 = v29;
+    v22 = v28;
     goto LABEL_20;
   }
 
-  v4 = v25;
+  v4 = v24;
 LABEL_22:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -813,20 +807,20 @@ void __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block
 
 uint64_t __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_18(uint64_t a1, void *a2, void *a3)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
-  v26 = [MEMORY[0x277CBEB18] array];
+  v25 = [MEMORY[0x277CBEB18] array];
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (!v7)
   {
     v11 = 0;
-    v27 = 0;
+    v26 = 0;
     v10 = 0;
     v9 = 0;
     v22 = v6;
@@ -836,29 +830,29 @@ LABEL_20:
   }
 
   v8 = v7;
-  v25 = v4;
+  v24 = v4;
   v9 = 0;
   v10 = 0;
-  v27 = 0;
+  v26 = 0;
   v11 = 0;
-  v12 = *v35;
+  v12 = *v34;
   do
   {
     v13 = 0;
     do
     {
-      if (*v35 != v12)
+      if (*v34 != v12)
       {
         objc_enumerationMutation(v6);
       }
 
-      v14 = *(*(&v34 + 1) + 8 * v13);
+      v14 = *(*(&v33 + 1) + 8 * v13);
       v15 = [v14 variantParam];
       v16 = [v15 objectForKey:@"comment"];
 
       if (v16)
       {
-        if (v27)
+        if (v26)
         {
           if (v9)
           {
@@ -878,7 +872,7 @@ LABEL_14:
         else
         {
           v17 = [v14 invariantParam];
-          v27 = [v17 objectForKey:@"assetCollection"];
+          v26 = [v17 objectForKey:@"assetCollection"];
 
           if (!v9)
           {
@@ -894,7 +888,7 @@ LABEL_15:
           }
         }
 
-        [v26 addObject:v16];
+        [v25 addObject:v16];
         v11 = (v11 + 1);
       }
 
@@ -902,7 +896,7 @@ LABEL_15:
     }
 
     while (v8 != v13);
-    v20 = [v6 countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v20 = [v6 countByEnumeratingWithState:&v33 objects:v37 count:16];
     v8 = v20;
   }
 
@@ -910,30 +904,29 @@ LABEL_15:
 
   if (v11)
   {
-    v4 = v25;
-    v21 = [v25 model];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_19;
-    v28[3] = &unk_278E92610;
+    v4 = v24;
+    v21 = [v24 model];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_19;
+    v27[3] = &unk_278E92610;
+    v28 = v24;
     v29 = v25;
+    v26 = v26;
     v30 = v26;
-    v27 = v27;
-    v31 = v27;
     v9 = v9;
-    v32 = v9;
+    v31 = v9;
     v10 = v10;
-    v33 = v10;
-    [v21 performBlockOnObservers:v28];
+    v32 = v10;
+    [v21 performBlockOnObservers:v27];
 
-    v22 = v29;
+    v22 = v28;
     goto LABEL_20;
   }
 
-  v4 = v25;
+  v4 = v24;
 LABEL_22:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -949,16 +942,16 @@ void __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block
 
 uint64_t __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_16(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
-  v21 = [MEMORY[0x277CBEB18] array];
+  v20 = [MEMORY[0x277CBEB18] array];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (!v7)
   {
     v10 = 0;
@@ -970,17 +963,17 @@ uint64_t __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___b
   v8 = v7;
   v9 = 0;
   v10 = 0;
-  v11 = *v27;
+  v11 = *v26;
   do
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v27 != v11)
+      if (*v26 != v11)
       {
         objc_enumerationMutation(v6);
       }
 
-      v13 = *(*(&v26 + 1) + 8 * i);
+      v13 = *(*(&v25 + 1) + 8 * i);
       v14 = [v13 variantParam];
       v15 = [v14 objectForKey:@"sharingRelationship"];
 
@@ -992,12 +985,12 @@ uint64_t __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___b
           v9 = [v16 objectForKey:@"info"];
         }
 
-        [v21 addObject:v15];
+        [v20 addObject:v15];
         v10 = (v10 + 1);
       }
     }
 
-    v8 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v8 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
   }
 
   while (v8);
@@ -1005,21 +998,20 @@ uint64_t __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___b
   if (v10)
   {
     v17 = [v4 model];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_17;
-    v22[3] = &unk_278E925A8;
-    v23 = v4;
-    v24 = v21;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_17;
+    v21[3] = &unk_278E925A8;
+    v22 = v4;
+    v23 = v20;
     v9 = v9;
-    v25 = v9;
-    [v17 performBlockOnObservers:v22];
+    v24 = v9;
+    [v17 performBlockOnObservers:v21];
 
-    v18 = v23;
+    v18 = v22;
 LABEL_15:
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1035,16 +1027,16 @@ void __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block
 
 uint64_t __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_14(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
-  v21 = [MEMORY[0x277CBEB18] array];
+  v20 = [MEMORY[0x277CBEB18] array];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (!v7)
   {
     v10 = 0;
@@ -1056,17 +1048,17 @@ uint64_t __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___b
   v8 = v7;
   v9 = 0;
   v10 = 0;
-  v11 = *v27;
+  v11 = *v26;
   do
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v27 != v11)
+      if (*v26 != v11)
       {
         objc_enumerationMutation(v6);
       }
 
-      v13 = *(*(&v26 + 1) + 8 * i);
+      v13 = *(*(&v25 + 1) + 8 * i);
       v14 = [v13 variantParam];
       v15 = [v14 objectForKey:@"sharingRelationship"];
 
@@ -1078,12 +1070,12 @@ uint64_t __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___b
           v9 = [v16 objectForKey:@"info"];
         }
 
-        [v21 addObject:v15];
+        [v20 addObject:v15];
         v10 = (v10 + 1);
       }
     }
 
-    v8 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v8 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
   }
 
   while (v8);
@@ -1091,21 +1083,20 @@ uint64_t __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___b
   if (v10)
   {
     v17 = [v4 model];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_15;
-    v22[3] = &unk_278E925A8;
-    v23 = v4;
-    v24 = v21;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_15;
+    v21[3] = &unk_278E925A8;
+    v22 = v4;
+    v23 = v20;
     v9 = v9;
-    v25 = v9;
-    [v17 performBlockOnObservers:v22];
+    v24 = v9;
+    [v17 performBlockOnObservers:v21];
 
-    v18 = v23;
+    v18 = v22;
 LABEL_15:
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1121,16 +1112,16 @@ void __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block
 
 uint64_t __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_12(uint64_t a1, void *a2, void *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
-  v26 = [MEMORY[0x277CBEB18] array];
+  v25 = [MEMORY[0x277CBEB18] array];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (!v7)
   {
     v11 = 0;
@@ -1143,23 +1134,23 @@ LABEL_18:
   }
 
   v8 = v7;
-  v24 = v4;
+  v23 = v4;
   obj = v6;
   v9 = 0;
   v10 = 0;
   v11 = 0;
-  v12 = *v33;
+  v12 = *v32;
   do
   {
     v13 = 0;
     do
     {
-      if (*v33 != v12)
+      if (*v32 != v12)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v32 + 1) + 8 * v13);
+      v14 = *(*(&v31 + 1) + 8 * v13);
       v15 = [v14 variantParam];
       v16 = [v15 objectForKey:@"sharingRelationship"];
 
@@ -1170,7 +1161,7 @@ LABEL_18:
           if (v9)
           {
 LABEL_9:
-            [v26 addObject:v16];
+            [v25 addObject:v16];
             v11 = (v11 + 1);
             goto LABEL_10;
           }
@@ -1199,7 +1190,7 @@ LABEL_10:
     }
 
     while (v8 != v13);
-    v19 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v19 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
     v8 = v19;
   }
 
@@ -1208,28 +1199,27 @@ LABEL_10:
 
   if (v11)
   {
-    v4 = v24;
-    v20 = [v24 model];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_13;
-    v27[3] = &unk_278E925D8;
-    v28 = v24;
-    v29 = v26;
+    v4 = v23;
+    v20 = [v23 model];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_13;
+    v26[3] = &unk_278E925D8;
+    v27 = v23;
+    v28 = v25;
     v10 = v10;
-    v30 = v10;
+    v29 = v10;
     v9 = v9;
-    v31 = v9;
-    [v20 performBlockOnObservers:v27];
+    v30 = v9;
+    [v20 performBlockOnObservers:v26];
 
-    v21 = v28;
+    v21 = v27;
     goto LABEL_18;
   }
 
-  v4 = v24;
+  v4 = v23;
 LABEL_20:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1245,16 +1235,16 @@ void __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block
 
 uint64_t __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_10(uint64_t a1, void *a2, void *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
-  v26 = [MEMORY[0x277CBEB18] array];
+  v25 = [MEMORY[0x277CBEB18] array];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (!v7)
   {
     v11 = 0;
@@ -1267,23 +1257,23 @@ LABEL_18:
   }
 
   v8 = v7;
-  v24 = v4;
+  v23 = v4;
   obj = v6;
   v9 = 0;
   v10 = 0;
   v11 = 0;
-  v12 = *v33;
+  v12 = *v32;
   do
   {
     v13 = 0;
     do
     {
-      if (*v33 != v12)
+      if (*v32 != v12)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v32 + 1) + 8 * v13);
+      v14 = *(*(&v31 + 1) + 8 * v13);
       v15 = [v14 variantParam];
       v16 = [v15 objectForKey:@"sharingRelationship"];
 
@@ -1294,7 +1284,7 @@ LABEL_18:
           if (v9)
           {
 LABEL_9:
-            [v26 addObject:v16];
+            [v25 addObject:v16];
             v11 = (v11 + 1);
             goto LABEL_10;
           }
@@ -1323,7 +1313,7 @@ LABEL_10:
     }
 
     while (v8 != v13);
-    v19 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v19 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
     v8 = v19;
   }
 
@@ -1332,28 +1322,27 @@ LABEL_10:
 
   if (v11)
   {
-    v4 = v24;
-    v20 = [v24 model];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_11;
-    v27[3] = &unk_278E925D8;
-    v28 = v24;
-    v29 = v26;
+    v4 = v23;
+    v20 = [v23 model];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_11;
+    v26[3] = &unk_278E925D8;
+    v27 = v23;
+    v28 = v25;
     v10 = v10;
-    v30 = v10;
+    v29 = v10;
     v9 = v9;
-    v31 = v9;
-    [v20 performBlockOnObservers:v27];
+    v30 = v9;
+    [v20 performBlockOnObservers:v26];
 
-    v21 = v28;
+    v21 = v27;
     goto LABEL_18;
   }
 
-  v4 = v24;
+  v4 = v23;
 LABEL_20:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1369,16 +1358,16 @@ void __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block
 
 uint64_t __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_8(uint64_t a1, void *a2, void *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
-  v26 = [MEMORY[0x277CBEB18] array];
+  v25 = [MEMORY[0x277CBEB18] array];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (!v7)
   {
     v11 = 0;
@@ -1391,23 +1380,23 @@ LABEL_18:
   }
 
   v8 = v7;
-  v24 = v4;
+  v23 = v4;
   obj = v6;
   v9 = 0;
   v10 = 0;
   v11 = 0;
-  v12 = *v33;
+  v12 = *v32;
   do
   {
     v13 = 0;
     do
     {
-      if (*v33 != v12)
+      if (*v32 != v12)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v32 + 1) + 8 * v13);
+      v14 = *(*(&v31 + 1) + 8 * v13);
       v15 = [v14 variantParam];
       v16 = [v15 objectForKey:@"assetCollection"];
 
@@ -1418,7 +1407,7 @@ LABEL_18:
           if (v9)
           {
 LABEL_9:
-            [v26 addObject:v16];
+            [v25 addObject:v16];
             v11 = (v11 + 1);
             goto LABEL_10;
           }
@@ -1447,7 +1436,7 @@ LABEL_10:
     }
 
     while (v8 != v13);
-    v19 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v19 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
     v8 = v19;
   }
 
@@ -1456,28 +1445,27 @@ LABEL_10:
 
   if (v11)
   {
-    v4 = v24;
-    v20 = [v24 model];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_9;
-    v27[3] = &unk_278E925D8;
-    v28 = v24;
-    v29 = v26;
+    v4 = v23;
+    v20 = [v23 model];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_9;
+    v26[3] = &unk_278E925D8;
+    v27 = v23;
+    v28 = v25;
     v10 = v10;
-    v30 = v10;
+    v29 = v10;
     v9 = v9;
-    v31 = v9;
-    [v20 performBlockOnObservers:v27];
+    v30 = v9;
+    [v20 performBlockOnObservers:v26];
 
-    v21 = v28;
+    v21 = v27;
     goto LABEL_18;
   }
 
-  v4 = v24;
+  v4 = v23;
 LABEL_20:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1493,16 +1481,16 @@ void __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block
 
 uint64_t __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_6(uint64_t a1, void *a2, void *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
-  v26 = [MEMORY[0x277CBEB18] array];
+  v25 = [MEMORY[0x277CBEB18] array];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (!v7)
   {
     v11 = 0;
@@ -1515,23 +1503,23 @@ LABEL_18:
   }
 
   v8 = v7;
-  v24 = v4;
+  v23 = v4;
   obj = v6;
   v9 = 0;
   v10 = 0;
   v11 = 0;
-  v12 = *v33;
+  v12 = *v32;
   do
   {
     v13 = 0;
     do
     {
-      if (*v33 != v12)
+      if (*v32 != v12)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v32 + 1) + 8 * v13);
+      v14 = *(*(&v31 + 1) + 8 * v13);
       v15 = [v14 variantParam];
       v16 = [v15 objectForKey:@"assetCollection"];
 
@@ -1542,7 +1530,7 @@ LABEL_18:
           if (v9)
           {
 LABEL_9:
-            [v26 addObject:v16];
+            [v25 addObject:v16];
             v11 = (v11 + 1);
             goto LABEL_10;
           }
@@ -1571,7 +1559,7 @@ LABEL_10:
     }
 
     while (v8 != v13);
-    v19 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v19 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
     v8 = v19;
   }
 
@@ -1580,28 +1568,27 @@ LABEL_10:
 
   if (v11)
   {
-    v4 = v24;
-    v20 = [v24 model];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_7;
-    v27[3] = &unk_278E925D8;
-    v28 = v24;
-    v29 = v26;
+    v4 = v23;
+    v20 = [v23 model];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_7;
+    v26[3] = &unk_278E925D8;
+    v27 = v23;
+    v28 = v25;
     v10 = v10;
-    v30 = v10;
+    v29 = v10;
     v9 = v9;
-    v31 = v9;
-    [v20 performBlockOnObservers:v27];
+    v30 = v9;
+    [v20 performBlockOnObservers:v26];
 
-    v21 = v28;
+    v21 = v27;
     goto LABEL_18;
   }
 
-  v4 = v24;
+  v4 = v23;
 LABEL_20:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -1617,16 +1604,16 @@ void __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block
 
 uint64_t __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_4(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
-  v21 = [MEMORY[0x277CBEB18] array];
+  v20 = [MEMORY[0x277CBEB18] array];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (!v7)
   {
     v10 = 0;
@@ -1638,17 +1625,17 @@ uint64_t __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___b
   v8 = v7;
   v9 = 0;
   v10 = 0;
-  v11 = *v27;
+  v11 = *v26;
   do
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v27 != v11)
+      if (*v26 != v11)
       {
         objc_enumerationMutation(v6);
       }
 
-      v13 = *(*(&v26 + 1) + 8 * i);
+      v13 = *(*(&v25 + 1) + 8 * i);
       v14 = [v13 variantParam];
       v15 = [v14 objectForKey:@"album"];
 
@@ -1660,12 +1647,12 @@ uint64_t __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___b
           v9 = [v16 objectForKey:@"info"];
         }
 
-        [v21 addObject:v15];
+        [v20 addObject:v15];
         v10 = (v10 + 1);
       }
     }
 
-    v8 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v8 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
   }
 
   while (v8);
@@ -1673,21 +1660,20 @@ uint64_t __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___b
   if (v10)
   {
     v17 = [v4 model];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_5;
-    v22[3] = &unk_278E925A8;
-    v23 = v4;
-    v24 = v21;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_5;
+    v21[3] = &unk_278E925A8;
+    v22 = v4;
+    v23 = v20;
     v9 = v9;
-    v25 = v9;
-    [v17 performBlockOnObservers:v22];
+    v24 = v9;
+    [v17 performBlockOnObservers:v21];
 
-    v18 = v23;
+    v18 = v22;
 LABEL_15:
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1703,16 +1689,16 @@ void __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block
 
 uint64_t __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
-  v21 = [MEMORY[0x277CBEB18] array];
+  v20 = [MEMORY[0x277CBEB18] array];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (!v7)
   {
     v10 = 0;
@@ -1724,17 +1710,17 @@ uint64_t __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___b
   v8 = v7;
   v9 = 0;
   v10 = 0;
-  v11 = *v27;
+  v11 = *v26;
   do
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v27 != v11)
+      if (*v26 != v11)
       {
         objc_enumerationMutation(v6);
       }
 
-      v13 = *(*(&v26 + 1) + 8 * i);
+      v13 = *(*(&v25 + 1) + 8 * i);
       v14 = [v13 variantParam];
       v15 = [v14 objectForKey:@"album"];
 
@@ -1746,12 +1732,12 @@ uint64_t __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___b
           v9 = [v16 objectForKey:@"info"];
         }
 
-        [v21 addObject:v15];
+        [v20 addObject:v15];
         v10 = (v10 + 1);
       }
     }
 
-    v8 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v8 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
   }
 
   while (v8);
@@ -1759,21 +1745,20 @@ uint64_t __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___b
   if (v10)
   {
     v17 = [v4 model];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_3;
-    v22[3] = &unk_278E925A8;
-    v23 = v4;
-    v24 = v21;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __65__MSASServerSideModelGroupedCommandQueue_calloutBlockForCommand___block_invoke_3;
+    v21[3] = &unk_278E925A8;
+    v22 = v4;
+    v23 = v20;
     v9 = v9;
-    v25 = v9;
-    [v17 performBlockOnObservers:v22];
+    v24 = v9;
+    [v17 performBlockOnObservers:v21];
 
-    v18 = v23;
+    v18 = v22;
 LABEL_15:
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

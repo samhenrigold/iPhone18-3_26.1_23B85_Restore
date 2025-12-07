@@ -87,7 +87,7 @@ uint64_t __43__STStorageDataInterface_appsOrderedByName__block_invoke(uint64_t a
   v13 = __Block_byref_object_copy_;
   v14 = __Block_byref_object_dispose_;
   v15 = 0;
-  v2 = STStorageLog();
+  v2 = STStorageLog(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -116,7 +116,7 @@ uint64_t __43__STStorageDataInterface_appsOrderedByName__block_invoke(uint64_t a
 void __48__STStorageDataInterface_storageInfoDict_Remote__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = STStorageLog();
+  v3 = STStorageLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __65__STMTelemetryController_retrieveTelemetryWithCompletionHandler___block_invoke_cold_1(v2, v3);

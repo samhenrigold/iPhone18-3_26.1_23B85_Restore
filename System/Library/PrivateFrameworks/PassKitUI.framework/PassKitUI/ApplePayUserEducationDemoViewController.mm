@@ -17,7 +17,7 @@
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_1BD5644AC();
+  sub_1BD5644AC(selfCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear
@@ -34,8 +34,9 @@
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_1BD564780(disappear);
+  sub_1BD564780(disappearCopy);
 }
 
 - (_TtC9PassKitUI39ApplePayUserEducationDemoViewController)initWithNibName:(id)name bundle:(id)bundle

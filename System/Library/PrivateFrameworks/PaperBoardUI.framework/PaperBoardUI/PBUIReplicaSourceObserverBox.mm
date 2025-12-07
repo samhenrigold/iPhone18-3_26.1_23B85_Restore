@@ -83,7 +83,7 @@ void __79__PBUIReplicaSourceObserverBox_initWithIdentifier_activeStateDidChangeH
 - (void)invalidate
 {
   v11 = *MEMORY[0x277D85DE8];
-  v3 = PBUILogSnapshot();
+  v3 = PBUILogSnapshot(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
@@ -118,22 +118,23 @@ void __79__PBUIReplicaSourceObserverBox_initWithIdentifier_activeStateDidChangeH
   v13 = 0u;
   v14 = 0u;
   selfCopy = self;
-  v3 = [(PBUIReplicaSourceObserverBox *)selfCopy countByEnumeratingWithState:&v11 objects:v21 count:16];
-  if (v3)
+  setNeedsSourceUpdate = [(PBUIReplicaSourceObserverBox *)selfCopy countByEnumeratingWithState:&v11 objects:v21 count:16];
+  if (setNeedsSourceUpdate)
   {
-    v4 = v3;
+    v4 = setNeedsSourceUpdate;
     v5 = *v12;
     do
     {
-      for (i = 0; i != v4; ++i)
+      v6 = 0;
+      do
       {
         if (*v12 != v5)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
-        v8 = PBUILogRuntime();
+        v7 = *(*(&v11 + 1) + 8 * v6);
+        v8 = PBUILogRuntime(setNeedsSourceUpdate);
         if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
         {
           v9 = objc_opt_class();
@@ -147,13 +148,16 @@ void __79__PBUIReplicaSourceObserverBox_initWithIdentifier_activeStateDidChangeH
           _os_log_impl(&dword_21E67D000, v8, OS_LOG_TYPE_INFO, "<%{public}@:%p> Set source needs update for observer: %{public}@", buf, 0x20u);
         }
 
-        [v7 setNeedsSourceUpdate];
+        setNeedsSourceUpdate = [v7 setNeedsSourceUpdate];
+        ++v6;
       }
 
-      v4 = [(PBUIReplicaSourceObserverBox *)selfCopy countByEnumeratingWithState:&v11 objects:v21 count:16];
+      while (v4 != v6);
+      setNeedsSourceUpdate = [(PBUIReplicaSourceObserverBox *)selfCopy countByEnumeratingWithState:&v11 objects:v21 count:16];
+      v4 = setNeedsSourceUpdate;
     }
 
-    while (v4);
+    while (setNeedsSourceUpdate);
   }
 }
 

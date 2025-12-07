@@ -189,7 +189,7 @@ LABEL_34:
     if (!v27 || [(SBChainableModifier *)v27 state]== 1)
     {
       v28 = [[SBTimerEventSwitcherEventResponse alloc] initWithDelay:0 validator:@"SBSplitViewRootSwitcherModifierTimerEventReason" reason:0.4];
-      v29 = SBAppendSwitcherModifierResponse(v28, v34);
+      v29 = SBAppendSwitcherModifierResponse();
 
       v26 = v29;
     }
@@ -211,7 +211,7 @@ LABEL_35:
   return v26;
 }
 
-uint64_t __47__SBSplitViewRootSwitcherModifier_handleEvent___block_invoke(void *a1)
+void *__47__SBSplitViewRootSwitcherModifier_handleEvent___block_invoke(void *a1)
 {
   v2 = [*(a1[4] + 144) handleEvent:a1[5]];
   result = [*(a1[4] + 144) state];
@@ -219,7 +219,7 @@ uint64_t __47__SBSplitViewRootSwitcherModifier_handleEvent___block_invoke(void *
   return result;
 }
 
-uint64_t __47__SBSplitViewRootSwitcherModifier_handleEvent___block_invoke_2(void *a1)
+void *__47__SBSplitViewRootSwitcherModifier_handleEvent___block_invoke_2(void *a1)
 {
   v2 = [*(a1[4] + 152) handleEvent:a1[5]];
   result = [*(a1[4] + 152) state];
@@ -314,7 +314,7 @@ LABEL_5:
   {
     self->_stoppedRoutingDueToArcSwipe = 0;
     v7 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:16 updateMode:3];
-    v8 = SBAppendSwitcherModifierResponse(v7, v5);
+    v8 = SBAppendSwitcherModifierResponse();
 
     v5 = v8;
   }

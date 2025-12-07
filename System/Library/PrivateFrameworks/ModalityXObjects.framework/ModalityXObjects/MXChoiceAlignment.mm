@@ -69,7 +69,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = PBRepeatedInt32NSArray();
   [dictionary setObject:v4 forKey:@"post_itn_choice_indices"];
@@ -77,30 +77,30 @@
   if ([(NSMutableArray *)self->_preItnTokenToPostItnCharAlignments count])
   {
     v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_preItnTokenToPostItnCharAlignments, "count")}];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v6 = self->_preItnTokenToPostItnCharAlignments;
-    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v15;
+      v9 = *v14;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          dictionaryRepresentation = [*(*(&v14 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v13 + 1) + 8 * i) dictionaryRepresentation];
           [v5 addObject:dictionaryRepresentation];
         }
 
-        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v8);
@@ -109,21 +109,18 @@
     [dictionary setObject:v5 forKey:@"pre_itn_token_to_post_itn_char_alignments"];
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_postItnChoiceIndices.count)
   {
     v5 = 0;
     do
     {
-      v6 = self->_postItnChoiceIndices.list[v5];
       PBDataWriterWriteInt32Field();
       ++v5;
     }
@@ -131,36 +128,36 @@
     while (v5 < self->_postItnChoiceIndices.count);
   }
 
-  v16 = 0u;
-  v17 = 0u;
+  v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v7 = self->_preItnTokenToPostItnCharAlignments;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
-  if (v8)
+  v11 = 0u;
+  v12 = 0u;
+  v6 = self->_preItnTokenToPostItnCharAlignments;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v15;
+    v8 = v7;
+    v9 = *v12;
     do
     {
-      for (i = 0; i != v9; ++i)
+      v10 = 0;
+      do
       {
-        if (*v15 != v10)
+        if (*v12 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v14 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
+        ++v10;
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      while (v8 != v10);
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -198,43 +195,42 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   PBRepeatedInt32Copy();
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = self->_preItnTokenToPostItnCharAlignments;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       v10 = 0;
       do
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [*(*(&v14 + 1) + 8 * v10) copyWithZone:{zone, v14}];
+        v11 = [*(*(&v13 + 1) + 8 * v10) copyWithZone:{zone, v13}];
         [v5 addPreItnTokenToPostItnCharAlignments:v11];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -265,7 +261,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   postItnChoiceIndicesCount = [fromCopy postItnChoiceIndicesCount];
   if (postItnChoiceIndicesCount)
@@ -277,37 +273,35 @@
     }
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v8 = fromCopy[4];
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [(MXChoiceAlignment *)self addPreItnTokenToPostItnCharAlignments:*(*(&v14 + 1) + 8 * v12++), v14];
+        [(MXChoiceAlignment *)self addPreItnTokenToPostItnCharAlignments:*(*(&v13 + 1) + 8 * v12++), v13];
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

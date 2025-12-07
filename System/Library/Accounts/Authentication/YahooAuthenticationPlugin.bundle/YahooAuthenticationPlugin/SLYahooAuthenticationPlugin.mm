@@ -169,7 +169,7 @@
 
 - (void)verifyCredentialsForAccount:(id)account accountStore:(id)store options:(id)options completion:(id)completion
 {
-  v39[1] = *MEMORY[0x29EDCA608];
+  v38[1] = *MEMORY[0x29EDCA608];
   accountCopy = account;
   storeCopy = store;
   completionCopy = completion;
@@ -202,16 +202,16 @@ LABEL_5:
       }
     }
 
-    v36 = *MEMORY[0x29EDB8450];
-    v37 = MEMORY[0x29EDB8EB0];
-    v28 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
-    v30[0] = MEMORY[0x29EDCA5F8];
-    v30[1] = 3221225472;
-    v30[2] = sub_29C83E9A4;
-    v30[3] = &unk_29F328C90;
-    v32 = completionCopy;
-    v31 = accountCopy;
-    [(SLYahooAuthenticationPlugin *)self renewCredentialsForAccount:v31 accountStore:storeCopy options:v28 completion:v30];
+    v35 = *MEMORY[0x29EDB8450];
+    v36 = MEMORY[0x29EDB8EB0];
+    v28 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
+    v29[0] = MEMORY[0x29EDCA5F8];
+    v29[1] = 3221225472;
+    v29[2] = sub_29C83E9A4;
+    v29[3] = &unk_29F328C90;
+    v31 = completionCopy;
+    v30 = accountCopy;
+    [(SLYahooAuthenticationPlugin *)self renewCredentialsForAccount:v30 accountStore:storeCopy options:v28 completion:v29];
 
     goto LABEL_11;
   }
@@ -234,24 +234,23 @@ LABEL_5:
   credential4 = [accountCopy credential];
   [v17 setCredential:credential4];
 
-  v38 = *MEMORY[0x29EDB8460];
-  v39[0] = MEMORY[0x29EDB8EA8];
-  v20 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
-  v33[0] = MEMORY[0x29EDCA5F8];
-  v33[1] = 3221225472;
-  v33[2] = sub_29C83E978;
-  v33[3] = &unk_29F328C68;
-  v35 = completionCopy;
-  v34 = accountCopy;
-  [storeCopy verifyCredentialsForAccount:v17 options:v20 completion:v33];
+  v37 = *MEMORY[0x29EDB8460];
+  v38[0] = MEMORY[0x29EDB8EA8];
+  v20 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+  v32[0] = MEMORY[0x29EDCA5F8];
+  v32[1] = 3221225472;
+  v32[2] = sub_29C83E978;
+  v32[3] = &unk_29F328C68;
+  v34 = completionCopy;
+  v33 = accountCopy;
+  [storeCopy verifyCredentialsForAccount:v17 options:v20 completion:v32];
 
 LABEL_11:
-  v29 = *MEMORY[0x29EDCA608];
 }
 
 - (id)renewalIDsForAccount:(id)account accountStore:(id)store options:(id)options
 {
-  v17[2] = *MEMORY[0x29EDCA608];
+  v16[2] = *MEMORY[0x29EDCA608];
   accountCopy = account;
   v7 = [options objectForKeyedSubscript:*MEMORY[0x29EDB8450]];
   bOOLValue = [v7 BOOLValue];
@@ -261,27 +260,25 @@ LABEL_11:
     v9 = MEMORY[0x29EDBA0F8];
     identifier = [accountCopy identifier];
     v11 = [v9 stringWithFormat:@"%@.AvoidUI", identifier];
-    v17[0] = v11;
+    v16[0] = v11;
     identifier2 = [accountCopy identifier];
-    v17[1] = identifier2;
-    v13 = [MEMORY[0x29EDB8D80] arrayWithObjects:v17 count:2];
+    v16[1] = identifier2;
+    v13 = [MEMORY[0x29EDB8D80] arrayWithObjects:v16 count:2];
   }
 
   else
   {
     identifier = [accountCopy identifier];
-    v16 = identifier;
-    v13 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v16 count:1];
+    v15 = identifier;
+    v13 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v15 count:1];
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 
   return v13;
 }
 
 - (void)renewCredentialsForAccount:(id)account accountStore:(id)store options:(id)options completion:(id)completion
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   accountCopy = account;
   storeCopy = store;
   optionsCopy = options;
@@ -290,9 +287,9 @@ LABEL_11:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v30 = accountCopy;
-    v31 = 2114;
-    v32 = optionsCopy;
+    v29 = accountCopy;
+    v30 = 2114;
+    v31 = optionsCopy;
     _os_log_impl(&dword_29C83D000, v14, OS_LOG_TYPE_DEFAULT, "Yahoo! plugin got renewCredentialsForAccount: %@ options: %{public}@ completion:", buf, 0x16u);
   }
 
@@ -312,17 +309,17 @@ LABEL_11:
   if (!password)
   {
 LABEL_9:
-    v22[0] = MEMORY[0x29EDCA5F8];
-    v22[1] = 3221225472;
-    v22[2] = sub_29C83EE98;
-    v22[3] = &unk_29F328D08;
-    v23 = accountCopy;
-    v27 = completionCopy;
-    v24 = optionsCopy;
+    v21[0] = MEMORY[0x29EDCA5F8];
+    v21[1] = 3221225472;
+    v21[2] = sub_29C83EE98;
+    v21[3] = &unk_29F328D08;
+    v22 = accountCopy;
+    v26 = completionCopy;
+    v23 = optionsCopy;
     selfCopy = self;
-    v26 = storeCopy;
-    v28 = bOOLValue;
-    [(SLYahooAuthenticationPlugin *)self _refreshTokenForAccount:v23 store:v26 completion:v22];
+    v25 = storeCopy;
+    v27 = bOOLValue;
+    [(SLYahooAuthenticationPlugin *)self _refreshTokenForAccount:v22 store:v25 completion:v21];
 
     goto LABEL_10;
   }
@@ -335,8 +332,6 @@ LABEL_9:
 
   (*(completionCopy + 2))(completionCopy, 0, 0);
 LABEL_10:
-
-  v21 = *MEMORY[0x29EDCA608];
 }
 
 - (id)_getLegacyTokenForAccount:(id)account password:(id)password username:(id)username

@@ -73,7 +73,7 @@
         v9 = *(*(&v16 + 1) + 8 * i);
         if (v9)
         {
-          [*(*(&v16 + 1) + 8 * i) configuration];
+          objc_msgSend_configuration(*(*(&v16 + 1) + 8 * i));
 
           if (v15)
           {
@@ -148,11 +148,11 @@ LABEL_11:
         goto LABEL_12;
       }
 
-      [*(*(&v26 + 1) + 8 * i) configuration];
+      objc_msgSend_configuration(*(*(&v26 + 1) + 8 * i));
 
       if (v25 != 1)
       {
-        [v10 configuration];
+        objc_msgSend_configuration(v10);
 
         if (v23)
         {
@@ -248,11 +248,11 @@ LABEL_11:
         goto LABEL_12;
       }
 
-      [*(*(&v35 + 1) + 8 * i) configuration];
+      objc_msgSend_configuration(*(*(&v35 + 1) + 8 * i));
 
       if (v34 != 1)
       {
-        [v13 configuration];
+        objc_msgSend_configuration(v13);
 
         if (v32)
         {
@@ -436,7 +436,7 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  [v15 configuration];
+  objc_msgSend_configuration(v15);
   if (v19 != 1)
   {
     v17 = v18;
@@ -462,7 +462,7 @@ LABEL_9:
 
   if (v10)
   {
-    [v10 configuration];
+    objc_msgSend_configuration(v10);
 
     if (v29 == 1)
     {
@@ -523,9 +523,9 @@ LABEL_9:
   sections = [(AllCollectionsDataSource *)self sections];
   v10 = [sections objectAtIndex:{objc_msgSend(pathCopy, "section")}];
 
-  if (v10 && ([v10 configuration], v19, v20))
+  if (v10 && (objc_msgSend_configuration(v10), v19, v20))
   {
-    [v10 configuration];
+    objc_msgSend_configuration(v10);
 
     if (v18 == 1)
     {
@@ -612,7 +612,7 @@ LABEL_9:
         v9 = *(*(&v15 + 1) + 8 * i);
         if (v9)
         {
-          [*(*(&v15 + 1) + 8 * i) configuration];
+          objc_msgSend_configuration(*(*(&v15 + 1) + 8 * i));
           v10 = v14;
         }
 
@@ -772,7 +772,7 @@ LABEL_12:
           goto LABEL_13;
         }
 
-        [*(*(&v17 + 1) + 8 * i) configuration];
+        objc_msgSend_configuration(*(*(&v17 + 1) + 8 * i));
 
         if (!v16)
         {
@@ -825,7 +825,7 @@ LABEL_13:
         v13 = *(*(&v17 + 1) + 8 * i);
         if (v13)
         {
-          [*(*(&v17 + 1) + 8 * i) configuration];
+          objc_msgSend_configuration(*(*(&v17 + 1) + 8 * i));
 
           if (v16)
           {

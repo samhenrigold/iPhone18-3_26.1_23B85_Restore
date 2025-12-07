@@ -37,12 +37,8 @@
 
 - (void)updateBackgroundCornerRadii:(UIRectCornerRadii)radii
 {
-  topRight = radii.topRight;
-  bottomRight = radii.bottomRight;
-  bottomLeft = radii.bottomLeft;
-  topLeft = radii.topLeft;
   selfCopy = self;
-  sub_188AE1CF0(topLeft, bottomLeft, bottomRight, topRight);
+  sub_188AE1CF0();
 }
 
 - (void)updateCornerClippingViews

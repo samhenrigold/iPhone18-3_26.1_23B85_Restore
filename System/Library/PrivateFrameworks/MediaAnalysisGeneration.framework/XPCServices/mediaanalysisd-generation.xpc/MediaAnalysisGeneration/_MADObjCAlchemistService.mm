@@ -9,7 +9,7 @@
 {
   sub_100009254();
   v4.receiver = self;
-  v4.super_class = type metadata accessor for _MADObjCAlchemistService();
+  v4.super_class = type metadata accessor for _MADObjCAlchemistService(0);
   return [(_MADObjCAlchemistService *)&v4 init];
 }
 

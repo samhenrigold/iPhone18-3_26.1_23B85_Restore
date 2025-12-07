@@ -36,7 +36,7 @@
 
 - (void)didReceiveNotificationResponse:(id)response forBundleIdentifier:(id)identifier withCompletionHandler:(id)handler
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   identifierCopy = identifier;
   handlerCopy = handler;
@@ -44,25 +44,23 @@
   if (os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v22 = identifierCopy;
+    v21 = identifierCopy;
     _os_log_impl(&dword_270AA8000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] Sending didReceiveNotificationResponse:forBundleIdentifier:", buf, 0xCu);
   }
 
   queue = self->_queue;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __94__UNSDaemonLauncher_didReceiveNotificationResponse_forBundleIdentifier_withCompletionHandler___block_invoke;
-  v17[3] = &unk_279E106B0;
-  v17[4] = self;
-  v18 = identifierCopy;
-  v19 = responseCopy;
-  v20 = handlerCopy;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __94__UNSDaemonLauncher_didReceiveNotificationResponse_forBundleIdentifier_withCompletionHandler___block_invoke;
+  v16[3] = &unk_279E106B0;
+  v16[4] = self;
+  v17 = identifierCopy;
+  v18 = responseCopy;
+  v19 = handlerCopy;
   v13 = responseCopy;
   v14 = handlerCopy;
   v15 = identifierCopy;
-  dispatch_async(queue, v17);
-
-  v16 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v16);
 }
 
 void __94__UNSDaemonLauncher_didReceiveNotificationResponse_forBundleIdentifier_withCompletionHandler___block_invoke(uint64_t a1)
@@ -97,7 +95,7 @@ void __94__UNSDaemonLauncher_didReceiveNotificationResponse_forBundleIdentifier_
   v3 = a2;
   if (os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_ERROR))
   {
-    __94__UNSDaemonLauncher_didReceiveNotificationResponse_forBundleIdentifier_withCompletionHandler___block_invoke_2_cold_1(a1);
+    __94__UNSDaemonLauncher_didReceiveNotificationResponse_forBundleIdentifier_withCompletionHandler___block_invoke_2_cold_1();
   }
 
   v4 = *(*(a1 + 40) + 16);
@@ -122,26 +120,24 @@ uint64_t __94__UNSDaemonLauncher_didReceiveNotificationResponse_forBundleIdentif
 
 void __94__UNSDaemonLauncher_didReceiveNotificationResponse_forBundleIdentifier_withCompletionHandler___block_invoke_2_5(uint64_t a1, char a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = *MEMORY[0x277CE2078];
   if (os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     *buf = 138543362;
-    v12 = v5;
+    v11 = v5;
     _os_log_impl(&dword_270AA8000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] didReceiveNotificationResponse:forBundleIdentifier: succeeded", buf, 0xCu);
   }
 
   v6 = *(*(a1 + 40) + 16);
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __94__UNSDaemonLauncher_didReceiveNotificationResponse_forBundleIdentifier_withCompletionHandler___block_invoke_6;
-  v8[3] = &unk_279E10660;
-  v9 = *(a1 + 48);
-  v10 = a2;
-  dispatch_async(v6, v8);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __94__UNSDaemonLauncher_didReceiveNotificationResponse_forBundleIdentifier_withCompletionHandler___block_invoke_6;
+  v7[3] = &unk_279E10660;
+  v8 = *(a1 + 48);
+  v9 = a2;
+  dispatch_async(v6, v7);
 }
 
 uint64_t __94__UNSDaemonLauncher_didReceiveNotificationResponse_forBundleIdentifier_withCompletionHandler___block_invoke_6(uint64_t a1)
@@ -157,14 +153,14 @@ uint64_t __94__UNSDaemonLauncher_didReceiveNotificationResponse_forBundleIdentif
 
 - (void)didOpenApplicationForResponse:(id)response forBundleIdentifier:(id)identifier
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   identifierCopy = identifier;
   v8 = *MEMORY[0x277CE2078];
   if (os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v17 = identifierCopy;
+    v16 = identifierCopy;
     _os_log_impl(&dword_270AA8000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Sending didOpenApplicationForResponse:forBundleIdentifier:", buf, 0xCu);
   }
 
@@ -174,13 +170,11 @@ uint64_t __94__UNSDaemonLauncher_didReceiveNotificationResponse_forBundleIdentif
   block[2] = __71__UNSDaemonLauncher_didOpenApplicationForResponse_forBundleIdentifier___block_invoke;
   block[3] = &unk_279E10700;
   block[4] = self;
-  v14 = identifierCopy;
-  v15 = responseCopy;
+  v13 = identifierCopy;
+  v14 = responseCopy;
   v10 = responseCopy;
   v11 = identifierCopy;
   dispatch_async(queue, block);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __71__UNSDaemonLauncher_didOpenApplicationForResponse_forBundleIdentifier___block_invoke(uint64_t a1)
@@ -197,23 +191,23 @@ void __71__UNSDaemonLauncher_didOpenApplicationForResponse_forBundleIdentifier__
 
 void __71__UNSDaemonLauncher_didOpenApplicationForResponse_forBundleIdentifier___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   if (os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_ERROR))
   {
-    __71__UNSDaemonLauncher_didOpenApplicationForResponse_forBundleIdentifier___block_invoke_2_cold_1(a1);
+    __71__UNSDaemonLauncher_didOpenApplicationForResponse_forBundleIdentifier___block_invoke_2_cold_1();
   }
 }
 
 - (void)didChangeSettings:(id)settings forBundleIdentifier:(id)identifier
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   identifierCopy = identifier;
   v8 = *MEMORY[0x277CE2078];
   if (os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v17 = identifierCopy;
+    v16 = identifierCopy;
     _os_log_impl(&dword_270AA8000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Sending didChangeSettings:forBundleIdentifier:", buf, 0xCu);
   }
 
@@ -223,13 +217,11 @@ void __71__UNSDaemonLauncher_didOpenApplicationForResponse_forBundleIdentifier__
   block[2] = __59__UNSDaemonLauncher_didChangeSettings_forBundleIdentifier___block_invoke;
   block[3] = &unk_279E10700;
   block[4] = self;
-  v14 = identifierCopy;
-  v15 = settingsCopy;
+  v13 = identifierCopy;
+  v14 = settingsCopy;
   v10 = settingsCopy;
   v11 = identifierCopy;
   dispatch_async(queue, block);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __59__UNSDaemonLauncher_didChangeSettings_forBundleIdentifier___block_invoke(uint64_t a1)
@@ -246,10 +238,10 @@ void __59__UNSDaemonLauncher_didChangeSettings_forBundleIdentifier___block_invok
 
 void __59__UNSDaemonLauncher_didChangeSettings_forBundleIdentifier___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   if (os_log_type_enabled(*MEMORY[0x277CE2078], OS_LOG_TYPE_ERROR))
   {
-    __59__UNSDaemonLauncher_didChangeSettings_forBundleIdentifier___block_invoke_2_cold_1(a1);
+    __59__UNSDaemonLauncher_didChangeSettings_forBundleIdentifier___block_invoke_2_cold_1();
   }
 }
 
@@ -357,33 +349,6 @@ void __64__UNSDaemonLauncher__queue_ensureConnectionForBundleIdentifier___block_
   [v6 setInvalidationHandler:0];
   [v6 setExportedObject:0];
   [(NSMutableDictionary *)self->_connectionByBundleIdentifier removeObjectForKey:identifierCopy];
-}
-
-void __94__UNSDaemonLauncher_didReceiveNotificationResponse_forBundleIdentifier_withCompletionHandler___block_invoke_2_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_270AA8000, v2, v3, "[%{public}@] didReceiveNotificationResponse:forBundleIdentifier: failed with error: %{public}@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __71__UNSDaemonLauncher_didOpenApplicationForResponse_forBundleIdentifier___block_invoke_2_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_270AA8000, v2, v3, "[%{public}@] didOpenApplicationForResponse:forBundleIdentifier: failed with error: %{public}@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-void __59__UNSDaemonLauncher_didChangeSettings_forBundleIdentifier___block_invoke_2_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_270AA8000, v2, v3, "[%{public}@] didChangeSettings:forBundleIdentifier: failed with error: %{public}@");
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

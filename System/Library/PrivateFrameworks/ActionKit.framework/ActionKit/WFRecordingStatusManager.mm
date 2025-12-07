@@ -56,11 +56,11 @@
   [(SBSStatusBarStyleOverridesAssertion *)v7 acquireWithHandler:v9 invalidationHandler:v8];
 }
 
-uint64_t __44__WFRecordingStatusManager_acquireAssertion__block_invoke(uint64_t result, char a2)
+id *__44__WFRecordingStatusManager_acquireAssertion__block_invoke(id *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
-    return [*(result + 32) invalidateAssertion];
+    return [result[4] invalidateAssertion];
   }
 
   return result;

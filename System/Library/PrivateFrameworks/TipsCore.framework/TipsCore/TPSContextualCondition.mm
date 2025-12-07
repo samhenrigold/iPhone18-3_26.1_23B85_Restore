@@ -13,38 +13,38 @@
 
 + (id)eventsForConditionDictionary:(id)dictionary
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = [dictionary TPSSafeArrayForKey:@"rules"];
   if ([v3 count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = [TPSContextualRule eventsForRuleDictionary:*(*(&v13 + 1) + 8 * i), v13];
+          v10 = [TPSContextualRule eventsForRuleDictionary:*(*(&v12 + 1) + 8 * i), v12];
           if (v10)
           {
             [array addObjectsFromArray:v10];
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -56,18 +56,16 @@
     array = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
 - (TPSContextualCondition)initWithDictionary:(id)dictionary
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v27.receiver = self;
-  v27.super_class = TPSContextualCondition;
-  v5 = [(TPSSerializableObject *)&v27 initWithDictionary:dictionaryCopy];
+  v26.receiver = self;
+  v26.super_class = TPSContextualCondition;
+  v5 = [(TPSSerializableObject *)&v26 initWithDictionary:dictionaryCopy];
   if (!v5)
   {
     goto LABEL_16;
@@ -79,29 +77,29 @@
   v8 = 0x1EBE05000;
   if ([v7 count])
   {
-    v22 = v6;
+    v21 = v6;
     v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v7, "count")}];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     v10 = v7;
-    v11 = [v10 countByEnumeratingWithState:&v23 objects:v28 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v24;
+      v13 = *v23;
       do
       {
         v14 = 0;
         do
         {
-          if (*v24 != v13)
+          if (*v23 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = [[TPSContextualRule alloc] initWithDictionary:*(*(&v23 + 1) + 8 * v14)];
+          v15 = [[TPSContextualRule alloc] initWithDictionary:*(*(&v22 + 1) + 8 * v14)];
           if (v15)
           {
             [v9 addObject:v15];
@@ -111,7 +109,7 @@
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v23 objects:v28 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
       }
 
       while (v12);
@@ -125,7 +123,7 @@
       v5->_rules = v16;
     }
 
-    v6 = v22;
+    v6 = v21;
   }
 
   v18 = [*(&v5->super.super.isa + *(v8 + 2720)) count];
@@ -141,7 +139,6 @@ LABEL_16:
     v19 = v5;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -196,79 +193,75 @@ LABEL_16:
 
 - (id)eventIdentifiers
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_rules;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        eventIdentifiers = [*(*(&v12 + 1) + 8 * i) eventIdentifiers];
+        eventIdentifiers = [*(*(&v11 + 1) + 8 * i) eventIdentifiers];
         [array addObjectsFromArray:eventIdentifiers];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 - (void)restartTracking
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   matchedDate = self->_matchedDate;
   self->_matchedDate = 0;
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = self->_rules;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) restartTracking];
+        [*(*(&v9 + 1) + 8 * v8++) restartTracking];
       }
 
       while (v6 != v8);
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)debugDescription

@@ -5,13 +5,13 @@
 
 void __89___ICQDetailFollowupSpecification_postFollowupWithController_replaceExisting_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = a2;
   v5 = [v4 key];
   v6 = [v3 titleWithKey:v5];
   v7 = [v4 wordsToReplace];
-  v42 = [_ICQHelperFunctions replaceWordsIn:v6 with:v7];
+  v41 = [_ICQHelperFunctions replaceWordsIn:v6 with:v7];
 
   v8 = *(a1 + 32);
   v9 = [v4 key];
@@ -38,9 +38,9 @@ void __89___ICQDetailFollowupSpecification_postFollowupWithController_replaceExi
 
   v27 = [_ICQHelperFunctions replaceWordsIn:v25 with:v26];
 
-  if ([v42 length])
+  if ([v41 length])
   {
-    [*(a1 + 32) setNoteTitle:v42];
+    [*(a1 + 32) setNoteTitle:v41];
   }
 
   if ([v12 length])
@@ -68,7 +68,7 @@ void __89___ICQDetailFollowupSpecification_postFollowupWithController_replaceExi
   {
     v29 = [*(a1 + 32) noteTitle];
     *buf = 138412290;
-    v45 = v29;
+    v44 = v29;
     _os_log_impl(&dword_275572000, v28, OS_LOG_TYPE_DEFAULT, "lockScreenTitle = %@", buf, 0xCu);
   }
 
@@ -77,7 +77,7 @@ void __89___ICQDetailFollowupSpecification_postFollowupWithController_replaceExi
   {
     v31 = [*(a1 + 32) noteSubTitle];
     *buf = 138412290;
-    v45 = v31;
+    v44 = v31;
     _os_log_impl(&dword_275572000, v30, OS_LOG_TYPE_DEFAULT, "lockScreenSubTitle = %@", buf, 0xCu);
   }
 
@@ -86,7 +86,7 @@ void __89___ICQDetailFollowupSpecification_postFollowupWithController_replaceExi
   {
     v33 = [*(a1 + 32) noteMessage];
     *buf = 138412290;
-    v45 = v33;
+    v44 = v33;
     _os_log_impl(&dword_275572000, v32, OS_LOG_TYPE_DEFAULT, "lockScreenMessage = %@", buf, 0xCu);
   }
 
@@ -95,7 +95,7 @@ void __89___ICQDetailFollowupSpecification_postFollowupWithController_replaceExi
   {
     v35 = [*(a1 + 32) title];
     *buf = 138412290;
-    v45 = v35;
+    v44 = v35;
     _os_log_impl(&dword_275572000, v34, OS_LOG_TYPE_DEFAULT, "followupTitle = %@", buf, 0xCu);
   }
 
@@ -104,18 +104,16 @@ void __89___ICQDetailFollowupSpecification_postFollowupWithController_replaceExi
   {
     v37 = [*(a1 + 32) message];
     *buf = 138412290;
-    v45 = v37;
+    v44 = v37;
     _os_log_impl(&dword_275572000, v36, OS_LOG_TYPE_DEFAULT, "followupMessage = %@", buf, 0xCu);
   }
 
   v38 = *(a1 + 40);
   v39 = *(a1 + 56);
   v40 = *(a1 + 48);
-  v43.receiver = *(a1 + 32);
-  v43.super_class = _ICQDetailFollowupSpecification;
-  objc_msgSendSuper2(&v43, sel_postFollowupWithController_replaceExisting_completion_, v38, v39, v40);
-
-  v41 = *MEMORY[0x277D85DE8];
+  v42.receiver = *(a1 + 32);
+  v42.super_class = _ICQDetailFollowupSpecification;
+  objc_msgSendSuper2(&v42, sel_postFollowupWithController_replaceExisting_completion_, v38, v39, v40);
 }
 
 @end

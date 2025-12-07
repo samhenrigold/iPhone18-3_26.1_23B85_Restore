@@ -167,25 +167,24 @@ void sub_395A4(void *a1, uint64_t a2)
   }
 }
 
-void sub_39758(uint64_t a1, int a2)
+void sub_39758(uint64_t a1, uint64_t a2)
 {
+  v109 = a2;
   if (a2)
   {
     v3 = im_checkpointIDSService();
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 232);
     im_sendMessageCheckpointIfNecessary();
   }
 
   else if (IMOSLoggingEnabled())
   {
-    v6 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v4 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v7 = *(a1 + 32);
+      v5 = *(a1 + 32);
       *buf = 138412290;
-      v114 = v7;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "*** Not all messages successfully stored in database. Not sending IMMessageCheckpointLocationMessageStored checkpoint. guid %@", buf, 0xCu);
+      v112 = v5;
+      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "*** Not all messages successfully stored in database. Not sending IMMessageCheckpointLocationMessageStored checkpoint. guid %@", buf, 0xCu);
     }
   }
 
@@ -196,54 +195,54 @@ void sub_39758(uint64_t a1, int a2)
 
   if (([*(a1 + 48) isTypingMessage] & 1) == 0)
   {
-    v8 = +[IMMetricsCollector sharedInstance];
-    [v8 trackEvent:IMMetricsCollectorEventiMessageReceived];
+    v6 = +[IMMetricsCollector sharedInstance];
+    [v6 trackEvent:IMMetricsCollectorEventiMessageReceived];
   }
 
-  v121 = IMMetricsCollectorError;
-  v9 = +[NSNumber numberWithLong:](NSNumber, "numberWithLong:", sub_904FC([*(a1 + 48) errorCode]));
-  v122 = v9;
-  v10 = [NSDictionary dictionaryWithObjects:&v122 forKeys:&v121 count:1];
+  v119 = IMMetricsCollectorError;
+  v7 = +[NSNumber numberWithLong:](NSNumber, "numberWithLong:", sub_904FC([*(a1 + 48) errorCode]));
+  v120 = v7;
+  v8 = [NSDictionary dictionaryWithObjects:&v120 forKeys:&v119 count:1];
 
-  v11 = +[IMMetricsCollector sharedInstance];
-  [v11 trackEvent:IMMetricsCollectorEventIncomingMessage withDictionary:v10];
+  v9 = +[IMMetricsCollector sharedInstance];
+  [v9 trackEvent:IMMetricsCollectorEventIncomingMessage withDictionary:v8];
 
   if (*(a1 + 72) && [*(a1 + 40) _convergesDisplayNames])
   {
     [*(a1 + 40) didReceiveDisplayNameChange:*(a1 + 72) fromID:*(a1 + 80) toIdentifier:*(a1 + 88) forChat:*(a1 + 56) style:*(a1 + 236) account:*(a1 + 64)];
   }
 
-  v12 = [*(a1 + 48) fileTransferGUIDs];
-  v13 = [v12 count] != 0;
+  v10 = [*(a1 + 48) fileTransferGUIDs];
+  v11 = [v10 count] != 0;
 
-  v14 = [*(a1 + 48) sender];
+  v12 = [*(a1 + 48) sender];
   IsEmail = IMStringIsEmail();
 
-  v119[0] = IMMetricsCollectorFzErrorKey;
-  v16 = +[NSNumber numberWithLong:](NSNumber, "numberWithLong:", [*(a1 + 48) errorCode]);
-  v120[0] = v16;
-  v119[1] = IMMetricsCollectorMessageErrorKey;
-  v17 = [NSNumber numberWithLong:0];
-  v120[1] = v17;
-  v119[2] = IMMetricsCollectorIsTypingIndicatorKey;
-  v18 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [*(a1 + 96) isTypingMessage]);
-  v120[2] = v18;
-  v119[3] = IMMetricsCollectorIsGroupMessageKey;
-  v19 = [NSNumber numberWithBool:*(a1 + 234)];
-  v120[3] = v19;
-  v119[4] = IMMetricsCollectorIsFromPhoneNumberKey;
-  v20 = [NSNumber numberWithBool:IsEmail ^ 1];
-  v120[4] = v20;
-  v119[5] = IMMetricsCollectorIsFromEmailKey;
-  v21 = [NSNumber numberWithInt:IsEmail];
-  v120[5] = v21;
-  v119[6] = IMMetricsCollectorHasAttachmentsKey;
-  v22 = [NSNumber numberWithBool:v13];
-  v120[6] = v22;
-  v112 = [NSDictionary dictionaryWithObjects:v120 forKeys:v119 count:7];
+  v117[0] = IMMetricsCollectorFzErrorKey;
+  v14 = +[NSNumber numberWithLong:](NSNumber, "numberWithLong:", [*(a1 + 48) errorCode]);
+  v118[0] = v14;
+  v117[1] = IMMetricsCollectorMessageErrorKey;
+  v15 = [NSNumber numberWithLong:0];
+  v118[1] = v15;
+  v117[2] = IMMetricsCollectorIsTypingIndicatorKey;
+  v16 = +[NSNumber numberWithBool:](NSNumber, "numberWithBool:", [*(a1 + 96) isTypingMessage]);
+  v118[2] = v16;
+  v117[3] = IMMetricsCollectorIsGroupMessageKey;
+  v17 = [NSNumber numberWithBool:*(a1 + 234)];
+  v118[3] = v17;
+  v117[4] = IMMetricsCollectorIsFromPhoneNumberKey;
+  v18 = [NSNumber numberWithBool:IsEmail ^ 1];
+  v118[4] = v18;
+  v117[5] = IMMetricsCollectorIsFromEmailKey;
+  v19 = [NSNumber numberWithInt:IsEmail];
+  v118[5] = v19;
+  v117[6] = IMMetricsCollectorHasAttachmentsKey;
+  v20 = [NSNumber numberWithBool:v11];
+  v118[6] = v20;
+  v110 = [NSDictionary dictionaryWithObjects:v118 forKeys:v117 count:7];
 
-  v23 = +[IMMetricsCollector sharedInstance];
-  [v23 trackEvent:IMMetricsCollectorEventIMessageReceivedMessageSingleComponent withDictionary:v112];
+  v21 = +[IMMetricsCollector sharedInstance];
+  [v21 trackEvent:IMMetricsCollectorEventIMessageReceivedMessageSingleComponent withDictionary:v110];
 
   if ((*(a1 + 237) & 1) == 0)
   {
@@ -254,135 +253,135 @@ void sub_39758(uint64_t a1, int a2)
 
     if (IMOSLoggingEnabled())
     {
-      v24 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      v22 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
-        v25 = *(a1 + 104);
-        v26 = *(*(*(a1 + 216) + 8) + 40);
+        v23 = *(a1 + 104);
+        v24 = *(*(*(a1 + 216) + 8) + 40);
         *buf = 138412546;
-        v114 = v25;
-        v115 = 2112;
-        v116 = v26;
-        _os_log_impl(&dword_0, v24, OS_LOG_TYPE_INFO, "Updating last active device to be %@ for chat %@ on incoming message", buf, 0x16u);
+        v112 = v23;
+        v113 = 2112;
+        v114 = v24;
+        _os_log_impl(&dword_0, v22, OS_LOG_TYPE_INFO, "Updating last active device to be %@ for chat %@ on incoming message", buf, 0x16u);
       }
     }
 
-    v27 = [*(a1 + 40) deliveryController];
-    v28 = *(a1 + 104);
-    v29 = [*(a1 + 112) _stripFZIDPrefix];
-    [v27 updateLatestActiveDestination:v28 ForHandle:v29 incomingType:0];
+    v25 = [*(a1 + 40) deliveryController];
+    v26 = *(a1 + 104);
+    v27 = [*(a1 + 112) _stripFZIDPrefix];
+    [v25 updateLatestActiveDestination:v26 ForHandle:v27 incomingType:0];
 
     if (!*(*(*(a1 + 216) + 8) + 40))
     {
 LABEL_23:
-      v30 = *(a1 + 40);
-      v31 = [*(a1 + 112) _stripFZIDPrefix];
-      v32 = [v30 chatForChatIdentifier:v31 style:45];
+      v28 = *(a1 + 40);
+      v29 = [*(a1 + 112) _stripFZIDPrefix];
+      v30 = [v28 chatForChatIdentifier:v29 style:45];
 
       if (IMOSLoggingEnabled())
       {
-        v33 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+        v31 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
         {
-          v34 = *(a1 + 104);
+          v32 = *(a1 + 104);
           *buf = 138412546;
-          v114 = v34;
-          v115 = 2112;
-          v116 = v32;
-          _os_log_impl(&dword_0, v33, OS_LOG_TYPE_INFO, "Updating last active device to be %@ for chat %@ on new incoming message", buf, 0x16u);
+          v112 = v32;
+          v113 = 2112;
+          v114 = v30;
+          _os_log_impl(&dword_0, v31, OS_LOG_TYPE_INFO, "Updating last active device to be %@ for chat %@ on new incoming message", buf, 0x16u);
         }
       }
 
-      v35 = [*(a1 + 40) deliveryController];
-      v36 = *(a1 + 104);
-      v37 = [*(a1 + 112) _stripFZIDPrefix];
-      [v35 updateLatestActiveDestination:v36 ForHandle:v37 incomingType:0];
+      v33 = [*(a1 + 40) deliveryController];
+      v34 = *(a1 + 104);
+      v35 = [*(a1 + 112) _stripFZIDPrefix];
+      [v33 updateLatestActiveDestination:v34 ForHandle:v35 incomingType:0];
 
       if ([*(a1 + 120) count] > 2)
       {
         if (IMOSLoggingEnabled())
         {
-          v38 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+          v36 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
           {
-            v39 = [*(a1 + 48) guid];
+            v37 = [*(a1 + 48) guid];
             *buf = 138412290;
-            v114 = v39;
-            _os_log_impl(&dword_0, v38, OS_LOG_TYPE_INFO, "Not updating last addressed handle for msg guid %@ as we couldnt find a group for it", buf, 0xCu);
+            v112 = v37;
+            _os_log_impl(&dword_0, v36, OS_LOG_TYPE_INFO, "Not updating last addressed handle for msg guid %@ as we couldnt find a group for it", buf, 0xCu);
           }
         }
       }
 
       else
       {
-        _UpdateLastAddressedHandle(*(a1 + 96), *(a1 + 88), v32);
+        _UpdateLastAddressedHandle(*(a1 + 96), *(a1 + 88), v30);
       }
     }
   }
 
-  v40 = +[IMDRecentsController sharedInstance];
-  [v40 noteRecentMessageFromChatID:*(a1 + 56)];
+  v38 = +[IMDRecentsController sharedInstance];
+  [v38 noteRecentMessageFromChatID:*(a1 + 56)];
 
   if (!*(*(*(a1 + 216) + 8) + 40))
   {
-    v41 = +[IMDChatRegistry sharedInstance];
-    v42 = [v41 existingChatWithIdentifier:*(a1 + 56) account:*(a1 + 64)];
-    v43 = *(*(a1 + 216) + 8);
-    v44 = *(v43 + 40);
-    *(v43 + 40) = v42;
+    v39 = +[IMDChatRegistry sharedInstance];
+    v40 = [v39 existingChatWithIdentifier:*(a1 + 56) account:*(a1 + 64)];
+    v41 = *(*(a1 + 216) + 8);
+    v42 = *(v41 + 40);
+    *(v41 + 40) = v40;
 
     if (IMOSLoggingEnabled())
     {
-      v45 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v45, OS_LOG_TYPE_INFO))
+      v43 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
       {
-        v46 = *(a1 + 56);
-        v47 = *(*(*(a1 + 216) + 8) + 40);
+        v44 = *(a1 + 56);
+        v45 = *(*(*(a1 + 216) + 8) + 40);
         *buf = 138412546;
-        v114 = v46;
-        v115 = 2112;
-        v116 = v47;
-        _os_log_impl(&dword_0, v45, OS_LOG_TYPE_INFO, "Failed to find or create chat with identifier %@, chat registry lookup found %@", buf, 0x16u);
+        v112 = v44;
+        v113 = 2112;
+        v114 = v45;
+        _os_log_impl(&dword_0, v43, OS_LOG_TYPE_INFO, "Failed to find or create chat with identifier %@, chat registry lookup found %@", buf, 0x16u);
       }
     }
   }
 
-  v48 = *(*(a1 + 224) + 8);
-  v49 = *(v48 + 40);
-  *(v48 + 40) = 0;
+  v46 = *(*(a1 + 224) + 8);
+  v47 = *(v46 + 40);
+  *(v46 + 40) = 0;
 
   if (+[IMSpamFilterHelper isInternationalSpamFilteringEnabled](IMSpamFilterHelper, "isInternationalSpamFilteringEnabled") && ([*(a1 + 48) isTypingMessage] & 1) == 0)
   {
     if ([*(*(*(a1 + 216) + 8) + 40) smsHandshakeState] == 1)
     {
-      v50 = +[IMMetricsCollector sharedInstance];
-      [v50 trackSpamEvent:4];
+      v48 = +[IMMetricsCollector sharedInstance];
+      [v48 trackSpamEvent:4];
 
       [*(*(*(a1 + 216) + 8) + 40) updateSMSHandshakeState:2];
-      v51 = +[IMDChatRegistry sharedInstance];
-      v52 = [*(*(*(a1 + 216) + 8) + 40) chatIdentifier];
-      v53 = [v51 existingSMSChatForID:v52 withChatStyle:{objc_msgSend(*(*(*(a1 + 216) + 8) + 40), "style")}];
+      v49 = +[IMDChatRegistry sharedInstance];
+      v50 = [*(*(*(a1 + 216) + 8) + 40) chatIdentifier];
+      v51 = [v49 existingSMSChatForID:v50 withChatStyle:{objc_msgSend(*(*(*(a1 + 216) + 8) + 40), "style")}];
 
-      if (v53)
+      if (v51)
       {
         if (IMOSLoggingEnabled())
         {
-          v54 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
+          v52 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_0, v54, OS_LOG_TYPE_INFO, "Updating sibling chat handshake state to IMChatSMSHandshakeStateSuccess", buf, 2u);
+            _os_log_impl(&dword_0, v52, OS_LOG_TYPE_INFO, "Updating sibling chat handshake state to IMChatSMSHandshakeStateSuccess", buf, 2u);
           }
         }
 
-        [v53 updateSMSHandshakeState:2];
+        [v51 updateSMSHandshakeState:2];
       }
     }
 
     if ([*(*(*(a1 + 216) + 8) + 40) messageHandshakeState] == 1)
     {
-      v55 = +[IMMetricsCollector sharedInstance];
-      [v55 trackSpamEvent:3];
+      v53 = +[IMMetricsCollector sharedInstance];
+      [v53 trackSpamEvent:3];
 
       [*(*(*(a1 + 216) + 8) + 40) updateMessageHandshakeState:2];
     }
@@ -390,193 +389,193 @@ LABEL_23:
 
   if (*(*(*(a1 + 216) + 8) + 40))
   {
-    v56 = [*(a1 + 64) service];
-    v57 = [v56 internalName];
-    [*(a1 + 96) setService:v57];
+    v54 = [*(a1 + 64) service];
+    v55 = [v54 internalName];
+    [*(a1 + 96) setService:v55];
 
-    v58 = [*(a1 + 128) _stringForKey:MessageDictionaryNicknameParticipantTruncatedRIDKey];
-    if (v58)
+    v56 = [*(a1 + 128) _stringForKey:MessageDictionaryNicknameParticipantTruncatedRIDKey];
+    if (v56)
     {
-      v59 = v58;
+      v57 = v56;
     }
 
     else
     {
-      v59 = &stru_115E20;
+      v57 = &stru_115E20;
     }
 
     if (IMOSLoggingEnabled())
     {
-      v60 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
+      v58 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
       {
-        v61 = *(a1 + 112);
+        v59 = *(a1 + 112);
         *buf = 138412546;
+        v112 = v57;
+        v113 = 2112;
         v114 = v59;
-        v115 = 2112;
-        v116 = v61;
-        _os_log_impl(&dword_0, v60, OS_LOG_TYPE_INFO, "Received truncated record id %@ from %@", buf, 0x16u);
+        _os_log_impl(&dword_0, v58, OS_LOG_TYPE_INFO, "Received truncated record id %@ from %@", buf, 0x16u);
       }
     }
 
-    v62 = +[IMDNicknameController sharedInstance];
-    [v62 verifyTruncatedRecordIDMatchesPersonalNickname:v59 forChat:*(*(*(a1 + 216) + 8) + 40)];
+    v60 = +[IMDNicknameController sharedInstance];
+    [v60 verifyTruncatedRecordIDMatchesPersonalNickname:v57 forChat:*(*(*(a1 + 216) + 8) + 40)];
 
     if (*(*(*(a1 + 216) + 8) + 40) && (*(a1 + 237) & 1) == 0)
     {
       if (*(a1 + 136))
       {
-        v63 = [*(a1 + 112) _stripFZIDPrefix];
-        v64 = [*(a1 + 144) _stripFZIDPrefix];
-        v65 = [*(a1 + 48) time];
+        v61 = [*(a1 + 112) _stripFZIDPrefix];
+        v62 = [*(a1 + 144) _stripFZIDPrefix];
+        v63 = [*(a1 + 48) time];
         if (IMOSLoggingEnabled())
         {
-          v66 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
+          v64 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v64, OS_LOG_TYPE_INFO))
           {
-            v67 = *(a1 + 136);
+            v65 = *(a1 + 136);
             *buf = 138412802;
-            v114 = v67;
+            v112 = v65;
+            v113 = 2112;
+            v114 = v61;
             v115 = 2112;
-            v116 = v63;
-            v117 = 2112;
-            v118 = v64;
-            _os_log_impl(&dword_0, v66, OS_LOG_TYPE_INFO, "Received availabilityOffGridRecipientEncryptionValidationToken = %@ from %@ to %@", buf, 0x20u);
+            v116 = v62;
+            _os_log_impl(&dword_0, v64, OS_LOG_TYPE_INFO, "Received availabilityOffGridRecipientEncryptionValidationToken = %@ from %@ to %@", buf, 0x20u);
           }
         }
 
-        v68 = +[IMDOffGridAvailabilityVerificationManager sharedInstance];
-        [v68 verifyOffGridSubscriptionMatchesSubscriptionValidationToken:*(a1 + 152) encryptionValidationToken:*(a1 + 136) receivedByHandleID:v64 fromHandleID:v63 messageDate:v65];
+        v66 = +[IMDOffGridAvailabilityVerificationManager sharedInstance];
+        [v66 verifyOffGridSubscriptionMatchesSubscriptionValidationToken:*(a1 + 152) encryptionValidationToken:*(a1 + 136) receivedByHandleID:v62 fromHandleID:v61 messageDate:v63];
       }
 
       else if (IMOSLoggingEnabled())
       {
-        v69 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v69, OS_LOG_TYPE_INFO))
+        v67 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
         {
-          v70 = *(a1 + 112);
+          v68 = *(a1 + 112);
           *buf = 138412290;
-          v114 = v70;
-          _os_log_impl(&dword_0, v69, OS_LOG_TYPE_INFO, "Message from %@ did not contain availabilityOffGridRecipientEncryptionValidationToken. Not performing validation.", buf, 0xCu);
+          v112 = v68;
+          _os_log_impl(&dword_0, v67, OS_LOG_TYPE_INFO, "Message from %@ did not contain availabilityOffGridRecipientEncryptionValidationToken. Not performing validation.", buf, 0xCu);
         }
       }
 
       if (*(a1 + 160))
       {
-        v71 = [*(a1 + 112) _stripFZIDPrefix];
-        v72 = [*(a1 + 144) _stripFZIDPrefix];
-        v73 = [*(a1 + 48) time];
+        v69 = [*(a1 + 112) _stripFZIDPrefix];
+        v70 = [*(a1 + 144) _stripFZIDPrefix];
+        v71 = [*(a1 + 48) time];
         if (IMOSLoggingEnabled())
         {
-          v74 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
+          v72 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
           {
-            v75 = *(a1 + 160);
+            v73 = *(a1 + 160);
             *buf = 138412802;
-            v114 = v75;
+            v112 = v73;
+            v113 = 2112;
+            v114 = v69;
             v115 = 2112;
-            v116 = v71;
-            v117 = 2112;
-            v118 = v72;
-            _os_log_impl(&dword_0, v74, OS_LOG_TYPE_INFO, "Received availabilityVerificationRecipientChannelID = %@ from %@ to %@", buf, 0x20u);
+            v116 = v70;
+            _os_log_impl(&dword_0, v72, OS_LOG_TYPE_INFO, "Received availabilityVerificationRecipientChannelID = %@ from %@ to %@", buf, 0x20u);
           }
         }
 
-        v76 = +[IMDAvailabilityVerificationManager sharedInstance];
-        [v76 verifyPersonalSubscriptionMatchesSubscriptionValidationToken:*(a1 + 160) encryptionValidationToken:*(a1 + 168) receivedByHandleID:v72 fromHandleID:v71 messageDate:v73];
+        v74 = +[IMDAvailabilityVerificationManager sharedInstance];
+        [v74 verifyPersonalSubscriptionMatchesSubscriptionValidationToken:*(a1 + 160) encryptionValidationToken:*(a1 + 168) receivedByHandleID:v70 fromHandleID:v69 messageDate:v71];
       }
 
       else if (IMOSLoggingEnabled())
       {
-        v77 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
+        v75 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v75, OS_LOG_TYPE_INFO))
         {
-          v78 = *(a1 + 112);
+          v76 = *(a1 + 112);
           *buf = 138412290;
-          v114 = v78;
-          _os_log_impl(&dword_0, v77, OS_LOG_TYPE_INFO, "Message from %@ did not contain an availabilityVerificationRecipientChannelID. Not performing validation.", buf, 0xCu);
+          v112 = v76;
+          _os_log_impl(&dword_0, v75, OS_LOG_TYPE_INFO, "Message from %@ did not contain an availabilityVerificationRecipientChannelID. Not performing validation.", buf, 0xCu);
         }
       }
     }
   }
 
   [*(a1 + 40) _autoReportChatAsUnknown:*(*(*(a1 + 216) + 8) + 40) chatIsNew:*(a1 + 238)];
-  v79 = *(a1 + 40);
-  v80 = [*(a1 + 64) idsAccount];
-  v81 = [v79 _pushHandlerForIDSAccount:v80];
+  v77 = *(a1 + 40);
+  v78 = [*(a1 + 64) idsAccount];
+  v79 = [v77 _pushHandlerForIDSAccount:v78];
 
-  if (a2)
+  if (v109)
   {
     if (*(a1 + 239) == 1 && (*(a1 + 240) & 1) != 0)
     {
-      v82 = 0;
+      v80 = 0;
     }
 
     else
     {
-      v82 = [*(a1 + 176) BOOLValue];
+      v80 = [*(a1 + 176) BOOLValue];
     }
 
     if (*(a1 + 241) == 1)
     {
-      v83 = [NSNumber numberWithInt:503];
+      v81 = [NSNumber numberWithInt:503];
     }
 
     else
     {
-      v83 = 0;
+      v81 = 0;
     }
 
-    v84 = *(a1 + 184);
-    v85 = *(a1 + 192);
-    v86 = *(a1 + 40);
-    v87 = [*(a1 + 48) guid];
-    LODWORD(v84) = [v86 _sendCertifiedDeliveryReceiptIfPossible:v84 messageContext:v85 guid:v87 messageWasStored:1 needsDeliveryReceipt:v82 failureReason:v83];
+    v82 = *(a1 + 184);
+    v83 = *(a1 + 192);
+    v84 = *(a1 + 40);
+    v85 = [*(a1 + 48) guid];
+    LODWORD(v82) = [v84 _sendCertifiedDeliveryReceiptIfPossible:v82 messageContext:v83 guid:v85 messageWasStored:1 needsDeliveryReceipt:v80 failureReason:v81];
 
-    if (v84)
+    if (v82)
     {
       if (*(a1 + 242) != 1 || *(a1 + 243) != 1)
       {
         goto LABEL_99;
       }
 
-      v88 = +[NSDate __im_dateWithCurrentServerTime];
-      [v88 timeIntervalSince1970];
-      v90 = v89;
+      v86 = +[NSDate __im_dateWithCurrentServerTime];
+      [v86 timeIntervalSince1970];
+      v88 = v87;
 
-      v91 = [IDSServiceMetricContext alloc];
-      v92 = [NSNumber numberWithDouble:v90];
-      v93 = [v91 initWithTimestamp:v92 identifier:0];
+      v89 = [IDSServiceMetricContext alloc];
+      v90 = [NSNumber numberWithDouble:v88];
+      v91 = [v89 initWithTimestamp:v90 identifier:0];
 
-      [*(a1 + 184) noteMetricOfType:0 context:v93];
+      [*(a1 + 184) noteMetricOfType:0 context:v91];
     }
 
     else
     {
-      v93 = [v81 account];
-      if (!v93)
+      v91 = [v79 account];
+      if (!v91)
       {
-        v94 = [*(a1 + 40) replicationAccount];
+        v92 = [*(a1 + 40) replicationAccount];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
 
         if (isKindOfClass)
         {
-          v96 = [*(a1 + 40) replicationAccount];
-          v93 = [v96 idsAccount];
+          v94 = [*(a1 + 40) replicationAccount];
+          v91 = [v94 idsAccount];
         }
 
         else
         {
-          v93 = 0;
+          v91 = 0;
         }
       }
 
-      v98 = *(a1 + 32);
-      v97 = *(a1 + 40);
-      v99 = *(a1 + 104);
-      v100 = [NSNumber numberWithBool:v82];
-      [v97 sendDeliveryReceiptForMessageID:v98 toID:v99 deliveryContext:0 needsDeliveryReceipt:v100 callerID:*(a1 + 88) account:v93];
+      v96 = *(a1 + 32);
+      v95 = *(a1 + 40);
+      v97 = *(a1 + 104);
+      v98 = [NSNumber numberWithBool:v80];
+      [v95 sendDeliveryReceiptForMessageID:v96 toID:v97 deliveryContext:0 needsDeliveryReceipt:v98 callerID:*(a1 + 88) account:v91];
     }
 
 LABEL_99:
@@ -584,36 +583,36 @@ LABEL_99:
 
   if (([*(a1 + 48) isTypingMessage] & 1) == 0)
   {
-    [v81 sendManualAckForMessageWithContext:*(a1 + 192)];
+    [v79 sendManualAckForMessageWithContext:*(a1 + 192)];
     if (([*(a1 + 48) isFromMe] & 1) == 0)
     {
-      v101 = +[IMMessageNotificationTimeManager sharedInstance];
-      [v101 sendNotificationMessageIfNeededForIncomingMessageFromChatIdentifier:*(a1 + 56)];
+      v99 = +[IMMessageNotificationTimeManager sharedInstance];
+      [v99 sendNotificationMessageIfNeededForIncomingMessageFromChatIdentifier:*(a1 + 56)];
     }
 
-    v102 = +[IMMessageNotificationTimeManager sharedInstance];
-    [v102 tearDownSessionForChatIdentifier:*(a1 + 56)];
+    v100 = +[IMMessageNotificationTimeManager sharedInstance];
+    [v100 tearDownSessionForChatIdentifier:*(a1 + 56)];
   }
 
-  v103 = +[IMPowerLog sharedInstance];
-  v104 = [*(a1 + 48) guid];
-  v105 = [*(a1 + 112) _stripFZIDPrefix];
-  v106 = [*(a1 + 88) _stripFZIDPrefix];
-  v107 = [*(*(*(a1 + 216) + 8) + 40) powerLogConversationType];
-  v108 = [*(a1 + 48) powerLogMessageType];
-  v109 = [*(a1 + 48) service];
-  [v103 logMessageReceivedWithGUID:v104 fromIdentifier:v105 toIdentifier:v106 conversationType:v107 messageType:v108 messageProtocol:v109];
+  v101 = +[IMPowerLog sharedInstance];
+  v102 = [*(a1 + 48) guid];
+  v103 = [*(a1 + 112) _stripFZIDPrefix];
+  v104 = [*(a1 + 88) _stripFZIDPrefix];
+  v105 = [*(*(*(a1 + 216) + 8) + 40) powerLogConversationType];
+  v106 = [*(a1 + 48) powerLogMessageType];
+  v107 = [*(a1 + 48) service];
+  [v101 logMessageReceivedWithGUID:v102 fromIdentifier:v103 toIdentifier:v104 conversationType:v105 messageType:v106 messageProtocol:v107];
 
-  v110 = *(a1 + 208);
-  if (v110)
+  v108 = *(a1 + 208);
+  if (v108)
   {
     if (*(a1 + 242) == 1)
     {
       [*(a1 + 40) noteItemProcessed:*(a1 + 243) batchContext:*(a1 + 200) usingService:*(a1 + 184)];
-      v110 = *(a1 + 208);
+      v108 = *(a1 + 208);
     }
 
-    (*(v110 + 16))();
+    (*(v108 + 16))();
   }
 }
 
@@ -1151,8 +1150,9 @@ void sub_44280(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void sub_45EA4(uint64_t a1, int a2, void *a3)
+void sub_45EA4(uint64_t a1, uint64_t a2, void *a3)
 {
+  v4 = a2;
   if (IMOSLoggingEnabled())
   {
     v6 = OSLogHandleForIMFoundationCategory();
@@ -1160,7 +1160,7 @@ void sub_45EA4(uint64_t a1, int a2, void *a3)
     {
       v7 = [*(a1 + 32) ID];
       v8 = @"NO";
-      if (a2)
+      if (v4)
       {
         v8 = @"YES";
       }
@@ -1173,7 +1173,7 @@ void sub_45EA4(uint64_t a1, int a2, void *a3)
     }
   }
 
-  if (a2)
+  if (v4)
   {
     [*(a1 + 40) setObject:+[NSNumber numberWithBool:](NSNumber forKey:{"numberWithBool:", 1), @"sofg"}];
     if (a3)
@@ -1359,8 +1359,9 @@ void sub_48534(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_48584(uint64_t a1, uint64_t a2, uint64_t a3, char a4, int a5, uint64_t a6, int a7)
+void sub_48584(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, uint64_t a6, int a7)
 {
+  v7 = a5;
   if (a7)
   {
     v9 = *(*(a1 + 56) + 8);
@@ -1382,12 +1383,12 @@ void sub_48584(uint64_t a1, uint64_t a2, uint64_t a3, char a4, int a5, uint64_t 
     v11 = IMLogHandleForCategory();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_BC6AC(a1, a5, v11);
+      sub_BC6AC(a1, v7, v11);
     }
 
-    if (a5)
+    if (v7)
     {
-      v12 = a5;
+      v12 = v7;
     }
 
     else
@@ -1400,32 +1401,32 @@ void sub_48584(uint64_t a1, uint64_t a2, uint64_t a3, char a4, int a5, uint64_t 
   }
 }
 
-void sub_48640(uint64_t a1)
+void sub_48640(uint64_t a1, uint64_t a2)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = [*(a1 + 32) guid];
-      v4 = *(*(*(a1 + 64) + 8) + 24);
-      v7 = 138412546;
-      v8 = v3;
-      v9 = 1024;
-      v10 = v4;
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "All individual sends for collaboration complete for guid %@ error %u", &v7, 0x12u);
+      v4 = [*(a1 + 32) guid];
+      v5 = *(*(*(a1 + 64) + 8) + 24);
+      v8 = 138412546;
+      v9 = v4;
+      v10 = 1024;
+      v11 = v5;
+      _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "All individual sends for collaboration complete for guid %@ error %u", &v8, 0x12u);
     }
   }
 
-  v5 = *(a1 + 56);
-  if (v5)
+  v6 = *(a1 + 56);
+  if (v6)
   {
-    v6 = *(*(*(a1 + 64) + 8) + 24);
-    (*(v5 + 16))(v5, *(a1 + 40), *(a1 + 48), v6 == 0, v6, [*(a1 + 32) backwardsCompatibleVersion], *(*(*(a1 + 72) + 8) + 24), 1);
+    v7 = *(*(*(a1 + 64) + 8) + 24);
+    (*(v6 + 16))(v6, *(a1 + 40), *(a1 + 48), v7 == 0, v7, [*(a1 + 32) backwardsCompatibleVersion], *(*(*(a1 + 72) + 8) + 24), 1);
   }
 }
 
-void sub_48794(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, int a5, int a6)
+void sub_48794(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, int a5, unsigned int a6)
 {
   if ([a2 scheduleType] != &dword_0 + 2)
   {
@@ -1487,48 +1488,46 @@ LABEL_17:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v24 = a2;
-        v25 = 2112;
-        v26 = a3;
+        v22 = a2;
+        v23 = 2112;
+        v24 = a3;
         _os_log_impl(&dword_0, v16, OS_LOG_TYPE_INFO, "Finished processing attachments for message: %@  for display IDs: %@", buf, 0x16u);
       }
     }
 
-    v17 = *(a1 + 88);
-    v18 = *(a1 + 160);
-    LOBYTE(v22) = *(a1 + 184);
-    [*(a1 + 40) _sendMessage:a2 context:a4 deliveryContext:*(a1 + 48) fromID:*(a1 + 56) fromAccount:*(a1 + 64) toID:*(a1 + 72) chatIdentifier:*(a1 + 80) toSessionToken:0 toGroup:*(a1 + 88) toParticipants:*(a1 + 96) originallyToParticipants:*(a1 + 104) requiredRegProperties:*(a1 + 112) interestingRegProperties:*(a1 + 120) requiresLackOfRegProperties:*(a1 + 128) canInlineAttachments:v22 type:2 msgPayloadUploadDictionary:*(a1 + 136) originalPayload:*(a1 + 144) replyToMessageGUID:*(a1 + 152) fallbackCount:*(a1 + 176) willSendBlock:v18 completionBlock:*(a1 + 168)];
+    LOBYTE(v20) = *(a1 + 184);
+    [*(a1 + 40) _sendMessage:a2 context:a4 deliveryContext:*(a1 + 48) fromID:*(a1 + 56) fromAccount:*(a1 + 64) toID:*(a1 + 72) chatIdentifier:*(a1 + 80) toSessionToken:0 toGroup:*(a1 + 88) toParticipants:*(a1 + 96) originallyToParticipants:*(a1 + 104) requiredRegProperties:*(a1 + 112) interestingRegProperties:*(a1 + 120) requiresLackOfRegProperties:*(a1 + 128) canInlineAttachments:v20 type:2 msgPayloadUploadDictionary:*(a1 + 136) originalPayload:*(a1 + 144) replyToMessageGUID:*(a1 + 152) fallbackCount:*(a1 + 176) willSendBlock:*(a1 + 160) completionBlock:*(a1 + 168)];
     return;
   }
 
 LABEL_22:
   if (IMOSLoggingEnabled())
   {
-    v19 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v17 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v24 = a2;
-      v25 = 2112;
-      v26 = a3;
-      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_INFO, "Failed processing attachments for message: %@  for display IDs: %@", buf, 0x16u);
+      v22 = a2;
+      v23 = 2112;
+      v24 = a3;
+      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_INFO, "Failed processing attachments for message: %@  for display IDs: %@", buf, 0x16u);
     }
   }
 
-  v20 = *(a1 + 168);
-  if (v20)
+  v18 = *(a1 + 168);
+  if (v18)
   {
     if (v13)
     {
-      v21 = v13;
+      v19 = v13;
     }
 
     else
     {
-      v21 = 34;
+      v19 = 34;
     }
 
-    (*(v20 + 16))(v20, *(a1 + 40), a3, 0, v21, [*(a1 + 32) backwardsCompatibleVersion], 0, 1);
+    (*(v18 + 16))(v18, *(a1 + 40), a3, 0, v19, [*(a1 + 32) backwardsCompatibleVersion], 0, 1);
   }
 }
 
@@ -2489,14 +2488,13 @@ LABEL_7:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v17 = a2;
+        v16 = a2;
         _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "Finished uploading payload data for message. Resulting payloadDictionary %@", buf, 0xCu);
       }
     }
 
-    v10 = *(a1 + 160);
-    LOBYTE(v15) = *(a1 + 184);
-    [*(a1 + 40) _sendMessage:*(a1 + 32) context:*(a1 + 48) deliveryContext:*(a1 + 56) fromID:*(a1 + 64) fromAccount:*(a1 + 72) toID:*(a1 + 80) chatIdentifier:*(a1 + 88) toSessionToken:0 toGroup:*(a1 + 96) toParticipants:*(a1 + 104) originallyToParticipants:*(a1 + 112) requiredRegProperties:*(a1 + 120) interestingRegProperties:*(a1 + 128) requiresLackOfRegProperties:*(a1 + 136) canInlineAttachments:v15 type:0 msgPayloadUploadDictionary:a2 originalPayload:*(a1 + 144) replyToMessageGUID:*(a1 + 152) fallbackCount:*(a1 + 176) willSendBlock:v10 completionBlock:*(a1 + 168)];
+    LOBYTE(v14) = *(a1 + 184);
+    [*(a1 + 40) _sendMessage:*(a1 + 32) context:*(a1 + 48) deliveryContext:*(a1 + 56) fromID:*(a1 + 64) fromAccount:*(a1 + 72) toID:*(a1 + 80) chatIdentifier:*(a1 + 88) toSessionToken:0 toGroup:*(a1 + 96) toParticipants:*(a1 + 104) originallyToParticipants:*(a1 + 112) requiredRegProperties:*(a1 + 120) interestingRegProperties:*(a1 + 128) requiresLackOfRegProperties:*(a1 + 136) canInlineAttachments:v14 type:0 msgPayloadUploadDictionary:a2 originalPayload:*(a1 + 144) replyToMessageGUID:*(a1 + 152) fallbackCount:*(a1 + 176) willSendBlock:*(a1 + 160) completionBlock:*(a1 + 168)];
     return;
   }
 
@@ -2521,23 +2519,23 @@ LABEL_7:
 
   if (v7)
   {
-    v11 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v10 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v12 = *(a1 + 32);
-      v13 = *(a1 + 112);
+      v11 = *(a1 + 32);
+      v12 = *(a1 + 112);
       *buf = 138412546;
-      v17 = v12;
-      v18 = 2112;
-      v19 = v13;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_INFO, "MessageDelivery Failed processing payload data for message: %@  for display IDs: %@", buf, 0x16u);
+      v16 = v11;
+      v17 = 2112;
+      v18 = v12;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "MessageDelivery Failed processing payload data for message: %@  for display IDs: %@", buf, 0x16u);
     }
   }
 
-  v14 = *(a1 + 168);
-  if (v14)
+  v13 = *(a1 + 168);
+  if (v13)
   {
-    (*(v14 + 16))(v14, *(a1 + 40), *(a1 + 112), 0, 1, [*(a1 + 32) backwardsCompatibleVersion], 0, 1);
+    (*(v13 + 16))(v13, *(a1 + 40), *(a1 + 112), 0, 1, [*(a1 + 32) backwardsCompatibleVersion], 0, 1);
   }
 }
 
@@ -2553,35 +2551,34 @@ void sub_4AD44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v19 = a2;
-        v20 = 2112;
-        v21 = a3;
+        v18 = a2;
+        v19 = 2112;
+        v20 = a3;
         _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "Finished processing fallback attachments for message: %@  for display IDs: %@", buf, 0x16u);
       }
     }
 
-    v14 = *(a1 + 160);
-    LOBYTE(v17) = *(a1 + 184);
-    [*(a1 + 32) _sendMessage:a2 context:a4 deliveryContext:*(a1 + 40) fromID:*(a1 + 48) fromAccount:*(a1 + 56) toID:*(a1 + 64) chatIdentifier:*(a1 + 72) toSessionToken:0 toGroup:*(a1 + 80) toParticipants:*(a1 + 88) originallyToParticipants:*(a1 + 96) requiredRegProperties:*(a1 + 104) interestingRegProperties:*(a1 + 112) requiresLackOfRegProperties:*(a1 + 120) canInlineAttachments:v17 type:1 msgPayloadUploadDictionary:*(a1 + 128) originalPayload:*(a1 + 136) replyToMessageGUID:*(a1 + 144) fallbackCount:*(a1 + 176) willSendBlock:v14 completionBlock:*(a1 + 168)];
+    LOBYTE(v16) = *(a1 + 184);
+    [*(a1 + 32) _sendMessage:a2 context:a4 deliveryContext:*(a1 + 40) fromID:*(a1 + 48) fromAccount:*(a1 + 56) toID:*(a1 + 64) chatIdentifier:*(a1 + 72) toSessionToken:0 toGroup:*(a1 + 80) toParticipants:*(a1 + 88) originallyToParticipants:*(a1 + 96) requiredRegProperties:*(a1 + 104) interestingRegProperties:*(a1 + 112) requiresLackOfRegProperties:*(a1 + 120) canInlineAttachments:v16 type:1 msgPayloadUploadDictionary:*(a1 + 128) originalPayload:*(a1 + 136) replyToMessageGUID:*(a1 + 144) fallbackCount:*(a1 + 176) willSendBlock:*(a1 + 160) completionBlock:*(a1 + 168)];
   }
 
   else
   {
     if (v12)
     {
-      v15 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v14 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v19 = a2;
-        v20 = 2112;
-        v21 = a3;
-        _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "Failed processing attachments for message: %@  for display IDs: %@", buf, 0x16u);
+        v18 = a2;
+        v19 = 2112;
+        v20 = a3;
+        _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "Failed processing attachments for message: %@  for display IDs: %@", buf, 0x16u);
       }
     }
 
-    v16 = *(a1 + 168);
-    if (v16)
+    v15 = *(a1 + 168);
+    if (v15)
     {
       if (v6)
       {
@@ -2593,7 +2590,7 @@ void sub_4AD44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a
         v6 = 34;
       }
 
-      (*(v16 + 16))(v16, *(a1 + 32), a3, 0, v6, [*(a1 + 152) backwardsCompatibleVersion], 0, 1);
+      (*(v15 + 16))(v15, *(a1 + 32), a3, 0, v6, [*(a1 + 152) backwardsCompatibleVersion], 0, 1);
     }
   }
 }
@@ -2638,12 +2635,12 @@ id sub_4BFF0(uint64_t a1, void *a2)
   return result;
 }
 
-id sub_4C67C(uint64_t a1)
+id sub_4C67C(uint64_t a1, uint64_t a2)
 {
-  v2 = [*(a1 + 32) _receivingDevicesForHandle:IMStripLoginID() skippedDestinations:*(a1 + 40)];
-  v3 = *(a1 + 48);
+  v3 = [*(a1 + 32) _receivingDevicesForHandle:IMStripLoginID() skippedDestinations:*(a1 + 40)];
+  v4 = *(a1 + 48);
 
-  return [v3 unionSet:v2];
+  return [v4 unionSet:v3];
 }
 
 id sub_4CEB0(uint64_t a1, uint64_t a2)
@@ -3321,7 +3318,7 @@ void sub_4E200(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, 
       v21 = IMLogHandleForCategory();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        sub_BC984(a1);
+        sub_BC984();
       }
     }
   }
@@ -3484,12 +3481,12 @@ id sub_4EFDC(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-id sub_4F118(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5)
+id sub_4F118(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v6 = *(a1 + 32);
   if (a4)
   {
-    [v6 setIsFailedHQTransfer:0];
+    [v6 setIsFailedHQTransfer:{0, a4, a5}];
     if (IMOSLoggingEnabled())
     {
       v7 = OSLogHandleForIMFoundationCategory();
@@ -3507,6 +3504,7 @@ LABEL_8:
 
   else
   {
+    v11 = a5;
     [v6 setIsFailedHQTransfer:1];
     if (IMOSLoggingEnabled())
     {
@@ -3514,7 +3512,7 @@ LABEL_8:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         LODWORD(v15) = 67109120;
-        HIDWORD(v15) = a5;
+        HIDWORD(v15) = v11;
         v8 = "Failed sending FTCommandIDUpdateAttachmentsMessage: %d";
         v9 = v12;
         v10 = 8;
@@ -3555,13 +3553,12 @@ id sub_4FA38(uint64_t a1, uint64_t a2)
     {
       v5 = *(a1 + 32);
       *buf = 138412290;
-      v9 = v5;
+      v8 = v5;
       _os_log_impl(&dword_0, v4, OS_LOG_TYPE_INFO, "Dequeing message payload block for people %@", buf, 0xCu);
     }
   }
 
-  v6 = *(a1 + 88);
-  result = [*(a1 + 40) sendMessageDictionary:*(a1 + 48) fromID:*(a1 + 56) fromAccount:*(a1 + 64) toURIs:*(a1 + 72) toGroup:*(a1 + 80) priority:*(a1 + 104) options:v6 completionBlock:*(a1 + 96)];
+  result = [*(a1 + 40) sendMessageDictionary:*(a1 + 48) fromID:*(a1 + 56) fromAccount:*(a1 + 64) toURIs:*(a1 + 72) toGroup:*(a1 + 80) priority:*(a1 + 104) options:*(a1 + 88) completionBlock:*(a1 + 96)];
   if (a2)
   {
     return (*(a2 + 16))(a2);
@@ -3728,39 +3725,43 @@ id sub_52124(uint64_t a1, uint64_t a2, void *a3)
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v21 = a3;
+        v20 = a3;
         _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "Edit message command will not be received by all destinations. SkippedDestinations: %@", buf, 0xCu);
       }
     }
 
     v7 = objc_alloc_init(NSMutableArray);
     v8 = [*(a1 + 32) _stripFZIDPrefix];
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
-    v9 = [a3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
+    v9 = [a3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v9)
     {
-      v10 = *v16;
+      v10 = *v15;
       do
       {
-        for (i = 0; i != v9; i = i + 1)
+        v11 = 0;
+        do
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(a3);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * i);
+          v12 = *(*(&v14 + 1) + 8 * v11);
           v13 = IDSCopyRawAddressForDestination();
           if (([v13 isEqualToString:v8] & 1) == 0)
           {
             [v7 addObject:v12];
           }
+
+          v11 = v11 + 1;
         }
 
-        v9 = [a3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        while (v9 != v11);
+        v9 = [a3 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
@@ -3775,15 +3776,14 @@ id sub_52124(uint64_t a1, uint64_t a2, void *a3)
     if (result)
     {
       dispatch_group_enter(*(a1 + 56));
-      v14 = *(a1 + 48);
-      return [*(a1 + 64) _sendBackwardCompatibilityMessageForEditedMessage:*(a1 + 72) usingMessageGUID:*(a1 + 40) toBackwardCompatabilityDestinations:a3 withOriginalDestinations:*(a1 + 80) chatIdentifier:*(a1 + 88) fromAccount:*(a1 + 96) fromID:*(a1 + 32) backwardCompatabilityText:v14 completionBlock:*(a1 + 112)];
+      return [*(a1 + 64) _sendBackwardCompatibilityMessageForEditedMessage:*(a1 + 72) usingMessageGUID:*(a1 + 40) toBackwardCompatabilityDestinations:a3 withOriginalDestinations:*(a1 + 80) chatIdentifier:*(a1 + 88) fromAccount:*(a1 + 96) fromID:*(a1 + 32) backwardCompatabilityText:*(a1 + 48) completionBlock:*(a1 + 112)];
     }
   }
 
   return result;
 }
 
-void sub_5234C(uint64_t a1, uint64_t a2, uint64_t a3, char a4, int a5)
+void sub_5234C(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5)
 {
   if (a4)
   {
@@ -3802,47 +3802,45 @@ void sub_5234C(uint64_t a1, uint64_t a2, uint64_t a3, char a4, int a5)
 
   else
   {
+    v8 = a5;
     v9 = IMLogHandleForCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_BCA90(a1);
+      sub_BCA90();
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 0;
-    *(*(*(a1 + 56) + 8) + 24) = a5;
+    *(*(*(a1 + 56) + 8) + 24) = v8;
   }
 
   dispatch_group_leave(*(a1 + 40));
 }
 
-uint64_t sub_52474(void *a1)
+uint64_t sub_52474(uint64_t a1, uint64_t a2)
 {
-  if (*(*(a1[6] + 8) + 24) == 1)
+  if (*(*(*(a1 + 48) + 8) + 24) == 1)
   {
     if (IMOSLoggingEnabled())
     {
-      v2 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+      v3 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        *v8 = 0;
-        _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "All sends of message edit commands completed succesfully", v8, 2u);
+        *v6 = 0;
+        _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "All sends of message edit commands completed succesfully", v6, 2u);
       }
     }
   }
 
   else
   {
-    v3 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_BCB0C(a1);
+      sub_BCB0C();
     }
   }
 
-  v4 = a1[4];
-  v5 = *(*(a1[6] + 8) + 24);
-  v6 = *(*(a1[7] + 8) + 24);
-  return (*(a1[5] + 16))();
+  return (*(*(a1 + 40) + 16))();
 }
 
 void sub_52788(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -3918,7 +3916,7 @@ void sub_52F94(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void sub_53044(uint64_t a1, uint64_t a2, uint64_t a3, char a4, int a5, char a6)
+void sub_53044(uint64_t a1, uint64_t a2, uint64_t a3, char a4, uint64_t a5, char a6)
 {
   if (a4)
   {
@@ -3939,54 +3937,51 @@ void sub_53044(uint64_t a1, uint64_t a2, uint64_t a3, char a4, int a5, char a6)
 
   else
   {
+    v10 = a5;
     v11 = IMLogHandleForCategory();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      sub_BCB7C(a1);
+      sub_BCB7C();
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 0;
     *(*(*(a1 + 56) + 8) + 24) = a6;
-    *(*(*(a1 + 64) + 8) + 24) = a5;
+    *(*(*(a1 + 64) + 8) + 24) = v10;
   }
 
   dispatch_group_leave(*(a1 + 40));
 }
 
-uint64_t sub_53188(void *a1)
+uint64_t sub_53188(uint64_t a1, uint64_t a2)
 {
-  if (*(*(a1[6] + 8) + 24) == 1)
+  if (*(*(*(a1 + 48) + 8) + 24) == 1)
   {
     if (IMOSLoggingEnabled())
     {
-      v2 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+      v3 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_0, v2, OS_LOG_TYPE_INFO, "All sends of message edit commands completed succesfully", v9, 2u);
+        *v6 = 0;
+        _os_log_impl(&dword_0, v3, OS_LOG_TYPE_INFO, "All sends of message edit commands completed succesfully", v6, 2u);
       }
     }
   }
 
   else
   {
-    v3 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_BCB0C(a1);
+      sub_BCB0C();
     }
   }
 
-  v4 = a1[4];
-  v5 = *(*(a1[6] + 8) + 24);
-  v6 = *(*(a1[7] + 8) + 24);
-  v7 = *(*(a1[8] + 8) + 24);
-  return (*(a1[5] + 16))();
+  return (*(*(a1 + 40) + 16))();
 }
 
-void sub_54550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_54550(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4131,20 +4126,6 @@ LABEL_18:
 LABEL_13:
 
   return v7;
-}
-
-uint64_t sub_54EA4@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *(*(*(result + 56) + 8) + 24);
-  return result;
-}
-
-uint64_t *sub_54EB8@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
 }
 
 void sub_54EC4(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -4329,6 +4310,13 @@ void sub_589AC(uint64_t a1, void *a2, void *a3)
       _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "EAGER cancel failed %@", &v19, 0xCu);
     }
   }
+}
+
+void sub_58FBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t sub_58FDC(uint64_t result, uint64_t a2)
@@ -4694,6 +4682,13 @@ void sub_59BB0(uint64_t a1, void *a2)
       _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "EAGER Failed coordinated read of url for fast upload: %@  (Error: %@)", buf, 0x16u);
     }
   }
+}
+
+void sub_5A1B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, ...)
+{
+  va_start(va, a45);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_5A214(uint64_t a1, void *a2)
@@ -5855,9 +5850,9 @@ void sub_5E384(uint64_t a1)
     }
 
     *buf = 138412546;
-    v53 = v3;
-    v54 = 2112;
-    v55 = v5;
+    v52 = v3;
+    v53 = 2112;
+    v54 = v5;
     _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "  All done url set for: %@   success: %@", buf, 0x16u);
   }
 
@@ -5865,9 +5860,9 @@ void sub_5E384(uint64_t a1)
   {
     v6 = +[NSFileManager defaultManager];
     v7 = *(a1 + 40);
-    v51 = 0;
-    v8 = [v6 removeItemAtURL:v7 error:&v51];
-    v9 = v51;
+    v50 = 0;
+    v8 = [v6 removeItemAtURL:v7 error:&v50];
+    v9 = v50;
 
     if ((v8 & 1) == 0)
     {
@@ -5876,9 +5871,9 @@ void sub_5E384(uint64_t a1)
       {
         v11 = *(a1 + 40);
         *buf = 138412546;
-        v53 = v11;
-        v54 = 2112;
-        v55 = v9;
+        v52 = v11;
+        v53 = 2112;
+        v54 = v9;
         _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Error cleaning up linked path: %@  error: %@", buf, 0x16u);
       }
     }
@@ -5916,51 +5911,50 @@ LABEL_31:
       }
     }
 
-    v33 = *(a1 + 80);
-    v34 = [objc_opt_class() _combinedTransferUserInfoForAttachmentSendContexts:*(a1 + 72) transfer:v12 message:*(a1 + 64) commonCapabilities:*(a1 + 88)];
-    v35 = +[IMFeatureFlags sharedFeatureFlags];
-    v36 = [v35 isLQMHQEnabled];
+    v33 = [objc_opt_class() _combinedTransferUserInfoForAttachmentSendContexts:*(a1 + 72) transfer:v12 message:*(a1 + 64) commonCapabilities:*(a1 + 88)];
+    v34 = +[IMFeatureFlags sharedFeatureFlags];
+    v35 = [v34 isLQMHQEnabled];
 
-    if (v36 && *(*(*(a1 + 144) + 8) + 40) == *(a1 + 96))
+    if (v35 && *(*(*(a1 + 144) + 8) + 40) == *(a1 + 96))
     {
-      CFDictionarySetValue(v34, @"isHQTransfer", @"YES");
+      CFDictionarySetValue(v33, @"isHQTransfer", @"YES");
     }
 
     if (IMOSLoggingEnabled())
     {
-      v37 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+      v36 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v53 = v34;
-        v54 = 2112;
-        v55 = v12;
-        _os_log_impl(&dword_0, v37, OS_LOG_TYPE_INFO, "  setting userinfo: %@  on transfer: %@", buf, 0x16u);
+        v52 = v33;
+        v53 = 2112;
+        v54 = v12;
+        _os_log_impl(&dword_0, v36, OS_LOG_TYPE_INFO, "  setting userinfo: %@  on transfer: %@", buf, 0x16u);
       }
     }
 
-    [(__CFString *)v12 setUserInfo:v34];
+    [(__CFString *)v12 setUserInfo:v33];
     [(__CFString *)v12 setAttachmentSendContexts:*(a1 + 72)];
-    v38 = *(a1 + 72);
-    v42[0] = _NSConcreteStackBlock;
-    v42[1] = 3221225472;
-    v42[2] = sub_5EA40;
-    v42[3] = &unk_1136A8;
-    v43 = v12;
-    v44 = v34;
-    v39 = *(a1 + 152);
-    v45 = *(a1 + 80);
-    v50 = v39;
-    v46 = *(a1 + 104);
-    v47 = *(a1 + 64);
-    v40 = *(a1 + 48);
-    v41 = *(a1 + 56);
+    v37 = *(a1 + 72);
+    v41[0] = _NSConcreteStackBlock;
+    v41[1] = 3221225472;
+    v41[2] = sub_5EA40;
+    v41[3] = &unk_1136A8;
+    v42 = v12;
+    v43 = v33;
+    v38 = *(a1 + 152);
+    v44 = *(a1 + 80);
+    v49 = v38;
+    v45 = *(a1 + 104);
+    v46 = *(a1 + 64);
+    v39 = *(a1 + 48);
+    v40 = *(a1 + 56);
+    v47 = v39;
     v48 = v40;
-    v49 = v41;
-    v27 = v34;
-    [v38 enumerateObjectsUsingBlock:v42];
+    v27 = v33;
+    [v37 enumerateObjectsUsingBlock:v41];
 
-    v29 = v43;
+    v29 = v42;
     goto LABEL_41;
   }
 
@@ -5970,7 +5964,7 @@ LABEL_31:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v53 = v12;
+      v52 = v12;
       _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "  NOT setting userInfo: transfer %@ did not complete successfully.", buf, 0xCu);
     }
   }
@@ -5993,7 +5987,7 @@ LABEL_31:
         {
           v20 = *(a1 + 56);
           *buf = 138412290;
-          v53 = v20;
+          v52 = v20;
           _os_log_impl(&dword_0, v19, OS_LOG_TYPE_INFO, "HQ transfer failed for guid: %@", buf, 0xCu);
         }
       }
@@ -6014,7 +6008,7 @@ LABEL_31:
       if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v53 = v25;
+        v52 = v25;
         _os_log_impl(&dword_0, v28, OS_LOG_TYPE_DEFAULT, "Notifying about message: %@", buf, 0xCu);
       }
 
@@ -6570,400 +6564,399 @@ void sub_60530(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
 void sub_6067C(uint64_t a1, void *a2, uint64_t a3, void *a4, void *a5, void *a6, void *a7, void *a8, void *a9, uint64_t a10)
 {
-  v69 = a2;
-  *&v75 = COERCE_DOUBLE(a4);
-  v74 = a5;
+  v68 = a2;
+  *&v74 = COERCE_DOUBLE(a4);
+  v73 = a5;
   value = a6;
-  v71 = a7;
-  v73 = a8;
-  v70 = a9;
-  v84[0] = kAttachmentsAutomationURLKey;
-  v17 = *(a1 + 32);
-  v18 = a1;
-  v19 = [*(a1 + 40) path];
-  v20 = v19;
-  if (v19)
+  v70 = a7;
+  v72 = a8;
+  v69 = a9;
+  v83[0] = kAttachmentsAutomationURLKey;
+  v17 = a1;
+  v18 = [*(a1 + 40) path];
+  v19 = v18;
+  if (v18)
   {
-    v21 = v19;
+    v20 = v18;
   }
 
   else
   {
-    v21 = &stru_115E20;
+    v20 = &stru_115E20;
   }
 
-  v85[0] = v21;
-  v84[1] = kAttachmentsAutomationSuccessKey;
-  v22 = [NSNumber numberWithBool:a3];
-  v85[1] = v22;
-  v23 = v74;
-  if (!v74)
+  v84[0] = v20;
+  v83[1] = kAttachmentsAutomationSuccessKey;
+  v21 = [NSNumber numberWithBool:a3];
+  v84[1] = v21;
+  v22 = v73;
+  if (!v73)
   {
-    v23 = &stru_115E20;
+    v22 = &stru_115E20;
   }
 
-  v85[2] = v23;
-  v84[2] = kAttachmentsAutomationAdditionalErrorInfoKey;
-  v84[3] = kAttachmentsAutomationFileSizeKey;
-  v24 = [NSNumber numberWithInteger:a10];
-  v85[3] = v24;
-  v25 = v75;
-  if (*&v75 == 0.0)
+  v84[2] = v22;
+  v83[2] = kAttachmentsAutomationAdditionalErrorInfoKey;
+  v83[3] = kAttachmentsAutomationFileSizeKey;
+  v23 = [NSNumber numberWithInteger:a10];
+  v84[3] = v23;
+  v24 = v74;
+  if (*&v74 == 0.0)
+  {
+    v24 = &stru_115E20;
+  }
+
+  v83[4] = kAttachmentsAutomationErrorKey;
+  v83[5] = kAttachmentsAutomationTransferGUIDKey;
+  v25 = *(a1 + 48);
+  if (!v25)
   {
     v25 = &stru_115E20;
   }
 
-  v84[4] = kAttachmentsAutomationErrorKey;
-  v84[5] = kAttachmentsAutomationTransferGUIDKey;
-  v26 = *(a1 + 48);
-  if (!v26)
-  {
-    v26 = &stru_115E20;
-  }
-
-  v85[4] = v25;
-  v85[5] = v26;
-  v27 = [NSDictionary dictionaryWithObjects:v85 forKeys:v84 count:6];
+  v84[4] = v24;
+  v84[5] = v25;
+  v26 = [NSDictionary dictionaryWithObjects:v84 forKeys:v83 count:6];
   AttachmentsAutomationLogMilestone();
 
   [*(a1 + 56) transferForGUID:*(a1 + 48)];
-  v28 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-  v29 = IMOSLoggingEnabled();
+  v27 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+  v28 = IMOSLoggingEnabled();
   if (a3)
   {
-    if (v29)
+    if (v28)
     {
-      v30 = OSLogHandleForIMEventCategory();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+      v29 = OSLogHandleForIMEventCategory();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
       {
         *buf = 138412802;
-        v79 = v28;
-        v80 = 2112;
-        v81 = @"YES";
-        v82 = 2112;
-        v83 = v75;
-        _os_log_impl(&dword_0, v30, OS_LOG_TYPE_INFO, "Finished uploading transfer: %@   success: %@  error: %@", buf, 0x20u);
+        v78 = v27;
+        v79 = 2112;
+        v80 = @"YES";
+        v81 = 2112;
+        v82 = v74;
+        _os_log_impl(&dword_0, v29, OS_LOG_TYPE_INFO, "Finished uploading transfer: %@   success: %@  error: %@", buf, 0x20u);
       }
     }
 
-    v31 = IMAttachmentsLogHandle();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v30 = IMAttachmentsLogHandle();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       +[NSDate timeIntervalSinceReferenceDate];
-      v33 = v32 - *(a1 + 104);
+      v32 = v31 - *(a1 + 104);
       *buf = 134217984;
-      v79 = v33;
-      _os_log_impl(&dword_0, v31, OS_LOG_TYPE_DEFAULT, "Time taken: %f", buf, 0xCu);
+      v78 = v32;
+      _os_log_impl(&dword_0, v30, OS_LOG_TYPE_DEFAULT, "Time taken: %f", buf, 0xCu);
     }
 
-    v34 = [[NSMutableDictionary alloc] initWithCapacity:5];
-    v35 = [v71 __imHexString];
-    if (v35)
+    v33 = [[NSMutableDictionary alloc] initWithCapacity:5];
+    v34 = [v70 __imHexString];
+    if (v34)
     {
-      CFDictionarySetValue(v34, @"mmcs-signature-hex", v35);
+      CFDictionarySetValue(v33, @"mmcs-signature-hex", v34);
     }
 
     if (value)
     {
-      CFDictionarySetValue(v34, @"mmcs-owner", value);
+      CFDictionarySetValue(v33, @"mmcs-owner", value);
     }
 
-    if (v73)
+    if (v72)
     {
-      CFDictionarySetValue(v34, @"mmcs-url", v73);
+      CFDictionarySetValue(v33, @"mmcs-url", v72);
     }
 
-    v36 = [v70 __imHexString];
+    v35 = [v69 __imHexString];
+    if (v35)
+    {
+      CFDictionarySetValue(v33, @"decryption-key", v35);
+    }
+
+    v36 = [NSNumber numberWithInteger:v67];
     if (v36)
     {
-      CFDictionarySetValue(v34, @"decryption-key", v36);
+      CFDictionarySetValue(v33, @"file-size", v36);
     }
 
-    v37 = [NSNumber numberWithInteger:v68];
-    if (v37)
-    {
-      CFDictionarySetValue(v34, @"file-size", v37);
-    }
-
-    [*(a1 + 80) addObject:v34];
+    [*(a1 + 80) addObject:v33];
   }
 
   else
   {
-    if (v29)
+    if (v28)
     {
-      v38 = OSLogHandleForIMEventCategory();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+      v37 = OSLogHandleForIMEventCategory();
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
       {
         *buf = 138412802;
-        v79 = v28;
-        v80 = 2112;
-        v81 = @"NO";
-        v82 = 2112;
-        v83 = v75;
-        _os_log_impl(&dword_0, v38, OS_LOG_TYPE_INFO, "Failed uploading transfer: %@   success: %@  error: %@", buf, 0x20u);
+        v78 = v27;
+        v79 = 2112;
+        v80 = @"NO";
+        v81 = 2112;
+        v82 = v74;
+        _os_log_impl(&dword_0, v37, OS_LOG_TYPE_INFO, "Failed uploading transfer: %@   success: %@  error: %@", buf, 0x20u);
       }
     }
 
-    v39 = IMAttachmentsLogHandle();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+    v38 = IMAttachmentsLogHandle();
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
-      [*&v28 transferDataURL];
-      v40 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      [*&v27 transferDataURL];
+      v39 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
       *buf = 138412290;
-      v79 = v40;
-      _os_log_impl(&dword_0, v39, OS_LOG_TYPE_DEFAULT, "transfer data url: %@", buf, 0xCu);
+      v78 = v39;
+      _os_log_impl(&dword_0, v38, OS_LOG_TYPE_DEFAULT, "transfer data url: %@", buf, 0xCu);
     }
 
-    v41 = IMAttachmentsLogHandle();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+    v40 = IMAttachmentsLogHandle();
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
     {
       +[NSDate timeIntervalSinceReferenceDate];
-      v43 = v42 - *(a1 + 104);
+      v42 = v41 - *(a1 + 104);
       *buf = 134217984;
-      v79 = v43;
-      _os_log_impl(&dword_0, v41, OS_LOG_TYPE_DEFAULT, "Time taken: %f", buf, 0xCu);
+      v78 = v42;
+      _os_log_impl(&dword_0, v40, OS_LOG_TYPE_DEFAULT, "Time taken: %f", buf, 0xCu);
     }
 
     if (*(a1 + 112) == 1)
     {
-      v44 = [(__CFString *)v75 code];
-      v46 = *(a1 + 48);
-      v45 = *(a1 + 56);
-      if (v44 == -6)
+      v43 = [(__CFString *)v74 code];
+      v45 = *(a1 + 48);
+      v44 = *(a1 + 56);
+      if (v43 == -6)
       {
-        [v45 failTransfer:v46 reason:23];
+        [v44 failTransfer:v45 reason:23];
       }
 
-      else if (v44 == -5)
+      else if (v43 == -5)
       {
-        [v45 failTransfer:v46 reason:22];
+        [v44 failTransfer:v45 reason:22];
       }
 
       else
       {
-        [v45 failTransfer:v46 error:v75];
+        [v44 failTransfer:v45 error:v74];
       }
 
       if (IMOSLoggingEnabled())
       {
-        v48 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
+        v47 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v79 = *&v75;
-          _os_log_impl(&dword_0, v48, OS_LOG_TYPE_INFO, "  setting complete success to NO because the smallest attachment failed. (Error: %@)", buf, 0xCu);
+          v78 = *&v74;
+          _os_log_impl(&dword_0, v47, OS_LOG_TYPE_INFO, "  setting complete success to NO because the smallest attachment failed. (Error: %@)", buf, 0xCu);
         }
       }
 
       [*(a1 + 64) setFailed:1];
       [*(a1 + 64) setError:_FZErrorTypeFromNSError()];
-      [*(a1 + 72) setTransferError:v75];
-      [*(a1 + 72) setAdditionalErrorInfo:v74];
-      [*(a1 + 72) setErrorURLString:v73];
-      [*(a1 + 72) setErrorFileSize:v68];
+      [*(a1 + 72) setTransferError:v74];
+      [*(a1 + 72) setAdditionalErrorInfo:v73];
+      [*(a1 + 72) setErrorURLString:v72];
+      [*(a1 + 72) setErrorFileSize:v67];
     }
 
     else if (IMOSLoggingEnabled())
     {
-      v47 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+      v46 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v79 = *&v75;
-        _os_log_impl(&dword_0, v47, OS_LOG_TYPE_INFO, "  attachment failed to upload, but the smaller version hasn't failed yet. (Error: %@)", buf, 0xCu);
+        v78 = *&v74;
+        _os_log_impl(&dword_0, v46, OS_LOG_TYPE_INFO, "  attachment failed to upload, but the smaller version hasn't failed yet. (Error: %@)", buf, 0xCu);
       }
     }
   }
 
   if (*(a1 + 88))
   {
-    v49 = +[NSFileManager defaultManager];
-    v50 = *(a1 + 88);
-    v77 = 0;
-    v51 = [v49 removeItemAtURL:v50 error:&v77];
-    v52 = v77;
+    v48 = +[NSFileManager defaultManager];
+    v49 = *(a1 + 88);
+    v76 = 0;
+    v50 = [v48 removeItemAtURL:v49 error:&v76];
+    v51 = v76;
 
-    if ((v51 & 1) == 0 && IMOSLoggingEnabled())
+    if ((v50 & 1) == 0 && IMOSLoggingEnabled())
     {
-      v53 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
+      v52 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v52, OS_LOG_TYPE_INFO))
       {
-        v54 = *(a1 + 88);
+        v53 = *(a1 + 88);
         *buf = 138412546;
-        v79 = v54;
-        v80 = 2112;
-        v81 = v52;
-        _os_log_impl(&dword_0, v53, OS_LOG_TYPE_INFO, "Error cleaning up transcoded path: %@  error: %@", buf, 0x16u);
+        v78 = v53;
+        v79 = 2112;
+        v80 = v51;
+        _os_log_impl(&dword_0, v52, OS_LOG_TYPE_INFO, "Error cleaning up transcoded path: %@  error: %@", buf, 0x16u);
       }
     }
 
-    v55 = a1;
-    v56 = *(a1 + 88);
+    v54 = a1;
+    v55 = *(a1 + 88);
   }
 
   else
   {
-    v55 = a1;
-    v56 = 0;
+    v54 = a1;
+    v55 = 0;
   }
 
-  if (([*(v55 + 40) isEqual:v56] & 1) != 0 || (objc_msgSend(*(a1 + 40), "path"), (v57 = objc_claimAutoreleasedReturnValue()) == 0))
+  if (([*(v54 + 40) isEqual:v55] & 1) != 0 || (objc_msgSend(*(a1 + 40), "path"), (v56 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v64 = 0;
+    v63 = 0;
   }
 
   else
   {
-    v58 = [*(a1 + 40) path];
-    v59 = IMSafeTemporaryDirectory();
-    v60 = [v59 path];
-    if ([v58 hasPrefix:v60])
+    v57 = [*(a1 + 40) path];
+    v58 = IMSafeTemporaryDirectory();
+    v59 = [v58 path];
+    if ([v57 hasPrefix:v59])
     {
-      v61 = +[NSFileManager defaultManager];
-      v62 = [*(a1 + 40) path];
-      v76 = 0;
-      v63 = [v61 removeItemAtPath:v62 error:&v76];
-      v64 = v76;
+      v60 = +[NSFileManager defaultManager];
+      v61 = [*(a1 + 40) path];
+      v75 = 0;
+      v62 = [v60 removeItemAtPath:v61 error:&v75];
+      v63 = v75;
 
-      v65 = v63 ^ 1;
+      v64 = v62 ^ 1;
     }
 
     else
     {
+      v63 = 0;
       v64 = 0;
-      v65 = 0;
     }
 
-    if (v65)
+    if (v64)
     {
-      v66 = IMAttachmentsLogHandle();
-      if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+      v65 = IMAttachmentsLogHandle();
+      if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
       {
-        [*(v18 + 40) path];
-        v67 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+        [*(v17 + 40) path];
+        v66 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
         *buf = 138412546;
-        v79 = v67;
-        v80 = 2112;
-        v81 = v64;
-        _os_log_impl(&dword_0, v66, OS_LOG_TYPE_DEFAULT, "Error cleaning up output path: %@  error: %@", buf, 0x16u);
+        v78 = v66;
+        v79 = 2112;
+        v80 = v63;
+        _os_log_impl(&dword_0, v65, OS_LOG_TYPE_DEFAULT, "Error cleaning up output path: %@  error: %@", buf, 0x16u);
       }
     }
   }
 
-  dispatch_group_leave(*(v18 + 96));
+  dispatch_group_leave(*(v17 + 96));
 }
 
 void sub_61384(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = sub_58FDC;
-  v43 = sub_58FEC;
-  v44 = 0;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = sub_58FDC;
-  v37 = sub_58FEC;
   v38 = 0;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x3032000000;
-  v30 = sub_58FDC;
-  v31 = sub_58FEC;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = sub_58FDC;
+  v42 = sub_58FEC;
+  v43 = 0;
   v32 = 0;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = sub_58FDC;
-  v25 = sub_58FEC;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = sub_58FDC;
+  v36 = sub_58FEC;
+  v37 = 0;
   v26 = 0;
-  v20[0] = _NSConcreteStackBlock;
-  v20[1] = 3221225472;
-  v20[2] = sub_617CC;
-  v20[3] = &unk_113860;
-  v20[4] = &v21;
-  v20[5] = &v39;
-  v20[6] = &v33;
-  v20[7] = &v27;
-  [v3 enumerateKeysAndObjectsUsingBlock:v20];
-  if ([v34[5] length] && objc_msgSend(v28[5], "length") && objc_msgSend(v40[5], "length") && objc_msgSend(v22[5], "length"))
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = sub_58FDC;
+  v30 = sub_58FEC;
+  v31 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_58FDC;
+  v24 = sub_58FEC;
+  v25 = 0;
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_617CC;
+  v19[3] = &unk_113860;
+  v19[4] = &v20;
+  v19[5] = &v38;
+  v19[6] = &v32;
+  v19[7] = &v26;
+  [v3 enumerateKeysAndObjectsUsingBlock:v19];
+  if ([v33[5] length] && objc_msgSend(v27[5], "length") && objc_msgSend(v39[5], "length") && objc_msgSend(v21[5], "length"))
   {
-    v4 = v40[5];
-    v53[0] = @"t";
-    v53[1] = @"sT";
-    v5 = v34[5];
-    v54[0] = v4;
-    v54[1] = v5;
-    v54[2] = v28[5];
-    v53[2] = @"sI";
-    v53[3] = @"sP";
-    v6 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v8 = IMChatCanonicalIDSIDsForAddress();
-    v53[4] = @"tP";
-    v9 = v22[5];
-    v54[3] = v8;
-    v54[4] = v9;
-    v10 = [NSDictionary dictionaryWithObjects:v54 forKeys:v53 count:5];
-    (*(v7 + 16))(v7, v10);
+    v4 = v39[5];
+    v52[0] = @"t";
+    v52[1] = @"sT";
+    v5 = v33[5];
+    v53[0] = v4;
+    v53[1] = v5;
+    v53[2] = v27[5];
+    v52[2] = @"sI";
+    v52[3] = @"sP";
+    v6 = *(a1 + 40);
+    v7 = IMChatCanonicalIDSIDsForAddress();
+    v52[4] = @"tP";
+    v8 = v21[5];
+    v53[3] = v7;
+    v53[4] = v8;
+    v9 = [NSDictionary dictionaryWithObjects:v53 forKeys:v52 count:5];
+    (*(v6 + 16))(v6, v9);
 
-    v11 = IMAttachmentsLogHandle();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v10 = IMAttachmentsLogHandle();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = v40[5];
-      v13 = v34[5];
-      v14 = v28[5];
+      v11 = v39[5];
+      v12 = v33[5];
+      v13 = v27[5];
       *buf = 138412802;
-      v46 = v12;
-      v47 = 2112;
-      v48 = v13;
-      v49 = 2112;
-      v50 = v14;
-      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "-sessionInfoForBusinessReceipients:completion: found session info for business pushToken %@, sessionToken %@ and anonymizedSenderID %@", buf, 0x20u);
+      v45 = v11;
+      v46 = 2112;
+      v47 = v12;
+      v48 = 2112;
+      v49 = v13;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "-sessionInfoForBusinessReceipients:completion: found session info for business pushToken %@, sessionToken %@ and anonymizedSenderID %@", buf, 0x20u);
     }
   }
 
   else
   {
-    v15 = IMAttachmentsLogHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v14 = IMAttachmentsLogHandle();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = v22[5];
-      v17 = v40[5];
-      v18 = v34[5];
-      v19 = v28[5];
+      v15 = v21[5];
+      v16 = v39[5];
+      v17 = v33[5];
+      v18 = v27[5];
       *buf = 138413058;
-      v46 = v16;
-      v47 = 2112;
-      v48 = v17;
-      v49 = 2112;
-      v50 = v18;
-      v51 = 2112;
-      v52 = v19;
-      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "-sessionInfoForBusinessReceipients:completion: did not find session info for destinationID %@. pushToken %@ sessionToken %@ and anonymizedSenderID %@", buf, 0x2Au);
+      v45 = v15;
+      v46 = 2112;
+      v47 = v16;
+      v48 = 2112;
+      v49 = v17;
+      v50 = 2112;
+      v51 = v18;
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "-sessionInfoForBusinessReceipients:completion: did not find session info for destinationID %@. pushToken %@ sessionToken %@ and anonymizedSenderID %@", buf, 0x2Au);
     }
 
     (*(*(a1 + 40) + 16))();
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v20, 8);
 
-  _Block_object_dispose(&v27, 8);
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v32, 8);
 
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v38, 8);
 }
 
-void sub_61780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
+void sub_61780(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
+  va_start(va, a34);
   _Block_object_dispose(&a17, 8);
   _Block_object_dispose(&a23, 8);
   _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a35, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -6989,35 +6982,34 @@ void sub_6184C(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
   v10 = *(v9 + 40);
   *(v9 + 40) = v8;
 
-  v11 = *(*(*(a1 + 32) + 8) + 40);
   if (IMStringIsBusinessID())
   {
-    v12 = [v6 pushToken];
-    v13 = *(*(a1 + 40) + 8);
-    v14 = *(v13 + 40);
-    *(v13 + 40) = v12;
+    v11 = [v6 pushToken];
+    v12 = *(*(a1 + 40) + 8);
+    v13 = *(v12 + 40);
+    *(v12 + 40) = v11;
 
-    v15 = [v6 sessionToken];
-    v16 = *(*(a1 + 48) + 8);
-    v17 = *(v16 + 40);
-    *(v16 + 40) = v15;
+    v14 = [v6 sessionToken];
+    v15 = *(*(a1 + 48) + 8);
+    v16 = *(v15 + 40);
+    *(v15 + 40) = v14;
 
-    v18 = [v6 anonymizedSenderID];
-    v19 = *(*(a1 + 56) + 8);
-    v20 = *(v19 + 40);
-    *(v19 + 40) = v18;
+    v17 = [v6 anonymizedSenderID];
+    v18 = *(*(a1 + 56) + 8);
+    v19 = *(v18 + 40);
+    *(v18 + 40) = v17;
 
     **(a1 + 64) = 1;
     *a4 = 1;
-    v21 = IMAttachmentsLogHandle();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v20 = IMAttachmentsLogHandle();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = *(*(*(a1 + 56) + 8) + 40);
-      v23 = 138412546;
-      v24 = v6;
-      v25 = 2112;
-      v26 = v22;
-      _os_log_impl(&dword_0, v21, OS_LOG_TYPE_DEFAULT, "-sessionInfoForBusinessReceipients:completion: returned YES and found session info for business endpoint %@ and anonymizedSenderID %@", &v23, 0x16u);
+      v21 = *(*(*(a1 + 56) + 8) + 40);
+      v22 = 138412546;
+      v23 = v6;
+      v24 = 2112;
+      v25 = v21;
+      _os_log_impl(&dword_0, v20, OS_LOG_TYPE_DEFAULT, "-sessionInfoForBusinessReceipients:completion: returned YES and found session info for business endpoint %@ and anonymizedSenderID %@", &v22, 0x16u);
     }
   }
 }
@@ -7084,35 +7076,35 @@ void sub_622C4(uint64_t a1)
 {
   if (*(*(*(a1 + 104) + 8) + 24) != 1)
   {
-    v7 = *(a1 + 56);
-    v8 = *(a1 + 64);
-    v9 = v8;
-    if (v7)
+    v4 = *(a1 + 56);
+    v5 = *(a1 + 64);
+    v6 = v5;
+    if (v4)
     {
-      if (v8)
+      if (v5)
       {
 LABEL_8:
-        v10 = [*(a1 + 32) fileTransferGUIDs];
-        v21[0] = _NSConcreteStackBlock;
-        v21[1] = 3221225472;
-        v21[2] = sub_62584;
-        v21[3] = &unk_1138D8;
-        v22 = *(a1 + 72);
-        v11 = [v10 __imArrayByApplyingBlock:v21];
+        v7 = [*(a1 + 32) fileTransferGUIDs];
+        v18[0] = _NSConcreteStackBlock;
+        v18[1] = 3221225472;
+        v18[2] = sub_62584;
+        v18[3] = &unk_1138D8;
+        v19 = *(a1 + 72);
+        v8 = [v7 __imArrayByApplyingBlock:v18];
 
-        v12 = +[MessageTranscodeController sharedInstance];
-        v14[0] = _NSConcreteStackBlock;
-        v14[1] = 3221225472;
-        v14[2] = sub_625D8;
-        v14[3] = &unk_113900;
-        v14[4] = *(a1 + 80);
-        v15 = *(a1 + 32);
-        v16 = *(a1 + 40);
-        v17 = *(a1 + 48);
-        v18 = *(a1 + 88);
-        v20 = *(a1 + 112);
-        v19 = *(a1 + 96);
-        [v12 transcodePayloadData:v7 balloonBundleID:v9 attachments:v11 completionBlock:v14];
+        v9 = +[MessageTranscodeController sharedInstance];
+        v11[0] = _NSConcreteStackBlock;
+        v11[1] = 3221225472;
+        v11[2] = sub_625D8;
+        v11[3] = &unk_113900;
+        v11[4] = *(a1 + 80);
+        v12 = *(a1 + 32);
+        v13 = *(a1 + 40);
+        v14 = *(a1 + 48);
+        v15 = *(a1 + 88);
+        v17 = *(a1 + 112);
+        v16 = *(a1 + 96);
+        [v9 transcodePayloadData:v4 balloonBundleID:v6 attachments:v8 completionBlock:v11];
 
         return;
       }
@@ -7122,34 +7114,31 @@ LABEL_8:
     {
       if (IMOSLoggingEnabled())
       {
-        v13 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+        v10 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "sending msg with payload data", buf, 2u);
+          _os_log_impl(&dword_0, v10, OS_LOG_TYPE_INFO, "sending msg with payload data", buf, 2u);
         }
       }
 
-      v7 = [*(a1 + 32) payloadData];
-      if (v9)
+      v4 = [*(a1 + 32) payloadData];
+      if (v6)
       {
         goto LABEL_8;
       }
     }
 
-    v9 = [*(a1 + 32) balloonBundleID];
+    v6 = [*(a1 + 32) balloonBundleID];
     goto LABEL_8;
   }
 
   v2 = *(a1 + 96);
   if (v2)
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v5 = *(a1 + 48);
-    v6 = *(v2 + 16);
+    v3 = *(v2 + 16);
 
-    v6();
+    v3();
   }
 }
 
@@ -7986,7 +7975,6 @@ void sub_664E4(uint64_t a1, void *a2, void *a3)
           _os_log_impl(&dword_0, v31, OS_LOG_TYPE_DEFAULT, "Dispatching timer shouldDisableFasterDownload:%@", buf, 0xCu);
         }
 
-        *(a1 + 233);
         v143[4] = _NSConcreteStackBlock;
         v143[5] = 3221225472;
         v143[6] = sub_676B4;

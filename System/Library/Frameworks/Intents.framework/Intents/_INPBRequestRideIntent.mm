@@ -473,7 +473,6 @@ LABEL_48:
 
   if ([(_INPBRequestRideIntent *)self hasUsesApplePayForPayment])
   {
-    usesApplePayForPayment = self->_usesApplePayForPayment;
     PBDataWriterWriteBOOLField();
   }
 }

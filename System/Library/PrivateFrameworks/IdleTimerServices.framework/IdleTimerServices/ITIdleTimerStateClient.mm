@@ -3,9 +3,11 @@
 - (BOOL)isIdleTimerServiceAvailable;
 - (ITIdleTimerStateClient)initWithDelegate:(id)delegate;
 - (void)_access_addIdleTimerConfiguration:(id)configuration forReason:(id)reason error:(id *)error;
+- (void)_access_addIdleTimerOnBehalfOfSceneWithPID:(int)d withConfiguration:(id)configuration forReason:(id)reason error:(id *)error;
 - (void)_access_removeIdleTimerConfiguration:(id)configuration forReason:(id)reason;
 - (void)_connectionInterrupted;
 - (void)addIdleTimerConfiguration:(id)configuration forReason:(id)reason error:(id *)error;
+- (void)addIdleTimerOnBehalfOfSceneWithPID:(int)d withConfiguration:(id)configuration forReason:(id)reason error:(id *)error;
 - (void)isIdleTimerServiceAvailable;
 - (void)removeIdleTimerConfiguration:(id)configuration forReason:(id)reason;
 @end
@@ -49,7 +51,7 @@ LABEL_4:
     goto LABEL_8;
   }
 
-  v13 = ITLogIdleTimer();
+  v13 = ITLogIdleTimer(0);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     [ITIdleTimerStateClient initWithDelegate:];
@@ -90,7 +92,7 @@ void __43__ITIdleTimerStateClient_initWithDelegate___block_invoke(uint64_t a1, v
 
 uint64_t __43__ITIdleTimerStateClient_initWithDelegate___block_invoke_2(uint64_t a1)
 {
-  v2 = ITLogIdleTimer();
+  v2 = ITLogIdleTimer(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __43__ITIdleTimerStateClient_initWithDelegate___block_invoke_2_cold_1();
@@ -105,7 +107,7 @@ uint64_t __43__ITIdleTimerStateClient_initWithDelegate___block_invoke_2(uint64_t
 
 void __43__ITIdleTimerStateClient_initWithDelegate___block_invoke_59(uint64_t a1)
 {
-  v2 = ITLogIdleTimer();
+  v2 = ITLogIdleTimer(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __43__ITIdleTimerStateClient_initWithDelegate___block_invoke_59_cold_1();
@@ -135,13 +137,13 @@ void __43__ITIdleTimerStateClient_initWithDelegate___block_invoke_59(uint64_t a1
   else
   {
     remoteTarget = [(BSServiceConnection *)self->_connection remoteTarget];
-    v8 = 0;
-    LODWORD(v4) = [remoteTarget isIdleTimerServiceAvailableWithError:&v8];
-    v6 = v8;
+    v9 = 0;
+    LODWORD(v4) = [remoteTarget isIdleTimerServiceAvailableWithError:&v9];
+    v6 = v9;
 
     if (v6)
     {
-      v4 = ITLogIdleTimer();
+      v4 = ITLogIdleTimer(v7);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         [ITIdleTimerStateClient isIdleTimerServiceAvailable];
@@ -164,6 +166,25 @@ void __43__ITIdleTimerStateClient_initWithDelegate___block_invoke_59(uint64_t a1
 
   os_unfair_lock_unlock(&self->_accessLock);
   return v4;
+}
+
+- (void)addIdleTimerOnBehalfOfSceneWithPID:(int)d withConfiguration:(id)configuration forReason:(id)reason error:(id *)error
+{
+  v8 = *&d;
+  reasonCopy = reason;
+  configurationCopy = configuration;
+  os_unfair_lock_assert_not_owner(&self->_accessLock);
+  os_unfair_lock_lock(&self->_accessLock);
+  v14 = 0;
+  [(ITIdleTimerStateClient *)self _access_addIdleTimerOnBehalfOfSceneWithPID:v8 withConfiguration:configurationCopy forReason:reasonCopy error:&v14];
+
+  v12 = v14;
+  os_unfair_lock_unlock(&self->_accessLock);
+  if (error && v12)
+  {
+    v13 = v12;
+    *error = v12;
+  }
 }
 
 - (void)addIdleTimerConfiguration:(id)configuration forReason:(id)reason error:(id *)error
@@ -212,27 +233,55 @@ void __43__ITIdleTimerStateClient_initWithDelegate___block_invoke_59(uint64_t a1
   [WeakRetained resendIdleTimerAssertions];
 }
 
-- (void)_access_addIdleTimerConfiguration:(id)configuration forReason:(id)reason error:(id *)error
+- (void)_access_addIdleTimerOnBehalfOfSceneWithPID:(int)d withConfiguration:(id)configuration forReason:(id)reason error:(id *)error
 {
+  v8 = *&d;
   reasonCopy = reason;
   configurationCopy = configuration;
   os_unfair_lock_assert_owner(&self->_accessLock);
   remoteTarget = [(BSServiceConnection *)self->_connection remoteTarget];
-  v14 = 0;
-  [remoteTarget addIdleTimerServiceConfiguration:configurationCopy forReason:reasonCopy error:&v14];
+  v13 = [MEMORY[0x277CCABB0] numberWithInt:v8];
+  v18 = 0;
+  [remoteTarget addIdleTimerServiceOnBehalfOfSceneWithPID:v13 withConfiguration:configurationCopy forReason:reasonCopy error:&v18];
 
-  v11 = v14;
-  if (v11)
+  v14 = v18;
+  if (v14)
   {
-    v12 = ITLogIdleTimer();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v16 = ITLogIdleTimer(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [ITIdleTimerStateClient _access_addIdleTimerOnBehalfOfSceneWithPID:withConfiguration:forReason:error:];
     }
 
     if (error)
     {
-      v13 = v11;
+      v17 = v14;
+      *error = v14;
+    }
+  }
+}
+
+- (void)_access_addIdleTimerConfiguration:(id)configuration forReason:(id)reason error:(id *)error
+{
+  reasonCopy = reason;
+  configurationCopy = configuration;
+  os_unfair_lock_assert_owner(&self->_accessLock);
+  remoteTarget = [(BSServiceConnection *)self->_connection remoteTarget];
+  v15 = 0;
+  [remoteTarget addIdleTimerServiceConfiguration:configurationCopy forReason:reasonCopy error:&v15];
+
+  v11 = v15;
+  if (v11)
+  {
+    v13 = ITLogIdleTimer(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      [ITIdleTimerStateClient _access_addIdleTimerOnBehalfOfSceneWithPID:withConfiguration:forReason:error:];
+    }
+
+    if (error)
+    {
+      v14 = v11;
       *error = v11;
     }
   }
@@ -244,14 +293,14 @@ void __43__ITIdleTimerStateClient_initWithDelegate___block_invoke_59(uint64_t a1
   configurationCopy = configuration;
   os_unfair_lock_assert_owner(&self->_accessLock);
   remoteTarget = [(BSServiceConnection *)self->_connection remoteTarget];
-  v11 = 0;
-  [remoteTarget removeIdleTimerServiceConfiguration:configurationCopy forReason:reasonCopy error:&v11];
+  v12 = 0;
+  [remoteTarget removeIdleTimerServiceConfiguration:configurationCopy forReason:reasonCopy error:&v12];
 
-  v9 = v11;
+  v9 = v12;
   if (v9)
   {
-    v10 = ITLogIdleTimer();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = ITLogIdleTimer(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [ITIdleTimerStateClient _access_removeIdleTimerConfiguration:forReason:];
     }
@@ -260,39 +309,32 @@ void __43__ITIdleTimerStateClient_initWithDelegate___block_invoke_59(uint64_t a1
 
 - (void)initWithDelegate:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
-  v4 = 2114;
-  v5 = v0;
-  _os_log_error_impl(&dword_254ABE000, v1, OS_LOG_TYPE_ERROR, "cannot get endpoint for mach service: %{public}@ (on behalf of BSService name: %{public}@)", v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = 2114;
+  v4 = v0;
+  _os_log_error_impl(&dword_254ABE000, v1, OS_LOG_TYPE_ERROR, "cannot get endpoint for mach service: %{public}@ (on behalf of BSService name: %{public}@)", v2, 0x16u);
 }
 
 - (void)isIdleTimerServiceAvailable
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_access_addIdleTimerOnBehalfOfSceneWithPID:withConfiguration:forReason:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_access_removeIdleTimerConfiguration:forReason:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

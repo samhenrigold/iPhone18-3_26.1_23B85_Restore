@@ -4,6 +4,7 @@
 - (BOOL)isClassMemberSearch;
 - (BOOL)isGroupMemberSearch;
 - (BOOL)isPersonSearch;
+- (BOOL)isValid:(BOOL)valid error:(id *)error;
 - (BOOL)requiresDashboardEntitlement;
 - (CLSSearchSpecification)initWithCoder:(id)coder;
 - (CLSSearchSpecification)initWithOptions:(unint64_t)options behaviors:(unint64_t)behaviors;
@@ -198,20 +199,20 @@
 
 - (CLSSearchSpecification)initWithCoder:(id)coder
 {
-  v92[5] = *MEMORY[0x277D85DE8];
+  v91[5] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v91.receiver = self;
-  v91.super_class = CLSSearchSpecification;
-  v5 = [(CLSSearchSpecification *)&v91 init];
+  v90.receiver = self;
+  v90.super_class = CLSSearchSpecification;
+  v5 = [(CLSSearchSpecification *)&v90 init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v92[0] = objc_opt_class();
-    v92[1] = objc_opt_class();
-    v92[2] = objc_opt_class();
-    v92[3] = objc_opt_class();
-    v92[4] = objc_opt_class();
-    v8 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v7, v92, 5);
+    v91[0] = objc_opt_class();
+    v91[1] = objc_opt_class();
+    v91[2] = objc_opt_class();
+    v91[3] = objc_opt_class();
+    v91[4] = objc_opt_class();
+    v8 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v7, v91, 5);
     v10 = objc_msgSend_setWithArray_(v6, v9, v8);
 
     v11 = objc_opt_class();
@@ -317,7 +318,6 @@
     v5->_includeEmptyGroupsInResults = objc_msgSend_decodeBoolForKey_(coderCopy, v88, @"includeEmptyGroupsInResults");
   }
 
-  v89 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -568,29 +568,29 @@
 
 - (id)predicateUsingSubPredicateBlock:(id)block
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v5 = objc_opt_new();
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v8 = objc_msgSend_searchTokens(self, v6, v7, 0);
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v25, v29, 16);
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v24, v28, 16);
   if (v10)
   {
     v13 = v10;
-    v14 = *v26;
+    v14 = *v25;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v26 != v14)
+        if (*v25 != v14)
         {
           objc_enumerationMutation(v8);
         }
 
-        v16 = *(*(&v25 + 1) + 8 * i);
+        v16 = *(*(&v24 + 1) + 8 * i);
         if (objc_msgSend_length(v16, v11, v12))
         {
           v18 = blockCopy[2](blockCopy, v16);
@@ -601,7 +601,7 @@
         }
       }
 
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v25, v29, 16);
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v11, &v24, v28, 16);
     }
 
     while (v13);
@@ -616,8 +616,6 @@
   {
     v22 = 0;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -745,6 +743,34 @@
   v7 = objc_msgSend_predicateUsingSubPredicateBlock_(self, v6, v9);
 
   return v7;
+}
+
+- (BOOL)isValid:(BOOL)valid error:(id *)error
+{
+  if (valid)
+  {
+    return 1;
+  }
+
+  if ((objc_msgSend_options(self, a2, valid) & 0x13) != 0)
+  {
+    v9 = MEMORY[0x277CCA9B8];
+    v10 = objc_msgSend_options(self, v7, v8);
+    v11 = NSStringFromSearchOptions(v10);
+    objc_msgSend_cls_assignError_code_format_(v9, v12, error, 4, @"Query with options: '%@' not allowed without a valid user.", v11);
+
+    return 0;
+  }
+
+  v13 = objc_msgSend_adminRequestor(self, v7, v8);
+
+  if (!v13)
+  {
+    objc_msgSend_cls_assignError_code_description_(MEMORY[0x277CCA9B8], v14, error, 2, @"No User Mode searches require a valid CLSAdminRequestor.");
+    return 0;
+  }
+
+  return 1;
 }
 
 - (BOOL)requiresDashboardEntitlement

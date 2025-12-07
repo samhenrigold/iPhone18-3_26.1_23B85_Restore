@@ -30,100 +30,39 @@ void ___PKValidateSemanticsDict_block_invoke(uint64_t a1, void *a2, void *a3, _B
   }
 
   v16 = v7;
-  if (([v16 isEqualToString:@"departureLocationDescription"] & 1) != 0
-    || ([v16 isEqualToString:@"destinationLocationDescription"] & 1) != 0
-    || ([v16 isEqualToString:@"transitProvider"] & 1) != 0
-    || ([v16 isEqualToString:@"vehicleName"] & 1) != 0
-    || ([v16 isEqualToString:@"vehicleNumber"] & 1) != 0
-    || ([v16 isEqualToString:@"vehicleType"] & 1) != 0
-    || ([v16 isEqualToString:@"boardingGroup"] & 1) != 0
-    || ([v16 isEqualToString:@"boardingZone"] & 1) != 0
-    || ([v16 isEqualToString:@"boardingSequenceNumber"] & 1) != 0
-    || ([v16 isEqualToString:@"confirmationNumber"] & 1) != 0
-    || ([v16 isEqualToString:@"transitStatus"] & 1) != 0
-    || ([v16 isEqualToString:@"transitStatusReason"] & 1) != 0
-    || ([v16 isEqualToString:@"membershipProgramName"] & 1) != 0
-    || ([v16 isEqualToString:@"membershipProgramNumber"] & 1) != 0
-    || ([v16 isEqualToString:@"membershipProgramStatus"] & 1) != 0
-    || ([v16 isEqualToString:@"priorityStatus"] & 1) != 0
-    || ([v16 isEqualToString:@"securityScreening"] & 1) != 0
-    || ([v16 isEqualToString:@"flightCode"] & 1) != 0
-    || ([v16 isEqualToString:@"airlineCode"] & 1) != 0
-    || ([v16 isEqualToString:@"departureAirportCode"] & 1) != 0
-    || ([v16 isEqualToString:@"departureAirportName"] & 1) != 0
-    || ([v16 isEqualToString:@"departureCityName"] & 1) != 0
-    || ([v16 isEqualToString:@"departureTerminal"] & 1) != 0
-    || ([v16 isEqualToString:@"departureGate"] & 1) != 0
-    || ([v16 isEqualToString:@"destinationAirportCode"] & 1) != 0
-    || ([v16 isEqualToString:@"destinationAirportName"] & 1) != 0
-    || ([v16 isEqualToString:@"destinationCityName"] & 1) != 0
-    || ([v16 isEqualToString:@"destinationTerminal"] & 1) != 0
-    || ([v16 isEqualToString:@"destinationGate"] & 1) != 0
-    || ([v16 isEqualToString:@"departurePlatform"] & 1) != 0
-    || ([v16 isEqualToString:@"departureStationName"] & 1) != 0
-    || ([v16 isEqualToString:@"destinationPlatform"] & 1) != 0
-    || ([v16 isEqualToString:@"destinationStationName"] & 1) != 0
-    || ([v16 isEqualToString:@"carNumber"] & 1) != 0
-    || ([v16 isEqualToString:@"eventName"] & 1) != 0
-    || ([v16 isEqualToString:@"venueName"] & 1) != 0
-    || ([v16 isEqualToString:@"venueEntrance"] & 1) != 0
-    || ([v16 isEqualToString:@"venueEntranceGate"] & 1) != 0
-    || ([v16 isEqualToString:@"venueEntranceDoor"] & 1) != 0
-    || ([v16 isEqualToString:@"venueEntrancePortal"] & 1) != 0
-    || ([v16 isEqualToString:@"venueRegionName"] & 1) != 0
-    || ([v16 isEqualToString:@"venueRoom"] & 1) != 0
-    || ([v16 isEqualToString:@"venuePhoneNumber"] & 1) != 0
-    || ([v16 isEqualToString:@"venuePlaceID"] & 1) != 0
-    || ([v16 isEqualToString:@"leagueName"] & 1) != 0
-    || ([v16 isEqualToString:@"leagueAbbreviation"] & 1) != 0
-    || ([v16 isEqualToString:@"homeTeamLocation"] & 1) != 0
-    || ([v16 isEqualToString:@"homeTeamName"] & 1) != 0
-    || ([v16 isEqualToString:@"homeTeamAbbreviation"] & 1) != 0
-    || ([v16 isEqualToString:@"awayTeamLocation"] & 1) != 0
-    || ([v16 isEqualToString:@"awayTeamName"] & 1) != 0
-    || ([v16 isEqualToString:@"awayTeamAbbreviation"] & 1) != 0
-    || ([v16 isEqualToString:@"sportName"] & 1) != 0
-    || ([v16 isEqualToString:@"genre"] & 1) != 0
-    || ([v16 isEqualToString:@"eventType"] & 1) != 0
-    || ([v16 isEqualToString:@"eventLiveMessage"] & 1) != 0
-    || ([v16 isEqualToString:@"admissionLevel"] & 1) != 0
-    || ([v16 isEqualToString:@"admissionLevelAbbreviation"] & 1) != 0
-    || ([v16 isEqualToString:@"attendeeName"] & 1) != 0
-    || ([v16 isEqualToString:@"entranceDescription"] & 1) != 0
-    || ([v16 isEqualToString:@"additionalTicketAttributes"] & 1) != 0
-    || [v16 isEqualToString:@"internationalDocumentsVerifiedDeclarationName"])
+  if ((objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || (objc_msgSend_isEqualToString_(v16) & 1) != 0 || objc_msgSend_isEqualToString_(v16))
   {
 
     goto LABEL_65;
   }
 
-  v30 = [v16 isEqualToString:@"ticketFareClass"];
+  isEqualToString = objc_msgSend_isEqualToString_(v16);
 
-  if (!v30)
+  if (!isEqualToString)
   {
     v31 = v16;
-    if (([v31 isEqualToString:@"originalDepartureDate"] & 1) != 0 || (objc_msgSend(v31, "isEqualToString:", @"currentDepartureDate") & 1) != 0 || (objc_msgSend(v31, "isEqualToString:", @"originalArrivalDate") & 1) != 0 || (objc_msgSend(v31, "isEqualToString:", @"currentArrivalDate") & 1) != 0 || (objc_msgSend(v31, "isEqualToString:", @"originalBoardingDate") & 1) != 0 || (objc_msgSend(v31, "isEqualToString:", @"currentBoardingDate") & 1) != 0 || (objc_msgSend(v31, "isEqualToString:", @"eventStartDate") & 1) != 0 || (objc_msgSend(v31, "isEqualToString:", @"venueDoorsOpenDate") & 1) != 0 || (objc_msgSend(v31, "isEqualToString:", @"venueGatesOpenDate") & 1) != 0 || (objc_msgSend(v31, "isEqualToString:", @"venueParkingLotsOpenDate") & 1) != 0 || (objc_msgSend(v31, "isEqualToString:", @"venueBoxOfficeOpenDate") & 1) != 0 || (objc_msgSend(v31, "isEqualToString:", @"venueFanZoneOpenDate") & 1) != 0 || (objc_msgSend(v31, "isEqualToString:", @"venueOpenDate") & 1) != 0 || objc_msgSend(v31, "isEqualToString:", @"venueCloseDate"))
+    if ((objc_msgSend_isEqualToString_(v31) & 1) != 0 || (objc_msgSend_isEqualToString_(v31) & 1) != 0 || (objc_msgSend_isEqualToString_(v31) & 1) != 0 || (objc_msgSend_isEqualToString_(v31) & 1) != 0 || (objc_msgSend_isEqualToString_(v31) & 1) != 0 || (objc_msgSend_isEqualToString_(v31) & 1) != 0 || (objc_msgSend_isEqualToString_(v31) & 1) != 0 || (objc_msgSend_isEqualToString_(v31) & 1) != 0 || (objc_msgSend_isEqualToString_(v31) & 1) != 0 || (objc_msgSend_isEqualToString_(v31) & 1) != 0 || (objc_msgSend_isEqualToString_(v31) & 1) != 0 || (objc_msgSend_isEqualToString_(v31) & 1) != 0 || (objc_msgSend_isEqualToString_(v31) & 1) != 0 || objc_msgSend_isEqualToString_(v31))
     {
     }
 
     else
     {
-      v32 = [v31 isEqualToString:@"eventEndDate"];
+      v32 = objc_msgSend_isEqualToString_(v31);
 
       if (!v32)
       {
         v48 = v31;
-        if (([v48 isEqualToString:@"eventTimeZone"] & 1) != 0 || (objc_msgSend(v48, "isEqualToString:", @"departureAirportTimeZone") & 1) != 0 || (objc_msgSend(v48, "isEqualToString:", @"destinationAirportTimeZone") & 1) != 0 || objc_msgSend(v48, "isEqualToString:", @"departureLocationTimeZone"))
+        if ((objc_msgSend_isEqualToString_(v48) & 1) != 0 || (objc_msgSend_isEqualToString_(v48) & 1) != 0 || (objc_msgSend_isEqualToString_(v48) & 1) != 0 || objc_msgSend_isEqualToString_(v48))
         {
         }
 
         else
         {
-          v49 = [v48 isEqualToString:@"destinationLocationTimeZone"];
+          v49 = objc_msgSend_isEqualToString_(v48);
 
           if (!v49)
           {
-            if ([v48 isEqualToString:@"eventStartDateInfo"])
+            if (objc_msgSend_isEqualToString_(v48))
             {
               objc_opt_class();
               if (objc_opt_isKindOfClass())
@@ -143,28 +82,28 @@ LABEL_68:
             }
 
             v71 = v48;
-            if (([v71 isEqualToString:@"departureLocation"] & 1) != 0 || objc_msgSend(v71, "isEqualToString:", @"destinationLocation"))
+            if ((objc_msgSend_isEqualToString_(v71) & 1) != 0 || objc_msgSend_isEqualToString_(v71))
             {
             }
 
             else
             {
-              v72 = [v71 isEqualToString:@"venueLocation"];
+              v72 = objc_msgSend_isEqualToString_(v71);
 
               if (!v72)
               {
                 v80 = v71;
-                if ([v80 isEqualToString:@"balance"])
+                if (objc_msgSend_isEqualToString_(v80))
                 {
                 }
 
                 else
                 {
-                  v81 = [v80 isEqualToString:@"balance"];
+                  v81 = objc_msgSend_isEqualToString_(v80);
 
                   if (!v81)
                   {
-                    if ([v80 isEqualToString:@"passengerName"])
+                    if (objc_msgSend_isEqualToString_(v80))
                     {
                       objc_opt_class();
                       if (objc_opt_isKindOfClass())
@@ -177,36 +116,36 @@ LABEL_68:
                     }
 
                     v96 = v80;
-                    if (([v96 isEqualToString:@"flightNumber"] & 1) != 0 || (objc_msgSend(v96, "isEqualToString:", @"duration") & 1) != 0 || (objc_msgSend(v96, "isEqualToString:", @"tailgatingAllowed") & 1) != 0 || objc_msgSend(v96, "isEqualToString:", @"silenceRequested"))
+                    if ((objc_msgSend_isEqualToString_(v96) & 1) != 0 || (objc_msgSend_isEqualToString_(v96) & 1) != 0 || (objc_msgSend_isEqualToString_(v96) & 1) != 0 || objc_msgSend_isEqualToString_(v96))
                     {
                     }
 
                     else
                     {
-                      v97 = [v96 isEqualToString:@"internationalDocumentsAreVerified"];
+                      v97 = objc_msgSend_isEqualToString_(v96);
 
                       if (!v97)
                       {
                         v105 = v96;
-                        if (([v105 isEqualToString:@"artistIDs"] & 1) != 0 || (objc_msgSend(v105, "isEqualToString:", @"performerNames") & 1) != 0 || (objc_msgSend(v105, "isEqualToString:", @"albumIDs") & 1) != 0 || (objc_msgSend(v105, "isEqualToString:", @"playlistIDs") & 1) != 0 || (objc_msgSend(v105, "isEqualToString:", @"departureLocationSecurityPrograms") & 1) != 0 || (objc_msgSend(v105, "isEqualToString:", @"destinationLocationSecurityPrograms") & 1) != 0 || (objc_msgSend(v105, "isEqualToString:", @"passengerEligibleSecurityPrograms") & 1) != 0 || (objc_msgSend(v105, "isEqualToString:", @"passengerCapabilities") & 1) != 0 || (objc_msgSend(v105, "isEqualToString:", @"passengerServiceSSRs") & 1) != 0 || (objc_msgSend(v105, "isEqualToString:", @"passengerInformationSSRs") & 1) != 0 || objc_msgSend(v105, "isEqualToString:", @"passengerAirlineSSRs"))
+                        if ((objc_msgSend_isEqualToString_(v105) & 1) != 0 || (objc_msgSend_isEqualToString_(v105) & 1) != 0 || (objc_msgSend_isEqualToString_(v105) & 1) != 0 || (objc_msgSend_isEqualToString_(v105) & 1) != 0 || (objc_msgSend_isEqualToString_(v105) & 1) != 0 || (objc_msgSend_isEqualToString_(v105) & 1) != 0 || (objc_msgSend_isEqualToString_(v105) & 1) != 0 || (objc_msgSend_isEqualToString_(v105) & 1) != 0 || (objc_msgSend_isEqualToString_(v105) & 1) != 0 || (objc_msgSend_isEqualToString_(v105) & 1) != 0 || objc_msgSend_isEqualToString_(v105))
                         {
                         }
 
                         else
                         {
-                          v106 = [v105 isEqualToString:@"loungePlaceIDs"];
+                          v106 = objc_msgSend_isEqualToString_(v105);
 
                           if (!v106)
                           {
                             v126 = v105;
-                            if ([v126 isEqualToString:@"seats"])
+                            if (objc_msgSend_isEqualToString_(v126))
                             {
                               _os_feature_enabled_impl();
                             }
 
                             else
                             {
-                              v127 = [v126 isEqualToString:@"wifiAccess"];
+                              v127 = objc_msgSend_isEqualToString_(v126);
                               v128 = _os_feature_enabled_impl();
                               if (!v128 || (v127 & 1) != 0)
                               {
@@ -215,7 +154,7 @@ LABEL_68:
 
                               else
                               {
-                                v129 = [v126 isEqualToString:@"airPlay"];
+                                v129 = objc_msgSend_isEqualToString_(v126);
                               }
 
                               if ((v129 & 1) == 0)

@@ -11,9 +11,9 @@
     +[EFScheduler(MessageUI) __mui_nextRunLoopMainThreadScheduler];
   }
 
-  v1 = __mui_nextRunLoopMainThreadScheduler_scheduler;
+  v2 = __mui_nextRunLoopMainThreadScheduler_scheduler;
 
-  return v1;
+  return v2;
 }
 
 @end

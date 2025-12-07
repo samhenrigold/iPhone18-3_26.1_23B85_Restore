@@ -483,7 +483,7 @@ LABEL_9:
   nameCopy = name;
   fileURL = [(_UINavigationBarTitleRenamerRemoteSession *)self fileURL];
   domain = [failCopy domain];
-  if (![domain isEqualToString:*MEMORY[0x1E696A250]] || objc_msgSend(failCopy, "code") != 4)
+  if (!objc_msgSend_isEqualToString_(domain) || [failCopy code] != 4)
   {
 
     goto LABEL_6;
@@ -660,9 +660,9 @@ LABEL_7:
     objc_initWeak(&location, self);
     lastPathComponent = [fileURL lastPathComponent];
     stringByDeletingPathExtension = [lastPathComponent stringByDeletingPathExtension];
-    v8 = [stringByDeletingPathExtension isEqual:textCopy];
+    isEqual = objc_msgSend_isEqual_(stringByDeletingPathExtension);
 
-    if (v8)
+    if (isEqual)
     {
       [(_UINavigationBarTitleRenamerRemoteSession *)self fileRenameDidEnd:fileURL];
     }

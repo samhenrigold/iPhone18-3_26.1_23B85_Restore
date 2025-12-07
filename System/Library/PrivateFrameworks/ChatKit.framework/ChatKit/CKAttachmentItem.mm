@@ -234,32 +234,32 @@ LABEL_13:
   }
 }
 
-void __33__CKAttachmentItem__savePreview___block_invoke(uint64_t a1)
+void __33__CKAttachmentItem__savePreview___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = *(a1 + 32);
+      v4 = *(a1 + 32);
       *buf = 138412290;
-      v11 = v3;
-      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Perform save: %@", buf, 0xCu);
+      v12 = v4;
+      _os_log_impl(&dword_19020E000, v3, OS_LOG_TYPE_INFO, "Perform save: %@", buf, 0xCu);
     }
   }
 
-  v4 = [*(a1 + 32) previewURL:1];
-  if (v4)
+  v5 = [*(a1 + 32) previewURL:1];
+  if (v5)
   {
-    v5 = [MEMORY[0x1E696AC08] defaultManager];
-    v6 = [v4 path];
-    v7 = [v5 fileExistsAtPath:v6];
+    v6 = [MEMORY[0x1E696AC08] defaultManager];
+    v7 = [v5 path];
+    v8 = [v6 fileExistsAtPath:v7];
 
-    if ((v7 & 1) == 0)
+    if ((v8 & 1) == 0)
     {
-      v8 = *(a1 + 40);
-      v9 = v4;
+      v9 = *(a1 + 40);
+      v10 = v5;
       im_perform_with_task_assertion();
     }
   }
@@ -271,7 +271,7 @@ void __33__CKAttachmentItem__savePreview___block_invoke_49(uint64_t a1)
   v3 = *(a1 + 32);
   if (!v2)
   {
-    v4 = CKUIImageJPEGRepresentationWithHardwareAcceleration(v3);
+    v4 = CKUIImageJPEGRepresentationWithHardwareAcceleration(v3, 0.8);
     if (!v4)
     {
       goto LABEL_6;

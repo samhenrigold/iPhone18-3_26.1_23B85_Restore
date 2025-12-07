@@ -1,34 +1,3 @@
-uint64_t CMMsl::KeyboardMotionTrackpad::hash_value(CMMsl::KeyboardMotionTrackpad *this)
-{
-  if (*(this + 20))
-  {
-    v1 = *(this + 1);
-    if (v1 == 0.0)
-    {
-      v1 = 0.0;
-    }
-
-    if ((*(this + 20) & 2) != 0)
-    {
-      goto LABEL_3;
-    }
-
-LABEL_7:
-    v2 = 0;
-    return v2 ^ *&v1;
-  }
-
-  v1 = 0.0;
-  if ((*(this + 20) & 2) == 0)
-  {
-    goto LABEL_7;
-  }
-
-LABEL_3:
-  v2 = *(this + 16);
-  return v2 ^ *&v1;
-}
-
 void CMMsl::LSLHeadingEstimation::~LSLHeadingEstimation(CMMsl::LSLHeadingEstimation *this)
 {
   *this = off_10041FDC0;
@@ -421,7 +390,7 @@ uint64_t CMMsl::LSLHeadingEstimation::LSLHeadingEstimation(uint64_t a1, uint64_t
   return a1;
 }
 
-CMMsl *CMMsl::LSLHeadingEstimation::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::LSLHeadingEstimation::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -1864,63 +1833,57 @@ LABEL_7:
   }
 
 LABEL_13:
-  v6 = *(this + 4);
-  v7 = *(this + 5);
+  v6 = PBHashBytes();
+  v7 = PBHashBytes();
   v8 = PBHashBytes();
-  v9 = *(this + 1);
-  v10 = *(this + 2);
-  v11 = PBHashBytes();
-  v12 = *(this + 7);
-  v13 = *(this + 8);
-  v14 = PBHashBytes();
-  v15 = *(this + 96);
-  if ((v15 & 2) != 0)
+  v9 = *(this + 96);
+  if ((v9 & 2) != 0)
   {
-    v16 = *(this + 11);
-    if (v16 == 0.0)
+    v10 = *(this + 11);
+    if (v10 == 0.0)
     {
-      v16 = 0.0;
+      v10 = 0.0;
     }
 
     if ((*(this + 96) & 0x2000) != 0)
     {
 LABEL_15:
-      v17 = *(this + 46);
-      if ((v15 & 4) != 0)
+      v11 = *(this + 46);
+      if ((v9 & 4) != 0)
       {
         goto LABEL_16;
       }
 
 LABEL_48:
-      v18 = 0.0;
-      if ((v15 & 0x10) != 0)
+      v12 = 0.0;
+      if ((v9 & 0x10) != 0)
       {
         goto LABEL_19;
       }
 
 LABEL_49:
-      v19 = 0.0;
-      if (v15)
+      v13 = 0.0;
+      if (v9)
       {
         goto LABEL_22;
       }
 
 LABEL_50:
-      v20 = 0.0;
-      if ((v15 & 8) != 0)
+      v14 = 0.0;
+      if ((v9 & 8) != 0)
       {
         goto LABEL_25;
       }
 
 LABEL_51:
-      v21 = 0.0;
-      if ((v15 & 0x20) != 0)
+      v15 = 0.0;
+      if ((v9 & 0x20) != 0)
       {
         goto LABEL_28;
       }
 
 LABEL_52:
-      v22 = 0.0;
+      v16 = 0.0;
       if ((*(this + 96) & 0x800) != 0)
       {
         goto LABEL_31;
@@ -1932,92 +1895,92 @@ LABEL_52:
 
   else
   {
-    v16 = 0.0;
+    v10 = 0.0;
     if ((*(this + 96) & 0x2000) != 0)
     {
       goto LABEL_15;
     }
   }
 
-  v17 = 0;
-  if ((v15 & 4) == 0)
+  v11 = 0;
+  if ((v9 & 4) == 0)
   {
     goto LABEL_48;
   }
 
 LABEL_16:
-  v18 = *(this + 12);
-  if (v18 == 0.0)
+  v12 = *(this + 12);
+  if (v12 == 0.0)
   {
-    v18 = 0.0;
+    v12 = 0.0;
   }
 
-  if ((v15 & 0x10) == 0)
+  if ((v9 & 0x10) == 0)
   {
     goto LABEL_49;
   }
 
 LABEL_19:
-  v19 = *(this + 14);
-  if (v19 == 0.0)
+  v13 = *(this + 14);
+  if (v13 == 0.0)
   {
-    v19 = 0.0;
+    v13 = 0.0;
   }
 
-  if ((v15 & 1) == 0)
+  if ((v9 & 1) == 0)
   {
     goto LABEL_50;
   }
 
 LABEL_22:
-  v20 = *(this + 10);
-  if (v20 == 0.0)
+  v14 = *(this + 10);
+  if (v14 == 0.0)
   {
-    v20 = 0.0;
+    v14 = 0.0;
   }
 
-  if ((v15 & 8) == 0)
+  if ((v9 & 8) == 0)
   {
     goto LABEL_51;
   }
 
 LABEL_25:
-  v21 = *(this + 13);
-  if (v21 == 0.0)
+  v15 = *(this + 13);
+  if (v15 == 0.0)
   {
-    v21 = 0.0;
+    v15 = 0.0;
   }
 
-  if ((v15 & 0x20) == 0)
+  if ((v9 & 0x20) == 0)
   {
     goto LABEL_52;
   }
 
 LABEL_28:
-  v22 = *(this + 15);
-  if (v22 == 0.0)
+  v16 = *(this + 15);
+  if (v16 == 0.0)
   {
-    v22 = 0.0;
+    v16 = 0.0;
   }
 
   if ((*(this + 96) & 0x800) != 0)
   {
 LABEL_31:
-    v23 = *(this + 21);
-    if ((v15 & 0x80) != 0)
+    v17 = *(this + 21);
+    if ((v9 & 0x80) != 0)
     {
       goto LABEL_32;
     }
 
 LABEL_54:
-    v24 = 0.0;
+    v18 = 0.0;
     if ((*(this + 96) & 0x100) != 0)
     {
       goto LABEL_35;
     }
 
 LABEL_55:
-    v25 = 0.0;
+    v19 = 0.0;
     if ((*(this + 96) & 0x200) != 0)
     {
       goto LABEL_38;
@@ -2027,17 +1990,17 @@ LABEL_55:
   }
 
 LABEL_53:
-  v23 = 0;
-  if ((v15 & 0x80) == 0)
+  v17 = 0;
+  if ((v9 & 0x80) == 0)
   {
     goto LABEL_54;
   }
 
 LABEL_32:
-  v24 = *(this + 17);
-  if (v24 == 0.0)
+  v18 = *(this + 17);
+  if (v18 == 0.0)
   {
-    v24 = 0.0;
+    v18 = 0.0;
   }
 
   if ((*(this + 96) & 0x100) == 0)
@@ -2046,19 +2009,19 @@ LABEL_32:
   }
 
 LABEL_35:
-  v25 = *(this + 18);
-  if (v25 == 0.0)
+  v19 = *(this + 18);
+  if (v19 == 0.0)
   {
-    v25 = 0.0;
+    v19 = 0.0;
   }
 
   if ((*(this + 96) & 0x200) != 0)
   {
 LABEL_38:
-    v26 = *(this + 19);
-    if (v26 == 0.0)
+    v20 = *(this + 19);
+    if (v20 == 0.0)
     {
-      v26 = 0.0;
+      v20 = 0.0;
     }
 
     if ((*(this + 96) & 0x400) != 0)
@@ -2067,25 +2030,25 @@ LABEL_38:
     }
 
 LABEL_57:
-    v27 = 0.0;
-    return v4 ^ v3 ^ v5 ^ v8 ^ v11 ^ v14 ^ *&v16 ^ v17 ^ *&v18 ^ *&v19 ^ *&v20 ^ *&v21 ^ *&v22 ^ v23 ^ *&v24 ^ *&v25 ^ *&v26 ^ *&v27;
+    v21 = 0.0;
+    return v4 ^ v3 ^ v5 ^ v6 ^ v7 ^ v8 ^ *&v10 ^ v11 ^ *&v12 ^ *&v13 ^ *&v14 ^ *&v15 ^ *&v16 ^ v17 ^ *&v18 ^ *&v19 ^ *&v20 ^ *&v21;
   }
 
 LABEL_56:
-  v26 = 0.0;
+  v20 = 0.0;
   if ((*(this + 96) & 0x400) == 0)
   {
     goto LABEL_57;
   }
 
 LABEL_41:
-  v27 = *(this + 20);
-  if (v27 == 0.0)
+  v21 = *(this + 20);
+  if (v21 == 0.0)
   {
-    v27 = 0.0;
+    v21 = 0.0;
   }
 
-  return v4 ^ v3 ^ v5 ^ v8 ^ v11 ^ v14 ^ *&v16 ^ v17 ^ *&v18 ^ *&v19 ^ *&v20 ^ *&v21 ^ *&v22 ^ v23 ^ *&v24 ^ *&v25 ^ *&v26 ^ *&v27;
+  return v4 ^ v3 ^ v5 ^ v6 ^ v7 ^ v8 ^ *&v10 ^ v11 ^ *&v12 ^ *&v13 ^ *&v14 ^ *&v15 ^ *&v16 ^ v17 ^ *&v18 ^ *&v19 ^ *&v20 ^ *&v21;
 }
 
 void CMMsl::LegacyALS5CHInput::~LegacyALS5CHInput(CMMsl::LegacyALS5CHInput *this)
@@ -5099,7 +5062,7 @@ float CMMsl::LiftToWakeStatusNeo::LiftToWakeStatusNeo(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::LiftToWakeStatusNeo::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::LiftToWakeStatusNeo::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -6484,7 +6447,7 @@ double CMMsl::LocationOscarEmu::LocationOscarEmu(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::LocationOscarEmu::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::LocationOscarEmu::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -7815,11 +7778,11 @@ void CMMsl::MLBasedBioMotionClassification::~MLBasedBioMotionClassification(CMMs
   operator delete();
 }
 
-void *CMMsl::MLBasedBioMotionClassification::MLBasedBioMotionClassification(void *this, const CMMsl::MLBasedBioMotionClassification *a2)
+CMMsl::MLBasedBioMotionClassification *CMMsl::MLBasedBioMotionClassification::MLBasedBioMotionClassification(CMMsl::MLBasedBioMotionClassification *this, const CMMsl::BioMotionClassification **a2)
 {
   *this = off_10041FF80;
-  this[1] = 0;
-  if (*(a2 + 1))
+  *(this + 1) = 0;
+  if (a2[1])
   {
     operator new();
   }
@@ -7827,13 +7790,13 @@ void *CMMsl::MLBasedBioMotionClassification::MLBasedBioMotionClassification(void
   return this;
 }
 
-const CMMsl::MLBasedBioMotionClassification *CMMsl::MLBasedBioMotionClassification::operator=(const CMMsl::MLBasedBioMotionClassification *a1, const CMMsl::MLBasedBioMotionClassification *a2)
+uint64_t CMMsl::MLBasedBioMotionClassification::operator=(uint64_t a1, const CMMsl::BioMotionClassification **a2)
 {
   if (a1 != a2)
   {
     CMMsl::MLBasedBioMotionClassification::MLBasedBioMotionClassification(&v5, a2);
-    v3 = *(a1 + 1);
-    *(a1 + 1) = v6;
+    v3 = *(a1 + 8);
+    *(a1 + 8) = v6;
     v6 = v3;
     CMMsl::MLBasedBioMotionClassification::~MLBasedBioMotionClassification(&v5);
   }
@@ -8048,9 +8011,9 @@ CMMsl::BioMotionClassification *CMMsl::MLBasedBioMotionClassification::hash_valu
   return result;
 }
 
-uint64_t CMMsl::MLBasedBioMotionClassification::makeSuper(uint64_t this)
+void *CMMsl::MLBasedBioMotionClassification::makeSuper(void *this)
 {
-  if (!*(this + 8))
+  if (!this[1])
   {
     operator new();
   }
@@ -8564,11 +8527,11 @@ void CMMsl::MagneticAccessoryType1::~MagneticAccessoryType1(CMMsl::MagneticAcces
   operator delete();
 }
 
-uint64_t CMMsl::MagneticAccessoryType1::MagneticAccessoryType1(uint64_t this, const CMMsl::MagneticAccessoryType1 *a2)
+CMMsl::MagneticAccessoryType1 *CMMsl::MagneticAccessoryType1::MagneticAccessoryType1(CMMsl::MagneticAccessoryType1 *this, const CMMsl::MagneticAccessoryType1 *a2)
 {
   *this = off_10041FFF0;
-  *(this + 8) = 0;
-  *(this + 24) = 0;
+  *(this + 1) = 0;
+  *(this + 6) = 0;
   if (*(a2 + 1))
   {
     operator new();
@@ -8579,7 +8542,7 @@ uint64_t CMMsl::MagneticAccessoryType1::MagneticAccessoryType1(uint64_t this, co
   {
     v3 = *(a2 + 4);
     *(this + 24) |= 1u;
-    *(this + 16) = v3;
+    *(this + 4) = v3;
     v2 = *(a2 + 24);
   }
 
@@ -9862,4 +9825,115 @@ LABEL_13:
   v5 = *(v3 + 16);
 
   return PB::Writer::writeVarInt(a2, v5, 6u);
+}
+
+uint64_t CMMsl::Magnetometer::hash_value(CMMsl::Magnetometer *this)
+{
+  if ((*(this + 36) & 1) == 0)
+  {
+    v1 = 0.0;
+    if ((*(this + 36) & 8) != 0)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_19:
+    v3 = 0;
+    if ((*(this + 36) & 0x10) != 0)
+    {
+      goto LABEL_6;
+    }
+
+LABEL_20:
+    v5 = 0;
+    if ((*(this + 36) & 0x20) != 0)
+    {
+      goto LABEL_9;
+    }
+
+LABEL_21:
+    v7 = 0;
+    if ((*(this + 36) & 4) != 0)
+    {
+      goto LABEL_12;
+    }
+
+    goto LABEL_22;
+  }
+
+  v1 = *(this + 1);
+  if (v1 == 0.0)
+  {
+    v1 = 0.0;
+  }
+
+  if ((*(this + 36) & 8) == 0)
+  {
+    goto LABEL_19;
+  }
+
+LABEL_3:
+  v2 = *(this + 6);
+  v3 = LODWORD(v2);
+  if (v2 == 0.0)
+  {
+    v3 = 0;
+  }
+
+  if ((*(this + 36) & 0x10) == 0)
+  {
+    goto LABEL_20;
+  }
+
+LABEL_6:
+  v4 = *(this + 7);
+  v5 = LODWORD(v4);
+  if (v4 == 0.0)
+  {
+    v5 = 0;
+  }
+
+  if ((*(this + 36) & 0x20) == 0)
+  {
+    goto LABEL_21;
+  }
+
+LABEL_9:
+  v6 = *(this + 8);
+  v7 = LODWORD(v6);
+  if (v6 == 0.0)
+  {
+    v7 = 0;
+  }
+
+  if ((*(this + 36) & 4) != 0)
+  {
+LABEL_12:
+    v8 = *(this + 5);
+    v9 = LODWORD(v8);
+    if (v8 == 0.0)
+    {
+      v9 = 0;
+    }
+
+    if ((*(this + 36) & 2) != 0)
+    {
+      goto LABEL_15;
+    }
+
+LABEL_23:
+    v10 = 0;
+    return v3 ^ *&v1 ^ v5 ^ v7 ^ v9 ^ v10;
+  }
+
+LABEL_22:
+  v9 = 0;
+  if ((*(this + 36) & 2) == 0)
+  {
+    goto LABEL_23;
+  }
+
+LABEL_15:
+  v10 = *(this + 4);
+  return v3 ^ *&v1 ^ v5 ^ v7 ^ v9 ^ v10;
 }

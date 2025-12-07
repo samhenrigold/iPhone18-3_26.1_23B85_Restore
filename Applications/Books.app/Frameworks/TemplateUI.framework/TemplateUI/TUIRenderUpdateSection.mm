@@ -67,7 +67,7 @@
     from = self->_from;
     if (from)
     {
-      [(TUIRenderModelSection *)from config:v8.location];
+      objc_msgSend_config(from);
       v13 = v34;
     }
 
@@ -79,7 +79,7 @@
     to = self->_to;
     if (to)
     {
-      [(TUIRenderModelSection *)to config];
+      objc_msgSend_config(to);
       v15 = v33;
     }
 
@@ -93,13 +93,13 @@
       v16 = self->_from;
       if (v16)
       {
-        [(TUIRenderModelSection *)v16 config];
+        objc_msgSend_config(v16);
         if (v32)
         {
           v17 = self->_from;
           if (v17)
           {
-            [(TUIRenderModelSection *)v17 config];
+            objc_msgSend_config(v17);
             v18 = v31;
           }
 
@@ -111,7 +111,7 @@
           v20 = self->_to;
           if (v20)
           {
-            [(TUIRenderModelSection *)v20 config];
+            objc_msgSend_config(v20);
             v21 = v30;
           }
 

@@ -27,7 +27,7 @@
 
 - (BOOL)_setTokenBucketConfiguration:(id)configuration
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   tokenBucketSize = self->_tokenBucketSize;
   tokenBucketCfgRefreshInterval = self->_tokenBucketCfgRefreshInterval;
@@ -44,15 +44,15 @@
     v10 = logHandle;
     name = [(RateLimiter *)self name];
     v12 = self->_tokenBucketCfgRefreshInterval;
-    v25 = 138413058;
-    v26 = name;
-    v27 = 1024;
-    v28 = v8;
-    v29 = 2048;
-    v30 = v12;
-    v31 = 2112;
-    v32 = @"interTokenInterval";
-    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "%@ setTokenBucketConfiguration result %d value %f for %@", &v25, 0x26u);
+    v24 = 138413058;
+    v25 = name;
+    v26 = 1024;
+    v27 = v8;
+    v28 = 2048;
+    v29 = v12;
+    v30 = 2112;
+    v31 = @"interTokenInterval";
+    _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "%@ setTokenBucketConfiguration result %d value %f for %@", &v24, 0x26u);
   }
 
   if (v8 < 0)
@@ -67,15 +67,15 @@
     v15 = v14;
     name2 = [(RateLimiter *)self name];
     v17 = self->_tokenBucketCfgIntervalBias;
-    v25 = 138413058;
-    v26 = name2;
-    v27 = 1024;
-    v28 = v13;
-    v29 = 2048;
-    v30 = v17;
-    v31 = 2112;
-    v32 = @"interTokenIntervalBias";
-    _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "%@ setTokenBucketConfiguration result %d value %f for %@", &v25, 0x26u);
+    v24 = 138413058;
+    v25 = name2;
+    v26 = 1024;
+    v27 = v13;
+    v28 = 2048;
+    v29 = v17;
+    v30 = 2112;
+    v31 = @"interTokenIntervalBias";
+    _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_DEBUG, "%@ setTokenBucketConfiguration result %d value %f for %@", &v24, 0x26u);
   }
 
   if (v13 < 0)
@@ -100,16 +100,15 @@ LABEL_12:
     v19 = v18;
     name3 = [(RateLimiter *)self name];
     configured = self->_configured;
-    v25 = 138412546;
-    v26 = name3;
-    v27 = 1024;
-    v28 = configured;
-    _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "%@ setTokenBucketConfiguration return %d", &v25, 0x12u);
+    v24 = 138412546;
+    v25 = name3;
+    v26 = 1024;
+    v27 = configured;
+    _os_log_impl(&dword_23255B000, v19, OS_LOG_TYPE_DEBUG, "%@ setTokenBucketConfiguration return %d", &v24, 0x12u);
   }
 
   v22 = self->_configured;
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -128,7 +127,7 @@ LABEL_12:
 
 - (BOOL)_tokenBucketResetWithRelativeStartTime:(double)time
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   self->_lastConsumed = v5 + time;
   logHandle = self->_logHandle;
@@ -137,23 +136,22 @@ LABEL_12:
     v7 = logHandle;
     name = [(RateLimiter *)self name];
     lastConsumed = self->_lastConsumed;
-    v12 = 138412802;
-    v13 = name;
-    v14 = 2048;
+    v11 = 138412802;
+    v12 = name;
+    v13 = 2048;
     timeCopy = time;
-    v16 = 2048;
-    v17 = lastConsumed;
-    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "%@ _tokenBucketResetWithRelativeStartTime %.3f, set lastConsumed %.3f", &v12, 0x20u);
+    v15 = 2048;
+    v16 = lastConsumed;
+    _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "%@ _tokenBucketResetWithRelativeStartTime %.3f, set lastConsumed %.3f", &v11, 0x20u);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (double)_tokenBucketAcquireHelper:(BOOL)helper
 {
   helperCopy = helper;
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   v6 = *&v5;
   LODWORD(v5) = self->_tokenBucketSize;
@@ -164,15 +162,15 @@ LABEL_12:
     v9 = logHandle;
     name = [(RateLimiter *)self name];
     lastConsumed = self->_lastConsumed;
-    v23 = 138413058;
-    v24 = name;
-    v25 = 2048;
-    v26 = v6;
-    v27 = 2048;
-    v28 = v7;
-    v29 = 2048;
-    v30 = lastConsumed;
-    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "%@ _acquireHelper now %.3f lastTokens %.3f _lastConsumed %.3f", &v23, 0x2Au);
+    v22 = 138413058;
+    v23 = name;
+    v24 = 2048;
+    v25 = v6;
+    v26 = 2048;
+    v27 = v7;
+    v28 = 2048;
+    v29 = lastConsumed;
+    _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "%@ _acquireHelper now %.3f lastTokens %.3f _lastConsumed %.3f", &v22, 0x2Au);
   }
 
   v12 = self->_lastConsumed;
@@ -194,11 +192,11 @@ LABEL_12:
         v16 = v18;
         name2 = [(RateLimiter *)self name];
         v20 = self->_lastConsumed;
-        v23 = 138412546;
-        v24 = name2;
-        v25 = 2048;
-        v26 = v20;
-        _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEBUG, "%@ _tokenBucketAcquireHelper  bump _lastConsumed to %.3f", &v23, 0x16u);
+        v22 = 138412546;
+        v23 = name2;
+        v24 = 2048;
+        v25 = v20;
+        _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEBUG, "%@ _tokenBucketAcquireHelper  bump _lastConsumed to %.3f", &v22, 0x16u);
 
         goto LABEL_11;
       }
@@ -213,17 +211,16 @@ LABEL_12:
     {
       v16 = v15;
       name3 = [(RateLimiter *)self name];
-      v23 = 138412546;
-      v24 = name3;
-      v25 = 2048;
-      v26 = v14;
-      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEBUG, "%@ _tokenBucketAcquireHelper return %.3f", &v23, 0x16u);
+      v22 = 138412546;
+      v23 = name3;
+      v24 = 2048;
+      v25 = v14;
+      _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_DEBUG, "%@ _tokenBucketAcquireHelper return %.3f", &v22, 0x16u);
 
 LABEL_11:
     }
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -267,10 +264,10 @@ LABEL_11:
 
 - (BOOL)setConfiguration:(id)configuration
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
-  v18 = 0;
-  v5 = [configurationCopy extractKey:@"rateLimiterStyle" toUint32:&v18 defaultTo:1];
+  v17 = 0;
+  v5 = [configurationCopy extractKey:@"rateLimiterStyle" toUint32:&v17 defaultTo:1];
   if (v5 < 1)
   {
     if (v5 < 0)
@@ -292,16 +289,16 @@ LABEL_10:
       name = [(RateLimiter *)self name];
       v9 = self->_style;
       *buf = 138412802;
-      v20 = name;
-      v21 = 1024;
-      v22 = v9;
-      v23 = 1024;
-      v24 = v18;
+      v19 = name;
+      v20 = 1024;
+      v21 = v9;
+      v22 = 1024;
+      v23 = v17;
       _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEBUG, "%@ setConfiguration overrides style %d -> %d", buf, 0x18u);
     }
 
-    style = v18;
-    self->_style = v18;
+    style = v17;
+    self->_style = v17;
   }
 
   if (style != 1)
@@ -316,9 +313,9 @@ LABEL_10:
     v13 = v12;
     name2 = [(RateLimiter *)self name];
     *buf = 138412546;
-    v20 = name2;
-    v21 = 1024;
-    v22 = v11;
+    v19 = name2;
+    v20 = 1024;
+    v21 = v11;
     _os_log_impl(&dword_23255B000, v13, OS_LOG_TYPE_DEBUG, "%@ setConfiguration ret %d after state 2", buf, 0x12u);
   }
 
@@ -329,7 +326,6 @@ LABEL_11:
     [(RateLimiter *)self _restoreDefaults];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -362,9 +358,8 @@ LABEL_11:
       name = @"Ratelimiter";
     }
 
-    tokenBucketCfgRefreshInterval = self->_tokenBucketCfgRefreshInterval;
-    v14 = [v11 initWithFormat:@"%@ style token-bucket bucket-size %d refresh %.3f (base %.3f bias %.3f) now %.3f last %.3f avail %d", name, self->_tokenBucketSize, *&self->_tokenBucketInterval, *&tokenBucketCfgRefreshInterval, *&self->_tokenBucketIntervalBias, *&v4, *&self->_lastConsumed, v7];
-    [v9 addObject:v14];
+    v13 = [v11 initWithFormat:@"%@ style token-bucket bucket-size %d refresh %.3f (base %.3f bias %.3f) now %.3f last %.3f avail %d", name, self->_tokenBucketSize, *&self->_tokenBucketInterval, *&self->_tokenBucketCfgRefreshInterval, *&self->_tokenBucketIntervalBias, *&v4, *&self->_lastConsumed, v7];
+    [v9 addObject:v13];
   }
 
   else

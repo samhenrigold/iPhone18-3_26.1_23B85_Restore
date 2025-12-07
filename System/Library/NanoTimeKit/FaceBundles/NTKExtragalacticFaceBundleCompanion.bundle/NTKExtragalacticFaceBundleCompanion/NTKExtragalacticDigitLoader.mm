@@ -37,27 +37,27 @@
 
 - (void)_loadDigits
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v3 = [&unk_284E9BC30 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v3 = [&unk_284E9BC30 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v22;
+    v5 = *v21;
     v6 = 0x277CCA000uLL;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v22 != v5)
+        if (*v21 != v5)
         {
           objc_enumerationMutation(&unk_284E9BC30);
         }
 
-        v8 = *(*(&v21 + 1) + 8 * i);
+        v8 = *(*(&v20 + 1) + 8 * i);
         v9 = [v8 componentsSeparatedByString:@"."];
         if ([v9 count] >= 3 && objc_msgSend(v9, "count") < 5)
         {
@@ -101,13 +101,11 @@
         }
       }
 
-      v4 = [&unk_284E9BC30 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v4 = [&unk_284E9BC30 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v4);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)digitDrawInfoForNumber:(id)number style:(unint64_t)style

@@ -135,8 +135,8 @@
 
   [(UIKeyShortcutHUDMetrics *)self->_metrics setSelfSizingPlayground:v15];
   model = [(_UIKeyShortcutHUDConfiguration *)self->_configuration model];
-  menu = [model menu];
-  [(UIKeyShortcutHUDMetrics *)self->_metrics setBaseMenu:menu];
+  v18 = objc_msgSend_menu(model);
+  [(UIKeyShortcutHUDMetrics *)self->_metrics setBaseMenu:v18];
 }
 
 - (void)_setupSubviews
@@ -185,8 +185,8 @@
   self->_toolbarVC = v21;
 
   model = [(_UIKeyShortcutHUDConfiguration *)self->_configuration model];
-  menu = [model menu];
-  [(_UIKeyShortcutHUDToolbarViewController *)self->_toolbarVC setMenu:menu];
+  v24 = objc_msgSend_menu(model);
+  [(_UIKeyShortcutHUDToolbarViewController *)self->_toolbarVC setMenu:v24];
 
   [(_UIKeyShortcutHUDToolbarViewController *)self->_toolbarVC setMetrics:self->_metrics];
   [(_UIKeyShortcutHUDToolbarViewController *)self->_toolbarVC setDelegate:self];
@@ -369,8 +369,8 @@
 - (void)_setupInitialViewState
 {
   model = [(_UIKeyShortcutHUDConfiguration *)self->_configuration model];
-  menu = [model menu];
-  children = [menu children];
+  v4 = objc_msgSend_menu(model);
+  children = [v4 children];
   firstObject = [children firstObject];
 
   [(_UIKeyShortcutHUDToolbarViewController *)self->_toolbarVC selectCategory:firstObject withCategoryIndex:0];
@@ -1057,9 +1057,9 @@
 
   uiKeyCommand = [shortcutCopy uiKeyCommand];
   WeakRetained = objc_loadWeakRetained(&self->_showShortcutsKeyCommand);
-  v9 = [uiKeyCommand isEqual:WeakRetained];
+  isEqual = objc_msgSend_isEqual_(uiKeyCommand);
 
-  if (!v9)
+  if (!isEqual)
   {
 LABEL_6:
     view = [(UIViewController *)self view];
@@ -1093,9 +1093,9 @@ LABEL_8:
   {
     uiKeyCommand = [shortcutCopy uiKeyCommand];
     WeakRetained = objc_loadWeakRetained(&self->_showShortcutsKeyCommand);
-    v10 = [uiKeyCommand isEqual:WeakRetained];
+    isEqual = objc_msgSend_isEqual_(uiKeyCommand);
 
-    v11 = v10 ^ 1;
+    v11 = isEqual ^ 1;
   }
 
   else

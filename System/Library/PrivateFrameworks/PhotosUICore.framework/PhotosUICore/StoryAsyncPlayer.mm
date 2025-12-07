@@ -6,7 +6,7 @@
 
 - (void)addVisualDiagnosticsToContext:(id)context completionHandler:(id)handler
 {
-  sub_1A3DB4F20();
+  sub_1A3DB4F20(0);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = _Block_copy(handler);

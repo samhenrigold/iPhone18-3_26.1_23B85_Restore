@@ -12,6 +12,7 @@
 - (id)getDetailsForMessagesWithRemoteIDInRange:(_NSRange)range fromMailbox:(id)mailbox;
 - (id)mailboxUidForMessage:(id)message;
 - (id)messageWithAccountStoreRecord:(void *)record;
+- (id)messageWithLibraryID:(unsigned int)d options:(unsigned int)options inMailbox:(id)mailbox;
 - (id)messageWithRemoteID:(id)d inRemoteMailbox:(id)mailbox;
 - (id)setFlagsFromDictionary:(id)dictionary forMessages:(id)messages;
 - (unsigned)deletedCountForMailbox:(id)mailbox;
@@ -57,8 +58,7 @@
     sharedGenericStore = v6->_sharedGenericStore;
     v6->_sharedGenericStore = v9;
 
-    [(MFLibraryStore *)v6->_sharedGenericStore setLibrary:v6];
-    v11 = sub_10001E9B0();
+    v11 = sub_10001E9B0([(MFLibraryStore *)v6->_sharedGenericStore setLibrary:v6]);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       account = [(IMAPServiceLibrary *)v6 account];
@@ -104,7 +104,7 @@
 
 - (void)flushMessageCache
 {
-  v3 = sub_10001E9B0();
+  v3 = sub_10001E9B0(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     account = [(IMAPServiceLibrary *)self account];
@@ -136,20 +136,20 @@
   messageFlags = [messageCopy messageFlags];
   if ((messageFlags & 1 | (4 * ((messageFlags >> 1) & 1)) | (messageFlags >> 27) & 0x20) != flags)
   {
-    v19 = sub_10001E9B0();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v22 = sub_10001E9B0(messageFlags);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       account = [(IMAPServiceLibrary *)self account];
-      v21 = *&account[OBJC_IVAR___MFAccount_mambaID];
-      v29 = 136315906;
-      v30 = v21;
-      v31 = 2080;
-      v32 = " ";
-      v33 = 1024;
+      v24 = *&account[OBJC_IVAR___MFAccount_mambaID];
+      v32 = 136315906;
+      v33 = v24;
+      v34 = 2080;
+      v35 = " ";
+      v36 = 1024;
       messageFlags2 = [messageCopy messageFlags];
-      v35 = 1024;
+      v38 = 1024;
       flagsCopy = flags;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#I %s%sverifyCachedMessage failed, flags %u vs %u", &v29, 0x22u);
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "#I %s%sverifyCachedMessage failed, flags %u vs %u", &v32, 0x22u);
     }
 
     goto LABEL_15;
@@ -160,66 +160,67 @@
 
   if ((v15 & 1) == 0)
   {
-    v19 = sub_10001E9B0();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v22 = sub_10001E9B0(v16);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       account2 = [(IMAPServiceLibrary *)self account];
-      v23 = *&account2[OBJC_IVAR___MFAccount_mambaID];
-      v29 = 136315394;
-      v30 = v23;
-      v31 = 2080;
-      v32 = " ";
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#I %s%sverifyCachedMessage failed, different remoteID", &v29, 0x16u);
+      v26 = *&account2[OBJC_IVAR___MFAccount_mambaID];
+      v32 = 136315394;
+      v33 = v26;
+      v34 = 2080;
+      v35 = " ";
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "#I %s%sverifyCachedMessage failed, different remoteID", &v32, 0x16u);
     }
 
     goto LABEL_15;
   }
 
-  if (((((flags & 0x20) == 0) ^ [messageCopy hasTemporaryUid]) & 1) == 0)
+  hasTemporaryUid = [messageCopy hasTemporaryUid];
+  if (((((flags & 0x20) == 0) ^ hasTemporaryUid) & 1) == 0)
   {
-    v19 = sub_10001E9B0();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v22 = sub_10001E9B0(hasTemporaryUid);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       account3 = [(IMAPServiceLibrary *)self account];
-      v25 = *&account3[OBJC_IVAR___MFAccount_mambaID];
-      v29 = 136315394;
-      v30 = v25;
-      v31 = 2080;
-      v32 = " ";
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#I %s%sverifyCachedMessage failed, different temporaryID", &v29, 0x16u);
+      v28 = *&account3[OBJC_IVAR___MFAccount_mambaID];
+      v32 = 136315394;
+      v33 = v28;
+      v34 = 2080;
+      v35 = " ";
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "#I %s%sverifyCachedMessage failed, different temporaryID", &v32, 0x16u);
     }
 
     goto LABEL_15;
   }
 
   messageIDHeader = [messageCopy messageIDHeader];
-  v17 = [messageIDHeader isEqualToString:tokenCopy];
+  v19 = [messageIDHeader isEqualToString:tokenCopy];
 
-  if ((v17 & 1) == 0)
+  if ((v19 & 1) == 0)
   {
-    v19 = sub_10001E9B0();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v22 = sub_10001E9B0(v20);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       account4 = [(IMAPServiceLibrary *)self account];
-      v27 = *&account4[OBJC_IVAR___MFAccount_mambaID];
-      v29 = 136315394;
-      v30 = v27;
-      v31 = 2080;
-      v32 = " ";
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#I %s%sverifyCachedMessage failed, different token", &v29, 0x16u);
+      v30 = *&account4[OBJC_IVAR___MFAccount_mambaID];
+      v32 = 136315394;
+      v33 = v30;
+      v34 = 2080;
+      v35 = " ";
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "#I %s%sverifyCachedMessage failed, different token", &v32, 0x16u);
     }
 
 LABEL_15:
 
-    v18 = 0;
+    v21 = 0;
     goto LABEL_16;
   }
 
 LABEL_6:
-  v18 = 1;
+  v21 = 1;
 LABEL_16:
 
-  return v18;
+  return v21;
 }
 
 - (id)_messageWithAccountStoreRecord:(id)record record:(void *)a4 localStore:(BOOL)store
@@ -230,55 +231,57 @@ LABEL_16:
   if (a4)
   {
     v10 = sub_100092784(recordCopy, a4);
-    v11 = sub_100092B0C(v9, a4);
-    v12 = sub_10009278C(v9, a4);
-    v13 = [NSString alloc];
-    if ((v11 & 0x20) != 0)
+    sub_100092B0C(v9, a4);
+    v12 = v11;
+    sub_10009278C(v9, a4);
+    v14 = v13;
+    v15 = [NSString alloc];
+    if ((v12 & 0x20) != 0)
     {
-      v14 = @"temp-%u";
+      v16 = @"temp-%u";
     }
 
     else
     {
-      v14 = @"%u";
+      v16 = @"%u";
     }
 
-    v35 = [v13 initWithFormat:v14, v12];
-    v34 = sub_100092A8C(v9, a4);
+    v39 = [v15 initWithFormat:v16, v14];
+    v38 = sub_100092A8C(v9, a4);
     knownMessages = [(IMAPServiceLibrary *)self knownMessages];
-    v16 = [NSNumber numberWithUnsignedInt:v10];
-    v17 = [knownMessages objectForKey:v16];
+    v18 = [NSNumber numberWithUnsignedInt:v10];
+    v19 = [knownMessages objectForKey:v18];
 
-    if (v17 && [(IMAPServiceLibrary *)self verifyCachedMessage:v17 hasToken:v34 flags:v11 remoteIDStr:v35])
+    if (v19 && (v20 = [(IMAPServiceLibrary *)self verifyCachedMessage:v19 hasToken:v38 flags:v12 remoteIDStr:v39], (v20 & 1) != 0))
     {
-      v18 = sub_10001E9B0();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v21 = sub_10001E9B0(v20);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         account = [(IMAPServiceLibrary *)self account];
-        v20 = *&account[OBJC_IVAR___MFAccount_mambaID];
+        v23 = *&account[OBJC_IVAR___MFAccount_mambaID];
         account2 = [(IMAPServiceLibrary *)self account];
         serviceLabelID = [account2 serviceLabelID];
         *buf = 136315906;
-        v37 = v20;
-        v38 = 2080;
-        v39 = " ";
-        v40 = 2112;
-        v41 = serviceLabelID;
-        v42 = 1024;
-        v43 = v10;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "#I %s%s%@, message %u taken from Known", buf, 0x26u);
+        v41 = v23;
+        v42 = 2080;
+        v43 = " ";
+        v44 = 2112;
+        v45 = serviceLabelID;
+        v46 = 1024;
+        v47 = v10;
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "#I %s%s%@, message %u taken from Known", buf, 0x26u);
       }
 
-      v23 = v17;
+      v26 = v19;
     }
 
     else
     {
-      v23 = [[IMAPServiceLibraryMessage alloc] initWithLibraryID:v10];
+      v26 = [[IMAPServiceLibraryMessage alloc] initWithLibraryID:v10];
 
-      [(IMAPServiceLibraryMessage *)v23 setRemoteID:v35];
-      [(IMAPServiceLibraryMessage *)v23 setMessageFlagsWithoutCommitting:v11 & 1 | (2 * ((v11 >> 2) & 1))];
-      [(IMAPServiceLibraryMessage *)v23 setHasTemporaryUid:(v11 >> 5) & 1];
+      [(IMAPServiceLibraryMessage *)v26 setRemoteID:v39];
+      [(IMAPServiceLibraryMessage *)v26 setMessageFlagsWithoutCommitting:v12 & 1 | (2 * ((v12 >> 2) & 1))];
+      [(IMAPServiceLibraryMessage *)v26 setHasTemporaryUid:(v12 >> 5) & 1];
       if (storeCopy)
       {
         sharedGenericStore = [(IMAPServiceLibrary *)self sharedGenericStore];
@@ -292,45 +295,45 @@ LABEL_16:
         sharedGenericStore = [account3 storeForMailboxUid:a4];
       }
 
-      [(IMAPServiceLibraryMessage *)v23 setMessageStore:sharedGenericStore];
+      [(IMAPServiceLibraryMessage *)v26 setMessageStore:sharedGenericStore];
       if (!storeCopy)
       {
       }
 
-      [(IMAPServiceLibraryMessage *)v23 setMessageIDHeader:v34];
+      [(IMAPServiceLibraryMessage *)v26 setMessageIDHeader:v38];
       knownMessages2 = [(IMAPServiceLibrary *)self knownMessages];
-      v27 = [NSNumber numberWithUnsignedInt:v10];
-      [knownMessages2 setObject:v23 forKey:v27];
+      v30 = [NSNumber numberWithUnsignedInt:v10];
+      [knownMessages2 setObject:v26 forKey:v30];
 
-      v18 = sub_10001E9B0();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v21 = sub_10001E9B0(v31);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         account4 = [(IMAPServiceLibrary *)self account];
-        v29 = *&account4[OBJC_IVAR___MFAccount_mambaID];
+        v33 = *&account4[OBJC_IVAR___MFAccount_mambaID];
         account5 = [(IMAPServiceLibrary *)self account];
         serviceLabelID2 = [account5 serviceLabelID];
         knownMessages3 = [(IMAPServiceLibrary *)self knownMessages];
         *buf = 136316162;
-        v37 = v29;
-        v38 = 2080;
-        v39 = " ";
-        v40 = 2112;
-        v41 = serviceLabelID2;
-        v42 = 1024;
-        v43 = v10;
-        v44 = 1024;
-        v45 = [knownMessages3 count];
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "#I %s%s%@, message %u added to Known. Known map size: %d", buf, 0x2Cu);
+        v41 = v33;
+        v42 = 2080;
+        v43 = " ";
+        v44 = 2112;
+        v45 = serviceLabelID2;
+        v46 = 1024;
+        v47 = v10;
+        v48 = 1024;
+        v49 = [knownMessages3 count];
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "#I %s%s%@, message %u added to Known. Known map size: %d", buf, 0x2Cu);
       }
     }
   }
 
   else
   {
-    v23 = 0;
+    v26 = 0;
   }
 
-  return v23;
+  return v26;
 }
 
 - (id)messageWithAccountStoreRecord:(void *)record
@@ -358,6 +361,30 @@ LABEL_16:
   }
 
   return v5;
+}
+
+- (id)messageWithLibraryID:(unsigned int)d options:(unsigned int)options inMailbox:(id)mailbox
+{
+  v5 = *&d;
+  v7 = [(IMAPServiceLibrary *)self account:*&d];
+  accountStore = [v7 accountStore];
+  v9 = sub_1000931E8(accountStore, v5);
+
+  if (v9)
+  {
+    account = [(IMAPServiceLibrary *)self account];
+    accountStore2 = [account accountStore];
+    v12 = [(IMAPServiceLibrary *)self _messageWithAccountStoreRecord:accountStore2 record:v9 localStore:1];
+
+    CFRelease(v9);
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
 }
 
 - (unsigned)unreadCountForMailbox:(id)mailbox
@@ -579,205 +606,208 @@ LABEL_16:
 - (id)_getDetailsForMailbox:(id)mailbox useRemoteIDRange:(_NSRange *)range
 {
   mailboxCopy = mailbox;
-  v47 = sub_10001FAD0(mailboxCopy);
+  v51 = sub_10001FAD0(mailboxCopy);
   selfCopy = self;
   account = [(IMAPServiceLibrary *)self account];
   accountStore = [account accountStore];
 
-  v7 = sub_10001E9B0();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_10001E9B0(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     account2 = [(IMAPServiceLibrary *)selfCopy account];
-    v9 = *&account2[OBJC_IVAR___MFAccount_mambaID];
+    v10 = *&account2[OBJC_IVAR___MFAccount_mambaID];
     if (range)
     {
-      v10 = NSStringFromRange(*range);
+      v11 = NSStringFromRange(*range);
     }
 
     else
     {
-      v10 = @"nil";
+      v11 = @"nil";
     }
 
-    v11 = @"Trash";
+    v12 = @"Trash";
     *buf = 136315906;
-    v49 = v9;
-    v50 = 2080;
-    v51 = " ";
-    if (v47 == 1)
+    v53 = v10;
+    v54 = 2080;
+    v55 = " ";
+    if (v51 == 1)
     {
-      v11 = @"Inbox";
+      v12 = @"Inbox";
     }
 
-    v52 = 2112;
-    v53 = v10;
-    v54 = 2112;
-    v55 = v11;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#I %s%s--> Get details <range=%@ mailbox=%@> begin", buf, 0x2Au);
+    v56 = 2112;
+    v57 = v11;
+    v58 = 2112;
+    v59 = v12;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#I %s%s--> Get details <range=%@ mailbox=%@> begin", buf, 0x2Au);
     if (range)
     {
     }
   }
 
-  if (v47 == 1)
+  if (v51 == 1)
   {
     if (!range || (location = range->location, range->location == 0x7FFFFFFFFFFFFFFFLL))
     {
-      v13 = 0;
-      v14 = 104;
+      v14 = 0;
+      v15 = 104;
 LABEL_18:
-      theArray = sub_1000931D0(accountStore, v13, v14);
+      theArray = sub_1000931D0(accountStore, v14, v15);
       goto LABEL_29;
     }
 
-    v16 = range->length + location;
-    if (v16 >= &_mh_execute_header)
+    v17 = range->length + location;
+    if (v17 >= &_mh_execute_header)
     {
-      v17 = sub_10001E9B0();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = sub_10001E9B0(location);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         account3 = [(IMAPServiceLibrary *)selfCopy account];
-        v19 = *&account3[OBJC_IVAR___MFAccount_mambaID];
-        v20 = NSStringFromRange(*range);
+        v20 = *&account3[OBJC_IVAR___MFAccount_mambaID];
+        v21 = NSStringFromRange(*range);
         *buf = 136315906;
-        v49 = v19;
-        v50 = 2080;
-        v51 = " ";
-        v52 = 2112;
         v53 = v20;
-        v54 = 2048;
-        v55 = v16;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "#I %s%sReceived range %@ with maximum range %ld greater than would not fit in 32-bit container.  Truncating to UINT32_MAX.", buf, 0x2Au);
+        v54 = 2080;
+        v55 = " ";
+        v56 = 2112;
+        v57 = v21;
+        v58 = 2048;
+        v59 = v17;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "#I %s%sReceived range %@ with maximum range %ld greater than would not fit in 32-bit container.  Truncating to UINT32_MAX.", buf, 0x2Au);
       }
 
       location = range->location;
-      v16 = 0xFFFFFFFFLL;
+      v17 = 0xFFFFFFFFLL;
     }
 
-    v21 = sub_10001E900(location);
-    v22 = sub_10001E900(v16);
-    theArray = sub_1000931BC(accountStore, 0, 104, v21, v22);
+    v22 = sub_10001E900(location);
+    v23 = sub_10001E900(v17);
+    theArray = sub_1000931BC(accountStore, 0, 104, v22, v23);
   }
 
   else
   {
-    if (v47 != 2)
+    if (v51 != 2)
     {
       goto LABEL_31;
     }
 
-    if (!range || (v15 = range->location, range->location == 0x7FFFFFFFFFFFFFFFLL))
+    if (!range || (v16 = range->location, range->location == 0x7FFFFFFFFFFFFFFFLL))
     {
-      v14 = 96;
-      v13 = 8;
+      v15 = 96;
+      v14 = 8;
       goto LABEL_18;
     }
 
-    v23 = range->length + v15;
-    if (HIDWORD(v23))
+    v24 = range->length + v16;
+    if (HIDWORD(v24))
     {
-      v24 = sub_10001E9B0();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v25 = sub_10001E9B0(v16);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         account4 = [(IMAPServiceLibrary *)selfCopy account];
-        v26 = *&account4[OBJC_IVAR___MFAccount_mambaID];
-        v27 = NSStringFromRange(*range);
+        v27 = *&account4[OBJC_IVAR___MFAccount_mambaID];
+        v28 = NSStringFromRange(*range);
         *buf = 136315906;
-        v49 = v26;
-        v50 = 2080;
-        v51 = " ";
-        v52 = 2112;
         v53 = v27;
-        v54 = 2048;
-        v55 = v23;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "#I %s%sReceived range %@ with maximum range %ld greater than would not fit in 32-bit container.  Truncating to UINT32_MAX.", buf, 0x2Au);
+        v54 = 2080;
+        v55 = " ";
+        v56 = 2112;
+        v57 = v28;
+        v58 = 2048;
+        v59 = v24;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "#I %s%sReceived range %@ with maximum range %ld greater than would not fit in 32-bit container.  Truncating to UINT32_MAX.", buf, 0x2Au);
       }
 
-      v15 = range->location;
-      v23 = 0xFFFFFFFFLL;
+      v16 = range->location;
+      v24 = 0xFFFFFFFFLL;
     }
 
-    v28 = sub_10001E900(v15);
-    v29 = sub_10001E900(v23);
-    theArray = sub_1000931BC(accountStore, 8, 96, v28, v29);
+    v29 = sub_10001E900(v16);
+    v30 = sub_10001E900(v24);
+    theArray = sub_1000931BC(accountStore, 8, 96, v29, v30);
   }
 
 LABEL_29:
   if (theArray)
   {
     Count = CFArrayGetCount(theArray);
-    v41 = 0;
+    v45 = 0;
     goto LABEL_32;
   }
 
 LABEL_31:
   theArray = 0;
   Count = 0;
-  v41 = 1;
+  v45 = 1;
 LABEL_32:
-  v45 = [[NSMutableArray alloc] initWithCapacity:Count];
+  v32 = [[NSMutableArray alloc] initWithCapacity:Count];
+  v49 = v32;
   if (Count >= 1)
   {
     for (i = 0; i != Count; ++i)
     {
       ValueAtIndex = CFArrayGetValueAtIndex(theArray, i);
-      v33 = objc_alloc_init(MFMessageDetails);
-      *&v33[OBJC_IVAR___MFMessageDetails_library] = selfCopy;
-      v34 = sub_100092B0C(accountStore, ValueAtIndex);
-      *&v33[OBJC_IVAR___MFMessageDetails_messageFlags] = v34 & 1 | (2 * ((v34 >> 2) & 1));
-      *&v33[OBJC_IVAR___MFMessageDetails_uid] = sub_10009278C(accountStore, ValueAtIndex);
-      *&v33[OBJC_IVAR___MFMessageDetails_libraryID] = sub_100092784(accountStore, ValueAtIndex);
-      *&v33[OBJC_IVAR___MFMessageDetails_mailboxID] = v47;
-      *&v33[OBJC_IVAR___MFMessageDetails_dateReceived] = sub_100092820(accountStore, ValueAtIndex);
-      [v45 addObject:v33];
+      v35 = objc_alloc_init(MFMessageDetails);
+      *&v35[OBJC_IVAR___MFMessageDetails_library] = selfCopy;
+      sub_100092B0C(accountStore, ValueAtIndex);
+      *&v35[OBJC_IVAR___MFMessageDetails_messageFlags] = v36 & 1 | (2 * ((v36 >> 2) & 1));
+      sub_10009278C(accountStore, ValueAtIndex);
+      *&v35[OBJC_IVAR___MFMessageDetails_uid] = v37;
+      *&v35[OBJC_IVAR___MFMessageDetails_libraryID] = sub_100092784(accountStore, ValueAtIndex);
+      *&v35[OBJC_IVAR___MFMessageDetails_mailboxID] = v51;
+      sub_100092820(accountStore, ValueAtIndex);
+      *&v35[OBJC_IVAR___MFMessageDetails_dateReceived] = v38;
+      [v49 addObject:v35];
     }
   }
 
-  v35 = sub_10001E9B0();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+  v39 = sub_10001E9B0(v32);
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
   {
     account5 = [(IMAPServiceLibrary *)selfCopy account];
-    v37 = *&account5[OBJC_IVAR___MFAccount_mambaID];
+    v41 = *&account5[OBJC_IVAR___MFAccount_mambaID];
     if (range)
     {
-      v38 = NSStringFromRange(*range);
+      v42 = NSStringFromRange(*range);
     }
 
     else
     {
-      v38 = @"nil";
+      v42 = @"nil";
     }
 
-    v39 = @"Trash";
+    v43 = @"Trash";
     *buf = 136316418;
-    v49 = v37;
-    v50 = 2080;
-    v51 = " ";
-    if (v47 == 1)
+    v53 = v41;
+    v54 = 2080;
+    v55 = " ";
+    if (v51 == 1)
     {
-      v39 = @"Inbox";
+      v43 = @"Inbox";
     }
 
-    v52 = 2112;
-    v53 = v38;
-    v54 = 2112;
-    v55 = v39;
     v56 = 2112;
-    v57 = accountStore;
+    v57 = v42;
     v58 = 2112;
-    v59 = v45;
-    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "#I %s%sGet details <range=%@ mailbox=%@ store=%@> for messages %@", buf, 0x3Eu);
+    v59 = v43;
+    v60 = 2112;
+    v61 = accountStore;
+    v62 = 2112;
+    v63 = v49;
+    _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "#I %s%sGet details <range=%@ mailbox=%@ store=%@> for messages %@", buf, 0x3Eu);
     if (range)
     {
     }
   }
 
-  if ((v41 & 1) == 0)
+  if ((v45 & 1) == 0)
   {
     CFRelease(theArray);
   }
 
-  return v45;
+  return v49;
 }
 
 - (id)getDetailsForAllMessagesFromMailbox:(id)mailbox
@@ -852,7 +882,7 @@ LABEL_32:
   accountStore = [account accountStore];
 
   v28 = [messagesCopy count];
-  v7 = sub_10001E9B0();
+  v7 = sub_10001E9B0(v28);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     account2 = [(IMAPServiceLibrary *)self account];
@@ -904,7 +934,7 @@ LABEL_13:
     service = [account4 service];
     [service _removePendingDeleteForRecord:v17];
 
-    v20 = sub_100092B0C(accountStore, v17);
+    sub_100092B0C(accountStore, v17);
     v21 = v20;
     if ((v20 & 6) == 2)
     {
@@ -922,7 +952,7 @@ LABEL_12:
         goto LABEL_13;
       }
 
-      account5 = sub_10001E9B0();
+      account5 = sub_10001E9B0(v20);
       if (os_log_type_enabled(account5, OS_LOG_TYPE_DEFAULT))
       {
         account6 = [(IMAPServiceLibrary *)self account];
@@ -990,39 +1020,39 @@ LABEL_7:
   account = [(IMAPServiceLibrary *)self account];
   accountStore = [account accountStore];
 
-  v32 = accountStore;
+  v36 = accountStore;
   v9 = sub_100092DDC(accountStore, store);
-  v10 = VMStoreRecordCopyDataPath();
+  v10 = VMStoreRecordCopyDataPath(record);
   v11 = VMStoreRecordCopyDescription(record);
   v12 = +[NSFileManager defaultManager];
   v13 = [v12 fileExistsAtPath:v9];
 
-  v14 = sub_10001E9B0();
-  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+  v15 = sub_10001E9B0(v14);
+  v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
   if (v13)
   {
-    if (v15)
+    if (v16)
     {
       account2 = [(IMAPServiceLibrary *)self account];
-      v17 = *&account2[OBJC_IVAR___MFAccount_mambaID];
+      v18 = *&account2[OBJC_IVAR___MFAccount_mambaID];
       *buf = 136315650;
-      v35 = v17;
-      v36 = 2080;
-      v37 = " ";
-      v38 = 2112;
-      v39 = v11;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "#I %s%sCopying audio data from account store to record %@", buf, 0x20u);
+      v39 = v18;
+      v40 = 2080;
+      v41 = " ";
+      v42 = 2112;
+      v43 = v11;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#I %s%sCopying audio data from account store to record %@", buf, 0x20u);
     }
 
-    v18 = +[NSFileManager defaultManager];
-    v33 = 0;
-    v19 = [v18 copyItemAtPath:v9 toPath:v10 error:&v33];
-    v20 = v33;
+    v19 = +[NSFileManager defaultManager];
+    v37 = 0;
+    v20 = [v19 copyItemAtPath:v9 toPath:v10 error:&v37];
+    v21 = v37;
 
-    if (v19)
+    if (v20)
     {
-      sub_100092850(v32, store);
-      VMStoreRecordSetDuration(record);
+      sub_100092850(v36, store);
+      VMStoreRecordSetDuration(record, v23);
       account3 = [(IMAPServiceLibrary *)self account];
       serviceLabelID = [account3 serviceLabelID];
       VMStoreRecordSetFlags(serviceLabelID, record, 2);
@@ -1030,19 +1060,19 @@ LABEL_7:
 
     else
     {
-      account3 = sub_10001E9B0();
+      account3 = sub_10001E9B0(v22);
       if (os_log_type_enabled(account3, OS_LOG_TYPE_DEFAULT))
       {
         account4 = [(IMAPServiceLibrary *)self account];
-        v31 = *&account4[OBJC_IVAR___MFAccount_mambaID];
+        v35 = *&account4[OBJC_IVAR___MFAccount_mambaID];
         *buf = 136315906;
-        v35 = v31;
-        v36 = 2080;
-        v37 = " ";
-        v38 = 2112;
-        v39 = v11;
-        v40 = 2112;
-        v41 = v20;
+        v39 = v35;
+        v40 = 2080;
+        v41 = " ";
+        v42 = 2112;
+        v43 = v11;
+        v44 = 2112;
+        v45 = v21;
         _os_log_impl(&_mh_execute_header, account3, OS_LOG_TYPE_DEFAULT, "#I %s%sUnable to copy audio data from account store to record %@ with error %@", buf, 0x2Au);
       }
     }
@@ -1050,45 +1080,46 @@ LABEL_7:
 
   else
   {
-    if (v15)
+    if (v16)
     {
       account5 = [(IMAPServiceLibrary *)self account];
-      v24 = *&account5[OBJC_IVAR___MFAccount_mambaID];
+      v27 = *&account5[OBJC_IVAR___MFAccount_mambaID];
       *buf = 136315650;
-      v35 = v24;
-      v36 = 2080;
-      v37 = " ";
-      v38 = 2112;
-      v39 = v11;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "#I %s%sAudio file does not exist in the account store, record %@", buf, 0x20u);
+      v39 = v27;
+      v40 = 2080;
+      v41 = " ";
+      v42 = 2112;
+      v43 = v11;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "#I %s%sAudio file does not exist in the account store, record %@", buf, 0x20u);
     }
 
     Flags = VMStoreRecordGetFlags(record);
+    v29 = Flags;
     if ((Flags & 2) == 0)
     {
-      v20 = 0;
+      v21 = 0;
       goto LABEL_16;
     }
 
-    v26 = sub_10001E9B0();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v30 = sub_10001E9B0(Flags);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       account6 = [(IMAPServiceLibrary *)self account];
-      v28 = *&account6[OBJC_IVAR___MFAccount_mambaID];
+      v32 = *&account6[OBJC_IVAR___MFAccount_mambaID];
       *buf = 136315650;
-      v35 = v28;
-      v36 = 2080;
-      v37 = " ";
-      v38 = 2112;
-      v39 = v11;
-      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "#I %s%sData available flag is set, but audio file does not exist, record %@", buf, 0x20u);
+      v39 = v32;
+      v40 = 2080;
+      v41 = " ";
+      v42 = 2112;
+      v43 = v11;
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "#I %s%sData available flag is set, but audio file does not exist, record %@", buf, 0x20u);
     }
 
     account3 = [(IMAPServiceLibrary *)self account];
     serviceLabelID2 = [account3 serviceLabelID];
-    VMStoreRecordSetFlags(serviceLabelID2, record, Flags & 0xFFFFFFFD);
+    VMStoreRecordSetFlags(serviceLabelID2, record, v29 & 0xFFFFFFFD);
 
-    v20 = 0;
+    v21 = 0;
   }
 
 LABEL_16:
@@ -1114,80 +1145,81 @@ LABEL_16:
   accountStore = [account accountStore];
 
   v11 = VMStoreRecordCopyDescription(dstRecord);
-  v12 = sub_10001E9B0();
+  v12 = sub_10001E9B0(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     account2 = [(IMAPServiceLibrary *)self account];
     v14 = *&account2[OBJC_IVAR___MFAccount_mambaID];
-    v31 = 136315906;
-    v32 = v14;
-    v33 = 2080;
-    v34 = " ";
-    v35 = 2112;
-    v36 = v11;
+    v33 = 136315906;
+    v34 = v14;
+    v35 = 2080;
+    v36 = " ";
     v37 = 2112;
+    v38 = v11;
+    v39 = 2112;
     tokenCopy = token;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#I %s%sRecord %@ with the same token '%@' found in the main database", &v31, 0x2Au);
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#I %s%sRecord %@ with the same token '%@' found in the main database", &v33, 0x2Au);
   }
 
   v15 = sub_100092DDC(accountStore, record);
-  v16 = VMStoreRecordCopyDataPath();
+  v16 = VMStoreRecordCopyDataPath(dstRecord);
   v17 = +[NSFileManager defaultManager];
   v18 = [v17 fileExistsAtPath:v16];
 
-  v19 = sub_10001E9B0();
-  v20 = os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT);
+  v20 = sub_10001E9B0(v19);
+  v21 = os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT);
   if (v18)
   {
-    if (v20)
+    if (v21)
     {
       account3 = [(IMAPServiceLibrary *)self account];
-      v22 = *&account3[OBJC_IVAR___MFAccount_mambaID];
-      v31 = 136315650;
-      v32 = v22;
-      v33 = 2080;
-      v34 = " ";
-      v35 = 2112;
-      v36 = v11;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#I %s%sAudio file exists in the main store, record %@", &v31, 0x20u);
+      v23 = *&account3[OBJC_IVAR___MFAccount_mambaID];
+      v33 = 136315650;
+      v34 = v23;
+      v35 = 2080;
+      v36 = " ";
+      v37 = 2112;
+      v38 = v11;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "#I %s%sAudio file exists in the main store, record %@", &v33, 0x20u);
     }
 
     Flags = VMStoreRecordGetFlags(dstRecord);
+    v25 = Flags;
     if ((Flags & 2) == 0)
     {
-      v24 = sub_10001E9B0();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+      v26 = sub_10001E9B0(Flags);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
         account4 = [(IMAPServiceLibrary *)self account];
-        v26 = *&account4[OBJC_IVAR___MFAccount_mambaID];
-        v31 = 136315650;
-        v32 = v26;
-        v33 = 2080;
-        v34 = " ";
-        v35 = 2112;
-        v36 = v11;
-        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "#I %s%sData available flag is not set, but audio file exists, record %@", &v31, 0x20u);
+        v28 = *&account4[OBJC_IVAR___MFAccount_mambaID];
+        v33 = 136315650;
+        v34 = v28;
+        v35 = 2080;
+        v36 = " ";
+        v37 = 2112;
+        v38 = v11;
+        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "#I %s%sData available flag is not set, but audio file exists, record %@", &v33, 0x20u);
       }
 
       account5 = [(IMAPServiceLibrary *)self account];
       serviceLabelID = [account5 serviceLabelID];
-      VMStoreRecordSetFlags(serviceLabelID, dstRecord, Flags | 2u);
+      VMStoreRecordSetFlags(serviceLabelID, dstRecord, v25 | 2u);
     }
   }
 
   else
   {
-    if (v20)
+    if (v21)
     {
       account6 = [(IMAPServiceLibrary *)self account];
-      v30 = *&account6[OBJC_IVAR___MFAccount_mambaID];
-      v31 = 136315650;
-      v32 = v30;
-      v33 = 2080;
-      v34 = " ";
-      v35 = 2112;
-      v36 = v11;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#I %s%sAudio file does not exist in the main store, record %@", &v31, 0x20u);
+      v32 = *&account6[OBJC_IVAR___MFAccount_mambaID];
+      v33 = 136315650;
+      v34 = v32;
+      v35 = 2080;
+      v36 = " ";
+      v37 = 2112;
+      v38 = v11;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "#I %s%sAudio file does not exist in the main store, record %@", &v33, 0x20u);
     }
 
     [(IMAPServiceLibrary *)self copyAudioDataToMainStore:record dstRecord:dstRecord];
@@ -1221,7 +1253,7 @@ LABEL_16:
 
   VMStoreSave();
   v10 = VMStoreRecordCopyDescription(v9);
-  v11 = sub_10001E9B0();
+  v11 = sub_10001E9B0(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     account3 = [(IMAPServiceLibrary *)self account];
@@ -1237,7 +1269,7 @@ LABEL_16:
 
   [(IMAPServiceLibrary *)self copyAudioDataToMainStore:record dstRecord:v9];
   v14 = VMStoreRecordCopyDescription(v9);
-  v15 = sub_10001E9B0();
+  v15 = sub_10001E9B0(v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     account4 = [(IMAPServiceLibrary *)self account];
@@ -1276,36 +1308,36 @@ LABEL_16:
   v7 = sub_100092A8C(accountStore, record);
   DeletedRecordWithToken = VMStoreCopyFirstDeletedRecordWithToken(v7, 0);
   v9 = VMStoreRecordCopyDescription(record);
-  v10 = sub_10001E9B0();
+  v10 = sub_10001E9B0(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     account2 = [(IMAPServiceLibrary *)self account];
     v12 = *&account2[OBJC_IVAR___MFAccount_mambaID];
-    v17 = 136315906;
-    v18 = v12;
-    v19 = 2080;
-    v20 = " ";
-    v21 = 2112;
-    v22 = v9;
-    v23 = 2112;
-    v24 = v7;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#I %s%sMerge record %@ with token %@ to the main store", &v17, 0x2Au);
+    v18 = 136315906;
+    v19 = v12;
+    v20 = 2080;
+    v21 = " ";
+    v22 = 2112;
+    v23 = v9;
+    v24 = 2112;
+    v25 = v7;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "#I %s%sMerge record %@ with token %@ to the main store", &v18, 0x2Au);
   }
 
   if (DeletedRecordWithToken)
   {
-    v13 = sub_10001E9B0();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_10001E9B0(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       account3 = [(IMAPServiceLibrary *)self account];
-      v15 = *&account3[OBJC_IVAR___MFAccount_mambaID];
-      v17 = 136315650;
-      v18 = v15;
-      v19 = 2080;
-      v20 = " ";
-      v21 = 2112;
-      v22 = v7;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#I %s%sRecord with the same token '%@' is found in the deleted table, skipping merge", &v17, 0x20u);
+      v16 = *&account3[OBJC_IVAR___MFAccount_mambaID];
+      v18 = 136315650;
+      v19 = v16;
+      v20 = 2080;
+      v21 = " ";
+      v22 = 2112;
+      v23 = v7;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "#I %s%sRecord with the same token '%@' is found in the deleted table, skipping merge", &v18, 0x20u);
     }
 
     CFRelease(DeletedRecordWithToken);
@@ -1359,161 +1391,169 @@ LABEL_16:
 - (id)getDetailsForMessages:(unint64_t)messages absoluteBottom:(unint64_t)bottom topOfDesiredRange:(unint64_t)range range:(_NSRange *)a6 fromMailbox:(id)mailbox
 {
   mailboxCopy = mailbox;
-  v42 = sub_10001FAD0(mailboxCopy);
+  v46 = sub_10001FAD0(mailboxCopy);
   account = [(IMAPServiceLibrary *)self account];
   accountStore = [account accountStore];
 
-  v12 = sub_10001E9B0();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_10001E9B0(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     account2 = [(IMAPServiceLibrary *)self account];
-    v14 = *&account2[OBJC_IVAR___MFAccount_mambaID];
-    v15 = @"Trash";
+    v15 = *&account2[OBJC_IVAR___MFAccount_mambaID];
+    v16 = @"Trash";
     *buf = 136316162;
-    if (v42 == 1)
+    if (v46 == 1)
     {
-      v15 = @"Inbox";
+      v16 = @"Inbox";
     }
 
-    v44 = v14;
-    v45 = 2080;
-    v46 = " ";
-    v47 = 2048;
+    v48 = v15;
+    v49 = 2080;
+    v50 = " ";
+    v51 = 2048;
     bottomCopy2 = bottom;
-    v49 = 2048;
+    v53 = 2048;
     rangeCopy2 = range;
-    v51 = 2112;
-    v52 = v15;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "#I %s%s==> Get details <lowUID=%lu, highUID=%lu, mailbox=%@> begin", buf, 0x34u);
+    v55 = 2112;
+    v56 = v16;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "#I %s%s==> Get details <lowUID=%lu, highUID=%lu, mailbox=%@> begin", buf, 0x34u);
   }
 
-  if (v42 == 1)
+  if (v46 == 1)
   {
-    v16 = 104;
+    v17 = 104;
   }
 
   else
   {
-    v16 = 96;
+    v17 = 96;
   }
 
-  v17 = sub_10001E900(bottom);
-  v18 = sub_10001E900(range);
-  v19 = sub_1000931BC(accountStore, 8 * (v42 == 2), v16, v17, v18);
-  v20 = [v19 count];
-  if (v20 > messages)
+  v18 = sub_10001E900(bottom);
+  v19 = sub_10001E900(range);
+  v20 = sub_1000931BC(accountStore, 8 * (v46 == 2), v17, v18, v19);
+  v21 = [v20 count];
+  v22 = v21;
+  if (v21 > messages)
   {
-    v21 = [v19 subarrayWithRange:{objc_msgSend(v19, "count") - messages, messages}];
-    v22 = [v21 copy];
+    v23 = [v20 subarrayWithRange:{objc_msgSend(v20, "count") - messages, messages}];
+    v24 = [v23 copy];
 
-    v20 = [v22 count];
-    v19 = v22;
+    v22 = [v24 count];
+    v20 = v24;
   }
 
   if (!a6)
   {
 LABEL_14:
-    if (v20)
+    if (v22)
     {
       goto LABEL_15;
     }
 
 LABEL_25:
-    v26 = 0;
+    v28 = 0;
     goto LABEL_26;
   }
 
-  if (v19 && [v19 count])
+  if (v20)
   {
-    v23 = sub_10009278C(accountStore, [v19 objectAtIndex:0]);
-    v24 = sub_10009278C(accountStore, [v19 lastObject]);
-    a6->location = v23;
-    a6->length = v24 - v23;
-    goto LABEL_14;
+    v21 = [v20 count];
+    if (v21)
+    {
+      sub_10009278C(accountStore, [v20 objectAtIndex:0]);
+      v26 = v25;
+      sub_10009278C(accountStore, [v20 lastObject]);
+      a6->location = v26;
+      a6->length = v21 - v26;
+      goto LABEL_14;
+    }
   }
 
   a6->location = 0;
   a6->length = 0;
-  if (!v20)
+  if (!v22)
   {
     goto LABEL_25;
   }
 
 LABEL_15:
-  v25 = 0;
-  v26 = 0;
+  v27 = 0;
+  v28 = 0;
   do
   {
-    v27 = [v19 objectAtIndex:v25];
-    v28 = VMStoreRecordCopyDescription(v27);
-    v29 = sub_10001E9B0();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v29 = [v20 objectAtIndex:v27];
+    v30 = VMStoreRecordCopyDescription(v29);
+    v31 = sub_10001E9B0(v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       account3 = [(IMAPServiceLibrary *)self account];
-      v31 = *&account3[OBJC_IVAR___MFAccount_mambaID];
+      v33 = *&account3[OBJC_IVAR___MFAccount_mambaID];
       *buf = 136315650;
-      v44 = v31;
-      v45 = 2080;
-      v46 = " ";
-      v47 = 2112;
-      bottomCopy2 = v28;
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "#I %s%sAdd message details for record %@", buf, 0x20u);
+      v48 = v33;
+      v49 = 2080;
+      v50 = " ";
+      v51 = 2112;
+      bottomCopy2 = v30;
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "#I %s%sAdd message details for record %@", buf, 0x20u);
     }
 
-    if (v28)
+    if (v30)
     {
-      CFRelease(v28);
+      CFRelease(v30);
     }
 
-    v32 = objc_alloc_init(MFMessageDetails);
-    *&v32[OBJC_IVAR___MFMessageDetails_library] = self;
-    v33 = sub_100092B0C(accountStore, v27);
-    *&v32[OBJC_IVAR___MFMessageDetails_messageFlags] = v33 & 1 | (2 * ((v33 >> 2) & 1));
-    *&v32[OBJC_IVAR___MFMessageDetails_uid] = sub_10009278C(accountStore, v27);
-    *&v32[OBJC_IVAR___MFMessageDetails_libraryID] = sub_100092784(accountStore, v27);
-    *&v32[OBJC_IVAR___MFMessageDetails_mailboxID] = v42;
-    *&v32[OBJC_IVAR___MFMessageDetails_dateReceived] = sub_100092820(accountStore, v27);
-    if (!v26)
+    v34 = objc_alloc_init(MFMessageDetails);
+    *&v34[OBJC_IVAR___MFMessageDetails_library] = self;
+    sub_100092B0C(accountStore, v29);
+    *&v34[OBJC_IVAR___MFMessageDetails_messageFlags] = v35 & 1 | (2 * ((v35 >> 2) & 1));
+    sub_10009278C(accountStore, v29);
+    *&v34[OBJC_IVAR___MFMessageDetails_uid] = v36;
+    *&v34[OBJC_IVAR___MFMessageDetails_libraryID] = sub_100092784(accountStore, v29);
+    *&v34[OBJC_IVAR___MFMessageDetails_mailboxID] = v46;
+    sub_100092820(accountStore, v29);
+    *&v34[OBJC_IVAR___MFMessageDetails_dateReceived] = v37;
+    if (!v28)
     {
-      v26 = [[NSMutableArray alloc] initWithCapacity:v20];
+      v28 = [[NSMutableArray alloc] initWithCapacity:v22];
     }
 
-    [v26 addObject:v32];
+    [v28 addObject:v34];
 
-    ++v25;
+    ++v27;
   }
 
-  while (v20 != v25);
+  while (v22 != v27);
 LABEL_26:
-  v34 = sub_10001E9B0();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+  v38 = sub_10001E9B0(v21);
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
   {
     account4 = [(IMAPServiceLibrary *)self account];
-    v36 = *&account4[OBJC_IVAR___MFAccount_mambaID];
-    v37 = @"Trash";
+    v40 = *&account4[OBJC_IVAR___MFAccount_mambaID];
+    v41 = @"Trash";
     *buf = 136316674;
-    if (v42 == 1)
+    if (v46 == 1)
     {
-      v37 = @"Inbox";
+      v41 = @"Inbox";
     }
 
-    v44 = v36;
-    v45 = 2080;
-    v46 = " ";
-    v47 = 2048;
+    v48 = v40;
+    v49 = 2080;
+    v50 = " ";
+    v51 = 2048;
     bottomCopy2 = bottom;
-    v49 = 2048;
+    v53 = 2048;
     rangeCopy2 = range;
-    v51 = 2112;
-    v52 = v37;
-    v53 = 2112;
-    v54 = accountStore;
     v55 = 2112;
-    v56 = v26;
-    _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "#I %s%sGet details <lowUID=%lu, highUID=%lu, mailbox=%@, store=%@> for messages %@", buf, 0x48u);
+    v56 = v41;
+    v57 = 2112;
+    v58 = accountStore;
+    v59 = 2112;
+    v60 = v28;
+    _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "#I %s%sGet details <lowUID=%lu, highUID=%lu, mailbox=%@, store=%@> for messages %@", buf, 0x48u);
   }
 
-  return v26;
+  return v28;
 }
 
 - (id)addMessages:(id)messages withMailbox:(id)mailbox fetchBodies:(BOOL)bodies newMessagesByOldMessage:(id)message remoteIDs:(id)ds setFlags:(unint64_t)flags clearFlags:(unint64_t)clearFlags messageFlagsForMessages:(id)self0 copyFiles:(BOOL)self1 addPOPUIDs:(BOOL)self2 dataSectionsByMessage:(id)self3
@@ -1528,285 +1568,291 @@ LABEL_26:
   accountStore = [account accountStore];
 
   name = [mailboxCopy name];
-  v108 = [name caseInsensitiveCompare:@"INBOX"];
+  v113 = [name caseInsensitiveCompare:@"INBOX"];
   selfCopy = self;
 
-  v19 = sub_10001E9B0();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+  v20 = sub_10001E9B0(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     account2 = [(IMAPServiceLibrary *)self account];
-    v21 = *&account2[OBJC_IVAR___MFAccount_mambaID];
+    v22 = *&account2[OBJC_IVAR___MFAccount_mambaID];
     name2 = [mailboxCopy name];
-    v23 = name2;
+    v24 = name2;
     *buf = 136316162;
-    if (v108)
+    if (v113)
     {
-      v24 = 3;
+      v25 = 3;
     }
 
     else
     {
-      v24 = 1;
+      v25 = 1;
     }
 
-    v126 = v21;
-    v127 = 2080;
-    v128 = " ";
-    v129 = 2112;
-    *v130 = messagesCopy;
-    *&v130[8] = 2112;
-    *&v130[10] = name2;
-    *&v130[18] = 1024;
-    *&v130[20] = v24;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "#I %s%sAdd messages %@ to %@ mailbox, destination type is %d", buf, 0x30u);
+    v131 = v22;
+    v132 = 2080;
+    v133 = " ";
+    v134 = 2112;
+    *v135 = messagesCopy;
+    *&v135[8] = 2112;
+    *&v135[10] = name2;
+    *&v135[18] = 1024;
+    *&v135[20] = v25;
+    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "#I %s%sAdd messages %@ to %@ mailbox, destination type is %d", buf, 0x30u);
   }
 
-  v25 = sub_10001E9B0();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  v27 = sub_10001E9B0(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
     account3 = [(IMAPServiceLibrary *)self account];
-    v27 = *&account3[OBJC_IVAR___MFAccount_mambaID];
+    v29 = *&account3[OBJC_IVAR___MFAccount_mambaID];
     account4 = [mailboxCopy account];
     store = [mailboxCopy store];
     account5 = [(IMAPServiceLibrary *)self account];
     accountStore2 = [account5 accountStore];
     *buf = 136316162;
-    v126 = v27;
-    v127 = 2080;
-    v128 = " ";
-    v129 = 2112;
-    *v130 = account4;
-    *&v130[8] = 2112;
-    *&v130[10] = store;
-    *&v130[18] = 2112;
-    *&v130[20] = accountStore2;
-    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "#I %s%sAdd messages to account %@ store %@, account store %@", buf, 0x34u);
+    v131 = v29;
+    v132 = 2080;
+    v133 = " ";
+    v134 = 2112;
+    *v135 = account4;
+    *&v135[8] = 2112;
+    *&v135[10] = store;
+    *&v135[18] = 2112;
+    *&v135[20] = accountStore2;
+    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "#I %s%sAdd messages to account %@ store %@, account store %@", buf, 0x34u);
   }
 
-  v32 = 0;
-  v120 = 0;
-  v110 = 0;
-  if (v108)
+  v34 = 0;
+  v125 = 0;
+  v115 = 0;
+  if (v113)
   {
-    v33 = 8;
+    v35 = 8;
   }
 
   else
   {
-    v33 = 0;
+    v35 = 0;
   }
 
-  v105 = v33;
-  v104 = ~clearFlags;
-  while (v32 < [messagesCopy count])
+  v110 = v35;
+  v109 = ~clearFlags;
+  while (v34 < [messagesCopy count])
   {
-    v121 = [messagesCopy objectAtIndexedSubscript:v32];
-    messageIDHeader = [v121 messageIDHeader];
-    if (v32 >= [dsCopy count])
+    v126 = [messagesCopy objectAtIndexedSubscript:v34];
+    messageIDHeader = [v126 messageIDHeader];
+    if (v34 >= [dsCopy count])
     {
-      [v121 remoteID];
+      [v126 remoteID];
     }
 
     else
     {
-      [dsCopy objectAtIndexedSubscript:v32];
+      [dsCopy objectAtIndexedSubscript:v34];
     }
-    v34 = ;
-    v35 = v34;
-    if (v34)
+    v36 = ;
+    v37 = v36;
+    if (v36)
     {
-      v36 = sub_10001FF88(v34, 0);
+      v38 = sub_10001FF88(v36, 0);
     }
 
     else
     {
-      v36 = 0;
+      v38 = 0;
     }
 
-    v37 = sub_100093224(accountStore, messageIDHeader);
-    v38 = v37;
-    if (v37)
+    v39 = sub_100093224(accountStore, messageIDHeader);
+    v40 = v39;
+    if (v39)
     {
-      v39 = VMStoreRecordCopyDescription(v37);
-      v40 = sub_10001E9B0();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+      v41 = VMStoreRecordCopyDescription(v39);
+      v42 = sub_10001E9B0(v41);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
       {
         account6 = [(IMAPServiceLibrary *)selfCopy account];
-        v42 = *&account6[OBJC_IVAR___MFAccount_mambaID];
+        v44 = *&account6[OBJC_IVAR___MFAccount_mambaID];
         account7 = [(IMAPServiceLibrary *)selfCopy account];
         serviceLabelID = [account7 serviceLabelID];
         *buf = 136316418;
-        v126 = v42;
-        v127 = 2080;
-        v128 = " ";
-        v129 = 2112;
-        *v130 = v39;
-        *&v130[8] = 2112;
-        *&v130[10] = messageIDHeader;
-        *&v130[18] = 1024;
-        *&v130[20] = v36;
-        *&v130[24] = 2112;
-        *&v130[26] = serviceLabelID;
-        _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "#I %s%sUpdating record %@ with token '%@', remote UID %u, label %@", buf, 0x3Au);
+        v131 = v44;
+        v132 = 2080;
+        v133 = " ";
+        v134 = 2112;
+        *v135 = v41;
+        *&v135[8] = 2112;
+        *&v135[10] = messageIDHeader;
+        *&v135[18] = 1024;
+        *&v135[20] = v38;
+        *&v135[24] = 2112;
+        *&v135[26] = serviceLabelID;
+        _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "#I %s%sUpdating record %@ with token '%@', remote UID %u, label %@", buf, 0x3Au);
       }
 
-      if (v39)
+      if (v41)
       {
-        CFRelease(v39);
+        CFRelease(v41);
       }
 
-      if ((VMStoreRecordGetFlags(v38) & 0x40) != 0)
+      Flags = VMStoreRecordGetFlags(v40);
+      if ((Flags & 0x40) != 0)
       {
-        v45 = sub_10001E9B0();
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+        v48 = sub_10001E9B0(Flags);
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
         {
           account8 = [(IMAPServiceLibrary *)selfCopy account];
-          v47 = *&account8[OBJC_IVAR___MFAccount_mambaID];
+          v50 = *&account8[OBJC_IVAR___MFAccount_mambaID];
           *buf = 136315650;
-          v126 = v47;
-          v127 = 2080;
-          v128 = " ";
-          v129 = 2112;
-          *v130 = messageIDHeader;
-          _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "#I %s%sResetting Detached flag from record with token '%@'", buf, 0x20u);
+          v131 = v50;
+          v132 = 2080;
+          v133 = " ";
+          v134 = 2112;
+          *v135 = messageIDHeader;
+          _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "#I %s%sResetting Detached flag from record with token '%@'", buf, 0x20u);
         }
 
-        sub_100092B48(accountStore, v38, 64);
+        sub_100092B48(accountStore, v40, 64);
       }
 
-      v48 = sub_100092B0C(accountStore, v38) & 0xFFFFFFE3;
-      if (v108)
+      sub_100092B0C(accountStore, v40);
+      v52 = v51 & 0xFFFFFFE3;
+      if (v113)
       {
-        v48 |= 8u;
+        v52 = v51 & 0xFFFFFFE3 | 8;
       }
 
-      v49 = sub_10001E9F4((flags & 1 | (4 * ((flags >> 1) & 1)) | (flags >> 27) & 0x20 | v48) & ~(clearFlags & 1 | (4 * ((clearFlags >> 1) & 1)) | (clearFlags >> 27) & 0x20));
-      sub_100092B54(accountStore, v38, v49);
-      sub_1000927BC(accountStore, v38, v36);
+      v53 = sub_10001E9F4((flags & 1 | (4 * ((flags >> 1) & 1)) | (flags >> 27) & 0x20 | v52) & ~(clearFlags & 1 | (4 * ((clearFlags >> 1) & 1)) | (clearFlags >> 27) & 0x20));
+      sub_100092B54(accountStore, v40, v53);
+      sub_1000927BC(accountStore, v40, v38);
       account9 = [(IMAPServiceLibrary *)selfCopy account];
       serviceMDN = [account9 serviceMDN];
-      sub_1000929A8(accountStore, v38, serviceMDN);
+      sub_1000929A8(accountStore, v40);
 
 LABEL_71:
       account10 = [(IMAPServiceLibrary *)selfCopy account];
       accountStore3 = [account10 accountStore];
       [accountStore3 save];
 
-      [(IMAPServiceLibrary *)selfCopy mergeRecord:v38];
-      v92 = [(IMAPServiceLibrary *)selfCopy messageWithAccountStoreRecord:v38];
-      v93 = v120;
-      if (!v120)
+      [(IMAPServiceLibrary *)selfCopy mergeRecord:v40];
+      v97 = [(IMAPServiceLibrary *)selfCopy messageWithAccountStoreRecord:v40];
+      v98 = v125;
+      if (!v125)
       {
-        v93 = objc_opt_new();
+        v98 = objc_opt_new();
       }
 
-      v120 = v93;
-      [v93 addObject:v92];
+      v125 = v98;
+      [v98 addObject:v97];
       if (messageCopy)
       {
-        [messageCopy setObject:v92 forKey:v121];
+        [messageCopy setObject:v97 forKey:v126];
       }
 
-      CFRelease(v38);
+      CFRelease(v40);
 
       goto LABEL_76;
     }
 
-    if (v32 >= [forMessagesCopy count])
+    if (v34 >= [forMessagesCopy count])
     {
-      messageFlags = [v121 messageFlags];
+      messageFlags = [v126 messageFlags];
     }
 
     else
     {
-      v52 = [forMessagesCopy objectAtIndexedSubscript:v32];
-      unsignedIntValue = [v52 unsignedIntValue];
+      v56 = [forMessagesCopy objectAtIndexedSubscript:v34];
+      unsignedIntValue = [v56 unsignedIntValue];
 
       messageFlags = unsignedIntValue;
     }
 
-    v116 = v105;
-    if (((messageFlags | flags) & v104) != 0)
+    v121 = v110;
+    if (((messageFlags | flags) & v109) != 0)
     {
-      v116 = (2 * ((messageFlags | flags) & v104)) & 4 | (messageFlags | flags) & v104 & 1 | (((messageFlags | flags) & v104) >> 27) & 0x20 | v105;
+      v121 = (2 * ((messageFlags | flags) & v109)) & 4 | (messageFlags | flags) & v109 & 1 | (((messageFlags | flags) & v109) >> 27) & 0x20 | v110;
     }
 
     account11 = [(IMAPServiceLibrary *)selfCopy account];
     serviceICC = [account11 serviceICC];
 
-    headers = [v121 headers];
+    headers = [v126 headers];
     firstSenderAddress = [headers firstSenderAddress];
     pstnAddress = [firstSenderAddress pstnAddress];
 
-    v57 = pstnAddress;
+    v61 = pstnAddress;
     if (pstnAddress)
     {
-      v58 = sub_100025188(pstnAddress, serviceICC);
-      if (![v58 length])
+      v62 = sub_100025188(pstnAddress, serviceICC);
+      if (![v62 length])
       {
-        v59 = pstnAddress;
+        v63 = pstnAddress;
 
-        v58 = v59;
-        v57 = pstnAddress;
+        v62 = v63;
+        v61 = pstnAddress;
       }
     }
 
     else
     {
-      v58 = 0;
+      v62 = 0;
     }
 
-    v113 = v58;
-    v60 = CFPhoneNumberCreate();
-    v61 = v60;
-    if (v57 && sub_100023774(v60))
-    {
-      v62 = sub_10001E9B0();
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
-      {
-        account12 = [(IMAPServiceLibrary *)selfCopy account];
-        v64 = *&account12[OBJC_IVAR___MFAccount_mambaID];
-        *buf = 136315650;
-        v126 = v64;
-        v127 = 2080;
-        v128 = " ";
-        v129 = 2112;
-        *v130 = v113;
-        _os_log_impl(&_mh_execute_header, v62, OS_LOG_TYPE_DEFAULT, "#I %s%sPrivacy manager reports sender address %@ is blocked; marking record as blocked", buf, 0x20u);
-      }
-
-      v116 |= 0x80u;
-    }
-
+    v118 = v62;
+    v64 = CFPhoneNumberCreate();
+    v65 = v64;
     if (v61)
     {
-      CFRelease(v61);
+      v64 = sub_100023774(v64);
+      if (v64)
+      {
+        v66 = sub_10001E9B0(v64);
+        if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+        {
+          account12 = [(IMAPServiceLibrary *)selfCopy account];
+          v68 = *&account12[OBJC_IVAR___MFAccount_mambaID];
+          *buf = 136315650;
+          v131 = v68;
+          v132 = 2080;
+          v133 = " ";
+          v134 = 2112;
+          *v135 = v118;
+          _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_DEFAULT, "#I %s%sPrivacy manager reports sender address %@ is blocked; marking record as blocked", buf, 0x20u);
+        }
+
+        v121 |= 0x80u;
+      }
     }
 
-    v65 = sub_10001E9B0();
-    if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
+    if (v65)
+    {
+      CFRelease(v65);
+    }
+
+    v69 = sub_10001E9B0(v64);
+    if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
     {
       account13 = [(IMAPServiceLibrary *)selfCopy account];
-      v67 = *&account13[OBJC_IVAR___MFAccount_mambaID];
+      v71 = *&account13[OBJC_IVAR___MFAccount_mambaID];
       account14 = [(IMAPServiceLibrary *)selfCopy account];
       serviceMDN2 = [account14 serviceMDN];
       *buf = 136315650;
-      v126 = v67;
-      v127 = 2080;
-      v128 = " ";
-      v129 = 2112;
-      *v130 = serviceMDN2;
-      _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_DEFAULT, "#I %s%sUsing account's service phone number: %@", buf, 0x20u);
+      v131 = v71;
+      v132 = 2080;
+      v133 = " ";
+      v134 = 2112;
+      *v135 = serviceMDN2;
+      _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_DEFAULT, "#I %s%sUsing account's service phone number: %@", buf, 0x20u);
     }
 
     account15 = [(IMAPServiceLibrary *)selfCopy account];
     serviceMDN3 = [account15 serviceMDN];
 
     copyAddressListForReplyTo = [headers copyAddressListForReplyTo];
-    v109 = copyAddressListForReplyTo;
+    v114 = copyAddressListForReplyTo;
     if (!copyAddressListForReplyTo)
     {
-      v75 = 0;
+      v79 = 0;
       pstnAddress2 = 0;
       goto LABEL_63;
     }
@@ -1816,139 +1862,143 @@ LABEL_71:
 
     if (pstnAddress2)
     {
-      v74 = sub_100025188(pstnAddress2, serviceICC);
-      if ([v74 length])
+      v78 = sub_100025188(pstnAddress2, serviceICC);
+      if ([v78 length])
       {
-        v75 = v74;
+        v79 = v78;
         goto LABEL_56;
       }
     }
 
-    v75 = 0;
+    v79 = 0;
 LABEL_56:
-    v76 = CFPhoneNumberCreate();
-    v77 = v76;
-    if (v75 && sub_100023774(v76))
+    v80 = CFPhoneNumberCreate();
+    v81 = v80;
+    if (v79)
     {
-      v78 = sub_10001E9B0();
-      if (os_log_type_enabled(v78, OS_LOG_TYPE_DEFAULT))
+      v82 = sub_100023774(v80);
+      if (v82)
       {
-        account16 = [(IMAPServiceLibrary *)selfCopy account];
-        v80 = *&account16[OBJC_IVAR___MFAccount_mambaID];
-        *buf = 136315650;
-        v126 = v80;
-        v127 = 2080;
-        v128 = " ";
-        v129 = 2112;
-        *v130 = v75;
-        _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_DEFAULT, "#I %s%sPrivacy manager reports reply to address %@ is blocked; marking record as blocked", buf, 0x20u);
-      }
+        v83 = sub_10001E9B0(v82);
+        if (os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT))
+        {
+          account16 = [(IMAPServiceLibrary *)selfCopy account];
+          v85 = *&account16[OBJC_IVAR___MFAccount_mambaID];
+          *buf = 136315650;
+          v131 = v85;
+          v132 = 2080;
+          v133 = " ";
+          v134 = 2112;
+          *v135 = v79;
+          _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_DEFAULT, "#I %s%sPrivacy manager reports reply to address %@ is blocked; marking record as blocked", buf, 0x20u);
+        }
 
-      v116 |= 0x80u;
+        v121 |= 0x80u;
+      }
     }
 
-    if (v77)
+    if (v81)
     {
-      CFRelease(v77);
+      CFRelease(v81);
     }
 
 LABEL_63:
-    v81 = [headers firstHeaderForKey:@"x-applevm-deletion-date"];
-    if ([v81 length])
+    v86 = [headers firstHeaderForKey:@"x-applevm-deletion-date"];
+    if ([v86 length])
     {
-      v82 = [NSDate mf_copyDateInCommonFormatsWithString:v81];
+      v87 = [NSDate mf_copyDateInCommonFormatsWithString:v86];
     }
 
     else
     {
-      v82 = 0;
+      v87 = 0;
     }
 
-    dateSent = [v121 dateSent];
-    v84 = sub_10001E9B0();
-    if (os_log_type_enabled(v84, OS_LOG_TYPE_DEFAULT))
+    dateSent = [v126 dateSent];
+    v89 = sub_10001E9B0(dateSent);
+    if (os_log_type_enabled(v89, OS_LOG_TYPE_DEFAULT))
     {
       account17 = [(IMAPServiceLibrary *)selfCopy account];
-      v86 = *&account17[OBJC_IVAR___MFAccount_mambaID];
+      v91 = *&account17[OBJC_IVAR___MFAccount_mambaID];
       *buf = 136317442;
-      v126 = v86;
-      v127 = 2080;
-      v128 = " ";
-      v129 = 1024;
-      *v130 = v36;
-      *&v130[4] = 2112;
-      *&v130[6] = dateSent;
-      *&v130[14] = 2112;
-      *&v130[16] = messageIDHeader;
-      *&v130[24] = 2112;
-      *&v130[26] = v113;
-      v131 = 2112;
-      v132 = v75;
-      v133 = 2112;
-      v134 = v82;
-      v135 = 1024;
-      v136 = v116;
-      v137 = 2112;
-      v138 = serviceMDN3;
-      _os_log_impl(&_mh_execute_header, v84, OS_LOG_TYPE_DEFAULT, "#I %s%s===> Creating new record with remoteUID: %d, sentDate: %@, messageID: %@, from: %@, callback: %@, expirationDate: %@, flags: %d, to: %@", buf, 0x5Eu);
+      v131 = v91;
+      v132 = 2080;
+      v133 = " ";
+      v134 = 1024;
+      *v135 = v38;
+      *&v135[4] = 2112;
+      *&v135[6] = dateSent;
+      *&v135[14] = 2112;
+      *&v135[16] = messageIDHeader;
+      *&v135[24] = 2112;
+      *&v135[26] = v118;
+      v136 = 2112;
+      v137 = v79;
+      v138 = 2112;
+      v139 = v87;
+      v140 = 1024;
+      v141 = v121;
+      v142 = 2112;
+      v143 = serviceMDN3;
+      _os_log_impl(&_mh_execute_header, v89, OS_LOG_TYPE_DEFAULT, "#I %s%s===> Creating new record with remoteUID: %d, sentDate: %@, messageID: %@, from: %@, callback: %@, expirationDate: %@, flags: %d, to: %@", buf, 0x5Eu);
     }
 
     [dateSent timeIntervalSince1970];
-    v88 = v87;
-    [v82 timeIntervalSince1970];
-    LODWORD(v101) = v116;
-    v38 = sub_100093004(accountStore, v36, v88, messageIDHeader, v113, v75, 0);
-    v89 = v110;
-    if (!v110)
+    v93 = v92;
+    [v87 timeIntervalSince1970];
+    LODWORD(v106) = v121;
+    v40 = sub_100093004(accountStore, v38, v93, messageIDHeader, v118, v79, 0);
+    v94 = v115;
+    if (!v115)
     {
-      v89 = objc_opt_new();
+      v94 = objc_opt_new();
     }
 
-    v110 = v89;
-    [v89 addObject:{v38, v101, serviceMDN3}];
+    v115 = v94;
+    [v94 addObject:{v40, v106, serviceMDN3}];
 
-    if (v38)
+    if (v40)
     {
       goto LABEL_71;
     }
 
 LABEL_76:
 
-    ++v32;
+    ++v34;
   }
 
-  if (v120)
+  if (v125)
   {
     if (mailboxCopy)
     {
-      v94 = [[NSArray alloc] initWithObjects:{mailboxCopy, 0}];
+      v99 = [[NSArray alloc] initWithObjects:{mailboxCopy, 0}];
     }
 
     else
     {
-      v94 = 0;
+      v99 = 0;
     }
 
-    v95 = [[NSDictionary alloc] initWithObjectsAndKeys:{v120, @"messages", v94, @"mailboxes", 0}];
-    v96 = sub_10001E9B0();
-    if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
+    v100 = [[NSDictionary alloc] initWithObjectsAndKeys:{v125, @"messages", v99, @"mailboxes", 0}];
+    v101 = sub_10001E9B0(v100);
+    if (os_log_type_enabled(v101, OS_LOG_TYPE_DEFAULT))
     {
       account18 = [(IMAPServiceLibrary *)selfCopy account];
-      v98 = *&account18[OBJC_IVAR___MFAccount_mambaID];
+      v103 = *&account18[OBJC_IVAR___MFAccount_mambaID];
       *buf = 136315650;
-      v126 = v98;
-      v127 = 2080;
-      v128 = " ";
-      v129 = 2112;
-      *v130 = v95;
-      _os_log_impl(&_mh_execute_header, v96, OS_LOG_TYPE_DEFAULT, "#I %s%sPosting MailMessageStoreMessagesAdded notification %@", buf, 0x20u);
+      v131 = v103;
+      v132 = 2080;
+      v133 = " ";
+      v134 = 2112;
+      *v135 = v100;
+      _os_log_impl(&_mh_execute_header, v101, OS_LOG_TYPE_DEFAULT, "#I %s%sPosting MailMessageStoreMessagesAdded notification %@", buf, 0x20u);
     }
 
-    v99 = +[NSNotificationCenter defaultCenter];
-    [v99 postNotificationName:MailMessageStoreMessagesAdded object:selfCopy userInfo:v95];
+    v104 = +[NSNotificationCenter defaultCenter];
+    [v104 postNotificationName:MailMessageStoreMessagesAdded object:selfCopy userInfo:v100];
   }
 
-  return v120;
+  return v125;
 }
 
 - (void)updateSelectedMessages:(id)messages withMailbox:(id)mailbox
@@ -1961,7 +2011,7 @@ LABEL_76:
 
   name = [mailboxCopy name];
   v7 = [name caseInsensitiveCompare:@"INBOX"];
-  v8 = sub_10001E9B0();
+  v8 = sub_10001E9B0(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     account2 = [(IMAPServiceLibrary *)selfCopy account];
@@ -1977,15 +2027,15 @@ LABEL_76:
     }
 
     *buf = 136316162;
-    v49 = v10;
-    v50 = 2080;
-    v51 = " ";
-    v52 = 2112;
-    v53 = messagesCopy;
-    v54 = 2112;
-    v55 = name;
-    v56 = 1024;
-    v57 = v11;
+    v52 = v10;
+    v53 = 2080;
+    v54 = " ";
+    v55 = 2112;
+    v56 = messagesCopy;
+    v57 = 2112;
+    v58 = name;
+    v59 = 1024;
+    v60 = v11;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "#I %s%sUpdate selected messages %@ for mailbox %@, destination type is %d", buf, 0x30u);
   }
 
@@ -2003,68 +2053,70 @@ LABEL_76:
   }
 
   v14 = v13;
-  v39 = v12;
+  v42 = v12;
   v15 = [v12 count];
-  v16 = sub_10001E9B0();
+  v16 = sub_10001E9B0(v15);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     account3 = [(IMAPServiceLibrary *)selfCopy account];
     v18 = *&account3[OBJC_IVAR___MFAccount_mambaID];
     *buf = 136315906;
-    v49 = v18;
-    v50 = 2080;
-    v51 = " ";
-    v52 = 2048;
-    v53 = v15;
-    v54 = 2048;
-    v55 = v14;
+    v52 = v18;
+    v53 = 2080;
+    v54 = " ";
+    v55 = 2048;
+    v56 = v15;
+    v57 = 2048;
+    v58 = v14;
     _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "#I %s%supdateSelectedMessages: found %lu records, %lu detached records", buf, 0x2Au);
   }
 
   if (v15)
   {
     v19 = [NSMutableSet setWithArray:messagesCopy];
-    v45 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     v46 = 0u;
-    v43 = 0u;
-    v44 = 0u;
+    v47 = 0u;
     obj = v12;
-    v20 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+    v20 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
     if (v20)
     {
       v21 = 0;
-      v22 = *v44;
+      v22 = *v47;
       do
       {
         for (i = 0; i != v20; i = i + 1)
         {
-          if (*v44 != v22)
+          if (*v47 != v22)
           {
             objc_enumerationMutation(obj);
           }
 
-          v24 = *(*(&v43 + 1) + 8 * i);
-          v25 = [NSNumber numberWithUnsignedInt:sub_10009278C(accountStore, v24)];
-          if (([v19 containsObject:v25] & 1) == 0)
+          v24 = *(*(&v46 + 1) + 8 * i);
+          sub_10009278C(accountStore, v24);
+          v26 = [NSNumber numberWithUnsignedInt:v25];
+          if (([v19 containsObject:v26] & 1) == 0)
           {
-            v26 = VMStoreRecordCopyDescription(v24);
-            if (v26)
+            v27 = VMStoreRecordCopyDescription(v24);
+            v28 = v27;
+            if (v27)
             {
-              v27 = sub_10001E9B0();
-              if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+              v29 = sub_10001E9B0(v27);
+              if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
               {
                 account4 = [(IMAPServiceLibrary *)selfCopy account];
-                v29 = *&account4[OBJC_IVAR___MFAccount_mambaID];
+                v31 = *&account4[OBJC_IVAR___MFAccount_mambaID];
                 *buf = 136315650;
-                v49 = v29;
-                v50 = 2080;
-                v51 = " ";
-                v52 = 2112;
-                v53 = v26;
-                _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "#I %s%sAdding Detached flag to record %@", buf, 0x20u);
+                v52 = v31;
+                v53 = 2080;
+                v54 = " ";
+                v55 = 2112;
+                v56 = v28;
+                _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "#I %s%sAdding Detached flag to record %@", buf, 0x20u);
               }
 
-              CFRelease(v26);
+              CFRelease(v28);
             }
 
             sub_100092B3C(accountStore, v24, 64);
@@ -2072,24 +2124,23 @@ LABEL_76:
           }
         }
 
-        v20 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+        v20 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
       }
 
       while (v20);
 
       if (v21)
       {
-        [accountStore save];
-        v30 = sub_10001E9B0();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        v33 = sub_10001E9B0([accountStore save]);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
           account5 = [(IMAPServiceLibrary *)selfCopy account];
-          v32 = *&account5[OBJC_IVAR___MFAccount_mambaID];
+          v35 = *&account5[OBJC_IVAR___MFAccount_mambaID];
           *buf = 136315394;
-          v49 = v32;
-          v50 = 2080;
-          v51 = " ";
-          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "#I %s%supdateSelectedMessages: store changed", buf, 0x16u);
+          v52 = v35;
+          v53 = 2080;
+          v54 = " ";
+          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "#I %s%supdateSelectedMessages: store changed", buf, 0x16u);
         }
 
 LABEL_31:
@@ -2102,16 +2153,16 @@ LABEL_31:
     {
     }
 
-    v30 = sub_10001E9B0();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v33 = sub_10001E9B0(v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       account6 = [(IMAPServiceLibrary *)selfCopy account];
-      v34 = *&account6[OBJC_IVAR___MFAccount_mambaID];
+      v37 = *&account6[OBJC_IVAR___MFAccount_mambaID];
       *buf = 136315394;
-      v49 = v34;
-      v50 = 2080;
-      v51 = " ";
-      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "#I %s%supdateSelectedMessages: no changes required", buf, 0x16u);
+      v52 = v37;
+      v53 = 2080;
+      v54 = " ";
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "#I %s%supdateSelectedMessages: no changes required", buf, 0x16u);
     }
 
     goto LABEL_31;
@@ -2130,7 +2181,7 @@ LABEL_32:
   v5 = v4;
   if (v4)
   {
-    if ((VMStoreRecordGetFlags(v4) & 2) != 0 && (v6 = VMStoreRecordCopyDataPath()) != 0)
+    if ((VMStoreRecordGetFlags(v4) & 2) != 0 && (v6 = VMStoreRecordCopyDataPath(v5)) != 0)
     {
       v7 = +[NSFileManager defaultManager];
       v8 = [v7 fileExistsAtPath:v6];
@@ -2160,7 +2211,7 @@ LABEL_32:
   v19 = objc_alloc_init(NSMutableDictionary);
   allKeys = [messagesCopy allKeys];
   v6 = [allKeys count];
-  v7 = sub_10001E9B0();
+  v7 = sub_10001E9B0(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     account = [(IMAPServiceLibrary *)self account];
@@ -2211,7 +2262,7 @@ LABEL_32:
 {
   dictionaryCopy = dictionary;
   messagesCopy = messages;
-  v8 = sub_10001E9B0();
+  v8 = sub_10001E9B0(messagesCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     account = [(IMAPServiceLibrary *)self account];

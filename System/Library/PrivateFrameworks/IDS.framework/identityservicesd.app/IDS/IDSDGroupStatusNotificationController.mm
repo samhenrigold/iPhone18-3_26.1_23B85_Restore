@@ -1300,7 +1300,7 @@ LABEL_50:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v3 doubleValue];
+      objc_msgSend_doubleValue(v3);
       if (v5 > 0.0)
       {
         v6 = v5;
@@ -1598,7 +1598,7 @@ LABEL_50:
   bOOLValue = [v27 BOOLValue];
 
   v28 = [contextCopy objectForKey:IDSMessageContextServerTimestampKey];
-  [v28 doubleValue];
+  objc_msgSend_doubleValue(v28);
   v115 = [NSDate dateWithTimeIntervalSince1970:?];
 
   v29 = objc_opt_class();
@@ -1863,7 +1863,7 @@ LABEL_60:
           if ((unsignedIntegerValue - 1) <= 1 && v111)
           {
             participantID = [(IDSGroupStatusNotificationParameters *)v15 participantID];
-            [v111 doubleValue];
+            objc_msgSend_doubleValue(v111);
             v74 = [v64 shouldReportToClient:participantID timeStamp:unsignedIntegerValue type:1 overPush:?];
 
             if ((v74 & 1) == 0)
@@ -1877,7 +1877,7 @@ LABEL_60:
             v77 = OSLogHandleForTransportCategory();
             if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
             {
-              [v111 doubleValue];
+              objc_msgSend_doubleValue(v111);
               *buf = 134218240;
               v127 = unsignedIntegerValue;
               v128 = 2048;
@@ -1889,13 +1889,13 @@ LABEL_60:
             {
               if (_IDSShouldLogTransport())
               {
-                [v111 doubleValue];
+                objc_msgSend_doubleValue(v111);
                 v102 = v79;
                 v99 = unsignedIntegerValue;
                 _IDSLogTransport();
                 if (_IDSShouldLog())
                 {
-                  [v111 doubleValue];
+                  objc_msgSend_doubleValue(v111, unsignedIntegerValue, v102);
                   v99 = unsignedIntegerValue;
                   _IDSLogV();
                 }
@@ -2060,7 +2060,7 @@ LABEL_110:
   bOOLValue = [v23 BOOLValue];
 
   v24 = [contextCopy objectForKey:IDSMessageContextServerTimestampKey];
-  [v24 doubleValue];
+  objc_msgSend_doubleValue(v24);
   v74 = [NSDate dateWithTimeIntervalSince1970:?];
 
   v25 = objc_opt_class();
@@ -2346,10 +2346,10 @@ LABEL_13:
 
   v13 = +[IDSPairingManager sharedInstance];
   pairedDeviceUniqueID = [v13 pairedDeviceUniqueID];
-  v15 = [unprefixedURI isEqualToIgnoringCase:pairedDeviceUniqueID];
+  v15 = objc_msgSend_isEqualToIgnoringCase_(unprefixedURI);
 
   prefixedURI2 = [iCopy prefixedURI];
-  v17 = [prefixedURI2 isEqualToIgnoringCase:IDSDefaultPairedDevice];
+  v17 = objc_msgSend_isEqualToIgnoringCase_(prefixedURI2);
 
   if (tokenCopy)
   {

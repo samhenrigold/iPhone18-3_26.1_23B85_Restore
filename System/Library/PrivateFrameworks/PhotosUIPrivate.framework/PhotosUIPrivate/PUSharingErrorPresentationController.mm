@@ -20,7 +20,7 @@
 - (void)configureAlertPropertiesFromError:(id)error withAssets:(id)assets willShowFileRadarButton:(BOOL)button alertCompletion:(id)completion
 {
   buttonCopy = button;
-  v104 = *MEMORY[0x1E69E9840];
+  v109 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   completionCopy = completion;
   v11 = [objc_opt_class() sharingErrorTypeFromError:errorCopy];
@@ -41,9 +41,9 @@
   {
     errors = [(PUErrorPresentationController *)self errors];
     *buf = 138543618;
-    v101 = v14;
-    v102 = 2114;
-    v103 = errors;
+    v106 = v14;
+    v107 = 2114;
+    v108 = errors;
     _os_log_impl(&dword_1B36F3000, v15, OS_LOG_TYPE_ERROR, "Sharing Error Presentation: Will show Unable to share dialogue. Error Type: %{public}@. Reported errors: %{public}@", buf, 0x16u);
   }
 
@@ -51,10 +51,10 @@
   array2 = [MEMORY[0x1E695DF70] array];
   v19 = PULocalizedString(@"OK");
   v20 = v19;
-  v99 = errorCopy;
+  v104 = errorCopy;
   if (v12 == 8)
   {
-    v94 = v19;
+    v99 = v19;
     v21 = array2;
     v22 = array;
     v23 = v14;
@@ -88,20 +88,19 @@
     v47 = [MEMORY[0x1E696AAF0] stringFromByteCount:objc_msgSend(v26 countStyle:{"longLongValue"), 3}];
     v30 = PULocalizedString(@"SHARED_STREAM_GIF_SIZE_LIMIT_ERROR_TITLE");
     v48 = PULocalizedString(@"SHARED_STREAM_GIF_SIZE_LIMIT_ERROR_MESSAGE");
-    v90 = v47;
-    v34 = PUStringWithValidatedFormat();
+    v34 = PUStringWithValidatedFormat(v48, @"%@", v49, v50, v51, v52, v53, v54, v47);
 
     completionCopy = v24;
     v14 = v23;
     array = v22;
     array2 = v21;
-    v20 = v94;
+    v20 = v99;
     goto LABEL_71;
   }
 
   if ((v12 - 1) <= 2)
   {
-    v95 = buttonCopy;
+    v100 = buttonCopy;
     if ([(PUSharingErrorPresentationController *)self preparationType]== 1)
     {
 LABEL_14:
@@ -114,17 +113,17 @@ LABEL_14:
 LABEL_35:
         v34 = [v31 _mediaSpecificMessageForKeyPrefix:v33 forAssets:assets];
 
-        v49 = objc_opt_class();
-        v50 = PULocalizedString(@"SHARING_PREPARATION_AIRPLANE_MODE_MANAGE_BUTTON_TITLE");
-        v51 = v49;
-        v52 = 10;
+        v55 = objc_opt_class();
+        v56 = PULocalizedString(@"SHARING_PREPARATION_AIRPLANE_MODE_MANAGE_BUTTON_TITLE");
+        v57 = v55;
+        v58 = 10;
 LABEL_49:
-        v73 = [v51 alertActionForNavigatingToDestination:v52 withTitle:v50 completion:completionCopy];
+        v79 = [v57 alertActionForNavigatingToDestination:v58 withTitle:v56 completion:completionCopy];
 
-        [array2 addObject:v73];
-        v74 = PULocalizedString(@"CANCEL");
+        [array2 addObject:v79];
+        v80 = PULocalizedString(@"CANCEL");
 
-        v20 = v74;
+        v20 = v80;
         goto LABEL_50;
       }
 
@@ -138,10 +137,10 @@ LABEL_49:
         }
 
 LABEL_51:
-        v75 = [v34 stringByAppendingString:{@"\n\n[Internal Only] If you feel like this network error is unexpected, please file a radar (and explain why)."}];
+        v81 = [v34 stringByAppendingString:{@"\n\n[Internal Only] If you feel like this network error is unexpected, please file a radar (and explain why)."}];
 
         [array addObject:@"Can you reach the internet in other apps?"];
-        v76 = @"Do you have any cellular restrictions on Photos?";
+        v82 = @"Do you have any cellular restrictions on Photos?";
         goto LABEL_52;
       }
 
@@ -156,7 +155,7 @@ LABEL_51:
       code = [errorCopy code];
 
       v45 = code == 6001;
-      buttonCopy = v95;
+      buttonCopy = v100;
       if (v45)
       {
         goto LABEL_14;
@@ -178,16 +177,16 @@ LABEL_51:
 
     if (v12 != 3)
     {
-      v86 = objc_opt_class();
+      v92 = objc_opt_class();
       assets2 = [(PUErrorPresentationController *)self assets];
-      v30 = [v86 _defaultTitleForDownloadErrorForAssets:assets2 forSource:{-[PUSharingErrorPresentationController source](self, "source")}];
+      v30 = [v92 _defaultTitleForDownloadErrorForAssets:assets2 forSource:{-[PUSharingErrorPresentationController source](self, "source")}];
 
-      v88 = objc_opt_class();
+      v94 = objc_opt_class();
       assets3 = [(PUErrorPresentationController *)self assets];
-      v34 = [v88 _mediaSpecificMessageForKeyPrefix:@"SHARING_PREPARATION_NETWORK_ERROR_MESSAGE_" forAssets:assets3];
+      v34 = [v94 _mediaSpecificMessageForKeyPrefix:@"SHARING_PREPARATION_NETWORK_ERROR_MESSAGE_" forAssets:assets3];
 
 LABEL_50:
-      if (!v95)
+      if (!v100)
       {
         goto LABEL_71;
       }
@@ -196,15 +195,15 @@ LABEL_50:
     }
 
     v30 = PULocalizedString(@"SHARING_PREPARATION_CELLULAR_RESTRICTED_TITLE");
-    v70 = objc_opt_class();
+    v76 = objc_opt_class();
     assets4 = [(PUErrorPresentationController *)self assets];
-    v34 = [v70 _mediaSpecificMessageForKeyPrefix:@"SHARING_PREPARATION_CELLULAR_RESTRICTED_MESSAGE_" forAssets:assets4];
+    v34 = [v76 _mediaSpecificMessageForKeyPrefix:@"SHARING_PREPARATION_CELLULAR_RESTRICTED_MESSAGE_" forAssets:assets4];
 
 LABEL_48:
-    v72 = objc_opt_class();
-    v50 = PULocalizedString(@"SHARING_PREPARATION_CELLULAR_RESTRICTED_MANAGE_BUTTON_TITLE");
-    v51 = v72;
-    v52 = 9;
+    v78 = objc_opt_class();
+    v56 = PULocalizedString(@"SHARING_PREPARATION_CELLULAR_RESTRICTED_MANAGE_BUTTON_TITLE");
+    v57 = v78;
+    v58 = 9;
     goto LABEL_49;
   }
 
@@ -212,23 +211,23 @@ LABEL_48:
   {
     if (v12 == 4)
     {
-      v91 = v14;
-      v92 = array;
+      v96 = v14;
+      v97 = array;
       v30 = PULocalizedString(@"SHARING_PREPARATION_LOW_DISK_SPACE_TITLE");
-      v61 = objc_opt_class();
+      v67 = objc_opt_class();
       [(PUErrorPresentationController *)self assets];
-      v63 = v62 = buttonCopy;
-      v34 = [v61 _mediaSpecificMessageForKeyPrefix:@"SHARING_PREPARATION_LOW_DISK_SPACE_MESSAGE_" forAssets:v63];
+      v69 = v68 = buttonCopy;
+      v34 = [v67 _mediaSpecificMessageForKeyPrefix:@"SHARING_PREPARATION_LOW_DISK_SPACE_MESSAGE_" forAssets:v69];
 
-      v64 = objc_opt_class();
-      v65 = PULocalizedString(@"SHARING_PREPARATION_LOW_DISK_SPACE_MANAGE_BUTTON_TITLE");
+      v70 = objc_opt_class();
+      v71 = PULocalizedString(@"SHARING_PREPARATION_LOW_DISK_SPACE_MANAGE_BUTTON_TITLE");
       v38 = completionCopy;
-      v39 = [v64 alertActionForNavigatingToDestination:2 withTitle:v65 completion:completionCopy];
+      v39 = [v70 alertActionForNavigatingToDestination:2 withTitle:v71 completion:completionCopy];
 
       [array2 addObject:v39];
       v40 = PULocalizedString(@"CANCEL");
 
-      if (v62)
+      if (v68)
       {
         v41 = [v34 stringByAppendingString:{@"\n\n[Internal Only] If you feel like this storage error is unexpected, please file a radar (and explain why)."}];
 
@@ -240,15 +239,15 @@ LABEL_43:
 
       v20 = v40;
       completionCopy = v38;
-      v14 = v91;
-      array = v92;
+      v14 = v96;
+      array = v97;
       goto LABEL_71;
     }
 
     if (v12 == 5)
     {
-      v91 = v14;
-      v92 = array;
+      v96 = v14;
+      v97 = array;
       v30 = PULocalizedString(@"SHARING_PREPARATION_CMM_ICLOUD_QUOTA_EXCEEDED_TITLE");
       v34 = PULocalizedString(@"SHARING_PREPARATION_CMM_ICLOUD_QUOTA_EXCEEDED_MESSAGE");
       v35 = objc_opt_class();
@@ -266,7 +265,7 @@ LABEL_43:
 
         v42 = @"How much iCloud space do you have available?";
 LABEL_42:
-        [v92 addObject:v42];
+        [v97 addObject:v42];
         v34 = v41;
         goto LABEL_43;
       }
@@ -275,28 +274,28 @@ LABEL_42:
     }
 
 LABEL_36:
-    v97 = array2;
-    v53 = array;
-    v54 = v14;
-    v55 = completionCopy;
+    v102 = array2;
+    v59 = array;
+    v60 = v14;
+    v61 = completionCopy;
     source = [(PUSharingErrorPresentationController *)self source];
-    v57 = objc_opt_class();
+    v63 = objc_opt_class();
     assets5 = [(PUErrorPresentationController *)self assets];
-    v30 = [v57 _defaultTitleForSource:source assets:assets5];
+    v30 = [v63 _defaultTitleForSource:source assets:assets5];
 
     if (source > 3)
     {
       if (source == 4)
       {
-        v77 = @"SYNDICATION_SAVE_PREPARATION_ERROR_MESSAGE";
+        v83 = @"SYNDICATION_SAVE_PREPARATION_ERROR_MESSAGE";
         goto LABEL_69;
       }
 
       if (source == 5)
       {
-        v77 = @"RENDER_PREPARATION_ERROR_MESSAGE";
+        v83 = @"RENDER_PREPARATION_ERROR_MESSAGE";
 LABEL_69:
-        v34 = PULocalizedString(v77);
+        v34 = PULocalizedString(v83);
         goto LABEL_70;
       }
     }
@@ -305,41 +304,41 @@ LABEL_69:
     {
       if (source == 1)
       {
-        v77 = @"POST_TO_SHARED_ALBUM_PREPARATION_ERROR_MESSAGE";
+        v83 = @"POST_TO_SHARED_ALBUM_PREPARATION_ERROR_MESSAGE";
         goto LABEL_69;
       }
 
       if (source == 3)
       {
-        v59 = objc_opt_class();
+        v65 = objc_opt_class();
         assets6 = [(PUErrorPresentationController *)self assets];
-        v34 = [v59 _mediaSpecificMessageForKeyPrefix:@"PHOTO_PICKER_PREPARATION_ERROR_MESSAGE_" forAssets:assets6];
+        v34 = [v65 _mediaSpecificMessageForKeyPrefix:@"PHOTO_PICKER_PREPARATION_ERROR_MESSAGE_" forAssets:assets6];
 
 LABEL_70:
-        completionCopy = v55;
-        v14 = v54;
-        array = v53;
-        array2 = v97;
+        completionCopy = v61;
+        v14 = v60;
+        array = v59;
+        array2 = v102;
         goto LABEL_71;
       }
     }
 
-    v77 = @"SHARING_PREPARATION_ERROR_MESSAGE";
+    v83 = @"SHARING_PREPARATION_ERROR_MESSAGE";
     goto LABEL_69;
   }
 
   if (v12 == 6)
   {
-    v98 = buttonCopy;
-    v66 = objc_opt_class();
+    v103 = buttonCopy;
+    v72 = objc_opt_class();
     assets7 = [(PUErrorPresentationController *)self assets];
-    v30 = [v66 _defaultTitleForDownloadErrorForAssets:assets7 forSource:{-[PUSharingErrorPresentationController source](self, "source")}];
+    v30 = [v72 _defaultTitleForDownloadErrorForAssets:assets7 forSource:{-[PUSharingErrorPresentationController source](self, "source")}];
 
     if ([(PUSharingErrorPresentationController *)self source]== 3)
     {
-      v68 = objc_opt_class();
+      v74 = objc_opt_class();
       assets8 = [(PUErrorPresentationController *)self assets];
-      v34 = [v68 _mediaSpecificMessageForKeyPrefix:@"PHOTO_PICKER_PREPARATION_CPL_NOT_READY_ERROR_MESSAGE_" forAssets:assets8];
+      v34 = [v74 _mediaSpecificMessageForKeyPrefix:@"PHOTO_PICKER_PREPARATION_CPL_NOT_READY_ERROR_MESSAGE_" forAssets:assets8];
     }
 
     else
@@ -347,19 +346,19 @@ LABEL_70:
       v34 = PULocalizedString(@"SHARING_PREPARATION_CPL_NOT_READY_ERROR_MESSAGE");
     }
 
-    if (!v98)
+    if (!v103)
     {
       goto LABEL_71;
     }
 
-    v75 = [v34 stringByAppendingString:{@"\n\n[Internal Only] If you feel like this iCloud Photos-related error is unexpected, please file a radar (and explain why)."}];
+    v81 = [v34 stringByAppendingString:{@"\n\n[Internal Only] If you feel like this iCloud Photos-related error is unexpected, please file a radar (and explain why)."}];
 
     [array addObject:@"Did you recently upgrade your OS and reboot?"];
     [array addObject:@"Did you install any roots recently?"];
-    v76 = @"Did you sign in/out of iCloud recently?";
+    v82 = @"Did you sign in/out of iCloud recently?";
 LABEL_52:
-    [array addObject:v76];
-    v34 = v75;
+    [array addObject:v82];
+    v34 = v81;
     goto LABEL_71;
   }
 
@@ -368,8 +367,8 @@ LABEL_52:
     goto LABEL_36;
   }
 
-  v96 = buttonCopy;
-  v93 = array;
+  v101 = buttonCopy;
+  v98 = array;
   v30 = PULocalizedString(@"SHARING_PREPARATION_NEEDS_CLOUD_SETTINGS_REVIEW_TITLE");
   v46 = v14;
   if ([(PUSharingErrorPresentationController *)self preparationType]== 1)
@@ -379,32 +378,32 @@ LABEL_52:
 
   else
   {
-    v78 = objc_opt_class();
+    v84 = objc_opt_class();
     assets9 = [(PUErrorPresentationController *)self assets];
-    v34 = [v78 _mediaSpecificMessageForKeyPrefix:@"SHARING_PREPARATION_NEEDS_CLOUD_SETTINGS_REVIEW_MESSAGE_" forAssets:assets9];
+    v34 = [v84 _mediaSpecificMessageForKeyPrefix:@"SHARING_PREPARATION_NEEDS_CLOUD_SETTINGS_REVIEW_MESSAGE_" forAssets:assets9];
   }
 
-  v80 = objc_opt_class();
-  v81 = PULocalizedString(@"SHARING_PREPARATION_NEEDS_CLOUD_SETTINGS_REVIEW_GO_TO_SETTINGS_BUTTON_TITLE");
-  v82 = completionCopy;
-  v83 = [v80 alertActionForNavigatingToDestination:4 withTitle:v81 completion:completionCopy];
+  v86 = objc_opt_class();
+  v87 = PULocalizedString(@"SHARING_PREPARATION_NEEDS_CLOUD_SETTINGS_REVIEW_GO_TO_SETTINGS_BUTTON_TITLE");
+  v88 = completionCopy;
+  v89 = [v86 alertActionForNavigatingToDestination:4 withTitle:v87 completion:completionCopy];
 
-  [array2 addObject:v83];
-  v84 = PULocalizedString(@"CANCEL");
+  [array2 addObject:v89];
+  v90 = PULocalizedString(@"CANCEL");
 
-  if (v96)
+  if (v101)
   {
-    v85 = [v34 stringByAppendingString:{@"\n\n[Internal Only] If you feel like this error is unexpected, please file a radar (and explain why)."}];
+    v91 = [v34 stringByAppendingString:{@"\n\n[Internal Only] If you feel like this error is unexpected, please file a radar (and explain why)."}];
 
-    v34 = v85;
+    v34 = v91;
   }
 
-  v20 = v84;
-  completionCopy = v82;
+  v20 = v90;
+  completionCopy = v88;
   v14 = v46;
-  array = v93;
+  array = v98;
 LABEL_71:
-  [(PUErrorPresentationController *)self setAlertTitle:v30, v90];
+  [(PUErrorPresentationController *)self setAlertTitle:v30];
   [(PUErrorPresentationController *)self setAlertMessage:v34];
   [(PUErrorPresentationController *)self setAdditionalQuestionsInRadarDescription:array];
   [(PUErrorPresentationController *)self setAdditionalAlertActions:array2];

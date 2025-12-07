@@ -23,57 +23,49 @@
 
 + (id)deserializedCopyFromData:(id)data cursor:(unint64_t *)cursor
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v19 = 0;
-  [dataCopy getBytes:&v19 + 1 range:{(*cursor)++, 1}];
-  [dataCopy getBytes:&v19 range:?];
+  v16 = 0;
+  [dataCopy getBytes:&v16 + 1 range:{(*cursor)++, 1}];
+  [dataCopy getBytes:&v16 range:?];
   v7 = (*cursor)++;
-  v8 = v19;
-  if (!HIBYTE(v19))
+  v8 = v16;
+  if (HIBYTE(v16) && HIBYTE(v16) != 1)
   {
-    v9 = off_279E32A48;
-    goto LABEL_5;
-  }
-
-  if (HIBYTE(v19) == 1)
-  {
-    v9 = off_279E32A40;
-LABEL_5:
-    v10 = *v9;
-    v11 = objc_opt_class();
-    goto LABEL_7;
-  }
-
-  [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE648] format:{@"%@: Unexpected byte %x at position %lu", self, HIBYTE(v19), v7}];
-  v11 = 0;
-LABEL_7:
-  if ((v8 & 7u) - 1 > 4)
-  {
-    v15 = vm_imap_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-    {
-      v16 = *cursor;
-      *buf = 67109376;
-      v21 = v19;
-      v22 = 2048;
-      v23 = v16;
-      _os_log_impl(&dword_2720B1000, v15, OS_LOG_TYPE_DEFAULT, "Unexpected byte %u at position %lu", buf, 0x12u);
-    }
-
-    v14 = 0;
+    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE648] format:{@"%@: Unexpected byte %x at position %lu", self, HIBYTE(v16), v7}];
+    v9 = 0;
   }
 
   else
   {
-    v12 = objc_alloc_init(v11);
-    v12[8] = v19 & 0x80 | v8 & 0x7F;
-    v13 = v12;
-    v14 = [v13 _deserializeOpSpecificValuesFromData:dataCopy cursor:cursor];
+    v9 = objc_opt_class();
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v14;
+  if ((v8 & 7u) - 1 > 4)
+  {
+    v13 = vm_imap_log(v9);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = *cursor;
+      *buf = 67109376;
+      v18 = v16;
+      v19 = 2048;
+      v20 = v14;
+      _os_log_impl(&dword_2720B1000, v13, OS_LOG_TYPE_DEFAULT, "Unexpected byte %u at position %lu", buf, 0x12u);
+    }
+
+    v12 = 0;
+  }
+
+  else
+  {
+    v10 = objc_alloc_init(v9);
+    v10[8] = v16 & 0x80 | v8 & 0x7F;
+    v11 = v10;
+    v12 = [v11 _deserializeOpSpecificValuesFromData:dataCopy cursor:cursor];
+  }
+
+  return v12;
 }
 
 - (id)_deserializeOpSpecificValuesFromData:(id)data cursor:(unint64_t *)cursor
@@ -99,15 +91,15 @@ LABEL_7:
       flags = self->_opSpecific.append.flags;
       self->_opSpecific.append.flags = v14;
 
-      [dataCopy getBytes:&v20 range:{*cursor, 4}];
+      [dataCopy getBytes:&v21 range:{*cursor, 4}];
       *cursor += 4;
-      self->_opSpecific.append.internalDate = v20;
-      [dataCopy getBytes:&v21 range:?];
-      *cursor += 4;
-      self->_opSpecific.append.uid = v21;
+      self->_opSpecific.append.internalDate = v21;
       [dataCopy getBytes:&v22 range:?];
       *cursor += 4;
-      self->_opSpecific.append.size = v22;
+      self->_opSpecific.append.uid = v22;
+      [dataCopy getBytes:&v23 range:?];
+      *cursor += 4;
+      self->_opSpecific.append.size = v23;
       break;
     case 3:
       v10 = _createStringArrayFromData(dataCopy, cursor);
@@ -122,12 +114,13 @@ LABEL_7:
       break;
   }
 
-  if (![(MFIMAPOperation *)self isValid])
+  isValid = [(MFIMAPOperation *)self isValid];
+  if ((isValid & 1) == 0)
   {
-    v18 = vm_imap_log();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+    v19 = vm_imap_log(isValid);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
     {
-      [MFIMAPOperation _deserializeOpSpecificValuesFromData:v18 cursor:?];
+      [MFIMAPOperation _deserializeOpSpecificValuesFromData:v19 cursor:?];
     }
 
     self = 0;
@@ -207,7 +200,7 @@ LABEL_7:
 
   else
   {
-    v16 = vm_imap_log();
+    v16 = vm_imap_log(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [(MFIMAPOperation *)mailboxCopy initWithType:type mailbox:v16];
@@ -226,24 +219,10 @@ LABEL_7:
   clearCopy = clear;
   uidsCopy = uids;
   v13 = [(MFIMAPOperation *)self initWithType:3 mailbox:mailbox];
-  if (!v13)
+  if (v13 && (v14 = [setCopy copy], trueFlags = v13->_opSpecific.store.trueFlags, v13->_opSpecific.store.trueFlags = v14, trueFlags, v16 = objc_msgSend(clearCopy, "copy"), falseFlags = v13->_opSpecific.store.falseFlags, v13->_opSpecific.store.falseFlags = v16, falseFlags, v13->_opSpecific.store.uids = _createUidArrayFromStringArray(uidsCopy), v18 = -[MFIMAPOperation isValid](v13, "isValid"), (v18 & 1) == 0))
   {
-    goto LABEL_3;
-  }
-
-  v14 = [setCopy copy];
-  trueFlags = v13->_opSpecific.store.trueFlags;
-  v13->_opSpecific.store.trueFlags = v14;
-
-  v16 = [clearCopy copy];
-  falseFlags = v13->_opSpecific.store.falseFlags;
-  v13->_opSpecific.store.falseFlags = v16;
-
-  v13->_opSpecific.store.uids = _createUidArrayFromStringArray(uidsCopy);
-  if (![(MFIMAPOperation *)v13 isValid])
-  {
-    v19 = vm_imap_log();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = vm_imap_log(v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       v22 = [(NSArray *)v13->_opSpecific.store.trueFlags count];
       v23 = [(NSArray *)v13->_opSpecific.store.falseFlags count];
@@ -254,20 +233,18 @@ LABEL_7:
       v28 = v23;
       v29 = 2048;
       v30 = v24;
-      _os_log_error_impl(&dword_2720B1000, v19, OS_LOG_TYPE_ERROR, "attempt to create an invalid store-flags offline operation: %lu true flags, %lu false flags, %lu uids", &v25, 0x20u);
+      _os_log_error_impl(&dword_2720B1000, v20, OS_LOG_TYPE_ERROR, "attempt to create an invalid store-flags offline operation: %lu true flags, %lu false flags, %lu uids", &v25, 0x20u);
     }
 
-    v18 = 0;
+    v19 = 0;
   }
 
   else
   {
-LABEL_3:
-    v18 = v13;
+    v19 = v13;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v18;
+  return v19;
 }
 
 - (MFIMAPOperation)initWithUidsToCopy:(id)copy fromMailbox:(id)mailbox toMailbox:(id)toMailbox firstNewUid:(unsigned int)uid
@@ -309,10 +286,11 @@ LABEL_3:
   destinationMailbox = v13->_opSpecific.copy.destinationMailbox;
   v13->_opSpecific.copy.destinationMailbox = v16;
 
-  if (![(MFIMAPOperation *)v13 isValid])
+  isValid = [(MFIMAPOperation *)v13 isValid];
+  if ((isValid & 1) == 0)
   {
-    v19 = vm_imap_log();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = vm_imap_log(isValid);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       v22 = [copyCopy count];
       v23 = [(__CFArray *)v13->_opSpecific.copy.dstUids count];
@@ -325,20 +303,19 @@ LABEL_3:
       v30 = v24;
       v31 = 2048;
       v32 = [(NSString *)v24 length];
-      _os_log_error_impl(&dword_2720B1000, v19, OS_LOG_TYPE_ERROR, "attempt to create an invalid copy-message offline operation: %lu srcUids, %lu dstUids, dstMailbox=%p (%lu)", &v25, 0x2Au);
+      _os_log_error_impl(&dword_2720B1000, v20, OS_LOG_TYPE_ERROR, "attempt to create an invalid copy-message offline operation: %lu srcUids, %lu dstUids, dstMailbox=%p (%lu)", &v25, 0x2Au);
     }
 
-    v18 = 0;
+    v19 = 0;
   }
 
   else
   {
 LABEL_8:
-    v18 = v13;
+    v19 = v13;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-  return v18;
+  return v19;
 }
 
 - (MFIMAPOperation)initWithAppendedUid:(unsigned int)uid approximateSize:(unsigned int)size flags:(id)flags internalDate:(id)date mailbox:(id)mailbox
@@ -716,9 +693,9 @@ LABEL_18:
 
 - (id)description
 {
-  v22.receiver = self;
-  v22.super_class = MFIMAPOperation;
-  v3 = [(MFIMAPOperation *)&v22 description];
+  v21.receiver = self;
+  v21.super_class = MFIMAPOperation;
+  v3 = [(MFIMAPOperation *)&v21 description];
   v4 = [v3 mutableCopy];
 
   v5 = *(self + 8) & 7;
@@ -753,22 +730,21 @@ LABEL_18:
         goto LABEL_47;
       }
 
-      v6 = self->_mailboxName;
-      [v4 appendFormat:@"COPY [%@] [%@]", v6, self->_opSpecific.copy.destinationMailbox];
+      [v4 appendFormat:@"COPY [%@] [%@]", self->_mailboxName, self->_opSpecific.copy.destinationMailbox];
       if (self->_opSpecific.store.uids)
       {
         Count = CFArrayGetCount(self->_opSpecific.copy.srcUids);
         if (*(self + 8) < 0)
         {
-          v8 = @"{";
+          v7 = @"{";
         }
 
         else
         {
-          v8 = CFSTR("(");
+          v7 = CFSTR("(");
         }
 
-        [v4 appendString:v8];
+        [v4 appendString:v7];
         if (Count >= 1)
         {
           for (i = 0; i != Count; ++i)
@@ -784,20 +760,20 @@ LABEL_18:
 
         if (*(self + 8) < 0)
         {
-          v10 = @"} ";
+          v9 = @"} ";
         }
 
         else
         {
-          v10 = @" ");
+          v9 = @" ");
         }
 
-        [v4 appendString:v10];
-        v11 = CFArrayGetCount(self->_opSpecific.copy.dstUids);
+        [v4 appendString:v9];
+        v10 = CFArrayGetCount(self->_opSpecific.copy.dstUids);
         [v4 appendString:@"{"];
-        if (v11 >= 1)
+        if (v10 >= 1)
         {
-          for (j = 0; j != v11; ++j)
+          for (j = 0; j != v10; ++j)
           {
             if (j)
             {
@@ -808,14 +784,14 @@ LABEL_18:
           }
         }
 
-        v13 = @"}";
+        v12 = @"}";
         goto LABEL_46;
       }
 
 LABEL_45:
-      v13 = @" ** expunged **";
+      v12 = @" ** expunged **";
 LABEL_46:
-      [v4 appendString:v13];
+      [v4 appendString:v12];
       goto LABEL_47;
     }
 
@@ -826,21 +802,21 @@ LABEL_46:
       goto LABEL_45;
     }
 
-    v15 = CFArrayGetCount(uids);
+    v14 = CFArrayGetCount(uids);
     if (*(self + 8) < 0)
     {
-      v16 = @"{";
+      v15 = @"{";
     }
 
     else
     {
-      v16 = CFSTR("(");
+      v15 = CFSTR("(");
     }
 
-    [v4 appendString:v16];
-    if (v15 >= 1)
+    [v4 appendString:v15];
+    if (v14 >= 1)
     {
-      for (k = 0; k != v15; ++k)
+      for (k = 0; k != v14; ++k)
       {
         if (k)
         {
@@ -853,15 +829,15 @@ LABEL_46:
 
     if (*(self + 8) < 0)
     {
-      v18 = @"}";
+      v17 = @"}";
     }
 
     else
     {
-      v18 = @"");
+      v17 = @"");
     }
 
-    [v4 appendString:v18];
+    [v4 appendString:v17];
     if (self->_opSpecific.store.trueFlags)
     {
       [v4 appendFormat:@" <+FLAGS.SILENT%@>", self->_opSpecific.store.trueFlags];
@@ -880,13 +856,12 @@ LABEL_47:
 
 - (void)initWithType:(os_log_t)log mailbox:.cold.1(uint64_t a1, int a2, os_log_t log)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 67109376;
-  v4[1] = a2;
-  v5 = 2048;
-  v6 = a1;
-  _os_log_error_impl(&dword_2720B1000, log, OS_LOG_TYPE_ERROR, "attempt to create an invalid offline operation of type %d with no mailbox name %p", v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 67109376;
+  v3[1] = a2;
+  v4 = 2048;
+  v5 = a1;
+  _os_log_error_impl(&dword_2720B1000, log, OS_LOG_TYPE_ERROR, "attempt to create an invalid offline operation of type %d with no mailbox name %p", v3, 0x12u);
 }
 
 @end

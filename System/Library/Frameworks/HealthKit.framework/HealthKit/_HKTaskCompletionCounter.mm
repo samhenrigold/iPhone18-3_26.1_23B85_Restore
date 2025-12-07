@@ -83,7 +83,7 @@ LABEL_3:
 {
   completion = self->_completion;
   self->_completion = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, completion);
 }
 
 + (void)counterWithTargetCount:(uint64_t)a1 queue:(uint64_t)a2 completion:.cold.1(uint64_t a1, uint64_t a2)

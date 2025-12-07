@@ -133,7 +133,7 @@ FILE *JetPack::FileStream::makeFile(const char *a1)
 
 void JetPackFileEntryGetPathname_cold_1()
 {
-  if (__cxa_guard_acquire(&qword_280B1A5B0))
+  if (__cxa_guard_acquire(byte_280B1A5B0))
   {
     v0 = os_log_create("com.apple.JetPack", "Diagnostics");
     v1 = OUTLINED_FUNCTION_0(v0, &_MergedGlobals_0);
@@ -195,7 +195,7 @@ LABEL_9:
 
 void JetPackReaderSetFileEntryFoundCallback(uint64_t *a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v2 = *a1;
@@ -212,47 +212,48 @@ void JetPackReaderSetFileEntryFoundCallback(uint64_t *a1, uint64_t a2)
     v3 = 0;
   }
 
-  if (*(v2 + 184) != 1)
+  if (*(v2 + 184) == 1)
+  {
+    v4[0] = &unk_286784248;
+    v4[1] = a2;
+    v4[2] = a1;
+    v5 = v4;
+    std::__function::__value_func<BOOL ()(JetPack::ReaderConfig &,void *,std::shared_ptr<JetPack::ArchiveStream>)>::swap[abi:ne200100](v4, (v2 + 152));
+    if (v5 == v4)
+    {
+      (*(*v5 + 32))(v5);
+      if (!v3)
+      {
+        return;
+      }
+
+      goto LABEL_12;
+    }
+
+    if (v5)
+    {
+      (*(*v5 + 40))();
+      if (!v3)
+      {
+        return;
+      }
+
+      goto LABEL_12;
+    }
+  }
+
+  else
   {
     *(v2 + 152) = &unk_286784248;
     *(v2 + 160) = a2;
     *(v2 + 168) = a1;
     *(v2 + 176) = v2 + 152;
     *(v2 + 184) = 1;
-    goto LABEL_11;
   }
 
-  v5[0] = &unk_286784248;
-  v5[1] = a2;
-  v5[2] = a1;
-  v6 = v5;
-  std::__function::__value_func<BOOL ()(JetPack::ReaderConfig &,void *,std::shared_ptr<JetPack::ArchiveStream>)>::swap[abi:ne200100](v5, (v2 + 152));
-  if (v6 == v5)
-  {
-    (*(*v6 + 32))(v6);
-    if (!v3)
-    {
-      goto LABEL_15;
-    }
-
-    goto LABEL_12;
-  }
-
-  if (!v6)
-  {
-LABEL_11:
-    if (!v3)
-    {
-      goto LABEL_15;
-    }
-
-    goto LABEL_12;
-  }
-
-  (*(*v6 + 40))();
   if (!v3)
   {
-    goto LABEL_15;
+    return;
   }
 
 LABEL_12:
@@ -261,14 +262,11 @@ LABEL_12:
     (v3->__on_zero_shared)(v3);
     std::__shared_weak_count::__release_weak(v3);
   }
-
-LABEL_15:
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void JetPackReaderSetKeyForIdentifierCallback(uint64_t *a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v2 = *a1;
@@ -285,47 +283,48 @@ void JetPackReaderSetKeyForIdentifierCallback(uint64_t *a1, uint64_t a2)
     v3 = 0;
   }
 
-  if (*(v2 + 64) != 1)
+  if (*(v2 + 64) == 1)
+  {
+    v4[0] = &unk_2867842D8;
+    v4[1] = a2;
+    v4[2] = a1;
+    v5 = v4;
+    std::__function::__value_func<std::optional<std::array<unsigned char,16ul>> ()(JetPack::ReaderConfig &,unsigned short)>::swap[abi:ne200100](v4, (v2 + 32));
+    if (v5 == v4)
+    {
+      (*(*v5 + 32))(v5);
+      if (!v3)
+      {
+        return;
+      }
+
+      goto LABEL_12;
+    }
+
+    if (v5)
+    {
+      (*(*v5 + 40))();
+      if (!v3)
+      {
+        return;
+      }
+
+      goto LABEL_12;
+    }
+  }
+
+  else
   {
     *(v2 + 32) = &unk_2867842D8;
     *(v2 + 40) = a2;
     *(v2 + 48) = a1;
     *(v2 + 56) = v2 + 32;
     *(v2 + 64) = 1;
-    goto LABEL_11;
   }
 
-  v5[0] = &unk_2867842D8;
-  v5[1] = a2;
-  v5[2] = a1;
-  v6 = v5;
-  std::__function::__value_func<std::optional<std::array<unsigned char,16ul>> ()(JetPack::ReaderConfig &,unsigned short)>::swap[abi:ne200100](v5, (v2 + 32));
-  if (v6 == v5)
-  {
-    (*(*v6 + 32))(v6);
-    if (!v3)
-    {
-      goto LABEL_15;
-    }
-
-    goto LABEL_12;
-  }
-
-  if (!v6)
-  {
-LABEL_11:
-    if (!v3)
-    {
-      goto LABEL_15;
-    }
-
-    goto LABEL_12;
-  }
-
-  (*(*v6 + 40))();
   if (!v3)
   {
-    goto LABEL_15;
+    return;
   }
 
 LABEL_12:
@@ -334,14 +333,11 @@ LABEL_12:
     (v3->__on_zero_shared)(v3);
     std::__shared_weak_count::__release_weak(v3);
   }
-
-LABEL_15:
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void JetPackReaderSetDataSegmentFoundCallback(uint64_t *a1, uint64_t a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v2 = *a1;
@@ -358,47 +354,48 @@ void JetPackReaderSetDataSegmentFoundCallback(uint64_t *a1, uint64_t a2)
     v3 = 0;
   }
 
-  if (*(v2 + 144) != 1)
+  if (*(v2 + 144) == 1)
+  {
+    v4[0] = &unk_2867841B8;
+    v4[1] = a2;
+    v4[2] = a1;
+    v5 = v4;
+    std::__function::__value_func<BOOL ()(JetPack::ReaderConfig &,std::string,std::shared_ptr<JetPack::BaseStream>)>::swap[abi:ne200100](v4, (v2 + 112));
+    if (v5 == v4)
+    {
+      (*(*v5 + 32))(v5);
+      if (!v3)
+      {
+        return;
+      }
+
+      goto LABEL_12;
+    }
+
+    if (v5)
+    {
+      (*(*v5 + 40))();
+      if (!v3)
+      {
+        return;
+      }
+
+      goto LABEL_12;
+    }
+  }
+
+  else
   {
     *(v2 + 112) = &unk_2867841B8;
     *(v2 + 120) = a2;
     *(v2 + 128) = a1;
     *(v2 + 136) = v2 + 112;
     *(v2 + 144) = 1;
-    goto LABEL_11;
   }
 
-  v5[0] = &unk_2867841B8;
-  v5[1] = a2;
-  v5[2] = a1;
-  v6 = v5;
-  std::__function::__value_func<BOOL ()(JetPack::ReaderConfig &,std::string,std::shared_ptr<JetPack::BaseStream>)>::swap[abi:ne200100](v5, (v2 + 112));
-  if (v6 == v5)
-  {
-    (*(*v6 + 32))(v6);
-    if (!v3)
-    {
-      goto LABEL_15;
-    }
-
-    goto LABEL_12;
-  }
-
-  if (!v6)
-  {
-LABEL_11:
-    if (!v3)
-    {
-      goto LABEL_15;
-    }
-
-    goto LABEL_12;
-  }
-
-  (*(*v6 + 40))();
   if (!v3)
   {
-    goto LABEL_15;
+    return;
   }
 
 LABEL_12:
@@ -407,9 +404,6 @@ LABEL_12:
     (v3->__on_zero_shared)(v3);
     std::__shared_weak_count::__release_weak(v3);
   }
-
-LABEL_15:
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void sub_255635BB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -422,13 +416,13 @@ void sub_255635BB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void JetPack::CommonCryptoSignatureVerifier::CommonCryptoSignatureVerifier(uint64_t a1, void *a2)
+void JetPack::CommonCryptoSignatureVerifier::CommonCryptoSignatureVerifier(void *a1, void *a2, uint64_t *a3)
 {
   memset(__p, 0, sizeof(__p));
-  v2 = a2[1];
-  if (v2 != *a2)
+  v3 = a2[1];
+  if (v3 != *a2)
   {
-    if (((v2 - *a2) & 0x8000000000000000) == 0)
+    if (((v3 - *a2) & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -439,14 +433,15 @@ void JetPack::CommonCryptoSignatureVerifier::CommonCryptoSignatureVerifier(uint6
   JetPack::CommonCryptoBackend::certificateForData(__p);
 }
 
-void sub_255635D54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, char a13)
+void sub_255635D54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12, ...)
 {
-  if (v13)
+  va_start(va, a12);
+  if (v12)
   {
-    std::allocator<JetPack::AESDecoderStream>::construct[abi:ne200100]<JetPack::AESDecoderStream,std::shared_ptr<JetPack::BaseStream> &,std::array<unsigned char,16ul> &,unsigned int &>(v13);
+    std::allocator<JetPack::AESDecoderStream>::construct[abi:ne200100]<JetPack::AESDecoderStream,std::shared_ptr<JetPack::BaseStream> &,std::array<unsigned char,16ul> &,unsigned int &>(v12);
   }
 
-  std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](&a13);
+  std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](va);
   if (__p)
   {
     operator delete(__p);
@@ -455,17 +450,16 @@ void sub_255635D54(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::allocator<JetPack::CommonCryptoSignatureVerifier>::construct[abi:ne200100]<JetPack::CommonCryptoSignatureVerifier,std::vector<unsigned char> &>(uint64_t a1, uint64_t a2, void *a3)
+void std::allocator<JetPack::CommonCryptoSignatureVerifier>::construct[abi:ne200100]<JetPack::CommonCryptoSignatureVerifier,std::vector<unsigned char> &>(uint64_t a1, void *a2, void *a3)
 {
   __p = 0;
+  v5 = 0;
   v6 = 0;
-  v7 = 0;
   v3 = a3[1];
   if (v3 != *a3)
   {
     if (((v3 - *a3) & 0x8000000000000000) == 0)
     {
-      v4 = v3 - *a3;
       operator new();
     }
 
@@ -520,15 +514,14 @@ void JetPack::CommonCryptoBackend::certificateForData(void *a1)
   {
     if (((v1 - *a1) & 0x8000000000000000) == 0)
     {
-      v2 = v1 - *a1;
       operator new();
     }
 
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
 
-  v3 = CFDataCreate(*MEMORY[0x277CBECE8], 0, 0);
-  JetPack::makeCFSharedPtr<__CFData const*>(v3, &data);
+  v2 = CFDataCreate(*MEMORY[0x277CBECE8], 0, 0);
+  JetPack::makeCFSharedPtr<__CFData const*>(v2, &data);
 }
 
 void sub_2556361EC(_Unwind_Exception *exception_object)
@@ -610,11 +603,10 @@ void sub_255636458(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t JetPack::UnownedPartialStream::read(JetPack::UnownedPartialStream *this, unsigned __int8 *a2)
 {
-  v3 = *(this + 2);
   (*(*this + 24))(this);
-  v4 = *(**(this + 1) + 16);
+  v3 = *(**(this + 1) + 16);
 
-  return v4();
+  return v3();
 }
 
 uint64_t JetPack::UnownedPartialStream::position(JetPack::UnownedPartialStream *this)
@@ -745,14 +737,14 @@ LABEL_15:
   goto LABEL_20;
 }
 
-void sub_2556368A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, char a16, uint64_t a17, char a18, uint64_t a19, char a20, uint64_t a21, char a22)
+void sub_2556368A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22)
 {
   std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](&a16);
   std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](&a18);
   if (a2 == 1)
   {
     v26 = __cxa_begin_catch(a1);
-    nestedExceptionString(v26, &__p);
+    nestedExceptionString(&__p, v26);
     std::optional<std::string>::operator=[abi:ne200100]<std::string,void>(v22 + 16, &__p);
     if (a14 < 0)
     {
@@ -774,7 +766,7 @@ void sub_2556368A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_25563700C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, char a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
+void sub_25563700C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
 {
   __cxa_free_exception(v22);
   std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](&a15);
@@ -826,16 +818,16 @@ size_t JetPack::FileStream::read(JetPack::FileStream *this, unsigned __int8 *__p
 
 BOOL JetPack::parseRootDynamicRegion(uint64_t a1, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = *(a2 + 8);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v10[0]) = 0;
-    _os_log_impl(&dword_255634000, v4, OS_LOG_TYPE_DEBUG, "Reading root dynamic region", v10, 2u);
+    LOWORD(v9[0]) = 0;
+    _os_log_impl(&dword_255634000, v4, OS_LOG_TYPE_DEBUG, "Reading root dynamic region", v9, 2u);
   }
 
-  LOBYTE(v10[0]) = 0;
-  if ((*(*a1 + 16))(a1, v10, 1) != 1)
+  LOBYTE(v9[0]) = 0;
+  if ((*(*a1 + 16))(a1, v9, 1) != 1)
   {
     exception = __cxa_allocate_exception(0x20uLL);
     strcpy(exception + 8, "NotEnoughData");
@@ -844,18 +836,16 @@ BOOL JetPack::parseRootDynamicRegion(uint64_t a1, uint64_t a2)
     *exception = &unk_286783430;
   }
 
-  v5 = LOBYTE(v10[0]);
+  v5 = LOBYTE(v9[0]);
   v6 = *(a2 + 8);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    v10[0] = 67240192;
-    v10[1] = v5;
-    _os_log_impl(&dword_255634000, v6, OS_LOG_TYPE_DEBUG, "Is signed flag is %{public}i", v10, 8u);
+    v9[0] = 67240192;
+    v9[1] = v5;
+    _os_log_impl(&dword_255634000, v6, OS_LOG_TYPE_DEBUG, "Is signed flag is %{public}i", v9, 8u);
   }
 
-  result = v5 == 1;
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return v5 == 1;
 }
 
 uint64_t JetPack::UnownedPartialStream::seekToEnd(JetPack::UnownedPartialStream *this)
@@ -869,16 +859,15 @@ uint64_t JetPack::UnownedPartialStream::seekToEnd(JetPack::UnownedPartialStream 
 
 uint64_t JetPack::UnownedPartialStream::seekForward(JetPack::UnownedPartialStream *this)
 {
-  v2 = *(this + 2);
   (*(*this + 24))(this);
-  v3 = *(**(this + 1) + 48);
+  v2 = *(**(this + 1) + 48);
 
-  return v3();
+  return v2();
 }
 
 unint64_t JetPack::BaseStream::seekForward(JetPack::BaseStream *this, uint64_t a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = (*(*this + 24))(this);
   result = (*(*this + 32))(this);
   if ((result & 1) == 0)
@@ -894,14 +883,13 @@ unint64_t JetPack::BaseStream::seekForward(JetPack::BaseStream *this, uint64_t a
 
       v7 = (*(*this + 24))(this);
       v8 = v6 - v7 >= 0x400 ? 1024 : v6 - v7;
-      (*(*this + 16))(this, v10, v8);
+      (*(*this + 16))(this, v9, v8);
       result = (*(*this + 32))(this);
     }
 
     while (!result);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -970,52 +958,52 @@ LABEL_13:
   }
 }
 
-void JetPack::readMultiSegmentContainer(uint64_t a1)
+void JetPack::readMultiSegmentContainer(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 24);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v8 = *MEMORY[0x277D85DE8];
+  v4 = *(a1 + 24);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_255634000, v2, OS_LOG_TYPE_DEFAULT, "Reading multi segment container", buf, 2u);
+    _os_log_impl(&dword_255634000, v4, OS_LOG_TYPE_DEFAULT, "Reading multi segment container", buf, 2u);
   }
 
-  v3 = *(a1 + 24);
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  v5 = *(a1 + 24);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67240192;
     *&buf[4] = 0;
-    _os_log_impl(&dword_255634000, v3, OS_LOG_TYPE_DEBUG, "Reading segment %{public}i", buf, 8u);
+    _os_log_impl(&dword_255634000, v5, OS_LOG_TYPE_DEBUG, "Reading segment %{public}i", buf, 8u);
   }
 
-  JetPack::UnableToParseMultiSegmentException::UnableToParseMultiSegmentException(&v4);
+  JetPack::UnableToParseMultiSegmentException::UnableToParseMultiSegmentException(&v6, 0);
 }
 
-void sub_255637B54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_255637B54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   JetPack::NotEnoughDataException::~NotEnoughDataException(va);
   _Unwind_Resume(a1);
 }
 
-void sub_255637B5C(void *a1, int a2, uint64_t a3, uint64_t a4, ...)
+void sub_255637B5C(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va2, a4);
-  va_start(va1, a4);
-  va_start(va, a4);
-  v6 = va_arg(va1, void);
+  va_start(va2, a6);
+  va_start(va1, a6);
+  va_start(va, a6);
   v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   va_copy(va2, va1);
-  v12 = va_arg(va2, void);
   v14 = va_arg(va2, void);
-  v15 = va_arg(va2, void);
   v16 = va_arg(va2, void);
   v17 = va_arg(va2, void);
   v18 = va_arg(va2, void);
   v19 = va_arg(va2, void);
+  v20 = va_arg(va2, void);
+  v21 = va_arg(va2, void);
   std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](va2);
   if (a2 == 1)
   {
@@ -1098,35 +1086,35 @@ void sub_255637EA8(void *a1)
   __cxa_rethrow();
 }
 
-void JetPack::readJetPackStream(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t *a4)
+void JetPack::readJetPackStream(uint64_t a1, uint64_t *a2, char a3, uint64_t *a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (*a2)
   {
-    v7 = *(a1 + 24);
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = *(a1 + 24);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_255634000, v7, OS_LOG_TYPE_DEFAULT, "Reading JetPack stream", buf, 2u);
+      _os_log_impl(&dword_255634000, v8, OS_LOG_TYPE_DEFAULT, "Reading JetPack stream", buf, 2u);
     }
 
     if ((*(a1 + 224) & 1) == 0)
     {
-      v8 = *(a1 + 24);
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG) && (*buf = 0, _os_log_impl(&dword_255634000, v8, OS_LOG_TYPE_DEBUG, "Setting readSegment to default implementation", buf, 2u), (*(a1 + 224) & 1) != 0))
+      v9 = *(a1 + 24);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG) && (*buf = 0, _os_log_impl(&dword_255634000, v9, OS_LOG_TYPE_DEBUG, "Setting readSegment to default implementation", buf, 2u), (*(a1 + 224) & 1) != 0))
       {
         *buf = &unk_286783618;
-        v15 = JetPack::readSegment;
-        v16 = buf;
+        v16 = JetPack::readSegment;
+        v17 = buf;
         std::__function::__value_func<BOOL ()(JetPack::ReaderConfig &,JetPack::SegmentTag,std::shared_ptr<JetPack::BaseStream>)>::swap[abi:ne200100](buf, (a1 + 192));
-        if (v16 == buf)
+        if (v17 == buf)
         {
-          (*(*v16 + 32))(v16);
+          (*(*v17 + 32))(v17);
         }
 
-        else if (v16)
+        else if (v17)
         {
-          (*(*v16 + 40))();
+          (*(*v17 + 40))();
         }
       }
 
@@ -1139,46 +1127,49 @@ void JetPack::readJetPackStream(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t
       }
     }
 
-    v9 = a2[1];
-    v13 = *a2;
-    if (v9)
-    {
-      atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
-    }
-
-    v10 = a4[1];
-    v12 = *a4;
+    v10 = a2[1];
+    v14[0] = *a2;
+    v14[1] = v10;
     if (v10)
     {
       atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
     }
 
-    JetPack::readRootSegment();
+    v11 = a4[1];
+    v13[0] = *a4;
+    v13[1] = v11;
+    if (v11)
+    {
+      atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
+    }
+
+    JetPack::readRootSegment(a1, v14, a3, v13);
   }
 
   exception = __cxa_allocate_exception(0x20uLL);
   JetPack::InputStreamRequiredException::InputStreamRequiredException(exception);
 }
 
-void sub_2556381F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
+void sub_2556381F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
+  va_start(va, a10);
   std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](&a9);
-  std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](&a11);
+  std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t JetPack::parseRootHeader(uint64_t a1, uint64_t a2)
+uint64_t JetPack::parseRootHeader(JetPack::BaseStream *a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v16 = 19;
+  v16 = *MEMORY[0x277D85DE8];
+  v15 = 19;
   strcpy(__p, "UnableToParseHeader");
-  JetPack::ParseException::ParseException(v13, __p);
-  if (v16 < 0)
+  JetPack::ParseException::ParseException(v12, __p);
+  if (v15 < 0)
   {
     operator delete(*__p);
   }
 
-  v13[0].__vftable = &unk_286784490;
+  v12[0].__vftable = &unk_286784490;
   v4 = *(a2 + 8);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -1229,14 +1220,13 @@ LABEL_15:
   JetPack::UnownedPartialStream::UnownedPartialStream(__p, a1, v8);
   JetPack::parseRootDynamicRegion(__p, a2);
   JetPack::UnownedPartialStream::seekToEnd(__p);
-  v13[0].__vftable = &unk_286783408;
-  if (v14 < 0)
+  v12[0].__vftable = &unk_286783408;
+  if (v13 < 0)
   {
-    operator delete(v13[1].__vftable);
+    operator delete(v12[1].__vftable);
   }
 
-  std::exception::~exception(v13);
-  v10 = *MEMORY[0x277D85DE8];
+  std::exception::~exception(v12);
   return v5;
 }
 
@@ -1251,7 +1241,7 @@ void sub_25563853C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_255638578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, std::exception a9)
+void sub_255638578(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   __cxa_end_catch();
   JetPack::NotEnoughDataException::~NotEnoughDataException(&a9);
@@ -1329,7 +1319,7 @@ uint64_t JetPackStreamDestroy(uint64_t result)
   return result;
 }
 
-void **std::deque<unsigned char>::erase(void *a1, char *a2, char *a3, char *a4, char *a5)
+void **std::deque<unsigned char>::erase(void *a1, char *a2, const void **a3, char *a4, const void **a5)
 {
   if (a5 == a3)
   {
@@ -1338,7 +1328,7 @@ void **std::deque<unsigned char>::erase(void *a1, char *a2, char *a3, char *a4, 
 
   else
   {
-    v8 = &a5[512 * (a4 - a2)] - a3 - *a4 + *a2;
+    v8 = &a5[64 * (a4 - a2)] - a3 - *a4 + *a2;
   }
 
   v9 = a1[4];
@@ -1356,7 +1346,7 @@ void **std::deque<unsigned char>::erase(void *a1, char *a2, char *a3, char *a4, 
 
   else
   {
-    v13 = *v12 + (a1[4] & 0xFFFLL);
+    v13 = (*v12 + (a1[4] & 0xFFFLL));
     if (a3 == v13)
     {
 LABEL_6:
@@ -1365,7 +1355,7 @@ LABEL_6:
     }
   }
 
-  v15 = &a3[512 * (a2 - v12)] - &v13[*a2];
+  v15 = &a3[64 * (a2 - v12)] - (v13 + *a2);
   v14 = *v12 + v15;
   if (!v14)
   {
@@ -1381,13 +1371,13 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v16 = &v13[v15];
+  v16 = v13 + v15;
   if (v16 < 1)
   {
     v17 = 0;
     v25 = 4095 - v16;
     v18 = &v12[-(v25 >> 12)];
-    v19 = *v18 + (~v25 & 0xFFF);
+    v19 = (*v18 + (~v25 & 0xFFF));
     if (v8 < 1)
     {
       goto LABEL_34;
@@ -1398,7 +1388,7 @@ LABEL_12:
   {
     v17 = 0;
     v18 = &v12[v16 >> 12];
-    v19 = *v18 + (v16 & 0xFFF);
+    v19 = (*v18 + (v16 & 0xFFF));
     if (v8 < 1)
     {
       goto LABEL_34;
@@ -1422,7 +1412,7 @@ LABEL_13:
       v24 = &v18[v21 >> 12];
     }
 
-    std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>,std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>,0>(v12, v13, v18, v19, v24, *v24 + (v21 & 0xFFF), v41);
+    std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>,std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>,0>(v12, v13, v18, v19, v24, *v24 + (v21 & 0xFFF), v39);
     v31 = a1[5] - v8;
     v9 = a1[4] + v8;
     a1[4] = v9;
@@ -1465,9 +1455,9 @@ LABEL_13:
       v29 = *v28 + (v27 & 0xFFF);
     }
 
-    v41[0] = v18;
-    v41[1] = v19;
-    std::__for_each_segment[abi:ne200100]<std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>,std::__move_impl<std::_ClassicAlgPolicy>::_MoveSegment<std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>,std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>>>(v22, v23, v28, v29, v41);
+    v39[0] = v18;
+    v39[1] = v19;
+    std::__for_each_segment[abi:ne200100]<std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>,std::__move_impl<std::_ClassicAlgPolicy>::_MoveSegment<std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>,std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>>>(v22, v23, v28, v29, v39);
     v10 = a1[1];
     v32 = a1[2];
     v33 = ((v32 - v10) << 9) - 1;
@@ -1524,19 +1514,17 @@ LABEL_34:
   if (v38 < 1)
   {
     result -= (4095 - v38) >> 12;
-    v40 = *result;
   }
 
   else
   {
     result += v38 >> 12;
-    v39 = *result;
   }
 
   return result;
 }
 
-void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>,std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>,0>@<X0>(const void **a1@<X1>, char *a2@<X2>, const void **a3@<X3>, char *a4@<X4>, const void **a5@<X5>, char *a6@<X6>, const void ***a7@<X8>)
+void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>,std::__deque_iterator<unsigned char,unsigned char *,unsigned char &,unsigned char **,long,4096l>,0>@<X0>(const void ***a1@<X1>, const void **a2@<X2>, const void ***a3@<X3>, const void **a4@<X4>, const void **a5@<X5>, char *a6@<X6>, const void ****a7@<X8>)
 {
   v8 = a5;
   if (a1 == a3)
@@ -1550,7 +1538,7 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
     v14 = a4;
     while (1)
     {
-      v15 = &a6[-v13];
+      v15 = (a6 - v13);
       if (v14 - a2 >= v15)
       {
         v16 = v15;
@@ -1561,7 +1549,7 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
         v16 = v14 - a2;
       }
 
-      v14 -= v16;
+      v14 = (v14 - v16);
       a6 -= v16;
       if (v16)
       {
@@ -1575,7 +1563,7 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
 
       v18 = *--v8;
       v13 = v18;
-      a6 = (v18 + 4096);
+      a6 = v18 + 4096;
     }
 
     goto LABEL_44;
@@ -1588,7 +1576,7 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
     v22 = a4;
     while (1)
     {
-      v23 = &a6[-v21];
+      v23 = (a6 - v21);
       if (v22 - v20 >= v23)
       {
         v24 = v23;
@@ -1599,7 +1587,7 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
         v24 = v22 - v20;
       }
 
-      v22 -= v24;
+      v22 = (v22 - v24);
       a6 -= v24;
       if (v24)
       {
@@ -1613,7 +1601,7 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
 
       v25 = *--v8;
       v21 = v25;
-      a6 = (v25 + 4096);
+      a6 = v25 + 4096;
     }
 
     if (*v8 + 4096 == a6)
@@ -1624,7 +1612,7 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
     }
   }
 
-  v27 = a3 - 1;
+  v27 = (a3 - 1);
   if (a3 - 1 != a1)
   {
     v28 = *v8;
@@ -1677,13 +1665,13 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
     while (v27 != a1);
   }
 
-  v35 = *v27 + 4096;
+  v35 = (*v27 + 4096);
   if (v35 != a2)
   {
     v36 = *v8;
     while (1)
     {
-      v37 = &a6[-v36];
+      v37 = (a6 - v36);
       if (v35 - a2 >= v37)
       {
         v38 = v37;
@@ -1694,7 +1682,7 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
         v38 = v35 - a2;
       }
 
-      v35 -= v38;
+      v35 = (v35 - v38);
       a6 -= v38;
       if (v38)
       {
@@ -1708,7 +1696,7 @@ void *std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100
 
       v39 = *--v8;
       v36 = v39;
-      a6 = (v39 + 4096);
+      a6 = v39 + 4096;
     }
 
 LABEL_44:
@@ -1741,8 +1729,7 @@ uint64_t std::__function::__func<BOOL (*)(JetPack::ReaderConfig &,JetPack::Segme
   v5 = *(a1 + 8);
   v6 = *a3;
   v10 = *a4;
-  *a4 = 0;
-  *(a4 + 1) = 0;
+  *a4 = 0uLL;
   result = v5(a2, v6, &v10);
   v8 = *(&v10 + 1);
   if (*(&v10 + 1))
@@ -1759,61 +1746,64 @@ uint64_t std::__function::__func<BOOL (*)(JetPack::ReaderConfig &,JetPack::Segme
   return result;
 }
 
-uint64_t JetPack::readSegment(uint64_t a1, int a2, uint64_t *a3)
+uint64_t JetPack::readSegment(uint64_t a1, int a2, JetPack **a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   if (a2 > 2)
   {
     switch(a2)
     {
       case 3:
-        v8 = *(a1 + 24);
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+        v9 = *(a1 + 24);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          _os_log_impl(&dword_255634000, v8, OS_LOG_TYPE_DEBUG, "Reading serialization segment", buf, 2u);
+          _os_log_impl(&dword_255634000, v9, OS_LOG_TYPE_DEBUG, "Reading serialization segment", buf, 2u);
         }
 
-        v9 = a3[1];
-        v18 = *a3;
-        if (v9)
+        v10 = a3[1];
+        v17[2] = *a3;
+        v17[3] = v10;
+        if (v10)
         {
-          atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(v10 + 1, 1uLL, memory_order_relaxed);
         }
 
         JetPack::readSerializationSegment();
       case 4:
-        v10 = *(a1 + 24);
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        v11 = *(a1 + 24);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          _os_log_impl(&dword_255634000, v10, OS_LOG_TYPE_DEBUG, "Reading brotli segment", buf, 2u);
+          _os_log_impl(&dword_255634000, v11, OS_LOG_TYPE_DEBUG, "Reading brotli segment", buf, 2u);
         }
 
-        v11 = a3[1];
-        v19 = *a3;
-        if (v11)
+        v12 = a3[1];
+        v18[0] = *a3;
+        v18[1] = v12;
+        if (v12)
         {
-          atomic_fetch_add_explicit((v11 + 8), 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit((v12 + 8), 1uLL, memory_order_relaxed);
         }
 
-        JetPack::readBrotliSegment();
+        JetPack::readBrotliSegment(a1, v18);
       case 7:
-        v4 = *(a1 + 24);
-        if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+        v5 = *(a1 + 24);
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          _os_log_impl(&dword_255634000, v4, OS_LOG_TYPE_DEBUG, "Reading encryption segment", buf, 2u);
+          _os_log_impl(&dword_255634000, v5, OS_LOG_TYPE_DEBUG, "Reading encryption segment", buf, 2u);
         }
 
-        v5 = a3[1];
-        v17 = *a3;
-        if (v5)
+        v6 = a3[1];
+        v17[0] = *a3;
+        v17[1] = v6;
+        if (v6)
         {
-          atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit(v6 + 1, 1uLL, memory_order_relaxed);
         }
 
-        JetPack::readEncryptedSegment();
+        JetPack::readEncryptedSegment(a1, v17);
     }
 
     goto LABEL_28;
@@ -1823,21 +1813,22 @@ uint64_t JetPack::readSegment(uint64_t a1, int a2, uint64_t *a3)
   {
     if (a2 == 2)
     {
-      v6 = *(a1 + 24);
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+      v7 = *(a1 + 24);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&dword_255634000, v6, OS_LOG_TYPE_DEBUG, "Reading data segment", buf, 2u);
+        _os_log_impl(&dword_255634000, v7, OS_LOG_TYPE_DEBUG, "Reading data segment", buf, 2u);
       }
 
-      v7 = a3[1];
-      v20 = *a3;
-      if (v7)
+      v8 = a3[1];
+      v19[0] = *a3;
+      v19[1] = v8;
+      if (v8)
       {
-        atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
       }
 
-      JetPack::readDataSegment();
+      JetPack::readDataSegment(a1, v19);
     }
 
 LABEL_28:
@@ -1845,7 +1836,7 @@ LABEL_28:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 67240192;
-      v22 = a2;
+      v21 = a2;
       _os_log_impl(&dword_255634000, v15, OS_LOG_TYPE_ERROR, "Unable to find segment for tag %{public}i", buf, 8u);
     }
 
@@ -1853,14 +1844,12 @@ LABEL_28:
     JetPack::InvalidSegmentTagException::InvalidSegmentTagException(exception, a2);
   }
 
-  result = 1;
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
-void sub_255639244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_255639244(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1897,28 +1886,28 @@ void sub_255639594(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void JetPack::parseDataSegmentHeader(JetPack *this@<X0>, JetPack::BaseStream *a2@<X1>, char *a3@<X8>)
+void JetPack::parseDataSegmentHeader(uint64_t *__return_ptr a1@<X8>, JetPack *this@<X0>, JetPack::BaseStream *a3@<X1>)
 {
   __p[3] = *MEMORY[0x277D85DE8];
   HIBYTE(__p[2]) = 19;
   strcpy(__p, "UnableToParseHeader");
-  JetPack::ParseException::ParseException(v14, __p);
+  JetPack::ParseException::ParseException(v12, __p);
   if (SHIBYTE(__p[2]) < 0)
   {
     operator delete(__p[0]);
   }
 
-  v14[0].__vftable = &unk_286784490;
-  v7 = *(a2 + 1);
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v12[0].__vftable = &unk_286784490;
+  v6 = *(a3 + 1);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(__p[0]) = 0;
-    _os_log_impl(&dword_255634000, v7, OS_LOG_TYPE_DEFAULT, "Reading data segment header", __p, 2u);
+    _os_log_impl(&dword_255634000, v6, OS_LOG_TYPE_DEFAULT, "Reading data segment header", __p, 2u);
   }
 
-  *a3 = 0;
-  *(a3 + 1) = 0;
-  *(a3 + 2) = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   LOBYTE(__p[0]) = 0;
   if ((*(*this + 16))(this, __p, 1) != 1)
   {
@@ -1929,44 +1918,43 @@ void JetPack::parseDataSegmentHeader(JetPack *this@<X0>, JetPack::BaseStream *a2
     *exception = &unk_286783430;
   }
 
-  v8 = LOBYTE(__p[0]);
-  v9 = *(a2 + 1);
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v7 = LOBYTE(__p[0]);
+  v8 = *(a3 + 1);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     LODWORD(__p[0]) = 67240192;
-    HIDWORD(__p[0]) = v8;
-    _os_log_impl(&dword_255634000, v9, OS_LOG_TYPE_DEBUG, "Name length is %{public}i", __p, 8u);
+    HIDWORD(__p[0]) = v7;
+    _os_log_impl(&dword_255634000, v8, OS_LOG_TYPE_DEBUG, "Name length is %{public}i", __p, 8u);
   }
 
-  readString(this, v8, __p);
-  *a3 = *__p;
-  *(a3 + 2) = __p[2];
-  v10 = *(a2 + 1);
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  readString(__p, this, v7);
+  *a1 = *__p;
+  a1[2] = __p[2];
+  v9 = *(a3 + 1);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    if (a3[23] >= 0)
+    if (*(a1 + 23) >= 0)
     {
-      v11 = a3;
+      v10 = a1;
     }
 
     else
     {
-      v11 = *a3;
+      v10 = *a1;
     }
 
     LODWORD(__p[0]) = 136446210;
-    *(__p + 4) = v11;
-    _os_log_impl(&dword_255634000, v10, OS_LOG_TYPE_DEBUG, "Name is %{public}s", __p, 0xCu);
+    *(__p + 4) = v10;
+    _os_log_impl(&dword_255634000, v9, OS_LOG_TYPE_DEBUG, "Name is %{public}s", __p, 0xCu);
   }
 
-  v14[0].__vftable = &unk_286783408;
-  if (v15 < 0)
+  v12[0].__vftable = &unk_286783408;
+  if (v13 < 0)
   {
-    operator delete(v14[1].__vftable);
+    operator delete(v12[1].__vftable);
   }
 
-  std::exception::~exception(v14);
-  v12 = *MEMORY[0x277D85DE8];
+  std::exception::~exception(v12);
 }
 
 void sub_255639884(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
@@ -1980,7 +1968,7 @@ void sub_255639884(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2556398C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, std::exception a9)
+void sub_2556398C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   __cxa_end_catch();
   JetPack::NotEnoughDataException::~NotEnoughDataException(&a9);
@@ -1997,11 +1985,11 @@ void sub_2556398D8(void *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-void readString(JetPack::BaseStream *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
+void readString(uint64_t *__return_ptr a1@<X8>, JetPack::BaseStream *a2@<X0>, size_t a3@<X1>)
 {
-  if (a2)
+  if (a3)
   {
-    if ((a2 & 0x8000000000000000) == 0)
+    if ((a3 & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -2009,7 +1997,7 @@ void readString(JetPack::BaseStream *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
 
-  if ((*(*a1 + 16))(a1, 0, 0))
+  if ((*(*a2 + 16))(a2, 0, 0))
   {
     exception = __cxa_allocate_exception(0x20uLL);
     strcpy(exception + 8, "NotEnoughData");
@@ -2018,8 +2006,8 @@ void readString(JetPack::BaseStream *a1@<X0>, uint64_t a2@<X1>, _BYTE *a3@<X8>)
     *exception = &unk_286783430;
   }
 
-  a3[23] = 0;
-  *a3 = 0;
+  *(a1 + 23) = 0;
+  *a1 = 0;
 }
 
 void sub_255639AA0(_Unwind_Exception *exception_object)
@@ -2054,7 +2042,7 @@ uint64_t std::__function::__func<JetPackReaderSetDataSegmentFoundCallback::$_0,s
     if (!atomic_fetch_add(&v5->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
       v6 = a1;
-      (v5->__on_zero_shared)(v5);
+      (v5->__on_zero_shared)(v5, a2);
       std::__shared_weak_count::__release_weak(v5);
       a1 = v6;
     }
@@ -2201,19 +2189,19 @@ LABEL_9:
   return result;
 }
 
-void *std::deque<unsigned char>::__add_back_capacity(void *a1)
+void std::deque<unsigned char>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x1000;
   v3 = v1 - 4096;
   if (!v2)
   {
-    v7 = a1[2];
-    v6 = a1[3];
-    v8 = v6 - *a1;
-    if (v7 - a1[1] < v8)
+    v6 = a1[2];
+    v5 = a1[3];
+    v7 = v5 - *a1;
+    if (v6 - a1[1] < v7)
     {
-      if (v6 != v7)
+      if (v5 != v6)
       {
         operator new();
       }
@@ -2221,19 +2209,19 @@ void *std::deque<unsigned char>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    v9 = v8 >> 2;
-    if (v6 == *a1)
+    v8 = v7 >> 2;
+    if (v5 == *a1)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9;
+      v9 = v8;
     }
 
-    v12 = a1;
-    if (!(v10 >> 61))
+    v11 = a1;
+    if (!(v9 >> 61))
     {
       operator new();
     }
@@ -2243,9 +2231,9 @@ void *std::deque<unsigned char>::__add_back_capacity(void *a1)
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v11 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<unsigned char *>::emplace_back<unsigned char *&>(a1, &v11);
+  *&v10 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<unsigned char *>::emplace_back<unsigned char *&>(a1, &v10);
 }
 
 void sub_25563A020(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, uint64_t a11)
@@ -2260,18 +2248,17 @@ void sub_25563A020(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<unsigned char *>::emplace_back<unsigned char *&>(void *result, void *a2)
+void std::__split_buffer<unsigned char *>::emplace_back<unsigned char *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      v11 = &v4[-*result] >> 2;
-      if (v4 == *result)
+      v11 = &v4[-*a1] >> 2;
+      if (v4 == *a1)
       {
         v11 = 1;
       }
@@ -2290,18 +2277,17 @@ void *std::__split_buffer<unsigned char *>::emplace_back<unsigned char *&>(void 
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v7], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v7], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v8];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v8];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
 void JetPack::SignedStreamDecoder::readBlock(JetPack::BaseStream **this)
@@ -2312,10 +2298,10 @@ void JetPack::SignedStreamDecoder::readBlock(JetPack::BaseStream **this)
     {
       if (v7 < 0x8000001)
       {
-        readVector(this[8], v7, 1, &v7);
+        readVector(&v7, this[8], v7, 1);
         if ((*(*this[8] + 16))(this[8], &v6, 2) == 2)
         {
-          readVector(this[8], v6, 1, &v6);
+          readVector(&v6, this[8], v6, 1);
           if (v8 != v7)
           {
             if (((v8 - v7) & 0x8000000000000000) == 0)
@@ -2385,14 +2371,13 @@ LABEL_5:
   _Unwind_Resume(exception_object);
 }
 
-const void **std::__split_buffer<unsigned char *>::emplace_front<unsigned char *>(const void **result, void *a2)
+void std::__split_buffer<unsigned char *>::emplace_front<unsigned char *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       v9 = (v7 - v4) >> 2;
@@ -2413,22 +2398,21 @@ const void **std::__split_buffer<unsigned char *>::emplace_front<unsigned char *
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = (v6 + 8 * v8);
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
-  *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  *(v5 - 8) = *a2;
+  a1[1] = a1[1] - 8;
 }
 
 unint64_t JetPack::BufferedStream::read(JetPack::BufferedStream *this, unsigned __int8 *a2, unint64_t a3)
@@ -2564,7 +2548,7 @@ LABEL_28:
   }
 
 LABEL_25:
-  v26 = &v25[a3 - *v24];
+  v26 = v25 + a3 - *v24;
   if (v26 < 1)
   {
     v29 = 4095 - v26;
@@ -2606,7 +2590,7 @@ void JetPack::readSegmentContainer(uint64_t a1, uint64_t *a2)
   v5 = v2;
   if (v2)
   {
-    atomic_fetch_add_explicit(&v2->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
   }
 
   v6 = JetPack::parseSegmentContainerHeader(&v4, a1 + 16);
@@ -2623,32 +2607,32 @@ void JetPack::readSegmentContainer(uint64_t a1, uint64_t *a2)
   std::allocate_shared[abi:ne200100]<JetPack::PartialStream,std::allocator<JetPack::PartialStream>,std::shared_ptr<JetPack::BaseStream> &,unsigned int &,0>();
 }
 
-void sub_25563B058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void sub_25563B07C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25563B058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
   va_start(va, a5);
   std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
+void sub_25563B07C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va, a9);
+  std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
 uint64_t JetPack::parseSegmentContainerHeader(void *a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v16 = 19;
+  v16 = *MEMORY[0x277D85DE8];
+  v15 = 19;
   strcpy(__p, "UnableToParseHeader");
-  JetPack::ParseException::ParseException(v13, __p);
-  if (v16 < 0)
+  JetPack::ParseException::ParseException(v12, __p);
+  if (v15 < 0)
   {
     operator delete(*__p);
   }
 
-  v13[0].__vftable = &unk_286784490;
+  v12[0].__vftable = &unk_286784490;
   v4 = *(a2 + 8);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
@@ -2691,14 +2675,13 @@ LABEL_14:
     _os_log_impl(&dword_255634000, v9, OS_LOG_TYPE_DEBUG, "Length is %{public}i", __p, 8u);
   }
 
-  v13[0].__vftable = &unk_286783408;
-  if (v14 < 0)
+  v12[0].__vftable = &unk_286783408;
+  if (v13 < 0)
   {
-    operator delete(v13[1].__vftable);
+    operator delete(v12[1].__vftable);
   }
 
-  std::exception::~exception(v13);
-  v10 = *MEMORY[0x277D85DE8];
+  std::exception::~exception(v12);
   return v6 | (v8 << 32);
 }
 
@@ -2713,7 +2696,7 @@ void sub_25563B344(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25563B380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, std::exception a9)
+void sub_25563B380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   __cxa_end_catch();
   JetPack::NotEnoughDataException::~NotEnoughDataException(&a9);
@@ -2742,8 +2725,7 @@ uint64_t std::__function::__func<BOOL (*)(JetPack::ReaderConfig &,std::shared_pt
 {
   v3 = *(a1 + 8);
   v7 = *a3;
-  *a3 = 0;
-  *(a3 + 1) = 0;
+  *a3 = 0uLL;
   result = v3(a2, &v7);
   v5 = *(&v7 + 1);
   if (*(&v7 + 1))
@@ -2798,18 +2780,18 @@ void JetPack::parseEncryptedSegmentHeader(JetPack *this@<X0>, JetPack::BaseStrea
   __p[3] = *MEMORY[0x277D85DE8];
   HIBYTE(__p[2]) = 19;
   strcpy(__p, "UnableToParseHeader");
-  JetPack::ParseException::ParseException(v17, __p);
+  JetPack::ParseException::ParseException(v15, __p);
   if (SHIBYTE(__p[2]) < 0)
   {
     operator delete(__p[0]);
   }
 
-  v17[0].__vftable = &unk_286784490;
-  v7 = *(a2 + 1);
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v15[0].__vftable = &unk_286784490;
+  v6 = *(a2 + 1);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(__p[0]) = 0;
-    _os_log_impl(&dword_255634000, v7, OS_LOG_TYPE_DEFAULT, "Reading encrypted segment header", __p, 2u);
+    _os_log_impl(&dword_255634000, v6, OS_LOG_TYPE_DEFAULT, "Reading encrypted segment header", __p, 2u);
   }
 
   *(a3 + 8) = 0;
@@ -2820,14 +2802,14 @@ void JetPack::parseEncryptedSegmentHeader(JetPack *this@<X0>, JetPack::BaseStrea
     goto LABEL_17;
   }
 
-  v8 = LOWORD(__p[0]);
+  v7 = LOWORD(__p[0]);
   *a3 = __p[0];
-  v9 = *(a2 + 1);
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v8 = *(a2 + 1);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     LODWORD(__p[0]) = 67240192;
-    HIDWORD(__p[0]) = v8;
-    _os_log_impl(&dword_255634000, v9, OS_LOG_TYPE_DEBUG, "Key identifier is %{public}i", __p, 8u);
+    HIDWORD(__p[0]) = v7;
+    _os_log_impl(&dword_255634000, v8, OS_LOG_TYPE_DEBUG, "Key identifier is %{public}i", __p, 8u);
   }
 
   if ((*(*this + 16))(this, __p, 4) != 4)
@@ -2835,14 +2817,14 @@ void JetPack::parseEncryptedSegmentHeader(JetPack *this@<X0>, JetPack::BaseStrea
     goto LABEL_17;
   }
 
-  v10 = __p[0];
+  v9 = __p[0];
   *(a3 + 4) = __p[0];
-  v11 = *(a2 + 1);
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v10 = *(a2 + 1);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     LODWORD(__p[0]) = 67240192;
-    HIDWORD(__p[0]) = v10;
-    _os_log_impl(&dword_255634000, v11, OS_LOG_TYPE_DEBUG, "Block size is %{public}i", __p, 8u);
+    HIDWORD(__p[0]) = v9;
+    _os_log_impl(&dword_255634000, v10, OS_LOG_TYPE_DEBUG, "Block size is %{public}i", __p, 8u);
   }
 
   LOBYTE(__p[0]) = 0;
@@ -2856,27 +2838,26 @@ LABEL_17:
     *exception = &unk_286783430;
   }
 
-  v12 = LOBYTE(__p[0]);
-  v13 = *(a2 + 1);
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v11 = LOBYTE(__p[0]);
+  v12 = *(a2 + 1);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     LODWORD(__p[0]) = 67240192;
-    HIDWORD(__p[0]) = v12;
-    _os_log_impl(&dword_255634000, v13, OS_LOG_TYPE_DEBUG, "Nonce length is %{public}i", __p, 8u);
+    HIDWORD(__p[0]) = v11;
+    _os_log_impl(&dword_255634000, v12, OS_LOG_TYPE_DEBUG, "Nonce length is %{public}i", __p, 8u);
   }
 
-  readVector(this, v12, 1, __p);
-  v14 = __p[2];
+  readVector(__p, this, v11, 1);
+  v13 = __p[2];
   *(a3 + 8) = *__p;
-  *(a3 + 24) = v14;
-  v17[0].__vftable = &unk_286783408;
-  if (v18 < 0)
+  *(a3 + 24) = v13;
+  v15[0].__vftable = &unk_286783408;
+  if (v16 < 0)
   {
-    operator delete(v17[1].__vftable);
+    operator delete(v15[1].__vftable);
   }
 
-  std::exception::~exception(v17);
-  v15 = *MEMORY[0x277D85DE8];
+  std::exception::~exception(v15);
 }
 
 void sub_25563BB8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
@@ -2890,7 +2871,7 @@ void sub_25563BB8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_25563BBC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, std::exception a9)
+void sub_25563BBC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   __cxa_end_catch();
   JetPack::NotEnoughDataException::~NotEnoughDataException(&a9);
@@ -2932,29 +2913,22 @@ BOOL keyForIdentifier(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
   return v11;
 }
 
-uint64_t JetPack::SignedStreamDecoder::fill(uint64_t this, unint64_t a2)
+void JetPack::SignedStreamDecoder::fill(JetPack::BaseStream **this, unint64_t a2)
 {
-  if (*(this + 48) < a2)
+  if (this[6] < a2 && ((*(*this + 8))(this) & 1) == 0)
   {
-    v2 = this;
-    this = (*(*v2 + 8))(v2);
-    if ((this & 1) == 0)
-    {
-      JetPack::SignedStreamDecoder::readBlock(v2);
-    }
+    JetPack::SignedStreamDecoder::readBlock(this);
   }
-
-  return this;
 }
 
-void readVector(JetPack::BaseStream *a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, uint64_t a4@<X8>)
+void readVector(char **__return_ptr a1@<X8>, JetPack::BaseStream *a2@<X0>, size_t a3@<X1>, int a4@<W2>)
 {
-  *a4 = 0;
-  *(a4 + 8) = 0;
-  *(a4 + 16) = 0;
-  if (a2)
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a3)
   {
-    if ((a2 & 0x8000000000000000) == 0)
+    if ((a3 & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -2962,10 +2936,10 @@ void readVector(JetPack::BaseStream *a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, uin
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = (*(*a1 + 16))(a1, 0, 0);
+  v6 = (*(*a2 + 16))(a2, 0, 0);
   if (v6)
   {
-    v7 = a3 == 0;
+    v7 = a4 == 0;
   }
 
   else
@@ -2984,7 +2958,7 @@ void readVector(JetPack::BaseStream *a1@<X0>, uint64_t a2@<X1>, int a3@<W2>, uin
 
   if (v6)
   {
-    std::vector<unsigned char>::__append(a4, v6);
+    std::vector<unsigned char>::__append(a1, v6);
   }
 }
 
@@ -3001,12 +2975,12 @@ void sub_25563BE80(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *JetPack::signingChunkForDataBlock@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+_BYTE *JetPack::signingChunkForDataBlock@<X0>(void *a1@<X0>, void *a2@<X1>, uint64_t *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
   a3[2] = 0;
-  v6 = *(a1 + 8) - *a1 + *(a2 + 8) - *a2;
+  v6 = a1[1] - *a1 + a2[1] - *a2;
   if (v6)
   {
     if ((v6 & 0x8000000000000000) == 0)
@@ -3017,10 +2991,10 @@ _BYTE *JetPack::signingChunkForDataBlock@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
 
-  v8 = *(a2 + 8) - *a2;
+  v8 = *(a2 + 4) - *a2;
   std::__copy_impl::operator()[abi:ne200100]<unsigned char *,unsigned char *,std::back_insert_iterator<std::vector<unsigned char>>>(&v10, &v8, &v9, a3);
-  std::__copy_impl::operator()[abi:ne200100]<unsigned char *,unsigned char *,std::back_insert_iterator<std::vector<unsigned char>>>(&v11, *a2, *(a2 + 8), a3);
-  return std::__copy_impl::operator()[abi:ne200100]<unsigned char *,unsigned char *,std::back_insert_iterator<std::vector<unsigned char>>>(&v12, *a1, *(a1 + 8), a3);
+  std::__copy_impl::operator()[abi:ne200100]<unsigned char *,unsigned char *,std::back_insert_iterator<std::vector<unsigned char>>>(&v11, *a2, a2[1], a3);
+  return std::__copy_impl::operator()[abi:ne200100]<unsigned char *,unsigned char *,std::back_insert_iterator<std::vector<unsigned char>>>(&v12, *a1, a1[1], a3);
 }
 
 void sub_25563BF6C(_Unwind_Exception *exception_object)
@@ -3035,7 +3009,7 @@ void sub_25563BF6C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::__copy_impl::operator()[abi:ne200100]<unsigned char *,unsigned char *,std::back_insert_iterator<std::vector<unsigned char>>>(uint64_t a1, _BYTE *a2, _BYTE *a3, uint64_t a4)
+_BYTE *std::__copy_impl::operator()[abi:ne200100]<unsigned char *,unsigned char *,std::back_insert_iterator<std::vector<unsigned char>>>(void *a1, _BYTE *a2, _BYTE *a3, uint64_t a4)
 {
   v5 = a2;
   if (a2 != a3)
@@ -3107,7 +3081,7 @@ _BYTE *std::__copy_impl::operator()[abi:ne200100]<unsigned char *,unsigned char 
 uint64_t JetPack::DiagnosticContext::DiagnosticContext(uint64_t this)
 {
   *this = 4;
-  if ((atomic_load_explicit(&qword_280B1A5B0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280B1A5B0, memory_order_acquire) & 1) == 0)
   {
     v1 = this;
     JetPackFileEntryGetPathname_cold_1();
@@ -3190,21 +3164,7 @@ void JetPack::PartialStream::~PartialStream(JetPack::PartialStream *this)
   JUMPOUT(0x259C3B950);
 }
 
-void JetPack::readEncryptedSegment()
-{
-  v0 = *MEMORY[0x277D85DE8];
-  operator new();
-}
-
-{
-  if (__cxa_guard_acquire(&qword_280B1A5A0))
-  {
-    _MergedGlobals = os_log_create("com.apple.JetPack", "Diagnostics");
-    __cxa_guard_release(&qword_280B1A5A0);
-  }
-}
-
-void sub_25563C7B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::exception a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, char a16, uint64_t a17, void *a18, void *__p, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25)
+void sub_25563C7B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, char a16, uint64_t a17, void *a18, void *__p, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25)
 {
   __cxa_free_exception(v25);
   if (__p)
@@ -3235,11 +3195,11 @@ void sub_25563C894(void *a1, int a2)
 
 uint64_t std::__function::__func<JetPackReaderSetKeyForIdentifierCallback::$_0,std::allocator<JetPackReaderSetKeyForIdentifierCallback::$_0>,std::optional<std::array<unsigned char,16ul>> ()(JetPack::ReaderConfig &,unsigned short)>::operator()@<X0>(uint64_t a1@<X0>, unsigned __int16 *a2@<X2>, uint64_t a3@<X8>)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  result = (*(a1 + 8))(*(a1 + 16), *a2, &v7, 16);
+  v7 = *MEMORY[0x277D85DE8];
+  result = (*(a1 + 8))(*(a1 + 16), *a2, &v6, 16);
   if (result)
   {
-    *a3 = v7;
+    *a3 = v6;
     v5 = 1;
   }
 
@@ -3250,13 +3210,13 @@ uint64_t std::__function::__func<JetPackReaderSetKeyForIdentifierCallback::$_0,s
   }
 
   *(a3 + 16) = v5;
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_25563CCB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, char a15, uint64_t a16, char a17)
+void sub_25563CCB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](&a17);
+  va_start(va, a16);
+  std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](va);
   std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](&a10);
   std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](&a15);
   _Unwind_Resume(a1);
@@ -3264,11 +3224,11 @@ void sub_25563CCB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void JetPack::CommonCryptoBackend::publicKeyForTrust(JetPack::CommonCryptoBackend *this@<X0>, void *a2@<X8>)
 {
-  v4 = SecTrustCopyKey(this);
-  if (v4)
+  v3 = SecTrustCopyKey(this);
+  if (v3)
   {
 
-    JetPack::makeCFSharedPtr<__SecKey *>(v4, a2);
+    JetPack::makeCFSharedPtr<__SecKey *>(v3, a2);
   }
 
   puts("Unable to copy public key");
@@ -3287,9 +3247,10 @@ void sub_25563CE24(void *a1)
   __cxa_rethrow();
 }
 
-void sub_25563D090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, char a14)
+void sub_25563D090(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  std::function<BOOL ()(JetPack::ReaderConfig &,std::shared_ptr<JetPack::BaseStream>)>::~function(&a14);
+  va_start(va, a13);
+  std::function<BOOL ()(JetPack::ReaderConfig &,std::shared_ptr<JetPack::BaseStream>)>::~function(va);
   std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](&a9);
   std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](&a11);
   _Unwind_Resume(a1);
@@ -3315,12 +3276,12 @@ void std::allocator<JetPack::BrotliDecoderStreamImpl<JetPack::AppleDecompression
   operator new();
 }
 
-void sub_25563D1BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25563D1BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  if (a3)
+  va_start(va, a5);
+  if (a5)
   {
-    std::allocator<JetPack::BrotliDecoderStreamImpl<JetPack::AppleDecompressionInterface>>::construct[abi:ne200100]<JetPack::BrotliDecoderStreamImpl<JetPack::AppleDecompressionInterface>,std::shared_ptr<JetPack::BaseStream> &>(a3);
+    std::allocator<JetPack::BrotliDecoderStreamImpl<JetPack::AppleDecompressionInterface>>::construct[abi:ne200100]<JetPack::BrotliDecoderStreamImpl<JetPack::AppleDecompressionInterface>,std::shared_ptr<JetPack::BaseStream> &>(a5);
   }
 
   std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](va);
@@ -3352,21 +3313,21 @@ JetPack::AppleDecompressionInterface *JetPack::AppleDecompressionInterface::Appl
   return this;
 }
 
-uint64_t JetPack::BrotliDecoderStreamImpl<JetPack::AppleDecompressionInterface>::BrotliDecoderStreamImpl(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t JetPack::BrotliDecoderStreamImpl<JetPack::AppleDecompressionInterface>::BrotliDecoderStreamImpl(uint64_t a1, uint64_t a2, size_t a3, uint64_t *a4)
 {
   v4 = *a4;
   *a4 = 0;
-  *result = &unk_2867832F8;
-  *(result + 8) = v4;
-  *(result + 16) = 0u;
-  *(result + 32) = 0u;
-  *(result + 48) = 2;
-  *(result + 56) = *a2;
+  *a1 = &unk_2867832F8;
+  *(a1 + 8) = v4;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 2;
+  *(a1 + 56) = *a2;
   *a2 = 0;
   *(a2 + 8) = 0;
-  *(result + 72) = 0;
-  *(result + 80) = 0;
-  *(result + 88) = 0;
+  *(a1 + 72) = 0;
+  *(a1 + 80) = 0;
+  *(a1 + 88) = 0;
   if (a3)
   {
     if ((a3 & 0x8000000000000000) == 0)
@@ -3377,10 +3338,10 @@ uint64_t JetPack::BrotliDecoderStreamImpl<JetPack::AppleDecompressionInterface>:
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
 
-  *(result + 96) = 0;
-  *(result + 16) = 0u;
-  *(result + 32) = 0u;
-  return result;
+  *(a1 + 96) = 0;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  return a1;
 }
 
 void sub_25563D374(_Unwind_Exception *a1)
@@ -3396,7 +3357,7 @@ void sub_25563D374(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t JetPack::CommonCryptoBackend::deriveKey(JetPack::CommonCryptoBackend *this, const unsigned __int8 *a2, unint64_t a3, const unsigned __int8 *a4, unint64_t a5, unsigned __int8 *a6)
+uint64_t JetPack::CommonCryptoBackend::deriveKey(JetPack::CommonCryptoBackend *this, const unsigned __int8 *a2, uint64_t a3, const unsigned __int8 *a4, uint64_t a5, unsigned __int8 *a6, uint64_t a7)
 {
   CCKDFParametersCreateHkdf();
   if (CCDeriveKey())
@@ -3488,37 +3449,34 @@ uint64_t JetPack::BrotliDecoderStreamImpl<JetPack::AppleDecompressionInterface>:
 void std::allocator<JetPack::AESDecoderStream>::construct[abi:ne200100]<JetPack::AESDecoderStream,std::shared_ptr<JetPack::BaseStream> &,std::array<unsigned char,16ul> &,unsigned int &>(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4, unsigned int *a5)
 {
   v5 = a3[1];
-  v9 = *a3;
-  v10 = v5;
+  v6 = *a3;
+  v7 = v5;
   if (v5)
   {
     atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v6 = *a4;
-  v7 = a4[1];
-  v8 = *a5;
   operator new();
 }
 
-void sub_25563D874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_25563D874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  if (a3)
+  va_start(va, a5);
+  if (a5)
   {
-    std::allocator<JetPack::AESDecoderStream>::construct[abi:ne200100]<JetPack::AESDecoderStream,std::shared_ptr<JetPack::BaseStream> &,std::array<unsigned char,16ul> &,unsigned int &>(a3);
+    std::allocator<JetPack::AESDecoderStream>::construct[abi:ne200100]<JetPack::AESDecoderStream,std::shared_ptr<JetPack::BaseStream> &,std::array<unsigned char,16ul> &,unsigned int &>(a5);
   }
 
   std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-uint64_t JetPack::AESDecoderStream::AESDecoderStream(uint64_t result, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
+uint64_t JetPack::AESDecoderStream::AESDecoderStream(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, size_t a5, uint64_t *a6)
 {
-  *result = &unk_286783C08;
+  *a1 = &unk_286783C08;
   v6 = a2[1];
-  *(result + 8) = *a2;
-  *(result + 16) = v6;
+  *(a1 + 8) = *a2;
+  *(a1 + 16) = v6;
   if (v6)
   {
     atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
@@ -3526,16 +3484,16 @@ uint64_t JetPack::AESDecoderStream::AESDecoderStream(uint64_t result, void *a2, 
 
   v7 = *a6;
   *a6 = 0;
-  *(result + 24) = v7;
-  *(result + 32) = a3;
-  *(result + 40) = a4;
-  *(result + 48) = a5;
-  *(result + 52) = 0u;
-  *(result + 68) = 0u;
-  *(result + 84) = 0u;
-  *(result + 100) = 0u;
-  *(result + 116) = 0u;
-  *(result + 132) = 0;
+  *(a1 + 24) = v7;
+  *(a1 + 32) = a3;
+  *(a1 + 40) = a4;
+  *(a1 + 48) = a5;
+  *(a1 + 52) = 0u;
+  *(a1 + 68) = 0u;
+  *(a1 + 84) = 0u;
+  *(a1 + 100) = 0u;
+  *(a1 + 116) = 0u;
+  *(a1 + 132) = 0;
   if (a5)
   {
     if ((a5 & 0x8000000000000000) == 0)
@@ -3546,10 +3504,10 @@ uint64_t JetPack::AESDecoderStream::AESDecoderStream(uint64_t result, void *a2, 
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
 
-  *(result + 136) = 0;
-  *(result + 144) = 0;
-  *(result + 152) = 0;
-  return result;
+  *(a1 + 136) = 0;
+  *(a1 + 144) = 0;
+  *(a1 + 152) = 0;
+  return a1;
 }
 
 void sub_25563D9FC(_Unwind_Exception *a1)
@@ -3644,7 +3602,7 @@ char *std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char
 
 unint64_t JetPack::AESDecoderStream::read(JetPack::AESDecoderStream *this, unsigned __int8 *a2, unint64_t a3)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   while (((*(**(this + 1) + 32))(*(this + 1)) & 1) == 0)
   {
     if (*(this + 13) >= a3)
@@ -3654,20 +3612,20 @@ unint64_t JetPack::AESDecoderStream::read(JetPack::AESDecoderStream *this, unsig
 
     v6 = *(this + 13);
     *(this + 13) = v6 + 1;
-    v46 = 0;
-    v47 = v6;
-    if ((*(**(this + 1) + 16))(*(this + 1), v45, 16) != 16)
+    v44 = 0;
+    v45 = v6;
+    if ((*(**(this + 1) + 16))(*(this + 1), v43, 16) != 16)
     {
       exception = __cxa_allocate_exception(0x20uLL);
       JetPack::InvalidEncryptionTagLengthException::InvalidEncryptionTagLengthException(exception);
     }
 
     v7 = (*(**(this + 1) + 16))(*(this + 1), *(this + 14), *(this + 12));
-    if ((*(**(this + 3) + 40))(*(this + 3), this + 32, 16, &v46, 12, 0, 0, *(this + 14), v7, *(this + 17), v45, 16) != 1)
+    if ((*(**(this + 3) + 40))(*(this + 3), this + 32, 16, &v44, 12, 0, 0, *(this + 14), v7, *(this + 17), v43, 16) != 1)
     {
-      v42 = __cxa_allocate_exception(0x28uLL);
-      v43 = (*(**(this + 3) + 40))(*(this + 3), this + 32, 16, &v46, 12, 0, 0, *(this + 14), v7, *(this + 17), v45, 16);
-      JetPack::CommonCryptoInvalidStatusException::CommonCryptoInvalidStatusException(v42, v43);
+      v40 = __cxa_allocate_exception(0x28uLL);
+      v41 = (*(**(this + 3) + 40))(*(this + 3), this + 32, 16, &v44, 12, 0, 0, *(this + 14), v7, *(this + 17), v43, 16);
+      JetPack::CommonCryptoInvalidStatusException::CommonCryptoInvalidStatusException(v40, v41);
     }
 
     if (v7)
@@ -3676,29 +3634,28 @@ unint64_t JetPack::AESDecoderStream::read(JetPack::AESDecoderStream *this, unsig
       v9 = *(this + 13);
       do
       {
-        v11 = *(this + 72);
-        v12 = *(this + 10);
-        v13 = *(this + 9);
-        if (v12 == v13)
+        v11 = *(this + 10);
+        v12 = *(this + 9);
+        if (v11 == v12)
         {
-          v14 = 0;
+          v13 = 0;
         }
 
         else
         {
-          v14 = ((v12 - v13) << 9) - 1;
+          v13 = ((v11 - v12) << 9) - 1;
         }
 
-        v15 = *(this + 12) + v9;
-        if (v14 == v15)
+        v14 = *(this + 12) + v9;
+        if (v13 == v14)
         {
           std::deque<unsigned char>::__add_back_capacity(this + 8);
-          v13 = *(this + 9);
-          v15 = *(this + 13) + *(this + 12);
+          v12 = *(this + 9);
+          v14 = *(this + 13) + *(this + 12);
         }
 
         v10 = *v8++;
-        *(*(v13 + ((v15 >> 9) & 0x7FFFFFFFFFFFF8)) + (v15 & 0xFFF)) = v10;
+        *(*(v12 + ((v14 >> 9) & 0x7FFFFFFFFFFFF8)) + (v14 & 0xFFF)) = v10;
         v9 = *(this + 13) + 1;
         *(this + 13) = v9;
         --v7;
@@ -3713,12 +3670,12 @@ unint64_t JetPack::AESDecoderStream::read(JetPack::AESDecoderStream *this, unsig
     a3 = *(this + 13);
   }
 
-  v16 = *(this + 9);
-  v17 = (v16 + 8 * (*(this + 12) >> 12));
-  if (*(this + 10) == v16)
+  v15 = *(this + 9);
+  v16 = (v15 + 8 * (*(this + 12) >> 12));
+  if (*(this + 10) == v15)
   {
+    v17 = 0;
     v18 = 0;
-    v19 = 0;
     if (!a3)
     {
       goto LABEL_31;
@@ -3727,13 +3684,13 @@ unint64_t JetPack::AESDecoderStream::read(JetPack::AESDecoderStream *this, unsig
 
   else
   {
-    v18 = (*v17 + (*(this + 12) & 0xFFFLL));
-    v19 = v18;
+    v17 = (*v16 + (*(this + 12) & 0xFFFLL));
+    v18 = v17;
     if (!a3)
     {
 LABEL_31:
-      v28 = v19 - v18;
-      if (v19 == v18)
+      v27 = v18 - v17;
+      if (v18 == v17)
       {
         goto LABEL_33;
       }
@@ -3742,15 +3699,15 @@ LABEL_31:
     }
   }
 
-  v20 = &v18[a3 - *v17];
-  if (v20 < 1)
+  v19 = &v17[a3 - *v16];
+  if (v19 < 1)
   {
-    v29 = 4095 - v20;
-    v30 = ~v29;
-    v31 = (v29 >> 9) & 0x7FFFFFFFFFFFF8;
-    v21 = -v31;
-    v19 = (*(v17 - v31) + (v30 & 0xFFF));
-    if (!v31)
+    v28 = 4095 - v19;
+    v29 = ~v28;
+    v30 = (v28 >> 9) & 0x7FFFFFFFFFFFF8;
+    v20 = -v30;
+    v18 = (*(v16 - v30) + (v29 & 0xFFF));
+    if (!v30)
     {
       goto LABEL_31;
     }
@@ -3758,90 +3715,89 @@ LABEL_31:
 
   else
   {
-    v21 = (v20 >> 9) & 0x3FFFFFFFFFFFF8;
-    v19 = (*(v17 + v21) + (v20 & 0xFFF));
-    if (!v21)
+    v20 = (v19 >> 9) & 0x3FFFFFFFFFFFF8;
+    v18 = (*(v16 + v20) + (v19 & 0xFFF));
+    if (!v20)
     {
       goto LABEL_31;
     }
   }
 
-  v22 = *v17 + 4096;
-  v23 = v22 - v18;
-  if (v22 != v18)
+  v21 = *v16 + 4096;
+  v22 = v21 - v17;
+  if (v21 != v17)
   {
-    memmove(a2, v18, v22 - v18);
+    memmove(a2, v17, v21 - v17);
   }
 
-  a2 += v23;
-  v24 = (v17 + 1);
-  v25 = v21 - 8;
-  if (v21 != 8)
+  a2 += v22;
+  v23 = (v16 + 1);
+  v24 = v20 - 8;
+  if (v20 != 8)
   {
-    v26 = (v17 + v21);
+    v25 = (v16 + v20);
     do
     {
-      v27 = *v24++;
-      memmove(a2, v27, 0x1000uLL);
+      v26 = *v23++;
+      memmove(a2, v26, 0x1000uLL);
       a2 += 4096;
-      v25 -= 8;
+      v24 -= 8;
     }
 
-    while (v25);
-    v24 = v26;
+    while (v24);
+    v23 = v25;
   }
 
-  v18 = *v24;
-  if (*v24 != v19)
+  v17 = *v23;
+  if (*v23 != v18)
   {
-    v28 = v19 - v18;
+    v27 = v18 - v17;
 LABEL_32:
-    memmove(a2, v18, v28);
+    memmove(a2, v17, v27);
   }
 
 LABEL_33:
-  v32 = *(this + 12);
-  v33 = *(this + 9);
-  v34 = (v33 + 8 * (v32 >> 12));
-  if (*(this + 10) != v33)
+  v31 = *(this + 12);
+  v32 = *(this + 9);
+  v33 = (v32 + 8 * (v31 >> 12));
+  if (*(this + 10) != v32)
   {
-    v35 = (*v34 + (*(this + 12) & 0xFFFLL));
+    v34 = (*v33 + (*(this + 12) & 0xFFFLL));
     if (a3)
     {
       goto LABEL_35;
     }
 
 LABEL_38:
-    v38 = v35;
-    v37 = (v33 + 8 * (v32 >> 12));
+    v37 = v34;
+    v36 = (v32 + 8 * (v31 >> 12));
     goto LABEL_40;
   }
 
-  v35 = 0;
+  v34 = 0;
   if (!a3)
   {
     goto LABEL_38;
   }
 
 LABEL_35:
-  v36 = &v35[a3 - *v34];
-  if (v36 < 1)
+  v35 = v34 + a3 - *v33;
+  if (v35 < 1)
   {
-    v39 = 4095 - v36;
-    v37 = &v34[-8 * (v39 >> 12)];
-    v38 = (*v37 + (~v39 & 0xFFF));
+    v38 = 4095 - v35;
+    v36 = &v33[-8 * (v38 >> 12)];
+    v37 = (*v36 + (~v38 & 0xFFF));
   }
 
   else
   {
-    v37 = &v34[8 * (v36 >> 12)];
-    v38 = (*v37 + (v36 & 0xFFF));
+    v36 = &v33[8 * (v35 >> 12)];
+    v37 = (*v36 + (v35 & 0xFFF));
   }
 
 LABEL_40:
-  std::deque<unsigned char>::erase(this + 8, v34, v35, v37, v38);
+  std::deque<unsigned char>::erase(this + 8, v33, v34, v36, v37);
   *(this + 7) += a3;
-  v40 = *MEMORY[0x277D85DE8];
   return a3;
 }
 
@@ -3889,7 +3845,7 @@ uint64_t JetPack::AppleDecompressionInterface::process(JetPack::AppleDecompressi
   return 2;
 }
 
-uint64_t JetPack::CommonCryptoBackend::aesGCMDecrypt(JetPack::CommonCryptoBackend *this, const unsigned __int8 *a2, unint64_t a3, const unsigned __int8 *a4, unint64_t a5, const unsigned __int8 *a6, unint64_t a7, const unsigned __int8 *a8, __int128 a9, unsigned __int8 *a10, unsigned __int8 *a11, unint64_t a12)
+uint64_t JetPack::CommonCryptoBackend::aesGCMDecrypt(JetPack::CommonCryptoBackend *this, const unsigned __int8 *a2, uint64_t a3, const unsigned __int8 *a4, uint64_t a5, const unsigned __int8 *a6, uint64_t a7, const unsigned __int8 *a8, __int128 a9, unsigned __int8 *a10, unsigned __int8 *a11, unint64_t a12)
 {
   if (CCCryptorGCMOneshotDecrypt())
   {
@@ -4026,9 +3982,10 @@ uint64_t std::__function::__func<JetPackReaderSetFileEntryFoundCallback::$_0,std
   return result;
 }
 
-void sub_25563E9E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11)
+void sub_25563E9E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
 {
-  std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](&a11);
+  va_start(va, a10);
+  std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](va);
   std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
@@ -4046,6 +4003,15 @@ uint64_t JetPack::AESDecoderStream::isFinished(JetPack::AESDecoderStream *this)
   }
 }
 
+void JetPack::readEncryptedSegment()
+{
+  if (__cxa_guard_acquire(byte_280B1A5A0))
+  {
+    _MergedGlobals = os_log_create("com.apple.JetPack", "Diagnostics");
+    __cxa_guard_release(byte_280B1A5A0);
+  }
+}
+
 size_t JetPack::ArchiveStream::read(JetPack::ArchiveStream *this, unsigned __int8 *__dst, size_t a3)
 {
   if (*(this + 56))
@@ -4059,7 +4025,6 @@ size_t JetPack::ArchiveStream::read(JetPack::ArchiveStream *this, unsigned __int
   {
     v7 = a3;
     v8 = __dst;
-    v9 = *(this + 1);
     data_block = archive_read_data_block();
     if (data_block == 1)
     {
@@ -4071,12 +4036,9 @@ size_t JetPack::ArchiveStream::read(JetPack::ArchiveStream *this, unsigned __int
     if (data_block)
     {
       exception = __cxa_allocate_exception(0x20uLL);
-      v14 = this;
-      v15 = exception;
-      v16 = *(v14 + 1);
-      v17 = archive_error_string();
-      JetPack::archiveErrorToString(v17, v18);
-      JetPack::LibArchiveException::LibArchiveException(v15, v18);
+      v13 = archive_error_string();
+      JetPack::archiveErrorToString(v14, v13);
+      JetPack::LibArchiveException::LibArchiveException(exception, v14);
     }
 
     v5 = *v6;
@@ -4086,20 +4048,20 @@ size_t JetPack::ArchiveStream::read(JetPack::ArchiveStream *this, unsigned __int
 
   if (v5 >= a3)
   {
-    v11 = a3;
+    v10 = a3;
   }
 
   else
   {
-    v11 = v5;
+    v10 = v5;
   }
 
-  memcpy(__dst, *(this + 2), v11);
-  result = v11;
-  v12 = *(this + 3) - v11;
-  *(this + 2) += v11;
-  *(this + 3) = v12;
-  *(this + 5) += v11;
+  memcpy(__dst, *(this + 2), v10);
+  result = v10;
+  v11 = *(this + 3) - v10;
+  *(this + 2) += v10;
+  *(this + 3) = v11;
+  *(this + 5) += v10;
   return result;
 }
 
@@ -4128,7 +4090,7 @@ uint64_t JetPackFileEntryGetPathname(JetPack::DiagnosticContext *a1, uint64_t a2
 {
   v3 = a1;
   v6[0] = 4;
-  if ((atomic_load_explicit(&qword_280B1A5B0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280B1A5B0, memory_order_acquire) & 1) == 0)
   {
     JetPackFileEntryGetPathname_cold_1();
     v3 = a1;
@@ -4503,7 +4465,7 @@ uint64_t JetPackFileEntryWriteToDirectory(uint64_t a1, JetPack::ArchiveStream **
     v16 = v5;
     if (v5)
     {
-      atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
     }
   }
 
@@ -4514,7 +4476,7 @@ uint64_t JetPackFileEntryWriteToDirectory(uint64_t a1, JetPack::ArchiveStream **
   }
 
   v13[0] = 4;
-  if ((atomic_load_explicit(&qword_280B1A5B0, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_280B1A5B0, memory_order_acquire) & 1) == 0)
   {
     JetPackFileEntryGetPathname_cold_1();
   }
@@ -4561,7 +4523,7 @@ uint64_t JetPackFileEntryWriteToDirectory(uint64_t a1, JetPack::ArchiveStream **
   return result;
 }
 
-void sub_25563F81C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19)
+void sub_25563F81C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
 {
   if (a15 < 0)
   {
@@ -4590,7 +4552,7 @@ void JetPack::FileEntryWriteToDirectory(uint64_t a1, uint64_t a2, JetPack::Archi
   v6 = archive_write_disk_new();
   if (archive_write_disk_set_standard_lookup())
   {
-    HIBYTE(v34[2]) = 21;
+    v34[23] = 21;
     strcpy(v34, "set standard settings");
     JetPack::throwLibArchiveException(v6, v34);
   }
@@ -4656,7 +4618,7 @@ void JetPack::FileEntryWriteToDirectory(uint64_t a1, uint64_t a2, JetPack::Archi
   }
 
   std::string::append[abi:ne200100]<char const*,0>(&v35, v13, (v12 + v13));
-  std::__fs::filesystem::operator/[abi:ne200100](&v35, &__p, &v31);
+  std::__fs::filesystem::operator/[abi:ne200100](&v31, &v35, &__p);
   if ((SHIBYTE(v35.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
@@ -4691,7 +4653,7 @@ LABEL_22:
 LABEL_25:
   std::string::__init_copy_ctor_external(&pn, v31.__pn_.__r_.__value_.__l.__data_, v31.__pn_.__r_.__value_.__l.__size_);
 LABEL_26:
-  JetPack::detail::resolvingAllSymlinksInNonExistentPath(&pn, &__p);
+  JetPack::detail::resolvingAllSymlinksInNonExistentPath(&__p, &pn);
   if (SHIBYTE(pn.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(pn.__r_.__value_.__l.__data_);
@@ -4764,10 +4726,10 @@ LABEL_55:
       GlobalLog = getGlobalLog();
       if (os_log_type_enabled(GlobalLog, OS_LOG_TYPE_ERROR))
       {
-        v20 = __dst;
+        v21 = __dst;
         if (v33 < 0)
         {
-          v20 = __dst[0];
+          v21 = __dst[0];
         }
 
         p_p = &__p;
@@ -4777,7 +4739,7 @@ LABEL_55:
         }
 
         LODWORD(v35.__r_.__value_.__l.__data_) = 136446466;
-        *(v35.__r_.__value_.__r.__words + 4) = v20;
+        *(v35.__r_.__value_.__r.__words + 4) = v21;
         WORD2(v35.__r_.__value_.__r.__words[1]) = 2082;
         *(&v35.__r_.__value_.__r.__words[1] + 6) = p_p;
         _os_log_impl(&dword_255634000, GlobalLog, OS_LOG_TYPE_ERROR, "Path is outside output directory. Raw: %{public}s Resolved: %{public}s", &v35, 0x16u);
@@ -4813,22 +4775,22 @@ LABEL_44:
   if ((archive_write_header() & 0x80000000) != 0)
   {
     archive_entry_set_pathname();
-    HIBYTE(v25[2]) = 19;
+    v25[23] = 19;
     strcpy(v25, "create file on disk");
     JetPack::throwLibArchiveException(v6, v25);
   }
 
   if (archive_entry_size() >= 1)
   {
-    JetPack::ArchiveStream::getBackingArchive(a3);
-    JetPack::detail::copyArchiveData();
+    BackingArchive = JetPack::ArchiveStream::getBackingArchive(a3);
+    JetPack::detail::copyArchiveData(BackingArchive, v6);
   }
 
-  v18 = archive_write_finish_entry();
+  v19 = archive_write_finish_entry();
   archive_entry_set_pathname();
-  if (v18 < 0)
+  if (v19 < 0)
   {
-    HIBYTE(v24[2]) = 18;
+    v24[23] = 18;
     strcpy(v24, "write file to disk");
     JetPack::throwLibArchiveException(v6, v24);
   }
@@ -4845,7 +4807,14 @@ LABEL_50:
         goto LABEL_51;
       }
 
-      goto LABEL_65;
+LABEL_65:
+      operator delete(__dst[0]);
+      if (!v6)
+      {
+        return;
+      }
+
+      goto LABEL_66;
     }
   }
 
@@ -4855,27 +4824,19 @@ LABEL_50:
   }
 
   operator delete(v31.__pn_.__r_.__value_.__l.__data_);
-  if ((v33 & 0x80000000) == 0)
+  if (v33 < 0)
   {
+    goto LABEL_65;
+  }
+
 LABEL_51:
-    if (!v6)
-    {
-      goto LABEL_67;
-    }
-
-    goto LABEL_66;
-  }
-
-LABEL_65:
-  operator delete(__dst[0]);
-  if (v6)
+  if (!v6)
   {
-LABEL_66:
-    archive_write_free();
+    return;
   }
 
-LABEL_67:
-  v23 = *MEMORY[0x277D85DE8];
+LABEL_66:
+  archive_write_free();
 }
 
 void sub_25563FE4C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, int a44, __int16 a45, char a46, char a47, uint64_t a48, void *__p, uint64_t a50, int a51, __int16 a52, char a53, char a54, void *a55, uint64_t a56, int a57, __int16 a58, char a59, char a60)
@@ -5039,27 +5000,26 @@ void sub_2556401D4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-std::string *std::__fs::filesystem::operator/[abi:ne200100]@<X0>(std::__fs::filesystem::path *this@<X1>, uint64_t a2@<X0>, std::__fs::filesystem::path *a3@<X8>)
+std::string *std::__fs::filesystem::operator/[abi:ne200100]@<X0>(std::__fs::filesystem::path *__return_ptr a1@<X8>, std::__fs::filesystem::path *this@<X1>, uint64_t a3@<X0>)
 {
-  if (*(a2 + 23) < 0)
+  if (*(a3 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&a3->__pn_, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(&a1->__pn_, *a3, *(a3 + 8));
   }
 
   else
   {
-    *&a3->__pn_.__r_.__value_.__l.__data_ = *a2;
-    a3->__pn_.__r_.__value_.__r.__words[2] = *(a2 + 16);
+    *a1 = *a3;
   }
 
   if (std::__fs::filesystem::path::__root_directory(this).__size_)
   {
-    return std::string::operator=(&a3->__pn_, &this->__pn_);
+    return std::string::operator=(&a1->__pn_, &this->__pn_);
   }
 
-  if (std::__fs::filesystem::path::__filename(a3).__size_)
+  if (std::__fs::filesystem::path::__filename(a1).__size_)
   {
-    std::string::push_back(&a3->__pn_, 47);
+    std::string::push_back(&a1->__pn_, 47);
   }
 
   v6 = SHIBYTE(this->__pn_.__r_.__value_.__r.__words[2]);
@@ -5083,7 +5043,7 @@ std::string *std::__fs::filesystem::operator/[abi:ne200100]@<X0>(std::__fs::file
     size = this->__pn_.__r_.__value_.__l.__size_;
   }
 
-  return std::string::append(&a3->__pn_, v7, size);
+  return std::string::append(&a1->__pn_, v7, size);
 }
 
 void sub_2556402E0(_Unwind_Exception *exception_object)
@@ -5096,39 +5056,39 @@ void sub_2556402E0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void JetPack::detail::resolvingAllSymlinksInNonExistentPath(const std::__fs::filesystem::path *this@<X0>, std::__fs::filesystem::path *a2@<X8>)
+void JetPack::detail::resolvingAllSymlinksInNonExistentPath(std::__fs::filesystem::path *__return_ptr a1@<X8>, const std::__fs::filesystem::path *this@<X0>)
 {
   memset(&stashed_elem, 0, sizeof(stashed_elem));
-  std::__fs::filesystem::path::begin(&v16, this);
   std::__fs::filesystem::path::begin(&v15, this);
   std::__fs::filesystem::path::begin(&v14, this);
+  std::__fs::filesystem::path::begin(&v13, this);
   while (1)
   {
     std::__fs::filesystem::path::end(&__dst, this);
-    v6 = v14.__path_ptr_ != __dst.__path_ptr_ || v14.__entry_.__data_ != __dst.__entry_.__data_;
+    v5 = v13.__path_ptr_ != __dst.__path_ptr_ || v13.__entry_.__data_ != __dst.__entry_.__data_;
     if (SHIBYTE(__dst.__stashed_elem_.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__dst.__stashed_elem_.__pn_.__r_.__value_.__l.__data_);
     }
 
-    if (!v6)
+    if (!v5)
     {
       break;
     }
 
-    if (SHIBYTE(v14.__stashed_elem_.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v13.__stashed_elem_.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&pn, v14.__stashed_elem_.__pn_.__r_.__value_.__l.__data_, v14.__stashed_elem_.__pn_.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&pn, v13.__stashed_elem_.__pn_.__r_.__value_.__l.__data_, v13.__stashed_elem_.__pn_.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      pn = v14.__stashed_elem_.__pn_;
+      pn = v13.__stashed_elem_.__pn_;
     }
 
     __p.__pn_ = pn;
     memset(&pn, 0, sizeof(pn));
-    std::__fs::filesystem::operator/[abi:ne200100](&__p, &stashed_elem, &__dst.__stashed_elem_);
+    std::__fs::filesystem::operator/[abi:ne200100](&__dst.__stashed_elem_, &__p, &stashed_elem);
     if (SHIBYTE(stashed_elem.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(stashed_elem.__pn_.__r_.__value_.__l.__data_);
@@ -5159,28 +5119,28 @@ LABEL_18:
       goto LABEL_32;
     }
 
-    v7 = std::__fs::filesystem::path::__parent_path(&stashed_elem);
-    if (v7.__size_ >= 0x7FFFFFFFFFFFFFF8)
+    v6 = std::__fs::filesystem::path::__parent_path(&stashed_elem);
+    if (v6.__size_ >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    if (v7.__size_ >= 0x17)
+    if (v6.__size_ >= 0x17)
     {
       operator new();
     }
 
-    *(&__dst.__stashed_elem_.__pn_.__r_.__value_.__s + 23) = v7.__size_;
-    if (v7.__size_)
+    *(&__dst.__stashed_elem_.__pn_.__r_.__value_.__s + 23) = v6.__size_;
+    if (v6.__size_)
     {
-      memmove(&__dst, v7.__data_, v7.__size_);
+      memmove(&__dst, v6.__data_, v6.__size_);
     }
 
-    __dst.__stashed_elem_.__pn_.__r_.__value_.__s.__data_[v7.__size_] = 0;
+    __dst.__stashed_elem_.__pn_.__r_.__value_.__s.__data_[v6.__size_] = 0;
     __p = __dst.__stashed_elem_;
     std::__fs::filesystem::__read_symlink(&__dst.__stashed_elem_, &stashed_elem, 0);
-    std::__fs::filesystem::operator/[abi:ne200100](&__dst.__stashed_elem_, &__p, &v10);
-    std::__fs::filesystem::path::lexically_normal(&pn, &v10);
+    std::__fs::filesystem::operator/[abi:ne200100](&v9, &__dst.__stashed_elem_, &__p);
+    std::__fs::filesystem::path::lexically_normal(&pn, &v9);
     if (SHIBYTE(stashed_elem.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(stashed_elem.__pn_.__r_.__value_.__l.__data_);
@@ -5189,9 +5149,9 @@ LABEL_18:
     stashed_elem.__pn_ = pn;
     *(&pn.__r_.__value_.__s + 23) = 0;
     pn.__r_.__value_.__s.__data_[0] = 0;
-    if (SHIBYTE(v10.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v9.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v10.__pn_.__r_.__value_.__l.__data_);
+      operator delete(v9.__pn_.__r_.__value_.__l.__data_);
       if ((SHIBYTE(__dst.__stashed_elem_.__pn_.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
 LABEL_31:
@@ -5213,7 +5173,7 @@ LABEL_31:
     if ((SHIBYTE(__p.__pn_.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
 LABEL_32:
-      if (SHIBYTE(v14.__stashed_elem_.__pn_.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v13.__stashed_elem_.__pn_.__r_.__value_.__r.__words[2]) < 0)
       {
         goto LABEL_37;
       }
@@ -5223,35 +5183,35 @@ LABEL_32:
 
 LABEL_36:
     operator delete(__p.__pn_.__r_.__value_.__l.__data_);
-    if (SHIBYTE(v14.__stashed_elem_.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v13.__stashed_elem_.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
 LABEL_37:
-      std::string::__init_copy_ctor_external(&v8, v14.__stashed_elem_.__pn_.__r_.__value_.__l.__data_, v14.__stashed_elem_.__pn_.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&v7, v13.__stashed_elem_.__pn_.__r_.__value_.__l.__data_, v13.__stashed_elem_.__pn_.__r_.__value_.__l.__size_);
       goto LABEL_38;
     }
 
 LABEL_33:
-    v8 = v14.__stashed_elem_.__pn_;
+    v7 = v13.__stashed_elem_.__pn_;
 LABEL_38:
-    v9[0] = *&v14.__path_ptr_;
-    *(v9 + 9) = *(&v14.__entry_ + 1);
-    std::__fs::filesystem::path::iterator::__increment(&v14);
-    if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
+    v8[0] = *&v13.__path_ptr_;
+    *(v8 + 9) = *(&v13.__entry_ + 1);
+    std::__fs::filesystem::path::iterator::__increment(&v13);
+    if (SHIBYTE(v7.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v8.__r_.__value_.__l.__data_);
+      operator delete(v7.__r_.__value_.__l.__data_);
     }
   }
 
+  if (SHIBYTE(v13.__stashed_elem_.__pn_.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v13.__stashed_elem_.__pn_.__r_.__value_.__l.__data_);
+  }
+
+  std::__fs::filesystem::path::lexically_normal(a1, &stashed_elem);
   if (SHIBYTE(v14.__stashed_elem_.__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v14.__stashed_elem_.__pn_.__r_.__value_.__l.__data_);
-  }
-
-  std::__fs::filesystem::path::lexically_normal(a2, &stashed_elem);
-  if (SHIBYTE(v15.__stashed_elem_.__pn_.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v15.__stashed_elem_.__pn_.__r_.__value_.__l.__data_);
-    if (SHIBYTE(v16.__stashed_elem_.__pn_.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v15.__stashed_elem_.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
       goto LABEL_47;
     }
@@ -5266,13 +5226,13 @@ LABEL_48:
 
   else
   {
-    if ((SHIBYTE(v16.__stashed_elem_.__pn_.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v15.__stashed_elem_.__pn_.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_44;
     }
 
 LABEL_47:
-    operator delete(v16.__stashed_elem_.__pn_.__r_.__value_.__l.__data_);
+    operator delete(v15.__stashed_elem_.__pn_.__r_.__value_.__l.__data_);
     if (SHIBYTE(stashed_elem.__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
       goto LABEL_48;
@@ -5326,7 +5286,7 @@ BOOL JetPack::detail::pathIsContainedBy(std::string *this, std::__fs::filesystem
     v22 = *this;
   }
 
-  JetPack::detail::resolvingAllSymlinksInNonExistentPath(&v22, &v23);
+  JetPack::detail::resolvingAllSymlinksInNonExistentPath(&v23, &v22);
   if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v22.__r_.__value_.__l.__data_);
@@ -5345,7 +5305,7 @@ LABEL_6:
 
   std::string::__init_copy_ctor_external(&pn, a2->__pn_.__r_.__value_.__l.__data_, a2->__pn_.__r_.__value_.__l.__size_);
 LABEL_9:
-  JetPack::detail::resolvingAllSymlinksInNonExistentPath(&pn, &v21);
+  JetPack::detail::resolvingAllSymlinksInNonExistentPath(&v21, &pn);
   if (SHIBYTE(pn.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(pn.__r_.__value_.__l.__data_);
@@ -5463,7 +5423,6 @@ void sub_255640A60()
 {
   if (*(v0 - 121) < 0)
   {
-    v1 = *(v0 - 144);
     JUMPOUT(0x255640A40);
   }
 
@@ -6050,8 +6009,8 @@ void sub_255641330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (SLOBYTE(STACK[0x207]) < 0)
   {
-    operator delete(a72);
-    if ((a68 & 0x80000000) == 0)
+    operator delete(a66);
+    if ((a65 & 0x80000000) == 0)
     {
 LABEL_3:
       if ((SLOBYTE(STACK[0x287]) & 0x80000000) == 0)
@@ -6063,7 +6022,7 @@ LABEL_3:
     }
   }
 
-  else if ((a68 & 0x80000000) == 0)
+  else if ((a65 & 0x80000000) == 0)
   {
     goto LABEL_3;
   }
@@ -6093,32 +6052,32 @@ LABEL_9:
   _Unwind_Resume(a1);
 }
 
-void std::__mismatch[abi:ne200100]<std::__fs::filesystem::path::iterator,std::__fs::filesystem::path::iterator,std::__fs::filesystem::path::iterator,std::__equal_to,std::__identity,std::__identity>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+void std::__mismatch[abi:ne200100]<std::__fs::filesystem::path::iterator,std::__fs::filesystem::path::iterator,std::__fs::filesystem::path::iterator,std::__equal_to,std::__identity,std::__identity>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t x8_0@<X8>)
 {
   if (*(a1 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v12, *a1, *(a1 + 8));
+    std::string::__init_copy_ctor_external(&v15, *a1, *(a1 + 8));
   }
 
   else
   {
-    v12 = *a1;
+    v15 = *a1;
   }
 
-  v13[0] = *(a1 + 24);
-  *(v13 + 9) = *(a1 + 33);
+  v16[0] = *(a1 + 24);
+  *(v16 + 9) = *(a1 + 33);
   if (*(a2 + 23) < 0)
   {
-    std::string::__init_copy_ctor_external(&v10, *a2, *(a2 + 8));
+    std::string::__init_copy_ctor_external(&v13, *a2, *(a2 + 8));
   }
 
   else
   {
-    v10 = *a2;
+    v13 = *a2;
   }
 
-  v11[0] = *(a2 + 24);
-  *(v11 + 9) = *(a2 + 33);
+  v14[0] = *(a2 + 24);
+  *(v14 + 9) = *(a2 + 33);
   if (*(a3 + 23) < 0)
   {
     std::string::__init_copy_ctor_external(&__p, *a3, *(a3 + 8));
@@ -6129,33 +6088,33 @@ void std::__mismatch[abi:ne200100]<std::__fs::filesystem::path::iterator,std::__
     __p = *a3;
   }
 
-  v9[0] = *(a3 + 24);
-  *(v9 + 9) = *(a3 + 33);
-  std::__mismatch_loop[abi:ne200100]<std::__fs::filesystem::path::iterator,std::__fs::filesystem::path::iterator,std::__fs::filesystem::path::iterator,std::__equal_to,std::__identity,std::__identity>(&v12, &v10, &__p, a4);
+  v12[0] = *(a3 + 24);
+  *(v12 + 9) = *(a3 + 33);
+  std::__mismatch_loop[abi:ne200100]<std::__fs::filesystem::path::iterator,std::__fs::filesystem::path::iterator,std::__fs::filesystem::path::iterator,std::__equal_to,std::__identity,std::__identity>(&v15, &v13, &__p, x8_0);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v10.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+    if ((SHIBYTE(v13.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
 LABEL_12:
-      if ((SHIBYTE(v12.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+      if ((SHIBYTE(v15.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
       {
         return;
       }
 
 LABEL_16:
-      operator delete(v12.__r_.__value_.__l.__data_);
+      operator delete(v15.__r_.__value_.__l.__data_);
       return;
     }
   }
 
-  else if ((SHIBYTE(v10.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  else if ((SHIBYTE(v13.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_12;
   }
 
-  operator delete(v10.__r_.__value_.__l.__data_);
-  if (SHIBYTE(v12.__r_.__value_.__r.__words[2]) < 0)
+  operator delete(v13.__r_.__value_.__l.__data_);
+  if (SHIBYTE(v15.__r_.__value_.__r.__words[2]) < 0)
   {
     goto LABEL_16;
   }
@@ -6362,12 +6321,12 @@ LABEL_12:
   }
 }
 
-uint64_t JetPack::detail::copyArchiveData()
+uint64_t JetPack::detail::copyArchiveData(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v15 = 0;
+  v20 = *MEMORY[0x277D85DE8];
   v16 = 0;
-  v14 = 0;
+  v17 = 0;
+  v15 = 0;
   while (1)
   {
     data_block = archive_read_data_block();
@@ -6378,70 +6337,69 @@ uint64_t JetPack::detail::copyArchiveData()
 
     if (data_block < 0)
     {
-      v7 = archive_error_string();
-      JetPack::archiveErrorToString(v7, &v13);
+      v8 = archive_error_string();
+      JetPack::archiveErrorToString(&v14, v8);
       GlobalLog = getGlobalLog();
       if (os_log_type_enabled(GlobalLog, OS_LOG_TYPE_ERROR))
       {
-        v9 = &v13;
-        if ((v13.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        v10 = &v14;
+        if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v9 = v13.__r_.__value_.__r.__words[0];
+          v10 = v14.__r_.__value_.__r.__words[0];
         }
 
         *buf = 136446210;
-        v18 = v9;
+        v19 = v10;
         _os_log_impl(&dword_255634000, GlobalLog, OS_LOG_TYPE_ERROR, "Archive error occurred while reading data block: %{public}s", buf, 0xCu);
       }
 
       exception = __cxa_allocate_exception(0x20uLL);
-      if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v12, v13.__r_.__value_.__l.__data_, v13.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v13, v14.__r_.__value_.__l.__data_, v14.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v12 = v13;
+        v13 = v14;
       }
 
-      JetPack::LibArchiveException::LibArchiveException(exception, &v12);
+      JetPack::LibArchiveException::LibArchiveException(exception, &v13);
     }
 
     if ((archive_write_data_block() & 0x80000000) != 0)
     {
-      v1 = archive_error_string();
-      JetPack::archiveErrorToString(v1, &v13);
-      v2 = getGlobalLog();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+      v3 = archive_error_string();
+      JetPack::archiveErrorToString(&v14, v3);
+      v4 = getGlobalLog();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        v3 = &v13;
-        if ((v13.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        v5 = &v14;
+        if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          v3 = v13.__r_.__value_.__r.__words[0];
+          v5 = v14.__r_.__value_.__r.__words[0];
         }
 
         *buf = 136446210;
-        v18 = v3;
-        _os_log_impl(&dword_255634000, v2, OS_LOG_TYPE_ERROR, "Archive error occurred while writing data block: %{public}s", buf, 0xCu);
+        v19 = v5;
+        _os_log_impl(&dword_255634000, v4, OS_LOG_TYPE_ERROR, "Archive error occurred while writing data block: %{public}s", buf, 0xCu);
       }
 
-      v4 = __cxa_allocate_exception(0x20uLL);
-      if (SHIBYTE(v13.__r_.__value_.__r.__words[2]) < 0)
+      v6 = __cxa_allocate_exception(0x20uLL);
+      if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(&v11, v13.__r_.__value_.__l.__data_, v13.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(&v12, v14.__r_.__value_.__l.__data_, v14.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v11 = v13;
+        v12 = v14;
       }
 
-      JetPack::LibArchiveException::LibArchiveException(v4, &v11);
+      JetPack::LibArchiveException::LibArchiveException(v6, &v12);
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -6936,7 +6894,7 @@ uint64_t std::__function::__func<BOOL (*)(JetPack::ReaderConfig &,JetPack::Segme
 
 void *std::__function::__value_func<BOOL ()(JetPack::ReaderConfig &,JetPack::SegmentTag,std::shared_ptr<JetPack::BaseStream>)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -6946,15 +6904,15 @@ void *std::__function::__value_func<BOOL ()(JetPack::ReaderConfig &,JetPack::Seg
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -6982,7 +6940,6 @@ void *std::__function::__value_func<BOOL ()(JetPack::ReaderConfig &,JetPack::Seg
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7354,7 +7311,7 @@ void *std::__for_each_segment[abi:ne200100]<std::__deque_iterator<unsigned char,
       v10 = v11;
       while (1)
       {
-        v12 = v10 - v8 + 4096;
+        v12 = (v10 - v8 + 4096);
         v13 = a4 - v7 >= v12 ? v12 : a4 - v7;
         if (v13)
         {
@@ -7835,24 +7792,24 @@ void sub_255645300(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void readToEndVector(JetPack::BaseStream *a1@<X0>, uint64_t a2@<X8>)
+void readToEndVector(char **__return_ptr a1@<X8>, JetPack::BaseStream *a2@<X0>)
 {
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  std::vector<unsigned char>::__append(a2, 0x20000uLL);
-  for (i = 0; ; i += (*(*a1 + 16))(a1, &v6[i], v8 - v7))
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  std::vector<unsigned char>::__append(a1, 0x20000uLL);
+  for (i = 0; ; i += (*(*a2 + 16))(a2, &v6[i], v8 - v7))
   {
-    v5 = (*(*a1 + 32))(a1);
-    v6 = *a2;
+    v5 = (*(*a2 + 32))(a2);
+    v6 = *a1;
     if (v5)
     {
       break;
     }
 
     v7 = &v6[i];
-    v8 = *(a2 + 8);
-    if ((*(a2 + 16) - &v6[i]) >> 10 <= 4uLL)
+    v8 = a1[1];
+    if ((a1[2] - &v6[i]) >> 10 <= 4)
     {
       v9 = v8 - v6;
       if (v8 - v6 < 1)
@@ -7860,32 +7817,32 @@ void readToEndVector(JetPack::BaseStream *a1@<X0>, uint64_t a2@<X8>)
         if ((v9 & 0x8000000000000000) != 0)
         {
           v8 = &v6[2 * v9];
-          *(a2 + 8) = v8;
+          a1[1] = v8;
         }
       }
 
       else
       {
-        std::vector<unsigned char>::__append(a2, v9);
-        v6 = *a2;
-        v8 = *(a2 + 8);
-        v7 = (i + *a2);
+        std::vector<unsigned char>::__append(a1, v9);
+        v6 = *a1;
+        v8 = a1[1];
+        v7 = &(*a1)[i];
       }
     }
   }
 
-  v10 = *(a2 + 8) - v6;
+  v10 = a1[1] - v6;
   if (i <= v10)
   {
     if (i < v10)
     {
-      *(a2 + 8) = &v6[i];
+      a1[1] = &v6[i];
     }
   }
 
   else
   {
-    std::vector<unsigned char>::__append(a2, i - v10);
+    std::vector<unsigned char>::__append(a1, i - v10);
   }
 }
 
@@ -7998,8 +7955,9 @@ void sub_255645800(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void JetPackSignatureVerifierCreateWithCertificateData(uint64_t a1, uint64_t a2)
+void JetPackSignatureVerifierCreateWithCertificateData(const void *a1, size_t a2)
 {
+  memset(__p, 0, sizeof(__p));
   if (a2)
   {
     if ((a2 & 0x8000000000000000) == 0)
@@ -8010,7 +7968,7 @@ void JetPackSignatureVerifierCreateWithCertificateData(uint64_t a1, uint64_t a2)
     std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
   }
 
-  makePublicRef<JetPackSignatureVerifier,JetPack::CommonCryptoSignatureVerifier,std::vector<unsigned char> &>();
+  makePublicRef<JetPackSignatureVerifier,JetPack::CommonCryptoSignatureVerifier,std::vector<unsigned char> &>(__p);
 }
 
 void sub_2556458C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
@@ -8059,34 +8017,33 @@ uint64_t getGlobalLog(void)
   return qword_280B1A568;
 }
 
-void nestedExceptionString(const std::exception *a1@<X0>, std::string *a2@<X8>)
+void nestedExceptionString(std::string *__return_ptr a1@<X8>, const std::exception *a2@<X0>)
 {
-  memset(&v7, 0, sizeof(v7));
-  v4 = (a1->what)(a1);
-  std::string::append(&v7, v4);
-  v5 = a1->~exception;
-  v6 = __dynamic_cast(a1, MEMORY[0x277D82790], off_2797F16A8, -2);
-  if (v6)
+  memset(&v6, 0, sizeof(v6));
+  v4 = (a2->what)(a2);
+  std::string::append(&v6, v4);
+  v5 = __dynamic_cast(a2, MEMORY[0x277D82790], off_2797F16A8, -2);
+  if (v5)
   {
-    std::nested_exception::rethrow_nested(v6);
+    std::nested_exception::rethrow_nested(v5);
     __break(1u);
   }
 
   else
   {
-    *a2 = v7;
+    *a1 = v6;
   }
 }
 
-void sub_255645A48(void *__p, int a2, int a3, __int16 a4, char a5, char a6, std::string *a7, uint64_t a8, std::string::value_type *__pa, std::string::size_type a10, int a11, __int16 a12, char a13, unsigned __int8 a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
+void sub_255645A48(void *__p, int a2, int a3, __int16 a4, char a5, char a6, std::string *a7, uint64_t a8, std::string::value_type *__pa, std::string::size_type a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20)
 {
   v22 = __cxa_begin_catch(__p);
   if (a2 == 2)
   {
     v23 = v22;
     v24 = std::string::append(&a15, " -> ");
-    nestedExceptionString(v23, &__pa);
-    if ((a14 & 0x80u) == 0)
+    nestedExceptionString(&__pa, v23);
+    if (a14 >= 0)
     {
       p_pa = &__pa;
     }
@@ -8096,7 +8053,7 @@ void sub_255645A48(void *__p, int a2, int a3, __int16 a4, char a5, char a6, std:
       p_pa = __pa;
     }
 
-    if ((a14 & 0x80u) == 0)
+    if (a14 >= 0)
     {
       v26 = a14;
     }
@@ -8172,8 +8129,7 @@ __n128 std::optional<std::string>::operator=[abi:ne200100]<std::string,void>(uin
     result = *a2;
     *(a1 + 16) = a2[1].n128_u64[0];
     *a1 = result;
-    a2->n128_u64[1] = 0;
-    a2[1].n128_u64[0] = 0;
+    *(a2 + 8) = 0uLL;
     a2->n128_u64[0] = 0;
     *(a1 + 24) = 1;
   }
@@ -8239,7 +8195,7 @@ uint64_t std::__function::__func<JetPackReaderSetDataSegmentFoundCallback::$_0,s
 
 void *std::__function::__value_func<BOOL ()(JetPack::ReaderConfig &,std::string,std::shared_ptr<JetPack::BaseStream>)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -8249,15 +8205,15 @@ void *std::__function::__value_func<BOOL ()(JetPack::ReaderConfig &,std::string,
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -8285,7 +8241,6 @@ void *std::__function::__value_func<BOOL ()(JetPack::ReaderConfig &,std::string,
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8333,7 +8288,7 @@ uint64_t std::__function::__func<JetPackReaderSetFileEntryFoundCallback::$_0,std
 
 void *std::__function::__value_func<BOOL ()(JetPack::ReaderConfig &,void *,std::shared_ptr<JetPack::ArchiveStream>)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -8343,15 +8298,15 @@ void *std::__function::__value_func<BOOL ()(JetPack::ReaderConfig &,void *,std::
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -8379,7 +8334,6 @@ void *std::__function::__value_func<BOOL ()(JetPack::ReaderConfig &,void *,std::
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8427,7 +8381,7 @@ uint64_t std::__function::__func<JetPackReaderSetKeyForIdentifierCallback::$_0,s
 
 void *std::__function::__value_func<std::optional<std::array<unsigned char,16ul>> ()(JetPack::ReaderConfig &,unsigned short)>::swap[abi:ne200100](void *result, void *a2)
 {
-  v6[3] = *MEMORY[0x277D85DE8];
+  v5[3] = *MEMORY[0x277D85DE8];
   if (a2 != result)
   {
     v3 = result;
@@ -8437,15 +8391,15 @@ void *std::__function::__value_func<std::optional<std::array<unsigned char,16ul>
     {
       if (v4 == a2)
       {
-        (*(*result + 24))(result, v6);
+        (*(*result + 24))(result, v5);
         (*(*v3[3] + 32))(v3[3]);
         v3[3] = 0;
         (*(*a2[3] + 24))(a2[3], v3);
         (*(*a2[3] + 32))(a2[3]);
         a2[3] = 0;
         v3[3] = v3;
-        (*(v6[0] + 24))(v6, a2);
-        result = (*(v6[0] + 32))(v6);
+        (*(v5[0] + 24))(v5, a2);
+        result = (*(v5[0] + 32))(v5);
       }
 
       else
@@ -8473,7 +8427,6 @@ void *std::__function::__value_func<std::optional<std::array<unsigned char,16ul>
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8584,11 +8537,11 @@ LABEL_5:
   return a1;
 }
 
-void JetPack::throwLibArchiveException(uint64_t a1, uint64_t *a2)
+void JetPack::throwLibArchiveException(uint64_t a1, uint64_t **a2)
 {
   v13 = *MEMORY[0x277D85DE8];
   v3 = archive_error_string();
-  JetPack::archiveErrorToString(v3, &v8);
+  JetPack::archiveErrorToString(&v8, v3);
   {
     JetPack::DiagnosticContext::DiagnosticContext(&getGlobalLog(void)::sharedContext);
   }
@@ -8706,11 +8659,11 @@ unint64_t JetPack::CallbackStream::read(JetPack::CallbackStream *this, unsigned 
 
 unint64_t JetPack::CallbackStream::seekForward(JetPack::CallbackStream *this, uint64_t a2)
 {
-  v13[128] = *MEMORY[0x277D85DE8];
+  v12[128] = *MEMORY[0x277D85DE8];
   if (*(this + 72) == 1)
   {
     v4 = *(this + 15);
-    v13[0] = a2;
+    v12[0] = a2;
     v5 = *(this + 8);
     if (!v5)
     {
@@ -8718,7 +8671,7 @@ unint64_t JetPack::CallbackStream::seekForward(JetPack::CallbackStream *this, ui
     }
 
     v6 = v4 + a2;
-    result = (*(*v5 + 48))(v5, v13);
+    result = (*(*v5 + 48))(v5, v12);
     *(this + 15) = v6;
   }
 
@@ -8739,7 +8692,7 @@ unint64_t JetPack::CallbackStream::seekForward(JetPack::CallbackStream *this, ui
 
         v10 = (*(*this + 24))(this);
         v11 = v9 - v10 >= 0x400 ? 1024 : v9 - v10;
-        (*(*this + 16))(this, v13, v11);
+        (*(*this + 16))(this, v12, v11);
         result = (*(*this + 32))(this);
       }
 
@@ -8747,7 +8700,6 @@ unint64_t JetPack::CallbackStream::seekForward(JetPack::CallbackStream *this, ui
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -8894,58 +8846,59 @@ size_t JetPack::BufferStream::read(JetPack::BufferStream *this, unsigned __int8 
   return a3;
 }
 
-const char *JetPack::archiveErrorToString@<X0>(const char *this@<X0>, char *a2@<X8>)
+unint64_t JetPack::archiveErrorToString@<X0>(uint64_t *__return_ptr a1@<X8>, unint64_t this@<X0>)
 {
-  v3 = a2;
+  v2 = a1;
   if (this)
   {
-    v4 = this;
+    v3 = this;
     this = strlen(this);
     if (this >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v5 = this;
+    v4 = this;
     if (this >= 0x17)
     {
       operator new();
     }
 
-    v3[23] = this;
+    *(v2 + 23) = this;
     if (this)
     {
-      this = memcpy(v3, v4, this);
+      this = memcpy(v2, v3, this);
     }
 
-    v3 = &v5[v3];
+    v2 = (v2 + v4);
   }
 
   else
   {
-    a2[23] = 0;
+    *(a1 + 23) = 0;
   }
 
-  *v3 = 0;
+  *v2 = 0;
   return this;
 }
 
-void sub_255647E04(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21)
+void sub_255647E04(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __int128 a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
+  va_start(va, a20);
   std::__optional_destruct_base<std::function<unsigned long ()(void)>,false>::~__optional_destruct_base[abi:ne200100](&a11);
   std::optional<std::function<void ()(unsigned long)>>::~optional(&a16);
-  std::function<unsigned long ()(unsigned char *,unsigned long)>::~function(&a21);
-  std::__shared_weak_count::~__shared_weak_count(v21);
-  operator delete(v24);
+  std::function<unsigned long ()(unsigned char *,unsigned long)>::~function(va);
+  std::__shared_weak_count::~__shared_weak_count(v20);
+  operator delete(v23);
   if (a2 == 1)
   {
-    v25 = __cxa_begin_catch(a1);
+    v24 = __cxa_begin_catch(a1);
     GlobalLog = getGlobalLog();
     if (os_log_type_enabled(GlobalLog, OS_LOG_TYPE_ERROR))
     {
-      v27 = (*(*v25 + 16))(v25);
+      v26 = (*(*v24 + 16))(v24);
       LODWORD(a9) = 136446210;
-      *(&a9 + 4) = v27;
+      *(&a9 + 4) = v26;
       _os_log_impl(&dword_255634000, GlobalLog, OS_LOG_TYPE_ERROR, "Unable to make public ref with error: %{public}s", &a9, 0xCu);
     }
 
@@ -8954,6 +8907,13 @@ void sub_255647E04(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint
   }
 
   _Unwind_Resume(a1);
+}
+
+void JetPackCreateDataStream(uint64_t a1, uint64_t a2)
+{
+  v2 = a2;
+  v3 = a1;
+  makePublicRef<JetPackStream,JetPack::BufferStream,unsigned char const*&,unsigned long &>(&v3, &v2);
 }
 
 uint64_t JetPackStreamPosition(uint64_t *a1)
@@ -9298,7 +9258,7 @@ uint64_t JetPack::CommonCryptoBackend::convertCCStatusToCryptoStatus(JetPack::Co
   }
 }
 
-uint64_t JetPack::CommonCryptoBackend::aesGCMEncrypt(JetPack::CommonCryptoBackend *this, const unsigned __int8 *a2, unint64_t a3, const unsigned __int8 *a4, unint64_t a5, const unsigned __int8 *a6, unint64_t a7, unsigned __int8 *a8, unsigned __int8 *a9, unint64_t a10)
+uint64_t JetPack::CommonCryptoBackend::aesGCMEncrypt(JetPack::CommonCryptoBackend *this, const unsigned __int8 *a2, uint64_t a3, const unsigned __int8 *a4, uint64_t a5, const unsigned __int8 *a6, uint64_t a7, unsigned __int8 *a8, unsigned __int8 *a9, unint64_t a10)
 {
   if (CCCryptorGCMOneshotEncrypt())
   {
@@ -9319,19 +9279,19 @@ void JetPack::CommonCryptoBackend::generateSigningKey(JetPack::CommonCryptoBacke
   JetPack::makeCFSharedPtr<__CFNumber const*>(v1, &v2);
 }
 
-void sub_255648F18(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_255648F18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
-  std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](v2 - 56);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
+  std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](v3 - 56);
   std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](va);
   std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](va1);
   _Unwind_Resume(a1);
 }
 
-void JetPack::CFDictionaryWrapper::convert(void **a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
+void JetPack::CFDictionaryWrapper::convert(void *a1@<X0>, const void **a2@<X1>, void *a3@<X8>)
 {
   memset(keys, 0, sizeof(keys));
   __p = 0;
@@ -9343,7 +9303,7 @@ void JetPack::CFDictionaryWrapper::convert(void **a1@<X0>, const void **a2@<X1>,
     do
     {
       std::vector<void const*>::push_back[abi:ne200100](keys, *a1);
-      std::vector<void const*>::push_back[abi:ne200100](&__p, *a1 + 1);
+      std::vector<void const*>::push_back[abi:ne200100](&__p, (*a1 + 8));
       a1 += 2;
       v5 -= 16;
     }
@@ -9390,7 +9350,7 @@ LABEL_3:
   _Unwind_Resume(exception_object);
 }
 
-void JetPack::CFDataWrapper::asVector(JetPack::CFDataWrapper *this@<X0>, void *a2@<X8>)
+void JetPack::CFDataWrapper::asVector(JetPack::CFDataWrapper *this@<X0>, void **a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
@@ -9399,58 +9359,58 @@ void JetPack::CFDataWrapper::asVector(JetPack::CFDataWrapper *this@<X0>, void *a
   Length = CFDataGetLength(this);
   if (Length)
   {
-    v7 = 0;
+    v6 = 0;
     do
     {
-      v8 = a2[2];
-      if (v7 < v8)
+      v7 = a2[2];
+      if (v6 < v7)
       {
-        *v7++ = *BytePtr;
+        *v6++ = *BytePtr;
       }
 
       else
       {
-        v9 = *a2;
-        v10 = &v7[-*a2];
-        v11 = (v10 + 1);
-        if ((v10 + 1) < 0)
+        v8 = *a2;
+        v9 = (v6 - *a2);
+        v10 = (v9 + 1);
+        if ((v9 + 1) < 0)
         {
           std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
         }
 
-        v12 = v8 - v9;
-        if (2 * v12 > v11)
+        v11 = v7 - v8;
+        if (2 * v11 > v10)
         {
-          v11 = 2 * v12;
+          v10 = 2 * v11;
         }
 
-        if (v12 >= 0x3FFFFFFFFFFFFFFFLL)
+        if (v11 >= 0x3FFFFFFFFFFFFFFFLL)
         {
-          v13 = 0x7FFFFFFFFFFFFFFFLL;
+          v12 = 0x7FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v13 = v11;
+          v12 = v10;
         }
 
-        if (v13)
+        if (v12)
         {
           operator new();
         }
 
-        *v10 = *BytePtr;
-        v7 = v10 + 1;
-        memcpy(0, v9, v10);
+        *v9 = *BytePtr;
+        v6 = v9 + 1;
+        memcpy(0, v8, v9);
         *a2 = 0;
         a2[2] = 0;
-        if (v9)
+        if (v8)
         {
-          operator delete(v9);
+          operator delete(v8);
         }
       }
 
-      a2[1] = v7;
+      a2[1] = v6;
       ++BytePtr;
       --Length;
     }
@@ -9474,19 +9434,20 @@ void JetPack::CommonCryptoBackend::generateSelfSignedCertificate()
 {
   cStr[23] = 12;
   strcpy(cStr, "JetPackTests");
-  v0 = CFStringCreateWithCString(*MEMORY[0x277CBECE8], cStr, 0x8000100u);
-  JetPack::makeCFSharedPtr<__CFString const*>(v0, &v2);
+  v2 = CFStringCreateWithCString(*MEMORY[0x277CBECE8], cStr, 0x8000100u);
+  JetPack::makeCFSharedPtr<__CFString const*>(v2, &v4);
 }
 
-void sub_255649574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16, uint64_t a17, char a18, uint64_t a19, char a20, uint64_t a21, char a22)
+void sub_255649574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
+  va_start(va, a21);
   std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](&a9);
   std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](&a11);
   std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](&a16);
   std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](&a18);
   std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](&a20);
-  std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](&a22);
-  std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](v22 - 64);
+  std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](va);
+  std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](v21 - 64);
   _Unwind_Resume(a1);
 }
 
@@ -9513,42 +9474,42 @@ void JetPack::CommonCryptoBackend::keyFromData()
 {
   valuePtr[6] = *MEMORY[0x277D85DE8];
   LODWORD(valuePtr[0]) = 256;
-  v0 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberIntType, valuePtr);
-  JetPack::makeCFSharedPtr<__CFNumber const*>(v0, &v1);
+  v2 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberIntType, valuePtr);
+  JetPack::makeCFSharedPtr<__CFNumber const*>(v2, &v3);
 }
 
-void sub_255649990(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_255649990(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   va_copy(va2, va1);
-  v7 = va_arg(va2, void);
-  v9 = va_arg(va2, void);
+  v8 = va_arg(va2, void);
   v10 = va_arg(va2, void);
   v11 = va_arg(va2, void);
   v12 = va_arg(va2, void);
   v13 = va_arg(va2, void);
   v14 = va_arg(va2, void);
   v15 = va_arg(va2, void);
-  std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](v2);
+  v16 = va_arg(va2, void);
+  std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](v3);
   std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](va2);
   std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](va);
   std::shared_ptr<JetPack::BaseStream>::~shared_ptr[abi:ne200100](va1);
   _Unwind_Resume(a1);
 }
 
-void JetPack::CommonCryptoBackend::exportPrivateKeyAsDER(uint64_t a1, void *a2)
+void JetPack::CommonCryptoBackend::exportPrivateKeyAsDER(void x0_0, void *a1)
 {
   v4 = 0;
   v5 = 0;
   v3 = 0;
-  v2 = a2[1];
-  if (v2 != *a2)
+  v2 = a1[1];
+  if (v2 != *a1)
   {
-    if (((v2 - *a2) & 0x8000000000000000) == 0)
+    if (((v2 - *a1) & 0x8000000000000000) == 0)
     {
       operator new();
     }
@@ -9586,8 +9547,7 @@ __n128 JetPack::CommonCryptoBackend::exportCertificateAsDER@<Q0>(__n128 *a1@<X1>
   result = *a1;
   *a2 = *a1;
   a2[1].n128_u64[0] = a1[1].n128_u64[0];
-  a1->n128_u64[1] = 0;
-  a1[1].n128_u64[0] = 0;
+  *(a1 + 8) = 0uLL;
   a1->n128_u64[0] = 0;
   return result;
 }

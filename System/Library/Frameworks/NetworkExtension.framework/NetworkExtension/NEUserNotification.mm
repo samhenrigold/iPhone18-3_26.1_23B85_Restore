@@ -69,17 +69,17 @@
 
 - (id)initAndShowAddConfigurationsForApp:(id)app warningHeader:(const char *)header warning:(const char *)warning callbackQueue:(id)queue callbackHandler:(id)handler
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   queueCopy = queue;
   appCopy = app;
   objc_opt_self();
   if (!g_UIKitBundle)
   {
-    v37 = 0;
+    v36 = 0;
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v17 = [defaultManager fileExistsAtPath:@"/System/Library/PrivateFrameworks/UIKitCore.framework" isDirectory:&v37];
-    v18 = v37;
+    v17 = [defaultManager fileExistsAtPath:@"/System/Library/PrivateFrameworks/UIKitCore.framework" isDirectory:&v36];
+    v18 = v36;
 
     if (v17)
     {
@@ -97,11 +97,11 @@
           if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315650;
-            v39 = "+[NEUserNotification getUIDeviceClass]";
-            v40 = 2112;
-            v41 = g_UIKitBundle;
-            v42 = 2112;
-            v43 = g_UIDeviceClass;
+            v38 = "+[NEUserNotification getUIDeviceClass]";
+            v39 = 2112;
+            v40 = g_UIKitBundle;
+            v41 = 2112;
+            v42 = g_UIDeviceClass;
             _os_log_debug_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_DEBUG, "%s: bundle %@ class %@", buf, 0x20u);
           }
         }
@@ -135,7 +135,6 @@
   v31 = NEResourcesCopyLocalizedNSString(@"ALLOW_BUTTON", @"ALLOW_BUTTON");
   v32 = [(NEUserNotification *)self initAndShowAlertWithHeader:appCopy message:appCopy2 alternateMessage:v31 defaultMessage:v30 noBoldDefault:0 usePrivacyIcon:0 extensionItem:0 callbackQueue:queueCopy callbackHandler:handlerCopy];
 
-  v33 = *MEMORY[0x1E69E9840];
   return v32;
 }
 
@@ -248,14 +247,14 @@ LABEL_18:
 
 - (id)initAndShowAuthenticationWithHeader:(id)header options:(id)options flags:(unint64_t)flags callbackQueue:(id)queue callbackHandler:(id)handler
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   headerCopy = header;
   optionsCopy = options;
   queueCopy = queue;
   handlerCopy = handler;
-  v34.receiver = self;
-  v34.super_class = NEUserNotification;
-  v16 = [(NEUserNotification *)&v34 init];
+  v33.receiver = self;
+  v33.super_class = NEUserNotification;
+  v16 = [(NEUserNotification *)&v33 init];
   if (!v16)
   {
     goto LABEL_20;
@@ -271,7 +270,7 @@ LABEL_18:
     {
       firstObject = [g_currentNotifications firstObject];
       error = 138412290;
-      v36 = firstObject;
+      v35 = firstObject;
       _os_log_error_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_ERROR, "Already have outstanding notification %@, cannot show an additional one", &error, 0xCu);
     }
 
@@ -282,7 +281,7 @@ LABEL_18:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
   {
     error = 138412290;
-    v36 = v16;
+    v35 = v16;
     _os_log_debug_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_DEBUG, "No outstanding notification, we are now the current notification %@", &error, 0xCu);
   }
 
@@ -339,7 +338,6 @@ LABEL_20:
   v30 = v16;
 LABEL_23:
 
-  v31 = *MEMORY[0x1E69E9840];
   return v30;
 }
 
@@ -381,14 +379,14 @@ LABEL_23:
 
 void __72__NEUserNotification_postNotificationWithCallbackQueue_callbackHandler___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v28 = *(a1 + 32);
-    v29 = 138412290;
-    v30 = v28;
-    _os_log_debug_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEBUG, "Displaying notification: %@", &v29, 0xCu);
+    v27 = *(a1 + 32);
+    v28 = 138412290;
+    v29 = v27;
+    _os_log_debug_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_DEBUG, "Displaying notification: %@", &v28, 0xCu);
   }
 
   os_unfair_lock_lock(&g_currentNotificationLock);
@@ -414,88 +412,85 @@ void __72__NEUserNotification_postNotificationWithCallbackQueue_callbackHandler_
 
 LABEL_8:
       os_unfair_lock_unlock(&g_currentNotificationLock);
-      goto LABEL_9;
+      return;
     }
 
-    v11 = *(a1 + 32);
+    v10 = *(a1 + 32);
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  v12 = [g_currentNotifications containsObject:v11];
+  v11 = [g_currentNotifications containsObject:v10];
 
   os_unfair_lock_unlock(&g_currentNotificationLock);
-  if (v12)
+  if (v11)
   {
     Property = *(a1 + 32);
     if (Property)
     {
-      Property = objc_getProperty(Property, v13, 16, 1);
+      Property = objc_getProperty(Property, v12, 16, 1);
     }
 
-    v15 = Property;
-    v16 = *(a1 + 32);
-    if (v16)
+    v14 = Property;
+    v15 = *(a1 + 32);
+    if (v15)
     {
-      if (*(v16 + 8))
+      if (*(v15 + 8))
       {
-        v17 = alertCallback;
+        v16 = alertCallback;
       }
 
       else
       {
-        v17 = authCallback;
+        v16 = authCallback;
       }
     }
 
     else
     {
-      v17 = authCallback;
+      v16 = authCallback;
     }
 
-    RunLoopSource = CFUserNotificationCreateRunLoopSource(*MEMORY[0x1E695E480], v15, v17, 0);
-    v20 = *(a1 + 32);
-    if (v20)
+    RunLoopSource = CFUserNotificationCreateRunLoopSource(*MEMORY[0x1E695E480], v14, v16, 0);
+    v19 = *(a1 + 32);
+    if (v19)
     {
-      objc_setProperty_atomic(v20, v18, v15, 16);
+      objc_setProperty_atomic(v19, v17, v14, 16);
     }
 
     if (RunLoopSource)
     {
-      v22 = *(a1 + 32);
-      if (v22)
+      v21 = *(a1 + 32);
+      if (v21)
       {
-        objc_setProperty_nonatomic_copy(v22, v21, *(a1 + 48), 40);
-        v24 = *(a1 + 32);
-        if (v24)
+        objc_setProperty_nonatomic_copy(v21, v20, *(a1 + 48), 40);
+        v23 = *(a1 + 32);
+        if (v23)
         {
-          objc_setProperty_atomic(v24, v23, *(a1 + 40), 32);
+          objc_setProperty_atomic(v23, v22, *(a1 + 40), 32);
         }
       }
 
       Main = CFRunLoopGetMain();
       CFRunLoopAddSource(Main, RunLoopSource, *MEMORY[0x1E695E8E0]);
-      v27 = *(a1 + 32);
-      if (v27)
+      v26 = *(a1 + 32);
+      if (v26)
       {
-        objc_setProperty_atomic(v27, v26, RunLoopSource, 24);
+        objc_setProperty_atomic(v26, v25, RunLoopSource, 24);
       }
 
       *(*(*(a1 + 56) + 8) + 24) = 1;
     }
   }
-
-LABEL_9:
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)initAndShowAlertWithHeader:(id)header message:(id)message alternateMessage:(id)alternateMessage defaultMessage:(id)defaultMessage noBoldDefault:(BOOL)default usePrivacyIcon:(BOOL)icon extensionItem:(id)item callbackQueue:(id)self0 callbackHandler:(id)self1
 {
   defaultCopy = default;
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   headerCopy = header;
   messageCopy = message;
   alternateMessageCopy = alternateMessage;
@@ -503,12 +498,12 @@ LABEL_9:
   itemCopy = item;
   queueCopy = queue;
   handlerCopy = handler;
-  v63.receiver = self;
-  v63.super_class = NEUserNotification;
-  v23 = [(NEUserNotification *)&v63 init];
+  v62.receiver = self;
+  v62.super_class = NEUserNotification;
+  v23 = [(NEUserNotification *)&v62 init];
   if (v23)
   {
-    v59 = queueCopy;
+    v58 = queueCopy;
     value = headerCopy;
     os_unfair_lock_lock(&g_currentNotificationLock);
     v24 = [g_currentNotifications count];
@@ -520,7 +515,7 @@ LABEL_9:
       {
         firstObject = [g_currentNotifications firstObject];
         *buf = 138412290;
-        v66 = *&firstObject;
+        v65 = *&firstObject;
         _os_log_error_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_ERROR, "Already have outstanding notification %@, cannot show an additional one", buf, 0xCu);
       }
 
@@ -531,7 +526,7 @@ LABEL_9:
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v66 = *&v23;
+      v65 = *&v23;
       _os_log_debug_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_DEBUG, "Adding notification %@", buf, 0xCu);
     }
 
@@ -576,37 +571,37 @@ LABEL_9:
         CFDictionarySetValue(v34, *v35, defaultMessageCopy);
       }
 
-      v58 = defaultCopy;
+      v57 = defaultCopy;
       if (itemCopy)
       {
-        v57 = v31;
+        v56 = v31;
         CFDictionarySetValue(v34, @"SBUserNotificationExtensionIdentifier", @"com.apple.corelocation.CoreLocationMapLNPromptPlugin");
         v36 = MEMORY[0x1E696ACC8];
-        v64 = itemCopy;
-        v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v64 count:1];
-        v61 = 0;
-        v38 = [v36 archivedDataWithRootObject:v37 requiringSecureCoding:1 error:&v61];
-        v39 = v61;
+        v63 = itemCopy;
+        v37 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v63 count:1];
+        v60 = 0;
+        v38 = [v36 archivedDataWithRootObject:v37 requiringSecureCoding:1 error:&v60];
+        v39 = v60;
 
         if (v38 || !v39)
         {
           CFDictionarySetValue(v34, @"SBUserNotificationExtensionItems", v38);
-          v31 = v57;
+          v31 = v56;
         }
 
         else
         {
-          v56 = v39;
+          v55 = v39;
           v40 = ne_log_obj();
           if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v66 = *&v56;
+            v65 = *&v55;
             _os_log_error_impl(&dword_1BA83C000, v40, OS_LOG_TYPE_ERROR, "Failed to encode extension item data, error='%@'", buf, 0xCu);
           }
 
-          v39 = v56;
-          v31 = v57;
+          v39 = v55;
+          v31 = v56;
         }
       }
 
@@ -620,7 +615,7 @@ LABEL_9:
       if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
-        v66 = v41;
+        v65 = v41;
         _os_log_impl(&dword_1BA83C000, v42, OS_LOG_TYPE_INFO, "LocalNetwork icon configuration: device scale is %f", buf, 0xCu);
       }
 
@@ -633,7 +628,7 @@ LABEL_9:
         {
           v46 = CFURLCopyFileSystemPath(v44, kCFURLPOSIXPathStyle);
           *buf = 138412290;
-          v66 = *&v46;
+          v65 = *&v46;
           _os_log_impl(&dword_1BA83C000, v45, OS_LOG_TYPE_INFO, "LocalNetwork icon configuration: icon URL is %@", buf, 0xCu);
         }
 
@@ -642,7 +637,7 @@ LABEL_9:
         CFRelease(v44);
       }
 
-      if (v58)
+      if (v57)
       {
         v48 = 35;
       }
@@ -656,7 +651,7 @@ LABEL_9:
       if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v66 = *&v34;
+        v65 = *&v34;
         _os_log_impl(&dword_1BA83C000, v49, OS_LOG_TYPE_INFO, "LocalNetwork icon configuration: notification dictionary option %@", buf, 0xCu);
       }
 
@@ -673,8 +668,8 @@ LABEL_9:
     if (objc_getProperty(v23, v33, 16, 1))
     {
       v23->_isAlert = 1;
-      queueCopy = v59;
-      if (([(NEUserNotification *)v23 postNotificationWithCallbackQueue:v59 callbackHandler:handlerCopy]& 1) == 0)
+      queueCopy = v58;
+      if (([(NEUserNotification *)v23 postNotificationWithCallbackQueue:v58 callbackHandler:handlerCopy]& 1) == 0)
       {
         [(NEUserNotification *)v23 cancel];
         v52 = 0;
@@ -690,7 +685,7 @@ LABEL_47:
     [(NEUserNotification *)v23 cancel];
 LABEL_48:
     v52 = 0;
-    queueCopy = v59;
+    queueCopy = v58;
     headerCopy = value;
     goto LABEL_49;
   }
@@ -699,13 +694,12 @@ LABEL_46:
   v52 = v23;
 LABEL_49:
 
-  v53 = *MEMORY[0x1E69E9840];
   return v52;
 }
 
 + (void)promptForLocalAuthenticationWithReason:(id)reason completionQueue:(id)queue completionHandler:(id)handler
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   queueCopy = queue;
   handlerCopy = handler;
@@ -713,20 +707,20 @@ LABEL_49:
   v11 = v10;
   if (v10)
   {
-    v23 = 0;
-    v12 = [v10 canEvaluatePolicy:2 error:&v23];
-    v13 = v23;
+    v22 = 0;
+    v12 = [v10 canEvaluatePolicy:2 error:&v22];
+    v13 = v22;
     if (v12)
     {
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __95__NEUserNotification_promptForLocalAuthenticationWithReason_completionQueue_completionHandler___block_invoke_2;
-      v20[3] = &unk_1E7F0AB68;
-      v21 = queueCopy;
-      v22 = handlerCopy;
-      [v11 evaluatePolicy:2 localizedReason:reasonCopy reply:v20];
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __95__NEUserNotification_promptForLocalAuthenticationWithReason_completionQueue_completionHandler___block_invoke_2;
+      v19[3] = &unk_1E7F0AB68;
+      v20 = queueCopy;
+      v21 = handlerCopy;
+      [v11 evaluatePolicy:2 localizedReason:reasonCopy reply:v19];
 
-      v14 = v21;
+      v14 = v20;
     }
 
     else
@@ -735,17 +729,17 @@ LABEL_49:
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v27 = v13;
+        v26 = v13;
         _os_log_error_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_ERROR, "Device cannot evaluate Local Authentication: %@", buf, 0xCu);
       }
 
-      v18[0] = MEMORY[0x1E69E9820];
-      v18[1] = 3221225472;
-      v18[2] = __95__NEUserNotification_promptForLocalAuthenticationWithReason_completionQueue_completionHandler___block_invoke_49;
-      v18[3] = &unk_1E7F0B600;
-      v19 = handlerCopy;
-      dispatch_async(queueCopy, v18);
-      v14 = v19;
+      v17[0] = MEMORY[0x1E69E9820];
+      v17[1] = 3221225472;
+      v17[2] = __95__NEUserNotification_promptForLocalAuthenticationWithReason_completionQueue_completionHandler___block_invoke_49;
+      v17[3] = &unk_1E7F0B600;
+      v18 = handlerCopy;
+      dispatch_async(queueCopy, v17);
+      v14 = v18;
     }
   }
 
@@ -762,12 +756,10 @@ LABEL_49:
     block[1] = 3221225472;
     block[2] = __95__NEUserNotification_promptForLocalAuthenticationWithReason_completionQueue_completionHandler___block_invoke;
     block[3] = &unk_1E7F0B600;
-    v25 = handlerCopy;
+    v24 = handlerCopy;
     dispatch_async(queueCopy, block);
-    v13 = v25;
+    v13 = v24;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 + (id)createLAContext
@@ -809,15 +801,14 @@ LABEL_49:
     }
   }
 
-  v0 = objc_alloc_init(g_LAContextClass);
-  v1 = *MEMORY[0x1E69E9840];
+  v1 = objc_alloc_init(g_LAContextClass);
 
-  return v0;
+  return v1;
 }
 
 void __95__NEUserNotification_promptForLocalAuthenticationWithReason_completionQueue_completionHandler___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = ne_log_obj();
   v7 = v6;
@@ -833,20 +824,18 @@ void __95__NEUserNotification_promptForLocalAuthenticationWithReason_completionQ
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v14 = v5;
+    v13 = v5;
     _os_log_error_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_ERROR, "User failed Local Authentication, error = %@", buf, 0xCu);
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = __95__NEUserNotification_promptForLocalAuthenticationWithReason_completionQueue_completionHandler___block_invoke_47;
-  v10[3] = &unk_1E7F0AB40;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __95__NEUserNotification_promptForLocalAuthenticationWithReason_completionQueue_completionHandler___block_invoke_47;
+  v9[3] = &unk_1E7F0AB40;
   v8 = *(a1 + 32);
-  v11 = *(a1 + 40);
-  v12 = a2;
-  dispatch_async(v8, v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  v10 = *(a1 + 40);
+  v11 = a2;
+  dispatch_async(v8, v9);
 }
 
 + (BOOL)shouldPromptForLocalAuthentication

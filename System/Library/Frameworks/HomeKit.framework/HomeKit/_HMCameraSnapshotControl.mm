@@ -22,7 +22,7 @@
 
 - (void)_handleMostRecentSnapshotUpdatedMessage:(id)message
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -31,18 +31,16 @@
   {
     v8 = HMFGetLogIdentifier();
     messagePayload = [messageCopy messagePayload];
-    v12 = 138543618;
-    v13 = v8;
-    v14 = 2112;
-    v15 = messagePayload;
-    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Received most recent snapshot updated message payload: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v8;
+    v13 = 2112;
+    v14 = messagePayload;
+    _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_INFO, "%{public}@Received most recent snapshot updated message payload: %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   messagePayload2 = [messageCopy messagePayload];
   [(_HMCameraSnapshotControl *)selfCopy _handleMostRecentSnapshot:messagePayload2];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleCreateSnapshotWithBulletinContext:(id)context error:(id)error completionHandler:(id)handler
@@ -132,7 +130,7 @@
 - (void)_handleSnapshotDictionary:(id)dictionary error:(id)error isMostRecent:(BOOL)recent
 {
   recentCopy = recent;
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   errorCopy = error;
   if (errorCopy)
@@ -143,11 +141,11 @@
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v36 = 138543618;
-      v37 = v13;
-      v38 = 2112;
-      v39 = errorCopy;
-      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Received error handling snapshot: %@", &v36, 0x16u);
+      v35 = 138543618;
+      v36 = v13;
+      v37 = 2112;
+      v38 = errorCopy;
+      _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Received error handling snapshot: %@", &v35, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -170,9 +168,9 @@
         if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
           v24 = HMFGetLogIdentifier();
-          v36 = 138543362;
-          v37 = v24;
-          _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_INFO, "%{public}@Most recent snapshot is already equal", &v36, 0xCu);
+          v35 = 138543362;
+          v36 = v24;
+          _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_INFO, "%{public}@Most recent snapshot is already equal", &v35, 0xCu);
         }
 
         objc_autoreleasePoolPop(v21);
@@ -210,11 +208,11 @@
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         v28 = HMFGetLogIdentifier();
-        v36 = 138543618;
-        v37 = v28;
-        v38 = 2112;
-        v39 = dictionaryCopy;
-        _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_ERROR, "%{public}@Snapshot dictionary did not contain required values: %@", &v36, 0x16u);
+        v35 = 138543618;
+        v36 = v28;
+        v37 = 2112;
+        v38 = dictionaryCopy;
+        _os_log_impl(&dword_19BB39000, v27, OS_LOG_TYPE_ERROR, "%{public}@Snapshot dictionary did not contain required values: %@", &v35, 0x16u);
       }
 
       objc_autoreleasePoolPop(v25);
@@ -222,35 +220,33 @@
       [(_HMCameraSnapshotControl *)selfCopy3 _notifyDelegateOfDidTakeSnapshot:0 error:v29];
     }
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_fetchCameraSnapshotForBulletinContext:(id)context completionHandler:(id)handler
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   handlerCopy = handler;
   context = [(_HMCameraControl *)self context];
   if (!handlerCopy)
   {
-    v36 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[_HMCameraSnapshotControl _fetchCameraSnapshotForBulletinContext:completionHandler:]", @"completion"];
-    v37 = objc_autoreleasePoolPush();
+    v35 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[_HMCameraSnapshotControl _fetchCameraSnapshotForBulletinContext:completionHandler:]", @"completion"];
+    v36 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v39 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    v38 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
-      v40 = HMFGetLogIdentifier();
+      v39 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v50 = v40;
-      v51 = 2112;
-      v52 = v36;
-      _os_log_impl(&dword_19BB39000, v39, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v49 = v39;
+      v50 = 2112;
+      v51 = v35;
+      _os_log_impl(&dword_19BB39000, v38, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v37);
-    v41 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v36 userInfo:0];
-    objc_exception_throw(v41);
+    objc_autoreleasePoolPop(v36);
+    v40 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v35 userInfo:0];
+    objc_exception_throw(v40);
   }
 
   v9 = context;
@@ -262,32 +258,32 @@
     v13 = v12;
     if (v10 && v11 && v12)
     {
-      v44 = v9;
-      v42 = handlerCopy;
+      v43 = v9;
+      v41 = handlerCopy;
       v14 = objc_alloc(MEMORY[0x1E69A2A10]);
-      v43 = contextCopy;
+      v42 = contextCopy;
       v15 = objc_alloc(MEMORY[0x1E69A2A00]);
       profileUniqueIdentifier = [(_HMCameraControl *)self profileUniqueIdentifier];
       v17 = [v15 initWithTarget:profileUniqueIdentifier];
-      v47[0] = @"kCameraSessionID";
-      v47[1] = @"kSnapshotFilePath";
-      v48[0] = v10;
-      v48[1] = v11;
-      v47[2] = @"kSnapshotCaptureDate";
-      v48[2] = v13;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:v47 count:3];
+      v46[0] = @"kCameraSessionID";
+      v46[1] = @"kSnapshotFilePath";
+      v47[0] = v10;
+      v47[1] = v11;
+      v46[2] = @"kSnapshotCaptureDate";
+      v47[2] = v13;
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v47 forKeys:v46 count:3];
       v19 = v14;
-      handlerCopy = v42;
+      handlerCopy = v41;
       delegateCaller = [v19 initWithName:@"HMCameraSnapshotCreateSnapshotFromBulletinContextMessage" destination:v17 payload:v18];
 
-      contextCopy = v43;
-      v45[0] = MEMORY[0x1E69E9820];
-      v45[1] = 3221225472;
-      v45[2] = __85___HMCameraSnapshotControl__fetchCameraSnapshotForBulletinContext_completionHandler___block_invoke;
-      v45[3] = &unk_1E754DE00;
-      v45[4] = self;
-      v46 = v42;
-      [delegateCaller setResponseHandler:v45];
+      contextCopy = v42;
+      v44[0] = MEMORY[0x1E69E9820];
+      v44[1] = 3221225472;
+      v44[2] = __85___HMCameraSnapshotControl__fetchCameraSnapshotForBulletinContext_completionHandler___block_invoke;
+      v44[3] = &unk_1E754DE00;
+      v44[4] = self;
+      v45 = v41;
+      [delegateCaller setResponseHandler:v44];
       v21 = objc_autoreleasePoolPush();
       selfCopy2 = self;
       v23 = HMFGetOSLogHandle();
@@ -295,17 +291,17 @@
       {
         v24 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v50 = v24;
-        v51 = 2112;
-        v52 = v43;
+        v49 = v24;
+        v50 = 2112;
+        v51 = v42;
         _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_INFO, "%{public}@Sending create snapshot message for bulletin context: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v21);
-      messageDispatcher = [v44 messageDispatcher];
+      messageDispatcher = [v43 messageDispatcher];
       [messageDispatcher sendMessage:delegateCaller];
 
-      v9 = v44;
+      v9 = v43;
     }
 
     else
@@ -317,9 +313,9 @@
       {
         v33 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v50 = v33;
-        v51 = 2112;
-        v52 = contextCopy;
+        v49 = v33;
+        v50 = 2112;
+        v51 = contextCopy;
         _os_log_impl(&dword_19BB39000, v32, OS_LOG_TYPE_ERROR, "%{public}@Cannot fetch camera snapshot for bulletin context: %@", buf, 0x16u);
       }
 
@@ -339,9 +335,9 @@
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v50 = v29;
-      v51 = 2080;
-      v52 = "[_HMCameraSnapshotControl _fetchCameraSnapshotForBulletinContext:completionHandler:]";
+      v49 = v29;
+      v50 = 2080;
+      v51 = "[_HMCameraSnapshotControl _fetchCameraSnapshotForBulletinContext:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v28, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -349,13 +345,11 @@
     v10 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(handlerCopy + 2))(handlerCopy, 0, v10);
   }
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_takeSnapshot
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   context = [(_HMCameraControl *)self context];
   if (context)
   {
@@ -367,19 +361,19 @@
     v7 = objc_alloc(MEMORY[0x1E69A2A00]);
     profileUniqueIdentifier = [(_HMCameraControl *)self profileUniqueIdentifier];
     v9 = [v7 initWithTarget:profileUniqueIdentifier];
-    v27 = @"kCameraSessionID";
-    v28 = uUIDString;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+    v26 = @"kCameraSessionID";
+    v27 = uUIDString;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
     v11 = [v6 initWithName:@"HMCameraSnapshotTakeSnapshotMessage" destination:v9 payload:v10];
 
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __41___HMCameraSnapshotControl__takeSnapshot__block_invoke;
-    v23[3] = &unk_1E754BC90;
-    objc_copyWeak(&v25, &location);
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __41___HMCameraSnapshotControl__takeSnapshot__block_invoke;
+    v22[3] = &unk_1E754BC90;
+    objc_copyWeak(&v24, &location);
     v12 = uUIDString;
-    v24 = v12;
-    [v11 setResponseHandler:v23];
+    v23 = v12;
+    [v11 setResponseHandler:v22];
     v13 = objc_autoreleasePoolPush();
     selfCopy = self;
     v15 = HMFGetOSLogHandle();
@@ -387,9 +381,9 @@
     {
       v16 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v30 = v16;
-      v31 = 2112;
-      v32 = v12;
+      v29 = v16;
+      v30 = 2112;
+      v31 = v12;
       _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_INFO, "%{public}@Sending take snapshot message with session ID: %@", buf, 0x16u);
     }
 
@@ -397,7 +391,7 @@
     messageDispatcher = [context messageDispatcher];
     [messageDispatcher sendMessage:v11];
 
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(&location);
   }
 
@@ -410,25 +404,23 @@
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v30 = v21;
-      v31 = 2080;
-      v32 = "[_HMCameraSnapshotControl _takeSnapshot]";
+      v29 = v21;
+      v30 = 2080;
+      v31 = "[_HMCameraSnapshotControl _takeSnapshot]";
       _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v18);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)__configureWithContext:(id)context
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   contextCopy = context;
-  v15.receiver = self;
-  v15.super_class = _HMCameraSnapshotControl;
-  [(_HMCameraControl *)&v15 __configureWithContext:contextCopy];
+  v14.receiver = self;
+  v14.super_class = _HMCameraSnapshotControl;
+  [(_HMCameraControl *)&v14 __configureWithContext:contextCopy];
   mostRecentSnapshot = [(_HMCameraSnapshotControl *)self mostRecentSnapshot];
 
   if (mostRecentSnapshot)
@@ -441,9 +433,9 @@
       v9 = HMFGetLogIdentifier();
       mostRecentSnapshot2 = [(_HMCameraSnapshotControl *)selfCopy mostRecentSnapshot];
       *buf = 138543618;
-      v17 = v9;
-      v18 = 2112;
-      v19 = mostRecentSnapshot2;
+      v16 = v9;
+      v17 = 2112;
+      v18 = mostRecentSnapshot2;
       _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_INFO, "%{public}@Initializing with most recent snapshot: %@", buf, 0x16u);
     }
 
@@ -455,13 +447,11 @@
   context = [(_HMCameraControl *)self context];
   messageDispatcher = [context messageDispatcher];
   [messageDispatcher registerForMessage:@"HMCameraSnapshotMostRecentSnapshotUpdatedMessage" receiver:self selector:sel__handleMostRecentSnapshotUpdatedMessage_];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)mergeNewSnapshotControl:(id)control
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   controlCopy = control;
   mostRecentSnapshot = [controlCopy mostRecentSnapshot];
   mostRecentSnapshot2 = [(_HMCameraSnapshotControl *)self mostRecentSnapshot];
@@ -478,9 +468,9 @@
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v20 = v13;
-      v21 = 2112;
-      v22 = mostRecentSnapshot;
+      v19 = v13;
+      v20 = 2112;
+      v21 = mostRecentSnapshot;
       _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_INFO, "%{public}@Updating most recent snapshot to %@", buf, 0x16u);
     }
 
@@ -498,35 +488,33 @@
     block[4] = selfCopy;
     dispatch_async(queue, block);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)fetchCameraSnapshotForBulletinContext:(id)context completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   handlerCopy = handler;
   context = [(_HMCameraControl *)self context];
   if (!handlerCopy)
   {
-    v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[_HMCameraSnapshotControl fetchCameraSnapshotForBulletinContext:completionHandler:]", @"completion"];
-    v18 = objc_autoreleasePoolPush();
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[_HMCameraSnapshotControl fetchCameraSnapshotForBulletinContext:completionHandler:]", @"completion"];
+    v17 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v20 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v21 = HMFGetLogIdentifier();
+      v20 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v17;
-      _os_log_impl(&dword_19BB39000, v20, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v26 = v20;
+      v27 = 2112;
+      v28 = v16;
+      _os_log_impl(&dword_19BB39000, v19, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v18);
-    v22 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v17 userInfo:0];
-    objc_exception_throw(v22);
+    objc_autoreleasePoolPop(v17);
+    v21 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v16 userInfo:0];
+    objc_exception_throw(v21);
   }
 
   v9 = context;
@@ -538,8 +526,8 @@
     block[2] = __84___HMCameraSnapshotControl_fetchCameraSnapshotForBulletinContext_completionHandler___block_invoke;
     block[3] = &unk_1E754E0F8;
     block[4] = self;
-    v24 = contextCopy;
-    v25 = handlerCopy;
+    v23 = contextCopy;
+    v24 = handlerCopy;
     dispatch_async(queue, block);
   }
 
@@ -552,9 +540,9 @@
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v14;
-      v28 = 2080;
-      v29 = "[_HMCameraSnapshotControl fetchCameraSnapshotForBulletinContext:completionHandler:]";
+      v26 = v14;
+      v27 = 2080;
+      v28 = "[_HMCameraSnapshotControl fetchCameraSnapshotForBulletinContext:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -562,13 +550,11 @@
     v15 = [MEMORY[0x1E696ABC0] hmErrorWithCode:12];
     (*(handlerCopy + 2))(handlerCopy, 0, v15);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)takeSnapshot
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   context = [(_HMCameraControl *)self context];
   v4 = context;
   if (context)
@@ -591,16 +577,14 @@
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v13 = v9;
-      v14 = 2080;
-      v15 = "[_HMCameraSnapshotControl takeSnapshot]";
+      v12 = v9;
+      v13 = 2080;
+      v14 = "[_HMCameraSnapshotControl takeSnapshot]";
       _os_log_impl(&dword_19BB39000, v8, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setMostRecentSnapshot:(id)snapshot

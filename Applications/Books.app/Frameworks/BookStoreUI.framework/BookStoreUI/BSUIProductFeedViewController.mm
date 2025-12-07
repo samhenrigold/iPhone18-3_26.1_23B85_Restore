@@ -38,7 +38,7 @@
 - (void)viewWillAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_D9AD4(appear);
+  sub_D9AD4(appear, v4);
 }
 
 - (void)suspendAndTeardownForReason:(id)reason
@@ -124,10 +124,10 @@
 
 - (void)feedController:(id)controller didLoadCardResource:(id)resource
 {
-  sub_2C57E8();
+  v6 = sub_2C57E8();
   controllerCopy = controller;
   selfCopy = self;
-  sub_DCA24();
+  sub_DCA24(v6);
 }
 
 - (void)feedViewControllerInitialContentReady:(id)ready
@@ -156,7 +156,7 @@
 - (void)cardPresentationTransitionDidComplete:(BOOL)complete
 {
   selfCopy = self;
-  sub_DCD58();
+  sub_DCD58(selfCopy);
 }
 
 - (void)updateTopScrollEdgeEffectVisibilityWithViewController:(id)controller previousTraitCollection:(id)collection

@@ -7,48 +7,48 @@
 - (void)updateWithFrame:(id)frame cache:(id)cache
 {
   v23 = *MEMORY[0x277D85DE8];
-  [frame timestamp];
-  v6 = v5;
-  if (self->_frameCount && v5 - self->_lastFrameTimestamp > 1.0)
+  timestamp = [frame timestamp];
+  v7 = v6;
+  if (self->_frameCount && v6 - self->_lastFrameTimestamp > 1.0)
   {
-    v7 = _ARLogCoaching_3();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v8 = _ARLogCoaching_3(timestamp);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
+      v9 = objc_opt_class();
+      v10 = NSStringFromClass(v9);
       *v21 = 138543618;
-      *&v21[4] = v9;
+      *&v21[4] = v10;
       *&v21[12] = 2048;
       *&v21[14] = self;
-      _os_log_impl(&dword_23D3AE000, v7, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Active frame updates are too old, resetting frame count", v21, 0x16u);
+      _os_log_impl(&dword_23D3AE000, v8, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Active frame updates are too old, resetting frame count", v21, 0x16u);
     }
 
     self->_frameCount = 0;
   }
 
-  self->_lastFrameTimestamp = v6;
+  self->_lastFrameTimestamp = v7;
   satisfied = [(ARCoachingHeuristic *)self satisfied];
   frameCount = self->_frameCount;
   self->_frameCount = frameCount + 1;
-  if (!satisfied && frameCount >= 4)
+  if ((satisfied & 1) == 0 && frameCount >= 4)
   {
-    v12 = _ARLogCoaching_3();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = _ARLogCoaching_3(satisfied);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v13 = objc_opt_class();
-      v14 = NSStringFromClass(v13);
-      v15 = self->_frameCount;
+      v14 = objc_opt_class();
+      v15 = NSStringFromClass(v14);
+      v16 = self->_frameCount;
       *v21 = 138543874;
-      *&v21[4] = v14;
+      *&v21[4] = v15;
       *&v21[12] = 2048;
       *&v21[14] = self;
       *&v21[22] = 1024;
-      LODWORD(v22) = v15;
-      v16 = "%{public}@ <%p>: Frames are considered active after seeing %d recent frames";
-      v17 = v12;
-      v18 = 28;
+      LODWORD(v22) = v16;
+      v17 = "%{public}@ <%p>: Frames are considered active after seeing %d recent frames";
+      v18 = v13;
+      v19 = 28;
 LABEL_14:
-      _os_log_impl(&dword_23D3AE000, v17, OS_LOG_TYPE_INFO, v16, v21, v18);
+      _os_log_impl(&dword_23D3AE000, v18, OS_LOG_TYPE_INFO, v17, v21, v19);
 
       goto LABEL_15;
     }
@@ -58,26 +58,25 @@ LABEL_14:
 
   if (satisfied && frameCount <= 3)
   {
-    v12 = _ARLogCoaching_3();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v13 = _ARLogCoaching_3(satisfied);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      v19 = objc_opt_class();
-      v14 = NSStringFromClass(v19);
+      v20 = objc_opt_class();
+      v15 = NSStringFromClass(v20);
       *v21 = 138543618;
-      *&v21[4] = v14;
+      *&v21[4] = v15;
       *&v21[12] = 2048;
       *&v21[14] = self;
-      v16 = "%{public}@ <%p>: Frames are no longer considered active";
-      v17 = v12;
-      v18 = 22;
+      v17 = "%{public}@ <%p>: Frames are no longer considered active";
+      v18 = v13;
+      v19 = 22;
       goto LABEL_14;
     }
 
 LABEL_15:
   }
 
-  [(ARCoachingHeuristic *)self setSatisfied:frameCount > 3, *v21, *&v21[16], v22];
-  v20 = *MEMORY[0x277D85DE8];
+  [(ARCoachingHeuristic *)self setSatisfied:frameCount > 3, *v21, *&v21[8], v22];
 }
 
 @end

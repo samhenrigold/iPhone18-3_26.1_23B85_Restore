@@ -37,30 +37,30 @@
 
 - (void)parse:(__IOHIDEvent *)parse into:(id)into
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   intoCopy = into;
   v6 = IOHIDEventGetChildren();
   childEventParsers = [(_GCHIDEventParser *)self childEventParsers];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v8 = [childEventParsers countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [childEventParsers countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       v11 = 0;
       do
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(childEventParsers);
         }
 
-        v12 = *(*(&v16 + 1) + 8 * v11);
+        v12 = *(*(&v15 + 1) + 8 * v11);
         if ([v6 count])
         {
           v13 = 0;
@@ -79,13 +79,11 @@
       }
 
       while (v11 != v9);
-      v9 = [childEventParsers countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [childEventParsers countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

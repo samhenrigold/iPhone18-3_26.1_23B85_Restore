@@ -102,14 +102,14 @@
 
       if (!v14 || (isKindOfClass & 1) == 0)
       {
-        configuration = [v13 configuration];
-        originWaypointRequest = [configuration originWaypointRequest];
+        v55 = objc_msgSend_configuration(v13);
+        originWaypointRequest = [v55 originWaypointRequest];
         waypointRequest = [originWaypointRequest waypointRequest];
         [waypointRequest coordinate];
         v19 = v18;
         v21 = v20;
 
-        destinationWaypointRequest = [configuration destinationWaypointRequest];
+        destinationWaypointRequest = [v55 destinationWaypointRequest];
         waypointRequest2 = [destinationWaypointRequest waypointRequest];
         [waypointRequest2 coordinate];
         v25 = v24;

@@ -30,25 +30,23 @@ void __66__NetworkQualityClient_performMeasurementWithConfiguration_reply___bloc
 {
   v16 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  netqual_log_init();
-  v3 = os_log_netqual;
+  netqual_log_init(v2, v3);
+  v4 = os_log_netqual;
   if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = v3;
-    v5 = [v2 localizedDescription];
-    v6 = [v2 localizedFailureReason];
+    v5 = v4;
+    v6 = [v2 localizedDescription];
+    v7 = [v2 localizedFailureReason];
     v8 = 136315906;
     v9 = "+[NetworkQualityClient performMeasurementWithConfiguration:reply:]_block_invoke";
     v10 = 1024;
     v11 = 37;
     v12 = 2112;
-    v13 = v5;
+    v13 = v6;
     v14 = 2112;
-    v15 = v6;
-    _os_log_impl(&dword_25B962000, v4, OS_LOG_TYPE_DEFAULT, "%s:%u - Error on remote object proxy: %@ %@\n", &v8, 0x26u);
+    v15 = v7;
+    _os_log_impl(&dword_25B962000, v5, OS_LOG_TYPE_DEFAULT, "%s:%u - Error on remote object proxy: %@ %@\n", &v8, 0x26u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)findLocalMeasurementEndpoints:(id)endpoints
@@ -63,25 +61,23 @@ void __54__NetworkQualityClient_findLocalMeasurementEndpoints___block_invoke(uin
 {
   v16 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  netqual_log_init();
-  v3 = os_log_netqual;
+  netqual_log_init(v2, v3);
+  v4 = os_log_netqual;
   if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = v3;
-    v5 = [v2 localizedDescription];
-    v6 = [v2 localizedFailureReason];
+    v5 = v4;
+    v6 = [v2 localizedDescription];
+    v7 = [v2 localizedFailureReason];
     v8 = 136315906;
     v9 = "+[NetworkQualityClient findLocalMeasurementEndpoints:]_block_invoke";
     v10 = 1024;
     v11 = 48;
     v12 = 2112;
-    v13 = v5;
+    v13 = v6;
     v14 = 2112;
-    v15 = v6;
-    _os_log_impl(&dword_25B962000, v4, OS_LOG_TYPE_DEFAULT, "%s:%u - Error on remote object proxy: %@ %@\n", &v8, 0x26u);
+    v15 = v7;
+    _os_log_impl(&dword_25B962000, v5, OS_LOG_TYPE_DEFAULT, "%s:%u - Error on remote object proxy: %@ %@\n", &v8, 0x26u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

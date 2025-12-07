@@ -263,9 +263,9 @@
 - (id)visualStylingProviderForCategory:(int64_t)category
 {
   selfCopy = self;
-  v5 = CCUIControlTemplateView.visualStylingProvider(for:)(category);
+  v6 = CCUIControlTemplateView.visualStylingProvider(for:)(category, v5);
 
-  return v5;
+  return v6;
 }
 
 - (NSArray)requiredVisualStyleCategories
@@ -278,7 +278,7 @@
   sub_1D16CC684();
   sub_1D16CC654();
 
-  sub_1D168EE64(0, &qword_1EC640AA8);
+  sub_1D168EE64(0, &qword_1EC640AA8, 0x1E696AD98);
   v3 = sub_1D16CC4E4();
 
   return v3;

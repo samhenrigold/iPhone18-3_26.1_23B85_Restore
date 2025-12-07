@@ -32,15 +32,15 @@
 
 + (id)fetchParentDayGroupHighlightsForDayHighlights:()HighlightModelProtocol
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = [MEMORY[0x277CBEB58] setWithCapacity:{objc_msgSend(v3, "count")}];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (!v6)
   {
     fetchedObjects = MEMORY[0x277CBEBF8];
@@ -50,17 +50,17 @@
 
   v7 = v6;
   photoLibrary = 0;
-  v9 = *v20;
+  v9 = *v19;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v20 != v9)
+      if (*v19 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      v11 = *(*(&v19 + 1) + 8 * i);
+      v11 = *(*(&v18 + 1) + 8 * i);
       objectID = [v11 objectID];
       [v4 addObject:objectID];
 
@@ -70,7 +70,7 @@
       }
     }
 
-    v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
   }
 
   while (v7);
@@ -90,8 +90,6 @@ LABEL_13:
 
   fetchedObjects = MEMORY[0x277CBEBF8];
 LABEL_15:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return fetchedObjects;
 }

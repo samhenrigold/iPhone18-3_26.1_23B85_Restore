@@ -9,31 +9,14 @@
 - (NSString)symbol
 {
   type metadata accessor for MUPlaceActionBarTypeCustom();
-  v2 = swift_dynamicCastClass();
-  if (v2)
+  if (swift_dynamicCastClass() || (type metadata accessor for MUPlaceActionBarTypeDirections(), swift_dynamicCastClass()))
   {
-    v3 = &OBJC_IVAR___MUPlaceActionBarTypeCustom_symbolName;
-LABEL_5:
-    v4 = (v2 + *v3);
     swift_beginAccess();
-    v6 = *v4;
-    v5 = v4[1];
-
-    goto LABEL_6;
   }
 
-  type metadata accessor for MUPlaceActionBarTypeDirections();
-  v2 = swift_dynamicCastClass();
-  if (v2)
-  {
-    v3 = &OBJC_IVAR___MUPlaceActionBarTypeDirections_modality;
-    goto LABEL_5;
-  }
+  v2 = sub_1C584F630();
 
-LABEL_6:
-  v7 = sub_1C584F630();
-
-  return v7;
+  return v2;
 }
 
 - (NSString)title
@@ -61,11 +44,10 @@ LABEL_6:
   swift_beginAccess();
   if (*(v4 + 1))
   {
-    v5 = *v4;
 
-    v6 = sub_1C584F630();
+    v5 = sub_1C584F630();
 
-    v2 = v6;
+    v2 = v5;
   }
 
   else

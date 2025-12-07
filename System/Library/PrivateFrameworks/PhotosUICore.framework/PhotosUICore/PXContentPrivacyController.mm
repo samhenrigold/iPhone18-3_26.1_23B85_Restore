@@ -1406,10 +1406,9 @@ LABEL_12:
 
 - (void)clearAuthenticationStack
 {
-  v2 = *MEMORY[0x1E69E9840];
-  [(PXContentPrivacyController *)self authenticationStack];
-  objc_claimAutoreleasedReturnValue();
-  PXContentPrivacyDescriptionFromAuthenticationContextStack();
+  v3 = *MEMORY[0x1E69E9840];
+  authenticationStack = [(PXContentPrivacyController *)self authenticationStack];
+  PXContentPrivacyDescriptionFromAuthenticationContextStack(authenticationStack);
 }
 
 - (void)removeContextFromStack:(id)stack
@@ -1591,10 +1590,9 @@ LABEL_7:
 
 - (void)_logCurrentAuthenticationStack
 {
-  v2 = *MEMORY[0x1E69E9840];
-  [(PXContentPrivacyController *)self authenticationStack];
-  objc_claimAutoreleasedReturnValue();
-  PXContentPrivacyDescriptionFromAuthenticationContextStack();
+  v3 = *MEMORY[0x1E69E9840];
+  authenticationStack = [(PXContentPrivacyController *)self authenticationStack];
+  PXContentPrivacyDescriptionFromAuthenticationContextStack(authenticationStack);
 }
 
 - (void)_stopAutolockTimer

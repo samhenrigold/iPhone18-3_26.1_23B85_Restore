@@ -32,7 +32,7 @@
 
 - (_TtC18ASMessagesProvider33BaseCollectionCompositionalLayout)initWithCoder:(id)coder
 {
-  *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider33BaseCollectionCompositionalLayout_indexPathsRequiringRubberbanding) = &_swiftEmptySetSingleton;
+  *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider33BaseCollectionCompositionalLayout_indexPathsRequiringRubberbanding) = _swiftEmptySetSingleton;
   v3 = (&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider33BaseCollectionCompositionalLayout_pendingPrepareObserver);
   *v3 = 0;
   v3[1] = 0;
@@ -48,7 +48,7 @@
   y = rect.origin.y;
   x = rect.origin.x;
   selfCopy = self;
-  v8 = sub_3AEE98(x, y, width, height);
+  v8 = sub_3AEE98(selfCopy, x, y, width, height);
 
   if (v8)
   {
@@ -69,56 +69,58 @@
   v4 = sub_757640();
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
-  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_757590();
   selfCopy = self;
   isa = sub_757550().super.isa;
   v10 = type metadata accessor for BaseCollectionCompositionalLayout();
-  v14.receiver = selfCopy;
-  v14.super_class = v10;
-  v11 = [(BaseCollectionCompositionalLayout *)&v14 layoutAttributesForItemAtIndexPath:isa];
+  v15.receiver = selfCopy;
+  v15.super_class = v10;
+  v11 = [(BaseCollectionCompositionalLayout *)&v15 layoutAttributesForItemAtIndexPath:isa];
 
   if (v11)
   {
-    v12 = sub_3AE18C(v11);
+    v13 = sub_3AE18C(v11, v12);
 
     selfCopy = v11;
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
   (*(v5 + 8))(v7, v4);
 
-  return v12;
+  return v13;
 }
 
 - (void)prepareLayout
 {
-  v6.receiver = self;
-  v6.super_class = type metadata accessor for BaseCollectionCompositionalLayout();
-  v2 = v6.receiver;
-  [(BaseCollectionCompositionalLayout *)&v6 prepareLayout];
+  v8.receiver = self;
+  v8.super_class = type metadata accessor for BaseCollectionCompositionalLayout();
+  v2 = v8.receiver;
+  [(BaseCollectionCompositionalLayout *)&v8 prepareLayout];
   v3 = &v2[OBJC_IVAR____TtC18ASMessagesProvider33BaseCollectionCompositionalLayout_pendingPrepareObserver];
   v4 = *&v2[OBJC_IVAR____TtC18ASMessagesProvider33BaseCollectionCompositionalLayout_pendingPrepareObserver];
   if (v4)
   {
+    v5 = v3[1];
 
     v4(v2);
-    sub_F704(v4);
-    v5 = *v3;
+    sub_F704(v4, v5);
+    v6 = *v3;
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
+  v7 = v3[1];
   *v3 = 0;
   v3[1] = 0;
-  sub_F704(v5);
+  sub_F704(v6, v7);
 }
 
 - (BOOL)shouldInvalidateLayoutForBoundsChange:(CGRect)change

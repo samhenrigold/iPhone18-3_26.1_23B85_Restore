@@ -19,47 +19,47 @@
 
 - (id)_locationTitle
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v3 = [(NSSet *)self->_locationNodes count];
   v4 = [MEMORY[0x277CBEB58] setWithCapacity:v3];
   anyObject = [(NSSet *)self->_locationNodes anyObject];
   label = [anyObject label];
 
-  v43 = label;
+  v42 = label;
   if ([label isEqualToString:@"State"])
   {
-    v42 = 1;
+    v41 = 1;
   }
 
   else
   {
-    v42 = [label isEqualToString:@"Country"];
+    v41 = [label isEqualToString:@"Country"];
   }
 
   titleGenerationContext = [(PGTitleGenerator *)self titleGenerationContext];
   locationHelper = [titleGenerationContext locationHelper];
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
   v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
   v9 = self->_locationNodes;
-  v10 = [(NSSet *)v9 countByEnumeratingWithState:&v45 objects:v51 count:16];
+  v10 = [(NSSet *)v9 countByEnumeratingWithState:&v44 objects:v50 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v46;
+    v12 = *v45;
     v13 = 1;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v46 != v12)
+        if (*v45 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v45 + 1) + 8 * i);
+        v15 = *(*(&v44 + 1) + 8 * i);
         v16 = [locationHelper locationIsInSupersetCategoryForLocationNode:v15];
         v17 = [PGLocationTitleUtility beautifiedLocationNodeStringWithPlaceNode:v15 locationHelper:locationHelper];
         if ([v17 length])
@@ -70,7 +70,7 @@
         v13 &= v16;
       }
 
-      v11 = [(NSSet *)v9 countByEnumeratingWithState:&v45 objects:v51 count:16];
+      v11 = [(NSSet *)v9 countByEnumeratingWithState:&v44 objects:v50 count:16];
     }
 
     while (v11);
@@ -82,8 +82,8 @@
   }
 
   v18 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:0 ascending:1 selector:sel_localizedCompare_];
-  v50 = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
+  v49 = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v49 count:1];
   v20 = [v4 sortedArrayUsingDescriptors:v19];
 
   v21 = [v20 count];
@@ -124,7 +124,7 @@ LABEL_28:
     v30 = MEMORY[0x277CCACA8];
     v31 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
     lastObject = v31;
-    if ((v13 & v42) == 1)
+    if ((v13 & v41) == 1)
     {
       v33 = @"PGRecurrentTripMemoryTitleFormatInSupersetWithLocation %@";
     }
@@ -143,9 +143,9 @@ LABEL_28:
   {
     firstObject = [v22 firstObject];
     lastObject = [v23 lastObject];
-    v49[0] = firstObject;
-    v49[1] = lastObject;
-    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:2];
+    v48[0] = firstObject;
+    v48[1] = lastObject;
+    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:2];
 
     v38 = MEMORY[0x277CCACA8];
     v35 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -168,8 +168,6 @@ LABEL_28:
   v27 = 0;
   v28 = v23;
 LABEL_31:
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return v27;
 }

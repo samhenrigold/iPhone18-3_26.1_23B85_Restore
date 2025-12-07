@@ -41,15 +41,14 @@
 - (unint64_t)allocateRefcon:(id)refcon
 {
   v4 = MEMORY[0x277CCABB0];
-  v5 = self->_nextRefcon + 1;
-  self->_nextRefcon = v5;
+  ++self->_nextRefcon;
   refconCopy = refcon;
-  v7 = [v4 numberWithUnsignedLongLong:v5];
+  v6 = [v4 numberWithUnsignedLongLong:?];
   os_unfair_lock_lock(&self->_lock);
-  [(NSMutableDictionary *)self->_refcons setObject:refconCopy forKeyedSubscript:v7];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 
   os_unfair_lock_unlock(&self->_lock);
-  unsignedLongLongValue = [v7 unsignedLongLongValue];
+  unsignedLongLongValue = [v6 unsignedLongLongValue];
 
   return unsignedLongLongValue;
 }
@@ -58,8 +57,8 @@
 {
   os_unfair_lock_lock(&self->_lock);
   refcons = self->_refcons;
-  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:refcon];
-  [(NSMutableDictionary *)refcons removeObjectForKey:v6];
+  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:?];
+  [(NSMutableDictionary *)refcons removeObjectForKey:?];
 
   os_unfair_lock_unlock(&self->_lock);
 }
@@ -68,12 +67,12 @@
 {
   os_unfair_lock_lock(&self->_lock);
   refcons = self->_refcons;
-  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:object];
-  v7 = [(NSMutableDictionary *)refcons objectForKey:v6];
+  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:?];
+  v6 = [(NSMutableDictionary *)refcons objectForKey:?];
 
   os_unfair_lock_unlock(&self->_lock);
 
-  return v7;
+  return v6;
 }
 
 @end

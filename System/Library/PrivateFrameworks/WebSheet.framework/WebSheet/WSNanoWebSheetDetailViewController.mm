@@ -1,6 +1,7 @@
 @interface WSNanoWebSheetDetailViewController
 - (WSNanoWebSheetDetailViewController)initWithURL:(id)l ssid:(id)ssid isSecure:(BOOL)secure hasEVCert:(BOOL)cert;
 - (void)loadView;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation WSNanoWebSheetDetailViewController
@@ -35,6 +36,13 @@
 
   v4 = GetLocalizedString("Log In");
   [(WSNanoWebSheetDetailViewController *)self setTitle:v4];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = WSNanoWebSheetDetailViewController;
+  [(WSNanoWebSheetDetailViewController *)&v3 viewDidAppear:appear];
 }
 
 @end

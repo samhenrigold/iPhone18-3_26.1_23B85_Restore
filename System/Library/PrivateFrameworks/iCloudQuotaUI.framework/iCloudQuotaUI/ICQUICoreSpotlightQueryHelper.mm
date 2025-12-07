@@ -647,19 +647,25 @@ void __98__ICQUICoreSpotlightQueryHelper_fetchiCloudDriveItemsUsingThresholds_sh
 void __92__ICQUICoreSpotlightQueryHelper_fetchTrashedItemsWithResults_minSizeInMegabytes_completion___block_invoke_cold_1(void *a1)
 {
   v1 = [a1 localizedDescription];
-  OUTLINED_FUNCTION_0_2(&dword_275623000, v2, v3, "Can't read the trash: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_2(&dword_275623000, v2, v3, "Can't read the trash: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __92__ICQUICoreSpotlightQueryHelper_fetchTrashedItemsWithResults_minSizeInMegabytes_completion___block_invoke_cold_2(void *a1)
 {
   v1 = [a1 localizedDescription];
-  OUTLINED_FUNCTION_0_2(&dword_275623000, v2, v3, "There is no trash directory for this user. Error: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_2(&dword_275623000, v2, v3, "There is no trash directory for this user. Error: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 void __92__ICQUICoreSpotlightQueryHelper_fetchTrashedItemsWithResults_minSizeInMegabytes_completion___block_invoke_31_cold_1(void *a1)
 {
   v1 = [a1 localizedDescription];
-  OUTLINED_FUNCTION_0_2(&dword_275623000, v2, v3, "Can't read trash contents: %@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_2(&dword_275623000, v2, v3, "Can't read trash contents: %@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 + (void)filterItems:(void *)a3 usingTrashedItems:(NSObject *)a4 .cold.1(uint8_t *a1, void *a2, void *a3, NSObject *a4)

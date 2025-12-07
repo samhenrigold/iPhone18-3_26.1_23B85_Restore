@@ -175,7 +175,7 @@
   }
 }
 
-uint64_t __87__SBSwitcherCaptureApplicationActivationWatchdog_foregroundWorkspaceEntitiesUpdatedTo___block_invoke(uint64_t a1, uint64_t a2)
+void *__87__SBSwitcherCaptureApplicationActivationWatchdog_foregroundWorkspaceEntitiesUpdatedTo___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) isAnalogousToEntity:a2];
   if (result)
@@ -189,7 +189,7 @@ uint64_t __87__SBSwitcherCaptureApplicationActivationWatchdog_foregroundWorkspac
   return result;
 }
 
-uint64_t __87__SBSwitcherCaptureApplicationActivationWatchdog_foregroundWorkspaceEntitiesUpdatedTo___block_invoke_2(uint64_t a1, uint64_t a2)
+void *__87__SBSwitcherCaptureApplicationActivationWatchdog_foregroundWorkspaceEntitiesUpdatedTo___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) isAnalogousToEntity:a2];
   if (result)
@@ -211,7 +211,7 @@ uint64_t __87__SBSwitcherCaptureApplicationActivationWatchdog_foregroundWorkspac
   sceneHandle = [applicationSceneEntity sceneHandle];
 
   sceneIfExists = [sceneHandle sceneIfExists];
-  v8 = SBLogCaptureApplication();
+  v8 = SBLogCaptureApplication(sceneIfExists);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
   if (sceneIfExists)
   {
@@ -251,23 +251,24 @@ uint64_t __87__SBSwitcherCaptureApplicationActivationWatchdog_foregroundWorkspac
 
 - (void)_endMonitoringAppRepresentedByEntity:(id)entity
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   entityCopy = entity;
   v5 = [(SBSwitcherCaptureApplicationActivationWatchdog *)self _entryForEntity:entityCopy];
+  v6 = v5;
   if (v5)
   {
-    v6 = SBLogCaptureApplication();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = SBLogCaptureApplication(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       applicationSceneEntity = [entityCopy applicationSceneEntity];
       application = [applicationSceneEntity application];
       bundleIdentifier = [application bundleIdentifier];
-      v11 = 138543362;
-      v12 = bundleIdentifier;
-      _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_DEFAULT, "Unlocked: Capture watchdog ENDED for %{public}@", &v11, 0xCu);
+      v12 = 138543362;
+      v13 = bundleIdentifier;
+      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Unlocked: Capture watchdog ENDED for %{public}@", &v12, 0xCu);
     }
 
-    captureAppLaunchMonitor = [v5 captureAppLaunchMonitor];
+    captureAppLaunchMonitor = [v6 captureAppLaunchMonitor];
     [captureAppLaunchMonitor invalidate];
 
     [(SBSwitcherCaptureApplicationActivationWatchdog *)self _removeEntryForEntity:entityCopy];
@@ -283,11 +284,11 @@ uint64_t __87__SBSwitcherCaptureApplicationActivationWatchdog_foregroundWorkspac
   v11 = [(SBSwitcherCaptureApplicationActivationWatchdog *)self _entryForMonitor:monitorCopy];
   if (!v11)
   {
-    [SBSwitcherCaptureApplicationActivationWatchdog captureApplicationMonitor:a2 hasMetLaunchRequirements:? unmetReason:?];
+    [SBSwitcherCaptureApplicationActivationWatchdog captureApplicationMonitor:a2 hasMetLaunchRequirements:self unmetReason:?];
   }
 
   v12 = v11;
-  v13 = SBLogCaptureApplication();
+  v13 = SBLogCaptureApplication(v11);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     entity = [v12 entity];
@@ -319,7 +320,7 @@ uint64_t __87__SBSwitcherCaptureApplicationActivationWatchdog_foregroundWorkspac
   v8 = [(SBSwitcherCaptureApplicationActivationWatchdog *)self _entryForSceneHandle:handleCopy];
   if (!v8)
   {
-    [SBSwitcherCaptureApplicationActivationWatchdog sceneHandle:a2 didCreateScene:?];
+    [SBSwitcherCaptureApplicationActivationWatchdog sceneHandle:a2 didCreateScene:self];
   }
 
   v9 = v8;
@@ -510,7 +511,7 @@ LABEL_11:
 
   if (v6)
   {
-    [SBSwitcherCaptureApplicationActivationWatchdog _addEntryForEntity:a2];
+    [(SBSwitcherCaptureApplicationActivationWatchdog *)a2 _addEntryForEntity:?];
   }
 
   v7 = objc_alloc_init(_SBWatchdogEntry);
@@ -534,53 +535,53 @@ LABEL_11:
   [(NSHashTable *)self->_watchdogEntries removeObject:v6];
 }
 
-- (void)captureApplicationMonitor:(const char *)a1 hasMetLaunchRequirements:unmetReason:.cold.1(const char *a1)
+- (void)captureApplicationMonitor:(const char *)a1 hasMetLaunchRequirements:(uint64_t)a2 unmetReason:.cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unknown state"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unknown state"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_4_2(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11);
+    OUTLINED_FUNCTION_4_2(&dword_21ED4E000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)sceneHandle:(const char *)a1 didCreateScene:.cold.1(const char *a1)
+- (void)sceneHandle:(const char *)a1 didCreateScene:(uint64_t)a2 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Observed change for unmonitored entity"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Observed change for unmonitored entity"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_4_2(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11);
+    OUTLINED_FUNCTION_4_2(&dword_21ED4E000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)_addEntryForEntity:(const char *)a1 .cold.1(const char *a1)
+- (void)_addEntryForEntity:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Can't add duplicate entry"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Can't add duplicate entry"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_4_2(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11);
+    OUTLINED_FUNCTION_4_2(&dword_21ED4E000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

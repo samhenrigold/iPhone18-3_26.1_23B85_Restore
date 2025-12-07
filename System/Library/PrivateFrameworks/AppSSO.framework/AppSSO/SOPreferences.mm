@@ -36,7 +36,7 @@
 
 void __46__SOPreferences_isExtensionSignatureValidated__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if ([getSOUtilsClass_0() isInternalBuild])
   {
     CFPreferencesSynchronize(@"com.apple.AppSSO", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E8B0]);
@@ -49,7 +49,7 @@ void __46__SOPreferences_isExtensionSignatureValidated__block_invoke(uint64_t a1
   }
 
   isExtensionSignatureValidated_extensionSignatureValidated = v2;
-  v3 = SO_LOG_SOPreferences();
+  v3 = SO_LOG_SOPreferences(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     if (isExtensionSignatureValidated_extensionSignatureValidated)
@@ -62,12 +62,10 @@ void __46__SOPreferences_isExtensionSignatureValidated__block_invoke(uint64_t a1
       v4 = "NO";
     }
 
-    v6 = 136446210;
-    v7 = v4;
-    _os_log_impl(&dword_1C1317000, v3, OS_LOG_TYPE_DEFAULT, "extensionSignatureValidated=%{public}s", &v6, 0xCu);
+    v5 = 136446210;
+    v6 = v4;
+    _os_log_impl(&dword_1C1317000, v3, OS_LOG_TYPE_DEFAULT, "extensionSignatureValidated=%{public}s", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)isAssociatedDomainValidated
@@ -87,7 +85,7 @@ void __46__SOPreferences_isExtensionSignatureValidated__block_invoke(uint64_t a1
 
 void __44__SOPreferences_isAssociatedDomainValidated__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if ([getSOUtilsClass_0() isInternalBuild])
   {
     CFPreferencesSynchronize(@"com.apple.AppSSO", *MEMORY[0x1E695E8B8], *MEMORY[0x1E695E8B0]);
@@ -100,7 +98,7 @@ void __44__SOPreferences_isAssociatedDomainValidated__block_invoke(uint64_t a1)
   }
 
   isAssociatedDomainValidated_associatedDomainValidated = v2;
-  v3 = SO_LOG_SOPreferences();
+  v3 = SO_LOG_SOPreferences(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     if (isAssociatedDomainValidated_associatedDomainValidated)
@@ -113,12 +111,10 @@ void __44__SOPreferences_isAssociatedDomainValidated__block_invoke(uint64_t a1)
       v4 = "NO";
     }
 
-    v6 = 136446210;
-    v7 = v4;
-    _os_log_impl(&dword_1C1317000, v3, OS_LOG_TYPE_DEFAULT, "associatedDomainValidated=%{public}s", &v6, 0xCu);
+    v5 = 136446210;
+    v6 = v4;
+    _os_log_impl(&dword_1C1317000, v3, OS_LOG_TYPE_DEFAULT, "associatedDomainValidated=%{public}s", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

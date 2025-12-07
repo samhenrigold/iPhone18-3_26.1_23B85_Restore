@@ -11,9 +11,9 @@
     +[SiriTTSDaemonSession(AFAddition) afSharedSession];
   }
 
-  v1 = afSharedSession_session;
+  v2 = afSharedSession_session;
 
-  return v1;
+  return v2;
 }
 
 @end

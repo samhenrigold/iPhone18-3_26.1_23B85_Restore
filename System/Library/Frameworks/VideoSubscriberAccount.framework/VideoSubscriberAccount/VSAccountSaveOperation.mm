@@ -80,7 +80,7 @@ LABEL_4:
 - (void)_startCredentialSaveOperation
 {
   v15 = *MEMORY[0x277D85DE8];
-  v3 = VSDefaultLogObject();
+  v3 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
@@ -136,7 +136,7 @@ void __55__VSAccountSaveOperation__startCredentialSaveOperation__block_invoke(ui
 
   else
   {
-    v5 = VSDefaultLogObject();
+    v5 = VSDefaultLogObject(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *v7 = 0;
@@ -149,7 +149,7 @@ void __55__VSAccountSaveOperation__startCredentialSaveOperation__block_invoke_3(
 {
   v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = VSDefaultLogObject();
+  v4 = VSDefaultLogObject(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 138412290;
@@ -163,7 +163,7 @@ void __55__VSAccountSaveOperation__startCredentialSaveOperation__block_invoke_3(
 - (void)_startAccountChannelsSaveOperation
 {
   v13 = *MEMORY[0x277D85DE8];
-  v3 = VSDefaultLogObject();
+  v3 = VSDefaultLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;

@@ -28,10 +28,10 @@
 {
   var1 = range.var1;
   var0 = range.var0;
-  v26 = *MEMORY[0x277D85DE8];
-  v23 = 0;
-  v9 = [(HKHRAFibBurdenSevenDayAnalysisModeDeterminer *)self _onboardingDateDayIndexWithFeatureStatus:status error:&v23];
-  v10 = v23;
+  v25 = *MEMORY[0x277D85DE8];
+  v22 = 0;
+  v9 = [(HKHRAFibBurdenSevenDayAnalysisModeDeterminer *)self _onboardingDateDayIndexWithFeatureStatus:status error:&v22];
+  v10 = v22;
   if (v10)
   {
     v11 = v10;
@@ -71,9 +71,9 @@ LABEL_26:
     else
     {
       v15 = integerValue;
-      v22 = 0;
-      v16 = [(HKHRAFibBurdenSevenDayAnalysisModeDeterminer *)self _mostRecentSampleEndDateDayIndexWithError:&v22];
-      v11 = v22;
+      v21 = 0;
+      v16 = [(HKHRAFibBurdenSevenDayAnalysisModeDeterminer *)self _mostRecentSampleEndDateDayIndexWithError:&v21];
+      v11 = v21;
       if (v11)
       {
         if (error)
@@ -129,39 +129,38 @@ LABEL_26:
   v13 = &unk_283CD32E0;
 LABEL_27:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (id)_onboardingDateDayIndexWithFeatureStatus:(id)status error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   statusCopy = status;
   if ([statusCopy isOnboardingRecordPresent] && (objc_msgSend(statusCopy, "onboardingRecord"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "allOnboardingCompletionsRegardlessOfSupportedState"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "count"), v7, v6, v8))
   {
     distantPast = [MEMORY[0x277CBEAA8] distantPast];
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
     onboardingRecord = [statusCopy onboardingRecord];
     allOnboardingCompletionsRegardlessOfSupportedState = [onboardingRecord allOnboardingCompletionsRegardlessOfSupportedState];
 
-    v12 = [allOnboardingCompletionsRegardlessOfSupportedState countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v12 = [allOnboardingCompletionsRegardlessOfSupportedState countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v26;
+      v14 = *v25;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v26 != v14)
+          if (*v25 != v14)
           {
             objc_enumerationMutation(allOnboardingCompletionsRegardlessOfSupportedState);
           }
 
-          v16 = *(*(&v25 + 1) + 8 * i);
+          v16 = *(*(&v24 + 1) + 8 * i);
           completionDate = [v16 completionDate];
           v18 = [distantPast hk_isBeforeDate:completionDate];
 
@@ -173,7 +172,7 @@ LABEL_27:
           }
         }
 
-        v13 = [allOnboardingCompletionsRegardlessOfSupportedState countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v13 = [allOnboardingCompletionsRegardlessOfSupportedState countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v13);
@@ -189,20 +188,18 @@ LABEL_27:
     v22 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 - (id)_mostRecentSampleEndDateDayIndexWithError:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277D10848];
   v6 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCC950]];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
-  v24 = 0;
-  v8 = [v5 mostRecentSampleWithType:v6 profile:WeakRetained encodingOptions:0 predicate:0 anchor:0 error:&v24];
-  v9 = v24;
+  v23 = 0;
+  v8 = [v5 mostRecentSampleWithType:v6 profile:WeakRetained encodingOptions:0 predicate:0 anchor:0 error:&v23];
+  v9 = v23;
 
   if (v8)
   {
@@ -259,29 +256,25 @@ LABEL_27:
   v16 = 0;
 LABEL_14:
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (void)determineModeForAnalysisWeekRange:(uint64_t)a1 featureStatus:(NSObject *)a2 error:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_229486000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] Onboarding date day index after analysis week, meaning we were not onboarded for any part of the analysis week. Skipping analysis.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_229486000, a2, OS_LOG_TYPE_ERROR, "[%{public}@] Onboarding date day index after analysis week, meaning we were not onboarded for any part of the analysis week. Skipping analysis.", &v2, 0xCu);
 }
 
 - (void)_mostRecentSampleEndDateDayIndexWithError:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_229486000, log, OS_LOG_TYPE_ERROR, "[%{public}@] Error when finding most recent sample: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_229486000, log, OS_LOG_TYPE_ERROR, "[%{public}@] Error when finding most recent sample: %{public}@", &v3, 0x16u);
 }
 
 @end

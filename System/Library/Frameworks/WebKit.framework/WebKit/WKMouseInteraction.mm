@@ -178,7 +178,7 @@
 
   selfCopy = self;
   v36 = v3;
-  v35 = [unk_1F1222E08(self "_activeGesture")];
+  v35 = [unk_1F1224840(self "_activeGesture")];
   if ((v35 & 0x40000) != 0)
   {
     v8 = *(&selfCopy[2].var0.var16 + 17);
@@ -228,12 +228,12 @@ LABEL_11:
     v12 = v11;
   }
 
-  v13 = unk_1F1222E10(selfCopy, "mouseTouch");
-  unk_1F1222E18(selfCopy, "locationInView:", unk_1F1222E20(selfCopy, "view"));
+  v13 = unk_1F1224848(selfCopy, "mouseTouch");
+  unk_1F1224850(selfCopy, "locationInView:", unk_1F1224858(selfCopy, "view"));
   v40.x = v14;
   v40.y = v15;
   WebCore::IntPoint::IntPoint(&v39, &v40);
-  [v13 previousLocationInView:{unk_1F1222E28(selfCopy, "view")}];
+  [v13 previousLocationInView:{unk_1F1224860(selfCopy, "view")}];
   v40.x = v16;
   v40.y = v17;
   WebCore::IntPoint::IntPoint(&v38, &v40);
@@ -274,7 +274,7 @@ LABEL_11:
   }
 
   v37 = v29;
-  WebKit::NativeWebMouseEvent::NativeWebMouseEvent(&v40, v4, v34, v22, &v39, &v39, tapCount, (v35 >> 12) & 0x10 | (v35 >> 17) & 0xF, (v18 - v21), (v19 - v20), 0.0, v26, 0.0, v36, &v37);
+  WebKit::NativeWebMouseEvent::NativeWebMouseEvent(&v40, v4, v34, v22, &v39, &v39, (v18 - v21), (v19 - v20), 0.0, v26, 0.0, tapCount, (v35 >> 12) & 0x10 | (v35 >> 17) & 0xF, v36, &v37);
   WebKit::WebMouseEvent::WebMouseEvent(retstr, &v40);
   retstr->var0.var1.var0 = &unk_1F10F2AC0;
   retstr[4].var0.var1.var0 = v44;
@@ -384,7 +384,7 @@ uint64_t __37__WKMouseInteraction_willMoveToView___block_invoke(uint64_t a1, uin
         if (engaged)
         {
 LABEL_14:
-          [(WKMouseInteraction *)self createMouseEventWithType:258 wasCancelled:state == 4];
+          objc_msgSend_createMouseEventWithType_wasCancelled_(self);
           if (v20 == 1)
           {
             Weak = objc_loadWeak(&self->_delegate);
@@ -448,7 +448,7 @@ LABEL_14:
 
 - (void)_updateMouseTouches:(id)touches
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   anyObject = [touches anyObject];
   v5 = anyObject;
   if (anyObject)
@@ -472,53 +472,38 @@ LABEL_14:
   }
 
   phase = [(UITouch *)self->_currentMouseTouch.m_ptr phase];
-  v12 = phase;
   if ((phase - 3) < 2)
   {
-    v15 = 1;
-    v16 = 1;
     v13 = 1;
+    v12 = 1;
   }
 
-  else if (phase == UITouchPhaseMoved)
+  else if (phase > UITouchPhaseMoved)
   {
-    v13 = 1;
-    self->_touching = 1;
-    v15 = 0;
-    self->_pressedButtonMask.var0.__val_ = [(WKMouseTouchGestureRecognizer *)self->_mouseTouchGestureRecognizer.m_ptr buttonMask];
-    self->_pressedButtonMask.__engaged_ = 1;
-    v16 = 2;
-  }
-
-  else if (phase)
-  {
-    v15 = 0;
-    v16 = 0;
     v13 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v13 = 1;
+    v12 = 1;
     self->_touching = 1;
-    buttonMask = [(WKMouseTouchGestureRecognizer *)self->_mouseTouchGestureRecognizer.m_ptr buttonMask];
-    v15 = 0;
-    v16 = 0;
-    self->_pressedButtonMask.var0.__val_ = buttonMask;
+    v13 = 0;
+    self->_pressedButtonMask.var0.__val_ = [(WKMouseTouchGestureRecognizer *)self->_mouseTouchGestureRecognizer.m_ptr buttonMask];
     self->_pressedButtonMask.__engaged_ = 1;
   }
 
-  [(WKMouseInteraction *)self createMouseEventWithType:v16 | (v13 << 8) wasCancelled:v12 == UITouchPhaseCancelled];
-  if (v28 == 1 && v13)
+  objc_msgSend_createMouseEventWithType_wasCancelled_(self);
+  if (v25 == 1 && v12)
   {
     Weak = objc_loadWeak(&self->_delegate);
-    if ((v28 & 1) == 0)
+    if ((v25 & 1) == 0)
     {
       __break(1u);
     }
 
-    [Weak mouseInteraction:self changedWithEvent:&v23];
-    if (v15)
+    [Weak mouseInteraction:self changedWithEvent:&v20];
+    if (v13)
     {
       self->_touching = 0;
       if (self->_pressedButtonMask.__engaged_)
@@ -528,25 +513,25 @@ LABEL_14:
     }
   }
 
-  if (v28 == 1)
+  if (v25 == 1)
   {
-    v19 = v27;
-    v23 = &unk_1F10F2AC0;
-    v27 = 0;
-    if (v19)
+    v16 = v24;
+    v20 = &unk_1F10F2AC0;
+    v24 = 0;
+    if (v16)
     {
     }
 
-    v23 = &unk_1F10E8378;
-    WTF::Vector<WebKit::WebMouseEvent,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v26, v17);
-    WTF::Vector<WebKit::WebMouseEvent,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v25, v20);
-    v22 = v24;
-    v24 = 0;
-    if (v22)
+    v20 = &unk_1F10E8378;
+    WTF::Vector<WebKit::WebMouseEvent,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v23, v14);
+    WTF::Vector<WebKit::WebMouseEvent,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v22, v17);
+    v19 = v21;
+    v21 = 0;
+    if (v19)
     {
-      if (atomic_fetch_add_explicit(v22, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      if (atomic_fetch_add_explicit(v19, 0xFFFFFFFE, memory_order_relaxed) == 2)
       {
-        WTF::StringImpl::destroy(v22, v21);
+        WTF::StringImpl::destroy(v19, v18);
       }
     }
   }

@@ -88,7 +88,7 @@
 
 - (id)buttonTitleString
 {
-  v2 = HRHeartRhythmUIFrameworkBundle();
+  v2 = HRHeartRhythmUIFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"ONBOARDING_CONTINUE" value:&stru_2864680B0 table:@"HeartRhythmUI-Localizable"];
 
   return v3;

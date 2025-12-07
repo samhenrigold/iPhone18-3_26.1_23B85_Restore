@@ -5,6 +5,7 @@
 - (id)handshakeIterationWithData:(id)data;
 - (id)headerForURL:(id)l;
 - (void)dealloc;
+- (void)handshakeData;
 - (void)invalidate;
 @end
 
@@ -25,7 +26,7 @@
   if (v3)
   {
     v4 = v3;
-    v5 = RMSLogger();
+    v5 = RMSLogger(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(RMSFairPlaySession *)v4 handshakeData:v5];
@@ -56,7 +57,7 @@
   if (v6)
   {
     v7 = v6;
-    v8 = RMSLogger();
+    v8 = RMSLogger(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(RMSFairPlaySession *)v7 handshakeIterationWithData:v8, v9, v10, v11, v12, v13, v14];
@@ -67,7 +68,7 @@
 
   else
   {
-    v15 = RMSLogger();
+    v15 = RMSLogger(v6);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [RMSFairPlaySession handshakeIterationWithData:v15];
@@ -95,22 +96,22 @@
   free(v9);
   if (v11)
   {
-    v12 = RMSLogger();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = RMSLogger(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(RMSFairPlaySession *)v11 headerForURL:v12, v13, v14, v15, v16, v17, v18];
+      [(RMSFairPlaySession *)v11 headerForURL:v13, v14, v15, v16, v17, v18, v19];
     }
 
-    v19 = 0;
+    v20 = 0;
   }
 
   else
   {
-    v12 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:0 length:0];
-    v19 = [(RMSFairPlaySession *)self _hexStringForData:v12];
+    v13 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:0 length:0];
+    v20 = [(RMSFairPlaySession *)self _hexStringForData:v13];
   }
 
-  return v19;
+  return v20;
 }
 
 - (void)invalidate
@@ -177,6 +178,27 @@
   }
 
   return v4;
+}
+
+- (void)handshakeData
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = self;
+  OUTLINED_FUNCTION_0(&dword_261E98000, a2, a3, "RemoteServices: FairPlaySAPInit failed with error: %d.", a5, a6, a7, a8, v8);
+}
+
+- (void)handshakeIterationWithData:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0(&dword_261E98000, a2, a3, "RemoteServices: FairPlaySAPExchange failed with error: %d.", a5, a6, a7, a8, v8);
+}
+
+- (void)headerForURL:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  OUTLINED_FUNCTION_0(&dword_261E98000, a2, a3, "RemoteServices: FairPlaySAPEncrypt failed with error: %d.", a5, a6, a7, a8, v8);
 }
 
 @end

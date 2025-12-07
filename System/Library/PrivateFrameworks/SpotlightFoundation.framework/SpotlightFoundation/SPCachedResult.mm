@@ -18,9 +18,9 @@
   topicCopy = topic;
   titleCopy = title;
   stringCopy = string;
-  v31.receiver = self;
-  v31.super_class = SPCachedResult;
-  v14 = [(SPCachedResult *)&v31 init];
+  v32.receiver = self;
+  v32.super_class = SPCachedResult;
+  v14 = [(SPCachedResult *)&v32 init];
   if (v14)
   {
     v15 = truncatedTitle(titleCopy);
@@ -42,9 +42,9 @@
     if (v22)
     {
 LABEL_8:
-      v30 = 0;
-      v25 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v22 requiringSecureCoding:1 error:&v30];
-      v26 = v30;
+      v31 = 0;
+      v25 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v22 requiringSecureCoding:1 error:&v31];
+      v26 = v31;
       encodedNormalizedTopic = v14->_encodedNormalizedTopic;
       v14->_encodedNormalizedTopic = v25;
 
@@ -55,7 +55,7 @@ LABEL_13:
         goto LABEL_14;
       }
 
-      p_super = logForSPLogCategoryCaching();
+      p_super = logForSPLogCategoryCaching(v28);
       if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
       {
         [SPCachedResult initWithResult:resultCopy topic:? title:? searchString:?];
@@ -108,9 +108,9 @@ LABEL_14:
   bundleIdentifierCopy = bundleIdentifier;
   classCopy = class;
   stringCopy = string;
-  v35.receiver = self;
-  v35.super_class = SPCachedResult;
-  v17 = [(SPCachedResult *)&v35 init];
+  v36.receiver = self;
+  v36.super_class = SPCachedResult;
+  v17 = [(SPCachedResult *)&v36 init];
   if (v17)
   {
     v18 = truncatedTitle(bundleIdentifierCopy);
@@ -128,26 +128,26 @@ LABEL_14:
     engagementTime = v17->_engagementTime;
     v17->_engagementTime = v23;
 
-    v33 = identifierCopy;
+    v34 = identifierCopy;
     v25 = topicIdentifierWithIdentifierAndDetail(identifierCopy, bundleIdentifierCopy, classCopy, 0, v17->_type, 1);
     v26 = searchResultWithTopicIdentifier(v25, v17->_score);
     v27 = [objc_alloc(MEMORY[0x277D4C428]) initWithResult:v26 identifier:v25];
-    v34 = 0;
-    v28 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v27 requiringSecureCoding:1 error:&v34];
-    v29 = v34;
+    v35 = 0;
+    v28 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v27 requiringSecureCoding:1 error:&v35];
+    v29 = v35;
     encodedNormalizedTopic = v17->_encodedNormalizedTopic;
     v17->_encodedNormalizedTopic = v28;
 
     if (v29)
     {
-      v31 = logForSPLogCategoryCaching();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v32 = logForSPLogCategoryCaching(v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         [SPCachedResult initWithResult:resultCopy identifier:? bundleIdentifier:? protectionClass:? searchString:?];
       }
     }
 
-    identifierCopy = v33;
+    identifierCopy = v34;
   }
 
   return v17;
@@ -159,9 +159,9 @@ LABEL_14:
   identifierCopy = identifier;
   scoreCopy = score;
   stringCopy = string;
-  v37.receiver = self;
-  v37.super_class = SPCachedResult;
-  v14 = [(SPCachedResult *)&v37 init];
+  v38.receiver = self;
+  v38.super_class = SPCachedResult;
+  v14 = [(SPCachedResult *)&v38 init];
   if (v14)
   {
     v15 = truncatedTitle(nameCopy);
@@ -181,18 +181,18 @@ LABEL_14:
 
     v22 = topicIdentifierWithPersonQueryIdentifierAndDetail(identifierCopy, 0, v14->_type, 1);
     v23 = [SPLocalTopic localTopicWithTopicIdentifier:v22];
-    v36 = 0;
-    v24 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v23 requiringSecureCoding:1 error:&v36];
-    v25 = v36;
+    v37 = 0;
+    v24 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v23 requiringSecureCoding:1 error:&v37];
+    v25 = v37;
     encodedNormalizedTopic = v14->_encodedNormalizedTopic;
     v14->_encodedNormalizedTopic = v24;
 
     if (v25)
     {
-      v27 = logForSPLogCategoryCaching();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v28 = logForSPLogCategoryCaching(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        [(SPCachedResult *)v27 initWithPersonName:v28 personQueryIdentifier:v29 score:v30 searchString:v31, v32, v33, v34];
+        [(SPCachedResult *)v28 initWithPersonName:v29 personQueryIdentifier:v30 score:v31 searchString:v32, v33, v34, v35];
       }
     }
   }
@@ -206,9 +206,9 @@ LABEL_14:
   identifierCopy = identifier;
   scoreCopy = score;
   stringCopy = string;
-  v38.receiver = self;
-  v38.super_class = SPCachedResult;
-  v14 = [(SPCachedResult *)&v38 init];
+  v39.receiver = self;
+  v39.super_class = SPCachedResult;
+  v14 = [(SPCachedResult *)&v39 init];
   if (v14)
   {
     v15 = truncatedTitle(nameCopy);
@@ -239,18 +239,18 @@ LABEL_14:
 
     v23 = v22;
     v24 = [SPLocalTopic localTopicWithTopicIdentifier:v22];
-    v37 = 0;
-    v25 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v24 requiringSecureCoding:1 error:&v37];
-    v26 = v37;
+    v38 = 0;
+    v25 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v24 requiringSecureCoding:1 error:&v38];
+    v26 = v38;
     encodedNormalizedTopic = v14->_encodedNormalizedTopic;
     v14->_encodedNormalizedTopic = v25;
 
     if (v26)
     {
-      v28 = logForSPLogCategoryCaching();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v29 = logForSPLogCategoryCaching(v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        [(SPCachedResult *)v28 initWithContactName:v29 contactIdentifier:v30 score:v31 searchString:v32, v33, v34, v35];
+        [(SPCachedResult *)v29 initWithContactName:v30 contactIdentifier:v31 score:v32 searchString:v33, v34, v35, v36];
       }
     }
   }
@@ -263,9 +263,9 @@ LABEL_14:
   titleCopy = title;
   scoreCopy = score;
   stringCopy = string;
-  v37.receiver = self;
-  v37.super_class = SPCachedResult;
-  v13 = [(SPCachedResult *)&v37 init];
+  v38.receiver = self;
+  v38.super_class = SPCachedResult;
+  v13 = [(SPCachedResult *)&v38 init];
   if (v13)
   {
     v14 = truncatedTitle(titleCopy);
@@ -295,18 +295,18 @@ LABEL_14:
       v23 = [objc_alloc(MEMORY[0x277D4C558]) initWithType:7 query:v13->_title identifier:&stru_287C3D120];
     }
 
-    v36 = 0;
-    v24 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v23 requiringSecureCoding:1 error:&v36];
-    v25 = v36;
+    v37 = 0;
+    v24 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v23 requiringSecureCoding:1 error:&v37];
+    v25 = v37;
     encodedNormalizedTopic = v13->_encodedNormalizedTopic;
     v13->_encodedNormalizedTopic = v24;
 
     if (v25)
     {
-      v27 = logForSPLogCategoryCaching();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v28 = logForSPLogCategoryCaching(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        [(SPCachedResult *)v27 initWithTitle:v28 type:v29 score:v30 searchString:v31, v32, v33, v34];
+        [(SPCachedResult *)v28 initWithTitle:v29 type:v30 score:v31 searchString:v32, v33, v34, v35];
       }
     }
   }
@@ -345,64 +345,65 @@ LABEL_14:
 
 - (id)recentTopic
 {
+  selfCopy = self;
   if (self->_encodedNormalizedTopic)
   {
     v3 = MEMORY[0x277CCAAC8];
     v4 = objc_opt_class();
-    encodedNormalizedTopic = self->_encodedNormalizedTopic;
-    v18 = 0;
-    v6 = [v3 unarchivedObjectOfClass:v4 fromData:encodedNormalizedTopic error:&v18];
-    v7 = v18;
-    v8 = v6 == 0;
+    encodedNormalizedTopic = selfCopy->_encodedNormalizedTopic;
+    v17 = 0;
+    v6 = [v3 unarchivedObjectOfClass:v4 fromData:encodedNormalizedTopic error:&v17];
+    self = v17;
+    v7 = v6 == 0;
     if (v6)
     {
-      v9 = v7 == 0;
+      v8 = self == 0;
     }
 
     else
     {
-      v9 = 0;
+      v8 = 0;
     }
 
-    if (v9)
+    if (v8)
     {
-      v10 = 0;
+      selfCopy2 = 0;
       goto LABEL_13;
     }
 
-    v10 = v7;
+    selfCopy2 = self;
   }
 
   else
   {
-    v10 = 0;
+    selfCopy2 = 0;
     v6 = 0;
-    v8 = 1;
+    v7 = 1;
   }
 
-  v11 = logForSPLogCategoryCaching();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v10 = logForSPLogCategoryCaching(self);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    [(SPCachedResult *)v10 recentTopic];
+    [(SPCachedResult *)selfCopy2 recentTopic];
   }
 
-  if (v8)
+  if (v7)
   {
-    v12 = 0;
+    v11 = 0;
     goto LABEL_14;
   }
 
 LABEL_13:
-  v13 = [SPRecentTopic alloc];
-  v14 = MEMORY[0x277CCABB0];
-  [(SPCachedResult *)self freshnessScore];
-  v15 = [v14 numberWithDouble:?];
-  engagementTime = [(SPCachedResult *)self engagementTime];
-  v12 = [(SPRecentTopic *)v13 initWithTopic:v6 score:v15 engagementDate:engagementTime];
+  v12 = [SPRecentTopic alloc];
+  v13 = MEMORY[0x277CCABB0];
+  [(SPCachedResult *)selfCopy freshnessScore];
+  v14 = [v13 numberWithDouble:?];
+  engagementTime = [(SPCachedResult *)selfCopy engagementTime];
+  v11 = [(SPRecentTopic *)v12 initWithTopic:v6 score:v14 engagementDate:engagementTime];
 
 LABEL_14:
 
-  return v12;
+  return v11;
 }
 
 - (id)searchResult
@@ -424,27 +425,24 @@ LABEL_14:
 
 - (void)initWithResult:(void *)a1 topic:title:searchString:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  [a1 type];
-  OUTLINED_FUNCTION_2(&dword_26B79D000, v1, v2, "spotlight cache: could not encode cached topic: %d", v3, v4, v5, v6, 0);
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v7) = 67109120;
+  HIDWORD(v7) = [a1 type];
+  OUTLINED_FUNCTION_2(&dword_26B79D000, v1, v2, "spotlight cache: could not encode cached topic: %d", v3, v4, v5, v6, v7);
 }
 
 - (void)initWithResult:(void *)a1 identifier:bundleIdentifier:protectionClass:searchString:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  [a1 type];
-  OUTLINED_FUNCTION_2(&dword_26B79D000, v1, v2, "spotlight cache: could not encode local cached topic: %d", v3, v4, v5, v6, 0);
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v7) = 67109120;
+  HIDWORD(v7) = [a1 type];
+  OUTLINED_FUNCTION_2(&dword_26B79D000, v1, v2, "spotlight cache: could not encode local cached topic: %d", v3, v4, v5, v6, v7);
 }
 
 - (void)recentTopic
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_26B79D000, a2, OS_LOG_TYPE_ERROR, "spotlight cache: could not encode generic topic. error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_26B79D000, a2, OS_LOG_TYPE_ERROR, "spotlight cache: could not encode generic topic. error: %@", &v2, 0xCu);
 }
 
 @end

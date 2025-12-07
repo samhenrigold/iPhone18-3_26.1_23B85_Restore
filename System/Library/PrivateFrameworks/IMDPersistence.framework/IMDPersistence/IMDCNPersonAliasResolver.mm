@@ -73,23 +73,23 @@
     {
       sub_1B7C0BDD8();
       v4 = objc_alloc_init(MEMORY[0x1E695CE28]);
-      objc_msgSend_setUseInProcessMapperExclusively_(v4, v5, 1);
-      v8 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v6, v7);
-      isIntroductionsEnabled = objc_msgSend_isIntroductionsEnabled(v8, v9, v10);
+      objc_msgSend_setUseInProcessMapperExclusively_(v4, v5, 1, v6);
+      v10 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v7, v8, v9);
+      isIntroductionsEnabled = objc_msgSend_isIntroductionsEnabled(v10, v11, v12, v13);
 
       if (isIntroductionsEnabled)
       {
-        objc_msgSend_setIncludeAcceptedIntroductions_(v4, v12, 1);
+        objc_msgSend_setIncludeAcceptedIntroductions_(v4, v15, 1, v16);
       }
 
-      v13 = objc_alloc(MEMORY[0x1B8CAFAC0](@"CNContactStore", @"Contacts"));
-      v15 = objc_msgSend_initWithConfiguration_(v13, v14, v4);
-      v16 = self->_contactStore;
-      self->_contactStore = v15;
+      v17 = objc_alloc(MEMORY[0x1B8CAFAC0](@"CNContactStore", @"Contacts"));
+      v20 = objc_msgSend_initWithConfiguration_(v17, v18, v4, v19);
+      v21 = self->_contactStore;
+      self->_contactStore = v20;
 
-      v19 = objc_msgSend_data(MEMORY[0x1E695DEF0], v17, v18);
+      v25 = objc_msgSend_data(MEMORY[0x1E695DEF0], v22, v23, v24);
       currentHistoryToken = self->_currentHistoryToken;
-      self->_currentHistoryToken = v19;
+      self->_currentHistoryToken = v25;
 
       contactsEventhandler = self->_contactsEventhandler;
       self->_contactsEventhandler = 0;
@@ -98,8 +98,8 @@
     contactStore = self->_contactStore;
     if (!contactStore)
     {
-      v22 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v28 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         sub_1B7CFDB00();
       }
@@ -113,166 +113,166 @@
 
 - (CNContactStore)acceptedContactStore
 {
-  v4 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], a2, v2);
-  isIntroductionsEnabled = objc_msgSend_isIntroductionsEnabled(v4, v5, v6);
+  v5 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], a2, v2, v3);
+  isIntroductionsEnabled = objc_msgSend_isIntroductionsEnabled(v5, v6, v7, v8);
 
   if (isIntroductionsEnabled && !self->_acceptedContactStore)
   {
     if ((IMIsRunningInUnitTesting() & 1) == 0)
     {
       sub_1B7C0BDD8();
-      v8 = objc_alloc_init(MEMORY[0x1E695CE28]);
-      objc_msgSend_setUseInProcessMapperExclusively_(v8, v9, 1);
-      objc_msgSend_setIncludeLocalContacts_(v8, v10, 0);
-      objc_msgSend_setIncludeAcceptedIntroductions_(v8, v11, 1);
-      v12 = objc_alloc(MEMORY[0x1B8CAFAC0](@"CNContactStore", @"Contacts"));
-      v14 = objc_msgSend_initWithConfiguration_(v12, v13, v8);
+      v10 = objc_alloc_init(MEMORY[0x1E695CE28]);
+      objc_msgSend_setUseInProcessMapperExclusively_(v10, v11, 1, v12);
+      objc_msgSend_setIncludeLocalContacts_(v10, v13, 0, v14);
+      objc_msgSend_setIncludeAcceptedIntroductions_(v10, v15, 1, v16);
+      v17 = objc_alloc(MEMORY[0x1B8CAFAC0](@"CNContactStore", @"Contacts"));
+      v20 = objc_msgSend_initWithConfiguration_(v17, v18, v10, v19);
       acceptedContactStore = self->_acceptedContactStore;
-      self->_acceptedContactStore = v14;
+      self->_acceptedContactStore = v20;
     }
 
     if (!self->_acceptedContactStore)
     {
-      v16 = IMLogHandleForCategory();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v22 = IMLogHandleForCategory();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         sub_1B7CFDB40();
       }
     }
   }
 
-  v17 = self->_acceptedContactStore;
+  v23 = self->_acceptedContactStore;
 
-  return v17;
+  return v23;
 }
 
 - (id)_predicateForPhoneNumber:(id)number
 {
-  v3 = qword_1EDBE5CC0;
-  v4 = objc_msgSend_phoneNumberWithStringValue_(qword_1EDBE5C98, a2, number);
-  v6 = objc_msgSend_predicateForContactsMatchingPhoneNumber_(v3, v5, v4);
+  v4 = qword_1EDBE5CC0;
+  v5 = objc_msgSend_phoneNumberWithStringValue_(qword_1EDBE5C98, a2, number, v3);
+  v8 = objc_msgSend_predicateForContactsMatchingPhoneNumber_(v4, v6, v5, v7);
 
-  return v6;
+  return v8;
 }
 
 - (id)_predicateForAlias:(id)alias
 {
   aliasCopy = alias;
-  if (objc_msgSend__appearsToBeEmail(aliasCopy, v5, v6))
+  if (objc_msgSend__appearsToBeEmail(aliasCopy, v5, v6, v7))
   {
-    objc_msgSend__predicateForEmailAddress_(self, v7, aliasCopy);
+    objc_msgSend__predicateForEmailAddress_(self, v8, aliasCopy, v9);
   }
 
   else
   {
-    objc_msgSend__predicateForPhoneNumber_(self, v7, aliasCopy);
+    objc_msgSend__predicateForPhoneNumber_(self, v8, aliasCopy, v9);
   }
-  v8 = ;
+  v10 = ;
 
-  return v8;
+  return v10;
 }
 
 - (id)_fetchContactIdentifierForAlias:(id)alias
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   aliasCopy = alias;
-  if (objc_msgSend_length(aliasCopy, v5, v6))
+  if (objc_msgSend_length(aliasCopy, v5, v6, v7))
   {
-    v8 = objc_msgSend__predicateForAlias_(self, v7, aliasCopy);
-    v9 = IMAdditionalContactsLoggingEnabled();
-    if (v8)
+    v10 = objc_msgSend__predicateForAlias_(self, v8, aliasCopy, v9);
+    v11 = IMAdditionalContactsLoggingEnabled();
+    if (v10)
     {
-      if (v9 && IMOSLoggingEnabled())
+      if (v11 && IMOSLoggingEnabled())
       {
-        v12 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+        v15 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
         {
           *buf = 138412546;
-          v42 = aliasCopy;
-          v43 = 2112;
-          v44 = v8;
-          _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Requesting a CNContact from Contact Store for Alias %@ and Predicate %@", buf, 0x16u);
+          v49 = aliasCopy;
+          v50 = 2112;
+          v51 = v10;
+          _os_log_impl(&dword_1B7AD5000, v15, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Requesting a CNContact from Contact Store for Alias %@ and Predicate %@", buf, 0x16u);
         }
       }
 
-      v13 = objc_msgSend_contactStore(self, v10, v11);
-      v40[0] = qword_1EDBE5C68;
-      v40[1] = qword_1EDBE5C58;
-      v15 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v14, v40, 2);
-      v39 = 0;
-      v17 = objc_msgSend_unifiedContactsMatchingPredicate_keysToFetch_error_(v13, v16, v8, v15, &v39);
-      v18 = v39;
+      v16 = objc_msgSend_contactStore(self, v12, v13, v14);
+      v47[0] = qword_1EDBE5C68;
+      v47[1] = qword_1EDBE5C58;
+      v18 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v17, v47, 2);
+      v46 = 0;
+      v20 = objc_msgSend_unifiedContactsMatchingPredicate_keysToFetch_error_(v16, v19, v10, v18, &v46);
+      v21 = v46;
 
-      if (v18)
+      if (v21)
       {
         if (IMOSLoggingEnabled())
         {
-          v21 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+          v25 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
           {
-            v24 = objc_msgSend_description(v18, v22, v23);
+            v29 = objc_msgSend_description(v21, v26, v27, v28);
             *buf = 138412546;
-            v42 = aliasCopy;
-            v43 = 2112;
-            v44 = v24;
-            _os_log_impl(&dword_1B7AD5000, v21, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Error getting contact from Contact Store for alias %@ error %@", buf, 0x16u);
+            v49 = aliasCopy;
+            v50 = 2112;
+            v51 = v29;
+            _os_log_impl(&dword_1B7AD5000, v25, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Error getting contact from Contact Store for alias %@ error %@", buf, 0x16u);
           }
         }
 
-        v17 = 0;
+        v20 = 0;
       }
 
-      if (objc_msgSend_count(v17, v19, v20))
+      if (objc_msgSend_count(v20, v22, v23, v24))
       {
-        v26 = objc_msgSend__preferCuratedContactFromFetchResults_(self, v25, v17);
+        v32 = objc_msgSend__preferCuratedContactFromFetchResults_(self, v30, v20, v31);
         if (IMAdditionalContactsLoggingEnabled() && IMOSLoggingEnabled())
         {
-          v29 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+          v36 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
           {
-            v32 = objc_msgSend_identifier(v26, v30, v31);
+            v40 = objc_msgSend_identifier(v32, v37, v38, v39);
             *buf = 138412546;
-            v42 = v32;
-            v43 = 2112;
-            v44 = aliasCopy;
-            _os_log_impl(&dword_1B7AD5000, v29, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: CNContact Identifier %@ for alias %@", buf, 0x16u);
+            v49 = v40;
+            v50 = 2112;
+            v51 = aliasCopy;
+            _os_log_impl(&dword_1B7AD5000, v36, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: CNContact Identifier %@ for alias %@", buf, 0x16u);
           }
         }
 
-        v33 = objc_msgSend_identifier(v26, v27, v28);
+        v41 = objc_msgSend_identifier(v32, v33, v34, v35);
       }
 
       else
       {
         if (IMOSLoggingEnabled())
         {
-          v36 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+          v44 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v42 = aliasCopy;
-            _os_log_impl(&dword_1B7AD5000, v36, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: No contact for alias %@", buf, 0xCu);
+            v49 = aliasCopy;
+            _os_log_impl(&dword_1B7AD5000, v44, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: No contact for alias %@", buf, 0xCu);
           }
         }
 
-        v33 = 0;
+        v41 = 0;
       }
     }
 
     else
     {
-      if (v9 && IMOSLoggingEnabled())
+      if (v11 && IMOSLoggingEnabled())
       {
-        v35 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+        v43 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v42 = aliasCopy;
-          _os_log_impl(&dword_1B7AD5000, v35, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Could not get predicate for alias %@", buf, 0xCu);
+          v49 = aliasCopy;
+          _os_log_impl(&dword_1B7AD5000, v43, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Could not get predicate for alias %@", buf, 0xCu);
         }
       }
 
-      v33 = 0;
+      v41 = 0;
     }
   }
 
@@ -280,67 +280,65 @@
   {
     if (IMAdditionalContactsLoggingEnabled() && IMOSLoggingEnabled())
     {
-      v34 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
+      v42 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1B7AD5000, v34, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Passed in nil email _fetchCNContactForEmail", buf, 2u);
+        _os_log_impl(&dword_1B7AD5000, v42, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Passed in nil email _fetchCNContactForEmail", buf, 2u);
       }
     }
 
-    v33 = 0;
+    v41 = 0;
   }
 
-  v37 = *MEMORY[0x1E69E9840];
-
-  return v33;
+  return v41;
 }
 
 - (id)_preferCuratedContactFromFetchResults:(id)results
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
-  if (objc_msgSend_count(resultsCopy, v4, v5) == 1)
+  if (objc_msgSend_count(resultsCopy, v4, v5, v6) == 1)
   {
-    v8 = objc_msgSend_firstObject(resultsCopy, v6, v7);
+    v10 = objc_msgSend_firstObject(resultsCopy, v7, v8, v9);
   }
 
   else
   {
+    v25 = 0u;
+    v26 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v21 = 0u;
-    v22 = 0u;
-    v9 = resultsCopy;
-    v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v10, &v21, v25, 16);
-    if (v11)
+    v11 = resultsCopy;
+    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v23, v27, 16);
+    if (v13)
     {
-      v12 = v11;
-      v8 = 0;
-      v13 = *v22;
+      v14 = v13;
+      v10 = 0;
+      v15 = *v24;
 LABEL_5:
-      v14 = 0;
-      v15 = v8;
+      v16 = 0;
+      v17 = v10;
       while (1)
       {
-        if (*v22 != v13)
+        if (*v24 != v15)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v11);
         }
 
-        v8 = *(*(&v21 + 1) + 8 * v14);
+        v10 = *(*(&v23 + 1) + 8 * v16);
 
-        if (!objc_msgSend_isCoreRecentsAccepted(v8, v16, v17, v21))
+        if (!objc_msgSend_isCoreRecentsAccepted(v10, v18, v19, v20, v23))
         {
           break;
         }
 
-        ++v14;
-        v15 = v8;
-        if (v12 == v14)
+        ++v16;
+        v17 = v10;
+        if (v14 == v16)
         {
-          v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v9, v18, &v21, v25, 16);
-          if (v12)
+          v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v21, &v23, v27, 16);
+          if (v14)
           {
             goto LABEL_5;
           }
@@ -352,314 +350,308 @@ LABEL_5:
 
     else
     {
-      v8 = 0;
+      v10 = 0;
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v10;
 }
 
 - (id)_batchFetchContactRecordIDForAliases:(id)aliases
 {
-  v84[2] = *MEMORY[0x1E69E9840];
+  v100[2] = *MEMORY[0x1E69E9840];
   aliasesCopy = aliases;
-  if (objc_msgSend_count(aliasesCopy, v3, v4))
+  if (objc_msgSend_count(aliasesCopy, v3, v4, v5))
   {
-    v5 = [qword_1EDBE5CB8 alloc];
-    v84[0] = qword_1EDBE5C68;
-    v84[1] = qword_1EDBE5C58;
-    v7 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v6, v84, 2);
-    v63 = objc_msgSend_initWithKeysToFetch_(v5, v8, v7);
+    v6 = [qword_1EDBE5CB8 alloc];
+    v100[0] = qword_1EDBE5C68;
+    v100[1] = qword_1EDBE5C58;
+    v8 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v7, v100, 2);
+    v79 = objc_msgSend_initWithKeysToFetch_(v6, v9, v8, v10);
 
-    v59 = objc_msgSend_predicateForContactsMatchingHandleStrings_(qword_1EDBE5CC0, v9, aliasesCopy);
-    objc_msgSend_setPredicate_(v63, v10, v59);
+    v75 = objc_msgSend_predicateForContactsMatchingHandleStrings_(qword_1EDBE5CC0, v11, aliasesCopy, v12);
+    objc_msgSend_setPredicate_(v79, v13, v75, v14);
     if (IMOSLoggingEnabled())
     {
-      v11 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v15 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         LODWORD(buf) = 134217984;
-        *(&buf + 4) = objc_msgSend_count(aliasesCopy, v12, v13);
-        _os_log_impl(&dword_1B7AD5000, v11, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Dispatching a contacts batch query for %lu aliases.", &buf, 0xCu);
+        *(&buf + 4) = objc_msgSend_count(aliasesCopy, v16, v17, v18);
+        _os_log_impl(&dword_1B7AD5000, v15, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Dispatching a contacts batch query for %lu aliases.", &buf, 0xCu);
       }
     }
 
-    v66 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v14 = objc_alloc_init(MEMORY[0x1E69A6170]);
-    objc_msgSend_startTimingForKey_(v14, v15, @"batchFetchForAliases");
-    v60 = v14;
-    v18 = objc_msgSend_contactStore(self, v16, v17);
-    v75 = 0;
-    v62 = objc_msgSend_executeFetchRequest_error_(v18, v19, v63, &v75);
-    v58 = v75;
+    v82 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v19 = objc_alloc_init(MEMORY[0x1E69A6170]);
+    objc_msgSend_startTimingForKey_(v19, v20, @"batchFetchForAliases", v21);
+    v76 = v19;
+    v25 = objc_msgSend_contactStore(self, v22, v23, v24);
+    v91 = 0;
+    v78 = objc_msgSend_executeFetchRequest_error_(v25, v26, v79, &v91);
+    v74 = v91;
 
-    v61 = objc_msgSend_value(v62, v20, v21);
-    objc_msgSend_stopTimingForKey_(v60, v22, @"batchFetchForAliases");
+    v77 = objc_msgSend_value(v78, v27, v28, v29);
+    objc_msgSend_stopTimingForKey_(v76, v30, @"batchFetchForAliases", v31);
     if (IMOSLoggingEnabled())
     {
-      v25 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+      v35 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
       {
-        objc_msgSend_totalTimeForKey_(v60, v26, @"batchFetchForAliases");
+        objc_msgSend_totalTimeForKey_(v76, v36, @"batchFetchForAliases", v37);
         LODWORD(buf) = 134217984;
-        *(&buf + 4) = v27;
-        _os_log_impl(&dword_1B7AD5000, v25, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Contacts batch fetch from Contact Store completed. Took %f seconds", &buf, 0xCu);
+        *(&buf + 4) = v38;
+        _os_log_impl(&dword_1B7AD5000, v35, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Contacts batch fetch from Contact Store completed. Took %f seconds", &buf, 0xCu);
       }
     }
 
-    if (v61)
+    if (v77)
     {
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v80 = 0x3032000000;
-      v81 = sub_1B7AE1B60;
-      v82 = sub_1B7AE25C4;
-      v83 = objc_msgSend_currentHistoryToken(v62, v23, v24);
+      v96 = 0x3032000000;
+      v97 = sub_1B7AE1B60;
+      v98 = sub_1B7AE25C4;
+      v99 = objc_msgSend_currentHistoryToken(v78, v32, v33, v34);
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = sub_1B7C0D23C;
       block[3] = &unk_1E7CBC428;
-      v28 = v61;
-      v72 = v28;
-      v29 = aliasesCopy;
-      v73 = v29;
+      v39 = v77;
+      v88 = v39;
+      v40 = aliasesCopy;
+      v89 = v40;
       p_buf = &buf;
       dispatch_async(MEMORY[0x1E69E96A0], block);
-      v69 = 0u;
-      v70 = 0u;
-      v67 = 0u;
-      v68 = 0u;
-      v30 = v29;
-      v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v31, &v67, v78, 16);
-      if (v33)
+      v85 = 0u;
+      v86 = 0u;
+      v83 = 0u;
+      v84 = 0u;
+      v41 = v40;
+      v45 = objc_msgSend_countByEnumeratingWithState_objects_count_(v41, v42, &v83, v94, 16);
+      if (v45)
       {
-        v34 = *v68;
+        v46 = *v84;
         do
         {
-          for (i = 0; i != v33; ++i)
+          for (i = 0; i != v45; ++i)
           {
-            if (*v68 != v34)
+            if (*v84 != v46)
             {
-              objc_enumerationMutation(v30);
+              objc_enumerationMutation(v41);
             }
 
-            v36 = *(*(&v67 + 1) + 8 * i);
-            v37 = objc_msgSend_objectForKey_(v28, v32, v36);
-            if (objc_msgSend_count(v37, v38, v39))
+            v48 = *(*(&v83 + 1) + 8 * i);
+            v49 = objc_msgSend_objectForKey_(v39, v43, v48, v44);
+            if (objc_msgSend_count(v49, v50, v51, v52))
             {
-              v41 = objc_msgSend__preferCuratedContactFromFetchResults_(self, v40, v37);
-              v44 = objc_msgSend_sharedInstance(IMDContactCache, v42, v43);
-              objc_msgSend_cacheContact_forKey_(v44, v45, v41, v36);
+              v55 = objc_msgSend__preferCuratedContactFromFetchResults_(self, v53, v49, v54);
+              v59 = objc_msgSend_sharedInstance(IMDContactCache, v56, v57, v58);
+              objc_msgSend_cacheContact_forKey_(v59, v60, v55, v48);
 
-              v48 = objc_msgSend_identifier(v41, v46, v47);
-              objc_msgSend_setObject_forKey_(v66, v49, v48, v36);
+              v64 = objc_msgSend_identifier(v55, v61, v62, v63);
+              objc_msgSend_setObject_forKey_(v82, v65, v64, v48);
             }
 
             else
             {
               if (IMOSLoggingEnabled())
               {
-                v51 = OSLogHandleForIMFoundationCategory();
-                if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+                v67 = OSLogHandleForIMFoundationCategory();
+                if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
                 {
-                  *v76 = 138412290;
-                  v77 = v36;
-                  _os_log_impl(&dword_1B7AD5000, v51, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: No contact for alias %@", v76, 0xCu);
+                  *v92 = 138412290;
+                  v93 = v48;
+                  _os_log_impl(&dword_1B7AD5000, v67, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: No contact for alias %@", v92, 0xCu);
                 }
               }
 
-              objc_msgSend_setObject_forKey_(v66, v50, @"__kIMDCNPersonNotFound", v36);
+              objc_msgSend_setObject_forKey_(v82, v66, @"__kIMDCNPersonNotFound", v48);
             }
           }
 
-          v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v30, v32, &v67, v78, 16);
+          v45 = objc_msgSend_countByEnumeratingWithState_objects_count_(v41, v43, &v83, v94, 16);
         }
 
-        while (v33);
+        while (v45);
       }
 
-      objc_msgSend_setCurrentHistoryToken_(self, v52, *(*(&buf + 1) + 40));
+      objc_msgSend_setCurrentHistoryToken_(self, v68, *(*(&buf + 1) + 40), v69);
       _Block_object_dispose(&buf, 8);
     }
 
     else if (IMOSLoggingEnabled())
     {
-      v55 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
+      v72 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v72, OS_LOG_TYPE_INFO))
       {
         LODWORD(buf) = 138412290;
-        *(&buf + 4) = v58;
-        _os_log_impl(&dword_1B7AD5000, v55, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: No results obtained from the Contacts batch Fetchrequest. Error: %@", &buf, 0xCu);
+        *(&buf + 4) = v74;
+        _os_log_impl(&dword_1B7AD5000, v72, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: No results obtained from the Contacts batch Fetchrequest. Error: %@", &buf, 0xCu);
       }
     }
 
-    v54 = v66;
+    v71 = v82;
   }
 
   else
   {
     if (IMAdditionalContactsLoggingEnabled() && IMOSLoggingEnabled())
     {
-      v53 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
+      v70 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
       {
         LOWORD(buf) = 0;
-        _os_log_impl(&dword_1B7AD5000, v53, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Passed in empty set of aliases", &buf, 2u);
+        _os_log_impl(&dword_1B7AD5000, v70, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Passed in empty set of aliases", &buf, 2u);
       }
     }
 
-    v54 = 0;
+    v71 = 0;
   }
 
-  v56 = *MEMORY[0x1E69E9840];
-
-  return v54;
+  return v71;
 }
 
 - (id)_fetchAliasToCNIDMapForAliases:(id)aliases
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   aliasesCopy = aliases;
   v5 = objc_alloc_init(MEMORY[0x1E69A6170]);
-  objc_msgSend_startTimingForKey_(v5, v6, @"_fetchAliasToCNIDMapForAliases");
-  v8 = objc_msgSend__batchFetchContactRecordIDForAliases_(self, v7, aliasesCopy);
+  objc_msgSend_startTimingForKey_(v5, v6, @"_fetchAliasToCNIDMapForAliases", v7);
+  v10 = objc_msgSend__batchFetchContactRecordIDForAliases_(self, v8, aliasesCopy, v9);
   if (IMAdditionalContactsLoggingEnabled())
   {
     if (IMOSLoggingEnabled())
     {
-      v11 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v15 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        LOWORD(v17) = 0;
-        _os_log_impl(&dword_1B7AD5000, v11, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: _fetchAliasToCNIDMapForAliases returning aliasIDMap", &v17, 2u);
+        LOWORD(v21) = 0;
+        _os_log_impl(&dword_1B7AD5000, v15, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: _fetchAliasToCNIDMapForAliases returning aliasIDMap", &v21, 2u);
       }
     }
 
-    objc_msgSend_logDictionary_(MEMORY[0x1E69A7FD0], v10, v8);
+    objc_msgSend_logDictionary_(MEMORY[0x1E69A7FD0], v13, v10, v14);
   }
 
-  objc_msgSend_stopTimingForKey_(v5, v9, @"_fetchAliasToCNIDMapForAliases");
+  objc_msgSend_stopTimingForKey_(v5, v11, @"_fetchAliasToCNIDMapForAliases", v12);
   if (IMOSLoggingEnabled())
   {
-    v12 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v16 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      objc_msgSend_totalTimeForKey_(v5, v13, @"_fetchAliasToCNIDMapForAliases");
-      v17 = 134217984;
-      v18 = v14;
-      _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Generating aliasToIDMap completed. Took %f seconds", &v17, 0xCu);
+      objc_msgSend_totalTimeForKey_(v5, v17, @"_fetchAliasToCNIDMapForAliases", v18);
+      v21 = 134217984;
+      v22 = v19;
+      _os_log_impl(&dword_1B7AD5000, v16, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Generating aliasToIDMap completed. Took %f seconds", &v21, 0xCu);
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
-  return v8;
+  return v10;
 }
 
 - (id)_updateAliasToCNIDMap:(id)map withHistoryToken:(id)token
 {
-  v81[2] = *MEMORY[0x1E69E9840];
+  v98[2] = *MEMORY[0x1E69E9840];
   mapCopy = map;
   tokenCopy = token;
   v7 = objc_alloc_init(qword_1EDBE5CC8);
-  v70 = tokenCopy;
-  objc_msgSend_setStartingToken_(v7, v8, tokenCopy);
-  v81[0] = qword_1EDBE5C68;
-  v81[1] = qword_1EDBE5C58;
-  v10 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v9, v81, 2);
-  objc_msgSend_setAdditionalContactKeyDescriptors_(v7, v11, v10);
+  v87 = tokenCopy;
+  objc_msgSend_setStartingToken_(v7, v8, tokenCopy, v9);
+  v98[0] = qword_1EDBE5C68;
+  v98[1] = qword_1EDBE5C58;
+  v11 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v10, v98, 2);
+  objc_msgSend_setAdditionalContactKeyDescriptors_(v7, v12, v11, v13);
 
   if (IMOSLoggingEnabled())
   {
-    v12 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v14 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B7AD5000, v12, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Updating aliasToCNIDMap using Contact Change History events", buf, 2u);
+      _os_log_impl(&dword_1B7AD5000, v14, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Updating aliasToCNIDMap using Contact Change History events", buf, 2u);
     }
   }
 
   if (IMAdditionalContactsLoggingEnabled())
   {
-    objc_msgSend_logDictionary_(MEMORY[0x1E69A7FD0], v13, mapCopy);
+    objc_msgSend_logDictionary_(MEMORY[0x1E69A7FD0], v15, mapCopy, v17);
   }
 
-  v15 = objc_msgSend_contactStore(self, v13, v14);
-  v77 = 0;
-  v17 = objc_msgSend_executeFetchRequest_error_(v15, v16, v7, &v77);
-  v71 = v77;
+  v18 = objc_msgSend_contactStore(self, v15, v16, v17);
+  v94 = 0;
+  v20 = objc_msgSend_executeFetchRequest_error_(v18, v19, v7, &v94);
+  v88 = v94;
 
-  v18 = IMOSLoggingEnabled();
-  if (v17)
+  v21 = IMOSLoggingEnabled();
+  if (v20)
   {
-    if (v18)
+    if (v21)
     {
-      v19 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v22 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
-        v22 = MEMORY[0x1E696AD98];
-        v23 = objc_msgSend_value(v17, v20, v21);
-        v26 = objc_msgSend_count(v23, v24, v25);
-        v28 = objc_msgSend_numberWithUnsignedInteger_(v22, v27, v26);
+        v26 = MEMORY[0x1E696AD98];
+        v27 = objc_msgSend_value(v20, v23, v24, v25);
+        v31 = objc_msgSend_count(v27, v28, v29, v30);
+        v34 = objc_msgSend_numberWithUnsignedInteger_(v26, v32, v31, v33);
         *buf = 138412290;
-        v80 = v28;
-        _os_log_impl(&dword_1B7AD5000, v19, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Updating aliasToCNIDMap using %@ Contact Change History events", buf, 0xCu);
+        v97 = v34;
+        _os_log_impl(&dword_1B7AD5000, v22, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Updating aliasToCNIDMap using %@ Contact Change History events", buf, 0xCu);
       }
     }
 
     if ((IMIsRunningInUnitTesting() & 1) == 0)
     {
-      v31 = objc_alloc(MEMORY[0x1E69A8000]);
-      v34 = objc_msgSend_mutableCopy(mapCopy, v32, v33);
-      v36 = objc_msgSend_initWithAliasToCNIDMap_(v31, v35, v34);
+      v38 = objc_alloc(MEMORY[0x1E69A8000]);
+      v42 = objc_msgSend_mutableCopy(mapCopy, v39, v40, v41);
+      v45 = objc_msgSend_initWithAliasToCNIDMap_(v38, v43, v42, v44);
       contactsEventhandler = self->_contactsEventhandler;
-      self->_contactsEventhandler = v36;
+      self->_contactsEventhandler = v45;
     }
 
-    v75 = 0u;
-    v76 = 0u;
-    v73 = 0u;
-    v74 = 0u;
-    v38 = objc_msgSend_value(v17, v29, v30);
-    v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v39, &v73, v78, 16);
-    if (v40)
+    v92 = 0u;
+    v93 = 0u;
+    v90 = 0u;
+    v91 = 0u;
+    v47 = objc_msgSend_value(v20, v35, v36, v37);
+    v49 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v48, &v90, v95, 16);
+    if (v49)
     {
-      v41 = *v74;
+      v50 = *v91;
       while (2)
       {
-        for (i = 0; i != v40; ++i)
+        for (i = 0; i != v49; ++i)
         {
-          if (*v74 != v41)
+          if (*v91 != v50)
           {
-            objc_enumerationMutation(v38);
+            objc_enumerationMutation(v47);
           }
 
-          v43 = *(*(&v73 + 1) + 8 * i);
-          v44 = objc_autoreleasePoolPush();
-          objc_msgSend_acceptEventVisitor_(v43, v45, self->_contactsEventhandler);
-          if (objc_msgSend_receivedDropEverythingEvent(self->_contactsEventhandler, v46, v47))
+          v52 = *(*(&v90 + 1) + 8 * i);
+          v53 = objc_autoreleasePoolPush();
+          objc_msgSend_acceptEventVisitor_(v52, v54, self->_contactsEventhandler, v55);
+          if (objc_msgSend_receivedDropEverythingEvent(self->_contactsEventhandler, v56, v57, v58))
           {
             if (IMOSLoggingEnabled())
             {
-              v49 = OSLogHandleForIMFoundationCategory();
-              if (os_log_type_enabled(v49, OS_LOG_TYPE_INFO))
+              v60 = OSLogHandleForIMFoundationCategory();
+              if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
               {
                 *buf = 0;
-                _os_log_impl(&dword_1B7AD5000, v49, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Skipping Contact change history events after the Drop Everything Event", buf, 2u);
+                _os_log_impl(&dword_1B7AD5000, v60, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Skipping Contact change history events after the Drop Everything Event", buf, 2u);
               }
             }
 
-            objc_autoreleasePoolPop(v44);
+            objc_autoreleasePoolPop(v53);
             goto LABEL_28;
           }
 
-          objc_autoreleasePoolPop(v44);
+          objc_autoreleasePoolPop(v53);
         }
 
-        v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v38, v48, &v73, v78, 16);
-        if (v40)
+        v49 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v59, &v90, v95, 16);
+        if (v49)
         {
           continue;
         }
@@ -670,25 +662,25 @@ LABEL_5:
 
 LABEL_28:
 
-    v52 = objc_msgSend_currentHistoryToken(v17, v50, v51);
-    objc_msgSend_setCurrentHistoryToken_(self, v53, v52);
+    v64 = objc_msgSend_currentHistoryToken(v20, v61, v62, v63);
+    objc_msgSend_setCurrentHistoryToken_(self, v65, v64, v66);
 
-    v56 = objc_msgSend_getAliasToCNIDMap(self->_contactsEventhandler, v54, v55);
-    if (v56)
+    v70 = objc_msgSend_getAliasToCNIDMap(self->_contactsEventhandler, v67, v68, v69);
+    if (v70)
     {
       if (IMAdditionalContactsLoggingEnabled())
       {
         if (IMOSLoggingEnabled())
         {
-          v58 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v58, OS_LOG_TYPE_INFO))
+          v73 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v73, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_1B7AD5000, v58, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: _updateAliasToCNIDMap returning aliasIDMap", buf, 2u);
+            _os_log_impl(&dword_1B7AD5000, v73, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: _updateAliasToCNIDMap returning aliasIDMap", buf, 2u);
           }
         }
 
-        objc_msgSend_logDictionary_(MEMORY[0x1E69A7FD0], v57, v56);
+        objc_msgSend_logDictionary_(MEMORY[0x1E69A7FD0], v71, v70, v72);
       }
     }
 
@@ -696,120 +688,118 @@ LABEL_28:
     {
       if (IMOSLoggingEnabled())
       {
-        v65 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v65, OS_LOG_TYPE_INFO))
+        v82 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v82, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_1B7AD5000, v65, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Refetching CNID for ALL Aliases.", buf, 2u);
+          _os_log_impl(&dword_1B7AD5000, v82, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Refetching CNID for ALL Aliases.", buf, 2u);
         }
       }
 
-      v66 = objc_msgSend_allKeys(mapCopy, v63, v64);
-      v56 = objc_msgSend__fetchAliasToCNIDMapForAliases_(self, v67, v66);
+      v83 = objc_msgSend_allKeys(mapCopy, v79, v80, v81);
+      v70 = objc_msgSend__fetchAliasToCNIDMapForAliases_(self, v84, v83, v85);
     }
   }
 
   else
   {
-    if (v18)
+    if (v21)
     {
-      v59 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v59, OS_LOG_TYPE_INFO))
+      v74 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v74, OS_LOG_TYPE_INFO))
       {
-        v62 = objc_msgSend_description(v71, v60, v61);
+        v78 = objc_msgSend_description(v88, v75, v76, v77);
         *buf = 138412290;
-        v80 = v62;
-        _os_log_impl(&dword_1B7AD5000, v59, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Could not fetch Change History from CNContactStore error:%@", buf, 0xCu);
+        v97 = v78;
+        _os_log_impl(&dword_1B7AD5000, v74, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Could not fetch Change History from CNContactStore error:%@", buf, 0xCu);
       }
     }
 
-    v56 = mapCopy;
+    v70 = mapCopy;
   }
 
-  v68 = *MEMORY[0x1E69E9840];
-
-  return v56;
+  return v70;
 }
 
 - (id)_updateAcceptedContactsInAliasToCNIDMap:(id)map
 {
-  v71[2] = *MEMORY[0x1E69E9840];
+  v89[2] = *MEMORY[0x1E69E9840];
   mapCopy = map;
-  v7 = objc_msgSend_allKeys(mapCopy, v5, v6);
-  if (objc_msgSend_count(v7, v8, v9))
+  v8 = objc_msgSend_allKeys(mapCopy, v5, v6, v7);
+  if (objc_msgSend_count(v8, v9, v10, v11))
   {
-    v10 = [qword_1EDBE5CB8 alloc];
-    v71[0] = qword_1EDBE5C68;
-    v71[1] = qword_1EDBE5C58;
-    v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v11, v71, 2);
-    v67 = objc_msgSend_initWithKeysToFetch_(v10, v13, v12);
+    v12 = [qword_1EDBE5CB8 alloc];
+    v89[0] = qword_1EDBE5C68;
+    v89[1] = qword_1EDBE5C58;
+    v14 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v13, v89, 2);
+    v85 = objc_msgSend_initWithKeysToFetch_(v12, v15, v14, v16);
 
-    v66 = objc_msgSend_predicateForContactsMatchingHandleStrings_(qword_1EDBE5CC0, v14, v7);
-    objc_msgSend_setPredicate_(v67, v15, v66);
+    v84 = objc_msgSend_predicateForContactsMatchingHandleStrings_(qword_1EDBE5CC0, v17, v8, v18);
+    objc_msgSend_setPredicate_(v85, v19, v84, v20);
     if (IMOSLoggingEnabled())
     {
-      v16 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v21 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1B7AD5000, v16, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Updating aliasToCNIDMap with latest accepted contacts", buf, 2u);
+        _os_log_impl(&dword_1B7AD5000, v21, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Updating aliasToCNIDMap with latest accepted contacts", buf, 2u);
       }
     }
 
     if (IMAdditionalContactsLoggingEnabled())
     {
-      objc_msgSend_logDictionary_(MEMORY[0x1E69A7FD0], v17, mapCopy);
+      objc_msgSend_logDictionary_(MEMORY[0x1E69A7FD0], v22, mapCopy, v24);
     }
 
-    v19 = objc_msgSend_acceptedContactStore(self, v17, v18);
-    v68 = 0;
-    v21 = objc_msgSend_executeFetchRequest_error_(v19, v20, v67, &v68);
-    v65 = v68;
+    v25 = objc_msgSend_acceptedContactStore(self, v22, v23, v24);
+    v86 = 0;
+    v27 = objc_msgSend_executeFetchRequest_error_(v25, v26, v85, &v86);
+    v83 = v86;
 
-    if (v21)
+    if (v27)
     {
-      v24 = objc_msgSend_value(v21, v22, v23);
+      v31 = objc_msgSend_value(v27, v28, v29, v30);
       if ((IMIsRunningInUnitTesting() & 1) == 0)
       {
-        v27 = objc_alloc(MEMORY[0x1E69A8000]);
-        v30 = objc_msgSend_mutableCopy(mapCopy, v28, v29);
-        v32 = objc_msgSend_initWithAliasToCNIDMap_(v27, v31, v30);
+        v35 = objc_alloc(MEMORY[0x1E69A8000]);
+        v39 = objc_msgSend_mutableCopy(mapCopy, v36, v37, v38);
+        v42 = objc_msgSend_initWithAliasToCNIDMap_(v35, v40, v39, v41);
         contactsEventhandler = self->_contactsEventhandler;
-        self->_contactsEventhandler = v32;
+        self->_contactsEventhandler = v42;
       }
 
-      if (!objc_msgSend_count(v24, v25, v26, v65) && IMOSLoggingEnabled())
+      if (!objc_msgSend_count(v31, v32, v33, v34, v83) && IMOSLoggingEnabled())
       {
-        v35 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+        v46 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_1B7AD5000, v35, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver _updateAliasToCNIDMapForAcceptedContactStoreChange: received 0 accepted contacts, which will result in any cached accepted contacts being removed. This is expected if the accepted list is actually empty.", buf, 2u);
+          _os_log_impl(&dword_1B7AD5000, v46, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver _updateAliasToCNIDMapForAcceptedContactStoreChange: received 0 accepted contacts, which will result in any cached accepted contacts being removed. This is expected if the accepted list is actually empty.", buf, 2u);
         }
       }
 
-      v36 = objc_msgSend_updateWithCurrentAcceptedContactsMap_(self->_contactsEventhandler, v34, v24);
-      v39 = objc_msgSend_sharedInstance(IMDContactCache, v37, v38);
-      v42 = objc_msgSend_updatedMap(v36, v40, v41);
-      v45 = objc_msgSend_deletedCNIDs(v36, v43, v44);
-      objc_msgSend_cacheAndReindexAcceptedContactUpdates_deletions_(v39, v46, v42, v45);
+      v47 = objc_msgSend_updateWithCurrentAcceptedContactsMap_(self->_contactsEventhandler, v44, v31, v45);
+      v51 = objc_msgSend_sharedInstance(IMDContactCache, v48, v49, v50);
+      v55 = objc_msgSend_updatedMap(v47, v52, v53, v54);
+      v59 = objc_msgSend_deletedCNIDs(v47, v56, v57, v58);
+      objc_msgSend_cacheAndReindexAcceptedContactUpdates_deletions_(v51, v60, v55, v59);
 
-      v49 = objc_msgSend_getAliasToCNIDMap(self->_contactsEventhandler, v47, v48);
-      if (v49)
+      v64 = objc_msgSend_getAliasToCNIDMap(self->_contactsEventhandler, v61, v62, v63);
+      if (v64)
       {
         if (IMAdditionalContactsLoggingEnabled())
         {
           if (IMOSLoggingEnabled())
           {
-            v51 = OSLogHandleForIMFoundationCategory();
-            if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+            v67 = OSLogHandleForIMFoundationCategory();
+            if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
             {
               *buf = 0;
-              _os_log_impl(&dword_1B7AD5000, v51, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: _updateAliasToCNIDMapForAcceptedContactStoreChange returning aliasIDMap", buf, 2u);
+              _os_log_impl(&dword_1B7AD5000, v67, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: _updateAliasToCNIDMapForAcceptedContactStoreChange returning aliasIDMap", buf, 2u);
             }
           }
 
-          objc_msgSend_logDictionary_(MEMORY[0x1E69A7FD0], v50, v49);
+          objc_msgSend_logDictionary_(MEMORY[0x1E69A7FD0], v65, v64, v66);
         }
       }
 
@@ -817,16 +807,16 @@ LABEL_28:
       {
         if (IMOSLoggingEnabled())
         {
-          v60 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v60, OS_LOG_TYPE_INFO))
+          v78 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v78, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_1B7AD5000, v60, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver _updateAliasToCNIDMapForAcceptedContactStoreChange: Refetching CNID for ALL Aliases.", buf, 2u);
+            _os_log_impl(&dword_1B7AD5000, v78, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver _updateAliasToCNIDMapForAcceptedContactStoreChange: Refetching CNID for ALL Aliases.", buf, 2u);
           }
         }
 
-        v61 = objc_msgSend_allKeys(mapCopy, v58, v59);
-        v49 = objc_msgSend__fetchAliasToCNIDMapForAliases_(self, v62, v61);
+        v79 = objc_msgSend_allKeys(mapCopy, v75, v76, v77);
+        v64 = objc_msgSend__fetchAliasToCNIDMapForAliases_(self, v80, v79, v81);
       }
     }
 
@@ -834,49 +824,47 @@ LABEL_28:
     {
       if (IMOSLoggingEnabled())
       {
-        v54 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_INFO))
+        v70 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
         {
-          v57 = objc_msgSend_description(v65, v55, v56);
+          v74 = objc_msgSend_description(v83, v71, v72, v73);
           *buf = 138412290;
-          v70 = v57;
-          _os_log_impl(&dword_1B7AD5000, v54, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Could not fetch accepted contacts with error:%@", buf, 0xCu);
+          v88 = v74;
+          _os_log_impl(&dword_1B7AD5000, v70, OS_LOG_TYPE_INFO, "IMDCNPersonAliasResolver: Could not fetch accepted contacts with error:%@", buf, 0xCu);
         }
       }
 
-      v49 = mapCopy;
+      v64 = mapCopy;
     }
   }
 
   else
   {
-    v52 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+    v68 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
     {
       sub_1B7CFDB80();
     }
 
-    v53 = MEMORY[0x1E695E0F8];
+    v69 = MEMORY[0x1E695E0F8];
     if (mapCopy)
     {
-      v53 = mapCopy;
+      v69 = mapCopy;
     }
 
-    v49 = v53;
+    v64 = v69;
   }
 
-  v63 = *MEMORY[0x1E69E9840];
-
-  return v49;
+  return v64;
 }
 
 - (void)CNRecordIDForAliases:(id)aliases completionHandler:(id)handler
 {
   handlerCopy = handler;
-  v7 = objc_msgSend__fetchAliasToCNIDMapForAliases_(self, v6, aliases);
+  v8 = objc_msgSend__fetchAliasToCNIDMapForAliases_(self, v6, aliases, v7);
   if (handlerCopy)
   {
-    handlerCopy[2](handlerCopy, v7, 0);
+    handlerCopy[2](handlerCopy, v8, 0);
   }
 }
 
@@ -888,10 +876,10 @@ LABEL_28:
   }
 
   contactCopy = contact;
-  v7 = objc_msgSend_contactStore(self, v5, v6);
-  v9 = objc_msgSend_unifiedContactWithIdentifier_keysToFetch_error_(v7, v8, contactCopy, MEMORY[0x1E695E0F0], 0);
+  v8 = objc_msgSend_contactStore(self, v5, v6, v7);
+  v10 = objc_msgSend_unifiedContactWithIdentifier_keysToFetch_error_(v8, v9, contactCopy, MEMORY[0x1E695E0F0], 0);
 
-  LOBYTE(self) = objc_msgSend_isCNContactFavorited_(self, v10, v9);
+  LOBYTE(self) = objc_msgSend_isCNContactFavorited_(self, v11, v10, v12);
   return self;
 }
 
@@ -905,13 +893,13 @@ LABEL_28:
   v4 = qword_1EDBE5CA0;
   favoritedCopy = favorited;
   v6 = [v4 alloc];
-  v9 = objc_msgSend_contactStore(self, v7, v8);
-  v11 = objc_msgSend_initWithContactStore_(v6, v10, v9);
+  v10 = objc_msgSend_contactStore(self, v7, v8, v9);
+  v13 = objc_msgSend_initWithContactStore_(v6, v11, v10, v12);
 
-  v13 = objc_msgSend_entriesForContact_(v11, v12, favoritedCopy);
+  v16 = objc_msgSend_entriesForContact_(v13, v14, favoritedCopy, v15);
 
-  v16 = objc_msgSend_count(v13, v14, v15) != 0;
-  return v16;
+  v20 = objc_msgSend_count(v16, v17, v18, v19) != 0;
+  return v20;
 }
 
 @end

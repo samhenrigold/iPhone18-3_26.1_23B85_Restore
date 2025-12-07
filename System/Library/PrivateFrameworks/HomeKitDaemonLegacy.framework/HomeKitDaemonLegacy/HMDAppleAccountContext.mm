@@ -10,7 +10,7 @@
 
 - (NSArray)attributeDescriptions
 {
-  v18[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   identifier = [(HMDAppleAccountContext *)self identifier];
   defaultFormatter = [MEMORY[0x277D0F8D8] defaultFormatter];
@@ -19,15 +19,13 @@
   username = [(HMDAppleAccountContext *)self username];
   v9 = +[HMDAccountHandleFormatter defaultFormatter];
   v10 = [v7 initWithName:@"UN" value:username options:0 formatter:v9];
-  v18[1] = v10;
+  v17[1] = v10;
   v11 = objc_alloc(MEMORY[0x277D0F778]);
   alternateDSID = [(HMDAppleAccountContext *)self alternateDSID];
   defaultFormatter2 = [MEMORY[0x277D0F8D8] defaultFormatter];
   v14 = [v11 initWithName:@"ADSID" value:alternateDSID options:0 formatter:defaultFormatter2];
-  v18[2] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:3];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v17[2] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
 
   return v15;
 }
@@ -54,25 +52,7 @@
     }
 
     v6 = v5;
-    if (!v6)
-    {
-      goto LABEL_9;
-    }
-
-    identifier = [(HMDAppleAccountContext *)self identifier];
-    identifier2 = [(HMDAppleAccountContext *)v6 identifier];
-    v9 = HMFEqualObjects();
-
-    if (!v9)
-    {
-      goto LABEL_9;
-    }
-
-    username = [(HMDAppleAccountContext *)self username];
-    username2 = [(HMDAppleAccountContext *)v6 username];
-    v12 = HMFEqualObjects();
-
-    if (v12)
+    if (v6 && ([(HMDAppleAccountContext *)self identifier], v7 = objc_claimAutoreleasedReturnValue(), [(HMDAppleAccountContext *)v6 identifier], v8 = objc_claimAutoreleasedReturnValue(), v9 = HMFEqualObjects(), v8, v7, v9) && ([(HMDAppleAccountContext *)self username], v10 = objc_claimAutoreleasedReturnValue(), [(HMDAppleAccountContext *)v6 username], v11 = objc_claimAutoreleasedReturnValue(), v12 = HMFEqualObjects(), v11, v10, v12))
     {
       alternateDSID = [(HMDAppleAccountContext *)self alternateDSID];
       alternateDSID2 = [(HMDAppleAccountContext *)v6 alternateDSID];
@@ -81,7 +61,6 @@
 
     else
     {
-LABEL_9:
       v15 = 0;
     }
   }
@@ -108,17 +87,17 @@ LABEL_9:
     if (v5)
     {
       username = [accountCopy username];
-      v7 = [username copy];
+      v7 = objc_msgSend_copy(username);
       username = v5->_username;
       v5->_username = v7;
 
       aa_personID = [accountCopy aa_personID];
-      v10 = [aa_personID copy];
+      v10 = objc_msgSend_copy(aa_personID);
       identifier = v5->_identifier;
       v5->_identifier = v10;
 
       aa_altDSID = [accountCopy aa_altDSID];
-      v13 = [aa_altDSID copy];
+      v13 = objc_msgSend_copy(aa_altDSID);
       alternateDSID = v5->_alternateDSID;
       v5->_alternateDSID = v13;
     }

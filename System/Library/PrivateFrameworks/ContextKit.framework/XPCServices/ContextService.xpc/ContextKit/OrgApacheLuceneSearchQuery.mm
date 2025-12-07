@@ -2,10 +2,18 @@
 - (BOOL)isEqual:(id)equal;
 - (id)clone;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)createWeightWithOrgApacheLuceneSearchIndexSearcher:(id)searcher withBoolean:(BOOL)boolean;
 - (unint64_t)hash;
 @end
 
 @implementation OrgApacheLuceneSearchQuery
+
+- (id)createWeightWithOrgApacheLuceneSearchIndexSearcher:(id)searcher withBoolean:(BOOL)boolean
+{
+  v8 = JreStrcat("$@$", a2, searcher, boolean, v4, v5, v6, v7, @"Query ");
+  v9 = new_JavaLangUnsupportedOperationException_initWithNSString_(v8);
+  objc_exception_throw(v9);
+}
 
 - (id)clone
 {

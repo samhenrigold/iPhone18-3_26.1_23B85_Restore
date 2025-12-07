@@ -15,7 +15,7 @@
 
 - (void)controllerDidInvalidateContent:(id)content
 {
-  v4 = sub_100004180(&qword_100098AE0);
+  v4 = sub_100004180(&qword_100098AE0, &qword_100070088);
   __chkstk_darwin(v4 - 8);
   v6 = &v9 - v5;
   v7 = type metadata accessor for TaskPriority();

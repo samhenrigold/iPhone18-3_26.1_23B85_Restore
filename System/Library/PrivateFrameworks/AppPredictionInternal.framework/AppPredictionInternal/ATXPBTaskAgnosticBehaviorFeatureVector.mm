@@ -3771,7 +3771,6 @@ LABEL_165:
   v5 = *(&self->_has + 4);
   if ((v5 & 0x10000) != 0)
   {
-    unlockTime = self->_unlockTime;
     PBDataWriterWriteDoubleField();
     v5 = *(&self->_has + 4);
     if ((v5 & 0x10) == 0)
@@ -3791,7 +3790,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  launchTimePopularity = self->_launchTimePopularity;
   PBDataWriterWriteDoubleField();
   v5 = *(&self->_has + 4);
   if ((v5 & 0x100) == 0)
@@ -3806,46 +3804,40 @@ LABEL_4:
   }
 
 LABEL_186:
-  timeOfDayBucket = self->_timeOfDayBucket;
   PBDataWriterWriteDoubleField();
   if ((*(&self->_has + 4) & 0x200) != 0)
   {
 LABEL_5:
-    timeOfDayPopularity = self->_timeOfDayPopularity;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_6:
   if ((*(&self->_has + 14) & 8) != 0)
   {
-    coarseTimeOfDayPopularity = self->_coarseTimeOfDayPopularity;
     PBDataWriterWriteDoubleField();
   }
 
-  v8 = *(&self->_has + 4);
-  if ((v8 & 8) != 0)
+  v6 = *(&self->_has + 4);
+  if ((v6 & 8) != 0)
   {
-    launchPopularity = self->_launchPopularity;
     PBDataWriterWriteDoubleField();
-    v8 = *(&self->_has + 4);
+    v6 = *(&self->_has + 4);
   }
 
-  if ((v8 & 4) != 0)
+  if ((v6 & 4) != 0)
   {
-    launchDayOfWeekPopularity = self->_launchDayOfWeekPopularity;
     PBDataWriterWriteDoubleField();
   }
 
-  v11 = *(&self->_has + 1);
-  if ((v11 & 0x40000000000000) != 0)
+  v7 = *(&self->_has + 1);
+  if ((v7 & 0x40000000000000) != 0)
   {
-    dayOfWeekBucket = self->_dayOfWeekBucket;
     PBDataWriterWriteDoubleField();
-    v11 = *(&self->_has + 1);
-    if ((v11 & 0x80000000000000) == 0)
+    v7 = *(&self->_has + 1);
+    if ((v7 & 0x80000000000000) == 0)
     {
 LABEL_14:
-      if ((v11 & 0x800000000000000) == 0)
+      if ((v7 & 0x800000000000000) == 0)
       {
         goto LABEL_15;
       }
@@ -3854,18 +3846,17 @@ LABEL_14:
     }
   }
 
-  else if ((v11 & 0x80000000000000) == 0)
+  else if ((v7 & 0x80000000000000) == 0)
   {
     goto LABEL_14;
   }
 
-  dayOfWeekPopularity = self->_dayOfWeekPopularity;
   PBDataWriterWriteDoubleField();
-  v11 = *(&self->_has + 1);
-  if ((v11 & 0x800000000000000) == 0)
+  v7 = *(&self->_has + 1);
+  if ((v7 & 0x800000000000000) == 0)
   {
 LABEL_15:
-    if ((v11 & 0x100000000000000) == 0)
+    if ((v7 & 0x100000000000000) == 0)
     {
       goto LABEL_16;
     }
@@ -3874,13 +3865,12 @@ LABEL_15:
   }
 
 LABEL_190:
-  entropyLaunchPopularity = self->_entropyLaunchPopularity;
   PBDataWriterWriteDoubleField();
-  v11 = *(&self->_has + 1);
-  if ((v11 & 0x100000000000000) == 0)
+  v7 = *(&self->_has + 1);
+  if ((v7 & 0x100000000000000) == 0)
   {
 LABEL_16:
-    if ((v11 & 0x400000000000000) == 0)
+    if ((v7 & 0x400000000000000) == 0)
     {
       goto LABEL_17;
     }
@@ -3889,13 +3879,12 @@ LABEL_16:
   }
 
 LABEL_191:
-  entropyDayOfWeekPopularity = self->_entropyDayOfWeekPopularity;
   PBDataWriterWriteDoubleField();
-  v11 = *(&self->_has + 1);
-  if ((v11 & 0x400000000000000) == 0)
+  v7 = *(&self->_has + 1);
+  if ((v7 & 0x400000000000000) == 0)
   {
 LABEL_17:
-    if ((v11 & 0x200000000000000) == 0)
+    if ((v7 & 0x200000000000000) == 0)
     {
       goto LABEL_18;
     }
@@ -3904,13 +3893,12 @@ LABEL_17:
   }
 
 LABEL_192:
-  entropyDayOfWeekPopularityByDay = self->_entropyDayOfWeekPopularityByDay;
   PBDataWriterWriteDoubleField();
-  v11 = *(&self->_has + 1);
-  if ((v11 & 0x200000000000000) == 0)
+  v7 = *(&self->_has + 1);
+  if ((v7 & 0x200000000000000) == 0)
   {
 LABEL_18:
-    if ((v11 & 0x8000000000000000) == 0)
+    if ((v7 & 0x8000000000000000) == 0)
     {
       goto LABEL_19;
     }
@@ -3919,13 +3907,12 @@ LABEL_18:
   }
 
 LABEL_193:
-  entropyDayOfWeekPopularityByApp = self->_entropyDayOfWeekPopularityByApp;
   PBDataWriterWriteDoubleField();
-  v11 = *(&self->_has + 1);
-  if ((v11 & 0x8000000000000000) == 0)
+  v7 = *(&self->_has + 1);
+  if ((v7 & 0x8000000000000000) == 0)
   {
 LABEL_19:
-    if ((v11 & 0x1000000000000000) == 0)
+    if ((v7 & 0x1000000000000000) == 0)
     {
       goto LABEL_20;
     }
@@ -3934,13 +3921,12 @@ LABEL_19:
   }
 
 LABEL_194:
-  entropyTrendingPopularity = self->_entropyTrendingPopularity;
   PBDataWriterWriteDoubleField();
-  v11 = *(&self->_has + 1);
-  if ((v11 & 0x1000000000000000) == 0)
+  v7 = *(&self->_has + 1);
+  if ((v7 & 0x1000000000000000) == 0)
   {
 LABEL_20:
-    if ((v11 & 0x4000000000000000) == 0)
+    if ((v7 & 0x4000000000000000) == 0)
     {
       goto LABEL_21;
     }
@@ -3949,13 +3935,12 @@ LABEL_20:
   }
 
 LABEL_195:
-  entropySSIDPopularity = self->_entropySSIDPopularity;
   PBDataWriterWriteDoubleField();
-  v11 = *(&self->_has + 1);
-  if ((v11 & 0x4000000000000000) == 0)
+  v7 = *(&self->_has + 1);
+  if ((v7 & 0x4000000000000000) == 0)
   {
 LABEL_21:
-    if ((v11 & 0x2000000000000000) == 0)
+    if ((v7 & 0x2000000000000000) == 0)
     {
       goto LABEL_23;
     }
@@ -3964,38 +3949,33 @@ LABEL_21:
   }
 
 LABEL_196:
-  entropySSIDPopularityBySSID = self->_entropySSIDPopularityBySSID;
   PBDataWriterWriteDoubleField();
   if ((*(&self->_has + 1) & 0x2000000000000000) != 0)
   {
 LABEL_22:
-    entropySSIDPopularityByApp = self->_entropySSIDPopularityByApp;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_23:
   if ((*(&self->_has + 17) & 0x10) != 0)
   {
-    totalNumberOfLaunches = self->_totalNumberOfLaunches;
     PBDataWriterWriteDoubleField();
   }
 
   if (*p_has)
   {
-    airplaneModePopularity = self->_airplaneModePopularity;
     PBDataWriterWriteDoubleField();
   }
 
-  v15 = *(&self->_has + 4);
-  if ((v15 & 0x400) != 0)
+  v8 = *(&self->_has + 4);
+  if ((v8 & 0x400) != 0)
   {
-    totalNumberOfAirplaneModeLaunches = self->_totalNumberOfAirplaneModeLaunches;
     PBDataWriterWriteDoubleField();
-    v15 = *(&self->_has + 4);
-    if ((v15 & 0x8000) == 0)
+    v8 = *(&self->_has + 4);
+    if ((v8 & 0x8000) == 0)
     {
 LABEL_29:
-      if ((v15 & 0x4000) == 0)
+      if ((v8 & 0x4000) == 0)
       {
         goto LABEL_30;
       }
@@ -4004,18 +3984,17 @@ LABEL_29:
     }
   }
 
-  else if ((v15 & 0x8000) == 0)
+  else if ((v8 & 0x8000) == 0)
   {
     goto LABEL_29;
   }
 
-  trendingPopularity = self->_trendingPopularity;
   PBDataWriterWriteDoubleField();
-  v15 = *(&self->_has + 4);
-  if ((v15 & 0x4000) == 0)
+  v8 = *(&self->_has + 4);
+  if ((v8 & 0x4000) == 0)
   {
 LABEL_30:
-    if ((v15 & 0x80) == 0)
+    if ((v8 & 0x80) == 0)
     {
       goto LABEL_31;
     }
@@ -4024,13 +4003,12 @@ LABEL_30:
   }
 
 LABEL_200:
-  totalNumberOfTrendingLaunches = self->_totalNumberOfTrendingLaunches;
   PBDataWriterWriteDoubleField();
-  v15 = *(&self->_has + 4);
-  if ((v15 & 0x80) == 0)
+  v8 = *(&self->_has + 4);
+  if ((v8 & 0x80) == 0)
   {
 LABEL_31:
-    if ((v15 & 0x2000) == 0)
+    if ((v8 & 0x2000) == 0)
     {
       goto LABEL_32;
     }
@@ -4039,13 +4017,12 @@ LABEL_31:
   }
 
 LABEL_201:
-  sSIDPopularity = self->_sSIDPopularity;
   PBDataWriterWriteDoubleField();
-  v15 = *(&self->_has + 4);
-  if ((v15 & 0x2000) == 0)
+  v8 = *(&self->_has + 4);
+  if ((v8 & 0x2000) == 0)
   {
 LABEL_32:
-    if ((v15 & 0x20) == 0)
+    if ((v8 & 0x20) == 0)
     {
       goto LABEL_34;
     }
@@ -4054,72 +4031,62 @@ LABEL_32:
   }
 
 LABEL_202:
-  totalNumberOfSSIDLaunches = self->_totalNumberOfSSIDLaunches;
   PBDataWriterWriteDoubleField();
   if ((*(&self->_has + 4) & 0x20) != 0)
   {
 LABEL_33:
-    onWifi = self->_onWifi;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_34:
   if ((*(&self->_has + 14) & 0x10) != 0)
   {
-    coreMotionPopularity = self->_coreMotionPopularity;
     PBDataWriterWriteDoubleField();
   }
 
-  v18 = *(&self->_has + 4);
-  if ((v18 & 0x800) != 0)
+  v9 = *(&self->_has + 4);
+  if ((v9 & 0x800) != 0)
   {
-    totalNumberOfCoreMotionLaunches = self->_totalNumberOfCoreMotionLaunches;
     PBDataWriterWriteDoubleField();
-    v18 = *(&self->_has + 4);
+    v9 = *(&self->_has + 4);
   }
 
-  if (v18)
+  if (v9)
   {
-    isDateInWeekendOnDevice = self->_isDateInWeekendOnDevice;
     PBDataWriterWriteDoubleField();
   }
 
-  v21 = *p_has;
+  v10 = *p_has;
   if ((*p_has & 4) != 0)
   {
-    ambientLightTypePopularity = self->_ambientLightTypePopularity;
     PBDataWriterWriteDoubleField();
-    v21 = *p_has;
+    v10 = *p_has;
   }
 
-  if ((v21 & 2) != 0)
+  if ((v10 & 2) != 0)
   {
-    ambientLightTypeLaunchPopularity = self->_ambientLightTypeLaunchPopularity;
     PBDataWriterWriteDoubleField();
   }
 
   if ((*(&self->_has + 14) & 2) != 0)
   {
-    appTimeOfDayLaunches = self->_appTimeOfDayLaunches;
     PBDataWriterWriteDoubleField();
   }
 
   if ((*p_has & 8) != 0)
   {
-    appDayOfWeekLaunches = self->_appDayOfWeekLaunches;
     PBDataWriterWriteDoubleField();
   }
 
-  v26 = *(&self->_has + 1);
-  if ((v26 & 0x1000000000000) != 0)
+  v11 = *(&self->_has + 1);
+  if ((v11 & 0x1000000000000) != 0)
   {
-    appTimeAndDayOfWeekPopularity = self->_appTimeAndDayOfWeekPopularity;
     PBDataWriterWriteDoubleField();
-    v26 = *(&self->_has + 1);
-    if ((v26 & 0x400000000000) == 0)
+    v11 = *(&self->_has + 1);
+    if ((v11 & 0x400000000000) == 0)
     {
 LABEL_50:
-      if ((v26 & 0x800000000000) == 0)
+      if ((v11 & 0x800000000000) == 0)
       {
         goto LABEL_51;
       }
@@ -4128,18 +4095,17 @@ LABEL_50:
     }
   }
 
-  else if ((v26 & 0x400000000000) == 0)
+  else if ((v11 & 0x400000000000) == 0)
   {
     goto LABEL_50;
   }
 
-  appPopularityGivenTimeAndDayOfWeek = self->_appPopularityGivenTimeAndDayOfWeek;
   PBDataWriterWriteDoubleField();
-  v26 = *(&self->_has + 1);
-  if ((v26 & 0x800000000000) == 0)
+  v11 = *(&self->_has + 1);
+  if ((v11 & 0x800000000000) == 0)
   {
 LABEL_51:
-    if ((v26 & 0x4000000000000) == 0)
+    if ((v11 & 0x4000000000000) == 0)
     {
       goto LABEL_53;
     }
@@ -4148,26 +4114,23 @@ LABEL_51:
   }
 
 LABEL_206:
-  appPopularityOfTimeAndDayOfWeekGivenApp = self->_appPopularityOfTimeAndDayOfWeekGivenApp;
   PBDataWriterWriteDoubleField();
   if ((*(&self->_has + 1) & 0x4000000000000) != 0)
   {
 LABEL_52:
-    appTotalNumberOfTimeAndDayOfWeekLaunches = self->_appTotalNumberOfTimeAndDayOfWeekLaunches;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_53:
-  v28 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x4000000000000000) != 0)
   {
-    appLaunchesCoarseTimePowLocationForAppInContext = self->_appLaunchesCoarseTimePowLocationForAppInContext;
     PBDataWriterWriteDoubleField();
-    v28 = *p_has;
+    v12 = *p_has;
     if ((*p_has & 0x8000000000000000) == 0)
     {
 LABEL_55:
-      if ((v28 & 0x2000000000000000) == 0)
+      if ((v12 & 0x2000000000000000) == 0)
       {
         goto LABEL_56;
       }
@@ -4176,18 +4139,17 @@ LABEL_55:
     }
   }
 
-  else if ((v28 & 0x8000000000000000) == 0)
+  else if ((v12 & 0x8000000000000000) == 0)
   {
     goto LABEL_55;
   }
 
-  appLaunchesCoarseTimePowLocationInContext = self->_appLaunchesCoarseTimePowLocationInContext;
   PBDataWriterWriteDoubleField();
-  v28 = *p_has;
+  v12 = *p_has;
   if ((*p_has & 0x2000000000000000) == 0)
   {
 LABEL_56:
-    if ((v28 & 0x1000000000000000) == 0)
+    if ((v12 & 0x1000000000000000) == 0)
     {
       goto LABEL_58;
     }
@@ -4196,26 +4158,23 @@ LABEL_56:
   }
 
 LABEL_210:
-  appLaunchesCoarseTimePowLocationForApp = self->_appLaunchesCoarseTimePowLocationForApp;
   PBDataWriterWriteDoubleField();
   if ((*p_has & 0x1000000000000000) != 0)
   {
 LABEL_57:
-    appLaunchesCoarseTimePowLocationForAllAppsAndContexts = self->_appLaunchesCoarseTimePowLocationForAllAppsAndContexts;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_58:
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x20000000000) != 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x20000000000) != 0)
   {
-    appLaunchesSpecificTimeDowLocationForAppInContext = self->_appLaunchesSpecificTimeDowLocationForAppInContext;
     PBDataWriterWriteDoubleField();
-    v30 = *(&self->_has + 1);
-    if ((v30 & 0x40000000000) == 0)
+    v13 = *(&self->_has + 1);
+    if ((v13 & 0x40000000000) == 0)
     {
 LABEL_60:
-      if ((v30 & 0x10000000000) == 0)
+      if ((v13 & 0x10000000000) == 0)
       {
         goto LABEL_61;
       }
@@ -4224,18 +4183,17 @@ LABEL_60:
     }
   }
 
-  else if ((v30 & 0x40000000000) == 0)
+  else if ((v13 & 0x40000000000) == 0)
   {
     goto LABEL_60;
   }
 
-  appLaunchesSpecificTimeDowLocationInContext = self->_appLaunchesSpecificTimeDowLocationInContext;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x10000000000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x10000000000) == 0)
   {
 LABEL_61:
-    if ((v30 & 0x8000000000) == 0)
+    if ((v13 & 0x8000000000) == 0)
     {
       goto LABEL_62;
     }
@@ -4244,13 +4202,12 @@ LABEL_61:
   }
 
 LABEL_214:
-  appLaunchesSpecificTimeDowLocationForApp = self->_appLaunchesSpecificTimeDowLocationForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x8000000000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x8000000000) == 0)
   {
 LABEL_62:
-    if ((v30 & 0x10) == 0)
+    if ((v13 & 0x10) == 0)
     {
       goto LABEL_63;
     }
@@ -4259,13 +4216,12 @@ LABEL_62:
   }
 
 LABEL_215:
-  appLaunchesSpecificTimeDowLocationForAllAppsAndContexts = self->_appLaunchesSpecificTimeDowLocationForAllAppsAndContexts;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x10) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x10) == 0)
   {
 LABEL_63:
-    if ((v30 & 0x8000) == 0)
+    if ((v13 & 0x8000) == 0)
     {
       goto LABEL_64;
     }
@@ -4274,13 +4230,12 @@ LABEL_63:
   }
 
 LABEL_216:
-  appLaunchesInTimeBucket0ForApp = self->_appLaunchesInTimeBucket0ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x8000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x8000) == 0)
   {
 LABEL_64:
-    if ((v30 & 0x200000) == 0)
+    if ((v13 & 0x200000) == 0)
     {
       goto LABEL_65;
     }
@@ -4289,13 +4244,12 @@ LABEL_64:
   }
 
 LABEL_217:
-  appLaunchesInTimeBucket1ForApp = self->_appLaunchesInTimeBucket1ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x200000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x200000) == 0)
   {
 LABEL_65:
-    if ((v30 & 0x400000) == 0)
+    if ((v13 & 0x400000) == 0)
     {
       goto LABEL_66;
     }
@@ -4304,13 +4258,12 @@ LABEL_65:
   }
 
 LABEL_218:
-  appLaunchesInTimeBucket2ForApp = self->_appLaunchesInTimeBucket2ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x400000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x400000) == 0)
   {
 LABEL_66:
-    if ((v30 & 0x800000) == 0)
+    if ((v13 & 0x800000) == 0)
     {
       goto LABEL_67;
     }
@@ -4319,13 +4272,12 @@ LABEL_66:
   }
 
 LABEL_219:
-  appLaunchesInTimeBucket3ForApp = self->_appLaunchesInTimeBucket3ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x800000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x800000) == 0)
   {
 LABEL_67:
-    if ((v30 & 0x1000000) == 0)
+    if ((v13 & 0x1000000) == 0)
     {
       goto LABEL_68;
     }
@@ -4334,13 +4286,12 @@ LABEL_67:
   }
 
 LABEL_220:
-  appLaunchesInTimeBucket4ForApp = self->_appLaunchesInTimeBucket4ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x1000000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x1000000) == 0)
   {
 LABEL_68:
-    if ((v30 & 0x2000000) == 0)
+    if ((v13 & 0x2000000) == 0)
     {
       goto LABEL_69;
     }
@@ -4349,13 +4300,12 @@ LABEL_68:
   }
 
 LABEL_221:
-  appLaunchesInTimeBucket5ForApp = self->_appLaunchesInTimeBucket5ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x2000000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x2000000) == 0)
   {
 LABEL_69:
-    if ((v30 & 0x4000000) == 0)
+    if ((v13 & 0x4000000) == 0)
     {
       goto LABEL_70;
     }
@@ -4364,13 +4314,12 @@ LABEL_69:
   }
 
 LABEL_222:
-  appLaunchesInTimeBucket6ForApp = self->_appLaunchesInTimeBucket6ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x4000000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x4000000) == 0)
   {
 LABEL_70:
-    if ((v30 & 0x8000000) == 0)
+    if ((v13 & 0x8000000) == 0)
     {
       goto LABEL_71;
     }
@@ -4379,13 +4328,12 @@ LABEL_70:
   }
 
 LABEL_223:
-  appLaunchesInTimeBucket7ForApp = self->_appLaunchesInTimeBucket7ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x8000000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x8000000) == 0)
   {
 LABEL_71:
-    if ((v30 & 0x10000000) == 0)
+    if ((v13 & 0x10000000) == 0)
     {
       goto LABEL_72;
     }
@@ -4394,13 +4342,12 @@ LABEL_71:
   }
 
 LABEL_224:
-  appLaunchesInTimeBucket8ForApp = self->_appLaunchesInTimeBucket8ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x10000000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x10000000) == 0)
   {
 LABEL_72:
-    if ((v30 & 0x20) == 0)
+    if ((v13 & 0x20) == 0)
     {
       goto LABEL_73;
     }
@@ -4409,13 +4356,12 @@ LABEL_72:
   }
 
 LABEL_225:
-  appLaunchesInTimeBucket9ForApp = self->_appLaunchesInTimeBucket9ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x20) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x20) == 0)
   {
 LABEL_73:
-    if ((v30 & 0x40) == 0)
+    if ((v13 & 0x40) == 0)
     {
       goto LABEL_74;
     }
@@ -4424,13 +4370,12 @@ LABEL_73:
   }
 
 LABEL_226:
-  appLaunchesInTimeBucket10ForApp = self->_appLaunchesInTimeBucket10ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x40) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x40) == 0)
   {
 LABEL_74:
-    if ((v30 & 0x80) == 0)
+    if ((v13 & 0x80) == 0)
     {
       goto LABEL_75;
     }
@@ -4439,13 +4384,12 @@ LABEL_74:
   }
 
 LABEL_227:
-  appLaunchesInTimeBucket11ForApp = self->_appLaunchesInTimeBucket11ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x80) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x80) == 0)
   {
 LABEL_75:
-    if ((v30 & 0x100) == 0)
+    if ((v13 & 0x100) == 0)
     {
       goto LABEL_76;
     }
@@ -4454,13 +4398,12 @@ LABEL_75:
   }
 
 LABEL_228:
-  appLaunchesInTimeBucket12ForApp = self->_appLaunchesInTimeBucket12ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x100) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x100) == 0)
   {
 LABEL_76:
-    if ((v30 & 0x200) == 0)
+    if ((v13 & 0x200) == 0)
     {
       goto LABEL_77;
     }
@@ -4469,13 +4412,12 @@ LABEL_76:
   }
 
 LABEL_229:
-  appLaunchesInTimeBucket13ForApp = self->_appLaunchesInTimeBucket13ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x200) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x200) == 0)
   {
 LABEL_77:
-    if ((v30 & 0x400) == 0)
+    if ((v13 & 0x400) == 0)
     {
       goto LABEL_78;
     }
@@ -4484,13 +4426,12 @@ LABEL_77:
   }
 
 LABEL_230:
-  appLaunchesInTimeBucket14ForApp = self->_appLaunchesInTimeBucket14ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x400) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x400) == 0)
   {
 LABEL_78:
-    if ((v30 & 0x800) == 0)
+    if ((v13 & 0x800) == 0)
     {
       goto LABEL_79;
     }
@@ -4499,13 +4440,12 @@ LABEL_78:
   }
 
 LABEL_231:
-  appLaunchesInTimeBucket15ForApp = self->_appLaunchesInTimeBucket15ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x800) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x800) == 0)
   {
 LABEL_79:
-    if ((v30 & 0x1000) == 0)
+    if ((v13 & 0x1000) == 0)
     {
       goto LABEL_80;
     }
@@ -4514,13 +4454,12 @@ LABEL_79:
   }
 
 LABEL_232:
-  appLaunchesInTimeBucket16ForApp = self->_appLaunchesInTimeBucket16ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x1000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x1000) == 0)
   {
 LABEL_80:
-    if ((v30 & 0x2000) == 0)
+    if ((v13 & 0x2000) == 0)
     {
       goto LABEL_81;
     }
@@ -4529,13 +4468,12 @@ LABEL_80:
   }
 
 LABEL_233:
-  appLaunchesInTimeBucket17ForApp = self->_appLaunchesInTimeBucket17ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x2000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x2000) == 0)
   {
 LABEL_81:
-    if ((v30 & 0x4000) == 0)
+    if ((v13 & 0x4000) == 0)
     {
       goto LABEL_82;
     }
@@ -4544,13 +4482,12 @@ LABEL_81:
   }
 
 LABEL_234:
-  appLaunchesInTimeBucket18ForApp = self->_appLaunchesInTimeBucket18ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x4000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x4000) == 0)
   {
 LABEL_82:
-    if ((v30 & 0x10000) == 0)
+    if ((v13 & 0x10000) == 0)
     {
       goto LABEL_83;
     }
@@ -4559,13 +4496,12 @@ LABEL_82:
   }
 
 LABEL_235:
-  appLaunchesInTimeBucket19ForApp = self->_appLaunchesInTimeBucket19ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x10000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x10000) == 0)
   {
 LABEL_83:
-    if ((v30 & 0x20000) == 0)
+    if ((v13 & 0x20000) == 0)
     {
       goto LABEL_84;
     }
@@ -4574,13 +4510,12 @@ LABEL_83:
   }
 
 LABEL_236:
-  appLaunchesInTimeBucket20ForApp = self->_appLaunchesInTimeBucket20ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x20000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x20000) == 0)
   {
 LABEL_84:
-    if ((v30 & 0x40000) == 0)
+    if ((v13 & 0x40000) == 0)
     {
       goto LABEL_85;
     }
@@ -4589,13 +4524,12 @@ LABEL_84:
   }
 
 LABEL_237:
-  appLaunchesInTimeBucket21ForApp = self->_appLaunchesInTimeBucket21ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x40000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x40000) == 0)
   {
 LABEL_85:
-    if ((v30 & 0x80000) == 0)
+    if ((v13 & 0x80000) == 0)
     {
       goto LABEL_86;
     }
@@ -4604,13 +4538,12 @@ LABEL_85:
   }
 
 LABEL_238:
-  appLaunchesInTimeBucket22ForApp = self->_appLaunchesInTimeBucket22ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x80000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x80000) == 0)
   {
 LABEL_86:
-    if ((v30 & 0x100000) == 0)
+    if ((v13 & 0x100000) == 0)
     {
       goto LABEL_87;
     }
@@ -4619,13 +4552,12 @@ LABEL_86:
   }
 
 LABEL_239:
-  appLaunchesInTimeBucket23ForApp = self->_appLaunchesInTimeBucket23ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x100000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x100000) == 0)
   {
 LABEL_87:
-    if ((v30 & 0x800000000) == 0)
+    if ((v13 & 0x800000000) == 0)
     {
       goto LABEL_88;
     }
@@ -4634,13 +4566,12 @@ LABEL_87:
   }
 
 LABEL_240:
-  appLaunchesInTimeBucket24ForApp = self->_appLaunchesInTimeBucket24ForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x800000000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x800000000) == 0)
   {
 LABEL_88:
-    if ((v30 & 0x200000000) == 0)
+    if ((v13 & 0x200000000) == 0)
     {
       goto LABEL_89;
     }
@@ -4649,13 +4580,12 @@ LABEL_88:
   }
 
 LABEL_241:
-  appLaunchesOnDayOfWeekSundayForApp = self->_appLaunchesOnDayOfWeekSundayForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x200000000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x200000000) == 0)
   {
 LABEL_89:
-    if ((v30 & 0x2000000000) == 0)
+    if ((v13 & 0x2000000000) == 0)
     {
       goto LABEL_90;
     }
@@ -4664,13 +4594,12 @@ LABEL_89:
   }
 
 LABEL_242:
-  appLaunchesOnDayOfWeekMondayForApp = self->_appLaunchesOnDayOfWeekMondayForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x2000000000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x2000000000) == 0)
   {
 LABEL_90:
-    if ((v30 & 0x4000000000) == 0)
+    if ((v13 & 0x4000000000) == 0)
     {
       goto LABEL_91;
     }
@@ -4679,13 +4608,12 @@ LABEL_90:
   }
 
 LABEL_243:
-  appLaunchesOnDayOfWeekTuesdayForApp = self->_appLaunchesOnDayOfWeekTuesdayForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x4000000000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x4000000000) == 0)
   {
 LABEL_91:
-    if ((v30 & 0x1000000000) == 0)
+    if ((v13 & 0x1000000000) == 0)
     {
       goto LABEL_92;
     }
@@ -4694,13 +4622,12 @@ LABEL_91:
   }
 
 LABEL_244:
-  appLaunchesOnDayOfWeekWednesdayForApp = self->_appLaunchesOnDayOfWeekWednesdayForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x1000000000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x1000000000) == 0)
   {
 LABEL_92:
-    if ((v30 & 0x100000000) == 0)
+    if ((v13 & 0x100000000) == 0)
     {
       goto LABEL_93;
     }
@@ -4709,13 +4636,12 @@ LABEL_92:
   }
 
 LABEL_245:
-  appLaunchesOnDayOfWeekThursdayForApp = self->_appLaunchesOnDayOfWeekThursdayForApp;
   PBDataWriterWriteDoubleField();
-  v30 = *(&self->_has + 1);
-  if ((v30 & 0x100000000) == 0)
+  v13 = *(&self->_has + 1);
+  if ((v13 & 0x100000000) == 0)
   {
 LABEL_93:
-    if ((v30 & 0x400000000) == 0)
+    if ((v13 & 0x400000000) == 0)
     {
       goto LABEL_95;
     }
@@ -4724,26 +4650,23 @@ LABEL_93:
   }
 
 LABEL_246:
-  appLaunchesOnDayOfWeekFridayForApp = self->_appLaunchesOnDayOfWeekFridayForApp;
   PBDataWriterWriteDoubleField();
   if ((*(&self->_has + 1) & 0x400000000) != 0)
   {
 LABEL_94:
-    appLaunchesOnDayOfWeekSaturdayForApp = self->_appLaunchesOnDayOfWeekSaturdayForApp;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_95:
-  v32 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x200) != 0)
   {
-    appLaunchesAtCoarseGeoHash0ForApp = self->_appLaunchesAtCoarseGeoHash0ForApp;
     PBDataWriterWriteDoubleField();
-    v32 = *p_has;
+    v14 = *p_has;
     if ((*p_has & 0x400) == 0)
     {
 LABEL_97:
-      if ((v32 & 0x800) == 0)
+      if ((v14 & 0x800) == 0)
       {
         goto LABEL_98;
       }
@@ -4752,18 +4675,17 @@ LABEL_97:
     }
   }
 
-  else if ((v32 & 0x400) == 0)
+  else if ((v14 & 0x400) == 0)
   {
     goto LABEL_97;
   }
 
-  appLaunchesAtCoarseGeoHash1ForApp = self->_appLaunchesAtCoarseGeoHash1ForApp;
   PBDataWriterWriteDoubleField();
-  v32 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x800) == 0)
   {
 LABEL_98:
-    if ((v32 & 0x1000) == 0)
+    if ((v14 & 0x1000) == 0)
     {
       goto LABEL_99;
     }
@@ -4772,13 +4694,12 @@ LABEL_98:
   }
 
 LABEL_250:
-  appLaunchesAtCoarseGeoHash2ForApp = self->_appLaunchesAtCoarseGeoHash2ForApp;
   PBDataWriterWriteDoubleField();
-  v32 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x1000) == 0)
   {
 LABEL_99:
-    if ((v32 & 0x2000) == 0)
+    if ((v14 & 0x2000) == 0)
     {
       goto LABEL_100;
     }
@@ -4787,13 +4708,12 @@ LABEL_99:
   }
 
 LABEL_251:
-  appLaunchesAtCoarseGeoHash3ForApp = self->_appLaunchesAtCoarseGeoHash3ForApp;
   PBDataWriterWriteDoubleField();
-  v32 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x2000) == 0)
   {
 LABEL_100:
-    if ((v32 & 0x4000) == 0)
+    if ((v14 & 0x4000) == 0)
     {
       goto LABEL_101;
     }
@@ -4802,13 +4722,12 @@ LABEL_100:
   }
 
 LABEL_252:
-  appLaunchesAtCoarseGeoHash4ForApp = self->_appLaunchesAtCoarseGeoHash4ForApp;
   PBDataWriterWriteDoubleField();
-  v32 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x4000) == 0)
   {
 LABEL_101:
-    if ((v32 & 0x8000) == 0)
+    if ((v14 & 0x8000) == 0)
     {
       goto LABEL_102;
     }
@@ -4817,13 +4736,12 @@ LABEL_101:
   }
 
 LABEL_253:
-  appLaunchesAtCoarseGeoHash5ForApp = self->_appLaunchesAtCoarseGeoHash5ForApp;
   PBDataWriterWriteDoubleField();
-  v32 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x8000) == 0)
   {
 LABEL_102:
-    if ((v32 & 0x10000) == 0)
+    if ((v14 & 0x10000) == 0)
     {
       goto LABEL_103;
     }
@@ -4832,13 +4750,12 @@ LABEL_102:
   }
 
 LABEL_254:
-  appLaunchesAtCoarseGeoHash6ForApp = self->_appLaunchesAtCoarseGeoHash6ForApp;
   PBDataWriterWriteDoubleField();
-  v32 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x10000) == 0)
   {
 LABEL_103:
-    if ((v32 & 0x20000) == 0)
+    if ((v14 & 0x20000) == 0)
     {
       goto LABEL_104;
     }
@@ -4847,13 +4764,12 @@ LABEL_103:
   }
 
 LABEL_255:
-  appLaunchesAtCoarseGeoHash7ForApp = self->_appLaunchesAtCoarseGeoHash7ForApp;
   PBDataWriterWriteDoubleField();
-  v32 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x20000) == 0)
   {
 LABEL_104:
-    if ((v32 & 0x40000) == 0)
+    if ((v14 & 0x40000) == 0)
     {
       goto LABEL_105;
     }
@@ -4862,13 +4778,12 @@ LABEL_104:
   }
 
 LABEL_256:
-  appLaunchesAtCoarseGeoHash8ForApp = self->_appLaunchesAtCoarseGeoHash8ForApp;
   PBDataWriterWriteDoubleField();
-  v32 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x40000) == 0)
   {
 LABEL_105:
-    if ((v32 & 0x4000000) == 0)
+    if ((v14 & 0x4000000) == 0)
     {
       goto LABEL_106;
     }
@@ -4877,13 +4792,12 @@ LABEL_105:
   }
 
 LABEL_257:
-  appLaunchesAtCoarseGeoHash9ForApp = self->_appLaunchesAtCoarseGeoHash9ForApp;
   PBDataWriterWriteDoubleField();
-  v32 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x4000000) == 0)
   {
 LABEL_106:
-    if ((v32 & 0x100000000) == 0)
+    if ((v14 & 0x100000000) == 0)
     {
       goto LABEL_107;
     }
@@ -4892,13 +4806,12 @@ LABEL_106:
   }
 
 LABEL_258:
-  appLaunchesAtSpecificGeoHash0ForApp = self->_appLaunchesAtSpecificGeoHash0ForApp;
   PBDataWriterWriteDoubleField();
-  v32 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x100000000) == 0)
   {
 LABEL_107:
-    if ((v32 & 0x200000000) == 0)
+    if ((v14 & 0x200000000) == 0)
     {
       goto LABEL_108;
     }
@@ -4907,13 +4820,12 @@ LABEL_107:
   }
 
 LABEL_259:
-  appLaunchesAtSpecificGeoHash1ForApp = self->_appLaunchesAtSpecificGeoHash1ForApp;
   PBDataWriterWriteDoubleField();
-  v32 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x200000000) == 0)
   {
 LABEL_108:
-    if ((v32 & 0x400000000) == 0)
+    if ((v14 & 0x400000000) == 0)
     {
       goto LABEL_109;
     }
@@ -4922,13 +4834,12 @@ LABEL_108:
   }
 
 LABEL_260:
-  appLaunchesAtSpecificGeoHash2ForApp = self->_appLaunchesAtSpecificGeoHash2ForApp;
   PBDataWriterWriteDoubleField();
-  v32 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x400000000) == 0)
   {
 LABEL_109:
-    if ((v32 & 0x800000000) == 0)
+    if ((v14 & 0x800000000) == 0)
     {
       goto LABEL_110;
     }
@@ -4937,13 +4848,12 @@ LABEL_109:
   }
 
 LABEL_261:
-  appLaunchesAtSpecificGeoHash3ForApp = self->_appLaunchesAtSpecificGeoHash3ForApp;
   PBDataWriterWriteDoubleField();
-  v32 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x800000000) == 0)
   {
 LABEL_110:
-    if ((v32 & 0x1000000000) == 0)
+    if ((v14 & 0x1000000000) == 0)
     {
       goto LABEL_111;
     }
@@ -4952,13 +4862,12 @@ LABEL_110:
   }
 
 LABEL_262:
-  appLaunchesAtSpecificGeoHash4ForApp = self->_appLaunchesAtSpecificGeoHash4ForApp;
   PBDataWriterWriteDoubleField();
-  v32 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x1000000000) == 0)
   {
 LABEL_111:
-    if ((v32 & 0x2000000000) == 0)
+    if ((v14 & 0x2000000000) == 0)
     {
       goto LABEL_112;
     }
@@ -4967,13 +4876,12 @@ LABEL_111:
   }
 
 LABEL_263:
-  appLaunchesAtSpecificGeoHash5ForApp = self->_appLaunchesAtSpecificGeoHash5ForApp;
   PBDataWriterWriteDoubleField();
-  v32 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x2000000000) == 0)
   {
 LABEL_112:
-    if ((v32 & 0x4000000000) == 0)
+    if ((v14 & 0x4000000000) == 0)
     {
       goto LABEL_113;
     }
@@ -4982,13 +4890,12 @@ LABEL_112:
   }
 
 LABEL_264:
-  appLaunchesAtSpecificGeoHash6ForApp = self->_appLaunchesAtSpecificGeoHash6ForApp;
   PBDataWriterWriteDoubleField();
-  v32 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x4000000000) == 0)
   {
 LABEL_113:
-    if ((v32 & 0x8000000000) == 0)
+    if ((v14 & 0x8000000000) == 0)
     {
       goto LABEL_114;
     }
@@ -4997,13 +4904,12 @@ LABEL_113:
   }
 
 LABEL_265:
-  appLaunchesAtSpecificGeoHash7ForApp = self->_appLaunchesAtSpecificGeoHash7ForApp;
   PBDataWriterWriteDoubleField();
-  v32 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x8000000000) == 0)
   {
 LABEL_114:
-    if ((v32 & 0x10000000000) == 0)
+    if ((v14 & 0x10000000000) == 0)
     {
       goto LABEL_115;
     }
@@ -5012,13 +4918,12 @@ LABEL_114:
   }
 
 LABEL_266:
-  appLaunchesAtSpecificGeoHash8ForApp = self->_appLaunchesAtSpecificGeoHash8ForApp;
   PBDataWriterWriteDoubleField();
-  v32 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x10000000000) == 0)
   {
 LABEL_115:
-    if ((v32 & 0x8000000) == 0)
+    if ((v14 & 0x8000000) == 0)
     {
       goto LABEL_116;
     }
@@ -5027,13 +4932,12 @@ LABEL_115:
   }
 
 LABEL_267:
-  appLaunchesAtSpecificGeoHash9ForApp = self->_appLaunchesAtSpecificGeoHash9ForApp;
   PBDataWriterWriteDoubleField();
-  v32 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x8000000) == 0)
   {
 LABEL_116:
-    if ((v32 & 0x10000000) == 0)
+    if ((v14 & 0x10000000) == 0)
     {
       goto LABEL_117;
     }
@@ -5042,13 +4946,12 @@ LABEL_116:
   }
 
 LABEL_268:
-  appLaunchesAtSpecificGeoHash10ForApp = self->_appLaunchesAtSpecificGeoHash10ForApp;
   PBDataWriterWriteDoubleField();
-  v32 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x10000000) == 0)
   {
 LABEL_117:
-    if ((v32 & 0x20000000) == 0)
+    if ((v14 & 0x20000000) == 0)
     {
       goto LABEL_118;
     }
@@ -5057,13 +4960,12 @@ LABEL_117:
   }
 
 LABEL_269:
-  appLaunchesAtSpecificGeoHash11ForApp = self->_appLaunchesAtSpecificGeoHash11ForApp;
   PBDataWriterWriteDoubleField();
-  v32 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x20000000) == 0)
   {
 LABEL_118:
-    if ((v32 & 0x40000000) == 0)
+    if ((v14 & 0x40000000) == 0)
     {
       goto LABEL_119;
     }
@@ -5072,13 +4974,12 @@ LABEL_118:
   }
 
 LABEL_270:
-  appLaunchesAtSpecificGeoHash12ForApp = self->_appLaunchesAtSpecificGeoHash12ForApp;
   PBDataWriterWriteDoubleField();
-  v32 = *p_has;
+  v14 = *p_has;
   if ((*p_has & 0x40000000) == 0)
   {
 LABEL_119:
-    if ((v32 & 0x80000000) == 0)
+    if ((v14 & 0x80000000) == 0)
     {
       goto LABEL_121;
     }
@@ -5087,40 +4988,35 @@ LABEL_119:
   }
 
 LABEL_271:
-  appLaunchesAtSpecificGeoHash13ForApp = self->_appLaunchesAtSpecificGeoHash13ForApp;
   PBDataWriterWriteDoubleField();
   if ((*p_has & 0x80000000) != 0)
   {
 LABEL_120:
-    appLaunchesAtSpecificGeoHash14ForApp = self->_appLaunchesAtSpecificGeoHash14ForApp;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_121:
-  v34 = *(&self->_has + 1);
-  if ((v34 & 0x100000000000) != 0)
+  v15 = *(&self->_has + 1);
+  if ((v15 & 0x100000000000) != 0)
   {
-    appNumberOfSpecificGeohashesForApp = self->_appNumberOfSpecificGeohashesForApp;
     PBDataWriterWriteDoubleField();
-    v34 = *(&self->_has + 1);
+    v15 = *(&self->_has + 1);
   }
 
-  if ((v34 & 0x80000000000) != 0)
+  if ((v15 & 0x80000000000) != 0)
   {
-    appNumberOfCoarseGeohashesForApp = self->_appNumberOfCoarseGeohashesForApp;
     PBDataWriterWriteDoubleField();
   }
 
-  v37 = *p_has;
+  v16 = *p_has;
   if ((*p_has & 0x40) != 0)
   {
-    appEntropyForTimeBuckets = self->_appEntropyForTimeBuckets;
     PBDataWriterWriteDoubleField();
-    v37 = *p_has;
+    v16 = *p_has;
     if ((*p_has & 0x20) == 0)
     {
 LABEL_127:
-      if ((v37 & 0x10) == 0)
+      if ((v16 & 0x10) == 0)
       {
         goto LABEL_128;
       }
@@ -5129,18 +5025,17 @@ LABEL_127:
     }
   }
 
-  else if ((v37 & 0x20) == 0)
+  else if ((v16 & 0x20) == 0)
   {
     goto LABEL_127;
   }
 
-  appEntropyForSpecificGeoHash = self->_appEntropyForSpecificGeoHash;
   PBDataWriterWriteDoubleField();
-  v37 = *p_has;
+  v16 = *p_has;
   if ((*p_has & 0x10) == 0)
   {
 LABEL_128:
-    if ((v37 & 0x40000000000) == 0)
+    if ((v16 & 0x40000000000) == 0)
     {
       goto LABEL_129;
     }
@@ -5149,13 +5044,12 @@ LABEL_128:
   }
 
 LABEL_275:
-  appEntropyForCoarseGeoHash = self->_appEntropyForCoarseGeoHash;
   PBDataWriterWriteDoubleField();
-  v37 = *p_has;
+  v16 = *p_has;
   if ((*p_has & 0x40000000000) == 0)
   {
 LABEL_129:
-    if ((v37 & 0x100000) == 0)
+    if ((v16 & 0x100000) == 0)
     {
       goto LABEL_130;
     }
@@ -5164,13 +5058,12 @@ LABEL_129:
   }
 
 LABEL_276:
-  appLaunchesAtSpecificGeoHashForAppInContext = self->_appLaunchesAtSpecificGeoHashForAppInContext;
   PBDataWriterWriteDoubleField();
-  v37 = *p_has;
+  v16 = *p_has;
   if ((*p_has & 0x100000) == 0)
   {
 LABEL_130:
-    if ((v37 & 0x400000) == 0)
+    if ((v16 & 0x400000) == 0)
     {
       goto LABEL_131;
     }
@@ -5179,13 +5072,12 @@ LABEL_130:
   }
 
 LABEL_277:
-  appLaunchesAtCoarseGeoHashForAppInContext = self->_appLaunchesAtCoarseGeoHashForAppInContext;
   PBDataWriterWriteDoubleField();
-  v37 = *p_has;
+  v16 = *p_has;
   if ((*p_has & 0x400000) == 0)
   {
 LABEL_131:
-    if ((v37 & 0x200000000000) == 0)
+    if ((v16 & 0x200000000000) == 0)
     {
       goto LABEL_132;
     }
@@ -5194,13 +5086,12 @@ LABEL_131:
   }
 
 LABEL_278:
-  appLaunchesAtDayOfWeekForApp = self->_appLaunchesAtDayOfWeekForApp;
   PBDataWriterWriteDoubleField();
-  v37 = *p_has;
+  v16 = *p_has;
   if ((*p_has & 0x200000000000) == 0)
   {
 LABEL_132:
-    if ((v37 & 0x400000000000) == 0)
+    if ((v16 & 0x400000000000) == 0)
     {
       goto LABEL_133;
     }
@@ -5209,13 +5100,12 @@ LABEL_132:
   }
 
 LABEL_279:
-  appLaunchesAtTimeAndDayForAppInContext = self->_appLaunchesAtTimeAndDayForAppInContext;
   PBDataWriterWriteDoubleField();
-  v37 = *p_has;
+  v16 = *p_has;
   if ((*p_has & 0x400000000000) == 0)
   {
 LABEL_133:
-    if ((v37 & 0x100000000000) == 0)
+    if ((v16 & 0x100000000000) == 0)
     {
       goto LABEL_134;
     }
@@ -5224,13 +5114,12 @@ LABEL_133:
   }
 
 LABEL_280:
-  appLaunchesAtTimeAndDayInContext = self->_appLaunchesAtTimeAndDayInContext;
   PBDataWriterWriteDoubleField();
-  v37 = *p_has;
+  v16 = *p_has;
   if ((*p_has & 0x100000000000) == 0)
   {
 LABEL_134:
-    if ((v37 & 0x200000) == 0)
+    if ((v16 & 0x200000) == 0)
     {
       goto LABEL_135;
     }
@@ -5239,13 +5128,12 @@ LABEL_134:
   }
 
 LABEL_281:
-  appLaunchesAtTimeAndDayForApp = self->_appLaunchesAtTimeAndDayForApp;
   PBDataWriterWriteDoubleField();
-  v37 = *p_has;
+  v16 = *p_has;
   if ((*p_has & 0x200000) == 0)
   {
 LABEL_135:
-    if ((v37 & 0x80000) == 0)
+    if ((v16 & 0x80000) == 0)
     {
       goto LABEL_136;
     }
@@ -5254,13 +5142,12 @@ LABEL_135:
   }
 
 LABEL_282:
-  appLaunchesAtCoarseGeoHashInContext = self->_appLaunchesAtCoarseGeoHashInContext;
   PBDataWriterWriteDoubleField();
-  v37 = *p_has;
+  v16 = *p_has;
   if ((*p_has & 0x80000) == 0)
   {
 LABEL_136:
-    if ((v37 & 0x80000000000) == 0)
+    if ((v16 & 0x80000000000) == 0)
     {
       goto LABEL_137;
     }
@@ -5269,13 +5156,12 @@ LABEL_136:
   }
 
 LABEL_283:
-  appLaunchesAtCoarseGeoHashForApp = self->_appLaunchesAtCoarseGeoHashForApp;
   PBDataWriterWriteDoubleField();
-  v37 = *p_has;
+  v16 = *p_has;
   if ((*p_has & 0x80000000000) == 0)
   {
 LABEL_137:
-    if ((v37 & 0x20000000000) == 0)
+    if ((v16 & 0x20000000000) == 0)
     {
       goto LABEL_139;
     }
@@ -5284,46 +5170,40 @@ LABEL_137:
   }
 
 LABEL_284:
-  appLaunchesAtSpecificGeoHashInContext = self->_appLaunchesAtSpecificGeoHashInContext;
   PBDataWriterWriteDoubleField();
   if ((*p_has & 0x20000000000) != 0)
   {
 LABEL_138:
-    appLaunchesAtSpecificGeoHashForApp = self->_appLaunchesAtSpecificGeoHashForApp;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_139:
-  v39 = *(&self->_has + 1);
-  if (v39)
+  v17 = *(&self->_has + 1);
+  if (v17)
   {
-    appLaunchesForAllAppsAndContextsDecayedAtCoarseContextRate = self->_appLaunchesForAllAppsAndContextsDecayedAtCoarseContextRate;
     PBDataWriterWriteDoubleField();
-    v39 = *(&self->_has + 1);
+    v17 = *(&self->_has + 1);
   }
 
-  if ((v39 & 2) != 0)
+  if ((v17 & 2) != 0)
   {
-    appLaunchesForAllAppsAndContextsDecayedAtSpecificContextRate = self->_appLaunchesForAllAppsAndContextsDecayedAtSpecificContextRate;
     PBDataWriterWriteDoubleField();
   }
 
   if ((*(&self->_has + 16) & 2) != 0)
   {
-    isLocationServicesDisabled = self->_isLocationServicesDisabled;
     PBDataWriterWriteDoubleField();
   }
 
-  v43 = *(&self->_has + 1);
-  if ((v43 & 0x40000000) != 0)
+  v18 = *(&self->_has + 1);
+  if ((v18 & 0x40000000) != 0)
   {
-    appLaunchesInTwoHourTimeBucketForAppInContext = self->_appLaunchesInTwoHourTimeBucketForAppInContext;
     PBDataWriterWriteDoubleField();
-    v43 = *(&self->_has + 1);
-    if ((v43 & 0x80000000) == 0)
+    v18 = *(&self->_has + 1);
+    if ((v18 & 0x80000000) == 0)
     {
 LABEL_147:
-      if ((v43 & 0x20000000) == 0)
+      if ((v18 & 0x20000000) == 0)
       {
         goto LABEL_148;
       }
@@ -5332,18 +5212,17 @@ LABEL_147:
     }
   }
 
-  else if ((v43 & 0x80000000) == 0)
+  else if ((v18 & 0x80000000) == 0)
   {
     goto LABEL_147;
   }
 
-  appLaunchesInTwoHourTimeBucketInContext = self->_appLaunchesInTwoHourTimeBucketInContext;
   PBDataWriterWriteDoubleField();
-  v43 = *(&self->_has + 1);
-  if ((v43 & 0x20000000) == 0)
+  v18 = *(&self->_has + 1);
+  if ((v18 & 0x20000000) == 0)
   {
 LABEL_148:
-    if ((v43 & 0x20000000000000) == 0)
+    if ((v18 & 0x20000000000000) == 0)
     {
       goto LABEL_150;
     }
@@ -5352,26 +5231,23 @@ LABEL_148:
   }
 
 LABEL_288:
-  appLaunchesInTwoHourTimeBucketForApp = self->_appLaunchesInTwoHourTimeBucketForApp;
   PBDataWriterWriteDoubleField();
   if ((*(&self->_has + 1) & 0x20000000000000) != 0)
   {
 LABEL_149:
-    currentTimeBucketFromZeroToTwentyFour = self->_currentTimeBucketFromZeroToTwentyFour;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_150:
-  v45 = *p_has;
+  v19 = *p_has;
   if ((*p_has & 0x400000000000000) != 0)
   {
-    appLaunchesAtZoom7GeoHashForAppInContext = self->_appLaunchesAtZoom7GeoHashForAppInContext;
     PBDataWriterWriteDoubleField();
-    v45 = *p_has;
+    v19 = *p_has;
     if ((*p_has & 0x800000000000000) == 0)
     {
 LABEL_152:
-      if ((v45 & 0x200000000000000) == 0)
+      if ((v19 & 0x200000000000000) == 0)
       {
         goto LABEL_153;
       }
@@ -5380,18 +5256,17 @@ LABEL_152:
     }
   }
 
-  else if ((v45 & 0x800000000000000) == 0)
+  else if ((v19 & 0x800000000000000) == 0)
   {
     goto LABEL_152;
   }
 
-  appLaunchesAtZoom7GeoHashInContext = self->_appLaunchesAtZoom7GeoHashInContext;
   PBDataWriterWriteDoubleField();
-  v45 = *p_has;
+  v19 = *p_has;
   if ((*p_has & 0x200000000000000) == 0)
   {
 LABEL_153:
-    if ((v45 & 0x800000000000) == 0)
+    if ((v19 & 0x800000000000) == 0)
     {
       goto LABEL_154;
     }
@@ -5400,13 +5275,12 @@ LABEL_153:
   }
 
 LABEL_292:
-  appLaunchesAtZoom7GeoHashForApp = self->_appLaunchesAtZoom7GeoHashForApp;
   PBDataWriterWriteDoubleField();
-  v45 = *p_has;
+  v19 = *p_has;
   if ((*p_has & 0x800000000000) == 0)
   {
 LABEL_154:
-    if ((v45 & 0x1000000000000) == 0)
+    if ((v19 & 0x1000000000000) == 0)
     {
       goto LABEL_155;
     }
@@ -5415,13 +5289,12 @@ LABEL_154:
   }
 
 LABEL_293:
-  appLaunchesAtZoom7GeoHash0ForApp = self->_appLaunchesAtZoom7GeoHash0ForApp;
   PBDataWriterWriteDoubleField();
-  v45 = *p_has;
+  v19 = *p_has;
   if ((*p_has & 0x1000000000000) == 0)
   {
 LABEL_155:
-    if ((v45 & 0x2000000000000) == 0)
+    if ((v19 & 0x2000000000000) == 0)
     {
       goto LABEL_156;
     }
@@ -5430,13 +5303,12 @@ LABEL_155:
   }
 
 LABEL_294:
-  appLaunchesAtZoom7GeoHash1ForApp = self->_appLaunchesAtZoom7GeoHash1ForApp;
   PBDataWriterWriteDoubleField();
-  v45 = *p_has;
+  v19 = *p_has;
   if ((*p_has & 0x2000000000000) == 0)
   {
 LABEL_156:
-    if ((v45 & 0x4000000000000) == 0)
+    if ((v19 & 0x4000000000000) == 0)
     {
       goto LABEL_157;
     }
@@ -5445,13 +5317,12 @@ LABEL_156:
   }
 
 LABEL_295:
-  appLaunchesAtZoom7GeoHash2ForApp = self->_appLaunchesAtZoom7GeoHash2ForApp;
   PBDataWriterWriteDoubleField();
-  v45 = *p_has;
+  v19 = *p_has;
   if ((*p_has & 0x4000000000000) == 0)
   {
 LABEL_157:
-    if ((v45 & 0x8000000000000) == 0)
+    if ((v19 & 0x8000000000000) == 0)
     {
       goto LABEL_158;
     }
@@ -5460,13 +5331,12 @@ LABEL_157:
   }
 
 LABEL_296:
-  appLaunchesAtZoom7GeoHash3ForApp = self->_appLaunchesAtZoom7GeoHash3ForApp;
   PBDataWriterWriteDoubleField();
-  v45 = *p_has;
+  v19 = *p_has;
   if ((*p_has & 0x8000000000000) == 0)
   {
 LABEL_158:
-    if ((v45 & 0x10000000000000) == 0)
+    if ((v19 & 0x10000000000000) == 0)
     {
       goto LABEL_159;
     }
@@ -5475,13 +5345,12 @@ LABEL_158:
   }
 
 LABEL_297:
-  appLaunchesAtZoom7GeoHash4ForApp = self->_appLaunchesAtZoom7GeoHash4ForApp;
   PBDataWriterWriteDoubleField();
-  v45 = *p_has;
+  v19 = *p_has;
   if ((*p_has & 0x10000000000000) == 0)
   {
 LABEL_159:
-    if ((v45 & 0x20000000000000) == 0)
+    if ((v19 & 0x20000000000000) == 0)
     {
       goto LABEL_160;
     }
@@ -5490,13 +5359,12 @@ LABEL_159:
   }
 
 LABEL_298:
-  appLaunchesAtZoom7GeoHash5ForApp = self->_appLaunchesAtZoom7GeoHash5ForApp;
   PBDataWriterWriteDoubleField();
-  v45 = *p_has;
+  v19 = *p_has;
   if ((*p_has & 0x20000000000000) == 0)
   {
 LABEL_160:
-    if ((v45 & 0x40000000000000) == 0)
+    if ((v19 & 0x40000000000000) == 0)
     {
       goto LABEL_161;
     }
@@ -5505,13 +5373,12 @@ LABEL_160:
   }
 
 LABEL_299:
-  appLaunchesAtZoom7GeoHash6ForApp = self->_appLaunchesAtZoom7GeoHash6ForApp;
   PBDataWriterWriteDoubleField();
-  v45 = *p_has;
+  v19 = *p_has;
   if ((*p_has & 0x40000000000000) == 0)
   {
 LABEL_161:
-    if ((v45 & 0x80000000000000) == 0)
+    if ((v19 & 0x80000000000000) == 0)
     {
       goto LABEL_162;
     }
@@ -5520,13 +5387,12 @@ LABEL_161:
   }
 
 LABEL_300:
-  appLaunchesAtZoom7GeoHash7ForApp = self->_appLaunchesAtZoom7GeoHash7ForApp;
   PBDataWriterWriteDoubleField();
-  v45 = *p_has;
+  v19 = *p_has;
   if ((*p_has & 0x80000000000000) == 0)
   {
 LABEL_162:
-    if ((v45 & 0x100000000000000) == 0)
+    if ((v19 & 0x100000000000000) == 0)
     {
       goto LABEL_163;
     }
@@ -5535,13 +5401,12 @@ LABEL_162:
   }
 
 LABEL_301:
-  appLaunchesAtZoom7GeoHash8ForApp = self->_appLaunchesAtZoom7GeoHash8ForApp;
   PBDataWriterWriteDoubleField();
-  v45 = *p_has;
+  v19 = *p_has;
   if ((*p_has & 0x100000000000000) == 0)
   {
 LABEL_163:
-    if ((v45 & 0x80) == 0)
+    if ((v19 & 0x80) == 0)
     {
       goto LABEL_165;
     }
@@ -5550,67 +5415,57 @@ LABEL_163:
   }
 
 LABEL_302:
-  appLaunchesAtZoom7GeoHash9ForApp = self->_appLaunchesAtZoom7GeoHash9ForApp;
   PBDataWriterWriteDoubleField();
   if ((*p_has & 0x80) != 0)
   {
 LABEL_164:
-    appEntropyForZoom7GeoHash = self->_appEntropyForZoom7GeoHash;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_165:
   if ((*(&self->_has + 13) & 0x20) != 0)
   {
-    appNumberOfZoom7GeohashesForApp = self->_appNumberOfZoom7GeohashesForApp;
     PBDataWriterWriteDoubleField();
   }
 
-  v48 = *p_has;
+  v20 = *p_has;
   if ((*p_has & 0x2000000) != 0)
   {
-    appLaunchesAtSSIDForAppInContext = self->_appLaunchesAtSSIDForAppInContext;
     PBDataWriterWriteDoubleField();
-    v48 = *p_has;
+    v20 = *p_has;
   }
 
-  if ((v48 & 0x1000000) != 0)
+  if ((v20 & 0x1000000) != 0)
   {
-    appLaunchesAtSSIDForApp = self->_appLaunchesAtSSIDForApp;
     PBDataWriterWriteDoubleField();
   }
 
-  v51 = *(&self->_has + 1);
-  if ((v51 & 4) != 0)
+  v21 = *(&self->_has + 1);
+  if ((v21 & 4) != 0)
   {
-    appLaunchesForCoreMotionForAppInContext = self->_appLaunchesForCoreMotionForAppInContext;
     PBDataWriterWriteDoubleField();
-    v51 = *(&self->_has + 1);
+    v21 = *(&self->_has + 1);
   }
 
-  if ((v51 & 8) != 0)
+  if ((v21 & 8) != 0)
   {
-    appLaunchesInAirplaneModeForAppInContext = self->_appLaunchesInAirplaneModeForAppInContext;
     PBDataWriterWriteDoubleField();
   }
 
   if ((*(&self->_has + 16) & 0x40) != 0)
   {
-    poiPopularityForAppInContext = self->_poiPopularityForAppInContext;
     PBDataWriterWriteDoubleField();
   }
 
-  v55 = *p_has;
+  v22 = *p_has;
   if ((*p_has & 0x100) != 0)
   {
-    appLaunchPopularityAtPOIForAppInContext = self->_appLaunchPopularityAtPOIForAppInContext;
     PBDataWriterWriteDoubleField();
-    v55 = *p_has;
+    v22 = *p_has;
   }
 
-  if ((v55 & 0x800000) != 0)
+  if ((v22 & 0x800000) != 0)
   {
-    appLaunchesAtPOIForAppInContext = self->_appLaunchesAtPOIForAppInContext;
     PBDataWriterWriteDoubleField();
   }
 }

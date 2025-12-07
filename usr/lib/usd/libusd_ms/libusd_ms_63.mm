@@ -1,3 +1,69 @@
+void pxrInternal__aapl__pxrReserved__::SdfNamespaceEdit_Namespace::_MoveDeadspaceDescendants(pxrInternal__aapl__pxrReserved__::SdfNamespaceEdit_Namespace *this, const pxrInternal__aapl__pxrReserved__::SdfPath *a2, const pxrInternal__aapl__pxrReserved__::SdfPath *a3)
+{
+  v6 = pxrInternal__aapl__pxrReserved__::SdfPath::AbsoluteRootPath(this);
+  if (*a2 != *v6 || (v6 = sub_29B29C728(v21), (v6 & 1) != 0))
+  {
+    if (*a3 != *pxrInternal__aapl__pxrReserved__::SdfPath::AbsoluteRootPath(v6) || (sub_29B29C770(v20) & 1) != 0)
+    {
+      v8 = *(this + 6);
+      v7 = this + 48;
+      v9 = sub_29A38653C(v8, v7 + 1, a2, &v17);
+      v10 = v9;
+      v12 = v11;
+      v17 = 0;
+      v18 = 0;
+      v19 = 0;
+      if (v9 != v11)
+      {
+        v13 = v9;
+        do
+        {
+          pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v22, (v13 + 28), a2, a3, 1);
+          sub_29A377BD0(&v17, &v22);
+          pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v22 + 1);
+          sub_29A1DE3A4(&v22);
+          v14 = v13[1];
+          if (v14)
+          {
+            do
+            {
+              v15 = v14;
+              v14 = *v14;
+            }
+
+            while (v14);
+          }
+
+          else
+          {
+            do
+            {
+              v15 = v13[2];
+              v16 = *v15 == v13;
+              v13 = v15;
+            }
+
+            while (!v16);
+          }
+
+          v13 = v15;
+        }
+
+        while (v15 != v12);
+      }
+
+      sub_29A389698(v7, v10, v12);
+      if (v17 != v18)
+      {
+        std::__tree<pxrInternal__aapl__pxrReserved__::SdfPath>::__emplace_hint_unique_key_args<pxrInternal__aapl__pxrReserved__::SdfPath,pxrInternal__aapl__pxrReserved__::SdfPath const&>();
+      }
+
+      v22 = &v17;
+      sub_29A1E234C(&v22);
+    }
+  }
+}
+
 void sub_29A3864A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 - 72) = &a9;
@@ -9,13 +75,13 @@ uint64_t pxrInternal__aapl__pxrReserved__::SdfNamespaceEdit_Namespace::_RemoveDe
 {
   if (*a2 != *pxrInternal__aapl__pxrReserved__::SdfPath::AbsoluteRootPath(this))
   {
-    return sub_29A389594(this + 6);
+    return sub_29A389594(this + 6, a2);
   }
 
-  result = sub_29B29C7B8(v4);
+  result = sub_29B29C7B8(v5);
   if (result)
   {
-    return sub_29A389594(this + 6);
+    return sub_29A389594(this + 6, a2);
   }
 
   return result;
@@ -201,42 +267,43 @@ void sub_29A386944(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t sub_29A386980(_DWORD *a1)
 {
-  sub_29A00B6DC(&v7);
-  v2 = *(v7 - 24);
-  v3 = std::locale::classic();
-  std::ios_base::getloc((&v7 + v2));
-  std::ios_base::imbue((&v7 + v2), v3);
-  std::locale::~locale(&v13);
-  v4 = *(&v9[3].__locale_ + v2);
-  if (v4)
+  sub_29A00B6DC(&v8);
+  v3 = *(v8 - 24);
+  v4 = std::locale::classic();
+  std::ios_base::getloc((&v8 + v3));
+  std::ios_base::imbue((&v8 + v3), v4);
+  std::locale::~locale(&v14);
+  v5 = *(&v10[3].__locale_ + v3);
+  if (v5)
   {
-    (*(v4->__locale_ + 2))(v4, v3);
-    std::locale::locale(&v12, v4 + 1);
-    std::locale::operator=(v4 + 1, v3);
-    std::locale::~locale(&v12);
+    (*(v5->__locale_ + 2))(v5, v4);
+    std::locale::locale(&v13, v5 + 1);
+    std::locale::operator=(v5 + 1, v4);
+    std::locale::~locale(&v13);
   }
 
-  std::locale::~locale(&v6);
-  pxrInternal__aapl__pxrReserved__::operator<<(&v7, a1);
+  std::locale::~locale(&v7);
+  pxrInternal__aapl__pxrReserved__::operator<<(&v8, a1);
   std::stringbuf::str();
-  v7 = *MEMORY[0x29EDC9538];
-  *(&v7 + *(v7 - 24)) = *(MEMORY[0x29EDC9538] + 24);
-  v8 = MEMORY[0x29EDC9570] + 16;
-  if (v10 < 0)
+  v8 = *MEMORY[0x29EDC9538];
+  *(&v8 + *(v8 - 24)) = *(MEMORY[0x29EDC9538] + 24);
+  v9 = MEMORY[0x29EDC9570] + 16;
+  if (v11 < 0)
   {
-    operator delete(v9[7].__locale_);
+    operator delete(v10[7].__locale_);
   }
 
-  v8 = MEMORY[0x29EDC9568] + 16;
-  std::locale::~locale(v9);
+  v9 = MEMORY[0x29EDC9568] + 16;
+  std::locale::~locale(v10);
   std::ostream::~ostream();
-  return MEMORY[0x29C2C4390](&v11);
+  return MEMORY[0x29C2C4390](&v12);
 }
 
-void sub_29A386B7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
+void sub_29A386B7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, ...)
 {
+  va_start(va, a9);
   std::locale::~locale(&a9);
-  sub_29A00B848(&a10);
+  sub_29A00B848(va);
   _Unwind_Resume(a1);
 }
 
@@ -372,7 +439,7 @@ void *pxrInternal__aapl__pxrReserved__::operator<<(void *a1, unsigned int **a2)
     v3 += 12;
   }
 
-  pxrInternal__aapl__pxrReserved__::TfStringJoin(", ", v9, &__p);
+  pxrInternal__aapl__pxrReserved__::TfStringJoin(v9, ", ", &__p);
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
@@ -418,42 +485,43 @@ void sub_29A387064(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t sub_29A3870A0(unsigned int *a1)
 {
-  sub_29A00B6DC(&v7);
-  v2 = *(v7 - 24);
-  v3 = std::locale::classic();
-  std::ios_base::getloc((&v7 + v2));
-  std::ios_base::imbue((&v7 + v2), v3);
-  std::locale::~locale(&v13);
-  v4 = *(&v9[3].__locale_ + v2);
-  if (v4)
+  sub_29A00B6DC(&v8);
+  v3 = *(v8 - 24);
+  v4 = std::locale::classic();
+  std::ios_base::getloc((&v8 + v3));
+  std::ios_base::imbue((&v8 + v3), v4);
+  std::locale::~locale(&v14);
+  v5 = *(&v10[3].__locale_ + v3);
+  if (v5)
   {
-    (*(v4->__locale_ + 2))(v4, v3);
-    std::locale::locale(&v12, v4 + 1);
-    std::locale::operator=(v4 + 1, v3);
-    std::locale::~locale(&v12);
+    (*(v5->__locale_ + 2))(v5, v4);
+    std::locale::locale(&v13, v5 + 1);
+    std::locale::operator=(v5 + 1, v4);
+    std::locale::~locale(&v13);
   }
 
-  std::locale::~locale(&v6);
-  pxrInternal__aapl__pxrReserved__::operator<<(&v7, a1);
+  std::locale::~locale(&v7);
+  pxrInternal__aapl__pxrReserved__::operator<<(&v8, a1);
   std::stringbuf::str();
-  v7 = *MEMORY[0x29EDC9538];
-  *(&v7 + *(v7 - 24)) = *(MEMORY[0x29EDC9538] + 24);
-  v8 = MEMORY[0x29EDC9570] + 16;
-  if (v10 < 0)
+  v8 = *MEMORY[0x29EDC9538];
+  *(&v8 + *(v8 - 24)) = *(MEMORY[0x29EDC9538] + 24);
+  v9 = MEMORY[0x29EDC9570] + 16;
+  if (v11 < 0)
   {
-    operator delete(v9[7].__locale_);
+    operator delete(v10[7].__locale_);
   }
 
-  v8 = MEMORY[0x29EDC9568] + 16;
-  std::locale::~locale(v9);
+  v9 = MEMORY[0x29EDC9568] + 16;
+  std::locale::~locale(v10);
   std::ostream::~ostream();
-  return MEMORY[0x29C2C4390](&v11);
+  return MEMORY[0x29C2C4390](&v12);
 }
 
-void sub_29A38729C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
+void sub_29A38729C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, ...)
 {
+  va_start(va, a9);
   std::locale::~locale(&a9);
-  sub_29A00B848(&a10);
+  sub_29A00B848(va);
   _Unwind_Resume(a1);
 }
 
@@ -517,17 +585,17 @@ void pxrInternal__aapl__pxrReserved__::SdfBatchNamespaceEdit::~SdfBatchNamespace
   sub_29A34700C(&v1);
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::SdfBatchNamespaceEdit::operator=(uint64_t a1, _DWORD **a2)
+void *pxrInternal__aapl__pxrReserved__::SdfBatchNamespaceEdit::operator=(void *a1, void *a2)
 {
   if (a1 != a2)
   {
-    sub_29A389864(a1, *a2, a2[1], 0xCCCCCCCCCCCCCCCDLL * (a2[1] - *a2));
+    sub_29A389864(a1, *a2, a2[1], 0xCCCCCCCCCCCCCCCDLL * ((a2[1] - *a2) >> 2));
   }
 
   return a1;
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::SdfBatchNamespaceEdit::Process(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
+uint64_t pxrInternal__aapl__pxrReserved__::SdfBatchNamespaceEdit::Process(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
 {
   if (a2)
   {
@@ -651,7 +719,7 @@ LABEL_97:
         goto LABEL_95;
       }
 
-      pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath((v12 + 2), v30);
+      pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(v30, (v12 + 2));
       v19 = pxrInternal__aapl__pxrReserved__::SdfNamespaceEdit_Namespace::_FindOrCreateNodeAtPath(v43, v30);
       if (v19)
       {
@@ -946,35 +1014,35 @@ LABEL_119:
   return a5;
 }
 
-void sub_29A387F24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, int a19, int a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_29A387F24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, char a18, int a19, int a20, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35)
 {
-  sub_29A386F34(&a27);
-  if (a26 < 0)
+  sub_29A386F34(&a29);
+  if (a28 < 0)
   {
     operator delete(__p);
   }
 
   sub_29A1DCEA8(&a12);
   sub_29A1DCEA8(&a20);
-  sub_29A38829C(&a33);
+  sub_29A38829C(&a35);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_29A388168(uint64_t *a1, uint64_t a2)
+uint64_t sub_29A388168(uint64_t a1, uint64_t a2)
 {
-  v3 = a1[1];
-  if (v3 >= a1[2])
+  v3 = *(a1 + 8);
+  if (v3 >= *(a1 + 16))
   {
     result = sub_29A389AD0(a1, a2);
   }
 
   else
   {
-    sub_29A389C00(a1, a1[1], a2);
+    sub_29A389C00(a1, *(a1 + 8), a2);
     result = v3 + 48;
   }
 
-  a1[1] = result;
+  *(a1 + 8) = result;
   return result;
 }
 
@@ -1041,7 +1109,7 @@ uint64_t sub_29A388300(uint64_t a1, pxrInternal__aapl__pxrReserved__::SdfPath *a
   return a1;
 }
 
-uint64_t *sub_29A38834C@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *a1@<X0>, _DWORD *a2@<X8>)
+_DWORD *sub_29A38834C@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *a1@<X0>, _DWORD *a2@<X8>)
 {
   if (pxrInternal__aapl__pxrReserved__::SdfPath::IsTargetPath(a1))
   {
@@ -1072,7 +1140,7 @@ uint64_t *sub_29A38834C@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *a1@<X0>,
   return result;
 }
 
-void sub_29A3883D8(void ***a1, void **a2)
+void sub_29A3883D8(void **a1, void *a2)
 {
   v2 = *a1;
   *a1 = a2;
@@ -1101,13 +1169,13 @@ void sub_29A38842C(uint64_t a1, void *a2)
   }
 }
 
-void sub_29A388494(uint64_t a1, _DWORD *a2)
+void sub_29A388494(uint64_t a1, char *a2)
 {
   if (a2)
   {
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(a2 + 9);
     sub_29A1DE3A4(a2 + 8);
-    sub_29A3883D8(a2 + 6, 0);
+    sub_29A3883D8(a2 + 3, 0);
     sub_29A3886A8(a2);
 
     operator delete(a2);
@@ -1351,21 +1419,21 @@ _DWORD *sub_29A388AF8(_DWORD *a1, _DWORD *a2, _DWORD *a3, int a4)
   return a1;
 }
 
-uint64_t sub_29A388B5C(uint64_t a1, _DWORD *a2)
+uint64_t sub_29A388B5C(char **a1, _DWORD *a2)
 {
-  v2 = 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 8) - *a1) >> 2);
+  v2 = 0xCCCCCCCCCCCCCCCDLL * ((a1[1] - *a1) >> 2);
   v3 = v2 + 1;
   if (v2 + 1 > 0xCCCCCCCCCCCCCCCLL)
   {
     sub_29A00C9A4();
   }
 
-  if (0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 2) > v3)
+  if (0x999999999999999ALL * ((a1[2] - *a1) >> 2) > v3)
   {
-    v3 = 0x999999999999999ALL * ((*(a1 + 16) - *a1) >> 2);
+    v3 = 0x999999999999999ALL * ((a1[2] - *a1) >> 2);
   }
 
-  if (0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 16) - *a1) >> 2) >= 0x666666666666666)
+  if (0xCCCCCCCCCCCCCCCDLL * ((a1[2] - *a1) >> 2) >= 0x666666666666666)
   {
     v6 = 0xCCCCCCCCCCCCCCCLL;
   }
@@ -1391,14 +1459,14 @@ uint64_t sub_29A388B5C(uint64_t a1, _DWORD *a2)
   *(&v16 + 1) = &v7[20 * v6];
   sub_29A388C8C(a1, v15, a2);
   *&v16 = v15 + 20;
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   v9 = &v15[*a1 - v8];
   sub_29A388CE8(a1, *a1, v8, v9);
   v10 = *a1;
   *a1 = v9;
-  v11 = *(a1 + 16);
+  v11 = a1[2];
   v13 = v16;
-  *(a1 + 8) = v16;
+  *(a1 + 1) = v16;
   *&v16 = v10;
   *(&v16 + 1) = v11;
   v14 = v10;
@@ -1407,9 +1475,9 @@ uint64_t sub_29A388B5C(uint64_t a1, _DWORD *a2)
   return v13;
 }
 
-void sub_29A388C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A388C78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_29A388E84(va);
   _Unwind_Resume(a1);
 }
@@ -1618,7 +1686,7 @@ uint64_t sub_29A38902C(uint64_t a1, uint64_t a2)
   return (off_2A204C048[v5])(v8, a1, a2);
 }
 
-uint64_t *sub_29A3890E0(uint64_t **a1, void *a2)
+uint64_t *sub_29A3890E0(uint64_t ***a1, void *a2)
 {
   v4 = operator new(0x28uLL);
   v9 = v4;
@@ -1709,21 +1777,21 @@ void sub_29A38922C(uint64_t a1, char *__p)
   operator delete(__p);
 }
 
-uint64_t *sub_29A389294(uint64_t **a1, uint64_t a2, uint64_t a3, _DWORD **a4)
+uint64_t *sub_29A389294(uint64_t ***a1, uint64_t a2, uint64_t a3, _DWORD **a4, uint64_t a5)
 {
-  v6 = sub_29A38932C(a1, &v9);
-  result = *v6;
-  if (!*v6)
+  v7 = sub_29A38932C(a1, &v10, a2);
+  result = *v7;
+  if (!*v7)
   {
-    sub_29A3893B4(a1, a4, &v8);
-    sub_29A00B204(a1, v9, v6, v8);
-    return v8;
+    sub_29A3893B4(a1, a4, &v9);
+    sub_29A00B204(a1, v10, v7, v9);
+    return v9;
   }
 
   return result;
 }
 
-uint64_t sub_29A38932C(uint64_t a1, void *a2)
+void *sub_29A38932C(uint64_t a1, void *a2, uint64_t a3)
 {
   if (*(a1 + 8))
   {
@@ -1731,7 +1799,7 @@ uint64_t sub_29A38932C(uint64_t a1, void *a2)
   }
 
   *a2 = a1 + 8;
-  return a1 + 8;
+  return (a1 + 8);
 }
 
 _DWORD *sub_29A3893B4@<X0>(uint64_t a1@<X0>, _DWORD **a2@<X2>, void *a3@<X8>)
@@ -1769,15 +1837,15 @@ uint64_t *sub_29A389424(uint64_t **a1, uint64_t *a2, uint64_t *a3)
   return a3;
 }
 
-uint64_t *sub_29A38948C(uint64_t **a1, uint64_t a2, uint64_t a3, _DWORD **a4)
+uint64_t *sub_29A38948C(uint64_t ***a1, uint64_t a2, uint64_t a3, _DWORD **a4, uint64_t a5)
 {
-  v6 = sub_29A38932C(a1, &v9);
-  result = *v6;
-  if (!*v6)
+  v7 = sub_29A38932C(a1, &v10, a2);
+  result = *v7;
+  if (!*v7)
   {
-    sub_29A389524(a1, a4, &v8);
-    sub_29A00B204(a1, v9, v6, v8);
-    return v8;
+    sub_29A389524(a1, a4, &v9);
+    sub_29A00B204(a1, v10, v7, v9);
+    return v9;
   }
 
   return result;
@@ -1799,31 +1867,31 @@ _DWORD *sub_29A389524@<X0>(uint64_t a1@<X0>, _DWORD **a2@<X2>, void *a3@<X8>)
   return result;
 }
 
-uint64_t sub_29A389594(uint64_t **a1)
+uint64_t sub_29A389594(uint64_t **a1, uint64_t a2)
 {
-  v2 = sub_29A1EF6EC(a1);
-  if (a1 + 1 == v2)
+  v3 = sub_29A1EF6EC(a1, a2);
+  if (a1 + 1 == v3)
   {
     return 0;
   }
 
-  v3 = v2;
-  sub_29A03AFE8(a1, v2);
-  sub_29A1E26CC(v3 + 7);
-  operator delete(v3);
+  v4 = v3;
+  sub_29A03AFE8(a1, v3);
+  sub_29A1E26CC(v4 + 7);
+  operator delete(v4);
   return 1;
 }
 
-void *sub_29A3895F0(void *result, uint64_t a2, unint64_t a3)
+void *sub_29A3895F0(void *a1, uint64_t a2, unint64_t a3)
 {
   if (a3)
   {
-    v3 = result;
+    v3 = a1;
     sub_29A095B38(&v3, a3 >> 1);
     pxrInternal__aapl__pxrReserved__::SdfPath::operator<();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t *sub_29A389698(uint64_t **a1, uint64_t *a2, uint64_t *a3)
@@ -1966,7 +2034,7 @@ LABEL_11:
   return result;
 }
 
-void sub_29A3899D4(void *a1)
+void sub_29A3899D4(void **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -2017,7 +2085,7 @@ _DWORD *sub_29A389A40(uint64_t a1, _DWORD *a2, _DWORD *a3, int *a4)
   return v6;
 }
 
-uint64_t sub_29A389AD0(uint64_t *a1, uint64_t a2)
+uint64_t sub_29A389AD0(char **a1, uint64_t a2)
 {
   v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 4);
   v3 = v2 + 1;
@@ -2073,9 +2141,9 @@ uint64_t sub_29A389AD0(uint64_t *a1, uint64_t a2)
   return v13;
 }
 
-void sub_29A389BEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A389BEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_29A389E20(va);
   _Unwind_Resume(a1);
 }
@@ -2210,7 +2278,7 @@ _DWORD *sub_29A389E54(_DWORD *result)
   return result;
 }
 
-uint64_t *sub_29A389E9C()
+unint64_t *sub_29A389E9C()
 {
   v1 = nullsub_235;
   v1 = nullsub_236;
@@ -2224,7 +2292,7 @@ uint64_t *sub_29A389E9C()
   v1 = nullsub_244;
 }
 
-uint64_t *pxrInternal__aapl__pxrReserved__::SdfNotice::BaseLayersDidChange::GetLayers@<X0>(uint64_t **this@<X0>, uint64_t *a2@<X8>)
+void *pxrInternal__aapl__pxrReserved__::SdfNotice::BaseLayersDidChange::GetLayers@<X0>(uint64_t **this@<X0>, char **a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0;
@@ -2249,7 +2317,7 @@ uint64_t *pxrInternal__aapl__pxrReserved__::SdfNotice::BaseLayersDidChange::GetL
   return result;
 }
 
-uint64_t *sub_29A38A1A8(uint64_t *result, unint64_t a2)
+char **sub_29A38A1A8(char **result, unint64_t a2)
 {
   if (a2 > (result[2] - *result) >> 4)
   {
@@ -2286,9 +2354,9 @@ uint64_t *sub_29A38A1A8(uint64_t *result, unint64_t a2)
   return result;
 }
 
-void sub_29A38A250(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A38A250(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A0ED41C(va);
   _Unwind_Resume(a1);
 }
@@ -2303,17 +2371,17 @@ void *sub_29A38A264(void *result, uint64_t a2, char *a3)
   return result;
 }
 
-uint64_t sub_29A38A29C(uint64_t *a1, uint64_t a2)
+void *sub_29A38A29C(uint64_t a1, __int128 *a2)
 {
-  v3 = a1[1];
-  if (v3 >= a1[2])
+  v3 = *(a1 + 8);
+  if (v3 >= *(a1 + 16))
   {
     result = sub_29A38A938(a1, a2);
   }
 
   else
   {
-    v4 = *(a2 + 8);
+    v4 = *(a2 + 1);
     *v3 = *a2;
     v3[1] = v4;
     if (v4)
@@ -2321,10 +2389,10 @@ uint64_t sub_29A38A29C(uint64_t *a1, uint64_t a2)
       atomic_fetch_add_explicit((v4 + 8), 1u, memory_order_relaxed);
     }
 
-    result = (v3 + 2);
+    result = v3 + 2;
   }
 
-  a1[1] = result;
+  *(a1 + 8) = result;
   return result;
 }
 
@@ -2595,7 +2663,7 @@ uint64_t sub_29A38A904(uint64_t a1)
   return result;
 }
 
-uint64_t sub_29A38A938(uint64_t *a1, __int128 *a2)
+uint64_t sub_29A38A938(char **a1, __int128 *a2)
 {
   v2 = (a1[1] - *a1) >> 4;
   v3 = v2 + 1;
@@ -2644,7 +2712,7 @@ uint64_t sub_29A38A938(uint64_t *a1, __int128 *a2)
 
   *&v19 = v9 + 16;
   v11 = a1[1];
-  v12 = &v9[*a1 - v11];
+  v12 = &(*a1)[v9 - v11];
   sub_29A38A848(a1, *a1, v11, v12);
   v13 = *a1;
   *a1 = v12;
@@ -2659,23 +2727,52 @@ uint64_t sub_29A38A938(uint64_t *a1, __int128 *a2)
   return v16;
 }
 
-void sub_29A38AA40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A38AA40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_29A0ED41C(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t *sub_29A38AA54()
+unint64_t *sub_29A38AA54()
 {
-  pxrInternal__aapl__pxrReserved__::TfType::_DefineImpl(&unk_2A2047358, 0, 0, 0, 1, 1, 0);
+  pxrInternal__aapl__pxrReserved__::TfType::_DefineImpl(&stru_2A2047358, 0, 0, 0, 1, 1, 0);
 
-  return pxrInternal__aapl__pxrReserved__::TfType::_DefineImpl(&unk_2A2047D60, 0, 0, 0, 40, 0, 0);
+  return pxrInternal__aapl__pxrReserved__::TfType::_DefineImpl(&stru_2A2047D60, 0, 0, 0, 40, 0, 0);
+}
+
+void *pxrInternal__aapl__pxrReserved__::operator<<(void *a1)
+{
+  return sub_29A00911C(a1, "OpaqueValue", 11);
+}
+
+{
+  return sub_29A00911C(a1, "None", 4);
+}
+
+{
+  sub_29A00911C(a1, "HdMaterialNetwork Params: (...) ", 32);
+  return a1;
+}
+
+{
+  sub_29A00911C(a1, "HdMaterialNetworkMap Params: (...) ", 35);
+  return a1;
+}
+
+{
+  sub_29A00911C(a1, "HdMaterialNode2 Params: (...) ", 30);
+  return a1;
+}
+
+{
+  sub_29A00911C(a1, "HdTopology()", 12);
+  return a1;
 }
 
 void sub_29A38AACC()
 {
-  pxrInternal__aapl__pxrReserved__::TfType::_DefineImpl(&unk_2A20471A0, 0, 0, 0, 8, 0, 0);
+  pxrInternal__aapl__pxrReserved__::TfType::_DefineImpl(&stru_2A20471A0, 0, 0, 0, 8, 0, 0);
   v0 = pxrInternal__aapl__pxrReserved__::TfType::_DefineImpl(&stru_2A2048EF0, 0, 0, 0, 24, 0, 0);
   v1 = *pxrInternal__aapl__pxrReserved__::TfType::GetRoot(v0);
   sub_29A008E78(__p, "vector<SdfPath>");
@@ -2767,7 +2864,7 @@ void sub_29A38AC9C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t *pxrInternal__aapl__pxrReserved__::SdfPath::EmptyPath(pxrInternal__aapl__pxrReserved__::SdfPath *this)
 {
-  if ((atomic_load_explicit(&qword_2A173F9E8, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(byte_2A173F9E8, memory_order_acquire) & 1) == 0)
   {
     sub_29B29C8C4();
   }
@@ -2980,7 +3077,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::SdfPath::IsPrimVariantSelectionPath(p
   return result;
 }
 
-unsigned __int8 *pxrInternal__aapl__pxrReserved__::SdfPath::IsPrimOrPrimVariantSelectionPath(pxrInternal__aapl__pxrReserved__::SdfPath *this)
+uint64_t pxrInternal__aapl__pxrReserved__::SdfPath::IsPrimOrPrimVariantSelectionPath(pxrInternal__aapl__pxrReserved__::SdfPath *this)
 {
   if (pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(this + 1))
   {
@@ -2990,15 +3087,7 @@ unsigned __int8 *pxrInternal__aapl__pxrReserved__::SdfPath::IsPrimOrPrimVariantS
   result = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::GetPtr(this);
   if (result)
   {
-    if (result[14] - 1 >= 2)
-    {
-      return (*this == *pxrInternal__aapl__pxrReserved__::SdfPath::ReflexiveRelativePath(result));
-    }
-
-    else
-    {
-      return 1;
-    }
+    return *(result + 14) - 1 < 2 || *this == *pxrInternal__aapl__pxrReserved__::SdfPath::ReflexiveRelativePath(result);
   }
 
   return result;
@@ -3081,7 +3170,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::SdfPath::IsExpressionPath(pxrInternal
   return result;
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::SdfPath::GetAsToken@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, void *a2@<X8>)
+uint64_t *pxrInternal__aapl__pxrReserved__::SdfPath::GetAsToken@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, uint64_t *a2@<X8>)
 {
   result = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::operator BOOL(this);
   if (result)
@@ -3089,7 +3178,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::SdfPath::GetAsToken@<X0>(pxrInternal_
     Ptr = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::GetPtr(this);
     v6 = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::GetPtr(this + 1);
 
-    return pxrInternal__aapl__pxrReserved__::Sdf_PathNode::GetPathAsToken(Ptr, v6, v7);
+    return pxrInternal__aapl__pxrReserved__::Sdf_PathNode::GetPathAsToken(Ptr, v6, v7, a2);
   }
 
   else
@@ -3100,7 +3189,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::SdfPath::GetAsToken@<X0>(pxrInternal_
   return result;
 }
 
-char *pxrInternal__aapl__pxrReserved__::SdfPath::GetAsString@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, uint64_t a2@<X8>)
+void **pxrInternal__aapl__pxrReserved__::SdfPath::GetAsString@<X0>(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>)
 {
   AsToken = pxrInternal__aapl__pxrReserved__::SdfPath::GetAsToken(this, &v6);
   if ((v6 & 0xFFFFFFFFFFFFFFF8) != 0)
@@ -3113,16 +3202,16 @@ char *pxrInternal__aapl__pxrReserved__::SdfPath::GetAsString@<X0>(pxrInternal__a
     result = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(AsToken);
   }
 
-  if (result[23] < 0)
+  if (*(result + 23) < 0)
   {
-    result = sub_29A008D14(a2, *result, *(result + 1));
+    result = sub_29A008D14(a1, *result, result[1]);
   }
 
   else
   {
     v5 = *result;
-    *(a2 + 16) = *(result + 2);
-    *a2 = v5;
+    a1[2] = result[2];
+    *a1 = v5;
   }
 
   if ((v6 & 7) != 0)
@@ -3183,17 +3272,17 @@ const char *pxrInternal__aapl__pxrReserved__::SdfPath::GetText(pxrInternal__aapl
   return result;
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::SdfPath::GetPrefixes@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, void *a2@<X8>)
+uint64_t *pxrInternal__aapl__pxrReserved__::SdfPath::GetPrefixes@<X0>(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>)
 {
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  return pxrInternal__aapl__pxrReserved__::SdfPath::GetPrefixes(this, a2, 0);
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  return pxrInternal__aapl__pxrReserved__::SdfPath::GetPrefixes(this, a1, 0);
 }
 
-void sub_29A38B5C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A38B5C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1E234C(va);
   _Unwind_Resume(a1);
 }
@@ -3206,9 +3295,9 @@ uint64_t pxrInternal__aapl__pxrReserved__::SdfPath::GetPrefixes@<X0>(pxrInternal
   return pxrInternal__aapl__pxrReserved__::SdfPath::GetPrefixes(this, a3, a2);
 }
 
-void sub_29A38B624(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A38B624(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1E234C(va);
   _Unwind_Resume(a1);
 }
@@ -3286,7 +3375,7 @@ void **sub_29A38B6A4(void **result, unint64_t a2)
         result = sub_29A1E230C(v2, v3);
       }
 
-      *(v2 + 8) = v6;
+      v2[1] = v6;
     }
   }
 
@@ -3421,7 +3510,7 @@ LABEL_22:
 
 char *pxrInternal__aapl__pxrReserved__::SdfPath::GetElementString@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, uint64_t a2@<X8>)
 {
-  pxrInternal__aapl__pxrReserved__::SdfPath::GetElementToken(this, &v6);
+  pxrInternal__aapl__pxrReserved__::SdfPath::GetElementToken(&v6, this);
   if ((v6 & 0xFFFFFFFFFFFFFFF8) != 0)
   {
     result = ((v6 & 0xFFFFFFFFFFFFFFF8) + 16);
@@ -3452,7 +3541,7 @@ char *pxrInternal__aapl__pxrReserved__::SdfPath::GetElementString@<X0>(pxrIntern
   return result;
 }
 
-void pxrInternal__aapl__pxrReserved__::SdfPath::GetElementToken(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, atomic_uint **a2@<X8>)
+void pxrInternal__aapl__pxrReserved__::SdfPath::GetElementToken(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>)
 {
   if (pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(this + 1))
   {
@@ -3464,7 +3553,7 @@ void pxrInternal__aapl__pxrReserved__::SdfPath::GetElementToken(pxrInternal__aap
     if (!pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::operator BOOL(this))
     {
 LABEL_7:
-      *a2 = 0;
+      *a1 = 0;
       return;
     }
 
@@ -3474,13 +3563,13 @@ LABEL_7:
   if (Ptr->__r_.__value_.__s.__data_[14] == 1)
   {
     v5 = Ptr->__r_.__value_.__r.__words[2];
-    *a2 = v5;
+    *a1 = v5;
     if ((v5 & 7) != 0)
     {
       v6 = (v5 & 0xFFFFFFFFFFFFFFF8);
       if ((atomic_fetch_add_explicit(v6, 2u, memory_order_relaxed) & 1) == 0)
       {
-        *a2 = v6;
+        *a1 = v6;
       }
     }
   }
@@ -3492,16 +3581,16 @@ LABEL_7:
       goto LABEL_7;
     }
 
-    pxrInternal__aapl__pxrReserved__::Sdf_PathNode::_GetElementImpl(Ptr, a2);
+    pxrInternal__aapl__pxrReserved__::Sdf_PathNode::_GetElementImpl(Ptr, a1);
   }
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::SdfPath::ReplaceName@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::TfToken *a2@<X1>, int *a3@<X8>)
+_DWORD *pxrInternal__aapl__pxrReserved__::SdfPath::ReplaceName@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::TfToken *a2@<X1>, uint64_t *a3@<X8>)
 {
   if (pxrInternal__aapl__pxrReserved__::SdfPath::IsPrimPath(this))
   {
-    pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(this, v11);
-    pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild(v11, a2, a3);
+    pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(v11, this);
+    pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild(a3, v11, a2);
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(v11 + 1);
     return sub_29A1DE3A4(v11);
   }
@@ -3509,8 +3598,8 @@ _DWORD *pxrInternal__aapl__pxrReserved__::SdfPath::ReplaceName@<X0>(pxrInternal_
   Ptr = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::GetPtr(this + 1);
   if (Ptr && *(Ptr + 14) == 3)
   {
-    pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(this, v11);
-    pxrInternal__aapl__pxrReserved__::SdfPath::AppendProperty(v11, a2, a3);
+    pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(v11, this);
+    pxrInternal__aapl__pxrReserved__::SdfPath::AppendProperty(a3, v11, a2);
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(v11 + 1);
     return sub_29A1DE3A4(v11);
   }
@@ -3518,8 +3607,8 @@ _DWORD *pxrInternal__aapl__pxrReserved__::SdfPath::ReplaceName@<X0>(pxrInternal_
   v7 = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::GetPtr(this + 1);
   if (v7 && *(v7 + 14) == 6)
   {
-    pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(this, v11);
-    pxrInternal__aapl__pxrReserved__::SdfPath::AppendRelationalAttribute(v11, a2, a3);
+    pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(v11, this);
+    pxrInternal__aapl__pxrReserved__::SdfPath::AppendRelationalAttribute(a3, v11, a2);
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(v11 + 1);
     return sub_29A1DE3A4(v11);
   }
@@ -3550,14 +3639,14 @@ _DWORD *pxrInternal__aapl__pxrReserved__::SdfPath::ReplaceName@<X0>(pxrInternal_
   return pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(a3 + 1);
 }
 
-void sub_29A38BD84(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A38BD84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, _DWORD *a2@<X8>)
+uint64_t *pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath@<X0>(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>)
 {
   if (pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::operator BOOL(this))
   {
@@ -3565,8 +3654,8 @@ _DWORD *pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath@<X0>(pxrInterna
     {
       Ptr = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::GetPtr(this + 1);
       Handle = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::GetHandle(*Ptr);
-      sub_29A1E21F4(a2, this);
-      sub_29A1E2240(a2 + 1, &Handle);
+      sub_29A1E21F4(a1, this);
+      sub_29A1E2240(a1 + 1, &Handle);
       return pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&Handle);
     }
 
@@ -3677,7 +3766,7 @@ LABEL_24:
 LABEL_27:
       v12 = *v7;
 
-      return sub_29A392268(a2, v12, 0);
+      return sub_29A392268(a1, v12, 0);
     }
 
 LABEL_30:
@@ -3689,22 +3778,22 @@ LABEL_30:
 
     pxrInternal__aapl__pxrReserved__::Sdf_PathNode::FindOrCreatePrim(v7, v13 + 6, &v19, sub_29A3922C4, &v18);
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v17);
-    sub_29A1DDD84(a2, &v18);
-    sub_29A1DDDC0(a2 + 1, &v17);
+    sub_29A1DDD84(a1, &v18);
+    sub_29A1DDDC0(a1 + 1, &v17);
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v17);
     return sub_29A1DE3A4(&v18);
   }
 
-  sub_29A1E21F4(a2, this);
+  sub_29A1E21F4(a1, this);
 
-  return sub_29A1E2240(a2 + 1, this + 1);
+  return sub_29A1E2240(a1 + 1, this + 1);
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::TfToken *a2@<X1>, _DWORD *a3@<X8>)
+uint64_t *pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild@<X0>(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::TfToken *a3@<X1>)
 {
   if (pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(this + 1))
   {
-    return sub_29B29C940(a2, this, a3);
+    return sub_29B29C940(a3, this, a1);
   }
 
   v6 = off_2A1B71A90();
@@ -3716,13 +3805,13 @@ _DWORD *pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild@<X0>(pxrInternal_
     *v17 = sub_29A394050(v7);
   }
 
-  v8 = bswap64(0x9E3779B97F4A7C55 * (*a2 & 0xFFFFFFFFFFFFFFF8));
+  v8 = bswap64(0x9E3779B97F4A7C55 * (*a3 & 0xFFFFFFFFFFFFFFF8));
   v9 = bswap64(0x9E3779B97F4A7C55 * (((v8 + (*this >> 8) + (v8 + (*this >> 8)) * (v8 + (*this >> 8))) >> 1) + (*this >> 8)));
   v10 = 1;
   while (1)
   {
     v11 = v7 + 16 * (v9 & 0x3FFF);
-    if (pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::operator==(v11, this) && (*a2 ^ *(v11 + 8)) <= 7)
+    if (pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::operator==(v11, this) && (*a3 ^ *(v11 + 8)) <= 7)
     {
       break;
     }
@@ -3748,18 +3837,18 @@ LABEL_13:
   sub_29A1DE3A4(v21);
   if (pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::operator BOOL(&v23))
   {
-    sub_29A1DDD84(a3, &v23);
-    sub_29A1DDDC0(a3 + 1, &v24);
+    sub_29A1DDD84(a1, &v23);
+    sub_29A1DDDC0(a1 + 1, &v24);
   }
 
   else
   {
     v21[0] = this;
-    v21[1] = a2;
+    v21[1] = a3;
     v21[2] = &v22;
     v22 = 0;
     Ptr = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::GetPtr(this);
-    pxrInternal__aapl__pxrReserved__::Sdf_PathNode::FindOrCreatePrim(Ptr, a2, v21, sub_29A3922CC, &v20);
+    pxrInternal__aapl__pxrReserved__::Sdf_PathNode::FindOrCreatePrim(Ptr, a3, v21, sub_29A3922CC, &v20);
     if (pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::operator BOOL(&v20))
     {
       goto LABEL_16;
@@ -3771,18 +3860,18 @@ LABEL_13:
       v18 = sub_29A393E28(&pxrInternal__aapl__pxrReserved__::SdfPathTokens);
     }
 
-    if ((*(v18 + 6) ^ *a2) > 7)
+    if ((*(v18 + 6) ^ *a3) > 7)
     {
 LABEL_16:
       pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v19);
-      sub_29A1DDD84(a3, &v20);
-      sub_29A1DDDC0(a3 + 1, &v19);
+      sub_29A1DDD84(a1, &v20);
+      sub_29A1DDDC0(a1 + 1, &v19);
       pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v19);
     }
 
     else
     {
-      pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(this, a3);
+      pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(a1, this);
     }
 
     sub_29A1DE3A4(&v20);
@@ -3793,18 +3882,18 @@ LABEL_16:
   return sub_29A1DE3A4(&v23);
 }
 
-void sub_29A38C2D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, int a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14, int a15)
+void sub_29A38C2D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, int a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14, int a16)
 {
   sub_29A1DE3A4(&a10);
   sub_29A38D42C(&a14);
-  sub_29A1DCEA8(&a15);
+  sub_29A1DCEA8(&a16);
   _Unwind_Resume(a1);
 }
 
-void pxrInternal__aapl__pxrReserved__::SdfPath::AppendProperty(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::TfToken *a2@<X1>, int *a3@<X8>)
+void pxrInternal__aapl__pxrReserved__::SdfPath::AppendProperty(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::TfToken *a3@<X1>)
 {
-  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(a3);
-  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(a3 + 1);
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(a1);
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(a1 + 1);
   if (pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(this + 1))
   {
     v19 = "sdf/path.cpp";
@@ -3812,7 +3901,7 @@ void pxrInternal__aapl__pxrReserved__::SdfPath::AppendProperty(pxrInternal__aapl
     v21 = 933;
     v22 = "SdfPath pxrInternal__aapl__pxrReserved__::SdfPath::AppendProperty(const TfToken &) const";
     v23 = 0;
-    v12 = *a2 & 0xFFFFFFFFFFFFFFF8;
+    v12 = *a3 & 0xFFFFFFFFFFFFFFF8;
     if (v12)
     {
       v13 = (v12 + 16);
@@ -3849,22 +3938,22 @@ void pxrInternal__aapl__pxrReserved__::SdfPath::AppendProperty(pxrInternal__aapl
   {
     v18 = 0;
     v19 = this;
-    v20 = a2;
+    v20 = a3;
     v21 = &v18;
     v6 = off_2A1B71AC0();
     v7 = *v6;
     if (!*v6)
     {
-      sub_29B29CA20(v6, v24);
-      v7 = v24[0];
+      sub_29B29CA20(v6, &v24);
+      v7 = v24;
     }
 
     v8 = 1;
-    v9 = bswap64(2135587925 * (*a2 & 0xFFF8)) >> 54;
+    v9 = bswap64(2135587925 * (*a3 & 0xFFF8)) >> 54;
     while (1)
     {
       v10 = *(v7 + 16 * (v9 & 0x3FF));
-      if ((v10 ^ *a2) <= 7)
+      if ((v10 ^ *a3) <= 7)
       {
         break;
       }
@@ -3893,13 +3982,13 @@ LABEL_13:
     if (!pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v17))
     {
       pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::GetPtr(this);
-      pxrInternal__aapl__pxrReserved__::Sdf_PathNode::FindOrCreatePrimProperty(a2, &v19, sub_29A39283C, v24);
+      pxrInternal__aapl__pxrReserved__::Sdf_PathNode::FindOrCreatePrimProperty(a3, &v19, sub_29A39283C, &v24);
       pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle,false,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
     }
 
     if (pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v17))
     {
-      sub_29A2258F0(a3, this);
+      sub_29A2258F0(a1, this);
       pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle,false,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
     }
 
@@ -3908,35 +3997,35 @@ LABEL_13:
   }
 }
 
-void ***pxrInternal__aapl__pxrReserved__::SdfPath::AppendRelationalAttribute@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::TfToken *a2@<X1>, _DWORD *a3@<X8>)
+void ***pxrInternal__aapl__pxrReserved__::SdfPath::AppendRelationalAttribute@<X0>(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::TfToken *a3@<X1>)
 {
   v9[0] = this;
-  v9[1] = a2;
+  v9[1] = a3;
   v9[2] = &v10;
   v10 = 0;
   Ptr = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::GetPtr(this + 1);
-  pxrInternal__aapl__pxrReserved__::Sdf_PathNode::FindOrCreateRelationalAttribute(Ptr, a2, v9, sub_29A392F60, &v8);
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNode::FindOrCreateRelationalAttribute(Ptr, a3, v9, sub_29A392F60, &v8);
   if (pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v8))
   {
-    sub_29A1E21F4(a3, this);
-    sub_29A1E2240(a3 + 1, &v8);
+    sub_29A1E21F4(a1, this);
+    sub_29A1E2240(a1 + 1, &v8);
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v8);
   }
 
   else
   {
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v8);
-    *a3 = 0;
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(a3);
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(a3 + 1);
+    *a1 = 0;
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(a1);
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(a1 + 1);
   }
 
   return sub_29A38D42C(&v10);
 }
 
-void sub_29A38C71C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29A38C71C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   sub_29A38D42C(va);
   _Unwind_Resume(a1);
 }
@@ -4024,11 +4113,11 @@ uint64_t pxrInternal__aapl__pxrReserved__::SdfPath::GetAllTargetPathsRecursively
   return result;
 }
 
-std::string *pxrInternal__aapl__pxrReserved__::SdfPath::GetVariantSelection@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, uint64_t a2@<X8>)
+std::string *pxrInternal__aapl__pxrReserved__::SdfPath::GetVariantSelection@<X0>(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>)
 {
-  *(a2 + 16) = 0u;
-  *(a2 + 32) = 0u;
-  *a2 = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
+  *a1 = 0u;
   result = pxrInternal__aapl__pxrReserved__::SdfPath::IsPrimVariantSelectionPath(this);
   if (result)
   {
@@ -4054,7 +4143,7 @@ std::string *pxrInternal__aapl__pxrReserved__::SdfPath::GetVariantSelection@<X0>
       EmptyString = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(Ptr);
     }
 
-    v8 = std::string::operator=(a2, EmptyString);
+    v8 = std::string::operator=(a1, EmptyString);
     if ((v6[1] & 0xFFFFFFFFFFFFFFF8) != 0)
     {
       v9 = ((v6[1] & 0xFFFFFFFFFFFFFFF8) + 16);
@@ -4065,7 +4154,7 @@ std::string *pxrInternal__aapl__pxrReserved__::SdfPath::GetVariantSelection@<X0>
       v9 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v8);
     }
 
-    return std::string::operator=((a2 + 24), v9);
+    return std::string::operator=(a1 + 1, v9);
   }
 
   return result;
@@ -4150,7 +4239,7 @@ BOOL pxrInternal__aapl__pxrReserved__::SdfPath::HasPrefix(pxrInternal__aapl__pxr
   return result;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::SdfPath::GetPrimPath@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, _DWORD *a2@<X8>)
+uint64_t *pxrInternal__aapl__pxrReserved__::SdfPath::GetPrimPath@<X0>(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>)
 {
   for (i = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::GetPtr(this); i; i = *i)
   {
@@ -4160,7 +4249,7 @@ _DWORD *pxrInternal__aapl__pxrReserved__::SdfPath::GetPrimPath@<X0>(pxrInternal_
     }
   }
 
-  return sub_29A392268(a2, i, 0);
+  return sub_29A392268(a1, i, 0);
 }
 
 _DWORD *pxrInternal__aapl__pxrReserved__::SdfPath::GetPrimOrPrimVariantSelectionPath@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, _DWORD *a2@<X8>)
@@ -4176,7 +4265,7 @@ _DWORD *pxrInternal__aapl__pxrReserved__::SdfPath::GetPrimOrPrimVariantSelection
   return sub_29A392268(a2, i, 0);
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::SdfPath::GetAbsoluteRootOrPrimPath@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, _DWORD *a2@<X8>)
+uint64_t *pxrInternal__aapl__pxrReserved__::SdfPath::GetAbsoluteRootOrPrimPath@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, uint64_t *a2@<X8>)
 {
   if (*this == *pxrInternal__aapl__pxrReserved__::SdfPath::AbsoluteRootPath(this))
   {
@@ -4188,11 +4277,11 @@ _DWORD *pxrInternal__aapl__pxrReserved__::SdfPath::GetAbsoluteRootOrPrimPath@<X0
   else
   {
 
-    return pxrInternal__aapl__pxrReserved__::SdfPath::GetPrimPath(this, a2);
+    return pxrInternal__aapl__pxrReserved__::SdfPath::GetPrimPath(a2, this);
   }
 }
 
-void pxrInternal__aapl__pxrReserved__::SdfPath::StripAllVariantSelections(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, int *a2@<X8>)
+void pxrInternal__aapl__pxrReserved__::SdfPath::StripAllVariantSelections(pxrInternal__aapl__pxrReserved__::SdfPath *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>)
 {
   Ptr = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::GetPtr(this);
   if (Ptr && (*(Ptr + 15) & 2) != 0)
@@ -4225,14 +4314,14 @@ void pxrInternal__aapl__pxrReserved__::SdfPath::StripAllVariantSelections(pxrInt
       v6 = 0;
     }
 
-    sub_29A392268(a2, *(v6 - 1), 0);
+    sub_29A392268(a1, *(v6 - 1), 0);
     if (v10 - 1 != __p)
     {
-      sub_29A38CCFC(a2, *(v10 - 2), &v7);
+      sub_29A38CCFC(&v7, a1, *(v10 - 2));
       pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
     }
 
-    sub_29A225948(a2 + 1, this + 1);
+    sub_29A225948(a1 + 1, this + 1);
     if (__p)
     {
       v10 = __p;
@@ -4242,9 +4331,9 @@ void pxrInternal__aapl__pxrReserved__::SdfPath::StripAllVariantSelections(pxrInt
 
   else
   {
-    sub_29A1E21F4(a2, this);
+    sub_29A1E21F4(a1, this);
 
-    sub_29A1E2240(a2 + 1, this + 1);
+    sub_29A1E2240(a1 + 1, this + 1);
   }
 }
 
@@ -4258,19 +4347,19 @@ void sub_29A38CCC8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_29A38CCFC(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, uint64_t a2@<X1>, int *a3@<X8>)
+void sub_29A38CCFC(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, uint64_t a3@<X1>)
 {
   v3 = this;
-  v5 = *(a2 + 14);
+  v5 = *(a3 + 14);
   if (v5 > 4)
   {
-    if (*(a2 + 14) > 6u)
+    if (*(a3 + 14) > 6u)
     {
       if (v5 == 7)
       {
-        v13 = (a2 + 16);
+        v13 = (a3 + 16);
 
-        pxrInternal__aapl__pxrReserved__::SdfPath::AppendMapperArg(this, v13, a3);
+        pxrInternal__aapl__pxrReserved__::SdfPath::AppendMapperArg(a1, this, v13);
       }
 
       else
@@ -4280,15 +4369,15 @@ void sub_29A38CCFC(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, uint64_
           goto LABEL_35;
         }
 
-        pxrInternal__aapl__pxrReserved__::SdfPath::AppendExpression(this, a3);
+        pxrInternal__aapl__pxrReserved__::SdfPath::AppendExpression(a1, this);
       }
     }
 
     else if (v5 == 5)
     {
-      v11 = (a2 + 16);
+      v11 = (a3 + 16);
 
-      pxrInternal__aapl__pxrReserved__::SdfPath::AppendMapper(this, v11, a3);
+      pxrInternal__aapl__pxrReserved__::SdfPath::AppendMapper(a1, this, v11);
     }
 
     else
@@ -4298,19 +4387,19 @@ void sub_29A38CCFC(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, uint64_
         goto LABEL_35;
       }
 
-      v8 = (a2 + 16);
+      v8 = (a3 + 16);
 
-      pxrInternal__aapl__pxrReserved__::SdfPath::AppendRelationalAttribute(this, v8, a3);
+      pxrInternal__aapl__pxrReserved__::SdfPath::AppendRelationalAttribute(a1, this, v8);
     }
   }
 
-  else if (*(a2 + 14) > 2u)
+  else if (*(a3 + 14) > 2u)
   {
     if (v5 == 3)
     {
-      v12 = (a2 + 16);
+      v12 = (a3 + 16);
 
-      pxrInternal__aapl__pxrReserved__::SdfPath::AppendProperty(this, v12, a3);
+      pxrInternal__aapl__pxrReserved__::SdfPath::AppendProperty(a1, this, v12);
     }
 
     else
@@ -4320,9 +4409,9 @@ void sub_29A38CCFC(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, uint64_
         goto LABEL_35;
       }
 
-      v9 = (a2 + 16);
+      v9 = (a3 + 16);
 
-      pxrInternal__aapl__pxrReserved__::SdfPath::AppendTarget(this, v9, a3);
+      pxrInternal__aapl__pxrReserved__::SdfPath::AppendTarget(a1, this, v9);
     }
   }
 
@@ -4332,7 +4421,7 @@ void sub_29A38CCFC(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, uint64_
     {
       if (v5 == 2)
       {
-        v6 = *(a2 + 16);
+        v6 = *(a3 + 16);
         if ((*v6 & 0xFFFFFFFFFFFFFFF8) != 0)
         {
           v7 = ((*v6 & 0xFFFFFFFFFFFFFFF8) + 16);
@@ -4354,7 +4443,7 @@ void sub_29A38CCFC(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, uint64_
           EmptyString = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(this);
         }
 
-        pxrInternal__aapl__pxrReserved__::SdfPath::AppendVariantSelection(v3, v7, EmptyString, a3);
+        pxrInternal__aapl__pxrReserved__::SdfPath::AppendVariantSelection(v3, v7, EmptyString, a1);
         return;
       }
 
@@ -4366,14 +4455,14 @@ LABEL_35:
       v17 = 0;
       pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(v16, 1, "Unexpected node type %i", v5);
       pxrInternal__aapl__pxrReserved__::SdfPath::EmptyPath(v14);
-      sub_29A1E21F4(a3, &qword_2A173F9E0);
-      sub_29A1E2240(a3 + 1, &qword_2A173F9E0 + 1);
+      sub_29A1E21F4(a1, &qword_2A173F9E0);
+      sub_29A1E2240(a1 + 1, &qword_2A173F9E0 + 1);
       return;
     }
 
-    v10 = (a2 + 16);
+    v10 = (a3 + 16);
 
-    pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild(this, v10, a3);
+    pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild(a1, this, v10);
   }
 }
 
@@ -4403,7 +4492,7 @@ LABEL_19:
     v33 = 705;
     v34 = "SdfPath pxrInternal__aapl__pxrReserved__::SdfPath::AppendPath(const SdfPath &) const";
     v35 = 0;
-    pxrInternal__aapl__pxrReserved__::SdfPath::GetAsString(this, &v28);
+    pxrInternal__aapl__pxrReserved__::SdfPath::GetAsString(&v28, this);
     if (v30 >= 0)
     {
       v8 = &v28;
@@ -4432,10 +4521,10 @@ LABEL_17:
     v33 = 710;
     v34 = "SdfPath pxrInternal__aapl__pxrReserved__::SdfPath::AppendPath(const SdfPath &) const";
     v35 = 0;
-    pxrInternal__aapl__pxrReserved__::SdfPath::GetAsString(a2, &v28);
+    pxrInternal__aapl__pxrReserved__::SdfPath::GetAsString(&v28, a2);
     v10 = SHIBYTE(v30);
     v11 = v28;
-    pxrInternal__aapl__pxrReserved__::SdfPath::GetAsString(this, __p);
+    pxrInternal__aapl__pxrReserved__::SdfPath::GetAsString(__p, this);
     if (v10 >= 0)
     {
       v13 = &v28;
@@ -4533,7 +4622,7 @@ LABEL_38:
     pxrInternal__aapl__pxrReserved__::SdfPath::EmptyPath(v28);
     if (*a3 != qword_2A173F9E0)
     {
-      sub_29A38CCFC(a3, *(v25 - 1), &v31);
+      sub_29A38CCFC(&v31, a3, *(v25 - 1));
       pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
     }
 
@@ -4576,7 +4665,7 @@ void ***sub_29A38D42C(void ***a1)
           v8 = 65;
           v9 = "pxrInternal__aapl__pxrReserved__::(anonymous namespace)::_DeferredDiagnostics::~_DeferredDiagnostics()";
           v10 = 0;
-          pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v6, 1, v3 + 1);
+          pxrInternal__aapl__pxrReserved__::Tf_PostErrorHelper(&v6, 1, (v3 + 8));
         }
 
         else if (*v3 == 6)
@@ -4602,29 +4691,29 @@ void ***sub_29A38D42C(void ***a1)
 
 void ***pxrInternal__aapl__pxrReserved__::SdfPath::AppendVariantSelection@<X0>(_DWORD *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _DWORD *a4@<X8>)
 {
-  v11 = 0;
-  v10[0] = a1;
-  v10[1] = a2;
-  v10[2] = a3;
-  v10[3] = &v11;
+  v13 = 0;
+  v12[0] = a1;
+  v12[1] = a2;
+  v12[2] = a3;
+  v12[3] = &v13;
   Ptr = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::GetPtr(a1);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&v8);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&v7);
-  pxrInternal__aapl__pxrReserved__::Sdf_PathNode::FindOrCreatePrimVariantSelection(Ptr, &v8, &v7, v10, sub_29A392A64, &v9);
-  sub_29A1DDD84(a4, &v9);
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&v10, a2);
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&v9, a3);
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNode::FindOrCreatePrimVariantSelection(Ptr, &v10, &v9, v12, sub_29A392A64, &v11);
+  sub_29A1DDD84(a4, &v11);
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(a4 + 1);
-  sub_29A1DE3A4(&v9);
-  if ((v7 & 7) != 0)
+  sub_29A1DE3A4(&v11);
+  if ((v9 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v7 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v9 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
-  if ((v8 & 7) != 0)
+  if ((v10 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v8 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v10 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 
-  return sub_29A38D42C(&v11);
+  return sub_29A38D42C(&v13);
 }
 
 void sub_29A38D5F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
@@ -4643,106 +4732,106 @@ void sub_29A38D5F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void ***pxrInternal__aapl__pxrReserved__::SdfPath::AppendTarget@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::SdfPath *a2@<X1>, _DWORD *a3@<X8>)
+void ***pxrInternal__aapl__pxrReserved__::SdfPath::AppendTarget@<X0>(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::SdfPath *a3@<X1>)
 {
   v9[0] = this;
-  v9[1] = a2;
+  v9[1] = a3;
   v9[2] = &v10;
   v10 = 0;
   Ptr = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::GetPtr(this + 1);
-  pxrInternal__aapl__pxrReserved__::Sdf_PathNode::FindOrCreateTarget(Ptr, a2, v9, sub_29A392C48, &v8);
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNode::FindOrCreateTarget(Ptr, a3, v9, sub_29A392C48, &v8);
   if (pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v8))
   {
-    sub_29A1E21F4(a3, this);
-    sub_29A1E2240(a3 + 1, &v8);
+    sub_29A1E21F4(a1, this);
+    sub_29A1E2240(a1 + 1, &v8);
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v8);
   }
 
   else
   {
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v8);
-    *a3 = 0;
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(a3);
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(a3 + 1);
+    *a1 = 0;
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(a1);
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(a1 + 1);
   }
 
   return sub_29A38D42C(&v10);
 }
 
-void sub_29A38D720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29A38D720(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   sub_29A38D42C(va);
   _Unwind_Resume(a1);
 }
 
-void ***pxrInternal__aapl__pxrReserved__::SdfPath::AppendMapper@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::SdfPath *a2@<X1>, _DWORD *a3@<X8>)
+void ***pxrInternal__aapl__pxrReserved__::SdfPath::AppendMapper@<X0>(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::SdfPath *a3@<X1>)
 {
   v9[0] = this;
-  v9[1] = a2;
+  v9[1] = a3;
   v9[2] = &v10;
   v10 = 0;
   Ptr = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::GetPtr(this + 1);
-  pxrInternal__aapl__pxrReserved__::Sdf_PathNode::FindOrCreateMapper(Ptr, a2, v9, sub_29A393194, &v8);
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNode::FindOrCreateMapper(Ptr, a3, v9, sub_29A393194, &v8);
   if (pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v8))
   {
-    sub_29A1E21F4(a3, this);
-    sub_29A1E2240(a3 + 1, &v8);
+    sub_29A1E21F4(a1, this);
+    sub_29A1E2240(a1 + 1, &v8);
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v8);
   }
 
   else
   {
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v8);
-    *a3 = 0;
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(a3);
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(a3 + 1);
+    *a1 = 0;
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(a1);
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(a1 + 1);
   }
 
   return sub_29A38D42C(&v10);
 }
 
-void sub_29A38D80C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29A38D80C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   sub_29A38D42C(va);
   _Unwind_Resume(a1);
 }
 
-void ***pxrInternal__aapl__pxrReserved__::SdfPath::AppendMapperArg@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::TfToken *a2@<X1>, _DWORD *a3@<X8>)
+void ***pxrInternal__aapl__pxrReserved__::SdfPath::AppendMapperArg@<X0>(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::TfToken *a3@<X1>)
 {
   v9[0] = this;
-  v9[1] = a2;
+  v9[1] = a3;
   v9[2] = &v10;
   v10 = 0;
   Ptr = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::GetPtr(this + 1);
-  pxrInternal__aapl__pxrReserved__::Sdf_PathNode::FindOrCreateMapperArg(Ptr, a2, v9, sub_29A393548, &v8);
+  pxrInternal__aapl__pxrReserved__::Sdf_PathNode::FindOrCreateMapperArg(Ptr, a3, v9, sub_29A393548, &v8);
   if (pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v8))
   {
-    sub_29A1E21F4(a3, this);
-    sub_29A1E2240(a3 + 1, &v8);
+    sub_29A1E21F4(a1, this);
+    sub_29A1E2240(a1 + 1, &v8);
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v8);
   }
 
   else
   {
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v8);
-    *a3 = 0;
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(a3);
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(a3 + 1);
+    *a1 = 0;
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(a1);
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(a1 + 1);
   }
 
   return sub_29A38D42C(&v10);
 }
 
-void sub_29A38D8F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_29A38D8F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   sub_29A38D42C(va);
   _Unwind_Resume(a1);
 }
 
-void ***pxrInternal__aapl__pxrReserved__::SdfPath::AppendExpression@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, _DWORD *a2@<X8>)
+void ***pxrInternal__aapl__pxrReserved__::SdfPath::AppendExpression@<X0>(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>)
 {
   v7[0] = this;
   v7[1] = &v8;
@@ -4751,40 +4840,40 @@ void ***pxrInternal__aapl__pxrReserved__::SdfPath::AppendExpression@<X0>(pxrInte
   pxrInternal__aapl__pxrReserved__::Sdf_PathNode::FindOrCreateExpression(Ptr, v7, sub_29A393764, &v6);
   if (pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v6))
   {
-    sub_29A1E21F4(a2, this);
-    sub_29A1E2240(a2 + 1, &v6);
+    sub_29A1E21F4(a1, this);
+    sub_29A1E2240(a1 + 1, &v6);
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v6);
   }
 
   else
   {
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v6);
-    *a2 = 0;
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(a2);
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(a2 + 1);
+    *a1 = 0;
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(a1);
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(a1 + 1);
   }
 
   return sub_29A38D42C(&v8);
 }
 
-void sub_29A38D9D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_29A38D9D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   sub_29A38D42C(va);
   _Unwind_Resume(a1);
 }
 
-void pxrInternal__aapl__pxrReserved__::SdfPath::AppendElementString(pxrInternal__aapl__pxrReserved__::SdfPath *a1@<X0>, int *a2@<X8>)
+void pxrInternal__aapl__pxrReserved__::SdfPath::AppendElementString(pxrInternal__aapl__pxrReserved__::SdfPath *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&v4);
-  pxrInternal__aapl__pxrReserved__::SdfPath::AppendElementToken(a1, &v4, a2);
-  if ((v4 & 7) != 0)
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&v5, a2);
+  pxrInternal__aapl__pxrReserved__::SdfPath::AppendElementToken(a1, &v5, a3);
+  if ((v5 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v4 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v5 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 }
 
-void pxrInternal__aapl__pxrReserved__::SdfPath::AppendElementToken(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::TfToken *a2@<X1>, int *a3@<X8>)
+void pxrInternal__aapl__pxrReserved__::SdfPath::AppendElementToken(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::TfToken *a2@<X1>, uint64_t *a3@<X8>)
 {
   if ((*a2 & 0xFFFFFFFFFFFFFFF8) != 0)
   {
@@ -4817,15 +4906,15 @@ void pxrInternal__aapl__pxrReserved__::SdfPath::AppendElementToken(pxrInternal__
       v7 = EmptyString[1];
     }
 
-    std::string::basic_string(&v47, EmptyString, 1uLL, v7 - 2, &v49);
-    pxrInternal__aapl__pxrReserved__::SdfPath::SdfPath(&v48, &v47);
-    if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+    std::string::basic_string(&v48, EmptyString, 1uLL, v7 - 2, &v50);
+    pxrInternal__aapl__pxrReserved__::SdfPath::SdfPath(&v49, &v48);
+    if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v47.__r_.__value_.__l.__data_);
+      operator delete(v48.__r_.__value_.__l.__data_);
     }
 
-    pxrInternal__aapl__pxrReserved__::SdfPath::AppendTarget(this, &v48, a3);
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v48 + 1);
+    pxrInternal__aapl__pxrReserved__::SdfPath::AppendTarget(a3, this, &v49);
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v49 + 1);
     goto LABEL_18;
   }
 
@@ -4834,66 +4923,68 @@ void pxrInternal__aapl__pxrReserved__::SdfPath::AppendElementToken(pxrInternal__
     if (v9 != 123)
     {
 
-      pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild(this, a2, a3);
+      pxrInternal__aapl__pxrReserved__::SdfPath::AppendChild(a3, this, a2);
       return;
     }
 
-    pxrInternal__aapl__pxrReserved__::TfStringTokenize(EmptyString, "{=}", &v47);
-    v26 = 0xAAAAAAAAAAAAAAABLL * ((v47.__r_.__value_.__l.__size_ - v47.__r_.__value_.__r.__words[0]) >> 3);
-    if (v26 == 1)
+    pxrInternal__aapl__pxrReserved__::TfStringTokenize(EmptyString, "{=}", &v48);
+    v26 = v48.__r_.__value_.__r.__words[0];
+    v27 = 0xAAAAAAAAAAAAAAABLL * ((v48.__r_.__value_.__l.__size_ - v48.__r_.__value_.__r.__words[0]) >> 3);
+    if (v27 == 1)
     {
-      v27 = 0;
+      v28 = 0;
     }
 
     else
     {
-      if (v26 != 2)
+      if (v27 != 2)
       {
         pxrInternal__aapl__pxrReserved__::SdfPath::EmptyPath(v25);
         sub_29A1E21F4(a3, &qword_2A173F9E0);
         sub_29A1E2240(a3 + 1, &qword_2A173F9E0 + 1);
 LABEL_78:
-        v48 = &v47;
-        sub_29A012C90(&v48);
+        v49 = &v48;
+        sub_29A012C90(&v49);
         return;
       }
 
-      pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&v48);
-      v27 = v48;
+      pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&v49, v48.__r_.__value_.__r.__words[0] + 24);
+      v28 = v49;
+      v26 = v48.__r_.__value_.__r.__words[0];
     }
 
-    v28 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&v48);
-    if ((v48 & 0xFFFFFFFFFFFFFFF8) != 0)
+    v29 = pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&v49, v26);
+    if ((v49 & 0xFFFFFFFFFFFFFFF8) != 0)
     {
-      v29 = (v48 & 0xFFFFFFFFFFFFFFF8) + 16;
-    }
-
-    else
-    {
-      v28 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v28);
-      v29 = v28;
-    }
-
-    v30 = (v27 & 0xFFFFFFFFFFFFFFF8);
-    if ((v27 & 0xFFFFFFFFFFFFFFF8) != 0)
-    {
-      v31 = (v30 + 4);
+      v30 = (v49 & 0xFFFFFFFFFFFFFFF8) + 16;
     }
 
     else
     {
-      v31 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v28);
+      v29 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v29);
+      v30 = v29;
     }
 
-    pxrInternal__aapl__pxrReserved__::SdfPath::AppendVariantSelection(this, v29, v31, a3);
-    if ((v48 & 7) != 0)
+    v31 = (v28 & 0xFFFFFFFFFFFFFFF8);
+    if ((v28 & 0xFFFFFFFFFFFFFFF8) != 0)
     {
-      atomic_fetch_add_explicit((v48 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+      v32 = (v31 + 4);
     }
 
-    if ((v27 & 7) != 0)
+    else
     {
-      atomic_fetch_add_explicit(v30, 0xFFFFFFFE, memory_order_release);
+      v32 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v29);
+    }
+
+    pxrInternal__aapl__pxrReserved__::SdfPath::AppendVariantSelection(this, v30, v32, a3);
+    if ((v49 & 7) != 0)
+    {
+      atomic_fetch_add_explicit((v49 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    }
+
+    if ((v28 & 7) != 0)
+    {
+      atomic_fetch_add_explicit(v31, 0xFFFFFFFE, memory_order_release);
     }
 
     goto LABEL_78;
@@ -4907,86 +4998,86 @@ LABEL_78:
     {
       if ((atomic_load_explicit(&qword_2A173F9A8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A173F9A8))
       {
-        v32 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfPathTokens);
-        if (!v32)
+        v33 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfPathTokens);
+        if (!v33)
         {
-          v32 = sub_29A393E28(&pxrInternal__aapl__pxrReserved__::SdfPathTokens);
+          v33 = sub_29A393E28(&pxrInternal__aapl__pxrReserved__::SdfPathTokens);
         }
 
-        if ((*(v32 + 3) & 0xFFFFFFFFFFFFFFF8) != 0)
+        if ((*(v33 + 3) & 0xFFFFFFFFFFFFFFF8) != 0)
         {
-          v33 = ((*(v32 + 3) & 0xFFFFFFFFFFFFFFF8) + 16);
-        }
-
-        else
-        {
-          v33 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v32);
-        }
-
-        v36 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfPathTokens);
-        if (!v36)
-        {
-          v36 = sub_29A393E28(&pxrInternal__aapl__pxrReserved__::SdfPathTokens);
-        }
-
-        if ((*(v36 + 7) & 0xFFFFFFFFFFFFFFF8) != 0)
-        {
-          v37 = ((*(v36 + 7) & 0xFFFFFFFFFFFFFFF8) + 16);
+          v34 = ((*(v33 + 3) & 0xFFFFFFFFFFFFFFF8) + 16);
         }
 
         else
         {
-          v37 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v36);
+          v34 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v33);
         }
 
-        pxrInternal__aapl__pxrReserved__::Sdf_CreateIdentifier(v33, v37, &v47);
-        v40 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfPathTokens);
-        if (!v40)
+        v37 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfPathTokens);
+        if (!v37)
         {
-          v40 = sub_29A393E28(&pxrInternal__aapl__pxrReserved__::SdfPathTokens);
+          v37 = sub_29A393E28(&pxrInternal__aapl__pxrReserved__::SdfPathTokens);
         }
 
-        if ((*(v40 + 4) & 0xFFFFFFFFFFFFFFF8) != 0)
+        if ((*(v37 + 7) & 0xFFFFFFFFFFFFFFF8) != 0)
         {
-          v41 = ((*(v40 + 4) & 0xFFFFFFFFFFFFFFF8) + 16);
-        }
-
-        else
-        {
-          v41 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v40);
-        }
-
-        v42 = *(v41 + 23);
-        if (v42 >= 0)
-        {
-          v43 = v41;
+          v38 = ((*(v37 + 7) & 0xFFFFFFFFFFFFFFF8) + 16);
         }
 
         else
         {
-          v43 = *v41;
+          v38 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v37);
         }
 
-        if (v42 >= 0)
+        pxrInternal__aapl__pxrReserved__::Sdf_CreateIdentifier(v34, v38, &v48);
+        v41 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfPathTokens);
+        if (!v41)
         {
-          v44 = *(v41 + 23);
+          v41 = sub_29A393E28(&pxrInternal__aapl__pxrReserved__::SdfPathTokens);
+        }
+
+        if ((*(v41 + 4) & 0xFFFFFFFFFFFFFFF8) != 0)
+        {
+          v42 = ((*(v41 + 4) & 0xFFFFFFFFFFFFFFF8) + 16);
         }
 
         else
         {
-          v44 = v41[1];
+          v42 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v41);
         }
 
-        v45 = std::string::append(&v47, v43, v44);
-        v46 = *&v45->__r_.__value_.__l.__data_;
-        unk_2A173F9A0 = *(&v45->__r_.__value_.__l + 2);
-        xmmword_2A173F990 = v46;
-        v45->__r_.__value_.__l.__size_ = 0;
-        v45->__r_.__value_.__r.__words[2] = 0;
-        v45->__r_.__value_.__r.__words[0] = 0;
-        if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+        v43 = *(v42 + 23);
+        if (v43 >= 0)
         {
-          operator delete(v47.__r_.__value_.__l.__data_);
+          v44 = v42;
+        }
+
+        else
+        {
+          v44 = *v42;
+        }
+
+        if (v43 >= 0)
+        {
+          v45 = *(v42 + 23);
+        }
+
+        else
+        {
+          v45 = v42[1];
+        }
+
+        v46 = std::string::append(&v48, v44, v45);
+        v47 = *&v46->__r_.__value_.__l.__data_;
+        unk_2A173F9A0 = *(&v46->__r_.__value_.__l + 2);
+        xmmword_2A173F990 = v47;
+        v46->__r_.__value_.__l.__size_ = 0;
+        v46->__r_.__value_.__r.__words[2] = 0;
+        v46->__r_.__value_.__r.__words[0] = 0;
+        if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
+        {
+          operator delete(v48.__r_.__value_.__l.__data_);
         }
 
         __cxa_atexit(MEMORY[0x29EDC9388], &xmmword_2A173F990, &dword_299FE7000);
@@ -4995,39 +5086,39 @@ LABEL_78:
 
       if ((atomic_load_explicit(&qword_2A173F9C8, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_2A173F9C8))
       {
-        v34 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfPathTokens);
-        if (!v34)
+        v35 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfPathTokens);
+        if (!v35)
         {
-          v34 = sub_29A393E28(&pxrInternal__aapl__pxrReserved__::SdfPathTokens);
+          v35 = sub_29A393E28(&pxrInternal__aapl__pxrReserved__::SdfPathTokens);
         }
 
-        if ((*(v34 + 3) & 0xFFFFFFFFFFFFFFF8) != 0)
+        if ((*(v35 + 3) & 0xFFFFFFFFFFFFFFF8) != 0)
         {
-          v35 = ((*(v34 + 3) & 0xFFFFFFFFFFFFFFF8) + 16);
-        }
-
-        else
-        {
-          v35 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v34);
-        }
-
-        v38 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfPathTokens);
-        if (!v38)
-        {
-          v38 = sub_29A393E28(&pxrInternal__aapl__pxrReserved__::SdfPathTokens);
-        }
-
-        if ((*(v38 + 8) & 0xFFFFFFFFFFFFFFF8) != 0)
-        {
-          v39 = ((*(v38 + 8) & 0xFFFFFFFFFFFFFFF8) + 16);
+          v36 = ((*(v35 + 3) & 0xFFFFFFFFFFFFFFF8) + 16);
         }
 
         else
         {
-          v39 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v38);
+          v36 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v35);
         }
 
-        pxrInternal__aapl__pxrReserved__::Sdf_CreateIdentifier(v35, v39, &qword_2A173F9B0);
+        v39 = atomic_load(&pxrInternal__aapl__pxrReserved__::SdfPathTokens);
+        if (!v39)
+        {
+          v39 = sub_29A393E28(&pxrInternal__aapl__pxrReserved__::SdfPathTokens);
+        }
+
+        if ((*(v39 + 8) & 0xFFFFFFFFFFFFFFF8) != 0)
+        {
+          v40 = ((*(v39 + 8) & 0xFFFFFFFFFFFFFFF8) + 16);
+        }
+
+        else
+        {
+          v40 = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(v39);
+        }
+
+        pxrInternal__aapl__pxrReserved__::Sdf_CreateIdentifier(v36, v40, &qword_2A173F9B0);
         __cxa_atexit(MEMORY[0x29EDC9388], &qword_2A173F9B0, &dword_299FE7000);
         __cxa_guard_release(&qword_2A173F9C8);
       }
@@ -5055,7 +5146,7 @@ LABEL_78:
         v16 = byte_2A173F9C7 >= 0 ? &qword_2A173F9B0 : qword_2A173F9B0;
         if (!memcmp(v15, v16, v13))
         {
-          pxrInternal__aapl__pxrReserved__::SdfPath::AppendExpression(this, a3);
+          pxrInternal__aapl__pxrReserved__::SdfPath::AppendExpression(a3, this);
           return;
         }
       }
@@ -5079,34 +5170,34 @@ LABEL_78:
             v24 = *(&xmmword_2A173F990 + 1);
           }
 
-          std::string::basic_string(&v47, EmptyString, v24, v13 + ~v24, &v49);
-          pxrInternal__aapl__pxrReserved__::SdfPath::SdfPath(&v48, &v47);
-          if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+          std::string::basic_string(&v48, EmptyString, v24, v13 + ~v24, &v50);
+          pxrInternal__aapl__pxrReserved__::SdfPath::SdfPath(&v49, &v48);
+          if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
           {
-            operator delete(v47.__r_.__value_.__l.__data_);
+            operator delete(v48.__r_.__value_.__l.__data_);
           }
 
-          pxrInternal__aapl__pxrReserved__::SdfPath::AppendMapper(this, &v48, a3);
-          pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v48 + 1);
+          pxrInternal__aapl__pxrReserved__::SdfPath::AppendMapper(a3, this, &v49);
+          pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v49 + 1);
 LABEL_18:
-          sub_29A1DE3A4(&v48);
+          sub_29A1DE3A4(&v49);
           return;
         }
       }
     }
   }
 
-  std::string::basic_string(&v47, EmptyString, 1uLL, 0xFFFFFFFFFFFFFFFFLL, &v49);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&v48);
-  if (SHIBYTE(v47.__r_.__value_.__r.__words[2]) < 0)
+  std::string::basic_string(&v48, EmptyString, 1uLL, 0xFFFFFFFFFFFFFFFFLL, &v50);
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&v49, &v48);
+  if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v47.__r_.__value_.__l.__data_);
+    operator delete(v48.__r_.__value_.__l.__data_);
   }
 
   v22 = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::GetPtr(this + 1);
   if (v22 && *(v22 + 14) == 5)
   {
-    pxrInternal__aapl__pxrReserved__::SdfPath::AppendMapperArg(this, &v48, a3);
+    pxrInternal__aapl__pxrReserved__::SdfPath::AppendMapperArg(a3, this, &v49);
   }
 
   else
@@ -5114,18 +5205,18 @@ LABEL_18:
     v23 = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::GetPtr(this + 1);
     if (v23 && *(v23 + 14) == 4)
     {
-      pxrInternal__aapl__pxrReserved__::SdfPath::AppendRelationalAttribute(this, &v48, a3);
+      pxrInternal__aapl__pxrReserved__::SdfPath::AppendRelationalAttribute(a3, this, &v49);
     }
 
     else
     {
-      pxrInternal__aapl__pxrReserved__::SdfPath::AppendProperty(this, &v48, a3);
+      pxrInternal__aapl__pxrReserved__::SdfPath::AppendProperty(a3, this, &v49);
     }
   }
 
-  if ((v48 & 7) != 0)
+  if ((v49 & 7) != 0)
   {
-    atomic_fetch_add_explicit((v48 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
+    atomic_fetch_add_explicit((v49 & 0xFFFFFFFFFFFFFFF8), 0xFFFFFFFE, memory_order_release);
   }
 }
 
@@ -5140,7 +5231,7 @@ void sub_29A38E0CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void pxrInternal__aapl__pxrReserved__::SdfPath::_ReplacePrimPrefix(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::SdfPath *a2@<X1>, const pxrInternal__aapl__pxrReserved__::SdfPath *a3@<X2>, int *a4@<X8>)
+void pxrInternal__aapl__pxrReserved__::SdfPath::_ReplacePrimPrefix(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::SdfPath *a2@<X1>, const pxrInternal__aapl__pxrReserved__::SdfPath *a3@<X2>, pxrInternal__aapl__pxrReserved__::SdfPath *a4@<X8>)
 {
   v33 = *MEMORY[0x29EDCA608];
   Ptr = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::GetPtr(this);
@@ -5226,7 +5317,7 @@ LABEL_18:
     v22 = *&v20[v21];
     if (*(v22 + 14) != 1)
     {
-      sub_29A38CCFC(a4, v22, v30);
+      sub_29A38CCFC(&v30, a4, v22);
       pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
     }
 
@@ -5314,7 +5405,7 @@ LABEL_43:
     }
 
 LABEL_38:
-    pxrInternal__aapl__pxrReserved__::Sdf_PathNode::FindOrCreatePrim(v23, NameImpl, &v31, sub_29A3938FC, v30);
+    pxrInternal__aapl__pxrReserved__::Sdf_PathNode::FindOrCreatePrim(v23, NameImpl, &v31, sub_29A3938FC, &v30);
     pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
   }
 
@@ -5383,20 +5474,20 @@ LABEL_13:
           if (v17 == 5)
           {
             pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v18, (v16 + 16), a2, a3, 1);
-            pxrInternal__aapl__pxrReserved__::SdfPath::AppendMapper(a4, &v18, v19);
+            pxrInternal__aapl__pxrReserved__::SdfPath::AppendMapper(&v19, a4, &v18);
             pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
           }
 
-          sub_29A38CCFC(a4, v16, v19);
+          sub_29A38CCFC(&v19, a4, v16);
           pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
         }
 
         pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v18, (v16 + 16), a2, a3, 1);
-        pxrInternal__aapl__pxrReserved__::SdfPath::AppendTarget(a4, &v18, v19);
+        pxrInternal__aapl__pxrReserved__::SdfPath::AppendTarget(&v19, a4, &v18);
         pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
       }
 
-      pxrInternal__aapl__pxrReserved__::Sdf_PathNode::FindOrCreatePrimProperty((v16 + 16), &v20, sub_29A393904, v19);
+      pxrInternal__aapl__pxrReserved__::Sdf_PathNode::FindOrCreatePrimProperty((v16 + 16), &v20, sub_29A393904, &v19);
       pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle,false,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
     }
 
@@ -5467,7 +5558,7 @@ LABEL_14:
   {
     if (Ptr == pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::GetPtr(a3))
     {
-      pxrInternal__aapl__pxrReserved__::SdfPath::_ReplacePropPrefix(this, a3, a4, a5, &v16);
+      pxrInternal__aapl__pxrReserved__::SdfPath::_ReplacePropPrefix(&v16, this, a3, a4, a5);
       pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
     }
 
@@ -5484,26 +5575,26 @@ LABEL_14:
   return sub_29A1DE3A4(&v17);
 }
 
-void sub_29A38EB0C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A38EB0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
 
-void pxrInternal__aapl__pxrReserved__::SdfPath::_ReplacePropPrefix(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::SdfPath *a2@<X1>, const pxrInternal__aapl__pxrReserved__::SdfPath *a3@<X2>, int a4@<W3>, pxrInternal__aapl__pxrReserved__::SdfPath *a5@<X8>)
+void pxrInternal__aapl__pxrReserved__::SdfPath::_ReplacePropPrefix(pxrInternal__aapl__pxrReserved__::SdfPath *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::SdfPath *a3@<X1>, const pxrInternal__aapl__pxrReserved__::SdfPath *a4@<X2>, int a5@<W3>)
 {
   v32 = *MEMORY[0x29EDCA608];
   Ptr = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::GetPtr(this + 1);
-  v11 = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::GetPtr(a2 + 1);
+  v11 = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::GetPtr(a3 + 1);
   v12 = *(v11 + 12);
   v13 = *(Ptr + 12);
   if (v13 >= v12)
   {
     v14 = v11;
-    v27 = a4;
-    v15 = a2;
-    v16 = a3;
+    v27 = a5;
+    v15 = a3;
+    v16 = a4;
     v17 = v13 - v12;
     memset(v31, 0, sizeof(v31));
     if ((v13 - v12) < 0x11)
@@ -5550,8 +5641,8 @@ void pxrInternal__aapl__pxrReserved__::SdfPath::_ReplacePropPrefix(pxrInternal__
 
     if (Ptr == v14)
     {
-      sub_29A1E21F4(a5, v16);
-      sub_29A1E2240(a5 + 1, v16 + 1);
+      sub_29A1E21F4(a1, v16);
+      sub_29A1E2240(a1 + 1, v16 + 1);
       if (v20)
       {
         v24 = v19[v20 - 1];
@@ -5562,46 +5653,46 @@ void pxrInternal__aapl__pxrReserved__::SdfPath::_ReplacePropPrefix(pxrInternal__
           {
             if (v25 == 3)
             {
-              pxrInternal__aapl__pxrReserved__::Sdf_PathNode::FindOrCreatePrimProperty((v24 + 16), &v30, sub_29A39390C, v29);
+              pxrInternal__aapl__pxrReserved__::Sdf_PathNode::FindOrCreatePrimProperty((v24 + 16), &v30, sub_29A39390C, &v29);
               pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle,false,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
             }
 
-            sub_29A38CCFC(a5, v24, v29);
+            sub_29A38CCFC(&v29, a1, v24);
             pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
           }
 
           if (v27)
           {
             pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v28, (v24 + 16), v15, v16, 1);
-            pxrInternal__aapl__pxrReserved__::SdfPath::AppendTarget(a5, &v28, v29);
+            pxrInternal__aapl__pxrReserved__::SdfPath::AppendTarget(&v29, a1, &v28);
             pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
           }
 
-          sub_29A38CCFC(a5, v24, v29);
+          sub_29A38CCFC(&v29, a1, v24);
           pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
         }
 
         if (v27)
         {
           pxrInternal__aapl__pxrReserved__::SdfPath::ReplacePrefix(&v28, (v24 + 16), v15, v16, 1);
-          pxrInternal__aapl__pxrReserved__::SdfPath::AppendMapper(a5, &v28, v29);
+          pxrInternal__aapl__pxrReserved__::SdfPath::AppendMapper(&v29, a1, &v28);
           pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
         }
 
-        sub_29A38CCFC(a5, v24, v29);
+        sub_29A38CCFC(&v29, a1, v24);
         pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
       }
     }
 
     else if (v27 && (v23 = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::GetPtr(this + 1)) != 0 && (*(v23 + 15) & 4) != 0)
     {
-      pxrInternal__aapl__pxrReserved__::SdfPath::_ReplaceTargetPathPrefixes(this, v15, v16, a5);
+      pxrInternal__aapl__pxrReserved__::SdfPath::_ReplaceTargetPathPrefixes(this, v15, v16, a1);
     }
 
     else
     {
-      sub_29A1E21F4(a5, this);
-      sub_29A1E2240(a5 + 1, this + 1);
+      sub_29A1E21F4(a1, this);
+      sub_29A1E2240(a1 + 1, this + 1);
     }
 
     if (__p)
@@ -5610,17 +5701,17 @@ void pxrInternal__aapl__pxrReserved__::SdfPath::_ReplacePropPrefix(pxrInternal__
     }
   }
 
-  else if (a4 && (*(Ptr + 15) & 4) != 0)
+  else if (a5 && (*(Ptr + 15) & 4) != 0)
   {
 
-    pxrInternal__aapl__pxrReserved__::SdfPath::_ReplaceTargetPathPrefixes(this, a2, a3, a5);
+    pxrInternal__aapl__pxrReserved__::SdfPath::_ReplaceTargetPathPrefixes(this, a3, a4, a1);
   }
 
   else
   {
-    sub_29A1E21F4(a5, this);
+    sub_29A1E21F4(a1, this);
 
-    sub_29A1E2240(a5 + 1, this + 1);
+    sub_29A1E2240(a1 + 1, this + 1);
   }
 }
 
@@ -5634,7 +5725,7 @@ void sub_29A38EF8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-int *pxrInternal__aapl__pxrReserved__::SdfPath::GetCommonPrefix@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::SdfPath *a2@<X1>, int *a3@<X8>)
+int *pxrInternal__aapl__pxrReserved__::SdfPath::GetCommonPrefix@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::SdfPath *a2@<X1>, void *a3@<X8>)
 {
   if (pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::operator BOOL(a2))
   {
@@ -5954,25 +6045,25 @@ LABEL_13:
   return v5 & 1;
 }
 
-_DWORD *pxrInternal__aapl__pxrReserved__::SdfPath::ReplaceTargetPath@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::SdfPath *a2@<X1>, _DWORD *a3@<X8>)
+_DWORD *pxrInternal__aapl__pxrReserved__::SdfPath::ReplaceTargetPath@<X0>(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::SdfPath *a2@<X1>, uint64_t *a3@<X8>)
 {
   if (pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::operator BOOL(this))
   {
-    v25[0] = 0;
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(v25);
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(v25 + 1);
+    v24[0] = 0;
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(v24);
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(v24 + 1);
     v6 = *a2;
-    v7 = v25[0];
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(v25 + 1);
-    sub_29A1DE3A4(v25);
+    v7 = v24[0];
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(v24 + 1);
+    sub_29A1DE3A4(v24);
     if (v6 == v7)
     {
-      v25[0] = "sdf/path.cpp";
-      v25[1] = "ReplaceTargetPath";
-      v25[2] = 1594;
-      v25[3] = "SdfPath pxrInternal__aapl__pxrReserved__::SdfPath::ReplaceTargetPath(const SdfPath &) const";
-      v26 = 0;
-      pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(v25, "ReplaceTargetPath(): invalid new target path.", v8);
+      v24[0] = "sdf/path.cpp";
+      v24[1] = "ReplaceTargetPath";
+      v24[2] = 1594;
+      v24[3] = "SdfPath pxrInternal__aapl__pxrReserved__::SdfPath::ReplaceTargetPath(const SdfPath &) const";
+      v25 = 0;
+      pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(v24, "ReplaceTargetPath(): invalid new target path.", v8);
       *a3 = 0;
       pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(a3);
       return pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(a3 + 1);
@@ -5989,9 +6080,9 @@ _DWORD *pxrInternal__aapl__pxrReserved__::SdfPath::ReplaceTargetPath@<X0>(pxrInt
     {
       if (v11 == 4)
       {
-        pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(this, v25);
-        pxrInternal__aapl__pxrReserved__::SdfPath::AppendTarget(v25, a2, a3);
-        pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(v25 + 1);
+        pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(v24, this);
+        pxrInternal__aapl__pxrReserved__::SdfPath::AppendTarget(a3, v24, a2);
+        pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(v24 + 1);
       }
 
       else
@@ -6001,12 +6092,12 @@ _DWORD *pxrInternal__aapl__pxrReserved__::SdfPath::ReplaceTargetPath@<X0>(pxrInt
           goto LABEL_16;
         }
 
-        pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(this, v25);
-        pxrInternal__aapl__pxrReserved__::SdfPath::AppendMapper(v25, a2, a3);
-        pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(v25 + 1);
+        pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(v24, this);
+        pxrInternal__aapl__pxrReserved__::SdfPath::AppendMapper(a3, v24, a2);
+        pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(v24 + 1);
       }
 
-      v14 = v25;
+      v14 = v24;
       return sub_29A1DE3A4(v14);
     }
 
@@ -6016,12 +6107,12 @@ _DWORD *pxrInternal__aapl__pxrReserved__::SdfPath::ReplaceTargetPath@<X0>(pxrInt
       {
         if (v11 == 8)
         {
-          pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(this, &v23);
-          pxrInternal__aapl__pxrReserved__::SdfPath::ReplaceTargetPath(v25, &v23, a2);
-          pxrInternal__aapl__pxrReserved__::SdfPath::AppendExpression(v25, a3);
-          pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(v25 + 1);
-          sub_29A1DE3A4(v25);
-          pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v24);
+          pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(&v23, this);
+          pxrInternal__aapl__pxrReserved__::SdfPath::ReplaceTargetPath(&v23, a2, v24);
+          pxrInternal__aapl__pxrReserved__::SdfPath::AppendExpression(a3, v24);
+          pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(v24 + 1);
+          sub_29A1DE3A4(v24);
+          pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v23 + 1);
 LABEL_51:
           v14 = &v23;
           return sub_29A1DE3A4(v14);
@@ -6032,8 +6123,8 @@ LABEL_16:
         return sub_29A1E2240(a3 + 1, this + 1);
       }
 
-      pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(this, &v23);
-      pxrInternal__aapl__pxrReserved__::SdfPath::ReplaceTargetPath(v25, &v23, a2);
+      pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(&v23, this);
+      pxrInternal__aapl__pxrReserved__::SdfPath::ReplaceTargetPath(&v23, a2, v24);
       v13 = Ptr[14];
       if (v13 <= 2)
       {
@@ -6071,10 +6162,10 @@ LABEL_16:
 
           NameImpl = pxrInternal__aapl__pxrReserved__::Sdf_PrimVariantSelectionNode::_GetNameImpl(Ptr);
 LABEL_50:
-          pxrInternal__aapl__pxrReserved__::SdfPath::AppendMapperArg(v25, NameImpl, a3);
-          pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(v25 + 1);
-          sub_29A1DE3A4(v25);
-          pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v24);
+          pxrInternal__aapl__pxrReserved__::SdfPath::AppendMapperArg(a3, v24, NameImpl);
+          pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(v24 + 1);
+          sub_29A1DE3A4(v24);
+          pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v23 + 1);
           goto LABEL_51;
         }
       }
@@ -6116,8 +6207,8 @@ LABEL_64:
       goto LABEL_50;
     }
 
-    pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(this, &v23);
-    pxrInternal__aapl__pxrReserved__::SdfPath::ReplaceTargetPath(v25, &v23, a2);
+    pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(&v23, this);
+    pxrInternal__aapl__pxrReserved__::SdfPath::ReplaceTargetPath(&v23, a2, v24);
     v12 = Ptr[14];
     if (v12 <= 2)
     {
@@ -6163,10 +6254,10 @@ LABEL_61:
 
         v15 = pxrInternal__aapl__pxrReserved__::Sdf_PrimVariantSelectionNode::_GetNameImpl(Ptr);
 LABEL_43:
-        pxrInternal__aapl__pxrReserved__::SdfPath::AppendRelationalAttribute(v25, v15, a3);
-        pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(v25 + 1);
-        sub_29A1DE3A4(v25);
-        pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v24);
+        pxrInternal__aapl__pxrReserved__::SdfPath::AppendRelationalAttribute(a3, v24, v15);
+        pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(v24 + 1);
+        sub_29A1DE3A4(v24);
+        pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v23 + 1);
         goto LABEL_51;
       }
     }
@@ -6206,21 +6297,22 @@ LABEL_43:
   return pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(a3 + 1);
 }
 
-void sub_29A38FCE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, int a10, int a11)
+void sub_29A38FCE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  sub_29A1DCEA8(&a11);
+  va_start(va, a9);
+  sub_29A1DCEA8(va);
   sub_29A1DCEA8(&a9);
   _Unwind_Resume(a1);
 }
 
-void pxrInternal__aapl__pxrReserved__::SdfPath::MakeAbsolutePath(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::SdfPath *a2@<X1>, int *a3@<X8>)
+void pxrInternal__aapl__pxrReserved__::SdfPath::MakeAbsolutePath(pxrInternal__aapl__pxrReserved__::SdfPath *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, const pxrInternal__aapl__pxrReserved__::SdfPath *a3@<X1>)
 {
-  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(a3);
-  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(a3 + 1);
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(a1);
+  pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(a1 + 1);
   __p = 0;
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(&__p);
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&__p + 1);
-  v6 = *a2;
+  v6 = *a3;
   v7 = __p;
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&__p + 1);
   sub_29A1DE3A4(&__p);
@@ -6235,9 +6327,9 @@ void pxrInternal__aapl__pxrReserved__::SdfPath::MakeAbsolutePath(pxrInternal__aa
     return;
   }
 
-  if (pxrInternal__aapl__pxrReserved__::SdfPath::IsAbsolutePath(a2))
+  if (pxrInternal__aapl__pxrReserved__::SdfPath::IsAbsolutePath(a3))
   {
-    if (!pxrInternal__aapl__pxrReserved__::SdfPath::IsAbsoluteRootOrPrimPath(a2) && (pxrInternal__aapl__pxrReserved__::SdfPath::IsPrimVariantSelectionPath(a2) & 1) == 0)
+    if (!pxrInternal__aapl__pxrReserved__::SdfPath::IsAbsoluteRootOrPrimPath(a3) && (pxrInternal__aapl__pxrReserved__::SdfPath::IsPrimVariantSelectionPath(a3) & 1) == 0)
     {
       __p = "sdf/path.cpp";
       v20 = "MakeAbsolutePath";
@@ -6252,8 +6344,8 @@ void pxrInternal__aapl__pxrReserved__::SdfPath::MakeAbsolutePath(pxrInternal__aa
     {
       if (pxrInternal__aapl__pxrReserved__::SdfPath::IsAbsolutePath(this))
       {
-        sub_29A2258F0(a3, this);
-        sub_29A225948(a3 + 1, this + 1);
+        sub_29A2258F0(a1, this);
+        sub_29A225948(a1 + 1, this + 1);
       }
 
       else
@@ -6286,11 +6378,11 @@ void pxrInternal__aapl__pxrReserved__::SdfPath::MakeAbsolutePath(pxrInternal__aa
           while (v15 != -8);
         }
 
-        sub_29A2258F0(a3, a2);
-        sub_29A225948(a3 + 1, a2 + 1);
+        sub_29A2258F0(a1, a3);
+        sub_29A225948(a1 + 1, a3 + 1);
         if (__p != v20)
         {
-          sub_29A38CCFC(a3, *__p, &v18);
+          sub_29A38CCFC(&v18, a1, *__p);
           pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
         }
 
@@ -6301,15 +6393,15 @@ void pxrInternal__aapl__pxrReserved__::SdfPath::MakeAbsolutePath(pxrInternal__aa
         }
       }
 
-      if (pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::operator BOOL(a3))
+      if (pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::operator BOOL(a1))
       {
-        sub_29A225948(a3 + 1, this + 1);
-        TargetPath = pxrInternal__aapl__pxrReserved__::SdfPath::GetTargetPath(a3);
+        sub_29A225948(a1 + 1, this + 1);
+        TargetPath = pxrInternal__aapl__pxrReserved__::SdfPath::GetTargetPath(a1);
         if (pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::operator BOOL(TargetPath))
         {
-          pxrInternal__aapl__pxrReserved__::SdfPath::GetPrimPath(a3, &__p);
+          pxrInternal__aapl__pxrReserved__::SdfPath::GetPrimPath(&__p, a1);
           pxrInternal__aapl__pxrReserved__::SdfPath::MakeAbsolutePath(&v18, TargetPath, &__p);
-          pxrInternal__aapl__pxrReserved__::SdfPath::ReplaceTargetPath(a3, &v18, &v17);
+          pxrInternal__aapl__pxrReserved__::SdfPath::ReplaceTargetPath(a1, &v18, &v17);
           pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
         }
       }
@@ -6327,7 +6419,7 @@ void pxrInternal__aapl__pxrReserved__::SdfPath::MakeAbsolutePath(pxrInternal__aa
   }
 }
 
-void sub_29A39006C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, void *__p, uint64_t a13)
+void sub_29A39006C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13)
 {
   sub_29A1DCEA8(&a11);
   sub_29A1DCEA8(&__p);
@@ -6335,12 +6427,12 @@ void sub_29A39006C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void pxrInternal__aapl__pxrReserved__::SdfPath::MakeRelativePath(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, char **a2@<X1>, int *a3@<X8>)
+void pxrInternal__aapl__pxrReserved__::SdfPath::MakeRelativePath(uint64_t *__return_ptr a1@<X8>, pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, char **a3@<X1>)
 {
   v25 = 0;
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(&v25);
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(&v25 + 1);
-  v6 = *a2;
+  v6 = *a3;
   v7 = v25;
   pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v25 + 1);
   sub_29A1DE3A4(&v25);
@@ -6357,7 +6449,7 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  if (!pxrInternal__aapl__pxrReserved__::SdfPath::IsAbsolutePath(a2))
+  if (!pxrInternal__aapl__pxrReserved__::SdfPath::IsAbsolutePath(a3))
   {
     v25 = "sdf/path.cpp";
     v26 = "MakeRelativePath";
@@ -6368,14 +6460,14 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  if (!pxrInternal__aapl__pxrReserved__::SdfPath::IsAbsoluteRootOrPrimPath(a2) && (pxrInternal__aapl__pxrReserved__::SdfPath::IsPrimVariantSelectionPath(a2) & 1) == 0)
+  if (!pxrInternal__aapl__pxrReserved__::SdfPath::IsAbsoluteRootOrPrimPath(a3) && (pxrInternal__aapl__pxrReserved__::SdfPath::IsPrimVariantSelectionPath(a3) & 1) == 0)
   {
     v25 = "sdf/path.cpp";
     v26 = "MakeRelativePath";
     v27 = 1727;
     v28 = "SdfPath pxrInternal__aapl__pxrReserved__::SdfPath::MakeRelativePath(const SdfPath &) const";
     v29 = 0;
-    pxrInternal__aapl__pxrReserved__::SdfPath::GetAsString(a2, &__p);
+    pxrInternal__aapl__pxrReserved__::SdfPath::GetAsString(&__p, a3);
     if (v24 >= 0)
     {
       p_p = &__p;
@@ -6398,16 +6490,16 @@ LABEL_12:
   if (!pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::operator BOOL(this))
   {
 LABEL_13:
-    *a3 = 0;
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(a3);
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(a3 + 1);
+    *a1 = 0;
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::Handle(a1);
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::Handle(a1 + 1);
     return;
   }
 
   if (!pxrInternal__aapl__pxrReserved__::SdfPath::IsAbsolutePath(this))
   {
-    pxrInternal__aapl__pxrReserved__::SdfPath::MakeAbsolutePath(this, a2, &v25);
-    pxrInternal__aapl__pxrReserved__::SdfPath::MakeRelativePath(&v25, a2);
+    pxrInternal__aapl__pxrReserved__::SdfPath::MakeAbsolutePath(&v25, this, a3);
+    pxrInternal__aapl__pxrReserved__::SdfPath::MakeRelativePath(a1, &v25, a3);
     pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v25 + 1);
     sub_29A1DE3A4(&v25);
     return;
@@ -6417,9 +6509,9 @@ LABEL_13:
   v23 = 0;
   v24 = 0;
   v10 = *(pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::GetPtr(this) + 12);
-  v11 = *(pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::GetPtr(a2) + 12);
+  v11 = *(pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::GetPtr(a3) + 12);
   Ptr = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::GetPtr(this);
-  v12 = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::GetPtr(a2);
+  v12 = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle::GetPtr(a3);
   v14 = v12;
   if (v10 <= v11)
   {
@@ -6474,21 +6566,21 @@ LABEL_27:
   }
 
   v20 = pxrInternal__aapl__pxrReserved__::SdfPath::ReflexiveRelativePath(v12);
-  sub_29A1E21F4(a3, v20);
-  sub_29A1E2240(a3 + 1, v20 + 1);
+  sub_29A1E21F4(a1, v20);
+  sub_29A1E2240(a1 + 1, v20 + 1);
   if (v17)
   {
-    pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(a3, &v25);
+    pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(&v25, a1);
     pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
   }
 
   if (v23 != __p)
   {
-    sub_29A38CCFC(a3, *(v23 - 1), &v25);
+    sub_29A38CCFC(&v25, a1, *(v23 - 1));
     pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
   }
 
-  sub_29A225948(a3 + 1, this + 1);
+  sub_29A225948(a1 + 1, this + 1);
   if (__p)
   {
     v23 = __p;
@@ -6625,7 +6717,7 @@ LABEL_6:
     }
 
     v13 = v1;
-    v14 = &v1[v7];
+    v14 = v1 + v7;
     LODWORD(v8) = pxrInternal__aapl__pxrReserved__::TfUtf8CodePointIterator::_GetCodePoint(&v13);
     if ((v8 - 57344) >= 0xFFFFF800 || v8 >= 0x110000)
     {
@@ -6677,7 +6769,7 @@ LABEL_6:
       sub_29A0F26E4("string_view::substr");
     }
 
-    v1 += v4 + 1;
+    v1 = (v1 + v4 + 1);
     v2 -= v4 + 1;
   }
 
@@ -6935,7 +7027,7 @@ void pxrInternal__aapl__pxrReserved__::SdfPath::TokenizeIdentifierAsTokens(unsig
     v5 = 0xAAAAAAAAAAAAAAABLL * ((v9 - v8) >> 3);
     do
     {
-      pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&v10);
+      pxrInternal__aapl__pxrReserved__::TfToken::TfToken(&v10, v8 + v4);
       v6 = *a2;
       v7 = v10;
       v10 = *(*a2 + v3);
@@ -6992,7 +7084,7 @@ LABEL_7:
       v10 = "";
     }
 
-    pxrInternal__aapl__pxrReserved__::TfStringJoin(v10, a1, a2);
+    pxrInternal__aapl__pxrReserved__::TfStringJoin(a1, v10, a2);
   }
 
   else
@@ -7058,7 +7150,7 @@ LABEL_7:
       v16 = "";
     }
 
-    pxrInternal__aapl__pxrReserved__::TfStringJoin(v16, v17, a2);
+    pxrInternal__aapl__pxrReserved__::TfStringJoin(v17, v16, a2);
     v18 = v17;
     sub_29A012C90(&v18);
   }
@@ -7120,7 +7212,7 @@ void pxrInternal__aapl__pxrReserved__::SdfPath::JoinIdentifier(void *a1@<X0>, st
     v11 = "";
   }
 
-  pxrInternal__aapl__pxrReserved__::TfStringJoin(v11, v12, a2);
+  pxrInternal__aapl__pxrReserved__::TfStringJoin(v12, v11, a2);
   v13 = v12;
   sub_29A012C90(&v13);
 }
@@ -7294,13 +7386,13 @@ void pxrInternal__aapl__pxrReserved__::SdfPath::JoinIdentifier(pxrInternal__aapl
 {
   if ((*this & 0xFFFFFFFFFFFFFFF8) != 0)
   {
-    v6 = ((*this & 0xFFFFFFFFFFFFFFF8) + 16);
+    v5 = ((*this & 0xFFFFFFFFFFFFFFF8) + 16);
   }
 
   else
   {
     this = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(this);
-    v6 = this;
+    v5 = this;
   }
 
   if ((*a2 & 0xFFFFFFFFFFFFFFF8) != 0)
@@ -7313,7 +7405,7 @@ void pxrInternal__aapl__pxrReserved__::SdfPath::JoinIdentifier(pxrInternal__aapl
     EmptyString = pxrInternal__aapl__pxrReserved__::TfToken::_GetEmptyString(this);
   }
 
-  pxrInternal__aapl__pxrReserved__::SdfPath::JoinIdentifier(v6, EmptyString, a3);
+  pxrInternal__aapl__pxrReserved__::SdfPath::JoinIdentifier(v5, EmptyString, a3);
 }
 
 std::string *pxrInternal__aapl__pxrReserved__::SdfPath::StripNamespace@<X0>(std::string *this@<X0>, std::string *a2@<X8>)
@@ -7362,7 +7454,7 @@ std::string *pxrInternal__aapl__pxrReserved__::SdfPath::StripNamespace@<X0>(std:
   return result;
 }
 
-void pxrInternal__aapl__pxrReserved__::SdfPath::StripNamespace(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, uint64_t a2@<X8>)
+void pxrInternal__aapl__pxrReserved__::SdfPath::StripNamespace(pxrInternal__aapl__pxrReserved__::SdfPath *this@<X0>, void *a2@<X8>)
 {
   if ((*this & 0xFFFFFFFFFFFFFFF8) != 0)
   {
@@ -7375,7 +7467,7 @@ void pxrInternal__aapl__pxrReserved__::SdfPath::StripNamespace(pxrInternal__aapl
   }
 
   pxrInternal__aapl__pxrReserved__::SdfPath::StripNamespace(EmptyString, &__p);
-  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(a2);
+  pxrInternal__aapl__pxrReserved__::TfToken::TfToken(a2, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -7488,7 +7580,7 @@ LABEL_22:
 
     else
     {
-      if (v12[v6] != byte_2A173F9D0)
+      if (v12->__r_.__value_.__s.__data_[v6] != byte_2A173F9D0)
       {
         goto LABEL_17;
       }
@@ -7639,7 +7731,7 @@ LABEL_23:
   }
 }
 
-uint64_t sub_29A391640(unsigned __int8 *a1, unsigned __int8 *a2)
+uint64_t sub_29A391640(uint64_t **a1, uint64_t **a2)
 {
   v2 = *(a1 + 6);
   v3 = *(a2 + 6);
@@ -7762,71 +7854,71 @@ void *pxrInternal__aapl__pxrReserved__::operator<<(void *a1, pxrInternal__aapl__
   return sub_29A00911C(a1, v5, v6);
 }
 
-void pxrInternal__aapl__pxrReserved__::SdfPath::GetConciseRelativePaths(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X2>, void *a4@<X8>)
+void pxrInternal__aapl__pxrReserved__::SdfPath::GetConciseRelativePaths(uint64_t a1@<X0>, void *a2@<X8>, uint64_t a3@<X1>, char *a4@<X2>)
 {
-  memset(v43, 0, sizeof(v43));
+  memset(v42, 0, sizeof(v42));
+  v39 = 0;
   v40 = 0;
   v41 = 0;
-  v42 = 0;
+  v36 = 0;
   v37 = 0;
-  v38 = 0;
   v6 = *(a1 + 8);
   v27 = *a1;
   v28 = v6;
-  v39 = 0;
+  v38 = 0;
   while (v27 != v28)
   {
-    v7 = sub_29A391CE4(&v27, a2, a3);
+    v7 = sub_29A391CE4(&v27, a3, a4);
     if (!pxrInternal__aapl__pxrReserved__::SdfPath::IsAbsolutePath(*v7))
     {
-      v32 = "sdf/path.cpp";
-      v33 = "GetConciseRelativePaths";
-      v34 = 2186;
-      v35 = "static SdfPathVector pxrInternal__aapl__pxrReserved__::SdfPath::GetConciseRelativePaths(const SdfPathVector &)";
-      v36 = 0;
-      pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&v32, "argument to GetConciseRelativePaths contains a relative path.", v9);
-      *a4 = 0;
-      a4[1] = 0;
-      a4[2] = 0;
+      v31 = "sdf/path.cpp";
+      v32 = "GetConciseRelativePaths";
+      v33 = 2186;
+      v34 = "static SdfPathVector pxrInternal__aapl__pxrReserved__::SdfPath::GetConciseRelativePaths(const SdfPathVector &)";
+      v35 = 0;
+      pxrInternal__aapl__pxrReserved__::Tf_PostWarningHelper(&v31, "argument to GetConciseRelativePaths contains a relative path.", v9);
+      *a2 = 0;
+      a2[1] = 0;
+      a2[2] = 0;
       std::vector<pxrInternal__aapl__pxrReserved__::SdfPath>::__init_with_size[abi:ne200100]<pxrInternal__aapl__pxrReserved__::SdfPath*,pxrInternal__aapl__pxrReserved__::SdfPath*>();
     }
 
     v10 = sub_29A391CE4(&v27, v8, v9);
-    pxrInternal__aapl__pxrReserved__::SdfPath::GetPrimPath(*v10, &v32);
-    pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(&v32, &v44);
-    sub_29A1E28B4(v43, &v32);
-    v11 = sub_29A1E28B4(&v40, &v44);
+    pxrInternal__aapl__pxrReserved__::SdfPath::GetPrimPath(&v31, *v10);
+    pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(&v43, &v31);
+    sub_29A1E28B4(v42, &v31);
+    v11 = sub_29A1E28B4(&v39, &v43);
     v12 = pxrInternal__aapl__pxrReserved__::SdfPath::AbsoluteRootPath(v11);
-    if (v44 == *v12)
+    if (v43 == *v12)
     {
-      sub_29A1E28B4(&v37, &v32);
+      sub_29A1E28B4(&v36, &v31);
     }
 
     else
     {
-      pxrInternal__aapl__pxrReserved__::SdfPath::MakeRelativePath(&v32, &v44, &v30);
-      sub_29A377BD0(&v37, &v30);
-      pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v31);
+      pxrInternal__aapl__pxrReserved__::SdfPath::MakeRelativePath(&v30, &v31, &v43);
+      sub_29A377BD0(&v36, &v30);
+      pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v30 + 1);
       sub_29A1DE3A4(&v30);
     }
 
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v44 + 1);
-    sub_29A1DE3A4(&v44);
-    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v32 + 1);
-    sub_29A1DE3A4(&v32);
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v43 + 1);
+    sub_29A1DE3A4(&v43);
+    pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v31 + 1);
+    sub_29A1DE3A4(&v31);
     sub_29A1FABF8(&v27);
   }
 
   do
   {
+    v31 = 0;
     v32 = 0;
     v33 = 0;
-    v34 = 0;
     v27 = 0;
     v28 = 0;
     v29 = 0;
-    v13 = v37;
-    if (v38 == v37)
+    v13 = v36;
+    if (v37 == v36)
     {
       v22 = 0;
       v21 = 0;
@@ -7837,7 +7929,7 @@ void pxrInternal__aapl__pxrReserved__::SdfPath::GetConciseRelativePaths(uint64_t
     {
       v14 = 0;
       v15 = 0;
-      v16 = (v38 - v37) >> 3;
+      v16 = (v37 - v36) >> 3;
       do
       {
         v17 = 0;
@@ -7846,62 +7938,62 @@ void pxrInternal__aapl__pxrReserved__::SdfPath::GetConciseRelativePaths(uint64_t
           v16 = 1;
         }
 
-        while (v14 == v17 || *(v13 + 8 * v14) != *(v13 + 8 * v17) || *(v43[0] + 8 * v14) == *(v43[0] + 8 * v17))
+        while (v14 == v17 || *(v13 + 8 * v14) != *(v13 + 8 * v17) || *(v42[0] + 8 * v14) == *(v42[0] + 8 * v17))
         {
           if (v16 == ++v17)
           {
-            sub_29A1E28B4(&v32, (v40 + 8 * v14));
-            sub_29A1E28B4(&v27, (v37 + 8 * v14));
+            sub_29A1E28B4(&v31, (v39 + 8 * v14));
+            sub_29A1E28B4(&v27, (v36 + 8 * v14));
             goto LABEL_21;
           }
         }
 
-        pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath((v40 + 8 * v14), &v44);
-        v18 = sub_29A1E28B4(&v32, &v44);
+        pxrInternal__aapl__pxrReserved__::SdfPath::GetParentPath(&v43, (v39 + 8 * v14));
+        v18 = sub_29A1E28B4(&v31, &v43);
         v19 = pxrInternal__aapl__pxrReserved__::SdfPath::AbsoluteRootPath(v18);
-        v20 = v43[0] + 8 * v14;
-        if (v44 == *v19)
+        v20 = v42[0] + 8 * v14;
+        if (v43 == *v19)
         {
-          sub_29A1E21F4(&v30, (v43[0] + 8 * v14));
-          sub_29A1E2240(&v31, (v20 + 4));
+          sub_29A1E21F4(&v30, (v42[0] + 8 * v14));
+          sub_29A1E2240(&v30 + 1, (v20 + 4));
         }
 
         else
         {
-          pxrInternal__aapl__pxrReserved__::SdfPath::MakeRelativePath((v43[0] + 8 * v14), &v44, &v30);
+          pxrInternal__aapl__pxrReserved__::SdfPath::MakeRelativePath(&v30, (v42[0] + 8 * v14), &v43);
         }
 
         sub_29A377BD0(&v27, &v30);
-        pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v31);
+        pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v30 + 1);
         sub_29A1DE3A4(&v30);
-        pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v44 + 1);
-        sub_29A1DE3A4(&v44);
+        pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v43 + 1);
+        sub_29A1DE3A4(&v43);
         v15 = 1;
 LABEL_21:
         ++v14;
-        v13 = v37;
-        v16 = (v38 - v37) >> 3;
+        v13 = v36;
+        v16 = (v37 - v36) >> 3;
       }
 
       while (v14 < v16);
-      v21 = v32;
-      v22 = v33;
+      v21 = v31;
+      v22 = v32;
     }
 
-    sub_29A324D54(&v40, v21, v22, (v22 - v21) >> 3);
-    sub_29A324D54(&v37, v27, v28, (v28 - v27) >> 3);
-    v44 = &v27;
-    sub_29A1E234C(&v44);
-    v27 = &v32;
+    sub_29A324D54(&v39, v21, v22, (v22 - v21) >> 3);
+    sub_29A324D54(&v36, v27, v28, (v28 - v27) >> 3);
+    v43 = &v27;
+    sub_29A1E234C(&v43);
+    v27 = &v31;
     sub_29A1E234C(&v27);
   }
 
   while ((v15 & 1) != 0);
-  *a4 = 0;
-  a4[1] = 0;
-  a4[2] = 0;
-  v24 = v40;
-  if (v41 != v40)
+  *a2 = 0;
+  a2[1] = 0;
+  a2[2] = 0;
+  v24 = v39;
+  if (v40 != v39)
   {
     v25 = 0;
     v26 = 0;
@@ -7909,31 +8001,31 @@ LABEL_21:
     {
       if (*(v24 + 8 * v26) == *pxrInternal__aapl__pxrReserved__::SdfPath::AbsoluteRootPath(v23))
       {
-        v23 = sub_29A1E28B4(a4, (*a1 + v25));
+        v23 = sub_29A1E28B4(a2, (*a1 + v25));
       }
 
       else
       {
-        pxrInternal__aapl__pxrReserved__::SdfPath::MakeRelativePath((*a1 + v25), (v40 + v25), &v32);
-        sub_29A377BD0(a4, &v32);
-        pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v32 + 1);
-        v23 = sub_29A1DE3A4(&v32);
+        pxrInternal__aapl__pxrReserved__::SdfPath::MakeRelativePath(&v31, (*a1 + v25), (v39 + v25));
+        sub_29A377BD0(a2, &v31);
+        pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v31 + 1);
+        v23 = sub_29A1DE3A4(&v31);
       }
 
       ++v26;
-      v24 = v40;
+      v24 = v39;
       v25 += 8;
     }
 
-    while (v26 < (v41 - v40) >> 3);
+    while (v26 < (v40 - v39) >> 3);
   }
 
-  v32 = &v37;
-  sub_29A1E234C(&v32);
-  v32 = &v40;
-  sub_29A1E234C(&v32);
-  v32 = v43;
-  sub_29A1E234C(&v32);
+  v31 = &v36;
+  sub_29A1E234C(&v31);
+  v31 = &v39;
+  sub_29A1E234C(&v31);
+  v31 = v42;
+  sub_29A1E234C(&v31);
 }
 
 void sub_29A391BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, char a22)
@@ -7957,7 +8049,7 @@ void *sub_29A391CE4(void *result, uint64_t a2, char *a3)
   return result;
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::SdfPath::RemoveDescendentPaths(int **a1)
+uint64_t pxrInternal__aapl__pxrReserved__::SdfPath::RemoveDescendentPaths(char **a1)
 {
   v2 = *a1;
   v3 = a1[1];
@@ -8015,7 +8107,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::SdfPath::RemoveDescendentPaths(int **
   return sub_29A362D50(a1, v6, a1[1]);
 }
 
-uint64_t pxrInternal__aapl__pxrReserved__::SdfPath::RemoveAncestorPaths(int **a1)
+uint64_t pxrInternal__aapl__pxrReserved__::SdfPath::RemoveAncestorPaths(char **a1)
 {
   v2 = *a1;
   v3 = a1[1];
@@ -8035,31 +8127,31 @@ uint64_t pxrInternal__aapl__pxrReserved__::SdfPath::RemoveAncestorPaths(int **a1
   v6 = a1[1];
   if (v6 != *a1)
   {
-    v8 = v6 + 2;
-    while (v8 - 4 != v7)
+    v8 = v6 + 8;
+    while (v8 - 16 != v7)
     {
-      HasPrefix = pxrInternal__aapl__pxrReserved__::SdfPath::HasPrefix((v8 - 4), (v8 - 6));
-      v8 -= 2;
+      HasPrefix = pxrInternal__aapl__pxrReserved__::SdfPath::HasPrefix((v8 - 16), (v8 - 24));
+      v8 -= 8;
       if (HasPrefix)
       {
-        v10 = v8 - 4;
-        if (v8 - 4 != v7)
+        v10 = v8 - 16;
+        if (v8 - 16 != v7)
         {
           do
           {
-            v11 = v10 - 2;
-            if (!pxrInternal__aapl__pxrReserved__::SdfPath::HasPrefix((v8 - 2), (v10 - 2)))
+            v11 = v10 - 8;
+            if (!pxrInternal__aapl__pxrReserved__::SdfPath::HasPrefix((v8 - 8), (v10 - 8)))
             {
               pxrInternal__aapl__pxrReserved__::Sdf_PathNodeHandleImpl<pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPrimTag,24u,8u,16384u>::Handle,true,pxrInternal__aapl__pxrReserved__::Sdf_PathNode const>::operator=();
             }
 
-            v10 -= 2;
+            v10 -= 8;
           }
 
           while (v11 != v7);
         }
 
-        v12 = (v8 - 2);
+        v12 = v8 - 8;
         return sub_29A362D50(a1, v7, v12);
       }
     }
@@ -8069,7 +8161,7 @@ uint64_t pxrInternal__aapl__pxrReserved__::SdfPath::RemoveAncestorPaths(int **a1
   return sub_29A362D50(a1, v7, v12);
 }
 
-void *sub_29A391F3C(void *a1, pxrInternal__aapl__pxrReserved__::SdfPath *a2, uint64_t a3, uint64_t a4)
+void *sub_29A391F3C(void *a1, pxrInternal__aapl__pxrReserved__::SdfPath *a2, char a3, uint64_t a4)
 {
   if (!a1[2])
   {
@@ -8113,7 +8205,7 @@ void *sub_29A391F3C(void *a1, pxrInternal__aapl__pxrReserved__::SdfPath *a2, uin
     {
       pxrInternal__aapl__pxrReserved__::SdfPath::GetCommonPrefix(a2, (v8 + 28), &v12);
       v8 = sub_29A391F3C(a1, &v12, 0, a4);
-      pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v13);
+      pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::operator BOOL(&v12 + 1);
       sub_29A1DE3A4(&v12);
     }
   }
@@ -8121,9 +8213,9 @@ void *sub_29A391F3C(void *a1, pxrInternal__aapl__pxrReserved__::SdfPath *a2, uin
   return v8;
 }
 
-void sub_29A392080(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29A392080(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_29A1DCEA8(va);
   _Unwind_Resume(a1);
 }
@@ -8692,8 +8784,8 @@ void sub_29A392A48(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 unsigned __int8 *sub_29A392A64(uint64_t a1)
 {
   v2 = *a1;
-  v3 = pxrInternal__aapl__pxrReserved__::SdfPath::IsPrimOrPrimVariantSelectionPath(*a1);
-  if ((v3 & 1) == 0)
+  IsPrimOrPrimVariantSelectionPath = pxrInternal__aapl__pxrReserved__::SdfPath::IsPrimOrPrimVariantSelectionPath(*a1);
+  if ((IsPrimOrPrimVariantSelectionPath & 1) == 0)
   {
     v4 = *(a1 + 8);
     if (*(v4 + 23) < 0)
@@ -8805,7 +8897,7 @@ unsigned __int8 *sub_29A392A64(uint64_t a1)
     }
   }
 
-  return v3;
+  return IsPrimOrPrimVariantSelectionPath;
 }
 
 void sub_29A392C2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
@@ -8834,7 +8926,7 @@ uint64_t sub_29A392C48(uint64_t a1)
       }
 
       v6 = sub_29A392798(*(a1 + 16));
-      sub_29A392E7C("Target path cannot be invalid.", &__p);
+      sub_29A392E7C(&__p, "Target path cannot be invalid.");
       v7 = v6[1];
       v8 = v6[2];
       if (v7 < v8)
@@ -8876,7 +8968,7 @@ uint64_t sub_29A392C48(uint64_t a1)
   }
 
   v6 = sub_29A392798(*(a1 + 16));
-  sub_29A392E7C("Can only append a target to a property path.", &__p);
+  sub_29A392E7C(&__p, "Can only append a target to a property path.");
   v7 = v6[1];
   v14 = v6[2];
   if (v7 >= v14)
@@ -8965,12 +9057,12 @@ void sub_29A392E5C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_29A392E7C(char *__s@<X0>, std::string *a2@<X8>)
+void sub_29A392E7C(std::string *__return_ptr a1@<X8>, char *__s@<X0>)
 {
   sub_29A008E78(v7, __s);
   sub_29A008E78(v5, "%%");
   sub_29A008E78(__p, "%");
-  pxrInternal__aapl__pxrReserved__::TfStringReplace(v7, v5, __p, a2);
+  pxrInternal__aapl__pxrReserved__::TfStringReplace(v7, v5, __p, a1);
   if (v4 < 0)
   {
     operator delete(__p[0]);
@@ -9022,14 +9114,14 @@ uint64_t sub_29A392F60(pxrInternal__aapl__pxrReserved__::TfToken *a1)
 
   if (pxrInternal__aapl__pxrReserved__::SdfPath::IsValidNamespacedIdentifier(EmptyString))
   {
-    Ptr = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::GetPtr((v2 + 4));
+    Ptr = pxrInternal__aapl__pxrReserved__::Sdf_Pool<pxrInternal__aapl__pxrReserved__::Sdf_PathPropTag,24u,8u,16384u>::Handle::GetPtr(v2 + 1);
     if (Ptr && *(Ptr + 14) == 4)
     {
       return 1;
     }
 
     v6 = sub_29A392798(*(a1 + 2));
-    sub_29A392E7C("Can only append a relational attribute to a target path.", &__p);
+    sub_29A392E7C(&__p, "Can only append a relational attribute to a target path.");
     v7 = v6[1];
     v14 = v6[2];
     if (v7 < v14)
@@ -9070,7 +9162,7 @@ uint64_t sub_29A392F60(pxrInternal__aapl__pxrReserved__::TfToken *a1)
   }
 
   v6 = sub_29A392798(*(a1 + 2));
-  sub_29A392E7C("Invalid property name.", &__p);
+  sub_29A392E7C(&__p, "Invalid property name.");
   v7 = v6[1];
   v8 = v6[2];
   if (v7 >= v8)
@@ -9168,13 +9260,13 @@ uint64_t sub_29A393194(pxrInternal__aapl__pxrReserved__::SdfPath **a1)
     v17 = a1[1];
     v18 = a1[2];
     v19 = v61;
-    pxrInternal__aapl__pxrReserved__::SdfPath::GetAsString(v17, v61);
+    pxrInternal__aapl__pxrReserved__::SdfPath::GetAsString(v61, v17);
     if (v62 < 0)
     {
       v19 = v61[0];
     }
 
-    pxrInternal__aapl__pxrReserved__::SdfPath::GetAsString(v2, v59);
+    pxrInternal__aapl__pxrReserved__::SdfPath::GetAsString(v59, v2);
     v20 = v60;
     v21 = v59[0];
     v24 = sub_29A392798(v18);
@@ -9280,7 +9372,7 @@ uint64_t sub_29A393194(pxrInternal__aapl__pxrReserved__::SdfPath **a1)
   }
 
   v7 = a1[2];
-  pxrInternal__aapl__pxrReserved__::SdfPath::GetAsString(v2, v61);
+  pxrInternal__aapl__pxrReserved__::SdfPath::GetAsString(v61, v2);
   v8 = v62;
   v9 = v61[0];
   v12 = sub_29A392798(v7);
@@ -9410,7 +9502,7 @@ uint64_t sub_29A393548(uint64_t *a1)
     }
 
     v5 = sub_29A392798(a1[2]);
-    sub_29A392E7C("Can only append a mapper arg to a mapper path.", &__p);
+    sub_29A392E7C(&__p, "Can only append a mapper arg to a mapper path.");
     v6 = v5[1];
     v13 = v5[2];
     if (v6 < v13)
@@ -9451,7 +9543,7 @@ uint64_t sub_29A393548(uint64_t *a1)
   }
 
   v5 = sub_29A392798(a1[2]);
-  sub_29A392E7C("Invalid arg name.", &__p);
+  sub_29A392E7C(&__p, "Invalid arg name.");
   v6 = v5[1];
   v7 = v5[2];
   if (v6 >= v7)
@@ -9553,7 +9645,7 @@ uint64_t sub_29A393764(void ****a1)
   }
 
   v6 = sub_29A392798(a1[1]);
-  sub_29A392E7C("Can only append an expression to a property path.", &__p);
+  sub_29A392E7C(&__p, "Can only append an expression to a property path.");
   v7 = v6[1];
   v8 = v6[2];
   if (v7 >= v8)
@@ -9686,8 +9778,8 @@ uint64_t sub_29A393970(unsigned __int8 *a1, unsigned __int8 *a2)
 
     if (v2 == 4)
     {
-      v12 = (a1 + 16);
-      v13 = (a2 + 16);
+      v12 = a1 + 16;
+      v13 = a2 + 16;
       if (*(a1 + 2) == *(a2 + 2))
       {
         return 0;
@@ -9706,8 +9798,8 @@ uint64_t sub_29A393970(unsigned __int8 *a1, unsigned __int8 *a2)
 
     else
     {
-      v12 = (a1 + 16);
-      v13 = (a2 + 16);
+      v12 = a1 + 16;
+      v13 = a2 + 16;
       if (*(a1 + 2) == *(a2 + 2))
       {
         return 0;

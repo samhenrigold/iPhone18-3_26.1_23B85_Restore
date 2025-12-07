@@ -18,7 +18,9 @@
 - (void)logEventForwardBackgroundContrast;
 - (void)logEventForwardEyeTracking;
 - (void)logEventForwardFacetimeCaptioning;
+- (void)logEventForwardMotionCues:(BOOL)cues;
 - (void)logEventForwardReduceMotion;
+- (void)logEventForwardSoundRecognition:(int)recognition;
 - (void)logEventForwardSpeakScreen;
 - (void)logEventForwardSpeakSelection;
 - (void)logEventForwardSystemCaptioning;
@@ -37,272 +39,252 @@
 
 + (id)entryEventForwardDefinitions
 {
-  v18[11] = *MEMORY[0x277D85DE8];
-  v17[0] = @"ReduceMotion";
+  v17[11] = *MEMORY[0x277D85DE8];
+  v16[0] = @"ReduceMotion";
   entryEventForwardNameReduceMotion = [self entryEventForwardNameReduceMotion];
-  v18[0] = entryEventForwardNameReduceMotion;
-  v17[1] = @"BackgroundContrast";
+  v17[0] = entryEventForwardNameReduceMotion;
+  v16[1] = @"BackgroundContrast";
   entryEventForwardNameBackgroundContrast = [self entryEventForwardNameBackgroundContrast];
-  v18[1] = entryEventForwardNameBackgroundContrast;
-  v17[2] = @"AssistiveTouch";
+  v17[1] = entryEventForwardNameBackgroundContrast;
+  v16[2] = @"AssistiveTouch";
   entryEventForwardNameAssistiveTouch = [self entryEventForwardNameAssistiveTouch];
-  v18[2] = entryEventForwardNameAssistiveTouch;
-  v17[3] = @"HandGestures";
+  v17[2] = entryEventForwardNameAssistiveTouch;
+  v16[3] = @"HandGestures";
   entryEventForwardNameHandGestures = [self entryEventForwardNameHandGestures];
-  v18[3] = entryEventForwardNameHandGestures;
-  v17[4] = @"VoiceControl";
+  v17[3] = entryEventForwardNameHandGestures;
+  v16[4] = @"VoiceControl";
   entryEventForwardNameVoiceControl = [self entryEventForwardNameVoiceControl];
-  v18[4] = entryEventForwardNameVoiceControl;
-  v17[5] = @"BackTap";
+  v17[4] = entryEventForwardNameVoiceControl;
+  v16[5] = @"BackTap";
   entryEventForwardNameBackTap = [self entryEventForwardNameBackTap];
-  v18[5] = entryEventForwardNameBackTap;
-  v17[6] = @"SoundRecognition";
+  v17[5] = entryEventForwardNameBackTap;
+  v16[6] = @"SoundRecognition";
   entryEventForwardNameSoundRecognition = [self entryEventForwardNameSoundRecognition];
-  v18[6] = entryEventForwardNameSoundRecognition;
-  v17[7] = @"SpeakSelection";
+  v17[6] = entryEventForwardNameSoundRecognition;
+  v16[7] = @"SpeakSelection";
   entryEventForwardNameSpeakSelection = [self entryEventForwardNameSpeakSelection];
-  v18[7] = entryEventForwardNameSpeakSelection;
-  v17[8] = @"SpeakScreen";
+  v17[7] = entryEventForwardNameSpeakSelection;
+  v16[8] = @"SpeakScreen";
   entryEventForwardNameSpeakScreen = [self entryEventForwardNameSpeakScreen];
-  v18[8] = entryEventForwardNameSpeakScreen;
-  v17[9] = @"SystemCaptioning";
+  v17[8] = entryEventForwardNameSpeakScreen;
+  v16[9] = @"SystemCaptioning";
   entryEventForwardNameSystemCaptioning = [self entryEventForwardNameSystemCaptioning];
-  v18[9] = entryEventForwardNameSystemCaptioning;
-  v17[10] = @"FacetimeCaptioning";
+  v17[9] = entryEventForwardNameSystemCaptioning;
+  v16[10] = @"FacetimeCaptioning";
   entryEventForwardNameFacetimeCaptioning = [self entryEventForwardNameFacetimeCaptioning];
-  v18[10] = entryEventForwardNameFacetimeCaptioning;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:11];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v17[10] = entryEventForwardNameFacetimeCaptioning;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:11];
 
   return v12;
 }
 
 + (id)entryEventForwardNameReduceMotion
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = *MEMORY[0x277D3F4E8];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F580];
-  v12[0] = *MEMORY[0x277D3F568];
-  v12[1] = v2;
-  v13[0] = &unk_282C1C4C8;
-  v13[1] = MEMORY[0x277CBEC38];
-  v12[2] = *MEMORY[0x277D3F508];
-  v13[2] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
-  v15[0] = v3;
-  v14[1] = *MEMORY[0x277D3F540];
-  v10 = @"ReduceMotionEnabled";
+  v11[0] = *MEMORY[0x277D3F568];
+  v11[1] = v2;
+  v12[0] = &unk_282C1C4C8;
+  v12[1] = MEMORY[0x277CBEC38];
+  v11[2] = *MEMORY[0x277D3F508];
+  v12[2] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v14[0] = v3;
+  v13[1] = *MEMORY[0x277D3F540];
+  v9 = @"ReduceMotionEnabled";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v11 = commonTypeDict_BoolFormat;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v15[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = commonTypeDict_BoolFormat;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v7;
 }
 
 + (id)entryEventForwardNameBackgroundContrast
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = *MEMORY[0x277D3F4E8];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F580];
-  v12[0] = *MEMORY[0x277D3F568];
-  v12[1] = v2;
-  v13[0] = &unk_282C1C4C8;
-  v13[1] = MEMORY[0x277CBEC38];
-  v12[2] = *MEMORY[0x277D3F508];
-  v13[2] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
-  v15[0] = v3;
-  v14[1] = *MEMORY[0x277D3F540];
-  v10 = @"BackgroundContrastEnabled";
+  v11[0] = *MEMORY[0x277D3F568];
+  v11[1] = v2;
+  v12[0] = &unk_282C1C4C8;
+  v12[1] = MEMORY[0x277CBEC38];
+  v11[2] = *MEMORY[0x277D3F508];
+  v12[2] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v14[0] = v3;
+  v13[1] = *MEMORY[0x277D3F540];
+  v9 = @"BackgroundContrastEnabled";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v11 = commonTypeDict_BoolFormat;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v15[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = commonTypeDict_BoolFormat;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v7;
 }
 
 + (id)entryEventForwardNameVoiceControl
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = *MEMORY[0x277D3F4E8];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F508];
-  v12[0] = *MEMORY[0x277D3F568];
-  v12[1] = v2;
-  v13[0] = &unk_282C1C4D8;
-  v13[1] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v15[0] = v3;
-  v14[1] = *MEMORY[0x277D3F540];
-  v10 = @"VoiceControlEnabled";
+  v11[0] = *MEMORY[0x277D3F568];
+  v11[1] = v2;
+  v12[0] = &unk_282C1C4D8;
+  v12[1] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v14[0] = v3;
+  v13[1] = *MEMORY[0x277D3F540];
+  v9 = @"VoiceControlEnabled";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v11 = commonTypeDict_BoolFormat;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v15[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = commonTypeDict_BoolFormat;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v7;
 }
 
 + (id)entryEventForwardNameBackTap
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = *MEMORY[0x277D3F4E8];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F508];
-  v12[0] = *MEMORY[0x277D3F568];
-  v12[1] = v2;
-  v13[0] = &unk_282C1C4D8;
-  v13[1] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v15[0] = v3;
-  v14[1] = *MEMORY[0x277D3F540];
-  v10 = @"BackTapEnabled";
+  v11[0] = *MEMORY[0x277D3F568];
+  v11[1] = v2;
+  v12[0] = &unk_282C1C4D8;
+  v12[1] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v14[0] = v3;
+  v13[1] = *MEMORY[0x277D3F540];
+  v9 = @"BackTapEnabled";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v11 = commonTypeDict_BoolFormat;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v15[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = commonTypeDict_BoolFormat;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v7;
 }
 
 + (id)entryEventForwardNameSoundRecognition
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = *MEMORY[0x277D3F4E8];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F508];
-  v12[0] = *MEMORY[0x277D3F568];
-  v12[1] = v2;
-  v13[0] = &unk_282C1C4E8;
-  v13[1] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v15[0] = v3;
-  v14[1] = *MEMORY[0x277D3F540];
-  v10 = @"SoundRecognitionEnabled";
+  v11[0] = *MEMORY[0x277D3F568];
+  v11[1] = v2;
+  v12[0] = &unk_282C1C4E8;
+  v12[1] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v14[0] = v3;
+  v13[1] = *MEMORY[0x277D3F540];
+  v9 = @"SoundRecognitionEnabled";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v11 = commonTypeDict_IntegerFormat;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v15[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = commonTypeDict_IntegerFormat;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v7;
 }
 
 + (id)entryEventForwardNameSpeakSelection
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = *MEMORY[0x277D3F4E8];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F508];
-  v12[0] = *MEMORY[0x277D3F568];
-  v12[1] = v2;
-  v13[0] = &unk_282C1C4D8;
-  v13[1] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v15[0] = v3;
-  v14[1] = *MEMORY[0x277D3F540];
-  v10 = @"SpeakSelectionEnabled";
+  v11[0] = *MEMORY[0x277D3F568];
+  v11[1] = v2;
+  v12[0] = &unk_282C1C4D8;
+  v12[1] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v14[0] = v3;
+  v13[1] = *MEMORY[0x277D3F540];
+  v9 = @"SpeakSelectionEnabled";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v11 = commonTypeDict_BoolFormat;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v15[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = commonTypeDict_BoolFormat;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v7;
 }
 
 + (id)entryEventForwardNameSpeakScreen
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = *MEMORY[0x277D3F4E8];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F508];
-  v12[0] = *MEMORY[0x277D3F568];
-  v12[1] = v2;
-  v13[0] = &unk_282C1C4D8;
-  v13[1] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v15[0] = v3;
-  v14[1] = *MEMORY[0x277D3F540];
-  v10 = @"SpeakScreenEnabled";
+  v11[0] = *MEMORY[0x277D3F568];
+  v11[1] = v2;
+  v12[0] = &unk_282C1C4D8;
+  v12[1] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v14[0] = v3;
+  v13[1] = *MEMORY[0x277D3F540];
+  v9 = @"SpeakScreenEnabled";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v11 = commonTypeDict_BoolFormat;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v15[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = commonTypeDict_BoolFormat;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v7;
 }
 
 + (id)entryEventForwardNameSystemCaptioning
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = *MEMORY[0x277D3F4E8];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F508];
-  v12[0] = *MEMORY[0x277D3F568];
-  v12[1] = v2;
-  v13[0] = &unk_282C1C4D8;
-  v13[1] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v15[0] = v3;
-  v14[1] = *MEMORY[0x277D3F540];
-  v10 = @"SystemCaptioningEnabled";
+  v11[0] = *MEMORY[0x277D3F568];
+  v11[1] = v2;
+  v12[0] = &unk_282C1C4D8;
+  v12[1] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v14[0] = v3;
+  v13[1] = *MEMORY[0x277D3F540];
+  v9 = @"SystemCaptioningEnabled";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v11 = commonTypeDict_BoolFormat;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v15[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = commonTypeDict_BoolFormat;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v7;
 }
 
 + (id)entryEventForwardNameFacetimeCaptioning
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = *MEMORY[0x277D3F4E8];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F508];
-  v12[0] = *MEMORY[0x277D3F568];
-  v12[1] = v2;
-  v13[0] = &unk_282C1C4C8;
-  v13[1] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v15[0] = v3;
-  v14[1] = *MEMORY[0x277D3F540];
-  v10 = @"FacetimeCaptioningEnabled";
+  v11[0] = *MEMORY[0x277D3F568];
+  v11[1] = v2;
+  v12[0] = &unk_282C1C4C8;
+  v12[1] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v14[0] = v3;
+  v13[1] = *MEMORY[0x277D3F540];
+  v9 = @"FacetimeCaptioningEnabled";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v11 = commonTypeDict_BoolFormat;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v15[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = commonTypeDict_BoolFormat;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v7;
 }
@@ -449,194 +431,182 @@
 
 void __48__PLAccessibilityAgent_initOperatorDependancies__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = PLLogAccessibility();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Voice Control Changed: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Voice Control Changed: %@", &v6, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardVoiceControl];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __48__PLAccessibilityAgent_initOperatorDependancies__block_invoke_80(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = PLLogAccessibility();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Back Tap changed: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Back Tap changed: %@", &v6, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardBackTap];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __48__PLAccessibilityAgent_initOperatorDependancies__block_invoke_81(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = PLLogAccessibility();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Eye Tracking changed: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Eye Tracking changed: %@", &v6, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardEyeTracking];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __48__PLAccessibilityAgent_initOperatorDependancies__block_invoke_85(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = PLLogAccessibility();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Motion Cues Started: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Motion Cues Started: %@", &v6, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardMotionCues:1];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __48__PLAccessibilityAgent_initOperatorDependancies__block_invoke_89(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = PLLogAccessibility();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Motion Cues Stopped: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Motion Cues Stopped: %@", &v6, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardMotionCues:0];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __48__PLAccessibilityAgent_initOperatorDependancies__block_invoke_90(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = PLLogAccessibility();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Sound Recognition is disabled: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Sound Recognition is disabled: %@", &v6, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardSoundRecognition:0];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __48__PLAccessibilityAgent_initOperatorDependancies__block_invoke_91(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = PLLogAccessibility();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Sound Recognition is running: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Sound Recognition is running: %@", &v6, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardSoundRecognition:2];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __48__PLAccessibilityAgent_initOperatorDependancies__block_invoke_92(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = PLLogAccessibility();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Speak Selection changed: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Speak Selection changed: %@", &v6, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardSpeakSelection];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __48__PLAccessibilityAgent_initOperatorDependancies__block_invoke_93(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = PLLogAccessibility();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Speak Screen changed: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Speak Screen changed: %@", &v6, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardSpeakScreen];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __48__PLAccessibilityAgent_initOperatorDependancies__block_invoke_94(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = PLLogAccessibility();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "System Captioning changed: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "System Captioning changed: %@", &v6, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardSystemCaptioning];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __48__PLAccessibilityAgent_initOperatorDependancies__block_invoke_95(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = PLLogAccessibility();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Facetime Captioning changed: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Facetime Captioning changed: %@", &v6, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardFacetimeCaptioning];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __48__PLAccessibilityAgent_initOperatorDependancies__block_invoke_96(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = PLLogAccessibility();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Zoom changed: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Zoom changed: %@", &v6, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardZoom];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initTaskOperatorDependancies
@@ -666,34 +636,32 @@ void __48__PLAccessibilityAgent_initOperatorDependancies__block_invoke_96(uint64
 
 void __52__PLAccessibilityAgent_initTaskOperatorDependancies__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = PLLogAccessibility();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Reduce Motion changed: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Reduce Motion changed: %@", &v6, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardReduceMotion];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __52__PLAccessibilityAgent_initTaskOperatorDependancies__block_invoke_97(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = PLLogAccessibility();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = 138412290;
-    v8 = v4;
-    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Background Contrast changed: %@", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = v4;
+    _os_log_debug_impl(&dword_21A4C6000, v5, OS_LOG_TYPE_DEBUG, "Background Contrast changed: %@", &v6, 0xCu);
   }
 
   [*(a1 + 32) logEventForwardBackgroundContrast];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)log
@@ -757,21 +725,81 @@ void __52__PLAccessibilityAgent_initTaskOperatorDependancies__block_invoke_97(ui
 
 - (void)logEventForwardEyeTracking
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = PLLogAccessibility();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109120;
-    v10 = _AXSOnDeviceEyeTrackingEnabled();
+    v9 = _AXSOnDeviceEyeTrackingEnabled();
     _os_log_debug_impl(&dword_21A4C6000, v3, OS_LOG_TYPE_DEBUG, "Eye Tracking state: %d", buf, 8u);
   }
 
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:{_AXSOnDeviceEyeTrackingEnabled(), @"Enabled"}];
-  v8 = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v8 forKeys:&v7 count:1];
+  v7 = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v7 forKeys:&v6 count:1];
 
   [(PLOperator *)self logForSubsystem:@"AccessibilityMetrics" category:@"EyeTracking" data:v5];
-  v6 = *MEMORY[0x277D85DE8];
+}
+
+- (void)logEventForwardMotionCues:(BOOL)cues
+{
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = @"Session";
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:cues];
+  v7[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+
+  [(PLOperator *)self logForSubsystem:@"AccessibilityMetrics" category:@"MotionCuesEnabled" data:v5];
+}
+
+- (void)logEventForwardSoundRecognition:(int)recognition
+{
+  v3 = *&recognition;
+  v14 = *MEMORY[0x277D85DE8];
+  v5 = [(PLOperator *)PLAccessibilityAgent entryKeyForType:*MEMORY[0x277D3F5D0] andName:@"SoundRecognition"];
+  v6 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v5];
+  v7 = [MEMORY[0x277CCABB0] numberWithInt:v3];
+  [v6 setObject:v7 forKeyedSubscript:@"SoundRecognitionEnabled"];
+
+  v8 = PLLogAccessibility();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  {
+    v13[0] = 67109120;
+    v13[1] = v3;
+    _os_log_debug_impl(&dword_21A4C6000, v8, OS_LOG_TYPE_DEBUG, "Logging Sound Recognition state: %d", v13, 8u);
+  }
+
+  if (!v3)
+  {
+    v12 = PLLogAccessibility();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    {
+      LOWORD(v13[0]) = 0;
+      _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "Logging Sound Recognition remove distribution event", v13, 2u);
+    }
+
+    mEMORY[0x277D3F0C0] = [MEMORY[0x277D3F0C0] sharedInstance];
+    entryDate = [v6 entryDate];
+    [mEMORY[0x277D3F0C0] createDistributionEventForwardWithDistributionID:51 withRemovingChildNodeName:@"SoundRecognition" withStartDate:entryDate];
+    goto LABEL_11;
+  }
+
+  if (v3 == 2)
+  {
+    v9 = PLLogAccessibility();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    {
+      LOWORD(v13[0]) = 0;
+      _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "Logging Sound Recognition create distribution event", v13, 2u);
+    }
+
+    mEMORY[0x277D3F0C0] = [MEMORY[0x277D3F0C0] sharedInstance];
+    entryDate = [v6 entryDate];
+    [mEMORY[0x277D3F0C0] createDistributionEventForwardWithDistributionID:51 withAddingChildNodeName:@"SoundRecognition" withStartDate:entryDate];
+LABEL_11:
+  }
+
+  [(PLOperator *)self logEntry:v6];
 }
 
 - (void)logEventForwardSpeakSelection
@@ -816,14 +844,13 @@ void __52__PLAccessibilityAgent_initTaskOperatorDependancies__block_invoke_97(ui
 
 - (void)logEventForwardZoom
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"Enabled";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"Enabled";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:_AXSZoomTouchEnabled()];
-  v7[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
+  v6[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   [(PLOperator *)self logForSubsystem:@"AccessibilityMetrics" category:@"ZoomEnabled" data:v4];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

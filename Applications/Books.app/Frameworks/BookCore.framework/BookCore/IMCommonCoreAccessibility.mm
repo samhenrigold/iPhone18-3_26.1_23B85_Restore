@@ -34,9 +34,10 @@
 
 - (void)loadAccessibilitySupport
 {
-  if (![(IMCommonCoreAccessibility *)self _isAccessibilitySupportLoaded])
+  _isAccessibilitySupportLoaded = [(IMCommonCoreAccessibility *)self _isAccessibilitySupportLoaded];
+  if ((_isAccessibilitySupportLoaded & 1) == 0)
   {
-    if (IMAccessibilityShouldPerformValidationChecks())
+    if (IMAccessibilityShouldPerformValidationChecks(_isAccessibilitySupportLoaded, v4))
     {
       [(IMCommonCoreAccessibility *)self performValidation];
       if ([(IMCommonCoreAccessibility *)self conformsToProtocol:&OBJC_PROTOCOL___IMCommonCoreAccessibilityExtras])
@@ -48,14 +49,14 @@
       }
     }
 
-    v3 = objc_opt_new();
+    v5 = objc_opt_new();
     [(IMCommonCoreAccessibility *)self addSafeCategoryNamesToCollection:?];
     if ([(IMCommonCoreAccessibility *)self conformsToProtocol:&OBJC_PROTOCOL___IMCommonCoreAccessibilityExtras]&& (objc_opt_respondsToSelector() & 1) != 0)
     {
-      [(IMCommonCoreAccessibility *)self addExtraSafeCategoryNamesToCollection:v3];
+      [(IMCommonCoreAccessibility *)self addExtraSafeCategoryNamesToCollection:v5];
     }
 
-    IMAccessibilityInstallSafeCategories(v3);
+    IMAccessibilityInstallSafeCategories(v5);
     [(IMCommonCoreAccessibility *)self _setAccessibilitySupportLoaded:1];
   }
 }

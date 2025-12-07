@@ -8,6 +8,7 @@
 - (HUDashboardNavigator)dashboardNavigator;
 - (HUMenuToolbarManager)menuToolbarManager;
 - (id)currentViewController;
+- (id)finishPresentation:(id)presentation animated:(BOOL)animated;
 - (id)selectCurrentTab;
 - (id)selectTabWithIdentifier:(id)identifier;
 - (id)tabBarController:(id)controller animationControllerForTransitionFromViewController:(id)viewController toViewController:(id)toViewController;
@@ -28,6 +29,8 @@
 - (void)switchToHome:(id)home;
 - (void)switchToRoom:(id)room;
 - (void)tabBarController:(id)controller didSelectViewController:(id)viewController;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -37,22 +40,20 @@
 {
   v2 = type metadata accessor for HomeAppFeatures();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  __chkstk_darwin();
+  __chkstk_darwin(v2, v4);
   v6 = &v15 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = type metadata accessor for UIKitFeatures();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  __chkstk_darwin();
+  __chkstk_darwin(v7, v9);
   v11 = &v15 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   (*(v8 + 104))(v11, enum case for UIKitFeatures.floatingTabBar(_:), v7);
-  sub_10005E620(&qword_1000D9EF8, &type metadata accessor for UIKitFeatures);
+  sub_10005E620(&qword_1000D9EF8, &type metadata accessor for UIKitFeatures, &protocol conformance descriptor for UIKitFeatures);
   v12 = FeatureFlagsKey.isEnabled.getter();
   (*(v8 + 8))(v11, v7);
   if (v12)
   {
     (*(v3 + 104))(v6, enum case for HomeAppFeatures.adaptiveNavigation(_:), v2);
-    sub_10005E620(&qword_1000D9F00, &type metadata accessor for HomeAppFeatures);
+    sub_10005E620(&qword_1000D9F00, &type metadata accessor for HomeAppFeatures, &protocol conformance descriptor for HomeAppFeatures);
     v13 = FeatureFlagsKey.isEnabled.getter();
     (*(v3 + 8))(v6, v2);
   }
@@ -101,19 +102,47 @@
   ObjectType = swift_getObjectType();
   v4 = OBJC_IVAR___HOAdaptiveTabBarController_controllers;
   swift_beginAccess();
-  v5 = *(&self->super.super.super.super.isa + v4);
   *(&self->super.super.super.super.isa + v4) = &_swiftEmptyDictionarySingleton;
   selfCopy = self;
 
-  v7.receiver = selfCopy;
-  v7.super_class = ObjectType;
-  [(HOAdaptiveTabBarController *)&v7 dealloc];
+  v6.receiver = selfCopy;
+  v6.super_class = ObjectType;
+  [(HOAdaptiveTabBarController *)&v6 dealloc];
 }
 
 - (void)viewDidLoad
 {
   selfCopy = self;
   AdaptiveTabBarController.viewDidLoad()();
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v7.receiver = self;
+  v7.super_class = swift_getObjectType();
+  v4 = v7.receiver;
+  [(HOAdaptiveTabBarController *)&v7 viewDidAppear:appearCopy];
+  swift_getKeyPath();
+  swift_getKeyPath();
+  v5 = v4;
+  static Published.subscript.setter();
+  v6 = AdaptiveTabBarController.baseController.getter();
+  [v6 reloadInitialSetup];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  ObjectType = swift_getObjectType();
+  swift_getKeyPath();
+  swift_getKeyPath();
+  v8 = 0;
+  selfCopy = self;
+  static Published.subscript.setter();
+  v7.receiver = selfCopy;
+  v7.super_class = ObjectType;
+  [(HOAdaptiveTabBarController *)&v7 viewDidDisappear:disappearCopy];
 }
 
 - (id)selectCurrentTab
@@ -238,6 +267,23 @@
   _s7HomeApp24AdaptiveTabBarControllerC4home_9didUpdate3forySo6HMHomeC_So6HMRoomCSo11HMAccessoryCtF_0();
 }
 
+- (id)finishPresentation:(id)presentation animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  presentationCopy = presentation;
+  selfCopy = self;
+  debug_assert(_:_:file:line:)();
+  if (HUIsPhoneIdiom())
+  {
+    currentDevice = [objc_opt_self() currentDevice];
+    [currentDevice setOrientation:1 animated:0];
+  }
+
+  v9 = [(HOAdaptiveTabBarController *)selfCopy hu_dismissViewControllerAnimated:animatedCopy];
+
+  return v9;
+}
+
 - (BOOL)tabBarController:(id)controller shouldSelectViewController:(id)viewController
 {
   controllerCopy = controller;
@@ -310,33 +356,32 @@
 
   else
   {
-    memset(v16, 0, sizeof(v16));
+    memset(v15, 0, sizeof(v15));
     selfCopy2 = self;
   }
 
-  AdaptiveTabBarController.target(forAction:withSender:)(action, v16, v17);
+  AdaptiveTabBarController.target(forAction:withSender:)(action, v15, v16);
 
-  sub_10005C664(v16, &qword_1000D9D88, &qword_100093400);
-  v8 = v18;
-  if (v18)
+  sub_10005C664(v15, &qword_1000D9D88, &qword_100093400);
+  v8 = v17;
+  if (v17)
   {
-    v9 = sub_1000583BC(v17, v18);
+    v9 = sub_1000583BC(v16, v17);
     v10 = *(v8 - 8);
-    v11 = *(v10 + 64);
-    __chkstk_darwin(v9);
-    v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-    (*(v10 + 16))(v13);
-    v14 = _bridgeAnythingToObjectiveC<A>(_:)();
-    (*(v10 + 8))(v13, v8);
-    sub_1000578FC(v17);
+    __chkstk_darwin(v9, v9);
+    v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+    (*(v10 + 16))(v12);
+    v13 = _bridgeAnythingToObjectiveC<A>(_:)();
+    (*(v10 + 8))(v12, v8);
+    sub_1000578FC(v16);
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  return v14;
+  return v13;
 }
 
 - (id)windowTitleForTabIdentifier:(id)identifier dashboardContext:(id)context

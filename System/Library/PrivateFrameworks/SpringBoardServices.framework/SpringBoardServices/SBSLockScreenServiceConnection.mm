@@ -68,7 +68,7 @@ void __38__SBSLockScreenServiceConnection_init__block_invoke(uint64_t a1, void *
 void __38__SBSLockScreenServiceConnection_init__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = SBLogCommon();
+  v4 = SBLogCommon(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *v11 = 0;
@@ -93,13 +93,13 @@ void __38__SBSLockScreenServiceConnection_init__block_invoke_2(uint64_t a1, void
   }
 }
 
-void __38__SBSLockScreenServiceConnection_init__block_invoke_5()
+void __38__SBSLockScreenServiceConnection_init__block_invoke_5(uint64_t a1)
 {
-  v0 = SBLogCommon();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = SBLogCommon(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_19169D000, v0, OS_LOG_TYPE_INFO, "SBSLockScreenService: invalidated remotely", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_19169D000, v1, OS_LOG_TYPE_INFO, "SBSLockScreenService: invalidated remotely", v2, 2u);
   }
 }
 
@@ -129,7 +129,7 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v7 = SBLogCommon();
+  v7 = SBLogCommon(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     [SBSLockScreenServiceConnection launchEmergencyDialerWithCompletion:];
@@ -148,20 +148,21 @@ LABEL_8:
 void __70__SBSLockScreenServiceConnection_launchEmergencyDialerWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = SBLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = SBLogCommon(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __70__SBSLockScreenServiceConnection_launchEmergencyDialerWithCompletion___block_invoke_cold_1();
     }
   }
 
-  v5 = *(a1 + 32);
-  if (v5)
+  v6 = *(a1 + 32);
+  if (v6)
   {
-    v6 = dispatch_get_global_queue(25, 0);
-    dispatch_async(v6, v5);
+    v7 = dispatch_get_global_queue(25, 0);
+    dispatch_async(v7, v6);
   }
 }
 
@@ -184,7 +185,7 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v10 = SBLogCommon();
+  v10 = SBLogCommon(0);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     [SBSLockScreenServiceConnection requestPasscodeUnlockUIWithOptions:withCompletion:];
@@ -210,26 +211,27 @@ LABEL_8:
 void __84__SBSLockScreenServiceConnection_requestPasscodeUnlockUIWithOptions_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = SBLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = SBLogCommon(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __84__SBSLockScreenServiceConnection_requestPasscodeUnlockUIWithOptions_withCompletion___block_invoke_cold_1();
     }
   }
 
-  v5 = *(a1 + 32);
-  if (v5)
+  v6 = *(a1 + 32);
+  if (v6)
   {
-    v6 = dispatch_get_global_queue(25, 0);
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __84__SBSLockScreenServiceConnection_requestPasscodeUnlockUIWithOptions_withCompletion___block_invoke_10;
-    v7[3] = &unk_1E735F120;
-    v9 = v5;
-    v8 = v3;
-    dispatch_async(v6, v7);
+    v7 = dispatch_get_global_queue(25, 0);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __84__SBSLockScreenServiceConnection_requestPasscodeUnlockUIWithOptions_withCompletion___block_invoke_10;
+    v8[3] = &unk_1E735F120;
+    v10 = v6;
+    v9 = v4;
+    dispatch_async(v7, v8);
   }
 }
 
@@ -252,7 +254,7 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v10 = SBLogCommon();
+  v10 = SBLogCommon(0);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     [SBSLockScreenServiceConnection requestPasscodeCheckUIWithOptions:withCompletion:];
@@ -278,32 +280,33 @@ LABEL_8:
 void __83__SBSLockScreenServiceConnection_requestPasscodeCheckUIWithOptions_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = SBLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = SBLogCommon(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __83__SBSLockScreenServiceConnection_requestPasscodeCheckUIWithOptions_withCompletion___block_invoke_cold_1();
     }
   }
 
-  v5 = *(a1 + 32);
-  if (v5)
+  v6 = *(a1 + 32);
+  if (v6)
   {
-    v6 = dispatch_get_global_queue(25, 0);
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __83__SBSLockScreenServiceConnection_requestPasscodeCheckUIWithOptions_withCompletion___block_invoke_13;
-    v7[3] = &unk_1E735F120;
-    v9 = v5;
-    v8 = v3;
-    dispatch_async(v6, v7);
+    v7 = dispatch_get_global_queue(25, 0);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __83__SBSLockScreenServiceConnection_requestPasscodeCheckUIWithOptions_withCompletion___block_invoke_13;
+    v8[3] = &unk_1E735F120;
+    v10 = v6;
+    v9 = v4;
+    dispatch_async(v7, v8);
   }
 }
 
 - (id)preventPasscodeLockWithReason:(id)reason
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   if (!reasonCopy)
   {
@@ -311,13 +314,13 @@ void __83__SBSLockScreenServiceConnection_requestPasscodeCheckUIWithOptions_with
   }
 
   v6 = objc_alloc(MEMORY[0x1E698E778]);
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __64__SBSLockScreenServiceConnection_preventPasscodeLockWithReason___block_invoke;
-  v17[3] = &unk_1E735F170;
-  v17[4] = self;
-  v17[5] = a2;
-  v7 = [v6 initWithIdentifier:@"com.apple.springboard.lockscreen.preventPasscodeLock" forReason:reasonCopy invalidationBlock:v17];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __64__SBSLockScreenServiceConnection_preventPasscodeLockWithReason___block_invoke;
+  v18[3] = &unk_1E735F170;
+  v18[4] = self;
+  v18[5] = a2;
+  v7 = [v6 initWithIdentifier:@"com.apple.springboard.lockscreen.preventPasscodeLock" forReason:reasonCopy invalidationBlock:v18];
   os_unfair_lock_lock(&self->_lock);
   remoteTarget = [(BSServiceConnection *)self->_connection remoteTarget];
   lock_preventPasscodeLockReasons = self->_lock_preventPasscodeLockReasons;
@@ -336,13 +339,13 @@ void __83__SBSLockScreenServiceConnection_requestPasscodeCheckUIWithOptions_with
     self->_lock_preventPasscodeLockReasons = v12;
   }
 
-  v14 = SBLogCommon();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = SBLogCommon(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     reason2 = [v7 reason];
     *buf = 138412290;
-    v19 = reason2;
-    _os_log_impl(&dword_19169D000, v14, OS_LOG_TYPE_DEFAULT, "SBSLockScreenService: creating new preventPasscodeLock assertion (%@)", buf, 0xCu);
+    v20 = reason2;
+    _os_log_impl(&dword_19169D000, v15, OS_LOG_TYPE_DEFAULT, "SBSLockScreenService: creating new preventPasscodeLock assertion (%@)", buf, 0xCu);
   }
 
   [remoteTarget setPreventPasscodeLock:MEMORY[0x1E695E118]];
@@ -353,7 +356,7 @@ void __83__SBSLockScreenServiceConnection_requestPasscodeCheckUIWithOptions_with
 
 void __64__SBSLockScreenServiceConnection_preventPasscodeLockWithReason___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = (a1 + 32);
   os_unfair_lock_lock((*(a1 + 32) + 16));
@@ -371,18 +374,18 @@ void __64__SBSLockScreenServiceConnection_preventPasscodeLockWithReason___block_
   v9 = [v3 reason];
   [v8 removeObject:v9];
 
-  v10 = SBLogCommon();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = SBLogCommon(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [v3 reason];
-    v13 = 138412290;
-    v14 = v11;
-    _os_log_impl(&dword_19169D000, v10, OS_LOG_TYPE_DEFAULT, "SBSLockScreenService: preventPasscodeLock assertion invalidated (%@)", &v13, 0xCu);
+    v12 = [v3 reason];
+    v14 = 138412290;
+    v15 = v12;
+    _os_log_impl(&dword_19169D000, v11, OS_LOG_TYPE_DEFAULT, "SBSLockScreenService: preventPasscodeLock assertion invalidated (%@)", &v14, 0xCu);
   }
 
   if (![*&(*v4)[6]._os_unfair_lock_opaque count])
   {
-    v12 = *&(*v4)[6]._os_unfair_lock_opaque;
+    v13 = *&(*v4)[6]._os_unfair_lock_opaque;
     *&(*v4)[6]._os_unfair_lock_opaque = 0;
 
     [v5 setPreventPasscodeLock:MEMORY[0x1E695E110]];
@@ -393,7 +396,7 @@ void __64__SBSLockScreenServiceConnection_preventPasscodeLockWithReason___block_
 
 - (id)preventSpuriousScreenUndimWithReason:(id)reason
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   if (!reasonCopy)
   {
@@ -401,13 +404,13 @@ void __64__SBSLockScreenServiceConnection_preventPasscodeLockWithReason___block_
   }
 
   v6 = objc_alloc(MEMORY[0x1E698E778]);
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __71__SBSLockScreenServiceConnection_preventSpuriousScreenUndimWithReason___block_invoke;
-  v17[3] = &unk_1E735F170;
-  v17[4] = self;
-  v17[5] = a2;
-  v7 = [v6 initWithIdentifier:@"com.apple.springboard.lockscreen.preventSpuriousScreenUndim" forReason:reasonCopy invalidationBlock:v17];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __71__SBSLockScreenServiceConnection_preventSpuriousScreenUndimWithReason___block_invoke;
+  v18[3] = &unk_1E735F170;
+  v18[4] = self;
+  v18[5] = a2;
+  v7 = [v6 initWithIdentifier:@"com.apple.springboard.lockscreen.preventSpuriousScreenUndim" forReason:reasonCopy invalidationBlock:v18];
   os_unfair_lock_lock(&self->_lock);
   remoteTarget = [(BSServiceConnection *)self->_connection remoteTarget];
   lock_preventSpuriousScreenUndimReasons = self->_lock_preventSpuriousScreenUndimReasons;
@@ -426,13 +429,13 @@ void __64__SBSLockScreenServiceConnection_preventPasscodeLockWithReason___block_
     self->_lock_preventSpuriousScreenUndimReasons = v12;
   }
 
-  v14 = SBLogCommon();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v15 = SBLogCommon(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     reason2 = [v7 reason];
     *buf = 138412290;
-    v19 = reason2;
-    _os_log_impl(&dword_19169D000, v14, OS_LOG_TYPE_DEFAULT, "SBSLockScreenService: creating new preventSpuriousScreenUndim assertion (%@)", buf, 0xCu);
+    v20 = reason2;
+    _os_log_impl(&dword_19169D000, v15, OS_LOG_TYPE_DEFAULT, "SBSLockScreenService: creating new preventSpuriousScreenUndim assertion (%@)", buf, 0xCu);
   }
 
   [remoteTarget setPreventSpuriousScreenUndim:MEMORY[0x1E695E118]];
@@ -443,7 +446,7 @@ void __64__SBSLockScreenServiceConnection_preventPasscodeLockWithReason___block_
 
 void __71__SBSLockScreenServiceConnection_preventSpuriousScreenUndimWithReason___block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = (a1 + 32);
   os_unfair_lock_lock((*(a1 + 32) + 16));
@@ -461,18 +464,18 @@ void __71__SBSLockScreenServiceConnection_preventSpuriousScreenUndimWithReason__
   v9 = [v3 reason];
   [v8 removeObject:v9];
 
-  v10 = SBLogCommon();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = SBLogCommon(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = [v3 reason];
-    v13 = 138412290;
-    v14 = v11;
-    _os_log_impl(&dword_19169D000, v10, OS_LOG_TYPE_DEFAULT, "SBSLockScreenService: preventSpuriousScreenUndim assertion invalidated (%@)", &v13, 0xCu);
+    v12 = [v3 reason];
+    v14 = 138412290;
+    v15 = v12;
+    _os_log_impl(&dword_19169D000, v11, OS_LOG_TYPE_DEFAULT, "SBSLockScreenService: preventSpuriousScreenUndim assertion invalidated (%@)", &v14, 0xCu);
   }
 
   if (![*&(*v4)[8]._os_unfair_lock_opaque count])
   {
-    v12 = *&(*v4)[8]._os_unfair_lock_opaque;
+    v13 = *&(*v4)[8]._os_unfair_lock_opaque;
     *&(*v4)[8]._os_unfair_lock_opaque = 0;
 
     [v5 setPreventSpuriousScreenUndim:MEMORY[0x1E695E110]];
@@ -501,7 +504,7 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v10 = SBLogCommon();
+  v10 = SBLogCommon(0);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
     [SBSLockScreenServiceConnection lockDeviceAnimated:withCompletion:];
@@ -526,26 +529,27 @@ LABEL_8:
 void __68__SBSLockScreenServiceConnection_lockDeviceAnimated_withCompletion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = SBLogCommon();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = SBLogCommon(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __68__SBSLockScreenServiceConnection_lockDeviceAnimated_withCompletion___block_invoke_cold_1();
     }
   }
 
-  v5 = *(a1 + 32);
-  if (v5)
+  v6 = *(a1 + 32);
+  if (v6)
   {
-    v6 = dispatch_get_global_queue(25, 0);
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = __68__SBSLockScreenServiceConnection_lockDeviceAnimated_withCompletion___block_invoke_35;
-    v7[3] = &unk_1E735F120;
-    v9 = v5;
-    v8 = v3;
-    dispatch_async(v6, v7);
+    v7 = dispatch_get_global_queue(25, 0);
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __68__SBSLockScreenServiceConnection_lockDeviceAnimated_withCompletion___block_invoke_35;
+    v8[3] = &unk_1E735F120;
+    v10 = v6;
+    v9 = v4;
+    dispatch_async(v7, v8);
   }
 }
 

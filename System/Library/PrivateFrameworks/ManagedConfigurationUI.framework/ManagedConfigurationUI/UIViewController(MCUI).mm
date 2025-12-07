@@ -12,7 +12,7 @@
 {
   mCMakeUUID = [MEMORY[0x277CCACA8] MCMakeUUID];
   v2 = [MEMORY[0x277CCAE60] valueWithPointer:self];
-  v3 = viewControllerPointerToIdentifierMap();
+  v3 = viewControllerPointerToIdentifierMap(v2);
   [v3 setObject:mCMakeUUID forKeyedSubscript:v2];
 
   mEMORY[0x277D3FA90] = [MEMORY[0x277D3FA90] sharedSpinnerManager];
@@ -28,14 +28,14 @@
 
 - (void)MCUIHideProgressInNavBarShowBackButton:()MCUI
 {
-  v12 = [MEMORY[0x277CCAE60] valueWithPointer:self];
-  v5 = viewControllerPointerToIdentifierMap();
-  v6 = [v5 objectForKeyedSubscript:v12];
+  v13 = [MEMORY[0x277CCAE60] valueWithPointer:self];
+  v5 = viewControllerPointerToIdentifierMap(v13);
+  v6 = [v5 objectForKeyedSubscript:v13];
 
   if (v6)
   {
-    v7 = viewControllerPointerToIdentifierMap();
-    [v7 removeObjectForKey:v12];
+    v8 = viewControllerPointerToIdentifierMap(v7);
+    [v8 removeObjectForKey:v13];
 
     mEMORY[0x277D3FA90] = [MEMORY[0x277D3FA90] sharedSpinnerManager];
     [mEMORY[0x277D3FA90] stopAnimatingForIdentifier:v6];
@@ -57,7 +57,7 @@
 - (BOOL)MCUIIsShowingProgress
 {
   v1 = [MEMORY[0x277CCAE60] valueWithPointer:self];
-  v2 = viewControllerPointerToIdentifierMap();
+  v2 = viewControllerPointerToIdentifierMap(v1);
   v3 = [v2 objectForKeyedSubscript:v1];
   v4 = v3 != 0;
 

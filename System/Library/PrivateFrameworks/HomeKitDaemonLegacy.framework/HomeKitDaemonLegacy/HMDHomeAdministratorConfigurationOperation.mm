@@ -58,12 +58,12 @@
 
 - (void)main
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained(&self->_home);
   primaryResident = [WeakRetained primaryResident];
   if (primaryResident)
   {
-    v5 = [(HMFMessage *)self->_message copy];
+    v5 = objc_msgSend_copy(self->_message);
     v6 = [v5 mutableCopy];
 
     [v6 setRemote:1];
@@ -76,12 +76,12 @@
     [v6 setDestination:v11];
 
     objc_initWeak(&location, self);
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __50__HMDHomeAdministratorConfigurationOperation_main__block_invoke;
-    v24[3] = &unk_279733B98;
-    objc_copyWeak(&v25, &location);
-    [v6 setResponseHandler:v24];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __50__HMDHomeAdministratorConfigurationOperation_main__block_invoke;
+    v23[3] = &unk_279733B98;
+    objc_copyWeak(&v24, &location);
+    [v6 setResponseHandler:v23];
     v12 = objc_autoreleasePoolPush();
     selfCopy = self;
     v14 = HMFGetOSLogHandle();
@@ -89,23 +89,23 @@
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v15;
-      v29 = 2112;
-      v30 = v6;
+      v27 = v15;
+      v28 = 2112;
+      v29 = v6;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Sending message: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
     dispatcher = [(HMDHomeAdministratorConfigurationOperation *)selfCopy dispatcher];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __50__HMDHomeAdministratorConfigurationOperation_main__block_invoke_8;
-    v22[3] = &unk_279734708;
-    objc_copyWeak(&v23, &location);
-    [dispatcher sendMessage:v6 completionHandler:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __50__HMDHomeAdministratorConfigurationOperation_main__block_invoke_8;
+    v21[3] = &unk_279734708;
+    objc_copyWeak(&v22, &location);
+    [dispatcher sendMessage:v6 completionHandler:v21];
 
-    objc_destroyWeak(&v23);
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(&location);
   }
 
@@ -118,7 +118,7 @@
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v28 = v20;
+      v27 = v20;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@Unable to forward message to home without a resident", buf, 0xCu);
     }
 
@@ -126,13 +126,11 @@
     v6 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48 description:0 reason:@"A home hub is required." suggestion:0];
     [(HMDHomeAdministratorConfigurationOperation *)selfCopy2 cancelWithError:v6];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __50__HMDHomeAdministratorConfigurationOperation_main__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -145,11 +143,11 @@ void __50__HMDHomeAdministratorConfigurationOperation_main__block_invoke(uint64_
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v15 = 138543618;
-      v16 = v12;
-      v17 = 2112;
-      v18 = v5;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to forward message with error: %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v12;
+      v16 = 2112;
+      v17 = v5;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to forward message with error: %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -161,9 +159,9 @@ void __50__HMDHomeAdministratorConfigurationOperation_main__block_invoke(uint64_
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v13 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v13;
-      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Received confirmation for forwarded message", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v13;
+      _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Received confirmation for forwarded message", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -171,13 +169,11 @@ void __50__HMDHomeAdministratorConfigurationOperation_main__block_invoke(uint64_
   }
 
   [v9 _respondWithError:v5 payload:v6];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __50__HMDHomeAdministratorConfigurationOperation_main__block_invoke_8(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = [WeakRetained sendCompletionBlock];
@@ -189,19 +185,17 @@ void __50__HMDHomeAdministratorConfigurationOperation_main__block_invoke_8(uint6
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v9;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Notifying client the send completed with error: %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Notifying client the send completed with error: %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
     [v7 setSendCompletionBlock:0];
     (v5)[2](v5, v3);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDHomeAdministratorConfigurationOperation)initWithMessage:(id)message home:(id)home dispatcher:(id)dispatcher
@@ -251,12 +245,11 @@ void __50__HMDHomeAdministratorConfigurationOperation_main__block_invoke_8(uint6
 
 uint64_t __57__HMDHomeAdministratorConfigurationOperation_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v7_115519;
-  logCategory__hmf_once_v7_115519 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v7_115519;
+  logCategory__hmf_once_v7_115519 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (double)timeout

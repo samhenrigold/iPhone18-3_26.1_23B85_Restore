@@ -9,6 +9,8 @@
 - (id)clientStateForProcess:(id)process;
 - (id)debugDescription;
 - (id)description;
+- (id)maxCPUUsageLimitsForRole:(unsigned __int8)role;
+- (id)minCPUUsageLimitsForRole:(unsigned __int8)role;
 - (id)mutableCopyWithZone:(_NSZone *)zone;
 - (uint64_t)_isEqualToProcessStateIgnoringIdentityAndInheritances:(uint64_t)inheritances;
 - (unint64_t)effectiveMaxCPUDuration;
@@ -29,13 +31,12 @@
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  v4 = [objc_opt_class() description];
-  role = self->_role;
-  v6 = NSStringFromRBSRole();
-  v7 = [v3 initWithFormat:@"<%@| role:%@>", v4, v6];
+  v2 = objc_alloc(MEMORY[0x277CCACA8]);
+  v3 = [objc_opt_class() description];
+  v4 = NSStringFromRBSRole();
+  v5 = [v2 initWithFormat:@"<%@| role:%@>", v3, v4];
 
-  return v7;
+  return v5;
 }
 
 - (unint64_t)effectiveMaxCPUPercentage
@@ -122,6 +123,24 @@
   }
 
   return v6;
+}
+
+- (id)maxCPUUsageLimitsForRole:(unsigned __int8)role
+{
+  maxCPULimitsByRole = self->_maxCPULimitsByRole;
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:role];
+  v5 = [(NSMutableDictionary *)maxCPULimitsByRole objectForKeyedSubscript:v4];
+
+  return v5;
+}
+
+- (id)minCPUUsageLimitsForRole:(unsigned __int8)role
+{
+  minCPULimitsByRole = self->_minCPULimitsByRole;
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:role];
+  v5 = [(NSMutableDictionary *)minCPULimitsByRole objectForKeyedSubscript:v4];
+
+  return v5;
 }
 
 - (uint64_t)_isEqualToProcessStateIgnoringIdentityAndInheritances:(uint64_t)inheritances
@@ -408,67 +427,88 @@ LABEL_9:
   allObjects4 = [(NSMutableSet *)self->_endowmentInfos allObjects];
   v10 = [allObjects4 count];
 
-  v52 = objc_alloc(MEMORY[0x277CCACA8]);
-  v55 = [objc_opt_class() description];
+  v49 = objc_alloc(MEMORY[0x277CCACA8]);
+  v52 = [objc_opt_class() description];
   shortDescription = [(RBSProcessIdentity *)self->_identity shortDescription];
-  role = self->_role;
-  v13 = NSStringFromRBSRole();
-  gpuRole = self->_gpuRole;
-  v60 = NSStringFromRBSGPURole();
+  v12 = NSStringFromRBSRole();
+  v57 = NSStringFromRBSGPURole();
   explicitJetsamBand_low = LODWORD(self->_explicitJetsamBand);
   coalitionLevel = self->_coalitionLevel;
   memoryLimitCategory = self->_memoryLimitCategory;
-  memoryLimitStrength = self->_memoryLimitStrength;
-  v59 = NSStringFromRBSMemoryLimitStrength();
+  v56 = NSStringFromRBSMemoryLimitStrength();
   flags = self->_flags;
   if (self->_guaranteedRunning)
   {
-    v16 = @"YES";
+    v13 = @"YES";
   }
 
   else
   {
-    v16 = @"NO";
+    v13 = @"NO";
   }
 
   legacyFinishTaskReason = self->_legacyFinishTaskReason;
-  v47 = v16;
+  v44 = v13;
   inheritances = self->_inheritances;
-  v18 = @" inheritances:";
+  v15 = @" inheritances:";
   if (!inheritances)
   {
-    v18 = &stru_287507640;
+    v15 = &stru_287507640;
     inheritances = &stru_287507640;
   }
 
-  v44 = inheritances;
-  v45 = v18;
-  v19 = @" attributes:[\n\t";
+  v41 = inheritances;
+  v42 = v15;
+  v16 = @" attributes:[\n\t";
   if (!v4)
   {
-    v19 = &stru_287507640;
+    v16 = &stru_287507640;
   }
 
-  v43 = v19;
-  v57 = v4;
-  v53 = v13;
+  v40 = v16;
+  v54 = v4;
+  v50 = v12;
   if (v4)
   {
     allObjects5 = [(NSMutableSet *)self->_tags allObjects];
-    v58 = [allObjects5 componentsJoinedByString:{@", \n\t"}];
-    v42 = @"\n\t]";
+    v55 = [allObjects5 componentsJoinedByString:{@", \n\t"}];
+    v39 = @"\n\t]";
   }
 
   else
   {
-    v42 = &stru_287507640;
-    v58 = &stru_287507640;
+    v39 = &stru_287507640;
+    v55 = &stru_287507640;
   }
 
-  v54 = shortDescription;
+  v51 = shortDescription;
   if (v6)
   {
-    v20 = @" legacyAssertions:[\n\t";
+    v17 = @" legacyAssertions:[\n\t";
+  }
+
+  else
+  {
+    v17 = &stru_287507640;
+  }
+
+  v53 = v6;
+  if (v6)
+  {
+    allObjects6 = [(NSMutableSet *)self->_legacyAssertions allObjects];
+    v18 = [allObjects6 componentsJoinedByString:{@", \n\t"}];
+    v19 = @"\n\t]";
+  }
+
+  else
+  {
+    v19 = &stru_287507640;
+    v18 = &stru_287507640;
+  }
+
+  if (v8)
+  {
+    v20 = @" primitiveAssertions:[\n\t";
   }
 
   else
@@ -476,47 +516,23 @@ LABEL_9:
     v20 = &stru_287507640;
   }
 
-  v56 = v6;
-  if (v6)
-  {
-    allObjects6 = [(NSMutableSet *)self->_legacyAssertions allObjects];
-    v21 = [allObjects6 componentsJoinedByString:{@", \n\t"}];
-    v22 = @"\n\t]";
-  }
-
-  else
-  {
-    v22 = &stru_287507640;
-    v21 = &stru_287507640;
-  }
-
-  if (v8)
-  {
-    v23 = @" primitiveAssertions:[\n\t";
-  }
-
-  else
-  {
-    v23 = &stru_287507640;
-  }
-
   if (v8)
   {
     allObjects7 = [(NSMutableSet *)self->_primitiveAssertions allObjects];
-    v24 = [allObjects7 componentsJoinedByString:{@", \n\t"}];
-    v25 = @"\n\t]";
+    v21 = [allObjects7 componentsJoinedByString:{@", \n\t"}];
+    v22 = @"\n\t]";
     if (v10)
     {
 LABEL_22:
       allObjects8 = [(NSMutableSet *)self->_endowmentInfos allObjects];
-      v27 = [allObjects8 componentsJoinedByString:{@", \n\t"}];
-      v37 = v23;
-      v35 = v22;
-      v33 = v20;
-      v28 = v53;
-      v29 = v54;
-      v30 = v55;
-      v31 = [v52 initWithFormat:@"<%@| identity:%@ role:%@ gpuRole:%@ coalitionLevel:%llu explicitJetsamBand:%d memoryLimit:%@(%@) flags:%hx guaranteedRunning:%@ legacyFinishTaskReason:%lu%@%@%@%@%@%@%@%@%@%@%@%@%@%@>", v55, v54, v53, v60, coalitionLevel, explicitJetsamBand_low, memoryLimitCategory, v59, flags, v47, legacyFinishTaskReason, v45, v44, v43, v58, v42, v33, v21, v35, v37, v24, v25, @" endowments:[\n\t", v27, @"\n\t]"];
+      v24 = [allObjects8 componentsJoinedByString:{@", \n\t"}];
+      v34 = v20;
+      v32 = v19;
+      v30 = v17;
+      v25 = v50;
+      v26 = v51;
+      v27 = v52;
+      v28 = [v49 initWithFormat:@"<%@| identity:%@ role:%@ gpuRole:%@ coalitionLevel:%llu explicitJetsamBand:%d memoryLimit:%@(%@) flags:%hx guaranteedRunning:%@ legacyFinishTaskReason:%lu%@%@%@%@%@%@%@%@%@%@%@%@%@%@>", v52, v51, v50, v57, coalitionLevel, explicitJetsamBand_low, memoryLimitCategory, v56, flags, v44, legacyFinishTaskReason, v42, v41, v40, v55, v39, v30, v18, v32, v34, v21, v22, @" endowments:[\n\t", v24, @"\n\t]"];
 
       goto LABEL_25;
     }
@@ -524,35 +540,35 @@ LABEL_22:
 
   else
   {
-    v25 = &stru_287507640;
-    v24 = &stru_287507640;
+    v22 = &stru_287507640;
+    v21 = &stru_287507640;
     if (v10)
     {
       goto LABEL_22;
     }
   }
 
-  v38 = v23;
-  v36 = v22;
-  v34 = v20;
-  v28 = v53;
-  v29 = v54;
-  v30 = v55;
-  v31 = [v52 initWithFormat:@"<%@| identity:%@ role:%@ gpuRole:%@ coalitionLevel:%llu explicitJetsamBand:%d memoryLimit:%@(%@) flags:%hx guaranteedRunning:%@ legacyFinishTaskReason:%lu%@%@%@%@%@%@%@%@%@%@%@%@%@%@>", v55, v54, v53, v60, coalitionLevel, explicitJetsamBand_low, memoryLimitCategory, v59, flags, v47, legacyFinishTaskReason, v45, v44, v43, v58, v42, v34, v21, v36, v38, v24, v25, &stru_287507640, &stru_287507640, &stru_287507640];
+  v35 = v20;
+  v33 = v19;
+  v31 = v17;
+  v25 = v50;
+  v26 = v51;
+  v27 = v52;
+  v28 = [v49 initWithFormat:@"<%@| identity:%@ role:%@ gpuRole:%@ coalitionLevel:%llu explicitJetsamBand:%d memoryLimit:%@(%@) flags:%hx guaranteedRunning:%@ legacyFinishTaskReason:%lu%@%@%@%@%@%@%@%@%@%@%@%@%@%@>", v52, v51, v50, v57, coalitionLevel, explicitJetsamBand_low, memoryLimitCategory, v56, flags, v44, legacyFinishTaskReason, v42, v41, v40, v55, v39, v31, v18, v33, v35, v21, v22, &stru_287507640, &stru_287507640, &stru_287507640];
 LABEL_25:
   if (v8)
   {
   }
 
-  if (v56)
+  if (v53)
   {
   }
 
-  if (v57)
+  if (v54)
   {
   }
 
-  return v31;
+  return v28;
 }
 
 - (BOOL)isEqual:(id)equal

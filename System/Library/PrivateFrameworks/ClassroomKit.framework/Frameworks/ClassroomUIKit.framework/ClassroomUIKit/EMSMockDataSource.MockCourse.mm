@@ -16,10 +16,9 @@
 
 - (CRKASMLocation)location
 {
-  v2 = *(self + OBJC_IVAR____TtCC14ClassroomUIKit17EMSMockDataSource10MockCourse_location);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (CRKIdentity)identity

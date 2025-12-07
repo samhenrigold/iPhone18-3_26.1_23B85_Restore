@@ -463,7 +463,7 @@ uint64_t AUSoundIsolation_v1::ProcessMultipleBufferLists(AUSoundIsolation_v1 *th
     if (*(v40 + 72) == v41)
     {
       std::string::basic_string[abi:ne200100]<0>(v82, "/AppleInternal/Library/BuildRoots/4~B_5OugCNKhS3Po__bFTpwhA5Rt2e-Vyc7sgRc5A/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/System/Library/PrivateFrameworks/AudioToolboxCore.framework/PrivateHeaders/DSPGraph_Box.h");
-      std::string::basic_string[abi:ne200100]<0>(v67, "in");
+      std::string::basic_string[abi:ne200100]<0>(&v67, "in");
       v62 = (v40 + 32);
       if (*(v40 + 55) < 0)
       {
@@ -611,8 +611,7 @@ LABEL_68:
   v51 = *(this + 20);
   v70 = *(this + 19);
   *&v82[72] = *(this + 82) + 48;
-  v67[0] = a3;
-  v67[1] = 0;
+  v67 = a3;
   v71 = v51;
   v72 = *a7;
   ProcessingGraphOutput = AUSoundIsolation_v1::GetProcessingGraphOutput(this);
@@ -621,7 +620,7 @@ LABEL_68:
   {
     (*(*v53 + 40))(v53);
     DSPGraph::Graph::preflight();
-    if (v67[0] == a3)
+    if (v67 == a3)
     {
       DSPGraph::Graph::processMultiple();
       *&buf[32] = *&v74[32];

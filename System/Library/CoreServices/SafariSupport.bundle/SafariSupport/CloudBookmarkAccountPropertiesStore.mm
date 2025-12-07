@@ -111,7 +111,7 @@
 {
   if (self->_needsAccountHashCheck)
   {
-    v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
+    v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
@@ -126,22 +126,23 @@
     if (accountHash)
     {
       v8 = [accountHash isEqualToData:safari_accountHash];
-      v9 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      v10 = v9;
-      if (v8)
+      v9 = v8;
+      v11 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v8, v10);
+      v12 = v11;
+      if (v9)
       {
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
-          *v22 = 0;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Account hash matches", v22, 2u);
+          *v26 = 0;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Account hash matches", v26, 2u);
         }
       }
 
       else
       {
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
-          sub_10002E004(v10);
+          sub_10002E004(v12);
         }
 
         [(CloudBookmarkAccountPropertiesStore *)self setAccountHash:safari_accountHash];
@@ -152,57 +153,57 @@
     }
 
     deprecatedUsernameAccountHash = [(CloudBookmarkAccountPropertiesStore *)self deprecatedUsernameAccountHash];
-    v13 = [deprecatedUsernameAccountHash isEqualToData:safari_accountHash];
+    v15 = [deprecatedUsernameAccountHash isEqualToData:safari_accountHash];
     account2 = [(CloudBookmarkAccountPropertiesStore *)self account];
     safari_deprecatedUsernameAccountHash = [account2 safari_deprecatedUsernameAccountHash];
-    v16 = [deprecatedUsernameAccountHash isEqualToData:safari_deprecatedUsernameAccountHash];
+    v18 = [deprecatedUsernameAccountHash isEqualToData:safari_deprecatedUsernameAccountHash];
 
-    v17 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
-    if (v13)
+    v21 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v19, v20);
+    v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+    if (v15)
     {
-      if (v18)
+      if (v22)
       {
-        v25 = 0;
-        v19 = "Account hash matches. Migration was done in previous Safari version.";
-        v20 = &v25;
+        v29 = 0;
+        v23 = "Account hash matches. Migration was done in previous Safari version.";
+        v24 = &v29;
 LABEL_19:
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, v19, v20, 2u);
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, v23, v24, 2u);
       }
     }
 
     else
     {
-      if (!v16)
+      if (!v18)
       {
-        if (v18)
+        if (v22)
         {
-          *v23 = 0;
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Storing new account hash. Account has changed.", v23, 2u);
+          *v27 = 0;
+          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Storing new account hash. Account has changed.", v27, 2u);
         }
 
-        v8 = 0;
+        v9 = 0;
         goto LABEL_24;
       }
 
-      if (v18)
+      if (v22)
       {
-        *v24 = 0;
-        v19 = "Migrating deprecated account hash.";
-        v20 = v24;
+        *v28 = 0;
+        v23 = "Migrating deprecated account hash.";
+        v24 = v28;
         goto LABEL_19;
       }
     }
 
-    v8 = 1;
+    v9 = 1;
 LABEL_24:
     [(CloudBookmarkAccountPropertiesStore *)self setAccountHash:safari_accountHash];
     self->_needsAccountHashCheck = 0;
 
 LABEL_25:
-    v11 = v8 ^ 1;
+    v13 = v9 ^ 1;
 
-    return v11;
+    return v13;
   }
 
   return 0;
@@ -210,7 +211,7 @@ LABEL_25:
 
 - (void)setNeedsDataclassEnabledCheck
 {
-  v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
+  v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -222,7 +223,7 @@ LABEL_25:
 
 - (void)_setNeedsAccountHashCheck
 {
-  v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
+  v3 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

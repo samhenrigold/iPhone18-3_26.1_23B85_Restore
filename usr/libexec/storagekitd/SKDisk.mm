@@ -1143,11 +1143,11 @@ LABEL_11:
   {
     v4 = &CacheDeleteCopyPurgeableSpaceWithInfo_ptr;
     v5 = [mediaCopy copyPropertyWithClass:objc_opt_class() key:@"BSD Unit"];
-    v32 = +[NSMutableArray array];
+    v31 = +[NSMutableArray array];
     v6 = +[SKDaemonManager sharedManager];
     diskArbSession = [v6 diskArbSession];
 
-    v30 = mediaCopy;
+    v29 = mediaCopy;
     v7 = [mediaCopy newIteratorWithOptions:1];
     p_superclass = &OBJC_METACLASS___SKTaskExecuter.superclass;
     v9 = [(SKIOObject *)[SKIOMedia alloc] initWithIteratorNext:v7];
@@ -1155,32 +1155,31 @@ LABEL_11:
     {
       v11 = v9;
       *&v10 = 136315394;
-      v29 = v10;
+      v28 = v10;
       do
       {
         if ([v7 invalidated])
         {
-          [v32 removeAllObjects];
+          [v31 removeAllObjects];
         }
 
         if (IOObjectConformsTo([(SKIOObject *)v11 ioObj], "IOMedia"))
         {
-          v12 = v4[315];
-          v13 = [(SKIOObject *)v11 copyPropertyWithClass:objc_opt_class() key:@"BSD Unit"];
-          if ([v13 isEqual:v5])
+          v12 = [(SKIOObject *)v11 copyPropertyWithClass:objc_opt_class() key:@"BSD Unit"];
+          if ([v12 isEqual:v5])
           {
-            v14 = DADiskCreateFromIOMedia(kCFAllocatorDefault, diskArbSession, [(SKIOObject *)v11 ioObj]);
-            if (v14)
+            v13 = DADiskCreateFromIOMedia(kCFAllocatorDefault, diskArbSession, [(SKIOObject *)v11 ioObj]);
+            if (v13)
             {
               copyProperties = [(SKIOObject *)v11 copyProperties];
-              v44[0] = v14;
-              v16 = sub_100005EDC(copyProperties, 0);
-              v44[1] = v16;
-              [NSArray arrayWithObjects:v44 count:2];
-              v18 = v17 = v4;
-              [v32 addObject:v18];
+              v43[0] = v13;
+              v15 = sub_100005EDC(copyProperties, 0);
+              v43[1] = v15;
+              [NSArray arrayWithObjects:v43 count:2];
+              v17 = v16 = v4;
+              [v31 addObject:v17];
 
-              v4 = v17;
+              v4 = v16;
               p_superclass = (&OBJC_METACLASS___SKTaskExecuter + 8);
             }
 
@@ -1189,10 +1188,10 @@ LABEL_11:
               copyProperties = sub_10000BFD0();
               if (os_log_type_enabled(copyProperties, OS_LOG_TYPE_ERROR))
               {
-                *buf = v29;
-                v39 = "+[SKDisk(DaemonAdditions) newSortedChildrenWithIOMedia:]";
-                v40 = 2114;
-                v41 = v13;
+                *buf = v28;
+                v38 = "+[SKDisk(DaemonAdditions) newSortedChildrenWithIOMedia:]";
+                v39 = 2114;
+                v40 = v12;
                 _os_log_impl(&_mh_execute_header, copyProperties, OS_LOG_TYPE_ERROR, "%s: Failed to create DADisk for child disk %{public}@", buf, 0x16u);
               }
             }
@@ -1200,70 +1199,70 @@ LABEL_11:
 
           else
           {
-            v14 = sub_10000BFD0();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+            v13 = sub_10000BFD0();
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315650;
-              v39 = "+[SKDisk(DaemonAdditions) newSortedChildrenWithIOMedia:]";
-              v40 = 2114;
-              v41 = v13;
-              v42 = 2114;
-              v43 = v5;
-              _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%s: Found IO media with BSD unit %{public}@ as a child of disk with BSD unit %{public}@, ignoring", buf, 0x20u);
+              v38 = "+[SKDisk(DaemonAdditions) newSortedChildrenWithIOMedia:]";
+              v39 = 2114;
+              v40 = v12;
+              v41 = 2114;
+              v42 = v5;
+              _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%s: Found IO media with BSD unit %{public}@ as a child of disk with BSD unit %{public}@, ignoring", buf, 0x20u);
             }
           }
 
           IORegistryIteratorExitEntry([v7 ioObj]);
         }
 
-        v19 = [objc_alloc((p_superclass + 179)) initWithIteratorNext:v7];
+        v18 = [objc_alloc((p_superclass + 179)) initWithIteratorNext:v7];
 
-        v11 = v19;
+        v11 = v18;
       }
 
-      while (v19);
+      while (v18);
     }
 
-    v20 = [v32 sortedArrayUsingComparator:&stru_100048C50];
-    v21 = +[NSMutableArray array];
+    v19 = [v31 sortedArrayUsingComparator:&stru_100048C50];
+    v20 = +[NSMutableArray array];
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
-    v22 = v20;
-    v23 = [v22 countByEnumeratingWithState:&v33 objects:v37 count:16];
-    if (v23)
+    v21 = v19;
+    v22 = [v21 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    if (v22)
     {
-      v24 = v23;
-      v25 = *v34;
+      v23 = v22;
+      v24 = *v33;
       do
       {
-        for (i = 0; i != v24; i = i + 1)
+        for (i = 0; i != v23; i = i + 1)
         {
-          if (*v34 != v25)
+          if (*v33 != v24)
           {
-            objc_enumerationMutation(v22);
+            objc_enumerationMutation(v21);
           }
 
-          v27 = [*(*(&v33 + 1) + 8 * i) objectAtIndexedSubscript:0];
-          [v21 addObject:v27];
+          v26 = [*(*(&v32 + 1) + 8 * i) objectAtIndexedSubscript:0];
+          [v20 addObject:v26];
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
-      while (v24);
+      while (v23);
     }
 
-    mediaCopy = v30;
+    mediaCopy = v29;
   }
 
   else
   {
-    v21 = &__NSArray0__struct;
+    v20 = &__NSArray0__struct;
   }
 
-  return v21;
+  return v20;
 }
 
 - (BOOL)_supportsRecaching

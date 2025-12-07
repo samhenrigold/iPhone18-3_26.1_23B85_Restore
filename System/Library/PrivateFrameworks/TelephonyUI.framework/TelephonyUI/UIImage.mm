@@ -295,10 +295,10 @@ LABEL_21:
     goto LABEL_19;
   }
 
-  v9 = TPDefaultLog();
+  v9 = TPDefaultLog(0);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    __69__UIImage_TelephonyUI__routeGlyphForModelId_displayStyle_completion___block_invoke_cold_1(a1);
+    __69__UIImage_TelephonyUI__routeGlyphForModelId_displayStyle_completion___block_invoke_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -317,91 +317,89 @@ void __41__UIImage_TelephonyUI___modelSymbolCache__block_invoke()
   v2 = [v3 addObserverForName:*MEMORY[0x1E69DDAD8] object:0 queue:0 usingBlock:&__block_literal_global_49];
 }
 
-void __61__UIImage_TelephonyUI__systemImageNameForModelId_completion___block_invoke(uint64_t a1)
+void __61__UIImage_TelephonyUI__systemImageNameForModelId_completion___block_invoke(id *a1)
 {
-  v2 = [MEMORY[0x1E6982C40] _typeWithDeviceModelCode:*(a1 + 32)];
+  v2 = [MEMORY[0x1E6982C40] _typeWithDeviceModelCode:a1[4]];
   v3 = v2;
   if (v2)
   {
     v4 = MEMORY[0x1E69A8A40];
     v5 = [v2 identifier];
-    v15 = 0;
-    v6 = [v4 symbolForTypeIdentifier:v5 withResolutionStrategy:1 variantOptions:1 error:&v15];
-    v7 = v15;
+    v16 = 0;
+    v6 = [v4 symbolForTypeIdentifier:v5 withResolutionStrategy:1 variantOptions:1 error:&v16];
+    v7 = v16;
 
     if (v7 || !v6)
     {
-      v9 = TPDefaultLog();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = TPDefaultLog(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        __61__UIImage_TelephonyUI__systemImageNameForModelId_completion___block_invoke_cold_1((a1 + 32));
+        __61__UIImage_TelephonyUI__systemImageNameForModelId_completion___block_invoke_cold_1();
       }
 
-      v8 = 0;
+      v9 = 0;
     }
 
     else
     {
-      v8 = [v6 name];
-      v9 = [*(a1 + 48) _modelSymbolCache];
-      [v9 setObject:v8 forKey:*(a1 + 32)];
+      v9 = [v6 name];
+      v10 = [a1[6] _modelSymbolCache];
+      [v10 setObject:v9 forKey:a1[4]];
     }
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
     v7 = 0;
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __61__UIImage_TelephonyUI__systemImageNameForModelId_completion___block_invoke_52;
-  v11[3] = &unk_1E7C0C278;
-  v12 = v8;
-  v13 = *(a1 + 32);
-  v14 = *(a1 + 40);
-  v10 = v8;
-  dispatch_async(MEMORY[0x1E69E96A0], v11);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __61__UIImage_TelephonyUI__systemImageNameForModelId_completion___block_invoke_52;
+  v12[3] = &unk_1E7C0C278;
+  v13 = v9;
+  v14 = a1[4];
+  v15 = a1[5];
+  v11 = v9;
+  dispatch_async(MEMORY[0x1E69E96A0], v12);
 }
 
 uint64_t __61__UIImage_TelephonyUI__systemImageNameForModelId_completion___block_invoke_52(uint64_t a1)
 {
-  v2 = (a1 + 32);
-  v3 = *(a1 + 32);
-  v4 = TPDefaultLog();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
-  if (v3)
+  v2 = *(a1 + 32);
+  v3 = TPDefaultLog(a1);
+  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
+  if (v2)
   {
-    if (v5)
+    if (v4)
     {
-      __61__UIImage_TelephonyUI__systemImageNameForModelId_completion___block_invoke_52_cold_1(v2, a1);
+      __61__UIImage_TelephonyUI__systemImageNameForModelId_completion___block_invoke_52_cold_1();
     }
   }
 
-  else if (v5)
+  else if (v4)
   {
-    __61__UIImage_TelephonyUI__systemImageNameForModelId_completion___block_invoke_52_cold_2(a1);
+    __61__UIImage_TelephonyUI__systemImageNameForModelId_completion___block_invoke_52_cold_2();
   }
 
-  v6 = *(a1 + 32);
   return (*(*(a1 + 48) + 16))();
 }
 
 void __50__UIImage_TelephonyUI__symbolNameForCurrentDevice__block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E69A8A40];
   v3 = [MEMORY[0x1E6982C40] _typeOfCurrentDevice];
   v4 = [v3 identifier];
-  v12 = 0;
-  v5 = [v2 symbolForTypeIdentifier:v4 withResolutionStrategy:1 variantOptions:1 error:&v12];
-  v6 = v12;
+  v13 = 0;
+  v5 = [v2 symbolForTypeIdentifier:v4 withResolutionStrategy:1 variantOptions:1 error:&v13];
+  v6 = v13;
 
   if (v6)
   {
-    v7 = TPDefaultLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = TPDefaultLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __50__UIImage_TelephonyUI__symbolNameForCurrentDevice__block_invoke_cold_1();
     }
@@ -416,40 +414,39 @@ void __50__UIImage_TelephonyUI__symbolNameForCurrentDevice__block_invoke(uint64_
   {
     [*(a1 + 32) systemImageNameForSymbolType:{objc_msgSend(*(a1 + 32), "fallbackSymbolTypeForCurrentDevice")}];
   }
-  v8 = ;
-  v9 = symbolNameForCurrentDevice_symbolName;
-  symbolNameForCurrentDevice_symbolName = v8;
+  v9 = ;
+  v10 = symbolNameForCurrentDevice_symbolName;
+  symbolNameForCurrentDevice_symbolName = v9;
 
-  v10 = TPDefaultLog();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v12 = TPDefaultLog(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = symbolNameForCurrentDevice_symbolName;
-    _os_log_impl(&dword_1B4894000, v10, OS_LOG_TYPE_DEFAULT, "Initialized symbol name for current device: %@", buf, 0xCu);
+    v15 = symbolNameForCurrentDevice_symbolName;
+    _os_log_impl(&dword_1B4894000, v12, OS_LOG_TYPE_DEFAULT, "Initialized symbol name for current device: %@", buf, 0xCu);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __58__UIImage_TelephonyUI__fallbackSymbolTypeForCurrentDevice__block_invoke()
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v0 = MGGetSInt32Answer();
   v1 = [MEMORY[0x1E69DC938] currentDevice];
   v2 = [v1 model];
 
-  if ([v2 isEqualToString:@"iPod"])
+  v3 = [v2 isEqualToString:@"iPod"];
+  if (v3)
   {
-    v3 = 68;
+    v4 = 68;
   }
 
   else
   {
-    v4 = [v2 isEqualToString:@"iPad"];
-    v3 = 66;
+    v3 = [v2 isEqualToString:@"iPad"];
+    v4 = 66;
     if (v0 != 2)
     {
-      v3 = 67;
+      v4 = 67;
     }
 
     v5 = 64;
@@ -458,112 +455,106 @@ void __58__UIImage_TelephonyUI__fallbackSymbolTypeForCurrentDevice__block_invoke
       v5 = 65;
     }
 
-    if (v4)
+    if (v3)
     {
-      v3 = v5;
+      v4 = v5;
     }
   }
 
-  fallbackSymbolTypeForCurrentDevice_symbolType = v3;
-  v6 = TPDefaultLog();
+  fallbackSymbolTypeForCurrentDevice_symbolType = v4;
+  v6 = TPDefaultLog(v3);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134217984;
-    v9 = fallbackSymbolTypeForCurrentDevice_symbolType;
-    _os_log_impl(&dword_1B4894000, v6, OS_LOG_TYPE_DEFAULT, "Initialized fallback symbol type for current device: %zd", &v8, 0xCu);
+    v7 = 134217984;
+    v8 = fallbackSymbolTypeForCurrentDevice_symbolType;
+    _os_log_impl(&dword_1B4894000, v6, OS_LOG_TYPE_DEFAULT, "Initialized fallback symbol type for current device: %zd", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __60__UIImage_TelephonyUI__imageWithEtchedBorderOfColor_radius___block_invoke(uint64_t a1, CGContext *a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6)
 {
   v12 = [*(a1 + 32) CGImage];
-  v13 = *MEMORY[0x1E695F058];
-  v14 = *(MEMORY[0x1E695F058] + 8);
   CGImageGetWidth(v12);
   CGImageGetHeight(v12);
   UIRectCenteredIntegralRect();
+  v14 = v13;
   v16 = v15;
   v18 = v17;
   v20 = v19;
-  v22 = v21;
   CGContextSaveGState(a2);
+  v23.origin.x = a3;
+  v23.origin.y = a4;
+  v23.size.width = a5;
+  v23.size.height = a6;
+  CGContextDrawImage(a2, v23, v12);
+  v24.origin.x = v14;
+  v24.origin.y = v16;
+  v24.size.width = v18;
+  v24.size.height = v20;
+  CGContextClipToMask(a2, v24, v12);
   v25.origin.x = a3;
   v25.origin.y = a4;
   v25.size.width = a5;
   v25.size.height = a6;
-  CGContextDrawImage(a2, v25, v12);
-  v26.origin.x = v16;
-  v26.origin.y = v18;
-  v26.size.width = v20;
-  v26.size.height = v22;
-  CGContextClipToMask(a2, v26, v12);
-  v27.origin.x = a3;
-  v27.origin.y = a4;
-  v27.size.width = a5;
-  v27.size.height = a6;
-  CGContextClearRect(a2, v27);
+  CGContextClearRect(a2, v25);
   CGContextRestoreGState(a2);
   Image = CGBitmapContextCreateImage(a2);
+  v26.origin.x = a3;
+  v26.origin.y = a4;
+  v26.size.width = a5;
+  v26.size.height = a6;
+  CGContextClearRect(a2, v26);
+  v27.origin.x = v14;
+  v27.origin.y = v16;
+  v27.size.width = v18;
+  v27.size.height = v20;
+  CGContextDrawImage(a2, v27, v12);
   v28.origin.x = a3;
   v28.origin.y = a4;
   v28.size.width = a5;
   v28.size.height = a6;
-  CGContextClearRect(a2, v28);
-  v29.origin.x = v16;
-  v29.origin.y = v18;
-  v29.size.width = v20;
-  v29.size.height = v22;
-  CGContextDrawImage(a2, v29, v12);
-  v30.origin.x = a3;
-  v30.origin.y = a4;
-  v30.size.width = a5;
-  v30.size.height = a6;
-  CGContextClipToMask(a2, v30, Image);
+  CGContextClipToMask(a2, v28, Image);
   CGContextSetFillColorWithColor(a2, [*(a1 + 40) CGColor]);
-  v31.origin.x = a3;
-  v31.origin.y = a4;
-  v31.size.width = a5;
-  v31.size.height = a6;
-  CGContextFillRect(a2, v31);
+  v29.origin.x = a3;
+  v29.origin.y = a4;
+  v29.size.width = a5;
+  v29.size.height = a6;
+  CGContextFillRect(a2, v29);
 
   CGImageRelease(Image);
 }
 
-void __40__UIImage_TelephonyUI__imageWithShadow___block_invoke(uint64_t a1, CGContext *a2)
+void __40__UIImage_TelephonyUI__imageWithShadow___block_invoke(uint64_t a1, CGContext *a2, double a3, double a4, double a5, double a6)
 {
-  v4 = [*(a1 + 32) shadowColor];
-  if (v4)
+  v8 = [*(a1 + 32) shadowColor];
+  if (v8)
   {
-    v5 = [MEMORY[0x1E69DC888] clearColor];
-    v6 = [v4 isEqual:v5];
+    v9 = [MEMORY[0x1E69DC888] clearColor];
+    v10 = [v8 isEqual:v9];
 
-    if ((v6 & 1) == 0)
+    if ((v10 & 1) == 0)
     {
-      v7 = *(a1 + 56);
-      v8 = *(a1 + 48) * v7;
-      CGAffineTransformMakeScale(&v21, v7, v7);
-      CGContextSetShadowWithColor(a2, vmlaq_n_f64(vmulq_n_f64(*&v21.c, *(a1 + 72)), *&v21.a, *(a1 + 64)), v8, [v4 CGColor]);
+      v11 = *(a1 + 56);
+      v12 = *(a1 + 48) * v11;
+      CGAffineTransformMakeScale(&v23, v11, v11);
+      CGContextSetShadowWithColor(a2, vmlaq_n_f64(vmulq_n_f64(*&v23.c, *(a1 + 72)), *&v23.a, *(a1 + 64)), v12, [v8 CGColor]);
     }
   }
 
-  v9 = *MEMORY[0x1E695F058];
-  v10 = *(MEMORY[0x1E695F058] + 8);
-  v11 = [*(a1 + 40) CGImage];
-  CGImageGetWidth(v11);
-  CGImageGetHeight(v11);
+  v13 = [*(a1 + 40) CGImage];
+  CGImageGetWidth(v13);
+  CGImageGetHeight(v13);
   UIRectCenteredIntegralRect();
-  v13 = v12;
   v15 = v14;
   v17 = v16;
   v19 = v18;
-  v20 = [*(a1 + 40) CGImage];
-  v22.origin.x = v13;
-  v22.origin.y = v15;
-  v22.size.width = v17;
-  v22.size.height = v19;
-  CGContextDrawImage(a2, v22, v20);
+  v21 = v20;
+  v22 = [*(a1 + 40) CGImage];
+  v24.origin.x = v15;
+  v24.origin.y = v17;
+  v24.size.width = v19;
+  v24.size.height = v21;
+  CGContextDrawImage(a2, v24, v22);
 }
 
 void __43__UIImage_TelephonyUI__genericBusinessLogo__block_invoke()
@@ -612,50 +603,12 @@ void __43__UIImage_TelephonyUI__genericBusinessLogo__block_invoke_2(uint64_t a1,
   [v12 drawInRect:{6.0, 6.0, v8, v10}];
 }
 
-void __69__UIImage_TelephonyUI__routeGlyphForModelId_displayStyle_completion___block_invoke_cold_1(uint64_t a1)
+void __61__UIImage_TelephonyUI__systemImageNameForModelId_completion___block_invoke_cold_1()
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_1(&dword_1B4894000, v2, v3, "systemImageName: nil for %@", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __61__UIImage_TelephonyUI__systemImageNameForModelId_completion___block_invoke_cold_1(uint64_t *a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *a1;
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_1B4894000, v2, OS_LOG_TYPE_ERROR, "Error finding symbol for model: %@, error: %@", v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void __61__UIImage_TelephonyUI__systemImageNameForModelId_completion___block_invoke_52_cold_1(uint64_t *a1, uint64_t a2)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = *a1;
-  v3 = *(a2 + 40);
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_2(&dword_1B4894000, v4, v5, "IconServices resolved symbol '%@' for model: %@");
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __61__UIImage_TelephonyUI__systemImageNameForModelId_completion___block_invoke_52_cold_2(uint64_t a1)
-{
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 40);
-  OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_1(&dword_1B4894000, v2, v3, "IconServices failed to resolve symbol for model: %@", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-void __50__UIImage_TelephonyUI__symbolNameForCurrentDevice__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_1B4894000, v0, v1, "Error finding symbol for current device: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B4894000, v0, OS_LOG_TYPE_ERROR, "Error finding symbol for model: %@, error: %@", v1, 0x16u);
 }
 
 @end

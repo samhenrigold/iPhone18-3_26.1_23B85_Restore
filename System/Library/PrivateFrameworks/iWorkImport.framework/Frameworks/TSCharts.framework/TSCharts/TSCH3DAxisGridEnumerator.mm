@@ -52,39 +52,39 @@
 - (void)update
 {
   v6 = objc_msgSend_majorGridLocations(self->_axis, a2, v2, v3, v4);
-  v11 = objc_msgSend_index(self, v7, v8, v9, v10);
-  v45 = objc_msgSend_objectAtIndexedSubscript_(v6, v12, v13, v14, v15, v11);
+  v10 = objc_msgSend_index(self, v7, v8, v9);
+  v44 = objc_msgSend_objectAtIndexedSubscript_(v6, v11, v12, v13, v14, v10);
 
-  if (v45)
+  if (v44)
   {
     axis = self->_axis;
-    objc_msgSend_doubleValue(v45, v16, v17, v18, v19);
-    objc_msgSend_unitSpaceValueForDataSpaceValue_(axis, v21, v22, v23, v24);
+    objc_msgSend_doubleValue(v44, v15, v16, v17, v18);
+    objc_msgSend_unitSpaceValueForDataSpaceValue_(axis, v20, v21, v22, v23);
   }
 
   else
   {
-    v25 = NAN;
+    v24 = NAN;
   }
 
-  objc_msgSend_setValue_(self, v16, v25, v18, v19);
-  if (v45)
+  objc_msgSend_setValue_(self, v15, v24, v17, v18);
+  if (v44)
   {
-    objc_msgSend_min(self->_axis, v26, v27, v28, v29);
-    v31 = v30;
-    objc_msgSend_max(self->_axis, v32, v30, v33, v34);
-    if (v31 == v36)
+    objc_msgSend_min(self->_axis, v25, v26, v27, v28);
+    v30 = v29;
+    objc_msgSend_max(self->_axis, v31, v29, v32, v33);
+    if (v30 == v35)
     {
-      v40 = objc_msgSend_count(self, v35, v36, v37, v38);
-      v43 = 0.0;
-      if (v40 >= 2)
+      v39 = objc_msgSend_count(self, v34, v35, v36, v37);
+      v42 = 0.0;
+      if (v39 >= 2)
       {
-        v44 = objc_msgSend_index(self, v39, 0.0, v41, v42);
-        v41 = (v40 - 1);
-        v43 = v44 / v41;
+        v43 = objc_msgSend_index(self, 0.0, v40, v41);
+        v40 = (v39 - 1);
+        v42 = v43 / v40;
       }
 
-      objc_msgSend_setValue_(self, v39, v43, v41, v42);
+      objc_msgSend_setValue_(self, v38, v42, v40, v41);
     }
   }
 }
@@ -121,7 +121,7 @@
 
   v15 = 1;
 LABEL_7:
-  result = objc_msgSend_value(self, v9, v10, v11, v12);
+  result = objc_msgSend_value(self, v10, v11, v12);
   retstr->var0 = v15;
   *&v37 = v37;
   retstr->var1 = v14;

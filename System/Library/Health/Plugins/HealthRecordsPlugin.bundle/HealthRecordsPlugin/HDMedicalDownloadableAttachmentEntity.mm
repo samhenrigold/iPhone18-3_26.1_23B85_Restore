@@ -10,6 +10,7 @@
 + (BOOL)_updateWithExistingAttachmentIfFoundForDownloadableAttachment:(id)attachment medicalRecord:(id)record clinicalRecord:(id)clinicalRecord profile:(id)profile error:(id *)error;
 + (BOOL)deleteAttachmentWithIdentifier:(id)identifier profile:(id)profile error:(id *)error;
 + (BOOL)enumerateAttachmentsWithPredicate:(id)predicate profile:(id)profile error:(id *)error enumerationHandler:(id)handler;
++ (BOOL)insertOrUpdateAttachment:(id)attachment shouldReplace:(BOOL)replace profile:(id)profile error:(id *)error;
 + (BOOL)updateAttachmentWithIdentifier:(id)identifier properties:(id)properties profile:(id)profile error:(id *)error bindingHandler:(id)handler;
 + (id)_attachmentEntityForIdentifier:(id)identifier databaseTransaction:(id)transaction error:(id *)error;
 + (id)_attachmentRefsForDownloadableAttachment:(id)attachment attachmentObjectIdentifier:(id)identifier profile:(id)profile error:(id *)error;
@@ -17,6 +18,7 @@
 + (id)_attachmentsAfterRelinkingFromMedicalRecord:(id)record toMedicalRecord:(id)medicalRecord profile:(id)profile error:(id *)error;
 + (id)_attachmentsForDownloadableAttachment:(id)attachment attachmentObjectIdentifier:(id)identifier profile:(id)profile error:(id *)error;
 + (id)_checkForExistingDownloadableAttachment:(id)attachment profile:(id)profile error:(id *)error;
++ (id)_insertOrUpdateAttachment:(id)attachment shouldReplace:(BOOL)replace databaseTransaction:(id)transaction error:(id *)error;
 + (id)_propertiesForEntity;
 + (id)attachmentForRow:(HDSQLiteRow *)row;
 + (id)attachmentWithIdentifier:(id)identifier profile:(id)profile error:(id *)error;
@@ -25,6 +27,17 @@
 @end
 
 @implementation HDMedicalDownloadableAttachmentEntity
+
++ (BOOL)insertOrUpdateAttachment:(id)attachment shouldReplace:(BOOL)replace profile:(id)profile error:(id *)error
+{
+  replaceCopy = replace;
+  profileCopy = profile;
+  attachmentCopy = attachment;
+  v11 = [[HDInsertOrUpdateMedicalDownloadableAttachmentOperation alloc] initWithAttachment:attachmentCopy shouldReplace:replaceCopy];
+
+  LOBYTE(error) = [(HDInsertOrUpdateMedicalDownloadableAttachmentOperation *)v11 performOrJournalWithProfile:profileCopy error:error];
+  return error;
+}
 
 + (id)processMedicalDownloadableAttachmentsInExtractionResult:(id)result accountIdentifier:(id)identifier profile:(id)profile error:(id *)error
 {
@@ -1330,6 +1343,63 @@ LABEL_20:
   v2 = [NSArray arrayWithObjects:v4 count:24];
 
   return v2;
+}
+
++ (id)_insertOrUpdateAttachment:(id)attachment shouldReplace:(BOOL)replace databaseTransaction:(id)transaction error:(id *)error
+{
+  replaceCopy = replace;
+  attachmentCopy = attachment;
+  transactionCopy = transaction;
+  accountIdentifier = [attachmentCopy accountIdentifier];
+
+  if (accountIdentifier)
+  {
+    v13 = [transactionCopy databaseForEntityClass:self];
+    if (replaceCopy)
+    {
+      identifier = [attachmentCopy identifier];
+      v15 = [self _attachmentEntityForIdentifier:identifier databaseTransaction:transactionCopy error:error];
+
+      if (!v15)
+      {
+        identifier2 = [attachmentCopy identifier];
+        v20 = [NSError hk_error:118 format:@"Failed to find a downloadable attachment with identifier: %@", identifier2];
+        if (v20)
+        {
+          if (error)
+          {
+            v21 = v20;
+            *error = v20;
+          }
+
+          else
+          {
+            _HKLogDroppedError();
+          }
+        }
+
+        v17 = 0;
+        goto LABEL_6;
+      }
+    }
+
+    _propertiesForEntity = [self _propertiesForEntity];
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_769D0;
+    v22[3] = &unk_105B80;
+    v23 = attachmentCopy;
+    v17 = [self insertOrReplaceEntity:replaceCopy database:v13 properties:_propertiesForEntity error:error bindingHandler:v22];
+
+LABEL_6:
+    goto LABEL_8;
+  }
+
+  [NSError hk_assignError:error code:3 description:@"downloadable attachments without an account identifier cannot be stored"];
+  v17 = 0;
+LABEL_8:
+
+  return v17;
 }
 
 + (id)attachmentForRow:(HDSQLiteRow *)row

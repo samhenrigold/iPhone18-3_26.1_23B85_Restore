@@ -69,77 +69,77 @@
 {
   insetsCopy = insets;
   rectInsetsCopy = rectInsets;
-  v39 = a13;
-  v68.receiver = self;
-  v68.super_class = SBIconLabelImageMetrics;
-  v40 = objc_msgSendSuper2(&v68, sel_init);
-  if (v40)
+  v37 = a13;
+  v66.receiver = self;
+  v66.super_class = SBIconLabelImageMetrics;
+  v38 = objc_msgSendSuper2(&v66, sel_init);
+  if (v38)
   {
-    v41 = [insetsCopy copy];
-    v42 = *(v40 + 7);
-    *(v40 + 7) = v41;
+    v39 = [insetsCopy copy];
+    v40 = *(v38 + 7);
+    *(v38 + 7) = v39;
 
-    v43 = [rectInsetsCopy copy];
-    v44 = *(v40 + 5);
-    *(v40 + 5) = v43;
+    v41 = [rectInsetsCopy copy];
+    v42 = *(v38 + 5);
+    *(v38 + 5) = v41;
 
-    v45 = [v39 copy];
-    v46 = *(v40 + 6);
-    *(v40 + 6) = v45;
+    v43 = [v37 copy];
+    v44 = *(v38 + 6);
+    *(v38 + 6) = v43;
 
-    *(v40 + 8) = a2;
-    *(v40 + 9) = text;
-    *(v40 + 10) = attributedText;
-    *(v40 + 11) = attributes;
-    *(v40 + 12) = rect;
-    *(v40 + 13) = drawingRect;
-    *(v40 + 14) = bottom;
-    *(v40 + 15) = scale;
-    *(v40 + 3) = a15;
-    *(v40 + 4) = a16;
-    *(v40 + 16) = a14;
-    *(v40 + 16) = a17;
-    *(v40 + 17) = a18;
-    *(v40 + 18) = a19;
-    *(v40 + 19) = a20;
-    *(v40 + 20) = a21;
-    *(v40 + 21) = a22;
-    *(v40 + 22) = a23;
-    *(v40 + 23) = a24;
-    v47 = 0xBF58476D1CE4E5B9 * ((a23 + a21 + a22 + a24) ^ ((a23 + a21 + a22 + a24) >> 30));
-    v63 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * ((a19 + a17 + a18 + a20) ^ ((a19 + a17 + a18 + a20) >> 30))) ^ ((0xBF58476D1CE4E5B9 * ((a19 + a17 + a18 + a20) ^ ((a19 + a17 + a18 + a20) >> 30))) >> 27));
-    v64 = 0x94D049BB133111EBLL * (v47 ^ (v47 >> 27));
-    v61 = [*(v40 + 7) hash];
-    v60 = [*(v40 + 5) hash];
-    v59 = [*(v40 + 6) hash];
-    v69.origin.x = a2;
-    v69.origin.y = text;
-    v69.size.width = attributedText;
-    v69.size.height = attributes;
-    v62 = NSStringFromCGRect(v69);
-    v58 = [v62 hash];
-    v70.origin.y = drawingRect;
-    v70.origin.x = rect;
-    v70.size.width = bottom;
-    v70.size.height = scale;
-    v48 = NSStringFromCGRect(v70);
-    v66 = insetsCopy;
-    v49 = [v48 hash];
+    *(v38 + 8) = a2;
+    *(v38 + 9) = text;
+    *(v38 + 10) = attributedText;
+    *(v38 + 11) = attributes;
+    *(v38 + 12) = rect;
+    *(v38 + 13) = drawingRect;
+    *(v38 + 14) = bottom;
+    *(v38 + 15) = scale;
+    *(v38 + 3) = a15;
+    *(v38 + 4) = a16;
+    *(v38 + 16) = a14;
+    *(v38 + 16) = a17;
+    *(v38 + 17) = a18;
+    *(v38 + 18) = a19;
+    *(v38 + 19) = a20;
+    *(v38 + 20) = a21;
+    *(v38 + 21) = a22;
+    *(v38 + 22) = a23;
+    *(v38 + 23) = a24;
+    v45 = 0xBF58476D1CE4E5B9 * ((a23 + a21 + a22 + a24) ^ ((a23 + a21 + a22 + a24) >> 30));
+    v61 = 0x94D049BB133111EBLL * ((0xBF58476D1CE4E5B9 * ((a19 + a17 + a18 + a20) ^ ((a19 + a17 + a18 + a20) >> 30))) ^ ((0xBF58476D1CE4E5B9 * ((a19 + a17 + a18 + a20) ^ ((a19 + a17 + a18 + a20) >> 30))) >> 27));
+    v62 = 0x94D049BB133111EBLL * (v45 ^ (v45 >> 27));
+    v59 = [*(v38 + 7) hash];
+    v58 = [*(v38 + 5) hash];
+    v57 = [*(v38 + 6) hash];
+    v67.origin.x = a2;
+    v67.origin.y = text;
+    v67.size.width = attributedText;
+    v67.size.height = attributes;
+    v60 = NSStringFromCGRect(v67);
+    v56 = [v60 hash];
+    v68.origin.y = drawingRect;
+    v68.origin.x = rect;
+    v68.size.width = bottom;
+    v68.size.height = scale;
+    v46 = NSStringFromCGRect(v68);
+    v64 = insetsCopy;
+    v47 = [v46 hash];
     [MEMORY[0x1E696AD98] numberWithDouble:a15];
-    v50 = v67 = rectInsetsCopy;
+    v48 = v65 = rectInsetsCopy;
+    v49 = [v48 hash];
+    v50 = [MEMORY[0x1E696AD98] numberWithDouble:a16];
     v51 = [v50 hash];
-    v52 = [MEMORY[0x1E696AD98] numberWithDouble:a16];
+    v52 = [MEMORY[0x1E696AD98] numberWithBool:a14];
     v53 = [v52 hash];
-    v54 = [MEMORY[0x1E696AD98] numberWithBool:a14];
-    v55 = [v54 hash];
-    v56 = v60 ^ v59 ^ v58 ^ v49;
-    insetsCopy = v66;
-    *(v40 + 1) = v61 ^ ((v64 ^ v63) >> 31) ^ v56 ^ v51 ^ v53 ^ v55 ^ v63 ^ v64;
+    v54 = v58 ^ v57 ^ v56 ^ v47;
+    insetsCopy = v64;
+    *(v38 + 1) = v59 ^ ((v62 ^ v61) >> 31) ^ v54 ^ v49 ^ v51 ^ v53 ^ v61 ^ v62;
 
-    rectInsetsCopy = v67;
+    rectInsetsCopy = v65;
   }
 
-  return v40;
+  return v38;
 }
 
 - (SBIconLabelImageMetrics)init

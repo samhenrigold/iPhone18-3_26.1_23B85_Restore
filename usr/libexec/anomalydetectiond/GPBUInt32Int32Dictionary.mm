@@ -1,4 +1,5 @@
 @interface GPBUInt32Int32Dictionary
+- (BOOL)getInt32:(int *)int32 forKey:(unsigned int)key;
 - (BOOL)isEqual:(id)equal;
 - (GPBUInt32Int32Dictionary)initWithDictionary:(id)dictionary;
 - (GPBUInt32Int32Dictionary)initWithInt32s:(const int *)int32s forKeys:(const unsigned int *)keys count:(unint64_t)count;
@@ -8,7 +9,9 @@
 - (void)dealloc;
 - (void)enumerateForTextFormat:(id)format;
 - (void)enumerateKeysAndInt32sUsingBlock:(id)block;
+- (void)removeInt32ForKey:(unsigned int)key;
 - (void)setGPBGenericValue:(id *)value forGPBGenericValueKey:(id *)key;
+- (void)setInt32:(int)int32 forKey:(unsigned int)key;
 - (void)writeToCodedOutputStream:(id)stream asField:(id)field;
 @end
 
@@ -198,6 +201,18 @@
   [(GPBUInt32Int32Dictionary *)self enumerateKeysAndInt32sUsingBlock:v3];
 }
 
+- (BOOL)getInt32:(int *)int32 forKey:(unsigned int)key
+{
+  v5 = [(NSMutableDictionary *)self->_dictionary objectForKey:[NSNumber numberWithUnsignedInt:*&key]];
+  v6 = v5;
+  if (int32 && v5)
+  {
+    *int32 = [v5 intValue];
+  }
+
+  return v6 != 0;
+}
+
 - (void)addEntriesFromDictionary:(id)dictionary
 {
   if (dictionary)
@@ -210,6 +225,25 @@
       GPBAutocreatedDictionaryModified(autocreator, self);
     }
   }
+}
+
+- (void)setInt32:(int)int32 forKey:(unsigned int)key
+{
+  [(NSMutableDictionary *)self->_dictionary setObject:[NSNumber forKey:"numberWithInt:" numberWithInt:?], [NSNumber numberWithUnsignedInt:*&key]];
+  autocreator = self->_autocreator;
+  if (autocreator)
+  {
+
+    GPBAutocreatedDictionaryModified(autocreator, self);
+  }
+}
+
+- (void)removeInt32ForKey:(unsigned int)key
+{
+  dictionary = self->_dictionary;
+  v4 = [NSNumber numberWithUnsignedInt:*&key];
+
+  [(NSMutableDictionary *)dictionary removeObjectForKey:v4];
 }
 
 @end

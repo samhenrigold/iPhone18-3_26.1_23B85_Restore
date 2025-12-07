@@ -801,7 +801,7 @@ void __43__AXTapticTimeManager__startPowerAssertion__block_invoke()
   }
 }
 
-uint64_t __47__AXTapticTimeManager__outputWithEnqueueBlock___block_invoke(uint64_t a1)
+void *__47__AXTapticTimeManager__outputWithEnqueueBlock___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _clearQueue];
   result = [*(a1 + 32) _preStartCheck];
@@ -870,7 +870,7 @@ uint64_t __35__AXTapticTimeManager_outputHours___block_invoke(uint64_t a1)
   dispatch_async(MEMORY[0x1E69E96A0], v3);
 }
 
-uint64_t __37__AXTapticTimeManager_outputMinutes___block_invoke(uint64_t a1)
+void *__37__AXTapticTimeManager_outputMinutes___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _clearQueue];
   result = [*(a1 + 32) _preStartCheck];

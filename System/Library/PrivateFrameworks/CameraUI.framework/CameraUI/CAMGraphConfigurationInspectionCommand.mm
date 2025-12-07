@@ -174,7 +174,7 @@
   v13 = Dimensions == 3840 && v7 == 2160;
   if (currentVideoDevice)
   {
-    [currentVideoDevice activeVideoMinFrameDuration];
+    objc_msgSend_activeVideoMinFrameDuration(currentVideoDevice);
     v14 = 0 / 0;
     if (0 / 0 == 30 && v9)
     {

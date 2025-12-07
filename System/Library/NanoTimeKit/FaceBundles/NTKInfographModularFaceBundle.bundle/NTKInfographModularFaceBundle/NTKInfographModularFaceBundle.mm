@@ -112,12 +112,12 @@ void sub_3294(uint64_t a1, uint64_t a2, void *a3)
 
 void sub_38F4(uint64_t a1, uint64_t a2)
 {
-  v14 = [*(a1 + 32) normalComplicationDisplayWrapperForSlot:a2];
-  v3 = [v14 display];
+  v13 = [*(a1 + 32) normalComplicationDisplayWrapperForSlot:a2];
+  v3 = [v13 display];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
 
-  v5 = [v14 display];
+  v5 = [v13 display];
   v6 = v5;
   if (isKindOfClass)
   {
@@ -142,25 +142,24 @@ void sub_38F4(uint64_t a1, uint64_t a2)
       goto LABEL_11;
     }
 
-    v6 = [v14 display];
+    v6 = [v13 display];
     v8 = *(a1 + 32);
     if (*(a1 + 48) == 1)
     {
       v9 = [v8 _defaultDateTextColor];
       v10 = [*(a1 + 32) complicationColor];
-      v11 = *(a1 + 40);
-      v12 = NTKInterpolateBetweenColors();
+      v11 = NTKInterpolateBetweenColors();
     }
 
     else
     {
-      v12 = [v8 interpolatedComplicationColor];
+      v11 = [v8 interpolatedComplicationColor];
     }
 
-    [v6 setTextColor:v12];
+    [v6 setTextColor:v11];
 
-    v13 = [*(a1 + 32) _defaultDateAccentColor];
-    [v6 setAccentColor:v13];
+    v12 = [*(a1 + 32) _defaultDateAccentColor];
+    [v6 setAccentColor:v12];
   }
 
 LABEL_11:
@@ -1125,25 +1124,25 @@ void sub_794C(uint64_t a1, void *a2, uint64_t a3)
     {
       if (a3 == 4)
       {
-        v48[0] = NTKComplicationSlotTopLeft;
-        v48[1] = NTKComplicationSlotBottomLeft;
-        v49[0] = &off_11B20;
-        v49[1] = &off_11B38;
-        v48[2] = NTKComplicationSlotBottomCenter;
-        v48[3] = NTKComplicationSlotBottomRight;
-        v49[2] = &off_11B50;
-        v49[3] = &off_11B68;
-        v9 = [NSDictionary dictionaryWithObjects:v49 forKeys:v48 count:4];
+        v47[0] = NTKComplicationSlotTopLeft;
+        v47[1] = NTKComplicationSlotBottomLeft;
+        v48[0] = &off_11B20;
+        v48[1] = &off_11B38;
+        v47[2] = NTKComplicationSlotBottomCenter;
+        v47[3] = NTKComplicationSlotBottomRight;
+        v48[2] = &off_11B50;
+        v48[3] = &off_11B68;
+        v9 = [NSDictionary dictionaryWithObjects:v48 forKeys:v47 count:4];
         if ([*(a1 + 32) supportsUrsa])
         {
           v19 = [NTKBundleComplication bundledComplicationWithBundleIdentifier:NTKBundleComplicationUrsaBearingBundleIdentifier appBundleIdentifier:NTKBundleComplicationUrsaAppBundleIdentifier complicationDescriptor:0];
           v11 = v19;
           if (v19)
           {
-            v46 = NTKComplicationSlotCenter;
-            v47 = v19;
-            v12 = &v47;
-            v13 = &v46;
+            v45 = NTKComplicationSlotCenter;
+            v46 = v19;
+            v12 = &v46;
+            v13 = &v45;
             goto LABEL_28;
           }
 
@@ -1153,25 +1152,25 @@ void sub_794C(uint64_t a1, void *a2, uint64_t a3)
 
       else
       {
-        v44[0] = NTKComplicationSlotTopLeft;
-        v44[1] = NTKComplicationSlotCenter;
-        v45[0] = &off_11B80;
-        v45[1] = &off_11B98;
-        v44[2] = NTKComplicationSlotBottomLeft;
-        v44[3] = NTKComplicationSlotBottomRight;
-        v45[2] = &off_11BB0;
-        v45[3] = &off_11BC8;
-        v9 = [NSDictionary dictionaryWithObjects:v45 forKeys:v44 count:4];
+        v43[0] = NTKComplicationSlotTopLeft;
+        v43[1] = NTKComplicationSlotCenter;
+        v44[0] = &off_11B80;
+        v44[1] = &off_11B98;
+        v43[2] = NTKComplicationSlotBottomLeft;
+        v43[3] = NTKComplicationSlotBottomRight;
+        v44[2] = &off_11BB0;
+        v44[3] = &off_11BC8;
+        v9 = [NSDictionary dictionaryWithObjects:v44 forKeys:v43 count:4];
         if ([*(a1 + 32) supportsUrsa])
         {
           v14 = [NTKBundleComplication bundledComplicationWithBundleIdentifier:NTKBundleComplicationUrsaCompassBundleIdentifier appBundleIdentifier:NTKBundleComplicationUrsaAppBundleIdentifier complicationDescriptor:0];
           v11 = v14;
           if (v14)
           {
-            v42 = NTKComplicationSlotBottomCenter;
-            v43 = v14;
-            v12 = &v43;
-            v13 = &v42;
+            v41 = NTKComplicationSlotBottomCenter;
+            v42 = v14;
+            v12 = &v42;
+            v13 = &v41;
             goto LABEL_28;
           }
 
@@ -1186,46 +1185,45 @@ LABEL_31:
 
     if (a3 == 6)
     {
-      v21 = *(a1 + 32);
       if (NTKShowCarbonara())
       {
-        v22 = [CLKWidgetComplicationDescriptor alloc];
-        v23 = NTKCarbonaraWidgetIntent();
-        v24 = [v22 initWithExtensionBundleIdentifier:@"com.apple.NanoHome.NanoHomeWidgets" containerBundleIdentifier:@"com.apple.NanoHome" kind:@"com.apple.HomeEnergyUI.EnergyForecastComplication" intent:v23];
+        v21 = [CLKWidgetComplicationDescriptor alloc];
+        v22 = NTKCarbonaraWidgetIntent();
+        v23 = [v21 initWithExtensionBundleIdentifier:@"com.apple.NanoHome.NanoHomeWidgets" containerBundleIdentifier:@"com.apple.NanoHome" kind:@"com.apple.HomeEnergyUI.EnergyForecastComplication" intent:v22];
 
-        v25 = [NTKWidgetComplication complicationWithDescriptor:v24];
-        v26 = [[CLKWidgetComplicationDescriptor alloc] initWithExtensionBundleIdentifier:@"com.apple.NanoMaps.NanoMapsWidgetKitComplications" containerBundleIdentifier:@"com.apple.NanoMaps" kind:@"NearByTransitComplication" intent:0];
-        v27 = [NTKWidgetComplication complicationWithDescriptor:v26];
-        v40[0] = NTKComplicationSlotTopLeft;
-        v40[1] = NTKComplicationSlotCenter;
-        v41[0] = v25;
-        v41[1] = v25;
-        v40[2] = NTKComplicationSlotBottomCenter;
-        v41[2] = v27;
-        v7 = [NSDictionary dictionaryWithObjects:v41 forKeys:v40 count:3];
-        v38[0] = NTKComplicationSlotBottomLeft;
-        v38[1] = NTKComplicationSlotBottomRight;
-        v39[0] = &off_11BE0;
-        v39[1] = &off_11BF8;
-        v9 = [NSDictionary dictionaryWithObjects:v39 forKeys:v38 count:2];
+        v24 = [NTKWidgetComplication complicationWithDescriptor:v23];
+        v25 = [[CLKWidgetComplicationDescriptor alloc] initWithExtensionBundleIdentifier:@"com.apple.NanoMaps.NanoMapsWidgetKitComplications" containerBundleIdentifier:@"com.apple.NanoMaps" kind:@"NearByTransitComplication" intent:0];
+        v26 = [NTKWidgetComplication complicationWithDescriptor:v25];
+        v39[0] = NTKComplicationSlotTopLeft;
+        v39[1] = NTKComplicationSlotCenter;
+        v40[0] = v24;
+        v40[1] = v24;
+        v39[2] = NTKComplicationSlotBottomCenter;
+        v40[2] = v26;
+        v7 = [NSDictionary dictionaryWithObjects:v40 forKeys:v39 count:3];
+        v37[0] = NTKComplicationSlotBottomLeft;
+        v37[1] = NTKComplicationSlotBottomRight;
+        v38[0] = &off_11BE0;
+        v38[1] = &off_11BF8;
+        v9 = [NSDictionary dictionaryWithObjects:v38 forKeys:v37 count:2];
 
 LABEL_36:
         v8 = 0;
         goto LABEL_37;
       }
 
-      v36[0] = NTKComplicationSlotTopLeft;
-      v36[1] = NTKComplicationSlotCenter;
-      v37[0] = &off_11C10;
-      v37[1] = &off_11C28;
-      v36[2] = NTKComplicationSlotBottomLeft;
-      v36[3] = NTKComplicationSlotBottomCenter;
-      v37[2] = &off_11C40;
-      v37[3] = &off_11C58;
-      v36[4] = NTKComplicationSlotBottomRight;
-      v37[4] = &off_11C70;
-      v17 = v37;
-      v18 = v36;
+      v35[0] = NTKComplicationSlotTopLeft;
+      v35[1] = NTKComplicationSlotCenter;
+      v36[0] = &off_11C10;
+      v36[1] = &off_11C28;
+      v35[2] = NTKComplicationSlotBottomLeft;
+      v35[3] = NTKComplicationSlotBottomCenter;
+      v36[2] = &off_11C40;
+      v36[3] = &off_11C58;
+      v35[4] = NTKComplicationSlotBottomRight;
+      v36[4] = &off_11C70;
+      v17 = v36;
+      v18 = v35;
     }
 
     else
@@ -1237,18 +1235,18 @@ LABEL_36:
         goto LABEL_37;
       }
 
-      v34[0] = NTKComplicationSlotTopLeft;
-      v34[1] = NTKComplicationSlotCenter;
-      v35[0] = &off_11C88;
-      v35[1] = &off_11CA0;
-      v34[2] = NTKComplicationSlotBottomLeft;
-      v34[3] = NTKComplicationSlotBottomCenter;
-      v35[2] = &off_11CB8;
-      v35[3] = &off_11CD0;
-      v34[4] = NTKComplicationSlotBottomRight;
-      v35[4] = &off_11CE8;
-      v17 = v35;
-      v18 = v34;
+      v33[0] = NTKComplicationSlotTopLeft;
+      v33[1] = NTKComplicationSlotCenter;
+      v34[0] = &off_11C88;
+      v34[1] = &off_11CA0;
+      v33[2] = NTKComplicationSlotBottomLeft;
+      v33[3] = NTKComplicationSlotBottomCenter;
+      v34[2] = &off_11CB8;
+      v34[3] = &off_11CD0;
+      v33[4] = NTKComplicationSlotBottomRight;
+      v34[4] = &off_11CE8;
+      v17 = v34;
+      v18 = v33;
     }
 
     goto LABEL_34;
@@ -1258,25 +1256,25 @@ LABEL_36:
   {
     if (a3 == 2)
     {
-      v56[0] = NTKComplicationSlotTopLeft;
-      v56[1] = NTKComplicationSlotCenter;
-      v57[0] = &off_11A78;
-      v57[1] = &off_11A90;
-      v56[2] = NTKComplicationSlotBottomLeft;
-      v56[3] = NTKComplicationSlotBottomRight;
-      v57[2] = &off_11AA8;
-      v57[3] = &off_11AC0;
-      v9 = [NSDictionary dictionaryWithObjects:v57 forKeys:v56 count:4];
+      v55[0] = NTKComplicationSlotTopLeft;
+      v55[1] = NTKComplicationSlotCenter;
+      v56[0] = &off_11A78;
+      v56[1] = &off_11A90;
+      v55[2] = NTKComplicationSlotBottomLeft;
+      v55[3] = NTKComplicationSlotBottomRight;
+      v56[2] = &off_11AA8;
+      v56[3] = &off_11AC0;
+      v9 = [NSDictionary dictionaryWithObjects:v56 forKeys:v55 count:4];
       if ([*(a1 + 32) supportsUrsa])
       {
         v20 = [NTKBundleComplication bundledComplicationWithBundleIdentifier:NTKBundleComplicationUrsaCompassBundleIdentifier appBundleIdentifier:NTKBundleComplicationUrsaAppBundleIdentifier complicationDescriptor:0];
         v11 = v20;
         if (v20)
         {
-          v54 = NTKComplicationSlotBottomCenter;
-          v55 = v20;
-          v12 = &v55;
-          v13 = &v54;
+          v53 = NTKComplicationSlotBottomCenter;
+          v54 = v20;
+          v12 = &v54;
+          v13 = &v53;
           goto LABEL_28;
         }
 
@@ -1286,13 +1284,13 @@ LABEL_36:
 
     else
     {
-      v52[0] = NTKComplicationSlotTopLeft;
-      v52[1] = NTKComplicationSlotCenter;
-      v53[0] = &off_11AD8;
-      v53[1] = &off_11AF0;
-      v52[2] = NTKComplicationSlotBottomRight;
-      v53[2] = &off_11B08;
-      v9 = [NSDictionary dictionaryWithObjects:v53 forKeys:v52 count:3];
+      v51[0] = NTKComplicationSlotTopLeft;
+      v51[1] = NTKComplicationSlotCenter;
+      v52[0] = &off_11AD8;
+      v52[1] = &off_11AF0;
+      v51[2] = NTKComplicationSlotBottomRight;
+      v52[2] = &off_11B08;
+      v9 = [NSDictionary dictionaryWithObjects:v52 forKeys:v51 count:3];
       if ([*(a1 + 32) supportsUrsa])
       {
         v11 = [NTKBundleComplication bundledComplicationWithBundleIdentifier:NTKBundleComplicationUrsaCompassBundleIdentifier appBundleIdentifier:NTKBundleComplicationUrsaAppBundleIdentifier complicationDescriptor:0];
@@ -1301,11 +1299,11 @@ LABEL_36:
         v8 = 0;
         if (v11 && v15)
         {
-          v50[0] = NTKComplicationSlotBottomLeft;
-          v50[1] = NTKComplicationSlotBottomCenter;
-          v51[0] = v15;
-          v51[1] = v11;
-          v8 = [NSDictionary dictionaryWithObjects:v51 forKeys:v50 count:2];
+          v49[0] = NTKComplicationSlotBottomLeft;
+          v49[1] = NTKComplicationSlotBottomCenter;
+          v50[0] = v15;
+          v50[1] = v11;
+          v8 = [NSDictionary dictionaryWithObjects:v50 forKeys:v49 count:2];
         }
 
         goto LABEL_32;
@@ -1317,18 +1315,18 @@ LABEL_36:
 
   if (!a3)
   {
-    v62[0] = NTKComplicationSlotTopLeft;
-    v62[1] = NTKComplicationSlotCenter;
-    v63[0] = &off_119A0;
-    v63[1] = &off_119B8;
-    v62[2] = NTKComplicationSlotBottomLeft;
-    v62[3] = NTKComplicationSlotBottomCenter;
-    v63[2] = &off_119D0;
-    v63[3] = &off_119E8;
-    v62[4] = NTKComplicationSlotBottomRight;
-    v63[4] = &off_11A00;
-    v17 = v63;
-    v18 = v62;
+    v61[0] = NTKComplicationSlotTopLeft;
+    v61[1] = NTKComplicationSlotCenter;
+    v62[0] = &off_119A0;
+    v62[1] = &off_119B8;
+    v61[2] = NTKComplicationSlotBottomLeft;
+    v61[3] = NTKComplicationSlotBottomCenter;
+    v62[2] = &off_119D0;
+    v62[3] = &off_119E8;
+    v61[4] = NTKComplicationSlotBottomRight;
+    v62[4] = &off_11A00;
+    v17 = v62;
+    v18 = v61;
 LABEL_34:
     v9 = [NSDictionary dictionaryWithObjects:v17 forKeys:v18 count:5];
 LABEL_35:
@@ -1340,23 +1338,23 @@ LABEL_35:
   v9 = 0;
   if (a3 == 1)
   {
-    v60[0] = NTKComplicationSlotTopLeft;
-    v60[1] = NTKComplicationSlotCenter;
-    v61[0] = &off_11A18;
-    v61[1] = &off_11A30;
-    v60[2] = NTKComplicationSlotBottomCenter;
-    v60[3] = NTKComplicationSlotBottomRight;
-    v61[2] = &off_11A48;
-    v61[3] = &off_11A60;
-    v9 = [NSDictionary dictionaryWithObjects:v61 forKeys:v60 count:4];
+    v59[0] = NTKComplicationSlotTopLeft;
+    v59[1] = NTKComplicationSlotCenter;
+    v60[0] = &off_11A18;
+    v60[1] = &off_11A30;
+    v59[2] = NTKComplicationSlotBottomCenter;
+    v59[3] = NTKComplicationSlotBottomRight;
+    v60[2] = &off_11A48;
+    v60[3] = &off_11A60;
+    v9 = [NSDictionary dictionaryWithObjects:v60 forKeys:v59 count:4];
     v10 = [NTKBundleComplication bundledComplicationWithBundleIdentifier:NTKBundleComplicationNoiseBundleIdentifier appBundleIdentifier:NTKBundleComplicationNoiseAppBundleIdentifier complicationDescriptor:0];
     v11 = v10;
     if (v10)
     {
-      v58 = NTKComplicationSlotBottomLeft;
-      v59 = v10;
-      v12 = &v59;
-      v13 = &v58;
+      v57 = NTKComplicationSlotBottomLeft;
+      v58 = v10;
+      v12 = &v58;
+      v13 = &v57;
 LABEL_28:
       v8 = [NSDictionary dictionaryWithObjects:v12 forKeys:v13 count:1];
 LABEL_32:
@@ -1371,18 +1369,18 @@ LABEL_32:
 LABEL_37:
   [v5 _setFaceGalleryComplicationTypesForSlots:v9 canRepeat:1];
   [v5 setComplication:*(a1 + 40) forSlot:NTKComplicationSlotDate];
-  v32[0] = _NSConcreteStackBlock;
-  v32[1] = 3221225472;
-  v32[2] = sub_8374;
-  v32[3] = &unk_108A8;
-  v28 = v5;
-  v33 = v28;
-  [v8 enumerateKeysAndObjectsUsingBlock:v32];
-  v30[0] = _NSConcreteStackBlock;
-  v30[1] = 3221225472;
-  v30[2] = sub_8380;
-  v30[3] = &unk_108D0;
-  v31 = v28;
-  v29 = v28;
-  [v7 enumerateKeysAndObjectsUsingBlock:v30];
+  v31[0] = _NSConcreteStackBlock;
+  v31[1] = 3221225472;
+  v31[2] = sub_8374;
+  v31[3] = &unk_108A8;
+  v27 = v5;
+  v32 = v27;
+  [v8 enumerateKeysAndObjectsUsingBlock:v31];
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = sub_8380;
+  v29[3] = &unk_108D0;
+  v30 = v27;
+  v28 = v27;
+  [v7 enumerateKeysAndObjectsUsingBlock:v29];
 }

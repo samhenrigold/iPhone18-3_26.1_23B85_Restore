@@ -330,7 +330,8 @@
       *&v260[28] = 1065353216;
       if (end != v29)
       {
-        *&__src[4] = 0uLL;
+        *&__src[12] = 0;
+        *&__src[4] = 0;
         *__src = 1065353216;
         v250 = 1065353216;
         v251 = 0;
@@ -827,27 +828,27 @@ LABEL_151:
 
 - (void)debug_dumpGeometryBounds
 {
-  objc_msgSend_geometryBounds(self, a2, v2, v3, v4);
+  objc_msgSend_geometryBounds(self, v2, v3, v4);
   v7 = objc_opt_class();
   v8 = NSStringFromSelector(a2);
   v9 = MEMORY[0x277CCACA8];
-  sub_276166580(v22, v10, v11, v12, v13, v14, v15, v16);
-  if (v24 >= 0)
+  sub_276166580(v15, __p);
+  if (v17 >= 0)
   {
-    objc_msgSend_stringWithUTF8String_(v9, v17, v18, v19, v20, &__p);
+    objc_msgSend_stringWithUTF8String_(v9, v10, v11, v12, v13, __p);
   }
 
   else
   {
-    objc_msgSend_stringWithUTF8String_(v9, v17, v18, v19, v20, __p);
+    objc_msgSend_stringWithUTF8String_(v9, v10, v11, v12, v13, __p[0]);
   }
-  v21 = ;
-  if (v24 < 0)
+  v14 = ;
+  if (v17 < 0)
   {
-    operator delete(__p);
+    operator delete(__p[0]);
   }
 
-  NSLog(&cfstr_PBounds_0.isa, v7, self, v8, v21);
+  NSLog(&cfstr_PBounds_0.isa, v7, self, v8, v14);
 }
 
 - (tvec3<float>)normalBias

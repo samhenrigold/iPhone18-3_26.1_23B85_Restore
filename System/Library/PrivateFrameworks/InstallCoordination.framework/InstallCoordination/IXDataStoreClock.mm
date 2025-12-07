@@ -187,34 +187,30 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  v9[0] = @"sequenceNumber";
+  v9[2] = *MEMORY[0x1E69E9840];
+  v8[0] = @"sequenceNumber";
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{-[IXDataStoreClock sequenceNumber](self, "sequenceNumber")}];
-  v9[1] = @"guid";
-  v10[0] = v3;
+  v8[1] = @"guid";
+  v9[0] = v3;
   guid = [(IXDataStoreClock *)self guid];
   uUIDString = [guid UUIDString];
-  v10[1] = uUIDString;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9[1] = uUIDString;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   return v6;
 }
 
 - (NSDictionary)notificationDictionary
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  v9[0] = @"sequenceNumber";
+  v9[2] = *MEMORY[0x1E69E9840];
+  v8[0] = @"sequenceNumber";
   v3 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{-[IXDataStoreClock sequenceNumber](self, "sequenceNumber")}];
-  v9[1] = @"guid";
-  v10[0] = v3;
+  v8[1] = @"guid";
+  v9[0] = v3;
   guid = [(IXDataStoreClock *)self guid];
   uUIDString = [guid UUIDString];
-  v10[1] = uUIDString;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v9[1] = uUIDString;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   return v6;
 }

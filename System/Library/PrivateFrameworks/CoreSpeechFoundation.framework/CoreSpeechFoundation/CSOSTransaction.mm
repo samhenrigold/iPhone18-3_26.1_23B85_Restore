@@ -7,31 +7,30 @@
 
 - (void)dealloc
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     description = self->_description;
     *buf = 136315394;
-    v8 = "[CSOSTransaction dealloc]";
-    v9 = 2114;
-    v10 = description;
+    v7 = "[CSOSTransaction dealloc]";
+    v8 = 2114;
+    v9 = description;
     _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Release OS Transaction for %{public}@", buf, 0x16u);
   }
 
-  v6.receiver = self;
-  v6.super_class = CSOSTransaction;
-  [(CSOSTransaction *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = CSOSTransaction;
+  [(CSOSTransaction *)&v5 dealloc];
 }
 
 - (CSOSTransaction)initWithDescription:(id)description
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
-  v18.receiver = self;
-  v18.super_class = CSOSTransaction;
-  v5 = [(CSOSTransaction *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = CSOSTransaction;
+  v5 = [(CSOSTransaction *)&v17 init];
   if (v5)
   {
     v6 = MEMORY[0x1E696AEC0];
@@ -52,14 +51,13 @@
     {
       v15 = v5->_description;
       *buf = 136315394;
-      v20 = "[CSOSTransaction initWithDescription:]";
-      v21 = 2114;
-      v22 = v15;
+      v19 = "[CSOSTransaction initWithDescription:]";
+      v20 = 2114;
+      v21 = v15;
       _os_log_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_DEFAULT, "%s Creating OS Transaction for %{public}@", buf, 0x16u);
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

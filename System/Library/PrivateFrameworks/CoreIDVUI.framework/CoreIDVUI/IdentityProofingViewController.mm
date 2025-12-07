@@ -69,14 +69,15 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_2458A8224(appear);
+  sub_2458A8224(appearCopy);
 }
 
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_2458A83B0();
+  sub_2458A83B0(selfCopy);
 }
 
 - (void)updateViewLayout:(id)layout previousTraitCollection:(id)collection

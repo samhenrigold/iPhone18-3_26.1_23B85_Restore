@@ -159,7 +159,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = dictionary;
   conceptIdentifier = self->_conceptIdentifier;
@@ -248,30 +248,30 @@
   if ([(NSMutableArray *)self->_monthHighlights count])
   {
     v21 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_monthHighlights, "count")}];
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
     v22 = self->_monthHighlights;
-    v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v49 objects:v53 count:16];
+    v23 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v48 objects:v52 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v50;
+      v25 = *v49;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v50 != v25)
+          if (*v49 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          dictionaryRepresentation3 = [*(*(&v49 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation3 = [*(*(&v48 + 1) + 8 * i) dictionaryRepresentation];
           [v21 addObject:dictionaryRepresentation3];
         }
 
-        v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v49 objects:v53 count:16];
+        v24 = [(NSMutableArray *)v22 countByEnumeratingWithState:&v48 objects:v52 count:16];
       }
 
       while (v24);
@@ -283,8 +283,8 @@
   v28 = self->_has;
   if ((v28 & 0x10) != 0)
   {
-    v47 = [MEMORY[0x277CCABB0] numberWithBool:self->_archived];
-    [v4 setObject:v47 forKey:@"archived"];
+    v46 = [MEMORY[0x277CCABB0] numberWithBool:self->_archived];
+    [v4 setObject:v46 forKey:@"archived"];
 
     v28 = self->_has;
     if ((v28 & 4) == 0)
@@ -304,13 +304,13 @@ LABEL_38:
     goto LABEL_38;
   }
 
-  v48 = [MEMORY[0x277CCABB0] numberWithLongLong:{self->_latestSupportedVersion, v49}];
-  [v4 setObject:v48 forKey:@"latestSupportedVersion"];
+  v47 = [MEMORY[0x277CCABB0] numberWithLongLong:{self->_latestSupportedVersion, v48}];
+  [v4 setObject:v47 forKey:@"latestSupportedVersion"];
 
   if ((*&self->_has & 8) != 0)
   {
 LABEL_39:
-    v29 = [MEMORY[0x277CCABB0] numberWithLongLong:{self->_minimumSupportedVersion, v49}];
+    v29 = [MEMORY[0x277CCABB0] numberWithLongLong:{self->_minimumSupportedVersion, v48}];
     [v4 setObject:v29 forKey:@"minimumSupportedVersion"];
   }
 
@@ -392,14 +392,12 @@ LABEL_40:
     [v4 setObject:v44 forKey:@"isLactationDescriptionCritical"];
   }
 
-  v45 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_conceptIdentifier)
   {
@@ -416,30 +414,29 @@ LABEL_40:
     PBDataWriterWriteStringField();
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
-  v32 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v5 = self->_ingredientComponentStrings;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v32;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v32 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v31 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v7);
@@ -472,7 +469,6 @@ LABEL_40:
 
   if (*&self->_has)
   {
-    freeTextMedicationForm = self->_freeTextMedicationForm;
     PBDataWriterWriteInt64Field();
   }
 
@@ -486,39 +482,37 @@ LABEL_40:
     PBDataWriterWriteSubmessage();
   }
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v12 = self->_monthHighlights;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v27 objects:v35 count:16];
-  if (v13)
+  v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v10 = self->_monthHighlights;
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  if (v11)
   {
-    v14 = v13;
-    v15 = *v28;
+    v12 = v11;
+    v13 = *v18;
     do
     {
-      for (j = 0; j != v14; ++j)
+      for (j = 0; j != v12; ++j)
       {
-        if (*v28 != v15)
+        if (*v18 != v13)
         {
-          objc_enumerationMutation(v12);
+          objc_enumerationMutation(v10);
         }
 
-        v17 = *(*(&v27 + 1) + 8 * j);
         PBDataWriterWriteSubmessage();
       }
 
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v17 objects:v25 count:16];
     }
 
-    while (v14);
+    while (v12);
   }
 
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    archived = self->_archived;
     PBDataWriterWriteBOOLField();
     has = self->_has;
     if ((has & 4) == 0)
@@ -538,12 +532,10 @@ LABEL_39:
     goto LABEL_39;
   }
 
-  latestSupportedVersion = self->_latestSupportedVersion;
   PBDataWriterWriteInt64Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_40:
-    minimumSupportedVersion = self->_minimumSupportedVersion;
     PBDataWriterWriteInt64Field();
   }
 
@@ -590,7 +582,6 @@ LABEL_41:
 
   if ((*&self->_has & 2) != 0)
   {
-    freeTextMedicationLoggingUnit = self->_freeTextMedicationLoggingUnit;
     PBDataWriterWriteInt64Field();
   }
 
@@ -604,21 +595,17 @@ LABEL_41:
     PBDataWriterWriteStringField();
   }
 
-  v21 = self->_has;
-  if ((v21 & 0x40) != 0)
+  v16 = self->_has;
+  if ((v16 & 0x40) != 0)
   {
-    isPregnancyDescriptionCritical = self->_isPregnancyDescriptionCritical;
     PBDataWriterWriteBOOLField();
-    v21 = self->_has;
+    v16 = self->_has;
   }
 
-  if ((v21 & 0x20) != 0)
+  if ((v16 & 0x20) != 0)
   {
-    isLactationDescriptionCritical = self->_isLactationDescriptionCritical;
     PBDataWriterWriteBOOLField();
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -832,7 +819,7 @@ LABEL_35:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_conceptIdentifier copyWithZone:zone];
   v7 = *(v5 + 80);
@@ -846,30 +833,30 @@ LABEL_35:
   v11 = *(v5 + 48);
   *(v5 + 48) = v10;
 
-  v68 = 0u;
-  v69 = 0u;
-  v66 = 0u;
   v67 = 0u;
+  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
   v12 = self->_ingredientComponentStrings;
-  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v66 objects:v71 count:16];
+  v13 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v65 objects:v70 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v67;
+    v15 = *v66;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v67 != v15)
+        if (*v66 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [*(*(&v66 + 1) + 8 * i) copyWithZone:zone];
+        v17 = [*(*(&v65 + 1) + 8 * i) copyWithZone:zone];
         [v5 addIngredientComponentStrings:v17];
       }
 
-      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v66 objects:v71 count:16];
+      v14 = [(NSMutableArray *)v12 countByEnumeratingWithState:&v65 objects:v70 count:16];
     }
 
     while (v14);
@@ -909,30 +896,30 @@ LABEL_35:
   v31 = *(v5 + 160);
   *(v5 + 160) = v30;
 
-  v64 = 0u;
-  v65 = 0u;
-  v62 = 0u;
   v63 = 0u;
+  v64 = 0u;
+  v61 = 0u;
+  v62 = 0u;
   v32 = self->_monthHighlights;
-  v33 = [(NSMutableArray *)v32 countByEnumeratingWithState:&v62 objects:v70 count:16];
+  v33 = [(NSMutableArray *)v32 countByEnumeratingWithState:&v61 objects:v69 count:16];
   if (v33)
   {
     v34 = v33;
-    v35 = *v63;
+    v35 = *v62;
     do
     {
       for (j = 0; j != v34; ++j)
       {
-        if (*v63 != v35)
+        if (*v62 != v35)
         {
           objc_enumerationMutation(v32);
         }
 
-        v37 = [*(*(&v62 + 1) + 8 * j) copyWithZone:{zone, v62}];
+        v37 = [*(*(&v61 + 1) + 8 * j) copyWithZone:{zone, v61}];
         [v5 addMonthHighlights:v37];
       }
 
-      v34 = [(NSMutableArray *)v32 countByEnumeratingWithState:&v62 objects:v70 count:16];
+      v34 = [(NSMutableArray *)v32 countByEnumeratingWithState:&v61 objects:v69 count:16];
     }
 
     while (v34);
@@ -971,7 +958,7 @@ LABEL_20:
   }
 
 LABEL_21:
-  v39 = [(HDCodableMedicationChartSeries *)self->_chartSeries copyWithZone:zone, v62];
+  v39 = [(HDCodableMedicationChartSeries *)self->_chartSeries copyWithZone:zone, v61];
   v40 = *(v5 + 72);
   *(v5 + 72) = v39;
 
@@ -1031,7 +1018,6 @@ LABEL_21:
     *(v5 + 220) |= 0x20u;
   }
 
-  v60 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1124,7 +1110,6 @@ LABEL_21:
     }
   }
 
-  v14 = *(equalCopy + 220);
   if (*&self->_has)
   {
     if ((*(equalCopy + 220) & 1) == 0 || self->_freeTextMedicationForm != *(equalCopy + 1))
@@ -1162,7 +1147,6 @@ LABEL_21:
     }
   }
 
-  v18 = *(equalCopy + 220);
   if ((*&self->_has & 0x10) != 0)
   {
     if ((*(equalCopy + 220) & 0x10) == 0)
@@ -1170,7 +1154,6 @@ LABEL_21:
       goto LABEL_89;
     }
 
-    v19 = *(equalCopy + 216);
     if (self->_archived)
     {
       if ((*(equalCopy + 216) & 1) == 0)
@@ -1285,7 +1268,6 @@ LABEL_21:
     }
   }
 
-  v28 = *(equalCopy + 220);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 220) & 2) == 0 || self->_freeTextMedicationLoggingUnit != *(equalCopy + 2))
@@ -1321,7 +1303,6 @@ LABEL_21:
       goto LABEL_89;
     }
 
-    v32 = *(equalCopy + 218);
     if (self->_isPregnancyDescriptionCritical)
     {
       if ((*(equalCopy + 218) & 1) == 0)
@@ -1356,20 +1337,20 @@ LABEL_21:
       else if (!*(equalCopy + 217))
       {
 LABEL_91:
-        v31 = 1;
+        v27 = 1;
         goto LABEL_90;
       }
     }
 
 LABEL_89:
-    v31 = 0;
+    v27 = 0;
     goto LABEL_90;
   }
 
-  v31 = (*(equalCopy + 220) & 0x20) == 0;
+  v27 = (*(equalCopy + 220) & 0x20) == 0;
 LABEL_90:
 
-  return v31;
+  return v27;
 }
 
 - (unint64_t)hash
@@ -1478,7 +1459,7 @@ LABEL_16:
 
 - (void)mergeFrom:(id)from
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 10))
   {
@@ -1495,29 +1476,29 @@ LABEL_16:
     [(HDCodableMedicationShareableModel *)self setBaseUnitStrength:?];
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v5 = *(fromCopy + 15);
-  v6 = [v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v31;
+    v8 = *v30;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v31 != v8)
+        if (*v30 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(HDCodableMedicationShareableModel *)self addIngredientComponentStrings:*(*(&v30 + 1) + 8 * i)];
+        [(HDCodableMedicationShareableModel *)self addIngredientComponentStrings:*(*(&v29 + 1) + 8 * i)];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v7);
@@ -1584,29 +1565,29 @@ LABEL_16:
     [(HDCodableMedicationShareableModel *)self setMostRecentDose:?];
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v14 = *(fromCopy + 19);
-  v15 = [v14 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v27;
+    v17 = *v26;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v27 != v17)
+        if (*v26 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        [(HDCodableMedicationShareableModel *)self addMonthHighlights:*(*(&v26 + 1) + 8 * j), v26];
+        [(HDCodableMedicationShareableModel *)self addMonthHighlights:*(*(&v25 + 1) + 8 * j), v25];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v16);
@@ -1734,8 +1715,6 @@ LABEL_47:
     self->_isLactationDescriptionCritical = *(fromCopy + 217);
     *&self->_has |= 0x20u;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

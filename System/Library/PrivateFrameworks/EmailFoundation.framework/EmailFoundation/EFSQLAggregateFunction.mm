@@ -21,14 +21,12 @@
 
 + (id)avg:(id)avg
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   avgCopy = avg;
   v4 = [EFSQLAggregateFunction alloc];
-  v9[0] = avgCopy;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = avgCopy;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   v6 = [(EFSQLAggregateFunction *)v4 initWithName:@"avg" arguments:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -44,13 +42,13 @@
 
 + (id)count:(id)count
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   countCopy = count;
   v4 = countCopy;
   if (countCopy)
   {
-    v9[0] = countCopy;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+    v8[0] = countCopy;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   }
 
   else
@@ -59,8 +57,6 @@
   }
 
   v6 = [[EFSQLAggregateFunction alloc] initWithName:@"count" arguments:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -76,41 +72,37 @@
 
 + (id)groupConcat:(id)concat separator:(id)separator
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v13[2] = *MEMORY[0x1E69E9840];
   concatCopy = concat;
   separatorCopy = separator;
   v7 = separatorCopy;
   if (separatorCopy)
   {
-    v14[0] = concatCopy;
-    v14[1] = separatorCopy;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
+    v13[0] = concatCopy;
+    v13[1] = separatorCopy;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:2];
   }
 
   else
   {
-    v13 = concatCopy;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:1];
+    v12 = concatCopy;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
   }
 
   v9 = v8;
   v10 = [[EFSQLAggregateFunction alloc] initWithName:@"group_concat" arguments:v8];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)max:(id)max
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   maxCopy = max;
   v4 = [EFSQLAggregateFunction alloc];
-  v9[0] = maxCopy;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = maxCopy;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   v6 = [(EFSQLAggregateFunction *)v4 initWithName:@"max" arguments:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -126,14 +118,12 @@
 
 + (id)min:(id)min
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   minCopy = min;
   v4 = [EFSQLAggregateFunction alloc];
-  v9[0] = minCopy;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = minCopy;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   v6 = [(EFSQLAggregateFunction *)v4 initWithName:@"min" arguments:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -149,14 +139,12 @@
 
 + (id)sum:(id)sum
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   sumCopy = sum;
   v4 = [EFSQLAggregateFunction alloc];
-  v9[0] = sumCopy;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = sumCopy;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   v6 = [(EFSQLAggregateFunction *)v4 initWithName:@"sum" arguments:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -172,14 +160,12 @@
 
 + (id)total:(id)total
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   totalCopy = total;
   v4 = [EFSQLAggregateFunction alloc];
-  v9[0] = totalCopy;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = totalCopy;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   v6 = [(EFSQLAggregateFunction *)v4 initWithName:@"total" arguments:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

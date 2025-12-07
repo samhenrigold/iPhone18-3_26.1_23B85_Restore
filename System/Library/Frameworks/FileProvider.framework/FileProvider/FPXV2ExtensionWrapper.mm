@@ -13,6 +13,7 @@
 - (id)modifyItem:(id)item baseVersion:(id)version changedFields:(unint64_t)fields contents:(id)contents options:(unint64_t)options request:(id)request completionHandler:(id)handler;
 - (id)performActionWithIdentifier:(id)identifier onItemsWithIdentifiers:(id)identifiers completionHandler:(id)handler;
 - (id)supportedServiceSourcesForItemIdentifier:(id)identifier completionHandler:(id)handler;
+- (void)setInteractionSuppressed:(BOOL)suppressed forIdentifier:(id)identifier;
 @end
 
 @implementation FPXV2ExtensionWrapper
@@ -230,7 +231,7 @@ uint64_t __94__FPXV2ExtensionWrapper_fetchContentsForItemWithIdentifier_version_
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (id)fetchContentsForItemWithIdentifier:(id)identifier version:(id)version usingExistingContentsAtURL:(id)l existingVersion:(id)existingVersion request:(id)request completionHandler:(id)handler
@@ -279,7 +280,7 @@ uint64_t __137__FPXV2ExtensionWrapper_fetchContentsForItemWithIdentifier_version
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (id)itemForIdentifier:(id)identifier request:(id)request completionHandler:(id)handler
@@ -323,40 +324,48 @@ uint64_t __137__FPXV2ExtensionWrapper_fetchContentsForItemWithIdentifier_version
   identifierCopy = identifier;
   identifiersCopy = identifiers;
   handlerCopy = handler;
-  extension = self->_extension;
   if (objc_opt_respondsToSelector())
   {
-    v12 = [(NSFileProviderExtension *)self->_extension performActionWithIdentifier:identifierCopy onItemsWithIdentifiers:identifiersCopy completionHandler:handlerCopy];
+    v11 = [(NSFileProviderExtension *)self->_extension performActionWithIdentifier:identifierCopy onItemsWithIdentifiers:identifiersCopy completionHandler:handlerCopy];
   }
 
   else
   {
-    v13 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:3328 userInfo:0];
-    handlerCopy[2](handlerCopy, v13);
+    v12 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:3328 userInfo:0];
+    handlerCopy[2](handlerCopy, v12);
 
-    v12 = objc_opt_new();
+    v11 = objc_opt_new();
   }
 
-  v14 = v12;
+  v13 = v11;
 
-  return v14;
+  return v13;
 }
 
 - (BOOL)isInteractionSuppressedForIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  extension = self->_extension;
   if (objc_opt_respondsToSelector())
   {
-    v6 = [(NSFileProviderExtension *)self->_extension isInteractionSuppressedForIdentifier:identifierCopy];
+    v5 = [(NSFileProviderExtension *)self->_extension isInteractionSuppressedForIdentifier:identifierCopy];
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  return v6;
+  return v5;
+}
+
+- (void)setInteractionSuppressed:(BOOL)suppressed forIdentifier:(id)identifier
+{
+  suppressedCopy = suppressed;
+  identifierCopy = identifier;
+  if (objc_opt_respondsToSelector())
+  {
+    [(NSFileProviderExtension *)self->_extension setInteractionSuppressed:suppressedCopy forIdentifier:identifierCopy];
+  }
 }
 
 - (id)methodSignatureForSelector:(SEL)selector

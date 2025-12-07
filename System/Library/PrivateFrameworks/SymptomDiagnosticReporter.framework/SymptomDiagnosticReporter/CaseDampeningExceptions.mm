@@ -8,31 +8,31 @@
 
 + (BOOL)isString:(id)string inExceptionList:(id)list
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   listCopy = list;
   if ([stringCopy length] && objc_msgSend(listCopy, "count"))
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v7 = listCopy;
-    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v16 + 1) + 8 * i);
+          v12 = *(*(&v15 + 1) + 8 * i);
           if ([v12 length] >= 2 && objc_msgSend(v12, "containsString:", @"*") && +[CaseDampeningExceptions isException:containedInString:](CaseDampeningExceptions, "isException:containedInString:", v12, stringCopy))
           {
             v13 = 1;
@@ -40,7 +40,7 @@
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v9)
         {
           continue;
@@ -59,7 +59,6 @@ LABEL_16:
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -118,7 +117,7 @@ LABEL_20:
 
 + (BOOL)allowDampeningExceptionFor:(id)for
 {
-  v43[3] = *MEMORY[0x277D85DE8];
+  v42[3] = *MEMORY[0x277D85DE8];
   forCopy = for;
   if ([forCopy count])
   {
@@ -134,13 +133,13 @@ LABEL_72:
       goto LABEL_73;
     }
 
-    v42[0] = @"Functional";
-    v42[1] = @"Operational";
-    v43[0] = &unk_287CEAE98;
-    v43[1] = &unk_287CEAEB0;
-    v42[2] = @"Performance";
-    v43[2] = &unk_287CEAEC8;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:3];
+    v41[0] = @"Functional";
+    v41[1] = @"Operational";
+    v42[0] = &unk_287CEAE98;
+    v42[1] = &unk_287CEAEB0;
+    v41[2] = @"Performance";
+    v42[2] = &unk_287CEAEC8;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:3];
     v9 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:&unk_287CEB428];
     if (_isNPIDevice == 1)
     {
@@ -161,35 +160,35 @@ LABEL_72:
       [v11 setObject:&unk_287CEB258 forKeyedSubscript:@"WiFi Watchdog"];
     }
 
-    v40[0] = @"Networking";
-    v40[1] = @"Cellular";
-    v40[2] = @"Bluetooth";
-    v40[3] = @"ReminderKit";
-    v41[2] = &unk_287CEB298;
-    v41[3] = &unk_287CEB2C0;
-    v40[4] = @"Location";
-    v40[5] = @"PrivacyTransparency";
-    v41[4] = &unk_287CEB360;
-    v41[5] = &unk_287CEB310;
-    v40[6] = @"MediaPlayer";
-    v40[7] = @"iCloudDrive";
-    v41[6] = &unk_287CEB478;
-    v41[7] = &unk_287CEB4C8;
-    v40[8] = @"AVConference";
-    v40[9] = @"SiriAssistant";
-    v41[8] = &unk_287CEB540;
-    v41[9] = &unk_287CEB590;
-    v37 = v11;
-    v38 = v8;
-    v41[0] = v8;
-    v41[1] = v9;
-    v40[10] = @"FaceTime";
-    v40[11] = @"CoreSpeech";
-    v41[10] = &unk_287CEB5E0;
-    v41[11] = &unk_287CEB630;
-    v40[12] = @"WiFi";
-    v41[12] = v11;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:13];
+    v39[0] = @"Networking";
+    v39[1] = @"Cellular";
+    v39[2] = @"Bluetooth";
+    v39[3] = @"ReminderKit";
+    v40[2] = &unk_287CEB298;
+    v40[3] = &unk_287CEB2C0;
+    v39[4] = @"Location";
+    v39[5] = @"PrivacyTransparency";
+    v40[4] = &unk_287CEB360;
+    v40[5] = &unk_287CEB310;
+    v39[6] = @"MediaPlayer";
+    v39[7] = @"iCloudDrive";
+    v40[6] = &unk_287CEB478;
+    v40[7] = &unk_287CEB4C8;
+    v39[8] = @"AVConference";
+    v39[9] = @"SiriAssistant";
+    v40[8] = &unk_287CEB540;
+    v40[9] = &unk_287CEB590;
+    v36 = v11;
+    v37 = v8;
+    v40[0] = v8;
+    v40[1] = v9;
+    v39[10] = @"FaceTime";
+    v39[11] = @"CoreSpeech";
+    v40[10] = &unk_287CEB5E0;
+    v40[11] = &unk_287CEB630;
+    v39[12] = @"WiFi";
+    v40[12] = v11;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:13];
     v13 = _logHandle;
     if (_logHandle && os_log_type_enabled(_logHandle, OS_LOG_TYPE_DEBUG))
     {
@@ -218,16 +217,16 @@ LABEL_72:
       goto LABEL_71;
     }
 
-    v36 = v14;
-    v15 = [v36 objectForKeyedSubscript:v5];
+    v35 = v14;
+    v15 = [v35 objectForKeyedSubscript:v5];
     objc_opt_class();
-    v35 = v15;
+    v34 = v15;
     if (objc_opt_isKindOfClass())
     {
-      v34 = v15;
-      v16 = [v34 objectForKeyedSubscript:v6];
+      v33 = v15;
+      v16 = [v33 objectForKeyedSubscript:v6];
       objc_opt_class();
-      v33 = v16;
+      v32 = v16;
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         v20 = 0;
@@ -238,7 +237,7 @@ LABEL_72:
           {
             if (os_log_type_enabled(_logHandle, OS_LOG_TYPE_DEBUG))
             {
-              [(CaseDampeningExceptions *)v36 allowDampeningExceptionFor:v25];
+              [(CaseDampeningExceptions *)v35 allowDampeningExceptionFor:v25];
             }
 
             v20 = 0;
@@ -248,7 +247,7 @@ LABEL_72:
         goto LABEL_69;
       }
 
-      v32 = v12;
+      v31 = v12;
       v17 = v16;
       if ([v7 length] && objc_msgSend(v17, "containsObject:", v7))
       {
@@ -283,7 +282,7 @@ LABEL_72:
             v20 = 0;
           }
 
-          v17 = v31;
+          v17 = v30;
           goto LABEL_68;
         }
 
@@ -294,7 +293,7 @@ LABEL_53:
           v20 = 1;
 LABEL_68:
 
-          v12 = v32;
+          v12 = v31;
 LABEL_69:
 
           goto LABEL_70;
@@ -320,7 +319,7 @@ LABEL_69:
         {
           if (os_log_type_enabled(_logHandle, OS_LOG_TYPE_DEBUG))
           {
-            [(CaseDampeningExceptions *)v35 allowDampeningExceptionFor:v27];
+            [(CaseDampeningExceptions *)v34 allowDampeningExceptionFor:v27];
           }
 
           v20 = 0;
@@ -375,53 +374,42 @@ LABEL_71:
   v20 = 0;
 LABEL_73:
 
-  v29 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 + (void)allowDampeningExceptionFor:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_26C35F000, a2, OS_LOG_TYPE_DEBUG, "Comparing case signature %@ against allowed exceptions list.", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_26C35F000, a2, OS_LOG_TYPE_DEBUG, "Comparing case signature %@ against allowed exceptions list.", &v2, 0xCu);
 }
 
 + (void)allowDampeningExceptionFor:(uint64_t)a1 .cold.2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_26C35F000, v5, v6, "Found unexpected object %@ of class %@ as exception for domain %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_26C35F000, v5, v6, "Found unexpected object %@ of class %@ as exception for domain %@", v7, v8, v9, v10);
 }
 
 + (void)allowDampeningExceptionFor:(uint64_t)a1 .cold.3(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_26C35F000, v5, v6, "Found unexpected object %@ of class %@ as exception for type %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_26C35F000, v5, v6, "Found unexpected object %@ of class %@ as exception for type %@", v7, v8, v9, v10);
 }
 
 + (void)allowDampeningExceptionFor:(uint64_t)a1 .cold.4(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_1_0(&dword_26C35F000, v5, v6, "Found unexpected object %@ of class %@ as exception for subtype %@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_0(&dword_26C35F000, v5, v6, "Found unexpected object %@ of class %@ as exception for subtype %@", v7, v8, v9, v10);
 }
 
 @end

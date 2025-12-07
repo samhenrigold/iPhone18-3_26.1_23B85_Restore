@@ -34,7 +34,7 @@
 
 - (void)_setupStackViewIfNecessary
 {
-  v29[4] = *MEMORY[0x277D85DE8];
+  v28[4] = *MEMORY[0x277D85DE8];
   stackView = [(APUISuggestionsWidgetView *)self stackView];
 
   if (!stackView)
@@ -57,32 +57,30 @@
     stackView6 = [(APUISuggestionsWidgetView *)self stackView];
     [(APUISuggestionsWidgetView *)self addSubview:stackView6];
 
-    v21 = MEMORY[0x277CCAAD0];
+    v20 = MEMORY[0x277CCAAD0];
     stackView7 = [(APUISuggestionsWidgetView *)self stackView];
     leadingAnchor = [stackView7 leadingAnchor];
     leadingAnchor2 = [(APUISuggestionsWidgetView *)self leadingAnchor];
-    v25 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v29[0] = v25;
+    v24 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v28[0] = v24;
     trailingAnchor = [(APUISuggestionsWidgetView *)self trailingAnchor];
     stackView8 = [(APUISuggestionsWidgetView *)self stackView];
     trailingAnchor2 = [stackView8 trailingAnchor];
     v10 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v29[1] = v10;
+    v28[1] = v10;
     stackView9 = [(APUISuggestionsWidgetView *)self stackView];
     topAnchor = [stackView9 topAnchor];
     topAnchor2 = [(APUISuggestionsWidgetView *)self topAnchor];
     v14 = [topAnchor constraintEqualToAnchor:topAnchor2];
-    v29[2] = v14;
+    v28[2] = v14;
     bottomAnchor = [(APUISuggestionsWidgetView *)self bottomAnchor];
     stackView10 = [(APUISuggestionsWidgetView *)self stackView];
     bottomAnchor2 = [stackView10 bottomAnchor];
     v18 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-    v29[3] = v18;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:4];
-    [v21 activateConstraints:v19];
+    v28[3] = v18;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:4];
+    [v20 activateConstraints:v19];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithSuggestionLayout:(id)layout
@@ -95,15 +93,15 @@
     if (self->_suggestionLayout != layoutCopy || [objc_opt_class() _shouldDisplayRecentDonationsOrUpcomingMediaForTesting])
     {
       objc_storeStrong(&self->_suggestionLayout, layout);
-      v7 = __atxlog_handle_home_screen();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = __atxlog_handle_home_screen(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         suggestionLayout = self->_suggestionLayout;
         v13 = 136315394;
         v14 = "[APUISuggestionsWidgetView updateWithSuggestionLayout:]";
         v15 = 2112;
         v16 = suggestionLayout;
-        _os_log_impl(&dword_240036000, v7, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %s:  _suggestionLayout:%@", &v13, 0x16u);
+        _os_log_impl(&dword_240036000, v8, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %s:  _suggestionLayout:%@", &v13, 0x16u);
       }
 
       layoutType = [(ATXSuggestionLayout *)v6 layoutType];
@@ -119,16 +117,16 @@ LABEL_13:
         if (layoutType == 9)
         {
           selfCopy2 = self;
-          v11 = 2;
+          v12 = 2;
           goto LABEL_18;
         }
 
         if (layoutType == 11)
         {
           selfCopy2 = self;
-          v11 = 4;
+          v12 = 4;
 LABEL_18:
-          [(APUISuggestionsWidgetView *)selfCopy2 _layout1x4WithRowCount:v11];
+          [(APUISuggestionsWidgetView *)selfCopy2 _layout1x4WithRowCount:v12];
           goto LABEL_14;
         }
       }
@@ -151,22 +149,20 @@ LABEL_18:
   }
 
 LABEL_14:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_layoutNotSupported:(int64_t)supported
 {
-  v5 = __atxlog_handle_home_screen();
+  v5 = __atxlog_handle_home_screen(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [APUISuggestionsWidgetView _layoutNotSupported:supported];
   }
 
-  v6 = __atxlog_handle_ui();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+  v7 = __atxlog_handle_ui(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
-    [(APUISuggestionsWidgetView *)supported _layoutNotSupported:v6];
+    [(APUISuggestionsWidgetView *)supported _layoutNotSupported:v7];
   }
 
   [(APUISuggestionsWidgetView *)self _displayNoSuggestions];
@@ -187,8 +183,8 @@ LABEL_14:
 
 - (void)_displayNoSuggestions
 {
-  v22[3] = *MEMORY[0x277D85DE8];
-  v3 = __atxlog_handle_home_screen();
+  v21[3] = *MEMORY[0x277D85DE8];
+  v3 = __atxlog_handle_home_screen(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -210,29 +206,27 @@ LABEL_14:
   stackView = [(APUISuggestionsWidgetView *)self stackView];
   [stackView addSubview:v4];
 
-  v19 = MEMORY[0x277CCAAD0];
+  v18 = MEMORY[0x277CCAAD0];
   leadingAnchor = [v4 leadingAnchor];
   leadingAnchor2 = [(UIStackView *)self->_stackView leadingAnchor];
   v10 = [leadingAnchor constraintEqualToSystemSpacingAfterAnchor:leadingAnchor2 multiplier:1.0];
-  v22[0] = v10;
+  v21[0] = v10;
   trailingAnchor = [(UIStackView *)self->_stackView trailingAnchor];
   trailingAnchor2 = [v4 trailingAnchor];
   v13 = [trailingAnchor constraintEqualToSystemSpacingAfterAnchor:trailingAnchor2 multiplier:1.0];
-  v22[1] = v13;
+  v21[1] = v13;
   centerYAnchor = [(UIStackView *)self->_stackView centerYAnchor];
   centerYAnchor2 = [v4 centerYAnchor];
   v16 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2 constant:0.0];
-  v22[2] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
-  [v19 activateConstraints:v17];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v21[2] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:3];
+  [v18 activateConstraints:v17];
 }
 
 - (void)_layout1x4WithRowCount:(unint64_t)count
 {
   v15 = *MEMORY[0x277D85DE8];
-  v5 = __atxlog_handle_ui();
+  v5 = __atxlog_handle_ui(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
@@ -244,14 +238,15 @@ LABEL_14:
 
   self->_platterSize = 2;
   _shouldDisplayRecentDonationsOrUpcomingMediaForTesting = [objc_opt_class() _shouldDisplayRecentDonationsOrUpcomingMediaForTesting];
+  v7 = _shouldDisplayRecentDonationsOrUpcomingMediaForTesting;
   if (_shouldDisplayRecentDonationsOrUpcomingMediaForTesting)
   {
-    v7 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = __atxlog_handle_home_screen(_shouldDisplayRecentDonationsOrUpcomingMediaForTesting);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       v12 = "[APUISuggestionsWidgetView _layout1x4WithRowCount:]";
-      _os_log_impl(&dword_240036000, v7, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %s: displayRecentDonations developer switch on. Getting recent donations asynchronously", buf, 0xCu);
+      _os_log_impl(&dword_240036000, v8, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %s: displayRecentDonations developer switch on. Getting recent donations asynchronously", buf, 0xCu);
     }
 
     oneByFourSuggestions = 0;
@@ -268,9 +263,7 @@ LABEL_14:
   v10[3] = &unk_278C90DD8;
   v10[4] = self;
   v10[5] = count;
-  [(APUISuggestionsWidgetView *)self _checkOrLoadSuggestions:oneByFourSuggestions inDeveloperMode:_shouldDisplayRecentDonationsOrUpcomingMediaForTesting rowCount:count completion:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [(APUISuggestionsWidgetView *)self _checkOrLoadSuggestions:oneByFourSuggestions inDeveloperMode:v7 rowCount:count completion:v10];
 }
 
 void __52__APUISuggestionsWidgetView__layout1x4WithRowCount___block_invoke(uint64_t a1, void *a2)
@@ -284,59 +277,58 @@ void __52__APUISuggestionsWidgetView__layout1x4WithRowCount___block_invoke(uint6
   v5 = [*(a1 + 32) stackView];
   [v5 setAlignment:1];
 
-  if ([v3 count] == *(a1 + 40))
+  v6 = [v3 count];
+  if (v6 == *(a1 + 40))
   {
     [*(a1 + 32) logLayoutSuggestions:v3];
     v16 = 0u;
     v17 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v6 = v3;
-    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v7)
+    v7 = v3;
+    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    if (v8)
     {
-      v8 = v7;
-      v9 = 0;
-      v10 = *v15;
+      v9 = v8;
+      v10 = 0;
+      v11 = *v15;
       do
       {
-        v11 = 0;
+        v12 = 0;
         do
         {
-          if (*v15 != v10)
+          if (*v15 != v11)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v7);
           }
 
-          [*(a1 + 32) _addFullWidthWidgetContainerViewWithSuggestion:*(*(&v14 + 1) + 8 * v11++) withTopSeparator:{v9 & 1, v14}];
-          v9 = 1;
+          [*(a1 + 32) _addFullWidthWidgetContainerViewWithSuggestion:*(*(&v14 + 1) + 8 * v12++) withTopSeparator:{v10 & 1, v14}];
+          v10 = 1;
         }
 
-        while (v8 != v11);
-        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        while (v9 != v12);
+        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
-      while (v8);
+      while (v9);
     }
   }
 
   else
   {
-    v12 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = __atxlog_handle_home_screen(v6);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __52__APUISuggestionsWidgetView__layout1x4WithRowCount___block_invoke_cold_1((a1 + 40), v3);
+      __52__APUISuggestionsWidgetView__layout1x4WithRowCount___block_invoke_cold_1(a1 + 40, v3);
     }
 
     [*(a1 + 32) _displayNoSuggestions];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addSeparatorViewToView:(id)view
 {
-  v24[4] = *MEMORY[0x277D85DE8];
+  v23[4] = *MEMORY[0x277D85DE8];
   viewCopy = view;
   v5 = objc_opt_new();
   quaternaryLabelColor = [MEMORY[0x277D75348] quaternaryLabelColor];
@@ -349,33 +341,31 @@ void __52__APUISuggestionsWidgetView__layout1x4WithRowCount___block_invoke(uint6
   [mainScreen scale];
   v9 = 1.0 / v8;
 
-  v20 = MEMORY[0x277CCAAD0];
+  v19 = MEMORY[0x277CCAAD0];
   heightAnchor = [v5 heightAnchor];
-  v22 = [heightAnchor constraintEqualToConstant:v9];
-  v24[0] = v22;
+  v21 = [heightAnchor constraintEqualToConstant:v9];
+  v23[0] = v21;
   leadingAnchor = [v5 leadingAnchor];
   leadingAnchor2 = [(APUISuggestionsWidgetView *)self leadingAnchor];
   v11 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:16.0];
-  v24[1] = v11;
+  v23[1] = v11;
   trailingAnchor = [v5 trailingAnchor];
   trailingAnchor2 = [(APUISuggestionsWidgetView *)self trailingAnchor];
   v14 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v24[2] = v14;
+  v23[2] = v14;
   topAnchor = [v5 topAnchor];
   topAnchor2 = [viewCopy topAnchor];
 
   v17 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v24[3] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:4];
-  [v20 activateConstraints:v18];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v23[3] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:4];
+  [v19 activateConstraints:v18];
 }
 
 - (void)_layoutOne2x2
 {
   v11 = *MEMORY[0x277D85DE8];
-  v3 = __atxlog_handle_ui();
+  v3 = __atxlog_handle_ui(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
@@ -385,14 +375,15 @@ void __52__APUISuggestionsWidgetView__layout1x4WithRowCount___block_invoke(uint6
 
   self->_platterSize = 1;
   _shouldDisplayRecentDonationsOrUpcomingMediaForTesting = [objc_opt_class() _shouldDisplayRecentDonationsOrUpcomingMediaForTesting];
+  v5 = _shouldDisplayRecentDonationsOrUpcomingMediaForTesting;
   if (_shouldDisplayRecentDonationsOrUpcomingMediaForTesting)
   {
-    v5 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_home_screen(_shouldDisplayRecentDonationsOrUpcomingMediaForTesting);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
       v10 = "[APUISuggestionsWidgetView _layoutOne2x2]";
-      _os_log_impl(&dword_240036000, v5, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %s: displayRecentDonations developer switch on. Getting recent donations asynchronously", buf, 0xCu);
+      _os_log_impl(&dword_240036000, v6, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %s: displayRecentDonations developer switch on. Getting recent donations asynchronously", buf, 0xCu);
     }
 
     twoByTwoSuggestions = 0;
@@ -408,9 +399,7 @@ void __52__APUISuggestionsWidgetView__layout1x4WithRowCount___block_invoke(uint6
   v8[2] = __42__APUISuggestionsWidgetView__layoutOne2x2__block_invoke;
   v8[3] = &unk_278C90E00;
   v8[4] = self;
-  [(APUISuggestionsWidgetView *)self _checkOrLoadSuggestions:twoByTwoSuggestions inDeveloperMode:_shouldDisplayRecentDonationsOrUpcomingMediaForTesting rowCount:1 completion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  [(APUISuggestionsWidgetView *)self _checkOrLoadSuggestions:twoByTwoSuggestions inDeveloperMode:v5 rowCount:1 completion:v8];
 }
 
 void __42__APUISuggestionsWidgetView__layoutOne2x2__block_invoke(uint64_t a1, void *a2)
@@ -418,35 +407,34 @@ void __42__APUISuggestionsWidgetView__layoutOne2x2__block_invoke(uint64_t a1, vo
   v13[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   [*(a1 + 32) _clearStackView];
-  if ([v3 count] == 1)
+  v4 = [v3 count];
+  if (v4 == 1)
   {
-    v4 = [v3 firstObject];
-    v5 = v4;
-    if (v4)
+    v5 = [v3 firstObject];
+    v6 = v5;
+    if (v5)
     {
-      v6 = *(a1 + 32);
-      v13[0] = v4;
-      v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
-      [v6 logLayoutSuggestions:v7];
+      v7 = *(a1 + 32);
+      v13[0] = v5;
+      v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+      [v7 logLayoutSuggestions:v8];
 
-      v8 = *(a1 + 32);
-      v9 = [v8 stackView];
-      v10 = [v8 _addWidgetContainerViewWithSuggestion:v5 toVerticalStackView:v9];
+      v9 = *(a1 + 32);
+      v10 = [v9 stackView];
+      v11 = [v9 _addWidgetContainerViewWithSuggestion:v6 toVerticalStackView:v10];
     }
   }
 
   else
   {
-    v11 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = __atxlog_handle_home_screen(v4);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       __42__APUISuggestionsWidgetView__layoutOne2x2__block_invoke_cold_1(v3);
     }
 
     [*(a1 + 32) _displayNoSuggestions];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkOrLoadSuggestions:(id)suggestions inDeveloperMode:(BOOL)mode rowCount:(unint64_t)count completion:(id)completion
@@ -473,49 +461,48 @@ void __89__APUISuggestionsWidgetView__checkOrLoadSuggestions_inDeveloperMode_row
   v2 = *(a1 + 32);
   if (*(a1 + 64) == 1)
   {
-    v3 = *(a1 + 40);
-    v4 = [objc_opt_class() _developerModeSuggestions:*(a1 + 56)];
+    v3 = [objc_opt_class() _developerModeSuggestions:*(a1 + 56)];
 
-    v2 = v4;
+    v2 = v3;
   }
 
-  v5 = [*(a1 + 40) _validSuggestionsWithSuggestions:v2];
-  [*(a1 + 40) _precomputeActionTitlesForSuggestions:v5];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __89__APUISuggestionsWidgetView__checkOrLoadSuggestions_inDeveloperMode_rowCount_completion___block_invoke_2;
-  v8[3] = &unk_278C90E28;
-  v6 = *(a1 + 48);
+  v4 = [*(a1 + 40) _validSuggestionsWithSuggestions:v2];
+  [*(a1 + 40) _precomputeActionTitlesForSuggestions:v4];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __89__APUISuggestionsWidgetView__checkOrLoadSuggestions_inDeveloperMode_rowCount_completion___block_invoke_2;
+  v7[3] = &unk_278C90E28;
+  v5 = *(a1 + 48);
+  v8 = v4;
   v9 = v5;
-  v10 = v6;
-  v7 = v5;
-  dispatch_async(MEMORY[0x277D85CD0], v8);
+  v6 = v4;
+  dispatch_async(MEMORY[0x277D85CD0], v7);
 }
 
 - (void)_precomputeActionTitlesForSuggestions:(id)suggestions
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   suggestionsCopy = suggestions;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v4 = [suggestionsCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v4 = [suggestionsCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v18;
+    v6 = *v17;
     do
     {
       v7 = 0;
       do
       {
-        if (*v18 != v6)
+        if (*v17 != v6)
         {
           objc_enumerationMutation(suggestionsCopy);
         }
 
-        executableSpecification = [*(*(&v17 + 1) + 8 * v7) executableSpecification];
+        executableSpecification = [*(*(&v16 + 1) + 8 * v7) executableSpecification];
         executableObject = [executableSpecification executableObject];
         v10 = NSClassFromString(&cfstr_Atxaction.isa);
         v11 = executableObject;
@@ -552,89 +539,86 @@ void __89__APUISuggestionsWidgetView__checkOrLoadSuggestions_inDeveloperMode_row
       }
 
       while (v5 != v7);
-      v5 = [suggestionsCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v5 = [suggestionsCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v5);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_validSuggestionsWithSuggestions:(id)suggestions
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   suggestionsCopy = suggestions;
   v5 = objc_opt_new();
-  v6 = __atxlog_handle_home_screen();
+  v6 = __atxlog_handle_home_screen(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v26 = "[APUISuggestionsWidgetView _validSuggestionsWithSuggestions:]";
-    v27 = 2048;
-    v28 = [suggestionsCopy count];
+    v27 = "[APUISuggestionsWidgetView _validSuggestionsWithSuggestions:]";
+    v28 = 2048;
+    v29 = [suggestionsCopy count];
     _os_log_impl(&dword_240036000, v6, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %s:  validating %lu  suggestions", buf, 0x16u);
   }
 
-  v22 = 0u;
   v23 = 0u;
-  v20 = 0u;
+  v24 = 0u;
   v21 = 0u;
+  v22 = 0u;
   v7 = suggestionsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v21;
+    v11 = *v22;
     *&v9 = 136315394;
-    v19 = v9;
+    v20 = v9;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v22 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
-        if ([v13 isValidForSuggestionsWidget] && -[APUISuggestionsWidgetView _hasBundleInstalledAndNotRestrictedForSuggestion:](self, "_hasBundleInstalledAndNotRestrictedForSuggestion:", v13))
+        v13 = *(*(&v21 + 1) + 8 * i);
+        isValidForSuggestionsWidget = [v13 isValidForSuggestionsWidget];
+        if (isValidForSuggestionsWidget && (isValidForSuggestionsWidget = [(APUISuggestionsWidgetView *)self _hasBundleInstalledAndNotRestrictedForSuggestion:v13], isValidForSuggestionsWidget))
         {
           [v5 addObject:v13];
         }
 
         else
         {
-          v14 = __atxlog_handle_home_screen();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          v15 = __atxlog_handle_home_screen(isValidForSuggestionsWidget);
+          if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
           {
-            *buf = v19;
-            v26 = "[APUISuggestionsWidgetView _validSuggestionsWithSuggestions:]";
-            v27 = 2112;
-            v28 = v13;
-            _os_log_error_impl(&dword_240036000, v14, OS_LOG_TYPE_ERROR, "%s:  invalid suggestion: %@", buf, 0x16u);
+            *buf = v20;
+            v27 = "[APUISuggestionsWidgetView _validSuggestionsWithSuggestions:]";
+            v28 = 2112;
+            v29 = v13;
+            _os_log_error_impl(&dword_240036000, v15, OS_LOG_TYPE_ERROR, "%s:  invalid suggestion: %@", buf, 0x16u);
           }
         }
       }
 
-      v10 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v10);
   }
 
-  v15 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v17 = __atxlog_handle_home_screen(v16);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = [v5 count];
+    v18 = [v5 count];
     *buf = 136315394;
-    v26 = "[APUISuggestionsWidgetView _validSuggestionsWithSuggestions:]";
-    v27 = 2048;
-    v28 = v16;
-    _os_log_impl(&dword_240036000, v15, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %s:  %lu valid suggestions", buf, 0x16u);
+    v27 = "[APUISuggestionsWidgetView _validSuggestionsWithSuggestions:]";
+    v28 = 2048;
+    v29 = v18;
+    _os_log_impl(&dword_240036000, v17, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %s:  %lu valid suggestions", buf, 0x16u);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -656,18 +640,19 @@ void __89__APUISuggestionsWidgetView__checkOrLoadSuggestions_inDeveloperMode_row
 
     if (v11)
     {
-      v12 = objc_alloc(MEMORY[0x277CCACA8]);
+      v13 = objc_alloc(MEMORY[0x277CCACA8]);
       executableSpecification3 = [suggestionCopy executableSpecification];
       executable = [executableSpecification3 executable];
-      v15 = [v12 initWithData:executable encoding:4];
+      v16 = [v13 initWithData:executable encoding:4];
 
-      if (([MEMORY[0x277CEB3B8] isInstalledAndNotRestrictedForBundle:v15] & 1) == 0)
+      v12 = [MEMORY[0x277CEB3B8] isInstalledAndNotRestrictedForBundle:v16];
+      if ((v12 & 1) == 0)
       {
         goto LABEL_14;
       }
 
 LABEL_11:
-      v20 = 1;
+      v21 = 1;
       goto LABEL_17;
     }
   }
@@ -678,7 +663,7 @@ LABEL_11:
 
     if (executableType2 != 2)
     {
-      v15 = 0;
+      v16 = 0;
       goto LABEL_11;
     }
 
@@ -689,19 +674,19 @@ LABEL_11:
     if (objc_opt_isKindOfClass())
     {
       bundleId = [executableObject bundleId];
-      v15 = ATXBundleIdReplacementForBundleId();
+      v16 = ATXBundleIdReplacementForBundleId();
 
-      if (v15)
+      if (v16)
       {
-        if ([MEMORY[0x277CEB3B8] isInstalledAndNotRestrictedForBundle:v15])
+        if ([MEMORY[0x277CEB3B8] isInstalledAndNotRestrictedForBundle:v16])
         {
         }
 
         else
         {
-          v23 = [MEMORY[0x277CEB3B8] isAppClipWebClipBundleId:v15];
+          v24 = [MEMORY[0x277CEB3B8] isAppClipWebClipBundleId:v16];
 
-          if ((v23 & 1) == 0)
+          if ((v24 & 1) == 0)
           {
             goto LABEL_14;
           }
@@ -712,25 +697,25 @@ LABEL_11:
     }
   }
 
-  v15 = 0;
+  v16 = 0;
 LABEL_14:
-  v21 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  v22 = __atxlog_handle_home_screen(v12);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
-    [(APUISuggestionsWidgetView *)v15 _hasBundleInstalledAndNotRestrictedForSuggestion:v21];
+    [(APUISuggestionsWidgetView *)v16 _hasBundleInstalledAndNotRestrictedForSuggestion:v22];
   }
 
-  v20 = 0;
+  v21 = 0;
 LABEL_17:
 
-  return v20;
+  return v21;
 }
 
 - (void)logLayoutSuggestions:(id)suggestions
 {
   v21 = *MEMORY[0x277D85DE8];
   suggestionsCopy = suggestions;
-  v4 = __atxlog_handle_home_screen();
+  v4 = __atxlog_handle_home_screen(suggestionsCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     [(APUISuggestionsWidgetView *)suggestionsCopy logLayoutSuggestions:v4];
@@ -757,7 +742,7 @@ LABEL_17:
         }
 
         v10 = *(*(&v14 + 1) + 8 * v9);
-        v11 = __atxlog_handle_home_screen();
+        v11 = __atxlog_handle_home_screen(v6);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           [(APUISuggestionsWidgetView *)v18 logLayoutSuggestions:v10, &v19, v11];
@@ -767,25 +752,24 @@ LABEL_17:
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v14 objects:v20 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v14 objects:v20 count:16];
+      v7 = v6;
     }
 
-    while (v7);
+    while (v6);
   }
 
-  v12 = __atxlog_handle_home_screen();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v13 = __atxlog_handle_home_screen(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    [APUISuggestionsWidgetView logLayoutSuggestions:v12];
+    [APUISuggestionsWidgetView logLayoutSuggestions:v13];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addFullWidthWidgetContainerViewWithSuggestion:(id)suggestion withTopSeparator:(BOOL)separator
 {
   separatorCopy = separator;
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
   stackView = [(APUISuggestionsWidgetView *)self stackView];
   v8 = [(APUISuggestionsWidgetView *)self _addWidgetContainerViewWithSuggestion:suggestionCopy toVerticalStackView:stackView];
@@ -799,37 +783,33 @@ LABEL_17:
   stackView2 = [(APUISuggestionsWidgetView *)self stackView];
   leadingAnchor2 = [stackView2 leadingAnchor];
   v12 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v20[0] = v12;
+  v19[0] = v12;
   stackView3 = [(APUISuggestionsWidgetView *)self stackView];
   trailingAnchor = [stackView3 trailingAnchor];
   trailingAnchor2 = [v8 trailingAnchor];
   v16 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v20[1] = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
-  [v19 activateConstraints:v17];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v19[1] = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:2];
+  [v18 activateConstraints:v17];
 }
 
 - (id)_addWidgetContainerViewWithSuggestion:(id)suggestion toVerticalStackView:(id)view
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
   viewCopy = view;
-  v8 = __atxlog_handle_ui();
+  v8 = __atxlog_handle_ui(viewCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136446466;
-    v13 = "[APUISuggestionsWidgetView _addWidgetContainerViewWithSuggestion:toVerticalStackView:]";
-    v14 = 2112;
-    v15 = suggestionCopy;
-    _os_log_impl(&dword_240036000, v8, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s:%@", &v12, 0x16u);
+    v11 = 136446466;
+    v12 = "[APUISuggestionsWidgetView _addWidgetContainerViewWithSuggestion:toVerticalStackView:]";
+    v13 = 2112;
+    v14 = suggestionCopy;
+    _os_log_impl(&dword_240036000, v8, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s:%@", &v11, 0x16u);
   }
 
   v9 = [(APUISuggestionsWidgetView *)self _createWidgetContainerViewWithSuggestion:suggestionCopy];
   [viewCopy addArrangedSubview:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -852,38 +832,38 @@ LABEL_17:
 
 - (void)highlightSuggestion:(id)suggestion
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
-  v5 = __atxlog_handle_ui();
+  v5 = __atxlog_handle_ui(suggestionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
-    v31 = "[APUISuggestionsWidgetView highlightSuggestion:]";
+    v30 = "[APUISuggestionsWidgetView highlightSuggestion:]";
     _os_log_impl(&dword_240036000, v5, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s", buf, 0xCu);
   }
 
   if (suggestionCopy)
   {
-    v26 = 0uLL;
-    v27 = 0uLL;
-    v24 = 0uLL;
     v25 = 0uLL;
+    v26 = 0uLL;
+    v23 = 0uLL;
+    v24 = 0uLL;
     v6 = self->_containerViews;
-    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v25;
+      v9 = *v24;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v25 != v9)
+          if (*v24 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v24 + 1) + 8 * i);
+          v11 = *(*(&v23 + 1) + 8 * i);
           suggestion = [v11 suggestion];
           v13 = [suggestionCopy isEqual:suggestion];
 
@@ -900,7 +880,7 @@ LABEL_17:
           [v11 setAlpha:v14];
         }
 
-        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v8);
@@ -909,55 +889,51 @@ LABEL_17:
 
   else
   {
-    v22 = 0uLL;
-    v23 = 0uLL;
-    v20 = 0uLL;
     v21 = 0uLL;
+    v22 = 0uLL;
+    v19 = 0uLL;
+    v20 = 0uLL;
     v6 = self->_containerViews;
-    v15 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
+    v15 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v21;
+      v17 = *v20;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v21 != v17)
+          if (*v20 != v17)
           {
             objc_enumerationMutation(v6);
           }
 
-          [*(*(&v20 + 1) + 8 * j) setAlpha:{1.0, v20}];
+          [*(*(&v19 + 1) + 8 * j) setAlpha:{1.0, v19}];
         }
 
-        v16 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v20 objects:v28 count:16];
+        v16 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
       }
 
       while (v16);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)suggestionAtLocation:(CGPoint)location
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = [(APUISuggestionsWidgetView *)self hitTest:0 withEvent:location.x, location.y];
   v4 = [v3 apuiFindInnermostSuperviewOfClass:objc_opt_class()];
   suggestion = [v4 suggestion];
-  v6 = __atxlog_handle_home_screen();
+  v6 = __atxlog_handle_home_screen(suggestion);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     uiSpecification = [suggestion uiSpecification];
     title = [uiSpecification title];
-    v11 = 138412290;
-    v12 = title;
-    _os_log_impl(&dword_240036000, v6, OS_LOG_TYPE_DEFAULT, "suggestionAtLocation %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = title;
+    _os_log_impl(&dword_240036000, v6, OS_LOG_TYPE_DEFAULT, "suggestionAtLocation %@", &v10, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return suggestion;
 }
@@ -1010,63 +986,51 @@ LABEL_17:
 
 - (void)_layoutNotSupported:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277D420E8] stringFromUILayoutType:a1];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_layoutNotSupported:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277D420E8] stringFromUILayoutType:a1];
   OUTLINED_FUNCTION_1_0();
-  _os_log_fault_impl(&dword_240036000, a2, OS_LOG_TYPE_FAULT, "e:fault SuggestionsWidget: layout %@ not supported", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_240036000, a2, OS_LOG_TYPE_FAULT, "e:fault SuggestionsWidget: layout %@ not supported", v4, 0xCu);
 }
 
-void __52__APUISuggestionsWidgetView__layout1x4WithRowCount___block_invoke_cold_1(uint64_t *a1, void *a2)
+void __52__APUISuggestionsWidgetView__layout1x4WithRowCount___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = *a1;
   [a2 count];
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __42__APUISuggestionsWidgetView__layoutOne2x2__block_invoke_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_hasBundleInstalledAndNotRestrictedForSuggestion:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[APUISuggestionsWidgetView _hasBundleInstalledAndNotRestrictedForSuggestion:]";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_240036000, a2, OS_LOG_TYPE_ERROR, "%s:  bundle id %@ is not installed or is restricted", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[APUISuggestionsWidgetView _hasBundleInstalledAndNotRestrictedForSuggestion:]";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_240036000, a2, OS_LOG_TYPE_ERROR, "%s:  bundle id %@ is not installed or is restricted", &v2, 0x16u);
 }
 
 - (void)logLayoutSuggestions:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   [a1 count];
   OUTLINED_FUNCTION_1_0();
-  _os_log_debug_impl(&dword_240036000, a2, OS_LOG_TYPE_DEBUG, "SuggestionsWidget:  %lu suggestions[", v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_240036000, a2, OS_LOG_TYPE_DEBUG, "SuggestionsWidget:  %lu suggestions[", v3, 0xCu);
 }
 
 - (void)logLayoutSuggestions:(void *)a3 .cold.2(uint8_t *a1, void *a2, void *a3, NSObject *a4)

@@ -41,9 +41,11 @@
 
 uint64_t __42__EKCalendarSuggestionNotification__queue__block_invoke()
 {
-  _queue_queue_0 = dispatch_queue_create("com.apple.EventKit.EKCalendarSuggestionNotificationQueue", 0);
+  v0 = dispatch_queue_create("com.apple.EventKit.EKCalendarSuggestionNotificationQueue", 0);
+  v1 = _queue_queue_0;
+  _queue_queue_0 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (void)updateSuggestedEventWithEventStore:(id)store
@@ -107,7 +109,7 @@ void __71__EKCalendarSuggestionNotification_updateSuggestedEventWithEventStore__
 
 void __71__EKCalendarSuggestionNotification_updateSuggestedEventWithEventStore___block_invoke_12(uint64_t a1, void *a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -116,23 +118,23 @@ void __71__EKCalendarSuggestionNotification_updateSuggestedEventWithEventStore__
     v8 = EKLogHandle;
     if (os_log_type_enabled(EKLogHandle, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(a1 + 32);
-      v14 = *(a1 + 40);
-      v15 = @"no error returned";
+      v12 = *(a1 + 32);
+      v13 = *(a1 + 40);
+      v14 = @"no error returned";
       if (v7)
       {
-        v15 = v7;
+        v14 = v7;
       }
 
-      v16 = 136315906;
-      v17 = "[EKCalendarSuggestionNotification updateSuggestedEventWithEventStore:]_block_invoke";
-      v18 = 2112;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v14;
-      v22 = 2112;
-      v23 = v15;
-      _os_log_error_impl(&dword_1A805E000, v8, OS_LOG_TYPE_ERROR, "%s: Error attempting to look up the suggested event for notification [%@] and resource change [%@] with error [%@].", &v16, 0x2Au);
+      v15 = 136315906;
+      v16 = "[EKCalendarSuggestionNotification updateSuggestedEventWithEventStore:]_block_invoke";
+      v17 = 2112;
+      v18 = v12;
+      v19 = 2112;
+      v20 = v13;
+      v21 = 2112;
+      v22 = v14;
+      _os_log_error_impl(&dword_1A805E000, v8, OS_LOG_TYPE_ERROR, "%s: Error attempting to look up the suggested event for notification [%@] and resource change [%@] with error [%@].", &v15, 0x2Au);
     }
   }
 
@@ -142,7 +144,6 @@ void __71__EKCalendarSuggestionNotification_updateSuggestedEventWithEventStore__
   v11 = v5;
 
   dispatch_group_leave(*(a1 + 48));
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (SGEvent)suggestedEvent

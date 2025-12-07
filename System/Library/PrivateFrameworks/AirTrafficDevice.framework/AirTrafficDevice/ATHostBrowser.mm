@@ -96,7 +96,7 @@ uint64_t __42__ATHostBrowser_netService_didNotResolve___block_invoke(uint64_t a1
   dispatch_async(queue, v7);
 }
 
-uint64_t __45__ATHostBrowser_netServiceDidResolveAddress___block_invoke(uint64_t a1)
+void *__45__ATHostBrowser_netServiceDidResolveAddress___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) containsObject:*(a1 + 40)];
   if (result)
@@ -133,7 +133,7 @@ uint64_t __45__ATHostBrowser_netServiceDidResolveAddress___block_invoke(uint64_t
   dispatch_async(queue, block);
 }
 
-uint64_t __63__ATHostBrowser_netServiceBrowser_didRemoveService_moreComing___block_invoke(uint64_t a1)
+void *__63__ATHostBrowser_netServiceBrowser_didRemoveService_moreComing___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) removeObject:*(a1 + 40)];
   if ((*(a1 + 48) & 1) == 0)
@@ -161,7 +161,7 @@ uint64_t __63__ATHostBrowser_netServiceBrowser_didRemoveService_moreComing___blo
   dispatch_async(queue, block);
 }
 
-uint64_t __61__ATHostBrowser_netServiceBrowser_didFindService_moreComing___block_invoke(uint64_t a1)
+void *__61__ATHostBrowser_netServiceBrowser_didFindService_moreComing___block_invoke(uint64_t a1)
 {
   v18 = *MEMORY[0x277D85DE8];
   v2 = _ATLogCategoryFramework();

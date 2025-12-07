@@ -5,7 +5,7 @@
 
 void ____UIScrollViewSkipIsEnabled_block_invoke()
 {
-  if (((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_EnableUIScrollViewFrameSkip, @"EnableUIScrollViewFrameSkip", _UIInternalPreferenceUpdateBool) & 1) != 0 || byte_1ED48B68C) && !_UIVariableFrameDurationEnabled())
+  if ((_UIInternalPreferenceUsesDefault(&_UIInternalPreference_EnableUIScrollViewFrameSkip, @"EnableUIScrollViewFrameSkip", _UIInternalPreferenceUpdateBool) || byte_1ED48B68C) && !_UIVariableFrameDurationEnabled())
   {
     v1 = [objc_opt_self() mainScreen];
     [v1 _refreshRate];

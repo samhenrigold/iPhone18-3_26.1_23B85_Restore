@@ -104,22 +104,20 @@ LABEL_12:
 
 - (id)toPlistWithChunks:(id)chunks
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277D41F60];
   chunksCopy = chunks;
   v6 = [v4 alloc];
   v7 = [v6 initWithClassNameKey:*MEMORY[0x277D41F98]];
-  v14[0] = @"TRANSFORMER";
+  v13[0] = @"TRANSFORMER";
   transformer = [(SGSelectiveTransformer *)self transformer];
   v9 = [v7 writeToPlistWithObject:transformer andChunks:chunksCopy];
 
-  v14[1] = @"INPUTKEY";
-  v15[0] = v9;
+  v13[1] = @"INPUTKEY";
+  v14[0] = v9;
   inputKey = [(SGSelectiveTransformer *)self inputKey];
-  v15[1] = inputKey;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v14[1] = inputKey;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v11;
 }

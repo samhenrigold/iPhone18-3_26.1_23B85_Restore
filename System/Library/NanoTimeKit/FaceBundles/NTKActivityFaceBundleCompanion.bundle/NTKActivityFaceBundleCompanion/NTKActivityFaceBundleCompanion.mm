@@ -324,13 +324,7 @@ void sub_2F54(uint64_t a1, void *a2, uint64_t a3)
 CGFloat _SubdialEndPositionForRingAtIndex(uint64_t a1, uint64_t a2)
 {
   [NTKAnalogUtilities sceneSizeForDevice:a2];
-  y = CGPointZero.y;
-  x = v4 * -0.25;
-  if (a1)
-  {
-    v6 = CGPointZero.y;
-  }
-
+  x = v3 * -0.25;
   if (a1 != 1)
   {
     x = CGPointZero.x;
@@ -468,74 +462,74 @@ id sub_5120(uint64_t a1, void *a2)
 
 void sub_55E4(uint64_t a1, void *a2, uint64_t a3)
 {
-  v27 = a2;
-  if (*(a1 + 288) != 1)
+  v23 = a2;
+  if (*(a1 + 288) == 1)
   {
-    sub_57B4(3 - a3, *(a1 + 40), *(a1 + 48));
-    v14 = v13;
-    v15 = *(a1 + 72);
     CLKInterpolateBetweenFloatsClipped();
-    *&v16 = v16;
-    [v27 setThickness:v16];
-    v17 = [*(a1 + 32) device];
-    *&v18 = _SubdialEndPositionForRingAtIndex(a3, v17);
-    v25 = v19;
-    v26 = v18;
-
-    *&v20.f64[0] = v26;
-    *&v20.f64[1] = v25;
-    [v27 setTranslation:COERCE_DOUBLE(vcvt_f32_f64(v20))];
-    v21 = *(a1 + 64) - *(a1 + 72);
-    [v27 thickness];
-    v23 = v21 + v22;
-    *&v23 = v23;
-    [v27 setGroupDiameter:v23];
+    v6 = v5;
+    CLKInterpolateBetweenFloatsClipped();
+    *&v7 = v7;
+    [v23 setThickness:v7];
+    [v23 setTranslation:0.0];
+    v8 = *(a1 + 80) + -((*(a1 + 88) + *(a1 + 96)) * (2 * a3)) * v6;
+    *&v8 = v8;
+    [v23 setGroupDiameter:v8];
     if (*(a1 + 289) != 1)
     {
-      goto LABEL_9;
+      goto LABEL_7;
     }
 
-    *&v24 = v14;
-    [v27 setPercentage:0 ofRingAtIndex:0 animated:v24];
-    v12 = 0.0;
-    goto LABEL_8;
+    LODWORD(v9) = 1.0;
+    [v23 setPercentage:0 ofRingAtIndex:0 animated:v9];
+    v10 = (1.0 - v6) * 3.14159265;
+    *&v10 = v10;
   }
 
-  if (*(a1 + 40) >= *(a1 + 48))
+  else
   {
-    v5 = *(a1 + 48);
-  }
-
-  CLKInterpolateBetweenFloatsClipped();
-  v7 = v6;
-  v8 = *(a1 + 88);
-  CLKInterpolateBetweenFloatsClipped();
-  *&v9 = v9;
-  [v27 setThickness:v9];
-  [v27 setTranslation:0.0];
-  v10 = *(a1 + 80) + -((*(a1 + 88) + *(a1 + 96)) * (2 * a3)) * v7;
-  *&v10 = v10;
-  [v27 setGroupDiameter:v10];
-  if (*(a1 + 289) == 1)
-  {
-    LODWORD(v11) = 1.0;
-    [v27 setPercentage:0 ofRingAtIndex:0 animated:v11];
-    v12 = (1.0 - v7) * 3.14159265;
+    v11 = sub_57B4(3 - a3, *(a1 + 40), *(a1 + 48));
+    CLKInterpolateBetweenFloatsClipped();
     *&v12 = v12;
-LABEL_8:
-    [v27 setZRotation:{v12, v25, v26}];
+    [v23 setThickness:v12];
+    v13 = [*(a1 + 32) device];
+    *&v14 = _SubdialEndPositionForRingAtIndex(a3, v13);
+    v21 = v15;
+    v22 = v14;
+
+    *&v16.f64[0] = v22;
+    *&v16.f64[1] = v21;
+    [v23 setTranslation:COERCE_DOUBLE(vcvt_f32_f64(v16))];
+    v17 = *(a1 + 64) - *(a1 + 72);
+    [v23 thickness];
+    v19 = v17 + v18;
+    *&v19 = v19;
+    [v23 setGroupDiameter:v19];
+    if (*(a1 + 289) != 1)
+    {
+      goto LABEL_7;
+    }
+
+    *&v20 = v11;
+    [v23 setPercentage:0 ofRingAtIndex:0 animated:v20];
+    v10 = 0.0;
   }
 
-LABEL_9:
+  [v23 setZRotation:{v10, v21, v22}];
+LABEL_7:
 }
 
-uint64_t sub_57B4(uint64_t result, double a2, double a3)
+double sub_57B4(uint64_t a1, double a2, double a3)
 {
   v3 = (1.0 - a2) * 0.5;
-  v4 = a2 + (1.0 - v3 * 0.5 - (v3 * 0.5 + a2)) * 0.25 * result;
-  if (v4 <= a3 && v3 + v4 >= a3)
+  v4 = a2 + (1.0 - v3 * 0.5 - (v3 * 0.5 + a2)) * 0.25 * a1;
+  result = 0.0;
+  if (v4 <= a3)
   {
-    return CLKCompressFraction();
+    result = 1.0;
+    if (v3 + v4 >= a3)
+    {
+      CLKCompressFraction();
+    }
   }
 
   return result;
@@ -547,12 +541,10 @@ void sub_5810(double *a1, void *a2, uint64_t a3)
   v5 = a1[5];
   v6 = a1[6];
   v7 = a2;
-  sub_57B4(v4, v5, v6);
-  [v7 setAlpha:v8 * *(*(a1 + 4) + 112)];
-  v9 = *(*(a1 + 4) + 152);
+  [v7 setAlpha:{sub_57B4(v4, v5, v6) * *(*(a1 + 4) + 112)}];
   CLKInterpolateBetweenFloatsClipped();
-  CGAffineTransformMakeScale(&v11, v10, v10);
-  [v7 setTransform:&v11];
+  CGAffineTransformMakeScale(&v9, v8, v8);
+  [v7 setTransform:&v9];
 }
 
 id _CreateChronoHighlightedImageWithColors(void *a1, void *a2)
@@ -594,7 +586,7 @@ id _CreateChronoHighlightedImageWithColors(void *a1, void *a2)
 
 void sub_5D0C(uint64_t a1, void *a2)
 {
-  v11 = a2;
+  v8 = a2;
   if ([*(a1 + 32) count])
   {
     v3 = 0;
@@ -603,19 +595,16 @@ void sub_5D0C(uint64_t a1, void *a2)
       v4 = [*(a1 + 32) objectAtIndexedSubscript:v3];
       [v4 setFill];
       _SubdialEndPositionForRingAtIndex(v3, *(a1 + 40));
-      v5 = [v11 format];
+      v5 = [v8 format];
       [v5 bounds];
-      CGRectGetMidX(v13);
-      v6 = [v11 format];
+      CGRectGetMidX(v10);
+      v6 = [v8 format];
       [v6 bounds];
-      CGRectGetMidY(v14);
+      CGRectGetMidY(v11);
 
-      v7 = *(a1 + 40);
-      v8 = *(a1 + 48);
-      v9 = *(a1 + 56);
       CLKSizeCenteredAboutPointForDevice();
-      v10 = [UIBezierPath bezierPathWithOvalInRect:?];
-      [v10 fill];
+      v7 = [UIBezierPath bezierPathWithOvalInRect:?];
+      [v7 fill];
 
       ++v3;
     }
@@ -1171,16 +1160,16 @@ id sub_82EC(uint64_t a1, void *a2)
   return v6;
 }
 
-id NTKIsWheelchairUser()
+id NTKIsWheelchairUser(uint64_t a1)
 {
   if (qword_28E90 != -1)
   {
     sub_13158();
   }
 
-  v1 = qword_28E88;
+  v2 = qword_28E88;
 
-  return [v1 isWheelchairUser];
+  return [v2 isWheelchairUser];
 }
 
 void sub_8DC8(id a1)
@@ -1299,22 +1288,20 @@ void sub_A3F0(uint64_t a1, uint64_t a2)
   v5 = v4;
   [*(a1 + 32) _edgeGapForState:a2];
   v7 = v5 + v6;
-  v8 = *(a1 + 40);
   NTKCircularSmallComplicationDiameter();
-  v10 = v9;
-  v11 = *(a1 + 40);
+  v9 = v8;
   NTKCircularSmallComplicationDiameter();
-  v13 = v12;
-  v14 = [NTKComplicationLayoutRule layoutRuleForDevice:*(a1 + 40) withReferenceFrame:3 horizontalLayout:3 verticalLayout:v7 keylinePadding:v7, v10, v12, v5, v5, v5, v5];
-  v15 = [*(a1 + 48) complicationLayoutforSlot:NTKComplicationSlotTopLeft];
-  [v15 setDefaultLayoutRule:v14 forState:a2];
+  v11 = v10;
+  v12 = [NTKComplicationLayoutRule layoutRuleForDevice:*(a1 + 40) withReferenceFrame:3 horizontalLayout:3 verticalLayout:v7 keylinePadding:v7, v9, v10, v5, v5, v5, v5];
+  v13 = [*(a1 + 48) complicationLayoutforSlot:NTKComplicationSlotTopLeft];
+  [v13 setDefaultLayoutRule:v12 forState:a2];
 
-  v16 = *(a1 + 72) - v10 - v7;
+  v14 = *(a1 + 72) - v9 - v7;
   [*(a1 + 32) _lisaGapForState:a2];
-  v19 = [NTKComplicationLayoutRule layoutRuleForDevice:*(a1 + 40) withReferenceFrame:3 horizontalLayout:3 verticalLayout:v16 - v17 keylinePadding:v7, v10, v13, v5, v5, v5, v5];
+  v17 = [NTKComplicationLayoutRule layoutRuleForDevice:*(a1 + 40) withReferenceFrame:3 horizontalLayout:3 verticalLayout:v14 - v15 keylinePadding:v7, v9, v11, v5, v5, v5, v5];
 
-  v18 = [*(a1 + 48) complicationLayoutforSlot:NTKComplicationSlotTopRight];
-  [v18 setDefaultLayoutRule:v19 forState:a2];
+  v16 = [*(a1 + 48) complicationLayoutforSlot:NTKComplicationSlotTopRight];
+  [v16 setDefaultLayoutRule:v17 forState:a2];
 }
 
 void sub_B1C8(id a1)
@@ -1432,53 +1419,45 @@ double sub_B7EC(uint64_t a1, void *a2)
   return v6;
 }
 
-void sub_C428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_C428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id sub_C440(uint64_t a1)
 {
-  v2 = *(a1 + 96);
-  v3 = *(a1 + 72) - *(a1 + 88) * 5.2;
-  v4 = *(*(*(a1 + 48) + 8) + 24);
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v7 = *(v6 + 32);
+  v2 = *(a1 + 72) - *(a1 + 88) * 5.2;
+  v3 = *(*(a1 + 32) + 32);
   CLKRoundForDevice();
-  [v7 ntk_setBoundsAndPositionFromFrame:{v3, v8, *(a1 + 88) * 5.2, *(a1 + 104)}];
+  [v3 ntk_setBoundsAndPositionFromFrame:{v2, v4, *(a1 + 88) * 5.2, *(a1 + 104)}];
   [*(*(a1 + 32) + 32) frame];
-  *(*(*(a1 + 48) + 8) + 24) = *(a1 + 112) + v9;
-  v10 = *(a1 + 72) - *(a1 + 88) * 3.2;
-  v11 = *(a1 + 40);
-  v12 = *(*(a1 + 32) + 40);
-  v13 = *(*(*(a1 + 48) + 8) + 24) + *(a1 + 96);
+  *(*(*(a1 + 48) + 8) + 24) = *(a1 + 112) + v5;
+  v6 = *(a1 + 72) - *(a1 + 88) * 3.2;
+  v7 = *(*(a1 + 32) + 40);
   CLKRoundForDevice();
-  [v12 ntk_setBoundsAndPositionFromFrame:{v10, v14, *(a1 + 88) * 3.2, *(a1 + 104)}];
+  [v7 ntk_setBoundsAndPositionFromFrame:{v6, v8, *(a1 + 88) * 3.2, *(a1 + 104)}];
   [*(*(a1 + 32) + 40) frame];
-  *(*(*(a1 + 48) + 8) + 24) = *(a1 + 112) + v15;
-  v16 = *(a1 + 40);
-  v17 = *(*(a1 + 32) + 48);
-  v18 = *(a1 + 72) - *(a1 + 88) * 2.2;
-  v19 = *(*(*(a1 + 48) + 8) + 24) + *(a1 + 96);
+  *(*(*(a1 + 48) + 8) + 24) = *(a1 + 112) + v9;
+  v10 = *(*(a1 + 32) + 48);
+  v11 = *(a1 + 72) - *(a1 + 88) * 2.2;
   CLKRoundForDevice();
-  v21 = *(a1 + 88) * 2.2;
-  v22 = *(a1 + 104);
+  v13 = *(a1 + 88) * 2.2;
+  v14 = *(a1 + 104);
 
-  return [v17 ntk_setBoundsAndPositionFromFrame:{v18, v20, v21, v22}];
+  return [v10 ntk_setBoundsAndPositionFromFrame:{v11, v12, v13, v14}];
 }
 
-id sub_C8FC(uint64_t a1, void *a2, double a3)
+id sub_C8FC(uint64_t a1, double a2, void *a3)
 {
-  sub_10BA0(a1, a2);
+  sub_10BA0(a1, a3);
   if (qword_290B8 != -1)
   {
     sub_13194();
   }
 
-  v5 = *(a1 + 16) + a3 * 2.0;
+  v5 = *(a1 + 16) + a2 * 2.0;
   v6 = [NSNumber numberWithDouble:floor(v5)];
   v7 = [qword_29090 objectForKeyedSubscript:v6];
   if (!v7)
@@ -1619,11 +1598,11 @@ void sub_ED94(uint64_t a1)
   v37 = [*(*(a1 + 32) + 32) text];
   v2 = [*(*(a1 + 32) + 40) text];
   v3 = [*(*(a1 + 32) + 48) text];
-  v39 = _ActivityLabelNumberFormatter();
+  v39 = _ActivityLabelNumberFormatter(v3);
   v4 = *(a1 + 32);
   if (v4)
   {
-    [v4 _layoutConstants];
+    objc_msgSend__layoutConstants(v4);
     v38 = v40;
   }
 
@@ -1736,16 +1715,16 @@ void sub_ED94(uint64_t a1)
   }
 }
 
-id _ActivityLabelNumberFormatter()
+id _ActivityLabelNumberFormatter(uint64_t a1)
 {
   if (qword_28F38 != -1)
   {
     sub_131A8();
   }
 
-  v1 = qword_28F30;
+  v2 = qword_28F30;
 
-  return v1;
+  return v2;
 }
 
 uint64_t sub_F7AC(uint64_t a1, void *a2)
@@ -2067,9 +2046,11 @@ id sub_10C44()
 
   else
   {
-    qword_29090 = +[NSMutableDictionary dictionary];
+    v1 = +[NSMutableDictionary dictionary];
+    v2 = qword_29090;
+    qword_29090 = v1;
 
-    return _objc_release_x1();
+    return _objc_release_x1(v1, v2);
   }
 }
 

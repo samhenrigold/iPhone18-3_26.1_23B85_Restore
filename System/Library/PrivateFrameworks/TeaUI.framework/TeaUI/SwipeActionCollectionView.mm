@@ -96,9 +96,9 @@
 - (BOOL)coordinatingSwipeActionShouldCancel
 {
   selfCopy = self;
-  v3 = SwipeActionCollectionView.coordinatingSwipeActionShouldCancel.getter();
+  v4 = SwipeActionCollectionView.coordinatingSwipeActionShouldCancel.getter(v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)coordinatingResetSwipeAction
@@ -141,8 +141,8 @@ LABEL_3:
 LABEL_6:
   selfCopy = self;
   SwipeActionCollectionView.performBatchUpdates(_:completion:)(v6, v9, v11, v10);
-  sub_1D7E0E10C(v11);
-  sub_1D7E0E10C(v6);
+  sub_1D7E0E10C(v11, v10);
+  sub_1D7E0E10C(v6, v9);
 }
 
 - (void)moveSection:(int64_t)section toSection:(int64_t)toSection

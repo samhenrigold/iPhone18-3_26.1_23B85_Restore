@@ -11,9 +11,9 @@
     +[NSNumberFormatter(MTUtilities) mtDecimalStyleNumberFormatter];
   }
 
-  v1 = mtDecimalStyleNumberFormatter__decimalStyleumberFormatter;
+  v2 = mtDecimalStyleNumberFormatter__decimalStyleumberFormatter;
 
-  return v1;
+  return v2;
 }
 
 @end

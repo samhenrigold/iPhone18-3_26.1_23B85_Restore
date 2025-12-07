@@ -783,7 +783,7 @@ LABEL_15:
   }
 
 LABEL_17:
-  v23 = [NSNumber numberWithDouble:intervalCopy, *v27, *&v27[16]];
+  v23 = [NSNumber numberWithDouble:intervalCopy, *v27, *&v27[8]];
   [dataCopy setObject:v23 forKeyedSubscript:@"lastEventInterval"];
 
   v24 = +[NSDate date];
@@ -1040,16 +1040,8 @@ double __39__MOTrendsAnalyzer_buildAnalyticsPlans__block_invoke(id a1, MOEvent *
 double __39__MOTrendsAnalyzer_buildAnalyticsPlans__block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if ([v3 placeUserType] != 2)
+  if ([v3 placeUserType] != 2 || (objc_msgSend(v3, "endDate"), v4 = objc_claimAutoreleasedReturnValue(), v4, !v4) || (v5 = *(a1 + 32), objc_msgSend(v3, "endDate"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "timeOfDay:", v6), v8 = v7, v6, v8 < 0.0))
   {
-    goto LABEL_4;
-  }
-
-  v4 = [v3 endDate];
-
-  if (!v4 || (v5 = *(a1 + 32), [v3 endDate], v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "timeOfDay:", v6), v8 = v7, v6, v8 < 0.0))
-  {
-LABEL_4:
     v8 = -1.79769313e308;
   }
 

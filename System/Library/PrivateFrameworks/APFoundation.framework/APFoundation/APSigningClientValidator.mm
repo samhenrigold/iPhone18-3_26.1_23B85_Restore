@@ -31,7 +31,7 @@
 
 + (BOOL)isAllowedClient
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = objc_msgSend_mainBundle(MEMORY[0x1E696AAE8], a2, v2, v3);
   v8 = objc_msgSend_bundleIdentifier(v4, v5, v6, v7);
 
@@ -47,7 +47,7 @@
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v17 = v12;
+      v16 = v12;
       _os_log_impl(&dword_1BADC1000, v13, OS_LOG_TYPE_ERROR, "%{public}@", buf, 0xCu);
     }
 
@@ -55,7 +55,6 @@
     v11 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -86,16 +85,15 @@ LABEL_4:
 
 + (BOOL)_validateAllowListingForPoolCreation:(id)creation
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   creationCopy = creation;
   v7 = objc_msgSend_sha256hash(@"com.apple.ap.promotedcontentd", v4, v5, v6);
-  v18[0] = v7;
-  v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v8, v18, 1);
+  v17[0] = v7;
+  v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v8, v17, 1);
 
   v13 = objc_msgSend_sha256hash(creationCopy, v10, v11, v12);
 
   LOBYTE(v7) = objc_msgSend_containsObject_(v9, v14, v13, v15);
-  v16 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

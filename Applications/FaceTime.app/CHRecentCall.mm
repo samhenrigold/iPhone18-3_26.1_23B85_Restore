@@ -78,7 +78,7 @@
   {
     if (!handleType)
     {
-      v8 = sub_100003B9C();
+      v8 = sub_100003B9C(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_1000C440C(v8);

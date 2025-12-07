@@ -1,745 +1,3 @@
-uint64_t sub_1C6E7E35C()
-{
-  result = sub_1C6EE44B0();
-  if (!v0)
-  {
-    while ((v2 & 1) == 0)
-    {
-      if (result == 1)
-      {
-        sub_1C6E7E45C();
-      }
-
-      else if (result == 2)
-      {
-        type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_TokenEmbedding(0);
-        sub_1C6E8005C(&qword_1EC1F8990, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_TokenEmbedding);
-        sub_1C6EE4590();
-      }
-
-      result = sub_1C6EE44B0();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_1C6E7E45C()
-{
-  v0 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_Embedding(0) + 24);
-  type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata(0);
-  sub_1C6E8005C(&qword_1EC1F89B0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
-  return sub_1C6EE45A0();
-}
-
-uint64_t sub_1C6E7E510(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = v3;
-  result = sub_1C6E7E60C(v3, a1, a2, a3);
-  if (!v4)
-  {
-    v7 = *v3;
-    if (*(*v5 + 16))
-    {
-      type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_TokenEmbedding(0);
-      sub_1C6E8005C(&qword_1EC1F8990, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_TokenEmbedding);
-      sub_1C6EE46D0();
-    }
-
-    v8 = v5 + *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_Embedding(0) + 20);
-    return sub_1C6EE4410();
-  }
-
-  return result;
-}
-
-uint64_t sub_1C6E7E60C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F89F0, &unk_1C6EF1170);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_Embedding(0);
-  sub_1C6E80E08(a1 + *(v14 + 24), v8, &qword_1EC1F89F0, &unk_1C6EF1170);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1C6E80E70(v8, &qword_1EC1F89F0, &unk_1C6EF1170);
-  }
-
-  sub_1C6E80F30(v8, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
-  sub_1C6E8005C(&qword_1EC1F89B0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
-  sub_1C6EE46E0();
-  return sub_1C6E80ED0(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
-}
-
-uint64_t sub_1C6E7E81C@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
-{
-  *a2 = MEMORY[0x1E69E7CC0];
-  v4 = &a2[*(a1 + 20)];
-  sub_1C6EE4420();
-  v5 = *(a1 + 24);
-  v6 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata(0);
-  v7 = *(*(v6 - 8) + 56);
-
-  return v7(&a2[v5], 1, 1, v6);
-}
-
-uint64_t (*sub_1C6E7E8C4(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_102;
-  v4 = v2 + *(a2 + 20);
-  return result;
-}
-
-uint64_t sub_1C6E7E91C(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1C6E8005C(&qword_1EC1F89E8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_Embedding);
-
-  return MEMORY[0x1EEE15708](a1, a2, v4);
-}
-
-uint64_t sub_1C6E7E9BC(uint64_t a1)
-{
-  v2 = sub_1C6E8005C(&qword_1EC1F89D0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_Embedding);
-
-  return MEMORY[0x1EEE15928](a1, v2);
-}
-
-uint64_t sub_1C6E7EA28()
-{
-  sub_1C6E8005C(&qword_1EC1F89D0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_Embedding);
-
-  return sub_1C6EE45F0();
-}
-
-uint64_t sub_1C6E7EAA8()
-{
-  v0 = sub_1C6EE4720();
-  __swift_allocate_value_buffer(v0, qword_1EC212B60);
-  __swift_project_value_buffer(v0, qword_1EC212B60);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8210, &unk_1C6EEC6D0);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8218, &unk_1C6EECEC0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1C6EE65B0;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "uuid";
-  *(v6 + 8) = 4;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x1E69AADC8];
-  v8 = sub_1C6EE46F0();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "dimension";
-  *(v10 + 1) = 9;
-  v10[16] = 2;
-  v9();
-  v11 = v5 + 2 * v2 + v1[14];
-  *(v5 + 2 * v2) = 3;
-  *v11 = "tokenizer_spec";
-  *(v11 + 8) = 14;
-  *(v11 + 16) = 2;
-  v12 = *MEMORY[0x1E69AADE8];
-  v9();
-  return sub_1C6EE4700();
-}
-
-uint64_t sub_1C6E7ECC4()
-{
-  while (1)
-  {
-    result = sub_1C6EE44B0();
-    if (v0 || (v2 & 1) != 0)
-    {
-      break;
-    }
-
-    switch(result)
-    {
-      case 3:
-        sub_1C6E7EE2C();
-        break;
-      case 2:
-        sub_1C6EE4560();
-        break;
-      case 1:
-        sub_1C6E7ED78();
-        break;
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_1C6E7ED78()
-{
-  v0 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata(0) + 24);
-  type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  sub_1C6E8005C(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-  return sub_1C6EE45A0();
-}
-
-uint64_t sub_1C6E7EE2C()
-{
-  v0 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata(0) + 28);
-  type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec(0);
-  sub_1C6E8005C(qword_1EDEF89C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec);
-  return sub_1C6EE45A0();
-}
-
-uint64_t sub_1C6E7EEE0(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  result = sub_1C6E7EF98(v3, a1, a2, a3);
-  if (!v4)
-  {
-    if (*v3)
-    {
-      sub_1C6EE46A0();
-    }
-
-    sub_1C6E7F1A8(v3, a1, a2, a3);
-    v9 = v3 + *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata(0) + 20);
-    return sub_1C6EE4410();
-  }
-
-  return result;
-}
-
-uint64_t sub_1C6E7EF98(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata(0);
-  sub_1C6E80E08(a1 + *(v14 + 24), v8, &qword_1EC1F7EF0, &unk_1C6EE9280);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1C6E80E70(v8, &qword_1EC1F7EF0, &unk_1C6EE9280);
-  }
-
-  sub_1C6E80F30(v8, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-  sub_1C6E8005C(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-  sub_1C6EE46E0();
-  return sub_1C6E80ED0(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-}
-
-uint64_t sub_1C6E7F1A8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8968, &qword_1C6EEEF08);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata(0);
-  sub_1C6E80E08(a1 + *(v14 + 28), v8, &qword_1EC1F8968, &qword_1C6EEEF08);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return sub_1C6E80E70(v8, &qword_1EC1F8968, &qword_1C6EEEF08);
-  }
-
-  sub_1C6E80F30(v8, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec);
-  sub_1C6E8005C(qword_1EDEF89C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec);
-  sub_1C6EE46E0();
-  return sub_1C6E80ED0(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec);
-}
-
-uint64_t sub_1C6E7F3BC@<X0>(int *a1@<X0>, char *a2@<X8>)
-{
-  *a2 = 0;
-  v4 = &a2[a1[5]];
-  sub_1C6EE4420();
-  v5 = a1[6];
-  v6 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  (*(*(v6 - 8) + 56))(&a2[v5], 1, 1, v6);
-  v7 = a1[7];
-  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec(0);
-  v9 = *(*(v8 - 8) + 56);
-
-  return v9(&a2[v7], 1, 1, v8);
-}
-
-uint64_t sub_1C6E7F4A8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v4 = *(a1 + 20);
-  v5 = sub_1C6EE4430();
-  v6 = *(*(v5 - 8) + 16);
-
-  return v6(a2, v2 + v4, v5);
-}
-
-uint64_t sub_1C6E7F51C(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a2 + 20);
-  v5 = sub_1C6EE4430();
-  v6 = *(*(v5 - 8) + 40);
-
-  return v6(v2 + v4, a1, v5);
-}
-
-uint64_t (*sub_1C6E7F590(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_103;
-  v4 = v2 + *(a2 + 20);
-  return result;
-}
-
-uint64_t sub_1C6E7F5E8(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1C6E8005C(&qword_1EC1F8A08, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
-
-  return MEMORY[0x1EEE15708](a1, a2, v4);
-}
-
-uint64_t sub_1C6E7F688(uint64_t a1)
-{
-  v2 = sub_1C6E8005C(&qword_1EC1F89B0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
-
-  return MEMORY[0x1EEE15928](a1, v2);
-}
-
-uint64_t sub_1C6E7F6F4()
-{
-  sub_1C6E8005C(&qword_1EC1F89B0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
-
-  return sub_1C6EE45F0();
-}
-
-uint64_t sub_1C6E7F774()
-{
-  v0 = sub_1C6EE4720();
-  __swift_allocate_value_buffer(v0, qword_1EC212B78);
-  __swift_project_value_buffer(v0, qword_1EC212B78);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8210, &unk_1C6EEC6D0);
-  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8218, &unk_1C6EECEC0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1C6EE6B40;
-  v5 = (v4 + v3);
-  v6 = v4 + v3 + v1[14];
-  *v5 = 1;
-  *v6 = "token";
-  *(v6 + 8) = 5;
-  *(v6 + 16) = 2;
-  v7 = *MEMORY[0x1E69AADC8];
-  v8 = sub_1C6EE46F0();
-  v9 = *(*(v8 - 8) + 104);
-  (v9)(v6, v7, v8);
-  v10 = v5 + v2 + v1[14];
-  *(v5 + v2) = 2;
-  *v10 = "vector";
-  *(v10 + 1) = 6;
-  v10[16] = 2;
-  v9();
-  return sub_1C6EE4700();
-}
-
-uint64_t sub_1C6E7F93C()
-{
-  while (1)
-  {
-    result = sub_1C6EE44B0();
-    if (v0 || (v2 & 1) != 0)
-    {
-      break;
-    }
-
-    if (result == 1)
-    {
-      sub_1C6EE4580();
-    }
-
-    else if (result == 2)
-    {
-      sub_1C6EE44F0();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_1C6E7F9C8()
-{
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = HIBYTE(v3) & 0xF;
-  if ((v3 & 0x2000000000000000) == 0)
-  {
-    v4 = *v0 & 0xFFFFFFFFFFFFLL;
-  }
-
-  if (!v4 || (result = sub_1C6EE46C0(), !v1))
-  {
-    if (!*(v0[2] + 16) || (result = sub_1C6EE4630(), !v1))
-    {
-      v6 = v0 + *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_TokenEmbedding(0) + 24);
-      return sub_1C6EE4410();
-    }
-  }
-
-  return result;
-}
-
-uint64_t sub_1C6E7FA80@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  *a2 = 0;
-  a2[1] = 0xE000000000000000;
-  a2[2] = MEMORY[0x1E69E7CC0];
-  v2 = a2 + *(a1 + 24);
-  return sub_1C6EE4420();
-}
-
-uint64_t sub_1C6E7FAD0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v4 = *(a1 + 24);
-  v5 = sub_1C6EE4430();
-  v6 = *(*(v5 - 8) + 16);
-
-  return v6(a2, v2 + v4, v5);
-}
-
-uint64_t sub_1C6E7FB44(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a2 + 24);
-  v5 = sub_1C6EE4430();
-  v6 = *(*(v5 - 8) + 40);
-
-  return v6(v2 + v4, a1, v5);
-}
-
-uint64_t (*sub_1C6E7FBB8(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_104;
-  v4 = v2 + *(a2 + 24);
-  return result;
-}
-
-uint64_t sub_1C6E7FC10(uint64_t a1, uint64_t a2)
-{
-  v4 = sub_1C6E8005C(&qword_1EC1F8A10, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_TokenEmbedding);
-
-  return MEMORY[0x1EEE15708](a1, a2, v4);
-}
-
-uint64_t sub_1C6E7FCB0@<X0>(void *a1@<X2>, uint64_t a2@<X3>, uint64_t a3@<X8>)
-{
-  if (*a1 != -1)
-  {
-    swift_once();
-  }
-
-  v5 = sub_1C6EE4720();
-  v6 = __swift_project_value_buffer(v5, a2);
-  v7 = *(*(v5 - 8) + 16);
-
-  return v7(a3, v6, v5);
-}
-
-uint64_t sub_1C6E7FD4C(uint64_t a1)
-{
-  v2 = sub_1C6E8005C(&qword_1EC1F8990, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_TokenEmbedding);
-
-  return MEMORY[0x1EEE15928](a1, v2);
-}
-
-uint64_t sub_1C6E7FDB8()
-{
-  sub_1C6EE5580();
-  sub_1C6EE4A00();
-  return sub_1C6EE55A0();
-}
-
-uint64_t sub_1C6E7FE10()
-{
-  sub_1C6E8005C(&qword_1EC1F8990, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_TokenEmbedding);
-
-  return sub_1C6EE45F0();
-}
-
-uint64_t sub_1C6E7FE8C()
-{
-  sub_1C6EE5580();
-  sub_1C6EE4A00();
-  return sub_1C6EE55A0();
-}
-
-uint64_t sub_1C6E7FEE0(void *a1, void *a2, uint64_t a3)
-{
-  v6 = *a1 == *a2 && a1[1] == a2[1];
-  if (!v6 && (sub_1C6EE54B0() & 1) == 0 || (sub_1C6E59708(a1[2], a2[2]) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v7 = *(a3 + 24);
-  sub_1C6EE4430();
-  sub_1C6E8005C(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
-  return sub_1C6EE4A50() & 1;
-}
-
-uint64_t sub_1C6E8005C(unint64_t *a1, void (*a2)(uint64_t))
-{
-  result = *a1;
-  if (!result)
-  {
-    a2(255);
-    result = swift_getWitnessTable();
-    atomic_store(result, a1);
-  }
-
-  return result;
-}
-
-uint64_t sub_1C6E802BC(uint64_t a1, uint64_t *a2)
-{
-  result = *a2;
-  if (!*a2)
-  {
-    return swift_getSingletonMetadata();
-  }
-
-  return result;
-}
-
-uint64_t sub_1C6E803CC(void *a1, void *a2)
-{
-  v4 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec(0);
-  v52 = *(v4 - 8);
-  v53 = v4;
-  v5 = *(v52 + 64);
-  MEMORY[0x1EEE9AC00](v4);
-  v48 = &v47 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8968, &qword_1C6EEEF08);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v7 - 8);
-  v49 = &v47 - v9;
-  v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8A00, &qword_1C6EEF398);
-  v10 = *(*(v50 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v50);
-  v54 = &v47 - v11;
-  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v55 = (&v47 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
-  v17 = *(*(v16 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v16 - 8);
-  v19 = (&v47 - v18);
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8220, &qword_1C6EEC6E0);
-  v21 = v20 - 8;
-  v22 = *(*(v20 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v20);
-  v24 = &v47 - v23;
-  v51 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata(0);
-  v25 = *(v51 + 24);
-  v26 = *(v21 + 56);
-  v56 = a1;
-  sub_1C6E80E08(a1 + v25, v24, &qword_1EC1F7EF0, &unk_1C6EE9280);
-  sub_1C6E80E08(a2 + v25, &v24[v26], &qword_1EC1F7EF0, &unk_1C6EE9280);
-  v27 = *(v13 + 48);
-  if (v27(v24, 1, v12) == 1)
-  {
-    if (v27(&v24[v26], 1, v12) == 1)
-    {
-      sub_1C6E80E70(v24, &qword_1EC1F7EF0, &unk_1C6EE9280);
-      goto LABEL_13;
-    }
-
-    goto LABEL_6;
-  }
-
-  sub_1C6E80E08(v24, v19, &qword_1EC1F7EF0, &unk_1C6EE9280);
-  if (v27(&v24[v26], 1, v12) == 1)
-  {
-    sub_1C6E80ED0(v19, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-LABEL_6:
-    v28 = &qword_1EC1F8220;
-    v29 = &qword_1C6EEC6E0;
-LABEL_7:
-    v30 = v24;
-LABEL_8:
-    sub_1C6E80E70(v30, v28, v29);
-    goto LABEL_23;
-  }
-
-  v31 = v55;
-  sub_1C6E80F30(&v24[v26], v55, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-  if ((*v19 != *v31 || v19[1] != v31[1]) && (sub_1C6EE54B0() & 1) == 0)
-  {
-    sub_1C6E80ED0(v31, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-    sub_1C6E80ED0(v19, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-    v28 = &qword_1EC1F7EF0;
-    v29 = &unk_1C6EE9280;
-    goto LABEL_7;
-  }
-
-  v32 = *(v12 + 20);
-  sub_1C6EE4430();
-  sub_1C6E8005C(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
-  v33 = sub_1C6EE4A50();
-  sub_1C6E80ED0(v31, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-  sub_1C6E80ED0(v19, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-  sub_1C6E80E70(v24, &qword_1EC1F7EF0, &unk_1C6EE9280);
-  if ((v33 & 1) == 0)
-  {
-    goto LABEL_23;
-  }
-
-LABEL_13:
-  if (*v56 != *a2)
-  {
-    goto LABEL_23;
-  }
-
-  v34 = v51;
-  v35 = *(v51 + 28);
-  v36 = *(v50 + 48);
-  v37 = v54;
-  sub_1C6E80E08(v56 + v35, v54, &qword_1EC1F8968, &qword_1C6EEEF08);
-  sub_1C6E80E08(a2 + v35, v37 + v36, &qword_1EC1F8968, &qword_1C6EEEF08);
-  v38 = v53;
-  v39 = *(v52 + 48);
-  if (v39(v37, 1, v53) != 1)
-  {
-    v40 = v49;
-    sub_1C6E80E08(v37, v49, &qword_1EC1F8968, &qword_1C6EEEF08);
-    if (v39(v37 + v36, 1, v38) != 1)
-    {
-      v41 = v37 + v36;
-      v42 = v48;
-      sub_1C6E80F30(v41, v48, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec);
-      v43 = sub_1C6E8B274(v40, v42);
-      sub_1C6E80ED0(v42, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec);
-      sub_1C6E80ED0(v40, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec);
-      sub_1C6E80E70(v37, &qword_1EC1F8968, &qword_1C6EEEF08);
-      if (v43)
-      {
-        goto LABEL_22;
-      }
-
-LABEL_23:
-      v45 = 0;
-      return v45 & 1;
-    }
-
-    sub_1C6E80ED0(v40, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec);
-    goto LABEL_19;
-  }
-
-  if (v39(v37 + v36, 1, v38) != 1)
-  {
-LABEL_19:
-    v28 = &qword_1EC1F8A00;
-    v29 = &qword_1C6EEF398;
-    v30 = v37;
-    goto LABEL_8;
-  }
-
-  sub_1C6E80E70(v37, &qword_1EC1F8968, &qword_1C6EEEF08);
-LABEL_22:
-  v44 = *(v34 + 20);
-  sub_1C6EE4430();
-  sub_1C6E8005C(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
-  v45 = sub_1C6EE4A50();
-  return v45 & 1;
-}
-
-uint64_t sub_1C6E80A9C(uint64_t *a1, uint64_t *a2)
-{
-  v4 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata(0);
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x1EEE9AC00](v4);
-  v27 = (&v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F89F0, &unk_1C6EF1170);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8 - 8);
-  v11 = (&v25 - v10);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F89F8, &qword_1C6EEF390);
-  v13 = v12 - 8;
-  v14 = *(*(v12 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v16 = &v25 - v15;
-  v26 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_Embedding(0);
-  v17 = *(v26 + 24);
-  v18 = *(v13 + 56);
-  v28 = a1;
-  sub_1C6E80E08(a1 + v17, v16, &qword_1EC1F89F0, &unk_1C6EF1170);
-  sub_1C6E80E08(a2 + v17, &v16[v18], &qword_1EC1F89F0, &unk_1C6EF1170);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, v4) == 1)
-  {
-    if (v19(&v16[v18], 1, v4) == 1)
-    {
-      sub_1C6E80E70(v16, &qword_1EC1F89F0, &unk_1C6EF1170);
-      goto LABEL_8;
-    }
-
-    goto LABEL_6;
-  }
-
-  sub_1C6E80E08(v16, v11, &qword_1EC1F89F0, &unk_1C6EF1170);
-  if (v19(&v16[v18], 1, v4) == 1)
-  {
-    sub_1C6E80ED0(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
-LABEL_6:
-    sub_1C6E80E70(v16, &qword_1EC1F89F8, &qword_1C6EEF390);
-LABEL_10:
-    v23 = 0;
-    return v23 & 1;
-  }
-
-  v20 = v27;
-  sub_1C6E80F30(&v16[v18], v27, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
-  v21 = sub_1C6E803CC(v11, v20);
-  sub_1C6E80ED0(v20, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
-  sub_1C6E80ED0(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
-  sub_1C6E80E70(v16, &qword_1EC1F89F0, &unk_1C6EF1170);
-  if ((v21 & 1) == 0)
-  {
-    goto LABEL_10;
-  }
-
-LABEL_8:
-  if ((sub_1C6E5EB40(*v28, *a2) & 1) == 0)
-  {
-    goto LABEL_10;
-  }
-
-  v22 = *(v26 + 20);
-  sub_1C6EE4430();
-  sub_1C6E8005C(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
-  v23 = sub_1C6EE4A50();
-  return v23 & 1;
-}
-
 uint64_t sub_1C6E80E08(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
@@ -768,16 +26,16 @@ uint64_t sub_1C6E80F30(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
   return a2;
 }
 
-void sub_1C6E80FC0()
+void sub_1C6E80FC0(uint64_t a1)
 {
   sub_1C6E7E130(319, &qword_1EC1F8A28, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_TokenEmbedding, MEMORY[0x1E69E62F8]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1C6EE4430();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_1C6E7E130(319, &qword_1EC1F8A30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata, MEMORY[0x1E69E6720]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -785,13 +43,13 @@ void sub_1C6E80FC0()
   }
 }
 
-void sub_1C6E810E4()
+void sub_1C6E810E4(uint64_t a1)
 {
   sub_1C6E81178();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1C6EE4430();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -810,15 +68,15 @@ void sub_1C6E81178()
   }
 }
 
-void sub_1C6E81280()
+void sub_1C6E81280(uint64_t a1)
 {
   if (!qword_1EDEF7CE8[0])
   {
-    type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-    v0 = sub_1C6EE4FE0();
-    if (!v1)
+    type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(255);
+    v1 = sub_1C6EE4FE0();
+    if (!v2)
     {
-      atomic_store(v0, qword_1EDEF7CE8);
+      atomic_store(v1, qword_1EDEF7CE8);
     }
   }
 }
@@ -829,12 +87,14 @@ uint64_t sub_1C6E812F8(uint64_t a1, uint64_t a2, uint64_t a3)
   result = sub_1C6EE44B0();
   if (!v4)
   {
+    v11 = MEMORY[0x1E69AABD8];
+    v12 = MEMORY[0x1E69AABA8];
     while ((v10 & 1) == 0)
     {
       switch(result)
       {
         case 3:
-          sub_1C6E81BA0(a1, v5, a2, a3, MEMORY[0x1E69AABE8], MEMORY[0x1E69AABB0]);
+          sub_1C6E81BA0(a1, v5, a2, a3, MEMORY[0x1E69AABE8], MEMORY[0x1E69AABB0], v11, v12);
           break;
         case 2:
           sub_1C6EE4580();
@@ -856,15 +116,14 @@ uint64_t sub_1C6E81414(uint64_t a1, uint64_t a2, uint64_t a3)
   result = sub_1C6E81D68(v3, a1, a2, a3, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
   if (!v4)
   {
-    v6 = *v3;
-    v7 = v3[1];
-    v8 = HIBYTE(v7) & 0xF;
-    if ((v7 & 0x2000000000000000) == 0)
+    v6 = v3[1];
+    v7 = HIBYTE(v6) & 0xF;
+    if ((v6 & 0x2000000000000000) == 0)
     {
-      v8 = *v3 & 0xFFFFFFFFFFFFLL;
+      v7 = *v3 & 0xFFFFFFFFFFFFLL;
     }
 
-    if (v8)
+    if (v7)
     {
       sub_1C6EE46C0();
     }
@@ -876,37 +135,30 @@ uint64_t sub_1C6E81414(uint64_t a1, uint64_t a2, uint64_t a3)
       sub_1C6EE4620();
     }
 
-    v9 = v3 + *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec(0) + 24);
+    type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec(0);
     return sub_1C6EE4410();
   }
 
   return result;
 }
 
-uint64_t (*sub_1C6E81570(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_105;
-  v4 = v2 + *(a2 + 24);
-  return result;
-}
-
 uint64_t sub_1C6E815C8(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E8255C(&qword_1EC1F8A68, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
+  v4 = sub_1C6E8255C(&qword_1EC1F8A68, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec, &unk_1C6EEF674);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t sub_1C6E81668(uint64_t a1)
 {
-  v2 = sub_1C6E8255C(qword_1EDEF74C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
+  v2 = sub_1C6E8255C(qword_1EDEF74C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec, &unk_1C6EEF6AC);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E816D4()
+uint64_t sub_1C6E816D4(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E8255C(qword_1EDEF74C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
+  sub_1C6E8255C(qword_1EDEF74C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec, &unk_1C6EEF6AC);
 
   return sub_1C6EE45F0();
 }
@@ -937,13 +189,12 @@ uint64_t sub_1C6E817B4(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint
   *v17 = a3;
   *(v17 + 1) = 13;
   v17[16] = 2;
-  v18 = *MEMORY[0x1E69AADE8];
   v16();
-  v19 = v12 + 2 * v9 + v8[14];
+  v18 = v12 + 2 * v9 + v8[14];
   *(v12 + 2 * v9) = 3;
-  *v19 = a4;
-  *(v19 + 8) = a5;
-  *(v19 + 16) = 2;
+  *v18 = a4;
+  *(v18 + 8) = a5;
+  *(v18 + 16) = 2;
   v16();
   return sub_1C6EE4700();
 }
@@ -954,12 +205,14 @@ uint64_t sub_1C6E819CC(uint64_t a1, uint64_t a2, uint64_t a3)
   result = sub_1C6EE44B0();
   if (!v4)
   {
+    v11 = MEMORY[0x1E69AABA0];
+    v12 = MEMORY[0x1E69AABE0];
     while ((v10 & 1) == 0)
     {
       switch(result)
       {
         case 3:
-          sub_1C6E81BA0(a1, v5, a2, a3, MEMORY[0x1E69AABB0], MEMORY[0x1E69AABE8]);
+          sub_1C6E81BA0(a1, v5, a2, a3, MEMORY[0x1E69AABB0], MEMORY[0x1E69AABE8], v11, v12);
           break;
         case 2:
           sub_1C6EE4580();
@@ -978,13 +231,13 @@ uint64_t sub_1C6E819CC(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_1C6E81AE8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
-  v5 = *(a5(0) + 28);
-  type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  sub_1C6E8255C(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  a5(0);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
+  sub_1C6E8255C(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID, &unk_1C6EF08BC);
   return sub_1C6EE45A0();
 }
 
-uint64_t sub_1C6E81BA0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void (*a5)(void), void (*a6)(void))
+uint64_t sub_1C6E81BA0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t (*a6)(void), uint64_t a7, uint64_t a8)
 {
   a5(0);
   a6(0);
@@ -996,15 +249,14 @@ uint64_t sub_1C6E81C40(uint64_t a1, uint64_t a2, uint64_t a3)
   result = sub_1C6E81D68(v3, a1, a2, a3, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TextCodesSpec);
   if (!v4)
   {
-    v6 = *v3;
-    v7 = v3[1];
-    v8 = HIBYTE(v7) & 0xF;
-    if ((v7 & 0x2000000000000000) == 0)
+    v6 = v3[1];
+    v7 = HIBYTE(v6) & 0xF;
+    if ((v6 & 0x2000000000000000) == 0)
     {
-      v8 = *v3 & 0xFFFFFFFFFFFFLL;
+      v7 = *v3 & 0xFFFFFFFFFFFFLL;
     }
 
-    if (v8)
+    if (v7)
     {
       sub_1C6EE46C0();
     }
@@ -1016,7 +268,7 @@ uint64_t sub_1C6E81C40(uint64_t a1, uint64_t a2, uint64_t a3)
       sub_1C6EE4620();
     }
 
-    v9 = v3 + *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TextCodesSpec(0) + 24);
+    type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TextCodesSpec(0);
     return sub_1C6EE4410();
   }
 
@@ -1025,27 +277,25 @@ uint64_t sub_1C6E81C40(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_1C6E81D68(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
-  v18[1] = a4;
+  v16[1] = a4;
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = v18 - v9;
-  v11 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v15 = v18 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = a5(0);
-  sub_1C6E82B3C(a1 + *(v16 + 28), v10);
-  if ((*(v12 + 48))(v10, 1, v11) == 1)
+  v9 = v16 - v8;
+  v10 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
+  v11 = *(v10 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = a5(0);
+  sub_1C6E82B3C(a1 + *(v14 + 28), v9);
+  if ((*(v11 + 48))(v9, 1, v10) == 1)
   {
-    return sub_1C6E82BAC(v10, &qword_1EC1F7EF0, &unk_1C6EE9280);
+    return sub_1C6E82BAC(v9, &qword_1EC1F7EF0, &unk_1C6EE9280);
   }
 
-  sub_1C6E82C68(v10, v15);
-  sub_1C6E8255C(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  sub_1C6E82C68(v9, v13);
+  sub_1C6E8255C(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID, &unk_1C6EF08BC);
   sub_1C6EE46E0();
-  return sub_1C6E82C0C(v15);
+  return sub_1C6E82C0C(v13);
 }
 
 uint64_t sub_1C6E81F68@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void)@<X2>, char *a3@<X8>)
@@ -1053,13 +303,12 @@ uint64_t sub_1C6E81F68@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void)@<X2>, char *a
   *a3 = 0;
   *(a3 + 1) = 0xE000000000000000;
   *(a3 + 2) = a2(MEMORY[0x1E69E7CC0]);
-  v5 = &a3[*(a1 + 24)];
   sub_1C6EE4420();
-  v6 = *(a1 + 28);
-  v7 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  v8 = *(*(v7 - 8) + 56);
+  v5 = *(a1 + 28);
+  v6 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
+  v7 = *(*(v6 - 8) + 56);
 
-  return v8(&a3[v6], 1, 1, v7);
+  return v7(&a3[v5], 1, 1, v6);
 }
 
 uint64_t sub_1C6E82020@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -1080,63 +329,56 @@ uint64_t sub_1C6E82094(uint64_t a1, uint64_t a2)
   return v6(v2 + v4, a1, v5);
 }
 
-uint64_t (*sub_1C6E82108(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_106;
-  v4 = v2 + *(a2 + 24);
-  return result;
-}
-
 uint64_t sub_1C6E82160(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E8255C(&qword_1EC1F8A70, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TextCodesSpec);
+  v4 = sub_1C6E8255C(&qword_1EC1F8A70, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TextCodesSpec, &unk_1C6EEF50C);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
-uint64_t sub_1C6E82200@<X0>(void *a1@<X2>, uint64_t a2@<X3>, uint64_t a3@<X8>)
+uint64_t sub_1C6E82200@<X0>(void *a1@<X2>, uint64_t a2@<X3>, uint64_t a4@<X8>)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v5 = sub_1C6EE4720();
-  v6 = __swift_project_value_buffer(v5, a2);
-  v7 = *(*(v5 - 8) + 16);
+  v6 = sub_1C6EE4720();
+  v7 = __swift_project_value_buffer(v6, a2);
+  v8 = *(*(v6 - 8) + 16);
 
-  return v7(a3, v6, v5);
+  return v8(a4, v7, v6);
 }
 
 uint64_t sub_1C6E8229C(uint64_t a1)
 {
-  v2 = sub_1C6E8255C(&qword_1EDEF62E0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TextCodesSpec);
+  v2 = sub_1C6E8255C(&qword_1EDEF62E0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TextCodesSpec, &unk_1C6EEF544);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E82308()
+uint64_t sub_1C6E82308(uint64_t a1, uint64_t a2)
 {
   sub_1C6EE5580();
   sub_1C6EE4A00();
   return sub_1C6EE55A0();
 }
 
-uint64_t sub_1C6E82360()
+uint64_t sub_1C6E82360(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E8255C(&qword_1EDEF62E0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TextCodesSpec);
+  sub_1C6E8255C(&qword_1EDEF62E0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TextCodesSpec, &unk_1C6EEF544);
 
   return sub_1C6EE45F0();
 }
 
-uint64_t sub_1C6E823DC()
+uint64_t sub_1C6E823DC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   sub_1C6EE5580();
   sub_1C6EE4A00();
   return sub_1C6EE55A0();
 }
 
-uint64_t sub_1C6E824DC(uint64_t a1, uint64_t *a2)
+uint64_t sub_1C6E824DC(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -1147,7 +389,7 @@ uint64_t sub_1C6E824DC(uint64_t a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_1C6E8255C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1C6E8255C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1162,44 +404,39 @@ uint64_t sub_1C6E8255C(unint64_t *a1, void (*a2)(uint64_t))
 
 uint64_t sub_1C6E82780(void *a1, void *a2, uint64_t (*a3)(void), uint64_t (*a4)(void, void))
 {
-  v34 = a4;
-  v7 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
+  v28 = a4;
+  v7 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   MEMORY[0x1EEE9AC00](v7);
-  v11 = (&v33 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
-  v13 = *(*(v12 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v12 - 8);
-  v15 = (&v33 - v14);
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8220, &qword_1C6EEC6E0);
-  v17 = v16 - 8;
-  v18 = *(*(v16 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v16);
-  v20 = &v33 - v19;
-  v21 = a3(0);
-  v22 = *(v21 + 28);
-  v23 = *(v17 + 56);
-  sub_1C6E82B3C(a1 + v22, v20);
-  sub_1C6E82B3C(a2 + v22, &v20[v23]);
-  v24 = *(v8 + 48);
-  if (v24(v20, 1, v7) != 1)
+  v10 = (&v27 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
+  MEMORY[0x1EEE9AC00](v11 - 8);
+  v13 = (&v27 - v12);
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8220, &qword_1C6EEC6E0);
+  v15 = v14 - 8;
+  MEMORY[0x1EEE9AC00](v14);
+  v17 = &v27 - v16;
+  v18 = *(a3(0) + 28);
+  v19 = *(v15 + 56);
+  sub_1C6E82B3C(a1 + v18, v17);
+  sub_1C6E82B3C(a2 + v18, &v17[v19]);
+  v20 = *(v8 + 48);
+  if (v20(v17, 1, v7) != 1)
   {
-    sub_1C6E82B3C(v20, v15);
-    if (v24(&v20[v23], 1, v7) != 1)
+    sub_1C6E82B3C(v17, v13);
+    if (v20(&v17[v19], 1, v7) != 1)
     {
-      sub_1C6E82C68(&v20[v23], v11);
-      v29 = *v15 == *v11 && v15[1] == v11[1];
-      if (v29 || (sub_1C6EE54B0() & 1) != 0)
+      sub_1C6E82C68(&v17[v19], v10);
+      v25 = *v13 == *v10 && v13[1] == v10[1];
+      if (v25 || (sub_1C6EE54B0() & 1) != 0)
       {
-        v30 = *(v7 + 20);
         sub_1C6EE4430();
-        sub_1C6E8255C(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
-        v31 = sub_1C6EE4A50();
-        sub_1C6E82C0C(v11);
-        sub_1C6E82C0C(v15);
-        sub_1C6E82BAC(v20, &qword_1EC1F7EF0, &unk_1C6EE9280);
-        if ((v31 & 1) == 0)
+        sub_1C6E8255C(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+        v26 = sub_1C6EE4A50();
+        sub_1C6E82C0C(v10);
+        sub_1C6E82C0C(v13);
+        sub_1C6E82BAC(v17, &qword_1EC1F7EF0, &unk_1C6EE9280);
+        if ((v26 & 1) == 0)
         {
           goto LABEL_8;
         }
@@ -1207,41 +444,40 @@ uint64_t sub_1C6E82780(void *a1, void *a2, uint64_t (*a3)(void), uint64_t (*a4)(
         goto LABEL_16;
       }
 
-      sub_1C6E82C0C(v11);
-      sub_1C6E82C0C(v15);
-      v25 = &qword_1EC1F7EF0;
-      v26 = &unk_1C6EE9280;
+      sub_1C6E82C0C(v10);
+      sub_1C6E82C0C(v13);
+      v21 = &qword_1EC1F7EF0;
+      v22 = &unk_1C6EE9280;
 LABEL_7:
-      sub_1C6E82BAC(v20, v25, v26);
+      sub_1C6E82BAC(v17, v21, v22);
       goto LABEL_8;
     }
 
-    sub_1C6E82C0C(v15);
+    sub_1C6E82C0C(v13);
 LABEL_6:
-    v25 = &qword_1EC1F8220;
-    v26 = &qword_1C6EEC6E0;
+    v21 = &qword_1EC1F8220;
+    v22 = &qword_1C6EEC6E0;
     goto LABEL_7;
   }
 
-  if (v24(&v20[v23], 1, v7) != 1)
+  if (v20(&v17[v19], 1, v7) != 1)
   {
     goto LABEL_6;
   }
 
-  sub_1C6E82BAC(v20, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  sub_1C6E82BAC(v17, &qword_1EC1F7EF0, &unk_1C6EE9280);
 LABEL_16:
-  if (*a1 == *a2 && a1[1] == a2[1] || (sub_1C6EE54B0()) && (v34(a1[2], a2[2]))
+  if (*a1 == *a2 && a1[1] == a2[1] || (sub_1C6EE54B0()) && (v28(a1[2], a2[2]))
   {
-    v32 = *(v21 + 24);
     sub_1C6EE4430();
-    sub_1C6E8255C(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
-    v27 = sub_1C6EE4A50();
-    return v27 & 1;
+    sub_1C6E8255C(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+    v23 = sub_1C6EE4A50();
+    return v23 & 1;
   }
 
 LABEL_8:
-  v27 = 0;
-  return v27 & 1;
+  v23 = 0;
+  return v23 & 1;
 }
 
 uint64_t sub_1C6E82B3C(uint64_t a1, uint64_t a2)
@@ -1260,14 +496,14 @@ uint64_t sub_1C6E82BAC(uint64_t a1, uint64_t *a2, uint64_t *a3)
 
 uint64_t sub_1C6E82C0C(uint64_t a1)
 {
-  v2 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
+  v2 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
 
 uint64_t sub_1C6E82C68(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
+  v4 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
@@ -1343,16 +579,16 @@ uint64_t __swift_store_extra_inhabitant_indexTm(uint64_t result, uint64_t a2, in
   return result;
 }
 
-void sub_1C6E82F78(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4)
+void sub_1C6E82F78(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
-  sub_1C6E83034(319, a4);
-  if (v4 <= 0x3F)
+  sub_1C6E83034(319, a4, a5, a6, a7);
+  if (v7 <= 0x3F)
   {
     sub_1C6EE4430();
-    if (v5 <= 0x3F)
+    if (v8 <= 0x3F)
     {
-      sub_1C6E81280();
-      if (v6 <= 0x3F)
+      sub_1C6E81280(319);
+      if (v9 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -1360,37 +596,37 @@ void sub_1C6E82F78(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4)
   }
 }
 
-void sub_1C6E83034(uint64_t a1, unint64_t *a2)
+void sub_1C6E83034(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (!*a2)
   {
-    v3 = sub_1C6EE49E0();
-    if (!v4)
+    v6 = sub_1C6EE49E0();
+    if (!v7)
     {
-      atomic_store(v3, a2);
+      atomic_store(v6, a2);
     }
   }
 }
 
-void sub_1C6E83108()
+void sub_1C6E83108(uint64_t a1)
 {
   sub_1C6EE4430();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1C6E83278(319, qword_1EDEF7CE8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_1C6E83278(319, qword_1EDEF6D68, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_1C6E83278(319, qword_1EDEF7078, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           sub_1C6E83278(319, qword_1EDEF73C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             sub_1C6E83278(319, qword_1EDEF7478, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
-            if (v5 <= 0x3F)
+            if (v6 <= 0x3F)
             {
               swift_cvw_initStructMetadataWithLayoutString();
             }
@@ -1401,7 +637,7 @@ void sub_1C6E83108()
   }
 }
 
-void sub_1C6E83278(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1C6E83278(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -1476,7 +712,7 @@ LABEL_5:
   return v21(v22, a2, a2, v20);
 }
 
-void sub_1C6E836D8(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, void (*a5)(uint64_t))
+void sub_1C6E836D8(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t *a4, uint64_t (*a5)(uint64_t))
 {
   sub_1C6EE4430();
   if (v7 <= 0x3F)
@@ -1536,10 +772,10 @@ uint64_t __swift_store_extra_inhabitant_index_18Tm_0(uint64_t result, uint64_t a
   return result;
 }
 
-uint64_t sub_1C6E8394C()
+uint64_t sub_1C6E8394C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = sub_1C6EE4430();
-  if (v1 <= 0x3F)
+  if (v5 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -1556,13 +792,12 @@ void sub_1C6E839DC(uint64_t a1@<X8>)
   *(a1 + 9) = v4 & 1;
 }
 
-void sub_1C6E83A20(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+void sub_1C6E83A20(uint64_t a2@<X8>)
 {
-  v3 = *a1;
   sub_1C6E8C39C();
-  *a2 = v4;
-  *(a2 + 8) = v5;
-  *(a2 + 9) = v6 & 1;
+  *a2 = v3;
+  *(a2 + 8) = v4;
+  *(a2 + 9) = v5 & 1;
 }
 
 uint64_t sub_1C6E83A58(uint64_t a1, uint64_t a2)
@@ -1626,10 +861,8 @@ void *sub_1C6E83C04@<X0>(void *result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_1C6E83C20()
+uint64_t sub_1C6E83C20(uint64_t a1, uint64_t a2)
 {
-  v2 = *v0;
-  v3 = *(v0 + 8);
   sub_1C6EE5580();
   sub_1C6EE4A00();
   return sub_1C6EE55A0();
@@ -1642,10 +875,8 @@ uint64_t sub_1C6E83C8C(uint64_t a1, uint64_t a2)
   return MEMORY[0x1EEE15710](a1, a2, v4);
 }
 
-uint64_t sub_1C6E83CD8()
+uint64_t sub_1C6E83CD8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *v0;
-  v3 = *(v0 + 8);
   sub_1C6EE5580();
   sub_1C6EE4A00();
   return sub_1C6EE55A0();
@@ -1726,27 +957,26 @@ uint64_t sub_1C6E83ECC()
   *v10 = "normalizer_spec";
   *(v10 + 8) = 15;
   *(v10 + 16) = 2;
-  v11 = *MEMORY[0x1E69AADE8];
   v9();
-  v12 = (v5 + 2 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 3;
-  *v13 = "splitter_spec";
-  *(v13 + 1) = 13;
-  v13[16] = 2;
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "splitter_spec";
+  *(v12 + 1) = 13;
+  v12[16] = 2;
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "ngrams_spec";
-  *(v15 + 1) = 11;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "ngrams_spec";
+  *(v14 + 1) = 11;
+  v14[16] = 2;
   v9();
-  v16 = v5 + 4 * v2 + v1[14];
+  v15 = v5 + 4 * v2 + v1[14];
   *(v5 + 4 * v2) = 5;
-  *v16 = "codes_spec";
-  *(v16 + 8) = 10;
-  *(v16 + 16) = 2;
+  *v15 = "codes_spec";
+  *(v15 + 8) = 10;
+  *(v15 + 16) = 2;
   v9();
   return sub_1C6EE4700();
 }
@@ -1771,7 +1001,7 @@ uint64_t sub_1C6E84168(uint64_t a1, uint64_t a2, uint64_t a3)
 
       else if (result == 2)
       {
-        sub_1C6E84284();
+        sub_1C6E84284(a1, v5, a2, a3);
       }
     }
 
@@ -1780,13 +1010,13 @@ uint64_t sub_1C6E84168(uint64_t a1, uint64_t a2, uint64_t a3)
       switch(result)
       {
         case 3:
-          sub_1C6E84338();
+          sub_1C6E84338(a1, v5, a2, a3);
           break;
         case 4:
-          sub_1C6E843EC();
+          sub_1C6E843EC(a1, v5, a2, a3);
           break;
         case 5:
-          sub_1C6E844A0();
+          sub_1C6E844A0(a1, v5, a2, a3);
           break;
       }
     }
@@ -1795,35 +1025,35 @@ uint64_t sub_1C6E84168(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t sub_1C6E84284()
+uint64_t sub_1C6E84284(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec(0) + 24);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec(0);
   type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec(0);
-  sub_1C6E88D5C(&qword_1EC1F8B80, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
+  sub_1C6E88D5C(&qword_1EC1F8B80, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec, &unk_1C6EF22E8);
   return sub_1C6EE45A0();
 }
 
-uint64_t sub_1C6E84338()
+uint64_t sub_1C6E84338(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec(0) + 28);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec(0);
   type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec(0);
-  sub_1C6E88D5C(qword_1EDEF70C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
+  sub_1C6E88D5C(qword_1EDEF70C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec, &unk_1C6EF03C8);
   return sub_1C6EE45A0();
 }
 
-uint64_t sub_1C6E843EC()
+uint64_t sub_1C6E843EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec(0) + 32);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec(0);
   type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec(0);
-  sub_1C6E88D5C(qword_1EDEF7418, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec);
+  sub_1C6E88D5C(qword_1EDEF7418, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec, &unk_1C6EEFF68);
   return sub_1C6EE45A0();
 }
 
-uint64_t sub_1C6E844A0()
+uint64_t sub_1C6E844A0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec(0) + 36);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec(0);
   type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec(0);
-  sub_1C6E88D5C(qword_1EDEF74C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
+  sub_1C6E88D5C(qword_1EDEF74C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec, &unk_1C6EEF6AC);
   return sub_1C6EE45A0();
 }
 
@@ -1844,113 +1074,105 @@ uint64_t sub_1C6E84554(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_1C6E84620(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7DD8, &qword_1C6EE8B68);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec(0);
-  sub_1C6E8C22C(a1 + *(v14 + 24), v8, &qword_1EC1F7DD8, &qword_1C6EE8B68);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec(0);
+  sub_1C6E8C22C(a1 + *(v12 + 24), v7, &qword_1EC1F7DD8, &qword_1C6EE8B68);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1C6E8C294(v8, &qword_1EC1F7DD8, &qword_1C6EE8B68);
+    return sub_1C6E8C294(v7, &qword_1EC1F7DD8, &qword_1C6EE8B68);
   }
 
-  sub_1C6E8C1C4(v8, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
-  sub_1C6E88D5C(&qword_1EC1F8B80, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
+  sub_1C6E8C1C4(v7, v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
+  sub_1C6E88D5C(&qword_1EC1F8B80, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec, &unk_1C6EF22E8);
   sub_1C6EE46E0();
-  return sub_1C6E8C164(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
+  return sub_1C6E8C164(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
 }
 
 uint64_t sub_1C6E84830(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7DD0, &qword_1C6EE8B60);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec(0);
-  sub_1C6E8C22C(a1 + *(v14 + 28), v8, &qword_1EC1F7DD0, &qword_1C6EE8B60);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec(0);
+  sub_1C6E8C22C(a1 + *(v12 + 28), v7, &qword_1EC1F7DD0, &qword_1C6EE8B60);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1C6E8C294(v8, &qword_1EC1F7DD0, &qword_1C6EE8B60);
+    return sub_1C6E8C294(v7, &qword_1EC1F7DD0, &qword_1C6EE8B60);
   }
 
-  sub_1C6E8C1C4(v8, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
-  sub_1C6E88D5C(qword_1EDEF70C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
+  sub_1C6E8C1C4(v7, v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
+  sub_1C6E88D5C(qword_1EDEF70C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec, &unk_1C6EF03C8);
   sub_1C6EE46E0();
-  return sub_1C6E8C164(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
+  return sub_1C6E8C164(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
 }
 
 uint64_t sub_1C6E84A40(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7DC8, &qword_1C6EE8B58);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec(0);
-  sub_1C6E8C22C(a1 + *(v14 + 32), v8, &qword_1EC1F7DC8, &qword_1C6EE8B58);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec(0);
+  sub_1C6E8C22C(a1 + *(v12 + 32), v7, &qword_1EC1F7DC8, &qword_1C6EE8B58);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1C6E8C294(v8, &qword_1EC1F7DC8, &qword_1C6EE8B58);
+    return sub_1C6E8C294(v7, &qword_1EC1F7DC8, &qword_1C6EE8B58);
   }
 
-  sub_1C6E8C1C4(v8, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec);
-  sub_1C6E88D5C(qword_1EDEF7418, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec);
+  sub_1C6E8C1C4(v7, v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec);
+  sub_1C6E88D5C(qword_1EDEF7418, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec, &unk_1C6EEFF68);
   sub_1C6EE46E0();
-  return sub_1C6E8C164(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec);
+  return sub_1C6E8C164(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec);
 }
 
 uint64_t sub_1C6E84C50(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7DC0, &qword_1C6EE8B50);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec(0);
-  sub_1C6E8C22C(a1 + *(v14 + 36), v8, &qword_1EC1F7DC0, &qword_1C6EE8B50);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec(0);
+  sub_1C6E8C22C(a1 + *(v12 + 36), v7, &qword_1EC1F7DC0, &qword_1C6EE8B50);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1C6E8C294(v8, &qword_1EC1F7DC0, &qword_1C6EE8B50);
+    return sub_1C6E8C294(v7, &qword_1EC1F7DC0, &qword_1C6EE8B50);
   }
 
-  sub_1C6E8C1C4(v8, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
-  sub_1C6E88D5C(qword_1EDEF74C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
+  sub_1C6E8C1C4(v7, v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
+  sub_1C6E88D5C(qword_1EDEF74C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec, &unk_1C6EEF6AC);
   sub_1C6EE46E0();
-  return sub_1C6E8C164(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
+  return sub_1C6E8C164(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
 }
 
 uint64_t sub_1C6E84E60@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
 {
   sub_1C6EE4420();
   v4 = a1[5];
-  v5 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
+  v5 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
   (*(*(v5 - 8) + 56))(a2 + v4, 1, 1, v5);
   v6 = a1[6];
   v7 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec(0);
@@ -1970,21 +1192,21 @@ uint64_t sub_1C6E84E60@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_1C6E85060(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E88D5C(&qword_1EC1F8B78, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec);
+  v4 = sub_1C6E88D5C(&qword_1EC1F8B78, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec, &unk_1C6EF0660);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t sub_1C6E85100(uint64_t a1)
 {
-  v2 = sub_1C6E88D5C(qword_1EDEF89C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec);
+  v2 = sub_1C6E88D5C(qword_1EDEF89C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec, &unk_1C6EF0698);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E8516C()
+uint64_t sub_1C6E8516C(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E88D5C(qword_1EDEF89C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec);
+  sub_1C6E88D5C(qword_1EDEF89C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec, &unk_1C6EF0698);
 
   return sub_1C6EE45F0();
 }
@@ -2015,52 +1237,52 @@ uint64_t sub_1C6E851EC()
   *v10 = "wordpiece_normalizer_spec";
   *(v10 + 8) = 25;
   *(v10 + 16) = 2;
-  v11 = *MEMORY[0x1E69AADE8];
   v9();
-  v12 = (v5 + 2 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 3;
-  *v13 = "splitter_spec";
-  *(v13 + 1) = 13;
-  v13[16] = 2;
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "splitter_spec";
+  *(v12 + 1) = 13;
+  v12[16] = 2;
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "codes_spec";
-  *(v15 + 1) = 10;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "codes_spec";
+  *(v14 + 1) = 10;
+  v14[16] = 2;
   v9();
-  v16 = (v5 + 4 * v2);
-  v17 = v16 + v1[14];
-  *v16 = 5;
-  *v17 = "suffix_indicator";
-  *(v17 + 1) = 16;
-  v17[16] = 2;
+  v15 = (v5 + 4 * v2);
+  v16 = v15 + v1[14];
+  *v15 = 5;
+  *v16 = "suffix_indicator";
+  *(v16 + 1) = 16;
+  v16[16] = 2;
   v9();
-  v18 = (v5 + 5 * v2);
-  v19 = v18 + v1[14];
-  *v18 = 6;
-  *v19 = "max_bytes_per_word";
-  *(v19 + 1) = 18;
-  v19[16] = 2;
+  v17 = (v5 + 5 * v2);
+  v18 = v17 + v1[14];
+  *v17 = 6;
+  *v18 = "max_bytes_per_word";
+  *(v18 + 1) = 18;
+  v18[16] = 2;
   v9();
-  v20 = (v5 + 6 * v2);
-  v21 = v20 + v1[14];
-  *v20 = 7;
-  *v21 = "split_nonspaced_cjk_chars";
-  *(v21 + 1) = 25;
-  v21[16] = 2;
+  v19 = (v5 + 6 * v2);
+  v20 = v19 + v1[14];
+  *v19 = 7;
+  *v20 = "split_nonspaced_cjk_chars";
+  *(v20 + 1) = 25;
+  v20[16] = 2;
   v9();
   return sub_1C6EE4700();
 }
 
-uint64_t sub_1C6E854FC()
+uint64_t sub_1C6E854FC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   while (1)
   {
     result = sub_1C6EE44B0();
-    if (v0 || (v2 & 1) != 0)
+    if (v4 || (v10 & 1) != 0)
     {
       break;
     }
@@ -2070,13 +1292,13 @@ uint64_t sub_1C6E854FC()
       switch(result)
       {
         case 1:
-          sub_1C6E85648();
+          sub_1C6E85648(a1, v5, a2, a3);
           break;
         case 2:
-          sub_1C6E856FC();
+          sub_1C6E856FC(a1, v5, a2, a3);
           break;
         case 3:
-          sub_1C6E857B0();
+          sub_1C6E857B0(a1, v5, a2, a3);
           break;
       }
     }
@@ -2096,7 +1318,7 @@ uint64_t sub_1C6E854FC()
 
     else if (result == 4)
     {
-      sub_1C6E85864();
+      sub_1C6E85864(a1, v5, a2, a3);
     }
 
     else
@@ -2108,35 +1330,35 @@ uint64_t sub_1C6E854FC()
   return result;
 }
 
-uint64_t sub_1C6E85648()
+uint64_t sub_1C6E85648(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec(0) + 32);
-  type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  sub_1C6E88D5C(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec(0);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
+  sub_1C6E88D5C(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID, &unk_1C6EF08BC);
   return sub_1C6EE45A0();
 }
 
-uint64_t sub_1C6E856FC()
+uint64_t sub_1C6E856FC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec(0) + 36);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec(0);
   type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec(0);
-  sub_1C6E88D5C(&qword_1EC1F8B98, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec);
+  sub_1C6E88D5C(&qword_1EC1F8B98, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec, &unk_1C6EF2180);
   return sub_1C6EE45A0();
 }
 
-uint64_t sub_1C6E857B0()
+uint64_t sub_1C6E857B0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec(0) + 40);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec(0);
   type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec(0);
-  sub_1C6E88D5C(qword_1EDEF70C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
+  sub_1C6E88D5C(qword_1EDEF70C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec, &unk_1C6EF03C8);
   return sub_1C6EE45A0();
 }
 
-uint64_t sub_1C6E85864()
+uint64_t sub_1C6E85864(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec(0) + 44);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec(0);
   type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec(0);
-  sub_1C6E88D5C(qword_1EDEF74C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
+  sub_1C6E88D5C(qword_1EDEF74C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec, &unk_1C6EEF6AC);
   return sub_1C6EE45A0();
 }
 
@@ -2148,15 +1370,14 @@ uint64_t sub_1C6E85918(uint64_t a1, uint64_t a2, uint64_t a3)
     sub_1C6E85C68(v3, a1, a2, a3);
     sub_1C6E85E78(v3, a1, a2, a3);
     sub_1C6E86088(v3, a1, a2, a3);
-    v9 = *v3;
-    v10 = *(v3 + 8);
-    v11 = HIBYTE(v10) & 0xF;
-    if ((v10 & 0x2000000000000000) == 0)
+    v9 = *(v3 + 8);
+    v10 = HIBYTE(v9) & 0xF;
+    if ((v9 & 0x2000000000000000) == 0)
     {
-      v11 = *v3 & 0xFFFFFFFFFFFFLL;
+      v10 = *v3 & 0xFFFFFFFFFFFFLL;
     }
 
-    if (v11)
+    if (v10)
     {
       sub_1C6EE46C0();
     }
@@ -2171,7 +1392,7 @@ uint64_t sub_1C6E85918(uint64_t a1, uint64_t a2, uint64_t a3)
       sub_1C6EE4650();
     }
 
-    v12 = v3 + *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec(0) + 28);
+    type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec(0);
     return sub_1C6EE4410();
   }
 
@@ -2180,106 +1401,98 @@ uint64_t sub_1C6E85918(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_1C6E85A58(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec(0);
-  sub_1C6E8C22C(a1 + *(v14 + 32), v8, &qword_1EC1F7EF0, &unk_1C6EE9280);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec(0);
+  sub_1C6E8C22C(a1 + *(v12 + 32), v7, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1C6E8C294(v8, &qword_1EC1F7EF0, &unk_1C6EE9280);
+    return sub_1C6E8C294(v7, &qword_1EC1F7EF0, &unk_1C6EE9280);
   }
 
-  sub_1C6E8C1C4(v8, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-  sub_1C6E88D5C(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  sub_1C6E8C1C4(v7, v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  sub_1C6E88D5C(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID, &unk_1C6EF08BC);
   sub_1C6EE46E0();
-  return sub_1C6E8C164(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  return sub_1C6E8C164(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
 }
 
 uint64_t sub_1C6E85C68(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8B90, &qword_1C6EF0738);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec(0);
-  sub_1C6E8C22C(a1 + *(v14 + 36), v8, &qword_1EC1F8B90, &qword_1C6EF0738);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec(0);
+  sub_1C6E8C22C(a1 + *(v12 + 36), v7, &qword_1EC1F8B90, &qword_1C6EF0738);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1C6E8C294(v8, &qword_1EC1F8B90, &qword_1C6EF0738);
+    return sub_1C6E8C294(v7, &qword_1EC1F8B90, &qword_1C6EF0738);
   }
 
-  sub_1C6E8C1C4(v8, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec);
-  sub_1C6E88D5C(&qword_1EC1F8B98, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec);
+  sub_1C6E8C1C4(v7, v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec);
+  sub_1C6E88D5C(&qword_1EC1F8B98, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec, &unk_1C6EF2180);
   sub_1C6EE46E0();
-  return sub_1C6E8C164(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec);
+  return sub_1C6E8C164(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec);
 }
 
 uint64_t sub_1C6E85E78(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7DD0, &qword_1C6EE8B60);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec(0);
-  sub_1C6E8C22C(a1 + *(v14 + 40), v8, &qword_1EC1F7DD0, &qword_1C6EE8B60);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec(0);
+  sub_1C6E8C22C(a1 + *(v12 + 40), v7, &qword_1EC1F7DD0, &qword_1C6EE8B60);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1C6E8C294(v8, &qword_1EC1F7DD0, &qword_1C6EE8B60);
+    return sub_1C6E8C294(v7, &qword_1EC1F7DD0, &qword_1C6EE8B60);
   }
 
-  sub_1C6E8C1C4(v8, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
-  sub_1C6E88D5C(qword_1EDEF70C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
+  sub_1C6E8C1C4(v7, v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
+  sub_1C6E88D5C(qword_1EDEF70C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec, &unk_1C6EF03C8);
   sub_1C6EE46E0();
-  return sub_1C6E8C164(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
+  return sub_1C6E8C164(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
 }
 
 uint64_t sub_1C6E86088(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7DC0, &qword_1C6EE8B50);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec(0);
-  sub_1C6E8C22C(a1 + *(v14 + 44), v8, &qword_1EC1F7DC0, &qword_1C6EE8B50);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec(0);
+  sub_1C6E8C22C(a1 + *(v12 + 44), v7, &qword_1EC1F7DC0, &qword_1C6EE8B50);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1C6E8C294(v8, &qword_1EC1F7DC0, &qword_1C6EE8B50);
+    return sub_1C6E8C294(v7, &qword_1EC1F7DC0, &qword_1C6EE8B50);
   }
 
-  sub_1C6E8C1C4(v8, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
-  sub_1C6E88D5C(qword_1EDEF74C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
+  sub_1C6E8C1C4(v7, v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
+  sub_1C6E88D5C(qword_1EDEF74C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec, &unk_1C6EEF6AC);
   sub_1C6EE46E0();
-  return sub_1C6E8C164(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
+  return sub_1C6E8C164(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
 }
 
 uint64_t sub_1C6E86298@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
@@ -2288,22 +1501,21 @@ uint64_t sub_1C6E86298@<X0>(int *a1@<X0>, uint64_t a2@<X8>)
   *(a2 + 8) = 0xE000000000000000;
   *(a2 + 16) = 0;
   *(a2 + 20) = 0;
-  v4 = a2 + a1[7];
   sub_1C6EE4420();
-  v5 = a1[8];
-  v6 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  (*(*(v6 - 8) + 56))(a2 + v5, 1, 1, v6);
-  v7 = a1[9];
-  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec(0);
-  (*(*(v8 - 8) + 56))(a2 + v7, 1, 1, v8);
-  v9 = a1[10];
-  v10 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec(0);
-  (*(*(v10 - 8) + 56))(a2 + v9, 1, 1, v10);
-  v11 = a1[11];
-  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec(0);
-  v13 = *(*(v12 - 8) + 56);
+  v4 = a1[8];
+  v5 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
+  (*(*(v5 - 8) + 56))(a2 + v4, 1, 1, v5);
+  v6 = a1[9];
+  v7 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec(0);
+  (*(*(v7 - 8) + 56))(a2 + v6, 1, 1, v7);
+  v8 = a1[10];
+  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec(0);
+  (*(*(v9 - 8) + 56))(a2 + v8, 1, 1, v9);
+  v10 = a1[11];
+  v11 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec(0);
+  v12 = *(*(v11 - 8) + 56);
 
-  return v13(a2 + v11, 1, 1, v12);
+  return v12(a2 + v10, 1, 1, v11);
 }
 
 uint64_t sub_1C6E86418@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -2324,85 +1536,76 @@ uint64_t sub_1C6E8648C(uint64_t a1, uint64_t a2)
   return v6(v2 + v4, a1, v5);
 }
 
-uint64_t (*sub_1C6E86500(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_110;
-  v4 = v2 + *(a2 + 28);
-  return result;
-}
-
 uint64_t sub_1C6E86558(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E88D5C(&qword_1EC1F8B88, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec);
+  v4 = sub_1C6E88D5C(&qword_1EC1F8B88, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec, &unk_1C6EF04F8);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t sub_1C6E865F8(uint64_t a1)
 {
-  v2 = sub_1C6E88D5C(&qword_1EC1F8B20, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec);
+  v2 = sub_1C6E88D5C(&qword_1EC1F8B20, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec, &unk_1C6EF0530);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E86664()
+uint64_t sub_1C6E86664(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E88D5C(&qword_1EC1F8B20, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec);
+  sub_1C6E88D5C(&qword_1EC1F8B20, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec, &unk_1C6EF0530);
 
   return sub_1C6EE45F0();
 }
 
-uint64_t sub_1C6E866F0()
+uint64_t sub_1C6E866F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec(0) + 24);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec(0);
   type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy(0);
-  sub_1C6E88D5C(qword_1EDEF6BC8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy);
+  sub_1C6E88D5C(qword_1EDEF6BC8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy, &unk_1C6EF0260);
   return sub_1C6EE45A0();
 }
 
 uint64_t sub_1C6E867A4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(qword_1EC1F7510, &unk_1C6EE66A0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec(0);
-  sub_1C6E8C22C(a1 + *(v14 + 24), v8, qword_1EC1F7510, &unk_1C6EE66A0);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec(0);
+  sub_1C6E8C22C(a1 + *(v12 + 24), v7, qword_1EC1F7510, &unk_1C6EE66A0);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1C6E8C294(v8, qword_1EC1F7510, &unk_1C6EE66A0);
+    return sub_1C6E8C294(v7, qword_1EC1F7510, &unk_1C6EE66A0);
   }
 
-  sub_1C6E8C1C4(v8, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy);
-  sub_1C6E88D5C(qword_1EDEF6BC8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy);
+  sub_1C6E8C1C4(v7, v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy);
+  sub_1C6E88D5C(qword_1EDEF6BC8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy, &unk_1C6EF0260);
   sub_1C6EE46E0();
-  return sub_1C6E8C164(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy);
+  return sub_1C6E8C164(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy);
 }
 
 uint64_t sub_1C6E86A8C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E88D5C(&qword_1EC1F8BA8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
+  v4 = sub_1C6E88D5C(&qword_1EC1F8BA8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec, &unk_1C6EF0390);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t sub_1C6E86B2C(uint64_t a1)
 {
-  v2 = sub_1C6E88D5C(qword_1EDEF70C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
+  v2 = sub_1C6E88D5C(qword_1EDEF70C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec, &unk_1C6EF03C8);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E86B98()
+uint64_t sub_1C6E86B98(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E88D5C(qword_1EDEF70C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
+  sub_1C6E88D5C(qword_1EDEF70C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec, &unk_1C6EF03C8);
 
   return sub_1C6EE45F0();
 }
@@ -2437,51 +1640,44 @@ uint64_t sub_1C6E86C30(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
   return sub_1C6EE4700();
 }
 
-uint64_t (*sub_1C6E86E0C(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_112;
-  v4 = v2 + *(a2 + 24);
-  return result;
-}
-
 uint64_t sub_1C6E86EB0(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E88D5C(&qword_1EC1F8BB0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy);
+  v4 = sub_1C6E88D5C(&qword_1EC1F8BB0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy, &unk_1C6EF0228);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t sub_1C6E86F50(uint64_t a1)
 {
-  v2 = sub_1C6E88D5C(qword_1EDEF6BC8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy);
+  v2 = sub_1C6E88D5C(qword_1EDEF6BC8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy, &unk_1C6EF0260);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E86FBC()
+uint64_t sub_1C6E86FBC(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E88D5C(qword_1EDEF6BC8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy);
+  sub_1C6E88D5C(qword_1EDEF6BC8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy, &unk_1C6EF0260);
 
   return sub_1C6EE45F0();
 }
 
 uint64_t sub_1C6E87088(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E88D5C(&qword_1EC1F8BB8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategyType);
+  v4 = sub_1C6E88D5C(&qword_1EC1F8BB8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategyType, &unk_1C6EF00C0);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t sub_1C6E87128(uint64_t a1)
 {
-  v2 = sub_1C6E88D5C(&qword_1EC1F8AE0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategyType);
+  v2 = sub_1C6E88D5C(&qword_1EC1F8AE0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategyType, &unk_1C6EF00F8);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E87194()
+uint64_t sub_1C6E87194(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E88D5C(&qword_1EC1F8AE0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategyType);
+  sub_1C6E88D5C(&qword_1EC1F8AE0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategyType, &unk_1C6EF00F8);
 
   return sub_1C6EE45F0();
 }
@@ -2587,17 +1783,17 @@ uint64_t sub_1C6E87644(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(voi
 
 uint64_t sub_1C6E876F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
-  v5 = *(a5(0) + 20);
-  type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  sub_1C6E88D5C(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  a5(0);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
+  sub_1C6E88D5C(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID, &unk_1C6EF08BC);
   return sub_1C6EE45A0();
 }
 
-uint64_t sub_1C6E877A8()
+uint64_t sub_1C6E877A8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec(0) + 24);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec(0);
   type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy(0);
-  sub_1C6E88D5C(qword_1EDEF6E58, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy);
+  sub_1C6E88D5C(qword_1EDEF6E58, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy, &unk_1C6EEFE00);
   return sub_1C6EE45A0();
 }
 
@@ -2615,62 +1811,58 @@ uint64_t sub_1C6E8785C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(voi
 
 uint64_t sub_1C6E878D8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
 {
-  v18[3] = a4;
-  v18[0] = a2;
-  v18[1] = a3;
+  v16[3] = a4;
+  v16[0] = a2;
+  v16[1] = a3;
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = v18 - v9;
-  v11 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v15 = v18 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = a5(0);
-  sub_1C6E8C22C(a1 + *(v16 + 20), v10, &qword_1EC1F7EF0, &unk_1C6EE9280);
-  if ((*(v12 + 48))(v10, 1, v11) == 1)
+  v9 = v16 - v8;
+  v10 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
+  v11 = *(v10 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = a5(0);
+  sub_1C6E8C22C(a1 + *(v14 + 20), v9, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  if ((*(v11 + 48))(v9, 1, v10) == 1)
   {
-    return sub_1C6E8C294(v10, &qword_1EC1F7EF0, &unk_1C6EE9280);
+    return sub_1C6E8C294(v9, &qword_1EC1F7EF0, &unk_1C6EE9280);
   }
 
-  sub_1C6E8C1C4(v10, v15, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-  sub_1C6E88D5C(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  sub_1C6E8C1C4(v9, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  sub_1C6E88D5C(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID, &unk_1C6EF08BC);
   sub_1C6EE46E0();
-  return sub_1C6E8C164(v15, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  return sub_1C6E8C164(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
 }
 
 uint64_t sub_1C6E87AEC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EC8, &unk_1C6EE90C0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec(0);
-  sub_1C6E8C22C(a1 + *(v14 + 24), v8, &qword_1EC1F7EC8, &unk_1C6EE90C0);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec(0);
+  sub_1C6E8C22C(a1 + *(v12 + 24), v7, &qword_1EC1F7EC8, &unk_1C6EE90C0);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1C6E8C294(v8, &qword_1EC1F7EC8, &unk_1C6EE90C0);
+    return sub_1C6E8C294(v7, &qword_1EC1F7EC8, &unk_1C6EE90C0);
   }
 
-  sub_1C6E8C1C4(v8, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy);
-  sub_1C6E88D5C(qword_1EDEF6E58, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy);
+  sub_1C6E8C1C4(v7, v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy);
+  sub_1C6E88D5C(qword_1EDEF6E58, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy, &unk_1C6EEFE00);
   sub_1C6EE46E0();
-  return sub_1C6E8C164(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy);
+  return sub_1C6E8C164(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy);
 }
 
 uint64_t sub_1C6E87D14@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void)@<X2>, uint64_t a3@<X8>)
 {
   sub_1C6EE4420();
   v6 = *(a1 + 20);
-  v7 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
+  v7 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
   (*(*(v7 - 8) + 56))(a3 + v6, 1, 1, v7);
   v8 = *(a1 + 24);
   v9 = a2(0);
@@ -2681,31 +1873,31 @@ uint64_t sub_1C6E87D14@<X0>(uint64_t a1@<X0>, uint64_t (*a2)(void)@<X2>, uint64_
 
 uint64_t sub_1C6E87EA0(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E88D5C(&qword_1EC1F8BC0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec);
+  v4 = sub_1C6E88D5C(&qword_1EC1F8BC0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec, &unk_1C6EEFF30);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t sub_1C6E87F40(uint64_t a1)
 {
-  v2 = sub_1C6E88D5C(qword_1EDEF7418, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec);
+  v2 = sub_1C6E88D5C(qword_1EDEF7418, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec, &unk_1C6EEFF68);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E87FAC()
+uint64_t sub_1C6E87FAC(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E88D5C(qword_1EDEF7418, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec);
+  sub_1C6E88D5C(qword_1EDEF7418, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec, &unk_1C6EEFF68);
 
   return sub_1C6EE45F0();
 }
 
-uint64_t sub_1C6E88044(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void))
+uint64_t sub_1C6E88044(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t a5)
 {
   while (1)
   {
     result = sub_1C6EE44B0();
-    if (v4 || (v7 & 1) != 0)
+    if (v5 || (v8 & 1) != 0)
     {
       break;
     }
@@ -2725,9 +1917,9 @@ uint64_t sub_1C6E88044(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void))
   return result;
 }
 
-uint64_t sub_1C6E88100(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t, uint64_t), uint64_t a5, uint64_t (*a6)(void))
+uint64_t sub_1C6E88100(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t, uint64_t, uint64_t), uint64_t a5, void (*a6)(void))
 {
-  if (!*v6 || (v13 = *v6, v14 = *(v6 + 8), a4(a1, a2), result = sub_1C6EE4660(), !v7))
+  if (!*v6 || (a4(a1, a2, a3), result = sub_1C6EE4660(), !v7))
   {
     v10 = v6[3];
     v11 = HIBYTE(v10) & 0xF;
@@ -2738,7 +1930,7 @@ uint64_t sub_1C6E88100(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_
 
     if (!v11 || (result = sub_1C6EE46C0(), !v7))
     {
-      v12 = v6 + *(a6(0) + 24);
+      a6(0);
       return sub_1C6EE4410();
     }
   }
@@ -2746,13 +1938,12 @@ uint64_t sub_1C6E88100(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_
   return result;
 }
 
-uint64_t sub_1C6E881F8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1C6E881F8@<X0>(uint64_t a2@<X8>)
 {
   *a2 = 0;
   *(a2 + 8) = 1;
   *(a2 + 16) = 0;
   *(a2 + 24) = 0xE000000000000000;
-  v2 = a2 + *(a1 + 24);
   return sub_1C6EE4420();
 }
 
@@ -2774,30 +1965,23 @@ uint64_t sub_1C6E882BC(uint64_t a1, uint64_t a2)
   return v6(v2 + v4, a1, v5);
 }
 
-uint64_t (*sub_1C6E88330(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_115;
-  v4 = v2 + *(a2 + 24);
-  return result;
-}
-
 uint64_t sub_1C6E883D4(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E88D5C(&qword_1EC1F8BC8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy);
+  v4 = sub_1C6E88D5C(&qword_1EC1F8BC8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy, &unk_1C6EEFDC8);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t sub_1C6E88474(uint64_t a1)
 {
-  v2 = sub_1C6E88D5C(qword_1EDEF6E58, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy);
+  v2 = sub_1C6E88D5C(qword_1EDEF6E58, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy, &unk_1C6EEFE00);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E884E0()
+uint64_t sub_1C6E884E0(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E88D5C(qword_1EDEF6E58, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy);
+  sub_1C6E88D5C(qword_1EDEF6E58, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy, &unk_1C6EEFE00);
 
   return sub_1C6EE45F0();
 }
@@ -2810,14 +1994,14 @@ uint64_t sub_1C6E8856C(uint64_t a1, uint64_t *a2)
   return sub_1C6EE4710();
 }
 
-uint64_t sub_1C6E885B4()
+uint64_t sub_1C6E885B4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   do
   {
     result = sub_1C6EE44B0();
   }
 
-  while (!v0 && (v2 & 1) == 0);
+  while (!v3 && (v5 & 1) == 0);
   return result;
 }
 
@@ -2839,43 +2023,43 @@ uint64_t sub_1C6E88694(uint64_t a1)
 
 uint64_t sub_1C6E88720(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E88D5C(&qword_1EC1F8BD0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategyType);
+  v4 = sub_1C6E88D5C(&qword_1EC1F8BD0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategyType, &unk_1C6EEFC60);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t sub_1C6E887C0(uint64_t a1)
 {
-  v2 = sub_1C6E88D5C(&qword_1EC1F8AA0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategyType);
+  v2 = sub_1C6E88D5C(&qword_1EC1F8AA0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategyType, &unk_1C6EEFC98);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E8882C()
+uint64_t sub_1C6E8882C(uint64_t a1, uint64_t a2)
 {
   sub_1C6EE5580();
   sub_1C6EE4A00();
   return sub_1C6EE55A0();
 }
 
-uint64_t sub_1C6E88884()
+uint64_t sub_1C6E88884(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E88D5C(&qword_1EC1F8AA0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategyType);
+  sub_1C6E88D5C(&qword_1EC1F8AA0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategyType, &unk_1C6EEFC98);
 
   return sub_1C6EE45F0();
 }
 
-uint64_t sub_1C6E88900()
+uint64_t sub_1C6E88900(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   sub_1C6EE5580();
   sub_1C6EE4A00();
   return sub_1C6EE55A0();
 }
 
-uint64_t sub_1C6E88954()
+uint64_t sub_1C6E88954(uint64_t a1, uint64_t a2)
 {
   sub_1C6EE4430();
-  sub_1C6E88D5C(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
+  sub_1C6E88D5C(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
   return sub_1C6EE4A50() & 1;
 }
 
@@ -2915,21 +2099,21 @@ uint64_t sub_1C6E889DC()
   return sub_1C6EE4700();
 }
 
-uint64_t sub_1C6E88C10@<X0>(void *a1@<X2>, uint64_t a2@<X3>, uint64_t a3@<X8>)
+uint64_t sub_1C6E88C10@<X0>(void *a1@<X2>, uint64_t a2@<X3>, uint64_t a4@<X8>)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v5 = sub_1C6EE4720();
-  v6 = __swift_project_value_buffer(v5, a2);
-  v7 = *(*(v5 - 8) + 16);
+  v6 = sub_1C6EE4720();
+  v7 = __swift_project_value_buffer(v6, a2);
+  v8 = *(*(v6 - 8) + 16);
 
-  return v7(a3, v6, v5);
+  return v8(a4, v7, v6);
 }
 
-uint64_t sub_1C6E88D5C(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1C6E88D5C(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2942,7 +2126,7 @@ uint64_t sub_1C6E88D5C(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_1C6E8945C(uint64_t a1, uint64_t *a2)
+uint64_t sub_1C6E8945C(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -2997,9 +2181,9 @@ uint64_t sub_1C6E8968C(uint64_t *a1, uint64_t a2)
   v4 = a1[2] == *(a2 + 16) && a1[3] == *(a2 + 24);
   if (v4 || (sub_1C6EE54B0() & 1) != 0)
   {
-    v5 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy(0) + 24);
+    type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy(0);
     sub_1C6EE4430();
-    sub_1C6E88D5C(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
+    sub_1C6E88D5C(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
     return sub_1C6EE4A50() & 1;
   }
 
@@ -3042,9 +2226,9 @@ uint64_t sub_1C6E897A0(uint64_t *a1, uint64_t *a2)
   v4 = a1[2] == a2[2] && a1[3] == a2[3];
   if (v4 || (sub_1C6EE54B0() & 1) != 0)
   {
-    v5 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy(0) + 24);
+    type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy(0);
     sub_1C6EE4430();
-    sub_1C6E88D5C(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
+    sub_1C6E88D5C(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
     return sub_1C6EE4A50() & 1;
   }
 
@@ -3054,59 +2238,52 @@ uint64_t sub_1C6E897A0(uint64_t *a1, uint64_t *a2)
 uint64_t sub_1C6E898A4(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy(0);
-  v53 = *(v4 - 8);
-  v54 = v4;
-  v5 = *(v53 + 64);
+  v46 = *(v4 - 8);
+  v47 = v4;
   MEMORY[0x1EEE9AC00](v4);
-  v48 = &v47 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(qword_1EC1F7510, &unk_1C6EE66A0);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v7 - 8);
-  v49 = (&v47 - v9);
-  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8B68, &qword_1C6EF0728);
-  v10 = *(*(v52 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v52);
-  v55 = &v47 - v11;
-  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v50 = (&v47 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
-  v17 = *(*(v16 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v16 - 8);
-  v19 = (&v47 - v18);
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8220, &qword_1C6EEC6E0);
-  v21 = v20 - 8;
-  v22 = *(*(v20 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v20);
-  v24 = &v47 - v23;
-  v51 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec(0);
-  v25 = *(v51 + 20);
-  v26 = *(v21 + 56);
-  v56 = a1;
-  sub_1C6E8C22C(a1 + v25, v24, &qword_1EC1F7EF0, &unk_1C6EE9280);
-  v27 = a2 + v25;
-  v28 = a2;
-  sub_1C6E8C22C(v27, &v24[v26], &qword_1EC1F7EF0, &unk_1C6EE9280);
-  v29 = *(v13 + 48);
-  if (v29(v24, 1, v12) != 1)
+  v41 = &v40 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(qword_1EC1F7510, &unk_1C6EE66A0);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v42 = (&v40 - v7);
+  v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8B68, &qword_1C6EF0728);
+  MEMORY[0x1EEE9AC00](v45);
+  v48 = &v40 - v8;
+  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
+  v10 = *(v9 - 8);
+  MEMORY[0x1EEE9AC00](v9);
+  v43 = (&v40 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
+  MEMORY[0x1EEE9AC00](v12 - 8);
+  v14 = (&v40 - v13);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8220, &qword_1C6EEC6E0);
+  v16 = v15 - 8;
+  MEMORY[0x1EEE9AC00](v15);
+  v18 = &v40 - v17;
+  v44 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec(0);
+  v19 = *(v44 + 20);
+  v20 = *(v16 + 56);
+  v49 = a1;
+  sub_1C6E8C22C(a1 + v19, v18, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  v21 = a2 + v19;
+  v22 = a2;
+  sub_1C6E8C22C(v21, &v18[v20], &qword_1EC1F7EF0, &unk_1C6EE9280);
+  v23 = *(v10 + 48);
+  if (v23(v18, 1, v9) != 1)
   {
-    sub_1C6E8C22C(v24, v19, &qword_1EC1F7EF0, &unk_1C6EE9280);
-    if (v29(&v24[v26], 1, v12) != 1)
+    sub_1C6E8C22C(v18, v14, &qword_1EC1F7EF0, &unk_1C6EE9280);
+    if (v23(&v18[v20], 1, v9) != 1)
     {
-      v33 = v50;
-      sub_1C6E8C1C4(&v24[v26], v50, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-      if (*v19 == *v33 && v19[1] == v33[1] || (sub_1C6EE54B0() & 1) != 0)
+      v27 = v43;
+      sub_1C6E8C1C4(&v18[v20], v43, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+      if (*v14 == *v27 && v14[1] == v27[1] || (sub_1C6EE54B0() & 1) != 0)
       {
-        v34 = *(v12 + 20);
         sub_1C6EE4430();
-        sub_1C6E88D5C(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
-        v35 = sub_1C6EE4A50();
-        sub_1C6E8C164(v33, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-        sub_1C6E8C164(v19, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-        sub_1C6E8C294(v24, &qword_1EC1F7EF0, &unk_1C6EE9280);
-        if ((v35 & 1) == 0)
+        sub_1C6E88D5C(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+        v28 = sub_1C6EE4A50();
+        sub_1C6E8C164(v27, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+        sub_1C6E8C164(v14, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+        sub_1C6E8C294(v18, &qword_1EC1F7EF0, &unk_1C6EE9280);
+        if ((v28 & 1) == 0)
         {
           goto LABEL_19;
         }
@@ -3114,138 +2291,131 @@ uint64_t sub_1C6E898A4(uint64_t a1, uint64_t a2)
         goto LABEL_12;
       }
 
-      sub_1C6E8C164(v33, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-      sub_1C6E8C164(v19, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-      v30 = &qword_1EC1F7EF0;
-      v31 = &unk_1C6EE9280;
+      sub_1C6E8C164(v27, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+      sub_1C6E8C164(v14, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+      v24 = &qword_1EC1F7EF0;
+      v25 = &unk_1C6EE9280;
 LABEL_7:
-      v32 = v24;
+      v26 = v18;
 LABEL_18:
-      sub_1C6E8C294(v32, v30, v31);
+      sub_1C6E8C294(v26, v24, v25);
       goto LABEL_19;
     }
 
-    sub_1C6E8C164(v19, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+    sub_1C6E8C164(v14, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
 LABEL_6:
-    v30 = &qword_1EC1F8220;
-    v31 = &qword_1C6EEC6E0;
+    v24 = &qword_1EC1F8220;
+    v25 = &qword_1C6EEC6E0;
     goto LABEL_7;
   }
 
-  if (v29(&v24[v26], 1, v12) != 1)
+  if (v23(&v18[v20], 1, v9) != 1)
   {
     goto LABEL_6;
   }
 
-  sub_1C6E8C294(v24, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  sub_1C6E8C294(v18, &qword_1EC1F7EF0, &unk_1C6EE9280);
 LABEL_12:
-  v36 = *(v51 + 24);
-  v37 = *(v52 + 48);
-  v38 = v55;
-  sub_1C6E8C22C(v56 + v36, v55, qword_1EC1F7510, &unk_1C6EE66A0);
-  sub_1C6E8C22C(v28 + v36, v38 + v37, qword_1EC1F7510, &unk_1C6EE66A0);
-  v39 = v54;
-  v40 = *(v53 + 48);
-  if (v40(v38, 1, v54) == 1)
+  v29 = *(v44 + 24);
+  v30 = *(v45 + 48);
+  v31 = v48;
+  sub_1C6E8C22C(v49 + v29, v48, qword_1EC1F7510, &unk_1C6EE66A0);
+  sub_1C6E8C22C(v22 + v29, v31 + v30, qword_1EC1F7510, &unk_1C6EE66A0);
+  v32 = v47;
+  v33 = *(v46 + 48);
+  if (v33(v31, 1, v47) == 1)
   {
-    if (v40(v38 + v37, 1, v39) == 1)
+    if (v33(v31 + v30, 1, v32) == 1)
     {
-      sub_1C6E8C294(v38, qword_1EC1F7510, &unk_1C6EE66A0);
+      sub_1C6E8C294(v31, qword_1EC1F7510, &unk_1C6EE66A0);
 LABEL_22:
       sub_1C6EE4430();
-      sub_1C6E88D5C(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
-      v42 = sub_1C6EE4A50();
-      return v42 & 1;
+      sub_1C6E88D5C(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+      v35 = sub_1C6EE4A50();
+      return v35 & 1;
     }
 
     goto LABEL_17;
   }
 
-  v41 = v49;
-  sub_1C6E8C22C(v38, v49, qword_1EC1F7510, &unk_1C6EE66A0);
-  if (v40(v38 + v37, 1, v39) == 1)
+  v34 = v42;
+  sub_1C6E8C22C(v31, v42, qword_1EC1F7510, &unk_1C6EE66A0);
+  if (v33(v31 + v30, 1, v32) == 1)
   {
-    sub_1C6E8C164(v41, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy);
+    sub_1C6E8C164(v34, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy);
 LABEL_17:
-    v30 = &qword_1EC1F8B68;
-    v31 = &qword_1C6EF0728;
-    v32 = v38;
+    v24 = &qword_1EC1F8B68;
+    v25 = &qword_1C6EF0728;
+    v26 = v31;
     goto LABEL_18;
   }
 
-  v44 = v38 + v37;
-  v45 = v48;
-  sub_1C6E8C1C4(v44, v48, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy);
-  v46 = sub_1C6E8968C(v41, v45);
-  sub_1C6E8C164(v45, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy);
-  sub_1C6E8C164(v41, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy);
-  sub_1C6E8C294(v38, qword_1EC1F7510, &unk_1C6EE66A0);
-  if (v46)
+  v37 = v31 + v30;
+  v38 = v41;
+  sub_1C6E8C1C4(v37, v41, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy);
+  v39 = sub_1C6E8968C(v34, v38);
+  sub_1C6E8C164(v38, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy);
+  sub_1C6E8C164(v34, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterStrategy);
+  sub_1C6E8C294(v31, qword_1EC1F7510, &unk_1C6EE66A0);
+  if (v39)
   {
     goto LABEL_22;
   }
 
 LABEL_19:
-  v42 = 0;
-  return v42 & 1;
+  v35 = 0;
+  return v35 & 1;
 }
 
 uint64_t sub_1C6E89F5C(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy(0);
-  v53 = *(v4 - 8);
-  v54 = v4;
-  v5 = *(v53 + 64);
+  v46 = *(v4 - 8);
+  v47 = v4;
   MEMORY[0x1EEE9AC00](v4);
-  v48 = (&v47 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EC8, &unk_1C6EE90C0);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v7 - 8);
-  v49 = (&v47 - v9);
-  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8B70, &qword_1C6EF0730);
-  v10 = *(*(v52 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v52);
-  v55 = &v47 - v11;
-  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  v13 = *(v12 - 8);
-  v14 = *(v13 + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v50 = (&v47 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
-  v17 = *(*(v16 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v16 - 8);
-  v19 = (&v47 - v18);
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8220, &qword_1C6EEC6E0);
-  v21 = v20 - 8;
-  v22 = *(*(v20 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v20);
-  v24 = &v47 - v23;
-  v51 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec(0);
-  v25 = *(v51 + 20);
-  v26 = *(v21 + 56);
-  v56 = a1;
-  sub_1C6E8C22C(a1 + v25, v24, &qword_1EC1F7EF0, &unk_1C6EE9280);
-  v27 = a2 + v25;
-  v28 = a2;
-  sub_1C6E8C22C(v27, &v24[v26], &qword_1EC1F7EF0, &unk_1C6EE9280);
-  v29 = *(v13 + 48);
-  if (v29(v24, 1, v12) != 1)
+  v41 = (&v40 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EC8, &unk_1C6EE90C0);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v42 = (&v40 - v7);
+  v45 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8B70, &qword_1C6EF0730);
+  MEMORY[0x1EEE9AC00](v45);
+  v48 = &v40 - v8;
+  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
+  v10 = *(v9 - 8);
+  MEMORY[0x1EEE9AC00](v9);
+  v43 = (&v40 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
+  MEMORY[0x1EEE9AC00](v12 - 8);
+  v14 = (&v40 - v13);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8220, &qword_1C6EEC6E0);
+  v16 = v15 - 8;
+  MEMORY[0x1EEE9AC00](v15);
+  v18 = &v40 - v17;
+  v44 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec(0);
+  v19 = *(v44 + 20);
+  v20 = *(v16 + 56);
+  v49 = a1;
+  sub_1C6E8C22C(a1 + v19, v18, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  v21 = a2 + v19;
+  v22 = a2;
+  sub_1C6E8C22C(v21, &v18[v20], &qword_1EC1F7EF0, &unk_1C6EE9280);
+  v23 = *(v10 + 48);
+  if (v23(v18, 1, v9) != 1)
   {
-    sub_1C6E8C22C(v24, v19, &qword_1EC1F7EF0, &unk_1C6EE9280);
-    if (v29(&v24[v26], 1, v12) != 1)
+    sub_1C6E8C22C(v18, v14, &qword_1EC1F7EF0, &unk_1C6EE9280);
+    if (v23(&v18[v20], 1, v9) != 1)
     {
-      v33 = v50;
-      sub_1C6E8C1C4(&v24[v26], v50, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-      if (*v19 == *v33 && v19[1] == v33[1] || (sub_1C6EE54B0() & 1) != 0)
+      v27 = v43;
+      sub_1C6E8C1C4(&v18[v20], v43, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+      if (*v14 == *v27 && v14[1] == v27[1] || (sub_1C6EE54B0() & 1) != 0)
       {
-        v34 = *(v12 + 20);
         sub_1C6EE4430();
-        sub_1C6E88D5C(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
-        v35 = sub_1C6EE4A50();
-        sub_1C6E8C164(v33, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-        sub_1C6E8C164(v19, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-        sub_1C6E8C294(v24, &qword_1EC1F7EF0, &unk_1C6EE9280);
-        if ((v35 & 1) == 0)
+        sub_1C6E88D5C(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+        v28 = sub_1C6EE4A50();
+        sub_1C6E8C164(v27, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+        sub_1C6E8C164(v14, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+        sub_1C6E8C294(v18, &qword_1EC1F7EF0, &unk_1C6EE9280);
+        if ((v28 & 1) == 0)
         {
           goto LABEL_19;
         }
@@ -3253,311 +2423,298 @@ uint64_t sub_1C6E89F5C(uint64_t a1, uint64_t a2)
         goto LABEL_12;
       }
 
-      sub_1C6E8C164(v33, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-      sub_1C6E8C164(v19, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-      v30 = &qword_1EC1F7EF0;
-      v31 = &unk_1C6EE9280;
+      sub_1C6E8C164(v27, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+      sub_1C6E8C164(v14, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+      v24 = &qword_1EC1F7EF0;
+      v25 = &unk_1C6EE9280;
 LABEL_7:
-      v32 = v24;
+      v26 = v18;
 LABEL_18:
-      sub_1C6E8C294(v32, v30, v31);
+      sub_1C6E8C294(v26, v24, v25);
       goto LABEL_19;
     }
 
-    sub_1C6E8C164(v19, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+    sub_1C6E8C164(v14, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
 LABEL_6:
-    v30 = &qword_1EC1F8220;
-    v31 = &qword_1C6EEC6E0;
+    v24 = &qword_1EC1F8220;
+    v25 = &qword_1C6EEC6E0;
     goto LABEL_7;
   }
 
-  if (v29(&v24[v26], 1, v12) != 1)
+  if (v23(&v18[v20], 1, v9) != 1)
   {
     goto LABEL_6;
   }
 
-  sub_1C6E8C294(v24, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  sub_1C6E8C294(v18, &qword_1EC1F7EF0, &unk_1C6EE9280);
 LABEL_12:
-  v36 = *(v51 + 24);
-  v37 = *(v52 + 48);
-  v38 = v55;
-  sub_1C6E8C22C(v56 + v36, v55, &qword_1EC1F7EC8, &unk_1C6EE90C0);
-  sub_1C6E8C22C(v28 + v36, v38 + v37, &qword_1EC1F7EC8, &unk_1C6EE90C0);
-  v39 = v54;
-  v40 = *(v53 + 48);
-  if (v40(v38, 1, v54) == 1)
+  v29 = *(v44 + 24);
+  v30 = *(v45 + 48);
+  v31 = v48;
+  sub_1C6E8C22C(v49 + v29, v48, &qword_1EC1F7EC8, &unk_1C6EE90C0);
+  sub_1C6E8C22C(v22 + v29, v31 + v30, &qword_1EC1F7EC8, &unk_1C6EE90C0);
+  v32 = v47;
+  v33 = *(v46 + 48);
+  if (v33(v31, 1, v47) == 1)
   {
-    if (v40(v38 + v37, 1, v39) == 1)
+    if (v33(v31 + v30, 1, v32) == 1)
     {
-      sub_1C6E8C294(v38, &qword_1EC1F7EC8, &unk_1C6EE90C0);
+      sub_1C6E8C294(v31, &qword_1EC1F7EC8, &unk_1C6EE90C0);
 LABEL_22:
       sub_1C6EE4430();
-      sub_1C6E88D5C(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
-      v42 = sub_1C6EE4A50();
-      return v42 & 1;
+      sub_1C6E88D5C(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+      v35 = sub_1C6EE4A50();
+      return v35 & 1;
     }
 
     goto LABEL_17;
   }
 
-  v41 = v49;
-  sub_1C6E8C22C(v38, v49, &qword_1EC1F7EC8, &unk_1C6EE90C0);
-  if (v40(v38 + v37, 1, v39) == 1)
+  v34 = v42;
+  sub_1C6E8C22C(v31, v42, &qword_1EC1F7EC8, &unk_1C6EE90C0);
+  if (v33(v31 + v30, 1, v32) == 1)
   {
-    sub_1C6E8C164(v41, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy);
+    sub_1C6E8C164(v34, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy);
 LABEL_17:
-    v30 = &qword_1EC1F8B70;
-    v31 = &qword_1C6EF0730;
-    v32 = v38;
+    v24 = &qword_1EC1F8B70;
+    v25 = &qword_1C6EF0730;
+    v26 = v31;
     goto LABEL_18;
   }
 
-  v44 = v38 + v37;
-  v45 = v48;
-  sub_1C6E8C1C4(v44, v48, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy);
-  v46 = sub_1C6E897A0(v41, v45);
-  sub_1C6E8C164(v45, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy);
-  sub_1C6E8C164(v41, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy);
-  sub_1C6E8C294(v38, &qword_1EC1F7EC8, &unk_1C6EE90C0);
-  if (v46)
+  v37 = v31 + v30;
+  v38 = v41;
+  sub_1C6E8C1C4(v37, v41, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy);
+  v39 = sub_1C6E897A0(v34, v38);
+  sub_1C6E8C164(v38, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy);
+  sub_1C6E8C164(v34, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsStrategy);
+  sub_1C6E8C294(v31, &qword_1EC1F7EC8, &unk_1C6EE90C0);
+  if (v39)
   {
     goto LABEL_22;
   }
 
 LABEL_19:
-  v42 = 0;
-  return v42 & 1;
+  v35 = 0;
+  return v35 & 1;
 }
 
 uint64_t sub_1C6E8A614(uint64_t a1, uint64_t a2)
 {
-  v104 = a2;
-  v105 = a1;
+  v90 = a2;
+  v91 = a1;
   v2 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec(0);
-  v89 = *(v2 - 8);
-  v90 = v2;
-  v3 = *(v89 + 64);
+  v75 = *(v2 - 8);
+  v76 = v2;
   MEMORY[0x1EEE9AC00](v2);
-  v86 = (&v85 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7DC0, &qword_1C6EE8B50);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v5 - 8);
-  v103 = &v85 - v7;
-  v88 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8B48, &qword_1C6EF0710);
-  v8 = *(*(v88 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v88);
-  v91 = &v85 - v9;
-  v10 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec(0);
-  v94 = *(v10 - 8);
-  v95 = v10;
-  v11 = *(v94 + 64);
-  MEMORY[0x1EEE9AC00](v10);
-  v87 = &v85 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7DD0, &qword_1C6EE8B60);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v13 - 8);
-  v101 = &v85 - v15;
-  v93 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8B58, &qword_1C6EF0720);
-  v16 = *(*(v93 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v93);
-  v96 = &v85 - v17;
-  v18 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec(0);
-  v99 = *(v18 - 8);
-  v100 = v18;
-  v19 = *(v99 + 64);
+  v72 = (&v71 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7DC0, &qword_1C6EE8B50);
+  MEMORY[0x1EEE9AC00](v4 - 8);
+  v89 = &v71 - v5;
+  v74 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8B48, &qword_1C6EF0710);
+  MEMORY[0x1EEE9AC00](v74);
+  v77 = &v71 - v6;
+  v7 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec(0);
+  v80 = *(v7 - 8);
+  v81 = v7;
+  MEMORY[0x1EEE9AC00](v7);
+  v73 = &v71 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7DD0, &qword_1C6EE8B60);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v87 = &v71 - v10;
+  v79 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8B58, &qword_1C6EF0720);
+  MEMORY[0x1EEE9AC00](v79);
+  v82 = &v71 - v11;
+  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec(0);
+  v85 = *(v12 - 8);
+  v86 = v12;
+  MEMORY[0x1EEE9AC00](v12);
+  v78 = (&v71 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8B90, &qword_1C6EF0738);
+  MEMORY[0x1EEE9AC00](v14 - 8);
+  v83 = &v71 - v15;
+  v84 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8BA0, &unk_1C6EF0740);
+  MEMORY[0x1EEE9AC00](v84);
+  v17 = &v71 - v16;
+  v18 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
+  v19 = *(v18 - 8);
   MEMORY[0x1EEE9AC00](v18);
-  v92 = (&v85 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8B90, &qword_1C6EF0738);
-  v22 = *(*(v21 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v21 - 8);
-  v97 = &v85 - v23;
-  v98 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8BA0, &unk_1C6EF0740);
-  v24 = *(*(v98 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v98);
-  v26 = &v85 - v25;
-  v27 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  v28 = *(v27 - 8);
-  v29 = *(v28 + 64);
-  MEMORY[0x1EEE9AC00](v27);
-  v31 = (&v85 - ((v30 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
-  v33 = *(*(v32 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v32 - 8);
-  v35 = (&v85 - v34);
-  v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8220, &qword_1C6EEC6E0);
-  v37 = v36 - 8;
-  v38 = *(*(v36 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v36);
-  v40 = &v85 - v39;
-  v102 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec(0);
-  v41 = *(v102 + 32);
-  v42 = *(v37 + 56);
-  sub_1C6E8C22C(v105 + v41, v40, &qword_1EC1F7EF0, &unk_1C6EE9280);
-  v43 = v104 + v41;
-  v44 = v104;
-  sub_1C6E8C22C(v43, &v40[v42], &qword_1EC1F7EF0, &unk_1C6EE9280);
-  v45 = *(v28 + 48);
-  if (v45(v40, 1, v27) == 1)
+  v21 = (&v71 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
+  MEMORY[0x1EEE9AC00](v22 - 8);
+  v24 = (&v71 - v23);
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8220, &qword_1C6EEC6E0);
+  v26 = v25 - 8;
+  MEMORY[0x1EEE9AC00](v25);
+  v28 = &v71 - v27;
+  v88 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceTokenizerSpec(0);
+  v29 = *(v88 + 32);
+  v30 = *(v26 + 56);
+  sub_1C6E8C22C(v91 + v29, v28, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  v31 = v90 + v29;
+  v32 = v90;
+  sub_1C6E8C22C(v31, &v28[v30], &qword_1EC1F7EF0, &unk_1C6EE9280);
+  v33 = *(v19 + 48);
+  if (v33(v28, 1, v18) == 1)
   {
-    if (v45(&v40[v42], 1, v27) == 1)
+    if (v33(&v28[v30], 1, v18) == 1)
     {
-      sub_1C6E8C294(v40, &qword_1EC1F7EF0, &unk_1C6EE9280);
+      sub_1C6E8C294(v28, &qword_1EC1F7EF0, &unk_1C6EE9280);
       goto LABEL_12;
     }
 
     goto LABEL_6;
   }
 
-  sub_1C6E8C22C(v40, v35, &qword_1EC1F7EF0, &unk_1C6EE9280);
-  if (v45(&v40[v42], 1, v27) == 1)
+  sub_1C6E8C22C(v28, v24, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  if (v33(&v28[v30], 1, v18) == 1)
   {
-    sub_1C6E8C164(v35, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+    sub_1C6E8C164(v24, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
 LABEL_6:
-    v46 = &qword_1EC1F8220;
-    v47 = &qword_1C6EEC6E0;
+    v34 = &qword_1EC1F8220;
+    v35 = &qword_1C6EEC6E0;
 LABEL_7:
-    v48 = v40;
+    v36 = v28;
 LABEL_33:
-    sub_1C6E8C294(v48, v46, v47);
+    sub_1C6E8C294(v36, v34, v35);
     goto LABEL_34;
   }
 
-  sub_1C6E8C1C4(&v40[v42], v31, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-  if ((*v35 != *v31 || v35[1] != v31[1]) && (sub_1C6EE54B0() & 1) == 0)
+  sub_1C6E8C1C4(&v28[v30], v21, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  if ((*v24 != *v21 || v24[1] != v21[1]) && (sub_1C6EE54B0() & 1) == 0)
   {
-    sub_1C6E8C164(v31, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-    sub_1C6E8C164(v35, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-    v46 = &qword_1EC1F7EF0;
-    v47 = &unk_1C6EE9280;
+    sub_1C6E8C164(v21, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+    sub_1C6E8C164(v24, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+    v34 = &qword_1EC1F7EF0;
+    v35 = &unk_1C6EE9280;
     goto LABEL_7;
   }
 
-  v49 = *(v27 + 20);
   sub_1C6EE4430();
-  sub_1C6E88D5C(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
-  v50 = sub_1C6EE4A50();
-  sub_1C6E8C164(v31, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-  sub_1C6E8C164(v35, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-  sub_1C6E8C294(v40, &qword_1EC1F7EF0, &unk_1C6EE9280);
-  if ((v50 & 1) == 0)
+  sub_1C6E88D5C(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+  v37 = sub_1C6EE4A50();
+  sub_1C6E8C164(v21, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  sub_1C6E8C164(v24, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  sub_1C6E8C294(v28, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  if ((v37 & 1) == 0)
   {
     goto LABEL_34;
   }
 
 LABEL_12:
-  v51 = v102;
-  v52 = *(v102 + 36);
-  v53 = *(v98 + 48);
-  v54 = v105;
-  sub_1C6E8C22C(v105 + v52, v26, &qword_1EC1F8B90, &qword_1C6EF0738);
-  sub_1C6E8C22C(v44 + v52, &v26[v53], &qword_1EC1F8B90, &qword_1C6EF0738);
-  v55 = v100;
-  v56 = *(v99 + 48);
-  if (v56(v26, 1, v100) == 1)
+  v38 = v88;
+  v39 = *(v88 + 36);
+  v40 = *(v84 + 48);
+  v41 = v91;
+  sub_1C6E8C22C(v91 + v39, v17, &qword_1EC1F8B90, &qword_1C6EF0738);
+  sub_1C6E8C22C(v32 + v39, &v17[v40], &qword_1EC1F8B90, &qword_1C6EF0738);
+  v42 = v86;
+  v43 = *(v85 + 48);
+  if (v43(v17, 1, v86) == 1)
   {
-    v57 = v56(&v26[v53], 1, v55);
-    v58 = v103;
-    v59 = v101;
-    if (v57 == 1)
+    v44 = v43(&v17[v40], 1, v42);
+    v45 = v89;
+    v46 = v87;
+    if (v44 == 1)
     {
-      sub_1C6E8C294(v26, &qword_1EC1F8B90, &qword_1C6EF0738);
+      sub_1C6E8C294(v17, &qword_1EC1F8B90, &qword_1C6EF0738);
       goto LABEL_19;
     }
 
     goto LABEL_17;
   }
 
-  v60 = v97;
-  sub_1C6E8C22C(v26, v97, &qword_1EC1F8B90, &qword_1C6EF0738);
-  v61 = v56(&v26[v53], 1, v55);
-  v58 = v103;
-  v59 = v101;
-  if (v61 == 1)
+  v47 = v83;
+  sub_1C6E8C22C(v17, v83, &qword_1EC1F8B90, &qword_1C6EF0738);
+  v48 = v43(&v17[v40], 1, v42);
+  v45 = v89;
+  v46 = v87;
+  if (v48 == 1)
   {
-    sub_1C6E8C164(v60, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec);
+    sub_1C6E8C164(v47, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec);
 LABEL_17:
-    v46 = &qword_1EC1F8BA0;
-    v47 = &unk_1C6EF0740;
-    v48 = v26;
+    v34 = &qword_1EC1F8BA0;
+    v35 = &unk_1C6EF0740;
+    v36 = v17;
     goto LABEL_33;
   }
 
-  v62 = &v26[v53];
-  v63 = v92;
-  sub_1C6E8C1C4(v62, v92, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec);
-  v64 = sub_1C6E9A558(v60, v63);
-  sub_1C6E8C164(v63, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec);
-  sub_1C6E8C164(v60, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec);
-  sub_1C6E8C294(v26, &qword_1EC1F8B90, &qword_1C6EF0738);
-  if ((v64 & 1) == 0)
+  v49 = &v17[v40];
+  v50 = v78;
+  sub_1C6E8C1C4(v49, v78, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec);
+  v51 = sub_1C6E9A558(v47, v50);
+  sub_1C6E8C164(v50, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec);
+  sub_1C6E8C164(v47, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec);
+  sub_1C6E8C294(v17, &qword_1EC1F8B90, &qword_1C6EF0738);
+  if ((v51 & 1) == 0)
   {
     goto LABEL_34;
   }
 
 LABEL_19:
-  v65 = v58;
-  v66 = v51[10];
-  v67 = *(v93 + 48);
-  v68 = v96;
-  sub_1C6E8C22C(v54 + v66, v96, &qword_1EC1F7DD0, &qword_1C6EE8B60);
-  sub_1C6E8C22C(v44 + v66, v68 + v67, &qword_1EC1F7DD0, &qword_1C6EE8B60);
-  v69 = v95;
-  v70 = *(v94 + 48);
-  if (v70(v68, 1, v95) == 1)
+  v52 = v45;
+  v53 = *(v38 + 40);
+  v54 = *(v79 + 48);
+  v55 = v82;
+  sub_1C6E8C22C(v41 + v53, v82, &qword_1EC1F7DD0, &qword_1C6EE8B60);
+  sub_1C6E8C22C(v32 + v53, v55 + v54, &qword_1EC1F7DD0, &qword_1C6EE8B60);
+  v56 = v81;
+  v57 = *(v80 + 48);
+  if (v57(v55, 1, v81) == 1)
   {
-    if (v70(v68 + v67, 1, v69) == 1)
+    if (v57(v55 + v54, 1, v56) == 1)
     {
-      sub_1C6E8C294(v68, &qword_1EC1F7DD0, &qword_1C6EE8B60);
+      sub_1C6E8C294(v55, &qword_1EC1F7DD0, &qword_1C6EE8B60);
       goto LABEL_27;
     }
 
     goto LABEL_24;
   }
 
-  sub_1C6E8C22C(v68, v59, &qword_1EC1F7DD0, &qword_1C6EE8B60);
-  if (v70(v68 + v67, 1, v69) == 1)
+  sub_1C6E8C22C(v55, v46, &qword_1EC1F7DD0, &qword_1C6EE8B60);
+  if (v57(v55 + v54, 1, v56) == 1)
   {
-    sub_1C6E8C164(v59, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
+    sub_1C6E8C164(v46, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
 LABEL_24:
-    v46 = &qword_1EC1F8B58;
-    v47 = &qword_1C6EF0720;
-    v48 = v68;
+    v34 = &qword_1EC1F8B58;
+    v35 = &qword_1C6EF0720;
+    v36 = v55;
     goto LABEL_33;
   }
 
-  v71 = v68 + v67;
-  v72 = v87;
-  sub_1C6E8C1C4(v71, v87, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
-  v73 = sub_1C6E898A4(v59, v72);
-  sub_1C6E8C164(v72, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
+  v58 = v55 + v54;
+  v59 = v73;
+  sub_1C6E8C1C4(v58, v73, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
+  v60 = sub_1C6E898A4(v46, v59);
   sub_1C6E8C164(v59, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
-  sub_1C6E8C294(v68, &qword_1EC1F7DD0, &qword_1C6EE8B60);
-  if ((v73 & 1) == 0)
+  sub_1C6E8C164(v46, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
+  sub_1C6E8C294(v55, &qword_1EC1F7DD0, &qword_1C6EE8B60);
+  if ((v60 & 1) == 0)
   {
     goto LABEL_34;
   }
 
 LABEL_27:
-  v74 = v51[11];
-  v75 = *(v88 + 48);
-  v76 = v91;
-  sub_1C6E8C22C(v54 + v74, v91, &qword_1EC1F7DC0, &qword_1C6EE8B50);
-  sub_1C6E8C22C(v44 + v74, v76 + v75, &qword_1EC1F7DC0, &qword_1C6EE8B50);
-  v77 = v90;
-  v78 = *(v89 + 48);
-  if (v78(v76, 1, v90) != 1)
+  v61 = *(v38 + 44);
+  v62 = *(v74 + 48);
+  v63 = v77;
+  sub_1C6E8C22C(v41 + v61, v77, &qword_1EC1F7DC0, &qword_1C6EE8B50);
+  sub_1C6E8C22C(v32 + v61, v63 + v62, &qword_1EC1F7DC0, &qword_1C6EE8B50);
+  v64 = v76;
+  v65 = *(v75 + 48);
+  if (v65(v63, 1, v76) != 1)
   {
-    sub_1C6E8C22C(v76, v65, &qword_1EC1F7DC0, &qword_1C6EE8B50);
-    if (v78(v76 + v75, 1, v77) != 1)
+    sub_1C6E8C22C(v63, v52, &qword_1EC1F7DC0, &qword_1C6EE8B50);
+    if (v65(v63 + v62, 1, v64) != 1)
     {
-      v81 = v76 + v75;
-      v82 = v86;
-      sub_1C6E8C1C4(v81, v86, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
-      v83 = sub_1C6E82754(v65, v82);
-      sub_1C6E8C164(v82, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
-      sub_1C6E8C164(v65, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
-      sub_1C6E8C294(v76, &qword_1EC1F7DC0, &qword_1C6EE8B50);
-      if ((v83 & 1) == 0)
+      v68 = v63 + v62;
+      v69 = v72;
+      sub_1C6E8C1C4(v68, v72, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
+      v70 = sub_1C6E82754(v52, v69);
+      sub_1C6E8C164(v69, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
+      sub_1C6E8C164(v52, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
+      sub_1C6E8C294(v63, &qword_1EC1F7DC0, &qword_1C6EE8B50);
+      if ((v70 & 1) == 0)
       {
         goto LABEL_34;
       }
@@ -3565,277 +2722,260 @@ LABEL_27:
       goto LABEL_37;
     }
 
-    sub_1C6E8C164(v65, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
+    sub_1C6E8C164(v52, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
     goto LABEL_32;
   }
 
-  if (v78(v76 + v75, 1, v77) != 1)
+  if (v65(v63 + v62, 1, v64) != 1)
   {
 LABEL_32:
-    v46 = &qword_1EC1F8B48;
-    v47 = &qword_1C6EF0710;
-    v48 = v76;
+    v34 = &qword_1EC1F8B48;
+    v35 = &qword_1C6EF0710;
+    v36 = v63;
     goto LABEL_33;
   }
 
-  sub_1C6E8C294(v76, &qword_1EC1F7DC0, &qword_1C6EE8B50);
+  sub_1C6E8C294(v63, &qword_1EC1F7DC0, &qword_1C6EE8B50);
 LABEL_37:
-  if (*v54 == *v44 && *(v54 + 8) == *(v44 + 8) || (sub_1C6EE54B0()) && *(v54 + 16) == *(v44 + 16) && *(v54 + 20) == *(v44 + 20))
+  if (*v41 == *v32 && *(v41 + 8) == *(v32 + 8) || (sub_1C6EE54B0()) && *(v41 + 16) == *(v32 + 16) && *(v41 + 20) == *(v32 + 20))
   {
-    v84 = v51[7];
     sub_1C6EE4430();
-    sub_1C6E88D5C(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
-    v79 = sub_1C6EE4A50();
-    return v79 & 1;
+    sub_1C6E88D5C(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+    v66 = sub_1C6EE4A50();
+    return v66 & 1;
   }
 
 LABEL_34:
-  v79 = 0;
-  return v79 & 1;
+  v66 = 0;
+  return v66 & 1;
 }
 
 uint64_t sub_1C6E8B274(uint64_t a1, uint64_t a2)
 {
-  v125 = a1;
-  v126 = a2;
-  v105 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec(0);
-  v104 = *(v105 - 8);
-  v2 = *(v104 + 64);
+  v109 = a1;
+  v110 = a2;
+  v89 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec(0);
+  v88 = *(v89 - 8);
+  MEMORY[0x1EEE9AC00](v89);
+  v85 = (&v84 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7DC0, &qword_1C6EE8B50);
+  MEMORY[0x1EEE9AC00](v3 - 8);
+  v103 = &v84 - v4;
+  v87 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8B48, &qword_1C6EF0710);
+  MEMORY[0x1EEE9AC00](v87);
+  v90 = &v84 - v5;
+  v6 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec(0);
+  v93 = *(v6 - 8);
+  v94 = v6;
+  MEMORY[0x1EEE9AC00](v6);
+  v86 = &v84 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7DC8, &qword_1C6EE8B58);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v102 = &v84 - v9;
+  v92 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8B50, &qword_1C6EF0718);
+  MEMORY[0x1EEE9AC00](v92);
+  v95 = &v84 - v10;
+  v11 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec(0);
+  v99 = *(v11 - 8);
+  v100 = v11;
+  MEMORY[0x1EEE9AC00](v11);
+  v91 = &v84 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7DD0, &qword_1C6EE8B60);
+  MEMORY[0x1EEE9AC00](v13 - 8);
+  v96 = &v84 - v14;
+  v98 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8B58, &qword_1C6EF0720);
+  MEMORY[0x1EEE9AC00](v98);
+  v101 = &v84 - v15;
+  v16 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec(0);
+  v106 = *(v16 - 8);
+  v107 = v16;
+  MEMORY[0x1EEE9AC00](v16);
+  v97 = &v84 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7DD8, &qword_1C6EE8B68);
+  MEMORY[0x1EEE9AC00](v18 - 8);
+  v104 = &v84 - v19;
+  v105 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8B60, &unk_1C6EF2360);
   MEMORY[0x1EEE9AC00](v105);
-  v101 = (&v100 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7DC0, &qword_1C6EE8B50);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
-  v119 = &v100 - v6;
-  v103 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8B48, &qword_1C6EF0710);
-  v7 = *(*(v103 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v103);
-  v106 = &v100 - v8;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec(0);
-  v109 = *(v9 - 8);
-  v110 = v9;
-  v10 = *(v109 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v102 = &v100 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7DC8, &qword_1C6EE8B58);
-  v13 = *(*(v12 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v12 - 8);
-  v118 = &v100 - v14;
-  v108 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8B50, &qword_1C6EF0718);
-  v15 = *(*(v108 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v108);
-  v111 = &v100 - v16;
-  v17 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec(0);
-  v115 = *(v17 - 8);
-  v116 = v17;
-  v18 = *(v115 + 64);
-  MEMORY[0x1EEE9AC00](v17);
-  v107 = &v100 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7DD0, &qword_1C6EE8B60);
-  v21 = *(*(v20 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v20 - 8);
-  v112 = &v100 - v22;
-  v114 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8B58, &qword_1C6EF0720);
-  v23 = *(*(v114 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v114);
-  v117 = &v100 - v24;
-  v25 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec(0);
-  v122 = *(v25 - 8);
-  v123 = v25;
-  v26 = *(v122 + 64);
-  MEMORY[0x1EEE9AC00](v25);
-  v113 = &v100 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7DD8, &qword_1C6EE8B68);
-  v29 = *(*(v28 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v28 - 8);
-  v120 = &v100 - v30;
-  v121 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8B60, &unk_1C6EF2360);
-  v31 = *(*(v121 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v121);
-  v33 = &v100 - v32;
-  v34 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  v35 = *(v34 - 8);
-  v36 = *(v35 + 64);
-  MEMORY[0x1EEE9AC00](v34);
-  v38 = (&v100 - ((v37 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
-  v40 = *(*(v39 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v39 - 8);
-  v42 = (&v100 - v41);
-  v43 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8220, &qword_1C6EEC6E0);
-  v44 = v43 - 8;
-  v45 = *(*(v43 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v43);
-  v47 = &v100 - v46;
-  v124 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec(0);
-  v48 = v124[5];
-  v49 = *(v44 + 56);
-  sub_1C6E8C22C(v125 + v48, v47, &qword_1EC1F7EF0, &unk_1C6EE9280);
-  sub_1C6E8C22C(v126 + v48, &v47[v49], &qword_1EC1F7EF0, &unk_1C6EE9280);
-  v50 = *(v35 + 48);
-  if (v50(v47, 1, v34) == 1)
+  v21 = &v84 - v20;
+  v22 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
+  v23 = *(v22 - 8);
+  MEMORY[0x1EEE9AC00](v22);
+  v25 = (&v84 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v26 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
+  MEMORY[0x1EEE9AC00](v26 - 8);
+  v28 = (&v84 - v27);
+  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8220, &qword_1C6EEC6E0);
+  v30 = v29 - 8;
+  MEMORY[0x1EEE9AC00](v29);
+  v32 = &v84 - v31;
+  v108 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_TokenizerSpec(0);
+  v33 = v108[5];
+  v34 = *(v30 + 56);
+  sub_1C6E8C22C(v109 + v33, v32, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  sub_1C6E8C22C(v110 + v33, &v32[v34], &qword_1EC1F7EF0, &unk_1C6EE9280);
+  v35 = *(v23 + 48);
+  if (v35(v32, 1, v22) == 1)
   {
-    if (v50(&v47[v49], 1, v34) == 1)
+    if (v35(&v32[v34], 1, v22) == 1)
     {
-      sub_1C6E8C294(v47, &qword_1EC1F7EF0, &unk_1C6EE9280);
+      sub_1C6E8C294(v32, &qword_1EC1F7EF0, &unk_1C6EE9280);
       goto LABEL_12;
     }
 
     goto LABEL_6;
   }
 
-  sub_1C6E8C22C(v47, v42, &qword_1EC1F7EF0, &unk_1C6EE9280);
-  if (v50(&v47[v49], 1, v34) == 1)
+  sub_1C6E8C22C(v32, v28, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  if (v35(&v32[v34], 1, v22) == 1)
   {
-    sub_1C6E8C164(v42, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+    sub_1C6E8C164(v28, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
 LABEL_6:
-    v51 = &qword_1EC1F8220;
-    v52 = &qword_1C6EEC6E0;
+    v36 = &qword_1EC1F8220;
+    v37 = &qword_1C6EEC6E0;
 LABEL_7:
-    v53 = v47;
+    v38 = v32;
 LABEL_41:
-    sub_1C6E8C294(v53, v51, v52);
+    sub_1C6E8C294(v38, v36, v37);
     goto LABEL_42;
   }
 
-  sub_1C6E8C1C4(&v47[v49], v38, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-  if ((*v42 != *v38 || v42[1] != v38[1]) && (sub_1C6EE54B0() & 1) == 0)
+  sub_1C6E8C1C4(&v32[v34], v25, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  if ((*v28 != *v25 || v28[1] != v25[1]) && (sub_1C6EE54B0() & 1) == 0)
   {
-    sub_1C6E8C164(v38, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-    sub_1C6E8C164(v42, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-    v51 = &qword_1EC1F7EF0;
-    v52 = &unk_1C6EE9280;
+    sub_1C6E8C164(v25, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+    sub_1C6E8C164(v28, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+    v36 = &qword_1EC1F7EF0;
+    v37 = &unk_1C6EE9280;
     goto LABEL_7;
   }
 
-  v54 = *(v34 + 20);
   sub_1C6EE4430();
-  sub_1C6E88D5C(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
-  v55 = sub_1C6EE4A50();
-  sub_1C6E8C164(v38, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-  sub_1C6E8C164(v42, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-  sub_1C6E8C294(v47, &qword_1EC1F7EF0, &unk_1C6EE9280);
-  if ((v55 & 1) == 0)
+  sub_1C6E88D5C(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+  v39 = sub_1C6EE4A50();
+  sub_1C6E8C164(v25, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  sub_1C6E8C164(v28, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  sub_1C6E8C294(v32, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  if ((v39 & 1) == 0)
   {
     goto LABEL_42;
   }
 
 LABEL_12:
-  v56 = v125;
-  v57 = v124[6];
-  v58 = *(v121 + 48);
-  sub_1C6E8C22C(v125 + v57, v33, &qword_1EC1F7DD8, &qword_1C6EE8B68);
-  v59 = v126;
-  sub_1C6E8C22C(v126 + v57, &v33[v58], &qword_1EC1F7DD8, &qword_1C6EE8B68);
-  v60 = v123;
-  v61 = *(v122 + 48);
-  if (v61(v33, 1, v123) == 1)
+  v40 = v109;
+  v41 = v108[6];
+  v42 = *(v105 + 48);
+  sub_1C6E8C22C(v109 + v41, v21, &qword_1EC1F7DD8, &qword_1C6EE8B68);
+  v43 = v110;
+  sub_1C6E8C22C(v110 + v41, &v21[v42], &qword_1EC1F7DD8, &qword_1C6EE8B68);
+  v44 = v107;
+  v45 = *(v106 + 48);
+  if (v45(v21, 1, v107) == 1)
   {
-    if (v61(&v33[v58], 1, v60) == 1)
+    if (v45(&v21[v42], 1, v44) == 1)
     {
-      sub_1C6E8C294(v33, &qword_1EC1F7DD8, &qword_1C6EE8B68);
+      sub_1C6E8C294(v21, &qword_1EC1F7DD8, &qword_1C6EE8B68);
       goto LABEL_19;
     }
 
     goto LABEL_17;
   }
 
-  v62 = v120;
-  sub_1C6E8C22C(v33, v120, &qword_1EC1F7DD8, &qword_1C6EE8B68);
-  if (v61(&v33[v58], 1, v60) == 1)
+  v46 = v104;
+  sub_1C6E8C22C(v21, v104, &qword_1EC1F7DD8, &qword_1C6EE8B68);
+  if (v45(&v21[v42], 1, v44) == 1)
   {
-    sub_1C6E8C164(v62, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
+    sub_1C6E8C164(v46, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
 LABEL_17:
-    v51 = &qword_1EC1F8B60;
-    v52 = &unk_1C6EF2360;
-    v53 = v33;
+    v36 = &qword_1EC1F8B60;
+    v37 = &unk_1C6EF2360;
+    v38 = v21;
     goto LABEL_41;
   }
 
-  v63 = &v33[v58];
-  v64 = v113;
-  sub_1C6E8C1C4(v63, v113, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
-  v65 = sub_1C6E9A8FC(v62, v64);
-  sub_1C6E8C164(v64, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
-  sub_1C6E8C164(v62, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
-  sub_1C6E8C294(v33, &qword_1EC1F7DD8, &qword_1C6EE8B68);
-  if ((v65 & 1) == 0)
+  v47 = &v21[v42];
+  v48 = v97;
+  sub_1C6E8C1C4(v47, v97, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
+  v49 = sub_1C6E9A8FC(v46, v48);
+  sub_1C6E8C164(v48, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
+  sub_1C6E8C164(v46, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
+  sub_1C6E8C294(v21, &qword_1EC1F7DD8, &qword_1C6EE8B68);
+  if ((v49 & 1) == 0)
   {
     goto LABEL_42;
   }
 
 LABEL_19:
-  v66 = v124[7];
-  v67 = *(v114 + 48);
-  v68 = v117;
-  sub_1C6E8C22C(v56 + v66, v117, &qword_1EC1F7DD0, &qword_1C6EE8B60);
-  sub_1C6E8C22C(v59 + v66, v68 + v67, &qword_1EC1F7DD0, &qword_1C6EE8B60);
-  v69 = v116;
-  v70 = *(v115 + 48);
-  if (v70(v68, 1, v116) == 1)
+  v50 = v108[7];
+  v51 = *(v98 + 48);
+  v52 = v101;
+  sub_1C6E8C22C(v40 + v50, v101, &qword_1EC1F7DD0, &qword_1C6EE8B60);
+  sub_1C6E8C22C(v43 + v50, v52 + v51, &qword_1EC1F7DD0, &qword_1C6EE8B60);
+  v53 = v100;
+  v54 = *(v99 + 48);
+  if (v54(v52, 1, v100) == 1)
   {
-    v71 = v70(v68 + v67, 1, v69);
-    v73 = v118;
-    v72 = v119;
-    if (v71 == 1)
+    v55 = v54(v52 + v51, 1, v53);
+    v57 = v102;
+    v56 = v103;
+    if (v55 == 1)
     {
-      sub_1C6E8C294(v68, &qword_1EC1F7DD0, &qword_1C6EE8B60);
+      sub_1C6E8C294(v52, &qword_1EC1F7DD0, &qword_1C6EE8B60);
       goto LABEL_27;
     }
 
     goto LABEL_24;
   }
 
-  v74 = v112;
-  sub_1C6E8C22C(v68, v112, &qword_1EC1F7DD0, &qword_1C6EE8B60);
-  v75 = v70(v68 + v67, 1, v69);
-  v73 = v118;
-  v72 = v119;
-  if (v75 == 1)
+  v58 = v96;
+  sub_1C6E8C22C(v52, v96, &qword_1EC1F7DD0, &qword_1C6EE8B60);
+  v59 = v54(v52 + v51, 1, v53);
+  v57 = v102;
+  v56 = v103;
+  if (v59 == 1)
   {
-    sub_1C6E8C164(v74, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
+    sub_1C6E8C164(v58, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
 LABEL_24:
-    v51 = &qword_1EC1F8B58;
-    v52 = &qword_1C6EF0720;
-    v53 = v68;
+    v36 = &qword_1EC1F8B58;
+    v37 = &qword_1C6EF0720;
+    v38 = v52;
     goto LABEL_41;
   }
 
-  v76 = v68 + v67;
-  v77 = v107;
-  sub_1C6E8C1C4(v76, v107, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
-  v78 = sub_1C6E898A4(v74, v77);
-  sub_1C6E8C164(v77, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
-  sub_1C6E8C164(v74, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
-  sub_1C6E8C294(v68, &qword_1EC1F7DD0, &qword_1C6EE8B60);
-  if ((v78 & 1) == 0)
+  v60 = v52 + v51;
+  v61 = v91;
+  sub_1C6E8C1C4(v60, v91, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
+  v62 = sub_1C6E898A4(v58, v61);
+  sub_1C6E8C164(v61, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
+  sub_1C6E8C164(v58, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
+  sub_1C6E8C294(v52, &qword_1EC1F7DD0, &qword_1C6EE8B60);
+  if ((v62 & 1) == 0)
   {
     goto LABEL_42;
   }
 
 LABEL_27:
-  v79 = v124[8];
-  v80 = *(v108 + 48);
-  v81 = v111;
-  sub_1C6E8C22C(v56 + v79, v111, &qword_1EC1F7DC8, &qword_1C6EE8B58);
-  v82 = v59 + v79;
-  v83 = v81;
-  sub_1C6E8C22C(v82, v81 + v80, &qword_1EC1F7DC8, &qword_1C6EE8B58);
-  v84 = v110;
-  v85 = *(v109 + 48);
-  if (v85(v81, 1, v110) != 1)
+  v63 = v108[8];
+  v64 = *(v92 + 48);
+  v65 = v95;
+  sub_1C6E8C22C(v40 + v63, v95, &qword_1EC1F7DC8, &qword_1C6EE8B58);
+  v66 = v43 + v63;
+  v67 = v65;
+  sub_1C6E8C22C(v66, v65 + v64, &qword_1EC1F7DC8, &qword_1C6EE8B58);
+  v68 = v94;
+  v69 = *(v93 + 48);
+  if (v69(v65, 1, v94) != 1)
   {
-    sub_1C6E8C22C(v81, v73, &qword_1EC1F7DC8, &qword_1C6EE8B58);
-    if (v85(v81 + v80, 1, v84) != 1)
+    sub_1C6E8C22C(v65, v57, &qword_1EC1F7DC8, &qword_1C6EE8B58);
+    if (v69(v65 + v64, 1, v68) != 1)
     {
-      v86 = v81 + v80;
-      v87 = v102;
-      sub_1C6E8C1C4(v86, v102, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec);
-      v88 = sub_1C6E89F5C(v73, v87);
-      sub_1C6E8C164(v87, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec);
-      sub_1C6E8C164(v73, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec);
-      sub_1C6E8C294(v81, &qword_1EC1F7DC8, &qword_1C6EE8B58);
-      if ((v88 & 1) == 0)
+      v70 = v65 + v64;
+      v71 = v86;
+      sub_1C6E8C1C4(v70, v86, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec);
+      v72 = sub_1C6E89F5C(v57, v71);
+      sub_1C6E8C164(v71, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec);
+      sub_1C6E8C164(v57, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec);
+      sub_1C6E8C294(v65, &qword_1EC1F7DC8, &qword_1C6EE8B58);
+      if ((v72 & 1) == 0)
       {
         goto LABEL_42;
       }
@@ -3843,71 +2983,71 @@ LABEL_27:
       goto LABEL_34;
     }
 
-    sub_1C6E8C164(v73, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec);
+    sub_1C6E8C164(v57, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NGramsSpec);
 LABEL_32:
-    v51 = &qword_1EC1F8B50;
-    v52 = &qword_1C6EF0718;
+    v36 = &qword_1EC1F8B50;
+    v37 = &qword_1C6EF0718;
 LABEL_40:
-    v53 = v83;
+    v38 = v67;
     goto LABEL_41;
   }
 
-  if (v85(v81 + v80, 1, v84) != 1)
+  if (v69(v65 + v64, 1, v68) != 1)
   {
     goto LABEL_32;
   }
 
-  sub_1C6E8C294(v81, &qword_1EC1F7DC8, &qword_1C6EE8B58);
+  sub_1C6E8C294(v65, &qword_1EC1F7DC8, &qword_1C6EE8B58);
 LABEL_34:
-  v89 = v124[9];
-  v90 = *(v103 + 48);
-  v91 = v106;
-  sub_1C6E8C22C(v56 + v89, v106, &qword_1EC1F7DC0, &qword_1C6EE8B50);
-  v92 = v59 + v89;
-  v83 = v91;
-  sub_1C6E8C22C(v92, v91 + v90, &qword_1EC1F7DC0, &qword_1C6EE8B50);
-  v93 = *(v104 + 48);
-  v94 = v105;
-  if (v93(v91, 1, v105) == 1)
+  v73 = v108[9];
+  v74 = *(v87 + 48);
+  v75 = v90;
+  sub_1C6E8C22C(v40 + v73, v90, &qword_1EC1F7DC0, &qword_1C6EE8B50);
+  v76 = v43 + v73;
+  v67 = v75;
+  sub_1C6E8C22C(v76, v75 + v74, &qword_1EC1F7DC0, &qword_1C6EE8B50);
+  v77 = *(v88 + 48);
+  v78 = v89;
+  if (v77(v75, 1, v89) == 1)
   {
-    if (v93(v91 + v90, 1, v94) == 1)
+    if (v77(v75 + v74, 1, v78) == 1)
     {
-      sub_1C6E8C294(v91, &qword_1EC1F7DC0, &qword_1C6EE8B50);
+      sub_1C6E8C294(v75, &qword_1EC1F7DC0, &qword_1C6EE8B50);
 LABEL_45:
       sub_1C6EE4430();
-      sub_1C6E88D5C(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
-      v95 = sub_1C6EE4A50();
-      return v95 & 1;
+      sub_1C6E88D5C(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+      v79 = sub_1C6EE4A50();
+      return v79 & 1;
     }
 
     goto LABEL_39;
   }
 
-  sub_1C6E8C22C(v91, v72, &qword_1EC1F7DC0, &qword_1C6EE8B50);
-  if (v93(v91 + v90, 1, v94) == 1)
+  sub_1C6E8C22C(v75, v56, &qword_1EC1F7DC0, &qword_1C6EE8B50);
+  if (v77(v75 + v74, 1, v78) == 1)
   {
-    sub_1C6E8C164(v72, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
+    sub_1C6E8C164(v56, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
 LABEL_39:
-    v51 = &qword_1EC1F8B48;
-    v52 = &qword_1C6EF0710;
+    v36 = &qword_1EC1F8B48;
+    v37 = &qword_1C6EF0710;
     goto LABEL_40;
   }
 
-  v97 = v91 + v90;
-  v98 = v101;
-  sub_1C6E8C1C4(v97, v101, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
-  v99 = sub_1C6E82754(v72, v98);
-  sub_1C6E8C164(v98, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
-  sub_1C6E8C164(v72, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
-  sub_1C6E8C294(v91, &qword_1EC1F7DC0, &qword_1C6EE8B50);
-  if (v99)
+  v81 = v75 + v74;
+  v82 = v85;
+  sub_1C6E8C1C4(v81, v85, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
+  v83 = sub_1C6E82754(v56, v82);
+  sub_1C6E8C164(v82, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
+  sub_1C6E8C164(v56, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
+  sub_1C6E8C294(v75, &qword_1EC1F7DC0, &qword_1C6EE8B50);
+  if (v83)
   {
     goto LABEL_45;
   }
 
 LABEL_42:
-  v95 = 0;
-  return v95 & 1;
+  v79 = 0;
+  return v79 & 1;
 }
 
 uint64_t sub_1C6E8C164(uint64_t a1, uint64_t (*a2)(void))
@@ -3962,22 +3102,22 @@ unint64_t sub_1C6E8C348()
   return result;
 }
 
-void sub_1C6E8C3D8()
+void sub_1C6E8C3D8(uint64_t a1)
 {
   sub_1C6EE4430();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1C6E83278(319, qword_1EDEF7CE8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_1C6E83278(319, &qword_1EC1F8BE8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_1C6E83278(319, qword_1EDEF7078, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SplitterSpec);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           sub_1C6E83278(319, qword_1EDEF7478, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_CodesSpec);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             swift_cvw_initStructMetadataWithLayoutString();
           }
@@ -4003,10 +3143,10 @@ uint64_t __swift_store_extra_inhabitant_index_65Tm(uint64_t a1, uint64_t a2)
   return v5(a1, a2, a2, v4);
 }
 
-uint64_t sub_1C6E8C668()
+uint64_t sub_1C6E8C668(uint64_t a1)
 {
   result = sub_1C6EE4430();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -4015,7 +3155,7 @@ uint64_t sub_1C6E8C668()
   return result;
 }
 
-uint64_t type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID()
+uint64_t type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(uint64_t a1)
 {
   result = qword_1EDEF7D18;
   if (!qword_1EDEF7D18)
@@ -4026,10 +3166,10 @@ uint64_t type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(
   return result;
 }
 
-uint64_t sub_1C6E8C8F0()
+uint64_t sub_1C6E8C8F0(uint64_t a1)
 {
   result = sub_1C6EE4430();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -4045,27 +3185,26 @@ uint64_t sub_1C6E8C96C()
   __swift_project_value_buffer(v0, qword_1EC212CB0);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8210, &unk_1C6EEC6D0);
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8218, &unk_1C6EECEC0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1C6EE6590;
-  v5 = v4 + v3 + v1[14];
-  *(v4 + v3) = 1;
-  *v5 = "string_value";
-  *(v5 + 8) = 12;
-  *(v5 + 16) = 2;
-  v6 = *MEMORY[0x1E69AADE8];
-  v7 = sub_1C6EE46F0();
-  (*(*(v7 - 8) + 104))(v5, v6, v7);
+  v2 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v3 = swift_allocObject();
+  *(v3 + 16) = xmmword_1C6EE6590;
+  v4 = v3 + v2 + v1[14];
+  *(v3 + v2) = 1;
+  *v4 = "string_value";
+  *(v4 + 8) = 12;
+  *(v4 + 16) = 2;
+  v5 = *MEMORY[0x1E69AADE8];
+  v6 = sub_1C6EE46F0();
+  (*(*(v6 - 8) + 104))(v4, v5, v6);
   return sub_1C6EE4700();
 }
 
-uint64_t sub_1C6E8CAD8()
+uint64_t sub_1C6E8CAD8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   while (1)
   {
     result = sub_1C6EE44B0();
-    if (v0 || (v2 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
       break;
     }
@@ -4079,30 +3218,28 @@ uint64_t sub_1C6E8CAD8()
   return result;
 }
 
-uint64_t sub_1C6E8CB48()
+uint64_t sub_1C6E8CB48(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = HIBYTE(v3) & 0xF;
-  if ((v3 & 0x2000000000000000) == 0)
+  v5 = v3[1];
+  v6 = HIBYTE(v5) & 0xF;
+  if ((v5 & 0x2000000000000000) == 0)
   {
-    v4 = *v0 & 0xFFFFFFFFFFFFLL;
+    v6 = *v3 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v4 || (result = sub_1C6EE46C0(), !v1))
+  if (!v6 || (result = sub_1C6EE46C0(), !v4))
   {
-    v6 = v0 + *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID() + 20);
+    type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
     return sub_1C6EE4410();
   }
 
   return result;
 }
 
-uint64_t sub_1C6E8CBDC@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+uint64_t sub_1C6E8CBDC@<X0>(void *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0xE000000000000000;
-  v2 = a2 + *(a1 + 20);
   return sub_1C6EE4420();
 }
 
@@ -4124,16 +3261,9 @@ uint64_t sub_1C6E8CC98(uint64_t a1, uint64_t a2)
   return v6(v2 + v4, a1, v5);
 }
 
-uint64_t (*sub_1C6E8CD0C(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_117;
-  v4 = v2 + *(a2 + 20);
-  return result;
-}
-
 uint64_t sub_1C6E8CD68(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E8D200(&qword_1EC1F8C20, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  v4 = sub_1C6E8D200(&qword_1EC1F8C20, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID, &unk_1C6EF0884);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
@@ -4154,47 +3284,46 @@ uint64_t sub_1C6E8CDE8@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_1C6E8CE90(uint64_t a1)
 {
-  v2 = sub_1C6E8D200(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  v2 = sub_1C6E8D200(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID, &unk_1C6EF08BC);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E8CEFC()
+uint64_t sub_1C6E8CEFC(uint64_t a1, uint64_t a2)
 {
   sub_1C6EE5580();
   sub_1C6EE4A00();
   return sub_1C6EE55A0();
 }
 
-uint64_t sub_1C6E8CF54()
+uint64_t sub_1C6E8CF54(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E8D200(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  sub_1C6E8D200(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID, &unk_1C6EF08BC);
 
   return sub_1C6EE45F0();
 }
 
-uint64_t sub_1C6E8CFD0()
+uint64_t sub_1C6E8CFD0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   sub_1C6EE5580();
   sub_1C6EE4A00();
   return sub_1C6EE55A0();
 }
 
-uint64_t sub_1C6E8D024(void *a1, void *a2, uint64_t a3)
+uint64_t sub_1C6E8D024(uint64_t *a1, void *a2, uint64_t a3)
 {
-  v4 = *a1 == *a2 && a1[1] == a2[1];
-  if (!v4 && (sub_1C6EE54B0() & 1) == 0)
+  v3 = *a1 == *a2 && a1[1] == a2[1];
+  if (!v3 && (sub_1C6EE54B0() & 1) == 0)
   {
     return 0;
   }
 
-  v5 = *(a3 + 20);
   sub_1C6EE4430();
-  sub_1C6E8D200(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
+  sub_1C6E8D200(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
   return sub_1C6EE4A50() & 1;
 }
 
-uint64_t sub_1C6E8D200(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1C6E8D200(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -4225,10 +3354,8 @@ void *sub_1C6E8D288@<X0>(void *result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-uint64_t sub_1C6E8D2B0()
+uint64_t sub_1C6E8D2B0(uint64_t a1, uint64_t a2)
 {
-  v2 = *v0;
-  v3 = *(v0 + 8);
   sub_1C6EE5580();
   sub_1C6EE4A00();
   return sub_1C6EE55A0();
@@ -4241,10 +3368,8 @@ uint64_t sub_1C6E8D31C(uint64_t a1, uint64_t a2)
   return MEMORY[0x1EEE15710](a1, a2, v4);
 }
 
-uint64_t sub_1C6E8D368()
+uint64_t sub_1C6E8D368(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *v0;
-  v3 = *(v0 + 8);
   sub_1C6EE5580();
   sub_1C6EE4A00();
   return sub_1C6EE55A0();
@@ -4276,77 +3401,71 @@ uint64_t sub_1C6E8D3E4()
   *v10 = "embedding_header";
   *(v10 + 1) = 16;
   v10[16] = 2;
-  v11 = *MEMORY[0x1E69AADE8];
   v9();
-  v12 = v5 + 2 * v2 + v1[14];
+  v11 = v5 + 2 * v2 + v1[14];
   *(v5 + 2 * v2) = 4;
-  *v12 = "strategy";
-  *(v12 + 8) = 8;
-  *(v12 + 16) = 2;
+  *v11 = "strategy";
+  *(v11 + 8) = 8;
+  *(v11 + 16) = 2;
   v9();
   return sub_1C6EE4700();
 }
 
 uint64_t sub_1C6E8D5FC()
 {
-  v0 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpec._StorageClass(0);
-  v1 = *(v0 + 48);
-  v2 = *(v0 + 52);
-  v3 = swift_allocObject();
-  v4 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__id;
-  v5 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  (*(*(v5 - 8) + 56))(v3 + v4, 1, 1, v5);
-  v6 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__embeddingHeader;
-  v7 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata(0);
-  (*(*(v7 - 8) + 56))(v3 + v6, 1, 1, v7);
-  v8 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__strategy;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy(0);
-  result = (*(*(v9 - 8) + 56))(v3 + v8, 1, 1, v9);
-  qword_1EC1F8C28 = v3;
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpec._StorageClass(0);
+  v0 = swift_allocObject();
+  v1 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__id;
+  v2 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
+  (*(*(v2 - 8) + 56))(v0 + v1, 1, 1, v2);
+  v3 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__embeddingHeader;
+  v4 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata(0);
+  (*(*(v4 - 8) + 56))(v0 + v3, 1, 1, v4);
+  v5 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__strategy;
+  v6 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy(0);
+  result = (*(*(v6 - 8) + 56))(v0 + v5, 1, 1, v6);
+  qword_1EC1F8C28 = v0;
   return result;
 }
 
 uint64_t sub_1C6E8D710(uint64_t a1)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8D40, &qword_1C6EF1168);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v25[-v5];
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F89F0, &unk_1C6EF1170);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = &v25[-v9];
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11 - 8);
-  v14 = &v25[-v13];
-  v15 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__id;
-  v16 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  (*(*(v16 - 8) + 56))(v1 + v15, 1, 1, v16);
-  v17 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__embeddingHeader;
-  v18 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata(0);
-  (*(*(v18 - 8) + 56))(v1 + v17, 1, 1, v18);
-  v19 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__strategy;
-  v20 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy(0);
-  (*(*(v20 - 8) + 56))(v1 + v19, 1, 1, v20);
-  v21 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__id;
+  v5 = &v22[-v4];
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F89F0, &unk_1C6EF1170);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v8 = &v22[-v7];
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v11 = &v22[-v10];
+  v12 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__id;
+  v13 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
+  (*(*(v13 - 8) + 56))(v1 + v12, 1, 1, v13);
+  v14 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__embeddingHeader;
+  v15 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata(0);
+  (*(*(v15 - 8) + 56))(v1 + v14, 1, 1, v15);
+  v16 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__strategy;
+  v17 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy(0);
+  (*(*(v17 - 8) + 56))(v1 + v16, 1, 1, v17);
+  v18 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__id;
   swift_beginAccess();
-  sub_1C6E919B4(a1 + v21, v14, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  sub_1C6E919B4(a1 + v18, v11, &qword_1EC1F7EF0, &unk_1C6EE9280);
   swift_beginAccess();
-  sub_1C6E91440(v14, v1 + v15, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  sub_1C6E91440(v11, v1 + v12, &qword_1EC1F7EF0, &unk_1C6EE9280);
   swift_endAccess();
-  v22 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__embeddingHeader;
+  v19 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__embeddingHeader;
   swift_beginAccess();
-  sub_1C6E919B4(a1 + v22, v10, &qword_1EC1F89F0, &unk_1C6EF1170);
+  sub_1C6E919B4(a1 + v19, v8, &qword_1EC1F89F0, &unk_1C6EF1170);
   swift_beginAccess();
-  sub_1C6E91440(v10, v1 + v17, &qword_1EC1F89F0, &unk_1C6EF1170);
+  sub_1C6E91440(v8, v1 + v14, &qword_1EC1F89F0, &unk_1C6EF1170);
   swift_endAccess();
-  v23 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__strategy;
+  v20 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__strategy;
   swift_beginAccess();
-  sub_1C6E919B4(a1 + v23, v6, &qword_1EC1F8D40, &qword_1C6EF1168);
+  sub_1C6E919B4(a1 + v20, v5, &qword_1EC1F8D40, &qword_1C6EF1168);
 
   swift_beginAccess();
-  sub_1C6E91440(v6, v1 + v19, &qword_1EC1F8D40, &qword_1C6EF1168);
+  sub_1C6E91440(v5, v1 + v16, &qword_1EC1F8D40, &qword_1C6EF1168);
   swift_endAccess();
   return v1;
 }
@@ -4356,33 +3475,28 @@ uint64_t sub_1C6E8DA68()
   sub_1C6E91A1C(v0 + OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__id, &qword_1EC1F7EF0, &unk_1C6EE9280);
   sub_1C6E91A1C(v0 + OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__embeddingHeader, &qword_1EC1F89F0, &unk_1C6EF1170);
   sub_1C6E91A1C(v0 + OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__strategy, &qword_1EC1F8D40, &qword_1C6EF1168);
-  v1 = *(*v0 + 48);
-  v2 = *(*v0 + 52);
 
   return swift_deallocClassInstance();
 }
 
-void sub_1C6E8DB44()
+void sub_1C6E8DB44(uint64_t a1)
 {
   sub_1C6E8DC9C(319, qword_1EDEF7CE8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
   if (v1 <= 0x3F)
   {
-    v6 = *(v0 - 8) + 64;
     sub_1C6E8DC9C(319, &qword_1EC1F8A30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
-    if (v3 <= 0x3F)
+    if (v2 <= 0x3F)
     {
-      v7 = *(v2 - 8) + 64;
       sub_1C6E8DC9C(319, &qword_1EC1F8C58, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy);
-      if (v5 <= 0x3F)
+      if (v3 <= 0x3F)
       {
-        v8 = *(v4 - 8) + 64;
         swift_updateClassMetadata2();
       }
     }
   }
 }
 
-void sub_1C6E8DC9C(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1C6E8DC9C(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -4395,23 +3509,23 @@ void sub_1C6E8DC9C(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
   }
 }
 
-void sub_1C6E8DD38()
+void sub_1C6E8DD38(uint64_t a1)
 {
   sub_1C6EE4430();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1C6E8DC9C(319, &qword_1EC1F8C78, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-uint64_t sub_1C6E8DE20()
+uint64_t sub_1C6E8DE20(uint64_t a1)
 {
   result = sub_1C6EE4430();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -4540,32 +3654,30 @@ unint64_t sub_1C6E8E058()
   return result;
 }
 
-uint64_t sub_1C6E8E0AC()
+uint64_t sub_1C6E8E0AC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = v0;
-  v2 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpec(0) + 20);
-  v3 = *(v0 + v2);
+  v4 = v3;
+  v8 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpec(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v10 = *(v3 + v8);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = *(v0 + v2);
-    v7 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpec._StorageClass(0);
-    v8 = *(v7 + 48);
-    v9 = *(v7 + 52);
+    v11 = *(v3 + v8);
+    type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpec._StorageClass(0);
     swift_allocObject();
-    *(v1 + v2) = sub_1C6E8D710(v6);
+    v10 = sub_1C6E8D710(v11);
+    *(v4 + v8) = v10;
   }
 
-  return sub_1C6E8E154();
+  return sub_1C6E8E154(v10, a1, a2, a3);
 }
 
-uint64_t sub_1C6E8E154()
+uint64_t sub_1C6E8E154(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   while (1)
   {
     result = sub_1C6EE44B0();
-    if (v0 || (v2 & 1) != 0)
+    if (v4 || (v10 & 1) != 0)
     {
       break;
     }
@@ -4573,13 +3685,13 @@ uint64_t sub_1C6E8E154()
     switch(result)
     {
       case 4:
-        sub_1C6E8E3C4();
+        sub_1C6E8E3C4(a2, a1, a3, a4);
         break;
       case 3:
-        sub_1C6E8E2E8();
+        sub_1C6E8E2E8(a2, a1, a3, a4);
         break;
       case 1:
-        sub_1C6E8E20C();
+        sub_1C6E8E20C(a2, a1, a3, a4);
         break;
     }
   }
@@ -4587,29 +3699,29 @@ uint64_t sub_1C6E8E154()
   return result;
 }
 
-uint64_t sub_1C6E8E20C()
+uint64_t sub_1C6E8E20C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   swift_beginAccess();
-  type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  sub_1C6E90EE8(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
+  sub_1C6E90EE8(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID, &unk_1C6EF08BC);
   sub_1C6EE45A0();
   return swift_endAccess();
 }
 
-uint64_t sub_1C6E8E2E8()
+uint64_t sub_1C6E8E2E8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   swift_beginAccess();
   type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata(0);
-  sub_1C6E90EE8(&qword_1EC1F89B0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
+  sub_1C6E90EE8(&qword_1EC1F89B0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata, &unk_1C6EEF1A4);
   sub_1C6EE45A0();
   return swift_endAccess();
 }
 
-uint64_t sub_1C6E8E3C4()
+uint64_t sub_1C6E8E3C4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   swift_beginAccess();
   type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy(0);
-  sub_1C6E90EE8(&qword_1EC1F8D00, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy);
+  sub_1C6E90EE8(&qword_1EC1F8D00, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy, &unk_1C6EF0F88);
   sub_1C6EE45A0();
   return swift_endAccess();
 }
@@ -4640,262 +3752,246 @@ uint64_t sub_1C6E8E50C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
 uint64_t sub_1C6E8E574(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__id;
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__id;
   swift_beginAccess();
-  sub_1C6E919B4(a1 + v14, v8, &qword_1EC1F7EF0, &unk_1C6EE9280);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  sub_1C6E919B4(a1 + v12, v7, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1C6E91A1C(v8, &qword_1EC1F7EF0, &unk_1C6EE9280);
+    return sub_1C6E91A1C(v7, &qword_1EC1F7EF0, &unk_1C6EE9280);
   }
 
-  sub_1C6E91378(v8, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-  sub_1C6E90EE8(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  sub_1C6E91378(v7, v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  sub_1C6E90EE8(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID, &unk_1C6EF08BC);
   sub_1C6EE46E0();
-  return sub_1C6E913E0(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  return sub_1C6E913E0(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
 }
 
 uint64_t sub_1C6E8E790(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F89F0, &unk_1C6EF1170);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__embeddingHeader;
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__embeddingHeader;
   swift_beginAccess();
-  sub_1C6E919B4(a1 + v14, v8, &qword_1EC1F89F0, &unk_1C6EF1170);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  sub_1C6E919B4(a1 + v12, v7, &qword_1EC1F89F0, &unk_1C6EF1170);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1C6E91A1C(v8, &qword_1EC1F89F0, &unk_1C6EF1170);
+    return sub_1C6E91A1C(v7, &qword_1EC1F89F0, &unk_1C6EF1170);
   }
 
-  sub_1C6E91378(v8, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
-  sub_1C6E90EE8(&qword_1EC1F89B0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
+  sub_1C6E91378(v7, v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
+  sub_1C6E90EE8(&qword_1EC1F89B0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata, &unk_1C6EEF1A4);
   sub_1C6EE46E0();
-  return sub_1C6E913E0(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
+  return sub_1C6E913E0(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
 }
 
 uint64_t sub_1C6E8E9AC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[7] = a4;
-  v16[1] = a2;
-  v16[2] = a3;
+  v14[7] = a4;
+  v14[1] = a2;
+  v14[2] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8D40, &qword_1C6EF1168);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__strategy;
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__strategy;
   swift_beginAccess();
-  sub_1C6E919B4(a1 + v14, v8, &qword_1EC1F8D40, &qword_1C6EF1168);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  sub_1C6E919B4(a1 + v12, v7, &qword_1EC1F8D40, &qword_1C6EF1168);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1C6E91A1C(v8, &qword_1EC1F8D40, &qword_1C6EF1168);
+    return sub_1C6E91A1C(v7, &qword_1EC1F8D40, &qword_1C6EF1168);
   }
 
-  sub_1C6E91378(v8, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy);
-  sub_1C6E90EE8(&qword_1EC1F8D00, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy);
+  sub_1C6E91378(v7, v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy);
+  sub_1C6E90EE8(&qword_1EC1F8D00, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy, &unk_1C6EF0F88);
   sub_1C6EE46E0();
-  return sub_1C6E913E0(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy);
+  return sub_1C6E913E0(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy);
 }
 
 BOOL sub_1C6E8EBC8(uint64_t a1, uint64_t a2)
 {
-  v93 = a2;
-  v81 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy(0);
-  v80 = *(v81 - 8);
-  v3 = *(v80 + 64);
-  MEMORY[0x1EEE9AC00](v81);
-  v77 = &v77 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v79 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8D48, &qword_1C6EF1180);
-  v5 = *(*(v79 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v79);
-  v82 = &v77 - v6;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8D40, &qword_1C6EF1168);
-  v8 = *(*(v7 - 8) + 64);
-  v9 = MEMORY[0x1EEE9AC00](v7 - 8);
-  v90 = &v77 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v89 = &v77 - v11;
-  v87 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata(0);
-  v86 = *(v87 - 8);
-  v12 = *(v86 + 64);
-  MEMORY[0x1EEE9AC00](v87);
-  v78 = (&v77 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v85 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F89F8, &qword_1C6EEF390);
-  v14 = *(*(v85 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v85);
-  v88 = &v77 - v15;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F89F0, &unk_1C6EF1170);
-  v17 = *(*(v16 - 8) + 64);
-  v18 = MEMORY[0x1EEE9AC00](v16 - 8);
-  v83 = (&v77 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v18);
-  v91 = &v77 - v20;
-  v21 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  v92 = *(v21 - 8);
-  v22 = *(v92 + 8);
-  MEMORY[0x1EEE9AC00](v21);
-  v84 = (&v77 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8220, &qword_1C6EEC6E0);
-  v25 = v24 - 8;
-  v26 = *(*(v24 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v24);
-  v28 = &v77 - v27;
-  v29 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
-  v30 = *(*(v29 - 8) + 64);
-  v31 = MEMORY[0x1EEE9AC00](v29 - 8);
-  v33 = (&v77 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v31);
-  v35 = &v77 - v34;
-  v36 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__id;
+  v83 = a2;
+  v71 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy(0);
+  v70 = *(v71 - 8);
+  MEMORY[0x1EEE9AC00](v71);
+  v67 = &v67 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v69 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8D48, &qword_1C6EF1180);
+  MEMORY[0x1EEE9AC00](v69);
+  v72 = &v67 - v4;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8D40, &qword_1C6EF1168);
+  v6 = MEMORY[0x1EEE9AC00](v5 - 8);
+  v80 = &v67 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v79 = &v67 - v8;
+  v77 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata(0);
+  v76 = *(v77 - 8);
+  MEMORY[0x1EEE9AC00](v77);
+  v68 = (&v67 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v75 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F89F8, &qword_1C6EEF390);
+  MEMORY[0x1EEE9AC00](v75);
+  v78 = &v67 - v10;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F89F0, &unk_1C6EF1170);
+  v12 = MEMORY[0x1EEE9AC00](v11 - 8);
+  v73 = (&v67 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v12);
+  v81 = &v67 - v14;
+  v15 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
+  v82 = *(v15 - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v74 = (&v67 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8220, &qword_1C6EEC6E0);
+  v18 = v17 - 8;
+  MEMORY[0x1EEE9AC00](v17);
+  v20 = &v67 - v19;
+  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
+  v22 = MEMORY[0x1EEE9AC00](v21 - 8);
+  v24 = (&v67 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v22);
+  v26 = &v67 - v25;
+  v27 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__id;
   swift_beginAccess();
-  sub_1C6E919B4(a1 + v36, v35, &qword_1EC1F7EF0, &unk_1C6EE9280);
-  v37 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__id;
-  v38 = v93;
+  sub_1C6E919B4(a1 + v27, v26, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  v28 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__id;
+  v29 = v83;
   swift_beginAccess();
-  v39 = *(v25 + 56);
-  sub_1C6E919B4(v35, v28, &qword_1EC1F7EF0, &unk_1C6EE9280);
-  v40 = v38;
-  v41 = v92;
-  sub_1C6E919B4(v40 + v37, &v28[v39], &qword_1EC1F7EF0, &unk_1C6EE9280);
-  v42 = *(v41 + 48);
-  if (v42(v28, 1, v21) == 1)
+  v30 = *(v18 + 56);
+  sub_1C6E919B4(v26, v20, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  v31 = v29;
+  v32 = v82;
+  sub_1C6E919B4(v31 + v28, &v20[v30], &qword_1EC1F7EF0, &unk_1C6EE9280);
+  v33 = *(v32 + 48);
+  if (v33(v20, 1, v15) == 1)
   {
 
-    sub_1C6E91A1C(v35, &qword_1EC1F7EF0, &unk_1C6EE9280);
-    v43 = a1;
-    if (v42(&v28[v39], 1, v21) == 1)
+    sub_1C6E91A1C(v26, &qword_1EC1F7EF0, &unk_1C6EE9280);
+    v34 = a1;
+    if (v33(&v20[v30], 1, v15) == 1)
     {
-      sub_1C6E91A1C(v28, &qword_1EC1F7EF0, &unk_1C6EE9280);
+      sub_1C6E91A1C(v20, &qword_1EC1F7EF0, &unk_1C6EE9280);
       goto LABEL_11;
     }
 
 LABEL_6:
-    v44 = &qword_1EC1F8220;
-    v45 = &qword_1C6EEC6E0;
-    v46 = v28;
+    v35 = &qword_1EC1F8220;
+    v36 = &qword_1C6EEC6E0;
+    v37 = v20;
 LABEL_25:
-    sub_1C6E91A1C(v46, v44, v45);
+    sub_1C6E91A1C(v37, v35, v36);
     goto LABEL_26;
   }
 
-  v43 = a1;
-  sub_1C6E919B4(v28, v33, &qword_1EC1F7EF0, &unk_1C6EE9280);
-  if (v42(&v28[v39], 1, v21) == 1)
+  v34 = a1;
+  sub_1C6E919B4(v20, v24, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  if (v33(&v20[v30], 1, v15) == 1)
   {
 
-    sub_1C6E91A1C(v35, &qword_1EC1F7EF0, &unk_1C6EE9280);
-    sub_1C6E913E0(v33, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+    sub_1C6E91A1C(v26, &qword_1EC1F7EF0, &unk_1C6EE9280);
+    sub_1C6E913E0(v24, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
     goto LABEL_6;
   }
 
-  v92 = v28;
-  v47 = v84;
-  sub_1C6E91378(&v28[v39], v84, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-  if ((*v33 != *v47 || v33[1] != v47[1]) && (sub_1C6EE54B0() & 1) == 0)
+  v82 = v20;
+  v38 = v74;
+  sub_1C6E91378(&v20[v30], v74, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  if ((*v24 != *v38 || v24[1] != v38[1]) && (sub_1C6EE54B0() & 1) == 0)
   {
 
-    sub_1C6E91A1C(v35, &qword_1EC1F7EF0, &unk_1C6EE9280);
-    sub_1C6E913E0(v47, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-    sub_1C6E913E0(v33, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-    v46 = v92;
-    v44 = &qword_1EC1F7EF0;
-    v45 = &unk_1C6EE9280;
+    sub_1C6E91A1C(v26, &qword_1EC1F7EF0, &unk_1C6EE9280);
+    sub_1C6E913E0(v38, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+    sub_1C6E913E0(v24, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+    v37 = v82;
+    v35 = &qword_1EC1F7EF0;
+    v36 = &unk_1C6EE9280;
     goto LABEL_25;
   }
 
-  v48 = *(v21 + 20);
   sub_1C6EE4430();
-  sub_1C6E90EE8(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
+  sub_1C6E90EE8(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
 
-  v49 = sub_1C6EE4A50();
-  sub_1C6E91A1C(v35, &qword_1EC1F7EF0, &unk_1C6EE9280);
-  sub_1C6E913E0(v47, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-  sub_1C6E913E0(v33, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-  sub_1C6E91A1C(v92, &qword_1EC1F7EF0, &unk_1C6EE9280);
-  if ((v49 & 1) == 0)
+  v39 = sub_1C6EE4A50();
+  sub_1C6E91A1C(v26, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  sub_1C6E913E0(v38, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  sub_1C6E913E0(v24, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  sub_1C6E91A1C(v82, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  if ((v39 & 1) == 0)
   {
     goto LABEL_26;
   }
 
 LABEL_11:
-  v50 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__embeddingHeader;
+  v40 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__embeddingHeader;
   swift_beginAccess();
-  v51 = v91;
-  sub_1C6E919B4(v43 + v50, v91, &qword_1EC1F89F0, &unk_1C6EF1170);
-  v52 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__embeddingHeader;
-  v53 = v93;
+  v41 = v81;
+  sub_1C6E919B4(v34 + v40, v81, &qword_1EC1F89F0, &unk_1C6EF1170);
+  v42 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__embeddingHeader;
+  v43 = v83;
   swift_beginAccess();
-  v54 = *(v85 + 48);
-  v55 = v88;
-  sub_1C6E919B4(v51, v88, &qword_1EC1F89F0, &unk_1C6EF1170);
-  sub_1C6E919B4(v53 + v52, v55 + v54, &qword_1EC1F89F0, &unk_1C6EF1170);
-  v56 = *(v86 + 48);
-  v57 = v87;
-  if (v56(v55, 1, v87) == 1)
+  v44 = *(v75 + 48);
+  v45 = v78;
+  sub_1C6E919B4(v41, v78, &qword_1EC1F89F0, &unk_1C6EF1170);
+  sub_1C6E919B4(v43 + v42, v45 + v44, &qword_1EC1F89F0, &unk_1C6EF1170);
+  v46 = *(v76 + 48);
+  v47 = v77;
+  if (v46(v45, 1, v77) == 1)
   {
-    sub_1C6E91A1C(v51, &qword_1EC1F89F0, &unk_1C6EF1170);
-    v58 = v56(v55 + v54, 1, v57);
-    v59 = v90;
-    v60 = v89;
-    if (v58 == 1)
+    sub_1C6E91A1C(v41, &qword_1EC1F89F0, &unk_1C6EF1170);
+    v48 = v46(v45 + v44, 1, v47);
+    v49 = v80;
+    v50 = v79;
+    if (v48 == 1)
     {
-      sub_1C6E91A1C(v55, &qword_1EC1F89F0, &unk_1C6EF1170);
+      sub_1C6E91A1C(v45, &qword_1EC1F89F0, &unk_1C6EF1170);
       goto LABEL_18;
     }
 
     goto LABEL_16;
   }
 
-  v61 = v83;
-  sub_1C6E919B4(v55, v83, &qword_1EC1F89F0, &unk_1C6EF1170);
-  v62 = v56(v55 + v54, 1, v57);
-  v59 = v90;
-  v60 = v89;
-  if (v62 == 1)
+  v51 = v73;
+  sub_1C6E919B4(v45, v73, &qword_1EC1F89F0, &unk_1C6EF1170);
+  v52 = v46(v45 + v44, 1, v47);
+  v49 = v80;
+  v50 = v79;
+  if (v52 == 1)
   {
-    sub_1C6E91A1C(v91, &qword_1EC1F89F0, &unk_1C6EF1170);
-    sub_1C6E913E0(v61, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
+    sub_1C6E91A1C(v81, &qword_1EC1F89F0, &unk_1C6EF1170);
+    sub_1C6E913E0(v51, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
 LABEL_16:
-    v44 = &qword_1EC1F89F8;
-    v45 = &qword_1C6EEF390;
-    v46 = v55;
+    v35 = &qword_1EC1F89F8;
+    v36 = &qword_1C6EEF390;
+    v37 = v45;
     goto LABEL_25;
   }
 
-  v63 = v55 + v54;
-  v64 = v78;
-  sub_1C6E91378(v63, v78, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
-  v65 = sub_1C6E803CC(v61, v64);
-  sub_1C6E913E0(v64, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
-  sub_1C6E91A1C(v91, &qword_1EC1F89F0, &unk_1C6EF1170);
-  sub_1C6E913E0(v61, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
-  sub_1C6E91A1C(v55, &qword_1EC1F89F0, &unk_1C6EF1170);
-  if ((v65 & 1) == 0)
+  v53 = v45 + v44;
+  v54 = v68;
+  sub_1C6E91378(v53, v68, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
+  v55 = sub_1C6E803CC(v51, v54);
+  sub_1C6E913E0(v54, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
+  sub_1C6E91A1C(v81, &qword_1EC1F89F0, &unk_1C6EF1170);
+  sub_1C6E913E0(v51, type metadata accessor for Com_Apple_News_Algorithms_Proto_Embedding_EmbeddingMetadata);
+  sub_1C6E91A1C(v45, &qword_1EC1F89F0, &unk_1C6EF1170);
+  if ((v55 & 1) == 0)
   {
 LABEL_26:
 
@@ -4903,52 +3999,52 @@ LABEL_26:
   }
 
 LABEL_18:
-  v66 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__strategy;
+  v56 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__strategy;
   swift_beginAccess();
-  sub_1C6E919B4(v43 + v66, v60, &qword_1EC1F8D40, &qword_1C6EF1168);
-  v67 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__strategy;
-  v68 = v93;
+  sub_1C6E919B4(v34 + v56, v50, &qword_1EC1F8D40, &qword_1C6EF1168);
+  v57 = OBJC_IVAR____TtCV18ComputationalGraph51Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpecP33_E0EFD8602BFEEC70D7E1C8A220F6E94B13_StorageClass__strategy;
+  v58 = v83;
   swift_beginAccess();
-  v69 = *(v79 + 48);
-  v70 = v82;
-  sub_1C6E919B4(v60, v82, &qword_1EC1F8D40, &qword_1C6EF1168);
-  sub_1C6E919B4(v68 + v67, v70 + v69, &qword_1EC1F8D40, &qword_1C6EF1168);
-  v71 = *(v80 + 48);
-  v72 = v81;
-  if (v71(v70, 1, v81) == 1)
+  v59 = *(v69 + 48);
+  v60 = v72;
+  sub_1C6E919B4(v50, v72, &qword_1EC1F8D40, &qword_1C6EF1168);
+  sub_1C6E919B4(v58 + v57, v60 + v59, &qword_1EC1F8D40, &qword_1C6EF1168);
+  v61 = *(v70 + 48);
+  v62 = v71;
+  if (v61(v60, 1, v71) == 1)
   {
 
-    sub_1C6E91A1C(v60, &qword_1EC1F8D40, &qword_1C6EF1168);
-    if (v71(v70 + v69, 1, v72) == 1)
+    sub_1C6E91A1C(v50, &qword_1EC1F8D40, &qword_1C6EF1168);
+    if (v61(v60 + v59, 1, v62) == 1)
     {
-      sub_1C6E91A1C(v70, &qword_1EC1F8D40, &qword_1C6EF1168);
+      sub_1C6E91A1C(v60, &qword_1EC1F8D40, &qword_1C6EF1168);
       return 1;
     }
 
     goto LABEL_23;
   }
 
-  sub_1C6E919B4(v70, v59, &qword_1EC1F8D40, &qword_1C6EF1168);
-  if (v71(v70 + v69, 1, v72) == 1)
+  sub_1C6E919B4(v60, v49, &qword_1EC1F8D40, &qword_1C6EF1168);
+  if (v61(v60 + v59, 1, v62) == 1)
   {
 
-    sub_1C6E91A1C(v60, &qword_1EC1F8D40, &qword_1C6EF1168);
-    sub_1C6E913E0(v59, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy);
+    sub_1C6E91A1C(v50, &qword_1EC1F8D40, &qword_1C6EF1168);
+    sub_1C6E913E0(v49, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy);
 LABEL_23:
-    sub_1C6E91A1C(v70, &qword_1EC1F8D48, &qword_1C6EF1180);
+    sub_1C6E91A1C(v60, &qword_1EC1F8D48, &qword_1C6EF1180);
     return 0;
   }
 
-  v74 = v70 + v69;
-  v75 = v77;
-  sub_1C6E91378(v74, v77, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy);
-  v76 = sub_1C6E914A8(v59, v75);
+  v64 = v60 + v59;
+  v65 = v67;
+  sub_1C6E91378(v64, v67, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy);
+  v66 = sub_1C6E914A8(v49, v65);
 
-  sub_1C6E913E0(v75, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy);
+  sub_1C6E913E0(v65, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy);
+  sub_1C6E91A1C(v50, &qword_1EC1F8D40, &qword_1C6EF1168);
+  sub_1C6E913E0(v49, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy);
   sub_1C6E91A1C(v60, &qword_1EC1F8D40, &qword_1C6EF1168);
-  sub_1C6E913E0(v59, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy);
-  sub_1C6E91A1C(v70, &qword_1EC1F8D40, &qword_1C6EF1168);
-  return (v76 & 1) != 0;
+  return (v66 & 1) != 0;
 }
 
 uint64_t sub_1C6E8F844@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -4965,49 +4061,50 @@ uint64_t sub_1C6E8F844@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_1C6E8F92C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E90EE8(&qword_1EC1F8D38, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpec);
+  v4 = sub_1C6E90EE8(&qword_1EC1F8D38, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpec, &unk_1C6EF10B8);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t sub_1C6E8F9CC(uint64_t a1)
 {
-  v2 = sub_1C6E90EE8(&qword_1EC1F8D20, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpec);
+  v2 = sub_1C6E90EE8(&qword_1EC1F8D20, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpec, &unk_1C6EF10F0);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E8FA38()
+uint64_t sub_1C6E8FA38(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E90EE8(&qword_1EC1F8D20, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpec);
+  sub_1C6E90EE8(&qword_1EC1F8D20, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpec, &unk_1C6EF10F0);
 
   return sub_1C6EE45F0();
 }
 
-uint64_t sub_1C6E8FAD0()
+uint64_t sub_1C6E8FAD0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   while (1)
   {
     result = sub_1C6EE44B0();
-    if (v0 || (v2 & 1) != 0)
+    if (v4 || (v10 & 1) != 0)
     {
       break;
     }
 
     if (result == 1)
     {
-      sub_1C6E8FB44();
+      sub_1C6E8FB44(a1, v5, a2, a3);
     }
   }
 
   return result;
 }
 
-uint64_t sub_1C6E8FB44()
+uint64_t sub_1C6E8FB44(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy(0) + 20);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy(0);
   type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy(0);
-  sub_1C6E90EE8(&qword_1EC1F8CE0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy);
+  sub_1C6E90EE8(&qword_1EC1F8CE0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy, &unk_1C6EF0E20);
   return sub_1C6EE45A0();
 }
 
@@ -5024,28 +4121,26 @@ uint64_t sub_1C6E8FBF8(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_1C6E8FC50(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8C60, &unk_1C6EF0950);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy(0);
-  sub_1C6E919B4(a1 + *(v14 + 20), v8, &qword_1EC1F8C60, &unk_1C6EF0950);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy(0);
+  sub_1C6E919B4(a1 + *(v12 + 20), v7, &qword_1EC1F8C60, &unk_1C6EF0950);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1C6E91A1C(v8, &qword_1EC1F8C60, &unk_1C6EF0950);
+    return sub_1C6E91A1C(v7, &qword_1EC1F8C60, &unk_1C6EF0950);
   }
 
-  sub_1C6E91378(v8, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy);
-  sub_1C6E90EE8(&qword_1EC1F8CE0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy);
+  sub_1C6E91378(v7, v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy);
+  sub_1C6E90EE8(&qword_1EC1F8CE0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy, &unk_1C6EF0E20);
   sub_1C6EE46E0();
-  return sub_1C6E913E0(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy);
+  return sub_1C6E913E0(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy);
 }
 
 uint64_t sub_1C6E8FE60@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -5060,21 +4155,21 @@ uint64_t sub_1C6E8FE60@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
 uint64_t sub_1C6E8FF48(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E90EE8(&qword_1EC1F8D58, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy);
+  v4 = sub_1C6E90EE8(&qword_1EC1F8D58, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy, &unk_1C6EF0F50);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t sub_1C6E8FFE8(uint64_t a1)
 {
-  v2 = sub_1C6E90EE8(&qword_1EC1F8D00, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy);
+  v2 = sub_1C6E90EE8(&qword_1EC1F8D00, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy, &unk_1C6EF0F88);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E90054()
+uint64_t sub_1C6E90054(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E90EE8(&qword_1EC1F8D00, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy);
+  sub_1C6E90EE8(&qword_1EC1F8D00, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy, &unk_1C6EF0F88);
 
   return sub_1C6EE45F0();
 }
@@ -5086,27 +4181,26 @@ uint64_t sub_1C6E900EC(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
   __swift_project_value_buffer(v7, a2);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8210, &unk_1C6EEC6D0);
   v8 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8218, &unk_1C6EECEC0) - 8);
-  v9 = *(*v8 + 72);
-  v10 = (*(*v8 + 80) + 32) & ~*(*v8 + 80);
-  v11 = swift_allocObject();
-  *(v11 + 16) = xmmword_1C6EE6590;
-  v12 = v11 + v10 + v8[14];
-  *(v11 + v10) = 1;
-  *v12 = a3;
-  *(v12 + 8) = a4;
-  *(v12 + 16) = 2;
-  v13 = *MEMORY[0x1E69AADE8];
-  v14 = sub_1C6EE46F0();
-  (*(*(v14 - 8) + 104))(v12, v13, v14);
+  v9 = (*(*v8 + 80) + 32) & ~*(*v8 + 80);
+  v10 = swift_allocObject();
+  *(v10 + 16) = xmmword_1C6EE6590;
+  v11 = v10 + v9 + v8[14];
+  *(v10 + v9) = 1;
+  *v11 = a3;
+  *(v11 + 8) = a4;
+  *(v11 + 16) = 2;
+  v12 = *MEMORY[0x1E69AADE8];
+  v13 = sub_1C6EE46F0();
+  (*(*(v13 - 8) + 104))(v11, v12, v13);
   return sub_1C6EE4700();
 }
 
-uint64_t sub_1C6E90258()
+uint64_t sub_1C6E90258(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = sub_1C6EE44B0();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       if (result == 1)
       {
@@ -5121,22 +4215,21 @@ uint64_t sub_1C6E90258()
   return result;
 }
 
-uint64_t sub_1C6E902F8()
+uint64_t sub_1C6E902F8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (!*v0 || (v4 = *v0, v5 = *(v0 + 8), sub_1C6E91A7C(), result = sub_1C6EE4660(), !v1))
+  if (!*v3 || (sub_1C6E91A7C(), result = sub_1C6EE4660(), !v4))
   {
-    v3 = v0 + *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy(0) + 20);
+    type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy(0);
     return sub_1C6EE4410();
   }
 
   return result;
 }
 
-uint64_t sub_1C6E903AC@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1C6E903AC@<X0>(uint64_t a2@<X8>)
 {
   *a2 = 0;
   *(a2 + 8) = 1;
-  v2 = a2 + *(a1 + 20);
   return sub_1C6EE4420();
 }
 
@@ -5158,30 +4251,23 @@ uint64_t sub_1C6E90468(uint64_t a1, uint64_t a2)
   return v6(v2 + v4, a1, v5);
 }
 
-uint64_t (*sub_1C6E904DC(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_121;
-  v4 = v2 + *(a2 + 20);
-  return result;
-}
-
 uint64_t sub_1C6E90534(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E90EE8(&qword_1EC1F8D60, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy);
+  v4 = sub_1C6E90EE8(&qword_1EC1F8D60, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy, &unk_1C6EF0DE8);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t sub_1C6E905D4(uint64_t a1)
 {
-  v2 = sub_1C6E90EE8(&qword_1EC1F8CE0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy);
+  v2 = sub_1C6E90EE8(&qword_1EC1F8CE0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy, &unk_1C6EF0E20);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E90640()
+uint64_t sub_1C6E90640(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E90EE8(&qword_1EC1F8CE0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy);
+  sub_1C6E90EE8(&qword_1EC1F8CE0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy, &unk_1C6EF0E20);
 
   return sub_1C6EE45F0();
 }
@@ -5194,14 +4280,14 @@ uint64_t sub_1C6E906C0()
   return sub_1C6EE4710();
 }
 
-uint64_t sub_1C6E9070C()
+uint64_t sub_1C6E9070C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   do
   {
     result = sub_1C6EE44B0();
   }
 
-  while (!v0 && (v2 & 1) == 0);
+  while (!v3 && (v5 & 1) == 0);
   return result;
 }
 
@@ -5223,43 +4309,43 @@ uint64_t sub_1C6E907F0(uint64_t a1)
 
 uint64_t sub_1C6E908AC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E90EE8(&qword_1EC1F8D70, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategyType);
+  v4 = sub_1C6E90EE8(&qword_1EC1F8D70, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategyType, &unk_1C6EF0C80);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t sub_1C6E9094C(uint64_t a1)
 {
-  v2 = sub_1C6E90EE8(&qword_1EC1F8CC0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategyType);
+  v2 = sub_1C6E90EE8(&qword_1EC1F8CC0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategyType, &unk_1C6EF0CB8);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E909B8()
+uint64_t sub_1C6E909B8(uint64_t a1, uint64_t a2)
 {
   sub_1C6EE5580();
   sub_1C6EE4A00();
   return sub_1C6EE55A0();
 }
 
-uint64_t sub_1C6E90A10()
+uint64_t sub_1C6E90A10(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E90EE8(&qword_1EC1F8CC0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategyType);
+  sub_1C6E90EE8(&qword_1EC1F8CC0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategyType, &unk_1C6EF0CB8);
 
   return sub_1C6EE45F0();
 }
 
-uint64_t sub_1C6E90A8C()
+uint64_t sub_1C6E90A8C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   sub_1C6EE5580();
   sub_1C6EE4A00();
   return sub_1C6EE55A0();
 }
 
-uint64_t sub_1C6E90AE0()
+uint64_t sub_1C6E90AE0(uint64_t a1, uint64_t a2)
 {
   sub_1C6EE4430();
-  sub_1C6E90EE8(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
+  sub_1C6E90EE8(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
   return sub_1C6EE4A50() & 1;
 }
 
@@ -5299,21 +4385,21 @@ uint64_t sub_1C6E90B68()
   return sub_1C6EE4700();
 }
 
-uint64_t sub_1C6E90D9C@<X0>(void *a1@<X2>, uint64_t a2@<X3>, uint64_t a3@<X8>)
+uint64_t sub_1C6E90D9C@<X0>(void *a1@<X2>, uint64_t a2@<X3>, uint64_t a4@<X8>)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v5 = sub_1C6EE4720();
-  v6 = __swift_project_value_buffer(v5, a2);
-  v7 = *(*(v5 - 8) + 16);
+  v6 = sub_1C6EE4720();
+  v7 = __swift_project_value_buffer(v6, a2);
+  v8 = *(*(v6 - 8) + 16);
 
-  return v7(a3, v6, v5);
+  return v8(a4, v7, v6);
 }
 
-uint64_t sub_1C6E90EE8(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1C6E90EE8(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -5326,7 +4412,7 @@ uint64_t sub_1C6E90EE8(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_1C6E91268(uint64_t a1, uint64_t *a2)
+uint64_t sub_1C6E91268(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -5362,107 +4448,103 @@ uint64_t sub_1C6E914A8(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v29[0] = v29 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8C60, &unk_1C6EF0950);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8 - 8);
-  v11 = (v29 - v10);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8D50, &qword_1C6EF1188);
-  v13 = v12 - 8;
-  v14 = *(*(v12 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v16 = v29 - v15;
-  v17 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy(0) + 20);
-  v18 = *(v13 + 56);
-  v29[1] = a1;
-  sub_1C6E919B4(a1 + v17, v16, &qword_1EC1F8C60, &unk_1C6EF0950);
-  sub_1C6E919B4(a2 + v17, &v16[v18], &qword_1EC1F8C60, &unk_1C6EF0950);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, v4) != 1)
+  v25[0] = v25 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8C60, &unk_1C6EF0950);
+  MEMORY[0x1EEE9AC00](v7 - 8);
+  v9 = (v25 - v8);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8D50, &qword_1C6EF1188);
+  v11 = v10 - 8;
+  MEMORY[0x1EEE9AC00](v10);
+  v13 = v25 - v12;
+  v14 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderStrategy(0) + 20);
+  v15 = *(v11 + 56);
+  v25[1] = a1;
+  sub_1C6E919B4(a1 + v14, v13, &qword_1EC1F8C60, &unk_1C6EF0950);
+  sub_1C6E919B4(a2 + v14, &v13[v15], &qword_1EC1F8C60, &unk_1C6EF0950);
+  v16 = *(v5 + 48);
+  if (v16(v13, 1, v4) != 1)
   {
-    sub_1C6E919B4(v16, v11, &qword_1EC1F8C60, &unk_1C6EF0950);
-    if (v19(&v16[v18], 1, v4) == 1)
+    sub_1C6E919B4(v13, v9, &qword_1EC1F8C60, &unk_1C6EF0950);
+    if (v16(&v13[v15], 1, v4) == 1)
     {
-      sub_1C6E913E0(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy);
+      sub_1C6E913E0(v9, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy);
       goto LABEL_7;
     }
 
-    v23 = v29[0];
-    sub_1C6E91378(&v16[v18], v29[0], type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy);
-    v24 = *v11;
-    v25 = *v23;
-    if (*(v23 + 8) == 1)
+    v20 = v25[0];
+    sub_1C6E91378(&v13[v15], v25[0], type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy);
+    v21 = *v9;
+    v22 = *v20;
+    if (*(v20 + 8) == 1)
     {
-      if (v25)
+      if (v22)
       {
-        if (v25 == 1)
+        if (v22 == 1)
         {
-          if (v24 != 1)
+          if (v21 != 1)
           {
             goto LABEL_17;
           }
         }
 
-        else if (v24 != 2)
+        else if (v21 != 2)
         {
           goto LABEL_17;
         }
 
 LABEL_14:
-        v26 = *(v4 + 20);
         sub_1C6EE4430();
-        sub_1C6E90EE8(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
-        v27 = sub_1C6EE4A50();
-        sub_1C6E913E0(v23, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy);
-        sub_1C6E913E0(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy);
-        sub_1C6E91A1C(v16, &qword_1EC1F8C60, &unk_1C6EF0950);
-        if (v27)
+        sub_1C6E90EE8(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+        v23 = sub_1C6EE4A50();
+        sub_1C6E913E0(v20, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy);
+        sub_1C6E913E0(v9, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy);
+        sub_1C6E91A1C(v13, &qword_1EC1F8C60, &unk_1C6EF0950);
+        if (v23)
         {
           goto LABEL_4;
         }
 
 LABEL_19:
-        v20 = 0;
-        return v20 & 1;
+        v17 = 0;
+        return v17 & 1;
       }
 
-      if (!v24)
+      if (!v21)
       {
         goto LABEL_14;
       }
     }
 
-    else if (v24 == v25)
+    else if (v21 == v22)
     {
       goto LABEL_14;
     }
 
 LABEL_17:
-    sub_1C6E913E0(v23, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy);
-    sub_1C6E913E0(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy);
-    v21 = &qword_1EC1F8C60;
-    v22 = &unk_1C6EF0950;
+    sub_1C6E913E0(v20, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy);
+    sub_1C6E913E0(v9, type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy);
+    v18 = &qword_1EC1F8C60;
+    v19 = &unk_1C6EF0950;
     goto LABEL_18;
   }
 
-  if (v19(&v16[v18], 1, v4) != 1)
+  if (v16(&v13[v15], 1, v4) != 1)
   {
 LABEL_7:
-    v21 = &qword_1EC1F8D50;
-    v22 = &qword_1C6EF1188;
+    v18 = &qword_1EC1F8D50;
+    v19 = &qword_1C6EF1188;
 LABEL_18:
-    sub_1C6E91A1C(v16, v21, v22);
+    sub_1C6E91A1C(v13, v18, v19);
     goto LABEL_19;
   }
 
-  sub_1C6E91A1C(v16, &qword_1EC1F8C60, &unk_1C6EF0950);
+  sub_1C6E91A1C(v13, &qword_1EC1F8C60, &unk_1C6EF0950);
 LABEL_4:
   sub_1C6EE4430();
-  sub_1C6E90EE8(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
-  v20 = sub_1C6EE4A50();
-  return v20 & 1;
+  sub_1C6E90EE8(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+  v17 = sub_1C6EE4A50();
+  return v17 & 1;
 }
 
 uint64_t sub_1C6E918CC(uint64_t a1, uint64_t a2)
@@ -5472,18 +4554,17 @@ uint64_t sub_1C6E918CC(uint64_t a1, uint64_t a2)
   v6 = *(a2 + v4);
   if (v5 != v6)
   {
-    v7 = *(a1 + v4);
 
-    v8 = sub_1C6E8EBC8(v5, v6);
+    v7 = sub_1C6E8EBC8(v5, v6);
 
-    if (!v8)
+    if (!v7)
     {
       return 0;
     }
   }
 
   sub_1C6EE4430();
-  sub_1C6E90EE8(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
+  sub_1C6E90EE8(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
   return sub_1C6EE4A50() & 1;
 }
 
@@ -5535,9 +4616,9 @@ uint64_t sub_1C6E91AD0(uint64_t *a1, uint64_t *a2)
       }
 
 LABEL_7:
-      v4 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy(0) + 20);
+      type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderAggregationStrategy(0);
       sub_1C6EE4430();
-      sub_1C6E90EE8(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
+      sub_1C6E90EE8(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
       return sub_1C6EE4A50() & 1;
     }
 
@@ -5555,13 +4636,13 @@ LABEL_7:
   return 0;
 }
 
-uint64_t sub_1C6E91BD8()
+uint64_t sub_1C6E91BD8(uint64_t a1)
 {
   result = sub_1C6EE4430();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = type metadata accessor for Com_Apple_News_Algorithms_Proto_Encoder_EncoderSpec._StorageClass(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
       return 0;
@@ -5571,10 +4652,10 @@ uint64_t sub_1C6E91BD8()
   return result;
 }
 
-uint64_t sub_1C6E91C84()
+uint64_t sub_1C6E91C84(uint64_t a1)
 {
   result = sub_1C6EE4430();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -5613,12 +4694,13 @@ uint64_t sub_1C6E91D58()
   return sub_1C6EE4700();
 }
 
-uint64_t sub_1C6E91F20()
+uint64_t sub_1C6E91F20(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   while (1)
   {
     result = sub_1C6EE44B0();
-    if (v0 || (v2 & 1) != 0)
+    if (v4 || (v10 & 1) != 0)
     {
       break;
     }
@@ -5630,37 +4712,36 @@ uint64_t sub_1C6E91F20()
 
     else if (result == 2)
     {
-      sub_1C6E91FB0();
+      sub_1C6E91FB0(a1, v5, a2, a3);
     }
   }
 
   return result;
 }
 
-uint64_t sub_1C6E91FB0()
+uint64_t sub_1C6E91FB0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitResource(0) + 24);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitResource(0);
   type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec(0);
-  sub_1C6E94058(&qword_1EC1F8DE0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec);
+  sub_1C6E94058(&qword_1EC1F8DE0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec, &unk_1C6EF1550);
   return sub_1C6EE45A0();
 }
 
 uint64_t sub_1C6E92064(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8 = *v3;
-  v9 = v3[1];
-  v10 = HIBYTE(v9) & 0xF;
-  if ((v9 & 0x2000000000000000) == 0)
+  v8 = v3[1];
+  v9 = HIBYTE(v8) & 0xF;
+  if ((v8 & 0x2000000000000000) == 0)
   {
-    v10 = *v3 & 0xFFFFFFFFFFFFLL;
+    v9 = *v3 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v10 || (result = sub_1C6EE46C0(), !v4))
+  if (!v9 || (result = sub_1C6EE46C0(), !v4))
   {
     result = sub_1C6E92110(v3, a1, a2, a3);
     if (!v4)
     {
-      v12 = v3 + *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitResource(0) + 20);
+      type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitResource(0);
       return sub_1C6EE4410();
     }
   }
@@ -5670,67 +4751,57 @@ uint64_t sub_1C6E92064(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_1C6E92110(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8E20, &qword_1C6EF1730);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitResource(0);
-  sub_1C6E94DC8(a1 + *(v14 + 24), v8, &qword_1EC1F8E20, &qword_1C6EF1730);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitResource(0);
+  sub_1C6E94DC8(a1 + *(v12 + 24), v7, &qword_1EC1F8E20, &qword_1C6EF1730);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1C6E94E30(v8, &qword_1EC1F8E20, &qword_1C6EF1730);
+    return sub_1C6E94E30(v7, &qword_1EC1F8E20, &qword_1C6EF1730);
   }
 
-  sub_1C6E94EF0(v8, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec);
-  sub_1C6E94058(&qword_1EC1F8DE0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec);
+  sub_1C6E94EF0(v7, v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec);
+  sub_1C6E94058(&qword_1EC1F8DE0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec, &unk_1C6EF1550);
   sub_1C6EE46E0();
-  return sub_1C6E94E90(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec);
+  return sub_1C6E94E90(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec);
 }
 
 uint64_t sub_1C6E92320@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
 {
   *a2 = 0;
   *(a2 + 1) = 0xE000000000000000;
-  v4 = &a2[*(a1 + 20)];
   sub_1C6EE4420();
-  v5 = *(a1 + 24);
-  v6 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec(0);
-  v7 = *(*(v6 - 8) + 56);
+  v4 = *(a1 + 24);
+  v5 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec(0);
+  v6 = *(*(v5 - 8) + 56);
 
-  return v7(&a2[v5], 1, 1, v6);
-}
-
-uint64_t (*sub_1C6E923C4(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_123;
-  v4 = v2 + *(a2 + 20);
-  return result;
+  return v6(&a2[v4], 1, 1, v5);
 }
 
 uint64_t sub_1C6E9241C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E94058(&qword_1EC1F8E18, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitResource);
+  v4 = sub_1C6E94058(&qword_1EC1F8E18, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitResource, &unk_1C6EF1680);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t sub_1C6E924BC(uint64_t a1)
 {
-  v2 = sub_1C6E94058(&qword_1EC1F8E00, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitResource);
+  v2 = sub_1C6E94058(&qword_1EC1F8E00, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitResource, &unk_1C6EF16B8);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E92528()
+uint64_t sub_1C6E92528(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E94058(&qword_1EC1F8E00, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitResource);
+  sub_1C6E94058(&qword_1EC1F8E00, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitResource, &unk_1C6EF16B8);
 
   return sub_1C6EE45F0();
 }
@@ -5771,14 +4842,15 @@ uint64_t sub_1C6E925A8()
   return sub_1C6EE4700();
 }
 
-uint64_t sub_1C6E927BC()
+uint64_t sub_1C6E927BC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   result = sub_1C6EE44B0();
-  if (!v0)
+  if (!v4)
   {
     while (1)
     {
-      if (v2)
+      if (v10)
       {
         return result;
       }
@@ -5790,17 +4862,17 @@ uint64_t sub_1C6E927BC()
 
       if (result == 2)
       {
-        sub_1C6E92918();
+        sub_1C6E92918(a1, v5, a2, a3);
         goto LABEL_5;
       }
 
       if (result == 1)
       {
-        v3 = v0;
+        v11 = v4;
         type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ModelPackage(0);
-        sub_1C6E94058(qword_1EDEF8C70, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ModelPackage);
+        sub_1C6E94058(qword_1EDEF8C70, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ModelPackage, &unk_1C6EEC4F0);
 LABEL_12:
-        v0 = v3;
+        v4 = v11;
         sub_1C6EE4590();
       }
 
@@ -5808,26 +4880,26 @@ LABEL_5:
       result = sub_1C6EE44B0();
     }
 
-    v3 = v0;
+    v11 = v4;
     type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ComputationNode(0);
-    sub_1C6E94058(qword_1EDEF72B8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ComputationNode);
+    sub_1C6E94058(qword_1EDEF72B8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ComputationNode, &unk_1C6EEC658);
     goto LABEL_12;
   }
 
   return result;
 }
 
-uint64_t sub_1C6E92918()
+uint64_t sub_1C6E92918(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec(0) + 28);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec(0);
   type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec(0);
-  sub_1C6E94058(&qword_1EC1F8DC0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec);
+  sub_1C6E94058(&qword_1EC1F8DC0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec, &unk_1C6EF13E8);
   return sub_1C6EE45A0();
 }
 
 uint64_t sub_1C6E929CC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (!*(*v3 + 16) || (type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ModelPackage(0), sub_1C6E94058(qword_1EDEF8C70, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ModelPackage), result = sub_1C6EE46D0(), !v4))
+  if (!*(*v3 + 16) || (type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ModelPackage(0), sub_1C6E94058(qword_1EDEF8C70, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ModelPackage, &unk_1C6EEC4F0), result = sub_1C6EE46D0(), !v4))
   {
     result = sub_1C6E92B40(v3, a1, a2, a3);
     if (!v4)
@@ -5835,11 +4907,11 @@ uint64_t sub_1C6E929CC(uint64_t a1, uint64_t a2, uint64_t a3)
       if (*(v3[1] + 16))
       {
         type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ComputationNode(0);
-        sub_1C6E94058(qword_1EDEF72B8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ComputationNode);
+        sub_1C6E94058(qword_1EDEF72B8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ComputationNode, &unk_1C6EEC658);
         sub_1C6EE46D0();
       }
 
-      v9 = v3 + *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec(0) + 24);
+      type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec(0);
       return sub_1C6EE4410();
     }
   }
@@ -5849,28 +4921,26 @@ uint64_t sub_1C6E929CC(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_1C6E92B40(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8E30, &qword_1C6EF1740);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec(0);
-  sub_1C6E94DC8(a1 + *(v14 + 28), v8, &qword_1EC1F8E30, &qword_1C6EF1740);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec(0);
+  sub_1C6E94DC8(a1 + *(v12 + 28), v7, &qword_1EC1F8E30, &qword_1C6EF1740);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1C6E94E30(v8, &qword_1EC1F8E30, &qword_1C6EF1740);
+    return sub_1C6E94E30(v7, &qword_1EC1F8E30, &qword_1C6EF1740);
   }
 
-  sub_1C6E94EF0(v8, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec);
-  sub_1C6E94058(&qword_1EC1F8DC0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec);
+  sub_1C6E94EF0(v7, v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec);
+  sub_1C6E94058(&qword_1EC1F8DC0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec, &unk_1C6EF13E8);
   sub_1C6EE46E0();
-  return sub_1C6E94E90(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec);
+  return sub_1C6E94E90(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec);
 }
 
 uint64_t sub_1C6E92D50@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
@@ -5878,13 +4948,12 @@ uint64_t sub_1C6E92D50@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
   v4 = MEMORY[0x1E69E7CC0];
   *a2 = MEMORY[0x1E69E7CC0];
   *(a2 + 1) = v4;
-  v5 = &a2[*(a1 + 24)];
   sub_1C6EE4420();
-  v6 = *(a1 + 28);
-  v7 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec(0);
-  v8 = *(*(v7 - 8) + 56);
+  v5 = *(a1 + 28);
+  v6 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec(0);
+  v7 = *(*(v6 - 8) + 56);
 
-  return v8(&a2[v6], 1, 1, v7);
+  return v7(&a2[v5], 1, 1, v6);
 }
 
 uint64_t sub_1C6E92DF8@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -5905,30 +4974,23 @@ uint64_t sub_1C6E92E6C(uint64_t a1, uint64_t a2)
   return v6(v2 + v4, a1, v5);
 }
 
-uint64_t (*sub_1C6E92EE0(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_124;
-  v4 = v2 + *(a2 + 24);
-  return result;
-}
-
 uint64_t sub_1C6E92F38(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E94058(&qword_1EC1F8E40, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec);
+  v4 = sub_1C6E94058(&qword_1EC1F8E40, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec, &unk_1C6EF1518);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t sub_1C6E92FD8(uint64_t a1)
 {
-  v2 = sub_1C6E94058(&qword_1EC1F8DE0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec);
+  v2 = sub_1C6E94058(&qword_1EC1F8DE0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec, &unk_1C6EF1550);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E93044()
+uint64_t sub_1C6E93044(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E94058(&qword_1EC1F8DE0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec);
+  sub_1C6E94058(&qword_1EC1F8DE0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec, &unk_1C6EF1550);
 
   return sub_1C6EE45F0();
 }
@@ -5940,32 +5002,31 @@ uint64_t sub_1C6E930C4()
   __swift_project_value_buffer(v0, qword_1EC212D70);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8210, &unk_1C6EEC6D0);
   v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8218, &unk_1C6EECEC0) - 8);
-  v2 = *(*v1 + 72);
-  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
-  v4 = swift_allocObject();
-  *(v4 + 16) = xmmword_1C6EE6590;
-  v5 = v4 + v3 + v1[14];
-  *(v4 + v3) = 1;
-  *v5 = "bindings";
-  *(v5 + 8) = 8;
-  *(v5 + 16) = 2;
-  v6 = *MEMORY[0x1E69AADC8];
-  v7 = sub_1C6EE46F0();
-  (*(*(v7 - 8) + 104))(v5, v6, v7);
+  v2 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v3 = swift_allocObject();
+  *(v3 + 16) = xmmword_1C6EE6590;
+  v4 = v3 + v2 + v1[14];
+  *(v3 + v2) = 1;
+  *v4 = "bindings";
+  *(v4 + 8) = 8;
+  *(v4 + 16) = 2;
+  v5 = *MEMORY[0x1E69AADC8];
+  v6 = sub_1C6EE46F0();
+  (*(*(v6 - 8) + 104))(v4, v5, v6);
   return sub_1C6EE4700();
 }
 
-uint64_t sub_1C6E93230()
+uint64_t sub_1C6E93230(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = sub_1C6EE44B0();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       if (result == 1)
       {
         type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiBinding(0);
-        sub_1C6E94058(&qword_1EC1F8DA0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiBinding);
+        sub_1C6E94058(&qword_1EC1F8DA0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiBinding, &unk_1C6EF1280);
         sub_1C6EE4590();
       }
 
@@ -5976,22 +5037,15 @@ uint64_t sub_1C6E93230()
   return result;
 }
 
-uint64_t sub_1C6E93310()
+uint64_t sub_1C6E93310(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (!*(*v0 + 16) || (type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiBinding(0), sub_1C6E94058(&qword_1EC1F8DA0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiBinding), result = sub_1C6EE46D0(), !v1))
+  if (!*(*v3 + 16) || (type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiBinding(0), sub_1C6E94058(&qword_1EC1F8DA0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiBinding, &unk_1C6EF1280), result = sub_1C6EE46D0(), !v4))
   {
-    v3 = v0 + *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec(0) + 20);
+    type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec(0);
     return sub_1C6EE4410();
   }
 
   return result;
-}
-
-uint64_t sub_1C6E933F4@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  *a2 = MEMORY[0x1E69E7CC0];
-  v2 = a2 + *(a1 + 20);
-  return sub_1C6EE4420();
 }
 
 uint64_t sub_1C6E9343C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -6012,30 +5066,23 @@ uint64_t sub_1C6E934B0(uint64_t a1, uint64_t a2)
   return v6(v2 + v4, a1, v5);
 }
 
-uint64_t (*sub_1C6E93524(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_125;
-  v4 = v2 + *(a2 + 20);
-  return result;
-}
-
 uint64_t sub_1C6E9357C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E94058(&qword_1EC1F8E48, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec);
+  v4 = sub_1C6E94058(&qword_1EC1F8E48, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec, &unk_1C6EF13B0);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t sub_1C6E9361C(uint64_t a1)
 {
-  v2 = sub_1C6E94058(&qword_1EC1F8DC0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec);
+  v2 = sub_1C6E94058(&qword_1EC1F8DC0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec, &unk_1C6EF13E8);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E93688()
+uint64_t sub_1C6E93688(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E94058(&qword_1EC1F8DC0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec);
+  sub_1C6E94058(&qword_1EC1F8DC0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec, &unk_1C6EF13E8);
 
   return sub_1C6EE45F0();
 }
@@ -6047,9 +5094,8 @@ uint64_t sub_1C6E93704(uint64_t *a1, uint64_t *a2, uint64_t a3)
     return 0;
   }
 
-  v4 = *(a3 + 20);
   sub_1C6EE4430();
-  sub_1C6E94058(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
+  sub_1C6E94058(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
   return sub_1C6EE4A50() & 1;
 }
 
@@ -6089,12 +5135,12 @@ uint64_t sub_1C6E937AC()
   return sub_1C6EE4700();
 }
 
-uint64_t sub_1C6E939BC()
+uint64_t sub_1C6E939BC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   while (1)
   {
     result = sub_1C6EE44B0();
-    if (v0 || (v2 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
       break;
     }
@@ -6113,30 +5159,29 @@ uint64_t sub_1C6E939BC()
   return result;
 }
 
-uint64_t sub_1C6E93A58()
+uint64_t sub_1C6E93A58(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = HIBYTE(v3) & 0xF;
-  if ((v3 & 0x2000000000000000) == 0)
+  v5 = v3[1];
+  v6 = HIBYTE(v5) & 0xF;
+  if ((v5 & 0x2000000000000000) == 0)
   {
-    v4 = *v0 & 0xFFFFFFFFFFFFLL;
+    v6 = *v3 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v4 || (result = sub_1C6EE46C0(), !v1))
+  if (!v6 || (result = sub_1C6EE46C0(), !v4))
   {
-    v6 = v0[3];
-    v7 = HIBYTE(v6) & 0xF;
-    if ((v6 & 0x2000000000000000) == 0)
+    v8 = v3[3];
+    v9 = HIBYTE(v8) & 0xF;
+    if ((v8 & 0x2000000000000000) == 0)
     {
-      v7 = v0[2] & 0xFFFFFFFFFFFFLL;
+      v9 = v3[2] & 0xFFFFFFFFFFFFLL;
     }
 
-    if (!v7 || (result = sub_1C6EE46C0(), !v1))
+    if (!v9 || (result = sub_1C6EE46C0(), !v4))
     {
-      if (!*(v0[4] + 16) || (result = sub_1C6EE46B0(), !v1))
+      if (!*(v3[4] + 16) || (result = sub_1C6EE46B0(), !v4))
       {
-        v8 = v0 + *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiBinding(0) + 28);
+        type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiBinding(0);
         return sub_1C6EE4410();
       }
     }
@@ -6145,14 +5190,13 @@ uint64_t sub_1C6E93A58()
   return result;
 }
 
-uint64_t sub_1C6E93B40@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+uint64_t sub_1C6E93B40@<X0>(void *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0xE000000000000000;
   a2[2] = 0;
   a2[3] = 0xE000000000000000;
   a2[4] = MEMORY[0x1E69E7CC0];
-  v2 = a2 + *(a1 + 28);
   return sub_1C6EE4420();
 }
 
@@ -6174,63 +5218,56 @@ uint64_t sub_1C6E93C08(uint64_t a1, uint64_t a2)
   return v6(v2 + v4, a1, v5);
 }
 
-uint64_t (*sub_1C6E93C7C(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_126;
-  v4 = v2 + *(a2 + 28);
-  return result;
-}
-
 uint64_t sub_1C6E93CD4(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E94058(&qword_1EC1F8E50, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiBinding);
+  v4 = sub_1C6E94058(&qword_1EC1F8E50, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiBinding, &unk_1C6EF1248);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
-uint64_t sub_1C6E93D74@<X0>(void *a1@<X2>, uint64_t a2@<X3>, uint64_t a3@<X8>)
+uint64_t sub_1C6E93D74@<X0>(void *a1@<X2>, uint64_t a2@<X3>, uint64_t a4@<X8>)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v5 = sub_1C6EE4720();
-  v6 = __swift_project_value_buffer(v5, a2);
-  v7 = *(*(v5 - 8) + 16);
+  v6 = sub_1C6EE4720();
+  v7 = __swift_project_value_buffer(v6, a2);
+  v8 = *(*(v6 - 8) + 16);
 
-  return v7(a3, v6, v5);
+  return v8(a4, v7, v6);
 }
 
 uint64_t sub_1C6E93E10(uint64_t a1)
 {
-  v2 = sub_1C6E94058(&qword_1EC1F8DA0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiBinding);
+  v2 = sub_1C6E94058(&qword_1EC1F8DA0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiBinding, &unk_1C6EF1280);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E93E7C()
+uint64_t sub_1C6E93E7C(uint64_t a1, uint64_t a2)
 {
   sub_1C6EE5580();
   sub_1C6EE4A00();
   return sub_1C6EE55A0();
 }
 
-uint64_t sub_1C6E93ED4()
+uint64_t sub_1C6E93ED4(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E94058(&qword_1EC1F8DA0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiBinding);
+  sub_1C6E94058(&qword_1EC1F8DA0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiBinding, &unk_1C6EF1280);
 
   return sub_1C6EE45F0();
 }
 
-uint64_t sub_1C6E93F50()
+uint64_t sub_1C6E93F50(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   sub_1C6EE5580();
   sub_1C6EE4A00();
   return sub_1C6EE55A0();
 }
 
-uint64_t sub_1C6E94058(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1C6E94058(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -6243,7 +5280,7 @@ uint64_t sub_1C6E94058(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_1C6E94418(uint64_t a1, uint64_t *a2)
+uint64_t sub_1C6E94418(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -6254,7 +5291,7 @@ uint64_t sub_1C6E94418(uint64_t a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_1C6E94528(void *a1, void *a2)
+uint64_t sub_1C6E94528(uint64_t *a1, void *a2)
 {
   v4 = *a1 == *a2 && a1[1] == a2[1];
   if (!v4 && (sub_1C6EE54B0() & 1) == 0)
@@ -6268,9 +5305,9 @@ uint64_t sub_1C6E94528(void *a1, void *a2)
     return 0;
   }
 
-  v6 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiBinding(0) + 28);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiBinding(0);
   sub_1C6EE4430();
-  sub_1C6E94058(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
+  sub_1C6E94058(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
   return sub_1C6EE4A50() & 1;
 }
 
@@ -6278,160 +5315,151 @@ uint64_t sub_1C6E94618(void *a1, void *a2)
 {
   v4 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = (&v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8E20, &qword_1C6EF1730);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9 - 8);
-  v12 = (&v25 - v11);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8E28, &qword_1C6EF1738);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v13);
-  v16 = &v25 - v15;
-  if ((*a1 != *a2 || a1[1] != a2[1]) && (sub_1C6EE54B0() & 1) == 0)
+  v7 = (&v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8E20, &qword_1C6EF1730);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v10 = (&v21 - v9);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8E28, &qword_1C6EF1738);
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v21 - v12;
+  if (*a1 != *a2 && (sub_1C6EE54B0() & 1) == 0)
   {
-    goto LABEL_10;
-  }
-
-  v25 = v8;
-  v26 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitResource(0);
-  v17 = *(v26 + 24);
-  v18 = *(v13 + 48);
-  sub_1C6E94DC8(a1 + v17, v16, &qword_1EC1F8E20, &qword_1C6EF1730);
-  sub_1C6E94DC8(a2 + v17, &v16[v18], &qword_1EC1F8E20, &qword_1C6EF1730);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, v4) == 1)
-  {
-    if (v19(&v16[v18], 1, v4) == 1)
-    {
-      sub_1C6E94E30(v16, &qword_1EC1F8E20, &qword_1C6EF1730);
-LABEL_12:
-      v23 = *(v26 + 20);
-      sub_1C6EE4430();
-      sub_1C6E94058(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
-      v20 = sub_1C6EE4A50();
-      return v20 & 1;
-    }
-
     goto LABEL_9;
   }
 
-  sub_1C6E94DC8(v16, v12, &qword_1EC1F8E20, &qword_1C6EF1730);
-  if (v19(&v16[v18], 1, v4) == 1)
+  v21 = v7;
+  v22 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitResource(0);
+  v14 = *(v22 + 24);
+  v15 = *(v11 + 48);
+  sub_1C6E94DC8(a1 + v14, v13, &qword_1EC1F8E20, &qword_1C6EF1730);
+  sub_1C6E94DC8(a2 + v14, &v13[v15], &qword_1EC1F8E20, &qword_1C6EF1730);
+  v16 = *(v5 + 48);
+  if (v16(v13, 1, v4) == 1)
   {
-    sub_1C6E94E90(v12, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec);
+    if (v16(&v13[v15], 1, v4) == 1)
+    {
+      sub_1C6E94E30(v13, &qword_1EC1F8E20, &qword_1C6EF1730);
+LABEL_11:
+      sub_1C6EE4430();
+      sub_1C6E94058(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+      v17 = sub_1C6EE4A50();
+      return v17 & 1;
+    }
+
+    goto LABEL_8;
+  }
+
+  sub_1C6E94DC8(v13, v10, &qword_1EC1F8E20, &qword_1C6EF1730);
+  if (v16(&v13[v15], 1, v4) == 1)
+  {
+    sub_1C6E94E90(v10, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec);
+LABEL_8:
+    sub_1C6E94E30(v13, &qword_1EC1F8E28, &qword_1C6EF1738);
+    goto LABEL_9;
+  }
+
+  v18 = v21;
+  sub_1C6E94EF0(&v13[v15], v21, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec);
+  v19 = sub_1C6E94998(v10, v18);
+  sub_1C6E94E90(v18, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec);
+  sub_1C6E94E90(v10, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec);
+  sub_1C6E94E30(v13, &qword_1EC1F8E20, &qword_1C6EF1730);
+  if (v19)
+  {
+    goto LABEL_11;
+  }
+
 LABEL_9:
-    sub_1C6E94E30(v16, &qword_1EC1F8E28, &qword_1C6EF1738);
-    goto LABEL_10;
-  }
-
-  v21 = v25;
-  sub_1C6E94EF0(&v16[v18], v25, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec);
-  v22 = sub_1C6E94998(v12, v21);
-  sub_1C6E94E90(v21, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec);
-  sub_1C6E94E90(v12, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec);
-  sub_1C6E94E30(v16, &qword_1EC1F8E20, &qword_1C6EF1730);
-  if (v22)
-  {
-    goto LABEL_12;
-  }
-
-LABEL_10:
-  v20 = 0;
-  return v20 & 1;
+  v17 = 0;
+  return v17 & 1;
 }
 
 uint64_t sub_1C6E94998(uint64_t *a1, uint64_t *a2)
 {
   v4 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = (&v31 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8E30, &qword_1C6EF1740);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9 - 8);
-  v12 = (&v31 - v11);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8E38, &qword_1C6EF1748);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v13);
-  v16 = &v31 - v15;
+  v7 = (&v26 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8E30, &qword_1C6EF1740);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v10 = (&v26 - v9);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8E38, &qword_1C6EF1748);
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v26 - v12;
   if ((sub_1C6E5CAE8(*a1, *a2) & 1) == 0)
   {
     goto LABEL_11;
   }
 
-  v17 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec(0);
-  v18 = *(v17 + 28);
-  v19 = a1;
-  v20 = *(v13 + 48);
-  v31 = v17;
-  v32 = v19;
-  sub_1C6E94DC8(v19 + v18, v16, &qword_1EC1F8E30, &qword_1C6EF1740);
-  v21 = a2 + v18;
-  v22 = a2;
-  sub_1C6E94DC8(v21, &v16[v20], &qword_1EC1F8E30, &qword_1C6EF1740);
-  v23 = *(v5 + 48);
-  if (v23(v16, 1, v4) == 1)
+  v14 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec(0);
+  v15 = *(v14 + 28);
+  v16 = a1;
+  v17 = *(v11 + 48);
+  v26 = v14;
+  v27 = v16;
+  sub_1C6E94DC8(v16 + v15, v13, &qword_1EC1F8E30, &qword_1C6EF1740);
+  v18 = a2 + v15;
+  v19 = a2;
+  sub_1C6E94DC8(v18, &v13[v17], &qword_1EC1F8E30, &qword_1C6EF1740);
+  v20 = *(v5 + 48);
+  if (v20(v13, 1, v4) == 1)
   {
-    if (v23(&v16[v20], 1, v4) == 1)
+    if (v20(&v13[v17], 1, v4) == 1)
     {
-      sub_1C6E94E30(v16, &qword_1EC1F8E30, &qword_1C6EF1740);
+      sub_1C6E94E30(v13, &qword_1EC1F8E30, &qword_1C6EF1740);
       goto LABEL_5;
     }
 
     goto LABEL_9;
   }
 
-  sub_1C6E94DC8(v16, v12, &qword_1EC1F8E30, &qword_1C6EF1740);
-  if (v23(&v16[v20], 1, v4) == 1)
+  sub_1C6E94DC8(v13, v10, &qword_1EC1F8E30, &qword_1C6EF1740);
+  if (v20(&v13[v17], 1, v4) == 1)
   {
-    sub_1C6E94E90(v12, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec);
+    sub_1C6E94E90(v10, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec);
 LABEL_9:
-    v26 = &qword_1EC1F8E38;
-    v27 = &qword_1C6EF1748;
+    v22 = &qword_1EC1F8E38;
+    v23 = &qword_1C6EF1748;
 LABEL_10:
-    sub_1C6E94E30(v16, v26, v27);
+    sub_1C6E94E30(v13, v22, v23);
     goto LABEL_11;
   }
 
-  sub_1C6E94EF0(&v16[v20], v8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec);
-  if ((sub_1C6E5EDF4(*v12, *v8) & 1) == 0)
+  sub_1C6E94EF0(&v13[v17], v7, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec);
+  if ((sub_1C6E5EDF4(*v10, *v7) & 1) == 0)
   {
-    sub_1C6E94E90(v8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec);
-    sub_1C6E94E90(v12, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec);
-    v26 = &qword_1EC1F8E30;
-    v27 = &qword_1C6EF1740;
+    sub_1C6E94E90(v7, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec);
+    sub_1C6E94E90(v10, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec);
+    v22 = &qword_1EC1F8E30;
+    v23 = &qword_1C6EF1740;
     goto LABEL_10;
   }
 
-  v29 = *(v4 + 20);
   sub_1C6EE4430();
-  sub_1C6E94058(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
-  v22 = a2;
-  v30 = sub_1C6EE4A50();
-  sub_1C6E94E90(v8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec);
-  sub_1C6E94E90(v12, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec);
-  sub_1C6E94E30(v16, &qword_1EC1F8E30, &qword_1C6EF1740);
-  if ((v30 & 1) == 0)
+  sub_1C6E94058(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+  v19 = a2;
+  v25 = sub_1C6EE4A50();
+  sub_1C6E94E90(v7, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec);
+  sub_1C6E94E90(v10, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec);
+  sub_1C6E94E30(v13, &qword_1EC1F8E30, &qword_1C6EF1740);
+  if ((v25 & 1) == 0)
   {
     goto LABEL_11;
   }
 
 LABEL_5:
-  if ((sub_1C6E5CA94(v32[1], v22[1]) & 1) == 0)
+  if ((sub_1C6E5CA94(v27[1], v19[1]) & 1) == 0)
   {
 LABEL_11:
-    v25 = 0;
-    return v25 & 1;
+    v21 = 0;
+    return v21 & 1;
   }
 
-  v24 = *(v31 + 24);
   sub_1C6EE4430();
-  sub_1C6E94058(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
-  v25 = sub_1C6EE4A50();
-  return v25 & 1;
+  sub_1C6E94058(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+  v21 = sub_1C6EE4A50();
+  return v21 & 1;
 }
 
 uint64_t sub_1C6E94DC8(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
@@ -6462,32 +5490,32 @@ uint64_t sub_1C6E94EF0(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
   return a2;
 }
 
-void sub_1C6E94F80()
+void sub_1C6E94F80(uint64_t a1)
 {
   sub_1C6EE4430();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1C6E951B0(319, &qword_1EC1F8E68, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_GambitSpec, MEMORY[0x1E69E6720]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void sub_1C6E9506C()
+void sub_1C6E9506C(uint64_t a1)
 {
   sub_1C6E951B0(319, &qword_1EDEF67F8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ModelPackage, MEMORY[0x1E69E62F8]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1C6E951B0(319, &qword_1EDEF67F0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ComputationNode, MEMORY[0x1E69E62F8]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_1C6EE4430();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_1C6E951B0(319, &qword_1EC1F8E80, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiSpec, MEMORY[0x1E69E6720]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -6509,26 +5537,26 @@ void sub_1C6E951B0(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
   }
 }
 
-void sub_1C6E9523C()
+void sub_1C6E9523C(uint64_t a1)
 {
   sub_1C6E951B0(319, &qword_1EC1F8E98, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_ApiBinding, MEMORY[0x1E69E62F8]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1C6EE4430();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void sub_1C6E95318()
+void sub_1C6E95318(uint64_t a1)
 {
   sub_1C6E953AC();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1C6EE4430();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -6644,13 +5672,9 @@ uint64_t sub_1C6E95554(uint64_t a1, uint64_t a2)
   if (v5)
   {
     v20 = a2;
-    v25 = MEMORY[0x1E69E7CC0];
+    v21 = MEMORY[0x1E69E7CC0];
     sub_1C6E15A70(0, v5, 0);
-    v6 = v25;
-    v21 = *v2;
-    v22 = v2[1];
-    v23 = v2[2];
-    v24 = v2[3];
+    v6 = v21;
     v8 = (a1 + 40);
     while (1)
     {
@@ -6663,19 +5687,19 @@ uint64_t sub_1C6E95554(uint64_t a1, uint64_t a2)
         break;
       }
 
-      v13 = sub_1C6E00E34(v11, v12, *(v2 + 8), *(v2 + 9), *(v2 + 10), *(v2 + 88));
+      v13 = sub_1C6E00E34(v11, v12, *(v2 + 64), *(v2 + 72), *(v2 + 80), *(v2 + 88));
 
       v14 = sub_1C6E957B8(v13);
 
-      v16 = *(v25 + 16);
-      v15 = *(v25 + 24);
+      v16 = *(v21 + 16);
+      v15 = *(v21 + 24);
       if (v16 >= v15 >> 1)
       {
         sub_1C6E15A70((v15 > 1), v16 + 1, 1);
       }
 
-      *(v25 + 16) = v16 + 1;
-      *(v25 + 8 * v16 + 32) = v14;
+      *(v21 + 16) = v16 + 1;
+      *(v21 + 8 * v16 + 32) = v14;
       v8 += 2;
       if (!--v5)
       {
@@ -6688,7 +5712,7 @@ uint64_t sub_1C6E95554(uint64_t a1, uint64_t a2)
   else
   {
 LABEL_9:
-    sub_1C6EDB41C(v6, a2, *(v2 + 12), *(v2 + 30));
+    sub_1C6EDB41C(v6, a2, *(v2 + 96), *(v2 + 120));
     v19 = v18;
 
     return v19;
@@ -6703,15 +5727,15 @@ uint64_t sub_1C6E956F0()
   return sub_1C6EE55A0();
 }
 
-uint64_t sub_1C6E95764()
+uint64_t sub_1C6E95764(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_1C6EE5580();
-  MEMORY[0x1CCA58990](v1);
+  MEMORY[0x1CCA58990](v2);
   return sub_1C6EE55A0();
 }
 
-uint64_t sub_1C6E957B8(uint64_t a1)
+char *sub_1C6E957B8(uint64_t a1)
 {
   v2 = *(a1 + 16);
   if (!v2)
@@ -7220,79 +6244,76 @@ unint64_t sub_1C6E95EDC()
   return result;
 }
 
-uint64_t sub_1C6E95F30(uint64_t a1, unint64_t a2)
+uint64_t sub_1C6E95F30(uint64_t a1, uint64_t a2)
 {
   v4 = v2;
-  v118 = *MEMORY[0x1E69E9840];
+  v111 = *MEMORY[0x1E69E9840];
   v7 = sub_1C6EE3F70();
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   MEMORY[0x1EEE9AC00](v7);
-  v11 = &v103 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_Substitution(0);
-  v13 = *(*(v12 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v12 - 8);
-  v109 = &v103 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = &v96 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_Substitution(0) - 8;
+  MEMORY[0x1EEE9AC00](v11);
+  v102 = &v96 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (!a2)
   {
-    result = 0;
-    goto LABEL_45;
+    return 0;
   }
 
-  v104 = v14;
-  v105 = v11;
-  v108 = v8;
-  v106 = v7;
-  v103 = v3;
-  v116 = a1;
-  v117 = a2;
-  v111 = sub_1C6DF0C68();
-  v16 = sub_1C6EE5030();
-  v18 = v17;
-  v107 = v4;
-  v19 = *(v4 + 48);
-  v22 = *(v19 + 64);
-  v21 = v19 + 64;
-  v20 = v22;
-  v23 = 1 << *(*(v4 + 48) + 32);
-  v24 = -1;
-  if (v23 < 64)
+  v97 = v12;
+  v98 = v10;
+  v101 = v8;
+  v99 = v7;
+  v96 = v3;
+  v109 = a1;
+  v110 = a2;
+  v104 = sub_1C6DF0C68();
+  v14 = sub_1C6EE5030();
+  v16 = v15;
+  v100 = v4;
+  v17 = *(v4 + 48);
+  v20 = *(v17 + 64);
+  v19 = v17 + 64;
+  v18 = v20;
+  v21 = 1 << *(*(v4 + 48) + 32);
+  v22 = -1;
+  if (v21 < 64)
   {
-    v24 = ~(-1 << v23);
+    v22 = ~(-1 << v21);
   }
 
-  v25 = v24 & v20;
-  v26 = (v23 + 63) >> 6;
-  v110 = *(v4 + 48);
+  v23 = v22 & v18;
+  v24 = (v21 + 63) >> 6;
+  v103 = *(v4 + 48);
 
-  v27 = 0;
-  if (v25)
+  v25 = 0;
+  if (v23)
   {
     while (1)
     {
-      v28 = v27;
+      v26 = v25;
 LABEL_10:
-      v29 = __clz(__rbit64(v25));
-      v25 &= v25 - 1;
-      v30 = (v28 << 10) | (16 * v29);
-      v31 = (*(v110 + 48) + v30);
-      v32 = *v31;
-      v33 = v31[1];
-      v34 = (*(v110 + 56) + v30);
-      v35 = *v34;
-      v36 = v34[1];
-      v116 = v16;
-      v117 = v18;
-      v114 = v32;
-      v115 = v33;
-      v112 = v35;
-      v113 = v36;
+      v27 = __clz(__rbit64(v23));
+      v23 &= v23 - 1;
+      v28 = (v26 << 10) | (16 * v27);
+      v29 = (*(v103 + 48) + v28);
+      v30 = *v29;
+      v31 = v29[1];
+      v32 = (*(v103 + 56) + v28);
+      v33 = *v32;
+      v34 = v32[1];
+      v109 = v14;
+      v110 = v16;
+      v107 = v30;
+      v108 = v31;
+      v105 = v33;
+      v106 = v34;
 
-      v16 = sub_1C6EE5010();
-      v38 = v37;
+      v14 = sub_1C6EE5010();
+      v36 = v35;
 
-      v18 = v38;
-      if (!v25)
+      v16 = v36;
+      if (!v23)
       {
         goto LABEL_6;
       }
@@ -7302,108 +6323,108 @@ LABEL_10:
   while (1)
   {
 LABEL_6:
-    v28 = v27 + 1;
-    if (__OFADD__(v27, 1))
+    v26 = v25 + 1;
+    if (__OFADD__(v25, 1))
     {
       __break(1u);
-LABEL_47:
+LABEL_46:
       __break(1u);
     }
 
-    if (v28 >= v26)
+    if (v26 >= v24)
     {
       break;
     }
 
-    v25 = *(v21 + 8 * v28);
-    ++v27;
-    if (v25)
+    v23 = *(v19 + 8 * v26);
+    ++v25;
+    if (v23)
     {
-      v27 = v28;
+      v25 = v26;
       goto LABEL_10;
     }
   }
 
-  v39 = v107;
-  if (*v107)
+  v37 = v100;
+  if (*v100)
   {
-    v16 = sub_1C6EE4B00();
-    v41 = v40;
+    v14 = sub_1C6EE4B00();
+    v39 = v38;
 
-    v18 = v41;
+    v16 = v39;
   }
 
-  v42 = v109;
-  v43 = *(v39 + 1);
-  v44 = *(v43 + 16);
-  if (!v44)
+  v40 = v102;
+  v41 = *(v37 + 1);
+  v42 = *(v41 + 16);
+  if (!v42)
   {
-    v64 = v18;
+    v58 = v16;
 LABEL_29:
-    v116 = v16;
-    v117 = v64;
+    v109 = v14;
+    v110 = v58;
 
-    v69 = v105;
+    v63 = v98;
     sub_1C6EE3F40();
-    v70 = sub_1C6EE5000();
-    v72 = v71;
+    v64 = sub_1C6EE5000();
+    v66 = v65;
 
-    v73 = v108 + 8;
-    v109 = *(v108 + 8);
-    (v109)(v69, v106);
+    v67 = v101 + 8;
+    v102 = *(v101 + 8);
+    (v102)(v63, v99);
 
-    v74 = v107;
-    v75 = v107[16];
-    v108 = v73;
-    if (v75)
+    v68 = v100;
+    v69 = v100[16];
+    v101 = v67;
+    if (v69)
     {
-      v70 = sub_1C6E96878(v70, v72);
-      v77 = v76;
+      v64 = sub_1C6E96878(v64, v66);
+      v71 = v70;
 
-      v72 = v77;
+      v66 = v71;
     }
 
-    v78 = *(v74 + 7);
-    v79 = v78 + 64;
-    v80 = 1 << *(v78 + 32);
-    v81 = -1;
-    if (v80 < 64)
+    v72 = *(v68 + 7);
+    v73 = v72 + 64;
+    v74 = 1 << *(v72 + 32);
+    v75 = -1;
+    if (v74 < 64)
     {
-      v81 = ~(-1 << v80);
+      v75 = ~(-1 << v74);
     }
 
-    v82 = v81 & *(v78 + 64);
-    v83 = (v80 + 63) >> 6;
-    v110 = v78;
+    v76 = v75 & *(v72 + 64);
+    v77 = (v74 + 63) >> 6;
+    v103 = v72;
 
-    v84 = 0;
-    if (v82)
+    v78 = 0;
+    if (v76)
     {
       while (1)
       {
-        v85 = v84;
+        v79 = v78;
 LABEL_39:
-        v86 = __clz(__rbit64(v82));
-        v82 &= v82 - 1;
-        v87 = (v85 << 10) | (16 * v86);
-        v88 = (*(v110 + 48) + v87);
-        v89 = *v88;
-        v90 = v88[1];
-        v91 = (*(v110 + 56) + v87);
-        v92 = *v91;
-        v93 = v91[1];
-        v116 = v70;
-        v117 = v72;
-        v114 = v89;
-        v115 = v90;
-        v112 = v92;
-        v113 = v93;
+        v80 = __clz(__rbit64(v76));
+        v76 &= v76 - 1;
+        v81 = (v79 << 10) | (16 * v80);
+        v82 = (*(v103 + 48) + v81);
+        v83 = *v82;
+        v84 = v82[1];
+        v85 = (*(v103 + 56) + v81);
+        v86 = *v85;
+        v87 = v85[1];
+        v109 = v64;
+        v110 = v66;
+        v107 = v83;
+        v108 = v84;
+        v105 = v86;
+        v106 = v87;
 
-        v70 = sub_1C6EE5010();
-        v95 = v94;
+        v64 = sub_1C6EE5010();
+        v89 = v88;
 
-        v72 = v95;
-        if (!v82)
+        v66 = v89;
+        if (!v76)
         {
           goto LABEL_35;
         }
@@ -7413,146 +6434,138 @@ LABEL_39:
     while (1)
     {
 LABEL_35:
-      v85 = v84 + 1;
-      if (__OFADD__(v84, 1))
+      v79 = v78 + 1;
+      if (__OFADD__(v78, 1))
       {
-        goto LABEL_47;
+        goto LABEL_46;
       }
 
-      if (v85 >= v83)
+      if (v79 >= v77)
       {
         break;
       }
 
-      v82 = *(v79 + 8 * v85);
-      ++v84;
-      if (v82)
+      v76 = *(v73 + 8 * v79);
+      ++v78;
+      if (v76)
       {
-        v84 = v85;
+        v78 = v79;
         goto LABEL_39;
       }
     }
 
-    v116 = v70;
-    v117 = v72;
+    v109 = v64;
+    v110 = v66;
 
-    v96 = v105;
+    v90 = v98;
     sub_1C6EE3F40();
-    v97 = sub_1C6EE5000();
+    v91 = sub_1C6EE5000();
 
-    (v109)(v96, v106);
+    (v102)(v90, v99);
 
-    result = v97;
-    goto LABEL_45;
+    return v91;
   }
 
-  v45 = v43 + ((*(v104 + 80) + 32) & ~*(v104 + 80));
-  v110 = *(v104 + 72);
+  v43 = v41 + ((*(v97 + 80) + 32) & ~*(v97 + 80));
+  v103 = *(v97 + 72);
   while (1)
   {
-    sub_1C6E2D5E8(v45, v42);
-    if (v42[8] != 1)
+    sub_1C6E2D5E8(v43, v40);
+    if (v40[8] != 1)
     {
 LABEL_42:
       sub_1C6E96764();
       swift_allocError();
-      *v98 = 0;
+      *v92 = 0;
       swift_willThrow();
       goto LABEL_44;
     }
 
-    if ((*v42 - 2) < 2)
+    if ((*v40 - 2) < 2)
     {
       break;
     }
 
-    if (*v42 != 1)
+    if (*v40 != 1)
     {
       goto LABEL_42;
     }
 
-    v116 = v16;
-    v117 = v18;
-    v65 = *(v42 + 3);
-    v114 = *(v42 + 2);
-    v115 = v65;
-    v66 = *(v42 + 5);
-    v112 = *(v42 + 4);
-    v113 = v66;
-    v16 = sub_1C6EE5010();
-    v64 = v67;
+    v109 = v14;
+    v110 = v16;
+    v59 = *(v40 + 3);
+    v107 = *(v40 + 2);
+    v108 = v59;
+    v60 = *(v40 + 5);
+    v105 = *(v40 + 4);
+    v106 = v60;
+    v14 = sub_1C6EE5010();
+    v58 = v61;
 LABEL_22:
-    sub_1C6E967B8(v42);
+    sub_1C6E967B8(v40);
 
-    v45 += v110;
-    v18 = v64;
-    if (!--v44)
+    v43 += v103;
+    v16 = v58;
+    if (!--v42)
     {
       goto LABEL_29;
     }
   }
 
-  v46 = *(v42 + 2);
-  v47 = *(v42 + 3);
-  v48 = objc_allocWithZone(MEMORY[0x1E696AE70]);
+  v44 = objc_allocWithZone(MEMORY[0x1E696AE70]);
 
-  v49 = sub_1C6EE4A60();
+  v45 = sub_1C6EE4A60();
 
-  v116 = 0;
-  v50 = [v48 initWithPattern:v49 options:0 error:&v116];
+  v109 = 0;
+  v46 = [v44 initWithPattern:v45 options:0 error:&v109];
 
-  v51 = v116;
-  if (v50)
+  v47 = v109;
+  if (v46)
   {
-    v52 = HIBYTE(v18) & 0xF;
-    if ((v18 & 0x2000000000000000) == 0)
+    v48 = HIBYTE(v16) & 0xF;
+    if ((v16 & 0x2000000000000000) == 0)
     {
-      v52 = v16;
+      v48 = v14;
     }
 
-    v53 = 7;
-    if (((v18 >> 60) & ((v16 & 0x800000000000000) == 0)) != 0)
+    v49 = 7;
+    if (((v16 >> 60) & ((v14 & 0x800000000000000) == 0)) != 0)
     {
-      v53 = 11;
+      v49 = 11;
     }
 
-    v116 = 15;
-    v117 = v53 | (v52 << 16);
-    v114 = v16;
-    v115 = v18;
+    v109 = 15;
+    v110 = v49 | (v48 << 16);
+    v107 = v14;
+    v108 = v16;
 
-    v54 = v51;
+    v50 = v47;
     __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8ED8, &qword_1C6EF1990);
     sub_1C6E96814();
-    v55 = sub_1C6EE4FA0();
-    v57 = v56;
-    v58 = sub_1C6EE4A60();
-    v59 = *(v42 + 4);
-    v60 = *(v42 + 5);
-    v61 = sub_1C6EE4A60();
-    v62 = [v50 stringByReplacingMatchesInString:v58 options:0 range:v55 withTemplate:{v57, v61}];
+    v51 = sub_1C6EE4FA0();
+    v53 = v52;
+    v54 = sub_1C6EE4A60();
+    v55 = sub_1C6EE4A60();
+    v56 = [v46 stringByReplacingMatchesInString:v54 options:0 range:v51 withTemplate:{v53, v55}];
 
-    v16 = sub_1C6EE4A90();
-    v64 = v63;
+    v14 = sub_1C6EE4A90();
+    v58 = v57;
 
     goto LABEL_22;
   }
 
-  v99 = v116;
-  v100 = sub_1C6EE4050();
+  v93 = v109;
+  v94 = sub_1C6EE4050();
 
   swift_willThrow();
   sub_1C6E96764();
   swift_allocError();
-  *v101 = 2;
+  *v95 = 2;
   swift_willThrow();
 
 LABEL_44:
 
-  result = sub_1C6E967B8(v109);
-LABEL_45:
-  v102 = *MEMORY[0x1E69E9840];
-  return result;
+  return sub_1C6E967B8(v102);
 }
 
 unint64_t sub_1C6E96764()
@@ -7591,141 +6604,140 @@ uint64_t sub_1C6E96878(uint64_t a1, unint64_t a2)
 {
   v4 = sub_1C6EE3F70();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v29 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v32 = a1;
-  v33 = a2;
+  v7 = &v28 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v31 = a1;
+  v32 = a2;
   sub_1C6DF0C68();
-  v9 = sub_1C6EE5020();
-  v11 = v10;
-  v32 = 0;
-  v33 = 0xE000000000000000;
-  if ((v10 & 0x2000000000000000) != 0)
+  v8 = sub_1C6EE5020();
+  v10 = v9;
+  v31 = 0;
+  v32 = 0xE000000000000000;
+  if ((v9 & 0x2000000000000000) != 0)
   {
-    v12 = HIBYTE(v10) & 0xF;
+    v11 = HIBYTE(v9) & 0xF;
   }
 
   else
   {
-    v12 = v9 & 0xFFFFFFFFFFFFLL;
+    v11 = v8 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (v12)
+  if (v11)
   {
-    v13 = v9;
-    v14 = 0;
-    v29 = (v10 & 0xFFFFFFFFFFFFFFFLL) + 32;
-    v30 = v10 & 0xFFFFFFFFFFFFFFLL;
-    v15 = (v5 + 8);
+    v12 = v8;
+    v13 = 0;
+    v28 = (v9 & 0xFFFFFFFFFFFFFFFLL) + 32;
+    v29 = v9 & 0xFFFFFFFFFFFFFFLL;
+    v14 = (v5 + 8);
     do
     {
-      if ((v11 & 0x1000000000000000) != 0)
+      if ((v10 & 0x1000000000000000) != 0)
       {
-        v20 = sub_1C6EE51A0();
-        v22 = v21;
+        v19 = sub_1C6EE51A0();
+        v21 = v20;
       }
 
       else
       {
-        if ((v11 & 0x2000000000000000) != 0)
+        if ((v10 & 0x2000000000000000) != 0)
         {
-          v31[0] = v13;
-          v31[1] = v30;
-          v19 = v31 + v14;
+          v30[0] = v12;
+          v30[1] = v29;
+          v18 = v30 + v13;
         }
 
         else
         {
-          v18 = v29;
-          if ((v13 & 0x1000000000000000) == 0)
+          v17 = v28;
+          if ((v12 & 0x1000000000000000) == 0)
           {
-            v18 = sub_1C6EE5240();
+            v17 = sub_1C6EE5240();
           }
 
-          v19 = (v18 + v14);
+          v18 = (v17 + v13);
         }
 
-        v20 = *v19;
-        if ((*v19 & 0x80000000) == 0)
+        v19 = *v18;
+        if ((*v18 & 0x80000000) == 0)
         {
           goto LABEL_17;
         }
 
-        v25 = (__clz(v20 ^ 0xFF) - 24);
-        if (v25 > 2)
+        v24 = (__clz(v19 ^ 0xFF) - 24);
+        if (v24 > 2)
         {
-          if (v25 == 3)
+          if (v24 == 3)
           {
-            v20 = ((v20 & 0xF) << 12) | ((v19[1] & 0x3F) << 6) | v19[2] & 0x3F;
-            v22 = 3;
+            v19 = ((v19 & 0xF) << 12) | ((v18[1] & 0x3F) << 6) | v18[2] & 0x3F;
+            v21 = 3;
           }
 
           else
           {
-            v20 = ((v20 & 0xF) << 18) | ((v19[1] & 0x3F) << 12) | ((v19[2] & 0x3F) << 6) | v19[3] & 0x3F;
-            v22 = 4;
+            v19 = ((v19 & 0xF) << 18) | ((v18[1] & 0x3F) << 12) | ((v18[2] & 0x3F) << 6) | v18[3] & 0x3F;
+            v21 = 4;
           }
 
           goto LABEL_18;
         }
 
-        if (v25 == 1)
+        if (v24 == 1)
         {
 LABEL_17:
-          v22 = 1;
+          v21 = 1;
         }
 
         else
         {
-          v20 = v19[1] & 0x3F | ((v20 & 0x1F) << 6);
-          v22 = 2;
+          v19 = v18[1] & 0x3F | ((v19 & 0x1F) << 6);
+          v21 = 2;
         }
       }
 
 LABEL_18:
       sub_1C6EE3F50();
-      v23 = sub_1C6EE3F60();
-      (*v15)(v8, v4);
-      if ((v23 & 1) == 0)
+      v22 = sub_1C6EE3F60();
+      (*v14)(v7, v4);
+      if ((v22 & 1) == 0)
       {
-        if (v20 <= 0x7F)
+        if (v19 <= 0x7F)
         {
-          v16 = v20 + 1;
+          v15 = v19 + 1;
         }
 
         else
         {
-          v24 = (v20 & 0x3F) << 8;
-          if (v20 >= 0x800)
+          v23 = (v19 & 0x3F) << 8;
+          if (v19 >= 0x800)
           {
-            v26 = (v24 | (v20 >> 6) & 0x3F) << 8;
-            v27 = (((v26 | (v20 >> 12) & 0x3F) << 8) | (v20 >> 18)) - 2122219023;
-            v16 = (v20 >> 12) + v26 + 8487393;
-            if (HIWORD(v20))
+            v25 = (v23 | (v19 >> 6) & 0x3F) << 8;
+            v26 = (((v25 | (v19 >> 12) & 0x3F) << 8) | (v19 >> 18)) - 2122219023;
+            v15 = (v19 >> 12) + v25 + 8487393;
+            if (HIWORD(v19))
             {
-              v16 = v27;
+              v15 = v26;
             }
           }
 
           else
           {
-            v16 = (v20 >> 6) + v24 + 33217;
+            v15 = (v19 >> 6) + v23 + 33217;
           }
         }
 
-        v31[0] = (v16 + 0xFEFEFEFEFEFEFFLL) & ~(-1 << (8 * (4 - (__clz(v16) >> 3))));
-        v17 = sub_1C6EE4B20();
-        MEMORY[0x1CCA57F50](v17);
+        v30[0] = (v15 + 0xFEFEFEFEFEFEFFLL) & ~(-1 << (8 * (4 - (__clz(v15) >> 3))));
+        v16 = sub_1C6EE4B20();
+        MEMORY[0x1CCA57F50](v16);
       }
 
-      v14 += v22;
+      v13 += v21;
     }
 
-    while (v14 < v12);
+    while (v13 < v11);
   }
 
-  return v32;
+  return v31;
 }
 
 __n128 __swift_memcpy64_8(uint64_t a1, uint64_t a2)
@@ -7830,12 +6842,12 @@ uint64_t sub_1C6E96C4C()
   return sub_1C6EE4700();
 }
 
-uint64_t sub_1C6E96E14()
+uint64_t sub_1C6E96E14(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   while (1)
   {
     result = sub_1C6EE44B0();
-    if (v0 || (v2 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
       break;
     }
@@ -7849,28 +6861,27 @@ uint64_t sub_1C6E96E14()
   return result;
 }
 
-uint64_t sub_1C6E96E94()
+uint64_t sub_1C6E96E94(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = HIBYTE(v3) & 0xF;
-  if ((v3 & 0x2000000000000000) == 0)
+  v5 = v3[1];
+  v6 = HIBYTE(v5) & 0xF;
+  if ((v5 & 0x2000000000000000) == 0)
   {
-    v4 = *v0 & 0xFFFFFFFFFFFFLL;
+    v6 = *v3 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v4 || (result = sub_1C6EE46C0(), !v1))
+  if (!v6 || (result = sub_1C6EE46C0(), !v4))
   {
-    v6 = v0[3];
-    v7 = HIBYTE(v6) & 0xF;
-    if ((v6 & 0x2000000000000000) == 0)
+    v8 = v3[3];
+    v9 = HIBYTE(v8) & 0xF;
+    if ((v8 & 0x2000000000000000) == 0)
     {
-      v7 = v0[2] & 0xFFFFFFFFFFFFLL;
+      v9 = v3[2] & 0xFFFFFFFFFFFFLL;
     }
 
-    if (!v7 || (result = sub_1C6EE46C0(), !v1))
+    if (!v9 || (result = sub_1C6EE46C0(), !v4))
     {
-      v8 = v0 + *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_StringBlob() + 24);
+      type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_StringBlob(0);
       return sub_1C6EE4410();
     }
   }
@@ -7878,13 +6889,12 @@ uint64_t sub_1C6E96E94()
   return result;
 }
 
-uint64_t sub_1C6E96F58@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+uint64_t sub_1C6E96F58@<X0>(void *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0xE000000000000000;
   a2[2] = 0;
   a2[3] = 0xE000000000000000;
-  v2 = a2 + *(a1 + 24);
   return sub_1C6EE4420();
 }
 
@@ -7906,16 +6916,9 @@ uint64_t sub_1C6E97018(uint64_t a1, uint64_t a2)
   return v6(v2 + v4, a1, v5);
 }
 
-uint64_t (*sub_1C6E9708C(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_128;
-  v4 = v2 + *(a2 + 24);
-  return result;
-}
-
 uint64_t sub_1C6E970E8(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E975EC(&qword_1EC1F8F08, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_StringBlob);
+  v4 = sub_1C6E975EC(&qword_1EC1F8F08, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_StringBlob, &unk_1C6EF1AB8);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
@@ -7936,53 +6939,52 @@ uint64_t sub_1C6E97168@<X0>(uint64_t a1@<X8>)
 
 uint64_t sub_1C6E97210(uint64_t a1)
 {
-  v2 = sub_1C6E975EC(&qword_1EC1F8EF0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_StringBlob);
+  v2 = sub_1C6E975EC(&qword_1EC1F8EF0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_StringBlob, &unk_1C6EF1AF0);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E9727C()
+uint64_t sub_1C6E9727C(uint64_t a1, uint64_t a2)
 {
   sub_1C6EE5580();
   sub_1C6EE4A00();
   return sub_1C6EE55A0();
 }
 
-uint64_t sub_1C6E972D4()
+uint64_t sub_1C6E972D4(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E975EC(&qword_1EC1F8EF0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_StringBlob);
+  sub_1C6E975EC(&qword_1EC1F8EF0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_StringBlob, &unk_1C6EF1AF0);
 
   return sub_1C6EE45F0();
 }
 
-uint64_t sub_1C6E97350()
+uint64_t sub_1C6E97350(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   sub_1C6EE5580();
   sub_1C6EE4A00();
   return sub_1C6EE55A0();
 }
 
-uint64_t sub_1C6E973A4(void *a1, void *a2, uint64_t a3)
+uint64_t sub_1C6E973A4(uint64_t *a1, void *a2, uint64_t a3)
 {
-  v6 = *a1 == *a2 && a1[1] == a2[1];
+  v5 = *a1 == *a2 && a1[1] == a2[1];
+  if (!v5 && (sub_1C6EE54B0() & 1) == 0)
+  {
+    return 0;
+  }
+
+  v6 = a1[2] == a2[2] && a1[3] == a2[3];
   if (!v6 && (sub_1C6EE54B0() & 1) == 0)
   {
     return 0;
   }
 
-  v7 = a1[2] == a2[2] && a1[3] == a2[3];
-  if (!v7 && (sub_1C6EE54B0() & 1) == 0)
-  {
-    return 0;
-  }
-
-  v8 = *(a3 + 24);
   sub_1C6EE4430();
-  sub_1C6E975EC(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
+  sub_1C6E975EC(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
   return sub_1C6EE4A50() & 1;
 }
 
-uint64_t type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_StringBlob()
+uint64_t type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_StringBlob(uint64_t a1)
 {
   result = qword_1EC1F8F10;
   if (!qword_1EC1F8F10)
@@ -7993,7 +6995,7 @@ uint64_t type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_Strin
   return result;
 }
 
-uint64_t sub_1C6E975EC(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1C6E975EC(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8006,10 +7008,10 @@ uint64_t sub_1C6E975EC(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_1C6E9765C()
+uint64_t sub_1C6E9765C(uint64_t a1)
 {
   result = sub_1C6EE4430();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -8018,16 +7020,16 @@ uint64_t sub_1C6E9765C()
   return result;
 }
 
-void sub_1C6E97720()
+void sub_1C6E97720(uint64_t a1)
 {
   sub_1C6E9784C(319, &qword_1EDEF67E0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_Substitution, MEMORY[0x1E69E62F8]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1C6EE4430();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_1C6E9784C(319, qword_1EDEF7CE8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID, MEMORY[0x1E69E6720]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -8048,10 +7050,10 @@ void sub_1C6E9784C(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
   }
 }
 
-uint64_t sub_1C6E978D8()
+uint64_t sub_1C6E978D8(uint64_t a1)
 {
   result = sub_1C6EE4430();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -8139,19 +7141,16 @@ void sub_1C6E97A14(uint64_t a1@<X8>)
   *(a1 + 9) = v4 & 1;
 }
 
-void sub_1C6E97A60(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+void sub_1C6E97A60(uint64_t a2@<X8>)
 {
-  v3 = *a1;
   sub_1C6E9B04C();
-  *a2 = v4;
-  *(a2 + 8) = v5;
-  *(a2 + 9) = v6 & 1;
+  *a2 = v3;
+  *(a2 + 8) = v4;
+  *(a2 + 9) = v5 & 1;
 }
 
-uint64_t sub_1C6E97AA4()
+uint64_t sub_1C6E97AA4(uint64_t a1, uint64_t a2)
 {
-  v2 = *v0;
-  v3 = *(v0 + 8);
   sub_1C6EE5580();
   sub_1C6EE4A00();
   return sub_1C6EE55A0();
@@ -8164,10 +7163,8 @@ uint64_t sub_1C6E97B10(uint64_t a1, uint64_t a2)
   return MEMORY[0x1EEE15710](a1, a2, v4);
 }
 
-uint64_t sub_1C6E97B5C()
+uint64_t sub_1C6E97B5C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *v0;
-  v3 = *(v0 + 8);
   sub_1C6EE5580();
   sub_1C6EE4A00();
   return sub_1C6EE55A0();
@@ -8248,36 +7245,36 @@ uint64_t sub_1C6E97D48()
   *v10 = "should_lower";
   *(v10 + 1) = 12;
   v10[16] = 2;
-  v11 = *MEMORY[0x1E69AADE8];
   v9();
-  v12 = v5 + 2 * v2 + v1[14];
+  v11 = v5 + 2 * v2 + v1[14];
   *(v5 + 2 * v2) = 3;
-  *v12 = "substitutions";
-  *(v12 + 8) = 13;
-  *(v12 + 16) = 2;
+  *v11 = "substitutions";
+  *(v11 + 8) = 13;
+  *(v11 + 16) = 2;
   v9();
   return sub_1C6EE4700();
 }
 
-uint64_t sub_1C6E97F60()
+uint64_t sub_1C6E97F60(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   result = sub_1C6EE44B0();
-  if (!v0)
+  if (!v4)
   {
-    while ((v2 & 1) == 0)
+    while ((v10 & 1) == 0)
     {
       switch(result)
       {
         case 3:
           type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_Substitution(0);
-          sub_1C6E9A0C8(&qword_1EC1F8F70, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_Substitution);
+          sub_1C6E9A0C8(&qword_1EC1F8F70, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_Substitution, &unk_1C6EF2018);
           sub_1C6EE4590();
           break;
         case 2:
           sub_1C6EE44D0();
           break;
         case 1:
-          sub_1C6E98080();
+          sub_1C6E98080(a1, v5, a2, a3);
           break;
       }
 
@@ -8288,11 +7285,11 @@ uint64_t sub_1C6E97F60()
   return result;
 }
 
-uint64_t sub_1C6E98080()
+uint64_t sub_1C6E98080(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec(0) + 28);
-  type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  sub_1C6E9A0C8(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec(0);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
+  sub_1C6E9A0C8(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID, &unk_1C6EF08BC);
   return sub_1C6EE45A0();
 }
 
@@ -8309,11 +7306,11 @@ uint64_t sub_1C6E98134(uint64_t a1, uint64_t a2, uint64_t a3)
     if (*(*(v3 + 8) + 16))
     {
       type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_Substitution(0);
-      sub_1C6E9A0C8(&qword_1EC1F8F70, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_Substitution);
+      sub_1C6E9A0C8(&qword_1EC1F8F70, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_Substitution, &unk_1C6EF2018);
       sub_1C6EE46D0();
     }
 
-    v6 = v3 + *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec(0) + 24);
+    type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec(0);
     return sub_1C6EE4410();
   }
 
@@ -8322,41 +7319,38 @@ uint64_t sub_1C6E98134(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_1C6E98258(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec(0);
-  sub_1C6E9AD30(a1 + *(v14 + 28), v8, &qword_1EC1F7EF0, &unk_1C6EE9280);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec(0);
+  sub_1C6E9AD30(a1 + *(v12 + 28), v7, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1C6E9AD98(v8, &qword_1EC1F7EF0, &unk_1C6EE9280);
+    return sub_1C6E9AD98(v7, &qword_1EC1F7EF0, &unk_1C6EE9280);
   }
 
-  sub_1C6E9AE58(v8, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-  sub_1C6E9A0C8(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  sub_1C6E9AE58(v7, v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  sub_1C6E9A0C8(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID, &unk_1C6EF08BC);
   sub_1C6EE46E0();
-  return sub_1C6E9ADF8(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  return sub_1C6E9ADF8(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
 }
 
 uint64_t sub_1C6E98468@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   *a2 = 0;
   *(a2 + 8) = MEMORY[0x1E69E7CC0];
-  v4 = a2 + *(a1 + 24);
   sub_1C6EE4420();
-  v5 = *(a1 + 28);
-  v6 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  v7 = *(*(v6 - 8) + 56);
+  v4 = *(a1 + 28);
+  v5 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
+  v6 = *(*(v5 - 8) + 56);
 
-  return v7(a2 + v5, 1, 1, v6);
+  return v6(a2 + v4, 1, 1, v5);
 }
 
 uint64_t sub_1C6E98514@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -8377,30 +7371,23 @@ uint64_t sub_1C6E98588(uint64_t a1, uint64_t a2)
   return v6(v2 + v4, a1, v5);
 }
 
-uint64_t (*sub_1C6E985FC(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_130;
-  v4 = v2 + *(a2 + 24);
-  return result;
-}
-
 uint64_t sub_1C6E98654(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E9A0C8(&qword_1EC1F8FB8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
+  v4 = sub_1C6E9A0C8(&qword_1EC1F8FB8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec, &unk_1C6EF22B0);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t sub_1C6E986F4(uint64_t a1)
 {
-  v2 = sub_1C6E9A0C8(&qword_1EC1F8B80, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
+  v2 = sub_1C6E9A0C8(&qword_1EC1F8B80, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec, &unk_1C6EF22E8);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E98760()
+uint64_t sub_1C6E98760(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E9A0C8(&qword_1EC1F8B80, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
+  sub_1C6E9A0C8(&qword_1EC1F8B80, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec, &unk_1C6EF22E8);
 
   return sub_1C6EE45F0();
 }
@@ -8449,12 +7436,13 @@ uint64_t sub_1C6E987E0()
   return sub_1C6EE4700();
 }
 
-uint64_t sub_1C6E98A28()
+uint64_t sub_1C6E98A28(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   while (1)
   {
     result = sub_1C6EE44B0();
-    if (v0 || (v2 & 1) != 0)
+    if (v4 || (v10 & 1) != 0)
     {
       break;
     }
@@ -8474,7 +7462,7 @@ uint64_t sub_1C6E98A28()
 
     else if (result == 1)
     {
-      sub_1C6E98B00();
+      sub_1C6E98B00(a1, v5, a2, a3);
     }
 
     else if (result == 2)
@@ -8486,11 +7474,11 @@ uint64_t sub_1C6E98A28()
   return result;
 }
 
-uint64_t sub_1C6E98B00()
+uint64_t sub_1C6E98B00(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec(0) + 32);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec(0);
   type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec(0);
-  sub_1C6E9A0C8(&qword_1EC1F8B80, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
+  sub_1C6E9A0C8(&qword_1EC1F8B80, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec, &unk_1C6EF22E8);
   return sub_1C6EE45A0();
 }
 
@@ -8521,7 +7509,7 @@ uint64_t sub_1C6E98BB4(uint64_t a1, uint64_t a2, uint64_t a3)
       sub_1C6EE46B0();
     }
 
-    v8 = v3 + *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec(0) + 28);
+    type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec(0);
     return sub_1C6EE4410();
   }
 
@@ -8530,28 +7518,26 @@ uint64_t sub_1C6E98BB4(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_1C6E98CB0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7DD8, &qword_1C6EE8B68);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec(0);
-  sub_1C6E9AD30(a1 + *(v14 + 32), v8, &qword_1EC1F7DD8, &qword_1C6EE8B68);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec(0);
+  sub_1C6E9AD30(a1 + *(v12 + 32), v7, &qword_1EC1F7DD8, &qword_1C6EE8B68);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1C6E9AD98(v8, &qword_1EC1F7DD8, &qword_1C6EE8B68);
+    return sub_1C6E9AD98(v7, &qword_1EC1F7DD8, &qword_1C6EE8B68);
   }
 
-  sub_1C6E9AE58(v8, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
-  sub_1C6E9A0C8(&qword_1EC1F8B80, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
+  sub_1C6E9AE58(v7, v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
+  sub_1C6E9A0C8(&qword_1EC1F8B80, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec, &unk_1C6EF22E8);
   sub_1C6EE46E0();
-  return sub_1C6E9ADF8(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
+  return sub_1C6E9ADF8(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
 }
 
 uint64_t sub_1C6E98EC0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -8560,39 +7546,31 @@ uint64_t sub_1C6E98EC0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   *(a2 + 8) = 0;
   *(a2 + 16) = 0xE000000000000000;
   *(a2 + 24) = MEMORY[0x1E69E7CC0];
-  v4 = a2 + *(a1 + 28);
   sub_1C6EE4420();
-  v5 = *(a1 + 32);
-  v6 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec(0);
-  v7 = *(*(v6 - 8) + 56);
+  v4 = *(a1 + 32);
+  v5 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec(0);
+  v6 = *(*(v5 - 8) + 56);
 
-  return v7(a2 + v5, 1, 1, v6);
-}
-
-uint64_t (*sub_1C6E98F74(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_131;
-  v4 = v2 + *(a2 + 28);
-  return result;
+  return v6(a2 + v4, 1, 1, v5);
 }
 
 uint64_t sub_1C6E98FCC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E9A0C8(&qword_1EC1F8FC0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec);
+  v4 = sub_1C6E9A0C8(&qword_1EC1F8FC0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec, &unk_1C6EF2148);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t sub_1C6E9906C(uint64_t a1)
 {
-  v2 = sub_1C6E9A0C8(&qword_1EC1F8B98, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec);
+  v2 = sub_1C6E9A0C8(&qword_1EC1F8B98, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec, &unk_1C6EF2180);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E990D8()
+uint64_t sub_1C6E990D8(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E9A0C8(&qword_1EC1F8B98, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec);
+  sub_1C6E9A0C8(&qword_1EC1F8B98, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec, &unk_1C6EF2180);
 
   return sub_1C6EE45F0();
 }
@@ -8633,12 +7611,12 @@ uint64_t sub_1C6E99158()
   return sub_1C6EE4700();
 }
 
-uint64_t sub_1C6E99368()
+uint64_t sub_1C6E99368(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = sub_1C6EE44B0();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       if (result == 3 || result == 2)
       {
@@ -8658,29 +7636,29 @@ uint64_t sub_1C6E99368()
   return result;
 }
 
-uint64_t sub_1C6E99434()
+uint64_t sub_1C6E99434(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (!*v0 || (v8 = *v0, v9 = *(v0 + 8), sub_1C6E9AEC0(), result = sub_1C6EE4660(), !v1))
+  if (!*v3 || (sub_1C6E9AEC0(), result = sub_1C6EE4660(), !v4))
   {
-    v3 = v0[3];
-    v4 = HIBYTE(v3) & 0xF;
-    if ((v3 & 0x2000000000000000) == 0)
+    v6 = v3[3];
+    v7 = HIBYTE(v6) & 0xF;
+    if ((v6 & 0x2000000000000000) == 0)
     {
-      v4 = v0[2] & 0xFFFFFFFFFFFFLL;
+      v7 = v3[2] & 0xFFFFFFFFFFFFLL;
     }
 
-    if (!v4 || (result = sub_1C6EE46C0(), !v1))
+    if (!v7 || (result = sub_1C6EE46C0(), !v4))
     {
-      v5 = v0[5];
-      v6 = HIBYTE(v5) & 0xF;
-      if ((v5 & 0x2000000000000000) == 0)
+      v8 = v3[5];
+      v9 = HIBYTE(v8) & 0xF;
+      if ((v8 & 0x2000000000000000) == 0)
       {
-        v6 = v0[4] & 0xFFFFFFFFFFFFLL;
+        v9 = v3[4] & 0xFFFFFFFFFFFFLL;
       }
 
-      if (!v6 || (result = sub_1C6EE46C0(), !v1))
+      if (!v9 || (result = sub_1C6EE46C0(), !v4))
       {
-        v7 = v0 + *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_Substitution(0) + 28);
+        type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_Substitution(0);
         return sub_1C6EE4410();
       }
     }
@@ -8689,7 +7667,7 @@ uint64_t sub_1C6E99434()
   return result;
 }
 
-uint64_t sub_1C6E99548@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_1C6E99548@<X0>(uint64_t a2@<X8>)
 {
   *a2 = 0;
   *(a2 + 8) = 1;
@@ -8697,7 +7675,6 @@ uint64_t sub_1C6E99548@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   *(a2 + 24) = 0xE000000000000000;
   *(a2 + 32) = 0;
   *(a2 + 40) = 0xE000000000000000;
-  v2 = a2 + *(a1 + 28);
   return sub_1C6EE4420();
 }
 
@@ -8719,30 +7696,23 @@ uint64_t sub_1C6E99610(uint64_t a1, uint64_t a2)
   return v6(v2 + v4, a1, v5);
 }
 
-uint64_t (*sub_1C6E99684(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_132;
-  v4 = v2 + *(a2 + 28);
-  return result;
-}
-
 uint64_t sub_1C6E996DC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E9A0C8(&qword_1EC1F8FC8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_Substitution);
+  v4 = sub_1C6E9A0C8(&qword_1EC1F8FC8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_Substitution, &unk_1C6EF1FE0);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t sub_1C6E9977C(uint64_t a1)
 {
-  v2 = sub_1C6E9A0C8(&qword_1EC1F8F70, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_Substitution);
+  v2 = sub_1C6E9A0C8(&qword_1EC1F8F70, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_Substitution, &unk_1C6EF2018);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E997E8()
+uint64_t sub_1C6E997E8(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E9A0C8(&qword_1EC1F8F70, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_Substitution);
+  sub_1C6E9A0C8(&qword_1EC1F8F70, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_Substitution, &unk_1C6EF2018);
 
   return sub_1C6EE45F0();
 }
@@ -8755,14 +7725,14 @@ uint64_t sub_1C6E99868()
   return sub_1C6EE4710();
 }
 
-uint64_t sub_1C6E998B4()
+uint64_t sub_1C6E998B4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   do
   {
     result = sub_1C6EE44B0();
   }
 
-  while (!v0 && (v2 & 1) == 0);
+  while (!v3 && (v5 & 1) == 0);
   return result;
 }
 
@@ -8784,43 +7754,43 @@ uint64_t sub_1C6E99998(uint64_t a1)
 
 uint64_t sub_1C6E99A54(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E9A0C8(&qword_1EC1F8FD8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SubstitutionType);
+  v4 = sub_1C6E9A0C8(&qword_1EC1F8FD8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SubstitutionType, &unk_1C6EF1E78);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t sub_1C6E99AF4(uint64_t a1)
 {
-  v2 = sub_1C6E9A0C8(&qword_1EC1F8F50, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SubstitutionType);
+  v2 = sub_1C6E9A0C8(&qword_1EC1F8F50, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SubstitutionType, &unk_1C6EF1EB0);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E99B60()
+uint64_t sub_1C6E99B60(uint64_t a1, uint64_t a2)
 {
   sub_1C6EE5580();
   sub_1C6EE4A00();
   return sub_1C6EE55A0();
 }
 
-uint64_t sub_1C6E99BB8()
+uint64_t sub_1C6E99BB8(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E9A0C8(&qword_1EC1F8F50, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SubstitutionType);
+  sub_1C6E9A0C8(&qword_1EC1F8F50, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_SubstitutionType, &unk_1C6EF1EB0);
 
   return sub_1C6EE45F0();
 }
 
-uint64_t sub_1C6E99C34()
+uint64_t sub_1C6E99C34(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   sub_1C6EE5580();
   sub_1C6EE4A00();
   return sub_1C6EE55A0();
 }
 
-uint64_t sub_1C6E99C88()
+uint64_t sub_1C6E99C88(uint64_t a1, uint64_t a2)
 {
   sub_1C6EE4430();
-  sub_1C6E9A0C8(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
+  sub_1C6E9A0C8(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
   return sub_1C6EE4A50() & 1;
 }
 
@@ -8868,21 +7838,21 @@ uint64_t sub_1C6E99D10()
   return sub_1C6EE4700();
 }
 
-uint64_t sub_1C6E99F7C@<X0>(void *a1@<X2>, uint64_t a2@<X3>, uint64_t a3@<X8>)
+uint64_t sub_1C6E99F7C@<X0>(void *a1@<X2>, uint64_t a2@<X3>, uint64_t a4@<X8>)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v5 = sub_1C6EE4720();
-  v6 = __swift_project_value_buffer(v5, a2);
-  v7 = *(*(v5 - 8) + 16);
+  v6 = sub_1C6EE4720();
+  v7 = __swift_project_value_buffer(v6, a2);
+  v8 = *(*(v6 - 8) + 16);
 
-  return v7(a3, v6, v5);
+  return v8(a4, v7, v6);
 }
 
-uint64_t sub_1C6E9A0C8(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1C6E9A0C8(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8895,7 +7865,7 @@ uint64_t sub_1C6E9A0C8(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_1C6E9A328(uint64_t a1, uint64_t *a2)
+uint64_t sub_1C6E9A328(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -8910,155 +7880,146 @@ uint64_t sub_1C6E9A558(unsigned __int8 *a1, void *a2)
 {
   v4 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v28 = &v26 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7DD8, &qword_1C6EE8B68);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8 - 8);
-  v11 = &v26 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8B60, &unk_1C6EF2360);
-  v13 = v12 - 8;
-  v14 = *(*(v12 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v16 = &v26 - v15;
-  v27 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec(0);
-  v17 = *(v27 + 32);
-  v18 = *(v13 + 56);
-  v29 = a1;
-  sub_1C6E9AD30(&a1[v17], v16, &qword_1EC1F7DD8, &qword_1C6EE8B68);
-  sub_1C6E9AD30(a2 + v17, &v16[v18], &qword_1EC1F7DD8, &qword_1C6EE8B68);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, v4) == 1)
+  v24 = &v22 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7DD8, &qword_1C6EE8B68);
+  MEMORY[0x1EEE9AC00](v7 - 8);
+  v9 = &v22 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8B60, &unk_1C6EF2360);
+  v11 = v10 - 8;
+  MEMORY[0x1EEE9AC00](v10);
+  v13 = &v22 - v12;
+  v23 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_WordPieceNormalizerSpec(0);
+  v14 = *(v23 + 32);
+  v15 = *(v11 + 56);
+  v25 = a1;
+  sub_1C6E9AD30(&a1[v14], v13, &qword_1EC1F7DD8, &qword_1C6EE8B68);
+  sub_1C6E9AD30(a2 + v14, &v13[v15], &qword_1EC1F7DD8, &qword_1C6EE8B68);
+  v16 = *(v5 + 48);
+  if (v16(v13, 1, v4) == 1)
   {
-    if (v19(&v16[v18], 1, v4) == 1)
+    if (v16(&v13[v15], 1, v4) == 1)
     {
-      sub_1C6E9AD98(v16, &qword_1EC1F7DD8, &qword_1C6EE8B68);
+      sub_1C6E9AD98(v13, &qword_1EC1F7DD8, &qword_1C6EE8B68);
       goto LABEL_8;
     }
 
     goto LABEL_6;
   }
 
-  sub_1C6E9AD30(v16, v11, &qword_1EC1F7DD8, &qword_1C6EE8B68);
-  if (v19(&v16[v18], 1, v4) == 1)
+  sub_1C6E9AD30(v13, v9, &qword_1EC1F7DD8, &qword_1C6EE8B68);
+  if (v16(&v13[v15], 1, v4) == 1)
   {
-    sub_1C6E9ADF8(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
+    sub_1C6E9ADF8(v9, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
 LABEL_6:
-    sub_1C6E9AD98(v16, &qword_1EC1F8B60, &unk_1C6EF2360);
+    sub_1C6E9AD98(v13, &qword_1EC1F8B60, &unk_1C6EF2360);
 LABEL_14:
-    v24 = 0;
-    return v24 & 1;
+    v20 = 0;
+    return v20 & 1;
   }
 
-  v20 = v28;
-  sub_1C6E9AE58(&v16[v18], v28, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
-  v21 = sub_1C6E9A8FC(v11, v20);
-  sub_1C6E9ADF8(v20, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
-  sub_1C6E9ADF8(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
-  sub_1C6E9AD98(v16, &qword_1EC1F7DD8, &qword_1C6EE8B68);
-  if ((v21 & 1) == 0)
+  v17 = v24;
+  sub_1C6E9AE58(&v13[v15], v24, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
+  v18 = sub_1C6E9A8FC(v9, v17);
+  sub_1C6E9ADF8(v17, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
+  sub_1C6E9ADF8(v9, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec);
+  sub_1C6E9AD98(v13, &qword_1EC1F7DD8, &qword_1C6EE8B68);
+  if ((v18 & 1) == 0)
   {
     goto LABEL_14;
   }
 
 LABEL_8:
-  v22 = v29;
-  if (*v29 != *a2 || (*(v29 + 1) != a2[1] || *(v29 + 2) != a2[2]) && (sub_1C6EE54B0() & 1) == 0 || (sub_1C6E59BCC(*(v22 + 3), a2[3]) & 1) == 0)
+  v19 = v25;
+  if (*v25 != *a2 || (*(v25 + 1) != a2[1] || *(v25 + 2) != a2[2]) && (sub_1C6EE54B0() & 1) == 0 || (sub_1C6E59BCC(*(v19 + 3), a2[3]) & 1) == 0)
   {
     goto LABEL_14;
   }
 
-  v23 = *(v27 + 28);
   sub_1C6EE4430();
-  sub_1C6E9A0C8(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
-  v24 = sub_1C6EE4A50();
-  return v24 & 1;
+  sub_1C6E9A0C8(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+  v20 = sub_1C6EE4A50();
+  return v20 & 1;
 }
 
 uint64_t sub_1C6E9A8FC(unsigned __int8 *a1, unsigned __int8 *a2)
 {
-  v4 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
+  v4 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v31 = (&v29 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8 - 8);
-  v11 = (&v29 - v10);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8220, &qword_1C6EEC6E0);
-  v13 = v12 - 8;
-  v14 = *(*(v12 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v16 = &v29 - v15;
-  v30 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec(0);
-  v17 = *(v30 + 28);
-  v18 = *(v13 + 56);
-  v32 = a1;
-  sub_1C6E9AD30(&a1[v17], v16, &qword_1EC1F7EF0, &unk_1C6EE9280);
-  sub_1C6E9AD30(&a2[v17], &v16[v18], &qword_1EC1F7EF0, &unk_1C6EE9280);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, v4) != 1)
+  v26 = (&v24 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
+  MEMORY[0x1EEE9AC00](v7 - 8);
+  v9 = (&v24 - v8);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8220, &qword_1C6EEC6E0);
+  v11 = v10 - 8;
+  MEMORY[0x1EEE9AC00](v10);
+  v13 = &v24 - v12;
+  v25 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec(0);
+  v14 = *(v25 + 28);
+  v15 = *(v11 + 56);
+  v27 = a1;
+  sub_1C6E9AD30(&a1[v14], v13, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  sub_1C6E9AD30(&a2[v14], &v13[v15], &qword_1EC1F7EF0, &unk_1C6EE9280);
+  v16 = *(v5 + 48);
+  if (v16(v13, 1, v4) != 1)
   {
-    sub_1C6E9AD30(v16, v11, &qword_1EC1F7EF0, &unk_1C6EE9280);
-    if (v19(&v16[v18], 1, v4) != 1)
+    sub_1C6E9AD30(v13, v9, &qword_1EC1F7EF0, &unk_1C6EE9280);
+    if (v16(&v13[v15], 1, v4) != 1)
     {
-      v22 = v31;
-      sub_1C6E9AE58(&v16[v18], v31, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-      v23 = *v11 == *v22 && v11[1] == v22[1];
-      if (v23 || (sub_1C6EE54B0() & 1) != 0)
+      v19 = v26;
+      sub_1C6E9AE58(&v13[v15], v26, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+      v20 = *v9 == *v19 && v9[1] == v19[1];
+      if (v20 || (sub_1C6EE54B0() & 1) != 0)
       {
-        v24 = *(v4 + 20);
         sub_1C6EE4430();
-        sub_1C6E9A0C8(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
-        v25 = sub_1C6EE4A50();
-        sub_1C6E9ADF8(v22, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-        sub_1C6E9ADF8(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-        sub_1C6E9AD98(v16, &qword_1EC1F7EF0, &unk_1C6EE9280);
-        if (v25)
+        sub_1C6E9A0C8(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+        v21 = sub_1C6EE4A50();
+        sub_1C6E9ADF8(v19, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+        sub_1C6E9ADF8(v9, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+        sub_1C6E9AD98(v13, &qword_1EC1F7EF0, &unk_1C6EE9280);
+        if (v21)
         {
           goto LABEL_14;
         }
 
 LABEL_17:
-        v27 = 0;
-        return v27 & 1;
+        v22 = 0;
+        return v22 & 1;
       }
 
-      sub_1C6E9ADF8(v22, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-      sub_1C6E9ADF8(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-      v20 = &qword_1EC1F7EF0;
-      v21 = &unk_1C6EE9280;
+      sub_1C6E9ADF8(v19, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+      sub_1C6E9ADF8(v9, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+      v17 = &qword_1EC1F7EF0;
+      v18 = &unk_1C6EE9280;
 LABEL_7:
-      sub_1C6E9AD98(v16, v20, v21);
+      sub_1C6E9AD98(v13, v17, v18);
       goto LABEL_17;
     }
 
-    sub_1C6E9ADF8(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+    sub_1C6E9ADF8(v9, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
 LABEL_6:
-    v20 = &qword_1EC1F8220;
-    v21 = &qword_1C6EEC6E0;
+    v17 = &qword_1EC1F8220;
+    v18 = &qword_1C6EEC6E0;
     goto LABEL_7;
   }
 
-  if (v19(&v16[v18], 1, v4) != 1)
+  if (v16(&v13[v15], 1, v4) != 1)
   {
     goto LABEL_6;
   }
 
-  sub_1C6E9AD98(v16, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  sub_1C6E9AD98(v13, &qword_1EC1F7EF0, &unk_1C6EE9280);
 LABEL_14:
-  if (*v32 != *a2 || (sub_1C6E5E85C(*(v32 + 1), *(a2 + 1)) & 1) == 0)
+  if (*v27 != *a2 || (sub_1C6E5E85C(*(v27 + 1), *(a2 + 1)) & 1) == 0)
   {
     goto LABEL_17;
   }
 
-  v26 = *(v30 + 24);
   sub_1C6EE4430();
-  sub_1C6E9A0C8(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
-  v27 = sub_1C6EE4A50();
-  return v27 & 1;
+  sub_1C6E9A0C8(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+  v22 = sub_1C6EE4A50();
+  return v22 & 1;
 }
 
 uint64_t sub_1C6E9AD30(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
@@ -9145,25 +8106,25 @@ uint64_t sub_1C6E9AF14(uint64_t *a1, uint64_t a2)
   v6 = a1[2] == *(a2 + 16) && a1[3] == *(a2 + 24);
   if (v6 || (sub_1C6EE54B0()) && (a1[4] == *(a2 + 32) && a1[5] == *(a2 + 40) || (sub_1C6EE54B0()))
   {
-    v7 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_Substitution(0) + 28);
+    type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_Substitution(0);
     sub_1C6EE4430();
-    sub_1C6E9A0C8(&qword_1EDEF6870, MEMORY[0x1E69AAC08]);
+    sub_1C6E9A0C8(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
     return sub_1C6EE4A50() & 1;
   }
 
   return 0;
 }
 
-void sub_1C6E9B088()
+void sub_1C6E9B088(uint64_t a1)
 {
   sub_1C6E953AC();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1C6EE4430();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_1C6E9784C(319, qword_1EDEF6D68, type metadata accessor for Com_Apple_News_Algorithms_Proto_Tokenizer_NormalizerSpec, MEMORY[0x1E69E6720]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -9171,10 +8132,10 @@ void sub_1C6E9B088()
   }
 }
 
-uint64_t sub_1C6E9B194()
+uint64_t sub_1C6E9B194(uint64_t a1)
 {
   result = sub_1C6EE4430();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -9183,22 +8144,22 @@ uint64_t sub_1C6E9B194()
   return result;
 }
 
-void sub_1C6E9B2A8()
+void sub_1C6E9B2A8(uint64_t a1)
 {
   sub_1C6E9B434(319, &qword_1EDEF67F0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ComputationNode, MEMORY[0x1E69E62F8]);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1C6E9B434(319, &qword_1EDEF67F8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ModelPackage, MEMORY[0x1E69E62F8]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_1C6E9B434(319, &qword_1EDEF67E8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_DefaultFeatures, MEMORY[0x1E69E62F8]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_1C6EE4430();
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           sub_1C6E9B434(319, qword_1EDEF7318, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader, MEMORY[0x1E69E6720]);
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             swift_cvw_initStructMetadataWithLayoutString();
           }
@@ -9221,16 +8182,16 @@ void sub_1C6E9B434(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_
   }
 }
 
-void sub_1C6E9B500()
+void sub_1C6E9B500(uint64_t a1)
 {
   sub_1C6E953AC();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1C6EE4430();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_1C6E9B434(319, qword_1EDEF7AC0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features, MEMORY[0x1E69E6720]);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         swift_cvw_initStructMetadataWithLayoutString();
       }
@@ -9238,32 +8199,32 @@ void sub_1C6E9B500()
   }
 }
 
-void sub_1C6E9B5F4()
+void sub_1C6E9B5F4(uint64_t a1)
 {
   sub_1C6EE4430();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1C6E9B434(319, qword_1EDEF7CE8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID, MEMORY[0x1E69E6720]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void sub_1C6E9B700()
+void sub_1C6E9B700(uint64_t a1)
 {
   sub_1C6E953AC();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_1C6E9B434(319, &qword_1EC1F9000, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_RetentionPolicyData, MEMORY[0x1E69E62F8]);
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       sub_1C6EE4430();
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         sub_1C6E9B434(319, qword_1EDEF7AC0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features, MEMORY[0x1E69E6720]);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -9298,33 +8259,33 @@ uint64_t sub_1C6E9B814()
   *v10 = "graph_nodes";
   *(v10 + 8) = 11;
   *(v10 + 16) = 2;
-  v11 = *MEMORY[0x1E69AADE8];
   v9();
-  v12 = (v5 + 2 * v2);
-  v13 = v12 + v1[14];
-  *v12 = 3;
-  *v13 = "model_packages";
-  *(v13 + 1) = 14;
-  v13[16] = 2;
+  v11 = (v5 + 2 * v2);
+  v12 = v11 + v1[14];
+  *v11 = 3;
+  *v12 = "model_packages";
+  *(v12 + 1) = 14;
+  v12[16] = 2;
   v9();
-  v14 = (v5 + 3 * v2);
-  v15 = v14 + v1[14];
-  *v14 = 4;
-  *v15 = "default_features";
-  *(v15 + 1) = 16;
-  v15[16] = 2;
+  v13 = (v5 + 3 * v2);
+  v14 = v13 + v1[14];
+  *v13 = 4;
+  *v14 = "default_features";
+  *(v14 + 1) = 16;
+  v14[16] = 2;
   v9();
   return sub_1C6EE4700();
 }
 
-uint64_t sub_1C6E9BA68()
+uint64_t sub_1C6E9BA68(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   result = sub_1C6EE44B0();
-  if (!v0)
+  if (!v4)
   {
     while (1)
     {
-      if (v2)
+      if (v10)
       {
         return result;
       }
@@ -9333,18 +8294,18 @@ uint64_t sub_1C6E9BA68()
       {
         if (result == 4)
         {
-          v3 = v0;
+          v11 = v4;
           type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_DefaultFeatures(0);
-          sub_1C6E9F550(&qword_1EDEF6300, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_DefaultFeatures);
+          sub_1C6E9F550(&qword_1EDEF6300, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_DefaultFeatures, &unk_1C6EF2ACC);
 LABEL_5:
-          v0 = v3;
+          v4 = v11;
           sub_1C6EE4590();
           goto LABEL_6;
         }
 
         if (result == 5)
         {
-          sub_1C6E9BC30();
+          sub_1C6E9BC30(a1, v5, a2, a3);
         }
       }
 
@@ -9352,17 +8313,17 @@ LABEL_5:
       {
         if (result == 2)
         {
-          v3 = v0;
+          v11 = v4;
           type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ComputationNode(0);
-          sub_1C6E9F550(qword_1EDEF72B8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ComputationNode);
+          sub_1C6E9F550(qword_1EDEF72B8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ComputationNode, &unk_1C6EEC658);
           goto LABEL_5;
         }
 
         if (result == 3)
         {
-          v3 = v0;
+          v11 = v4;
           type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ModelPackage(0);
-          sub_1C6E9F550(qword_1EDEF8C70, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ModelPackage);
+          sub_1C6E9F550(qword_1EDEF8C70, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ModelPackage, &unk_1C6EEC4F0);
           goto LABEL_5;
         }
       }
@@ -9375,11 +8336,11 @@ LABEL_6:
   return result;
 }
 
-uint64_t sub_1C6E9BC30()
+uint64_t sub_1C6E9BC30(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpec(0) + 32);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpec(0);
   type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader(0);
-  sub_1C6E9F550(qword_1EDEF7368, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader);
+  sub_1C6E9F550(qword_1EDEF7368, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader, &unk_1C6EF2C34);
   return sub_1C6EE45A0();
 }
 
@@ -9389,7 +8350,7 @@ uint64_t sub_1C6E9BCE4(uint64_t a1, uint64_t a2, uint64_t a3)
   if (*(*v3 + 16))
   {
     type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ComputationNode(0);
-    sub_1C6E9F550(qword_1EDEF72B8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ComputationNode);
+    sub_1C6E9F550(qword_1EDEF72B8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ComputationNode, &unk_1C6EEC658);
     result = sub_1C6EE46D0();
     if (v4)
     {
@@ -9402,7 +8363,7 @@ uint64_t sub_1C6E9BCE4(uint64_t a1, uint64_t a2, uint64_t a3)
   if (*(v3[1] + 16))
   {
     type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ModelPackage(0);
-    sub_1C6E9F550(qword_1EDEF8C70, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ModelPackage);
+    sub_1C6E9F550(qword_1EDEF8C70, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_ModelPackage, &unk_1C6EEC4F0);
     v10 = v5;
     result = sub_1C6EE46D0();
     if (v5)
@@ -9416,12 +8377,12 @@ uint64_t sub_1C6E9BCE4(uint64_t a1, uint64_t a2, uint64_t a3)
     v10 = v5;
   }
 
-  if (!*(v3[2] + 16) || (type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_DefaultFeatures(0), sub_1C6E9F550(&qword_1EDEF6300, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_DefaultFeatures), result = sub_1C6EE46D0(), !v10))
+  if (!*(v3[2] + 16) || (type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_DefaultFeatures(0), sub_1C6E9F550(&qword_1EDEF6300, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_DefaultFeatures, &unk_1C6EF2ACC), result = sub_1C6EE46D0(), !v10))
   {
     result = sub_1C6E9BED8(v3, a1, a2, a3);
     if (!v10)
     {
-      v11 = v3 + *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpec(0) + 28);
+      type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpec(0);
       return sub_1C6EE4410();
     }
   }
@@ -9431,28 +8392,26 @@ uint64_t sub_1C6E9BCE4(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_1C6E9BED8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF8, &unk_1C6EF23C0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpec(0);
-  sub_1C6EA130C(a1 + *(v14 + 32), v8, &qword_1EC1F7EF8, &unk_1C6EF23C0);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpec(0);
+  sub_1C6EA130C(a1 + *(v12 + 32), v7, &qword_1EC1F7EF8, &unk_1C6EF23C0);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1C6EA1374(v8, &qword_1EC1F7EF8, &unk_1C6EF23C0);
+    return sub_1C6EA1374(v7, &qword_1EC1F7EF8, &unk_1C6EF23C0);
   }
 
-  sub_1C6E9FD60(v8, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader);
-  sub_1C6E9F550(qword_1EDEF7368, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader);
+  sub_1C6E9FD60(v7, v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader);
+  sub_1C6E9F550(qword_1EDEF7368, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader, &unk_1C6EF2C34);
   sub_1C6EE46E0();
-  return sub_1C6E9FDC8(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader);
+  return sub_1C6E9FDC8(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader);
 }
 
 uint64_t sub_1C6E9C0E8@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
@@ -9461,39 +8420,31 @@ uint64_t sub_1C6E9C0E8@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
   *a2 = MEMORY[0x1E69E7CC0];
   *(a2 + 1) = v4;
   *(a2 + 2) = v4;
-  v5 = &a2[*(a1 + 28)];
   sub_1C6EE4420();
-  v6 = *(a1 + 32);
-  v7 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader(0);
-  v8 = *(*(v7 - 8) + 56);
+  v5 = *(a1 + 32);
+  v6 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader(0);
+  v7 = *(*(v6 - 8) + 56);
 
-  return v8(&a2[v6], 1, 1, v7);
-}
-
-uint64_t (*sub_1C6E9C194(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_134;
-  v4 = v2 + *(a2 + 28);
-  return result;
+  return v7(&a2[v5], 1, 1, v6);
 }
 
 uint64_t sub_1C6E9C1EC(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E9F550(&qword_1EC1F90B0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpec);
+  v4 = sub_1C6E9F550(&qword_1EC1F90B0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpec, &unk_1C6EF2D64);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t sub_1C6E9C28C(uint64_t a1)
 {
-  v2 = sub_1C6E9F550(qword_1EDEF7A60, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpec);
+  v2 = sub_1C6E9F550(qword_1EDEF7A60, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpec, &unk_1C6EF2D9C);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E9C2F8()
+uint64_t sub_1C6E9C2F8(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E9F550(qword_1EDEF7A60, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpec);
+  sub_1C6E9F550(qword_1EDEF7A60, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpec, &unk_1C6EF2D9C);
 
   return sub_1C6EE45F0();
 }
@@ -9528,19 +8479,20 @@ uint64_t sub_1C6E9C378()
   return sub_1C6EE4700();
 }
 
-uint64_t sub_1C6E9C53C()
+uint64_t sub_1C6E9C53C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   while (1)
   {
     result = sub_1C6EE44B0();
-    if (v0 || (v2 & 1) != 0)
+    if (v4 || (v10 & 1) != 0)
     {
       break;
     }
 
     if (result == 1)
     {
-      sub_1C6E9C5CC();
+      sub_1C6E9C5CC(a1, v5, a2, a3);
     }
 
     else if (result == 2)
@@ -9552,11 +8504,11 @@ uint64_t sub_1C6E9C53C()
   return result;
 }
 
-uint64_t sub_1C6E9C5CC()
+uint64_t sub_1C6E9C5CC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader(0) + 24);
-  type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  sub_1C6E9F550(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader(0);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
+  sub_1C6E9F550(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID, &unk_1C6EF08BC);
   return sub_1C6EE45A0();
 }
 
@@ -9565,20 +8517,19 @@ uint64_t sub_1C6E9C680(uint64_t a1, uint64_t a2, uint64_t a3)
   result = sub_1C6E9C72C(v3, a1, a2, a3);
   if (!v4)
   {
-    v6 = *v3;
-    v7 = v3[1];
-    v8 = HIBYTE(v7) & 0xF;
-    if ((v7 & 0x2000000000000000) == 0)
+    v6 = v3[1];
+    v7 = HIBYTE(v6) & 0xF;
+    if ((v6 & 0x2000000000000000) == 0)
     {
-      v8 = *v3 & 0xFFFFFFFFFFFFLL;
+      v7 = *v3 & 0xFFFFFFFFFFFFLL;
     }
 
-    if (v8)
+    if (v7)
     {
       sub_1C6EE46C0();
     }
 
-    v9 = v3 + *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader(0) + 20);
+    type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader(0);
     return sub_1C6EE4410();
   }
 
@@ -9587,67 +8538,57 @@ uint64_t sub_1C6E9C680(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_1C6E9C72C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader(0);
-  sub_1C6EA130C(a1 + *(v14 + 24), v8, &qword_1EC1F7EF0, &unk_1C6EE9280);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader(0);
+  sub_1C6EA130C(a1 + *(v12 + 24), v7, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1C6EA1374(v8, &qword_1EC1F7EF0, &unk_1C6EE9280);
+    return sub_1C6EA1374(v7, &qword_1EC1F7EF0, &unk_1C6EE9280);
   }
 
-  sub_1C6E9FD60(v8, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
-  sub_1C6E9F550(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  sub_1C6E9FD60(v7, v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  sub_1C6E9F550(qword_1EDEF7D30, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID, &unk_1C6EF08BC);
   sub_1C6EE46E0();
-  return sub_1C6E9FDC8(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+  return sub_1C6E9FDC8(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
 }
 
 uint64_t sub_1C6E9C940@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
 {
   *a2 = 0;
   *(a2 + 1) = 0xE000000000000000;
-  v4 = &a2[*(a1 + 20)];
   sub_1C6EE4420();
-  v5 = *(a1 + 24);
-  v6 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID();
-  v7 = *(*(v6 - 8) + 56);
+  v4 = *(a1 + 24);
+  v5 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
+  v6 = *(*(v5 - 8) + 56);
 
-  return v7(&a2[v5], 1, 1, v6);
-}
-
-uint64_t (*sub_1C6E9C9E4(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_135;
-  v4 = v2 + *(a2 + 20);
-  return result;
+  return v6(&a2[v4], 1, 1, v5);
 }
 
 uint64_t sub_1C6E9CA3C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E9F550(&qword_1EC1F90C0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader);
+  v4 = sub_1C6E9F550(&qword_1EC1F90C0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader, &unk_1C6EF2BFC);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t sub_1C6E9CADC(uint64_t a1)
 {
-  v2 = sub_1C6E9F550(qword_1EDEF7368, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader);
+  v2 = sub_1C6E9F550(qword_1EDEF7368, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader, &unk_1C6EF2C34);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E9CB48()
+uint64_t sub_1C6E9CB48(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E9F550(qword_1EDEF7368, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader);
+  sub_1C6E9F550(qword_1EDEF7368, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader, &unk_1C6EF2C34);
 
   return sub_1C6EE45F0();
 }
@@ -9678,17 +8619,17 @@ uint64_t sub_1C6E9CBC8()
   *v10 = "defaults";
   *(v10 + 1) = 8;
   v10[16] = 2;
-  v11 = *MEMORY[0x1E69AADC8];
   v9();
   return sub_1C6EE4700();
 }
 
-uint64_t sub_1C6E9CD98()
+uint64_t sub_1C6E9CD98(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   while (1)
   {
     result = sub_1C6EE44B0();
-    if (v0 || (v2 & 1) != 0)
+    if (v4 || (v10 & 1) != 0)
     {
       break;
     }
@@ -9700,18 +8641,18 @@ uint64_t sub_1C6E9CD98()
 
     else if (result == 2)
     {
-      sub_1C6E9CE28();
+      sub_1C6E9CE28(a1, v5, a2, a3);
     }
   }
 
   return result;
 }
 
-uint64_t sub_1C6E9CE28()
+uint64_t sub_1C6E9CE28(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_DefaultFeatures(0) + 24);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_DefaultFeatures(0);
   type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features(0);
-  sub_1C6E9F550(qword_1EDEF7B08, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+  sub_1C6E9F550(qword_1EDEF7B08, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features, &unk_1C6EF40C8);
   return sub_1C6EE45A0();
 }
 
@@ -9722,7 +8663,7 @@ uint64_t sub_1C6E9CEDC(uint64_t a1, uint64_t a2, uint64_t a3)
     result = sub_1C6E9CF7C(v3, a1, a2, a3);
     if (!v4)
     {
-      v9 = v3 + *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_DefaultFeatures(0) + 20);
+      type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_DefaultFeatures(0);
       return sub_1C6EE4410();
     }
   }
@@ -9732,81 +8673,71 @@ uint64_t sub_1C6E9CEDC(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_1C6E9CF7C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7D68, &unk_1C6EE89B0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_DefaultFeatures(0);
-  sub_1C6EA130C(a1 + *(v14 + 24), v8, &qword_1EC1F7D68, &unk_1C6EE89B0);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_DefaultFeatures(0);
+  sub_1C6EA130C(a1 + *(v12 + 24), v7, &qword_1EC1F7D68, &unk_1C6EE89B0);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return sub_1C6EA1374(v8, &qword_1EC1F7D68, &unk_1C6EE89B0);
+    return sub_1C6EA1374(v7, &qword_1EC1F7D68, &unk_1C6EE89B0);
   }
 
-  sub_1C6E9FD60(v8, v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
-  sub_1C6E9F550(qword_1EDEF7B08, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+  sub_1C6E9FD60(v7, v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+  sub_1C6E9F550(qword_1EDEF7B08, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features, &unk_1C6EF40C8);
   sub_1C6EE46E0();
-  return sub_1C6E9FDC8(v13, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+  return sub_1C6E9FDC8(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
 }
 
 uint64_t sub_1C6E9D18C@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
 {
   *a2 = MEMORY[0x1E69E7CC0];
-  v4 = &a2[*(a1 + 20)];
   sub_1C6EE4420();
-  v5 = *(a1 + 24);
-  v6 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features(0);
-  v7 = *(*(v6 - 8) + 56);
+  v4 = *(a1 + 24);
+  v5 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features(0);
+  v6 = *(*(v5 - 8) + 56);
 
-  return v7(&a2[v5], 1, 1, v6);
-}
-
-uint64_t (*sub_1C6E9D234(uint64_t a1, uint64_t a2))()
-{
-  result = nullsub_136;
-  v4 = v2 + *(a2 + 20);
-  return result;
+  return v6(&a2[v4], 1, 1, v5);
 }
 
 uint64_t sub_1C6E9D28C(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_1C6E9F550(&qword_1EC1F90C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_DefaultFeatures);
+  v4 = sub_1C6E9F550(&qword_1EC1F90C8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_DefaultFeatures, &unk_1C6EF2A94);
 
   return MEMORY[0x1EEE15708](a1, a2, v4);
 }
 
 uint64_t sub_1C6E9D32C(uint64_t a1)
 {
-  v2 = sub_1C6E9F550(&qword_1EDEF6300, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_DefaultFeatures);
+  v2 = sub_1C6E9F550(&qword_1EDEF6300, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_DefaultFeatures, &unk_1C6EF2ACC);
 
   return MEMORY[0x1EEE15928](a1, v2);
 }
 
-uint64_t sub_1C6E9D398()
+uint64_t sub_1C6E9D398(uint64_t a1, uint64_t a2)
 {
-  sub_1C6E9F550(&qword_1EDEF6300, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_DefaultFeatures);
+  sub_1C6E9F550(&qword_1EDEF6300, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_DefaultFeatures, &unk_1C6EF2ACC);
 
   return sub_1C6EE45F0();
 }
 
-uint64_t sub_1C6E9D438()
+uint64_t sub_1C6E9D438(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = sub_1C6EE44B0();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       if (result == 1)
       {
         type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiApiBinding(0);
-        sub_1C6E9F550(&qword_1EC1F9040, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiApiBinding);
+        sub_1C6E9F550(&qword_1EC1F9040, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiApiBinding, &unk_1C6EF27FC);
         sub_1C6EE4590();
       }
 
@@ -9817,13 +8748,1072 @@ uint64_t sub_1C6E9D438()
   return result;
 }
 
-uint64_t sub_1C6E9D518()
+uint64_t sub_1C6E9D518(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (!*(*v0 + 16) || (type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiApiBinding(0), sub_1C6E9F550(&qword_1EC1F9040, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiApiBinding), result = sub_1C6EE46D0(), !v1))
+  if (!*(*v3 + 16) || (type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiApiBinding(0), sub_1C6E9F550(&qword_1EC1F9040, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiApiBinding, &unk_1C6EF27FC), result = sub_1C6EE46D0(), !v4))
   {
-    v3 = v0 + *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiApiSpec(0) + 20);
+    type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiApiSpec(0);
     return sub_1C6EE4410();
   }
 
   return result;
+}
+
+uint64_t sub_1C6E9D644@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v4 = *(a1 + 20);
+  v5 = sub_1C6EE4430();
+  v6 = *(*(v5 - 8) + 16);
+
+  return v6(a2, v2 + v4, v5);
+}
+
+uint64_t sub_1C6E9D6B8(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a2 + 20);
+  v5 = sub_1C6EE4430();
+  v6 = *(*(v5 - 8) + 40);
+
+  return v6(v2 + v4, a1, v5);
+}
+
+uint64_t sub_1C6E9D784(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_1C6E9F550(&qword_1EC1F90D0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiApiSpec, &unk_1C6EF292C);
+
+  return MEMORY[0x1EEE15708](a1, a2, v4);
+}
+
+uint64_t sub_1C6E9D824(uint64_t a1)
+{
+  v2 = sub_1C6E9F550(&qword_1EC1F9060, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiApiSpec, &unk_1C6EF2964);
+
+  return MEMORY[0x1EEE15928](a1, v2);
+}
+
+uint64_t sub_1C6E9D890(uint64_t a1, uint64_t a2)
+{
+  sub_1C6E9F550(&qword_1EC1F9060, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiApiSpec, &unk_1C6EF2964);
+
+  return sub_1C6EE45F0();
+}
+
+uint64_t sub_1C6E9D90C(uint64_t *a1, uint64_t *a2, uint64_t a3)
+{
+  if ((sub_1C6E5CA54(*a1, *a2) & 1) == 0)
+  {
+    return 0;
+  }
+
+  sub_1C6EE4430();
+  sub_1C6E9F550(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+  return sub_1C6EE4A50() & 1;
+}
+
+uint64_t sub_1C6E9D9B4()
+{
+  v0 = sub_1C6EE4720();
+  __swift_allocate_value_buffer(v0, qword_1EC212E90);
+  __swift_project_value_buffer(v0, qword_1EC212E90);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8210, &unk_1C6EEC6D0);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8218, &unk_1C6EECEC0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_1C6EE65B0;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "api_name";
+  *(v6 + 8) = 8;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x1E69AADE8];
+  v8 = sub_1C6EE46F0();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "output_name";
+  *(v10 + 1) = 11;
+  v10[16] = 2;
+  v9();
+  v11 = v5 + 2 * v2 + v1[14];
+  *(v5 + 2 * v2) = 3;
+  *v11 = "input_names";
+  *(v11 + 8) = 11;
+  *(v11 + 16) = 2;
+  v9();
+  return sub_1C6EE4700();
+}
+
+uint64_t sub_1C6E9DBC4(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  while (1)
+  {
+    result = sub_1C6EE44B0();
+    if (v3 || (v5 & 1) != 0)
+    {
+      break;
+    }
+
+    if (result == 3)
+    {
+      sub_1C6EE4570();
+    }
+
+    else if (result == 2 || result == 1)
+    {
+      sub_1C6EE4580();
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_1C6E9DC60(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3[1];
+  v6 = HIBYTE(v5) & 0xF;
+  if ((v5 & 0x2000000000000000) == 0)
+  {
+    v6 = *v3 & 0xFFFFFFFFFFFFLL;
+  }
+
+  if (!v6 || (result = sub_1C6EE46C0(), !v4))
+  {
+    v8 = v3[3];
+    v9 = HIBYTE(v8) & 0xF;
+    if ((v8 & 0x2000000000000000) == 0)
+    {
+      v9 = v3[2] & 0xFFFFFFFFFFFFLL;
+    }
+
+    if (!v9 || (result = sub_1C6EE46C0(), !v4))
+    {
+      if (!*(v3[4] + 16) || (result = sub_1C6EE46B0(), !v4))
+      {
+        type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiApiBinding(0);
+        return sub_1C6EE4410();
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_1C6E9DD48@<X0>(void *a2@<X8>)
+{
+  *a2 = 0;
+  a2[1] = 0xE000000000000000;
+  a2[2] = 0;
+  a2[3] = 0xE000000000000000;
+  a2[4] = MEMORY[0x1E69E7CC0];
+  return sub_1C6EE4420();
+}
+
+uint64_t sub_1C6E9DD9C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v4 = *(a1 + 28);
+  v5 = sub_1C6EE4430();
+  v6 = *(*(v5 - 8) + 16);
+
+  return v6(a2, v2 + v4, v5);
+}
+
+uint64_t sub_1C6E9DE10(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a2 + 28);
+  v5 = sub_1C6EE4430();
+  v6 = *(*(v5 - 8) + 40);
+
+  return v6(v2 + v4, a1, v5);
+}
+
+uint64_t sub_1C6E9DEDC(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_1C6E9F550(&qword_1EC1F90D8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiApiBinding, &unk_1C6EF27C4);
+
+  return MEMORY[0x1EEE15708](a1, a2, v4);
+}
+
+uint64_t sub_1C6E9DF7C(uint64_t a1)
+{
+  v2 = sub_1C6E9F550(&qword_1EC1F9040, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiApiBinding, &unk_1C6EF27FC);
+
+  return MEMORY[0x1EEE15928](a1, v2);
+}
+
+uint64_t sub_1C6E9DFE8(uint64_t a1, uint64_t a2)
+{
+  sub_1C6E9F550(&qword_1EC1F9040, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiApiBinding, &unk_1C6EF27FC);
+
+  return sub_1C6EE45F0();
+}
+
+uint64_t sub_1C6E9E068()
+{
+  v0 = sub_1C6EE4720();
+  __swift_allocate_value_buffer(v0, qword_1EC212EA8);
+  __swift_project_value_buffer(v0, qword_1EC212EA8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8210, &unk_1C6EEC6D0);
+  v1 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8218, &unk_1C6EECEC0) - 8);
+  v2 = *(*v1 + 72);
+  v3 = (*(*v1 + 80) + 32) & ~*(*v1 + 80);
+  v4 = swift_allocObject();
+  *(v4 + 16) = xmmword_1C6EE65B0;
+  v5 = (v4 + v3);
+  v6 = v4 + v3 + v1[14];
+  *v5 = 1;
+  *v6 = "requested_api_names";
+  *(v6 + 8) = 19;
+  *(v6 + 16) = 2;
+  v7 = *MEMORY[0x1E69AADE8];
+  v8 = sub_1C6EE46F0();
+  v9 = *(*(v8 - 8) + 104);
+  (v9)(v6, v7, v8);
+  v10 = v5 + v2 + v1[14];
+  *(v5 + v2) = 2;
+  *v10 = "input_features";
+  *(v10 + 1) = 14;
+  v10[16] = 2;
+  v9();
+  v11 = v5 + 2 * v2 + v1[14];
+  *(v5 + 2 * v2) = 3;
+  *v11 = "retention_policy_data";
+  *(v11 + 8) = 21;
+  *(v11 + 16) = 2;
+  v9();
+  return sub_1C6EE4700();
+}
+
+uint64_t sub_1C6E9E27C(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  result = sub_1C6EE44B0();
+  if (!v4)
+  {
+    while ((v10 & 1) == 0)
+    {
+      switch(result)
+      {
+        case 3:
+          type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_RetentionPolicyData(0);
+          sub_1C6E9F550(&qword_1EC1F8070, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_RetentionPolicyData, &unk_1C6EEADD0);
+          sub_1C6EE4590();
+          break;
+        case 2:
+          sub_1C6E9E39C(a1, v5, a2, a3);
+          break;
+        case 1:
+          sub_1C6EE4570();
+          break;
+      }
+
+      result = sub_1C6EE44B0();
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_1C6E9E39C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiRequest(0);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features(0);
+  sub_1C6E9F550(qword_1EDEF7B08, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features, &unk_1C6EF40C8);
+  return sub_1C6EE45A0();
+}
+
+uint64_t sub_1C6E9E450(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (!*(*v3 + 16) || (result = sub_1C6EE46B0(), !v4))
+  {
+    result = sub_1C6E9E570(v3, a1, a2, a3);
+    if (!v4)
+    {
+      if (*(v3[1] + 16))
+      {
+        type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_RetentionPolicyData(0);
+        sub_1C6E9F550(&qword_1EC1F8070, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_RetentionPolicyData, &unk_1C6EEADD0);
+        sub_1C6EE46D0();
+      }
+
+      type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiRequest(0);
+      return sub_1C6EE4410();
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_1C6E9E570(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7D68, &unk_1C6EE89B0);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiRequest(0);
+  sub_1C6EA130C(a1 + *(v12 + 28), v7, &qword_1EC1F7D68, &unk_1C6EE89B0);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_1C6EA1374(v7, &qword_1EC1F7D68, &unk_1C6EE89B0);
+  }
+
+  sub_1C6E9FD60(v7, v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+  sub_1C6E9F550(qword_1EDEF7B08, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features, &unk_1C6EF40C8);
+  sub_1C6EE46E0();
+  return sub_1C6E9FDC8(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+}
+
+uint64_t sub_1C6E9E780@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
+{
+  v4 = MEMORY[0x1E69E7CC0];
+  *a2 = MEMORY[0x1E69E7CC0];
+  *(a2 + 1) = v4;
+  sub_1C6EE4420();
+  v5 = *(a1 + 28);
+  v6 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features(0);
+  v7 = *(*(v6 - 8) + 56);
+
+  return v7(&a2[v5], 1, 1, v6);
+}
+
+uint64_t sub_1C6E9E828@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v4 = *(a1 + 24);
+  v5 = sub_1C6EE4430();
+  v6 = *(*(v5 - 8) + 16);
+
+  return v6(a2, v2 + v4, v5);
+}
+
+uint64_t sub_1C6E9E89C(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a2 + 24);
+  v5 = sub_1C6EE4430();
+  v6 = *(*(v5 - 8) + 40);
+
+  return v6(v2 + v4, a1, v5);
+}
+
+uint64_t sub_1C6E9E968(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_1C6E9F550(&qword_1EC1F90A8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiRequest, &unk_1C6EF26D4);
+
+  return MEMORY[0x1EEE15708](a1, a2, v4);
+}
+
+uint64_t sub_1C6E9EA08(uint64_t a1)
+{
+  v2 = sub_1C6E9F550(&qword_1EDEF6330, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiRequest, &unk_1C6EF2E14);
+
+  return MEMORY[0x1EEE15928](a1, v2);
+}
+
+uint64_t sub_1C6E9EA74(uint64_t a1, uint64_t a2)
+{
+  sub_1C6E9F550(&qword_1EDEF6330, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiRequest, &unk_1C6EF2E14);
+
+  return sub_1C6EE45F0();
+}
+
+uint64_t sub_1C6E9EB14(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, unsigned int *a5)
+{
+  v9 = sub_1C6EE4720();
+  __swift_allocate_value_buffer(v9, a2);
+  __swift_project_value_buffer(v9, a2);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8210, &unk_1C6EEC6D0);
+  v10 = (__swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8218, &unk_1C6EECEC0) - 8);
+  v11 = (*(*v10 + 80) + 32) & ~*(*v10 + 80);
+  v12 = swift_allocObject();
+  *(v12 + 16) = xmmword_1C6EE6590;
+  v13 = v12 + v11 + v10[14];
+  *(v12 + v11) = 1;
+  *v13 = a3;
+  *(v13 + 8) = a4;
+  *(v13 + 16) = 2;
+  v14 = *a5;
+  v15 = sub_1C6EE46F0();
+  (*(*(v15 - 8) + 104))(v13, v14, v15);
+  return sub_1C6EE4700();
+}
+
+uint64_t sub_1C6E9EC84(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = v3;
+  while (1)
+  {
+    result = sub_1C6EE44B0();
+    if (v4 || (v10 & 1) != 0)
+    {
+      break;
+    }
+
+    if (result == 1)
+    {
+      sub_1C6E9ECF8(a1, v5, a2, a3);
+    }
+  }
+
+  return result;
+}
+
+uint64_t sub_1C6E9ECF8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiResponse(0);
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features(0);
+  sub_1C6E9F550(qword_1EDEF7B08, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features, &unk_1C6EF40C8);
+  return sub_1C6EE45A0();
+}
+
+uint64_t sub_1C6E9EDAC(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  result = sub_1C6E9EE04(v3, a1, a2, a3);
+  if (!v4)
+  {
+    return sub_1C6EE4410();
+  }
+
+  return result;
+}
+
+uint64_t sub_1C6E9EE04(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v14[3] = a4;
+  v14[1] = a3;
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7D68, &unk_1C6EE89B0);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiResponse(0);
+  sub_1C6EA130C(a1 + *(v12 + 20), v7, &qword_1EC1F7D68, &unk_1C6EE89B0);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
+  {
+    return sub_1C6EA1374(v7, &qword_1EC1F7D68, &unk_1C6EE89B0);
+  }
+
+  sub_1C6E9FD60(v7, v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+  sub_1C6E9F550(qword_1EDEF7B08, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features, &unk_1C6EF40C8);
+  sub_1C6EE46E0();
+  return sub_1C6E9FDC8(v11, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+}
+
+uint64_t sub_1C6E9F014@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  sub_1C6EE4420();
+  v4 = *(a1 + 20);
+  v5 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features(0);
+  v6 = *(*(v5 - 8) + 56);
+
+  return v6(a2 + v4, 1, 1, v5);
+}
+
+uint64_t sub_1C6E9F0A8@<X0>(uint64_t a1@<X8>)
+{
+  v3 = sub_1C6EE4430();
+  v4 = *(*(v3 - 8) + 16);
+
+  return v4(a1, v1, v3);
+}
+
+uint64_t sub_1C6E9F110(uint64_t a1)
+{
+  v3 = sub_1C6EE4430();
+  v4 = *(*(v3 - 8) + 40);
+
+  return v4(v1, a1, v3);
+}
+
+uint64_t sub_1C6E9F1CC(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_1C6E9F550(&qword_1EC1F90E0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiResponse, &unk_1C6EF256C);
+
+  return MEMORY[0x1EEE15708](a1, a2, v4);
+}
+
+uint64_t sub_1C6E9F26C@<X0>(void *a1@<X2>, uint64_t a2@<X3>, uint64_t a4@<X8>)
+{
+  if (*a1 != -1)
+  {
+    swift_once();
+  }
+
+  v6 = sub_1C6EE4720();
+  v7 = __swift_project_value_buffer(v6, a2);
+  v8 = *(*(v6 - 8) + 16);
+
+  return v8(a4, v7, v6);
+}
+
+uint64_t sub_1C6E9F308(uint64_t a1)
+{
+  v2 = sub_1C6E9F550(&qword_1EC1F9010, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiResponse, &unk_1C6EF25A4);
+
+  return MEMORY[0x1EEE15928](a1, v2);
+}
+
+uint64_t sub_1C6E9F374(uint64_t a1, uint64_t a2)
+{
+  sub_1C6EE5580();
+  sub_1C6EE4A00();
+  return sub_1C6EE55A0();
+}
+
+uint64_t sub_1C6E9F3CC(uint64_t a1, uint64_t a2)
+{
+  sub_1C6E9F550(&qword_1EC1F9010, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiResponse, &unk_1C6EF25A4);
+
+  return sub_1C6EE45F0();
+}
+
+uint64_t sub_1C6E9F448(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  sub_1C6EE5580();
+  sub_1C6EE4A00();
+  return sub_1C6EE55A0();
+}
+
+uint64_t sub_1C6E9F550(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    a2(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t sub_1C6E9F8A8(uint64_t a1, uint64_t *a2, uint64_t a3)
+{
+  result = *a2;
+  if (!*a2)
+  {
+    return swift_getSingletonMetadata();
+  }
+
+  return result;
+}
+
+uint64_t sub_1C6E9FD60(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  v5 = a3(0);
+  (*(*(v5 - 8) + 32))(a2, a1, v5);
+  return a2;
+}
+
+uint64_t sub_1C6E9FDC8(uint64_t a1, uint64_t (*a2)(void))
+{
+  v3 = a2(0);
+  (*(*(v3 - 8) + 8))(a1, v3);
+  return a1;
+}
+
+uint64_t sub_1C6E9FE28(uint64_t *a1, uint64_t *a2)
+{
+  v4 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features(0);
+  v5 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = (&v22 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7D68, &unk_1C6EE89B0);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v10 = (&v22 - v9);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7D70, &unk_1C6EF2EA0);
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v22 - v12;
+  if ((sub_1C6E59BCC(*a1, *a2) & 1) == 0)
+  {
+    goto LABEL_10;
+  }
+
+  v22 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_DefaultFeatures(0);
+  v23 = a2;
+  v14 = *(v22 + 24);
+  v15 = *(v11 + 48);
+  sub_1C6EA130C(a1 + v14, v13, &qword_1EC1F7D68, &unk_1C6EE89B0);
+  sub_1C6EA130C(v23 + v14, &v13[v15], &qword_1EC1F7D68, &unk_1C6EE89B0);
+  v16 = *(v5 + 48);
+  if (v16(v13, 1, v4) != 1)
+  {
+    sub_1C6EA130C(v13, v10, &qword_1EC1F7D68, &unk_1C6EE89B0);
+    if (v16(&v13[v15], 1, v4) != 1)
+    {
+      sub_1C6E9FD60(&v13[v15], v7, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+      if (sub_1C6E227C4(*v10, *v7))
+      {
+        sub_1C6EE4430();
+        sub_1C6E9F550(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+        v21 = sub_1C6EE4A50();
+        sub_1C6E9FDC8(v7, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+        sub_1C6E9FDC8(v10, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+        sub_1C6EA1374(v13, &qword_1EC1F7D68, &unk_1C6EE89B0);
+        if (v21)
+        {
+          goto LABEL_5;
+        }
+
+LABEL_10:
+        v17 = 0;
+        return v17 & 1;
+      }
+
+      sub_1C6E9FDC8(v7, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+      sub_1C6E9FDC8(v10, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+      v18 = &qword_1EC1F7D68;
+      v19 = &unk_1C6EE89B0;
+LABEL_9:
+      sub_1C6EA1374(v13, v18, v19);
+      goto LABEL_10;
+    }
+
+    sub_1C6E9FDC8(v10, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+LABEL_8:
+    v18 = &qword_1EC1F7D70;
+    v19 = &unk_1C6EF2EA0;
+    goto LABEL_9;
+  }
+
+  if (v16(&v13[v15], 1, v4) != 1)
+  {
+    goto LABEL_8;
+  }
+
+  sub_1C6EA1374(v13, &qword_1EC1F7D68, &unk_1C6EE89B0);
+LABEL_5:
+  sub_1C6EE4430();
+  sub_1C6E9F550(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+  v17 = sub_1C6EE4A50();
+  return v17 & 1;
+}
+
+uint64_t sub_1C6EA023C(uint64_t *a1, void *a2)
+{
+  v4 = *a1 == *a2 && a1[1] == a2[1];
+  if (!v4 && (sub_1C6EE54B0() & 1) == 0)
+  {
+    return 0;
+  }
+
+  v5 = a1[2] == a2[2] && a1[3] == a2[3];
+  if (!v5 && (sub_1C6EE54B0() & 1) == 0 || (sub_1C6E59BCC(a1[4], a2[4]) & 1) == 0)
+  {
+    return 0;
+  }
+
+  type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiApiBinding(0);
+  sub_1C6EE4430();
+  sub_1C6E9F550(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+  return sub_1C6EE4A50() & 1;
+}
+
+uint64_t sub_1C6EA032C(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features(0);
+  v5 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v23[0] = v23 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7D68, &unk_1C6EE89B0);
+  MEMORY[0x1EEE9AC00](v7 - 8);
+  v9 = (v23 - v8);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7D70, &unk_1C6EF2EA0);
+  v11 = v10 - 8;
+  MEMORY[0x1EEE9AC00](v10);
+  v13 = v23 - v12;
+  v14 = *(type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiResponse(0) + 20);
+  v15 = *(v11 + 56);
+  v23[1] = a1;
+  sub_1C6EA130C(a1 + v14, v13, &qword_1EC1F7D68, &unk_1C6EE89B0);
+  sub_1C6EA130C(a2 + v14, &v13[v15], &qword_1EC1F7D68, &unk_1C6EE89B0);
+  v16 = *(v5 + 48);
+  if (v16(v13, 1, v4) != 1)
+  {
+    sub_1C6EA130C(v13, v9, &qword_1EC1F7D68, &unk_1C6EE89B0);
+    if (v16(&v13[v15], 1, v4) != 1)
+    {
+      v21 = v23[0];
+      sub_1C6E9FD60(&v13[v15], v23[0], type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+      if (sub_1C6E227C4(*v9, *v21))
+      {
+        sub_1C6EE4430();
+        sub_1C6E9F550(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+        v22 = sub_1C6EE4A50();
+        sub_1C6E9FDC8(v21, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+        sub_1C6E9FDC8(v9, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+        sub_1C6EA1374(v13, &qword_1EC1F7D68, &unk_1C6EE89B0);
+        if (v22)
+        {
+          goto LABEL_4;
+        }
+
+LABEL_9:
+        v17 = 0;
+        return v17 & 1;
+      }
+
+      sub_1C6E9FDC8(v21, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+      sub_1C6E9FDC8(v9, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+      v18 = &qword_1EC1F7D68;
+      v19 = &unk_1C6EE89B0;
+LABEL_8:
+      sub_1C6EA1374(v13, v18, v19);
+      goto LABEL_9;
+    }
+
+    sub_1C6E9FDC8(v9, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+LABEL_7:
+    v18 = &qword_1EC1F7D70;
+    v19 = &unk_1C6EF2EA0;
+    goto LABEL_8;
+  }
+
+  if (v16(&v13[v15], 1, v4) != 1)
+  {
+    goto LABEL_7;
+  }
+
+  sub_1C6EA1374(v13, &qword_1EC1F7D68, &unk_1C6EE89B0);
+LABEL_4:
+  sub_1C6EE4430();
+  sub_1C6E9F550(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+  v17 = sub_1C6EE4A50();
+  return v17 & 1;
+}
+
+uint64_t sub_1C6EA071C(uint64_t *a1, uint64_t *a2)
+{
+  v4 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features(0);
+  v5 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = (&v26 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7D68, &unk_1C6EE89B0);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v10 = (&v26 - v9);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7D70, &unk_1C6EF2EA0);
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v26 - v12;
+  if ((sub_1C6E59BCC(*a1, *a2) & 1) == 0)
+  {
+    goto LABEL_11;
+  }
+
+  v14 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiRequest(0);
+  v15 = *(v14 + 28);
+  v16 = a1;
+  v17 = *(v11 + 48);
+  v26 = v14;
+  v27 = v16;
+  sub_1C6EA130C(v16 + v15, v13, &qword_1EC1F7D68, &unk_1C6EE89B0);
+  v18 = a2 + v15;
+  v19 = a2;
+  sub_1C6EA130C(v18, &v13[v17], &qword_1EC1F7D68, &unk_1C6EE89B0);
+  v20 = *(v5 + 48);
+  if (v20(v13, 1, v4) == 1)
+  {
+    if (v20(&v13[v17], 1, v4) == 1)
+    {
+      sub_1C6EA1374(v13, &qword_1EC1F7D68, &unk_1C6EE89B0);
+      goto LABEL_5;
+    }
+
+    goto LABEL_9;
+  }
+
+  sub_1C6EA130C(v13, v10, &qword_1EC1F7D68, &unk_1C6EE89B0);
+  if (v20(&v13[v17], 1, v4) == 1)
+  {
+    sub_1C6E9FDC8(v10, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+LABEL_9:
+    v22 = &qword_1EC1F7D70;
+    v23 = &unk_1C6EF2EA0;
+LABEL_10:
+    sub_1C6EA1374(v13, v22, v23);
+    goto LABEL_11;
+  }
+
+  sub_1C6E9FD60(&v13[v17], v7, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+  if ((sub_1C6E227C4(*v10, *v7) & 1) == 0)
+  {
+    sub_1C6E9FDC8(v7, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+    sub_1C6E9FDC8(v10, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+    v22 = &qword_1EC1F7D68;
+    v23 = &unk_1C6EE89B0;
+    goto LABEL_10;
+  }
+
+  sub_1C6EE4430();
+  sub_1C6E9F550(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+  v19 = a2;
+  v25 = sub_1C6EE4A50();
+  sub_1C6E9FDC8(v7, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+  sub_1C6E9FDC8(v10, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+  sub_1C6EA1374(v13, &qword_1EC1F7D68, &unk_1C6EE89B0);
+  if ((v25 & 1) == 0)
+  {
+    goto LABEL_11;
+  }
+
+LABEL_5:
+  if ((sub_1C6E5C428(v27[1], v19[1]) & 1) == 0)
+  {
+LABEL_11:
+    v21 = 0;
+    return v21 & 1;
+  }
+
+  sub_1C6EE4430();
+  sub_1C6E9F550(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+  v21 = sub_1C6EE4A50();
+  return v21 & 1;
+}
+
+uint64_t sub_1C6EA0B4C(void *a1, void *a2)
+{
+  v4 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID(0);
+  v5 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v25 = (&v24 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF0, &unk_1C6EE9280);
+  MEMORY[0x1EEE9AC00](v7 - 8);
+  v9 = (&v24 - v8);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F8220, &qword_1C6EEC6E0);
+  v11 = v10 - 8;
+  MEMORY[0x1EEE9AC00](v10);
+  v13 = &v24 - v12;
+  v26 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader(0);
+  v27 = a1;
+  v14 = *(v26 + 24);
+  v15 = *(v11 + 56);
+  sub_1C6EA130C(a1 + v14, v13, &qword_1EC1F7EF0, &unk_1C6EE9280);
+  sub_1C6EA130C(a2 + v14, &v13[v15], &qword_1EC1F7EF0, &unk_1C6EE9280);
+  v16 = *(v5 + 48);
+  if (v16(v13, 1, v4) != 1)
+  {
+    sub_1C6EA130C(v13, v9, &qword_1EC1F7EF0, &unk_1C6EE9280);
+    if (v16(&v13[v15], 1, v4) != 1)
+    {
+      v20 = v25;
+      sub_1C6E9FD60(&v13[v15], v25, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+      v21 = *v9 == *v20 && v9[1] == v20[1];
+      if (v21 || (sub_1C6EE54B0() & 1) != 0)
+      {
+        sub_1C6EE4430();
+        sub_1C6E9F550(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+        v22 = sub_1C6EE4A50();
+        sub_1C6E9FDC8(v20, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+        sub_1C6E9FDC8(v9, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+        sub_1C6EA1374(v13, &qword_1EC1F7EF0, &unk_1C6EE9280);
+        if ((v22 & 1) == 0)
+        {
+          goto LABEL_8;
+        }
+
+        goto LABEL_15;
+      }
+
+      sub_1C6E9FDC8(v20, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+      sub_1C6E9FDC8(v9, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+      v17 = &qword_1EC1F7EF0;
+      v18 = &unk_1C6EE9280;
+LABEL_7:
+      sub_1C6EA1374(v13, v17, v18);
+      goto LABEL_8;
+    }
+
+    sub_1C6E9FDC8(v9, type metadata accessor for Com_Apple_News_Algorithms_Proto_Common_UUID);
+LABEL_6:
+    v17 = &qword_1EC1F8220;
+    v18 = &qword_1C6EEC6E0;
+    goto LABEL_7;
+  }
+
+  if (v16(&v13[v15], 1, v4) != 1)
+  {
+    goto LABEL_6;
+  }
+
+  sub_1C6EA1374(v13, &qword_1EC1F7EF0, &unk_1C6EE9280);
+LABEL_15:
+  if (*v27 == *a2 && v27[1] == a2[1] || (sub_1C6EE54B0() & 1) != 0)
+  {
+    sub_1C6EE4430();
+    sub_1C6E9F550(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+    v19 = sub_1C6EE4A50();
+    return v19 & 1;
+  }
+
+LABEL_8:
+  v19 = 0;
+  return v19 & 1;
+}
+
+uint64_t sub_1C6EA0F7C(uint64_t *a1, uint64_t *a2)
+{
+  v4 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader(0);
+  v5 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v24 = (&v22 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F7EF8, &unk_1C6EF23C0);
+  MEMORY[0x1EEE9AC00](v7 - 8);
+  v9 = (&v22 - v8);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EC1F90B8, &unk_1C6EF2E90);
+  v11 = v10 - 8;
+  MEMORY[0x1EEE9AC00](v10);
+  v13 = &v22 - v12;
+  v23 = type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpec(0);
+  v14 = *(v23 + 32);
+  v15 = *(v11 + 56);
+  v25 = a1;
+  sub_1C6EA130C(a1 + v14, v13, &qword_1EC1F7EF8, &unk_1C6EF23C0);
+  sub_1C6EA130C(a2 + v14, &v13[v15], &qword_1EC1F7EF8, &unk_1C6EF23C0);
+  v16 = *(v5 + 48);
+  if (v16(v13, 1, v4) != 1)
+  {
+    sub_1C6EA130C(v13, v9, &qword_1EC1F7EF8, &unk_1C6EF23C0);
+    if (v16(&v13[v15], 1, v4) != 1)
+    {
+      v17 = v24;
+      sub_1C6E9FD60(&v13[v15], v24, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader);
+      v18 = sub_1C6EA0B4C(v9, v17);
+      sub_1C6E9FDC8(v17, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader);
+      sub_1C6E9FDC8(v9, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader);
+      sub_1C6EA1374(v13, &qword_1EC1F7EF8, &unk_1C6EF23C0);
+      if (v18)
+      {
+        goto LABEL_8;
+      }
+
+LABEL_12:
+      v20 = 0;
+      return v20 & 1;
+    }
+
+    sub_1C6E9FDC8(v9, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiSpecHeader);
+LABEL_6:
+    sub_1C6EA1374(v13, &qword_1EC1F90B8, &unk_1C6EF2E90);
+    goto LABEL_12;
+  }
+
+  if (v16(&v13[v15], 1, v4) != 1)
+  {
+    goto LABEL_6;
+  }
+
+  sub_1C6EA1374(v13, &qword_1EC1F7EF8, &unk_1C6EF23C0);
+LABEL_8:
+  v19 = v25;
+  if ((sub_1C6E5CA94(*v25, *a2) & 1) == 0 || (sub_1C6E5CAE8(v19[1], a2[1]) & 1) == 0 || (sub_1C6E5CCDC(v19[2], a2[2]) & 1) == 0)
+  {
+    goto LABEL_12;
+  }
+
+  sub_1C6EE4430();
+  sub_1C6E9F550(&qword_1EDEF6870, MEMORY[0x1E69AAC08], MEMORY[0x1E69AAC10]);
+  v20 = sub_1C6EE4A50();
+  return v20 & 1;
+}
+
+uint64_t sub_1C6EA130C(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+{
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  (*(*(v6 - 8) + 16))(a2, a1, v6);
+  return a2;
+}
+
+uint64_t sub_1C6EA1374(uint64_t a1, uint64_t *a2, uint64_t *a3)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(a2, a3);
+  (*(*(v4 - 8) + 8))(a1, v4);
+  return a1;
+}
+
+void sub_1C6EA13FC(uint64_t a1)
+{
+  sub_1C6E9B434(319, &qword_1EC1F90F8, type metadata accessor for Com_Apple_News_Algorithms_Proto_Gambit_TabiApiBinding, MEMORY[0x1E69E62F8]);
+  if (v1 <= 0x3F)
+  {
+    sub_1C6EE4430();
+    if (v2 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+void sub_1C6EA14D8(uint64_t a1)
+{
+  sub_1C6E953AC();
+  if (v1 <= 0x3F)
+  {
+    sub_1C6EE4430();
+    if (v2 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+void sub_1C6EA1594(uint64_t a1)
+{
+  sub_1C6EE4430();
+  if (v1 <= 0x3F)
+  {
+    sub_1C6E9B434(319, qword_1EDEF7AC0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features, MEMORY[0x1E69E6720]);
+    if (v2 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+void sub_1C6EA17C0(uint64_t a1)
+{
+  sub_1C6EE4430();
+  if (v1 <= 0x3F)
+  {
+    sub_1C6EA18B4(319, qword_1EDEF7AC0, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_Features);
+    if (v2 <= 0x3F)
+    {
+      sub_1C6EA18B4(319, qword_1EDEF6C28, type metadata accessor for Com_Apple_News_Algorithms_Proto_Model_RichFeaturesMetadata);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void sub_1C6EA18B4(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
+{
+  if (!*a2)
+  {
+    a3(255);
+    v4 = sub_1C6EE4FE0();
+    if (!v5)
+    {
+      atomic_store(v4, a2);
+    }
+  }
+}
+
+void sub_1C6EA1950(uint64_t a1)
+{
+  sub_1C6EE4430();
+  if (v1 <= 0x3F)
+  {
+    sub_1C6EA18B4(319, qword_1EDEF6878, MEMORY[0x1E69AA900]);
+    if (v2 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
 }

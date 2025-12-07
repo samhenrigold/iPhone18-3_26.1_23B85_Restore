@@ -201,7 +201,7 @@
 
     v3->_recentActivityInterval = 300;
     *&v3->_randomizationInterval = 0xA000001C2;
-    if ([(NSIndexSet *)v3->_affectedSeconds count])
+    if (objc_msgSend_count(v3->_affectedSeconds))
     {
       v13 = dispatch_get_global_queue(-2, 0);
       v14 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, v13);

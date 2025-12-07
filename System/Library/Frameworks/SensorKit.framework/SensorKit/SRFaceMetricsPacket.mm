@@ -15,13 +15,12 @@
 
 + (id)packetWithData:(id)data
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if ([data length] == 2348)
   {
     v4 = SRFaceMetricsPacketV0;
 LABEL_13:
     bytes = [data bytes];
-    v6 = *MEMORY[0x1E69E9840];
 
     return [(__objc2_class *)v4 packetWithHAFacialMetricsPacket:bytes];
   }
@@ -56,15 +55,14 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  v8 = _MergedGlobals_4;
+  v7 = _MergedGlobals_4;
   if (os_log_type_enabled(_MergedGlobals_4, OS_LOG_TYPE_FAULT))
   {
-    v10 = 134217984;
-    v11 = [data length];
-    _os_log_fault_impl(&dword_1C914D000, v8, OS_LOG_TYPE_FAULT, "Failed to find initializer to create SRFaceMetricsPacket, data length:%lu", &v10, 0xCu);
+    v8 = 134217984;
+    v9 = [data length];
+    _os_log_fault_impl(&dword_1C914D000, v7, OS_LOG_TYPE_FAULT, "Failed to find initializer to create SRFaceMetricsPacket, data length:%lu", &v8, 0xCu);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

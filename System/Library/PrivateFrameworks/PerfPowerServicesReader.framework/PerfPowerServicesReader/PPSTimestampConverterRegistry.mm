@@ -40,7 +40,6 @@
 
 uint64_t __47__PPSTimestampConverterRegistry_sharedInstance__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   objc_opt_class();
   sharedInstance_instance = objc_opt_new();
 

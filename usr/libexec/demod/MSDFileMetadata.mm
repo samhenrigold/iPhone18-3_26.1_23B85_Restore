@@ -30,13 +30,13 @@
 + (id)fileHashWithPath:(id)path
 {
   pathCopy = path;
-  v10 = 0;
+  v11 = 0;
   v4 = +[NSFileManager defaultManager];
-  v5 = [v4 fileExistsAtPath:pathCopy isDirectory:&v10];
+  v5 = [v4 fileExistsAtPath:pathCopy isDirectory:&v11];
 
   if (v5)
   {
-    if ((v10 & 1) == 0)
+    if ((v11 & 1) == 0)
     {
       v6 = [NSURL fileURLWithString:pathCopy];
       fileHash = [v6 fileHash];
@@ -46,12 +46,12 @@
         goto LABEL_8;
       }
 
-      v8 = sub_100063A54();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_100063A54(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v12 = pathCopy;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Maybe it's an iCloud file (%{public}@)?", buf, 0xCu);
+        v13 = pathCopy;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Maybe it's an iCloud file (%{public}@)?", buf, 0xCu);
       }
     }
 
@@ -60,7 +60,7 @@
 
   else
   {
-    sub_1000DE508();
+    sub_1000DE508(pathCopy);
     fileHash = 0;
   }
 
@@ -73,15 +73,15 @@ LABEL_8:
 {
   pathCopy = path;
   v4 = +[NSFileManager defaultManager];
-  v10 = 0;
-  v5 = [v4 attributesOfItemAtPath:pathCopy error:&v10];
-  v6 = v10;
+  v11 = 0;
+  v5 = [v4 attributesOfItemAtPath:pathCopy error:&v11];
+  v6 = v11;
   v7 = [v5 mutableCopy];
 
   if (v6)
   {
-    v8 = sub_100063A54();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100063A54(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1000DE59C(pathCopy, v6);
     }
@@ -89,12 +89,12 @@ LABEL_8:
 
   else
   {
-    v11[0] = @"NSFileExtendedAttributes";
-    v11[1] = NSFileReferenceCount;
-    v11[2] = NSFileSystemNumber;
-    v11[3] = NSFileSystemFileNumber;
-    v8 = [NSArray arrayWithObjects:v11 count:4];
-    [v7 removeObjectsForKeys:v8];
+    v12[0] = @"NSFileExtendedAttributes";
+    v12[1] = NSFileReferenceCount;
+    v12[2] = NSFileSystemNumber;
+    v12[3] = NSFileSystemFileNumber;
+    v9 = [NSArray arrayWithObjects:v12 count:4];
+    [v7 removeObjectsForKeys:v9];
   }
 
   return v7;
@@ -108,7 +108,7 @@ LABEL_8:
   v6 = listxattr(fileSystemRepresentation, 0, 0, 1);
   if (v6 < 0)
   {
-    sub_1000DE6EC();
+    sub_1000DE6EC(pathCopy);
     v9 = 0;
   }
 
@@ -142,7 +142,7 @@ LABEL_6:
       goto LABEL_6;
     }
 
-    sub_1000DE644();
+    sub_1000DE644(pathCopy);
   }
 
   v15 = 0;
@@ -174,7 +174,7 @@ LABEL_7:
         v9 = acl_copy_ext(v7, v5, v6);
         if (v9 < 0)
         {
-          sub_1000DE858();
+          sub_1000DE858(pathCopy);
           v10 = 0;
         }
 
@@ -188,7 +188,7 @@ LABEL_7:
         goto LABEL_9;
       }
 
-      v12 = sub_100063A54();
+      v12 = sub_100063A54(0);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_1000DE8FC(v12);
@@ -206,7 +206,7 @@ LABEL_7:
       goto LABEL_9;
     }
 
-    sub_1000DE940();
+    sub_1000DE940(pathCopy);
   }
 
   v10 = 0;
@@ -224,7 +224,7 @@ LABEL_9:
   v9 = getxattr(fileSystemRepresentation, uTF8String, 0, 0, 0, 1);
   if (v9 < 0)
   {
-    sub_1000DEA78();
+    sub_1000DEA78(pathCopy);
   }
 
   else
@@ -235,7 +235,7 @@ LABEL_9:
     v11 = getxattr(fileSystemRepresentation, uTF8String, [v10 mutableBytes], v9, 0, 1);
     if (v11 < 0)
     {
-      sub_1000DE9E4();
+      sub_1000DE9E4(pathCopy);
     }
 
     else
@@ -312,7 +312,7 @@ LABEL_9:
 
   else
   {
-    sub_1000DEB28();
+    sub_1000DEB28(pathCopy);
     v9 = 0;
     v5 = 0;
     v14 = 0;
@@ -432,12 +432,12 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      sub_1000DEC7C();
+      sub_1000DEC7C(pathCopy);
     }
 
     else
     {
-      sub_1000DED10();
+      sub_1000DED10(pathCopy);
     }
 
     v9 = v5;
@@ -491,10 +491,10 @@ LABEL_18:
       v10 = listxattr(fileSystemRepresentation, v8, v7, 1);
       if (v10 < 1)
       {
-        v14 = sub_100063A54();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v15 = sub_100063A54(v10);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          sub_1000DEE2C(v14);
+          sub_1000DEE2C(v15);
         }
       }
 
@@ -502,8 +502,14 @@ LABEL_18:
       {
         v11 = &v9[v10];
         v12 = v9;
-        while (!removexattr(fileSystemRepresentation, v12, 1))
+        while (1)
         {
+          v13 = removexattr(fileSystemRepresentation, v12, 1);
+          if (v13)
+          {
+            break;
+          }
+
           v12 += strlen(v12) + 1;
           if (v12 >= v11)
           {
@@ -512,10 +518,10 @@ LABEL_18:
           }
         }
 
-        v14 = sub_100063A54();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v15 = sub_100063A54(v13);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          sub_1000DEDA4(v12, attributesCopy, v14);
+          sub_1000DEDA4(v12, attributesCopy, v15);
         }
       }
 
@@ -526,7 +532,7 @@ LABEL_8:
 
     else
     {
-      sub_1000DEE70();
+      sub_1000DEE70(0);
       v5 = 0;
     }
   }
@@ -927,15 +933,15 @@ LABEL_56:
 
     if (uTF8String)
     {
-      v60 = sub_100063A54();
-      if (!os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+      v70 = sub_100063A54(v14);
+      if (!os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_50;
       }
 
-      v61 = __error();
-      sub_100086004(*v61, 5.8382e-34);
-      v62 = "Could not set file ownership on symlink %{public}@ with error - %{public, errno}d";
+      v71 = __error();
+      sub_100086004(*v71, 5.8382e-34);
+      v72 = "Could not set file ownership on symlink %{public}@ with error - %{public, errno}d";
     }
 
     else
@@ -946,201 +952,204 @@ LABEL_56:
 
       if (!uTF8String2)
       {
-        v16 = 0;
+        v18 = 0;
         goto LABEL_8;
       }
 
-      v60 = sub_100063A54();
-      if (!os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+      v70 = sub_100063A54(v17);
+      if (!os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
       {
 LABEL_50:
 
-        v39 = 0;
-        v16 = 0;
+        v46 = 0;
+        v18 = 0;
         goto LABEL_51;
       }
 
-      v75 = __error();
-      sub_100086004(*v75, 5.8382e-34);
-      v62 = "Could not set file permission on symlink %{public}@ with error - %{public, errno}d";
+      v85 = __error();
+      sub_100086004(*v85, 5.8382e-34);
+      v72 = "Could not set file permission on symlink %{public}@ with error - %{public, errno}d";
     }
 
-    _os_log_error_impl(&_mh_execute_header, v60, OS_LOG_TYPE_ERROR, v62, buf, 0x12u);
+    _os_log_error_impl(&_mh_execute_header, v70, OS_LOG_TYPE_ERROR, v72, buf, 0x12u);
     goto LABEL_50;
   }
 
   getFileAttributes4 = [(MSDFileMetadata *)self getFileAttributes];
-  v18 = [(MSDFileMetadata *)self fileAttributesAllowSet:getFileAttributes4];
-  v96 = 0;
-  v19 = [v5 setAttributes:v18 ofItemAtPath:pathCopy error:&v96];
-  v16 = v96;
+  v20 = [(MSDFileMetadata *)self fileAttributesAllowSet:getFileAttributes4];
+  v106 = 0;
+  v21 = [v5 setAttributes:v20 ofItemAtPath:pathCopy error:&v106];
+  v18 = v106;
 
-  if ((v19 & 1) == 0)
+  if ((v21 & 1) == 0)
   {
-    v63 = sub_100063A54();
-    if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+    v73 = sub_100063A54(v22);
+    if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
     {
-      [v16 localizedDescription];
-      v72 = v71 = v5;
+      [v18 localizedDescription];
+      v82 = v81 = v5;
       getFileAttributes5 = [(MSDFileMetadata *)self getFileAttributes];
-      v74 = [(MSDFileMetadata *)self fileAttributesAllowSet:getFileAttributes5];
+      v84 = [(MSDFileMetadata *)self fileAttributesAllowSet:getFileAttributes5];
       *buf = 138543874;
-      v99 = pathCopy;
-      v100 = 2114;
-      v101 = v72;
-      v102 = 2114;
-      v103 = v74;
-      _os_log_error_impl(&_mh_execute_header, v63, OS_LOG_TYPE_ERROR, "Could not set file attributes at %{public}@ with error - %{public}@, attributes = %{public}@", buf, 0x20u);
+      v109 = pathCopy;
+      v110 = 2114;
+      v111 = v82;
+      v112 = 2114;
+      v113 = v84;
+      _os_log_error_impl(&_mh_execute_header, v73, OS_LOG_TYPE_ERROR, "Could not set file attributes at %{public}@ with error - %{public}@, attributes = %{public}@", buf, 0x20u);
 
-      v5 = v71;
+      v5 = v81;
     }
 
     goto LABEL_48;
   }
 
   getFileAttributes6 = [(MSDFileMetadata *)self getFileAttributes];
-  v21 = [getFileAttributes6 objectForKey:NSFileProtectionKey];
-  v22 = [NSDictionary dictionaryWithObjectsAndKeys:v21, NSFileProtectionKey, 0];
-  v95 = v16;
-  v23 = [v5 setAttributes:v22 ofItemAtPath:pathCopy error:&v95];
-  v24 = v95;
+  v24 = [getFileAttributes6 objectForKey:NSFileProtectionKey];
+  v25 = [NSDictionary dictionaryWithObjectsAndKeys:v24, NSFileProtectionKey, 0];
+  v105 = v18;
+  v26 = [v5 setAttributes:v25 ofItemAtPath:pathCopy error:&v105];
+  v27 = v105;
 
-  if ((v23 & 1) == 0)
+  if ((v26 & 1) == 0)
   {
-    v64 = sub_100063A54();
-    if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+    v74 = sub_100063A54(v28);
+    if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
     {
-      localizedDescription = [v24 localizedDescription];
+      localizedDescription = [v27 localizedDescription];
       getFileAttributes7 = [(MSDFileMetadata *)self getFileAttributes];
-      v78 = [getFileAttributes7 objectForKey:NSFileProtectionKey];
+      v88 = [getFileAttributes7 objectForKey:NSFileProtectionKey];
       *buf = 138543874;
-      v99 = pathCopy;
-      v100 = 2114;
-      v101 = localizedDescription;
-      v102 = 2114;
-      v103 = v78;
-      _os_log_error_impl(&_mh_execute_header, v64, OS_LOG_TYPE_ERROR, "Could not set file protection key at %{public}@ with error - %{public}@, attributes = %{public}@", buf, 0x20u);
+      v109 = pathCopy;
+      v110 = 2114;
+      v111 = localizedDescription;
+      v112 = 2114;
+      v113 = v88;
+      _os_log_error_impl(&_mh_execute_header, v74, OS_LOG_TYPE_ERROR, "Could not set file protection key at %{public}@ with error - %{public}@, attributes = %{public}@", buf, 0x20u);
     }
 
-    v39 = 0;
-    v31 = 0;
-    v30 = 0;
-    v16 = v24;
+    v46 = 0;
+    v35 = 0;
+    v34 = 0;
+    v18 = v27;
     goto LABEL_40;
   }
 
-  v16 = v24;
+  v18 = v27;
 LABEL_8:
   if (![(MSDFileMetadata *)self removeAllExtendedAttributes:pathCopy])
   {
 LABEL_48:
-    v39 = 0;
+    v46 = 0;
 LABEL_51:
-    v31 = 0;
-    v30 = 0;
+    v35 = 0;
+    v34 = 0;
     goto LABEL_40;
   }
 
-  v89 = v16;
-  v93 = 0u;
-  v94 = 0u;
-  v91 = 0u;
-  v92 = 0u;
+  v99 = v18;
+  v103 = 0u;
+  v104 = 0u;
+  v101 = 0u;
+  v102 = 0u;
   getExtendedAttributes = [(MSDFileMetadata *)self getExtendedAttributes];
   allKeys = [getExtendedAttributes allKeys];
 
   obj = allKeys;
-  v27 = [allKeys countByEnumeratingWithState:&v91 objects:v97 count:16];
-  if (!v27)
+  v31 = [allKeys countByEnumeratingWithState:&v101 objects:v107 count:16];
+  if (!v31)
   {
-    v30 = 0;
+    v34 = 0;
     goto LABEL_21;
   }
 
-  v28 = v27;
+  v32 = v31;
   selfCopy = self;
-  v88 = v5;
-  v30 = 0;
-  v31 = 0;
-  v32 = *v92;
+  v98 = v5;
+  v34 = 0;
+  v35 = 0;
+  v36 = *v102;
   while (2)
   {
-    v33 = 0;
-    v34 = v30;
-    v35 = v31;
+    v37 = 0;
+    v38 = v34;
+    v39 = v35;
     do
     {
-      if (*v92 != v32)
+      if (*v102 != v36)
       {
         objc_enumerationMutation(obj);
       }
 
-      v31 = *(*(&v91 + 1) + 8 * v33);
+      v35 = *(*(&v101 + 1) + 8 * v37);
 
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      isKindOfClass = objc_opt_isKindOfClass();
+      if ((isKindOfClass & 1) == 0)
       {
-        v44 = sub_100063A54();
-        if (sub_100086030(v44))
+        v52 = sub_100063A54(isKindOfClass);
+        if (sub_100086030(v52))
         {
           *buf = 0;
           sub_100085FF4();
-          _os_log_error_impl(v45, v46, v47, v48, v49, 2u);
+          _os_log_error_impl(v53, v54, v55, v56, v57, 2u);
         }
 
         goto LABEL_33;
       }
 
       getExtendedAttributes2 = [(MSDFileMetadata *)selfCopy getExtendedAttributes];
-      v30 = [getExtendedAttributes2 objectForKey:v31];
+      v34 = [getExtendedAttributes2 objectForKey:v35];
 
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) == 0)
+      v42 = objc_opt_isKindOfClass();
+      if ((v42 & 1) == 0)
       {
-        v50 = sub_100063A54();
-        if (!sub_100086030(v50))
+        v58 = sub_100063A54(v42);
+        if (!sub_100086030(v58))
         {
 LABEL_32:
-          v34 = v30;
+          v38 = v34;
 LABEL_33:
-          v5 = v88;
+          v5 = v98;
 
-          v39 = 1;
-          v30 = v34;
+          v46 = 1;
+          v34 = v38;
           goto LABEL_34;
         }
 
         *buf = 0;
         sub_100085FF4();
-        v56 = 2;
+        v64 = 2;
 LABEL_42:
-        _os_log_error_impl(v51, v52, v53, v54, v55, v56);
+        _os_log_error_impl(v59, v60, v61, v62, v63, v64);
         goto LABEL_32;
       }
 
-      if (setxattr([pathCopy fileSystemRepresentation], objc_msgSend(v31, "UTF8String"), objc_msgSend(v30, "bytes"), objc_msgSend(v30, "length"), 0, 1))
+      v43 = setxattr([pathCopy fileSystemRepresentation], objc_msgSend(v35, "UTF8String"), objc_msgSend(v34, "bytes"), objc_msgSend(v34, "length"), 0, 1);
+      if (v43)
       {
-        v57 = sub_100063A54();
-        if (!sub_100086030(v57))
+        v65 = sub_100063A54(v43);
+        if (!sub_100086030(v65))
         {
           goto LABEL_32;
         }
 
         *buf = 138543362;
-        v99 = pathCopy;
+        v109 = pathCopy;
         sub_100085FF4();
-        v56 = 12;
+        v64 = 12;
         goto LABEL_42;
       }
 
-      v33 = v33 + 1;
-      v34 = v30;
-      v35 = v31;
+      v37 = v37 + 1;
+      v38 = v34;
+      v39 = v35;
     }
 
-    while (v28 != v33);
-    v28 = [obj countByEnumeratingWithState:&v91 objects:v97 count:16];
-    if (v28)
+    while (v32 != v37);
+    v32 = [obj countByEnumeratingWithState:&v101 objects:v107 count:16];
+    if (v32)
     {
       continue;
     }
@@ -1148,27 +1157,27 @@ LABEL_42:
     break;
   }
 
-  v5 = v88;
+  v5 = v98;
   self = selfCopy;
 LABEL_21:
 
   getFileType2 = [(MSDFileMetadata *)self getFileType];
-  v38 = [getFileType2 isEqualToString:NSFileTypeSymbolicLink];
+  v45 = [getFileType2 isEqualToString:NSFileTypeSymbolicLink];
 
-  if ((v38 & 1) == 0)
+  if ((v45 & 1) == 0)
   {
     getAccessControlList = [(MSDFileMetadata *)self getAccessControlList];
-    v41 = [getAccessControlList length];
+    v48 = [getAccessControlList length];
 
-    if (v41)
+    if (v48)
     {
       getAccessControlList2 = [(MSDFileMetadata *)self getAccessControlList];
       self = acl_copy_int([getAccessControlList2 bytes]);
 
       if (!self)
       {
-        v43 = sub_100063A54();
-        if (sub_100086030(v43))
+        v51 = sub_100063A54(v50);
+        if (sub_100086030(v51))
         {
           goto LABEL_65;
         }
@@ -1179,18 +1188,18 @@ LABEL_21:
 
     else
     {
-      v58 = acl_init(0);
-      if (!v58)
+      v66 = acl_init(0);
+      if (!v66)
       {
-        v70 = sub_100063A54();
-        if (sub_100086030(v70))
+        v80 = sub_100063A54(0);
+        if (sub_100086030(v80))
         {
 LABEL_65:
-          v81 = __error();
-          v82 = strerror(*v81);
-          sub_100085FD8(v82, 5.8382e-34);
+          v91 = __error();
+          v92 = strerror(*v91);
+          sub_100085FD8(v92, 5.8382e-34);
           sub_100085FF4();
-          _os_log_error_impl(v83, v84, v85, v86, v87, 0x16u);
+          _os_log_error_impl(v93, v94, v95, v96, v97, 0x16u);
         }
 
 LABEL_60:
@@ -1198,64 +1207,66 @@ LABEL_60:
         goto LABEL_22;
       }
 
-      self = v58;
+      self = v66;
     }
 
-    v16 = v89;
-    if (acl_valid(self))
+    v18 = v99;
+    v67 = acl_valid(self);
+    if (v67)
     {
-      v65 = v5;
-      v66 = sub_100063A54();
-      if (!os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+      v75 = v5;
+      v76 = sub_100063A54(v67);
+      if (!os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_58;
       }
 
-      v67 = __error();
-      v68 = strerror(*v67);
-      sub_100085FD8(v68, 5.8382e-34);
-      v69 = "Could not validate ACL for %{public}@ with error - %{public}s";
+      v77 = __error();
+      v78 = strerror(*v77);
+      sub_100085FD8(v78, 5.8382e-34);
+      v79 = "Could not validate ACL for %{public}@ with error - %{public}s";
     }
 
     else
     {
-      if (!acl_set_file([pathCopy fileSystemRepresentation], ACL_TYPE_EXTENDED, self))
+      v68 = acl_set_file([pathCopy fileSystemRepresentation], ACL_TYPE_EXTENDED, self);
+      if (!v68)
       {
 LABEL_39:
         acl_free(self);
-        v31 = 0;
-        v39 = 1;
+        v35 = 0;
+        v46 = 1;
         goto LABEL_40;
       }
 
-      v65 = v5;
-      v66 = sub_100063A54();
-      if (!os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+      v75 = v5;
+      v76 = sub_100063A54(v68);
+      if (!os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
       {
 LABEL_58:
 
-        v5 = v65;
+        v5 = v75;
         goto LABEL_39;
       }
 
-      v79 = __error();
-      v80 = strerror(*v79);
-      sub_100085FD8(v80, 5.8382e-34);
-      v69 = "Could not set ACL for %{public}@ with error - %{public}s";
+      v89 = __error();
+      v90 = strerror(*v89);
+      sub_100085FD8(v90, 5.8382e-34);
+      v79 = "Could not set ACL for %{public}@ with error - %{public}s";
     }
 
-    _os_log_error_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, v69, buf, 0x16u);
+    _os_log_error_impl(&_mh_execute_header, v76, OS_LOG_TYPE_ERROR, v79, buf, 0x16u);
     goto LABEL_58;
   }
 
 LABEL_22:
-  v31 = 0;
-  v39 = 1;
+  v35 = 0;
+  v46 = 1;
 LABEL_34:
-  v16 = v89;
+  v18 = v99;
 LABEL_40:
 
-  return v39;
+  return v46;
 }
 
 @end

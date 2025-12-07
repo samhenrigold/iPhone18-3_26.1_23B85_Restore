@@ -22,12 +22,12 @@
   swift_unknownObjectRetain();
   swift_unknownObjectRetain();
   selfCopy = self;
-  v8 = sub_100007140(storeCopy);
+  v10 = sub_100007140(storeCopy, manager, data);
 
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
 
-  return v8;
+  return v10;
 }
 
 - (FRArticleNotificationFeedPersonalizerFactory)init

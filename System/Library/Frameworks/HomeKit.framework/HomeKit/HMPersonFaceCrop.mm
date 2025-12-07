@@ -44,7 +44,7 @@
 
 - (HMPersonFaceCrop)initWithCoder:(id)coder
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [[HMFaceCrop alloc] initWithCoder:coderCopy];
   if (v5)
@@ -74,11 +74,11 @@
       if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         v16 = HMFGetLogIdentifier();
-        v19 = 138543618;
-        v20 = v16;
-        v21 = 2112;
-        v22 = 0;
-        _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded personUUID: %@", &v19, 0x16u);
+        v18 = 138543618;
+        v19 = v16;
+        v20 = 2112;
+        v21 = 0;
+        _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded personUUID: %@", &v18, 0x16u);
       }
 
       objc_autoreleasePoolPop(v14);
@@ -91,7 +91,6 @@
     selfCopy = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

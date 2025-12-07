@@ -9,10 +9,9 @@
 
 + (id)_ui_deviceProviderTypesForConfiguration:()UI
 {
-  v3[1] = *MEMORY[0x277D85DE8];
-  v3[0] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:1];
-  v1 = *MEMORY[0x277D85DE8];
+  v2[1] = *MEMORY[0x277D85DE8];
+  v2[0] = objc_opt_class();
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:1];
 
   return v0;
 }

@@ -14,9 +14,9 @@
     +[NSCharacterSet(VietnameseAdditions) TI_vietnameseBaseCharacterSet];
   }
 
-  v1 = TI_vietnameseBaseCharacterSet___vietnameseBaseCharacterSet;
+  v2 = TI_vietnameseBaseCharacterSet___vietnameseBaseCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 + (id)TI_vietnameseTelexSpecialsCharacterSet
@@ -26,9 +26,9 @@
     +[NSCharacterSet(VietnameseAdditions) TI_vietnameseTelexSpecialsCharacterSet];
   }
 
-  v1 = TI_vietnameseTelexSpecialsCharacterSet___vietnameseTelexSpecialsCharacterSet;
+  v2 = TI_vietnameseTelexSpecialsCharacterSet___vietnameseTelexSpecialsCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 + (id)TI_vietnameseVIQRSpecialsCharacterSet
@@ -38,9 +38,9 @@
     +[NSCharacterSet(VietnameseAdditions) TI_vietnameseVIQRSpecialsCharacterSet];
   }
 
-  v1 = TI_vietnameseVIQRSpecialsCharacterSet___vietnameseVIQRSpecialsCharacterSet;
+  v2 = TI_vietnameseVIQRSpecialsCharacterSet___vietnameseVIQRSpecialsCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 + (id)TI_vietnameseVNISpecialsCharacterSet
@@ -50,9 +50,9 @@
     +[NSCharacterSet(VietnameseAdditions) TI_vietnameseVNISpecialsCharacterSet];
   }
 
-  v1 = TI_vietnameseVNISpecialsCharacterSet___vietnameseVNISpecialsCharacterSet;
+  v2 = TI_vietnameseVNISpecialsCharacterSet___vietnameseVNISpecialsCharacterSet;
 
-  return v1;
+  return v2;
 }
 
 @end

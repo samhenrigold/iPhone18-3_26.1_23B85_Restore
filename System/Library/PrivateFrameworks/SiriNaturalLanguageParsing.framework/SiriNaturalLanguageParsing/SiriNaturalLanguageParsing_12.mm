@@ -1,820 +1,3 @@
-void snlp::ssu::matcher::SSUCandidateEncoder::buildEncodedAppCandidates(void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
-{
-  snlp::ssu::matcher::SSUCandidateEncoder::getOriginalEncoding(a2, v8);
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
-  v5 = a1[1];
-  v6 = v5 - *a1;
-  if (v5 != *a1)
-  {
-    if (!((v6 >> 8) >> 58))
-    {
-      v7 = a3;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<snlp::ssu::matcher::SSUCandidateEncoder::EncodedAppCandidates>>(v6 >> 8);
-    }
-
-    std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
-  }
-
-  if (v9)
-  {
-    v10 = v9;
-    operator delete(v9);
-  }
-
-  if (v8[0])
-  {
-    v8[1] = v8[0];
-    operator delete(v8[0]);
-  }
-}
-
-void sub_22291047C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  std::vector<snlp::ssu::matcher::SSUCandidateEncoder::EncodedAppCandidates>::__destroy_vector::operator()[abi:ne200100](va);
-  itfm_inference_orchestrator::inference_engine::ITFMModuleOutputType::~ITFMModuleOutputType((v7 - 136));
-  _Unwind_Resume(a1);
-}
-
-void snlp::ssu::matcher::SSUCandidateEncoder::EncodingsBatch::~EncodingsBatch(snlp::ssu::matcher::SSUCandidateEncoder::EncodingsBatch *this)
-{
-  std::__hash_table<std::__hash_value_type<unsigned long,unsigned long>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned long>>>::~__hash_table(this + 48);
-  v2 = *(this + 3);
-  if (v2)
-  {
-    *(this + 4) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *this;
-  if (*this)
-  {
-    *(this + 1) = v3;
-    operator delete(v3);
-  }
-}
-
-void snlp::ssu::matcher::SSUCandidateEncoder::UtterancesBatch::~UtterancesBatch(void **this)
-{
-  std::__hash_table<std::__hash_value_type<unsigned long,unsigned long>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,unsigned long>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,unsigned long>>>::~__hash_table((this + 3));
-  v2 = this;
-  std::vector<std::basic_string<char16_t>>::__destroy_vector::operator()[abi:ne200100](&v2);
-}
-
-void snlp::ssu::matcher::SSUCandidateEncoder::getOriginalEncoding(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  snlp::ssu::matcher::SSUCandidateEncoder::getEncodingAtIndex(a1, 0, &v5);
-  if ((v9 & 1) == 0)
-  {
-    std::__throw_bad_optional_access[abi:ne200100]();
-  }
-
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  v3 = v5;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a2, v5, v6, (v6 - v5) >> 3);
-  a2[3] = 0;
-  a2[4] = 0;
-  a2[5] = 0;
-  v4 = v7;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>((a2 + 3), v7, v8, (v8 - v7) >> 2);
-  if (v4)
-  {
-    operator delete(v4);
-  }
-
-  if (v3)
-  {
-
-    operator delete(v3);
-  }
-}
-
-void sub_222910700(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  v4 = *v2;
-  if (*v2)
-  {
-    *(v2 + 8) = v4;
-    operator delete(v4);
-  }
-
-  std::optional<snlp::common::tensor::InferenceTensor>::~optional(va);
-  _Unwind_Resume(a1);
-}
-
-std::string *std::__optional_copy_base<snlp::ssu::candidate::SSUAlternativeCandidateInfo,false>::__optional_copy_base[abi:ne200100](std::string *this, __int128 *a2)
-{
-  this->__r_.__value_.__s.__data_[0] = 0;
-  this[2].__r_.__value_.__s.__data_[16] = 0;
-  if (*(a2 + 64) == 1)
-  {
-    if (*(a2 + 23) < 0)
-    {
-      std::string::__init_copy_ctor_external(this, *a2, *(a2 + 1));
-    }
-
-    else
-    {
-      v4 = *a2;
-      this->__r_.__value_.__r.__words[2] = *(a2 + 2);
-      *&this->__r_.__value_.__l.__data_ = v4;
-    }
-
-    std::unordered_set<std::string>::unordered_set(&this[1], a2 + 24);
-    this[2].__r_.__value_.__s.__data_[16] = 1;
-  }
-
-  return this;
-}
-
-void sub_2229107A4(_Unwind_Exception *exception_object)
-{
-  if (*(v1 + 64) == 1)
-  {
-    snlp::ssu::candidate::SSUAlternativeCandidateInfo::~SSUAlternativeCandidateInfo(v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-std::string *std::__optional_copy_base<snlp::ssu::proto::SSUValidatedRequest::AppEntitySpanInfo,false>::__optional_copy_base[abi:ne200100](std::string *this, __int128 *a2)
-{
-  this->__r_.__value_.__s.__data_[0] = 0;
-  this[3].__r_.__value_.__s.__data_[16] = 0;
-  if (*(a2 + 88) == 1)
-  {
-    if (*(a2 + 23) < 0)
-    {
-      std::string::__init_copy_ctor_external(this, *a2, *(a2 + 1));
-    }
-
-    else
-    {
-      v4 = *a2;
-      this->__r_.__value_.__r.__words[2] = *(a2 + 2);
-      *&this->__r_.__value_.__l.__data_ = v4;
-    }
-
-    v5 = *(a2 + 24);
-    this[1].__r_.__value_.__r.__words[2] = 0;
-    *&this[1].__r_.__value_.__l.__data_ = v5;
-    this[2].__r_.__value_.__r.__words[0] = 0;
-    this[2].__r_.__value_.__l.__size_ = 0;
-    std::vector<siri::ontology::UsoIdentifier>::__init_with_size[abi:ne200100]<siri::ontology::UsoIdentifier*,siri::ontology::UsoIdentifier*>(&this[1].__r_.__value_.__r.__words[2], *(a2 + 5), *(a2 + 6), 0xEEEEEEEEEEEEEEEFLL * ((*(a2 + 6) - *(a2 + 5)) >> 3));
-    if (*(a2 + 87) < 0)
-    {
-      std::string::__init_copy_ctor_external((this + 64), *(a2 + 8), *(a2 + 9));
-    }
-
-    else
-    {
-      v6 = a2[4];
-      this[3].__r_.__value_.__l.__size_ = *(a2 + 10);
-      *&this[2].__r_.__value_.__r.__words[2] = v6;
-    }
-
-    this[3].__r_.__value_.__s.__data_[16] = 1;
-  }
-
-  return this;
-}
-
-void sub_2229108B4(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::vector<siri::ontology::UsoIdentifier>::__destroy_vector::operator()[abi:ne200100](va);
-  if (*(v2 + 23) < 0)
-  {
-    operator delete(*v2);
-  }
-
-  if (*(v2 + 88) == 1)
-  {
-    snlp::ssu::proto::SSUValidatedRequest::AppEntitySpanInfo::~AppEntitySpanInfo(v2);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::optional<snlp::ssu::candidate::SSUAlternativeCandidateInfo>::~optional(uint64_t a1)
-{
-  if (*(a1 + 64) == 1)
-  {
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(a1 + 24);
-    if (*(a1 + 23) < 0)
-    {
-      operator delete(*a1);
-    }
-  }
-
-  return a1;
-}
-
-__n128 std::allocator_traits<std::allocator<snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate>>::construct[abi:ne200100]<snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate,snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate,0>(uint64_t a1, __int128 *a2)
-{
-  v4 = *a2;
-  *(a1 + 16) = *(a2 + 2);
-  *a1 = v4;
-  *(a2 + 1) = 0;
-  *(a2 + 2) = 0;
-  *a2 = 0;
-  *(a1 + 24) = 0;
-  *(a1 + 88) = 0;
-  if (*(a2 + 88) == 1)
-  {
-    v5 = *(a2 + 24);
-    *(a1 + 40) = *(a2 + 5);
-    *(a1 + 24) = v5;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
-    *(a2 + 3) = 0;
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__hash_table(a1 + 48, a2 + 6);
-    *(a1 + 88) = 1;
-  }
-
-  *(a1 + 96) = 0;
-  *(a1 + 184) = 0;
-  if (*(a2 + 184) == 1)
-  {
-    v6 = a2[6];
-    *(a1 + 112) = *(a2 + 14);
-    *(a1 + 96) = v6;
-    *(a2 + 13) = 0;
-    *(a2 + 14) = 0;
-    *(a2 + 12) = 0;
-    *(a1 + 120) = *(a2 + 120);
-    *(a1 + 144) = 0;
-    *(a1 + 152) = 0;
-    *(a1 + 136) = 0;
-    *(a1 + 136) = *(a2 + 136);
-    *(a1 + 152) = *(a2 + 19);
-    *(a2 + 17) = 0;
-    *(a2 + 18) = 0;
-    *(a2 + 19) = 0;
-    v7 = a2[10];
-    *(a1 + 176) = *(a2 + 22);
-    *(a1 + 160) = v7;
-    *(a2 + 21) = 0;
-    *(a2 + 22) = 0;
-    *(a2 + 20) = 0;
-    *(a1 + 184) = 1;
-  }
-
-  *(a1 + 192) = 0;
-  *(a1 + 200) = 0;
-  *(a1 + 208) = 0;
-  *(a1 + 192) = a2[12];
-  *(a1 + 208) = *(a2 + 26);
-  *(a2 + 24) = 0;
-  *(a2 + 25) = 0;
-  *(a2 + 26) = 0;
-  *(a1 + 216) = 0;
-  *(a1 + 224) = 0;
-  *(a1 + 232) = 0;
-  result = *(a2 + 216);
-  *(a1 + 216) = result;
-  *(a1 + 232) = *(a2 + 29);
-  *(a2 + 27) = 0;
-  *(a2 + 28) = 0;
-  *(a2 + 29) = 0;
-  return result;
-}
-
-uint64_t std::vector<snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate>::__emplace_back_slow_path<snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate>(uint64_t a1, __int128 *a2)
-{
-  v2 = 0xEEEEEEEEEEEEEEEFLL * ((*(a1 + 8) - *a1) >> 4);
-  v3 = v2 + 1;
-  if (v2 + 1 > 0x111111111111111)
-  {
-    std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
-  }
-
-  if (0xDDDDDDDDDDDDDDDELL * ((*(a1 + 16) - *a1) >> 4) > v3)
-  {
-    v3 = 0xDDDDDDDDDDDDDDDELL * ((*(a1 + 16) - *a1) >> 4);
-  }
-
-  if (0xEEEEEEEEEEEEEEEFLL * ((*(a1 + 16) - *a1) >> 4) >= 0x88888888888888)
-  {
-    v5 = 0x111111111111111;
-  }
-
-  else
-  {
-    v5 = v3;
-  }
-
-  v15 = a1;
-  if (v5)
-  {
-    std::__allocate_at_least[abi:ne200100]<std::allocator<snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate>>(v5);
-  }
-
-  v12 = 0;
-  v13 = 240 * v2;
-  std::allocator_traits<std::allocator<snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate>>::construct[abi:ne200100]<snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate,snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate,0>(240 * v2, a2);
-  v14 = 240 * v2 + 240;
-  v6 = *(a1 + 8);
-  v7 = 240 * v2 + *a1 - v6;
-  std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate>,snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate*>(*a1, v6, v7);
-  v8 = *a1;
-  *a1 = v7;
-  v9 = *(a1 + 16);
-  v11 = v14;
-  *(a1 + 8) = v14;
-  *&v14 = v8;
-  *(&v14 + 1) = v9;
-  v12 = v8;
-  v13 = v8;
-  std::__split_buffer<snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate>::~__split_buffer(&v12);
-  return v11;
-}
-
-void snlp::ssu::candidate::SSUCandidate::~SSUCandidate(void **this)
-{
-  if (*(this + 184) == 1)
-  {
-    if (*(this + 183) < 0)
-    {
-      operator delete(this[20]);
-    }
-
-    v2 = this + 17;
-    std::vector<siri::ontology::UsoIdentifier>::__destroy_vector::operator()[abi:ne200100](&v2);
-    if (*(this + 119) < 0)
-    {
-      operator delete(this[12]);
-    }
-  }
-
-  if (*(this + 88) == 1)
-  {
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((this + 6));
-    if (*(this + 47) < 0)
-    {
-      operator delete(this[3]);
-    }
-  }
-
-  if (*(this + 23) < 0)
-  {
-    operator delete(*this);
-  }
-}
-
-void snlp::ssu::matcher::SSUCandidateEncoder::getAlternativeEncoding(snlp::ssu::matcher::SSUCandidateEncoder *this@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, _BYTE *a4@<X8>)
-{
-  v25 = *MEMORY[0x277D85DE8];
-  v7 = *(this + 7);
-  if (!v7)
-  {
-    goto LABEL_17;
-  }
-
-  v8 = vcnt_s8(v7);
-  v8.i16[0] = vaddlv_u8(v8);
-  if (v8.u32[0] > 1uLL)
-  {
-    v9 = a2;
-    if (v7 <= a2)
-    {
-      v9 = a2 % v7;
-    }
-  }
-
-  else
-  {
-    v9 = (v7 - 1) & a2;
-  }
-
-  v10 = *(*(this + 6) + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
-  {
-LABEL_17:
-    v13 = SNLPOSLoggerForCategory(8);
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-    {
-LABEL_20:
-      *a4 = 0;
-      a4[48] = 0;
-      goto LABEL_21;
-    }
-
-    *buf = 134218240;
-    *&buf[4] = a2;
-    v21 = 2048;
-    v22 = a3;
-    v14 = buf;
-LABEL_19:
-    _os_log_impl(&dword_22284A000, v13, OS_LOG_TYPE_DEFAULT, "Warning: alternative encoding at appCandidatesIndex=%lu, alternativeIndex=%lu not present in the encodings batch. Skipping.", v14, 0x16u);
-    goto LABEL_20;
-  }
-
-  while (1)
-  {
-    v12 = v11[1];
-    if (v12 == a2)
-    {
-      break;
-    }
-
-    if (v8.u32[0] > 1uLL)
-    {
-      if (v12 >= v7)
-      {
-        v12 %= v7;
-      }
-    }
-
-    else
-    {
-      v12 &= v7 - 1;
-    }
-
-    if (v12 != v9)
-    {
-      goto LABEL_17;
-    }
-
-LABEL_16:
-    v11 = *v11;
-    if (!v11)
-    {
-      goto LABEL_17;
-    }
-  }
-
-  if (v11[2] != a2)
-  {
-    goto LABEL_16;
-  }
-
-  snlp::ssu::matcher::SSUCandidateEncoder::getEncodingAtIndex(this, v11[3] + a3, buf);
-  if ((v24 & 1) == 0)
-  {
-    v13 = SNLPOSLoggerForCategory(8);
-    if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_20;
-    }
-
-    v16 = 134218240;
-    v17 = a2;
-    v18 = 2048;
-    v19 = a3;
-    v14 = &v16;
-    goto LABEL_19;
-  }
-
-  std::__optional_copy_base<snlp::common::tensor::InferenceTensor,false>::__optional_copy_base[abi:ne200100](a4, buf);
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  if (*buf)
-  {
-    operator delete(*buf);
-  }
-
-LABEL_21:
-  v15 = *MEMORY[0x277D85DE8];
-}
-
-void sub_222910E20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va, a5);
-  std::optional<snlp::common::tensor::InferenceTensor>::~optional(va);
-  _Unwind_Resume(a1);
-}
-
-void snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate::~EncodedCandidate(snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate *this)
-{
-  v2 = *(this + 27);
-  if (v2)
-  {
-    *(this + 28) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(this + 24);
-  if (v3)
-  {
-    *(this + 25) = v3;
-    operator delete(v3);
-  }
-
-  if (*(this + 184) == 1)
-  {
-    if (*(this + 183) < 0)
-    {
-      operator delete(*(this + 20));
-    }
-
-    v4 = (this + 136);
-    std::vector<siri::ontology::UsoIdentifier>::__destroy_vector::operator()[abi:ne200100](&v4);
-    if (*(this + 119) < 0)
-    {
-      operator delete(*(this + 12));
-    }
-  }
-
-  if (*(this + 88) == 1)
-  {
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(this + 48);
-    if (*(this + 47) < 0)
-    {
-      operator delete(*(this + 3));
-    }
-  }
-
-  if (*(this + 23) < 0)
-  {
-    operator delete(*this);
-  }
-}
-
-uint64_t std::optional<snlp::common::tensor::InferenceTensor>::~optional(uint64_t a1)
-{
-  if (*(a1 + 48) == 1)
-  {
-    v2 = *(a1 + 24);
-    if (v2)
-    {
-      *(a1 + 32) = v2;
-      operator delete(v2);
-    }
-
-    v3 = *a1;
-    if (*a1)
-    {
-      *(a1 + 8) = v3;
-      operator delete(v3);
-    }
-  }
-
-  return a1;
-}
-
-void std::vector<snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate>::__destroy_vector::operator()[abi:ne200100](void ***a1)
-{
-  v1 = *a1;
-  v2 = **a1;
-  if (v2)
-  {
-    v4 = v1[1];
-    v5 = v2;
-    if (v4 != v2)
-    {
-      do
-      {
-        snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate::~EncodedCandidate((v4 - 240));
-      }
-
-      while (v4 != v2);
-      v5 = **a1;
-    }
-
-    v1[1] = v2;
-
-    operator delete(v5);
-  }
-}
-
-void snlp::ssu::matcher::SSUCandidateEncoder::EncodedAppCandidates::~EncodedAppCandidates(void **this)
-{
-  v2 = this + 5;
-  std::vector<snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate>::__destroy_vector::operator()[abi:ne200100](&v2);
-  if (*(this + 31) < 0)
-  {
-    operator delete(this[1]);
-  }
-}
-
-void std::vector<snlp::ssu::matcher::SSUCandidateEncoder::EncodedAppCandidates>::__destroy_vector::operator()[abi:ne200100](void ***a1)
-{
-  v1 = *a1;
-  v2 = **a1;
-  if (v2)
-  {
-    v4 = v1[1];
-    v5 = **a1;
-    if (v4 != v2)
-    {
-      do
-      {
-        v4 -= 64;
-        std::allocator<snlp::ssu::matcher::SSUCandidateEncoder::EncodedAppCandidates>::destroy[abi:ne200100](v4);
-      }
-
-      while (v4 != v2);
-      v5 = **a1;
-    }
-
-    v1[1] = v2;
-
-    operator delete(v5);
-  }
-}
-
-void std::allocator<snlp::ssu::matcher::SSUCandidateEncoder::EncodedAppCandidates>::destroy[abi:ne200100](uint64_t a1)
-{
-  v3 = (a1 + 40);
-  std::vector<snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate>::__destroy_vector::operator()[abi:ne200100](&v3);
-  if (*(a1 + 31) < 0)
-  {
-    v2 = *(a1 + 8);
-
-    operator delete(v2);
-  }
-}
-
-void std::__allocate_at_least[abi:ne200100]<std::allocator<snlp::ssu::matcher::SSUCandidateEncoder::EncodedAppCandidates>>(unint64_t a1)
-{
-  if (!(a1 >> 58))
-  {
-    operator new();
-  }
-
-  std::__throw_bad_array_new_length[abi:ne200100]();
-}
-
-void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<snlp::ssu::matcher::SSUCandidateEncoder::EncodedAppCandidates>,snlp::ssu::matcher::SSUCandidateEncoder::EncodedAppCandidates*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  if (a2 != a3)
-  {
-    v5 = a2;
-    v6 = a2;
-    do
-    {
-      v7 = *v6;
-      *(a4 + 4) = *(v6 + 4);
-      *a4 = v7;
-      v8 = *(v6 + 8);
-      *(a4 + 24) = *(v6 + 24);
-      *(a4 + 8) = v8;
-      *(v6 + 16) = 0;
-      *(v6 + 24) = 0;
-      *(v6 + 8) = 0;
-      *(a4 + 32) = *(v6 + 32);
-      *(a4 + 48) = 0;
-      *(a4 + 56) = 0;
-      *(a4 + 40) = 0;
-      *(a4 + 40) = *(v6 + 40);
-      *(a4 + 56) = *(v6 + 56);
-      *(v6 + 40) = 0;
-      *(v6 + 48) = 0;
-      *(v6 + 56) = 0;
-      v6 += 64;
-      a4 += 64;
-    }
-
-    while (v6 != a3);
-    do
-    {
-      std::allocator<snlp::ssu::matcher::SSUCandidateEncoder::EncodedAppCandidates>::destroy[abi:ne200100](v5);
-      v5 += 64;
-    }
-
-    while (v5 != a3);
-  }
-}
-
-uint64_t std::__split_buffer<snlp::ssu::matcher::SSUCandidateEncoder::EncodedAppCandidates>::~__split_buffer(uint64_t a1)
-{
-  v3 = *(a1 + 8);
-  for (i = *(a1 + 16); i != v3; i = *(a1 + 16))
-  {
-    *(a1 + 16) = i - 64;
-    std::allocator<snlp::ssu::matcher::SSUCandidateEncoder::EncodedAppCandidates>::destroy[abi:ne200100](i - 64);
-  }
-
-  if (*a1)
-  {
-    operator delete(*a1);
-  }
-
-  return a1;
-}
-
-void std::vector<siri::ontology::UsoIdentifier>::__destroy_vector::operator()[abi:ne200100](void ***a1)
-{
-  v2 = *a1;
-  if (*v2)
-  {
-    std::vector<siri::ontology::UsoIdentifier>::clear[abi:ne200100](v2);
-    v3 = **a1;
-
-    operator delete(v3);
-  }
-}
-
-void std::vector<siri::ontology::UsoIdentifier>::clear[abi:ne200100](void ***a1)
-{
-  v2 = *a1;
-  v3 = a1[1];
-  if (v3 != *a1)
-  {
-    do
-    {
-      if (*(v3 - 48) == 1 && *(v3 - 49) < 0)
-      {
-        operator delete(*(v3 - 9));
-      }
-
-      if (*(v3 - 73) < 0)
-      {
-        operator delete(*(v3 - 12));
-      }
-
-      v4 = v3 - 15;
-      if (*(v3 - 97) < 0)
-      {
-        operator delete(*v4);
-      }
-
-      v3 -= 15;
-    }
-
-    while (v4 != v2);
-  }
-
-  a1[1] = v2;
-}
-
-uint64_t snlp::ssu::matcher::SSUCandidateEncoder::getEncodingAtIndex@<X0>(uint64_t result@<X0>, unint64_t a2@<X1>, _BYTE *a3@<X8>)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = *result;
-  if (*(result + 8) - *result <= 8uLL)
-  {
-    std::vector<unsigned long>::__throw_out_of_range[abi:ne200100]();
-  }
-
-  if (*v4 > a2)
-  {
-    v5 = *(result + 24);
-    v9 = v4[1];
-    *&v8 = 0;
-    v7 = 0uLL;
-    std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(&v7, &v9, &v10, 1uLL);
-  }
-
-  *a3 = 0;
-  a3[48] = 0;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_22291141C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::__allocate_at_least[abi:ne200100]<std::allocator<snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate>>(unint64_t a1)
-{
-  if (a1 < 0x111111111111112)
-  {
-    operator new();
-  }
-
-  std::__throw_bad_array_new_length[abi:ne200100]();
-}
-
-void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate>,snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate*>(snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate *a1, __int128 *a2, uint64_t a3)
-{
-  if (a1 != a2)
-  {
-    v5 = a1;
-    v6 = a1;
-    do
-    {
-      std::allocator_traits<std::allocator<snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate>>::construct[abi:ne200100]<snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate,snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate,0>(a3, v6);
-      v6 += 15;
-      a3 += 240;
-    }
-
-    while (v6 != a2);
-    do
-    {
-      snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate::~EncodedCandidate(v5);
-      v5 = (v5 + 240);
-    }
-
-    while (v5 != a2);
-  }
-}
-
 uint64_t std::__split_buffer<snlp::ssu::matcher::SSUCandidateEncoder::EncodedCandidate>::~__split_buffer(uint64_t a1)
 {
   v3 = *(a1 + 8);
@@ -872,7 +55,7 @@ uint64_t std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std:
   return result;
 }
 
-uint64_t std::vector<siri::ontology::UsoIdentifier>::__init_with_size[abi:ne200100]<siri::ontology::UsoIdentifier*,siri::ontology::UsoIdentifier*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<siri::ontology::UsoIdentifier>::__init_with_size[abi:ne200100]<siri::ontology::UsoIdentifier*,siri::ontology::UsoIdentifier*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -897,7 +80,7 @@ void snlp::ssu::proto::SSUValidatedRequest::AppEntitySpanInfo::~AppEntitySpanInf
   }
 }
 
-void std::vector<siri::ontology::UsoIdentifier>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<siri::ontology::UsoIdentifier>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x222222222222223)
   {
@@ -999,7 +182,7 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
 
 void snlp::ssu::candidate::SSUAlternativeCandidateInfo::~SSUAlternativeCandidateInfo(void **this)
 {
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table((this + 3));
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(this + 3);
   if (*(this + 23) < 0)
   {
     operator delete(*this);
@@ -1108,39 +291,39 @@ void nlv4_inference_orchestrator::inference_engine::BertE5MLModule::forward(E5RT
   nlv4_inference_orchestrator::inference_engine::BertModuleInputType::BertModuleInputType(buf, a2);
   snlp::common::espresso_inference::e5ml::EspressoE5MLModule::bindPorts(this + 54);
   (*(*this + 21))(this, buf);
-  v5 = this[57];
-  v6 = this[77];
-  v9 = this[76];
-  v10 = v6;
-  if (v6)
+  v5 = this[77];
+  v8 = this[76];
+  v9 = v5;
+  if (v5)
   {
-    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   E5RT::ExecutionStream::EncodeOperation();
-  if (v10)
+  if (v9)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
   }
 
   E5RT::ExecutionStream::ExecuteStreamSync(this[57]);
   E5RT::ExecutionStream::ResetStream(this[57]);
   (*(*this + 22))(this);
   snlp::common::espresso_inference::e5ml::EspressoE5MLModule::unbindPorts(this + 54);
-  v7 = SNLPOSLoggerForCategory(5);
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v6 = SNLPOSLoggerForCategory(5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_22284A000, v7, OS_LOG_TYPE_DEBUG, "Success Executing non-reshapable E5-ML inference.", v8, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_22284A000, v6, OS_LOG_TYPE_DEBUG, "Success Executing non-reshapable E5-ML inference.", v7, 2u);
   }
 
   nlv4_inference_orchestrator::inference_engine::BertModuleInputType::~BertModuleInputType(buf);
 }
 
-void sub_222911FF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13)
+void sub_222911FF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
-  nlv4_inference_orchestrator::inference_engine::BertModuleOutputType::~BertModuleOutputType(v13);
-  nlv4_inference_orchestrator::inference_engine::BertModuleInputType::~BertModuleInputType(&a13);
+  va_start(va, a12);
+  nlv4_inference_orchestrator::inference_engine::BertModuleOutputType::~BertModuleOutputType(v12);
+  nlv4_inference_orchestrator::inference_engine::BertModuleInputType::~BertModuleInputType(va);
   _Unwind_Resume(a1);
 }
 
@@ -1227,7 +410,6 @@ BOOL snlp::ssu::cache::SSUCacheObjectParameter::operator==(void *a1, void *a2)
     a1 = *a1;
   }
 
-  v8 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -1238,56 +420,56 @@ BOOL snlp::ssu::cache::SSUCacheObjectParameter::operator==(void *a1, void *a2)
     return 0;
   }
 
-  v9 = *(v7 + 47);
-  if (v9 >= 0)
+  v8 = *(v7 + 47);
+  if (v8 >= 0)
   {
-    v10 = *(v7 + 47);
+    v9 = *(v7 + 47);
   }
 
   else
   {
-    v10 = v7[4];
+    v9 = v7[4];
   }
 
-  v11 = *(v6 + 47);
-  v12 = v11;
-  if ((v11 & 0x80u) != 0)
+  v10 = *(v6 + 47);
+  v11 = v10;
+  if ((v10 & 0x80u) != 0)
   {
-    v11 = v6[4];
+    v10 = v6[4];
   }
 
-  if (v10 != v11)
+  if (v9 != v10)
   {
     return 0;
   }
 
-  v15 = v7[3];
-  v14 = v7 + 3;
-  v13 = v15;
-  if (v9 >= 0)
+  v14 = v7[3];
+  v13 = v7 + 3;
+  v12 = v14;
+  if (v8 >= 0)
   {
-    v16 = v14;
+    v15 = v13;
   }
 
   else
   {
-    v16 = v13;
+    v15 = v12;
   }
 
-  v19 = v6[3];
-  v18 = v6 + 3;
-  v17 = v19;
-  if (v12 >= 0)
+  v18 = v6[3];
+  v17 = v6 + 3;
+  v16 = v18;
+  if (v11 >= 0)
   {
-    v20 = v18;
+    v19 = v17;
   }
 
   else
   {
-    v20 = v17;
+    v19 = v16;
   }
 
-  return memcmp(v16, v20, v10) == 0;
+  return memcmp(v15, v19, v9) == 0;
 }
 
 BOOL snlp::ssu::cache::SSUCacheObjectIntent::operator==(void *a1, void *a2)
@@ -1322,7 +504,6 @@ BOOL snlp::ssu::cache::SSUCacheObjectIntent::operator==(void *a1, void *a2)
     a1 = *a1;
   }
 
-  v8 = *a2;
   if (v5 < 0)
   {
     a2 = *a2;
@@ -1333,34 +514,34 @@ BOOL snlp::ssu::cache::SSUCacheObjectIntent::operator==(void *a1, void *a2)
     return 0;
   }
 
-  v11 = v7 + 3;
-  v9 = v7[3];
-  v10 = v11[1];
-  v13 = v6 + 3;
-  v12 = v6[3];
-  if (v10 - v9 != v13[1] - v12)
+  v10 = v7 + 3;
+  v8 = v7[3];
+  v9 = v10[1];
+  v12 = v6 + 3;
+  v11 = v6[3];
+  if (v9 - v8 != v12[1] - v11)
   {
     return 0;
   }
 
-  if (v9 == v10)
+  if (v8 == v9)
   {
     return 1;
   }
 
   do
   {
-    result = snlp::ssu::cache::SSUCacheObjectParameter::operator==(v9, v12);
+    result = snlp::ssu::cache::SSUCacheObjectParameter::operator==(v8, v11);
     if (!result)
     {
       break;
     }
 
-    v9 += 48;
-    v12 += 6;
+    v8 += 48;
+    v11 += 6;
   }
 
-  while (v9 != v10);
+  while (v8 != v9);
   return result;
 }
 
@@ -1395,9 +576,9 @@ BOOL snlp::ssu::cache::SSUCacheObjectIntentList::operator==(uint64_t a1, uint64_
   return result;
 }
 
-void snlp::ssu::cache::SSUCacheObjectIntentList::getIntentWithIndex(snlp::ssu::cache::SSUCacheObjectIntentList *this@<X0>, unint64_t a2@<X1>, std::string *a3@<X8>)
+void snlp::ssu::cache::SSUCacheObjectIntentList::getIntentWithIndex(void *this@<X0>, unint64_t a2@<X1>, std::string *a3@<X8>)
 {
-  if (0xAAAAAAAAAAAAAAABLL * ((*(this + 1) - *this) >> 4) <= a2)
+  if (0xAAAAAAAAAAAAAAABLL * ((this[1] - *this) >> 4) <= a2)
   {
     v6 = 0;
     a3->__r_.__value_.__s.__data_[0] = 0;
@@ -1438,7 +619,7 @@ void sub_222912424(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<snlp::ssu::cache::SSUCacheObjectParameter>::__init_with_size[abi:ne200100]<snlp::ssu::cache::SSUCacheObjectParameter*,snlp::ssu::cache::SSUCacheObjectParameter*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<snlp::ssu::cache::SSUCacheObjectParameter>::__init_with_size[abi:ne200100]<snlp::ssu::cache::SSUCacheObjectParameter*,snlp::ssu::cache::SSUCacheObjectParameter*>(uint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1789,11 +970,11 @@ void boost::throw_exception<boost::io::too_few_args>(uint64_t a1)
   exception[5] = 0;
 }
 
-uint64_t boost::wrapexcept<boost::io::too_few_args>::~wrapexcept(uint64_t a1)
+std::exception *boost::wrapexcept<boost::io::too_few_args>::~wrapexcept(std::exception *a1)
 {
-  *(a1 + 32) = &unk_2835E6600;
-  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr((a1 + 40));
-  std::exception::~exception((a1 + 8));
+  a1[4].__vftable = &unk_2835E6600;
+  boost::exception_detail::refcount_ptr<boost::exception_detail::error_info_container>::~refcount_ptr(&a1[5]);
+  std::exception::~exception(a1 + 1);
   return a1;
 }
 
@@ -2301,14 +1482,13 @@ void snlp::ssu::matcher::SSUMatcher::getLocale(snlp::ssu::matcher::SSUMatcher *t
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *this;
-    a2->__r_.__value_.__r.__words[2] = *(this + 2);
+    *a2 = *this;
   }
 }
 
 void snlp::ssu::matcher::SSUMatcher::performFullCacheUpdate(uint64_t a1@<X0>, char **a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   std::mutex::lock((a1 + 344));
   v8 = SNLPOSLoggerForCategory(8);
   v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
@@ -2331,8 +1511,8 @@ void snlp::ssu::matcher::SSUMatcher::performFullCacheUpdate(uint64_t a1@<X0>, ch
     {
       if (snlp::ssu::matcher::SSUMatcher::appAssetDirectoryExists(v9, v11))
       {
-        snlp::ssu::matcher::SSUPersister::updateCacheForAppIfRequired((a1 + 64), v11, buf);
-        if (v36 == 1)
+        snlp::ssu::matcher::SSUPersister::updateCacheForAppIfRequired(buf, (a1 + 64), v11);
+        if (v35 == 1)
         {
           v13 = a4[1];
           if (v13 >= a4[2])
@@ -2356,12 +1536,12 @@ LABEL_16:
             v19 = *v11;
           }
 
-          *v29 = 136315138;
-          v30 = v19;
+          *v28 = 136315138;
+          v29 = v19;
           v20 = v18;
           v21 = "Cache update failed for app %s. Continuing with other apps.";
 LABEL_25:
-          _os_log_impl(&dword_22284A000, v20, OS_LOG_TYPE_ERROR, v21, v29, 0xCu);
+          _os_log_impl(&dword_22284A000, v20, OS_LOG_TYPE_ERROR, v21, v28, 0xCu);
         }
       }
 
@@ -2384,13 +1564,13 @@ LABEL_25:
 
           *buf = 136315394;
           *&buf[4] = v15;
-          v32 = 2080;
-          v33 = v16;
+          v31 = 2080;
+          v32 = v16;
           _os_log_impl(&dword_22284A000, v14, OS_LOG_TYPE_DEBUG, "Cannot find SSU app assets for given app: %s (tried %s). Cleaning up cache files for it and removing it from the registry.", buf, 0x16u);
         }
 
         snlp::ssu::matcher::SSUPersister::removeCacheFilesForApp(a1 + 64, v11, buf);
-        if (v36 == 1)
+        if (v35 == 1)
         {
           v13 = a4[1];
           if (v13 < a4[2])
@@ -2408,7 +1588,7 @@ LABEL_27:
             operator delete(__p);
           }
 
-          if (v34 < 0)
+          if (v33 < 0)
           {
             operator delete(*buf);
           }
@@ -2426,8 +1606,8 @@ LABEL_27:
             v23 = *v11;
           }
 
-          *v29 = 136315138;
-          v30 = v23;
+          *v28 = 136315138;
+          v29 = v23;
           v20 = v22;
           v21 = "Removing cache files failed for app %s.";
           goto LABEL_25;
@@ -2483,28 +1663,18 @@ LABEL_31:
   }
 
   std::mutex::unlock((a1 + 344));
-  v28 = *MEMORY[0x277D85DE8];
 }
 
-void sub_222914D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_222914D00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::optional<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo>::~optional(va);
   std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo>::__destroy_vector::operator()[abi:ne200100](va);
-  std::mutex::unlock((v7 + 344));
+  std::mutex::unlock((v13 + 344));
   _Unwind_Resume(a1);
 }
 
-BOOL snlp::ssu::matcher::SSUMatcher::appAssetDirectoryExists(snlp::ssu::matcher::SSUMatcher *this, const std::__fs::filesystem::path *a2)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  std::__fs::filesystem::__status(a2 + 1, 0);
-  result = v4 == 2;
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo>::__construct_one_at_end[abi:ne200100]<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo const&>(uint64_t a1, __int128 *a2)
+uint64_t *std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo>::__construct_one_at_end[abi:ne200100]<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo const&>(uint64_t a1, __int128 *a2)
 {
   v4 = *(a1 + 8);
   if (*(a2 + 23) < 0)
@@ -2524,7 +1694,7 @@ uint64_t std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo>::__cons
   *(v4 + 24) = v6;
   *(v4 + 40) = 0;
   *(v4 + 48) = 0;
-  result = std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo>::__init_with_size[abi:ne200100]<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo*,snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo*>(v4 + 32, *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 4);
+  result = std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo>::__init_with_size[abi:ne200100]<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo*,snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo*>((v4 + 32), *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 4);
   *(a1 + 8) = v4 + 56;
   return result;
 }
@@ -2580,7 +1750,7 @@ uint64_t std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo>::__empl
   *(v7 + 24) = v9;
   *(v7 + 40) = 0;
   *(v7 + 48) = 0;
-  std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo>::__init_with_size[abi:ne200100]<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo*,snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo*>(v7 + 32, *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 4);
+  std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo>::__init_with_size[abi:ne200100]<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo*,snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo*>((v7 + 32), *(a2 + 4), *(a2 + 5), (*(a2 + 5) - *(a2 + 4)) >> 4);
   *&v22 = v22 + 56;
   v10 = *a1;
   v11 = a1[1];
@@ -2633,9 +1803,9 @@ uint64_t std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo>::__empl
   return v19;
 }
 
-void sub_2229150FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_2229150FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2713,7 +1883,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<snlp::ssu::selfloggin
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo>::__init_with_size[abi:ne200100]<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo*,snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo>::__init_with_size[abi:ne200100]<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo*,snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2752,7 +1922,7 @@ uint64_t std::__split_buffer<snlp::ssu::selflogging::SSUBackgroundUpdateAppInfo>
   return a1;
 }
 
-void std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -2774,7 +1944,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<snlp::ssu::selfloggin
 
 void snlp::ssu::matcher::SSUMatcher::registerApp(snlp::ssu::matcher::SSUMatcher *this@<X0>, const snlp::ssu::matcher::SSUAppInfo *a2@<X1>, uint64_t a3@<X8>)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   std::mutex::lock((this + 344));
   v6 = SNLPOSLoggerForCategory(8);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
@@ -2799,14 +1969,14 @@ void snlp::ssu::matcher::SSUMatcher::registerApp(snlp::ssu::matcher::SSUMatcher 
       v8 = *(a2 + 3);
     }
 
-    v13 = 136315394;
-    v14 = v7;
-    v15 = 2080;
-    v16 = v8;
-    _os_log_impl(&dword_22284A000, v6, OS_LOG_TYPE_DEBUG, "Handling app registration for app with bundle ID %s and asset path %s", &v13, 0x16u);
+    v12 = 136315394;
+    v13 = v7;
+    v14 = 2080;
+    v15 = v8;
+    _os_log_impl(&dword_22284A000, v6, OS_LOG_TYPE_DEBUG, "Handling app registration for app with bundle ID %s and asset path %s", &v12, 0x16u);
   }
 
-  snlp::ssu::matcher::SSUPersister::updateCacheForAppIfRequired(this + 8, a2, a3);
+  snlp::ssu::matcher::SSUPersister::updateCacheForAppIfRequired(a3, this + 8, a2);
   v9 = *(a3 + 56);
   v10 = SNLPOSLoggerForCategory(8);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
@@ -2817,18 +1987,17 @@ void snlp::ssu::matcher::SSUMatcher::registerApp(snlp::ssu::matcher::SSUMatcher 
       v11 = "TRUE";
     }
 
-    v13 = 136315138;
-    v14 = v11;
-    _os_log_impl(&dword_22284A000, v10, OS_LOG_TYPE_DEBUG, "Completed app registration with isSuccess=%s", &v13, 0xCu);
+    v12 = 136315138;
+    v13 = v11;
+    _os_log_impl(&dword_22284A000, v10, OS_LOG_TYPE_DEBUG, "Completed app registration with isSuccess=%s", &v12, 0xCu);
   }
 
   std::mutex::unlock((this + 344));
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void snlp::ssu::matcher::SSUMatcher::deregisterApp(uint64_t a1@<X0>, char *a2@<X1>, uint64_t a3@<X8>)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   std::mutex::lock((a1 + 344));
   v6 = SNLPOSLoggerForCategory(8);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
@@ -2843,9 +2012,9 @@ void snlp::ssu::matcher::SSUMatcher::deregisterApp(uint64_t a1@<X0>, char *a2@<X
       v7 = *a2;
     }
 
-    v12 = 136315138;
-    v13 = v7;
-    _os_log_impl(&dword_22284A000, v6, OS_LOG_TYPE_DEBUG, "Handling app deregistration for app with bundle ID %s", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = v7;
+    _os_log_impl(&dword_22284A000, v6, OS_LOG_TYPE_DEBUG, "Handling app deregistration for app with bundle ID %s", &v11, 0xCu);
   }
 
   snlp::ssu::matcher::SSUPersister::removeCacheFilesForApp(a1 + 64, a2, a3);
@@ -2864,30 +2033,29 @@ void snlp::ssu::matcher::SSUMatcher::deregisterApp(uint64_t a1@<X0>, char *a2@<X
         v9 = *a2;
       }
 
-      v12 = 136315138;
-      v13 = v9;
-      _os_log_impl(&dword_22284A000, v8, OS_LOG_TYPE_ERROR, "Hit error when removing cache files for app %s. Returning false to signal that there was an error during de-registration.", &v12, 0xCu);
+      v11 = 136315138;
+      v12 = v9;
+      _os_log_impl(&dword_22284A000, v8, OS_LOG_TYPE_ERROR, "Hit error when removing cache files for app %s. Returning false to signal that there was an error during de-registration.", &v11, 0xCu);
     }
   }
 
   v10 = SNLPOSLoggerForCategory(8);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    LOWORD(v12) = 0;
-    _os_log_impl(&dword_22284A000, v10, OS_LOG_TYPE_DEBUG, "Completed app deregistration", &v12, 2u);
+    LOWORD(v11) = 0;
+    _os_log_impl(&dword_22284A000, v10, OS_LOG_TYPE_DEBUG, "Completed app deregistration", &v11, 2u);
   }
 
   std::mutex::unlock((a1 + 344));
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-void snlp::ssu::matcher::SSUMatcher::handleUserRequest(std::string *a1@<X0>, uint64_t *a2@<X1>, _OWORD *a3@<X8>)
+double snlp::ssu::matcher::SSUMatcher::handleUserRequest@<D0>(snlp::ssu::matcher::SSUMatcher *a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
   v16 = *MEMORY[0x277D85DE8];
   v5 = *a2;
   *a2 = 0;
   v10 = v5;
-  snlp::ssu::proto::SSUValidatedRequest::validateRequest(&a1->__r_.__value_.__l.__data_, &v10, &v11);
+  snlp::ssu::proto::SSUValidatedRequest::validateRequest(a1, &v10, &v11);
   if (v10)
   {
     (*(*v10 + 8))(v10);
@@ -2895,10 +2063,10 @@ void snlp::ssu::matcher::SSUMatcher::handleUserRequest(std::string *a1@<X0>, uin
 
   if (v12)
   {
-    snlp::ssu::matcher::SSUMatcher::getTriggeredAppCategories(a1, v9);
+    snlp::ssu::matcher::SSUMatcher::getTriggeredAppCategories(v9, a1);
     if (v9[0] != v9[1] || (_os_feature_enabled_impl() & 1) != 0)
     {
-      snlp::ssu::matcher::SSURequestHandler::buildResponseForApps(&a1[7], v9, &v11);
+      snlp::ssu::matcher::SSURequestHandler::buildResponseForApps((a1 + 168), v9, &v11);
     }
 
     v8 = SNLPOSLoggerForCategory(8);
@@ -2921,46 +2089,45 @@ void snlp::ssu::matcher::SSUMatcher::handleUserRequest(std::string *a1@<X0>, uin
     _os_log_impl(&dword_22284A000, v6, OS_LOG_TYPE_ERROR, "Request failed validation. Aborting handling.", v9, 2u);
   }
 
+  result = 0.0;
   *a3 = 0u;
-  a3[1] = 0u;
-  v7 = *MEMORY[0x277D85DE8];
+  *(a3 + 1) = 0u;
+  return result;
 }
 
-void sub_222915928(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15)
+void sub_222915928(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15)
 {
   if (a14 == 1)
   {
     if (a13)
     {
-      (*(*a13 + 8))(a13);
+      (*(*a13 + 8))(a13, a2, a3, a4, a5, a6, a7, a8);
     }
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void snlp::ssu::matcher::SSUMatcher::getTriggeredAppCategories(std::string *this@<X0>, void *a2@<X8>)
+void snlp::ssu::matcher::SSUMatcher::getTriggeredAppCategories(uint64_t *__return_ptr a1@<X8>, std::string *this@<X0>)
 {
   v3 = this;
-  v24 = *MEMORY[0x277D85DE8];
-  snlp::ssu::cache::SSUCacheDirectory::lookupCacheFilesForLocale(this[13].__r_.__value_.__r.__words[2], this, &v17);
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  v5 = v17.__r_.__value_.__r.__words[0];
-  if (v17.__r_.__value_.__r.__words[0] != v17.__r_.__value_.__l.__size_)
+  v20 = *MEMORY[0x277D85DE8];
+  snlp::ssu::cache::SSUCacheDirectory::lookupCacheFilesForLocale(this[13].__r_.__value_.__r.__words[2], this, &v13);
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (v13.__r_.__value_.__r.__words[0] != v13.__r_.__value_.__l.__size_)
   {
-    if (!*v17.__r_.__value_.__l.__data_)
+    if (!*v13.__r_.__value_.__l.__data_)
     {
-      std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::find<std::string>(v3[1].__r_.__value_.__r.__words, (v17.__r_.__value_.__r.__words[0] + 8));
-      v6 = *v5;
+      std::__hash_table<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::variant<int,unsigned int,float,BOOL,std::string>>>>::find<std::string>(v3[1].__r_.__value_.__r.__words, (v13.__r_.__value_.__r.__words[0] + 8));
     }
 
     snlp::ssu::trigger::buildTrigger();
   }
 
-  v7 = SNLPOSLoggerForCategory(8);
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v5 = SNLPOSLoggerForCategory(8);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     if (SHIBYTE(v3->__r_.__value_.__r.__words[2]) < 0)
     {
@@ -2969,28 +2136,27 @@ void snlp::ssu::matcher::SSUMatcher::getTriggeredAppCategories(std::string *this
 
     *buf = 136315906;
     *&buf[4] = "SSU";
-    v19 = 2080;
-    v20 = "[insights-snlp-ssu]: ";
-    v21 = 2048;
-    v22 = 0x4EC4EC4EC4EC4EC5 * ((v17.__r_.__value_.__l.__size_ - v17.__r_.__value_.__r.__words[0]) >> 3);
-    v23[0] = 2080;
-    *&v23[1] = v3;
-    _os_log_impl(&dword_22284A000, v7, OS_LOG_TYPE_DEBUG, "[%s] %sFound %lu cache files in total for locale %s. Each of these were tested for triggering against the input request.", buf, 0x2Au);
+    v15 = 2080;
+    v16 = "[insights-snlp-ssu]: ";
+    v17 = 2048;
+    v18 = 0x4EC4EC4EC4EC4EC5 * ((v13.__r_.__value_.__l.__size_ - v13.__r_.__value_.__r.__words[0]) >> 3);
+    v19[0] = 2080;
+    *&v19[1] = v3;
+    _os_log_impl(&dword_22284A000, v5, OS_LOG_TYPE_DEBUG, "[%s] %sFound %lu cache files in total for locale %s. Each of these were tested for triggering against the input request.", buf, 0x2Au);
   }
 
-  v8 = *a2;
-  v9 = a2[1];
-  v10 = *a2;
-  if (*a2 == v9)
+  v6 = a1[1];
+  v7 = *a1;
+  if (*a1 == v6)
   {
-    v15 = SNLPOSLoggerForCategory(8);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v12 = SNLPOSLoggerForCategory(8);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
       *&buf[4] = "SSU";
-      v19 = 2080;
-      v20 = "[insights-snlp-ssu]: ";
-      _os_log_impl(&dword_22284A000, v15, OS_LOG_TYPE_DEBUG, "[%s] %sNo app experiences were triggered", buf, 0x16u);
+      v15 = 2080;
+      v16 = "[insights-snlp-ssu]: ";
+      _os_log_impl(&dword_22284A000, v12, OS_LOG_TYPE_DEBUG, "[%s] %sNo app experiences were triggered", buf, 0x16u);
     }
   }
 
@@ -2998,42 +2164,41 @@ void snlp::ssu::matcher::SSUMatcher::getTriggeredAppCategories(std::string *this
   {
     do
     {
-      v11 = SNLPOSLoggerForCategory(8);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v8 = SNLPOSLoggerForCategory(8);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        v12 = (v10 + 8);
-        if (*(v10 + 31) < 0)
+        v9 = (v7 + 8);
+        if (*(v7 + 31) < 0)
         {
-          v12 = *v12;
+          v9 = *v9;
         }
 
-        v13 = *(v10 + 32);
-        v14 = "";
-        if (v13 <= 3)
+        v10 = *(v7 + 32);
+        v11 = "";
+        if (v10 <= 3)
         {
-          v14 = EnumNamesSSUCategoryType(void)::names[v13];
+          v11 = EnumNamesSSUCategoryType(void)::names[v10];
         }
 
         *buf = 136315906;
         *&buf[4] = "SSU";
-        v19 = 2080;
-        v20 = "[insights-snlp-ssu]: ";
-        v21 = 2080;
-        v22 = v12;
-        v23[0] = 2080;
-        *&v23[1] = v14;
-        _os_log_impl(&dword_22284A000, v11, OS_LOG_TYPE_DEBUG, "[%s] %sApp '%s' with category '%s' was triggered", buf, 0x2Au);
+        v15 = 2080;
+        v16 = "[insights-snlp-ssu]: ";
+        v17 = 2080;
+        v18 = v9;
+        v19[0] = 2080;
+        *&v19[1] = v11;
+        _os_log_impl(&dword_22284A000, v8, OS_LOG_TYPE_DEBUG, "[%s] %sApp '%s' with category '%s' was triggered", buf, 0x2Au);
       }
 
-      v10 += 40;
+      v7 += 40;
     }
 
-    while (v10 != v9);
+    while (v7 != v6);
   }
 
-  *buf = &v17;
+  *buf = &v13;
   std::vector<snlp::ssu::cache::SSUCacheDirectory::CacheFileResult>::__destroy_vector::operator()[abi:ne200100](buf);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void std::vector<snlp::ssu::app::SSUAppCategory>::__destroy_vector::operator()[abi:ne200100](void ***a1)
@@ -3148,10 +2313,10 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<snlp::
     {
       if (*(v5 + 31) < 0)
       {
-        operator delete(v5[1]);
+        operator delete(*(v5 + 1));
       }
 
-      v5 += 5;
+      v5 += 10;
     }
 
     while (v5 != a3);
@@ -3190,32 +2355,32 @@ uint64_t std::__split_buffer<snlp::ssu::app::SSUAppCategory>::~__split_buffer(ui
 
 void nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel::forward(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v4 = SNLPOSLoggerForCategory(7);
-  v5 = os_signpost_id_generate(v4);
-  v6 = SNLPOSLoggerForCategory(7);
-  if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
+  v15 = *MEMORY[0x277D85DE8];
+  v5 = SNLPOSLoggerForCategory(7);
+  v6 = os_signpost_id_generate(v5);
+  v7 = SNLPOSLoggerForCategory(7);
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
   {
-    v7 = v6;
-    if (os_signpost_enabled(v6))
+    v8 = v7;
+    if (os_signpost_enabled(v7))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_22284A000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "Encoder Inference", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_22284A000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v6, "Encoder Inference", "", buf, 2u);
     }
   }
 
-  v8 = SNLPOSLoggerForCategory(0);
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = SNLPOSLoggerForCategory(0);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_22284A000, v8, OS_LOG_TYPE_DEFAULT, "BEGIN Encoder Inference", buf, 2u);
+    _os_log_impl(&dword_22284A000, v9, OS_LOG_TYPE_DEFAULT, "BEGIN Encoder Inference", buf, 2u);
   }
 
   snlp::common::espresso_inference::pre_e5ml::EspressoModule::buildPlan(*(a1 + 8));
-  nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel::getPaddedEmbeddingsTensor(a1, a2, &v12);
-  nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel::getPaddedSpansTensor(a1, a2, &v11);
-  nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel::getPaddedContextTensor(a1, a2, &v10);
-  nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel::getPaddingMask(a1, a2, &v9);
+  nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel::getPaddedEmbeddingsTensor(a1, a2, &v13);
+  nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel::getPaddedSpansTensor(a1, a2, &v12);
+  nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel::getPaddedContextTensor(a1, a2, &v11);
+  nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel::getPaddingMask(a1, a2, &v10);
 }
 
 void sub_22291738C(_Unwind_Exception *a1)
@@ -3396,9 +2561,9 @@ void sub_22291738C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel::getPaddedEmbeddingsTensor(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel::getPaddedEmbeddingsTensor(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   NetworkConfig = snlp::common::espresso_inference::pre_e5ml::EspressoModule::getNetworkConfig(*(a1 + 8), (a1 + 64));
   v7 = snlp::common::espresso_inference::pre_e5ml::EspressoModule::getNetworkConfig(*(a1 + 8), (a1 + 88));
   v8 = (a1 + 24);
@@ -3413,45 +2578,40 @@ void nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel::ge
         v8 = *v8;
       }
 
-      v11 = 136315138;
-      v12 = v8;
-      _os_log_impl(&dword_22284A000, v9, OS_LOG_TYPE_ERROR, "[%s] Padding of the embeddings input is required to execute model inference", &v11, 0xCu);
+      v10 = 136315138;
+      v11 = v8;
+      _os_log_impl(&dword_22284A000, v9, OS_LOG_TYPE_ERROR, "[%s] Padding of the embeddings input is required to execute model inference", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-void nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel::getPaddedSpansTensor(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+void nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel::getPaddedSpansTensor(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   NetworkConfig = snlp::common::espresso_inference::pre_e5ml::EspressoModule::getNetworkConfig(*(a1 + 8), (a1 + 64));
   v7 = snlp::common::espresso_inference::pre_e5ml::EspressoModule::getNetworkConfig(*(a1 + 8), (a1 + 112));
-  v8 = *(a1 + 56);
-  v9 = (a1 + 24);
-  nlv4_inference_orchestrator::inference_engine::utils::padSpanTensor(a2 + 48, NetworkConfig, v7, (a1 + 24), a3);
-  if (*a3 == *(a3 + 8))
+  v8 = (a1 + 24);
+  nlv4_inference_orchestrator::inference_engine::utils::padSpanTensor(a2 + 48, NetworkConfig, v7, (a1 + 24), a3, *(a1 + 56));
+  if (*a3 == a3[1])
   {
-    v10 = SNLPOSLoggerForCategory(4);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = SNLPOSLoggerForCategory(4);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       if (*(a1 + 47) < 0)
       {
-        v9 = *v9;
+        v8 = *v8;
       }
 
-      v12 = 136315138;
-      v13 = v9;
-      _os_log_impl(&dword_22284A000, v10, OS_LOG_TYPE_ERROR, "[%s] Padding of the span input is required to execute model inference", &v12, 0xCu);
+      v10 = 136315138;
+      v11 = v8;
+      _os_log_impl(&dword_22284A000, v9, OS_LOG_TYPE_ERROR, "[%s] Padding of the span input is required to execute model inference", &v10, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-void nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel::getPaddedContextTensor(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+void nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel::getPaddedContextTensor(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   NetworkConfig = snlp::common::espresso_inference::pre_e5ml::EspressoModule::getNetworkConfig(*(a1 + 8), (a1 + 112));
   v7 = (a1 + 24);
   nlv4_inference_orchestrator::inference_engine::utils::padContextTensor(a2 + 96, NetworkConfig, (a1 + 24), a3, *(a1 + 56));
@@ -3465,16 +2625,14 @@ void nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel::ge
         v7 = *v7;
       }
 
-      v10 = 136315138;
-      v11 = v7;
-      _os_log_impl(&dword_22284A000, v8, OS_LOG_TYPE_ERROR, "[%s] Padding of the context input is required to execute model inference", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = v7;
+      _os_log_impl(&dword_22284A000, v8, OS_LOG_TYPE_ERROR, "[%s] Padding of the context input is required to execute model inference", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
-void nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel::getPaddingMask(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X8>)
+void nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel::getPaddingMask(uint64_t a1@<X0>, void *a2@<X1>, uint64_t *a3@<X8>)
 {
   v27 = *MEMORY[0x277D85DE8];
   NetworkConfig = snlp::common::espresso_inference::pre_e5ml::EspressoModule::getNetworkConfig(*(a1 + 8), (a1 + 64));
@@ -3509,7 +2667,7 @@ void nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel::ge
   v14 = *v10;
   v15 = *(v11 + 8);
   v16 = v8 + NetworkConfig;
-  std::vector<float>::vector[abi:ne200100](&__b, v16);
+  std::vector<float>::vector[abi:ne200100](&__b, v16, (a1 + 56));
   v17 = v14;
   v18 = __b;
   if (v14 >= 1)
@@ -3589,7 +2747,7 @@ void sub_222917FA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel::getPositionIds(nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel *this@<X0>, void *a2@<X8>)
+void nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel::getPositionIds(uint64_t *__return_ptr a1@<X8>, nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel *this@<X0>)
 {
   v10 = *MEMORY[0x277D85DE8];
   NetworkConfig = snlp::common::espresso_inference::pre_e5ml::EspressoModule::getNetworkConfig(*(this + 1), this + 8);
@@ -3610,10 +2768,10 @@ void nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel::ge
 
   v9[0] = 1;
   v9[1] = NetworkConfig;
-  a2[1] = 0;
-  a2[2] = 0;
-  *a2 = 0;
-  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(a2, v9, &v10, 2uLL);
+  a1[1] = 0;
+  a1[2] = 0;
+  *a1 = 0;
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long const*,unsigned long const*>(a1, v9, &v10, 2uLL);
 }
 
 void sub_2229180EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
@@ -3704,7 +2862,7 @@ void nlv4_inference_orchestrator::inference_engine::EspressoTransformerModel::~E
 
 void snlp::ssu::encoder::SSUEncoderFactoryLazy::getEncoder(snlp::ssu::encoder::SSUEncoderFactoryLazy *this@<X0>, void *a2@<X8>)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   std::mutex::lock((this + 48));
   v4 = *(this + 4);
   if (!v4)
@@ -3712,30 +2870,29 @@ void snlp::ssu::encoder::SSUEncoderFactoryLazy::getEncoder(snlp::ssu::encoder::S
     v5 = SNLPOSLoggerForCategory(8);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v7 = (this + 8);
+      v6 = (this + 8);
       if (*(this + 31) < 0)
       {
-        v7 = *v7;
+        v6 = *v6;
       }
 
-      v10 = 136315138;
-      v11 = v7;
-      _os_log_impl(&dword_22284A000, v5, OS_LOG_TYPE_DEBUG, "[SSUEncoderFactoryLazy] Loading model from: %s", &v10, 0xCu);
+      *v8 = 136315138;
+      *&v8[4] = v6;
+      _os_log_impl(&dword_22284A000, v5, OS_LOG_TYPE_DEBUG, "[SSUEncoderFactoryLazy] Loading model from: %s", v8, 0xCu);
     }
 
-    snlp::ssu::encoder::buildEncoder((this + 8), v6);
+    snlp::ssu::encoder::buildEncoder((this + 8));
   }
 
-  v8 = *(this + 5);
+  v7 = *(this + 5);
   *a2 = v4;
-  a2[1] = v8;
-  if (v8)
+  a2[1] = v7;
+  if (v7)
   {
-    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
   }
 
   std::mutex::unlock((this + 48));
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t *std::default_delete<snlp::ssu::encoder::SSUEncoder>::operator()[abi:ne200100](uint64_t *result)
@@ -3908,18 +3065,18 @@ snlp::ssu::encoder::SSUEncoderFactoryLazy *snlp::ssu::encoder::SSUEncoderFactory
 void snlp::ssu::encoder::SSUEncoderFactoryPreemptive::SSUEncoderFactoryPreemptive(snlp::ssu::encoder::SSUEncoderFactoryPreemptive *this, std::__fs::filesystem::path *a2)
 {
   *this = &unk_2835E40E0;
-  snlp::ssu::encoder::buildEncoder(a2, a2);
+  snlp::ssu::encoder::buildEncoder(a2);
 }
 
 {
   *this = &unk_2835E40E0;
-  snlp::ssu::encoder::buildEncoder(a2, a2);
+  snlp::ssu::encoder::buildEncoder(a2);
 }
 
-void **nlv4_inference_orchestrator::post_processing::nlv4_response_manipulations::internal::runGenericSystemPromptedContentHack@<X0>(void **result@<X0>, char **a2@<X1>, _BYTE *a3@<X8>)
+void nlv4_inference_orchestrator::post_processing::nlv4_response_manipulations::internal::runGenericSystemPromptedContentHack(uint64_t *a1@<X0>, char **a2@<X1>, _BYTE *a3@<X8>)
 {
   v25 = *MEMORY[0x277D85DE8];
-  v4 = **result;
+  v4 = **a1;
   if (v4)
   {
     v5 = v4[3];
@@ -3933,7 +3090,6 @@ void **nlv4_inference_orchestrator::post_processing::nlv4_response_manipulations
         {
           if (v4[1])
           {
-            v9 = result;
             v10 = *(*(v6 - 8) + 76);
             memset(v15, 0, sizeof(v15));
             if (*(v7 + 23) < 0)
@@ -3954,15 +3110,15 @@ void **nlv4_inference_orchestrator::post_processing::nlv4_response_manipulations
             v18 = 0u;
             v21 = v10;
             v22 = 0;
-            UnicodeScalarAndUtf8Offsets = snlp::common::utilities::getUnicodeScalarAndUtf8Offsets(*(**v9 + 16), v10);
-            std::string::basic_string[abi:ne200100]<0>(v13, a2[1]);
-            memset(&v13[3], 0, 24);
-            std::string::basic_string[abi:ne200100]<0>(v14, "target");
-            v14[3] = 0;
-            v14[4] = 0;
+            UnicodeScalarAndUtf8Offsets = snlp::common::utilities::getUnicodeScalarAndUtf8Offsets(*(**a1 + 16), v10);
+            std::string::basic_string[abi:ne200100]<0>(v12, a2[1]);
+            memset(&v12[3], 0, 24);
+            std::string::basic_string[abi:ne200100]<0>(v13, "target");
+            v13[3] = 0;
+            v13[4] = 0;
             nlv4_inference_orchestrator::trees::TreeNode::TreeNode(&v24, v15);
-            memset(&v14[5], 0, 24);
-            std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__init_with_size[abi:ne200100]<nlv4_inference_orchestrator::trees::TreeNode const*,nlv4_inference_orchestrator::trees::TreeNode const*>();
+            memset(v14, 0, sizeof(v14));
+            std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__init_with_size[abi:ne200100]<nlv4_inference_orchestrator::trees::TreeNode const*,nlv4_inference_orchestrator::trees::TreeNode const*>(v14, &v24, &v25);
           }
         }
       }
@@ -3971,20 +3127,18 @@ void **nlv4_inference_orchestrator::post_processing::nlv4_response_manipulations
 
   *a3 = 0;
   a3[8] = 0;
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
-void sub_222919028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *__p, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, boost::uuids::detail::random_provider_base *a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_222919028(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *__p, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, char *a52, boost::uuids::detail::random_provider_base *a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  (*(*v73 + 8))(v73);
-  (*(*v72 + 8))(v72);
-  (*(*v71 + 8))(v71);
+  (*(*v67 + 8))(v67, a2, a3, a4, a5, a6, a7, a8);
+  (*(*v66 + 8))(v66);
+  (*(*v65 + 8))(v65);
   a52 = &a13;
   std::vector<std::unique_ptr<sirinluexternal::UserDialogAct const>>::__destroy_vector::operator()[abi:ne200100](&a52);
-  nlv4_inference_orchestrator::trees::TreeNode::~TreeNode(&a71);
+  nlv4_inference_orchestrator::trees::TreeNode::~TreeNode(&a65);
   nlv4_inference_orchestrator::trees::TreeNode::~TreeNode(&STACK[0x280]);
-  nlv4_inference_orchestrator::trees::TreeNode::~TreeNode((v74 - 240));
+  nlv4_inference_orchestrator::trees::TreeNode::~TreeNode((v68 - 240));
   nlv4_inference_orchestrator::trees::TreeNode::~TreeNode(&a16);
   nlv4_inference_orchestrator::trees::TreeNode::~TreeNode(&__p);
   _Unwind_Resume(a1);
@@ -3999,7 +3153,7 @@ void sub_22291935C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void nlv4_inference_orchestrator::trees::TreeNode::~TreeNode(void **this)
 {
-  v2 = this + 11;
+  v2 = (this + 11);
   std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__destroy_vector::operator()[abi:ne200100](&v2);
   if (*(this + 71) < 0)
   {
@@ -4052,23 +3206,23 @@ void sub_2229195F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 uint64_t boost::uuids::random_generator_pure::operator()(int *a1)
 {
   v2 = 0;
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   do
   {
-    v3 = read(*a1, &v12 + v2, 16 - v2);
+    v3 = read(*a1, &v11 + v2, 16 - v2);
     if (v3 < 0)
     {
       v4 = *__error();
       if (v4 != 4)
       {
-        std::string::basic_string[abi:ne200100]<0>(&v9, "read");
-        std::runtime_error::runtime_error(&v10, &v9);
-        v10.__vftable = &unk_2835E6078;
-        v11 = v4;
-        v7.i64[0] = "/AppleInternal/Library/BuildRoots/4~B_weugBc3faU9qG__BVfCroI22I8YaCRGgkvgL4/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/local/include/boost/uuid/detail/random_provider_posix.ipp";
-        v7.i64[1] = "void boost::uuids::detail::random_provider_base::get_random_bytes(void *, std::size_t)";
-        v8 = 98;
-        boost::throw_exception<boost::uuids::entropy_error>(&v10, &v7);
+        std::string::basic_string[abi:ne200100]<0>(&v8, "read");
+        std::runtime_error::runtime_error(&v9, &v8);
+        v9.__vftable = &unk_2835E6078;
+        v10 = v4;
+        v6.i64[0] = "/AppleInternal/Library/BuildRoots/4~B_weugBc3faU9qG__BVfCroI22I8YaCRGgkvgL4/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.1.Internal.sdk/usr/local/include/boost/uuid/detail/random_provider_posix.ipp";
+        v6.i64[1] = "void boost::uuids::detail::random_provider_base::get_random_bytes(void *, std::size_t)";
+        v7 = 98;
+        boost::throw_exception<boost::uuids::entropy_error>(&v9, &v6);
       }
     }
 
@@ -4079,11 +3233,9 @@ uint64_t boost::uuids::random_generator_pure::operator()(int *a1)
   }
 
   while (v2 < 0x10);
-  LOBYTE(v13) = v13 & 0x3F | 0x80;
-  BYTE6(v12) = BYTE6(v12) & 0xF | 0x40;
-  result = v12;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  LOBYTE(v12) = v12 & 0x3F | 0x80;
+  BYTE6(v11) = BYTE6(v11) & 0xF | 0x40;
+  return v11;
 }
 
 void sub_22291975C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, std::runtime_error a18)
@@ -4261,7 +3413,7 @@ uint64_t std::unique_ptr<siri::ontology::UsoGraph>::reset[abi:ne200100](uint64_t
   return result;
 }
 
-void std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<nlv4_inference_orchestrator::trees::TreeNode>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x1C71C71C71C71C8)
   {
@@ -4366,37 +3518,37 @@ std::string *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocat
   return v4;
 }
 
-void **nlv4_inference_orchestrator::post_processing::nlv4_response_manipulations::runSystemPromptedMessageContentHack@<X0>(__int128 *a1@<X0>, _BYTE *a2@<X8>)
+void nlv4_inference_orchestrator::post_processing::nlv4_response_manipulations::runSystemPromptedMessageContentHack(__int128 *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v3 = *a1;
-  v4 = *(a1 + 2);
-  return nlv4_inference_orchestrator::post_processing::nlv4_response_manipulations::internal::runGenericSystemPromptedContentHack(&v3, off_2784B69A8, a2);
+  v2 = *a1;
+  v3 = *(a1 + 2);
+  nlv4_inference_orchestrator::post_processing::nlv4_response_manipulations::internal::runGenericSystemPromptedContentHack(&v2, off_2784B69A8, a2);
 }
 
-void **nlv4_inference_orchestrator::post_processing::nlv4_response_manipulations::runSystemPromptedAnnouncementContentHack@<X0>(__int128 *a1@<X0>, _BYTE *a2@<X8>)
+void nlv4_inference_orchestrator::post_processing::nlv4_response_manipulations::runSystemPromptedAnnouncementContentHack(__int128 *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v3 = *a1;
-  v4 = *(a1 + 2);
-  return nlv4_inference_orchestrator::post_processing::nlv4_response_manipulations::internal::runGenericSystemPromptedContentHack(&v3, off_2784B69C0, a2);
+  v2 = *a1;
+  v3 = *(a1 + 2);
+  nlv4_inference_orchestrator::post_processing::nlv4_response_manipulations::internal::runGenericSystemPromptedContentHack(&v2, off_2784B69C0, a2);
 }
 
-void **nlv4_inference_orchestrator::post_processing::nlv4_response_manipulations::runSystemPromptedNoteContentHack@<X0>(__int128 *a1@<X0>, _BYTE *a2@<X8>)
+void nlv4_inference_orchestrator::post_processing::nlv4_response_manipulations::runSystemPromptedNoteContentHack(__int128 *a1@<X0>, _BYTE *a2@<X8>)
 {
-  v3 = *a1;
-  v4 = *(a1 + 2);
-  return nlv4_inference_orchestrator::post_processing::nlv4_response_manipulations::internal::runGenericSystemPromptedContentHack(&v3, off_2784B69D8, a2);
+  v2 = *a1;
+  v3 = *(a1 + 2);
+  nlv4_inference_orchestrator::post_processing::nlv4_response_manipulations::internal::runGenericSystemPromptedContentHack(&v2, off_2784B69D8, a2);
 }
 
-void sub_22291A658(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_22291A658(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = UPDataDetectorSpan;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_22291AC20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void **a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+void sub_22291AC20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t *a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
 {
   std::vector<std::shared_ptr<snlp::ssu::trigger::SSUTrigger>>::__destroy_vector::operator()[abi:ne200100](&a13);
   MEMORY[0x223DC4D00](v18, 0xA1C4030951706);
@@ -4741,7 +3893,7 @@ LABEL_22:
   return v6;
 }
 
-void sub_22291BBB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41, void *a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, char a48)
+void sub_22291BBB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41, void *a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, char a48)
 {
   if (a18 < 0)
   {
@@ -4778,7 +3930,7 @@ void sub_22291BBB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a45);
   }
 
-  MEMORY[0x223DC42A0](&a48);
+  MEMORY[0x223DC42A0](&a48, a2, a3, a4, a5, a6, a7, a8);
   v50 = *(v48 - 176);
   if (v50)
   {
@@ -5115,7 +4267,7 @@ LABEL_25:
   return v6;
 }
 
-void sub_22291C2C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41, void *a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, char a48)
+void sub_22291C2C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, void *a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41, void *a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, char a48)
 {
   if (a18 < 0)
   {
@@ -5152,7 +4304,7 @@ void sub_22291C2C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a45);
   }
 
-  MEMORY[0x223DC42A0](&a48);
+  MEMORY[0x223DC42A0](&a48, a2, a3, a4, a5, a6, a7, a8);
   v50 = *(v48 - 176);
   if (v50)
   {
@@ -5188,15 +4340,15 @@ void snlp::ssu::matcher::SSUPersister::removeCacheFilesForApp(uint64_t a1@<X0>, 
   *(a3 + 56) = v6;
 }
 
-void snlp::ssu::matcher::SSUPersister::updateCacheForAppIfRequired(std::__shared_weak_count **this@<X0>, const snlp::ssu::matcher::SSUAppInfo *a2@<X1>, uint64_t a3@<X8>)
+void snlp::ssu::matcher::SSUPersister::updateCacheForAppIfRequired(uint64_t *__return_ptr a1@<X8>, std::__shared_weak_count **this@<X0>, const snlp::ssu::matcher::SSUAppInfo *a3@<X1>)
 {
-  v3 = a2;
-  v48 = *MEMORY[0x277D85DE8];
-  v6 = *(a2 + 23);
+  v3 = a3;
+  v46 = *MEMORY[0x277D85DE8];
+  v6 = *(a3 + 23);
   v7 = v6;
   if ((v6 & 0x80u) != 0)
   {
-    v6 = *(a2 + 1);
+    v6 = *(a3 + 1);
   }
 
   if (v6 != 53)
@@ -5206,21 +4358,21 @@ void snlp::ssu::matcher::SSUPersister::updateCacheForAppIfRequired(std::__shared
 
   if (v7 < 0)
   {
-    a2 = *a2;
+    a3 = *a3;
   }
 
-  if (!memcmp("com.apple.SiriNaturalLanguageParsing.SSUUserShortcuts", a2, 0x35uLL))
+  if (!memcmp("com.apple.SiriNaturalLanguageParsing.SSUUserShortcuts", a3, 0x35uLL))
   {
     v16 = SNLPOSLoggerForCategory(8);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(v36.__r_.__value_.__l.__data_) = 136315138;
-      *(v36.__r_.__value_.__r.__words + 4) = "com.apple.SiriNaturalLanguageParsing.SSUUserShortcuts";
-      _os_log_impl(&dword_22284A000, v16, OS_LOG_TYPE_ERROR, "Received an app bundle ID that clashes with the special user shortcuts one: %s. Call updateCacheForUserShortcutsIfRequired instead.", &v36, 0xCu);
+      LODWORD(v34.__r_.__value_.__l.__data_) = 136315138;
+      *(v34.__r_.__value_.__r.__words + 4) = "com.apple.SiriNaturalLanguageParsing.SSUUserShortcuts";
+      _os_log_impl(&dword_22284A000, v16, OS_LOG_TYPE_ERROR, "Received an app bundle ID that clashes with the special user shortcuts one: %s. Call updateCacheForUserShortcutsIfRequired instead.", &v34, 0xCu);
     }
 
-    *a3 = 0;
-    *(a3 + 56) = 0;
+    *a1 = 0;
+    *(a1 + 56) = 0;
   }
 
   else
@@ -5228,37 +4380,36 @@ void snlp::ssu::matcher::SSUPersister::updateCacheForAppIfRequired(std::__shared
 LABEL_7:
     if ((snlp::ssu::matcher::SSUPersister::appRequiresUpdate(this, v3) & 1) == 0)
     {
-      snlp::ssu::selflogging::buildAppBundleIdSaltedHash(v3, &v36);
-      v37 = 0;
+      snlp::ssu::selflogging::buildAppBundleIdSaltedHash(v3, &v34);
+      v35 = 0;
       *__p = 0;
       *&__p[4] = 0;
       *&__p[8] = 0x100000000;
-      v38[1] = 0;
-      v39 = 0;
-      v38[0] = 0;
-      std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo>::__init_with_size[abi:ne200100]<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo const*,snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo const*>();
+      v37 = 0;
+      v36 = 0uLL;
+      std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo>::__init_with_size[abi:ne200100]<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo const*,snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo const*>(&v36, __p, &__p[16]);
     }
 
     v8 = this[5];
-    v26[0] = this[4];
-    v26[1] = v8;
+    v24[0] = this[4];
+    v24[1] = v8;
     if (v8)
     {
       atomic_fetch_add_explicit(&v8->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    snlp::ssu::app::SSUAppAssets::loadAssetsFromDirectory(v3, (this + 1), v26, &v36);
+    snlp::ssu::app::SSUAppAssets::loadAssetsFromDirectory(v3, (this + 1), v24, &v34);
     if (v8)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v8);
     }
 
-    if (v37 == 1)
+    if (v35 == 1)
     {
       v9 = SNLPOSLoggerForCategory(8);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        if ((v37 & 1) == 0)
+        if ((v35 & 1) == 0)
         {
           std::__throw_bad_optional_access[abi:ne200100]();
         }
@@ -5267,14 +4418,14 @@ LABEL_7:
         v11 = *v3;
         v12 = *(v3 + 3);
         v13 = *(v3 + 47);
-        if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(&buf, v36.__r_.__value_.__l.__data_, v36.__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(&buf, v34.__r_.__value_.__l.__data_, v34.__r_.__value_.__l.__size_);
         }
 
         else
         {
-          buf = v36;
+          buf = v34;
         }
 
         if (v13 >= 0)
@@ -5308,7 +4459,7 @@ LABEL_7:
         *&__p[12] = 2080;
         *&__p[14] = v20;
         *&__p[22] = 2080;
-        v29 = p_buf;
+        v27 = p_buf;
         _os_log_impl(&dword_22284A000, v9, OS_LOG_TYPE_DEBUG, "Could not read app assets for %s (path %s): %s", __p, 0x20u);
         if (SHIBYTE(buf.__r_.__value_.__r.__words[2]) < 0)
         {
@@ -5316,46 +4467,45 @@ LABEL_7:
         }
       }
 
-      *a3 = 0;
-      *(a3 + 56) = 0;
+      *a1 = 0;
+      *(a1 + 56) = 0;
     }
 
     else
     {
-      if ((v47 & 1) == 0)
+      if ((v45 & 1) == 0)
       {
         std::__throw_bad_optional_access[abi:ne200100]();
       }
 
-      snlp::ssu::app::SSUAppAssets::allSupportedCategories(v38, v25);
-      v14 = v25[0];
-      if (v25[0] == v25[1])
+      snlp::ssu::app::SSUAppAssets::allSupportedCategories(&v36, v23);
+      v14 = v23[0];
+      if (v23[0] == v23[1])
       {
-        *a3 = *a3;
+        *a1 = *a1;
         if (v14)
         {
           operator delete(v14);
         }
 
         snlp::ssu::selflogging::buildAppBundleIdSaltedHash(v3, __p);
-        LODWORD(v29) = 0;
-        v30 = 0uLL;
-        v31 = 0;
-        std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo>::__init_with_size[abi:ne200100]<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo*,snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo*>(&v30, 0, 0, 0);
-        *a3 = *__p;
-        *(a3 + 16) = *&__p[16];
-        *(a3 + 24) = v29;
-        *(a3 + 32) = v30;
-        *(a3 + 48) = v31;
-        *(a3 + 56) = 1;
+        LODWORD(v27) = 0;
+        v28 = 0uLL;
+        v29 = 0;
+        std::vector<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo>::__init_with_size[abi:ne200100]<snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo*,snlp::ssu::selflogging::SSUBackgroundUpdateAppCategoryInfo*>(&v28, 0, 0, 0);
+        *a1 = *__p;
+        a1[2] = *&__p[16];
+        *(a1 + 6) = v27;
+        *(a1 + 2) = v28;
+        a1[6] = v29;
+        *(a1 + 56) = 1;
       }
 
       else
       {
-        v24 = *(a3 + 56);
-        v15 = *v25[0];
-        snlp::ssu::matcher::SSUPersister::loadAppAssets(v3, v38, *v25[0], __p);
-        if (v35)
+        v15 = *v23[0];
+        snlp::ssu::matcher::SSUPersister::loadAppAssets(v3, &v36, v15, __p);
+        if (v33)
         {
           snlp::ssu::matcher::SSUPersister::updateCacheForAppCategory(this, v3, __p);
         }
@@ -5390,42 +4540,37 @@ LABEL_7:
           _os_log_impl(&dword_22284A000, v17, OS_LOG_TYPE_ERROR, "Failed to load app assets for app %s and category %s", &buf, 0x16u);
         }
 
-        *a3 = 0;
-        *(a3 + 56) = 0;
-        if (v35 == 1)
+        *a1 = 0;
+        *(a1 + 56) = 0;
+        if (v33 == 1)
         {
-          buf.__r_.__value_.__r.__words[0] = &v34;
+          buf.__r_.__value_.__r.__words[0] = &v32;
           std::vector<snlp::ssu::app::SSUAppIntent>::__destroy_vector::operator()[abi:ne200100](&buf);
-          buf.__r_.__value_.__r.__words[0] = &v33;
+          buf.__r_.__value_.__r.__words[0] = &v31;
           std::vector<std::basic_string<char16_t>>::__destroy_vector::operator()[abi:ne200100](&buf);
-          if (v32 < 0)
+          if (v30 < 0)
           {
-            operator delete(*(&v30 + 1));
+            operator delete(*(&v28 + 1));
           }
 
-          if (SHIBYTE(v29) < 0)
+          if (SHIBYTE(v27) < 0)
           {
             operator delete(*&__p[8]);
           }
         }
 
-        if (v25[0])
+        if (v23[0])
         {
-          operator delete(v25[0]);
+          operator delete(v23[0]);
         }
       }
     }
 
-    if (v47 == 1)
+    if (v45 == 1)
     {
-      if (v46)
+      if (v44)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v46);
-      }
-
-      if (v45 < 0)
-      {
-        operator delete(v44);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v44);
       }
 
       if (v43 < 0)
@@ -5438,19 +4583,22 @@ LABEL_7:
         operator delete(v40);
       }
 
-      if (SHIBYTE(v39) < 0)
+      if (v39 < 0)
       {
-        operator delete(v38[0]);
+        operator delete(v38);
+      }
+
+      if (SHIBYTE(v37) < 0)
+      {
+        operator delete(v36);
       }
     }
 
-    if (v37 == 1 && SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
+    if (v35 == 1 && SHIBYTE(v34.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v36.__r_.__value_.__l.__data_);
+      operator delete(v34.__r_.__value_.__l.__data_);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void sub_22291CBD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, int a16, int a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void *__p, uint64_t a33, int a34, __int16 a35, char a36, char a37)
@@ -5469,130 +4617,112 @@ void sub_22291CBD8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t snlp::ssu::matcher::SSUPersister::appRequiresUpdate(snlp::ssu::matcher::SSUPersister *this, std::__fs::filesystem::path *a2)
+uint64_t snlp::ssu::matcher::SSUPersister::appRequiresUpdate(snlp::ssu::matcher::SSUPersister *this, std::string *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  snlp::ssu::matcher::SSUPersister::lookupExistingCacheVersion(this, a2, &v20);
-  if (v23 != 1)
+  v20 = *MEMORY[0x277D85DE8];
+  snlp::ssu::matcher::SSUPersister::lookupExistingCacheVersion(this, a2, &v14);
+  if (v17 != 1)
   {
-LABEL_24:
-    v16 = 1;
-    goto LABEL_25;
+LABEL_20:
+    v12 = 1;
+    goto LABEL_21;
   }
 
-  v4 = (this + 80);
-  if ((v20.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v20.__r_.__value_.__r.__words[2]);
-  }
-
-  else
-  {
-    size = v20.__r_.__value_.__l.__size_;
-  }
-
-  v6 = *(this + 103);
-  v7 = v6;
-  if ((v6 & 0x80u) != 0)
-  {
-    v6 = *(this + 11);
-  }
-
-  if (size == v6)
-  {
-    if ((v20.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-    {
-      v8 = &v20;
-    }
-
-    else
-    {
-      v8 = v20.__r_.__value_.__r.__words[0];
-    }
-
-    v9 = *v4;
-    if (v7 >= 0)
-    {
-      v10 = this + 80;
-    }
-
-    else
-    {
-      v10 = *v4;
-    }
-
-    v11 = memcmp(v8, v10, size) != 0;
+    size = HIBYTE(v14.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v11 = 1;
+    size = v14.__r_.__value_.__l.__size_;
   }
 
-  v12 = v11 | ~snlp::ssu::app::SSUAppAssets::directoryHasAssetVersion(&a2[1], this + 1, &v21);
-  v13 = SNLPOSLoggerForCategory(8);
-  if (v12)
+  v5 = *(this + 103);
+  v6 = v5;
+  if ((v5 & 0x80u) != 0)
   {
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v5 = *(this + 11);
+  }
+
+  if (size == v5)
+  {
+    if ((v14.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      if ((a2->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-      {
-        v14 = a2->__pn_.__r_.__value_.__r.__words[0];
-      }
+      v7 = &v14;
+    }
 
-      if (*(this + 103) < 0)
-      {
-        v15 = *v4;
-      }
+    else
+    {
+      v7 = v14.__r_.__value_.__r.__words[0];
+    }
 
-      if (v23)
+    if (v6 >= 0)
+    {
+      v8 = this + 80;
+    }
+
+    else
+    {
+      v8 = *(this + 10);
+    }
+
+    v9 = memcmp(v7, v8, size) != 0;
+  }
+
+  else
+  {
+    v9 = 1;
+  }
+
+  v10 = v9 | ~snlp::ssu::app::SSUAppAssets::directoryHasAssetVersion(&a2[1], this + 1, &v15);
+  v11 = SNLPOSLoggerForCategory(8);
+  if (v10)
+  {
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    {
+      if (v17)
       {
-        snlp::ssu::cache::SSUCacheFileVersion::toString(&__p);
+        snlp::ssu::cache::SSUCacheFileVersion::toString(&__p, &v14);
       }
 
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    goto LABEL_24;
+    goto LABEL_20;
   }
 
-  v16 = 0;
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v12 = 0;
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    if ((a2->__pn_.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+    if (v17)
     {
-      v19 = a2->__pn_.__r_.__value_.__r.__words[0];
-    }
-
-    if (v23)
-    {
-      snlp::ssu::cache::SSUCacheFileVersion::toString(buf);
+      snlp::ssu::cache::SSUCacheFileVersion::toString(&buf, &v14);
     }
 
     std::__throw_bad_optional_access[abi:ne200100]();
   }
 
-LABEL_25:
-  if (v23 == 1)
+LABEL_21:
+  if (v17 == 1)
   {
-    if (v22 < 0)
+    if (v16 < 0)
     {
-      operator delete(v21);
+      operator delete(v15);
     }
 
-    if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v14.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v20.__r_.__value_.__l.__data_);
+      operator delete(v14.__r_.__value_.__l.__data_);
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v16;
+  return v12;
 }
 
-void sub_22291CF34(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22291CF34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::optional<snlp::ssu::cache::SSUCacheFileVersion>::~optional(va);
   _Unwind_Resume(a1);
 }
@@ -5609,7 +4739,7 @@ void sub_22291CFC4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void snlp::ssu::matcher::SSUPersister::loadAppAssets(uint64_t a1@<X1>, uint64_t a2@<X2>, unsigned __int8 a3@<W3>, uint64_t a4@<X8>)
+void snlp::ssu::matcher::SSUPersister::loadAppAssets(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t a4@<X8>)
 {
   if (*(a2 + 95) < 0)
   {
@@ -5657,7 +4787,7 @@ void snlp::ssu::matcher::SSUPersister::loadAppAssets(uint64_t a1@<X1>, uint64_t 
   end = v14.__end_;
   v10 = 0xAAAAAAAAAAAAAAABLL * ((v14.__end_ - v14.__begin_) >> 3);
   *(a4 + 80) = 0;
-  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(a4 + 64, begin, end, v10);
+  std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>((a4 + 64), begin, end, v10);
   *(a4 + 88) = 0;
   *(a4 + 96) = 0;
   *(a4 + 104) = 0;
@@ -5791,9 +4921,9 @@ void sub_22291D78C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t snlp::ssu::matcher::SSUPersister::cleanUpTemporaryCacheFile(const std::__fs::filesystem::path *this, const std::__fs::filesystem::path *a2)
+std::__fs::filesystem::file_status snlp::ssu::matcher::SSUPersister::cleanUpTemporaryCacheFile(const std::__fs::filesystem::path *this, const std::__fs::filesystem::path *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = SNLPOSLoggerForCategory(8);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
@@ -5802,111 +4932,113 @@ uint64_t snlp::ssu::matcher::SSUPersister::cleanUpTemporaryCacheFile(const std::
   }
 
   result = std::__fs::filesystem::__status(this, 0);
-  if (v6 && v6 != 255)
+  if (v5)
   {
-    result = std::__fs::filesystem::__remove(this, 0);
+    if (v5 != 255)
+    {
+      return std::__fs::filesystem::__remove(this, 0);
+    }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void snlp::ssu::matcher::SSUPersister::buildIntentList(snlp::ssu::matcher::SSUPersister *this@<X0>, uint64_t a2@<X8>)
+void snlp::ssu::matcher::SSUPersister::buildIntentList(uint64_t *__return_ptr a1@<X8>, snlp::ssu::matcher::SSUPersister *this@<X0>)
 {
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  std::vector<snlp::ssu::cache::SSUCacheObjectIntent>::reserve(a2, 0x8E38E38E38E38E39 * ((*(this + 12) - *(this + 11)) >> 3));
-  v5 = *(this + 11);
-  for (i = *(this + 12); v5 != i; v5 = (v5 + 72))
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  std::vector<snlp::ssu::cache::SSUCacheObjectIntent>::reserve(a1, 0x8E38E38E38E38E39 * ((*(this + 12) - *(this + 11)) >> 3));
+  v4 = *(this + 11);
+  for (i = *(this + 12); v4 != i; v4 = (v4 + 72))
   {
-    v42 = 0;
-    v43 = 0uLL;
-    v6 = *(v5 + 3);
-    v7 = *(v5 + 4);
-    while (v6 != v7)
+    v41 = 0;
+    v42 = 0uLL;
+    v5 = *(v4 + 3);
+    v6 = *(v4 + 4);
+    while (v5 != v6)
     {
-      if (*(v6 + 23) < 0)
+      if (*(v5 + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(&v40, *v6, *(v6 + 1));
+        std::string::__init_copy_ctor_external(&v39, *v5, *(v5 + 1));
       }
 
       else
       {
-        v8 = *v6;
-        v40.__r_.__value_.__r.__words[2] = *(v6 + 2);
-        *&v40.__r_.__value_.__l.__data_ = v8;
+        v7 = *v5;
+        v39.__r_.__value_.__r.__words[2] = *(v5 + 2);
+        *&v39.__r_.__value_.__l.__data_ = v7;
       }
 
-      if (*(v6 + 47) < 0)
+      if (*(v5 + 47) < 0)
       {
-        std::string::__init_copy_ctor_external(&__p, *(v6 + 3), *(v6 + 4));
+        std::string::__init_copy_ctor_external(&__p, *(v5 + 3), *(v5 + 4));
       }
 
       else
       {
-        v9 = *(v6 + 24);
-        __p.__r_.__value_.__r.__words[2] = *(v6 + 5);
-        *&__p.__r_.__value_.__l.__data_ = v9;
+        v8 = *(v5 + 24);
+        __p.__r_.__value_.__r.__words[2] = *(v5 + 5);
+        *&__p.__r_.__value_.__l.__data_ = v8;
       }
 
-      v10 = v43;
-      if (v43 >= *(&v43 + 1))
+      v9 = v42;
+      if (v42 >= *(&v42 + 1))
       {
-        v13 = 0xAAAAAAAAAAAAAAABLL * ((v43 - v42) >> 4);
-        v14 = v13 + 1;
-        if (v13 + 1 > 0x555555555555555)
+        v12 = 0xAAAAAAAAAAAAAAABLL * ((v42 - v41) >> 4);
+        v13 = v12 + 1;
+        if (v12 + 1 > 0x555555555555555)
         {
           std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
         }
 
-        if (0x5555555555555556 * ((*(&v43 + 1) - v42) >> 4) > v14)
+        if (0x5555555555555556 * ((*(&v42 + 1) - v41) >> 4) > v13)
         {
-          v14 = 0x5555555555555556 * ((*(&v43 + 1) - v42) >> 4);
+          v13 = 0x5555555555555556 * ((*(&v42 + 1) - v41) >> 4);
         }
 
-        if (0xAAAAAAAAAAAAAAABLL * ((*(&v43 + 1) - v42) >> 4) >= 0x2AAAAAAAAAAAAAALL)
+        if (0xAAAAAAAAAAAAAAABLL * ((*(&v42 + 1) - v41) >> 4) >= 0x2AAAAAAAAAAAAAALL)
         {
-          v15 = 0x555555555555555;
+          v14 = 0x555555555555555;
         }
 
         else
         {
-          v15 = v14;
+          v14 = v13;
         }
 
-        v47 = &v42;
-        if (v15)
+        v46 = &v41;
+        if (v14)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<snlp::ssu::cache::SSUCacheObjectParameter>>(v15);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<snlp::ssu::cache::SSUCacheObjectParameter>>(v14);
         }
 
-        v16 = 16 * ((v43 - v42) >> 4);
+        v15 = 16 * ((v42 - v41) >> 4);
         p_p = 0;
-        v45 = v16;
-        *(&v46 + 1) = 0;
-        v17 = *&v40.__r_.__value_.__l.__data_;
-        *(v16 + 16) = *(&v40.__r_.__value_.__l + 2);
-        *v16 = v17;
-        memset(&v40, 0, sizeof(v40));
-        v18 = *&__p.__r_.__value_.__l.__data_;
-        *(v16 + 40) = *(&__p.__r_.__value_.__l + 2);
-        *(v16 + 24) = v18;
+        v44 = v15;
+        *(&v45 + 1) = 0;
+        v16 = *&v39.__r_.__value_.__l.__data_;
+        *(v15 + 16) = *(&v39.__r_.__value_.__l + 2);
+        *v15 = v16;
+        memset(&v39, 0, sizeof(v39));
+        v17 = *&__p.__r_.__value_.__l.__data_;
+        *(v15 + 40) = *(&__p.__r_.__value_.__l + 2);
+        *(v15 + 24) = v17;
         memset(&__p, 0, sizeof(__p));
-        *&v46 = 48 * v13 + 48;
-        v19 = &v42[6 * v13] - v43;
-        std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<snlp::ssu::cache::SSUCacheObjectParameter>,snlp::ssu::cache::SSUCacheObjectParameter*>(&v42, v42, v43, &v42[v16 / 8] - v43);
-        v20 = v42;
-        v21 = *(&v43 + 1);
-        v42 = v19;
-        v38 = v46;
-        v43 = v46;
-        *&v46 = v20;
-        *(&v46 + 1) = v21;
-        p_p = v20;
-        v45 = v20;
+        *&v45 = 48 * v12 + 48;
+        v18 = &v41[6 * v12] - v42;
+        std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<snlp::ssu::cache::SSUCacheObjectParameter>,snlp::ssu::cache::SSUCacheObjectParameter*>(&v41, v41, v42, &v41[v15 / 8] - v42);
+        v19 = v41;
+        v20 = *(&v42 + 1);
+        v41 = v18;
+        v37 = v45;
+        v42 = v45;
+        *&v45 = v19;
+        *(&v45 + 1) = v20;
+        p_p = v19;
+        v44 = v19;
         std::__split_buffer<snlp::ssu::cache::SSUCacheObjectParameter>::~__split_buffer(&p_p);
-        *&v43 = v38;
+        *&v42 = v37;
         if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
         {
           operator delete(__p.__r_.__value_.__l.__data_);
@@ -5915,148 +5047,148 @@ void snlp::ssu::matcher::SSUPersister::buildIntentList(snlp::ssu::matcher::SSUPe
 
       else
       {
-        v11 = *&v40.__r_.__value_.__l.__data_;
-        *(v43 + 16) = *(&v40.__r_.__value_.__l + 2);
-        *v10 = v11;
-        memset(&v40, 0, sizeof(v40));
-        v12 = __p.__r_.__value_.__r.__words[2];
-        *(v10 + 24) = *&__p.__r_.__value_.__l.__data_;
-        *(v10 + 40) = v12;
+        v10 = *&v39.__r_.__value_.__l.__data_;
+        *(v42 + 16) = *(&v39.__r_.__value_.__l + 2);
+        *v9 = v10;
+        memset(&v39, 0, sizeof(v39));
+        v11 = __p.__r_.__value_.__r.__words[2];
+        *(v9 + 24) = *&__p.__r_.__value_.__l.__data_;
+        *(v9 + 40) = v11;
         memset(&__p, 0, sizeof(__p));
-        *&v43 = v10 + 48;
+        *&v42 = v9 + 48;
       }
 
-      if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v40.__r_.__value_.__l.__data_);
+        operator delete(v39.__r_.__value_.__l.__data_);
       }
 
-      v6 += 3;
+      v5 += 3;
     }
 
-    if (*(v5 + 23) < 0)
+    if (*(v4 + 23) < 0)
     {
-      std::string::__init_copy_ctor_external(&v40, *v5, *(v5 + 1));
+      std::string::__init_copy_ctor_external(&v39, *v4, *(v4 + 1));
     }
 
     else
     {
-      v22 = *v5;
-      v40.__r_.__value_.__r.__words[2] = *(v5 + 2);
-      *&v40.__r_.__value_.__l.__data_ = v22;
+      v21 = *v4;
+      v39.__r_.__value_.__r.__words[2] = *(v4 + 2);
+      *&v39.__r_.__value_.__l.__data_ = v21;
     }
 
     memset(&__p, 0, sizeof(__p));
-    std::vector<snlp::ssu::cache::SSUCacheObjectParameter>::__init_with_size[abi:ne200100]<snlp::ssu::cache::SSUCacheObjectParameter*,snlp::ssu::cache::SSUCacheObjectParameter*>(&__p, v42, v43, 0xAAAAAAAAAAAAAAABLL * ((v43 - v42) >> 4));
-    v24 = *(a2 + 8);
-    v23 = *(a2 + 16);
-    if (v24 >= v23)
+    std::vector<snlp::ssu::cache::SSUCacheObjectParameter>::__init_with_size[abi:ne200100]<snlp::ssu::cache::SSUCacheObjectParameter*,snlp::ssu::cache::SSUCacheObjectParameter*>(&__p, v41, v42, 0xAAAAAAAAAAAAAAABLL * ((v42 - v41) >> 4));
+    v23 = a1[1];
+    v22 = a1[2];
+    if (v23 >= v22)
     {
-      v26 = 0xAAAAAAAAAAAAAAABLL * ((v24 - *a2) >> 4);
-      v27 = v26 + 1;
-      if (v26 + 1 > 0x555555555555555)
+      v25 = 0xAAAAAAAAAAAAAAABLL * ((v23 - *a1) >> 4);
+      v26 = v25 + 1;
+      if (v25 + 1 > 0x555555555555555)
       {
         std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
       }
 
-      v28 = 0xAAAAAAAAAAAAAAABLL * ((v23 - *a2) >> 4);
-      if (2 * v28 > v27)
+      v27 = 0xAAAAAAAAAAAAAAABLL * ((v22 - *a1) >> 4);
+      if (2 * v27 > v26)
       {
-        v27 = 2 * v28;
+        v26 = 2 * v27;
       }
 
-      if (v28 >= 0x2AAAAAAAAAAAAAALL)
+      if (v27 >= 0x2AAAAAAAAAAAAAALL)
       {
-        v29 = 0x555555555555555;
+        v28 = 0x555555555555555;
       }
 
       else
       {
-        v29 = v27;
+        v28 = v26;
       }
 
-      v47 = a2;
-      if (v29)
+      v46 = a1;
+      if (v28)
       {
-        std::__allocate_at_least[abi:ne200100]<std::allocator<snlp::ssu::cache::SSUCacheObjectIntent>>(v29);
+        std::__allocate_at_least[abi:ne200100]<std::allocator<snlp::ssu::cache::SSUCacheObjectIntent>>(v28);
       }
 
-      v31 = 48 * v26;
+      v30 = 48 * v25;
       p_p = 0;
-      v45 = v31;
-      v46 = v31;
-      if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+      v44 = v30;
+      v45 = v30;
+      if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(v31, v40.__r_.__value_.__l.__data_, v40.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(v30, v39.__r_.__value_.__l.__data_, v39.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v32 = *&v40.__r_.__value_.__l.__data_;
-        *(v31 + 16) = *(&v40.__r_.__value_.__l + 2);
-        *v31 = v32;
+        v31 = *&v39.__r_.__value_.__l.__data_;
+        *(v30 + 16) = *(&v39.__r_.__value_.__l + 2);
+        *v30 = v31;
       }
 
-      *(v31 + 24) = 0;
-      *(v31 + 32) = 0;
-      *(v31 + 40) = 0;
-      std::vector<snlp::ssu::cache::SSUCacheObjectParameter>::__init_with_size[abi:ne200100]<snlp::ssu::cache::SSUCacheObjectParameter*,snlp::ssu::cache::SSUCacheObjectParameter*>(v31 + 24, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_, 0xAAAAAAAAAAAAAAABLL * ((__p.__r_.__value_.__l.__size_ - __p.__r_.__value_.__r.__words[0]) >> 4));
-      *&v46 = v46 + 48;
-      v33 = *(a2 + 8);
-      v34 = v45 + *a2 - v33;
-      std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<snlp::ssu::cache::SSUCacheObjectIntent>,snlp::ssu::cache::SSUCacheObjectIntent*>(a2, *a2, v33, v34);
-      v35 = *a2;
-      *a2 = v34;
-      v36 = *(a2 + 16);
-      v39 = v46;
-      *(a2 + 8) = v46;
-      *&v46 = v35;
-      *(&v46 + 1) = v36;
-      p_p = v35;
-      v45 = v35;
+      *(v30 + 24) = 0;
+      *(v30 + 32) = 0;
+      *(v30 + 40) = 0;
+      std::vector<snlp::ssu::cache::SSUCacheObjectParameter>::__init_with_size[abi:ne200100]<snlp::ssu::cache::SSUCacheObjectParameter*,snlp::ssu::cache::SSUCacheObjectParameter*>((v30 + 24), __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_, 0xAAAAAAAAAAAAAAABLL * ((__p.__r_.__value_.__l.__size_ - __p.__r_.__value_.__r.__words[0]) >> 4));
+      *&v45 = v45 + 48;
+      v32 = a1[1];
+      v33 = v44 + *a1 - v32;
+      std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<snlp::ssu::cache::SSUCacheObjectIntent>,snlp::ssu::cache::SSUCacheObjectIntent*>(a1, *a1, v32, v33);
+      v34 = *a1;
+      *a1 = v33;
+      v35 = a1[2];
+      v38 = v45;
+      *(a1 + 1) = v45;
+      *&v45 = v34;
+      *(&v45 + 1) = v35;
+      p_p = v34;
+      v44 = v34;
       std::__split_buffer<snlp::ssu::cache::SSUCacheObjectIntent>::~__split_buffer(&p_p);
-      v30 = v39;
+      v29 = v38;
     }
 
     else
     {
-      if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(*(a2 + 8), v40.__r_.__value_.__l.__data_, v40.__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(a1[1], v39.__r_.__value_.__l.__data_, v39.__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v25 = *&v40.__r_.__value_.__l.__data_;
-        *(v24 + 16) = *(&v40.__r_.__value_.__l + 2);
-        *v24 = v25;
+        v24 = *&v39.__r_.__value_.__l.__data_;
+        *(v23 + 16) = *(&v39.__r_.__value_.__l + 2);
+        *v23 = v24;
       }
 
-      *(v24 + 24) = 0;
-      *(v24 + 32) = 0;
-      *(v24 + 40) = 0;
-      std::vector<snlp::ssu::cache::SSUCacheObjectParameter>::__init_with_size[abi:ne200100]<snlp::ssu::cache::SSUCacheObjectParameter*,snlp::ssu::cache::SSUCacheObjectParameter*>(v24 + 24, __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_, 0xAAAAAAAAAAAAAAABLL * ((__p.__r_.__value_.__l.__size_ - __p.__r_.__value_.__r.__words[0]) >> 4));
-      v30 = v24 + 48;
+      *(v23 + 24) = 0;
+      *(v23 + 32) = 0;
+      *(v23 + 40) = 0;
+      std::vector<snlp::ssu::cache::SSUCacheObjectParameter>::__init_with_size[abi:ne200100]<snlp::ssu::cache::SSUCacheObjectParameter*,snlp::ssu::cache::SSUCacheObjectParameter*>((v23 + 24), __p.__r_.__value_.__l.__data_, __p.__r_.__value_.__l.__size_, 0xAAAAAAAAAAAAAAABLL * ((__p.__r_.__value_.__l.__size_ - __p.__r_.__value_.__r.__words[0]) >> 4));
+      v29 = v23 + 48;
     }
 
-    *(a2 + 8) = v30;
+    a1[1] = v29;
     p_p = &__p;
     std::vector<snlp::ssu::app::SSUAppParameter>::__destroy_vector::operator()[abi:ne200100](&p_p);
-    if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v40.__r_.__value_.__l.__data_);
+      operator delete(v39.__r_.__value_.__l.__data_);
     }
 
-    v40.__r_.__value_.__r.__words[0] = &v42;
-    std::vector<snlp::ssu::app::SSUAppParameter>::__destroy_vector::operator()[abi:ne200100](&v40);
+    v39.__r_.__value_.__r.__words[0] = &v41;
+    std::vector<snlp::ssu::app::SSUAppParameter>::__destroy_vector::operator()[abi:ne200100](&v39);
   }
 }
 
-void snlp::ssu::matcher::SSUPersister::writeTemporaryCacheFileInner(uint64_t *a1, uint64_t a2, void *a3)
+void snlp::ssu::matcher::SSUPersister::writeTemporaryCacheFileInner(snlp::ssu::matcher::SSUPersister *a1, uint64_t a2, const snlp::ssu::app::SSULoadedAppAssets *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v3 = a3[11];
-  v4 = a3[12];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = *(a3 + 11);
+  v4 = *(a3 + 12);
   if (v3 != v4)
   {
     v5 = 0;
@@ -6069,10 +5201,7 @@ void snlp::ssu::matcher::SSUPersister::writeTemporaryCacheFileInner(uint64_t *a1
     while (v3 != v4);
   }
 
-  v6 = *a1;
-  v8 = a3[8];
-  v7 = a3[9];
-  v9 = 0;
+  v6 = 0;
   operator new();
 }
 
@@ -6193,7 +5322,7 @@ void sub_22291E4F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t snlp::ssu::matcher::SSUPersister::writePositiveExamplesLoop(std::vector<std::string>::size_type *this, snlp::ssu::cache::SSUCacheFileWriteStream *a2, const snlp::ssu::app::SSULoadedAppAssets *a3)
+uint64_t snlp::ssu::matcher::SSUPersister::writePositiveExamplesLoop(std::vector<std::string>::size_type *this, std::string *a2, const snlp::ssu::app::SSULoadedAppAssets *a3)
 {
   v5 = *(a3 + 11);
   v6 = *(a3 + 12);
@@ -6217,7 +5346,7 @@ uint64_t snlp::ssu::matcher::SSUPersister::writePositiveExamplesLoop(std::vector
   memset(v33, 0, sizeof(v33));
   std::vector<std::string>::reserve(v33, *this);
   std::vector<double>::reserve(&v33[24], *this);
-  snlp::ssu::app::SSUAppExamplesPositiveIterable::getNext(v35, v32);
+  snlp::ssu::app::SSUAppExamplesPositiveIterable::getNext(v32, v35);
   if (v32[24] == 1)
   {
     do
@@ -6366,7 +5495,7 @@ uint64_t snlp::ssu::matcher::SSUPersister::writePositiveExamplesLoop(std::vector
         snlp::ssu::matcher::SSUPersister::writeSingleBatchPositive(this, a2, v33);
       }
 
-      snlp::ssu::app::SSUAppExamplesPositiveIterable::getNext(v35, &v38);
+      snlp::ssu::app::SSUAppExamplesPositiveIterable::getNext(&v38, v35);
       *&v32[9] = *(&v38.__begin_ + 1);
       *v32 = *&v38.__first_;
     }
@@ -6414,7 +5543,7 @@ BOOL snlp::ssu::matcher::SSUPersister::writeDebugInformation(snlp::ssu::matcher:
   }
 
   v45 = v7;
-  snlp::ssu::app::SSUAppExamplesPositiveIterable::getNext(v43, v42);
+  snlp::ssu::app::SSUAppExamplesPositiveIterable::getNext(v42, v43);
   if (v42[24] == 1)
   {
     v8 = 0;
@@ -6571,7 +5700,7 @@ BOOL snlp::ssu::matcher::SSUPersister::writeDebugInformation(snlp::ssu::matcher:
       }
 
       *(&v46 + 1) = v33;
-      snlp::ssu::app::SSUAppExamplesPositiveIterable::getNext(v43, v40);
+      snlp::ssu::app::SSUAppExamplesPositiveIterable::getNext(v40, v43);
       ++v9;
       ++v8;
       *&v42[9] = *&v40[9];
@@ -6705,14 +5834,14 @@ void snlp::ssu::cache::SSUCacheObjectDebugInformation::~SSUCacheObjectDebugInfor
   std::vector<std::vector<unsigned long>>::__destroy_vector::operator()[abi:ne200100](&v2);
 }
 
-void snlp::ssu::matcher::SSUPersister::writeSingleBatchPositive(snlp::ssu::matcher::SSUPersister *this, snlp::ssu::cache::SSUCacheFileWriteStream *a2, const snlp::ssu::matcher::BatchData *a3)
+void snlp::ssu::matcher::SSUPersister::writeSingleBatchPositive(snlp::ssu::matcher::SSUPersister *this, std::string *a2, const snlp::ssu::matcher::BatchData *a3)
 {
   v5 = *MEMORY[0x277D85DE8];
   (*(**(this + 8) + 16))(&v4);
   snlp::ssu::encoder::SSUEncoder::computeEncodings(v4, a3);
 }
 
-void sub_22291F09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, std::__shared_weak_count *a26)
+void sub_22291F09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, std::__shared_weak_count *a26)
 {
   snlp::ssu::cache::SSUCacheObjectEncodingsBatchPositive::~SSUCacheObjectEncodingsBatchPositive(&a9);
   itfm_inference_orchestrator::inference_engine::ITFMModuleOutputType::~ITFMModuleOutputType(&a19);
@@ -6823,7 +5952,7 @@ void snlp::ssu::cache::SSUCacheObjectEncodingsBatchPositive::~SSUCacheObjectEnco
   }
 }
 
-void snlp::ssu::matcher::SSUPersister::writeSingleBatchNegative(uint64_t a1, uint64_t a2, uint64_t a3)
+void snlp::ssu::matcher::SSUPersister::writeSingleBatchNegative(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   v5 = *MEMORY[0x277D85DE8];
   (*(**(a1 + 64) + 16))(&v4);
@@ -6842,16 +5971,16 @@ void sub_22291F608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-unsigned int *std::__variant_detail::__dtor<std::__variant_detail::__traits<boost::archive::binary_oarchive,boost::archive::text_oarchive>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](unsigned int *result)
+boost::archive::detail::basic_oarchive *std::__variant_detail::__dtor<std::__variant_detail::__traits<boost::archive::binary_oarchive,boost::archive::text_oarchive>,(std::__variant_detail::_Trait)1>::__destroy[abi:ne200100](boost::archive::detail::basic_oarchive *result)
 {
   v1 = result;
-  v2 = result[32];
+  v2 = *(result + 32);
   if (v2 != -1)
   {
     result = off_2835E41F8[v2](&v3, result);
   }
 
-  v1[32] = -1;
+  *(v1 + 32) = -1;
   return result;
 }
 
@@ -6871,14 +6000,12 @@ std::locale *_ZNSt3__116__variant_detail12__visitation6__base12__dispatcherIJLm0
   return boost::archive::basic_binary_iprimitive<boost::archive::binary_iarchive,char,std::char_traits<char>>::~basic_binary_iprimitive(v3);
 }
 
-void *std::vector<snlp::ssu::cache::SSUCacheObjectIntent>::reserve(void *result, unint64_t a2)
+uint64_t *std::vector<snlp::ssu::cache::SSUCacheObjectIntent>::reserve(uint64_t *result, unint64_t a2)
 {
   if (0xAAAAAAAAAAAAAAABLL * ((result[2] - *result) >> 4) < a2)
   {
     if (a2 < 0x555555555555556)
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::__allocate_at_least[abi:ne200100]<std::allocator<snlp::ssu::cache::SSUCacheObjectIntent>>(a2);
     }
 
@@ -6962,7 +6089,7 @@ uint64_t std::__split_buffer<snlp::ssu::cache::SSUCacheObjectIntent>::~__split_b
   return a1;
 }
 
-void std::vector<snlp::ssu::app::SSUAppIntent>::__init_with_size[abi:ne200100]<snlp::ssu::app::SSUAppIntent*,snlp::ssu::app::SSUAppIntent*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<snlp::ssu::app::SSUAppIntent>::__init_with_size[abi:ne200100]<snlp::ssu::app::SSUAppIntent*,snlp::ssu::app::SSUAppIntent*>(uint64_t result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -6975,9 +6102,9 @@ void std::vector<snlp::ssu::app::SSUAppIntent>::__init_with_size[abi:ne200100]<s
   }
 }
 
-void sub_22291FBC0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_22291FBC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<snlp::ssu::app::SSUAppIntent>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6999,7 +6126,7 @@ void snlp::ssu::app::SSULoadedAppAssets::~SSULoadedAppAssets(void **this)
   }
 }
 
-void std::vector<snlp::ssu::app::SSUAppParameter>::__init_with_size[abi:ne200100]<snlp::ssu::app::SSUAppParameter*,snlp::ssu::app::SSUAppParameter*>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void std::vector<snlp::ssu::app::SSUAppParameter>::__init_with_size[abi:ne200100]<snlp::ssu::app::SSUAppParameter*,snlp::ssu::app::SSUAppParameter*>(uint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7151,13 +6278,13 @@ std::runtime_error *std::range_error::range_error[abi:ne200100](std::runtime_err
   return result;
 }
 
-void itfm_inference_orchestrator::context::ContextFeaturizer::extractContextLabelsFromLegacyNlContext(const void **this@<X0>, const sirinluexternal::LegacyNLContext *a2@<X1>, uint64_t a3@<X8>)
+void itfm_inference_orchestrator::context::ContextFeaturizer::extractContextLabelsFromLegacyNlContext(uint64_t *__return_ptr a1@<X8>, const void **this@<X0>, const sirinluexternal::LegacyNLContext *a3@<X1>)
 {
-  v43 = *MEMORY[0x277D85DE8];
-  *a3 = 0u;
-  *(a3 + 16) = 0u;
-  *(a3 + 32) = 1065353216;
-  v5 = *(a2 + 1);
+  v42 = *MEMORY[0x277D85DE8];
+  *a1 = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
+  v5 = *(a3 + 1);
   if (!v5)
   {
 LABEL_35:
@@ -7173,8 +6300,8 @@ LABEL_35:
         {
           *buf = 136315394;
           *&buf[4] = "<UNDEFINED_COMPONENT>";
-          v33 = 2048;
-          *v34 = v16;
+          v32 = 2048;
+          *v33 = v16;
           _os_log_impl(&dword_22284A000, v21, OS_LOG_TYPE_ERROR, "[%s] The component %zu is invalid", buf, 0x16u);
         }
       }
@@ -7189,7 +6316,7 @@ LABEL_35:
       _os_log_impl(&dword_22284A000, v15, OS_LOG_TYPE_DEBUG, "[%s] Failed to featurize any labels from legacyNlContext", buf, 0xCu);
     }
 
-    goto LABEL_54;
+    return;
   }
 
   if ((*(v5 + 23) & 0x8000000000000000) != 0)
@@ -7206,11 +6333,11 @@ LABEL_35:
   }
 
   std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(buf, this + 82, v5);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a3, buf);
-  v7 = *(a2 + 72);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, buf, buf);
+  v7 = *(a3 + 72);
   if ((v7 & 2) != 0)
   {
-    if (*(a2 + 68))
+    if (*(a3 + 68))
     {
       v8 = "TRUE";
     }
@@ -7221,24 +6348,24 @@ LABEL_35:
     }
 
     std::string::basic_string[abi:ne200100]<0>(__p, v8);
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v39, this + 76, __p);
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a3, v39);
-    if (v42 < 0)
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v38, this + 76, __p);
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, v38, v38);
+    if (v41 < 0)
     {
-      operator delete(*v39);
+      operator delete(*v38);
     }
 
-    if (SHIBYTE(v30) < 0)
+    if (SHIBYTE(v29) < 0)
     {
       operator delete(*__p);
     }
 
-    v7 = *(a2 + 72);
+    v7 = *(a3 + 72);
   }
 
   if ((v7 & 8) != 0)
   {
-    if (*(a2 + 70))
+    if (*(a3 + 70))
     {
       v9 = "TRUE";
     }
@@ -7249,31 +6376,31 @@ LABEL_35:
     }
 
     std::string::basic_string[abi:ne200100]<0>(__p, v9);
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v39, this + 79, __p);
-    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a3, v39);
-    if (v42 < 0)
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v38, this + 79, __p);
+    std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, v38, v38);
+    if (v41 < 0)
     {
-      operator delete(*v39);
+      operator delete(*v38);
     }
 
-    if (SHIBYTE(v30) < 0)
+    if (SHIBYTE(v29) < 0)
     {
       operator delete(*__p);
     }
   }
 
-  if ((v34[9] & 0x80000000) != 0)
+  if ((v33[9] & 0x80000000) != 0)
   {
     operator delete(*buf);
   }
 
-  if (!*(a3 + 24))
+  if (!a1[3])
   {
     goto LABEL_35;
   }
 
   std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](buf);
-  v10 = (a3 + 16);
+  v10 = a1 + 2;
   while (1)
   {
     v10 = *v10;
@@ -7282,7 +6409,7 @@ LABEL_35:
       break;
     }
 
-    v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v34[2], ", ", 2);
+    v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v33[2], ", ", 2);
     v12 = *(v10 + 39);
     if (v12 >= 0)
     {
@@ -7317,11 +6444,11 @@ LABEL_35:
       v20 = "<UNDEFINED_COMPONENT>";
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        *v39 = 136315394;
-        *&v39[4] = "<UNDEFINED_COMPONENT>";
-        v40 = 2048;
-        v41 = v19;
-        _os_log_impl(&dword_22284A000, v22, OS_LOG_TYPE_ERROR, "[%s] The component %zu is invalid", v39, 0x16u);
+        *v38 = 136315394;
+        *&v38[4] = "<UNDEFINED_COMPONENT>";
+        v39 = 2048;
+        v40 = v19;
+        _os_log_impl(&dword_22284A000, v22, OS_LOG_TYPE_ERROR, "[%s] The component %zu is invalid", v38, 0x16u);
       }
     }
 
@@ -7330,47 +6457,45 @@ LABEL_35:
       v20 = off_2784B6F30[v19];
     }
 
-    v23 = *(a3 + 24);
+    v23 = a1[3];
     std::stringbuf::str();
-    if (v42 >= 0)
+    if (v41 >= 0)
     {
-      v24 = v39;
+      v24 = v38;
     }
 
     else
     {
-      v24 = *v39;
+      v24 = *v38;
     }
 
     *__p = 136315650;
     *&__p[4] = v20;
-    v28 = 2048;
-    v29 = v23;
-    v30 = 2080;
-    v31 = v24;
+    v27 = 2048;
+    v28 = v23;
+    v29 = 2080;
+    v30 = v24;
     _os_log_impl(&dword_22284A000, v18, OS_LOG_TYPE_DEBUG, "[%s] Featurized the following %lu LegacyNLContext features in ITFMParserRequest: %s", __p, 0x20u);
-    if (v42 < 0)
+    if (v41 < 0)
     {
-      operator delete(*v39);
+      operator delete(*v38);
     }
   }
 
   *buf = *MEMORY[0x277D82818];
   v25 = *(MEMORY[0x277D82818] + 72);
   *&buf[*(*buf - 24)] = *(MEMORY[0x277D82818] + 64);
-  *&v34[2] = v25;
-  v35 = MEMORY[0x277D82878] + 16;
-  if (v37 < 0)
+  *&v33[2] = v25;
+  v34 = MEMORY[0x277D82878] + 16;
+  if (v36 < 0)
   {
-    operator delete(v36[7].__locale_);
+    operator delete(v35[7].__locale_);
   }
 
-  v35 = MEMORY[0x277D82868] + 16;
-  std::locale::~locale(v36);
+  v34 = MEMORY[0x277D82868] + 16;
+  std::locale::~locale(v35);
   std::iostream::~basic_iostream();
-  MEMORY[0x223DC4C10](&v38);
-LABEL_54:
-  v26 = *MEMORY[0x277D85DE8];
+  MEMORY[0x223DC4C10](&v37);
 }
 
 void sub_222920768(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -7401,18 +6526,18 @@ uint64_t std::basic_stringstream<char,std::char_traits<char>,std::allocator<char
   return a1;
 }
 
-void itfm_inference_orchestrator::context::ContextFeaturizer::extractContextLabelsFromNLContext(const void **this@<X0>, const sirinluexternal::NLContext *a2@<X1>, void *a3@<X8>)
+void itfm_inference_orchestrator::context::ContextFeaturizer::extractContextLabelsFromNLContext(uint64_t *__return_ptr a1@<X8>, const void **this@<X0>, const sirinluexternal::NLContext *a3@<X1>)
 {
-  nlv4_inference_orchestrator::context::ContextLabelsExtractor::extractContextLabels(this + 8, a2, a3);
+  nlv4_inference_orchestrator::context::ContextLabelsExtractor::extractContextLabels(this + 8, a3, a1);
   if (_os_feature_enabled_impl())
   {
-    nlv4_inference_orchestrator::context::ContextLabelsExtractor::extractSalientEntityContextLabels(this + 8, a2, &__p);
+    nlv4_inference_orchestrator::context::ContextLabelsExtractor::extractSalientEntityContextLabels(&__p, this + 8, a3);
     v6 = v10;
     if (v10)
     {
       do
       {
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a3, v6 + 2);
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(a1, v6 + 2, (v6 + 2));
         v6 = *v6;
       }
 
@@ -7880,7 +7005,7 @@ LABEL_33:
       v43 = a1;
 LABEL_41:
       *v43 = v45;
-      *(v43 + 16) = v46;
+      *(v43 + 2) = v46;
       if (++v40 == 8)
       {
         return v38 + 3 == a2;
@@ -7897,9 +7022,9 @@ LABEL_41:
   }
 }
 
-void sub_222921748(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28)
+void sub_222921748(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28)
 {
-  MEMORY[0x223DC4D00](v28, 0x1012C40071C2685);
+  MEMORY[0x223DC4D00](v28, 0x1012C40071C2685, a3, a4, a5, a6, a7, a8);
   if (a15 < 0)
   {
     operator delete(__p);
@@ -7922,7 +7047,7 @@ void sub_222921858(_Unwind_Exception *a1)
 
 void snlp::ssu::app::SSUCompressedFileWrapper::decompressSSUFileToDisk(const void **a1, const void **a2, uint64_t a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   snlp::ssu::app::SSUCompressedFileWrapper::findCompressedSSUFileForAppLocale(a1, a2, &__p);
   snlp::ssu::app::SSUCompressedFileWrapper::buildDecompressedFilePath(a3, a2, a1);
 }
@@ -8142,80 +7267,80 @@ LABEL_16:
 
 void snlp::ssu::app::SSUCompressedFileWrapper::buildDecompressedFilePath(uint64_t a1, uint64_t a2, const void **a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  LODWORD(v20) = 0;
-  v5 = boost::uuids::detail::random_provider_base::random_provider_base(&v20);
-  v21 = boost::uuids::random_generator_pure::operator()(v5);
-  v22 = v6;
-  boost::uuids::detail::random_provider_base::destroy(v20);
+  v24 = *MEMORY[0x277D85DE8];
+  LODWORD(v21) = 0;
+  v6 = boost::uuids::detail::random_provider_base::random_provider_base(&v21);
+  v22 = boost::uuids::random_generator_pure::operator()(v6);
+  v23 = v7;
+  boost::uuids::detail::random_provider_base::destroy(v21);
   if (*(a3 + 23) >= 0)
   {
-    v7 = *(a3 + 23);
+    v8 = *(a3 + 23);
   }
 
   else
   {
-    v7 = a3[1];
+    v8 = a3[1];
   }
 
-  v8 = &v17;
-  std::string::basic_string[abi:ne200100](&v17, v7 + 1);
-  if ((v17.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  v9 = &v18;
+  std::string::basic_string[abi:ne200100](&v18, v8 + 1);
+  if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v8 = v17.__r_.__value_.__r.__words[0];
+    v9 = v18.__r_.__value_.__r.__words[0];
   }
 
-  if (v7)
+  if (v8)
   {
     if (*(a3 + 23) >= 0)
     {
-      v9 = a3;
+      v10 = a3;
     }
 
     else
     {
-      v9 = *a3;
+      v10 = *a3;
     }
 
-    memmove(v8, v9, v7);
+    memmove(v9, v10, v8);
   }
 
-  *(&v8->__r_.__value_.__l.__data_ + v7) = 95;
-  v10 = *(a2 + 23);
-  if (v10 >= 0)
+  *(&v9->__r_.__value_.__l.__data_ + v8) = 95;
+  v11 = *(a2 + 23);
+  if (v11 >= 0)
   {
-    v11 = a2;
+    v12 = a2;
   }
 
   else
   {
-    v11 = *a2;
+    v12 = *a2;
   }
 
-  if (v10 >= 0)
+  if (v11 >= 0)
   {
-    v12 = *(a2 + 23);
+    v13 = *(a2 + 23);
   }
 
   else
   {
-    v12 = *(a2 + 8);
+    v13 = *(a2 + 8);
   }
 
-  v13 = std::string::append(&v17, v11, v12);
-  v14 = *&v13->__r_.__value_.__l.__data_;
-  v18.__r_.__value_.__r.__words[2] = v13->__r_.__value_.__r.__words[2];
-  *&v18.__r_.__value_.__l.__data_ = v14;
-  v13->__r_.__value_.__l.__size_ = 0;
-  v13->__r_.__value_.__r.__words[2] = 0;
-  v13->__r_.__value_.__r.__words[0] = 0;
-  v15 = std::string::append(&v18, "_");
-  v16 = *&v15->__r_.__value_.__l.__data_;
-  v19.__r_.__value_.__r.__words[2] = v15->__r_.__value_.__r.__words[2];
-  *&v19.__r_.__value_.__l.__data_ = v16;
-  v15->__r_.__value_.__l.__size_ = 0;
-  v15->__r_.__value_.__r.__words[2] = 0;
-  v15->__r_.__value_.__r.__words[0] = 0;
+  v14 = std::string::append(&v18, v12, v13);
+  v15 = *&v14->__r_.__value_.__l.__data_;
+  v19.__r_.__value_.__r.__words[2] = v14->__r_.__value_.__r.__words[2];
+  *&v19.__r_.__value_.__l.__data_ = v15;
+  v14->__r_.__value_.__l.__size_ = 0;
+  v14->__r_.__value_.__r.__words[2] = 0;
+  v14->__r_.__value_.__r.__words[0] = 0;
+  v16 = std::string::append(&v19, "_");
+  v17 = *&v16->__r_.__value_.__l.__data_;
+  v20.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
+  *&v20.__r_.__value_.__l.__data_ = v17;
+  v16->__r_.__value_.__l.__size_ = 0;
+  v16->__r_.__value_.__r.__words[2] = 0;
+  v16->__r_.__value_.__r.__words[0] = 0;
   operator new();
 }
 
@@ -8274,22 +7399,22 @@ uint64_t boost::uuids::to_chars<char *>(uint64_t result, _BYTE *a2)
   return result;
 }
 
-void snlp::ssu::app::SSUCompressedFileWrapper::~SSUCompressedFileWrapper(snlp::ssu::app::SSUCompressedFileWrapper *this)
+void snlp::ssu::app::SSUCompressedFileWrapper::~SSUCompressedFileWrapper(const std::__fs::filesystem::path *this)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  std::unique_ptr<snlp::ssu::app::SSUFileWrapper const>::reset[abi:ne200100](this + 3);
+  v7 = *MEMORY[0x277D85DE8];
+  std::unique_ptr<snlp::ssu::app::SSUFileWrapper const>::reset[abi:ne200100](&this[1]);
   std::__fs::filesystem::__remove(this, 0);
   v2 = SNLPOSLoggerForCategory(8);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    if (*(this + 23) < 0)
+    if (SHIBYTE(this->__pn_.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p, *this, *(this + 1));
+      std::string::__init_copy_ctor_external(&__p, this->__pn_.__r_.__value_.__l.__data_, this->__pn_.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      __p = *this;
+      __p = this->__pn_;
     }
 
     p_p = &__p;
@@ -8299,7 +7424,7 @@ void snlp::ssu::app::SSUCompressedFileWrapper::~SSUCompressedFileWrapper(snlp::s
     }
 
     *buf = 136315138;
-    v7 = p_p;
+    v6 = p_p;
     _os_log_impl(&dword_22284A000, v2, OS_LOG_TYPE_DEBUG, "Temporary decompressed SSUFile removed at location: %s", buf, 0xCu);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
@@ -8307,13 +7432,11 @@ void snlp::ssu::app::SSUCompressedFileWrapper::~SSUCompressedFileWrapper(snlp::s
     }
   }
 
-  std::unique_ptr<snlp::ssu::app::SSUFileWrapper const>::reset[abi:ne200100](this + 3);
-  if (*(this + 23) < 0)
+  std::unique_ptr<snlp::ssu::app::SSUFileWrapper const>::reset[abi:ne200100](&this[1]);
+  if (SHIBYTE(this->__pn_.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(*this);
+    operator delete(this->__pn_.__r_.__value_.__l.__data_);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void sub_222922514(_Unwind_Exception *a1, int a2)
@@ -8356,77 +7479,71 @@ void nlv4_inference_orchestrator::trees::SpanUsoInserter::getInsertionPointLabel
 
   else
   {
-    *&a2->__r_.__value_.__l.__data_ = *this;
-    a2->__r_.__value_.__r.__words[2] = *(this + 2);
+    *a2 = *this;
   }
 }
 
-void nlv4_inference_orchestrator::trees::SpanUsoInserter::findSpanEntity(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X3>, uint64_t *a5@<X4>, char **a6@<X5>, _BYTE *a7@<X8>)
+void nlv4_inference_orchestrator::trees::SpanUsoInserter::findSpanEntity(const void **a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, const void **a4@<X3>, uint64_t *a5@<X4>, std::string *a6@<X5>, _BYTE *a7@<X8>)
 {
-  v43 = *MEMORY[0x277D85DE8];
-  std::to_string(&v37, *(a2 + 112));
-  v14 = std::string::insert(&v37, 0, "Searching for span with UTF-16 indices (");
+  v42 = *MEMORY[0x277D85DE8];
+  std::to_string(&v36, *(a2 + 112));
+  v14 = std::string::insert(&v36, 0, "Searching for span with UTF-16 indices (");
   v15 = *&v14->__r_.__value_.__l.__data_;
-  v38.__r_.__value_.__r.__words[2] = v14->__r_.__value_.__r.__words[2];
-  *&v38.__r_.__value_.__l.__data_ = v15;
+  v37.__r_.__value_.__r.__words[2] = v14->__r_.__value_.__r.__words[2];
+  *&v37.__r_.__value_.__l.__data_ = v15;
   v14->__r_.__value_.__l.__size_ = 0;
   v14->__r_.__value_.__r.__words[2] = 0;
   v14->__r_.__value_.__r.__words[0] = 0;
-  v16 = std::string::append(&v38, ", ");
+  v16 = std::string::append(&v37, ", ");
   v17 = *&v16->__r_.__value_.__l.__data_;
-  v39.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
-  *&v39.__r_.__value_.__l.__data_ = v17;
+  v38.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
+  *&v38.__r_.__value_.__l.__data_ = v17;
   v16->__r_.__value_.__l.__size_ = 0;
   v16->__r_.__value_.__r.__words[2] = 0;
   v16->__r_.__value_.__r.__words[0] = 0;
-  std::to_string(&v36, *(a2 + 120));
-  if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  std::to_string(&v35, *(a2 + 120));
+  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v18 = &v36;
+    v18 = &v35;
   }
 
   else
   {
-    v18 = v36.__r_.__value_.__r.__words[0];
+    v18 = v35.__r_.__value_.__r.__words[0];
   }
 
-  if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v35.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    size = HIBYTE(v36.__r_.__value_.__r.__words[2]);
+    size = HIBYTE(v35.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    size = v36.__r_.__value_.__l.__size_;
+    size = v35.__r_.__value_.__l.__size_;
   }
 
-  v20 = std::string::append(&v39, v18, size);
+  v20 = std::string::append(&v38, v18, size);
   v21 = *&v20->__r_.__value_.__l.__data_;
-  v42.__r_.__value_.__r.__words[2] = v20->__r_.__value_.__r.__words[2];
-  *&v42.__r_.__value_.__l.__data_ = v21;
+  v41.__r_.__value_.__r.__words[2] = v20->__r_.__value_.__r.__words[2];
+  *&v41.__r_.__value_.__l.__data_ = v21;
   v20->__r_.__value_.__l.__size_ = 0;
   v20->__r_.__value_.__r.__words[2] = 0;
   v20->__r_.__value_.__r.__words[0] = 0;
-  v22 = std::string::append(&v42, ")");
+  v22 = std::string::append(&v41, ")");
   v23 = *&v22->__r_.__value_.__l.__data_;
-  v41 = v22->__r_.__value_.__r.__words[2];
+  v40 = v22->__r_.__value_.__r.__words[2];
   *__p = v23;
   v22->__r_.__value_.__l.__size_ = 0;
   v22->__r_.__value_.__r.__words[2] = 0;
   v22->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v41.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v42.__r_.__value_.__l.__data_);
+    operator delete(v41.__r_.__value_.__l.__data_);
   }
 
-  if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v35.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v36.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v39.__r_.__value_.__l.__data_);
+    operator delete(v35.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(v38.__r_.__value_.__r.__words[2]) < 0)
@@ -8439,18 +7556,23 @@ void nlv4_inference_orchestrator::trees::SpanUsoInserter::findSpanEntity(uint64_
     operator delete(v37.__r_.__value_.__l.__data_);
   }
 
+  if (SHIBYTE(v36.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v36.__r_.__value_.__l.__data_);
+  }
+
   v24 = SNLPOSLoggerForCategory(1);
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
     v25 = __p;
-    if (v41 < 0)
+    if (v40 < 0)
     {
       v25 = __p[0];
     }
 
-    LODWORD(v42.__r_.__value_.__l.__data_) = 136315138;
-    *(v42.__r_.__value_.__r.__words + 4) = v25;
-    _os_log_impl(&dword_22284A000, v24, OS_LOG_TYPE_DEBUG, "%s", &v42, 0xCu);
+    LODWORD(v41.__r_.__value_.__l.__data_) = 136315138;
+    *(v41.__r_.__value_.__r.__words + 4) = v25;
+    _os_log_impl(&dword_22284A000, v24, OS_LOG_TYPE_DEBUG, "%s", &v41, 0xCu);
   }
 
   v26 = *(a1 + 23);
@@ -8461,7 +7583,7 @@ void nlv4_inference_orchestrator::trees::SpanUsoInserter::findSpanEntity(uint64_
 
   else
   {
-    v27 = *(a1 + 8);
+    v27 = a1[1];
   }
 
   v28 = *(a2 + 71);
@@ -8477,27 +7599,25 @@ void nlv4_inference_orchestrator::trees::SpanUsoInserter::findSpanEntity(uint64_
     v31 = v29 >= 0 ? (a2 + 48) : *(a2 + 48);
     if (!memcmp(v30, v31, v27))
     {
-      v33 = *a5;
-      v34 = a5[1];
-      v35[0] = v33;
-      v35[1] = v34;
-      if (v34)
+      v32 = *a5;
+      v33 = a5[1];
+      v34[0] = v32;
+      v34[1] = v33;
+      if (v33)
       {
-        atomic_fetch_add_explicit((v34 + 8), 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v33 + 8), 1uLL, memory_order_relaxed);
       }
 
-      nlv4_inference_orchestrator::trees::SpanUsoInserter::findClosestSpan(a1, a3, a2, a4, v35, a6);
+      nlv4_inference_orchestrator::trees::SpanUsoInserter::findClosestSpan(a1, a3, a2, a4, v34, a6);
     }
   }
 
   *a7 = 0;
   a7[8] = 0;
-  if (SHIBYTE(v41) < 0)
+  if (SHIBYTE(v40) < 0)
   {
     operator delete(__p[0]);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void sub_222923A74(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, void *a30, uint64_t a31, int a32, __int16 a33, char a34, char a35, uint64_t a36, void *__p, uint64_t a38, int a39, __int16 a40, char a41, char a42)
@@ -8515,119 +7635,112 @@ void sub_222923A74(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void nlv4_inference_orchestrator::trees::SpanUsoInserter::findClosestSpan(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5, char **a6)
+void nlv4_inference_orchestrator::trees::SpanUsoInserter::findClosestSpan(nlv4_inference_orchestrator::trees::SpanUsoInserter *a1, uint64_t *a2, uint64_t a3, const void **a4, uint64_t *a5, std::string *a6)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  std::string::basic_string[abi:ne200100]<0>(v29, "common_Date");
-  std::string::basic_string[abi:ne200100]<0>(v27, "common_Timer");
-  if ((v30 & 0x80u) == 0)
+  v29 = *MEMORY[0x277D85DE8];
+  std::string::basic_string[abi:ne200100]<0>(v27, "common_Date");
+  std::string::basic_string[abi:ne200100]<0>(v25, "common_Timer");
+  if ((v28 & 0x80u) == 0)
   {
-    v9 = v30;
+    v10 = v28;
   }
 
   else
   {
-    v9 = v29[1];
+    v10 = v27[1];
   }
 
-  v10 = *(a4 + 23);
-  v11 = v10;
-  if ((v10 & 0x80u) != 0)
+  v11 = *(a4 + 23);
+  v12 = v11;
+  if (v11 < 0)
   {
-    v10 = a4[1];
+    v11 = a4[1];
   }
 
-  if (v9 == v10)
+  if (v10 == v11)
   {
-    v12 = (v30 & 0x80u) == 0 ? v29 : v29[0];
-    v13 = *a4;
-    v14 = v11 >= 0 ? a4 : *a4;
-    if (!memcmp(v12, v14, v9))
+    v13 = (v28 & 0x80u) == 0 ? v27 : v27[0];
+    v14 = v12 >= 0 ? a4 : *a4;
+    if (!memcmp(v13, v14, v10))
     {
-      v17 = *(a6 + 23);
-      if (v17 >= 0)
+      size = HIBYTE(a6->__r_.__value_.__r.__words[2]);
+      if ((size & 0x80u) == 0)
       {
-        v18 = a6;
+        v17 = a6;
       }
 
       else
       {
-        v18 = *a6;
+        v17 = a6->__r_.__value_.__r.__words[0];
       }
 
-      if (v17 < 0)
+      if ((size & 0x80u) != 0)
       {
-        v17 = a6[1];
+        size = a6->__r_.__value_.__l.__size_;
       }
 
-      if ((v28 & 0x80u) == 0)
+      if ((v26 & 0x80u) == 0)
       {
-        v19 = v27;
-      }
-
-      else
-      {
-        v19 = v27[0];
-      }
-
-      if ((v28 & 0x80u) == 0)
-      {
-        v20 = v28;
+        v18 = v25;
       }
 
       else
       {
-        v20 = v27[1];
+        v18 = v25[0];
       }
 
-      if (v20)
+      if ((v26 & 0x80u) == 0)
       {
-        v21 = &v17[v18];
-        if (v17 >= v20)
+        v19 = v26;
+      }
+
+      else
+      {
+        v19 = v25[1];
+      }
+
+      if (v19)
+      {
+        v20 = v17 + size;
+        if (size >= v19)
         {
-          v22 = *v19;
+          v21 = *v18;
           do
           {
-            v23 = &v17[-v20];
-            if (v23 == -1)
+            v22 = size - v19;
+            if (v22 == -1)
             {
               break;
             }
 
-            v24 = memchr(v18, v22, (v23 + 1));
-            if (!v24)
+            v23 = memchr(v17, v21, v22 + 1);
+            if (!v23)
             {
               break;
             }
 
-            v25 = v24;
-            if (!memcmp(v24, v19, v20))
+            v24 = v23;
+            if (!memcmp(v23, v18, v19))
             {
               break;
             }
 
-            v18 = v25 + 1;
-            v17 = (v21 - (v25 + 1));
+            v17 = (v24 + 1);
+            size = v20 - (v24 + 1);
           }
 
-          while (v17 >= v20);
+          while (size >= v19);
         }
       }
     }
   }
 
-  v16 = *a5;
   v15 = a5[1];
   if (v15)
   {
     atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
     atomic_fetch_add_explicit(&v15->__shared_owners_, 1uLL, memory_order_relaxed);
     std::__shared_weak_count::__release_shared[abi:ne200100](v15);
-  }
-
-  else
-  {
-    v26 = *a5;
   }
 
   operator new();
@@ -8640,9 +7753,9 @@ void sub_222924864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(__p);
   }
 
-  if (*(v69 - 121) < 0)
+  if (*(v65 - 121) < 0)
   {
-    operator delete(*(v69 - 144));
+    operator delete(*(v65 - 144));
   }
 
   if (a58 < 0)
@@ -8655,33 +7768,33 @@ void sub_222924864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     operator delete(a46);
   }
 
-  if (a69 < 0)
+  if (a65 < 0)
   {
     operator delete(a64);
   }
 
-  std::unique_ptr<siri::ontology::UsoGraph>::reset[abi:ne200100]((v69 - 224));
-  std::unique_ptr<siri::ontology::UsoGraph>::reset[abi:ne200100]((v69 - 216));
-  v71 = *(v69 - 200);
-  if (v71)
+  std::unique_ptr<siri::ontology::UsoGraph>::reset[abi:ne200100]((v65 - 224));
+  std::unique_ptr<siri::ontology::UsoGraph>::reset[abi:ne200100]((v65 - 216));
+  v67 = *(v65 - 200);
+  if (v67)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v71);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v67);
   }
 
-  if (*(v69 - 169) < 0)
+  if (*(v65 - 169) < 0)
   {
-    operator delete(*(v69 - 192));
+    operator delete(*(v65 - 192));
   }
 
-  if (*(v69 - 145) < 0)
+  if (*(v65 - 145) < 0)
   {
-    operator delete(*(v69 - 168));
+    operator delete(*(v65 - 168));
   }
 
   _Unwind_Resume(a1);
 }
 
-std::string *nlv4_inference_orchestrator::trees::SpanUsoInserter::getDomainFromOriginalParse@<X0>(nlv4_inference_orchestrator::trees::SpanUsoInserter *this@<X0>, std::string *__str@<X1>, std::string *a3@<X8>)
+std::string *nlv4_inference_orchestrator::trees::SpanUsoInserter::getDomainFromOriginalParse@<X0>(std::string *__return_ptr a1@<X8>, nlv4_inference_orchestrator::trees::SpanUsoInserter *this@<X0>, std::string *__str@<X1>)
 {
   size = HIBYTE(__str->__r_.__value_.__r.__words[2]);
   if ((size & 0x80u) == 0)
@@ -8775,12 +7888,12 @@ LABEL_15:
     v15 = 0;
   }
 
-  return std::string::basic_string(a3, __str, 0, v15, &v21);
+  return std::string::basic_string(a1, __str, 0, v15, &v21);
 }
 
 BOOL nlv4_inference_orchestrator::trees::SpanUsoInserter::checkLabelMatch(nlv4_inference_orchestrator::trees::SpanUsoInserter *a1, uint64_t a2, siri::ontology::UsoGraph *a3, const void **a4)
 {
-  nlv4_inference_orchestrator::trees::SpanUsoInserter::getSpanLabelFromGraph(a1, a3, &__p);
+  nlv4_inference_orchestrator::trees::SpanUsoInserter::getSpanLabelFromGraph(&__p, a1);
   v7 = *(a4 + 23);
   if (v7 >= 0)
   {
@@ -8819,225 +7932,220 @@ void sub_222924CB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 unint64_t nlv4_inference_orchestrator::trees::SpanUsoInserter::findUtteranceAlignments(nlv4_inference_orchestrator::trees::SpanUsoInserter *this, const siri::ontology::UsoGraph *a2, const sirinluexternal::UsoGraph *a3)
 {
-  v5 = *(a2 + 11);
   siri::ontology::oname::graph::ontology_init::Argument_entity(this);
-  v6 = *(v5 + 8);
   siri::ontology::UsoGraph::getSuccessors();
   {
-    v9 = v28[0];
-    v3 = v28[2];
-    v10 = v28[0] & 0xFFFFFF00;
+    v6 = v25;
+    v3 = v26;
+    v7 = v25 & 0xFFFFFF00;
   }
 
   else
   {
-    v11 = SNLPOSLoggerForCategory(1);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v8 = SNLPOSLoggerForCategory(1);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v28[0]) = 0;
-      _os_log_impl(&dword_22284A000, v11, OS_LOG_TYPE_DEBUG, "No utterance alignments found in the entity node; searching the descendant nodes for utterance alignments instead.", v28, 2u);
+      LOWORD(v25) = 0;
+      _os_log_impl(&dword_22284A000, v8, OS_LOG_TYPE_DEBUG, "No utterance alignments found in the entity node; searching the descendant nodes for utterance alignments instead.", &v25, 2u);
     }
 
-    v12 = *(a3 + 1);
-    v13 = *(a3 + 2);
-    if (v12 == v13)
+    v9 = *(a3 + 1);
+    v10 = *(a3 + 2);
+    if (v9 == v10)
     {
-      v9 = 0;
-      v10 = 0;
+      v6 = 0;
+      v7 = 0;
     }
 
     else
     {
-      v14 = 0;
-      v15 = -1;
+      v11 = 0;
+      v12 = -1;
       do
       {
-        v16 = *v12;
-        if ((*(*v12 + 40) & 2) != 0)
+        v13 = *v9;
+        if ((*(*v9 + 40) & 2) != 0)
         {
-          v17 = *(v16 + 8);
-          if (v17 != *(v16 + 16))
+          v14 = *(v13 + 8);
+          if (v14 != *(v13 + 16))
           {
-            v18 = *v17;
-            v19 = *(*v17 + 20);
-            if (v19 < v15)
+            v15 = *v14;
+            v16 = *(*v14 + 20);
+            if (v16 < v12)
             {
-              v15 = v19;
+              v12 = v16;
             }
 
-            v20 = *(v18 + 8);
-            if (v14 <= v20)
+            v17 = *(v15 + 8);
+            if (v11 <= v17)
             {
-              v14 = v20;
+              v11 = v17;
             }
           }
         }
 
-        ++v12;
+        ++v9;
       }
 
-      while (v12 != v13);
-      v21 = v15 & 0xFFFFFF00;
-      if (v15 <= v14)
+      while (v9 != v10);
+      v18 = v12 & 0xFFFFFF00;
+      if (v12 <= v11)
       {
-        v22 = v14;
+        v19 = v11;
       }
 
       else
       {
-        v22 = v15;
+        v19 = v12;
       }
 
-      if (v15 <= v14)
+      if (v12 <= v11)
       {
-        v23 = v15;
+        v20 = v12;
       }
 
       else
+      {
+        v20 = 0;
+      }
+
+      if (v12 > v11)
+      {
+        v18 = 0;
+      }
+
+      v21 = v11 == 0;
+      if (v11)
+      {
+        v22 = v19;
+      }
+
+      else
+      {
+        v22 = v12;
+      }
+
+      if (v21)
       {
         v23 = 0;
       }
 
-      if (v15 > v14)
-      {
-        v21 = 0;
-      }
-
-      v24 = v14 == 0;
-      if (v14)
-      {
-        v25 = v22;
-      }
-
       else
       {
-        v25 = v15;
+        v23 = v20;
       }
 
-      if (v24)
+      if (v21)
       {
-        v26 = 0;
+        v18 = 0;
       }
 
-      else
-      {
-        v26 = v23;
-      }
-
-      if (v24)
-      {
-        v21 = 0;
-      }
-
-      if (v15 == -1)
+      if (v12 == -1)
       {
         v3 = 0xFFFFFFFFLL;
       }
 
       else
       {
-        v3 = v25;
+        v3 = v22;
       }
 
-      if (v15 == -1)
+      if (v12 == -1)
       {
-        v9 = 0;
-      }
-
-      else
-      {
-        v9 = v26;
-      }
-
-      if (v15 == -1)
-      {
-        v10 = 0;
+        v6 = 0;
       }
 
       else
       {
-        v10 = v21;
+        v6 = v23;
+      }
+
+      if (v12 == -1)
+      {
+        v7 = 0;
+      }
+
+      else
+      {
+        v7 = v18;
       }
     }
   }
 
   if (__p)
   {
-    v31 = __p;
+    v29 = __p;
     operator delete(__p);
   }
 
-  return v10 | v9 | (v3 << 32);
+  return v7 | v6 | (v3 << 32);
 }
 
-void nlv4_inference_orchestrator::trees::SpanUsoInserter::getSpanLabelFromGraph(nlv4_inference_orchestrator::trees::SpanUsoInserter *this@<X0>, const siri::ontology::UsoGraph *a2@<X1>, std::string *a3@<X8>)
+void nlv4_inference_orchestrator::trees::SpanUsoInserter::getSpanLabelFromGraph(std::string *__return_ptr a1@<X8>, nlv4_inference_orchestrator::trees::SpanUsoInserter *this@<X0>)
 {
-  v4 = *(a2 + 11);
   siri::ontology::oname::graph::ontology_init::Argument_entity(this);
-  v5 = *(v4 + 8);
   siri::ontology::UsoGraph::getSuccessors();
-  if (__p == v15)
+  if (__p == v12)
   {
-    v6 = SNLPOSLoggerForCategory(1);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v4 = SNLPOSLoggerForCategory(1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      *v13 = 0;
-      v7 = "Found no entities in the uso graph of matching span, skipping...";
+      *v10 = 0;
+      v5 = "Found no entities in the uso graph of matching span, skipping...";
       goto LABEL_7;
     }
   }
 
-  else if ((v15 - __p) < 9)
+  else if ((v12 - __p) < 9)
   {
-    if (v15 - __p != 8)
+    if (v12 - __p != 8)
     {
       std::vector<unsigned long>::__throw_out_of_range[abi:ne200100]();
     }
 
-    v8 = ***__p;
-    if (v9)
+    if (v6)
     {
-      v10 = v9[3];
-      if (*(v10 + 31) < 0)
+      v7 = v6[3];
+      if (*(v7 + 31) < 0)
       {
-        std::string::__init_copy_ctor_external(a3, *(v10 + 8), *(v10 + 16));
+        std::string::__init_copy_ctor_external(a1, *(v7 + 8), *(v7 + 16));
       }
 
       else
       {
-        v11 = *(v10 + 8);
-        a3->__r_.__value_.__r.__words[2] = *(v10 + 24);
-        *&a3->__r_.__value_.__l.__data_ = v11;
+        v8 = *(v7 + 8);
+        a1->__r_.__value_.__r.__words[2] = *(v7 + 24);
+        *&a1->__r_.__value_.__l.__data_ = v8;
       }
 
       goto LABEL_9;
     }
 
-    v12 = SNLPOSLoggerForCategory(1);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v9 = SNLPOSLoggerForCategory(1);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_22284A000, v12, OS_LOG_TYPE_DEBUG, "The first level entity is not of entity node type, skipping...", v13, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_22284A000, v9, OS_LOG_TYPE_DEBUG, "The first level entity is not of entity node type, skipping...", v10, 2u);
     }
   }
 
   else
   {
-    v6 = SNLPOSLoggerForCategory(1);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v4 = SNLPOSLoggerForCategory(1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      *v13 = 0;
-      v7 = "There is more than one entity in the USO graph of matching span, skipping...";
+      *v10 = 0;
+      v5 = "There is more than one entity in the USO graph of matching span, skipping...";
 LABEL_7:
-      _os_log_impl(&dword_22284A000, v6, OS_LOG_TYPE_DEBUG, v7, v13, 2u);
+      _os_log_impl(&dword_22284A000, v4, OS_LOG_TYPE_DEBUG, v5, v10, 2u);
     }
   }
 
-  std::string::basic_string[abi:ne200100]<0>(a3, "");
+  std::string::basic_string[abi:ne200100]<0>(a1, "");
 LABEL_9:
   if (__p)
   {
-    v15 = __p;
+    v12 = __p;
     operator delete(__p);
   }
 }
@@ -9212,7 +8320,7 @@ void UPInferenceResult::~UPInferenceResult(UPInferenceResult *this)
   }
 }
 
-void sub_222926098(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, char *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, char a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, void *__p, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, void *a44, uint64_t a45, int a46, __int16 a47, char a48, char a49, void *a50, uint64_t a51, int a52, __int16 a53, char a54, char a55)
+void sub_222926098(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, char *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, char a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, void *__p, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, void *a44, uint64_t a45, int a46, __int16 a47, char a48, char a49, void *a50, uint64_t a51, int a52, __int16 a53, char a54, char a55)
 {
   a15 = &a28;
   std::vector<nl_featurization::postprocessing::LabelledSpan>::__destroy_vector::operator()[abi:ne200100](&a15);
@@ -9223,7 +8331,7 @@ void sub_222926098(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<nl_featurization::Token>::__init_with_size[abi:ne200100]<nl_featurization::Token*,nl_featurization::Token*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<nl_featurization::Token>::__init_with_size[abi:ne200100]<nl_featurization::Token*,nl_featurization::Token*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9233,14 +8341,14 @@ uint64_t std::vector<nl_featurization::Token>::__init_with_size[abi:ne200100]<nl
   return result;
 }
 
-void sub_222926254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_222926254(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<nl_featurization::Token>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::optional<unsigned long>>::__init_with_size[abi:ne200100]<std::optional<unsigned long>*,std::optional<unsigned long>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::optional<unsigned long>>::__init_with_size[abi:ne200100]<std::optional<unsigned long>*,std::optional<unsigned long>*>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -9623,19 +8731,19 @@ uint64_t std::vector<nl_featurization::postprocessing::LabelledSpan>::__emplace_
   return v15;
 }
 
-void sub_222926AC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_222926AC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  if (*(v4 + 55) < 0)
+  va_start(va, a7);
+  if (*(v7 + 55) < 0)
   {
-    operator delete(*(v4 + 32));
+    operator delete(*(v7 + 32));
   }
 
   std::__split_buffer<nl_featurization::postprocessing::LabelledSpan>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::optional<unsigned long>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::optional<unsigned long>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -9655,7 +8763,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::optional<unsigne
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::vector<nl_featurization::Token>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<nl_featurization::Token>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x555555555555556)
   {
@@ -9766,7 +8874,7 @@ void sub_222927564(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
+void std::vector<double>::push_back[abi:ne200100](const void **a1, uint64_t *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -9815,7 +8923,7 @@ void std::vector<double>::push_back[abi:ne200100](const void **a1, void *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 8;
   }
 
   a1[1] = v6;
@@ -9829,4 +8937,986 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<double>>>
   }
 
   std::__throw_bad_array_new_length[abi:ne200100]();
+}
+
+void std::vector<nl_featurization::beam_search::BeamSequence>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+{
+  v1 = *a1;
+  v2 = **a1;
+  if (v2)
+  {
+    v4 = v1[1];
+    v5 = **a1;
+    if (v4 != v2)
+    {
+      do
+      {
+        v6 = *(v4 - 3);
+        if (v6)
+        {
+          *(v4 - 2) = v6;
+          operator delete(v6);
+        }
+
+        v7 = *(v4 - 6);
+        if (v7)
+        {
+          *(v4 - 5) = v7;
+          operator delete(v7);
+        }
+
+        v8 = *(v4 - 9);
+        if (v8)
+        {
+          *(v4 - 8) = v8;
+          operator delete(v8);
+        }
+
+        std::__tree<unsigned long>::destroy(*(v4 - 11));
+        v4 -= 128;
+      }
+
+      while (v4 != v2);
+      v5 = **a1;
+    }
+
+    v1[1] = v2;
+
+    operator delete(v5);
+  }
+}
+
+void sub_222927C5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, int a25, __int16 a26, char a27, char a28)
+{
+  UPInferenceResult::~UPInferenceResult(v28);
+  itfm_inference_orchestrator::inference_engine::ITFMModuleOutputType::~ITFMModuleOutputType(&a11);
+  itfm_inference_orchestrator::inference_engine::ITFMModuleOutputType::~ITFMModuleOutputType(&a17);
+  itfm_inference_orchestrator::inference_engine::ITFMModuleOutputType::~ITFMModuleOutputType(&a23);
+  if (*(v29 - 113) < 0)
+  {
+    operator delete(*(v29 - 136));
+  }
+
+  if (*(v29 - 89) < 0)
+  {
+    operator delete(*(v29 - 112));
+  }
+
+  if (*(v29 - 65) < 0)
+  {
+    operator delete(*(v29 - 88));
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t snlp::ssu::trigger::SSUTriggerDisjunction::isTriggered(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  v3 = *(a1 + 16);
+  if (v2 == v3)
+  {
+    LODWORD(v5) = 0;
+LABEL_6:
+    v6 = 0;
+    v7 = 0;
+  }
+
+  else
+  {
+    while (1)
+    {
+      v5 = (*(**v2 + 16))(*v2, a2);
+      if ((v5 & 0x100000000) != 0)
+      {
+        break;
+      }
+
+      v2 += 2;
+      if (v2 == v3)
+      {
+        goto LABEL_6;
+      }
+    }
+
+    v7 = v5 & 0xFF00000000;
+    v6 = v5;
+  }
+
+  return v5 & 0xFFFFFF00 | v6 | v7;
+}
+
+void snlp::ssu::trigger::SSUTriggerDisjunction::~SSUTriggerDisjunction(snlp::ssu::trigger::SSUTriggerDisjunction *this)
+{
+  *this = &unk_2835E4240;
+  v1 = (this + 8);
+  std::vector<std::shared_ptr<snlp::ssu::trigger::SSUTrigger>>::__destroy_vector::operator()[abi:ne200100](&v1);
+
+  JUMPOUT(0x223DC4D00);
+}
+
+{
+  *this = &unk_2835E4240;
+  v1 = (this + 8);
+  std::vector<std::shared_ptr<snlp::ssu::trigger::SSUTrigger>>::__destroy_vector::operator()[abi:ne200100](&v1);
+}
+
+void *snlp::ssu::trigger::SSUTriggerDisjunction::SSUTriggerDisjunction(void *result, uint64_t a2)
+{
+  *result = &unk_2835E4240;
+  result[1] = 0;
+  result[2] = 0;
+  result[3] = 0;
+  *(result + 1) = *a2;
+  result[3] = *(a2 + 16);
+  *a2 = 0;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  for (i = result[1]; i != result[2]; i += 2)
+  {
+    if (!*i)
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Cannot construct SSUTriggerDisjunction with nullptr");
+      __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    }
+  }
+
+  return result;
+}
+
+void sub_222928864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, void **a10)
+{
+  a10 = a9;
+  std::vector<std::shared_ptr<snlp::ssu::trigger::SSUTrigger>>::__destroy_vector::operator()[abi:ne200100](&a10);
+  _Unwind_Resume(a1);
+}
+
+uint64_t snlp::ssu::trigger::SSUTriggerDisjunction::subTriggers@<X0>(uint64_t this@<X0>, void *a2@<X8>)
+{
+  *a2 = 0;
+  a2[1] = 0;
+  a2[2] = 0;
+  v2 = *(this + 8);
+  v3 = *(this + 16);
+  if (v3 != v2)
+  {
+    if (((v3 - v2) & 0x8000000000000000) == 0)
+    {
+      operator new();
+    }
+
+    std::vector<nlohmann::basic_json<std::map,std::vector,std::string,BOOL,long long,unsigned long long,double,std::allocator,nlohmann::adl_serializer,std::vector<unsigned char>>>::__throw_length_error[abi:ne200100]();
+  }
+
+  return this;
+}
+
+uint64_t *nlv4_inference_orchestrator::inference_engine::Trail::getTokenHistory@<X0>(nlv4_inference_orchestrator::inference_engine::Trail *this@<X0>, uint64_t *a2@<X8>)
+{
+  *a2 = 0;
+  a2[1] = 0;
+  a2[2] = 0;
+  return std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(a2, *(this + 25), *(this + 26), (*(this + 26) - *(this + 25)) >> 3);
+}
+
+uint64_t *uaap::EspressoModule::EspressoModule(uint64_t *a1)
+{
+  uaap::EspressoModule::deserializeModule(a1);
+  return a1;
+}
+
+{
+  uaap::EspressoModule::deserializeModule(a1);
+  return a1;
+}
+
+uint64_t uaap::EspressoModule::deserializeModule(uint64_t *a1)
+{
+  context = espresso_create_context();
+  *a1 = context;
+  if (!context)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Espresso context is nil.");
+    goto LABEL_8;
+  }
+
+  plan = espresso_create_plan();
+  a1[1] = plan;
+  if (!plan)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Espresso plan is nil.");
+    goto LABEL_8;
+  }
+
+  result = espresso_plan_add_network();
+  if (result)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Could not create espresso plan.");
+LABEL_8:
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  return result;
+}
+
+uint64_t uaap::EspressoModule::buildPlan(uaap::EspressoModule *this)
+{
+  result = espresso_plan_build();
+  if (result)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Failed to build espresso plan.");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  return result;
+}
+
+uint64_t uaap::EspressoModule::executePlan(uaap::EspressoModule *this)
+{
+  result = espresso_plan_execute_sync();
+  if (result)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Failed to execute espresso plan.");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  return result;
+}
+
+uint64_t uaap::EspressoModule::cleanPlan(uaap::EspressoModule *this)
+{
+  result = espresso_plan_build_clean();
+  if (result)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Failed to clean up espresso plan.");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  return result;
+}
+
+uint64_t uaap::EspressoModule::reshape(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v44 = *MEMORY[0x277D85DE8];
+  v5 = SNLPOSLoggerForCategory(3);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_22284A000, v5, OS_LOG_TYPE_DEBUG, "Reshaping network to handle current request inputs", buf, 2u);
+  }
+
+  v43 = xmmword_2784B69F8;
+  v6 = *a2;
+  v7 = *a3;
+  v8 = *(*a3 + 8);
+  v41 = *(*a2 + 16);
+  v42 = v8;
+  v9 = 1;
+  v39 = 1;
+  v40 = *v7;
+  v37 = *v6;
+  v38 = 1;
+  v36 = 0x100000001;
+  v35 = -1;
+  v34 = 0x300000003;
+  v10 = &v43;
+  v11 = &v41;
+  v12 = &v39;
+  v13 = &v37;
+  v14 = &v36;
+  do
+  {
+    v15 = v9;
+    v16 = SNLPOSLoggerForCategory(3);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    {
+      v17 = *v10;
+      v18 = *v11;
+      v19 = *v12;
+      v20 = *v13;
+      v21 = *v14;
+      *buf = 136316162;
+      v25 = v17;
+      v26 = 1024;
+      v27 = v18;
+      v28 = 1024;
+      v29 = v19;
+      v30 = 1024;
+      v31 = v20;
+      v32 = 1024;
+      v33 = v21;
+      _os_log_impl(&dword_22284A000, v16, OS_LOG_TYPE_DEBUG, "Reshaping blob '%s' to w=%d, h=%d, k=%d, n=%d", buf, 0x24u);
+    }
+
+    v9 = 0;
+    v13 = &v38;
+    v14 = (&v36 + 4);
+    v12 = &v40;
+    v11 = &v42;
+    v10 = (&v43 + 8);
+  }
+
+  while ((v15 & 1) != 0);
+  result = espresso_network_change_input_blob_shapes_seq_rank();
+  if (result)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Failed to reshape espresso blob.");
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  return result;
+}
+
+uint64_t uaap::EspressoModule::setInput(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+{
+  v7 = *a3;
+  espresso_buffer_pack_tensor_shape();
+  v8 = 65568;
+  result = espresso_network_bind_buffer();
+  if (result)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::operator+<char>();
+    std::runtime_error::runtime_error(exception, &v6);
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  return result;
+}
+
+void sub_222929008(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+    if ((v15 & 1) == 0)
+    {
+LABEL_6:
+      _Unwind_Resume(a1);
+    }
+  }
+
+  else if (!v15)
+  {
+    goto LABEL_6;
+  }
+
+  __cxa_free_exception(v14);
+  goto LABEL_6;
+}
+
+void uaap::EspressoModule::getOutput(uint64_t a3@<X8>)
+{
+  v18 = *MEMORY[0x277D85DE8];
+  v16 = 65568;
+  v4 = v15;
+  if (espresso_network_bind_buffer())
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::operator+<char>();
+    std::runtime_error::runtime_error(exception, &v17);
+    __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+  }
+
+  v14 = 0;
+  espresso_buffer_unpack_tensor_shape();
+  *(a3 + 16) = 0u;
+  *(a3 + 32) = 0u;
+  *a3 = 0u;
+  v13 = 0uLL;
+  __p = 0;
+  std::vector<unsigned long>::__init_with_size[abi:ne200100]<unsigned long *,unsigned long *>(&__p, &v17, &v17 + 8 * v14, v14);
+  v5 = __p;
+  v6 = v15;
+  *a3 = __p;
+  v7 = v13;
+  *(a3 + 8) = v13;
+  if (v7 == v5)
+  {
+    v9 = 1;
+  }
+
+  else
+  {
+    v8 = v7 - v5;
+    if (v8 <= 1)
+    {
+      v8 = 1;
+    }
+
+    v9 = 1;
+    do
+    {
+      v10 = *v5++;
+      v9 *= v10;
+      --v8;
+    }
+
+    while (v8);
+  }
+
+  __p = 0;
+  v13 = 0uLL;
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, v6, v6 + 4 * v9, v9);
+  if ((a3 + 24) != &__p)
+  {
+    std::vector<float>::__assign_with_size[abi:ne200100]<float *,float *>((a3 + 24), __p, v13, (v13 - __p) >> 2);
+  }
+
+  if (__p)
+  {
+    *&v13 = __p;
+    operator delete(__p);
+  }
+
+  if (v4)
+  {
+    free(v4);
+  }
+}
+
+void sub_222929218(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
+{
+  if (*(v13 - 113) < 0)
+  {
+    operator delete(*(v13 - 136));
+    if ((v12 & 1) == 0)
+    {
+LABEL_6:
+      if (v10)
+      {
+        free(v10);
+      }
+
+      _Unwind_Resume(a1);
+    }
+  }
+
+  else if (!v12)
+  {
+    goto LABEL_6;
+  }
+
+  __cxa_free_exception(v11);
+  goto LABEL_6;
+}
+
+void *uaap::DateDurationHandler::handle(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = DDResultHasType();
+  if (result)
+  {
+
+    return uaap::mapDateDurationToItemizedUsos(a3, a4);
+  }
+
+  return result;
+}
+
+void *uaap::mapDateDurationToItemizedUsos(uint64_t a1, uint64_t a2)
+{
+  CFHash(@"DateDuration");
+  uaap::DateSpanHandler::mapDateSpanToItemizedUsos(a1, a2);
+  uaap::DateHandler::mapDateToItemizedUsos(a1, a2);
+  uaap::mapTimeSpansToItemizedUsos(a1, a2);
+
+  return uaap::mapTimeSpanSpansToItemizedUsos(a1, a2);
+}
+
+void *std::__hash_table<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::__unordered_map_hasher<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::hash<unsigned long>,std::equal_to<unsigned long>,true>,std::__unordered_map_equal<unsigned long,std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>,std::equal_to<unsigned long>,std::hash<unsigned long>,true>,std::allocator<std::__hash_value_type<unsigned long,std::vector<std::unique_ptr<uaap::UPDDSpan>>>>>::find<unsigned long>(uint64_t a1, unint64_t a2, unint64_t a3)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v3 = vcnt_s8(a2);
+  v3.i16[0] = vaddlv_u8(v3);
+  if (v3.u32[0] > 1uLL)
+  {
+    v4 = a3;
+    if (a3 >= a2)
+    {
+      v4 = a3 % a2;
+    }
+  }
+
+  else
+  {
+    v4 = (a2 - 1) & a3;
+  }
+
+  v5 = *(a1 + 8 * v4);
+  if (!v5)
+  {
+    return 0;
+  }
+
+  for (result = *v5; result; result = *result)
+  {
+    v7 = result[1];
+    if (v7 == a3)
+    {
+      if (result[2] == a3)
+      {
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v3.u32[0] > 1uLL)
+      {
+        if (v7 >= a2)
+        {
+          v7 %= a2;
+        }
+      }
+
+      else
+      {
+        v7 &= a2 - 1;
+      }
+
+      if (v7 != v4)
+      {
+        return 0;
+      }
+    }
+  }
+
+  return result;
+}
+
+__n128 std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,nlv4_inference_orchestrator::inference_engine::TokenIndexAndScore *,0>(__n128 *a1, __n128 *a2, float *a3, __int128 *a4, uint64_t a5)
+{
+  v5 = a2->n128_f32[2];
+  v6 = a3[2];
+  if (v5 >= a1->n128_f32[2])
+  {
+    if (v6 < v5)
+    {
+      result = *a2;
+      v21 = *a2;
+      v9 = *(a3 + 2);
+      a2->n128_u64[0] = *a3;
+      a2->n128_u32[2] = v9;
+      *a3 = v21.n128_u64[0];
+      a3[2] = v21.n128_f32[2];
+      if (a2->n128_f32[2] < a1->n128_f32[2])
+      {
+        result = *a1;
+        v22 = *a1;
+        v10 = a2->n128_u32[2];
+        a1->n128_u64[0] = a2->n128_u64[0];
+        a1->n128_u32[2] = v10;
+        a2->n128_u64[0] = v22.n128_u64[0];
+        a2->n128_u32[2] = v22.n128_u32[2];
+      }
+    }
+  }
+
+  else
+  {
+    if (v6 < v5)
+    {
+      result = *a1;
+      v20 = *a1;
+      v8 = *(a3 + 2);
+      a1->n128_u64[0] = *a3;
+      a1->n128_u32[2] = v8;
+LABEL_9:
+      *a3 = v20.n128_u64[0];
+      a3[2] = v20.n128_f32[2];
+      goto LABEL_10;
+    }
+
+    result = *a1;
+    v23 = *a1;
+    v11 = a2->n128_u32[2];
+    a1->n128_u64[0] = a2->n128_u64[0];
+    a1->n128_u32[2] = v11;
+    a2->n128_u64[0] = v23.n128_u64[0];
+    a2->n128_u32[2] = v23.n128_u32[2];
+    if (a3[2] < a2->n128_f32[2])
+    {
+      result = *a2;
+      v20 = *a2;
+      v12 = *(a3 + 2);
+      a2->n128_u64[0] = *a3;
+      a2->n128_u32[2] = v12;
+      goto LABEL_9;
+    }
+  }
+
+LABEL_10:
+  if (*(a4 + 2) < a3[2])
+  {
+    result = *a3;
+    v24 = *a3;
+    v13 = *(a4 + 2);
+    *a3 = *a4;
+    *(a3 + 2) = v13;
+    *a4 = v24;
+    *(a4 + 2) = DWORD2(v24);
+    if (a3[2] < a2->n128_f32[2])
+    {
+      result = *a2;
+      v25 = *a2;
+      v14 = *(a3 + 2);
+      a2->n128_u64[0] = *a3;
+      a2->n128_u32[2] = v14;
+      *a3 = v25.n128_u64[0];
+      a3[2] = v25.n128_f32[2];
+      if (a2->n128_f32[2] < a1->n128_f32[2])
+      {
+        result = *a1;
+        v26 = *a1;
+        v15 = a2->n128_u32[2];
+        a1->n128_u64[0] = a2->n128_u64[0];
+        a1->n128_u32[2] = v15;
+        a2->n128_u64[0] = v26.n128_u64[0];
+        a2->n128_u32[2] = v26.n128_u32[2];
+      }
+    }
+  }
+
+  result.n128_u32[0] = *(a5 + 8);
+  if (result.n128_f32[0] < *(a4 + 2))
+  {
+    result = *a4;
+    v27 = *a4;
+    v16 = *(a5 + 8);
+    *a4 = *a5;
+    *(a4 + 2) = v16;
+    *a5 = v27;
+    *(a5 + 8) = DWORD2(v27);
+    result.n128_u32[0] = *(a4 + 2);
+    if (result.n128_f32[0] < a3[2])
+    {
+      result = *a3;
+      v28 = *a3;
+      v17 = *(a4 + 2);
+      *a3 = *a4;
+      *(a3 + 2) = v17;
+      *a4 = v28;
+      *(a4 + 2) = DWORD2(v28);
+      result.n128_f32[0] = a3[2];
+      if (result.n128_f32[0] < a2->n128_f32[2])
+      {
+        result = *a2;
+        v29 = *a2;
+        v18 = *(a3 + 2);
+        a2->n128_u64[0] = *a3;
+        a2->n128_u32[2] = v18;
+        *a3 = v29.n128_u64[0];
+        a3[2] = v29.n128_f32[2];
+        result.n128_u32[0] = a2->n128_u32[2];
+        if (result.n128_f32[0] < a1->n128_f32[2])
+        {
+          result = *a1;
+          v30 = *a1;
+          v19 = a2->n128_u32[2];
+          a1->n128_u64[0] = a2->n128_u64[0];
+          a1->n128_u32[2] = v19;
+          a2->n128_u64[0] = v30.n128_u64[0];
+          a2->n128_u32[2] = v30.n128_u32[2];
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,nlv4_inference_orchestrator::inference_engine::TokenIndexAndScore *>(uint64_t a1, uint64_t *a2)
+{
+  v2 = (a2 - a1) >> 4;
+  if (v2 > 2)
+  {
+    if (v2 == 3)
+    {
+      v4 = a2 - 2;
+      v5 = *(a1 + 24);
+      v6 = *(a2 - 2);
+      if (v5 < *(a1 + 8))
+      {
+        if (v6 >= v5)
+        {
+          v37 = *a1;
+          *a1 = *(a1 + 16);
+          *(a1 + 8) = *(a1 + 24);
+          *(a1 + 16) = v37.n128_u64[0];
+          *(a1 + 24) = v37.n128_u32[2];
+          if (*(a2 - 2) >= *(a1 + 24))
+          {
+            return 1;
+          }
+
+          v29 = *(a1 + 16);
+          v16 = *(a2 - 2);
+          *(a1 + 16) = *v4;
+          *(a1 + 24) = v16;
+        }
+
+        else
+        {
+          v29 = *a1;
+          v7 = *(a2 - 2);
+          *a1 = *v4;
+          *(a1 + 8) = v7;
+        }
+
+        *v4 = v29.n128_u64[0];
+        *(a2 - 2) = v29.n128_u32[2];
+        return 1;
+      }
+
+      if (v6 >= v5)
+      {
+        return 1;
+      }
+
+      v32 = *(a1 + 16);
+      v15 = *(a2 - 2);
+      *(a1 + 16) = *v4;
+      *(a1 + 24) = v15;
+      *v4 = v32;
+      *(a2 - 2) = DWORD2(v32);
+LABEL_50:
+      if (*(a1 + 24) < *(a1 + 8))
+      {
+        v42 = *a1;
+        *a1 = *(a1 + 16);
+        *(a1 + 8) = *(a1 + 24);
+        *(a1 + 16) = v42.n128_u64[0];
+        *(a1 + 24) = v42.n128_u32[2];
+      }
+
+      return 1;
+    }
+
+    if (v2 != 4)
+    {
+      if (v2 != 5)
+      {
+        goto LABEL_13;
+      }
+
+      std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,nlv4_inference_orchestrator::inference_engine::TokenIndexAndScore *,0>(a1, (a1 + 16), (a1 + 32), (a1 + 48), (a2 - 2));
+      return 1;
+    }
+
+    v12 = *(a1 + 24);
+    v13 = *(a1 + 8);
+    v14 = *(a1 + 40);
+    if (v12 >= v13)
+    {
+      if (v14 < v12)
+      {
+        v35 = *(a1 + 16);
+        *(a1 + 16) = *(a1 + 32);
+        *(a1 + 24) = *(a1 + 40);
+        *(a1 + 32) = v35;
+        *(a1 + 40) = DWORD2(v35);
+        if (*(a1 + 24) < v13)
+        {
+          v36 = *a1;
+          *a1 = *(a1 + 16);
+          *(a1 + 8) = *(a1 + 24);
+          *(a1 + 16) = v36.n128_u64[0];
+          *(a1 + 24) = v36.n128_u32[2];
+        }
+      }
+
+      goto LABEL_47;
+    }
+
+    if (v14 >= v12)
+    {
+      v39 = *a1;
+      *a1 = *(a1 + 16);
+      *(a1 + 8) = *(a1 + 24);
+      *(a1 + 16) = v39.n128_u64[0];
+      *(a1 + 24) = v39.n128_u32[2];
+      if (v14 >= *(a1 + 24))
+      {
+        goto LABEL_47;
+      }
+
+      v31 = *(a1 + 16);
+      *(a1 + 16) = *(a1 + 32);
+      *(a1 + 24) = *(a1 + 40);
+    }
+
+    else
+    {
+      v31 = *a1;
+      *a1 = *(a1 + 32);
+      *(a1 + 8) = *(a1 + 40);
+    }
+
+    *(a1 + 32) = v31.n128_u64[0];
+    *(a1 + 40) = v31.n128_u32[2];
+LABEL_47:
+    if (*(a2 - 2) >= *(a1 + 40))
+    {
+      return 1;
+    }
+
+    v25 = a2 - 2;
+    v40 = *(a1 + 32);
+    v26 = *(a2 - 2);
+    *(a1 + 32) = *(a2 - 2);
+    *(a1 + 40) = v26;
+    *v25 = v40;
+    *(v25 + 2) = DWORD2(v40);
+    if (*(a1 + 40) >= *(a1 + 24))
+    {
+      return 1;
+    }
+
+    v41 = *(a1 + 16);
+    *(a1 + 16) = *(a1 + 32);
+    *(a1 + 24) = *(a1 + 40);
+    *(a1 + 32) = v41;
+    *(a1 + 40) = DWORD2(v41);
+    goto LABEL_50;
+  }
+
+  if (v2 < 2)
+  {
+    return 1;
+  }
+
+  if (v2 == 2)
+  {
+    if (*(a2 - 2) < *(a1 + 8))
+    {
+      v28 = *a1;
+      v3 = *(a2 - 2);
+      *a1 = *(a2 - 2);
+      *(a1 + 8) = v3;
+      *(a2 - 2) = v28.n128_u64[0];
+      *(a2 - 2) = v28.n128_u32[2];
+    }
+
+    return 1;
+  }
+
+LABEL_13:
+  v8 = (a1 + 32);
+  v9 = *(a1 + 24);
+  v10 = *(a1 + 8);
+  v11 = *(a1 + 40);
+  if (v9 >= v10)
+  {
+    if (v11 < v9)
+    {
+      v33 = *(a1 + 16);
+      *(a1 + 16) = *v8;
+      *(a1 + 24) = *(a1 + 40);
+      *v8 = v33;
+      *(a1 + 40) = DWORD2(v33);
+      if (*(a1 + 24) < v10)
+      {
+        v34 = *a1;
+        *a1 = *(a1 + 16);
+        *(a1 + 8) = *(a1 + 24);
+        *(a1 + 16) = v34.n128_u64[0];
+        *(a1 + 24) = v34.n128_u32[2];
+      }
+    }
+  }
+
+  else
+  {
+    if (v11 >= v9)
+    {
+      v38 = *a1;
+      *a1 = *(a1 + 16);
+      *(a1 + 8) = *(a1 + 24);
+      *(a1 + 16) = v38.n128_u64[0];
+      *(a1 + 24) = v38.n128_u32[2];
+      if (v11 >= *(a1 + 24))
+      {
+        goto LABEL_33;
+      }
+
+      v30 = *(a1 + 16);
+      *(a1 + 16) = *v8;
+      *(a1 + 24) = *(a1 + 40);
+    }
+
+    else
+    {
+      v30 = *a1;
+      *a1 = *v8;
+      *(a1 + 8) = *(a1 + 40);
+    }
+
+    *v8 = v30.n128_u64[0];
+    *(a1 + 40) = v30.n128_u32[2];
+  }
+
+LABEL_33:
+  v17 = (a1 + 48);
+  if ((a1 + 48) == a2)
+  {
+    return 1;
+  }
+
+  v18 = 0;
+  v19 = 0;
+  while (1)
+  {
+    v20 = v17[2];
+    if (v20 < v8[2])
+    {
+      v21 = *v17;
+      v22 = v18;
+      while (1)
+      {
+        v23 = a1 + v22;
+        *(v23 + 48) = *(a1 + v22 + 32);
+        *(v23 + 56) = *(a1 + v22 + 40);
+        if (v22 == -32)
+        {
+          break;
+        }
+
+        v22 -= 16;
+        if (v20 >= *(v23 + 24))
+        {
+          v24 = a1 + v22 + 48;
+          goto LABEL_41;
+        }
+      }
+
+      v24 = a1;
+LABEL_41:
+      *v24 = v21;
+      *(v24 + 8) = v20;
+      if (++v19 == 8)
+      {
+        return v17 + 4 == a2;
+      }
+    }
+
+    v8 = v17;
+    v18 += 16;
+    v17 += 4;
+    if (v17 == a2)
+    {
+      return 1;
+    }
+  }
 }

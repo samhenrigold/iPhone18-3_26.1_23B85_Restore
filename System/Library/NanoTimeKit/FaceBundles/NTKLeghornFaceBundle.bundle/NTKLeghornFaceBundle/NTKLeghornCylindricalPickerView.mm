@@ -22,9 +22,9 @@
     v4->_layout = v5;
 
     objc_msgSend_bounds(v4, v7, v8);
-    objc_msgSend_setItemSize_(v4->_layout, v9, v10, v4->_cellHeight);
-    v13 = objc_msgSend_clearColor(MEMORY[0x277D75348], v11, v12);
-    objc_msgSend_setBackgroundColor_(v4, v14, v15, v13);
+    objc_msgSend_setItemSize_(v4->_layout, v9, v10, v11, v4->_cellHeight);
+    v14 = objc_msgSend_clearColor(MEMORY[0x277D75348], v12, v13);
+    objc_msgSend_setBackgroundColor_(v4, v15, v14);
   }
 
   return v4;
@@ -39,20 +39,20 @@
 
 - (void)setFarthestCellScaleFactor:(double)factor
 {
-  objc_msgSend_setFarthestCellScaleFactor_(self->_layout, a2, factor);
+  objc_msgSend_setFarthestCellScaleFactor_(self->_layout, a2, v3, factor);
   layout = self->_layout;
 
-  objc_msgSend_invalidateLayout(layout, v4, v5);
+  objc_msgSend_invalidateLayout(layout, v5, v6);
 }
 
 - (void)setCellHeight:(double)height
 {
   self->_cellHeight = height;
-  objc_msgSend_bounds(self, a2, height);
-  objc_msgSend_setItemSize_(self->_layout, v5, v6, height);
+  objc_msgSend_bounds(self, a2, v3);
+  objc_msgSend_setItemSize_(self->_layout, v6, v7, v8, height);
   layout = self->_layout;
 
-  objc_msgSend_invalidateLayout(layout, v7, v8);
+  objc_msgSend_invalidateLayout(layout, v9, v10);
 }
 
 - (NTKLeghornCylindricalPickerViewDelegate)delegate

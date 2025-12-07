@@ -8,7 +8,7 @@
 
 - (void)__handleDeviceUpdated:(id)updated
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   userInfo = [updatedCopy userInfo];
   v6 = [userInfo objectForKeyedSubscript:@"HMDDeviceNotificationKey"];
@@ -33,22 +33,20 @@
   {
     v12 = HMFGetLogIdentifier();
     shortDescription = [v8 shortDescription];
-    v15 = 138543618;
-    v16 = v12;
-    v17 = 2112;
-    v18 = shortDescription;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Received notification device updated: %@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v12;
+    v16 = 2112;
+    v17 = shortDescription;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Received notification device updated: %@", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
   __HMDDeviceControllerUpdateDevice(selfCopy, v8);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateWithDevice:(id)device completionHandler:(id)handler
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   handlerCopy = handler;
   v8 = objc_autoreleasePoolPush();
@@ -57,9 +55,9 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v11;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating the current device is not supported", &v14, 0xCu);
+    v13 = 138543362;
+    v14 = v11;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating the current device is not supported", &v13, 0xCu);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -68,8 +66,6 @@
     v12 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48 description:0 reason:@"Updating the current device is not supported" suggestion:0];
     handlerCopy[2](handlerCopy, v12);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (__HMDCurrentDeviceController)init

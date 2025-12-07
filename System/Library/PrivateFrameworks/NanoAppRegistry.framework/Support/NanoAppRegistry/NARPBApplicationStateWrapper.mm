@@ -63,20 +63,18 @@
 {
   toCopy = to;
   has = self->_has;
-  v8 = toCopy;
+  v6 = toCopy;
   if ((has & 2) != 0)
   {
-    isRestricted = self->_isRestricted;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    isRemovedSystemApp = self->_isRemovedSystemApp;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -143,7 +141,6 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v7 = equalCopy[9];
   if (self->_isRestricted)
   {
     if ((equalCopy[9] & 1) == 0)

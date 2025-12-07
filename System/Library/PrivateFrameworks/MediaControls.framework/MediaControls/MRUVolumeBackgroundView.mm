@@ -300,126 +300,126 @@ LABEL_69:
   [(MediaControlsExpandableButton *)self->_primaryListeningModeButton setAxis:0];
   [(MediaControlsExpandableButton *)self->_secondaryListeningModeButton setAxis:0];
   [(MediaControlsExpandableButton *)self->_spatialAudioModeButton setAxis:0];
-  [(MediaControlsExpandableButton *)self->_conversationAwarenessButton setAxis:0];
-  [(MRUVolumeNowPlayingView *)self->_nowPlayingView setAxis:MRUIsSmallScreen() ^ 1];
+  v3 = [(MediaControlsExpandableButton *)self->_conversationAwarenessButton setAxis:0];
+  [(MRUVolumeNowPlayingView *)self->_nowPlayingView setAxis:MRUIsSmallScreen(v3, v4) ^ 1];
   traitCollection = [(MRUVolumeBackgroundView *)self traitCollection];
   [traitCollection displayScale];
-  v5 = v4;
-  v41 = v4;
+  v7 = v6;
+  v46 = v6;
 
-  MRUExpandedContentInsets();
+  MRUExpandedContentInsets(v8, v9);
   MRUVerticalScreenInset(self);
-  v6 = CCUISliderExpandedContentModuleWidth();
-  v34 = v7;
-  MRUDefaultExpandedWidth(v6);
+  v10 = CCUISliderExpandedContentModuleWidth();
+  v39 = v11;
+  MRUDefaultExpandedWidth(v10, v12);
   CCUISliderExpandedContentModuleHeight();
   [(MRUVolumeBackgroundView *)self bounds];
   UIRectCenteredIntegralRectScale();
-  v39 = v8;
-  v40 = v9;
-  v11 = v10;
-  rect = v12;
+  v44 = v13;
+  v45 = v14;
+  v16 = v15;
+  rect = v17;
   [(MRUVolumeBackgroundView *)self bounds];
   UIRectInset();
-  x = v43.origin.x;
-  y = v43.origin.y;
-  width = v43.size.width;
-  height = v43.size.height;
-  MinX = CGRectGetMinX(v43);
-  v44.origin.x = x;
-  v44.origin.y = y;
-  v44.size.width = width;
-  v44.size.height = height;
-  MinY = CGRectGetMinY(v44);
-  v45.origin.x = x;
-  v45.origin.y = y;
-  v45.size.width = width;
-  v45.size.height = height;
-  v18 = CGRectGetWidth(v45);
-  v46.origin.x = v39;
-  v46.size.width = v40;
-  v35 = v11;
-  v46.origin.y = v11;
-  v46.size.height = rect;
-  v19 = CGRectGetMinY(v46);
-  v36 = y;
-  v37 = x;
-  v47.origin.x = x;
-  v47.origin.y = y;
-  v47.size.width = width;
-  v47.size.height = height;
-  v20 = v19 - CGRectGetMinY(v47);
+  x = v48.origin.x;
+  y = v48.origin.y;
+  width = v48.size.width;
+  height = v48.size.height;
+  MinX = CGRectGetMinX(v48);
+  v49.origin.x = x;
+  v49.origin.y = y;
+  v49.size.width = width;
+  v49.size.height = height;
+  MinY = CGRectGetMinY(v49);
+  v50.origin.x = x;
+  v50.origin.y = y;
+  v50.size.width = width;
+  v50.size.height = height;
+  v23 = CGRectGetWidth(v50);
+  v51.origin.x = v44;
+  v51.size.width = v45;
+  v40 = v16;
+  v51.origin.y = v16;
+  v51.size.height = rect;
+  v24 = CGRectGetMinY(v51);
+  v41 = y;
+  v42 = x;
+  v52.origin.x = x;
+  v52.origin.y = y;
+  v52.size.width = width;
+  v52.size.height = height;
+  v25 = v24 - CGRectGetMinY(v52);
   if (self->_showSecondaryAssetView)
   {
-    v21 = v34;
+    v26 = v39;
   }
 
   else
   {
-    v21 = v18;
+    v26 = v23;
   }
 
-  [(MRUOutputDeviceAssetView *)self->_primaryAssetView sizeThatFits:v21, v20];
+  [(MRUOutputDeviceAssetView *)self->_primaryAssetView sizeThatFits:v26, v25];
   UIRectCenteredIntegralRectScale();
-  [(MRUOutputDeviceAssetView *)self->_primaryAssetView setFrame:v41];
-  v48.origin.x = MinX;
-  v48.origin.y = MinY;
-  v48.size.width = v18;
-  v48.size.height = v20;
-  CGRectGetMaxX(v48);
-  v49.origin.x = MinX;
-  v49.origin.y = MinY;
-  v49.size.width = v18;
-  v49.size.height = v20;
-  CGRectGetMinY(v49);
-  v50.origin.x = MinX;
-  v50.origin.y = MinY;
-  v50.size.width = v18;
-  v50.size.height = v20;
-  [(MRUOutputDeviceAssetView *)self->_secondaryAssetView sizeThatFits:v34, CGRectGetHeight(v50)];
+  [(MRUOutputDeviceAssetView *)self->_primaryAssetView setFrame:v46];
+  v53.origin.x = MinX;
+  v53.origin.y = MinY;
+  v53.size.width = v23;
+  v53.size.height = v25;
+  CGRectGetMaxX(v53);
+  v54.origin.x = MinX;
+  v54.origin.y = MinY;
+  v54.size.width = v23;
+  v54.size.height = v25;
+  CGRectGetMinY(v54);
+  v55.origin.x = MinX;
+  v55.origin.y = MinY;
+  v55.size.width = v23;
+  v55.size.height = v25;
+  [(MRUOutputDeviceAssetView *)self->_secondaryAssetView sizeThatFits:v39, CGRectGetHeight(v55)];
   UIRectCenteredIntegralRectScale();
-  [(MRUOutputDeviceAssetView *)self->_secondaryAssetView setFrame:v41];
+  [(MRUOutputDeviceAssetView *)self->_secondaryAssetView setFrame:v46];
   if (self->_showSecondaryAssetView)
   {
-    v22 = width;
-    v23 = height;
+    v27 = width;
+    v28 = height;
     if (![(MRUVolumeBackgroundView *)self hasExpandedButtons])
     {
-      v51.origin.y = v36;
-      v51.origin.x = v37;
-      v51.size.width = width;
-      v51.size.height = height;
-      CGRectGetWidth(v51);
+      v56.origin.y = v41;
+      v56.origin.x = v42;
+      v56.size.width = width;
+      v56.size.height = height;
+      CGRectGetWidth(v56);
     }
   }
 
   else
   {
-    v22 = width;
-    v23 = height;
+    v27 = width;
+    v28 = height;
   }
 
-  v52.origin.x = v37;
-  v52.origin.y = v36;
-  v52.size.width = v22;
-  v52.size.height = v23;
-  CGRectGetMaxY(v52);
-  v53.origin.x = v39;
-  v53.size.width = v40;
-  v53.origin.y = v35;
-  v53.size.height = rect;
-  CGRectGetMaxY(v53);
-  v54.origin.x = v37;
-  v54.origin.y = v36;
-  v54.size.width = v22;
-  v54.size.height = v23;
-  CGRectGetHeight(v54);
+  v57.origin.x = v42;
+  v57.origin.y = v41;
+  v57.size.width = v27;
+  v57.size.height = v28;
+  CGRectGetMaxY(v57);
+  v58.origin.x = v44;
+  v58.size.width = v45;
+  v58.origin.y = v40;
+  v58.size.height = rect;
+  CGRectGetMaxY(v58);
+  v59.origin.x = v42;
+  v59.origin.y = v41;
+  v59.size.width = v27;
+  v59.size.height = v28;
+  CGRectGetHeight(v59);
   UIRectInset();
-  v24 = v55.origin.x;
-  v25 = v55.origin.y;
-  v26 = v55.size.width;
-  v27 = v55.size.height;
-  CGRectGetWidth(v55);
+  v29 = v60.origin.x;
+  v30 = v60.origin.y;
+  v31 = v60.size.width;
+  v32 = v60.size.height;
+  CGRectGetWidth(v60);
   showSecondaryAssetView = self->_showSecondaryAssetView;
   if (self->_showSpatialAudioModeButton && self->_showSecondaryAssetView)
   {
@@ -530,7 +530,7 @@ LABEL_41:
   }
 
 LABEL_39:
-  if (self->_showSpatialAudioModeButton && ![(MediaControlsExpandableButton *)self->_conversationAwarenessButton isExpanded:v24])
+  if (self->_showSpatialAudioModeButton && ![(MediaControlsExpandableButton *)self->_conversationAwarenessButton isExpanded:v29])
   {
     goto LABEL_41;
   }
@@ -538,31 +538,31 @@ LABEL_39:
 LABEL_42:
   UIRectIntegralWithScale();
   [(MediaControlsExpandableButton *)self->_conversationAwarenessButton setFrame:?];
-  v56.origin.x = v37;
-  v56.origin.y = v36;
-  v56.size.width = v22;
-  v56.size.height = v23;
-  CGRectGetMinX(v56);
-  v57.origin.x = v39;
-  v57.origin.y = v35;
-  v57.size.width = v40;
-  v57.size.height = rect;
-  CGRectGetMaxY(v57);
-  v58.origin.x = v37;
-  v58.origin.y = v36;
-  v58.size.width = v22;
-  v58.size.height = v23;
-  v30 = CGRectGetWidth(v58);
-  v59.origin.y = v25;
-  v59.origin.x = v24;
-  v59.size.width = v26;
-  v59.size.height = v27;
-  v31 = CGRectGetMinY(v59);
-  v60.origin.x = v39;
-  v60.origin.y = v35;
-  v60.size.width = v40;
-  v60.size.height = rect;
-  [(MRUVolumeNowPlayingView *)self->_nowPlayingView sizeThatFits:v30, v31 - CGRectGetMaxY(v60)];
+  v61.origin.x = v42;
+  v61.origin.y = v41;
+  v61.size.width = v27;
+  v61.size.height = v28;
+  CGRectGetMinX(v61);
+  v62.origin.x = v44;
+  v62.origin.y = v40;
+  v62.size.width = v45;
+  v62.size.height = rect;
+  CGRectGetMaxY(v62);
+  v63.origin.x = v42;
+  v63.origin.y = v41;
+  v63.size.width = v27;
+  v63.size.height = v28;
+  v35 = CGRectGetWidth(v63);
+  v64.origin.y = v30;
+  v64.origin.x = v29;
+  v64.size.width = v31;
+  v64.size.height = v32;
+  v36 = CGRectGetMinY(v64);
+  v65.origin.x = v44;
+  v65.origin.y = v40;
+  v65.size.width = v45;
+  v65.size.height = rect;
+  [(MRUVolumeNowPlayingView *)self->_nowPlayingView sizeThatFits:v35, v36 - CGRectGetMaxY(v65)];
   UIRectCenteredIntegralRectScale();
   nowPlayingView = self->_nowPlayingView;
 
@@ -639,105 +639,105 @@ LABEL_42:
   [(MRUVolumeNowPlayingView *)self->_nowPlayingView setAxis:v3];
   traitCollection = [(MRUVolumeBackgroundView *)self traitCollection];
   [traitCollection displayScale];
-  v47 = v5;
+  v49 = v5;
 
-  MRUExpandedContentInsets();
+  MRUExpandedContentInsets(v6, v7);
   MRUHortizonalScreenInset(self);
   [(MRUVolumeBackgroundView *)self bounds];
   UIRectInset();
-  v7 = v6;
   v9 = v8;
   v11 = v10;
   v13 = v12;
+  v15 = v14;
   CCUISliderExpandedContentModuleWidth();
   CCUISliderExpandedContentModuleHeight();
-  v50.origin.x = v7;
-  v50.origin.y = v9;
-  v50.size.width = v11;
-  v50.size.height = v13;
-  Width = CGRectGetWidth(v50);
+  v52.origin.x = v9;
+  v52.origin.y = v11;
+  v52.size.width = v13;
+  v52.size.height = v15;
+  Width = CGRectGetWidth(v52);
   [(MRUVolumeBackgroundView *)self totalHorizontalSliderWidth];
-  v16 = Width - v15;
-  v17 = 2.0;
+  v18 = Width - v17;
+  v19 = 2.0;
   if (self->_showSecondaryAssetView && self->_showSpatialAudioModeButton)
   {
-    v17 = 3.0;
+    v19 = 3.0;
   }
 
-  v18 = v16 / v17;
-  v51.origin.x = v7;
-  v51.origin.y = v9;
-  v51.size.width = v11;
-  v51.size.height = v13;
-  CGRectGetMinX(v51);
-  v48 = v18;
+  v20 = v18 / v19;
+  v53.origin.x = v9;
+  v53.origin.y = v11;
+  v53.size.width = v13;
+  v53.size.height = v15;
+  CGRectGetMinX(v53);
+  v50 = v20;
   [(MRUVolumeBackgroundView *)self bounds];
   UIRectCenteredYInRectScale();
-  v44 = v20;
-  v45 = v19;
-  v41 = v22;
-  v43 = v21;
-  v52.origin.x = v7;
-  v52.origin.y = v9;
-  v52.size.width = v11;
-  v52.size.height = v13;
-  CGRectGetMaxX(v52);
+  v46 = v22;
+  v47 = v21;
+  v43 = v24;
+  v45 = v23;
+  v54.origin.x = v9;
+  v54.origin.y = v11;
+  v54.size.width = v13;
+  v54.size.height = v15;
+  CGRectGetMaxX(v54);
   [(MRUVolumeBackgroundView *)self bounds];
   UIRectCenteredYInRectScale();
-  v38 = v24;
-  v39 = v23;
-  v36 = v26;
-  v37 = v25;
-  v53.origin.x = v7;
-  v53.origin.y = v9;
-  v53.size.width = v11;
-  v53.size.height = v13;
-  [MediaControlsExpandableButton collapsedHeightWithImageHeight:54.0 maximumHeight:CGRectGetHeight(v53) / 3.0, v47];
-  v54.origin.x = v7;
-  v54.origin.y = v9;
-  v54.size.width = v11;
-  v54.size.height = v13;
-  MinX = CGRectGetMinX(v54);
-  v55.origin.x = v7;
-  v55.origin.y = v9;
-  v55.size.width = v11;
-  v55.size.height = v13;
-  MinY = CGRectGetMinY(v55);
-  v56.origin.x = v7;
-  v56.origin.y = v9;
-  v56.size.width = v11;
-  v56.size.height = v13;
-  Height = CGRectGetHeight(v56);
-  v57.origin.y = v44;
-  v57.origin.x = v45;
-  v57.size.height = v41;
-  v57.size.width = v43;
-  MaxX = CGRectGetMaxX(v57);
-  v58.origin.x = v7;
-  v58.origin.y = v9;
-  v58.size.width = v11;
-  v58.size.height = v13;
-  v42 = CGRectGetMinY(v58);
-  v59.origin.x = v7;
-  v59.origin.y = v9;
-  v59.size.width = v11;
-  v59.size.height = v13;
-  v40 = CGRectGetHeight(v59);
-  v60.origin.y = v38;
-  v60.origin.x = v39;
-  v60.size.height = v36;
-  v60.size.width = v37;
-  CGRectGetMaxX(v60);
-  v61.origin.x = v7;
-  v61.origin.y = v9;
-  v61.size.width = v11;
-  v61.size.height = v13;
-  CGRectGetMinY(v61);
-  v62.origin.x = v7;
-  v62.origin.y = v9;
-  v62.size.width = v11;
-  v62.size.height = v13;
-  CGRectGetHeight(v62);
+  v40 = v26;
+  v41 = v25;
+  v38 = v28;
+  v39 = v27;
+  v55.origin.x = v9;
+  v55.origin.y = v11;
+  v55.size.width = v13;
+  v55.size.height = v15;
+  [MediaControlsExpandableButton collapsedHeightWithImageHeight:54.0 maximumHeight:CGRectGetHeight(v55) / 3.0, v49];
+  v56.origin.x = v9;
+  v56.origin.y = v11;
+  v56.size.width = v13;
+  v56.size.height = v15;
+  MinX = CGRectGetMinX(v56);
+  v57.origin.x = v9;
+  v57.origin.y = v11;
+  v57.size.width = v13;
+  v57.size.height = v15;
+  MinY = CGRectGetMinY(v57);
+  v58.origin.x = v9;
+  v58.origin.y = v11;
+  v58.size.width = v13;
+  v58.size.height = v15;
+  Height = CGRectGetHeight(v58);
+  v59.origin.y = v46;
+  v59.origin.x = v47;
+  v59.size.height = v43;
+  v59.size.width = v45;
+  MaxX = CGRectGetMaxX(v59);
+  v60.origin.x = v9;
+  v60.origin.y = v11;
+  v60.size.width = v13;
+  v60.size.height = v15;
+  v44 = CGRectGetMinY(v60);
+  v61.origin.x = v9;
+  v61.origin.y = v11;
+  v61.size.width = v13;
+  v61.size.height = v15;
+  v42 = CGRectGetHeight(v61);
+  v62.origin.y = v40;
+  v62.origin.x = v41;
+  v62.size.height = v38;
+  v62.size.width = v39;
+  CGRectGetMaxX(v62);
+  v63.origin.x = v9;
+  v63.origin.y = v11;
+  v63.size.width = v13;
+  v63.size.height = v15;
+  CGRectGetMinY(v63);
+  v64.origin.x = v9;
+  v64.origin.y = v11;
+  v64.size.width = v13;
+  v64.size.height = v15;
+  CGRectGetHeight(v64);
   UIRectInset();
   if (self->_showSecondaryAssetView || self->_showNowPlayingView)
   {
@@ -808,10 +808,10 @@ LABEL_21:
   if (self->_showSecondaryAssetView)
   {
     isExpanded = [(MediaControlsExpandableButton *)self->_spatialAudioModeButton isExpanded];
-    v33 = v40;
-    v31 = v42;
-    v32 = v48;
-    v30 = MaxX;
+    v35 = v42;
+    v33 = v44;
+    v34 = v50;
+    v32 = MaxX;
     if (isExpanded)
     {
       goto LABEL_34;
@@ -830,7 +830,7 @@ LABEL_21:
 
   if (self->_showConversationAwarenessButton)
   {
-    if (![(MediaControlsExpandableButton *)self->_spatialAudioModeButton isExpanded:v30])
+    if (![(MediaControlsExpandableButton *)self->_spatialAudioModeButton isExpanded:v32])
     {
       goto LABEL_33;
     }
@@ -893,20 +893,20 @@ LABEL_39:
 LABEL_43:
   UIRectIntegralWithScale();
   [(MediaControlsExpandableButton *)self->_conversationAwarenessButton setFrame:?];
-  [(MRUVolumeNowPlayingView *)self->_nowPlayingView sizeThatFits:v48, Height];
-  v63.origin.x = MinX;
-  v63.origin.y = MinY;
-  v63.size.width = v48;
-  v63.size.height = Height;
-  CGRectGetMidY(v63);
+  [(MRUVolumeNowPlayingView *)self->_nowPlayingView sizeThatFits:v50, Height];
+  v65.origin.x = MinX;
+  v65.origin.y = MinY;
+  v65.size.width = v50;
+  v65.size.height = Height;
+  CGRectGetMidY(v65);
   UIRectCenteredXInRectScale();
   if (self->_showSecondaryAssetView)
   {
-    v64.origin.x = MaxX;
-    v64.origin.y = v42;
-    v64.size.width = v48;
-    v64.size.height = v40;
-    CGRectGetMidY(v64);
+    v66.origin.x = MaxX;
+    v66.origin.y = v44;
+    v66.size.width = v50;
+    v66.size.height = v42;
+    CGRectGetMidY(v66);
     UIRectCenteredXInRectScale();
   }
 
@@ -1047,7 +1047,7 @@ LABEL_7:
   {
 LABEL_5:
 
-    return MRUDefaultExpandedWidth(self);
+    return MRUDefaultExpandedWidth(self, a2);
   }
 
   CCUISliderExpandedContentModuleWidth();

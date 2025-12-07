@@ -37,7 +37,7 @@
 
 + (void)submitMetricForCategory:(id)category action:(id)action
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   categoryCopy = category;
   actionCopy = action;
   if ([self shouldSubmit])
@@ -60,11 +60,11 @@ LABEL_7:
     v13 = objc_opt_class();
     v14 = v13;
     v15 = HKSensitiveLogItem();
-    v22 = 138543618;
-    v23 = v13;
-    v24 = 2114;
-    v25 = v15;
-    _os_log_impl(&dword_2518FC000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Submitted metric %{public}@", &v22, 0x16u);
+    v21 = 138543618;
+    v22 = v13;
+    v23 = 2114;
+    v24 = v15;
+    _os_log_impl(&dword_2518FC000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Submitted metric %{public}@", &v21, 0x16u);
 
 LABEL_6:
     goto LABEL_7;
@@ -80,20 +80,18 @@ LABEL_6:
     v12 = v17;
     v19 = [v18 numberWithBool:{objc_msgSend(self, "_isMetricEnabled")}];
     v20 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(self, "_isAllowed")}];
-    v22 = 138543874;
-    v23 = v17;
-    v24 = 2114;
-    v25 = v19;
-    v26 = 2114;
-    v27 = v20;
-    _os_log_impl(&dword_2518FC000, &v8->super, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping submitting metric. isMetricEnabled: %{public}@, isHealthDataSubmissionAllowed: %{public}@", &v22, 0x20u);
+    v21 = 138543874;
+    v22 = v17;
+    v23 = 2114;
+    v24 = v19;
+    v25 = 2114;
+    v26 = v20;
+    _os_log_impl(&dword_2518FC000, &v8->super, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping submitting metric. isMetricEnabled: %{public}@, isHealthDataSubmissionAllowed: %{public}@", &v21, 0x20u);
 
     goto LABEL_6;
   }
 
 LABEL_8:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 @end

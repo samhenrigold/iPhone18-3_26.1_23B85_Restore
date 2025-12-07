@@ -47,7 +47,7 @@
 
 - (id)CAMLParser:(id)parser resourceForURL:(id)l
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   v6 = [(NSCache *)self->_resourceCache objectForKey:lCopy];
   if (!v6)
@@ -60,16 +60,16 @@
       lastPathComponent = [lCopy lastPathComponent];
       stringByDeletingPathExtension = [lastPathComponent stringByDeletingPathExtension];
 
-      v11 = WUBundle();
+      v12 = WUBundle(v11);
       pathExtension = [lCopy pathExtension];
-      v13 = [v11 URLForResource:stringByDeletingPathExtension withExtension:pathExtension subdirectory:@"Mica"];
+      v14 = [v12 URLForResource:stringByDeletingPathExtension withExtension:pathExtension subdirectory:@"Mica"];
 
-      v14 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v13];
-      v15 = CGImageSourceCreateWithData(v14, 0);
-      v21 = *MEMORY[0x1E696E0B8];
-      v22[0] = MEMORY[0x1E695E118];
-      ImageAtIndex = CGImageSourceCreateImageAtIndex(v15, 0, [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1]);
-      CFRelease(v15);
+      v15 = [MEMORY[0x1E695DEF0] dataWithContentsOfURL:v14];
+      v16 = CGImageSourceCreateWithData(v15, 0);
+      v22 = *MEMORY[0x1E696E0B8];
+      v23[0] = MEMORY[0x1E695E118];
+      ImageAtIndex = CGImageSourceCreateImageAtIndex(v16, 0, [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1]);
+      CFRelease(v16);
       v6 = ImageAtIndex;
       if (v6)
       {
@@ -78,9 +78,9 @@
 
       else
       {
-        v17 = MEMORY[0x1E696AEC0];
+        v18 = MEMORY[0x1E696AEC0];
         path2 = [lCopy path];
-        v19 = [v17 stringWithFormat:@"Asset is missing: %@", path2];
+        v20 = [v18 stringWithFormat:@"Asset is missing: %@", path2];
       }
 
       CGImageRelease(v6);

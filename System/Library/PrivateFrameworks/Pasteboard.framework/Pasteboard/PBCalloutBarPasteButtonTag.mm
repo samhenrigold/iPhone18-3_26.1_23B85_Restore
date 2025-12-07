@@ -139,18 +139,16 @@
     return 0;
   }
 
-  v10 = self->_titleOrigin.x;
-  v11 = (*&x & 0x7FFFFFFFFFFFFFFFLL) == 0;
+  v10 = (*&x & 0x7FFFFFFFFFFFFFFFLL) == 0;
   if ((*&x - 1) < 0xFFFFFFFFFFFFFLL)
   {
-    v11 = 1;
+    v10 = 1;
   }
 
-  v13 = ((*&x & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 < 0x3FF && x >= 0.0 || v11;
-  v14 = self->_titleOrigin.y;
-  v15 = (*&y - 1) < 0xFFFFFFFFFFFFFLL || (*&y & 0x7FFFFFFFFFFFFFFFLL) == 0;
-  v17 = ((*&y & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 < 0x3FF && y >= 0.0 || v15;
-  return v13 & v17;
+  v12 = ((*&x & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 < 0x3FF && x >= 0.0 || v10;
+  v13 = (*&y - 1) < 0xFFFFFFFFFFFFFLL || (*&y & 0x7FFFFFFFFFFFFFFFLL) == 0;
+  v15 = ((*&y & 0x7FFFFFFFFFFFFFFFuLL) - 0x10000000000000) >> 53 < 0x3FF && y >= 0.0 || v13;
+  return v12 & v15;
 }
 
 - (id)resolvedStyleForStyle:(id)style

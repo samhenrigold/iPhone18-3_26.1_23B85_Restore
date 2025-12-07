@@ -1,4 +1,4 @@
-uint64_t *DMCLogObjects()
+uint64_t *DMCLogObjects(uint64_t a1, uint64_t a2)
 {
   if (DMCLogObjects_onceToken != -1)
   {
@@ -114,7 +114,7 @@ id MCConfigurationProfilesSystemGroupContainer()
 
 void __MCConfigurationProfilesSystemGroupContainer_block_invoke()
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (+[DMCMultiUserModeUtilities isSharediPad])
   {
     v0 = MCConfigurationProfilesSystemGroupContainer_systemGroupContainerPath;
@@ -122,57 +122,46 @@ void __MCConfigurationProfilesSystemGroupContainer_block_invoke()
   }
 
   v1 = MCConfigurationProfilesSystemGroupContainer_systemGroupContainerPath;
-  if (!MCConfigurationProfilesSystemGroupContainer_systemGroupContainerPath)
+  if (MCConfigurationProfilesSystemGroupContainer_systemGroupContainerPath || (DMCSystemGroupContainerPathWithGroupIdentifier(@"systemgroup.com.apple.configurationprofiles"), v2 = objc_claimAutoreleasedReturnValue(), v3 = MCConfigurationProfilesSystemGroupContainer_systemGroupContainerPath, MCConfigurationProfilesSystemGroupContainer_systemGroupContainerPath = v2, v3, (v1 = MCConfigurationProfilesSystemGroupContainer_systemGroupContainerPath) != 0))
   {
-    v2 = DMCSystemGroupContainerPathWithGroupIdentifier(@"systemgroup.com.apple.configurationprofiles");
-    v3 = MCConfigurationProfilesSystemGroupContainer_systemGroupContainerPath;
-    MCConfigurationProfilesSystemGroupContainer_systemGroupContainerPath = v2;
-
-    v1 = MCConfigurationProfilesSystemGroupContainer_systemGroupContainerPath;
-    if (!MCConfigurationProfilesSystemGroupContainer_systemGroupContainerPath)
+    v5 = [v1 isEqualToString:@"/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles"];
+    if (v5)
     {
-      v8 = *DMCLogObjects();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
-      {
-        *v12 = 138543362;
-        *&v12[4] = @"/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles";
-        v5 = "Failed to get profile system group container path. Overriding with expected path: %{public}@";
-        v6 = v8;
-        v7 = 12;
-        goto LABEL_10;
-      }
-
-LABEL_11:
-      v9 = [@"/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles" copy];
-      v10 = MCConfigurationProfilesSystemGroupContainer_systemGroupContainerPath;
-      MCConfigurationProfilesSystemGroupContainer_systemGroupContainerPath = v9;
-
-      goto LABEL_12;
+      return;
     }
-  }
 
-  if (([v1 isEqualToString:@"/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles"] & 1) == 0)
-  {
-    v4 = *DMCLogObjects();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v7 = *DMCLogObjects(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      *v12 = 138543618;
-      *&v12[4] = @"/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles";
-      *&v12[12] = 2114;
-      *&v12[14] = MCConfigurationProfilesSystemGroupContainer_systemGroupContainerPath;
-      v5 = "Received a profile system group container path we weren't expecting\nExpected: %{public}@\nActual: %{public}@\nOverriding MCM with expected path";
-      v6 = v4;
-      v7 = 22;
+      *v14 = 138543618;
+      *&v14[4] = @"/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles";
+      *&v14[12] = 2114;
+      *&v14[14] = MCConfigurationProfilesSystemGroupContainer_systemGroupContainerPath;
+      v8 = "Received a profile system group container path we weren't expecting\nExpected: %{public}@\nActual: %{public}@\nOverriding MCM with expected path";
+      v9 = v7;
+      v10 = 22;
 LABEL_10:
-      _os_log_impl(&dword_1B1630000, v6, OS_LOG_TYPE_FAULT, v5, v12, v7);
-      goto LABEL_11;
+      _os_log_impl(&dword_1B1630000, v9, OS_LOG_TYPE_FAULT, v8, v14, v10);
     }
-
-    goto LABEL_11;
   }
 
-LABEL_12:
-  v11 = *MEMORY[0x1E69E9840];
+  else
+  {
+    v11 = *DMCLogObjects(0, v4);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    {
+      *v14 = 138543362;
+      *&v14[4] = @"/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles";
+      v8 = "Failed to get profile system group container path. Overriding with expected path: %{public}@";
+      v9 = v11;
+      v10 = 12;
+      goto LABEL_10;
+    }
+  }
+
+  v12 = [@"/private/var/containers/Shared/SystemGroup/systemgroup.com.apple.configurationprofiles" copy];
+  v13 = MCConfigurationProfilesSystemGroupContainer_systemGroupContainerPath;
+  MCConfigurationProfilesSystemGroupContainer_systemGroupContainerPath = v12;
 }
 
 id DMCSystemGroupContainerPathWithGroupIdentifier(void *a1)
@@ -181,39 +170,37 @@ id DMCSystemGroupContainerPathWithGroupIdentifier(void *a1)
   v1 = a1;
   [v1 UTF8String];
   v2 = container_system_group_path_for_identifier();
-  v3 = *DMCLogObjects();
+  v4 = *DMCLogObjects(v2, v3);
   if (v2)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
       v8 = v1;
       v9 = 2082;
       v10 = v2;
-      _os_log_impl(&dword_1B1630000, v3, OS_LOG_TYPE_DEFAULT, "Got system group container path from MCM for %{public}@: %{public}s", buf, 0x16u);
+      _os_log_impl(&dword_1B1630000, v4, OS_LOG_TYPE_DEFAULT, "Got system group container path from MCM for %{public}@: %{public}s", buf, 0x16u);
     }
 
-    v4 = [MEMORY[0x1E696AEC0] stringWithCString:v2 encoding:4];
+    v5 = [MEMORY[0x1E696AEC0] stringWithCString:v2 encoding:4];
     free(v2);
   }
 
   else
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
       v8 = v1;
       v9 = 2048;
       v10 = 1;
-      _os_log_impl(&dword_1B1630000, v3, OS_LOG_TYPE_ERROR, "Error getting system group container for %{public}@: %llu", buf, 0x16u);
+      _os_log_impl(&dword_1B1630000, v4, OS_LOG_TYPE_ERROR, "Error getting system group container for %{public}@: %llu", buf, 0x16u);
     }
 
-    v4 = 0;
+    v5 = 0;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
-
-  return v4;
+  return v5;
 }
 
 void __MDMAppManagementFilePath_block_invoke()
@@ -275,40 +262,38 @@ void ___scheduleCleanup_block_invoke(uint64_t a1)
 
 void AppleAccountLibrary()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2[0] = 0;
+  v4 = *MEMORY[0x1E69E9840];
+  v1[0] = 0;
   if (!AppleAccountLibraryCore_frameworkLibrary)
   {
-    v2[1] = MEMORY[0x1E69E9820];
-    v2[2] = 3221225472;
-    v2[3] = __AppleAccountLibraryCore_block_invoke;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_1E7ADC1B0;
-    v4 = 0;
+    v1[1] = MEMORY[0x1E69E9820];
+    v1[2] = 3221225472;
+    v1[3] = __AppleAccountLibraryCore_block_invoke;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_1E7ADC1B0;
+    v3 = 0;
     AppleAccountLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  v0 = v2[0];
+  v0 = v1[0];
   if (!AppleAccountLibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
-  if (v2[0])
+  if (v1[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1B16329DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1B16329DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
-  _Block_object_dispose((v8 - 64), 8);
+  va_start(va, a15);
+  _Block_object_dispose((v15 - 64), 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -322,11 +307,8 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 
 uint64_t __AppleAccountLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppleAccountLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -362,20 +344,20 @@ Class __getAAQuotaInfoResponseClass_block_invoke(uint64_t a1)
   else
   {
     v3 = __getAAQuotaInfoResponseClass_block_invoke_cold_1();
-    return __77__ACAccountStore_DeviceManagementClient__dmc_visibleRemoteManagementAccounts__block_invoke(v3);
+    return __77__ACAccountStore_DeviceManagementClient__dmc_visibleRemoteManagementAccounts__block_invoke(v3, v4);
   }
 
   return result;
 }
 
-void sub_1B1634A98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B1634A98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va1, 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -388,14 +370,14 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B1636454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1B1636454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -408,39 +390,39 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B1636764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B1636764(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B1636BAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1B1636BAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v16 - 136), 8);
+  _Block_object_dispose((v23 - 136), 8);
   _Unwind_Resume(a1);
 }
 
 Class __getCDPUIControllerClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5[0] = 0;
+  v7 = *MEMORY[0x1E69E9840];
+  v4[0] = 0;
   if (!CoreCDPUILibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x1E69E9820];
-    v5[2] = 3221225472;
-    v5[3] = __CoreCDPUILibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_1E7ADC478;
-    v7 = 0;
+    v4[1] = MEMORY[0x1E69E9820];
+    v4[2] = 3221225472;
+    v4[3] = __CoreCDPUILibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_1E7ADC478;
+    v6 = 0;
     CoreCDPUILibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (CoreCDPUILibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -448,7 +430,7 @@ Class __getCDPUIControllerClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -463,213 +445,207 @@ LABEL_4:
   }
 
   getCDPUIControllerClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t __CoreCDPUILibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreCDPUILibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
-void DMCActivationUtilitiesWaitingForReady()
+void DMCActivationUtilitiesWaitingForReady(uint64_t a1, uint64_t a2)
 {
-  v0 = *DMCLogObjects();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v2 = *DMCLogObjects(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_1B1630000, v0, OS_LOG_TYPE_INFO, "Activation state changed.", v3, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1B1630000, v2, OS_LOG_TYPE_INFO, "Activation state changed.", v5, 2u);
   }
 
-  v1 = +[DMCActivationUtilities sharedInstance];
-  [v1 _clearCache];
+  v3 = +[DMCActivationUtilities sharedInstance];
+  [v3 _clearCache];
 
-  v2 = +[DMCActivationUtilities sharedInstance];
-  [v2 setIsReady:1];
+  v4 = +[DMCActivationUtilities sharedInstance];
+  [v4 setIsReady:1];
 }
 
-void DMCActivationUtilitiesDeactivated()
+void DMCActivationUtilitiesDeactivated(uint64_t a1, uint64_t a2)
 {
-  v0 = *DMCLogObjects();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v2 = *DMCLogObjects(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_1B1630000, v0, OS_LOG_TYPE_INFO, "Device deactivated. Clearing activation record cache.", v2, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_1B1630000, v2, OS_LOG_TYPE_INFO, "Device deactivated. Clearing activation record cache.", v4, 2u);
   }
 
-  v1 = +[DMCActivationUtilities sharedInstance];
-  [v1 _clearCache];
+  v3 = +[DMCActivationUtilities sharedInstance];
+  [v3 _clearCache];
 }
 
-id syncQueue()
+id syncQueue(uint64_t a1)
 {
   if (syncQueue_onceToken != -1)
   {
     syncQueue_cold_1();
   }
 
-  v1 = syncQueue_queue;
+  v2 = syncQueue_queue;
 
-  return v1;
+  return v2;
 }
 
-id syncQueueAlertQueue()
+id syncQueueAlertQueue(uint64_t a1)
 {
   if (syncQueueAlertQueue_onceToken != -1)
   {
     syncQueueAlertQueue_cold_1();
   }
 
-  v1 = syncQueueAlertQueue_queue;
+  v2 = syncQueueAlertQueue_queue;
 
-  return v1;
+  return v2;
 }
 
-void syncQueueShowNextAlert()
+void syncQueueShowNextAlert(uint64_t a1)
 {
-  *(&v38[3] + 4) = *MEMORY[0x1E69E9840];
+  *(&v47[3] + 4) = *MEMORY[0x1E69E9840];
   if (!syncQueueCurrentAlert)
   {
-    v0 = syncQueueAlertQueue();
-    v1 = [v0 firstObject];
+    v1 = syncQueueAlertQueue(a1);
+    v2 = [v1 firstObject];
 
-    if (v1)
+    if (v2)
     {
-      v3 = *MEMORY[0x1E695E480];
-      v4 = *MEMORY[0x1E695E8D0];
-      *&v2 = 134217984;
-      v33 = v2;
+      v4 = *MEMORY[0x1E695E480];
+      v5 = *MEMORY[0x1E695E8D0];
+      *&v3 = 134217984;
+      v42 = v3;
       do
       {
         error = 0;
         flags = 0;
-        v5 = [v1 notificationParametersOutFlags:{&flags, v33}];
-        v6 = CFUserNotificationCreate(v3, 0.0, flags, &error, v5);
-        if (!v6)
+        v6 = [v2 notificationParametersOutFlags:{&flags, v42}];
+        v7 = CFUserNotificationCreate(v4, 0.0, flags, &error, v6);
+        if (!v7)
         {
-          v13 = *DMCLogObjects();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v18 = *DMCLogObjects(0, v8);
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
-            v14 = error;
-            v15 = v13;
-            v16 = [v1 summary];
+            v19 = error;
+            v20 = v18;
+            v21 = [v2 summary];
             *buf = 67109378;
-            LODWORD(v38[0]) = v14;
-            WORD2(v38[0]) = 2114;
-            *(v38 + 6) = v16;
-            _os_log_impl(&dword_1B1630000, v15, OS_LOG_TYPE_ERROR, "DMCAlertManager cannot create alert with error: %d. Alert: '%{public}@'", buf, 0x12u);
+            LODWORD(v47[0]) = v19;
+            WORD2(v47[0]) = 2114;
+            *(v47 + 6) = v21;
+            _os_log_impl(&dword_1B1630000, v20, OS_LOG_TYPE_ERROR, "DMCAlertManager cannot create alert with error: %d. Alert: '%{public}@'", buf, 0x12u);
           }
 
           goto LABEL_21;
         }
 
-        v7 = v6;
-        RunLoopSource = CFUserNotificationCreateRunLoopSource(0, v6, mainQueueAlertCallback, 0);
+        v9 = v7;
+        RunLoopSource = CFUserNotificationCreateRunLoopSource(0, v7, mainQueueAlertCallback, 0);
         if (RunLoopSource)
         {
-          v9 = RunLoopSource;
-          v10 = syncQueueAlertQueue();
-          v11 = [v10 count];
+          v12 = RunLoopSource;
+          v13 = syncQueueAlertQueue(RunLoopSource);
+          v14 = [v13 count];
 
-          if (v11)
+          if (v14)
           {
-            v12 = syncQueueAlertQueue();
-            [v12 removeObjectAtIndex:0];
+            v17 = syncQueueAlertQueue(v15);
+            [v17 removeObjectAtIndex:0];
           }
 
           else
           {
-            v20 = *DMCLogObjects();
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            v25 = *DMCLogObjects(v15, v16);
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_impl(&dword_1B1630000, v20, OS_LOG_TYPE_ERROR, "DMCAlertManager missing alert in sync alert queue", buf, 2u);
+              _os_log_impl(&dword_1B1630000, v25, OS_LOG_TYPE_ERROR, "DMCAlertManager missing alert in sync alert queue", buf, 2u);
             }
           }
 
-          objc_storeStrong(&syncQueueCurrentAlert, v1);
-          [v1 setNotification:v7];
+          objc_storeStrong(&syncQueueCurrentAlert, v2);
+          [v2 setNotification:v9];
           Main = CFRunLoopGetMain();
-          CFRunLoopAddSource(Main, v9, v4);
-          CFRelease(v9);
-          v22 = *DMCLogObjects();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          CFRunLoopAddSource(Main, v12, v5);
+          CFRelease(v12);
+          v29 = *DMCLogObjects(v27, v28);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
           {
-            v23 = v22;
-            v24 = [v1 summary];
+            v30 = v29;
+            v31 = [v2 summary];
             *buf = 138543362;
-            v38[0] = v24;
-            _os_log_impl(&dword_1B1630000, v23, OS_LOG_TYPE_DEFAULT, "Displaying alert: '%{public}@'", buf, 0xCu);
+            v47[0] = v31;
+            _os_log_impl(&dword_1B1630000, v30, OS_LOG_TYPE_DEFAULT, "Displaying alert: '%{public}@'", buf, 0xCu);
           }
 
-          [v1 dismissAfterTimeInterval];
-          if (v25 > 0.0)
+          v32 = [v2 dismissAfterTimeInterval];
+          if (v34 > 0.0)
           {
-            v26 = *DMCLogObjects();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+            v35 = *DMCLogObjects(v32, v33);
+            if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
             {
-              v27 = v26;
-              [v1 dismissAfterTimeInterval];
-              *buf = v33;
-              v38[0] = v28;
-              _os_log_impl(&dword_1B1630000, v27, OS_LOG_TYPE_DEFAULT, "Scheduling automatic alert dismissal after %0.0f seconds.", buf, 0xCu);
+              v36 = v35;
+              [v2 dismissAfterTimeInterval];
+              *buf = v42;
+              v47[0] = v37;
+              _os_log_impl(&dword_1B1630000, v36, OS_LOG_TYPE_DEFAULT, "Scheduling automatic alert dismissal after %0.0f seconds.", buf, 0xCu);
             }
 
-            CFRetain(v7);
-            [v1 dismissAfterTimeInterval];
-            v30 = dispatch_time(0, (v29 * 1000000000.0));
+            CFRetain(v9);
+            [v2 dismissAfterTimeInterval];
+            v39 = dispatch_time(0, (v38 * 1000000000.0));
             block[0] = MEMORY[0x1E69E9820];
             block[1] = 3221225472;
             block[2] = __syncQueueShowNextAlert_block_invoke;
             block[3] = &__block_descriptor_40_e5_v8__0l;
-            block[4] = v7;
-            dispatch_after(v30, MEMORY[0x1E69E96A0], block);
+            block[4] = v9;
+            dispatch_after(v39, MEMORY[0x1E69E96A0], block);
             goto LABEL_21;
           }
         }
 
         else
         {
-          v17 = *DMCLogObjects();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v22 = *DMCLogObjects(0, v11);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
-            v18 = v17;
-            v19 = [v1 summary];
+            v23 = v22;
+            v24 = [v2 summary];
             *buf = 138543362;
-            v38[0] = v19;
-            _os_log_impl(&dword_1B1630000, v18, OS_LOG_TYPE_ERROR, "DMCAlertManager cannot create run loop source to display alert: '%{public}@'", buf, 0xCu);
+            v47[0] = v24;
+            _os_log_impl(&dword_1B1630000, v23, OS_LOG_TYPE_ERROR, "DMCAlertManager cannot create run loop source to display alert: '%{public}@'", buf, 0xCu);
           }
         }
 
-        CFRelease(v7);
+        CFRelease(v9);
 LABEL_21:
 
-        v31 = syncQueueAlertQueue();
-        v1 = [v31 firstObject];
+        v41 = syncQueueAlertQueue(v40);
+        v2 = [v41 firstObject];
       }
 
-      while (v1);
+      while (v2);
     }
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
-id syncQueueiTunesLoginCompletionBlocks()
+id syncQueueiTunesLoginCompletionBlocks(uint64_t a1)
 {
   if (syncQueueiTunesLoginCompletionBlocks_onceToken != -1)
   {
     syncQueueiTunesLoginCompletionBlocks_cold_1();
   }
 
-  v1 = syncQueueiTunesLoginCompletionBlocks_blocks;
+  v2 = syncQueueiTunesLoginCompletionBlocks_blocks;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __syncQueue_block_invoke()
@@ -686,13 +662,14 @@ uint64_t __syncQueueAlertQueue_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-void mainQueueAlertCallback(uint64_t a1, unint64_t a2)
+void mainQueueAlertCallback(void *a1, unint64_t a2)
 {
   v2 = a2;
   v11 = *MEMORY[0x1E69E9840];
   if (a2 >= 4)
   {
-    v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unknown (%lu)", a2];
+    a1 = [MEMORY[0x1E696AEC0] stringWithFormat:@"unknown (%lu)", a2];
+    v3 = a1;
     v2 = 5;
   }
 
@@ -701,32 +678,31 @@ void mainQueueAlertCallback(uint64_t a1, unint64_t a2)
     v3 = *(&off_1E7ADC578 + a2);
   }
 
-  v4 = *DMCLogObjects();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v4 = *DMCLogObjects(a1, a2);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  if (v5)
   {
     *buf = 138543362;
     v10 = v3;
     _os_log_impl(&dword_1B1630000, v4, OS_LOG_TYPE_DEFAULT, "DMCAlert dismissed with response: %{public}@", buf, 0xCu);
   }
 
-  v5 = syncQueue();
+  v6 = syncQueue(v5);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __mainQueueAlertCallback_block_invoke;
   block[3] = &__block_descriptor_36_e5_v8__0l;
   v8 = v2;
-  dispatch_sync(v5, block);
-
-  v6 = *MEMORY[0x1E69E9840];
+  dispatch_sync(v6, block);
 }
 
-void __syncQueueShowNextAlert_block_invoke(uint64_t a1)
+void __syncQueueShowNextAlert_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *DMCLogObjects();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = *DMCLogObjects(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v3 = 0;
-    _os_log_impl(&dword_1B1630000, v2, OS_LOG_TYPE_DEFAULT, "Automatically dismissing alert.", v3, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_1B1630000, v3, OS_LOG_TYPE_DEFAULT, "Automatically dismissing alert.", v4, 2u);
   }
 
   CFUserNotificationCancel(*(a1 + 32));
@@ -743,17 +719,17 @@ void __mainQueueAlertCallback_block_invoke(uint64_t a1)
 
   if (v4)
   {
-    v9 = dispatch_get_global_queue(0, 0);
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __mainQueueAlertCallback_block_invoke_2;
-    v10[3] = &unk_1E7ADC4E8;
-    v11 = v2;
-    v12 = *(a1 + 32);
-    dispatch_async(v9, v10);
+    v6 = dispatch_get_global_queue(0, 0);
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __mainQueueAlertCallback_block_invoke_2;
+    v7[3] = &unk_1E7ADC4E8;
+    v8 = v2;
+    v9 = *(a1 + 32);
+    dispatch_async(v6, v7);
   }
 
-  syncQueueShowNextAlert(v5, v6, v7, v8);
+  syncQueueShowNextAlert(v5);
 }
 
 void __mainQueueAlertCallback_block_invoke_2(uint64_t a1)
@@ -769,9 +745,9 @@ uint64_t __syncQueueiTunesLoginCompletionBlocks_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-void sub_1B1639A4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1639A4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -794,43 +770,38 @@ void __getAMSProcessInfoClass_block_invoke(uint64_t a1)
 
 void AppleMediaServicesLibrary()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2[0] = 0;
+  v4 = *MEMORY[0x1E69E9840];
+  v1[0] = 0;
   if (!AppleMediaServicesLibraryCore_frameworkLibrary)
   {
-    v2[1] = MEMORY[0x1E69E9820];
-    v2[2] = 3221225472;
-    v2[3] = __AppleMediaServicesLibraryCore_block_invoke;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_1E7ADC598;
-    v4 = 0;
+    v1[1] = MEMORY[0x1E69E9820];
+    v1[2] = 3221225472;
+    v1[3] = __AppleMediaServicesLibraryCore_block_invoke;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_1E7ADC598;
+    v3 = 0;
     AppleMediaServicesLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  v0 = v2[0];
+  v0 = v1[0];
   if (!AppleMediaServicesLibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
-  if (v2[0])
+  if (v1[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __AppleMediaServicesLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppleMediaServicesLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -846,7 +817,7 @@ Class __getAMSUserAgentClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __getAMSUserAgentClass_block_invoke_cold_1();
+    __getAMSUserAgentClass_block_invoke_cold_1();
     return [(DMCAppIdentifier *)v3 newAppIdentifierWithIdentifier:v4, v5];
   }
 
@@ -874,6 +845,7 @@ uint64_t DMCHCUCreateCSR(void *a1)
 
   RandomKey = SecKeyCreateRandomKey(v4, 0);
   v7 = SecKeyCopyPublicKey(RandomKey);
+  v9 = v7;
   if (v4)
   {
     CFRelease(v4);
@@ -881,21 +853,21 @@ uint64_t DMCHCUCreateCSR(void *a1)
 
   if (RandomKey)
   {
-    v8 = v7 == 0;
+    v10 = v9 == 0;
   }
 
   else
   {
-    v8 = 1;
+    v10 = 1;
   }
 
-  if (v8)
+  if (v10)
   {
-    v9 = *DMCLogObjects();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v11 = *DMCLogObjects(v7, v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B1630000, v9, OS_LOG_TYPE_ERROR, "Could not create public/private key pair for CSR.", buf, 2u);
+      _os_log_impl(&dword_1B1630000, v11, OS_LOG_TYPE_ERROR, "Could not create public/private key pair for CSR.", buf, 2u);
     }
 
     if (v5)
@@ -908,9 +880,9 @@ uint64_t DMCHCUCreateCSR(void *a1)
       CFRelease(RandomKey);
     }
 
-    if (v7)
+    if (v9)
     {
-      CFRelease(v7);
+      CFRelease(v9);
     }
 
     CertificateRequestWithParameters = 0;
@@ -922,16 +894,16 @@ uint64_t DMCHCUCreateCSR(void *a1)
     memset(out, 0, sizeof(out));
     uuid_generate_random(out);
     uuid_unparse(out, cStr);
-    v11 = CFStringCreateWithCString(v3, cStr, 0x600u);
+    v13 = CFStringCreateWithCString(v3, cStr, 0x600u);
     *buf = *MEMORY[0x1E697B278];
-    v19 = *MEMORY[0x1E697AAF0];
-    v20 = v11;
-    v21 = 0;
+    v20 = *MEMORY[0x1E697AAF0];
+    v21 = v13;
     v22 = 0;
     v23 = 0;
-    v16 = buf;
-    v17 = 0;
-    [v1 setObject:v7 forKey:@"PublicKey"];
+    v24 = 0;
+    v17 = buf;
+    v18 = 0;
+    [v1 setObject:v9 forKey:@"PublicKey"];
     [v1 setObject:RandomKey forKey:@"PrivateKey"];
     CertificateRequestWithParameters = SecGenerateCertificateRequestWithParameters();
     if (v5)
@@ -940,14 +912,13 @@ uint64_t DMCHCUCreateCSR(void *a1)
     }
 
     CFRelease(RandomKey);
-    CFRelease(v7);
-    if (v11)
+    CFRelease(v9);
+    if (v13)
     {
-      CFRelease(v11);
+      CFRelease(v13);
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return CertificateRequestWithParameters;
 }
 
@@ -961,21 +932,21 @@ id DMCHCUSetCertificateDataForMappedLabel(const __CFData *a1, void *a2, void *a3
   v11 = 0;
   if (a1 && v10)
   {
-    v12 = *MEMORY[0x1E695E480];
-    v13 = SecIdentityCreate();
-    if (v13)
+    v12 = SecIdentityCreate();
+    if (v12)
     {
-      v14 = v13;
-      v15 = v7;
-      if (v15)
+      v13 = v12;
+      v14 = v7;
+      if (v14)
       {
-        v11 = [DMCKeychain saveItem:v14 withLabel:v15 group:@"apple" useSystemKeychain:1 enforcePersonalPersona:a4];
-        if (v11)
+        v15 = [DMCKeychain saveItem:v13 withLabel:v14 group:@"apple" useSystemKeychain:1 enforcePersonalPersona:a4];
+        v11 = v15;
+        if (v15)
         {
-          v16 = _persistentKeyMapTable();
-          [v16 setObject:v11 forKey:v15];
+          v16 = _persistentKeyMapTable(v15);
+          [v16 setObject:v11 forKey:v14];
           v17 = v16;
-          v18 = MTiPCUKeychainMapPath();
+          v18 = MTiPCUKeychainMapPath(v17);
           [v17 DMCWriteToBinaryFile:v18];
         }
       }
@@ -985,7 +956,7 @@ id DMCHCUSetCertificateDataForMappedLabel(const __CFData *a1, void *a2, void *a3
         v11 = 0;
       }
 
-      CFRelease(v14);
+      CFRelease(v13);
     }
 
     else
@@ -1039,7 +1010,7 @@ void *_copyObjectFromKeychainForLabel(void *a1, uint64_t a2)
   }
 
   v3 = a1;
-  v4 = _persistentKeyMapTable();
+  v4 = _persistentKeyMapTable(v3);
   v5 = [v4 objectForKey:v3];
 
   if (v5)
@@ -1065,70 +1036,70 @@ void *DMCHCUCopyHostCertificateForMappedLabel(void *a1, uint64_t a2)
 
 id certificatesFromDERCertificateDataArray(void *a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = v1;
   if (v1)
   {
     v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v1, "count")}];
-    v19 = 0u;
-    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v4 = v2;
-    v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
     if (!v5)
     {
       goto LABEL_15;
     }
 
     v6 = v5;
-    v7 = *v20;
+    v7 = *v22;
     while (1)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = SecCertificateCreateWithData(0, *(*(&v19 + 1) + 8 * i));
+        v9 = SecCertificateCreateWithData(0, *(*(&v21 + 1) + 8 * i));
         if (v9)
         {
-          v10 = v9;
+          v11 = v9;
           [v3 addObject:v9];
 
-          v11 = *DMCLogObjects();
-          if (!os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+          v14 = *DMCLogObjects(v12, v13);
+          if (!os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
           {
             continue;
           }
 
-          *v18 = 0;
-          v12 = v11;
-          v13 = OS_LOG_TYPE_INFO;
-          v14 = "SecCertificateCreateWithData succeed";
+          *v20 = 0;
+          v15 = v14;
+          v16 = OS_LOG_TYPE_INFO;
+          v17 = "SecCertificateCreateWithData succeed";
         }
 
         else
         {
-          v15 = *DMCLogObjects();
-          if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+          v18 = *DMCLogObjects(0, v10);
+          if (!os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
           {
             continue;
           }
 
-          *v18 = 0;
-          v12 = v15;
-          v13 = OS_LOG_TYPE_ERROR;
-          v14 = "Could not parse anchor certificate data. Ignoring.";
+          *v20 = 0;
+          v15 = v18;
+          v16 = OS_LOG_TYPE_ERROR;
+          v17 = "Could not parse anchor certificate data. Ignoring.";
         }
 
-        _os_log_impl(&dword_1B1630000, v12, v13, v14, v18, 2u);
+        _os_log_impl(&dword_1B1630000, v15, v16, v17, v20, 2u);
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (!v6)
       {
 LABEL_15:
@@ -1141,155 +1112,154 @@ LABEL_15:
   v3 = 0;
 LABEL_17:
 
-  v16 = *MEMORY[0x1E69E9840];
+  return v3;
+}
+
+id _persistentKeyMapTable(uint64_t a1)
+{
+  v1 = MEMORY[0x1E695DF90];
+  v2 = MTiPCUKeychainMapPath(a1);
+  v3 = [v1 dictionaryWithContentsOfFile:v2];
+
+  if (!v3)
+  {
+    v3 = [MEMORY[0x1E695DF90] dictionary];
+  }
 
   return v3;
 }
 
-id _persistentKeyMapTable()
-{
-  v0 = MEMORY[0x1E695DF90];
-  v1 = MTiPCUKeychainMapPath();
-  v2 = [v0 dictionaryWithContentsOfFile:v1];
-
-  if (!v2)
-  {
-    v2 = [MEMORY[0x1E695DF90] dictionary];
-  }
-
-  return v2;
-}
-
-id DMCCTIMEI()
+id DMCCTIMEI(uint64_t a1)
 {
   if (DMCCTIMEI_once != -1)
   {
     DMCCTIMEI_cold_1();
   }
 
-  v1 = DMCCTIMEI_imei;
+  v2 = DMCCTIMEI_imei;
 
-  return v1;
+  return v2;
 }
 
-void __DMCCTIMEI_block_invoke()
+void __DMCCTIMEI_block_invoke(uint64_t a1)
 {
-  v0 = _EquipmentInfo();
-  v3 = [v0 IMEI];
+  v1 = _EquipmentInfo(a1);
+  v4 = [v1 IMEI];
 
-  if ([v3 length])
+  if ([v4 length])
   {
-    v1 = _IMEIString(v3);
-    v2 = DMCCTIMEI_imei;
-    DMCCTIMEI_imei = v1;
+    v2 = _IMEIString(v4);
+    v3 = DMCCTIMEI_imei;
+    DMCCTIMEI_imei = v2;
   }
 }
 
-id _EquipmentInfo()
+id _EquipmentInfo(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
-  v0 = _CoreTelephonyClient();
-  v1 = _DataServiceSubscriptionContextFromClient(v0);
-  v2 = v1;
-  if (v1)
+  v36 = *MEMORY[0x1E69E9840];
+  v1 = _CoreTelephonyClient(a1);
+  v2 = _DataServiceSubscriptionContextFromClient(v1);
+  v3 = v2;
+  if (v2)
   {
-    v1 = [v1 slotID];
+    v2 = [v2 slotID];
   }
 
-  if (v1 <= 1)
+  if (v2 <= 1)
   {
-    v3 = 1;
+    v4 = 1;
   }
 
   else
   {
-    v3 = v1;
+    v4 = v2;
   }
 
-  v26 = 0;
-  v4 = [v0 getMobileEquipmentInfo:&v26];
-  v5 = v26;
-  if (!v4)
+  v32 = 0;
+  v5 = [v1 getMobileEquipmentInfo:&v32];
+  v6 = v32;
+  v8 = v6;
+  if (!v5)
   {
-    v13 = *DMCLogObjects();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v20 = *DMCLogObjects(v6, v7);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v29 = v5;
-      v14 = "_EquipmentInfo: getMobileEquipmentInfo: failed: %{public}@";
-      v15 = v13;
-      v16 = 12;
+      v35 = v8;
+      v21 = "_EquipmentInfo: getMobileEquipmentInfo: failed: %{public}@";
+      v22 = v20;
+      v23 = 12;
 LABEL_27:
-      _os_log_impl(&dword_1B1630000, v15, OS_LOG_TYPE_ERROR, v14, buf, v16);
+      _os_log_impl(&dword_1B1630000, v22, OS_LOG_TYPE_ERROR, v21, buf, v23);
       goto LABEL_28;
     }
 
     goto LABEL_28;
   }
 
-  v6 = [v4 meInfoList];
+  v9 = [v5 meInfoList];
 
-  if (!v6)
+  if (!v9)
   {
-    v19 = *DMCLogObjects();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v26 = *DMCLogObjects(v10, v11);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      v14 = "_EquipmentInfo: getMobileEquipmentInfo: returned no items";
+      v21 = "_EquipmentInfo: getMobileEquipmentInfo: returned no items";
 LABEL_26:
-      v15 = v19;
-      v16 = 2;
+      v22 = v26;
+      v23 = 2;
       goto LABEL_27;
     }
 
 LABEL_28:
-    v17 = 0;
+    v24 = 0;
     goto LABEL_29;
   }
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v7 = [v4 meInfoList];
-  v8 = [v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
-  if (!v8)
+  v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v12 = [v5 meInfoList];
+  v13 = [v12 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  if (!v13)
   {
 LABEL_16:
 
 LABEL_22:
-    v19 = *DMCLogObjects();
-    if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v26 = *DMCLogObjects(v18, v19);
+    if (!os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_28;
     }
 
     *buf = 0;
-    v14 = "_EquipmentInfo: could not find acceptable equipment info";
+    v21 = "_EquipmentInfo: could not find acceptable equipment info";
     goto LABEL_26;
   }
 
-  v9 = v8;
-  v10 = *v23;
+  v14 = v13;
+  v15 = *v29;
 LABEL_10:
-  v11 = 0;
+  v16 = 0;
   while (1)
   {
-    if (*v23 != v10)
+    if (*v29 != v15)
     {
-      objc_enumerationMutation(v7);
+      objc_enumerationMutation(v12);
     }
 
-    v12 = *(*(&v22 + 1) + 8 * v11);
-    if ([v12 slotId] == v3)
+    v17 = *(*(&v28 + 1) + 8 * v16);
+    if ([v17 slotId] == v4)
     {
       break;
     }
 
-    if (v9 == ++v11)
+    if (v14 == ++v16)
     {
-      v9 = [v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
-      if (v9)
+      v14 = [v12 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      if (v14)
       {
         goto LABEL_10;
       }
@@ -1298,26 +1268,24 @@ LABEL_10:
     }
   }
 
-  v17 = v12;
+  v24 = v17;
 
-  if (!v17)
+  if (!v24)
   {
     goto LABEL_22;
   }
 
-  v18 = *DMCLogObjects();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v25 = *DMCLogObjects(v18, v19);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v29 = v17;
-    _os_log_impl(&dword_1B1630000, v18, OS_LOG_TYPE_DEFAULT, "_EquipmentInfo: result = %{public}@", buf, 0xCu);
+    v35 = v24;
+    _os_log_impl(&dword_1B1630000, v25, OS_LOG_TYPE_DEFAULT, "_EquipmentInfo: result = %{public}@", buf, 0xCu);
   }
 
 LABEL_29:
 
-  v20 = *MEMORY[0x1E69E9840];
-
-  return v17;
+  return v24;
 }
 
 id _IMEIString(uint64_t a1)
@@ -1349,22 +1317,22 @@ id _IMEIString(uint64_t a1)
   return v1;
 }
 
-id DMCCTMEID()
+id DMCCTMEID(uint64_t a1)
 {
   if (DMCCTMEID_once != -1)
   {
     DMCCTMEID_cold_1();
   }
 
-  v1 = DMCCTMEID_meid;
+  v2 = DMCCTMEID_meid;
 
-  return v1;
+  return v2;
 }
 
-void __DMCCTMEID_block_invoke()
+void __DMCCTMEID_block_invoke(uint64_t a1)
 {
-  v0 = _EquipmentInfo();
-  obj = [v0 MEID];
+  v1 = _EquipmentInfo(a1);
+  obj = [v1 MEID];
 
   if ([obj length])
   {
@@ -1375,7 +1343,7 @@ void __DMCCTMEID_block_invoke()
 DMCCTEnrollmentProperties *DMCCTTelephonyPropertiesForEnrollmentAuthentication()
 {
   v0 = objc_alloc_init(DMCCTEnrollmentProperties);
-  v1 = _EquipmentInfo();
+  v1 = _EquipmentInfo(v0);
   v2 = [v1 IMEI];
   v3 = _IMEIString(v2);
   [(DMCCTEnrollmentProperties *)v0 setImei:v3];
@@ -1388,231 +1356,229 @@ DMCCTEnrollmentProperties *DMCCTTelephonyPropertiesForEnrollmentAuthentication()
 
 uint64_t DMCCTSupportsVoiceRoaming()
 {
-  v16 = *MEMORY[0x1E69E9840];
-  if (!+[DMCMobileGestalt hasTelephonyCapability])
+  v21 = *MEMORY[0x1E69E9840];
+  v0 = +[DMCMobileGestalt hasTelephonyCapability];
+  if (!v0)
   {
-    v5 = 0;
+    v11 = 0;
     goto LABEL_13;
   }
 
-  v0 = _CoreTelephonyClient();
-  v1 = _DataServiceSubscriptionContextFromClient(v0);
-  v2 = [objc_alloc(MEMORY[0x1E6964F68]) initWithBundleType:1];
-  v13 = 0;
-  v3 = [v0 copyCarrierBundleValue:v1 key:@"ShowVoiceRoamingSwitch" bundleType:v2 error:&v13];
-  v4 = v13;
-  if (v3)
+  v2 = _CoreTelephonyClient(v0);
+  v3 = _DataServiceSubscriptionContextFromClient(v2);
+  v4 = [objc_alloc(MEMORY[0x1E6964F68]) initWithBundleType:1];
+  v18 = 0;
+  v5 = [v2 copyCarrierBundleValue:v3 key:@"ShowVoiceRoamingSwitch" bundleType:v4 error:&v18];
+  v6 = v18;
+  v8 = v6;
+  if (v5)
   {
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v5 = [v3 BOOLValue];
-      v6 = 1;
+      v11 = [v5 BOOLValue];
+      v12 = 1;
       goto LABEL_12;
     }
 
-    v7 = *DMCLogObjects();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v13 = *DMCLogObjects(isKindOfClass, v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v15 = v4;
-      v8 = "voice roaming switch value from carrier bundle is not a BOOLean, assuming NO: %{public}@";
+      v20 = v8;
+      v14 = "voice roaming switch value from carrier bundle is not a BOOLean, assuming NO: %{public}@";
       goto LABEL_10;
     }
   }
 
   else
   {
-    v7 = *DMCLogObjects();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v13 = *DMCLogObjects(v6, v7);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v15 = v4;
-      v8 = "could not get voice roaming switch from carrier bundle, assuming NO: %{public}@";
+      v20 = v8;
+      v14 = "could not get voice roaming switch from carrier bundle, assuming NO: %{public}@";
 LABEL_10:
-      _os_log_impl(&dword_1B1630000, v7, OS_LOG_TYPE_ERROR, v8, buf, 0xCu);
+      _os_log_impl(&dword_1B1630000, v13, OS_LOG_TYPE_ERROR, v14, buf, 0xCu);
     }
   }
 
-  v6 = 0;
-  v5 = 0;
+  v12 = 0;
+  v11 = 0;
 LABEL_12:
 
-  if (!v6)
+  if (!v12)
   {
-    v5 = 0;
-    goto LABEL_18;
+    return 0;
   }
 
 LABEL_13:
-  v9 = *DMCLogObjects();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v15 = *DMCLogObjects(v0, v1);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
-    v10 = @"NO";
-    if (v5)
+    v16 = @"NO";
+    if (v11)
     {
-      v10 = @"YES";
+      v16 = @"YES";
     }
 
     *buf = 138543362;
-    v15 = v10;
-    _os_log_impl(&dword_1B1630000, v9, OS_LOG_TYPE_INFO, "device supports voice roaming: %{public}@", buf, 0xCu);
+    v20 = v16;
+    _os_log_impl(&dword_1B1630000, v15, OS_LOG_TYPE_INFO, "device supports voice roaming: %{public}@", buf, 0xCu);
   }
 
-LABEL_18:
-  v11 = *MEMORY[0x1E69E9840];
-  return v5;
+  return v11;
 }
 
-id _CoreTelephonyClient()
+id _CoreTelephonyClient(uint64_t a1)
 {
   if (_CoreTelephonyClient_onceToken != -1)
   {
     _CoreTelephonyClient_cold_1();
   }
 
-  v1 = _CoreTelephonyClient_coreTelephonyClient;
+  v2 = _CoreTelephonyClient_coreTelephonyClient;
 
-  return v1;
+  return v2;
 }
 
 id _DataServiceSubscriptionContextFromClient(void *a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v2 = v1;
+  v3 = v1;
   if (v1)
   {
-    v19 = 0;
-    v3 = [v1 getPreferredDataSubscriptionContextSync:&v19];
-    v4 = v19;
-    v5 = v4;
-    if (!v3)
+    v24 = 0;
+    v4 = [v1 getPreferredDataSubscriptionContextSync:&v24];
+    v5 = v24;
+    v7 = v5;
+    if (!v4)
     {
-      v14 = *DMCLogObjects();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v20 = *DMCLogObjects(v5, v6);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v21 = v5;
-        _os_log_impl(&dword_1B1630000, v14, OS_LOG_TYPE_DEFAULT, "getPreferredDataSubscriptionContextSync failed: %{public}@", buf, 0xCu);
+        v26 = v7;
+        _os_log_impl(&dword_1B1630000, v20, OS_LOG_TYPE_DEFAULT, "getPreferredDataSubscriptionContextSync failed: %{public}@", buf, 0xCu);
       }
 
-      v13 = 0;
-      v7 = v5;
+      v19 = 0;
+      v9 = v7;
       goto LABEL_19;
     }
 
-    v18 = v4;
-    v6 = [v2 getSIMStatus:v3 error:&v18];
-    v7 = v18;
+    v23 = v5;
+    v8 = [v3 getSIMStatus:v4 error:&v23];
+    v9 = v23;
 
-    if (v6)
+    if (v8)
     {
-      if (![v6 isEqualToString:*MEMORY[0x1E6965438]])
+      v12 = [v8 isEqualToString:*MEMORY[0x1E6965438]];
+      if (!v12)
       {
-        v13 = v3;
+        v19 = v4;
         goto LABEL_18;
       }
 
-      v8 = *DMCLogObjects();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v14 = *DMCLogObjects(v12, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v9 = "rejecting data SIM that isn't inserted";
-        v10 = v8;
-        v11 = 2;
+        v15 = "rejecting data SIM that isn't inserted";
+        v16 = v14;
+        v17 = 2;
 LABEL_15:
-        _os_log_impl(&dword_1B1630000, v10, OS_LOG_TYPE_DEFAULT, v9, buf, v11);
+        _os_log_impl(&dword_1B1630000, v16, OS_LOG_TYPE_DEFAULT, v15, buf, v17);
       }
     }
 
     else
     {
-      v15 = *DMCLogObjects();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v21 = *DMCLogObjects(v10, v11);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v21 = v7;
-        v9 = "getSIMStatus failed: %{public}@";
-        v10 = v15;
-        v11 = 12;
+        v26 = v9;
+        v15 = "getSIMStatus failed: %{public}@";
+        v16 = v21;
+        v17 = 12;
         goto LABEL_15;
       }
     }
 
-    v13 = 0;
+    v19 = 0;
 LABEL_18:
 
 LABEL_19:
     goto LABEL_20;
   }
 
-  v12 = *DMCLogObjects();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  v18 = *DMCLogObjects(0, v2);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_1B1630000, v12, OS_LOG_TYPE_ERROR, "nil client passed to _DataServiceSubscriptionContextFromClient", buf, 2u);
+    _os_log_impl(&dword_1B1630000, v18, OS_LOG_TYPE_ERROR, "nil client passed to _DataServiceSubscriptionContextFromClient", buf, 2u);
   }
 
-  v13 = 0;
+  v19 = 0;
 LABEL_20:
 
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v13;
+  return v19;
 }
 
-BOOL DMCCTHasGSM()
+BOOL DMCCTHasGSM(uint64_t a1)
 {
-  v0 = DMCCTIMEI();
-  v1 = v0 != 0;
+  v1 = DMCCTIMEI(a1);
+  v2 = v1 != 0;
 
-  return v1;
+  return v2;
 }
 
-BOOL DMCCTHasCDMA()
+BOOL DMCCTHasCDMA(uint64_t a1)
 {
-  v0 = DMCCTMEID();
-  v1 = v0 != 0;
+  v1 = DMCCTMEID(a1);
+  v2 = v1 != 0;
 
-  return v1;
+  return v2;
 }
 
 BOOL DMCCTSetManagedCellularProfile(void *a1, void *a2)
 {
   v3 = a1;
-  v4 = *MEMORY[0x1E695E480];
-  v5 = _CTServerConnectionCreate();
-  if (v5)
+  v4 = _CTServerConnectionCreate();
+  if (v4)
   {
-    v13 = v5;
+    v12 = v4;
     ManagedCellularProfile = _CTServerConnectionLoadManagedCellularProfile();
-    v15 = ManagedCellularProfile == 0;
+    v14 = ManagedCellularProfile == 0;
     if (a2 && ManagedCellularProfile)
     {
       *a2 = errorFromCTError(ManagedCellularProfile);
     }
 
-    CFRelease(v13);
+    CFRelease(v12);
   }
 
   else if (a2)
   {
-    cannotConnectError(0, v6, v7, v8, v9, v10, v11, v12);
-    *a2 = v15 = 0;
+    cannotConnectError(0, v5, v6, v7, v8, v9, v10, v11);
+    *a2 = v14 = 0;
   }
 
   else
   {
-    v15 = 0;
+    v14 = 0;
   }
 
-  return v15;
+  return v14;
 }
 
 id errorFromCTError(uint64_t a1)
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   if (a1 == 2)
   {
     v7 = MEMORY[0x1E696ABC0];
@@ -1627,9 +1593,9 @@ id errorFromCTError(uint64_t a1)
     v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:strerror(SHIDWORD(a1))];
     v3 = MEMORY[0x1E696ABC0];
     v4 = *MEMORY[0x1E696A798];
-    v20 = *MEMORY[0x1E696A578];
-    v21[0] = v2;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x1E696A578];
+    v20[0] = v2;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     v6 = [v3 errorWithDomain:v4 code:a1 >> 32 userInfo:v5];
   }
 
@@ -1637,8 +1603,6 @@ id errorFromCTError(uint64_t a1)
   {
     v6 = 0;
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -1654,25 +1618,24 @@ id cannotConnectError(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
 
 BOOL DMCCTClearManagedCellularProfile(void *a1)
 {
-  v2 = *MEMORY[0x1E695E480];
-  v3 = _CTServerConnectionCreate();
-  if (v3)
+  v2 = _CTServerConnectionCreate();
+  if (v2)
   {
-    v11 = v3;
-    v12 = _CTServerConnectionUnloadManagedCellularProfile();
-    v13 = v12 == 0;
-    if (a1 && v12)
+    v10 = v2;
+    v11 = _CTServerConnectionUnloadManagedCellularProfile();
+    v12 = v11 == 0;
+    if (a1 && v11)
     {
-      *a1 = errorFromCTError(v12);
+      *a1 = errorFromCTError(v11);
     }
 
-    CFRelease(v11);
+    CFRelease(v10);
   }
 
   else if (a1)
   {
-    cannotConnectError(0, v4, v5, v6, v7, v8, v9, v10);
-    *a1 = v13 = 0;
+    cannotConnectError(0, v3, v4, v5, v6, v7, v8, v9);
+    *a1 = v12 = 0;
   }
 
   else
@@ -1680,36 +1643,35 @@ BOOL DMCCTClearManagedCellularProfile(void *a1)
     return 0;
   }
 
-  return v13;
+  return v12;
 }
 
 BOOL DMCCTGetManagedCellularProfile(void *a1, void *a2)
 {
-  v4 = *MEMORY[0x1E695E480];
-  v5 = _CTServerConnectionCreate();
-  if (v5)
+  v4 = _CTServerConnectionCreate();
+  if (v4)
   {
-    v13 = v5;
+    v12 = v4;
     ManagedCellularProfile = _CTServerConnectionGetManagedCellularProfile();
     if (a1)
     {
-      v15 = 0;
+      v14 = 0;
       *a1 = 0;
     }
 
-    v16 = ManagedCellularProfile == 0;
+    v15 = ManagedCellularProfile == 0;
     if (a2 && ManagedCellularProfile)
     {
       *a2 = errorFromCTError(ManagedCellularProfile);
     }
 
-    CFRelease(v13);
+    CFRelease(v12);
   }
 
   else if (a2)
   {
-    cannotConnectError(0, v6, v7, v8, v9, v10, v11, v12);
-    *a2 = v16 = 0;
+    cannotConnectError(0, v5, v6, v7, v8, v9, v10, v11);
+    *a2 = v15 = 0;
   }
 
   else
@@ -1717,10 +1679,10 @@ BOOL DMCCTGetManagedCellularProfile(void *a1, void *a2)
     return 0;
   }
 
-  return v16;
+  return v15;
 }
 
-uint64_t ___queue_verifyThresholdAndAddDateRecord_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *___queue_verifyThresholdAndAddDateRecord_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) timeIntervalSinceDate:a2];
   if (v7 <= 3.0 && *(a1 + 48) <= ++*(*(*(a1 + 40) + 8) + 24))
@@ -1734,22 +1696,22 @@ uint64_t ___queue_verifyThresholdAndAddDateRecord_block_invoke(uint64_t a1, uint
 id DMCLocalizedString(void *a1)
 {
   v1 = a1;
-  v2 = _bundle();
+  v2 = _bundle(v1);
   v3 = [v2 localizedStringForKey:v1 value:0 table:@"DMCLocalizable"];
 
   return v3;
 }
 
-id _bundle()
+id _bundle(uint64_t a1)
 {
   if (_bundle_once != -1)
   {
     _bundle_cold_1();
   }
 
-  v1 = _bundle_bundle;
+  v2 = _bundle_bundle;
 
-  return v1;
+  return v2;
 }
 
 id DMCLocalizedStringByDevice(void *a1)
@@ -1808,13 +1770,13 @@ id DMCLocalizedFormat(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 id DMCUSEnglishString(void *a1)
 {
   v1 = a1;
-  v2 = _bundle();
+  v2 = _bundle(v1);
   v3 = [v2 localizedStringForKey:v1 value:0 table:@"DMCLocalizable" localization:@"en"];
 
   return v3;
 }
 
-id DMCErrorArray(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
+id DMCErrorArray(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v9 = a1;
   v10 = objc_opt_new();
@@ -1836,7 +1798,7 @@ void _DMCStashFormattedStringInArray(void *a1, void *a2, int a3, uint64_t a4)
   {
     v10 = DMCUSEnglishString(v7);
 
-    DMCUSEnglishLocale();
+    DMCUSEnglishLocale(v11);
   }
 
   else
@@ -1845,9 +1807,9 @@ void _DMCStashFormattedStringInArray(void *a1, void *a2, int a3, uint64_t a4)
 
     [MEMORY[0x1E695DF58] currentLocale];
   }
-  v11 = ;
-  v12 = [v9 initWithFormat:v10 locale:v11 arguments:a4, a4, a4];
-  [v8 addObject:v12];
+  v12 = ;
+  v13 = [v9 initWithFormat:v10 locale:v12 arguments:a4, a4, a4];
+  [v8 addObject:v13];
 }
 
 void _DMCStashArgumentsInArray(void *a1, id *a2)
@@ -1937,24 +1899,23 @@ BOOL DMCFixPermissionOfSystemGroupContainerFileFM(void *a1, void *a2, int a3, vo
     v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:2];
 
     v26 = [MEMORY[0x1E696ABC0] errorWithDomain:@"DMCInternalErrorDomain" code:2 userInfo:v25];
-    v27 = *DMCLogObjects();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    v28 = *DMCLogObjects(v26, v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
       v34 = v8;
       v35 = 2114;
       v36 = v26;
-      _os_log_impl(&dword_1B1630000, v27, OS_LOG_TYPE_ERROR, "Failed to fix permissions of file at path %{public}@. Error: %{public}@", buf, 0x16u);
+      _os_log_impl(&dword_1B1630000, v28, OS_LOG_TYPE_ERROR, "Failed to fix permissions of file at path %{public}@. Error: %{public}@", buf, 0x16u);
     }
 
     if (a4)
     {
-      v28 = v26;
+      v29 = v26;
       *a4 = v26;
     }
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v10 == 0;
 }
 
@@ -1970,92 +1931,93 @@ BOOL DMCFixPermissionsOfSystemGroupContainerDirectoryAndContents(void *a1, void 
 
 BOOL DMCFixPermissionsOfSystemGroupContainerDirectoryAndContentsFM(void *a1, void *a2, void *a3)
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v43[1] = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
   v7 = [MEMORY[0x1E695DF70] array];
-  v34 = 0;
-  if ([v5 fileExistsAtPath:v6 isDirectory:&v34] && (v34 & 1) != 0)
+  v37 = 0;
+  v8 = [v5 fileExistsAtPath:v6 isDirectory:&v37];
+  if (v8 && (v37 & 1) != 0)
   {
-    v33 = 0;
-    v8 = DMCFixPermissionOfSystemGroupContainerFileFM(v5, v6, 1, &v33);
-    v9 = v33;
-    if (!v8)
+    v36 = 0;
+    v10 = DMCFixPermissionOfSystemGroupContainerFileFM(v5, v6, 1, &v36);
+    v11 = v36;
+    if (!v10)
     {
-      [v7 addObject:v9];
+      [v7 addObject:v11];
     }
 
-    v10 = [v5 enumeratorAtPath:v6];
-    v11 = objc_autoreleasePoolPush();
-    v12 = [v10 nextObject];
-    if (v12)
+    v12 = [v5 enumeratorAtPath:v6];
+    v13 = objc_autoreleasePoolPush();
+    v14 = [v12 nextObject];
+    if (v14)
     {
-      v13 = v12;
+      v15 = v14;
       do
       {
-        v14 = [v6 stringByAppendingPathComponent:v13];
+        v16 = [v6 stringByAppendingPathComponent:v15];
         buf[0] = 0;
-        [v5 fileExistsAtPath:v14 isDirectory:buf];
-        v32 = 0;
-        v15 = DMCFixPermissionOfSystemGroupContainerFileFM(v5, v14, buf[0], &v32);
-        v16 = v32;
-        if (!v15)
+        [v5 fileExistsAtPath:v16 isDirectory:buf];
+        v35 = 0;
+        v17 = DMCFixPermissionOfSystemGroupContainerFileFM(v5, v16, buf[0], &v35);
+        v18 = v35;
+        if (!v17)
         {
-          [v7 addObject:v16];
+          [v7 addObject:v18];
         }
 
-        objc_autoreleasePoolPop(v11);
-        v11 = objc_autoreleasePoolPush();
-        v13 = [v10 nextObject];
+        objc_autoreleasePoolPop(v13);
+        v13 = objc_autoreleasePoolPush();
+        v15 = [v12 nextObject];
       }
 
-      while (v13);
+      while (v15);
     }
 
-    objc_autoreleasePoolPop(v11);
+    objc_autoreleasePoolPop(v13);
   }
 
   else
   {
-    v17 = *DMCLogObjects();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = *DMCLogObjects(v8, v9);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v36 = v6;
-      _os_log_impl(&dword_1B1630000, v17, OS_LOG_TYPE_ERROR, "Path %{public}@ does not refer to a directory.", buf, 0xCu);
+      v39 = v6;
+      _os_log_impl(&dword_1B1630000, v19, OS_LOG_TYPE_ERROR, "Path %{public}@ does not refer to a directory.", buf, 0xCu);
     }
 
-    v39 = *MEMORY[0x1E696A578];
-    v25 = DMCLocalizedFormat(@"ERROR_NOT_A_DIRECTORY_P_PATH_%@", v18, v19, v20, v21, v22, v23, v24, v6);
-    v40[0] = v25;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+    v42 = *MEMORY[0x1E696A578];
+    v27 = DMCLocalizedFormat(@"ERROR_NOT_A_DIRECTORY_P_PATH_%@", v20, v21, v22, v23, v24, v25, v26, v6);
+    v43[0] = v27;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v43 forKeys:&v42 count:1];
 
-    v26 = [MEMORY[0x1E696ABC0] errorWithDomain:@"DMCInternalErrorDomain" code:1 userInfo:v10];
-    [v7 addObject:v26];
+    v28 = [MEMORY[0x1E696ABC0] errorWithDomain:@"DMCInternalErrorDomain" code:1 userInfo:v12];
+    [v7 addObject:v28];
   }
 
-  v27 = [v7 count];
-  if (v27)
+  v29 = [v7 count];
+  v31 = v29;
+  if (v29)
   {
-    v28 = *DMCLogObjects();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v32 = *DMCLogObjects(v29, v30);
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v36 = v6;
-      v37 = 2114;
-      v38 = v7;
-      _os_log_impl(&dword_1B1630000, v28, OS_LOG_TYPE_ERROR, "Failed to change ownership of directory and contents at %{public}@. Errors: %{public}@", buf, 0x16u);
+      v39 = v6;
+      v40 = 2114;
+      v41 = v7;
+      _os_log_impl(&dword_1B1630000, v32, OS_LOG_TYPE_ERROR, "Failed to change ownership of directory and contents at %{public}@. Errors: %{public}@", buf, 0x16u);
     }
 
     if (a3)
     {
-      v29 = v7;
+      v33 = v7;
       *a3 = v7;
     }
   }
 
-  v30 = *MEMORY[0x1E69E9840];
-  return v27 == 0;
+  return v31 == 0;
 }
 
 uint64_t DMCSafelyCopyItemAtPathToDestinationPath(void *a1, void *a2, void *a3)
@@ -2071,115 +2033,117 @@ uint64_t DMCSafelyCopyItemAtPathToDestinationPath(void *a1, void *a2, void *a3)
 
 uint64_t DMCSafelyCopyItemAtPathToDestinationPathFM(void *a1, void *a2, void *a3, void *a4)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   v7 = a1;
   v8 = a2;
   v9 = a3;
-  if ([v7 fileExistsAtPath:v8])
+  v10 = [v7 fileExistsAtPath:v8];
+  if (v10)
   {
-    v10 = [MEMORY[0x1E695DFF8] fileURLWithPath:v8];
-    v11 = [MEMORY[0x1E695DFF8] fileURLWithPath:v9];
-    v12 = *DMCLogObjects();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v12 = [MEMORY[0x1E695DFF8] fileURLWithPath:v8];
+    v13 = [MEMORY[0x1E695DFF8] fileURLWithPath:v9];
+    v15 = *DMCLogObjects(v13, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v44 = v10;
-      v45 = 2114;
-      v46 = v11;
-      _os_log_impl(&dword_1B1630000, v12, OS_LOG_TYPE_DEFAULT, "Moving %{public}@ to %{public}@...", buf, 0x16u);
+      v54 = v12;
+      v55 = 2114;
+      v56 = v13;
+      _os_log_impl(&dword_1B1630000, v15, OS_LOG_TYPE_DEFAULT, "Moving %{public}@ to %{public}@...", buf, 0x16u);
     }
 
-    v42 = 0;
-    v13 = [v7 URLForDirectory:99 inDomain:1 appropriateForURL:v11 create:1 error:&v42];
-    v14 = v42;
-    if (v13)
+    v52 = 0;
+    v16 = [v7 URLForDirectory:99 inDomain:1 appropriateForURL:v13 create:1 error:&v52];
+    v17 = v52;
+    v19 = v17;
+    if (v16)
     {
-      v37 = a4;
-      v15 = [v10 lastPathComponent];
-      v16 = [v13 URLByAppendingPathComponent:v15];
+      v47 = a4;
+      v20 = [v12 lastPathComponent];
+      v21 = [v16 URLByAppendingPathComponent:v20];
 
-      if (v16)
+      if (v21)
       {
-        v41 = v14;
-        v17 = [v7 copyItemAtURL:v10 toURL:v16 error:&v41];
-        v18 = v41;
+        v51 = v19;
+        v24 = [v7 copyItemAtURL:v12 toURL:v21 error:&v51];
+        v25 = v51;
 
-        if (!v17 || v18)
+        if (!v24 || v25)
         {
-          v31 = *DMCLogObjects();
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+          v42 = *DMCLogObjects(v26, v27);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543874;
-            v44 = v10;
-            v45 = 2114;
-            v46 = v16;
-            v47 = 2114;
-            v48 = v18;
-            _os_log_impl(&dword_1B1630000, v31, OS_LOG_TYPE_ERROR, "Copying of item %{public}@ to temporary %{public}@ failed with error %{public}@", buf, 0x20u);
+            v54 = v12;
+            v55 = 2114;
+            v56 = v21;
+            v57 = 2114;
+            v58 = v25;
+            _os_log_impl(&dword_1B1630000, v42, OS_LOG_TYPE_ERROR, "Copying of item %{public}@ to temporary %{public}@ failed with error %{public}@", buf, 0x20u);
           }
 
-          v21 = 0;
-          v14 = v18;
+          v31 = 0;
+          v19 = v25;
         }
 
         else
         {
-          v39 = 0;
-          v40 = 0;
-          v19 = [v7 replaceItemAtURL:v11 withItemAtURL:v16 backupItemName:0 options:1 resultingItemURL:&v40 error:&v39];
-          v36 = v40;
-          v20 = v39;
-          if (v20)
+          v49 = 0;
+          v50 = 0;
+          v28 = [v7 replaceItemAtURL:v13 withItemAtURL:v21 backupItemName:0 options:1 resultingItemURL:&v50 error:&v49];
+          v46 = v50;
+          v29 = v49;
+          if (v29)
           {
-            v21 = 0;
+            v31 = 0;
           }
 
           else
           {
-            v21 = v19;
+            v31 = v28;
           }
 
-          if (v21)
+          if (v31)
           {
-            v22 = [v16 absoluteString];
-            v23 = [v7 fileExistsAtPath:v22];
+            v32 = [v21 absoluteString];
+            v33 = [v7 fileExistsAtPath:v32];
 
-            if (v23)
+            if (v33)
             {
-              v38 = 0;
-              v24 = [v7 removeItemAtURL:v16 error:&v38];
-              v25 = v38;
-              v26 = v25;
-              if (!v24 || v25)
+              v48 = 0;
+              v34 = [v7 removeItemAtURL:v21 error:&v48];
+              v35 = v48;
+              v37 = v35;
+              if (!v34 || v35)
               {
-                v27 = *DMCLogObjects();
-                if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+                v38 = *DMCLogObjects(v35, v36);
+                if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138543618;
-                  v44 = v16;
-                  v45 = 2114;
-                  v46 = v26;
-                  _os_log_impl(&dword_1B1630000, v27, OS_LOG_TYPE_ERROR, "Removal of temporary item %{public}@ failed with error %{public}@", buf, 0x16u);
+                  v54 = v21;
+                  v55 = 2114;
+                  v56 = v37;
+                  _os_log_impl(&dword_1B1630000, v38, OS_LOG_TYPE_ERROR, "Removal of temporary item %{public}@ failed with error %{public}@", buf, 0x16u);
                 }
               }
             }
 
-            v14 = 0;
+            v19 = 0;
           }
 
           else
           {
-            v14 = v20;
-            v32 = *DMCLogObjects();
-            if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+            v19 = v29;
+            v43 = *DMCLogObjects(v29, v30);
+            if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543874;
-              v44 = v11;
-              v45 = 2114;
-              v46 = v16;
-              v47 = 2114;
-              v48 = v14;
-              _os_log_impl(&dword_1B1630000, v32, OS_LOG_TYPE_ERROR, "Replacement of item %{public}@ with %{public}@ failed with error %{public}@", buf, 0x20u);
+              v54 = v13;
+              v55 = 2114;
+              v56 = v21;
+              v57 = 2114;
+              v58 = v19;
+              _os_log_impl(&dword_1B1630000, v43, OS_LOG_TYPE_ERROR, "Replacement of item %{public}@ with %{public}@ failed with error %{public}@", buf, 0x20u);
             }
           }
         }
@@ -2187,94 +2151,94 @@ uint64_t DMCSafelyCopyItemAtPathToDestinationPathFM(void *a1, void *a2, void *a3
 
       else
       {
-        v30 = *DMCLogObjects();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+        v41 = *DMCLogObjects(v22, v23);
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543362;
-          v44 = v10;
-          _os_log_impl(&dword_1B1630000, v30, OS_LOG_TYPE_ERROR, "Failed to create temporary URL for moving item %{public}@", buf, 0xCu);
+          v54 = v12;
+          _os_log_impl(&dword_1B1630000, v41, OS_LOG_TYPE_ERROR, "Failed to create temporary URL for moving item %{public}@", buf, 0xCu);
         }
 
-        v21 = 0;
+        v31 = 0;
       }
 
-      a4 = v37;
+      a4 = v47;
     }
 
     else
     {
-      v29 = *DMCLogObjects();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v40 = *DMCLogObjects(v17, v18);
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v44 = v10;
-        _os_log_impl(&dword_1B1630000, v29, OS_LOG_TYPE_ERROR, "Failed to get temporary directory path for item %{public}@", buf, 0xCu);
+        v54 = v12;
+        _os_log_impl(&dword_1B1630000, v40, OS_LOG_TYPE_ERROR, "Failed to get temporary directory path for item %{public}@", buf, 0xCu);
       }
 
-      v21 = 0;
+      v31 = 0;
     }
 
-    if (a4 && v14)
+    if (a4 && v19)
     {
-      v33 = v14;
-      *a4 = v14;
+      v44 = v19;
+      *a4 = v19;
     }
   }
 
   else
   {
-    v28 = *DMCLogObjects();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v39 = *DMCLogObjects(v10, v11);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v44 = v8;
-      _os_log_impl(&dword_1B1630000, v28, OS_LOG_TYPE_ERROR, "Item does not exist at %{public}@", buf, 0xCu);
+      v54 = v8;
+      _os_log_impl(&dword_1B1630000, v39, OS_LOG_TYPE_ERROR, "Item does not exist at %{public}@", buf, 0xCu);
     }
 
-    v21 = 0;
-    v14 = 0;
+    v31 = 0;
+    v19 = 0;
   }
 
-  v34 = *MEMORY[0x1E69E9840];
-  return v21;
+  return v31;
 }
 
 uint64_t DMCSetSkipBackupAttributeToItemAtPath(void *a1, uint64_t a2)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [MEMORY[0x1E695DFF8] fileURLWithPath:v3];
-  if (v4 && ([MEMORY[0x1E696AC08] defaultManager], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v4, "path"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v5, "fileExistsAtPath:", v6), v6, v5, (v7 & 1) != 0))
+  v6 = v4;
+  if (v4 && ([MEMORY[0x1E696AC08] defaultManager], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "path"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "fileExistsAtPath:", v8), v8, v7, (v9 & 1) != 0))
   {
-    v22 = 0;
-    v8 = *MEMORY[0x1E695DB80];
-    v9 = [v4 getResourceValue:&v22 forKey:*MEMORY[0x1E695DB80] error:0];
-    v10 = v22;
-    v11 = v10;
-    if (v9 && [v10 BOOLValue] == a2)
+    v25 = 0;
+    v10 = *MEMORY[0x1E695DB80];
+    v11 = [v6 getResourceValue:&v25 forKey:*MEMORY[0x1E695DB80] error:0];
+    v12 = v25;
+    v13 = v12;
+    if (v11 && [v12 BOOLValue] == a2)
     {
-      v14 = 0;
+      v16 = 0;
     }
 
     else
     {
-      v12 = [MEMORY[0x1E696AD98] numberWithBool:a2];
-      v21 = 0;
-      v13 = [v4 setResourceValue:v12 forKey:v8 error:&v21];
-      v14 = v21;
+      v14 = [MEMORY[0x1E696AD98] numberWithBool:a2];
+      v24 = 0;
+      v15 = [v6 setResourceValue:v14 forKey:v10 error:&v24];
+      v16 = v24;
 
-      if (!v13 || v14)
+      if (!v15 || v16)
       {
-        v15 = *DMCLogObjects();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v19 = *DMCLogObjects(v17, v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
         {
-          v16 = v15;
-          v17 = [v4 path];
+          v20 = v19;
+          v21 = [v6 path];
           *buf = 138543618;
-          v24 = v17;
-          v25 = 2114;
-          v26 = v14;
-          _os_log_impl(&dword_1B1630000, v16, OS_LOG_TYPE_ERROR, "Error excluding %{public}@ from backup %{public}@", buf, 0x16u);
+          v27 = v21;
+          v28 = 2114;
+          v29 = v16;
+          _os_log_impl(&dword_1B1630000, v20, OS_LOG_TYPE_ERROR, "Error excluding %{public}@ from backup %{public}@", buf, 0x16u);
         }
       }
     }
@@ -2282,31 +2246,37 @@ uint64_t DMCSetSkipBackupAttributeToItemAtPath(void *a1, uint64_t a2)
 
   else
   {
-    v18 = *DMCLogObjects();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v22 = *DMCLogObjects(v4, v5);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v24 = v3;
-      _os_log_impl(&dword_1B1630000, v18, OS_LOG_TYPE_ERROR, "Error excluding %{public}@ from backup. Path does not exist.", buf, 0xCu);
+      v27 = v3;
+      _os_log_impl(&dword_1B1630000, v22, OS_LOG_TYPE_ERROR, "Error excluding %{public}@ from backup. Path does not exist.", buf, 0xCu);
     }
 
-    v9 = 0;
+    v11 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-  return v9;
+  return v11;
 }
 
-void sub_1B1646600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B16460B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  va_start(va, a7);
+  va_start(va, a26);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B1646794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1646600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1B1646794(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2399,24 +2369,24 @@ id DMCIOBluetoothMAC()
   return v0;
 }
 
-void sub_1B164D11C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_1B164D11C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v10 - 128), 8);
+  _Block_object_dispose((v17 - 128), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B164D4E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B164D4E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2429,21 +2399,21 @@ uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B164DFD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B164DFD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B164E564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B164E564(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -2460,19 +2430,19 @@ id URLForCanonicalFilePath(void *a1)
   return v4;
 }
 
-id DMCLKLogoutSupportClass()
+id DMCLKLogoutSupportClass(uint64_t a1)
 {
   if (DMCLKLogoutSupportClass_onceToken != -1)
   {
     DMCLKLogoutSupportClass_cold_1();
   }
 
-  v1 = DMCLKLogoutSupportClass_LKLogoutSupportClass;
+  v2 = DMCLKLogoutSupportClass_LKLogoutSupportClass;
 
-  return v1;
+  return v2;
 }
 
-uint64_t __DMCLKLogoutSupportClass_block_invoke()
+void *__DMCLKLogoutSupportClass_block_invoke()
 {
   if (LoginKitBundle_onceToken != -1)
   {
@@ -2500,48 +2470,46 @@ id DMCBYSetupAssistantFinishedDarwinNotification()
   return v0;
 }
 
-id DMCAKAppleIDSession()
+id DMCAKAppleIDSession(uint64_t a1)
 {
   if (DMCAKAppleIDSession_onceToken != -1)
   {
     DMCAKAppleIDSession_cold_1();
   }
 
-  v1 = DMCAKAppleIDSession_theClass;
+  v2 = DMCAKAppleIDSession_theClass;
 
-  return v1;
+  return v2;
 }
 
-void __DMCAKAppleIDSession_block_invoke()
+void __DMCAKAppleIDSession_block_invoke(uint64_t a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v0 = AuthKitBundle();
-  DMCAKAppleIDSession_theClass = [v0 classNamed:@"AKAppleIDSession"];
+  v7 = *MEMORY[0x1E69E9840];
+  v1 = AuthKitBundle(a1);
+  DMCAKAppleIDSession_theClass = [v1 classNamed:@"AKAppleIDSession"];
 
   if (!DMCAKAppleIDSession_theClass)
   {
-    v1 = *DMCLogObjects();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v4 = *DMCLogObjects(v2, v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v3 = 138543362;
-      v4 = @"AKAppleIDSession";
-      _os_log_impl(&dword_1B1630000, v1, OS_LOG_TYPE_ERROR, "Could not load %{public}@", &v3, 0xCu);
+      v5 = 138543362;
+      v6 = @"AKAppleIDSession";
+      _os_log_impl(&dword_1B1630000, v4, OS_LOG_TYPE_ERROR, "Could not load %{public}@", &v5, 0xCu);
     }
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
-id AuthKitBundle()
+id AuthKitBundle(uint64_t a1)
 {
   if (AuthKitBundle_onceToken != -1)
   {
     AuthKitBundle_cold_1();
   }
 
-  v1 = AuthKitBundle_retval;
+  v2 = AuthKitBundle_retval;
 
-  return v1;
+  return v2;
 }
 
 id DMCAKAuthenticationUsernameKey()
@@ -2584,40 +2552,40 @@ id DMCAKAuthenticationIDMSTokenKey()
   return v0;
 }
 
-id DMCAKAnisetteProvisioningControllerClass()
+id DMCAKAnisetteProvisioningControllerClass(uint64_t a1)
 {
-  v0 = AuthKitBundle();
-  v1 = [v0 classNamed:@"AKAnisetteProvisioningController"];
+  v1 = AuthKitBundle(a1);
+  v2 = [v1 classNamed:@"AKAnisetteProvisioningController"];
 
-  return v1;
+  return v2;
 }
 
-id DMCAIDAMutableServiceContextClass()
+id DMCAIDAMutableServiceContextClass(uint64_t a1)
 {
-  v0 = AppleIDSSOAuthenticationBundle();
-  v1 = [v0 classNamed:@"AIDAMutableServiceContext"];
+  v1 = AppleIDSSOAuthenticationBundle(a1);
+  v2 = [v1 classNamed:@"AIDAMutableServiceContext"];
 
-  return v1;
+  return v2;
 }
 
-id AppleIDSSOAuthenticationBundle()
+id AppleIDSSOAuthenticationBundle(uint64_t a1)
 {
   if (AppleIDSSOAuthenticationBundle_onceToken != -1)
   {
     AppleIDSSOAuthenticationBundle_cold_1();
   }
 
-  v1 = AppleIDSSOAuthenticationBundle_retval;
+  v2 = AppleIDSSOAuthenticationBundle_retval;
 
-  return v1;
+  return v2;
 }
 
-id DMCAIDAServiceOwnersManagerClass()
+id DMCAIDAServiceOwnersManagerClass(uint64_t a1)
 {
-  v0 = AppleIDSSOAuthenticationBundle();
-  v1 = [v0 classNamed:@"AIDAServiceOwnersManager"];
+  v1 = AppleIDSSOAuthenticationBundle(a1);
+  v2 = [v1 classNamed:@"AIDAServiceOwnersManager"];
 
-  return v1;
+  return v2;
 }
 
 id DMCAIDAServiceTypeCloud()
@@ -2660,28 +2628,28 @@ id DMCAIDAServiceTypeGameCenter()
   return v0;
 }
 
-uint64_t DMCAMSAuthenticateOptionsClass()
+uint64_t DMCAMSAuthenticateOptionsClass(uint64_t a1)
 {
   if (AppleMediaServicesBundle_onceToken != -1)
   {
     DMCAMSAuthenticateOptionsClass_cold_1();
   }
 
-  v1 = AppleMediaServicesBundle_retval;
+  v2 = AppleMediaServicesBundle_retval;
 
-  return [v1 classNamed:@"AMSAuthenticateOptions"];
+  return [v2 classNamed:@"AMSAuthenticateOptions"];
 }
 
-uint64_t DMCAMSUIAuthenticateTaskClass()
+uint64_t DMCAMSUIAuthenticateTaskClass(uint64_t a1)
 {
   if (AppleMediaServicesUIBundle_onceToken != -1)
   {
     DMCAMSUIAuthenticateTaskClass_cold_1();
   }
 
-  v1 = AppleMediaServicesUIBundle_retval;
+  v2 = AppleMediaServicesUIBundle_retval;
 
-  return [v1 classNamed:@"AMSUIAuthenticateTask"];
+  return [v2 classNamed:@"AMSUIAuthenticateTask"];
 }
 
 id DMCkMAActivationStateActivated()
@@ -2752,29 +2720,27 @@ uint64_t DMCLockdownSetDeviceName(void *a1)
   v1 = a1;
   if ([v1 length] && lockdown_connect())
   {
-    v2 = *MEMORY[0x1E69E5780];
-    v3 = lockdown_set_value();
-    lockdown_disconnect();
-    if (!v3)
+    v2 = lockdown_set_value();
+    v3 = lockdown_disconnect();
+    if (!v2)
     {
-      v5 = 1;
+      v6 = 1;
       goto LABEL_7;
     }
 
-    v4 = *DMCLogObjects();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = *DMCLogObjects(v3, v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v8[0] = 67109120;
-      v8[1] = v3;
-      _os_log_impl(&dword_1B1630000, v4, OS_LOG_TYPE_ERROR, "Unable to set device name with error %d", v8, 8u);
+      v8[1] = v2;
+      _os_log_impl(&dword_1B1630000, v5, OS_LOG_TYPE_ERROR, "Unable to set device name with error %d", v8, 8u);
     }
   }
 
-  v5 = 0;
+  v6 = 0;
 LABEL_7:
 
-  v6 = *MEMORY[0x1E69E9840];
-  return v5;
+  return v6;
 }
 
 uint64_t DMCHasMDMMigrated()
@@ -2808,7 +2774,7 @@ void __DMCHasMDMMigrated_block_invoke(uint64_t a1)
   }
 
   v3 = MEMORY[0x1E695DEF0];
-  v4 = MCSystemMetadataFilePath();
+  v4 = MCSystemMetadataFilePath(a1);
   v5 = [v3 dataWithContentsOfFile:v4];
 
   if (!v5)
@@ -2830,7 +2796,7 @@ LABEL_6:
 
   v7 = [v6 objectForKey:@"LastMDMMigratedBuild"];
   v8 = [MEMORY[0x1E696AC08] defaultManager];
-  v9 = MCLegacyMetadataFilePath();
+  v9 = MCLegacyMetadataFilePath(v8);
   v10 = [v8 fileExistsAtPath:v9];
 
   if (v10)
@@ -2857,9 +2823,9 @@ void __migrationCheckQueue_block_invoke()
   migrationCheckQueue_queue = v0;
 }
 
-void sub_1B1656960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1B1656960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2873,99 +2839,101 @@ uint64_t __Block_byref_object_copy__3(uint64_t result, uint64_t a2)
 
 uint64_t DMCDeviceIsNetworkTethered()
 {
-  v128 = *MEMORY[0x1E69E9840];
+  v168 = *MEMORY[0x1E69E9840];
   v0 = SCPreferencesCreate(0, @"MCNetworkTetherUtilities", 0);
   if (!v0)
   {
-    v76 = 0;
-    goto LABEL_131;
+    return 0;
   }
 
   v1 = v0;
   v2 = SCNetworkSetCopyCurrent(v0);
   if (!v2)
   {
-    v77 = DMCLogObjects()[5];
-    if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
+    v114 = DMCLogObjects(0, v3)[5];
+    if (os_log_type_enabled(v114, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B1630000, v77, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: No network set!", buf, 2u);
+      _os_log_impl(&dword_1B1630000, v114, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: No network set!", buf, 2u);
     }
 
-    v76 = 0;
+    v113 = 0;
     goto LABEL_130;
   }
 
-  v3 = v2;
+  v4 = v2;
   SCNetworkSetGetServiceOrder(v2);
-  v113 = 0u;
-  v114 = 0u;
-  v115 = 0u;
-  obj = v116 = 0u;
-  v4 = [obj countByEnumeratingWithState:&v113 objects:v121 count:16];
-  if (!v4)
+  v153 = 0u;
+  v154 = 0u;
+  v155 = 0u;
+  obj = v156 = 0u;
+  v5 = [obj countByEnumeratingWithState:&v153 objects:v161 count:16];
+  if (!v5)
   {
-    v76 = 0;
+    v113 = 0;
     goto LABEL_129;
   }
 
-  v5 = v4;
-  v91 = v3;
-  v112 = *v114;
-  v6 = *MEMORY[0x1E6982370];
+  v6 = v5;
+  v131 = v4;
+  v7 = MEMORY[0x1E69823A8];
+  v8 = &off_1B1669000;
+  v152 = *v154;
+  v9 = *MEMORY[0x1E6982370];
   domain = *MEMORY[0x1E69822F0];
-  v107 = *MEMORY[0x1E6982350];
+  v147 = *MEMORY[0x1E6982350];
   key = *MEMORY[0x1E6982548];
-  v102 = *MEMORY[0x1E695E4D0];
+  v142 = *MEMORY[0x1E695E4D0];
   protocolType = *MEMORY[0x1E69823A0];
-  v92 = *MEMORY[0x1E69828B8];
-  v93 = *MEMORY[0x1E6982488];
-  v89 = *MEMORY[0x1E69822E0];
-  v88 = *MEMORY[0x1E6982338];
-  v94 = *MEMORY[0x1E69823A8];
-  v109 = v1;
+  v132 = *MEMORY[0x1E69828B8];
+  v133 = *MEMORY[0x1E6982488];
+  v129 = *MEMORY[0x1E69822E0];
+  v128 = *MEMORY[0x1E6982338];
+  v134 = *MEMORY[0x1E69823A8];
+  v149 = v1;
 LABEL_5:
-  v7 = 0;
-  v110 = v5;
+  v10 = 0;
+  v150 = v6;
   while (1)
   {
-    if (*v114 != v112)
+    if (*v154 != v152)
     {
       objc_enumerationMutation(obj);
     }
 
-    v8 = *(*(&v113 + 1) + 8 * v7);
-    v9 = DMCLogObjects()[5];
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v11 = *(*(&v153 + 1) + 8 * v10);
+    v12 = DMCLogObjects(v7, v8)[5];
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v123 = v8;
-      _os_log_impl(&dword_1B1630000, v9, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Checking service ID %{public}@", buf, 0xCu);
+      v163 = v11;
+      _os_log_impl(&dword_1B1630000, v12, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Checking service ID %{public}@", buf, 0xCu);
     }
 
-    v10 = SCNetworkServiceCopy(v1, v8);
-    if (v10)
+    v13 = SCNetworkServiceCopy(v1, v11);
+    if (v13)
     {
       break;
     }
 
-    v18 = DMCLogObjects()[5];
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v31 = DMCLogObjects(0, v14)[5];
+    v7 = os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG);
+    if (v7)
     {
       *buf = 138543362;
-      v123 = v8;
-      _os_log_impl(&dword_1B1630000, v18, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Cannot get service ref for service ID %{public}@", buf, 0xCu);
+      v163 = v11;
+      _os_log_impl(&dword_1B1630000, v31, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Cannot get service ref for service ID %{public}@", buf, 0xCu);
     }
 
 LABEL_58:
-    if (++v7 == v5)
+    if (++v10 == v6)
     {
-      v75 = [obj countByEnumeratingWithState:&v113 objects:v121 count:16];
-      v5 = v75;
-      if (!v75)
+      v7 = [obj countByEnumeratingWithState:&v153 objects:v161 count:16];
+      v6 = v7;
+      if (!v7)
       {
-        v76 = 0;
-        v3 = v91;
+        v113 = 0;
+        v4 = v131;
         goto LABEL_129;
       }
 
@@ -2973,257 +2941,266 @@ LABEL_58:
     }
   }
 
-  v11 = v10;
-  v12 = v8;
-  if (!SCNetworkServiceGetEnabled(v11))
+  v15 = v13;
+  v16 = v11;
+  Enabled = SCNetworkServiceGetEnabled(v15);
+  if (!Enabled)
   {
-    v19 = DMCLogObjects()[5];
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    v32 = DMCLogObjects(Enabled, v18)[5];
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v123 = v12;
-      v20 = v19;
-      v21 = "DMCDeviceIsNetworkTethered: service ID %{public}@ is not enabled";
+      v163 = v16;
+      v33 = v32;
+      v34 = "DMCDeviceIsNetworkTethered: service ID %{public}@ is not enabled";
 LABEL_56:
-      _os_log_impl(&dword_1B1630000, v20, OS_LOG_TYPE_DEBUG, v21, buf, 0xCu);
+      _os_log_impl(&dword_1B1630000, v33, OS_LOG_TYPE_DEBUG, v34, buf, 0xCu);
     }
 
 LABEL_57:
 
-    CFRelease(v11);
+    CFRelease(v15);
     goto LABEL_58;
   }
 
-  Interface = SCNetworkServiceGetInterface(v11);
-  v14 = DMCLogObjects()[5];
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  Interface = SCNetworkServiceGetInterface(v15);
+  v21 = DMCLogObjects(Interface, v20)[5];
+  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG);
+  if (v22)
   {
     *buf = 138543362;
-    v123 = v11;
-    _os_log_impl(&dword_1B1630000, v14, OS_LOG_TYPE_DEBUG, "_getBaseInterfaceForService(%{public}@)", buf, 0xCu);
+    v163 = v15;
+    _os_log_impl(&dword_1B1630000, v21, OS_LOG_TYPE_DEBUG, "_getBaseInterfaceForService(%{public}@)", buf, 0xCu);
   }
 
-  for (i = Interface; ; i = v16)
+  for (i = Interface; ; i = v25)
   {
-    v16 = Interface;
-    v17 = DMCLogObjects()[5];
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v25 = Interface;
+    v26 = DMCLogObjects(v22, v23)[5];
+    v27 = os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG);
+    if (v27)
     {
       *buf = 138543362;
-      v123 = v16;
-      _os_log_impl(&dword_1B1630000, v17, OS_LOG_TYPE_DEBUG, "_getBaseInterfaceForService: Candidate interface %{public}@", buf, 0xCu);
+      v163 = v25;
+      _os_log_impl(&dword_1B1630000, v26, OS_LOG_TYPE_DEBUG, "_getBaseInterfaceForService: Candidate interface %{public}@", buf, 0xCu);
     }
 
-    if (!v16)
+    if (!v25)
     {
       if (i)
       {
         goto LABEL_30;
       }
 
-      v22 = DMCLogObjects()[5];
-      v1 = v109;
-      v5 = v110;
-      if (!os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      v35 = DMCLogObjects(v27, v28)[5];
+      v1 = v149;
+      v6 = v150;
+      if (!os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_57;
       }
 
       *buf = 138543362;
-      v123 = v12;
-      v20 = v22;
-      v21 = "DMCDeviceIsNetworkTethered: cannot get interface for service ID %{public}@";
+      v163 = v16;
+      v33 = v35;
+      v34 = "DMCDeviceIsNetworkTethered: cannot get interface for service ID %{public}@";
       goto LABEL_56;
     }
 
-    if (CFEqual(v16, v6))
+    v29 = CFEqual(v25, v9);
+    if (v29)
     {
       break;
     }
 
-    Interface = SCNetworkInterfaceGetInterface(v16);
+    v22 = SCNetworkInterfaceGetInterface(v25);
+    Interface = v22;
   }
 
-  v23 = DMCLogObjects()[5];
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+  v36 = DMCLogObjects(v29, v30)[5];
+  v27 = os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG);
+  if (v27)
   {
     *buf = 0;
-    _os_log_impl(&dword_1B1630000, v23, OS_LOG_TYPE_DEBUG, "_getBaseInterfaceForService: Candidate interface is a good IPv4 interface", buf, 2u);
+    _os_log_impl(&dword_1B1630000, v36, OS_LOG_TYPE_DEBUG, "_getBaseInterfaceForService: Candidate interface is a good IPv4 interface", buf, 2u);
   }
 
-  i = v16;
+  i = v25;
 LABEL_30:
-  v24 = DMCLogObjects()[5];
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+  v37 = DMCLogObjects(v27, v28)[5];
+  v38 = os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG);
+  if (v38)
   {
-    v25 = v24;
+    v40 = v37;
     IOInterfaceType = _SCNetworkInterfaceGetIOInterfaceType();
     *buf = 138543362;
-    v123 = IOInterfaceType;
-    v27 = IOInterfaceType;
-    _os_log_impl(&dword_1B1630000, v25, OS_LOG_TYPE_DEBUG, "Interface type: %{public}@", buf, 0xCu);
+    v163 = IOInterfaceType;
+    v42 = IOInterfaceType;
+    _os_log_impl(&dword_1B1630000, v40, OS_LOG_TYPE_DEBUG, "Interface type: %{public}@", buf, 0xCu);
   }
 
-  v28 = DMCLogObjects()[5];
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+  v43 = DMCLogObjects(v38, v39)[5];
+  v44 = os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG);
+  if (v44)
   {
-    v29 = v28;
+    v46 = v43;
     FamilyType = _SCNetworkInterfaceGetFamilyType();
     *buf = 138543362;
-    v123 = FamilyType;
-    v31 = FamilyType;
-    _os_log_impl(&dword_1B1630000, v29, OS_LOG_TYPE_DEBUG, "Interface family: %{public}@", buf, 0xCu);
+    v163 = FamilyType;
+    v48 = FamilyType;
+    _os_log_impl(&dword_1B1630000, v46, OS_LOG_TYPE_DEBUG, "Interface family: %{public}@", buf, 0xCu);
   }
 
-  v32 = DMCLogObjects()[5];
-  if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+  v49 = DMCLogObjects(v44, v45)[5];
+  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
   {
-    v33 = v32;
+    v50 = v49;
     FamilySubType = _SCNetworkInterfaceGetFamilySubType();
     *buf = 138543362;
-    v123 = FamilySubType;
-    v35 = FamilySubType;
-    _os_log_impl(&dword_1B1630000, v33, OS_LOG_TYPE_DEBUG, "Interface family sub-type: %{public}@", buf, 0xCu);
+    v163 = FamilySubType;
+    v52 = FamilySubType;
+    _os_log_impl(&dword_1B1630000, v50, OS_LOG_TYPE_DEBUG, "Interface family sub-type: %{public}@", buf, 0xCu);
   }
 
-  v5 = v110;
-  if ([_SCNetworkInterfaceGetIOInterfaceType() intValue] != 6)
+  v53 = [_SCNetworkInterfaceGetIOInterfaceType() intValue];
+  v6 = v150;
+  if (v53 != 6)
   {
-    v49 = DMCLogObjects()[5];
-    v1 = v109;
-    if (!os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+    v73 = DMCLogObjects(v53, v54)[5];
+    v1 = v149;
+    if (!os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_57;
     }
 
     *buf = 138543362;
-    v123 = v12;
-    v20 = v49;
-    v21 = "DMCDeviceIsNetworkTethered: service ID %{public}@ is not USB Ethernet";
+    v163 = v16;
+    v33 = v73;
+    v34 = "DMCDeviceIsNetworkTethered: service ID %{public}@ is not USB Ethernet";
     goto LABEL_56;
   }
 
   BSDName = SCNetworkInterfaceGetBSDName(i);
-  v37 = DMCLogObjects()[5];
-  v38 = os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG);
+  v57 = DMCLogObjects(BSDName, v56)[5];
+  v58 = os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG);
   if (!BSDName)
   {
-    v1 = v109;
-    if (!v38)
+    v1 = v149;
+    if (!v58)
     {
       goto LABEL_57;
     }
 
     *buf = 138543362;
-    v123 = v12;
-    v20 = v37;
-    v21 = "DMCDeviceIsNetworkTethered: could not get BSD name from service ID %{public}@";
+    v163 = v16;
+    v33 = v57;
+    v34 = "DMCDeviceIsNetworkTethered: could not get BSD name from service ID %{public}@";
     goto LABEL_56;
   }
 
-  if (v38)
+  if (v58)
   {
     *buf = 138543618;
-    v123 = v12;
-    v124 = 2114;
-    v125 = BSDName;
-    _os_log_impl(&dword_1B1630000, v37, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: BSD name from service ID %{public}@ is: %{public}@", buf, 0x16u);
+    v163 = v16;
+    v164 = 2114;
+    v165 = BSDName;
+    _os_log_impl(&dword_1B1630000, v57, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: BSD name from service ID %{public}@ is: %{public}@", buf, 0x16u);
   }
 
-  NetworkInterfaceEntity = SCDynamicStoreKeyCreateNetworkInterfaceEntity(0, domain, BSDName, v107);
+  NetworkInterfaceEntity = SCDynamicStoreKeyCreateNetworkInterfaceEntity(0, domain, BSDName, v147);
   if (!NetworkInterfaceEntity)
   {
-    v50 = DMCLogObjects()[5];
-    v1 = v109;
-    if (!os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+    v74 = DMCLogObjects(0, v60)[5];
+    v1 = v149;
+    if (!os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
     {
       goto LABEL_57;
     }
 
     *buf = 138543362;
-    v123 = v12;
-    v20 = v50;
-    v21 = "DMCDeviceIsNetworkTethered: could not network link from service ID %{public}@";
+    v163 = v16;
+    v33 = v74;
+    v34 = "DMCDeviceIsNetworkTethered: could not network link from service ID %{public}@";
     goto LABEL_56;
   }
 
-  v40 = NetworkInterfaceEntity;
-  v41 = SCDynamicStoreCreate(0, @"MCNetworkTetherUtilities", 0, 0);
-  if (!v41)
+  v61 = NetworkInterfaceEntity;
+  v62 = SCDynamicStoreCreate(0, @"MCNetworkTetherUtilities", 0, 0);
+  if (!v62)
   {
-    v51 = DMCLogObjects()[5];
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+    v75 = DMCLogObjects(0, v63)[5];
+    if (os_log_type_enabled(v75, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B1630000, v51, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: could not create dynamic store!", buf, 2u);
+      _os_log_impl(&dword_1B1630000, v75, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: could not create dynamic store!", buf, 2u);
     }
 
 LABEL_62:
-    v52 = v40;
+    v76 = v61;
 LABEL_66:
-    CFRelease(v52);
+    CFRelease(v76);
 
     goto LABEL_67;
   }
 
-  v104 = v40;
-  cf = v41;
-  v42 = SCDynamicStoreCopyValue(v41, v40);
-  v43 = DMCLogObjects()[5];
-  v44 = os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG);
-  theDict = v42;
-  if (!v42)
+  v144 = v61;
+  cf = v62;
+  v64 = SCDynamicStoreCopyValue(v62, v61);
+  v66 = DMCLogObjects(v64, v65)[5];
+  v67 = os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG);
+  theDict = v64;
+  if (!v64)
   {
-    if (v44)
+    if (v67)
     {
       *buf = 138543362;
-      v123 = v12;
-      _os_log_impl(&dword_1B1630000, v43, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: could not get network link info from service ID %{public}@", buf, 0xCu);
+      v163 = v16;
+      _os_log_impl(&dword_1B1630000, v66, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: could not get network link info from service ID %{public}@", buf, 0xCu);
     }
 
     CFRelease(cf);
-    v52 = v104;
+    v76 = v144;
     goto LABEL_66;
   }
 
-  if (v44)
+  if (v67)
   {
     *buf = 138543618;
-    v123 = v12;
-    v124 = 2114;
-    v125 = v42;
-    _os_log_impl(&dword_1B1630000, v43, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: service ID %{public}@ has netlink info: %{public}@", buf, 0x16u);
+    v163 = v16;
+    v164 = 2114;
+    v165 = v64;
+    _os_log_impl(&dword_1B1630000, v66, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: service ID %{public}@ has netlink info: %{public}@", buf, 0x16u);
   }
 
-  Value = CFDictionaryGetValue(v42, key);
-  v40 = v104;
-  if (v102 != Value)
+  Value = CFDictionaryGetValue(v64, key);
+  v61 = v144;
+  if (v142 != Value)
   {
-    v46 = DMCLogObjects()[5];
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+    v70 = DMCLogObjects(Value, v69)[5];
+    if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v123 = v12;
-      v47 = v46;
-      v48 = "DMCDeviceIsNetworkTethered: netlink for service ID %{public}@ is not active";
+      v163 = v16;
+      v71 = v70;
+      v72 = "DMCDeviceIsNetworkTethered: netlink for service ID %{public}@ is not active";
       goto LABEL_48;
     }
 
     goto LABEL_49;
   }
 
-  v53 = SCNetworkServiceCopyProtocol(v11, protocolType);
-  if (!v53)
+  v77 = SCNetworkServiceCopyProtocol(v15, protocolType);
+  if (!v77)
   {
-    v60 = DMCLogObjects()[5];
-    if (os_log_type_enabled(v60, OS_LOG_TYPE_DEBUG))
+    v90 = DMCLogObjects(0, v78)[5];
+    if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v123 = v12;
-      v47 = v60;
-      v48 = "DMCDeviceIsNetworkTethered: could not get IPv4 info for service ID %{public}@";
+      v163 = v16;
+      v71 = v90;
+      v72 = "DMCDeviceIsNetworkTethered: could not get IPv4 info for service ID %{public}@";
 LABEL_48:
-      _os_log_impl(&dword_1B1630000, v47, OS_LOG_TYPE_DEBUG, v48, buf, 0xCu);
+      _os_log_impl(&dword_1B1630000, v71, OS_LOG_TYPE_DEBUG, v72, buf, 0xCu);
     }
 
 LABEL_49:
@@ -3232,118 +3209,120 @@ LABEL_49:
     goto LABEL_62;
   }
 
-  v54 = v53;
-  v55 = v12;
-  v100 = SCNetworkProtocolGetConfiguration(v54);
-  v103 = v55;
-  v97 = v54;
-  if (!v100 || !SCNetworkProtocolGetEnabled(v54))
+  v79 = v77;
+  v80 = v16;
+  v81 = SCNetworkProtocolGetConfiguration(v79);
+  v140 = v81;
+  v143 = v80;
+  v137 = v79;
+  if (!v81 || (v81 = SCNetworkProtocolGetEnabled(v79), !v81))
   {
-    v59 = DMCLogObjects()[5];
-    if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
+    v89 = DMCLogObjects(v81, v82)[5];
+    if (os_log_type_enabled(v89, OS_LOG_TYPE_DEBUG))
     {
-      *v126 = 0;
-      _os_log_impl(&dword_1B1630000, v59, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Unable to get IPv4 info and/or it's disabled", v126, 2u);
+      *v166 = 0;
+      _os_log_impl(&dword_1B1630000, v89, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Unable to get IPv4 info and/or it's disabled", v166, 2u);
     }
 
     goto LABEL_105;
   }
 
-  v56 = DMCLogObjects()[5];
-  if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
+  v83 = DMCLogObjects(v81, v82)[5];
+  if (os_log_type_enabled(v83, OS_LOG_TYPE_DEBUG))
   {
-    *v126 = 138543362;
-    v127 = v100;
-    _os_log_impl(&dword_1B1630000, v56, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: IPv4 info: %{public}@", v126, 0xCu);
+    *v166 = 138543362;
+    v167 = v140;
+    _os_log_impl(&dword_1B1630000, v83, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: IPv4 info: %{public}@", v166, 0xCu);
   }
 
-  v57 = [v100 objectForKey:v93];
-  v58 = DMCLogObjects()[5];
-  if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
+  v84 = [v140 objectForKey:v133];
+  v86 = DMCLogObjects(v84, v85)[5];
+  if (os_log_type_enabled(v86, OS_LOG_TYPE_DEBUG))
   {
-    *v126 = 138543362;
-    v127 = v57;
-    _os_log_impl(&dword_1B1630000, v58, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: IPv4 config method: %{public}@", v126, 0xCu);
+    *v166 = 138543362;
+    v167 = v84;
+    _os_log_impl(&dword_1B1630000, v86, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: IPv4 config method: %{public}@", v166, 0xCu);
   }
 
-  if (![(__CFArray *)v57 isEqualToString:v92])
+  if (![(__CFArray *)v84 isEqualToString:v132])
   {
-    v61 = _isIPv4ConfigMethodAutomatic_onceToken;
-    v90 = v57;
-    if (v61 != -1)
+    v91 = _isIPv4ConfigMethodAutomatic_onceToken;
+    v130 = v84;
+    if (v91 != -1)
     {
       DMCDeviceIsNetworkTethered_cold_1();
     }
 
-    v62 = [_isIPv4ConfigMethodAutomatic_ipv4DynamicConfigMethods containsObject:v90];
+    v92 = [_isIPv4ConfigMethodAutomatic_ipv4DynamicConfigMethods containsObject:v130];
 
-    if (v62)
+    if (v92)
     {
-      NetworkServiceEntity = SCDynamicStoreKeyCreateNetworkServiceEntity(0, domain, v89, v88);
+      NetworkServiceEntity = SCDynamicStoreKeyCreateNetworkServiceEntity(0, domain, v129, v128);
       if (NetworkServiceEntity)
       {
-        v87 = NetworkServiceEntity;
-        v64 = SCDynamicStoreCopyKeyList(cf, NetworkServiceEntity);
-        v65 = DMCLogObjects()[5];
-        if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
+        v127 = NetworkServiceEntity;
+        v95 = SCDynamicStoreCopyKeyList(cf, NetworkServiceEntity);
+        v97 = DMCLogObjects(v95, v96)[5];
+        if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
         {
-          *v126 = 138543362;
-          v127 = v64;
-          _os_log_impl(&dword_1B1630000, v65, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Got IPv4 keys: %{public}@", v126, 0xCu);
+          *v166 = 138543362;
+          v167 = v95;
+          _os_log_impl(&dword_1B1630000, v97, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Got IPv4 keys: %{public}@", v166, 0xCu);
         }
 
-        v119 = 0u;
-        v120 = 0u;
-        v117 = 0u;
-        v118 = 0u;
-        v95 = v64;
-        v99 = [(__CFArray *)v95 countByEnumeratingWithState:&v117 objects:buf count:16];
-        if (v99)
+        v159 = 0u;
+        v160 = 0u;
+        v157 = 0u;
+        v158 = 0u;
+        v135 = v95;
+        v139 = [(__CFArray *)v135 countByEnumeratingWithState:&v157 objects:buf count:16];
+        if (v139)
         {
-          v98 = *v118;
+          v138 = *v158;
           while (2)
           {
-            for (j = 0; j != v99; ++j)
+            for (j = 0; j != v139; ++j)
             {
-              if (*v118 != v98)
+              if (*v158 != v138)
               {
-                objc_enumerationMutation(v95);
+                objc_enumerationMutation(v135);
               }
 
-              v67 = *(*(&v117 + 1) + 8 * j);
-              v68 = _serviceIDFromDynamicStoreKey(v67);
-              if ([v68 isEqualToString:v103])
+              v99 = *(*(&v157 + 1) + 8 * j);
+              v100 = _serviceIDFromDynamicStoreKey(v99);
+              if ([v100 isEqualToString:v143])
               {
-                v69 = SCDynamicStoreCopyValue(cf, v67);
-                v70 = DMCLogObjects()[5];
-                if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
+                v101 = SCDynamicStoreCopyValue(cf, v99);
+                v103 = DMCLogObjects(v101, v102)[5];
+                if (os_log_type_enabled(v103, OS_LOG_TYPE_DEBUG))
                 {
-                  *v126 = 138543362;
-                  v127 = v69;
-                  _os_log_impl(&dword_1B1630000, v70, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Got IPv4 service dict: %{public}@", v126, 0xCu);
+                  *v166 = 138543362;
+                  v167 = v101;
+                  _os_log_impl(&dword_1B1630000, v103, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Got IPv4 service dict: %{public}@", v166, 0xCu);
                 }
 
-                if (_isIPv4ConfigInfoUseful(v69))
+                isIPv4ConfigInfoUseful = _isIPv4ConfigInfoUseful(v101);
+                if (isIPv4ConfigInfoUseful)
                 {
-                  v78 = DMCLogObjects()[5];
-                  v3 = v91;
-                  if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
+                  v115 = DMCLogObjects(isIPv4ConfigInfoUseful, v105)[5];
+                  v4 = v131;
+                  if (os_log_type_enabled(v115, OS_LOG_TYPE_DEBUG))
                   {
-                    *v126 = 0;
-                    _os_log_impl(&dword_1B1630000, v78, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Got useful dynamic IPv4 config!", v126, 2u);
+                    *v166 = 0;
+                    _os_log_impl(&dword_1B1630000, v115, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Got useful dynamic IPv4 config!", v166, 2u);
                   }
 
-                  CFRelease(v87);
-                  v79 = v103;
+                  CFRelease(v127);
+                  v116 = v143;
 
-                  v40 = v104;
+                  v61 = v144;
                   goto LABEL_121;
                 }
               }
             }
 
-            v99 = [(__CFArray *)v95 countByEnumeratingWithState:&v117 objects:buf count:16];
-            if (v99)
+            v139 = [(__CFArray *)v135 countByEnumeratingWithState:&v157 objects:buf count:16];
+            if (v139)
             {
               continue;
             }
@@ -3352,178 +3331,178 @@ LABEL_49:
           }
         }
 
-        CFRelease(v87);
-        v5 = v110;
-        v40 = v104;
+        CFRelease(v127);
+        v6 = v150;
+        v61 = v144;
         goto LABEL_105;
       }
 
-      v71 = DMCLogObjects()[5];
-      if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
+      v106 = DMCLogObjects(0, v94)[5];
+      if (os_log_type_enabled(v106, OS_LOG_TYPE_DEBUG))
       {
-        *v126 = 0;
-        _os_log_impl(&dword_1B1630000, v71, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Unable to create network service entry", v126, 2u);
+        *v166 = 0;
+        _os_log_impl(&dword_1B1630000, v106, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Unable to create network service entry", v166, 2u);
       }
     }
 
     goto LABEL_104;
   }
 
-  if (!_isIPv4ConfigInfoUseful(v100))
+  v87 = _isIPv4ConfigInfoUseful(v140);
+  if (!v87)
   {
 LABEL_104:
 
 LABEL_105:
-    v72 = SCNetworkServiceCopyProtocol(v11, v94);
-    if (!v72)
+    v107 = SCNetworkServiceCopyProtocol(v15, v134);
+    if (!v107)
     {
-      v74 = DMCLogObjects()[5];
-      v12 = v103;
-      if (os_log_type_enabled(v74, OS_LOG_TYPE_DEBUG))
+      v112 = DMCLogObjects(0, v108)[5];
+      v16 = v143;
+      if (os_log_type_enabled(v112, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v123 = v103;
-        _os_log_impl(&dword_1B1630000, v74, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: could not get IPv6 info for service ID %{public}@", buf, 0xCu);
+        v163 = v143;
+        _os_log_impl(&dword_1B1630000, v112, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: could not get IPv6 info for service ID %{public}@", buf, 0xCu);
       }
 
-      CFRelease(v97);
+      CFRelease(v137);
       goto LABEL_49;
     }
 
-    v73 = v72;
-    if (_isUsefulIPv6Protocol(v72, cf, v103))
+    v109 = v107;
+    isUsefulIPv6Protocol = _isUsefulIPv6Protocol(v107, cf, v143);
+    if (isUsefulIPv6Protocol)
     {
-      v81 = DMCLogObjects()[5];
-      v3 = v91;
-      if (os_log_type_enabled(v81, OS_LOG_TYPE_DEBUG))
+      v120 = DMCLogObjects(isUsefulIPv6Protocol, v111)[5];
+      v4 = v131;
+      if (os_log_type_enabled(v120, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v123 = v103;
-        _os_log_impl(&dword_1B1630000, v81, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: got useful IPv6 info for service ID %{public}@!", buf, 0xCu);
+        v163 = v143;
+        _os_log_impl(&dword_1B1630000, v120, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: got useful IPv6 info for service ID %{public}@!", buf, 0xCu);
       }
 
-      CFRelease(v73);
-      v79 = v103;
-      v40 = v104;
+      CFRelease(v109);
+      v116 = v143;
+      v61 = v144;
       goto LABEL_126;
     }
 
-    CFRelease(v73);
-    CFRelease(v97);
+    CFRelease(v109);
+    CFRelease(v137);
     CFRelease(theDict);
     CFRelease(cf);
-    CFRelease(v104);
+    CFRelease(v144);
 
 LABEL_67:
-    CFRelease(v11);
-    v1 = v109;
+    CFRelease(v15);
+    v1 = v149;
     goto LABEL_58;
   }
 
-  v85 = DMCLogObjects()[5];
-  if (os_log_type_enabled(v85, OS_LOG_TYPE_DEBUG))
+  v125 = DMCLogObjects(v87, v88)[5];
+  if (os_log_type_enabled(v125, OS_LOG_TYPE_DEBUG))
   {
-    *v126 = 0;
-    _os_log_impl(&dword_1B1630000, v85, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Got useful manual config of IPv4!", v126, 2u);
+    *v166 = 0;
+    _os_log_impl(&dword_1B1630000, v125, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Got useful manual config of IPv4!", v166, 2u);
   }
 
-  v79 = v103;
-  v3 = v91;
+  v116 = v143;
+  v4 = v131;
 LABEL_121:
-  v80 = DMCLogObjects()[5];
-  if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
+  v119 = DMCLogObjects(v117, v118)[5];
+  if (os_log_type_enabled(v119, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
-    v123 = v79;
-    _os_log_impl(&dword_1B1630000, v80, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: got useful IPv4 info for service ID %{public}@!", buf, 0xCu);
+    v163 = v116;
+    _os_log_impl(&dword_1B1630000, v119, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: got useful IPv4 info for service ID %{public}@!", buf, 0xCu);
   }
 
 LABEL_126:
-  CFRelease(v97);
+  CFRelease(v137);
   CFRelease(theDict);
   CFRelease(cf);
-  CFRelease(v40);
+  CFRelease(v61);
 
-  CFRelease(v11);
-  v82 = DMCLogObjects()[5];
-  if (os_log_type_enabled(v82, OS_LOG_TYPE_DEBUG))
+  CFRelease(v15);
+  v123 = DMCLogObjects(v121, v122)[5];
+  if (os_log_type_enabled(v123, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
-    v123 = v79;
-    _os_log_impl(&dword_1B1630000, v82, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Found tethered Ethernet at Service ID %{public}@!!", buf, 0xCu);
+    v163 = v116;
+    _os_log_impl(&dword_1B1630000, v123, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Found tethered Ethernet at Service ID %{public}@!!", buf, 0xCu);
   }
 
-  v76 = 1;
-  v1 = v109;
+  v113 = 1;
+  v1 = v149;
 LABEL_129:
 
-  CFRelease(v3);
+  CFRelease(v4);
 LABEL_130:
   CFRelease(v1);
-LABEL_131:
-  v83 = *MEMORY[0x1E69E9840];
-  return v76;
+  return v113;
 }
 
 uint64_t _isIPv4ConfigInfoUseful(void *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
   v2 = [v1 objectForKey:*MEMORY[0x1E6982478]];
   v3 = [v1 objectForKey:*MEMORY[0x1E69824C8]];
-  v4 = DMCLogObjects()[5];
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = DMCLogObjects(v3, v4)[5];
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
+  if (v6)
   {
     *buf = 138543362;
-    v18 = v2;
-    _os_log_impl(&dword_1B1630000, v4, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Got IPv4 addresses: %{public}@", buf, 0xCu);
+    v20 = v2;
+    _os_log_impl(&dword_1B1630000, v5, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Got IPv4 addresses: %{public}@", buf, 0xCu);
   }
 
-  v5 = DMCLogObjects()[5];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v8 = DMCLogObjects(v6, v7)[5];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
-    v18 = v3;
-    _os_log_impl(&dword_1B1630000, v5, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Got IPv4 netmasks: %{public}@", buf, 0xCu);
+    v20 = v3;
+    _os_log_impl(&dword_1B1630000, v8, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Got IPv4 netmasks: %{public}@", buf, 0xCu);
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = ___isIPv4ConfigInfoUseful_block_invoke;
-  v10[3] = &unk_1E7ADCE10;
-  v6 = v3;
-  v11 = v6;
-  v12 = &v13;
-  [v2 enumerateObjectsUsingBlock:v10];
-  v7 = *(v14 + 24);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = ___isIPv4ConfigInfoUseful_block_invoke;
+  v12[3] = &unk_1E7ADCE10;
+  v9 = v3;
+  v13 = v9;
+  v14 = &v15;
+  [v2 enumerateObjectsUsingBlock:v12];
+  v10 = *(v16 + 24);
 
-  _Block_object_dispose(&v13, 8);
-  v8 = *MEMORY[0x1E69E9840];
-  return v7 & 1;
+  _Block_object_dispose(&v15, 8);
+  return v10 & 1;
 }
 
-void sub_1B1658C1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1658C1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void ___isIPv4ConfigInfoUseful_block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v12[2] = *MEMORY[0x1E69E9840];
+  v11[2] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = [*(a1 + 32) objectAtIndex:a3];
   v9 = v7;
-  if ([v9 length] && objc_msgSend(v8, "length") && (HIDWORD(v12[0]) = 0, v12[1] = 0, inet_pton(2, objc_msgSend(v9, "UTF8String"), v12 + 4) >= 1) && BYTE4(v12[0]) && BYTE4(v12[0]) != 127)
+  if ([v9 length] && objc_msgSend(v8, "length") && (HIDWORD(v11[0]) = 0, v11[1] = 0, inet_pton(2, objc_msgSend(v9, "UTF8String"), v11 + 4) >= 1) && BYTE4(v11[0]) && BYTE4(v11[0]) != 127)
   {
-    v11 = WORD2(v12[0]);
+    v10 = WORD2(v11[0]);
 
-    if (v11 != 65193)
+    if (v10 != 65193)
     {
       *(*(*(a1 + 40) + 8) + 24) = 1;
       *a4 = 1;
@@ -3533,54 +3512,52 @@ void ___isIPv4ConfigInfoUseful_block_invoke(uint64_t a1, void *a2, uint64_t a3, 
   else
   {
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t _isIPv6ConfigInfoUseful(void *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
   v2 = [v1 objectForKey:*MEMORY[0x1E69824D8]];
   v3 = [v1 objectForKey:*MEMORY[0x1E6982500]];
-  v4 = DMCLogObjects()[5];
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = DMCLogObjects(v3, v4)[5];
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
+  if (v6)
   {
     *buf = 138543362;
-    v18 = v2;
-    _os_log_impl(&dword_1B1630000, v4, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Got IPv6 addresses: %{public}@", buf, 0xCu);
+    v20 = v2;
+    _os_log_impl(&dword_1B1630000, v5, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Got IPv6 addresses: %{public}@", buf, 0xCu);
   }
 
-  v5 = DMCLogObjects()[5];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v8 = DMCLogObjects(v6, v7)[5];
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
-    v18 = v3;
-    _os_log_impl(&dword_1B1630000, v5, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Got IPv6 netmasks: %{public}@", buf, 0xCu);
+    v20 = v3;
+    _os_log_impl(&dword_1B1630000, v8, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Got IPv6 netmasks: %{public}@", buf, 0xCu);
   }
 
-  v10[0] = MEMORY[0x1E69E9820];
-  v10[1] = 3221225472;
-  v10[2] = ___isIPv6ConfigInfoUseful_block_invoke;
-  v10[3] = &unk_1E7ADCE10;
-  v6 = v3;
-  v11 = v6;
-  v12 = &v13;
-  [v2 enumerateObjectsUsingBlock:v10];
-  v7 = *(v14 + 24);
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = ___isIPv6ConfigInfoUseful_block_invoke;
+  v12[3] = &unk_1E7ADCE10;
+  v9 = v3;
+  v13 = v9;
+  v14 = &v15;
+  [v2 enumerateObjectsUsingBlock:v12];
+  v10 = *(v16 + 24);
 
-  _Block_object_dispose(&v13, 8);
-  v8 = *MEMORY[0x1E69E9840];
-  return v7 & 1;
+  _Block_object_dispose(&v15, 8);
+  return v10 & 1;
 }
 
-void sub_1B1658F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1658F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3647,43 +3624,45 @@ LABEL_15:
 
 uint64_t _isUsefulIPv6Protocol(const __SCNetworkProtocol *a1, const __SCDynamicStore *a2, void *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = SCNetworkProtocolGetConfiguration(a1);
-  if (v6 && SCNetworkProtocolGetEnabled(a1))
+  Enabled = SCNetworkProtocolGetConfiguration(a1);
+  v8 = Enabled;
+  if (Enabled && (Enabled = SCNetworkProtocolGetEnabled(a1), Enabled))
   {
-    v7 = DMCLogObjects()[5];
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v9 = DMCLogObjects(Enabled, v7)[5];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v34 = v6;
-      _os_log_impl(&dword_1B1630000, v7, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Got IPv6 info: %{public}@", buf, 0xCu);
+      v41 = v8;
+      _os_log_impl(&dword_1B1630000, v9, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Got IPv6 info: %{public}@", buf, 0xCu);
     }
 
-    v8 = [(__CFArray *)v6 objectForKey:*MEMORY[0x1E69824E0]];
-    if ([v8 isEqualToString:*MEMORY[0x1E69828D8]])
+    v10 = [(__CFArray *)v8 objectForKey:*MEMORY[0x1E69824E0]];
+    if ([v10 isEqualToString:*MEMORY[0x1E69828D8]])
     {
-      if (_isIPv6ConfigInfoUseful(v6))
+      isIPv6ConfigInfoUseful = _isIPv6ConfigInfoUseful(v8);
+      if (isIPv6ConfigInfoUseful)
       {
-        v9 = DMCLogObjects()[5];
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v13 = DMCLogObjects(isIPv6ConfigInfoUseful, v12)[5];
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
         {
           *buf = 0;
-          _os_log_impl(&dword_1B1630000, v9, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Got useful IPv6 manual config!", buf, 2u);
+          _os_log_impl(&dword_1B1630000, v13, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Got useful IPv6 manual config!", buf, 2u);
         }
 
-        v10 = 1;
+        v14 = 1;
         goto LABEL_31;
       }
 
 LABEL_30:
-      v10 = 0;
+      v14 = 0;
 LABEL_31:
 
       goto LABEL_32;
     }
 
-    if (![v8 isEqualToString:*MEMORY[0x1E69828C8]])
+    if (![v10 isEqualToString:*MEMORY[0x1E69828C8]])
     {
       goto LABEL_30;
     }
@@ -3691,67 +3670,68 @@ LABEL_31:
     NetworkServiceEntity = SCDynamicStoreKeyCreateNetworkServiceEntity(0, *MEMORY[0x1E69822F0], *MEMORY[0x1E69822E0], *MEMORY[0x1E6982340]);
     if (!NetworkServiceEntity)
     {
-      v23 = DMCLogObjects()[5];
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v31 = DMCLogObjects(0, v17)[5];
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_impl(&dword_1B1630000, v23, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Unable to create network service entry", buf, 2u);
+        _os_log_impl(&dword_1B1630000, v31, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Unable to create network service entry", buf, 2u);
       }
 
       goto LABEL_30;
     }
 
-    v13 = NetworkServiceEntity;
-    v14 = SCDynamicStoreCopyKeyList(a2, NetworkServiceEntity);
-    v15 = DMCLogObjects()[5];
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v18 = NetworkServiceEntity;
+    v19 = SCDynamicStoreCopyKeyList(a2, NetworkServiceEntity);
+    v21 = DMCLogObjects(v19, v20)[5];
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v34 = v14;
-      _os_log_impl(&dword_1B1630000, v15, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Got IPv6 keys: %{public}@", buf, 0xCu);
+      v41 = v19;
+      _os_log_impl(&dword_1B1630000, v21, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Got IPv6 keys: %{public}@", buf, 0xCu);
     }
 
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v16 = v14;
-    v17 = [(__CFArray *)v16 countByEnumeratingWithState:&v28 objects:v32 count:16];
-    if (v17)
+    v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v22 = v19;
+    v23 = [(__CFArray *)v22 countByEnumeratingWithState:&v35 objects:v39 count:16];
+    if (v23)
     {
-      v18 = v17;
-      v27 = v13;
-      v19 = *v29;
+      v24 = v23;
+      v34 = v18;
+      v25 = *v36;
       while (2)
       {
-        for (i = 0; i != v18; ++i)
+        for (i = 0; i != v24; ++i)
         {
-          if (*v29 != v19)
+          if (*v36 != v25)
           {
-            objc_enumerationMutation(v16);
+            objc_enumerationMutation(v22);
           }
 
-          v21 = _serviceIDFromDynamicStoreKey(*(*(&v28 + 1) + 8 * i));
-          if ([(__CFString *)v21 isEqualToString:v5])
+          v27 = _serviceIDFromDynamicStoreKey(*(*(&v35 + 1) + 8 * i));
+          if ([(__CFString *)v27 isEqualToString:v5])
           {
-            v22 = SCDynamicStoreCopyValue(a2, v21);
-            if (_isIPv6ConfigInfoUseful(v22))
+            v28 = SCDynamicStoreCopyValue(a2, v27);
+            v29 = _isIPv6ConfigInfoUseful(v28);
+            if (v29)
             {
-              v26 = DMCLogObjects()[5];
-              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+              v33 = DMCLogObjects(v29, v30)[5];
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 0;
-                _os_log_impl(&dword_1B1630000, v26, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Got useful dynamic IPv6 config!", buf, 2u);
+                _os_log_impl(&dword_1B1630000, v33, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Got useful dynamic IPv6 config!", buf, 2u);
               }
 
-              v10 = 1;
+              v14 = 1;
               goto LABEL_36;
             }
           }
         }
 
-        v18 = [(__CFArray *)v16 countByEnumeratingWithState:&v28 objects:v32 count:16];
-        if (v18)
+        v24 = [(__CFArray *)v22 countByEnumeratingWithState:&v35 objects:v39 count:16];
+        if (v24)
         {
           continue;
         }
@@ -3759,35 +3739,34 @@ LABEL_31:
         break;
       }
 
-      v10 = 0;
+      v14 = 0;
 LABEL_36:
-      v13 = v27;
+      v18 = v34;
     }
 
     else
     {
-      v10 = 0;
+      v14 = 0;
     }
 
-    CFRelease(v13);
+    CFRelease(v18);
   }
 
   else
   {
-    v11 = DMCLogObjects()[5];
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v15 = DMCLogObjects(Enabled, v7)[5];
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B1630000, v11, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Unable to get IPv6 info and/or it's disabled", buf, 2u);
+      _os_log_impl(&dword_1B1630000, v15, OS_LOG_TYPE_DEBUG, "DMCDeviceIsNetworkTethered: Unable to get IPv6 info and/or it's disabled", buf, 2u);
     }
 
-    v10 = 0;
+    v14 = 0;
   }
 
 LABEL_32:
 
-  v24 = *MEMORY[0x1E69E9840];
-  return v10;
+  return v14;
 }
 
 id _serviceIDFromDynamicStoreKey(uint64_t a1)
@@ -3814,65 +3793,63 @@ LABEL_6:
 
 void ___isIPv4ConfigMethodAutomatic_block_invoke()
 {
-  v7[4] = *MEMORY[0x1E69E9840];
+  v6[4] = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
   v1 = *MEMORY[0x1E69828B0];
-  v7[0] = *MEMORY[0x1E69828A8];
-  v7[1] = v1;
+  v6[0] = *MEMORY[0x1E69828A8];
+  v6[1] = v1;
   v2 = *MEMORY[0x1E69828C0];
-  v7[2] = *MEMORY[0x1E69828A0];
-  v7[3] = v2;
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:4];
+  v6[2] = *MEMORY[0x1E69828A0];
+  v6[3] = v2;
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:4];
   v4 = [v0 setWithArray:v3];
   v5 = _isIPv4ConfigMethodAutomatic_ipv4DynamicConfigMethods;
   _isIPv4ConfigMethodAutomatic_ipv4DynamicConfigMethods = v4;
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t DMCSendSettingsChangedNotification()
+uint64_t DMCSendSettingsChangedNotification(uint64_t a1, uint64_t a2)
 {
-  v0 = *DMCLogObjects();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = *DMCLogObjects(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_1B1630000, v0, OS_LOG_TYPE_DEFAULT, "Sending settings changed notification.", v2, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_1B1630000, v2, OS_LOG_TYPE_DEFAULT, "Sending settings changed notification.", v4, 2u);
   }
 
   return notify_post([@"com.apple.managedconfiguration.settingschanged" cStringUsingEncoding:4]);
 }
 
-uint64_t DMCSendUserSettingsChangedNotification()
+uint64_t DMCSendUserSettingsChangedNotification(uint64_t a1, uint64_t a2)
 {
-  v0 = *DMCLogObjects();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = *DMCLogObjects(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_1B1630000, v0, OS_LOG_TYPE_DEFAULT, "Sending user settings changed notification.", v2, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_1B1630000, v2, OS_LOG_TYPE_DEFAULT, "Sending user settings changed notification.", v4, 2u);
   }
 
   return notify_post([@"com.apple.managedconfiguration.usersettingschanged" cStringUsingEncoding:4]);
 }
 
-uint64_t DMCSendUPPTrustFailedNotification()
+uint64_t DMCSendUPPTrustFailedNotification(uint64_t a1, uint64_t a2)
 {
-  v0 = *DMCLogObjects();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = *DMCLogObjects(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_1B1630000, v0, OS_LOG_TYPE_DEFAULT, "Sending UPP trust failed notification.", v2, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_1B1630000, v2, OS_LOG_TYPE_DEFAULT, "Sending UPP trust failed notification.", v4, 2u);
   }
 
   return notify_post([@"com.apple.devicemanagementclient.uppTrustFailed" cStringUsingEncoding:4]);
 }
 
-uint64_t DMCSendUPPVerificationOfflineNotification()
+uint64_t DMCSendUPPVerificationOfflineNotification(uint64_t a1, uint64_t a2)
 {
-  v0 = *DMCLogObjects();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = *DMCLogObjects(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v2 = 0;
-    _os_log_impl(&dword_1B1630000, v0, OS_LOG_TYPE_DEFAULT, "Sending UPP verification offline notification.", v2, 2u);
+    *v4 = 0;
+    _os_log_impl(&dword_1B1630000, v2, OS_LOG_TYPE_DEFAULT, "Sending UPP verification offline notification.", v4, 2u);
   }
 
   return notify_post([@"com.apple.devicemanagementclient.uppVerificationOffline" cStringUsingEncoding:4]);
@@ -3882,22 +3859,21 @@ void DMCSendNagDeadlineNotification(void *a1)
 {
   v10 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  v2 = *DMCLogObjects();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = *DMCLogObjects(v1, v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
     v9 = v1;
-    _os_log_impl(&dword_1B1630000, v2, OS_LOG_TYPE_DEFAULT, "Sending nag deadline notification for item: %{public}@", buf, 0xCu);
+    _os_log_impl(&dword_1B1630000, v3, OS_LOG_TYPE_DEFAULT, "Sending nag deadline notification for item: %{public}@", buf, 0xCu);
   }
 
-  v3 = [MEMORY[0x1E696AD88] defaultCenter];
+  v4 = [MEMORY[0x1E696AD88] defaultCenter];
   v6 = @"NagItem";
   v7 = v1;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v7 forKeys:&v6 count:1];
-  [v3 postNotificationName:@"com.apple.devicemanagementclient.nagDeadline" object:0 userInfo:v4];
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v7 forKeys:&v6 count:1];
+  [v4 postNotificationName:@"com.apple.devicemanagementclient.nagDeadline" object:0 userInfo:v5];
 
   notify_post([@"com.apple.devicemanagementclient.nagDeadline" cStringUsingEncoding:4]);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __Block_byref_object_copy__4(uint64_t result, uint64_t a2)
@@ -3912,47 +3888,45 @@ id DMCSystemContainerPathWithBundleIdentifier(void *a1)
   v8 = *MEMORY[0x1E69E9840];
   [a1 UTF8String];
   v1 = container_system_path_for_identifier();
-  v2 = *DMCLogObjects();
+  v3 = *DMCLogObjects(v1, v2);
   if (v1)
   {
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446210;
       v7 = v1;
-      _os_log_impl(&dword_1B1630000, v2, OS_LOG_TYPE_DEFAULT, "Got system container path from MCM: %{public}s", buf, 0xCu);
+      _os_log_impl(&dword_1B1630000, v3, OS_LOG_TYPE_DEFAULT, "Got system container path from MCM: %{public}s", buf, 0xCu);
     }
 
-    v3 = [MEMORY[0x1E696AEC0] stringWithCString:v1 encoding:4];
+    v4 = [MEMORY[0x1E696AEC0] stringWithCString:v1 encoding:4];
     free(v1);
   }
 
   else
   {
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       *buf = 134217984;
       v7 = 1;
-      _os_log_impl(&dword_1B1630000, v2, OS_LOG_TYPE_ERROR, "Error getting system container: %llu", buf, 0xCu);
+      _os_log_impl(&dword_1B1630000, v3, OS_LOG_TYPE_ERROR, "Error getting system container: %llu", buf, 0xCu);
     }
 
-    v3 = 0;
+    v4 = 0;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
-
-  return v3;
+  return v4;
 }
 
-id MCSystemMetadataFilePath()
+id MCSystemMetadataFilePath(uint64_t a1)
 {
   if (MCSystemMetadataFilePath_once != -1)
   {
     MCSystemMetadataFilePath_cold_1();
   }
 
-  v1 = MCSystemMetadataFilePath_str;
+  v2 = MCSystemMetadataFilePath_str;
 
-  return v1;
+  return v2;
 }
 
 void __MCSystemMetadataFilePath_block_invoke()
@@ -3969,16 +3943,16 @@ void __MCSystemMetadataFilePath_block_invoke()
   MCSystemMetadataFilePath_str = v1;
 }
 
-id MCUserMetadataFilePath()
+id MCUserMetadataFilePath(uint64_t a1)
 {
   if (MCUserMetadataFilePath_once != -1)
   {
     MCUserMetadataFilePath_cold_1();
   }
 
-  v1 = MCUserMetadataFilePath_str;
+  v2 = MCUserMetadataFilePath_str;
 
-  return v1;
+  return v2;
 }
 
 void __MCUserMetadataFilePath_block_invoke()
@@ -3995,16 +3969,16 @@ void __MCUserMetadataFilePath_block_invoke()
   MCUserMetadataFilePath_str = v1;
 }
 
-id MCLegacyMetadataFilePath()
+id MCLegacyMetadataFilePath(uint64_t a1)
 {
   if (MCLegacyMetadataFilePath_once != -1)
   {
     MCLegacyMetadataFilePath_cold_1();
   }
 
-  v1 = MCLegacyMetadataFilePath_str;
+  v2 = MCLegacyMetadataFilePath_str;
 
-  return v1;
+  return v2;
 }
 
 void __MCLegacyMetadataFilePath_block_invoke()
@@ -4021,16 +3995,16 @@ void __MCLegacyMetadataFilePath_block_invoke()
   MCLegacyMetadataFilePath_str = v1;
 }
 
-id DMCConfigurationProfilesSystemGroupContainerMetadataFilePath()
+id DMCConfigurationProfilesSystemGroupContainerMetadataFilePath(uint64_t a1)
 {
   if (DMCConfigurationProfilesSystemGroupContainerMetadataFilePath_once != -1)
   {
     DMCConfigurationProfilesSystemGroupContainerMetadataFilePath_cold_1();
   }
 
-  v1 = DMCConfigurationProfilesSystemGroupContainerMetadataFilePath_str;
+  v2 = DMCConfigurationProfilesSystemGroupContainerMetadataFilePath_str;
 
-  return v1;
+  return v2;
 }
 
 void __DMCConfigurationProfilesSystemGroupContainerMetadataFilePath_block_invoke()
@@ -4042,16 +4016,16 @@ void __DMCConfigurationProfilesSystemGroupContainerMetadataFilePath_block_invoke
   DMCConfigurationProfilesSystemGroupContainerMetadataFilePath_str = v1;
 }
 
-id DMCMultiUserDeviceConfigurationFilePath()
+id DMCMultiUserDeviceConfigurationFilePath(uint64_t a1)
 {
   if (DMCMultiUserDeviceConfigurationFilePath_once != -1)
   {
     DMCMultiUserDeviceConfigurationFilePath_cold_1();
   }
 
-  v1 = DMCMultiUserDeviceConfigurationFilePath_str;
+  v2 = DMCMultiUserDeviceConfigurationFilePath_str;
 
-  return v1;
+  return v2;
 }
 
 void __DMCMultiUserDeviceConfigurationFilePath_block_invoke()
@@ -4068,16 +4042,16 @@ void __DMCMultiUserDeviceConfigurationFilePath_block_invoke()
   DMCMultiUserDeviceConfigurationFilePath_str = v1;
 }
 
-id DMCMultiUserUserConfigurationFilePath()
+id DMCMultiUserUserConfigurationFilePath(uint64_t a1)
 {
   if (DMCMultiUserUserConfigurationFilePath_once != -1)
   {
     DMCMultiUserUserConfigurationFilePath_cold_1();
   }
 
-  v1 = DMCMultiUserUserConfigurationFilePath_str;
+  v2 = DMCMultiUserUserConfigurationFilePath_str;
 
-  return v1;
+  return v2;
 }
 
 void __DMCMultiUserUserConfigurationFilePath_block_invoke()
@@ -4094,16 +4068,16 @@ void __DMCMultiUserUserConfigurationFilePath_block_invoke()
   DMCMultiUserUserConfigurationFilePath_str = v1;
 }
 
-id DMCHangTracerDirectory()
+id DMCHangTracerDirectory(uint64_t a1)
 {
   if (DMCHangTracerDirectory_once != -1)
   {
     DMCHangTracerDirectory_cold_1();
   }
 
-  v1 = DMCHangTracerDirectory_str;
+  v2 = DMCHangTracerDirectory_str;
 
-  return v1;
+  return v2;
 }
 
 void __DMCHangTracerDirectory_block_invoke()
@@ -4120,16 +4094,16 @@ void __DMCHangTracerDirectory_block_invoke()
   DMCHangTracerDirectory_str = v1;
 }
 
-id DMCLoggingDirectory()
+id DMCLoggingDirectory(uint64_t a1)
 {
   if (DMCLoggingDirectory_once != -1)
   {
     DMCLoggingDirectory_cold_1();
   }
 
-  v1 = DMCLoggingDirectory_str;
+  v2 = DMCLoggingDirectory_str;
 
-  return v1;
+  return v2;
 }
 
 void __DMCLoggingDirectory_block_invoke()
@@ -4146,37 +4120,37 @@ void __DMCLoggingDirectory_block_invoke()
   DMCLoggingDirectory_str = v1;
 }
 
-id DMCEventsFilePath()
+id DMCEventsFilePath(uint64_t a1)
 {
   if (DMCEventsFilePath_once != -1)
   {
     DMCEventsFilePath_cold_1();
   }
 
-  v1 = DMCEventsFilePath_str;
-
-  return v1;
-}
-
-void __DMCEventsFilePath_block_invoke()
-{
-  v3 = DMCLoggingDirectory();
-  v0 = [v3 stringByAppendingPathComponent:@"DMCEvents.plist"];
-  v1 = [v0 copy];
   v2 = DMCEventsFilePath_str;
-  DMCEventsFilePath_str = v1;
+
+  return v2;
 }
 
-id DMCNagItemsDirectory()
+void __DMCEventsFilePath_block_invoke(uint64_t a1)
+{
+  v4 = DMCLoggingDirectory(a1);
+  v1 = [v4 stringByAppendingPathComponent:@"DMCEvents.plist"];
+  v2 = [v1 copy];
+  v3 = DMCEventsFilePath_str;
+  DMCEventsFilePath_str = v2;
+}
+
+id DMCNagItemsDirectory(uint64_t a1)
 {
   if (DMCNagItemsDirectory_once != -1)
   {
     DMCNagItemsDirectory_cold_1();
   }
 
-  v1 = DMCNagItemsDirectory_str;
+  v2 = DMCNagItemsDirectory_str;
 
-  return v1;
+  return v2;
 }
 
 void __DMCNagItemsDirectory_block_invoke()
@@ -4193,16 +4167,16 @@ void __DMCNagItemsDirectory_block_invoke()
   DMCNagItemsDirectory_str = v1;
 }
 
-id DMCSystemFeaturesDirectory()
+id DMCSystemFeaturesDirectory(uint64_t a1)
 {
   if (DMCSystemFeaturesDirectory_once != -1)
   {
     DMCSystemFeaturesDirectory_cold_1();
   }
 
-  v1 = DMCSystemFeaturesDirectory_str;
+  v2 = DMCSystemFeaturesDirectory_str;
 
-  return v1;
+  return v2;
 }
 
 void __DMCSystemFeaturesDirectory_block_invoke()
@@ -4219,16 +4193,16 @@ void __DMCSystemFeaturesDirectory_block_invoke()
   DMCSystemFeaturesDirectory_str = v1;
 }
 
-id DMCDiskRestrictionFilePath()
+id DMCDiskRestrictionFilePath(uint64_t a1)
 {
   if (DMCDiskRestrictionFilePath_once != -1)
   {
     DMCDiskRestrictionFilePath_cold_1();
   }
 
-  v1 = DMCDiskRestrictionFilePath_str;
+  v2 = DMCDiskRestrictionFilePath_str;
 
-  return v1;
+  return v2;
 }
 
 void __DMCDiskRestrictionFilePath_block_invoke()
@@ -4239,16 +4213,16 @@ void __DMCDiskRestrictionFilePath_block_invoke()
   DMCDiskRestrictionFilePath_str = v0;
 }
 
-id DMCManagedEventsDaemonKeepAliveFilePath()
+id DMCManagedEventsDaemonKeepAliveFilePath(uint64_t a1)
 {
   if (DMCManagedEventsDaemonKeepAliveFilePath_once != -1)
   {
     DMCManagedEventsDaemonKeepAliveFilePath_cold_1();
   }
 
-  v1 = DMCManagedEventsDaemonKeepAliveFilePath_str;
+  v2 = DMCManagedEventsDaemonKeepAliveFilePath_str;
 
-  return v1;
+  return v2;
 }
 
 void __DMCManagedEventsDaemonKeepAliveFilePath_block_invoke()
@@ -4259,16 +4233,16 @@ void __DMCManagedEventsDaemonKeepAliveFilePath_block_invoke()
   DMCManagedEventsDaemonKeepAliveFilePath_str = v0;
 }
 
-id DMCDeviceManagementDaemonSetupOptionDirectoryPath()
+id DMCDeviceManagementDaemonSetupOptionDirectoryPath(uint64_t a1)
 {
   if (DMCDeviceManagementDaemonSetupOptionDirectoryPath_once != -1)
   {
     DMCDeviceManagementDaemonSetupOptionDirectoryPath_cold_1();
   }
 
-  v1 = DMCDeviceManagementDaemonSetupOptionDirectoryPath_str;
+  v2 = DMCDeviceManagementDaemonSetupOptionDirectoryPath_str;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __DMCDeviceManagementDaemonSetupOptionDirectoryPath_block_invoke()
@@ -4278,16 +4252,16 @@ uint64_t __DMCDeviceManagementDaemonSetupOptionDirectoryPath_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id MTiPCUKeychainMapPath()
+id MTiPCUKeychainMapPath(uint64_t a1)
 {
   if (MTiPCUKeychainMapPath_once != -1)
   {
     MTiPCUKeychainMapPath_cold_1();
   }
 
-  v1 = MTiPCUKeychainMapPath_str;
+  v2 = MTiPCUKeychainMapPath_str;
 
-  return v1;
+  return v2;
 }
 
 void __MTiPCUKeychainMapPath_block_invoke()
@@ -4304,16 +4278,16 @@ void __MTiPCUKeychainMapPath_block_invoke()
   MTiPCUKeychainMapPath_str = v1;
 }
 
-id DMCSystemLostModeRequestPath()
+id DMCSystemLostModeRequestPath(uint64_t a1)
 {
   if (DMCSystemLostModeRequestPath_once != -1)
   {
     DMCSystemLostModeRequestPath_cold_1();
   }
 
-  v1 = DMCSystemLostModeRequestPath_str;
+  v2 = DMCSystemLostModeRequestPath_str;
 
-  return v1;
+  return v2;
 }
 
 void __DMCSystemLostModeRequestPath_block_invoke()
@@ -4330,16 +4304,16 @@ void __DMCSystemLostModeRequestPath_block_invoke()
   DMCSystemLostModeRequestPath_str = v1;
 }
 
-id MDMFilePath()
+id MDMFilePath(uint64_t a1)
 {
   if (MDMFilePath_once != -1)
   {
     MDMFilePath_cold_1();
   }
 
-  v1 = MDMFilePath_str;
+  v2 = MDMFilePath_str;
 
-  return v1;
+  return v2;
 }
 
 void __MDMFilePath_block_invoke()
@@ -4356,16 +4330,16 @@ void __MDMFilePath_block_invoke()
   MDMFilePath_str = v1;
 }
 
-id MDMUserFilePath()
+id MDMUserFilePath(uint64_t a1)
 {
   if (MDMUserFilePath_once != -1)
   {
     MDMUserFilePath_cold_1();
   }
 
-  v1 = MDMUserFilePath_str;
+  v2 = MDMUserFilePath_str;
 
-  return v1;
+  return v2;
 }
 
 void __MDMUserFilePath_block_invoke()
@@ -4382,16 +4356,16 @@ void __MDMUserFilePath_block_invoke()
   MDMUserFilePath_str = v1;
 }
 
-id MDMPropertiesFilePath()
+id MDMPropertiesFilePath(uint64_t a1)
 {
   if (MDMPropertiesFilePath_once != -1)
   {
     MDMPropertiesFilePath_cold_1();
   }
 
-  v1 = MDMPropertiesFilePath_str;
+  v2 = MDMPropertiesFilePath_str;
 
-  return v1;
+  return v2;
 }
 
 void __MDMPropertiesFilePath_block_invoke()
@@ -4408,16 +4382,16 @@ void __MDMPropertiesFilePath_block_invoke()
   MDMPropertiesFilePath_str = v1;
 }
 
-id MDMPropertiesUserFilePath()
+id MDMPropertiesUserFilePath(uint64_t a1)
 {
   if (MDMPropertiesUserFilePath_once != -1)
   {
     MDMPropertiesUserFilePath_cold_1();
   }
 
-  v1 = MDMPropertiesUserFilePath_str;
+  v2 = MDMPropertiesUserFilePath_str;
 
-  return v1;
+  return v2;
 }
 
 void __MDMPropertiesUserFilePath_block_invoke()
@@ -4434,16 +4408,16 @@ void __MDMPropertiesUserFilePath_block_invoke()
   MDMPropertiesUserFilePath_str = v1;
 }
 
-id MDMOutstandingActivitiesFilePath()
+id MDMOutstandingActivitiesFilePath(uint64_t a1)
 {
   if (MDMOutstandingActivitiesFilePath_once != -1)
   {
     MDMOutstandingActivitiesFilePath_cold_1();
   }
 
-  v1 = MDMOutstandingActivitiesFilePath_str;
+  v2 = MDMOutstandingActivitiesFilePath_str;
 
-  return v1;
+  return v2;
 }
 
 void __MDMOutstandingActivitiesFilePath_block_invoke()
@@ -4460,16 +4434,16 @@ void __MDMOutstandingActivitiesFilePath_block_invoke()
   MDMOutstandingActivitiesFilePath_str = v1;
 }
 
-id MDMUserOutstandingActivitiesFilePath()
+id MDMUserOutstandingActivitiesFilePath(uint64_t a1)
 {
   if (MDMUserOutstandingActivitiesFilePath_once != -1)
   {
     MDMUserOutstandingActivitiesFilePath_cold_1();
   }
 
-  v1 = MDMUserOutstandingActivitiesFilePath_str;
+  v2 = MDMUserOutstandingActivitiesFilePath_str;
 
-  return v1;
+  return v2;
 }
 
 void __MDMUserOutstandingActivitiesFilePath_block_invoke()
@@ -4486,16 +4460,16 @@ void __MDMUserOutstandingActivitiesFilePath_block_invoke()
   MDMUserOutstandingActivitiesFilePath_str = v1;
 }
 
-id MDMEventsFilePath()
+id MDMEventsFilePath(uint64_t a1)
 {
   if (MDMEventsFilePath_once != -1)
   {
     MDMEventsFilePath_cold_1();
   }
 
-  v1 = MDMEventsFilePath_str;
+  v2 = MDMEventsFilePath_str;
 
-  return v1;
+  return v2;
 }
 
 void __MDMEventsFilePath_block_invoke()
@@ -4512,16 +4486,16 @@ void __MDMEventsFilePath_block_invoke()
   MDMEventsFilePath_str = v1;
 }
 
-id MDMDirtyEnrollmentStateFilePath()
+id MDMDirtyEnrollmentStateFilePath(uint64_t a1)
 {
   if (MDMDirtyEnrollmentStateFilePath_once != -1)
   {
     MDMDirtyEnrollmentStateFilePath_cold_1();
   }
 
-  v1 = MDMDirtyEnrollmentStateFilePath_str;
+  v2 = MDMDirtyEnrollmentStateFilePath_str;
 
-  return v1;
+  return v2;
 }
 
 void __MDMDirtyEnrollmentStateFilePath_block_invoke()
@@ -4538,16 +4512,16 @@ void __MDMDirtyEnrollmentStateFilePath_block_invoke()
   MDMDirtyEnrollmentStateFilePath_str = v1;
 }
 
-id MDMPostSetupAutoInstallProfilePath()
+id MDMPostSetupAutoInstallProfilePath(uint64_t a1)
 {
   if (MDMPostSetupAutoInstallProfilePath_once != -1)
   {
     MDMPostSetupAutoInstallProfilePath_cold_1();
   }
 
-  v1 = MDMPostSetupAutoInstallProfilePath_str;
+  v2 = MDMPostSetupAutoInstallProfilePath_str;
 
-  return v1;
+  return v2;
 }
 
 void __MDMPostSetupAutoInstallProfilePath_block_invoke()
@@ -4564,16 +4538,16 @@ void __MDMPostSetupAutoInstallProfilePath_block_invoke()
   MDMPostSetupAutoInstallProfilePath_str = v1;
 }
 
-id MDMPostSetupAutoInstallSetAsideProfilePath()
+id MDMPostSetupAutoInstallSetAsideProfilePath(uint64_t a1)
 {
   if (MDMPostSetupAutoInstallSetAsideProfilePath_once != -1)
   {
     MDMPostSetupAutoInstallSetAsideProfilePath_cold_1();
   }
 
-  v1 = MDMPostSetupAutoInstallSetAsideProfilePath_str;
+  v2 = MDMPostSetupAutoInstallSetAsideProfilePath_str;
 
-  return v1;
+  return v2;
 }
 
 void __MDMPostSetupAutoInstallSetAsideProfilePath_block_invoke()
@@ -4590,16 +4564,16 @@ void __MDMPostSetupAutoInstallSetAsideProfilePath_block_invoke()
   MDMPostSetupAutoInstallSetAsideProfilePath_str = v1;
 }
 
-id MDMSystemRestartLogPath()
+id MDMSystemRestartLogPath(uint64_t a1)
 {
   if (MDMSystemRestartLogPath_once != -1)
   {
     MDMSystemRestartLogPath_cold_1();
   }
 
-  v1 = MDMSystemRestartLogPath_str;
+  v2 = MDMSystemRestartLogPath_str;
 
-  return v1;
+  return v2;
 }
 
 void __MDMSystemRestartLogPath_block_invoke()
@@ -4616,16 +4590,16 @@ void __MDMSystemRestartLogPath_block_invoke()
   MDMSystemRestartLogPath_str = v1;
 }
 
-id MDMSystemShutDownLogPath()
+id MDMSystemShutDownLogPath(uint64_t a1)
 {
   if (MDMSystemShutDownLogPath_once != -1)
   {
     MDMSystemShutDownLogPath_cold_1();
   }
 
-  v1 = MDMSystemShutDownLogPath_str;
+  v2 = MDMSystemShutDownLogPath_str;
 
-  return v1;
+  return v2;
 }
 
 void __MDMSystemShutDownLogPath_block_invoke()
@@ -4642,16 +4616,16 @@ void __MDMSystemShutDownLogPath_block_invoke()
   MDMSystemShutDownLogPath_str = v1;
 }
 
-id MDMSetupAssistantSettingsFilePath()
+id MDMSetupAssistantSettingsFilePath(uint64_t a1)
 {
   if (MDMSetupAssistantSettingsFilePath_once != -1)
   {
     MDMSetupAssistantSettingsFilePath_cold_1();
   }
 
-  v1 = MDMSetupAssistantSettingsFilePath_str;
+  v2 = MDMSetupAssistantSettingsFilePath_str;
 
-  return v1;
+  return v2;
 }
 
 void __MDMSetupAssistantSettingsFilePath_block_invoke()
@@ -4668,142 +4642,142 @@ void __MDMSetupAssistantSettingsFilePath_block_invoke()
   MDMSetupAssistantSettingsFilePath_str = v1;
 }
 
-id MDMMigrationDirectory()
+id MDMMigrationDirectory(uint64_t a1)
 {
   if (MDMMigrationDirectory_once != -1)
   {
     MDMMigrationDirectory_cold_1();
   }
 
-  v1 = MDMMigrationDirectory_str;
-
-  return v1;
-}
-
-void __MDMMigrationDirectory_block_invoke()
-{
-  v3 = DMCSystemFeaturesDirectory();
-  v0 = [v3 stringByAppendingPathComponent:@"MDMMigration"];
-  v1 = [v0 copy];
   v2 = MDMMigrationDirectory_str;
-  MDMMigrationDirectory_str = v1;
+
+  return v2;
 }
 
-id MDMCloudConfigurationPendingMigrationDetailsFilePath()
+void __MDMMigrationDirectory_block_invoke(uint64_t a1)
+{
+  v4 = DMCSystemFeaturesDirectory(a1);
+  v1 = [v4 stringByAppendingPathComponent:@"MDMMigration"];
+  v2 = [v1 copy];
+  v3 = MDMMigrationDirectory_str;
+  MDMMigrationDirectory_str = v2;
+}
+
+id MDMCloudConfigurationPendingMigrationDetailsFilePath(uint64_t a1)
 {
   if (MDMCloudConfigurationPendingMigrationDetailsFilePath_once != -1)
   {
     MDMCloudConfigurationPendingMigrationDetailsFilePath_cold_1();
   }
 
-  v1 = MDMCloudConfigurationPendingMigrationDetailsFilePath_str;
-
-  return v1;
-}
-
-void __MDMCloudConfigurationPendingMigrationDetailsFilePath_block_invoke()
-{
-  v3 = MDMMigrationDirectory();
-  v0 = [v3 stringByAppendingPathComponent:@"CloudConfigurationPendingMigrationDetails.plist"];
-  v1 = [v0 copy];
   v2 = MDMCloudConfigurationPendingMigrationDetailsFilePath_str;
-  MDMCloudConfigurationPendingMigrationDetailsFilePath_str = v1;
+
+  return v2;
 }
 
-id MDMMigrationConfigFilePath()
+void __MDMCloudConfigurationPendingMigrationDetailsFilePath_block_invoke(uint64_t a1)
+{
+  v4 = MDMMigrationDirectory(a1);
+  v1 = [v4 stringByAppendingPathComponent:@"CloudConfigurationPendingMigrationDetails.plist"];
+  v2 = [v1 copy];
+  v3 = MDMCloudConfigurationPendingMigrationDetailsFilePath_str;
+  MDMCloudConfigurationPendingMigrationDetailsFilePath_str = v2;
+}
+
+id MDMMigrationConfigFilePath(uint64_t a1)
 {
   if (MDMMigrationConfigFilePath_once != -1)
   {
     MDMMigrationConfigFilePath_cold_1();
   }
 
-  v1 = MDMMigrationConfigFilePath_str;
-
-  return v1;
-}
-
-void __MDMMigrationConfigFilePath_block_invoke()
-{
-  v3 = MDMMigrationDirectory();
-  v0 = [v3 stringByAppendingPathComponent:@"MDMMigrationConfig.plist"];
-  v1 = [v0 copy];
   v2 = MDMMigrationConfigFilePath_str;
-  MDMMigrationConfigFilePath_str = v1;
+
+  return v2;
 }
 
-id MDMDEPPushServiceDirectory()
+void __MDMMigrationConfigFilePath_block_invoke(uint64_t a1)
+{
+  v4 = MDMMigrationDirectory(a1);
+  v1 = [v4 stringByAppendingPathComponent:@"MDMMigrationConfig.plist"];
+  v2 = [v1 copy];
+  v3 = MDMMigrationConfigFilePath_str;
+  MDMMigrationConfigFilePath_str = v2;
+}
+
+id MDMDEPPushServiceDirectory(uint64_t a1)
 {
   if (MDMDEPPushServiceDirectory_once != -1)
   {
     MDMDEPPushServiceDirectory_cold_1();
   }
 
-  v1 = MDMDEPPushServiceDirectory_str;
-
-  return v1;
-}
-
-void __MDMDEPPushServiceDirectory_block_invoke()
-{
-  v3 = DMCSystemFeaturesDirectory();
-  v0 = [v3 stringByAppendingPathComponent:@"DEPPush"];
-  v1 = [v0 copy];
   v2 = MDMDEPPushServiceDirectory_str;
-  MDMDEPPushServiceDirectory_str = v1;
+
+  return v2;
 }
 
-id MDMDEPTokenSyncActivitiesFilePath()
+void __MDMDEPPushServiceDirectory_block_invoke(uint64_t a1)
+{
+  v4 = DMCSystemFeaturesDirectory(a1);
+  v1 = [v4 stringByAppendingPathComponent:@"DEPPush"];
+  v2 = [v1 copy];
+  v3 = MDMDEPPushServiceDirectory_str;
+  MDMDEPPushServiceDirectory_str = v2;
+}
+
+id MDMDEPTokenSyncActivitiesFilePath(uint64_t a1)
 {
   if (MDMDEPTokenSyncActivitiesFilePath_once != -1)
   {
     MDMDEPTokenSyncActivitiesFilePath_cold_1();
   }
 
-  v1 = MDMDEPTokenSyncActivitiesFilePath_str;
-
-  return v1;
-}
-
-void __MDMDEPTokenSyncActivitiesFilePath_block_invoke()
-{
-  v3 = MDMDEPPushServiceDirectory();
-  v0 = [v3 stringByAppendingPathComponent:@"MDMDEPTokenSyncActivities.plist"];
-  v1 = [v0 copy];
   v2 = MDMDEPTokenSyncActivitiesFilePath_str;
-  MDMDEPTokenSyncActivitiesFilePath_str = v1;
+
+  return v2;
 }
 
-id MDMDEPTokenSyncPropertiesFilePath()
+void __MDMDEPTokenSyncActivitiesFilePath_block_invoke(uint64_t a1)
+{
+  v4 = MDMDEPPushServiceDirectory(a1);
+  v1 = [v4 stringByAppendingPathComponent:@"MDMDEPTokenSyncActivities.plist"];
+  v2 = [v1 copy];
+  v3 = MDMDEPTokenSyncActivitiesFilePath_str;
+  MDMDEPTokenSyncActivitiesFilePath_str = v2;
+}
+
+id MDMDEPTokenSyncPropertiesFilePath(uint64_t a1)
 {
   if (MDMDEPTokenSyncPropertiesFilePath_once != -1)
   {
     MDMDEPTokenSyncPropertiesFilePath_cold_1();
   }
 
-  v1 = MDMDEPTokenSyncPropertiesFilePath_str;
-
-  return v1;
-}
-
-void __MDMDEPTokenSyncPropertiesFilePath_block_invoke()
-{
-  v3 = MDMDEPPushServiceDirectory();
-  v0 = [v3 stringByAppendingPathComponent:@"DEPPushTokenSyncProperties.plist"];
-  v1 = [v0 copy];
   v2 = MDMDEPTokenSyncPropertiesFilePath_str;
-  MDMDEPTokenSyncPropertiesFilePath_str = v1;
+
+  return v2;
 }
 
-id MDMManagedStoreBooksManifestPath()
+void __MDMDEPTokenSyncPropertiesFilePath_block_invoke(uint64_t a1)
+{
+  v4 = MDMDEPPushServiceDirectory(a1);
+  v1 = [v4 stringByAppendingPathComponent:@"DEPPushTokenSyncProperties.plist"];
+  v2 = [v1 copy];
+  v3 = MDMDEPTokenSyncPropertiesFilePath_str;
+  MDMDEPTokenSyncPropertiesFilePath_str = v2;
+}
+
+id MDMManagedStoreBooksManifestPath(uint64_t a1)
 {
   if (MDMManagedStoreBooksManifestPath_once != -1)
   {
     MDMManagedStoreBooksManifestPath_cold_1();
   }
 
-  v1 = MDMManagedStoreBooksManifestPath_str;
+  v2 = MDMManagedStoreBooksManifestPath_str;
 
-  return v1;
+  return v2;
 }
 
 void __MDMManagedStoreBooksManifestPath_block_invoke()
@@ -4832,11 +4806,11 @@ id MDMManagedNonStoreBooksSystemGroupContainer()
     v0 = MDMManagedNonStoreBooksSystemGroupContainer_booksSystemGroupContainerPath;
     if (!MDMManagedNonStoreBooksSystemGroupContainer_booksSystemGroupContainerPath)
     {
-      v3 = *DMCLogObjects();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+      v4 = *DMCLogObjects(0, v3);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        *v5 = 0;
-        _os_log_impl(&dword_1B1630000, v3, OS_LOG_TYPE_ERROR, "Failed to get managed books system group container", v5, 2u);
+        *v6 = 0;
+        _os_log_impl(&dword_1B1630000, v4, OS_LOG_TYPE_ERROR, "Failed to get managed books system group container", v6, 2u);
       }
 
       v0 = MDMManagedNonStoreBooksSystemGroupContainer_booksSystemGroupContainerPath;
@@ -4846,16 +4820,16 @@ id MDMManagedNonStoreBooksSystemGroupContainer()
   return v0;
 }
 
-id MDMManagedNonStoreBooksDirectory()
+id MDMManagedNonStoreBooksDirectory(uint64_t a1)
 {
   if (MDMManagedNonStoreBooksDirectory_once != -1)
   {
     MDMManagedNonStoreBooksDirectory_cold_1();
   }
 
-  v1 = MDMManagedNonStoreBooksDirectory_str;
+  v2 = MDMManagedNonStoreBooksDirectory_str;
 
-  return v1;
+  return v2;
 }
 
 void __MDMManagedNonStoreBooksDirectory_block_invoke()
@@ -4867,37 +4841,37 @@ void __MDMManagedNonStoreBooksDirectory_block_invoke()
   MDMManagedNonStoreBooksDirectory_str = v1;
 }
 
-id MDMManagedNonStoreBooksManifestPath()
+id MDMManagedNonStoreBooksManifestPath(uint64_t a1)
 {
   if (MDMManagedNonStoreBooksManifestPath_once != -1)
   {
     MDMManagedNonStoreBooksManifestPath_cold_1();
   }
 
-  v1 = MDMManagedNonStoreBooksManifestPath_str;
-
-  return v1;
-}
-
-void __MDMManagedNonStoreBooksManifestPath_block_invoke()
-{
-  v3 = MDMManagedNonStoreBooksDirectory();
-  v0 = [v3 stringByAppendingPathComponent:@"Managed.plist"];
-  v1 = [v0 copy];
   v2 = MDMManagedNonStoreBooksManifestPath_str;
-  MDMManagedNonStoreBooksManifestPath_str = v1;
+
+  return v2;
 }
 
-id MDMLegacyManagedNonStoreBooksDirectory()
+void __MDMManagedNonStoreBooksManifestPath_block_invoke(uint64_t a1)
+{
+  v4 = MDMManagedNonStoreBooksDirectory(a1);
+  v1 = [v4 stringByAppendingPathComponent:@"Managed.plist"];
+  v2 = [v1 copy];
+  v3 = MDMManagedNonStoreBooksManifestPath_str;
+  MDMManagedNonStoreBooksManifestPath_str = v2;
+}
+
+id MDMLegacyManagedNonStoreBooksDirectory(uint64_t a1)
 {
   if (MDMLegacyManagedNonStoreBooksDirectory_once != -1)
   {
     MDMLegacyManagedNonStoreBooksDirectory_cold_1();
   }
 
-  v1 = MDMLegacyManagedNonStoreBooksDirectory_str;
+  v2 = MDMLegacyManagedNonStoreBooksDirectory_str;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __MDMLegacyManagedNonStoreBooksDirectory_block_invoke()
@@ -4907,16 +4881,16 @@ uint64_t __MDMLegacyManagedNonStoreBooksDirectory_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id MDMAuthenticationResultsCacheFilePath()
+id MDMAuthenticationResultsCacheFilePath(uint64_t a1)
 {
   if (MDMAuthenticationResultsCacheFilePath_once != -1)
   {
     MDMAuthenticationResultsCacheFilePath_cold_1();
   }
 
-  v1 = MDMAuthenticationResultsCacheFilePath_str;
+  v2 = MDMAuthenticationResultsCacheFilePath_str;
 
-  return v1;
+  return v2;
 }
 
 void __MDMAuthenticationResultsCacheFilePath_block_invoke()
@@ -4933,16 +4907,16 @@ void __MDMAuthenticationResultsCacheFilePath_block_invoke()
   MDMAuthenticationResultsCacheFilePath_str = v1;
 }
 
-id MDMDatabaseReturnToServiceStorageDirectory()
+id MDMDatabaseReturnToServiceStorageDirectory(uint64_t a1)
 {
   if (MDMDatabaseReturnToServiceStorageDirectory_once != -1)
   {
     MDMDatabaseReturnToServiceStorageDirectory_cold_1();
   }
 
-  v1 = MDMDatabaseReturnToServiceStorageDirectory_str;
+  v2 = MDMDatabaseReturnToServiceStorageDirectory_str;
 
-  return v1;
+  return v2;
 }
 
 void __MDMDatabaseReturnToServiceStorageDirectory_block_invoke()
@@ -4953,16 +4927,16 @@ void __MDMDatabaseReturnToServiceStorageDirectory_block_invoke()
   MDMDatabaseReturnToServiceStorageDirectory_str = v0;
 }
 
-id MDMSystemReturnToServiceStorageDirectory()
+id MDMSystemReturnToServiceStorageDirectory(uint64_t a1)
 {
   if (MDMSystemReturnToServiceStorageDirectory_once != -1)
   {
     MDMSystemReturnToServiceStorageDirectory_cold_1();
   }
 
-  v1 = MDMSystemReturnToServiceStorageDirectory_str;
+  v2 = MDMSystemReturnToServiceStorageDirectory_str;
 
-  return v1;
+  return v2;
 }
 
 void __MDMSystemReturnToServiceStorageDirectory_block_invoke()
@@ -4979,16 +4953,16 @@ void __MDMSystemReturnToServiceStorageDirectory_block_invoke()
   MDMSystemReturnToServiceStorageDirectory_str = v1;
 }
 
-id MDMDirtyPersonaFilePath()
+id MDMDirtyPersonaFilePath(uint64_t a1)
 {
   if (MDMDirtyPersonaFilePath_once != -1)
   {
     MDMDirtyPersonaFilePath_cold_1();
   }
 
-  v1 = MDMDirtyPersonaFilePath_str;
+  v2 = MDMDirtyPersonaFilePath_str;
 
-  return v1;
+  return v2;
 }
 
 void __MDMDirtyPersonaFilePath_block_invoke()
@@ -5049,16 +5023,16 @@ void __MCUserProfileStorageDirectory_block_invoke()
   MCUserProfileStorageDirectory_str = v0;
 }
 
-void sub_1B165DD34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B165DD34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5071,36 +5045,37 @@ uint64_t __Block_byref_object_copy__5(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B165E1C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B165E1C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id _assertionQueue()
+id _assertionQueue(uint64_t a1)
 {
   if (_assertionQueue_onceToken != -1)
   {
     _assertionQueue_cold_1();
   }
 
-  v1 = _assertionQueue_queue;
+  v2 = _assertionQueue_queue;
 
-  return v1;
+  return v2;
 }
 
-void _retainPowerAssertion()
+void _retainPowerAssertion(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v0 = DMCLogObjects()[2];
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v17 = *MEMORY[0x1E69E9840];
+  v2 = DMCLogObjects(a1, a2)[2];
+  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
+  if (v3)
   {
     *buf = 67109376;
-    v9 = powerAssertionRetainCount;
-    v10 = 1024;
-    v11 = powerAssertionRetainCount + 1;
-    _os_log_impl(&dword_1B1630000, v0, OS_LOG_TYPE_DEFAULT, "Retaining power assertion. Count: %d -> %d", buf, 0xEu);
+    v14 = powerAssertionRetainCount;
+    v15 = 1024;
+    v16 = powerAssertionRetainCount + 1;
+    _os_log_impl(&dword_1B1630000, v2, OS_LOG_TYPE_DEFAULT, "Retaining power assertion. Count: %d -> %d", buf, 0xEu);
   }
 
   if (powerAssertionRetainCount)
@@ -5110,64 +5085,61 @@ void _retainPowerAssertion()
 
   else
   {
-    v1 = DMCLogObjects()[2];
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+    v5 = DMCLogObjects(v3, v4)[2];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B1630000, v1, OS_LOG_TYPE_DEFAULT, "Creating new IOPMAssertion.", buf, 2u);
+      _os_log_impl(&dword_1B1630000, v5, OS_LOG_TYPE_DEFAULT, "Creating new IOPMAssertion.", buf, 2u);
     }
 
-    v7[0] = @"PreventUserIdleSystemSleep";
-    v7[1] = @"MC activity";
-    v2 = [MEMORY[0x1E696AD98] numberWithDouble:{3600.0, @"AssertType", @"AssertName", @"TimeoutSeconds"}];
-    v7[2] = v2;
-    v7[3] = @"TimeoutActionTurnOff";
-    v6[3] = @"TimeoutAction";
-    v6[4] = @"AllowsDeviceRestart";
-    v7[4] = *MEMORY[0x1E695E4D0];
-    v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:5];
+    v12[0] = @"PreventUserIdleSystemSleep";
+    v12[1] = @"MC activity";
+    v6 = [MEMORY[0x1E696AD98] numberWithDouble:{3600.0, @"AssertType", @"AssertName", @"TimeoutSeconds"}];
+    v12[2] = v6;
+    v12[3] = @"TimeoutActionTurnOff";
+    v11[3] = @"TimeoutAction";
+    v11[4] = @"AllowsDeviceRestart";
+    v12[4] = *MEMORY[0x1E695E4D0];
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:5];
 
-    IOPMAssertionCreateWithProperties(v3, &assertionID);
-    v4 = DMCLogObjects()[2];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v8 = IOPMAssertionCreateWithProperties(v7, &assertionID);
+    v10 = DMCLogObjects(v8, v9)[2];
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      v9 = assertionID;
-      _os_log_impl(&dword_1B1630000, v4, OS_LOG_TYPE_DEFAULT, "IOPMAssertion created %d", buf, 8u);
+      v14 = assertionID;
+      _os_log_impl(&dword_1B1630000, v10, OS_LOG_TYPE_DEFAULT, "IOPMAssertion created %d", buf, 8u);
     }
   }
 
   ++powerAssertionRetainCount;
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void _releasePowerAssertion()
+void _releasePowerAssertion(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v0 = DMCLogObjects()[2];
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v11 = *MEMORY[0x1E69E9840];
+  v2 = DMCLogObjects(a1, a2)[2];
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 67109376;
-    v5 = powerAssertionRetainCount;
-    v6 = 1024;
-    v7 = powerAssertionRetainCount - 1;
-    _os_log_impl(&dword_1B1630000, v0, OS_LOG_TYPE_DEFAULT, "Releasing power assertion. Count: %d -> %d.", &v4, 0xEu);
+    v7 = 67109376;
+    v8 = powerAssertionRetainCount;
+    v9 = 1024;
+    v10 = powerAssertionRetainCount - 1;
+    _os_log_impl(&dword_1B1630000, v2, OS_LOG_TYPE_DEFAULT, "Releasing power assertion. Count: %d -> %d.", &v7, 0xEu);
   }
 
-  IOPMAssertionRelease(assertionID);
-  v1 = __OFSUB__(powerAssertionRetainCount--, 1);
-  if ((powerAssertionRetainCount < 0) ^ v1 | (powerAssertionRetainCount == 0))
+  v3 = IOPMAssertionRelease(assertionID);
+  v5 = __OFSUB__(powerAssertionRetainCount--, 1);
+  if ((powerAssertionRetainCount < 0) ^ v5 | (powerAssertionRetainCount == 0))
   {
-    v2 = DMCLogObjects()[2];
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v6 = DMCLogObjects(v3, v4)[2];
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = 67109120;
-      v5 = assertionID;
-      _os_log_impl(&dword_1B1630000, v2, OS_LOG_TYPE_DEFAULT, "IOPMAssertion released %d.", &v4, 8u);
+      v7 = 67109120;
+      v8 = assertionID;
+      _os_log_impl(&dword_1B1630000, v6, OS_LOG_TYPE_DEFAULT, "IOPMAssertion released %d.", &v7, 8u);
     }
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t ___assertionQueue_block_invoke()
@@ -5177,11 +5149,11 @@ uint64_t ___assertionQueue_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-void sub_1B1660C14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B1660C14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5192,31 +5164,31 @@ uint64_t __Block_byref_object_copy__6(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_1B1661014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1661014(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B16614FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B16614FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1B16620AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1B16620AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5245,9 +5217,9 @@ id getLARatchetManagerClass()
   return v1;
 }
 
-void sub_1B1662D74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1662D74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5276,9 +5248,9 @@ id getLARatchetClass()
   return v1;
 }
 
-void sub_1B1663190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1B1663190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5301,43 +5273,38 @@ void __getLARatchetManagerClass_block_invoke(uint64_t a1)
 
 void LocalAuthenticationLibrary()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v2[0] = 0;
+  v4 = *MEMORY[0x1E69E9840];
+  v1[0] = 0;
   if (!LocalAuthenticationLibraryCore_frameworkLibrary)
   {
-    v2[1] = MEMORY[0x1E69E9820];
-    v2[2] = 3221225472;
-    v2[3] = __LocalAuthenticationLibraryCore_block_invoke;
-    v2[4] = &__block_descriptor_40_e5_v8__0l;
-    v2[5] = v2;
-    v3 = xmmword_1E7ADD198;
-    v4 = 0;
+    v1[1] = MEMORY[0x1E69E9820];
+    v1[2] = 3221225472;
+    v1[3] = __LocalAuthenticationLibraryCore_block_invoke;
+    v1[4] = &__block_descriptor_40_e5_v8__0l;
+    v1[5] = v1;
+    v2 = xmmword_1E7ADD198;
+    v3 = 0;
     LocalAuthenticationLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  v0 = v2[0];
+  v0 = v1[0];
   if (!LocalAuthenticationLibraryCore_frameworkLibrary)
   {
-    v0 = abort_report_np();
+    v0 = abort_report_np("%s", v1[0]);
     goto LABEL_7;
   }
 
-  if (v2[0])
+  if (v1[0])
   {
 LABEL_7:
     free(v0);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __LocalAuthenticationLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   LocalAuthenticationLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -5373,7 +5340,7 @@ uint64_t DMCIsSetupBuddyDone()
   }
 }
 
-uint64_t DMCIsGreenTea()
+uint64_t DMCIsGreenTea(uint64_t a1, uint64_t a2)
 {
   if (DMCIsGreenTea_once != -1)
   {
@@ -5421,16 +5388,16 @@ __CFString *DMCStringForBool(int a1)
   }
 }
 
-id DMCUSEnglishLocale()
+id DMCUSEnglishLocale(uint64_t a1)
 {
   if (DMCUSEnglishLocale_once != -1)
   {
     DMCUSEnglishLocale_cold_1();
   }
 
-  v1 = DMCUSEnglishLocale_locale;
+  v2 = DMCUSEnglishLocale_locale;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __DMCUSEnglishLocale_block_invoke()
@@ -5440,16 +5407,16 @@ uint64_t __DMCUSEnglishLocale_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-id DMCUSEnglishNumberFormatter()
+id DMCUSEnglishNumberFormatter(uint64_t a1)
 {
   if (DMCUSEnglishNumberFormatter_once != -1)
   {
     DMCUSEnglishNumberFormatter_cold_1();
   }
 
-  v1 = DMCUSEnglishNumberFormatter_formatter;
+  v2 = DMCUSEnglishNumberFormatter_formatter;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __DMCUSEnglishNumberFormatter_block_invoke()
@@ -5459,12 +5426,12 @@ uint64_t __DMCUSEnglishNumberFormatter_block_invoke()
   DMCUSEnglishNumberFormatter_formatter = v0;
 
   v2 = DMCUSEnglishNumberFormatter_formatter;
-  v3 = DMCUSEnglishLocale();
-  [v2 setLocale:v3];
+  v4 = DMCUSEnglishLocale(v3);
+  [v2 setLocale:v4];
 
-  v4 = DMCUSEnglishNumberFormatter_formatter;
+  v5 = DMCUSEnglishNumberFormatter_formatter;
 
-  return [v4 setNumberStyle:0];
+  return [v5 setNumberStyle:0];
 }
 
 void sub_1B1664AB8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)

@@ -9,7 +9,7 @@
 
 + (id)runAllTests:(id)tests
 {
-  IE_GetTemplateDirFromBundle(tests, v10);
+  IE_GetTemplateDirFromBundle(v10, tests);
   v3 = v11;
   if ((v11 & 0x80u) != 0)
   {
@@ -20,7 +20,7 @@
   {
     memset(v9, 0, sizeof(v9));
     std::string::basic_string[abi:ne200100]<0>(&__p, "");
-    siri::intelligence::TestSuite::LoadTests(v9, v10);
+    siri::intelligence::TestSuite::LoadTests(v9, v10, &__p);
     if ((v8[15] & 0x80000000) != 0)
     {
       operator delete(__p);
@@ -96,7 +96,7 @@
 {
   listCopy = list;
   idCopy = id;
-  IE_GetTemplateDirFromBundle(listCopy, v36);
+  IE_GetTemplateDirFromBundle(v36, listCopy);
   v7 = v37;
   if ((v37 & 0x80u) != 0)
   {
@@ -117,9 +117,9 @@
       uTF8String = "";
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v34, uTF8String);
+    std::string::basic_string[abi:ne200100]<0>(v34, uTF8String);
     memset(v33, 0, sizeof(v33));
-    siri::intelligence::TestSuite::LoadTests(v33, v36);
+    siri::intelligence::TestSuite::LoadTests(v33, v36, v34);
     v30 = 0;
     v31 = 0;
     v32 = 0;
@@ -226,7 +226,7 @@
     std::vector<siri::intelligence::TestCase>::__destroy_vector::operator()[abi:ne200100](&v23);
     if (v35 < 0)
     {
-      operator delete(v34);
+      operator delete(v34[0]);
     }
 
     listCopy = v21;

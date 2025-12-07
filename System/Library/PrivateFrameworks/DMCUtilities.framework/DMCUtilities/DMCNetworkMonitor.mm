@@ -75,63 +75,64 @@ void __72__DMCNetworkMonitor_waitForNetworkWithTimeout_strict_completionHandler_
 
   else
   {
-    v21[0] = 0;
-    v21[1] = v21;
-    v21[2] = 0x2020000000;
-    v22 = 0;
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __72__DMCNetworkMonitor_waitForNetworkWithTimeout_strict_completionHandler___block_invoke_2;
-    v17[3] = &unk_1E7ADCD48;
-    v19 = v21;
-    v20 = *(a1 + 48);
-    v18 = *(a1 + 40);
-    v3 = MEMORY[0x1B2731A20](v17);
-    v4 = *(a1 + 48);
-    if (v4 > 0.0)
+    v23[0] = 0;
+    v23[1] = v23;
+    v23[2] = 0x2020000000;
+    v24 = 0;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __72__DMCNetworkMonitor_waitForNetworkWithTimeout_strict_completionHandler___block_invoke_2;
+    v19[3] = &unk_1E7ADCD48;
+    v21 = v23;
+    v22 = *(a1 + 48);
+    v20 = *(a1 + 40);
+    v3 = MEMORY[0x1B2731A20](v19);
+    v5 = v3;
+    v6 = *(a1 + 48);
+    if (v6 > 0.0)
     {
-      v5 = dispatch_time(0, (v4 * 1000000000.0));
-      v6 = [*(a1 + 32) workerQueue];
+      v7 = dispatch_time(0, (v6 * 1000000000.0));
+      v8 = [*(a1 + 32) workerQueue];
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __72__DMCNetworkMonitor_waitForNetworkWithTimeout_strict_completionHandler___block_invoke_5;
       block[3] = &unk_1E7ADCD70;
-      v16 = v3;
-      dispatch_after(v5, v6, block);
+      v18 = v5;
+      dispatch_after(v7, v8, block);
     }
 
-    v7 = *DMCLogObjects();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v9 = *DMCLogObjects(v3, v4);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B1630000, v7, OS_LOG_TYPE_INFO, "DMCNetworkMonitor: Waiting for network...", buf, 2u);
+      _os_log_impl(&dword_1B1630000, v9, OS_LOG_TYPE_INFO, "DMCNetworkMonitor: Waiting for network...", buf, 2u);
     }
 
-    v8 = *(a1 + 32);
+    v10 = *(a1 + 32);
     if (*(a1 + 56))
     {
-      v9 = [v8 cachedStrictCompletionHandlers];
-      v10 = v12;
-      v12[0] = MEMORY[0x1E69E9820];
-      v12[1] = 3221225472;
-      v12[2] = __72__DMCNetworkMonitor_waitForNetworkWithTimeout_strict_completionHandler___block_invoke_2_8;
-      v12[3] = &unk_1E7ADCD70;
-      v12[4] = v3;
-      v11 = MEMORY[0x1B2731A20](v12);
-      [v9 addObject:v11];
+      v11 = [v10 cachedStrictCompletionHandlers];
+      v12 = v14;
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __72__DMCNetworkMonitor_waitForNetworkWithTimeout_strict_completionHandler___block_invoke_2_8;
+      v14[3] = &unk_1E7ADCD70;
+      v14[4] = v5;
+      v13 = MEMORY[0x1B2731A20](v14);
+      [v11 addObject:v13];
     }
 
     else
     {
-      v9 = [v8 cachedCompletionHandlers];
-      v10 = v13;
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __72__DMCNetworkMonitor_waitForNetworkWithTimeout_strict_completionHandler___block_invoke_7;
-      v13[3] = &unk_1E7ADCD70;
-      v13[4] = v3;
-      v11 = MEMORY[0x1B2731A20](v13);
-      [v9 addObject:v11];
+      v11 = [v10 cachedCompletionHandlers];
+      v12 = v15;
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __72__DMCNetworkMonitor_waitForNetworkWithTimeout_strict_completionHandler___block_invoke_7;
+      v15[3] = &unk_1E7ADCD70;
+      v15[4] = v5;
+      v13 = MEMORY[0x1B2731A20](v15);
+      [v11 addObject:v13];
     }
 
     if (([*(a1 + 32) isMonitoring] & 1) == 0)
@@ -139,13 +140,13 @@ void __72__DMCNetworkMonitor_waitForNetworkWithTimeout_strict_completionHandler_
       [*(a1 + 32) _startMonitoring];
     }
 
-    _Block_object_dispose(v21, 8);
+    _Block_object_dispose(v23, 8);
   }
 }
 
-uint64_t __72__DMCNetworkMonitor_waitForNetworkWithTimeout_strict_completionHandler___block_invoke_2(uint64_t result, int a2)
+uint64_t __72__DMCNetworkMonitor_waitForNetworkWithTimeout_strict_completionHandler___block_invoke_2(uint64_t result, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = *(*(result + 40) + 8);
   if ((*(v2 + 24) & 1) == 0)
   {
@@ -153,51 +154,50 @@ uint64_t __72__DMCNetworkMonitor_waitForNetworkWithTimeout_strict_completionHand
     *(v2 + 24) = 1;
     if (a2)
     {
-      v4 = *DMCLogObjects();
+      v4 = *DMCLogObjects(result, a2);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         v5 = *(v3 + 48);
-        v7 = 134217984;
-        v8 = v5;
-        _os_log_impl(&dword_1B1630000, v4, OS_LOG_TYPE_DEFAULT, "DMCNetworkMonitor: Timedout waiting for network after %.1f seconds", &v7, 0xCu);
+        v6 = 134217984;
+        v7 = v5;
+        _os_log_impl(&dword_1B1630000, v4, OS_LOG_TYPE_DEFAULT, "DMCNetworkMonitor: Timedout waiting for network after %.1f seconds", &v6, 0xCu);
       }
     }
 
-    result = (*(*(v3 + 32) + 16))();
+    return (*(*(v3 + 32) + 16))();
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)_notifyRegularClients
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   cachedCompletionHandlers = [(DMCNetworkMonitor *)self cachedCompletionHandlers];
-  v4 = [cachedCompletionHandlers countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [cachedCompletionHandlers countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(cachedCompletionHandlers);
         }
 
-        (*(*(*(&v10 + 1) + 8 * v7++) + 16))();
+        (*(*(*(&v9 + 1) + 8 * v7++) + 16))();
       }
 
       while (v5 != v7);
-      v5 = [cachedCompletionHandlers countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [cachedCompletionHandlers countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
@@ -205,38 +205,36 @@ uint64_t __72__DMCNetworkMonitor_waitForNetworkWithTimeout_strict_completionHand
 
   cachedCompletionHandlers2 = [(DMCNetworkMonitor *)self cachedCompletionHandlers];
   [cachedCompletionHandlers2 removeAllObjects];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_notifyStrictClients
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   cachedStrictCompletionHandlers = [(DMCNetworkMonitor *)self cachedStrictCompletionHandlers];
-  v4 = [cachedStrictCompletionHandlers countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [cachedStrictCompletionHandlers countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(cachedStrictCompletionHandlers);
         }
 
-        (*(*(*(&v10 + 1) + 8 * v7++) + 16))();
+        (*(*(*(&v9 + 1) + 8 * v7++) + 16))();
       }
 
       while (v5 != v7);
-      v5 = [cachedStrictCompletionHandlers countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [cachedStrictCompletionHandlers countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
@@ -244,8 +242,6 @@ uint64_t __72__DMCNetworkMonitor_waitForNetworkWithTimeout_strict_completionHand
 
   cachedStrictCompletionHandlers2 = [(DMCNetworkMonitor *)self cachedStrictCompletionHandlers];
   [cachedStrictCompletionHandlers2 removeAllObjects];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startMonitoring
@@ -282,56 +278,55 @@ uint64_t __72__DMCNetworkMonitor_waitForNetworkWithTimeout_strict_completionHand
 
 - (BOOL)deviceMightHaveNetworkStrict:(BOOL)strict
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   pathEvaluator = [(DMCNetworkMonitor *)self pathEvaluator];
   path = [pathEvaluator path];
   status = [path status];
 
   if (status == 3)
   {
-    v12 = *DMCLogObjects();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = *DMCLogObjects(v8, v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = v12;
+      v15 = v14;
       _interfaceType = [(DMCNetworkMonitor *)self _interfaceType];
-      v17 = 134218242;
-      v18 = 3;
-      v19 = 2114;
-      v20 = _interfaceType;
-      _os_log_impl(&dword_1B1630000, v13, OS_LOG_TYPE_DEFAULT, "DMCNetworkMonitor: Device might have network now. path status: %ld, interface type: %{public}@", &v17, 0x16u);
+      v18 = 134218242;
+      v19 = 3;
+      v20 = 2114;
+      v21 = _interfaceType;
+      _os_log_impl(&dword_1B1630000, v15, OS_LOG_TYPE_DEFAULT, "DMCNetworkMonitor: Device might have network now. path status: %ld, interface type: %{public}@", &v18, 0x16u);
     }
 
-    v11 = !strict;
+    return !strict;
   }
 
   else if (status == 1)
   {
-    v8 = *DMCLogObjects();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = *DMCLogObjects(v8, v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = v8;
+      v11 = v10;
       _interfaceType2 = [(DMCNetworkMonitor *)self _interfaceType];
-      v17 = 134218242;
-      v11 = 1;
-      v18 = 1;
-      v19 = 2114;
-      v20 = _interfaceType2;
-      _os_log_impl(&dword_1B1630000, v9, OS_LOG_TYPE_DEFAULT, "DMCNetworkMonitor: Device should have network now. path status: %ld, interface type: %{public}@", &v17, 0x16u);
+      v18 = 134218242;
+      v13 = 1;
+      v19 = 1;
+      v20 = 2114;
+      v21 = _interfaceType2;
+      _os_log_impl(&dword_1B1630000, v11, OS_LOG_TYPE_DEFAULT, "DMCNetworkMonitor: Device should have network now. path status: %ld, interface type: %{public}@", &v18, 0x16u);
     }
 
     else
     {
-      v11 = 1;
+      return 1;
     }
   }
 
   else
   {
-    v11 = 0;
+    return 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-  return v11;
+  return v13;
 }
 
 - (id)_interfaceType

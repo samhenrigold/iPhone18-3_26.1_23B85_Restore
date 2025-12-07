@@ -28,7 +28,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1B81A495C();
+  sub_1B81A495C(delegate);
 }
 
 - (id)suggestionTitle
@@ -102,7 +102,7 @@
 
 - (id)suggestionCategorySubtitleForItems:(id)items
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBA7CBD0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1EBA7CBD0, &unk_1B81FD110);
   v4 = sub_1B81F90C8();
   selfCopy = self;
   v6 = sub_1B81A6350(v4);
@@ -159,7 +159,7 @@
   suggestionCopy = suggestion;
   selfCopy = self;
   SGContactSuggestion.confirm(_:suggestion:completion:)(confirm, suggestionCopy, v8, v9);
-  sub_1B8188E34(v8);
+  sub_1B8188E34(v8, v9);
 }
 
 - (id)mailingAddressFromPostalAddress:(id)address

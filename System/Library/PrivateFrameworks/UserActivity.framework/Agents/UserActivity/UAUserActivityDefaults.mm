@@ -46,6 +46,8 @@
 - (int64_t)maximumActivityPayloadSizeInBytes;
 - (int64_t)pasteboardEmbeddedPayloadSizeLimitInBytes;
 - (void)setDefault:(id)default value:(id)value;
+- (void)setEnableSharingFramework:(BOOL)framework;
+- (void)setLocalPasteboardReflection:(BOOL)reflection;
 @end
 
 @implementation UAUserActivityDefaults
@@ -369,6 +371,13 @@
   return v3;
 }
 
+- (void)setEnableSharingFramework:(BOOL)framework
+{
+  frameworkCopy = framework;
+  userDefaults = [(UAUserActivityDefaults *)self userDefaults];
+  [userDefaults setBool:frameworkCopy forKey:@"EnableSharingFramework"];
+}
+
 - (double)localPasteboardAvalibilityTimeout
 {
   userDefaults = [(UAUserActivityDefaults *)self userDefaults];
@@ -399,6 +408,13 @@
   v3 = [userDefaults BOOLForKey:@"UASharedPboardLocalReflection"];
 
   return v3;
+}
+
+- (void)setLocalPasteboardReflection:(BOOL)reflection
+{
+  reflectionCopy = reflection;
+  userDefaults = [(UAUserActivityDefaults *)self userDefaults];
+  [userDefaults setBool:reflectionCopy forKey:@"UASharedPboardLocalReflection"];
 }
 
 - (int64_t)pasteboardEmbeddedPayloadSizeLimitInBytes
@@ -597,24 +613,23 @@
         }
 
         v9 = *(*(&v22 + 1) + 8 * i);
-        if (defaults)
+        if (!defaults)
         {
-          goto LABEL_8;
+          cornerActionItemDefaults2 = [(UAUserActivityDefaults *)self cornerActionItemDefaults];
+          v11 = [cornerActionItemDefaults2 objectForKey:v9];
+          userDefaults = [(UAUserActivityDefaults *)self userDefaults];
+          v13 = [userDefaults valueForKey:v9];
+          v14 = [v11 isEqual:v13];
+
+          if (v14)
+          {
+            continue;
+          }
         }
 
-        cornerActionItemDefaults2 = [(UAUserActivityDefaults *)self cornerActionItemDefaults];
-        v11 = [cornerActionItemDefaults2 objectForKey:v9];
-        userDefaults = [(UAUserActivityDefaults *)self userDefaults];
-        v13 = [userDefaults valueForKey:v9];
-        v14 = [v11 isEqual:v13];
-
-        if ((v14 & 1) == 0)
-        {
-LABEL_8:
-          userDefaults2 = [(UAUserActivityDefaults *)self userDefaults];
-          v16 = [userDefaults2 valueForKey:v9];
-          [v20 setValue:v16 forKey:v9];
-        }
+        userDefaults2 = [(UAUserActivityDefaults *)self userDefaults];
+        v16 = [userDefaults2 valueForKey:v9];
+        [v20 setValue:v16 forKey:v9];
       }
 
       v6 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];

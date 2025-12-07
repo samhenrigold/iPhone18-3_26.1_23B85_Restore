@@ -68,15 +68,15 @@ LABEL_7:
   v8 = objc_opt_class();
   v9 = [v7 initWithObjects:{v8, objc_opt_class(), 0}];
   objc_autoreleasePoolPop(v6);
-  v10 = __atxlog_handle_default();
-  v11 = [v5 robustDecodeObjectOfClasses:v9 forKey:@"KEY_TEAMS" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXSportsResponse" errorCode:-1 logHandle:v10];
+  v11 = __atxlog_handle_default(v10);
+  v12 = [v5 robustDecodeObjectOfClasses:v9 forKey:@"KEY_TEAMS" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXSportsResponse" errorCode:-1 logHandle:v11];
 
   error = [coderCopy error];
 
   selfCopy = 0;
-  if (!error && v11)
+  if (!error && v12)
   {
-    self = [(ATXSportsResponse *)self initWithTeams:v11];
+    self = [(ATXSportsResponse *)self initWithTeams:v12];
     selfCopy = self;
   }
 

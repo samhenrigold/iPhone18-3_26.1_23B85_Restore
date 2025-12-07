@@ -29,6 +29,7 @@
 - (double)devicePitch;
 - (double)deviceRoll;
 - (double)deviceYaw;
+- (float64x2_t)setDeviceMotionRotation:(float64x2_t *)rotation;
 - (id)_targetConfiguredProperties;
 - (id)environmentSnapshot;
 - (int64_t)mode;
@@ -45,7 +46,6 @@
 - (void)setAppliesCountertransformForRotation:(BOOL)rotation;
 - (void)setBacklightProgress:(double)progress;
 - (void)setDepthEffectDisabled:(BOOL)disabled;
-- (void)setDeviceMotionRotation:(float64x2_t *)rotation;
 - (void)setDevicePitch:(double)pitch;
 - (void)setDeviceRoll:(double)roll;
 - (void)setDeviceYaw:(double)yaw;
@@ -509,7 +509,7 @@ LABEL_17:
 
   if (v4)
   {
-    [(PRPosterEnvironmentImpl *)self deviceMotionRotation];
+    objc_msgSend_deviceMotionRotation(self);
     v5 = vmuld_lane_f64(0.0, 0, 1);
     *&v5 = v5 + 0.0 * 0.0 + v5 + 0.0 * 0.0;
     v6 = (vmuld_lane_f64(0.0, 0, 1) + 0.0 * 0.0) * -2.0 + 1.0;
@@ -526,7 +526,7 @@ LABEL_17:
 
   if (v4)
   {
-    [(PRPosterEnvironmentImpl *)self deviceMotionRotation];
+    objc_msgSend_deviceMotionRotation(self);
     v5 = vmuld_lane_f64(0.0, 0, 1);
     return atan2(v5 + 0.0 * 0.0 + v5 + 0.0 * 0.0, (v5 + 0.0 * 0.0) * -2.0 + 1.0);
   }
@@ -541,7 +541,7 @@ LABEL_17:
 
   if (v4)
   {
-    [(PRPosterEnvironmentImpl *)self deviceMotionRotation];
+    objc_msgSend_deviceMotionRotation(self, 0);
     _V1.D[1] = 0;
     _D2 = 0;
     __asm { FMLA            D0, D2, V1.D[1] }
@@ -819,22 +819,24 @@ LABEL_17:
   layoutController = selfCopy->_layoutController;
   selfCopy->_layoutController = v23;
 
-  selfCopy->_boundingShape = PRPosterBoundingShapeFromPUIPosterBoundingShape([settingsCopy pui_posterBoundingShape]);
+  [settingsCopy pui_posterBoundingShape];
+  PRPosterBoundingShapeFromPUIPosterBoundingShape();
+  selfCopy->_boundingShape = v25;
   selfCopy->_appliesCountertransformForRotation = [settingsCopy pr_appliesCountertransformForRotation];
   [settingsCopy pui_salientContentRectangle];
-  selfCopy->_salientContentRectangle.origin.x = v25;
-  selfCopy->_salientContentRectangle.origin.y = v26;
-  selfCopy->_salientContentRectangle.size.width = v27;
-  selfCopy->_salientContentRectangle.size.height = v28;
+  selfCopy->_salientContentRectangle.origin.x = v26;
+  selfCopy->_salientContentRectangle.origin.y = v27;
+  selfCopy->_salientContentRectangle.size.width = v28;
+  selfCopy->_salientContentRectangle.size.height = v29;
   pui_contentOcclusionRectangles = [settingsCopy pui_contentOcclusionRectangles];
   if (pui_contentOcclusionRectangles)
   {
-    v30 = [PRPosterContentOcclusionRectSet alloc];
+    v31 = [PRPosterContentOcclusionRectSet alloc];
     pui_contentOcclusionRectangles2 = [settingsCopy pui_contentOcclusionRectangles];
     allRects = [pui_contentOcclusionRectangles2 allRects];
-    v33 = [(PRPosterContentOcclusionRectSet *)v30 initWithNameToRectMap:allRects];
+    v34 = [(PRPosterContentOcclusionRectSet *)v31 initWithNameToRectMap:allRects];
     contentOcclusionRectangles = selfCopy->_contentOcclusionRectangles;
-    selfCopy->_contentOcclusionRectangles = v33;
+    selfCopy->_contentOcclusionRectangles = v34;
   }
 
   else
@@ -844,22 +846,22 @@ LABEL_17:
   }
 
   [settingsCopy frame];
-  selfCopy->_canvasSize.width = v35;
-  selfCopy->_canvasSize.height = v36;
+  selfCopy->_canvasSize.width = v36;
+  selfCopy->_canvasSize.height = v37;
   [settingsCopy pr_deviceMotionUpdateInterval];
-  selfCopy->_deviceMotionUpdateInterval = v37;
+  selfCopy->_deviceMotionUpdateInterval = v38;
   selfCopy->_showsHeaderElements = [settingsCopy pui_showsHeaderElements];
   selfCopy->_showsComplications = [settingsCopy pui_showsComplications];
   [settingsCopy pui_userTapLocation];
-  selfCopy->_userTapLocation.x = v38;
-  selfCopy->_userTapLocation.y = v39;
+  selfCopy->_userTapLocation.x = v39;
+  selfCopy->_userTapLocation.y = v40;
   selfCopy->_userTapEventsCounter = [settingsCopy pui_userTapEventsCounter];
   selfCopy->_wallpaperObscured = [settingsCopy pui_isWallpaperObscured];
   [settingsCopy bounds];
-  selfCopy->_screenBounds.origin.x = v40;
-  selfCopy->_screenBounds.origin.y = v41;
-  selfCopy->_screenBounds.size.width = v42;
-  selfCopy->_screenBounds.size.height = v43;
+  selfCopy->_screenBounds.origin.x = v41;
+  selfCopy->_screenBounds.origin.y = v42;
+  selfCopy->_screenBounds.size.width = v43;
+  selfCopy->_screenBounds.size.height = v44;
   os_unfair_lock_lock(&selfCopy->_lock);
   _path = [(PRPosterContentsInternal *)selfCopy->_lock_sourceContents _path];
   if (_path)
@@ -882,9 +884,9 @@ LABEL_17:
   }
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v50 = [[_PRPosterEnvironmentSnapshot alloc] initWithEnvironment:selfCopy layoutController:selfCopy->_layoutController];
+  v51 = [[_PRPosterEnvironmentSnapshot alloc] initWithEnvironment:selfCopy layoutController:selfCopy->_layoutController];
   snapshot = selfCopy->_snapshot;
-  selfCopy->_snapshot = v50;
+  selfCopy->_snapshot = v51;
 
   v18 = 1;
 LABEL_21:
@@ -1038,10 +1040,10 @@ LABEL_21:
   }
 }
 
-- (void)setDeviceMotionRotation:(float64x2_t *)rotation
+- (float64x2_t)setDeviceMotionRotation:(float64x2_t *)rotation
 {
-  v3 = *(self + 17);
-  v4 = *(self + 18);
+  v3 = result[17];
+  v4 = result[18];
   v5 = rotation[1];
   v6 = vandq_s8(vceqq_f64(v3, *rotation), vceqq_f64(v4, v5));
   if ((vandq_s8(v6, vdupq_laneq_s64(v6, 1)).u64[0] & 0x8000000000000000) == 0)
@@ -1050,13 +1052,13 @@ LABEL_21:
     if ((vandq_s8(v7, vdupq_laneq_s64(v7, 1)).u64[0] & 0x8000000000000000) == 0)
     {
       v8 = rotation[1];
-      *(self + 17) = *rotation;
-      *(self + 18) = v8;
-      return [self _resetSnapshot];
+      result[17] = *rotation;
+      result[18] = v8;
+      return [(float64x2_t *)result _resetSnapshot];
     }
   }
 
-  return self;
+  return result;
 }
 
 - (void)setWakeSourceIsSwipeToUnlock:(BOOL)unlock
@@ -1326,7 +1328,8 @@ LABEL_34:
   v9 = UIApplicationSceneStringForUserInterfaceStyle();
   v10 = [streamCopy appendObject:v9 withName:@"uiStyle"];
 
-  v11 = NSStringFromPRRenderingMode([(PRPosterEnvironmentImpl *)self mode]);
+  [(PRPosterEnvironmentImpl *)self mode];
+  v11 = NSStringFromPRRenderingMode();
   v12 = [streamCopy appendObject:v11 withName:@"mode"];
 
   [(PRPosterEnvironmentImpl *)self luminance];

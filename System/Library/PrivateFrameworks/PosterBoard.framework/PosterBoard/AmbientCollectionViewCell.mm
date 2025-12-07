@@ -23,7 +23,7 @@
 
 - (id)ambientPosterViewControllerRequestExtensionInstanceIdentifier:(id)identifier
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD92EE8);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD92EE8, &unk_21B6D8330);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v15 - v5;
   if (swift_unknownObjectWeakLoadStrong())

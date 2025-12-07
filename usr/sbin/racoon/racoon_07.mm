@@ -41,7 +41,7 @@ LABEL_8:
   return result;
 }
 
-uint64_t sub_10005337C(FILE *a1, int a2)
+_DWORD *sub_10005337C(FILE *a1, int a2)
 {
   v4 = malloc_type_malloc(0x48uLL, 0x7EBAC0B3uLL);
   if (!v4 || (v5 = v4, v4[6] = a2, v6 = malloc_type_malloc(a2 + 2, 0x7EBAC0B3uLL), (*(v5 + 8) = v6) == 0))
@@ -58,14 +58,14 @@ void sub_100053404(char *__format, ...)
 {
   va_start(va, __format);
   vsnprintf(__str, 0x200uLL, __format, va);
-  sub_100053EE4();
+  sub_100053EE4(__str);
 }
 
 void sub_10005347C(char *__format, ...)
 {
   va_start(va, __format);
   vsnprintf(__str, 0x200uLL, __format, va);
-  sub_100053E7C();
+  sub_100053E7C(__str);
 }
 
 void sub_1000534F4(void **a1)
@@ -499,12 +499,12 @@ uint64_t sub_100053DD8()
   return 0;
 }
 
-void sub_100053E7C()
+void sub_100053E7C(uint64_t result)
 {
   if (dword_100090058)
   {
-    v0 = ne_log_obj();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v1 = ne_log_obj();
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10006B9CC();
     }
@@ -513,12 +513,12 @@ void sub_100053E7C()
   ++dword_1000900B4;
 }
 
-void sub_100053EE4()
+void sub_100053EE4(uint64_t result)
 {
   if (dword_100090058)
   {
-    v0 = ne_log_obj();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v1 = ne_log_obj();
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10006B9CC();
     }
@@ -618,7 +618,7 @@ void sub_10005410C()
   v0 = &dword_100000008;
   do
   {
-    v1 = (&dword_10008F330 + v0);
+    v1 = (dword_10008F330 + v0);
     v1[6] = 0uLL;
     v1[7] = 0uLL;
     v1[4] = 0uLL;
@@ -631,7 +631,7 @@ void sub_10005410C()
   }
 
   while (v0 != 1288);
-  dword_10008F330 = 0;
+  dword_10008F330[0] = 0;
 }
 
 void sub_100054148()
@@ -654,32 +654,25 @@ void sub_100054148()
   while (v1);
 }
 
-void sub_1000541BC(int *a1@<X8>)
+void sub_100054314()
 {
-  v1 = &a1[32 * *a1];
-  v2 = *(v1 + 1);
-  v3 = v1[8];
+  sub_100001DE4(__stack_chk_guard);
+  sub_100001DF0();
+  sub_100001DC8(&_mh_execute_header, v0, v1, "hash(%s)\n", v2, v3, v4, v5);
 }
 
-void sub_100054314(uint64_t *a1)
+void sub_10005437C()
 {
-  sub_100001DE4(a1, __stack_chk_guard);
+  sub_100001DE4(__stack_chk_guard);
   sub_100001DF0();
-  sub_100001DC8(&_mh_execute_header, v1, v2, "hash(%s)\n", v3, v4, v5, v6, v7);
+  sub_100001DC8(&_mh_execute_header, v0, v1, "hmac(%s)\n", v2, v3, v4, v5);
 }
 
-void sub_10005437C(uint64_t *a1)
+void sub_1000543E4()
 {
-  sub_100001DE4(a1, __stack_chk_guard);
+  sub_100001DE4(__stack_chk_guard);
   sub_100001DF0();
-  sub_100001DC8(&_mh_execute_header, v1, v2, "hmac(%s)\n", v3, v4, v5, v6, v7);
-}
-
-void sub_1000543E4(uint64_t *a1)
-{
-  sub_100001DE4(a1, __stack_chk_guard);
-  sub_100001DF0();
-  sub_100001DC8(&_mh_execute_header, v1, v2, "encryption(%s)\n", v3, v4, v5, v6, v7);
+  sub_100001DC8(&_mh_execute_header, v0, v1, "encryption(%s)\n", v2, v3, v4, v5);
 }
 
 void sub_1000546B8(int a1, NSObject *a2)
@@ -704,7 +697,7 @@ void sub_1000549C8()
   sub_100003248();
   sub_100002AF8(v0);
   sub_1000031F4();
-  sub_100003228(&_mh_execute_header, v1, v2, "EvaluateCert error %d %s.\n", v3, v4, v5, v6, v7);
+  sub_100003228(&_mh_execute_header, v1, v2, "EvaluateCert error %d %s.\n", v3, v4, v5, v6);
 }
 
 void sub_100054A74()
@@ -712,7 +705,7 @@ void sub_100054A74()
   sub_100003248();
   sub_100002AF8(v0);
   sub_1000031F4();
-  sub_100003228(&_mh_execute_header, v1, v2, "check_x509cert error %d %s.\n", v3, v4, v5, v6, v7);
+  sub_100003228(&_mh_execute_header, v1, v2, "check_x509cert error %d %s.\n", v3, v4, v5, v6);
 }
 
 void sub_100054AEC()
@@ -720,7 +713,7 @@ void sub_100054AEC()
   sub_100003248();
   sub_100002AF8(v0);
   sub_1000031F4();
-  sub_100003228(&_mh_execute_header, v1, v2, "getsign error %d %s.\n", v3, v4, v5, v6, v7);
+  sub_100003228(&_mh_execute_header, v1, v2, "getsign error %d %s.\n", v3, v4, v5, v6);
 }
 
 void sub_100054B64()
@@ -728,7 +721,7 @@ void sub_100054B64()
   sub_100003248();
   sub_100002AF8(v0);
   sub_1000031F4();
-  sub_100003228(&_mh_execute_header, v1, v2, "get_x509cert error %d %s.\n", v3, v4, v5, v6, v7);
+  sub_100003228(&_mh_execute_header, v1, v2, "get_x509cert error %d %s.\n", v3, v4, v5, v6);
 }
 
 void sub_100054BDC(NSObject *a1)
@@ -788,13 +781,6 @@ void sub_100054FE0(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "no socket matches address family %d\n", v3, 8u);
 }
 
-void sub_10005505C(unsigned __int8 *a1)
-{
-  v6 = *a1;
-  sub_1000054EC();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-}
-
 void sub_1000550D4()
 {
   sub_100001224();
@@ -805,8 +791,9 @@ void sub_1000550D4()
 void sub_100055110()
 {
   v0 = __error();
-  strerror(*v0);
-  sub_100005518(&_mh_execute_header, v1, v2, "read(PF_ROUTE) failed: %s\n", v3, v4, v5, v6, 2u);
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = strerror(*v0);
+  sub_100005518(&_mh_execute_header, v1, v2, "read(PF_ROUTE) failed: %s\n", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 void sub_100055194()
@@ -826,8 +813,9 @@ void sub_1000551D0()
 void sub_10005520C()
 {
   v0 = __error();
-  strerror(*v0);
-  sub_100005518(&_mh_execute_header, v1, v2, "socket(PF_ROUTE) failed: %s", v3, v4, v5, v6, 2u);
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = strerror(*v0);
+  sub_100005518(&_mh_execute_header, v1, v2, "socket(PF_ROUTE) failed: %s", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 void sub_1000552C4(const sockaddr *a1)
@@ -862,14 +850,6 @@ void sub_10005543C(uint8_t *a1, uint64_t a2, uint64_t **a3)
   _os_log_debug_impl(v6, v7, v8, v9, a1, 0xCu);
 }
 
-void sub_100055574(int *a1, uint64_t a2)
-{
-  v7 = *a1;
-  v8 = **(a2 + 24);
-  sub_100008320();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x18u);
-}
-
 void sub_100055644(uint64_t a1, NSObject *a2)
 {
   v2 = 134217984;
@@ -877,22 +857,18 @@ void sub_100055644(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "already responded within the past %ld secs\n", &v2, 0xCu);
 }
 
-void sub_100055758(uint64_t a1, uint64_t a2)
+void sub_100055758()
 {
-  v2 = *(*a1 + 1);
-  v3 = *(a2 + 28);
   sub_100008330();
   sub_100008320();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
-void sub_100055808(uint64_t a1, uint64_t a2)
+void sub_100055808()
 {
-  v2 = *(*a1 + 1);
-  v3 = *(a2 + 16);
   sub_100008330();
   sub_100008320();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
 void sub_1000558BC(uint64_t a1)
@@ -931,20 +907,11 @@ void sub_100055A60()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100055A9C(unsigned __int8 *a1, int *a2)
+void sub_100055A9C()
 {
-  v2 = *a1;
-  v3 = *a2 - 8;
   sub_10000F9C0();
   sub_100008320();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-}
-
-void sub_100055B24(int *a1)
-{
-  v6 = *a1;
-  sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void sub_100055BAC()
@@ -954,12 +921,12 @@ void sub_100055BAC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100055BE8(unsigned __int8 *a1)
+void sub_100055BE8()
 {
-  sub_10000FA4C(a1);
+  sub_10000FA4C();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_100055C58()
@@ -969,27 +936,23 @@ void sub_100055C58()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_100055CC8(uint64_t *a1)
+void sub_100055CC8()
 {
-  sub_100001DE4(a1, __stack_chk_guard);
+  sub_100001DE4(__stack_chk_guard);
   sub_100001DF0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_100055D38(unsigned __int8 *a1)
+void sub_100055D38(uint64_t a1)
 {
-  v7 = a1[4];
-  sub_10003BE54(a1[5]);
-  v8 = a1[6];
-  v9 = a1[7];
+  sub_10003BE54(*(a1 + 5));
   sub_10000FA3C();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x1Eu);
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x1Eu);
 }
 
 void sub_100055DF8(uint64_t a1, uint64_t a2)
 {
-  v7 = *(a1 + 4);
   sub_10003C080(*(a2 + 5), *(a1 + 5));
   sub_10000FA3C();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
@@ -1044,21 +1007,19 @@ void sub_1000560B8()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_100056128(unsigned int *a1)
+void sub_100056128()
 {
-  v1 = *a1;
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_10005619C(unsigned __int16 *a1)
+void sub_10005619C()
 {
-  v1 = bswap32(*a1);
   sub_10000F9C0();
   sub_10000F9A4();
   sub_100008320();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
 void sub_10005621C()
@@ -1068,12 +1029,12 @@ void sub_10005621C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_10005628C(uint64_t *a1)
+void sub_10005628C()
 {
-  sub_100001DE4(a1, __stack_chk_guard);
+  sub_100001DE4(__stack_chk_guard);
   sub_100001DF0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_1000563B8(_BYTE *a1, _BYTE *a2)
@@ -1118,14 +1079,12 @@ void sub_1000564D4()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100056510(uint64_t *a1)
+void sub_100056510()
 {
-  sub_100001DE4(a1, __stack_chk_guard);
-  v2 = *(v1 + 5);
-  v4 = *(*v3 + 5);
+  sub_100001DE4(__stack_chk_guard);
   sub_10000F9C0();
   sub_100008320();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
 void sub_100056598()
@@ -1216,7 +1175,7 @@ void sub_100056A50(int a1)
 {
   sub_10003C560(a1);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "auth method %s isn't supported.\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "auth method %s isn't supported.\n", v3, v4, v5, v6);
 }
 
 void sub_100056AC8()
@@ -1312,13 +1271,6 @@ void sub_100056FEC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_10005705C(unsigned __int8 *a1)
-{
-  v6 = *a1;
-  sub_100008320();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xEu);
-}
-
 void sub_1000570E0()
 {
   sub_10000F998();
@@ -1404,12 +1356,11 @@ void sub_100057524()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100057560(unsigned int *a1)
+void sub_100057560()
 {
-  v1 = *a1;
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1000575D4()
@@ -1426,28 +1377,26 @@ void sub_100057610()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_100057680(uint64_t a1)
+void sub_100057680()
 {
-  v1 = *(*a1 + 1);
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_100057730(unsigned __int8 *a1)
 {
   sub_10003C390(*a1);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "Expecting IP address type in main mode, but %s.\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "Expecting IP address type in main mode, but %s.\n", v3, v4, v5, v6);
 }
 
-void sub_1000577AC(uint64_t *a1)
+void sub_1000577AC()
 {
-  sub_100001DE4(a1, __stack_chk_guard);
-  v2 = *v1;
+  sub_100001DE4(__stack_chk_guard);
   sub_100001DF0();
   sub_100001DFC();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_100057820()
@@ -1499,12 +1448,12 @@ void sub_100057988()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1000579FC(uint64_t *a1)
+void sub_1000579FC()
 {
-  sub_100001DE4(a1, __stack_chk_guard);
+  sub_100001DE4(__stack_chk_guard);
   sub_100001DF0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_100057A6C()
@@ -1514,12 +1463,12 @@ void sub_100057A6C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100057AA8(uint64_t *a1)
+void sub_100057AA8()
 {
-  sub_100001DE4(a1, __stack_chk_guard);
+  sub_100001DE4(__stack_chk_guard);
   sub_100001DF0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
 void sub_100057B18()
@@ -1547,15 +1496,14 @@ void sub_100057C64(unsigned __int8 *a1)
 {
   sub_1000330F8(a1);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "failed to get ID for %s\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "failed to get ID for %s\n", v3, v4, v5, v6);
 }
 
-void sub_100057CDC(unsigned int *a1)
+void sub_100057CDC()
 {
-  v1 = *a1;
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_100057D50()
@@ -1565,12 +1513,12 @@ void sub_100057D50()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_100057DC0(unsigned __int8 *a1)
+void sub_100057DC0()
 {
-  sub_10000FA4C(a1);
+  sub_10000FA4C();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_100057E30()
@@ -1580,12 +1528,12 @@ void sub_100057E30()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100057E6C(unsigned __int8 *a1)
+void sub_100057E6C()
 {
-  sub_10000FA4C(a1);
+  sub_10000FA4C();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_100057EDC()
@@ -1595,12 +1543,12 @@ void sub_100057EDC()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100057F18(unsigned __int8 *a1)
+void sub_100057F18()
 {
-  sub_10000FA4C(a1);
+  sub_10000FA4C();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_100057F88()
@@ -1638,30 +1586,28 @@ void sub_100058078()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1000580B4(unsigned int *a1)
+void sub_1000580B4()
 {
-  v1 = *a1;
   sub_10000F9C0();
   sub_10000F9A4();
   sub_100008320();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
-void sub_10005812C(uint64_t *a1)
+void sub_10005812C()
 {
-  sub_100001DE4(a1, __stack_chk_guard);
+  sub_100001DE4(__stack_chk_guard);
   sub_100001DF0();
   sub_100008320();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_10005823C(uint64_t a1)
+void sub_10005823C()
 {
-  v1 = bswap32(*(a1 + 2));
   sub_10000F9C0();
   sub_10000F9A4();
   sub_100008320();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
 void sub_1000582BC()
@@ -1727,12 +1673,12 @@ void sub_1000586C8()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_100058738(unsigned int *a1)
+void sub_100058738()
 {
-  sub_1000128F8(a1);
+  sub_1000128F8();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1000588AC(uint64_t a1, NSObject *a2)
@@ -1742,35 +1688,33 @@ void sub_1000588AC(uint64_t a1, NSObject *a2)
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "authmethod is %s\n", v3, 0xCu);
 }
 
-void sub_100058A78(unsigned __int8 *a1)
+void sub_100058A78()
 {
-  v1 = *a1;
   sub_10000F9C0();
   sub_100012904();
   sub_100001DFC();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
-void sub_100058E88(unsigned __int8 *a1)
+void sub_100058E88()
 {
-  v1 = *a1;
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10005900C(const sockaddr **a1)
 {
   sub_100012918(a1);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "NAT-D hashing failed for %s\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "NAT-D hashing failed for %s\n", v3, v4, v5, v6);
 }
 
 void sub_1000591B8(uint64_t a1)
 {
   sub_10003A958(*(a1 + 48));
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "couldn't find the Hybrid pskey for %s.\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "couldn't find the Hybrid pskey for %s.\n", v3, v4, v5, v6);
 }
 
 void sub_100059268(uint8_t *a1, unsigned __int8 *a2, char **a3, NSObject *a4)
@@ -1781,6 +1725,36 @@ void sub_100059268(uint8_t *a1, unsigned __int8 *a2, char **a3, NSObject *a4)
   _os_log_debug_impl(&_mh_execute_header, a4, OS_LOG_TYPE_DEBUG, "received payload of type %s\n", a1, 0xCu);
 }
 
+void sub_1000597BC()
+{
+  v6 = 136315394;
+  sub_1000133F0();
+  sub_100013404(&_mh_execute_header, v0, v1, "%s: processed %d fragments\n", v2, v3, v4, v5, v6);
+}
+
+void sub_100059830(unsigned __int8 *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  *v8 = 136315394;
+  *&v8[4] = "isakmp_frag_extract";
+  *&v8[12] = 1024;
+  *&v8[14] = *a1;
+  sub_100013404(&_mh_execute_header, a2, a3, "%s: processed fragment %d\n", a5, a6, a7, a8, *v8, *&v8[8], *&v8[16]);
+}
+
+void sub_100059990()
+{
+  v6 = 136315394;
+  sub_1000133F0();
+  sub_100013404(&_mh_execute_header, v0, v1, "%s: processed %d fragments\n", v2, v3, v4, v5, v6);
+}
+
+void sub_100059AEC()
+{
+  v6 = 136315394;
+  sub_1000133F0();
+  sub_100013404(&_mh_execute_header, v0, v1, "%s: processed %d fragments\n", v2, v3, v4, v5, v6);
+}
+
 void sub_100059C64(uint8_t *buf, _BYTE *a2, os_log_t log)
 {
   *buf = 0;
@@ -1788,36 +1762,43 @@ void sub_100059C64(uint8_t *buf, _BYTE *a2, os_log_t log)
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "remote supports FRAGMENTATION\n", buf, 2u);
 }
 
-void sub_100059CA4(unsigned __int8 *a1)
+void sub_100059CA4()
 {
-  sub_10000FA4C(a1);
+  sub_10000FA4C();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_100059E64(uint64_t a1)
+void sub_100059D7C(const sockaddr **a1)
 {
-  sub_1000168C4(a1);
-  sub_10000F9C0();
-  sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  LODWORD(v7) = 136315138;
+  *(&v7 + 4) = sub_10003A5E8(*a1);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "NAT-D hashing failed for %s\n", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
-void sub_100059F08(uint64_t a1)
+void sub_100059E64()
 {
-  sub_1000168C4(a1);
+  sub_1000168C4();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_10005A07C(uint64_t a1)
+void sub_100059F08()
 {
-  sub_1000168C4(a1);
+  sub_1000168C4();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
+}
+
+void sub_10005A07C()
+{
+  sub_1000168C4();
+  sub_10000F9C0();
+  sub_100001DFC();
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10005A400(uint8_t *buf, unsigned int *a2, unsigned int *a3, os_log_t log)
@@ -1860,13 +1841,11 @@ void sub_10005A6A0()
   sub_1000054F8(&_mh_execute_header, v2, v3, "reject the packet, received unexpected payload type %s.\n");
 }
 
-void sub_10005A6F0(int a1, uint64_t a2)
+void sub_10005A6F0(int a1)
 {
   sub_10003BCF8(a1);
-  v8 = *(a2 + 16);
-  v9 = *(a2 + 20);
   sub_10001A31C();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x18u);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x18u);
 }
 
 void sub_10005A860(uint64_t a1, NSObject *a2)
@@ -1891,13 +1870,12 @@ void sub_10005AAA0(unsigned __int16 *a1)
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
-void sub_10005AD28(unsigned __int8 *a1)
+void sub_10005AD28()
 {
-  v1 = *a1;
   sub_10000F9C0();
   sub_10001EBB4();
   sub_100001DFC();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
 void sub_10005ADA0(uint64_t a1, const sockaddr *a2)
@@ -1914,12 +1892,11 @@ void sub_10005ADE8(uint64_t a1, const sockaddr *a2)
   sub_10001EB54(&_mh_execute_header, v3, v4, "initiaor rcvd NAT-OA i: %s\n");
 }
 
-void sub_10005AECC(unsigned __int16 *a1)
+void sub_10005AECC()
 {
-  v1 = *a1;
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10005AF74(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -1961,20 +1938,20 @@ void sub_10005B484(uint8_t *buf, _BYTE *a2, os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "IDr2 payload is not immediatelly followed by IDi2. We allowed.\n", buf, 2u);
 }
 
-void sub_10005B5FC(unsigned __int8 *a1)
+void sub_10005B5FC()
 {
-  sub_10000FA4C(a1);
+  sub_10000FA4C();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_10005B80C(unsigned int *a1)
+void sub_10005B80C()
 {
-  sub_1000128F8(a1);
+  sub_1000128F8();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10005B984(uint64_t **a1)
@@ -1994,24 +1971,20 @@ void sub_10005BE4C(int a1, NSObject *a2)
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "%s: ignore_id %x.\n", &v2, 0x12u);
 }
 
-void sub_10005BF74(uint64_t a1, unsigned __int16 *a2)
+void sub_10005BF74(uint64_t a1)
 {
   sub_10003A5E8((a1 + 8));
-  v4 = *(a1 + 264);
-  v5 = *a2;
   sub_10001EB94();
   sub_10000FA3C();
-  _os_log_debug_impl(v6, v7, v8, v9, v10, 0x18u);
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x18u);
 }
 
-void sub_10005C010(uint64_t a1, unsigned __int16 *a2)
+void sub_10005C010(uint64_t a1)
 {
   sub_10003A5E8((a1 + 136));
-  v4 = *(a1 + 265);
-  v5 = *a2;
   sub_10001EB94();
   sub_10000FA3C();
-  _os_log_debug_impl(v6, v7, v8, v9, v10, 0x18u);
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x18u);
 }
 
 void sub_10005C0AC(unsigned __int8 *a1)
@@ -2026,29 +1999,21 @@ void sub_10005C12C(unsigned __int8 *a1)
 {
   sub_1000330F8(a1);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "policy found, but no IPsec required: %s\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "policy found, but no IPsec required: %s\n", v3, v4, v5, v6);
 }
 
 void sub_10005C1D8(unsigned __int8 *a1)
 {
   sub_1000330F8(a1);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "no policy found: %s\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "no policy found: %s\n", v3, v4, v5, v6);
 }
 
-void sub_10005C284(uint64_t *a1)
+void sub_10005C33C()
 {
-  v6 = *a1;
-  sub_100008320();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-}
-
-void sub_10005C33C(unsigned __int8 *a1)
-{
-  v1 = *a1;
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10005C3B0()
@@ -2074,12 +2039,11 @@ void sub_10005C49C()
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
-void sub_10005C524(unsigned int *a1)
+void sub_10005C524()
 {
-  v1 = bswap32(*a1);
   sub_10000F9C0();
   sub_100008320();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10005C5D4()
@@ -2098,21 +2062,19 @@ void sub_10005C654()
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
-void sub_10005C784(unsigned __int8 *a1)
+void sub_10005C784()
 {
-  v1 = *a1;
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_10005C894(unsigned __int8 *a1, const sockaddr *a2)
+void sub_10005C894(uint64_t a1, const sockaddr *a2)
 {
-  v2 = *a1;
   sub_10003A5E8(a2);
   sub_1000031F4();
   sub_10001A31C();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
 }
 
 void sub_10005C950(uint64_t a1)
@@ -2137,21 +2099,20 @@ void sub_10005CAE0(unsigned __int8 *a1, unsigned __int8 *a2)
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-void sub_10005CB8C(unsigned __int8 *a1, const sockaddr *a2)
+void sub_10005CB8C(uint64_t a1, const sockaddr *a2)
 {
-  v2 = *a1;
   sub_10003A5E8(a2);
   sub_1000031F4();
   sub_10001A31C();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x12u);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
 }
 
-void sub_10005CC7C(uint64_t a1)
+void sub_10005CC7C()
 {
-  sub_100025A94(a1);
+  sub_100025A94();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10005CE58(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -2363,21 +2324,18 @@ void sub_10005DBD0(uint64_t a1)
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
-void sub_10005DC98(unsigned __int8 *a1, unsigned __int8 *a2)
+void sub_10005DC98()
 {
-  v2 = *a1;
-  v3 = *a2;
   sub_10000F9C0();
   sub_100008320();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
-void sub_10005DDC4(unsigned __int16 *a1)
+void sub_10005DDC4()
 {
-  v1 = bswap32(*a1);
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10005DE40(uint64_t *a1, int a2, os_log_t log)
@@ -2401,25 +2359,21 @@ void sub_10005DECC()
 void sub_10005DF18()
 {
   sub_100025A78();
-  sub_10003A5E8((v2 + 8));
-  v3 = *(v1 + 264);
-  v4 = *v0;
+  sub_10003A5E8((v0 + 8));
   sub_10000FA58();
   sub_100025AA4();
   sub_10000FA3C();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x18u);
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x18u);
 }
 
 void sub_10005DFB0()
 {
   sub_100025A78();
-  sub_10003A5E8((v2 + 136));
-  v3 = *(v1 + 265);
-  v4 = *v0;
+  sub_10003A5E8((v0 + 136));
   sub_10000FA58();
   sub_100025AA4();
   sub_10000FA3C();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x18u);
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x18u);
 }
 
 void sub_10005E118(unsigned __int8 a1)
@@ -2469,29 +2423,26 @@ void sub_10005E648()
   errx(1, "failed to be daemon. (%s)", v1);
 }
 
-void sub_10005E6FC(uint64_t *a1)
+void sub_10005E6FC()
 {
-  sub_100001DE4(a1, __stack_chk_guard);
-  v2 = **v1;
+  sub_100001DE4(__stack_chk_guard);
   sub_10002C11C();
   sub_100008320();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_10005E844(unsigned int *a1)
+void sub_10005E844()
 {
-  v1 = *a1;
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_10005E9F0(unsigned int *a1)
+void sub_10005E9F0()
 {
-  v1 = *a1;
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10005EA64()
@@ -2522,29 +2473,27 @@ void sub_10005EBB4()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_10005ED28(uint64_t *a1)
+void sub_10005ED28()
 {
-  sub_10002C110(a1);
-  v2 = *(v1 + 48);
+  sub_10002C110();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10005EDD0(uint64_t a1)
 {
   sub_10003C560(*(*a1 + 48));
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "not supported authmethod type %s\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "not supported authmethod type %s\n", v3, v4, v5, v6);
 }
 
-void sub_10005EEB8(uint64_t *a1)
+void sub_10005EEB8()
 {
-  sub_10002C110(a1);
-  v2 = *(v1 + 108);
+  sub_10002C110();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10005EF2C()
@@ -2558,75 +2507,65 @@ void sub_10005F0A0(int a1)
 {
   sub_100002AF8(a1);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "error verifying signature %s\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "error verifying signature %s\n", v3, v4, v5, v6);
 }
 
-void sub_10005F180(unsigned __int8 *a1)
+void sub_10005F180()
 {
-  v1 = *a1;
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_10005F290(uint64_t *a1)
+void sub_10005F290()
 {
-  sub_10002C110(a1);
-  v2 = *(v1 + 48);
+  sub_10002C110();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_10005F3A0(uint64_t *a1)
+void sub_10005F3A0()
 {
-  sub_10002C110(a1);
-  v2 = *(v1 + 104);
+  sub_10002C110();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 8u);
-}
-
-void sub_10005F414(unsigned int *a1)
-{
-  v1 = *a1;
-  sub_10000F9C0();
-  sub_10002C134(&_mh_execute_header, v2, v3, "done with chking cert status %d\n", v4, v5, v6, v7, v8);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10005F66C()
 {
   sub_10003C390(3);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v0, v1, "subjectAltName (expected type %s):\n", v2, v3, v4, v5, v6);
+  sub_10000F9E8(&_mh_execute_header, v0, v1, "subjectAltName (expected type %s):\n", v2, v3, v4, v5);
 }
 
 void sub_10005F784()
 {
   sub_10003C390(2);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v0, v1, "subjectAltName (expected type %s):\n", v2, v3, v4, v5, v6);
+  sub_10000F9E8(&_mh_execute_header, v0, v1, "subjectAltName (expected type %s):\n", v2, v3, v4, v5);
 }
 
 void sub_10005F834(int a1)
 {
   sub_10003C390(a1);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "subjectAltName (expected type %s):\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "subjectAltName (expected type %s):\n", v3, v4, v5, v6);
 }
 
 void sub_10005F948()
 {
   sub_10003C390(9);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v0, v1, "subjectName (type %s):\n", v2, v3, v4, v5, v6);
+  sub_10000F9E8(&_mh_execute_header, v0, v1, "subjectName (type %s):\n", v2, v3, v4, v5);
 }
 
 void sub_10005F9C4(int a1)
 {
   sub_10003C390(a1);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "Impropper ID type passed: %s.\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "Impropper ID type passed: %s.\n", v3, v4, v5, v6);
 }
 
 void sub_10005FA3C()
@@ -2647,82 +2586,74 @@ void sub_10005FC54(uint64_t a1)
 {
   sub_10003BB9C(*(*a1 + 104));
   sub_10000FA58();
-  sub_100005518(&_mh_execute_header, v1, v2, "create my CR: %s\n", v3, v4, v5, v6, v7);
+  sub_100005518(&_mh_execute_header, v1, v2, "create my CR: %s\n", v3, v4, v5, v6);
 }
 
 void sub_10005FCD4(uint64_t a1)
 {
   sub_10003BB9C(*(*a1 + 112));
   sub_10000FA58();
-  sub_100005518(&_mh_execute_header, v1, v2, "create my CR: NONE, using %s instead\n", v3, v4, v5, v6, v7);
+  sub_100005518(&_mh_execute_header, v1, v2, "create my CR: NONE, using %s instead\n", v3, v4, v5, v6);
 }
 
-void sub_10005FD88(uint64_t *a1)
+void sub_10005FD88()
 {
-  sub_10002C110(a1);
-  v2 = *v1;
+  sub_10002C110();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10005FE30(const sockaddr **a1)
 {
   sub_10003A958(*a1);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "couldn't find the pskey by address %s.\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "couldn't find the pskey by address %s.\n", v3, v4, v5, v6);
 }
 
-void sub_10005FEE0(uint64_t *a1)
+void sub_10005FEE0()
 {
-  sub_10002C110(a1);
-  v2 = *(v1 + 48);
+  sub_10002C110();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10005FFBC(uint64_t a1)
 {
   sub_10003A958(*(a1 + 48));
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "couldn't find the pskey for %s.\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "couldn't find the pskey for %s.\n", v3, v4, v5, v6);
 }
 
-void sub_100060038(uint64_t *a1)
+void sub_100060038()
 {
-  sub_100001DE4(a1, __stack_chk_guard);
-  v2 = *v1;
-  v4 = **v3;
+  sub_100001DE4(__stack_chk_guard);
   sub_10002C11C();
-  _os_log_debug_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "len(SKEYID_e) < len(Ka) (%zu < %zu), generating long key (Ka = K1 | K2 | ...)\n", v6, 0x16u);
+  _os_log_debug_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEBUG, "len(SKEYID_e) < len(Ka) (%zu < %zu), generating long key (Ka = K1 | K2 | ...)\n", v1, 0x16u);
 }
 
-void sub_1000600BC(uint64_t *a1)
+void sub_1000600BC()
 {
-  sub_100001DE4(a1, __stack_chk_guard);
-  v2 = *v1;
+  sub_100001DE4(__stack_chk_guard);
   sub_10002C11C();
   sub_100008320();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100060164(uint64_t *a1)
+void sub_100060164()
 {
-  sub_10002C110(a1);
-  v2 = *(v1 + 52);
+  sub_10002C110();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1000601D8(uint64_t *a1)
+void sub_1000601D8()
 {
-  sub_100001DE4(a1, __stack_chk_guard);
-  v7 = *(v1 + 40);
-  v8 = *(v1 + 44);
+  sub_100001DE4(__stack_chk_guard);
   sub_100001DFC();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
 void sub_100060290()
@@ -2730,38 +2661,31 @@ void sub_100060290()
   v0 = __error();
   strerror(*v0);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "vdup (%s)\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "vdup (%s)\n", v3, v4, v5, v6);
 }
 
-void sub_100060310(uint64_t a1)
+void sub_100060310()
 {
-  sub_10002C100(a1);
+  sub_10002C100();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_100060524(uint64_t a1, uint64_t *a2)
+void sub_100060648()
 {
-  v7 = *a2;
-  sub_100008320();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-}
-
-void sub_100060648(uint64_t a1)
-{
-  sub_10002C100(a1);
+  sub_10002C100();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_100060824(uint64_t a1)
+void sub_100060824()
 {
-  sub_10002C100(a1);
+  sub_10002C100();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1000608C8()
@@ -2789,12 +2713,12 @@ void sub_1000609C8()
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
-void sub_100060A70(unsigned __int8 *a1)
+void sub_100060A70()
 {
-  sub_10000FA4C(a1);
+  sub_10000FA4C();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_100060AE0()
@@ -2968,12 +2892,12 @@ void sub_100061468()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1000614A4(unsigned int *a1)
+void sub_1000614A4()
 {
-  sub_1000128F8(a1);
+  sub_1000128F8();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_100061514(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -2991,12 +2915,12 @@ void sub_100061554()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_1000615D4(unsigned int *a1)
+void sub_1000615D4()
 {
-  sub_1000128F8(a1);
+  sub_1000128F8();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_100061644()
@@ -3006,12 +2930,12 @@ void sub_100061644()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100061680(unsigned int *a1)
+void sub_100061680()
 {
-  sub_1000128F8(a1);
+  sub_1000128F8();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1000616F0()
@@ -3022,12 +2946,12 @@ void sub_1000616F0()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
 }
 
-void sub_100061770(unsigned int *a1)
+void sub_100061770()
 {
-  sub_1000128F8(a1);
+  sub_1000128F8();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1000617E0()
@@ -3105,12 +3029,12 @@ void sub_100061D20()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100061D5C(unsigned __int8 *a1)
+void sub_100061D5C()
 {
-  sub_10000FA4C(a1);
+  sub_10000FA4C();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_100061DCC(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -3134,20 +3058,19 @@ void sub_100061E48()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100061E84(unsigned __int8 *a1)
+void sub_100061E84()
 {
-  sub_10000FA4C(a1);
+  sub_10000FA4C();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_100061EF4(unsigned __int16 *a1)
+void sub_100061EF4()
 {
-  v1 = *a1;
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_100061F68()
@@ -3195,27 +3118,25 @@ void sub_100062094()
 void sub_1000620D0()
 {
   sub_1000313F4();
-  sub_100031400(v1);
-  v2 = *v0;
+  sub_100031400(v0);
   sub_1000313DC();
   sub_10000FA3C();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x12u);
 }
 
-void sub_100062150(uint64_t a1)
+void sub_100062150()
 {
-  v1 = *(a1 + 56);
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1000621C4(unsigned __int8 *a1)
+void sub_1000621C4()
 {
-  sub_10000FA4C(a1);
+  sub_10000FA4C();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_100062234()
@@ -3241,15 +3162,15 @@ void sub_1000622F4(uint64_t a1)
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
-void sub_100062378(unsigned int *a1)
+void sub_100062378()
 {
-  sub_1000128F8(a1);
+  sub_1000128F8();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_1000623E8(unsigned int *a1, uint64_t a2)
+void sub_1000623E8(uint64_t a1, uint64_t a2)
 {
   sub_100031418(a1, a2);
   sub_1000031F4();
@@ -3271,12 +3192,12 @@ void sub_1000624A0()
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
-void sub_100062510(unsigned __int8 *a1)
+void sub_100062510()
 {
-  sub_10000FA4C(a1);
+  sub_10000FA4C();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_100062580()
@@ -3286,7 +3207,7 @@ void sub_100062580()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_1000625BC(unsigned int *a1, uint64_t a2)
+void sub_1000625BC(uint64_t a1, uint64_t a2)
 {
   sub_100031418(a1, a2);
   sub_1000031F4();
@@ -3363,12 +3284,11 @@ void sub_100062A08(uint64_t a1)
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
-void sub_100062A8C(uint64_t a1)
+void sub_100062A8C()
 {
-  v1 = *(a1 + 61);
   sub_10000F9C0();
   sub_1000054EC();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_100062B00(unsigned __int8 *a1)
@@ -3423,12 +3343,12 @@ void sub_100062CF0(const sockaddr *a1)
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
-void sub_100062D70(unsigned int *a1)
+void sub_100062D70()
 {
-  sub_1000128F8(a1);
+  sub_1000128F8();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_100062DE0(const sockaddr *a1)
@@ -3571,13 +3491,6 @@ void sub_100063510(uint64_t *a1, NSObject *a2)
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "%s", &v3, 0xCu);
 }
 
-void sub_10006358C(uint64_t *a1)
-{
-  v6 = *a1;
-  sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
 void sub_100063604(uint64_t *a1, NSObject *a2)
 {
   v2 = *a1;
@@ -3657,44 +3570,44 @@ void sub_100063B54(unsigned __int8 *a1, unsigned __int8 *a2, os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "unexpected error: src.ss_len:%d dst.ss_len:%d\n", v5, 0xEu);
 }
 
-void sub_100063BE4(uint64_t *a1, uint64_t *a2)
+void sub_100063BE4()
 {
-  sub_100035F80(a1, a2, __stack_chk_guard);
+  sub_100035F80(__stack_chk_guard);
   sub_100008330();
   sub_100008320();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
-void sub_100063C54(unsigned int *a1, unsigned int *a2)
+void sub_100063C54()
 {
-  sub_100035F64(a1, a2, __stack_chk_guard);
+  sub_100035F64(__stack_chk_guard);
   sub_100008330();
   sub_100008320();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
-void sub_100063CC4(unsigned int *a1, unsigned int *a2)
+void sub_100063CC4()
 {
-  sub_100035F64(a1, a2, __stack_chk_guard);
+  sub_100035F64(__stack_chk_guard);
   sub_100008330();
   sub_100008320();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
-void sub_100063D34(unsigned int *a1, unsigned int *a2)
+void sub_100063D34()
 {
-  sub_100035F64(a1, a2, __stack_chk_guard);
+  sub_100035F64(__stack_chk_guard);
   sub_100008330();
   sub_100008320();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
-void sub_100063DA4(uint64_t *a1, uint64_t *a2)
+void sub_100063DA4()
 {
-  sub_100035F80(a1, a2, __stack_chk_guard);
+  sub_100035F80(__stack_chk_guard);
   sub_100008330();
   sub_100008320();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
 void sub_100063E14(int *a1, int *a2)
@@ -3706,12 +3619,12 @@ void sub_100063E14(int *a1, int *a2)
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-void sub_100063EB0(uint64_t *a1, uint64_t *a2)
+void sub_100063EB0()
 {
-  sub_100035F80(a1, a2, __stack_chk_guard);
+  sub_100035F80(__stack_chk_guard);
   sub_100008330();
   sub_100008320();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xEu);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0xEu);
 }
 
 void sub_100063F20(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -3739,64 +3652,72 @@ void sub_1000640CC(unsigned int *a1, unsigned int *a2)
   _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 0x16u);
 }
 
+void sub_100064244(_DWORD *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = *a1;
+  sub_100035FAC(&_mh_execute_header, a2, a3, "unknown proto_id (%d).\n", a5, a6, a7, a8, v8);
+}
+
+void sub_1000642B4(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = *(*a1 + 6);
+  sub_100035FAC(&_mh_execute_header, a2, a3, "invalid spi size %d.\n", a5, a6, a7, a8, v8);
+}
+
 void sub_1000643DC()
 {
   sub_100003248();
-  sub_10003BE54(*v1);
+  sub_10003BE54(*v0);
   sub_100035F2C();
-  v3 = *(v0 + 48);
-  v2 = *(v0 + 52);
   sub_100035E98();
   sub_100035F58();
-  _os_log_debug_impl(v4, v5, OS_LOG_TYPE_DEBUG, v6, v7, 0x3Cu);
+  _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 0x3Cu);
 }
 
 void sub_10006447C()
 {
   sub_100003248();
-  sub_10003BE54(*v1);
+  sub_10003BE54(*v0);
   sub_100035F2C();
-  v3 = *(v0 + 48);
-  v2 = *(v0 + 52);
   sub_100035E98();
   sub_10001A31C();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x3Cu);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x3Cu);
 }
 
 void sub_100064518()
 {
   sub_100003248();
-  sub_10003BE54(*v1);
+  sub_10003BE54(*v0);
   sub_100035F2C();
-  v3 = *(v0 + 48);
-  v2 = *(v0 + 52);
   sub_100035E98();
   sub_100035F58();
-  _os_log_fault_impl(v4, v5, OS_LOG_TYPE_FAULT, v6, v7, 0x3Cu);
+  _os_log_fault_impl(v1, v2, OS_LOG_TYPE_FAULT, v3, v4, 0x3Cu);
 }
 
-void sub_1000645B8(uint64_t a1)
+void sub_1000645B8()
 {
-  sub_100035F74(a1);
-  sub_10003C080(4, v1);
+  sub_100035F74();
+  sub_10003C080(4, v0);
   sub_100035F58();
-  _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0xCu);
+  _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 0xCu);
 }
 
-void sub_100064644(uint64_t a1)
+void sub_100064644()
 {
-  sub_100035F74(a1);
-  sub_10003C080(4, v1);
+  sub_100035F74();
+  sub_10003C080(4, v0);
   sub_10001A31C();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
-void sub_1000646CC(uint64_t a1)
+void sub_1000646CC()
 {
-  sub_100035F74(a1);
-  sub_10003C080(4, v1);
+  sub_100035F74();
+  sub_10003C080(4, v0);
   sub_100035F58();
-  _os_log_fault_impl(v2, v3, OS_LOG_TYPE_FAULT, v4, v5, 0xCu);
+  _os_log_fault_impl(v1, v2, OS_LOG_TYPE_FAULT, v3, v4, 0xCu);
 }
 
 void sub_100064758()
@@ -3832,34 +3753,34 @@ void sub_10006486C()
 void sub_1000648F8()
 {
   sub_100003248();
-  sub_100035F74(v0);
-  sub_10003C080(2, v1);
+  sub_100035F74();
+  sub_10003C080(2, v0);
   sub_100035FE4();
   sub_100035E80();
   sub_100035F58();
-  _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0x16u);
+  _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 0x16u);
 }
 
 void sub_10006498C()
 {
   sub_100003248();
-  sub_100035F74(v0);
-  sub_10003C080(2, v1);
+  sub_100035F74();
+  sub_10003C080(2, v0);
   sub_100035FE4();
   sub_100035E80();
   sub_10001A31C();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
 void sub_100064A1C()
 {
   sub_100003248();
-  sub_100035F74(v0);
-  sub_10003C080(2, v1);
+  sub_100035F74();
+  sub_10003C080(2, v0);
   sub_100035FE4();
   sub_100035E80();
   sub_100035F58();
-  _os_log_fault_impl(v2, v3, OS_LOG_TYPE_FAULT, v4, v5, 0x16u);
+  _os_log_fault_impl(v1, v2, OS_LOG_TYPE_FAULT, v3, v4, 0x16u);
 }
 
 void sub_100064AB0(int a1, NSObject *a2)
@@ -3869,6 +3790,13 @@ void sub_100064AB0(int a1, NSObject *a2)
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "(unknown proto_id %d)\n", v2, 8u);
 }
 
+void sub_100064B28(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = a1;
+  sub_100035FAC(&_mh_execute_header, a2, a3, "(unknown proto_id %d)\n", a5, a6, a7, a8, v8);
+}
+
 void sub_100064B94(int a1, NSObject *a2)
 {
   v2[0] = 67109120;
@@ -3876,29 +3804,11 @@ void sub_100064B94(int a1, NSObject *a2)
   _os_log_fault_impl(&_mh_execute_header, a2, OS_LOG_TYPE_FAULT, "(unknown proto_id %d)\n", v2, 8u);
 }
 
-void sub_100064C0C(uint64_t a1, uint64_t a2)
+void sub_100064C88()
 {
-  v2 = *(a2 + 16);
-  v3 = *(a2 + 24);
-  sub_100035EE0();
-  _os_log_debug_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "%s%p: next=%p tnext=%p\n", v5, 0x2Au);
-}
-
-void sub_100064C88(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 16);
-  v3 = *(a2 + 24);
   sub_100035EE0();
   sub_100008320();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x2Au);
-}
-
-void sub_100064CFC(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 16);
-  v3 = *(a2 + 24);
-  sub_100035EE0();
-  _os_log_fault_impl(&_mh_execute_header, v4, OS_LOG_TYPE_FAULT, "%s%p: next=%p tnext=%p\n", v5, 0x2Au);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Au);
 }
 
 void sub_100064DAC(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -3966,7 +3876,7 @@ void sub_1000653F0()
   v0 = __error();
   strerror(*v0);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "getsockname (%s)\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "getsockname (%s)\n", v3, v4, v5, v6);
 }
 
 void sub_100065470()
@@ -3974,7 +3884,7 @@ void sub_100065470()
   v0 = __error();
   strerror(*v0);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "connect (%s)\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "connect (%s)\n", v3, v4, v5, v6);
 }
 
 void sub_1000654F0()
@@ -3982,7 +3892,7 @@ void sub_1000654F0()
   v0 = __error();
   strerror(*v0);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "socket (%s)\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "socket (%s)\n", v3, v4, v5, v6);
 }
 
 void sub_1000655A4()
@@ -3990,14 +3900,14 @@ void sub_1000655A4()
   v0 = __error();
   strerror(*v0);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "setsockopt IP_IPSEC_POLICY (%s)\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "setsockopt IP_IPSEC_POLICY (%s)\n", v3, v4, v5, v6);
 }
 
 void sub_100065624()
 {
   ipsec_strerror();
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v0, v1, "ipsec_set_policy (%s)\n", v2, v3, v4, v5, v6);
+  sub_10000F9E8(&_mh_execute_header, v0, v1, "ipsec_set_policy (%s)\n", v2, v3, v4, v5);
 }
 
 void sub_100065710()
@@ -4005,7 +3915,7 @@ void sub_100065710()
   v0 = __error();
   strerror(*v0);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "recvmsg (%s)\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "recvmsg (%s)\n", v3, v4, v5, v6);
 }
 
 void sub_1000657C4(const sockaddr *a1)
@@ -4034,7 +3944,7 @@ void sub_1000659A8()
   v0 = __error();
   strerror(*v0);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "bind 1 (%s)\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "bind 1 (%s)\n", v3, v4, v5, v6);
 }
 
 void sub_100065A28()
@@ -4042,7 +3952,7 @@ void sub_100065A28()
   v0 = __error();
   strerror(*v0);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "setsockopt IPV6_USE_MIN_MTU (%s)\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "setsockopt IPV6_USE_MIN_MTU (%s)\n", v3, v4, v5, v6);
 }
 
 void sub_100065AA8()
@@ -4050,7 +3960,7 @@ void sub_100065AA8()
   v0 = __error();
   strerror(*v0);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "setsockopt SO_REUSEPORT (%s)\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "setsockopt SO_REUSEPORT (%s)\n", v3, v4, v5, v6);
 }
 
 void sub_100065B28()
@@ -4071,22 +3981,20 @@ void sub_100065B7C()
   sub_1000054F8(&_mh_execute_header, v4, v5, "treating socket error (%s) like packet loss\n");
 }
 
-void sub_100065BD0(uint64_t a1)
+void sub_100065BD0(const sockaddr *a1)
 {
   sub_10003A5E8(a1);
-  v2 = *(a1 + 24);
   sub_10003B490();
   sub_100035F58();
-  _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 0x12u);
+  _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 0x12u);
 }
 
-void sub_100065C68(uint64_t a1)
+void sub_100065C68(const sockaddr *a1)
 {
   sub_10003A5E8(a1);
-  v2 = *(a1 + 24);
   sub_10003B490();
   sub_100035F58();
-  _os_log_debug_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 0x12u);
+  _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 0x12u);
 }
 
 void sub_100065D00()
@@ -4103,24 +4011,22 @@ void sub_100065D54()
   v0 = __error();
   strerror(*v0);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "%s\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "%s\n", v3, v4, v5, v6);
 }
 
-void sub_100065DD4(unsigned __int8 *a1)
+void sub_100065DD4()
 {
-  v1 = *a1;
   sub_10000F9C0();
-  v5 = 2048;
-  v6 = v2;
-  _os_log_error_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "unexpected inconsistency: %d %zu\n", v4, 0x12u);
+  v3 = 2048;
+  v4 = v0;
+  _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "unexpected inconsistency: %d %zu\n", v2, 0x12u);
 }
 
-void sub_100065E5C(unsigned __int8 *a1)
+void sub_100065E5C()
 {
-  v1 = *a1;
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_100065ED0()
@@ -4131,12 +4037,11 @@ void sub_100065ED0()
   _os_log_error_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "Call with null args: naddr=%p, saddr=%p\n", v2, 0x16u);
 }
 
-void sub_100065F54(unsigned __int8 *a1)
+void sub_100065F54()
 {
-  v1 = *a1;
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_10006600C(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -4153,12 +4058,12 @@ void sub_100066090(int a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "invalid vendor ID index: %d\n", v2, 8u);
 }
 
-void sub_10006614C(unsigned __int8 *a1)
+void sub_10006614C()
 {
-  sub_10000FA4C(a1);
+  sub_10000FA4C();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1000661BC(int a1, NSObject *a2)
@@ -4175,12 +4080,12 @@ void sub_100066248()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100066284(unsigned __int8 *a1)
+void sub_100066284()
 {
-  sub_10000FA4C(a1);
+  sub_10000FA4C();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1000662F4()
@@ -4190,12 +4095,12 @@ void sub_1000662F4()
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_100066330(unsigned __int8 *a1)
+void sub_100066330()
 {
-  sub_10000FA4C(a1);
+  sub_10000FA4C();
   sub_10000F9C0();
   sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
 }
 
 void sub_1000663A0()
@@ -4203,13 +4108,6 @@ void sub_1000663A0()
   sub_100001224();
   sub_100001DFC();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void sub_100066548(unsigned __int16 *a1)
-{
-  v6 = bswap32(*a1) >> 16;
-  sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
 }
 
 void sub_1000665C8(int a1)
@@ -4257,13 +4155,6 @@ void sub_100066874()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_100066980(uint64_t a1)
-{
-  v6 = *(*a1 + 1);
-  sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-}
-
 void sub_100066BDC(int a1, int a2, os_log_t log)
 {
   v3 = 134218496;
@@ -4283,12 +4174,11 @@ void sub_100066C74()
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
 }
 
-void sub_100066D2C(int a1, uint64_t a2)
+void sub_100066D2C(int a1)
 {
   sub_10003BD6C(a1);
-  v8 = bswap32(*(a2 + 2)) >> 16;
   sub_10000FA3C();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x12u);
 }
 
 void sub_100066DCC(int a1)
@@ -4313,20 +4203,6 @@ void sub_10006705C(unsigned __int16 *a1, NSObject *a2)
   _os_log_debug_impl(&_mh_execute_header, a2, OS_LOG_TYPE_DEBUG, "unity_pfs = %x\n", v3, 8u);
 }
 
-void sub_1000670E0(int *a1)
-{
-  v6 = *a1;
-  sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-}
-
-void sub_1000671C0(int *a1)
-{
-  v6 = *a1;
-  sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-}
-
 void sub_1000672A0(uint64_t a1, uint64_t a2, os_log_t log)
 {
   v3 = 136315394;
@@ -4341,20 +4217,6 @@ void sub_1000673C4(uint8_t *buf, _BYTE *a2, os_log_t log)
   *buf = 0;
   *a2 = 0;
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Unknown group auth source\n", buf, 2u);
-}
-
-void sub_10006757C(uint64_t a1)
-{
-  v6 = *(**(*a1 + 272) + 8);
-  sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
-void sub_100067634(unsigned __int16 *a1)
-{
-  v6 = bswap32(*a1) >> 16;
-  sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
 }
 
 void sub_100067820()
@@ -4435,12 +4297,11 @@ void sub_100067C2C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100067CA4(unsigned __int16 *a1)
+void sub_100067CA4()
 {
-  v1 = bswap32(*a1);
   sub_100047A8C();
   sub_100008320();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_100067D24()
@@ -4473,12 +4334,11 @@ void sub_100067E4C()
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
-void sub_100067EC0(unsigned __int16 *a1)
+void sub_100067EC0()
 {
-  v1 = bswap32(*a1);
   sub_100047A8C();
   sub_100008320();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void sub_100067F40()
@@ -4486,13 +4346,6 @@ void sub_100067F40()
   sub_100047A60();
   sub_100001DFC();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-}
-
-void sub_100067FB8(unsigned __int16 *a1)
-{
-  v6 = bswap32(*a1) >> 16;
-  sub_100001DFC();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
 }
 
 void sub_100068038()
@@ -4670,7 +4523,7 @@ void sub_100068A00(const sockaddr *a1)
 {
   sub_10003A958(a1);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "no configuration found for %s\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "no configuration found for %s\n", v3, v4, v5, v6);
 }
 
 void sub_100068AAC(uint8_t *buf, uint64_t a2, _DWORD *a3, os_log_t log)
@@ -4700,35 +4553,35 @@ void sub_100068C00(int a1, uint64_t a2)
 {
   sub_10003C080(a1, a2);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v2, v3, "Algorithm %s not supported by the kernel (missing module?)\n", v4, v5, v6, v7, v8);
+  sub_10000F9E8(&_mh_execute_header, v2, v3, "Algorithm %s not supported by the kernel (missing module?)\n", v4, v5, v6, v7);
 }
 
 void sub_100068CE0(uint64_t *a1)
 {
   sub_100038374(a1);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "Duplicated sainfo: %s\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "Duplicated sainfo: %s\n", v3, v4, v5, v6);
 }
 
 void sub_100068D58(uint64_t *a1)
 {
   sub_100038374(a1);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "No compression algorithm at %s\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "No compression algorithm at %s\n", v3, v4, v5, v6);
 }
 
 void sub_100068DD0(uint64_t *a1)
 {
   sub_100038374(a1);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "No authentication algorithm at %s\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "No authentication algorithm at %s\n", v3, v4, v5, v6);
 }
 
 void sub_100068E48(uint64_t *a1)
 {
   sub_100038374(a1);
   sub_10000FA58();
-  sub_10000F9E8(&_mh_execute_header, v1, v2, "No encryption algorithm at %s\n", v3, v4, v5, v6, v7);
+  sub_10000F9E8(&_mh_execute_header, v1, v2, "No encryption algorithm at %s\n", v3, v4, v5, v6);
 }
 
 void sub_100068F28()
@@ -4747,11 +4600,39 @@ void sub_100068F9C()
   sub_100048BC8(&_mh_execute_header, v0, v1, "invalid length for vpn ph2 selector - len=%ld - expected %ld\n", v2, v3);
 }
 
+void sub_100069224(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "new_ike_session";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "Invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10006929C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_unlink_phase2";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100069314(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_unlink_phase1";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10006938C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_get_session";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_100069404(const sockaddr *a1)
 {
   sub_10003A5E8(a1);
   sub_10000FA58();
-  sub_100005518(&_mh_execute_header, v1, v2, "start search for IKE-Session. target %s.\n", v3, v4, v5, v6, v7);
+  sub_100005518(&_mh_execute_header, v1, v2, "start search for IKE-Session. target %s.\n", v3, v4, v5, v6);
 }
 
 void sub_10006947C(uint8_t *a1, uint64_t a2, uint64_t **a3, NSObject *a4)
@@ -4766,35 +4647,98 @@ void sub_1000694E8(const sockaddr *a1)
 {
   sub_10003A5E8(a1);
   sub_10000FA58();
-  sub_100005518(&_mh_execute_header, v1, v2, "Pre-existing IKE-Session to %s. case 3.\n", v3, v4, v5, v6, v7);
+  sub_100005518(&_mh_execute_header, v1, v2, "Pre-existing IKE-Session to %s. case 3.\n", v3, v4, v5, v6);
 }
 
 void sub_100069560(const sockaddr *a1)
 {
   sub_10003A5E8(a1);
   sub_10000FA58();
-  sub_100005518(&_mh_execute_header, v1, v2, "Pre-existing IKE-Session to %s. case 2.\n", v3, v4, v5, v6, v7);
+  sub_100005518(&_mh_execute_header, v1, v2, "Pre-existing IKE-Session to %s. case 2.\n", v3, v4, v5, v6);
 }
 
 void sub_1000695D8(uint64_t a1)
 {
   sub_10003A5E8((a1 + 136));
   sub_10000FA58();
-  sub_100005518(&_mh_execute_header, v1, v2, "Best-match IKE-Session to %s.\n", v3, v4, v5, v6, v7);
+  sub_100005518(&_mh_execute_header, v1, v2, "Best-match IKE-Session to %s.\n", v3, v4, v5, v6);
 }
 
 void sub_100069654(const sockaddr *a1)
 {
   sub_10003A5E8(a1);
   sub_10000FA58();
-  sub_100005518(&_mh_execute_header, v1, v2, "Pre-existing IKE-Session to %s. case 1.\n", v3, v4, v5, v6, v7);
+  sub_100005518(&_mh_execute_header, v1, v2, "Pre-existing IKE-Session to %s. case 1.\n", v3, v4, v5, v6);
 }
 
 void sub_1000696CC(const sockaddr *a1)
 {
   sub_10003A5E8(a1 + 8);
   sub_10000FA58();
-  sub_100005518(&_mh_execute_header, v1, v2, "New IKE-Session to %s.\n", v3, v4, v5, v6, v7);
+  sub_100005518(&_mh_execute_header, v1, v2, "New IKE-Session to %s.\n", v3, v4, v5, v6);
+}
+
+void sub_100069748(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_link_phase1";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000697C0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_link_phase2";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "Phase 2 already linked to session %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100069838(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_link_phase2";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "Invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000698B0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_link_ph2_to_ph1";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "Phase 2 already linked %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100069928(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_link_ph2_to_ph1";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "Invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_1000699A0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_bindph12";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "Phase 2 already bound %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100069A18(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_update_ph1_ph2tree";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100069A90(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_get_established_ph1";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100069B08(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_rebind_all_ph12_to_new_ph1";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "Invalid parent sessions in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_100069B80(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -4811,11 +4755,74 @@ void sub_100069BC0(uint8_t *buf, void *a2, os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Same Phase 2 in ph1bind replacement in %s.\n", buf, 0xCu);
 }
 
+void sub_100069C10(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_rebind_all_ph12_to_new_ph1";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100069C88(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_update_ph2_ph1bind";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100069D00(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_get_established_or_negoing_ph1";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100069D78(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_has_other_negoing_ph1";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100069DF0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_has_other_established_ph2";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100069E68(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_has_other_negoing_ph2";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100069EE0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_ph2_established";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void sub_100069F58()
 {
   sub_100001224();
   sub_100001DFC();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
+}
+
+void sub_100069F94(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_replace_other_ph1";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10006A00C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_cleanup_other_established_ph1s";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10006A084(int *a1, uint64_t a2, os_log_t log)
@@ -4832,12 +4839,81 @@ void sub_10006A084(int *a1, uint64_t a2, os_log_t log)
   _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "about to cleanup ph2: status %d, seq %d dying %d\n", v6, 0x14u);
 }
 
-void sub_10006A650(unsigned __int8 *a1)
+void sub_10006A128(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v6 = *a1;
-  v7 = *(a1 + 1);
-  sub_1000054EC();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x18u);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_cleanup_other_established_ph2s";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10006A1A0(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_stopped_by_controller";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10006A218(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_sessions_stopped_by_controller";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10006A290(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_purge_ph2s_by_ph1";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10006A308(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_get_sas_for_stats";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid args in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10006A380(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_update_traffic_idle_status";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid args in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10006A3F8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_has_negoing_ph1";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10006A470(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_has_established_ph1";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10006A4E8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_has_negoing_ph2";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10006A560(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_has_established_ph2";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10006A5D8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_cleanup_ph1s_by_ph2";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10006A6E8()
@@ -4854,12 +4930,11 @@ void sub_10006A764(uint8_t *buf, void *a2, os_log_t log)
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "candidate ph2 found in %s.\n", buf, 0xCu);
 }
 
-void sub_10006A834(unsigned int *a1)
+void sub_10006A834()
 {
-  v1 = *a1;
   sub_10003B490();
   sub_1000054EC();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
 void sub_10006A8B4()
@@ -4876,21 +4951,32 @@ void sub_10006A930(uint8_t *buf, void *a2, os_log_t log)
   _os_log_debug_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEBUG, "candidate ph2 found in %s.\n", buf, 0xCu);
 }
 
-void sub_10006AA00(unsigned int *a1)
+void sub_10006AA00()
 {
-  v1 = *a1;
   sub_10003B490();
   sub_1000054EC();
-  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x12u);
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
 }
 
-void sub_10006ABE8(unsigned __int8 *a1)
+void sub_10006AA80(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v6 = *a1;
-  v7 = *(a1 + 1);
-  v8 = *(a1 + 2);
-  sub_1000054EC();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x1Eu);
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_traffic_cop";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10006AAF8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_assert_session";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_10006AB70(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ike_session_assert";
+  sub_10004D69C(&_mh_execute_header, a1, a3, "invalid parameters in %s.\n", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10006AE00(int a1, NSObject *a2)
@@ -4973,13 +5059,6 @@ void sub_10006B734()
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void sub_10006B7A4(int a1)
-{
-  v6 = sys_signame[a1];
-  sub_1000054EC();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-}
-
 void sub_10006B8B0(uint64_t a1, NSObject *a2)
 {
   v2 = 136315138;
@@ -5000,7 +5079,7 @@ void sub_10006B928(uint64_t a1, NSObject *a2)
 
 void sub_10006B9CC()
 {
-  sub_1000541BC(&dword_10008F330);
+  sub_1000541BC();
   sub_100054198();
   sub_100001DFC();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);

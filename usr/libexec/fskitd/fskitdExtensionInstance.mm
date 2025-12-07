@@ -256,7 +256,7 @@ LABEL_3:
 
     if (v6)
     {
-      [v6 auditToken];
+      objc_msgSend_auditToken(v6);
     }
 
     else

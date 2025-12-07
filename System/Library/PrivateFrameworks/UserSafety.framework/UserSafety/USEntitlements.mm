@@ -24,7 +24,7 @@
 
 + (id)_setValueForEntitlement:(__CFString *)entitlement expectedElementClass:(Class)class
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v6 = SecTaskCreateFromSelf(0);
   if (v6)
   {
@@ -44,33 +44,33 @@
     if (objc_opt_isKindOfClass())
     {
       v10 = [MEMORY[0x277CBEB58] set];
+      v19 = 0u;
       v20 = 0u;
       v21 = 0u;
       v22 = 0u;
-      v23 = 0u;
       v11 = v8;
-      v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v21;
+        v14 = *v20;
         do
         {
           for (i = 0; i != v13; ++i)
           {
-            if (*v21 != v14)
+            if (*v20 != v14)
             {
               objc_enumerationMutation(v11);
             }
 
-            v16 = *(*(&v20 + 1) + 8 * i);
+            v16 = *(*(&v19 + 1) + 8 * i);
             if (objc_opt_isKindOfClass())
             {
-              [v10 addObject:{v16, v20}];
+              [v10 addObject:{v16, v19}];
             }
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v13 = [v11 countByEnumeratingWithState:&v19 objects:v23 count:16];
         }
 
         while (v13);
@@ -87,8 +87,6 @@
   {
     v9 = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

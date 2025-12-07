@@ -5,7 +5,7 @@
 - (_NSRange)rangeOfData:(id)data options:(unint64_t)options range:(_NSRange)range;
 - (id)description;
 - (id)mutableCopyWithZone:(_NSZone *)zone;
-- (uint64_t)privateCopy;
+- (unsigned)privateCopy;
 @end
 
 @implementation _PFResultData
@@ -26,15 +26,15 @@
   return [v4 initWithBytes:&self[1] length:length];
 }
 
-- (uint64_t)privateCopy
+- (unsigned)privateCopy
 {
   if (result)
   {
     v1 = result;
     v2 = objc_alloc(MEMORY[0x1E695DEF0]);
-    v3 = *(v1 + 12);
+    v3 = v1[3];
 
-    return [v2 initWithBytesNoCopy:v1 + 24 length:v3];
+    return [v2 initWithBytesNoCopy:v1 + 6 length:v3];
   }
 
   return result;

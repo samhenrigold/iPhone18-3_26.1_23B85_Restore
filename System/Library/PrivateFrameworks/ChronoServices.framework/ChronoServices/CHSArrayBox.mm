@@ -32,7 +32,7 @@
 - (CHSArrayBox)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = __plistableTypes();
+  v5 = __plistableTypes(coderCopy);
   v6 = [coderCopy decodeObjectOfClasses:v5 forKey:@"arrayKey"];
 
   v7 = [(CHSArrayBox *)self initWithValue:v6];

@@ -460,7 +460,7 @@ uint64_t __66__PXPhotoKitDestructiveActionPerformer_performUserInteractionTask__
   _Block_object_dispose(v16, 8);
 }
 
-uint64_t __64__PXPhotoKitDestructiveActionPerformer__performAction_onAssets___block_invoke(uint64_t a1)
+void *__64__PXPhotoKitDestructiveActionPerformer__performAction_onAssets___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) state];
   if (result == 10)
@@ -475,7 +475,7 @@ uint64_t __64__PXPhotoKitDestructiveActionPerformer__performAction_onAssets___bl
   return result;
 }
 
-uint64_t __64__PXPhotoKitDestructiveActionPerformer__performAction_onAssets___block_invoke_2(uint64_t a1, uint64_t a2)
+void *__64__PXPhotoKitDestructiveActionPerformer__performAction_onAssets___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if ((a2 & 1) == 0 && *(*(*(a1 + 48) + 8) + 24) == 1)
   {

@@ -24,9 +24,9 @@
 - (HKSummarySharingEntryStore)initWithHealthStore:(id)store
 {
   storeCopy = store;
-  v29.receiver = self;
-  v29.super_class = HKSummarySharingEntryStore;
-  v6 = [(HKSummarySharingEntryStore *)&v29 init];
+  v30.receiver = self;
+  v30.super_class = HKSummarySharingEntryStore;
+  v6 = [(HKSummarySharingEntryStore *)&v30 init];
   v7 = v6;
   if (v6)
   {
@@ -42,28 +42,28 @@
     v12 = [HKObserverSet alloc];
     v13 = objc_opt_class();
     v14 = NSStringFromClass(v13);
-    v15 = HKLogSharing();
-    v16 = [(HKObserverSet *)v12 initWithName:v14 loggingCategory:v15];
+    v16 = HKLogSharing(v14, v15);
+    v17 = [(HKObserverSet *)v12 initWithName:v14 loggingCategory:v16];
     observers = v7->_observers;
-    v7->_observers = v16;
+    v7->_observers = v17;
 
-    v18 = [HKTaskServerProxyProvider alloc];
-    v19 = objc_opt_class();
-    v20 = NSStringFromClass(v19);
+    v19 = [HKTaskServerProxyProvider alloc];
+    v20 = objc_opt_class();
+    v21 = NSStringFromClass(v20);
     uUID = [MEMORY[0x1E696AFB0] UUID];
-    v22 = [(HKTaskServerProxyProvider *)v18 initWithHealthStore:storeCopy taskIdentifier:v20 exportedObject:v7 taskUUID:uUID];
+    v23 = [(HKTaskServerProxyProvider *)v19 initWithHealthStore:storeCopy taskIdentifier:v21 exportedObject:v7 taskUUID:uUID];
     proxyProvider = v7->_proxyProvider;
-    v7->_proxyProvider = v22;
+    v7->_proxyProvider = v23;
 
     objc_initWeak(&location, v7);
-    v24 = v7->_proxyProvider;
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __50__HKSummarySharingEntryStore_initWithHealthStore___block_invoke;
-    v26[3] = &unk_1E737F6C8;
-    objc_copyWeak(&v27, &location);
-    [(HKProxyProvider *)v24 setAutomaticProxyReconnectionHandler:v26];
-    objc_destroyWeak(&v27);
+    v25 = v7->_proxyProvider;
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __50__HKSummarySharingEntryStore_initWithHealthStore___block_invoke;
+    v27[3] = &unk_1E737F6C8;
+    objc_copyWeak(&v28, &location);
+    [(HKProxyProvider *)v25 setAutomaticProxyReconnectionHandler:v27];
+    objc_destroyWeak(&v28);
     objc_destroyWeak(&location);
   }
 
@@ -133,7 +133,7 @@ uint64_t __44__HKSummarySharingEntryStore_sharingEntries__block_invoke(uint64_t 
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v4);
 }
 
 - (void)fetchSharingEntriesWithCompletion:(id)completion
@@ -172,13 +172,14 @@ void __64__HKSummarySharingEntryStore_fetchSharingEntriesWithCompletion___block_
 {
   v5 = a2;
   v6 = a3;
+  v8 = v6;
   if (v6)
   {
-    _HKInitializeLogging();
-    v7 = HKLogSharing();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(v6, v7);
+    v11 = HKLogSharing(v9, v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      __64__HKSummarySharingEntryStore_fetchSharingEntriesWithCompletion___block_invoke_2_cold_1(a1);
+      __64__HKSummarySharingEntryStore_fetchSharingEntriesWithCompletion___block_invoke_2_cold_1();
     }
 
     (*(*(a1 + 40) + 16))();
@@ -186,70 +187,68 @@ void __64__HKSummarySharingEntryStore_fetchSharingEntriesWithCompletion___block_
 
   else
   {
-    v8 = *(a1 + 32);
-    v9 = *(v8 + 16);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __64__HKSummarySharingEntryStore_fetchSharingEntriesWithCompletion___block_invoke_93;
-    v11[3] = &unk_1E7378AA8;
-    v11[4] = v8;
-    v12 = v5;
-    v10 = *(a1 + 40);
-    v13 = 0;
-    v14 = v10;
-    dispatch_async(v9, v11);
+    v12 = *(a1 + 32);
+    v13 = *(v12 + 16);
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __64__HKSummarySharingEntryStore_fetchSharingEntriesWithCompletion___block_invoke_93;
+    v15[3] = &unk_1E7378AA8;
+    v15[4] = v12;
+    v16 = v5;
+    v14 = *(a1 + 40);
+    v17 = 0;
+    v18 = v14;
+    dispatch_async(v13, v15);
   }
 }
 
 uint64_t __64__HKSummarySharingEntryStore_fetchSharingEntriesWithCompletion___block_invoke_93(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   [*(*(a1 + 32) + 24) removeAllObjects];
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v2 = *(a1 + 40);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         v8 = *(*(a1 + 32) + 24);
         v9 = [v7 UUID];
         [v8 setObject:v7 forKeyedSubscript:v9];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
 
   [*(a1 + 32) _notifyObservers];
-  result = (*(*(a1 + 56) + 16))(*(a1 + 56), *(a1 + 40) != 0, *(a1 + 48));
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 56) + 16))(*(a1 + 56), *(a1 + 40) != 0, *(a1 + 48));
 }
 
 void __64__HKSummarySharingEntryStore_fetchSharingEntriesWithCompletion___block_invoke_2_96(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
-  v4 = HKLogSharing();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  _HKInitializeLogging(v3, v4);
+  v7 = HKLogSharing(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    __64__HKSummarySharingEntryStore_fetchSharingEntriesWithCompletion___block_invoke_2_cold_1(a1);
+    __64__HKSummarySharingEntryStore_fetchSharingEntriesWithCompletion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -287,546 +286,525 @@ uint64_t __103__HKSummarySharingEntryStore_beginObservingReachabilityStatusForId
 
 - (void)inviteSharingDataWithIdentifier:(id)identifier firstName:(id)name lastName:(id)lastName sharingAuthorizations:(id)authorizations userWheelchairMode:(int64_t)mode completion:(id)completion
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   nameCopy = name;
   lastNameCopy = lastName;
   authorizationsCopy = authorizations;
   completionCopy = completion;
   proxyProvider = self->_proxyProvider;
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __133__HKSummarySharingEntryStore_inviteSharingDataWithIdentifier_firstName_lastName_sharingAuthorizations_userWheelchairMode_completion___block_invoke;
-  v35[3] = &unk_1E73766A0;
-  v35[4] = self;
-  v36 = completionCopy;
-  v21 = [(HKProxyProvider *)proxyProvider clientQueueActionHandlerWithCompletion:v35];
-  _HKInitializeLogging();
-  v22 = HKLogSharing();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3221225472;
+  v37[2] = __133__HKSummarySharingEntryStore_inviteSharingDataWithIdentifier_firstName_lastName_sharingAuthorizations_userWheelchairMode_completion___block_invoke;
+  v37[3] = &unk_1E73766A0;
+  v37[4] = self;
+  v38 = completionCopy;
+  v21 = [(HKProxyProvider *)proxyProvider clientQueueActionHandlerWithCompletion:v37];
+  _HKInitializeLogging(v21, v22);
+  v25 = HKLogSharing(v23, v24);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138544130;
     selfCopy = self;
-    v39 = 2112;
-    v40 = identifierCopy;
     v41 = 2112;
-    v42 = nameCopy;
+    v42 = identifierCopy;
     v43 = 2112;
-    v44 = lastNameCopy;
-    _os_log_impl(&dword_19197B000, v22, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Inviting %@ (%@ %@)", buf, 0x2Au);
+    v44 = nameCopy;
+    v45 = 2112;
+    v46 = lastNameCopy;
+    _os_log_impl(&dword_19197B000, v25, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Inviting %@ (%@ %@)", buf, 0x2Au);
   }
 
   if ([authorizationsCopy count])
   {
-    v23 = self->_proxyProvider;
+    v26 = self->_proxyProvider;
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __133__HKSummarySharingEntryStore_inviteSharingDataWithIdentifier_firstName_lastName_sharingAuthorizations_userWheelchairMode_completion___block_invoke_111;
+    v30[3] = &unk_1E737F768;
+    v31 = identifierCopy;
+    v32 = nameCopy;
+    v33 = lastNameCopy;
+    v34 = authorizationsCopy;
+    modeCopy = mode;
+    v35 = v21;
     v28[0] = MEMORY[0x1E69E9820];
     v28[1] = 3221225472;
-    v28[2] = __133__HKSummarySharingEntryStore_inviteSharingDataWithIdentifier_firstName_lastName_sharingAuthorizations_userWheelchairMode_completion___block_invoke_111;
-    v28[3] = &unk_1E737F768;
-    v29 = identifierCopy;
-    v30 = nameCopy;
-    v31 = lastNameCopy;
-    v32 = authorizationsCopy;
-    modeCopy = mode;
-    v33 = v21;
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __133__HKSummarySharingEntryStore_inviteSharingDataWithIdentifier_firstName_lastName_sharingAuthorizations_userWheelchairMode_completion___block_invoke_2;
-    v26[3] = &unk_1E7376960;
-    v27 = v33;
-    [(HKProxyProvider *)v23 fetchProxyWithHandler:v28 errorHandler:v26];
+    v28[2] = __133__HKSummarySharingEntryStore_inviteSharingDataWithIdentifier_firstName_lastName_sharingAuthorizations_userWheelchairMode_completion___block_invoke_2;
+    v28[3] = &unk_1E7376960;
+    v29 = v35;
+    [(HKProxyProvider *)v26 fetchProxyWithHandler:v30 errorHandler:v28];
 
-    v24 = v29;
+    v27 = v31;
   }
 
   else
   {
-    v24 = [MEMORY[0x1E696ABC0] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:a2 format:@"No sharing authorization to add."];
-    (v21)[2](v21, 0, v24);
+    v27 = [MEMORY[0x1E696ABC0] hk_errorForInvalidArgument:@"@" class:objc_opt_class() selector:a2 format:@"No sharing authorization to add."];
+    (v21)[2](v21, 0, v27);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __133__HKSummarySharingEntryStore_inviteSharingDataWithIdentifier_firstName_lastName_sharingAuthorizations_userWheelchairMode_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogSharing();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  _HKInitializeLogging(v5, v6);
+  v9 = HKLogSharing(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 32);
-    v8 = @"NO";
-    v10 = 138543874;
+    v10 = *(a1 + 32);
+    v11 = @"NO";
+    v12 = 138543874;
     if (a2)
     {
-      v8 = @"YES";
+      v11 = @"YES";
     }
 
-    v11 = v7;
-    v12 = 2114;
-    v13 = v8;
+    v13 = v10;
     v14 = 2114;
-    v15 = v5;
-    _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Invite sharing finished with success: %{public}@ error: %{public}@", &v10, 0x20u);
+    v15 = v11;
+    v16 = 2114;
+    v17 = v5;
+    _os_log_impl(&dword_19197B000, v9, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Invite sharing finished with success: %{public}@ error: %{public}@", &v12, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40));
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)acceptInvitationWithUUID:(id)d completion:(id)completion
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
   proxyProvider = self->_proxyProvider;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __66__HKSummarySharingEntryStore_acceptInvitationWithUUID_completion___block_invoke;
-  v21[3] = &unk_1E73766A0;
-  v21[4] = self;
-  v22 = completionCopy;
-  v9 = [(HKProxyProvider *)proxyProvider clientQueueActionHandlerWithCompletion:v21];
-  _HKInitializeLogging();
-  v10 = HKLogSharing();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __66__HKSummarySharingEntryStore_acceptInvitationWithUUID_completion___block_invoke;
+  v23[3] = &unk_1E73766A0;
+  v23[4] = self;
+  v24 = completionCopy;
+  v9 = [(HKProxyProvider *)proxyProvider clientQueueActionHandlerWithCompletion:v23];
+  _HKInitializeLogging(v9, v10);
+  v13 = HKLogSharing(v11, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 138543618;
     selfCopy = self;
-    v25 = 2114;
-    v26 = uUIDString;
-    _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Accepting invitation %{public}@", buf, 0x16u);
+    v27 = 2114;
+    v28 = uUIDString;
+    _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Accepting invitation %{public}@", buf, 0x16u);
   }
 
-  v12 = self->_proxyProvider;
+  v15 = self->_proxyProvider;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __66__HKSummarySharingEntryStore_acceptInvitationWithUUID_completion___block_invoke_112;
+  v20[3] = &unk_1E737F718;
+  v21 = dCopy;
+  v22 = v9;
   v18[0] = MEMORY[0x1E69E9820];
   v18[1] = 3221225472;
-  v18[2] = __66__HKSummarySharingEntryStore_acceptInvitationWithUUID_completion___block_invoke_112;
-  v18[3] = &unk_1E737F718;
-  v19 = dCopy;
-  v20 = v9;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __66__HKSummarySharingEntryStore_acceptInvitationWithUUID_completion___block_invoke_2;
-  v16[3] = &unk_1E7376960;
-  v17 = v20;
-  v13 = v20;
-  v14 = dCopy;
-  [(HKProxyProvider *)v12 fetchProxyWithHandler:v18 errorHandler:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v18[2] = __66__HKSummarySharingEntryStore_acceptInvitationWithUUID_completion___block_invoke_2;
+  v18[3] = &unk_1E7376960;
+  v19 = v22;
+  v16 = v22;
+  v17 = dCopy;
+  [(HKProxyProvider *)v15 fetchProxyWithHandler:v20 errorHandler:v18];
 }
 
 void __66__HKSummarySharingEntryStore_acceptInvitationWithUUID_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogSharing();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  _HKInitializeLogging(v5, v6);
+  v9 = HKLogSharing(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 32);
-    v8 = @"NO";
-    v10 = 138543874;
+    v10 = *(a1 + 32);
+    v11 = @"NO";
+    v12 = 138543874;
     if (a2)
     {
-      v8 = @"YES";
+      v11 = @"YES";
     }
 
-    v11 = v7;
-    v12 = 2114;
-    v13 = v8;
+    v13 = v10;
     v14 = 2114;
-    v15 = v5;
-    _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Accept invitation finished with success: %{public}@ error: %{public}@", &v10, 0x20u);
+    v15 = v11;
+    v16 = 2114;
+    v17 = v5;
+    _os_log_impl(&dword_19197B000, v9, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Accept invitation finished with success: %{public}@ error: %{public}@", &v12, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40));
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)declineInvitationWithUUID:(id)d completion:(id)completion
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
   proxyProvider = self->_proxyProvider;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __67__HKSummarySharingEntryStore_declineInvitationWithUUID_completion___block_invoke;
-  v21[3] = &unk_1E73766A0;
-  v21[4] = self;
-  v22 = completionCopy;
-  v9 = [(HKProxyProvider *)proxyProvider clientQueueActionHandlerWithCompletion:v21];
-  _HKInitializeLogging();
-  v10 = HKLogSharing();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __67__HKSummarySharingEntryStore_declineInvitationWithUUID_completion___block_invoke;
+  v23[3] = &unk_1E73766A0;
+  v23[4] = self;
+  v24 = completionCopy;
+  v9 = [(HKProxyProvider *)proxyProvider clientQueueActionHandlerWithCompletion:v23];
+  _HKInitializeLogging(v9, v10);
+  v13 = HKLogSharing(v11, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 138543618;
     selfCopy = self;
-    v25 = 2114;
-    v26 = uUIDString;
-    _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Declining invitation %{public}@", buf, 0x16u);
+    v27 = 2114;
+    v28 = uUIDString;
+    _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Declining invitation %{public}@", buf, 0x16u);
   }
 
-  v12 = self->_proxyProvider;
+  v15 = self->_proxyProvider;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __67__HKSummarySharingEntryStore_declineInvitationWithUUID_completion___block_invoke_113;
+  v20[3] = &unk_1E737F718;
+  v21 = dCopy;
+  v22 = v9;
   v18[0] = MEMORY[0x1E69E9820];
   v18[1] = 3221225472;
-  v18[2] = __67__HKSummarySharingEntryStore_declineInvitationWithUUID_completion___block_invoke_113;
-  v18[3] = &unk_1E737F718;
-  v19 = dCopy;
-  v20 = v9;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __67__HKSummarySharingEntryStore_declineInvitationWithUUID_completion___block_invoke_2;
-  v16[3] = &unk_1E7376960;
-  v17 = v20;
-  v13 = v20;
-  v14 = dCopy;
-  [(HKProxyProvider *)v12 fetchProxyWithHandler:v18 errorHandler:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v18[2] = __67__HKSummarySharingEntryStore_declineInvitationWithUUID_completion___block_invoke_2;
+  v18[3] = &unk_1E7376960;
+  v19 = v22;
+  v16 = v22;
+  v17 = dCopy;
+  [(HKProxyProvider *)v15 fetchProxyWithHandler:v20 errorHandler:v18];
 }
 
 void __67__HKSummarySharingEntryStore_declineInvitationWithUUID_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogSharing();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  _HKInitializeLogging(v5, v6);
+  v9 = HKLogSharing(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 32);
-    v8 = @"NO";
-    v10 = 138543874;
+    v10 = *(a1 + 32);
+    v11 = @"NO";
+    v12 = 138543874;
     if (a2)
     {
-      v8 = @"YES";
+      v11 = @"YES";
     }
 
-    v11 = v7;
-    v12 = 2114;
-    v13 = v8;
+    v13 = v10;
     v14 = 2114;
-    v15 = v5;
-    _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Decline invitation finished with success: %{public}@ error: %{public}@", &v10, 0x20u);
+    v15 = v11;
+    v16 = 2114;
+    v17 = v5;
+    _os_log_impl(&dword_19197B000, v9, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Decline invitation finished with success: %{public}@ error: %{public}@", &v12, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40));
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)revokeInvitationWithUUID:(id)d completion:(id)completion
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
   proxyProvider = self->_proxyProvider;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __66__HKSummarySharingEntryStore_revokeInvitationWithUUID_completion___block_invoke;
-  v21[3] = &unk_1E73766A0;
-  v21[4] = self;
-  v22 = completionCopy;
-  v9 = [(HKProxyProvider *)proxyProvider clientQueueActionHandlerWithCompletion:v21];
-  _HKInitializeLogging();
-  v10 = HKLogSharing();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __66__HKSummarySharingEntryStore_revokeInvitationWithUUID_completion___block_invoke;
+  v23[3] = &unk_1E73766A0;
+  v23[4] = self;
+  v24 = completionCopy;
+  v9 = [(HKProxyProvider *)proxyProvider clientQueueActionHandlerWithCompletion:v23];
+  _HKInitializeLogging(v9, v10);
+  v13 = HKLogSharing(v11, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 138543618;
     selfCopy = self;
-    v25 = 2114;
-    v26 = uUIDString;
-    _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Revoking invitation %{public}@", buf, 0x16u);
+    v27 = 2114;
+    v28 = uUIDString;
+    _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Revoking invitation %{public}@", buf, 0x16u);
   }
 
-  v12 = self->_proxyProvider;
+  v15 = self->_proxyProvider;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __66__HKSummarySharingEntryStore_revokeInvitationWithUUID_completion___block_invoke_114;
+  v20[3] = &unk_1E737F718;
+  v21 = dCopy;
+  v22 = v9;
   v18[0] = MEMORY[0x1E69E9820];
   v18[1] = 3221225472;
-  v18[2] = __66__HKSummarySharingEntryStore_revokeInvitationWithUUID_completion___block_invoke_114;
-  v18[3] = &unk_1E737F718;
-  v19 = dCopy;
-  v20 = v9;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __66__HKSummarySharingEntryStore_revokeInvitationWithUUID_completion___block_invoke_2;
-  v16[3] = &unk_1E7376960;
-  v17 = v20;
-  v13 = v20;
-  v14 = dCopy;
-  [(HKProxyProvider *)v12 fetchProxyWithHandler:v18 errorHandler:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v18[2] = __66__HKSummarySharingEntryStore_revokeInvitationWithUUID_completion___block_invoke_2;
+  v18[3] = &unk_1E7376960;
+  v19 = v22;
+  v16 = v22;
+  v17 = dCopy;
+  [(HKProxyProvider *)v15 fetchProxyWithHandler:v20 errorHandler:v18];
 }
 
 void __66__HKSummarySharingEntryStore_revokeInvitationWithUUID_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogSharing();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  _HKInitializeLogging(v5, v6);
+  v9 = HKLogSharing(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 32);
-    v8 = @"NO";
-    v10 = 138543874;
+    v10 = *(a1 + 32);
+    v11 = @"NO";
+    v12 = 138543874;
     if (a2)
     {
-      v8 = @"YES";
+      v11 = @"YES";
     }
 
-    v11 = v7;
-    v12 = 2114;
-    v13 = v8;
+    v13 = v10;
     v14 = 2114;
-    v15 = v5;
-    _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Revoke invitation finished with success: %{public}@ error: %{public}@", &v10, 0x20u);
+    v15 = v11;
+    v16 = 2114;
+    v17 = v5;
+    _os_log_impl(&dword_19197B000, v9, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Revoke invitation finished with success: %{public}@ error: %{public}@", &v12, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40));
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)leaveInvitationWithUUID:(id)d completion:(id)completion
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
   proxyProvider = self->_proxyProvider;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __65__HKSummarySharingEntryStore_leaveInvitationWithUUID_completion___block_invoke;
-  v21[3] = &unk_1E73766A0;
-  v21[4] = self;
-  v22 = completionCopy;
-  v9 = [(HKProxyProvider *)proxyProvider clientQueueActionHandlerWithCompletion:v21];
-  _HKInitializeLogging();
-  v10 = HKLogSharing();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __65__HKSummarySharingEntryStore_leaveInvitationWithUUID_completion___block_invoke;
+  v23[3] = &unk_1E73766A0;
+  v23[4] = self;
+  v24 = completionCopy;
+  v9 = [(HKProxyProvider *)proxyProvider clientQueueActionHandlerWithCompletion:v23];
+  _HKInitializeLogging(v9, v10);
+  v13 = HKLogSharing(v11, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 138543618;
     selfCopy = self;
-    v25 = 2114;
-    v26 = uUIDString;
-    _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Leaving invitation %{public}@", buf, 0x16u);
+    v27 = 2114;
+    v28 = uUIDString;
+    _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Leaving invitation %{public}@", buf, 0x16u);
   }
 
-  v12 = self->_proxyProvider;
+  v15 = self->_proxyProvider;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __65__HKSummarySharingEntryStore_leaveInvitationWithUUID_completion___block_invoke_115;
+  v20[3] = &unk_1E737F718;
+  v21 = dCopy;
+  v22 = v9;
   v18[0] = MEMORY[0x1E69E9820];
   v18[1] = 3221225472;
-  v18[2] = __65__HKSummarySharingEntryStore_leaveInvitationWithUUID_completion___block_invoke_115;
-  v18[3] = &unk_1E737F718;
-  v19 = dCopy;
-  v20 = v9;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __65__HKSummarySharingEntryStore_leaveInvitationWithUUID_completion___block_invoke_2;
-  v16[3] = &unk_1E7376960;
-  v17 = v20;
-  v13 = v20;
-  v14 = dCopy;
-  [(HKProxyProvider *)v12 fetchProxyWithHandler:v18 errorHandler:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v18[2] = __65__HKSummarySharingEntryStore_leaveInvitationWithUUID_completion___block_invoke_2;
+  v18[3] = &unk_1E7376960;
+  v19 = v22;
+  v16 = v22;
+  v17 = dCopy;
+  [(HKProxyProvider *)v15 fetchProxyWithHandler:v20 errorHandler:v18];
 }
 
 void __65__HKSummarySharingEntryStore_leaveInvitationWithUUID_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogSharing();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  _HKInitializeLogging(v5, v6);
+  v9 = HKLogSharing(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 32);
-    v8 = @"NO";
-    v10 = 138543874;
+    v10 = *(a1 + 32);
+    v11 = @"NO";
+    v12 = 138543874;
     if (a2)
     {
-      v8 = @"YES";
+      v11 = @"YES";
     }
 
-    v11 = v7;
-    v12 = 2114;
-    v13 = v8;
+    v13 = v10;
     v14 = 2114;
-    v15 = v5;
-    _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Leave invitation finished with success: %{public}@ error: %{public}@", &v10, 0x20u);
+    v15 = v11;
+    v16 = 2114;
+    v17 = v5;
+    _os_log_impl(&dword_19197B000, v9, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Leave invitation finished with success: %{public}@ error: %{public}@", &v12, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40));
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unpauseInvitationWithUUID:(id)d completion:(id)completion
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   dCopy = d;
   completionCopy = completion;
   proxyProvider = self->_proxyProvider;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __67__HKSummarySharingEntryStore_unpauseInvitationWithUUID_completion___block_invoke;
-  v21[3] = &unk_1E73766A0;
-  v21[4] = self;
-  v22 = completionCopy;
-  v9 = [(HKProxyProvider *)proxyProvider clientQueueActionHandlerWithCompletion:v21];
-  _HKInitializeLogging();
-  v10 = HKLogSharing();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __67__HKSummarySharingEntryStore_unpauseInvitationWithUUID_completion___block_invoke;
+  v23[3] = &unk_1E73766A0;
+  v23[4] = self;
+  v24 = completionCopy;
+  v9 = [(HKProxyProvider *)proxyProvider clientQueueActionHandlerWithCompletion:v23];
+  _HKInitializeLogging(v9, v10);
+  v13 = HKLogSharing(v11, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 138543618;
     selfCopy = self;
-    v25 = 2114;
-    v26 = uUIDString;
-    _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Unpause invitation %{public}@", buf, 0x16u);
+    v27 = 2114;
+    v28 = uUIDString;
+    _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Unpause invitation %{public}@", buf, 0x16u);
   }
 
-  v12 = self->_proxyProvider;
+  v15 = self->_proxyProvider;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __67__HKSummarySharingEntryStore_unpauseInvitationWithUUID_completion___block_invoke_116;
+  v20[3] = &unk_1E737F718;
+  v21 = dCopy;
+  v22 = v9;
   v18[0] = MEMORY[0x1E69E9820];
   v18[1] = 3221225472;
-  v18[2] = __67__HKSummarySharingEntryStore_unpauseInvitationWithUUID_completion___block_invoke_116;
-  v18[3] = &unk_1E737F718;
-  v19 = dCopy;
-  v20 = v9;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __67__HKSummarySharingEntryStore_unpauseInvitationWithUUID_completion___block_invoke_2;
-  v16[3] = &unk_1E7376960;
-  v17 = v20;
-  v13 = v20;
-  v14 = dCopy;
-  [(HKProxyProvider *)v12 fetchProxyWithHandler:v18 errorHandler:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v18[2] = __67__HKSummarySharingEntryStore_unpauseInvitationWithUUID_completion___block_invoke_2;
+  v18[3] = &unk_1E7376960;
+  v19 = v22;
+  v16 = v22;
+  v17 = dCopy;
+  [(HKProxyProvider *)v15 fetchProxyWithHandler:v20 errorHandler:v18];
 }
 
 void __67__HKSummarySharingEntryStore_unpauseInvitationWithUUID_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogSharing();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  _HKInitializeLogging(v5, v6);
+  v9 = HKLogSharing(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 32);
-    v8 = @"NO";
-    v10 = 138543874;
+    v10 = *(a1 + 32);
+    v11 = @"NO";
+    v12 = 138543874;
     if (a2)
     {
-      v8 = @"YES";
+      v11 = @"YES";
     }
 
-    v11 = v7;
-    v12 = 2114;
-    v13 = v8;
+    v13 = v10;
     v14 = 2114;
-    v15 = v5;
-    _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Unpause invitation finished with success: %{public}@ error: %{public}@", &v10, 0x20u);
+    v15 = v11;
+    v16 = 2114;
+    v17 = v5;
+    _os_log_impl(&dword_19197B000, v9, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Unpause invitation finished with success: %{public}@ error: %{public}@", &v12, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40));
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateSharingAuthorizationsForInvitationUUID:(id)d sharingAuthorizationsToAdd:(id)add sharingAuthorizationsToDelete:(id)delete deleteOnCommit:(BOOL)commit completion:(id)completion
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   dCopy = d;
   addCopy = add;
   deleteCopy = delete;
   completionCopy = completion;
   proxyProvider = self->_proxyProvider;
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 3221225472;
-  v34[2] = __158__HKSummarySharingEntryStore_updateSharingAuthorizationsForInvitationUUID_sharingAuthorizationsToAdd_sharingAuthorizationsToDelete_deleteOnCommit_completion___block_invoke;
-  v34[3] = &unk_1E73766A0;
-  v34[4] = self;
-  v35 = completionCopy;
-  v17 = [(HKProxyProvider *)proxyProvider clientQueueActionHandlerWithCompletion:v34];
-  _HKInitializeLogging();
-  v18 = HKLogSharing();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3221225472;
+  v36[2] = __158__HKSummarySharingEntryStore_updateSharingAuthorizationsForInvitationUUID_sharingAuthorizationsToAdd_sharingAuthorizationsToDelete_deleteOnCommit_completion___block_invoke;
+  v36[3] = &unk_1E73766A0;
+  v36[4] = self;
+  v37 = completionCopy;
+  v17 = [(HKProxyProvider *)proxyProvider clientQueueActionHandlerWithCompletion:v36];
+  _HKInitializeLogging(v17, v18);
+  v21 = HKLogSharing(v19, v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 138544131;
     selfCopy = self;
-    v38 = 2114;
-    v39 = uUIDString;
-    v40 = 2113;
-    v41 = addCopy;
+    v40 = 2114;
+    v41 = uUIDString;
     v42 = 2113;
-    v43 = deleteCopy;
-    _os_log_impl(&dword_19197B000, v18, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Updating invitation sharing authorizations with UUID %{public}@. %{private}@ %{private}@", buf, 0x2Au);
+    v43 = addCopy;
+    v44 = 2113;
+    v45 = deleteCopy;
+    _os_log_impl(&dword_19197B000, v21, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Updating invitation sharing authorizations with UUID %{public}@. %{private}@ %{private}@", buf, 0x2Au);
   }
 
-  v20 = self->_proxyProvider;
+  v23 = self->_proxyProvider;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __158__HKSummarySharingEntryStore_updateSharingAuthorizationsForInvitationUUID_sharingAuthorizationsToAdd_sharingAuthorizationsToDelete_deleteOnCommit_completion___block_invoke_117;
+  v30[3] = &unk_1E737F790;
+  v31 = dCopy;
+  v32 = addCopy;
+  v33 = deleteCopy;
+  commitCopy = commit;
+  v34 = v17;
   v28[0] = MEMORY[0x1E69E9820];
   v28[1] = 3221225472;
-  v28[2] = __158__HKSummarySharingEntryStore_updateSharingAuthorizationsForInvitationUUID_sharingAuthorizationsToAdd_sharingAuthorizationsToDelete_deleteOnCommit_completion___block_invoke_117;
-  v28[3] = &unk_1E737F790;
-  v29 = dCopy;
-  v30 = addCopy;
-  v31 = deleteCopy;
-  commitCopy = commit;
-  v32 = v17;
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __158__HKSummarySharingEntryStore_updateSharingAuthorizationsForInvitationUUID_sharingAuthorizationsToAdd_sharingAuthorizationsToDelete_deleteOnCommit_completion___block_invoke_2;
-  v26[3] = &unk_1E7376820;
-  v26[4] = self;
-  v27 = v32;
-  v21 = v32;
-  v22 = deleteCopy;
-  v23 = addCopy;
-  v24 = dCopy;
-  [(HKProxyProvider *)v20 fetchProxyWithHandler:v28 errorHandler:v26];
-
-  v25 = *MEMORY[0x1E69E9840];
+  v28[2] = __158__HKSummarySharingEntryStore_updateSharingAuthorizationsForInvitationUUID_sharingAuthorizationsToAdd_sharingAuthorizationsToDelete_deleteOnCommit_completion___block_invoke_2;
+  v28[3] = &unk_1E7376820;
+  v28[4] = self;
+  v29 = v34;
+  v24 = v34;
+  v25 = deleteCopy;
+  v26 = addCopy;
+  v27 = dCopy;
+  [(HKProxyProvider *)v23 fetchProxyWithHandler:v30 errorHandler:v28];
 }
 
 void __158__HKSummarySharingEntryStore_updateSharingAuthorizationsForInvitationUUID_sharingAuthorizationsToAdd_sharingAuthorizationsToDelete_deleteOnCommit_completion___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  _HKInitializeLogging();
-  v6 = HKLogSharing();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  _HKInitializeLogging(v5, v6);
+  v9 = HKLogSharing(v7, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 32);
-    v8 = @"NO";
-    v10 = 138543874;
+    v10 = *(a1 + 32);
+    v11 = @"NO";
+    v12 = 138543874;
     if (a2)
     {
-      v8 = @"YES";
+      v11 = @"YES";
     }
 
-    v11 = v7;
-    v12 = 2114;
-    v13 = v8;
+    v13 = v10;
     v14 = 2114;
-    v15 = v5;
-    _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Update sharing authorizations finished with success: %{public}@ error: %{public}@", &v10, 0x20u);
+    v15 = v11;
+    v16 = 2114;
+    v17 = v5;
+    _os_log_impl(&dword_19197B000, v9, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Update sharing authorizations finished with success: %{public}@ error: %{public}@", &v12, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))(*(a1 + 40));
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __158__HKSummarySharingEntryStore_updateSharingAuthorizationsForInvitationUUID_sharingAuthorizationsToAdd_sharingAuthorizationsToDelete_deleteOnCommit_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v3, v4);
   if (os_log_type_enabled(HKLogSync, OS_LOG_TYPE_ERROR))
   {
-    __158__HKSummarySharingEntryStore_updateSharingAuthorizationsForInvitationUUID_sharingAuthorizationsToAdd_sharingAuthorizationsToDelete_deleteOnCommit_completion___block_invoke_2_cold_1(a1);
+    __158__HKSummarySharingEntryStore_updateSharingAuthorizationsForInvitationUUID_sharingAuthorizationsToAdd_sharingAuthorizationsToDelete_deleteOnCommit_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -834,51 +812,49 @@ void __158__HKSummarySharingEntryStore_updateSharingAuthorizationsForInvitationU
 
 - (void)updateNotificationStatusWithUUID:(id)d notificationStatus:(int64_t)status completion:(id)completion
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v9 = [(HKProxyProvider *)self->_proxyProvider clientQueueActionHandlerWithCompletion:completion];
-  _HKInitializeLogging();
-  v10 = HKLogSharing();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  _HKInitializeLogging(v9, v10);
+  v13 = HKLogSharing(v11, v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     uUIDString = [dCopy UUIDString];
     *buf = 138543875;
     selfCopy = self;
-    v24 = 2114;
-    v25 = uUIDString;
-    v26 = 2049;
+    v26 = 2114;
+    v27 = uUIDString;
+    v28 = 2049;
     statusCopy = status;
-    _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Updating notification status with UUID %{public}@. %{private}ld", buf, 0x20u);
+    _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_DEFAULT, "[summary-sharing] %{public}@: Updating notification status with UUID %{public}@. %{private}ld", buf, 0x20u);
   }
 
   proxyProvider = self->_proxyProvider;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __93__HKSummarySharingEntryStore_updateNotificationStatusWithUUID_notificationStatus_completion___block_invoke;
+  v20[3] = &unk_1E737F7B8;
+  v21 = dCopy;
+  statusCopy2 = status;
+  v22 = v9;
   v18[0] = MEMORY[0x1E69E9820];
   v18[1] = 3221225472;
-  v18[2] = __93__HKSummarySharingEntryStore_updateNotificationStatusWithUUID_notificationStatus_completion___block_invoke;
-  v18[3] = &unk_1E737F7B8;
-  v19 = dCopy;
-  statusCopy2 = status;
-  v20 = v9;
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __93__HKSummarySharingEntryStore_updateNotificationStatusWithUUID_notificationStatus_completion___block_invoke_2;
-  v16[3] = &unk_1E7376820;
-  v16[4] = self;
-  v17 = v20;
-  v13 = v20;
-  v14 = dCopy;
-  [(HKProxyProvider *)proxyProvider fetchProxyWithHandler:v18 errorHandler:v16];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v18[2] = __93__HKSummarySharingEntryStore_updateNotificationStatusWithUUID_notificationStatus_completion___block_invoke_2;
+  v18[3] = &unk_1E7376820;
+  v18[4] = self;
+  v19 = v22;
+  v16 = v22;
+  v17 = dCopy;
+  [(HKProxyProvider *)proxyProvider fetchProxyWithHandler:v20 errorHandler:v18];
 }
 
 void __93__HKSummarySharingEntryStore_updateNotificationStatusWithUUID_notificationStatus_completion___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
-  _HKInitializeLogging();
+  _HKInitializeLogging(v3, v4);
   if (os_log_type_enabled(HKLogSync, OS_LOG_TYPE_ERROR))
   {
-    __93__HKSummarySharingEntryStore_updateNotificationStatusWithUUID_notificationStatus_completion___block_invoke_2_cold_1(a1);
+    __93__HKSummarySharingEntryStore_updateNotificationStatusWithUUID_notificationStatus_completion___block_invoke_2_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -900,41 +876,39 @@ void __93__HKSummarySharingEntryStore_updateNotificationStatusWithUUID_notificat
 
 uint64_t __67__HKSummarySharingEntryStore_clientRemote_sharingEntriesDidUpdate___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v12 + 1) + 8 * i);
+        v7 = *(*(&v11 + 1) + 8 * i);
         v8 = *(*(a1 + 40) + 24);
         v9 = [v7 UUID];
         [v8 setObject:v7 forKeyedSubscript:v9];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
 
-  result = [*(a1 + 40) _notifyObservers];
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) _notifyObservers];
 }
 
 - (void)clientRemote_reachabilityStatusDidUpdate:(id)update error:(id)error
@@ -991,28 +965,25 @@ void __46__HKSummarySharingEntryStore__notifyObservers__block_invoke(uint64_t a1
   return WeakRetained;
 }
 
-void __64__HKSummarySharingEntryStore_fetchSharingEntriesWithCompletion___block_invoke_2_cold_1(uint64_t a1)
+void __64__HKSummarySharingEntryStore_fetchSharingEntriesWithCompletion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v1, v2, "[summary-sharing] %{public}@: Failed to fetch sharing entries with error: %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19197B000, v0, v1, "[summary-sharing] %{public}@: Failed to fetch sharing entries with error: %{public}@");
 }
 
-void __158__HKSummarySharingEntryStore_updateSharingAuthorizationsForInvitationUUID_sharingAuthorizationsToAdd_sharingAuthorizationsToDelete_deleteOnCommit_completion___block_invoke_2_cold_1(uint64_t a1)
+void __158__HKSummarySharingEntryStore_updateSharingAuthorizationsForInvitationUUID_sharingAuthorizationsToAdd_sharingAuthorizationsToDelete_deleteOnCommit_completion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v1, v2, "[summary-sharing] %{public}@: Failed to update sharing authorizations with error: %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19197B000, v0, v1, "[summary-sharing] %{public}@: Failed to update sharing authorizations with error: %{public}@");
 }
 
-void __93__HKSummarySharingEntryStore_updateNotificationStatusWithUUID_notificationStatus_completion___block_invoke_2_cold_1(uint64_t a1)
+void __93__HKSummarySharingEntryStore_updateNotificationStatusWithUUID_notificationStatus_completion___block_invoke_2_cold_1()
 {
-  OUTLINED_FUNCTION_3(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_19197B000, v1, v2, "[summary-sharing] %{public}@: Failed to update notification status with error: %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1(&dword_19197B000, v0, v1, "[summary-sharing] %{public}@: Failed to update notification status with error: %{public}@");
 }
 
 @end

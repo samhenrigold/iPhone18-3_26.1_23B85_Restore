@@ -669,45 +669,49 @@ LABEL_5:
     shouldLog = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
     oSLogObject = [v7 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
 
     if (v9)
     {
-      LODWORD(v14) = 138412290;
-      *(&v14 + 4) = objc_opt_class();
-      v11 = *(&v14 + 4);
-      LODWORD(v13) = 12;
-      v12 = _os_log_send_and_compose_impl();
+      v13 = 138412290;
+      v14 = objc_opt_class();
+      v11 = v14;
+      v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: No reply to send XPC access denied message", &v13, 12);
 
       if (!v12)
       {
-        goto LABEL_14;
+        goto LABEL_15;
       }
 
-      oSLogObject = [NSString stringWithCString:v12 encoding:4, &v14, v13, v14];
+      oSLogObject = [NSString stringWithCString:v12 encoding:4];
       free(v12);
       SSFileLog();
     }
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   v7 = SSError();
   SSXPCDictionarySetObject();
   xpc_connection_send_message(connectionCopy, reply);
-LABEL_14:
+LABEL_15:
 }
 
 + (void)_setupDatabase:(id)database
@@ -875,9 +879,7 @@ LABEL_14:
       v15 = &CFDictionaryGetValue_ptr;
       v69 = 2048;
       v70 = v23;
-      LODWORD(v48) = 22;
-      v46 = &v67;
-      v24 = _os_log_send_and_compose_impl();
+      v24 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: %lu pending upload(s) removed.", &v67, 22);
 
       if (!v24)
       {
@@ -887,7 +889,7 @@ LABEL_14:
         goto LABEL_15;
       }
 
-      oSLogObject = [NSString stringWithCString:v24 encoding:4, &v67, v48];
+      oSLogObject = [NSString stringWithCString:v24 encoding:4];
       free(v24);
       v46 = oSLogObject;
       SSFileLog();
@@ -975,8 +977,7 @@ LABEL_15:
             v69 = 2048;
             v70 = postIdentifier;
             LODWORD(v48) = 22;
-            v47 = &v67;
-            v44 = _os_log_send_and_compose_impl();
+            v44 = _os_log_send_and_compose_impl(v37, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Adding poll request pid: %lld.", &v67, v48);
 
             self = selfCopy2;
             v15 = v40;
@@ -985,7 +986,7 @@ LABEL_15:
 
             if (v44)
             {
-              oSLogObject2 = [NSString stringWithCString:v44 encoding:4, &v67, v48];
+              oSLogObject2 = [NSString stringWithCString:v44 encoding:4];
               free(v44);
               v47 = oSLogObject2;
               SSFileLog();
@@ -1189,12 +1190,12 @@ LABEL_17:
 - (void)_finishPostWithPostIdentifier:(int64_t)identifier response:(id)response
 {
   responseCopy = response;
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = sub_1000D8008;
-  v40 = sub_1000D8018;
-  v41 = 0;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = sub_1000D8008;
+  v39 = sub_1000D8018;
+  v40 = 0;
   if ([responseCopy result] == 5)
   {
     v7 = +[SSLogConfig sharedDaemonConfig];
@@ -1203,38 +1204,41 @@ LABEL_17:
       v7 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v7 shouldLog];
+    LODWORD(v8) = [v7 shouldLog];
     shouldLogToDisk = [v7 shouldLogToDisk];
     oSLogObject = [v7 OSLogObject];
     v11 = oSLogObject;
     if (shouldLogToDisk)
     {
-      shouldLog |= 2u;
+      LODWORD(v8) = v8 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
     {
-      shouldLog &= 2u;
+      v8 = v8;
     }
 
-    if (!shouldLog)
+    else
     {
-      goto LABEL_20;
+      v8 &= 2u;
+    }
+
+    if (!v8)
+    {
+      goto LABEL_22;
     }
 
     v12 = objc_opt_class();
-    v43 = 138412546;
-    v44 = v12;
-    v45 = 2048;
+    v42 = 138412546;
+    v43 = v12;
+    v44 = 2048;
     identifierCopy2 = identifier;
     v13 = v12;
-    LODWORD(v26) = 22;
-    v25 = &v43;
-    v14 = _os_log_send_and_compose_impl();
+    v14 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, v11, 1, "%@: Post failed due to polling timeout, removing from database: %lld", &v42, 22);
 
     if (!v14)
     {
-      goto LABEL_21;
+      goto LABEL_23;
     }
   }
 
@@ -1246,87 +1250,90 @@ LABEL_17:
       v7 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v7 shouldLog];
+    LODWORD(v15) = [v7 shouldLog];
     shouldLogToDisk2 = [v7 shouldLogToDisk];
     oSLogObject2 = [v7 OSLogObject];
     v11 = oSLogObject2;
     if (shouldLogToDisk2)
     {
-      shouldLog2 |= 2u;
+      LODWORD(v15) = v15 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
     {
-      shouldLog2 &= 2u;
+      v15 = v15;
     }
 
-    if (!shouldLog2)
+    else
     {
-      goto LABEL_20;
+      v15 &= 2u;
+    }
+
+    if (!v15)
+    {
+      goto LABEL_22;
     }
 
     v18 = objc_opt_class();
-    v43 = 138412546;
-    v44 = v18;
-    v45 = 2048;
+    v42 = 138412546;
+    v43 = v18;
+    v44 = 2048;
     identifierCopy2 = identifier;
     v19 = v18;
-    LODWORD(v26) = 22;
-    v25 = &v43;
-    v14 = _os_log_send_and_compose_impl();
+    v14 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, v11, 1, "%@: Post succeeded, removing from database: %lld", &v42, 22);
 
     if (!v14)
     {
-      goto LABEL_21;
+      goto LABEL_23;
     }
   }
 
-  v11 = [NSString stringWithCString:v14 encoding:4, &v43, v26];
+  v11 = [NSString stringWithCString:v14 encoding:4];
   free(v14);
   v25 = v11;
   SSFileLog();
-LABEL_20:
+LABEL_22:
 
-LABEL_21:
+LABEL_23:
   [(DirectUploadController *)self _database];
-  v31[0] = _NSConcreteStackBlock;
-  v31[1] = 3221225472;
-  v31[2] = sub_1000DE05C;
-  v31[3] = &unk_100328730;
-  v20 = v35 = identifier;
+  v30[0] = _NSConcreteStackBlock;
+  v30[1] = 3221225472;
+  v30[2] = sub_1000DE05C;
+  v30[3] = &unk_100328730;
+  v20 = v34 = identifier;
   selfCopy = self;
-  v34 = &v36;
-  v32 = v20;
-  [v20 performTransactionWithBlock:v31];
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
+  v33 = &v35;
+  v31 = v20;
+  [v20 performTransactionWithBlock:v30];
   v28 = 0u;
-  v21 = v37[5];
-  v22 = [v21 countByEnumeratingWithState:&v27 objects:v42 count:16];
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v21 = v36[5];
+  v22 = [v21 countByEnumeratingWithState:&v26 objects:v41 count:16];
   if (v22)
   {
-    v23 = *v28;
+    v23 = *v27;
     do
     {
       for (i = 0; i != v22; i = i + 1)
       {
-        if (*v28 != v23)
+        if (*v27 != v23)
         {
           objc_enumerationMutation(v21);
         }
 
-        [(NSMutableDictionary *)self->_progressDictionary removeObjectForKey:*(*(&v27 + 1) + 8 * i), v25];
+        [(NSMutableDictionary *)self->_progressDictionary removeObjectForKey:*(*(&v26 + 1) + 8 * i), v25];
       }
 
-      v22 = [v21 countByEnumeratingWithState:&v27 objects:v42 count:16];
+      v22 = [v21 countByEnumeratingWithState:&v26 objects:v41 count:16];
     }
 
     while (v22);
   }
 
-  [(DirectUploadController *)self _sendRemoveUploadsMessageWithUploadIdentifiers:v37[5]];
-  _Block_object_dispose(&v36, 8);
+  [(DirectUploadController *)self _sendRemoveUploadsMessageWithUploadIdentifiers:v36[5]];
+  _Block_object_dispose(&v35, 8);
 }
 
 - (void)_handleMessage:(id)message connection:(id)connection usingBlock:(id)block
@@ -1632,7 +1639,7 @@ LABEL_16:
     v9 = xpc_connection_create_from_endpoint(v8);
     if (!v9)
     {
-      goto LABEL_31;
+      goto LABEL_33;
     }
 
     oSLogObject2 = [[XPCClient alloc] initWithInputConnection:connectionCopy];
@@ -1646,16 +1653,21 @@ LABEL_16:
     shouldLog = [v15 shouldLog];
     if ([v15 shouldLogToDisk])
     {
-      v17 = shouldLog | 2;
+      LODWORD(v17) = shouldLog | 2;
     }
 
     else
     {
-      v17 = shouldLog;
+      LODWORD(v17) = shouldLog;
     }
 
     oSLogObject = [v15 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v17 = v17;
+    }
+
+    else
     {
       v17 &= 2u;
     }
@@ -1663,19 +1675,17 @@ LABEL_16:
     if (v17)
     {
       v19 = objc_opt_class();
-      v30 = v19;
+      v29 = v19;
       clientIdentifier = [(XPCClient *)oSLogObject2 clientIdentifier];
-      v31 = 138412546;
-      v32 = v19;
-      v33 = 2112;
-      v34 = clientIdentifier;
-      LODWORD(v29) = 22;
-      v28 = &v31;
-      v21 = _os_log_send_and_compose_impl();
+      v30 = 138412546;
+      v31 = v19;
+      v32 = 2112;
+      v33 = clientIdentifier;
+      v21 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Registered observer client: %@", &v30, 22);
 
       if (!v21)
       {
-LABEL_25:
+LABEL_27:
 
         if (![(NSMutableArray *)self->_clients count])
         {
@@ -1698,16 +1708,16 @@ LABEL_25:
         outputConnection = [(XPCClient *)oSLogObject2 outputConnection];
         [outputConnection sendMessage:v26];
 
-        goto LABEL_30;
+        goto LABEL_32;
       }
 
-      oSLogObject = [NSString stringWithCString:v21 encoding:4, &v31, v29];
+      oSLogObject = [NSString stringWithCString:v21 encoding:4];
       free(v21);
       v28 = oSLogObject;
       SSFileLog();
     }
 
-    goto LABEL_25;
+    goto LABEL_27;
   }
 
   v9 = +[SSLogConfig sharedDaemonConfig];
@@ -1719,40 +1729,44 @@ LABEL_25:
   shouldLog2 = [v9 shouldLog];
   if ([v9 shouldLogToDisk])
   {
-    v11 = shouldLog2 | 2;
+    LODWORD(v11) = shouldLog2 | 2;
   }
 
   else
   {
-    v11 = shouldLog2;
+    LODWORD(v11) = shouldLog2;
   }
 
   oSLogObject2 = [v9 OSLogObject];
-  if (!os_log_type_enabled(&oSLogObject2->super, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(&oSLogObject2->super, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = v11;
+  }
+
+  else
   {
     v11 &= 2u;
   }
 
   if (!v11)
   {
-    goto LABEL_30;
+    goto LABEL_32;
   }
 
-  v31 = 138412290;
-  v32 = objc_opt_class();
-  v13 = v32;
-  LODWORD(v29) = 12;
-  v14 = _os_log_send_and_compose_impl();
+  v30 = 138412290;
+  v31 = objc_opt_class();
+  v13 = v31;
+  v14 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Invalid register message, no endpoint", &v30, 12);
 
   if (v14)
   {
-    oSLogObject2 = [NSString stringWithCString:v14 encoding:4, &v31, v29];
+    oSLogObject2 = [NSString stringWithCString:v14 encoding:4];
     free(v14);
     SSFileLog();
-LABEL_30:
+LABEL_32:
   }
 
-LABEL_31:
+LABEL_33:
 }
 
 - (BOOL)_resumeUploadsWithPredicate:(id)predicate clientIdentifier:(id)identifier resetFailureCount:(BOOL)count error:(id *)error

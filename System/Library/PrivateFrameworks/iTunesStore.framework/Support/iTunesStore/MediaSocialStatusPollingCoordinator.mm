@@ -122,39 +122,43 @@ LABEL_8:
   shouldLog = [v5 shouldLog];
   if ([v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  *v15 = 138412546;
-  *&v15[4] = objc_opt_class();
-  *&v15[12] = 2112;
-  *&v15[14] = v2;
-  v9 = *&v15[4];
-  LODWORD(v14) = 22;
-  v10 = _os_log_send_and_compose_impl();
+  v14 = 138412546;
+  v15 = objc_opt_class();
+  v16 = 2112;
+  v17 = v2;
+  v9 = v15;
+  v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Scheduling poll for time: %@", &v14, 22);
 
   if (v10)
   {
-    oSLogObject = [NSString stringWithCString:v10 encoding:4, v15, v14, *v15, *&v15[16]];
+    oSLogObject = [NSString stringWithCString:v10 encoding:4];
     free(v10);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   v11 = +[Daemon daemon];

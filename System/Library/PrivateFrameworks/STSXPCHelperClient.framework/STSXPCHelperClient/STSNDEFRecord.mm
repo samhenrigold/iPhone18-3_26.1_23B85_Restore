@@ -1,6 +1,7 @@
 @interface STSNDEFRecord
 + (BOOL)_parseNDEFData:(id)data outRecords:(id)records;
 + (id)ndefRecordsWithData:(id)data;
++ (id)recordsWithTNF:(unsigned __int8)f type:(id)type identifier:(id)identifier payload:(id)payload chunkSize:(unint64_t)size outError:(unint64_t *)error;
 - (BOOL)isAlternativeCarrierRecord;
 - (BOOL)isBluetoothLEConfigurationRecord;
 - (BOOL)isCollisionResolutionRecord;
@@ -13,6 +14,7 @@
 - (BOOL)isNfcConfigurationRecord;
 - (BOOL)isWiFiAwareConfigurationRecord;
 - (STSNDEFRecord)initWithCoder:(id)coder;
+- (STSNDEFRecord)initWithFormat:(unsigned __int8)format type:(id)type identifier:(id)identifier payload:(id)payload;
 - (id)description;
 - (id)getAuxiliaryDataReferencesFromAlternativeCarrierRecord;
 - (id)getCarrierDataReferenceFromAlternativeCarrierRecord;
@@ -28,6 +30,32 @@
 @end
 
 @implementation STSNDEFRecord
+
+- (STSNDEFRecord)initWithFormat:(unsigned __int8)format type:(id)type identifier:(id)identifier payload:(id)payload
+{
+  formatCopy = format;
+  typeCopy = type;
+  identifierCopy = identifier;
+  payloadCopy = payload;
+  v29.receiver = self;
+  v29.super_class = STSNDEFRecord;
+  v13 = [(STSNDEFRecord *)&v29 init];
+  v15 = v13;
+  if (v13)
+  {
+    objc_msgSend_setTypeNameFormat_(v13, v14, formatCopy);
+    v18 = objc_msgSend_copy(typeCopy, v16, v17);
+    objc_msgSend_setType_(v15, v19, v18);
+
+    v22 = objc_msgSend_copy(identifierCopy, v20, v21);
+    objc_msgSend_setIdentifier_(v15, v23, v22);
+
+    v26 = objc_msgSend_copy(payloadCopy, v24, v25);
+    objc_msgSend_setPayload_(v15, v27, v26);
+  }
+
+  return v15;
+}
 
 - (void)setMessageBegin:(BOOL)begin
 {
@@ -129,6 +157,158 @@
   v8 = objc_msgSend_length(self->_payload, v6, v7);
 
   objc_msgSend_setShortRecord_(self, v9, v8 < 0x100);
+}
+
++ (id)recordsWithTNF:(unsigned __int8)f type:(id)type identifier:(id)identifier payload:(id)payload chunkSize:(unint64_t)size outError:(unint64_t *)error
+{
+  fCopy = f;
+  typeCopy = type;
+  identifierCopy = identifier;
+  payloadCopy = payload;
+  v18 = objc_msgSend_array(MEMORY[0x277CBEB18], v16, v17);
+  if (objc_msgSend_length(identifierCopy, v19, v20) > 0xFF || (v25 = objc_msgSend_length(typeCopy, v21, v22), fCopy > 7) || v25 >= 0x100)
+  {
+    if (error)
+    {
+      v23 = 0;
+      v24 = 5;
+LABEL_4:
+      *error = v24;
+      goto LABEL_36;
+    }
+
+LABEL_35:
+    v23 = 0;
+    goto LABEL_36;
+  }
+
+  if (objc_msgSend_length(payloadCopy, v26, v27) >= size)
+  {
+    v73 = fCopy;
+    v33 = objc_msgSend_length(payloadCopy, v28, v29) / size;
+    if (objc_msgSend_length(payloadCopy, v34, v35) % size)
+    {
+      ++v33;
+    }
+
+    sub_2645011D4(OS_LOG_TYPE_INFO, 0, "+[STSNDEFRecord recordsWithTNF:type:identifier:payload:chunkSize:outError:]", 167, @"ChunkSize=%lu, RecordCount=%lu", v36, v37, v38, size);
+    v74 = v33;
+    if (!v33)
+    {
+      goto LABEL_18;
+    }
+
+    fCopy = v73;
+    if (v74 != 1)
+    {
+      v52 = 0;
+      v53 = 0;
+      while (1)
+      {
+        v54 = objc_opt_new();
+        if (!v54)
+        {
+          break;
+        }
+
+        v56 = v54;
+        if (v53)
+        {
+          if (v74 - 1 == v53)
+          {
+            objc_msgSend_setChunked_(v54, v55, 1);
+            objc_msgSend_setTypeNameFormat_(v56, v57, 6);
+            v60 = objc_msgSend_length(payloadCopy, v58, v59);
+            objc_msgSend_subdataWithRange_(payloadCopy, v61, (v74 - 1) * size, v60 - (v74 - 1) * size);
+          }
+
+          else
+          {
+            objc_msgSend_setTypeNameFormat_(v54, v55, 6);
+            objc_msgSend_subdataWithRange_(payloadCopy, v68, v52, size);
+          }
+        }
+
+        else
+        {
+          objc_msgSend_setChunked_(v54, v55, 1);
+          objc_msgSend_setTypeNameFormat_(v56, v62, v73);
+          objc_msgSend_setType_(v56, v63, typeCopy);
+          if (objc_msgSend_length(identifierCopy, v64, v65))
+          {
+            objc_msgSend_setIdentifier_(v56, v66, identifierCopy);
+          }
+
+          else
+          {
+            objc_msgSend_setIdentifier_(v56, v66, 0);
+          }
+
+          objc_msgSend_subdataWithRange_(payloadCopy, v67, 0, size);
+        }
+        v69 = ;
+        objc_msgSend_setPayload_(v56, v70, v69);
+
+        objc_msgSend_addObject_(v18, v71, v56);
+        ++v53;
+        v52 += size;
+        if (v53 >= v74)
+        {
+          goto LABEL_18;
+        }
+      }
+
+LABEL_33:
+      if (error)
+      {
+        v23 = 0;
+        v24 = 6;
+        goto LABEL_4;
+      }
+
+      goto LABEL_35;
+    }
+  }
+
+  else
+  {
+    sub_2645011D4(OS_LOG_TYPE_INFO, 0, "+[STSNDEFRecord recordsWithTNF:type:identifier:payload:chunkSize:outError:]", 167, @"ChunkSize=%lu, RecordCount=%lu", v30, v31, v32, size);
+  }
+
+  v39 = objc_opt_new();
+  if (!v39)
+  {
+    goto LABEL_33;
+  }
+
+  v42 = v39;
+  v43 = objc_msgSend_length(payloadCopy, v40, v41) < 0x100;
+  objc_msgSend_setShortRecord_(v42, v44, v43);
+  objc_msgSend_setTypeNameFormat_(v42, v45, fCopy);
+  objc_msgSend_setType_(v42, v46, typeCopy);
+  if (objc_msgSend_length(identifierCopy, v47, v48))
+  {
+    objc_msgSend_setIdentifier_(v42, v49, identifierCopy);
+  }
+
+  else
+  {
+    objc_msgSend_setIdentifier_(v42, v49, 0);
+  }
+
+  objc_msgSend_setPayload_(v42, v50, payloadCopy);
+  objc_msgSend_addObject_(v18, v51, v42);
+
+LABEL_18:
+  if (error)
+  {
+    *error = 0;
+  }
+
+  v23 = v18;
+LABEL_36:
+
+  return v23;
 }
 
 - (BOOL)isEqual:(id)equal

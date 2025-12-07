@@ -73,7 +73,7 @@
 
 - (void)dealloc
 {
-  FxDebugAssert(self->_priv != 0, &cfstr_PrivNull.isa, v2, v3, v4, v5, v6, v7, v9.receiver);
+  FxDebugAssert(self->_priv != 0, &cfstr_PrivNull.isa, v2, v3, v4, v5, v6, v7);
   free(self->_priv);
   v9.receiver = self;
   v9.super_class = FxShape;

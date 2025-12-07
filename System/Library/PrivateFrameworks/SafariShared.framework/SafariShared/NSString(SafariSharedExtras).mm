@@ -236,11 +236,11 @@
 
 - (id)safari_stringEncodedAsURLQueryParameter
 {
-  v2 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"ABCDEFGHIJLKMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.!~*'()"];
-  v3 = [self stringByAddingPercentEncodingWithAllowedCharacters:v2];
-  v4 = [v3 stringByReplacingOccurrencesOfString:@"%20" withString:@"+"];
+  v3 = objc_msgSend_characterSetWithCharactersInString_(MEMORY[0x1E696AB08], a2, @"ABCDEFGHIJLKMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_.!~*'()");
+  v4 = [self stringByAddingPercentEncodingWithAllowedCharacters:v3];
+  v5 = [v4 stringByReplacingOccurrencesOfString:@"%20" withString:@"+"];
 
-  return v4;
+  return v5;
 }
 
 - (id)safari_stringDecodedFromURLQueryParameter
@@ -313,9 +313,9 @@
 
 - (uint64_t)safari_isRightToLeft
 {
-  v0 = CTLineCreateWithString();
+  v1 = CTLineCreateWithString();
   IsRightToLeft = CTLineIsRightToLeft();
-  CFRelease(v0);
+  CFRelease(v1);
   return IsRightToLeft;
 }
 
@@ -716,7 +716,7 @@ LABEL_12:
 
   v5 = v2;
   {
-    v6 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+-."];
+    v6 = objc_msgSend_characterSetWithCharactersInString_(MEMORY[0x1E696AB08]);
     [NSString(SafariSharedExtras) safari_rangeOfURLScheme]::inverseSchemeCharacterSet = [v6 invertedSet];
   }
 

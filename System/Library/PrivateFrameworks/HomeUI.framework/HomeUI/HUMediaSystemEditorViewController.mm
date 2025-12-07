@@ -22,8 +22,8 @@
 
 - (HUMediaSystemEditorViewController)initWithAccessories:(id)accessories home:(id)home
 {
-  sub_20CECF940(0, &qword_28111FFF0);
-  sub_20CEF7F74(&qword_27C820660, &qword_28111FFF0);
+  sub_20CECF940(0, &qword_28111FFF0, 0x277CD1650);
+  sub_20CEF7F74(&qword_27C820660, &qword_28111FFF0, 0x277CD1650);
   v5 = sub_20D567D08();
   MediaSystemEditorViewController.init(accessories:home:)(v5, home);
   return result;
@@ -31,8 +31,8 @@
 
 - (HUMediaSystemEditorViewController)initWithMediaSystemBuilder:(id)builder staticAccessories:(id)accessories
 {
-  sub_20CECF940(0, &qword_28111FFF0);
-  sub_20CEF7F74(&qword_27C820660, &qword_28111FFF0);
+  sub_20CECF940(0, &qword_28111FFF0, 0x277CD1650);
+  sub_20CEF7F74(&qword_27C820660, &qword_28111FFF0, 0x277CD1650);
   v5 = sub_20D567D08();
   return MediaSystemEditorViewController.init(mediaSystemBuilder:staticAccessories:)(builder, v5);
 }
@@ -40,7 +40,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_20D114B0C();
+  sub_20D114B0C(selfCopy);
 }
 
 - (void)createMediaSystemWithAccessory:(id)accessory
@@ -189,7 +189,7 @@ LABEL_12:
   asGeneric = [createMediaSystem asGeneric];
   v8 = sub_20D115150(asGeneric);
 
-  __swift_destroy_boxed_opaque_existential_1(&v9);
+  __swift_destroy_boxed_opaque_existential_1(v9);
 }
 
 - (void)mediaSystemEditorHelperDidBeginCommitting:(id)committing
@@ -248,11 +248,12 @@ LABEL_12:
     controllerCopy2 = controller;
     selfCopy2 = self;
     v11 = 0;
+    v10 = 0;
   }
 
   [(HUMediaSystemEditorViewController *)self presentViewController:controller animated:animatedCopy completion:v11];
 
-  sub_20CEC8164(v9);
+  sub_20CEC8164(v9, v10);
   _Block_release(v11);
 }
 

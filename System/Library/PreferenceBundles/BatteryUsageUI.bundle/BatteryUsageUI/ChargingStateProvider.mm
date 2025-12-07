@@ -4,6 +4,7 @@
 - (ChargingStateProviderDelegate)delegate;
 - (id)chargingIconStateDictionary;
 - (id)debugDescription;
+- (id)getMostApplicableState:(id)state isPaused:(BOOL)paused;
 - (signed)getChargingState;
 - (void)_refreshTimeEstimates;
 - (void)chargeLevelChanged;
@@ -283,11 +284,12 @@
 
 - (void)refreshChargeLevel
 {
-  v17 = 0;
-  if (IOPSGetPercentRemaining())
+  v18 = 0;
+  v3 = IOPSGetPercentRemaining();
+  if (v3)
   {
-    v3 = ChargingStateProviderLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = ChargingStateProviderLog(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_11444C();
     }
@@ -295,46 +297,46 @@
 
   else
   {
-    v15 = 0u;
     v16 = 0u;
-    v13 = 0u;
+    v17 = 0u;
     v14 = 0u;
-    v4 = self->_delegates;
-    v5 = [(NSHashTable *)v4 countByEnumeratingWithState:&v13 objects:v18 count:16];
-    if (v5)
+    v15 = 0u;
+    v5 = self->_delegates;
+    v6 = [(NSHashTable *)v5 countByEnumeratingWithState:&v14 objects:v19 count:16];
+    if (v6)
     {
-      v6 = v5;
-      v7 = *v14;
+      v7 = v6;
+      v8 = *v15;
       do
       {
-        v8 = 0;
+        v9 = 0;
         do
         {
-          if (*v14 != v7)
+          if (*v15 != v8)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v5);
           }
 
-          v9 = *(*(&v13 + 1) + 8 * v8);
+          v10 = *(*(&v14 + 1) + 8 * v9);
           queue = self->_queue;
-          v11[0] = _NSConcreteStackBlock;
-          v11[1] = 3221225472;
-          v11[2] = sub_3A120;
-          v11[3] = &unk_164F60;
-          v11[4] = v9;
-          v12 = v17;
-          dispatch_async(queue, v11);
-          v8 = v8 + 1;
+          v12[0] = _NSConcreteStackBlock;
+          v12[1] = 3221225472;
+          v12[2] = sub_3A120;
+          v12[3] = &unk_164F60;
+          v12[4] = v10;
+          v13 = v18;
+          dispatch_async(queue, v12);
+          v9 = v9 + 1;
         }
 
-        while (v6 != v8);
-        v6 = [(NSHashTable *)v4 countByEnumeratingWithState:&v13 objects:v18 count:16];
+        while (v7 != v9);
+        v7 = [(NSHashTable *)v5 countByEnumeratingWithState:&v14 objects:v19 count:16];
       }
 
-      while (v6);
+      while (v7);
     }
 
-    [(ChargingStateProvider *)self setUisocLevel:v17];
+    [(ChargingStateProvider *)self setUisocLevel:v18];
   }
 }
 
@@ -563,6 +565,106 @@ LABEL_9:
   return chargingIntervalType;
 }
 
+- (id)getMostApplicableState:(id)state isPaused:(BOOL)paused
+{
+  pausedCopy = paused;
+  stateCopy = state;
+  v6 = stateCopy;
+  if (!stateCopy)
+  {
+LABEL_23:
+    v10 = 0;
+    goto LABEL_24;
+  }
+
+  v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v7 = [stateCopy countByEnumeratingWithState:&v35 objects:v41 count:16];
+  if (!v7)
+  {
+LABEL_19:
+    v28 = [v6 count];
+    if (v28)
+    {
+      v29 = ChargingStateProviderLog(v28);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      {
+        sub_1144C0();
+      }
+    }
+
+    goto LABEL_23;
+  }
+
+  v9 = v7;
+  v10 = 0;
+  v11 = *v36;
+  v12 = @"name";
+  *&v8 = 138412290;
+  v31 = v8;
+  v32 = v6;
+  do
+  {
+    v13 = 0;
+    v33 = v9;
+    do
+    {
+      if (*v36 != v11)
+      {
+        objc_enumerationMutation(v6);
+      }
+
+      v14 = *(*(&v35 + 1) + 8 * v13);
+      v15 = [v14 objectForKeyedSubscript:{v12, v31}];
+      v16 = v15;
+      if (v15)
+      {
+        isSupported = [v15 isSupported];
+        if ((isSupported & 1) == 0)
+        {
+          v27 = ChargingStateProviderLog(isSupported);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          {
+            *buf = v31;
+            v40 = v14;
+            _os_log_error_impl(&dword_0, v27, OS_LOG_TYPE_ERROR, "Unhandled hold type: %@", buf, 0xCu);
+          }
+
+          goto LABEL_15;
+        }
+
+        if ([v16 isPaused] == pausedCopy)
+        {
+          v18 = [v10 objectForKeyedSubscript:v12];
+          if (!v18 || (v19 = v18, -[NSObject objectForKeyedSubscript:](v10, "objectForKeyedSubscript:", v12), v20 = objc_claimAutoreleasedReturnValue(), v34 = [v20 statePriority], v21 = v12, v22 = v11, v23 = v10, v24 = pausedCopy, v25 = objc_msgSend(v16, "statePriority"), v20, v6 = v32, v19, v26 = v34 <= v25, pausedCopy = v24, v10 = v23, v11 = v22, v12 = v21, v9 = v33, !v26))
+          {
+            v27 = v10;
+            v10 = v14;
+LABEL_15:
+          }
+        }
+      }
+
+      v13 = v13 + 1;
+    }
+
+    while (v9 != v13);
+    v9 = [v6 countByEnumeratingWithState:&v35 objects:v41 count:16];
+  }
+
+  while (v9);
+  if (!v10)
+  {
+    goto LABEL_19;
+  }
+
+LABEL_24:
+
+  return v10;
+}
+
 - (BOOL)isBatteryGaugingEnabledWithOverrideStateArray:(id)array
 {
   arrayCopy = array;
@@ -622,10 +724,11 @@ LABEL_14:
 
 - (id)chargingIconStateDictionary
 {
-  if (IOPSCopyChargeStatus())
+  v2 = IOPSCopyChargeStatus();
+  if (v2)
   {
-    v2 = ChargingStateProviderLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = ChargingStateProviderLog(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_114534();
     }
@@ -633,10 +736,10 @@ LABEL_14:
 
   else
   {
-    v2 = ChargingStateProviderLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    v3 = ChargingStateProviderLog(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
     {
-      sub_1145A8(0, v2);
+      sub_1145A8(0, v3);
     }
   }
 
@@ -718,14 +821,14 @@ LABEL_14:
   if (chargeTimeEstimateClient)
   {
     chargeTimeEstimateClient2 = [(ChargingStateProvider *)self chargeTimeEstimateClient];
-    v15 = 0;
-    v9 = [chargeTimeEstimateClient2 estimateForTarget:target withError:&v15];
-    v10 = v15;
+    v16 = 0;
+    v9 = [chargeTimeEstimateClient2 estimateForTarget:target withError:&v16];
+    v10 = v16;
 
     if (v10)
     {
-      v11 = ChargingStateProviderLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = ChargingStateProviderLog(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_114620();
       }
@@ -733,11 +836,11 @@ LABEL_14:
       goto LABEL_21;
     }
 
-    v12 = ChargingStateProviderLog();
-    v13 = v12;
+    v13 = ChargingStateProviderLog(v11);
+    v14 = v13;
     if (v9)
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         sub_114698();
       }
@@ -747,15 +850,15 @@ LABEL_14:
       if ([v9 additionalInformation] == &dword_0 + 3 || objc_msgSend(v9, "additionalInformation") == &dword_4)
       {
         [v9 estimate];
-        v14 = [NSNumber numberWithDouble:?];
+        v15 = [NSNumber numberWithDouble:?];
         if (target)
         {
-          [(ChargingStateProvider *)self setTimeEstimateToLimit:v14];
+          [(ChargingStateProvider *)self setTimeEstimateToLimit:v15];
         }
 
         else
         {
-          [(ChargingStateProvider *)self setTimeEstimateTo80:v14];
+          [(ChargingStateProvider *)self setTimeEstimateTo80:v15];
         }
 
         goto LABEL_21;
@@ -769,7 +872,7 @@ LABEL_14:
 
     else
     {
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         sub_114710();
       }

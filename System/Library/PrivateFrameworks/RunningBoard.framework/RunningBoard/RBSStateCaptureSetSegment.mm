@@ -35,7 +35,7 @@
     v6 = segmentUniqueID++;
     v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"RBSStateCaptureSet Segment %d", v6];
     v8 = dispatch_get_global_queue(17, 0);
-    v9 = _RBLogAddStateCaptureBlockWithTitle(v8, v7, v5);
+    v9 = _RBLogAddStateCaptureBlockWithTitle(v8, v7, v5, 0);
     invalidatable = v2->_invalidatable;
     v2->_invalidatable = v9;
 
@@ -65,41 +65,39 @@ __CFString *__33__RBSStateCaptureSetSegment_init__block_invoke(uint64_t a1)
 
 - (id)_stateCapture
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&_stateCaptureLock);
   v3 = [(NSMutableSet *)self->_items copy];
   os_unfair_lock_unlock(&_stateCaptureLock);
   string = [MEMORY[0x277CCAB68] string];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        captureState = [*(*(&v13 + 1) + 8 * i) captureState];
+        captureState = [*(*(&v12 + 1) + 8 * i) captureState];
         [string appendString:captureState];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return string;
 }

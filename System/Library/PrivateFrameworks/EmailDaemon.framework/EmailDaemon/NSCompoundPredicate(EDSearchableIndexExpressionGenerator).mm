@@ -42,17 +42,17 @@
 
 - (id)ed_searchableIndexQueryStringForQueryWithSuggestion:()EDSearchableIndexExpressionGenerator originalSearchString:nonSpotlightPredicates:
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   if ([self ed_hasOnlySpotlightKeypaths])
   {
     subpredicates = [self subpredicates];
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __157__NSCompoundPredicate_EDSearchableIndexExpressionGenerator__ed_searchableIndexQueryStringForQueryWithSuggestion_originalSearchString_nonSpotlightPredicates___block_invoke;
-    v35[3] = &__block_descriptor_41_e31___NSString_16__0__NSPredicate_8l;
-    v36 = a3;
-    v35[4] = a4;
-    v8 = [subpredicates ef_compactMap:v35];
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __157__NSCompoundPredicate_EDSearchableIndexExpressionGenerator__ed_searchableIndexQueryStringForQueryWithSuggestion_originalSearchString_nonSpotlightPredicates___block_invoke;
+    v34[3] = &__block_descriptor_41_e31___NSString_16__0__NSPredicate_8l;
+    v35 = a3;
+    v34[4] = a4;
+    v8 = [subpredicates ef_compactMap:v34];
 
     v9 = +[EDSearchableIndexExpressionGenerator queryStringByJoiningQueries:withPredicateType:](EDSearchableIndexExpressionGenerator, "queryStringByJoiningQueries:withPredicateType:", v8, [self compoundPredicateType]);
 
@@ -62,29 +62,29 @@
 
   if (![self ed_hasOnlyNonSpotlightKeypaths])
   {
-    v26 = a5;
+    v25 = a5;
     v12 = objc_opt_new();
+    v30 = 0u;
     v31 = 0u;
     v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
     subpredicates2 = [self subpredicates];
     v10 = 0;
-    v14 = [subpredicates2 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v14 = [subpredicates2 countByEnumeratingWithState:&v30 objects:v38 count:16];
     if (v14)
     {
       v15 = 0;
-      v16 = *v32;
+      v16 = *v31;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v32 != v16)
+          if (*v31 != v16)
           {
             objc_enumerationMutation(subpredicates2);
           }
 
-          v18 = *(*(&v31 + 1) + 8 * i);
+          v18 = *(*(&v30 + 1) + 8 * i);
           if ([v18 ed_hasOnlySpotlightKeypaths])
           {
             if (v10)
@@ -93,7 +93,7 @@
               if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
               {
                 ef_publicDescription = [self ef_publicDescription];
-                [(NSCompoundPredicate(EDSearchableIndexExpressionGenerator) *)ef_publicDescription ed_searchableIndexQueryStringForQueryWithSuggestion:buf originalSearchString:&v38 nonSpotlightPredicates:v19];
+                [(NSCompoundPredicate(EDSearchableIndexExpressionGenerator) *)ef_publicDescription ed_searchableIndexQueryStringForQueryWithSuggestion:buf originalSearchString:&v37 nonSpotlightPredicates:v19];
               }
 
               v15 = 1;
@@ -101,8 +101,8 @@
 
             else
             {
-              v30 = 0;
-              v10 = [v18 ed_searchableIndexQueryStringForQueryWithSuggestion:a3 originalSearchString:a4 nonSpotlightPredicates:&v30];
+              v29 = 0;
+              v10 = [v18 ed_searchableIndexQueryStringForQueryWithSuggestion:a3 originalSearchString:a4 nonSpotlightPredicates:&v29];
             }
           }
 
@@ -112,7 +112,7 @@
           }
         }
 
-        v14 = [subpredicates2 countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v14 = [subpredicates2 countByEnumeratingWithState:&v30 objects:v38 count:16];
       }
 
       while (v14);
@@ -139,7 +139,7 @@ LABEL_22:
       [MEMORY[0x1E696AE18] ef_andCompoundPredicateWithSubpredicates:v12];
     }
     v23 = ;
-    *v27 = v23;
+    *v26 = v23;
 
     goto LABEL_26;
   }
@@ -148,7 +148,6 @@ LABEL_22:
   v10 = 0;
   *a5 = self;
 LABEL_26:
-  v24 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

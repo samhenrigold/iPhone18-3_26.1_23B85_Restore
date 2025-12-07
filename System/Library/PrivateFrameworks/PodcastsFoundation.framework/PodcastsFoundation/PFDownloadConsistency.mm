@@ -25,7 +25,7 @@
 
   selfCopy = self;
   sub_1D8DBC7B0(v7, v6);
-  sub_1D8D15664(v7);
+  sub_1D8D15664(v7, v6);
 }
 
 - (void)endEnforcement
@@ -36,8 +36,6 @@
     selfCopy = self;
 
     sub_1D917785C();
-
-    v5 = *(&self->super.isa + v3);
   }
 
   else

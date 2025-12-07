@@ -13,18 +13,18 @@
 - (NSString)description;
 - (_GCDevicePhysicalInputDirectionPadElement)initWithParameters:(id)parameters;
 - (_GCDevicePhysicalInputDirectionPadElement)initWithTemplate:(id)template context:(id)context;
+- (id)_downValueField;
+- (id)_leftValueField;
+- (id)_rightValueField;
+- (id)_setDownValueField:(id *)result;
+- (id)_setLeftValueField:(id *)result;
+- (id)_setRightValueField:(id *)result;
+- (id)_setUpValueField:(id *)result;
+- (id)_upValueField;
 - (uint64_t)_down;
-- (uint64_t)_downValueField;
 - (uint64_t)_left;
-- (uint64_t)_leftValueField;
 - (uint64_t)_right;
-- (uint64_t)_rightValueField;
-- (uint64_t)_setDownValueField:(uint64_t)result;
-- (uint64_t)_setLeftValueField:(uint64_t)result;
-- (uint64_t)_setRightValueField:(uint64_t)result;
-- (uint64_t)_setUpValueField:(uint64_t)result;
 - (uint64_t)_up;
-- (uint64_t)_upValueField;
 - (uint64_t)_x;
 - (uint64_t)_xy;
 - (uint64_t)_y;
@@ -112,7 +112,7 @@
     if (self)
     {
 LABEL_5:
-      v12 = [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:v11 forSlot:&self->_upValueFieldSlot];
+      v12 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:v11 forSlot:&self->_upValueFieldSlot];
       goto LABEL_6;
     }
   }
@@ -150,7 +150,7 @@ LABEL_57:
   }
 
 LABEL_8:
-  v14 = [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:v13 forSlot:&self->_downValueFieldSlot];
+  v14 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:v13 forSlot:&self->_downValueFieldSlot];
   if (v14)
   {
     v15 = 2;
@@ -184,7 +184,7 @@ LABEL_59:
   }
 
 LABEL_13:
-  v17 = [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:v16 forSlot:&self->_leftValueFieldSlot];
+  v17 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:v16 forSlot:&self->_leftValueFieldSlot];
   if (v17)
   {
     v18 = 4;
@@ -210,7 +210,7 @@ LABEL_16:
   v20 = v14 | v17;
   if (self)
   {
-    v21 = [(_GCDevicePhysicalInputView *)self _testAndSetPrimitiveValue:v19 forSlot:&self->_rightValueFieldSlot];
+    v21 = [(_GCDevicePhysicalInputView *)&self->super.super.super.isa _testAndSetPrimitiveValue:v19 forSlot:&self->_rightValueFieldSlot];
     if (v21)
     {
       v22 = 8;
@@ -802,7 +802,7 @@ LABEL_13:
   return v6;
 }
 
-- (uint64_t)_setUpValueField:(uint64_t)result
+- (id)_setUpValueField:(id *)result
 {
   if (result)
   {
@@ -812,7 +812,7 @@ LABEL_13:
   return result;
 }
 
-- (uint64_t)_setDownValueField:(uint64_t)result
+- (id)_setDownValueField:(id *)result
 {
   if (result)
   {
@@ -822,7 +822,7 @@ LABEL_13:
   return result;
 }
 
-- (uint64_t)_setLeftValueField:(uint64_t)result
+- (id)_setLeftValueField:(id *)result
 {
   if (result)
   {
@@ -832,7 +832,7 @@ LABEL_13:
   return result;
 }
 
-- (uint64_t)_setRightValueField:(uint64_t)result
+- (id)_setRightValueField:(id *)result
 {
   if (result)
   {
@@ -842,7 +842,7 @@ LABEL_13:
   return result;
 }
 
-- (uint64_t)_upValueField
+- (id)_upValueField
 {
   if (result)
   {
@@ -852,7 +852,7 @@ LABEL_13:
   return result;
 }
 
-- (uint64_t)_downValueField
+- (id)_downValueField
 {
   if (result)
   {
@@ -862,7 +862,7 @@ LABEL_13:
   return result;
 }
 
-- (uint64_t)_leftValueField
+- (id)_leftValueField
 {
   if (result)
   {
@@ -872,7 +872,7 @@ LABEL_13:
   return result;
 }
 
-- (uint64_t)_rightValueField
+- (id)_rightValueField
 {
   if (result)
   {
@@ -1053,9 +1053,9 @@ LABEL_3:
   v10 = 0;
   v12 = 0;
 LABEL_4:
-  v13 = v9 == -1 || v10 == -1;
+  v13 = v9 == -1 || (v10 + 1) == 0;
   v14 = !v13;
-  if (v14 == 1 && v11 != -1 && v12 != -1)
+  if (v14 == 1 && (v11 + 1) != 0 && (v12 + 1) != 0)
   {
     v71 = v7;
     [event floatValueForElement:v12];
@@ -1102,7 +1102,7 @@ LABEL_4:
     OUTLINED_FUNCTION_6_6(v33 & 0xFFEF);
   }
 
-  if (v11 == -1 || v12 == -1)
+  if (v11 == -1 || (v12 + 1) == 0)
   {
     if (v14)
     {

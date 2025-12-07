@@ -168,7 +168,7 @@ LABEL_10:
             sub_100004B88(self, v7, v16, v36);
             objc_autoreleasePoolPop(v17);
             v18 = objc_autoreleasePoolPush();
-            sub_100004EE8(&self->super.isa, v7, v16, v36);
+            sub_100004EE8(self, v7, v16, v36);
             objc_autoreleasePoolPop(v18);
             if (v13 == ++v15)
             {
@@ -242,7 +242,7 @@ LABEL_20:
           sub_100004B88(self, sensor, v15, buf);
           objc_autoreleasePoolPop(v19);
           v20 = objc_autoreleasePoolPush();
-          sub_100004EE8(&self->super.isa, sensor, v15, buf);
+          sub_100004EE8(self, sensor, v15, buf);
           objc_autoreleasePoolPop(v20);
           sub_100023A24(&self->_gizmoSyncService->super.isa, 1);
           v21 = mach_continuous_time();
@@ -354,7 +354,7 @@ LABEL_20:
         sub_100004B88(self, sensor, iD, buf);
         objc_autoreleasePoolPop(v22);
         v23 = objc_autoreleasePoolPush();
-        sub_100004EE8(&self->super.isa, sensor, iD, buf);
+        sub_100004EE8(self, sensor, iD, buf);
         objc_autoreleasePoolPop(v23);
       }
     }
@@ -634,7 +634,7 @@ LABEL_50:
     if (p_isa && (v6 = sub_100023DB4(selfCopy->_gizmoSyncService), (v44 = sub_100023C20(p_isa, v6, [p_isa[3] devices])) != 0))
     {
       peerCopy = peer;
-      v45 = &selfCopy->super.isa;
+      v45 = selfCopy;
       v7 = sub_10003A2C0(selfCopy->_fileURLs, selfCopy->_defaults);
       v54 = 0u;
       v55 = 0u;
@@ -700,7 +700,7 @@ LABEL_50:
 
             v17 = *(*(&v50 + 1) + 8 * j);
             obja = objc_autoreleasePoolPush();
-            v18 = sub_10003A334(v17, v44, v45[3], v45[4]);
+            v18 = sub_10003A334(v17, v44, *(v45 + 24), *(v45 + 32));
             v19 = sub_10000D068([RDInformingDatastore alloc], v18);
             v46 = 0u;
             v47 = 0u;

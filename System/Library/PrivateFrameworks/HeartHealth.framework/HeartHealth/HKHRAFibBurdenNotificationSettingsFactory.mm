@@ -131,7 +131,7 @@ LABEL_25:
     v21 = HKHRAFibBurdenLogForCategory(2);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
     {
-      [HKHRAFibBurdenNotificationSettingsFactory bridgeSettings];
+      [(HKHRAFibBurdenNotificationSettingsFactory *)self bridgeSettings];
     }
   }
 
@@ -150,7 +150,7 @@ LABEL_25:
     v21 = HKHRAFibBurdenLogForCategory(2);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
     {
-      [HKHRAFibBurdenNotificationSettingsFactory bridgeSettings];
+      [(HKHRAFibBurdenNotificationSettingsFactory *)self bridgeSettings];
     }
   }
 
@@ -280,7 +280,7 @@ LABEL_14:
           v17 = HKHRAFibBurdenLogForCategory(2);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
           {
-            [HKHRAFibBurdenNotificationSettingsFactory watchSettings];
+            [(HKHRAFibBurdenNotificationSettingsFactory *)self watchSettings];
           }
 
           goto LABEL_14;
@@ -399,48 +399,42 @@ LABEL_23:
 
 - (BOOL)_isFeatureOnboardedAndAvailableWithIsOnboarded:(BOOL)onboarded requirementsEvaluation:(id)evaluation
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  if (onboarded)
+  v8[1] = *MEMORY[0x277D85DE8];
+  if (!onboarded)
   {
-    unsatisfiedRequirementIdentifiers = [evaluation unsatisfiedRequirementIdentifiers];
-    if ([unsatisfiedRequirementIdentifiers count])
-    {
-      v9[0] = *MEMORY[0x277CCBF38];
-      v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-      v6 = [unsatisfiedRequirementIdentifiers isEqualToArray:v5];
-    }
+    return 0;
+  }
 
-    else
-    {
-      v6 = 1;
-    }
+  unsatisfiedRequirementIdentifiers = [evaluation unsatisfiedRequirementIdentifiers];
+  if ([unsatisfiedRequirementIdentifiers count])
+  {
+    v8[0] = *MEMORY[0x277CCBF38];
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v6 = [unsatisfiedRequirementIdentifiers isEqualToArray:v5];
   }
 
   else
   {
-    v6 = 0;
+    v6 = 1;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (void)bridgeSettings
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_0_3(&dword_228942000, v1, v2, "[%@]: Requested bridge settings for an un-handled notification state", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  OUTLINED_FUNCTION_0_3(&dword_228942000, v2, v3, "[%@]: Requested bridge settings for an un-handled notification state", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)watchSettings
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  OUTLINED_FUNCTION_0_3(&dword_228942000, v1, v2, "[%@]: Requested watch settings for an un-handled notification state", v3, v4, v5, v6, 2u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = objc_opt_class();
+  v1 = *(&v8 + 4);
+  OUTLINED_FUNCTION_0_3(&dword_228942000, v2, v3, "[%@]: Requested watch settings for an un-handled notification state", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

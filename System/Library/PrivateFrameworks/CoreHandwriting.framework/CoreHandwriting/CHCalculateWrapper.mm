@@ -9,12 +9,12 @@
 
 + (id)textTranscriptionForLatex:(id)latex
 {
-  sub_1839BD0FC();
-  sub_18366E4E8();
+  v3 = sub_1839BD0FC();
+  sub_18366E4E8(v3, v4);
 
-  v3 = sub_1839BD0CC();
+  v5 = sub_1839BD0CC();
 
-  return v3;
+  return v5;
 }
 
 + (BOOL)isTextTranscriptionUnitConversion:(id)conversion locales:(id)locales
@@ -30,10 +30,10 @@
 
 + (BOOL)isLatexTranscriptionValidExpression:(id)expression
 {
-  sub_1839BD0FC();
-  v3 = sub_18366E90C();
+  v3 = sub_1839BD0FC();
+  v5 = sub_18366E90C(v3, v4);
 
-  return v3 & 1;
+  return v5 & 1;
 }
 
 - (CHCalculateWrapper)init

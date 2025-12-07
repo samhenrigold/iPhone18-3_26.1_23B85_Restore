@@ -47,7 +47,6 @@
 
 uint64_t __32__HMMNullRTCSession_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1C0];
   logCategory__hmf_once_v1 = HMFCreateOSLogHandle();
 
   return MEMORY[0x2821F96F8]();

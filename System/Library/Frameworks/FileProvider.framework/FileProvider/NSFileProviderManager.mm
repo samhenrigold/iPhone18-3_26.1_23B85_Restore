@@ -35,7 +35,6 @@
 - (id)_connection;
 - (id)_initWithProviderIdentifier:(id)identifier groupName:(id)name domain:(id)domain;
 - (id)_test_existingProgressForKind:(id)kind;
-- (id)description;
 - (id)enumeratorForMaterializedItems;
 - (id)enumeratorForPendingItems;
 - (id)itemIDForIdentifier:(id)identifier;
@@ -46,6 +45,7 @@
 - (void)_callCompletionHandlers:(id)handlers error:(id)error;
 - (void)_failToSignalPendingChangesWithError:(id)error completionHandlersByItemID:(id)d;
 - (void)_signalPendingEnumerators;
+- (void)addDomain:(id)domain userAllowedDBDrop:(BOOL)drop completionHandler:(id)handler;
 - (void)claimKnownFolders:(id)folders localizedReason:(id)reason completionHandler:(id)handler;
 - (void)dealloc;
 - (void)deleteSearchableItemsWithSpotlightDomainIdentifiers:(id)identifiers indexReason:(int64_t)reason completionHandler:(id)handler;
@@ -140,68 +140,86 @@
 
 void __50__NSFileProviderManager__signalPendingEnumerators__block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) allKeys];
-  v15 = v3;
+  v14 = v3;
   v5 = [v3 synchronousRemoteObjectProxy];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   obj = v4;
-  v6 = [obj countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v6 = [obj countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v19;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * i);
+        v10 = *(*(&v18 + 1) + 8 * i);
         v11 = [*(a1 + 32) objectForKeyedSubscript:v10];
         v12 = fp_current_or_default_log();
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          v24 = v10;
-          v25 = 2112;
-          v26 = v5;
+          v23 = v10;
+          v24 = 2112;
+          v25 = v5;
           _os_log_debug_impl(&dword_1AAAE1000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] sending signal for %@ on %@", buf, 0x16u);
         }
 
-        v17[0] = MEMORY[0x1E69E9820];
-        v17[1] = 3221225472;
-        v17[2] = __50__NSFileProviderManager__signalPendingEnumerators__block_invoke_175;
-        v17[3] = &unk_1E793D0B0;
-        v17[4] = *(a1 + 40);
-        v18 = v11;
+        v16[0] = MEMORY[0x1E69E9820];
+        v16[1] = 3221225472;
+        v16[2] = __50__NSFileProviderManager__signalPendingEnumerators__block_invoke_175;
+        v16[3] = &unk_1E793D0B0;
+        v16[4] = *(a1 + 40);
+        v17 = v11;
         v13 = v11;
-        [v5 didChangeItemID:v10 completionHandler:v17];
+        [v5 didChangeItemID:v10 completionHandler:v16];
       }
 
-      v7 = [obj countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v7 = [obj countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_signalPendingEnumerators
 {
-  v6 = *MEMORY[0x1E69E9840];
-  *(self + 72);
-  OUTLINED_FUNCTION_11_2();
-  _os_log_debug_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  dispatch_assert_queue_V2(self->_signalUpdateQueue);
+  section = __fp_create_section();
+  v11 = section;
+  v4 = fp_current_or_default_log();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  {
+    [(NSFileProviderManager *)self _signalPendingEnumerators];
+  }
+
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v6 = [(NSMutableDictionary *)selfCopy->_completionHandlersByItemID copy];
+  [(NSMutableDictionary *)selfCopy->_completionHandlersByItemID removeAllObjects];
+  objc_sync_exit(selfCopy);
+
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __50__NSFileProviderManager__signalPendingEnumerators__block_invoke;
+  v8[3] = &unk_1E793E338;
+  v7 = v6;
+  v9 = v7;
+  v10 = selfCopy;
+  [(NSFileProviderManager *)selfCopy fetchDomainServicerSynchronously:1 useOutgoingConnection:0 completionHandler:v8];
+
+  __fp_leave_section_Debug(&v11);
 }
 
 - (id)_initWithProviderIdentifier:(id)identifier groupName:(id)name domain:(id)domain
@@ -333,14 +351,6 @@ void __70__NSFileProviderManager__initWithProviderIdentifier_groupName_domain___
   [WeakRetained _signalPendingEnumerators];
 }
 
-- (id)description
-{
-  v3 = MEMORY[0x1E696AEC0];
-  v4 = objc_opt_class();
-  providerIdentifier = self->_providerIdentifier;
-  return [v3 stringWithFormat:@"<%@:%p %@:%@>", v4, self, providerIdentifier, self->_domain];
-}
-
 + (void)registerDomainServicer:(id)servicer forDomain:(id)domain
 {
   servicerCopy = servicer;
@@ -403,7 +413,7 @@ void __70__NSFileProviderManager__initWithProviderIdentifier_groupName_domain___
 {
   connectionCopy = connection;
   synchronouslyCopy = synchronously;
-  v69 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -432,21 +442,21 @@ void __70__NSFileProviderManager__initWithProviderIdentifier_groupName_domain___
   aBlock[3] = &unk_1E79396E8;
   aBlock[4] = selfCopy;
   v15 = handlerCopy;
-  v68 = v15;
+  v67 = v15;
   v16 = v14;
-  v67 = v16;
-  v52 = _Block_copy(aBlock);
+  v66 = v16;
+  v51 = _Block_copy(aBlock);
   if (selfCopy->_providerIdentifier)
   {
     mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
     currentPersona = [mEMORY[0x1E69DF068] currentPersona];
 
-    v65 = 0;
+    v64 = 0;
     userPersonaUniqueString = [currentPersona userPersonaUniqueString];
     personaIdentifier = [(NSFileProviderDomain *)selfCopy->_domain personaIdentifier];
     if (userPersonaUniqueString == personaIdentifier)
     {
-      v51 = 0;
+      v50 = 0;
     }
 
     else
@@ -459,11 +469,11 @@ void __70__NSFileProviderManager__initWithProviderIdentifier_groupName_domain___
         goto LABEL_17;
       }
 
-      v64 = 0;
-      v21 = [currentPersona copyCurrentPersonaContextWithError:&v64];
-      v22 = v64;
-      v23 = v65;
-      v65 = v21;
+      v63 = 0;
+      v21 = [currentPersona copyCurrentPersonaContextWithError:&v63];
+      v22 = v63;
+      v23 = v64;
+      v64 = v21;
 
       if (v22)
       {
@@ -475,12 +485,12 @@ void __70__NSFileProviderManager__initWithProviderIdentifier_groupName_domain___
       }
 
       personaIdentifier3 = [(NSFileProviderDomain *)selfCopy->_domain personaIdentifier];
-      v51 = [currentPersona generateAndRestorePersonaContextWithPersonaUniqueString:personaIdentifier3];
+      v50 = [currentPersona generateAndRestorePersonaContextWithPersonaUniqueString:personaIdentifier3];
 
-      if (!v51)
+      if (!v50)
       {
 LABEL_17:
-        v51 = 0;
+        v50 = 0;
         goto LABEL_20;
       }
 
@@ -494,10 +504,10 @@ LABEL_17:
     }
 
 LABEL_20:
-    v60 = 0;
-    v61 = &v60;
-    v62 = 0x2020000000;
-    v63 = 1;
+    v59 = 0;
+    v60 = &v59;
+    v61 = 0x2020000000;
+    v62 = 1;
     v26 = selfCopy;
     objc_sync_enter(v26);
     v27 = v26->_remoteFileProvider;
@@ -553,19 +563,19 @@ LABEL_20:
         _os_log_impl(&dword_1AAAE1000, v35, OS_LOG_TYPE_INFO, "[INFO] forcing creation of a new connection to the daemon", buf, 2u);
       }
 
-      *(v61 + 24) = 0;
+      *(v60 + 24) = 0;
     }
 
     _connection = [(NSFileProviderManager *)v26 _connection];
     v37 = _connection;
     if (synchronouslyCopy)
     {
-      [_connection synchronousRemoteObjectProxyWithErrorHandler:v52];
+      [_connection synchronousRemoteObjectProxyWithErrorHandler:v51];
     }
 
     else
     {
-      [_connection remoteObjectProxyWithErrorHandler:v52];
+      [_connection remoteObjectProxyWithErrorHandler:v51];
     }
     v38 = ;
     v39 = v16;
@@ -585,32 +595,30 @@ LABEL_20:
 
     v45 = [v40 fp_providerDomainIDFromProviderID:providerIdentifier domainIdentifier:v44];
 
-    v53[0] = MEMORY[0x1E69E9820];
-    v53[1] = 3221225472;
-    v53[2] = __98__NSFileProviderManager_fetchDomainServicerSynchronously_useOutgoingConnection_completionHandler___block_invoke_145;
-    v53[3] = &unk_1E793E2E8;
-    v53[4] = v26;
-    v57 = &v60;
+    v52[0] = MEMORY[0x1E69E9820];
+    v52[1] = 3221225472;
+    v52[2] = __98__NSFileProviderManager_fetchDomainServicerSynchronously_useOutgoingConnection_completionHandler___block_invoke_145;
+    v52[3] = &unk_1E793E2E8;
+    v52[4] = v26;
+    v56 = &v59;
     v16 = v39;
-    v54 = v39;
+    v53 = v39;
     v46 = v37;
-    v55 = v46;
-    v58 = connectionCopy;
-    v56 = v15;
-    [(NSFileProviderManager *)v26 _fetchDomainServicer:v38 forProviderDomainID:v45 handler:v53];
+    v54 = v46;
+    v57 = connectionCopy;
+    v55 = v15;
+    [(NSFileProviderManager *)v26 _fetchDomainServicer:v38 forProviderDomainID:v45 handler:v52];
 
 LABEL_41:
-    _Block_object_dispose(&v60, 8);
+    _Block_object_dispose(&v59, 8);
 
-    _FPRestorePersona(&v65);
+    _FPRestorePersona(&v64);
     goto LABEL_42;
   }
 
-  v51 = FPProviderNotRegistered(0, 0);
-  v52[2](v52, v51);
+  v50 = FPProviderNotRegistered(0, 0);
+  v51[2](v51, v50);
 LABEL_42:
-
-  v47 = *MEMORY[0x1E69E9840];
 }
 
 void __98__NSFileProviderManager_fetchDomainServicerSynchronously_useOutgoingConnection_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -686,7 +694,7 @@ void __98__NSFileProviderManager_fetchDomainServicerSynchronously_useOutgoingCon
       v21 = fp_current_or_default_log();
       if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
       {
-        __98__NSFileProviderManager_fetchDomainServicerSynchronously_useOutgoingConnection_completionHandler___block_invoke_145_cold_3(a1 + 32, (a1 + 48));
+        __98__NSFileProviderManager_fetchDomainServicerSynchronously_useOutgoingConnection_completionHandler___block_invoke_145_cold_3(a1 + 32, a1 + 48, v21);
       }
 
       *(*(*(a1 + 64) + 8) + 24) = 0;
@@ -871,9 +879,11 @@ void __36__NSFileProviderManager__connection__block_invoke_161(uint64_t a1)
 
 uint64_t __45__NSFileProviderManager_legacyDefaultManager__block_invoke(uint64_t a1)
 {
-  legacyDefaultManager__defaultManager = [objc_alloc(*(a1 + 32)) _initWithProviderIdentifier:0 domain:0];
+  v1 = [objc_alloc(*(a1 + 32)) _initWithProviderIdentifier:0 domain:0];
+  v2 = legacyDefaultManager__defaultManager;
+  legacyDefaultManager__defaultManager = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (id)itemIDForIdentifier:(id)identifier
@@ -983,16 +993,59 @@ void __86__NSFileProviderManager_signalEnumeratorForContainerItemIdentifier_comp
 
 - (void)_callCompletionHandlers:(id)handlers error:(id)error
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   handlersCopy = handlers;
   errorCopy = error;
   dispatch_assert_queue_V2(self->_signalUpdateQueue);
+  v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v8 = handlersCopy;
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v14;
+    do
+    {
+      v12 = 0;
+      do
+      {
+        if (*v14 != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        (*(*(*(&v13 + 1) + 8 * v12) + 16))(*(*(&v13 + 1) + 8 * v12));
+        ++v12;
+      }
+
+      while (v10 != v12);
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    }
+
+    while (v10);
+  }
+}
+
+- (void)_failToSignalPendingChangesWithError:(id)error completionHandlersByItemID:(id)d
+{
+  v19 = *MEMORY[0x1E69E9840];
+  errorCopy = error;
+  dCopy = d;
+  dispatch_assert_queue_V2(self->_signalUpdateQueue);
+  if (!errorCopy)
+  {
+    [NSFileProviderManager _failToSignalPendingChangesWithError:completionHandlersByItemID:];
+  }
+
+  allKeys = [dCopy allKeys];
   v14 = 0u;
   v15 = 0u;
-  v8 = handlersCopy;
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v16 = 0u;
+  v17 = 0u;
+  v9 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
@@ -1004,73 +1057,26 @@ void __86__NSFileProviderManager_signalEnumeratorForContainerItemIdentifier_comp
       {
         if (*v15 != v11)
         {
-          objc_enumerationMutation(v8);
-        }
-
-        (*(*(*(&v14 + 1) + 8 * v12) + 16))(*(*(&v14 + 1) + 8 * v12));
-        ++v12;
-      }
-
-      while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
-    }
-
-    while (v10);
-  }
-
-  v13 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_failToSignalPendingChangesWithError:(id)error completionHandlersByItemID:(id)d
-{
-  v20 = *MEMORY[0x1E69E9840];
-  errorCopy = error;
-  dCopy = d;
-  dispatch_assert_queue_V2(self->_signalUpdateQueue);
-  if (!errorCopy)
-  {
-    [NSFileProviderManager _failToSignalPendingChangesWithError:completionHandlersByItemID:];
-  }
-
-  allKeys = [dCopy allKeys];
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v9 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
-  if (v9)
-  {
-    v10 = v9;
-    v11 = *v16;
-    do
-    {
-      v12 = 0;
-      do
-      {
-        if (*v16 != v11)
-        {
           objc_enumerationMutation(allKeys);
         }
 
-        v13 = [dCopy objectForKeyedSubscript:*(*(&v15 + 1) + 8 * v12)];
+        v13 = [dCopy objectForKeyedSubscript:*(*(&v14 + 1) + 8 * v12)];
         [(NSFileProviderManager *)self _callCompletionHandlers:v13 error:errorCopy];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerURLSessionTask:(NSURLSessionTask *)task forItemWithIdentifier:(NSFileProviderItemIdentifier)identifier completionHandler:(void *)completion
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v9 = task;
   v10 = identifier;
   v11 = completion;
@@ -1101,36 +1107,34 @@ LABEL_3:
     {
       v14 = NSStringFromSelector(a2);
       *buf = 138413314;
-      v27 = v14;
-      v28 = 2048;
-      v29 = 1;
-      v30 = 2112;
-      v31 = v9;
-      v32 = 2048;
+      v26 = v14;
+      v27 = 2048;
+      v28 = 1;
+      v29 = 2112;
+      v30 = v9;
+      v31 = 2048;
       state2 = [(NSURLSessionTask *)v9 state];
-      v34 = 2112;
-      v35 = objc_opt_class();
-      v15 = v35;
+      v33 = 2112;
+      v34 = objc_opt_class();
+      v15 = v34;
       _os_log_impl(&dword_1AAAE1000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] %@ must be called with a task in suspended (%li) state, but task %@ has state %li. %@ will suspend the task and resume it again to work around this. To avoid this warning, resume the task from the completion handler.", buf, 0x34u);
     }
   }
 
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __88__NSFileProviderManager_registerURLSessionTask_forItemWithIdentifier_completionHandler___block_invoke;
-  v20[3] = &unk_1E793E388;
-  v20[4] = self;
-  v21 = v10;
-  v25 = state != 1;
-  v23 = v11;
-  v24 = a2;
-  v22 = v9;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __88__NSFileProviderManager_registerURLSessionTask_forItemWithIdentifier_completionHandler___block_invoke;
+  v19[3] = &unk_1E793E388;
+  v19[4] = self;
+  v20 = v10;
+  v24 = state != 1;
+  v22 = v11;
+  v23 = a2;
+  v21 = v9;
   v16 = v11;
   v17 = v9;
   v18 = v10;
-  [(NSFileProviderManager *)self domainServicerWithCompletionHandler:v20];
-
-  v19 = *MEMORY[0x1E69E9840];
+  [(NSFileProviderManager *)self domainServicerWithCompletionHandler:v19];
 }
 
 void __88__NSFileProviderManager_registerURLSessionTask_forItemWithIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -1160,13 +1164,12 @@ void __88__NSFileProviderManager_registerURLSessionTask_forItemWithIdentifier_co
 
 void __88__NSFileProviderManager_registerURLSessionTask_forItemWithIdentifier_completionHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v5)
   {
-    v8 = *(a1 + 32);
     if (objc_opt_respondsToSelector())
     {
       if ([*(a1 + 32) state] == 1)
@@ -1178,25 +1181,23 @@ void __88__NSFileProviderManager_registerURLSessionTask_forItemWithIdentifier_co
       {
         if ((*(a1 + 72) & 1) == 0)
         {
-          v10 = fp_current_or_default_log();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+          v9 = fp_current_or_default_log();
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
-            v11 = NSStringFromSelector(*(a1 + 64));
-            v12 = *(a1 + 32);
-            v13 = [v12 state];
-            v14 = *(a1 + 40);
-            *v18 = 138413314;
-            *&v18[4] = v11;
-            *&v18[12] = 2048;
-            *&v18[14] = 1;
-            *&v18[22] = 2112;
-            v19 = v12;
-            *v20 = 2048;
-            *&v20[2] = v13;
-            *&v20[10] = 2112;
-            *&v20[12] = objc_opt_class();
-            v15 = *&v20[12];
-            _os_log_impl(&dword_1AAAE1000, v10, OS_LOG_TYPE_DEFAULT, "[WARNING] %@ must be called with a task in suspended (%li) state, but task %@ has state %li. %@ will suspend the task and resume it again to work around this. To avoid this warning, resume the task from the completion handler.", v18, 0x34u);
+            v10 = NSStringFromSelector(*(a1 + 64));
+            v11 = *(a1 + 32);
+            *v14 = 138413314;
+            *&v14[4] = v10;
+            *&v14[12] = 2048;
+            *&v14[14] = 1;
+            *&v14[22] = 2112;
+            v15 = v11;
+            *v16 = 2048;
+            *&v16[2] = [v11 state];
+            *&v16[10] = 2112;
+            *&v16[12] = objc_opt_class();
+            v12 = *&v16[12];
+            _os_log_impl(&dword_1AAAE1000, v9, OS_LOG_TYPE_DEFAULT, "[WARNING] %@ must be called with a task in suspended (%li) state, but task %@ has state %li. %@ will suspend the task and resume it again to work around this. To avoid this warning, resume the task from the completion handler.", v14, 0x34u);
           }
         }
 
@@ -1209,20 +1210,18 @@ void __88__NSFileProviderManager_registerURLSessionTask_forItemWithIdentifier_co
 
   else if (v6)
   {
-    v9 = fp_current_or_default_log();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v8 = fp_current_or_default_log();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __88__NSFileProviderManager_registerURLSessionTask_forItemWithIdentifier_completionHandler___block_invoke_2_cold_1(a1, v7);
     }
   }
 
-  v16 = *(a1 + 56);
-  if (v16)
+  v13 = *(a1 + 56);
+  if (v13)
   {
-    (*(v16 + 16))(v16, v7);
+    (*(v13 + 16))(v13, v7);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deleteSearchableItemsWithSpotlightDomainIdentifiers:(id)identifiers indexReason:(int64_t)reason completionHandler:(id)handler
@@ -1390,14 +1389,11 @@ void __56__NSFileProviderManager_setEjectable_completionHandler___block_invoke(u
 
 - (void)_cacheProviderInfo
 {
-  v8 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_2();
-  v1 = v0;
+  v2 = v1;
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 uint64_t __43__NSFileProviderManager__cacheProviderInfo__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1523,7 +1519,7 @@ void __52__NSFileProviderManager_stateDirectoryURLWithError___block_invoke_2(uin
     v8 = fp_current_or_default_log();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      __52__NSFileProviderManager_stateDirectoryURLWithError___block_invoke_2_cold_1(v7, a1);
+      __52__NSFileProviderManager_stateDirectoryURLWithError___block_invoke_2_cold_1(v7);
     }
 
     v9 = 40;
@@ -1540,7 +1536,7 @@ void __52__NSFileProviderManager_stateDirectoryURLWithError___block_invoke_2(uin
 
 - (NSURL)temporaryDirectoryURLWithError:(NSError *)error
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v72 = *MEMORY[0x1E69E9840];
   if (createCaches_onceToken != -1)
   {
     +[NSFileProviderManager registerDomainServicer:forDomain:];
@@ -1571,18 +1567,16 @@ void __52__NSFileProviderManager_stateDirectoryURLWithError___block_invoke_2(uin
     getpid();
     path = [(NSError *)v14 path];
     fileSystemRepresentation = [path fileSystemRepresentation];
-    v17 = (*MEMORY[0x1E69E9BD0] | *MEMORY[0x1E69E9BC8]);
-    v50 = fileSystemRepresentation;
-    v18 = sandbox_check();
+    v16 = sandbox_check();
 
-    if (!v18)
+    if (!v16)
     {
-      v41 = v14;
+      v39 = v14;
       v12 = 0;
       goto LABEL_13;
     }
 
-    [temporaryURLByDomain removeObjectForKey:{v8, v50}];
+    [temporaryURLByDomain removeObjectForKey:{v8, fileSystemRepresentation}];
     if ([cachedDirectoriesWithSecurityScope containsObject:v14])
     {
       [(NSError *)v14 stopAccessingSecurityScopedResource];
@@ -1622,51 +1616,51 @@ LABEL_14:
   mEMORY[0x1E69DF068] = [MEMORY[0x1E69DF068] sharedManager];
   currentPersona = [mEMORY[0x1E69DF068] currentPersona];
 
-  v68 = 0;
+  v65 = 0;
   userPersonaUniqueString = [currentPersona userPersonaUniqueString];
   personaIdentifier = [(NSFileProviderDomain *)self->_domain personaIdentifier];
-  v22 = personaIdentifier;
+  v20 = personaIdentifier;
   if (userPersonaUniqueString == personaIdentifier)
   {
 
 LABEL_27:
-    v51 = 0;
+    v48 = 0;
     goto LABEL_28;
   }
 
   personaIdentifier2 = [(NSFileProviderDomain *)self->_domain personaIdentifier];
-  v24 = [userPersonaUniqueString isEqualToString:personaIdentifier2];
+  v22 = [userPersonaUniqueString isEqualToString:personaIdentifier2];
 
-  if ((v24 & 1) != 0 || !voucher_process_can_use_arbitrary_personas())
+  if ((v22 & 1) != 0 || !voucher_process_can_use_arbitrary_personas())
   {
     goto LABEL_27;
   }
 
-  v67 = 0;
-  v25 = [currentPersona copyCurrentPersonaContextWithError:&v67];
-  v26 = v67;
-  v27 = v68;
-  v68 = v25;
+  v64 = 0;
+  v23 = [currentPersona copyCurrentPersonaContextWithError:&v64];
+  v24 = v64;
+  v25 = v65;
+  v65 = v23;
 
-  if (v26)
+  if (v24)
   {
-    v28 = fp_current_or_default_log();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v26 = fp_current_or_default_log();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       [FPSpotlightIndexer _fetchClientStateIfNeeded];
     }
   }
 
   personaIdentifier3 = [(NSFileProviderDomain *)self->_domain personaIdentifier];
-  v51 = [currentPersona generateAndRestorePersonaContextWithPersonaUniqueString:personaIdentifier3];
+  v48 = [currentPersona generateAndRestorePersonaContextWithPersonaUniqueString:personaIdentifier3];
 
-  if (!v51)
+  if (!v48)
   {
     goto LABEL_27;
   }
 
-  v30 = fp_current_or_default_log();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+  v28 = fp_current_or_default_log();
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
     [(NSFileProviderDomain *)self->_domain personaIdentifier];
     objc_claimAutoreleasedReturnValue();
@@ -1677,55 +1671,55 @@ LABEL_28:
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   temporaryDirectory = [defaultManager temporaryDirectory];
 
-  v66 = 0;
-  v33 = *MEMORY[0x1E695DD70];
-  [temporaryDirectory getResourceValue:&v66 forKey:*MEMORY[0x1E695DD70] error:0];
-  v34 = v66;
-  v35 = rootURLByDomain;
-  objc_sync_enter(v35);
-  v36 = [rootURLByDomain objectForKey:v8];
-  objc_sync_exit(v35);
+  v63 = 0;
+  v31 = *MEMORY[0x1E695DD70];
+  [temporaryDirectory getResourceValue:&v63 forKey:*MEMORY[0x1E695DD70] error:0];
+  v32 = v63;
+  v33 = rootURLByDomain;
+  objc_sync_enter(v33);
+  v34 = [rootURLByDomain objectForKey:v8];
+  objc_sync_exit(v33);
 
-  if (!v34 || !v36)
+  if (!v32 || !v34)
   {
 LABEL_35:
-    v69 = 0;
-    v70 = &v69;
-    v71 = 0x3032000000;
-    v72 = __Block_byref_object_copy__28;
-    v73 = __Block_byref_object_dispose__28;
-    v74 = 0;
-    v59 = 0;
-    v60 = &v59;
-    v61 = 0x3032000000;
-    v62 = __Block_byref_object_copy__28;
-    v63 = __Block_byref_object_dispose__28;
-    v64 = 0;
-    v53[0] = MEMORY[0x1E69E9820];
-    v53[1] = 3221225472;
-    v53[2] = __56__NSFileProviderManager_temporaryDirectoryURLWithError___block_invoke;
-    v53[3] = &unk_1E793E498;
-    v54 = v34;
-    v55 = temporaryDirectory;
-    v40 = v8;
-    v56 = v40;
-    v57 = &v69;
-    v58 = &v59;
-    [(NSFileProviderManager *)self fetchDomainServicerSynchronously:1 useOutgoingConnection:0 completionHandler:v53];
-    if (!v70[5])
+    v66 = 0;
+    v67 = &v66;
+    v68 = 0x3032000000;
+    v69 = __Block_byref_object_copy__28;
+    v70 = __Block_byref_object_dispose__28;
+    v71 = 0;
+    v56 = 0;
+    v57 = &v56;
+    v58 = 0x3032000000;
+    v59 = __Block_byref_object_copy__28;
+    v60 = __Block_byref_object_dispose__28;
+    v61 = 0;
+    v50[0] = MEMORY[0x1E69E9820];
+    v50[1] = 3221225472;
+    v50[2] = __56__NSFileProviderManager_temporaryDirectoryURLWithError___block_invoke;
+    v50[3] = &unk_1E793E498;
+    v51 = v32;
+    v52 = temporaryDirectory;
+    v38 = v8;
+    v53 = v38;
+    v54 = &v66;
+    v55 = &v56;
+    [(NSFileProviderManager *)self fetchDomainServicerSynchronously:1 useOutgoingConnection:0 completionHandler:v50];
+    if (!v67[5])
     {
-      if (v60[5])
+      if (v57[5])
       {
-        if (!v36)
+        if (!v34)
         {
           goto LABEL_45;
         }
 
 LABEL_42:
-        v44 = fp_current_or_default_log();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
+        v42 = fp_current_or_default_log();
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
         {
-          [v60[5] fp_prettyDescription];
+          [v57[5] fp_prettyDescription];
           objc_claimAutoreleasedReturnValue();
           [NSFileProviderManager temporaryDirectoryURLWithError:];
         }
@@ -1733,54 +1727,54 @@ LABEL_42:
         goto LABEL_45;
       }
 
-      v42 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:260 userInfo:0];
-      v43 = v60[5];
-      v60[5] = v42;
+      v40 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:260 userInfo:0];
+      v41 = v57[5];
+      v57[5] = v40;
 
-      if (v70[5] == 0 && v36 != 0)
+      if (v67[5] == 0 && v34 != 0)
       {
         goto LABEL_42;
       }
     }
 
 LABEL_45:
-    v45 = temporaryURLByDomain;
-    objc_sync_enter(v45);
-    v46 = v70[5];
-    if (!v46)
+    v43 = temporaryURLByDomain;
+    objc_sync_enter(v43);
+    v44 = v67[5];
+    if (!v44)
     {
-      v46 = v60[5];
+      v44 = v57[5];
     }
 
-    [temporaryURLByDomain setObject:v46 forKey:v40];
-    objc_sync_exit(v45);
+    [temporaryURLByDomain setObject:v44 forKey:v38];
+    objc_sync_exit(v43);
 
-    v47 = v70[5];
-    if (error && !v47)
+    v45 = v67[5];
+    if (error && !v45)
     {
-      *error = v60[5];
-      v47 = v70[5];
+      *error = v57[5];
+      v45 = v67[5];
     }
 
-    v13 = v47;
+    v13 = v45;
 
-    _Block_object_dispose(&v59, 8);
-    _Block_object_dispose(&v69, 8);
+    _Block_object_dispose(&v56, 8);
+    _Block_object_dispose(&v66, 8);
 
     goto LABEL_51;
   }
 
-  v65 = 0;
-  [v36 getResourceValue:&v65 forKey:v33 error:0];
-  v37 = v65;
-  if (![v34 isEqual:v37])
+  v62 = 0;
+  [v34 getResourceValue:&v62 forKey:v31 error:0];
+  v35 = v62;
+  if (![v32 isEqual:v35])
   {
 
     goto LABEL_35;
   }
 
-  v38 = fp_current_or_default_log();
-  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+  v36 = fp_current_or_default_log();
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
   {
     [temporaryDirectory fp_shortDescription];
     objc_claimAutoreleasedReturnValue();
@@ -1789,18 +1783,16 @@ LABEL_45:
     [NSFileProviderManager temporaryDirectoryURLWithError:];
   }
 
-  v39 = temporaryURLByDomain;
-  objc_sync_enter(v39);
+  v37 = temporaryURLByDomain;
+  objc_sync_enter(v37);
   [temporaryURLByDomain setObject:temporaryDirectory forKey:v8];
-  objc_sync_exit(v39);
+  objc_sync_exit(v37);
 
   v13 = temporaryDirectory;
 LABEL_51:
 
-  _FPRestorePersona(&v68);
+  _FPRestorePersona(&v65);
 LABEL_52:
-
-  v48 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -1872,7 +1864,7 @@ LABEL_14:
   v12 = fp_current_or_default_log();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    __56__NSFileProviderManager_temporaryDirectoryURLWithError___block_invoke_2_cold_2(v7, a1);
+    __56__NSFileProviderManager_temporaryDirectoryURLWithError___block_invoke_2_cold_2(v7);
   }
 
   v13 = 56;
@@ -2234,7 +2226,7 @@ uint64_t __56__NSFileProviderManager_removeDomain_completionHandler___block_invo
 + (void)addDomain:(id)domain forProviderIdentifier:(id)identifier byImportingDirectoryAtURL:(id)l userAllowedDBDrop:(BOOL)drop knownFolders:(id)folders synchronous:(BOOL)synchronous completionHandler:(id)handler
 {
   dropCopy = drop;
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   identifierCopy = identifier;
   lCopy = l;
@@ -2246,9 +2238,9 @@ uint64_t __56__NSFileProviderManager_removeDomain_completionHandler___block_invo
     selfCopy = self;
     v21 = dropCopy;
     identifier = [domainCopy identifier];
-    v48 = 0;
-    v23 = [identifier fp_isValidDomainIdentifierWithError:&v48];
-    v24 = v48;
+    v47 = 0;
+    v23 = [identifier fp_isValidDomainIdentifierWithError:&v47];
+    v24 = v47;
 
     if ((v23 & 1) == 0)
     {
@@ -2300,7 +2292,7 @@ LABEL_21:
       userInfo = [domainCopy userInfo];
       v34 = [userInfo objectForKeyedSubscript:@"NSFileProviderUserInfoExperimentID"];
       *buf = 138412290;
-      v50 = v34;
+      v49 = v34;
       _os_log_impl(&dword_1AAAE1000, v32, OS_LOG_TYPE_DEFAULT, "[WARNING] Invalid experimentID: %@", buf, 0xCu);
     }
 
@@ -2313,11 +2305,11 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v39 = dropCopy;
+  v38 = dropCopy;
   if (lCopy)
   {
-    v47 = 0;
-    v24 = [FPSandboxingURLWrapper wrapperWithURL:lCopy readonly:0 error:&v47];
+    v46 = 0;
+    v24 = [FPSandboxingURLWrapper wrapperWithURL:lCopy readonly:0 error:&v46];
     if (v24)
     {
 
@@ -2342,25 +2334,24 @@ LABEL_20:
   {
     +[FPDaemonConnection sharedConnectionProxy];
   }
-  v41 = ;
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = __144__NSFileProviderManager_addDomain_forProviderIdentifier_byImportingDirectoryAtURL_userAllowedDBDrop_knownFolders_synchronous_completionHandler___block_invoke;
-  v42[3] = &unk_1E793E560;
-  v43 = userPersonaUniqueString;
-  v44 = domainCopy;
+  v40 = ;
+  v41[0] = MEMORY[0x1E69E9820];
+  v41[1] = 3221225472;
+  v41[2] = __144__NSFileProviderManager_addDomain_forProviderIdentifier_byImportingDirectoryAtURL_userAllowedDBDrop_knownFolders_synchronous_completionHandler___block_invoke;
+  v41[3] = &unk_1E793E560;
+  v42 = userPersonaUniqueString;
+  v43 = domainCopy;
   selfCopy2 = self;
-  v45 = handlerCopy;
-  v38 = userPersonaUniqueString;
-  [v41 addDomain:v44 forProviderIdentifier:identifierCopy byImportingDirectoryAtURL:v24 nonWrappedURL:lCopy userAllowedDBDrop:v39 knownFolders:foldersCopy completionHandler:v42];
+  v44 = handlerCopy;
+  v37 = userPersonaUniqueString;
+  [v40 addDomain:v43 forProviderIdentifier:identifierCopy byImportingDirectoryAtURL:v24 nonWrappedURL:lCopy userAllowedDBDrop:v38 knownFolders:foldersCopy completionHandler:v41];
 
 LABEL_22:
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __144__NSFileProviderManager_addDomain_forProviderIdentifier_byImportingDirectoryAtURL_userAllowedDBDrop_knownFolders_synchronous_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([v6 fp_isFileProviderInternalError:3])
@@ -2385,19 +2376,19 @@ void __144__NSFileProviderManager_addDomain_forProviderIdentifier_byImportingDir
         if (v16)
         {
           v17 = *(a1 + 32);
-          v22 = 138412802;
-          v23 = v11;
-          v24 = 2112;
-          v25 = v13;
-          v26 = 2112;
-          v27 = v17;
-          _os_log_fault_impl(&dword_1AAAE1000, v15, OS_LOG_TYPE_FAULT, "[CRIT] Called addDomain with an invalid persona; actual persona was %@, expected %@. Caller persona was %@.", &v22, 0x20u);
+          v21 = 138412802;
+          v22 = v11;
+          v23 = 2112;
+          v24 = v13;
+          v25 = 2112;
+          v26 = v17;
+          _os_log_fault_impl(&dword_1AAAE1000, v15, OS_LOG_TYPE_FAULT, "[CRIT] Called addDomain with an invalid persona; actual persona was %@, expected %@. Caller persona was %@.", &v21, 0x20u);
         }
       }
 
       else if (v16)
       {
-        __144__NSFileProviderManager_addDomain_forProviderIdentifier_byImportingDirectoryAtURL_userAllowedDBDrop_knownFolders_synchronous_completionHandler___block_invoke_cold_1((a1 + 32));
+        __144__NSFileProviderManager_addDomain_forProviderIdentifier_byImportingDirectoryAtURL_userAllowedDBDrop_knownFolders_synchronous_completionHandler___block_invoke_cold_1();
       }
     }
   }
@@ -2412,8 +2403,6 @@ void __144__NSFileProviderManager_addDomain_forProviderIdentifier_byImportingDir
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 + (void)addDomain:(id)domain forProviderIdentifier:(id)identifier persona:(id)persona completionHandler:(id)handler
@@ -2492,31 +2481,31 @@ void __144__NSFileProviderManager_addDomain_forProviderIdentifier_byImportingDir
 
 void __75__NSFileProviderManager_getDomainsForProviderIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v10 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       v13 = 0;
       do
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v8);
         }
 
         v14 = MEMORY[0x1E696AEC0];
-        v15 = [*(*(&v18 + 1) + 8 * v13) identifier];
+        v15 = [*(*(&v17 + 1) + 8 * v13) identifier];
         v16 = [v14 fp_providerDomainIDFromProviderID:v7 domainIdentifier:v15];
 
         [*(a1 + 40) _registerNotificationsForProviderIdentifier:v16];
@@ -2524,15 +2513,13 @@ void __75__NSFileProviderManager_getDomainsForProviderIdentifier_completionHandl
       }
 
       while (v11 != v13);
-      v11 = [v8 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 + (void)getDomainsWithCompletionHandler:(void *)completionHandler
@@ -2611,6 +2598,16 @@ void __57__NSFileProviderManager_getDomainsWithCompletionHandler___block_invoke_
   v5.receiver = self;
   v5.super_class = NSFileProviderManager;
   [(NSFileProviderManager *)&v5 dealloc];
+}
+
+- (void)addDomain:(id)domain userAllowedDBDrop:(BOOL)drop completionHandler:(id)handler
+{
+  dropCopy = drop;
+  handlerCopy = handler;
+  domainCopy = domain;
+  v10 = objc_opt_class();
+  providerIdentifier = [(NSFileProviderManager *)self providerIdentifier];
+  [v10 addDomain:domainCopy forProviderIdentifier:providerIdentifier byImportingDirectoryAtURL:0 userAllowedDBDrop:dropCopy knownFolders:MEMORY[0x1E695E0F0] completionHandler:handlerCopy];
 }
 
 - (void)removeDomain:(id)domain options:(int64_t)options completionHandler:(id)handler
@@ -2897,43 +2894,25 @@ LABEL_10:
     v6 = *MEMORY[0x1E696A870];
     v7 = [kindCopy isEqualToString:*MEMORY[0x1E696A870]];
     v8 = MEMORY[0x1E696A848];
-    if (!v7 || (p_downloadProxy = &self->_uploadProxy, [(FPProgressUpdater *)self->_uploadProxy progress], v10 = objc_claimAutoreleasedReturnValue(), v10, !v10))
+    if ((!v7 || (p_uploadProxy = &self->_uploadProxy, -[FPProgressUpdater progress](self->_uploadProxy, "progress"), v10 = objc_claimAutoreleasedReturnValue(), v10, !v10)) && (![v5 isEqualToString:*v8] || (p_uploadProxy = &self->_downloadProxy, -[FPProgressUpdater progress](self->_downloadProxy, "progress"), v11 = objc_claimAutoreleasedReturnValue(), v11, !v11)) || (-[FPProgressUpdater progress](*p_uploadProxy, "progress"), (v12 = objc_claimAutoreleasedReturnValue()) == 0))
     {
-      if (![v5 isEqualToString:*v8])
-      {
-        goto LABEL_7;
-      }
-
-      p_downloadProxy = &self->_downloadProxy;
-      progress = [(FPProgressUpdater *)self->_downloadProxy progress];
-
-      if (!progress)
-      {
-        goto LABEL_7;
-      }
-    }
-
-    progress2 = [(FPProgressUpdater *)*p_downloadProxy progress];
-    if (!progress2)
-    {
-LABEL_7:
-      progress2 = objc_alloc_init(FPProgressProxy);
-      [(FPProgressProxy *)progress2 setUpdateFileCount:1];
-      [(FPProgressProxy *)progress2 setCompletedUnitCount:1];
-      [(FPProgressProxy *)progress2 setTotalUnitCount:1];
-      [(FPProgressProxy *)progress2 setFileCompletedCount:&unk_1F1FC9AA0];
-      [(FPProgressProxy *)progress2 setFileTotalCount:&unk_1F1FC9AA0];
-      [(FPProgressProxy *)progress2 setKind:*MEMORY[0x1E696A888]];
-      [(FPProgressProxy *)progress2 setFileOperationKind:v5];
+      v12 = objc_alloc_init(FPProgressProxy);
+      [(FPProgressProxy *)v12 setUpdateFileCount:1];
+      [(FPProgressProxy *)v12 setCompletedUnitCount:1];
+      [(FPProgressProxy *)v12 setTotalUnitCount:1];
+      [(FPProgressProxy *)v12 setFileCompletedCount:&unk_1F1FC9AA0];
+      [(FPProgressProxy *)v12 setFileTotalCount:&unk_1F1FC9AA0];
+      [(FPProgressProxy *)v12 setKind:*MEMORY[0x1E696A888]];
+      [(FPProgressProxy *)v12 setFileOperationKind:v5];
       if ([v5 isEqualToString:v6])
       {
-        [(FPProgressUpdater *)self->_uploadProxy setProgress:progress2];
+        [(FPProgressUpdater *)self->_uploadProxy setProgress:v12];
         [(NSFileProviderManager *)self startObservingUploadProgress];
       }
 
       if ([v5 isEqualToString:*v8])
       {
-        [(FPProgressUpdater *)self->_downloadProxy setProgress:progress2];
+        [(FPProgressUpdater *)self->_downloadProxy setProgress:v12];
         [(NSFileProviderManager *)self startObservingDownloadProgress];
       }
     }
@@ -2941,10 +2920,10 @@ LABEL_7:
 
   else
   {
-    progress2 = 0;
+    v12 = 0;
   }
 
-  return progress2;
+  return v12;
 }
 
 - (id)enumeratorForMaterializedItems
@@ -3155,19 +3134,18 @@ void __77__NSFileProviderManager_Eviction__evictItemWithIdentifier_completionHan
 
 void __77__NSFileProviderManager_Eviction__evictItemWithIdentifier_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
   v3 = *MEMORY[0x1E696A250];
-  v9 = @"NSFileProviderErrorDomain";
-  v10 = v3;
-  v11 = *MEMORY[0x1E696A798];
+  v8 = @"NSFileProviderErrorDomain";
+  v9 = v3;
+  v10 = *MEMORY[0x1E696A798];
   v4 = MEMORY[0x1E695DEC8];
   v5 = a2;
-  v6 = [v4 arrayWithObjects:&v9 count:3];
-  v7 = [v5 fp_unwrappedErrorForDomains:{v6, v9, v10, v11, v12}];
+  v6 = [v4 arrayWithObjects:&v8 count:3];
+  v7 = [v5 fp_unwrappedErrorForDomains:{v6, v8, v9, v10, v11}];
 
   (*(v2 + 16))(v2, v7);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)lookupRequestingApplicationIdentifier:(id)identifier reason:(id)reason completionHandler:(id)handler
@@ -3316,58 +3294,57 @@ void __89__NSFileProviderManager_TestingModeInteractive__listAvailableTestingOpe
 
 - (NSDictionary)runTestingOperations:(NSArray *)operations error:(NSError *)error
 {
-  v46 = *MEMORY[0x1E69E9840];
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy__28;
-  v43 = __Block_byref_object_dispose__28;
-  v44 = 0;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__28;
-  v37 = __Block_byref_object_dispose__28;
-  v38 = 0;
+  v44 = *MEMORY[0x1E69E9840];
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy__28;
+  v41 = __Block_byref_object_dispose__28;
+  v42 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__28;
+  v35 = __Block_byref_object_dispose__28;
+  v36 = 0;
+  v27 = 0u;
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v32 = 0u;
   v7 = operations;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v29 objects:v45 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v27 objects:v43 count:16];
   if (v8)
   {
-    v9 = *v30;
+    v9 = *v28;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v30 != v9)
+        if (*v28 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v29 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
           if (error)
           {
-            FPInvalidParameterError(@"testingOperations", v7, v12, v13, v14, v15, v16, v17);
-            *error = v19 = 0;
+            FPInvalidParameterError(@"testingOperations", v7, v11, v12, v13, v14, v15, v16);
+            *error = v18 = 0;
           }
 
           else
           {
-            v19 = 0;
+            v18 = 0;
           }
 
-          v20 = v7;
+          v19 = v7;
           goto LABEL_22;
         }
       }
 
-      v8 = [(NSArray *)v7 countByEnumeratingWithState:&v29 objects:v45 count:16];
+      v8 = [(NSArray *)v7 countByEnumeratingWithState:&v27 objects:v43 count:16];
       if (v8)
       {
         continue;
@@ -3377,52 +3354,50 @@ void __89__NSFileProviderManager_TestingModeInteractive__listAvailableTestingOpe
     }
   }
 
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __76__NSFileProviderManager_TestingModeInteractive__runTestingOperations_error___block_invoke;
-  v25[3] = &unk_1E793E448;
-  v26 = v7;
-  v27 = &v39;
-  v28 = &v33;
-  [(NSFileProviderManager *)self fetchDomainServicerSynchronously:1 useOutgoingConnection:0 completionHandler:v25];
-  v18 = v34[5];
-  if (v18)
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __76__NSFileProviderManager_TestingModeInteractive__runTestingOperations_error___block_invoke;
+  v23[3] = &unk_1E793E448;
+  v24 = v7;
+  v25 = &v37;
+  v26 = &v31;
+  [(NSFileProviderManager *)self fetchDomainServicerSynchronously:1 useOutgoingConnection:0 completionHandler:v23];
+  v17 = v32[5];
+  if (v17)
   {
-    v19 = 0;
+    v18 = 0;
     if (error)
     {
-      *error = v18;
+      *error = v17;
     }
   }
 
   else
   {
-    v21 = v40[5];
-    if (!v21)
+    v20 = v38[5];
+    if (!v20)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
       [currentHandler handleFailureInMethod:a2 object:self file:@"NSFileProviderManager.m" lineNumber:2284 description:@"missing operations"];
 
-      v21 = v40[5];
+      v20 = v38[5];
     }
 
-    if (!v21)
+    if (!v20)
     {
-      v21 = MEMORY[0x1E695E0F8];
+      v20 = MEMORY[0x1E695E0F8];
     }
 
-    v19 = v21;
+    v18 = v20;
   }
 
-  v20 = v26;
+  v19 = v24;
 LABEL_22:
 
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v37, 8);
 
-  v23 = *MEMORY[0x1E69E9840];
-
-  return v19;
+  return v18;
 }
 
 void __76__NSFileProviderManager_TestingModeInteractive__runTestingOperations_error___block_invoke(uint64_t a1, void *a2)
@@ -3580,19 +3555,18 @@ void __108__NSFileProviderManager_Materialize__requestDownloadForItemWithIdentif
 
 void __108__NSFileProviderManager_Materialize__requestDownloadForItemWithIdentifier_requestedRange_completionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 40);
   v3 = *MEMORY[0x1E696A250];
-  v9 = @"NSFileProviderErrorDomain";
-  v10 = v3;
-  v11 = *MEMORY[0x1E696A798];
+  v8 = @"NSFileProviderErrorDomain";
+  v9 = v3;
+  v10 = *MEMORY[0x1E696A798];
   v4 = MEMORY[0x1E695DEC8];
   v5 = a2;
-  v6 = [v4 arrayWithObjects:&v9 count:3];
-  v7 = [v5 fp_unwrappedErrorForDomains:{v6, v9, v10, v11, v12}];
+  v6 = [v4 arrayWithObjects:&v8 count:3];
+  v7 = [v5 fp_unwrappedErrorForDomains:{v6, v8, v9, v10, v11}];
 
   (*(v2 + 16))(v2, v7);
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getDiagnosticAttributesForItems:(id)items completionHandler:(id)handler
@@ -3655,51 +3629,25 @@ void __95__NSFileProviderManager_PrivateDiagnostics__getDiagnosticAttributesForI
 
 void __98__NSFileProviderManager_fetchDomainServicerSynchronously_useOutgoingConnection_completionHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*(*(a1 + 32) + 56));
-  OUTLINED_FUNCTION_35(&dword_1AAAE1000, a2, a3, "[ERROR] failed fetching remote file provider with identifier %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*(a1 + 32) + 56);
+  OUTLINED_FUNCTION_35(&dword_1AAAE1000, a2, a3, "[ERROR] failed fetching remote file provider with identifier %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __98__NSFileProviderManager_fetchDomainServicerSynchronously_useOutgoingConnection_completionHandler___block_invoke_145_cold_1(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = *(*a1 + 56);
-  v3 = [a2 fp_prettyDescription];
+  v2 = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 void __98__NSFileProviderManager_fetchDomainServicerSynchronously_useOutgoingConnection_completionHandler___block_invoke_145_cold_2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-void __98__NSFileProviderManager_fetchDomainServicerSynchronously_useOutgoingConnection_completionHandler___block_invoke_145_cold_3(uint64_t a1, uint64_t *a2)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v7 = *(*a1 + 32);
-  v8 = *a2;
-  OUTLINED_FUNCTION_11_2();
-  _os_log_debug_impl(v2, v3, OS_LOG_TYPE_DEBUG, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)signalEnumeratorForContainerItemIdentifier:completionHandler:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, v0, v1, "[DEBUG] signaling change on %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_failToSignalPendingChangesWithError:completionHandlersByItemID:.cold.1()
@@ -3728,15 +3676,10 @@ void __98__NSFileProviderManager_fetchDomainServicerSynchronously_useOutgoingCon
 
 void __88__NSFileProviderManager_registerURLSessionTask_forItemWithIdentifier_completionHandler___block_invoke_2_cold_1(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 48);
-  v4 = [a2 fp_prettyDescription];
+  v2 = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_15();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 + (void)writePlaceholderAtURL:withMetadata:error:.cold.1()
@@ -3765,16 +3708,12 @@ void __88__NSFileProviderManager_registerURLSessionTask_forItemWithIdentifier_co
   [v3 handleFailureInMethod:v1 object:v2 file:? lineNumber:? description:?];
 }
 
-void __52__NSFileProviderManager_stateDirectoryURLWithError___block_invoke_2_cold_1(void *a1, uint64_t a2)
+void __52__NSFileProviderManager_stateDirectoryURLWithError___block_invoke_2_cold_1(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = [a1 fp_shortDescription];
-  v4 = *(a2 + 32);
+  v1 = [a1 fp_shortDescription];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_20();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 - (void)temporaryDirectoryURLWithError:.cold.4()
@@ -3795,96 +3734,57 @@ void __52__NSFileProviderManager_stateDirectoryURLWithError___block_invoke_2_col
 
 void __56__NSFileProviderManager_temporaryDirectoryURLWithError___block_invoke_2_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = [*(a1 + 40) fp_shortDescription];
-  v3 = *(a1 + 48);
+  v1 = [*(a1 + 40) fp_shortDescription];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_20();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
-void __56__NSFileProviderManager_temporaryDirectoryURLWithError___block_invoke_2_cold_2(void *a1, uint64_t a2)
+void __56__NSFileProviderManager_temporaryDirectoryURLWithError___block_invoke_2_cold_2(void *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = [a1 fp_shortDescription];
-  v4 = *(a2 + 48);
+  v1 = [a1 fp_shortDescription];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_20();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 void __56__NSFileProviderManager_temporaryDirectoryURLWithError___block_invoke_2_cold_3(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = [*(a1 + 40) fp_shortDescription];
-  v3 = *(a1 + 48);
+  v1 = [*(a1 + 40) fp_shortDescription];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_20();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 - (void)signalErrorResolved:(void *)a1 completionHandler:.cold.1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)signalErrorResolved:(void *)a1 completionHandler:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 description];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_20();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-void __144__NSFileProviderManager_addDomain_forProviderIdentifier_byImportingDirectoryAtURL_userAllowedDBDrop_knownFolders_synchronous_completionHandler___block_invoke_cold_1(uint64_t *a1)
+void __144__NSFileProviderManager_addDomain_forProviderIdentifier_byImportingDirectoryAtURL_userAllowedDBDrop_knownFolders_synchronous_completionHandler___block_invoke_cold_1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v6 = *a1;
   OUTLINED_FUNCTION_3_3();
-  OUTLINED_FUNCTION_11_2();
-  _os_log_fault_impl(v1, v2, OS_LOG_TYPE_FAULT, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_11_2(&dword_1AAAE1000, v0, v1, "[CRIT] Persona transmission failed. Caller persona was %@, fileproviderd received %@.");
+  _os_log_fault_impl(v2, v3, OS_LOG_TYPE_FAULT, v4, v5, 0x16u);
 }
 
 + (void)addDomain:forProviderIdentifier:persona:completionHandler:.cold.2()
 {
-  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_3();
-  OUTLINED_FUNCTION_11_2();
-  _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-void __53__NSFileProviderManager_startObservingUploadProgress__block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, v0, v1, "[DEBUG] Restarting upload observation (%@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __55__NSFileProviderManager_startObservingDownloadProgress__block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_3(&dword_1AAAE1000, v0, v1, "[DEBUG] Restarting download observation (%@)", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_11_2(&dword_1AAAE1000, v0, v1, "[ERROR] Can't adopt persona %@: %@");
+  _os_log_error_impl(v2, v3, OS_LOG_TYPE_ERROR, v4, v5, 0x16u);
 }
 
 @end

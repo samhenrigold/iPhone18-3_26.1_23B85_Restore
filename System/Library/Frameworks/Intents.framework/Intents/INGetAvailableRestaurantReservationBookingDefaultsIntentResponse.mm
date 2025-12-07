@@ -23,11 +23,11 @@
 
 - (id)_dictionaryRepresentation
 {
-  v18[6] = *MEMORY[0x1E69E9840];
-  v17[0] = @"defaultPartySize";
-  v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_defaultPartySize];
-  v18[0] = v15;
-  v17[1] = @"defaultBookingDate";
+  v17[6] = *MEMORY[0x1E69E9840];
+  v16[0] = @"defaultPartySize";
+  v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_defaultPartySize];
+  v17[0] = v14;
+  v16[1] = @"defaultBookingDate";
   defaultBookingDate = self->_defaultBookingDate;
   null = defaultBookingDate;
   if (!defaultBookingDate)
@@ -35,8 +35,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[1] = null;
-  v17[2] = @"maximumPartySize";
+  v17[1] = null;
+  v16[2] = @"maximumPartySize";
   maximumPartySize = self->_maximumPartySize;
   null2 = maximumPartySize;
   if (!maximumPartySize)
@@ -44,8 +44,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[2] = null2;
-  v17[3] = @"minimumPartySize";
+  v17[2] = null2;
+  v16[3] = @"minimumPartySize";
   minimumPartySize = self->_minimumPartySize;
   null3 = minimumPartySize;
   if (!minimumPartySize)
@@ -53,8 +53,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[3] = null3;
-  v17[4] = @"providerImage";
+  v17[3] = null3;
+  v16[4] = @"providerImage";
   providerImage = self->_providerImage;
   null4 = providerImage;
   if (!providerImage)
@@ -62,11 +62,11 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18[4] = null4;
-  v17[5] = @"code";
-  v11 = [MEMORY[0x1E696AD98] numberWithInteger:{-[INGetAvailableRestaurantReservationBookingDefaultsIntentResponse code](self, "code", v15)}];
-  v18[5] = v11;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:6];
+  v17[4] = null4;
+  v16[5] = @"code";
+  v11 = [MEMORY[0x1E696AD98] numberWithInteger:{-[INGetAvailableRestaurantReservationBookingDefaultsIntentResponse code](self, "code", v14)}];
+  v17[5] = v11;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:6];
 
   if (providerImage)
   {
@@ -112,7 +112,6 @@ LABEL_12:
 LABEL_19:
 
 LABEL_13:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

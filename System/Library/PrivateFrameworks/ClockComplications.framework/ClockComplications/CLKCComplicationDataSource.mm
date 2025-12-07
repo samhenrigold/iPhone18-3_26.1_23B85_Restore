@@ -72,7 +72,7 @@
 
 - (id)currentSwitcherTemplate
 {
-  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1(self);
   OUTLINED_FUNCTION_0();
   NSRequestConcreteImplementation();
   initPrivate = [objc_alloc(MEMORY[0x277CBB720]) initPrivate];
@@ -82,7 +82,7 @@
 
 - (void)getSupportedTimeTravelDirectionsWithHandler:(id)handler
 {
-  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1(self);
   OUTLINED_FUNCTION_0();
 
   NSRequestConcreteImplementation();
@@ -90,7 +90,7 @@
 
 - (void)getTimelineStartDateWithHandler:(id)handler
 {
-  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1(self);
   OUTLINED_FUNCTION_0();
 
   NSRequestConcreteImplementation();
@@ -98,7 +98,7 @@
 
 - (void)getCurrentTimelineEntryWithHandler:(id)handler
 {
-  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1(self);
   OUTLINED_FUNCTION_0();
 
   NSRequestConcreteImplementation();
@@ -106,7 +106,7 @@
 
 - (void)getTimelineEntriesBeforeDate:(id)date limit:(unint64_t)limit withHandler:(id)handler
 {
-  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1(self);
   OUTLINED_FUNCTION_0();
 
   NSRequestConcreteImplementation();
@@ -114,7 +114,7 @@
 
 - (void)getTimelineEntriesAfterDate:(id)date limit:(unint64_t)limit withHandler:(id)handler
 {
-  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1(self);
   OUTLINED_FUNCTION_0();
 
   NSRequestConcreteImplementation();
@@ -122,7 +122,7 @@
 
 - (void)getDesiredUpdateIntervalWithHandler:(id)handler
 {
-  OUTLINED_FUNCTION_1();
+  OUTLINED_FUNCTION_1(self);
   OUTLINED_FUNCTION_0();
 
   NSRequestConcreteImplementation();

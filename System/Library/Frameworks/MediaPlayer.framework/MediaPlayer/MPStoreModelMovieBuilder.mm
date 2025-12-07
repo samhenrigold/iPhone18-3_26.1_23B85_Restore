@@ -367,7 +367,7 @@ void __92__MPStoreModelMovieBuilder_modelObjectWithStoreItemMetadata_sourceModel
 
   if ((*(*(a1 + 32) + 56) & 8) != 0 && ([v4 hasLoadedValueForKey:@"MPModelPropertyMovieDuration"] & 1) == 0)
   {
-    [*(a1 + 40) duration];
+    objc_msgSend_duration(*(a1 + 40));
     [v4 setDuration:?];
   }
 

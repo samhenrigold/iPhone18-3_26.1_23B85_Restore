@@ -155,7 +155,7 @@
   if (!result)
   {
 
-    return JavaLangClassLoader_getSystemClassLoader();
+    return JavaLangClassLoader_getSystemClassLoader(0, v1);
   }
 
   return result;

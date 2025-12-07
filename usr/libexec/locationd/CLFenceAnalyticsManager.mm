@@ -290,16 +290,16 @@
     v11 = v9;
   }
 
-  v23 = *(data + 56);
-  v24 = *(data + 57);
-  *v25 = *(data + 58);
-  *&v25[12] = *(data + 940);
-  v19 = *(data + 52);
-  v20 = *(data + 53);
-  v21 = *(data + 54);
-  v22 = *(data + 55);
-  v17 = *(data + 50);
-  v18 = *(data + 51);
+  v25 = *(data + 56);
+  v26 = *(data + 57);
+  *v27 = *(data + 58);
+  *&v27[12] = *(data + 940);
+  v21 = *(data + 52);
+  v22 = *(data + 53);
+  v23 = *(data + 54);
+  v24 = *(data + 55);
+  v19 = *(data + 50);
+  v20 = *(data + 51);
   if (qword_1025D4640 != -1)
   {
     sub_101955810();
@@ -328,11 +328,21 @@
       sub_101955A94();
     }
 
-    v16 = _os_log_send_and_compose_impl();
-    sub_100152C7C("Generic", 1, 0, 2, "[CLFenceAnalyticsManager updateHistoricalFenceStateWithNotificationData:]", "%s\n", v16);
-    if (v16 != buf)
+    v16 = *(data + 99);
+    v28 = 138413058;
+    v29 = v8;
+    v30 = 1024;
+    v31 = v11;
+    v32 = 1024;
+    v33 = v10;
+    v34 = 2048;
+    v35 = v16;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, off_1025D4648, 0, "#FenceMetrics update historical fence state %@, previousStatus %d, currentStatus %d, timeOfLocationReceived %f", &v28, 34);
+    v18 = v17;
+    sub_100152C7C("Generic", 1, 0, 2, "[CLFenceAnalyticsManager updateHistoricalFenceStateWithNotificationData:]", "%s\n", v17);
+    if (v18 != buf)
     {
-      free(v16);
+      free(v18);
     }
   }
 
@@ -342,16 +352,16 @@
   }
 
   v14 = [(NSMutableDictionary *)self->_historicalFenceStates objectForKey:v8];
-  v30 = v23;
-  v31 = v24;
-  v32[0] = *v25;
-  *(v32 + 12) = *&v25[12];
-  *&buf[32] = v19;
-  v27 = v20;
-  v28 = v21;
-  v29 = v22;
-  *buf = v17;
-  *&buf[16] = v18;
+  v40 = v25;
+  v41 = v26;
+  v42[0] = *v27;
+  *(v42 + 12) = *&v27[12];
+  *&buf[32] = v21;
+  v37 = v22;
+  v38 = v23;
+  v39 = v24;
+  *buf = v19;
+  *&buf[16] = v20;
   [v14 updateCurrentState:v10 previousState:v11 location:buf locationReceivedTime:*(data + 99)];
   return 1;
 }

@@ -31,11 +31,11 @@
   [telephonyClient fetchNetworkList:v6 completion:v7];
 }
 
-uint64_t __59__TPSRegistrationRequestController_executeFetchForRequest___block_invoke(uint64_t result, uint64_t a2)
+id *__59__TPSRegistrationRequestController_executeFetchForRequest___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) respondWithSubscription:*(result + 40) cellularNetworks:0 error:a2];
+    return [result[4] respondWithSubscription:result[5] cellularNetworks:0 error:a2];
   }
 
   return result;
@@ -56,19 +56,18 @@ uint64_t __59__TPSRegistrationRequestController_executeFetchForRequest___block_i
   v15 = *MEMORY[0x277D85DE8];
   availableCopy = available;
   networks = [list networks];
-  v8 = TPSLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = TPSLog(networks, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     pendingRequest = [(TPSRequestController *)self pendingRequest];
     v11 = 138412546;
     v12 = pendingRequest;
     v13 = 2112;
     v14 = networks;
-    _os_log_impl(&dword_21B8E9000, v8, OS_LOG_TYPE_DEFAULT, "Cellular network fetch request succeeded for %@; value is %@.", &v11, 0x16u);
+    _os_log_impl(&dword_21B8E9000, v9, OS_LOG_TYPE_DEFAULT, "Cellular network fetch request succeeded for %@; value is %@.", &v11, 0x16u);
   }
 
   [(TPSRegistrationRequestController *)self respondWithSubscription:availableCopy cellularNetworks:networks error:0];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

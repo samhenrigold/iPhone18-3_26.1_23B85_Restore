@@ -47,7 +47,7 @@
 
 void __51__CSLanguageDetectorAssetMonitor__supportedLocale___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -62,19 +62,17 @@ void __51__CSLanguageDetectorAssetMonitor__supportedLocale___block_invoke(uint64
     v9 = *MEMORY[0x277D015D8];
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
     {
-      v11 = v9;
-      v12 = [v6 localizedDescription];
-      v13 = 136315394;
-      v14 = "[CSLanguageDetectorAssetMonitor _supportedLocale:]_block_invoke";
-      v15 = 2114;
-      v16 = v12;
-      _os_log_error_impl(&dword_222E4D000, v11, OS_LOG_TYPE_ERROR, "%s LanguageDetector supported locale is nil : %{public}@", &v13, 0x16u);
+      v10 = v9;
+      v11 = [v6 localizedDescription];
+      v12 = 136315394;
+      v13 = "[CSLanguageDetectorAssetMonitor _supportedLocale:]_block_invoke";
+      v14 = 2114;
+      v15 = v11;
+      _os_log_error_impl(&dword_222E4D000, v10, OS_LOG_TYPE_ERROR, "%s LanguageDetector supported locale is nil : %{public}@", &v12, 0x16u);
     }
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)supportedLocale:(id)locale
@@ -104,7 +102,7 @@ void __51__CSLanguageDetectorAssetMonitor__supportedLocale___block_invoke(uint64
 
 void __46__CSLanguageDetectorAssetMonitor_startMonitor__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (*(v1 + 8) == -1)
   {
@@ -123,12 +121,10 @@ void __46__CSLanguageDetectorAssetMonitor_startMonitor__block_invoke(uint64_t a1
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v7 = "[CSLanguageDetectorAssetMonitor startMonitor]_block_invoke";
+      v6 = "[CSLanguageDetectorAssetMonitor startMonitor]_block_invoke";
       _os_log_error_impl(&dword_222E4D000, v2, OS_LOG_TYPE_ERROR, "%s Cannot start monitoring language detector asset, since we already registered", buf, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __46__CSLanguageDetectorAssetMonitor_startMonitor__block_invoke_2(uint64_t a1)

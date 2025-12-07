@@ -84,7 +84,7 @@ uint64_t __45___UIRefreshControlModernContentView__reveal__block_invoke(uint64_t
   return [v3 setAlpha:1.0];
 }
 
-uint64_t __52___UIRefreshControlModernContentView_layoutSubviews__block_invoke(uint64_t a1)
+void *__52___UIRefreshControlModernContentView_layoutSubviews__block_invoke(uint64_t a1)
 {
   [*(a1 + 32) bounds];
   v3 = v2;
@@ -170,7 +170,7 @@ uint64_t __52___UIRefreshControlModernContentView_layoutSubviews__block_invoke(u
   v52 = *(*(a1 + 32) + 456);
   if (v52)
   {
-    [v52 transform];
+    objc_msgSend_transform(v52);
     v52 = *(*(a1 + 32) + 456);
   }
 
@@ -254,7 +254,7 @@ void __52___UIRefreshControlModernContentView_initWithFrame___block_invoke(uint6
   [v3 setCornerRadius:v2 * 0.5];
 }
 
-uint64_t __43___UIRefreshControlModernContentView__tick__block_invoke(uint64_t a1)
+void *__43___UIRefreshControlModernContentView__tick__block_invoke(uint64_t a1)
 {
   v2 = MEMORY[0x1E69E9820];
   v3 = 0.0;
@@ -275,21 +275,21 @@ uint64_t __43___UIRefreshControlModernContentView__tick__block_invoke(uint64_t a
   return result;
 }
 
-uint64_t __43___UIRefreshControlModernContentView__tick__block_invoke_2(uint64_t a1)
+uint64_t __43___UIRefreshControlModernContentView__tick__block_invoke_2(uint64_t a1, const char *a2)
 {
-  v1 = *(*(a1 + 32) + 448);
-  if (v1)
+  v2 = *(*(a1 + 32) + 448);
+  if (v2)
   {
-    [*(*(a1 + 32) + 448) transform];
+    objc_msgSend_transform(*(*(a1 + 32) + 448), a2);
   }
 
   else
   {
-    memset(&v3, 0, sizeof(v3));
+    memset(&v4, 0, sizeof(v4));
   }
 
-  CGAffineTransformRotate(&v4, &v3, 0.785398163);
-  return [v1 setTransform:&v4];
+  CGAffineTransformRotate(&v5, &v4, 0.785398163);
+  return [v2 setTransform:&v5];
 }
 
 uint64_t __45___UIRefreshControlModernContentView__goAway__block_invoke(uint64_t a1)
@@ -301,7 +301,7 @@ uint64_t __45___UIRefreshControlModernContentView__goAway__block_invoke(uint64_t
   v3 = *(v2 + 448);
   if (v3)
   {
-    [v3 transform];
+    objc_msgSend_transform(v3);
     v2 = *(a1 + 32);
   }
 

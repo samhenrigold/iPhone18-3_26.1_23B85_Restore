@@ -782,8 +782,8 @@ LABEL_40:
 
   if ((v6 & 1) == 0)
   {
-    v7 = cdui_default_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = cdui_default_log(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [_UIDocumentPickerURLContainerModel updateObserverForURL:?];
     }
@@ -793,10 +793,10 @@ LABEL_40:
 
     if (observer)
     {
-      v9 = cdui_default_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v11 = cdui_default_log(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        [_UIDocumentPickerURLContainerModel updateObserverForURL:v9];
+        [_UIDocumentPickerURLContainerModel updateObserverForURL:v11];
       }
 
       observer2 = [(_UIDocumentPickerURLContainerModel *)self observer];

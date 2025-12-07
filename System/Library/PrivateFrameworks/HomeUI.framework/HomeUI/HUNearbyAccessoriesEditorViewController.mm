@@ -25,7 +25,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_20CFCBA1C();
+  sub_20CFCBA1C(selfCopy);
 }
 
 - (void)dismissEditorWithSender:(id)sender
@@ -36,7 +36,7 @@
   swift_unknownObjectRelease();
   sub_20CFCC164();
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (void)cancelEditingWithSender:(id)sender
@@ -84,7 +84,7 @@
 {
   moduleCopy = module;
   selfCopy = self;
-  v6 = sub_20CFCEF1C();
+  v6 = sub_20CFCEF1C(moduleCopy);
 
   return v6;
 }
@@ -98,7 +98,7 @@
 
   if (!v7)
   {
-    sub_20CECF940(0, &qword_281120AC0);
+    sub_20CECF940(0, &qword_281120AC0, 0x277D14748);
     sub_20D567A78();
     v7 = sub_20D567A58();
   }

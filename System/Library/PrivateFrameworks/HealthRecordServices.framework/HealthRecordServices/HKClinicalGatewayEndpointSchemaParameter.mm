@@ -53,55 +53,51 @@
 
 - (BOOL)useWithQueryMode:(int64_t)mode
 {
-  v17 = *MEMORY[0x277D85DE8];
-  if (mode)
+  v16 = *MEMORY[0x277D85DE8];
+  if (!mode)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
-    v13 = 0u;
-    v4 = self->_mode;
-    v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
-    if (v5)
+    return 1;
+  }
+
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v4 = self->_mode;
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  if (v5)
+  {
+    v6 = v5;
+    v7 = *v12;
+    while (2)
     {
-      v6 = v5;
-      v7 = *v13;
-      while (2)
+      for (i = 0; i != v6; ++i)
       {
-        for (i = 0; i != v6; ++i)
+        if (*v12 != v7)
         {
-          if (*v13 != v7)
-          {
-            objc_enumerationMutation(v4);
-          }
-
-          if (HKFHIRResourceQueryModeFromNSString(*(*(&v12 + 1) + 8 * i)) == mode)
-          {
-            v9 = 1;
-            goto LABEL_12;
-          }
+          objc_enumerationMutation(v4);
         }
 
-        v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
-        if (v6)
+        if (HKFHIRResourceQueryModeFromNSString(*(*(&v11 + 1) + 8 * i)) == mode)
         {
-          continue;
+          v9 = 1;
+          goto LABEL_12;
         }
-
-        break;
       }
+
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      if (v6)
+      {
+        continue;
+      }
+
+      break;
     }
+  }
 
-    v9 = 0;
+  v9 = 0;
 LABEL_12:
-  }
 
-  else
-  {
-    v9 = 1;
-  }
-
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

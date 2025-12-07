@@ -10,31 +10,31 @@
 
 + (id)messageWithKeysAndResourceAvailability:(id)availability sender:(id)sender
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   availabilityCopy = availability;
   senderCopy = sender;
   data = [MEMORY[0x277CBEB28] data];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v8 = availabilityCopy;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v20 + 1) + 8 * i);
-        v14 = [MEMORY[0x277CBEB28] dataWithLength:{257, v20}];
+        v13 = *(*(&v19 + 1) + 8 * i);
+        v14 = [MEMORY[0x277CBEB28] dataWithLength:{257, v19}];
         mutableBytes = [v14 mutableBytes];
         [v13 UTF8String];
         __strlcpy_chk();
@@ -44,14 +44,13 @@
         [data appendData:v14];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v10);
   }
 
   v17 = [(PSSGMessageBase *)[PSSGMessageSetResourceAvailability alloc] initWithType:30 string1:senderCopy data:data];
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

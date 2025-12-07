@@ -23,17 +23,17 @@ void ___RegisterPeriodicUAFSubscriptionActivity_block_invoke(uint64_t a1, void *
 
 void ___RegisterPeriodicUAFSubscriptionActivity_block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = a3;
   LODWORD(a1) = *(a1 + 32);
   if (a1 == +[UAFConfiguration subscriptionServiceEnabled])
   {
-    v7[0] = MEMORY[0x1E69E9820];
-    v7[1] = 3221225472;
-    v7[2] = ___RegisterPeriodicUAFSubscriptionActivity_block_invoke_320;
-    v7[3] = &unk_1E7FFD4E8;
-    v8 = v4;
-    [UAFXPCActivity maintenanceTaskWithCompletion:v7];
+    v6[0] = MEMORY[0x1E69E9820];
+    v6[1] = 3221225472;
+    v6[2] = ___RegisterPeriodicUAFSubscriptionActivity_block_invoke_320;
+    v6[3] = &unk_1E7FFD4E8;
+    v7 = v4;
+    [UAFXPCActivity maintenanceTaskWithCompletion:v6];
   }
 
   else
@@ -42,7 +42,7 @@ void ___RegisterPeriodicUAFSubscriptionActivity_block_invoke_2(uint64_t a1, uint
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v10 = "_RegisterPeriodicUAFSubscriptionActivity_block_invoke_2";
+      v9 = "_RegisterPeriodicUAFSubscriptionActivity_block_invoke_2";
       _os_log_impl(&dword_1BCF2C000, v5, OS_LOG_TYPE_DEFAULT, "%s XPC: Done triggering disabled UAF subscription maintenance", buf, 0xCu);
     }
 
@@ -51,8 +51,6 @@ void ___RegisterPeriodicUAFSubscriptionActivity_block_invoke_2(uint64_t a1, uint
       v4[2](v4);
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

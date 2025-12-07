@@ -37,16 +37,14 @@
 
 - (NSDictionary)dictionaryValue
 {
-  v9[2] = *MEMORY[0x277D85DE8];
-  v8[0] = @"SharingMessageType";
+  v8[2] = *MEMORY[0x277D85DE8];
+  v7[0] = @"SharingMessageType";
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:{-[CATSharingMessage messageType](self, "messageType")}];
-  v8[1] = @"SharingMessageContent";
-  v9[0] = v3;
+  v7[1] = @"SharingMessageContent";
+  v8[0] = v3;
   contentDictionaryValue = [(CATSharingMessage *)self contentDictionaryValue];
-  v9[1] = contentDictionaryValue;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = contentDictionaryValue;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
@@ -109,16 +107,14 @@
 
 + (void)instanceWithDictionary:(uint64_t)a3 .cold.2(void *a1, objc_class *a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = NSStringFromClass(a2);
-  v8 = 138543618;
-  v9 = v6;
-  v10 = 2114;
-  v11 = a3;
-  _os_log_error_impl(&dword_24329F000, v5, OS_LOG_TYPE_ERROR, "%{public}@ is unable to decode contentDictionary from parent: %{public}@.", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138543618;
+  v8 = v6;
+  v9 = 2114;
+  v10 = a3;
+  _os_log_error_impl(&dword_24329F000, v5, OS_LOG_TYPE_ERROR, "%{public}@ is unable to decode contentDictionary from parent: %{public}@.", &v7, 0x16u);
 }
 
 @end

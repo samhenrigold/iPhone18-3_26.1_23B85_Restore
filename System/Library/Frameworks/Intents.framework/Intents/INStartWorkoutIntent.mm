@@ -308,8 +308,8 @@ uint64_t __64__INStartWorkoutIntent_Summary___goalValueIntentSlotDescription__bl
 
 - (id)_dictionaryRepresentation
 {
-  v19[5] = *MEMORY[0x1E69E9840];
-  v18[0] = @"workoutName";
+  v18[5] = *MEMORY[0x1E69E9840];
+  v17[0] = @"workoutName";
   workoutName = [(INStartWorkoutIntent *)self workoutName];
   null = workoutName;
   if (!workoutName)
@@ -317,8 +317,8 @@ uint64_t __64__INStartWorkoutIntent_Summary___goalValueIntentSlotDescription__bl
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19[0] = null;
-  v18[1] = @"goalValue";
+  v18[0] = null;
+  v17[1] = @"goalValue";
   goalValue = [(INStartWorkoutIntent *)self goalValue];
   null2 = goalValue;
   if (!goalValue)
@@ -326,8 +326,8 @@ uint64_t __64__INStartWorkoutIntent_Summary___goalValueIntentSlotDescription__bl
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19[1] = null2;
-  v18[2] = @"workoutGoalUnitType";
+  v18[1] = null2;
+  v17[2] = @"workoutGoalUnitType";
   workoutGoalUnitType = [(INStartWorkoutIntent *)self workoutGoalUnitType];
   if ((workoutGoalUnitType - 1) > 9)
   {
@@ -340,8 +340,8 @@ uint64_t __64__INStartWorkoutIntent_Summary___goalValueIntentSlotDescription__bl
   }
 
   v9 = v8;
-  v19[2] = v9;
-  v18[3] = @"workoutLocationType";
+  v18[2] = v9;
+  v17[3] = @"workoutLocationType";
   workoutLocationType = [(INStartWorkoutIntent *)self workoutLocationType];
   v11 = @"unknown";
   if (workoutLocationType == INWorkoutLocationTypeIndoor)
@@ -355,8 +355,8 @@ uint64_t __64__INStartWorkoutIntent_Summary___goalValueIntentSlotDescription__bl
   }
 
   v12 = v11;
-  v19[3] = v12;
-  v18[4] = @"isOpenEnded";
+  v18[3] = v12;
+  v17[4] = @"isOpenEnded";
   isOpenEnded = [(INStartWorkoutIntent *)self isOpenEnded];
   null3 = isOpenEnded;
   if (!isOpenEnded)
@@ -364,8 +364,8 @@ uint64_t __64__INStartWorkoutIntent_Summary___goalValueIntentSlotDescription__bl
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v19[4] = null3;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:5];
+  v18[4] = null3;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:5];
   if (!isOpenEnded)
   {
   }
@@ -377,8 +377,6 @@ uint64_t __64__INStartWorkoutIntent_Summary___goalValueIntentSlotDescription__bl
   if (!workoutName)
   {
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

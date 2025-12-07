@@ -169,7 +169,6 @@ LABEL_34:
 {
   if (*&self->_has)
   {
-    errorCode = self->_errorCode;
     PBDataWriterWriteUint32Field();
   }
 
@@ -214,7 +213,6 @@ LABEL_34:
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 24);
     if (*&self->_has)
     {
       if ((*(equal + 24) & 1) == 0 || self->_errorCode != *(equal + 2))

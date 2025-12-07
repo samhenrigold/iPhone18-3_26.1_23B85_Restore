@@ -211,16 +211,17 @@ id __58__PBUICachedSnapshotEffectProvider_imageForConfiguration___block_invoke(u
     }
 
     v11 = *(self + v10);
-    v15 = 0;
-    v7 = [v11 applyEffect:imageCopy toImage:v6 error:&v15];
+    v16 = 0;
+    v7 = [v11 applyEffect:imageCopy toImage:v6 error:&v16];
 
-    v12 = v15;
+    v12 = v16;
+    v13 = v12;
     if (v12)
     {
-      v13 = PBUILogCommon();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = PBUILogCommon(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [(PBUICachedSnapshotEffectProvider *)v6 compositeImage:v12 effectConfiguration:v13];
+        [(PBUICachedSnapshotEffectProvider *)v6 compositeImage:v13 effectConfiguration:v14];
       }
     }
   }

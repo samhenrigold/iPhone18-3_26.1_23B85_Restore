@@ -143,7 +143,6 @@ LABEL_13:
 
   if (data)
   {
-    data = self->_data;
     PBDataWriterWriteDataField();
   }
 
@@ -151,7 +150,6 @@ LABEL_13:
 
   if (fileName)
   {
-    fileName = self->_fileName;
     PBDataWriterWriteStringField();
   }
 }

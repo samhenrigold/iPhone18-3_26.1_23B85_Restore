@@ -1814,7 +1814,7 @@ LABEL_43:
     self->returnKeyType = 1;
   }
 
-  if ([(NSString *)self->textContentType isEqualToString:@"cc-number"])
+  if (objc_msgSend_isEqualToString_(self->textContentType))
   {
     if (self->returnKeyType)
     {
@@ -2337,7 +2337,7 @@ LABEL_67:
                       {
                         textContentType = self->textContentType;
                         textContentType = [traitsCopy textContentType];
-                        if (textContentType == textContentType || (v19 = self->textContentType, [traitsCopy textContentType], v3 = objc_claimAutoreleasedReturnValue(), -[NSString isEqualToString:](v19, "isEqualToString:", v3)))
+                        if (textContentType == textContentType || (v19 = self->textContentType, [traitsCopy textContentType], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend_isEqualToString_(v19)))
                         {
                           passwordRules = self->passwordRules;
                           passwordRules = [traitsCopy passwordRules];
@@ -2360,7 +2360,7 @@ LABEL_67:
                           {
                             v24 = self->passwordRules;
                             passwordRules2 = [traitsCopy passwordRules];
-                            if (-[UITextInputPasswordRules isEqual:](v24, "isEqual:", passwordRules2) && (v26 = self->writingToolsBehavior, v26 == [traitsCopy writingToolsBehavior]))
+                            if ((objc_msgSend_isEqual_(v24) & 1) != 0 && (v26 = self->writingToolsBehavior, v26 == [traitsCopy writingToolsBehavior]))
                             {
                               v27 = self->allowedWritingToolsResultOptions;
                               v20 = v27 == [traitsCopy allowedWritingToolsResultOptions];
@@ -2454,7 +2454,7 @@ LABEL_16:
   {
     recentInputIdentifier2 = [(UITextInputTraits *)self recentInputIdentifier];
     recentInputIdentifier3 = [traitsCopy recentInputIdentifier];
-    if (([recentInputIdentifier2 isEqualToString:recentInputIdentifier3] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(recentInputIdentifier2) & 1) == 0)
     {
 
 LABEL_8:
@@ -2527,7 +2527,7 @@ LABEL_9:
     {
       recentInputIdentifier3 = [(UITextInputTraits *)self recentInputIdentifier];
       recentInputIdentifier4 = [equalCopy recentInputIdentifier];
-      if (![recentInputIdentifier3 isEqualToString:recentInputIdentifier4])
+      if (!objc_msgSend_isEqualToString_(recentInputIdentifier3))
       {
         v9 = 0;
         goto LABEL_28;
@@ -2561,7 +2561,7 @@ LABEL_9:
 LABEL_18:
         insertionPointColor = self->insertionPointColor;
         insertionPointColor = [equalCopy insertionPointColor];
-        if ([(UIColor *)insertionPointColor isEqual:insertionPointColor])
+        if (objc_msgSend_isEqual_(insertionPointColor))
         {
           insertionPointWidth = self->insertionPointWidth;
           if (insertionPointWidth == [equalCopy insertionPointWidth])
@@ -2609,7 +2609,7 @@ LABEL_58:
                 {
                   v49 = self->autocorrectionContext;
                   autocorrectionContext2 = [equalCopy autocorrectionContext];
-                  if (![(NSString *)v49 isEqualToString:?])
+                  if (!objc_msgSend_isEqualToString_(v49))
                   {
                     v9 = 0;
                     goto LABEL_85;
@@ -2623,7 +2623,7 @@ LABEL_58:
                 {
                   v51 = self->responseContext;
                   responseContext2 = [equalCopy responseContext];
-                  if (![(NSString *)v51 isEqualToString:?])
+                  if (!objc_msgSend_isEqualToString_(v51))
                   {
                     v9 = 0;
 LABEL_83:
@@ -2649,7 +2649,7 @@ LABEL_85:
                 {
                   v53 = self->inputContextHistory;
                   inputContextHistory2 = [equalCopy inputContextHistory];
-                  if (![(UIInputContextHistory *)v53 isEqual:?])
+                  if (!objc_msgSend_isEqual_(v53))
                   {
                     v9 = 0;
                     goto LABEL_80;

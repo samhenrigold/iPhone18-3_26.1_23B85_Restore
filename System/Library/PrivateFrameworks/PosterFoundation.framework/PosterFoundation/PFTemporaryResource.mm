@@ -76,35 +76,35 @@
 
 - (void)invalidateWithError:(id *)error
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v4 = self->_trackedInvalidatables;
   objc_sync_enter(v4);
   if ([(BSAtomicSignal *)self->_invalidationSignal signal])
   {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
     v11 = 0u;
+    v12 = 0u;
+    v9 = 0u;
+    v10 = 0u;
     v5 = self->_trackedInvalidatables;
-    v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+    v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
     if (v6)
     {
-      v7 = *v11;
+      v7 = *v10;
       do
       {
         v8 = 0;
         do
         {
-          if (*v11 != v7)
+          if (*v10 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          [*(*(&v10 + 1) + 8 * v8++) invalidate];
+          [*(*(&v9 + 1) + 8 * v8++) invalidate];
         }
 
         while (v6 != v8);
-        v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v6 = [(NSMutableSet *)v5 countByEnumeratingWithState:&v9 objects:v13 count:16];
       }
 
       while (v6);
@@ -114,13 +114,11 @@
   }
 
   objc_sync_exit(v4);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithResource:(char *)a1 URL:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"resource"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -128,7 +126,7 @@
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"resource", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

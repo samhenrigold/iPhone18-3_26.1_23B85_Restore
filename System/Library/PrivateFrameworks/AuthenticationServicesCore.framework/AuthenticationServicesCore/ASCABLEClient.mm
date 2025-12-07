@@ -15,44 +15,41 @@
 {
   v3 = sub_1C2170024();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v12 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = *&self->qrCodeStruct[OBJC_IVAR____TtC26AuthenticationServicesCore13ASCABLEClient_qrCodeStruct + 8];
+  v15[0] = *(&self->super.isa + OBJC_IVAR____TtC26AuthenticationServicesCore13ASCABLEClient_qrCodeStruct);
+  v15[1] = v7;
+  v9 = *(&self->super.isa + OBJC_IVAR____TtC26AuthenticationServicesCore13ASCABLEClient_qrCodeStruct);
   v8 = *&self->qrCodeStruct[OBJC_IVAR____TtC26AuthenticationServicesCore13ASCABLEClient_qrCodeStruct + 8];
-  v16[0] = *(&self->super.isa + OBJC_IVAR____TtC26AuthenticationServicesCore13ASCABLEClient_qrCodeStruct);
-  v16[1] = v8;
-  v10 = *(&self->super.isa + OBJC_IVAR____TtC26AuthenticationServicesCore13ASCABLEClient_qrCodeStruct);
-  v9 = *&self->qrCodeStruct[OBJC_IVAR____TtC26AuthenticationServicesCore13ASCABLEClient_qrCodeStruct + 8];
-  v17[0] = *&self->qrCodeStruct[OBJC_IVAR____TtC26AuthenticationServicesCore13ASCABLEClient_qrCodeStruct + 24];
-  *(v17 + 15) = *&self->qrCodeStruct[OBJC_IVAR____TtC26AuthenticationServicesCore13ASCABLEClient_qrCodeStruct + 39];
-  v13 = v10;
-  v14 = v9;
-  v15[0] = *&self->qrCodeStruct[OBJC_IVAR____TtC26AuthenticationServicesCore13ASCABLEClient_qrCodeStruct + 24];
-  *(v15 + 15) = *&self->qrCodeStruct[OBJC_IVAR____TtC26AuthenticationServicesCore13ASCABLEClient_qrCodeStruct + 39];
-  sub_1C20F1ED4(v16, v18);
-  sub_1C20FD544(v7);
-  v18[0] = v13;
-  v18[1] = v14;
-  v19[0] = v15[0];
-  *(v19 + 15) = *(v15 + 15);
-  sub_1C20EB700(v18);
-  v11 = sub_1C216FFB4();
-  (*(v4 + 8))(v7, v3);
+  v16[0] = *&self->qrCodeStruct[OBJC_IVAR____TtC26AuthenticationServicesCore13ASCABLEClient_qrCodeStruct + 24];
+  *(v16 + 15) = *&self->qrCodeStruct[OBJC_IVAR____TtC26AuthenticationServicesCore13ASCABLEClient_qrCodeStruct + 39];
+  v12 = v9;
+  v13 = v8;
+  v14[0] = *&self->qrCodeStruct[OBJC_IVAR____TtC26AuthenticationServicesCore13ASCABLEClient_qrCodeStruct + 24];
+  *(v14 + 15) = *&self->qrCodeStruct[OBJC_IVAR____TtC26AuthenticationServicesCore13ASCABLEClient_qrCodeStruct + 39];
+  sub_1C20F1ED4(v15, v17);
+  sub_1C20FD544(v6);
+  v17[0] = v12;
+  v17[1] = v13;
+  v18[0] = v14[0];
+  *(v18 + 15) = *(v14 + 15);
+  sub_1C20EB700(v17);
+  v10 = sub_1C216FFB4();
+  (*(v4 + 8))(v6, v3);
 
-  return v11;
+  return v10;
 }
 
 - (_TtC26AuthenticationServicesCore13ASCABLEClient)initWithDelegate:(id)delegate isRegistrationRequest:(BOOL)request
 {
   swift_getObjectType();
   requestCopy = request;
-  v6 = swift_unknownObjectRetain();
-  v7 = sub_1C20F1F30(v6, &requestCopy);
+  v5 = swift_unknownObjectRetain();
+  v6 = sub_1C20F1F30(v5, &requestCopy);
   swift_unknownObjectRelease();
-  v8 = *((*MEMORY[0x1E69E7D40] & self->super.isa) + 0x30);
-  v9 = *((*MEMORY[0x1E69E7D40] & self->super.isa) + 0x34);
   swift_deallocPartialClassInstance();
-  return v7;
+  return v6;
 }
 
 - (void)performAuthenticationOperation:(int64_t)operation forRelyingPartyIdentifier:(id)identifier completionHandler:(id)handler

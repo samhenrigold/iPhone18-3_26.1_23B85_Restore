@@ -2,6 +2,7 @@
 - (BOOL)_isRequestIdCurrent:(id)current;
 - (CSIntuitiveConvRequestHandler)init;
 - (CSIntuitiveConvRequestHandler)initWithAudioSrcNode:(id)node endpointerNode:(id)endpointerNode osdNode:(id)osdNode ssrNode:(id)ssrNode speechRecognitionNode:(id)recognitionNode uresNode:(id)uresNode needsSSRNode:(BOOL)rNode aFtmNode:(id)self0 siriEnabledMonitor:(id)self1 siriClientBehaviorMonitor:(id)self2 intuitiveConvAudioCaptureMonitor:(id)self3 rcHandler:(id)self4 tcuGenerator:(id)self5 continuityEndDetector:(id)self6 bridgeMessageHandler:(id)self7 audioCoordinator:(id)self8 magusSupportedPolicy:(id)self9 supportsAcousticProgressiveChecker:(BOOL)checker supportsUnderstandingOnDevice:(BOOL)device requireASROnDevice:(BOOL)onDevice supportsHybridUnderstandingOnDevice:(BOOL)understandingOnDevice supportsLogger:(BOOL)logger supportTCU:(BOOL)u audioSessionInfoProvider:(id)provider aggressiveECHandler:(id)cHandler;
+- (id)_createRequestLinkInfo:(id)info component:(int)component;
 - (id)_recordContextForContinuousConversation;
 - (id)_startStreamOption;
 - (id)_startStreamOptionWithMachAbsTime:(unint64_t)time;
@@ -207,6 +208,21 @@
   _Block_object_dispose(&v6, 8);
 
   return v3;
+}
+
+- (id)_createRequestLinkInfo:(id)info component:(int)component
+{
+  v4 = *&component;
+  infoCopy = info;
+  v6 = [SISchemaUUID alloc];
+  v7 = [[NSUUID alloc] initWithUUIDString:infoCopy];
+
+  v8 = [v6 initWithNSUUID:v7];
+  v9 = objc_alloc_init(SISchemaRequestLinkInfo);
+  [v9 setUuid:v8];
+  [v9 setComponent:v4];
+
+  return v9;
 }
 
 - (void)emitRequestLinkEventForMHUUID:(id)d withRequestId:(id)id
@@ -713,7 +729,7 @@
     aggressiveECHandler = self->_aggressiveECHandler;
     v13 = 1;
 LABEL_13:
-    [(CSAggressiveECModeHandler *)aggressiveECHandler setAttendingState:v13, *v16, *&v16[16]];
+    [(CSAggressiveECModeHandler *)aggressiveECHandler setAttendingState:v13, *v16, *&v16[8]];
     goto LABEL_14;
   }
 

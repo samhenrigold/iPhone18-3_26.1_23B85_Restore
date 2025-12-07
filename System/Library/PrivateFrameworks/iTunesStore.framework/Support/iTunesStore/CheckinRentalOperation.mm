@@ -164,11 +164,11 @@
 {
   if (![(NSNumber *)self->_accountIdentifier unsignedLongLongValue]|| ![(NSNumber *)self->_rentalKeyIdentifier unsignedLongLongValue])
   {
-LABEL_28:
+LABEL_29:
     v4 = 0;
-    v32 = 0;
-    v33 = 0;
-    goto LABEL_29;
+    v35 = 0;
+    v36 = 0;
+    goto LABEL_30;
   }
 
   v3 = sub_1000B1E14();
@@ -183,133 +183,147 @@ LABEL_28:
     shouldLog = [v12 shouldLog];
     if ([v12 shouldLogToDisk])
     {
-      v14 = shouldLog | 2;
+      LODWORD(v14) = shouldLog | 2;
     }
 
     else
     {
-      v14 = shouldLog;
+      LODWORD(v14) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v12 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v12 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = v14;
+    }
+
+    else
     {
       v14 &= 2u;
     }
 
     if (v14)
     {
-      v34 = 138412290;
-      v35 = objc_opt_class();
-      LODWORD(v31) = 12;
-      v30 = &v34;
-      v15 = _os_log_send_and_compose_impl();
-      if (v15)
+      v37 = 138412290;
+      v38 = objc_opt_class();
+      v16 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Could not get rental bag", &v37, 12);
+      if (v16)
       {
-        v16 = v15;
-        v17 = [NSString stringWithCString:v15 encoding:4, &v34, v31];
-        free(v16);
-        v30 = v17;
+        v17 = v16;
+        v18 = [NSString stringWithCString:v16 encoding:4];
+        free(v17);
+        v33 = v18;
         SSFileLog();
       }
     }
 
-    goto LABEL_28;
+    goto LABEL_29;
   }
 
   v4 = v3;
-  v32 = 0;
-  v33 = 0;
-  if ((sub_1000B208C(&v33, &v32) & 1) == 0)
+  v35 = 0;
+  v36 = 0;
+  if ((sub_1000B208C(&v36, &v35) & 1) == 0)
   {
-    v23 = +[SSLogConfig sharedDaemonConfig];
-    if (!v23)
+    v25 = +[SSLogConfig sharedDaemonConfig];
+    if (!v25)
     {
-      v23 = +[SSLogConfig sharedConfig];
+      v25 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v23 shouldLog];
-    if ([v23 shouldLogToDisk])
+    shouldLog2 = [v25 shouldLog];
+    if ([v25 shouldLogToDisk])
     {
-      v25 = shouldLog2 | 2;
+      LODWORD(v27) = shouldLog2 | 2;
     }
 
     else
     {
-      v25 = shouldLog2;
+      LODWORD(v27) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([v23 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject2 = [v25 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      v25 &= 2u;
+      v27 = v27;
     }
 
-    if (v25)
+    else
     {
-      v26 = objc_opt_class();
-      v34 = 138412290;
-      v35 = v26;
-      LODWORD(v31) = 12;
-      v30 = &v34;
-      v27 = _os_log_send_and_compose_impl();
-      if (v27)
+      v27 &= 2u;
+    }
+
+    if (v27)
+    {
+      v29 = objc_opt_class();
+      v37 = 138412290;
+      v38 = v29;
+      v30 = _os_log_send_and_compose_impl(v27, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%@: Could not get rental bag request", &v37, 12);
+      if (v30)
       {
-        v28 = v27;
-        v29 = [NSString stringWithCString:v27 encoding:4, &v34, v31];
-        free(v28);
-        v30 = v29;
+        v31 = v30;
+        v32 = [NSString stringWithCString:v30 encoding:4];
+        free(v31);
+        v33 = v32;
         SSFileLog();
       }
     }
 
-LABEL_29:
-    v18 = +[SSLogConfig sharedDaemonConfig];
-    if (!v18)
+LABEL_30:
+    v19 = +[SSLogConfig sharedDaemonConfig];
+    if (!v19)
     {
-      v18 = +[SSLogConfig sharedConfig];
+      v19 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog3 = [v18 shouldLog];
-    if ([v18 shouldLogToDisk])
+    shouldLog3 = [v19 shouldLog];
+    if ([v19 shouldLogToDisk])
     {
-      v20 = shouldLog3 | 2;
+      LODWORD(v21) = shouldLog3 | 2;
     }
 
     else
     {
-      v20 = shouldLog3;
+      LODWORD(v21) = shouldLog3;
     }
 
-    if (!os_log_type_enabled([v18 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject3 = [v19 OSLogObject];
+    if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
     {
-      v20 &= 2u;
+      v21 = v21;
     }
 
-    if (v20)
+    else
     {
-      v21 = objc_opt_class();
-      v34 = 138412290;
-      v35 = v21;
-      LODWORD(v31) = 12;
-      v11 = _os_log_send_and_compose_impl();
+      v21 &= 2u;
+    }
+
+    if (v21)
+    {
+      v23 = objc_opt_class();
+      v37 = 138412290;
+      v38 = v23;
+      LODWORD(v34) = 12;
+      v11 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%@: Could not generate checkin request body", &v37, v34);
       if (!v11)
       {
-        goto LABEL_40;
+        goto LABEL_42;
       }
 
-      [NSString stringWithCString:v11 encoding:4, &v34, v31];
+      [NSString stringWithCString:v11 encoding:4];
       free(v11);
       SSFileLog();
     }
 
     v11 = 0;
-    goto LABEL_40;
+    goto LABEL_42;
   }
 
   v5 = objc_alloc_init(NSMutableDictionary);
   v6 = v5;
-  if (v33)
+  if (v36)
   {
-    [v5 setObject:v33 forKey:@"device-diversity"];
+    [v5 setObject:v36 forKey:@"device-diversity"];
   }
 
   accountIdentifier = self->_accountIdentifier;
@@ -330,9 +344,9 @@ LABEL_29:
     [v6 setObject:v9 forKey:@"hw.model"];
   }
 
-  if (v32)
+  if (v35)
   {
-    [v6 setObject:v32 forKey:@"rbsync"];
+    [v6 setObject:v35 forKey:@"rbsync"];
   }
 
   [v6 setObject:v4 forKey:@"rental-bag"];
@@ -344,7 +358,7 @@ LABEL_29:
 
   v11 = [NSPropertyListSerialization dataWithPropertyList:v6 format:100 options:0 error:0];
 
-LABEL_40:
+LABEL_42:
   return v11;
 }
 
@@ -399,15 +413,21 @@ LABEL_40:
     shouldLog = [v13 shouldLog];
     if ([v13 shouldLogToDisk])
     {
-      v15 = shouldLog | 2;
+      LODWORD(v15) = shouldLog | 2;
     }
 
     else
     {
-      v15 = shouldLog;
+      LODWORD(v15) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v13 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v13 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = v15;
+    }
+
+    else
     {
       v15 &= 2u;
     }
@@ -416,13 +436,12 @@ LABEL_40:
     {
       v19 = 138412290;
       v20 = objc_opt_class();
-      LODWORD(v18) = 12;
-      v16 = _os_log_send_and_compose_impl();
-      if (v16)
+      v17 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Could not generate checkin ack request body", &v19, 12);
+      if (v17)
       {
-        v17 = v16;
-        [NSString stringWithCString:v16 encoding:4, &v19, v18];
-        free(v17);
+        v18 = v17;
+        [NSString stringWithCString:v17 encoding:4];
+        free(v18);
         SSFileLog();
       }
     }
@@ -447,15 +466,21 @@ LABEL_40:
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
@@ -466,59 +491,57 @@ LABEL_40:
       *&v25[4] = objc_opt_class();
       v26 = 2112;
       v27 = v8;
-      LODWORD(v23) = 22;
-      v22 = v25;
-      v12 = _os_log_send_and_compose_impl();
-      if (v12)
+      v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Received failure type: %@", v25, 22);
+      if (v13)
       {
-        v13 = v12;
-        v14 = [NSString stringWithCString:v12 encoding:4, v25, v23];
-        free(v13);
-        v22 = v14;
+        v14 = v13;
+        v15 = [NSString stringWithCString:v13 encoding:4];
+        free(v14);
+        v23 = v15;
         SSFileLog();
       }
     }
 
     if ((objc_opt_respondsToSelector() & 1) == 0)
     {
-      v20 = ISError();
-      goto LABEL_22;
+      v21 = ISError();
+      goto LABEL_23;
     }
 
     [v8 intValue];
-    v15 = SSError();
+    v16 = SSError();
   }
 
   else
   {
     *v25 = 0;
-    v16 = [response objectForKey:@"rental-bag-response"];
+    v17 = [response objectForKey:@"rental-bag-response"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v17 = [response objectForKey:@"checkin-sar"];
+      v18 = [response objectForKey:@"checkin-sar"];
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && sub_1000B2CB8(v16, v17))
+      if ((objc_opt_isKindOfClass() & 1) != 0 && sub_1000B2CB8(v17, v18))
       {
-        v18 = [(CheckinRentalOperation *)self _runCheckinAckOperationWithResponseData:*v25 error:&v24];
+        v19 = [(CheckinRentalOperation *)self _runCheckinAckOperationWithResponseData:*v25 error:&v24];
 
-        if (v18)
+        if (v19)
         {
           result = 1;
-          goto LABEL_23;
+          goto LABEL_24;
         }
       }
     }
 
-    v15 = ISError();
+    v16 = ISError();
   }
 
-  v20 = [v15 errorBySettingFatalError:{1, v22}];
-LABEL_22:
-  v21 = v20;
-  result = 0;
-  v24 = v21;
+  v21 = [v16 errorBySettingFatalError:{1, v23}];
 LABEL_23:
+  v22 = v21;
+  result = 0;
+  v24 = v22;
+LABEL_24:
   if (error)
   {
     *error = v24;
@@ -542,15 +565,21 @@ LABEL_23:
     shouldLog = [v7 shouldLog];
     if ([v7 shouldLogToDisk])
     {
-      v9 = shouldLog | 2;
+      LODWORD(v9) = shouldLog | 2;
     }
 
     else
     {
-      v9 = shouldLog;
+      LODWORD(v9) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v7 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = v9;
+    }
+
+    else
     {
       v9 &= 2u;
     }
@@ -561,13 +590,12 @@ LABEL_23:
       v15 = objc_opt_class();
       v16 = 2112;
       v17 = v6;
-      LODWORD(v13) = 22;
-      v10 = _os_log_send_and_compose_impl();
-      if (v10)
+      v11 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Received failure type: %@", &v14, 22);
+      if (v11)
       {
-        v11 = v10;
-        [NSString stringWithCString:v10 encoding:4, &v14, v13];
-        free(v11);
+        v12 = v11;
+        [NSString stringWithCString:v11 encoding:4];
+        free(v12);
         SSFileLog();
       }
     }
@@ -580,7 +608,7 @@ LABEL_23:
         return v6 == 0;
       }
 
-      goto LABEL_15;
+      goto LABEL_16;
     }
 
     v5 = [ISError() errorBySettingFatalError:1];
@@ -588,7 +616,7 @@ LABEL_23:
 
   if (error)
   {
-LABEL_15:
+LABEL_16:
     *error = v5;
   }
 
@@ -627,15 +655,21 @@ LABEL_15:
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_INFO))
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
@@ -644,27 +678,25 @@ LABEL_15:
     {
       v21 = 138412290;
       v22 = objc_opt_class();
-      LODWORD(v19) = 12;
-      v18 = &v21;
-      v12 = _os_log_send_and_compose_impl();
-      if (v12)
+      v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Checking in rental", &v21, 12);
+      if (v13)
       {
-        v13 = v12;
-        v14 = [NSString stringWithCString:v12 encoding:4, &v21, v19];
-        free(v13);
-        v18 = v14;
+        v14 = v13;
+        v15 = [NSString stringWithCString:v13 encoding:4];
+        free(v14);
+        v19 = v15;
         SSFileLog();
       }
     }
 
-    if ([(CheckinRentalOperation *)self runSubOperation:v4 returningError:&v20, v18])
+    if ([(CheckinRentalOperation *)self runSubOperation:v4 returningError:&v20, v19])
     {
       output = [(DaemonProtocolDataProvider *)v6 output];
       _bodyData = [(CheckinRentalOperation *)self _handleResponse:output error:&v20];
-      v16 = [NSPropertyListSerialization dataWithPropertyList:output format:100 options:0 error:0];
+      v17 = [NSPropertyListSerialization dataWithPropertyList:output format:100 options:0 error:0];
       [(CheckinRentalOperation *)self lock];
 
-      self->_urlResponse = [[SSURLConnectionResponse alloc] initWithURLResponse:objc_msgSend(v4 bodyData:{"response"), v16}];
+      self->_urlResponse = [[SSURLConnectionResponse alloc] initWithURLResponse:objc_msgSend(v4 bodyData:{"response"), v17}];
       [(CheckinRentalOperation *)self unlock];
     }
 
@@ -673,16 +705,16 @@ LABEL_15:
       _bodyData = 0;
     }
 
-    v17 = v20;
+    v18 = v20;
   }
 
   else
   {
-    v17 = ISError();
-    v20 = v17;
+    v18 = ISError();
+    v20 = v18;
   }
 
-  [(CheckinRentalOperation *)self setError:v17];
+  [(CheckinRentalOperation *)self setError:v18];
   [(CheckinRentalOperation *)self setSuccess:_bodyData];
 }
 
@@ -692,14 +724,14 @@ LABEL_15:
   v6 = [(CheckinRentalOperation *)self _bodyDataWithCheckinAckResponseData:data];
   if (!v6)
   {
-    v19 = 0;
+    v20 = 0;
     v23 = ISError();
     if (!error)
     {
-      return v19;
+      return v20;
     }
 
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
   v7 = v6;
@@ -729,15 +761,21 @@ LABEL_15:
   shouldLog = [v13 shouldLog];
   if ([v13 shouldLogToDisk])
   {
-    v15 = shouldLog | 2;
+    LODWORD(v15) = shouldLog | 2;
   }
 
   else
   {
-    v15 = shouldLog;
+    LODWORD(v15) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v13 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v13 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v15 = v15;
+  }
+
+  else
   {
     v15 &= 2u;
   }
@@ -746,36 +784,34 @@ LABEL_15:
   {
     v24 = 138412290;
     v25 = objc_opt_class();
-    LODWORD(v22) = 12;
-    v21 = &v24;
-    v16 = _os_log_send_and_compose_impl();
-    if (v16)
+    v17 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Acking rental checkin", &v24, 12);
+    if (v17)
     {
-      v17 = v16;
-      v18 = [NSString stringWithCString:v16 encoding:4, &v24, v22];
-      free(v17);
-      v21 = v18;
+      v18 = v17;
+      v19 = [NSString stringWithCString:v17 encoding:4];
+      free(v18);
+      v22 = v19;
       SSFileLog();
     }
   }
 
-  if ([(CheckinRentalOperation *)self runSubOperation:v8 returningError:&v23, v21])
+  if ([(CheckinRentalOperation *)self runSubOperation:v8 returningError:&v23, v22])
   {
-    v19 = [(CheckinRentalOperation *)self _handleCheckinAckResponse:[(DaemonProtocolDataProvider *)v10 output] error:&v23];
+    v20 = [(CheckinRentalOperation *)self _handleCheckinAckResponse:[(DaemonProtocolDataProvider *)v10 output] error:&v23];
   }
 
   else
   {
-    v19 = 0;
+    v20 = 0;
   }
 
   if (error)
   {
-LABEL_18:
+LABEL_19:
     *error = v23;
   }
 
-  return v19;
+  return v20;
 }
 
 @end

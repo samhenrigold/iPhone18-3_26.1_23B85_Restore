@@ -1,7 +1,7 @@
 @interface UIScrollView(ControlCenterUI)
 - (double)ccui_relativeContentOffset;
-- (uint64_t)ccui_setContentInsetPreservingOffset:()ControlCenterUI;
 - (uint64_t)ccui_setRelativeContentOffset:()ControlCenterUI;
+- (void)ccui_setContentInsetPreservingOffset:()ControlCenterUI;
 @end
 
 @implementation UIScrollView(ControlCenterUI)
@@ -21,7 +21,7 @@
   return [self setContentOffset:{a2 - v7, a3 - v6}];
 }
 
-- (uint64_t)ccui_setContentInsetPreservingOffset:()ControlCenterUI
+- (void)ccui_setContentInsetPreservingOffset:()ControlCenterUI
 {
   result = [self contentInset];
   if (a3 != v14 || a2 != v11 || a5 != v13 || a4 != v12)

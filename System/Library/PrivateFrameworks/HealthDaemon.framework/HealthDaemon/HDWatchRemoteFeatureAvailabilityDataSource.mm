@@ -64,7 +64,7 @@
     if (mEMORY[0x277CCDD30]2)
     {
       v13 = mEMORY[0x277CCDD30]2;
-      [mEMORY[0x277CCDD30]2 currentOSVersionStruct];
+      objc_msgSend_currentOSVersionStruct(mEMORY[0x277CCDD30]2);
       mEMORY[0x277CCDD30]2 = v13;
     }
 

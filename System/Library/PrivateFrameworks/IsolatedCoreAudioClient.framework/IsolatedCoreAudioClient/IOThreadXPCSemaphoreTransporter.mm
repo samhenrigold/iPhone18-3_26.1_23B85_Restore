@@ -207,13 +207,11 @@ LABEL_13:
 
 + (id)semaphores:(const ClientIOThreadSynchronizerSemaphores *)semaphores
 {
-  var1 = semaphores->var1;
-  v5 = xpc_mach_send_create();
-  var0 = semaphores->var0;
-  v7 = xpc_mach_send_create();
-  v8 = [[IOThreadXPCSemaphoreTransporter alloc] initWithSemaphores:v5];
+  v3 = xpc_mach_send_create();
+  v4 = xpc_mach_send_create();
+  v5 = [[IOThreadXPCSemaphoreTransporter alloc] initWithSemaphores:v3];
 
-  return v8;
+  return v5;
 }
 
 @end

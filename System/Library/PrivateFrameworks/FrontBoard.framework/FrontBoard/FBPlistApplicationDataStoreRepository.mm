@@ -323,7 +323,7 @@ void __59__FBPlistApplicationDataStoreRepository_allObjectsForKeys___block_invok
 
 void __73__FBPlistApplicationDataStoreRepository_setObject_forKey_forApplication___block_invoke(uint64_t a1)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) _stateQueue_storeForIdentifier:*(a1 + 40)];
   v3 = v2;
   if (v2)
@@ -335,7 +335,7 @@ void __73__FBPlistApplicationDataStoreRepository_setObject_forKey_forApplication
   {
     if (!*(a1 + 48))
     {
-      goto LABEL_14;
+      return;
     }
 
     v4 = 0;
@@ -362,8 +362,8 @@ void __73__FBPlistApplicationDataStoreRepository_setObject_forKey_forApplication
     v8 = *(a1 + 32);
     if (v7)
     {
-      v11[0] = *(a1 + 56);
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+      v10[0] = *(a1 + 56);
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
       [v8 _notifyDelegateOfChangeForKeys:v9 application:*(a1 + 40)];
     }
 
@@ -372,9 +372,6 @@ void __73__FBPlistApplicationDataStoreRepository_setObject_forKey_forApplication
       [*(a1 + 32) _stateQueue_removeStoreForIdentifier:*(a1 + 40)];
     }
   }
-
-LABEL_14:
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeObjectForKey:(id)key forApplication:(id)application
@@ -600,32 +597,31 @@ void __72__FBPlistApplicationDataStoreRepository_migrateIdentifier_toIdentifier_
 
 - (BOOL)_isEligibleForSaving:(id)saving
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   savingCopy = saving;
   if (_isEligibleForSaving__onceToken != -1)
   {
     [FBPlistApplicationDataStoreRepository _isEligibleForSaving:];
   }
 
-  v13 = 0u;
-  v14 = 0u;
   v11 = 0u;
   v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = _isEligibleForSaving____eligibleClassTypes;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v12;
+    v6 = *v10;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
           LOBYTE(v5) = 1;
@@ -633,7 +629,7 @@ void __72__FBPlistApplicationDataStoreRepository_migrateIdentifier_toIdentifier_
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v5)
       {
         continue;
@@ -645,7 +641,6 @@ void __72__FBPlistApplicationDataStoreRepository_migrateIdentifier_toIdentifier_
 
 LABEL_13:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -719,30 +714,30 @@ void __46__FBPlistApplicationDataStoreRepository__load__block_invoke(uint64_t a1
 
 - (id)_stateQueue_objectsForKeys:(id)keys
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
   dispatch_assert_queue_V2(self->_stateQueue);
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   allKeys = [(NSMutableDictionary *)self->_state allKeys];
-  v5 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v21;
+    v7 = *v20;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v20 + 1) + 8 * i);
+        v9 = *(*(&v19 + 1) + 8 * i);
         v10 = [(FBPlistApplicationDataStoreRepository *)self _stateQueue_storeForIdentifier:v9];
         v11 = v10;
         if (v10)
@@ -758,13 +753,11 @@ void __46__FBPlistApplicationDataStoreRepository__load__block_invoke(uint64_t a1
         }
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v6);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -835,26 +828,26 @@ void __62__FBPlistApplicationDataStoreRepository__stateQueue_markDirty__block_in
 
 - (void)_writeQueue_flushSynchronously
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_writeQueue);
   if (!self->_batchCount)
   {
-    v11 = 0;
-    v12 = &v11;
-    v13 = 0x3032000000;
-    v14 = __Block_byref_object_copy__1;
-    v15 = __Block_byref_object_dispose__1;
-    v16 = 0;
+    v10 = 0;
+    v11 = &v10;
+    v12 = 0x3032000000;
+    v13 = __Block_byref_object_copy__1;
+    v14 = __Block_byref_object_dispose__1;
+    v15 = 0;
     stateQueue = self->_stateQueue;
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __71__FBPlistApplicationDataStoreRepository__writeQueue_flushSynchronously__block_invoke;
-    v10[3] = &unk_1E783C060;
-    v10[4] = self;
-    v10[5] = &v11;
-    v10[6] = a2;
-    dispatch_sync(stateQueue, v10);
-    if (v12[5])
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __71__FBPlistApplicationDataStoreRepository__writeQueue_flushSynchronously__block_invoke;
+    v9[3] = &unk_1E783C060;
+    v9[4] = self;
+    v9[5] = &v10;
+    v9[6] = a2;
+    dispatch_sync(stateQueue, v9);
+    if (v11[5])
     {
       path = [(NSURL *)self->_storeURL path];
       stringByDeletingLastPathComponent = [path stringByDeletingLastPathComponent];
@@ -862,19 +855,17 @@ void __62__FBPlistApplicationDataStoreRepository__stateQueue_markDirty__block_in
       if (([v7 fileExistsAtPath:stringByDeletingLastPathComponent] & 1) == 0)
       {
         [v7 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:0];
-        v17 = *MEMORY[0x1E696A3A0];
-        v18[0] = *MEMORY[0x1E696A3A8];
-        v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+        v16 = *MEMORY[0x1E696A3A0];
+        v17[0] = *MEMORY[0x1E696A3A8];
+        v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
         [v7 setAttributes:v8 ofItemAtPath:stringByDeletingLastPathComponent error:0];
       }
 
-      [v12[5] writeToFile:path options:268435457 error:0];
+      [v11[5] writeToFile:path options:268435457 error:0];
     }
 
-    _Block_object_dispose(&v11, 8);
+    _Block_object_dispose(&v10, 8);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __71__FBPlistApplicationDataStoreRepository__writeQueue_flushSynchronously__block_invoke(uint64_t a1)
@@ -987,22 +978,21 @@ void __71__FBPlistApplicationDataStoreRepository__writeQueue_flushSynchronously_
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v6 = NSStringFromSelector(*(a2 + 48));
-    v7 = *a3;
-    v8 = objc_opt_class();
-    v9 = NSStringFromClass(v8);
-    v10 = *a3;
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
+    v9 = *a3;
     *buf = 138544642;
-    v12 = v6;
-    v13 = 2114;
-    v14 = v9;
-    v15 = 2048;
-    v16 = v10;
-    v17 = 2114;
-    v18 = @"FBPlistApplicationDataStoreRepository.m";
-    v19 = 1024;
-    v20 = 389;
-    v21 = 2114;
-    v22 = v5;
+    v11 = v6;
+    v12 = 2114;
+    v13 = v8;
+    v14 = 2048;
+    v15 = v9;
+    v16 = 2114;
+    v17 = @"FBPlistApplicationDataStoreRepository.m";
+    v18 = 1024;
+    v19 = 389;
+    v20 = 2114;
+    v21 = v5;
     _os_log_error_impl(&dword_1A89DD000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 

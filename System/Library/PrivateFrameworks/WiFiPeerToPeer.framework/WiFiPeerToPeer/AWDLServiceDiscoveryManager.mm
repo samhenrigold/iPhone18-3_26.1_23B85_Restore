@@ -83,33 +83,33 @@
 
 void __47__AWDLServiceDiscoveryManager__retryConnection__block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = *(*(a1 + 32) + 32);
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [v3 trafficRegistration:*(*(&v10 + 1) + 8 * v8++) enabled:1 completionHandler:{&__block_literal_global_88, v10}];
+        [v3 trafficRegistration:*(*(&v9 + 1) + 8 * v8++) enabled:1 completionHandler:{&__block_literal_global_88, v9}];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
@@ -119,8 +119,6 @@ void __47__AWDLServiceDiscoveryManager__retryConnection__block_invoke(uint64_t a
   {
     [v3 setAWDLSuspendedState:1 completionHandler:&__block_literal_global_90];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectionInvalidated
@@ -687,30 +685,30 @@ uint64_t __81__AWDLServiceDiscoveryManager_getActiveTrafficRegistrationWithCompl
 
 - (void)invalidatedActiveTrafficRegistration:(id)registration
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   registrationCopy = registration;
   [(NSLock *)self->_lock lock];
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v5 = self->_activeTrafficRegistrations;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
-        if ([v10 isEqual:{registrationCopy, v15}])
+        v10 = *(*(&v14 + 1) + 8 * i);
+        if ([v10 isEqual:{registrationCopy, v14}])
         {
           invalidationHandler = [v10 invalidationHandler];
 
@@ -722,7 +720,7 @@ uint64_t __81__AWDLServiceDiscoveryManager_getActiveTrafficRegistrationWithCompl
         }
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -742,8 +740,6 @@ uint64_t __81__AWDLServiceDiscoveryManager_getActiveTrafficRegistrationWithCompl
   }
 
   [(NSLock *)self->_lock unlock];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

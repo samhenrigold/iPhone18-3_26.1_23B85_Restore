@@ -119,7 +119,7 @@
       v20 = fabs(v19);
 
       validateContextTTL = [v16 validateContextTTL];
-      [validateContextTTL doubleValue];
+      objc_msgSend_doubleValue(validateContextTTL);
       if (v22 <= 30.0)
       {
         v25 = 120.0;
@@ -128,7 +128,7 @@
       else
       {
         validateContextTTL2 = [v16 validateContextTTL];
-        [validateContextTTL2 doubleValue];
+        objc_msgSend_doubleValue(validateContextTTL2);
         v25 = v24 + -30.0;
       }
 

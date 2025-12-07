@@ -15,7 +15,7 @@
 - (void)accessibilityApplyScrollContent:(CGPoint)content sendScrollStatus:(BOOL)status animated:(BOOL)animated
 {
   animatedCopy = animated;
-  if ((accessibilityIsPagesApp() & 1) == 0)
+  if ((accessibilityIsPagesApp(self, a2) & 1) == 0)
   {
     AXPerformSafeBlock();
   }

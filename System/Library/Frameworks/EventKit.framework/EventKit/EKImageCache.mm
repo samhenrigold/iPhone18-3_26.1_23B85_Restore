@@ -67,30 +67,30 @@
 
 - (void)uncacheImage:(id)image
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   imageCopy = image;
   os_unfair_lock_lock(&self->_lock);
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = self->_cache;
-  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
-        v11 = [(NSMutableDictionary *)self->_cache objectForKeyedSubscript:v10, v13];
+        v10 = *(*(&v12 + 1) + 8 * i);
+        v11 = [(NSMutableDictionary *)self->_cache objectForKeyedSubscript:v10, v12];
 
         if (v11 == imageCopy)
         {
@@ -99,7 +99,7 @@
         }
       }
 
-      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [(NSMutableDictionary *)v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v7)
       {
         continue;
@@ -112,7 +112,6 @@
 LABEL_11:
 
   os_unfair_lock_unlock(&self->_lock);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -33,6 +33,7 @@
 - (id)defaultSupportedCommandsForClient:(id)client;
 - (id)existingNowPlayingClientForClient:(id)client;
 - (id)existingNowPlayingClientForDisplayID:(id)d;
+- (id)existingNowPlayingClientForPid:(int)pid;
 - (id)existingNowPlayingClientForPlayerPath:(id)path;
 - (id)nowPlayingClientForClient:(id)client;
 - (id)nowPlayingClientForPlayerPath:(id)path;
@@ -52,6 +53,7 @@
 - (void)_onQueue_reevaluateStateWithReason:(id)reason;
 - (void)_onQueue_reloadInferredStateFromDataSource:(id)source reason:(id)reason;
 - (void)_onQueue_removeNowPlayingClient:(id)client;
+- (void)_onQueue_updateActivityStatus:(int)status;
 - (void)_registerCallbacks;
 - (void)clearDefaultSupportedCommandsData;
 - (void)deviceInfoDataSource:(id)source deviceInfoDidChange:(id)change;
@@ -81,73 +83,68 @@
 
 - (MRDeviceInfo)deviceInfo
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = sub_1000350EC;
-  v9 = sub_100035A2C;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = sub_1000350EC;
+  v8 = sub_100035A2C;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 - (float)volume
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[6];
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = v5[6];
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (unsigned)volumeControlCapabilities
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = *(v6 + 6);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = *(v5 + 6);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (BOOL)isMuted
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = *(v6 + 24);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = *(v5 + 24);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (MRDNowPlayingClient)activeNowPlayingClient
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = sub_1000350EC;
-  v9 = sub_100035A2C;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = sub_1000350EC;
+  v8 = sub_100035A2C;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 - (id)_onQueue_calculateInferredNowPlayingClient
@@ -403,13 +400,10 @@ LABEL_15:
 
 - (NSArray)nowPlayingClients
 {
-  v3 = objc_alloc_init(NSMutableSet);
-  serialQueue = self->_serialQueue;
-  selfCopy = self;
-  v9 = v3;
-  v5 = v3;
+  v6 = objc_alloc_init(NSMutableSet);
+  v2 = v6;
   msv_dispatch_sync_on_queue();
-  allObjects = [v5 allObjects];
+  allObjects = [v2 allObjects];
 
   return allObjects;
 }
@@ -501,22 +495,8 @@ LABEL_15:
         v14 = [v10 snapshotForIsPlaying:0];
         date = [v14 date];
 
-        if (!date)
+        if (!date || (+[NSDate date](NSDate, "date"), v16 = objc_claimAutoreleasedReturnValue(), [v16 timeIntervalSinceDate:date], v18 = v17, v16, +[MRUserSettings currentSettings](MRUserSettings, "currentSettings"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "nowPlayingApplicationTimeout"), v21 = v20, v19, v18 <= v21))
         {
-          goto LABEL_11;
-        }
-
-        v16 = +[NSDate date];
-        [v16 timeIntervalSinceDate:date];
-        v18 = v17;
-
-        v19 = +[MRUserSettings currentSettings];
-        [v19 nowPlayingApplicationTimeout];
-        v21 = v20;
-
-        if (v18 <= v21)
-        {
-LABEL_11:
 
 LABEL_12:
 LABEL_13:
@@ -546,13 +526,11 @@ LABEL_14:
 
 - (NSArray)mostRecentPlayers
 {
-  v3 = objc_alloc_init(NSMutableArray);
-  serialQueue = self->_serialQueue;
-  v7 = v3;
+  v4 = objc_alloc_init(NSMutableArray);
   msv_dispatch_sync_on_queue();
-  v5 = v7;
+  v2 = v4;
 
-  return v7;
+  return v4;
 }
 
 - (NSArray)nowPlayingAudioFormatContentInfos
@@ -565,18 +543,17 @@ LABEL_14:
 
 - (NSDate)lastPlayingDateSnapshot
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = sub_1000350EC;
-  v9 = sub_100035A2C;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = sub_1000350EC;
+  v8 = sub_100035A2C;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 - (BOOL)containsActiveStream
@@ -724,158 +701,153 @@ LABEL_15:
 {
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  origin = self->_origin;
+  v5 = MRCreateIndentedDebugDescriptionFromObject();
   v6 = MRCreateIndentedDebugDescriptionFromObject();
-  deviceInfo = self->_deviceInfo;
-  v8 = MRCreateIndentedDebugDescriptionFromObject();
   volume = self->_volume;
-  volumeControlCapabilities = self->_volumeControlCapabilities;
-  v11 = MRMediaRemotePickedRouteVolumeControlCapabilitiesCopyDescription();
-  v12 = @"YES";
+  v8 = MRMediaRemotePickedRouteVolumeControlCapabilitiesCopyDescription();
+  v9 = @"YES";
   if (self->_isMuted)
   {
-    v13 = @"YES";
+    v10 = @"YES";
   }
 
   else
   {
-    v13 = @"NO";
+    v10 = @"NO";
   }
 
   [(MRDNowPlayingOriginClient *)self timeSincePlaying];
-  v15 = v14;
+  v12 = v11;
   [(MRDNowPlayingOriginClient *)self timeSincePlaybackStarted];
-  v17 = v16;
+  v14 = v13;
   if (![(MRDNowPlayingOriginClient *)self isPlaying])
   {
-    v12 = @"NO";
+    v9 = @"NO";
   }
 
   devicePlaybackSessionID = [(MRDNowPlayingOriginClient *)self devicePlaybackSessionID];
-  v19 = [NSMutableString stringWithFormat:@"%@ %p {\n  origin = %@\n  deviceInfo = %@\n  volume = %f\n  volume capabilities = %@\n  isMuted = %@\n  time since playing = %lf\n  time since playback started = %lf\n  is playing = %@\n  devicePlaybackSessionID = %@\n", v4, self, v6, v8, *&volume, v11, v13, v15, v17, v12, devicePlaybackSessionID];
+  v16 = [NSMutableString stringWithFormat:@"%@ %p {\n  origin = %@\n  deviceInfo = %@\n  volume = %f\n  volume capabilities = %@\n  isMuted = %@\n  time since playing = %lf\n  time since playback started = %lf\n  is playing = %@\n  devicePlaybackSessionID = %@\n", v4, self, v5, v6, *&volume, v8, v10, v12, v14, v9, devicePlaybackSessionID];
 
   activeNowPlayingClient = self->_activeNowPlayingClient;
   if (activeNowPlayingClient)
   {
     client = [(MRDNowPlayingClient *)activeNowPlayingClient client];
-    [v19 appendFormat:@"  active now playing client = %@\n", client];
+    [v16 appendFormat:@"  active now playing client = %@\n", client];
   }
 
   overrideClient = self->_overrideClient;
   if (overrideClient)
   {
     bundleIdentifier = [(MRDMediaRemoteClient *)overrideClient bundleIdentifier];
-    [v19 appendFormat:@"  override client = %@\n", bundleIdentifier];
+    [v16 appendFormat:@"  override client = %@\n", bundleIdentifier];
   }
 
   explicitNowPlayingClient = self->_explicitNowPlayingClient;
   if (explicitNowPlayingClient)
   {
     client2 = [(MRDNowPlayingClient *)explicitNowPlayingClient client];
-    v26 = MRCreateIndentedDebugDescriptionFromObject();
-    [v19 appendFormat:@"  explicit now playing client = %@\n", v26];
+    v23 = MRCreateIndentedDebugDescriptionFromObject();
+    [v16 appendFormat:@"  explicit now playing client = %@\n", v23];
   }
 
   computedNowPlayingClient = self->_computedNowPlayingClient;
   if (computedNowPlayingClient)
   {
     client3 = [(MRDNowPlayingClient *)computedNowPlayingClient client];
-    v29 = MRCreateIndentedDebugDescriptionFromObject();
-    [v19 appendFormat:@"  computed now playing client = %@\n", v29];
+    v26 = MRCreateIndentedDebugDescriptionFromObject();
+    [v16 appendFormat:@"  computed now playing client = %@\n", v26];
   }
 
   inferredNowPlayingClient = self->_inferredNowPlayingClient;
   if (inferredNowPlayingClient)
   {
     client4 = [(MRDNowPlayingClient *)inferredNowPlayingClient client];
-    v32 = MRCreateIndentedDebugDescriptionFromObject();
-    [v19 appendFormat:@"  inferred now playing client = %@\n", v32];
+    v29 = MRCreateIndentedDebugDescriptionFromObject();
+    [v16 appendFormat:@"  inferred now playing client = %@\n", v29];
   }
 
   if (self->_activity)
   {
-    v33 = MRCreateIndentedDebugDescriptionFromObject();
-    [v19 appendFormat:@"  app activity = %@\n", v33];
+    v30 = MRCreateIndentedDebugDescriptionFromObject();
+    [v16 appendFormat:@"  app activity = %@\n", v30];
   }
 
   if (self->_nowPlayingDataSource)
   {
-    v34 = MRCreateIndentedDebugDescriptionFromObject();
-    [v19 appendFormat:@"  datasource = %@\n", v34];
+    v31 = MRCreateIndentedDebugDescriptionFromObject();
+    [v16 appendFormat:@"  datasource = %@\n", v31];
   }
 
   defaultSupportedCommands = [(MRDNowPlayingOriginClient *)self defaultSupportedCommands];
   if ([defaultSupportedCommands count])
   {
-    v36 = MRMediaRemoteCopyReadableDictionaryDescription();
-    v37 = MRCreateIndentedDebugDescriptionFromObject();
-    [v19 appendFormat:@"  default supportedCommands = %@\n", v37];
+    v33 = MRMediaRemoteCopyReadableDictionaryDescription();
+    v34 = MRCreateIndentedDebugDescriptionFromObject();
+    [v16 appendFormat:@"  default supportedCommands = %@\n", v34];
   }
 
   if ([(NSMutableArray *)self->_nowPlayingClients count])
   {
     nowPlayingClients = self->_nowPlayingClients;
-    v42[0] = _NSConcreteStackBlock;
-    v42[1] = 3221225472;
-    v42[2] = sub_1000E9098;
-    v42[3] = &unk_1004BC320;
-    v42[4] = self;
-    v39 = [(NSMutableArray *)nowPlayingClients sortedArrayUsingComparator:v42];
-    v40 = MRCreateIndentedDebugDescriptionFromArray();
-    [v19 appendFormat:@"all now playing clients = %@\n", v40];
+    v39[0] = _NSConcreteStackBlock;
+    v39[1] = 3221225472;
+    v39[2] = sub_1000E9098;
+    v39[3] = &unk_1004BC320;
+    v39[4] = self;
+    v36 = [(NSMutableArray *)nowPlayingClients sortedArrayUsingComparator:v39];
+    v37 = MRCreateIndentedDebugDescriptionFromArray();
+    [v16 appendFormat:@"all now playing clients = %@\n", v37];
   }
 
-  return v19;
+  return v16;
 }
 
 - (void)setDeviceInfo:(id)info
 {
-  infoCopy = info;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 0;
-  v23[0] = 0;
-  v23[1] = v23;
-  v23[2] = 0x3032000000;
-  v23[3] = sub_1000350EC;
-  v23[4] = sub_100035A2C;
-  v24 = 0;
-  v21[0] = 0;
-  v21[1] = v21;
-  v21[2] = 0x3032000000;
-  v21[3] = sub_1000350EC;
-  v21[4] = sub_100035A2C;
   v22 = 0;
-  serialQueue = self->_serialQueue;
-  v12 = _NSConcreteStackBlock;
-  v13 = 3221225472;
-  v14 = sub_1000E93AC;
-  v15 = &unk_1004BC348;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
+  v20[0] = 0;
+  v20[1] = v20;
+  v20[2] = 0x3032000000;
+  v20[3] = sub_1000350EC;
+  v20[4] = sub_100035A2C;
+  v21 = 0;
+  v18[0] = 0;
+  v18[1] = v18;
+  v18[2] = 0x3032000000;
+  v18[3] = sub_1000350EC;
+  v18[4] = sub_100035A2C;
+  v19 = 0;
+  v9 = _NSConcreteStackBlock;
+  v10 = 3221225472;
+  v11 = sub_1000E93AC;
+  v12 = &unk_1004BC348;
   selfCopy = self;
-  v6 = infoCopy;
-  v17 = v6;
-  v18 = &v25;
-  v19 = v23;
-  v20 = v21;
+  infoCopy = info;
+  v14 = infoCopy;
+  v15 = &v22;
+  v16 = v20;
+  v17 = v18;
   msv_dispatch_sync_on_queue();
-  if (*(v26 + 24) == 1)
+  if (*(v23 + 24) == 1)
   {
-    v7 = dispatch_get_global_queue(-32768, 0);
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_1000E95E8;
-    v8[3] = &unk_1004B9C58;
-    v10 = v21;
-    v9 = v6;
-    v11 = v23;
-    dispatch_async(v7, v8);
+    v4 = dispatch_get_global_queue(-32768, 0);
+    v5[0] = _NSConcreteStackBlock;
+    v5[1] = 3221225472;
+    v5[2] = sub_1000E95E8;
+    v5[3] = &unk_1004B9C58;
+    v7 = v18;
+    v6 = infoCopy;
+    v8 = v20;
+    dispatch_async(v4, v5);
   }
 
-  _Block_object_dispose(v21, 8);
-  _Block_object_dispose(v23, 8);
+  _Block_object_dispose(v18, 8);
+  _Block_object_dispose(v20, 8);
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v22, 8);
 }
 
 - (NSData)deviceInfoData
@@ -915,98 +887,84 @@ LABEL_15:
 - (void)setComputedNowPlayingClient:(id)client
 {
   clientCopy = client;
-  serialQueue = self->_serialQueue;
-  v7 = clientCopy;
-  v6 = clientCopy;
+  v3 = clientCopy;
   msv_dispatch_sync_on_queue();
 }
 
 - (void)setExplicitNowPlayingClient:(id)client
 {
   clientCopy = client;
-  serialQueue = self->_serialQueue;
-  v7 = clientCopy;
-  v6 = clientCopy;
+  v3 = clientCopy;
   msv_dispatch_sync_on_queue();
 }
 
 - (void)setInferredNowPlayingClient:(id)client
 {
   clientCopy = client;
-  serialQueue = self->_serialQueue;
-  v7 = clientCopy;
-  v6 = clientCopy;
+  v3 = clientCopy;
   msv_dispatch_sync_on_queue();
 }
 
 - (void)setOverrideClient:(id)client
 {
   clientCopy = client;
-  serialQueue = self->_serialQueue;
-  v7 = clientCopy;
-  v6 = clientCopy;
+  v3 = clientCopy;
   msv_dispatch_sync_on_queue();
 }
 
 - (void)setActivity:(id)activity
 {
   activityCopy = activity;
-  serialQueue = self->_serialQueue;
-  v7 = activityCopy;
-  v6 = activityCopy;
+  v3 = activityCopy;
   msv_dispatch_sync_on_queue();
 }
 
 - (BOOL)isActivityActive
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = *(v6 + 24);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = *(v5 + 24);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (BOOL)isPlaying
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = *(v6 + 24);
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = *(v5 + 24);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (double)timeSincePlaying
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[3];
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = v5[3];
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (double)timeSincePlaybackStarted
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
-  v8 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[3];
-  _Block_object_dispose(&v5, 8);
-  return v3;
+  v2 = v5[3];
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 - (id)nowPlayingClientForClient:(id)client
@@ -1023,27 +981,33 @@ LABEL_15:
 
 - (id)nowPlayingClientForPlayerPath:(id)path
 {
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x3032000000;
+  v9 = sub_1000350EC;
+  v10 = sub_100035A2C;
+  v11 = 0;
   pathCopy = path;
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x3032000000;
-  v12 = sub_1000350EC;
-  v13 = sub_100035A2C;
-  v14 = 0;
-  serialQueue = self->_serialQueue;
-  v8 = pathCopy;
   msv_dispatch_sync_on_queue();
-  v6 = v10[5];
+  v3 = v7[5];
 
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(&v6, 8);
 
-  return v6;
+  return v3;
 }
 
 - (id)existingNowPlayingClientForPlayerPath:(id)path
 {
   client = [path client];
   v5 = [(MRDNowPlayingOriginClient *)self existingNowPlayingClientForClient:client];
+
+  return v5;
+}
+
+- (id)existingNowPlayingClientForPid:(int)pid
+{
+  v4 = [[MRClient alloc] initWithProcessIdentifier:*&pid bundleIdentifier:0];
+  v5 = [(MRDNowPlayingOriginClient *)self existingNowPlayingClientForClient:v4];
 
   return v5;
 }
@@ -1060,21 +1024,19 @@ LABEL_15:
 
 - (id)existingNowPlayingClientForClient:(id)client
 {
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x3032000000;
+  v9 = sub_1000350EC;
+  v10 = sub_100035A2C;
+  v11 = 0;
   clientCopy = client;
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x3032000000;
-  v12 = sub_1000350EC;
-  v13 = sub_100035A2C;
-  v14 = 0;
-  serialQueue = self->_serialQueue;
-  v8 = clientCopy;
   msv_dispatch_sync_on_queue();
-  v6 = v10[5];
+  v3 = v7[5];
 
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(&v6, 8);
 
-  return v6;
+  return v3;
 }
 
 - (void)removeAllClients
@@ -1091,9 +1053,7 @@ LABEL_15:
 - (void)removeNowPlayingClientForClient:(id)client
 {
   clientCopy = client;
-  serialQueue = self->_serialQueue;
-  v7 = clientCopy;
-  v6 = clientCopy;
+  v3 = clientCopy;
   msv_dispatch_sync_on_queue();
 }
 
@@ -1205,21 +1165,19 @@ LABEL_15:
 
 - (id)defaultSupportedCommandsDataForClient:(id)client
 {
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x3032000000;
+  v9 = sub_1000350EC;
+  v10 = sub_100035A2C;
+  v11 = 0;
   clientCopy = client;
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x3032000000;
-  v12 = sub_1000350EC;
-  v13 = sub_100035A2C;
-  v14 = 0;
-  serialQueue = self->_serialQueue;
-  v8 = clientCopy;
   msv_dispatch_sync_on_queue();
-  v6 = v10[5];
+  v3 = v7[5];
 
-  _Block_object_dispose(&v9, 8);
+  _Block_object_dispose(&v6, 8);
 
-  return v6;
+  return v3;
 }
 
 - (id)defaultSupportedCommandsForClient:(id)client
@@ -1854,19 +1812,19 @@ LABEL_32:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v56 = v12;
-    v57 = 2114;
-    v58 = v14;
+    v55 = v12;
+    v56 = 2114;
+    v57 = v14;
     _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "[MRDNowPlayingOriginClient] ActiveNowPlayingClient changed from %{public}@ to %{public}@", buf, 0x16u);
   }
 
   objc_storeStrong(&self->_activeNowPlayingClient, _onQueue_calculateActiveNowPlayingClient);
   if (!self->_activeNowPlayingClient)
   {
-    v28 = _MRLogForCategory();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+    v27 = _MRLogForCategory();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
-      sub_1003A8850(self, v28, v29, v30, v31, v32, v33, v34);
+      sub_1003A8850(self, v27, v28, v29, v30, v31, v32, v33);
     }
 
     activeNowPlayingClientTransaction = self->_activeNowPlayingClientTransaction;
@@ -1889,15 +1847,14 @@ LABEL_32:
     v26 = self->_activeNowPlayingClientTransaction;
     self->_activeNowPlayingClientTransaction = v25;
 
-    v27 = self->_activeNowPlayingClientTransaction;
     MRRegisterTransaction();
 LABEL_14:
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v36 = [v14 copy];
+  v35 = [v14 copy];
   activePlayerClient = [(MRDNowPlayingClient *)self->_activeNowPlayingClient activePlayerClient];
-  [WeakRetained nowPlayingOriginClient:self activePlayerPathDidChange:v36 withPlaybackState:{objc_msgSend(activePlayerClient, "playbackState")}];
+  [WeakRetained nowPlayingOriginClient:self activePlayerPathDidChange:v35 withPlaybackState:{objc_msgSend(activePlayerClient, "playbackState")}];
 
   if (!self->_activity)
   {
@@ -1910,7 +1867,7 @@ LABEL_14:
 
   if (processIdentifier == creatorProcessID)
   {
-    v41 = 4;
+    v40 = 4;
   }
 
   else
@@ -1924,36 +1881,50 @@ LABEL_14:
       goto LABEL_21;
     }
 
-    v41 = 2;
+    v40 = 2;
   }
 
-  [(MRDNowPlayingOriginClient *)self _onQueue_updateActivityStatus:v41];
+  [(MRDNowPlayingOriginClient *)self _onQueue_updateActivityStatus:v40];
 LABEL_21:
   _onQueue_calculateActiveNowPlayingPlayerClients = [(MRDNowPlayingOriginClient *)self _onQueue_calculateActiveNowPlayingPlayerClients];
-  v46 = [NSSet setWithArray:self->_activePlayerClients];
-  v47 = [v46 isEqualToSet:_onQueue_calculateActiveNowPlayingPlayerClients];
+  v45 = [NSSet setWithArray:self->_activePlayerClients];
+  v46 = [v45 isEqualToSet:_onQueue_calculateActiveNowPlayingPlayerClients];
 
-  if ((v47 & 1) == 0)
+  if ((v46 & 1) == 0)
   {
-    v48 = _MRLogForCategory();
-    if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+    v47 = _MRLogForCategory();
+    if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
     {
-      v49 = [(NSArray *)self->_activePlayerClients mr_map:&stru_1004BC3D0];
+      v48 = [(NSArray *)self->_activePlayerClients mr_map:&stru_1004BC3D0];
       allObjects = [_onQueue_calculateActiveNowPlayingPlayerClients allObjects];
-      v51 = [allObjects mr_map:&stru_1004BC3F0];
+      v50 = [allObjects mr_map:&stru_1004BC3F0];
       *buf = 138543618;
-      v56 = v49;
-      v57 = 2114;
-      v58 = v51;
-      _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, "[MRDNowPlayingOriginClient] ActiveNowPlayingPlayersClients changed from %{public}@ to %{public}@", buf, 0x16u);
+      v55 = v48;
+      v56 = 2114;
+      v57 = v50;
+      _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "[MRDNowPlayingOriginClient] ActiveNowPlayingPlayersClients changed from %{public}@ to %{public}@", buf, 0x16u);
     }
 
     allObjects2 = [_onQueue_calculateActiveNowPlayingPlayerClients allObjects];
     activePlayerClients = self->_activePlayerClients;
     self->_activePlayerClients = allObjects2;
 
-    v54 = objc_loadWeakRetained(&self->_delegate);
-    [v54 nowPlayingOriginClient:self activePlayerClientsDidChange:self->_activePlayerClients];
+    v53 = objc_loadWeakRetained(&self->_delegate);
+    [v53 nowPlayingOriginClient:self activePlayerClientsDidChange:self->_activePlayerClients];
+  }
+}
+
+- (void)_onQueue_updateActivityStatus:(int)status
+{
+  v3 = *&status;
+  dispatch_assert_queue_V2(self->_serialQueue);
+  activity = self->_activity;
+  if (activity && [(MRMutableApplicationActivity *)activity status]!= v3)
+  {
+    [(MRMutableApplicationActivity *)self->_activity setStatus:v3];
+    WeakRetained = objc_loadWeakRetained(&self->_delegate);
+    v6 = [(MRMutableApplicationActivity *)self->_activity copy];
+    [WeakRetained nowPlayingOriginClient:self applicationActivityStatusDidChange:v6];
   }
 }
 

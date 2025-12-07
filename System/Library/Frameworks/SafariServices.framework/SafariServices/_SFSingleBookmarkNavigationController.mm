@@ -118,7 +118,7 @@
 
 - (void)_willResignActive
 {
-  v3 = WBS_LOG_CHANNEL_PREFIXBookmarkSync();
+  v3 = WBS_LOG_CHANNEL_PREFIXBookmarkSync(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -131,7 +131,7 @@
 
 - (void)_didBecomeActive
 {
-  v3 = WBS_LOG_CHANNEL_PREFIXBookmarkSync();
+  v3 = WBS_LOG_CHANNEL_PREFIXBookmarkSync(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -148,7 +148,7 @@
 
 - (void)_releaseBookmarkLockIfNeeded
 {
-  v3 = WBS_LOG_CHANNEL_PREFIXBookmarkSync();
+  v3 = WBS_LOG_CHANNEL_PREFIXBookmarkSync(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -180,7 +180,7 @@
 
 - (BOOL)prepareForPresentationForAddingBookmark:(BOOL)bookmark
 {
-  v5 = WBS_LOG_CHANNEL_PREFIXBookmarkSync();
+  v5 = WBS_LOG_CHANNEL_PREFIXBookmarkSync(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *v9 = 0;

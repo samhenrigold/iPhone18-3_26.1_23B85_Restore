@@ -51,7 +51,7 @@
 
 - (id)dictionaryEncoding
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   type = self->_type;
   if (type > 2)
   {
@@ -63,10 +63,9 @@
     v3 = off_2785FB7D0[type];
   }
 
-  v7 = @"routine_type";
-  v8[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = @"routine_type";
+  v7[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }

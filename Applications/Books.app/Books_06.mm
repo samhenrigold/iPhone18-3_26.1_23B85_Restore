@@ -1,4 +1,583 @@
-__n128 *sub_100130FE0(uint64_t a1, __n128 *a2, __n128 *a3, unsigned int (**a4)(__n128 *, __n128 *))
+BOOL sub_100130974(__n128 *a1, __n128 *a2, unsigned int (**a3)(__n128 *, __n128 *))
+{
+  v6 = (a2 - a1) >> 6;
+  if (v6 > 2)
+  {
+    switch(v6)
+    {
+      case 3:
+        v56 = a2 - 4;
+        v57 = *a3;
+        v58 = a1[5];
+        v189 = a1[4];
+        v190 = v58;
+        v59 = a1[7];
+        v191 = a1[6];
+        v192 = v59;
+        v60 = a1[1];
+        v185 = *a1;
+        v186 = v60;
+        v61 = a1[3];
+        v187 = a1[2];
+        v188 = v61;
+        v62 = v57(&v189, &v185);
+        v63 = *a3;
+        if (v62)
+        {
+          v64 = v56[1];
+          v189 = *v56;
+          v190 = v64;
+          v65 = v56[3];
+          v191 = v56[2];
+          v192 = v65;
+          v66 = a1[5];
+          v185 = a1[4];
+          v186 = v66;
+          v67 = a1[7];
+          v187 = a1[6];
+          v188 = v67;
+          if (v63(&v189, &v185))
+          {
+            v69 = a1[2];
+            v68 = a1[3];
+            v71 = *a1;
+            v70 = a1[1];
+            v72 = v56[3];
+            v74 = *v56;
+            v73 = v56[1];
+            a1[2] = v56[2];
+            a1[3] = v72;
+            *a1 = v74;
+            a1[1] = v73;
+          }
+
+          else
+          {
+            v137 = a1[2];
+            v136 = a1[3];
+            v139 = *a1;
+            v138 = a1[1];
+            v140 = a1[5];
+            *a1 = a1[4];
+            a1[1] = v140;
+            v141 = a1[7];
+            a1[2] = a1[6];
+            a1[3] = v141;
+            a1[4] = v139;
+            a1[5] = v138;
+            a1[6] = v137;
+            a1[7] = v136;
+            v142 = *a3;
+            v143 = v56[1];
+            v189 = *v56;
+            v190 = v143;
+            v144 = v56[3];
+            v191 = v56[2];
+            v192 = v144;
+            v145 = a1[5];
+            v185 = a1[4];
+            v186 = v145;
+            v146 = a1[7];
+            v187 = a1[6];
+            v188 = v146;
+            if (!v142(&v189, &v185))
+            {
+              return 1;
+            }
+
+            v69 = a1[6];
+            v68 = a1[7];
+            v71 = a1[4];
+            v70 = a1[5];
+            v147 = v56[3];
+            v149 = *v56;
+            v148 = v56[1];
+            a1[6] = v56[2];
+            a1[7] = v147;
+            a1[4] = v149;
+            a1[5] = v148;
+          }
+
+          *v56 = v71;
+          v56[1] = v70;
+          result = 1;
+          v56[2] = v69;
+          v56[3] = v68;
+          return result;
+        }
+
+        v93 = v56[1];
+        v189 = *v56;
+        v190 = v93;
+        v94 = v56[3];
+        v191 = v56[2];
+        v192 = v94;
+        v95 = a1[5];
+        v185 = a1[4];
+        v186 = v95;
+        v96 = a1[7];
+        v187 = a1[6];
+        v188 = v96;
+        if (!v63(&v189, &v185))
+        {
+          return 1;
+        }
+
+        v98 = a1[6];
+        v97 = a1[7];
+        v100 = a1[4];
+        v99 = a1[5];
+        v101 = v56[3];
+        v103 = *v56;
+        v102 = v56[1];
+        a1[6] = v56[2];
+        a1[7] = v101;
+        a1[4] = v103;
+        a1[5] = v102;
+        *v56 = v100;
+        v56[1] = v99;
+        v56[2] = v98;
+        v56[3] = v97;
+        break;
+      case 4:
+        sub_100130000(a1, a1 + 4, a1 + 8, a2 - 4, a3);
+        return 1;
+      case 5:
+        sub_100130000(a1, a1 + 4, a1 + 8, a1 + 12, a3);
+        v21 = *a3;
+        v22 = a2[-3];
+        v189 = a2[-4];
+        v190 = v22;
+        v23 = a2[-1];
+        v191 = a2[-2];
+        v192 = v23;
+        v24 = a1[13];
+        v185 = a1[12];
+        v186 = v24;
+        v25 = a1[15];
+        v187 = a1[14];
+        v188 = v25;
+        if (!v21(&v189, &v185))
+        {
+          return 1;
+        }
+
+        v26 = a2 - 4;
+        v28 = a1[14];
+        v27 = a1[15];
+        v30 = a1[12];
+        v29 = a1[13];
+        v31 = a2[-1];
+        v33 = a2[-4];
+        v32 = a2[-3];
+        a1[14] = a2[-2];
+        a1[15] = v31;
+        a1[12] = v33;
+        a1[13] = v32;
+        *v26 = v30;
+        v26[1] = v29;
+        v26[2] = v28;
+        v26[3] = v27;
+        v34 = *a3;
+        v35 = a1[13];
+        v189 = a1[12];
+        v190 = v35;
+        v36 = a1[15];
+        v191 = a1[14];
+        v192 = v36;
+        v37 = a1[9];
+        v185 = a1[8];
+        v186 = v37;
+        v38 = a1[11];
+        v187 = a1[10];
+        v188 = v38;
+        if (!v34(&v189, &v185))
+        {
+          return 1;
+        }
+
+        v40 = a1[10];
+        v39 = a1[11];
+        v42 = a1[8];
+        v41 = a1[9];
+        v43 = a1[13];
+        a1[8] = a1[12];
+        a1[9] = v43;
+        v44 = a1[15];
+        a1[10] = a1[14];
+        a1[11] = v44;
+        a1[12] = v42;
+        a1[13] = v41;
+        a1[14] = v40;
+        a1[15] = v39;
+        v45 = *a3;
+        v46 = a1[9];
+        v189 = a1[8];
+        v190 = v46;
+        v47 = a1[11];
+        v191 = a1[10];
+        v192 = v47;
+        v48 = a1[5];
+        v185 = a1[4];
+        v186 = v48;
+        v49 = a1[7];
+        v187 = a1[6];
+        v188 = v49;
+        if (!v45(&v189, &v185))
+        {
+          return 1;
+        }
+
+        v51 = a1[6];
+        v50 = a1[7];
+        v53 = a1[4];
+        v52 = a1[5];
+        v54 = a1[9];
+        a1[4] = a1[8];
+        a1[5] = v54;
+        v55 = a1[11];
+        a1[6] = a1[10];
+        a1[7] = v55;
+        a1[8] = v53;
+        a1[9] = v52;
+        a1[10] = v51;
+        a1[11] = v50;
+        break;
+      default:
+        goto LABEL_16;
+    }
+
+    v104 = *a3;
+    v105 = a1[5];
+    v189 = a1[4];
+    v190 = v105;
+    v106 = a1[7];
+    v191 = a1[6];
+    v192 = v106;
+    v107 = a1[1];
+    v185 = *a1;
+    v186 = v107;
+    v108 = a1[3];
+    v187 = a1[2];
+    v188 = v108;
+    if (v104(&v189, &v185))
+    {
+      v110 = a1[2];
+      v109 = a1[3];
+      v112 = *a1;
+      v111 = a1[1];
+      v113 = a1[5];
+      *a1 = a1[4];
+      a1[1] = v113;
+      v114 = a1[7];
+      a1[2] = a1[6];
+      a1[3] = v114;
+      a1[4] = v112;
+      a1[5] = v111;
+      a1[6] = v110;
+      a1[7] = v109;
+    }
+
+    return 1;
+  }
+
+  if (v6 < 2)
+  {
+    return 1;
+  }
+
+  if (v6 == 2)
+  {
+    v7 = *a3;
+    v8 = a2[-3];
+    v189 = a2[-4];
+    v190 = v8;
+    v9 = a2[-1];
+    v191 = a2[-2];
+    v192 = v9;
+    v10 = a1[1];
+    v185 = *a1;
+    v186 = v10;
+    v11 = a1[3];
+    v187 = a1[2];
+    v188 = v11;
+    if (v7(&v189, &v185))
+    {
+      v12 = a2 - 4;
+      v14 = a1[2];
+      v13 = a1[3];
+      v16 = *a1;
+      v15 = a1[1];
+      v17 = a2[-1];
+      v19 = a2[-4];
+      v18 = a2[-3];
+      a1[2] = a2[-2];
+      a1[3] = v17;
+      *a1 = v19;
+      a1[1] = v18;
+      *v12 = v16;
+      v12[1] = v15;
+      result = 1;
+      v12[2] = v14;
+      v12[3] = v13;
+      return result;
+    }
+
+    return 1;
+  }
+
+LABEL_16:
+  v75 = a1 + 8;
+  v76 = *a3;
+  v77 = a1[5];
+  v189 = a1[4];
+  v190 = v77;
+  v78 = a1[7];
+  v191 = a1[6];
+  v192 = v78;
+  v79 = a1[1];
+  v185 = *a1;
+  v186 = v79;
+  v80 = a1[3];
+  v187 = a1[2];
+  v188 = v80;
+  v81 = v76(&v189, &v185);
+  v82 = *a3;
+  if (v81)
+  {
+    v83 = a1[9];
+    v189 = *v75;
+    v190 = v83;
+    v84 = a1[11];
+    v191 = a1[10];
+    v192 = v84;
+    v85 = a1[5];
+    v185 = a1[4];
+    v186 = v85;
+    v86 = a1[7];
+    v187 = a1[6];
+    v188 = v86;
+    if (v82(&v189, &v185))
+    {
+      v88 = a1[2];
+      v87 = a1[3];
+      v90 = *a1;
+      v89 = a1[1];
+      v91 = a1[9];
+      *a1 = *v75;
+      a1[1] = v91;
+      v92 = a1[11];
+      a1[2] = a1[10];
+      a1[3] = v92;
+    }
+
+    else
+    {
+      v151 = a1[2];
+      v150 = a1[3];
+      v153 = *a1;
+      v152 = a1[1];
+      v154 = a1[5];
+      *a1 = a1[4];
+      a1[1] = v154;
+      v155 = a1[7];
+      a1[2] = a1[6];
+      a1[3] = v155;
+      a1[4] = v153;
+      a1[5] = v152;
+      a1[6] = v151;
+      a1[7] = v150;
+      v156 = *a3;
+      v157 = a1[9];
+      v189 = *v75;
+      v190 = v157;
+      v158 = a1[11];
+      v191 = a1[10];
+      v192 = v158;
+      v159 = a1[5];
+      v185 = a1[4];
+      v186 = v159;
+      v160 = a1[7];
+      v187 = a1[6];
+      v188 = v160;
+      if (!v156(&v189, &v185))
+      {
+        goto LABEL_33;
+      }
+
+      v88 = a1[6];
+      v87 = a1[7];
+      v90 = a1[4];
+      v89 = a1[5];
+      v161 = a1[9];
+      a1[4] = *v75;
+      a1[5] = v161;
+      v162 = a1[11];
+      a1[6] = a1[10];
+      a1[7] = v162;
+    }
+
+    *v75 = v90;
+    a1[9] = v89;
+    a1[10] = v88;
+    a1[11] = v87;
+  }
+
+  else
+  {
+    v115 = a1[9];
+    v189 = *v75;
+    v190 = v115;
+    v116 = a1[11];
+    v191 = a1[10];
+    v192 = v116;
+    v117 = a1[5];
+    v185 = a1[4];
+    v186 = v117;
+    v118 = a1[7];
+    v187 = a1[6];
+    v188 = v118;
+    if (v82(&v189, &v185))
+    {
+      v120 = a1[6];
+      v119 = a1[7];
+      v122 = a1[4];
+      v121 = a1[5];
+      v123 = a1[9];
+      a1[4] = *v75;
+      a1[5] = v123;
+      v124 = a1[11];
+      a1[6] = a1[10];
+      a1[7] = v124;
+      *v75 = v122;
+      a1[9] = v121;
+      a1[10] = v120;
+      a1[11] = v119;
+      v125 = *a3;
+      v126 = a1[5];
+      v189 = a1[4];
+      v190 = v126;
+      v127 = a1[7];
+      v191 = a1[6];
+      v192 = v127;
+      v128 = a1[1];
+      v185 = *a1;
+      v186 = v128;
+      v129 = a1[3];
+      v187 = a1[2];
+      v188 = v129;
+      if (v125(&v189, &v185))
+      {
+        v131 = a1[2];
+        v130 = a1[3];
+        v133 = *a1;
+        v132 = a1[1];
+        v134 = a1[5];
+        *a1 = a1[4];
+        a1[1] = v134;
+        v135 = a1[7];
+        a1[2] = a1[6];
+        a1[3] = v135;
+        a1[4] = v133;
+        a1[5] = v132;
+        a1[6] = v131;
+        a1[7] = v130;
+      }
+    }
+  }
+
+LABEL_33:
+  v163 = a1 + 12;
+  if (&a1[12] == a2)
+  {
+    return 1;
+  }
+
+  v164 = 0;
+  v165 = 0;
+  while (1)
+  {
+    v166 = *a3;
+    v167 = v163[1];
+    v189 = *v163;
+    v190 = v167;
+    v168 = v163[3];
+    v191 = v163[2];
+    v192 = v168;
+    v169 = *v75;
+    v170 = v75[1];
+    v171 = v75[3];
+    v187 = v75[2];
+    v188 = v171;
+    v185 = v169;
+    v186 = v170;
+    if (v166(&v189, &v185))
+    {
+      v172 = v163[1];
+      v189 = *v163;
+      v190 = v172;
+      v173 = v163[3];
+      v191 = v163[2];
+      v192 = v173;
+      v174 = v164;
+      while (1)
+      {
+        v175 = (a1 + v174);
+        v176 = *(a1 + v174 + 144);
+        v175[12] = *(a1 + v174 + 128);
+        v175[13] = v176;
+        v177 = *(a1 + v174 + 176);
+        v175[14] = *(a1 + v174 + 160);
+        v175[15] = v177;
+        if (v174 == -128)
+        {
+          break;
+        }
+
+        v178 = *a3;
+        v185 = v189;
+        v186 = v190;
+        v187 = v191;
+        v188 = v192;
+        v179 = v175[5];
+        v184[0] = v175[4];
+        v184[1] = v179;
+        v180 = v175[7];
+        v184[2] = v175[6];
+        v184[3] = v180;
+        v174 -= 64;
+        if (((v178)(&v185, v184) & 1) == 0)
+        {
+          v181 = (a1 + v174 + 192);
+          goto LABEL_41;
+        }
+      }
+
+      v181 = a1;
+LABEL_41:
+      v182 = v190;
+      *v181 = v189;
+      v181[1] = v182;
+      v183 = v192;
+      v181[2] = v191;
+      v181[3] = v183;
+      if (++v165 == 8)
+      {
+        return &v163[4] == a2;
+      }
+    }
+
+    v75 = v163;
+    v164 += 64;
+    v163 += 4;
+    if (v163 == a2)
+    {
+      return 1;
+    }
+  }
+}
+
+char *sub_100130FE0(char *a1, char *a2, char *a3, unsigned int (**a4)(__n128 *, __n128 *))
 {
   if (a1 != a2)
   {
@@ -7,7 +586,7 @@ __n128 *sub_100130FE0(uint64_t a1, __n128 *a2, __n128 *a3, unsigned int (**a4)(_
     {
       v9 = (v8 - 2) >> 1;
       v10 = v9 + 1;
-      v11 = (a1 + (v9 << 6));
+      v11 = &a1[64 * v9];
       do
       {
         sub_1001311A0(a1, a4, v8, v11);
@@ -25,39 +604,39 @@ __n128 *sub_100130FE0(uint64_t a1, __n128 *a2, __n128 *a3, unsigned int (**a4)(_
       do
       {
         v13 = *a4;
-        v14 = v12[1];
+        v14 = *(v12 + 1);
         v37 = *v12;
         v38 = v14;
-        v15 = v12[3];
-        v39 = v12[2];
+        v15 = *(v12 + 3);
+        v39 = *(v12 + 2);
         v40 = v15;
-        v16 = *(a1 + 16);
+        v16 = *(a1 + 1);
         v36[0] = *a1;
         v36[1] = v16;
-        v17 = *(a1 + 48);
-        v36[2] = *(a1 + 32);
+        v17 = *(a1 + 3);
+        v36[2] = *(a1 + 2);
         v36[3] = v17;
         if (v13(&v37, v36))
         {
-          v19 = v12[2];
-          v18 = v12[3];
+          v19 = *(v12 + 2);
+          v18 = *(v12 + 3);
           v21 = *v12;
-          v20 = v12[1];
-          v22 = *(a1 + 48);
+          v20 = *(v12 + 1);
+          v22 = *(a1 + 3);
           v24 = *a1;
-          v23 = *(a1 + 16);
-          v12[2] = *(a1 + 32);
-          v12[3] = v22;
+          v23 = *(a1 + 1);
+          *(v12 + 2) = *(a1 + 2);
+          *(v12 + 3) = v22;
           *v12 = v24;
-          v12[1] = v23;
+          *(v12 + 1) = v23;
           *a1 = v21;
-          *(a1 + 16) = v20;
-          *(a1 + 32) = v19;
-          *(a1 + 48) = v18;
+          *(a1 + 1) = v20;
+          *(a1 + 2) = v19;
+          *(a1 + 3) = v18;
           sub_1001311A0(a1, a4, v8, a1);
         }
 
-        v12 += 4;
+        v12 += 64;
       }
 
       while (v12 != a3);
@@ -65,43 +644,43 @@ __n128 *sub_100130FE0(uint64_t a1, __n128 *a2, __n128 *a3, unsigned int (**a4)(_
 
     if (v8 >= 2)
     {
-      v25 = a2 - 4;
+      v25 = a2 - 64;
       do
       {
-        v26 = *(a1 + 16);
+        v26 = *(a1 + 1);
         v37 = *a1;
         v38 = v26;
-        v27 = *(a1 + 48);
-        v39 = *(a1 + 32);
+        v27 = *(a1 + 3);
+        v39 = *(a1 + 2);
         v40 = v27;
         v28 = sub_100131370(a1, a4, v8);
         if (v25 == v28)
         {
           *v28 = v37;
-          v28[1] = v38;
-          v28[2] = v39;
-          v28[3] = v40;
+          *(v28 + 1) = v38;
+          *(v28 + 2) = v39;
+          *(v28 + 3) = v40;
         }
 
         else
         {
           v29 = *v25;
-          v30 = v25[1];
-          v31 = v25[3];
-          v28[2] = v25[2];
-          v28[3] = v31;
+          v30 = *(v25 + 1);
+          v31 = *(v25 + 3);
+          *(v28 + 2) = *(v25 + 2);
+          *(v28 + 3) = v31;
           *v28 = v29;
-          v28[1] = v30;
+          *(v28 + 1) = v30;
           v32 = v38;
           *v25 = v37;
-          v25[1] = v32;
+          *(v25 + 1) = v32;
           v33 = v40;
-          v25[2] = v39;
-          v25[3] = v33;
-          sub_10013144C(a1, &v28[4], a4, (&v28[4] - a1) >> 6);
+          *(v25 + 2) = v39;
+          *(v25 + 3) = v33;
+          sub_10013144C(a1, (v28 + 64), a4, (v28 + 64 - a1) >> 6);
         }
 
-        v25 -= 4;
+        v25 -= 64;
       }
 
       while (v8-- > 2);
@@ -949,88 +1528,88 @@ void sub_100138AA0(uint64_t a1, void *a2, void *a3, void *a4)
   dispatch_async(v10, v15);
 }
 
-void sub_100138BA4(uint64_t a1)
+void sub_100138BA4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v2 = BKLibraryDataSourceSeriesLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v6 = BKLibraryDataSourceSeriesLog();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(a1 + 32) count];
-    v4 = *(a1 + 40);
-    v5 = *(a1 + 48);
+    v7 = [*(a1 + 32) count];
+    v8 = *(a1 + 40);
+    v9 = *(a1 + 48);
     *buf = 134218498;
-    *&buf[4] = v3;
+    *&buf[4] = v7;
     *&buf[12] = 2112;
-    *&buf[14] = v4;
+    *&buf[14] = v8;
     *&buf[22] = 2112;
-    v31 = v5;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "#storeItemsUpdatedWithCurrentCloudSyncVersions %lu storeItems, currentCloudSyncVersions:(%@) error:(%@)", buf, 0x20u);
+    v35 = v9;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "#storeItemsUpdatedWithCurrentCloudSyncVersions %lu storeItems, currentCloudSyncVersions:(%@) error:(%@)", buf, 0x20u);
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v31 = sub_100027410;
-  v32 = sub_100027640;
-  v33 = +[NSMutableArray array];
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v6 = *(a1 + 32);
-  v7 = [v6 countByEnumeratingWithState:&v23 objects:v29 count:16];
-  if (v7)
+  v35 = sub_100027410;
+  v36 = sub_100027640;
+  v37 = +[NSMutableArray array];
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v10 = *(a1 + 32);
+  v11 = [v10 countByEnumeratingWithState:&v27 objects:v33 count:16];
+  if (v11)
   {
-    v8 = *v24;
+    v12 = *v28;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      for (i = 0; i != v11; i = i + 1)
       {
-        if (*v24 != v8)
+        if (*v28 != v12)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v10);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * i);
-        v11 = [v10 storeID];
+        v14 = *(*(&v27 + 1) + 8 * i);
+        v15 = [v14 storeID];
 
-        if (v11)
+        if (v15)
         {
-          v12 = *(*&buf[8] + 40);
-          v13 = [v10 storeID];
-          [v12 addObject:v13];
+          v16 = *(*&buf[8] + 40);
+          v17 = [v14 storeID];
+          [v16 addObject:v17];
         }
 
         else
         {
-          v13 = BKLibraryDataSourceSeriesLog();
-          if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+          v17 = BKLibraryDataSourceSeriesLog();
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
-            sub_1007908CC(&v21, v22, v13);
+            sub_1007908CC(&v25, v26, v17);
           }
         }
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v23 objects:v29 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v27 objects:v33 count:16];
     }
 
-    while (v7);
+    while (v11);
   }
 
-  v14 = +[BKSeriesManager sharedManager];
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_100138F08;
-  v18[3] = &unk_100A05B18;
-  v18[4] = *(a1 + 56);
-  v20 = buf;
-  v19 = *(a1 + 40);
-  v15 = objc_retainBlock(v18);
-  v27 = BKSeriesManagerAssetTypeUnknown;
-  v16 = [*(*&buf[8] + 40) copy];
-  v28 = v16;
-  v17 = [NSDictionary dictionaryWithObjects:&v28 forKeys:&v27 count:1];
+  v18 = +[BKSeriesManager sharedManager];
+  v22[0] = _NSConcreteStackBlock;
+  v22[1] = 3221225472;
+  v22[2] = sub_100138F08;
+  v22[3] = &unk_100A05B18;
+  v22[4] = *(a1 + 56);
+  v24 = buf;
+  v23 = *(a1 + 40);
+  v19 = objc_retainBlock(v22);
+  v31 = BKSeriesManagerAssetTypeUnknown;
+  v20 = [*(*&buf[8] + 40) copy];
+  v32 = v20;
+  v21 = [NSDictionary dictionaryWithObjects:&v32 forKeys:&v31 count:1];
 
-  [v14 updateAssetsFromCloudSyncForAssetAdamIDsWithTypes:v17 completion:v15];
+  [v18 updateAssetsFromCloudSyncForAssetAdamIDsWithTypes:v21 completion:v19];
   _Block_object_dispose(buf, 8);
 }
 
@@ -1940,7 +2519,7 @@ void sub_100141DD8(uint64_t a1)
 
 void sub_100142180(id a1)
 {
-  v1 = sub_100146624();
+  v1 = sub_100146624(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *v2 = 0;
@@ -2270,7 +2849,7 @@ void sub_10014261C(uint64_t a1)
 
 void sub_10014307C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  _Block_object_dispose(&a70, 8);
+  _Block_object_dispose(&a65, 8);
   _Block_object_dispose(&STACK[0x218], 8);
   _Unwind_Resume(a1);
 }
@@ -2791,7 +3370,7 @@ void sub_10014506C(uint64_t a1, void *a2)
 
 void sub_100145360(id a1)
 {
-  v1 = sub_100146624();
+  v1 = sub_100146624(a1);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
     *v2 = 0;
@@ -2804,50 +3383,50 @@ void sub_1001454E4(uint64_t a1, void *a2)
   v2 = a2;
   v3 = [[NSFetchRequest alloc] initWithEntityName:@"BKLibraryAsset"];
   v4 = +[BKLibraryManager predicateForAllOwnedAudiobooks];
-  v30 = +[BKLibraryManager predicateToExcludeSeriesLibraryAssets];
-  v31 = v4;
-  v45[0] = v4;
-  v45[1] = v30;
-  v5 = [NSArray arrayWithObjects:v45 count:2];
+  v31 = +[BKLibraryManager predicateToExcludeSeriesLibraryAssets];
+  v32 = v4;
+  v46[0] = v4;
+  v46[1] = v31;
+  v5 = [NSArray arrayWithObjects:v46 count:2];
   v6 = [NSCompoundPredicate andPredicateWithSubpredicates:v5];
 
   [v3 setPredicate:v6];
-  v41 = 0;
-  v32 = v3;
-  v33 = v2;
-  v7 = [v2 executeFetchRequest:v3 error:&v41];
-  v29 = v41;
-  v8 = sub_100146624();
+  v42 = 0;
+  v33 = v3;
+  v34 = v2;
+  v7 = [v2 executeFetchRequest:v3 error:&v42];
+  v30 = v42;
+  v8 = sub_100146624(v30);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [v7 count];
     *buf = 134217984;
-    v44 = v9;
+    v45 = v9;
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "fetching owned audiobook libraryAssets libraryAssets.count=%ld", buf, 0xCu);
   }
 
   v10 = +[NSMutableArray array];
   v11 = +[NSMutableArray array];
-  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
   v12 = v7;
-  v13 = [v12 countByEnumeratingWithState:&v37 objects:v42 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v38 objects:v43 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v38;
+    v15 = *v39;
     do
     {
       for (i = 0; i != v14; i = i + 1)
       {
-        if (*v38 != v15)
+        if (*v39 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v37 + 1) + 8 * i);
+        v17 = *(*(&v38 + 1) + 8 * i);
         v18 = [v17 assetID];
         v19 = [v18 length];
 
@@ -2869,40 +3448,41 @@ void sub_1001454E4(uint64_t a1, void *a2)
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v38 objects:v43 count:16];
     }
 
     while (v14);
   }
 
   v23 = [v11 count];
-  v24 = v23 + [v10 count];
-  if (v24 < 1)
+  v24 = [v10 count];
+  v25 = &v23[v24];
+  if (&v23[v24] < 1)
   {
-    v26 = sub_100146624();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+    v27 = sub_100146624(v24);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "No audiobooks found.  Setting audiobook migration complete, there is nothing to migrate.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "No audiobooks found.  Setting audiobook migration complete, there is nothing to migrate.", buf, 2u);
     }
 
     [*(a1 + 32) setAudiobookProgressMigrationComplete:1];
     [*(a1 + 32) setCoalescedMigrateAudiobookProgress:0];
-    v27 = +[NSNotificationCenter defaultCenter];
-    [v27 removeObserver:*(a1 + 32) name:MPMediaLibraryDidChangeNotification object:0];
+    v28 = +[NSNotificationCenter defaultCenter];
+    [v28 removeObserver:*(a1 + 32) name:MPMediaLibraryDidChangeNotification object:0];
   }
 
   else
   {
-    v25 = *(a1 + 32);
-    v34[0] = _NSConcreteStackBlock;
-    v34[1] = 3221225472;
-    v34[2] = sub_1001458C8;
-    v34[3] = &unk_100A084F8;
-    v34[4] = v25;
-    v35 = v6;
-    v36 = v24;
-    [v25 _alternateProgressInfoForLocalAssetIDs:v10 cloudAssetIDs:v11 completion:v34];
+    v26 = *(a1 + 32);
+    v35[0] = _NSConcreteStackBlock;
+    v35[1] = 3221225472;
+    v35[2] = sub_1001458C8;
+    v35[3] = &unk_100A084F8;
+    v35[4] = v26;
+    v36 = v6;
+    v37 = v25;
+    [v26 _alternateProgressInfoForLocalAssetIDs:v10 cloudAssetIDs:v11 completion:v35];
   }
 }
 
@@ -2928,31 +3508,31 @@ void sub_100145998(uint64_t a1, void *a2)
   v3 = a2;
   v4 = [[NSFetchRequest alloc] initWithEntityName:@"BKLibraryAsset"];
   [v4 setPredicate:*(a1 + 32)];
-  v50 = 0;
-  v42 = v4;
-  v43 = v3;
-  v5 = [v3 executeFetchRequest:v4 error:&v50];
-  v41 = v50;
-  v46 = 0u;
-  v47 = 0u;
+  v52 = 0;
+  v44 = v4;
+  v45 = v3;
+  v5 = [v3 executeFetchRequest:v4 error:&v52];
+  v43 = v52;
   v48 = 0u;
   v49 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v46 objects:v55 count:16];
+  v6 = [obj countByEnumeratingWithState:&v48 objects:v57 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v47;
+    v8 = *v49;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v47 != v8)
+        if (*v49 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v46 + 1) + 8 * i);
+        v10 = *(*(&v48 + 1) + 8 * i);
         v11 = *(a1 + 40);
         v12 = [v10 assetID];
         v13 = [v11 objectForKeyedSubscript:v12];
@@ -2995,62 +3575,64 @@ void sub_100145998(uint64_t a1, void *a2)
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v46 objects:v55 count:16];
+      v7 = [obj countByEnumeratingWithState:&v48 objects:v57 count:16];
     }
 
     while (v7);
   }
 
-  if ([v43 hasChanges])
+  if ([v45 hasChanges])
   {
-    v45 = 0;
-    [v43 save:&v45];
-    v31 = v45;
+    v47 = 0;
+    [v45 save:&v47];
+    v31 = v47;
+    v32 = v31;
     if (v31)
     {
-      v32 = sub_100146624();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v33 = sub_100146624(v31);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
-        sub_100791028(v31, v32);
+        sub_100791028(v32, v33);
       }
     }
   }
 
-  v33 = [*(a1 + 40) count];
-  v34 = *(a1 + 56) * 0.5;
-  v35 = sub_100146624();
-  v36 = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
-  if (v34 >= v33)
+  v34 = [*(a1 + 40) count];
+  v35 = v34;
+  v36 = *(a1 + 56) * 0.5;
+  v37 = sub_100146624(v34);
+  v38 = os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT);
+  if (v36 >= v35)
   {
-    if (v36)
+    if (v38)
     {
-      v39 = [*(a1 + 40) count];
-      v40 = *(a1 + 56);
+      v41 = [*(a1 + 40) count];
+      v42 = *(a1 + 56);
       *buf = 134218240;
-      v52 = v39;
-      v53 = 2048;
-      v54 = v40;
-      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Audiobook progress migration incomplete.  Updated %lu audiobooks of %lu.", buf, 0x16u);
+      v54 = v41;
+      v55 = 2048;
+      v56 = v42;
+      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Audiobook progress migration incomplete.  Updated %lu audiobooks of %lu.", buf, 0x16u);
     }
   }
 
   else
   {
-    if (v36)
+    if (v38)
     {
-      v37 = [*(a1 + 40) count];
-      v38 = *(a1 + 56);
+      v39 = [*(a1 + 40) count];
+      v40 = *(a1 + 56);
       *buf = 134218240;
-      v52 = v37;
-      v53 = 2048;
-      v54 = v38;
-      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Audiobook progress migration complete.  Updated %lu audiobooks of %lu.", buf, 0x16u);
+      v54 = v39;
+      v55 = 2048;
+      v56 = v40;
+      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Audiobook progress migration complete.  Updated %lu audiobooks of %lu.", buf, 0x16u);
     }
 
     [*(a1 + 48) setAudiobookProgressMigrationComplete:1];
     [*(a1 + 48) setCoalescedMigrateAudiobookProgress:0];
-    v35 = +[NSNotificationCenter defaultCenter];
-    [v35 removeObserver:*(a1 + 48) name:MPMediaLibraryDidChangeNotification object:0];
+    v37 = +[NSNotificationCenter defaultCenter];
+    [v37 removeObserver:*(a1 + 48) name:MPMediaLibraryDidChangeNotification object:0];
   }
 }
 
@@ -3184,16 +3766,16 @@ void sub_10014645C(void *a1)
   [v2 emitMarkAsFinishedEventWithTracker:0 contentID:a1[4] contentAcquisitionType:a1[6] contentType:a1[7] supplementalContentCount:a1[5] seriesType:a1[8] productionType:a1[9]];
 }
 
-id sub_100146624()
+id sub_100146624(uint64_t a1)
 {
   if (qword_100AF7730 != -1)
   {
     sub_1007910A0();
   }
 
-  v1 = qword_100AF7728;
+  v2 = qword_100AF7728;
 
-  return v1;
+  return v2;
 }
 
 void sub_100146668(id a1)
@@ -3361,6 +3943,13 @@ void sub_10014FE4C(uint64_t a1)
   v2[2]();
 }
 
+void sub_100151A8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
+{
+  va_start(va, a28);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 void sub_100151ADC(uint64_t a1)
 {
   v2 = [*(a1 + 32) dataSource];
@@ -3398,16 +3987,16 @@ void sub_100151ADC(uint64_t a1)
   [v17 insertItemsAtIndexPaths:v18];
 }
 
-id sub_100152B5C()
+id sub_100152B5C(uint64_t a1)
 {
   if (qword_100AF7750 != -1)
   {
     sub_10079114C();
   }
 
-  v1 = qword_100AF7748;
+  v2 = qword_100AF7748;
 
-  return v1;
+  return v2;
 }
 
 void sub_100152BA0(id a1)
@@ -3457,7 +4046,7 @@ void sub_100152E48(uint64_t a1, uint64_t a2, void *a3)
 void sub_1001535D4(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = sub_100152B5C();
+  v4 = sub_100152B5C(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
@@ -3536,76 +4125,79 @@ void sub_1001538A4(uint64_t a1)
     [v2 setObject:*(a1 + 48) forKeyedSubscript:@"assetID"];
   }
 
-  if ([*(a1 + 56) length])
+  v6 = [*(a1 + 56) length];
+  if (v6)
   {
-    [v2 setObject:*(a1 + 56) forKeyedSubscript:AEAssetLogID];
+    v6 = [v2 setObject:*(a1 + 56) forKeyedSubscript:AEAssetLogID];
   }
 
-  v6 = sub_100152B5C();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100152B5C(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = *(a1 + 56);
-    v20 = 138543362;
-    v21 = v7;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "minimizedPresenterWithLibraryAsset Creating Helper for logID:%{public}@", &v20, 0xCu);
+    v8 = *(a1 + 56);
+    v22 = 138543362;
+    v23 = v8;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "minimizedPresenterWithLibraryAsset Creating Helper for logID:%{public}@", &v22, 0xCu);
   }
 
   if (*(a1 + 64))
   {
-    v8 = +[AEPluginRegistry sharedInstance];
-    v9 = [v8 pluginForURL:*(a1 + 64)];
+    v9 = +[AEPluginRegistry sharedInstance];
+    v10 = [v9 pluginForURL:*(a1 + 64)];
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  v10 = [v9 helperForURL:*(a1 + 64) withOptions:v2];
-  v11 = BUProtocolCast();
+  v11 = [v10 helperForURL:*(a1 + 64) withOptions:v2];
+  v12 = BUProtocolCast();
 
-  if (objc_opt_respondsToSelector())
+  v13 = objc_opt_respondsToSelector();
+  if (v13)
   {
-    v12 = [v11 helperMinifiedController];
-    if (v12)
+    v13 = [v12 helperMinifiedController];
+    v14 = v13;
+    if (v13)
     {
-      v13 = objc_alloc(*(a1 + 96));
-      v14 = [*(a1 + 72) assetID];
-      v15 = [v13 initWithAssetID:v14 helper:v11 minifiedController:v12 options:v2 presenter:*(a1 + 80)];
+      v15 = objc_alloc(*(a1 + 96));
+      v16 = [*(a1 + 72) assetID];
+      v17 = [v15 initWithAssetID:v16 helper:v12 minifiedController:v14 options:v2 presenter:*(a1 + 80)];
     }
 
     else
     {
-      v15 = 0;
+      v17 = 0;
     }
   }
 
   else
   {
-    v15 = 0;
-    v12 = 0;
+    v17 = 0;
+    v14 = 0;
   }
 
-  v16 = sub_100152B5C();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v18 = sub_100152B5C(v13);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = *(a1 + 56);
-    v20 = 138412546;
-    v21 = v15;
-    v22 = 2114;
+    v19 = *(a1 + 56);
+    v22 = 138412546;
     v23 = v17;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "minimizedPresenterWithLibraryAsset Got minified asset presenter %@, logID:%{public}@", &v20, 0x16u);
+    v24 = 2114;
+    v25 = v19;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "minimizedPresenterWithLibraryAsset Got minified asset presenter %@, logID:%{public}@", &v22, 0x16u);
   }
 
-  [v15 setMinifiedAssetPresenterIsAudiobook:*(a1 + 104)];
-  [v15 setMinifiedAssetPresenterCanStayOpenInBackground:*(a1 + 104)];
-  [v15 setMinifiedAssetPresenterIsSupplementalContent:*(a1 + 105)];
-  [v15 setMinifiedAssetPresenterWorkaround36067646:*(a1 + 106)];
-  v18 = objc_retainBlock(*(a1 + 88));
-  v19 = v18;
-  if (v18)
+  [v17 setMinifiedAssetPresenterIsAudiobook:*(a1 + 104)];
+  [v17 setMinifiedAssetPresenterCanStayOpenInBackground:*(a1 + 104)];
+  [v17 setMinifiedAssetPresenterIsSupplementalContent:*(a1 + 105)];
+  [v17 setMinifiedAssetPresenterWorkaround36067646:*(a1 + 106)];
+  v20 = objc_retainBlock(*(a1 + 88));
+  v21 = v20;
+  if (v20)
   {
-    (*(v18 + 2))(v18, v15);
+    (*(v20 + 2))(v20, v17);
   }
 }
 
@@ -3863,9 +4455,9 @@ void sub_100157800(uint64_t a1)
   _Block_object_dispose(&v13, 8);
 }
 
-void sub_100157934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100157934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3947,9 +4539,9 @@ void sub_100157C40(uint64_t a1)
   }
 }
 
-void sub_100158884(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100158884(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3962,9 +4554,9 @@ void sub_10015889C(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_100158A00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100158A00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3977,11 +4569,11 @@ void sub_100158A18(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_100158B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100158B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3995,9 +4587,9 @@ void sub_100158B94(void *a1)
   [v1 countOfSeriesLibraryAssetsWithSeriesID:v2 total:v3 + 24 purchased:v4 + 24 context:v5];
 }
 
-void sub_100158CFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100158CFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4367,9 +4959,9 @@ void sub_10015AC90(uint64_t a1)
   [v2 booksDataSourceReloadAssetReviewData:*(a1 + 32)];
 }
 
-void sub_10015AFA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10015AFA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4385,9 +4977,9 @@ void sub_10015AFBC(uint64_t a1)
   *(v4 + 40) = v3;
 }
 
-void sub_10015B184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10015B184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4402,11 +4994,12 @@ void sub_10015B19C(uint64_t a1)
   *(v4 + 40) = v3;
 }
 
-void sub_10015B55C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_10015B55C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a26, 8);
-  _Block_object_dispose((v26 - 152), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v25 - 152), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4441,9 +5034,9 @@ void sub_10015B66C(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_10015B8C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10015B8C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4457,11 +5050,12 @@ void sub_10015B8D8(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_10015BC14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_10015BC14(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, id location, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 128), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 128), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4575,15 +5169,15 @@ void sub_10015DC90(uint64_t a1, void *a2, void *a3)
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = *(a1 + 32);
-      v11 = 141558786;
-      v12 = 1752392040;
-      v13 = 2112;
-      v14 = v10;
-      v15 = 2160;
-      v16 = 1752392040;
-      v17 = 2112;
-      v18 = v5;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "[iCloudSync] url: %{mask.hash}@ generateThumbnail thumbnail: %{mask.hash}@", &v11, 0x2Au);
+      v12 = 141558786;
+      v13 = 1752392040;
+      v14 = 2112;
+      v15 = v10;
+      v16 = 2160;
+      v17 = 1752392040;
+      v18 = 2112;
+      v19 = v5;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "[iCloudSync] url: %{mask.hash}@ generateThumbnail thumbnail: %{mask.hash}@", &v12, 0x2Au);
     }
 
     [*(a1 + 40) setObject:v8 forKey:*(a1 + 48)];
@@ -4597,7 +5191,7 @@ LABEL_9:
     v8 = BCUbiquityMetadataHelperLog();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_1007913C8();
+      sub_1007913C8(v7, v8, v11);
     }
 
     goto LABEL_9;
@@ -4607,9 +5201,9 @@ LABEL_10:
   dispatch_semaphore_signal(*(a1 + 56));
 }
 
-void sub_10015E088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10015E088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6196,9 +6790,9 @@ uint64_t sub_100165630(uint64_t a1, void *a2)
   return v13 & 1;
 }
 
-void sub_1001657DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001657DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6246,9 +6840,9 @@ uint64_t sub_10016591C(uint64_t a1, void *a2)
   return v9;
 }
 
-void sub_100165A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100165A48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6404,9 +6998,9 @@ void sub_1001663C0(uint64_t a1, uint64_t a2, void *a3)
   [v7 enqueueValueCall:v8 arguments:v10 file:@"BKJSALibraryManager.m" line:997];
 }
 
-void sub_10016666C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10016666C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8130,10 +8724,11 @@ void sub_100177938(id a1, BKLibraryCollectionsListViewController *a2, NSIndexPat
   objc_destroyWeak(&location);
 }
 
-void sub_100177C30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_100177C30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  _Block_object_dispose(&a26, 8);
-  objc_destroyWeak((v26 - 104));
+  va_start(va, a25);
+  _Block_object_dispose(va, 8);
+  objc_destroyWeak((v25 - 104));
   _Unwind_Resume(a1);
 }
 
@@ -8181,537 +8776,4 @@ void sub_100177D84(id a1, BKLibraryCollectionsListViewController *a2, NSIndexPat
   }
 
   objc_destroyWeak(&location);
-}
-
-void sub_10017812C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
-{
-  objc_destroyWeak((v16 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_100178154(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
-{
-  v5 = a4;
-  v7 = +[BKLibraryCollectionsListViewController deleteActionHandler];
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v7[2](v7, WeakRetained, *(a1 + 32), v5);
-}
-
-void sub_100178350(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
-{
-  objc_destroyWeak((v16 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_100178378(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
-{
-  v5 = a4;
-  v7 = +[BKLibraryCollectionsListViewController hideActionHandler];
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v7[2](v7, WeakRetained, *(a1 + 32), v5);
-}
-
-void sub_100178AC0(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
-  if (WeakRetained && *(a1 + 32))
-  {
-    v8 = WeakRetained;
-    v3 = [WeakRetained tableView];
-    v4 = [v3 numberOfSections];
-    if (v4 > [*(a1 + 32) section])
-    {
-      v5 = [v8 tableView];
-      v6 = [v5 numberOfRowsInSection:{objc_msgSend(*(a1 + 32), "section")}];
-      v7 = [*(a1 + 32) row];
-
-      WeakRetained = v8;
-      if (v6 <= v7)
-      {
-        goto LABEL_7;
-      }
-
-      v3 = [v8 tableView];
-      [v3 scrollToRowAtIndexPath:*(a1 + 32) atScrollPosition:2 animated:*(a1 + 48)];
-    }
-
-    WeakRetained = v8;
-  }
-
-LABEL_7:
-}
-
-id sub_100179790(uint64_t a1, void *a2)
-{
-  v3 = [a2 collectionID];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
-
-  return v4;
-}
-
-id sub_1001797D4(uint64_t a1, void *a2)
-{
-  v3 = [a2 collectionID];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
-
-  return v4;
-}
-
-void sub_10017A824(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  v2 = [NSArray arrayWithObjects:&v3 count:1];
-  [v1 reloadRowsAtIndexPaths:v2 withRowAnimation:0];
-}
-
-void sub_10017AB14(uint64_t a1, void *a2)
-{
-  v13 = a2;
-  v3 = [*(a1 + 32) cellForRowAtIndexPath:?];
-  v4 = v3;
-  if (v3)
-  {
-    v5 = [v3 imageView];
-    v6 = *(a1 + 40);
-    v7 = *(a1 + 48);
-    v8 = [v4 textLabel];
-    v9 = [v8 font];
-    [v9 pointSize];
-    v10 = [v6 _iconForIndexPath:v13 metrics:v7 pointSize:?];
-    [v5 setImage:v10];
-
-    v11 = [*(a1 + 40) _iconColorForIndexPath:v13 metrics:*(a1 + 48)];
-    [v5 setTintColor:v11];
-
-    objc_opt_class();
-    v12 = BUDynamicCast();
-    [v12 setMetrics:*(a1 + 48)];
-  }
-}
-
-int64_t sub_10017D0C4(id a1, UIAccessibilityLocationDescriptor *a2, UIAccessibilityLocationDescriptor *a3)
-{
-  v4 = a3;
-  [(UIAccessibilityLocationDescriptor *)a2 point];
-  v6 = v5;
-  [(UIAccessibilityLocationDescriptor *)v4 point];
-  v8 = v7;
-
-  return v6 > v8;
-}
-
-void sub_10017FD9C(uint64_t a1, uint64_t a2, void *a3)
-{
-  v5 = a3;
-  if (a2)
-  {
-    v6 = [UIImage imageWithData:a2];
-    v7 = v6;
-    if (v6)
-    {
-      v8[0] = _NSConcreteStackBlock;
-      v8[1] = 3221225472;
-      v8[2] = sub_10017FE9C;
-      v8[3] = &unk_100A03440;
-      v8[4] = *(a1 + 32);
-      v7 = v6;
-      v9 = v7;
-      dispatch_async(&_dispatch_main_q, v8);
-    }
-  }
-
-  else
-  {
-    v7 = BKLibraryLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      sub_100792018(v5, v7);
-    }
-  }
-}
-
-void sub_100180354(uint64_t a1, void *a2)
-{
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
-  v5 = a2;
-  v6 = [v3 libraryMutableAssetWithAssetID:v4 inManagedObjectContext:v5];
-  [v6 setTitle:*(a1 + 48)];
-  [v6 setSortTitle:*(a1 + 48)];
-  [v6 setAuthor:*(a1 + 56)];
-  [v6 setSortAuthor:*(a1 + 56)];
-  v16 = 0;
-  [v5 save:&v16];
-
-  v7 = v16;
-  if (v7)
-  {
-    v8 = BKLibraryLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      v11 = *(a1 + 40);
-      v12 = *(a1 + 48);
-      v13 = *(a1 + 56);
-      *buf = 141559042;
-      v18 = 1752392040;
-      v19 = 2112;
-      v20 = v11;
-      v21 = 2112;
-      v22 = v12;
-      v23 = 2112;
-      v24 = v13;
-      v25 = 2112;
-      v26 = v7;
-      _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "[MetadataEditor updateTitle] assetID:%{mask.hash}@ newTitle:%@ author:%@ error:%@", buf, 0x34u);
-    }
-  }
-
-  v9 = *(a1 + 32);
-  v10 = [*(a1 + 64) updatedCoverImageData];
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_100180540;
-  v14[3] = &unk_100A09698;
-  v15 = *(a1 + 40);
-  [v9 updateAsset:v6 coverArt:v10 completion:v14];
-}
-
-void sub_100180540(uint64_t a1, void *a2, uint64_t a3, void *a4)
-{
-  v6 = a2;
-  v7 = a4;
-  v8 = +[BCCacheManager defaultCacheManager];
-  [v8 incrementVersionForIdentifier:*(a1 + 32)];
-  v9 = BKLibraryLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-  {
-    v10 = *(a1 + 32);
-    v11 = 141558786;
-    v12 = 1752392040;
-    v13 = 2112;
-    v14 = v10;
-    v15 = 2112;
-    v16 = v6;
-    v17 = 2112;
-    v18 = v7;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[MetadataEditor updateTitle] FINISH assetID:%{mask.hash}@ asset:%@ error:%@", &v11, 0x2Au);
-  }
-}
-
-void sub_100180D84(uint64_t a1)
-{
-  [*(a1 + 32) size];
-  v4 = v2 / v3;
-  v5 = v4 * 56.0;
-  v6 = 298.0 / v4;
-  if (v5 <= 298.0)
-  {
-    v7 = 56.0;
-  }
-
-  else
-  {
-    v7 = v6;
-  }
-
-  if (v5 <= 298.0)
-  {
-    v8 = v5;
-  }
-
-  else
-  {
-    v8 = 298.0;
-  }
-
-  v9 = [*(a1 + 40) coverHeightConstraint];
-  [v9 setConstant:v7];
-
-  v10 = [*(a1 + 40) coverWidthConstraint];
-  [v10 setConstant:v8];
-
-  v12 = [[UIImageView alloc] initWithImage:*(a1 + 32)];
-  [v12 setTranslatesAutoresizingMaskIntoConstraints:0];
-  [v12 setContentMode:1];
-  [*(a1 + 40) _updateCoverView:v12];
-  v11 = UIImageJPEGRepresentation(*(a1 + 32), 0.9);
-  [*(a1 + 40) setUpdatedCoverImageData:v11];
-}
-
-void sub_100180E90(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = +[NSUserDefaults standardUserDefaults];
-  [v6 setBool:a3 forKey:@"BKMetadatEditorSkipReplaceCoverConfirmation"];
-
-  if (!a2)
-  {
-    v7 = *(*(a1 + 32) + 16);
-
-    v7();
-  }
-}
-
-void sub_100181E34(uint64_t a1, void *a2)
-{
-  v3 = [a2 bookController];
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 80);
-  *(v4 + 80) = v3;
-
-  if (!*(*(a1 + 32) + 80))
-  {
-    v6 = +[BKTestDriverDispatcher shared];
-    [v6 subscribeForBookController:*(a1 + 32)];
-  }
-}
-
-void sub_100181F64(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
-  v5 = *(v2 + 80);
-  v4 = (v2 + 80);
-  if (v5 != v3)
-  {
-    objc_storeStrong(v4, v3);
-    if ([*(a1 + 32) running])
-    {
-      v6 = *(a1 + 32);
-      if (v6[10])
-      {
-        v7 = [v6 onReceiveHandler];
-
-        if (v7)
-        {
-          v8 = +[BKTestDriverDispatcher shared];
-          [v8 unsubscribe:*(a1 + 32)];
-
-          v9 = [*(a1 + 32) onReceiveHandler];
-          v9[2]();
-        }
-      }
-    }
-  }
-}
-
-void sub_1001823B0(id a1)
-{
-  v1 = objc_alloc_init(BKBookCacheController);
-  v2 = qword_100AF7788;
-  qword_100AF7788 = v1;
-}
-
-void sub_10018299C(uint64_t a1)
-{
-  v7[0] = 0;
-  v7[1] = v7;
-  v7[2] = 0x2020000000;
-  v8 = 0;
-  v2 = dispatch_get_global_queue(0, 0);
-  block[0] = _NSConcreteStackBlock;
-  block[1] = 3221225472;
-  block[2] = sub_100182A84;
-  block[3] = &unk_100A05A78;
-  v4 = *(a1 + 32);
-  v6 = v7;
-  v5 = *(a1 + 40);
-  dispatch_async(v2, block);
-
-  _Block_object_dispose(v7, 8);
-}
-
-void sub_100182A84(uint64_t a1)
-{
-  v4 = *(a1 + 32);
-  v2 = objc_retainBlock(*(a1 + 40));
-  v3 = v2;
-  if (v2)
-  {
-    (*(v2 + 2))(v2, v4, 0);
-  }
-}
-
-id sub_10018318C(uint64_t a1)
-{
-  [*(a1 + 32) setTransition:*(a1 + 40)];
-  [*(a1 + 32) setCompletion:*(a1 + 56)];
-  v2 = [*(a1 + 32) contentViewController];
-  [*(a1 + 32) setSourceViewController:v2];
-
-  [*(a1 + 32) setWallpaperAssertion:0];
-  [*(a1 + 32) setTransitioning:1];
-  v3 = [*(a1 + 32) view];
-  [v3 bounds];
-  v5 = v4;
-  v7 = v6;
-  v9 = v8;
-  v11 = v10;
-  v12 = [*(a1 + 48) viewIfLoaded];
-  [v12 setFrame:{v5, v7, v9, v11}];
-
-  [*(a1 + 32) willChangeValueForKey:@"contentViewController"];
-  v13 = [*(a1 + 32) navController];
-  v14 = v13;
-  if (*(a1 + 48))
-  {
-    v17 = *(a1 + 48);
-    v15 = [NSArray arrayWithObjects:&v17 count:1];
-    [v14 setViewControllers:v15 animated:1];
-  }
-
-  else
-  {
-    [v13 setViewControllers:&__NSArray0__struct animated:1];
-  }
-
-  return [*(a1 + 32) didChangeValueForKey:@"contentViewController"];
-}
-
-uint64_t sub_100183808(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  result = *(a1 + 32);
-  if (result)
-  {
-    return (*(result + 16))(result, a3);
-  }
-
-  return result;
-}
-
-void sub_100183B50(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  [WeakRetained _notifyObserversOfReload:v3];
-}
-
-void sub_100183CA4(uint64_t a1)
-{
-  v2 = [*(a1 + 32) observers];
-  [v2 addObject:*(a1 + 40)];
-}
-
-void sub_100183DB0(uint64_t a1)
-{
-  v2 = [*(a1 + 32) observers];
-  v3 = [v2 containsObject:*(a1 + 40)];
-
-  if (v3)
-  {
-    v4 = [*(a1 + 32) observers];
-    [v4 removeObject:*(a1 + 40)];
-  }
-}
-
-void sub_100183F00(uint64_t a1)
-{
-  v9 = [*(a1 + 32) _assetCacheForType:*(a1 + 48)];
-  v2 = [v9 cachedAssetIDs];
-  v3 = [NSArray arrayWithArray:v2];
-
-  if (*(a1 + 56) == 1)
-  {
-    v4 = [*(a1 + 32) bookletAssetCache];
-    v5 = [v4 allBookletAssetIDs];
-
-    v6 = objc_retainBlock(*(a1 + 40));
-    if (v6)
-    {
-      v7 = [v3 arrayByAddingObjectsFromArray:v5];
-      v6[2](v6, v7, 0);
-    }
-  }
-
-  else
-  {
-    v8 = objc_retainBlock(*(a1 + 40));
-    v5 = v8;
-    if (v8)
-    {
-      (*(v8 + 2))(v8, v3, 0);
-    }
-  }
-}
-
-void sub_10018413C(uint64_t a1)
-{
-  v5 = [*(a1 + 32) _assetCacheForType:*(a1 + 56)];
-  v2 = [v5 assetsFromAssetIDs:*(a1 + 40)];
-  v3 = objc_retainBlock(*(a1 + 48));
-  v4 = v3;
-  if (v3)
-  {
-    (*(v3 + 2))(v3, v2, 0);
-  }
-}
-
-void sub_1001842A4(uint64_t a1)
-{
-  v2 = [*(a1 + 32) _assetCacheForType:*(a1 + 56)];
-  v3 = [[NSMutableArray alloc] initWithCapacity:{objc_msgSend(*(a1 + 40), "count")}];
-  if ([*(a1 + 40) count])
-  {
-    v5 = 0;
-    *&v4 = 138412290;
-    v13 = v4;
-    do
-    {
-      v6 = [*(a1 + 40) objectAtIndexedSubscript:{v5, v13}];
-      v7 = [v2 assetFromAssetID:v6];
-      if (v7)
-      {
-        [v3 addObject:v7];
-      }
-
-      else
-      {
-        if (*(a1 + 64) == 1)
-        {
-          v8 = [*(a1 + 32) bookletAssetCache];
-          v9 = [v8 bookletAssetForAssetID:v6];
-
-          if (v9)
-          {
-            [v3 addObject:v9];
-          }
-
-          else
-          {
-            v10 = BKLibraryDataSourceMediaLibraryLog();
-            if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-            {
-              *buf = v13;
-              v15 = v6;
-              _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Could not find a booklet or mediaLibrary asset with assetID %@", buf, 0xCu);
-            }
-          }
-        }
-
-        else
-        {
-          v9 = BKLibraryDataSourceMediaLibraryLog();
-          if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
-          {
-            *buf = v13;
-            v15 = v6;
-            _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Could not find an asset with assetID %@", buf, 0xCu);
-          }
-        }
-      }
-
-      ++v5;
-    }
-
-    while (v5 < [*(a1 + 40) count]);
-  }
-
-  v11 = objc_retainBlock(*(a1 + 48));
-  if (v11)
-  {
-    v12 = [v3 copy];
-    v11[2](v11, v12, 0);
-  }
 }

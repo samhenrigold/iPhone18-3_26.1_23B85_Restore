@@ -196,13 +196,13 @@
   {
     *domain = xmmword_101463BB0;
     range[0] = 0.0;
-    v11 = 0;
     v13 = 0;
-    range[1] = 1.0;
-    v12 = 0x3FF0000000000000;
-    v14 = 0x3FF0000000000000;
     v15 = 0;
+    range[1] = 1.0;
+    v14 = 0x3FF0000000000000;
     v16 = 0x3FF0000000000000;
+    v17 = 0;
+    v18 = 0x3FF0000000000000;
     *&callbacks.version = 0;
     callbacks.evaluate = sub_1004C6E38;
     callbacks.releaseInfo = sub_1004C6EEC;
@@ -229,33 +229,34 @@
     }
 
     v5 = CGFunctionCreate(v4, 1uLL, domain, 4uLL, range, &callbacks);
-    if ([(CRLGradientFill *)self p_shadingColorSpace]== 1)
+    p_shadingColorSpace = [(CRLGradientFill *)self p_shadingColorSpace];
+    if (p_shadingColorSpace == 1)
     {
-      v6 = sub_1000CCE28();
+      v8 = sub_1000CCE28(1, v7);
     }
 
     else
     {
-      v6 = sub_1000CCD4C();
+      v8 = sub_1000CCD4C(p_shadingColorSpace, v7);
     }
 
-    v7 = v6;
+    v9 = v8;
     if ([(CRLGradientFill *)self gradientType])
     {
-      v18.x = 0.0;
-      v18.y = 0.0;
-      v21.x = 0.0;
-      v21.y = 0.0;
-      Radial = CGShadingCreateRadial(v7, v18, 0.0, v21, 100.0, v5, 1, 1);
+      v20.x = 0.0;
+      v20.y = 0.0;
+      v23.x = 0.0;
+      v23.y = 0.0;
+      Radial = CGShadingCreateRadial(v9, v20, 0.0, v23, 100.0, v5, 1, 1);
     }
 
     else
     {
-      v20.x = 100.0;
-      v19.x = 0.0;
-      v19.y = 0.0;
-      v20.y = 0.0;
-      Radial = CGShadingCreateAxial(v7, v19, v20, v5, 1, 1);
+      v22.x = 100.0;
+      v21.x = 0.0;
+      v21.y = 0.0;
+      v22.y = 0.0;
+      Radial = CGShadingCreateAxial(v9, v21, v22, v5, 1, 1);
     }
 
     self->mShadingRef = Radial;
@@ -307,27 +308,27 @@
       sub_101327A4C();
     }
 
-    [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLGradientFill p_newColorInShadingColorSpaceFromColor:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLGradientFill.m"] lineNumber:286 isFatal:0 description:"Shading color space should not be unspecified.", v14, v15];
+    [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLGradientFill p_newColorInShadingColorSpaceFromColor:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLGradientFill.m"] lineNumber:286 isFatal:0 description:"Shading color space should not be unspecified.", v15, v16];
     return color;
   }
 
-  v7 = colorRGBSpace;
+  v8 = colorRGBSpace;
   if (colorRGBSpace != 2 && colorRGBSpace != p_shadingColorSpace)
   {
     if (p_shadingColorSpace == 1)
     {
       if (colorRGBSpace)
       {
-        v8 = +[CRLAssertionHandler _atomicIncrementAssertCount];
+        v9 = +[CRLAssertionHandler _atomicIncrementAssertCount];
         if (qword_101AD5A10 != -1)
         {
           sub_1013839C4();
         }
 
-        v9 = off_1019EDA68;
+        v10 = off_1019EDA68;
         if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
         {
-          sub_1013839D8(v8, v9);
+          sub_1013839D8(v9, v10);
         }
 
         if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
@@ -335,38 +336,38 @@
           sub_101327A4C();
         }
 
-        [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLGradientFill p_newColorInShadingColorSpaceFromColor:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLGradientFill.m"] lineNumber:299 isFatal:0 description:"expected equality between %{public}s and %{public}s", "originalColorSpace", "CRLColorRGBSpaceSRGB"];
+        colorRGBSpace = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLGradientFill p_newColorInShadingColorSpaceFromColor:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLGradientFill.m"] lineNumber:299 isFatal:0 description:"expected equality between %{public}s and %{public}s", "originalColorSpace", "CRLColorRGBSpaceSRGB"];
       }
 
-      v10 = sub_1000CCE28();
-      CopyByMatchingToColorSpace = CGColorCreateCopyByMatchingToColorSpace(v10, kCGRenderingIntentDefault, [color CGColor], 0);
-      v5 = [[CRLColor alloc] initWithCGColor:CopyByMatchingToColorSpace colorSpace:1];
+      v11 = sub_1000CCE28(colorRGBSpace, v5);
+      CopyByMatchingToColorSpace = CGColorCreateCopyByMatchingToColorSpace(v11, kCGRenderingIntentDefault, [color CGColor], 0);
+      v6 = [[CRLColor alloc] initWithCGColor:CopyByMatchingToColorSpace colorSpace:1];
       CGColorRelease(CopyByMatchingToColorSpace);
-      return v5;
+      return v6;
     }
 
-    v12 = +[CRLAssertionHandler _atomicIncrementAssertCount];
+    v13 = +[CRLAssertionHandler _atomicIncrementAssertCount];
     if (qword_101AD5A10 != -1)
     {
       sub_101383988();
     }
 
-    v13 = off_1019EDA68;
+    v14 = off_1019EDA68;
     if (os_log_type_enabled(off_1019EDA68, OS_LOG_TYPE_ERROR))
     {
       *buf = 67110402;
-      v18 = v12;
-      v19 = 2082;
-      v20 = "[CRLGradientFill p_newColorInShadingColorSpaceFromColor:]";
-      v21 = 2082;
-      v22 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLGradientFill.m";
-      v23 = 1024;
-      v24 = 307;
-      v25 = 2048;
-      v26 = v7;
-      v27 = 2048;
-      v28 = p_shadingColorSpace;
-      _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unexpected combination of source (%zu) and destination (%zu) color spaces for gradient shading.", buf, 0x36u);
+      v19 = v13;
+      v20 = 2082;
+      v21 = "[CRLGradientFill p_newColorInShadingColorSpaceFromColor:]";
+      v22 = 2082;
+      v23 = "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLGradientFill.m";
+      v24 = 1024;
+      v25 = 307;
+      v26 = 2048;
+      v27 = v8;
+      v28 = 2048;
+      v29 = p_shadingColorSpace;
+      _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "#Assert *** Assertion failure #%u: %{public}s %{public}s:%d Unexpected combination of source (%zu) and destination (%zu) color spaces for gradient shading.", buf, 0x36u);
       if (qword_101AD5A10 != -1)
       {
         sub_10138399C();
@@ -378,7 +379,7 @@
       sub_101327A4C();
     }
 
-    [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLGradientFill p_newColorInShadingColorSpaceFromColor:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLGradientFill.m"] lineNumber:307 isFatal:0 description:"Unexpected combination of source (%zu) and destination (%zu) color spaces for gradient shading.", v7, p_shadingColorSpace];
+    [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[CRLGradientFill p_newColorInShadingColorSpaceFromColor:]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLCanvas/CRLGradientFill.m"] lineNumber:307 isFatal:0 description:"Unexpected combination of source (%zu) and destination (%zu) color spaces for gradient shading.", v8, p_shadingColorSpace];
     return color;
   }
 

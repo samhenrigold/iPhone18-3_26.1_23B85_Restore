@@ -60,18 +60,8 @@
 {
   descriptorCopy = descriptor;
   v5 = descriptorCopy;
-  if (!descriptorCopy)
+  if (!descriptorCopy || (v6 = self->_name == 0, [descriptorCopy name], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (name = self->_name) != 0 && (objc_msgSend(v5, "name"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](name, "isEqual:", v10), v10, !v11))
   {
-    goto LABEL_6;
-  }
-
-  v6 = self->_name == 0;
-  name = [descriptorCopy name];
-  v8 = name != 0;
-
-  if (v6 == v8 || (name = self->_name) != 0 && ([v5 name], v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](name, "isEqual:", v10), v10, !v11))
-  {
-LABEL_6:
     v13 = 0;
   }
 

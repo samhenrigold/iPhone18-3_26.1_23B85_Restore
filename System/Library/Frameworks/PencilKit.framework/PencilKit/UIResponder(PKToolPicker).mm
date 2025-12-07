@@ -1,11 +1,11 @@
 @interface UIResponder(PKToolPicker)
 - (PKResponderState)pencilKitResponderState;
-- (uint64_t)setPencilKitResponderState:()PKToolPicker;
+- (void)setPencilKitResponderState:()PKToolPicker;
 @end
 
 @implementation UIResponder(PKToolPicker)
 
-- (uint64_t)setPencilKitResponderState:()PKToolPicker
+- (void)setPencilKitResponderState:()PKToolPicker
 {
   v11 = *MEMORY[0x1E69E9840];
   v4 = a3;

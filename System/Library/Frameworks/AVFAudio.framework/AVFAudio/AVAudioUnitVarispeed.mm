@@ -8,27 +8,10 @@
 
 - (float)rate
 {
-  AVAudioNodeImplBase::GetAttachAndEngineLock(&v6, [(AVAudioNode *)self impl]);
+  v3 = objc_msgSend_impl(self, a2);
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v7, v3);
   [(AVAudioUnit *)self valueForParam:0];
-  v4 = v3;
-  if (v9 == 1)
-  {
-    std::recursive_mutex::unlock(v8);
-  }
-
-  if (v7 == 1)
-  {
-    std::recursive_mutex::unlock(v6);
-  }
-
-  return v4;
-}
-
-- (void)setRate:(float)rate
-{
-  AVAudioNodeImplBase::GetAttachAndEngineLock(&v7, [(AVAudioNode *)self impl]);
-  *&v5 = rate;
-  [(AVAudioUnit *)self setValue:0 forParam:v5];
+  v5 = v4;
   if (v10 == 1)
   {
     std::recursive_mutex::unlock(v9);
@@ -36,9 +19,28 @@
 
   if (v8 == 1)
   {
-    v6 = v7;
+    std::recursive_mutex::unlock(v7);
+  }
 
-    std::recursive_mutex::unlock(v6);
+  return v5;
+}
+
+- (void)setRate:(float)rate
+{
+  v5 = objc_msgSend_impl(self, a2);
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v8, v5);
+  *&v6 = rate;
+  [(AVAudioUnit *)self setValue:0 forParam:v6];
+  if (v11 == 1)
+  {
+    std::recursive_mutex::unlock(v10);
+  }
+
+  if (v9 == 1)
+  {
+    v7 = v8;
+
+    std::recursive_mutex::unlock(v7);
   }
 }
 

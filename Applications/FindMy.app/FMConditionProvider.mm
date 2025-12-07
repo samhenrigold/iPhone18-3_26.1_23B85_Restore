@@ -25,7 +25,7 @@
 - (void)airplaneModeChanged
 {
   selfCopy = self;
-  sub_100420080();
+  sub_100420080(selfCopy, v2, v3);
 }
 
 - (void)checkNetworkState
@@ -34,7 +34,7 @@
   selfCopy = self;
   isNetworkUp = [v2 isNetworkUp];
   *(&selfCopy->super.isa + OBJC_IVAR____TtC6FindMy19FMConditionProvider_isNetworkUp) = isNetworkUp;
-  sub_10041DAF8();
+  sub_10041DAF8(isNetworkUp, selfCopy, v4);
 }
 
 - (void)refreshRestrictions

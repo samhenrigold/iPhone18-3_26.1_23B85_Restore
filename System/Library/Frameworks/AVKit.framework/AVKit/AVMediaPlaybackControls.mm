@@ -6,9 +6,9 @@
 - (AVMediaSecondaryPlaybackControlConfiguration)forwardSecondaryControlConfiguration;
 - (CGSize)intrinsicContentSize;
 - (uint64_t)_commonInit;
-- (uint64_t)_updateBackwardSecondaryControlIcon;
-- (uint64_t)_updateForwardSecondaryControlIcon;
 - (void)_startObservations;
+- (void)_updateBackwardSecondaryControlIcon;
+- (void)_updateForwardSecondaryControlIcon;
 - (void)_updatePlayPauseButtonIcon;
 - (void)dealloc;
 - (void)didMoveToWindow;
@@ -51,12 +51,12 @@
     else
     {
       playerController = [(AVMediaPlaybackControls *)self playerController];
-      [playerController currentTime];
+      objc_msgSend_currentTime(playerController);
       v8 = v7;
       forwardSecondaryControlConfiguration = self->_forwardSecondaryControlConfiguration;
       if (forwardSecondaryControlConfiguration)
       {
-        [(AVMediaSecondaryPlaybackControlConfiguration *)forwardSecondaryControlConfiguration skipInterval];
+        objc_msgSend_skipInterval(forwardSecondaryControlConfiguration);
       }
 
       else
@@ -86,12 +86,12 @@ LABEL_10:
   if (self->_player && ![pressedCopy backwardSecondaryControlIcon])
   {
     playerController = [(AVMediaPlaybackControls *)self playerController];
-    [playerController currentTime];
+    objc_msgSend_currentTime(playerController);
     v8 = v7;
     backwardSecondaryControlConfiguration = self->_backwardSecondaryControlConfiguration;
     if (backwardSecondaryControlConfiguration)
     {
-      [(AVMediaSecondaryPlaybackControlConfiguration *)backwardSecondaryControlConfiguration skipInterval];
+      objc_msgSend_skipInterval(backwardSecondaryControlConfiguration);
     }
 
     else
@@ -150,13 +150,13 @@ LABEL_10:
   }
 }
 
-- (uint64_t)_updateForwardSecondaryControlIcon
+- (void)_updateForwardSecondaryControlIcon
 {
   if (result)
   {
     v1 = result;
-    v2 = *(result + 424);
-    v3 = *(v1 + 456);
+    v2 = result[53];
+    v3 = v1[57];
     if (v2)
     {
       type = [v2 type];
@@ -171,12 +171,12 @@ LABEL_10:
       }
 
       [v3 setForwardSecondaryControlIcon:v5];
-      [*(v1 + 456) setForwardSecondaryControlEnabled:{objc_msgSend(*(v1 + 424), "isEnabled")}];
-      v6 = *(v1 + 456);
-      v7 = *(v1 + 424);
+      [v1[57] setForwardSecondaryControlEnabled:{objc_msgSend(v1[53], "isEnabled")}];
+      v6 = v1[57];
+      v7 = v1[53];
       if (v7)
       {
-        [v7 skipInterval];
+        objc_msgSend_skipInterval(v7);
       }
 
       else
@@ -185,12 +185,12 @@ LABEL_10:
       }
 
       [v6 setForwardSecondaryControlSkipInterval:v9];
-      return [*(v1 + 456) setShowsForwardSecondaryPlaybackButton:1];
+      return [v1[57] setShowsForwardSecondaryPlaybackButton:1];
     }
 
     else
     {
-      v8 = *(v1 + 456);
+      v8 = v1[57];
 
       return [v8 setShowsForwardSecondaryPlaybackButton:0];
     }
@@ -218,13 +218,13 @@ LABEL_10:
   }
 }
 
-- (uint64_t)_updateBackwardSecondaryControlIcon
+- (void)_updateBackwardSecondaryControlIcon
 {
   if (result)
   {
     v1 = result;
-    v2 = *(result + 416);
-    v3 = *(v1 + 456);
+    v2 = result[52];
+    v3 = v1[57];
     if (v2)
     {
       type = [v2 type];
@@ -239,12 +239,12 @@ LABEL_10:
       }
 
       [v3 setBackwardSecondaryControlIcon:v5];
-      [*(v1 + 456) setBackwardSecondaryControlEnabled:{objc_msgSend(*(v1 + 416), "isEnabled")}];
-      v6 = *(v1 + 456);
-      v7 = *(v1 + 416);
+      [v1[57] setBackwardSecondaryControlEnabled:{objc_msgSend(v1[52], "isEnabled")}];
+      v6 = v1[57];
+      v7 = v1[52];
       if (v7)
       {
-        [v7 skipInterval];
+        objc_msgSend_skipInterval(v7);
       }
 
       else
@@ -253,12 +253,12 @@ LABEL_10:
       }
 
       [v6 setBackwardSecondaryControlSkipInterval:v9];
-      return [*(v1 + 456) setShowsBackwardSecondaryPlaybackButton:1];
+      return [v1[57] setShowsBackwardSecondaryPlaybackButton:1];
     }
 
     else
     {
-      v8 = *(v1 + 456);
+      v8 = v1[57];
 
       return [v8 setShowsBackwardSecondaryPlaybackButton:0];
     }
@@ -429,7 +429,7 @@ LABEL_10:
         backwardSecondaryControlConfiguration = self->_backwardSecondaryControlConfiguration;
         if (backwardSecondaryControlConfiguration)
         {
-          [(AVMediaSecondaryPlaybackControlConfiguration *)backwardSecondaryControlConfiguration skipInterval];
+          objc_msgSend_skipInterval(backwardSecondaryControlConfiguration);
         }
 
         else
@@ -443,7 +443,7 @@ LABEL_10:
         forwardSecondaryControlConfiguration = self->_forwardSecondaryControlConfiguration;
         if (forwardSecondaryControlConfiguration)
         {
-          [(AVMediaSecondaryPlaybackControlConfiguration *)forwardSecondaryControlConfiguration skipInterval];
+          objc_msgSend_skipInterval(forwardSecondaryControlConfiguration);
         }
 
         else

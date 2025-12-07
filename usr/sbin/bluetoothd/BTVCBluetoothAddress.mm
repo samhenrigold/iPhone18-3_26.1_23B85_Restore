@@ -107,28 +107,40 @@
 
 - (id)description
 {
-  v10[1] = 0;
-  NSAppendPrintF();
-  v3 = 0;
-  v4 = v3;
-  if (self->_irkData)
+  v14 = 0;
+  addressType = self->_addressType;
+  if (addressType > 3)
   {
-    v10[0] = v3;
-    v5 = v10;
-    NSAppendPrintF();
+    v4 = "?";
   }
 
   else
   {
-    v9 = v3;
-    v5 = &v9;
-    NSAppendPrintF();
+    v4 = off_100B02000[addressType];
   }
 
-  v6 = *v5;
-  v7 = v6;
+  NSAppendPrintF(&v14, "[BTVCBluetoothAddress] Address:%@, Type:%s", self->_addressData, v4);
+  v5 = v14;
+  v6 = v5;
+  irkData = self->_irkData;
+  if (irkData)
+  {
+    v13 = v5;
+    v8 = &v13;
+    NSAppendPrintF(&v13, ", IRK:%@\n", irkData);
+  }
 
-  return v6;
+  else
+  {
+    v12 = v5;
+    v8 = &v12;
+    NSAppendPrintF(&v12, "\n");
+  }
+
+  v9 = *v8;
+  v10 = v9;
+
+  return v9;
 }
 
 - (id)resolveAddress:(id)address

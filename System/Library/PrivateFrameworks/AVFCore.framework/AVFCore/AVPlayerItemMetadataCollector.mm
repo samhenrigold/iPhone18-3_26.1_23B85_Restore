@@ -13,9 +13,9 @@
 
 - (AVPlayerItemMetadataCollector)initWithIdentifiers:(NSArray *)identifiers classifyingLabels:(NSArray *)classifyingLabels
 {
-  v9.receiver = self;
-  v9.super_class = AVPlayerItemMetadataCollector;
-  v6 = [(AVPlayerItemMediaDataCollector *)&v9 init];
+  v10.receiver = self;
+  v10.super_class = AVPlayerItemMetadataCollector;
+  v6 = [(AVPlayerItemMediaDataCollector *)&v10 init];
   if (v6)
   {
     v7 = objc_alloc_init(AVPlayerItemMetadataCollectorInternal);
@@ -26,7 +26,7 @@
       v6->_metadataCollectorInternal->identifiers = [(NSArray *)identifiers copy];
       v6->_metadataCollectorInternal->classifyingLabels = [(NSArray *)classifyingLabels copy];
       v6->_metadataCollectorInternal->delegateStorage = objc_alloc_init(AVWeakReferencingDelegateStorage);
-      v6->_metadataCollectorInternal->ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avplayeritemmetadatacollector.ivars");
+      v6->_metadataCollectorInternal->ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avplayeritemmetadatacollector.ivars", v8);
       v6->_metadataCollectorInternal->mostRecentlyModifiedMetadataGroupTimestamp = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:0.0];
     }
 
@@ -288,7 +288,7 @@ id __94__AVPlayerItemMetadataCollector_AVPlayerItemMediaDataCollector_Internal__
   av_readwrite_dispatch_queue_read(ivarAccessQueue, v4);
 }
 
-uint64_t __106__AVPlayerItemMetadataCollector_AVPlayerItemMediaDataCollector_Internal___updateTaggedRangeMetadataArray___block_invoke(uint64_t a1)
+void *__106__AVPlayerItemMetadataCollector_AVPlayerItemMediaDataCollector_Internal___updateTaggedRangeMetadataArray___block_invoke(uint64_t a1)
 {
   v7 = 0;
   v8 = 0;

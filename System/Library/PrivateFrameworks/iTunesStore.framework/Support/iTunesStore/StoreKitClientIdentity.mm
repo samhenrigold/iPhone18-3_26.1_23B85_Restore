@@ -21,15 +21,21 @@
   shouldLog = [v6 shouldLog];
   if ([v6 shouldLogToDisk])
   {
-    v8 = shouldLog | 2;
+    LODWORD(v8) = shouldLog | 2;
   }
 
   else
   {
-    v8 = shouldLog;
+    LODWORD(v8) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [v6 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
@@ -42,13 +48,12 @@
     identifierCopy = identifier;
     v17 = 2114;
     dateCopy = date;
-    LODWORD(v11) = 32;
-    v9 = _os_log_send_and_compose_impl();
-    if (v9)
+    v10 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Forcing sandbox for %{public}@ until %{public}@", &v13, 32);
+    if (v10)
     {
-      v10 = v9;
-      [NSString stringWithCString:v9 encoding:4, &v13, v11];
-      free(v10);
+      v11 = v10;
+      [NSString stringWithCString:v10 encoding:4];
+      free(v11);
       SSFileLog();
     }
   }

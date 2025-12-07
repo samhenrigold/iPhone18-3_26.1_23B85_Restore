@@ -427,7 +427,7 @@ uint64_t __33__SSURLBag_setURLBag_forContext___block_invoke(uint64_t a1, void *a
   dispatch_async(global_queue, v8);
 }
 
-uint64_t __42__SSURLBag__drainPendingLookupsWithError___block_invoke(uint64_t a1)
+void *__42__SSURLBag__drainPendingLookupsWithError___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
@@ -451,7 +451,8 @@ uint64_t __42__SSURLBag__drainPendingLookupsWithError___block_invoke(uint64_t a1
           objc_enumerationMutation(v3);
         }
 
-        (*(*(*(&v8 + 1) + 8 * v7++) + 16))();
+        (*(*(*(&v8 + 1) + 8 * v7) + 16))();
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);
@@ -467,8 +468,8 @@ uint64_t __42__SSURLBag__drainPendingLookupsWithError___block_invoke(uint64_t a1
 
 - (void)_loadURLBag
 {
-  v24 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  v23 = *MEMORY[0x1E69E9840];
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v3 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v3)
@@ -487,56 +488,54 @@ uint64_t __42__SSURLBag__drainPendingLookupsWithError___block_invoke(uint64_t a1
       v5 = shouldLog;
     }
 
-    if (os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v3 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v6 = v5;
+      v7 = v5;
     }
 
     else
     {
-      v6 = v5 & 2;
+      v7 = v5 & 2;
     }
 
-    if (v6)
+    if (v7)
     {
-      v22 = 136446210;
-      v23 = "[SSURLBag _loadURLBag]";
-      LODWORD(v20) = 12;
-      v19 = &v22;
-      v7 = _os_log_send_and_compose_impl();
-      if (v7)
+      v21 = 136446210;
+      v22 = "[SSURLBag _loadURLBag]";
+      if (v8)
       {
-        v8 = v7;
-        v9 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:{4, &v22, v20}];
-        free(v8);
-        SSFileLog(v3, @"%@", v10, v11, v12, v13, v14, v15, v9);
+        v9 = v8;
+        v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:4];
+        free(v9);
+        SSFileLog(v3, @"%@", v11, v12, v13, v14, v15, v16, v10);
       }
     }
   }
 
-  v16 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v16, "0", 25);
+  v17 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v17, "0", 25);
   if (self->_ignoreCacheForNextLookup)
   {
-    v17 = [(SSURLBagContext *)self->_context copy];
-    [(__CFString *)v17 setIgnoresCaches:1];
-    SSXPCDictionarySetCFObject(v16, "1", v17);
+    v18 = [(SSURLBagContext *)self->_context copy];
+    [(__CFString *)v18 setIgnoresCaches:1];
+    SSXPCDictionarySetCFObject(v17, "1", v18);
     self->_ignoreCacheForNextLookup = 0;
   }
 
   else
   {
-    SSXPCDictionarySetCFObject(v16, "1", self->_context);
+    SSXPCDictionarySetCFObject(v17, "1", self->_context);
   }
 
   _connection = [(SSURLBag *)self _connection];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __23__SSURLBag__loadURLBag__block_invoke;
-  v21[3] = &unk_1E84AF2C8;
-  v21[4] = self;
-  [_connection sendMessage:v16 withReply:v21];
-  xpc_release(v16);
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __23__SSURLBag__loadURLBag__block_invoke;
+  v20[3] = &unk_1E84AF2C8;
+  v20[4] = self;
+  [_connection sendMessage:v17 withReply:v20];
+  xpc_release(v17);
 }
 
 void __23__SSURLBag__loadURLBag__block_invoke(uint64_t a1, void *a2)
@@ -611,8 +610,8 @@ LABEL_4:
   }
 
   *(a1[5] + 5) = xpc_double_get_value(v3);
-  v10 = *(a1[5] + 5);
-  if (v10 <= CFAbsoluteTimeGetCurrent() + 60.0)
+  v11 = *(a1[5] + 5);
+  if (v11 <= CFAbsoluteTimeGetCurrent() + 60.0)
   {
     Current = CFAbsoluteTimeGetCurrent();
     v5 = 60.0;
@@ -626,12 +625,12 @@ LABEL_5:
 
   *(a1[5] + 3) = [a1[6] copy];
   v8 = a1[4];
-  objc_opt_class();
-  *(a1[5] + 8) = SSXPCDictionaryCopyCFObjectWithClass(v8, "3");
+  v9 = objc_opt_class();
+  *(a1[5] + 8) = SSXPCDictionaryCopyCFObjectWithClass(v8, "3", v9);
   [a1[5] _drainPendingLookupsWithError:0];
-  v9 = a1[4];
+  v10 = a1[4];
 
-  xpc_release(v9);
+  xpc_release(v10);
 }
 
 - (void)_loadWithCompletionBlock:(id)block
@@ -695,7 +694,7 @@ id __37__SSURLBag__loadWithCompletionBlock___block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __37__SSURLBag__loadWithCompletionBlock___block_invoke_2(uint64_t a1)
+void *__37__SSURLBag__loadWithCompletionBlock___block_invoke_2(uint64_t a1)
 {
   if (!*(*(a1 + 32) + 56))
   {

@@ -121,14 +121,14 @@ uint64_t __62__KSKeyboardExtensionController_setKeyboardEnabled_specifier___bloc
 
 - (id)specifiers
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v25 = *(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
-  if (!v25)
+  v30 = *MEMORY[0x277D85DE8];
+  v24 = *(&self->super.super.super.super.super.isa + *MEMORY[0x277D3FC48]);
+  if (!v24)
   {
-    v21 = *MEMORY[0x277D3FC48];
+    v20 = *MEMORY[0x277D3FC48];
     v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
     -[KSKeyboardExtensionController setTitle:](self, "setTitle:", [objc_msgSend(MEMORY[0x277CCA8D8] bundleForClass:{objc_opt_class()), "localizedStringForKey:value:table:", @"KEYBOARDS_SHORT", &stru_28679E3A8, @"Keyboard"}]);
-    v25 = v3;
+    v24 = v3;
     emptyGroupSpecifier = [MEMORY[0x277D3FAD8] emptyGroupSpecifier];
     [v3 addObject:?];
     v4 = objc_opt_class();
@@ -136,36 +136,36 @@ uint64_t __62__KSKeyboardExtensionController_setKeyboardEnabled_specifier___bloc
     specifier = [(KSKeyboardExtensionController *)self specifier];
     v6 = [v4 keyboardsForBundleID:{objc_msgSend(specifier, "propertyForKey:", *MEMORY[0x277D3FD90])}];
     v7 = +[KSKeyboardListController inputModes];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     obj = v6;
-    v8 = [v6 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v8 = [v6 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v8)
     {
       v9 = v8;
       v10 = 0;
-      v11 = *v27;
+      v11 = *v26;
       v12 = *MEMORY[0x277D3FFB8];
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v27 != v11)
+          if (*v26 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v14 = *(*(&v26 + 1) + 8 * i);
+          v14 = *(*(&v25 + 1) + 8 * i);
           v15 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:objc_msgSend(v14 target:"displayName") set:selfCopy get:sel_setKeyboardEnabled_specifier_ detail:sel_isKeyboardEnabled_ cell:0 edit:{6, 0}];
           [v15 setProperty:objc_msgSend(v14 forKey:{"identifier"), v12}];
           [v15 setProperty:emptyGroupSpecifier forKey:@"GroupHeader"];
-          [v25 addObject:v15];
+          [v24 addObject:v15];
           v10 |= [v7 containsObject:{objc_msgSend(v14, "identifier")}];
         }
 
-        v9 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v9 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v9);
@@ -176,7 +176,7 @@ uint64_t __62__KSKeyboardExtensionController_setKeyboardEnabled_specifier___bloc
       LOBYTE(v10) = 0;
     }
 
-    -[KSKeyboardExtensionController setLastInputModeSpecifier:](selfCopy, "setLastInputModeSpecifier:", [v25 lastObject]);
+    -[KSKeyboardExtensionController setLastInputModeSpecifier:](selfCopy, "setLastInputModeSpecifier:", [v24 lastObject]);
     firstObject = [obj firstObject];
     [-[KSKeyboardExtensionController specifier](selfCopy "specifier")];
     [-[KSKeyboardExtensionController specifier](selfCopy "specifier")];
@@ -188,7 +188,7 @@ uint64_t __62__KSKeyboardExtensionController_setKeyboardEnabled_specifier___bloc
     [(KSAddExtensionKeyboardController *)[(KSKeyboardExtensionController *)selfCopy addExtensionKeyboardController] setNetworkAccessSpecifierForKeyboardInputMode:firstObject];
     if ((v10 & 1) != 0 && [(KSAddExtensionKeyboardController *)[(KSKeyboardExtensionController *)selfCopy addExtensionKeyboardController] networkAccessSpecifier])
     {
-      [v25 addObject:{-[KSAddExtensionKeyboardController networkAccessSpecifier](-[KSKeyboardExtensionController addExtensionKeyboardController](selfCopy, "addExtensionKeyboardController"), "networkAccessSpecifier")}];
+      [v24 addObject:{-[KSAddExtensionKeyboardController networkAccessSpecifier](-[KSKeyboardExtensionController addExtensionKeyboardController](selfCopy, "addExtensionKeyboardController"), "networkAccessSpecifier")}];
     }
 
     if ([(KSKeyboardExtensionController *)selfCopy aboutPrivacyController])
@@ -201,12 +201,11 @@ uint64_t __62__KSKeyboardExtensionController_setKeyboardEnabled_specifier___bloc
       [(KSKeyboardExtensionController *)selfCopy setAboutPrivacyController:[[KSAboutKeyboardPrivacyController alloc] initWithGroupSpecifier:emptyGroupSpecifier asHeader:0 inListController:selfCopy]];
     }
 
-    [v25 addObjectsFromArray:{+[KSAddExtensionKeyboardController specifiersForExtensionInputMode:parentSpecifier:](KSAddExtensionKeyboardController, "specifiersForExtensionInputMode:parentSpecifier:", objc_msgSend(obj, "firstObject"), -[KSKeyboardExtensionController specifier](selfCopy, "specifier"))}];
-    *(&selfCopy->super.super.super.super.super.isa + v21) = v25;
+    [v24 addObjectsFromArray:{+[KSAddExtensionKeyboardController specifiersForExtensionInputMode:parentSpecifier:](KSAddExtensionKeyboardController, "specifiersForExtensionInputMode:parentSpecifier:", objc_msgSend(obj, "firstObject"), -[KSKeyboardExtensionController specifier](selfCopy, "specifier"))}];
+    *(&selfCopy->super.super.super.super.super.isa + v20) = v24;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-  return v25;
+  return v24;
 }
 
 - (void)tableView:(id)view willDisplayFooterView:(id)footerView forSection:(int64_t)section
@@ -219,41 +218,40 @@ uint64_t __62__KSKeyboardExtensionController_setKeyboardEnabled_specifier___bloc
 
 + (id)keyboardsForBundleID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   sharedInputModeController = [objc_msgSend(MEMORY[0x277D75688] sharedInputModeController];
-  v6 = [sharedInputModeController countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [sharedInputModeController countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(sharedInputModeController);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if ([d isEqualToString:{objc_msgSend(objc_msgSend(v10, "containingBundle"), "bundleIdentifier")}])
         {
           [array addObject:v10];
         }
       }
 
-      v7 = [sharedInputModeController countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [sharedInputModeController countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return array;
 }
 

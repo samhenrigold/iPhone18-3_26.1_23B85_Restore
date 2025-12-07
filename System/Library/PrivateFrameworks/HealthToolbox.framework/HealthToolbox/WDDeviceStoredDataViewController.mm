@@ -64,52 +64,52 @@
 
 - (void)deleteAllStoredData
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   storedDataPredicate = [(WDDeviceStoredDataViewController *)self storedDataPredicate];
-  v24[0] = 0;
-  v24[1] = v24;
-  v24[2] = 0x2020000000;
-  v25 = 1;
+  v23[0] = 0;
+  v23[1] = v23;
+  v23[2] = 0x2020000000;
+  v24 = 1;
   v3 = dispatch_group_create();
   dispatch_group_enter(v3);
-  v22 = 0u;
-  v23 = 0u;
   v21 = 0u;
+  v22 = 0u;
   v20 = 0u;
+  v19 = 0u;
   capturedSampleTypes = [(WDStoredDataByCategoryViewController *)self capturedSampleTypes];
-  v5 = [capturedSampleTypes countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v5 = [capturedSampleTypes countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v5)
   {
-    v6 = *v21;
+    v6 = *v20;
     do
     {
       v7 = 0;
       do
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(capturedSampleTypes);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * v7);
+        v8 = *(*(&v19 + 1) + 8 * v7);
         dispatch_group_enter(v3);
         profile = [(WDStoredDataByCategoryViewController *)self profile];
         healthStore = [profile healthStore];
-        v16[0] = MEMORY[0x277D85DD0];
-        v16[1] = 3221225472;
-        v16[2] = __55__WDDeviceStoredDataViewController_deleteAllStoredData__block_invoke;
-        v16[3] = &unk_2796E7100;
-        v16[4] = v8;
-        v18 = v24;
-        v19 = a2;
-        v17 = v3;
-        [healthStore deleteObjectsOfType:v8 predicate:storedDataPredicate withCompletion:v16];
+        v15[0] = MEMORY[0x277D85DD0];
+        v15[1] = 3221225472;
+        v15[2] = __55__WDDeviceStoredDataViewController_deleteAllStoredData__block_invoke;
+        v15[3] = &unk_2796E7100;
+        v15[4] = v8;
+        v17 = v23;
+        v18 = a2;
+        v16 = v3;
+        [healthStore deleteObjectsOfType:v8 predicate:storedDataPredicate withCompletion:v15];
 
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [capturedSampleTypes countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v5 = [capturedSampleTypes countByEnumeratingWithState:&v19 objects:v25 count:16];
     }
 
     while (v5);
@@ -122,12 +122,11 @@
   block[2] = __55__WDDeviceStoredDataViewController_deleteAllStoredData__block_invoke_295;
   block[3] = &unk_2796E6E30;
   block[4] = self;
-  block[5] = v24;
+  block[5] = v23;
   block[6] = a2;
   dispatch_group_notify(v3, v11, block);
 
-  _Block_object_dispose(v24, 8);
-  v12 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(v23, 8);
 }
 
 void __55__WDDeviceStoredDataViewController_deleteAllStoredData__block_invoke(uint64_t a1, char a2, uint64_t a3, void *a4)
@@ -185,35 +184,31 @@ void __55__WDDeviceStoredDataViewController_deleteAllStoredData__block_invoke_2(
 
 void __55__WDDeviceStoredDataViewController_deleteAllStoredData__block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = *(a1 + 56);
   v6 = a2;
   v7 = NSStringFromSelector(v5);
   v8 = *(a1 + 32);
-  v10 = 138412802;
-  v11 = v7;
-  v12 = 2112;
-  v13 = v8;
-  v14 = 2112;
-  v15 = a3;
-  _os_log_error_impl(&dword_251E85000, v6, OS_LOG_TYPE_ERROR, "%@ deleteObjectsOfType: %@ %@", &v10, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138412802;
+  v10 = v7;
+  v11 = 2112;
+  v12 = v8;
+  v13 = 2112;
+  v14 = a3;
+  _os_log_error_impl(&dword_251E85000, v6, OS_LOG_TYPE_ERROR, "%@ deleteObjectsOfType: %@ %@", &v9, 0x20u);
 }
 
 void __55__WDDeviceStoredDataViewController_deleteAllStoredData__block_invoke_2_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = a2;
   v6 = NSStringFromSelector(v4);
-  v8 = 138412546;
-  v9 = v6;
-  v10 = 2112;
-  v11 = a3;
-  _os_log_error_impl(&dword_251E85000, v5, OS_LOG_TYPE_ERROR, "%@ Error deleting device: %@", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138412546;
+  v8 = v6;
+  v9 = 2112;
+  v10 = a3;
+  _os_log_error_impl(&dword_251E85000, v5, OS_LOG_TYPE_ERROR, "%@ Error deleting device: %@", &v7, 0x16u);
 }
 
 @end

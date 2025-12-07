@@ -9,7 +9,7 @@
 - (void)vui_loadView
 {
   selfCopy = self;
-  sub_1E391D5DC();
+  sub_1E391D5DC(selfCopy);
 }
 
 - (void)vui_viewWillAppear:(BOOL)appear

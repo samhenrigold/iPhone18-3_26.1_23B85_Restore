@@ -19,7 +19,7 @@ void __CaptureInterposerInit_block_invoke(id a1)
   g_loadURLAsMemHeader = 1;
   g_ctx = GTTraceContext_create((dword_31F7C8 >> 28) & 1);
   CaptureMTLInit();
-  CaptureCA();
+  CaptureCA(g_ctx);
   _objc_addWillInitializeClassFunc();
   GTMTLCaptureManager_init();
   GTCaptureBoundaryTracker_init(g_ctx);

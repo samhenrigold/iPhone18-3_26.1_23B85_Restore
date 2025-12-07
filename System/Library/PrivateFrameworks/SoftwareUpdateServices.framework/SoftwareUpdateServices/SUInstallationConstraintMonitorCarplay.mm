@@ -83,7 +83,6 @@ LABEL_12:
 
 - (unint64_t)unsatisfiedConstraints
 {
-  queue = self->super._queue;
   BSDispatchQueueAssert();
   if (!self->_queue_CarplayConnected)
   {
@@ -95,26 +94,24 @@ LABEL_12:
 
 - (void)_queue_carplayDidChange
 {
-  queue = self->super._queue;
   BSDispatchQueueAssert();
   queue_carSessionStatus = self->_queue_carSessionStatus;
   if (queue_carSessionStatus)
   {
     currentSession = [(CARSessionStatus *)queue_carSessionStatus currentSession];
-    v6 = currentSession != 0;
+    v5 = currentSession != 0;
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  if (self->_queue_CarplayConnected != v6)
+  if (self->_queue_CarplayConnected != v5)
   {
-    self->_queue_CarplayConnected = v6;
-    v7 = SULogInstallConstraints();
-    self->_queue_CarplayConnected;
-    SULogInfoForSubsystem(v7, @"%@ - carplay constraint changed (satisfied? %@)", v8, v9, v10, v11, v12, v13, self);
+    self->_queue_CarplayConnected = v5;
+    v6 = SULogInstallConstraints(queue_carSessionStatus);
+    SULogInfoForSubsystem(v6, @"%@ - carplay constraint changed (satisfied? %@)", v7, v8, v9, v10, v11, v12, self);
 
     delegate = [(SUInstallationConstraintMonitorBase *)self delegate];
     [delegate installationConstraintMonitor:self constraintsDidChange:{-[SUInstallationConstraintMonitorBase representedConstraints](self, "representedConstraints")}];

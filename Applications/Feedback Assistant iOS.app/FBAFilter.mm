@@ -20,21 +20,18 @@
 
 - (NSString)title
 {
-  v2 = *(self + OBJC_IVAR____TtC18Feedback_Assistant9FBAFilter_title);
-  v3 = *(self + OBJC_IVAR____TtC18Feedback_Assistant9FBAFilter_title + 8);
 
-  v4 = String._bridgeToObjectiveC()();
+  v2 = String._bridgeToObjectiveC()();
 
-  return v4;
+  return v2;
 }
 
 - (void)setTitle:(id)title
 {
   v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = (self + OBJC_IVAR____TtC18Feedback_Assistant9FBAFilter_title);
-  v6 = *(self + OBJC_IVAR____TtC18Feedback_Assistant9FBAFilter_title + 8);
   *v5 = v4;
-  v5[1] = v7;
+  v5[1] = v6;
 }
 
 - (void)setImage:(id)image

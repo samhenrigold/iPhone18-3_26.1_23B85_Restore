@@ -10,7 +10,9 @@
 - (void)_setOrRemoveObject:(id)object forKey:(id)key;
 - (void)setKnownAccountDSIDs:(id)ds;
 - (void)setKnownActiveAccountDSID:(id)d;
+- (void)setLastKnownExplicitContentAllowed:(BOOL)allowed;
 - (void)setLastKnownMusicSubscriptionType:(int64_t)type;
+- (void)setLastKnownMusicVideosAllowed:(BOOL)allowed;
 - (void)setPendingBackgroundTasksData:(id)data;
 @end
 
@@ -72,12 +74,26 @@
   return v3;
 }
 
+- (void)setLastKnownMusicVideosAllowed:(BOOL)allowed
+{
+  allowedCopy = allowed;
+  userDefaults = [(ICDDefaults *)self userDefaults];
+  [userDefaults setBool:allowedCopy forKey:@"ICDDefaultsKeyLastKnownMusicVideosAllowed"];
+}
+
 - (BOOL)lastKnownMusicVideosAllowed
 {
   userDefaults = [(ICDDefaults *)self userDefaults];
   v3 = [userDefaults BOOLForKey:@"ICDDefaultsKeyLastKnownMusicVideosAllowed"];
 
   return v3;
+}
+
+- (void)setLastKnownExplicitContentAllowed:(BOOL)allowed
+{
+  allowedCopy = allowed;
+  userDefaults = [(ICDDefaults *)self userDefaults];
+  [userDefaults setBool:allowedCopy forKey:@"ICDDefaultsKeyLastKnownExplicitContentAllowed"];
 }
 
 - (BOOL)lastKnownExplicitContentAllowed

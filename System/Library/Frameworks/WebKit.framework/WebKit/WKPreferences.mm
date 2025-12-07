@@ -127,8 +127,8 @@
   WTF::Vector<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v11, v2);
   API::Array::create(v11, &v10);
   v3 = v10;
-  v4 = *(v10 + 1);
-  if (!v4)
+  var1 = v10->var1;
+  if (!var1)
   {
     v7 = 0;
     goto LABEL_4;
@@ -137,13 +137,13 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v5 = v4;
-    v6 = v4;
-    v7 = *(v3 + 1);
+    v5 = var1;
+    v6 = var1;
+    v7 = v3->var1;
 LABEL_4:
     CFRelease(v7);
     WTF::Vector<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v11, v8);
-    return v4;
+    return var1;
   }
 
   result = 117;
@@ -281,7 +281,7 @@ LABEL_4:
   {
   }
 
-  CFRelease(v4[1]);
+  CFRelease(v4->var1);
   return v7;
 }
 
@@ -820,8 +820,8 @@ LABEL_4:
   WTF::Vector<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v11, v2);
   API::Array::create(v11, &v10);
   v3 = v10;
-  v4 = *(v10 + 1);
-  if (!v4)
+  var1 = v10->var1;
+  if (!var1)
   {
     v7 = 0;
     goto LABEL_4;
@@ -830,13 +830,13 @@ LABEL_4:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v5 = v4;
-    v6 = v4;
-    v7 = *(v3 + 1);
+    v5 = var1;
+    v6 = var1;
+    v7 = v3->var1;
 LABEL_4:
     CFRelease(v7);
     WTF::Vector<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v11, v8);
-    return v4;
+    return var1;
   }
 
   result = 117;
@@ -850,8 +850,8 @@ LABEL_4:
   WTF::Vector<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::Vector(v11, v2);
   API::Array::create(v11, &v10);
   v3 = v10;
-  v4 = *(v10 + 1);
-  if (!v4)
+  var1 = v10->var1;
+  if (!var1)
   {
     v7 = 0;
     goto LABEL_4;
@@ -860,13 +860,13 @@ LABEL_4:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v5 = v4;
-    v6 = v4;
-    v7 = *(v3 + 1);
+    v5 = var1;
+    v6 = var1;
+    v7 = v3->var1;
 LABEL_4:
     CFRelease(v7);
     WTF::Vector<WTF::RefPtr<API::Object,WTF::RawPtrTraits<API::Object>,WTF::DefaultRefDerefTraits<API::Object>>,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(v11, v8);
-    return v4;
+    return var1;
   }
 
   result = 117;

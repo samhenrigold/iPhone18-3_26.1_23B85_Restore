@@ -74,12 +74,13 @@
 void __76__CSQueueViewControllerDataSource_tableView_moveRowAtIndexPath_toIndexPath___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = ContinuitySingLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = ContinuitySingLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __76__CSQueueViewControllerDataSource_tableView_moveRowAtIndexPath_toIndexPath___block_invoke_cold_1(a1, v3, v4);
+      __76__CSQueueViewControllerDataSource_tableView_moveRowAtIndexPath_toIndexPath___block_invoke_cold_1(a1, v4, v5);
     }
   }
 }

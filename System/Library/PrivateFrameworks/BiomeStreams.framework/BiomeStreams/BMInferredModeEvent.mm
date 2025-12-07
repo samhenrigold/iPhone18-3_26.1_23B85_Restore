@@ -1,5 +1,9 @@
 @interface BMInferredModeEvent
 + (id)eventWithData:(id)data dataVersion:(unsigned int)version;
+- (BMInferredModeEvent)initWithAbsoluteTimestamp:(double)timestamp modeIdentifier:(id)identifier origin:(int64_t)origin originBundleId:(id)id originAnchorType:(id)type isAutomationEnabled:(BOOL)enabled uiLocation:(unint64_t)location isStart:(BOOL)self0 confidenceScore:(double)self1 uuid:(id)self2 serializedTriggers:(id)self3;
+- (BMInferredModeEvent)initWithAbsoluteTimestamp:(double)timestamp modeIdentifier:(id)identifier origin:(int64_t)origin originBundleId:(id)id originAnchorType:(id)type isAutomationEnabled:(BOOL)enabled uiLocation:(unint64_t)location isStart:(BOOL)self0 confidenceScore:(double)self1 uuid:(id)self2 serializedTriggers:(id)self3 modeType:(unint64_t)self4;
+- (BMInferredModeEvent)initWithAbsoluteTimestamp:(double)timestamp modeUUID:(id)d origin:(int64_t)origin originBundleId:(id)id originAnchorType:(id)type isAutomationEnabled:(BOOL)enabled uiLocation:(unint64_t)location isStart:(BOOL)self0 confidenceScore:(double)self1 suggestionUUID:(id)self2 serializedTriggers:(id)self3 modeType:(unint64_t)self4;
+- (BMInferredModeEvent)initWithAbsoluteTimestamp:(double)timestamp modeUUID:(id)d origin:(int64_t)origin originBundleId:(id)id originAnchorType:(id)type isAutomationEnabled:(BOOL)enabled uiLocation:(unint64_t)location isStart:(BOOL)self0 confidenceScore:(double)self1 suggestionUUID:(id)self2 serializedTriggers:(id)self3 shouldSuggestTriggers:(BOOL)self4 modeType:(unint64_t)self5;
 - (BMInferredModeEvent)initWithAbsoluteTimestamp:(double)timestamp modeUUID:(id)d origin:(int64_t)origin originBundleId:(id)id originAnchorType:(id)type isAutomationEnabled:(BOOL)enabled uiLocation:(unint64_t)location isStart:(BOOL)self0 confidenceScore:(double)self1 suggestionUUID:(id)self2 serializedTriggers:(id)self3 shouldSuggestTriggers:(BOOL)self4 modeType:(unint64_t)self5 userModeName:(id)self6;
 - (BMInferredModeEvent)initWithProto:(id)proto;
 - (BMInferredModeEvent)initWithProtoData:(id)data;
@@ -11,6 +15,34 @@
 @end
 
 @implementation BMInferredModeEvent
+
+- (BMInferredModeEvent)initWithAbsoluteTimestamp:(double)timestamp modeIdentifier:(id)identifier origin:(int64_t)origin originBundleId:(id)id originAnchorType:(id)type isAutomationEnabled:(BOOL)enabled uiLocation:(unint64_t)location isStart:(BOOL)self0 confidenceScore:(double)self1 uuid:(id)self2 serializedTriggers:(id)self3
+{
+  LOBYTE(v15) = 1;
+  LOBYTE(v14) = start;
+  return [(BMInferredModeEvent *)self initWithAbsoluteTimestamp:identifier modeUUID:origin origin:id originBundleId:type originAnchorType:enabled isAutomationEnabled:location uiLocation:timestamp isStart:score confidenceScore:v14 suggestionUUID:uuid serializedTriggers:triggers shouldSuggestTriggers:v15 modeType:0 userModeName:0];
+}
+
+- (BMInferredModeEvent)initWithAbsoluteTimestamp:(double)timestamp modeIdentifier:(id)identifier origin:(int64_t)origin originBundleId:(id)id originAnchorType:(id)type isAutomationEnabled:(BOOL)enabled uiLocation:(unint64_t)location isStart:(BOOL)self0 confidenceScore:(double)self1 uuid:(id)self2 serializedTriggers:(id)self3 modeType:(unint64_t)self4
+{
+  LOBYTE(v16) = 1;
+  LOBYTE(v15) = start;
+  return [(BMInferredModeEvent *)self initWithAbsoluteTimestamp:identifier modeUUID:origin origin:id originBundleId:type originAnchorType:enabled isAutomationEnabled:location uiLocation:timestamp isStart:score confidenceScore:v15 suggestionUUID:uuid serializedTriggers:triggers shouldSuggestTriggers:v16 modeType:modeType userModeName:0];
+}
+
+- (BMInferredModeEvent)initWithAbsoluteTimestamp:(double)timestamp modeUUID:(id)d origin:(int64_t)origin originBundleId:(id)id originAnchorType:(id)type isAutomationEnabled:(BOOL)enabled uiLocation:(unint64_t)location isStart:(BOOL)self0 confidenceScore:(double)self1 suggestionUUID:(id)self2 serializedTriggers:(id)self3 modeType:(unint64_t)self4
+{
+  LOBYTE(v16) = 1;
+  LOBYTE(v15) = start;
+  return [(BMInferredModeEvent *)self initWithAbsoluteTimestamp:d modeUUID:origin origin:id originBundleId:type originAnchorType:enabled isAutomationEnabled:location uiLocation:timestamp isStart:score confidenceScore:v15 suggestionUUID:iD serializedTriggers:triggers shouldSuggestTriggers:v16 modeType:modeType userModeName:0];
+}
+
+- (BMInferredModeEvent)initWithAbsoluteTimestamp:(double)timestamp modeUUID:(id)d origin:(int64_t)origin originBundleId:(id)id originAnchorType:(id)type isAutomationEnabled:(BOOL)enabled uiLocation:(unint64_t)location isStart:(BOOL)self0 confidenceScore:(double)self1 suggestionUUID:(id)self2 serializedTriggers:(id)self3 shouldSuggestTriggers:(BOOL)self4 modeType:(unint64_t)self5
+{
+  LOBYTE(v17) = suggestTriggers;
+  LOBYTE(v16) = start;
+  return [(BMInferredModeEvent *)self initWithAbsoluteTimestamp:d modeUUID:origin origin:id originBundleId:type originAnchorType:enabled isAutomationEnabled:location uiLocation:timestamp isStart:score confidenceScore:v16 suggestionUUID:iD serializedTriggers:triggers shouldSuggestTriggers:v17 modeType:modeType userModeName:0];
+}
 
 - (BMInferredModeEvent)initWithAbsoluteTimestamp:(double)timestamp modeUUID:(id)d origin:(int64_t)origin originBundleId:(id)id originAnchorType:(id)type isAutomationEnabled:(BOOL)enabled uiLocation:(unint64_t)location isStart:(BOOL)self0 confidenceScore:(double)self1 suggestionUUID:(id)self2 serializedTriggers:(id)self3 shouldSuggestTriggers:(BOOL)self4 modeType:(unint64_t)self5 userModeName:(id)self6
 {
@@ -93,20 +125,20 @@ LABEL_9:
 
 - (id)jsonDict
 {
-  v24[14] = *MEMORY[0x1E69E9840];
-  v23[0] = @"absoluteTimeStamp";
+  v23[14] = *MEMORY[0x1E69E9840];
+  v22[0] = @"absoluteTimeStamp";
   v3 = [MEMORY[0x1E696AD98] numberWithDouble:self->_absoluteTimestamp];
-  v22 = v3;
+  v21 = v3;
   modeUUID = self->_modeUUID;
   if (!modeUUID)
   {
     modeUUID = @"nil";
   }
 
-  v24[0] = v3;
-  v24[1] = modeUUID;
-  v23[1] = @"modeUUID";
-  v23[2] = @"origin";
+  v23[0] = v3;
+  v23[1] = modeUUID;
+  v22[1] = @"modeUUID";
+  v22[2] = @"origin";
   v5 = [MEMORY[0x1E696AD98] numberWithInteger:self->_origin];
   v6 = v5;
   originBundleId = self->_originBundleId;
@@ -115,53 +147,51 @@ LABEL_9:
     originBundleId = @"nil";
   }
 
-  v24[2] = v5;
-  v24[3] = originBundleId;
-  v23[3] = @"originBundleId";
-  v23[4] = @"originAnchorType";
+  v23[2] = v5;
+  v23[3] = originBundleId;
+  v22[3] = @"originBundleId";
+  v22[4] = @"originAnchorType";
   originAnchorType = self->_originAnchorType;
   if (!originAnchorType)
   {
     originAnchorType = @"nil";
   }
 
-  v24[4] = originAnchorType;
-  v23[5] = @"isAutomationEnabled";
+  v23[4] = originAnchorType;
+  v22[5] = @"isAutomationEnabled";
   v9 = [MEMORY[0x1E696AD98] numberWithBool:self->_isAutomationEnabled];
-  v24[5] = v9;
-  v23[6] = @"uiLocation";
+  v23[5] = v9;
+  v22[6] = @"uiLocation";
   v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_uiLocation];
-  v24[6] = v10;
-  v23[7] = @"isStart";
+  v23[6] = v10;
+  v22[7] = @"isStart";
   v11 = [MEMORY[0x1E696AD98] numberWithBool:self->_isStart];
-  v24[7] = v11;
-  v23[8] = @"confidenceScore";
+  v23[7] = v11;
+  v22[8] = @"confidenceScore";
   v12 = [MEMORY[0x1E696AD98] numberWithDouble:self->_confidenceScore];
   suggestionUUID = self->_suggestionUUID;
-  v24[8] = v12;
-  v24[9] = suggestionUUID;
-  v23[9] = @"suggestionUUID";
-  v23[10] = @"serializedTriggersCount";
+  v23[8] = v12;
+  v23[9] = suggestionUUID;
+  v22[9] = @"suggestionUUID";
+  v22[10] = @"serializedTriggersCount";
   v14 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[NSArray count](self->_serializedTriggers, "count")}];
-  v24[10] = v14;
-  v23[11] = @"shouldSuggestTriggers";
+  v23[10] = v14;
+  v22[11] = @"shouldSuggestTriggers";
   v15 = [MEMORY[0x1E696AD98] numberWithBool:self->_shouldSuggestTriggers];
-  v24[11] = v15;
-  v23[12] = @"modeType";
+  v23[11] = v15;
+  v22[12] = @"modeType";
   v16 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_modeType];
   v17 = v16;
-  v23[13] = @"userModeName";
+  v22[13] = @"userModeName";
   userModeName = self->_userModeName;
   if (!userModeName)
   {
     userModeName = @"nil";
   }
 
-  v24[12] = v16;
-  v24[13] = userModeName;
-  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:14];
-
-  v20 = *MEMORY[0x1E69E9840];
+  v23[12] = v16;
+  v23[13] = userModeName;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:14];
 
   return v19;
 }
@@ -264,7 +294,7 @@ LABEL_9:
       v5 = __biome_log_for_category();
       if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
-        [BMInferredModeEvent initWithProto:];
+        [BMInferredModeEvent initWithProto:?];
       }
 
       selfCopy = 0;

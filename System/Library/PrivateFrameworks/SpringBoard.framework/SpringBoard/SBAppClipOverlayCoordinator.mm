@@ -66,7 +66,7 @@
     }
 
     [v15 appClipOverlayCoordinator:self requestsSurrenderOfViewController:v14];
-    if ([(NSMutableSet *)self->_overlayViewControllers containsObject:v14])
+    if (objc_msgSend_containsObject_(self->_overlayViewControllers))
     {
       [SBAppClipOverlayCoordinator overlayViewControllerForBundleIdentifier:a2 webClipIdentifier:self participant:?];
     }
@@ -103,7 +103,7 @@
   controllerCopy = controller;
   participantCopy = participant;
   participantName = [participantCopy participantName];
-  if (([(NSMutableSet *)self->_overlayViewControllers containsObject:controllerCopy]& 1) == 0)
+  if ((objc_msgSend_containsObject_(self->_overlayViewControllers) & 1) == 0)
   {
     [SBAppClipOverlayCoordinator participant:didSurrenderViewController:];
   }

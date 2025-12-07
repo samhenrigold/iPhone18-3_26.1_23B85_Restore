@@ -25,18 +25,20 @@
 
 uint64_t __42__FPDaemonOperationManager_sharedInstance__block_invoke()
 {
-  sharedInstance_instance = objc_opt_new();
+  v0 = objc_opt_new();
+  v1 = sharedInstance_instance;
+  sharedInstance_instance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
-uint64_t __34__FPDaemonOperationManager_wakeUp__block_invoke(uint64_t result)
+void *__34__FPDaemonOperationManager_wakeUp__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if ((*(v1 + 8) & 1) == 0)
   {
     *(v1 + 8) = 1;
-    return [*(result + 32) _updateDaemonOperations];
+    return [*(result + 4) _updateDaemonOperations];
   }
 
   return result;
@@ -202,7 +204,7 @@ uint64_t __52__FPDaemonOperationManager_generateLocalOperationID__block_invoke(u
 
 void __69__FPDaemonOperationManager__enumerateNewDaemonOperationsWithHandler___block_invoke(void *a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5)
   {
@@ -215,55 +217,55 @@ void __69__FPDaemonOperationManager__enumerateNewDaemonOperationsWithHandler___b
 
   else
   {
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __69__FPDaemonOperationManager__enumerateNewDaemonOperationsWithHandler___block_invoke_14;
-    v23[3] = &unk_1E793A858;
-    v23[4] = a1[4];
-    v7 = [a2 fp_filter:v23];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __69__FPDaemonOperationManager__enumerateNewDaemonOperationsWithHandler___block_invoke_14;
+    v22[3] = &unk_1E793A858;
+    v22[4] = a1[4];
+    v7 = [a2 fp_filter:v22];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v19 objects:v26 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v18 objects:v25 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v19;
       do
       {
         v11 = 0;
         do
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * v11);
+          v12 = *(*(&v18 + 1) + 8 * v11);
           v13 = fp_current_or_default_log();
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v25 = v12;
+            v24 = v12;
             _os_log_debug_impl(&dword_1AAAE1000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] fetching remote operationID %@", buf, 0xCu);
           }
 
           v15 = a1[5];
           v14 = a1[6];
-          v17[0] = MEMORY[0x1E69E9820];
-          v17[1] = 3221225472;
-          v17[2] = __69__FPDaemonOperationManager__enumerateNewDaemonOperationsWithHandler___block_invoke_16;
-          v17[3] = &unk_1E793D600;
-          v17[4] = v12;
-          v18 = v14;
-          [v15 fetchDaemonOperationWithID:v12 completionHandler:v17];
+          v16[0] = MEMORY[0x1E69E9820];
+          v16[1] = 3221225472;
+          v16[2] = __69__FPDaemonOperationManager__enumerateNewDaemonOperationsWithHandler___block_invoke_16;
+          v16[3] = &unk_1E793D600;
+          v16[4] = v12;
+          v17 = v14;
+          [v15 fetchDaemonOperationWithID:v12 completionHandler:v16];
 
           ++v11;
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v19 objects:v26 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v18 objects:v25 count:16];
       }
 
       while (v9);
@@ -271,8 +273,6 @@ void __69__FPDaemonOperationManager__enumerateNewDaemonOperationsWithHandler___b
 
     v5 = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __69__FPDaemonOperationManager__enumerateNewDaemonOperationsWithHandler___block_invoke_16(uint64_t a1, void *a2, void *a3, void *a4)
@@ -297,27 +297,23 @@ void __69__FPDaemonOperationManager__enumerateNewDaemonOperationsWithHandler___b
 
 void __69__FPDaemonOperationManager__enumerateNewDaemonOperationsWithHandler___block_invoke_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = [a1 fp_prettyDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] couldn't fetch remote operation IDs: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_1AAAE1000, a2, OS_LOG_TYPE_ERROR, "[ERROR] couldn't fetch remote operation IDs: %@", &v4, 0xCu);
 }
 
 void __69__FPDaemonOperationManager__enumerateNewDaemonOperationsWithHandler___block_invoke_16_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = *(a1 + 32);
   v5 = [a2 fp_prettyDescription];
-  v7 = 138412546;
-  v8 = v4;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_ERROR, "[ERROR] couldn't fetch operationID %@; %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = v4;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_1AAAE1000, a3, OS_LOG_TYPE_ERROR, "[ERROR] couldn't fetch operationID %@; %@", &v6, 0x16u);
 }
 
 @end

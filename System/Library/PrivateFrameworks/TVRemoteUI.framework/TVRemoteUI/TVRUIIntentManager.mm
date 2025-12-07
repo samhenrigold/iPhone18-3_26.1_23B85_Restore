@@ -7,38 +7,39 @@
 
 + (void)donateIntentsForDeviceWithID:(id)d name:(id)name
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dCopy = d;
   nameCopy = name;
-  v8 = _TVRUIIntentManagerLog();
+  v8 = _TVRUIIntentManagerLog(nameCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v16 = "+[TVRUIIntentManager donateIntentsForDeviceWithID:name:]";
+    v17 = "+[TVRUIIntentManager donateIntentsForDeviceWithID:name:]";
     _os_log_impl(&dword_26CFEB000, v8, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
-  if ([dCopy length] && objc_msgSend(nameCopy, "length"))
+  v9 = [dCopy length];
+  if (v9 && (v9 = [nameCopy length]) != 0)
   {
-    v9 = dispatch_get_global_queue(17, 0);
+    v10 = dispatch_get_global_queue(17, 0);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __56__TVRUIIntentManager_donateIntentsForDeviceWithID_name___block_invoke;
     block[3] = &unk_279D889D0;
-    v12 = dCopy;
-    v13 = nameCopy;
+    v13 = dCopy;
+    v14 = nameCopy;
     selfCopy = self;
-    dispatch_async(v9, block);
+    dispatch_async(v10, block);
 
-    v10 = v12;
+    v11 = v13;
   }
 
   else
   {
-    v10 = _TVRUIIntentManagerLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = _TVRUIIntentManagerLog(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(TVRUIIntentManager *)dCopy donateIntentsForDeviceWithID:nameCopy name:v10];
+      [(TVRUIIntentManager *)dCopy donateIntentsForDeviceWithID:nameCopy name:v11];
     }
   }
 }
@@ -77,7 +78,7 @@ void __59__TVRUIIntentManager__donateInteractionforIntent_launchID___block_invok
 {
   v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = _TVRUIIntentManagerLog();
+  v4 = _TVRUIIntentManagerLog(v3);
   v5 = v4;
   if (v3)
   {

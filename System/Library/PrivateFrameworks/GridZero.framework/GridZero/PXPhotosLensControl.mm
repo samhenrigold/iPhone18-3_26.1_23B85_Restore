@@ -351,17 +351,20 @@ void __46__PXPhotosLensControl__updateSegmentedControl__block_invoke(uint64_t a1
   if (enabledItems != itemsCopy)
   {
     v8 = itemsCopy;
-    if (([(NSArray *)enabledItems isEqual:itemsCopy]& 1) == 0)
+    enabledItems = [enabledItems isEqual:itemsCopy];
+    itemsCopy = v8;
+    if ((enabledItems & 1) == 0)
     {
-      v6 = [(NSArray *)v8 copy];
+      v6 = [v8 copy];
       v7 = self->_enabledItems;
       self->_enabledItems = v6;
 
-      [(PXPhotosLensControl *)self _invalidateSegmentedControl];
+      enabledItems = [(PXPhotosLensControl *)self _invalidateSegmentedControl];
+      itemsCopy = v8;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](enabledItems, itemsCopy);
 }
 
 - (void)setItems:(id)items
@@ -371,24 +374,27 @@ void __46__PXPhotosLensControl__updateSegmentedControl__block_invoke(uint64_t a1
   if (items != itemsCopy)
   {
     v9 = itemsCopy;
-    if (([(NSArray *)items isEqual:itemsCopy]& 1) == 0)
+    items = [items isEqual:itemsCopy];
+    itemsCopy = v9;
+    if ((items & 1) == 0)
     {
-      v6 = [(NSArray *)v9 count];
+      v6 = [v9 count];
       if (v6 > [(NSArray *)self->_items count])
       {
-        self->_textSizes = malloc_type_realloc(self->_textSizes, 16 * [(NSArray *)v9 count], 0x1000040451B5BE8uLL);
+        self->_textSizes = malloc_type_realloc(self->_textSizes, 16 * [v9 count], 0x1000040451B5BE8uLL);
       }
 
-      v7 = [(NSArray *)v9 copy];
+      v7 = [v9 copy];
       v8 = self->_items;
       self->_items = v7;
 
       [(PXPhotosLensControl *)self _invalidateSegments];
-      [(PXPhotosLensControl *)self _invalidateSegmentedControl];
+      items = [(PXPhotosLensControl *)self _invalidateSegmentedControl];
+      itemsCopy = v9;
     }
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](items, itemsCopy);
 }
 
 - (void)setShrinkLevel:(int64_t)level

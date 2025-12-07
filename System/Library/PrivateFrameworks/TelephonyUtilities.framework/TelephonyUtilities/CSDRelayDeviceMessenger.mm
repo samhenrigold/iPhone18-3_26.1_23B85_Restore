@@ -67,15 +67,15 @@
 
   else
   {
-    v7 = [messageCopy type] - 4;
-    if (v7 <= 0x3D && ((1 << v7) & 0x3FE0000000000027) != 0)
+    type = [messageCopy type];
+    if ((type - 4) <= 0x3D && ((1 << (type - 4)) & 0x3FE0000000000027) != 0)
     {
       LODWORD(v6) = TUDisableCallRelayIDSServiceMessaging() ^ 1;
     }
 
     else
     {
-      v6 = sub_100004778();
+      v6 = sub_100004778(type);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         typeString = [messageCopy typeString];
@@ -100,48 +100,48 @@
   v13 = [v12 deviceForFromID:dCopy];
 
   v14 = [[CSDMessagingRelayMessage alloc] initWithData:dataCopy];
-  if (v13 && [(CSDRelayDeviceMessenger *)self shouldProcessMessage:v14 forDevice:v13])
+  if (v13 && (v15 = [(CSDRelayDeviceMessenger *)self shouldProcessMessage:v14 forDevice:v13], v15))
   {
-    v15 = sub_100004778();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_100004778(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       typeString = [(CSDMessagingRelayMessage *)v14 typeString];
       *buf = 138413058;
-      v27 = typeString;
-      v28 = 2112;
-      v29 = v11;
-      v30 = 2112;
-      v31 = v13;
-      v32 = 2112;
-      v33 = v14;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Incoming message of type %@ from destination %@ device %@: %@", buf, 0x2Au);
+      v28 = typeString;
+      v29 = 2112;
+      v30 = v11;
+      v31 = 2112;
+      v32 = v13;
+      v33 = 2112;
+      v34 = v14;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Incoming message of type %@ from destination %@ device %@: %@", buf, 0x2Au);
     }
 
-    v17 = +[TUCallCenter sharedInstance];
-    queue = [v17 queue];
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_1001B5FE4;
-    v22[3] = &unk_10061A450;
-    v22[4] = self;
-    v23 = v14;
-    v24 = v11;
-    v25 = v13;
-    dispatch_async(queue, v22);
+    v18 = +[TUCallCenter sharedInstance];
+    queue = [v18 queue];
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_1001B5FE4;
+    v23[3] = &unk_10061A450;
+    v23[4] = self;
+    v24 = v14;
+    v25 = v11;
+    v26 = v13;
+    dispatch_async(queue, v23);
   }
 
   else
   {
-    v19 = sub_100004778();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = sub_100004778(v15);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = +[CSDRelayIDSService sharedInstance];
-      devices = [v20 devices];
+      v21 = +[CSDRelayIDSService sharedInstance];
+      devices = [v21 devices];
       *buf = 138412546;
-      v27 = dCopy;
-      v28 = 2112;
-      v29 = devices;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "[WARN] No device found for fromID %@. All devices: %@", buf, 0x16u);
+      v28 = dCopy;
+      v29 = 2112;
+      v30 = devices;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "[WARN] No device found for fromID %@. All devices: %@", buf, 0x16u);
     }
   }
 }

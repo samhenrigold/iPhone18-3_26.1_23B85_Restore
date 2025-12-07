@@ -44,7 +44,7 @@
   v14 = objc_msgSend_w3cNavigationTiming(self, v12, v13);
   objc_msgSend_encodeObject_forKey_(coderCopy, v15, v14, @"W3CNavigationTiming");
 
-  if (__sTestOverridesAvailable[0] == 1)
+  if (__sTestOverridesAvailable == 1)
   {
     v18 = objc_msgSend_requestOperations(self, v16, v17);
     objc_msgSend_encodeObject_forKey_(coderCopy, v19, v18, @"RequestOperations");
@@ -75,7 +75,7 @@
     w3cNavigationTiming = v5->_w3cNavigationTiming;
     v5->_w3cNavigationTiming = v14;
 
-    if (__sTestOverridesAvailable[0] == 1)
+    if (__sTestOverridesAvailable == 1)
     {
       v17 = objc_msgSend_decodePropertyListForKey_(coderCopy, v16, @"OperationClassName");
       operationClassName = v5->_operationClassName;

@@ -17,43 +17,43 @@
   if (!v9)
   {
 LABEL_6:
-    v12 = v10;
+    v13 = v10;
     goto LABEL_10;
   }
 
   objc_storeStrong(&v9->_aarPath, path);
   [extensionCopy UTF8String];
   v10->_sandboxToken = sandbox_extension_consume();
-  if ([(PTPassiveTraceArchiveHandle *)v10 sandboxToken]!= -1)
+  sandboxToken = [(PTPassiveTraceArchiveHandle *)v10 sandboxToken];
+  if (sandboxToken != -1)
   {
-    v11 = _passiveArchiveHandleHandle();
-    if (os_signpost_enabled(v11))
+    v12 = _passiveArchiveHandleHandle(sandboxToken);
+    if (os_signpost_enabled(v12))
     {
       *buf = 138543362;
       v20 = pathCopy;
-      _os_signpost_emit_with_name_impl(&dword_25E3D3000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PassiveTraceArchiveHandleCreation", "Successfully created an archive handle for '%{public}@'", buf, 0xCu);
+      _os_signpost_emit_with_name_impl(&dword_25E3D3000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "PassiveTraceArchiveHandleCreation", "Successfully created an archive handle for '%{public}@'", buf, 0xCu);
     }
 
     goto LABEL_6;
   }
 
-  v13 = _passiveArchiveHandleErrorHandle();
-  if (os_signpost_enabled(v13))
+  v14 = _passiveArchiveHandleErrorHandle(-1);
+  if (os_signpost_enabled(v14))
   {
-    v14 = __error();
-    v15 = strerror(*v14);
+    v15 = __error();
+    v16 = strerror(*v15);
     *buf = 138543618;
     v20 = pathCopy;
     v21 = 2082;
-    v22 = v15;
-    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ExtensionConsumptionFailed", "Failed to consume sandbox extension for '%{public}@' due to error: %{public}s", buf, 0x16u);
+    v22 = v16;
+    _os_signpost_emit_with_name_impl(&dword_25E3D3000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "ExtensionConsumptionFailed", "Failed to consume sandbox extension for '%{public}@' due to error: %{public}s", buf, 0x16u);
   }
 
-  v12 = 0;
+  v13 = 0;
 LABEL_10:
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v13;
 }
 
 - (void)dealloc
@@ -62,39 +62,40 @@ LABEL_10:
   if ([(PTPassiveTraceArchiveHandle *)self sandboxToken]!= -1)
   {
     [(PTPassiveTraceArchiveHandle *)self sandboxToken];
-    if (sandbox_extension_release())
+    v3 = sandbox_extension_release();
+    if (v3)
     {
-      v3 = _passiveArchiveHandleErrorHandle();
-      if (os_signpost_enabled(v3))
+      v4 = _passiveArchiveHandleErrorHandle(v3);
+      if (os_signpost_enabled(v4))
       {
         aarPath = [(PTPassiveTraceArchiveHandle *)self aarPath];
-        v5 = __error();
-        v6 = strerror(*v5);
+        v6 = __error();
+        v7 = strerror(*v6);
         *buf = 138543618;
         v14 = aarPath;
         v15 = 2082;
-        v16 = v6;
-        v7 = "PassiveTraceArchiveHandleExtensionReleaseFailure";
-        v8 = "Failed to release sandbox extension for %{public}@ due to error: %{public}s";
-        v9 = v3;
-        v10 = 22;
+        v16 = v7;
+        v8 = "PassiveTraceArchiveHandleExtensionReleaseFailure";
+        v9 = "Failed to release sandbox extension for %{public}@ due to error: %{public}s";
+        v10 = v4;
+        v11 = 22;
 LABEL_7:
-        _os_signpost_emit_with_name_impl(&dword_25E3D3000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v7, v8, buf, v10);
+        _os_signpost_emit_with_name_impl(&dword_25E3D3000, v10, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v8, v9, buf, v11);
       }
     }
 
     else
     {
-      v3 = _passiveArchiveHandleHandle();
-      if (os_signpost_enabled(v3))
+      v4 = _passiveArchiveHandleHandle(v3);
+      if (os_signpost_enabled(v4))
       {
         aarPath = [(PTPassiveTraceArchiveHandle *)self aarPath];
         *buf = 138543362;
         v14 = aarPath;
-        v7 = "PassiveTraceArchiveHandleExtensionRelease";
-        v8 = "Successfully released the sandbox extension for %{public}@";
-        v9 = v3;
-        v10 = 12;
+        v8 = "PassiveTraceArchiveHandleExtensionRelease";
+        v9 = "Successfully released the sandbox extension for %{public}@";
+        v10 = v4;
+        v11 = 12;
         goto LABEL_7;
       }
     }
@@ -103,7 +104,6 @@ LABEL_7:
   v12.receiver = self;
   v12.super_class = PTPassiveTraceArchiveHandle;
   [(PTPassiveTraceArchiveHandle *)&v12 dealloc];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

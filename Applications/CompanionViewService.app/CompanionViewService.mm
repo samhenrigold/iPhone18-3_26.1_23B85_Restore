@@ -26,22 +26,22 @@ void sub_1000012F8(id *a1, void *a2)
   }
 }
 
-id sub_10000143C()
+id sub_10000143C(uint64_t a1)
 {
   if (qword_100011B68 != -1)
   {
     sub_100004570();
   }
 
-  v1 = qword_100011B60;
+  v2 = qword_100011B60;
 
-  return v1;
+  return v2;
 }
 
 void sub_10000148C(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_10000143C();
+  v3 = sub_10000143C(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_100004584(v2, v3);
@@ -51,7 +51,7 @@ void sub_10000148C(id a1, NSError *a2)
 void sub_1000014F8(id a1, NSError *a2)
 {
   v2 = a2;
-  v3 = sub_10000143C();
+  v3 = sub_10000143C(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_1000045FC(v2, v3);
@@ -231,13 +231,13 @@ void sub_100002134(uint64_t a1)
   sub_100002174(WeakRetained);
 }
 
-void sub_100002174(uint64_t a1)
+void sub_100002174(__CFString *a1)
 {
   if (a1)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      v1 = [a1 presentationContext];
+      v1 = [(__CFString *)a1 presentationContext];
       v2 = [v1 dedicatedCameraRequest];
       *buf = 138412290;
       v32 = v2;
@@ -287,17 +287,17 @@ void sub_100002174(uint64_t a1)
     v20 = [NSArray arrayWithObjects:v30 count:4];
     [NSLayoutConstraint activateConstraints:v20];
 
-    [*(a1 + 24) pushViewController:v27 animated:1];
+    [a1->length pushViewController:v27 animated:1];
     objc_destroyWeak(&v29);
     objc_destroyWeak(buf);
   }
 }
 
-void sub_100002580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_100002580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   objc_destroyWeak(va);
-  objc_destroyWeak((v14 - 112));
+  objc_destroyWeak((v21 - 112));
   _Unwind_Resume(a1);
 }
 
@@ -343,16 +343,16 @@ LABEL_5:
 LABEL_6:
 }
 
-id sub_100002E64()
+id sub_100002E64(uint64_t a1)
 {
   if (qword_100011B78 != -1)
   {
     sub_100006824();
   }
 
-  v1 = qword_100011B70;
+  v2 = qword_100011B70;
 
-  return v1;
+  return v2;
 }
 
 id sub_100002EA8(id val)
@@ -399,7 +399,7 @@ void sub_10000303C(void *a1)
 {
   if (a1)
   {
-    v2 = sub_100002E64();
+    v2 = sub_100002E64(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
@@ -513,12 +513,12 @@ void sub_10000383C(id *a1)
     v3 = [v2 webAuthenticationRequest];
 
     objc_initWeak(&location, a1);
-    v17 = _NSConcreteStackBlock;
-    v18 = 3221225472;
-    v19 = sub_100003B50;
-    v20 = &unk_10000C480;
-    objc_copyWeak(&v21, &location);
-    v4 = objc_retainBlock(&v17);
+    v16 = _NSConcreteStackBlock;
+    v17 = 3221225472;
+    v18 = sub_100003B50;
+    v19 = &unk_10000C480;
+    objc_copyWeak(&v20, &location);
+    v4 = objc_retainBlock(&v16);
     v5 = [v3 callback];
 
     v6 = [ASWebAuthenticationSession alloc];
@@ -540,31 +540,30 @@ void sub_10000383C(id *a1)
 
     [a1[3] setPresentationContextProvider:a1];
     [a1[3] setPrefersEphemeralWebBrowserSession:1];
-    v11 = a1[3];
     if (objc_opt_respondsToSelector())
     {
-      v12 = [v3 additionalHeaderFields];
-      [a1[3] setAdditionalHeaderFields:v12];
+      v11 = [v3 additionalHeaderFields];
+      [a1[3] setAdditionalHeaderFields:v11];
     }
 
-    v13 = a1[3];
-    if (objc_opt_respondsToSelector())
+    v12 = objc_opt_respondsToSelector();
+    if (v12)
     {
-      v14 = [a1 presentationContext];
-      v15 = [v14 proxiedAppDomains];
-      [a1[3] setProxiedAssociatedDomains:v15];
+      v13 = [a1 presentationContext];
+      v14 = [v13 proxiedAppDomains];
+      [a1[3] setProxiedAssociatedDomains:v14];
     }
 
-    v16 = sub_100003D08();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_100003D08(v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v24 = v3;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Starting session: %@", buf, 0xCu);
+      v23 = v3;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Starting session: %@", buf, 0xCu);
     }
 
     [a1[3] start];
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v20);
     objc_destroyWeak(&location);
   }
 }
@@ -625,49 +624,49 @@ void sub_100003CEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-id sub_100003D08()
+id sub_100003D08(uint64_t a1)
 {
   if (qword_100011B88 != -1)
   {
     sub_100006838();
   }
 
-  v1 = qword_100011B80;
+  v2 = qword_100011B80;
 
-  return v1;
+  return v2;
 }
 
 void sub_100003D4C(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v3 = WeakRetained;
   if (WeakRetained)
   {
     if (*(a1 + 32))
     {
-      v3 = sub_100003D08();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v4 = sub_100003D08(WeakRetained);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
-        v4 = *(a1 + 32);
         v5 = CUPrintNSObjectMasked();
         v9 = 138412290;
         v10 = v5;
-        _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Session finished: %@", &v9, 0xCu);
+        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Session finished: %@", &v9, 0xCu);
       }
 
-      v6 = [WeakRetained viewServicePresenter];
+      v6 = [v3 viewServicePresenter];
       [v6 webAuthenticationFinishedWithCallbackURL:*(a1 + 32)];
     }
 
     else
     {
       v6 = sub_100003EA8(WebAuthenticationViewController, *(a1 + 40));
-      v7 = sub_100003D08();
+      v7 = sub_100003D08(v6);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         sub_10000684C(v6, v7);
       }
 
-      v8 = [WeakRetained viewServicePresenter];
+      v8 = [v3 viewServicePresenter];
       [v8 webAuthenticationFailedWithError:v6];
     }
   }
@@ -738,18 +737,18 @@ id sub_1000043F8(uint64_t a1, void *a2)
     if (v4)
     {
       v5 = objc_opt_self();
-      v10 = 0;
-      v6 = [NSKeyedUnarchiver unarchivedObjectOfClass:v5 fromData:v4 error:&v10];
-      v7 = v10;
+      v11 = 0;
+      v6 = [NSKeyedUnarchiver unarchivedObjectOfClass:v5 fromData:v4 error:&v11];
+      v7 = v11;
 
       if (!v6)
       {
-        v8 = sub_10000143C();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        v9 = sub_10000143C(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v12 = v7;
-          _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to decode presentation context: %@", buf, 0xCu);
+          v13 = v7;
+          _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to decode presentation context: %@", buf, 0xCu);
         }
       }
     }
@@ -1104,9 +1103,9 @@ id sub_100005038(void *a1)
   return v6;
 }
 
-void sub_1000050E4(_BYTE *a1)
+void sub_1000050E4(_BYTE *result)
 {
-  if (a1)
+  if (result)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
@@ -1114,11 +1113,11 @@ void sub_1000050E4(_BYTE *a1)
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Enable button pressed.", v3, 2u);
     }
 
-    a1[32] = 1;
-    v2 = [a1 viewServicePresenter];
+    result[32] = 1;
+    v2 = [result viewServicePresenter];
     [v2 confirm];
 
-    sub_100005184(a1);
+    sub_100005184(result);
   }
 }
 
@@ -1362,7 +1361,7 @@ void sub_100005D24(void *a1)
 {
   if (a1)
   {
-    v2 = sub_100002E64();
+    v2 = sub_100002E64(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -1470,38 +1469,39 @@ void sub_10000626C(void *a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (a1)
   {
-    v7 = sub_100002E64();
-    v8 = v7;
+    v8 = sub_100002E64(v6);
+    v9 = v8;
     if (v5)
     {
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = CUPrintNSObjectMasked();
-        v11 = 138412290;
-        v12 = v10;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Session finished: %@", &v11, 0xCu);
+        v11 = CUPrintNSObjectMasked();
+        v12 = 138412290;
+        v13 = v11;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Session finished: %@", &v12, 0xCu);
       }
 
-      v9 = [a1 viewServicePresenter];
-      [v9 storeAuthenticationFinishedWithResult:v5];
+      v10 = [a1 viewServicePresenter];
+      [v10 storeAuthenticationFinishedWithResult:v5];
     }
 
     else
     {
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v11 = 138412290;
-        v12 = v6;
-        _os_log_error_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Session failed: %@", &v11, 0xCu);
+        v12 = 138412290;
+        v13 = v7;
+        _os_log_error_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Session failed: %@", &v12, 0xCu);
       }
 
-      v9 = [a1 viewServicePresenter];
-      [v9 storeAuthenticationFailedWithError:v6];
+      v10 = [a1 viewServicePresenter];
+      [v10 storeAuthenticationFailedWithError:v7];
     }
 
-    sub_1000063E4(a1, v6 == 0);
+    sub_1000063E4(a1, v7 == 0);
   }
 }
 

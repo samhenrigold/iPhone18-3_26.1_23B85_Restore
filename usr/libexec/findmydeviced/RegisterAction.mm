@@ -10,13 +10,35 @@
 - (BOOL)shouldCancelAction:(id)action;
 - (BOOL)shouldWaitForAction:(id)action;
 - (FMDServiceProvider)provider;
+- (RegisterAction)initWithReason:(id)reason force:(BOOL)force provider:(id)provider;
 - (id)_extraRegistrationInformation;
 - (id)_reasonForStartupRegister;
+- (id)_registrationInformationDigest:(BOOL)digest;
 - (void)runWithCompletion:(id)completion;
 - (void)willCancelAction;
 @end
 
 @implementation RegisterAction
+
+- (RegisterAction)initWithReason:(id)reason force:(BOOL)force provider:(id)provider
+{
+  forceCopy = force;
+  reasonCopy = reason;
+  providerCopy = provider;
+  v13.receiver = self;
+  v13.super_class = RegisterAction;
+  v10 = [(RegisterAction *)&v13 init];
+  v11 = v10;
+  if (v10)
+  {
+    [(RegisterAction *)v10 setProvider:providerCopy];
+    [(RegisterAction *)v11 setReason:reasonCopy];
+    [(RegisterAction *)v11 setForce:forceCopy];
+    [(RegisterAction *)v11 setCancelled:0];
+  }
+
+  return v11;
+}
 
 + (id)sharedregisterDigestSerialQueue
 {
@@ -39,21 +61,22 @@
     reason = [(RegisterAction *)self _reasonForStartupRegister];
   }
 
-  if ([(RegisterAction *)self force])
+  force = [(RegisterAction *)self force];
+  if (force)
   {
-    v6 = sub_100002880();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100002880(force);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v14 = reason;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Register %@ is being forced", buf, 0xCu);
+      v15 = reason;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Register %@ is being forced", buf, 0xCu);
     }
 
     if (reason)
     {
-      v7 = [NSString stringWithFormat:@"Forced-%@", reason];
+      v8 = [NSString stringWithFormat:@"Forced-%@", reason];
 
-      reason = v7;
+      reason = v8;
     }
 
     else
@@ -63,14 +86,14 @@
 
     provider = [(RegisterAction *)self provider];
     account = [provider account];
-    v10 = [RegisterAction _lastForcedRegisterTimePrefKeyForAccount:account];
+    v11 = [RegisterAction _lastForcedRegisterTimePrefKeyForAccount:account];
 
-    v11 = +[NSDate date];
-    [FMPreferencesUtil setDate:v11 forKey:v10 inDomain:kFMDNotBackedUpPrefDomain];
+    v12 = +[NSDate date];
+    [FMPreferencesUtil setDate:v12 forKey:v11 inDomain:kFMDNotBackedUpPrefDomain];
   }
 
-  v12 = [(RegisterAction *)self _registerDeviceWithCause:reason completion:completionCopy];
-  if (completionCopy && (v12 & 1) == 0)
+  v13 = [(RegisterAction *)self _registerDeviceWithCause:reason completion:completionCopy];
+  if (completionCopy && (v13 & 1) == 0)
   {
     completionCopy[2](completionCopy);
   }
@@ -108,18 +131,18 @@
 
   if (v7)
   {
-    v8 = sub_100002880();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100002880(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138413058;
-      v11 = objc_opt_class();
-      v12 = 2048;
+      v11 = 138413058;
+      v12 = objc_opt_class();
+      v13 = 2048;
       selfCopy = self;
-      v14 = 2112;
-      v15 = objc_opt_class();
-      v16 = 2048;
-      v17 = actionCopy;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@(0x%lX) shouldCancelAction: %@(0x%lX)", &v10, 0x2Au);
+      v15 = 2112;
+      v16 = objc_opt_class();
+      v17 = 2048;
+      v18 = actionCopy;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@(0x%lX) shouldCancelAction: %@(0x%lX)", &v11, 0x2Au);
     }
   }
 
@@ -134,17 +157,17 @@
 
   if (v6)
   {
-    v7 = sub_100002880();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100002880(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       reason = [(RegisterAction *)self reason];
-      v10 = 138412802;
-      v11 = reason;
-      v12 = 2048;
+      v11 = 138412802;
+      v12 = reason;
+      v13 = 2048;
       selfCopy = self;
-      v14 = 2112;
-      v15 = actionCopy;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%@(0x%lX) RegisterAction shouldWaitForAction: %@", &v10, 0x20u);
+      v15 = 2112;
+      v16 = actionCopy;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@(0x%lX) RegisterAction shouldWaitForAction: %@", &v11, 0x20u);
     }
   }
 
@@ -158,40 +181,16 @@
 
   v4 = account;
   lastUnregisterFailedTime = [v4 lastUnregisterFailedTime];
-  if (!lastUnregisterFailedTime)
-  {
-    goto LABEL_4;
-  }
-
-  v6 = lastUnregisterFailedTime;
-  lastUnregisterFailedTime2 = [v4 lastUnregisterFailedTime];
-  v8 = +[FMDDaemon sharedInstance];
-  startTime = [v8 startTime];
-  v10 = [lastUnregisterFailedTime2 compare:startTime];
-
-  if (v10 == 1)
+  if (lastUnregisterFailedTime && (v6 = lastUnregisterFailedTime, [v4 lastUnregisterFailedTime], v7 = objc_claimAutoreleasedReturnValue(), +[FMDDaemon sharedInstance](FMDDaemon, "sharedInstance"), v8 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v8, "startTime"), v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v7, "compare:", v9), v9, v8, v7, v6, v10 == 1))
   {
     v11 = @"UnregisterFailure";
   }
 
   else
   {
-LABEL_4:
     accountAddTime = [v4 accountAddTime];
-    if (!accountAddTime)
+    if (!accountAddTime || (v13 = accountAddTime, [v4 accountAddTime], v14 = objc_claimAutoreleasedReturnValue(), +[FMDDaemon sharedInstance](FMDDaemon, "sharedInstance"), v15 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v15, "startTime"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v14, "compare:", v16), v16, v15, v14, v13, v17 == -1))
     {
-      goto LABEL_7;
-    }
-
-    v13 = accountAddTime;
-    accountAddTime2 = [v4 accountAddTime];
-    v15 = +[FMDDaemon sharedInstance];
-    startTime2 = [v15 startTime];
-    v17 = [accountAddTime2 compare:startTime2];
-
-    if (v17 == -1)
-    {
-LABEL_7:
       v18 = +[FMDDaemon sharedInstance];
       isFirstRunAfterBoot = [v18 isFirstRunAfterBoot];
       v20 = @"FMDRestart";
@@ -248,11 +247,104 @@ LABEL_7:
   return v4;
 }
 
+- (id)_registrationInformationDigest:(BOOL)digest
+{
+  digestCopy = digest;
+  v5 = objc_autoreleasePoolPush();
+  provider = [(RegisterAction *)self provider];
+  account = [provider account];
+
+  v8 = +[ServerDeviceInfo sharedInstance];
+  v9 = [v8 registrationDigestDeviceInfoForAccount:account completedFirstRegister:digestCopy];
+
+  v10 = [v9 mutableCopy];
+  v11 = [v10 objectForKeyedSubscript:@"otherDevices"];
+  +[NSMutableArray array];
+  v36[0] = _NSConcreteStackBlock;
+  v36[1] = 3221225472;
+  v36[2] = sub_1001E463C;
+  v12 = v36[3] = &unk_1002D1440;
+  v37 = v12;
+  [v11 enumerateObjectsUsingBlock:v36];
+  [v10 setObject:v12 forKeyedSubscript:@"otherDevices"];
+  v13 = [v10 fm_flattenedArrayWithParentIndices:&off_1002E8D08];
+  _extraRegistrationInformation = [(RegisterAction *)self _extraRegistrationInformation];
+  v14 = [_extraRegistrationInformation fm_flattenedArrayWithParentIndices:&off_1002E8D20];
+  v15 = [v13 arrayByAddingObjectsFromArray:v14];
+
+  if ([v15 count])
+  {
+    v33 = v11;
+    v16 = [v15 componentsJoinedByString:{@", "}];
+    context = objc_autoreleasePoolPush();
+    if (qword_100314A90 != -1)
+    {
+      sub_10022F97C();
+    }
+
+    selfCopy = self;
+    v17 = [qword_100314A88 stringByReplacingMatchesInString:v16 options:0 range:0 withTemplate:{objc_msgSend(v16, "length"), @"authToken_redacted, "}];
+    v18 = sub_100002880(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v39 = v17;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Creating digest out of %@", buf, 0xCu);
+    }
+
+    v35 = 0;
+    v19 = [NSJSONSerialization dataWithJSONObject:v15 options:0 error:&v35];
+    v20 = v35;
+    v21 = v20;
+    if (v20)
+    {
+      v31 = v9;
+      v22 = account;
+      v23 = v5;
+      v24 = sub_100002880(v20);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      {
+        sub_10022F9A4(selfCopy, v21, v24);
+      }
+
+      v26 = sub_10000C688(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      {
+        sub_10022FA54(v17, v26);
+      }
+
+      v5 = v23;
+      account = v22;
+      v9 = v31;
+    }
+
+    objc_autoreleasePoolPop(context);
+    v11 = v33;
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  CC_SHA1([v19 bytes], objc_msgSend(v19, "length"), buf);
+  v27 = [NSData dataWithBytes:buf length:20];
+  v28 = sub_100002880(v27);
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+  {
+    sub_100227148(v27, v28);
+  }
+
+  objc_autoreleasePoolPop(v5);
+
+  return v27;
+}
+
 - (BOOL)_registerDeviceWithCause:(id)cause completion:(id)completion
 {
   causeCopy = cause;
   completionCopy = completion;
-  v8 = sub_100002880();
+  v8 = sub_100002880(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
@@ -260,162 +352,163 @@ LABEL_7:
     *&buf[12] = 2048;
     *&buf[14] = self;
     *&buf[22] = 2112;
-    v61 = causeCopy;
+    v64 = causeCopy;
     v9 = *&buf[4];
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) Request to send register %@", buf, 0x20u);
   }
 
   provider = [(RegisterAction *)self provider];
   essentialServerInfoMissingError = [provider essentialServerInfoMissingError];
+  v12 = essentialServerInfoMissingError;
   if (essentialServerInfoMissingError != 1196379972)
   {
-    v25 = sub_100002880();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v27 = sub_100002880(essentialServerInfoMissingError);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = [NSString stringWithFourCC:essentialServerInfoMissingError];
+      v28 = [NSString stringWithFourCC:v12];
       *buf = 138412546;
       *&buf[4] = causeCopy;
       *&buf[12] = 2112;
-      *&buf[14] = v26;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Ignoring register %@. Server info '%@' missing", buf, 0x16u);
+      *&buf[14] = v28;
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Ignoring register %@. Server info '%@' missing", buf, 0x16u);
     }
 
-    v27 = essentialServerInfoMissingError == 1480675411;
-    v28 = +[FMSystemInfo sharedInstance];
-    LODWORD(essentialServerInfoMissingError) = [v28 isInternalBuild];
+    v29 = v12 == 1480675411;
+    v30 = +[FMSystemInfo sharedInstance];
+    LODWORD(v12) = [v30 isInternalBuild];
 
-    if (v27)
+    if (v29)
     {
-      if (!essentialServerInfoMissingError)
+      if (!v12)
       {
         goto LABEL_22;
       }
 
-      v29 = sub_100002880();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v32 = sub_100002880(v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Service not functional. APS token unavailable.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Service not functional. APS token unavailable.", buf, 2u);
       }
     }
 
     else
     {
-      if (essentialServerInfoMissingError)
+      if (v12)
       {
-        v30 = sub_100002880();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        v33 = sub_100002880(v31);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Service not functional. Auth credentials unavailable.", buf, 2u);
+          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Service not functional. Auth credentials unavailable.", buf, 2u);
         }
       }
 
       [provider tryToFetchAuthToken];
     }
 
-    LOBYTE(essentialServerInfoMissingError) = 0;
+    LOBYTE(v12) = 0;
     goto LABEL_22;
   }
 
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x2020000000;
-  v53 = 1;
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x2020000000;
+  v56 = 1;
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v61 = sub_10000AB84;
-  v62 = sub_100002B8C;
-  v63 = 0;
-  essentialServerInfoMissingError = +[RegisterAction sharedregisterDigestSerialQueue];
+  v64 = sub_10000AB84;
+  v65 = sub_100002B8C;
+  v66 = 0;
+  v12 = +[RegisterAction sharedregisterDigestSerialQueue];
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1001E4E58;
   block[3] = &unk_1002D1488;
   block[4] = self;
-  v48 = buf;
-  v12 = causeCopy;
-  v47 = v12;
-  v49 = &v50;
-  dispatch_sync(essentialServerInfoMissingError, block);
+  v51 = buf;
+  v13 = causeCopy;
+  v50 = v13;
+  v52 = &v53;
+  dispatch_sync(v12, block);
 
-  LOBYTE(essentialServerInfoMissingError) = *(v51 + 24);
-  if (essentialServerInfoMissingError)
+  LOBYTE(v12) = *(v54 + 24);
+  if (v12)
   {
-    v13 = sub_100002880();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_100002880(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = objc_opt_class();
-      *v54 = 138412802;
-      v55 = v14;
-      v56 = 2048;
+      v16 = objc_opt_class();
+      *v57 = 138412802;
+      v58 = v16;
+      v59 = 2048;
       selfCopy = self;
-      v58 = 2112;
-      v59 = v12;
-      v15 = v14;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) Sending register %@", v54, 0x20u);
+      v61 = 2112;
+      v62 = v13;
+      v17 = v16;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%@ (0x%lX) Sending register %@", v57, 0x20u);
     }
 
-    v16 = [FMDActingRequestDecorator alloc];
-    v43[0] = _NSConcreteStackBlock;
-    v43[1] = 3221225472;
-    v43[2] = sub_1001E5264;
-    v43[3] = &unk_1002CDF18;
-    v44 = provider;
-    v17 = v12;
-    v45 = v17;
+    v18 = [FMDActingRequestDecorator alloc];
+    v46[0] = _NSConcreteStackBlock;
+    v46[1] = 3221225472;
+    v46[2] = sub_1001E5264;
+    v46[3] = &unk_1002CDF18;
+    v47 = provider;
+    v19 = v13;
+    v48 = v19;
+    v44[0] = _NSConcreteStackBlock;
+    v44[1] = 3221225472;
+    v44[2] = sub_1001E52F0;
+    v44[3] = &unk_1002CD580;
+    v20 = v47;
+    v45 = v20;
+    v35 = [(FMDActingRequestDecorator *)v18 initWithDeviceContextGenerator:v46 deviceInfoGenerator:v44 serverContextGenerator:0 requestHeaderGenerator:0];
+    v21 = [FMDRequestRegister alloc];
+    account = [v20 account];
+    v23 = [(FMDRequest *)v21 initWithAccount:account];
+
+    [(FMDRequest *)v23 setDecorator:v35];
+    account2 = [v20 account];
+    v25 = [RegisterAction _registerDigestPrefKeyForAccount:account2];
+    [(FMDRequestRegister *)v23 setDigestKey:v25];
+
+    [(FMDRequestRegister *)v23 setDigestData:*(*&buf[8] + 40)];
+    objc_initWeak(v57, v20);
+    objc_initWeak(&location, self);
     v41[0] = _NSConcreteStackBlock;
     v41[1] = 3221225472;
-    v41[2] = sub_1001E52F0;
-    v41[3] = &unk_1002CD580;
-    v18 = v44;
-    v42 = v18;
-    v32 = [(FMDActingRequestDecorator *)v16 initWithDeviceContextGenerator:v43 deviceInfoGenerator:v41 serverContextGenerator:0 requestHeaderGenerator:0];
-    v19 = [FMDRequestRegister alloc];
-    account = [v18 account];
-    v21 = [(FMDRequest *)v19 initWithAccount:account];
-
-    [(FMDRequest *)v21 setDecorator:v32];
-    account2 = [v18 account];
-    v23 = [RegisterAction _registerDigestPrefKeyForAccount:account2];
-    [(FMDRequestRegister *)v21 setDigestKey:v23];
-
-    [(FMDRequestRegister *)v21 setDigestData:*(*&buf[8] + 40)];
-    objc_initWeak(v54, v18);
-    objc_initWeak(&location, self);
-    v38[0] = _NSConcreteStackBlock;
-    v38[1] = 3221225472;
-    v38[2] = sub_1001E536C;
-    v38[3] = &unk_1002D14B0;
+    v41[2] = sub_1001E536C;
+    v41[3] = &unk_1002D14B0;
+    objc_copyWeak(&v42, &location);
+    [(FMDRequest *)v23 setWillSendHandler:v41];
+    v36[0] = _NSConcreteStackBlock;
+    v36[1] = 3221225472;
+    v36[2] = sub_1001E555C;
+    v36[3] = &unk_1002D14F8;
     objc_copyWeak(&v39, &location);
-    [(FMDRequest *)v21 setWillSendHandler:v38];
-    v33[0] = _NSConcreteStackBlock;
-    v33[1] = 3221225472;
-    v33[2] = sub_1001E555C;
-    v33[3] = &unk_1002D14F8;
-    objc_copyWeak(&v36, &location);
-    objc_copyWeak(&v37, v54);
-    v33[4] = self;
-    v34 = v17;
-    v35 = completionCopy;
-    [(FMDRequest *)v21 setCompletionHandler:v33];
-    [(RegisterAction *)self setRequest:v21];
-    serverInteractionController = [v18 serverInteractionController];
-    [serverInteractionController enqueueRequest:v21];
+    objc_copyWeak(&v40, v57);
+    v36[4] = self;
+    v37 = v19;
+    v38 = completionCopy;
+    [(FMDRequest *)v23 setCompletionHandler:v36];
+    [(RegisterAction *)self setRequest:v23];
+    serverInteractionController = [v20 serverInteractionController];
+    [serverInteractionController enqueueRequest:v23];
 
-    objc_destroyWeak(&v37);
-    objc_destroyWeak(&v36);
+    objc_destroyWeak(&v40);
     objc_destroyWeak(&v39);
+    objc_destroyWeak(&v42);
     objc_destroyWeak(&location);
-    objc_destroyWeak(v54);
+    objc_destroyWeak(v57);
   }
 
   _Block_object_dispose(buf, 8);
-  _Block_object_dispose(&v50, 8);
+  _Block_object_dispose(&v53, 8);
 LABEL_22:
 
-  return essentialServerInfoMissingError;
+  return v12;
 }
 
 - (BOOL)_shouldThrottleDeviceRestartRegister
@@ -463,7 +556,7 @@ LABEL_5:
     v17 = 0;
   }
 
-  v18 = sub_100002880();
+  v18 = sub_100002880(v12);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     v20[0] = 67109120;

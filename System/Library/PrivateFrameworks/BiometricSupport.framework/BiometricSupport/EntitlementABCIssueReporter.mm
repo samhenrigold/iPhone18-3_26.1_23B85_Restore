@@ -5,6 +5,7 @@
 - (void)addIssue:(id)issue;
 - (void)reportGraylistedClient:(id)client withProcessName:(id)name clientUUID:(id)d platform:(id)platform;
 - (void)reportLegacyClient:(id)client withProcessName:(id)name clientUUID:(id)d platform:(id)platform;
+- (void)reportMissingPermission:(int)permission forClientName:(id)name processName:(id)processName clientUUID:(id)d platform:(id)platform;
 - (void)rescheduleTimer;
 - (void)rescheduleTimerMain;
 @end
@@ -52,6 +53,19 @@
   objc_sync_exit(selfCopy);
 }
 
+- (void)reportMissingPermission:(int)permission forClientName:(id)name processName:(id)processName clientUUID:(id)d platform:(id)platform
+{
+  v10 = *&permission;
+  nameCopy = name;
+  processNameCopy = processName;
+  dCopy = d;
+  platformCopy = platform;
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  [MissingPermissionABCIssue reportPermission:v10 client:nameCopy processName:processNameCopy clientUUID:dCopy platform:platformCopy forReporter:selfCopy];
+  objc_sync_exit(selfCopy);
+}
+
 - (id)issueForTag:(id)tag
 {
   tagCopy = tag;
@@ -81,7 +95,7 @@
 
 - (void)rescheduleTimerMain
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D86220];
   if (__osLogTrace)
   {
@@ -106,28 +120,28 @@
   [timer invalidate];
 
   [(EntitlementABCIssueReporter *)selfCopy setTimer:0];
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   issues = [(EntitlementABCIssueReporter *)selfCopy issues];
   allValues = [issues allValues];
 
-  v9 = [allValues countByEnumeratingWithState:&v34 objects:v42 count:16];
+  v9 = [allValues countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (v9)
   {
     nextAction5 = 0;
-    v11 = *v35;
+    v11 = *v34;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v35 != v11)
+        if (*v34 != v11)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v13 = *(*(&v34 + 1) + 8 * i);
+        v13 = *(*(&v33 + 1) + 8 * i);
         v14 = __osLog;
         if (!__osLog)
         {
@@ -141,9 +155,9 @@
           v17 = [v13 tag];
           nextAction = [v13 nextAction];
           *buf = 138412546;
-          v39 = v17;
-          v40 = 2112;
-          v41 = nextAction;
+          v38 = v17;
+          v39 = 2112;
+          v40 = nextAction;
           _os_log_impl(&dword_223E00000, v15, OS_LOG_TYPE_INFO, "rescheduleTimerMain: examining issue %@ nextAction=%@\n", buf, 0x16u);
 
           v3 = v16;
@@ -174,7 +188,7 @@
         }
       }
 
-      v9 = [allValues countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v9 = [allValues countByEnumeratingWithState:&v33 objects:v41 count:16];
     }
 
     while (v9);
@@ -198,18 +212,18 @@
       if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v39 = nextAction5;
-        v40 = 1024;
-        LODWORD(v41) = v25;
+        v38 = nextAction5;
+        v39 = 1024;
+        LODWORD(v40) = v25;
         _os_log_impl(&dword_223E00000, v26, OS_LOG_TYPE_INFO, "Entitlement issue timer will fire at %@, interval=%d\n", buf, 0x12u);
       }
 
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __50__EntitlementABCIssueReporter_rescheduleTimerMain__block_invoke;
-      v33[3] = &unk_2784FA558;
-      v33[4] = obj;
-      v27 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:0 repeats:v33 block:v25];
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __50__EntitlementABCIssueReporter_rescheduleTimerMain__block_invoke;
+      v32[3] = &unk_2784FA558;
+      v32[4] = obj;
+      v27 = [MEMORY[0x277CBEBB8] scheduledTimerWithTimeInterval:0 repeats:v32 block:v25];
       [(EntitlementABCIssueReporter *)obj setTimer:v27];
 
       timer2 = [(EntitlementABCIssueReporter *)obj timer];
@@ -258,8 +272,6 @@ LABEL_36:
     *buf = 0;
     _os_log_impl(&dword_223E00000, v30, OS_LOG_TYPE_DEFAULT, "rescheduleTimerMain -> void\n", buf, 2u);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __50__EntitlementABCIssueReporter_rescheduleTimerMain__block_invoke(uint64_t a1)

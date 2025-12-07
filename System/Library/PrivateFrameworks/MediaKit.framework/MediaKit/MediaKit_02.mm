@@ -337,7 +337,7 @@ uint64_t IOWV(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64
   }
 }
 
-uint64_t IOJobDispose(uint64_t result)
+pthread_mutex_t *IOJobDispose(pthread_mutex_t *result)
 {
   if (result)
   {
@@ -345,55 +345,55 @@ uint64_t IOJobDispose(uint64_t result)
     result = pthread_mutex_trylock(result);
     if (result != 16)
     {
-      v2 = *(v1 + 256);
-      if (v2)
+      sig = v1[4].__sig;
+      if (sig)
       {
-        if (*v2)
+        if (*sig)
         {
           v3 = 0;
           v4 = 0;
           do
           {
-            if (*&v2[v3 + 4])
+            if (*&sig[v3 + 4])
             {
-              CFRelease(*&v2[v3 + 4]);
-              v2 = *(v1 + 256);
+              CFRelease(*&sig[v3 + 4]);
+              sig = v1[4].__sig;
             }
 
-            if (*&v2[v3 + 6])
+            if (*&sig[v3 + 6])
             {
-              CFRelease(*&v2[v3 + 6]);
-              v2 = *(v1 + 256);
+              CFRelease(*&sig[v3 + 6]);
+              sig = v1[4].__sig;
             }
 
             ++v4;
             v3 += 12;
           }
 
-          while (v4 < *v2);
+          while (v4 < *sig);
         }
 
-        free(v2);
+        free(sig);
       }
 
-      v5 = *(v1 + 288);
+      v5 = *&v1[4].__opaque[24];
       if (v5)
       {
         free(v5);
       }
 
-      v6 = *(v1 + 544);
+      v6 = *&v1[8].__opaque[24];
       if (v6)
       {
         free(v6);
       }
 
-      stkclear(v1 + 296, v1, DisposeProbe);
-      stkclear(v1 + 320, v1, DisposeProbe);
-      stkclear(v1 + 344, v1, DisposeProbe);
-      stkclear(v1 + 368, v1, iCacheDispose);
-      pthread_cond_destroy((v1 + 64));
-      pthread_cond_destroy((v1 + 112));
+      stkclear(&v1[4].__opaque[32], v1, DisposeProbe);
+      stkclear(&v1[5], v1, DisposeProbe);
+      stkclear(&v1[5].__opaque[16], v1, DisposeProbe);
+      stkclear(&v1[5].__opaque[40], v1, iCacheDispose);
+      pthread_cond_destroy(&v1[1]);
+      pthread_cond_destroy(&v1[1].__opaque[40]);
       pthread_mutex_unlock(v1);
       v7 = pthread_mutex_destroy(v1);
       free(v1);
@@ -465,10 +465,10 @@ uint64_t DisposeProbe(uint64_t a1)
   return 0;
 }
 
-uint64_t purgeLoader(const __CFDictionary *a1, const __CFDictionary *a2, const void **a3, unsigned int a4, int *a5, const __CFArray *a6, int a7, _DWORD *a8)
+uint64_t purgeLoader(const __CFDictionary *a1, const __CFDictionary *a2, const char **a3, int a4, int *a5, const __CFArray *a6, int a7, _DWORD *a8)
 {
-  v41 = *MEMORY[0x277D85DE8];
-  if ((a4 & 0x80000000) != 0 || (v12 = *a3, v40 = 0, memset(__s, 0, sizeof(__s)), memset(v38, 0, 154), *(v12 + 47) <= a4) || (v17 = CFStringCreateWithCString(0, &v12[152 * a4 + 144], 0)) == 0)
+  v40 = *MEMORY[0x277D85DE8];
+  if (a4 < 0 || (v12 = *a3, v39 = 0, memset(__s, 0, sizeof(__s)), memset(v37, 0, 154), *(v12 + 47) <= a4) || (v17 = CFStringCreateWithCString(0, &v12[152 * a4 + 144], 0)) == 0)
   {
     v20 = 0;
     v19 = 22;
@@ -477,7 +477,7 @@ uint64_t purgeLoader(const __CFDictionary *a1, const __CFDictionary *a2, const v
 
   v18 = v17;
   idx = 0;
-  v19 = MKLookupSchemeFormat(a1, @"GPT", v17, 1, v38);
+  v19 = MKLookupSchemeFormat(a1, @"GPT", v17, 1, v37);
   CFRelease(v18);
   if (v19)
   {
@@ -485,9 +485,9 @@ uint64_t purgeLoader(const __CFDictionary *a1, const __CFDictionary *a2, const v
     goto LABEL_7;
   }
 
-  if (!LOWORD(v38[0]))
+  if (!LOWORD(v37[0]))
   {
-    goto LABEL_38;
+    goto LABEL_37;
   }
 
   if (!a2 || (theDict = CFDictionaryGetValue(a2, @"Loaders")) == 0)
@@ -504,28 +504,28 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v24 = LOWORD(v38[0]);
-  if (!LOWORD(v38[0]))
+  v23 = LOWORD(v37[0]);
+  if (!LOWORD(v37[0]))
   {
-LABEL_38:
+LABEL_37:
     v20 = 0;
-LABEL_39:
+LABEL_38:
     v19 = 2;
     goto LABEL_7;
   }
 
-  v35 = a6;
-  v25 = 0;
-  v26 = &v38[2] + 4;
-  v34 = a7;
+  v34 = a6;
+  v24 = 0;
+  v25 = &v37[2] + 4;
+  v33 = a7;
   do
   {
-    v27 = *v26;
-    if (v27 == 6)
+    v26 = *v25;
+    if (v26 == 6)
     {
       if (*(v12 + 47) - 1 <= a4)
       {
-        goto LABEL_32;
+        goto LABEL_31;
       }
 
       v20 = 1;
@@ -533,46 +533,46 @@ LABEL_39:
 
     else
     {
-      if (v27 != 1 || a4 == 0)
+      if (v26 != 1 || a4 == 0)
       {
-        goto LABEL_32;
+        goto LABEL_31;
       }
 
       v20 = -1;
     }
 
-    v29 = CFStringCreateWithCString(0, v26 - 34, 0);
-    Value = CFDictionaryGetValue(theDict, v29);
-    CFRelease(v29);
-    if (!Value || GPTUpdateLoaderRecord(Value, __s) || (~comparePartitions(&v12[152 * (v20 + a4) + 96], __s) & 6) == 0)
+    v28 = CFStringCreateWithCString(0, v25 - 34, 0);
+    Value = CFDictionaryGetValue(theDict, v28);
+    CFRelease(v28);
+    if (!Value || GPTUpdateLoaderRecord(Value, __s) || (~comparePartitions(&v12[152 * v20 + 96 + 152 * a4], __s) & 6) == 0)
     {
-      goto LABEL_34;
+      goto LABEL_33;
     }
 
-    v24 = LOWORD(v38[0]);
-LABEL_32:
-    ++v25;
-    v26 += 38;
+    v23 = LOWORD(v37[0]);
+LABEL_31:
+    ++v24;
+    v25 += 38;
   }
 
-  while (v25 < v24);
+  while (v24 < v23);
   v20 = 0;
-LABEL_34:
-  if (v25 >= LOWORD(v38[0]))
+LABEL_33:
+  if (v24 >= LOWORD(v37[0]))
   {
-    goto LABEL_39;
+    goto LABEL_38;
   }
 
-  if (v35)
+  if (v34)
   {
-    v31 = v20 + a4;
-    v32 = CFNumberCreate(0, kCFNumberSInt64Type, *a3 + 152 * (v20 + a4) + 208);
-    v33 = CFArrayDictionarySearchWithIndexOptions(v35, @"Offset", v32, &idx, 0);
-    CFRelease(v32);
-    if (v33)
+    v30 = v20 + a4;
+    v31 = CFNumberCreate(0, kCFNumberSInt64Type, &(*a3)[152 * v20 + 208 + 152 * a4]);
+    v32 = CFArrayDictionarySearchWithIndexOptions(v34, @"Offset", v31, &idx, 0);
+    CFRelease(v31);
+    if (v32)
     {
-      v21 = idx - v34;
-      CFArrayRemoveValueAtIndex(v35, idx);
+      v21 = idx - v33;
+      CFArrayRemoveValueAtIndex(v34, idx);
     }
 
     else
@@ -584,10 +584,10 @@ LABEL_34:
   else
   {
     v21 = 0;
-    v31 = v20 + a4;
+    v30 = v20 + a4;
   }
 
-  v19 = delentry(a3, 96, 0x5Eu, v31, 152);
+  v19 = delentry(a3, 96, 0x5Eu, v30, 152);
   if (a5)
   {
 LABEL_8:
@@ -602,16 +602,13 @@ LABEL_9:
 
   if (v19 == 2)
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = v19;
+    return v19;
   }
-
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t IOZV(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
@@ -870,10 +867,10 @@ uint64_t SValidate(uint64_t *a1, unsigned int a2, int a3, int a4)
   return v8;
 }
 
-uint64_t MKPurgeLoader(const __CFDictionary *a1, const __CFDictionary *a2, const void **a3, unsigned int a4, int *a5, const __CFArray *a6, int a7, _DWORD *a8)
+uint64_t MKPurgeLoader(const __CFDictionary *a1, const __CFDictionary *a2, const void **a3, int a4, int *a5, const __CFArray *a6, int a7, _DWORD *a8)
 {
-  v36 = *MEMORY[0x277D85DE8];
-  if ((a4 & 0x80000000) != 0 || (v12 = *a3, *(*a3 + 261) <= a4))
+  v35 = *MEMORY[0x277D85DE8];
+  if (a4 < 0 || (v12 = *a3, *(*a3 + 261) <= a4))
   {
     v16 = 0;
     LODWORD(result) = 22;
@@ -881,10 +878,10 @@ uint64_t MKPurgeLoader(const __CFDictionary *a1, const __CFDictionary *a2, const
   }
 
   idx = 0;
-  memset(v34, 0, sizeof(v34));
-  v35 = 0;
-  memset(v33, 0, 154);
-  LODWORD(result) = MKGetPartitionRequisites(a1, *(v12 + 257), &v12[1072 * a4 + 576], *&v12[1072 * a4 + 1082], v33);
+  memset(v33, 0, sizeof(v33));
+  v34 = 0;
+  memset(v32, 0, 154);
+  LODWORD(result) = MKGetPartitionRequisites(a1, *(v12 + 257), &v12[1072 * a4 + 576], *&v12[1072 * a4 + 1082], v32);
   if (result)
   {
     v16 = 0;
@@ -901,8 +898,8 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v19 = LOWORD(v33[0]);
-  if (!LOWORD(v33[0]))
+  v18 = LOWORD(v32[0]);
+  if (!LOWORD(v32[0]))
   {
     v16 = 0;
 LABEL_37:
@@ -910,13 +907,13 @@ LABEL_37:
     goto LABEL_6;
   }
 
-  v29 = a6;
-  v20 = 0;
-  v21 = &v33[2] + 4;
+  v28 = a6;
+  v19 = 0;
+  v20 = &v32[2] + 4;
   do
   {
-    v22 = *v21;
-    if (v22 == 6)
+    v21 = *v20;
+    if (v21 == 6)
     {
       if (*(v12 + 261) - 1 <= a4)
       {
@@ -928,7 +925,7 @@ LABEL_37:
 
     else
     {
-      if (v22 != 1 || a4 == 0)
+      if (v21 != 1 || a4 == 0)
       {
         goto LABEL_29;
       }
@@ -936,51 +933,51 @@ LABEL_37:
       v16 = -1;
     }
 
-    v24 = CFStringCreateWithCString(0, v21 - 34, 0);
-    Value = CFDictionaryGetValue(theDict, v24);
-    CFRelease(v24);
+    v23 = CFStringCreateWithCString(0, v20 - 34, 0);
+    Value = CFDictionaryGetValue(theDict, v23);
+    CFRelease(v23);
     if (!Value)
     {
       LODWORD(result) = -415;
       goto LABEL_6;
     }
 
-    LODWORD(result) = MKGetPartitionInfo(Value, *(v12 + 257), v34);
+    LODWORD(result) = MKGetPartitionInfo(Value, *(v12 + 257), v33);
     if (result)
     {
       goto LABEL_6;
     }
 
-    v26 = strcasecmp(&v12[1072 * (v16 + a4) + 576], &v34[33]);
-    v19 = LOWORD(v33[0]);
-    if (!v26)
+    v25 = strcasecmp(&v12[1072 * v16 + 576 + 1072 * a4], &v33[33]);
+    v18 = LOWORD(v32[0]);
+    if (!v25)
     {
       goto LABEL_31;
     }
 
 LABEL_29:
-    ++v20;
-    v21 += 38;
+    ++v19;
+    v20 += 38;
   }
 
-  while (v20 < v19);
+  while (v19 < v18);
   v16 = 0;
 LABEL_31:
-  v17 = v29;
-  if (v20 >= v19)
+  v17 = v28;
+  if (v19 >= v18)
   {
     goto LABEL_37;
   }
 
-  if (v29)
+  if (v28)
   {
-    v27 = CFNumberCreate(0, kCFNumberSInt32Type, *a3 + 1072 * (v16 + a4) + 536);
-    v28 = CFArrayDictionarySearchWithIndexOptions(v29, @"Offset", v27, &idx, 0);
-    CFRelease(v27);
-    if (v28)
+    v26 = CFNumberCreate(0, kCFNumberSInt32Type, *a3 + 1072 * v16 + 1072 * a4 + 536);
+    v27 = CFArrayDictionarySearchWithIndexOptions(v28, @"Offset", v26, &idx, 0);
+    CFRelease(v26);
+    if (v27)
     {
       v17 = idx - a7;
-      CFArrayRemoveValueAtIndex(v29, idx);
+      CFArrayRemoveValueAtIndex(v28, idx);
     }
 
     else
@@ -1012,16 +1009,13 @@ LABEL_7:
 
   if (result == 2)
   {
-    result = 0;
+    return 0;
   }
 
   else
   {
-    result = result;
+    return result;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t PMRemovePartition(const void **a1, unsigned int a2, int a3)
@@ -1071,7 +1065,7 @@ LABEL_20:
   return PMRationalise(a1);
 }
 
-uint64_t PMSetTypeExtended(uint64_t a1, int a2, int a3, char *a4)
+uint64_t PMSetTypeExtended(uint64_t a1, uint64_t a2, unsigned int a3, char *a4)
 {
   if (a1)
   {
@@ -1342,12 +1336,12 @@ uint64_t _MKMediaFileGetGeoProperties(_DWORD *a1, __CFDictionary *a2)
   return _MKMediaSetupGeometry(a2, 512, v7, 0x10000);
 }
 
-uint64_t MKMakePartBootable(__CFBundle *a1, const void **a2, void *a3, int a4, char *a5, char *a6, unsigned int a7, uint64_t a8, uint64_t (*a9)(uint64_t, uint64_t, unint64_t, uint64_t, uint64_t, char *), BOOL *a10)
+uint64_t MKMakePartBootable(__CFBundle *a1, char **a2, void *a3, uint64_t a4, char *a5, char *a6, unsigned int a7, uint64_t a8, uint64_t (*a9)(uint64_t, uint64_t, unint64_t, uint64_t, uint64_t, char *), BOOL *a10)
 {
-  v81 = *MEMORY[0x277D85DE8];
-  v73 = 0;
+  v80 = *MEMORY[0x277D85DE8];
+  v72 = 0;
   valuePtr = 0;
-  v76 = 22;
+  v75 = 22;
   v17 = a1;
   if (!a1)
   {
@@ -1355,25 +1349,24 @@ uint64_t MKMakePartBootable(__CFBundle *a1, const void **a2, void *a3, int a4, c
     if (!v17)
     {
       *a10 = 0;
-      result = 22;
-      goto LABEL_20;
+      return 22;
     }
   }
 
-  v67 = a8;
-  v74 = 0;
-  v72 = 0;
-  memset(v78, 0, sizeof(v78));
-  v79 = 0u;
-  v80 = 0;
-  memset(v71, 0, sizeof(v71));
-  v70 = 0;
-  v18 = MKLoadDB(v17, @"database", &v76);
+  v66 = a8;
+  v73 = 0;
+  v71 = 0;
+  memset(v77, 0, sizeof(v77));
+  v78 = 0u;
+  v79 = 0;
+  memset(v70, 0, sizeof(v70));
+  v69 = 0;
+  v18 = MKLoadDB(v17, @"database", &v75);
   if (v18)
   {
     v19 = v18;
-    v68 = a2;
-    v20 = MKLoadDB(v17, @"inventory", &v76);
+    v67 = a2;
+    v20 = MKLoadDB(v17, @"inventory", &v75);
     if (!v20)
     {
       v24 = 0;
@@ -1389,33 +1382,33 @@ LABEL_15:
     }
 
     v21 = v20;
-    v66 = a7;
-    v76 = PMAccountFreespace(v68, 0, 0x8000u);
-    if (v76)
+    v65 = a7;
+    v75 = PMAccountFreespace(v67, 0, 0x8000u);
+    if (v75)
     {
       goto LABEL_10;
     }
 
-    v76 = PMGuidSearch(v68, a3, &v72);
-    if (v76)
+    v75 = PMGuidSearch(v67, a3, &v71);
+    if (v75)
     {
       goto LABEL_10;
     }
 
-    v22 = *v68;
-    v63 = v72;
+    v22 = *v67;
+    v62 = v71;
     if (a4)
     {
-      v23 = *v68;
-      a5 = PMCodeSearch(a4, v22[257]);
+      v23 = *v67;
+      a5 = PMCodeSearch(a4, *(v22 + 257));
     }
 
     else if (a5)
     {
-      v23 = *v68;
+      v23 = *v67;
       if (*a5)
       {
-        LOWORD(a4) = PMDescriptorSearch(a5, v22[257]);
+        LOWORD(a4) = PMDescriptorSearch(a5, *(v22 + 257));
       }
 
       else
@@ -1427,135 +1420,135 @@ LABEL_15:
 
     else
     {
-      v23 = *v68;
+      v23 = *v67;
       LOWORD(a4) = 0;
     }
 
-    if (v76)
+    if (v75)
     {
       goto LABEL_10;
     }
 
-    v27 = &v23[536 * v63 + 264];
+    v26 = &v23[1072 * v62 + 528];
     if (a5)
     {
-      v64 = &v23[536 * v63 + 264];
-      if (!strncasecmp((v27 + 48), a5, 0x20uLL))
+      v63 = &v23[1072 * v62 + 528];
+      if (!strncasecmp((v26 + 48), a5, 0x20uLL))
       {
         LODWORD(a5) = 0;
-        v27 = v64;
+        v26 = v63;
       }
 
       else
       {
-        v76 = MKPurgeLoader(v19, v21, v68, v72, &v74, 0, 0, 0);
-        if (v76)
+        v75 = MKPurgeLoader(v19, v21, v67, v71, &v73, 0, 0, 0);
+        if (v75)
         {
 LABEL_10:
           LODWORD(a5) = 0;
           goto LABEL_11;
         }
 
-        *(v64 + 554) = a4;
-        *(v64 + 84) = *(v64 + 12);
-        strncpypad((v64 + 48), a5, 0x20uLL, 0);
-        v76 = PMDefaultPartitionStatus(v23[257], v64);
-        if ((v66 & 4) == 0)
+        *(v63 + 554) = a4;
+        *(v63 + 84) = *(v63 + 12);
+        strncpypad((v63 + 48), a5, 0x20uLL, 0);
+        v75 = PMDefaultPartitionStatus(*(v23 + 257), v63);
+        if ((v65 & 4) == 0)
         {
-          *(v64 + 88) |= 0x100000u;
+          *(v63 + 88) |= 0x100000u;
         }
 
         LODWORD(a5) = 1;
-        v27 = v64;
+        v26 = v63;
       }
     }
 
     if (a6)
     {
-      v28 = v27;
-      if (strncasecmp((v27 + 16), a6, 0x20uLL))
+      v27 = v26;
+      if (strncasecmp((v26 + 16), a6, 0x20uLL))
       {
-        strncpypad((v28 + 16), a6, 0x20uLL, 0);
+        strncpypad((v27 + 16), a6, 0x20uLL, 0);
         LODWORD(a5) = a5 + 1;
       }
 
-      v27 = v28;
+      v26 = v27;
     }
 
-    v76 = MKGetPartitionRequisites(v19, v23[257], (v27 + 48), *(v27 + 554), v71);
-    if (v76)
+    v75 = MKGetPartitionRequisites(v19, *(v23 + 257), (v26 + 48), *(v26 + 554), v70);
+    if (v75)
     {
       goto LABEL_11;
     }
 
-    v65 = v23;
-    v29 = *v71;
-    if (!*v71)
+    v64 = v23;
+    v28 = *v70;
+    if (!*v70)
     {
-      v32 = 1;
+      v31 = 1;
       goto LABEL_44;
     }
 
-    v30 = &v71[36];
-    v31 = v66;
-    while (*v30 != 1)
+    v29 = &v70[36];
+    v30 = v65;
+    while (*v29 != 1)
     {
-      v30 += 38;
-      if (!--v29)
+      v29 += 38;
+      if (!--v28)
       {
-        v32 = 1;
+        v31 = 1;
         goto LABEL_45;
       }
     }
 
-    v76 = -417;
+    v75 = -417;
     Value = CFDictionaryGetValue(v21, @"Loaders");
     if (!Value)
     {
       goto LABEL_11;
     }
 
-    v39 = Value;
-    v76 = -415;
-    v60 = (v30 - 34);
-    v40 = CFStringCreateWithCString(0, v30 - 34, 0);
-    v41 = CFDictionaryGetValue(v39, v40);
+    v38 = Value;
+    v75 = -415;
+    v59 = (v29 - 34);
+    v39 = CFStringCreateWithCString(0, v29 - 34, 0);
+    v40 = CFDictionaryGetValue(v38, v39);
+    v41 = v39;
     v42 = v40;
-    v43 = v41;
-    CFRelease(v42);
-    if (!v43)
+    CFRelease(v41);
+    if (!v42)
     {
       goto LABEL_11;
     }
 
-    v76 = MKGetPartitionInfo(v43, v23[257], v78);
-    if (v76)
+    v75 = MKGetPartitionInfo(v42, *(v23 + 257), v77);
+    if (v75)
     {
       goto LABEL_11;
     }
 
-    v44 = CFDictionaryGetValue(v43, @"Partition Type Throw Aways");
-    v76 = MKScavangeDross(v23, v44, v78, v72, &v73, &v74 + 1);
-    if (v76)
+    v43 = CFDictionaryGetValue(v42, @"Partition Type Throw Aways");
+    v75 = MKScavangeDross(v23, v43, v77, v71, &v72, &v73 + 1);
+    if (v75)
     {
       goto LABEL_11;
     }
 
-    theDict = v43;
-    if (v72 > v73)
+    theDict = v42;
+    if (v71 > v72)
     {
-      if (v73 + 1 == v72)
+      if (v72 + 1 == v71)
       {
-        v45 = &v23[536 * v73 + 264];
-        if (!strcasecmp((v45 + 48), &v78[33]) && *(v45 + 12) == DWORD2(v79))
+        v44 = &v23[1072 * v72 + 528];
+        if (!strcasecmp((v44 + 48), &v77[33]) && *(v44 + 12) == DWORD2(v78))
         {
-          v46 = *(v45 + 554);
-          if (v46 != 24320)
+          v45 = *(v44 + 554);
+          if (v45 != 24320)
           {
-            if (strcasecmp((v45 + 472), v60))
+            if (strcasecmp((v44 + 472), v59))
             {
-              v76 = PMSetupLoader(v45, v60, v78);
-              if (v76)
+              v75 = PMSetupLoader(v44, v59, v77);
+              if (v75)
               {
                 goto LABEL_11;
               }
@@ -1563,85 +1556,85 @@ LABEL_10:
               LODWORD(a5) = a5 + 1;
             }
 
-            v61 = *(v45 + 88);
-            v76 = PMDefaultPartitionStatus(v23[257], v45);
-            if (v61 != *(v45 + 88))
+            v60 = *(v44 + 88);
+            v75 = PMDefaultPartitionStatus(*(v23 + 257), v44);
+            if (v60 != *(v44 + 88))
             {
               LODWORD(a5) = a5 + 1;
             }
           }
 
-          v47 = PMGuidSearch(v68, a3, &v72);
-          v76 = v47;
-          v65 = *v68;
-          if (v46 == 24320)
+          v46 = PMGuidSearch(v67, a3, &v71);
+          v75 = v46;
+          v64 = *v67;
+          if (v45 == 24320)
           {
 LABEL_103:
-            v62 = a5;
+            v61 = a5;
             goto LABEL_104;
           }
 
-          v48 = v73;
+          v47 = v72;
 LABEL_98:
-          if (v65[536 * v48 + 541] != 24320)
+          if (*&v64[1072 * v47 + 1082] != 24320)
           {
-            v47 = MKUpdateLoader(v68, v48, v17, v21, v67, a9);
-            v76 = v47;
-            if (!v47)
+            v46 = MKUpdateLoader(v67, v47, v17, v21, v66, a9);
+            v75 = v46;
+            if (!v46)
             {
-              v32 = 0;
+              v31 = 0;
               LODWORD(a5) = a5 + 1;
 LABEL_44:
-              v31 = v66;
+              v30 = v65;
 LABEL_45:
-              if ((v31 & 0x1000) != 0)
+              if ((v30 & 0x1000) != 0)
               {
-                v37 = v32 == 0;
-                v33 = &v73;
-                if (!v37)
+                v36 = v31 == 0;
+                v32 = &v72;
+                if (!v36)
                 {
-                  v33 = &v72;
+                  v32 = &v71;
                 }
 
-                LODWORD(a5) = PMSetBootPartition(v65, *v33) + a5;
-                v34 = *v71;
-                if (*v71)
+                LODWORD(a5) = PMSetBootPartition(v64, *v32) + a5;
+                v33 = *v70;
+                if (*v70)
                 {
-                  v35 = &v71[36];
-                  while (*v35 != 3)
+                  v34 = &v70[36];
+                  while (*v34 != 3)
                   {
-                    v35 += 38;
-                    if (!--v34)
+                    v34 += 38;
+                    if (!--v33)
                     {
                       goto LABEL_52;
                     }
                   }
 
-                  v76 = -417;
-                  v49 = CFDictionaryGetValue(v21, @"Loaders");
-                  if (!v49)
+                  v75 = -417;
+                  v48 = CFDictionaryGetValue(v21, @"Loaders");
+                  if (!v48)
                   {
                     goto LABEL_11;
                   }
 
-                  v50 = v49;
-                  v76 = -415;
-                  v51 = CFStringCreateWithCString(0, v35 - 34, 0);
-                  v52 = CFDictionaryGetValue(v50, v51);
-                  if (!v52)
+                  v49 = v48;
+                  v75 = -415;
+                  v50 = CFStringCreateWithCString(0, v34 - 34, 0);
+                  v51 = CFDictionaryGetValue(v49, v50);
+                  if (!v51)
                   {
                     goto LABEL_11;
                   }
 
-                  v76 = ResolveLoaderPath(v17, v52, v51, v77);
-                  CFRelease(v51);
-                  if (v76)
+                  v75 = ResolveLoaderPath(v17, v51, v50, v76);
+                  CFRelease(v50);
+                  if (v75)
                   {
                     goto LABEL_11;
                   }
 
-                  v76 = MBRSetBootloaderFile(v65, v77);
-                  if (v76)
+                  v75 = MBRSetBootloaderFile(v64, v76);
+                  if (v75)
                   {
                     goto LABEL_11;
                   }
@@ -1651,10 +1644,10 @@ LABEL_45:
               }
 
 LABEL_52:
-              v36 = MKPurgeLoaders(v17, v68, &v70);
-              v76 = v36;
-              v37 = v70 && v36 == 0;
-              if (v37)
+              v35 = MKPurgeLoaders(v17, v67, &v69);
+              v75 = v35;
+              v36 = v69 && v35 == 0;
+              if (v36)
               {
                 LODWORD(a5) = a5 + 1;
               }
@@ -1665,10 +1658,10 @@ LABEL_11:
               goto LABEL_15;
             }
 
-            if (v47 == 64230)
+            if (v46 == 64230)
             {
-              v32 = 0;
-              v76 = 0;
+              v31 = 0;
+              v75 = 0;
               goto LABEL_44;
             }
           }
@@ -1676,115 +1669,115 @@ LABEL_11:
           goto LABEL_103;
         }
 
-        v76 = PMSetTypeExtended(v45, 24320, v23[257], &unk_2586A0C2E);
-        if (v76)
+        v75 = PMSetTypeExtended(v44, 24320, *(v23 + 257), &unk_2586A0C2E);
+        if (v75)
         {
           goto LABEL_11;
         }
 
-        v76 = PMRationalise(v68);
-        if (v76)
+        v75 = PMRationalise(v67);
+        if (v75)
         {
           goto LABEL_11;
         }
 
         LODWORD(a5) = a5 + 1;
-        v76 = PMGuidSearch(v68, a3, &v72);
+        v75 = PMGuidSearch(v67, a3, &v71);
       }
 
       else
       {
-        v53 = 0;
-        v54 = v23;
-        v55 = &v23[536 * v73 + 264];
-        v62 = a5;
+        v52 = 0;
+        v53 = v23;
+        v54 = &v23[1072 * v72 + 528];
+        v61 = a5;
         while (1)
         {
-          v76 = PMSetTypeExtended(v55, 24320, v54[257], &unk_2586A0C2E);
-          if (v76)
+          v75 = PMSetTypeExtended(v54, 24320, *(v53 + 257), &unk_2586A0C2E);
+          if (v75)
           {
             break;
           }
 
-          v76 = PMRationalise(v68);
-          if (v76)
+          v75 = PMRationalise(v67);
+          if (v75)
           {
-            v62 = a5 + v53;
+            v61 = a5 + v52;
             break;
           }
 
-          ++v53;
-          ++v62;
-          --v72;
-          v55 += 1072;
-          v54 = v23;
-          if (v73 >= v72)
+          ++v52;
+          ++v61;
+          --v71;
+          v54 += 1072;
+          v53 = v23;
+          if (v72 >= v71)
           {
-            v53 = 1;
+            v52 = 1;
             break;
           }
         }
 
-        v47 = PMGuidSearch(v68, a3, &v72);
-        v76 = v47;
-        if (!v53)
+        v46 = PMGuidSearch(v67, a3, &v71);
+        v75 = v46;
+        if (!v52)
         {
-          v65 = *v68;
+          v64 = *v67;
 LABEL_104:
-          if (v47)
+          if (v46)
           {
-            LODWORD(a5) = v62;
+            LODWORD(a5) = v61;
             goto LABEL_11;
           }
 
-          v32 = 0;
-          LODWORD(a5) = v62;
+          v31 = 0;
+          LODWORD(a5) = v61;
           goto LABEL_44;
         }
 
-        LODWORD(a5) = v62;
+        LODWORD(a5) = v61;
       }
     }
 
-    v56 = CFDictionaryGetValue(theDict, @"Minimum Host Size");
-    if (v56)
+    v55 = CFDictionaryGetValue(theDict, @"Minimum Host Size");
+    if (v55)
     {
-      CFNumberGetValue(v56, kCFNumberSInt32Type, &valuePtr);
-      v57 = valuePtr;
+      CFNumberGetValue(v55, kCFNumberSInt32Type, &valuePtr);
+      v56 = valuePtr;
     }
 
     else
     {
-      v57 = 0;
+      v56 = 0;
     }
 
-    v58 = PMCreateLoader(v68, 0, v72, v57, v60, (v66 >> 13) & 1, v78);
-    v76 = v58;
-    if (v58)
+    v57 = PMCreateLoader(v67, 0, v71, v56, v59, (v65 >> 13) & 1, v77);
+    v75 = v57;
+    if (v57)
     {
-      if (v58 != 28)
+      if (v57 != 28)
       {
         goto LABEL_11;
       }
 
-      v32 = 0;
-      v76 = 0;
-      v65 = *v68;
+      v31 = 0;
+      v75 = 0;
+      v64 = *v67;
       goto LABEL_44;
     }
 
-    v76 = PMRationalise(v68);
-    if (v76)
+    v75 = PMRationalise(v67);
+    if (v75)
     {
       goto LABEL_11;
     }
 
-    v47 = PMGuidSearch(v68, a3, &v72);
-    v76 = v47;
-    v48 = v72 - 1;
-    v73 = v72 - 1;
+    v46 = PMGuidSearch(v67, a3, &v71);
+    v75 = v46;
+    v47 = v71 - 1;
+    v72 = v71 - 1;
     LODWORD(a5) = a5 + 1;
-    v65 = *v68;
+    v64 = *v67;
     goto LABEL_98;
   }
 
@@ -1797,15 +1790,13 @@ LABEL_104:
 LABEL_16:
   CFRelease(v17);
 LABEL_17:
-  result = v76;
+  result = v75;
   *a10 = v24;
   if (result == -1)
   {
-    result = *__error();
+    return *__error();
   }
 
-LABEL_20:
-  v26 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2293,27 +2284,27 @@ uint64_t DDMRecord_NtoB(uint64_t result, unsigned __int16 *a2)
   return result;
 }
 
-uint64_t APMReadRawMediaMap(const void **a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, unsigned __int16 *))
+uint64_t APMReadRawMediaMap(char **a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t, uint64_t, uint64_t, unsigned __int16 *))
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
+  v30 = *MEMORY[0x277D85DE8];
   v27 = 0u;
+  v28 = 0u;
   v25 = 0u;
-  memset(v24, 0, sizeof(v24));
+  v26 = 0u;
+  v24 = 0u;
   memset(v23, 0, sizeof(v23));
-  v22 = 0;
-  memset(v21, 0, sizeof(v21));
-  v19[0] = 0;
-  v19[1] = 0;
-  v20 = 0;
+  memset(v22, 0, sizeof(v22));
+  v21 = 0;
+  memset(v20, 0, sizeof(v20));
+  v18[0] = 0;
+  v18[1] = 0;
+  v19 = 0;
   v7 = PMConvertBlocks(63, *(*a1 + 1), 0x200u);
-  v8 = APMMapAnalysis(v19, v7, 2u, 0, a3, a4);
+  v8 = APMMapAnalysis(v18, v7, 2u, 0, a3, a4);
   v9 = v8;
   if (!v8)
   {
-    v10 = (v19[0] & 1) == 0;
+    v10 = (v18[0] & 1) == 0;
     if (v7 < 2)
     {
       v9 = 0;
@@ -2337,17 +2328,17 @@ uint64_t APMReadRawMediaMap(const void **a1, uint64_t a2, uint64_t a3, uint64_t 
           goto LABEL_23;
         }
 
-        if (PMRecord_BtoN(v21, v13))
+        if (PMRecord_BtoN(v20, v13))
         {
-          apmxrec2irec(v21, v23);
-          v15 = PMLookupDESC(v24, 0, &APMDescriptors);
+          apmxrec2irec(v20, v22);
+          v15 = PMLookupDESC(v23, 0, &APMDescriptors);
           if (v15)
           {
             v16 = *v15;
             switch(v16)
             {
               case 24320:
-                if (!v23[3])
+                if (!v22[3])
                 {
                   v10 = 2;
                 }
@@ -2358,7 +2349,7 @@ uint64_t APMReadRawMediaMap(const void **a1, uint64_t a2, uint64_t a3, uint64_t 
                 v10 = 3;
                 break;
               case 12544:
-                WORD6(v29) = 1;
+                WORD6(v28) = 1;
                 LOWORD(v16) = 12544;
                 break;
             }
@@ -2369,11 +2360,11 @@ uint64_t APMReadRawMediaMap(const void **a1, uint64_t a2, uint64_t a3, uint64_t 
             LOWORD(v16) = 0;
           }
 
-          v30 = v16;
-          WORD5(v29) = v11 - 1;
-          WORD4(v29) = -1;
-          *(&v25 + 1) = v13;
-          LOWORD(v14) = addentry(a1, v23, 0x210uLL, 0x20Au, 0xFFFFu, 0x430u);
+          v29 = v16;
+          WORD5(v28) = v11 - 1;
+          WORD4(v28) = -1;
+          *(&v24 + 1) = v13;
+          LOWORD(v14) = addentry(a1, v22, 0x210uLL, 0x20Au, 0xFFFFu, 0x430u);
           if (v14)
           {
 LABEL_23:
@@ -2406,7 +2397,6 @@ LABEL_26:
     *(*a1 + 257) = v10;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -2508,8 +2498,8 @@ uint64_t PMWriteDriver(Ptr *a1, uint64_t a2, unsigned int a3, unsigned int a4, u
   if (*(*a1 + 261))
   {
     v13 = 0;
-    v14 = (*a1 + 576);
-    while (!strstr(v14, "Driver") || v10 && *(v14 + 88) != v10 || strncasecmp(v14, (a2 + 12), 0x20uLL))
+    v14 = *a1 + 576;
+    while (!strstr(v14, "Driver") || v10 && *(v14 + 22) != v10 || strncasecmp(v14, (a2 + 12), 0x20uLL))
     {
       ++v13;
       v14 += 1072;
@@ -2759,40 +2749,38 @@ LABEL_11:
 
 CFArrayRef APMCFCreateMapRuns(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   *keys = xmmword_2798A1450;
   valuePtr = 0;
   v4 = *MEMORY[0x277CBECE8];
   values = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberIntType, &valuePtr);
   valuePtr = 1;
   cf = CFNumberCreate(v4, kCFNumberIntType, &valuePtr);
-  v9 = CFDictionaryCreate(v4, keys, &values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+  v8 = CFDictionaryCreate(v4, keys, &values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
   CFRelease(values);
   CFRelease(cf);
-  v5 = CFArrayCreate(v4, &v9, 1, MEMORY[0x277CBF128]);
-  CFRelease(v9);
+  v5 = CFArrayCreate(v4, &v8, 1, MEMORY[0x277CBF128]);
+  CFRelease(v8);
   *a3 = 0;
-  v6 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
-uint64_t ApplyToHFSPlusBTreeRecords(const void *a1, uint64_t (*a2)(__int8 *, uint64_t, uint64_t, char *, __n128), uint64_t a3, int a4)
+uint64_t ApplyToHFSPlusBTreeRecords(void *a1, uint64_t (*a2)(char *, uint64_t, uint64_t, char *, __n128), uint64_t a3, int a4)
 {
-  v58 = *MEMORY[0x277D85DE8];
-  v49 = 0;
-  Sectors = MKReadHFSMDBVHB(a1, &v49, v56, 0, 0);
+  v57 = *MEMORY[0x277D85DE8];
+  v48 = 0;
+  Sectors = MKReadHFSMDBVHB(a1, &v48, v55, 0, 0);
   if (Sectors)
   {
-    goto LABEL_67;
+    return Sectors;
   }
 
-  if (v49 < 2)
+  if (v48 < 2)
   {
-    Sectors = -123;
-    goto LABEL_67;
+    return -123;
   }
 
-  if (v49 == 3)
+  if (v48 == 3)
   {
     v8 = MKMediaCreateWithEmbeddedHFSPlus(a1, &Sectors);
   }
@@ -2805,18 +2793,18 @@ uint64_t ApplyToHFSPlusBTreeRecords(const void *a1, uint64_t (*a2)(__int8 *, uin
   v9 = v8;
   if (!Sectors)
   {
-    v10 = v57;
+    v10 = v56;
     v11 = a4 == 1 ? 192 : 272;
     v12 = a4 == 1 ? 3 : 4;
-    Sectors = MKHFSPlusMapFileBlock(&v56[v11], 0, 0, 0, &v49 + 4, 0);
+    Sectors = MKHFSPlusMapFileBlock(&v55[v11], 0, 0, 0, &v48 + 1, 0);
     if (!Sectors)
     {
       v13 = v10 >> 9;
-      Sectors = MKMediaReadSectors(v9, HIDWORD(v49) * (v10 >> 9), 1uLL, &v52, 0);
+      Sectors = MKMediaReadSectors(v9, HIDWORD(v48) * (v10 >> 9), 1uLL, &v51, 0);
       if (!Sectors)
       {
-        TAO_BTNodeDescriptor_BigToHost(&v52);
-        TAO_BTHeaderRec_BigToHost(v53);
+        TAO_BTNodeDescriptor_BigToHost(&v51);
+        TAO_BTHeaderRec_BigToHost(v52);
         v14 = size;
         if (size)
         {
@@ -2824,35 +2812,35 @@ uint64_t ApplyToHFSPlusBTreeRecords(const void *a1, uint64_t (*a2)(__int8 *, uin
           if (v15)
           {
             v16 = v15;
-            v43 = v14;
-            v44 = v13;
-            v45 = v12;
-            v48 = a3;
-            v47 = v54;
-            v40 = v15 + v14 - 2;
-            v41 = v11;
-            v39 = a4;
-            v42 = v9;
+            v42 = v14;
+            v43 = v13;
+            v44 = v12;
+            v47 = a3;
+            v46 = v53;
+            v39 = v15 + v14 - 2;
+            v40 = v11;
+            v38 = a4;
+            v41 = v9;
             do
             {
-              if (!v47)
+              if (!v46)
               {
                 break;
               }
 
-              Sectors = ReadWriteBTreeNode(&v56[v11], v43, v44, 0, v47, v16, v9, v45);
+              Sectors = ReadWriteBTreeNode(&v55[v11], v42, v43, 0, v46, v16, v9, v44);
               if (Sectors)
               {
                 break;
               }
 
-              v46 = v16->i32[0];
+              v45 = v16->i32[0];
               v17 = 0;
               if (a4)
               {
                 v18 = 0;
-                v51 = 0;
-                v19 = v40;
+                v50 = 0;
+                v19 = v39;
                 while (v18 < v16[1].u16[1])
                 {
                   v20 = bswap32(*v19);
@@ -2860,12 +2848,12 @@ uint64_t ApplyToHFSPlusBTreeRecords(const void *a1, uint64_t (*a2)(__int8 *, uin
                   TAO_HFSPlusExtentKey_BigToHost((v16 + v21));
                   v22 = v16 + (*(v16->i16 + v21) + HIWORD(v20) + 2);
                   v23 = TAO_HFSPlusExtentRecord_BigToHost(v22);
-                  v24 = a2(v16 + v21, v22, v48, &v51, v23);
+                  v24 = a2(v16 + v21, v22, v47, &v50, v23);
                   v25 = v24;
                   if (!v24 || v24 == -128)
                   {
                     ++v18;
-                    if (v51)
+                    if (v50)
                     {
                       v17 = 1;
                     }
@@ -2888,8 +2876,8 @@ uint64_t ApplyToHFSPlusBTreeRecords(const void *a1, uint64_t (*a2)(__int8 *, uin
               else
               {
                 v26 = 0;
-                v51 = 0;
-                v27 = v40;
+                v50 = 0;
+                v27 = v39;
                 while (v26 < v16[1].u16[1])
                 {
                   v28 = bswap32(*v27);
@@ -2900,12 +2888,12 @@ uint64_t ApplyToHFSPlusBTreeRecords(const void *a1, uint64_t (*a2)(__int8 *, uin
                   if (v32 - 3 < 2)
                   {
                     TAO_HFSPlusCatalogThread_BigToHost(v31);
-                    v33 = v48;
+                    v33 = v47;
                   }
 
                   else
                   {
-                    v33 = v48;
+                    v33 = v47;
                     if (v32 == 2)
                     {
                       v30.n128_f64[0] = TAO_HFSPlusCatalogFile_BigToHost(v31);
@@ -2917,11 +2905,11 @@ uint64_t ApplyToHFSPlusBTreeRecords(const void *a1, uint64_t (*a2)(__int8 *, uin
                     }
                   }
 
-                  v34 = a2(v16 + v29, v31, v33, &v51, v30);
+                  v34 = a2(v16 + v29, v31, v33, &v50, v30);
                   v25 = v34;
                   if (!v34 || v34 == -128)
                   {
-                    if (v51)
+                    if (v50)
                     {
                       v17 = 1;
                     }
@@ -2955,12 +2943,12 @@ uint64_t ApplyToHFSPlusBTreeRecords(const void *a1, uint64_t (*a2)(__int8 *, uin
 
                 v25 = 0;
 LABEL_52:
-                a4 = v39;
+                a4 = v38;
               }
 
 LABEL_53:
-              v11 = v41;
-              v9 = v42;
+              v11 = v40;
+              v9 = v41;
               Sectors = v25;
               if (v25)
               {
@@ -2972,7 +2960,7 @@ LABEL_53:
 
               if (v17)
               {
-                v35 = ReadWriteBTreeNode(&v56[v41], v43, v44, 1, v47, v16, v42, v45);
+                v35 = ReadWriteBTreeNode(&v55[v40], v42, v43, 1, v46, v16, v41, v44);
                 if (v35)
                 {
                   Sectors = v35;
@@ -2982,7 +2970,7 @@ LABEL_53:
                 v25 = Sectors;
               }
 
-              v47 = v46;
+              v46 = v45;
             }
 
             while (!v25);
@@ -3009,14 +2997,12 @@ LABEL_65:
     CFRelease(v9);
   }
 
-LABEL_67:
-  result = Sectors;
-  v38 = *MEMORY[0x277D85DE8];
-  return result;
+  return Sectors;
 }
 
-uint64_t ReadWriteBTreeNode(uint64_t a1, unsigned int a2, unsigned int a3, int a4, int a5, int8x8_t *a6, uint64_t a7, uint64_t a8)
+uint64_t ReadWriteBTreeNode(uint64_t a1, unsigned int a2, unsigned int a3, int a4, int a5, int8x8_t *a6, const void *a7, uint64_t a8)
 {
+  v8 = a8;
   if (a4)
   {
     TAO_BTNodeDescriptor_BigToHost(a6);
@@ -3024,7 +3010,7 @@ uint64_t ReadWriteBTreeNode(uint64_t a1, unsigned int a2, unsigned int a3, int a
 
   v31 = 0;
   v14 = a2 >> 9;
-  if (a8 == 3)
+  if (v8 == 3)
   {
     v15 = 0;
   }
@@ -3037,7 +3023,7 @@ uint64_t ReadWriteBTreeNode(uint64_t a1, unsigned int a2, unsigned int a3, int a
   if (v14 <= a3)
   {
     v27 = v14 * a5;
-    result = MKHFSPlusMapFileBlock(a1, a8, 0, v27 / a3, &v31, v15);
+    result = MKHFSPlusMapFileBlock(a1, v8, 0, v27 / a3, &v31, v15);
     if (!result)
     {
       v28 = v27 % a3 + v31 * a3;
@@ -3072,7 +3058,7 @@ LABEL_20:
     v23 = a3 << 9;
     while (1)
     {
-      result = MKHFSPlusMapFileBlock(a1, a8, 0, (v21 + v18), &v31, v15);
+      result = MKHFSPlusMapFileBlock(a1, v8, 0, v21 + v18, &v31, v15);
       if (result)
       {
         break;
@@ -3105,24 +3091,24 @@ LABEL_20:
 
 uint64_t MKRecordEFATFSRuns(uint64_t a1, int a2, void (*a3)(uint64_t, uint64_t, void), uint64_t a4)
 {
-  v60 = *MEMORY[0x277D85DE8];
-  memset(v54, 0, sizeof(v54));
-  v58 = 0u;
-  memset(v59, 0, sizeof(v59));
-  v56 = 0u;
-  v57 = 0u;
-  v55 = 0u;
-  MKMediaGetGeometry(a1, v54);
-  LOWORD(v55) = 5;
-  v7 = v54[0];
-  LODWORD(v56) = LODWORD(v54[0]) >> 9;
-  *(&v56 + 1) = *(&v54[0] + 1);
-  *size = 0u;
-  v52 = 0u;
+  v59 = *MEMORY[0x277D85DE8];
   memset(v53, 0, sizeof(v53));
-  v8 = 12 * LODWORD(v54[0]);
-  LOWORD(size[0]) = v54[0];
-  v9 = malloc_type_malloc((12 * LODWORD(v54[0])), 0x18D5DE31uLL);
+  v57 = 0u;
+  memset(v58, 0, sizeof(v58));
+  v55 = 0u;
+  v56 = 0u;
+  v54 = 0u;
+  MKMediaGetGeometry(a1, v53);
+  LOWORD(v54) = 5;
+  v7 = v53[0];
+  LODWORD(v55) = LODWORD(v53[0]) >> 9;
+  *(&v55 + 1) = *(&v53[0] + 1);
+  *size = 0u;
+  v51 = 0u;
+  memset(v52, 0, sizeof(v52));
+  v8 = 12 * LODWORD(v53[0]);
+  LOWORD(size[0]) = v53[0];
+  v9 = malloc_type_malloc((12 * LODWORD(v53[0])), 0x18D5DE31uLL);
   if (v9)
   {
     v10 = v7;
@@ -3194,51 +3180,51 @@ LABEL_26:
         }
 
         WORD1(size[0]) = (1 << v13) >> 9;
-        v39 = v10 << v22;
-        WORD2(size[0]) = v39 / v10;
-        v40 = v11[110];
+        v38 = v10 << v22;
+        WORD2(size[0]) = v38 / v10;
+        v39 = v11[110];
         HIWORD(size[0]) = v11[110];
-        WORD4(v53[1]) = *(v11 + 53);
-        v41 = BYTE8(v53[1]) & 1;
-        WORD1(size[1]) = v41 + 1;
-        *(v53 + 8) = *(v11 + 4);
-        v42 = *(v11 + 21);
-        DWORD1(v53[0]) = *(v11 + 20);
-        LOWORD(size[1]) = v42;
-        v44 = *(v11 + 22);
-        v43 = *(v11 + 23);
-        HIDWORD(size[1]) = v39;
-        *&v52 = __PAIR64__(v44, v43);
-        v45 = *(v11 + 24);
-        DWORD2(v52) = v45;
-        if (v45 >= v43)
+        WORD4(v52[1]) = *(v11 + 53);
+        v40 = BYTE8(v52[1]) & 1;
+        WORD1(size[1]) = v40 + 1;
+        *(v52 + 8) = *(v11 + 4);
+        v41 = *(v11 + 21);
+        DWORD1(v52[0]) = *(v11 + 20);
+        LOWORD(size[1]) = v41;
+        v43 = *(v11 + 22);
+        v42 = *(v11 + 23);
+        HIDWORD(size[1]) = v38;
+        *&v51 = __PAIR64__(v43, v42);
+        v44 = *(v11 + 24);
+        DWORD2(v51) = v44;
+        if (v44 >= v42)
+        {
+          v45 = 22;
+        }
+
+        else
+        {
+          v45 = 0;
+        }
+
+        if (v44 >= 2)
+        {
+          v46 = v45;
+        }
+
+        else
         {
           v46 = 22;
         }
 
-        else
+        if (v40 >= v39)
         {
-          v46 = 0;
+          v46 = 22;
         }
 
-        if (v45 >= 2)
+        if (v39 - 3 >= 0xFFFFFFFE)
         {
-          v47 = v46;
-        }
-
-        else
-        {
-          v47 = 22;
-        }
-
-        if (v41 >= v40)
-        {
-          v47 = 22;
-        }
-
-        if (v40 - 3 >= 0xFFFFFFFE)
-        {
-          v15 = v47;
+          v15 = v46;
         }
 
         else
@@ -3293,27 +3279,26 @@ LABEL_30:
 
   else
   {
-    HIDWORD(v55) = LOWORD(size[0]) >> 9;
-    v25 = v52 * WORD2(size[0]);
-    *&v57 = *&v53[1] * WORD1(size[0]);
-    *(&v57 + 1) = (v25 + DWORD1(v52)) * WORD1(size[0]);
-    *(&v58 + 1) = (v25 + DWORD1(v52)) * WORD1(size[0]);
-    if ((BYTE8(v53[1]) & 2) != 0)
+    HIDWORD(v54) = LOWORD(size[0]) >> 9;
+    v25 = v51 * WORD2(size[0]);
+    *&v56 = *&v52[1] * WORD1(size[0]);
+    *(&v56 + 1) = (v25 + DWORD1(v51)) * WORD1(size[0]);
+    *(&v57 + 1) = (v25 + DWORD1(v51)) * WORD1(size[0]);
+    if ((BYTE8(v52[1]) & 2) != 0)
     {
-      *&v59[0] |= 2uLL;
+      *&v58[0] |= 2uLL;
     }
 
-    if ((BYTE8(v53[1]) & 4) != 0)
+    if ((BYTE8(v52[1]) & 4) != 0)
     {
-      *&v59[0] |= 0x10uLL;
+      *&v58[0] |= 0x10uLL;
     }
 
-    v26 = *(&v56 + 1) / ((v25 + DWORD1(v52)) * WORD1(size[0]));
+    v26 = *(&v55 + 1) / ((v25 + DWORD1(v51)) * WORD1(size[0]));
     if (v26 > 10000.0 || v26 < 0.0001)
     {
       a3(a4, 4, 0);
-      v15 = 22;
-      goto LABEL_69;
+      return 22;
     }
 
     v23 = malloc_type_malloc(HIDWORD(size[1]), 0xDCB2EA38uLL);
@@ -3325,12 +3310,12 @@ LABEL_30:
     }
 
     v24 = v27;
-    v49 = a3;
+    v48 = a3;
     v28 = 0;
-    v29 = DWORD2(v52);
-    while (v29 < v52 + 2)
+    v29 = DWORD2(v51);
+    while (v29 < v51 + 2)
     {
-      v30 = MKMediaReadBlocks(a1, ((v29 - 2) * WORD2(size[0]) + DWORD1(v52)) * WORD1(size[0]), WORD2(size[0]) * WORD1(size[0]), 0x200u, v23, 0);
+      v30 = MKMediaReadBlocks(a1, ((v29 - 2) * WORD2(size[0]) + DWORD1(v51)) * WORD1(size[0]), WORD2(size[0]) * WORD1(size[0]), 0x200u, v23, 0);
       if (v30)
       {
         goto LABEL_84;
@@ -3346,7 +3331,7 @@ LABEL_30:
           {
             if (WORD1(size[1]) == (v31[1] & 1) + 1)
             {
-              HIDWORD(v52) = *(v31 + 5);
+              HIDWORD(v51) = *(v31 + 5);
               v34 = *(v31 + 3);
               if (v34 % HIDWORD(size[1]))
               {
@@ -3358,7 +3343,7 @@ LABEL_30:
                 v35 = v34 / HIDWORD(size[1]);
               }
 
-              LODWORD(v53[0]) = v35;
+              LODWORD(v52[0]) = v35;
             }
           }
 
@@ -3367,7 +3352,7 @@ LABEL_30:
             v33 = v31[1];
             if ((v33 - 13) >= 0xFFFFFFF4)
             {
-              uniconvert(v59 + 12, 256, 0x8000100u, 0, v31 + 2, 2 * v33, 0x14000100u, 1u);
+              uniconvert(v58 + 12, 256, 0x8000100u, 0, v31 + 2, 2 * v33, 0x14000100u, 1u);
             }
           }
 
@@ -3383,17 +3368,17 @@ LABEL_30:
       }
 
       v36 = 4 * v29 / HIDWORD(size[1]);
-      if (v28 != v36 + DWORD1(v53[0]) * WORD1(size[1]))
+      if (v28 != v36 + DWORD1(v52[0]) * WORD1(size[1]))
       {
-        v30 = MKMediaReadBlocks(a1, v36 + DWORD1(v53[0]) * WORD1(size[1]), (HIDWORD(size[1]) / LOWORD(size[0])), LOWORD(size[0]), v24, 0);
-        v28 = v36 + DWORD1(v53[0]) * WORD1(size[1]);
+        v30 = MKMediaReadBlocks(a1, v36 + DWORD1(v52[0]) * WORD1(size[1]), (HIDWORD(size[1]) / LOWORD(size[0])), LOWORD(size[0]), v24, 0);
+        v28 = v36 + DWORD1(v52[0]) * WORD1(size[1]);
         if (v30)
         {
 LABEL_84:
           v15 = v30;
           if ((v30 & 0x80000000) != 0)
           {
-            v49(a4, 4, 0);
+            v48(a4, 4, 0);
             goto LABEL_34;
           }
 
@@ -3409,17 +3394,17 @@ LABEL_84:
     }
 
 LABEL_85:
-    a3 = v49;
-    v48 = (v49)(a4, 0, 0);
-    if (v48)
+    a3 = v48;
+    v47 = (v48)(a4, 0, 0);
+    if (v47)
     {
-      v15 = v48;
+      v15 = v47;
     }
 
     else
     {
-      v15 = exFATTidemark(&v55, size, a2, a1, v49, a4);
-      v49(a4, 3, &v55);
+      v15 = exFATTidemark(&v54, size, a2, a1, v48, a4);
+      v48(a4, 3, &v54);
     }
   }
 
@@ -3449,8 +3434,6 @@ LABEL_37:
     free(v24);
   }
 
-LABEL_69:
-  v37 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -3742,7 +3725,7 @@ uint64_t MKDetectEFATFS(uint64_t a1, unsigned __int8 *a2, _DWORD *a3, _DWORD *a4
   if (*(a2 + 255) == 43605)
   {
     *a3 = 500;
-    if (*a2 == 235 && a2[1] == 118 && a2[2] == 144)
+    if (__PAIR64__(a2[1], *a2) == 0x76000000EBLL && a2[2] == 144)
     {
       *a3 = 1000;
       if (*(a2 + 3) == 0x2020205441465845)
@@ -3863,7 +3846,7 @@ LABEL_11:
   return result;
 }
 
-const char *MKFSIdentity(int a1, unsigned int a2)
+const char *MKFSIdentity(int a1, uint64_t a2)
 {
   if (a1 > 3)
   {
@@ -3923,7 +3906,7 @@ const __CFDictionary *FSConvertOptions(const __CFDictionary *result)
   return result;
 }
 
-uint64_t MKRecordFSCopyInstructions(CFArrayRef *__dst, int a2, _WORD *__src)
+uint64_t MKRecordFSCopyInstructions(CFArrayRef *__dst, int a2, uint64_t *__src)
 {
   switch(a2)
   {
@@ -3957,34 +3940,15 @@ uint64_t MKRecordFSCopyInstructions(CFArrayRef *__dst, int a2, _WORD *__src)
       valuePtr = 0;
       v23 = 0;
       Count = CFArrayGetCount(__dst[42]);
-      if (!Count)
+      if (Count && (ValueAtIndex = CFArrayGetValueAtIndex(__dst[42], Count - 1), Value = CFDictionaryGetValue(ValueAtIndex, @"Instruction Code"), CFNumberGetValue(Value, kCFNumberSInt16Type, &valuePtr), v9 = CFDictionaryGetValue(ValueAtIndex, @"Source Offset"), CFNumberGetValue(v9, kCFNumberSInt64Type, &v23), v10 = v23, v11 = CFDictionaryGetValue(ValueAtIndex, @"Block Count"), CFNumberGetValue(v11, kCFNumberSInt64Type, &v23), *(__dst + 368) == 1) && v5 == valuePtr && __src[1] == v23 + v10)
       {
-        goto LABEL_17;
-      }
-
-      ValueAtIndex = CFArrayGetValueAtIndex(__dst[42], Count - 1);
-      Value = CFDictionaryGetValue(ValueAtIndex, @"Instruction Code");
-      CFNumberGetValue(Value, kCFNumberSInt16Type, &valuePtr);
-      v9 = CFDictionaryGetValue(ValueAtIndex, @"Source Offset");
-      CFNumberGetValue(v9, kCFNumberSInt64Type, &v23);
-      v10 = v23;
-      v11 = CFDictionaryGetValue(ValueAtIndex, @"Block Count");
-      CFNumberGetValue(v11, kCFNumberSInt64Type, &v23);
-      if (*(__dst + 368) != 1)
-      {
-        goto LABEL_17;
-      }
-
-      if (v5 == valuePtr && *(__src + 1) == v23 + v10)
-      {
-        v23 += *(__src + 2);
+        v23 += __src[2];
         v12 = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt64Type, &v23);
         CFDictionaryReplaceValue(ValueAtIndex, @"Block Count", v12);
       }
 
       else
       {
-LABEL_17:
         v13 = *MEMORY[0x277CBECE8];
         Mutable = CFDictionaryCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
         valuePtr = v5;
@@ -3999,11 +3963,11 @@ LABEL_17:
           CFRelease(v16);
         }
 
-        v23 = *(__src + 2);
+        v23 = __src[2];
         v17 = CFNumberCreate(v13, kCFNumberSInt64Type, &v23);
         CFDictionaryAddValue(Mutable, @"Block Count", v17);
         CFRelease(v17);
-        v23 = *(__src + 1);
+        v23 = __src[1];
         v18 = CFNumberCreate(v13, kCFNumberSInt64Type, &v23);
         CFDictionaryAddValue(Mutable, @"Source Offset", v18);
         CFRelease(v18);
@@ -4035,121 +3999,117 @@ LABEL_17:
   return 0;
 }
 
-uint64_t MKCFDecomposeFSInfoRecord(const __CFDictionary *a1, uint64_t a2)
+const __CFDictionary *MKCFDecomposeFSInfoRecord(const __CFDictionary *a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  if (a2)
+  v20 = *MEMORY[0x277D85DE8];
+  if (!a2)
   {
-    valuePtr = 0;
-    *a2 = 0u;
-    *(a2 + 16) = 0u;
-    *(a2 + 32) = 0u;
-    *(a2 + 48) = 0u;
-    *(a2 + 64) = 0u;
-    *(a2 + 80) = 0u;
-    *(a2 + 96) = 0u;
-    *(a2 + 112) = 0u;
-    *(a2 + 128) = 0u;
-    *(a2 + 144) = 0u;
-    *(a2 + 160) = 0u;
-    *(a2 + 176) = 0u;
-    *(a2 + 192) = 0u;
-    *(a2 + 208) = 0u;
-    *(a2 + 224) = 0u;
-    *(a2 + 240) = 0u;
-    *(a2 + 256) = 0u;
-    *(a2 + 272) = 0u;
-    *(a2 + 288) = 0u;
-    *(a2 + 304) = 0u;
-    *(a2 + 320) = 0u;
-    Value = CFDictionaryGetValue(a1, @"Filesystem");
-    CFStringGetCString(Value, buffer, 32, 0);
-    *a2 = MKFSDescriptorIdentity(buffer, (a2 + 2));
-    v5 = CFDictionaryGetValue(a1, @"Volume name");
-    if (v5)
-    {
-      CFStringGetCString(v5, (a2 + 76), 256, 0x8000100u);
-    }
-
-    v6 = CFDictionaryGetValue(a1, @"Volume offset");
-    if (v6)
-    {
-      CFNumberGetValue(v6, kCFNumberSInt32Type, (a2 + 4));
-    }
-
-    v7 = CFDictionaryGetValue(a1, @"phi");
-    if (v7)
-    {
-      CFNumberGetValue(v7, kCFNumberSInt32Type, (a2 + 8));
-    }
-
-    v8 = CFDictionaryGetValue(a1, @"Physical block size");
-    if (v8)
-    {
-      CFNumberGetValue(v8, kCFNumberSInt32Type, &valuePtr);
-      *(a2 + 16) = valuePtr >> 9;
-    }
-
-    v9 = CFDictionaryGetValue(a1, @"Physical size");
-    if (v9)
-    {
-      CFNumberGetValue(v9, kCFNumberSInt64Type, (a2 + 24));
-    }
-
-    v10 = CFDictionaryGetValue(a1, @"Media size");
-    if (v10)
-    {
-      CFNumberGetValue(v10, kCFNumberSInt64Type, (a2 + 32));
-    }
-
-    v11 = CFDictionaryGetValue(a1, @"Volume size");
-    if (v11)
-    {
-      CFNumberGetValue(v11, kCFNumberSInt64Type, (a2 + 40));
-    }
-
-    v12 = CFDictionaryGetValue(a1, @"Volume block size");
-    if (v12)
-    {
-      CFNumberGetValue(v12, kCFNumberSInt32Type, &valuePtr);
-      *(a2 + 12) = valuePtr >> 9;
-    }
-
-    v13 = CFDictionaryGetValue(a1, @"Tidemark");
-    if (v13)
-    {
-      CFNumberGetValue(v13, kCFNumberSInt64Type, (a2 + 56));
-    }
-
-    v14 = CFDictionaryGetValue(a1, @"Fragmentation Index");
-    if (v14)
-    {
-      CFNumberGetValue(v14, kCFNumberSInt32Type, (a2 + 72));
-    }
-
-    result = CFDictionaryGetValue(a1, @"Attributes");
-    if (result)
-    {
-      v16 = result;
-      *(a2 + 64) |= MKCFOptionBit(result, @"Read only", 1);
-      *(a2 + 64) |= MKCFOptionBit(v16, @"Dirty", 2);
-      *(a2 + 64) |= MKCFOptionBit(v16, @"Journaled", 4);
-      v17 = MKCFOptionBit(v16, @"Case sensitive", 8);
-      result = 0;
-      *(a2 + 64) |= v17;
-    }
+    return 22;
   }
 
-  else
+  valuePtr = 0;
+  *a2 = 0u;
+  *(a2 + 16) = 0u;
+  *(a2 + 32) = 0u;
+  *(a2 + 48) = 0u;
+  *(a2 + 64) = 0u;
+  *(a2 + 80) = 0u;
+  *(a2 + 96) = 0u;
+  *(a2 + 112) = 0u;
+  *(a2 + 128) = 0u;
+  *(a2 + 144) = 0u;
+  *(a2 + 160) = 0u;
+  *(a2 + 176) = 0u;
+  *(a2 + 192) = 0u;
+  *(a2 + 208) = 0u;
+  *(a2 + 224) = 0u;
+  *(a2 + 240) = 0u;
+  *(a2 + 256) = 0u;
+  *(a2 + 272) = 0u;
+  *(a2 + 288) = 0u;
+  *(a2 + 304) = 0u;
+  *(a2 + 320) = 0u;
+  Value = CFDictionaryGetValue(a1, @"Filesystem");
+  CFStringGetCString(Value, buffer, 32, 0);
+  *a2 = MKFSDescriptorIdentity(buffer, (a2 + 2));
+  v5 = CFDictionaryGetValue(a1, @"Volume name");
+  if (v5)
   {
-    result = 22;
+    CFStringGetCString(v5, (a2 + 76), 256, 0x8000100u);
   }
 
-  v18 = *MEMORY[0x277D85DE8];
+  v6 = CFDictionaryGetValue(a1, @"Volume offset");
+  if (v6)
+  {
+    CFNumberGetValue(v6, kCFNumberSInt32Type, (a2 + 4));
+  }
+
+  v7 = CFDictionaryGetValue(a1, @"phi");
+  if (v7)
+  {
+    CFNumberGetValue(v7, kCFNumberSInt32Type, (a2 + 8));
+  }
+
+  v8 = CFDictionaryGetValue(a1, @"Physical block size");
+  if (v8)
+  {
+    CFNumberGetValue(v8, kCFNumberSInt32Type, &valuePtr);
+    *(a2 + 16) = valuePtr >> 9;
+  }
+
+  v9 = CFDictionaryGetValue(a1, @"Physical size");
+  if (v9)
+  {
+    CFNumberGetValue(v9, kCFNumberSInt64Type, (a2 + 24));
+  }
+
+  v10 = CFDictionaryGetValue(a1, @"Media size");
+  if (v10)
+  {
+    CFNumberGetValue(v10, kCFNumberSInt64Type, (a2 + 32));
+  }
+
+  v11 = CFDictionaryGetValue(a1, @"Volume size");
+  if (v11)
+  {
+    CFNumberGetValue(v11, kCFNumberSInt64Type, (a2 + 40));
+  }
+
+  v12 = CFDictionaryGetValue(a1, @"Volume block size");
+  if (v12)
+  {
+    CFNumberGetValue(v12, kCFNumberSInt32Type, &valuePtr);
+    *(a2 + 12) = valuePtr >> 9;
+  }
+
+  v13 = CFDictionaryGetValue(a1, @"Tidemark");
+  if (v13)
+  {
+    CFNumberGetValue(v13, kCFNumberSInt64Type, (a2 + 56));
+  }
+
+  v14 = CFDictionaryGetValue(a1, @"Fragmentation Index");
+  if (v14)
+  {
+    CFNumberGetValue(v14, kCFNumberSInt32Type, (a2 + 72));
+  }
+
+  result = CFDictionaryGetValue(a1, @"Attributes");
+  if (result)
+  {
+    v16 = result;
+    *(a2 + 64) |= MKCFOptionBit(result, @"Read only", 1);
+    *(a2 + 64) |= MKCFOptionBit(v16, @"Dirty", 2);
+    *(a2 + 64) |= MKCFOptionBit(v16, @"Journaled", 4);
+    v17 = MKCFOptionBit(v16, @"Case sensitive", 8);
+    result = 0;
+    *(a2 + 64) |= v17;
+  }
+
   return result;
 }
 
-uint64_t MKCFRecordFSInfo(uint64_t a1, int a2, unsigned __int16 *a3)
+uint64_t MKCFRecordFSInfo(uint64_t a1, int a2, const char *a3)
 {
   result = 0;
   if (a2 > 1)
@@ -4246,7 +4206,7 @@ LABEL_18:
 
               else
               {
-                v13 = CFNumberCreate(0, kCFNumberSInt64Type, a3 + 8);
+                v13 = CFNumberCreate(0, kCFNumberSInt64Type, a3 + 16);
                 if (v13)
                 {
                   v14 = v13;
@@ -4474,7 +4434,7 @@ void MKCFCreateFSInfoRecord(const char *a1, __CFDictionary *a2)
   }
 }
 
-uint64_t MKRecordFSRuns(const void *a1, int a2, unsigned __int16 (*a3)(uint64_t, uint64_t, uint64_t *), uint64_t a4)
+uint64_t MKRecordFSRuns(void *a1, uint64_t a2, void (*a3)(uint64_t, uint64_t, void), uint64_t a4)
 {
   v10 = 0;
   v9 = 0;
@@ -4512,7 +4472,7 @@ uint64_t MKRecordFSRuns(const void *a1, int a2, unsigned __int16 (*a3)(uint64_t,
   return result;
 }
 
-CFMutableDictionaryRef MKCFCreateFSInfo(const void *a1, const __CFDictionary *a2, _DWORD *a3)
+CFMutableDictionaryRef MKCFCreateFSInfo(void *a1, const __CFDictionary *a2, _DWORD *a3)
 {
   v6 = malloc_type_calloc(1uLL, 0x20uLL, 0x1020040CA22B68AuLL);
   if (v6)
@@ -4523,7 +4483,7 @@ CFMutableDictionaryRef MKCFCreateFSInfo(const void *a1, const __CFDictionary *a2
       Value = CFDictionaryGetValue(a2, @"Start Offset");
       if (Value)
       {
-        CFNumberGetValue(Value, kCFNumberSInt64Type, (v7 + 24));
+        CFNumberGetValue(Value, kCFNumberSInt64Type, v7 + 6);
         if (CFDictionaryGetCount(a2) == 1)
         {
           a2 = 0;
@@ -4533,7 +4493,7 @@ CFMutableDictionaryRef MKCFCreateFSInfo(const void *a1, const __CFDictionary *a2
 
     *v7 = FSConvertOptions(a2);
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    *(v7 + 8) = Mutable;
+    *(v7 + 1) = Mutable;
     v10 = MKRecordFSRuns(a1, *v7, MKCFRecordFSInfo, v7);
     if (v10)
     {
@@ -4581,17 +4541,17 @@ LABEL_15:
 
 uint64_t pwriteoffline(int a1, char *a2, size_t a3, uint64_t a4)
 {
-  v54 = *MEMORY[0x277D85DE8];
-  memset(&v53, 0, 512);
-  memset(&v45, 0, sizeof(v45));
-  v44 = 0;
-  v8 = fstatfs(a1, &v53);
+  v53 = *MEMORY[0x277D85DE8];
+  memset(&v52, 0, 512);
+  memset(&v44, 0, sizeof(v44));
+  v43 = 0;
+  v8 = fstatfs(a1, &v52);
   if (v8)
   {
     goto LABEL_2;
   }
 
-  if ((v53.f_flags & 1) == 0)
+  if ((v52.f_flags & 1) == 0)
   {
     v9 = 13;
 LABEL_7:
@@ -4599,7 +4559,7 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v8 = fstat(a1, &v45);
+  v8 = fstat(a1, &v44);
   if (v8)
   {
 LABEL_2:
@@ -4608,121 +4568,121 @@ LABEL_2:
     goto LABEL_3;
   }
 
-  if (!v45.st_size)
+  if (!v44.st_size)
   {
     v9 = -39;
     goto LABEL_7;
   }
 
-  if (a4 + a3 > v45.st_size)
+  if (a4 + a3 > v44.st_size)
   {
     v9 = 28;
     goto LABEL_7;
   }
 
-  memset(v47, 0, sizeof(v47));
-  if ((v45.st_size & 0x1FF) != 0)
+  memset(v46, 0, sizeof(v46));
+  if ((v44.st_size & 0x1FF) != 0)
   {
-    v13 = v45.st_size / 512 + 1;
+    v12 = v44.st_size / 512 + 1;
   }
 
   else
   {
-    v13 = v45.st_size / 512;
+    v12 = v44.st_size / 512;
   }
 
+  v47 = 0uLL;
   v48 = 0uLL;
-  v49 = 0uLL;
-  v50 = 0;
-  v46 = 512;
-  if (!v13)
+  v49 = 0;
+  v45 = 512;
+  if (!v12)
   {
-    goto LABEL_43;
+    goto LABEL_42;
   }
 
+  v13 = 0;
+  v41 = 0;
   v14 = 0;
-  v42 = 0;
   v15 = 0;
-  v16 = 0;
-  LODWORD(v17) = 0;
-  *v51 = 0;
-  memset(v52, 0, 12);
+  LODWORD(v16) = 0;
+  *v50 = 0;
+  memset(v51, 0, 12);
   while (1)
   {
-    v18 = v17;
-    if (lseek(a1, v14, 0) == -1 || fcntl(a1, 49, v51))
+    v17 = v16;
+    if (lseek(a1, v13, 0) == -1 || fcntl(a1, 49, v50))
     {
       break;
     }
 
-    v17 = (*(v52 + 4) + (*(v52 + 4) < 0 ? 0x1FFuLL : 0)) >> 9;
-    if (v18 + 1 != (*(v52 + 4) / 512))
+    v16 = (*(v51 + 4) + (*(v51 + 4) < 0 ? 0x1FFuLL : 0)) >> 9;
+    if (v17 + 1 != (*(v51 + 4) / 512))
     {
-      if (v16)
+      if (v15)
       {
-        if (HIDWORD(v42) >= 9)
+        if (HIDWORD(v41) >= 9)
         {
           v9 = 34;
           goto LABEL_7;
         }
 
-        v19 = &v47[HIDWORD(v42) + 1];
-        *v19 = v16;
-        v19[1] = v15;
-        LODWORD(v42) = v42 + v15;
-        ++HIDWORD(v42);
-        v16 = v17;
-        v15 = 0;
+        v18 = &v46[HIDWORD(v41) + 1];
+        *v18 = v15;
+        v18[1] = v14;
+        LODWORD(v41) = v41 + v14;
+        ++HIDWORD(v41);
+        v15 = v16;
+        v14 = 0;
       }
 
       else
       {
-        v15 = 0;
-        v16 = *(v52 + 4) / 512;
+        v14 = 0;
+        v15 = *(v51 + 4) / 512;
       }
     }
 
-    ++v15;
-    v14 += 512;
-    if (!--v13)
+    ++v14;
+    v13 += 512;
+    if (!--v12)
     {
-      v21 = v42;
-      v20 = HIDWORD(v42);
-      v47[0] = v42;
-      if (!v16)
+      v20 = v41;
+      v19 = HIDWORD(v41);
+      v46[0] = v41;
+      if (!v15)
       {
-        goto LABEL_43;
+        goto LABEL_42;
       }
 
-      goto LABEL_42;
+      goto LABEL_41;
     }
   }
 
-  v21 = v42;
-  v47[0] = v42;
-  v22 = __error();
-  v20 = HIDWORD(v42);
-  v9 = *v22;
-  if (*v22)
+  v20 = v41;
+  v46[0] = v41;
+  v21 = __error();
+  v19 = HIDWORD(v41);
+  v9 = *v21;
+  if (*v21)
   {
-    v23 = 1;
+    v22 = 1;
   }
 
   else
   {
-    v23 = v16 == 0;
+    v22 = v15 == 0;
   }
 
-  if (!v23)
+  if (!v22)
   {
-LABEL_42:
-    v24 = v20 + 1;
-    v25 = &v47[v20 + 1];
-    *v25 = v16;
-    v25[1] = v15;
-    LODWORD(v47[0]) = v21 + v15;
-    HIDWORD(v47[0]) = v24;
-    goto LABEL_43;
+LABEL_41:
+    v23 = v19 + 1;
+    v24 = &v46[v19 + 1];
+    *v24 = v15;
+    v24[1] = v14;
+    LODWORD(v46[0]) = v20 + v14;
+    HIDWORD(v46[0]) = v23;
+    goto LABEL_42;
   }
 
   if (v9 == -1)
@@ -4733,107 +4693,106 @@ LABEL_42:
   v10 = a3;
   if (!v9)
   {
-LABEL_43:
-    if (MKBSDSlice(v53.f_mntfromname, &v44 + 4, &v44, 0) < 2)
+LABEL_42:
+    if (MKBSDSlice(v52.f_mntfromname, &v43 + 4, &v43, 0) < 2)
     {
       v9 = 22;
       goto LABEL_7;
     }
 
-    __sprintf_chk(v51, 0, 0x400uLL, "/dev/rdisk%is%i", HIDWORD(v44), v44);
-    v26 = open(v51, 2, 438);
-    if (v26 < 0)
+    __sprintf_chk(v50, 0, 0x400uLL, "/dev/rdisk%is%i", HIDWORD(v43), v43);
+    v25 = open(v50, 2, 438);
+    if (v25 < 0)
     {
-      result = -1;
-      goto LABEL_12;
+      return -1;
     }
 
-    v27 = v26;
+    v26 = v25;
     if (a3)
     {
-      v28 = 0;
-      v29 = &v47[1] + 4;
+      v27 = 0;
+      v28 = &v46[1] + 4;
       v10 = a3;
       while (1)
       {
         while (1)
         {
-          v30 = a4 + 511;
+          v29 = a4 + 511;
           if (a4 >= 0)
           {
-            v30 = a4;
+            v29 = a4;
           }
 
-          v31 = HIDWORD(v47[0]);
-          if (!HIDWORD(v47[0]))
+          v30 = HIDWORD(v46[0]);
+          if (!HIDWORD(v46[0]))
           {
-            goto LABEL_73;
+            goto LABEL_72;
           }
 
-          v32 = 0;
-          v33 = v30 >> 9;
-          v34 = a4 - (v30 & 0xFFFFFFFFFFFFFE00);
-          v35 = v10 >> 9;
-          v36 = v29;
+          v31 = 0;
+          v32 = v29 >> 9;
+          v33 = a4 - (v29 & 0xFFFFFFFFFFFFFE00);
+          v34 = v10 >> 9;
+          v35 = v28;
           while (1)
           {
-            v37 = *v36;
-            if (v33 < (*v36 + v32))
+            v36 = *v35;
+            if (v32 < (*v35 + v31))
             {
               break;
             }
 
-            v36 += 2;
-            v32 += v37;
-            if (!--v31)
+            v35 += 2;
+            v31 += v36;
+            if (!--v30)
             {
-              goto LABEL_73;
+              goto LABEL_72;
             }
           }
 
-          v38 = (*(v36 - 1) + v33 - v32);
-          if (!v38)
+          v37 = (*(v35 - 1) + v32 - v31);
+          if (!v37)
           {
-LABEL_73:
+LABEL_72:
             v9 = 22;
-            goto LABEL_74;
+            goto LABEL_73;
           }
 
-          if (!v34)
+          if (!v33)
           {
             break;
           }
 
-          v43 = v29;
-          if (!v28)
+          v42 = v28;
+          if (!v27)
           {
-            v28 = malloc_type_calloc(1uLL, 0x200uLL, 0x29C4CD68uLL);
-            if (!v28)
+            v27 = malloc_type_calloc(1uLL, 0x200uLL, 0x29C4CD68uLL);
+            if (!v27)
             {
-              goto LABEL_86;
+              goto LABEL_85;
             }
           }
 
-          v40 = v38 << 9;
-          if (pread(v27, v28, 0x200uLL, v38 << 9) != 512)
+          v39 = v37 << 9;
+          if (pread(v26, v27, 0x200uLL, v37 << 9) != 512)
           {
-            goto LABEL_85;
+            goto LABEL_84;
           }
 
-          v41 = v10 >= (512 - v34) ? (512 - v34) : v10;
-          memcpy(&v28[v34], a2, v41);
-          if (pwrite(v27, v28, 0x200uLL, v40) != 512)
+          v40 = v10 >= (512 - v33) ? (512 - v33) : v10;
+          memcpy(&v27[v33], a2, v40);
+          if (pwrite(v26, v27, 0x200uLL, v39) != 512)
           {
-            goto LABEL_85;
+            goto LABEL_84;
           }
 
-          a4 += v41;
-          a2 += v41;
-          v10 -= v41;
-          v29 = v43;
+          a4 += v40;
+          a2 += v40;
+          v10 -= v40;
+          v28 = v42;
           if (!v10)
           {
-            goto LABEL_83;
+            goto LABEL_82;
           }
         }
 
@@ -4842,55 +4801,55 @@ LABEL_73:
           break;
         }
 
-        if (v35 >= (v37 - (v33 - v32)))
+        if (v34 >= (v36 - (v32 - v31)))
         {
-          v35 = (v37 - (v33 - v32));
+          v34 = (v36 - (v32 - v31));
         }
 
-        v39 = pwrite(v27, v28, v35 << 9, v38 << 9);
-        if (v39 < 0)
+        v38 = pwrite(v26, v27, v34 << 9, v37 << 9);
+        if (v38 < 0)
         {
           v9 = -1;
-          goto LABEL_74;
+          goto LABEL_73;
         }
 
-        a2 += v39;
-        a4 += v39;
-        v10 -= v39;
+        a2 += v38;
+        a4 += v38;
+        v10 -= v38;
         if (!v10)
         {
           v9 = 0;
-LABEL_74:
-          if (!v28)
+LABEL_73:
+          if (!v27)
           {
-            goto LABEL_77;
+            goto LABEL_76;
           }
 
-LABEL_75:
-          free(v28);
-          goto LABEL_77;
+LABEL_74:
+          free(v27);
+          goto LABEL_76;
         }
       }
 
-      if (v28 || (v28 = malloc_type_calloc(1uLL, 0x200uLL, 0xDFFB1851uLL)) != 0)
+      if (v27 || (v27 = malloc_type_calloc(1uLL, 0x200uLL, 0xDFFB1851uLL)) != 0)
       {
-        if (pread(v27, v28, 0x200uLL, v38 << 9) == 512 && (memcpy(v28, a2, v10), pwrite(v27, v28, 0x200uLL, v38 << 9) == 512))
+        if (pread(v26, v27, 0x200uLL, v37 << 9) == 512 && (memcpy(v27, a2, v10), pwrite(v26, v27, 0x200uLL, v37 << 9) == 512))
         {
-LABEL_83:
+LABEL_82:
           v10 = 0;
           v9 = 0;
         }
 
         else
         {
-LABEL_85:
+LABEL_84:
           v9 = -1;
         }
 
-        goto LABEL_75;
+        goto LABEL_74;
       }
 
-LABEL_86:
+LABEL_85:
       v9 = -1;
     }
 
@@ -4900,8 +4859,8 @@ LABEL_86:
       v9 = 0;
     }
 
-LABEL_77:
-    close(v27);
+LABEL_76:
+    close(v26);
   }
 
 LABEL_3:
@@ -4913,48 +4872,42 @@ LABEL_8:
 
   if (v9)
   {
-    result = -1;
+    return -1;
   }
 
   else
   {
-    result = a3 - v10;
+    return a3 - v10;
   }
-
-LABEL_12:
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t salloc(uint64_t *a1, uint64_t *a2, unsigned int a3, uint64_t (*a4)(uint64_t, void, uint64_t, void, uint64_t), uint64_t a5, int *a6)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v16 = 0;
+  v16 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  memset(v13, 0, sizeof(v13));
-  v8 = srequest(a1, a2, a3, 0, v13, a4, a5);
+  memset(v12, 0, sizeof(v12));
+  v8 = srequest(a1, a2, a3, 0, v12, a4, a5);
   v9 = v8;
-  if (v14 == -1)
+  if (v13 == -1)
   {
     v10 = -5344;
     if (!a6)
     {
-      goto LABEL_4;
+      return v9;
     }
 
     goto LABEL_3;
   }
 
-  v10 = addentry(a1, v13, 0x60uLL, 0x5Eu, v8, 0x98u);
+  v10 = addentry(a1, v12, 0x60uLL, 0x5Eu, v8, 0x98u);
   if (a6)
   {
 LABEL_3:
     *a6 = v10;
   }
 
-LABEL_4:
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -4968,7 +4921,7 @@ uint64_t sfree(const void **a1, uint64_t a2, uint64_t a3)
   }
 
   v8 = 0;
-  v9 = v3 + 216;
+  v9 = v3 + 108;
   result = 22;
   do
   {
@@ -4980,7 +4933,7 @@ uint64_t sfree(const void **a1, uint64_t a2, uint64_t a3)
       }
 
       result = delentry(a1, 96, 0x5Eu, v8, 152);
-      v4 = *(v3 + 47);
+      v4 = v3[47];
     }
 
     v9 += 19;
@@ -5008,10 +4961,10 @@ uint64_t GPTCategorize(int a1)
   return v1[1];
 }
 
-uint64_t GPTSubReadMBR(uint64_t a1, uint64_t a2, char a3, uint64_t a4)
+uint64_t GPTSubReadMBR(uint64_t *a1, uint64_t a2, char a3, uint64_t a4)
 {
-  v41 = *MEMORY[0x277D85DE8];
-  v39 = 0;
+  v39 = *MEMORY[0x277D85DE8];
+  v37 = 0;
   v8 = *a1;
   if (*(*a1 + 94))
   {
@@ -5058,52 +5011,51 @@ LABEL_15:
   *(a2 + 8) = v15;
   if (!v15)
   {
-    result = 12;
-    goto LABEL_58;
+    return 12;
   }
 
-  result = MKMediaReadBlocks(a4, 0, 1, 0x200u, v15, &v39);
-  if (!result)
+  result = MKMediaReadBlocks(a4, 0, 1, 0x200u, v15, &v37);
+  if (result)
   {
-    v17 = *(a2 + 8);
-    if (*(v17 + 510) != 43605)
-    {
-      result = 0;
-      goto LABEL_58;
-    }
+    return result;
+  }
 
-    v18 = 0;
-    v19 = 0;
-    v20 = 0;
-    v21 = (v17 + 446);
-    while (1)
+  v17 = *(a2 + 8);
+  if (*(v17 + 510) != 43605)
+  {
+    return 0;
+  }
+
+  v18 = 0;
+  v19 = 0;
+  v20 = 0;
+  v21 = (v17 + 446);
+  do
+  {
+    if (*(v21 + 3) && (!v18 || *(v21 + 2)))
     {
-      if (*(v21 + 3) && (!v18 || *(v21 + 2)))
+      v22 = v21[4];
+      if (v22 == 238)
       {
-        v22 = v21[4];
-        if (v22 == 238)
+        ++v19;
+        goto LABEL_51;
+      }
+
+      v23 = MBRInfoSearchByType(v22);
+      v24 = v23;
+      if (v18 == 3 && v23[1] == 6)
+      {
+        *(v8 + 80) |= 8uLL;
+      }
+
+      v25 = *v23;
+      if (*v23)
+      {
+        if (v25 != 255)
         {
-          ++v19;
-        }
-
-        else
-        {
-          v23 = MBRInfoSearchByType(v22);
-          v24 = v23;
-          if (v18 == 3 && v23[1] == 6)
-          {
-            *(v8 + 80) |= 8uLL;
-          }
-
-          v25 = *v23;
-          if (!*v23 || v25 == 255)
-          {
-            goto LABEL_51;
-          }
-
           ++v20;
           v26 = *(v21 + 2);
-          v39 = *(v21 + 3);
+          v37 = *(v21 + 3);
           v27 = *(v8 + 94);
           if (*(v8 + 94))
           {
@@ -5124,88 +5076,83 @@ LABEL_15:
 LABEL_33:
           if (v25 == 7 && (v14 == 3 && v18 == 3 || v14 == 2 && v18 == 2))
           {
-            GPTuuidType2HumanExtended(v40, *(v23 + 1), 96, 1, 0);
-            v29 = gpmrtypesearch(a1, v40, 2);
+            GPTuuidType2HumanExtended(v38, *(v23 + 1), 96, 1, 0);
+            v29 = gpmrtypesearch(a1, v38, 2);
             v14 = v29;
-            if (v29 > 1)
-            {
-              if ((a3 & 4) == 0)
-              {
-                v30 = (v8 + 96 + 152 * v29);
-                v33 = *(v30 - 4) + *(v30 - 5);
-                if (v33 <= v26)
-                {
-                  v34 = (v8 + 56);
-                  if (v29 + 1 < *(v8 + 94))
-                  {
-                    v34 = v30 + 33;
-                  }
-
-                  v35 = *v34 - v33;
-                  v36 = v39;
-                  if (v39 <= v35)
-                  {
-                    v30[14] = v26;
-                    v30[15] = v36;
-                    *(v8 + 80) |= 0x10uLL;
-                  }
-                }
-
-LABEL_41:
-                v31 = v30[17];
-                v30[17] = v31 & 0xFFFFFFFFFFFFFF7FLL;
-                if (*v21 < 0)
-                {
-                  v30[17] = v31 | 0x80;
-                }
-
-                if (*v24 != 7)
-                {
-                  v32 = *(v24 + 1);
-                  __strlcpy_chk();
-                }
-              }
-            }
-
-            else
+            if (v29 <= 1)
             {
               *(v8 + 80) |= 4uLL;
+              goto LABEL_51;
+            }
+
+            if ((a3 & 4) == 0)
+            {
+              v30 = (v8 + 96 + 152 * v29);
+              v32 = *(v30 - 4) + *(v30 - 5);
+              if (v32 <= v26)
+              {
+                v33 = (v8 + 56);
+                if (v29 + 1 < *(v8 + 94))
+                {
+                  v33 = v30 + 33;
+                }
+
+                v34 = *v33 - v32;
+                v35 = v37;
+                if (v37 <= v34)
+                {
+                  v30[14] = v26;
+                  v30[15] = v35;
+                  *(v8 + 80) |= 0x10uLL;
+                }
+              }
+
+LABEL_41:
+              v31 = v30[17];
+              v30[17] = v31 & 0xFFFFFFFFFFFFFF7FLL;
+              if (*v21 < 0)
+              {
+                v30[17] = v31 | 0x80;
+              }
+
+              if (*v24 != 7)
+              {
+                __strlcpy_chk();
+              }
             }
           }
         }
       }
+    }
 
 LABEL_51:
-      v21 += 16;
-      if (v18++ >= 3)
-      {
-        result = 0;
-        if (v19 && v20)
-        {
-          result = 0;
-          *(v8 + 80) |= 1uLL;
-        }
+    v21 += 16;
+  }
 
-        break;
-      }
+  while (v18++ < 3);
+  result = 0;
+  if (v19)
+  {
+    if (v20)
+    {
+      result = 0;
+      *(v8 + 80) |= 1uLL;
     }
   }
 
-LABEL_58:
-  v38 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 __CFArray *GPTCFCreateMapRuns(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   *size = 0u;
-  v23 = 0u;
+  v22 = 0u;
   *keys = xmmword_2798A20A0;
   values = 0;
   cf = 0;
-  v21 = 0;
-  v19 = 0;
+  v20 = 0;
+  v18 = 0;
   valuePtr = 0;
   MKMediaGetGeometry(a1, size);
   v5 = LODWORD(size[0]);
@@ -5215,7 +5162,7 @@ __CFArray *GPTCFCreateMapRuns(uint64_t a1, uint64_t a2, _DWORD *a3)
   {
     v8 = *MEMORY[0x277CBECE8];
     Mutable = CFArrayCreateMutable(*MEMORY[0x277CBECE8], 0, MEMORY[0x277CBF128]);
-    v10 = GPTReadHeaderBlock(1, size[0], a1, &v21, v6);
+    v10 = GPTReadHeaderBlock(1, size[0], a1, &v20, v6);
     if (v10)
     {
       v11 = v10;
@@ -5237,20 +5184,20 @@ __CFArray *GPTCFCreateMapRuns(uint64_t a1, uint64_t a2, _DWORD *a3)
         v14 = v13 >> 9;
       }
 
-      v19 = v14 + *(v6 + 9) * v12;
-      cf = CFNumberCreate(v8, kCFNumberSInt64Type, &v19);
+      v18 = v14 + *(v6 + 9) * v12;
+      cf = CFNumberCreate(v8, kCFNumberSInt64Type, &v18);
       v15 = CFDictionaryCreate(v8, keys, &values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
       CFRelease(values);
       CFRelease(cf);
       CFArrayAppendValue(Mutable, v15);
       CFRelease(v15);
-      v11 = GPTReadHeaderBlock(size[1] / v12 - 1, size[0], a1, &v21, v6);
+      v11 = GPTReadHeaderBlock(size[1] / v12 - 1, size[0], a1, &v20, v6);
       if (!v11)
       {
         valuePtr = *(v6 + 9) * v12;
         values = CFNumberCreate(v8, kCFNumberSInt64Type, &valuePtr);
-        v19 = v12 + v12 * (*(v6 + 3) - *(v6 + 9));
-        cf = CFNumberCreate(v8, kCFNumberSInt64Type, &v19);
+        v18 = v12 + v12 * (*(v6 + 3) - *(v6 + 9));
+        cf = CFNumberCreate(v8, kCFNumberSInt64Type, &v18);
         v16 = CFDictionaryCreate(v8, keys, &values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
         CFRelease(values);
         CFRelease(cf);
@@ -5274,15 +5221,14 @@ __CFArray *GPTCFCreateMapRuns(uint64_t a1, uint64_t a2, _DWORD *a3)
   }
 
   *a3 = v11;
-  v17 = *MEMORY[0x277D85DE8];
   return Mutable;
 }
 
 uint64_t GPMUpdateVolumeUUID(uint64_t *a1, int a2, unsigned int a3, uint64_t a4)
 {
-  v16[2] = *MEMORY[0x277D85DE8];
+  v15[2] = *MEMORY[0x277D85DE8];
   result = 22;
-  v15 = 22;
+  v14 = 22;
   if (a1)
   {
     if ((a2 & 0x80000000) == 0)
@@ -5290,43 +5236,42 @@ uint64_t GPMUpdateVolumeUUID(uint64_t *a1, int a2, unsigned int a3, uint64_t a4)
       v6 = *a1;
       if (a2 <= *(v6 + 94))
       {
-        v16[0] = 0;
-        v16[1] = 0;
+        v15[0] = 0;
+        v15[1] = 0;
         v7 = v6 + 152 * a2;
         v8 = *(v7 + 208);
         v9 = *(v7 + 216);
         if (v8 && v9 != 0)
         {
-          v14 = 0;
           v13 = 0;
-          v11 = MKMediaCreateWithSubRange(0, a4, v8 * a3, v9 * a3, &v15);
-          result = v15;
-          if (!v15)
+          v12 = 0;
+          v11 = MKMediaCreateWithSubRange(0, a4, v8 * a3, v9 * a3, &v14);
+          result = v14;
+          if (!v14)
           {
-            result = MKFileSystemDetect(v11, &v14, &v13 + 1, &v13);
-            v15 = result;
-            if (!result && v13 == 1 && SHIDWORD(v13) >= 2)
+            result = MKFileSystemDetect(v11, &v13, &v12 + 1, &v12);
+            v14 = result;
+            if (!result && v12 == 1 && SHIDWORD(v12) >= 2)
             {
-              result = MKHFSProcessVolumeUUID(v11, 2, v16);
-              v15 = result;
+              result = MKHFSProcessVolumeUUID(v11, 2, v15);
+              v14 = result;
             }
           }
 
           if (v11)
           {
             CFRelease(v11);
-            result = v15;
+            return v14;
           }
         }
       }
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t MKHFSPlusMapFileBlock(uint64_t a1, int a2, unsigned __int8 a3, unsigned int a4, int *a5, const void *a6)
+uint64_t MKHFSPlusMapFileBlock(uint64_t a1, int a2, unsigned __int8 a3, unsigned int a4, unsigned int *a5, void *a6)
 {
   if (*(a1 + 12) <= a4)
   {
@@ -5463,79 +5408,80 @@ uint64_t MKHFSIdentity(unsigned int a1)
   return hfsdescriptors[v1];
 }
 
-uint64_t MKRecordHFSRuns(const void *a1, int a2, unsigned __int16 (*a3)(uint64_t, uint64_t, uint64_t *), uint64_t a4)
+uint64_t MKRecordHFSRuns(void *a1, uint64_t a2, uint64_t (*a3)(void, uint64_t, _OWORD *), uint64_t a4)
 {
-  v49 = *MEMORY[0x277D85DE8];
-  v32 = 0u;
-  memset(v33, 0, sizeof(v33));
-  v30 = 0u;
+  v6 = a2;
+  v48 = *MEMORY[0x277D85DE8];
   v31 = 0u;
+  memset(v32, 0, sizeof(v32));
   v29 = 0u;
-  memset(v28, 0, sizeof(v28));
-  Blocks = MKMediaReadBlocks(a1, 2, 1, 0x200u, v34, 0);
+  v30 = 0u;
+  v28 = 0u;
+  memset(v27, 0, sizeof(v27));
+  Blocks = MKMediaReadBlocks(a1, 2, 1, 0x200u, v33, 0);
   if (!Blocks)
   {
-    Geometry = MKMediaGetGeometry(a1, v28);
-    LOWORD(v29) = 1;
-    LODWORD(v30) = LODWORD(v28[0]) >> 9;
-    *(&v30 + 1) = *(&v28[0] + 1);
-    *&v31 = *(&v28[0] + 1);
+    Geometry = MKMediaGetGeometry(a1, v27);
+    LOWORD(v28) = 1;
+    LODWORD(v29) = LODWORD(v27[0]) >> 9;
+    *(&v29 + 1) = *(&v27[0] + 1);
+    *&v30 = *(&v27[0] + 1);
     Blocks = (a3)(a4, 0, 0, Geometry);
     if (!Blocks)
     {
-      v13 = bswap32(v34[0]) >> 16;
-      if (v13 == 16964)
+      v12 = bswap32(v33[0]) >> 16;
+      if (v12 == 16964)
       {
-        WORD1(v29) = 1;
-        TAO_HFSMasterDirectoryBlock_BigToHost(v34);
-        if (v38 < 0x200)
+        WORD1(v28) = 1;
+        TAO_HFSMasterDirectoryBlock_BigToHost(v33);
+        if (v37 < 0x200)
         {
           v10 = 22;
           goto LABEL_16;
         }
 
-        v22 = v38 >> 9;
-        HIDWORD(v29) = v38 >> 9;
+        v21 = v37 >> 9;
+        HIDWORD(v28) = v37 >> 9;
         v10 = 22;
-        if (v37 < 8u)
+        if (v36 < 8u)
         {
           goto LABEL_16;
         }
 
-        v23 = v22 * v37;
-        if (v31 < v23)
+        v22 = v21 * v36;
+        if (v30 < v22)
         {
           goto LABEL_16;
         }
 
-        v24 = v39 + v23;
-        LODWORD(v25) = v22 * v40;
-        v25 = v25 >= v23 ? v23 : v25;
-        *(&v31 + 1) = v24 + 2;
-        *&v32 = v25;
-        *(&v32 + 1) = v24 - 1;
-        DWORD2(v29) = v39;
-        v26 = *(&v30 + 1) / (v24 + 2);
-        if (v26 > 10000.0 || v26 < 0.0001)
+        v23 = v38 + v22;
+        LODWORD(v24) = v21 * v39;
+        v24 = v24 >= v22 ? v22 : v24;
+        *(&v30 + 1) = v23 + 2;
+        *&v31 = v24;
+        *(&v31 + 1) = v23 - 1;
+        DWORD2(v28) = v38;
+        v25 = *(&v29 + 1) / (v23 + 2);
+        if (v25 > 10000.0 || v25 < 0.0001)
         {
           goto LABEL_16;
         }
 
-        if ((v36 & 0x8080) != 0)
+        if ((v35 & 0x8080) != 0)
         {
-          *&v33[0] |= 1uLL;
+          *&v32[0] |= 1uLL;
         }
 
-        if ((v36 & 0x900) != 0x100)
+        if ((v35 & 0x900) != 0x100)
         {
-          *&v33[0] |= 2uLL;
+          *&v32[0] |= 2uLL;
         }
 
-        if ((a2 & 0x10000) != 0 || v46 != 18475)
+        if ((v6 & 0x10000) != 0 || v45 != 18475)
         {
-          if ((v45 & 0xFFFFFF) == 0x636E65)
+          if ((v44 & 0xFFFFFF) == 0x636E65)
           {
-            SystemEncoding = HIBYTE(v45);
+            SystemEncoding = HIBYTE(v44);
           }
 
           else
@@ -5543,144 +5489,141 @@ uint64_t MKRecordHFSRuns(const void *a1, int a2, unsigned __int16 (*a3)(uint64_t
             SystemEncoding = CFStringGetSystemEncoding();
           }
 
-          if (!uniconvert(v33 + 12, 256, 0x8000100u, 0, v41, 27, SystemEncoding, 0))
+          if (!uniconvert(v32 + 12, 256, 0x8000100u, 0, v40, 27, SystemEncoding, 0))
           {
-            uniconvert(v33 + 12, 256, 0x8000100u, 0, v41, 27, 0, 0);
+            uniconvert(v32 + 12, 256, 0x8000100u, 0, v40, 27, 0, 0);
           }
 
-          v15 = HFSSuperTidemark(&v29, a2, v34, a1, a3, a4);
-          if (v15)
+          v14 = HFSSuperTidemark(&v28, v6, v33, a1, a3, a4);
+          if (v14)
           {
             goto LABEL_12;
           }
 
-          v20 = *(&v32 + 1) - v39 + 1;
-          v21 = v23 - v32;
+          v19 = *(&v31 + 1) - v38 + 1;
+          v20 = v22 - v31;
           goto LABEL_54;
         }
 
-        v15 = (a3)(a4, 2, &v29);
-        if (v15)
+        v14 = a3(a4, 2, &v28);
+        if (v14)
         {
 LABEL_12:
-          v10 = v15;
+          v10 = v14;
 LABEL_16:
           a3(a4, 4, 0);
-          goto LABEL_4;
+          return v10;
         }
 
-        WORD1(v29) = 3;
-        DWORD1(v29) = v39 + HIDWORD(v29) * v47;
-        *&v31 = HIDWORD(v29) * v48;
+        WORD1(v28) = 3;
+        DWORD1(v28) = v38 + HIDWORD(v28) * v46;
+        *&v30 = HIDWORD(v28) * v47;
       }
 
       else
       {
-        if (v13 == 18475)
+        if (v12 == 18475)
         {
-          v14 = 2;
+          v13 = 2;
         }
 
         else
         {
-          if (v13 != 18520)
+          if (v12 != 18520)
           {
-            WORD1(v29) = 0;
+            WORD1(v28) = 0;
             v10 = 4294967239;
             goto LABEL_16;
           }
 
-          v14 = 4;
+          v13 = 4;
         }
 
-        WORD1(v29) = v14;
+        WORD1(v28) = v13;
       }
 
-      v15 = MKMediaReadBlocks(a1, (DWORD1(v29) + 2), 1, 0x200u, v34, 0);
-      if (v15)
+      v14 = MKMediaReadBlocks(a1, (DWORD1(v28) + 2), 1, 0x200u, v33, 0);
+      if (v14)
       {
         goto LABEL_12;
       }
 
-      TAO_HFSPlusVolumeHeader_BigToHost(v34);
-      if ((v35 & 0x8080) != 0)
+      TAO_HFSPlusVolumeHeader_BigToHost(v33);
+      if ((v34 & 0x8080) != 0)
       {
-        *&v33[0] |= 1uLL;
+        *&v32[0] |= 1uLL;
       }
 
-      if ((v35 & 0x900) != 0x100)
+      if ((v34 & 0x900) != 0x100)
       {
-        *&v33[0] |= 2uLL;
+        *&v32[0] |= 2uLL;
       }
 
-      if ((v35 & 0x2000) != 0)
+      if ((v34 & 0x2000) != 0)
       {
-        *&v33[0] |= 4uLL;
+        *&v32[0] |= 4uLL;
       }
 
       v10 = 22;
-      if (v42 < 0x200)
+      if (v41 < 0x200)
       {
         goto LABEL_16;
       }
 
-      v16 = vcnt_s8(v42);
-      v16.i16[0] = vaddlv_u8(v16);
-      if (v16.i32[0] > 1u)
+      v15 = vcnt_s8(v41);
+      v15.i16[0] = vaddlv_u8(v15);
+      if (v15.i32[0] > 1u)
       {
         goto LABEL_16;
       }
 
-      if (v43 < 8)
+      if (v42 < 8)
       {
         goto LABEL_16;
       }
 
-      v17 = v42 >> 9;
-      HIDWORD(v29) = v42 >> 9;
-      if (v42 >> 9 > v43)
+      v16 = v41 >> 9;
+      HIDWORD(v28) = v41 >> 9;
+      if (v41 >> 9 > v42)
       {
         goto LABEL_16;
       }
 
-      v18 = (v17 << (v42 < 0x400));
-      *(&v31 + 1) = v43 * v17;
-      *&v32 = v44 * v17;
-      *(&v32 + 1) = ~v18 + *(&v31 + 1) + DWORD1(v29);
-      v19 = *(&v30 + 1) / *(&v31 + 1);
-      if (v19 > 10000.0 || v19 < 0.0001)
+      v17 = (v16 << (v41 < 0x400));
+      *(&v30 + 1) = v42 * v16;
+      *&v31 = v43 * v16;
+      *(&v31 + 1) = ~v17 + *(&v30 + 1) + DWORD1(v28);
+      v18 = *(&v29 + 1) / *(&v30 + 1);
+      if (v18 > 10000.0 || v18 < 0.0001)
       {
         goto LABEL_16;
       }
 
-      v15 = MKReadHFSParams(a1, v34, &v29);
-      if (v15)
+      v14 = MKReadHFSParams(a1, v33, &v28);
+      if (v14)
       {
         goto LABEL_12;
       }
 
-      v15 = HFSSuperTidemark(&v29, a2, v34, a1, a3, a4);
-      if (v15)
+      v14 = HFSSuperTidemark(&v28, v6, v33, a1, a3, a4);
+      if (v14)
       {
         goto LABEL_12;
       }
 
-      v20 = *(&v32 + 1) - DWORD1(v29) + 1;
-      v21 = *(&v31 + 1) - v32 - v18;
+      v19 = *(&v31 + 1) - DWORD1(v28) + 1;
+      v20 = *(&v30 + 1) - v31 - v17;
 LABEL_54:
-      DWORD2(v33[0]) = v20 / v21;
-      v15 = (a3)(a4, 3, &v29);
+      DWORD2(v32[0]) = v19 / v20;
+      v14 = a3(a4, 3, &v28);
       goto LABEL_12;
     }
   }
 
-  v10 = Blocks;
-LABEL_4:
-  v11 = *MEMORY[0x277D85DE8];
-  return v10;
+  return Blocks;
 }
 
-uint64_t HFSSuperTidemark(uint64_t a1, int a2, uint64_t a3, const void *a4, unsigned __int16 (*a5)(uint64_t, uint64_t, uint64_t *), uint64_t a6)
+uint64_t HFSSuperTidemark(uint64_t a1, int a2, uint64_t a3, void *a4, unsigned __int16 (*a5)(uint64_t, uint64_t, uint64_t *), uint64_t a6)
 {
   v81 = 0;
   v77 = 0;
@@ -6184,7 +6127,7 @@ LABEL_117:
   return v19;
 }
 
-uint64_t MKReadHFSParams(const void *a1, uint64_t a2, uint64_t a3)
+uint64_t MKReadHFSParams(void *a1, uint64_t a2, uint64_t a3)
 {
   v3 = 22;
   if (!a1 || !a2)
@@ -6348,7 +6291,7 @@ LABEL_7:
   return v3;
 }
 
-CFMutableDictionaryRef MKCFCreateHFSInfo(const void *a1, const __CFDictionary *a2, _DWORD *a3)
+CFMutableDictionaryRef MKCFCreateHFSInfo(void *a1, const __CFDictionary *a2, _DWORD *a3)
 {
   v6 = malloc_type_calloc(1uLL, 0x20uLL, 0x1020040CA22B68AuLL);
   if (v6)
@@ -6356,7 +6299,7 @@ CFMutableDictionaryRef MKCFCreateHFSInfo(const void *a1, const __CFDictionary *a
     v7 = v6;
     *v6 = FSConvertOptions(a2);
     Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    *(v7 + 8) = Mutable;
+    v7[1] = Mutable;
     v9 = MKRecordHFSRuns(a1, *v7, MKCFRecordFSInfo, v7);
     if (v9)
     {
@@ -6402,7 +6345,7 @@ LABEL_11:
   return Mutable;
 }
 
-uint64_t HFSAllocFileIO(const void *a1, unsigned __int16 *a2, char **a3, int a4)
+uint64_t HFSAllocFileIO(void *a1, unsigned __int16 *a2, char **a3, int a4)
 {
   if (!a3)
   {
@@ -6570,7 +6513,7 @@ LABEL_44:
   return v15;
 }
 
-uint64_t HFSAllocateSpace(const void *a1, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t HFSAllocateSpace(void *a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (*a3 == a4)
   {
@@ -7381,15 +7324,13 @@ _DWORD *TAOpopenl(char *a1, const char *a2, char *a3, uint64_t a4, uint64_t a5, 
 _DWORD *TAOpopenv(char *a1, const char *a2, char *const *a3)
 {
   v5 = a1;
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v6 = strchr(a1, 43);
   if (v6)
   {
-    if (socketpair(1, 1, 0, &v16) < 0)
+    if (socketpair(1, 1, 0, &v15) < 0)
     {
-LABEL_16:
-      v7 = 0;
-      goto LABEL_17;
+      return 0;
     }
 
     v5 = "r+";
@@ -7398,27 +7339,27 @@ LABEL_16:
   else
   {
     v12 = *v5;
-    if (v12 != 119 && v12 != 114 || v5[1] || pipe(&v16) < 0)
+    if (v12 != 119 && v12 != 114 || v5[1] || pipe(&v15) < 0)
     {
-      goto LABEL_16;
+      return 0;
     }
   }
 
   v7 = malloc_type_malloc(0x18uLL, 0x10A00408A00E5F2uLL);
   if (!v7)
   {
+    close(v15);
     close(v16);
-    close(v17);
-    goto LABEL_17;
+    return v7;
   }
 
   v8 = fork();
   if (v8 == -1)
   {
+    close(v15);
     close(v16);
-    close(v17);
     free(v7);
-    goto LABEL_16;
+    return 0;
   }
 
   v9 = v8;
@@ -7426,11 +7367,11 @@ LABEL_16:
   {
     if (*v5 == 114)
     {
-      close(v16);
-      if (v17 != 1)
+      close(v15);
+      if (v16 != 1)
       {
-        dup2(v17, 1);
-        close(v17);
+        dup2(v16, 1);
+        close(v16);
       }
 
       if (v6)
@@ -7441,44 +7382,42 @@ LABEL_16:
 
     else
     {
-      if (v16)
+      if (v15)
       {
-        dup2(v16, 0);
-        close(v16);
+        dup2(v15, 0);
+        close(v15);
       }
 
-      close(v17);
+      close(v16);
     }
 
     execv(a2, a3);
-    v15 = __error();
-    _exit(*v15);
+    v14 = __error();
+    _exit(*v14);
   }
 
   if (*v5 == 114)
   {
-    v10 = fdopen(v16, v5);
-    v11 = v17;
+    v10 = fdopen(v15, v5);
+    v11 = v16;
   }
 
   else
   {
-    v10 = fdopen(v17, v5);
-    v11 = v16;
+    v10 = fdopen(v16, v5);
+    v11 = v15;
   }
 
   close(v11);
   *v7 = v10;
   v7[2] = v9;
-LABEL_17:
-  v13 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
-uint64_t TAOpclose(void *a1)
+uint64_t TAOpclose(_DWORD *a1)
 {
   v2 = *a1;
-  v3 = *(a1 + 2);
+  v3 = a1[2];
   v6 = 0;
   fclose(v2);
   do
@@ -7499,8 +7438,9 @@ uint64_t TAOpclose(void *a1)
   }
 }
 
-uint64_t TAOlaccess(const char *a1, int a2)
+uint64_t TAOlaccess(const char *a1, uint64_t a2)
 {
+  v2 = a2;
   v9 = 0;
   v8 = 0;
   if (TAObuildgrouplist(&v9, &v8))
@@ -7510,7 +7450,7 @@ uint64_t TAOlaccess(const char *a1, int a2)
 
   v5 = geteuid();
   v6 = v8;
-  v7 = TAOlaccess2(a1, a2, v5, v9, v8);
+  v7 = TAOlaccess2(a1, v2, v5, v9, v8);
   free(v6);
   return v7;
 }
@@ -7537,7 +7477,7 @@ uint64_t TAObuildgrouplist(int *a1, gid_t **a2)
   return result;
 }
 
-uint64_t TAOlaccess2(const char *a1, int a2, int a3, int a4, int *a5)
+uint64_t TAOlaccess2(const char *a1, int a2, int a3, unsigned int a4, int *a5)
 {
   memset(&v13, 0, sizeof(v13));
   if (lstat(a1, &v13) < 0)
@@ -7605,22 +7545,20 @@ LABEL_11:
 
 uint64_t TAOsystemv(const char *a1, char *const *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = TAOpopenv("r", a1, a2);
-  if (fgets(v6, 1024, *v2))
+  if (fgets(v5, 1024, *v2))
   {
     v3 = MEMORY[0x277D85E08];
     do
     {
-      fputs(v6, *v3);
+      fputs(v5, *v3);
     }
 
-    while (fgets(v6, 1024, *v2));
+    while (fgets(v5, 1024, *v2));
   }
 
-  result = TAOpclose(v2);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return TAOpclose(v2);
 }
 
 uint64_t IONewBuffer(const void ***a1, unsigned int a2)
@@ -7704,17 +7642,16 @@ uint64_t iCacheDispose(void *a1)
 
 void InfoFillerGetStateName(uint64_t a1, const void *a2, __CFDictionary *a3)
 {
-  v5 = *MEMORY[0x277CBECE8];
-  v6 = *(a1 + 168);
-  if (v6 >= 6)
+  v5 = *(a1 + 168);
+  if (v5 >= 6)
   {
-    v6 = 6;
+    v5 = 6;
   }
 
-  v7 = CFStringCreateWithCString(*MEMORY[0x277CBECE8], off_2798A20B0[v6], 0x600u);
-  CFDictionaryAddValue(a3, a2, v7);
+  v6 = CFStringCreateWithCString(*MEMORY[0x277CBECE8], off_2798A20B0[v5], 0x600u);
+  CFDictionaryAddValue(a3, a2, v6);
 
-  CFRelease(v7);
+  CFRelease(v6);
 }
 
 void InfoFillerGetCurInstrNum(uint64_t a1, const void *a2, __CFDictionary *a3)
@@ -7823,13 +7760,13 @@ void InfoFillerGetTimeThreshold(uint64_t a1, const void *a2, __CFDictionary *a3)
 
 void InfoFillerGetChecksum(uint64_t a1, const void *a2, __CFDictionary *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (*(a1 + 544))
   {
-    v24 = 0u;
-    v25 = 0u;
-    *bytes = 0u;
     v23 = 0u;
+    v24 = 0u;
+    *bytes = 0u;
+    v22 = 0u;
     v6 = *(a1 + 552);
     v7 = (a1 + 376);
     v8 = (a1 + 376);
@@ -7850,21 +7787,18 @@ void InfoFillerGetChecksum(uint64_t a1, const void *a2, __CFDictionary *a3)
           if (InstructionTable)
           {
             v11 = LOWORD(v9[12 * v6 + 2]);
-            v12 = &word_27F956EE4;
-            while (*v12 != v11)
+            for (i = &word_27F956EE4; *i != v11; i += 26)
             {
-              --v10;
-              v12 += 26;
-              if (!v10)
+              if (!--v10)
               {
-                goto LABEL_32;
+                return;
               }
             }
 
-            if (*(v12 + 9))
+            if (*(i + 9))
             {
-              LODWORD(v13) = v12[20];
-              if (v12[20])
+              LODWORD(v13) = i[20];
+              if (i[20])
               {
                 v14 = 0;
                 v15 = 0;
@@ -7876,7 +7810,7 @@ void InfoFillerGetChecksum(uint64_t a1, const void *a2, __CFDictionary *a3)
                     {
                       v16 = &off_281DA9AC8;
                       v17 = StepTable;
-                      while (*(v16 - 20) != v12[v14 + 21])
+                      while (*(v16 - 20) != i[v14 + 21])
                       {
                         --v17;
                         v16 += 6;
@@ -7900,16 +7834,16 @@ LABEL_20:
                         goto LABEL_26;
                       }
 
-                      goto LABEL_32;
+                      return;
                     }
                   }
 
                   if ((*v16)(v8[2], 4))
                   {
-                    goto LABEL_32;
+                    return;
                   }
 
-                  v13 = v12[20];
+                  v13 = i[20];
                   ++v14;
                   v15 = 1;
                 }
@@ -7941,7 +7875,7 @@ LABEL_26:
                     v20 = CFDataCreate(*MEMORY[0x277CBECE8], bytes, v19);
                     CFDictionaryAddValue(a3, a2, v20);
                     CFRelease(v20);
-                    goto LABEL_32;
+                    return;
                   }
                 }
               }
@@ -7949,13 +7883,10 @@ LABEL_26:
           }
         }
 
-        break;
+        return;
       }
     }
   }
-
-LABEL_32:
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void InfoFillerGetSkipSize(uint64_t a1, const void *a2, __CFDictionary *a3)
@@ -8331,7 +8262,7 @@ uint64_t ISOCategorize(int a1)
   return v1[1];
 }
 
-uint64_t ISOSetupNewPartitionList(const void **a1, int a2, unsigned __int16 a3)
+uint64_t ISOSetupNewPartitionList(char **a1, int a2, unsigned __int16 a3)
 {
   if ((a3 & 0x1FF) != 0)
   {
@@ -8339,13 +8270,13 @@ uint64_t ISOSetupNewPartitionList(const void **a1, int a2, unsigned __int16 a3)
   }
 
   v4 = *a1;
-  v4[128] = 2097668;
+  *(v4 + 128) = 2097668;
   *(v4 + 259) = a3;
   *(v4 + 260) = 0x7FFF;
   *(v4 + 1) = a3;
-  v4[1] = a2;
+  *(v4 + 1) = a2;
   *(v4 + 250) = a3 >> 9;
-  return PMGenPartitionType(a1, 32769, 0, 16, 0x800u, 0, 0, 0, 0xFFFFu);
+  return PMGenPartitionType(a1, 32769, 0, 16, 0x800u, 0, 0, 0, 0xFFFF);
 }
 
 uint64_t defaultvd2pmrecord(uint64_t a1, unsigned __int8 *a2)
@@ -8355,7 +8286,7 @@ uint64_t defaultvd2pmrecord(uint64_t a1, unsigned __int8 *a2)
   return 0;
 }
 
-uint64_t VReadISOPartitionsII(const void **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t, uint64_t, void, uint64_t, _BYTE *))
+uint64_t VReadISOPartitionsII(char **a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t, uint64_t, void, uint64_t, _BYTE *))
 {
   if ((*(a3 + 4) & 0x1FF) != 0)
   {
@@ -8398,7 +8329,7 @@ uint64_t VReadISOPartitionsII(const void **a1, uint64_t a2, uint64_t a3, uint64_
     *(v13 + 252) = -1;
     *(v13 + 117) = 2;
     v18 = *v11;
-    if (v18 > 1)
+    if (*v11 > 1u)
     {
       if (v18 != 2)
       {
@@ -8417,7 +8348,7 @@ uint64_t VReadISOPartitionsII(const void **a1, uint64_t a2, uint64_t a3, uint64_
       {
         *(v13 + 1) = *(v11 + 71);
         *(v13 + 277) = 0;
-        v23 = PMCodeSearch(0, 32);
+        v23 = PMCodeSearch(v18, 0x20u);
         strncpypad(v13 + 48, v23, 0x20uLL, 0);
         strncpypad(v13 + 16, v11 + 7, 0x20uLL, 0);
         v24 = malloc_type_malloc(0x800uLL, 0x3D2BF525uLL);
@@ -8449,7 +8380,7 @@ LABEL_29:
     *(v13 + 3) = v19;
     *(v13 + 277) = v18;
     *(v13 + 84) = v19;
-    v20 = PMCodeSearch(v18, 32);
+    v20 = PMCodeSearch(v18, 0x20u);
     strncpypad(v13 + 48, v20, 0x20uLL, 0);
     v21 = strntrim(v11 + 40, 32);
     strncpypad(v13 + 16, v21, 0x20uLL, 0);
@@ -8505,7 +8436,7 @@ LABEL_31:
 
 uint64_t ISOWriteMedia(Ptr *a1, int a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, void, uint64_t, uint64_t, _BYTE *))
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v8 = malloc_type_calloc(1uLL, 0x800uLL, 0x43D6E7C8uLL);
@@ -8521,115 +8452,115 @@ uint64_t ISOWriteMedia(Ptr *a1, int a2, uint64_t a3, uint64_t (*a4)(uint64_t, ui
         goto LABEL_7;
       }
 
-      v26 = v9;
-      v27 = *(v11 + 259);
+      v25 = v9;
+      v26 = *(v11 + 259);
       if (*(v11 + 261))
       {
-        v15 = 0;
-        v16 = v11 + 544;
-        v17 = 16;
+        v14 = 0;
+        v15 = v11 + 544;
+        v16 = 16;
         v12 = -50;
         while (1)
         {
-          v18 = *(v16 + 269);
-          if ((v18 - 1) < 2)
+          v17 = *(v15 + 269);
+          if ((v17 - 1) < 2)
           {
             break;
           }
 
-          if (!*(v16 + 269))
+          if (!*(v15 + 269))
           {
-            if (v17 != 17)
+            if (v16 != 17)
             {
               LOWORD(v12) = -5323;
-              v9 = v26;
+              v9 = v25;
               goto LABEL_7;
             }
 
-            v25 = *(v16 + 53);
-            *v25 = 0;
-            *(v25 + 1) = 808469571;
-            *(v25 + 5) = 305;
-            strncpypad((v25 + 7), "EL TORITO SPECIFICATION", 0x20uLL, 0);
-            *(v25 + 71) = *(v16 - 2);
+            v24 = *(v15 + 53);
+            *v24 = 0;
+            *(v24 + 1) = 808469571;
+            *(v24 + 5) = 305;
+            strncpypad((v24 + 7), "EL TORITO SPECIFICATION", 0x20uLL, 0);
+            *(v24 + 71) = *(v15 - 2);
             goto LABEL_25;
           }
 
-          if (v18 == 255)
+          if (v17 == 255)
           {
             goto LABEL_30;
           }
 
-          v19 = *(v16 + 53);
-          if (v19)
+          v18 = *(v15 + 53);
+          if (v18)
           {
-            *v19 = v18;
-            *(v19 + 1) = 808469571;
-            *(v19 + 5) = 305;
+            *v18 = v17;
+            *(v18 + 1) = 808469571;
+            *(v18 + 5) = 305;
 LABEL_25:
-            v12 = a4(a3, 3, v27, v17, 1, *(v16 + 53));
+            v12 = a4(a3, 3, v26, v16, 1, *(v15 + 53));
             if (v12)
             {
               goto LABEL_30;
             }
 
-            v17 = (v17 + 1);
+            v16 = (v16 + 1);
           }
 
-          ++v15;
-          v16 += 1072;
-          if (v15 >= *(v11 + 261))
+          ++v14;
+          v15 += 1072;
+          if (v14 >= *(v11 + 261))
           {
             goto LABEL_30;
           }
         }
 
-        v20 = *(v16 + 53);
-        *v20 = v18;
-        *(v20 + 1) = 808469571;
-        *(v20 + 5) = 305;
-        strncpypad((v20 + 40), v16, 0x20uLL, 32);
-        strncpypad((v20 + 8), "Mac OS X", 0x20uLL, 32);
-        if (*(v20 + 318) <= 32)
+        v19 = *(v15 + 53);
+        *v19 = v17;
+        *(v19 + 1) = 808469571;
+        *(v19 + 5) = 305;
+        strncpypad((v19 + 40), v15, 0x20uLL, 32);
+        strncpypad((v19 + 8), "Mac OS X", 0x20uLL, 32);
+        if (*(v19 + 318) <= 32)
         {
-          strncpypad((v20 + 318), "Apple Computer Inc.", 0x20uLL, 32);
+          strncpypad((v19 + 318), "Apple Computer Inc.", 0x20uLL, 32);
         }
 
-        strncpypad((v20 + 446), "ei7dkb", 0x80uLL, 32);
-        v21 = *(v16 - 1);
-        *(v20 + 80) = v21;
-        *(v20 + 84) = bswap32(v21);
-        *(v20 + 120) = 0x100000101000001;
-        v22 = *(v11 + 259);
-        *(v20 + 128) = v22;
-        *(v20 + 130) = bswap32(v22) >> 16;
-        v28 = time(0);
-        v23 = localtime(&v28);
-        tm_gmtoff = v23->tm_gmtoff;
-        __sprintf_chk(v29, 0, 0x21uLL, "%4.4d%2.2d%2.2d%2.2d%2.2d%2.2d00-", v23->tm_year + 1900, v23->tm_mon + 1, v23->tm_mday, v23->tm_hour, v23->tm_min, v23->tm_sec);
-        v30 = ((((tm_gmtoff * 0x48D159E26AF37C05) >> 64) & 0x8000000000000000) != 0) + (((tm_gmtoff * 0x48D159E26AF37C05) >> 64) >> 8);
-        if (!*(v20 + 813))
+        strncpypad((v19 + 446), "ei7dkb", 0x80uLL, 32);
+        v20 = *(v15 - 1);
+        *(v19 + 80) = v20;
+        *(v19 + 84) = bswap32(v20);
+        *(v19 + 120) = 0x100000101000001;
+        v21 = *(v11 + 259);
+        *(v19 + 128) = v21;
+        *(v19 + 130) = bswap32(v21) >> 16;
+        v27 = time(0);
+        v22 = localtime(&v27);
+        tm_gmtoff = v22->tm_gmtoff;
+        __sprintf_chk(v28, 0, 0x21uLL, "%4.4d%2.2d%2.2d%2.2d%2.2d%2.2d00-", v22->tm_year + 1900, v22->tm_mon + 1, v22->tm_mday, v22->tm_hour, v22->tm_min, v22->tm_sec);
+        v29 = ((((tm_gmtoff * 0x48D159E26AF37C05) >> 64) & 0x8000000000000000) != 0) + (((tm_gmtoff * 0x48D159E26AF37C05) >> 64) >> 8);
+        if (!*(v19 + 813))
         {
-          *(v20 + 813) = *v29;
-          *(v20 + 829) = v30;
+          *(v19 + 813) = *v28;
+          *(v19 + 829) = v29;
         }
 
-        *(v20 + 846) = v30;
-        *(v20 + 830) = *v29;
-        *(v20 + 881) = 1;
+        *(v19 + 846) = v29;
+        *(v19 + 830) = *v28;
+        *(v19 + 881) = 1;
         goto LABEL_25;
       }
 
       v12 = -50;
-      v17 = 16;
+      v16 = 16;
 LABEL_30:
-      v9 = v26;
+      v9 = v25;
       if (!v12)
       {
-        *(v26 + 1) = 808469571;
-        *(v26 + 5) = 305;
-        *v26 = -1;
-        LOWORD(v12) = a4(a3, 3, v27, v17, 1, v26);
+        *(v25 + 1) = 808469571;
+        *(v25 + 5) = 305;
+        *v25 = -1;
+        LOWORD(v12) = a4(a3, 3, v26, v16, 1, v25);
       }
 
 LABEL_7:
@@ -8650,11 +8581,10 @@ LABEL_7:
   }
 
   HSetState(a1, v10);
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
-uint64_t ISOReadMedia(const void ***a1, unsigned int a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t, void, uint64_t, _BYTE *))
+uint64_t ISOReadMedia(Handle *a1, unsigned int a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t, void, uint64_t, _BYTE *))
 {
   memset(v12, 0, sizeof(v12));
   if (a2 == 0xFFFF)
@@ -8680,7 +8610,7 @@ uint64_t ISOReadMedia(const void ***a1, unsigned int a2, uint64_t a3, uint64_t (
     if (v9)
     {
       v11 = *v9;
-      v11[128] = 33554948;
+      *(v11 + 128) = 33554948;
       *(v11 + 259) = WORD2(v12[0]);
       result = VReadISOPartitionsII(v9, v10, v12, a3, a4);
       if (!result)
@@ -8749,9 +8679,9 @@ uint64_t ISOCFRecordSections(const UInt8 *a1, __CFArray *a2)
   v13 = v12;
   CFDictionarySetValue(v7, @"Partitions", v12);
   CFRelease(v13);
+  v38 = 0;
   v39 = 0;
-  v40 = 0;
-  v37 = *a1;
+  v36 = *a1;
   v14 = *(*a1 + 522);
   if (!*(*a1 + 522))
   {
@@ -8762,103 +8692,90 @@ LABEL_28:
   }
 
   v15 = 0;
-  v16 = *a1;
-  v17 = *(v37 + 2) >> 9;
-  v41 = 0;
+  v16 = *(v36 + 2) >> 9;
+  v40 = 0;
   while (1)
   {
-    v18 = v37 + 528 + 1072 * v15;
-    v19 = &ISODescriptors;
-    while (*v19 != *(v18 + 554))
+    v17 = v36 + 528 + 1072 * v15;
+    v18 = &ISODescriptors;
+    while (*v18 != *(v17 + 554))
     {
-      v20 = *(v19 + 3);
-      v19 += 8;
-      if (!v20)
+      v19 = *(v18 + 3);
+      v18 += 8;
+      if (!v19)
       {
-        v19 = &unk_2798A2158;
+        v18 = &unk_2798A2158;
         break;
       }
     }
 
-    if (v19[1] != 2)
+    if (v18[1] != 2)
     {
       goto LABEL_27;
     }
 
-    v21 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-    if (!v21)
+    v20 = CFDictionaryCreateMutable(0, 0, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+    if (!v20)
     {
       v2 = 0xFFFFFFFFLL;
       goto LABEL_33;
     }
 
-    v22 = v21;
-    v23 = CFDictionarySetUUID(v21, @"GUID", (v18 + 448));
-    if (v23)
+    v21 = v20;
+    v22 = CFDictionarySetUUID(v20, @"GUID", (v17 + 448));
+    if (v22)
     {
       break;
     }
 
-    if (*(v18 + 506) < 0)
+    if (*(v17 + 506) < 0)
     {
-      v41 = 0;
+      v40 = 0;
     }
 
     else
     {
-      v24 = *(v18 + 506) + 1;
-      v41 = v24 / v17;
-      if (v17 <= v24)
+      v23 = *(v17 + 506) + 1;
+      v40 = v23 / v16;
+      if (v16 <= v23)
       {
-        v25 = CFNumberCreate(0, kCFNumberSInt16Type, &v41);
-        if (v25)
+        v24 = CFNumberCreate(0, kCFNumberSInt16Type, &v40);
+        if (v24)
         {
-          v26 = v25;
-          CFDictionarySetValue(v22, @"Partition ID", v25);
-          CFRelease(v26);
+          v25 = v24;
+          CFDictionarySetValue(v21, @"Partition ID", v24);
+          CFRelease(v25);
         }
       }
     }
 
-    if (*(v18 + 16))
+    if (*(v17 + 16))
     {
-      v27 = CFStringCreateWithCString(0, (v18 + 16), 0);
-      if (!v27)
+      v26 = CFStringCreateWithCString(0, (v17 + 16), 0);
+      if (!v26)
       {
         goto LABEL_29;
       }
 
-      v28 = v27;
-      CFDictionarySetValue(v22, @"Name", v27);
-      CFRelease(v28);
+      v27 = v26;
+      CFDictionarySetValue(v21, @"Name", v26);
+      CFRelease(v27);
     }
 
-    v29 = CFStringCreateWithCString(0, (v18 + 48), 0);
-    if (!v29)
-    {
-      goto LABEL_29;
-    }
-
-    v30 = v29;
-    CFDictionarySetValue(v22, @"Type", v29);
-    CFRelease(v30);
-    v31 = *(v18 + 12);
-    v40 = *(v18 + 8) * v17;
-    v39 = v31 * v17;
-    v32 = CFNumberCreate(0, kCFNumberSInt64Type, &v40);
-    if (!v32 || (v33 = v32, CFDictionarySetValue(v22, @"Offset", v32), CFRelease(v33), (v34 = CFNumberCreate(0, kCFNumberSInt64Type, &v39)) == 0))
+    v28 = CFStringCreateWithCString(0, (v17 + 48), 0);
+    if (!v28 || (v29 = v28, CFDictionarySetValue(v21, @"Type", v28), CFRelease(v29), v30 = *(v17 + 12), v39 = *(v17 + 8) * v16, v38 = v30 * v16, (v31 = CFNumberCreate(0, kCFNumberSInt64Type, &v39)) == 0) || (v32 = v31, CFDictionarySetValue(v21, @"Offset", v31), CFRelease(v32), (v33 = CFNumberCreate(0, kCFNumberSInt64Type, &v38)) == 0))
     {
 LABEL_29:
       v2 = 22;
       goto LABEL_32;
     }
 
-    v35 = v34;
-    CFDictionarySetValue(v22, @"Size", v34);
-    CFRelease(v35);
-    CFArrayAppendValue(v13, v22);
-    CFRelease(v22);
-    v14 = *(v37 + 522);
+    v34 = v33;
+    CFDictionarySetValue(v21, @"Size", v33);
+    CFRelease(v34);
+    CFArrayAppendValue(v13, v21);
+    CFRelease(v21);
+    v14 = *(v36 + 522);
 LABEL_27:
     if (++v15 >= v14)
     {
@@ -8866,9 +8783,9 @@ LABEL_27:
     }
   }
 
-  v2 = v23;
+  v2 = v22;
 LABEL_32:
-  CFRelease(v22);
+  CFRelease(v21);
 LABEL_33:
   CFArrayAppendValue(a2, v7);
   CFRelease(v7);
@@ -9140,7 +9057,7 @@ uint64_t MBRFSDetect(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4,
   return 0;
 }
 
-uint64_t MBRSetBootloader(uint64_t a1, uint64_t a2, unint64_t a3, void *__src)
+uint64_t MBRSetBootloader(uint64_t a1, uint64_t a2, size_t a3, void *__src)
 {
   if (!a1)
   {
@@ -9222,11 +9139,11 @@ uint64_t MBRGetBootloader(uint64_t a1, void *a2)
 
 uint64_t MBRSetBootloaderFile(uint64_t a1, char *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = open(a2, 0, 0);
   if (v3 < 0)
   {
-    goto LABEL_6;
+    return *__error();
   }
 
   v4 = v3;
@@ -9234,24 +9151,20 @@ uint64_t MBRSetBootloaderFile(uint64_t a1, char *a2)
   if (v5 == -1)
   {
     close(v4);
-LABEL_6:
-    v6 = *__error();
-    goto LABEL_7;
+    return *__error();
   }
 
   v6 = MBRSetBootloader(a1, 0, v5, __src);
   close(v4);
   if (v6 == -1)
   {
-    goto LABEL_6;
+    return *__error();
   }
 
-LABEL_7:
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
-uint64_t WriteDOSExtendedChain(unsigned __int16 *a1, __int16 *a2, uint64_t a3, unsigned int a4, uint64_t a5, uint64_t a6, uint64_t (*a7)(uint64_t, uint64_t, size_t))
+uint64_t WriteDOSExtendedChain(unsigned __int16 *a1, __int16 *a2, uint64_t a3, int a4, int a5, uint64_t a6, uint64_t (*a7)(uint64_t, uint64_t, size_t))
 {
   v14 = a1[1];
   v15 = malloc_type_calloc(1uLL, v14, 0xC2F2E8DEuLL);
@@ -9284,10 +9197,10 @@ LABEL_25:
   v35 = a3;
   while (1)
   {
-    v22 = *(v21 + 466);
+    v22 = v21[233];
     if (v22 == 5 || (v22 != 133 ? (v23 = v22 == 15) : (v23 = 1), v23))
     {
-      v24 = *(v21 + 352);
+      v24 = *(v21 + 44);
       if (v24)
       {
         memcpy(v16, v24, 0x1BEuLL);
@@ -9302,7 +9215,7 @@ LABEL_25:
     }
 
 LABEL_23:
-    v21 += 1072;
+    v21 += 536;
     v31 = *a2 + 1;
     *a2 = v31;
     if (a1[261] <= v31)
@@ -9326,7 +9239,7 @@ LABEL_24:
     v26 = v39 + 1;
     *(v20 + 8) = v39;
     *(v20 + 12) = 1;
-    if (v25 >= *(v21 - 80))
+    if (v25 >= *(v21 - 20))
     {
       *(v35 + 12) = v26 - *(v35 + 8);
       v32 = -5323;
@@ -9354,8 +9267,7 @@ LABEL_24:
   }
 
   v30 = WriteGutz(a1, a2, &v40, v20, &v39, &v38, v37, a7);
-  a5 = (a5 + 1);
-  *(v21 + 418) = a1[250] * a5 - 1;
+  v21[209] = a1[250] * ++a5 - 1;
   if (!v30)
   {
     *(v20 + 8) -= *(a3 + 8);
@@ -9378,15 +9290,15 @@ LABEL_26:
 
 CFArrayRef MBRCFCreateMapRuns(uint64_t a1, uint64_t a2, int *a3)
 {
-  *&v24[54] = *MEMORY[0x277D85DE8];
+  *&v23[54] = *MEMORY[0x277D85DE8];
   *keys = xmmword_2798A28E8;
-  Sectors = MKMediaReadSectors(a1, 0, 1uLL, v23, 0);
+  Sectors = MKMediaReadSectors(a1, 0, 1uLL, v22, 0);
   if (!Sectors)
   {
-    v6 = v24;
+    v6 = v23;
     v7 = 4;
     v8 = 63;
-    v9 = v24;
+    v9 = v23;
     while (1)
     {
       v10 = *v9;
@@ -9412,16 +9324,16 @@ CFArrayRef MBRCFCreateMapRuns(uint64_t a1, uint64_t a2, int *a3)
       v6 = v9;
       if (!--v7)
       {
-        v17 = v8;
+        v16 = v8;
         valuePtr = 0;
         v14 = *MEMORY[0x277CBECE8];
         values = CFNumberCreate(*MEMORY[0x277CBECE8], kCFNumberSInt64Type, &valuePtr);
-        cf = CFNumberCreate(v14, kCFNumberSInt64Type, &v17);
-        v19 = CFDictionaryCreate(v14, keys, &values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+        cf = CFNumberCreate(v14, kCFNumberSInt64Type, &v16);
+        v18 = CFDictionaryCreate(v14, keys, &values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
         CFRelease(values);
         CFRelease(cf);
-        v5 = CFArrayCreate(v14, &v19, 1, MEMORY[0x277CBF128]);
-        CFRelease(v19);
+        v5 = CFArrayCreate(v14, &v18, 1, MEMORY[0x277CBF128]);
+        CFRelease(v18);
         Sectors = 0;
         goto LABEL_15;
       }
@@ -9431,11 +9343,10 @@ CFArrayRef MBRCFCreateMapRuns(uint64_t a1, uint64_t a2, int *a3)
   v5 = 0;
 LABEL_15:
   *a3 = Sectors;
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
-uint64_t MBRCFSetBootcode(const __CFDictionary *a1, uint64_t a2, unint64_t a3, void *a4)
+uint64_t MBRCFSetBootcode(const __CFDictionary *a1, uint64_t a2, size_t a3, void *a4)
 {
   if (!a1)
   {
@@ -9524,11 +9435,10 @@ uint64_t MKBSDCreateDeviceInfo(const char *a1, CFMutableDictionaryRef *a2)
 
 uint64_t AppendDeviceInfo(uint64_t a1, __CFDictionary *a2)
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
-    v13 = 2;
-    goto LABEL_39;
+    return 2;
   }
 
   v3 = a1;
@@ -9658,22 +9568,22 @@ LABEL_29:
 
   else
   {
-    v36 = IORegistryEntrySearchCFProperty(v3, "IOService", @"IOUnit", v4, 3u);
-    if (v36)
+    v35 = IORegistryEntrySearchCFProperty(v3, "IOService", @"IOUnit", v4, 3u);
+    if (v35)
     {
-      v37 = v36;
-      CFDictionaryAddValue(a2, @"Device ID", v36);
-      CFRelease(v37);
-      v38 = IORegistryEntrySearchCFProperty(v3, "IOService", @"FireWire Node ID", v4, 3u);
-      if (v38)
+      v36 = v35;
+      CFDictionaryAddValue(a2, @"Device ID", v35);
+      CFRelease(v36);
+      v37 = IORegistryEntrySearchCFProperty(v3, "IOService", @"FireWire Node ID", v4, 3u);
+      if (v37)
       {
-        v39 = v38;
-        CFDictionaryAddValue(a2, @"Device Node ID", v38);
-        CFRelease(v39);
-        v40 = IORegistryEntrySearchCFProperty(v3, "IOService", @"GUID", v4, 3u);
-        if (v40)
+        v38 = v37;
+        CFDictionaryAddValue(a2, @"Device Node ID", v37);
+        CFRelease(v38);
+        v39 = IORegistryEntrySearchCFProperty(v3, "IOService", @"GUID", v4, 3u);
+        if (v39)
         {
-          v11 = v40;
+          v11 = v39;
           v12 = @"Device Absolute ID";
           goto LABEL_18;
         }
@@ -9682,43 +9592,43 @@ LABEL_29:
   }
 
 LABEL_30:
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
   v71 = 0u;
-  v68 = 0u;
+  v72 = 0u;
   v69 = 0u;
-  v66 = 0u;
+  v70 = 0u;
   v67 = 0u;
-  v64 = 0u;
+  v68 = 0u;
   v65 = 0u;
-  v62 = 0u;
+  v66 = 0u;
   v63 = 0u;
-  v60 = 0u;
+  v64 = 0u;
   v61 = 0u;
-  v58 = 0u;
+  v62 = 0u;
   v59 = 0u;
-  v56 = 0u;
+  v60 = 0u;
   v57 = 0u;
-  v54 = 0u;
+  v58 = 0u;
   v55 = 0u;
-  v52 = 0u;
+  v56 = 0u;
   v53 = 0u;
-  v50 = 0u;
+  v54 = 0u;
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  *v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  *v41 = 0u;
+  v42 = 0u;
   parent = 0;
-  ParentEntry = MEMORY[0x259C867C0](v3, "IOService", v42);
+  ParentEntry = MEMORY[0x259C867C0](v3, "IOService", v41);
   if (!ParentEntry)
   {
-    v28 = index(v42, 58);
+    v28 = index(v41, 58);
     v29 = CFStringCreateWithCString(0, v28 + 1, 0x600u);
     if (v29)
     {
@@ -9730,16 +9640,16 @@ LABEL_30:
     if (IORegistryEntryInPlane(v3, "IODeviceTree"))
     {
 LABEL_36:
-      ParentEntry = MEMORY[0x259C867C0](v3, "IODeviceTree", v42);
+      ParentEntry = MEMORY[0x259C867C0](v3, "IODeviceTree", v41);
       if (!ParentEntry)
       {
-        v33 = index(v42, 58);
-        v34 = CFStringCreateWithCString(0, v33 + 1, 0x600u);
-        if (v34)
+        v32 = index(v41, 58);
+        v33 = CFStringCreateWithCString(0, v32 + 1, 0x600u);
+        if (v33)
         {
-          v35 = v34;
-          CFDictionaryAddValue(a2, @"OF Path", v34);
-          CFRelease(v35);
+          v34 = v33;
+          CFDictionaryAddValue(a2, @"OF Path", v33);
+          CFRelease(v34);
         }
 
         v13 = 0;
@@ -9748,7 +9658,7 @@ LABEL_36:
           goto LABEL_38;
         }
 
-        goto LABEL_39;
+        return v13;
       }
     }
 
@@ -9778,7 +9688,85 @@ LABEL_38:
     CFRelease(v5);
   }
 
-LABEL_39:
-  v31 = *MEMORY[0x277D85DE8];
   return v13;
+}
+
+uint64_t MKBSDCFCreateDeviceInfo(const __CFString *a1, CFMutableDictionaryRef *a2)
+{
+  v5 = *MEMORY[0x277D85DE8];
+  CFStringGetCString(a1, buffer, 32, 0x600u);
+  return MKBSDCreateDeviceInfo(buffer, a2);
+}
+
+uint64_t MKMediaListCreate(CFMutableArrayRef *a1, char a2)
+{
+  *existing = 0;
+  Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
+  *a1 = Mutable;
+  if (!Mutable)
+  {
+    return 12;
+  }
+
+  result = MEMORY[0x259C86740](*MEMORY[0x277D85F18], existing);
+  if (result)
+  {
+    return result;
+  }
+
+  v6 = IOServiceMatching("IOMedia");
+  if (!v6)
+  {
+    return 12;
+  }
+
+  v7 = v6;
+  if (a2)
+  {
+    CFDictionaryAddValue(v6, @"Whole", *MEMORY[0x277CBED28]);
+  }
+
+  result = IOServiceGetMatchingServices(existing[0], v7, &existing[1]);
+  if (!result)
+  {
+    v8 = IOIteratorNext(existing[1]);
+    if (v8)
+    {
+      v9 = v8;
+      v10 = *MEMORY[0x277CBECE8];
+      do
+      {
+        CFProperty = IORegistryEntryCreateCFProperty(v9, @"BSD Name", v10, 0);
+        if (CFProperty)
+        {
+          v12 = CFProperty;
+          if ((a2 & 2) != 0)
+          {
+            v13 = CFStringCreateMutable(0, 0);
+            CFStringAppendCString(v13, "/dev/", 0x600u);
+            CFStringAppend(v13, v12);
+            CFRelease(v12);
+            v12 = v13;
+          }
+
+          CFArrayAppendValue(*a1, v12);
+          CFRelease(v12);
+        }
+
+        IOObjectRelease(v9);
+        v9 = IOIteratorNext(existing[1]);
+      }
+
+      while (v9);
+    }
+
+    result = existing[1];
+    if (existing[1])
+    {
+      IOObjectRelease(existing[1]);
+      return 0;
+    }
+  }
+
+  return result;
 }

@@ -10,19 +10,14 @@
 
 - (id)deploymentID
 {
-  v2 = *&self->server[OBJC_IVAR____TtC16CryptoKitPrivate10ATHMServer_server + 104];
-  v3 = *&self->server[OBJC_IVAR____TtC16CryptoKitPrivate10ATHMServer_server + 112];
   sub_1C0D78BFC();
-  v4 = sub_1C0D78A8C();
+  v2 = sub_1C0D78A8C();
 
-  return v4;
+  return v2;
 }
 
 - (id)exportKeyCommitmentsAndReturnError:(id *)error
 {
-  v9 = *&self->server[OBJC_IVAR____TtC16CryptoKitPrivate10ATHMServer_server + 32];
-  v10 = *&self->server[OBJC_IVAR____TtC16CryptoKitPrivate10ATHMServer_server + 48];
-  v11 = *&self->server[OBJC_IVAR____TtC16CryptoKitPrivate10ATHMServer_server + 64];
   selfCopy = self;
   v4 = sub_1C0D3A04C();
   v6 = v5;

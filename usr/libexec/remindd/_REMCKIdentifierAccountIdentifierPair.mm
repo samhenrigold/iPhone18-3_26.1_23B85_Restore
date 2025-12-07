@@ -11,7 +11,7 @@
 {
   identifierCopy = identifier;
   accountIdentifierCopy = accountIdentifier;
-  v9 = accountIdentifierCopy;
+  v10 = accountIdentifierCopy;
   if (identifierCopy)
   {
     if (accountIdentifierCopy)
@@ -22,26 +22,26 @@
 
   else
   {
-    sub_10076D984();
-    if (v9)
+    sub_10076D984(accountIdentifierCopy, v9);
+    if (v10)
     {
       goto LABEL_3;
     }
   }
 
-  sub_10076DA28();
+  sub_10076DA28(accountIdentifierCopy, v9);
 LABEL_3:
-  v13.receiver = self;
-  v13.super_class = _REMCKIdentifierAccountIdentifierPair;
-  v10 = [(_REMCKIdentifierAccountIdentifierPair *)&v13 init];
-  v11 = v10;
-  if (v10)
+  v14.receiver = self;
+  v14.super_class = _REMCKIdentifierAccountIdentifierPair;
+  v11 = [(_REMCKIdentifierAccountIdentifierPair *)&v14 init];
+  v12 = v11;
+  if (v11)
   {
-    objc_storeStrong(&v10->_ckIdentifier, identifier);
-    objc_storeStrong(&v11->_accountIdentifier, accountIdentifier);
+    objc_storeStrong(&v11->_ckIdentifier, identifier);
+    objc_storeStrong(&v12->_accountIdentifier, accountIdentifier);
   }
 
-  return v11;
+  return v12;
 }
 
 - (BOOL)isEqual:(id)equal

@@ -144,7 +144,7 @@ LABEL_16:
 
             if (firstObject2)
             {
-              [firstObject2 alignmentTransform];
+              objc_msgSend_alignmentTransform(firstObject2);
             }
 
             [(AXMImageRegistrationNode *)self _recordTransposition:0.0, 0.0];

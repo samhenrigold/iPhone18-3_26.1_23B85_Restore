@@ -6,6 +6,7 @@
 - (double)headerHeight;
 - (id)collectionView:(id)view cellForItemAtIndexPath:(id)path;
 - (id)collectionView:(id)view viewForSupplementaryElementOfKind:(id)kind atIndexPath:(id)path;
+- (id)headerFontWithTrait:(int)trait;
 - (id)otherAlarmsHeaderString;
 - (id)sashItem;
 - (id)sleepHeaderString;
@@ -17,6 +18,7 @@
 - (void)collectionView:(id)view didSelectItemAtIndexPath:(id)path;
 - (void)loadAlarmPropertiesWithAssistantAlarms:(id)alarms;
 - (void)loadView;
+- (void)setAlarmActive:(BOOL)active forCell:(id)cell;
 - (void)setupSections;
 - (void)setupSleep;
 - (void)viewDidLoad;
@@ -371,6 +373,37 @@
   }
 }
 
+- (void)setAlarmActive:(BOOL)active forCell:(id)cell
+{
+  activeCopy = active;
+  cellCopy = cell;
+  collectionView = [(MobileTimerAssistantAlarmSnippetController *)self collectionView];
+  v17 = [collectionView indexPathForCell:cellCopy];
+
+  sections = [(MobileTimerAssistantAlarmSnippetController *)self sections];
+  v9 = [sections objectAtIndexedSubscript:{objc_msgSend(v17, "section")}];
+  integerValue = [v9 integerValue];
+
+  if (integerValue != &dword_0 + 1)
+  {
+    alarms = [(MobileTimerAssistantAlarmSnippetController *)self alarms];
+    v12 = [alarms objectAtIndexedSubscript:{objc_msgSend(v17, "row")}];
+
+    v13 = [v12 mutableCopy];
+    [v13 setEnabled:activeCopy];
+    alarmManager = [(MobileTimerAssistantAlarmSnippetController *)self alarmManager];
+    v15 = [alarmManager updateAlarm:v13];
+
+    v16 = &kMTCASiriAlarmDeactivations;
+    if (activeCopy)
+    {
+      v16 = &kMTCASiriAlarmActivations;
+    }
+
+    [MTAnalytics incrementEventCount:*v16];
+  }
+}
+
 - (int64_t)numberOfSectionsInCollectionView:(id)view
 {
   sections = [(MobileTimerAssistantAlarmSnippetController *)self sections];
@@ -575,6 +608,26 @@ LABEL_8:
   v9 = [v3 initWithString:v5 attributes:v8];
 
   return v9;
+}
+
+- (id)headerFontWithTrait:(int)trait
+{
+  v3 = *&trait;
+  v5 = [UIFont preferredFontForTextStyle:UIFontTextStyleHeadline];
+  familyName = [v5 familyName];
+  if ([(MobileTimerAssistantAlarmSnippetController *)self isAX])
+  {
+    v7 = 32.0;
+  }
+
+  else
+  {
+    [v5 pointSize];
+  }
+
+  v8 = [UIFont fontWithFamilyName:familyName traits:v3 size:v7];
+
+  return v8;
 }
 
 - (double)headerHeight

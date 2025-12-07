@@ -41,7 +41,7 @@
 
 - (void)activate
 {
-  v3 = _BYLoggingFacility();
+  v3 = _BYLoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v11 = 0;
@@ -70,7 +70,7 @@
 
 - (void)invalidate
 {
-  v3 = _BYLoggingFacility();
+  v3 = _BYLoggingFacility(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;

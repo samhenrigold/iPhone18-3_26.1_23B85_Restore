@@ -2,9 +2,9 @@
 - (CGPoint)editMenuLocation;
 - (PKLassoRenderer)initWithStrokeSelection:(id)selection renderingDelegate:(id)delegate;
 - (id)_expandBezierPathIfNecessary:(void *)necessary;
+- (id)_setupAnimatedLasso;
 - (id)initForLiveSelectionWithRenderingDelegate:(id)delegate;
 - (uint64_t)_setupAccessibilityObservers;
-- (uint64_t)_setupAnimatedLasso;
 - (void)_renderLiveSelectionPath:(CGPath *)path forStrokes:(id)strokes inDrawing:(id)drawing liveScrollOffset:(CGPoint)offset;
 - (void)_setupLassoLayerAppearanceWithBezierPath:(id *)path;
 - (void)_setupSelectionAdornment;
@@ -117,7 +117,7 @@
 
 - (void)_setupSelectionAdornment
 {
-  [(PKLassoRenderer *)self _setupAnimatedLasso];
+  [(PKLassoRenderer *)&self->super.isa _setupAnimatedLasso];
   if (self->_strokeSelection)
   {
     lassoLayer = self->_lassoLayer;
@@ -127,32 +127,32 @@
   }
 }
 
-- (uint64_t)_setupAnimatedLasso
+- (id)_setupAnimatedLasso
 {
   v60 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
-    if (!*(result + 8))
+    if (!result[1])
     {
       layer = [MEMORY[0x1E69794A0] layer];
-      v3 = *(v1 + 8);
-      *(v1 + 8) = layer;
+      v3 = v1[1];
+      v1[1] = layer;
 
       layer2 = [MEMORY[0x1E69794A0] layer];
-      v5 = *(v1 + 16);
-      *(v1 + 16) = layer2;
+      v5 = v1[2];
+      v1[2] = layer2;
 
-      strokes = [*(v1 + 48) strokes];
-      v6 = *(v1 + 8);
-      v7 = *(v1 + 16);
-      lassoStroke = [*(v1 + 48) lassoStroke];
+      strokes = [v1[6] strokes];
+      v6 = v1[1];
+      v7 = v1[2];
+      lassoStroke = [v1[6] lassoStroke];
       v9 = strokes;
       v10 = v6;
       v11 = v7;
       v12 = lassoStroke;
-      WeakRetained = objc_loadWeakRetained((v1 + 56));
-      v14 = *(v1 + 48);
+      WeakRetained = objc_loadWeakRetained(v1 + 7);
+      v14 = v1[6];
       drawing = [v14 drawing];
       [WeakRetained scaleForDrawing:drawing];
       v17 = v16;
@@ -193,11 +193,11 @@
       *(&v49 + 1) = __Block_byref_object_copy__33;
       *&v50 = __Block_byref_object_dispose__33;
       *(&v50 + 1) = "";
-      [PKPathUtility unorderedSimplifiedPointsFromPoints:&v52 factor:4.0 / *&v17];
+      objc_msgSend_unorderedSimplifiedPointsFromPoints_factor_(PKPathUtility, 4.0 / *&v17);
       objc_initWeak(&location, v10);
       objc_initWeak(&v46, v11);
       objc_initWeak(&from, v1);
-      [*(v1 + 48) bounds];
+      [v1[6] bounds];
       v23 = v22;
       v25 = v24;
       v27 = v26;
@@ -219,11 +219,11 @@
       v30 = dispatch_block_create(0, block);
       objc_setProperty_nonatomic_copy(v1, v31, v30, 64);
 
-      v32 = objc_loadWeakRetained((v1 + 56));
+      v32 = objc_loadWeakRetained(v1 + 7);
       selectionHullQueue = [v32 selectionHullQueue];
-      dispatch_async(selectionHullQueue, *(v1 + 64));
+      dispatch_async(selectionHullQueue, v1[8]);
 
-      [*(v1 + 48) bounds];
+      [v1[6] bounds];
       memset(&v44, 0, sizeof(v44));
       CGAffineTransformMakeTranslation(&v44, -v34, -v35);
       t1 = v44;
@@ -235,15 +235,15 @@
         _newPathRepresentation = [v12 _newPathRepresentation];
         v37 = [MEMORY[0x1E69DC728] bezierPathWithCGPath:_newPathRepresentation];
         memset(&v43, 0, sizeof(v43));
-        [v12 _transform];
+        objc_msgSend__transform(v12);
         t2 = v44;
         CGAffineTransformConcat(&v43, &t1, &t2);
         t1 = v43;
         [v37 applyTransform:&t1];
         CGPathRelease(_newPathRepresentation);
         v38 = [PKLassoRenderer _expandBezierPathIfNecessary:v37];
-        v39 = *(v1 + 40);
-        *(v1 + 40) = v38;
+        v39 = v1[5];
+        v1[5] = v38;
       }
 
       else
@@ -272,7 +272,7 @@
         operator delete(v52);
       }
 
-      [*(v1 + 8) addSublayer:*(v1 + 16)];
+      [v1[1] addSublayer:v1[2]];
 
       return [(PKLassoRenderer *)v1 _setupAccessibilityObservers];
     }
@@ -326,7 +326,7 @@
 
 - (void)_renderLiveSelectionPath:(CGPath *)path forStrokes:(id)strokes inDrawing:(id)drawing liveScrollOffset:(CGPoint)offset
 {
-  [(PKLassoRenderer *)self _setupAnimatedLasso];
+  [(PKLassoRenderer *)&self->super.isa _setupAnimatedLasso];
   if (self)
   {
     [(CAShapeLayer *)self->_lassoLayer setPath:path];

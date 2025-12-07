@@ -122,7 +122,7 @@
   v3 = player;
   if (player)
   {
-    [player currentTime];
+    objc_msgSend_currentTime(player);
   }
 
   else
@@ -142,7 +142,7 @@
 
   if (currentItem)
   {
-    [currentItem duration];
+    objc_msgSend_duration(currentItem);
   }
 
   v6 = v7;
@@ -536,14 +536,14 @@ LABEL_15:
                 {
                   if (objc_opt_respondsToSelector())
                   {
-                    [(NCAudioPlayerController *)self duration];
+                    objc_msgSend_duration(self);
                     [delegate playerController:self willChangeToDuration:?];
                   }
                 }
 
                 else if (objc_opt_respondsToSelector())
                 {
-                  [(NCAudioPlayerController *)self duration];
+                  objc_msgSend_duration(self);
                   [delegate playerController:self didChangeToDuration:?];
                 }
               }

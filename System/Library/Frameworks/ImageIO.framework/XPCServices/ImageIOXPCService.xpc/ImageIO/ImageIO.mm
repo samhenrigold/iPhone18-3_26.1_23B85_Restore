@@ -8,21 +8,21 @@ int main(int argc, const char **argv, const char **envp)
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       v3 = *__error();
-      v4[0] = 67109120;
-      v4[1] = v3;
-      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failed to initialize temporary directory: %{darwin.errno}d", v4, 8u);
+      v6[0] = 67109120;
+      v6[1] = v3;
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failed to initialize temporary directory: %{darwin.errno}d", v6, 8u);
     }
 
     exit(1);
   }
 
-  UpdateRunningInXPCService();
-  sub_100000CBC();
+  updated = UpdateRunningInXPCService();
+  sub_100000CBC(updated, v5);
   IIOInitDebugFlags();
   xpc_main(sub_100000CE8);
 }
 
-void sub_100000CBC()
+void sub_100000CBC(uint64_t result, uint64_t a2)
 {
   if (qword_100008000 != -1)
   {

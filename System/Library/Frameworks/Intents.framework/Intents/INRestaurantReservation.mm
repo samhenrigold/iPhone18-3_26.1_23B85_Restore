@@ -11,13 +11,13 @@
 
 - (id)_dictionaryRepresentation
 {
-  v16[3] = *MEMORY[0x1E69E9840];
-  v14.receiver = self;
-  v14.super_class = INRestaurantReservation;
-  _dictionaryRepresentation = [(INReservation *)&v14 _dictionaryRepresentation];
+  v15[3] = *MEMORY[0x1E69E9840];
+  v13.receiver = self;
+  v13.super_class = INRestaurantReservation;
+  _dictionaryRepresentation = [(INReservation *)&v13 _dictionaryRepresentation];
   v4 = [_dictionaryRepresentation mutableCopy];
 
-  v15[0] = @"reservationDuration";
+  v14[0] = @"reservationDuration";
   reservationDuration = self->_reservationDuration;
   null = reservationDuration;
   if (!reservationDuration)
@@ -25,8 +25,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[0] = null;
-  v15[1] = @"partySize";
+  v15[0] = null;
+  v14[1] = @"partySize";
   partySize = self->_partySize;
   null2 = partySize;
   if (!partySize)
@@ -34,8 +34,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[1] = null2;
-  v15[2] = @"restaurantLocation";
+  v15[1] = null2;
+  v14[2] = @"restaurantLocation";
   restaurantLocation = self->_restaurantLocation;
   null3 = restaurantLocation;
   if (!restaurantLocation)
@@ -43,8 +43,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[2] = null3;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v15[2] = null3;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
   [v4 addEntriesFromDictionary:v11];
 
   if (restaurantLocation)
@@ -78,7 +78,6 @@ LABEL_9:
 LABEL_15:
 
 LABEL_10:
-  v12 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

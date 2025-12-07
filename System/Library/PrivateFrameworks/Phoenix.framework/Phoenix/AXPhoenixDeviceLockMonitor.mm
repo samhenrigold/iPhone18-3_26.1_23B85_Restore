@@ -96,7 +96,6 @@ void __56__AXPhoenixDeviceLockMonitor__startMonitoringWithQueue___block_invoke(i
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopMonitoring
@@ -114,7 +113,6 @@ void __56__AXPhoenixDeviceLockMonitor__startMonitoringWithQueue___block_invoke(i
   }
 
   objc_storeStrong(oslog, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)deviceLockStateChanged:(double)changed
@@ -155,7 +153,6 @@ void __56__AXPhoenixDeviceLockMonitor__startMonitoringWithQueue___block_invoke(i
   [(AXPhoenixEventMonitor *)v4 enumerateObserversInQueue:&v5];
   objc_destroyWeak(v10);
   objc_destroyWeak(&location);
-  *MEMORY[0x277D85DE8];
 }
 
 void __53__AXPhoenixDeviceLockMonitor_deviceLockStateChanged___block_invoke(uint64_t a1, void *a2)

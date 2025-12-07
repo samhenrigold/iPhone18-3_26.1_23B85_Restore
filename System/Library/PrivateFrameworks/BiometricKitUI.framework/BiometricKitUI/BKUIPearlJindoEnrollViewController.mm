@@ -1,11 +1,14 @@
 @interface BKUIPearlJindoEnrollViewController
 - (BOOL)_isDarkMode;
 - (CGSize)_fullEnrollViewSize;
+- (id)_startOverTitleForState:(int)state;
 - (id)buttonTray;
 - (id)escapeHatchButton;
+- (id)escapeHatchButton:(id)button state:(int)state;
 - (id)nextStateButton;
 - (id)nextStateButtonContainer;
 - (id)retryMatchOperationButton;
+- (id)startOverButtonForState:(int)state;
 - (void)_handleEnrollStateOnAppear;
 - (void)_postBannerToDestinationWithInitialStateCollapsed:(BOOL)collapsed enrollViewStateConfiguration:(id)configuration;
 - (void)_prepEnrollViewAndEnrollTutorialMica;
@@ -18,10 +21,14 @@
 - (void)didChangeActiveLayoutMode:(id)mode;
 - (void)navigateToMidFlowPeriocularSplashScreenWithPrepareAction:(id)action completionAction:(id)completionAction;
 - (void)nextStateButtonPressed:(id)pressed;
+- (void)prepareBottomContainerForAnimationToState:(int)state fromState:(int)fromState subState:(int)subState advancing:(BOOL)advancing;
+- (void)prepareForAnimationToState:(int)state fromState:(int)fromState subState:(int)subState advancing:(BOOL)advancing;
+- (void)presentViewController:(id)controller animated:(BOOL)animated completion:(id)completion;
 - (void)presentableDidAppearAsBanner:(id)banner;
 - (void)stateTransitionDidComplete;
 - (void)transitionToSuccessFromPeriocularSplash;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)willResignActive:(id)active;
 @end
 
@@ -29,10 +36,10 @@
 
 - (void)viewDidLoad
 {
-  v15[1] = *MEMORY[0x277D85DE8];
-  v14.receiver = self;
-  v14.super_class = BKUIPearlJindoEnrollViewController;
-  [(BKUIPearlEnrollViewController *)&v14 viewDidLoad];
+  v14[1] = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = BKUIPearlJindoEnrollViewController;
+  [(BKUIPearlEnrollViewController *)&v13 viewDidLoad];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter addObserver:self selector:sel__sceneWillDeactivate_ name:*MEMORY[0x277D76E78] object:0];
 
@@ -40,19 +47,18 @@
   [defaultCenter2 addObserver:self selector:sel__sceneDidActivate_ name:*MEMORY[0x277D76E48] object:0];
 
   objc_initWeak(&location, self);
-  v15[0] = objc_opt_class();
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
-  v8 = MEMORY[0x277D85DD0];
-  v9 = 3221225472;
-  v10 = __49__BKUIPearlJindoEnrollViewController_viewDidLoad__block_invoke;
-  v11 = &unk_278D09928;
-  objc_copyWeak(&v12, &location);
-  v6 = [(BKUIPearlJindoEnrollViewController *)self registerForTraitChanges:v5 withHandler:&v8];
-  [(BKUIPearlJindoEnrollViewController *)self setTraitChangeRegistration:v6, v8, v9, v10, v11];
+  v14[0] = objc_opt_class();
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v7 = MEMORY[0x277D85DD0];
+  v8 = 3221225472;
+  v9 = __49__BKUIPearlJindoEnrollViewController_viewDidLoad__block_invoke;
+  v10 = &unk_278D09928;
+  objc_copyWeak(&v11, &location);
+  v6 = [(BKUIPearlJindoEnrollViewController *)self registerForTraitChanges:v5 withHandler:&v7];
+  [(BKUIPearlJindoEnrollViewController *)self setTraitChangeRegistration:v6, v7, v8, v9, v10];
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v11);
   objc_destroyWeak(&location);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __49__BKUIPearlJindoEnrollViewController_viewDidLoad__block_invoke(uint64_t a1)
@@ -60,6 +66,15 @@ void __49__BKUIPearlJindoEnrollViewController_viewDidLoad__block_invoke(uint64_t
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v1 = [WeakRetained instructionView];
   [v1 setDarkMode:{objc_msgSend(WeakRetained, "_isDarkMode")}];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = BKUIPearlJindoEnrollViewController;
+  [(BKUIPearlJindoEnrollViewController *)&v5 viewWillDisappear:disappear];
+  presentable = [(BKUIPearlJindoEnrollViewController *)self presentable];
+  [presentable revoke];
 }
 
 - (void)navigateToMidFlowPeriocularSplashScreenWithPrepareAction:(id)action completionAction:(id)completionAction
@@ -255,32 +270,31 @@ void __71__BKUIPearlJindoEnrollViewController_animateToSuccessCompletionLayout__
   v30 = 0;
   LOBYTE(userInfoForPosting) = [v16 postPresentable:presentable options:1 userInfo:v24 error:&v30];
   v27 = v30;
+  v28 = v27;
   if ((userInfoForPosting & 1) == 0)
   {
-    v28 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v29 = _BKUILoggingFacility(v27);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v32 = v27;
-      _os_log_impl(&dword_241B0A000, v28, OS_LOG_TYPE_DEFAULT, "Error attempting to post: %{public}@", buf, 0xCu);
+      v32 = v28;
+      _os_log_impl(&dword_241B0A000, v29, OS_LOG_TYPE_DEFAULT, "Error attempting to post: %{public}@", buf, 0xCu);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sceneWillDeactivate:(id)deactivate
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   deactivateCopy = deactivate;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v5 = _BKUILoggingFacility();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _BKUILoggingFacility(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [deactivateCopy description];
-    v15 = 138412290;
-    v16 = v6;
-    _os_log_impl(&dword_241B0A000, v5, OS_LOG_TYPE_DEFAULT, "Scene will deactivate %@", &v15, 0xCu);
+    v7 = [deactivateCopy description];
+    v16 = 138412290;
+    v17 = v7;
+    _os_log_impl(&dword_241B0A000, v6, OS_LOG_TYPE_DEFAULT, "Scene will deactivate %@", &v16, 0xCu);
   }
 
   object = [deactivateCopy object];
@@ -290,11 +304,11 @@ void __71__BKUIPearlJindoEnrollViewController_animateToSuccessCompletionLayout__
 
   if (object != windowScene)
   {
-    presentable = _BKUILoggingFacility();
+    presentable = _BKUILoggingFacility(v12);
     if (os_log_type_enabled(presentable, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_241B0A000, presentable, OS_LOG_TYPE_DEFAULT, "Scene will deactivate early exit due to non matching windowScene", &v15, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_241B0A000, presentable, OS_LOG_TYPE_DEFAULT, "Scene will deactivate early exit due to non matching windowScene", &v16, 2u);
     }
 
     goto LABEL_9;
@@ -314,22 +328,20 @@ LABEL_9:
 
   [(BKUIPearlJindoEnrollViewController *)self setJindoNeedsResignActiveRevoke:1];
 LABEL_10:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sceneDidActivate:(id)activate
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   activateCopy = activate;
   dispatch_assert_queue_V2(MEMORY[0x277D85CD0]);
-  v5 = _BKUILoggingFacility();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _BKUILoggingFacility(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [activateCopy description];
-    v13 = 138412290;
-    v14 = v6;
-    _os_log_impl(&dword_241B0A000, v5, OS_LOG_TYPE_DEFAULT, "Scene did activate %@", &v13, 0xCu);
+    v7 = [activateCopy description];
+    v14 = 138412290;
+    v15 = v7;
+    _os_log_impl(&dword_241B0A000, v6, OS_LOG_TYPE_DEFAULT, "Scene did activate %@", &v14, 0xCu);
   }
 
   object = [activateCopy object];
@@ -344,31 +356,29 @@ LABEL_10:
 
   else
   {
-    v11 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = _BKUILoggingFacility(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v13) = 0;
-      _os_log_impl(&dword_241B0A000, v11, OS_LOG_TYPE_DEFAULT, "Scene did activate, early exit due to non matching windowScene", &v13, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_241B0A000, v13, OS_LOG_TYPE_DEFAULT, "Scene did activate, early exit due to non matching windowScene", &v14, 2u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupUI
 {
-  v143[4] = *MEMORY[0x277D85DE8];
+  v142[4] = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v4 = [v3 URLForResource:@"Enrollment-rings-alpha~iphone" withExtension:@"mov"];
 
-  v139 = v4;
+  v138 = v4;
   v5 = [MEMORY[0x277CE6650] assetWithURL:v4];
   [v5 loadValuesAsynchronouslyForKeys:&unk_2853CC838 completionHandler:0];
   mEMORY[0x277CB83F8] = [MEMORY[0x277CB83F8] sharedInstance];
   [mEMORY[0x277CB83F8] setCategory:*MEMORY[0x277CB8020] withOptions:1 error:0];
 
-  v137 = [MEMORY[0x277CE65B0] playerItemWithAsset:v5];
-  v7 = [objc_alloc(MEMORY[0x277CE6598]) initWithPlayerItem:v137];
+  v136 = [MEMORY[0x277CE65B0] playerItemWithAsset:v5];
+  v7 = [objc_alloc(MEMORY[0x277CE6598]) initWithPlayerItem:v136];
   [v7 setMuted:1];
   [v7 setAllowsExternalPlayback:0];
   view = [(BKUIPearlJindoEnrollViewController *)self view];
@@ -383,10 +393,10 @@ LABEL_10:
   v16 = *(MEMORY[0x277CBF3A0] + 8);
   v17 = *(MEMORY[0x277CBF3A0] + 16);
   v18 = *(MEMORY[0x277CBF3A0] + 24);
-  v138 = v5;
+  v137 = v5;
   v19 = [(BKUIPearlMovieLoopView *)v14 initWithFrame:v7 player:v5 asset:*MEMORY[0x277CBF3A0], v16, v17, v18];
   [(BKUIPearlMovieLoopView *)v19 setTranslatesAutoresizingMaskIntoConstraints:0];
-  v136 = v7;
+  v135 = v7;
   [v7 play];
   v20 = [objc_alloc(MEMORY[0x277D75D18]) initWithFrame:{v15, v16, v17, v18}];
   [(BKUIPearlJindoEnrollViewController *)self setHostedTutorialMicaView:v20];
@@ -394,26 +404,26 @@ LABEL_10:
   hostedTutorialMicaView = [(BKUIPearlJindoEnrollViewController *)self hostedTutorialMicaView];
   [hostedTutorialMicaView addSubview:v19];
 
-  v120 = MEMORY[0x277CCAAD0];
+  v119 = MEMORY[0x277CCAAD0];
   widthAnchor = [(BKUIPearlMovieLoopView *)v19 widthAnchor];
-  v129 = [widthAnchor constraintEqualToConstant:v10 + -52.0];
-  v143[0] = v129;
+  v128 = [widthAnchor constraintEqualToConstant:v10 + -52.0];
+  v142[0] = v128;
   heightAnchor = [(BKUIPearlMovieLoopView *)v19 heightAnchor];
-  v123 = [heightAnchor constraintEqualToConstant:v13 + -52.0];
-  v143[1] = v123;
+  v122 = [heightAnchor constraintEqualToConstant:v13 + -52.0];
+  v142[1] = v122;
   bottomAnchor = [(BKUIPearlMovieLoopView *)v19 bottomAnchor];
   hostedTutorialMicaView2 = [(BKUIPearlJindoEnrollViewController *)self hostedTutorialMicaView];
   bottomAnchor2 = [hostedTutorialMicaView2 bottomAnchor];
   v25 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  v143[2] = v25;
-  v135 = v19;
+  v142[2] = v25;
+  v134 = v19;
   centerXAnchor = [(BKUIPearlMovieLoopView *)v19 centerXAnchor];
   hostedTutorialMicaView3 = [(BKUIPearlJindoEnrollViewController *)self hostedTutorialMicaView];
   centerXAnchor2 = [hostedTutorialMicaView3 centerXAnchor];
   v29 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v143[3] = v29;
-  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v143 count:4];
-  [v120 activateConstraints:v30];
+  v142[3] = v29;
+  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v142 count:4];
+  [v119 activateConstraints:v30];
 
   hostedTutorialMicaView4 = [(BKUIPearlJindoEnrollViewController *)self hostedTutorialMicaView];
   [hostedTutorialMicaView4 setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -422,27 +432,27 @@ LABEL_10:
   hostedTutorialMicaView5 = [(BKUIPearlJindoEnrollViewController *)self hostedTutorialMicaView];
   [view3 addSubview:hostedTutorialMicaView5];
 
-  v118 = MEMORY[0x277CCAAD0];
+  v117 = MEMORY[0x277CCAAD0];
   hostedTutorialMicaView6 = [(BKUIPearlJindoEnrollViewController *)self hostedTutorialMicaView];
   topAnchor = [hostedTutorialMicaView6 topAnchor];
   view4 = [(BKUIPearlJindoEnrollViewController *)self view];
   topAnchor2 = [view4 topAnchor];
-  v121 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v142[0] = v121;
+  v120 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v141[0] = v120;
   hostedTutorialMicaView7 = [(BKUIPearlJindoEnrollViewController *)self hostedTutorialMicaView];
   heightAnchor2 = [hostedTutorialMicaView7 heightAnchor];
   view5 = [(BKUIPearlJindoEnrollViewController *)self view];
   [view5 bounds];
   v38 = [heightAnchor2 constraintEqualToConstant:v37 + 26.0];
-  v142[1] = v38;
+  v141[1] = v38;
   hostedTutorialMicaView8 = [(BKUIPearlJindoEnrollViewController *)self hostedTutorialMicaView];
   widthAnchor2 = [hostedTutorialMicaView8 widthAnchor];
   view6 = [(BKUIPearlJindoEnrollViewController *)self view];
   [view6 bounds];
   v43 = [widthAnchor2 constraintEqualToConstant:v42];
-  v142[2] = v43;
-  v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v142 count:3];
-  [v118 activateConstraints:v44];
+  v141[2] = v43;
+  v44 = [MEMORY[0x277CBEA60] arrayWithObjects:v141 count:3];
+  [v117 activateConstraints:v44];
 
   hostedTutorialMicaView9 = [(BKUIPearlJindoEnrollViewController *)self hostedTutorialMicaView];
   centerXAnchor3 = [hostedTutorialMicaView9 centerXAnchor];
@@ -484,9 +494,9 @@ LABEL_10:
   v67 = [[BKUIButtonTray alloc] initWithFrame:1 willUseActionDelegate:0.0, 0.0, v62, v65];
   v68 = [BKUIJindoBottomContainer alloc];
   inBuddy = [(BKUIPearlEnrollViewController *)self inBuddy];
-  v134 = v66;
+  v133 = v66;
   v70 = [[BKUIJindoContainerScrollview alloc] initWithFrame:v66 buttonTray:0.0, 0.0, v62, v65];
-  v131 = v67;
+  v130 = v67;
   v71 = [[BKUIJindoContainerScrollview alloc] initWithFrame:v67 buttonTray:0.0, 0.0, v62, v65];
   v72 = [(BKUIPearlEnrollViewBottomContainer *)v68 initWithFrame:inBuddy inBuddy:v70 scrollView:v71 overlapScrollView:self delegate:1 squareNeedsPositionLayout:0.0, 0.0, v62, v65];
   [(BKUIPearlEnrollViewController *)self setBottomContainer:v72];
@@ -526,29 +536,29 @@ LABEL_10:
   v89 = [topAnchor3 constraintEqualToAnchor:topAnchor4];
   [(BKUIPearlJindoEnrollViewController *)self setBottomContainerTopConstraint:v89];
 
-  v114 = MEMORY[0x277CCAAD0];
+  v113 = MEMORY[0x277CCAAD0];
   bottomContainerTopConstraint = [(BKUIPearlJindoEnrollViewController *)self bottomContainerTopConstraint];
-  v141[0] = bottomContainerTopConstraint;
+  v140[0] = bottomContainerTopConstraint;
   bottomContainer4 = [(BKUIPearlEnrollViewController *)self bottomContainer];
   bottomAnchor3 = [bottomContainer4 bottomAnchor];
   view13 = [(BKUIPearlJindoEnrollViewController *)self view];
   bottomAnchor4 = [view13 bottomAnchor];
-  v116 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
-  v141[1] = v116;
+  v115 = [bottomAnchor3 constraintEqualToAnchor:bottomAnchor4];
+  v140[1] = v115;
   bottomContainer5 = [(BKUIPearlEnrollViewController *)self bottomContainer];
   leadingAnchor = [bottomContainer5 leadingAnchor];
   view14 = [(BKUIPearlJindoEnrollViewController *)self view];
   leadingAnchor2 = [view14 leadingAnchor];
   v92 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v141[2] = v92;
+  v140[2] = v92;
   bottomContainer6 = [(BKUIPearlEnrollViewController *)self bottomContainer];
   trailingAnchor = [bottomContainer6 trailingAnchor];
   view15 = [(BKUIPearlJindoEnrollViewController *)self view];
   trailingAnchor2 = [view15 trailingAnchor];
   v97 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v141[3] = v97;
-  v98 = [MEMORY[0x277CBEA60] arrayWithObjects:v141 count:4];
-  [v114 activateConstraints:v98];
+  v140[3] = v97;
+  v98 = [MEMORY[0x277CBEA60] arrayWithObjects:v140 count:4];
+  [v113 activateConstraints:v98];
 
   bottomContainer7 = [(BKUIPearlEnrollViewController *)self bottomContainer];
   [bottomContainer7 setupInitialUI];
@@ -575,12 +585,12 @@ LABEL_10:
 
   if ([(BKUIPearlEnrollViewController *)self isGlassesEnrollmentOnly])
   {
-    v140[0] = MEMORY[0x277D85DD0];
-    v140[1] = 3221225472;
-    v140[2] = __46__BKUIPearlJindoEnrollViewController__setupUI__block_invoke;
-    v140[3] = &unk_278D09978;
-    v140[4] = self;
-    [(BKUIPearlJindoEnrollViewController *)self _postBannerToDestinationWithInitialStateCollapsed:0 enrollViewStateConfiguration:v140];
+    v139[0] = MEMORY[0x277D85DD0];
+    v139[1] = 3221225472;
+    v139[2] = __46__BKUIPearlJindoEnrollViewController__setupUI__block_invoke;
+    v139[3] = &unk_278D09978;
+    v139[4] = self;
+    [(BKUIPearlJindoEnrollViewController *)self _postBannerToDestinationWithInitialStateCollapsed:0 enrollViewStateConfiguration:v139];
   }
 
   view18 = [(BKUIPearlJindoEnrollViewController *)self view];
@@ -588,8 +598,6 @@ LABEL_10:
   v110 = v109 + 26.0 + 40.0;
   bottomContainerTopConstraint2 = [(BKUIPearlJindoEnrollViewController *)self bottomContainerTopConstraint];
   [bottomContainerTopConstraint2 setConstant:v110];
-
-  v112 = *MEMORY[0x277D85DE8];
 }
 
 void __46__BKUIPearlJindoEnrollViewController__setupUI__block_invoke(uint64_t a1)
@@ -618,6 +626,30 @@ void __46__BKUIPearlJindoEnrollViewController__setupUI__block_invoke_2(uint64_t 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v1 = [WeakRetained enrollView];
   [v1 setNeedsLayout];
+}
+
+- (void)prepareBottomContainerForAnimationToState:(int)state fromState:(int)fromState subState:(int)subState advancing:(BOOL)advancing
+{
+  advancingCopy = advancing;
+  v7 = *&subState;
+  v8 = *&state;
+  if (fromState == 2)
+  {
+    hostedTutorialMicaViewCenterConstraint = [(BKUIPearlJindoEnrollViewController *)self hostedTutorialMicaViewCenterConstraint];
+    [hostedTutorialMicaViewCenterConstraint setActive:0];
+
+    bottomContainer = [(BKUIPearlEnrollViewController *)self bottomContainer];
+    hostedTutorialMicaView = [(BKUIPearlJindoEnrollViewController *)self hostedTutorialMicaView];
+    view = [(BKUIPearlJindoEnrollViewController *)self view];
+    [bottomContainer prepareForAnimationToState:v8 fromState:2 subState:v7 advancing:advancingCopy tagAlong:hostedTutorialMicaView parentView:view];
+  }
+
+  else
+  {
+    v14.receiver = self;
+    v14.super_class = BKUIPearlJindoEnrollViewController;
+    [(BKUIPearlEnrollViewController *)&v14 prepareBottomContainerForAnimationToState:*&state fromState:*&fromState subState:*&subState advancing:advancing];
+  }
 }
 
 - (void)willResignActive:(id)active
@@ -669,13 +701,14 @@ uint64_t __54__BKUIPearlJindoEnrollViewController_didBecomeActive___block_invoke
 
   if (![(BKUIPearlEnrollViewController *)self isGlassesEnrollmentOnly]&& [(BKUIPearlEnrollViewController *)self state]== 2)
   {
-    if ([(BKUIPearlEnrollViewController *)self state]== 2)
+    state = [(BKUIPearlEnrollViewController *)self state];
+    if (state == 2)
     {
-      v6 = _BKUILoggingFacility();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = _BKUILoggingFacility(state);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_241B0A000, v6, OS_LOG_TYPE_DEFAULT, "Next state button pressed, startEnroll...", buf, 2u);
+        _os_log_impl(&dword_241B0A000, v7, OS_LOG_TYPE_DEFAULT, "Next state button pressed, startEnroll...", buf, 2u);
       }
 
       currentOperationHandler = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
@@ -701,19 +734,19 @@ uint64_t __54__BKUIPearlJindoEnrollViewController_didBecomeActive___block_invoke
     }
 
 LABEL_12:
-    v12 = dispatch_time(0, 400000000);
+    v13 = dispatch_time(0, 400000000);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __61__BKUIPearlJindoEnrollViewController_nextStateButtonPressed___block_invoke;
     block[3] = &unk_278D09978;
     block[4] = self;
-    dispatch_after(v12, MEMORY[0x277D85CD0], block);
+    dispatch_after(v13, MEMORY[0x277D85CD0], block);
     goto LABEL_13;
   }
 
-  v13.receiver = self;
-  v13.super_class = BKUIPearlJindoEnrollViewController;
-  [(BKUIPearlEnrollViewController *)&v13 nextStateButtonPressed:pressedCopy];
+  v14.receiver = self;
+  v14.super_class = BKUIPearlJindoEnrollViewController;
+  [(BKUIPearlEnrollViewController *)&v14 nextStateButtonPressed:pressedCopy];
   nextStateButton2 = [(BKUIPearlJindoEnrollViewController *)self nextStateButton];
   [nextStateButton2 setEnabled:1];
 
@@ -809,9 +842,9 @@ void __64__BKUIPearlJindoEnrollViewController__handleEnrollStateOnAppear__block_
 
 - (void)_prepEnrollViewAndEnrollTutorialMica
 {
-  v33[2] = *MEMORY[0x277D85DE8];
+  v32[2] = *MEMORY[0x277D85DE8];
   v3 = [BKUIJindoPositioningGuideView alloc];
-  v29 = [(BKUIPearlPositioningGuideView *)v3 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v28 = [(BKUIPearlPositioningGuideView *)v3 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
   v4 = [BKUIPearlEnrollView alloc];
   [(BKUIPearlJindoEnrollViewController *)self _fullEnrollViewSize];
   v6 = v5;
@@ -819,26 +852,26 @@ void __64__BKUIPearlJindoEnrollViewController__handleEnrollStateOnAppear__block_
   v8 = v7;
   preloadedState = [(BKUIPearlEnrollViewController *)self preloadedState];
   acquireCachedVideoCaptureSession = [preloadedState acquireCachedVideoCaptureSession];
-  v11 = [(BKUIPearlEnrollView *)v4 initWithFrame:acquireCachedVideoCaptureSession videoCaptureSession:[(BKUIPearlEnrollViewController *)self inSheet] inSheet:v29 positioningGuideView:1 squareNeedsPositionLayout:0.0, 0.0, v6, v8];
+  v11 = [(BKUIPearlEnrollView *)v4 initWithFrame:acquireCachedVideoCaptureSession videoCaptureSession:[(BKUIPearlEnrollViewController *)self inSheet] inSheet:v28 positioningGuideView:1 squareNeedsPositionLayout:0.0, 0.0, v6, v8];
   [(BKUIPearlEnrollViewController *)self setEnrollView:v11];
 
   enrollView = [(BKUIPearlEnrollViewController *)self enrollView];
   [enrollView setTranslatesAutoresizingMaskIntoConstraints:0];
 
-  v28 = MEMORY[0x277CCAAD0];
+  v27 = MEMORY[0x277CCAAD0];
   enrollView2 = [(BKUIPearlEnrollViewController *)self enrollView];
   widthAnchor = [enrollView2 widthAnchor];
   [(BKUIPearlJindoEnrollViewController *)self _fullEnrollViewSize];
   v15 = [widthAnchor constraintEqualToConstant:?];
-  v33[0] = v15;
+  v32[0] = v15;
   enrollView3 = [(BKUIPearlEnrollViewController *)self enrollView];
   heightAnchor = [enrollView3 heightAnchor];
   enrollView4 = [(BKUIPearlEnrollViewController *)self enrollView];
   widthAnchor2 = [enrollView4 widthAnchor];
   v20 = [heightAnchor constraintEqualToAnchor:widthAnchor2];
-  v33[1] = v20;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
-  [v28 activateConstraints:v21];
+  v32[1] = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
+  [v27 activateConstraints:v21];
 
   enrollView5 = [(BKUIPearlEnrollViewController *)self enrollView];
   [enrollView5 preEnrollActivate];
@@ -854,18 +887,16 @@ void __64__BKUIPearlJindoEnrollViewController__handleEnrollStateOnAppear__block_
 
     objc_initWeak(&location, self);
     enrollView8 = [(BKUIPearlEnrollViewController *)self enrollView];
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __74__BKUIPearlJindoEnrollViewController__prepEnrollViewAndEnrollTutorialMica__block_invoke;
-    v30[3] = &unk_278D09950;
-    objc_copyWeak(&v31, &location);
-    [enrollView8 setState:2 completion:v30];
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __74__BKUIPearlJindoEnrollViewController__prepEnrollViewAndEnrollTutorialMica__block_invoke;
+    v29[3] = &unk_278D09950;
+    objc_copyWeak(&v30, &location);
+    [enrollView8 setState:2 completion:v29];
 
-    objc_destroyWeak(&v31);
+    objc_destroyWeak(&v30);
     objc_destroyWeak(&location);
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __74__BKUIPearlJindoEnrollViewController__prepEnrollViewAndEnrollTutorialMica__block_invoke(uint64_t a1)
@@ -901,6 +932,85 @@ void __74__BKUIPearlJindoEnrollViewController__prepEnrollViewAndEnrollTutorialMi
     presentable = [(BKUIPearlJindoEnrollViewController *)self presentable];
     [presentable revoke];
   }
+}
+
+- (id)escapeHatchButton:(id)button state:(int)state
+{
+  v4 = *&state;
+  buttonCopy = button;
+  v7 = objc_opt_class();
+  currentOperationHandler = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
+  poseStatus = [currentOperationHandler poseStatus];
+  if ([v7 _shouldShowAccessibilityOptionForState:v4 poseStatus:poseStatus])
+  {
+    currentOperationHandler2 = [(BKUIPearlEnrollViewController *)self currentOperationHandler];
+    [currentOperationHandler2 bioKitCompletionPercentage];
+    v12 = v11;
+
+    if (v12 >= 1.0)
+    {
+      buttonTray = [buttonCopy buttonTray];
+      topLinkButton = [buttonTray topLinkButton];
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+  }
+
+  buttonTray = [buttonCopy buttonTray];
+  topLinkButton = [buttonTray bottomLinkButton];
+LABEL_6:
+  v15 = topLinkButton;
+
+  return v15;
+}
+
+- (void)prepareForAnimationToState:(int)state fromState:(int)fromState subState:(int)subState advancing:(BOOL)advancing
+{
+  v6 = *&state;
+  v19.receiver = self;
+  v19.super_class = BKUIPearlJindoEnrollViewController;
+  [(BKUIPearlEnrollViewController *)&v19 prepareForAnimationToState:*&state fromState:*&fromState subState:*&subState advancing:advancing];
+  v8 = [(BKUIPearlJindoEnrollViewController *)self startOverButtonForState:v6];
+  v9 = [(BKUIPearlJindoEnrollViewController *)self _startOverTitleForState:v6];
+  [v8 setTitle:v9 forState:0];
+
+  inBuddy = [(BKUIPearlEnrollViewController *)self inBuddy];
+  if ((v6 - 3) <= 1 && inBuddy)
+  {
+    buttonTray = [(BKUIPearlJindoEnrollViewController *)self buttonTray];
+    topLinkButton = [buttonTray topLinkButton];
+    v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v14 = [v13 localizedStringForKey:@"SET_UP_LATER_IN_SETTINGS" value:&stru_2853BB280 table:@"Pearl-periocular"];
+    [topLinkButton setTitle:v14 forState:0];
+  }
+
+  bottomContainer = [(BKUIPearlEnrollViewController *)self bottomContainer];
+  bottomContainer2 = [(BKUIPearlEnrollViewController *)self bottomContainer];
+  onScreenScrollview = [bottomContainer2 onScreenScrollview];
+  [bottomContainer bringSubviewToFront:onScreenScrollview];
+
+  bottomContainer3 = [(BKUIPearlEnrollViewController *)self bottomContainer];
+  [bottomContainer3 updateButtonVisibility];
+}
+
+- (id)_startOverTitleForState:(int)state
+{
+  v3 = *&state;
+  v4 = (state > 0xA) | (0x2BFu >> state);
+  _jindoBottomContainer = [(BKUIPearlJindoEnrollViewController *)self _jindoBottomContainer];
+  v6 = [_jindoBottomContainer showStartOverForState:v3];
+
+  v7 = 0;
+  if ((v4 & 1) != 0 && v6)
+  {
+    v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v7 = [v8 localizedStringForKey:@"START_OVER" value:&stru_2853BB280 table:@"Pearl-periocular"];
+  }
+
+  return v7;
 }
 
 - (id)nextStateButton
@@ -962,6 +1072,44 @@ void __74__BKUIPearlJindoEnrollViewController__prepEnrollViewAndEnrollTutorialMi
   return topLinkButton;
 }
 
+- (id)startOverButtonForState:(int)state
+{
+  v3 = *&state;
+  _jindoBottomContainer = [(BKUIPearlJindoEnrollViewController *)self _jindoBottomContainer];
+  LODWORD(v3) = [_jindoBottomContainer showStartOverForState:v3];
+
+  if (v3)
+  {
+    buttonTray = [(BKUIPearlJindoEnrollViewController *)self buttonTray];
+    bottomLinkButton = [buttonTray bottomLinkButton];
+  }
+
+  else
+  {
+    bottomLinkButton = 0;
+  }
+
+  return bottomLinkButton;
+}
+
+- (void)presentViewController:(id)controller animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  completionCopy = completion;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    [controllerCopy setAlertListener:self];
+    presentable = [(BKUIPearlJindoEnrollViewController *)self presentable];
+    [presentable revoke];
+  }
+
+  v11.receiver = self;
+  v11.super_class = BKUIPearlJindoEnrollViewController;
+  [(BKUIPearlJindoEnrollViewController *)&v11 presentViewController:controllerCopy animated:animatedCopy completion:completionCopy];
+}
+
 - (void)alertActionTappedFromAlert
 {
   if ([(BKUIPearlEnrollViewController *)self state]!= 10)
@@ -996,16 +1144,14 @@ void __74__BKUIPearlJindoEnrollViewController__prepEnrollViewAndEnrollTutorialMi
     presentable = [(BKUIPearlJindoEnrollViewController *)self presentable];
     [presentable revoke];
 
-    v13 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = _BKUILoggingFacility(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       v15 = 138412290;
       v16 = modeCopy;
-      _os_log_impl(&dword_241B0A000, v13, OS_LOG_TYPE_DEFAULT, "Element did clean up and auto-revoke %@", &v15, 0xCu);
+      _os_log_impl(&dword_241B0A000, v14, OS_LOG_TYPE_DEFAULT, "Element did clean up and auto-revoke %@", &v15, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 @end

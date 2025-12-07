@@ -6,16 +6,16 @@
 
 - (BOOL)handleContext:(id)context completion:(id)completion
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   completionCopy = completion;
   v7 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v55 = "[AFSiriActivationHandlerCoreSpeechDaemon handleContext:completion:]";
-    v56 = 2112;
-    v57 = contextCopy;
+    v54 = "[AFSiriActivationHandlerCoreSpeechDaemon handleContext:completion:]";
+    v55 = 2112;
+    v56 = contextCopy;
     _os_log_impl(&dword_1912FE000, v7, OS_LOG_TYPE_INFO, "%s context = %@", buf, 0x16u);
   }
 
@@ -33,15 +33,15 @@
         CSActivationEventClass = getCSActivationEventClass();
         userInfo = [contextCopy userInfo];
         v25 = [CSActivationEventClass jarvisVoiceTriggerEvent:deviceID activationInfo:userInfo hostTime:{objc_msgSend(contextCopy, "timestamp")}];
-        v42[0] = MEMORY[0x1E69E9820];
-        v42[1] = 3221225472;
-        v42[2] = __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___block_invoke_7;
-        v42[3] = &unk_1E7345A40;
-        v43 = contextCopy;
-        v44 = completionCopy;
-        [sharedNotifier notifyActivationEvent:v25 completion:v42];
+        v41[0] = MEMORY[0x1E69E9820];
+        v41[1] = 3221225472;
+        v41[2] = __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___block_invoke_7;
+        v41[3] = &unk_1E7345A40;
+        v42 = contextCopy;
+        v43 = completionCopy;
+        [sharedNotifier notifyActivationEvent:v25 completion:v41];
 
-        v21 = v43;
+        v21 = v42;
         goto LABEL_14;
       }
 
@@ -62,9 +62,9 @@
 
 LABEL_20:
     *buf = 136315394;
-    v55 = "[AFSiriActivationHandlerCoreSpeechDaemon handleContext:completion:]";
-    v56 = 2112;
-    v57 = contextCopy;
+    v54 = "[AFSiriActivationHandlerCoreSpeechDaemon handleContext:completion:]";
+    v55 = 2112;
+    v56 = contextCopy;
     v29 = "%s No device ID is provided in context %@.";
 LABEL_30:
     _os_log_error_impl(&dword_1912FE000, v28, OS_LOG_TYPE_ERROR, v29, buf, 0x16u);
@@ -82,15 +82,15 @@ LABEL_30:
         v18 = getCSActivationEventClass();
         userInfo2 = [contextCopy userInfo];
         v20 = [v18 remoteMicVoiceTriggerEvent:deviceID activationInfo:userInfo2 hostTime:{objc_msgSend(contextCopy, "timestamp")}];
-        v48[0] = MEMORY[0x1E69E9820];
-        v48[1] = 3221225472;
-        v48[2] = __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___block_invoke_3;
-        v48[3] = &unk_1E7345A40;
-        v49 = contextCopy;
-        v50 = completionCopy;
-        [sharedNotifier2 notifyActivationEvent:v20 completion:v48];
+        v47[0] = MEMORY[0x1E69E9820];
+        v47[1] = 3221225472;
+        v47[2] = __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___block_invoke_3;
+        v47[3] = &unk_1E7345A40;
+        v48 = contextCopy;
+        v49 = completionCopy;
+        [sharedNotifier2 notifyActivationEvent:v20 completion:v47];
 
-        v21 = v49;
+        v21 = v48;
 LABEL_14:
 
         v15 = 1;
@@ -114,25 +114,25 @@ LABEL_32:
           timestamp = [contextCopy timestamp];
           LODWORD(v37) = v35;
           v38 = [v33 remoteMicVADEvent:deviceID vadScore:timestamp hostTime:v37];
-          v45[0] = MEMORY[0x1E69E9820];
-          v45[1] = 3221225472;
-          v45[2] = __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___block_invoke_2;
-          v45[3] = &unk_1E7345A40;
-          v46 = contextCopy;
-          v47 = completionCopy;
-          [sharedNotifier3 notifyActivationEvent:v38 completion:v45];
+          v44[0] = MEMORY[0x1E69E9820];
+          v44[1] = 3221225472;
+          v44[2] = __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___block_invoke_2;
+          v44[3] = &unk_1E7345A40;
+          v45 = contextCopy;
+          v46 = completionCopy;
+          [sharedNotifier3 notifyActivationEvent:v38 completion:v44];
         }
 
         else
         {
-          v41 = AFSiriLogContextDaemon;
+          v40 = AFSiriLogContextDaemon;
           if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
           {
             *buf = 136315394;
-            v55 = "[AFSiriActivationHandlerCoreSpeechDaemon handleContext:completion:]";
-            v56 = 2112;
-            v57 = contextCopy;
-            _os_log_error_impl(&dword_1912FE000, v41, OS_LOG_TYPE_ERROR, "%s No score is provided in context %@.", buf, 0x16u);
+            v54 = "[AFSiriActivationHandlerCoreSpeechDaemon handleContext:completion:]";
+            v55 = 2112;
+            v56 = contextCopy;
+            _os_log_error_impl(&dword_1912FE000, v40, OS_LOG_TYPE_ERROR, "%s No score is provided in context %@.", buf, 0x16u);
           }
         }
 
@@ -144,9 +144,9 @@ LABEL_32:
       {
 LABEL_29:
         *buf = 136315394;
-        v55 = "[AFSiriActivationHandlerCoreSpeechDaemon handleContext:completion:]";
-        v56 = 2112;
-        v57 = contextCopy;
+        v54 = "[AFSiriActivationHandlerCoreSpeechDaemon handleContext:completion:]";
+        v55 = 2112;
+        v56 = contextCopy;
         v29 = "%s Unexpected event in context %@.";
         goto LABEL_30;
       }
@@ -176,9 +176,9 @@ LABEL_18:
     }
 
     *buf = 136315394;
-    v55 = "[AFSiriActivationHandlerCoreSpeechDaemon handleContext:completion:]";
-    v56 = 2112;
-    v57 = contextCopy;
+    v54 = "[AFSiriActivationHandlerCoreSpeechDaemon handleContext:completion:]";
+    v55 = 2112;
+    v56 = contextCopy;
     v27 = "%s Unexpected source in context %@.";
 LABEL_38:
     _os_log_error_impl(&dword_1912FE000, v26, OS_LOG_TYPE_ERROR, v27, buf, 0x16u);
@@ -194,9 +194,9 @@ LABEL_38:
     }
 
     *buf = 136315394;
-    v55 = "[AFSiriActivationHandlerCoreSpeechDaemon handleContext:completion:]";
-    v56 = 2112;
-    v57 = contextCopy;
+    v54 = "[AFSiriActivationHandlerCoreSpeechDaemon handleContext:completion:]";
+    v55 = 2112;
+    v56 = contextCopy;
     v27 = "%s Unexpected event in context %@.";
     goto LABEL_38;
   }
@@ -205,37 +205,36 @@ LABEL_38:
   v12 = getCSActivationEventClass();
   userInfo4 = [contextCopy userInfo];
   v14 = [v12 builtInMicVoiceTriggerEvent:userInfo4 hostTime:{objc_msgSend(contextCopy, "timestamp")}];
-  v51[0] = MEMORY[0x1E69E9820];
-  v51[1] = 3221225472;
-  v51[2] = __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___block_invoke;
-  v51[3] = &unk_1E7345A40;
-  v52 = contextCopy;
-  v53 = completionCopy;
-  [sharedNotifier4 notifyActivationEvent:v14 completion:v51];
+  v50[0] = MEMORY[0x1E69E9820];
+  v50[1] = 3221225472;
+  v50[2] = __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___block_invoke;
+  v50[3] = &unk_1E7345A40;
+  v51 = contextCopy;
+  v52 = completionCopy;
+  [sharedNotifier4 notifyActivationEvent:v14 completion:v50];
 
   v15 = 1;
 LABEL_33:
 
-  v39 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 void __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (v4)
   {
     v5 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 32);
+      v8 = *(a1 + 32);
       *buf = 136315650;
-      v13 = "[AFSiriActivationHandlerCoreSpeechDaemon handleContext:completion:]_block_invoke";
-      v14 = 2112;
-      v15 = v4;
-      v16 = 2112;
-      v17 = v9;
+      v12 = "[AFSiriActivationHandlerCoreSpeechDaemon handleContext:completion:]_block_invoke";
+      v13 = 2112;
+      v14 = v4;
+      v15 = 2112;
+      v16 = v8;
       _os_log_error_impl(&dword_1912FE000, v5, OS_LOG_TYPE_ERROR, "%s CSActivationEventNotifier returned error %@ for activation context %@.", buf, 0x20u);
     }
   }
@@ -243,34 +242,32 @@ void __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___bl
   v6 = *(a1 + 40);
   if (v6)
   {
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___block_invoke_1;
-    v10[3] = &unk_1E7346640;
-    v11 = v4;
-    v7 = [AFSiriActivationResult newWithBuilder:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___block_invoke_1;
+    v9[3] = &unk_1E7346640;
+    v10 = v4;
+    v7 = [AFSiriActivationResult newWithBuilder:v9];
     (*(v6 + 16))(v6, v7);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (v4)
   {
     v5 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 32);
+      v8 = *(a1 + 32);
       *buf = 136315650;
-      v13 = "[AFSiriActivationHandlerCoreSpeechDaemon handleContext:completion:]_block_invoke";
-      v14 = 2112;
-      v15 = v4;
-      v16 = 2112;
-      v17 = v9;
+      v12 = "[AFSiriActivationHandlerCoreSpeechDaemon handleContext:completion:]_block_invoke";
+      v13 = 2112;
+      v14 = v4;
+      v15 = 2112;
+      v16 = v8;
       _os_log_error_impl(&dword_1912FE000, v5, OS_LOG_TYPE_ERROR, "%s CSActivationEventNotifier returned error %@ for activation context %@.", buf, 0x20u);
     }
   }
@@ -278,34 +275,32 @@ void __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___bl
   v6 = *(a1 + 40);
   if (v6)
   {
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___block_invoke_4;
-    v10[3] = &unk_1E7346640;
-    v11 = v4;
-    v7 = [AFSiriActivationResult newWithBuilder:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___block_invoke_4;
+    v9[3] = &unk_1E7346640;
+    v10 = v4;
+    v7 = [AFSiriActivationResult newWithBuilder:v9];
     (*(v6 + 16))(v6, v7);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (v4)
   {
     v5 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 32);
+      v8 = *(a1 + 32);
       *buf = 136315650;
-      v13 = "[AFSiriActivationHandlerCoreSpeechDaemon handleContext:completion:]_block_invoke_2";
-      v14 = 2112;
-      v15 = v4;
-      v16 = 2112;
-      v17 = v9;
+      v12 = "[AFSiriActivationHandlerCoreSpeechDaemon handleContext:completion:]_block_invoke_2";
+      v13 = 2112;
+      v14 = v4;
+      v15 = 2112;
+      v16 = v8;
       _os_log_error_impl(&dword_1912FE000, v5, OS_LOG_TYPE_ERROR, "%s CSActivationEventNotifier returned error %@ for activation context %@.", buf, 0x20u);
     }
   }
@@ -313,34 +308,32 @@ void __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___bl
   v6 = *(a1 + 40);
   if (v6)
   {
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___block_invoke_6;
-    v10[3] = &unk_1E7346640;
-    v11 = v4;
-    v7 = [AFSiriActivationResult newWithBuilder:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___block_invoke_6;
+    v9[3] = &unk_1E7346640;
+    v10 = v4;
+    v7 = [AFSiriActivationResult newWithBuilder:v9];
     (*(v6 + 16))(v6, v7);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___block_invoke_7(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (v4)
   {
     v5 = AFSiriLogContextDaemon;
     if (os_log_type_enabled(AFSiriLogContextDaemon, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 32);
+      v8 = *(a1 + 32);
       *buf = 136315650;
-      v13 = "[AFSiriActivationHandlerCoreSpeechDaemon handleContext:completion:]_block_invoke";
-      v14 = 2112;
-      v15 = v4;
-      v16 = 2112;
-      v17 = v9;
+      v12 = "[AFSiriActivationHandlerCoreSpeechDaemon handleContext:completion:]_block_invoke";
+      v13 = 2112;
+      v14 = v4;
+      v15 = 2112;
+      v16 = v8;
       _os_log_error_impl(&dword_1912FE000, v5, OS_LOG_TYPE_ERROR, "%s CSActivationEventNotifier returned error %@ for activation context %@.", buf, 0x20u);
     }
   }
@@ -348,16 +341,14 @@ void __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___bl
   v6 = *(a1 + 40);
   if (v6)
   {
-    v10[0] = MEMORY[0x1E69E9820];
-    v10[1] = 3221225472;
-    v10[2] = __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___block_invoke_8;
-    v10[3] = &unk_1E7346640;
-    v11 = v4;
-    v7 = [AFSiriActivationResult newWithBuilder:v10];
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___block_invoke_8;
+    v9[3] = &unk_1E7346640;
+    v10 = v4;
+    v7 = [AFSiriActivationResult newWithBuilder:v9];
     (*(v6 + 16))(v6, v7);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __68__AFSiriActivationHandlerCoreSpeechDaemon_handleContext_completion___block_invoke_8(uint64_t a1, void *a2)

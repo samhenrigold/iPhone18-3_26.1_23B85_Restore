@@ -26,7 +26,7 @@
 
 - (void)startTCPDumpWithDuration:(double)duration destinationPath:(id)path tcpDumpStarted:(id)started tcpDumpCompleted:(id)completed
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   startedCopy = started;
   completedCopy = completed;
@@ -45,26 +45,24 @@
   aBlock[2] = __89__TCPDumpProbe_startTCPDumpWithDuration_destinationPath_tcpDumpStarted_tcpDumpCompleted___block_invoke;
   aBlock[3] = &unk_27898CE18;
   aBlock[4] = self;
-  v24 = completedCopy;
+  v23 = completedCopy;
   v14 = startedCopy;
-  v25 = v14;
+  v24 = v14;
   v15 = completedCopy;
   v16 = _Block_copy(aBlock);
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __89__TCPDumpProbe_startTCPDumpWithDuration_destinationPath_tcpDumpStarted_tcpDumpCompleted___block_invoke_3;
-  v20[3] = &unk_27898CE40;
-  v20[4] = self;
-  v21 = v14;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __89__TCPDumpProbe_startTCPDumpWithDuration_destinationPath_tcpDumpStarted_tcpDumpCompleted___block_invoke_3;
+  v19[3] = &unk_27898CE40;
+  v19[4] = self;
+  v20 = v14;
   v17 = v16;
-  v22 = v17;
+  v21 = v17;
   v18 = v14;
-  if (![(NetDiagnosticProbe *)self netDiagnosticsTaskInProgress:v20])
+  if (![(NetDiagnosticProbe *)self netDiagnosticsTaskInProgress:v19])
   {
     v17[2](v17);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __89__TCPDumpProbe_startTCPDumpWithDuration_destinationPath_tcpDumpStarted_tcpDumpCompleted___block_invoke(uint64_t a1)
@@ -96,15 +94,15 @@ void __89__TCPDumpProbe_startTCPDumpWithDuration_destinationPath_tcpDumpStarted_
 
 uint64_t __89__TCPDumpProbe_startTCPDumpWithDuration_destinationPath_tcpDumpStarted_tcpDumpCompleted___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = debuggabilityLogHandle;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO))
   {
     v5 = v4;
     v6 = [TestProbe testProbeStatusString:a2];
-    v10 = 138412290;
-    v11 = v6;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "startTCPDumpWithDuration Status Update %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v6;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_INFO, "startTCPDumpWithDuration Status Update %@", &v9, 0xCu);
   }
 
   if ((a2 - 3) > 2)
@@ -124,49 +122,47 @@ uint64_t __89__TCPDumpProbe_startTCPDumpWithDuration_destinationPath_tcpDumpStar
   result = *(a1 + 48);
   if (result)
   {
-    result = (*(result + 16))(result, a2);
+    return (*(result + 16))(result, a2);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t __89__TCPDumpProbe_startTCPDumpWithDuration_destinationPath_tcpDumpStarted_tcpDumpCompleted___block_invoke_3(uint64_t result, int a2)
+void *__89__TCPDumpProbe_startTCPDumpWithDuration_destinationPath_tcpDumpStarted_tcpDumpCompleted___block_invoke_3(void *result, int a2)
 {
   if ((a2 + 1) <= 6)
   {
     v2 = result;
     if (((1 << (a2 + 1)) & 0x1B) != 0)
     {
-      v3 = *(result + 48);
-      v4 = *(*(v2 + 48) + 16);
+      v3 = *(result[6] + 16);
 
-      return v4();
+      return v3();
     }
 
     else if (a2 == 1)
     {
-      v6 = debuggabilityLogHandle;
+      v5 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        *v8 = 0;
-        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "A TCP Dump is already in progress. We cannot stop it.", v8, 2u);
+        *v7 = 0;
+        _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "A TCP Dump is already in progress. We cannot stop it.", v7, 2u);
       }
 
-      v7 = *(v2 + 40);
-      if (v7)
+      v6 = v2[5];
+      if (v6)
       {
-        (*(v7 + 16))(v7, 3);
+        (*(v6 + 16))(v6, 3);
       }
 
-      return [*(v2 + 32) disconnectFromNetDiagnostics];
+      return [v2[4] disconnectFromNetDiagnostics];
     }
 
     else if (a2 == 5)
     {
-      v5 = *(result + 32);
+      v4 = result[4];
 
-      return [v5 disconnectFromNetDiagnostics];
+      return [v4 disconnectFromNetDiagnostics];
     }
   }
 
@@ -175,12 +171,12 @@ uint64_t __89__TCPDumpProbe_startTCPDumpWithDuration_destinationPath_tcpDumpStar
 
 - (BOOL)startNetDiagnosticsTask:(id)task
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   setUpDefaultTaskDictionary = [(NetDiagnosticProbe *)self setUpDefaultTaskDictionary];
-  v15.receiver = self;
-  v15.super_class = TCPDumpProbe;
-  [(NetDiagnosticProbe *)&v15 startNetDiagnosticsTask:taskCopy];
+  v14.receiver = self;
+  v14.super_class = TCPDumpProbe;
+  [(NetDiagnosticProbe *)&v14 startNetDiagnosticsTask:taskCopy];
 
   duration = self->_duration;
   if (duration < 5.0 || duration > 900.0)
@@ -190,9 +186,9 @@ uint64_t __89__TCPDumpProbe_startTCPDumpWithDuration_destinationPath_tcpDumpStar
     {
       v8 = self->_duration;
       *buf = 134218240;
-      v17 = v8;
-      v18 = 2048;
-      v19 = 0x403E000000000000;
+      v16 = v8;
+      v17 = 2048;
+      v18 = 0x403E000000000000;
       _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, "Unsupported TCP dump duration (%f) request. Resetting to %f", buf, 0x16u);
     }
 
@@ -213,7 +209,6 @@ uint64_t __89__TCPDumpProbe_startTCPDumpWithDuration_destinationPath_tcpDumpStar
   [(TCPDumpProbe *)self setTcpDumpTimer:v10];
   dispatch_resume(v10);
 
-  v12 = *MEMORY[0x277D85DE8];
   return 1;
 }
 

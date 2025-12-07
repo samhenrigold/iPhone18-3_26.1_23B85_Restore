@@ -37,7 +37,7 @@
 - (void)tintColorDidChange
 {
   selfCopy = self;
-  sub_237134124();
+  sub_237134124(selfCopy, v2);
 }
 
 - (void)textFieldEditingDidChange:(id)change

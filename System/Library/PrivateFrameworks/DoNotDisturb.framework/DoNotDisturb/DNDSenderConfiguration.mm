@@ -541,39 +541,37 @@ LABEL_78:
 
 - (id)_redactedDescriptionsForContacts:(id)contacts
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   contactsCopy = contacts;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = contactsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        redactedDescription = [*(*(&v13 + 1) + 8 * i) redactedDescription];
+        redactedDescription = [*(*(&v12 + 1) + 8 * i) redactedDescription];
         [v4 addObject:redactedDescription];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -619,54 +617,53 @@ LABEL_78:
 
 - (DNDSenderConfiguration)initWithCoder:(id)coder
 {
-  v38[2] = *MEMORY[0x277D85DE8];
+  v37[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB98];
   coderCopy = coder;
-  v38[0] = objc_opt_class();
-  v38[1] = objc_opt_class();
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
-  v6 = [v3 setWithArray:v5];
-  v31 = [coderCopy decodeObjectOfClasses:v6 forKey:@"allowedContactTypes"];
-
-  v7 = MEMORY[0x277CBEB98];
   v37[0] = objc_opt_class();
   v37[1] = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+  v6 = [v3 setWithArray:v5];
+  v30 = [coderCopy decodeObjectOfClasses:v6 forKey:@"allowedContactTypes"];
+
+  v7 = MEMORY[0x277CBEB98];
+  v36[0] = objc_opt_class();
+  v36[1] = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
   v9 = [v7 setWithArray:v8];
   v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"deniedContactTypes"];
 
   v11 = MEMORY[0x277CBEB98];
-  v36[0] = objc_opt_class();
-  v36[1] = objc_opt_class();
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
+  v35[0] = objc_opt_class();
+  v35[1] = objc_opt_class();
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
   v13 = [v11 setWithArray:v12];
   v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"allowedContactGroups"];
 
   v15 = MEMORY[0x277CBEB98];
-  v35[0] = objc_opt_class();
-  v35[1] = objc_opt_class();
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
+  v34[0] = objc_opt_class();
+  v34[1] = objc_opt_class();
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
   v17 = [v15 setWithArray:v16];
   v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"deniedContactGroups"];
 
   v19 = MEMORY[0x277CBEB98];
-  v34[0] = objc_opt_class();
-  v34[1] = objc_opt_class();
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:2];
+  v33[0] = objc_opt_class();
+  v33[1] = objc_opt_class();
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
   v21 = [v19 setWithArray:v20];
   v22 = [coderCopy decodeObjectOfClasses:v21 forKey:@"allowedContacts"];
 
   v23 = MEMORY[0x277CBEB98];
-  v33[0] = objc_opt_class();
-  v33[1] = objc_opt_class();
-  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:2];
+  v32[0] = objc_opt_class();
+  v32[1] = objc_opt_class();
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:2];
   v25 = [v23 setWithArray:v24];
   v26 = [coderCopy decodeObjectOfClasses:v25 forKey:@"deniedContacts"];
 
   v27 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"phoneCallBypassSettings"];
 
-  v28 = [(DNDSenderConfiguration *)self _initWithAllowedContactTypes:v31 deniedContactTypes:v10 allowedContactGroups:v14 deniedContactGroups:v18 allowedContacts:v22 deniedContacts:v26 phoneCallBypassSettings:v27];
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = [(DNDSenderConfiguration *)self _initWithAllowedContactTypes:v30 deniedContactTypes:v10 allowedContactGroups:v14 deniedContactGroups:v18 allowedContacts:v22 deniedContacts:v26 phoneCallBypassSettings:v27];
   return v28;
 }
 

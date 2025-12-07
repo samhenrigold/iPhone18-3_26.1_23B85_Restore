@@ -122,55 +122,55 @@
 - (void)setFileNameAndMetadataFromURL:(id)l
 {
   lCopy = l;
-  v29 = 0;
-  v28 = 0;
-  [lCopy getResourceValue:&v29 forKey:NSURLFileSizeKey error:&v28];
-  v5 = v29;
-  v6 = v28;
-  v7 = v6;
+  v32 = 0;
+  v31 = 0;
+  [lCopy getResourceValue:&v32 forKey:NSURLFileSizeKey error:&v31];
+  v5 = v32;
+  v6 = v31;
+  v8 = v6;
   if (v5)
   {
-    v8 = v6 == 0;
+    v9 = v6 == 0;
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  if (!v8)
+  if (!v9)
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXImport(v6, v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [ImportDetailsStackView setFileNameAndMetadataFromURL:v9];
+      [ImportDetailsStackView setFileNameAndMetadataFromURL:v10];
     }
   }
 
-  v27 = 0;
-  v26 = 0;
-  [lCopy getResourceValue:&v27 forKey:NSURLCreationDateKey error:&v26];
-  v10 = v27;
-  v11 = v26;
+  v30 = 0;
+  v29 = 0;
+  [lCopy getResourceValue:&v30 forKey:NSURLCreationDateKey error:&v29];
+  v11 = v30;
+  v12 = v29;
 
-  if (!v5 || v11)
+  if (!v5 || v12)
   {
-    v12 = WBS_LOG_CHANNEL_PREFIXImport();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v15 = WBS_LOG_CHANNEL_PREFIXImport(v13, v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [ImportDetailsStackView setFileNameAndMetadataFromURL:v12];
+      [ImportDetailsStackView setFileNameAndMetadataFromURL:v15];
     }
   }
 
-  v13 = [NSDateFormatter localizedStringFromDate:v10 dateStyle:1 timeStyle:0];
+  v16 = [NSDateFormatter localizedStringFromDate:v11 dateStyle:1 timeStyle:0];
   [v5 unsignedIntegerValue];
-  v14 = NSLocalizedFileSizeDescription();
-  if (v10 && v5)
+  v17 = NSLocalizedFileSizeDescription();
+  if (v11 && v5)
   {
-    v15 = _WBSLocalizedString();
-    v16 = [NSString localizedStringWithFormat:v15, v13, v14];
+    v18 = _WBSLocalizedString();
+    v19 = [NSString localizedStringWithFormat:v18, v16, v17];
     p_metadataLabel = &self->_metadataLabel;
-    [(UILabel *)self->_metadataLabel setText:v16];
+    [(UILabel *)self->_metadataLabel setText:v19];
   }
 
   else
@@ -182,19 +182,19 @@
   [(UILabel *)*p_metadataLabel setAccessibilityIdentifier:@"ImportDetailsMetadata"];
   if (self->_foundExportLooksLikeChromeExport)
   {
-    v25 = v14;
-    v18 = v13;
-    v19 = v11;
+    v28 = v17;
+    v21 = v16;
+    v22 = v12;
     lastPathComponent2 = _WBSLocalizedString();
     lastPathComponent = [lCopy lastPathComponent];
     stringByDeletingPathExtension = [lastPathComponent stringByDeletingPathExtension];
-    v23 = [NSString localizedStringWithFormat:lastPathComponent2, stringByDeletingPathExtension];
+    v26 = [NSString localizedStringWithFormat:lastPathComponent2, stringByDeletingPathExtension];
     p_filenameLabel = &self->_filenameLabel;
-    [(UILabel *)*p_filenameLabel setText:v23];
+    [(UILabel *)*p_filenameLabel setText:v26];
 
-    v11 = v19;
-    v13 = v18;
-    v14 = v25;
+    v12 = v22;
+    v16 = v21;
+    v17 = v28;
   }
 
   else
@@ -264,7 +264,7 @@ LABEL_11:
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_0, v4, v5, "Unable to determine the size of the file to import: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0(&dword_0, v4, v5, "Unable to determine the size of the file to import: %{public}@", v6, v7, v8, v9);
 }
 
 - (void)setFileNameAndMetadataFromURL:(void *)a1 .cold.2(void *a1)
@@ -272,7 +272,7 @@ LABEL_11:
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_1() safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0(&dword_0, v4, v5, "Unable to determine the date that the file to import was created: %{public}@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_0(&dword_0, v4, v5, "Unable to determine the date that the file to import was created: %{public}@", v6, v7, v8, v9);
 }
 
 @end

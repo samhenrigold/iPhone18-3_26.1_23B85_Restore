@@ -24,9 +24,11 @@
 
 uint64_t __30__BGTaskSchedulerProxy_shared__block_invoke(uint64_t a1)
 {
-  shared_proxy = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  v2 = shared_proxy;
+  shared_proxy = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 - (BOOL)registerForTaskWithIdentifier:(id)identifier launchHandler:(id)handler

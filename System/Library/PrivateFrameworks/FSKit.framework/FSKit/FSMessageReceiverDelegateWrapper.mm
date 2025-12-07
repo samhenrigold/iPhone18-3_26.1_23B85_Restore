@@ -8,13 +8,13 @@
 
 - (FSMessageReceiverDelegateWrapper)initWithDelegate:(id)delegate Locale:(id)locale preferredLanguages:(id)languages
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   localeCopy = locale;
   languagesCopy = languages;
-  v23.receiver = self;
-  v23.super_class = FSMessageReceiverDelegateWrapper;
-  v12 = [(FSMessageReceiverDelegateWrapper *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = FSMessageReceiverDelegateWrapper;
+  v12 = [(FSMessageReceiverDelegateWrapper *)&v22 init];
   v13 = v12;
   if (v12)
   {
@@ -42,8 +42,8 @@
     else
     {
       preferredLanguages = [(NSLocale *)v13->_locale languageCode];
-      v24[0] = preferredLanguages;
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+      v23[0] = preferredLanguages;
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
       v19 = v13->_preferredLanguages;
       v13->_preferredLanguages = v18;
     }
@@ -53,13 +53,12 @@
     v13->_completedError = 0;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (void)completed:(id)completed replyHandler:(id)handler
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   completedCopy = completed;
   handlerCopy = handler;
   selfCopy = self;
@@ -94,20 +93,18 @@ LABEL_7:
   }
 
   v11 = [MEMORY[0x277CCA9B8] errorWithDomain:@"FSKitErrorDomain" code:27503 userInfo:0];
-  v12 = fskit_std_log();
+  v12 = fskit_std_log(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315394;
-    v15 = "[FSMessageReceiverDelegateWrapper completed:replyHandler:]";
-    v16 = 2112;
-    v17 = v11;
-    _os_log_impl(&dword_24A929000, v12, OS_LOG_TYPE_DEFAULT, "%s: Task didn't start yet, replying (%@) to FSMessageConnection", &v14, 0x16u);
+    v13 = 136315394;
+    v14 = "[FSMessageReceiverDelegateWrapper completed:replyHandler:]";
+    v15 = 2112;
+    v16 = v11;
+    _os_log_impl(&dword_24A929000, v12, OS_LOG_TYPE_DEFAULT, "%s: Task didn't start yet, replying (%@) to FSMessageConnection", &v13, 0x16u);
   }
 
   (*(handlerCopy + 2))(handlerCopy, 0, v11);
 LABEL_11:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didStart

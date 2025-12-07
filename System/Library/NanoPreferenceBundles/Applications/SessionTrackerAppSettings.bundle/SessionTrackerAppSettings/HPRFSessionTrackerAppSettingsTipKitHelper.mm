@@ -8,7 +8,7 @@
 - (HPRFSessionTrackerAppSettingsTipKitHelper)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for TipKitHelper();
+  v3.super_class = type metadata accessor for TipKitHelper(self, a2);
   return [(HPRFSessionTrackerAppSettingsTipKitHelper *)&v3 init];
 }
 

@@ -26,6 +26,7 @@
 - (void)dealloc;
 - (void)endAnimatingActivityIndicatorWithError:(id)error;
 - (void)hideThirdTitle:(BOOL)title;
+- (void)hideTitle:(BOOL)title;
 - (void)layoutSubviews;
 - (void)reloadSecondaryLabel;
 - (void)reloadTitleLabelFont;
@@ -284,29 +285,11 @@ void __38__MUPlaceHeaderView__updateCoverPhoto__block_invoke(uint64_t a1, void *
   [v3 lineHeight];
   v5 = v4;
 
-  if (self->_containmentLabel)
+  if (self->_containmentLabel && (-[MUPlaceHeaderView _containmentString](self, "_containmentString"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v6 length], v6, v7) || self->_secondaryTitleLabel && (-[MUPlaceHeaderViewModel placeSecondaryName](self->_viewModel, "placeSecondaryName"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "length"), v8, v9))
   {
-    _containmentString = [(MUPlaceHeaderView *)self _containmentString];
-    v7 = [_containmentString length];
-
-    if (v7)
-    {
-      goto LABEL_5;
-    }
-  }
-
-  if (self->_secondaryTitleLabel)
-  {
-    placeSecondaryName = [(MUPlaceHeaderViewModel *)self->_viewModel placeSecondaryName];
-    v9 = [placeSecondaryName length];
-
-    if (v9)
-    {
-LABEL_5:
-      v10 = [MEMORY[0x1E69DB878] _preferredFontForTextStyle:*MEMORY[0x1E69DDD28] weight:*MEMORY[0x1E69DB980]];
-      [v10 lineHeight];
-      v5 = v5 + 1.0 + v11;
-    }
+    v10 = [MEMORY[0x1E69DB878] _preferredFontForTextStyle:*MEMORY[0x1E69DDD28] weight:*MEMORY[0x1E69DB980]];
+    [v10 lineHeight];
+    v5 = v5 + 1.0 + v11;
   }
 
   return v5;
@@ -386,11 +369,11 @@ LABEL_5:
   }
 }
 
-uint64_t __36__MUPlaceHeaderView_hideThirdTitle___block_invoke_2(uint64_t result, int a2)
+void *__36__MUPlaceHeaderView_hideThirdTitle___block_invoke_2(void *result, int a2)
 {
   if (a2)
   {
-    return [*(*(result + 32) + 480) setHidden:1];
+    return [*(result[4] + 480) setHidden:1];
   }
 
   return result;
@@ -424,6 +407,15 @@ uint64_t __36__MUPlaceHeaderView_hideThirdTitle___block_invoke_2(uint64_t result
   }
 
   return result;
+}
+
+- (void)hideTitle:(BOOL)title
+{
+  titleCopy = title;
+  [(MUFadingMarqueeLabel *)self->_titleLabel setHidden:?];
+  verifiedBusinessContainerView = self->_verifiedBusinessContainerView;
+
+  [(UIView *)verifiedBusinessContainerView setHidden:titleCopy];
 }
 
 - (void)reloadSecondaryLabel
@@ -675,7 +667,7 @@ void __42__MUPlaceHeaderView__tappedEnclosingPlace__block_invoke(uint64_t a1, vo
 
 - (void)_updateContainmentLineWithAttributedString
 {
-  v23[2] = *MEMORY[0x1E69E9840];
+  v21[2] = *MEMORY[0x1E69E9840];
   placeSecondaryName = [(MUPlaceHeaderViewModel *)self->_viewModel placeSecondaryName];
   if (![placeSecondaryName length])
   {
@@ -697,13 +689,13 @@ LABEL_8:
   {
     v7 = objc_alloc(MEMORY[0x1E696AAB0]);
     placeSecondaryName2 = [(MUPlaceHeaderViewModel *)self->_viewModel placeSecondaryName];
-    v22[0] = *MEMORY[0x1E69DB650];
+    v20[0] = *MEMORY[0x1E69DB650];
     v9 = +[MUInfoCardStyle secondaryTextColor];
-    v23[0] = v9;
-    v22[1] = *MEMORY[0x1E69DB648];
+    v21[0] = v9;
+    v20[1] = *MEMORY[0x1E69DB648];
     v10 = [MEMORY[0x1E69DB878] _preferredFontForTextStyle:*MEMORY[0x1E69DDD28] weight:*MEMORY[0x1E69DB980]];
-    v23[1] = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
+    v21[1] = v10;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:2];
     v12 = [v7 initWithString:placeSecondaryName2 attributes:v11];
     [(MULinkView *)self->_containmentLabel setAttributedText:v12];
 
@@ -715,22 +707,20 @@ LABEL_8:
 
     objc_initWeak(&location, self);
     v14 = MEMORY[0x1E69E96A0];
-    objc_copyWeak(&v20, &location);
+    objc_copyWeak(&v18, &location);
     v15 = geo_dispatch_timer_create_on_queue();
     v16 = self->_secondaryContainmentTransitionTimer;
     self->_secondaryContainmentTransitionTimer = v15;
 
     dispatch_activate(self->_secondaryContainmentTransitionTimer);
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
-    v17 = *MEMORY[0x1E69E9840];
     return;
   }
 
 LABEL_9:
   _containmentString2 = [(MUPlaceHeaderView *)self _containmentString];
   [(MULinkView *)self->_containmentLabel setAttributedText:_containmentString2];
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __63__MUPlaceHeaderView__updateContainmentLineWithAttributedString__block_invoke(uint64_t a1)
@@ -756,7 +746,7 @@ void __63__MUPlaceHeaderView__updateContainmentLineWithAttributedString__block_i
 
 - (void)_updateAppearance
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   if ([(MUPlaceHeaderViewModel *)self->_viewModel hasHeroImage])
   {
     [(MUPlaceHeaderView *)self _updateHeroImage];
@@ -785,25 +775,25 @@ void __63__MUPlaceHeaderView__updateContainmentLineWithAttributedString__block_i
     [v5 addObject:v8];
     if ([(MUPlaceHeaderViewModel *)self->_viewModel isClaimed])
     {
-      v24 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:@" "];
+      v23 = [objc_alloc(MEMORY[0x1E696AAB0]) initWithString:@" "];
       [v5 addObject:?];
-      v25 = objc_alloc_init(MEMORY[0x1E69DB7F0]);
-      v26 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"checkmark.seal.fill"];
+      v24 = objc_alloc_init(MEMORY[0x1E69DB7F0]);
+      v25 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"checkmark.seal.fill"];
       v9 = MEMORY[0x1E69DCAD8];
       v10 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDDC8]];
       v11 = [v10 _mapkit_fontWithSymbolicTraits:2];
       v12 = [v9 configurationWithFont:v11 scale:1];
-      v13 = [v26 imageWithConfiguration:v12];
+      v13 = [v25 imageWithConfiguration:v12];
       v14 = [v13 imageWithRenderingMode:2];
-      [v25 setImage:v14];
+      [v24 setImage:v14];
 
-      v15 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v25];
+      v15 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v24];
       v16 = [v15 mutableCopy];
 
-      v30 = *MEMORY[0x1E69DB650];
+      v29 = *MEMORY[0x1E69DB650];
       systemBlueColor = [MEMORY[0x1E69DC888] systemBlueColor];
-      v31[0] = systemBlueColor;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+      v30[0] = systemBlueColor;
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
       [v16 addAttributes:v18 range:{0, objc_msgSend(v16, "length")}];
 
       [v5 addObject:v16];
@@ -826,17 +816,15 @@ void __63__MUPlaceHeaderView__updateContainmentLineWithAttributedString__block_i
   {
     objc_initWeak(&location, self);
     viewModel = self->_viewModel;
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __38__MUPlaceHeaderView__updateAppearance__block_invoke;
-    v27[3] = &unk_1E8219D48;
-    objc_copyWeak(&v28, &location);
-    [(MUPlaceHeaderViewModel *)viewModel refineEnclosingMapItemWithCompletion:v27];
-    objc_destroyWeak(&v28);
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __38__MUPlaceHeaderView__updateAppearance__block_invoke;
+    v26[3] = &unk_1E8219D48;
+    objc_copyWeak(&v27, &location);
+    [(MUPlaceHeaderViewModel *)viewModel refineEnclosingMapItemWithCompletion:v26];
+    objc_destroyWeak(&v27);
     objc_destroyWeak(&location);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __38__MUPlaceHeaderView__updateAppearance__block_invoke(uint64_t a1)
@@ -854,7 +842,7 @@ void __38__MUPlaceHeaderView__updateAppearance__block_invoke(uint64_t a1)
 
 - (void)_setupConstraints
 {
-  v75[3] = *MEMORY[0x1E69E9840];
+  v74[3] = *MEMORY[0x1E69E9840];
   v3 = [[MUStackLayout alloc] initWithContainer:self axis:1];
   [(MUStackLayout *)v3 setAlignment:2];
   [(MUStackLayout *)v3 setAlignmentBoundsContent:1];
@@ -871,8 +859,8 @@ void __38__MUPlaceHeaderView__updateAppearance__block_invoke(uint64_t a1)
     [v4 addObject:v6];
   }
 
-  v74 = v4;
-  v73 = v3;
+  v73 = v4;
+  v72 = v3;
   if (self->_verifiedBusinessContainerView)
   {
     [(MUStackLayout *)v3 addArrangedLayoutItem:?];
@@ -940,7 +928,7 @@ void __38__MUPlaceHeaderView__updateAppearance__block_invoke(uint64_t a1)
       [v5 addObject:v19];
 
       v22 = 11;
-      v4 = v74;
+      v4 = v73;
     }
 
     else
@@ -978,7 +966,7 @@ void __38__MUPlaceHeaderView__updateAppearance__block_invoke(uint64_t a1)
 
     coverPhotoTransitionController = self->_coverPhotoTransitionController;
     [(MUPlaceHeaderView *)self frame];
-    [(MUPlaceCoverPhotoTransitionController *)coverPhotoTransitionController coverPhotoHeightForProposedWidth:CGRectGetWidth(v76)];
+    [(MUPlaceCoverPhotoTransitionController *)coverPhotoTransitionController coverPhotoHeightForProposedWidth:CGRectGetWidth(v75)];
     v39 = v38;
     heightAnchor = [(UIView *)self->_verifiedBusinessContainerView heightAnchor];
     v41 = [heightAnchor constraintEqualToConstant:v39];
@@ -1002,60 +990,60 @@ void __38__MUPlaceHeaderView__updateAppearance__block_invoke(uint64_t a1)
 
   leadingAnchor = [(UILayoutGuide *)self->_topToTitleLayoutGuide leadingAnchor];
   leadingAnchor2 = [(MUPlaceHeaderView *)self leadingAnchor];
-  v70 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v75[0] = v70;
+  v69 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v74[0] = v69;
   trailingAnchor = [(UILayoutGuide *)self->_topToTitleLayoutGuide trailingAnchor];
   trailingAnchor2 = [(MUFadingMarqueeLabel *)self->_titleLabel trailingAnchor];
   v47 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v75[1] = v47;
+  v74[1] = v47;
   bottomAnchor2 = [(UILayoutGuide *)self->_topToTitleLayoutGuide bottomAnchor];
   bottomAnchor3 = [(MUFadingMarqueeLabel *)self->_titleLabel bottomAnchor];
   v50 = [bottomAnchor2 constraintEqualToAnchor:bottomAnchor3];
-  v75[2] = v50;
-  v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:v75 count:3];
+  v74[2] = v50;
+  v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:v74 count:3];
   [v5 addObjectsFromArray:v51];
 
   if (self->_titleLabel)
   {
-    [(MUStackLayout *)v73 addArrangedLayoutItem:?];
+    [(MUStackLayout *)v72 addArrangedLayoutItem:?];
     [(MUPlaceHeaderView *)self topToTitleSpacing];
     v53 = v52;
     [(MUPlaceHeaderView *)self _leadingPadding];
     v55 = v54;
     [(MUPlaceHeaderView *)self _trailingPadding];
-    [(MUStackLayout *)v73 setPadding:self->_titleLabel forArrangedLayoutItem:v53, v55, 0.0, v56];
+    [(MUStackLayout *)v72 setPadding:self->_titleLabel forArrangedLayoutItem:v53, v55, 0.0, v56];
   }
 
   if (self->_secondaryTitleLabel)
   {
-    [(MUStackLayout *)v73 addArrangedLayoutItem:?];
-    [(MUStackLayout *)v73 setPadding:self->_secondaryTitleLabel forArrangedLayoutItem:1.0, 20.0, 0.0, 20.0];
+    [(MUStackLayout *)v72 addArrangedLayoutItem:?];
+    [(MUStackLayout *)v72 setPadding:self->_secondaryTitleLabel forArrangedLayoutItem:1.0, 20.0, 0.0, 20.0];
   }
 
   _containmentString = [(MUPlaceHeaderView *)self _containmentString];
   v58 = _containmentString;
   if (self->_containmentLabel && [_containmentString length])
   {
-    [(MUStackLayout *)v73 addArrangedLayoutItem:self->_containmentLabel];
-    [(MUStackLayout *)v73 setPadding:self->_containmentLabel forArrangedLayoutItem:1.0, 20.0, 0.0, 20.0];
+    [(MUStackLayout *)v72 addArrangedLayoutItem:self->_containmentLabel];
+    [(MUStackLayout *)v72 setPadding:self->_containmentLabel forArrangedLayoutItem:1.0, 20.0, 0.0, 20.0];
   }
 
   if (self->_transitInfoLabelView)
   {
-    [(MUStackLayout *)v73 addArrangedLayoutItem:?];
-    [(MUStackLayout *)v73 setPadding:self->_transitInfoLabelView forArrangedLayoutItem:1.0, 20.0, 0.0, 20.0];
+    [(MUStackLayout *)v72 addArrangedLayoutItem:?];
+    [(MUStackLayout *)v72 setPadding:self->_transitInfoLabelView forArrangedLayoutItem:1.0, 20.0, 0.0, 20.0];
   }
 
   if (self->_verifiedLabel)
   {
-    [(MUStackLayout *)v73 addArrangedLayoutItem:?];
-    [(MUStackLayout *)v73 setPadding:self->_verifiedLabel forArrangedLayoutItem:1.0, 20.0, 0.0, 20.0];
+    [(MUStackLayout *)v72 addArrangedLayoutItem:?];
+    [(MUStackLayout *)v72 setPadding:self->_verifiedLabel forArrangedLayoutItem:1.0, 20.0, 0.0, 20.0];
   }
 
   if (self->_contactAddressDescription)
   {
-    [(MUStackLayout *)v73 addArrangedLayoutItem:?];
-    [(MUStackLayout *)v73 setPadding:self->_contactAddressDescription forArrangedLayoutItem:1.0, 20.0, 0.0, 20.0];
+    [(MUStackLayout *)v72 addArrangedLayoutItem:?];
+    [(MUStackLayout *)v72 setPadding:self->_contactAddressDescription forArrangedLayoutItem:1.0, 20.0, 0.0, 20.0];
   }
 
   if ([(MUPlaceCoverPhotoOptions *)self->_coverPhotoOptions showShareButton])
@@ -1070,7 +1058,7 @@ void __38__MUPlaceHeaderView__updateAppearance__block_invoke(uint64_t a1)
     v61 = selfCopy;
     v62 = [[MUEdgeLayout alloc] initWithItem:self->_shareButton container:v61];
     [(MUEdgeLayout *)v62 setEdges:9];
-    [v74 addObject:v62];
+    [v73 addObject:v62];
     if (self->_titleLabel)
     {
       leadingAnchor3 = [(MUCardButton *)self->_shareButton leadingAnchor];
@@ -1081,16 +1069,14 @@ void __38__MUPlaceHeaderView__updateAppearance__block_invoke(uint64_t a1)
   }
 
   v66 = MEMORY[0x1E696ACD8];
-  v67 = [v74 copy];
+  v67 = [v73 copy];
   v68 = [v5 copy];
   [v66 _mapsui_activateLayouts:v67 constraints:v68];
-
-  v69 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_verifiedAttributedString
 {
-  v26[3] = *MEMORY[0x1E69E9840];
+  v25[3] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E69DB7F0]);
   v4 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"checkmark.seal.fill"];
   v5 = MEMORY[0x1E69DCAD8];
@@ -1107,20 +1093,19 @@ void __38__MUPlaceHeaderView__updateAppearance__block_invoke(uint64_t a1)
   v14 = _MULocalizedStringFromThisBundle(@"Verified [Brand]");
   v15 = [v13 initWithString:v14];
 
-  v26[0] = v11;
-  v26[1] = v12;
-  v26[2] = v15;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:3];
+  v25[0] = v11;
+  v25[1] = v12;
+  v25[2] = v15;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:3];
   v17 = [MapsUILayout buildAttributedDisplayStringForComponents:v16 forContainingView:self];
   v18 = [v17 mutableCopy];
 
   v19 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:{v6, *MEMORY[0x1E69DB648]}];
-  v25 = v19;
-  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+  v24 = v19;
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
   [v18 addAttributes:v20 range:{0, objc_msgSend(v18, "length")}];
 
   v21 = [v18 copy];
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }

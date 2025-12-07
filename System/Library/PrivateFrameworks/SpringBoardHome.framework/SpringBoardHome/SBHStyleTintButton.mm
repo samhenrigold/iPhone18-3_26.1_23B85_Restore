@@ -52,7 +52,7 @@
   v4.super_class = SBHStyleTintButton;
   [(SBHStyleTintButton *)&v4 layoutSubviews];
   tintButtonImageView = self->_tintButtonImageView;
-  [(SBHStyleTintButton *)self bounds];
+  objc_msgSend_bounds(self);
   [(UIImageView *)tintButtonImageView setFrame:?];
 }
 

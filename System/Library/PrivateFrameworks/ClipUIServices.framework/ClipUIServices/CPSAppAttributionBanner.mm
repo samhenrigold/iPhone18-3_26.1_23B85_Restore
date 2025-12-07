@@ -73,21 +73,21 @@
   if (firstObject)
   {
     [(CPSAppStoreButton *)self->_appStoreButton setHidden:1];
-    v8 = [MEMORY[0x277D74300] _preferredFontForTextStyle:*MEMORY[0x277D76940] variant:256];
-    [(UILabel *)self->_supertitleLabel setFont:v8];
+    v10 = [MEMORY[0x277D74300] _preferredFontForTextStyle:*MEMORY[0x277D76940] variant:256];
+    [(UILabel *)self->_supertitleLabel setFont:v10];
 
-    v9 = [MEMORY[0x277D74300] _preferredFontForTextStyle:*MEMORY[0x277D76920] variant:1280];
-    [(CPSLabelWithPlaceholder *)self->_titleLabel setFont:v9];
+    v11 = [MEMORY[0x277D74300] _preferredFontForTextStyle:*MEMORY[0x277D76920] variant:1280];
+    [(CPSLabelWithPlaceholder *)self->_titleLabel setFont:v11];
 
-    v10 = [MEMORY[0x277D74300] _preferredFontForTextStyle:*MEMORY[0x277D76938] variant:256];
-    [(CPSLabelWithPlaceholder *)self->_subtitleLabel setFont:v10];
+    v12 = [MEMORY[0x277D74300] _preferredFontForTextStyle:*MEMORY[0x277D76938] variant:256];
+    [(CPSLabelWithPlaceholder *)self->_subtitleLabel setFont:v12];
 
     [(UIImageView *)self->_iconView setAccessibilityIgnoresInvertColors:1];
     if (_UISolariumEnabled())
     {
-      v11 = objc_alloc_init(CPSHighlightablePlatterView);
+      v13 = objc_alloc_init(CPSHighlightablePlatterView);
       platterView = self->_platterView;
-      self->_platterView = v11;
+      self->_platterView = v13;
 
       [(CPSHighlightable *)self->_platterView _setContinuousCornerRadius:20.0];
       [(CPSHighlightable *)self->_platterView cps_setGlassBackground];
@@ -95,43 +95,43 @@
 
     else
     {
-      v14 = [MEMORY[0x277D3D328] platterViewWithBlurEffectStyle:8];
-      v15 = self->_platterView;
-      self->_platterView = v14;
+      v16 = [MEMORY[0x277D3D328] platterViewWithBlurEffectStyle:8];
+      v17 = self->_platterView;
+      self->_platterView = v16;
     }
 
     [(CPSAppAttributionBanner *)self bounds];
     [(CPSHighlightable *)self->_platterView setFrame:?];
     [(CPSHighlightable *)self->_platterView setAutoresizingMask:18];
     [(CPSAppAttributionBanner *)self addSubview:self->_platterView];
-    v16 = _UISolariumEnabled();
-    v17 = self->_platterView;
-    if (v16)
+    v18 = _UISolariumEnabled();
+    v19 = self->_platterView;
+    if (v18)
     {
-      customContentView = v17;
+      customContentView = v19;
     }
 
     else
     {
-      customContentView = [(CPSHighlightable *)v17 customContentView];
+      customContentView = [(CPSHighlightable *)v19 customContentView];
     }
 
-    v19 = customContentView;
+    v21 = customContentView;
     [(CPSAppAttributionBanner *)self bounds];
-    [(CPSHighlightable *)v19 setFrame:?];
+    [(CPSHighlightable *)v21 setFrame:?];
     [firstObject setAutoresizingMask:18];
-    [(CPSHighlightable *)v19 bounds];
+    [(CPSHighlightable *)v21 bounds];
     [firstObject setFrame:?];
-    [(CPSHighlightable *)v19 addSubview:firstObject];
+    [(CPSHighlightable *)v21 addSubview:firstObject];
     [(CPSHighlightForwardingButton *)self->_overlayButton setHighlightForwardingTarget:self->_platterView];
   }
 
   else
   {
-    v13 = CPS_LOG_CHANNEL_PREFIXClipUIServices();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = CPS_LOG_CHANNEL_PREFIXClipUIServices(v8, v9);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [(CPSAppAttributionBanner *)v13 commonInit];
+      [(CPSAppAttributionBanner *)v15 commonInit];
     }
   }
 }

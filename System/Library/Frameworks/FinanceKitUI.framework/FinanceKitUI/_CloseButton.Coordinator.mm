@@ -19,12 +19,11 @@
   selfCopy = self;
   sub_23875F2E0();
   swift_unknownObjectRelease();
-  v6 = *(&selfCopy->super.isa + OBJC_IVAR____TtCV12FinanceKitUIP33_749EBBE7CDDBA07A8878912459ED339212_CloseButton11Coordinator_configuration);
-  v5 = *&selfCopy->configuration[OBJC_IVAR____TtCV12FinanceKitUIP33_749EBBE7CDDBA07A8878912459ED339212_CloseButton11Coordinator_configuration];
+  v5 = *(&selfCopy->super.isa + OBJC_IVAR____TtCV12FinanceKitUIP33_749EBBE7CDDBA07A8878912459ED339212_CloseButton11Coordinator_configuration);
 
-  v6(v7);
+  v5(v6);
 
-  __swift_destroy_boxed_opaque_existential_1(v8);
+  __swift_destroy_boxed_opaque_existential_1(v7);
 }
 
 - (_TtCV12FinanceKitUIP33_749EBBE7CDDBA07A8878912459ED339212_CloseButton11Coordinator)init

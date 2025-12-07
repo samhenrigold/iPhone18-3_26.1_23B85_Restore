@@ -8,6 +8,7 @@
 - (void)invalidateMultiUserTokenForHomeIdentifier:(id)identifier completion:(id)completion;
 - (void)multiUserTokenForAccount:(id)account completion:(id)completion;
 - (void)refreshAfterTimeInterval:(double)interval completion:(id)completion;
+- (void)refreshMultiUserDatabaseNotificationSubscriptionsForced:(BOOL)forced completion:(id)completion;
 - (void)resetMultiUserDatabaseNotificationSubscriptionsCompletion:(id)completion;
 - (void)setiTunesAccount:(id)account forHomeWithIdentifier:(id)identifier completion:(id)completion;
 - (void)updateMultiUserTokenForAccount:(id)account completion:(id)completion;
@@ -433,6 +434,22 @@
 {
   completionCopy = completion;
   completionCopy[2](completionCopy, +[AMSDCloudDataSubscriptionTask resetLastAttemptDate], 0);
+}
+
+- (void)refreshMultiUserDatabaseNotificationSubscriptionsForced:(BOOL)forced completion:(id)completion
+{
+  forcedCopy = forced;
+  completionCopy = completion;
+  v6 = +[AMSDMultiUserController sharedController];
+  v7 = [v6 performRefreshMultiUserDatabaseNotificationSubscriptionsForceRefresh:forcedCopy];
+
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_100071D8C;
+  v9[3] = &unk_1002B03D0;
+  v10 = completionCopy;
+  v8 = completionCopy;
+  [v7 addFinishBlock:v9];
 }
 
 - (void)setiTunesAccount:(id)account forHomeWithIdentifier:(id)identifier completion:(id)completion

@@ -68,23 +68,23 @@
 
 BOOL __70__PPSocialHighlightServerDelegate_listener_shouldAcceptNewConnection___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
   [*(a1 + 32) setClientProcessName:a3];
   v6 = objc_opt_new();
   v7 = MEMORY[0x277CC1E90];
   if (v5)
   {
-    [v5 auditToken];
+    objc_msgSend_auditToken(v5);
   }
 
   else
   {
+    v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
   }
 
-  v8 = [v7 bundleRecordForAuditToken:&v19 error:0];
+  v8 = [v7 bundleRecordForAuditToken:&v18 error:0];
   v9 = [v8 applicationIdentifier];
 
   if (v9)
@@ -93,7 +93,7 @@ BOOL __70__PPSocialHighlightServerDelegate_listener_shouldAcceptNewConnection___
     [v6 addObject:v10];
   }
 
-  v11 = [v5 valueForEntitlement:{@"com.apple.private.interstellar.data-access", v19, v20}];
+  v11 = [v5 valueForEntitlement:{@"com.apple.private.interstellar.data-access", v18, v19}];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -141,13 +141,12 @@ BOOL __70__PPSocialHighlightServerDelegate_listener_shouldAcceptNewConnection___
   if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     v15 = [*(a1 + 32) applicationIdentifiers];
-    LODWORD(v19) = 138412290;
-    *(&v19 + 4) = v15;
-    _os_log_impl(&dword_23224A000, v14, OS_LOG_TYPE_INFO, "PPSocialHighlightServer: validateConnection applicationIdentifiers: %@", &v19, 0xCu);
+    LODWORD(v18) = 138412290;
+    *(&v18 + 4) = v15;
+    _os_log_impl(&dword_23224A000, v14, OS_LOG_TYPE_INFO, "PPSocialHighlightServer: validateConnection applicationIdentifiers: %@", &v18, 0xCu);
   }
 
   v16 = (v13 & 1) == 0 && [PPXPCServerHelper checkForAndLogTrueBooleanEntitlement:v12 connection:v5 serviceName:@"com.apple.proactive.PersonalizationPortrait.SocialHighlight"];
-  v17 = *MEMORY[0x277D85DE8];
   return v16;
 }
 

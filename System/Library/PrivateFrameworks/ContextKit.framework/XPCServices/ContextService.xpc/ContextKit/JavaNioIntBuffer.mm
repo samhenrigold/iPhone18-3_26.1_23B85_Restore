@@ -159,7 +159,7 @@ LABEL_10:
   }
 
   withIntCopy = withInt;
-  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), int, withInt);
+  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), *&int, withInt);
   if ([(JavaNioBuffer *)self remaining]< withIntCopy)
   {
     v14 = new_JavaNioBufferUnderflowException_init();
@@ -225,6 +225,7 @@ LABEL_10:
 
 - (id)putWithIntArray:(id)array withInt:(int)int withInt:(int)withInt
 {
+  v6 = *&int;
   if ([(JavaNioBuffer *)self isReadOnly])
   {
     OnlyBufferException_init = new_JavaNioReadOnlyBufferException_init();
@@ -236,7 +237,7 @@ LABEL_10:
     JreThrowNullPointerException();
   }
 
-  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), int, withInt);
+  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), v6, withInt);
   if ([(JavaNioBuffer *)self remaining]< withInt)
   {
     OnlyBufferException_init = new_JavaNioBufferOverflowException_init();
@@ -244,20 +245,20 @@ LABEL_15:
     objc_exception_throw(OnlyBufferException_init);
   }
 
-  if (withInt + int > int)
+  if (withInt + v6 > v6)
   {
-    intCopy = int;
-    v10 = array + 4 * int;
+    v9 = v6;
+    v10 = array + 4 * v6;
     do
     {
       v11 = *(array + 2);
-      if (intCopy < 0 || intCopy >= v11)
+      if (v9 < 0 || v9 >= v11)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v11, intCopy);
+        IOSArray_throwOutOfBoundsWithMsg(v11, v9);
       }
 
       [(JavaNioIntBuffer *)self putWithInt:*(v10 + 3)];
-      ++intCopy;
+      ++v9;
       v10 += 4;
       --withInt;
     }

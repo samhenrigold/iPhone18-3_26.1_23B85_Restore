@@ -62,40 +62,40 @@
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) != 0 && (([cellCopy showCheckmarksOnLeft] & 1) != 0 || objc_msgSend(cellCopy, "showsColorDot")))
   {
-    [cellCopy textLeadingIndent];
-    v18 = v17;
-    if (CalInterfaceIsLeftToRight())
+    textLeadingIndent = [cellCopy textLeadingIndent];
+    v19 = v18;
+    if (CalInterfaceIsLeftToRight(textLeadingIndent, v20))
     {
-      v14 = v14 - (v18 - v10);
-      v10 = v18;
+      v14 = v14 - (v19 - v10);
+      v10 = v19;
     }
 
     else
     {
-      contentView = [cellCopy contentView];
-      [contentView bounds];
-      MaxX = CGRectGetMaxX(v27);
-      v28.origin.x = v10;
-      v28.origin.y = v12;
-      v28.size.width = v14;
-      v28.size.height = v16;
-      v21 = MaxX - CGRectGetMaxX(v28);
+      v21 = objc_msgSend_contentView(cellCopy);
+      [v21 bounds];
+      MaxX = CGRectGetMaxX(v29);
+      v30.origin.x = v10;
+      v30.origin.y = v12;
+      v30.size.width = v14;
+      v30.size.height = v16;
+      v23 = MaxX - CGRectGetMaxX(v30);
 
-      v14 = v14 - (v18 - v21);
-      contentView2 = [cellCopy contentView];
-      [contentView2 bounds];
-      v10 = CGRectGetMaxX(v29) - v14 - v18;
+      v14 = v14 - (v19 - v23);
+      v24 = objc_msgSend_contentView(cellCopy);
+      [v24 bounds];
+      v10 = CGRectGetMaxX(v31) - v14 - v19;
     }
   }
 
-  v23 = v10;
-  v24 = v12;
-  v25 = v14;
-  v26 = v16;
-  result.size.height = v26;
-  result.size.width = v25;
-  result.origin.y = v24;
-  result.origin.x = v23;
+  v25 = v10;
+  v26 = v12;
+  v27 = v14;
+  v28 = v16;
+  result.size.height = v28;
+  result.size.width = v27;
+  result.origin.y = v26;
+  result.origin.x = v25;
   return result;
 }
 
@@ -104,67 +104,67 @@
   sizingCopy = sizing;
   cellCopy = cell;
   [self->_realLayoutManager getTextLabelRect:rect detailTextLabelRect:labelRect forCell:cellCopy rowWidth:sizingCopy forSizing:width];
-  [(EKCalendarChooserCellLayoutManager *)self textRectForCell:cellCopy rowWidth:sizingCopy forSizing:width];
-  v14 = v13;
-  v16 = v15;
-  v18 = v17;
-  v20 = v19;
-  IsLeftToRight = CalInterfaceIsLeftToRight();
-  v22 = IsLeftToRight;
+  v13 = [(EKCalendarChooserCellLayoutManager *)self textRectForCell:cellCopy rowWidth:sizingCopy forSizing:width];
+  v15 = v14;
+  v17 = v16;
+  v19 = v18;
+  v21 = v20;
+  IsLeftToRight = CalInterfaceIsLeftToRight(v13, v22);
+  v24 = IsLeftToRight;
   if (rect)
   {
     y = rect->origin.y;
     height = rect->size.height;
     if (IsLeftToRight)
     {
-      v36.origin.x = rect->origin.x;
-      v36.origin.y = rect->origin.y;
-      v36.size.width = v18;
-      v36.size.height = rect->size.height;
-      v37 = CGRectOffset(v36, v14 - rect->origin.x, 0.0);
-      x = v37.origin.x;
-      y = v37.origin.y;
-      height = v37.size.height;
+      v38.origin.x = rect->origin.x;
+      v38.origin.y = rect->origin.y;
+      v38.size.width = v19;
+      v38.size.height = rect->size.height;
+      v39 = CGRectOffset(v38, v15 - rect->origin.x, 0.0);
+      x = v39.origin.x;
+      y = v39.origin.y;
+      height = v39.size.height;
     }
 
     else
     {
       [cellCopy textLeadingIndent];
-      v27 = v26;
-      contentView = [cellCopy contentView];
-      [contentView bounds];
-      x = v29 - v18 - v27;
+      v29 = v28;
+      v30 = objc_msgSend_contentView(cellCopy);
+      [v30 bounds];
+      x = v31 - v19 - v29;
 
-      v37.size.width = v18;
+      v39.size.width = v19;
     }
 
     rect->origin.x = x;
     rect->origin.y = y;
-    rect->size.width = v37.size.width;
+    rect->size.width = v39.size.width;
     rect->size.height = height;
   }
 
   if (labelRect)
   {
-    v30 = labelRect->origin.x;
-    v31 = labelRect->origin.y;
+    v32 = labelRect->origin.x;
+    v33 = labelRect->origin.y;
     width = labelRect->size.width;
-    v33 = labelRect->size.height;
-    v35 = 0.0;
-    if ([(EKCalendarChooserCellLayoutManager *)self rect:&v35 trailsOtherRect:v14 byDistance:v16, v18, v20, v30, v31, width, v33])
+    v35 = labelRect->size.height;
+    v37 = 0.0;
+    if ([(EKCalendarChooserCellLayoutManager *)self rect:&v37 trailsOtherRect:v15 byDistance:v17, v19, v21, v32, v33, width, v35])
     {
-      v34 = v35;
-      if ((v22 & 1) == 0)
+      v36 = v37;
+      if ((v24 & 1) == 0)
       {
-        v34 = -v35;
-        v35 = -v35;
+        v36 = -v37;
+        v37 = -v37;
       }
 
-      v38.origin.x = v30;
-      v38.origin.y = v31;
-      v38.size.width = width;
-      v38.size.height = v33;
-      *labelRect = CGRectOffset(v38, v34, 0.0);
+      v40.origin.x = v32;
+      v40.origin.y = v33;
+      v40.size.width = width;
+      v40.size.height = v35;
+      *labelRect = CGRectOffset(v40, v36, 0.0);
     }
   }
 }
@@ -179,7 +179,7 @@
   v11 = rect.size.width;
   v12 = rect.origin.y;
   v13 = rect.origin.x;
-  if (CalInterfaceIsLeftToRight())
+  if (CalInterfaceIsLeftToRight(self, a2))
   {
     v14 = v13 - x;
   }

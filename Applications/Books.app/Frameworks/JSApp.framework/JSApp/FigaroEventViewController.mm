@@ -46,32 +46,30 @@
 {
   v6 = sub_83B3C();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v15 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_83B0C();
   viewCopy = view;
   selfCopy = self;
-  v13 = sub_62584(viewCopy);
+  v12 = sub_62584(viewCopy, v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v13;
+  return v12;
 }
 
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path
 {
   v6 = sub_83B3C();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_83B0C();
   viewCopy = view;
   selfCopy = self;
   sub_62AB8(viewCopy);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 }
 
 - (_TtC5JSApp25FigaroEventViewController)initWithStyle:(int64_t)style

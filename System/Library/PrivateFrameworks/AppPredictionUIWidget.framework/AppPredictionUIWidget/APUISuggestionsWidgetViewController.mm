@@ -30,12 +30,12 @@
 
 - (APUISuggestionsWidgetViewController)initWithIdentifier:(id)identifier suggestionsClient:(id)client layoutSize:(unint64_t)size
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   clientCopy = client;
-  v25.receiver = self;
-  v25.super_class = APUISuggestionsWidgetViewController;
-  v10 = [(APUIWidgetViewController *)&v25 initWithIdentifier:identifierCopy];
+  v24.receiver = self;
+  v24.super_class = APUISuggestionsWidgetViewController;
+  v10 = [(APUIWidgetViewController *)&v24 initWithIdentifier:identifierCopy];
   v11 = v10;
   if (v10)
   {
@@ -57,37 +57,35 @@
     widgetIdentifiable4 = [(APUIWidgetViewController *)v11 widgetIdentifiable];
     [widgetIdentifiable4 setWidgetKind:v17];
 
-    [clientCopy registerObserver:v11];
-    v19 = __atxlog_handle_home_screen();
+    v19 = __atxlog_handle_home_screen([clientCopy registerObserver:v11]);
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v28 = identifierCopy;
+      v27 = identifierCopy;
       _os_log_impl(&dword_240036000, v19, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: APUISuggestionsWidgetViewController initWithIdentifier %@", buf, 0xCu);
     }
 
     v20 = objc_opt_self();
-    v26 = v20;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+    v25 = v20;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
     v22 = [(APUISuggestionsWidgetViewController *)v11 registerForTraitChanges:v21 withAction:sel__preferredContentSizeDidChange];
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 - (void)didMoveToParentViewController:(id)controller
 {
-  v7.receiver = self;
-  v7.super_class = APUISuggestionsWidgetViewController;
-  [(APUISuggestionsWidgetViewController *)&v7 didMoveToParentViewController:?];
+  v8.receiver = self;
+  v8.super_class = APUISuggestionsWidgetViewController;
+  v5 = [(APUISuggestionsWidgetViewController *)&v8 didMoveToParentViewController:?];
   if (!controller)
   {
-    v5 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_home_screen(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_240036000, v5, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: APUISuggestionsWidgetViewController didMoveToParentViewController = nil", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&dword_240036000, v6, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: APUISuggestionsWidgetViewController didMoveToParentViewController = nil", v7, 2u);
     }
 
     [(APUISuggestionsWidgetViewController *)self setShowingContextMenu:0];
@@ -99,21 +97,21 @@
   v39 = *MEMORY[0x277D85DE8];
   v35.receiver = self;
   v35.super_class = APUISuggestionsWidgetViewController;
-  [(APUISuggestionsWidgetViewController *)&v35 viewDidLoad];
-  v3 = __atxlog_handle_ui();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  viewDidLoad = [(APUISuggestionsWidgetViewController *)&v35 viewDidLoad];
+  v4 = __atxlog_handle_ui(viewDidLoad);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446210;
     v38 = "[APUISuggestionsWidgetViewController viewDidLoad]";
-    _os_log_impl(&dword_240036000, v3, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s", buf, 0xCu);
+    _os_log_impl(&dword_240036000, v4, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s", buf, 0xCu);
   }
 
-  v4 = objc_alloc_init(APUISuggestionsWidgetView);
-  [(APUISuggestionsWidgetViewController *)self setWidgetView:v4];
+  v5 = objc_alloc_init(APUISuggestionsWidgetView);
+  [(APUISuggestionsWidgetViewController *)self setWidgetView:v5];
 
   widgetView = [(APUISuggestionsWidgetViewController *)self widgetView];
-  v6 = objc_alloc_init(MEMORY[0x277D763B8]);
-  [widgetView _setBackground:v6];
+  v7 = objc_alloc_init(MEMORY[0x277D763B8]);
+  [widgetView _setBackground:v7];
 
   widgetView2 = [(APUISuggestionsWidgetViewController *)self widgetView];
   [widgetView2 setDelegate:self];
@@ -142,40 +140,36 @@
   leadingAnchor = [widgetView7 leadingAnchor];
   view4 = [(APUISuggestionsWidgetViewController *)self view];
   leadingAnchor2 = [view4 leadingAnchor];
-  v13 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v36[2] = v13;
+  v14 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v36[2] = v14;
   widgetView8 = [(APUISuggestionsWidgetViewController *)self widgetView];
   trailingAnchor = [widgetView8 trailingAnchor];
   view5 = [(APUISuggestionsWidgetViewController *)self view];
   trailingAnchor2 = [view5 trailingAnchor];
-  v18 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  v36[3] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:4];
-  [v25 activateConstraints:v19];
+  v19 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  v36[3] = v19;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:4];
+  [v25 activateConstraints:v20];
 
   suggestionClient = [(APUIWidgetViewController *)self suggestionClient];
   [(APUISuggestionsWidgetViewController *)self _updateLayoutAsynchronouslyWithSuggestionClient:suggestionClient];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateWidgetViewIfPossible
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (self->_showingContextMenu)
   {
-    v3 = __atxlog_handle_ui();
+    v3 = __atxlog_handle_ui(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       showingContextMenu = self->_showingContextMenu;
       *buf = 136446466;
-      v10 = "[APUISuggestionsWidgetViewController _updateWidgetViewIfPossible]";
-      v11 = 1024;
-      v12 = showingContextMenu;
+      v8 = "[APUISuggestionsWidgetViewController _updateWidgetViewIfPossible]";
+      v9 = 1024;
+      v10 = showingContextMenu;
       _os_log_impl(&dword_240036000, v3, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s aborted: _showingContextMenu=%{BOOL}d", buf, 0x12u);
     }
-
-    v5 = *MEMORY[0x277D85DE8];
   }
 
   else
@@ -183,8 +177,6 @@
     widgetView = [(APUISuggestionsWidgetViewController *)self widgetView];
     layout = [(APUIWidgetViewController *)self layout];
     [widgetView updateWithSuggestionLayout:layout];
-
-    v7 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -207,41 +199,39 @@ void __69__APUISuggestionsWidgetViewController__preferredContentSizeDidChange__b
 
 - (id)_suggestionIdsInLayout:(id)layout
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   layout = [(APUIWidgetViewController *)self layout];
   minSuggestionListInLayout = [layout minSuggestionListInLayout];
 
-  v7 = [minSuggestionListInLayout countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [minSuggestionListInLayout countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(minSuggestionListInLayout);
         }
 
-        uuid = [*(*(&v15 + 1) + 8 * i) uuid];
+        uuid = [*(*(&v14 + 1) + 8 * i) uuid];
         uUIDString = [uuid UUIDString];
         [array addObject:uUIDString];
       }
 
-      v8 = [minSuggestionListInLayout countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [minSuggestionListInLayout countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -296,84 +286,79 @@ void __87__APUISuggestionsWidgetViewController__updateLayoutAsynchronouslyWithSu
 
 uint64_t __87__APUISuggestionsWidgetViewController__updateLayoutAsynchronouslyWithSuggestionClient___block_invoke_2(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setLayout:*(a1 + 40)];
   v2 = [*(a1 + 32) layout];
 
   if (v2)
   {
-    [*(a1 + 32) verifyLayoutSizeCompatibility];
-    v3 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = __atxlog_handle_home_screen([*(a1 + 32) verifyLayoutSizeCompatibility]);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = [*(a1 + 32) layout];
-      v5 = [v4 uuid];
-      v6 = MEMORY[0x277D420E8];
-      v7 = [*(a1 + 32) layout];
-      v8 = [v6 stringFromUILayoutType:{objc_msgSend(v7, "layoutType")}];
-      v9 = [*(a1 + 32) layout];
-      [v9 layoutScore];
-      v20 = 138412802;
-      v21 = v5;
-      v22 = 2112;
-      v23 = v8;
-      v24 = 2048;
-      v25 = v10;
-      _os_log_impl(&dword_240036000, v3, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: _updateLayoutWithSuggestionClient layout: %@ type %@ score %f", &v20, 0x20u);
+      v5 = [*(a1 + 32) layout];
+      v6 = [v5 uuid];
+      v7 = MEMORY[0x277D420E8];
+      v8 = [*(a1 + 32) layout];
+      v9 = [v7 stringFromUILayoutType:{objc_msgSend(v8, "layoutType")}];
+      v10 = [*(a1 + 32) layout];
+      [v10 layoutScore];
+      v21 = 138412802;
+      v22 = v6;
+      v23 = 2112;
+      v24 = v9;
+      v25 = 2048;
+      v26 = v11;
+      _os_log_impl(&dword_240036000, v4, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: _updateLayoutWithSuggestionClient layout: %@ type %@ score %f", &v21, 0x20u);
     }
   }
 
   else
   {
-    v3 = __atxlog_handle_home_screen();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = __atxlog_handle_home_screen(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v20) = 0;
-      _os_log_impl(&dword_240036000, v3, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: _updateLayoutWithSuggestionClient layout: nil", &v20, 2u);
+      LOWORD(v21) = 0;
+      _os_log_impl(&dword_240036000, v4, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: _updateLayoutWithSuggestionClient layout: nil", &v21, 2u);
     }
   }
 
-  v11 = *(a1 + 32);
-  v12 = [v11 layout];
-  v13 = [v11 _suggestionIdsInLayout:v12];
-  [*(a1 + 32) setSuggestionIds:v13];
+  v12 = *(a1 + 32);
+  v13 = [v12 layout];
+  v14 = [v12 _suggestionIdsInLayout:v13];
+  [*(a1 + 32) setSuggestionIds:v14];
 
-  v14 = __atxlog_handle_ui();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v16 = __atxlog_handle_ui(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = [*(a1 + 32) suggestionIds];
-    v20 = 136446466;
-    v21 = "[APUISuggestionsWidgetViewController _updateLayoutAsynchronouslyWithSuggestionClient:]_block_invoke";
-    v22 = 2112;
-    v23 = v15;
-    _os_log_impl(&dword_240036000, v14, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s self.suggestionIds=%@", &v20, 0x16u);
+    v17 = [*(a1 + 32) suggestionIds];
+    v21 = 136446466;
+    v22 = "[APUISuggestionsWidgetViewController _updateLayoutAsynchronouslyWithSuggestionClient:]_block_invoke";
+    v23 = 2112;
+    v24 = v17;
+    _os_log_impl(&dword_240036000, v16, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s self.suggestionIds=%@", &v21, 0x16u);
   }
 
   if ([*(a1 + 32) effectiveViewVisibility])
   {
-    v16 = *(a1 + 32);
-    v17 = [v16 suggestionIds];
-    [v16 logChangeWithNewSuggestionIds:v17 previousSuggestionIds:*(a1 + 48) suggestionClient:*(a1 + 56)];
+    v18 = *(a1 + 32);
+    v19 = [v18 suggestionIds];
+    [v18 logChangeWithNewSuggestionIds:v19 previousSuggestionIds:*(a1 + 48) suggestionClient:*(a1 + 56)];
   }
 
-  result = [*(a1 + 32) _updateWidgetViewIfPossible];
-  v19 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _updateWidgetViewIfPossible];
 }
 
 - (void)verifyLayoutSizeCompatibility
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   layout = [self layout];
   layoutType = [layout layoutType];
   widgetIdentifiable = [self widgetIdentifiable];
-  v8 = 134218240;
-  v9 = layoutType;
-  v10 = 2048;
-  v11 = [widgetIdentifiable size];
-  _os_log_fault_impl(&dword_240036000, a2, OS_LOG_TYPE_FAULT, "SuggestionsWidget: Layout type %lu is not compatible with stack layout size %lu", &v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 134218240;
+  v8 = layoutType;
+  v9 = 2048;
+  v10 = [widgetIdentifiable size];
+  _os_log_fault_impl(&dword_240036000, a2, OS_LOG_TYPE_FAULT, "SuggestionsWidget: Layout type %lu is not compatible with stack layout size %lu", &v7, 0x16u);
 }
 
 - (id)view:(id)view iconForBundleIdentifier:(id)identifier
@@ -387,14 +372,14 @@ uint64_t __87__APUISuggestionsWidgetViewController__updateLayoutAsynchronouslyWi
 
 - (void)view:(id)view didTapSuggestion:(id)suggestion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
-  v6 = __atxlog_handle_ui();
+  v6 = __atxlog_handle_ui(suggestionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412290;
-    v14 = suggestionCopy;
-    _os_log_impl(&dword_240036000, v6, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: didTapSuggestion invoked with suggestion: %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = suggestionCopy;
+    _os_log_impl(&dword_240036000, v6, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: didTapSuggestion invoked with suggestion: %@", &v12, 0xCu);
   }
 
   suggestionClient = [(APUIWidgetViewController *)self suggestionClient];
@@ -403,34 +388,29 @@ uint64_t __87__APUISuggestionsWidgetViewController__updateLayoutAsynchronouslyWi
   uuid = [layout uuid];
   uUIDString = [uuid UUIDString];
   [suggestionClient logDidTapSuggestion:suggestionCopy widget:widgetIdentifiable blendingCacheId:uUIDString];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)view:(id)view didFinishExecutingSuggestion:(id)suggestion
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
-  [view setCanEngageSuggestion:1];
-  v7 = __atxlog_handle_home_screen();
+  v7 = __atxlog_handle_home_screen([view setCanEngageSuggestion:1]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = suggestionCopy;
+    v13 = suggestionCopy;
     _os_log_impl(&dword_240036000, v7, OS_LOG_TYPE_DEFAULT, "didFinishExecutingSuggestion invoked with suggestion: %@", buf, 0xCu);
   }
 
   v8 = dispatch_time(0, 300000000);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __73__APUISuggestionsWidgetViewController_view_didFinishExecutingSuggestion___block_invoke;
-  v11[3] = &unk_278C909F0;
-  v11[4] = self;
-  v12 = suggestionCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __73__APUISuggestionsWidgetViewController_view_didFinishExecutingSuggestion___block_invoke;
+  v10[3] = &unk_278C909F0;
+  v10[4] = self;
+  v11 = suggestionCopy;
   v9 = suggestionCopy;
-  dispatch_after(v8, MEMORY[0x277D85CD0], v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  dispatch_after(v8, MEMORY[0x277D85CD0], v10);
 }
 
 void __73__APUISuggestionsWidgetViewController_view_didFinishExecutingSuggestion___block_invoke(uint64_t a1)
@@ -443,33 +423,30 @@ void __73__APUISuggestionsWidgetViewController_view_didFinishExecutingSuggestion
 
 - (void)view:(id)view didFailExecutingSuggestion:(id)suggestion
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   suggestionCopy = suggestion;
-  [view setCanEngageSuggestion:1];
-  v6 = __atxlog_handle_home_screen();
+  v6 = __atxlog_handle_home_screen([view setCanEngageSuggestion:1]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = suggestionCopy;
-    _os_log_impl(&dword_240036000, v6, OS_LOG_TYPE_DEFAULT, "didFailExecutingSuggestion invoked with suggestion: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = suggestionCopy;
+    _os_log_impl(&dword_240036000, v6, OS_LOG_TYPE_DEFAULT, "didFailExecutingSuggestion invoked with suggestion: %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setShowingContextMenu:(BOOL)menu
 {
   menuCopy = menu;
-  v16 = *MEMORY[0x277D85DE8];
-  v5 = __atxlog_handle_home_screen();
+  v15 = *MEMORY[0x277D85DE8];
+  v5 = __atxlog_handle_home_screen(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     uiSpecification = [(ATXProactiveSuggestion *)self->_selectedSuggestion uiSpecification];
     title = [uiSpecification title];
     *buf = 67109378;
-    v13 = menuCopy;
-    v14 = 2112;
-    v15 = title;
+    v12 = menuCopy;
+    v13 = 2112;
+    v14 = title;
     _os_log_impl(&dword_240036000, v5, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: setShowingContextMenu %{BOOL}u _selectedSuggestion: %@", buf, 0x12u);
   }
 
@@ -483,12 +460,12 @@ void __73__APUISuggestionsWidgetViewController_view_didFinishExecutingSuggestion
     {
       if ([(APUISuggestionsWidgetViewController *)self _canDismissSelectedSuggestion])
       {
-        v11[0] = MEMORY[0x277D85DD0];
-        v11[1] = 3221225472;
-        v11[2] = __61__APUISuggestionsWidgetViewController_setShowingContextMenu___block_invoke;
-        v11[3] = &unk_278C90A18;
-        v11[4] = self;
-        [MEMORY[0x277D75D18] animateWithDuration:2 delay:v11 options:0 animations:0.0 completion:0.1];
+        v10[0] = MEMORY[0x277D85DD0];
+        v10[1] = 3221225472;
+        v10[2] = __61__APUISuggestionsWidgetViewController_setShowingContextMenu___block_invoke;
+        v10[3] = &unk_278C90A18;
+        v10[4] = self;
+        [MEMORY[0x277D75D18] animateWithDuration:2 delay:v10 options:0 animations:0.0 completion:0.1];
       }
     }
 
@@ -500,8 +477,6 @@ void __73__APUISuggestionsWidgetViewController_view_didFinishExecutingSuggestion
       [(APUISuggestionsWidgetViewController *)self _updateWidgetViewIfPossible];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __61__APUISuggestionsWidgetViewController_setShowingContextMenu___block_invoke(uint64_t a1)
@@ -519,23 +494,21 @@ void __61__APUISuggestionsWidgetViewController_setShowingContextMenu___block_inv
   selectedSuggestion = self->_selectedSuggestion;
   self->_selectedSuggestion = v6;
 
-  v8 = __atxlog_handle_ui();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = __atxlog_handle_ui(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v19.x = x;
     v19.y = y;
-    v9 = NSStringFromCGPoint(v19);
-    v10 = self->_selectedSuggestion;
+    v10 = NSStringFromCGPoint(v19);
+    v11 = self->_selectedSuggestion;
     v12 = 136446722;
     v13 = "[APUISuggestionsWidgetViewController willShowContextMenuAtLocation:]";
     v14 = 2112;
-    v15 = v9;
+    v15 = v10;
     v16 = 2112;
-    v17 = v10;
-    _os_log_impl(&dword_240036000, v8, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s location=%@ _selectedSuggestion=%@", &v12, 0x20u);
+    v17 = v11;
+    _os_log_impl(&dword_240036000, v9, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s location=%@ _selectedSuggestion=%@", &v12, 0x20u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)applicationShortcutItems
@@ -564,96 +537,94 @@ void __61__APUISuggestionsWidgetViewController_setShowingContextMenu___block_inv
 
 - (BOOL)_canDismissSelectedSuggestion
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   suggestionClient = [(APUIWidgetViewController *)self suggestionClient];
   selectedSuggestion = self->_selectedSuggestion;
   layout = [(APUIWidgetViewController *)self layout];
   LOBYTE(selectedSuggestion) = [suggestionClient isSuggestionReplacementAvailableForSuggestion:selectedSuggestion inLayout:layout];
 
-  if (selectedSuggestion)
+  if ((selectedSuggestion & 1) == 0)
   {
-    executableSpecification = [(ATXProactiveSuggestion *)self->_selectedSuggestion executableSpecification];
-    executableType = [executableSpecification executableType];
-
-    if (executableType != 5)
+    v10 = __atxlog_handle_ui(v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      result = 1;
-      goto LABEL_10;
-    }
-
-    v8 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-    {
-      v12 = 136446210;
-      v13 = "[APUISuggestionsWidgetViewController _canDismissSelectedSuggestion]";
-      v9 = "SuggestionsWidget: %{public}s _selectedSuggestion is App Clip";
-LABEL_7:
-      _os_log_impl(&dword_240036000, v8, OS_LOG_TYPE_DEFAULT, v9, &v12, 0xCu);
-    }
-  }
-
-  else
-  {
-    v8 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-    {
-      v12 = 136446210;
-      v13 = "[APUISuggestionsWidgetViewController _canDismissSelectedSuggestion]";
-      v9 = "SuggestionsWidget: %{public}s No replacement available for _selectedSuggestion";
+      v13 = 136446210;
+      v14 = "[APUISuggestionsWidgetViewController _canDismissSelectedSuggestion]";
+      v11 = "SuggestionsWidget: %{public}s No replacement available for _selectedSuggestion";
       goto LABEL_7;
     }
+
+LABEL_8:
+
+    return 0;
   }
 
-  result = 0;
-LABEL_10:
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  executableSpecification = [(ATXProactiveSuggestion *)self->_selectedSuggestion executableSpecification];
+  executableType = [executableSpecification executableType];
+
+  if (executableType == 5)
+  {
+    v10 = __atxlog_handle_ui(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = 136446210;
+      v14 = "[APUISuggestionsWidgetViewController _canDismissSelectedSuggestion]";
+      v11 = "SuggestionsWidget: %{public}s _selectedSuggestion is App Clip";
+LABEL_7:
+      _os_log_impl(&dword_240036000, v10, OS_LOG_TYPE_DEFAULT, v11, &v13, 0xCu);
+      goto LABEL_8;
+    }
+
+    goto LABEL_8;
+  }
+
+  return 1;
 }
 
 - (BOOL)_canSaveSelectedSuggestion
 {
   v8 = *MEMORY[0x277D85DE8];
-  if (self->_selectedSuggestion)
+  if (!self->_selectedSuggestion)
   {
-    if (![objc_opt_class() _isSuggestionShortcut:self->_selectedSuggestion])
-    {
-      result = 1;
-      goto LABEL_10;
-    }
-
-    v2 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = __atxlog_handle_ui(self);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v6 = 136446210;
       v7 = "[APUISuggestionsWidgetViewController _canSaveSelectedSuggestion]";
-      v3 = "SuggestionsWidget: %{public}s NO: _selectedSuggestion is already shortcut";
-LABEL_7:
-      _os_log_impl(&dword_240036000, v2, OS_LOG_TYPE_DEFAULT, v3, &v6, 0xCu);
-    }
-  }
-
-  else
-  {
-    v2 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-    {
-      v6 = 136446210;
-      v7 = "[APUISuggestionsWidgetViewController _canSaveSelectedSuggestion]";
-      v3 = "SuggestionsWidget: %{public}s NO: _selectedSuggestion is null";
+      v4 = "SuggestionsWidget: %{public}s NO: _selectedSuggestion is null";
       goto LABEL_7;
     }
+
+LABEL_8:
+
+    return 0;
   }
 
-  result = 0;
-LABEL_10:
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v2 = [objc_opt_class() _isSuggestionShortcut:self->_selectedSuggestion];
+  if (v2)
+  {
+    v3 = __atxlog_handle_ui(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = 136446210;
+      v7 = "[APUISuggestionsWidgetViewController _canSaveSelectedSuggestion]";
+      v4 = "SuggestionsWidget: %{public}s NO: _selectedSuggestion is already shortcut";
+LABEL_7:
+      _os_log_impl(&dword_240036000, v3, OS_LOG_TYPE_DEFAULT, v4, &v6, 0xCu);
+      goto LABEL_8;
+    }
+
+    goto LABEL_8;
+  }
+
+  return 1;
 }
 
 - (void)didSelectApplicationShortcutItem:(id)item
 {
   v27 = *MEMORY[0x277D85DE8];
   itemCopy = item;
+  v5 = itemCopy;
   if (self->_selectedSuggestion)
   {
     goto LABEL_5;
@@ -672,65 +643,66 @@ LABEL_10:
   if (self->_selectedSuggestion)
   {
 LABEL_5:
-    v9 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = __atxlog_handle_ui(itemCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = self->_selectedSuggestion;
+      v11 = self->_selectedSuggestion;
       v23 = 136446466;
       v24 = "[APUISuggestionsWidgetViewController didSelectApplicationShortcutItem:]";
       v25 = 2112;
-      v26 = v10;
-      _os_log_impl(&dword_240036000, v9, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s _selectedSuggestion=%@", &v23, 0x16u);
+      v26 = v11;
+      _os_log_impl(&dword_240036000, v10, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s _selectedSuggestion=%@", &v23, 0x16u);
     }
 
-    type = [itemCopy type];
+    type = [v5 type];
     if ([type isEqualToString:@"com.apple.AppPredictionUIWidget.application-shortcut-item.dismiss-suggestion"])
     {
       suggestionClient = [(APUIWidgetViewController *)self suggestionClient];
-      v13 = self->_selectedSuggestion;
+      v14 = self->_selectedSuggestion;
       widgetIdentifiable = [(APUIWidgetViewController *)self widgetIdentifiable];
       layout2 = [(APUIWidgetViewController *)self layout];
       uuid = [layout2 uuid];
       uUIDString = [uuid UUIDString];
-      [suggestionClient logContextMenuDismissOnceForSuggestion:v13 widget:widgetIdentifiable blendingCacheId:uUIDString];
+      [suggestionClient logContextMenuDismissOnceForSuggestion:v14 widget:widgetIdentifiable blendingCacheId:uUIDString];
 
 LABEL_14:
       goto LABEL_20;
     }
 
-    if ([type isEqualToString:@"com.apple.AppPredictionUIWidget.application-shortcut-item.save-suggestion"])
+    v19 = [type isEqualToString:@"com.apple.AppPredictionUIWidget.application-shortcut-item.save-suggestion"];
+    if (v19)
     {
-      v18 = __atxlog_handle_ui();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v20 = __atxlog_handle_ui(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         v23 = 136446210;
         v24 = "[APUISuggestionsWidgetViewController didSelectApplicationShortcutItem:]";
-        _os_log_impl(&dword_240036000, v18, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s saving it", &v23, 0xCu);
+        _os_log_impl(&dword_240036000, v20, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s saving it", &v23, 0xCu);
       }
 
       v19 = [objc_opt_class() _shortcutWithSuggestion:self->_selectedSuggestion];
       if (v19)
       {
         suggestionClient = v19;
-        v20 = [objc_alloc(MEMORY[0x277CD45D8]) initWithShortcut:v19];
-        [v20 setDelegate:self];
-        [v20 setModalPresentationStyle:-2];
-        [(APUISuggestionsWidgetViewController *)self presentViewController:v20 animated:1 completion:0];
+        v21 = [objc_alloc(MEMORY[0x277CD45D8]) initWithShortcut:v19];
+        [v21 setDelegate:self];
+        [v21 setModalPresentationStyle:-2];
+        [(APUISuggestionsWidgetViewController *)self presentViewController:v21 animated:1 completion:0];
 
         goto LABEL_14;
       }
     }
 
-    v21 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+    v22 = __atxlog_handle_ui(v19);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
     {
-      [(APUISuggestionsWidgetViewController *)type didSelectApplicationShortcutItem:v21];
+      [(APUISuggestionsWidgetViewController *)type didSelectApplicationShortcutItem:v22];
     }
   }
 
   else
   {
-    type = __atxlog_handle_ui();
+    type = __atxlog_handle_ui(itemCopy);
     if (os_log_type_enabled(type, OS_LOG_TYPE_ERROR))
     {
       [(APUISuggestionsWidgetViewController *)self didSelectApplicationShortcutItem:type];
@@ -738,22 +710,20 @@ LABEL_14:
   }
 
 LABEL_20:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_shortcutWithSuggestion:(id)suggestion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = [self _actionWithSuggestion:suggestion];
-  v4 = __atxlog_handle_ui();
+  v4 = __atxlog_handle_ui(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 136446466;
-    v16 = "+[APUISuggestionsWidgetViewController _shortcutWithSuggestion:]";
-    v17 = 2112;
-    v18 = v3;
-    _os_log_impl(&dword_240036000, v4, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s atxAction=%@", &v15, 0x16u);
+    v17 = 136446466;
+    v18 = "+[APUISuggestionsWidgetViewController _shortcutWithSuggestion:]";
+    v19 = 2112;
+    v20 = v3;
+    _os_log_impl(&dword_240036000, v4, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s atxAction=%@", &v17, 0x16u);
   }
 
   if (![v3 actionType] || objc_msgSend(v3, "actionType") == 2)
@@ -762,58 +732,57 @@ LABEL_20:
     intent = [v3 intent];
     v7 = [v5 initWithIntent:intent];
 
-    v8 = __atxlog_handle_ui();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = __atxlog_handle_ui(v8);
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_14;
     }
 
-    v15 = 136446466;
-    v16 = "+[APUISuggestionsWidgetViewController _shortcutWithSuggestion:]";
-    v17 = 2112;
-    v18 = v7;
-    v9 = "SuggestionsWidget: %{public}s ATXActionTypeIntent or ATXActionTypeOFA shortcut=%@";
+    v17 = 136446466;
+    v18 = "+[APUISuggestionsWidgetViewController _shortcutWithSuggestion:]";
+    v19 = 2112;
+    v20 = v7;
+    v10 = "SuggestionsWidget: %{public}s ATXActionTypeIntent or ATXActionTypeOFA shortcut=%@";
     goto LABEL_7;
   }
 
-  if ([v3 actionType] == 1)
+  actionType = [v3 actionType];
+  if (actionType == 1)
   {
-    v10 = objc_alloc(MEMORY[0x277CD4158]);
+    v12 = objc_alloc(MEMORY[0x277CD4158]);
     userActivity = [v3 userActivity];
     bundleId = [v3 bundleId];
-    v7 = [v10 initWithUserActivity:userActivity bundleIdentifier:bundleId];
+    v7 = [v12 initWithUserActivity:userActivity bundleIdentifier:bundleId];
 
-    v8 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = __atxlog_handle_ui(v15);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 136446466;
-      v16 = "+[APUISuggestionsWidgetViewController _shortcutWithSuggestion:]";
-      v17 = 2112;
-      v18 = v7;
-      v9 = "SuggestionsWidget: %{public}s ATXActionTypeNSUserActivity shortcut=%@";
+      v17 = 136446466;
+      v18 = "+[APUISuggestionsWidgetViewController _shortcutWithSuggestion:]";
+      v19 = 2112;
+      v20 = v7;
+      v10 = "SuggestionsWidget: %{public}s ATXActionTypeNSUserActivity shortcut=%@";
 LABEL_7:
-      _os_log_impl(&dword_240036000, v8, OS_LOG_TYPE_DEFAULT, v9, &v15, 0x16u);
+      _os_log_impl(&dword_240036000, v9, OS_LOG_TYPE_DEFAULT, v10, &v17, 0x16u);
     }
   }
 
   else
   {
-    v8 = __atxlog_handle_ui();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = __atxlog_handle_ui(actionType);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 136446466;
-      v16 = "+[APUISuggestionsWidgetViewController _shortcutWithSuggestion:]";
-      v17 = 2112;
-      v18 = 0;
-      _os_log_impl(&dword_240036000, v8, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s action type not handled shortcut=%@", &v15, 0x16u);
+      v17 = 136446466;
+      v18 = "+[APUISuggestionsWidgetViewController _shortcutWithSuggestion:]";
+      v19 = 2112;
+      v20 = 0;
+      _os_log_impl(&dword_240036000, v9, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s action type not handled shortcut=%@", &v17, 0x16u);
     }
 
     v7 = 0;
   }
 
 LABEL_14:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -849,35 +818,29 @@ LABEL_14:
 
 - (void)addVoiceShortcutViewController:(id)controller didFinishWithVoiceShortcut:(id)shortcut error:(id)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   shortcutCopy = shortcut;
-  [controller dismissViewControllerAnimated:1 completion:0];
-  v7 = __atxlog_handle_ui();
+  v7 = __atxlog_handle_ui([controller dismissViewControllerAnimated:1 completion:0]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136446466;
-    v10 = "[APUISuggestionsWidgetViewController addVoiceShortcutViewController:didFinishWithVoiceShortcut:error:]";
-    v11 = 2112;
-    v12 = shortcutCopy;
-    _os_log_impl(&dword_240036000, v7, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s didFinishWithVoiceShortcut=%@", &v9, 0x16u);
+    v8 = 136446466;
+    v9 = "[APUISuggestionsWidgetViewController addVoiceShortcutViewController:didFinishWithVoiceShortcut:error:]";
+    v10 = 2112;
+    v11 = shortcutCopy;
+    _os_log_impl(&dword_240036000, v7, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s didFinishWithVoiceShortcut=%@", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addVoiceShortcutViewControllerDidCancel:(id)cancel
 {
-  v7 = *MEMORY[0x277D85DE8];
-  [cancel dismissViewControllerAnimated:1 completion:0];
-  v3 = __atxlog_handle_ui();
+  v6 = *MEMORY[0x277D85DE8];
+  v3 = __atxlog_handle_ui([cancel dismissViewControllerAnimated:1 completion:0]);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136446210;
-    v6 = "[APUISuggestionsWidgetViewController addVoiceShortcutViewControllerDidCancel:]";
-    _os_log_impl(&dword_240036000, v3, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s addVoiceShortcutViewControllerDidCancel", &v5, 0xCu);
+    v4 = 136446210;
+    v5 = "[APUISuggestionsWidgetViewController addVoiceShortcutViewControllerDidCancel:]";
+    _os_log_impl(&dword_240036000, v3, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s addVoiceShortcutViewControllerDidCancel", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (APUISuggestionsWidgetViewControllerDelegate)delegate
@@ -889,24 +852,21 @@ LABEL_14:
 
 - (void)didSelectApplicationShortcutItem:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_240036000, a2, OS_LOG_TYPE_FAULT, "e:fault SuggestionsWidget: didSelectApplicationShortcutItem: %@ is not valid for Suggestions Widget", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_240036000, a2, OS_LOG_TYPE_FAULT, "e:fault SuggestionsWidget: didSelectApplicationShortcutItem: %@ is not valid for Suggestions Widget", &v2, 0xCu);
 }
 
 - (void)didSelectApplicationShortcutItem:(void *)a1 .cold.2(void *a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = [a1 layout];
-  v5 = 134218242;
-  v6 = 5517;
-  v7 = 2112;
-  v8 = v3;
-  _os_log_error_impl(&dword_240036000, a2, OS_LOG_TYPE_ERROR, "e:%ld * SuggestionsWidget: No selected suggestion found in layout %@", &v5, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134218242;
+  v5 = 5517;
+  v6 = 2112;
+  v7 = v3;
+  _os_log_error_impl(&dword_240036000, a2, OS_LOG_TYPE_ERROR, "e:%ld * SuggestionsWidget: No selected suggestion found in layout %@", &v4, 0x16u);
 }
 
 @end

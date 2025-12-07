@@ -11,14 +11,14 @@
   nameCopy = name;
   dictionaryCopy = dictionary;
   v7 = [AVTStickerPresetOverride alloc];
-  v8 = AVTPresetCategoryFromString(nameCopy);
+  AVTPresetCategoryFromString(nameCopy);
 
-  v9 = [dictionaryCopy objectForKeyedSubscript:@"value"];
-  v10 = [dictionaryCopy objectForKeyedSubscript:@"unless"];
+  v8 = [dictionaryCopy objectForKeyedSubscript:?];
+  v9 = [dictionaryCopy objectForKeyedSubscript:?];
 
-  v11 = [(AVTStickerPresetOverride *)v7 initWithCategory:v8 presetIdentifier:v9 unless:v10];
+  v10 = [AVTStickerPresetOverride initWithCategory:v7 presetIdentifier:"initWithCategory:presetIdentifier:unless:" unless:?];
 
-  return v11;
+  return v10;
 }
 
 - (AVTStickerPresetOverride)initWithCategory:(int64_t)category presetIdentifier:(id)identifier unless:(id)unless
@@ -47,29 +47,31 @@
   if (objc_opt_isKindOfClass())
   {
     v7 = avatarCopy;
-    category = [(AVTStickerPresetOverride *)self category];
+    [(AVTStickerPresetOverride *)self category];
     presetIdentifier = [(AVTStickerPresetOverride *)self presetIdentifier];
-    v10 = [AVTPreset presetWithCategory:category identifier:presetIdentifier];
+    v9 = [AVTPreset presetWithCategory:"presetWithCategory:identifier:" identifier:?];
 
-    v11 = [v7 presetForCategory:{-[AVTStickerPresetOverride category](self, "category")}];
+    [(AVTStickerPresetOverride *)self category];
+    v10 = [v7 presetForCategory:?];
     unlessIdentifiers = [(AVTStickerPresetOverride *)self unlessIdentifiers];
-    identifier = [v11 identifier];
-    v14 = [unlessIdentifiers containsObject:identifier];
+    identifier = [v10 identifier];
+    v13 = [unlessIdentifiers containsObject:?];
 
-    if ((v14 & 1) == 0)
+    if ((v13 & 1) == 0)
     {
       if (contextCopy)
       {
-        v15 = [AVTStickerPresetOverride alloc];
-        category2 = [(AVTStickerPresetOverride *)self category];
-        identifier2 = [v11 identifier];
+        v14 = [AVTStickerPresetOverride alloc];
+        [(AVTStickerPresetOverride *)self category];
+        identifier2 = [v10 identifier];
         unlessIdentifiers2 = [(AVTStickerPresetOverride *)self unlessIdentifiers];
-        v19 = [(AVTStickerPresetOverride *)v15 initWithCategory:category2 presetIdentifier:identifier2 unless:unlessIdentifiers2];
+        v17 = [AVTStickerPresetOverride initWithCategory:v14 presetIdentifier:"initWithCategory:presetIdentifier:unless:" unless:?];
 
-        [contextCopy savePresetOverride:v19];
+        [contextCopy savePresetOverride:?];
       }
 
-      [v7 setPreset:v10 forCategory:-[AVTStickerPresetOverride category](self animated:{"category"), 0}];
+      [(AVTStickerPresetOverride *)self category];
+      [v7 setPreset:? forCategory:? animated:?];
     }
   }
 }

@@ -9,6 +9,7 @@
 - (id)semanticIdentifier;
 - (unint64_t)changedFields;
 - (void)setChangedFields:(unint64_t)fields;
+- (void)setChangesAcknowledged:(BOOL)acknowledged;
 - (void)setTimestamp:(double)timestamp;
 @end
 
@@ -28,15 +29,13 @@
 
 void __54__EKSuggestedEventInfo_knownIdentityKeysForComparison__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
+  v3[2] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6992DD0];
-  v4[0] = *MEMORY[0x1E6992DC0];
-  v4[1] = v0;
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
+  v3[0] = *MEMORY[0x1E6992DC0];
+  v3[1] = v0;
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:2];
   v2 = knownIdentityKeysForComparison_keys_1;
   knownIdentityKeysForComparison_keys_1 = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 + (id)knownSingleValueKeysForComparison
@@ -53,15 +52,13 @@ void __54__EKSuggestedEventInfo_knownIdentityKeysForComparison__block_invoke()
 
 void __57__EKSuggestedEventInfo_knownSingleValueKeysForComparison__block_invoke()
 {
-  v4[2] = *MEMORY[0x1E69E9840];
+  v3[2] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6992DC8];
-  v4[0] = *MEMORY[0x1E6992DA8];
-  v4[1] = v0;
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:2];
+  v3[0] = *MEMORY[0x1E6992DA8];
+  v3[1] = v0;
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:2];
   v2 = knownSingleValueKeysForComparison_keys_0;
   knownSingleValueKeysForComparison_keys_0 = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (EKSuggestedEventInfo)initWithEventStore:(id)store opaqueKey:(id)key uniqueKey:(id)uniqueKey extractionGroupIdentifier:(id)identifier
@@ -153,6 +150,16 @@ void __57__EKSuggestedEventInfo_knownSingleValueKeysForComparison__block_invoke(
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setChangesAcknowledged:(BOOL)acknowledged
+{
+  acknowledgedCopy = acknowledged;
+  if ([(EKSuggestedEventInfo *)self changesAcknowledged]!= acknowledged)
+  {
+    v5 = [MEMORY[0x1E696AD98] numberWithBool:acknowledgedCopy];
+    [(EKObject *)self setSingleChangedValue:v5 forKey:*MEMORY[0x1E6992DB0]];
+  }
 }
 
 - (void)setTimestamp:(double)timestamp

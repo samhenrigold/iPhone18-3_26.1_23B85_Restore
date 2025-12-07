@@ -27,19 +27,19 @@
     v3 = result;
     if ([result binaryData] || objc_msgSend(v3, "externalBinaryData"))
     {
-      result = 1;
-      goto LABEL_5;
+      return 1;
     }
 
-    v5 = MEMORY[0x1E696ABC0];
-    v6 = *MEMORY[0x1E696A250];
+    v4 = MEMORY[0x1E696ABC0];
+    v5 = *MEMORY[0x1E696A250];
     v17[0] = *MEMORY[0x1E696A588];
-    v7 = MEMORY[0x1E696AEC0];
-    v8 = objc_opt_class();
+    v6 = MEMORY[0x1E696AEC0];
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
     v17[1] = @"offendingObject";
-    v18[0] = [v7 stringWithFormat:@"Instances of '%@' must be populated when they are saved, otherwise they should be deleted.", NSStringFromClass(v8)];
+    v18[0] = objc_msgSend_stringWithFormat_(v6, v8);
     v18[1] = [v3 objectID];
-    v9 = [v5 errorWithDomain:v6 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v18, v17, 2)}];
+    v9 = [v4 errorWithDomain:v5 code:134060 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", v18, v17, 2)}];
     if (v9)
     {
       if (a2)
@@ -47,12 +47,10 @@
         v10 = v9;
         result = 0;
         *a2 = v10;
-        goto LABEL_5;
+        return result;
       }
 
-LABEL_13:
-      result = 0;
-      goto LABEL_5;
+      return 0;
     }
 
     LogStream = _PFLogGetLogStream(17);
@@ -74,12 +72,10 @@ LABEL_13:
       v15 = 1024;
       v16 = 70;
       _os_log_fault_impl(&dword_18565F000, v12, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
-      goto LABEL_13;
+      return 0;
     }
   }
 
-LABEL_5:
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 

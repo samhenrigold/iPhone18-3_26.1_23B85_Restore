@@ -156,9 +156,10 @@
     if (!v7)
     {
       v7 = __biome_log_for_category();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v9 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
+      if (v9)
       {
-        v18 = CCTypeIdentifierRegistryBridge();
+        v18 = CCTypeIdentifierRegistryBridge(v9);
         v19 = [v18 descriptionForTypeIdentifier:v6];
         *buf = 138412802;
         v23 = v5;
@@ -180,51 +181,49 @@
     v8 = 0;
   }
 
-  v10 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"s"];
-  if (v10)
+  v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"s"];
+  if (v11)
   {
-    self = [(CCSharedItem *)self initWithSharedIdentifier:v10 content:v7];
+    self = [(CCSharedItem *)self initWithSharedIdentifier:v11 content:v7];
   }
 
   else
   {
     v20 = v8;
-    v11 = [(CCSharedItem *)self initWithContent:v7 error:&v20];
-    v12 = v20;
+    v12 = [(CCSharedItem *)self initWithContent:v7 error:&v20];
+    v13 = v20;
 
-    v13 = v11;
-    self = v13;
-    if (v13)
+    v14 = v12;
+    self = v14;
+    if (v14)
     {
-      v14 = v13;
+      v15 = v14;
     }
 
     else
     {
-      v15 = __biome_log_for_category();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = __biome_log_for_category();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        [(CCSharedItem *)v12 initWithCoder:v15];
+        [(CCSharedItem *)v13 initWithCoder:v16];
       }
     }
 
-    v8 = v12;
+    v8 = v13;
   }
 
   selfCopy = self;
 LABEL_16:
 
-  v16 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_ERROR, "Failed to initialize sharedItem: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B6DB2000, a2, OS_LOG_TYPE_ERROR, "Failed to initialize sharedItem: %@", &v2, 0xCu);
 }
 
 @end

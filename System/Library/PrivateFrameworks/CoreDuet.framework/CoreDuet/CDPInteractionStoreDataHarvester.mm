@@ -5,7 +5,7 @@
 
 void __78___CDPInteractionStoreDataHarvester_loadWithLimit_dataPointReader_completion___block_invoke(void *a1)
 {
-  v33[1] = *MEMORY[0x1E69E9840];
+  v32[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF90] dictionary];
   v3 = a1[4];
   v4 = *(v3 + 8);
@@ -15,20 +15,20 @@ void __78___CDPInteractionStoreDataHarvester_loadWithLimit_dataPointReader_compl
   v6 = a1[4];
   v7 = v6[2];
   v8 = [v6 predicate];
-  v26 = v5;
-  v33[0] = v5;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
+  v25 = v5;
+  v32[0] = v5;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:1];
   v10 = [v7 queryInteractionsUsingPredicate:v8 sortDescriptors:v9 limit:+[_CDPSimpleModel maxNumberOfEmailsSupported](_CDPSimpleModel error:{"maxNumberOfEmailsSupported"), 0}];
   v11 = a1[4];
   v12 = *(v11 + 32);
   *(v11 + 32) = v10;
 
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __78___CDPInteractionStoreDataHarvester_loadWithLimit_dataPointReader_completion___block_invoke_2;
-  v31[3] = &unk_1E736A758;
-  v31[4] = a1[4];
-  v13 = MEMORY[0x193B00C50](v31);
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __78___CDPInteractionStoreDataHarvester_loadWithLimit_dataPointReader_completion___block_invoke_2;
+  v30[3] = &unk_1E736A758;
+  v30[4] = a1[4];
+  v13 = MEMORY[0x193B00C50](v30);
   v14 = [*(a1[4] + 32) count];
   v15 = a1[7];
   if (v14 <= v15)
@@ -45,31 +45,31 @@ void __78___CDPInteractionStoreDataHarvester_loadWithLimit_dataPointReader_compl
       v18 = [v17 sender];
       (v13)[2](v13, v18);
 
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
       v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       v19 = [v17 recipients];
-      v20 = [v19 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v20 = [v19 countByEnumeratingWithState:&v26 objects:v31 count:16];
       if (v20)
       {
         v21 = v20;
-        v22 = *v28;
+        v22 = *v27;
         do
         {
           v23 = 0;
           do
           {
-            if (*v28 != v22)
+            if (*v27 != v22)
             {
               objc_enumerationMutation(v19);
             }
 
-            v13[2](v13, *(*(&v27 + 1) + 8 * v23++));
+            v13[2](v13, *(*(&v26 + 1) + 8 * v23++));
           }
 
           while (v21 != v23);
-          v21 = [v19 countByEnumeratingWithState:&v27 objects:v32 count:16];
+          v21 = [v19 countByEnumeratingWithState:&v26 objects:v31 count:16];
         }
 
         while (v21);
@@ -82,8 +82,6 @@ void __78___CDPInteractionStoreDataHarvester_loadWithLimit_dataPointReader_compl
   }
 
   (*(a1[6] + 16))();
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __78___CDPInteractionStoreDataHarvester_loadWithLimit_dataPointReader_completion___block_invoke_2(uint64_t a1, void *a2)

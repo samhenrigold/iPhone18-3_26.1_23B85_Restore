@@ -15,7 +15,7 @@
 
 - (void)device:(id)device propertyDidChange:(id)change fromValue:(id)value
 {
-  v9 = sub_100004180(&qword_100098AE0);
+  v9 = sub_100004180(&qword_100098AE0, &qword_100070088);
   __chkstk_darwin(v9 - 8);
   v11 = v19 - v10;
   if (!change)
@@ -60,7 +60,7 @@ LABEL_6:
 
   sub_10003F3C4(0, 0, v11, &unk_100071EA8, v17);
 
-  sub_100009BA4(v19, &qword_1000985D0);
+  sub_100009BA4(v19, &qword_1000985D0, qword_10006FD50);
 }
 
 @end

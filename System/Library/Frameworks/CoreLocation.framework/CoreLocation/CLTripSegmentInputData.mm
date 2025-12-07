@@ -80,9 +80,19 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "initWithCommuteID:tripSegmentID:isFinalPart:modeOfTransport:tripLocations:startTripLocation:stopTripLocation:inertialOdometryData:", -[CLTripSegmentInputData commuteID](self, "commuteID"), -[CLTripSegmentInputData tripSegmentID](self, "tripSegmentID"), -[CLTripSegmentInputData isFinalPart](self, "isFinalPart"), -[CLTripSegmentInputData modeOfTransport](self, "modeOfTransport"), -[CLTripSegmentInputData tripLocations](self, "tripLocations"), -[CLTripSegmentInputData startTripLocation](self, "startTripLocation"), -[CLTripSegmentInputData stopTripLocation](self, "stopTripLocation"), -[CLTripSegmentInputData inertialOdometryData](self, "inertialOdometryData")}];
-  v4[5] = [(CLTripSegmentInputData *)self inertialData];
-  return v4;
+  v5 = objc_opt_class();
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
+  v12 = objc_msgSend_commuteID(self, v9, v10, v11);
+  v16 = objc_msgSend_tripSegmentID(self, v13, v14, v15);
+  isFinalPart = objc_msgSend_isFinalPart(self, v17, v18, v19);
+  v24 = objc_msgSend_modeOfTransport(self, v21, v22, v23);
+  v28 = objc_msgSend_tripLocations(self, v25, v26, v27);
+  started = objc_msgSend_startTripLocation(self, v29, v30, v31);
+  v36 = objc_msgSend_stopTripLocation(self, v33, v34, v35);
+  v40 = objc_msgSend_inertialOdometryData(self, v37, v38, v39);
+  isFinalPart_modeOfTransport_tripLocations_startTripLocation_stopTripLocation_inertialOdometryData = objc_msgSend_initWithCommuteID_tripSegmentID_isFinalPart_modeOfTransport_tripLocations_startTripLocation_stopTripLocation_inertialOdometryData_(v8, v41, v12, v16, isFinalPart, v24, v28, started, v36, v40);
+  isFinalPart_modeOfTransport_tripLocations_startTripLocation_stopTripLocation_inertialOdometryData[5] = objc_msgSend_inertialData(self, v43, v44, v45);
+  return isFinalPart_modeOfTransport_tripLocations_startTripLocation_stopTripLocation_inertialOdometryData;
 }
 
 - (void)dealloc
@@ -94,41 +104,59 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  [coder encodeObject:-[CLTripSegmentInputData commuteID](self forKey:{"commuteID"), @"commuteID"}];
-  [coder encodeObject:-[CLTripSegmentInputData tripSegmentID](self forKey:{"tripSegmentID"), @"tripSegmentID"}];
-  [coder encodeBool:-[CLTripSegmentInputData isFinalPart](self forKey:{"isFinalPart"), @"isFinalPart"}];
-  [coder encodeInteger:-[CLTripSegmentInputData modeOfTransport](self forKey:{"modeOfTransport"), @"modeOfTransport"}];
-  [coder encodeObject:-[CLTripSegmentInputData inertialData](self forKey:{"inertialData"), @"inertialData"}];
-  [coder encodeObject:-[CLTripSegmentInputData tripLocations](self forKey:{"tripLocations"), @"tripLocations"}];
-  [coder encodeObject:-[CLTripSegmentInputData startTripLocation](self forKey:{"startTripLocation"), @"tripStartLocation"}];
-  [coder encodeObject:-[CLTripSegmentInputData stopTripLocation](self forKey:{"stopTripLocation"), @"tripStopLocation"}];
-  inertialOdometryData = [(CLTripSegmentInputData *)self inertialOdometryData];
+  v6 = objc_msgSend_commuteID(self, a2, coder, v3);
+  objc_msgSend_encodeObject_forKey_(coder, v7, v6, @"commuteID");
+  v11 = objc_msgSend_tripSegmentID(self, v8, v9, v10);
+  objc_msgSend_encodeObject_forKey_(coder, v12, v11, @"tripSegmentID");
+  isFinalPart = objc_msgSend_isFinalPart(self, v13, v14, v15);
+  objc_msgSend_encodeBool_forKey_(coder, v17, isFinalPart, @"isFinalPart");
+  v21 = objc_msgSend_modeOfTransport(self, v18, v19, v20);
+  objc_msgSend_encodeInteger_forKey_(coder, v22, v21, @"modeOfTransport");
+  v26 = objc_msgSend_inertialData(self, v23, v24, v25);
+  objc_msgSend_encodeObject_forKey_(coder, v27, v26, @"inertialData");
+  v31 = objc_msgSend_tripLocations(self, v28, v29, v30);
+  objc_msgSend_encodeObject_forKey_(coder, v32, v31, @"tripLocations");
+  started = objc_msgSend_startTripLocation(self, v33, v34, v35);
+  objc_msgSend_encodeObject_forKey_(coder, v37, started, @"tripStartLocation");
+  v41 = objc_msgSend_stopTripLocation(self, v38, v39, v40);
+  objc_msgSend_encodeObject_forKey_(coder, v42, v41, @"tripStopLocation");
+  v47 = objc_msgSend_inertialOdometryData(self, v43, v44, v45);
 
-  [coder encodeObject:inertialOdometryData forKey:@"inertialOdometryData"];
+  objc_msgSend_encodeObject_forKey_(coder, v46, v47, @"inertialOdometryData");
 }
 
 - (CLTripSegmentInputData)initWithCoder:(id)coder
 {
-  v12.receiver = self;
-  v12.super_class = CLTripSegmentInputData;
-  v4 = [(CLTripSegmentInputData *)&v12 init];
+  v39.receiver = self;
+  v39.super_class = CLTripSegmentInputData;
+  v4 = [(CLTripSegmentInputData *)&v39 init];
   if (v4)
   {
-    v4->_commuteID = [coder decodeObjectOfClass:objc_opt_class() forKey:@"commuteID"];
-    v4->_tripSegmentID = [coder decodeObjectOfClass:objc_opt_class() forKey:@"tripSegmentID"];
-    v4->_isFinalPart = [coder decodeBoolForKey:@"isFinalPart"];
-    v4->_modeOfTransport = [coder decodeIntegerForKey:@"modeOfTransport"];
-    v5 = MEMORY[0x1E695DFD8];
-    v6 = objc_opt_class();
-    v4->_tripLocations = [coder decodeObjectOfClasses:objc_msgSend(v5 forKey:{"setWithObjects:", v6, objc_opt_class(), 0), @"tripLocations"}];
-    v4->_startTripLocation = [coder decodeObjectOfClass:objc_opt_class() forKey:@"tripStartLocation"];
-    v4->_stopTripLocation = [coder decodeObjectOfClass:objc_opt_class() forKey:@"tripStopLocation"];
-    v7 = MEMORY[0x1E695DFD8];
-    v8 = objc_opt_class();
-    v4->_inertialData = [coder decodeObjectOfClasses:objc_msgSend(v7 forKey:{"setWithObjects:", v8, objc_opt_class(), 0), @"inertialData"}];
-    v9 = MEMORY[0x1E695DFD8];
-    v10 = objc_opt_class();
-    v4->_inertialOdometryData = [coder decodeObjectOfClasses:objc_msgSend(v9 forKey:{"setWithObjects:", v10, objc_opt_class(), 0), @"inertialOdometryData"}];
+    v5 = objc_opt_class();
+    v4->_commuteID = objc_msgSend_decodeObjectOfClass_forKey_(coder, v6, v5, @"commuteID");
+    v7 = objc_opt_class();
+    v4->_tripSegmentID = objc_msgSend_decodeObjectOfClass_forKey_(coder, v8, v7, @"tripSegmentID");
+    v4->_isFinalPart = objc_msgSend_decodeBoolForKey_(coder, v9, @"isFinalPart", v10);
+    v4->_modeOfTransport = objc_msgSend_decodeIntegerForKey_(coder, v11, @"modeOfTransport", v12);
+    v13 = MEMORY[0x1E695DFD8];
+    v14 = objc_opt_class();
+    v15 = objc_opt_class();
+    v18 = objc_msgSend_setWithObjects_(v13, v16, v14, v17, v15, 0);
+    v4->_tripLocations = objc_msgSend_decodeObjectOfClasses_forKey_(coder, v19, v18, @"tripLocations");
+    v20 = objc_opt_class();
+    v4->_startTripLocation = objc_msgSend_decodeObjectOfClass_forKey_(coder, v21, v20, @"tripStartLocation");
+    v22 = objc_opt_class();
+    v4->_stopTripLocation = objc_msgSend_decodeObjectOfClass_forKey_(coder, v23, v22, @"tripStopLocation");
+    v24 = MEMORY[0x1E695DFD8];
+    v25 = objc_opt_class();
+    v26 = objc_opt_class();
+    v29 = objc_msgSend_setWithObjects_(v24, v27, v25, v28, v26, 0);
+    v4->_inertialData = objc_msgSend_decodeObjectOfClasses_forKey_(coder, v30, v29, @"inertialData");
+    v31 = MEMORY[0x1E695DFD8];
+    v32 = objc_opt_class();
+    v33 = objc_opt_class();
+    v36 = objc_msgSend_setWithObjects_(v31, v34, v32, v35, v33, 0);
+    v4->_inertialOdometryData = objc_msgSend_decodeObjectOfClasses_forKey_(coder, v37, v36, @"inertialOdometryData");
   }
 
   return v4;

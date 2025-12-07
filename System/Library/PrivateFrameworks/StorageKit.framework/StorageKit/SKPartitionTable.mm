@@ -18,49 +18,47 @@
 
 + (__MKMedia)createMediaRefWithDisk:(id)disk error:(id *)error
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   diskCopy = disk;
   v6 = MEMORY[0x277CCACA8];
   diskIdentifier = [diskCopy diskIdentifier];
   v8 = [v6 stringWithFormat:@"/dev/r%@", diskIdentifier];
   [v8 fileSystemRepresentation];
 
-  v22[0] = @"Writable";
-  v22[1] = @"Shared Writer";
-  v23[0] = MEMORY[0x277CBEC38];
-  v23[1] = MEMORY[0x277CBEC38];
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
-  v10 = *MEMORY[0x277CBECE8];
-  v11 = MKMediaCreateWithPath();
-  if (!v11)
+  v20[0] = @"Writable";
+  v20[1] = @"Shared Writer";
+  v21[0] = MEMORY[0x277CBEC38];
+  v21[1] = MEMORY[0x277CBEC38];
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v10 = MKMediaCreateWithPath();
+  if (!v10)
   {
-    v12 = SKGetOSLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = SKGetOSLog();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v17 = "+[SKPartitionTable createMediaRefWithDisk:error:]";
-      v18 = 2112;
-      v19 = diskCopy;
-      v20 = 1024;
-      v21 = 0;
-      _os_log_impl(&dword_26BBB8000, v12, OS_LOG_TYPE_ERROR, "%s: Failed to create media ref with disk %@, MK err %d", buf, 0x1Cu);
+      v15 = "+[SKPartitionTable createMediaRefWithDisk:error:]";
+      v16 = 2112;
+      v17 = diskCopy;
+      v18 = 1024;
+      v19 = 0;
+      _os_log_impl(&dword_26BBB8000, v11, OS_LOG_TYPE_ERROR, "%s: Failed to create media ref with disk %@, MK err %d", buf, 0x1Cu);
     }
 
-    v13 = [SKError nilWithPOSIXCode:0 error:error];
-    v11 = 0;
+    v12 = [SKError nilWithPOSIXCode:0 error:error];
+    v10 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-  return v11;
+  return v10;
 }
 
 - (SKPartitionTable)initWithDisk:(id)disk error:(id *)error
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v27[1] = *MEMORY[0x277D85DE8];
   diskCopy = disk;
-  v24.receiver = self;
-  v24.super_class = SKPartitionTable;
-  v7 = [(SKPartitionTable *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = SKPartitionTable;
+  v7 = [(SKPartitionTable *)&v23 init];
   if (!v7)
   {
     goto LABEL_8;
@@ -99,8 +97,8 @@
   designatedPhysicalStore = [v11 designatedPhysicalStore];
   if (!designatedPhysicalStore)
   {
-    v28[0] = v11;
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
+    v27[0] = v11;
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
     v21 = [SKError errorWithCode:117 disks:v20 userInfo:0];
     v18 = [SKError nilWithError:v21 error:error];
 
@@ -116,8 +114,8 @@
   if (!v15)
   {
 LABEL_12:
-    v27 = diskCopy;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
+    v26 = diskCopy;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
     v20 = [SKError errorWithCode:117 disks:v11 userInfo:0];
     v18 = [SKError nilWithError:v20 error:error];
 LABEL_17:
@@ -138,7 +136,7 @@ LABEL_6:
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v26 = "[SKPartitionTable initWithDisk:error:]";
+      v25 = "[SKPartitionTable initWithDisk:error:]";
       _os_log_impl(&dword_26BBB8000, v20, OS_LOG_TYPE_ERROR, "%s: Failed to create media ref", buf, 0xCu);
     }
 
@@ -150,7 +148,6 @@ LABEL_8:
   v18 = v7;
 LABEL_18:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -169,9 +166,9 @@ LABEL_18:
 
 - (BOOL)writeNewMediaLayout:(id)layout partitionScheme:(unint64_t)scheme
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   layoutCopy = layout;
-  v13 = 0;
+  v12 = 0;
   if (MKCFCreateMedia())
   {
     [(SKPartitionTable *)self sectorSize];
@@ -179,22 +176,22 @@ LABEL_18:
     mediaRef = [(SKPartitionTable *)self mediaRef];
     MKCFCreateMap();
     [(SKPartitionTable *)self mediaRef:mediaRef];
-    v13 = MKCFWriteMedia();
-    if (v13)
+    v12 = MKCFWriteMedia();
+    if (v12)
     {
-      v11 = SKGetOSLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v10 = SKGetOSLog();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v15 = "[SKPartitionTable writeNewMediaLayout:partitionScheme:]";
-        v16 = 1024;
-        v17 = v13;
-        _os_log_impl(&dword_26BBB8000, v11, OS_LOG_TYPE_ERROR, "%s: Failed to write scheme, MK err %d", buf, 0x12u);
+        v14 = "[SKPartitionTable writeNewMediaLayout:partitionScheme:]";
+        v15 = 1024;
+        v16 = v12;
+        _os_log_impl(&dword_26BBB8000, v10, OS_LOG_TYPE_ERROR, "%s: Failed to write scheme, MK err %d", buf, 0x12u);
       }
     }
 
     MKCFDisposeMedia();
-    v8 = v13 == 0;
+    v8 = v12 == 0;
   }
 
   else
@@ -206,50 +203,45 @@ LABEL_18:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v15 = "[SKPartitionTable writeNewMediaLayout:partitionScheme:]";
-      v16 = 1024;
-      v17 = v13;
+      v14 = "[SKPartitionTable writeNewMediaLayout:partitionScheme:]";
+      v15 = 1024;
+      v16 = v12;
       _os_log_impl(&dword_26BBB8000, v7, OS_LOG_TYPE_FAULT, "%s: Failed to create media, MK err %d", buf, 0x12u);
     }
 
     v8 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 id __56__SKPartitionTable_writeNewMediaLayout_partitionScheme___block_invoke()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"faultCode";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"faultCode";
   v0 = base64Encode("SKPartitionTable.m", 141);
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
 
 id __56__SKPartitionTable_writeNewMediaLayout_partitionScheme___block_invoke_56()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"faultCode";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"faultCode";
   v0 = base64Encode("SKPartitionTable.m", 149);
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
 
 - (BOOL)overwriteExistingMediaLayout:(id)layout opts:(__CFDictionary *)opts partitionScheme:(int)scheme size:(unint64_t)size
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   layoutCopy = layout;
-  v18 = 0;
+  v17 = 0;
   [(SKPartitionTable *)self mediaRef];
   v8 = MKCFReadMedia();
   if (!v8)
@@ -258,9 +250,9 @@ id __56__SKPartitionTable_writeNewMediaLayout_partitionScheme___block_invoke_56(
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[SKPartitionTable overwriteExistingMediaLayout:opts:partitionScheme:size:]";
-      v21 = 1024;
-      v22 = v18;
+      v19 = "[SKPartitionTable overwriteExistingMediaLayout:opts:partitionScheme:size:]";
+      v20 = 1024;
+      v21 = v17;
       _os_log_impl(&dword_26BBB8000, v10, OS_LOG_TYPE_ERROR, "%s: Failed to read media, MK err %d", buf, 0x12u);
     }
 
@@ -273,8 +265,8 @@ id __56__SKPartitionTable_writeNewMediaLayout_partitionScheme___block_invoke_56(
   MKCFCreateMap();
   CFArrayGetValueAtIndex(Value, 1);
   [(SKPartitionTable *)self mediaRef:mediaRef];
-  v18 = MKCFUpdateScheme();
-  if (v18)
+  v17 = MKCFUpdateScheme();
+  if (v17)
   {
     v11 = +[SKBaseManager sharedManager];
     [v11 logEvent:@"com.apple.StorageKit.log.fault" eventPayloadBuilder:&__block_literal_global_73];
@@ -283,9 +275,9 @@ id __56__SKPartitionTable_writeNewMediaLayout_partitionScheme___block_invoke_56(
     if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v20 = "[SKPartitionTable overwriteExistingMediaLayout:opts:partitionScheme:size:]";
-      v21 = 1024;
-      v22 = v18;
+      v19 = "[SKPartitionTable overwriteExistingMediaLayout:opts:partitionScheme:size:]";
+      v20 = 1024;
+      v21 = v17;
       _os_log_impl(&dword_26BBB8000, v12, OS_LOG_TYPE_FAULT, "%s: Failed to update scheme, MK err %d", buf, 0x12u);
     }
 
@@ -296,50 +288,45 @@ LABEL_10:
   }
 
   [(SKPartitionTable *)self mediaRef];
-  v18 = MKCFWriteScheme();
-  if (v18)
+  v17 = MKCFWriteScheme();
+  if (v17)
   {
-    v16 = SKGetOSLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v15 = SKGetOSLog();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v20 = "[SKPartitionTable overwriteExistingMediaLayout:opts:partitionScheme:size:]";
-      v21 = 1024;
-      v22 = v18;
-      _os_log_impl(&dword_26BBB8000, v16, OS_LOG_TYPE_ERROR, "%s: Failed to write scheme, MK err %d", buf, 0x12u);
+      v19 = "[SKPartitionTable overwriteExistingMediaLayout:opts:partitionScheme:size:]";
+      v20 = 1024;
+      v21 = v17;
+      _os_log_impl(&dword_26BBB8000, v15, OS_LOG_TYPE_ERROR, "%s: Failed to write scheme, MK err %d", buf, 0x12u);
     }
   }
 
   MKCFDisposeMedia();
-  v13 = v18 == 0;
+  v13 = v17 == 0;
 LABEL_11:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 id __75__SKPartitionTable_overwriteExistingMediaLayout_opts_partitionScheme_size___block_invoke()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"faultCode";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"faultCode";
   v0 = base64Encode("SKPartitionTable.m", 180);
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
 
 id __75__SKPartitionTable_overwriteExistingMediaLayout_opts_partitionScheme_size___block_invoke_71()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"faultCode";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"faultCode";
   v0 = base64Encode("SKPartitionTable.m", 187);
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
-
-  v2 = *MEMORY[0x277D85DE8];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
 
   return v1;
 }
@@ -368,108 +355,112 @@ id __75__SKPartitionTable_overwriteExistingMediaLayout_opts_partitionScheme_size
 
 - (BOOL)writePartitionScheme:(unint64_t)scheme error:(id *)error
 {
-  v38 = *MEMORY[0x277D85DE8];
-  if (-[SKPartitionTable allocateMediaRef:](self, "allocateMediaRef:", error) && (-[SKPartitionTable disk](self, "disk"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v7 wipeDiskWithError:error], v7, v8))
+  v37 = *MEMORY[0x277D85DE8];
+  if (![(SKPartitionTable *)self allocateMediaRef:error])
   {
-    v9 = objc_opt_new();
-    v27 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v30 = 0u;
-    partitions = [(SKPartitionTable *)self partitions];
-    v11 = [partitions countByEnumeratingWithState:&v27 objects:v37 count:16];
-    if (v11)
+    return 0;
+  }
+
+  disk = [(SKPartitionTable *)self disk];
+  v8 = [disk wipeDiskWithError:error];
+
+  if (!v8)
+  {
+    return 0;
+  }
+
+  v9 = objc_opt_new();
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
+  v29 = 0u;
+  partitions = [(SKPartitionTable *)self partitions];
+  v11 = [partitions countByEnumeratingWithState:&v26 objects:v36 count:16];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = *v27;
+    if (scheme)
     {
-      v12 = v11;
-      v13 = *v28;
-      if (scheme)
-      {
-        v14 = 1;
-      }
-
-      else
-      {
-        v14 = 16;
-      }
-
-      if (scheme == 1)
-      {
-        v15 = 8;
-      }
-
-      else
-      {
-        v15 = v14;
-      }
-
-      while (2)
-      {
-        for (i = 0; i != v12; ++i)
-        {
-          if (*v28 != v13)
-          {
-            objc_enumerationMutation(partitions);
-          }
-
-          v17 = [*(*(&v27 + 1) + 8 * i) buildWithScheme:v15 sectorSize:{-[SKPartitionTable sectorSize](self, "sectorSize")}];
-          if (!v17)
-          {
-            disk = [(SKPartitionTable *)self disk];
-            v36 = disk;
-            v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
-            v22 = 300;
-            goto LABEL_23;
-          }
-
-          v18 = v17;
-          [v9 addObject:v17];
-        }
-
-        v12 = [partitions countByEnumeratingWithState:&v27 objects:v37 count:16];
-        if (v12)
-        {
-          continue;
-        }
-
-        break;
-      }
-    }
-
-    v34 = @"Partitions";
-    v35 = v9;
-    partitions = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
-    if ([(SKPartitionTable *)self writeNewMediaLayout:partitions partitionScheme:scheme])
-    {
-      [(SKPartitionTable *)self flushMediaRef];
-      v19 = 1;
+      v14 = 1;
     }
 
     else
     {
-      v23 = SKGetOSLog();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v14 = 16;
+    }
+
+    if (scheme == 1)
+    {
+      v15 = 8;
+    }
+
+    else
+    {
+      v15 = v14;
+    }
+
+    while (2)
+    {
+      for (i = 0; i != v12; ++i)
       {
-        *buf = 136315138;
-        v33 = "[SKPartitionTable writePartitionScheme:error:]";
-        _os_log_impl(&dword_26BBB8000, v23, OS_LOG_TYPE_ERROR, "%s: Failed to write media on disk", buf, 0xCu);
+        if (*v27 != v13)
+        {
+          objc_enumerationMutation(partitions);
+        }
+
+        v17 = [*(*(&v26 + 1) + 8 * i) buildWithScheme:v15 sectorSize:{-[SKPartitionTable sectorSize](self, "sectorSize")}];
+        if (!v17)
+        {
+          disk2 = [(SKPartitionTable *)self disk];
+          v35 = disk2;
+          v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
+          v22 = 300;
+          goto LABEL_23;
+        }
+
+        v18 = v17;
+        [v9 addObject:v17];
       }
 
-      disk = [(SKPartitionTable *)self disk];
-      v31 = disk;
-      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v31 count:1];
-      v22 = 114;
-LABEL_23:
-      v24 = [SKError errorWithCode:v22 disks:v21 userInfo:0];
-      v19 = [SKError failWithError:v24 error:error];
+      v12 = [partitions countByEnumeratingWithState:&v26 objects:v36 count:16];
+      if (v12)
+      {
+        continue;
+      }
+
+      break;
     }
+  }
+
+  v33 = @"Partitions";
+  v34 = v9;
+  partitions = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+  if ([(SKPartitionTable *)self writeNewMediaLayout:partitions partitionScheme:scheme])
+  {
+    [(SKPartitionTable *)self flushMediaRef];
+    v19 = 1;
   }
 
   else
   {
-    v19 = 0;
+    v23 = SKGetOSLog();
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315138;
+      v32 = "[SKPartitionTable writePartitionScheme:error:]";
+      _os_log_impl(&dword_26BBB8000, v23, OS_LOG_TYPE_ERROR, "%s: Failed to write media on disk", buf, 0xCu);
+    }
+
+    disk2 = [(SKPartitionTable *)self disk];
+    v30 = disk2;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+    v22 = 114;
+LABEL_23:
+    v24 = [SKError errorWithCode:v22 disks:v21 userInfo:0];
+    v19 = [SKError failWithError:v24 error:error];
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
@@ -487,30 +478,30 @@ LABEL_23:
 
 + (BOOL)updatePartitionTypeWithPartitions:(id)partitions partID:(id)d newType:(id)type error:(id *)error
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   partitionsCopy = partitions;
   dCopy = d;
   typeCopy = type;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v11 = partitionsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v25;
+    v14 = *v24;
     while (2)
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v25 != v14)
+        if (*v24 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v24 + 1) + 8 * i);
+        v16 = *(*(&v23 + 1) + 8 * i);
         v17 = [v16 objectForKeyedSubscript:@"Partition ID"];
         v18 = [v17 isEqual:dCopy];
 
@@ -523,7 +514,7 @@ LABEL_23:
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v13)
       {
         continue;
@@ -537,13 +528,12 @@ LABEL_23:
   v20 = [SKError failWithSKErrorCode:117 debugDescription:dCopy error:error];
 LABEL_11:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (BOOL)overwritePartitionAt:(id)at filesystem:(id)filesystem error:(id *)error
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   atCopy = at;
   filesystemCopy = filesystem;
   if ([(SKPartitionTable *)self allocateMediaRef:error])
@@ -554,10 +544,10 @@ LABEL_11:
     if (v10)
     {
       v12 = [v10 objectForKeyedSubscript:@"Schemes"];
-      v28 = [v12 objectAtIndexedSubscript:0];
-      v27 = [v28 objectForKeyedSubscript:@"Sections"];
-      v26 = [v27 objectAtIndexedSubscript:0];
-      v13 = [v26 objectForKeyedSubscript:@"Partitions"];
+      v27 = [v12 objectAtIndexedSubscript:0];
+      v26 = [v27 objectForKeyedSubscript:@"Sections"];
+      v25 = [v26 objectAtIndexedSubscript:0];
+      v13 = [v25 objectForKeyedSubscript:@"Partitions"];
       disk = [(SKPartitionTable *)self disk];
       type = [disk type];
       v16 = diskTypeToScheme(type);
@@ -566,8 +556,8 @@ LABEL_11:
       {
         MKCFDisposeMedia();
         disk2 = [(SKPartitionTable *)self disk];
-        v30 = disk2;
-        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
+        v29 = disk2;
+        v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
         v19 = [SKError errorWithCode:117 disks:v18 userInfo:0];
         v20 = [SKError failWithError:v19 error:error];
       }
@@ -581,9 +571,9 @@ LABEL_11:
         if (v22)
         {
           [(SKPartitionTable *)self mediaRef];
-          v29 = MKCFWriteMedia();
+          v28 = MKCFWriteMedia();
           MKCFDisposeMedia();
-          if (v29)
+          if (v28)
           {
             v20 = [SKError failWithSKErrorCode:114 debugDescription:@"Failed to overwrite existing partition" error:error];
           }
@@ -608,9 +598,9 @@ LABEL_11:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v32 = "[SKPartitionTable overwritePartitionAt:filesystem:error:]";
-        v33 = 1024;
-        v34 = 0;
+        v31 = "[SKPartitionTable overwritePartitionAt:filesystem:error:]";
+        v32 = 1024;
+        v33 = 0;
         _os_log_impl(&dword_26BBB8000, v21, OS_LOG_TYPE_ERROR, "%s: Failed to read media, MK err %d", buf, 0x12u);
       }
 
@@ -624,99 +614,94 @@ LABEL_11:
     v20 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (BOOL)fitToContainerSize:(unint64_t)size error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
-  if ([(SKPartitionTable *)self allocateMediaRef:error])
+  v31 = *MEMORY[0x277D85DE8];
+  if (![(SKPartitionTable *)self allocateMediaRef:error])
   {
-    [(SKPartitionTable *)self mediaRef];
-    v7 = MKCFReadMedia();
-    if (v7)
+    return 0;
+  }
+
+  [(SKPartitionTable *)self mediaRef];
+  v7 = MKCFReadMedia();
+  if (v7)
+  {
+    disk = [(SKPartitionTable *)self disk];
+    type = [disk type];
+    v10 = diskTypeToScheme(type);
+
+    if (v10 == 512)
     {
-      disk = [(SKPartitionTable *)self disk];
-      type = [disk type];
-      v10 = diskTypeToScheme(type);
-
-      if (v10 == 512)
-      {
-        MKCFDisposeMedia();
-        disk2 = [(SKPartitionTable *)self disk];
-        v27 = disk2;
-        v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
-        v13 = [SKError errorWithCode:117 disks:v12 userInfo:0];
-        v14 = [SKError failWithError:v13 error:error];
-      }
-
-      else
-      {
-        disk2 = [v7 objectForKeyedSubscript:@"Schemes"];
-        v16 = [disk2 objectAtIndexedSubscript:0];
-        v17 = [v16 objectForKeyedSubscript:@"Sections"];
-        v18 = [v17 objectAtIndexedSubscript:0];
-        v19 = [(SKPartitionTable *)self overwriteExistingMediaLayout:v18 opts:&unk_287C9A5A0 partitionScheme:v10 size:size / [(SKPartitionTable *)self sectorSize]];
-        MKCFDisposeMedia();
-        if (v19)
-        {
-          [(SKPartitionTable *)self flushMediaRef];
-          v14 = 1;
-        }
-
-        else
-        {
-          v20 = SKGetOSLog();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
-          {
-            *buf = 136315138;
-            v29 = "[SKPartitionTable fitToContainerSize:error:]";
-            _os_log_impl(&dword_26BBB8000, v20, OS_LOG_TYPE_ERROR, "%s: Failed to fit existing partition", buf, 0xCu);
-          }
-
-          disk3 = [(SKPartitionTable *)self disk];
-          v26 = disk3;
-          v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
-          v23 = [SKError errorWithCode:114 disks:v22 userInfo:0];
-          v14 = [SKError failWithError:v23 error:error];
-        }
-      }
+      MKCFDisposeMedia();
+      disk2 = [(SKPartitionTable *)self disk];
+      v26 = disk2;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+      v13 = [SKError errorWithCode:117 disks:v12 userInfo:0];
+      v14 = [SKError failWithError:v13 error:error];
     }
 
     else
     {
-      v15 = SKGetOSLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      disk2 = [v7 objectForKeyedSubscript:@"Schemes"];
+      v16 = [disk2 objectAtIndexedSubscript:0];
+      v17 = [v16 objectForKeyedSubscript:@"Sections"];
+      v18 = [v17 objectAtIndexedSubscript:0];
+      v19 = [(SKPartitionTable *)self overwriteExistingMediaLayout:v18 opts:&unk_287C9A5A0 partitionScheme:v10 size:size / [(SKPartitionTable *)self sectorSize]];
+      MKCFDisposeMedia();
+      if (v19)
       {
-        *buf = 136315394;
-        v29 = "[SKPartitionTable fitToContainerSize:error:]";
-        v30 = 1024;
-        v31 = 0;
-        _os_log_impl(&dword_26BBB8000, v15, OS_LOG_TYPE_ERROR, "%s: Failed to read media, MK err %d", buf, 0x12u);
+        [(SKPartitionTable *)self flushMediaRef];
+        v14 = 1;
       }
 
-      disk2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:0 userInfo:0];
-      v14 = [SKError failWithError:disk2 error:error];
+      else
+      {
+        v20 = SKGetOSLog();
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 136315138;
+          v28 = "[SKPartitionTable fitToContainerSize:error:]";
+          _os_log_impl(&dword_26BBB8000, v20, OS_LOG_TYPE_ERROR, "%s: Failed to fit existing partition", buf, 0xCu);
+        }
+
+        disk3 = [(SKPartitionTable *)self disk];
+        v25 = disk3;
+        v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+        v23 = [SKError errorWithCode:114 disks:v22 userInfo:0];
+        v14 = [SKError failWithError:v23 error:error];
+      }
     }
   }
 
   else
   {
-    v14 = 0;
+    v15 = SKGetOSLog();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v28 = "[SKPartitionTable fitToContainerSize:error:]";
+      v29 = 1024;
+      v30 = 0;
+      _os_log_impl(&dword_26BBB8000, v15, OS_LOG_TYPE_ERROR, "%s: Failed to read media, MK err %d", buf, 0x12u);
+    }
+
+    disk2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:0 userInfo:0];
+    v14 = [SKError failWithError:disk2 error:error];
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 - (BOOL)resizePartitionID:(id)d size:(unint64_t)size offset:(unint64_t)offset error:(id *)error
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   dCopy = d;
   if ([(SKPartitionTable *)self allocateMediaRef:error])
   {
-    v56 = 0;
+    v55 = 0;
     [(SKPartitionTable *)self mediaRef];
     v8 = MKCFReadMedia();
     v9 = v8;
@@ -726,13 +711,13 @@ LABEL_11:
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v63 = "[SKPartitionTable resizePartitionID:size:offset:error:]";
-        v64 = 1024;
-        v65 = v56;
+        v62 = "[SKPartitionTable resizePartitionID:size:offset:error:]";
+        v63 = 1024;
+        v64 = v55;
         _os_log_impl(&dword_26BBB8000, v21, OS_LOG_TYPE_ERROR, "%s: Failed to read media, MK err %d", buf, 0x12u);
       }
 
-      v10 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:v56 userInfo:0];
+      v10 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:v55 userInfo:0];
       v20 = [SKError failWithError:v10 error:error];
       goto LABEL_26;
     }
@@ -740,52 +725,52 @@ LABEL_11:
     v10 = [v8 objectForKeyedSubscript:@"Schemes"];
     v11 = [v10 objectAtIndexedSubscript:0];
     v12 = [v11 objectForKeyedSubscript:@"Sections"];
-    v48 = [v12 objectAtIndexedSubscript:0];
-    v13 = [v48 objectForKeyedSubscript:@"Partitions"];
+    v47 = [v12 objectAtIndexedSubscript:0];
+    v13 = [v47 objectForKeyedSubscript:@"Partitions"];
     disk = [(SKPartitionTable *)self disk];
     type = [disk type];
     v16 = diskTypeToScheme(type);
 
-    v47 = v13;
+    v46 = v13;
     if (v16 == 512)
     {
       MKCFDisposeMedia();
       disk2 = [(SKPartitionTable *)self disk];
-      v61 = disk2;
-      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
+      v60 = disk2;
+      v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
       v19 = [SKError errorWithCode:117 disks:v18 userInfo:0];
       v20 = [SKError failWithError:v19 error:error];
     }
 
     else
     {
-      v42 = v16;
-      v43 = v12;
-      v44 = v11;
-      v45 = v10;
-      v46 = v9;
+      v41 = v16;
+      v42 = v12;
+      v43 = v11;
+      v44 = v10;
+      v45 = v9;
       errorCopy = error;
       disk2 = objc_opt_new();
+      v51 = 0u;
       v52 = 0u;
       v53 = 0u;
       v54 = 0u;
-      v55 = 0u;
       v22 = v13;
-      v23 = [v22 countByEnumeratingWithState:&v52 objects:v60 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v51 objects:v59 count:16];
       if (v23)
       {
         v24 = v23;
-        v25 = *v53;
+        v25 = *v52;
         do
         {
           for (i = 0; i != v24; ++i)
           {
-            if (*v53 != v25)
+            if (*v52 != v25)
             {
               objc_enumerationMutation(v22);
             }
 
-            v27 = *(*(&v52 + 1) + 8 * i);
+            v27 = *(*(&v51 + 1) + 8 * i);
             v28 = [v27 mutableCopy];
             v29 = [v27 objectForKeyedSubscript:@"Partition ID"];
             v30 = [v29 isEqualToNumber:dCopy];
@@ -805,48 +790,48 @@ LABEL_11:
             [disk2 addObject:v28];
           }
 
-          v24 = [v22 countByEnumeratingWithState:&v52 objects:v60 count:16];
+          v24 = [v22 countByEnumeratingWithState:&v51 objects:v59 count:16];
         }
 
         while (v24);
       }
 
-      v58 = @"Partitions";
-      v59 = disk2;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
-      v33 = [(SKPartitionTable *)self overwriteExistingMediaLayout:v18 opts:&unk_287C9A5F0 partitionScheme:v42];
-      v9 = v46;
+      v57 = @"Partitions";
+      v58 = disk2;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+      v33 = [(SKPartitionTable *)self overwriteExistingMediaLayout:v18 opts:&unk_287C9A5F0 partitionScheme:v41];
+      v9 = v45;
       MKCFDisposeMedia();
       if (!v33)
       {
         v35 = SKGetOSLog();
-        v12 = v43;
-        v34 = v48;
+        v12 = v42;
+        v34 = v47;
         if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315138;
-          v63 = "[SKPartitionTable resizePartitionID:size:offset:error:]";
+          v62 = "[SKPartitionTable resizePartitionID:size:offset:error:]";
           _os_log_impl(&dword_26BBB8000, v35, OS_LOG_TYPE_ERROR, "%s: Failed to overwrite existing partition", buf, 0xCu);
         }
 
         disk3 = [(SKPartitionTable *)self disk];
-        v57 = disk3;
-        v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
+        v56 = disk3;
+        v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
         v38 = [SKError errorWithCode:114 disks:v37 userInfo:0];
         v20 = [SKError failWithError:v38 error:errorCopy];
 
-        v11 = v44;
-        v10 = v45;
+        v11 = v43;
+        v10 = v44;
         goto LABEL_25;
       }
 
       [(SKPartitionTable *)self flushMediaRef];
       v20 = 1;
-      v10 = v45;
-      v12 = v43;
+      v10 = v44;
+      v12 = v42;
     }
 
-    v34 = v48;
+    v34 = v47;
 LABEL_25:
 
 LABEL_26:
@@ -856,7 +841,6 @@ LABEL_26:
   v20 = 0;
 LABEL_27:
 
-  v39 = *MEMORY[0x277D85DE8];
   return v20;
 }
 

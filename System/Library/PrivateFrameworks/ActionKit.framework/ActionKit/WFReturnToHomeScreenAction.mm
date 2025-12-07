@@ -7,12 +7,12 @@
 
 - (id)returnToHomeScreenError
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CCA9B8];
-  v14[0] = *MEMORY[0x277CCA470];
+  v13[0] = *MEMORY[0x277CCA470];
   v3 = WFLocalizedString(@"Could not go to Home Screen");
-  v15[0] = v3;
-  v14[1] = *MEMORY[0x277CCA450];
+  v14[0] = v3;
+  v13[1] = *MEMORY[0x277CCA450];
   currentDevice = [MEMORY[0x277D79F18] currentDevice];
   idiom = [currentDevice idiom];
 
@@ -64,11 +64,9 @@ LABEL_15:
   v8 = WFLocalizedStringWithKey(v6, v7);
 LABEL_16:
   v9 = v8;
-  v15[1] = v8;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v14[1] = v8;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
   v11 = [v2 errorWithDomain:@"WFReturnToHomeScreenActionErrorDomain" code:0 userInfo:v10];
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

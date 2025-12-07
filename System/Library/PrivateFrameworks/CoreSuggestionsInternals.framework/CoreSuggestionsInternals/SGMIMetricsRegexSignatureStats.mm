@@ -20,7 +20,7 @@
 
 - (void)mergeFrom:(id)from
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   trialMetadata = self->_trialMetadata;
   v6 = *(fromCopy + 7);
@@ -42,29 +42,29 @@
     [(SGMIMetricsRegexSignatureStats *)self setLocale:?];
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v7 = *(fromCopy + 4);
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(SGMIMetricsRegexSignatureStats *)self addStats:*(*(&v14 + 1) + 8 * i), v14];
+        [(SGMIMetricsRegexSignatureStats *)self addStats:*(*(&v13 + 1) + 8 * i), v13];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
@@ -163,8 +163,6 @@ LABEL_22:
   }
 
 LABEL_23:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)hash
@@ -399,7 +397,7 @@ LABEL_43:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(SGMIMetricsTrialMetadata *)self->_trialMetadata copyWithZone:zone];
   v7 = *(v5 + 56);
@@ -409,30 +407,30 @@ LABEL_43:
   v9 = *(v5 + 8);
   *(v5 + 8) = v8;
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v10 = self->_stats;
-  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v20;
+    v13 = *v19;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v20 != v13)
+        if (*v19 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [*(*(&v19 + 1) + 8 * i) copyWithZone:{zone, v19}];
+        v15 = [*(*(&v18 + 1) + 8 * i) copyWithZone:{zone, v18}];
         [v5 addStats:v15];
       }
 
-      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v12);
@@ -507,7 +505,7 @@ LABEL_22:
     *(v5 + 64) |= 8u;
     if ((*&self->_has & 2) == 0)
     {
-      goto LABEL_16;
+      return v5;
     }
 
     goto LABEL_15;
@@ -530,8 +528,6 @@ LABEL_15:
     *(v5 + 64) |= 2u;
   }
 
-LABEL_16:
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -660,7 +656,7 @@ LABEL_17:
 
 - (void)writeTo:(id)to
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_trialMetadata)
   {
@@ -672,30 +668,29 @@ LABEL_17:
     PBDataWriterWriteStringField();
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = self->_stats;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -704,7 +699,6 @@ LABEL_17:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    totalNumberOfEmailsProcessedForAttachmentDetectionRoundedToClosestMultipleOf20 = self->_totalNumberOfEmailsProcessedForAttachmentDetectionRoundedToClosestMultipleOf20;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 0x40) == 0)
@@ -724,7 +718,6 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  totalNumberOfEmailsProcessedForRecipientDetectionRoundedToClosestMultipleOf20 = self->_totalNumberOfEmailsProcessedForRecipientDetectionRoundedToClosestMultipleOf20;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -739,7 +732,6 @@ LABEL_15:
   }
 
 LABEL_23:
-  totalNumberOfEmailsProcessedForFollowUpDetectionRoundedToClosestMultipleOf20 = self->_totalNumberOfEmailsProcessedForFollowUpDetectionRoundedToClosestMultipleOf20;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -754,7 +746,6 @@ LABEL_16:
   }
 
 LABEL_24:
-  numberOfPredictedAttachmentOnLargeIncomingMailsWithAttachmentRoundedToClosestMultipleOf20 = self->_numberOfPredictedAttachmentOnLargeIncomingMailsWithAttachmentRoundedToClosestMultipleOf20;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -766,7 +757,6 @@ LABEL_17:
     }
 
 LABEL_26:
-    numberOfPredictedAttachmentOnLargeOutgoingMailsWithAttachmentRoundedToClosestMultipleOf20 = self->_numberOfPredictedAttachmentOnLargeOutgoingMailsWithAttachmentRoundedToClosestMultipleOf20;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 2) == 0)
     {
@@ -777,7 +767,6 @@ LABEL_26:
   }
 
 LABEL_25:
-  numberOfLargeIncomingMailsWithAttachmentRoundedToClosestMultipleOf20 = self->_numberOfLargeIncomingMailsWithAttachmentRoundedToClosestMultipleOf20;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) != 0)
@@ -789,18 +778,15 @@ LABEL_18:
   if ((has & 2) != 0)
   {
 LABEL_19:
-    numberOfLargeOutgoingMailsWithAttachmentRoundedToClosestMultipleOf20 = self->_numberOfLargeOutgoingMailsWithAttachmentRoundedToClosestMultipleOf20;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_20:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dictionaryRepresentation
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   trialMetadata = self->_trialMetadata;
   if (trialMetadata)
@@ -815,33 +801,33 @@ LABEL_20:
     [dictionary setObject:locale forKey:@"locale"];
   }
 
-  if ([(NSMutableArray *)self->_stats count])
+  if (objc_msgSend_count(self->_stats))
   {
-    v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_stats, "count")}];
+    v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:objc_msgSend_count(self->_stats)];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v8 = self->_stats;
-    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v25;
+      v11 = *v24;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v25 != v11)
+          if (*v24 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          dictionaryRepresentation2 = [*(*(&v24 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation2 = [*(*(&v23 + 1) + 8 * i) dictionaryRepresentation];
           [v7 addObject:dictionaryRepresentation2];
         }
 
-        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v10);
@@ -853,8 +839,8 @@ LABEL_20:
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_totalNumberOfEmailsProcessedForAttachmentDetectionRoundedToClosestMultipleOf20];
-    [dictionary setObject:v18 forKey:@"totalNumberOfEmailsProcessedForAttachmentDetectionRoundedToClosestMultipleOf20"];
+    v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self->_totalNumberOfEmailsProcessedForAttachmentDetectionRoundedToClosestMultipleOf20];
+    [dictionary setObject:v17 forKey:@"totalNumberOfEmailsProcessedForAttachmentDetectionRoundedToClosestMultipleOf20"];
 
     has = self->_has;
     if ((has & 0x40) == 0)
@@ -874,8 +860,8 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_totalNumberOfEmailsProcessedForRecipientDetectionRoundedToClosestMultipleOf20, v24}];
-  [dictionary setObject:v19 forKey:@"totalNumberOfEmailsProcessedForRecipientDetectionRoundedToClosestMultipleOf20"];
+  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_totalNumberOfEmailsProcessedForRecipientDetectionRoundedToClosestMultipleOf20, v23}];
+  [dictionary setObject:v18 forKey:@"totalNumberOfEmailsProcessedForRecipientDetectionRoundedToClosestMultipleOf20"];
 
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -890,8 +876,8 @@ LABEL_17:
   }
 
 LABEL_27:
-  v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_totalNumberOfEmailsProcessedForFollowUpDetectionRoundedToClosestMultipleOf20, v24}];
-  [dictionary setObject:v20 forKey:@"totalNumberOfEmailsProcessedForFollowUpDetectionRoundedToClosestMultipleOf20"];
+  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_totalNumberOfEmailsProcessedForFollowUpDetectionRoundedToClosestMultipleOf20, v23}];
+  [dictionary setObject:v19 forKey:@"totalNumberOfEmailsProcessedForFollowUpDetectionRoundedToClosestMultipleOf20"];
 
   has = self->_has;
   if ((has & 4) == 0)
@@ -906,8 +892,8 @@ LABEL_18:
   }
 
 LABEL_28:
-  v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_numberOfPredictedAttachmentOnLargeIncomingMailsWithAttachmentRoundedToClosestMultipleOf20, v24}];
-  [dictionary setObject:v21 forKey:@"numberOfPredictedAttachmentOnLargeIncomingMailsWithAttachmentRoundedToClosestMultipleOf20"];
+  v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_numberOfPredictedAttachmentOnLargeIncomingMailsWithAttachmentRoundedToClosestMultipleOf20, v23}];
+  [dictionary setObject:v20 forKey:@"numberOfPredictedAttachmentOnLargeIncomingMailsWithAttachmentRoundedToClosestMultipleOf20"];
 
   has = self->_has;
   if ((has & 1) == 0)
@@ -922,8 +908,8 @@ LABEL_19:
   }
 
 LABEL_29:
-  v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_numberOfLargeIncomingMailsWithAttachmentRoundedToClosestMultipleOf20, v24}];
-  [dictionary setObject:v22 forKey:@"numberOfLargeIncomingMailsWithAttachmentRoundedToClosestMultipleOf20"];
+  v21 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_numberOfLargeIncomingMailsWithAttachmentRoundedToClosestMultipleOf20, v23}];
+  [dictionary setObject:v21 forKey:@"numberOfLargeIncomingMailsWithAttachmentRoundedToClosestMultipleOf20"];
 
   has = self->_has;
   if ((has & 8) == 0)
@@ -938,18 +924,17 @@ LABEL_20:
   }
 
 LABEL_30:
-  v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_numberOfPredictedAttachmentOnLargeOutgoingMailsWithAttachmentRoundedToClosestMultipleOf20, v24}];
-  [dictionary setObject:v23 forKey:@"numberOfPredictedAttachmentOnLargeOutgoingMailsWithAttachmentRoundedToClosestMultipleOf20"];
+  v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_numberOfPredictedAttachmentOnLargeOutgoingMailsWithAttachmentRoundedToClosestMultipleOf20, v23}];
+  [dictionary setObject:v22 forKey:@"numberOfPredictedAttachmentOnLargeOutgoingMailsWithAttachmentRoundedToClosestMultipleOf20"];
 
   if ((*&self->_has & 2) != 0)
   {
 LABEL_21:
-    v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_numberOfLargeOutgoingMailsWithAttachmentRoundedToClosestMultipleOf20, v24}];
+    v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{self->_numberOfLargeOutgoingMailsWithAttachmentRoundedToClosestMultipleOf20, v23}];
     [dictionary setObject:v15 forKey:@"numberOfLargeOutgoingMailsWithAttachmentRoundedToClosestMultipleOf20"];
   }
 
 LABEL_22:
-  v16 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }

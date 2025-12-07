@@ -98,9 +98,11 @@
   avCaptureDispatchQueue = self->_avCaptureDispatchQueue;
   self->_avCaptureDispatchQueue = v25;
 
-  self->_avCaptureDevice = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+  v27 = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+  avCaptureDevice = self->_avCaptureDevice;
+  self->_avCaptureDevice = v27;
 
-  _objc_release_x1();
+  _objc_release_x1(v27, avCaptureDevice);
 }
 
 - (void)setUpConstraints
@@ -230,11 +232,11 @@
     v5 = [[SOSVoiceMessageManager alloc] initWithMessageType:sosVoiceMessageType];
     [(PHCheckInView *)self setVoiceMessageManager:v5];
 
-    v6 = sub_100004F84();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004F84(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "PHCheckInView,starting check-in voice message", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "PHCheckInView,starting check-in voice message", buf, 2u);
     }
 
     voiceMessageManager = [(PHCheckInView *)self voiceMessageManager];
@@ -247,26 +249,26 @@
   {
     objc_initWeak(&location, self);
     *buf = 0;
-    v23 = buf;
-    v24 = 0x2020000000;
+    v24 = buf;
+    v25 = 0x2020000000;
     checkInViewModel2 = [(PHCheckInView *)self checkInViewModel];
     [checkInViewModel2 timeout];
-    v11 = v10;
+    v12 = v11;
 
-    v25 = v11;
+    v26 = v12;
     checkInViewModel3 = [(PHCheckInView *)self checkInViewModel];
     [checkInViewModel3 countdownTickDuration];
-    v14 = v13;
-    v16 = _NSConcreteStackBlock;
-    v17 = 3221225472;
-    v18 = sub_100072264;
-    v19 = &unk_1003576D0;
-    objc_copyWeak(&v21, &location);
-    v20 = buf;
-    v15 = [NSTimer scheduledTimerWithTimeInterval:1 repeats:&v16 block:v14];
-    [(PHCheckInView *)self setCheckInTimer:v15, v16, v17, v18, v19];
+    v15 = v14;
+    v17 = _NSConcreteStackBlock;
+    v18 = 3221225472;
+    v19 = sub_100072264;
+    v20 = &unk_1003576D0;
+    objc_copyWeak(&v22, &location);
+    v21 = buf;
+    v16 = [NSTimer scheduledTimerWithTimeInterval:1 repeats:&v17 block:v15];
+    [(PHCheckInView *)self setCheckInTimer:v16, v17, v18, v19, v20];
 
-    objc_destroyWeak(&v21);
+    objc_destroyWeak(&v22);
     _Block_object_dispose(buf, 8);
     objc_destroyWeak(&location);
   }
@@ -281,7 +283,7 @@
 
 - (void)restart
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -299,11 +301,11 @@
 
   if (isValid)
   {
-    v5 = sub_100004F84();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004F84(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Invalidating PHCheckInView timer", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Invalidating PHCheckInView timer", v8, 2u);
     }
 
     checkInTimer2 = [(PHCheckInView *)self checkInTimer];
@@ -319,11 +321,11 @@
 
   if (voiceMessageManager)
   {
-    v4 = sub_100004F84();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100004F84(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "PHCheckInView,stopping check-in voice message", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHCheckInView,stopping check-in voice message", v7, 2u);
     }
 
     voiceMessageManager2 = [(PHCheckInView *)self voiceMessageManager];
@@ -348,12 +350,12 @@
 
   if (completion)
   {
-    v6 = sub_100004F84();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004F84(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8[0] = 67109120;
-      v8[1] = result;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "PHCheckInView,returning result,%d", v8, 8u);
+      v9[0] = 67109120;
+      v9[1] = result;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "PHCheckInView,returning result,%d", v9, 8u);
     }
 
     completion2 = [(PHCheckInView *)self completion];
@@ -372,11 +374,11 @@
 
   if (sosCallSlidingButton == buttonCopy)
   {
-    v6 = sub_100004F84();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004F84(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "PHCheckInView,user slid SOS slider", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "PHCheckInView,user slid SOS slider", v8, 2u);
     }
 
     [(PHCheckInView *)self stopAndNotifyResult:1];

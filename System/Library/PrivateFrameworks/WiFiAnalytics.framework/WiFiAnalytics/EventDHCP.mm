@@ -8,7 +8,7 @@
 
 + (id)mostRecentJoinOn:(id)on ssid:(id)ssid before:(id)before withPersistentContainer:(id)container
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   onCopy = on;
   ssidCopy = ssid;
   beforeCopy = before;
@@ -16,22 +16,22 @@
   if (onCopy && ssidCopy)
   {
     v13 = +[WADeviceAnalyticsJoinRecord entity];
-    v22 = 0;
-    v14 = [containerCopy mostRecentDatedEvent:v13 before:beforeCopy withPrefetchedProperties:&unk_1F483E560 withError:&v22];
-    v15 = v22;
+    v21 = 0;
+    v14 = [containerCopy mostRecentDatedEvent:v13 before:beforeCopy withPrefetchedProperties:&unk_1F483E560 withError:&v21];
+    v15 = v21;
 
     if (v15)
     {
-      v21 = WALogCategoryDeviceStoreHandle();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+      v20 = WALogCategoryDeviceStoreHandle();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
       {
         *buf = 136446722;
-        v24 = "+[EventDHCP mostRecentJoinOn:ssid:before:withPersistentContainer:]";
-        v25 = 1024;
-        v26 = 38;
-        v27 = 2112;
-        v28 = v15;
-        _os_log_impl(&dword_1C8460000, v21, OS_LOG_TYPE_FAULT, "%{public}s::%d:Error while fetching most recent join: %@", buf, 0x1Cu);
+        v23 = "+[EventDHCP mostRecentJoinOn:ssid:before:withPersistentContainer:]";
+        v24 = 1024;
+        v25 = 38;
+        v26 = 2112;
+        v27 = v15;
+        _os_log_impl(&dword_1C8460000, v20, OS_LOG_TYPE_FAULT, "%{public}s::%d:Error while fetching most recent join: %@", buf, 0x1Cu);
       }
 
       goto LABEL_18;
@@ -47,12 +47,12 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       *buf = 136446466;
-      v24 = "+[EventDHCP mostRecentJoinOn:ssid:before:withPersistentContainer:]";
-      v25 = 1024;
-      v26 = 39;
-      v18 = "%{public}s::%d:No most recent join found";
-      v19 = v14;
-      v20 = 18;
+      v23 = "+[EventDHCP mostRecentJoinOn:ssid:before:withPersistentContainer:]";
+      v24 = 1024;
+      v25 = 39;
+      v17 = "%{public}s::%d:No most recent join found";
+      v18 = v14;
+      v19 = 18;
       goto LABEL_16;
     }
   }
@@ -63,18 +63,18 @@
     if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       *buf = 136446978;
-      v24 = "+[EventDHCP mostRecentJoinOn:ssid:before:withPersistentContainer:]";
-      v25 = 1024;
-      v26 = 33;
-      v27 = 2112;
-      v28 = onCopy;
-      v29 = 2112;
-      v30 = ssidCopy;
-      v18 = "%{public}s::%d:missing required parameter: bssid(%@) ssid(%@)";
-      v19 = v14;
-      v20 = 38;
+      v23 = "+[EventDHCP mostRecentJoinOn:ssid:before:withPersistentContainer:]";
+      v24 = 1024;
+      v25 = 33;
+      v26 = 2112;
+      v27 = onCopy;
+      v28 = 2112;
+      v29 = ssidCopy;
+      v17 = "%{public}s::%d:missing required parameter: bssid(%@) ssid(%@)";
+      v18 = v14;
+      v19 = 38;
 LABEL_16:
-      _os_log_impl(&dword_1C8460000, v19, OS_LOG_TYPE_FAULT, v18, buf, v20);
+      _os_log_impl(&dword_1C8460000, v18, OS_LOG_TYPE_FAULT, v17, buf, v19);
     }
   }
 
@@ -84,14 +84,12 @@ LABEL_18:
   v14 = 0;
 LABEL_6:
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 + (BOOL)processEvent:(id)event dhcpServerInfo:(id)info onBSS:(id)s andNetwork:(id)network withPersistentContainer:(id)container
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   eventCopy = event;
   sCopy = s;
   containerCopy = container;
@@ -109,11 +107,11 @@ LABEL_6:
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136446722;
-    v50 = "+[EventDHCP processEvent:dhcpServerInfo:onBSS:andNetwork:withPersistentContainer:]";
-    v51 = 1024;
-    v52 = 60;
-    v53 = 2112;
-    v54 = v16;
+    v49 = "+[EventDHCP processEvent:dhcpServerInfo:onBSS:andNetwork:withPersistentContainer:]";
+    v50 = 1024;
+    v51 = 60;
+    v52 = 2112;
+    v53 = v16;
     _os_log_impl(&dword_1C8460000, v17, OS_LOG_TYPE_DEBUG, "%{public}s::%d:finding unique LAN for %@", buf, 0x1Cu);
   }
 
@@ -127,14 +125,14 @@ LABEL_6:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
     {
       *buf = 136446722;
-      v50 = "+[EventDHCP processEvent:dhcpServerInfo:onBSS:andNetwork:withPersistentContainer:]";
-      v51 = 1024;
-      v52 = 65;
-      v53 = 2112;
-      v54 = v16;
-      v42 = "%{public}s::%d:Unable to obtain LANMO for %@";
+      v49 = "+[EventDHCP processEvent:dhcpServerInfo:onBSS:andNetwork:withPersistentContainer:]";
+      v50 = 1024;
+      v51 = 65;
+      v52 = 2112;
+      v53 = v16;
+      v41 = "%{public}s::%d:Unable to obtain LANMO for %@";
 LABEL_23:
-      _os_log_impl(&dword_1C8460000, v24, OS_LOG_TYPE_FAULT, v42, buf, 0x1Cu);
+      _os_log_impl(&dword_1C8460000, v24, OS_LOG_TYPE_FAULT, v41, buf, 0x1Cu);
     }
 
 LABEL_24:
@@ -146,7 +144,7 @@ LABEL_24:
   bssid = [v21 bssid];
   v23 = [sCopy isEqualToString:bssid];
 
-  v45 = v16;
+  v44 = v16;
   if (!v23)
   {
     v25 = WALogCategoryDeviceStoreHandle();
@@ -155,35 +153,35 @@ LABEL_24:
       v26 = [eventCopy bss];
       bssid2 = [v26 bssid];
       *buf = 136446978;
-      v50 = "+[EventDHCP processEvent:dhcpServerInfo:onBSS:andNetwork:withPersistentContainer:]";
-      v51 = 1024;
-      v52 = 75;
-      v53 = 2112;
-      v54 = bssid2;
-      v55 = 2112;
-      v56 = sCopy;
+      v49 = "+[EventDHCP processEvent:dhcpServerInfo:onBSS:andNetwork:withPersistentContainer:]";
+      v50 = 1024;
+      v51 = 75;
+      v52 = 2112;
+      v53 = bssid2;
+      v54 = 2112;
+      v55 = sCopy;
       _os_log_impl(&dword_1C8460000, v25, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:The most recent join's bssid(%@) differs from provided bssid: %@", buf, 0x26u);
     }
 
-    v48 = 0;
-    v24 = [containerCopy bssForBssid:sCopy prefetchProperties:0 withError:&v48];
-    v28 = v48;
+    v47 = 0;
+    v24 = [containerCopy bssForBssid:sCopy prefetchProperties:0 withError:&v47];
+    v28 = v47;
     v29 = v28;
     if (v24 && !v28)
     {
       goto LABEL_13;
     }
 
-    v43 = WALogCategoryDeviceStoreHandle();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_FAULT))
+    v42 = WALogCategoryDeviceStoreHandle();
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
     {
       *buf = 136446722;
-      v50 = "+[EventDHCP processEvent:dhcpServerInfo:onBSS:andNetwork:withPersistentContainer:]";
-      v51 = 1024;
-      v52 = 77;
-      v53 = 2112;
-      v54 = sCopy;
-      _os_log_impl(&dword_1C8460000, v43, OS_LOG_TYPE_FAULT, "%{public}s::%d:Unable to fetch BSS for %@", buf, 0x1Cu);
+      v49 = "+[EventDHCP processEvent:dhcpServerInfo:onBSS:andNetwork:withPersistentContainer:]";
+      v50 = 1024;
+      v51 = 77;
+      v52 = 2112;
+      v53 = sCopy;
+      _os_log_impl(&dword_1C8460000, v42, OS_LOG_TYPE_FAULT, "%{public}s::%d:Unable to fetch BSS for %@", buf, 0x1Cu);
     }
 
 LABEL_28:
@@ -197,12 +195,12 @@ LABEL_28:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
     {
       *buf = 136446722;
-      v50 = "+[EventDHCP processEvent:dhcpServerInfo:onBSS:andNetwork:withPersistentContainer:]";
-      v51 = 1024;
-      v52 = 72;
-      v53 = 2112;
-      v54 = eventCopy;
-      v42 = "%{public}s::%d:Unexpected mostRecentJoin (%@) - how can we get a DHCP update if we failed to join?";
+      v49 = "+[EventDHCP processEvent:dhcpServerInfo:onBSS:andNetwork:withPersistentContainer:]";
+      v50 = 1024;
+      v51 = 72;
+      v52 = 2112;
+      v53 = eventCopy;
+      v41 = "%{public}s::%d:Unexpected mostRecentJoin (%@) - how can we get a DHCP update if we failed to join?";
       goto LABEL_23;
     }
 
@@ -214,36 +212,36 @@ LABEL_13:
   [eventCopy setLan:v20];
   [self logChangesForBSS:v24 withLAN:v20];
   [v24 setLan:v20];
-  v47 = 0;
-  [containerCopy saveManagedObjectContextWithError:&v47];
-  v30 = v47;
-  v46 = v30;
-  v31 = [containerCopy networkCountForLAN:v20 withError:&v46];
-  v29 = v46;
+  v46 = 0;
+  [containerCopy saveManagedObjectContextWithError:&v46];
+  v30 = v46;
+  v45 = v30;
+  v31 = [containerCopy networkCountForLAN:v20 withError:&v45];
+  v29 = v45;
 
   v32 = WALogCategoryDeviceStoreHandle();
   if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
   {
     [eventCopy bss];
-    v44 = containerCopy;
+    v43 = containerCopy;
     v34 = v33 = sCopy;
     v35 = [v34 lan];
     bsses = [v35 bsses];
     v37 = [bsses count];
     *buf = 136447234;
-    v50 = "+[EventDHCP processEvent:dhcpServerInfo:onBSS:andNetwork:withPersistentContainer:]";
-    v51 = 1024;
-    v52 = 88;
-    v53 = 2112;
-    v54 = eventCopy;
-    v55 = 2048;
-    v56 = v31;
-    v57 = 2048;
-    v58 = v37;
+    v49 = "+[EventDHCP processEvent:dhcpServerInfo:onBSS:andNetwork:withPersistentContainer:]";
+    v50 = 1024;
+    v51 = 88;
+    v52 = 2112;
+    v53 = eventCopy;
+    v54 = 2048;
+    v55 = v31;
+    v56 = 2048;
+    v57 = v37;
     _os_log_impl(&dword_1C8460000, v32, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Updated LAN for %@ (networksCount:%lu bsses.count:%lu)", buf, 0x30u);
 
     sCopy = v33;
-    containerCopy = v44;
+    containerCopy = v43;
   }
 
   [containerCopy setHasBandsForMO:v20 forBand:{-[NSObject mostRecentBand](v24, "mostRecentBand")}];
@@ -255,16 +253,15 @@ LABEL_13:
   }
 
   v39 = 1;
-  v16 = v45;
+  v16 = v44;
 LABEL_18:
 
-  v40 = *MEMORY[0x1E69E9840];
   return v39;
 }
 
 + (void)logChangesForBSS:(id)s withLAN:(id)n
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   sCopy = s;
   nCopy = n;
   v9 = [sCopy lan];
@@ -275,21 +272,21 @@ LABEL_18:
     if (os_log_type_enabled(ipv4NetworkSignature, OS_LOG_TYPE_DEFAULT))
     {
       network = [sCopy network];
-      v27 = 136447234;
-      v28 = "+[EventDHCP logChangesForBSS:withLAN:]";
-      v29 = 1024;
-      v30 = 104;
-      v31 = 2112;
-      v32 = sCopy;
-      v33 = 2112;
-      v34 = network;
-      v35 = 2112;
-      v36 = nCopy;
+      v26 = 136447234;
+      v27 = "+[EventDHCP logChangesForBSS:withLAN:]";
+      v28 = 1024;
+      v29 = 104;
+      v30 = 2112;
+      v31 = sCopy;
+      v32 = 2112;
+      v33 = network;
+      v34 = 2112;
+      v35 = nCopy;
       v17 = "%{public}s::%d:New BSS[%@] with %@ in [%@]";
       v18 = ipv4NetworkSignature;
       v19 = 48;
 LABEL_23:
-      _os_log_impl(&dword_1C8460000, v18, OS_LOG_TYPE_DEFAULT, v17, &v27, v19);
+      _os_log_impl(&dword_1C8460000, v18, OS_LOG_TYPE_DEFAULT, v17, &v26, v19);
     }
 
 LABEL_24:
@@ -338,15 +335,15 @@ LABEL_24:
   if (os_log_type_enabled(ipv4NetworkSignature, OS_LOG_TYPE_DEFAULT))
   {
     network2 = [sCopy network];
-    v27 = 136446978;
-    v28 = "+[EventDHCP logChangesForBSS:withLAN:]";
-    v29 = 1024;
-    v30 = 107;
-    v31 = 2112;
-    v32 = sCopy;
-    v33 = 2112;
-    v34 = network2;
-    _os_log_impl(&dword_1C8460000, ipv4NetworkSignature, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:BSS %@[%@] was known to belong to a LAN with a different ipv4NetworkSignature", &v27, 0x26u);
+    v26 = 136446978;
+    v27 = "+[EventDHCP logChangesForBSS:withLAN:]";
+    v28 = 1024;
+    v29 = 107;
+    v30 = 2112;
+    v31 = sCopy;
+    v32 = 2112;
+    v33 = network2;
+    _os_log_impl(&dword_1C8460000, ipv4NetworkSignature, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:BSS %@[%@] was known to belong to a LAN with a different ipv4NetworkSignature", &v26, 0x26u);
   }
 
 LABEL_15:
@@ -379,14 +376,14 @@ LABEL_21:
     if (os_log_type_enabled(ipv4NetworkSignature, OS_LOG_TYPE_DEFAULT))
     {
       network = [sCopy network];
-      v27 = 136446978;
-      v28 = "+[EventDHCP logChangesForBSS:withLAN:]";
-      v29 = 1024;
-      v30 = 110;
-      v31 = 2112;
-      v32 = sCopy;
-      v33 = 2112;
-      v34 = network;
+      v26 = 136446978;
+      v27 = "+[EventDHCP logChangesForBSS:withLAN:]";
+      v28 = 1024;
+      v29 = 110;
+      v30 = 2112;
+      v31 = sCopy;
+      v32 = 2112;
+      v33 = network;
       v17 = "%{public}s::%d:BSS %@[%@] was known to belong to a LAN with a different ipv6NetworkSignature";
       v18 = ipv4NetworkSignature;
       v19 = 38;
@@ -402,8 +399,6 @@ LABEL_21:
   }
 
 LABEL_25:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 @end

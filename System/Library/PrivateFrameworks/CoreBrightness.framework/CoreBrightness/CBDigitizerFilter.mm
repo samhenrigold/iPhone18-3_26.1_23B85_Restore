@@ -89,7 +89,6 @@
     selfCopy->_firstDigitizerEvent = 0;
   }
 
-  *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -139,20 +138,19 @@
   }
 
   self->_isActive = active;
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setProperty:(id)property forKey:(id)key
 {
-  v39 = *MEMORY[0x1E69E9840];
-  v30 = 0;
+  v38 = *MEMORY[0x1E69E9840];
+  v29 = 0;
   if ([key isEqual:@"AutoBrightnessTouchEnabled"])
   {
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       -[CBDigitizerFilter setIsActive:](self, "setIsActive:", [property BOOLValue]);
-      v30 = 1;
+      v29 = 1;
     }
   }
 
@@ -162,7 +160,7 @@
     if (objc_opt_isKindOfClass())
     {
       [property floatValue];
-      v29 = v4;
+      v28 = v4;
       if (self->super._logHandle)
       {
         logHandle = self->super._logHandle;
@@ -186,13 +184,13 @@
       if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEFAULT))
       {
         [(CBDigitizerHotspot *)self->_hotspot touchTriggerDelay];
-        __os_log_helper_16_0_2_8_0_8_0(v38, COERCE__INT64(v6), COERCE__INT64(v29));
-        _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "Changing delay=%f to %f", v38, 0x16u);
+        __os_log_helper_16_0_2_8_0_8_0(v37, COERCE__INT64(v6), COERCE__INT64(v28));
+        _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "Changing delay=%f to %f", v37, 0x16u);
       }
 
-      *&v5 = v29;
+      *&v5 = v28;
       [(CBDigitizerHotspot *)self->_hotspot setTouchTriggerDelay:v5];
-      v30 = 1;
+      v29 = 1;
     }
   }
 
@@ -202,51 +200,50 @@
     if (objc_opt_isKindOfClass())
     {
       [property floatValue];
-      v28 = (((v7 * 2.54) * 1000.0) * (v7 * 2.54)) * 1000.0;
+      v27 = (((v7 * 2.54) * 1000.0) * (v7 * 2.54)) * 1000.0;
       if (self->super._logHandle)
       {
-        v21 = self->super._logHandle;
+        v20 = self->super._logHandle;
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v20 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v19 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v20 = init_default_corebrightness_log();
+          v19 = init_default_corebrightness_log();
         }
 
-        v21 = v20;
+        v20 = v19;
       }
 
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
-        __os_log_helper_16_0_2_8_0_8_0(v37, COERCE__INT64(self->_props.touchHotSpotSquared), COERCE__INT64(v28));
-        _os_log_impl(&dword_1DE8E5000, v21, OS_LOG_TYPE_DEFAULT, "Changing touch radius=%f to %f in units of 10 µm^2", v37, 0x16u);
+        __os_log_helper_16_0_2_8_0_8_0(v36, COERCE__INT64(self->_props.touchHotSpotSquared), COERCE__INT64(v27));
+        _os_log_impl(&dword_1DE8E5000, v20, OS_LOG_TYPE_DEFAULT, "Changing touch radius=%f to %f in units of 10 µm^2", v36, 0x16u);
       }
 
-      self->_props.touchHotSpotSquared = v28;
-      v30 = 1;
+      self->_props.touchHotSpotSquared = v27;
+      v29 = 1;
     }
   }
 
-  hotspot = self->_hotspot;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v27 = self->_hotspot;
+    hotspot = self->_hotspot;
     if ([key isEqual:@"AutoBrightnessTouchDelay"])
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
         [property floatValue];
-        [(CBDigitizerHotspot *)v27 setTouchTriggerBaseDelay:v8];
-        v30 = 1;
+        [(CBDigitizerHotspot *)hotspot setTouchTriggerBaseDelay:v8];
+        return 1;
       }
     }
 
@@ -278,12 +275,12 @@
 
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          __os_log_helper_16_0_2_4_0_4_0(v36, [(CBDigitizerHotspot *)v27 touchBufferPivot], intValue);
-          _os_log_impl(&dword_1DE8E5000, v18, OS_LOG_TYPE_DEFAULT, "Changing touch buffer pivot=%d to %d", v36, 0xEu);
+          __os_log_helper_16_0_2_4_0_4_0(v35, [(CBDigitizerHotspot *)hotspot touchBufferPivot], intValue);
+          _os_log_impl(&dword_1DE8E5000, v18, OS_LOG_TYPE_DEFAULT, "Changing touch buffer pivot=%d to %d", v35, 0xEu);
         }
 
-        [(CBDigitizerHotspot *)v27 setTouchBufferPivot:intValue];
-        v30 = 1;
+        [(CBDigitizerHotspot *)hotspot setTouchBufferPivot:intValue];
+        return 1;
       }
     }
 
@@ -315,12 +312,12 @@
 
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          __os_log_helper_16_0_2_4_0_4_0(v35, [(CBDigitizerHotspot *)v27 touchBufferMaxCount], intValue2);
-          _os_log_impl(&dword_1DE8E5000, v16, OS_LOG_TYPE_DEFAULT, "Changing touch buffer max count=%d to %d", v35, 0xEu);
+          __os_log_helper_16_0_2_4_0_4_0(v34, [(CBDigitizerHotspot *)hotspot touchBufferMaxCount], intValue2);
+          _os_log_impl(&dword_1DE8E5000, v16, OS_LOG_TYPE_DEFAULT, "Changing touch buffer max count=%d to %d", v34, 0xEu);
         }
 
-        [(CBDigitizerHotspot *)v27 setTouchBufferMaxCount:intValue2];
-        v30 = 1;
+        [(CBDigitizerHotspot *)hotspot setTouchBufferMaxCount:intValue2];
+        return 1;
       }
     }
 
@@ -330,7 +327,7 @@
       if (objc_opt_isKindOfClass())
       {
         [property floatValue];
-        v24 = v9;
+        v23 = v9;
         if (self->super._logHandle)
         {
           v14 = self->super._logHandle;
@@ -353,20 +350,19 @@
 
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          [(CBDigitizerHotspot *)v27 touchBufferWindowS];
-          __os_log_helper_16_0_2_8_0_8_0(v34, COERCE__INT64(v11), COERCE__INT64(v24));
-          _os_log_impl(&dword_1DE8E5000, v14, OS_LOG_TYPE_DEFAULT, "Changing touch buffer window=%f to %f sec", v34, 0x16u);
+          [(CBDigitizerHotspot *)hotspot touchBufferWindowS];
+          __os_log_helper_16_0_2_8_0_8_0(v33, COERCE__INT64(v11), COERCE__INT64(v23));
+          _os_log_impl(&dword_1DE8E5000, v14, OS_LOG_TYPE_DEFAULT, "Changing touch buffer window=%f to %f sec", v33, 0x16u);
         }
 
-        *&v10 = v24;
-        [(CBDigitizerHotspot *)v27 setTouchBufferWindowS:v10];
-        v30 = 1;
+        *&v10 = v23;
+        [(CBDigitizerHotspot *)hotspot setTouchBufferWindowS:v10];
+        return 1;
       }
     }
   }
 
-  *MEMORY[0x1E69E9840];
-  return v30 & 1;
+  return v29;
 }
 
 - (void)overrideHotspotWithCenterX:(float)x andCenterY:(float)y
@@ -447,15 +443,14 @@
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return event;
 }
 
 - (id)handleDigitizerEvent:(id)event
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   selfCopy = self;
-  v45 = a2;
+  v46 = a2;
   eventCopy = event;
   if (!self->_firstDigitizerEvent)
   {
@@ -479,20 +474,20 @@
       logHandle = inited;
     }
 
-    v43 = logHandle;
-    v42 = 2;
+    v44 = logHandle;
+    v43 = 2;
     if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
     {
-      log = v43;
-      type = v42;
-      __os_log_helper_16_0_0(v41);
-      _os_log_debug_impl(&dword_1DE8E5000, log, type, "First digitizer event -> load touch properties", v41, 2u);
+      log = v44;
+      type = v43;
+      __os_log_helper_16_0_0(v42);
+      _os_log_debug_impl(&dword_1DE8E5000, log, type, "First digitizer event -> load touch properties", v42, 2u);
     }
 
     p_props = &selfCopy->_props;
-    +[CBDigitizerFilter loadTouchProperties:](CBDigitizerFilter, "loadTouchProperties:", [eventCopy service]);
-    *&p_props->digitizerWidth = v39;
-    p_props->touchHotSpotSquared = v40;
+    objc_msgSend_loadTouchProperties_(CBDigitizerFilter, v25, [eventCopy service]);
+    *&p_props->digitizerWidth = v40;
+    p_props->touchHotSpotSquared = v41;
     if (!selfCopy->_hotspot)
     {
       selfCopy->_hotspot = [(CBDigitizerFilter *)selfCopy newHotspotForOrientation];
@@ -510,23 +505,23 @@
 
   if (copyChildren)
   {
-    v37 = 0;
+    v38 = 0;
     for (i = 0; i < [copyChildren count]; ++i)
     {
       [copyChildren objectAtIndexedSubscript:i];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v35 = [objc_msgSend(copyChildren objectAtIndexedSubscript:{i), "integerValueForKey:", 720905}] != 0;
+        v36 = [objc_msgSend(copyChildren objectAtIndexedSubscript:{i), "integerValueForKey:", 720905}] != 0;
         [objc_msgSend(copyChildren objectAtIndexedSubscript:{i), "floatValueForKey:", 720896}];
-        v34 = v4;
+        v35 = v4;
         [objc_msgSend(copyChildren objectAtIndexedSubscript:{i), "floatValueForKey:", 720897}];
-        v33 = v34 * selfCopy->_props.digitizerWidth;
-        v32 = v5 * selfCopy->_props.digitizerHeight;
+        v34 = v35 * selfCopy->_props.digitizerWidth;
+        v33 = v5 * selfCopy->_props.digitizerHeight;
         [(CBDigitizerHotspot *)selfCopy->_hotspot center_X];
-        v31 = v6 - v33;
+        v32 = v6 - v34;
         [(CBDigitizerHotspot *)selfCopy->_hotspot center_Y];
-        v30 = ((v7 - v32) * (v7 - v32)) + (v31 * v31);
+        v31 = ((v7 - v33) * (v7 - v33)) + (v32 * v32);
         if (selfCopy->super._logHandle)
         {
           v24 = selfCopy->super._logHandle;
@@ -557,9 +552,9 @@
           *&v20 = v11;
           orientation = [(CBDigitizerHotspot *)selfCopy->_hotspot orientation];
           v22 = 0;
-          if (v30 < selfCopy->_props.touchHotSpotSquared)
+          if (v31 < selfCopy->_props.touchHotSpotSquared)
           {
-            v22 = v35;
+            v22 = v36;
           }
 
           v12 = "";
@@ -568,21 +563,21 @@
             v12 = "un";
           }
 
-          __os_log_helper_16_2_8_8_0_8_0_8_0_8_0_8_0_4_0_4_0_8_32(v48, COERCE__INT64(v33), COERCE__INT64(v32), v18, v19, v20, v35, orientation, v12);
-          _os_log_debug_impl(&dword_1DE8E5000, v24, OS_LOG_TYPE_DEBUG, "Multitouch event - X: %f, Y: %f, range: %f, minor r: %f, major r: %f, touch: %d, ALS[%d] obstruction %sdetected", v48, 0x4Au);
+          __os_log_helper_16_2_8_8_0_8_0_8_0_8_0_8_0_4_0_4_0_8_32(v49, COERCE__INT64(v34), COERCE__INT64(v33), v18, v19, v20, v36, orientation, v12);
+          _os_log_debug_impl(&dword_1DE8E5000, v24, OS_LOG_TYPE_DEBUG, "Multitouch event - X: %f, Y: %f, range: %f, minor r: %f, major r: %f, touch: %d, ALS[%d] obstruction %sdetected", v49, 0x4Au);
         }
 
-        *&v8 = v30;
-        if (v30 < selfCopy->_props.touchHotSpotSquared && v35)
+        *&v8 = v31;
+        if (v31 < selfCopy->_props.touchHotSpotSquared && v36)
         {
-          v37 = 1;
+          v38 = 1;
           [(CBDigitizerFilter *)selfCopy setTriggered:1 forHotspot:selfCopy->_hotspot, v8];
           break;
         }
       }
     }
 
-    if ((v37 & 1) == 0 && [(CBDigitizerHotspot *)selfCopy->_hotspot triggered]== 1)
+    if ((v38 & 1) == 0 && [(CBDigitizerHotspot *)selfCopy->_hotspot triggered]== 1)
     {
       [(CBDigitizerFilter *)selfCopy setTriggered:2 forHotspot:selfCopy->_hotspot];
       hotspot = selfCopy->_hotspot;
@@ -611,14 +606,13 @@
       if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         [(CBDigitizerHotspot *)selfCopy->_hotspot touchTriggerDelay];
-        __os_log_helper_16_0_1_8_0(v47, COERCE__INT64(v13));
-        _os_log_impl(&dword_1DE8E5000, v16, OS_LOG_TYPE_INFO, "Touch release delay %f", v47, 0xCu);
+        __os_log_helper_16_0_1_8_0(v48, COERCE__INT64(v13));
+        _os_log_impl(&dword_1DE8E5000, v16, OS_LOG_TYPE_INFO, "Touch release delay %f", v48, 0xCu);
       }
     }
   }
 
   MEMORY[0x1E69E5920](copyChildren);
-  *MEMORY[0x1E69E9840];
   return eventCopy;
 }
 
@@ -878,7 +872,6 @@ LABEL_9:
     _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_INFO, "Hotspot for ALS %d: centerX %f centerY %f", v19, 0x1Cu);
   }
 
-  *MEMORY[0x1E69E9840];
   return newHotspot;
 }
 
@@ -931,8 +924,6 @@ LABEL_9:
       MEMORY[0x1E69E5920](v9);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 @end

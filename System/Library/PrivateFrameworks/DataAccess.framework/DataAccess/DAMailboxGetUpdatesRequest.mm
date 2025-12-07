@@ -1,10 +1,29 @@
 @interface DAMailboxGetUpdatesRequest
 - (BOOL)isEqual:(id)equal;
 - (id)description;
+- (id)initRequestForBodyFormat:(int)format withBodySizeLimit:(int)limit;
 - (unint64_t)hash;
 @end
 
 @implementation DAMailboxGetUpdatesRequest
+
+- (id)initRequestForBodyFormat:(int)format withBodySizeLimit:(int)limit
+{
+  v4 = *&limit;
+  v5 = *&format;
+  v9.receiver = self;
+  v9.super_class = DAMailboxGetUpdatesRequest;
+  v6 = [(DAMailboxRequest *)&v9 init];
+  v7 = v6;
+  if (v6)
+  {
+    [(DAMailboxRequest *)v6 setRequestType:1];
+    [(DAMailboxGetUpdatesRequest *)v7 setMaxSize:v4];
+    [(DAMailboxRequest *)v7 setBodyFormat:v5];
+  }
+
+  return v7;
+}
 
 - (unint64_t)hash
 {

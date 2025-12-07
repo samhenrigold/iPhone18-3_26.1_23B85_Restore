@@ -314,11 +314,10 @@ LABEL_17:
 
 - (void)writeTo:(id)to
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if ((*&self->_has & 4) != 0)
   {
-    isRead = self->_isRead;
     PBDataWriterWriteBOOLField();
   }
 
@@ -329,7 +328,6 @@ LABEL_17:
 
   if ((*&self->_has & 2) != 0)
   {
-    source = self->_source;
     PBDataWriterWriteInt32Field();
   }
 
@@ -345,7 +343,6 @@ LABEL_17:
 
   if (*&self->_has)
   {
-    badgeCount = self->_badgeCount;
     PBDataWriterWriteInt32Field();
   }
 
@@ -369,36 +366,35 @@ LABEL_17:
     PBDataWriterWriteStringField();
   }
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  v8 = self->_titleLocalizedArguments;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v9, &v29, v34, 16);
-  if (v10)
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v5 = self->_titleLocalizedArguments;
+  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v23, v28, 16);
+  if (v7)
   {
-    v11 = v10;
-    v12 = *v30;
+    v8 = v7;
+    v9 = *v24;
     do
     {
-      v13 = 0;
+      v10 = 0;
       do
       {
-        if (*v30 != v12)
+        if (*v24 != v9)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v5);
         }
 
-        v14 = *(*(&v29 + 1) + 8 * v13);
         PBDataWriterWriteStringField();
-        ++v13;
+        ++v10;
       }
 
-      while (v11 != v13);
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v15, &v29, v34, 16);
+      while (v8 != v10);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v11, &v23, v28, 16);
     }
 
-    while (v11);
+    while (v8);
   }
 
   if (self->_subtitle)
@@ -411,39 +407,36 @@ LABEL_17:
     PBDataWriterWriteStringField();
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v16 = self->_subtitleLocalizedArguments;
-  v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v17, &v25, v33, 16);
-  if (v18)
+  v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v12 = self->_subtitleLocalizedArguments;
+  v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v19, v27, 16);
+  if (v14)
   {
-    v19 = v18;
-    v20 = *v26;
+    v15 = v14;
+    v16 = *v20;
     do
     {
-      v21 = 0;
+      v17 = 0;
       do
       {
-        if (*v26 != v20)
+        if (*v20 != v16)
         {
-          objc_enumerationMutation(v16);
+          objc_enumerationMutation(v12);
         }
 
-        v22 = *(*(&v25 + 1) + 8 * v21);
         PBDataWriterWriteStringField();
-        ++v21;
+        ++v17;
       }
 
-      while (v19 != v21);
-      v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v16, v23, &v25, v33, 16);
+      while (v15 != v17);
+      v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v18, &v19, v27, 16);
     }
 
-    while (v19);
+    while (v15);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -558,7 +551,7 @@ LABEL_17:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_class();
   v7 = objc_msgSend_allocWithZone_(v5, v6, zone);
   v10 = objc_msgSend_init(v7, v8, v9);
@@ -609,34 +602,34 @@ LABEL_17:
   v32 = *(v12 + 96);
   *(v12 + 96) = v31;
 
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
   v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   v33 = self->_titleLocalizedArguments;
-  v35 = objc_msgSend_countByEnumeratingWithState_objects_count_(v33, v34, &v63, v68, 16);
+  v35 = objc_msgSend_countByEnumeratingWithState_objects_count_(v33, v34, &v62, v67, 16);
   if (v35)
   {
     v37 = v35;
-    v38 = *v64;
+    v38 = *v63;
     do
     {
       v39 = 0;
       do
       {
-        if (*v64 != v38)
+        if (*v63 != v38)
         {
           objc_enumerationMutation(v33);
         }
 
-        v40 = objc_msgSend_copyWithZone_(*(*(&v63 + 1) + 8 * v39), v36, zone);
+        v40 = objc_msgSend_copyWithZone_(*(*(&v62 + 1) + 8 * v39), v36, zone);
         objc_msgSend_addTitleLocalizedArguments_(v12, v41, v40);
 
         ++v39;
       }
 
       while (v37 != v39);
-      v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v33, v36, &v63, v68, 16);
+      v37 = objc_msgSend_countByEnumeratingWithState_objects_count_(v33, v36, &v62, v67, 16);
     }
 
     while (v37);
@@ -650,40 +643,39 @@ LABEL_17:
   v47 = *(v12 + 72);
   *(v12 + 72) = v46;
 
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   v48 = self->_subtitleLocalizedArguments;
-  v50 = objc_msgSend_countByEnumeratingWithState_objects_count_(v48, v49, &v59, v67, 16);
+  v50 = objc_msgSend_countByEnumeratingWithState_objects_count_(v48, v49, &v58, v66, 16);
   if (v50)
   {
     v52 = v50;
-    v53 = *v60;
+    v53 = *v59;
     do
     {
       v54 = 0;
       do
       {
-        if (*v60 != v53)
+        if (*v59 != v53)
         {
           objc_enumerationMutation(v48);
         }
 
-        v55 = objc_msgSend_copyWithZone_(*(*(&v59 + 1) + 8 * v54), v51, zone, v59);
+        v55 = objc_msgSend_copyWithZone_(*(*(&v58 + 1) + 8 * v54), v51, zone, v58);
         objc_msgSend_addSubtitleLocalizedArguments_(v12, v56, v55);
 
         ++v54;
       }
 
       while (v52 != v54);
-      v52 = objc_msgSend_countByEnumeratingWithState_objects_count_(v48, v51, &v59, v67, 16);
+      v52 = objc_msgSend_countByEnumeratingWithState_objects_count_(v48, v51, &v58, v66, 16);
     }
 
     while (v52);
   }
 
-  v57 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -705,7 +697,6 @@ LABEL_17:
       goto LABEL_24;
     }
 
-    v12 = *(equalCopy + 112);
     if (self->_isRead)
     {
       if ((equalCopy[14] & 1) == 0)
@@ -752,23 +743,22 @@ LABEL_17:
   }
 
   dialog = self->_dialog;
-  v14 = equalCopy[3];
-  if (dialog | v14 && !objc_msgSend_isEqual_(dialog, v7, v14))
+  v13 = equalCopy[3];
+  if (dialog | v13 && !objc_msgSend_isEqual_(dialog, v7, v13))
   {
     goto LABEL_24;
   }
 
   sound = self->_sound;
-  v16 = equalCopy[5];
-  if (sound | v16)
+  v15 = equalCopy[5];
+  if (sound | v15)
   {
-    if (!objc_msgSend_isEqual_(sound, v7, v16))
+    if (!objc_msgSend_isEqual_(sound, v7, v15))
     {
       goto LABEL_24;
     }
   }
 
-  v17 = *(equalCopy + 116);
   if ((*&self->_has & 1) == 0)
   {
     if ((*(equalCopy + 116) & 1) == 0)
@@ -788,77 +778,77 @@ LABEL_24:
 
 LABEL_28:
   payload = self->_payload;
-  v21 = equalCopy[4];
-  if (payload | v21 && !objc_msgSend_isEqual_(payload, v7, v21))
+  v19 = equalCopy[4];
+  if (payload | v19 && !objc_msgSend_isEqual_(payload, v7, v19))
   {
     goto LABEL_24;
   }
 
   category = self->_category;
-  v23 = equalCopy[2];
-  if (category | v23)
+  v21 = equalCopy[2];
+  if (category | v21)
   {
-    if (!objc_msgSend_isEqual_(category, v7, v23))
+    if (!objc_msgSend_isEqual_(category, v7, v21))
     {
       goto LABEL_24;
     }
   }
 
   title = self->_title;
-  v25 = equalCopy[10];
-  if (title | v25)
+  v23 = equalCopy[10];
+  if (title | v23)
   {
-    if (!objc_msgSend_isEqual_(title, v7, v25))
+    if (!objc_msgSend_isEqual_(title, v7, v23))
     {
       goto LABEL_24;
     }
   }
 
   titleLocalizedKey = self->_titleLocalizedKey;
-  v27 = equalCopy[12];
-  if (titleLocalizedKey | v27)
+  v25 = equalCopy[12];
+  if (titleLocalizedKey | v25)
   {
-    if (!objc_msgSend_isEqual_(titleLocalizedKey, v7, v27))
+    if (!objc_msgSend_isEqual_(titleLocalizedKey, v7, v25))
     {
       goto LABEL_24;
     }
   }
 
   titleLocalizedArguments = self->_titleLocalizedArguments;
-  v29 = equalCopy[11];
-  if (titleLocalizedArguments | v29)
+  v27 = equalCopy[11];
+  if (titleLocalizedArguments | v27)
   {
-    if (!objc_msgSend_isEqual_(titleLocalizedArguments, v7, v29))
+    if (!objc_msgSend_isEqual_(titleLocalizedArguments, v7, v27))
     {
       goto LABEL_24;
     }
   }
 
   subtitle = self->_subtitle;
-  v31 = equalCopy[7];
-  if (subtitle | v31)
+  v29 = equalCopy[7];
+  if (subtitle | v29)
   {
-    if (!objc_msgSend_isEqual_(subtitle, v7, v31))
+    if (!objc_msgSend_isEqual_(subtitle, v7, v29))
     {
       goto LABEL_24;
     }
   }
 
   subtitleLocalizedKey = self->_subtitleLocalizedKey;
-  v33 = equalCopy[9];
-  if (subtitleLocalizedKey | v33)
+  v31 = equalCopy[9];
+  if (subtitleLocalizedKey | v31)
   {
-    if (!objc_msgSend_isEqual_(subtitleLocalizedKey, v7, v33))
+    if (!objc_msgSend_isEqual_(subtitleLocalizedKey, v7, v31))
     {
       goto LABEL_24;
     }
   }
 
   subtitleLocalizedArguments = self->_subtitleLocalizedArguments;
-  v35 = equalCopy[8];
-  if (subtitleLocalizedArguments | v35)
+  v33 = equalCopy[8];
+  if (subtitleLocalizedArguments | v33)
   {
-    isEqual = objc_msgSend_isEqual_(subtitleLocalizedArguments, v7, v35);
+    isEqual = objc_msgSend_isEqual_(subtitleLocalizedArguments, v7, v33);
   }
 
   else
@@ -918,7 +908,7 @@ LABEL_25:
 
 - (void)mergeFrom:(id)from
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v6 = fromCopy;
   if ((*(fromCopy + 116) & 4) != 0)
@@ -981,29 +971,29 @@ LABEL_25:
     objc_msgSend_setTitleLocalizedKey_(self, v5, v13);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v14 = *(v6 + 11);
-  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v36, v41, 16);
+  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v35, v40, 16);
   if (v16)
   {
     v18 = v16;
-    v19 = *v37;
+    v19 = *v36;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v37 != v19)
+        if (*v36 != v19)
         {
           objc_enumerationMutation(v14);
         }
 
-        objc_msgSend_addTitleLocalizedArguments_(self, v17, *(*(&v36 + 1) + 8 * i));
+        objc_msgSend_addTitleLocalizedArguments_(self, v17, *(*(&v35 + 1) + 8 * i));
       }
 
-      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v17, &v36, v41, 16);
+      v18 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v17, &v35, v40, 16);
     }
 
     while (v18);
@@ -1021,35 +1011,33 @@ LABEL_25:
     objc_msgSend_setSubtitleLocalizedKey_(self, v21, v23);
   }
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   v24 = *(v6 + 8);
-  v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, &v32, v40, 16);
+  v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v25, &v31, v39, 16);
   if (v26)
   {
     v28 = v26;
-    v29 = *v33;
+    v29 = *v32;
     do
     {
       for (j = 0; j != v28; ++j)
       {
-        if (*v33 != v29)
+        if (*v32 != v29)
         {
           objc_enumerationMutation(v24);
         }
 
-        objc_msgSend_addSubtitleLocalizedArguments_(self, v27, *(*(&v32 + 1) + 8 * j), v32);
+        objc_msgSend_addSubtitleLocalizedArguments_(self, v27, *(*(&v31 + 1) + 8 * j), v31);
       }
 
-      v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v27, &v32, v40, 16);
+      v28 = objc_msgSend_countByEnumeratingWithState_objects_count_(v24, v27, &v31, v39, 16);
     }
 
     while (v28);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -61,15 +61,16 @@
   v6 = sub_1D818E994();
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D818E924();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_1D806C328(viewCopy, v9);
+  sub_1D806C328(viewCopy, v9);
+  v13 = v12;
 
   (*(v7 + 8))(v9, v6);
 
-  return v12;
+  return v13;
 }
 
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path

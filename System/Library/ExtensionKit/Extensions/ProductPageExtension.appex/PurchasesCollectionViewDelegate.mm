@@ -17,12 +17,13 @@
   v3 = *(&self->super.isa + OBJC_IVAR____TtC20ProductPageExtension31PurchasesCollectionViewDelegate_didScrollHandler);
   if (v3)
   {
+    v5 = *&self->objectGraph[OBJC_IVAR____TtC20ProductPageExtension31PurchasesCollectionViewDelegate_didScrollHandler];
     scrollCopy = scroll;
     selfCopy = self;
-    sub_10001CE50(v3);
+    sub_10001CE50(v3, v5);
     v3(scrollCopy);
 
-    sub_1000167E0(v3);
+    sub_1000167E0(v3, v5);
   }
 }
 
@@ -141,16 +142,16 @@
   v8 = sub_10075E11C();
   v9 = *(v8 - 8);
   __chkstk_darwin(v8);
-  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = &v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_10075E06C();
   viewCopy = view;
   layoutCopy = layout;
   selfCopy = self;
-  v15 = sub_1002F8B08(v11);
+  v16 = sub_1002F8B08(v11, v15);
 
   (*(v9 + 8))(v11, v8);
 
-  return v15;
+  return v16;
 }
 
 @end

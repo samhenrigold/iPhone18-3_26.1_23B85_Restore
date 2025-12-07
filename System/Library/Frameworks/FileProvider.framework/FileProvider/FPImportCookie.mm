@@ -101,34 +101,34 @@ LABEL_4:
 
 - (BOOL)hasExpired
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   ExpirationInterval();
   v4 = v3;
   date = [MEMORY[0x1E695DF00] date];
   [date timeIntervalSinceReferenceDate];
   v7 = v6;
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   allValues = [(NSMutableDictionary *)self->_entries allValues];
-  v9 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v9 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v19;
+    v11 = *v18;
     v12 = 1.79769313e308;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v19 != v11)
+        if (*v18 != v11)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [*(*(&v18 + 1) + 8 * i) creationTime];
+        [*(*(&v17 + 1) + 8 * i) creationTime];
         v15 = v7 - v14;
         if (v12 >= v15)
         {
@@ -136,7 +136,7 @@ LABEL_4:
         }
       }
 
-      v10 = [allValues countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v10);
@@ -147,14 +147,12 @@ LABEL_4:
     v12 = 1.79769313e308;
   }
 
-  result = v12 > v4;
-  v17 = *MEMORY[0x1E69E9840];
-  return result;
+  return v12 > v4;
 }
 
 - (id)providersWithOngoingImport
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   ExpirationInterval();
   v4 = v3;
   v5 = objc_alloc_init(MEMORY[0x1E695DFA8]);
@@ -162,26 +160,26 @@ LABEL_4:
   [date timeIntervalSinceReferenceDate];
   v8 = v7;
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   allValues = [(NSMutableDictionary *)self->_entries allValues];
-  v10 = [allValues countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v10 = [allValues countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v22;
+    v12 = *v21;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
+        v14 = *(*(&v20 + 1) + 8 * i);
         displayName = [v14 displayName];
         v16 = [displayName length];
 
@@ -196,13 +194,11 @@ LABEL_4:
         }
       }
 
-      v11 = [allValues countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v11 = [allValues countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v11);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

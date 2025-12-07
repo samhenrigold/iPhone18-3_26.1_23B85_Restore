@@ -167,10 +167,10 @@
 
 - (id)runAction
 {
-  v27 = *MEMORY[0x1E69E9840];
-  v18.receiver = self;
-  v18.super_class = AMSUIWebMediaAction;
-  runAction = [(AMSUIWebAction *)&v18 runAction];
+  v26 = *MEMORY[0x1E69E9840];
+  v17.receiver = self;
+  v17.super_class = AMSUIWebMediaAction;
+  runAction = [(AMSUIWebAction *)&v17 runAction];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -185,13 +185,13 @@
     bundleIdentifiers = [(AMSUIWebMediaAction *)self bundleIdentifiers];
     itemIdentifiers = [(AMSUIWebMediaAction *)self itemIdentifiers];
     *buf = 138544130;
-    v20 = v6;
-    v21 = 2114;
-    v22 = v7;
-    v23 = 2112;
-    v24 = bundleIdentifiers;
-    v25 = 2112;
-    v26 = itemIdentifiers;
+    v19 = v6;
+    v20 = 2114;
+    v21 = v7;
+    v22 = 2112;
+    v23 = bundleIdentifiers;
+    v24 = 2112;
+    v25 = itemIdentifiers;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Running media action with identifiers: %@ %@", buf, 0x2Au);
   }
 
@@ -212,8 +212,6 @@
     clientIdentifier = [(AMSUIWebMediaAction *)self clientVersion];
     v14 = [(AMSUIWebMediaAction *)self _runMediaRequestWithType:type clientIdentifier:urlString2 clientVersion:clientIdentifier];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v14;
 }

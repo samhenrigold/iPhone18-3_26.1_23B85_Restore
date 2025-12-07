@@ -67,27 +67,27 @@ void sub_16C0(void *a1, void *a2, void *a3)
   if (v5)
   {
     v7 = +[NSMutableArray array];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v16;
+      v11 = *v15;
       do
       {
         v12 = 0;
         do
         {
-          if (*v16 != v11)
+          if (*v15 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = [*(*(&v15 + 1) + 8 * v12) mutableCopy];
+          v13 = [*(*(&v14 + 1) + 8 * v12) mutableCopy];
           [v13 setObject:a1[4] forKeyedSubscript:@"ODRTag_BundleIDKey"];
           [v7 addObject:v13];
 
@@ -95,7 +95,7 @@ void sub_16C0(void *a1, void *a2, void *a3)
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v10);
@@ -104,7 +104,6 @@ void sub_16C0(void *a1, void *a2, void *a3)
     [*(*(a1[6] + 8) + 40) setObject:v7 forKeyedSubscript:@"process.resources[]"];
   }
 
-  v14 = *(*(a1[6] + 8) + 40);
   (*(a1[5] + 16))();
 }
 

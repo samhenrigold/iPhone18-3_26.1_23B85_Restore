@@ -55,7 +55,7 @@
 
 + (id)interactionHistoryFromStore:(id)store
 {
-  v45[1] = *MEMORY[0x1E69E9840];
+  v44[1] = *MEMORY[0x1E69E9840];
   storeCopy = store;
   v4 = objc_autoreleasePoolPush();
   v7 = objc_msgSend_predicateWithValue_(MEMORY[0x1E696AE18], v5, 1, v6);
@@ -64,52 +64,52 @@
   v10 = objc_msgSend_sortDescriptorWithKey_ascending_(MEMORY[0x1E696AEB0], v9, @"startDate", 1);
   objc_autoreleasePoolPop(v8);
   v11 = objc_autoreleasePoolPush();
-  v45[0] = v10;
-  v13 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v12, v45, 1);
-  v41 = 0;
-  v15 = objc_msgSend_queryInteractionsUsingPredicate_sortDescriptors_limit_offset_error_(storeCopy, v14, v7, v13, 10000, 0, &v41);
-  v16 = v41;
+  v44[0] = v10;
+  v13 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v12, v44, 1);
+  v40 = 0;
+  v15 = objc_msgSend_queryInteractionsUsingPredicate_sortDescriptors_limit_offset_error_(storeCopy, v14, v7, v13, 10000, 0, &v40);
+  v16 = v40;
 
   if (v15)
   {
-    v36 = storeCopy;
+    v35 = storeCopy;
 
     objc_autoreleasePoolPop(v11);
     v17 = objc_opt_new();
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
     v18 = v15;
-    v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v37, v42, 16);
+    v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v36, v41, 16);
     if (v20)
     {
       v23 = v20;
-      v24 = *v38;
+      v24 = *v37;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v38 != v24)
+          if (*v37 != v24)
           {
             objc_enumerationMutation(v18);
           }
 
-          v28 = objc_msgSend_interactionFromCDInteraction_(GDInteractionStoreShim, v21, *(*(&v37 + 1) + 8 * i), v22);
+          v28 = objc_msgSend_interactionFromCDInteraction_(GDInteractionStoreShim, v21, *(*(&v36 + 1) + 8 * i), v22);
           if (v28)
           {
             objc_msgSend_addObject_(v17, v26, v28, v27);
           }
         }
 
-        v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v21, &v37, v42, 16);
+        v23 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v21, &v36, v41, 16);
       }
 
       while (v23);
     }
 
     v32 = objc_msgSend_copy(v17, v29, v30, v31);
-    storeCopy = v36;
+    storeCopy = v35;
   }
 
   else
@@ -118,15 +118,13 @@
     if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v44 = v16;
+      v43 = v16;
       _os_log_error_impl(&dword_1C43F8000, v33, OS_LOG_TYPE_ERROR, "GDInteractionStoreShim: interactionHistoryFromStore error: %@", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
     v32 = 0;
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 
   return v32;
 }

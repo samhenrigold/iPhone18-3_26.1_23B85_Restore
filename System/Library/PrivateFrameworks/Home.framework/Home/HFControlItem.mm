@@ -44,19 +44,18 @@
 
 - (HFControlItem)initWithValueSource:(id)source characteristicTypes:(id)types displayResults:(id)results
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   typesCopy = types;
   sourceCopy = source;
   v11 = [HFControlItemCharacteristicOptions alloc];
-  v17 = &unk_282523B80;
-  v18[0] = typesCopy;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v16 = &unk_282523B80;
+  v17[0] = typesCopy;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
 
   v13 = [(HFControlItemCharacteristicOptions *)v11 initWithCharacteristicTypesByUsage:v12];
   v14 = [(HFControlItem *)self initWithValueSource:sourceCopy characteristicOptions:v13 displayResults:resultsCopy];
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -239,7 +238,7 @@ id __45__HFControlItem__subclass_updateWithOptions___block_invoke(uint64_t a1, u
 
 - (id)readValueAndPopulateStandardResults
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   objc_initWeak(&location, self);
   v4 = HFLogForCategory(0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -248,10 +247,10 @@ id __45__HFControlItem__subclass_updateWithOptions___block_invoke(uint64_t a1, u
     valueSource = [(HFControlItem *)self valueSource];
     *buf = 138412802;
     selfCopy = self;
-    v19 = 2112;
-    v20 = v5;
-    v21 = 2112;
-    v22 = valueSource;
+    v18 = 2112;
+    v19 = v5;
+    v20 = 2112;
+    v21 = valueSource;
     _os_log_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_DEFAULT, "%@:%@ valueSource = %@", buf, 0x20u);
   }
 
@@ -259,16 +258,15 @@ id __45__HFControlItem__subclass_updateWithOptions___block_invoke(uint64_t a1, u
   characteristicOptions = [(HFControlItem *)self characteristicOptions];
   allCharacteristicTypes = [characteristicOptions allCharacteristicTypes];
   v10 = [valueSource2 readValuesForCharacteristicTypes:allCharacteristicTypes];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __52__HFControlItem_readValueAndPopulateStandardResults__block_invoke;
-  v14[3] = &unk_277DF78B0;
-  objc_copyWeak(&v15, &location);
-  v11 = [v10 flatMap:v14];
-  objc_destroyWeak(&v15);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __52__HFControlItem_readValueAndPopulateStandardResults__block_invoke;
+  v13[3] = &unk_277DF78B0;
+  objc_copyWeak(&v14, &location);
+  v11 = [v10 flatMap:v13];
+  objc_destroyWeak(&v14);
 
   objc_destroyWeak(&location);
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -294,17 +292,17 @@ id __52__HFControlItem_readValueAndPopulateStandardResults__block_invoke(uint64_
 
 - (id)resultsForBatchReadResponse:(id)response
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   v5 = [(HFControlItem *)self characteristicValuesByTypeForBatchReadResponse:responseCopy];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __45__HFControlItem_resultsForBatchReadResponse___block_invoke;
-  v32[3] = &unk_277DF78D8;
-  v32[4] = self;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __45__HFControlItem_resultsForBatchReadResponse___block_invoke;
+  v31[3] = &unk_277DF78D8;
+  v31[4] = self;
   v6 = v5;
-  v33 = v6;
-  v7 = __45__HFControlItem_resultsForBatchReadResponse___block_invoke(v32);
+  v32 = v6;
+  v7 = __45__HFControlItem_resultsForBatchReadResponse___block_invoke(v31);
   if (v7)
   {
     [objc_opt_class() valueClass];
@@ -322,28 +320,28 @@ id __52__HFControlItem_readValueAndPopulateStandardResults__block_invoke(uint64_
   v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:_accessorySuspendedState];
   [v10 setObject:v12 forKeyedSubscript:@"suspendedState"];
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   characteristicOptions = [(HFControlItem *)self characteristicOptions];
   allRequiredCharacteristicTypes = [characteristicOptions allRequiredCharacteristicTypes];
 
-  v15 = [allRequiredCharacteristicTypes countByEnumeratingWithState:&v28 objects:v34 count:16];
+  v15 = [allRequiredCharacteristicTypes countByEnumeratingWithState:&v27 objects:v33 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v29;
+    v17 = *v28;
     while (2)
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v29 != v17)
+        if (*v28 != v17)
         {
           objc_enumerationMutation(allRequiredCharacteristicTypes);
         }
 
-        v19 = [responseCopy responseForCharacteristicType:*(*(&v28 + 1) + 8 * i)];
+        v19 = [responseCopy responseForCharacteristicType:*(*(&v27 + 1) + 8 * i)];
         error = [v19 error];
         if (error)
         {
@@ -357,7 +355,7 @@ id __52__HFControlItem_readValueAndPopulateStandardResults__block_invoke(uint64_
         }
       }
 
-      v16 = [allRequiredCharacteristicTypes countByEnumeratingWithState:&v28 objects:v34 count:16];
+      v16 = [allRequiredCharacteristicTypes countByEnumeratingWithState:&v27 objects:v33 count:16];
       if (v16)
       {
         continue;
@@ -370,7 +368,6 @@ id __52__HFControlItem_readValueAndPopulateStandardResults__block_invoke(uint64_
 LABEL_14:
 
   v25 = [v10 copy];
-  v26 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
@@ -399,35 +396,35 @@ id __45__HFControlItem_resultsForBatchReadResponse___block_invoke(uint64_t a1)
 
 - (id)characteristicValuesByTypeForBatchReadResponse:(id)response
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   characteristicOptions = [(HFControlItem *)self characteristicOptions];
   allCharacteristicTypes = [characteristicOptions allCharacteristicTypes];
 
   obj = allCharacteristicTypes;
-  v7 = [allCharacteristicTypes countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v7 = [allCharacteristicTypes countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v26;
+    v10 = *v25;
     *&v8 = 138412546;
-    v22 = v8;
+    v21 = v8;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v26 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * i);
-        v13 = [(HFControlItem *)self valueForCharacteristicType:v12 inBatchReadResponse:responseCopy, v22];
+        v12 = *(*(&v24 + 1) + 8 * i);
+        v13 = [(HFControlItem *)self valueForCharacteristicType:v12 inBatchReadResponse:responseCopy, v21];
         if (v13)
         {
           v14 = [(HFControlItem *)self normalizedValueForCharacteristicValue:v13 ofType:v12];
@@ -450,10 +447,10 @@ id __45__HFControlItem_resultsForBatchReadResponse___block_invoke(uint64_t a1)
           {
             v18 = [MEMORY[0x277CD1970] localizedDescriptionForCharacteristicType:v12];
             v19 = [(HFControlItem *)self _descriptionWithCharacteristicOptions:1 includeResults:0];
-            *buf = v22;
-            v30 = v18;
-            v31 = 2112;
-            v32 = v19;
+            *buf = v21;
+            v29 = v18;
+            v30 = 2112;
+            v31 = v19;
             _os_log_error_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_ERROR, "Missing value for characteristic type %@ for control item %@", buf, 0x16u);
           }
         }
@@ -461,13 +458,11 @@ id __45__HFControlItem_resultsForBatchReadResponse___block_invoke(uint64_t a1)
 LABEL_12:
       }
 
-      v9 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v9 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
     }
 
     while (v9);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }
@@ -643,75 +638,73 @@ id __75__HFControlItem__standardResultsForResultValue_characteristicValuesByType
 
 void __27__HFControlItem__tintColor__block_invoke()
 {
-  v25[21] = *MEMORY[0x277D85DE8];
-  v24[0] = *MEMORY[0x277CD0EA0];
-  v23 = [MEMORY[0x277D75348] systemYellowColor];
-  v25[0] = v23;
-  v24[1] = *MEMORY[0x277CD0ED0];
+  v24[21] = *MEMORY[0x277D85DE8];
+  v23[0] = *MEMORY[0x277CD0EA0];
   v22 = [MEMORY[0x277D75348] systemYellowColor];
-  v25[1] = v22;
-  v24[2] = *MEMORY[0x277CD0F08];
+  v24[0] = v22;
+  v23[1] = *MEMORY[0x277CD0ED0];
   v21 = [MEMORY[0x277D75348] systemYellowColor];
-  v25[2] = v21;
-  v24[3] = *MEMORY[0x277CD0DD8];
-  v20 = [MEMORY[0x277D75348] systemCyanColor];
-  v25[3] = v20;
-  v24[4] = *MEMORY[0x277CD0E40];
+  v24[1] = v21;
+  v23[2] = *MEMORY[0x277CD0F08];
+  v20 = [MEMORY[0x277D75348] systemYellowColor];
+  v24[2] = v20;
+  v23[3] = *MEMORY[0x277CD0DD8];
   v19 = [MEMORY[0x277D75348] systemCyanColor];
-  v25[4] = v19;
-  v24[5] = *MEMORY[0x277CD0E60];
+  v24[3] = v19;
+  v23[4] = *MEMORY[0x277CD0E40];
   v18 = [MEMORY[0x277D75348] systemCyanColor];
-  v25[5] = v18;
-  v24[6] = *MEMORY[0x277CD0E68];
+  v24[4] = v18;
+  v23[5] = *MEMORY[0x277CD0E60];
   v17 = [MEMORY[0x277D75348] systemCyanColor];
-  v25[6] = v17;
-  v24[7] = *MEMORY[0x277CD0F30];
+  v24[5] = v17;
+  v23[6] = *MEMORY[0x277CD0E68];
   v16 = [MEMORY[0x277D75348] systemCyanColor];
-  v25[7] = v16;
-  v24[8] = *MEMORY[0x277CD0F40];
+  v24[6] = v16;
+  v23[7] = *MEMORY[0x277CD0F30];
   v15 = [MEMORY[0x277D75348] systemCyanColor];
-  v25[8] = v15;
-  v24[9] = *MEMORY[0x277CD0F60];
+  v24[7] = v15;
+  v23[8] = *MEMORY[0x277CD0F40];
   v14 = [MEMORY[0x277D75348] systemCyanColor];
-  v25[9] = v14;
-  v24[10] = *MEMORY[0x277CD0E30];
-  v13 = [MEMORY[0x277D75348] systemMintColor];
-  v25[10] = v13;
-  v24[11] = *MEMORY[0x277CD0E58];
+  v24[8] = v14;
+  v23[9] = *MEMORY[0x277CD0F60];
+  v13 = [MEMORY[0x277D75348] systemCyanColor];
+  v24[9] = v13;
+  v23[10] = *MEMORY[0x277CD0E30];
+  v12 = [MEMORY[0x277D75348] systemMintColor];
+  v24[10] = v12;
+  v23[11] = *MEMORY[0x277CD0E58];
   v0 = [MEMORY[0x277D75348] systemMintColor];
-  v25[11] = v0;
-  v24[12] = *MEMORY[0x277CD0EB0];
+  v24[11] = v0;
+  v23[12] = *MEMORY[0x277CD0EB0];
   v1 = [MEMORY[0x277D75348] systemMintColor];
-  v25[12] = v1;
-  v24[13] = *MEMORY[0x277CD0EA8];
+  v24[12] = v1;
+  v23[13] = *MEMORY[0x277CD0EA8];
   v2 = [MEMORY[0x277D75348] systemMintColor];
-  v25[13] = v2;
-  v24[14] = *MEMORY[0x277CD0ED8];
+  v24[13] = v2;
+  v23[14] = *MEMORY[0x277CD0ED8];
   v3 = [MEMORY[0x277D75348] systemMintColor];
-  v25[14] = v3;
-  v24[15] = *MEMORY[0x277CD0F58];
+  v24[14] = v3;
+  v23[15] = *MEMORY[0x277CD0F58];
   v4 = [MEMORY[0x277D75348] systemMintColor];
-  v25[15] = v4;
-  v24[16] = *MEMORY[0x277CD0E48];
+  v24[15] = v4;
+  v23[16] = *MEMORY[0x277CD0E48];
   v5 = [MEMORY[0x277D75348] systemBlueColor];
-  v25[16] = v5;
-  v24[17] = *MEMORY[0x277CD0E80];
+  v24[16] = v5;
+  v23[17] = *MEMORY[0x277CD0E80];
   v6 = [MEMORY[0x277D75348] systemBlueColor];
-  v25[17] = v6;
-  v24[18] = *MEMORY[0x277CD0F38];
+  v24[17] = v6;
+  v23[18] = *MEMORY[0x277CD0F38];
   v7 = [MEMORY[0x277D75348] systemBlueColor];
-  v25[18] = v7;
-  v24[19] = *MEMORY[0x277CD0E78];
+  v24[18] = v7;
+  v23[19] = *MEMORY[0x277CD0E78];
   v8 = [MEMORY[0x277D75348] systemTealColor];
-  v25[19] = v8;
-  v24[20] = *MEMORY[0x277CD0F20];
+  v24[19] = v8;
+  v23[20] = *MEMORY[0x277CD0F20];
   v9 = [MEMORY[0x277D75348] systemTealColor];
-  v25[20] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:21];
+  v24[20] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:21];
   v11 = _MergedGlobals_5_0;
   _MergedGlobals_5_0 = v10;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)valueForCharacteristicValues:(id)values
@@ -769,37 +762,37 @@ void __27__HFControlItem__tintColor__block_invoke()
 
 - (int64_t)sortPriority
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   characteristicOptions = [(HFControlItem *)self characteristicOptions];
   allCharacteristicTypes = [characteristicOptions allCharacteristicTypes];
 
-  v4 = [allCharacteristicTypes countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [allCharacteristicTypes countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v13;
+    v6 = *v12;
     v7 = -1000;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(allCharacteristicTypes);
         }
 
-        v9 = [MEMORY[0x277CD1970] hf_sortPriorityForCharacteristicType:*(*(&v12 + 1) + 8 * i)];
+        v9 = [MEMORY[0x277CD1970] hf_sortPriorityForCharacteristicType:*(*(&v11 + 1) + 8 * i)];
         if (v7 <= v9)
         {
           v7 = v9;
         }
       }
 
-      v5 = [allCharacteristicTypes countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v5 = [allCharacteristicTypes countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v5);
@@ -810,7 +803,6 @@ void __27__HFControlItem__tintColor__block_invoke()
     v7 = -1000;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -879,18 +871,17 @@ BOOL __50__HFControlItem_supportsItemRepresentingServices___block_invoke_2(uint6
 
 - (unint64_t)_accessorySuspendedState
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   valueSource = [(HFControlItem *)self valueSource];
   allServices = [valueSource allServices];
   v4 = [allServices na_map:&__block_literal_global_121_0];
   v5 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"self" ascending:1];
-  v12[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v7 = [v4 sortedArrayUsingDescriptors:v6];
   lastObject = [v7 lastObject];
   unsignedIntegerValue = [lastObject unsignedIntegerValue];
 
-  v10 = *MEMORY[0x277D85DE8];
   return unsignedIntegerValue;
 }
 

@@ -43,7 +43,7 @@
   {
     v4 = Strong;
     selfCopy = self;
-    sub_36CA0(5u, 1, 0.0);
+    sub_36CA0(5, 1, 0.0);
   }
 
   else
@@ -151,7 +151,7 @@
 
 - (void)didStartSendingMessage:(id)message conversation:(id)conversation
 {
-  sub_2D124(&qword_82010);
+  sub_2D124(&qword_82010, &qword_5FCF0);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_5F5C0;
   *(v4 + 56) = &type metadata for String;
@@ -162,7 +162,7 @@
 
 - (void)didCancelSendingMessage:(id)message conversation:(id)conversation
 {
-  sub_2D124(&qword_82010);
+  sub_2D124(&qword_82010, &qword_5FCF0);
   v4 = swift_allocObject();
   *(v4 + 16) = xmmword_5F5C0;
   *(v4 + 56) = &type metadata for String;
@@ -215,7 +215,7 @@
 
   sub_2CAB4(segue, v10);
 
-  sub_2E3A0(v10, &unk_82040);
+  sub_2E3A0(v10, &unk_82040, &unk_5F790);
 }
 
 @end

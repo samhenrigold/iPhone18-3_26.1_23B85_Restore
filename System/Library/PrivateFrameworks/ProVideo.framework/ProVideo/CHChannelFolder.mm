@@ -400,7 +400,7 @@ LABEL_11:
       break;
     }
 
-    v3 = v3[6];
+    v3 = v3->var6;
   }
 
   while (v3);

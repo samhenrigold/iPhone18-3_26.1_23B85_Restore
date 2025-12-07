@@ -1,10 +1,27 @@
 @interface BPSTimeWindowState
 - (BPSTimeWindowState)initWithCoder:(id)coder;
+- (BPSTimeWindowState)initWithDateInterval:(id)interval identifier:(id)identifier aggregate:(id)aggregate completed:(BOOL)completed;
 - (id)metadata;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation BPSTimeWindowState
+
+- (BPSTimeWindowState)initWithDateInterval:(id)interval identifier:(id)identifier aggregate:(id)aggregate completed:(BOOL)completed
+{
+  completedCopy = completed;
+  intervalCopy = interval;
+  v14.receiver = self;
+  v14.super_class = BPSTimeWindowState;
+  v11 = [(BPSWindowState *)&v14 initWithIdentifier:identifier aggregate:aggregate completed:completedCopy];
+  v12 = v11;
+  if (v11)
+  {
+    [(BPSTimeWindowState *)v11 setDateInterval:intervalCopy];
+  }
+
+  return v12;
+}
 
 - (id)metadata
 {

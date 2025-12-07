@@ -68,9 +68,9 @@ LABEL_10:
         {
           pathExtension2 = [pathCopy pathExtension];
           lowercaseString = [pathExtension2 lowercaseString];
-          v30 = [pathExtension2 isEqualToString:lowercaseString];
+          isEqualToString = objc_msgSend_isEqualToString_(pathExtension2);
 
-          if (v30)
+          if (isEqualToString)
           {
             v31 = 0x20000000;
           }
@@ -78,7 +78,7 @@ LABEL_10:
           else
           {
             uppercaseString = [pathExtension2 uppercaseString];
-            v33 = [pathExtension2 isEqualToString:uppercaseString];
+            v33 = objc_msgSend_isEqualToString_(pathExtension2);
 
             if (!v33)
             {

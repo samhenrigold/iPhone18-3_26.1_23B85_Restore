@@ -357,7 +357,7 @@ uint64_t __63__PHPhotoLibraryChangeObserverRegistrar_getObserversWithBlock___blo
   return v2;
 }
 
-uint64_t __70__PHPhotoLibraryChangeObserverRegistrar_countOfRegisteredFetchResults__block_invoke(uint64_t a1)
+void *__70__PHPhotoLibraryChangeObserverRegistrar_countOfRegisteredFetchResults__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 40) count];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -428,14 +428,14 @@ uint64_t __61__PHPhotoLibraryChangeObserverRegistrar_registerFetchResult___block
   return v2;
 }
 
-uint64_t __87__PHPhotoLibraryChangeObserverRegistrar_setPostsPersistentHistoryChangedNotifications___block_invoke(uint64_t result)
+void *__87__PHPhotoLibraryChangeObserverRegistrar_setPostsPersistentHistoryChangedNotifications___block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   v2 = *(result + 40);
   if (*(v1 + 38) != v2)
   {
     *(v1 + 38) = v2;
-    v3 = *(result + 32);
+    v3 = result[4];
     if (v3[38] == 1)
     {
       return [v3 _lock_resumeChangeHandlingIfNeeded];

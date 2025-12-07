@@ -7,15 +7,15 @@
 - (_DWORD)_createContextForBuffer:(uint64_t)buffer bufferId:(__int128 *)id framePTS:;
 - (__n128)_createFrameSender;
 - (double)_displayTimeSyncedWithFramePTS:(uint64_t)s;
-- (double)_processBufferContext:(uint64_t)context;
+- (double)_processBufferContext:(void *)context;
 - (double)_processReleasedContexts;
+- (id)_updateInputRequirements;
 - (uint64_t)_bufferIDForSurface:(uint64_t)surface;
-- (uint64_t)_cleanupImageQueueContext;
 - (uint64_t)_collectUnconsumedBuffersWithReason:(uint64_t)result collectMostFutureBuffers:;
-- (uint64_t)_ensureImageQueue;
-- (uint64_t)_removeBufferFromInternalQueues:(uint64_t)queues bufferId:;
-- (uint64_t)_updateInputRequirements;
+- (unsigned)_ensureImageQueue;
 - (void)_cleanupIOSurfaces;
+- (void)_cleanupImageQueueContext;
+- (void)_removeBufferFromInternalQueues:(uint64_t)queues bufferId:;
 - (void)_storePreviewPTS:(uint64_t)s withHostTime:(int)time isOverCaptureFrame:;
 - (void)_transferIOSurfaceOwnershipToEnqueuedBufferContext;
 - (void)configurationWithID:(int64_t)d updatedFormat:(id)format didBecomeLiveForInput:(id)input;
@@ -33,7 +33,7 @@
 
 @implementation BWImageQueueSinkNode
 
-- (uint64_t)_ensureImageQueue
+- (unsigned)_ensureImageQueue
 {
   if (result)
   {
@@ -49,18 +49,18 @@
   return result;
 }
 
-- (uint64_t)_updateInputRequirements
+- (id)_updateInputRequirements
 {
   if (result)
   {
     v1 = result;
-    formatRequirements = [*(result + 8) formatRequirements];
+    formatRequirements = [result[1] formatRequirements];
     FigGetAlignmentForIOSurfaceOutput();
     [formatRequirements setBytesPerRowAlignment:0];
     [formatRequirements setPlaneAlignment:0];
     array = [MEMORY[0x1E695DF70] array];
     [array addObjectsFromArray:&unk_1F2249C00];
-    [array addObjectsFromArray:{FigCaptureSupportedPixelFormatsForCompressionType(4, 1, 0, *(v1 + 648))}];
+    [array addObjectsFromArray:{FigCaptureSupportedPixelFormatsForCompressionType(4, 1, 0, *(v1 + 162))}];
     [formatRequirements setSupportedPixelFormats:array];
     return [formatRequirements setMemoryPoolUseAllowed:0];
   }
@@ -165,7 +165,7 @@
 
 - (double)_processReleasedContexts
 {
-  if (self && *(self + 480))
+  if (result && result[60])
   {
     do
     {
@@ -174,12 +174,12 @@
       v4 = 0;
       do
       {
-        v5 = *(*(self + 472) + 8 * v2);
+        v5 = *(result[59] + 8 * v2);
         if (*(v5 + 24) && *(v5 + 120) == 1)
         {
           if (!v3 || (time1 = *(v3 + 32), v7 = *(v5 + 32), CMTimeCompare(&time1, &v7) >= 1))
           {
-            v3 = *(*(self + 472) + 8 * v2);
+            v3 = *(result[59] + 8 * v2);
           }
 
           v4 = 1;
@@ -188,26 +188,26 @@
         ++v2;
       }
 
-      while (*(self + 480) > v2);
+      while (result[60] > v2);
       if (v3)
       {
-        result = [(BWImageQueueSinkNode *)self _processBufferContext:v3];
+        v6 = [(BWImageQueueSinkNode *)result _processBufferContext:v3];
         if ((v4 & 1) == 0)
         {
-          return result;
+          return v6;
         }
       }
 
       else if ((v4 & 1) == 0)
       {
-        return result;
+        return v6;
       }
     }
 
-    while (*(self + 480));
+    while (result[60]);
   }
 
-  return result;
+  return v6;
 }
 
 + (void)initialize
@@ -249,50 +249,50 @@
     v9->_imageQueueHeight = 480;
     v9->_resetPreviewSynchronizerOnNextFrame = 0;
     v9->_bufferIDsInQueue = objc_alloc_init(MEMORY[0x1E695DF70]);
-    *(v10 + 488) = objc_alloc_init(MEMORY[0x1E695DF70]);
-    *(v10 + 496) = FigSimpleMutexCreate();
-    *(v10 + 504) = FigDispatchQueueCreateWithPriority();
-    *(v10 + 408) = 40;
+    v10->_previewPTSHistory = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v10->_previewPTSHistoryMutex = FigSimpleMutexCreate();
+    v10->_previewPTSHistoryQueue = FigDispatchQueueCreateWithPriority();
+    v10->_numFramesReceivedBeforeFirstDisplayTimeout = 40;
     v14 = *&token->var0[4];
     v21 = *token->var0;
     v22 = v14;
     if (FigCaptureClientIsRunningInXCTest(&v21))
     {
-      *(v10 + 408) = 0;
+      v10->_numFramesReceivedBeforeFirstDisplayTimeout = 0;
     }
 
     v15 = FigCapturePlatformIdentifier() > 5;
-    *(v10 + 384) = v15;
-    *(v10 + 385) = v15;
-    *(v10 + 386) = v15;
-    *(v10 + 387) = v15;
+    v10->_CAVSyncIntervalWorkaroundEnabled = v15;
+    v10->_highLatencyJitterHandlingEnabled = v15;
+    v10->_fasterLatencyRecoveryEnabled = v15;
+    v10->_driftCompensationTimestampFilteringEnabled = v15;
     v16 = [[BWNodeInput alloc] initWithMediaType:1986618469 node:v10];
     v17 = objc_alloc_init(BWVideoFormatRequirements);
     [(BWVideoFormatRequirements *)v17 setSupportedCacheModes:+[BWVideoFormatRequirements cacheModesForOptimizedDisplayAccess]];
     [(BWNodeInput *)v16 setFormatRequirements:v17];
-    [(BWNodeInput *)v16 setRetainedBufferCount:*(v10 + 208)];
-    [v10 addInput:v16];
+    [(BWNodeInput *)v16 setRetainedBufferCount:v10->_imageQueueCapacity];
+    [(BWNode *)v10 addInput:v16];
 
-    [(BWImageQueueSinkNode *)v10 _updateInputRequirements];
-    [v10 setSupportsLiveReconfiguration:1];
-    [v10 setSupportsPrepareWhileRunning:1];
-    *(v10 + 456) = FigSimpleMutexCreate();
-    *(v10 + 672) = objc_alloc_init(BWStats);
+    [(BWImageQueueSinkNode *)&v10->super.super.super.isa _updateInputRequirements];
+    [(BWNode *)v10 setSupportsLiveReconfiguration:1];
+    [(BWNode *)v10 setSupportsPrepareWhileRunning:1];
+    v10->_surfaceRegistrationMutex = FigSimpleMutexCreate();
+    v10->_frameDisplayLatencyStats = objc_alloc_init(BWStats);
     v18 = *&token->var0[4];
     v21 = *token->var0;
     v22 = v18;
-    *(v10 + 688) = FigCaptureGetPIDFromAuditToken(&v21);
+    v10->_clientPID = FigCaptureGetPIDFromAuditToken(&v21);
     v19 = *&token->var0[4];
-    *(v10 + 692) = *token->var0;
-    *(v10 + 708) = v19;
-    *(v10 + 724) = 0;
+    *v10->_clientAuditToken.val = *token->var0;
+    *&v10->_clientAuditToken.val[4] = v19;
+    v10->_clientPIDLock._os_unfair_lock_opaque = 0;
     *&v19 = -1;
     *(&v19 + 1) = -1;
-    *(v10 + 264) = v19;
-    *(v10 + 280) = v19;
+    *v10->_frameSenderClientAuditToken.val = v19;
+    *&v10->_frameSenderClientAuditToken.val[4] = v19;
     v20 = [BWLimitedGMErrorLogger alloc];
-    *(v10 + 736) = -[BWLimitedGMErrorLogger initWithName:maxLoggingCount:](v20, "initWithName:maxLoggingCount:", [MEMORY[0x1E696AEC0] stringWithFormat:@"''%@", v10], 5);
-    *(v10 + 609) = 0;
+    v10->_limitedGMErrorLogger = -[BWLimitedGMErrorLogger initWithName:maxLoggingCount:](v20, "initWithName:maxLoggingCount:", [MEMORY[0x1E696AEC0] stringWithFormat:@"''%@", v10], 5);
+    v10->_triggerDisplayTimeout = 0;
   }
 
   return v10;
@@ -363,7 +363,7 @@
   if (self->_maxLossyCompressionLevel != level)
   {
     self->_maxLossyCompressionLevel = level;
-    [(BWImageQueueSinkNode *)self _updateInputRequirements];
+    [(BWImageQueueSinkNode *)&self->super.super.super.isa _updateInputRequirements];
   }
 }
 
@@ -995,7 +995,7 @@ LABEL_74:
 
 - (void)handleDroppedSample:(id)sample forInput:(id)input
 {
-  if ([objc_msgSend(sample "reason")])
+  if (objc_msgSend_isEqualToString_([sample reason]))
   {
     [BWImageQueueSinkNode _collectUnconsumedBuffersWithReason:? collectMostFutureBuffers:?];
   }
@@ -1029,17 +1029,17 @@ LABEL_74:
   }
 }
 
-- (uint64_t)_cleanupImageQueueContext
+- (void)_cleanupImageQueueContext
 {
   if (result)
   {
     v1 = result;
-    if (*(result + 640))
+    if (result[80])
     {
       [MEMORY[0x1E6979518] begin];
       [MEMORY[0x1E6979518] activateBackground:1];
 
-      *(v1 + 640) = 0;
+      v1[80] = 0;
       v2 = MEMORY[0x1E6979518];
 
       return [v2 commit];
@@ -1433,22 +1433,22 @@ LABEL_10:
   return v13;
 }
 
-- (uint64_t)_removeBufferFromInternalQueues:(uint64_t)queues bufferId:
+- (void)_removeBufferFromInternalQueues:(uint64_t)queues bufferId:
 {
   if (result)
   {
     v5 = result;
     FigSimpleMutexLock();
-    v6 = [*(v5 + 464) indexOfObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedLongLong:", queues)}];
+    v6 = [v5[58] indexOfObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedLongLong:", queues)}];
     if (v6 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      [*(v5 + 464) removeObjectAtIndex:v6];
+      [v5[58] removeObjectAtIndex:v6];
     }
 
     FigSimpleMutexUnlock();
     ImageBuffer = CMSampleBufferGetImageBuffer(a2);
     IOSurface = CVPixelBufferGetIOSurface(ImageBuffer);
-    v9 = *(v5 + 432);
+    v9 = v5[54];
     if (!v9 || (result = [v9 indexOfObject:IOSurface], result == 0x7FFFFFFFFFFFFFFFLL))
     {
 
@@ -1465,33 +1465,32 @@ LABEL_10:
   if (self)
   {
     contexta = objc_autoreleasePoolPush();
-    v56 = *&a2->value;
-    epoch = a2->epoch;
+    v55 = *a2;
     sCopy = s;
-    v7 = [MEMORY[0x1E696B098] valueWithBytes:&v56 objCType:"{_PreviewPTSInfo={?=qiIq}Q}"];
+    v7 = [MEMORY[0x1E696B098] valueWithBytes:&v55 objCType:"{_PreviewPTSInfo={?=qiIq}Q}"];
     FigSimpleMutexLock();
     [*(self + 488) addObject:v7];
     array = [MEMORY[0x1E695DF70] array];
+    v51 = 0u;
     v52 = 0u;
     v53 = 0u;
     v54 = 0u;
-    v55 = 0u;
     v9 = *(self + 488);
-    v17 = OUTLINED_FUNCTION_4_89(array, v10, v11, v12, v13, v14, v15, v16, v38, contexta, rhs.value, *&rhs.timescale, rhs.epoch, v44, lhs.value, *&lhs.timescale, lhs.epoch, v46, v47.value, *&v47.timescale, v47.epoch, v48, v49, *(&v49 + 1), v50, *(&v50 + 1), v51);
+    v17 = OUTLINED_FUNCTION_4_89(array, v10, v11, v12, v13, v14, v15, v16, v38, contexta, rhs.value, *&rhs.timescale, rhs.epoch, v44, lhs.value, *&lhs.timescale, lhs.epoch, v46, v47.value, *&v47.timescale, v47.epoch, v48, v49, *(&v49 + 1), v50, *(&v50 + 1));
     if (v17)
     {
       v18 = v17;
-      v19 = *v53;
+      v19 = *v52;
 LABEL_4:
       v20 = 0;
       while (1)
       {
-        if (*v53 != v19)
+        if (*v52 != v19)
         {
           objc_enumerationMutation(v9);
         }
 
-        v21 = *(*(&v52 + 1) + 8 * v20);
+        v21 = *(*(&v51 + 1) + 8 * v20);
         v49 = 0u;
         v50 = 0u;
         [v21 getValue:&v49];
@@ -1510,7 +1509,7 @@ LABEL_4:
         v22 = [array addObject:v21];
         if (v18 == ++v20)
         {
-          v18 = OUTLINED_FUNCTION_4_89(v22, v23, v24, v25, v26, v27, v28, v29, v39, context, rhs.value, *&rhs.timescale, rhs.epoch, v44, lhs.value, *&lhs.timescale, lhs.epoch, v46, v47.value, *&v47.timescale, v47.epoch, v48, v49, *(&v49 + 1), v50, *(&v50 + 1), v51);
+          v18 = OUTLINED_FUNCTION_4_89(v22, v23, v24, v25, v26, v27, v28, v29, v39, context, rhs.value, *&rhs.timescale, rhs.epoch, v44, lhs.value, *&lhs.timescale, lhs.epoch, v46, v47.value, *&v47.timescale, v47.epoch, v48, v49, *(&v49 + 1), v50, *(&v50 + 1));
           if (v18)
           {
             goto LABEL_4;
@@ -1546,7 +1545,7 @@ LABEL_4:
   }
 }
 
-- (double)_processBufferContext:(uint64_t)context
+- (double)_processBufferContext:(void *)context
 {
   if (context)
   {
@@ -1575,14 +1574,14 @@ LABEL_4:
         kdebug_trace();
       }
 
-      if (v5 && *(v3 + 488))
+      if (v5 && v3[61])
       {
         if (*(a2 + 56))
         {
           v8 = *(a2 + 80);
           CMGetAttachment(*a2, @"IsOverCaptureFrame", 0);
           v9 = FigCFEqual() != 0;
-          v10 = *(v3 + 504);
+          v10 = v3[63];
           v11[0] = MEMORY[0x1E69E9820];
           v11[1] = 3221225472;
           v11[2] = __46__BWImageQueueSinkNode__processBufferContext___block_invoke;
@@ -1635,7 +1634,7 @@ void __46__BWImageQueueSinkNode__processBufferContext___block_invoke(uint64_t a1
   os_unfair_lock_unlock((a2 + 724));
 }
 
-- (uint64_t)renderSampleBuffer:(uint64_t)a3 forInput:(void *)a4 .cold.1(const void *a1, const __CFString *a2, uint64_t a3, void *a4)
+- (void)renderSampleBuffer:(uint64_t)a3 forInput:(void *)a4 .cold.1(const void *a1, const __CFString *a2, uint64_t a3, void *a4)
 {
   v7 = CMGetAttachment(a1, a2, 0);
   v8 = [CMGetAttachment(a1 @"CAContextFencePortGenerationID"];

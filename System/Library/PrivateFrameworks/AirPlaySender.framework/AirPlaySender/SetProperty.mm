@@ -26,10 +26,10 @@ void __carEndpoint_SetProperty_block_invoke(uint64_t a1)
   v2 = a1 + 40;
   if (*(*(a1 + 40) + 176))
   {
-    v11 = *(*(a1 + 32) + 8);
-    v12 = -16723;
+    v15 = *(*(a1 + 32) + 8);
+    v16 = -16723;
 LABEL_38:
-    *(v11 + 24) = v12;
+    *(v15 + 24) = v16;
     return;
   }
 
@@ -97,37 +97,37 @@ LABEL_38:
   {
     if (gLogCategory_APEndpointCarPlay <= 50 && (gLogCategory_APEndpointCarPlay != -1 || _LogCategory_Initialize()))
     {
-      __carEndpoint_SetProperty_block_invoke_cold_3();
+      __carEndpoint_SetProperty_block_invoke_cold_3(a1, v9, v10);
     }
 
-    v9 = *(a1 + 56);
-    if (v9)
+    v11 = *(a1 + 56);
+    if (v11)
     {
-      v9 = CFRetain(v9);
+      v11 = CFRetain(v11);
     }
 
-    *(*v2 + 480) = v9;
+    *(*v2 + 480) = v11;
     return;
   }
 
+  v12 = *MEMORY[0x277CC1478];
   if (!CFEqual(*v3, *MEMORY[0x277CC1478]))
   {
     if (gLogCategory_APEndpointCarPlay <= 30 && (gLogCategory_APEndpointCarPlay != -1 || _LogCategory_Initialize()))
     {
-      __carEndpoint_SetProperty_block_invoke_cold_5();
+      __carEndpoint_SetProperty_block_invoke_cold_5(a1, a1 + 48, v13);
     }
 
-    v11 = *(*(a1 + 32) + 8);
-    v12 = -12784;
+    v15 = *(*(a1 + 32) + 8);
+    v16 = -12784;
     goto LABEL_38;
   }
 
-  v10 = CFDictionaryGetTypeID();
-  if (v10 == CFGetTypeID(*(a1 + 56)))
+  v14 = CFDictionaryGetTypeID();
+  if (v14 == CFGetTypeID(*(a1 + 56)))
   {
     if (gLogCategory_APEndpointCarPlay <= 50 && (gLogCategory_APEndpointCarPlay != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
     }
 
     FigCFDictionaryApplyBlock();
@@ -237,22 +237,22 @@ void __localStream_SetProperty_block_invoke_4(uint64_t a1)
   }
 }
 
-uint64_t __carEndpoint_SetProperty_block_invoke_2(uint64_t a1, const void *a2, const void *a3)
+uint64_t __carEndpoint_SetProperty_block_invoke_2(void *a1, const void *a2, const void *a3)
 {
-  CFDictionarySetValue(*(*(a1 + 40) + 464), a2, a3);
+  CFDictionarySetValue(*(a1[5] + 464), a2, a3);
   if (gLogCategory_APEndpointCarPlay <= 50 && (gLogCategory_APEndpointCarPlay != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_APEndpointCarPlay, "OSStatus carEndpoint_SetProperty(CMBaseObjectRef, CFStringRef, CFTypeRef)_block_invoke_2", 33554482, "[%{ptr}] %###s called, Setting DisplayCornerMasks, DisplayUUID: %@", a1[6], "OSStatus carEndpoint_SetProperty(CMBaseObjectRef, CFStringRef, CFTypeRef)_block_invoke_2", a2);
   }
 
-  result = carEndpoint_updateDisplayCornerMasks();
-  *(*(*(a1 + 32) + 8) + 24) = 0;
+  result = carEndpoint_updateDisplayCornerMasks(a1[6], a2);
+  *(*(a1[4] + 8) + 24) = 0;
   return result;
 }
 
 uint64_t __carEndpoint_SetProperty_block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  ScreenStreamForDisplayUUID = carEndpoint_getScreenStreamForDisplayUUID();
+  ScreenStreamForDisplayUUID = carEndpoint_getScreenStreamForDisplayUUID(*(a1 + 40), a2);
   if (ScreenStreamForDisplayUUID)
   {
     result = APEndpointStreamScreenOverrideCanvasSize(ScreenStreamForDisplayUUID, a3);
@@ -288,7 +288,7 @@ uint64_t __audioHoseManagerBuffered_SetProperty_block_invoke(uint64_t result, ui
   return result;
 }
 
-const void *__audioHoseManagerBuffered_SetProperty_block_invoke_3(uint64_t a1)
+CFTypeRef __audioHoseManagerBuffered_SetProperty_block_invoke_3(uint64_t a1)
 {
   result = FigCFEqual();
   if (!result)
@@ -311,7 +311,7 @@ const void *__audioHoseManagerBuffered_SetProperty_block_invoke_3(uint64_t a1)
   return result;
 }
 
-const void *__audioHoseManagerBuffered_SetProperty_block_invoke_4(uint64_t a1)
+CFTypeRef __audioHoseManagerBuffered_SetProperty_block_invoke_4(uint64_t a1)
 {
   result = FigCFEqual();
   if (!result)
@@ -348,18 +348,18 @@ void __carEndpoint_SetProperty_block_invoke_cold_4()
   OUTLINED_FUNCTION_13_7(v0);
 }
 
-void __audioHoseManagerBuffered_SetProperty_block_invoke_2()
+void __audioHoseManagerBuffered_SetProperty_block_invoke_2(uint64_t a1)
 {
-  v0[0] = 0;
-  v0[1] = v0;
-  v0[2] = 0x2000000000;
-  v1 = 0;
+  v1[0] = 0;
+  v1[1] = v1;
+  v1[2] = 0x2000000000;
+  v2 = 0;
   if (*(CMBaseObjectGetDerivedStorage() + 186))
   {
     CFDictionaryApplyBlock();
   }
 
-  _Block_object_dispose(v0, 8);
+  _Block_object_dispose(v1, 8);
 }
 
 uint64_t __audioHoseManagerBuffered_SetProperty_block_invoke_cold_1()
@@ -372,7 +372,7 @@ uint64_t __audioHoseManagerBuffered_SetProperty_block_invoke_cold_1()
 
   OUTLINED_FUNCTION_10_10();
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v1, v2, v3, v4);
 }
 
 @end

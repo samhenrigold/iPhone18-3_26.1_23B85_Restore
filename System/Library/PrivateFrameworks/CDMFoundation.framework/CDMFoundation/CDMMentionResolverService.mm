@@ -11,31 +11,28 @@
 
 - (id)handleRequestCommandTypeNames
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFD8];
   v3 = +[(CDMBaseCommand *)CDMMentionResolverRequestCommand];
-  v8[0] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+  v7[0] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   v5 = [v2 setWithArray:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 + (id)getCDMServiceAssetConfig
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(CDMServiceAssetConfig);
-  v7 = @"marrs/mr";
-  v8 = @"com.apple.siri.nl.marrs.mr";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v7 count:1];
-  v9[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v6 = @"marrs/mr";
+  v7 = @"com.apple.siri.nl.marrs.mr";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v6 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [(CDMServiceAssetConfig *)v2 addCDMFactorToFoldersMapping:v4 forAssetSet:0];
 
   [(CDMServiceAssetConfig *)v2 setIsAssetRequiredForSetup:0];
-  v5 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -61,13 +58,13 @@
 
 - (id)handle:(id)handle
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v19 = "[CDMMentionResolverService handle:]";
+    v18 = "[CDMMentionResolverService handle:]";
     _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s Calling Mention Resolver", buf, 0xCu);
   }
 
@@ -77,11 +74,11 @@
     if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v19 = "[CDMMentionResolverService handle:]";
-      v20 = 2112;
-      v21 = @"mentionresolver";
-      v22 = 2112;
-      v23 = handleCopy;
+      v18 = "[CDMMentionResolverService handle:]";
+      v19 = 2112;
+      v20 = @"mentionresolver";
+      v21 = 2112;
+      v22 = handleCopy;
       _os_log_debug_impl(&dword_1DC287000, v8, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\nMENTIONRESOLVERRequest: %@", buf, 0x20u);
     }
 
@@ -98,27 +95,27 @@
     }
 
     mrRequest2 = [handleCopy mrRequest];
-    v17 = 0;
-    v15 = [(CDMMentionResolverService *)self predictWithInput:mrRequest2 forLocale:0 status:&v17];
-    v10 = v17;
+    v16 = 0;
+    v14 = [(CDMMentionResolverService *)self predictWithInput:mrRequest2 forLocale:0 status:&v16];
+    v10 = v16;
 
     if (+[CDMFeatureFlags isLogNluEnabled])
     {
-      [CDMMentionResolverServiceUtils logMRResponseToFile:v15];
+      [CDMMentionResolverServiceUtils logMRResponseToFile:v14];
     }
 
-    v9 = [[CDMMentionResolverResponseCommand alloc] initWithResponse:v15];
+    v9 = [[CDMMentionResolverResponseCommand alloc] initWithResponse:v14];
     [(CDMBaseCommand *)v9 setCmdError:v10];
-    v16 = CDMLogContext;
+    v15 = CDMLogContext;
     if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v19 = "[CDMMentionResolverService handle:]";
-      v20 = 2112;
-      v21 = @"mentionresolver";
-      v22 = 2112;
-      v23 = v15;
-      _os_log_debug_impl(&dword_1DC287000, v16, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\nMENTIONRESOLVERResponse: %@", buf, 0x20u);
+      v18 = "[CDMMentionResolverService handle:]";
+      v19 = 2112;
+      v20 = @"mentionresolver";
+      v21 = 2112;
+      v22 = v14;
+      _os_log_debug_impl(&dword_1DC287000, v15, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\nMENTIONRESOLVERResponse: %@", buf, 0x20u);
     }
   }
 
@@ -128,7 +125,7 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v19 = "[CDMMentionResolverService handle:]";
+      v18 = "[CDMMentionResolverService handle:]";
       _os_log_error_impl(&dword_1DC287000, v10, OS_LOG_TYPE_ERROR, "%s [ERR]: Mention Resolver: Either Request and/or Predictor is nil", buf, 0xCu);
     }
 
@@ -136,20 +133,19 @@
   }
 
 LABEL_14:
-  v11 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (id)setup:(id)setup
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   setupCopy = setup;
   v5 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v31 = "[CDMMentionResolverService setup:]";
+    v30 = "[CDMMentionResolverService setup:]";
     _os_log_impl(&dword_1DC287000, v5, OS_LOG_TYPE_INFO, "%s Setting up Mention Resolver service", buf, 0xCu);
   }
 
@@ -167,9 +163,9 @@ LABEL_14:
     resourcePath = [v11 resourcePath];
     dynamicConfig3 = [setupCopy dynamicConfig];
     languageCode = [dynamicConfig3 languageCode];
-    v29 = 0;
-    v15 = [(CDMMentionResolverService *)self getPredictor:resourcePath forLocale:languageCode status:&v29];
-    v16 = v29;
+    v28 = 0;
+    v15 = [(CDMMentionResolverService *)self getPredictor:resourcePath forLocale:languageCode status:&v28];
+    v16 = v28;
     mentionResolver = self->_mentionResolver;
     self->_mentionResolver = v15;
 
@@ -191,7 +187,7 @@ LABEL_14:
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v31 = "[CDMMentionResolverService setup:]";
+      v30 = "[CDMMentionResolverService setup:]";
       _os_log_impl(&dword_1DC287000, v21, OS_LOG_TYPE_INFO, "%s Mention Resolver model bundle not found", buf, 0xCu);
     }
   }
@@ -206,7 +202,7 @@ LABEL_14:
   if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v31 = "[CDMMentionResolverService setup:]";
+    v30 = "[CDMMentionResolverService setup:]";
     _os_log_impl(&dword_1DC287000, v25, OS_LOG_TYPE_INFO, "%s Mention Resolver loaded", buf, 0xCu);
   }
 
@@ -214,8 +210,6 @@ LABEL_14:
   createSetupResponseCommand = [(CDMBaseService *)self createSetupResponseCommand];
 LABEL_12:
   v26 = createSetupResponseCommand;
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v26;
 }

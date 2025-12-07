@@ -170,7 +170,7 @@ LABEL_5:
   v8 = v7;
   if (v6 == v7)
   {
-    v10 = 1;
+    isEqual = 1;
   }
 
   else
@@ -187,16 +187,16 @@ LABEL_5:
 
     if (v9)
     {
-      v10 = 0;
+      isEqual = 0;
     }
 
     else
     {
-      v10 = [(_UIBarAppearanceData *)v6 isEqual:v7];
+      isEqual = objc_msgSend_isEqual_(v6);
     }
   }
 
-  self->_backgroundsAreSame = v10;
+  self->_backgroundsAreSame = isEqual;
 }
 
 - (void)setBackgroundData2:(id)data2
@@ -209,7 +209,7 @@ LABEL_5:
   v8 = v7;
   if (v6 == v7)
   {
-    v10 = 1;
+    isEqual = 1;
   }
 
   else
@@ -226,16 +226,16 @@ LABEL_5:
 
     if (v9)
     {
-      v10 = 0;
+      isEqual = 0;
     }
 
     else
     {
-      v10 = [(_UIBarAppearanceData *)v6 isEqual:v7];
+      isEqual = objc_msgSend_isEqual_(v6);
     }
   }
 
-  self->_backgroundsAreSame = v10;
+  self->_backgroundsAreSame = isEqual;
 }
 
 - (void)describeInto:(id)into

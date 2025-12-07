@@ -31,7 +31,7 @@
 
 - (BOOL)markItemAtRelativePath:(id)path
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v5 = objc_autoreleasePoolPush();
   v6 = [(NSString *)self->_rootDir stringByAppendingPathComponent:pathCopy];
@@ -43,9 +43,9 @@
     v9 = TRILogCategory_Server();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v16 = 138543362;
-      v17 = v6;
-      _os_log_error_impl(&dword_26F567000, v9, OS_LOG_TYPE_ERROR, "Cannot mark root directory %{public}@ for deferred deletion", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v6;
+      _os_log_error_impl(&dword_26F567000, v9, OS_LOG_TYPE_ERROR, "Cannot mark root directory %{public}@ for deferred deletion", &v15, 0xCu);
     }
 
     v10 = 0;
@@ -62,9 +62,9 @@
       v13 = TRILogCategory_Server();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        v16 = 138543362;
-        v17 = v6;
-        _os_log_debug_impl(&dword_26F567000, v13, OS_LOG_TYPE_DEBUG, "Marked %{public}@ for deferred deletion", &v16, 0xCu);
+        v15 = 138543362;
+        v16 = v6;
+        _os_log_debug_impl(&dword_26F567000, v13, OS_LOG_TYPE_DEBUG, "Marked %{public}@ for deferred deletion", &v15, 0xCu);
       }
 
       v10 = 1;
@@ -77,13 +77,12 @@
   }
 
   objc_autoreleasePoolPop(v5);
-  v14 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 + (BOOL)_createSymlinkIfNonExistentAtPath:(id)path withDestinationPath:(id)destinationPath
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   destinationPathCopy = destinationPath;
   if (symlink([destinationPathCopy fileSystemRepresentation], objc_msgSend(pathCopy, "fileSystemRepresentation")) && *__error() != 17)
@@ -91,18 +90,18 @@
     v8 = TRILogCategory_Server();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = __error();
-      v12 = strerror(*v11);
-      v13 = *__error();
-      v14 = 138544130;
-      v15 = pathCopy;
-      v16 = 2114;
-      v17 = destinationPathCopy;
-      v18 = 2080;
-      v19 = v12;
-      v20 = 1024;
-      v21 = v13;
-      _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "Failed to create symlink %{public}@ --> %{public}@: %s (%d)", &v14, 0x26u);
+      v10 = __error();
+      v11 = strerror(*v10);
+      v12 = *__error();
+      v13 = 138544130;
+      v14 = pathCopy;
+      v15 = 2114;
+      v16 = destinationPathCopy;
+      v17 = 2080;
+      v18 = v11;
+      v19 = 1024;
+      v20 = v12;
+      _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "Failed to create symlink %{public}@ --> %{public}@: %s (%d)", &v13, 0x26u);
     }
 
     v7 = 0;
@@ -113,13 +112,12 @@
     v7 = 1;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (BOOL)unmarkItemAtRelativePath:(id)path
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v5 = [(NSString *)self->_rootDir stringByAppendingPathComponent:pathCopy];
   stringByStandardizingPath = [v5 stringByStandardizingPath];
@@ -130,9 +128,9 @@
     v8 = TRILogCategory_Server();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v16 = 138543362;
-      v17 = v5;
-      _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "Cannot unmark root directory %{public}@ for deferred deletion", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v5;
+      _os_log_error_impl(&dword_26F567000, v8, OS_LOG_TYPE_ERROR, "Cannot unmark root directory %{public}@ for deferred deletion", &v15, 0xCu);
     }
 
     v9 = 0;
@@ -146,16 +144,16 @@
       v10 = TRILogCategory_Server();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v13 = __error();
-        v14 = strerror(*v13);
-        v15 = *__error();
-        v16 = 138543874;
-        v17 = v8;
-        v18 = 2080;
-        v19 = v14;
-        v20 = 1024;
-        v21 = v15;
-        _os_log_error_impl(&dword_26F567000, v10, OS_LOG_TYPE_ERROR, "Failed to unmark item for deferred deletion at path %{public}@: %s (%d)", &v16, 0x1Cu);
+        v12 = __error();
+        v13 = strerror(*v12);
+        v14 = *__error();
+        v15 = 138543874;
+        v16 = v8;
+        v17 = 2080;
+        v18 = v13;
+        v19 = 1024;
+        v20 = v14;
+        _os_log_error_impl(&dword_26F567000, v10, OS_LOG_TYPE_ERROR, "Failed to unmark item for deferred deletion at path %{public}@: %s (%d)", &v15, 0x1Cu);
       }
 
       v9 = 0;
@@ -166,22 +164,21 @@
       v10 = TRILogCategory_Server();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        v16 = 138543362;
-        v17 = v8;
-        _os_log_debug_impl(&dword_26F567000, v10, OS_LOG_TYPE_DEBUG, "Removed deferred deletion mark %{public}@", &v16, 0xCu);
+        v15 = 138543362;
+        v16 = v8;
+        _os_log_debug_impl(&dword_26F567000, v10, OS_LOG_TYPE_DEBUG, "Removed deferred deletion mark %{public}@", &v15, 0xCu);
       }
 
       v9 = 1;
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (BOOL)collectGarbageWithRootDirLockWitness:(TRIFlockWitness_ *)witness externalReferenceStore:(id)store
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   storeCopy = store;
   _deferredDeletedLinksDir = [(TRIDeferredDeleter *)self _deferredDeletedLinksDir];
   v7 = open([_deferredDeletedLinksDir fileSystemRepresentation], 0);
@@ -198,7 +195,7 @@
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v38 = _deferredDeletedLinksDir;
+          v37 = _deferredDeletedLinksDir;
           _os_log_impl(&dword_26F567000, v11, OS_LOG_TYPE_DEFAULT, "Unable to lock deferred deleted items directory %{public}@, skipping garbage collecting deferred deleted items", buf, 0xCu);
         }
 
@@ -210,15 +207,15 @@
       {
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          v27 = __error();
-          v28 = strerror(*v27);
-          v29 = *__error();
+          v26 = __error();
+          v27 = strerror(*v26);
+          v28 = *__error();
           *buf = 138543874;
-          v38 = _deferredDeletedLinksDir;
-          v39 = 2080;
-          v40 = v28;
-          v41 = 1024;
-          v42 = v29;
+          v37 = _deferredDeletedLinksDir;
+          v38 = 2080;
+          v39 = v27;
+          v40 = 1024;
+          v41 = v28;
           _os_log_error_impl(&dword_26F567000, v11, OS_LOG_TYPE_ERROR, "Unable to acquire exclusive lock on deferred deleted items dir %{public}@: %s (%d)", buf, 0x1Cu);
         }
 
@@ -236,7 +233,7 @@ LABEL_31:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v38 = _deferredDeletedLinksDir;
+      v37 = _deferredDeletedLinksDir;
       _os_log_impl(&dword_26F567000, v19, OS_LOG_TYPE_DEFAULT, "Running garbage collection on deferred deleted items in dir %{public}@", buf, 0xCu);
     }
 
@@ -255,15 +252,15 @@ LABEL_26:
           v24 = TRILogCategory_Server();
           if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
           {
-            v33 = __error();
-            v34 = strerror(*v33);
-            v35 = *__error();
+            v32 = __error();
+            v33 = strerror(*v32);
+            v34 = *__error();
             *buf = 138543874;
-            v38 = _deferredDeletedLinksDir;
-            v39 = 2080;
-            v40 = v34;
-            v41 = 1024;
-            v42 = v35;
+            v37 = _deferredDeletedLinksDir;
+            v38 = 2080;
+            v39 = v33;
+            v40 = 1024;
+            v41 = v34;
             _os_log_error_impl(&dword_26F567000, v24, OS_LOG_TYPE_ERROR, "Unable to release exclusive lock on deferred deleted items dir %{public}@: %s (%d)", buf, 0x1Cu);
           }
         }
@@ -281,7 +278,7 @@ LABEL_25:
         goto LABEL_26;
       }
 
-      *v36 = 0;
+      *v35 = 0;
       v23 = "Empty deferred link directories cleanup failed";
     }
 
@@ -293,11 +290,11 @@ LABEL_25:
         goto LABEL_25;
       }
 
-      *v36 = 0;
+      *v35 = 0;
       v23 = "Deferred deleted items cleanup failed";
     }
 
-    _os_log_error_impl(&dword_26F567000, v22, OS_LOG_TYPE_ERROR, v23, v36, 2u);
+    _os_log_error_impl(&dword_26F567000, v22, OS_LOG_TYPE_ERROR, v23, v35, 2u);
     goto LABEL_25;
   }
 
@@ -310,7 +307,7 @@ LABEL_25:
     {
       rootDir = self->_rootDir;
       *buf = 138543362;
-      v38 = rootDir;
+      v37 = rootDir;
       _os_log_impl(&dword_26F567000, v16, OS_LOG_TYPE_DEFAULT, "No deferred deleted items to garbage collect for root directory %{public}@", buf, 0xCu);
     }
 
@@ -321,15 +318,15 @@ LABEL_25:
   {
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v30 = __error();
-      v31 = strerror(*v30);
-      v32 = *__error();
+      v29 = __error();
+      v30 = strerror(*v29);
+      v31 = *__error();
       *buf = 138543874;
-      v38 = _deferredDeletedLinksDir;
-      v39 = 2080;
-      v40 = v31;
-      v41 = 1024;
-      v42 = v32;
+      v37 = _deferredDeletedLinksDir;
+      v38 = 2080;
+      v39 = v30;
+      v40 = 1024;
+      v41 = v31;
       _os_log_error_impl(&dword_26F567000, v16, OS_LOG_TYPE_ERROR, "Failed to open lock on dir %{public}@: %s (%d)", buf, 0x1Cu);
     }
 
@@ -338,7 +335,6 @@ LABEL_25:
 
 LABEL_32:
 
-  v25 = *MEMORY[0x277D85DE8];
   return v18 & 1;
 }
 
@@ -387,9 +383,8 @@ void __77__TRIDeferredDeleter__cleanupWithLinksDirLockWitness_externalReferenceS
 {
   v3 = a2;
   v4 = [*(a1 + 32) stringByAppendingPathComponent:v3];
-  v6 = 0;
-  v5 = *(a1 + 40);
-  if (![objc_opt_class() _removeDeferredDeletedItemWithLink:v4 externalReferenceStore:*(a1 + 48) wasDeleted:&v6] || v6 == 1 && (objc_msgSend(*(a1 + 40), "unmarkItemAtRelativePath:", v3) & 1) == 0)
+  v5 = 0;
+  if (![objc_opt_class() _removeDeferredDeletedItemWithLink:v4 externalReferenceStore:*(a1 + 48) wasDeleted:&v5] || v5 == 1 && (objc_msgSend(*(a1 + 40), "unmarkItemAtRelativePath:", v3) & 1) == 0)
   {
     *(*(*(a1 + 56) + 8) + 24) = 0;
   }
@@ -397,7 +392,7 @@ void __77__TRIDeferredDeleter__cleanupWithLinksDirLockWitness_externalReferenceS
 
 - (id)_collectRelativeLinkPathsWithLinksDirLockWitness:(TRIFlockWitness_ *)witness
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = objc_autoreleasePoolPush();
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   _deferredDeletedLinksDir = [(TRIDeferredDeleter *)self _deferredDeletedLinksDir];
@@ -414,7 +409,7 @@ void __77__TRIDeferredDeleter__cleanupWithLinksDirLockWitness_externalReferenceS
       v13 = *MEMORY[0x277CCA1E8];
       v14 = *MEMORY[0x277CCA1F8];
       *&v11 = 138543362;
-      v21 = v11;
+      v20 = v11;
       do
       {
         fileAttributes = [v7 fileAttributes];
@@ -435,8 +430,8 @@ void __77__TRIDeferredDeleter__cleanupWithLinksDirLockWitness_externalReferenceS
           v17 = TRILogCategory_Server();
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
-            *buf = v21;
-            v23 = nextObject2;
+            *buf = v20;
+            v22 = nextObject2;
             _os_log_error_impl(&dword_26F567000, v17, OS_LOG_TYPE_ERROR, "Found unexpected non symbolic link file %{public}@", buf, 0xCu);
           }
         }
@@ -460,14 +455,13 @@ LABEL_14:
   }
 
   objc_autoreleasePoolPop(v4);
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
 
 + (BOOL)_removeDeferredDeletedItemWithLink:(id)link externalReferenceStore:(id)store wasDeleted:(BOOL *)deleted
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   linkCopy = link;
   storeCopy = store;
   *deleted = 0;
@@ -478,7 +472,7 @@ LABEL_14:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v20 = linkCopy;
+      v19 = linkCopy;
       _os_log_error_impl(&dword_26F567000, v10, OS_LOG_TYPE_ERROR, "Found deferred deletion symlink with path %{public}@ with no valid target", buf, 0xCu);
     }
 
@@ -491,7 +485,7 @@ LABEL_14:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v20 = linkCopy;
+      v19 = linkCopy;
       _os_log_impl(&dword_26F567000, v10, OS_LOG_TYPE_DEFAULT, "Deferred Deletion garbage collection found a nonzero external reference count for path: %{public}@", buf, 0xCu);
     }
 
@@ -500,9 +494,9 @@ LABEL_14:
   }
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v18 = 0;
-  v13 = [defaultManager triForceRemoveItemAtPath:v9 error:&v18];
-  v10 = v18;
+  v17 = 0;
+  v13 = [defaultManager triForceRemoveItemAtPath:v9 error:&v17];
+  v10 = v17;
 
   v14 = TRILogCategory_Server();
   v15 = v14;
@@ -511,9 +505,9 @@ LABEL_14:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v20 = v9;
-      v21 = 2114;
-      v22 = v10;
+      v19 = v9;
+      v20 = 2114;
+      v21 = v10;
       _os_log_error_impl(&dword_26F567000, v15, OS_LOG_TYPE_ERROR, "Failed to remove path %{public}@ marked for deferred deletion: %{public}@", buf, 0x16u);
     }
 
@@ -525,7 +519,7 @@ LABEL_16:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
-    v20 = v9;
+    v19 = v9;
     _os_log_debug_impl(&dword_26F567000, v15, OS_LOG_TYPE_DEBUG, "Deleted deferred item %{public}@", buf, 0xCu);
   }
 
@@ -533,7 +527,6 @@ LABEL_16:
   *deleted = 1;
 LABEL_17:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

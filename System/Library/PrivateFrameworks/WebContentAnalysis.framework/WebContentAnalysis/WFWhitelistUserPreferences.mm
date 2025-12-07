@@ -52,44 +52,47 @@
 
 + (id)_arrayByConvertingLinesInStringsAtPath:(id)path
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   v5 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:path encoding:4 error:0];
   if (v5)
   {
     v6 = [v5 componentsSeparatedByString:@"\n"];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v16;
+      v9 = *v15;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v16 != v9)
+          if (*v15 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * i);
-          if ([v11 length] && (objc_msgSend(v11, "hasPrefix:", @"#") & 1) == 0)
+          v11 = *(*(&v14 + 1) + 8 * i);
+          if ([v11 length])
           {
-            [array addObject:v11];
+            if (([v11 hasPrefix:@"#"] & 1) == 0)
+            {
+              [array addObject:v11];
+            }
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v8);
     }
 
-    result = [MEMORY[0x277CBEA60] arrayWithArray:array];
+    return [MEMORY[0x277CBEA60] arrayWithArray:array];
   }
 
   else
@@ -100,11 +103,8 @@
       +[WFWhitelistUserPreferences _arrayByConvertingLinesInStringsAtPath:];
     }
 
-    result = 0;
+    return 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 + (id)_metasiteDomainNamesArray
@@ -157,7 +157,7 @@
 
 + (BOOL)_isURLMetasite:(id)metasite
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   _sharedMetasiteDomainNamesDictionary = [objc_opt_class() _sharedMetasiteDomainNamesDictionary];
   host = [metasite host];
   if (host)
@@ -168,34 +168,34 @@
       _sharedMetasiteExceptionsDomainNamesArray = [self _sharedMetasiteExceptionsDomainNamesArray];
       host2 = [metasite host];
       v9 = [host2 length];
+      v17 = 0u;
       v18 = 0u;
       v19 = 0u;
       v20 = 0u;
-      v21 = 0u;
-      v10 = [_sharedMetasiteExceptionsDomainNamesArray countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v10 = [_sharedMetasiteExceptionsDomainNamesArray countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v19;
+        v12 = *v18;
         while (2)
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v19 != v12)
+            if (*v18 != v12)
             {
               objc_enumerationMutation(_sharedMetasiteExceptionsDomainNamesArray);
             }
 
-            v14 = *(*(&v18 + 1) + 8 * i);
+            v14 = *(*(&v17 + 1) + 8 * i);
             v15 = [v14 length];
             if (v15 - 1 < v9 && ([objc_msgSend(host2 substringFromIndex:{v9 - v15), "isEqualToString:", v14}] & 1) != 0)
             {
               LOBYTE(host) = 0;
-              goto LABEL_15;
+              return host;
             }
           }
 
-          v11 = [_sharedMetasiteExceptionsDomainNamesArray countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v11 = [_sharedMetasiteExceptionsDomainNamesArray countByEnumeratingWithState:&v17 objects:v21 count:16];
           LOBYTE(host) = 1;
           if (v11)
           {
@@ -213,8 +213,6 @@
     }
   }
 
-LABEL_15:
-  v16 = *MEMORY[0x277D85DE8];
   return host;
 }
 
@@ -351,7 +349,7 @@ LABEL_15:
 
 - (WFWhitelistUserPreferences)initWithPreferences:(id)preferences
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v3 = [(WFWhitelistUserPreferences *)self init];
   if (v3)
   {
@@ -366,28 +364,28 @@ LABEL_15:
       if (v6)
       {
         v7 = v6;
-        v40 = 0u;
-        v41 = 0u;
-        v38 = 0u;
         v39 = 0u;
-        v8 = [v6 countByEnumeratingWithState:&v38 objects:v46 count:16];
+        v40 = 0u;
+        v37 = 0u;
+        v38 = 0u;
+        v8 = [v6 countByEnumeratingWithState:&v37 objects:v45 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v39;
+          v10 = *v38;
           do
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v39 != v10)
+              if (*v38 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              [(WFWhitelistSiteBuffer *)v3->filterWhitelist addURLString:*(*(&v38 + 1) + 8 * i)];
+              [(WFWhitelistSiteBuffer *)v3->filterWhitelist addURLString:*(*(&v37 + 1) + 8 * i)];
             }
 
-            v9 = [v7 countByEnumeratingWithState:&v38 objects:v46 count:16];
+            v9 = [v7 countByEnumeratingWithState:&v37 objects:v45 count:16];
           }
 
           while (v9);
@@ -398,28 +396,28 @@ LABEL_15:
       if (v12)
       {
         v13 = v12;
-        v36 = 0u;
-        v37 = 0u;
-        v34 = 0u;
         v35 = 0u;
-        v14 = [v12 countByEnumeratingWithState:&v34 objects:v45 count:16];
+        v36 = 0u;
+        v33 = 0u;
+        v34 = 0u;
+        v14 = [v12 countByEnumeratingWithState:&v33 objects:v44 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v35;
+          v16 = *v34;
           do
           {
             for (j = 0; j != v15; ++j)
             {
-              if (*v35 != v16)
+              if (*v34 != v16)
               {
                 objc_enumerationMutation(v13);
               }
 
-              [(WFWhitelistSiteBuffer *)v3->filterBlacklist addURLString:*(*(&v34 + 1) + 8 * j)];
+              [(WFWhitelistSiteBuffer *)v3->filterBlacklist addURLString:*(*(&v33 + 1) + 8 * j)];
             }
 
-            v15 = [v13 countByEnumeratingWithState:&v34 objects:v45 count:16];
+            v15 = [v13 countByEnumeratingWithState:&v33 objects:v44 count:16];
           }
 
           while (v15);
@@ -430,25 +428,25 @@ LABEL_15:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v32 = 0u;
-        v33 = 0u;
-        v30 = 0u;
         v31 = 0u;
-        v19 = [v18 countByEnumeratingWithState:&v30 objects:v44 count:16];
+        v32 = 0u;
+        v29 = 0u;
+        v30 = 0u;
+        v19 = [v18 countByEnumeratingWithState:&v29 objects:v43 count:16];
         if (v19)
         {
           v20 = v19;
-          v21 = *v31;
+          v21 = *v30;
           do
           {
             for (k = 0; k != v20; ++k)
             {
-              if (*v31 != v21)
+              if (*v30 != v21)
               {
                 objc_enumerationMutation(v18);
               }
 
-              v23 = *(*(&v30 + 1) + 8 * k);
+              v23 = *(*(&v29 + 1) + 8 * k);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -472,7 +470,7 @@ LABEL_15:
               }
             }
 
-            v20 = [v18 countByEnumeratingWithState:&v30 objects:v44 count:16];
+            v20 = [v18 countByEnumeratingWithState:&v29 objects:v43 count:16];
           }
 
           while (v20);
@@ -495,7 +493,6 @@ LABEL_15:
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -686,13 +683,13 @@ LABEL_40:
 
 - (BOOL)isURL:(id)l onList:(id)list
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v6 = __WFDefaultLog();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v12 = 138412290;
+    v11 = 138412290;
     absoluteString = [l absoluteString];
-    _os_log_impl(&dword_272D73000, v6, OS_LOG_TYPE_INFO, "url: %@", &v12, 0xCu);
+    _os_log_impl(&dword_272D73000, v6, OS_LOG_TYPE_INFO, "url: %@", &v11, 0xCu);
   }
 
   if (l)
@@ -714,21 +711,12 @@ LABEL_40:
       v9 = @"YES";
     }
 
-    v12 = 138412290;
+    v11 = 138412290;
     absoluteString = v9;
-    _os_log_impl(&dword_272D73000, v8, OS_LOG_TYPE_INFO, "result = %@", &v12, 0xCu);
+    _os_log_impl(&dword_272D73000, v8, OS_LOG_TYPE_INFO, "result = %@", &v11, 0xCu);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
-}
-
-+ (void)_arrayByConvertingLinesInStringsAtPath:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_metasiteDomainNamesArray
@@ -757,30 +745,6 @@ LABEL_40:
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-+ (void)defaultWhitelistForUser:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithPreferences:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)pronounceOnPageURLString:shouldFilter:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

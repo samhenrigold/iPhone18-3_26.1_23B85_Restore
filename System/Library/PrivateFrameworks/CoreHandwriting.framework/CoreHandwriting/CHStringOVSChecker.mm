@@ -52,12 +52,13 @@
 - (BOOL)isInappropriateString:(id)string
 {
   stringCopy = string;
-  if (self->_staticLexicon.mCFObject)
+  mCFObject = self->_staticLexicon.mCFObject;
+  if (mCFObject)
   {
-    v5 = sub_1838DAB50(self, stringCopy);
-    mCFObject = self->_customLexicon.mCFObject;
-    v7 = (mCFObject != 0) | v5;
-    if (!mCFObject)
+    v6 = sub_1838DAB50(self, stringCopy, mCFObject);
+    v7 = self->_customLexicon.mCFObject;
+    v8 = (v7 != 0) | v6;
+    if (!v7)
     {
       goto LABEL_7;
     }
@@ -65,24 +66,24 @@
 
   else
   {
-    v5 = 0;
-    v8 = self->_customLexicon.mCFObject;
-    v7 = v8 != 0;
-    if (!v8)
+    v6 = 0;
+    v7 = self->_customLexicon.mCFObject;
+    v8 = v7 != 0;
+    if (!v7)
     {
       goto LABEL_7;
     }
   }
 
-  if ((v5 & 1) == 0)
+  if ((v6 & 1) == 0)
   {
-    v7 = sub_1838DAB50(self, stringCopy);
+    v8 = sub_1838DAB50(self, stringCopy, v7);
   }
 
 LABEL_7:
   ovsTrie = self->_ovsTrie;
-  v10 = (ovsTrie != 0) | v7;
-  if (ovsTrie && (v7 & 1) == 0)
+  v10 = (ovsTrie != 0) | v8;
+  if (ovsTrie && (v8 & 1) == 0)
   {
     v11 = stringCopy;
     v16 = v11;

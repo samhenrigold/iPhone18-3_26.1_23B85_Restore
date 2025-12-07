@@ -9,6 +9,7 @@
 - (void)addDelegate:(id)delegate;
 - (void)dealloc;
 - (void)removeDelegate:(id)delegate;
+- (void)updateBatteryConnectedStateWithBatteryEntry:(unsigned int)entry;
 - (void)updateBatteryLevelWithBatteryEntry:(unsigned int)entry;
 @end
 
@@ -41,65 +42,59 @@
   v20 = *MEMORY[0x1E69E9840];
   if (type == -536870288 || type == -536870272)
   {
-    v12 = *(self->_internal + 7);
-    v13 = *MEMORY[0x1E69E9840];
+    v13 = *(self->_internal + 7);
 
-    IOAllowPowerChange(v12, d);
+    IOAllowPowerChange(v13, d);
   }
 
-  else
+  else if (type == -536870144)
   {
-    if (type == -536870144)
+    selfCopy = self;
+    objc_sync_enter(selfCopy);
+    v15 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v18 = 0u;
+    v5 = *(selfCopy->_internal + 6);
+    v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v15, v19, 16);
+    if (v7)
     {
-      selfCopy = self;
-      objc_sync_enter(selfCopy);
-      v15 = 0u;
-      v16 = 0u;
-      v17 = 0u;
-      v18 = 0u;
-      v5 = *(selfCopy->_internal + 6);
-      v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
-      if (v6)
+      v8 = *v16;
+      do
       {
-        v7 = *v16;
-        do
+        for (i = 0; i != v7; ++i)
         {
-          for (i = 0; i != v6; ++i)
+          if (*v16 != v8)
           {
-            if (*v16 != v7)
-            {
-              objc_enumerationMutation(v5);
-            }
-
-            v9 = *(*(&v15 + 1) + 8 * i);
-            v10 = dispatch_get_global_queue(0, 0);
-            v14[0] = MEMORY[0x1E69E9820];
-            v14[1] = 3221225472;
-            v14[2] = sub_1B233041C;
-            v14[3] = &unk_1E7B20D70;
-            v14[4] = v9;
-            v14[5] = selfCopy;
-            dispatch_async(v10, v14);
+            objc_enumerationMutation(v5);
           }
 
-          v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+          v10 = *(*(&v15 + 1) + 8 * i);
+          v11 = dispatch_get_global_queue(0, 0);
+          v14[0] = MEMORY[0x1E69E9820];
+          v14[1] = 3221225472;
+          v14[2] = sub_1B233041C;
+          v14[3] = &unk_1E7B20D70;
+          v14[4] = v10;
+          v14[5] = selfCopy;
+          dispatch_async(v11, v14);
         }
 
-        while (v6);
+        v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v12, &v15, v19, 16);
       }
 
-      objc_sync_exit(selfCopy);
+      while (v7);
     }
 
-    v11 = *MEMORY[0x1E69E9840];
+    objc_sync_exit(selfCopy);
   }
 }
 
 - (id)_init
 {
-  v7.receiver = self;
-  v7.super_class = CUTPowerMonitor;
-  v2 = [(CUTPowerMonitor *)&v7 init];
+  v9.receiver = self;
+  v9.super_class = CUTPowerMonitor;
+  v2 = [(CUTPowerMonitor *)&v9 init];
   if (v2)
   {
     v3 = objc_alloc_init(_CUTPowerMonitor);
@@ -107,7 +102,7 @@
     v2->_internal = v3;
 
     *(v2->_internal + 7) = 0xBFF0000000000000;
-    if (![(CUTPowerMonitor *)v2 _initIOService])
+    if (!objc_msgSend__initIOService(v2, v5, v6))
     {
       p_super = &v2->super;
       v2 = 0;
@@ -139,32 +134,32 @@ LABEL_6:
     MatchingService = IOServiceGetMatchingService(v3, v5);
     if (!IOServiceAddInterestNotification(*(self->_internal + 2), MatchingService, "IOGeneralInterest", sub_1B2322AB0, 0, self->_internal + 6))
     {
-      [(CUTPowerMonitor *)self updateBatteryLevelWithBatteryEntry:MatchingService];
-      [(CUTPowerMonitor *)self _updateBatteryConnectedStateWithBatteryEntry:MatchingService];
-      LOBYTE(v7) = 1;
-      return v7;
+      objc_msgSend_updateBatteryLevelWithBatteryEntry_(self, v7, MatchingService);
+      objc_msgSend__updateBatteryConnectedStateWithBatteryEntry_(self, v9, MatchingService);
+      LOBYTE(v8) = 1;
+      return v8;
     }
 
-    v7 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT);
-    if (v7)
+    v8 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT);
+    if (v8)
     {
       sub_1B2331D14();
 LABEL_7:
-      LOBYTE(v7) = 0;
+      LOBYTE(v8) = 0;
     }
   }
 
   else
   {
-    v7 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT);
-    if (v7)
+    v8 = os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_FAULT);
+    if (v8)
     {
       sub_1B2331D5C();
       goto LABEL_7;
     }
   }
 
-  return v7;
+  return v8;
 }
 
 - (void)dealloc
@@ -221,29 +216,29 @@ LABEL_7:
   selfCopy = self;
   objc_sync_enter(selfCopy);
   CFProperty = IORegistryEntryCreateCFProperty(entry, @"ExternalConnected", *MEMORY[0x1E695E480], 0);
-  v6 = CFProperty;
+  v8 = CFProperty;
   if (CFProperty)
   {
-    bOOLValue = [CFProperty BOOLValue];
+    v9 = objc_msgSend_BOOLValue(CFProperty, v6, v7);
     internal = selfCopy->_internal;
-    v9 = internal[64];
-    v10 = v9 != bOOLValue;
-    if (v9 != bOOLValue)
+    v11 = internal[64];
+    v12 = v11 != v9;
+    if (v11 != v9)
     {
-      internal[64] = bOOLValue;
+      internal[64] = v9;
     }
 
-    CFRelease(v6);
+    CFRelease(v8);
   }
 
   else
   {
-    v10 = 0;
+    v12 = 0;
   }
 
   objc_sync_exit(selfCopy);
 
-  return v10;
+  return v12;
 }
 
 - (void)addDelegate:(id)delegate
@@ -251,24 +246,24 @@ LABEL_7:
   delegateCopy = delegate;
   if (delegateCopy)
   {
-    v10 = delegateCopy;
+    v12 = delegateCopy;
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    v6 = *(selfCopy->_internal + 6);
-    if (!v6)
+    v8 = *(selfCopy->_internal + 6);
+    if (!v8)
     {
-      weakObjectsHashTable = [MEMORY[0x1E696AC70] weakObjectsHashTable];
+      v9 = objc_msgSend_weakObjectsHashTable(MEMORY[0x1E696AC70], v6, v7);
       internal = selfCopy->_internal;
-      v9 = internal[6];
-      internal[6] = weakObjectsHashTable;
+      v11 = internal[6];
+      internal[6] = v9;
 
-      v6 = *(selfCopy->_internal + 6);
+      v8 = *(selfCopy->_internal + 6);
     }
 
-    [v6 addObject:v10];
+    objc_msgSend_addObject_(v8, v6, v12);
     objc_sync_exit(selfCopy);
 
-    delegateCopy = v10;
+    delegateCopy = v12;
   }
 }
 
@@ -277,13 +272,63 @@ LABEL_7:
   delegateCopy = delegate;
   if (delegateCopy)
   {
-    v6 = delegateCopy;
+    v7 = delegateCopy;
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    [*(selfCopy->_internal + 6) removeObject:v6];
+    objc_msgSend_removeObject_(*(selfCopy->_internal + 6), v6, v7);
     objc_sync_exit(selfCopy);
 
-    delegateCopy = v6;
+    delegateCopy = v7;
+  }
+}
+
+- (void)updateBatteryConnectedStateWithBatteryEntry:(unsigned int)entry
+{
+  v19 = *MEMORY[0x1E69E9840];
+  if (objc_msgSend__updateBatteryConnectedStateWithBatteryEntry_(self, a2, *&entry))
+  {
+    selfCopy = self;
+    objc_sync_enter(selfCopy);
+    v14 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v5 = *(selfCopy->_internal + 6);
+    v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v6, &v14, v18, 16);
+    if (v7)
+    {
+      v8 = *v15;
+      do
+      {
+        v9 = 0;
+        do
+        {
+          if (*v15 != v8)
+          {
+            objc_enumerationMutation(v5);
+          }
+
+          v10 = *(*(&v14 + 1) + 8 * v9);
+          v11 = dispatch_get_global_queue(0, 0);
+          v13[0] = MEMORY[0x1E69E9820];
+          v13[1] = 3221225472;
+          v13[2] = sub_1B2330B98;
+          v13[3] = &unk_1E7B20D70;
+          v13[4] = v10;
+          v13[5] = selfCopy;
+          dispatch_async(v11, v13);
+
+          ++v9;
+        }
+
+        while (v7 != v9);
+        v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(v5, v12, &v14, v18, 16);
+      }
+
+      while (v7);
+    }
+
+    objc_sync_exit(selfCopy);
   }
 }
 
@@ -306,18 +351,18 @@ LABEL_7:
   v5 = *MEMORY[0x1E695E480];
   CFProperty = IORegistryEntryCreateCFProperty(v4, @"MaxCapacity", *MEMORY[0x1E695E480], 0);
   v7 = IORegistryEntryCreateCFProperty(v4, @"CurrentCapacity", v5, 0);
-  v8 = v7;
+  v10 = v7;
   if (CFProperty)
   {
-    v9 = v7 == 0;
+    v11 = v7 == 0;
   }
 
   else
   {
-    v9 = 1;
+    v11 = 1;
   }
 
-  if (v9)
+  if (v11)
   {
     *(selfCopy->_internal + 7) = 0xBFF0000000000000;
     if (!CFProperty)
@@ -328,25 +373,25 @@ LABEL_7:
 
   else
   {
-    [v7 doubleValue];
-    v11 = v10;
-    [CFProperty doubleValue];
-    *(selfCopy->_internal + 7) = v11 / v12;
+    objc_msgSend_doubleValue(v7, v8, v9);
+    v13 = v12;
+    objc_msgSend_doubleValue(CFProperty, v14, v15);
+    *(selfCopy->_internal + 7) = v13 / v16;
     *(selfCopy->_internal + 11) = 0;
   }
 
   CFRelease(CFProperty);
 LABEL_10:
-  if (v8)
+  if (v10)
   {
-    CFRelease(v8);
+    CFRelease(v10);
   }
 
 LABEL_12:
-  v13 = *(selfCopy->_internal + 7);
+  v17 = *(selfCopy->_internal + 7);
   objc_sync_exit(selfCopy);
 
-  return v13;
+  return v17;
 }
 
 @end

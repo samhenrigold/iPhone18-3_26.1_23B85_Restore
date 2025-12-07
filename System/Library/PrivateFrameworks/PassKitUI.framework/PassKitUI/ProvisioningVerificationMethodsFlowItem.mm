@@ -24,7 +24,7 @@
       v7 = Strong;
       groupCopy = group;
       selfCopy = self;
-      sub_1BD553448(selfCopy, groupCopy, v7);
+      sub_1BD553448(selfCopy, groupCopy, v7, v9);
     }
 
     else

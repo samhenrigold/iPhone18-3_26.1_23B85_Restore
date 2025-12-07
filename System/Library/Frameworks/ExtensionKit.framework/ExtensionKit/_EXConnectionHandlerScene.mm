@@ -73,26 +73,24 @@
 
 - (void)connectToSession:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = 136315906;
-  v3 = "[configuration isKindOfClass:_EXViewControllerSceneConfiguration.class]";
-  v4 = 2080;
-  v5 = "/Library/Caches/com.apple.xbs/Sources/ExtensionKit/ExtensionKit/Source/Extension/EXConnectionHandlerExtension+UI.m";
-  v6 = 1024;
+  v6 = *MEMORY[0x1E69E9840];
+  v1 = 136315906;
+  v2 = "[configuration isKindOfClass:_EXViewControllerSceneConfiguration.class]";
+  v3 = 2080;
+  v4 = "/Library/Caches/com.apple.xbs/Sources/ExtensionKit/ExtensionKit/Source/Extension/EXConnectionHandlerExtension+UI.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_1();
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectToSession:.cold.2()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v2 = 136315906;
-  v3 = "[viewController isKindOfClass:_EXExtensionViewController.class]";
-  v4 = 2080;
-  v5 = "/Library/Caches/com.apple.xbs/Sources/ExtensionKit/ExtensionKit/Source/Extension/EXConnectionHandlerExtension+UI.m";
-  v6 = 1024;
+  v6 = *MEMORY[0x1E69E9840];
+  v1 = 136315906;
+  v2 = "[viewController isKindOfClass:_EXExtensionViewController.class]";
+  v3 = 2080;
+  v4 = "/Library/Caches/com.apple.xbs/Sources/ExtensionKit/ExtensionKit/Source/Extension/EXConnectionHandlerExtension+UI.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_1();
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 @end

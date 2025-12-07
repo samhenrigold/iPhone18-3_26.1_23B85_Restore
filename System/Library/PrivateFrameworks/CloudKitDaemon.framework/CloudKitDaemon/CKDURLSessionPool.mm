@@ -45,7 +45,7 @@
 
 - (void)_updateBackgroundSessionConnectionPoolLimit
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_sharedOptions(MEMORY[0x277CBC1D8], a2, v2);
   v6 = objc_msgSend_backgroundSessionConnectionPoolLimitWithDefaultValue_(v4, v5, 6);
 
@@ -69,14 +69,12 @@
   v14 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v16[0] = 67109378;
-    v16[1] = v6;
-    v17 = 2114;
-    v18 = @"com.apple.cloudkit.BackgroundConnectionPool";
-    _os_log_debug_impl(&dword_22506F000, v14, OS_LOG_TYPE_DEBUG, "Updated the connection pool limit (%d) for %{public}@", v16, 0x12u);
+    v15[0] = 67109378;
+    v15[1] = v6;
+    v16 = 2114;
+    v17 = @"com.apple.cloudkit.BackgroundConnectionPool";
+    _os_log_debug_impl(&dword_22506F000, v14, OS_LOG_TYPE_DEBUG, "Updated the connection pool limit (%d) for %{public}@", v15, 0x12u);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -6,11 +6,11 @@
 
 - (CSFMil2bnnsCompilationConfig)initWithConfigPath:(id)path errOut:(id *)out
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
-  v33.receiver = self;
-  v33.super_class = CSFMil2bnnsCompilationConfig;
-  v7 = [(CSFMil2bnnsCompilationConfig *)&v33 init];
+  v32.receiver = self;
+  v32.super_class = CSFMil2bnnsCompilationConfig;
+  v7 = [(CSFMil2bnnsCompilationConfig *)&v32 init];
   if (!v7)
   {
     goto LABEL_29;
@@ -22,10 +22,10 @@
     if (out)
     {
       v16 = MEMORY[0x1E696ABC0];
-      v40 = *MEMORY[0x1E696A578];
+      v39 = *MEMORY[0x1E696A578];
       pathCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"config file not found for %@", pathCopy];
-      v41[0] = pathCopy;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+      v40[0] = pathCopy;
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
       *out = [v16 errorWithDomain:@"com.apple.corespeech" code:2452 userInfo:v18];
     }
 
@@ -33,9 +33,9 @@
   }
 
   v9 = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:pathCopy];
-  v32 = 0;
-  v10 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v9 options:0 error:&v32];
-  v11 = v32;
+  v31 = 0;
+  v10 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v9 options:0 error:&v31];
+  v11 = v31;
   if (!v11)
   {
     v19 = [v10 objectForKeyedSubscript:@"funcName"];
@@ -107,19 +107,19 @@
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v37 = "[CSFMil2bnnsCompilationConfig initWithConfigPath:errOut:]";
-    v38 = 2112;
-    v39 = pathCopy;
+    v36 = "[CSFMil2bnnsCompilationConfig initWithConfigPath:errOut:]";
+    v37 = 2112;
+    v38 = pathCopy;
     _os_log_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_DEFAULT, "%s Cannot parse to mil2bnns model config: %@", buf, 0x16u);
   }
 
   if (out)
   {
     v13 = MEMORY[0x1E696ABC0];
-    v34 = *MEMORY[0x1E696A578];
+    v33 = *MEMORY[0x1E696A578];
     pathCopy2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Cannot parse to mil2bnns model config: %@", pathCopy];
-    v35 = pathCopy2;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+    v34 = pathCopy2;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
     *out = [v13 errorWithDomain:@"com.apple.corespeech" code:2452 userInfo:v15];
 
 LABEL_26:
@@ -136,7 +136,6 @@ LABEL_28:
   v29 = 0;
 LABEL_30:
 
-  v30 = *MEMORY[0x1E69E9840];
   return v29;
 }
 

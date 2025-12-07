@@ -46,11 +46,11 @@ void __53___TVSwipeUpMessageView__processSwipeUpMessageEvent___block_invoke_2(ui
   [v3 setTransform:v5];
 }
 
-uint64_t __53___TVSwipeUpMessageView__processSwipeUpMessageEvent___block_invoke_3(uint64_t result, int a2)
+id *__53___TVSwipeUpMessageView__processSwipeUpMessageEvent___block_invoke_3(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _processSwipeUpMessageEvent:2];
+    return [result[4] _processSwipeUpMessageEvent:2];
   }
 
   return result;
@@ -65,11 +65,11 @@ void __53___TVSwipeUpMessageView__processSwipeUpMessageEvent___block_invoke_4(ui
   [v3 setAlpha:0.0];
 }
 
-uint64_t __53___TVSwipeUpMessageView__processSwipeUpMessageEvent___block_invoke_5(uint64_t result, int a2)
+id *__53___TVSwipeUpMessageView__processSwipeUpMessageEvent___block_invoke_5(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) _processSwipeUpMessageEvent:2];
+    return [result[4] _processSwipeUpMessageEvent:2];
   }
 
   return result;

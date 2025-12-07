@@ -9,7 +9,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_237187290();
+  sub_237187290(selfCopy);
 }
 
 - (void)viewWillAppear:(BOOL)appear

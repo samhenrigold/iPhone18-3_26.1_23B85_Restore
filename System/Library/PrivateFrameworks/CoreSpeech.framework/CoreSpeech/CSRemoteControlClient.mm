@@ -146,7 +146,7 @@
   v24 = sub_10008633C;
   v25 = sub_10008634C;
   v26 = 0;
-  +[CSFAudioStreamBasicDescriptionFactory lpcmInt16ASBD];
+  objc_msgSend_lpcmInt16ASBD(CSFAudioStreamBasicDescriptionFactory);
   v15[0] = _NSConcreteStackBlock;
   v15[1] = 3221225472;
   v15[2] = sub_100086354;
@@ -1662,9 +1662,8 @@ LABEL_13:
 {
   v3 = +[NSMutableString string];
   deviceId = self->_deviceId;
-  deviceType = self->_deviceType;
-  v6 = [NSString stringWithUTF8String:remote_device_type_get_description()];
-  [v3 appendFormat:@"deviceUUID(%@), deviceType(%@)", deviceId, v6];
+  v5 = [NSString stringWithUTF8String:remote_device_type_get_description()];
+  [v3 appendFormat:@"deviceUUID(%@), deviceType(%@)", deviceId, v5];
 
   return v3;
 }
@@ -1934,19 +1933,19 @@ LABEL_18:
   deviceCopy = device;
   if ((+[CSUtils isDarwinOS]& 1) == 0)
   {
-    v22.receiver = self;
-    v22.super_class = CSRemoteControlClient;
-    self = [(CSRemoteControlClient *)&v22 init];
+    v20.receiver = self;
+    v20.super_class = CSRemoteControlClient;
+    self = [(CSRemoteControlClient *)&v20 init];
     if (self)
     {
       if (!deviceCopy)
       {
-        v19 = CSLogContextFacilityCoreSpeech;
+        v17 = CSLogContextFacilityCoreSpeech;
         if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
         {
           LODWORD(location[0]) = 136315138;
           *(location + 4) = "[CSRemoteControlClient initWithRemoteDevice:]";
-          _os_log_error_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "%s invalid remote device", location, 0xCu);
+          _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%s invalid remote device", location, 0xCu);
         }
 
         goto LABEL_2;
@@ -1973,18 +1972,16 @@ LABEL_18:
       self->_deviceProtocolInfo = v14;
 
       [(CSDispatchGroup *)self->_deviceWaitingGroup enter];
-      device = self->_device;
-      v20[1] = _NSConcreteStackBlock;
-      v20[2] = 3221225472;
-      v20[3] = sub_10008DA6C;
-      v20[4] = &unk_10024FE10;
-      objc_copyWeak(&v21, location);
+      v18[1] = _NSConcreteStackBlock;
+      v18[2] = 3221225472;
+      v18[3] = sub_10008DA6C;
+      v18[4] = &unk_10024FE10;
+      objc_copyWeak(&v19, location);
       remote_device_set_connected_callback();
-      v17 = self->_device;
-      objc_copyWeak(v20, location);
+      objc_copyWeak(v18, location);
       remote_device_set_disconnected_callback();
-      objc_destroyWeak(v20);
-      objc_destroyWeak(&v21);
+      objc_destroyWeak(v18);
+      objc_destroyWeak(&v19);
 
       objc_destroyWeak(location);
     }

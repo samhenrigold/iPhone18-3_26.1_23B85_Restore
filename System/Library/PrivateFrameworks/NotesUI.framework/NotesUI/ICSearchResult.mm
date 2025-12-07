@@ -190,24 +190,24 @@ uint64_t __79__ICSearchResult_initWithMainContextObject_currentContextObject_con
 {
   v38[1] = *MEMORY[0x1E69E9840];
   decomposedHighlightInfo = [(ICSearchResult *)self decomposedHighlightInfo];
-  v4 = [decomposedHighlightInfo objectForKeyedSubscript:&unk_1F4FC4008];
+  v4 = objc_msgSend_objectForKeyedSubscript_(decomposedHighlightInfo);
   if (v4)
   {
     v5 = [ICSearchResultRegexMatchFinder alloc];
-    v6 = [v4 objectForKeyedSubscript:&unk_1F4FC4020];
-    v7 = [v4 objectForKeyedSubscript:&unk_1F4FC4038];
+    v6 = objc_msgSend_objectForKeyedSubscript_(v4);
+    v7 = objc_msgSend_objectForKeyedSubscript_(v4);
     configuration = [(ICSearchResult *)self configuration];
     searchString = [configuration searchString];
     v10 = [(ICSearchResultRegexMatchFinder *)v5 initWithPrefixMatchingTokens:v6 substringMatchingTokens:v7 searchString:searchString];
     [(ICSearchResult *)self setTitleHighlightRegexMatchFinder:v10];
   }
 
-  v11 = [decomposedHighlightInfo objectForKeyedSubscript:&unk_1F4FC4050];
+  v11 = objc_msgSend_objectForKeyedSubscript_(decomposedHighlightInfo);
   if (v11)
   {
     v12 = [ICSearchResultRegexMatchFinder alloc];
-    v13 = [v11 objectForKeyedSubscript:&unk_1F4FC4020];
-    v14 = [v11 objectForKeyedSubscript:&unk_1F4FC4038];
+    v13 = objc_msgSend_objectForKeyedSubscript_(v11);
+    v14 = objc_msgSend_objectForKeyedSubscript_(v11);
     configuration2 = [(ICSearchResult *)self configuration];
     searchString2 = [configuration2 searchString];
     v17 = [(ICSearchResultRegexMatchFinder *)v12 initWithPrefixMatchingTokens:v13 substringMatchingTokens:v14 searchString:searchString2];
@@ -215,12 +215,12 @@ uint64_t __79__ICSearchResult_initWithMainContextObject_currentContextObject_con
   }
 
   v37 = decomposedHighlightInfo;
-  v18 = [decomposedHighlightInfo objectForKeyedSubscript:&unk_1F4FC4068];
+  v18 = objc_msgSend_objectForKeyedSubscript_(decomposedHighlightInfo);
   if (v18)
   {
     v19 = [ICSearchResultRegexMatchFinder alloc];
-    v20 = [v18 objectForKeyedSubscript:&unk_1F4FC4020];
-    v21 = [v18 objectForKeyedSubscript:&unk_1F4FC4038];
+    v20 = objc_msgSend_objectForKeyedSubscript_(v18);
+    v21 = objc_msgSend_objectForKeyedSubscript_(v18);
     configuration3 = [(ICSearchResult *)self configuration];
     searchString3 = [configuration3 searchString];
     v24 = [(ICSearchResultRegexMatchFinder *)v19 initWithPrefixMatchingTokens:v20 substringMatchingTokens:v21 searchString:searchString3];
@@ -229,8 +229,8 @@ uint64_t __79__ICSearchResult_initWithMainContextObject_currentContextObject_con
 
   v25 = [MEMORY[0x1E695DF20] mergeFieldElement:v4 withElement:v18];
   v26 = [ICSearchResultRegexMatchFinder alloc];
-  v27 = [v25 objectForKeyedSubscript:&unk_1F4FC4020];
-  v28 = [v25 objectForKeyedSubscript:&unk_1F4FC4038];
+  v27 = objc_msgSend_objectForKeyedSubscript_(v25);
+  v28 = objc_msgSend_objectForKeyedSubscript_(v25);
   configuration4 = [(ICSearchResult *)self configuration];
   searchString4 = [configuration4 searchString];
   v31 = [(ICSearchResultRegexMatchFinder *)v26 initWithPrefixMatchingTokens:v27 substringMatchingTokens:v28 searchString:searchString4];
@@ -975,7 +975,7 @@ void __210__ICSearchResult_attributedStringWithMatchHighlighted_optionalAttribut
   v9 = *(*(a1 + 48) + 8);
   *(v9 + 32) = 0;
   *(v9 + 40) = a3 + a4;
-  v10 = [*(a1 + 32) ic_attributedSubstringFromRange:{*(*(*(a1 + 48) + 8) + 32), *(*(*(a1 + 48) + 8) + 40)}];
+  v10 = [*(a1 + 32) ic_attributedSubstringFromRange:{*(*(*(a1 + 48) + 8) + 32), *(*(*(a1 + 48) + 8) + 40), a5, a6}];
   if (([*(a1 + 56) canFitAttributedString:*(a1 + 64) ellipses:*(a1 + 72) shouldPrefixWithEllipses:*(a1 + 80) insideFrame:*(a1 + 88) centered:?] & 1) == 0)
   {
     *a7 = 1;

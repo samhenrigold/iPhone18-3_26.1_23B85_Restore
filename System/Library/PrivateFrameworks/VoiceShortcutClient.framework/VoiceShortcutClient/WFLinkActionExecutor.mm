@@ -109,7 +109,7 @@ LABEL_5:
 
 - (WFLinkActionExecutor)initWithLinkAction:(id)action appBundleIdentifier:(id)identifier extensionBundleIdentifier:(id)bundleIdentifier authenticationPolicy:(int64_t)policy source:(unsigned __int16)source sourceOverride:(id)override error:(id *)error
 {
-  v53[1] = *MEMORY[0x1E69E9840];
+  v52[1] = *MEMORY[0x1E69E9840];
   actionCopy = action;
   identifierCopy = identifier;
   bundleIdentifierCopy = bundleIdentifier;
@@ -137,13 +137,13 @@ LABEL_5:
   [currentHandler2 handleFailureInMethod:a2 object:self file:@"WFLinkActionExecutor.m" lineNumber:64 description:{@"Invalid parameter not satisfying: %@", @"appBundleIdentifier"}];
 
 LABEL_3:
-  v50.receiver = self;
-  v50.super_class = WFLinkActionExecutor;
-  v21 = [(WFLinkActionExecutor *)&v50 init];
+  v49.receiver = self;
+  v49.super_class = WFLinkActionExecutor;
+  v21 = [(WFLinkActionExecutor *)&v49 init];
   v22 = v21;
   if (v21)
   {
-    v47 = overrideCopy;
+    v46 = overrideCopy;
     objc_storeStrong(&v21->_linkAction, action);
     v23 = [identifierCopy copy];
     appBundleIdentifier = v22->_appBundleIdentifier;
@@ -164,8 +164,8 @@ LABEL_3:
     v30 = objc_alloc(MEMORY[0x1E69AC858]);
     identifier = [actionCopy identifier];
     v32 = [v30 initWithActionIdentifier:identifier bundleIdentifier:identifierCopy];
-    v53[0] = v32;
-    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:1];
+    v52[0] = v32;
+    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:1];
     v34 = [(LNMetadataProvider *)v29 actionsWithFullyQualifiedIdentifiers:v33 error:error];
     v35 = [v34 objectForKeyedSubscript:identifierCopy];
     identifier2 = [actionCopy identifier];
@@ -183,19 +183,18 @@ LABEL_3:
       if (error)
       {
         v40 = MEMORY[0x1E696ABC0];
-        v51 = *MEMORY[0x1E696A578];
+        v50 = *MEMORY[0x1E696A578];
         v41 = MEMORY[0x1E696AEC0];
-        identifier3 = [actionCopy identifier];
-        v43 = objc_claimAutoreleasedReturnValue();
-        v52 = v43;
-        v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
+        v43 = identifier3 = [actionCopy identifier];
+        v51 = v43;
+        v44 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
         *error = [v40 errorWithDomain:@"WFLinkActionWorkflowRunnerClientErrorDomain" code:1 userInfo:v44];
       }
 
       v39 = 0;
     }
 
-    overrideCopy = v47;
+    overrideCopy = v46;
   }
 
   else
@@ -203,7 +202,6 @@ LABEL_3:
     v39 = 0;
   }
 
-  v45 = *MEMORY[0x1E69E9840];
   return v39;
 }
 

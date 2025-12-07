@@ -37,7 +37,7 @@
 
 - (double)isTouristHere
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   mEMORY[0x1E69A22C8] = [MEMORY[0x1E69A22C8] sharedManager];
   v4 = [mEMORY[0x1E69A22C8] isEnabledForSubTestWithName:@"MSGPPTTest_Insights_ACRanking_Tourist"];
 
@@ -47,49 +47,50 @@
     [defaultCenter postNotificationName:@"MSGPPTTest_Insights_ACRanking_TouristBEGIN" object:0];
   }
 
-  if (MapsSuggestionsLoggingIsVerbose())
+  if (MapsSuggestionsLoggingIsVerbose(v5, v6))
   {
-    v6 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v8 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v18 = 136315138;
-      v19 = "[MapsSuggestionsRealInsights isTouristHere]";
-      _os_log_impl(&dword_1C5126000, v6, OS_LOG_TYPE_DEBUG, "%s", &v18, 0xCu);
+      v24 = 136315138;
+      v25 = "[MapsSuggestionsRealInsights isTouristHere]";
+      _os_log_impl(&dword_1C5126000, v8, OS_LOG_TYPE_DEBUG, "%s", &v24, 0xCu);
     }
   }
 
   signalPackForHere = [(MapsSuggestionsRealInsights *)self signalPackForHere];
   if (signalPackForHere)
   {
-    v8 = [[MapsSuggestionsSignalPackEvaluator alloc] initWithSignalPack:signalPackForHere];
-    if ([(MapsSuggestionsSignalPackEvaluator *)v8 hasTouristInfo])
+    v10 = [[MapsSuggestionsSignalPackEvaluator alloc] initWithSignalPack:signalPackForHere];
+    if ([(MapsSuggestionsSignalPackEvaluator *)v10 hasTouristInfo])
     {
-      if ([(MapsSuggestionsSignalPackEvaluator *)v8 isTouristHere])
+      isTouristHere = [(MapsSuggestionsSignalPackEvaluator *)v10 isTouristHere];
+      if (isTouristHere)
       {
-        v9 = MapsSuggestionsConfidenceDefinitelyTrue();
+        v15 = MapsSuggestionsConfidenceDefinitelyTrue();
       }
 
       else
       {
-        v9 = MapsSuggestionsConfidenceDefinitelyFalse();
+        v15 = MapsSuggestionsConfidenceDefinitelyFalse(isTouristHere, v12);
       }
 
-      v11 = v9;
-      if (MapsSuggestionsLoggingIsVerbose())
+      v17 = v15;
+      if (MapsSuggestionsLoggingIsVerbose(v13, v14))
       {
-        v13 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        v19 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
         {
-          v18 = 134217984;
-          v19 = *&v11;
-          _os_log_impl(&dword_1C5126000, v13, OS_LOG_TYPE_DEBUG, "isTouristHere: %f", &v18, 0xCu);
+          v24 = 134217984;
+          v25 = *&v17;
+          _os_log_impl(&dword_1C5126000, v19, OS_LOG_TYPE_DEBUG, "isTouristHere: %f", &v24, 0xCu);
         }
       }
 
       mEMORY[0x1E69A22C8]2 = [MEMORY[0x1E69A22C8] sharedManager];
-      v15 = [mEMORY[0x1E69A22C8]2 isEnabledForSubTestWithName:@"MSGPPTTest_Insights_ACRanking_Tourist"];
+      v21 = [mEMORY[0x1E69A22C8]2 isEnabledForSubTestWithName:@"MSGPPTTest_Insights_ACRanking_Tourist"];
 
-      if (v15)
+      if (v21)
       {
         defaultCenter2 = [MEMORY[0x1E696AD88] defaultCenter];
         [defaultCenter2 postNotificationName:@"MSGPPTTest_Insights_ACRanking_TouristEND" object:0];
@@ -98,30 +99,30 @@
 
     else
     {
-      v12 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v18 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v18) = 0;
-        _os_log_impl(&dword_1C5126000, v12, OS_LOG_TYPE_ERROR, "Couldn't get TouristInfo from Evaluator. Cannot predict confidence", &v18, 2u);
+        LOWORD(v24) = 0;
+        _os_log_impl(&dword_1C5126000, v18, OS_LOG_TYPE_ERROR, "Couldn't get TouristInfo from Evaluator. Cannot predict confidence", &v24, 2u);
       }
 
-      v11 = MapsSuggestionsConfidenceDontKnow();
+      v17 = MapsSuggestionsConfidenceDontKnow();
     }
   }
 
   else
   {
-    v10 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v16 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_1C5126000, v10, OS_LOG_TYPE_ERROR, "Couldn't get SignalPack. Cannot predict confidence", &v18, 2u);
+      LOWORD(v24) = 0;
+      _os_log_impl(&dword_1C5126000, v16, OS_LOG_TYPE_ERROR, "Couldn't get SignalPack. Cannot predict confidence", &v24, 2u);
     }
 
-    v11 = MapsSuggestionsConfidenceDontKnow();
+    v17 = MapsSuggestionsConfidenceDontKnow();
   }
 
-  return v11;
+  return v17;
 }
 
 - (BOOL)_openConnectionIfNecessary
@@ -546,11 +547,11 @@ LABEL_20:
 
 - (void)_closeConnection
 {
-  v2 = GEOFindOrCreateLog();
-  if (os_signpost_enabled(v2))
+  v3 = GEOFindOrCreateLog();
+  if (os_signpost_enabled(v3))
   {
-    *v3 = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C5126000, v2, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "_closeConnection", "", v3, 2u);
+    *v4 = 0;
+    _os_signpost_emit_with_name_impl(&dword_1C5126000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "_closeConnection", "", v4, 2u);
   }
 }
 

@@ -32,37 +32,36 @@
 
 - (HMDCameraVideoTierParameters)initWithCoder:(id)coder
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v13.receiver = self;
-  v13.super_class = HMDCameraVideoTierParameters;
-  v5 = [(HMDCameraVideoTierParameters *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = HMDCameraVideoTierParameters;
+  v5 = [(HMDCameraVideoTierParameters *)&v12 init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v14[0] = objc_opt_class();
-    v14[1] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+    v13[0] = objc_opt_class();
+    v13[1] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"kVideoTierOrder"];
     tierOrder = v5->_tierOrder;
     v5->_tierOrder = v9;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (BOOL)pickBestTier
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   tierOrder = [(HMDCameraVideoTierParameters *)self tierOrder];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __44__HMDCameraVideoTierParameters_pickBestTier__block_invoke;
-  v22[3] = &unk_278683A60;
-  v22[4] = self;
-  lastObject = [tierOrder na_firstObjectPassingTest:v22];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __44__HMDCameraVideoTierParameters_pickBestTier__block_invoke;
+  v21[3] = &unk_278683A60;
+  v21[4] = self;
+  lastObject = [tierOrder na_firstObjectPassingTest:v21];
 
   if (!lastObject)
   {
@@ -74,9 +73,9 @@
       v8 = HMFGetLogIdentifier();
       maximumQuality = [(HMDCameraVideoTierParameters *)selfCopy maximumQuality];
       *buf = 138543618;
-      v24 = v8;
-      v25 = 2048;
-      v26 = maximumQuality;
+      v23 = v8;
+      v24 = 2048;
+      v25 = maximumQuality;
       _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@No tier available at or below maximum quality: %lu, selecting the lowest available tier", buf, 0x16u);
     }
 
@@ -98,7 +97,7 @@
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v24 = v17;
+      v23 = v17;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Selected tier is the same as the current tier", buf, 0xCu);
     }
 
@@ -112,11 +111,11 @@
       v18 = HMFGetLogIdentifier();
       currentPickedTier2 = [(HMDCameraVideoTierParameters *)selfCopy2 currentPickedTier];
       *buf = 138543874;
-      v24 = v18;
-      v25 = 2114;
-      v26 = currentPickedTier2;
-      v27 = 2114;
-      v28 = lastObject;
+      v23 = v18;
+      v24 = 2114;
+      v25 = currentPickedTier2;
+      v26 = 2114;
+      v27 = lastObject;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Updating the current picked tier from %{public}@ to %{public}@", buf, 0x20u);
     }
 
@@ -124,13 +123,12 @@
     [(HMDCameraVideoTierParameters *)selfCopy2 setCurrentPickedTier:lastObject];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v12 ^ 1;
 }
 
 - (BOOL)pickHigherTier
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   currentPickedTier = [(HMDCameraVideoTierParameters *)self currentPickedTier];
   tierOrder = [(HMDCameraVideoTierParameters *)self tierOrder];
   firstObject = [tierOrder firstObject];
@@ -158,16 +156,16 @@
 LABEL_12:
 
         objc_autoreleasePoolPop(v21);
-        goto LABEL_13;
+        return v11;
       }
 
       v19 = HMFGetLogIdentifier();
       currentPickedTier3 = [(HMDCameraVideoTierParameters *)selfCopy currentPickedTier];
-      v27 = 138543618;
-      v28 = v19;
-      v29 = 2114;
+      v26 = 138543618;
+      v27 = v19;
+      v28 = 2114;
       maximumQuality = currentPickedTier3;
-      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Setting a higher current picked tier to %{public}@", &v27, 0x16u);
+      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Setting a higher current picked tier to %{public}@", &v26, 0x16u);
     }
 
     else
@@ -181,11 +179,11 @@ LABEL_12:
       }
 
       v19 = HMFGetLogIdentifier();
-      v27 = 138543618;
-      v28 = v19;
-      v29 = 2048;
+      v26 = 138543618;
+      v27 = v19;
+      v28 = 2048;
       maximumQuality = [(HMDCameraVideoTierParameters *)selfCopy2 maximumQuality];
-      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Already in the highest tier for maximum quality: %lu", &v27, 0x16u);
+      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Already in the highest tier for maximum quality: %lu", &v26, 0x16u);
     }
 
     goto LABEL_12;
@@ -197,21 +195,18 @@ LABEL_12:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v27 = 138543362;
-    v28 = v10;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Already in the highest tier", &v27, 0xCu);
+    v26 = 138543362;
+    v27 = v10;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Already in the highest tier", &v26, 0xCu);
   }
 
   objc_autoreleasePoolPop(v7);
-  v11 = 0;
-LABEL_13:
-  v25 = *MEMORY[0x277D85DE8];
-  return v11;
+  return 0;
 }
 
 - (BOOL)pickLowerTier
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   currentPickedTier = [(HMDCameraVideoTierParameters *)self currentPickedTier];
   tierOrder = [(HMDCameraVideoTierParameters *)self tierOrder];
   lastObject = [tierOrder lastObject];
@@ -225,9 +220,9 @@ LABEL_13:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v21 = 138543362;
-      v22 = v10;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Already in the lowest tier", &v21, 0xCu);
+      v20 = 138543362;
+      v21 = v10;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Already in the lowest tier", &v20, 0xCu);
     }
   }
 
@@ -248,29 +243,28 @@ LABEL_13:
     {
       v17 = HMFGetLogIdentifier();
       currentPickedTier3 = [(HMDCameraVideoTierParameters *)selfCopy2 currentPickedTier];
-      v21 = 138543618;
-      v22 = v17;
-      v23 = 2114;
-      v24 = currentPickedTier3;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Setting a lower current picked tier to %{public}@", &v21, 0x16u);
+      v20 = 138543618;
+      v21 = v17;
+      v22 = 2114;
+      v23 = currentPickedTier3;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Setting a lower current picked tier to %{public}@", &v20, 0x16u);
     }
   }
 
   objc_autoreleasePoolPop(v7);
-  v19 = *MEMORY[0x277D85DE8];
   return v6 ^ 1;
 }
 
 - (void)selectInitialTierWithAspectRatio:(unint64_t)ratio
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   tierOrder = [(HMDCameraVideoTierParameters *)self tierOrder];
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __65__HMDCameraVideoTierParameters_selectInitialTierWithAspectRatio___block_invoke;
-  v37[3] = &__block_descriptor_40_e28_B16__0__HMDCameraVideoTier_8l;
-  v37[4] = ratio;
-  v6 = [tierOrder na_filter:v37];
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __65__HMDCameraVideoTierParameters_selectInitialTierWithAspectRatio___block_invoke;
+  v36[3] = &__block_descriptor_40_e28_B16__0__HMDCameraVideoTier_8l;
+  v36[4] = ratio;
+  v6 = [tierOrder na_filter:v36];
 
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -279,9 +273,9 @@ LABEL_13:
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v39 = v10;
-    v40 = 2112;
-    v41 = v6;
+    v38 = v10;
+    v39 = 2112;
+    v40 = v6;
     _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Updating the tier order to %@", buf, 0x16u);
   }
 
@@ -298,9 +292,9 @@ LABEL_13:
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v39 = v15;
-      v40 = 2048;
-      v41 = AppIntegerValue;
+      v38 = v15;
+      v39 = 2048;
+      v40 = AppIntegerValue;
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Initial stream resolution quality preference is set to: %lu", buf, 0x16u);
     }
 
@@ -317,12 +311,12 @@ LABEL_13:
   }
 
   tierOrder2 = [(HMDCameraVideoTierParameters *)selfCopy tierOrder];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __65__HMDCameraVideoTierParameters_selectInitialTierWithAspectRatio___block_invoke_73;
-  v35[3] = &__block_descriptor_40_e28_B16__0__HMDCameraVideoTier_8l;
-  v35[4] = AppIntegerValue;
-  lastObject = [tierOrder2 na_firstObjectPassingTest:v35];
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __65__HMDCameraVideoTierParameters_selectInitialTierWithAspectRatio___block_invoke_73;
+  v34[3] = &__block_descriptor_40_e28_B16__0__HMDCameraVideoTier_8l;
+  v34[4] = AppIntegerValue;
+  lastObject = [tierOrder2 na_firstObjectPassingTest:v34];
 
   if (lastObject)
   {
@@ -336,7 +330,7 @@ LABEL_13:
       {
         v23 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v39 = v23;
+        v38 = v23;
         _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Selecting the best tier from the updated tier order", buf, 0xCu);
       }
 
@@ -355,7 +349,7 @@ LABEL_13:
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v39 = v27;
+      v38 = v27;
       _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Selecting the lowest tier from the updated tier order", buf, 0xCu);
     }
 
@@ -373,16 +367,14 @@ LABEL_13:
     v32 = HMFGetLogIdentifier();
     currentPickedTier = [(HMDCameraVideoTierParameters *)v30 currentPickedTier];
     *buf = 138543618;
-    v39 = v32;
-    v40 = 2112;
-    v41 = currentPickedTier;
+    v38 = v32;
+    v39 = 2112;
+    v40 = currentPickedTier;
     _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@Updated the current picked tier to %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v29);
 LABEL_20:
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __65__HMDCameraVideoTierParameters_selectInitialTierWithAspectRatio___block_invoke(uint64_t a1, void *a2)
@@ -395,7 +387,7 @@ BOOL __65__HMDCameraVideoTierParameters_selectInitialTierWithAspectRatio___block
 
 - (void)updateTierParameters:(id)parameters firstPickedParameter:(id)parameter
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   parameterCopy = parameter;
   v8 = objc_autoreleasePoolPush();
@@ -405,11 +397,11 @@ BOOL __65__HMDCameraVideoTierParameters_selectInitialTierWithAspectRatio___block
   {
     v11 = HMFGetLogIdentifier();
     tierOrder = [parametersCopy tierOrder];
-    v27 = 138543618;
-    v28 = v11;
-    v29 = 2112;
-    v30 = tierOrder;
-    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating the tier order from selected parameters to %@", &v27, 0x16u);
+    v26 = 138543618;
+    v27 = v11;
+    v28 = 2112;
+    v29 = tierOrder;
+    _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating the tier order from selected parameters to %@", &v26, 0x16u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -427,11 +419,11 @@ BOOL __65__HMDCameraVideoTierParameters_selectInitialTierWithAspectRatio___block
     {
       v24 = HMFGetLogIdentifier();
       currentPickedTier = [(HMDCameraVideoTierParameters *)v22 currentPickedTier];
-      v27 = 138543618;
-      v28 = v24;
-      v29 = 2112;
-      v30 = currentPickedTier;
-      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Updated the current picked tier to %@", &v27, 0x16u);
+      v26 = 138543618;
+      v27 = v24;
+      v28 = 2112;
+      v29 = currentPickedTier;
+      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Updated the current picked tier to %@", &v26, 0x16u);
     }
 
     objc_autoreleasePoolPop(v21);
@@ -447,67 +439,65 @@ BOOL __65__HMDCameraVideoTierParameters_selectInitialTierWithAspectRatio___block
       v18 = HMFGetLogIdentifier();
       quality2 = [parameterCopy quality];
       maximumQuality = [(HMDCameraVideoTierParameters *)v16 maximumQuality];
-      v27 = 138543874;
-      v28 = v18;
-      v29 = 2048;
-      v30 = quality2;
-      v31 = 2048;
-      v32 = maximumQuality;
-      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Selected tier quality: %lu is higher than the maximum quality: %lu, selecting new tier", &v27, 0x20u);
+      v26 = 138543874;
+      v27 = v18;
+      v28 = 2048;
+      v29 = quality2;
+      v30 = 2048;
+      v31 = maximumQuality;
+      _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Selected tier quality: %lu is higher than the maximum quality: %lu, selecting new tier", &v26, 0x20u);
     }
 
     objc_autoreleasePoolPop(v15);
     [(HMDCameraVideoTierParameters *)v16 pickBestTier];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateTierOrder:(id)order
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   orderCopy = order;
   array = [MEMORY[0x277CBEB18] array];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   selfCopy = self;
   obj = [(HMDCameraVideoTierParameters *)self tierOrder];
-  v28 = [obj countByEnumeratingWithState:&v33 objects:v42 count:16];
-  if (v28)
+  v27 = [obj countByEnumeratingWithState:&v32 objects:v41 count:16];
+  if (v27)
   {
-    v26 = *v34;
+    v25 = *v33;
     do
     {
-      for (i = 0; i != v28; ++i)
+      for (i = 0; i != v27; ++i)
       {
-        if (*v34 != v26)
+        if (*v33 != v25)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v33 + 1) + 8 * i);
+        v5 = *(*(&v32 + 1) + 8 * i);
+        v28 = 0u;
         v29 = 0u;
         v30 = 0u;
         v31 = 0u;
-        v32 = 0u;
         v6 = orderCopy;
-        v7 = [v6 countByEnumeratingWithState:&v29 objects:v41 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v28 objects:v40 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v30;
+          v9 = *v29;
           while (2)
           {
             for (j = 0; j != v8; ++j)
             {
-              if (*v30 != v9)
+              if (*v29 != v9)
               {
                 objc_enumerationMutation(v6);
               }
 
-              v11 = *(*(&v29 + 1) + 8 * j);
+              v11 = *(*(&v28 + 1) + 8 * j);
               videoResolution = [v11 videoResolution];
               videoResolution2 = [v5 videoResolution];
               v14 = [videoResolution isEqual:videoResolution2];
@@ -528,7 +518,7 @@ BOOL __65__HMDCameraVideoTierParameters_selectInitialTierWithAspectRatio___block
               }
             }
 
-            v8 = [v6 countByEnumeratingWithState:&v29 objects:v41 count:16];
+            v8 = [v6 countByEnumeratingWithState:&v28 objects:v40 count:16];
             if (v8)
             {
               continue;
@@ -541,10 +531,10 @@ BOOL __65__HMDCameraVideoTierParameters_selectInitialTierWithAspectRatio___block
 LABEL_18:
       }
 
-      v28 = [obj countByEnumeratingWithState:&v33 objects:v42 count:16];
+      v27 = [obj countByEnumeratingWithState:&v32 objects:v41 count:16];
     }
 
-    while (v28);
+    while (v27);
   }
 
   v18 = objc_autoreleasePoolPush();
@@ -554,21 +544,19 @@ LABEL_18:
   {
     v21 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v38 = v21;
-    v39 = 2112;
-    v40 = array;
+    v37 = v21;
+    v38 = 2112;
+    v39 = array;
     _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Updating the tier order from video attributes to %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v18);
   [(HMDCameraVideoTierParameters *)v19 setTierOrder:array];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_generateAllVideoTiers
 {
-  v159 = *MEMORY[0x277D85DE8];
+  v158 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   array = [MEMORY[0x277CBEB18] array];
   streamingTierType = [(HMDCameraVideoTierParameters *)self streamingTierType];
@@ -583,9 +571,9 @@ LABEL_18:
       [(NSArray *)array addObject:v72];
       v73 = [[HMDVideoResolution alloc] initWithResolution:23];
       v74 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v73 framerate:&unk_283E74858 minBitRate:&unk_283E748A0 maxBitRate:&unk_283E748B8 rtcpInterval:&unk_283E75F98];
-      v153 = v73;
+      v152 = v73;
       [dictionary setObject:v74 forKeyedSubscript:v73];
-      v152 = v74;
+      v151 = v74;
       [(NSArray *)array addObject:v74];
       v23 = [[HMDVideoResolution alloc] initWithResolution:7];
       v17 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v23 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E74888 rtcpInterval:&unk_283E75F98];
@@ -610,55 +598,55 @@ LABEL_18:
     }
 
     selfCopy5 = self;
-    v149 = [[HMDVideoResolution alloc] initWithResolution:13];
-    v145 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v149 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74930 rtcpInterval:&unk_283E75F98];
-    [dictionary setObject:v145 forKeyedSubscript:v149];
-    [(NSArray *)array addObject:v145];
+    v148 = [[HMDVideoResolution alloc] initWithResolution:13];
+    v144 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v148 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74930 rtcpInterval:&unk_283E75F98];
+    [dictionary setObject:v144 forKeyedSubscript:v148];
+    [(NSArray *)array addObject:v144];
     v24 = [[HMDVideoResolution alloc] initWithResolution:12];
     v25 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v24 framerate:&unk_283E74900 minBitRate:&unk_283E74948 maxBitRate:&unk_283E74960 rtcpInterval:&unk_283E75F98];
-    v153 = v24;
+    v152 = v24;
     [dictionary setObject:v25 forKeyedSubscript:v24];
-    v152 = v25;
+    v151 = v25;
     [(NSArray *)array addObject:v25];
-    v142 = [[HMDVideoResolution alloc] initWithResolution:11];
-    v138 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v142 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E74888 rtcpInterval:&unk_283E75F98];
-    [dictionary setObject:v138 forKeyedSubscript:v142];
-    [(NSArray *)array addObject:v138];
-    v135 = [[HMDVideoResolution alloc] initWithResolution:20];
-    v132 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v135 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74978 rtcpInterval:&unk_283E75F98];
-    [dictionary setObject:v132 forKeyedSubscript:v135];
-    [(NSArray *)array addObject:v132];
-    v129 = [[HMDVideoResolution alloc] initWithResolution:21];
-    v125 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v129 framerate:&unk_283E74900 minBitRate:&unk_283E74888 maxBitRate:&unk_283E74990 rtcpInterval:&unk_283E75F98];
-    [dictionary setObject:v125 forKeyedSubscript:v129];
-    [(NSArray *)array addObject:v125];
-    v122 = [[HMDVideoResolution alloc] initWithResolution:22];
-    v120 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v122 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E748B8 rtcpInterval:&unk_283E75F98];
-    [dictionary setObject:v120 forKeyedSubscript:v122];
-    [(NSArray *)array addObject:v120];
-    v118 = [[HMDVideoResolution alloc] initWithResolution:9];
-    v116 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v118 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74930 rtcpInterval:&unk_283E75F98];
-    [dictionary setObject:v116 forKeyedSubscript:v118];
-    [(NSArray *)array addObject:v116];
-    v114 = [[HMDVideoResolution alloc] initWithResolution:8];
-    v112 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v114 framerate:&unk_283E74900 minBitRate:&unk_283E74948 maxBitRate:&unk_283E74960 rtcpInterval:&unk_283E75F98];
-    [dictionary setObject:v112 forKeyedSubscript:v114];
-    [(NSArray *)array addObject:v112];
-    v110 = [[HMDVideoResolution alloc] initWithResolution:7];
-    v108 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v110 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E74888 rtcpInterval:&unk_283E75F98];
-    [dictionary setObject:v108 forKeyedSubscript:v110];
-    [(NSArray *)array addObject:v108];
-    v106 = [[HMDVideoResolution alloc] initWithResolution:5];
-    v104 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v106 framerate:&unk_283E74900 minBitRate:&unk_283E74990 maxBitRate:&unk_283E749A8 rtcpInterval:&unk_283E75F98];
-    [dictionary setObject:v104 forKeyedSubscript:v106];
-    [(NSArray *)array addObject:v104];
-    v102 = [[HMDVideoResolution alloc] initWithResolution:4];
-    v100 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v102 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74978 rtcpInterval:&unk_283E75F98];
-    [dictionary setObject:v100 forKeyedSubscript:v102];
-    [(NSArray *)array addObject:v100];
-    v98 = [[HMDVideoResolution alloc] initWithResolution:3];
-    v26 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v98 framerate:&unk_283E74900 minBitRate:&unk_283E74888 maxBitRate:&unk_283E74990 rtcpInterval:&unk_283E75F98];
-    [dictionary setObject:v26 forKeyedSubscript:v98];
+    v141 = [[HMDVideoResolution alloc] initWithResolution:11];
+    v137 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v141 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E74888 rtcpInterval:&unk_283E75F98];
+    [dictionary setObject:v137 forKeyedSubscript:v141];
+    [(NSArray *)array addObject:v137];
+    v134 = [[HMDVideoResolution alloc] initWithResolution:20];
+    v131 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v134 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74978 rtcpInterval:&unk_283E75F98];
+    [dictionary setObject:v131 forKeyedSubscript:v134];
+    [(NSArray *)array addObject:v131];
+    v128 = [[HMDVideoResolution alloc] initWithResolution:21];
+    v124 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v128 framerate:&unk_283E74900 minBitRate:&unk_283E74888 maxBitRate:&unk_283E74990 rtcpInterval:&unk_283E75F98];
+    [dictionary setObject:v124 forKeyedSubscript:v128];
+    [(NSArray *)array addObject:v124];
+    v121 = [[HMDVideoResolution alloc] initWithResolution:22];
+    v119 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v121 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E748B8 rtcpInterval:&unk_283E75F98];
+    [dictionary setObject:v119 forKeyedSubscript:v121];
+    [(NSArray *)array addObject:v119];
+    v117 = [[HMDVideoResolution alloc] initWithResolution:9];
+    v115 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v117 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74930 rtcpInterval:&unk_283E75F98];
+    [dictionary setObject:v115 forKeyedSubscript:v117];
+    [(NSArray *)array addObject:v115];
+    v113 = [[HMDVideoResolution alloc] initWithResolution:8];
+    v111 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v113 framerate:&unk_283E74900 minBitRate:&unk_283E74948 maxBitRate:&unk_283E74960 rtcpInterval:&unk_283E75F98];
+    [dictionary setObject:v111 forKeyedSubscript:v113];
+    [(NSArray *)array addObject:v111];
+    v109 = [[HMDVideoResolution alloc] initWithResolution:7];
+    v107 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v109 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E74888 rtcpInterval:&unk_283E75F98];
+    [dictionary setObject:v107 forKeyedSubscript:v109];
+    [(NSArray *)array addObject:v107];
+    v105 = [[HMDVideoResolution alloc] initWithResolution:5];
+    v103 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v105 framerate:&unk_283E74900 minBitRate:&unk_283E74990 maxBitRate:&unk_283E749A8 rtcpInterval:&unk_283E75F98];
+    [dictionary setObject:v103 forKeyedSubscript:v105];
+    [(NSArray *)array addObject:v103];
+    v101 = [[HMDVideoResolution alloc] initWithResolution:4];
+    v99 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v101 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74978 rtcpInterval:&unk_283E75F98];
+    [dictionary setObject:v99 forKeyedSubscript:v101];
+    [(NSArray *)array addObject:v99];
+    v97 = [[HMDVideoResolution alloc] initWithResolution:3];
+    v26 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v97 framerate:&unk_283E74900 minBitRate:&unk_283E74888 maxBitRate:&unk_283E74990 rtcpInterval:&unk_283E75F98];
+    [dictionary setObject:v26 forKeyedSubscript:v97];
     [(NSArray *)array addObject:v26];
     v27 = [[HMDVideoResolution alloc] initWithResolution:2];
     v28 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v27 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E748B8 rtcpInterval:&unk_283E75F98];
@@ -673,11 +661,11 @@ LABEL_18:
     [dictionary setObject:v32 forKeyedSubscript:v31];
     [(NSArray *)array addObject:v32];
 
-    v16 = v149;
-    v17 = v138;
+    v16 = v148;
+    v17 = v137;
 
-    v21 = v125;
-    v18 = v145;
+    v21 = v124;
+    v18 = v144;
   }
 
   else
@@ -695,63 +683,63 @@ LABEL_18:
 
       v35 = [[HMDVideoResolution alloc] initWithResolution:14];
       v36 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v35 framerate:&unk_283E74900 minBitRate:&unk_283E74A50 maxBitRate:&unk_283E74A68 rtcpInterval:&unk_283E75F98];
-      v150 = v35;
+      v149 = v35;
       [dictionary setObject:v36 forKeyedSubscript:v35];
-      v146 = v36;
+      v145 = v36;
       [(NSArray *)array addObject:v36];
       v37 = [[HMDVideoResolution alloc] initWithResolution:13];
       v38 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v37 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74978 rtcpInterval:&unk_283E75F98];
-      v153 = v37;
+      v152 = v37;
       [dictionary setObject:v38 forKeyedSubscript:v37];
-      v152 = v38;
+      v151 = v38;
       [(NSArray *)array addObject:v38];
       v39 = [[HMDVideoResolution alloc] initWithResolution:12];
       v40 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v39 framerate:&unk_283E74900 minBitRate:&unk_283E74948 maxBitRate:&unk_283E74960 rtcpInterval:&unk_283E75F98];
-      v143 = v39;
+      v142 = v39;
       [dictionary setObject:v40 forKeyedSubscript:v39];
-      v139 = v40;
+      v138 = v40;
       [(NSArray *)array addObject:v40];
       v41 = [[HMDVideoResolution alloc] initWithResolution:11];
       v42 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v41 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E74888 rtcpInterval:&unk_283E75F98];
-      v136 = v41;
+      v135 = v41;
       [dictionary setObject:v42 forKeyedSubscript:v41];
-      v133 = v42;
+      v132 = v42;
       [(NSArray *)array addObject:v42];
       v43 = [[HMDVideoResolution alloc] initWithResolution:17];
       v44 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v43 framerate:&unk_283E74900 minBitRate:&unk_283E74A68 maxBitRate:&unk_283E74A80 rtcpInterval:&unk_283E75F98];
-      v130 = v43;
+      v129 = v43;
       [dictionary setObject:v44 forKeyedSubscript:v43];
-      v126 = v44;
+      v125 = v44;
       [(NSArray *)array addObject:v44];
       v45 = [[HMDVideoResolution alloc] initWithResolution:18];
       v46 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v45 framerate:&unk_283E74900 minBitRate:&unk_283E74930 maxBitRate:&unk_283E74A98 rtcpInterval:&unk_283E75F98];
-      v123 = v45;
+      v122 = v45;
       [dictionary setObject:v46 forKeyedSubscript:v45];
-      v121 = v46;
+      v120 = v46;
       [(NSArray *)array addObject:v46];
       v47 = [[HMDVideoResolution alloc] initWithResolution:19];
       v48 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v47 framerate:&unk_283E74900 minBitRate:&unk_283E74990 maxBitRate:&unk_283E749A8 rtcpInterval:&unk_283E75F98];
-      v119 = v47;
+      v118 = v47;
       [dictionary setObject:v48 forKeyedSubscript:v47];
-      v117 = v48;
+      v116 = v48;
       [(NSArray *)array addObject:v48];
       v49 = [[HMDVideoResolution alloc] initWithResolution:20];
       v50 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v49 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74A50 rtcpInterval:&unk_283E75F98];
-      v115 = v49;
+      v114 = v49;
       [dictionary setObject:v50 forKeyedSubscript:v49];
-      v113 = v50;
+      v112 = v50;
       [(NSArray *)array addObject:v50];
       v51 = [[HMDVideoResolution alloc] initWithResolution:21];
       v52 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v51 framerate:&unk_283E74900 minBitRate:&unk_283E74888 maxBitRate:&unk_283E74990 rtcpInterval:&unk_283E75F98];
-      v111 = v51;
+      v110 = v51;
       [dictionary setObject:v52 forKeyedSubscript:v51];
-      v109 = v52;
+      v108 = v52;
       [(NSArray *)array addObject:v52];
       v53 = [[HMDVideoResolution alloc] initWithResolution:22];
       v54 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v53 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E748B8 rtcpInterval:&unk_283E75F98];
-      v107 = v53;
+      v106 = v53;
       [dictionary setObject:v54 forKeyedSubscript:v53];
-      v105 = v54;
+      v104 = v54;
       [(NSArray *)array addObject:v54];
       if (_os_feature_enabled_impl())
       {
@@ -761,42 +749,42 @@ LABEL_18:
         [(NSArray *)array addObject:v56];
       }
 
-      v103 = [[HMDVideoResolution alloc] initWithResolution:10];
-      v101 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v103 framerate:&unk_283E74900 minBitRate:&unk_283E74A50 maxBitRate:&unk_283E74A68 rtcpInterval:&unk_283E75F98];
-      [dictionary setObject:v101 forKeyedSubscript:v103];
-      [(NSArray *)array addObject:v101];
-      v99 = [[HMDVideoResolution alloc] initWithResolution:9];
-      v97 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v99 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74978 rtcpInterval:&unk_283E75F98];
-      [dictionary setObject:v97 forKeyedSubscript:v99];
-      [(NSArray *)array addObject:v97];
-      v96 = [[HMDVideoResolution alloc] initWithResolution:8];
-      v95 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v96 framerate:&unk_283E74900 minBitRate:&unk_283E74948 maxBitRate:&unk_283E74960 rtcpInterval:&unk_283E75F98];
-      [dictionary setObject:v95 forKeyedSubscript:v96];
-      [(NSArray *)array addObject:v95];
-      v94 = [[HMDVideoResolution alloc] initWithResolution:7];
-      v93 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v94 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E74888 rtcpInterval:&unk_283E75F98];
-      [dictionary setObject:v93 forKeyedSubscript:v94];
-      [(NSArray *)array addObject:v93];
-      v92 = [[HMDVideoResolution alloc] initWithResolution:15];
-      v91 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v92 framerate:&unk_283E74900 minBitRate:&unk_283E74A68 maxBitRate:&unk_283E74A80 rtcpInterval:&unk_283E75F98];
-      [dictionary setObject:v91 forKeyedSubscript:v92];
-      [(NSArray *)array addObject:v91];
-      v90 = [[HMDVideoResolution alloc] initWithResolution:16];
-      v89 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v90 framerate:&unk_283E74900 minBitRate:&unk_283E74930 maxBitRate:&unk_283E74A98 rtcpInterval:&unk_283E75F98];
-      [dictionary setObject:v89 forKeyedSubscript:v90];
-      [(NSArray *)array addObject:v89];
-      v88 = [[HMDVideoResolution alloc] initWithResolution:5];
-      v87 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v88 framerate:&unk_283E74900 minBitRate:&unk_283E74990 maxBitRate:&unk_283E749A8 rtcpInterval:&unk_283E75F98];
-      [dictionary setObject:v87 forKeyedSubscript:v88];
-      [(NSArray *)array addObject:v87];
-      v86 = [[HMDVideoResolution alloc] initWithResolution:4];
-      v85 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v86 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74A50 rtcpInterval:&unk_283E75F98];
-      [dictionary setObject:v85 forKeyedSubscript:v86];
-      [(NSArray *)array addObject:v85];
-      v84 = [[HMDVideoResolution alloc] initWithResolution:3];
-      v83 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v84 framerate:&unk_283E74900 minBitRate:&unk_283E74888 maxBitRate:&unk_283E74990 rtcpInterval:&unk_283E75F98];
-      [dictionary setObject:v83 forKeyedSubscript:v84];
-      [(NSArray *)array addObject:v83];
+      v102 = [[HMDVideoResolution alloc] initWithResolution:10];
+      v100 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v102 framerate:&unk_283E74900 minBitRate:&unk_283E74A50 maxBitRate:&unk_283E74A68 rtcpInterval:&unk_283E75F98];
+      [dictionary setObject:v100 forKeyedSubscript:v102];
+      [(NSArray *)array addObject:v100];
+      v98 = [[HMDVideoResolution alloc] initWithResolution:9];
+      v96 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v98 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74978 rtcpInterval:&unk_283E75F98];
+      [dictionary setObject:v96 forKeyedSubscript:v98];
+      [(NSArray *)array addObject:v96];
+      v95 = [[HMDVideoResolution alloc] initWithResolution:8];
+      v94 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v95 framerate:&unk_283E74900 minBitRate:&unk_283E74948 maxBitRate:&unk_283E74960 rtcpInterval:&unk_283E75F98];
+      [dictionary setObject:v94 forKeyedSubscript:v95];
+      [(NSArray *)array addObject:v94];
+      v93 = [[HMDVideoResolution alloc] initWithResolution:7];
+      v92 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v93 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E74888 rtcpInterval:&unk_283E75F98];
+      [dictionary setObject:v92 forKeyedSubscript:v93];
+      [(NSArray *)array addObject:v92];
+      v91 = [[HMDVideoResolution alloc] initWithResolution:15];
+      v90 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v91 framerate:&unk_283E74900 minBitRate:&unk_283E74A68 maxBitRate:&unk_283E74A80 rtcpInterval:&unk_283E75F98];
+      [dictionary setObject:v90 forKeyedSubscript:v91];
+      [(NSArray *)array addObject:v90];
+      v89 = [[HMDVideoResolution alloc] initWithResolution:16];
+      v88 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v89 framerate:&unk_283E74900 minBitRate:&unk_283E74930 maxBitRate:&unk_283E74A98 rtcpInterval:&unk_283E75F98];
+      [dictionary setObject:v88 forKeyedSubscript:v89];
+      [(NSArray *)array addObject:v88];
+      v87 = [[HMDVideoResolution alloc] initWithResolution:5];
+      v86 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v87 framerate:&unk_283E74900 minBitRate:&unk_283E74990 maxBitRate:&unk_283E749A8 rtcpInterval:&unk_283E75F98];
+      [dictionary setObject:v86 forKeyedSubscript:v87];
+      [(NSArray *)array addObject:v86];
+      v85 = [[HMDVideoResolution alloc] initWithResolution:4];
+      v84 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v85 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74A50 rtcpInterval:&unk_283E75F98];
+      [dictionary setObject:v84 forKeyedSubscript:v85];
+      [(NSArray *)array addObject:v84];
+      v83 = [[HMDVideoResolution alloc] initWithResolution:3];
+      v82 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v83 framerate:&unk_283E74900 minBitRate:&unk_283E74888 maxBitRate:&unk_283E74990 rtcpInterval:&unk_283E75F98];
+      [dictionary setObject:v82 forKeyedSubscript:v83];
+      [(NSArray *)array addObject:v82];
       v57 = [[HMDVideoResolution alloc] initWithResolution:2];
       v58 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v57 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E748B8 rtcpInterval:&unk_283E75F98];
       [dictionary setObject:v58 forKeyedSubscript:v57];
@@ -814,14 +802,14 @@ LABEL_18:
       [dictionary setObject:v64 forKeyedSubscript:v63];
       [(NSArray *)array addObject:v64];
 
-      v18 = v146;
-      v16 = v150;
-      v17 = v139;
-      v23 = v143;
-      v22 = v133;
-      v20 = v136;
-      v21 = v126;
-      v19 = v130;
+      v18 = v145;
+      v16 = v149;
+      v17 = v138;
+      v23 = v142;
+      v22 = v132;
+      v20 = v135;
+      v21 = v125;
+      v19 = v129;
       goto LABEL_18;
     }
 
@@ -833,48 +821,48 @@ LABEL_18:
       }
 
       selfCopy5 = self;
-      v148 = [[HMDVideoResolution alloc] initWithResolution:13];
-      v144 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v148 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74990 rtcpInterval:&unk_283E75F98];
-      [dictionary setObject:v144 forKeyedSubscript:v148];
-      [(NSArray *)array addObject:v144];
+      v147 = [[HMDVideoResolution alloc] initWithResolution:13];
+      v143 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v147 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74990 rtcpInterval:&unk_283E75F98];
+      [dictionary setObject:v143 forKeyedSubscript:v147];
+      [(NSArray *)array addObject:v143];
       v6 = [[HMDVideoResolution alloc] initWithResolution:12];
       v7 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v6 framerate:&unk_283E74900 minBitRate:&unk_283E74948 maxBitRate:&unk_283E748B8 rtcpInterval:&unk_283E75F98];
-      v153 = v6;
+      v152 = v6;
       [dictionary setObject:v7 forKeyedSubscript:v6];
-      v152 = v7;
+      v151 = v7;
       [(NSArray *)array addObject:v7];
-      v141 = [[HMDVideoResolution alloc] initWithResolution:11];
-      v137 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v141 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E74888 rtcpInterval:&unk_283E75F98];
-      [dictionary setObject:v137 forKeyedSubscript:v141];
-      [(NSArray *)array addObject:v137];
-      v134 = [[HMDVideoResolution alloc] initWithResolution:20];
-      v131 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v134 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74990 rtcpInterval:&unk_283E75F98];
-      [dictionary setObject:v131 forKeyedSubscript:v134];
-      [(NSArray *)array addObject:v131];
-      v128 = [[HMDVideoResolution alloc] initWithResolution:21];
-      v124 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v128 framerate:&unk_283E74900 minBitRate:&unk_283E74888 maxBitRate:&unk_283E748B8 rtcpInterval:&unk_283E75F98];
-      [dictionary setObject:v124 forKeyedSubscript:v128];
-      [(NSArray *)array addObject:v124];
-      v122 = [[HMDVideoResolution alloc] initWithResolution:22];
-      v120 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v122 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E74AE0 rtcpInterval:&unk_283E75F98];
-      [dictionary setObject:v120 forKeyedSubscript:v122];
-      [(NSArray *)array addObject:v120];
-      v118 = [[HMDVideoResolution alloc] initWithResolution:9];
-      v116 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v118 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74990 rtcpInterval:&unk_283E75F98];
-      [dictionary setObject:v116 forKeyedSubscript:v118];
-      [(NSArray *)array addObject:v116];
-      v114 = [[HMDVideoResolution alloc] initWithResolution:8];
-      v112 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v114 framerate:&unk_283E74900 minBitRate:&unk_283E74948 maxBitRate:&unk_283E748B8 rtcpInterval:&unk_283E75F98];
-      [dictionary setObject:v112 forKeyedSubscript:v114];
-      [(NSArray *)array addObject:v112];
-      v110 = [[HMDVideoResolution alloc] initWithResolution:7];
-      v108 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v110 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E74888 rtcpInterval:&unk_283E75F98];
-      [dictionary setObject:v108 forKeyedSubscript:v110];
-      [(NSArray *)array addObject:v108];
-      v106 = [[HMDVideoResolution alloc] initWithResolution:5];
-      v104 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v106 framerate:&unk_283E74900 minBitRate:&unk_283E74AF8 maxBitRate:&unk_283E74B10 rtcpInterval:&unk_283E75F98];
-      [dictionary setObject:v104 forKeyedSubscript:v106];
-      [(NSArray *)array addObject:v104];
+      v140 = [[HMDVideoResolution alloc] initWithResolution:11];
+      v136 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v140 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E74888 rtcpInterval:&unk_283E75F98];
+      [dictionary setObject:v136 forKeyedSubscript:v140];
+      [(NSArray *)array addObject:v136];
+      v133 = [[HMDVideoResolution alloc] initWithResolution:20];
+      v130 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v133 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74990 rtcpInterval:&unk_283E75F98];
+      [dictionary setObject:v130 forKeyedSubscript:v133];
+      [(NSArray *)array addObject:v130];
+      v127 = [[HMDVideoResolution alloc] initWithResolution:21];
+      v123 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v127 framerate:&unk_283E74900 minBitRate:&unk_283E74888 maxBitRate:&unk_283E748B8 rtcpInterval:&unk_283E75F98];
+      [dictionary setObject:v123 forKeyedSubscript:v127];
+      [(NSArray *)array addObject:v123];
+      v121 = [[HMDVideoResolution alloc] initWithResolution:22];
+      v119 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v121 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E74AE0 rtcpInterval:&unk_283E75F98];
+      [dictionary setObject:v119 forKeyedSubscript:v121];
+      [(NSArray *)array addObject:v119];
+      v117 = [[HMDVideoResolution alloc] initWithResolution:9];
+      v115 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v117 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74990 rtcpInterval:&unk_283E75F98];
+      [dictionary setObject:v115 forKeyedSubscript:v117];
+      [(NSArray *)array addObject:v115];
+      v113 = [[HMDVideoResolution alloc] initWithResolution:8];
+      v111 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v113 framerate:&unk_283E74900 minBitRate:&unk_283E74948 maxBitRate:&unk_283E748B8 rtcpInterval:&unk_283E75F98];
+      [dictionary setObject:v111 forKeyedSubscript:v113];
+      [(NSArray *)array addObject:v111];
+      v109 = [[HMDVideoResolution alloc] initWithResolution:7];
+      v107 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v109 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E74888 rtcpInterval:&unk_283E75F98];
+      [dictionary setObject:v107 forKeyedSubscript:v109];
+      [(NSArray *)array addObject:v107];
+      v105 = [[HMDVideoResolution alloc] initWithResolution:5];
+      v103 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v105 framerate:&unk_283E74900 minBitRate:&unk_283E74AF8 maxBitRate:&unk_283E74B10 rtcpInterval:&unk_283E75F98];
+      [dictionary setObject:v103 forKeyedSubscript:v105];
+      [(NSArray *)array addObject:v103];
       v8 = [[HMDVideoResolution alloc] initWithResolution:4];
       v9 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v8 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74990 rtcpInterval:&unk_283E75F98];
       [dictionary setObject:v9 forKeyedSubscript:v8];
@@ -892,70 +880,70 @@ LABEL_18:
       [dictionary setObject:v15 forKeyedSubscript:v14];
       [(NSArray *)array addObject:v15];
 
-      v16 = v148;
-      v17 = v137;
+      v16 = v147;
+      v17 = v136;
 
-      v18 = v144;
-      v19 = v128;
+      v18 = v143;
+      v19 = v127;
 
-      v20 = v134;
-      v21 = v124;
+      v20 = v133;
+      v21 = v123;
 
-      v22 = v131;
-      v23 = v141;
+      v22 = v130;
+      v23 = v140;
       goto LABEL_16;
     }
 
     selfCopy5 = self;
-    v151 = [[HMDVideoResolution alloc] initWithResolution:13];
-    v147 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v151 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74990 rtcpInterval:&unk_283E75F98];
-    [dictionary setObject:v147 forKeyedSubscript:v151];
-    [(NSArray *)array addObject:v147];
+    v150 = [[HMDVideoResolution alloc] initWithResolution:13];
+    v146 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v150 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74990 rtcpInterval:&unk_283E75F98];
+    [dictionary setObject:v146 forKeyedSubscript:v150];
+    [(NSArray *)array addObject:v146];
     v65 = [[HMDVideoResolution alloc] initWithResolution:12];
     v66 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v65 framerate:&unk_283E74900 minBitRate:&unk_283E74948 maxBitRate:&unk_283E74960 rtcpInterval:&unk_283E75F98];
-    v153 = v65;
+    v152 = v65;
     [dictionary setObject:v66 forKeyedSubscript:v65];
-    v152 = v66;
+    v151 = v66;
     [(NSArray *)array addObject:v66];
-    v142 = [[HMDVideoResolution alloc] initWithResolution:11];
-    v140 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v142 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E74888 rtcpInterval:&unk_283E75F98];
-    [dictionary setObject:v140 forKeyedSubscript:v142];
-    [(NSArray *)array addObject:v140];
-    v135 = [[HMDVideoResolution alloc] initWithResolution:20];
-    v132 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v135 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74990 rtcpInterval:&unk_283E75F98];
-    [dictionary setObject:v132 forKeyedSubscript:v135];
-    [(NSArray *)array addObject:v132];
-    v129 = [[HMDVideoResolution alloc] initWithResolution:21];
-    v127 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v129 framerate:&unk_283E74900 minBitRate:&unk_283E74888 maxBitRate:&unk_283E74960 rtcpInterval:&unk_283E75F98];
-    [dictionary setObject:v127 forKeyedSubscript:v129];
-    [(NSArray *)array addObject:v127];
-    v122 = [[HMDVideoResolution alloc] initWithResolution:22];
-    v120 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v122 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E74AE0 rtcpInterval:&unk_283E75F98];
-    [dictionary setObject:v120 forKeyedSubscript:v122];
-    [(NSArray *)array addObject:v120];
-    v118 = [[HMDVideoResolution alloc] initWithResolution:9];
-    v116 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v118 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74990 rtcpInterval:&unk_283E75F98];
-    [dictionary setObject:v116 forKeyedSubscript:v118];
-    [(NSArray *)array addObject:v116];
-    v114 = [[HMDVideoResolution alloc] initWithResolution:8];
-    v112 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v114 framerate:&unk_283E74900 minBitRate:&unk_283E74948 maxBitRate:&unk_283E74960 rtcpInterval:&unk_283E75F98];
-    [dictionary setObject:v112 forKeyedSubscript:v114];
-    [(NSArray *)array addObject:v112];
-    v110 = [[HMDVideoResolution alloc] initWithResolution:7];
-    v108 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v110 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E74888 rtcpInterval:&unk_283E75F98];
-    [dictionary setObject:v108 forKeyedSubscript:v110];
-    [(NSArray *)array addObject:v108];
-    v106 = [[HMDVideoResolution alloc] initWithResolution:5];
-    v104 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v106 framerate:&unk_283E74900 minBitRate:&unk_283E74AF8 maxBitRate:&unk_283E74B10 rtcpInterval:&unk_283E75F98];
-    [dictionary setObject:v104 forKeyedSubscript:v106];
-    [(NSArray *)array addObject:v104];
-    v102 = [[HMDVideoResolution alloc] initWithResolution:4];
-    v100 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v102 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74990 rtcpInterval:&unk_283E75F98];
-    [dictionary setObject:v100 forKeyedSubscript:v102];
-    [(NSArray *)array addObject:v100];
-    v98 = [[HMDVideoResolution alloc] initWithResolution:3];
-    v26 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v98 framerate:&unk_283E74900 minBitRate:&unk_283E74888 maxBitRate:&unk_283E74960 rtcpInterval:&unk_283E75F98];
-    [dictionary setObject:v26 forKeyedSubscript:v98];
+    v141 = [[HMDVideoResolution alloc] initWithResolution:11];
+    v139 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v141 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E74888 rtcpInterval:&unk_283E75F98];
+    [dictionary setObject:v139 forKeyedSubscript:v141];
+    [(NSArray *)array addObject:v139];
+    v134 = [[HMDVideoResolution alloc] initWithResolution:20];
+    v131 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v134 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74990 rtcpInterval:&unk_283E75F98];
+    [dictionary setObject:v131 forKeyedSubscript:v134];
+    [(NSArray *)array addObject:v131];
+    v128 = [[HMDVideoResolution alloc] initWithResolution:21];
+    v126 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v128 framerate:&unk_283E74900 minBitRate:&unk_283E74888 maxBitRate:&unk_283E74960 rtcpInterval:&unk_283E75F98];
+    [dictionary setObject:v126 forKeyedSubscript:v128];
+    [(NSArray *)array addObject:v126];
+    v121 = [[HMDVideoResolution alloc] initWithResolution:22];
+    v119 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v121 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E74AE0 rtcpInterval:&unk_283E75F98];
+    [dictionary setObject:v119 forKeyedSubscript:v121];
+    [(NSArray *)array addObject:v119];
+    v117 = [[HMDVideoResolution alloc] initWithResolution:9];
+    v115 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v117 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74990 rtcpInterval:&unk_283E75F98];
+    [dictionary setObject:v115 forKeyedSubscript:v117];
+    [(NSArray *)array addObject:v115];
+    v113 = [[HMDVideoResolution alloc] initWithResolution:8];
+    v111 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v113 framerate:&unk_283E74900 minBitRate:&unk_283E74948 maxBitRate:&unk_283E74960 rtcpInterval:&unk_283E75F98];
+    [dictionary setObject:v111 forKeyedSubscript:v113];
+    [(NSArray *)array addObject:v111];
+    v109 = [[HMDVideoResolution alloc] initWithResolution:7];
+    v107 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v109 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E74888 rtcpInterval:&unk_283E75F98];
+    [dictionary setObject:v107 forKeyedSubscript:v109];
+    [(NSArray *)array addObject:v107];
+    v105 = [[HMDVideoResolution alloc] initWithResolution:5];
+    v103 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v105 framerate:&unk_283E74900 minBitRate:&unk_283E74AF8 maxBitRate:&unk_283E74B10 rtcpInterval:&unk_283E75F98];
+    [dictionary setObject:v103 forKeyedSubscript:v105];
+    [(NSArray *)array addObject:v103];
+    v101 = [[HMDVideoResolution alloc] initWithResolution:4];
+    v99 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v101 framerate:&unk_283E74900 minBitRate:&unk_283E74918 maxBitRate:&unk_283E74990 rtcpInterval:&unk_283E75F98];
+    [dictionary setObject:v99 forKeyedSubscript:v101];
+    [(NSArray *)array addObject:v99];
+    v97 = [[HMDVideoResolution alloc] initWithResolution:3];
+    v26 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v97 framerate:&unk_283E74900 minBitRate:&unk_283E74888 maxBitRate:&unk_283E74960 rtcpInterval:&unk_283E75F98];
+    [dictionary setObject:v26 forKeyedSubscript:v97];
     [(NSArray *)array addObject:v26];
     v27 = [[HMDVideoResolution alloc] initWithResolution:2];
     v28 = [[HMDCameraVideoTier alloc] initWithVideoResolution:v27 framerate:&unk_283E74858 minBitRate:&unk_283E74870 maxBitRate:&unk_283E74AE0 rtcpInterval:&unk_283E75F98];
@@ -970,18 +958,18 @@ LABEL_18:
     [dictionary setObject:v70 forKeyedSubscript:v69];
     [(NSArray *)array addObject:v70];
 
-    v16 = v151;
-    v17 = v140;
+    v16 = v150;
+    v17 = v139;
 
-    v18 = v147;
-    v21 = v127;
+    v18 = v146;
+    v21 = v126;
   }
 
-  v20 = v135;
-  v19 = v129;
+  v20 = v134;
+  v19 = v128;
 
-  v22 = v132;
-  v23 = v142;
+  v22 = v131;
+  v23 = v141;
 
 LABEL_16:
 LABEL_18:
@@ -995,21 +983,19 @@ LABEL_19:
   {
     v78 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v156 = v78;
-    v157 = 2112;
-    v158 = array;
+    v155 = v78;
+    v156 = 2112;
+    v157 = array;
     _os_log_impl(&dword_229538000, v77, OS_LOG_TYPE_INFO, "%{public}@Adding video tiers: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v75);
-  v79 = [dictionary copy];
+  v79 = objc_msgSend_copy(dictionary);
   videoTierCombinations = selfCopy6->_videoTierCombinations;
   selfCopy6->_videoTierCombinations = v79;
 
   tierOrder = selfCopy6->_tierOrder;
   selfCopy6->_tierOrder = array;
-
-  v82 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCameraVideoTierParameters)initWithSessionID:(id)d streamingTierType:(unint64_t)type maximumQuality:(int64_t)quality
@@ -1044,10 +1030,9 @@ LABEL_19:
 
 void __43__HMDCameraVideoTierParameters_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v19_236167;
-  logCategory__hmf_once_v19_236167 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v19_236167;
+  logCategory__hmf_once_v19_236167 = v0;
 }
 
 @end

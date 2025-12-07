@@ -19,6 +19,7 @@
 - (id)fetchManagedObjectsWithEntityName:(id)name byAndPredicates:(id)predicates sortDescriptors:(id)descriptors andLimit:(unint64_t)limit returnObjectsAsFaults:(BOOL)faults withManagedObjectContext:(id)context;
 - (id)fetchManagedObjectsWithEntityName:(id)name byAndPredicates:(id)predicates sortDescriptors:(id)descriptors andLimit:(unint64_t)limit withManagedObjectContext:(id)context;
 - (id)fetchPropertiesForEntityName:(id)name propertiesToFetch:(id)fetch propertiesToGroupBy:(id)by distinctResults:(BOOL)results byAndPredicates:(id)predicates sortDescriptors:(id)descriptors andLimit:(unint64_t)limit resetContext:(BOOL)self0;
+- (id)fetchPropertyForEntityName:(id)name propertyToFetch:(id)fetch distinctResults:(BOOL)results byAndPredicates:(id)predicates sortDescriptors:(id)descriptors andLimit:(unint64_t)limit;
 - (unsigned)count;
 - (void)_efficientlyEnumerateManagedObjectsInFetchRequest:(id)request usingManagedObjectContext:(id)context andApplyBlock:(id)block;
 - (void)_handleDatabaseError:(id)error;
@@ -30,23 +31,23 @@
 
 - (BOOL)commitChangesToStore
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x3032000000;
-  v19 = __Block_byref_object_copy__24;
-  v20 = __Block_byref_object_dispose__24;
-  v21 = 0;
+  v29 = *MEMORY[0x277D85DE8];
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__24;
+  v19 = __Block_byref_object_dispose__24;
+  v20 = 0;
   managedObjectContext = [(ULStore *)self managedObjectContext];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __31__ULStore_commitChangesToStore__block_invoke;
-  v15[3] = &unk_2798D4908;
-  v15[4] = self;
-  v15[5] = &v16;
-  [managedObjectContext performBlockAndWait:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __31__ULStore_commitChangesToStore__block_invoke;
+  v14[3] = &unk_2798D4908;
+  v14[4] = self;
+  v14[5] = &v15;
+  [managedObjectContext performBlockAndWait:v14];
 
-  if (v17[5])
+  if (v16[5])
   {
     if (onceToken_MicroLocation_Default != -1)
     {
@@ -56,17 +57,17 @@
     v4 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      v5 = v17[5];
+      v5 = v16[5];
       mOClass = [objc_opt_class() MOClass];
       v7 = NSStringFromClass(mOClass);
       *buf = 68289539;
-      v23 = 0;
-      v24 = 2082;
-      v25 = "";
-      v26 = 2114;
-      v27 = v5;
-      v28 = 2113;
-      v29 = v7;
+      v22 = 0;
+      v23 = 2082;
+      v24 = "";
+      v25 = 2114;
+      v26 = v5;
+      v27 = 2113;
+      v28 = v7;
       _os_log_impl(&dword_258FE9000, v4, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Could not save changes to store, error:%{public, location:escape_only}@, Store MO:%{private, location:escape_only}@}", buf, 0x26u);
     }
 
@@ -78,22 +79,22 @@
     v8 = logObject_MicroLocation_Default;
     if (os_signpost_enabled(v8))
     {
-      v9 = v17[5];
+      v9 = v16[5];
       mOClass2 = [objc_opt_class() MOClass];
       v11 = NSStringFromClass(mOClass2);
       *buf = 68289539;
-      v23 = 0;
-      v24 = 2082;
-      v25 = "";
-      v26 = 2114;
-      v27 = v9;
-      v28 = 2113;
-      v29 = v11;
+      v22 = 0;
+      v23 = 2082;
+      v24 = "";
+      v25 = 2114;
+      v26 = v9;
+      v27 = 2113;
+      v28 = v11;
       _os_signpost_emit_with_name_impl(&dword_258FE9000, v8, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Could not save changes to store", "{msg%{public}.0s:Could not save changes to store, error:%{public, location:escape_only}@, Store MO:%{private, location:escape_only}@}", buf, 0x26u);
     }
 
-    [(ULStore *)self _handleDatabaseError:v17[5]];
-    v12 = v17[5] == 0;
+    [(ULStore *)self _handleDatabaseError:v16[5]];
+    v12 = v16[5] == 0;
   }
 
   else
@@ -101,9 +102,8 @@
     v12 = 1;
   }
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v15, 8);
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -208,48 +208,48 @@ void __19__ULStore_resetMOC__block_invoke(uint64_t a1)
 
 - (id)fetchManagedObjectsWithEntityName:(id)name byAndPredicates:(id)predicates sortDescriptors:(id)descriptors andLimit:(unint64_t)limit returnObjectsAsFaults:(BOOL)faults withManagedObjectContext:(id)context
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   predicatesCopy = predicates;
   descriptorsCopy = descriptors;
   contextCopy = context;
-  v62 = 0;
-  v63 = &v62;
-  v64 = 0x3032000000;
-  v65 = __Block_byref_object_copy__24;
-  v66 = __Block_byref_object_dispose__24;
-  v67 = 0;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x3032000000;
-  v59 = __Block_byref_object_copy__24;
-  v60 = __Block_byref_object_dispose__24;
   v61 = 0;
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x3032000000;
-  v53 = __Block_byref_object_copy__24;
-  v54 = __Block_byref_object_dispose__24;
+  v62 = &v61;
+  v63 = 0x3032000000;
+  v64 = __Block_byref_object_copy__24;
+  v65 = __Block_byref_object_dispose__24;
+  v66 = 0;
   v55 = 0;
-  v37 = MEMORY[0x277D85DD0];
-  v38 = 3221225472;
-  v39 = __133__ULStore_fetchManagedObjectsWithEntityName_byAndPredicates_sortDescriptors_andLimit_returnObjectsAsFaults_withManagedObjectContext___block_invoke;
-  v40 = &unk_2798D4930;
-  v45 = &v50;
+  v56 = &v55;
+  v57 = 0x3032000000;
+  v58 = __Block_byref_object_copy__24;
+  v59 = __Block_byref_object_dispose__24;
+  v60 = 0;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x3032000000;
+  v52 = __Block_byref_object_copy__24;
+  v53 = __Block_byref_object_dispose__24;
+  v54 = 0;
+  v36 = MEMORY[0x277D85DD0];
+  v37 = 3221225472;
+  v38 = __133__ULStore_fetchManagedObjectsWithEntityName_byAndPredicates_sortDescriptors_andLimit_returnObjectsAsFaults_withManagedObjectContext___block_invoke;
+  v39 = &unk_2798D4930;
+  v44 = &v49;
   v18 = nameCopy;
-  v41 = v18;
-  v36 = predicatesCopy;
-  v42 = v36;
+  v40 = v18;
+  v35 = predicatesCopy;
+  v41 = v35;
   v19 = descriptorsCopy;
   limitCopy = limit;
   faultsCopy = faults;
-  v43 = v19;
-  v46 = &v56;
+  v42 = v19;
+  v45 = &v55;
   v20 = contextCopy;
-  v44 = v20;
-  v47 = &v62;
-  [v20 performBlockAndWait:&v37];
-  if (v63[5])
+  v43 = v20;
+  v46 = &v61;
+  [v20 performBlockAndWait:&v36];
+  if (v62[5])
   {
     if (onceToken_MicroLocation_Default != -1)
     {
@@ -260,19 +260,19 @@ void __19__ULStore_resetMOC__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
     {
       v22 = v18;
-      v23 = v63[5];
+      v23 = v62[5];
       mOClass = [objc_opt_class() MOClass];
       v25 = NSStringFromClass(mOClass);
-      v26 = v51[5];
+      v26 = v50[5];
       buf = 68289795;
-      v69 = 2082;
-      v70 = "";
-      v71 = 2114;
-      v72 = v23;
-      v73 = 2113;
-      v74 = v25;
-      v75 = 2113;
-      v76 = v26;
+      v68 = 2082;
+      v69 = "";
+      v70 = 2114;
+      v71 = v23;
+      v72 = 2113;
+      v73 = v25;
+      v74 = 2113;
+      v75 = v26;
       _os_log_impl(&dword_258FE9000, v21, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Could not perform fetch request to store, error:%{public, location:escape_only}@, Store MO:%{private, location:escape_only}@, fetchRequest:%{private, location:escape_only}@}", &buf, 0x30u);
 
       v18 = v22;
@@ -287,34 +287,33 @@ void __19__ULStore_resetMOC__block_invoke(uint64_t a1)
     if (os_signpost_enabled(v27))
     {
       v28 = v18;
-      v29 = v63[5];
+      v29 = v62[5];
       mOClass2 = [objc_opt_class() MOClass];
       v31 = NSStringFromClass(mOClass2);
-      v32 = v51[5];
+      v32 = v50[5];
       buf = 68289795;
-      v69 = 2082;
-      v70 = "";
-      v71 = 2114;
-      v72 = v29;
-      v73 = 2113;
-      v74 = v31;
-      v75 = 2113;
-      v76 = v32;
+      v68 = 2082;
+      v69 = "";
+      v70 = 2114;
+      v71 = v29;
+      v72 = 2113;
+      v73 = v31;
+      v74 = 2113;
+      v75 = v32;
       _os_signpost_emit_with_name_impl(&dword_258FE9000, v27, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Could not perform fetch request to store", "{msg%{public}.0s:Could not perform fetch request to store, error:%{public, location:escape_only}@, Store MO:%{private, location:escape_only}@, fetchRequest:%{private, location:escape_only}@}", &buf, 0x30u);
 
       v18 = v28;
     }
 
-    [(ULStore *)self _handleDatabaseError:v63[5]];
+    [(ULStore *)self _handleDatabaseError:v62[5]];
   }
 
-  v33 = v57[5];
+  v33 = v56[5];
 
-  _Block_object_dispose(&v50, 8);
-  _Block_object_dispose(&v56, 8);
+  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(&v55, 8);
 
-  _Block_object_dispose(&v62, 8);
-  v34 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v61, 8);
 
   return v33;
 }
@@ -478,41 +477,41 @@ void __117__ULStore_batchTransferManagedObjectsWithEntityName_byAndPredicates_so
 
 void __123__ULStore_fetchManagedObjectsForEntityName_propertiesToFetch_propertiesToGroupBy_byAndPredicates_sortDescriptors_andLimit___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v14 = [*(a1 + 32) mutableCopy];
-  if (([v14 containsObject:@"objectID"] & 1) == 0)
+  v23 = *MEMORY[0x277D85DE8];
+  v13 = [*(a1 + 32) mutableCopy];
+  if (([v13 containsObject:@"objectID"] & 1) == 0)
   {
-    [v14 addObject:@"objectID"];
+    [v13 addObject:@"objectID"];
   }
 
-  LOBYTE(v13) = 0;
-  [*(a1 + 40) fetchPropertiesForEntityName:*(a1 + 48) propertiesToFetch:v14 propertiesToGroupBy:*(a1 + 56) distinctResults:1 byAndPredicates:*(a1 + 64) sortDescriptors:*(a1 + 72) andLimit:*(a1 + 88) resetContext:v13];
+  LOBYTE(v12) = 0;
+  [*(a1 + 40) fetchPropertiesForEntityName:*(a1 + 48) propertiesToFetch:v13 propertiesToGroupBy:*(a1 + 56) distinctResults:1 byAndPredicates:*(a1 + 64) sortDescriptors:*(a1 + 72) andLimit:*(a1 + 88) resetContext:v12];
+  v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  obj = v18 = 0u;
-  v2 = [obj countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v16 = 0u;
+  obj = v17 = 0u;
+  v2 = [obj countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v2)
   {
     v3 = 0;
-    v4 = *v18;
+    v4 = *v17;
     while (2)
     {
       v5 = 0;
       v6 = v3;
       do
       {
-        if (*v18 != v4)
+        if (*v17 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * v5);
+        v7 = *(*(&v16 + 1) + 8 * v5);
         v8 = [*(a1 + 40) managedObjectContext];
         v9 = [v7 objectForKeyedSubscript:@"objectID"];
-        v16 = v6;
-        v10 = [v8 existingObjectWithID:v9 error:&v16];
-        v3 = v16;
+        v15 = v6;
+        v10 = [v8 existingObjectWithID:v9 error:&v15];
+        v3 = v15;
 
         if (v10)
         {
@@ -530,7 +529,7 @@ void __123__ULStore_fetchManagedObjectsForEntityName_propertiesToFetch_propertie
           if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v22 = v3;
+            v21 = v3;
             _os_log_impl(&dword_258FE9000, v11, OS_LOG_TYPE_ERROR, "Conversion of ojbectID to managed object failed with error: %@", buf, 0xCu);
           }
 
@@ -543,7 +542,7 @@ void __123__ULStore_fetchManagedObjectsForEntityName_propertiesToFetch_propertie
       }
 
       while (v2 != v5);
-      v2 = [obj countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v2 = [obj countByEnumeratingWithState:&v16 objects:v22 count:16];
       if (v2)
       {
         continue;
@@ -554,61 +553,59 @@ void __123__ULStore_fetchManagedObjectsForEntityName_propertiesToFetch_propertie
 
 LABEL_19:
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)fetchPropertiesForEntityName:(id)name propertiesToFetch:(id)fetch propertiesToGroupBy:(id)by distinctResults:(BOOL)results byAndPredicates:(id)predicates sortDescriptors:(id)descriptors andLimit:(unint64_t)limit resetContext:(BOOL)self0
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   fetchCopy = fetch;
   byCopy = by;
   predicatesCopy = predicates;
-  v65 = 0;
-  v66 = &v65;
-  v67 = 0x3032000000;
-  v68 = __Block_byref_object_copy__24;
-  v69 = __Block_byref_object_dispose__24;
-  v70 = 0;
-  v59 = 0;
-  v60 = &v59;
-  v61 = 0x3032000000;
-  v62 = __Block_byref_object_copy__24;
-  v63 = __Block_byref_object_dispose__24;
   v64 = 0;
-  v53 = 0;
-  v54 = &v53;
-  v55 = 0x3032000000;
-  v56 = __Block_byref_object_copy__24;
-  v57 = __Block_byref_object_dispose__24;
+  v65 = &v64;
+  v66 = 0x3032000000;
+  v67 = __Block_byref_object_copy__24;
+  v68 = __Block_byref_object_dispose__24;
+  v69 = 0;
   v58 = 0;
+  v59 = &v58;
+  v60 = 0x3032000000;
+  v61 = __Block_byref_object_copy__24;
+  v62 = __Block_byref_object_dispose__24;
+  v63 = 0;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x3032000000;
+  v55 = __Block_byref_object_copy__24;
+  v56 = __Block_byref_object_dispose__24;
+  v57 = 0;
   descriptorsCopy = descriptors;
   managedObjectContext = [(ULStore *)self managedObjectContext];
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __148__ULStore_fetchPropertiesForEntityName_propertiesToFetch_propertiesToGroupBy_distinctResults_byAndPredicates_sortDescriptors_andLimit_resetContext___block_invoke;
-  v40[3] = &unk_2798D49A8;
-  v47 = &v53;
-  v38 = nameCopy;
-  v41 = v38;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __148__ULStore_fetchPropertiesForEntityName_propertiesToFetch_propertiesToGroupBy_distinctResults_byAndPredicates_sortDescriptors_andLimit_resetContext___block_invoke;
+  v39[3] = &unk_2798D49A8;
+  v46 = &v52;
+  v37 = nameCopy;
+  v40 = v37;
   v20 = predicatesCopy;
-  v42 = v20;
+  v41 = v20;
   v21 = descriptorsCopy;
-  v43 = v21;
+  v42 = v21;
   limitCopy = limit;
   v22 = fetchCopy;
-  v44 = v22;
+  v43 = v22;
   v23 = byCopy;
   resultsCopy = results;
-  v45 = v23;
+  v44 = v23;
   selfCopy = self;
-  v48 = &v59;
-  v49 = &v65;
+  v47 = &v58;
+  v48 = &v64;
   contextCopy = context;
-  [managedObjectContext performBlockAndWait:v40];
+  [managedObjectContext performBlockAndWait:v39];
 
-  if (v66[5])
+  if (v65[5])
   {
     if (onceToken_MicroLocation_Default != -1)
     {
@@ -618,19 +615,19 @@ LABEL_19:
     v24 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
     {
-      v25 = v66[5];
+      v25 = v65[5];
       mOClass = [objc_opt_class() MOClass];
       v27 = NSStringFromClass(mOClass);
-      v28 = v54[5];
+      v28 = v53[5];
       buf = 68289795;
-      v72 = 2082;
-      v73 = "";
-      v74 = 2114;
-      v75 = v25;
-      v76 = 2113;
-      v77 = v27;
-      v78 = 2113;
-      v79 = v28;
+      v71 = 2082;
+      v72 = "";
+      v73 = 2114;
+      v74 = v25;
+      v75 = 2113;
+      v76 = v27;
+      v77 = 2113;
+      v78 = v28;
       _os_log_impl(&dword_258FE9000, v24, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Could not perform fetch request to store, error:%{public, location:escape_only}@, Store MO:%{private, location:escape_only}@, fetchRequest:%{private, location:escape_only}@}", &buf, 0x30u);
     }
 
@@ -642,32 +639,31 @@ LABEL_19:
     v29 = logObject_MicroLocation_Default;
     if (os_signpost_enabled(v29))
     {
-      v30 = v66[5];
+      v30 = v65[5];
       mOClass2 = [objc_opt_class() MOClass];
       v32 = NSStringFromClass(mOClass2);
-      v33 = v54[5];
+      v33 = v53[5];
       buf = 68289795;
-      v72 = 2082;
-      v73 = "";
-      v74 = 2114;
-      v75 = v30;
-      v76 = 2113;
-      v77 = v32;
-      v78 = 2113;
-      v79 = v33;
+      v71 = 2082;
+      v72 = "";
+      v73 = 2114;
+      v74 = v30;
+      v75 = 2113;
+      v76 = v32;
+      v77 = 2113;
+      v78 = v33;
       _os_signpost_emit_with_name_impl(&dword_258FE9000, v29, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Could not perform fetch request to store", "{msg%{public}.0s:Could not perform fetch request to store, error:%{public, location:escape_only}@, Store MO:%{private, location:escape_only}@, fetchRequest:%{private, location:escape_only}@}", &buf, 0x30u);
     }
 
-    [(ULStore *)self _handleDatabaseError:v66[5]];
+    [(ULStore *)self _handleDatabaseError:v65[5]];
   }
 
-  v34 = v60[5];
+  v34 = v59[5];
 
-  _Block_object_dispose(&v53, 8);
-  _Block_object_dispose(&v59, 8);
+  _Block_object_dispose(&v52, 8);
+  _Block_object_dispose(&v58, 8);
 
-  _Block_object_dispose(&v65, 8);
-  v35 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v64, 8);
 
   return v34;
 }
@@ -705,47 +701,65 @@ void __148__ULStore_fetchPropertiesForEntityName_propertiesToFetch_propertiesToG
   }
 }
 
+- (id)fetchPropertyForEntityName:(id)name propertyToFetch:(id)fetch distinctResults:(BOOL)results byAndPredicates:(id)predicates sortDescriptors:(id)descriptors andLimit:(unint64_t)limit
+{
+  resultsCopy = results;
+  v24[1] = *MEMORY[0x277D85DE8];
+  nameCopy = name;
+  fetchCopy = fetch;
+  predicatesCopy = predicates;
+  descriptorsCopy = descriptors;
+  v24[0] = fetchCopy;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  LOBYTE(v23) = 1;
+  v19 = [(ULStore *)self fetchPropertiesForEntityName:nameCopy propertiesToFetch:v18 propertiesToGroupBy:0 distinctResults:resultsCopy byAndPredicates:predicatesCopy sortDescriptors:descriptorsCopy andLimit:limit resetContext:v23];
+
+  v21 = ULDBUtils::getPropertyAsArray(v19, fetchCopy, v20);
+
+  return v21;
+}
+
 - (id)countManagedObjectsWithEntityName:(id)name byAndPredicates:(id)predicates sortDescriptors:(id)descriptors andLimit:(unint64_t)limit
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   predicatesCopy = predicates;
   descriptorsCopy = descriptors;
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x3032000000;
-  v52 = __Block_byref_object_copy__24;
-  v53 = __Block_byref_object_dispose__24;
-  v54 = 0;
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x3032000000;
-  v46 = __Block_byref_object_copy__24;
-  v47 = __Block_byref_object_dispose__24;
   v48 = 0;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
+  v49 = &v48;
+  v50 = 0x3032000000;
+  v51 = __Block_byref_object_copy__24;
+  v52 = __Block_byref_object_dispose__24;
+  v53 = 0;
   v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy__24;
+  v46 = __Block_byref_object_dispose__24;
+  v47 = 0;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
   managedObjectContext = [(ULStore *)self managedObjectContext];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __86__ULStore_countManagedObjectsWithEntityName_byAndPredicates_sortDescriptors_andLimit___block_invoke;
-  v30[3] = &unk_2798D49D0;
-  v35 = &v43;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __86__ULStore_countManagedObjectsWithEntityName_byAndPredicates_sortDescriptors_andLimit___block_invoke;
+  v29[3] = &unk_2798D49D0;
+  v34 = &v42;
   v14 = nameCopy;
-  v31 = v14;
+  v30 = v14;
   v15 = predicatesCopy;
-  v32 = v15;
+  v31 = v15;
   v16 = descriptorsCopy;
-  v37 = &v49;
+  v36 = &v48;
   limitCopy = limit;
-  v33 = v16;
+  v32 = v16;
   selfCopy = self;
-  v36 = &v39;
-  [managedObjectContext performBlockAndWait:v30];
+  v35 = &v38;
+  [managedObjectContext performBlockAndWait:v29];
 
-  if (v50[5])
+  if (v49[5])
   {
     if (onceToken_MicroLocation_Default != -1)
     {
@@ -755,19 +769,19 @@ void __148__ULStore_fetchPropertiesForEntityName_propertiesToFetch_propertiesToG
     v17 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
-      v18 = v50[5];
+      v18 = v49[5];
       mOClass = [objc_opt_class() MOClass];
       v20 = NSStringFromClass(mOClass);
-      v21 = v44[5];
+      v21 = v43[5];
       buf = 68289795;
-      v56 = 2082;
-      v57 = "";
-      v58 = 2114;
-      v59 = v18;
-      v60 = 2113;
-      v61 = v20;
-      v62 = 2113;
-      v63 = v21;
+      v55 = 2082;
+      v56 = "";
+      v57 = 2114;
+      v58 = v18;
+      v59 = 2113;
+      v60 = v20;
+      v61 = 2113;
+      v62 = v21;
       _os_log_impl(&dword_258FE9000, v17, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Could not perform count fetch request to store, error:%{public, location:escape_only}@, Store MO:%{private, location:escape_only}@, fetchRequest:%{private, location:escape_only}@}", &buf, 0x30u);
     }
 
@@ -779,26 +793,26 @@ void __148__ULStore_fetchPropertiesForEntityName_propertiesToFetch_propertiesToG
     v22 = logObject_MicroLocation_Default;
     if (os_signpost_enabled(v22))
     {
-      v23 = v50[5];
+      v23 = v49[5];
       mOClass2 = [objc_opt_class() MOClass];
       v25 = NSStringFromClass(mOClass2);
-      v26 = v44[5];
+      v26 = v43[5];
       buf = 68289795;
-      v56 = 2082;
-      v57 = "";
-      v58 = 2114;
-      v59 = v23;
-      v60 = 2113;
-      v61 = v25;
-      v62 = 2113;
-      v63 = v26;
+      v55 = 2082;
+      v56 = "";
+      v57 = 2114;
+      v58 = v23;
+      v59 = 2113;
+      v60 = v25;
+      v61 = 2113;
+      v62 = v26;
       _os_signpost_emit_with_name_impl(&dword_258FE9000, v22, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Could not perform count fetch request to store", "{msg%{public}.0s:Could not perform count fetch request to store, error:%{public, location:escape_only}@, Store MO:%{private, location:escape_only}@, fetchRequest:%{private, location:escape_only}@}", &buf, 0x30u);
     }
 
-    [(ULStore *)self _handleDatabaseError:v50[5]];
+    [(ULStore *)self _handleDatabaseError:v49[5]];
   }
 
-  if (v40[3] == 0x7FFFFFFFFFFFFFFFLL)
+  if (v39[3] == 0x7FFFFFFFFFFFFFFFLL)
   {
     v27 = 0;
   }
@@ -808,11 +822,10 @@ void __148__ULStore_fetchPropertiesForEntityName_propertiesToFetch_propertiesToG
     v27 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
   }
 
-  _Block_object_dispose(&v39, 8);
-  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v38, 8);
+  _Block_object_dispose(&v42, 8);
 
-  _Block_object_dispose(&v49, 8);
-  v28 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v48, 8);
 
   return v27;
 }
@@ -843,40 +856,40 @@ void __86__ULStore_countManagedObjectsWithEntityName_byAndPredicates_sortDescrip
 
 - (BOOL)batchDeleteObjectsWithEntityName:(id)name byAndPredicates:(id)predicates sortDescriptors:(id)descriptors andLimit:(unint64_t)limit
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   predicatesCopy = predicates;
   descriptorsCopy = descriptors;
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x3032000000;
-  v47 = __Block_byref_object_copy__24;
-  v48 = __Block_byref_object_dispose__24;
-  v49 = 0;
-  v38 = 0;
-  v39 = &v38;
-  v40 = 0x3032000000;
-  v41 = __Block_byref_object_copy__24;
-  v42 = __Block_byref_object_dispose__24;
   v43 = 0;
+  v44 = &v43;
+  v45 = 0x3032000000;
+  v46 = __Block_byref_object_copy__24;
+  v47 = __Block_byref_object_dispose__24;
+  v48 = 0;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3032000000;
+  v40 = __Block_byref_object_copy__24;
+  v41 = __Block_byref_object_dispose__24;
+  v42 = 0;
   managedObjectContext = [(ULStore *)self managedObjectContext];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __85__ULStore_batchDeleteObjectsWithEntityName_byAndPredicates_sortDescriptors_andLimit___block_invoke;
-  v30[3] = &unk_2798D49F8;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __85__ULStore_batchDeleteObjectsWithEntityName_byAndPredicates_sortDescriptors_andLimit___block_invoke;
+  v29[3] = &unk_2798D49F8;
   v14 = nameCopy;
-  v31 = v14;
+  v30 = v14;
   v15 = predicatesCopy;
-  v32 = v15;
+  v31 = v15;
   v16 = descriptorsCopy;
-  v36 = &v44;
+  v35 = &v43;
   limitCopy = limit;
-  v33 = v16;
+  v32 = v16;
   selfCopy = self;
-  v35 = &v38;
-  [managedObjectContext performBlockAndWait:v30];
+  v34 = &v37;
+  [managedObjectContext performBlockAndWait:v29];
 
-  if (v45[5])
+  if (v44[5])
   {
     if (onceToken_MicroLocation_Default != -1)
     {
@@ -886,19 +899,19 @@ void __86__ULStore_countManagedObjectsWithEntityName_byAndPredicates_sortDescrip
     v17 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
-      v18 = v45[5];
+      v18 = v44[5];
       mOClass = [objc_opt_class() MOClass];
       v20 = NSStringFromClass(mOClass);
-      v21 = v39[5];
+      v21 = v38[5];
       buf = 68289795;
-      v51 = 2082;
-      v52 = "";
-      v53 = 2114;
-      v54 = v18;
-      v55 = 2113;
-      v56 = v20;
-      v57 = 2113;
-      v58 = v21;
+      v50 = 2082;
+      v51 = "";
+      v52 = 2114;
+      v53 = v18;
+      v54 = 2113;
+      v55 = v20;
+      v56 = 2113;
+      v57 = v21;
       _os_log_impl(&dword_258FE9000, v17, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Could not perform batch delete request to store, error:%{public, location:escape_only}@, Store MO:%{private, location:escape_only}@, batchDeleteRequest:%{private, location:escape_only}@}", &buf, 0x30u);
     }
 
@@ -910,24 +923,24 @@ void __86__ULStore_countManagedObjectsWithEntityName_byAndPredicates_sortDescrip
     v22 = logObject_MicroLocation_Default;
     if (os_signpost_enabled(v22))
     {
-      v23 = v45[5];
+      v23 = v44[5];
       mOClass2 = [objc_opt_class() MOClass];
       v25 = NSStringFromClass(mOClass2);
-      v26 = v39[5];
+      v26 = v38[5];
       buf = 68289795;
-      v51 = 2082;
-      v52 = "";
-      v53 = 2114;
-      v54 = v23;
-      v55 = 2113;
-      v56 = v25;
-      v57 = 2113;
-      v58 = v26;
+      v50 = 2082;
+      v51 = "";
+      v52 = 2114;
+      v53 = v23;
+      v54 = 2113;
+      v55 = v25;
+      v56 = 2113;
+      v57 = v26;
       _os_signpost_emit_with_name_impl(&dword_258FE9000, v22, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Could not perform batch delete request to store", "{msg%{public}.0s:Could not perform batch delete request to store, error:%{public, location:escape_only}@, Store MO:%{private, location:escape_only}@, batchDeleteRequest:%{private, location:escape_only}@}", &buf, 0x30u);
     }
 
-    [(ULStore *)self _handleDatabaseError:v45[5]];
-    v27 = v45[5] == 0;
+    [(ULStore *)self _handleDatabaseError:v44[5]];
+    v27 = v44[5] == 0;
   }
 
   else
@@ -935,10 +948,9 @@ void __86__ULStore_countManagedObjectsWithEntityName_byAndPredicates_sortDescrip
     v27 = 1;
   }
 
-  _Block_object_dispose(&v38, 8);
-  _Block_object_dispose(&v44, 8);
+  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v43, 8);
 
-  v28 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
@@ -975,7 +987,7 @@ void __85__ULStore_batchDeleteObjectsWithEntityName_byAndPredicates_sortDescript
 
 - (BOOL)deleteAllRecordsForEntityName:(id)name
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if (onceToken_MicroLocation_Default != -1)
   {
@@ -985,9 +997,9 @@ void __85__ULStore_batchDeleteObjectsWithEntityName_byAndPredicates_sortDescript
   v5 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = 136315138;
+    v23 = 136315138;
     uTF8String = [nameCopy UTF8String];
-    _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "Deleting all records for entity: %s", &v24, 0xCu);
+    _os_log_impl(&dword_258FE9000, v5, OS_LOG_TYPE_DEFAULT, "Deleting all records for entity: %s", &v23, 0xCu);
   }
 
   v6 = +[ULDefaultsSingleton shared];
@@ -1044,13 +1056,12 @@ void __85__ULStore_batchDeleteObjectsWithEntityName_byAndPredicates_sortDescript
     LOBYTE(v20) = [(ULStore *)self batchDeleteObjectsWithEntityName:nameCopy byAndPredicates:0 sortDescriptors:0 andLimit:0];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (BOOL)deleteOldestRecordsForEntityName:(id)name sortProperty:(id)property maxRecordsToKeep:(unsigned int)keep
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   propertyCopy = property;
   v10 = [(ULStore *)self countAllRecordsForEntityName:nameCopy];
@@ -1093,14 +1104,14 @@ void __85__ULStore_batchDeleteObjectsWithEntityName_byAndPredicates_sortDescript
       {
         *buf = 136315394;
         uTF8String = [nameCopy UTF8String];
-        v29 = 1024;
-        v30 = v20;
+        v28 = 1024;
+        v29 = v20;
         _os_log_impl(&dword_258FE9000, v21, OS_LOG_TYPE_DEFAULT, "Freeing up database space for entity: %s, Num Records to delete: %d", buf, 0x12u);
       }
 
       v22 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:propertyCopy ascending:1];
-      v26 = v22;
-      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+      v25 = v22;
+      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
       v18 = [(ULStore *)self batchDeleteObjectsWithEntityName:nameCopy byAndPredicates:0 sortDescriptors:v23 andLimit:v20];
     }
   }
@@ -1110,13 +1121,12 @@ void __85__ULStore_batchDeleteObjectsWithEntityName_byAndPredicates_sortDescript
     v18 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (BOOL)deleteRecordsForEntityName:(id)name sortProperty:(id)property olderThan:(double)than orNewerThan:(double)newerThan
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   propertyCopy = property;
   if (onceToken_MicroLocation_Default != -1)
@@ -1140,45 +1150,44 @@ void __85__ULStore_batchDeleteObjectsWithEntityName_byAndPredicates_sortDescript
   [array addObject:v17];
 
   v18 = [(ULStore *)self batchDeleteObjectsWithEntityName:nameCopy byAndPredicates:array sortDescriptors:0 andLimit:0];
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
 - (BOOL)batchUpdateObjectsWithEntityName:(id)name predicate:(id)predicate propertiesToUpdate:(id)update
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   predicateCopy = predicate;
   updateCopy = update;
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x3032000000;
-  v44 = __Block_byref_object_copy__24;
-  v45 = __Block_byref_object_dispose__24;
-  v46 = 0;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__24;
-  v39 = __Block_byref_object_dispose__24;
   v40 = 0;
+  v41 = &v40;
+  v42 = 0x3032000000;
+  v43 = __Block_byref_object_copy__24;
+  v44 = __Block_byref_object_dispose__24;
+  v45 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x3032000000;
+  v37 = __Block_byref_object_copy__24;
+  v38 = __Block_byref_object_dispose__24;
+  v39 = 0;
   managedObjectContext = [(ULStore *)self managedObjectContext];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __73__ULStore_batchUpdateObjectsWithEntityName_predicate_propertiesToUpdate___block_invoke;
-  v28[3] = &unk_2798D4A20;
-  v33 = &v35;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __73__ULStore_batchUpdateObjectsWithEntityName_predicate_propertiesToUpdate___block_invoke;
+  v27[3] = &unk_2798D4A20;
+  v32 = &v34;
   v12 = nameCopy;
-  v29 = v12;
+  v28 = v12;
   v13 = predicateCopy;
-  v30 = v13;
+  v29 = v13;
   v14 = updateCopy;
-  v31 = v14;
+  v30 = v14;
   selfCopy = self;
-  v34 = &v41;
-  [managedObjectContext performBlockAndWait:v28];
+  v33 = &v40;
+  [managedObjectContext performBlockAndWait:v27];
 
-  if (v42[5])
+  if (v41[5])
   {
     if (onceToken_MicroLocation_Default != -1)
     {
@@ -1188,19 +1197,19 @@ void __85__ULStore_batchDeleteObjectsWithEntityName_byAndPredicates_sortDescript
     v15 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
-      v16 = v42[5];
+      v16 = v41[5];
       mOClass = [objc_opt_class() MOClass];
       v18 = NSStringFromClass(mOClass);
-      v19 = v36[5];
+      v19 = v35[5];
       buf = 68289795;
-      v48 = 2082;
-      v49 = "";
-      v50 = 2114;
-      v51 = v16;
-      v52 = 2113;
-      v53 = v18;
-      v54 = 2113;
-      v55 = v19;
+      v47 = 2082;
+      v48 = "";
+      v49 = 2114;
+      v50 = v16;
+      v51 = 2113;
+      v52 = v18;
+      v53 = 2113;
+      v54 = v19;
       _os_log_impl(&dword_258FE9000, v15, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Could not perform batch update request to store, error:%{public, location:escape_only}@, Store MO:%{private, location:escape_only}@, updateRequest:%{private, location:escape_only}@}", &buf, 0x30u);
     }
 
@@ -1212,24 +1221,24 @@ void __85__ULStore_batchDeleteObjectsWithEntityName_byAndPredicates_sortDescript
     v20 = logObject_MicroLocation_Default;
     if (os_signpost_enabled(v20))
     {
-      v21 = v42[5];
+      v21 = v41[5];
       mOClass2 = [objc_opt_class() MOClass];
       v23 = NSStringFromClass(mOClass2);
-      v24 = v36[5];
+      v24 = v35[5];
       buf = 68289795;
-      v48 = 2082;
-      v49 = "";
-      v50 = 2114;
-      v51 = v21;
-      v52 = 2113;
-      v53 = v23;
-      v54 = 2113;
-      v55 = v24;
+      v47 = 2082;
+      v48 = "";
+      v49 = 2114;
+      v50 = v21;
+      v51 = 2113;
+      v52 = v23;
+      v53 = 2113;
+      v54 = v24;
       _os_signpost_emit_with_name_impl(&dword_258FE9000, v20, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Could not perform batch update request to store", "{msg%{public}.0s:Could not perform batch update request to store, error:%{public, location:escape_only}@, Store MO:%{private, location:escape_only}@, updateRequest:%{private, location:escape_only}@}", &buf, 0x30u);
     }
 
-    [(ULStore *)self _handleDatabaseError:v42[5]];
-    v25 = v42[5] == 0;
+    [(ULStore *)self _handleDatabaseError:v41[5]];
+    v25 = v41[5] == 0;
   }
 
   else
@@ -1237,10 +1246,9 @@ void __85__ULStore_batchDeleteObjectsWithEntityName_byAndPredicates_sortDescript
     v25 = 1;
   }
 
-  _Block_object_dispose(&v35, 8);
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v40, 8);
 
-  v26 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -1304,48 +1312,48 @@ void __73__ULStore_batchUpdateObjectsWithEntityName_predicate_propertiesToUpdate
 
 - (id)_batchFetchManagedObjectsWithEntityName:(id)name byAndPredicates:(id)predicates sortDescriptors:(id)descriptors batchSize:(unint64_t)size limit:(unint64_t)limit error:(id *)error
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   predicatesCopy = predicates;
-  v56 = 0;
-  v57 = &v56;
-  v58 = 0x3032000000;
-  v59 = __Block_byref_object_copy__24;
-  v60 = __Block_byref_object_dispose__24;
-  v61 = 0;
-  v50 = 0;
-  v51 = &v50;
-  v52 = 0x3032000000;
-  v53 = __Block_byref_object_copy__24;
-  v54 = __Block_byref_object_dispose__24;
   v55 = 0;
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x3032000000;
-  v47 = __Block_byref_object_copy__24;
-  v48 = __Block_byref_object_dispose__24;
+  v56 = &v55;
+  v57 = 0x3032000000;
+  v58 = __Block_byref_object_copy__24;
+  v59 = __Block_byref_object_dispose__24;
+  v60 = 0;
   v49 = 0;
+  v50 = &v49;
+  v51 = 0x3032000000;
+  v52 = __Block_byref_object_copy__24;
+  v53 = __Block_byref_object_dispose__24;
+  v54 = 0;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x3032000000;
+  v46 = __Block_byref_object_copy__24;
+  v47 = __Block_byref_object_dispose__24;
+  v48 = 0;
   descriptorsCopy = descriptors;
   managedObjectContext = [(ULStore *)self managedObjectContext];
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __105__ULStore__batchFetchManagedObjectsWithEntityName_byAndPredicates_sortDescriptors_batchSize_limit_error___block_invoke;
-  v34[3] = &unk_2798D4A48;
-  v39 = &v44;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __105__ULStore__batchFetchManagedObjectsWithEntityName_byAndPredicates_sortDescriptors_batchSize_limit_error___block_invoke;
+  v33[3] = &unk_2798D4A48;
+  v38 = &v43;
   v16 = nameCopy;
-  v35 = v16;
+  v34 = v16;
   v17 = predicatesCopy;
-  v36 = v17;
+  v35 = v17;
   v18 = descriptorsCopy;
   limitCopy = limit;
   sizeCopy = size;
-  v37 = v18;
+  v36 = v18;
   selfCopy = self;
-  v40 = &v50;
-  v41 = &v56;
-  [managedObjectContext performBlockAndWait:v34];
+  v39 = &v49;
+  v40 = &v55;
+  [managedObjectContext performBlockAndWait:v33];
 
-  if (v57[5])
+  if (v56[5])
   {
     if (onceToken_MicroLocation_Default != -1)
     {
@@ -1355,19 +1363,19 @@ void __73__ULStore_batchUpdateObjectsWithEntityName_predicate_propertiesToUpdate
     v19 = logObject_MicroLocation_Default;
     if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
     {
-      v20 = v57[5];
+      v20 = v56[5];
       mOClass = [objc_opt_class() MOClass];
       v22 = NSStringFromClass(mOClass);
-      v23 = v45[5];
+      v23 = v44[5];
       buf = 68289795;
-      v63 = 2082;
-      v64 = "";
-      v65 = 2114;
-      v66 = v20;
-      v67 = 2113;
-      v68 = v22;
-      v69 = 2113;
-      v70 = v23;
+      v62 = 2082;
+      v63 = "";
+      v64 = 2114;
+      v65 = v20;
+      v66 = 2113;
+      v67 = v22;
+      v68 = 2113;
+      v69 = v23;
       _os_log_impl(&dword_258FE9000, v19, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:Could not perform batch fetch request to store, error:%{public, location:escape_only}@, Store MO:%{private, location:escape_only}@, fetchRequest:%{private, location:escape_only}@}", &buf, 0x30u);
     }
 
@@ -1379,37 +1387,36 @@ void __73__ULStore_batchUpdateObjectsWithEntityName_predicate_propertiesToUpdate
     v24 = logObject_MicroLocation_Default;
     if (os_signpost_enabled(v24))
     {
-      v25 = v57[5];
+      v25 = v56[5];
       mOClass2 = [objc_opt_class() MOClass];
       v27 = NSStringFromClass(mOClass2);
-      v28 = v45[5];
+      v28 = v44[5];
       buf = 68289795;
-      v63 = 2082;
-      v64 = "";
-      v65 = 2114;
-      v66 = v25;
-      v67 = 2113;
-      v68 = v27;
-      v69 = 2113;
-      v70 = v28;
+      v62 = 2082;
+      v63 = "";
+      v64 = 2114;
+      v65 = v25;
+      v66 = 2113;
+      v67 = v27;
+      v68 = 2113;
+      v69 = v28;
       _os_signpost_emit_with_name_impl(&dword_258FE9000, v24, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "Could not perform batch fetch request to store", "{msg%{public}.0s:Could not perform batch fetch request to store, error:%{public, location:escape_only}@, Store MO:%{private, location:escape_only}@, fetchRequest:%{private, location:escape_only}@}", &buf, 0x30u);
     }
 
     if (error)
     {
-      *error = v57[5];
+      *error = v56[5];
     }
 
-    [(ULStore *)self _handleDatabaseError:v57[5]];
+    [(ULStore *)self _handleDatabaseError:v56[5]];
   }
 
-  v29 = v51[5];
+  v29 = v50[5];
 
-  _Block_object_dispose(&v44, 8);
-  _Block_object_dispose(&v50, 8);
+  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v49, 8);
 
-  _Block_object_dispose(&v56, 8);
-  v30 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v55, 8);
 
   return v29;
 }
@@ -1466,18 +1473,18 @@ void __105__ULStore__batchFetchManagedObjectsWithEntityName_byAndPredicates_sort
 
 void __55__ULStore__insertFetchedBatchedObjects_usingBatchSize___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) count])
   {
     v2 = [*(a1 + 32) firstObject];
     v3 = [v2 entity];
-    v24 = [v3 name];
+    v23 = [v3 name];
 
     v4 = [*(a1 + 32) count];
     if (v4)
     {
       v5 = 0;
-      v21 = v4;
+      v20 = v4;
       do
       {
         if ((*(*(*(a1 + 48) + 8) + 24) & 1) == 0)
@@ -1485,52 +1492,52 @@ void __55__ULStore__insertFetchedBatchedObjects_usingBatchSize___block_invoke(ui
           break;
         }
 
-        v23 = v5;
+        v22 = v5;
         v6 = *(a1 + 56) + v5;
         if (v6 >= v4)
         {
           v6 = v4;
         }
 
-        v25 = v6;
+        v24 = v6;
         context = objc_autoreleasePoolPush();
-        v7 = v23;
-        if (v23 < v25)
+        v7 = v22;
+        if (v22 < v24)
         {
           do
           {
             v8 = [*(a1 + 32) objectAtIndexedSubscript:v7];
             v9 = MEMORY[0x277CBE408];
             v10 = [*(a1 + 40) managedObjectContext];
-            v11 = [v9 insertNewObjectForEntityForName:v24 inManagedObjectContext:v10];
+            v11 = [v9 insertNewObjectForEntityForName:v23 inManagedObjectContext:v10];
 
             v12 = [v8 entity];
             v13 = [v12 attributesByName];
 
-            v28 = 0u;
-            v29 = 0u;
-            v26 = 0u;
             v27 = 0u;
+            v28 = 0u;
+            v25 = 0u;
+            v26 = 0u;
             v14 = v13;
-            v15 = [v14 countByEnumeratingWithState:&v26 objects:v30 count:16];
+            v15 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
             if (v15)
             {
-              v16 = *v27;
+              v16 = *v26;
               do
               {
                 for (i = 0; i != v15; ++i)
                 {
-                  if (*v27 != v16)
+                  if (*v26 != v16)
                   {
                     objc_enumerationMutation(v14);
                   }
 
-                  v18 = *(*(&v26 + 1) + 8 * i);
+                  v18 = *(*(&v25 + 1) + 8 * i);
                   v19 = [v8 valueForKey:v18];
                   [v11 setValue:v19 forKey:v18];
                 }
 
-                v15 = [v14 countByEnumeratingWithState:&v26 objects:v30 count:16];
+                v15 = [v14 countByEnumeratingWithState:&v25 objects:v29 count:16];
               }
 
               while (v15);
@@ -1539,20 +1546,18 @@ void __55__ULStore__insertFetchedBatchedObjects_usingBatchSize___block_invoke(ui
             ++v7;
           }
 
-          while (v7 != v25);
+          while (v7 != v24);
         }
 
         *(*(*(a1 + 48) + 8) + 24) = [*(a1 + 40) commitChangesToStore];
         objc_autoreleasePoolPop(context);
-        v5 = *(a1 + 56) + v23;
-        v4 = v21;
+        v5 = *(a1 + 56) + v22;
+        v4 = v20;
       }
 
-      while (v5 < v21);
+      while (v5 < v20);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleDatabaseError:(id)error
@@ -1572,18 +1577,18 @@ void __55__ULStore__insertFetchedBatchedObjects_usingBatchSize___block_invoke(ui
 
 - (void)_efficientlyEnumerateManagedObjectsInFetchRequest:(id)request usingManagedObjectContext:(id)context andApplyBlock:(id)block
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   contextCopy = context;
   blockCopy = block;
   context = objc_autoreleasePoolPush();
-  v30 = requestCopy;
-  v36 = 0;
+  v29 = requestCopy;
   v35 = 0;
-  v32 = contextCopy;
-  v33 = [contextCopy executeFetchRequest:requestCopy error:&v35];
-  v31 = v35;
-  if (v31)
+  v34 = 0;
+  v31 = contextCopy;
+  v32 = [contextCopy executeFetchRequest:requestCopy error:&v34];
+  v30 = v34;
+  if (v30)
   {
     if (onceToken_MicroLocation_Default != -1)
     {
@@ -1596,15 +1601,15 @@ void __55__ULStore__insertFetchedBatchedObjects_usingBatchSize___block_invoke(ui
       mOClass = [objc_opt_class() MOClass];
       v12 = NSStringFromClass(mOClass);
       *buf = 68289795;
-      v38 = 0;
-      v39 = 2082;
-      v40 = "";
-      v41 = 2114;
-      v42 = v31;
-      v43 = 2113;
-      v44 = v12;
-      v45 = 2113;
-      v46 = requestCopy;
+      v37 = 0;
+      v38 = 2082;
+      v39 = "";
+      v40 = 2114;
+      v41 = v30;
+      v42 = 2113;
+      v43 = v12;
+      v44 = 2113;
+      v45 = requestCopy;
       _os_log_impl(&dword_258FE9000, v10, OS_LOG_TYPE_FAULT, "{msg%{public}.0s:efficientlyEnumerateManagedObjectsInFetchRequest: error in executeFetchRequest, error:%{public, location:escape_only}@, Store MO:%{private, location:escape_only}@, fetchRequest:%{private, location:escape_only}@}", buf, 0x30u);
     }
 
@@ -1619,26 +1624,26 @@ void __55__ULStore__insertFetchedBatchedObjects_usingBatchSize___block_invoke(ui
       mOClass2 = [objc_opt_class() MOClass];
       v15 = NSStringFromClass(mOClass2);
       *buf = 68289795;
-      v38 = 0;
-      v39 = 2082;
-      v40 = "";
-      v41 = 2114;
-      v42 = v31;
-      v43 = 2113;
-      v44 = v15;
-      v45 = 2113;
-      v46 = requestCopy;
+      v37 = 0;
+      v38 = 2082;
+      v39 = "";
+      v40 = 2114;
+      v41 = v30;
+      v42 = 2113;
+      v43 = v15;
+      v44 = 2113;
+      v45 = requestCopy;
       _os_signpost_emit_with_name_impl(&dword_258FE9000, v13, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "efficientlyEnumerateManagedObjectsInFetchRequest: error in executeFetchRequest", "{msg%{public}.0s:efficientlyEnumerateManagedObjectsInFetchRequest: error in executeFetchRequest, error:%{public, location:escape_only}@, Store MO:%{private, location:escape_only}@, fetchRequest:%{private, location:escape_only}@}", buf, 0x30u);
     }
 
-    [(ULStore *)self _handleDatabaseError:v31];
-    blockCopy[2](blockCopy, 0, &v36);
+    [(ULStore *)self _handleDatabaseError:v30];
+    blockCopy[2](blockCopy, 0, &v35);
   }
 
   else
   {
     fetchBatchSize = [requestCopy fetchBatchSize];
-    v17 = [v33 count];
+    v17 = [v32 count];
     v18 = v17;
     if (v17 / fetchBatchSize * fetchBatchSize == v17)
     {
@@ -1650,7 +1655,7 @@ void __55__ULStore__insertFetchedBatchedObjects_usingBatchSize___block_invoke(ui
       v19 = v17 / fetchBatchSize + 1;
     }
 
-    if (v19 && (v36 & 1) == 0)
+    if (v19 && (v35 & 1) == 0)
     {
       v20 = 0;
       v21 = 0;
@@ -1670,13 +1675,13 @@ void __55__ULStore__insertFetchedBatchedObjects_usingBatchSize___block_invoke(ui
 
         v25 = objc_autoreleasePoolPush();
         v26 = objc_autoreleasePoolPush();
-        v27 = [v33 subarrayWithRange:{v21, v24 + v20}];
-        (blockCopy)[2](blockCopy, v27, &v36);
+        v27 = [v32 subarrayWithRange:{v21, v24 + v20}];
+        (blockCopy)[2](blockCopy, v27, &v35);
 
         objc_autoreleasePoolPop(v26);
-        if ((v36 & 1) == 0)
+        if ((v35 & 1) == 0)
         {
-          [v32 reset];
+          [v31 reset];
         }
 
         objc_autoreleasePoolPop(v25);
@@ -1691,14 +1696,13 @@ void __55__ULStore__insertFetchedBatchedObjects_usingBatchSize___block_invoke(ui
         v20 -= fetchBatchSize;
       }
 
-      while ((v36 & 1) == 0);
+      while ((v35 & 1) == 0);
     }
 
-    [v32 reset];
+    [v31 reset];
   }
 
   objc_autoreleasePoolPop(context);
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 @end

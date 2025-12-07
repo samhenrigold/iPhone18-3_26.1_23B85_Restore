@@ -67,15 +67,14 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_alternativeIndexs.count)
   {
     v5 = 0;
     do
     {
-      v6 = self->_alternativeIndexs.list[v5];
       PBDataWriterWriteInt32Field();
-      toCopy = v8;
+      toCopy = v6;
       ++v5;
     }
 
@@ -84,9 +83,8 @@
 
   if (*&self->_has)
   {
-    confidence = self->_confidence;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

@@ -13,7 +13,7 @@
 
 - (void)_updateTTRHistory:(id)history
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   historyCopy = history;
   if (historyCopy)
   {
@@ -23,19 +23,19 @@
     if (!v6)
     {
       ttrHistory = self->_ttrHistory;
-      v17 = historyCopy;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
+      v16 = historyCopy;
+      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v16 count:1];
       [(NSUserDefaults *)ttrHistory setObject:v12 forKey:v5];
 
       v13 = *MEMORY[0x277CEF098];
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
       {
         *buf = 136315650;
-        v19 = "[SVXTapToRadarManager _updateTTRHistory:]";
-        v20 = 2112;
-        v21 = v5;
-        v22 = 2112;
-        v23 = historyCopy;
+        v18 = "[SVXTapToRadarManager _updateTTRHistory:]";
+        v19 = 2112;
+        v20 = v5;
+        v21 = 2112;
+        v22 = historyCopy;
         _os_log_impl(&dword_2695B9000, v13, OS_LOG_TYPE_INFO, "%s First entry created for build %@, with error %@", buf, 0x20u);
       }
 
@@ -54,13 +54,13 @@ LABEL_13:
 
       v9 = v8;
       *buf = 136315906;
-      v19 = "[SVXTapToRadarManager _updateTTRHistory:]";
-      v20 = 2112;
-      v21 = historyCopy;
-      v22 = 2112;
-      v23 = v5;
-      v24 = 2048;
-      v25 = [v7 count];
+      v18 = "[SVXTapToRadarManager _updateTTRHistory:]";
+      v19 = 2112;
+      v20 = historyCopy;
+      v21 = 2112;
+      v22 = v5;
+      v23 = 2048;
+      v24 = [v7 count];
       _os_log_impl(&dword_2695B9000, v9, OS_LOG_TYPE_INFO, "%s Error %@ already exist for %@. Total errors %lu", buf, 0x2Au);
     }
 
@@ -73,15 +73,15 @@ LABEL_13:
       {
         v15 = v14;
         *buf = 136316162;
-        v19 = "[SVXTapToRadarManager _updateTTRHistory:]";
-        v20 = 2112;
-        v21 = historyCopy;
-        v22 = 2112;
-        v23 = v5;
-        v24 = 2048;
-        v25 = [v7 count];
-        v26 = 2048;
-        v27 = [v9 count];
+        v18 = "[SVXTapToRadarManager _updateTTRHistory:]";
+        v19 = 2112;
+        v20 = historyCopy;
+        v21 = 2112;
+        v22 = v5;
+        v23 = 2048;
+        v24 = [v7 count];
+        v25 = 2048;
+        v26 = [v9 count];
         _os_log_impl(&dword_2695B9000, v15, OS_LOG_TYPE_INFO, "%s Add new error %@. Total errors for build %@ changed from %lu -> %lu", buf, 0x34u);
       }
     }
@@ -93,18 +93,16 @@ LABEL_13:
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v19 = "[SVXTapToRadarManager _updateTTRHistory:]";
+    v18 = "[SVXTapToRadarManager _updateTTRHistory:]";
     _os_log_error_impl(&dword_2695B9000, v10, OS_LOG_TYPE_ERROR, "%s No errorCode provided.", buf, 0xCu);
   }
 
 LABEL_14:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_hasFileTTRWithIssue:(id)issue
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   issueCopy = issue;
   v5 = AFBuildVersion();
   v6 = [(NSUserDefaults *)self->_ttrHistory arrayForKey:v5];
@@ -117,15 +115,15 @@ LABEL_14:
       if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
       {
         v9 = v8;
-        v14 = 136315906;
-        v15 = "[SVXTapToRadarManager _hasFileTTRWithIssue:]";
-        v16 = 2112;
-        v17 = issueCopy;
-        v18 = 2112;
-        v19 = v5;
-        v20 = 2048;
-        v21 = [v7 count];
-        _os_log_impl(&dword_2695B9000, v9, OS_LOG_TYPE_INFO, "%s Issue %@ for %@ has been prompted before. Total error count = %ld", &v14, 0x2Au);
+        v13 = 136315906;
+        v14 = "[SVXTapToRadarManager _hasFileTTRWithIssue:]";
+        v15 = 2112;
+        v16 = issueCopy;
+        v17 = 2112;
+        v18 = v5;
+        v19 = 2048;
+        v20 = [v7 count];
+        _os_log_impl(&dword_2695B9000, v9, OS_LOG_TYPE_INFO, "%s Issue %@ for %@ has been prompted before. Total error count = %ld", &v13, 0x2Au);
       }
     }
   }
@@ -135,11 +133,11 @@ LABEL_14:
     v10 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
-      v14 = 136315394;
-      v15 = "[SVXTapToRadarManager _hasFileTTRWithIssue:]";
-      v16 = 2112;
-      v17 = v5;
-      _os_log_impl(&dword_2695B9000, v10, OS_LOG_TYPE_INFO, "%s First error of build %@ occurred, clean old TTR history", &v14, 0x16u);
+      v13 = 136315394;
+      v14 = "[SVXTapToRadarManager _hasFileTTRWithIssue:]";
+      v15 = 2112;
+      v16 = v5;
+      _os_log_impl(&dword_2695B9000, v10, OS_LOG_TYPE_INFO, "%s First error of build %@ occurred, clean old TTR history", &v13, 0x16u);
     }
 
     [(NSUserDefaults *)self->_ttrHistory removePersistentDomainForName:@"com.apple.siri.sirivox.ttr"];
@@ -147,13 +145,12 @@ LABEL_14:
 
   isRateLimited = [(SVXRadarRateLimiter *)self->_radarRateLimiter isRateLimited];
 
-  v12 = *MEMORY[0x277D85DE8];
   return isRateLimited;
 }
 
 - (BOOL)_skipFirstTimeTTR:(id)r
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   rCopy = r;
   v5 = AFBuildVersion();
   v6 = [(NSUserDefaults *)self->_ttrHistory arrayForKey:v5];
@@ -168,13 +165,13 @@ LABEL_14:
       {
         v10 = v9;
         *buf = 136315906;
-        v19 = "[SVXTapToRadarManager _skipFirstTimeTTR:]";
-        v20 = 2112;
-        v21 = rCopy;
-        v22 = 2112;
-        v23 = v5;
-        v24 = 2048;
-        v25 = [v7 count];
+        v18 = "[SVXTapToRadarManager _skipFirstTimeTTR:]";
+        v19 = 2112;
+        v20 = rCopy;
+        v21 = 2112;
+        v22 = v5;
+        v23 = 2048;
+        v24 = [v7 count];
         _os_log_impl(&dword_2695B9000, v10, OS_LOG_TYPE_INFO, "%s Issue %@ for %@ has been invoked before. Total error count = %ld", buf, 0x2Au);
       }
 
@@ -185,7 +182,7 @@ LABEL_14:
         if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
-          v19 = "[SVXTapToRadarManager _skipFirstTimeTTR:]";
+          v18 = "[SVXTapToRadarManager _skipFirstTimeTTR:]";
           _os_log_impl(&dword_2695B9000, v12, OS_LOG_TYPE_INFO, "%s The first TTR was filed before.", buf, 0xCu);
         }
       }
@@ -209,9 +206,9 @@ LABEL_16:
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v19 = "[SVXTapToRadarManager _skipFirstTimeTTR:]";
-      v20 = 2112;
-      v21 = v5;
+      v18 = "[SVXTapToRadarManager _skipFirstTimeTTR:]";
+      v19 = 2112;
+      v20 = v5;
       _os_log_impl(&dword_2695B9000, v13, OS_LOG_TYPE_INFO, "%s First error of build %@ occurred, clean old TTR history", buf, 0x16u);
     }
 
@@ -223,23 +220,22 @@ LABEL_16:
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v19 = "[SVXTapToRadarManager _skipFirstTimeTTR:]";
-    v20 = 2112;
-    v21 = rCopy;
-    v22 = 2112;
-    v23 = v5;
+    v18 = "[SVXTapToRadarManager _skipFirstTimeTTR:]";
+    v19 = 2112;
+    v20 = rCopy;
+    v21 = 2112;
+    v22 = v5;
     _os_log_impl(&dword_2695B9000, v14, OS_LOG_TYPE_INFO, "%s New issue %@ for %@ occurred. Skip radar as this is the first time", buf, 0x20u);
   }
 
 LABEL_17:
 
-  v16 = *MEMORY[0x277D85DE8];
   return isRateLimited;
 }
 
 - (BOOL)_hasFileTTRWithRequestID:(id)d
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dCopy = d;
   requestID = self->_requestID;
   if (requestID && [(NSUUID *)requestID isEqual:dCopy])
@@ -248,11 +244,11 @@ LABEL_17:
     v7 = 1;
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
-      v10 = 136315394;
-      v11 = "[SVXTapToRadarManager _hasFileTTRWithRequestID:]";
-      v12 = 2112;
-      v13 = dCopy;
-      _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s A radar was prompted for request %@ before", &v10, 0x16u);
+      v9 = 136315394;
+      v10 = "[SVXTapToRadarManager _hasFileTTRWithRequestID:]";
+      v11 = 2112;
+      v12 = dCopy;
+      _os_log_impl(&dword_2695B9000, v6, OS_LOG_TYPE_INFO, "%s A radar was prompted for request %@ before", &v9, 0x16u);
     }
   }
 
@@ -261,7 +257,6 @@ LABEL_17:
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -287,102 +282,100 @@ LABEL_17:
 
 void __69__SVXTapToRadarManager_createProblem_extraContent_completionHandler___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) requestID];
   LODWORD(v2) = [v2 _hasFileTTRWithRequestID:v3];
 
-  if (!v2)
+  if (v2)
   {
-    v6 = *(*(a1 + 32) + 32);
-    v7 = [*(a1 + 40) error];
-    v8 = [v6 containsObject:v7];
-
-    v9 = *(a1 + 32);
-    v10 = [*(a1 + 40) error];
-    if (v8)
+    v4 = *MEMORY[0x277CEF098];
+    if (!os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
-      v11 = [v9 _skipFirstTimeTTR:v10];
-
-      if (v11)
-      {
-        v12 = *(a1 + 32);
-        v13 = [*(a1 + 40) error];
-        [v12 _updateTTRHistory:v13];
-
-        v14 = *(a1 + 32);
-        v15 = [*(a1 + 40) requestID];
-        [v14 _updateRequestID:v15];
-
-        v4 = *MEMORY[0x277CEF098];
-        if (!os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
-        {
-          goto LABEL_5;
-        }
-
-        *buf = 136315138;
-        v28 = "[SVXTapToRadarManager createProblem:extraContent:completionHandler:]_block_invoke";
-        v5 = "%s Met the conditions for _skipFirstTimeTTR - Return without prompting radar";
-        goto LABEL_4;
-      }
+LABEL_5:
+      (*(*(a1 + 56) + 16))();
+      return;
     }
 
-    else
-    {
-      v16 = [v9 _hasFileTTRWithIssue:v10];
-
-      if (v16)
-      {
-        v4 = *MEMORY[0x277CEF098];
-        if (!os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
-        {
-          goto LABEL_5;
-        }
-
-        *buf = 136315138;
-        v28 = "[SVXTapToRadarManager createProblem:extraContent:completionHandler:]_block_invoke";
-        v5 = "%s Return without prompting radar";
-        goto LABEL_4;
-      }
-    }
-
-    v17 = [*(*(a1 + 32) + 48) createWithRequiredContent:*(a1 + 40) extraContent:*(a1 + 48)];
-    v18 = *(*(a1 + 32) + 40);
-    v19 = [*(a1 + 40) displayReason];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __69__SVXTapToRadarManager_createProblem_extraContent_completionHandler___block_invoke_119;
-    v24[3] = &unk_279C68360;
-    v20 = *(a1 + 56);
-    v21 = *(a1 + 32);
-    v22 = *(a1 + 40);
-    v26 = v20;
-    v24[4] = v21;
-    v25 = v22;
-    [v18 fileRadar:v17 processName:@"Siri" displayReason:v19 completion:v24];
-
-    goto LABEL_14;
-  }
-
-  v4 = *MEMORY[0x277CEF098];
-  if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
-  {
     *buf = 136315138;
-    v28 = "[SVXTapToRadarManager createProblem:extraContent:completionHandler:]_block_invoke";
+    v27 = "[SVXTapToRadarManager createProblem:extraContent:completionHandler:]_block_invoke";
     v5 = "%s Return without prompting radar";
 LABEL_4:
     _os_log_impl(&dword_2695B9000, v4, OS_LOG_TYPE_INFO, v5, buf, 0xCu);
+    goto LABEL_5;
   }
 
-LABEL_5:
-  (*(*(a1 + 56) + 16))();
-LABEL_14:
-  v23 = *MEMORY[0x277D85DE8];
+  v6 = *(*(a1 + 32) + 32);
+  v7 = [*(a1 + 40) error];
+  v8 = [v6 containsObject:v7];
+
+  v9 = *(a1 + 32);
+  v10 = [*(a1 + 40) error];
+  if (v8)
+  {
+    v11 = [v9 _skipFirstTimeTTR:v10];
+
+    if (v11)
+    {
+      v12 = *(a1 + 32);
+      v13 = [*(a1 + 40) error];
+      [v12 _updateTTRHistory:v13];
+
+      v14 = *(a1 + 32);
+      v15 = [*(a1 + 40) requestID];
+      [v14 _updateRequestID:v15];
+
+      v4 = *MEMORY[0x277CEF098];
+      if (!os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
+      {
+        goto LABEL_5;
+      }
+
+      *buf = 136315138;
+      v27 = "[SVXTapToRadarManager createProblem:extraContent:completionHandler:]_block_invoke";
+      v5 = "%s Met the conditions for _skipFirstTimeTTR - Return without prompting radar";
+      goto LABEL_4;
+    }
+  }
+
+  else
+  {
+    v16 = [v9 _hasFileTTRWithIssue:v10];
+
+    if (v16)
+    {
+      v4 = *MEMORY[0x277CEF098];
+      if (!os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
+      {
+        goto LABEL_5;
+      }
+
+      *buf = 136315138;
+      v27 = "[SVXTapToRadarManager createProblem:extraContent:completionHandler:]_block_invoke";
+      v5 = "%s Return without prompting radar";
+      goto LABEL_4;
+    }
+  }
+
+  v17 = [*(*(a1 + 32) + 48) createWithRequiredContent:*(a1 + 40) extraContent:*(a1 + 48)];
+  v18 = *(*(a1 + 32) + 40);
+  v19 = [*(a1 + 40) displayReason];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __69__SVXTapToRadarManager_createProblem_extraContent_completionHandler___block_invoke_119;
+  v23[3] = &unk_279C68360;
+  v20 = *(a1 + 56);
+  v21 = *(a1 + 32);
+  v22 = *(a1 + 40);
+  v25 = v20;
+  v23[4] = v21;
+  v24 = v22;
+  [v18 fileRadar:v17 processName:@"Siri" displayReason:v19 completion:v23];
 }
 
 void __69__SVXTapToRadarManager_createProblem_extraContent_completionHandler___block_invoke_119(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -392,9 +385,9 @@ void __69__SVXTapToRadarManager_createProblem_extraContent_completionHandler___b
       v5 = v4;
       v6 = [v3 localizedDescription];
       *buf = 136315394;
-      v19 = "[SVXTapToRadarManager createProblem:extraContent:completionHandler:]_block_invoke";
-      v20 = 2112;
-      v21 = v6;
+      v18 = "[SVXTapToRadarManager createProblem:extraContent:completionHandler:]_block_invoke";
+      v19 = 2112;
+      v20 = v6;
       _os_log_error_impl(&dword_2695B9000, v5, OS_LOG_TYPE_ERROR, "%s Failed creating a radar - error: %@", buf, 0x16u);
     }
   }
@@ -426,14 +419,12 @@ void __69__SVXTapToRadarManager_createProblem_extraContent_completionHandler___b
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v19 = "[SVXTapToRadarManager createProblem:extraContent:completionHandler:]_block_invoke";
+      v18 = "[SVXTapToRadarManager createProblem:extraContent:completionHandler:]_block_invoke";
       _os_log_impl(&dword_2695B9000, v16, OS_LOG_TYPE_INFO, "%s Radar Created", buf, 0xCu);
     }
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_initWithRadarFiler:(id)filer
@@ -500,31 +491,28 @@ void __69__SVXTapToRadarManager_createProblem_extraContent_completionHandler___b
 
 void __53__SVXTapToRadarManager_sharedInstanceWithRadarFiler___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = sharedInstanceWithRadarFiler__privateInstance;
   sharedInstanceWithRadarFiler__privateInstance = 0;
 
   if ([*(a1 + 32) supportsRadarFiling])
   {
     sharedInstanceWithRadarFiler__privateInstance = [[SVXTapToRadarManager alloc] _initWithRadarFiler:*(a1 + 32)];
-    v3 = *MEMORY[0x277D85DE8];
 
     MEMORY[0x2821F96F8]();
   }
 
   else
   {
-    v4 = *MEMORY[0x277CEF098];
+    v3 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315394;
+      v4 = 136315394;
+      v5 = "+[SVXTapToRadarManager sharedInstanceWithRadarFiler:]_block_invoke";
+      v6 = 2080;
       v7 = "+[SVXTapToRadarManager sharedInstanceWithRadarFiler:]_block_invoke";
-      v8 = 2080;
-      v9 = "+[SVXTapToRadarManager sharedInstanceWithRadarFiler:]_block_invoke";
-      _os_log_error_impl(&dword_2695B9000, v4, OS_LOG_TYPE_ERROR, "%s %s: TapToRadarService class is not available", &v6, 0x16u);
+      _os_log_error_impl(&dword_2695B9000, v3, OS_LOG_TYPE_ERROR, "%s %s: TapToRadarService class is not available", &v4, 0x16u);
     }
-
-    v5 = *MEMORY[0x277D85DE8];
   }
 }
 

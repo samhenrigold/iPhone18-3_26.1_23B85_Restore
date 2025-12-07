@@ -40,32 +40,32 @@
     __assert_rtn("[_EDThreadPersistence_SQLHelper executeUpdateSQL:bindings:errorHandler:]", "EDThreadPersistence_ThreadMessages.m", 1347, "statement");
   }
 
+  v20 = 0;
+  v14 = createBindingsDictionary(v13);
+  bindingsCopy[2](bindingsCopy, v14);
   v19 = 0;
-  v13 = createBindingsDictionary();
-  bindingsCopy[2](bindingsCopy, v13);
-  v18 = 0;
-  v14 = [v12 executeWithNamedBindings:v13 rowsChanged:&v19 error:&v18];
-  v15 = v18;
-  if (v14)
+  v15 = [v12 executeWithNamedBindings:v14 rowsChanged:&v20 error:&v19];
+  v16 = v19;
+  if (v15)
   {
-    if (v19)
+    if (v20)
     {
-      v16 = 2;
+      v17 = 2;
     }
 
     else
     {
-      v16 = 1;
+      v17 = 1;
     }
   }
 
   else
   {
-    handlerCopy[2](handlerCopy, v15);
-    v16 = 0;
+    handlerCopy[2](handlerCopy, v16);
+    v17 = 0;
   }
 
-  return v16;
+  return v17;
 }
 
 - (int64_t)executeUpsertSQL:(id)l bindings:(id)bindings errorHandler:(id)handler
@@ -90,13 +90,13 @@
     __assert_rtn("[_EDThreadPersistence_SQLHelper executeUpsertSQL:bindings:errorHandler:]", "EDThreadPersistence_ThreadMessages.m", 1370, "self.connection.lastInsertedDatabaseID == 0");
   }
 
+  v23 = 0;
+  v16 = createBindingsDictionary(v15);
+  bindingsCopy[2](bindingsCopy, v16);
   v22 = 0;
-  v15 = createBindingsDictionary();
-  bindingsCopy[2](bindingsCopy, v15);
-  v21 = 0;
-  v16 = [v12 executeWithNamedBindings:v15 rowsChanged:&v22 error:&v21];
-  v17 = v21;
-  if (v16)
+  v17 = [v12 executeWithNamedBindings:v16 rowsChanged:&v23 error:&v22];
+  v18 = v22;
+  if (v17)
   {
     connection3 = [(_EDThreadPersistence_SQLHelper *)self connection];
     lastInsertedDatabaseID = [connection3 lastInsertedDatabaseID];
@@ -104,7 +104,7 @@
 
   else
   {
-    handlerCopy[2](handlerCopy, v17);
+    handlerCopy[2](handlerCopy, v18);
     lastInsertedDatabaseID = *MEMORY[0x1E699A728];
   }
 
@@ -125,17 +125,17 @@
     __assert_rtn("[_EDThreadPersistence_SQLHelper executeSelectSQL:bindings:errorHandler:rowHandler:]", "EDThreadPersistence_ThreadMessages.m", 1387, "statement");
   }
 
-  v16 = createBindingsDictionary();
-  bindingsCopy[2](bindingsCopy, v16);
-  v20 = 0;
-  v17 = [v15 executeWithNamedBindings:v16 usingBlock:rowHandlerCopy error:&v20];
-  v18 = v20;
-  if ((v17 & 1) == 0)
+  v17 = createBindingsDictionary(v16);
+  bindingsCopy[2](bindingsCopy, v17);
+  v21 = 0;
+  v18 = [v15 executeWithNamedBindings:v17 usingBlock:rowHandlerCopy error:&v21];
+  v19 = v21;
+  if ((v18 & 1) == 0)
   {
-    handlerCopy[2](handlerCopy, v18);
+    handlerCopy[2](handlerCopy, v19);
   }
 
-  return v17;
+  return v18;
 }
 
 - (BOOL)executeSQL:(id)l indexBindings:(id)bindings errorHandler:(id)handler

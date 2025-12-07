@@ -14,14 +14,14 @@ BOOL __43___MKFGuest_findUserActivityStatusForType___block_invoke(uint64_t a1, v
 
 void __61___MKFGuest_populateWorkingStoreFromRestrictedGuestSchedule___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = a2;
-  v15 = 0;
+  v14 = 0;
   v7 = *(a1 + 32);
   v8 = [MEMORY[0x277CCAD78] UUID];
-  v9 = [v7 materializeOrCreateWeekDayScheduleRulesRelationWithModelID:v8 createdNew:&v15];
+  v9 = [v7 materializeOrCreateWeekDayScheduleRulesRelationWithModelID:v8 createdNew:&v14];
 
-  if (v15)
+  if (v14)
   {
     [v9 updateFromWeekDayScheduleRule:v6];
   }
@@ -35,9 +35,9 @@ void __61___MKFGuest_populateWorkingStoreFromRestrictedGuestSchedule___block_inv
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v17 = v13;
-      v18 = 2112;
-      v19 = v6;
+      v16 = v13;
+      v17 = 2112;
+      v18 = v6;
       _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Unable to create week day schedule from : %@", buf, 0x16u);
     }
 
@@ -45,20 +45,18 @@ void __61___MKFGuest_populateWorkingStoreFromRestrictedGuestSchedule___block_inv
     *a4 = 1;
     *(*(*(a1 + 40) + 8) + 24) = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __61___MKFGuest_populateWorkingStoreFromRestrictedGuestSchedule___block_invoke_26(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v6 = a2;
-  v19 = 0;
+  v18 = 0;
   v7 = *(a1 + 32);
   v8 = [MEMORY[0x277CCAD78] UUID];
-  v9 = [v7 materializeOrCreateYearDayScheduleRulesRelationWithModelID:v8 createdNew:&v19];
+  v9 = [v7 materializeOrCreateYearDayScheduleRulesRelationWithModelID:v8 createdNew:&v18];
 
-  if (v19)
+  if (v18)
   {
     v10 = [v6 dateInterval];
     v11 = [v10 startDate];
@@ -78,9 +76,9 @@ void __61___MKFGuest_populateWorkingStoreFromRestrictedGuestSchedule___block_inv
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v21 = v17;
-      v22 = 2112;
-      v23 = v6;
+      v20 = v17;
+      v21 = 2112;
+      v22 = v6;
       _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_ERROR, "%{public}@Unable to create year day schedule from : %@", buf, 0x16u);
     }
 
@@ -88,16 +86,13 @@ void __61___MKFGuest_populateWorkingStoreFromRestrictedGuestSchedule___block_inv
     *a4 = 1;
     *(*(*(a1 + 40) + 8) + 24) = 0;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __24___MKFGuest_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v10_153560;
-  logCategory__hmf_once_v10_153560 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v10_153560;
+  logCategory__hmf_once_v10_153560 = v0;
 }
 
 void __25___MKFGuest_homeRelation__block_invoke()

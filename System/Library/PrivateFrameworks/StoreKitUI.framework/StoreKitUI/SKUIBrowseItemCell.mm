@@ -23,9 +23,9 @@
     [SKUIBrowseItemCell initWithFrame:];
   }
 
-  v24.receiver = self;
-  v24.super_class = SKUIBrowseItemCell;
-  height = [(SKUIBrowseItemCell *)&v24 initWithFrame:x, y, width, height];
+  v26.receiver = self;
+  v26.super_class = SKUIBrowseItemCell;
+  height = [(SKUIBrowseItemCell *)&v26 initWithFrame:x, y, width, height];
   if (height)
   {
     v9 = objc_alloc_init(MEMORY[0x277D756B8]);
@@ -60,8 +60,8 @@
     v22 = [MEMORY[0x277D75348] colorWithWhite:0.85 alpha:1.0];
     [(UIView *)v21 setBackgroundColor:v22];
 
-    [(SKUIBrowseItemCell *)height addSubview:height->_borderView];
-    [(SKUIBrowseItemCell *)height setSemanticContentAttribute:storeSemanticContentAttribute()];
+    v23 = [(SKUIBrowseItemCell *)height addSubview:height->_borderView];
+    [(SKUIBrowseItemCell *)height setSemanticContentAttribute:storeSemanticContentAttribute(v23, v24)];
   }
 
   return height;
@@ -104,9 +104,9 @@
 {
   titleCopy = title;
   text = [(UILabel *)self->_titleLabel text];
-  v5 = [titleCopy isEqualToString:text];
+  isEqualToString = objc_msgSend_isEqualToString_(titleCopy);
 
-  if ((v5 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     [(UILabel *)self->_titleLabel setText:titleCopy];
     [(SKUIBrowseItemCell *)self setNeedsLayout];
@@ -117,9 +117,9 @@
 {
   subtitleCopy = subtitle;
   text = [(UILabel *)self->_subtitleLabel text];
-  v5 = [subtitleCopy isEqualToString:text];
+  isEqualToString = objc_msgSend_isEqualToString_(subtitleCopy);
 
-  if ((v5 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     [(UILabel *)self->_subtitleLabel setText:subtitleCopy];
     [(SKUIBrowseItemCell *)self setNeedsLayout];
@@ -174,85 +174,85 @@
 
 - (void)layoutSubviews
 {
-  v37.receiver = self;
-  v37.super_class = SKUIBrowseItemCell;
-  [(SKUIBrowseItemCell *)&v37 layoutSubviews];
+  v49.receiver = self;
+  v49.super_class = SKUIBrowseItemCell;
+  [(SKUIBrowseItemCell *)&v49 layoutSubviews];
   [(SKUIBrowseItemCell *)self bounds];
-  x = v38.origin.x;
-  y = v38.origin.y;
-  width = v38.size.width;
-  height = v38.size.height;
-  v7 = CGRectGetMaxX(v38) + -15.0;
-  ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection();
+  x = v50.origin.x;
+  y = v50.origin.y;
+  width = v50.size.width;
+  height = v50.size.height;
+  v7 = CGRectGetMaxX(v50) + -15.0;
+  ShouldReverseLayoutDirection = storeShouldReverseLayoutDirection(v8, v9);
   decorationImageView = self->_decorationImageView;
   if (decorationImageView)
   {
-    [(UIImageView *)decorationImageView frame];
-    v11 = v10;
-    v13 = v12;
-    v14 = v7 - v10;
-    v15 = y + (height - v12) * 0.5;
-    v16 = self->_decorationImageView;
-    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v14, v15, v10, v12, x, y, width, height);
-    [(UIImageView *)v16 setFrame:?];
-    v39.origin.x = v14;
-    v39.origin.y = v15;
-    v39.size.width = v11;
-    v39.size.height = v13;
-    v7 = CGRectGetMinX(v39) + -10.0;
+    frame = [(UIImageView *)decorationImageView frame];
+    v14 = v13;
+    v16 = v15;
+    v17 = v7 - v13;
+    v18 = y + (height - v15) * 0.5;
+    v19 = self->_decorationImageView;
+    SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v17, v18, v13, v15, x, y, width, height, frame, v20);
+    [(UIImageView *)v19 setFrame:?];
+    v51.origin.x = v17;
+    v51.origin.y = v18;
+    v51.size.width = v14;
+    v51.size.height = v16;
+    v7 = CGRectGetMinX(v51) + -10.0;
   }
 
   if (ShouldReverseLayoutDirection)
   {
-    v17 = 2;
+    v21 = 2;
   }
 
   else
   {
-    v17 = 0;
+    v21 = 0;
   }
 
   [(UILabel *)self->_subtitleLabel sizeToFit];
-  [(UILabel *)self->_subtitleLabel frame];
-  v19 = v18;
-  v21 = v20;
-  v22 = v7 - v18;
-  v23 = y + (height - v20) * 0.5;
+  frame2 = [(UILabel *)self->_subtitleLabel frame];
+  v24 = v23;
+  v26 = v25;
+  v27 = v7 - v23;
+  v28 = y + (height - v25) * 0.5;
   subtitleLabel = self->_subtitleLabel;
-  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v22, v23, v18, v20, x, y, width, height);
+  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(v27, v28, v23, v25, x, y, width, height, frame2, v30);
   [(UILabel *)subtitleLabel setFrame:?];
-  [(UILabel *)self->_subtitleLabel setTextAlignment:v17];
-  v40.origin.x = v22;
-  v40.origin.y = v23;
-  v40.size.width = v19;
-  v40.size.height = v21;
-  v25 = CGRectGetMinX(v40) + -10.0;
+  [(UILabel *)self->_subtitleLabel setTextAlignment:v21];
+  v52.origin.x = v27;
+  v52.origin.y = v28;
+  v52.size.width = v24;
+  v52.size.height = v26;
+  v31 = CGRectGetMinX(v52) + -10.0;
   [(UILabel *)self->_titleLabel sizeToFit];
-  [(UILabel *)self->_titleLabel frame];
+  frame3 = [(UILabel *)self->_titleLabel frame];
   titleLabel = self->_titleLabel;
-  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(x + 15.0, y + (height - v26) * 0.5, v25 - x + -15.0, v26, x, y, width, height);
+  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(x + 15.0, y + (height - v33) * 0.5, v31 - x + -15.0, v33, x, y, width, height, frame3, v35);
   [(UILabel *)titleLabel setFrame:?];
-  [(UILabel *)self->_titleLabel setTextAlignment:v17];
+  [(UILabel *)self->_titleLabel setTextAlignment:v21];
   [(UIView *)self->_borderView frame];
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen scale];
-  v30 = 1.0 / v29;
+  v38 = 1.0 / v37;
 
-  v41.origin.x = x;
-  v41.origin.y = y;
-  v41.size.width = width;
-  v41.size.height = height;
-  MaxY = CGRectGetMaxY(v41);
+  v53.origin.x = x;
+  v53.origin.y = y;
+  v53.size.width = width;
+  v53.size.height = height;
+  MaxY = CGRectGetMaxY(v53);
   borderView = self->_borderView;
-  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(15.0, MaxY - v30, width + -15.0, v30, x, y, width, height);
+  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(15.0, MaxY - v38, width + -15.0, v38, x, y, width, height, v41, v42);
   [(UIView *)borderView setFrame:?];
   [(UIView *)self->_topBorderView frame];
   mainScreen2 = [MEMORY[0x277D759A0] mainScreen];
   [mainScreen2 scale];
-  v35 = 1.0 / v34;
+  v45 = 1.0 / v44;
 
   topBorderView = self->_topBorderView;
-  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(15.0, 0.0, width + -15.0, v35, x, y, width, height);
+  SKUIRectByApplyingStoreUserInterfaceLayoutDirectionInRect(15.0, 0.0, width + -15.0, v45, x, y, width, height, v47, v48);
   [(UIView *)topBorderView setFrame:?];
 }
 

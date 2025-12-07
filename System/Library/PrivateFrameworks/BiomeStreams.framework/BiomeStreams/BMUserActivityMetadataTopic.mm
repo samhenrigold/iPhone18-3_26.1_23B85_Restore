@@ -60,14 +60,13 @@
 
 - (id)jsonDict
 {
-  v7[2] = *MEMORY[0x1E69E9840];
-  v6[0] = @"topicIdentifier";
-  v6[1] = @"title";
+  v6[2] = *MEMORY[0x1E69E9840];
+  v5[0] = @"topicIdentifier";
+  v5[1] = @"title";
   title = self->_title;
-  v7[0] = self->_topicIdentifier;
-  v7[1] = title;
-  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:v6 count:2];
-  v4 = *MEMORY[0x1E69E9840];
+  v6[0] = self->_topicIdentifier;
+  v6[1] = title;
+  v3 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:v5 count:2];
 
   return v3;
 }

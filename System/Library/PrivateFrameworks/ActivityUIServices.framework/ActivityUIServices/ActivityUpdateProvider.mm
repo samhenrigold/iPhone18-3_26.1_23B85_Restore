@@ -42,23 +42,20 @@
 
 - (NSString)identifier
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC18ActivityUIServices22ActivityUpdateProvider_activityIdentifier);
-  v3 = *(&self->activityState + OBJC_IVAR____TtC18ActivityUIServices22ActivityUpdateProvider_activityIdentifier);
 
-  v4 = sub_18E65F8F0();
+  v2 = sub_18E65F8F0();
 
-  return v4;
+  return v2;
 }
 
 - (_TtC18ActivityUIServices22ActivityUpdateProvider)initWithActivityDescriptor:(id)descriptor activityState:(int64_t)state systemMetricsRequest:(id)request
 {
   v7 = sub_18E65F4C0();
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7);
-  v10 = &v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_18E625368();
   sub_18E65F670();
-  return ActivityUpdateProvider.init(activityDescriptor:activityState:systemMetricsRequest:)(v10, state, request);
+  return ActivityUpdateProvider.init(activityDescriptor:activityState:systemMetricsRequest:)(v9, state, request);
 }
 
 - (_TtC18ActivityUIServices22ActivityUpdateProvider)init

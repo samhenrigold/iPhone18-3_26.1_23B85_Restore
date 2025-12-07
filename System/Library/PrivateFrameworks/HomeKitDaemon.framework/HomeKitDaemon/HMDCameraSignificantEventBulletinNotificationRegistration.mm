@@ -13,40 +13,37 @@
 
 - (id)attributeDescriptions
 {
-  v22[4] = *MEMORY[0x277D85DE8];
-  v21.receiver = self;
-  v21.super_class = HMDCameraSignificantEventBulletinNotificationRegistration;
-  attributeDescriptions = [(HMDBulletinNotificationRegistration *)&v21 attributeDescriptions];
+  v20[4] = *MEMORY[0x277D85DE8];
+  v19.receiver = self;
+  v19.super_class = HMDCameraSignificantEventBulletinNotificationRegistration;
+  attributeDescriptions = [(HMDBulletinNotificationRegistration *)&v19 attributeDescriptions];
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   cameraIdentifier = [(HMDCameraSignificantEventBulletinNotificationRegistration *)self cameraIdentifier];
   v5 = [v4 initWithName:@"Camera Identifier" value:cameraIdentifier];
-  v22[0] = v5;
+  v20[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
-  notificationModes = [(HMDCameraSignificantEventBulletinNotificationRegistration *)self notificationModes];
-  v7 = NSPrintF();
-  v8 = [v6 initWithName:@"Notification Modes" value:{v7, notificationModes, &unk_22A587E90}];
-  v22[1] = v8;
+  v7 = NSPrintF("%#{flags}", [(HMDCameraSignificantEventBulletinNotificationRegistration *)self notificationModes], &unk_22A587E90);
+  v8 = [v6 initWithName:@"Notification Modes" value:v7];
+  v20[1] = v8;
   v9 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDCameraSignificantEventBulletinNotificationRegistration *)self significantEventTypes];
   v10 = HMCameraSignificantEventTypesAsString();
   v11 = [v9 initWithName:@"Significant Event Types" value:v10];
-  v22[2] = v11;
+  v20[2] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   [(HMDCameraSignificantEventBulletinNotificationRegistration *)self personFamiliarityOptions];
   v13 = HMCameraSignificantEventPersonFamiliarityOptionsAsString();
   v14 = [v12 initWithName:@"Person Familiarity Options" value:v13];
-  v22[3] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:4];
+  v20[3] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:4];
   v16 = [attributeDescriptions arrayByAddingObjectsFromArray:v15];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 - (HMDCameraSignificantEventBulletinNotificationRegistration)initWithCoder:(id)coder
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [[HMDBulletinNotificationRegistration alloc] initWithCoder:coderCopy];
   if (v5)
@@ -71,11 +68,11 @@
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         v14 = HMFGetLogIdentifier();
-        v17 = 138543618;
-        v18 = v14;
-        v19 = 2112;
-        v20 = 0;
-        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded cameraIdentifier: %@", &v17, 0x16u);
+        v16 = 138543618;
+        v17 = v14;
+        v18 = 2112;
+        v19 = 0;
+        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded cameraIdentifier: %@", &v16, 0x16u);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -88,7 +85,6 @@
     selfCopy = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -286,7 +282,7 @@ id __70__HMDCameraSignificantEventBulletinNotificationRegistration_predicate__bl
     v15 = [(HMDBulletinNotificationRegistration *)&v21 initWithConditions:conditionsCopy];
     if (v15)
     {
-      v16 = [identifierCopy copy];
+      v16 = objc_msgSend_copy(identifierCopy);
       cameraIdentifier = v15->_cameraIdentifier;
       v15->_cameraIdentifier = v16;
 

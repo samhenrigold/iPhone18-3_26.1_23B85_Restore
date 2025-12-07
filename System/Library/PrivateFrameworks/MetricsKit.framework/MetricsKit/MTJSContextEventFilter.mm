@@ -91,35 +91,31 @@ void __35__MTJSContextEventFilter_jsContext__block_invoke(uint64_t a1, uint64_t 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained setLastError:v11];
 
-  v13 = MTMetricsKitOSLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v14 = MTMetricsKitOSLog(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
     v16 = v4;
-    _os_log_impl(&dword_258F4B000, v13, OS_LOG_TYPE_ERROR, "MetricsKit: MTJSContextBridge error: %@", buf, 0xCu);
+    _os_log_impl(&dword_258F4B000, v14, OS_LOG_TYPE_ERROR, "MetricsKit: MTJSContextBridge error: %@", buf, 0xCu);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __35__MTJSContextEventFilter_jsContext__block_invoke_5(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = MTMetricsKitOSLog();
+  v3 = MTMetricsKitOSLog(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_258F4B000, v3, OS_LOG_TYPE_DEBUG, "MetricsKit: JSContext console: %@", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_258F4B000, v3, OS_LOG_TYPE_DEBUG, "MetricsKit: JSContext console: %@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_applyFilter:(id)filter promise:(id)promise
 {
-  v49[1] = *MEMORY[0x277D85DE8];
+  v48[1] = *MEMORY[0x277D85DE8];
   filterCopy = filter;
   promiseCopy = promise;
   jsContext = [(MTJSContextEventFilter *)self jsContext];
@@ -128,8 +124,8 @@ void __35__MTJSContextEventFilter_jsContext__block_invoke_5(uint64_t a1, void *a
 
   if ([v10 isObject])
   {
-    v49[0] = filterCopy;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:1];
+    v48[0] = filterCopy;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:1];
     v12 = [v10 callWithArguments:v11];
 
     if ([v12 isNull])
@@ -187,8 +183,6 @@ void __35__MTJSContextEventFilter_jsContext__block_invoke_5(uint64_t a1, void *a
 
     [promiseCopy finishWithError:v28];
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 - (id)apply:(id)apply
@@ -203,7 +197,7 @@ void __35__MTJSContextEventFilter_jsContext__block_invoke_5(uint64_t a1, void *a
   return v3;
 }
 
-id __32__MTJSContextEventFilter_apply___block_invoke(uint64_t a1, void *a2)
+MTPromise *__32__MTJSContextEventFilter_apply___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
   v4 = objc_opt_new();

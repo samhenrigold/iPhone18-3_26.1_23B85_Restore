@@ -28,7 +28,7 @@
   vmBuffer = self->_vmBuffer;
   if (vmBuffer->var1 < length)
   {
-    GPUTools::VMBuffer::resize(vmBuffer, length);
+    GPUTools::VMBuffer::resize(&vmBuffer->var0, length);
     vmBuffer = self->_vmBuffer;
   }
 

@@ -6,57 +6,56 @@
 
 - (void)setAccessibilityIdentifier:()AccessibilityIdentifier forAction:
 {
-  v20 = a3;
+  v21 = a3;
   v6 = a4;
   selfCopy = self;
   bottomTray = [self bottomTray];
-  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
   actionButtons = [bottomTray actionButtons];
-  v9 = [actionButtons countByEnumeratingWithState:&v30 objects:v29 count:16];
+  v9 = [actionButtons countByEnumeratingWithState:&v31 objects:v30 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v31;
+    v11 = *v32;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v31 != v11)
+        if (*v32 != v11)
         {
           objc_enumerationMutation(actionButtons);
         }
 
-        v13 = *(*(&v30 + 1) + 8 * i);
+        v13 = *(*(&v31 + 1) + 8 * i);
         currentTitle = [v13 currentTitle];
         title = [v6 title];
         v16 = [currentTitle isEqualToString:title];
 
         if (v16)
         {
-          v17 = v20;
-          [v13 setAccessibilityIdentifier:v20];
-          v18 = ContinuitySingLog();
-          if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+          v18 = v21;
+          v19 = ContinuitySingLog([v13 setAccessibilityIdentifier:v21]);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315906;
-            v22 = "[PRXCardContentViewController(AccessibilityIdentifier) setAccessibilityIdentifier:forAction:]";
-            v23 = 2080;
-            v24 = "[PRXCardContentViewController(AccessibilityIdentifier) setAccessibilityIdentifier:forAction:]";
-            v25 = 2112;
-            v26 = v20;
-            v27 = 2112;
-            v28 = v13;
-            _os_log_impl(&dword_2441FB000, v18, OS_LOG_TYPE_DEFAULT, "%s: %s Set accessibility identifier %@ on button %@", buf, 0x2Au);
+            v23 = "[PRXCardContentViewController(AccessibilityIdentifier) setAccessibilityIdentifier:forAction:]";
+            v24 = 2080;
+            v25 = "[PRXCardContentViewController(AccessibilityIdentifier) setAccessibilityIdentifier:forAction:]";
+            v26 = 2112;
+            v27 = v21;
+            v28 = 2112;
+            v29 = v13;
+            _os_log_impl(&dword_2441FB000, v19, OS_LOG_TYPE_DEFAULT, "%s: %s Set accessibility identifier %@ on button %@", buf, 0x2Au);
           }
 
           goto LABEL_14;
         }
       }
 
-      v10 = [actionButtons countByEnumeratingWithState:&v30 objects:v29 count:16];
+      v10 = [actionButtons countByEnumeratingWithState:&v31 objects:v30 count:16];
       if (v10)
       {
         continue;
@@ -66,11 +65,11 @@
     }
   }
 
-  actionButtons = ContinuitySingLog();
-  v17 = v20;
+  actionButtons = ContinuitySingLog(v17);
+  v18 = v21;
   if (os_log_type_enabled(actionButtons, OS_LOG_TYPE_ERROR))
   {
-    [(PRXCardContentViewController(AccessibilityIdentifier) *)v20 setAccessibilityIdentifier:selfCopy forAction:actionButtons];
+    [(PRXCardContentViewController(AccessibilityIdentifier) *)v21 setAccessibilityIdentifier:selfCopy forAction:actionButtons];
   }
 
 LABEL_14:

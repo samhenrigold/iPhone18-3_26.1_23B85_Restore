@@ -1,8 +1,19 @@
 @interface KCellularLteNrConnectionStats
 - (BOOL)isEqual:(id)equal;
+- (id)configuredUlGrantPeriodicityAsString:(int)string;
+- (id)configuredUlGrantRepKAsString:(int)string;
+- (id)configuredUlGrantTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)deploymentAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)establishmentCauseAsString:(int)string;
+- (id)establishmentProcedureAsString:(int)string;
+- (id)flushReasonAsString:(int)string;
+- (id)mcgDuplexModeAsString:(int)string;
+- (id)previousDeploymentAsString:(int)string;
+- (id)previousFlushReasonAsString:(int)string;
+- (id)scgDuplexModeAsString:(int)string;
 - (int)StringAsConfiguredUlGrantPeriodicity:(id)periodicity;
 - (int)StringAsConfiguredUlGrantRepK:(id)k;
 - (int)StringAsConfiguredUlGrantType:(id)type;
@@ -116,6 +127,21 @@
   self->_has = (*&self->_has & 0xFFFFFFFFFFFFFDFFLL | v3);
 }
 
+- (id)deploymentAsString:(int)string
+{
+  if (string < 5 && ((0x17u >> string) & 1) != 0)
+  {
+    v4 = *(&off_100317750 + string);
+  }
+
+  else
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsDeployment:(id)deployment
 {
   deploymentCopy = deployment;
@@ -182,6 +208,21 @@
   self->_has = (*&self->_has & 0xFFFFFFFFFFEFFFFFLL | v3);
 }
 
+- (id)mcgDuplexModeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317718 + (string - 1));
+  }
+
+  return v4;
+}
+
 - (int)StringAsMcgDuplexMode:(id)mode
 {
   modeCopy = mode;
@@ -232,6 +273,21 @@
   self->_has = (*&self->_has & 0xFFFFFFFFFDFFFFFFLL | v3);
 }
 
+- (id)scgDuplexModeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317718 + (string - 1));
+  }
+
+  return v4;
+}
+
 - (int)StringAsScgDuplexMode:(id)mode
 {
   modeCopy = mode;
@@ -280,6 +336,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFFFFFFBFFFFLL | v3);
+}
+
+- (id)establishmentProcedureAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317730 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsEstablishmentProcedure:(id)procedure
@@ -335,6 +406,331 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFFFFFFDFFFFLL | v3);
+}
+
+- (id)establishmentCauseAsString:(int)string
+{
+  v4 = @"EST_CAUSE_INVALID";
+  switch(string)
+  {
+    case 0:
+      goto LABEL_234;
+    case 1:
+      v4 = @"LTE_EST_EMERGENCY";
+
+      break;
+    case 2:
+      v4 = @"LTE_EST_HIGH_PRIO_ACC";
+
+      break;
+    case 3:
+      v4 = @"LTE_EST_MT_ACC";
+
+      break;
+    case 4:
+      v4 = @"LTE_EST_MO_SIGNAL";
+
+      break;
+    case 5:
+      v4 = @"LTE_EST_MO_DATA";
+
+      break;
+    case 6:
+      v4 = @"LTE_EST_DELAY_TOL_ACC";
+
+      break;
+    case 7:
+      v4 = @"LTE_REEST_RECFG_FAIL";
+
+      break;
+    case 8:
+      v4 = @"LTE_REEST_HO_FAIL";
+
+      break;
+    case 9:
+      v4 = @"LTE_REEST_OTHER_FAIL";
+
+      break;
+    case 10:
+      v4 = @"LTE_EST_SUCC_MOB_TO_EUTRAN";
+
+      break;
+    case 11:
+      v4 = @"LTE_EST_FAIL_NO_RESP_FROM_CELL";
+
+      break;
+    case 12:
+      v4 = @"LTE_EST_FAIL_REJ";
+
+      break;
+    case 13:
+      v4 = @"LTE_EST_FAIL_CELL_RESEL";
+
+      break;
+    case 14:
+      v4 = @"LTE_EST_FAIL_ABORTED";
+
+      break;
+    case 15:
+      v4 = @"LTE_EST_FAIL_CELL_BARRED";
+
+      break;
+    case 16:
+      v4 = @"LTE_REEST_OTHER_FAIL_T310_EXP";
+
+      break;
+    case 17:
+      v4 = @"LTE_REEST_OTHER_FAIL_RND_ACC";
+
+      break;
+    case 18:
+      v4 = @"LTE_REEST_OTHER_FAIL_MAX_RLC_RETX";
+
+      break;
+    case 19:
+      v4 = @"LTE_REEST_OTHER_FAIL_INTEG_CHECK";
+
+      break;
+    case 20:
+      v4 = @"LTE_REEST_OTHER_FAIL_T312_EXP";
+
+      break;
+    case 21:
+      v4 = @"LTE_REEST_ARB_CONN_TXRX_SUSPEND";
+
+      break;
+    case 101:
+      v4 = @"NR_EST_EMERGENCY";
+
+      break;
+    case 102:
+      v4 = @"NR_EST_HIGH_PRIO_ACC";
+
+      break;
+    case 103:
+      v4 = @"NR_EST_MT_ACC";
+
+      break;
+    case 104:
+      v4 = @"NR_EST_MO_SIGNAL";
+
+      break;
+    case 105:
+      v4 = @"NR_EST_MO_DATA";
+
+      break;
+    case 106:
+      v4 = @"NR_EST_MO_VOICE_CALL";
+
+      break;
+    case 107:
+      v4 = @"NR_EST_MO_VIDEO_CALL";
+
+      break;
+    case 108:
+      v4 = @"NR_EST_MO_SMS";
+
+      break;
+    case 109:
+      v4 = @"NR_EST_MPS_PRIO_ACC";
+
+      break;
+    case 110:
+      v4 = @"NR_EST_MCS_PRIO_ACC";
+
+      break;
+    case 111:
+      v4 = @"NR_EST_RNA_UPDATE";
+
+      break;
+    case 112:
+      v4 = @"NR_EST_DELAY_TOL_ACC";
+
+      break;
+    case 113:
+      v4 = @"NR_REEST_RECFG_FAIL";
+
+      break;
+    case 114:
+      v4 = @"NR_REEST_HO_FAIL";
+
+      break;
+    case 115:
+      v4 = @"NR_REEST_OTHER_FAIL_INTEG_CHECK";
+
+      break;
+    case 116:
+      v4 = @"NR_REEST_OTHER_FAIL_RADIO_LINK_FAILURE";
+
+      break;
+    case 117:
+      v4 = @"NR_REEST_RES_FALLBACK_CONN_SETUP";
+
+      break;
+    case 118:
+      v4 = @"NR_EST_FAIL_NO_RESP_FROM_CELL";
+
+      break;
+    case 119:
+      v4 = @"NR_EST_FAIL_REJ";
+
+      break;
+    case 120:
+      v4 = @"NR_EST_FAIL_CELL_RESEL";
+
+      break;
+    case 121:
+      v4 = @"NR_EST_FAIL_INVALID_MSG";
+
+      break;
+    case 122:
+      v4 = @"NR_EST_FAIL_ABORTED";
+
+      break;
+    case 123:
+      v4 = @"NR_EST_FAIL_CELL_BARRED";
+
+      break;
+    case 124:
+      v4 = @"NR_EST_FAIL_CN_PAGING";
+
+      break;
+    case 125:
+      v4 = @"NR_EST_FAIL_INTEG_FAILURE";
+
+      break;
+    case 126:
+      v4 = @"NR_EST_FAIL_RRC_ERROR";
+
+      break;
+    case 127:
+      v4 = @"NR_EST_FAIL_CONN_RESUME";
+
+      break;
+    case 128:
+      v4 = @"NR_EST_FAIL_CONN_REMAIN_INACTIVE";
+
+      break;
+    case 129:
+      v4 = @"NR_EST_FAIL_INVALID_PARAMS";
+
+      break;
+    case 130:
+      v4 = @"NR_EST_SUCC_MOB_TO_NR";
+
+      break;
+    case 131:
+      v4 = @"NR_REEST_ARB_CONN_TXRX_SUSPEND";
+
+      break;
+    case 151:
+      v4 = @"NR_RESUME_EMERGENCY";
+
+      break;
+    case 152:
+      v4 = @"NR_RESUME_HIGH_PRIO_ACC";
+
+      break;
+    case 153:
+      v4 = @"NR_RESUME_MT_ACC";
+
+      break;
+    case 154:
+      v4 = @"NR_RESUME_MO_SIGNAL";
+
+      break;
+    case 155:
+      v4 = @"NR_RESUME_MO_DATA";
+
+      break;
+    case 156:
+      v4 = @"NR_RESUME_MO_VOICE_CALL";
+
+      break;
+    case 157:
+      v4 = @"NR_RESUME_MO_VIDEO_CALL";
+
+      break;
+    case 158:
+      v4 = @"NR_RESUME_MO_SMS";
+
+      break;
+    case 159:
+      v4 = @"NR_RESUME_MPS_PRIO_ACC";
+
+      break;
+    case 160:
+      v4 = @"NR_RESUME_MCS_PRIO_ACC";
+
+      break;
+    case 161:
+      v4 = @"NR_RESUME_RNA_UPDATE";
+
+      break;
+    case 162:
+      v4 = @"NR_RESUME_DELAY_TOL_ACC";
+
+      break;
+    case 168:
+      v4 = @"NR_RESUME_FAIL_NO_RESP_FROM_CELL";
+
+      break;
+    case 169:
+      v4 = @"NR_RESUME_FAIL_REJ";
+
+      break;
+    case 170:
+      v4 = @"NR_RESUME_FAIL_CELL_RESEL";
+
+      break;
+    case 171:
+      v4 = @"NR_RESUME_FAIL_INVALID_MSG";
+
+      break;
+    case 172:
+      v4 = @"NR_RESUME_FAIL_ABORTED";
+
+      break;
+    case 173:
+      v4 = @"NR_RESUME_FAIL_CELL_BARRED";
+
+      break;
+    case 174:
+      v4 = @"NR_RESUME_FAIL_CN_PAGING";
+
+      break;
+    case 175:
+      v4 = @"NR_RESUME_FAIL_INTEG_FAILURE";
+
+      break;
+    case 176:
+      v4 = @"NR_RESUME_FAIL_RRC_ERROR";
+
+      break;
+    case 177:
+      v4 = @"NR_RESUME_FAIL_CONN_RESUME";
+
+      break;
+    case 178:
+      v4 = @"NR_RESUME_FAIL_CONN_REMAIN_INACTIVE";
+
+      break;
+    case 179:
+      v4 = @"NR_RESUME_FAIL_INVALID_PARAMS";
+
+      break;
+    case 180:
+      v4 = @"NR_RESUME_SUCC_MOB_TO_NR";
+
+      break;
+    default:
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_234:
+
+      break;
+  }
+
+  return v4;
 }
 
 - (int)StringAsEstablishmentCause:(id)cause
@@ -762,6 +1158,21 @@
   self->_has = (*&self->_has & 0xFFFFFFFFFFF7FFFFLL | v3);
 }
 
+- (id)flushReasonAsString:(int)string
+{
+  if ((string - 1) >= 8)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317778 + (string - 1));
+  }
+
+  return v4;
+}
+
 - (int)StringAsFlushReason:(id)reason
 {
   reasonCopy = reason;
@@ -903,6 +1314,21 @@
   self->_has = (*&self->_has & 0xFFFFFFFFFFBFFFFFLL | v3);
 }
 
+- (id)previousDeploymentAsString:(int)string
+{
+  if (string < 5 && ((0x17u >> string) & 1) != 0)
+  {
+    v4 = *(&off_100317750 + string);
+  }
+
+  else
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsPreviousDeployment:(id)deployment
 {
   deploymentCopy = deployment;
@@ -956,6 +1382,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFFFFF7FFFFFLL | v3);
+}
+
+- (id)previousFlushReasonAsString:(int)string
+{
+  if ((string - 1) >= 8)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100317778 + (string - 1));
+  }
+
+  return v4;
 }
 
 - (int)StringAsPreviousFlushReason:(id)reason
@@ -1044,6 +1485,21 @@
   self->_has = (*&self->_has & 0xFFFFFFFFFFFFFEFFLL | v3);
 }
 
+- (id)configuredUlGrantTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1003177B8 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsConfiguredUlGrantType:(id)type
 {
   typeCopy = type;
@@ -1105,6 +1561,21 @@
   self->_has = (*&self->_has & 0xFFFFFFFFFFFFFFBFLL | v3);
 }
 
+- (id)configuredUlGrantRepKAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1003177D0 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsConfiguredUlGrantRepK:(id)k
 {
   kCopy = k;
@@ -1163,6 +1634,207 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFFFFFFFFFDFLL | v3);
+}
+
+- (id)configuredUlGrantPeriodicityAsString:(int)string
+{
+  v4 = @"GRANT_PERIODICITY_SYM2";
+  switch(string)
+  {
+    case 0:
+      goto LABEL_43;
+    case 1:
+      v4 = @"GRANT_PERIODICITY_SYM7";
+
+      break;
+    case 2:
+      v4 = @"GRANT_PERIODICITY_SYM1X14";
+
+      break;
+    case 3:
+      v4 = @"GRANT_PERIODICITY_SYM2X14";
+
+      break;
+    case 4:
+      v4 = @"GRANT_PERIODICITY_SYM4X14";
+
+      break;
+    case 5:
+      v4 = @"GRANT_PERIODICITY_SYM5X14";
+
+      break;
+    case 6:
+      v4 = @"GRANT_PERIODICITY_SYM8X14";
+
+      break;
+    case 7:
+      v4 = @"GRANT_PERIODICITY_SYM10X14";
+
+      break;
+    case 8:
+      v4 = @"GRANT_PERIODICITY_SYM16X14";
+
+      break;
+    case 9:
+      v4 = @"GRANT_PERIODICITY_SYM20X14";
+
+      break;
+    case 10:
+      v4 = @"GRANT_PERIODICITY_SYM32X14";
+
+      break;
+    case 11:
+      v4 = @"GRANT_PERIODICITY_SYM40X14";
+
+      break;
+    case 12:
+      v4 = @"GRANT_PERIODICITY_SYM64X14";
+
+      break;
+    case 13:
+      v4 = @"GRANT_PERIODICITY_SYM80X14";
+
+      break;
+    case 14:
+      v4 = @"GRANT_PERIODICITY_SYM128X14";
+
+      break;
+    case 15:
+      v4 = @"GRANT_PERIODICITY_SYM160X14";
+
+      break;
+    case 16:
+      v4 = @"GRANT_PERIODICITY_SYM256X14";
+
+      break;
+    case 17:
+      v4 = @"GRANT_PERIODICITY_SYM320X14";
+
+      break;
+    case 18:
+      v4 = @"GRANT_PERIODICITY_SYM512X14";
+
+      break;
+    case 19:
+      v4 = @"GRANT_PERIODICITY_SYM640X14";
+
+      break;
+    case 20:
+      v4 = @"GRANT_PERIODICITY_SYM1024X14";
+
+      break;
+    case 21:
+      v4 = @"GRANT_PERIODICITY_SYM1280X14";
+
+      break;
+    case 22:
+      v4 = @"GRANT_PERIODICITY_SYM2560X14";
+
+      break;
+    case 23:
+      v4 = @"GRANT_PERIODICITY_SYM5120X14";
+
+      break;
+    case 24:
+      v4 = @"GRANT_PERIODICITY_SYM6";
+
+      break;
+    case 25:
+      v4 = @"GRANT_PERIODICITY_SYM1X12";
+
+      break;
+    case 26:
+      v4 = @"GRANT_PERIODICITY_SYM2X12";
+
+      break;
+    case 27:
+      v4 = @"GRANT_PERIODICITY_SYM4X12";
+
+      break;
+    case 28:
+      v4 = @"GRANT_PERIODICITY_SYM5X12";
+
+      break;
+    case 29:
+      v4 = @"GRANT_PERIODICITY_SYM8X12";
+
+      break;
+    case 30:
+      v4 = @"GRANT_PERIODICITY_SYM10X12";
+
+      break;
+    case 31:
+      v4 = @"GRANT_PERIODICITY_SYM16X12";
+
+      break;
+    case 32:
+      v4 = @"GRANT_PERIODICITY_SYM20X12";
+
+      break;
+    case 33:
+      v4 = @"GRANT_PERIODICITY_SYM32X12";
+
+      break;
+    case 34:
+      v4 = @"GRANT_PERIODICITY_SYM40X12";
+
+      break;
+    case 35:
+      v4 = @"GRANT_PERIODICITY_SYM64X12";
+
+      break;
+    case 36:
+      v4 = @"GRANT_PERIODICITY_SYM80X12";
+
+      break;
+    case 37:
+      v4 = @"GRANT_PERIODICITY_SYM128X12";
+
+      break;
+    case 38:
+      v4 = @"GRANT_PERIODICITY_SYM160X12";
+
+      break;
+    case 39:
+      v4 = @"GRANT_PERIODICITY_SYM256X12";
+
+      break;
+    case 40:
+      v4 = @"GRANT_PERIODICITY_SYM320X12";
+
+      break;
+    case 41:
+      v4 = @"GRANT_PERIODICITY_SYM512X12";
+
+      break;
+    case 42:
+      v4 = @"GRANT_PERIODICITY_SYM640X12";
+
+      break;
+    case 43:
+      v4 = @"GRANT_PERIODICITY_SYM1280X12";
+
+      break;
+    case 44:
+      v4 = @"GRANT_PERIODICITY_SYM2560X12";
+
+      break;
+    default:
+      if (string == 255)
+      {
+        v4 = @"GRANT_PERIODICITY_INVALID";
+      }
+
+      else
+      {
+        v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_43:
+      }
+
+      break;
+  }
+
+  return v4;
 }
 
 - (int)StringAsConfiguredUlGrantPeriodicity:(id)periodicity
@@ -2695,7 +3367,6 @@ LABEL_73:
   has = self->_has;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x200000) == 0)
@@ -2715,7 +3386,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  numSubs = self->_numSubs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x80000000) == 0)
@@ -2730,7 +3400,6 @@ LABEL_4:
   }
 
 LABEL_61:
-  isDataPreferred = self->_isDataPreferred;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -2745,7 +3414,6 @@ LABEL_5:
   }
 
 LABEL_62:
-  deployment = self->_deployment;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x2000000000) == 0)
@@ -2760,7 +3428,6 @@ LABEL_6:
   }
 
 LABEL_63:
-  upperLayerIndication = self->_upperLayerIndication;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -2775,12 +3442,10 @@ LABEL_7:
   }
 
 LABEL_64:
-  mcgDuplexMode = self->_mcgDuplexMode;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x2000000) != 0)
   {
 LABEL_8:
-    scgDuplexMode = self->_scgDuplexMode;
     PBDataWriterWriteInt32Field();
   }
 
@@ -2800,16 +3465,15 @@ LABEL_9:
     PBDataWriterWriteSubmessage();
   }
 
-  v6 = self->_has;
-  if ((*&v6 & 0x40000) != 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x40000) != 0)
   {
-    establishmentProcedure = self->_establishmentProcedure;
     PBDataWriterWriteInt32Field();
-    v6 = self->_has;
-    if ((*&v6 & 0x20000) == 0)
+    v5 = self->_has;
+    if ((*&v5 & 0x20000) == 0)
     {
 LABEL_17:
-      if ((*&v6 & 0x80000) == 0)
+      if ((*&v5 & 0x80000) == 0)
       {
         goto LABEL_18;
       }
@@ -2818,18 +3482,17 @@ LABEL_17:
     }
   }
 
-  else if ((*&v6 & 0x20000) == 0)
+  else if ((*&v5 & 0x20000) == 0)
   {
     goto LABEL_17;
   }
 
-  establishmentCause = self->_establishmentCause;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x80000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x80000) == 0)
   {
 LABEL_18:
-    if ((*&v6 & 0x200000000) == 0)
+    if ((*&v5 & 0x200000000) == 0)
     {
       goto LABEL_19;
     }
@@ -2838,13 +3501,12 @@ LABEL_18:
   }
 
 LABEL_68:
-  flushReason = self->_flushReason;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x200000000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x200000000) == 0)
   {
 LABEL_19:
-    if ((*&v6 & 0x800000000) == 0)
+    if ((*&v5 & 0x800000000) == 0)
     {
       goto LABEL_20;
     }
@@ -2853,13 +3515,12 @@ LABEL_19:
   }
 
 LABEL_69:
-  isMcgHandover = self->_isMcgHandover;
   PBDataWriterWriteBOOLField();
-  v6 = self->_has;
-  if ((*&v6 & 0x800000000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x800000000) == 0)
   {
 LABEL_20:
-    if ((*&v6 & 0x1000000000) == 0)
+    if ((*&v5 & 0x1000000000) == 0)
     {
       goto LABEL_21;
     }
@@ -2868,13 +3529,12 @@ LABEL_20:
   }
 
 LABEL_70:
-  isScgHandover = self->_isScgHandover;
   PBDataWriterWriteBOOLField();
-  v6 = self->_has;
-  if ((*&v6 & 0x1000000000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x1000000000) == 0)
   {
 LABEL_21:
-    if ((*&v6 & 0x4000000) == 0)
+    if ((*&v5 & 0x4000000) == 0)
     {
       goto LABEL_22;
     }
@@ -2883,13 +3543,12 @@ LABEL_21:
   }
 
 LABEL_71:
-  isVoiceCall = self->_isVoiceCall;
   PBDataWriterWriteBOOLField();
-  v6 = self->_has;
-  if ((*&v6 & 0x4000000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x4000000) == 0)
   {
 LABEL_22:
-    if ((*&v6 & 0x2000) == 0)
+    if ((*&v5 & 0x2000) == 0)
     {
       goto LABEL_23;
     }
@@ -2898,13 +3557,12 @@ LABEL_22:
   }
 
 LABEL_72:
-  segmentOrder = self->_segmentOrder;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x2000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x2000) == 0)
   {
 LABEL_23:
-    if ((*&v6 & 0x1000000) == 0)
+    if ((*&v5 & 0x1000000) == 0)
     {
       goto LABEL_24;
     }
@@ -2913,13 +3571,12 @@ LABEL_23:
   }
 
 LABEL_73:
-  durationOfConnection = self->_durationOfConnection;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x1000000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x1000000) == 0)
   {
 LABEL_24:
-    if ((*&v6 & 0x400000) == 0)
+    if ((*&v5 & 0x400000) == 0)
     {
       goto LABEL_25;
     }
@@ -2928,13 +3585,12 @@ LABEL_24:
   }
 
 LABEL_74:
-  rrcConnectionCount = self->_rrcConnectionCount;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x400000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x400000) == 0)
   {
 LABEL_25:
-    if ((*&v6 & 0x800000) == 0)
+    if ((*&v5 & 0x800000) == 0)
     {
       goto LABEL_26;
     }
@@ -2943,13 +3599,12 @@ LABEL_25:
   }
 
 LABEL_75:
-  previousDeployment = self->_previousDeployment;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x800000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x800000) == 0)
   {
 LABEL_26:
-    if ((*&v6 & 0x40000000) == 0)
+    if ((*&v5 & 0x40000000) == 0)
     {
       goto LABEL_27;
     }
@@ -2958,13 +3613,12 @@ LABEL_26:
   }
 
 LABEL_76:
-  previousFlushReason = self->_previousFlushReason;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x40000000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x40000000) == 0)
   {
 LABEL_27:
-    if ((*&v6 & 0x100) == 0)
+    if ((*&v5 & 0x100) == 0)
     {
       goto LABEL_28;
     }
@@ -2973,13 +3627,12 @@ LABEL_27:
   }
 
 LABEL_77:
-  hasConfiguredUlGrant = self->_hasConfiguredUlGrant;
   PBDataWriterWriteBOOLField();
-  v6 = self->_has;
-  if ((*&v6 & 0x100) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x100) == 0)
   {
 LABEL_28:
-    if ((*&v6 & 0x10) == 0)
+    if ((*&v5 & 0x10) == 0)
     {
       goto LABEL_29;
     }
@@ -2988,13 +3641,12 @@ LABEL_28:
   }
 
 LABEL_78:
-  configuredUlGrantType = self->_configuredUlGrantType;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x10) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x10) == 0)
   {
 LABEL_29:
-    if ((*&v6 & 0x40) == 0)
+    if ((*&v5 & 0x40) == 0)
     {
       goto LABEL_30;
     }
@@ -3003,13 +3655,12 @@ LABEL_29:
   }
 
 LABEL_79:
-  configuredUlGrantNofHarqProcesses = self->_configuredUlGrantNofHarqProcesses;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x40) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x40) == 0)
   {
 LABEL_30:
-    if ((*&v6 & 0x20) == 0)
+    if ((*&v5 & 0x20) == 0)
     {
       goto LABEL_31;
     }
@@ -3018,13 +3669,12 @@ LABEL_30:
   }
 
 LABEL_80:
-  configuredUlGrantRepK = self->_configuredUlGrantRepK;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x20) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x20) == 0)
   {
 LABEL_31:
-    if ((*&v6 & 4) == 0)
+    if ((*&v5 & 4) == 0)
     {
       goto LABEL_32;
     }
@@ -3033,13 +3683,12 @@ LABEL_31:
   }
 
 LABEL_81:
-  configuredUlGrantPeriodicity = self->_configuredUlGrantPeriodicity;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((*&v6 & 4) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 4) == 0)
   {
 LABEL_32:
-    if ((*&v6 & 0x400) == 0)
+    if ((*&v5 & 0x400) == 0)
     {
       goto LABEL_33;
     }
@@ -3048,13 +3697,12 @@ LABEL_32:
   }
 
 LABEL_82:
-  configuredUlGrantConfigDurationMs = self->_configuredUlGrantConfigDurationMs;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x400) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x400) == 0)
   {
 LABEL_33:
-    if ((*&v6 & 0x800) == 0)
+    if ((*&v5 & 0x800) == 0)
     {
       goto LABEL_34;
     }
@@ -3063,13 +3711,12 @@ LABEL_33:
   }
 
 LABEL_83:
-  dlMcgScheduledPeakTput = self->_dlMcgScheduledPeakTput;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x800) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x800) == 0)
   {
 LABEL_34:
-    if ((*&v6 & 0x1000) == 0)
+    if ((*&v5 & 0x1000) == 0)
     {
       goto LABEL_35;
     }
@@ -3078,13 +3725,12 @@ LABEL_34:
   }
 
 LABEL_84:
-  dlScgScheduledPeakTput = self->_dlScgScheduledPeakTput;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x1000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x1000) == 0)
   {
 LABEL_35:
-    if ((*&v6 & 0x8000000) == 0)
+    if ((*&v5 & 0x8000000) == 0)
     {
       goto LABEL_36;
     }
@@ -3093,13 +3739,12 @@ LABEL_35:
   }
 
 LABEL_85:
-  dlTotalScheduledPeakTput = self->_dlTotalScheduledPeakTput;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x8000000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x8000000) == 0)
   {
 LABEL_36:
-    if ((*&v6 & 0x10000000) == 0)
+    if ((*&v5 & 0x10000000) == 0)
     {
       goto LABEL_37;
     }
@@ -3108,13 +3753,12 @@ LABEL_36:
   }
 
 LABEL_86:
-  ulMcgScheduledPeakTput = self->_ulMcgScheduledPeakTput;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x10000000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x10000000) == 0)
   {
 LABEL_37:
-    if ((*&v6 & 0x20000000) == 0)
+    if ((*&v5 & 0x20000000) == 0)
     {
       goto LABEL_39;
     }
@@ -3123,12 +3767,10 @@ LABEL_37:
   }
 
 LABEL_87:
-  ulScgScheduledPeakTput = self->_ulScgScheduledPeakTput;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x20000000) != 0)
   {
 LABEL_38:
-    ulTotalScheduledPeakTput = self->_ulTotalScheduledPeakTput;
     PBDataWriterWriteUint32Field();
   }
 
@@ -3153,16 +3795,15 @@ LABEL_39:
     PBDataWriterWriteSubmessage();
   }
 
-  v8 = self->_has;
-  if ((*&v8 & 0x8000) != 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x8000) != 0)
   {
-    energyPerBitDl = self->_energyPerBitDl;
     PBDataWriterWriteUint32Field();
-    v8 = self->_has;
-    if ((*&v8 & 0x10000) == 0)
+    v6 = self->_has;
+    if ((*&v6 & 0x10000) == 0)
     {
 LABEL_49:
-      if ((*&v8 & 0x4000) == 0)
+      if ((*&v6 & 0x4000) == 0)
       {
         goto LABEL_50;
       }
@@ -3171,18 +3812,17 @@ LABEL_49:
     }
   }
 
-  else if ((*&v8 & 0x10000) == 0)
+  else if ((*&v6 & 0x10000) == 0)
   {
     goto LABEL_49;
   }
 
-  energyPerBitUl = self->_energyPerBitUl;
   PBDataWriterWriteUint32Field();
-  v8 = self->_has;
-  if ((*&v8 & 0x4000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x4000) == 0)
   {
 LABEL_50:
-    if ((*&v8 & 0x400000000) == 0)
+    if ((*&v6 & 0x400000000) == 0)
     {
       goto LABEL_51;
     }
@@ -3191,13 +3831,12 @@ LABEL_50:
   }
 
 LABEL_91:
-  energyPerBit = self->_energyPerBit;
   PBDataWriterWriteUint32Field();
-  v8 = self->_has;
-  if ((*&v8 & 0x400000000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x400000000) == 0)
   {
 LABEL_51:
-    if ((*&v8 & 0x100000000) == 0)
+    if ((*&v6 & 0x100000000) == 0)
     {
       goto LABEL_52;
     }
@@ -3206,13 +3845,12 @@ LABEL_51:
   }
 
 LABEL_92:
-  isNetworkSliceEnabled = self->_isNetworkSliceEnabled;
   PBDataWriterWriteBOOLField();
-  v8 = self->_has;
-  if ((*&v8 & 0x100000000) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x100000000) == 0)
   {
 LABEL_52:
-    if ((*&v8 & 2) == 0)
+    if ((*&v6 & 2) == 0)
     {
       goto LABEL_53;
     }
@@ -3221,13 +3859,12 @@ LABEL_52:
   }
 
 LABEL_93:
-  isGfnwPlmn = self->_isGfnwPlmn;
   PBDataWriterWriteBOOLField();
-  v8 = self->_has;
-  if ((*&v8 & 2) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 2) == 0)
   {
 LABEL_53:
-    if ((*&v8 & 0x80) == 0)
+    if ((*&v6 & 0x80) == 0)
     {
       goto LABEL_54;
     }
@@ -3236,13 +3873,12 @@ LABEL_53:
   }
 
 LABEL_94:
-  configuredUlGrantActivatedDurationMs = self->_configuredUlGrantActivatedDurationMs;
   PBDataWriterWriteUint32Field();
-  v8 = self->_has;
-  if ((*&v8 & 0x80) == 0)
+  v6 = self->_has;
+  if ((*&v6 & 0x80) == 0)
   {
 LABEL_54:
-    if ((*&v8 & 8) == 0)
+    if ((*&v6 & 8) == 0)
     {
       goto LABEL_56;
     }
@@ -3251,12 +3887,10 @@ LABEL_54:
   }
 
 LABEL_95:
-  configuredUlGrantTbs = self->_configuredUlGrantTbs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_55:
-    configuredUlGrantMcs = self->_configuredUlGrantMcs;
     PBDataWriterWriteUint32Field();
   }
 
@@ -4459,7 +5093,6 @@ LABEL_42:
       goto LABEL_230;
     }
 
-    v7 = equalCopy[205];
     if (self->_isDataPreferred)
     {
       if ((equalCopy[205] & 1) == 0)
@@ -4499,7 +5132,6 @@ LABEL_42:
       goto LABEL_230;
     }
 
-    v8 = equalCopy[211];
     if (self->_upperLayerIndication)
     {
       if ((equalCopy[211] & 1) == 0)
@@ -4569,55 +5201,54 @@ LABEL_42:
     }
   }
 
-  v12 = self->_has;
-  v13 = *(equalCopy + 212);
-  if ((*&v12 & 0x40000) != 0)
+  v10 = self->_has;
+  v11 = *(equalCopy + 212);
+  if ((*&v10 & 0x40000) != 0)
   {
-    if ((v13 & 0x40000) == 0 || self->_establishmentProcedure != *(equalCopy + 23))
+    if ((v11 & 0x40000) == 0 || self->_establishmentProcedure != *(equalCopy + 23))
     {
       goto LABEL_230;
     }
   }
 
-  else if ((v13 & 0x40000) != 0)
+  else if ((v11 & 0x40000) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v12 & 0x20000) != 0)
+  if ((*&v10 & 0x20000) != 0)
   {
-    if ((v13 & 0x20000) == 0 || self->_establishmentCause != *(equalCopy + 22))
+    if ((v11 & 0x20000) == 0 || self->_establishmentCause != *(equalCopy + 22))
     {
       goto LABEL_230;
     }
   }
 
-  else if ((v13 & 0x20000) != 0)
+  else if ((v11 & 0x20000) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v12 & 0x80000) != 0)
+  if ((*&v10 & 0x80000) != 0)
   {
-    if ((v13 & 0x80000) == 0 || self->_flushReason != *(equalCopy + 28))
+    if ((v11 & 0x80000) == 0 || self->_flushReason != *(equalCopy + 28))
     {
       goto LABEL_230;
     }
   }
 
-  else if ((v13 & 0x80000) != 0)
+  else if ((v11 & 0x80000) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v12 & 0x200000000) != 0)
+  if ((*&v10 & 0x200000000) != 0)
   {
-    if ((v13 & 0x200000000) == 0)
+    if ((v11 & 0x200000000) == 0)
     {
       goto LABEL_230;
     }
 
-    v14 = equalCopy[207];
     if (self->_isMcgHandover)
     {
       if ((equalCopy[207] & 1) == 0)
@@ -4632,19 +5263,18 @@ LABEL_42:
     }
   }
 
-  else if ((v13 & 0x200000000) != 0)
+  else if ((v11 & 0x200000000) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v12 & 0x800000000) != 0)
+  if ((*&v10 & 0x800000000) != 0)
   {
-    if ((v13 & 0x800000000) == 0)
+    if ((v11 & 0x800000000) == 0)
     {
       goto LABEL_230;
     }
 
-    v15 = equalCopy[209];
     if (self->_isScgHandover)
     {
       if ((equalCopy[209] & 1) == 0)
@@ -4659,19 +5289,18 @@ LABEL_42:
     }
   }
 
-  else if ((v13 & 0x800000000) != 0)
+  else if ((v11 & 0x800000000) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v12 & 0x1000000000) != 0)
+  if ((*&v10 & 0x1000000000) != 0)
   {
-    if ((v13 & 0x1000000000) == 0)
+    if ((v11 & 0x1000000000) == 0)
     {
       goto LABEL_230;
     }
 
-    v16 = equalCopy[210];
     if (self->_isVoiceCall)
     {
       if ((equalCopy[210] & 1) == 0)
@@ -4686,84 +5315,83 @@ LABEL_42:
     }
   }
 
-  else if ((v13 & 0x1000000000) != 0)
+  else if ((v11 & 0x1000000000) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v12 & 0x4000000) != 0)
+  if ((*&v10 & 0x4000000) != 0)
   {
-    if ((v13 & 0x4000000) == 0 || self->_segmentOrder != *(equalCopy + 47))
+    if ((v11 & 0x4000000) == 0 || self->_segmentOrder != *(equalCopy + 47))
     {
       goto LABEL_230;
     }
   }
 
-  else if ((v13 & 0x4000000) != 0)
+  else if ((v11 & 0x4000000) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v12 & 0x2000) != 0)
+  if ((*&v10 & 0x2000) != 0)
   {
-    if ((v13 & 0x2000) == 0 || self->_durationOfConnection != *(equalCopy + 18))
+    if ((v11 & 0x2000) == 0 || self->_durationOfConnection != *(equalCopy + 18))
     {
       goto LABEL_230;
     }
   }
 
-  else if ((v13 & 0x2000) != 0)
+  else if ((v11 & 0x2000) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v12 & 0x1000000) != 0)
+  if ((*&v10 & 0x1000000) != 0)
   {
-    if ((v13 & 0x1000000) == 0 || self->_rrcConnectionCount != *(equalCopy + 42))
+    if ((v11 & 0x1000000) == 0 || self->_rrcConnectionCount != *(equalCopy + 42))
     {
       goto LABEL_230;
     }
   }
 
-  else if ((v13 & 0x1000000) != 0)
+  else if ((v11 & 0x1000000) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v12 & 0x400000) != 0)
+  if ((*&v10 & 0x400000) != 0)
   {
-    if ((v13 & 0x400000) == 0 || self->_previousDeployment != *(equalCopy + 40))
+    if ((v11 & 0x400000) == 0 || self->_previousDeployment != *(equalCopy + 40))
     {
       goto LABEL_230;
     }
   }
 
-  else if ((v13 & 0x400000) != 0)
+  else if ((v11 & 0x400000) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v12 & 0x800000) != 0)
+  if ((*&v10 & 0x800000) != 0)
   {
-    if ((v13 & 0x800000) == 0 || self->_previousFlushReason != *(equalCopy + 41))
+    if ((v11 & 0x800000) == 0 || self->_previousFlushReason != *(equalCopy + 41))
     {
       goto LABEL_230;
     }
   }
 
-  else if ((v13 & 0x800000) != 0)
+  else if ((v11 & 0x800000) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v12 & 0x40000000) != 0)
+  if ((*&v10 & 0x40000000) != 0)
   {
-    if ((v13 & 0x40000000) == 0)
+    if ((v11 & 0x40000000) == 0)
     {
       goto LABEL_230;
     }
 
-    v17 = equalCopy[204];
     if (self->_hasConfiguredUlGrant)
     {
       if ((equalCopy[204] & 1) == 0)
@@ -4778,150 +5406,150 @@ LABEL_42:
     }
   }
 
-  else if ((v13 & 0x40000000) != 0)
+  else if ((v11 & 0x40000000) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v12 & 0x100) != 0)
+  if ((*&v10 & 0x100) != 0)
   {
-    if ((v13 & 0x100) == 0 || self->_configuredUlGrantType != *(equalCopy + 13))
+    if ((v11 & 0x100) == 0 || self->_configuredUlGrantType != *(equalCopy + 13))
     {
       goto LABEL_230;
     }
   }
 
-  else if ((v13 & 0x100) != 0)
+  else if ((v11 & 0x100) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v12 & 0x10) != 0)
+  if ((*&v10 & 0x10) != 0)
   {
-    if ((v13 & 0x10) == 0 || self->_configuredUlGrantNofHarqProcesses != *(equalCopy + 9))
+    if ((v11 & 0x10) == 0 || self->_configuredUlGrantNofHarqProcesses != *(equalCopy + 9))
     {
       goto LABEL_230;
     }
   }
 
-  else if ((v13 & 0x10) != 0)
+  else if ((v11 & 0x10) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v12 & 0x40) != 0)
+  if ((*&v10 & 0x40) != 0)
   {
-    if ((v13 & 0x40) == 0 || self->_configuredUlGrantRepK != *(equalCopy + 11))
+    if ((v11 & 0x40) == 0 || self->_configuredUlGrantRepK != *(equalCopy + 11))
     {
       goto LABEL_230;
     }
   }
 
-  else if ((v13 & 0x40) != 0)
+  else if ((v11 & 0x40) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v12 & 0x20) != 0)
+  if ((*&v10 & 0x20) != 0)
   {
-    if ((v13 & 0x20) == 0 || self->_configuredUlGrantPeriodicity != *(equalCopy + 10))
+    if ((v11 & 0x20) == 0 || self->_configuredUlGrantPeriodicity != *(equalCopy + 10))
     {
       goto LABEL_230;
     }
   }
 
-  else if ((v13 & 0x20) != 0)
+  else if ((v11 & 0x20) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v12 & 4) != 0)
+  if ((*&v10 & 4) != 0)
   {
-    if ((v13 & 4) == 0 || self->_configuredUlGrantConfigDurationMs != *(equalCopy + 7))
+    if ((v11 & 4) == 0 || self->_configuredUlGrantConfigDurationMs != *(equalCopy + 7))
     {
       goto LABEL_230;
     }
   }
 
-  else if ((v13 & 4) != 0)
+  else if ((v11 & 4) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v12 & 0x400) != 0)
+  if ((*&v10 & 0x400) != 0)
   {
-    if ((v13 & 0x400) == 0 || self->_dlMcgScheduledPeakTput != *(equalCopy + 15))
+    if ((v11 & 0x400) == 0 || self->_dlMcgScheduledPeakTput != *(equalCopy + 15))
     {
       goto LABEL_230;
     }
   }
 
-  else if ((v13 & 0x400) != 0)
+  else if ((v11 & 0x400) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v12 & 0x800) != 0)
+  if ((*&v10 & 0x800) != 0)
   {
-    if ((v13 & 0x800) == 0 || self->_dlScgScheduledPeakTput != *(equalCopy + 16))
+    if ((v11 & 0x800) == 0 || self->_dlScgScheduledPeakTput != *(equalCopy + 16))
     {
       goto LABEL_230;
     }
   }
 
-  else if ((v13 & 0x800) != 0)
+  else if ((v11 & 0x800) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v12 & 0x1000) != 0)
+  if ((*&v10 & 0x1000) != 0)
   {
-    if ((v13 & 0x1000) == 0 || self->_dlTotalScheduledPeakTput != *(equalCopy + 17))
+    if ((v11 & 0x1000) == 0 || self->_dlTotalScheduledPeakTput != *(equalCopy + 17))
     {
       goto LABEL_230;
     }
   }
 
-  else if ((v13 & 0x1000) != 0)
+  else if ((v11 & 0x1000) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v12 & 0x8000000) != 0)
+  if ((*&v10 & 0x8000000) != 0)
   {
-    if ((v13 & 0x8000000) == 0 || self->_ulMcgScheduledPeakTput != *(equalCopy + 48))
+    if ((v11 & 0x8000000) == 0 || self->_ulMcgScheduledPeakTput != *(equalCopy + 48))
     {
       goto LABEL_230;
     }
   }
 
-  else if ((v13 & 0x8000000) != 0)
+  else if ((v11 & 0x8000000) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v12 & 0x10000000) != 0)
+  if ((*&v10 & 0x10000000) != 0)
   {
-    if ((v13 & 0x10000000) == 0 || self->_ulScgScheduledPeakTput != *(equalCopy + 49))
+    if ((v11 & 0x10000000) == 0 || self->_ulScgScheduledPeakTput != *(equalCopy + 49))
     {
       goto LABEL_230;
     }
   }
 
-  else if ((v13 & 0x10000000) != 0)
+  else if ((v11 & 0x10000000) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v12 & 0x20000000) != 0)
+  if ((*&v10 & 0x20000000) != 0)
   {
-    if ((v13 & 0x20000000) == 0 || self->_ulTotalScheduledPeakTput != *(equalCopy + 50))
+    if ((v11 & 0x20000000) == 0 || self->_ulTotalScheduledPeakTput != *(equalCopy + 50))
     {
       goto LABEL_230;
     }
   }
 
-  else if ((v13 & 0x20000000) != 0)
+  else if ((v11 & 0x20000000) != 0)
   {
     goto LABEL_230;
   }
@@ -4959,55 +5587,54 @@ LABEL_42:
     }
   }
 
-  v22 = self->_has;
-  v23 = *(equalCopy + 212);
-  if ((*&v22 & 0x8000) != 0)
+  v16 = self->_has;
+  v17 = *(equalCopy + 212);
+  if ((*&v16 & 0x8000) != 0)
   {
-    if ((v23 & 0x8000) == 0 || self->_energyPerBitDl != *(equalCopy + 20))
+    if ((v17 & 0x8000) == 0 || self->_energyPerBitDl != *(equalCopy + 20))
     {
       goto LABEL_230;
     }
   }
 
-  else if ((v23 & 0x8000) != 0)
+  else if ((v17 & 0x8000) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v22 & 0x10000) != 0)
+  if ((*&v16 & 0x10000) != 0)
   {
-    if ((v23 & 0x10000) == 0 || self->_energyPerBitUl != *(equalCopy + 21))
+    if ((v17 & 0x10000) == 0 || self->_energyPerBitUl != *(equalCopy + 21))
     {
       goto LABEL_230;
     }
   }
 
-  else if ((v23 & 0x10000) != 0)
+  else if ((v17 & 0x10000) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v22 & 0x4000) != 0)
+  if ((*&v16 & 0x4000) != 0)
   {
-    if ((v23 & 0x4000) == 0 || self->_energyPerBit != *(equalCopy + 19))
+    if ((v17 & 0x4000) == 0 || self->_energyPerBit != *(equalCopy + 19))
     {
       goto LABEL_230;
     }
   }
 
-  else if ((v23 & 0x4000) != 0)
+  else if ((v17 & 0x4000) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v22 & 0x400000000) != 0)
+  if ((*&v16 & 0x400000000) != 0)
   {
-    if ((v23 & 0x400000000) == 0)
+    if ((v17 & 0x400000000) == 0)
     {
       goto LABEL_230;
     }
 
-    v24 = equalCopy[208];
     if (self->_isNetworkSliceEnabled)
     {
       if ((equalCopy[208] & 1) == 0)
@@ -5022,16 +5649,15 @@ LABEL_42:
     }
   }
 
-  else if ((v23 & 0x400000000) != 0)
+  else if ((v17 & 0x400000000) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v22 & 0x100000000) != 0)
+  if ((*&v16 & 0x100000000) != 0)
   {
-    if ((v23 & 0x100000000) != 0)
+    if ((v17 & 0x100000000) != 0)
     {
-      v25 = equalCopy[206];
       if (self->_isGfnwPlmn)
       {
         if ((equalCopy[206] & 1) == 0)
@@ -5049,60 +5675,60 @@ LABEL_42:
     }
 
 LABEL_230:
-    v26 = 0;
+    v18 = 0;
     goto LABEL_231;
   }
 
-  if ((v23 & 0x100000000) != 0)
+  if ((v17 & 0x100000000) != 0)
   {
     goto LABEL_230;
   }
 
 LABEL_215:
-  if ((*&v22 & 2) != 0)
+  if ((*&v16 & 2) != 0)
   {
-    if ((v23 & 2) == 0 || self->_configuredUlGrantActivatedDurationMs != *(equalCopy + 6))
+    if ((v17 & 2) == 0 || self->_configuredUlGrantActivatedDurationMs != *(equalCopy + 6))
     {
       goto LABEL_230;
     }
   }
 
-  else if ((v23 & 2) != 0)
+  else if ((v17 & 2) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v22 & 0x80) != 0)
+  if ((*&v16 & 0x80) != 0)
   {
-    if ((v23 & 0x80) == 0 || self->_configuredUlGrantTbs != *(equalCopy + 12))
+    if ((v17 & 0x80) == 0 || self->_configuredUlGrantTbs != *(equalCopy + 12))
     {
       goto LABEL_230;
     }
   }
 
-  else if ((v23 & 0x80) != 0)
+  else if ((v17 & 0x80) != 0)
   {
     goto LABEL_230;
   }
 
-  if ((*&v22 & 8) != 0)
+  if ((*&v16 & 8) != 0)
   {
-    if ((v23 & 8) == 0 || self->_configuredUlGrantMcs != *(equalCopy + 8))
+    if ((v17 & 8) == 0 || self->_configuredUlGrantMcs != *(equalCopy + 8))
     {
       goto LABEL_230;
     }
 
-    v26 = 1;
+    v18 = 1;
   }
 
   else
   {
-    v26 = (*(equalCopy + 212) & 8) == 0;
+    v18 = (*(equalCopy + 212) & 8) == 0;
   }
 
 LABEL_231:
 
-  return v26;
+  return v18;
 }
 
 - (unint64_t)hash

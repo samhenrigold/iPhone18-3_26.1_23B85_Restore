@@ -23,28 +23,28 @@
 
 - (id)chapterForTime:(double)time
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   chapters = [(TVPChapterCollection *)self chapters];
-  v5 = [chapters countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [chapters countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
-    v6 = *v14;
+    v6 = *v13;
     while (2)
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(chapters);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
-        timeRange = [v8 timeRange];
-        v10 = [timeRange containsTime:time];
+        v8 = *(*(&v12 + 1) + 8 * i);
+        v9 = objc_msgSend_timeRange(v8);
+        v10 = [v9 containsTime:time];
 
         if (v10)
         {
@@ -53,7 +53,7 @@
         }
       }
 
-      v5 = [chapters countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [chapters countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v5)
       {
         continue;
@@ -65,38 +65,36 @@
 
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (id)nearestChapterForTime:(double)time
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   chapters = [(TVPChapterCollection *)self chapters];
-  v5 = [chapters countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v5 = [chapters countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v26;
+    v8 = *v25;
     v9 = *"";
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v26 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(chapters);
         }
 
-        v11 = *(*(&v25 + 1) + 8 * i);
-        timeRange = [v11 timeRange];
-        if ([timeRange containsTime:time])
+        v11 = *(*(&v24 + 1) + 8 * i);
+        v12 = objc_msgSend_timeRange(v11);
+        if ([v12 containsTime:time])
         {
           v22 = v11;
 
@@ -104,7 +102,7 @@ LABEL_11:
           goto LABEL_24;
         }
 
-        [timeRange startTime];
+        objc_msgSend_startTime(v12);
         v14 = v13 - time;
         if (v14 >= 0.0)
         {
@@ -128,9 +126,9 @@ LABEL_11:
           v7 = v16;
         }
 
-        [timeRange startTime];
+        objc_msgSend_startTime(v12);
         v18 = v17;
-        [timeRange duration];
+        objc_msgSend_duration(v12);
         v20 = v18 + v19 - time;
         if (v20 >= 0.0)
         {
@@ -155,7 +153,7 @@ LABEL_11:
         }
       }
 
-      v6 = [chapters countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v6 = [chapters countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v6)
       {
         continue;
@@ -172,34 +170,32 @@ LABEL_11:
 
 LABEL_24:
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)chapterForDate:(id)date
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dateCopy = date;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   chapters = [(TVPChapterCollection *)self chapters];
-  v6 = [chapters countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [chapters countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(chapters);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         dateRange = [v9 dateRange];
         v11 = [dateRange containsDate:dateCopy];
 
@@ -210,7 +206,7 @@ LABEL_24:
         }
       }
 
-      v6 = [chapters countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [chapters countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -222,37 +218,35 @@ LABEL_24:
 
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)nearestChapterForDate:(id)date
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dateCopy = date;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   chapters = [(TVPChapterCollection *)self chapters];
-  v6 = [chapters countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v6 = [chapters countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v27;
+    v9 = *v26;
     v10 = *"";
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(chapters);
         }
 
-        v12 = *(*(&v26 + 1) + 8 * i);
+        v12 = *(*(&v25 + 1) + 8 * i);
         dateRange = [v12 dateRange];
         if ([dateRange containsDate:dateCopy])
         {
@@ -318,7 +312,7 @@ LABEL_11:
         }
       }
 
-      v7 = [chapters countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v7 = [chapters countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v7)
       {
         continue;
@@ -334,8 +328,6 @@ LABEL_11:
   }
 
 LABEL_25:
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

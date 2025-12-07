@@ -89,45 +89,45 @@ void __55__WLKURLBagUtilities_isFullTVAppEnabledWithCompletion___block_invoke(ui
   v2 = [MEMORY[0x277D6C480] app];
   v3 = [v2 cachedBooleanForKey:kBagKeyUVSearchNowPlayingEnabled];
 
-  v4 = WLKSystemLogObject();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = WLKSystemLogObject(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138412290;
     v13 = v3;
-    _os_log_impl(&dword_272A0F000, v4, OS_LOG_TYPE_DEFAULT, "Fetch full tv app enabled: %@", &v12, 0xCu);
+    _os_log_impl(&dword_272A0F000, v5, OS_LOG_TYPE_DEFAULT, "Fetch full tv app enabled: %@", &v12, 0xCu);
   }
 
   if (v3)
   {
-    v5 = [v3 BOOLValue];
+    v6 = [v3 BOOLValue];
 LABEL_5:
-    v6 = [MEMORY[0x277CBEBD0] wlk_userDefaults];
-    [v6 setBool:v5 forKey:@"lastKnownTVAppEnabledValue"];
+    v7 = [MEMORY[0x277CBEBD0] wlk_userDefaults];
+    [v7 setBool:v6 forKey:@"lastKnownTVAppEnabledValue"];
 
     goto LABEL_11;
   }
 
-  v7 = +[WLKReachabilityMonitor sharedInstance];
-  v8 = [v7 isNetworkReachable];
+  v8 = +[WLKReachabilityMonitor sharedInstance];
+  v9 = [v8 isNetworkReachable];
 
-  if (v8)
+  if (v9)
   {
-    v5 = [0 BOOLValue];
+    v6 = [0 BOOLValue];
     v3 = 0;
   }
 
   else
   {
     v3 = +[WLKURLBagUtilities isFullTVAppEnabledCachedValue];
-    v9 = WLKSystemLogObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = WLKSystemLogObject(v3);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v12 = 138412290;
       v13 = v3;
-      _os_log_impl(&dword_272A0F000, v9, OS_LOG_TYPE_DEFAULT, "Fetch full tv app enabled, fall back to previous cached value %@", &v12, 0xCu);
+      _os_log_impl(&dword_272A0F000, v10, OS_LOG_TYPE_DEFAULT, "Fetch full tv app enabled, fall back to previous cached value %@", &v12, 0xCu);
     }
 
-    v5 = [v3 BOOLValue];
+    v6 = [v3 BOOLValue];
     if (v3)
     {
       goto LABEL_5;
@@ -135,13 +135,11 @@ LABEL_5:
   }
 
 LABEL_11:
-  v10 = *(a1 + 32);
-  if (v10)
+  v11 = *(a1 + 32);
+  if (v11)
   {
-    (*(v10 + 16))(v10, v5, 0);
+    (*(v11 + 16))(v11, v6, 0);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (id)isFullTVAppEnabledCachedValue

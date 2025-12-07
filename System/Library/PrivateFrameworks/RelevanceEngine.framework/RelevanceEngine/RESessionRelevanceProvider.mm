@@ -15,9 +15,9 @@
 {
   dateCopy = date;
   endDateCopy = endDate;
-  v18.receiver = self;
-  v18.super_class = RESessionRelevanceProvider;
-  v10 = [(RERelevanceProvider *)&v18 init];
+  v17.receiver = self;
+  v17.super_class = RESessionRelevanceProvider;
+  v10 = [(RERelevanceProvider *)&v17 init];
   if (v10)
   {
     v11 = REDateByRemovingSubseconds(dateCopy);
@@ -34,8 +34,7 @@
     {
       if (v10->_endDate && [(NSDate *)v15 compare:?]== NSOrderedDescending)
       {
-        v16 = v10->_startDate;
-        [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"Start Date (%@) must occur before the End Date (%@)", v16, v10->_endDate}];
+        [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"Start Date (%@) must occur before the End Date (%@)", v10->_startDate, v10->_endDate}];
       }
     }
   }

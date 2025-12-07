@@ -327,9 +327,7 @@ uint64_t __48__TKCloudKitFetch_handleDownloadResponse_error___block_invoke_2(uin
   MEMORY[0x277D82BD8](v3);
   MEMORY[0x277D82BD8](v4);
   MEMORY[0x277D82BD8](v5);
-  result = MEMORY[0x277D82BD8](WeakRetained);
-  *MEMORY[0x277D85DE8];
-  return result;
+  return MEMORY[0x277D82BD8](WeakRetained);
 }
 
 @end

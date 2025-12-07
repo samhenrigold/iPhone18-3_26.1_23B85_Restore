@@ -19,51 +19,47 @@
 - (void)appendDescriptionToFormatter:(id)formatter
 {
   formatterCopy = formatter;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __57__BKSHIDEventDeliveryChain_appendDescriptionToFormatter___block_invoke;
-  v8[3] = &unk_1E6F47C78;
-  v9 = formatterCopy;
+  v8 = __57__BKSHIDEventDeliveryChain_appendDescriptionToFormatter___block_invoke;
+  v9 = &unk_1E6F47C78;
+  v10 = formatterCopy;
   selfCopy = self;
-  [formatterCopy appendProem:0 block:v8];
-  v5 = [formatterCopy appendBool:self->_containsEndOfChain withName:@"containsEndOfChain"];
+  [formatterCopy appendProem:MEMORY[0x1E69E9820] block:3221225472];
+  v5 = [formatterCopy appendBool:? withName:?];
   if (self->_containsSubset)
   {
-    v6 = [formatterCopy appendBool:1 withName:@"containsSubset"];
+    v6 = [formatterCopy appendBool:? withName:?];
   }
 
-  v7 = [formatterCopy appendObject:self->_deferringPath withName:0];
+  v7 = [formatterCopy appendObject:? withName:?];
 }
 
 void __57__BKSHIDEventDeliveryChain_appendDescriptionToFormatter___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) appendObject:*(*(a1 + 40) + 8) withName:0];
+  v2 = [*(a1 + 32) appendObject:? withName:?];
   v3 = *(a1 + 40);
-  v4 = *(v3 + 32);
-  if (v4)
+  if (*(v3 + 32))
   {
-    v5 = [*(a1 + 32) appendObject:v4 withName:@"selectionPath"];
+    v4 = [*(a1 + 32) appendObject:? withName:?];
     v3 = *(a1 + 40);
   }
 
-  v6 = *(v3 + 16);
-  if (v6)
+  v5 = *(v3 + 16);
+  if (v5)
   {
-    v7 = [*(v3 + 8) display];
-    v8 = [v6 isEqual:v7];
+    v6 = [*(v3 + 8) display];
+    v7 = [v5 isEqual:?];
 
     v3 = *(a1 + 40);
-    if ((v8 & 1) == 0)
+    if ((v7 & 1) == 0)
     {
-      v9 = [*(a1 + 32) appendObject:*(v3 + 16) withName:@"compatibilityDisplay"];
+      v8 = [*(a1 + 32) appendObject:? withName:?];
       v3 = *(a1 + 40);
     }
   }
 
-  v10 = *(v3 + 48);
-  if (v10)
+  if (*(v3 + 48))
   {
-    v11 = [*(a1 + 32) appendObject:v10 withName:@"modalities"];
+    v9 = [*(a1 + 32) appendObject:? withName:?];
   }
 }
 
@@ -76,7 +72,7 @@ void __57__BKSHIDEventDeliveryChain_appendDescriptionToFormatter___block_invoke(
 
   else
   {
-    v5 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:5 userInfo:&unk_1EF56BF40];
+    v5 = [MEMORY[0x1E696ABC0] errorWithDomain:? code:? userInfo:?];
     v6 = v5;
     selfCopy = 0;
     *error = v5;
@@ -94,43 +90,34 @@ void __57__BKSHIDEventDeliveryChain_appendDescriptionToFormatter___block_invoke(
 
 - (id)subsetForPID:(int)d
 {
-  v19[0] = 0;
-  v19[1] = v19;
-  v19[2] = 0x2020000000;
-  v20 = 0;
-  v15 = 0;
-  v16 = &v15;
-  v17 = 0x2020000000;
-  v18 = 0;
-  deferringPath = self->_deferringPath;
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __41__BKSHIDEventDeliveryChain_subsetForPID___block_invoke;
-  v13[3] = &unk_1E6F46E98;
-  dCopy = d;
-  v13[4] = v19;
-  v13[5] = &v15;
-  v5 = [(NSArray *)deferringPath bs_filter:v13];
-  v6 = *(v16 + 24);
+  v13[0] = 0;
+  v13[1] = v13;
+  v13[2] = 0x2020000000;
+  v14 = 0;
+  v11[0] = 0;
+  v11[1] = v11;
+  v11[2] = 0x2020000000;
+  v12 = 0;
+  v4 = [(NSArray *)self->_deferringPath bs_filter:?];
   if (self->_containsEndOfChain)
   {
     lastObject = [(NSArray *)self->_deferringPath lastObject];
-    lastObject2 = [v5 lastObject];
-    v9 = [lastObject isEqual:lastObject2];
+    lastObject2 = [v4 lastObject];
+    v7 = [lastObject isEqual:?];
   }
 
   else
   {
-    v9 = 0;
+    v7 = 0;
   }
 
-  LOBYTE(v12) = v9;
-  v10 = [[BKSHIDEventDeliveryChain alloc] initWithIdentity:self->_identity compatibilityDisplay:self->_compatibilityDisplay selectionPath:self->_selectionPath path:v5 modalities:0 containsSubset:v6 containsEndOfChain:v12];
+  LOBYTE(v10) = v7;
+  v8 = [BKSHIDEventDeliveryChain initWithIdentity:"initWithIdentity:compatibilityDisplay:selectionPath:path:modalities:containsSubset:containsEndOfChain:" compatibilityDisplay:v10 selectionPath:? path:? modalities:? containsSubset:? containsEndOfChain:?];
 
-  _Block_object_dispose(&v15, 8);
-  _Block_object_dispose(v19, 8);
+  _Block_object_dispose(v11, 8);
+  _Block_object_dispose(v13, 8);
 
-  return v10;
+  return v8;
 }
 
 uint64_t __41__BKSHIDEventDeliveryChain_subsetForPID___block_invoke(uint64_t a1, void *a2)
@@ -162,100 +149,97 @@ uint64_t __41__BKSHIDEventDeliveryChain_subsetForPID___block_invoke(uint64_t a1,
 {
   coderCopy = coder;
   _dataProtobufEncoded = [(BKSHIDEventDeliveryChain *)self _dataProtobufEncoded];
-  [coderCopy encodeObject:_dataProtobufEncoded forKey:@"backboarddSelfData"];
+  [coderCopy encodeObject:? forKey:?];
 }
 
 - (BKSHIDEventDeliveryChain)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"backboarddSelfData"];
+  objc_opt_class();
+  v5 = [coderCopy decodeObjectOfClass:? forKey:?];
 
-  v6 = [(BKSHIDEventDeliveryChain *)self _protobufDecodedFromData:v5];
+  v6 = [(BKSHIDEventDeliveryChain *)self _protobufDecodedFromData:?];
 
   return v6;
 }
 
 - (id)_dataProtobufEncoded
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  v4 = [MEMORY[0x1E698E750] encodeObject:self error:&v13];
-  v5 = v13;
+  v24 = *MEMORY[0x1E69E9840];
+  v4 = [MEMORY[0x1E698E750] encodeObject:? error:?];
+  v5 = 0;
   v6 = [v4 copy];
 
   if (!v6)
   {
-    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"delivery chain encode error: %@", v5];
+    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:v5];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v10 = NSStringFromSelector(a2);
-      v11 = objc_opt_class();
-      v12 = NSStringFromClass(v11);
+      v9 = NSStringFromSelector(a2);
+      v10 = objc_opt_class();
+      v11 = NSStringFromClass(v10);
       *buf = 138544642;
-      v15 = v10;
-      v16 = 2114;
-      v17 = v12;
-      v18 = 2048;
+      v13 = v9;
+      v14 = 2114;
+      v15 = v11;
+      v16 = 2048;
       selfCopy = self;
-      v20 = 2114;
-      v21 = @"BKSHIDEventDeliveryChain.m";
-      v22 = 1024;
-      v23 = 109;
-      v24 = 2114;
-      v25 = v9;
+      v18 = 2114;
+      v19 = @"BKSHIDEventDeliveryChain.m";
+      v20 = 1024;
+      v21 = 109;
+      v22 = 2114;
+      v23 = v8;
       _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
     }
 
-    [v9 UTF8String];
+    [v8 UTF8String];
     _bs_set_crash_log_message();
     __break(0);
     JUMPOUT(0x186385948);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (id)_protobufDecodedFromData:(id)data
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if (dataCopy)
   {
-    v9 = 0;
-    v4 = [MEMORY[0x1E698E750] decodeObjectOfClass:objc_opt_class() fromData:dataCopy error:&v9];
-    v5 = v9;
-    if (v4)
+    v4 = MEMORY[0x1E698E750];
+    objc_opt_class();
+    v5 = [v4 decodeObjectOfClass:? fromData:? error:?];
+    v6 = 0;
+    if (v5)
     {
       goto LABEL_9;
     }
 
-    v6 = BKLogEventDelivery();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = BKLogEventDelivery();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v11 = v5;
-      _os_log_error_impl(&dword_186345000, v6, OS_LOG_TYPE_ERROR, "delivery chain protobuf decode failure: %{public}@", buf, 0xCu);
+      v10 = v6;
+      _os_log_error_impl(&dword_186345000, v7, OS_LOG_TYPE_ERROR, "delivery chain protobuf decode failure: %{public}@", buf, 0xCu);
     }
   }
 
   else
   {
-    v5 = BKLogEventDelivery();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = BKLogEventDelivery();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_error_impl(&dword_186345000, v5, OS_LOG_TYPE_ERROR, "auth message data decode failure", buf, 2u);
+      _os_log_error_impl(&dword_186345000, v6, OS_LOG_TYPE_ERROR, "auth message data decode failure", buf, 2u);
     }
   }
 
-  v4 = 0;
+  v5 = 0;
 LABEL_9:
 
-  v7 = *MEMORY[0x1E69E9840];
-
-  return v4;
+  return v5;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -290,37 +274,7 @@ LABEL_9:
 
     v9 = v7;
 
-    if (!v9)
-    {
-      goto LABEL_16;
-    }
-
-    identity = self->_identity;
-    v11 = v9->_identity;
-    if (!BSEqualObjects())
-    {
-      goto LABEL_16;
-    }
-
-    compatibilityDisplay = self->_compatibilityDisplay;
-    v13 = v9->_compatibilityDisplay;
-    if (!BSEqualObjects())
-    {
-      goto LABEL_16;
-    }
-
-    selectionPath = self->_selectionPath;
-    v15 = v9->_selectionPath;
-    if (BSEqualObjects() && (modalities = self->_modalities, v17 = v9->_modalities, BSEqualObjects()) && (deferringPath = self->_deferringPath, v19 = v9->_deferringPath, BSEqualObjects()) && self->_containsEndOfChain == v9->_containsEndOfChain)
-    {
-      v8 = self->_containsSubset == v9->_containsSubset;
-    }
-
-    else
-    {
-LABEL_16:
-      v8 = 0;
-    }
+    v8 = v9 && BSEqualObjects() && BSEqualObjects() && BSEqualObjects() && BSEqualObjects() && BSEqualObjects() && self->_containsEndOfChain == v9[25] && self->_containsSubset == v9[24];
   }
 
   return v8;
@@ -362,7 +316,7 @@ LABEL_16:
 
 - (BKSHIDEventDeliveryChain)init
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot -init"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);
@@ -408,26 +362,30 @@ LABEL_16:
 
 uint64_t __42__BKSHIDEventDeliveryChain_protobufSchema__block_invoke(uint64_t a1)
 {
-  protobufSchema_schema_6263 = [MEMORY[0x1E698E750] buildSchemaForClass:*(a1 + 32) builder:&__block_literal_global_6264];
+  v1 = [MEMORY[0x1E698E750] buildSchemaForClass:? builder:?];
+  v2 = protobufSchema_schema_6263;
+  protobufSchema_schema_6263 = v1;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 void __42__BKSHIDEventDeliveryChain_protobufSchema__block_invoke_2(uint64_t a1, void *a2)
 {
   v2 = a2;
-  [v2 addField:"_identity"];
-  [v2 addField:"_compatibilityDisplay"];
-  [v2 addField:"_selectionPath"];
-  [v2 addField:"_containsSubset"];
-  [v2 addField:"_containsEndOfChain"];
-  [v2 addRepeatingField:"_modalities" containsClass:objc_opt_class()];
-  [v2 addRepeatingField:"_deferringPath" containsClass:objc_opt_class()];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  [v2 addField:?];
+  objc_opt_class();
+  [v2 addRepeatingField:? containsClass:?];
+  objc_opt_class();
+  [v2 addRepeatingField:? containsClass:?];
 }
 
 + (id)new
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot +new"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);

@@ -9,20 +9,19 @@
 - (RCMutexLock)initWithOptions:(unint64_t)options
 {
   optionsCopy = options;
-  v9 = *MEMORY[0x277D85DE8];
-  v7.receiver = self;
-  v7.super_class = RCMutexLock;
-  v4 = [(RCMutexLock *)&v7 init];
+  v8 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = RCMutexLock;
+  v4 = [(RCMutexLock *)&v6 init];
   if (v4)
   {
-    v8.__sig = 0;
-    *v8.__opaque = 0;
-    pthread_mutexattr_init(&v8);
-    pthread_mutexattr_settype(&v8, 2 * (optionsCopy & 1));
-    pthread_mutex_init(&v4->_lock, &v8);
+    v7.__sig = 0;
+    *v7.__opaque = 0;
+    pthread_mutexattr_init(&v7);
+    pthread_mutexattr_settype(&v7, 2 * (optionsCopy & 1));
+    pthread_mutex_init(&v4->_lock, &v7);
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return v4;
 }
 

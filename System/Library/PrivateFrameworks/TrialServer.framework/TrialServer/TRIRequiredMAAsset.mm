@@ -1,9 +1,12 @@
 @interface TRIRequiredMAAsset
++ (id)assetWithFactorName:(id)name isInstalled:(BOOL)installed isOnDemand:(BOOL)demand metadata:(id)metadata fullAssetId:(id)id;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToAsset:(id)asset;
 - (TRIRequiredMAAsset)initWithFactorName:(id)name isInstalled:(BOOL)installed isOnDemand:(BOOL)demand metadata:(id)metadata fullAssetId:(id)id;
 - (id)copyWithReplacementFactorName:(id)name;
 - (id)copyWithReplacementFullAssetId:(id)id;
+- (id)copyWithReplacementIsInstalled:(BOOL)installed;
+- (id)copyWithReplacementIsOnDemand:(BOOL)demand;
 - (id)copyWithReplacementMetadata:(id)metadata;
 - (id)description;
 - (unint64_t)hash;
@@ -70,12 +73,48 @@ LABEL_4:
   return v18;
 }
 
++ (id)assetWithFactorName:(id)name isInstalled:(BOOL)installed isOnDemand:(BOOL)demand metadata:(id)metadata fullAssetId:(id)id
+{
+  demandCopy = demand;
+  installedCopy = installed;
+  idCopy = id;
+  metadataCopy = metadata;
+  nameCopy = name;
+  v15 = [[self alloc] initWithFactorName:nameCopy isInstalled:installedCopy isOnDemand:demandCopy metadata:metadataCopy fullAssetId:idCopy];
+
+  return v15;
+}
+
 - (id)copyWithReplacementFactorName:(id)name
 {
   nameCopy = name;
   v5 = [objc_alloc(objc_opt_class()) initWithFactorName:nameCopy isInstalled:self->_isInstalled isOnDemand:self->_isOnDemand metadata:self->_metadata fullAssetId:self->_fullAssetId];
 
   return v5;
+}
+
+- (id)copyWithReplacementIsInstalled:(BOOL)installed
+{
+  installedCopy = installed;
+  v5 = objc_alloc(objc_opt_class());
+  isOnDemand = self->_isOnDemand;
+  factorName = self->_factorName;
+  metadata = self->_metadata;
+  fullAssetId = self->_fullAssetId;
+
+  return [v5 initWithFactorName:factorName isInstalled:installedCopy isOnDemand:isOnDemand metadata:metadata fullAssetId:fullAssetId];
+}
+
+- (id)copyWithReplacementIsOnDemand:(BOOL)demand
+{
+  demandCopy = demand;
+  v5 = objc_alloc(objc_opt_class());
+  isInstalled = self->_isInstalled;
+  factorName = self->_factorName;
+  metadata = self->_metadata;
+  fullAssetId = self->_fullAssetId;
+
+  return [v5 initWithFactorName:factorName isInstalled:isInstalled isOnDemand:demandCopy metadata:metadata fullAssetId:fullAssetId];
 }
 
 - (id)copyWithReplacementMetadata:(id)metadata
@@ -98,72 +137,8 @@ LABEL_4:
 {
   assetCopy = asset;
   v5 = assetCopy;
-  if (!assetCopy)
+  if (!assetCopy || (v6 = self->_factorName == 0, [assetCopy factorName], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (factorName = self->_factorName) != 0 && (objc_msgSend(v5, "factorName"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](factorName, "isEqual:", v10), v10, !v11) || (isInstalled = self->_isInstalled, isInstalled != objc_msgSend(v5, "isInstalled")) || (isOnDemand = self->_isOnDemand, isOnDemand != objc_msgSend(v5, "isOnDemand")) || (v14 = self->_metadata == 0, objc_msgSend(v5, "metadata"), v15 = objc_claimAutoreleasedReturnValue(), v16 = v15 != 0, v15, v14 == v16) || (metadata = self->_metadata) != 0 && (objc_msgSend(v5, "metadata"), v18 = objc_claimAutoreleasedReturnValue(), v19 = -[TRIMAAssetMetadata isEqual:](metadata, "isEqual:", v18), v18, !v19) || (v20 = self->_fullAssetId == 0, objc_msgSend(v5, "fullAssetId"), v21 = objc_claimAutoreleasedReturnValue(), v22 = v21 != 0, v21, v20 == v22))
   {
-    goto LABEL_13;
-  }
-
-  v6 = self->_factorName == 0;
-  factorName = [assetCopy factorName];
-  v8 = factorName != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_13;
-  }
-
-  factorName = self->_factorName;
-  if (factorName)
-  {
-    factorName2 = [v5 factorName];
-    v11 = [(NSString *)factorName isEqual:factorName2];
-
-    if (!v11)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  isInstalled = self->_isInstalled;
-  if (isInstalled != [v5 isInstalled])
-  {
-    goto LABEL_13;
-  }
-
-  isOnDemand = self->_isOnDemand;
-  if (isOnDemand != [v5 isOnDemand])
-  {
-    goto LABEL_13;
-  }
-
-  v14 = self->_metadata == 0;
-  metadata = [v5 metadata];
-  v16 = metadata != 0;
-
-  if (v14 == v16)
-  {
-    goto LABEL_13;
-  }
-
-  metadata = self->_metadata;
-  if (metadata)
-  {
-    metadata2 = [v5 metadata];
-    v19 = [(TRIMAAssetMetadata *)metadata isEqual:metadata2];
-
-    if (!v19)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  v20 = self->_fullAssetId == 0;
-  fullAssetId = [v5 fullAssetId];
-  v22 = fullAssetId != 0;
-
-  if (v20 == v22)
-  {
-LABEL_13:
     v25 = 0;
   }
 
@@ -172,8 +147,8 @@ LABEL_13:
     fullAssetId = self->_fullAssetId;
     if (fullAssetId)
     {
-      fullAssetId2 = [v5 fullAssetId];
-      v25 = [(TRIFullMAAssetId *)fullAssetId isEqual:fullAssetId2];
+      fullAssetId = [v5 fullAssetId];
+      v25 = [(TRIFullMAAssetId *)fullAssetId isEqual:fullAssetId];
     }
 
     else

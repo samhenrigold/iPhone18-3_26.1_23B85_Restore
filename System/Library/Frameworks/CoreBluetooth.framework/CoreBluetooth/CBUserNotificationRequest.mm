@@ -12,24 +12,23 @@
 
 - (CBUserNotificationRequest)initWithCoder:(id)coder
 {
-  v12[8] = *MEMORY[0x1E69E9840];
+  v11[8] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DFD8];
   coderCopy = coder;
-  v12[0] = objc_opt_class();
-  v12[1] = objc_opt_class();
-  v12[2] = objc_opt_class();
-  v12[3] = objc_opt_class();
-  v12[4] = objc_opt_class();
-  v12[5] = objc_opt_class();
-  v12[6] = objc_opt_class();
-  v12[7] = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:8];
+  v11[0] = objc_opt_class();
+  v11[1] = objc_opt_class();
+  v11[2] = objc_opt_class();
+  v11[3] = objc_opt_class();
+  v11[4] = objc_opt_class();
+  v11[5] = objc_opt_class();
+  v11[6] = objc_opt_class();
+  v11[7] = objc_opt_class();
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:8];
   v7 = [v4 setWithArray:v6];
 
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"unRe"];
 
   v9 = [(CBUserNotificationRequest *)self initWithDictionary:v8 error:0];
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -89,9 +88,7 @@
 
 - (void)encodeWithXPCObject:(id)object
 {
-  objectCopy = object;
-  device = self->_device;
-  xdict = objectCopy;
+  xdict = object;
   CUXPCEncodeObject();
   event = self->_event;
   if (event)
@@ -102,17 +99,22 @@
 
 - (id)description
 {
+  v11 = 0;
   v3 = [objc_opt_class() description];
-  device = self->_device;
+  v4 = v3;
   event = self->_event;
-  if (event <= 2)
+  if (event > 2)
+  {
+    v6 = "?";
+  }
+
+  else
   {
     v6 = off_1E811FC60[event];
   }
 
-  v11 = self->_device;
-  NSAppendPrintF_safe();
-  v7 = 0;
+  NSAppendPrintF_safe(&v11, "%@: device %@, event %s", v3, self->_device, v6);
+  v7 = v11;
 
   if (v7)
   {
@@ -140,7 +142,7 @@
       [objc_opt_class() description];
       objc_claimAutoreleasedReturnValue();
       OUTLINED_FUNCTION_3_4();
-      *v5 = CBErrorF(-6756, "%@ init failed", v16, v17, v18, v19, v20, v21, v23);
+      *v5 = CBErrorF(-6756, "%@ init failed", v21, v22, v23, v24, v25, v26, v28);
     }
 
     goto LABEL_13;
@@ -150,8 +152,8 @@
   {
     if (v5)
     {
-      v22 = CBErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v23);
-      OUTLINED_FUNCTION_16(v22);
+      v27 = CBErrorF(-6756, "XPC non-dict", v8, v9, v10, v11, v12, v13, v28);
+      OUTLINED_FUNCTION_16(v27);
       goto LABEL_8;
     }
 
@@ -164,11 +166,11 @@
     goto LABEL_13;
   }
 
-  OUTLINED_FUNCTION_0();
-  v14 = OUTLINED_FUNCTION_5();
-  if (v14 != 6)
+  v14 = OUTLINED_FUNCTION_0();
+  v19 = OUTLINED_FUNCTION_5(v14, v15, v16, v17, v18);
+  if (v19 != 6)
   {
-    if (v14 != 5)
+    if (v19 != 5)
     {
       goto LABEL_7;
     }

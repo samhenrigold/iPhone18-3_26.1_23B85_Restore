@@ -8,7 +8,7 @@
 
 - (void)requestPinEntryWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA7E060);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA7E060, &qword_215A96DF0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -40,13 +40,13 @@
 
 - (_TtC14MobileSafariUI29ScreenTimePasscodeAsyncHelper)init
 {
-  v3 = type metadata accessor for ScreenTimePasscodeAsyncHelper.ContinuationState();
+  v3 = type metadata accessor for ScreenTimePasscodeAsyncHelper.ContinuationState(0);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = OBJC_IVAR____TtC14MobileSafariUI29ScreenTimePasscodeAsyncHelper_protectedContinuationState;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA7E4F8);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA7E4F8, &qword_215A96D78);
   (*(*(v7 - 8) + 56))(v5, 1, 1, v7);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA7E500);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA7E500, &unk_215A96D80);
   v8 = swift_allocObject();
   *(v8 + ((*(*v8 + 48) + 3) & 0x1FFFFFFFCLL)) = 0;
   sub_215A1907C(v5, v8 + *(*v8 + *MEMORY[0x277D841D0] + 16));

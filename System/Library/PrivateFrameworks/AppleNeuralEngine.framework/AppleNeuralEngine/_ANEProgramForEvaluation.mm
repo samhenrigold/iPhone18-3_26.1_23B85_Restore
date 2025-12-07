@@ -1,6 +1,9 @@
 @interface _ANEProgramForEvaluation
++ (id)programWithController:(id)controller intermediateBufferHandle:(unint64_t)handle queueDepth:(char)depth;
++ (id)programWithHandle:(unint64_t)handle intermediateBufferHandle:(unint64_t)bufferHandle queueDepth:(char)depth;
 - (BOOL)processInputBuffers:(id)buffers model:(id)model options:(id)options error:(id *)error;
 - (BOOL)processOutputSet:(id)set model:(id)model options:(id)options error:(id *)error;
+- (BOOL)processRequest:(id)request model:(id)model qos:(unsigned int)qos qIndex:(unint64_t)index modelStringID:(unint64_t)d options:(id)options returnValue:(unsigned int *)value error:(id *)self0;
 - (BOOL)processSessionHint:(id)hint options:(id)options report:(id)report error:(id *)error;
 - (_ANEProgramForEvaluation)initWithController:(id)controller intermediateBufferHandle:(unint64_t)handle queueDepth:(char)depth;
 - (id)description;
@@ -31,6 +34,24 @@
   [(_ANEProgramForEvaluation *)&v4 dealloc];
 }
 
++ (id)programWithHandle:(unint64_t)handle intermediateBufferHandle:(unint64_t)bufferHandle queueDepth:(char)depth
+{
+  depthCopy = depth;
+  v8 = [_ANEDeviceController controllerWithProgramHandle:handle];
+  v9 = [[self alloc] initWithController:v8 intermediateBufferHandle:bufferHandle queueDepth:depthCopy];
+
+  return v9;
+}
+
++ (id)programWithController:(id)controller intermediateBufferHandle:(unint64_t)handle queueDepth:(char)depth
+{
+  depthCopy = depth;
+  controllerCopy = controller;
+  v9 = [[self alloc] initWithController:controllerCopy intermediateBufferHandle:handle queueDepth:depthCopy];
+
+  return v9;
+}
+
 - (_ANEProgramForEvaluation)initWithController:(id)controller intermediateBufferHandle:(unint64_t)handle queueDepth:(char)depth
 {
   depthCopy = depth;
@@ -58,7 +79,7 @@
 
 - (id)programInferenceOtherErrorForMessage:(ANENotificationMessageStruct *)message model:(id)model methodName:(id)name
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   modelCopy = model;
   nameCopy = name;
   v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: ANEProgramProcessRequestDirect() Failed with status=0x%x : statusType=0x%x", nameCopy, message->var1, message->var0];
@@ -68,13 +89,13 @@
     var0 = message->var0;
     var1 = message->var1;
     *buf = 138413058;
-    v20 = nameCopy;
-    v21 = 1024;
-    v22 = var1;
-    v23 = 1024;
-    v24 = var0;
-    v25 = 2112;
-    v26 = modelCopy;
+    v19 = nameCopy;
+    v20 = 1024;
+    v21 = var1;
+    v22 = 1024;
+    v23 = var0;
+    v24 = 2112;
+    v25 = modelCopy;
     _os_log_error_impl(&dword_1AD246000, v10, OS_LOG_TYPE_ERROR, "%@: ANEProgramProcessRequestDirect() Failed with status=0x%x : statusType=0x%x lModel=%@", buf, 0x22u);
   }
 
@@ -99,27 +120,530 @@ LABEL_7:
   v14 = [_ANEErrors programInferenceOtherErrorForMethod:v9];
 LABEL_9:
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v14;
+}
+
+- (BOOL)processRequest:(id)request model:(id)model qos:(unsigned int)qos qIndex:(unint64_t)index modelStringID:(unint64_t)d options:(id)options returnValue:(unsigned int *)value error:(id *)self0
+{
+  v10 = MEMORY[0x1EEE9AC00](self, a2, request, model, *&qos, index, d, options);
+  v12 = v11;
+  v130 = v13;
+  v15 = v14;
+  v133 = v16;
+  v18 = v17;
+  aSelector = v19;
+  v135 = v10;
+  v201 = *MEMORY[0x1E69E9840];
+  v21 = v20;
+  v132 = v18;
+  v136 = v12;
+  v127 = mach_continuous_time();
+  v22 = +[_ANELog common];
+  spid = os_signpost_id_generate(v22);
+
+  v167 = 0;
+  v168 = &v167;
+  v169 = 0x3032000000;
+  v170 = __Block_byref_object_copy_;
+  v171 = __Block_byref_object_dispose_;
+  v172 = 0;
+  v163 = 0;
+  v164 = &v163;
+  v165 = 0x2020000000;
+  v166 = 1;
+  context = objc_autoreleasePoolPush();
+  v137 = v132;
+  validate = [v21 validate];
+  *(v164 + 24) = validate;
+  if ((validate & 1) == 0)
+  {
+LABEL_12:
+    LODWORD(v31) = 0;
+    goto LABEL_85;
+  }
+
+  v24 = dispatch_time(0, 10000000000);
+  completionHandler = [v21 completionHandler];
+  if (completionHandler)
+  {
+    v129 = 0;
+  }
+
+  else
+  {
+    sharedEvents = [v21 sharedEvents];
+    v129 = sharedEvents == 0;
+  }
+
+  v27 = +[_ANELog common];
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+  {
+    v114 = NSStringFromSelector(aSelector);
+    string_id = [v137 string_id];
+    unsignedIntegerValue = 138412802;
+    v184 = v114;
+    v185 = 2048;
+    *v186 = string_id;
+    *&v186[8] = 1024;
+    *&v186[10] = v129;
+    _os_log_debug_impl(&dword_1AD246000, v27, OS_LOG_TYPE_DEBUG, "%@ ANEProgramProcessRequestDirect() for lModel.string_id:0x%08llx waitForResults is %d", &unsignedIntegerValue, 0x1Cu);
+  }
+
+  if (!v129)
+  {
+    requestsInFlight = [v135 requestsInFlight];
+    v29 = dispatch_semaphore_wait(requestsInFlight, v24) == 0;
+
+    if (!v29)
+    {
+      v30 = +[_ANELog common];
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+      {
+        v118 = NSStringFromSelector(aSelector);
+        queueDepth = [v135 queueDepth];
+        currentAsyncRequestsInFlight = [v135 currentAsyncRequestsInFlight];
+        unsignedIntegerValue = 138413314;
+        v184 = v118;
+        v185 = 1024;
+        *v186 = 15;
+        *&v186[4] = 2048;
+        *&v186[6] = queueDepth;
+        v187 = 2048;
+        v188 = currentAsyncRequestsInFlight;
+        v189 = 2112;
+        v190 = v137;
+        _os_log_error_impl(&dword_1AD246000, v30, OS_LOG_TYPE_ERROR, "%@: Async Request could not be queued - timed out ret=0x%xself.queueDepth=%ld : self.currentAsyncRequestsInFlight=%ld lModel=%@", &unsignedIntegerValue, 0x30u);
+      }
+
+      goto LABEL_12;
+    }
+
+    [v135 setCurrentAsyncRequestsInFlight:{objc_msgSend(v135, "currentAsyncRequestsInFlight") + 1}];
+  }
+
+  bzero(&unsignedIntegerValue, 0x3030uLL);
+  v159 = 0;
+  v160 = &v159;
+  v161 = 0x2020000000;
+  v162 = 0;
+  v32 = [v136 objectForKeyedSubscript:kANEFPerformanceStatsMaskKey[0]];
+  v126 = v32;
+  if (v32)
+  {
+    if (([v32 unsignedIntValue] & 4) != 0)
+    {
+      v157 = 0u;
+      v158 = 0u;
+      v155 = 0u;
+      v156 = 0u;
+      perfStatsArray = [v21 perfStatsArray];
+      v34 = [perfStatsArray countByEnumeratingWithState:&v155 objects:v182 count:16];
+      if (v34)
+      {
+        v35 = *v156;
+        do
+        {
+          for (i = 0; i != v34; ++i)
+          {
+            if (*v156 != v35)
+            {
+              objc_enumerationMutation(perfStatsArray);
+            }
+
+            v37 = *(*(&v155 + 1) + 8 * i);
+            if ([v37 statType] == 2)
+            {
+              stats = [v37 stats];
+              ioSurface = [stats ioSurface];
+            }
+          }
+
+          v34 = [perfStatsArray countByEnumeratingWithState:&v155 objects:v182 count:16];
+        }
+
+        while (v34);
+      }
+    }
+
+    LODWORD(v32) = +[_ANEPerformanceStats driverMaskForANEFMask:](_ANEPerformanceStats, "driverMaskForANEFMask:", [v126 unsignedIntValue]);
+  }
+
+  v200 = v32;
+  *(v160 + 6) = v32;
+  inputArray = [v21 inputArray];
+  LODWORD(v184) = [inputArray count];
+
+  for (j = 0; ; ++j)
+  {
+    inputArray2 = [v21 inputArray];
+    v42 = [inputArray2 count] > j;
+
+    if (!v42)
+    {
+      break;
+    }
+
+    inputArray3 = [v21 inputArray];
+    v44 = [inputArray3 objectAtIndexedSubscript:j];
+    v45 = &v184 + 24 * j + 4;
+    *v45 = [v44 ioSurface];
+
+    inputIndexArray = [v21 inputIndexArray];
+    v47 = [inputIndexArray objectAtIndexedSubscript:j];
+    *(v45 + 2) = [v47 unsignedIntegerValue];
+
+    inputArray4 = [v21 inputArray];
+    v49 = [inputArray4 objectAtIndexedSubscript:j];
+    startOffset = [v49 startOffset];
+    *(v45 + 5) = [startOffset unsignedIntegerValue];
+  }
+
+  outputArray = [v21 outputArray];
+  v191 = [outputArray count];
+
+  for (k = 0; ; ++k)
+  {
+    outputArray2 = [v21 outputArray];
+    v54 = [outputArray2 count] > k;
+
+    if (!v54)
+    {
+      break;
+    }
+
+    outputArray3 = [v21 outputArray];
+    v56 = [outputArray3 objectAtIndexedSubscript:k];
+    v57 = &v192[3 * k];
+    *v57 = [v56 ioSurface];
+
+    outputIndexArray = [v21 outputIndexArray];
+    v59 = [outputIndexArray objectAtIndexedSubscript:k];
+    *(v57 + 2) = [v59 unsignedIntegerValue];
+
+    outputArray4 = [v21 outputArray];
+    v61 = [outputArray4 objectAtIndexedSubscript:k];
+    startOffset2 = [v61 startOffset];
+    *(v57 + 5) = [startOffset2 unsignedIntegerValue];
+  }
+
+  weightsBuffer = [v21 weightsBuffer];
+  v64 = weightsBuffer == 0;
+
+  if (!v64)
+  {
+    weightsBuffer2 = [v21 weightsBuffer];
+    ioSurface2 = [weightsBuffer2 ioSurface];
+  }
+
+  procedureIndex = [v21 procedureIndex];
+  unsignedIntegerValue = [procedureIndex unsignedIntegerValue];
+
+  v192[769] = [v135 programHandle];
+  v193 = v15;
+  v195 = v133;
+  v194 = 0;
+  v67 = [v136 objectForKeyedSubscript:kANEFDisableIOFencesUseSharedEventsKey[0]];
+  v124 = v67;
+  if (v67)
+  {
+    bOOLValue = [v67 BOOLValue];
+    v68 = +[_ANELog common];
+    if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
+    {
+      NSStringFromSelector(aSelector);
+      objc_claimAutoreleasedReturnValue();
+      [v124 BOOLValue];
+      [_ANEProgramForEvaluation processRequest:model:qos:qIndex:modelStringID:options:returnValue:error:];
+    }
+  }
+
+  else
+  {
+    bOOLValue = 0;
+  }
+
+  v69 = [v136 objectForKeyedSubscript:kANEFEnableFWToFWSignal[0]];
+  v125 = v69;
+  if (v69)
+  {
+    bOOLValue2 = [v69 BOOLValue];
+    v70 = +[_ANELog common];
+    if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
+    {
+      NSStringFromSelector(aSelector);
+      objc_claimAutoreleasedReturnValue();
+      [v125 BOOLValue];
+      [_ANEProgramForEvaluation processRequest:model:qos:qIndex:modelStringID:options:returnValue:error:];
+    }
+  }
+
+  else
+  {
+    bOOLValue2 = 0;
+  }
+
+  for (m = 2; m != 514; m += 8)
+  {
+    *&v152[m] = 0;
+  }
+
+  do
+  {
+    *&v152[m] = 0;
+    m += 8;
+  }
+
+  while (m != 1026);
+  sharedEvents2 = [v21 sharedEvents];
+  v73 = sharedEvents2 == 0;
+
+  if (v73)
+  {
+    v95 = 0;
+  }
+
+  else
+  {
+    bzero(v152, 0x1008uLL);
+    sharedEvents3 = [v21 sharedEvents];
+    signalEvents = [sharedEvents3 signalEvents];
+    v76 = [signalEvents count];
+    v152[1] = v76;
+    if (v76)
+    {
+      v77 = 0;
+      v78 = &v154;
+      v79 = v76;
+      v122 = 134218240;
+      do
+      {
+        v80 = [signalEvents objectAtIndexedSubscript:{v77, v122}];
+        sharedEvent = [v80 sharedEvent];
+        v82 = *v78;
+        *v78 = sharedEvent;
+
+        v78[1] = [v80 value];
+        eventType = [v80 eventType];
+        if (eventType >= 6)
+        {
+          v84 = +[_ANELog common];
+          if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
+          {
+            *v179 = v122;
+            *&v179[4] = eventType;
+            *&v179[12] = 2048;
+            *&v179[14] = 0;
+            _os_log_error_impl(&dword_1AD246000, v84, OS_LOG_TYPE_ERROR, "Unknown _ANESignalEventType=%lu using (%lu)", v179, 0x16u);
+          }
+
+          LODWORD(eventType) = 0;
+        }
+
+        *(v78 + 4) = eventType;
+        *(v78 + 5) = [v80 symbolIndex];
+        v78[3] = [v80 agentMask];
+
+        ++v77;
+        v78 += 4;
+      }
+
+      while (v79 != v77);
+    }
+
+    waitEvents = [sharedEvents3 waitEvents];
+    v86 = [waitEvents count];
+    v152[0] = v86;
+    if (v86)
+    {
+      v87 = 0;
+      v88 = v86;
+      v89 = &v153;
+      v123 = 134218240;
+      do
+      {
+        v90 = [waitEvents objectAtIndexedSubscript:{v87, v123}];
+        sharedEvent2 = [v90 sharedEvent];
+        v92 = *(v89 - 1);
+        *(v89 - 1) = sharedEvent2;
+
+        *v89 = [v90 value];
+        eventType2 = [v90 eventType];
+        if (eventType2 >= 3)
+        {
+          v94 = +[_ANELog common];
+          if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
+          {
+            *v179 = v123;
+            *&v179[4] = eventType2;
+            *&v179[12] = 2048;
+            *&v179[14] = 0;
+            _os_log_error_impl(&dword_1AD246000, v94, OS_LOG_TYPE_ERROR, "Unknown _ANEWaitEventType=%lu using (%lu)", v179, 0x16u);
+          }
+
+          LODWORD(eventType2) = 0;
+        }
+
+        *(v89 + 2) = eventType2;
+
+        ++v87;
+        v89 += 4;
+      }
+
+      while (v88 != v87);
+    }
+
+    v95 = v152;
+  }
+
+  completionHandler2 = [v21 completionHandler];
+  *(v164 + 24) = 1;
+  v121 = completionHandler2;
+  kdebug_trace();
+  v97 = +[_ANELog common];
+  v98 = v97;
+  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v97))
+  {
+    v99 = MEMORY[0x1B26F37D0](v121);
+    *v179 = 67109888;
+    *&v179[4] = v133;
+    *&v179[8] = 2048;
+    *&v179[10] = v21;
+    *&v179[18] = 2048;
+    *&v179[20] = v130;
+    v180 = 2048;
+    v181 = v99;
+    _os_signpost_emit_with_name_impl(&dword_1AD246000, v98, OS_SIGNPOST_EVENT, spid, "_ANEF_MODEL_EVAL_DRIVER_REQUEST", "qos:%u r:%p modelStringID:%llu completion:%p", v179, 0x26u);
+  }
+
+  *v179 = 0;
+  *&v179[8] = v179;
+  *&v179[16] = 0x2020000000;
+  v179[24] = 0;
+  controller = [v135 controller];
+  device = [controller device];
+  v138[0] = MEMORY[0x1E69E9820];
+  v138[1] = 3221225472;
+  v138[2] = __100___ANEProgramForEvaluation_processRequest_model_qos_qIndex_modelStringID_options_returnValue_error___block_invoke;
+  v138[3] = &unk_1E79BA178;
+  v147 = aSelector;
+  v150 = v133;
+  v143 = &v163;
+  v144 = &v167;
+  v102 = v137;
+  v139 = v102;
+  v140 = v135;
+  v145 = &v159;
+  v141 = v21;
+  v148 = v130;
+  v103 = v121;
+  v149 = spid;
+  v151 = v129;
+  v142 = v103;
+  v146 = v179;
+  transactionHandle = [v141 transactionHandle];
+  unsignedIntegerValue2 = [transactionHandle unsignedIntegerValue];
+  transactionHandle2 = [v141 transactionHandle];
+  v107 = v138;
+  if (device && *device)
+  {
+    v108 = (*(*device + 32))(device, &unsignedIntegerValue, v107, v95, v129, unsignedIntegerValue2, transactionHandle2 != 0);
+  }
+
+  else
+  {
+    v108 = 2;
+  }
+
+  *value = v108;
+  if (*value)
+  {
+    if ((*(*&v179[8] + 24) & 1) == 0)
+    {
+      requestsInFlight2 = [v135 requestsInFlight];
+      dispatch_semaphore_signal(requestsInFlight2);
+
+      [v135 setCurrentAsyncRequestsInFlight:{objc_msgSend(v135, "currentAsyncRequestsInFlight") - 1}];
+    }
+
+    v110 = +[_ANELog common];
+    if (os_log_type_enabled(v110, OS_LOG_TYPE_ERROR))
+    {
+      v116 = NSStringFromSelector(aSelector);
+      v117 = *value;
+      v173 = 138412802;
+      v174 = v116;
+      v175 = 1024;
+      v176 = v117;
+      v177 = 2112;
+      v178 = v102;
+      _os_log_error_impl(&dword_1AD246000, v110, OS_LOG_TYPE_ERROR, "%@: Could not process request ret=0x%x lModel=%@", &v173, 0x1Cu);
+    }
+  }
+
+  else if (v129 && (v164[3] & 1) == 0)
+  {
+    *value = 18;
+  }
+
+  _Block_object_dispose(v179, 8);
+  for (n = 1018; n != 506; n -= 8)
+  {
+  }
+
+  do
+  {
+
+    n -= 8;
+  }
+
+  while (n != -6);
+
+  _Block_object_dispose(&v159, 8);
+  LODWORD(v31) = 1;
+LABEL_85:
+
+  objc_autoreleasePoolPop(context);
+  if (v31)
+  {
+    if (error)
+    {
+      *error = v168[5];
+    }
+
+    v112 = +[_ANELog common];
+    v31 = v112;
+    if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v112))
+    {
+      unsignedIntegerValue = 134349056;
+      v184 = v127;
+      _os_signpost_emit_with_name_impl(&dword_1AD246000, v31, OS_SIGNPOST_EVENT, spid, "_ANEF_MODEL_EVAL", "%{public, signpost.description:begin_time}llu ", &unsignedIntegerValue, 0xCu);
+    }
+
+    LOBYTE(v31) = *value == 0;
+  }
+
+  _Block_object_dispose(&v163, 8);
+  _Block_object_dispose(&v167, 8);
+
+  return v31;
 }
 
 - (BOOL)processOutputSet:(id)set model:(id)model options:(id)options error:(id *)error
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   setCopy = set;
   modelCopy = model;
   v12 = objc_autoreleasePoolPush();
   v13 = +[_ANELog common];
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v21 = NSStringFromSelector(a2);
+    v20 = NSStringFromSelector(a2);
     *buf = 138412802;
-    v30 = v21;
-    v31 = 2048;
-    *v32 = setCopy;
-    *&v32[8] = 2112;
-    *&v32[10] = modelCopy;
+    v29 = v20;
+    v30 = 2048;
+    *v31 = setCopy;
+    *&v31[8] = 2112;
+    *&v31[10] = modelCopy;
     _os_log_debug_impl(&dword_1AD246000, v13, OS_LOG_TYPE_DEBUG, "-----> %@: processOutputSet() outputSet=%p lModel=%@ : ", buf, 0x20u);
   }
 
@@ -132,7 +656,7 @@ LABEL_9:
   device = [controller device];
   if (device && *device)
   {
-    v16 = (*(*device + 40))(device, &v24);
+    v16 = (*(*device + 40))(device, &v23);
 
     if (!v16)
     {
@@ -150,18 +674,18 @@ LABEL_9:
   v18 = +[_ANELog common];
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
-    v22 = NSStringFromSelector(a2);
+    v21 = NSStringFromSelector(a2);
     programHandle = [(_ANEProgramForEvaluation *)self programHandle];
     *buf = 138413314;
-    v30 = v22;
-    v31 = 1024;
-    *v32 = v16;
-    *&v32[4] = 2112;
-    *&v32[6] = modelCopy;
-    *&v32[14] = 2048;
-    *&v32[16] = programHandle;
-    v33 = 2048;
-    v34 = signalValue;
+    v29 = v21;
+    v30 = 1024;
+    *v31 = v16;
+    *&v31[4] = 2112;
+    *&v31[6] = modelCopy;
+    *&v31[14] = 2048;
+    *&v31[16] = programHandle;
+    v32 = 2048;
+    v33 = signalValue;
     _os_log_error_impl(&dword_1AD246000, v18, OS_LOG_TYPE_ERROR, "%@: Could not process output set enqueue request ret=0x%x lModel=%@ programHandle=%llu signalValue=%llu", buf, 0x30u);
   }
 
@@ -173,13 +697,12 @@ LABEL_11:
     *error = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (BOOL)processInputBuffers:(id)buffers model:(id)model options:(id)options error:(id *)error
 {
-  v56[258] = *MEMORY[0x1E69E9840];
+  v55[258] = *MEMORY[0x1E69E9840];
   buffersCopy = buffers;
   modelCopy = model;
   optionsCopy = options;
@@ -187,20 +710,20 @@ LABEL_11:
   v9 = +[_ANELog common];
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    v34 = NSStringFromSelector(a2);
-    *v52 = 138412802;
-    *&v52[4] = v34;
-    *v53 = 2048;
-    *&v53[2] = buffersCopy;
-    v54 = 2112;
-    v55 = modelCopy;
-    _os_log_debug_impl(&dword_1AD246000, v9, OS_LOG_TYPE_DEBUG, "-----> %@: processInputBuffers() inputBuffers=%p lModel=%@ : ", v52, 0x20u);
+    v33 = NSStringFromSelector(a2);
+    *v51 = 138412802;
+    *&v51[4] = v33;
+    *v52 = 2048;
+    *&v52[2] = buffersCopy;
+    v53 = 2112;
+    v54 = modelCopy;
+    _os_log_debug_impl(&dword_1AD246000, v9, OS_LOG_TYPE_DEBUG, "-----> %@: processInputBuffers() inputBuffers=%p lModel=%@ : ", v51, 0x20u);
   }
 
-  bzero(&v53[4], 0xC08uLL);
-  *v52 = [(_ANEProgramForEvaluation *)self programHandle];
-  *&v52[8] = [buffersCopy procedureIndex];
-  v56[255] = [buffersCopy executionDelay];
+  bzero(&v52[4], 0xC08uLL);
+  *v51 = [(_ANEProgramForEvaluation *)self programHandle];
+  *&v51[8] = [buffersCopy procedureIndex];
+  v55[255] = [buffersCopy executionDelay];
   inputBufferInfoIndex = [buffersCopy inputBufferInfoIndex];
   v11 = [inputBufferInfoIndex count] > 0xFF;
 
@@ -209,20 +732,20 @@ LABEL_11:
     v12 = +[_ANELog common];
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v37 = NSStringFromSelector(a2);
+      v36 = NSStringFromSelector(a2);
       inputBufferInfoIndex2 = [buffersCopy inputBufferInfoIndex];
       *buf = 138412802;
-      v47 = v37;
-      v48 = 2048;
-      *v49 = [inputBufferInfoIndex2 count];
-      *&v49[8] = 1024;
-      *&v49[10] = 255;
+      v46 = v36;
+      v47 = 2048;
+      *v48 = [inputBufferInfoIndex2 count];
+      *&v48[8] = 1024;
+      *&v48[10] = 255;
       _os_log_error_impl(&dword_1AD246000, v12, OS_LOG_TYPE_ERROR, "%@: inputBuffers inputBufferInfoIndex=%lu exceeds max=%d", buf, 0x1Cu);
     }
   }
 
   inputBufferInfoIndex3 = [buffersCopy inputBufferInfoIndex];
-  *v53 = [inputBufferInfoIndex3 count];
+  *v52 = [inputBufferInfoIndex3 count];
 
   for (i = 0; ; ++i)
   {
@@ -237,16 +760,16 @@ LABEL_11:
     inputBufferInfoIndex5 = [buffersCopy inputBufferInfoIndex];
     v18 = [inputBufferInfoIndex5 objectAtIndexedSubscript:i];
     unsignedIntegerValue = [v18 unsignedIntegerValue];
-    *&v53[4 * i + 4] = unsignedIntegerValue;
+    *&v52[4 * i + 4] = unsignedIntegerValue;
 
     v20 = +[_ANELog common];
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
       v21 = NSStringFromSelector(a2);
       *buf = 138412546;
-      v47 = v21;
-      v48 = 1024;
-      *v49 = unsignedIntegerValue;
+      v46 = v21;
+      v47 = 1024;
+      *v48 = unsignedIntegerValue;
       _os_log_debug_impl(&dword_1AD246000, v20, OS_LOG_TYPE_DEBUG, "-----> %@: processInputBuffers() inputBufferInfoIndex value is %d ", buf, 0x12u);
     }
   }
@@ -263,14 +786,14 @@ LABEL_11:
 
     inputFreeValue2 = [buffersCopy inputFreeValue];
     v26 = [inputFreeValue2 objectAtIndexedSubscript:j];
-    v56[j] = [v26 unsignedIntegerValue];
+    v55[j] = [v26 unsignedIntegerValue];
   }
 
   controller = [(_ANEProgramForEvaluation *)self controller];
   device = [controller device];
   if (device && *device)
   {
-    v29 = (*(*device + 48))(device, v52);
+    v29 = (*(*device + 48))(device, v51);
 
     if (!v29)
     {
@@ -288,62 +811,61 @@ LABEL_11:
   v31 = +[_ANELog common];
   if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
   {
-    v35 = NSStringFromSelector(a2);
+    v34 = NSStringFromSelector(a2);
     programHandle = [(_ANEProgramForEvaluation *)self programHandle];
     *buf = 138413058;
-    v47 = v35;
-    v48 = 1024;
-    *v49 = v29;
-    *&v49[4] = 2112;
-    *&v49[6] = modelCopy;
-    v50 = 2048;
-    v51 = programHandle;
+    v46 = v34;
+    v47 = 1024;
+    *v48 = v29;
+    *&v48[4] = 2112;
+    *&v48[6] = modelCopy;
+    v49 = 2048;
+    v50 = programHandle;
     _os_log_error_impl(&dword_1AD246000, v31, OS_LOG_TYPE_ERROR, "%@: Could not process input ready request ret=0x%x lModel=%@ programHandle=%llu", buf, 0x26u);
   }
 
   v30 = 0;
 LABEL_23:
   objc_autoreleasePoolPop(context);
-  if (v40)
+  if (v39)
   {
-    *v40 = 0;
+    *v39 = 0;
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return v30;
 }
 
 - (BOOL)processSessionHint:(id)hint options:(id)options report:(id)report error:(id *)error
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   hintCopy = hint;
   optionsCopy = options;
   reportCopy = report;
-  v39 = mach_continuous_time();
+  v38 = mach_continuous_time();
   v13 = +[_ANELog common];
   v14 = os_signpost_id_generate(v13);
 
   v15 = +[_ANELog common];
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    v37 = NSStringFromSelector(a2);
-    *v49 = 138412802;
-    *&v49[4] = v37;
-    *&v49[12] = 2112;
-    *&v49[14] = hintCopy;
-    *&v49[22] = 2048;
+    v36 = NSStringFromSelector(a2);
+    *v48 = 138412802;
+    *&v48[4] = v36;
+    *&v48[12] = 2112;
+    *&v48[14] = hintCopy;
+    *&v48[22] = 2048;
     programHandle = [(_ANEProgramForEvaluation *)self programHandle];
-    _os_log_debug_impl(&dword_1AD246000, v15, OS_LOG_TYPE_DEBUG, "%@: %@ - 0x%llx", v49, 0x20u);
+    _os_log_debug_impl(&dword_1AD246000, v15, OS_LOG_TYPE_DEBUG, "%@: %@ - 0x%llx", v48, 0x20u);
   }
 
-  v42 = 0;
-  memset(v49, 0, sizeof(v49));
+  v41 = 0;
+  memset(v48, 0, sizeof(v48));
   programHandle2 = [(_ANEProgramForEvaluation *)self programHandle];
   if ([hintCopy isEqualToString:kANEFHintSessionStart])
   {
     v16 = 2;
 LABEL_11:
-    LODWORD(v42) = v16;
+    LODWORD(v41) = v16;
     if (optionsCopy)
     {
       v17 = [optionsCopy objectForKeyedSubscript:kANEFHintEnergyEfficientWorkloadKey];
@@ -353,7 +875,7 @@ LABEL_11:
       if (isKindOfClass)
       {
         v19 = [optionsCopy objectForKeyedSubscript:kANEFHintEnergyEfficientWorkloadKey];
-        BYTE4(v42) = [v19 BOOLValue];
+        BYTE4(v41) = [v19 BOOLValue];
       }
     }
 
@@ -364,9 +886,9 @@ LABEL_11:
     if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
     {
       *buf = 67109376;
-      *v46 = v42;
-      *&v46[4] = 2048;
-      *&v46[6] = programHandle2;
+      *v45 = v41;
+      *&v45[4] = 2048;
+      *&v45[6] = programHandle2;
       _os_signpost_emit_with_name_impl(&dword_1AD246000, v21, OS_SIGNPOST_EVENT, v14, "_ANEF_SEND_SESSION_HINT", " hintParams.hintType:%u hintParams.programHandle:%llu", buf, 0x12u);
     }
 
@@ -374,7 +896,7 @@ LABEL_11:
     device = [controller device];
     if (device && *device)
     {
-      v25 = (*(*device + 80))(device, &programHandle2, v49);
+      v25 = (*(*device + 80))(device, &programHandle2, v48);
 
       if (!v25)
       {
@@ -388,19 +910,19 @@ LABEL_11:
 
         if (reportCopy)
         {
-          if (v42 == 5)
+          if (v41 == 5)
           {
-            v28 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&v49[16]];
+            v28 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*&v48[16]];
             [reportCopy setObject:v28 forKeyedSubscript:kANEFHintReportSessionStatusKey];
             goto LABEL_45;
           }
 
-          if (v42 == 2)
+          if (v41 == 2)
           {
-            v27 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*v49];
+            v27 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*v48];
             [reportCopy setObject:v27 forKeyedSubscript:kANEFHintReportTotalPagesKey];
 
-            v28 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*&v49[8]];
+            v28 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:*&v48[8]];
             [reportCopy setObject:v28 forKeyedSubscript:kANEFHintReportResidentPagesKey];
 LABEL_45:
             v30 = 1;
@@ -417,20 +939,20 @@ LABEL_33:
         v32 = v31;
         if (v22 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
         {
-          *v43 = 67109376;
-          LODWORD(v44[0]) = v42;
-          WORD2(v44[0]) = 2048;
-          *(v44 + 6) = programHandle2;
-          _os_signpost_emit_with_name_impl(&dword_1AD246000, v32, OS_SIGNPOST_EVENT, v14, "_ANEF_SEND_SESSION_HINT", " hintParams.hintType:%u hintParams.programHandle:%llu", v43, 0x12u);
+          *v42 = 67109376;
+          LODWORD(v43[0]) = v41;
+          WORD2(v43[0]) = 2048;
+          *(v43 + 6) = programHandle2;
+          _os_signpost_emit_with_name_impl(&dword_1AD246000, v32, OS_SIGNPOST_EVENT, v14, "_ANEF_SEND_SESSION_HINT", " hintParams.hintType:%u hintParams.programHandle:%llu", v42, 0x12u);
         }
 
         v33 = +[_ANELog common];
         v34 = v33;
         if (v22 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
         {
-          *v43 = 134349056;
-          v44[0] = v39;
-          _os_signpost_emit_with_name_impl(&dword_1AD246000, v34, OS_SIGNPOST_EVENT, v14, "_ANEF_SEND_SESSION_HINT", "%{public, signpost.description:begin_time}llu ", v43, 0xCu);
+          *v42 = 134349056;
+          v43[0] = v38;
+          _os_signpost_emit_with_name_impl(&dword_1AD246000, v34, OS_SIGNPOST_EVENT, v14, "_ANEF_SEND_SESSION_HINT", "%{public, signpost.description:begin_time}llu ", v42, 0xCu);
         }
 
         goto LABEL_43;
@@ -446,13 +968,13 @@ LABEL_33:
     v29 = +[_ANELog common];
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      v38 = NSStringFromSelector(a2);
+      v37 = NSStringFromSelector(a2);
       *buf = 138412802;
-      *v46 = v38;
-      *&v46[8] = 1024;
-      *&v46[10] = v42;
-      v47 = 1024;
-      v48 = v25;
+      *v45 = v37;
+      *&v45[8] = 1024;
+      *&v45[10] = v41;
+      v46 = 1024;
+      v47 = v25;
       _os_log_error_impl(&dword_1AD246000, v29, OS_LOG_TYPE_ERROR, "%@: Failed to set session hint %u ret=0x%x", buf, 0x18u);
     }
 
@@ -497,7 +1019,6 @@ LABEL_33:
   v30 = 0;
 LABEL_43:
 
-  v35 = *MEMORY[0x1E69E9840];
   return v30;
 }
 
@@ -528,9 +1049,8 @@ LABEL_43:
 - (void)processSessionHint:options:report:error:.cold.2()
 {
   OUTLINED_FUNCTION_1_1();
-  v2 = *v1;
-  OUTLINED_FUNCTION_0_1(v3, 5.778e-34, v1, v4);
-  OUTLINED_FUNCTION_2_1(&dword_1AD246000, "%@: Set session hint %u success", v5, v6);
+  OUTLINED_FUNCTION_0_1(v1, 5.778e-34, v2, v3);
+  OUTLINED_FUNCTION_2_1(&dword_1AD246000, "%@: Set session hint %u success", v4, v5);
 }
 
 @end

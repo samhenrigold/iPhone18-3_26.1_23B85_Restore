@@ -123,7 +123,7 @@ uint64_t __102__MSCMSCountersignatureAttribute_initWithAttribute_certificates_LA
 {
   v11 = 0;
   memset(v10, 0, sizeof(v10));
-  v3 = nsheim_decode_SignerInfo(a2);
+  v3 = nsheim_decode_SignerInfo(a2, v10);
   if (v3)
   {
     __102__MSCMSCountersignatureAttribute_initWithAttribute_certificates_LAContext_containingSignerInfo_error___block_invoke_cold_1(v3, a1, &v12);
@@ -144,7 +144,7 @@ uint64_t __102__MSCMSCountersignatureAttribute_initWithAttribute_certificates_LA
 LABEL_4:
   }
 
-  return free_SignerInfo();
+  return free_SignerInfo(v10);
 }
 
 - (MSCMSCountersignatureAttribute)initWithSignerInfo:(id)info signerChainMode:(unint64_t)mode additionalCertificates:(id)certificates
@@ -169,40 +169,38 @@ LABEL_4:
 
 - (void)setContainingSignerInfo:(id)info
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   objc_storeWeak(&self->_containingSignerInfo, infoCopy);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   signers = [(MSCMSCountersignatureAttribute *)self signers];
-  v6 = [signers countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [signers countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(signers);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) setContainingSignerInfo:infoCopy];
+        [*(*(&v10 + 1) + 8 * v9++) setContainingSignerInfo:infoCopy];
       }
 
       while (v7 != v9);
-      v7 = [signers countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [signers countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addSigner:(id)signer
@@ -418,7 +416,7 @@ void __70__MSCMSCountersignatureAttribute_removeSignersWithEmailAddress_error___
   [v5 enumerateObjectsUsingBlock:v8];
 }
 
-uint64_t __70__MSCMSCountersignatureAttribute_removeSignersWithEmailAddress_error___block_invoke_2(uint64_t a1, uint64_t a2)
+void *__70__MSCMSCountersignatureAttribute_removeSignersWithEmailAddress_error___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) caseInsensitiveCompare:a2];
   if (!result)
@@ -724,22 +722,12 @@ LABEL_11:
 
 void __59__MSCMSCountersignatureAttribute_encodeAttributeWithError___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = malloc_type_malloc(0x68uLL, 0x10B00404EF9CE24uLL);
   v8 = [v6 containingSignerInfo];
-  if (!v8)
+  if (!v8 || (v9 = v8, [v6 containingSignerInfo], v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "signature"), v11 = objc_claimAutoreleasedReturnValue(), v11, v10, v9, !v11))
   {
-    goto LABEL_3;
-  }
-
-  v9 = v8;
-  v10 = [v6 containingSignerInfo];
-  v11 = [v10 signature];
-
-  if (!v11)
-  {
-LABEL_3:
     __59__MSCMSCountersignatureAttribute_encodeAttributeWithError___block_invoke_cold_1(a1);
     goto LABEL_12;
   }
@@ -753,7 +741,7 @@ LABEL_3:
     goto LABEL_12;
   }
 
-  v26 = 0;
+  v25 = 0;
   v14 = length_SignerInfo(v7);
   v15 = [MEMORY[0x277CBEB28] dataWithLength:v14];
   if (!v15)
@@ -761,9 +749,9 @@ LABEL_3:
     v16 = 12;
 LABEL_11:
     v20 = MEMORY[0x277CCA9B8];
-    v28 = *MEMORY[0x277CCA450];
-    v29[0] = @"Failed encoding type SignerInfo";
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v27 = *MEMORY[0x277CCA450];
+    v28[0] = @"Failed encoding type SignerInfo";
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
     v22 = [v20 errorWithDomain:@"com.apple.HeimASN1" code:v16 userInfo:v21];
     v23 = *(*(a1 + 32) + 8);
     v24 = *(v23 + 40);
@@ -773,7 +761,7 @@ LABEL_11:
   }
 
   v17 = v15;
-  v18 = encode_SignerInfo([v15 mutableBytes] + v14 - 1, v14, v7, &v26);
+  v18 = encode_SignerInfo([v15 mutableBytes] + v14 - 1, v14, v7, &v25);
   if (v18)
   {
     v19 = v18;
@@ -782,7 +770,7 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  if (v14 != v26)
+  if (v14 != v25)
   {
     asn1_abort();
   }
@@ -791,7 +779,6 @@ LABEL_11:
 
 LABEL_12:
   __59__MSCMSCountersignatureAttribute_encodeAttributeWithError___block_invoke_cold_2(v7, a1, v6, a4);
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (MSCMSSignerInfo)containingSignerInfo
@@ -880,7 +867,7 @@ uint64_t __59__MSCMSCountersignatureAttribute_encodeAttributeWithError___block_i
 
 void __59__MSCMSCountersignatureAttribute_encodeAttributeWithError___block_invoke_cold_2(void *a1, uint64_t a2, void *a3, _BYTE *a4)
 {
-  free_SignerInfo();
+  free_SignerInfo(a1);
   free(a1);
   if (*(*(*(a2 + 32) + 8) + 40))
   {

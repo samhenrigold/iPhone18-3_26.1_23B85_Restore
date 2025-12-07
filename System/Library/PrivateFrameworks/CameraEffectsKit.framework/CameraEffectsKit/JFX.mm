@@ -18,9 +18,12 @@ void __JFX_CaptureSessionInterruptionReasonsList_block_invoke()
 
 uint64_t __JFX_LogCategory_block_invoke(uint64_t a1)
 {
-  **(a1 + 32) = os_log_create("com.apple.CameraEffectsKit", *(a1 + 40));
+  v2 = os_log_create("com.apple.CameraEffectsKit", *(a1 + 40));
+  v3 = *(a1 + 32);
+  v4 = *v3;
+  *v3 = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 void __JFX_isDrawInstructionGraphNodesEnabled_block_invoke()
@@ -245,9 +248,12 @@ void __JFX_adjustFaceAnchorCaptureInterfaceOrientationForDevice_block_invoke()
 
 uint64_t __JFX_LogCategory_block_invoke_0(uint64_t a1)
 {
-  **(a1 + 32) = os_log_create("com.apple.CameraEffectsKit", *(a1 + 40));
+  v2 = os_log_create("com.apple.CameraEffectsKit", *(a1 + 40));
+  v3 = *(a1 + 32);
+  v4 = *v3;
+  *v3 = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 void __JFX_descriptionForEffectAssetContentType_block_invoke()

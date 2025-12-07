@@ -1,4 +1,5 @@
 @interface AMBNRBuffers
++ (int)aliasAMBNRPyramidLevel:(id)level lvl:(int)lvl width:(int)width height:(int)height metal:(id)metal scratchBuffer:(id)buffer offset:(unint64_t *)offset;
 + (int)createAMBNRPyramidForWidth:(int)width height:(int)height startingLevel:(int)level pyramid:(id)pyramid metal:(id)metal scratchBuffer:(id)buffer offset:(unint64_t *)offset;
 + (unint64_t)calculateBytesRequiredForAMBNRPyramidWithWidth:(int)width height:(int)height startingLevel:(int)level;
 - (AMBNRBuffers)init;
@@ -52,6 +53,60 @@
   sharpeningPyramid = self->sharpeningPyramid;
 
   objc_msgSend_clearLevel_(sharpeningPyramid, v6, 0, v7);
+}
+
++ (int)aliasAMBNRPyramidLevel:(id)level lvl:(int)lvl width:(int)width height:(int)height metal:(id)metal scratchBuffer:(id)buffer offset:(unint64_t *)offset
+{
+  v11 = *&height;
+  v12 = *&width;
+  levelCopy = level;
+  metalCopy = metal;
+  bufferCopy = buffer;
+  if (offset)
+  {
+    v18 = *offset;
+    objc_msgSend_create2DTextureFromBuffer_offset_width_height_format_usage_(metalCopy, v16, bufferCopy, *offset, v12, v11, 25, 7);
+  }
+
+  else
+  {
+    v18 = 0;
+    objc_msgSend_create2DTextureFromBuffer_offset_width_height_format_usage_(metalCopy, v16, bufferCopy, 0, v12, v11, 25, 7);
+  }
+  v19 = ;
+  v20 = levelCopy[lvl + 42];
+  levelCopy[lvl + 42] = v19;
+
+  if (levelCopy[lvl + 42])
+  {
+    v22 = v18 + ((2 * v12 + 63) & 0xFFFFFFC0) * v11;
+    v23 = objc_msgSend_create2DTextureFromBuffer_offset_width_height_format_usage_(metalCopy, v21, bufferCopy, v22, (v12 >> 1), (v11 >> 1), 65, 7);
+    v24 = levelCopy[lvl + 62];
+    levelCopy[lvl + 62] = v23;
+
+    if (levelCopy[lvl + 62])
+    {
+      v25 = 0;
+      if (offset)
+      {
+        *offset = v22 + ((((2 * v12) & 0xFFFFFFFC) + 63) & 0xFFFFFFC0) * (v11 >> 1);
+      }
+    }
+
+    else
+    {
+      sub_295892664(&v27);
+      v25 = v27;
+    }
+  }
+
+  else
+  {
+    sub_295892714(&v28);
+    v25 = v28;
+  }
+
+  return v25;
 }
 
 + (unint64_t)calculateBytesRequiredForAMBNRPyramidWithWidth:(int)width height:(int)height startingLevel:(int)level

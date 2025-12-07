@@ -162,8 +162,8 @@ void __43__SBSystemApertureLayoutMonitorServer_init__block_invoke(uint64_t a1, v
   else
   {
     remoteProcess2 = [connectionCopy remoteProcess];
-    auditToken = [remoteProcess2 auditToken];
-    v12 = [auditToken hasEntitlement:@"com.apple.springboard.system-component-layout-monitoring"];
+    v11 = objc_msgSend_auditToken(remoteProcess2);
+    v12 = [v11 hasEntitlement:@"com.apple.springboard.system-component-layout-monitoring"];
 
     if (v12)
     {

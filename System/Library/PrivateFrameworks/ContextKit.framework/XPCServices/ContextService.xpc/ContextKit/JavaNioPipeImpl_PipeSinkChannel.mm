@@ -1,6 +1,7 @@
 @interface JavaNioPipeImpl_PipeSinkChannel
 - (int)writeWithJavaNioByteBuffer:(id)buffer;
 - (int64_t)writeWithJavaNioByteBufferArray:(id)array;
+- (int64_t)writeWithJavaNioByteBufferArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (void)dealloc;
 - (void)implCloseSelectableChannel;
 - (void)implConfigureBlockingWithBoolean:(BOOL)boolean;
@@ -47,6 +48,17 @@
   }
 
   return [v4 writeWithJavaNioByteBufferArray:array];
+}
+
+- (int64_t)writeWithJavaNioByteBufferArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  v6 = *(&self->fd_ + 7);
+  if (!v6)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [v6 writeWithJavaNioByteBufferArray:array withInt:*&int withInt:*&withInt];
 }
 
 - (void)dealloc

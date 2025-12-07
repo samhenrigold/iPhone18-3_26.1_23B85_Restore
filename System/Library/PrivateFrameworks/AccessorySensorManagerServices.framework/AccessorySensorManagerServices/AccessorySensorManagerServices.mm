@@ -32,9 +32,9 @@ uint64_t __ASMXPCGetNextConnectionID_block_invoke()
   return result;
 }
 
-id ASMErrorF()
+id ASMErrorF(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v0 = NSErrorV();
+  v9 = NSErrorV();
 
-  return v0;
+  return v9;
 }

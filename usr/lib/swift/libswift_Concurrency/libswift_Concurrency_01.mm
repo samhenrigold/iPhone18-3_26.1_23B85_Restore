@@ -1,900 +1,6 @@
-void AsyncThrowingFlatMapSequence.Iterator.next()()
-{
-  v2 = *v1;
-  v3 = *(*v1 + 296);
-  v5 = *v1;
-  *(*v1 + 304) = v0;
-  v3;
-  if (v0)
-  {
-    (*(v2[32] + 8))(v2[34], v2[27]);
-    v4 = AsyncThrowingFlatMapSequence.Iterator.next();
-  }
-
-  else
-  {
-    v4 = AsyncThrowingFlatMapSequence.Iterator.next();
-  }
-
-  swift_task_switch(v4, 0, 0);
-}
-
-{
-  v2 = *(*v1 + 312);
-  v4 = *v1;
-  *(*v1 + 320) = v0;
-  v2;
-  if (v0)
-  {
-    v3 = AsyncThrowingFlatMapSequence.Iterator.next();
-  }
-
-  else
-  {
-    v3 = AsyncThrowingFlatMapSequence.Iterator.next();
-  }
-
-  swift_task_switch(v3, 0, 0);
-}
-
-{
-  v2 = *v1;
-  v3 = *(*v1 + 336);
-  v4 = *v1;
-  *(*v1 + 344) = v0;
-  v3;
-  v5 = v2[41];
-  (*(v2[16] + 8))(v2[17], v2[12]);
-
-  if (v0)
-  {
-    v6 = AsyncThrowingFlatMapSequence.Iterator.next();
-  }
-
-  else
-  {
-    v6 = AsyncThrowingFlatMapSequence.Iterator.next();
-  }
-
-  swift_task_switch(v6, 0, 0);
-}
-
-{
-  v2 = *v1;
-  v3 = *(*v1 + 352);
-  v5 = *v1;
-  *(*v1 + 360) = v0;
-  v3;
-  if (v0)
-  {
-    (*(v2[32] + 8))(v2[33], v2[27]);
-    v4 = AsyncThrowingFlatMapSequence.Iterator.next();
-  }
-
-  else
-  {
-    (*(v2[6] + 8))(v2[9], v2[5]);
-    v4 = AsyncThrowingFlatMapSequence.Iterator.next();
-  }
-
-  swift_task_switch(v4, 0, 0);
-}
-
-void AsyncThrowingFlatMapSequence.Iterator.next(isolation:)(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
-{
-  v5[5] = a4;
-  v5[6] = v4;
-  v5[3] = a2;
-  v5[4] = a3;
-  v5[2] = a1;
-  v9 = a4[3];
-  v5[7] = v9;
-  v10 = *(v9 - 8);
-  v5[8] = v10;
-  v11 = *(v10 + 64) + 15;
-  v5[9] = swift_task_alloc(v11 & 0xFFFFFFFFFFFFFFF0);
-  v5[10] = swift_task_alloc(v11 & 0xFFFFFFFFFFFFFFF0);
-  v5[11] = swift_task_alloc(v11 & 0xFFFFFFFFFFFFFFF0);
-  v5[12] = a4[4];
-  v5[13] = a4[2];
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v5[14] = AssociatedTypeWitness;
-  v13 = *(AssociatedTypeWitness - 8);
-  v5[15] = v13;
-  v5[16] = swift_task_alloc((*(v13 + 64) + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = swift_getAssociatedTypeWitness();
-  v5[17] = v14;
-  v15 = type metadata accessor for Optional();
-  v5[18] = v15;
-  v16 = *(v15 - 8);
-  v5[19] = v16;
-  v5[20] = swift_task_alloc((*(v16 + 64) + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = *(v14 - 8);
-  v5[21] = v17;
-  v5[22] = swift_task_alloc((*(v17 + 64) + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5[23] = a4[5];
-  v18 = swift_getAssociatedTypeWitness();
-  v5[24] = v18;
-  v19 = type metadata accessor for Optional();
-  v5[25] = v19;
-  v20 = *(v19 - 8);
-  v5[26] = v20;
-  v21 = *(v20 + 64) + 15;
-  v5[27] = swift_task_alloc(v21 & 0xFFFFFFFFFFFFFFF0);
-  v5[28] = swift_task_alloc(v21 & 0xFFFFFFFFFFFFFFF0);
-  v22 = *(v18 - 8);
-  v5[29] = v22;
-  v23 = *(v22 + 64) + 15;
-  v5[30] = swift_task_alloc(v23 & 0xFFFFFFFFFFFFFFF0);
-  v5[31] = swift_task_alloc(v23 & 0xFFFFFFFFFFFFFFF0);
-  v24 = swift_getAssociatedTypeWitness();
-  v5[32] = v24;
-  v25 = *(v24 - 8);
-  v5[33] = v25;
-  v26 = *(v25 + 64) + 15;
-  v5[34] = swift_task_alloc(v26 & 0xFFFFFFFFFFFFFFF0);
-  v5[35] = swift_task_alloc(v26 & 0xFFFFFFFFFFFFFFF0);
-  v5[36] = swift_task_alloc(v26 & 0xFFFFFFFFFFFFFFF0);
-  v5[37] = swift_task_alloc(v26 & 0xFFFFFFFFFFFFFFF0);
-  v27 = swift_getAssociatedTypeWitness();
-  v5[38] = v27;
-  v28 = type metadata accessor for Optional();
-  v5[39] = v28;
-  v29 = *(v28 - 8);
-  v5[40] = v29;
-  v30 = *(v29 + 64) + 15;
-  v5[41] = swift_task_alloc(v30 & 0xFFFFFFFFFFFFFFF0);
-  v5[42] = swift_task_alloc(v30 & 0xFFFFFFFFFFFFFFF0);
-  v31 = *(v27 - 8);
-  v5[43] = v31;
-  v32 = *(v31 + 64) + 15;
-  v5[44] = swift_task_alloc(v32 & 0xFFFFFFFFFFFFFFF0);
-  v5[45] = swift_task_alloc(v32 & 0xFFFFFFFFFFFFFFF0);
-  if (a2)
-  {
-    ObjectType = swift_getObjectType();
-    v34 = (*(a3 + 8))(ObjectType, a3);
-    v36 = v35;
-  }
-
-  else
-  {
-    v34 = 0;
-    v36 = 0;
-  }
-
-  v5[46] = v34;
-  v5[47] = v36;
-
-  swift_task_switch(AsyncThrowingFlatMapSequence.Iterator.next(isolation:), v34, v36);
-}
-
-uint64_t AsyncThrowingFlatMapSequence.Iterator.next(isolation:)()
-{
-  if (*(v0[6] + *(v0[5] + 60)))
-  {
-    v1 = v0[44];
-    v2 = v0[45];
-    v4 = v0[41];
-    v3 = v0[42];
-    v6 = v0[36];
-    v5 = v0[37];
-    v8 = v0[34];
-    v7 = v0[35];
-    v9 = v0[31];
-    v39 = v0[30];
-    v40 = v0[28];
-    v41 = v0[27];
-    v42 = v0[22];
-    v43 = v0[20];
-    v44 = v0[16];
-    v45 = v0[11];
-    v46 = v0[10];
-    v48 = v0[9];
-    (*(v0[29] + 56))(v0[2], 1, 1, v0[24]);
-    v2;
-    v1;
-    v3;
-    v4;
-    v5;
-    v6;
-    v7;
-    v8;
-    v9;
-    v39;
-    v40;
-    v41;
-    v42;
-    v43;
-    v44;
-    v45;
-    v46;
-    v48;
-    v10 = v0[1];
-
-    return v10();
-  }
-
-  else
-  {
-    v12 = v0[42];
-    v13 = v0[43];
-    v14 = v0[38];
-    AsyncFlatMapSequence.Iterator.currentIterator.getter();
-    if ((*(v13 + 48))(v12, 1, v14) == 1)
-    {
-      v15 = v0[12];
-      v16 = v0[13];
-      (*(v0[40] + 8))(v0[42], v0[39]);
-      swift_getAssociatedTypeWitness();
-      AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-      v0[52] = AssociatedConformanceWitness;
-      v18 = *(AssociatedConformanceWitness + 40);
-      v19 = swift_checkMetadataState();
-      v0[53] = v19;
-      v47 = (v18 + *v18);
-      v20 = swift_task_alloc(v18[1]);
-      v0[54] = v20;
-      *v20 = v0;
-      v20[1] = AsyncThrowingFlatMapSequence.Iterator.next(isolation:);
-      v21 = v0[20];
-      v22 = v0[16];
-      v23 = v0[6];
-      v24 = v0[3];
-      v25 = v0[4];
-      v26 = v19;
-      v27 = AssociatedConformanceWitness;
-      v28 = v47;
-    }
-
-    else
-    {
-      v29 = v0[45];
-      v30 = v0[42];
-      v31 = v0[43];
-      v32 = v0[38];
-      v33 = v0[23];
-      v34 = v0[7];
-      v35 = *(v31 + 32);
-      v0[48] = v35;
-      v0[49] = (v31 + 32) & 0xFFFFFFFFFFFFLL | 0x48D8000000000000;
-      v35(v29, v30, v32);
-      v36 = swift_getAssociatedConformanceWitness();
-      v0[50] = v36;
-      v49 = (*(v36 + 40) + **(v36 + 40));
-      v37 = swift_task_alloc(*(*(v36 + 40) + 4));
-      v0[51] = v37;
-      *v37 = v0;
-      v37[1] = AsyncThrowingFlatMapSequence.Iterator.next(isolation:);
-      v38 = v0[45];
-      v26 = v0[38];
-      v22 = v0[36];
-      v21 = v0[28];
-      v24 = v0[3];
-      v25 = v0[4];
-      v27 = v36;
-      v28 = v49;
-    }
-
-    return v28(v21, v24, v25, v22, v26, v27);
-  }
-}
-
-{
-  v1 = v0[28];
-  v2 = v0[29];
-  v3 = v0[24];
-  if ((*(v2 + 48))(v1, 1, v3) == 1)
-  {
-    v4 = v0[43];
-    v5 = v0[41];
-    v6 = v0[38];
-    v7 = v0[25];
-    v8 = v0[26];
-    v10 = v0[5];
-    v9 = v0[6];
-    (*(v4 + 8))(v0[45], v6);
-    (*(v8 + 8))(v1, v7);
-    v11 = 1;
-    (*(v4 + 56))(v5, 1, 1, v6);
-    AsyncFlatMapSequence.Iterator.currentIterator.setter(v5, v10);
-    if ((*(v0[6] + *(v0[5] + 60)) & 1) == 0)
-    {
-      v12 = v0[42];
-      v13 = v0[43];
-      v14 = v0[38];
-      AsyncFlatMapSequence.Iterator.currentIterator.getter();
-      if ((*(v13 + 48))(v12, 1, v14) == 1)
-      {
-        v15 = v0[12];
-        v16 = v0[13];
-        (*(v0[40] + 8))(v0[42], v0[39]);
-        swift_getAssociatedTypeWitness();
-        AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-        v0[52] = AssociatedConformanceWitness;
-        v18 = *(AssociatedConformanceWitness + 40);
-        v19 = swift_checkMetadataState();
-        v0[53] = v19;
-        v67 = (v18 + *v18);
-        v20 = swift_task_alloc(v18[1]);
-        v0[54] = v20;
-        *v20 = v0;
-        v20[1] = AsyncThrowingFlatMapSequence.Iterator.next(isolation:);
-        v21 = v0[20];
-        v22 = v0[16];
-        v23 = v0[6];
-        v24 = v0[3];
-        v25 = v0[4];
-        v26 = v19;
-        v27 = AssociatedConformanceWitness;
-        v28 = v67;
-      }
-
-      else
-      {
-        v46 = v0[45];
-        v47 = v0[42];
-        v48 = v0[43];
-        v49 = v0[38];
-        v50 = v0[23];
-        v51 = v0[7];
-        v52 = *(v48 + 32);
-        v0[48] = v52;
-        v0[49] = (v48 + 32) & 0xFFFFFFFFFFFFLL | 0x48D8000000000000;
-        v52(v46, v47, v49);
-        v53 = swift_getAssociatedConformanceWitness();
-        v0[50] = v53;
-        v72 = (*(v53 + 40) + **(v53 + 40));
-        v54 = swift_task_alloc(*(*(v53 + 40) + 4));
-        v0[51] = v54;
-        *v54 = v0;
-        v54[1] = AsyncThrowingFlatMapSequence.Iterator.next(isolation:);
-        v55 = v0[45];
-        v26 = v0[38];
-        v22 = v0[36];
-        v21 = v0[28];
-        v24 = v0[3];
-        v25 = v0[4];
-        v27 = v53;
-        v28 = v72;
-      }
-
-      return v28(v21, v24, v25, v22, v26, v27);
-    }
-  }
-
-  else
-  {
-    v61 = v0[48];
-    v63 = v0[49];
-    v29 = v0[45];
-    v30 = v0[43];
-    v31 = v0[41];
-    v32 = v0[38];
-    v33 = v0[31];
-    v65 = v0[5];
-    v68 = v0[6];
-    v70 = v0[2];
-    v34 = *(v2 + 32);
-    v34(v33, v1, v3);
-    v61(v31, v29, v32);
-    (*(v30 + 56))(v31, 0, 1, v32);
-    AsyncFlatMapSequence.Iterator.currentIterator.setter(v31, v65);
-    v34(v70, v33, v3);
-    v11 = 0;
-  }
-
-  v35 = v0[44];
-  v36 = v0[45];
-  v38 = v0[41];
-  v37 = v0[42];
-  v40 = v0[36];
-  v39 = v0[37];
-  v42 = v0[34];
-  v41 = v0[35];
-  v56 = v0[31];
-  v57 = v0[30];
-  v58 = v0[28];
-  v59 = v0[27];
-  v60 = v0[22];
-  v62 = v0[20];
-  v43 = v0[16];
-  v64 = v43;
-  v66 = v0[11];
-  v69 = v0[10];
-  v71 = v0[9];
-  (*(v0[29] + 56))(v0[2], v11, 1, v0[24]);
-  v36;
-  v35;
-  v37;
-  v38;
-  v39;
-  v40;
-  v41;
-  v42;
-  v56;
-  v57;
-  v58;
-  v59;
-  v60;
-  v62;
-  v64;
-  v66;
-  v69;
-  v71;
-  v44 = v0[1];
-
-  return v44();
-}
-
-{
-  v1 = v0[20];
-  v2 = v0[21];
-  v3 = v0[17];
-  if ((*(v2 + 48))(v1, 1, v3) == 1)
-  {
-    (*(v0[19] + 8))(v1, v0[18]);
-    v4 = v0[44];
-    v5 = v0[45];
-    v7 = v0[41];
-    v6 = v0[42];
-    v9 = v0[36];
-    v8 = v0[37];
-    v11 = v0[34];
-    v10 = v0[35];
-    v12 = v0[31];
-    v22 = v0[30];
-    v23 = v0[28];
-    v24 = v0[27];
-    v25 = v0[22];
-    v26 = v0[20];
-    v27 = v0[16];
-    v28 = v0[11];
-    v29 = v0[10];
-    v30 = v0[9];
-    (*(v0[29] + 56))(v0[2], 1, 1, v0[24]);
-    v5;
-    v4;
-    v6;
-    v7;
-    v8;
-    v9;
-    v10;
-    v11;
-    v12;
-    v22;
-    v23;
-    v24;
-    v25;
-    v26;
-    v27;
-    v28;
-    v29;
-    v30;
-    v13 = v0[1];
-
-    return v13();
-  }
-
-  else
-  {
-    v16 = v0[5];
-    v15 = v0[6];
-    (*(v2 + 32))(v0[22], v1, v3);
-    v17 = (v15 + *(v16 + 52));
-    v18 = *v17;
-    v0[55] = v17[1];
-
-    v31 = (v18 + *v18);
-    v19 = swift_task_alloc(v18[1]);
-    v0[56] = v19;
-    *v19 = v0;
-    v19[1] = AsyncThrowingFlatMapSequence.Iterator.next(isolation:);
-    v20 = v0[22];
-    v21 = v0[10];
-
-    return v31(v21, v20);
-  }
-}
-
-{
-  v1 = v0[44];
-  v2 = v0[38];
-  v3 = v0[23];
-  v4 = v0[11];
-  v6 = v0[8];
-  v5 = v0[9];
-  v7 = v0[7];
-  (*(v6 + 32))(v4, v0[10], v7);
-  (*(v6 + 16))(v5, v4, v7);
-  (*(v3 + 40))(v7, v3);
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v0[58] = AssociatedConformanceWitness;
-  v17 = (*(AssociatedConformanceWitness + 40) + **(AssociatedConformanceWitness + 40));
-  v9 = swift_task_alloc(*(*(AssociatedConformanceWitness + 40) + 4));
-  v0[59] = v9;
-  *v9 = v0;
-  v9[1] = AsyncThrowingFlatMapSequence.Iterator.next(isolation:);
-  v10 = v0[44];
-  v11 = v0[38];
-  v12 = v0[35];
-  v13 = v0[27];
-  v14 = v0[3];
-  v15 = v0[4];
-
-  return v17(v13, v14, v15, v12, v11, AssociatedConformanceWitness);
-}
-
-{
-  v1 = v0[29];
-  v2 = v0[27];
-  v3 = v0[24];
-  v4 = (*(v1 + 48))(v2, 1, v3);
-  v6 = v0[43];
-  v5 = v0[44];
-  v7 = v0[41];
-  v8 = v0[38];
-  if (v4 == 1)
-  {
-    v9 = v0[25];
-    v10 = v0[26];
-    v12 = v0[5];
-    v11 = v0[6];
-    (*(v6 + 8))(v0[44], v0[38]);
-    (*(v10 + 8))(v2, v9);
-    v13 = 1;
-    (*(v6 + 56))(v7, 1, 1, v8);
-    AsyncFlatMapSequence.Iterator.currentIterator.setter(v7, v12);
-    if (*(v0[6] + *(v0[5] + 60)) != 1)
-    {
-      v14 = v0[42];
-      v15 = v0[43];
-      v16 = v0[38];
-      AsyncFlatMapSequence.Iterator.currentIterator.getter();
-      if ((*(v15 + 48))(v14, 1, v16) == 1)
-      {
-        v17 = v0[12];
-        v18 = v0[13];
-        (*(v0[40] + 8))(v0[42], v0[39]);
-        swift_getAssociatedTypeWitness();
-        AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-        v0[52] = AssociatedConformanceWitness;
-        v20 = *(AssociatedConformanceWitness + 40);
-        v21 = swift_checkMetadataState();
-        v0[53] = v21;
-        v64 = (v20 + *v20);
-        v22 = swift_task_alloc(v20[1]);
-        v0[54] = v22;
-        *v22 = v0;
-        v22[1] = AsyncThrowingFlatMapSequence.Iterator.next(isolation:);
-        v23 = v0[20];
-        v24 = v0[16];
-        v25 = v0[6];
-        v26 = v0[3];
-        v27 = v0[4];
-        v28 = v21;
-        v29 = AssociatedConformanceWitness;
-        v30 = v64;
-      }
-
-      else
-      {
-        v45 = v0[45];
-        v46 = v0[42];
-        v47 = v0[43];
-        v48 = v0[38];
-        v49 = v0[23];
-        v50 = v0[7];
-        v51 = *(v47 + 32);
-        v0[48] = v51;
-        v0[49] = (v47 + 32) & 0xFFFFFFFFFFFFLL | 0x48D8000000000000;
-        v51(v45, v46, v48);
-        v52 = swift_getAssociatedConformanceWitness();
-        v0[50] = v52;
-        v69 = (*(v52 + 40) + **(v52 + 40));
-        v53 = swift_task_alloc(*(*(v52 + 40) + 4));
-        v0[51] = v53;
-        *v53 = v0;
-        v53[1] = AsyncThrowingFlatMapSequence.Iterator.next(isolation:);
-        v54 = v0[45];
-        v28 = v0[38];
-        v24 = v0[36];
-        v23 = v0[28];
-        v26 = v0[3];
-        v27 = v0[4];
-        v29 = v52;
-        v30 = v69;
-      }
-
-      return v30(v23, v26, v27, v24, v28, v29);
-    }
-  }
-
-  else
-  {
-    v31 = v0[30];
-    v32 = v0[5];
-    v62 = v31;
-    v65 = v0[6];
-    v67 = v0[2];
-    v33 = *(v1 + 32);
-    v33();
-    (*(v6 + 32))(v7, v5, v8);
-    (*(v6 + 56))(v7, 0, 1, v8);
-    AsyncFlatMapSequence.Iterator.currentIterator.setter(v7, v32);
-    (v33)(v67, v62, v3);
-    v13 = 0;
-  }
-
-  v34 = v0[44];
-  v35 = v0[45];
-  v37 = v0[41];
-  v36 = v0[42];
-  v39 = v0[36];
-  v38 = v0[37];
-  v41 = v0[34];
-  v40 = v0[35];
-  v55 = v0[31];
-  v56 = v0[30];
-  v57 = v0[28];
-  v58 = v0[27];
-  v59 = v0[22];
-  v60 = v0[20];
-  v42 = v0[16];
-  v61 = v42;
-  v63 = v0[11];
-  v66 = v0[10];
-  v68 = v0[9];
-  (*(v0[29] + 56))(v0[2], v13, 1, v0[24]);
-  v35;
-  v34;
-  v36;
-  v37;
-  v38;
-  v39;
-  v40;
-  v41;
-  v55;
-  v56;
-  v57;
-  v58;
-  v59;
-  v60;
-  v61;
-  v63;
-  v66;
-  v68;
-  v43 = v0[1];
-
-  return v43();
-}
-
-{
-  v1 = v0[50];
-  v2 = v0[37];
-  v3 = v0[34];
-  v4 = v0[32];
-  v6 = v0[5];
-  v5 = v0[6];
-  v7 = *(v0[33] + 32);
-  v7(v2, v0[36], v4);
-  v7(v3, v2, v4);
-  *(v5 + *(v6 + 60)) = 1;
-  swift_getAssociatedConformanceWitness();
-  swift_allocError();
-  v7(v8, v3, v4);
-  swift_willThrow();
-  v9 = v0[44];
-  v11 = v0[41];
-  v10 = v0[42];
-  v12 = v0[36];
-  v13 = v0[37];
-  v15 = v0[34];
-  v14 = v0[35];
-  v17 = v0[30];
-  v16 = v0[31];
-  v20 = v0[28];
-  v21 = v0[27];
-  v22 = v0[22];
-  v23 = v0[20];
-  v24 = v0[16];
-  v25 = v0[11];
-  v26 = v0[10];
-  v27 = v0[9];
-  v0[45];
-  v9;
-  v10;
-  v11;
-  v13;
-  v12;
-  v14;
-  v15;
-  v16;
-  v17;
-  v20;
-  v21;
-  v22;
-  v23;
-  v24;
-  v25;
-  v26;
-  v27;
-  v18 = v0[1];
-
-  return v18();
-}
-
-{
-  v1 = v0[52];
-  v2 = v0[53];
-  v4 = v0[15];
-  v3 = v0[16];
-  v5 = v0[14];
-  swift_getAssociatedConformanceWitness();
-  swift_allocError();
-  (*(v4 + 32))(v6, v3, v5);
-  v7 = v0[44];
-  v9 = v0[41];
-  v8 = v0[42];
-  v10 = v0[36];
-  v11 = v0[37];
-  v13 = v0[34];
-  v12 = v0[35];
-  v15 = v0[30];
-  v14 = v0[31];
-  v18 = v0[28];
-  v19 = v0[27];
-  v20 = v0[22];
-  v21 = v0[20];
-  v22 = v0[16];
-  v23 = v0[11];
-  v24 = v0[10];
-  v25 = v0[9];
-  v0[45];
-  v7;
-  v8;
-  v9;
-  v11;
-  v10;
-  v12;
-  v13;
-  v14;
-  v15;
-  v18;
-  v19;
-  v20;
-  v21;
-  v22;
-  v23;
-  v24;
-  v25;
-  v16 = v0[1];
-
-  return v16();
-}
-
-{
-  v1 = v0[57];
-  v2 = v0[43];
-  v3 = v0[41];
-  v4 = v0[38];
-  v5 = v0[5];
-  *(v0[6] + *(v5 + 60)) = 1;
-  (*(v2 + 56))(v3, 1, 1, v4);
-  AsyncFlatMapSequence.Iterator.currentIterator.setter(v3, v5);
-  swift_willThrow();
-  if (!v1)
-  {
-    (*(v0[8] + 8))(v0[11], v0[7]);
-  }
-
-  v6 = v0[44];
-  v8 = v0[41];
-  v7 = v0[42];
-  v9 = v0[36];
-  v10 = v0[37];
-  v12 = v0[34];
-  v11 = v0[35];
-  v13 = v0[30];
-  v14 = v0[31];
-  v17 = v0[28];
-  v18 = v0[27];
-  v19 = v0[22];
-  v20 = v0[20];
-  v21 = v0[16];
-  v22 = v0[11];
-  v23 = v0[10];
-  v24 = v0[9];
-  v0[45];
-  v6;
-  v7;
-  v8;
-  v10;
-  v9;
-  v11;
-  v12;
-  v14;
-  v13;
-  v17;
-  v18;
-  v19;
-  v20;
-  v21;
-  v22;
-  v23;
-  v24;
-  v15 = v0[1];
-
-  return v15();
-}
-
-{
-  v1 = v0[58];
-  v2 = v0[38];
-  v3 = v0[35];
-  v5 = v0[32];
-  v4 = v0[33];
-  swift_getAssociatedConformanceWitness();
-  swift_allocError();
-  (*(v4 + 32))(v6, v3, v5);
-  v7 = v0[57];
-  v8 = v0[43];
-  v9 = v0[41];
-  v10 = v0[38];
-  v11 = v0[5];
-  *(v0[6] + *(v11 + 60)) = 1;
-  (*(v8 + 56))(v9, 1, 1, v10);
-  AsyncFlatMapSequence.Iterator.currentIterator.setter(v9, v11);
-  swift_willThrow();
-  if (!v7)
-  {
-    (*(v0[8] + 8))(v0[11], v0[7]);
-  }
-
-  v12 = v0[44];
-  v14 = v0[41];
-  v13 = v0[42];
-  v15 = v0[36];
-  v16 = v0[37];
-  v18 = v0[34];
-  v17 = v0[35];
-  v20 = v0[30];
-  v19 = v0[31];
-  v23 = v0[28];
-  v24 = v0[27];
-  v25 = v0[22];
-  v26 = v0[20];
-  v27 = v0[16];
-  v28 = v0[11];
-  v29 = v0[10];
-  v30 = v0[9];
-  v0[45];
-  v12;
-  v13;
-  v14;
-  v16;
-  v15;
-  v17;
-  v18;
-  v19;
-  v20;
-  v23;
-  v24;
-  v25;
-  v26;
-  v27;
-  v28;
-  v29;
-  v30;
-  v21 = v0[1];
-
-  return v21();
-}
-
 void AsyncThrowingFlatMapSequence.Iterator.next(isolation:)()
 {
   v2 = *v1;
-  v6 = *v1;
   *(*v1 + 408);
   if (v0)
   {
@@ -916,10 +22,31 @@ void AsyncThrowingFlatMapSequence.Iterator.next(isolation:)()
 
 {
   v2 = *v1;
-  v3 = *v1;
   *(*v1 + 432);
-  v4 = *(v2 + 376);
-  v5 = *(v2 + 368);
+  v3 = *(v2 + 376);
+  v4 = *(v2 + 368);
+  if (v0)
+  {
+    v5 = AsyncThrowingFlatMapSequence.Iterator.next(isolation:);
+  }
+
+  else
+  {
+    v5 = AsyncThrowingFlatMapSequence.Iterator.next(isolation:);
+  }
+
+  swift_task_switch(v5, v4, v3);
+}
+
+{
+  v2 = *v1;
+  v3 = *(*v1 + 448);
+  *(*v1 + 456) = v0;
+  v3;
+  (*(v2[21] + 8))(v2[22], v2[17]);
+
+  v4 = v2[47];
+  v5 = v2[46];
   if (v0)
   {
     v6 = AsyncThrowingFlatMapSequence.Iterator.next(isolation:);
@@ -935,31 +62,6 @@ void AsyncThrowingFlatMapSequence.Iterator.next(isolation:)()
 
 {
   v2 = *v1;
-  v3 = *(*v1 + 448);
-  v4 = *v1;
-  *(*v1 + 456) = v0;
-  v3;
-  v5 = v2[55];
-  (*(v2[21] + 8))(v2[22], v2[17]);
-
-  v6 = v2[47];
-  v7 = v2[46];
-  if (v0)
-  {
-    v8 = AsyncThrowingFlatMapSequence.Iterator.next(isolation:);
-  }
-
-  else
-  {
-    v8 = AsyncThrowingFlatMapSequence.Iterator.next(isolation:);
-  }
-
-  swift_task_switch(v8, v7, v6);
-}
-
-{
-  v2 = *v1;
-  v6 = *v1;
   *(*v1 + 472);
   if (v0)
   {
@@ -1003,27 +105,25 @@ void _ss28AsyncThrowingFlatMapSequenceV8IteratorVyxq__GScIsScI4next9isolation7El
 
 uint64_t AsyncFlatMapSequence.makeAsyncIterator()(uint64_t a1, uint64_t (*a2)(char *, uint64_t, uint64_t, uint64_t, void, uint64_t, void))
 {
-  v22 = a2;
+  v20 = a2;
   v3 = v2;
   v5 = *(a1 + 16);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x1EEE9AC00](a1);
-  v10 = &v21 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = *(v8 + 32);
+  v7 = MEMORY[0x1EEE9AC00](a1);
+  v9 = &v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = *(v7 + 32);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v13 = *(*(AssociatedTypeWitness - 8) + 64);
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness - 8);
-  v15 = &v21 - v14;
-  (*(v6 + 16))(v10, v3, v5);
-  (*(v11 + 40))(v5, v11);
-  v16 = (v3 + *(a1 + 52));
-  v17 = *v16;
-  v18 = v16[1];
-  v19 = *(*(a1 - 8) + 8);
+  v13 = &v19 - v12;
+  (*(v6 + 16))(v9, v3, v5);
+  (*(v10 + 40))(v5, v10);
+  v14 = (v3 + *(a1 + 52));
+  v15 = *v14;
+  v16 = v14[1];
+  v17 = *(*(a1 - 8) + 8);
 
-  v19(v3, a1);
-  return v22(v15, v17, v18, v5, *(a1 + 24), v11, *(a1 + 40));
+  v17(v3, a1);
+  return v20(v13, v15, v16, v5, *(a1 + 24), v10, *(a1 + 40));
 }
 
 uint64_t AsyncSequence.compactMap<A>(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t (*a6)(void, uint64_t, uint64_t, uint64_t)@<X5>, uint64_t a7@<X8>)
@@ -1044,31 +144,20 @@ uint64_t AsyncCompactMapSequence.init(_:transform:)@<X0>(uint64_t a1@<X0>, uint6
   return result;
 }
 
-uint64_t AsyncCompactMapSequence.Iterator.baseIterator.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t AsyncCompactMapSequence.Iterator.baseIterator.getter@<X0>(uint64_t a2@<X8>)
 {
-  v4 = *(a1 + 32);
-  v5 = *(a1 + 16);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v7 = *(*(AssociatedTypeWitness - 8) + 16);
+  v5 = *(*(AssociatedTypeWitness - 8) + 16);
 
-  return v7(a2, v2, AssociatedTypeWitness);
+  return v5(a2, v2, AssociatedTypeWitness);
 }
 
 uint64_t AsyncCompactMapSequence.Iterator.baseIterator.setter(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a2 + 32);
-  v5 = *(a2 + 16);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v7 = *(*(AssociatedTypeWitness - 8) + 40);
+  v5 = *(*(AssociatedTypeWitness - 8) + 40);
 
-  return v7(v2, a1, AssociatedTypeWitness);
-}
-
-uint64_t (*AsyncThrowingMapSequence.Iterator.finished.modify(uint64_t a1, uint64_t a2))()
-{
-  result = UnownedSerialExecutor.executor.modify;
-  v4 = v2 + *(a2 + 48);
-  return result;
+  return v5(v2, a1, AssociatedTypeWitness);
 }
 
 uint64_t AsyncThrowingCompactMapSequence.Iterator.init(_:transform:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t (*a7)(void, uint64_t, uint64_t, uint64_t)@<X6>, uint64_t a8@<X8>)
@@ -1121,21 +210,18 @@ uint64_t AsyncThrowingMapSequence.Iterator.next()()
 
   else
   {
-    v6 = v0[5];
-    v7 = v0[6];
     swift_getAssociatedTypeWitness();
     AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-    v9 = *(AssociatedConformanceWitness + 32);
-    v10 = swift_checkMetadataState();
-    v14 = (v9 + *v9);
-    v11 = swift_task_alloc(v9[1]);
-    v0[13] = v11;
-    *v11 = v0;
-    v11[1] = AsyncThrowingMapSequence.Iterator.next();
-    v12 = v0[10];
-    v13 = v0[4];
+    v7 = *(AssociatedConformanceWitness + 32);
+    v8 = swift_checkMetadataState();
+    v11 = (v7 + *v7);
+    v9 = swift_task_alloc(v7[1]);
+    v0[13] = v9;
+    *v9 = v0;
+    v9[1] = AsyncThrowingMapSequence.Iterator.next();
+    v10 = v0[10];
 
-    return v14(v12, v10, AssociatedConformanceWitness);
+    return v11(v10, v8, AssociatedConformanceWitness);
   }
 }
 
@@ -1189,32 +275,17 @@ uint64_t AsyncThrowingMapSequence.Iterator.next()()
 }
 
 {
-  v1 = v0[14];
-  v2 = v0[10];
+  v1 = v0[10];
   v0[12];
-  v2;
-  v3 = v0[1];
+  v1;
+  v2 = v0[1];
 
-  return v3();
-}
-
-{
-  v1 = v0[17];
-  *(v0[4] + *(v0[3] + 48)) = 1;
-  swift_willThrow();
-  v2 = v0[17];
-  v3 = v0[10];
-  v0[12];
-  v3;
-  v4 = v0[1];
-
-  return v4();
+  return v2();
 }
 
 void AsyncThrowingMapSequence.Iterator.next()()
 {
   v2 = *(*v1 + 104);
-  v4 = *v1;
   *(*v1 + 112) = v0;
   v2;
   if (v0)
@@ -1233,29 +304,38 @@ void AsyncThrowingMapSequence.Iterator.next()()
 {
   v2 = *v1;
   v3 = *(*v1 + 128);
-  v4 = *v1;
   *(*v1 + 136) = v0;
   v3;
-  v5 = v2[15];
-  v6 = v2[12];
-  v7 = v2[11];
-  v8 = v2[7];
+  v4 = v2[12];
+  v5 = v2[11];
+  v6 = v2[7];
   if (v0)
   {
-    v9 = v2[15];
 
-    (*(v7 + 8))(v6, v8);
-    v10 = AsyncThrowingMapSequence.Iterator.next();
+    (*(v5 + 8))(v4, v6);
+    v7 = AsyncThrowingMapSequence.Iterator.next();
   }
 
   else
   {
-    (*(v7 + 8))(v2[12], v2[7]);
+    (*(v5 + 8))(v2[12], v2[7]);
 
-    v10 = AsyncThrowingMapSequence.Iterator.next();
+    v7 = AsyncThrowingMapSequence.Iterator.next();
   }
 
-  swift_task_switch(v10, 0, 0);
+  swift_task_switch(v7, 0, 0);
+}
+
+uint64_t AsyncThrowingMapSequence.Iterator.next()(uint64_t a1)
+{
+  *(v1[4] + *(v1[3] + 48)) = 1;
+  swift_willThrow();
+  v2 = v1[10];
+  v1[12];
+  v2;
+  v3 = v1[1];
+
+  return v3();
 }
 
 void AsyncThrowingMapSequence.Iterator.next(isolation:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -1320,26 +400,23 @@ uint64_t AsyncThrowingMapSequence.Iterator.next(isolation:)()
 
   else
   {
-    v7 = v0[7];
-    v8 = v0[8];
     swift_getAssociatedTypeWitness();
     AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
     v0[20] = AssociatedConformanceWitness;
-    v10 = *(AssociatedConformanceWitness + 40);
-    v11 = swift_checkMetadataState();
-    v0[21] = v11;
-    v18 = (v10 + *v10);
-    v12 = swift_task_alloc(v10[1]);
-    v0[22] = v12;
-    *v12 = v0;
-    v12[1] = AsyncThrowingMapSequence.Iterator.next(isolation:);
-    v13 = v0[15];
-    v14 = v0[11];
-    v15 = v0[6];
-    v16 = v0[3];
-    v17 = v0[4];
+    v8 = *(AssociatedConformanceWitness + 40);
+    v9 = swift_checkMetadataState();
+    v0[21] = v9;
+    v15 = (v8 + *v8);
+    v10 = swift_task_alloc(v8[1]);
+    v0[22] = v10;
+    *v10 = v0;
+    v10[1] = AsyncThrowingMapSequence.Iterator.next(isolation:);
+    v11 = v0[15];
+    v12 = v0[11];
+    v13 = v0[3];
+    v14 = v0[4];
 
-    return v18(v13, v16, v17, v14, v11, AssociatedConformanceWitness);
+    return v15(v11, v13, v14, v12, v9, AssociatedConformanceWitness);
   }
 }
 
@@ -1396,71 +473,66 @@ uint64_t AsyncThrowingMapSequence.Iterator.next(isolation:)()
   return v4();
 }
 
-{
-  v1 = v0[25];
-  *(v0[6] + *(v0[5] + 48)) = 1;
-  swift_willThrow();
-  v2 = v0[25];
-  v3 = v0[15];
-  v4 = v0[11];
-  v0[17];
-  v3;
-  v4;
-  v5 = v0[1];
-
-  return v5();
-}
-
 void AsyncThrowingMapSequence.Iterator.next(isolation:)()
 {
   v2 = *v1;
-  v3 = *v1;
   *(*v1 + 176);
-  v4 = *(v2 + 152);
-  v5 = *(v2 + 144);
+  v3 = *(v2 + 152);
+  v4 = *(v2 + 144);
   if (v0)
   {
-    v6 = AsyncThrowingFilterSequence.Iterator.next(isolation:);
+    v5 = AsyncThrowingFilterSequence.Iterator.next(isolation:);
   }
 
   else
   {
-    v6 = AsyncThrowingMapSequence.Iterator.next(isolation:);
+    v5 = AsyncThrowingMapSequence.Iterator.next(isolation:);
   }
 
-  swift_task_switch(v6, v5, v4);
+  swift_task_switch(v5, v4, v3);
 }
 
 {
   v2 = *v1;
   v3 = *(*v1 + 192);
-  v4 = *v1;
   v2[25] = v0;
   v3;
-  v5 = v2[23];
-  v6 = v2[17];
-  v7 = v2[16];
-  v8 = v2[12];
+  v4 = v2[17];
+  v5 = v2[16];
+  v6 = v2[12];
   if (v0)
   {
-    v9 = v2[23];
 
-    (*(v7 + 8))(v6, v8);
-    v10 = v2[18];
-    v11 = v2[19];
-    v12 = AsyncThrowingMapSequence.Iterator.next(isolation:);
+    (*(v5 + 8))(v4, v6);
+    v7 = v2[18];
+    v8 = v2[19];
+    v9 = AsyncThrowingMapSequence.Iterator.next(isolation:);
   }
 
   else
   {
-    (*(v7 + 8))(v2[17], v2[12]);
+    (*(v5 + 8))(v2[17], v2[12]);
 
-    v10 = v2[18];
-    v11 = v2[19];
-    v12 = AsyncThrowingMapSequence.Iterator.next(isolation:);
+    v7 = v2[18];
+    v8 = v2[19];
+    v9 = AsyncThrowingMapSequence.Iterator.next(isolation:);
   }
 
-  swift_task_switch(v12, v10, v11);
+  swift_task_switch(v9, v7, v8);
+}
+
+uint64_t AsyncThrowingMapSequence.Iterator.next(isolation:)(uint64_t a1)
+{
+  *(v1[6] + *(v1[5] + 48)) = 1;
+  swift_willThrow();
+  v2 = v1[15];
+  v3 = v1[11];
+  v1[17];
+  v2;
+  v3;
+  v4 = v1[1];
+
+  return v4();
 }
 
 void protocol witness for AsyncIteratorProtocol.next() in conformance AsyncThrowingMapSequence<A, B>.Iterator(uint64_t a1, uint64_t a2)
@@ -1520,30 +592,19 @@ uint64_t AsyncDropWhileSequence.init(_:predicate:)@<X0>(uint64_t a1@<X0>, uint64
 uint64_t AsyncPrefixWhileSequence.Iterator.baseIterator.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = *(a1 + 36);
-  v6 = *(a1 + 16);
-  v5 = *(a1 + 24);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v8 = *(*(AssociatedTypeWitness - 8) + 16);
+  v6 = *(*(AssociatedTypeWitness - 8) + 16);
 
-  return v8(a2, v2 + v4, AssociatedTypeWitness);
+  return v6(a2, v2 + v4, AssociatedTypeWitness);
 }
 
 uint64_t AsyncPrefixWhileSequence.Iterator.baseIterator.setter(uint64_t a1, uint64_t a2)
 {
   v4 = *(a2 + 36);
-  v5 = *(a2 + 16);
-  v6 = *(a2 + 24);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v8 = *(*(AssociatedTypeWitness - 8) + 40);
+  v6 = *(*(AssociatedTypeWitness - 8) + 40);
 
-  return v8(v2 + v4, a1, AssociatedTypeWitness);
-}
-
-uint64_t (*AsyncThrowingPrefixWhileSequence.Iterator.baseIterator.modify(uint64_t a1, uint64_t a2))()
-{
-  result = UnownedSerialExecutor.executor.modify;
-  v4 = v2 + *(a2 + 36);
-  return result;
+  return v6(v2 + v4, a1, AssociatedTypeWitness);
 }
 
 uint64_t AsyncPrefixWhileSequence.Iterator.init(_:predicate:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t (*a6)(void, uint64_t, uint64_t)@<X5>, _BYTE *a7@<X8>)
@@ -1596,21 +657,18 @@ uint64_t AsyncThrowingPrefixWhileSequence.Iterator.next()()
 
   else
   {
-    v5 = *(v0 + 40);
-    v6 = *(v0 + 48);
-    v7 = *(*(v0 + 24) + 36);
     swift_getAssociatedTypeWitness();
     AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-    v9 = *(AssociatedConformanceWitness + 32);
-    v10 = swift_checkMetadataState();
-    v13 = (v9 + *v9);
-    v11 = swift_task_alloc(v9[1]);
-    *(v0 + 104) = v11;
-    *v11 = v0;
-    v11[1] = AsyncThrowingPrefixWhileSequence.Iterator.next();
-    v12 = *(v0 + 80);
+    v6 = *(AssociatedConformanceWitness + 32);
+    v7 = swift_checkMetadataState();
+    v10 = (v6 + *v6);
+    v8 = swift_task_alloc(v6[1]);
+    *(v0 + 104) = v8;
+    *v8 = v0;
+    v8[1] = AsyncThrowingPrefixWhileSequence.Iterator.next();
+    v9 = *(v0 + 80);
 
-    return v13(v12, v10, AssociatedConformanceWitness);
+    return v10(v9, v7, AssociatedConformanceWitness);
   }
 }
 
@@ -1658,46 +716,31 @@ uint64_t AsyncThrowingPrefixWhileSequence.Iterator.next()()
 {
   if (*(v0 + 160) == 1)
   {
-    v1 = *(v0 + 128);
     (*(v0 + 120))(*(v0 + 16), *(v0 + 96), *(v0 + 56));
-    v2 = 0;
+    v1 = 0;
   }
 
   else
   {
-    v3 = *(v0 + 32);
+    v2 = *(v0 + 32);
     (*(*(v0 + 88) + 8))(*(v0 + 96), *(v0 + 56));
-    v2 = 1;
-    *v3 = 1;
+    v1 = 1;
+    *v2 = 1;
   }
 
-  v4 = *(v0 + 96);
-  v5 = *(v0 + 80);
-  (*(*(v0 + 88) + 56))(*(v0 + 16), v2, 1, *(v0 + 56));
-  v4;
-  v5;
-  v6 = *(v0 + 8);
-
-  return v6();
-}
-
-{
-  v1 = *(v0 + 152);
-  **(v0 + 32) = 1;
-  swift_willThrow();
-  v2 = *(v0 + 152);
-  v3 = *(v0 + 80);
-  *(v0 + 96);
+  v3 = *(v0 + 96);
+  v4 = *(v0 + 80);
+  (*(*(v0 + 88) + 56))(*(v0 + 16), v1, 1, *(v0 + 56));
   v3;
-  v4 = *(v0 + 8);
+  v4;
+  v5 = *(v0 + 8);
 
-  return v4();
+  return v5();
 }
 
 void AsyncThrowingPrefixWhileSequence.Iterator.next()()
 {
   v2 = *(*v1 + 104);
-  v4 = *v1;
   *(*v1 + 112) = v0;
   v2;
   if (v0)
@@ -1717,24 +760,34 @@ void AsyncThrowingPrefixWhileSequence.Iterator.next()(char a1)
 {
   v4 = *v2;
   v5 = *(*v2 + 144);
-  v6 = *(*v2 + 136);
-  v7 = *v2;
   *(*v2 + 152) = v1;
   v5;
 
   if (v1)
   {
     (*(*(v4 + 88) + 8))(*(v4 + 96), *(v4 + 56));
-    v8 = AsyncThrowingPrefixWhileSequence.Iterator.next();
+    v6 = AsyncThrowingPrefixWhileSequence.Iterator.next();
   }
 
   else
   {
     *(v4 + 160) = a1 & 1;
-    v8 = AsyncThrowingPrefixWhileSequence.Iterator.next();
+    v6 = AsyncThrowingPrefixWhileSequence.Iterator.next();
   }
 
-  swift_task_switch(v8, 0, 0);
+  swift_task_switch(v6, 0, 0);
+}
+
+uint64_t AsyncThrowingPrefixWhileSequence.Iterator.next()(uint64_t a1)
+{
+  **(v1 + 32) = 1;
+  swift_willThrow();
+  v2 = *(v1 + 80);
+  *(v1 + 96);
+  v2;
+  v3 = *(v1 + 8);
+
+  return v3();
 }
 
 void AsyncThrowingPrefixWhileSequence.Iterator.next(isolation:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -1798,26 +851,23 @@ uint64_t AsyncThrowingPrefixWhileSequence.Iterator.next(isolation:)()
 
   else
   {
-    v6 = *(v0 + 56);
-    v7 = *(v0 + 64);
-    v8 = *(*(v0 + 40) + 36);
     swift_getAssociatedTypeWitness();
     AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
     *(v0 + 160) = AssociatedConformanceWitness;
-    v10 = *(AssociatedConformanceWitness + 40);
-    v11 = swift_checkMetadataState();
-    *(v0 + 168) = v11;
-    v17 = (v10 + *v10);
-    v12 = swift_task_alloc(v10[1]);
-    *(v0 + 176) = v12;
-    *v12 = v0;
-    v12[1] = AsyncThrowingPrefixWhileSequence.Iterator.next(isolation:);
-    v13 = *(v0 + 120);
-    v14 = *(v0 + 88);
-    v15 = *(v0 + 24);
-    v16 = *(v0 + 32);
+    v7 = *(AssociatedConformanceWitness + 40);
+    v8 = swift_checkMetadataState();
+    *(v0 + 168) = v8;
+    v14 = (v7 + *v7);
+    v9 = swift_task_alloc(v7[1]);
+    *(v0 + 176) = v9;
+    *v9 = v0;
+    v9[1] = AsyncThrowingPrefixWhileSequence.Iterator.next(isolation:);
+    v10 = *(v0 + 120);
+    v11 = *(v0 + 88);
+    v12 = *(v0 + 24);
+    v13 = *(v0 + 32);
 
-    return v17(v13, v15, v16, v14, v11, AssociatedConformanceWitness);
+    return v14(v10, v12, v13, v11, v8, AssociatedConformanceWitness);
   }
 }
 
@@ -1867,92 +917,87 @@ uint64_t AsyncThrowingPrefixWhileSequence.Iterator.next(isolation:)()
 {
   if (*(v0 + 224) == 1)
   {
-    v1 = *(v0 + 192);
     (*(v0 + 184))(*(v0 + 16), *(v0 + 136), *(v0 + 96));
-    v2 = 0;
+    v1 = 0;
   }
 
   else
   {
-    v3 = *(v0 + 48);
+    v2 = *(v0 + 48);
     (*(*(v0 + 128) + 8))(*(v0 + 136), *(v0 + 96));
-    v2 = 1;
-    *v3 = 1;
+    v1 = 1;
+    *v2 = 1;
   }
 
-  v4 = *(v0 + 136);
-  v5 = *(v0 + 120);
-  v6 = *(v0 + 88);
-  (*(*(v0 + 128) + 56))(*(v0 + 16), v2, 1, *(v0 + 96));
-  v4;
-  v5;
-  v6;
-  v7 = *(v0 + 8);
-
-  return v7();
-}
-
-{
-  v1 = *(v0 + 216);
-  **(v0 + 48) = 1;
-  swift_willThrow();
-  v2 = *(v0 + 216);
-  v3 = *(v0 + 120);
-  v4 = *(v0 + 88);
-  *(v0 + 136);
+  v3 = *(v0 + 136);
+  v4 = *(v0 + 120);
+  v5 = *(v0 + 88);
+  (*(*(v0 + 128) + 56))(*(v0 + 16), v1, 1, *(v0 + 96));
   v3;
   v4;
-  v5 = *(v0 + 8);
+  v5;
+  v6 = *(v0 + 8);
 
-  return v5();
+  return v6();
 }
 
 void AsyncThrowingPrefixWhileSequence.Iterator.next(isolation:)()
 {
   v2 = *v1;
-  v3 = *v1;
   *(*v1 + 176);
-  v4 = *(v2 + 152);
-  v5 = *(v2 + 144);
+  v3 = *(v2 + 152);
+  v4 = *(v2 + 144);
   if (v0)
   {
-    v6 = AsyncThrowingPrefixWhileSequence.Iterator.next(isolation:);
+    v5 = AsyncThrowingPrefixWhileSequence.Iterator.next(isolation:);
   }
 
   else
   {
-    v6 = AsyncThrowingPrefixWhileSequence.Iterator.next(isolation:);
+    v5 = AsyncThrowingPrefixWhileSequence.Iterator.next(isolation:);
   }
 
-  swift_task_switch(v6, v5, v4);
+  swift_task_switch(v5, v4, v3);
 }
 
 void AsyncThrowingPrefixWhileSequence.Iterator.next(isolation:)(char a1)
 {
   v4 = *v2;
   v5 = *(*v2 + 208);
-  v6 = *(*v2 + 200);
-  v10 = *v2;
   *(*v2 + 216) = v1;
   v5;
 
   if (v1)
   {
     (*(*(v4 + 128) + 8))(*(v4 + 136), *(v4 + 96));
-    v7 = *(v4 + 144);
-    v8 = *(v4 + 152);
-    v9 = AsyncThrowingPrefixWhileSequence.Iterator.next(isolation:);
+    v6 = *(v4 + 144);
+    v7 = *(v4 + 152);
+    v8 = AsyncThrowingPrefixWhileSequence.Iterator.next(isolation:);
   }
 
   else
   {
     *(v4 + 224) = a1 & 1;
-    v7 = *(v4 + 144);
-    v8 = *(v4 + 152);
-    v9 = AsyncThrowingPrefixWhileSequence.Iterator.next(isolation:);
+    v6 = *(v4 + 144);
+    v7 = *(v4 + 152);
+    v8 = AsyncThrowingPrefixWhileSequence.Iterator.next(isolation:);
   }
 
-  swift_task_switch(v9, v7, v8);
+  swift_task_switch(v8, v6, v7);
+}
+
+uint64_t AsyncThrowingPrefixWhileSequence.Iterator.next(isolation:)(uint64_t a1)
+{
+  **(v1 + 48) = 1;
+  swift_willThrow();
+  v2 = *(v1 + 120);
+  v3 = *(v1 + 88);
+  *(v1 + 136);
+  v2;
+  v3;
+  v4 = *(v1 + 8);
+
+  return v4();
 }
 
 void protocol witness for AsyncIteratorProtocol.next() in conformance AsyncThrowingPrefixWhileSequence<A>.Iterator(uint64_t a1, uint64_t a2)
@@ -2006,14 +1051,13 @@ uint64_t Job.description.getter(uint64_t a1)
 uint64_t _ss11ExecutorJobV010withUnsafeA11PrivateData4bodyxxSwq_YKXE_tq_YKs5ErrorR_r0_lF(uint64_t (*a1)(uint64_t, uint64_t, char *), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   v11 = *(a5 - 8);
-  v12 = *(v11 + 64);
   MEMORY[0x1EEE9AC00](a1);
-  v14 = &v18 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  ExecutorPrivateData = swift_job_getExecutorPrivateData(v15);
-  result = a1(ExecutorPrivateData, ExecutorPrivateData + 16, v14);
+  v13 = &v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  ExecutorPrivateData = swift_job_getExecutorPrivateData(v14);
+  result = a1(ExecutorPrivateData, ExecutorPrivateData + 16, v13);
   if (v7)
   {
-    return (*(v11 + 32))(a7, v14, a5);
+    return (*(v11 + 32))(a7, v13, a5);
   }
 
   return result;
@@ -2149,16 +1193,15 @@ void withUnsafeContinuation<A>(isolation:_:)(uint64_t a1, uint64_t a2, uint64_t 
 
 void withUnsafeContinuation<A>(isolation:_:)()
 {
-  v2 = v0[11];
-  v1 = v0[12];
-  v3 = v0[10];
+  v1 = v0[11];
+  v2 = v0[10];
   v0[2] = v0;
-  v0[7] = v3;
+  v0[7] = v2;
   v0[3] = _unsafeInheritExecutor_withUnsafeContinuation<A>(_:);
-  v4 = swift_continuation_init(v0 + 2, 0);
-  v2(v4);
+  v3 = swift_continuation_init(v0 + 2, 0);
+  v1(v3);
 
-  swift_continuation_await((v0 + 2));
+  swift_continuation_await((v0 + 2), v4);
 }
 
 void withUnsafeThrowingContinuation<A>(isolation:_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -2184,28 +1227,26 @@ void withUnsafeThrowingContinuation<A>(isolation:_:)(uint64_t a1, uint64_t a2, u
 
 void withUnsafeThrowingContinuation<A>(isolation:_:)()
 {
-  v2 = v0[11];
-  v1 = v0[12];
-  v3 = v0[10];
+  v1 = v0[11];
+  v2 = v0[10];
   v0[2] = v0;
-  v0[7] = v3;
+  v0[7] = v2;
   v0[3] = withUnsafeThrowingContinuation<A>(isolation:_:);
-  v4 = swift_continuation_init(v0 + 2, 1uLL);
-  v2(v4);
+  v3 = swift_continuation_init(v0 + 2, 1uLL);
+  v1(v3);
 
-  swift_continuation_await((v0 + 2));
+  swift_continuation_await((v0 + 2), v4);
 }
 
-uint64_t withUnsafeThrowingContinuation<A>(isolation:_:)()
+uint64_t withUnsafeThrowingContinuation<A>(isolation:_:)(uint64_t a1)
 {
-  v1 = *v0;
-  if (*(*v0 + 48))
+  v2 = *v1;
+  if (*(*v1 + 48))
   {
-    v2 = *(*v0 + 48);
     swift_willThrow();
   }
 
-  v3 = *(v1 + 8);
+  v3 = *(v2 + 8);
 
   return v3();
 }
@@ -2222,9 +1263,9 @@ uint64_t static GlobalActor.sharedUnownedExecutor.getter(uint64_t a1, uint64_t a
   return v5;
 }
 
-uint64_t _ss24globalConcurrentExecutorSch_pvg()
+uint64_t _ss24globalConcurrentExecutorSch_pvg(uint64_t a1, uint64_t a2)
 {
-  swift_createDefaultExecutorsOnce();
+  swift_createDefaultExecutorsOnce(a1, a2);
   if (_sScTss5NeverORszABRs_rlE16_defaultExecutorSch_pSgvpZ)
   {
     return swift_unknownObjectRetain();
@@ -2248,30 +1289,29 @@ void static MainActor.run<A>(resultType:body:)(uint64_t a1, uint64_t a2, uint64_
   v4[3] = a3;
   v4[4] = a4;
   v4[2] = a1;
-  swift_initStaticObject();
-  MainExecutor = swift_task_getMainExecutor();
+  inited = swift_initStaticObject();
+  MainExecutor = swift_task_getMainExecutor(inited);
 
-  swift_task_switch(static MainActor.run<A>(resultType:body:), MainExecutor, v5);
+  swift_task_switch(static MainActor.run<A>(resultType:body:), MainExecutor, v6);
 }
 
 uint64_t static MainActor.run<A>(resultType:body:)()
 {
-  v1 = *(v0 + 32);
-  v2 = *(v0 + 16);
   (*(v0 + 24))();
-  v3 = *(v0 + 8);
+  v1 = *(v0 + 8);
 
-  return v3();
+  return v1();
 }
 
-uint64_t static MainActor.assumeIsolated<A>(_:file:line:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+uint64_t static MainActor.assumeIsolated<A>(_:file:line:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, unsigned int a5, uint64_t a6, uint64_t a7)
 {
+  v10 = a1;
   if (one-time initialization token for shared != -1)
   {
-    swift_once();
+    a1 = swift_once();
   }
 
-  MainExecutor = swift_task_getMainExecutor();
+  MainExecutor = swift_task_getMainExecutor(a1);
   if ((swift_task_isCurrentExecutor(MainExecutor, v12) & 1) == 0)
   {
     goto LABEL_10;
@@ -2279,7 +1319,7 @@ uint64_t static MainActor.assumeIsolated<A>(_:file:line:)(uint64_t a1, uint64_t 
 
   v13 = swift_allocObject();
   v13[2] = a7;
-  v13[3] = a1;
+  v13[3] = v10;
   v13[4] = a2;
   partial apply for thunk for @callee_guaranteed () -> (@out A, @error @owned Error)();
   if (v7)
@@ -2319,8 +1359,7 @@ LABEL_10:
 
 uint64_t specialized PriorityQueue.upHeap(ndx:)(unint64_t a1)
 {
-  v2 = v1;
-  v4 = *v1;
+  v3 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result)
   {
@@ -2330,44 +1369,43 @@ uint64_t specialized PriorityQueue.upHeap(ndx:)(unint64_t a1)
     }
 
 LABEL_8:
-    *v2 = v4;
+    *v1 = v3;
     return result;
   }
 
-  result = specialized _ArrayBuffer._consumeAndCreateNew()(v4);
-  v4 = result;
+  result = specialized _ArrayBuffer._consumeAndCreateNew()(v3);
+  v3 = result;
   if (a1 < 1)
   {
     goto LABEL_8;
   }
 
 LABEL_3:
-  v6 = v4 + 32;
-  while (a1 < *(v4 + 16))
+  v5 = v3 + 32;
+  while (a1 < *(v3 + 16))
   {
-    v7 = a1 >> 1;
-    v8 = v2[1];
-    v9 = v2[2];
-    v10 = *(v6 + 8 * a1);
-    v13 = *(v6 + 8 * (a1 >> 1));
-    v14 = v10;
-    result = v8(&v14, &v13);
+    v6 = a1 >> 1;
+    v7 = v1[1];
+    v8 = *(v5 + 8 * a1);
+    v11 = *(v5 + 8 * (a1 >> 1));
+    v12 = v8;
+    result = v7(&v12, &v11);
     if ((result & 1) == 0)
     {
       goto LABEL_8;
     }
 
-    if (a1 >= *(v4 + 16))
+    if (a1 >= *(v3 + 16))
     {
       break;
     }
 
-    v11 = *(v6 + 8 * a1);
-    *(v6 + 8 * a1) = *(v6 + 8 * v7);
-    *(v6 + 8 * v7) = v11;
-    v12 = a1 > 1;
+    v9 = *(v5 + 8 * a1);
+    *(v5 + 8 * a1) = *(v5 + 8 * v6);
+    *(v5 + 8 * v6) = v9;
+    v10 = a1 > 1;
     a1 >>= 1;
-    if (!v12)
+    if (!v10)
     {
       goto LABEL_8;
     }
@@ -2430,82 +1468,79 @@ void specialized PriorityQueue.downHeap(ndx:)()
   v1 = *v0;
   if (*(*v0 + 16))
   {
-    v2 = v0;
-    v3 = *v0;
     if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
 LABEL_21:
       v1 = specialized _ArrayBuffer._consumeAndCreateNew()(v1);
     }
 
-    v4 = 0;
-    v5 = 0;
-    v7 = v2[1];
-    v6 = v2[2];
-    v8 = v1 + 32;
-    v9 = *(v1 + 16);
-    while (v5 < v9)
+    v2 = 0;
+    v3 = 0;
+    v4 = v0[1];
+    v5 = v1 + 32;
+    v6 = *(v1 + 16);
+    while (v3 < v6)
     {
-      v16 = *(v8 + 8 * v5);
-      if (v4 >= v9)
+      v13 = *(v5 + 8 * v3);
+      if (v2 >= v6)
       {
         break;
       }
 
-      v10 = v5 | 1;
-      v15 = *(v8 + 8 * v4);
-      if (v7(&v16, &v15))
+      v7 = v3 | 1;
+      v12 = *(v5 + 8 * v2);
+      if (v4(&v13, &v12))
       {
-        v11 = v5;
+        v8 = v3;
       }
 
       else
       {
-        v11 = v4;
+        v8 = v2;
       }
 
-      v12 = *(v1 + 16);
-      if (v10 < v12)
+      v9 = *(v1 + 16);
+      if (v7 < v9)
       {
-        v16 = *(v8 + 8 * v10);
-        if (v11 >= v12)
+        v13 = *(v5 + 8 * v7);
+        if (v8 >= v9)
         {
           break;
         }
 
-        v15 = *(v8 + 8 * v11);
-        if (v7(&v16, &v15))
+        v12 = *(v5 + 8 * v8);
+        if (v4(&v13, &v12))
         {
-          v11 = v5 | 1;
+          v8 = v3 | 1;
         }
       }
 
-      if (v11 == v4)
+      if (v8 == v2)
       {
 LABEL_18:
-        *v2 = v1;
+        *v0 = v1;
         return;
       }
 
-      v13 = *(v1 + 16);
-      if (v4 >= v13 || v11 >= v13)
+      v10 = *(v1 + 16);
+      if (v2 >= v10 || v8 >= v10)
       {
         break;
       }
 
-      v14 = *(v8 + 8 * v4);
-      *(v8 + 8 * v4) = *(v8 + 8 * v11);
-      *(v8 + 8 * v11) = v14;
-      if ((v11 + 0x4000000000000000) < 0)
+      v11 = *(v5 + 8 * v2);
+      *(v5 + 8 * v2) = *(v5 + 8 * v8);
+      *(v5 + 8 * v8) = v11;
+      if ((v8 + 0x4000000000000000) < 0)
       {
         __break(1u);
         goto LABEL_21;
       }
 
-      v5 = 2 * v11;
-      v9 = *(v1 + 16);
-      v4 = v11;
-      if (2 * v11 >= v9)
+      v3 = 2 * v8;
+      v6 = *(v1 + 16);
+      v2 = v8;
+      if (2 * v8 >= v6)
       {
         goto LABEL_18;
       }
@@ -2522,19 +1557,19 @@ void static Task<>.yield()()
 }
 
 {
-  v7 = v0;
+  v8 = v0;
   *(v0 + 16) = v0;
   *(v0 + 24) = _unsafeInheritExecutor_withUnsafeContinuation<A>(_:);
   v1 = swift_continuation_init((v0 + 16), 0);
-  static Task<>.currentPriority.getter(&v6);
-  NullaryContinuationJob = swift_task_createNullaryContinuationJob(v6, v1);
+  static Task<>.currentPriority.getter(&v7);
+  NullaryContinuationJob = swift_task_createNullaryContinuationJob(v7, v1);
   specialized static Task<>.currentExecutor.getter();
   v4 = v3;
   ObjectType = swift_getObjectType();
   (*(v4 + 24))(NullaryContinuationJob, ObjectType, v4);
   swift_unknownObjectRelease();
 
-  swift_continuation_await(v0 + 16);
+  swift_continuation_await((v0 + 16), v6);
 }
 
 uint64_t withTaskCancellationHandler<A>(operation:onCancel:)(uint64_t a1, int *a2, uint64_t a3, swift *a4, uint64_t a5)
@@ -2560,7 +1595,7 @@ uint64_t withTaskCancellationHandler<A>(operation:onCancel:)()
   return v2();
 }
 
-uint64_t Task.result.getter(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t Task.result.getter(uint64_t a1, swift::AsyncTask *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v5[5] = a4;
   v5[6] = a5;
@@ -2577,7 +1612,6 @@ uint64_t Task.result.getter(uint64_t a1, unsigned int *a2, uint64_t a3, uint64_t
 void Task.result.getter()
 {
   v2 = *(*v1 + 56);
-  v4 = *v1;
   *(*v1 + 64) = v0;
   v2;
   if (v0)
@@ -2595,30 +1629,22 @@ void Task.result.getter()
 
 uint64_t Task.result.getter()
 {
-  v1 = v0[5];
-  v2 = v0[6];
-  v4 = v0[3];
-  v3 = v0[4];
   type metadata accessor for Result();
   swift_storeEnumTagMultiPayload();
-  v5 = v0[1];
+  v1 = *(v0 + 8);
 
-  return v5();
+  return v1();
 }
 
 {
-  v1 = v0[5];
-  v2 = v0[6];
-  v4 = v0[3];
-  v3 = v0[4];
   v0[2] = v0[8];
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
   swift_dynamicCast();
   type metadata accessor for Result();
   swift_storeEnumTagMultiPayload();
-  v5 = v0[1];
+  v1 = v0[1];
 
-  return v5();
+  return v1();
 }
 
 Swift::Int Task.hashValue.getter(uint64_t a1)
@@ -2628,10 +1654,10 @@ Swift::Int Task.hashValue.getter(uint64_t a1)
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Task<A, B>()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Task<A, B>(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  Task.hash(into:)(v2, *v0);
+  Task.hash(into:)(v3, *v1);
   return Hasher._finalize()();
 }
 
@@ -2706,13 +1732,12 @@ LABEL_5:
 
 uint64_t UnsafeCurrentTask.priority.getter@<X0>(_BYTE *a1@<X8>)
 {
-  v3 = *v1;
   result = swift_task_currentPriority();
   *a1 = result;
   return result;
 }
 
-uint64_t withUnsafeCurrentTask<A>(body:)(void (*a1)(uint64_t *))
+uint64_t withUnsafeCurrentTask<A>(body:)(uint64_t (*a1)(uint64_t *))
 {
   Current = swift_task_getCurrent();
   if (Current)
@@ -2725,7 +1750,7 @@ uint64_t withUnsafeCurrentTask<A>(body:)(void (*a1)(uint64_t *))
   else
   {
     v4 = 0;
-    return (a1)(&v4);
+    return a1(&v4);
   }
 }
 
@@ -2777,7 +1802,7 @@ uint64_t withUnsafeCurrentTask<A>(body:)()
     v0[3] = Current;
     v3 = v0 + 3;
 
-    v9 = (v2 + *v2);
+    v8 = (v2 + *v2);
     v4 = swift_task_alloc(v2[1]);
     v0[7] = v4;
     *v4 = v0;
@@ -2788,7 +1813,7 @@ uint64_t withUnsafeCurrentTask<A>(body:)()
   {
     v0[2] = 0;
     v3 = v0 + 2;
-    v9 = (v2 + *v2);
+    v8 = (v2 + *v2);
     v4 = swift_task_alloc(v2[1]);
     v0[9] = v4;
     *v4 = v0;
@@ -2796,19 +1821,16 @@ uint64_t withUnsafeCurrentTask<A>(body:)()
   }
 
   v4[1] = v5;
-  v6 = v0[6];
-  v7 = v0[4];
+  v6 = v0[4];
 
-  return (v9)(v7, v3);
+  return (v8)(v6, v3);
 }
 
 {
-  v1 = *(v0 + 80);
   return (*(v0 + 8))();
 }
 
 {
-  v1 = *(v0 + 64);
   return (*(v0 + 8))();
 }
 
@@ -2816,9 +1838,8 @@ void withUnsafeCurrentTask<A>(body:)()
 {
   v2 = *(*v1 + 56);
   v3 = *v1;
-  v3[8] = v0;
+  *(v3 + 64) = v0;
   v2;
-  v4 = v3[3];
 
   if (v0)
   {
@@ -2828,9 +1849,9 @@ void withUnsafeCurrentTask<A>(body:)()
 
   else
   {
-    v5 = v3[1];
+    v4 = *(v3 + 8);
 
-    v5();
+    v4();
   }
 }
 
@@ -2876,11 +1897,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance UnsafeC
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance UnsafeCurrentTask()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance UnsafeCurrentTask(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x1865D4230](v1);
+  MEMORY[0x1865D4230](v2);
   return Hasher._finalize()();
 }
 
@@ -2891,15 +1912,15 @@ void _runAsyncMain(_:)(uint64_t a1, uint64_t a2)
   *(v4 + 24) = a2;
 
   v5 = swift_task_create(0, 0, MEMORY[0x1E69E7CA8] + 8, &async function pointer to partial apply for closure #1 in _runAsyncMain(_:), v4);
-  swift_createDefaultExecutorsOnce();
+  swift_createDefaultExecutorsOnce(v5, v6);
   if (static MainActor._executor)
   {
-    v6 = qword_1ED42D448;
+    v7 = qword_1ED42D448;
     ObjectType = swift_getObjectType();
-    v8 = *(v6 + 16);
-    v9 = *(v8 + 32);
+    v9 = *(v7 + 16);
+    v10 = *(v9 + 32);
     swift_unknownObjectRetain();
-    v9(v5, ObjectType, v8);
+    v10(v5, ObjectType, v9);
     swift_unknownObjectRelease();
     swift_task_asyncMainDrainQueue();
   }
@@ -2922,7 +1943,6 @@ uint64_t closure #1 in _runAsyncMain(_:)(uint64_t a1, int *a2)
 void closure #1 in _runAsyncMain(_:)()
 {
   v2 = *(*v1 + 16);
-  v4 = *v1;
   *(*v1 + 24) = v0;
   v2;
   if (v0)
@@ -2954,7 +1974,7 @@ uint64_t closure #1 in _runAsyncMain(_:)()
 
 uint64_t _swift_task_isCurrentGlobalActor(uint64_t a1, uint64_t a2)
 {
-  v2 = (*(a2 + 32))();
+  v2 = (*(a2 + 32))(a1);
 
   return swift_task_isCurrentExecutorWithFlags(v2, v3, 0);
 }
@@ -3003,14 +2023,6 @@ void _ss33withTaskPriorityEscalationHandler9operation02onC9Escalated9isolationxx
   *(v0 + 144) = v2;
   *v2 = v0;
   v2[1] = _ss33withTaskPriorityEscalationHandler9operation02onC9Escalated9isolationxxyYaq_YKXE_yScP_ScPtYbXEScA_pSgYitYaq_YKs5ErrorR_r0_lFTQ1_;
-  v3 = *(v0 + 64);
-  v4 = *(v0 + 72);
-  v5 = *(v0 + 56);
-  v6 = *(v0 + 24);
-  v7 = *(v0 + 32);
-  v8 = *(v0 + 16);
-  v11 = *(v0 + 112);
-  v10 = *(v0 + 80);
 
   JUMPOUT(0x1815CFDA4);
 }
@@ -3087,36 +2099,34 @@ uint64_t _ss36__withTaskPriorityEscalationHandler09operation02onC9Escalated9isol
 {
   v1 = *(v0 + 24);
   *(v0 + 104) = swift_task_addPriorityEscalationHandler(*(v0 + 40), *(v0 + 48));
-  v7 = (v1 + *v1);
+  v6 = (v1 + *v1);
   v2 = swift_task_alloc(v1[1]);
   *(v0 + 112) = v2;
   *v2 = v0;
   v2[1] = _ss36__withTaskPriorityEscalationHandler09operation02onC9Escalated9isolationxxyYaq_YKXE_ys5UInt8V_AFtYbXEScA_pSgYitYaq_YKs5ErrorR_r0_lFTQ1_;
   v3 = *(v0 + 80);
-  v4 = *(v0 + 32);
-  v5 = *(v0 + 16);
+  v4 = *(v0 + 16);
 
-  return v7(v5, v3);
+  return v6(v4, v3);
 }
 
 void _ss36__withTaskPriorityEscalationHandler09operation02onC9Escalated9isolationxxyYaq_YKXE_ys5UInt8V_AFtYbXEScA_pSgYitYaq_YKs5ErrorR_r0_lFTQ1_()
 {
   v2 = *v1;
-  v3 = *v1;
   *(*v1 + 112);
-  v4 = *(v2 + 96);
-  v5 = *(v2 + 88);
+  v3 = *(v2 + 96);
+  v4 = *(v2 + 88);
   if (v0)
   {
-    v6 = _ss36__withTaskPriorityEscalationHandler09operation02onC9Escalated9isolationxxyYaq_YKXE_ys5UInt8V_AFtYbXEScA_pSgYitYaq_YKs5ErrorR_r0_lFTY3_;
+    v5 = _ss36__withTaskPriorityEscalationHandler09operation02onC9Escalated9isolationxxyYaq_YKXE_ys5UInt8V_AFtYbXEScA_pSgYitYaq_YKs5ErrorR_r0_lFTY3_;
   }
 
   else
   {
-    v6 = _ss36__withTaskPriorityEscalationHandler09operation02onC9Escalated9isolationxxyYaq_YKXE_ys5UInt8V_AFtYbXEScA_pSgYitYaq_YKs5ErrorR_r0_lFTY2_;
+    v5 = _ss36__withTaskPriorityEscalationHandler09operation02onC9Escalated9isolationxxyYaq_YKXE_ys5UInt8V_AFtYbXEScA_pSgYitYaq_YKs5ErrorR_r0_lFTY2_;
   }
 
-  swift_task_switch(v6, v5, v4);
+  swift_task_switch(v5, v4, v3);
 }
 
 uint64_t _ss36__withTaskPriorityEscalationHandler09operation02onC9Escalated9isolationxxyYaq_YKXE_ys5UInt8V_AFtYbXEScA_pSgYitYaq_YKs5ErrorR_r0_lFTY2_()
@@ -3180,53 +2190,49 @@ uint64_t _ss26withTaskExecutorPreference_9isolation9operationxSch_pSg_ScA_pSgYix
   if (v0[3])
   {
     v2 = v0[4];
-    v3 = v0[3];
     ObjectType = swift_getObjectType();
-    v5 = (*(v2 + 40))(ObjectType, v2);
-    v0[14] = swift_task_pushTaskExecutorPreference(v5, v6);
-    v14 = (v1 + *v1);
-    v7 = swift_task_alloc(v1[1]);
-    v0[15] = v7;
-    *v7 = v0;
-    v7[1] = _ss26withTaskExecutorPreference_9isolation9operationxSch_pSg_ScA_pSgYixyYaq_YKXEtYaq_YKs5ErrorR_r0_lFTQ1_;
-    v8 = v0[11];
+    v4 = (*(v2 + 40))(ObjectType, v2);
+    v0[14] = swift_task_pushTaskExecutorPreference(v4, v5);
+    v11 = (v1 + *v1);
+    v6 = swift_task_alloc(v1[1]);
+    v0[15] = v6;
+    *v6 = v0;
+    v6[1] = _ss26withTaskExecutorPreference_9isolation9operationxSch_pSg_ScA_pSgYixyYaq_YKXEtYaq_YKs5ErrorR_r0_lFTQ1_;
+    v7 = v0[11];
   }
 
   else
   {
-    v9 = v0[5];
-    v14 = (v1 + *v1);
-    v10 = swift_task_alloc(v1[1]);
-    v0[16] = v10;
-    *v10 = v0;
-    v10[1] = _ss26withTaskExecutorPreference_9isolation9operationxSch_pSg_ScA_pSgYixyYaq_YKXEtYaq_YKs5ErrorR_r0_lFTQ3_;
-    v8 = v0[10];
+    v11 = (v1 + *v1);
+    v8 = swift_task_alloc(v1[1]);
+    v0[16] = v8;
+    *v8 = v0;
+    v8[1] = _ss26withTaskExecutorPreference_9isolation9operationxSch_pSg_ScA_pSgYixyYaq_YKXEtYaq_YKs5ErrorR_r0_lFTQ3_;
+    v7 = v0[10];
   }
 
-  v11 = v0[6];
-  v12 = v0[2];
+  v9 = v0[2];
 
-  return v14(v12, v8);
+  return v11(v9, v7);
 }
 
 void _ss26withTaskExecutorPreference_9isolation9operationxSch_pSg_ScA_pSgYixyYaq_YKXEtYaq_YKs5ErrorR_r0_lFTQ1_()
 {
   v2 = *v1;
-  v3 = *v1;
   *(*v1 + 120);
-  v4 = *(v2 + 104);
-  v5 = *(v2 + 96);
+  v3 = *(v2 + 104);
+  v4 = *(v2 + 96);
   if (v0)
   {
-    v6 = _ss26withTaskExecutorPreference_9isolation9operationxSch_pSg_ScA_pSgYixyYaq_YKXEtYaq_YKs5ErrorR_r0_lFTY5_;
+    v5 = _ss26withTaskExecutorPreference_9isolation9operationxSch_pSg_ScA_pSgYixyYaq_YKXEtYaq_YKs5ErrorR_r0_lFTY5_;
   }
 
   else
   {
-    v6 = _ss26withTaskExecutorPreference_9isolation9operationxSch_pSg_ScA_pSgYixyYaq_YKXEtYaq_YKs5ErrorR_r0_lFTY2_;
+    v5 = _ss26withTaskExecutorPreference_9isolation9operationxSch_pSg_ScA_pSgYixyYaq_YKXEtYaq_YKs5ErrorR_r0_lFTY2_;
   }
 
-  swift_task_switch(v6, v5, v4);
+  swift_task_switch(v5, v4, v3);
 }
 
 uint64_t _ss26withTaskExecutorPreference_9isolation9operationxSch_pSg_ScA_pSgYixyYaq_YKXEtYaq_YKs5ErrorR_r0_lFTY2_()
@@ -3368,15 +2374,14 @@ uint64_t withTaskCancellationHandler<A>(operation:onCancel:isolation:)()
 {
   v1 = *(v0 + 24);
   *(v0 + 72) = swift_task_addCancellationHandler(*(v0 + 40), *(v0 + 48));
-  v6 = (v1 + *v1);
+  v5 = (v1 + *v1);
   v2 = swift_task_alloc(v1[1]);
   *(v0 + 80) = v2;
   *v2 = v0;
   v2[1] = withTaskCancellationHandler<A>(operation:onCancel:isolation:);
-  v3 = *(v0 + 32);
-  v4 = *(v0 + 16);
+  v3 = *(v0 + 16);
 
-  return v6(v4);
+  return v5(v3);
 }
 
 {
@@ -3389,7 +2394,6 @@ uint64_t withTaskCancellationHandler<A>(operation:onCancel:isolation:)()
 {
   swift_task_removeCancellationHandler(*(v0 + 72));
   v1 = *(v0 + 8);
-  v2 = *(v0 + 88);
 
   return v1();
 }
@@ -3398,22 +2402,21 @@ void withTaskCancellationHandler<A>(operation:onCancel:isolation:)()
 {
   v2 = *v1;
   v3 = *(*v1 + 80);
-  v4 = *v1;
   *(*v1 + 88) = v0;
   v3;
-  v5 = *(v2 + 64);
-  v6 = *(v2 + 56);
+  v4 = *(v2 + 64);
+  v5 = *(v2 + 56);
   if (v0)
   {
-    v7 = withTaskCancellationHandler<A>(operation:onCancel:isolation:);
+    v6 = withTaskCancellationHandler<A>(operation:onCancel:isolation:);
   }
 
   else
   {
-    v7 = withTaskCancellationHandler<A>(operation:onCancel:isolation:);
+    v6 = withTaskCancellationHandler<A>(operation:onCancel:isolation:);
   }
 
-  swift_task_switch(v7, v6, v5);
+  swift_task_switch(v6, v5, v4);
 }
 
 uint64_t static Task<>.isCancelled.getter()
@@ -3464,14 +2467,12 @@ void TaskGroup.awaitAllRemainingTasks()(uint64_t a1)
   *v5 = v2;
   v5[1] = TaskGroup.awaitAllRemainingTasks();
   v6 = v2[7];
-  v7 = v2[3];
 
   TaskGroup.next(isolation:)(v6, 0, 0);
 }
 
 void TaskGroup.awaitAllRemainingTasks()()
 {
-  v1 = *v0;
   *(*v0 + 64);
 
   swift_task_switch(TaskGroup.awaitAllRemainingTasks(), 0, 0);
@@ -3496,7 +2497,6 @@ void TaskGroup.awaitAllRemainingTasks()()
     *v4 = v0;
     v4[1] = TaskGroup.awaitAllRemainingTasks();
     v5 = v0[7];
-    v6 = v0[3];
 
     TaskGroup.next(isolation:)(v5, 0, 0);
   }
@@ -3532,15 +2532,14 @@ uint64_t withTaskGroup<A, B>(of:returning:isolation:body:)()
   v1 = v0[36];
   swift_taskGroup_initialize((v0 + 2), v0[38]);
   v0[34] = v0 + 2;
-  v6 = (v1 + *v1);
+  v5 = (v1 + *v1);
   v2 = swift_task_alloc(v1[1]);
   v0[41] = v2;
   *v2 = v0;
   v2[1] = withTaskGroup<A, B>(of:returning:isolation:body:);
-  v3 = v0[37];
-  v4 = v0[35];
+  v3 = v0[35];
 
-  return (v6)(v4, v0 + 34);
+  return (v5)(v3, v0 + 34);
 }
 
 {
@@ -3554,20 +2553,19 @@ void withTaskGroup<A, B>(of:returning:isolation:body:)()
 {
   v1 = *v0;
   v2 = *(*v0 + 304);
-  v5 = *v0;
+  v7 = *v0;
   *(*v0 + 328);
   v3 = swift_task_alloc(80);
   *(v1 + 336) = v3;
-  v4 = type metadata accessor for TaskGroup();
-  *v3 = v5;
+  v6 = type metadata accessor for TaskGroup(0, v2, v4, v5);
+  *v3 = v7;
   v3[1] = withTaskGroup<A, B>(of:returning:isolation:body:);
 
-  TaskGroup.awaitAllRemainingTasks()(v4);
+  TaskGroup.awaitAllRemainingTasks()(v6);
 }
 
 {
   v1 = *v0;
-  v4 = *v0;
   *(*v0 + 336);
   v2 = *(v1 + 320);
   v3 = *(v1 + 312);
@@ -3580,7 +2578,7 @@ uint64_t withTaskGroup<A, B>(of:returning:body:)(uint64_t a1, uint64_t a2, uint6
   v6[35] = a6;
   swift_taskGroup_initialize((v6 + 2), a6);
   v6[34] = v6 + 2;
-  v11 = (a4 + *a4);
+  v11 = a4 + *a4;
   v9 = swift_task_alloc(a4[1]);
   v6[36] = v9;
   *v9 = v6;
@@ -3593,15 +2591,15 @@ void withTaskGroup<A, B>(of:returning:body:)()
 {
   v1 = *v0;
   v2 = *(*v0 + 280);
-  v5 = *v0;
+  v7 = *v0;
   *(*v0 + 288);
   v3 = swift_task_alloc(80);
   *(v1 + 296) = v3;
-  v4 = type metadata accessor for TaskGroup();
-  *v3 = v5;
+  v6 = type metadata accessor for TaskGroup(0, v2, v4, v5);
+  *v3 = v7;
   v3[1] = withTaskGroup<A, B>(of:returning:body:);
 
-  TaskGroup.awaitAllRemainingTasks()(v4);
+  TaskGroup.awaitAllRemainingTasks()(v6);
 }
 
 uint64_t withTaskGroup<A, B>(of:returning:body:)()
@@ -3656,15 +2654,14 @@ uint64_t withThrowingTaskGroup<A, B>(of:returning:isolation:body:)()
   swift_taskGroup_initialize((v0 + 2), v0[38]);
   v0[41] = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
   v0[34] = v0 + 2;
-  v6 = (v1 + *v1);
+  v5 = (v1 + *v1);
   v2 = swift_task_alloc(v1[1]);
   v0[42] = v2;
   *v2 = v0;
   v2[1] = withThrowingTaskGroup<A, B>(of:returning:isolation:body:);
-  v3 = v0[37];
-  v4 = v0[35];
+  v3 = v0[35];
 
-  return (v6)(v4, v0 + 34);
+  return (v5)(v3, v0 + 34);
 }
 
 {
@@ -3675,13 +2672,11 @@ uint64_t withThrowingTaskGroup<A, B>(of:returning:isolation:body:)()
 }
 
 {
-  v1 = v0[43];
-  swift_taskGroup_destroy((v0 + 2));
+  swift_taskGroup_destroy((v0 + 16));
   swift_willThrow();
-  v2 = v0[1];
-  v3 = v0[43];
+  v1 = *(v0 + 8);
 
-  return v2();
+  return v1();
 }
 
 void withThrowingTaskGroup<A, B>(of:returning:isolation:body:)()
@@ -3704,7 +2699,7 @@ void withThrowingTaskGroup<A, B>(of:returning:isolation:body:)()
     v7 = v3[38];
     v8 = swift_task_alloc(32);
     v3[44] = v8;
-    v9 = type metadata accessor for ThrowingTaskGroup();
+    v9 = type metadata accessor for ThrowingTaskGroup(0, v7, v6, MEMORY[0x1E69E7288]);
     *v8 = v3;
     v8[1] = withThrowingTaskGroup<A, B>(of:returning:isolation:body:);
 
@@ -3714,7 +2709,6 @@ void withThrowingTaskGroup<A, B>(of:returning:isolation:body:)()
 
 {
   v1 = *v0;
-  v4 = *v0;
   *(*v0 + 352);
   v2 = *(v1 + 320);
   v3 = *(v1 + 312);
@@ -3728,7 +2722,7 @@ void withThrowingTaskGroup<A, B>(of:returning:isolation:body:)()
   swift_taskGroup_cancelAll(*(v0 + 272));
   v3 = swift_task_alloc(32);
   *(v0 + 360) = v3;
-  v4 = type metadata accessor for ThrowingTaskGroup();
+  v4 = type metadata accessor for ThrowingTaskGroup(0, v2, v1, MEMORY[0x1E69E7288]);
   *v3 = v0;
   v3[1] = withThrowingTaskGroup<A, B>(of:returning:isolation:body:);
 
@@ -3737,7 +2731,6 @@ void withThrowingTaskGroup<A, B>(of:returning:isolation:body:)()
 
 {
   v1 = *v0;
-  v4 = *v0;
   *(*v0 + 360);
   v2 = *(v1 + 320);
   v3 = *(v1 + 312);
@@ -3751,7 +2744,7 @@ uint64_t withThrowingTaskGroup<A, B>(of:returning:body:)(uint64_t a1, uint64_t a
   swift_taskGroup_initialize((v6 + 2), a6);
   v6[36] = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
   v6[34] = v6 + 2;
-  v11 = (a4 + *a4);
+  v11 = a4 + *a4;
   v9 = swift_task_alloc(a4[1]);
   v6[37] = v9;
   *v9 = v6;
@@ -3774,7 +2767,7 @@ void withThrowingTaskGroup<A, B>(of:returning:body:)()
     swift_taskGroup_cancelAll(*(v2 + 272));
     v7 = swift_task_alloc(32);
     *(v2 + 320) = v7;
-    v8 = type metadata accessor for ThrowingTaskGroup();
+    v8 = type metadata accessor for ThrowingTaskGroup(0, v6, v5, MEMORY[0x1E69E7288]);
     *v7 = v4;
     v9 = withThrowingTaskGroup<A, B>(of:returning:body:);
   }
@@ -3783,7 +2776,7 @@ void withThrowingTaskGroup<A, B>(of:returning:body:)()
   {
     v7 = swift_task_alloc(32);
     *(v2 + 312) = v7;
-    v8 = type metadata accessor for ThrowingTaskGroup();
+    v8 = type metadata accessor for ThrowingTaskGroup(0, v6, v5, MEMORY[0x1E69E7288]);
     *v7 = v4;
     v9 = withThrowingTaskGroup<A, B>(of:returning:body:);
   }
@@ -3806,15 +2799,13 @@ uint64_t withThrowingTaskGroup<A, B>(of:returning:body:)()
 
 {
   v1 = *v0;
-  v2 = *(*v0 + 304);
-  v6 = *v0;
+  v4 = *v0;
   *(*v0 + 320);
   swift_taskGroup_destroy((v1 + 16));
   swift_willThrow();
-  v3 = *(v6 + 8);
-  v4 = *(v1 + 304);
+  v2 = *(v4 + 8);
 
-  return v3();
+  return v2();
 }
 
 void TaskGroup.next(isolation:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -3846,7 +2837,6 @@ uint64_t TaskGroup.next(isolation:)()
 }
 
 {
-  v1 = *(v0 + 88);
   return swift_unexpectedError();
 }
 
@@ -3877,7 +2867,6 @@ uint64_t TaskGroup.next()()
 }
 
 {
-  v1 = *(v0 + 72);
   return swift_unexpectedError();
 }
 
@@ -3912,36 +2901,32 @@ void TaskGroup.awaitAllRemainingTasks(isolation:)(uint64_t a1, uint64_t a2, uint
   *v7 = v4;
   v7[1] = TaskGroup.awaitAllRemainingTasks(isolation:);
   v8 = v4[9];
-  v9 = v4[5];
-  v10 = v4[2];
-  v11 = v4[3];
+  v9 = v4[2];
+  v10 = v4[3];
 
-  TaskGroup.next(isolation:)(v8, v10, v11);
+  TaskGroup.next(isolation:)(v8, v9, v10);
 }
 
 void TaskGroup.awaitAllRemainingTasks(isolation:)()
 {
   v1 = *v0;
   v2 = *(*v0 + 16);
-  v10 = *v0;
   *(*v0 + 80);
   if (v2)
   {
-    v5 = v1 + 16;
-    v4 = *(v1 + 16);
-    v3 = *(v5 + 8);
+    v3 = *(v1 + 24);
     ObjectType = swift_getObjectType();
-    v7 = (*(v3 + 8))(ObjectType, v3);
-    v9 = v8;
+    v5 = (*(v3 + 8))(ObjectType, v3);
+    v7 = v6;
   }
 
   else
   {
+    v5 = 0;
     v7 = 0;
-    v9 = 0;
   }
 
-  swift_task_switch(TaskGroup.awaitAllRemainingTasks(isolation:), v7, v9);
+  swift_task_switch(TaskGroup.awaitAllRemainingTasks(isolation:), v5, v7);
 }
 
 {
@@ -3963,11 +2948,10 @@ void TaskGroup.awaitAllRemainingTasks(isolation:)()
     *v3 = v0;
     v3[1] = TaskGroup.awaitAllRemainingTasks(isolation:);
     v4 = v0[9];
-    v5 = v0[5];
-    v6 = v0[2];
-    v7 = v0[3];
+    v5 = v0[2];
+    v6 = v0[3];
 
-    TaskGroup.next(isolation:)(v4, v6, v7);
+    TaskGroup.next(isolation:)(v4, v5, v6);
   }
 }
 
@@ -3988,61 +2972,58 @@ void ThrowingTaskGroup.awaitAllRemainingTasks(isolation:)(uint64_t a1, uint64_t 
   *v7 = v4;
   v7[1] = ThrowingTaskGroup.awaitAllRemainingTasks(isolation:);
   v8 = v4[9];
-  v9 = v4[5];
-  v10 = v4[2];
-  v11 = v4[3];
+  v9 = v4[2];
+  v10 = v4[3];
 
-  ThrowingTaskGroup.next(isolation:)(v8, v10, v11);
+  ThrowingTaskGroup.next(isolation:)(v8, v9, v10);
 }
 
 void ThrowingTaskGroup.awaitAllRemainingTasks(isolation:)()
 {
   v3 = *v1;
   v2 = *v1;
-  v4 = *v1;
   *(*v1 + 80);
-  v5 = *(v2 + 16);
+  v4 = *(v2 + 16);
   if (v0)
   {
     MEMORY[0x1865D4950](v0);
-    if (v5)
+    if (v4)
     {
-      v6 = *(v3 + 16);
-      v7 = *(v3 + 24);
+      v5 = *(v3 + 24);
       ObjectType = swift_getObjectType();
-      v9 = (*(v7 + 8))(ObjectType, v7);
-      v11 = v10;
+      v7 = (*(v5 + 8))(ObjectType, v5);
+      v9 = v8;
     }
 
     else
     {
+      v7 = 0;
       v9 = 0;
-      v11 = 0;
     }
 
-    v12 = ThrowingTaskGroup.awaitAllRemainingTasks(isolation:);
+    v10 = ThrowingTaskGroup.awaitAllRemainingTasks(isolation:);
   }
 
   else
   {
-    if (v5)
+    if (v4)
     {
-      v13 = *(v3 + 24);
-      v14 = swift_getObjectType();
-      v9 = (*(v13 + 8))(v14, v13);
-      v11 = v15;
+      v11 = *(v3 + 24);
+      v12 = swift_getObjectType();
+      v7 = (*(v11 + 8))(v12, v11);
+      v9 = v13;
     }
 
     else
     {
+      v7 = 0;
       v9 = 0;
-      v11 = 0;
     }
 
-    v12 = ThrowingTaskGroup.awaitAllRemainingTasks(isolation:);
+    v10 = ThrowingTaskGroup.awaitAllRemainingTasks(isolation:);
   }
 
-  swift_task_switch(v12, v9, v11);
+  swift_task_switch(v10, v7, v9);
 }
 
 {
@@ -4064,11 +3045,10 @@ void ThrowingTaskGroup.awaitAllRemainingTasks(isolation:)()
     *v3 = v0;
     v3[1] = ThrowingTaskGroup.awaitAllRemainingTasks(isolation:);
     v4 = v0[9];
-    v5 = v0[5];
-    v6 = v0[2];
-    v7 = v0[3];
+    v5 = v0[2];
+    v6 = v0[3];
 
-    ThrowingTaskGroup.next(isolation:)(v4, v6, v7);
+    ThrowingTaskGroup.next(isolation:)(v4, v5, v6);
   }
 }
 
@@ -4078,11 +3058,10 @@ void ThrowingTaskGroup.awaitAllRemainingTasks(isolation:)()
   *v1 = v0;
   v1[1] = ThrowingTaskGroup.awaitAllRemainingTasks(isolation:);
   v2 = v0[9];
-  v3 = v0[5];
-  v4 = v0[2];
-  v5 = v0[3];
+  v3 = v0[2];
+  v4 = v0[3];
 
-  ThrowingTaskGroup.next(isolation:)(v2, v4, v5);
+  ThrowingTaskGroup.next(isolation:)(v2, v3, v4);
 }
 
 void ThrowingTaskGroup.next(isolation:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -4153,55 +3132,45 @@ uint64_t ThrowingTaskGroup.nextResult()()
   if ((*(v2 + 48))(v1, 1, v3) == 1)
   {
     v4 = v0[8];
-    v5 = v0[9];
     (*(v0[13] + 8))(v1, v0[12]);
-    v6 = *(v5 + 24);
-    v7 = *(v5 + 32);
-    v8 = type metadata accessor for Result();
-    (*(*(v8 - 8) + 56))(v4, 1, 1, v8);
+    v5 = type metadata accessor for Result();
+    (*(*(v5 - 8) + 56))(v4, 1, 1, v5);
   }
 
   else
   {
-    v9 = v0[16];
-    v10 = v0[8];
-    v11 = v0[9];
-    v12 = *(v2 + 32);
-    v12(v9, v1, v3);
-    v12(v10, v9, v3);
-    v13 = *(v11 + 24);
-    v14 = *(v11 + 32);
-    v15 = type metadata accessor for Result();
+    v6 = v0[16];
+    v7 = v0[8];
+    v8 = *(v2 + 32);
+    v8(v6, v1, v3);
+    v8(v7, v6, v3);
+    v9 = type metadata accessor for Result();
     swift_storeEnumTagMultiPayload();
-    (*(*(v15 - 8) + 56))(v10, 0, 1, v15);
+    (*(*(v9 - 8) + 56))(v7, 0, 1, v9);
   }
 
-  v16 = v0[14];
+  v10 = v0[14];
   v0[16];
-  v16;
-  v17 = v0[1];
+  v10;
+  v11 = v0[1];
 
-  return v17();
+  return v11();
 }
 
 {
-  v1 = v0[11];
-  v2 = v0[8];
-  v3 = v0[9];
+  v1 = v0[8];
   v0[7] = v0[17];
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
-  v4 = *(v3 + 24);
   swift_dynamicCast();
-  v5 = *(v3 + 32);
-  v6 = type metadata accessor for Result();
+  v2 = type metadata accessor for Result();
   swift_storeEnumTagMultiPayload();
-  (*(*(v6 - 8) + 56))(v2, 0, 1, v6);
-  v7 = v0[14];
+  (*(*(v2 - 8) + 56))(v1, 0, 1, v2);
+  v3 = v0[14];
   v0[16];
-  v7;
-  v8 = v0[1];
+  v3;
+  v4 = v0[1];
 
-  return v8();
+  return v4();
 }
 
 void ThrowingTaskGroup.nextResult()()
@@ -4259,14 +3228,12 @@ void TaskGroup.Iterator.next()()
     *v2 = v0;
     v2[1] = TaskGroup.Iterator.next();
     v3 = v0[7];
-    v4 = v0[3];
 
     TaskGroup.next(isolation:)(v3, 0, 0);
   }
 }
 
 {
-  v1 = *v0;
   *(*v0 + 64);
 
   swift_task_switch(TaskGroup.Iterator.next(), 0, 0);
@@ -4349,16 +3316,14 @@ void TaskGroup.Iterator.next(isolation:)()
     v2[1] = TaskGroup.Iterator.next(isolation:);
     v3 = v0[9];
     v4 = v0[4];
-    v5 = v0[5];
-    v6 = v0[3];
+    v5 = v0[3];
 
-    TaskGroup.next(isolation:)(v3, v6, v4);
+    TaskGroup.next(isolation:)(v3, v5, v4);
   }
 }
 
 {
   v1 = *v0;
-  v4 = *v0;
   *(*v0 + 96);
   v2 = *(v1 + 88);
   v3 = *(v1 + 80);
@@ -4462,7 +3427,6 @@ void ThrowingTaskGroup.Iterator.next()()
     *v2 = v0;
     v2[1] = ThrowingTaskGroup.Iterator.next();
     v3 = v0[8];
-    v4 = v0[4];
 
     ThrowingTaskGroup.next(isolation:)(v3, 0, 0);
   }
@@ -4470,7 +3434,6 @@ void ThrowingTaskGroup.Iterator.next()()
 
 {
   v2 = *(*v1 + 72);
-  v4 = *v1;
   *(*v1 + 80) = v0;
   v2;
   if (v0)
@@ -4513,14 +3476,13 @@ uint64_t ThrowingTaskGroup.Iterator.next()()
   return v7();
 }
 
+uint64_t ThrowingTaskGroup.Iterator.next()(uint64_t a1)
 {
-  v1 = v0[10];
-  v2 = v0[8];
-  *(v0[4] + 8) = 1;
+  v2 = v1[8];
+  *(v1[4] + 8) = 1;
   swift_willThrow();
   v2;
-  v3 = v0[1];
-  v4 = v0[10];
+  v3 = v1[1];
 
   return v3();
 }
@@ -4579,11 +3541,10 @@ void _sScg8IteratorV4next9isolationxSgScA_pSgYi_tYaq_YKFTY0_()
     *v3 = v0;
     v3[1] = _sScg8IteratorV4next9isolationxSgScA_pSgYi_tYaq_YKFTQ1_;
     v4 = v0[12];
-    v5 = v0[7];
-    v6 = v0[4];
-    v7 = v0[5];
+    v5 = v0[4];
+    v6 = v0[5];
 
-    ThrowingTaskGroup.next(isolation:)(v4, v6, v7);
+    ThrowingTaskGroup.next(isolation:)(v4, v5, v6);
   }
 }
 
@@ -4591,22 +3552,21 @@ void _sScg8IteratorV4next9isolationxSgScA_pSgYi_tYaq_YKFTQ1_()
 {
   v2 = *v1;
   v3 = *(*v1 + 120);
-  v4 = *v1;
   *(*v1 + 144) = v0;
   v3;
-  v5 = *(v2 + 112);
-  v6 = *(v2 + 104);
+  v4 = *(v2 + 112);
+  v5 = *(v2 + 104);
   if (v0)
   {
-    v7 = _sScg8IteratorV4next9isolationxSgScA_pSgYi_tYaq_YKFTY3_;
+    v6 = _sScg8IteratorV4next9isolationxSgScA_pSgYi_tYaq_YKFTY3_;
   }
 
   else
   {
-    v7 = _sScg8IteratorV4next9isolationxSgScA_pSgYi_tYaq_YKFTY2_;
+    v6 = _sScg8IteratorV4next9isolationxSgScA_pSgYi_tYaq_YKFTY2_;
   }
 
-  swift_task_switch(v7, v6, v5);
+  swift_task_switch(v6, v5, v4);
 }
 
 uint64_t _sScg8IteratorV4next9isolationxSgScA_pSgYi_tYaq_YKFTY2_()
@@ -4638,20 +3598,17 @@ uint64_t _sScg8IteratorV4next9isolationxSgScA_pSgYi_tYaq_YKFTY2_()
 
 uint64_t _sScg8IteratorV4next9isolationxSgScA_pSgYi_tYaq_YKFTY3_()
 {
-  v2 = v0[17];
   v1 = v0[18];
-  v3 = v0[16];
-  v4 = v0[12];
-  v5 = v0[8];
+  v2 = v0[12];
   *(v0[7] + 8) = 1;
   v0[2] = v1;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
   swift_dynamicCast();
   swift_willThrowTypedImpl();
-  v4;
-  v6 = v0[1];
+  v2;
+  v3 = v0[1];
 
-  return v6();
+  return v3();
 }
 
 void protocol witness for AsyncIteratorProtocol.next() in conformance ThrowingTaskGroup<A, B>.Iterator(uint64_t a1, uint64_t a2)
@@ -4712,7 +3669,6 @@ uint64_t DiscardingTaskGroup.awaitAllRemainingTasks()()
 }
 
 {
-  v1 = *(v0 + 64);
   return (*(v0 + 8))();
 }
 
@@ -4749,15 +3705,14 @@ uint64_t withDiscardingTaskGroup<A>(returning:isolation:body:)()
   v1 = v0[41];
   swift_taskGroup_initializeWithFlags(0x100, (v0 + 2), MEMORY[0x1E69E7CA8] + 8);
   v0[39] = v0 + 2;
-  v6 = (v1 + *v1);
+  v5 = (v1 + *v1);
   v2 = swift_task_alloc(v1[1]);
   v0[48] = v2;
   *v2 = v0;
   v2[1] = withDiscardingTaskGroup<A>(returning:isolation:body:);
   v3 = v0[45];
-  v4 = v0[42];
 
-  return (v6)(v3, v0 + 39);
+  return (v5)(v3, v0 + 39);
 }
 
 {
@@ -4771,14 +3726,12 @@ uint64_t withDiscardingTaskGroup<A>(returning:isolation:body:)()
 }
 
 {
-  v1 = *(v0 + 392);
   return swift_unexpectedError();
 }
 
 void withDiscardingTaskGroup<A>(returning:isolation:body:)()
 {
   v1 = *v0;
-  v3 = *v0;
   *(*v0 + 384);
   v2 = *(v1 + 312);
 
@@ -4818,7 +3771,7 @@ uint64_t withDiscardingTaskGroup<A>(returning:body:)(uint64_t a1, uint64_t a2, i
   v5[43] = v8;
   swift_taskGroup_initializeWithFlags(0x100, (v5 + 2), MEMORY[0x1E69E7CA8] + 8);
   v5[39] = v5 + 2;
-  v11 = (a3 + *a3);
+  v11 = a3 + *a3;
   v9 = swift_task_alloc(a3[1]);
   v5[44] = v9;
   *v9 = v5;
@@ -4830,7 +3783,6 @@ uint64_t withDiscardingTaskGroup<A>(returning:body:)(uint64_t a1, uint64_t a2, i
 void withDiscardingTaskGroup<A>(returning:body:)()
 {
   v1 = *v0;
-  v3 = *v0;
   *(*v0 + 352);
   v2 = *(v1 + 312);
 
@@ -4864,7 +3816,6 @@ uint64_t withDiscardingTaskGroup<A>(returning:body:)()
 }
 
 {
-  v1 = *(v0 + 360);
   return swift_unexpectedError();
 }
 
@@ -4930,102 +3881,83 @@ uint64_t withThrowingDiscardingTaskGroup<A>(returning:isolation:body:)()
   v1 = v0[46];
   swift_taskGroup_initializeWithFlags(0x100, (v0 + 2), MEMORY[0x1E69E7CA8] + 8);
   v0[39] = v0 + 2;
-  v6 = (v1 + *v1);
+  v5 = (v1 + *v1);
   v2 = swift_task_alloc(v1[1]);
   v0[54] = v2;
   *v2 = v0;
   v2[1] = withThrowingDiscardingTaskGroup<A>(returning:isolation:body:);
   v3 = v0[50];
-  v4 = v0[47];
 
-  return (v6)(v3, v0 + 39);
+  return (v5)(v3, v0 + 39);
 }
 
 {
-  v1 = *(v0 + 456);
-  v2 = *(v0 + 400);
-  v3 = *(v0 + 408);
-  (*(v0 + 448))(*(v0 + 360), v3, *(v0 + 384));
+  v1 = *(v0 + 400);
+  v2 = *(v0 + 408);
+  (*(v0 + 448))(*(v0 + 360), v2, *(v0 + 384));
   swift_taskGroup_destroy((v0 + 16));
-  v3;
   v2;
-  v4 = *(v0 + 8);
+  v1;
+  v3 = *(v0 + 8);
 
-  return v4();
+  return v3();
 }
 
 {
-  v1 = v0[58];
-  v3 = v0[50];
-  v2 = v0[51];
+  v2 = v0[50];
+  v1 = v0[51];
   swift_taskGroup_destroy((v0 + 2));
+  v1;
   v2;
-  v3;
-  v4 = v0[1];
+  v3 = v0[1];
 
-  return v4();
+  return v3();
 }
 
 {
-  v1 = v0[55];
-  swift_willThrow();
-  v2 = v0[55];
-  v4 = v0[50];
-  v3 = v0[51];
+  v2 = v0[50];
+  v1 = v0[51];
   swift_taskGroup_destroy((v0 + 2));
-  v3;
-  v4;
-  v5 = v0[1];
-
-  return v5();
-}
-
-{
-  v1 = v0[59];
-  v3 = v0[50];
-  v2 = v0[51];
-  swift_taskGroup_destroy((v0 + 2));
+  v1;
   v2;
-  v3;
-  v4 = v0[1];
+  v3 = v0[1];
 
-  return v4();
+  return v3();
 }
 
 void withThrowingDiscardingTaskGroup<A>(returning:isolation:body:)()
 {
   v2 = *v1;
   v3 = *(*v1 + 432);
-  v4 = *v1;
   *(*v1 + 440) = v0;
   v3;
-  v5 = *(v2 + 424);
-  v6 = *(v2 + 416);
+  v4 = *(v2 + 424);
+  v5 = *(v2 + 416);
   if (v0)
   {
-    v7 = withThrowingDiscardingTaskGroup<A>(returning:isolation:body:);
+    v6 = withThrowingDiscardingTaskGroup<A>(returning:isolation:body:);
   }
 
   else
   {
-    v7 = withThrowingDiscardingTaskGroup<A>(returning:isolation:body:);
+    v6 = withThrowingDiscardingTaskGroup<A>(returning:isolation:body:);
   }
 
-  swift_task_switch(v7, v6, v5);
+  swift_task_switch(v6, v5, v4);
 }
 
 {
-  v2 = v0[50];
-  v1 = v0[51];
-  v3 = v0[48];
-  v4 = v0[49];
+  v2 = *(v0 + 400);
+  v1 = *(v0 + 408);
+  v3 = *(v0 + 384);
+  v4 = *(v0 + 392);
   v5 = *(v4 + 32);
-  v0[56] = v5;
-  v0[57] = (v4 + 32) & 0xFFFFFFFFFFFFLL | 0x48D8000000000000;
+  *(v0 + 448) = v5;
+  *(v0 + 456) = (v4 + 32) & 0xFFFFFFFFFFFFLL | 0x48D8000000000000;
   v5(v1, v2, v3);
-  v6 = v0[39];
+  v6 = *(v0 + 312);
 
-  swift_taskGroup_waitAll(v0 + 481, v6, 0, withThrowingDiscardingTaskGroup<A>(returning:isolation:body:), v0 + 40);
+  swift_taskGroup_waitAll(v0 + 481, v6, 0, withThrowingDiscardingTaskGroup<A>(returning:isolation:body:), (v0 + 320));
 }
 
 {
@@ -5053,12 +3985,12 @@ void withThrowingDiscardingTaskGroup<A>(returning:isolation:body:)()
 }
 
 {
-  v1 = v0[55];
-  v2 = v0[39];
+  v1 = *(v0 + 440);
+  v2 = *(v0 + 312);
   swift_taskGroup_cancelAll(v2);
   MEMORY[0x1865D4960](v1);
 
-  swift_taskGroup_waitAll((v0 + 60), v2, v1, withThrowingDiscardingTaskGroup<A>(returning:isolation:body:), v0 + 34);
+  swift_taskGroup_waitAll(v0 + 480, v2, v1, withThrowingDiscardingTaskGroup<A>(returning:isolation:body:), (v0 + 272));
 }
 
 {
@@ -5087,6 +4019,19 @@ void withThrowingDiscardingTaskGroup<A>(returning:isolation:body:)()
   swift_task_switch(withThrowingDiscardingTaskGroup<A>(returning:isolation:body:), *(v0 + 416), *(v0 + 424));
 }
 
+uint64_t withThrowingDiscardingTaskGroup<A>(returning:isolation:body:)(uint64_t a1)
+{
+  swift_willThrow();
+  v3 = v1[50];
+  v2 = v1[51];
+  swift_taskGroup_destroy((v1 + 2));
+  v2;
+  v3;
+  v4 = v1[1];
+
+  return v4();
+}
+
 uint64_t withThrowingDiscardingTaskGroup<A>(returning:body:)(uint64_t a1, uint64_t a2, int *a3, uint64_t a4, uint64_t a5)
 {
   v5[45] = a1;
@@ -5099,7 +4044,7 @@ uint64_t withThrowingDiscardingTaskGroup<A>(returning:body:)(uint64_t a1, uint64
   v5[49] = swift_task_alloc(v8 & 0xFFFFFFFFFFFFFFF0);
   swift_taskGroup_initializeWithFlags(0x100, (v5 + 2), MEMORY[0x1E69E7CA8] + 8);
   v5[39] = v5 + 2;
-  v12 = (a3 + *a3);
+  v12 = a3 + *a3;
   v10 = swift_task_alloc(a3[1]);
   v5[50] = v10;
   *v10 = v5;
@@ -5112,7 +4057,6 @@ void withThrowingDiscardingTaskGroup<A>(returning:body:)()
 {
   v2 = *v1;
   v3 = *(*v1 + 400);
-  v15 = *v1;
   *(*v1 + 408) = v0;
   v3;
   if (v0)
@@ -5122,7 +4066,7 @@ void withThrowingDiscardingTaskGroup<A>(returning:body:)()
     MEMORY[0x1865D4960](v0);
     v5 = withThrowingDiscardingTaskGroup<A>(returning:body:);
     v6 = (v2 + 56);
-    v7 = v2 + 34;
+    v7 = (v2 + 34);
     v8 = v4;
     v9 = v0;
   }
@@ -5140,7 +4084,7 @@ void withThrowingDiscardingTaskGroup<A>(returning:body:)()
     v8 = v2[39];
     v5 = withThrowingDiscardingTaskGroup<A>(returning:body:);
     v6 = v2 + 449;
-    v7 = v2 + 40;
+    v7 = (v2 + 40);
     v9 = 0;
   }
 
@@ -5183,63 +4127,57 @@ void withThrowingDiscardingTaskGroup<A>(returning:body:)()
 
 uint64_t withThrowingDiscardingTaskGroup<A>(returning:body:)()
 {
-  v1 = *(v0 + 424);
-  v2 = *(v0 + 384);
-  v3 = *(v0 + 392);
-  (*(v0 + 416))(*(v0 + 360), v3, *(v0 + 368));
+  v1 = *(v0 + 384);
+  v2 = *(v0 + 392);
+  (*(v0 + 416))(*(v0 + 360), v2, *(v0 + 368));
   swift_taskGroup_destroy((v0 + 16));
-  v3;
   v2;
-  v4 = *(v0 + 8);
+  v1;
+  v3 = *(v0 + 8);
 
-  return v4();
+  return v3();
 }
 
 {
-  v1 = v0[54];
-  v3 = v0[48];
-  v2 = v0[49];
+  v2 = v0[48];
+  v1 = v0[49];
   swift_taskGroup_destroy((v0 + 2));
+  v1;
   v2;
-  v3;
-  v4 = v0[1];
+  v3 = v0[1];
 
-  return v4();
+  return v3();
 }
 
 {
-  v1 = v0[51];
+  v2 = v0[48];
+  v1 = v0[49];
+  swift_taskGroup_destroy((v0 + 2));
+  v1;
+  v2;
+  v3 = v0[1];
+
+  return v3();
+}
+
+uint64_t withThrowingDiscardingTaskGroup<A>(returning:body:)(uint64_t a1)
+{
   swift_willThrow();
-  v2 = v0[51];
-  v4 = v0[48];
-  v3 = v0[49];
-  swift_taskGroup_destroy((v0 + 2));
-  v3;
-  v4;
-  v5 = v0[1];
-
-  return v5();
-}
-
-{
-  v1 = v0[55];
-  v3 = v0[48];
-  v2 = v0[49];
-  swift_taskGroup_destroy((v0 + 2));
+  v3 = v1[48];
+  v2 = v1[49];
+  swift_taskGroup_destroy((v1 + 2));
   v2;
   v3;
-  v4 = v0[1];
+  v4 = v1[1];
 
   return v4();
 }
 
 uint64_t TaskLocal.__allocating_init(wrappedValue:)(uint64_t a1)
 {
-  v3 = *(v1 + 48);
-  v4 = *(v1 + 52);
-  v5 = swift_allocObject();
-  (*(*(*(*v5 + 80) - 8) + 32))(v5 + *(*v5 + 88), a1);
-  return v5;
+  v2 = swift_allocObject();
+  (*(*(*(*v2 + 80) - 8) + 32))(v2 + *(*v2 + 88), a1);
+  return v2;
 }
 
 uint64_t TaskLocal.get()@<X0>(uint64_t a1@<X8>)
@@ -5307,14 +4245,13 @@ void TaskLocal.withValue<A>(_:operation:isolation:file:line:)()
   *v1 = v0;
   v1[1] = TaskLocal.withValue<A>(_:operation:isolation:file:line:);
   v2 = v0[15];
-  v3 = v0[12];
-  v4 = v0[6];
-  v5 = v0[7];
-  v6 = v0[4];
-  v7 = v0[5];
-  v8 = v0[2];
+  v3 = v0[6];
+  v4 = v0[7];
+  v5 = v0[4];
+  v6 = v0[5];
+  v7 = v0[2];
 
-  TaskLocal.withValueImpl<A>(_:operation:isolation:file:line:)(v8, v2, v6, v7, v4, v5);
+  TaskLocal.withValueImpl<A>(_:operation:isolation:file:line:)(v7, v2, v5, v6, v3, v4);
 }
 
 {
@@ -5341,9 +4278,8 @@ void TaskLocal.withValue<A>(_:operation:isolation:file:line:)()
 
 uint64_t TaskLocal.withValue<A>(_:operation:isolation:file:line:)()
 {
-  v0[15];
-  v1 = v0[1];
-  v2 = v0[19];
+  *(v0 + 120);
+  v1 = *(v0 + 8);
 
   return v1();
 }
@@ -5379,37 +4315,35 @@ uint64_t TaskLocal.withValueImpl<A>(_:operation:isolation:file:line:)()
 {
   v1 = v0[4];
   swift_task_localValuePush(v0[6], v0[3], *(v0[7] + 80));
-  v6 = (v1 + *v1);
+  v5 = (v1 + *v1);
   v2 = swift_task_alloc(v1[1]);
   v0[10] = v2;
   *v2 = v0;
   v2[1] = TaskLocal.withValueImpl<A>(_:operation:isolation:file:line:);
-  v3 = v0[5];
-  v4 = v0[2];
+  v3 = v0[2];
 
-  return v6(v4);
+  return v5(v3);
 }
 
 void TaskLocal.withValueImpl<A>(_:operation:isolation:file:line:)()
 {
   v2 = *v1;
   v3 = *(*v1 + 80);
-  v4 = *v1;
   *(*v1 + 88) = v0;
   v3;
-  v5 = *(v2 + 72);
-  v6 = *(v2 + 64);
+  v4 = *(v2 + 72);
+  v5 = *(v2 + 64);
   if (v0)
   {
-    v7 = TaskLocal.withValueImpl<A>(_:operation:isolation:file:line:);
+    v6 = TaskLocal.withValueImpl<A>(_:operation:isolation:file:line:);
   }
 
   else
   {
-    v7 = TaskLocal.withValueImpl<A>(_:operation:isolation:file:line:);
+    v6 = TaskLocal.withValueImpl<A>(_:operation:isolation:file:line:);
   }
 
-  swift_task_switch(v7, v6, v5);
+  swift_task_switch(v6, v5, v4);
 }
 
 uint64_t TaskLocal.withValueImpl<A>(_:operation:isolation:file:line:)(swift *a1)
@@ -5423,23 +4357,22 @@ uint64_t TaskLocal.withValueImpl<A>(_:operation:isolation:file:line:)(swift *a1)
 {
   swift_task_localValuePop(a1);
   v2 = *(v1 + 8);
-  v3 = *(v1 + 88);
 
   return v2();
 }
 
-uint64_t TaskLocal.withValue<A>(_:operation:file:line:)(uint64_t a1, uint64_t a2, int *a3)
+uint64_t TaskLocal.withValue<A>(_:operation:file:line:)(uint64_t a1, uint64_t a2, int *a3, uint64_t a4)
 {
-  v7 = *(*(*v3 + 80) - 8);
-  v8 = swift_task_alloc((*(v7 + 64) + 15) & 0xFFFFFFFFFFFFFFF0);
-  *(v4 + 16) = v8;
-  (*(v7 + 16))();
-  v9 = swift_task_alloc(32);
-  *(v4 + 24) = v9;
-  *v9 = v4;
-  v9[1] = withCheckedThrowingContinuation<A>(function:_:);
+  v8 = *(*(*v4 + 80) - 8);
+  v9 = swift_task_alloc((*(v8 + 64) + 15) & 0xFFFFFFFFFFFFFFF0);
+  *(v5 + 16) = v9;
+  (*(v8 + 16))();
+  v10 = swift_task_alloc(32);
+  *(v5 + 24) = v10;
+  *v10 = v5;
+  v10[1] = withCheckedThrowingContinuation<A>(function:_:);
 
-  return TaskLocal.withValueImpl<A>(_:operation:file:line:)(a1, v8, a3);
+  return TaskLocal.withValueImpl<A>(_:operation:file:line:)(a1, v9, a3);
 }
 
 uint64_t TaskLocal.withValueImpl<A>(_:operation:file:line:)(uint64_t a1, uint64_t a2, int *a3)
@@ -5467,13 +4400,12 @@ uint64_t TaskLocal.withValueImpl<A>(_:operation:file:line:)()
 void TaskLocal.withValue<A>(_:operation:file:line:)(uint64_t a1, uint64_t (*a2)(uint64_t))
 {
   v4 = *(*v2 + 80);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x1EEE9AC00](a1);
-  v7 = v11 - v6;
-  (*(v8 + 16))(v11 - v6);
-  v9 = swift_task_localValuePush(v2, v7, v4);
-  v10 = a2(v9);
-  swift_task_localValuePop(v10);
+  v6 = v10 - v5;
+  (*(v7 + 16))(v10 - v5);
+  v8 = swift_task_localValuePush(v2, v6, v4);
+  v9 = a2(v8);
+  swift_task_localValuePop(v9);
 }
 
 uint64_t TaskLocal.projectedValue.getter()
@@ -5481,10 +4413,9 @@ uint64_t TaskLocal.projectedValue.getter()
   protocol witness for SerialExecutor.asUnownedSerialExecutor() in conformance DispatchQueueShim();
 }
 
-uint64_t key path getter for TaskLocal.projectedValue : <A>TaskLocal<A>@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t key path getter for TaskLocal.projectedValue : <A>TaskLocal<A>@<X0>(uint64_t *a1@<X8>)
 {
-  v2 = *a1;
-  *a2 = protocol witness for SerialExecutor.asUnownedSerialExecutor() in conformance DispatchQueueShim();
+  *a1 = protocol witness for SerialExecutor.asUnownedSerialExecutor() in conformance DispatchQueueShim();
 }
 
 void (*TaskLocal.projectedValue.modify(void *a1))()
@@ -5496,14 +4427,11 @@ void (*TaskLocal.projectedValue.modify(void *a1))()
 
 uint64_t TaskLocal.description.getter()
 {
-  v1 = *v0;
   _StringGuts.grow(_:)(20);
-  v2 = _typeName(_:qualified:)();
-  MEMORY[0x1865D3D30](v2);
+  v0 = _typeName(_:qualified:)();
+  MEMORY[0x1865D3D30](v0);
 
   MEMORY[0x1865D3D30](0x746C756166656428, 0xEF203A65756C6156);
-  v3 = *(*v0 + 88);
-  v4 = *(v1 + 80);
   DefaultStringInterpolation.appendInterpolation<A>(_:)();
   MEMORY[0x1865D3D30](41, 0xE100000000000000);
   return 0;
@@ -5558,26 +4486,26 @@ uint64_t specialized String.withCString<A>(_:)(uint64_t a1, uint64_t a2, uint64_
 
 void static Task<>.sleep(_:)()
 {
-  v15 = v0;
+  v16 = v0;
   v1 = v0;
   v2 = v0;
-  v3 = v0 + 2;
+  v3 = (v0 + 2);
   v4 = v1[10];
   v1[2] = v2;
   v1[3] = static Task<>.sleep(_:);
   v5 = swift_continuation_init(v3, 0);
-  static Task<>.currentPriority.getter(v12);
-  NullaryContinuationJob = swift_task_createNullaryContinuationJob(LOBYTE(v12[0]), v5);
+  static Task<>.currentPriority.getter(v13);
+  NullaryContinuationJob = swift_task_createNullaryContinuationJob(LOBYTE(v13[0]), v5);
   if (specialized static Task<>.currentSchedulableExecutor.getter())
   {
     v8 = v7;
     ObjectType = swift_getObjectType();
-    v14 = v4 * 0x3B9ACA00uLL;
-    v12[0] = 0;
-    v12[1] = 0;
-    v13 = 1;
+    v15 = v4 * 0x3B9ACA00uLL;
+    v13[0] = 0;
+    v13[1] = 0;
+    v14 = 1;
     v10 = lazy protocol witness table accessor for type ContinuousClock and conformance ContinuousClock();
-    SchedulableExecutor.enqueue<A>(_:after:tolerance:clock:)(NullaryContinuationJob, &v14, v12, v11, ObjectType, &type metadata for ContinuousClock, v8, v10);
+    SchedulableExecutor.enqueue<A>(_:after:tolerance:clock:)(NullaryContinuationJob, &v15, v13, v11, ObjectType, &type metadata for ContinuousClock, v8, v10);
     swift_unknownObjectRelease();
   }
 
@@ -5586,15 +4514,37 @@ void static Task<>.sleep(_:)()
     swift_task_enqueueGlobalWithDelay(v4, NullaryContinuationJob);
   }
 
-  swift_continuation_await(v3);
+  swift_continuation_await(v3, v12);
 }
 
 uint64_t static Task<>.sleep(_:)()
 {
-  v3 = *v0;
   v1 = *(*v0 + 8);
 
   return v1();
+}
+
+void static Task<>.sleep(nanoseconds:)(uint64_t a1)
+{
+  *(v1 + 120) = a1;
+  swift_task_switch(static Task<>.sleep(nanoseconds:), 0, 0);
+}
+
+{
+  v2 = *(*v1 + 48);
+  *(*v1 + 152) = v2;
+  if (v2)
+  {
+    swift_willThrow();
+    v3 = static Task<>.sleep(nanoseconds:);
+  }
+
+  else
+  {
+    v3 = static Task<>.sleep(nanoseconds:);
+  }
+
+  swift_task_switch(v3, 0, 0);
 }
 
 void static Task<>.sleep(nanoseconds:)()
@@ -5683,25 +4633,7 @@ LABEL_13:
   swift_continuation_throwingResume(v4, v5);
 LABEL_10:
 
-  swift_continuation_await(v3);
-}
-
-{
-  v1 = *v0;
-  v2 = *(*v0 + 48);
-  *(*v0 + 152) = v2;
-  if (v2)
-  {
-    swift_willThrow();
-    v3 = static Task<>.sleep(nanoseconds:);
-  }
-
-  else
-  {
-    v3 = static Task<>.sleep(nanoseconds:);
-  }
-
-  swift_task_switch(v3, 0, 0);
+  swift_continuation_await(v3, v20);
 }
 
 {
@@ -5752,10 +4684,10 @@ LABEL_7:
   return v3();
 }
 
+uint64_t static Task<>.sleep(nanoseconds:)(uint64_t a1)
 {
-  v1 = *(v0 + 152);
   swift_willThrow();
-  v2 = *(v0 + 8);
+  v2 = *(v1 + 8);
 
   return v2();
 }
@@ -5768,35 +4700,35 @@ uint64_t closure #1 in closure #1 in closure #1 in static Task<>.sleep(nanosecon
   return v3();
 }
 
-uint64_t AsyncStream._Storage.State.init(limit:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t AsyncStream._Storage.State.init(limit:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v3 = *a1;
-  v4 = *(a1 + 8);
-  type metadata accessor for Optional();
-  type metadata accessor for UnsafeContinuation();
-  *a2 = Array.init()();
-  result = _Deque._Storage.init()();
-  *(a2 + 32) = 0;
-  *(a2 + 40) = 0;
-  *(a2 + 48) = 0;
-  *(a2 + 8) = result;
-  *(a2 + 16) = v3;
-  *(a2 + 24) = v4;
+  v5 = *a1;
+  v6 = *(a1 + 8);
+  v7 = type metadata accessor for Optional();
+  type metadata accessor for UnsafeContinuation(0, v7, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7410]);
+  *a3 = Array.init()();
+  result = _Deque._Storage.init()(a2);
+  *(a3 + 32) = 0;
+  *(a3 + 40) = 0;
+  *(a3 + 48) = 0;
+  *(a3 + 8) = result;
+  *(a3 + 16) = v5;
+  *(a3 + 24) = v6;
   return result;
 }
 
 void *AsyncStream._Storage.deinit()
 {
   v1 = v0;
-  v2 = v0[6];
+  v2 = *(v0 + 48);
   if (v2)
   {
-    v3 = v0[7];
-    v9 = 1;
+    v3 = *(v0 + 56);
+    v7 = 1;
 
-    v2(&v9);
-    _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v2);
-    v4 = v1[6];
+    v2(&v7);
+    _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v2, v3);
+    v4 = *(v1 + 48);
   }
 
   else
@@ -5804,11 +4736,9 @@ void *AsyncStream._Storage.deinit()
     v4 = 0;
   }
 
-  v6 = v1[2];
-  v5 = v1[3];
-  v7 = v1[7];
+  v5 = *(v1 + 56);
 
-  _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v4);
+  _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v4, v5);
   return v1;
 }
 
@@ -5823,7 +4753,7 @@ uint64_t AsyncStream._Storage.getOnTermination()()
 {
   _swift_async_stream_lock_lock((v0 + 72));
   v1 = *(v0 + 48);
-  _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOy_0(v1);
+  _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOy_0(v1, *(v0 + 56));
   _swift_async_stream_lock_unlock((v0 + 72));
   return v1;
 }
@@ -5851,32 +4781,30 @@ uint64_t AsyncStream._Storage.setOnTermination(_:)(uint64_t a1, uint64_t a2)
     v10 = 0;
   }
 
-  v18[0] = v11;
-  v18[1] = v10;
+  v19[0] = v11;
+  v19[1] = v10;
   MEMORY[0x1EEE9AC00](v7);
-  v17[2] = v3;
-  v17[3] = a1;
-  v17[4] = a2;
-  _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOy_0(v8);
-  v12 = *(v6 + 80);
-  type metadata accessor for AsyncStream.Continuation.Termination();
-  v13 = MEMORY[0x1E69E7CA8];
+  v18[2] = v3;
+  v18[3] = a1;
+  v18[4] = a2;
+  _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOy_0(v8, v9);
+  type metadata accessor for AsyncStream.Continuation.Termination(255, *(v6 + 80), v12, v13);
+  v14 = MEMORY[0x1E69E7CA8];
   swift_getFunctionTypeMetadata1();
-  v14 = type metadata accessor for Optional();
-  _ss20withExtendedLifetimeyq0_x_q0_yq_YKXEtq_YKs5ErrorR_Ri_zRi0_zRi_0_r1_lF(v18, partial apply for closure #1 in AsyncStream._Storage.setOnTermination(_:), v17, v14, MEMORY[0x1E69E73E0], v13 + 8, MEMORY[0x1E69E7410], v15);
-  return _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v11);
+  v15 = type metadata accessor for Optional();
+  _ss20withExtendedLifetimeyq0_x_q0_yq_YKXEtq_YKs5ErrorR_Ri_zRi0_zRi_0_r1_lF(v19, partial apply for closure #1 in AsyncStream._Storage.setOnTermination(_:), v18, v15, MEMORY[0x1E69E73E0], v14 + 8, MEMORY[0x1E69E7410], v16);
+  return _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v11, v10);
 }
 
 uint64_t _ss20withExtendedLifetimeyq0_x_q0_yq_YKXEtq_YKs5ErrorR_Ri_zRi0_zRi_0_r1_lF(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v11 = *(a5 - 8);
-  v12 = *(v11 + 64);
-  MEMORY[0x1EEE9AC00]();
-  v14 = &v17 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = v15(v14);
+  MEMORY[0x1EEE9AC00](a1);
+  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  result = v14(v13);
   if (v8)
   {
-    return (*(v11 + 32))(a8, v14, a5);
+    return (*(v11 + 32))(a8, v13, a5);
   }
 
   return result;
@@ -5894,7 +4822,7 @@ void AsyncStream._Storage.cancel@Sendable ()()
   {
     v3 = 1;
     v1(&v3);
-    _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v1);
+    _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v1, v2);
   }
 
   AsyncStream._Storage.finish()();
@@ -5906,60 +4834,61 @@ Swift::Void __swiftcall AsyncStream._Storage.finish()()
   v2 = *(*v0 + 80);
   v3 = type metadata accessor for Optional();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = v20 - v6;
+  v6 = &v21 - v5;
   _swift_async_stream_lock_lock((v0 + 72));
-  v8 = *(v0 + 16);
-  v9 = *(v0 + 48);
-  v20[1] = *(v0 + 56);
+  v7 = *(v0 + 16);
+  v8 = *(v0 + 48);
+  v22 = *(v0 + 56);
   *(v0 + 48) = 0;
   *(v0 + 56) = 0;
   *(v0 + 64) = 1;
-  v23 = v8;
-  v10 = type metadata accessor for UnsafeContinuation();
+  v25 = v7;
+  v9 = type metadata accessor for UnsafeContinuation(255, v3, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7410]);
   type metadata accessor for Array();
   swift_getWitnessTable();
   if (Collection.isEmpty.getter())
   {
     _swift_async_stream_lock_unlock(v1);
-    if (v9)
+    if (v8)
     {
-      v21 = 0;
-      v9(&v21);
-      _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v9);
+      v23 = 0;
+      v10 = v22;
+      v8(&v23);
+      _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v8, v10);
     }
   }
 
   else
   {
-    v20[0] = v4;
+    v21 = v4;
     v11 = *(v0 + 16);
 
     Array.removeAll(keepingCapacity:)(0);
     _swift_async_stream_lock_unlock(v1);
-    if (v9)
+    if (v8)
     {
-      v22 = 0;
-      v9(&v22);
-      _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v9);
+      v24 = 0;
+      v12 = v22;
+      v8(&v24);
+      _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v8, v12);
     }
 
-    if (MEMORY[0x1865D3E00](v11, v10))
+    if (MEMORY[0x1865D3E00](v11, v9))
     {
-      v12 = (v20[0] + 32);
-      v13 = 4;
+      v13 = (v21 + 32);
+      v14 = 4;
       do
       {
-        v14 = v13 - 4;
+        v15 = v14 - 4;
         IsNativeType = Array._hoistableIsNativeTypeChecked()();
         Array._checkSubscript(_:wasNativeTypeChecked:)();
         if (IsNativeType)
         {
-          v16 = *(v11 + 8 * v13);
-          v17 = __OFADD__(v14, 1);
-          v18 = v13 - 3;
-          if (v17)
+          v17 = *(v11 + 8 * v14);
+          v18 = __OFADD__(v15, 1);
+          v19 = v14 - 3;
+          if (v18)
           {
             goto LABEL_14;
           }
@@ -5967,11 +4896,11 @@ Swift::Void __swiftcall AsyncStream._Storage.finish()()
 
         else
         {
-          v16 = _ArrayBuffer._getElementSlowPath(_:)();
+          v17 = _ArrayBuffer._getElementSlowPath(_:)();
           swift_unknownObjectRelease();
-          v17 = __OFADD__(v14, 1);
-          v18 = v13 - 3;
-          if (v17)
+          v18 = __OFADD__(v15, 1);
+          v19 = v14 - 3;
+          if (v18)
           {
 LABEL_14:
             __break(1u);
@@ -5979,13 +4908,13 @@ LABEL_14:
           }
         }
 
-        (*(*(v2 - 8) + 56))(v7, 1, 1, v2);
-        (*v12)(*(*(v16 + 8) + 40), v7, v3);
-        swift_continuation_resume(v16, v19);
-        ++v13;
+        (*(*(v2 - 8) + 56))(v6, 1, 1, v2);
+        (*v13)(*(*(v17 + 64) + 40), v6, v3);
+        swift_continuation_resume(v17, v20);
+        ++v14;
       }
 
-      while (v18 != MEMORY[0x1865D3E00](v11, v10));
+      while (v19 != MEMORY[0x1865D3E00](v11, v9));
     }
   }
 }
@@ -6001,34 +4930,33 @@ void specialized AsyncStream._Storage.yield(_:)(uint64_t a1@<X8>)
   if (*(*(v1 + 16) + 16))
   {
     v8 = specialized RangeReplaceableCollection.removeFirst()();
-    v9 = *(v1 + 64);
     if (v7 <= 0)
     {
       if (*(v1 + 64))
       {
-        v37 = 0;
+        v36 = 0;
         _swift_async_stream_lock_unlock((v1 + 72));
-        **(*(v8 + 8) + 40) = 1;
-        swift_continuation_resume(v8, v11);
-        v10 = 2;
+        **(*(v8 + 64) + 40) = 1;
+        swift_continuation_resume(v8, v10);
+        v9 = 2;
       }
 
       else
       {
         if (v6 > 1)
         {
-          v37 = 0x7FFFFFFFFFFFFFFFLL;
+          v36 = 0x7FFFFFFFFFFFFFFFLL;
         }
 
         else
         {
-          v37 = v5;
+          v36 = v5;
         }
 
         _swift_async_stream_lock_unlock((v1 + 72));
-        **(*(v8 + 8) + 40) = 0;
-        swift_continuation_resume(v8, v27);
-        v10 = 0;
+        **(*(v8 + 64) + 40) = 0;
+        swift_continuation_resume(v8, v26);
+        v9 = 0;
       }
 
       goto LABEL_64;
@@ -6036,16 +4964,16 @@ void specialized AsyncStream._Storage.yield(_:)(uint64_t a1@<X8>)
 
     if (*(v1 + 64))
     {
-      v37 = 0;
-      v10 = 2;
+      v36 = 0;
+      v9 = 2;
 LABEL_54:
       specialized _Deque.removeFirst()();
       _swift_async_stream_lock_unlock(v2 + 18);
-      **(*(v8 + 8) + 40) = 0;
-      swift_continuation_resume(v8, v32);
+      **(*(v8 + 64) + 40) = 0;
+      swift_continuation_resume(v8, v31);
 LABEL_64:
-      *a1 = v37;
-      *(a1 + 8) = v10;
+      *a1 = v36;
+      *(a1 + 8) = v9;
       return;
     }
 
@@ -6053,21 +4981,21 @@ LABEL_64:
     {
       if (v6 != 1)
       {
-        v20 = *(*v4 + 24);
-        v21 = v20 + 1;
-        if (!__OFADD__(v20, 1))
+        v19 = *(*v4 + 24);
+        v20 = v19 + 1;
+        if (!__OFADD__(v19, 1))
         {
           isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-          v23 = *v4;
-          if (*(*v4 + 16) < v21 || (isUniquelyReferenced_nonNull_native & 1) == 0)
+          v22 = *v4;
+          if (*(*v4 + 16) < v20 || (isUniquelyReferenced_nonNull_native & 1) == 0)
           {
-            specialized _Deque._Storage._ensureUnique(minimumCapacity:linearGrowth:)(v21, 0);
-            v23 = *v4;
+            specialized _Deque._Storage._ensureUnique(minimumCapacity:linearGrowth:)(v20, 0);
+            v22 = *v4;
           }
 
-          specialized _Deque._UnsafeHandle.uncheckedAppend(_:)((v23 + 16));
-          v10 = 0;
-          v37 = 0x7FFFFFFFFFFFFFFFLL;
+          specialized _Deque._UnsafeHandle.uncheckedAppend(_:)((v22 + 16));
+          v9 = 0;
+          v36 = 0x7FFFFFFFFFFFFFFFLL;
           goto LABEL_54;
         }
 
@@ -6079,22 +5007,22 @@ LABEL_66:
 
       if (v7 < v5)
       {
-        v12 = *(*v4 + 24);
-        v13 = v12 + 1;
-        if (!__OFADD__(v12, 1))
+        v11 = *(*v4 + 24);
+        v12 = v11 + 1;
+        if (!__OFADD__(v11, 1))
         {
 LABEL_27:
-          v18 = swift_isUniquelyReferenced_nonNull_native();
-          v19 = *v4;
-          if (*(*v4 + 16) < v13 || (v18 & 1) == 0)
+          v17 = swift_isUniquelyReferenced_nonNull_native();
+          v18 = *v4;
+          if (*(*v4 + 16) < v12 || (v17 & 1) == 0)
           {
-            specialized _Deque._Storage._ensureUnique(minimumCapacity:linearGrowth:)(v13, 0);
-            v19 = *v4;
+            specialized _Deque._Storage._ensureUnique(minimumCapacity:linearGrowth:)(v12, 0);
+            v18 = *v4;
           }
 
-          specialized _Deque._UnsafeHandle.uncheckedAppend(_:)((v19 + 16));
-          v10 = 0;
-          v37 = v5 + ~v7;
+          specialized _Deque._UnsafeHandle.uncheckedAppend(_:)((v18 + 16));
+          v9 = 0;
+          v36 = v5 + ~v7;
           goto LABEL_54;
         }
 
@@ -6103,9 +5031,9 @@ LABEL_27:
       }
 
       specialized _Deque.removeFirst()();
-      v28 = *(*v4 + 24);
-      v29 = v28 + 1;
-      if (__OFADD__(v28, 1))
+      v27 = *(*v4 + 24);
+      v28 = v27 + 1;
+      if (__OFADD__(v27, 1))
       {
 LABEL_67:
         __break(1u);
@@ -6116,24 +5044,24 @@ LABEL_69:
         goto LABEL_70;
       }
 
-      v30 = swift_isUniquelyReferenced_nonNull_native();
-      v31 = *v4;
-      if (*(*v4 + 16) < v29 || (v30 & 1) == 0)
+      v29 = swift_isUniquelyReferenced_nonNull_native();
+      v30 = *v4;
+      if (*(*v4 + 16) < v28 || (v29 & 1) == 0)
       {
-        specialized _Deque._Storage._ensureUnique(minimumCapacity:linearGrowth:)(v29, 0);
-        v31 = *v4;
+        specialized _Deque._Storage._ensureUnique(minimumCapacity:linearGrowth:)(v28, 0);
+        v30 = *v4;
       }
 
-      specialized _Deque._UnsafeHandle.uncheckedAppend(_:)((v31 + 16));
+      specialized _Deque._UnsafeHandle.uncheckedAppend(_:)((v30 + 16));
     }
 
     else
     {
       if (v7 < v5)
       {
-        v17 = *(*v4 + 24);
-        v13 = v17 + 1;
-        if (!__OFADD__(v17, 1))
+        v16 = *(*v4 + 24);
+        v12 = v16 + 1;
+        if (!__OFADD__(v16, 1))
         {
           goto LABEL_27;
         }
@@ -6141,17 +5069,17 @@ LABEL_69:
         goto LABEL_68;
       }
 
-      v37 = 0;
+      v36 = 0;
     }
 
-    v10 = 1;
+    v9 = 1;
     goto LABEL_54;
   }
 
   if (*(v1 + 64))
   {
-    v37 = 0;
-    v10 = 2;
+    v36 = 0;
+    v9 = 2;
 LABEL_63:
     _swift_async_stream_lock_unlock(v2 + 18);
     goto LABEL_64;
@@ -6163,13 +5091,13 @@ LABEL_15:
     if (v7 >= v5)
     {
 LABEL_61:
-      v37 = 0;
+      v36 = 0;
 LABEL_62:
-      v10 = 1;
+      v9 = 1;
       goto LABEL_63;
     }
 
-    v24 = v7 + 1;
+    v23 = v7 + 1;
     if (__OFSUB__(v5, v7 + 1))
     {
 LABEL_70:
@@ -6177,38 +5105,38 @@ LABEL_70:
       goto LABEL_71;
     }
 
-    v37 = v5 - (v7 + 1);
-    v25 = swift_isUniquelyReferenced_nonNull_native();
-    v26 = *v4;
+    v36 = v5 - (v7 + 1);
+    v24 = swift_isUniquelyReferenced_nonNull_native();
+    v25 = *v4;
     if (*(*v4 + 16) <= v7)
     {
       goto LABEL_43;
     }
 
 LABEL_42:
-    if (v25)
+    if (v24)
     {
 LABEL_44:
-      specialized _Deque._UnsafeHandle.uncheckedAppend(_:)((v26 + 16));
-      v10 = 0;
+      specialized _Deque._UnsafeHandle.uncheckedAppend(_:)((v25 + 16));
+      v9 = 0;
       goto LABEL_63;
     }
 
 LABEL_43:
-    specialized _Deque._Storage._ensureUnique(minimumCapacity:linearGrowth:)(v24, 0);
-    v26 = *v4;
+    specialized _Deque._Storage._ensureUnique(minimumCapacity:linearGrowth:)(v23, 0);
+    v25 = *v4;
     goto LABEL_44;
   }
 
   if (v6 != 1)
   {
-    v37 = 0x7FFFFFFFFFFFFFFFLL;
-    v24 = v7 + 1;
+    v36 = 0x7FFFFFFFFFFFFFFFLL;
+    v23 = v7 + 1;
     if (!__OFADD__(v7, 1))
     {
-      v25 = swift_isUniquelyReferenced_nonNull_native();
-      v26 = *v4;
-      if (*(*v4 + 16) < v24)
+      v24 = swift_isUniquelyReferenced_nonNull_native();
+      v25 = *v4;
+      if (*(*v4 + 16) < v23)
       {
         goto LABEL_43;
       }
@@ -6221,20 +5149,20 @@ LABEL_43:
 
   if (v7 < v5)
   {
-    v14 = v7 + 1;
-    v15 = swift_isUniquelyReferenced_nonNull_native();
-    v16 = *v4;
-    if (*(*v4 + 16) <= v7 || (v15 & 1) == 0)
+    v13 = v7 + 1;
+    v14 = swift_isUniquelyReferenced_nonNull_native();
+    v15 = *v4;
+    if (*(*v4 + 16) <= v7 || (v14 & 1) == 0)
     {
       specialized _Deque._Storage._ensureUnique(minimumCapacity:linearGrowth:)(v7 + 1, 0);
-      v16 = *v4;
+      v15 = *v4;
     }
 
-    specialized _Deque._UnsafeHandle.uncheckedAppend(_:)((v16 + 16));
-    if (!__OFSUB__(v5, v14))
+    specialized _Deque._UnsafeHandle.uncheckedAppend(_:)((v15 + 16));
+    if (!__OFSUB__(v5, v13))
     {
-      v10 = 0;
-      v37 = v5 - v14;
+      v9 = 0;
+      v36 = v5 - v13;
       goto LABEL_63;
     }
 
@@ -6247,19 +5175,19 @@ LABEL_43:
   }
 
   specialized _Deque.removeFirst()();
-  v33 = *(*v4 + 24);
-  v34 = v33 + 1;
-  if (!__OFADD__(v33, 1))
+  v32 = *(*v4 + 24);
+  v33 = v32 + 1;
+  if (!__OFADD__(v32, 1))
   {
-    v35 = swift_isUniquelyReferenced_nonNull_native();
-    v36 = *v4;
-    if (*(*v4 + 16) < v34 || (v35 & 1) == 0)
+    v34 = swift_isUniquelyReferenced_nonNull_native();
+    v35 = *v4;
+    if (*(*v4 + 16) < v33 || (v34 & 1) == 0)
     {
-      specialized _Deque._Storage._ensureUnique(minimumCapacity:linearGrowth:)(v34, 0);
-      v36 = *v4;
+      specialized _Deque._Storage._ensureUnique(minimumCapacity:linearGrowth:)(v33, 0);
+      v35 = *v4;
     }
 
-    specialized _Deque._UnsafeHandle.uncheckedAppend(_:)((v36 + 16));
+    specialized _Deque._UnsafeHandle.uncheckedAppend(_:)((v35 + 16));
     goto LABEL_62;
   }
 
@@ -6270,76 +5198,76 @@ LABEL_71:
 void AsyncStream._Storage.yield(_:)(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v3 = v2;
-  v55 = a1;
-  v53 = a2;
+  v85 = a1;
+  v83 = a2;
   v4 = *(*v2 + 80);
   v5 = type metadata accessor for Optional();
-  v51 = *(v5 - 8);
-  v6 = *(v51 + 64);
-  v7 = MEMORY[0x1EEE9AC00](v5);
-  v50 = &v48 - v8;
-  v54 = *(v4 - 8);
-  v9 = *(v54 + 64);
-  MEMORY[0x1EEE9AC00](v7);
-  v48 = &v48 - v10;
+  v81 = *(v5 - 8);
+  v6 = MEMORY[0x1EEE9AC00](v5);
+  v80 = &v78 - v7;
+  v84 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v78 = &v78 - v8;
   _swift_async_stream_lock_lock((v2 + 72));
-  v49 = *(v2 + 32);
-  v11 = *(v2 + 40);
-  v12 = *(v2 + 24);
+  v79 = *(v2 + 32);
+  v9 = *(v2 + 40);
+  v10 = *(v2 + 24);
 
-  _ss20ManagedBufferPointerVsRi__rlE017withUnsafeMutableC8ToHeaderyqd_0_qd_0_SpyxGqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(closure #1 in _Deque._Storage.count.getter, 0, v12, &type metadata for _DequeBufferHeader, v4, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6530], MEMORY[0x1E69E7410], v47);
-  v13 = v56;
+  v11 = MEMORY[0x1E69E73E0];
+  v12 = MEMORY[0x1E69E7410];
+  _ss20ManagedBufferPointerVsRi__rlE017withUnsafeMutableC8ToHeaderyqd_0_qd_0_SpyxGqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(closure #1 in _Deque._Storage.count.getter, 0, v10, &type metadata for _DequeBufferHeader, v4, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6530], MEMORY[0x1E69E7410], v77);
+  v13 = v86;
 
-  v56 = *(v3 + 16);
-  v52 = v5;
-  type metadata accessor for UnsafeContinuation();
+  v86 = *(v3 + 16);
+  v82 = v5;
+  type metadata accessor for UnsafeContinuation(255, v5, v11, v12);
   type metadata accessor for Array();
   swift_getWitnessTable();
   if ((Collection.isEmpty.getter() & 1) == 0)
   {
     swift_getWitnessTable();
     RangeReplaceableCollection.removeFirst()();
-    v14 = v56;
+    v20 = v86;
     if (v13 < 1)
     {
       if (*(v3 + 64))
       {
-        v20 = v54;
-        (*(v54 + 8))(v55, v4);
-        type metadata accessor for AsyncStream.Continuation.YieldResult();
+        v30 = v84;
+        (*(v84 + 8))(v85, v4);
+        type metadata accessor for AsyncStream.Continuation.YieldResult(0, v4, v31, v32);
         swift_storeEnumTagMultiPayload();
         _swift_async_stream_lock_unlock((v3 + 72));
-        v21 = v50;
-        (*(v20 + 56))(v50, 1, 1, v4);
-        (*(v51 + 32))(*(*(v14 + 8) + 40), v21, v52);
+        v33 = v80;
+        (*(v30 + 56))(v80, 1, 1, v4);
+        (*(v81 + 32))(*(*(v20 + 64) + 40), v33, v82);
       }
 
       else
       {
-        if (v11 > 1)
+        if (v9 > 1)
         {
-          v30 = 0x7FFFFFFFFFFFFFFFLL;
-          v28 = v51;
-          v27 = v52;
-          v29 = v54;
+          v42 = 0x7FFFFFFFFFFFFFFFLL;
+          v40 = v81;
+          v39 = v82;
+          v41 = v84;
         }
 
         else
         {
-          v28 = v51;
-          v27 = v52;
-          v29 = v54;
-          v30 = v49;
+          v40 = v81;
+          v39 = v82;
+          v41 = v84;
+          v42 = v79;
         }
 
-        *v53 = v30;
-        type metadata accessor for AsyncStream.Continuation.YieldResult();
+        *v83 = v42;
+        type metadata accessor for AsyncStream.Continuation.YieldResult(0, v4, v18, v19);
         swift_storeEnumTagMultiPayload();
         _swift_async_stream_lock_unlock((v3 + 72));
-        v44 = v50;
-        (*(v29 + 32))(v50, v55, v4);
-        (*(v29 + 56))(v44, 0, 1, v4);
-        (*(v28 + 32))(*(*(v14 + 8) + 40), v44, v27);
+        v68 = v80;
+        (*(v41 + 32))(v80, v85, v4);
+        (*(v41 + 56))(v68, 0, 1, v4);
+        (*(v40 + 32))(*(*(v20 + 64) + 40), v68, v39);
       }
 
       goto LABEL_37;
@@ -6347,91 +5275,91 @@ void AsyncStream._Storage.yield(_:)(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 
     if (*(v3 + 64))
     {
-      v15 = v54;
-      (*(v54 + 8))(v55, v4);
-      type metadata accessor for AsyncStream.Continuation.YieldResult();
+      v21 = v84;
+      (*(v84 + 8))(v85, v4);
+      type metadata accessor for AsyncStream.Continuation.YieldResult(0, v4, v22, v23);
 LABEL_30:
       swift_storeEnumTagMultiPayload();
-      v26 = v51;
-      v25 = v52;
+      v38 = v81;
+      v37 = v82;
       goto LABEL_31;
     }
 
-    if (v11)
+    if (v9)
     {
-      if (v11 != 1)
+      if (v9 != 1)
       {
-        v37 = type metadata accessor for _Deque();
-        v38 = v55;
-        _Deque.append(_:)(v55, v37);
-        v15 = v54;
-        (*(v54 + 8))(v38, v4);
-        *v53 = 0x7FFFFFFFFFFFFFFFLL;
-        type metadata accessor for AsyncStream.Continuation.YieldResult();
+        v57 = type metadata accessor for _Deque(0, v4, v18, v19);
+        v58 = v85;
+        _Deque.append(_:)(v85, v57);
+        v21 = v84;
+        (*(v84 + 8))(v58, v4);
+        *v83 = 0x7FFFFFFFFFFFFFFFLL;
+        type metadata accessor for AsyncStream.Continuation.YieldResult(0, v4, v59, v60);
         goto LABEL_30;
       }
 
-      v23 = type metadata accessor for _Deque();
-      v24 = v49;
-      v26 = v51;
-      v25 = v52;
-      v15 = v54;
-      if (v13 >= v49)
+      v35 = type metadata accessor for _Deque(0, v4, v18, v19);
+      v36 = v79;
+      v38 = v81;
+      v37 = v82;
+      v21 = v84;
+      if (v13 >= v79)
       {
-        v45 = v23;
-        _Deque.removeFirst()(v23);
-        type metadata accessor for AsyncStream.Continuation.YieldResult();
+        v69 = v35;
+        _Deque.removeFirst()(v35);
+        type metadata accessor for AsyncStream.Continuation.YieldResult(0, v4, v70, v71);
         swift_storeEnumTagMultiPayload();
-        v46 = v55;
-        _Deque.append(_:)(v55, v45);
-        (*(v15 + 8))(v46, v4);
+        v72 = v85;
+        _Deque.append(_:)(v85, v69);
+        (*(v21 + 8))(v72, v4);
         goto LABEL_31;
       }
 
-      _Deque.append(_:)(v55, v23);
+      _Deque.append(_:)(v85, v35);
     }
 
     else
     {
-      v24 = v49;
-      v26 = v51;
-      v25 = v52;
-      if (v13 >= v49)
+      v36 = v79;
+      v38 = v81;
+      v37 = v82;
+      if (v13 >= v79)
       {
-        v15 = v54;
-        (*(v54 + 32))(v53, v55, v4);
-        type metadata accessor for AsyncStream.Continuation.YieldResult();
+        v21 = v84;
+        (*(v84 + 32))(v83, v85, v4);
+        type metadata accessor for AsyncStream.Continuation.YieldResult(0, v4, v73, v74);
         swift_storeEnumTagMultiPayload();
         goto LABEL_31;
       }
 
-      v36 = type metadata accessor for _Deque();
-      _Deque.append(_:)(v55, v36);
-      v15 = v54;
+      v52 = type metadata accessor for _Deque(0, v4, v18, v19);
+      _Deque.append(_:)(v85, v52);
+      v21 = v84;
     }
 
-    (*(v15 + 8))(v55, v4);
-    *v53 = v24 + ~v13;
-    type metadata accessor for AsyncStream.Continuation.YieldResult();
+    (*(v21 + 8))(v85, v4);
+    *v83 = v36 + ~v13;
+    type metadata accessor for AsyncStream.Continuation.YieldResult(0, v4, v53, v54);
     swift_storeEnumTagMultiPayload();
 LABEL_31:
-    v39 = type metadata accessor for _Deque();
-    v40 = v48;
-    _Deque.removeFirst()(v39);
+    v61 = type metadata accessor for _Deque(0, v4, v55, v56);
+    v62 = v78;
+    _Deque.removeFirst()(v61);
     _swift_async_stream_lock_unlock((v3 + 72));
-    v41 = v50;
-    (*(v15 + 32))(v50, v40, v4);
-    (*(v15 + 56))(v41, 0, 1, v4);
-    (*(v26 + 32))(*(*(v14 + 8) + 40), v41, v25);
+    v63 = v80;
+    (*(v21 + 32))(v80, v62, v4);
+    (*(v21 + 56))(v63, 0, 1, v4);
+    (*(v38 + 32))(*(*(v20 + 64) + 40), v63, v37);
 LABEL_37:
-    swift_continuation_resume(v14, v22);
+    swift_continuation_resume(v20, v34);
     return;
   }
 
   if (*(v3 + 64))
   {
-    (*(v54 + 8))(v55, v4);
-    type metadata accessor for AsyncStream.Continuation.YieldResult();
+    (*(v84 + 8))(v85, v4);
+    type metadata accessor for AsyncStream.Continuation.YieldResult(0, v4, v16, v17);
 LABEL_4:
     swift_storeEnumTagMultiPayload();
 LABEL_5:
@@ -6439,32 +5367,32 @@ LABEL_5:
     return;
   }
 
-  if (v11)
+  if (v9)
   {
-    if (v11 != 1)
+    if (v9 != 1)
     {
-      *v53 = 0x7FFFFFFFFFFFFFFFLL;
-      type metadata accessor for AsyncStream.Continuation.YieldResult();
+      *v83 = 0x7FFFFFFFFFFFFFFFLL;
+      type metadata accessor for AsyncStream.Continuation.YieldResult(0, v4, v14, v15);
       swift_storeEnumTagMultiPayload();
-      v34 = type metadata accessor for _Deque();
-      v35 = v55;
-      _Deque.append(_:)(v55, v34);
-      (*(v54 + 8))(v35, v4);
+      v50 = type metadata accessor for _Deque(0, v4, v48, v49);
+      v51 = v85;
+      _Deque.append(_:)(v85, v50);
+      (*(v84 + 8))(v51, v4);
       goto LABEL_5;
     }
 
-    v16 = v49;
-    v17 = v54;
-    if (v13 < v49)
+    v24 = v79;
+    v25 = v84;
+    if (v13 < v79)
     {
-      v18 = type metadata accessor for _Deque();
-      v19 = v55;
-      _Deque.append(_:)(v55, v18);
-      (*(v17 + 8))(v19, v4);
-      if (!__OFSUB__(v16, v13 + 1))
+      v26 = type metadata accessor for _Deque(0, v4, v14, v15);
+      v27 = v85;
+      _Deque.append(_:)(v85, v26);
+      (*(v25 + 8))(v27, v4);
+      if (!__OFSUB__(v24, v13 + 1))
       {
-        *v53 = v16 - (v13 + 1);
-        type metadata accessor for AsyncStream.Continuation.YieldResult();
+        *v83 = v24 - (v13 + 1);
+        type metadata accessor for AsyncStream.Continuation.YieldResult(0, v4, v28, v29);
         goto LABEL_4;
       }
 
@@ -6474,37 +5402,37 @@ LABEL_5:
 
     if (v13 >= 1)
     {
-      v42 = type metadata accessor for _Deque();
-      _Deque.removeFirst()(v42);
-      type metadata accessor for AsyncStream.Continuation.YieldResult();
+      v64 = type metadata accessor for _Deque(0, v4, v14, v15);
+      _Deque.removeFirst()(v64);
+      type metadata accessor for AsyncStream.Continuation.YieldResult(0, v4, v65, v66);
       swift_storeEnumTagMultiPayload();
-      v43 = v55;
-      _Deque.append(_:)(v55, v42);
-      (*(v17 + 8))(v43, v4);
+      v67 = v85;
+      _Deque.append(_:)(v85, v64);
+      (*(v25 + 8))(v67, v4);
       goto LABEL_5;
     }
 
 LABEL_40:
-    (*(v54 + 32))(v53, v55, v4);
-    type metadata accessor for AsyncStream.Continuation.YieldResult();
+    (*(v84 + 32))(v83, v85, v4);
+    type metadata accessor for AsyncStream.Continuation.YieldResult(0, v4, v75, v76);
     goto LABEL_4;
   }
 
-  if (v13 >= v49)
+  if (v13 >= v79)
   {
     goto LABEL_40;
   }
 
-  v31 = v54;
-  if (!__OFSUB__(v49, v13 + 1))
+  v43 = v84;
+  if (!__OFSUB__(v79, v13 + 1))
   {
-    *v53 = v49 - (v13 + 1);
-    type metadata accessor for AsyncStream.Continuation.YieldResult();
+    *v83 = v79 - (v13 + 1);
+    type metadata accessor for AsyncStream.Continuation.YieldResult(0, v4, v14, v15);
     swift_storeEnumTagMultiPayload();
-    v32 = type metadata accessor for _Deque();
-    v33 = v55;
-    _Deque.append(_:)(v55, v32);
-    (*(v31 + 8))(v33, v4);
+    v46 = type metadata accessor for _Deque(0, v4, v44, v45);
+    v47 = v85;
+    _Deque.append(_:)(v85, v46);
+    (*(v43 + 8))(v47, v4);
     goto LABEL_5;
   }
 
@@ -6530,24 +5458,23 @@ uint64_t specialized RangeReplaceableCollection.removeFirst()()
   return result;
 }
 
-uint64_t _Deque.append(_:)(uint64_t a1, uint64_t a2)
+void *_Deque.append(_:)(uint64_t a1, uint64_t a2)
 {
   v4 = *(a2 + 16);
-  result = _ss20ManagedBufferPointerVsRi__rlE017withUnsafeMutableC8ToHeaderyqd_0_qd_0_SpyxGqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(closure #1 in _Deque._Storage.count.getter, 0, *v2, &type metadata for _DequeBufferHeader, v4, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6530], MEMORY[0x1E69E7410], v10);
-  if (__OFADD__(v12, 1))
+  result = _ss20ManagedBufferPointerVsRi__rlE017withUnsafeMutableC8ToHeaderyqd_0_qd_0_SpyxGqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(closure #1 in _Deque._Storage.count.getter, 0, *v2, &type metadata for _DequeBufferHeader, v4, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6530], MEMORY[0x1E69E7410], v11);
+  if (__OFADD__(v13, 1))
   {
     __break(1u);
   }
 
   else
   {
-    type metadata accessor for _Deque._Storage();
-    _Deque._Storage.ensureUnique(minimumCapacity:linearGrowth:)(v12 + 1, 0);
-    v6 = *v2;
-    MEMORY[0x1EEE9AC00](v7);
-    v10 = v4;
-    v11 = a1;
-    return _Deque._Storage.read<A>(_:)(partial apply for closure #1 in _Deque.append(_:), &v9, v8, v4, MEMORY[0x1E69E7CA8] + 8, partial apply for closure #1 in _Deque._Storage.update<A>(_:));
+    type metadata accessor for _Deque._Storage(0, v4, v6, v7);
+    _Deque._Storage.ensureUnique(minimumCapacity:linearGrowth:)(v13 + 1, 0);
+    MEMORY[0x1EEE9AC00](v8);
+    v11 = v4;
+    v12 = a1;
+    return _Deque._Storage.read<A>(_:)(partial apply for closure #1 in _Deque.append(_:), &v10, v9, v4, MEMORY[0x1E69E7CA8] + 8, partial apply for closure #1 in _Deque._Storage.update<A>(_:));
   }
 
   return result;
@@ -6585,10 +5512,10 @@ LABEL_8:
           if (*(v2 + 24) >= 1)
           {
             specialized _Deque._UnsafeHandle.segments()((v2 + 16), v2 + 40, v10);
-            specialized _Deque._UnsafeHandle.initialize(at:from:)(*(v2 + 32), v10[0], v10[1], v6, v3 + 40, 201, specialized UnsafeMutablePointer.initialize(from:count:));
+            specialized _Deque._UnsafeHandle.initialize(at:from:)(*(v2 + 32), v10[0], v10[1], v6, v3 + 40, 201, specialized UnsafeMutablePointer.initialize(from:count:), 203);
             if ((v11 & 1) == 0)
             {
-              specialized _Deque._UnsafeHandle.initialize(at:from:)(0, v10[2], v10[3], v6, v3 + 40, 201, specialized UnsafeMutablePointer.initialize(from:count:));
+              specialized _Deque._UnsafeHandle.initialize(at:from:)(0, v10[2], v10[3], v6, v3 + 40, 201, specialized UnsafeMutablePointer.initialize(from:count:), 203);
             }
           }
 
@@ -6628,7 +5555,7 @@ LABEL_13:
 
 uint64_t _Deque.removeFirst()(uint64_t a1)
 {
-  v8[4] = *v1;
+  v9[4] = *v1;
   swift_getWitnessTable();
   if (Collection.isEmpty.getter())
   {
@@ -6638,13 +5565,12 @@ uint64_t _Deque.removeFirst()(uint64_t a1)
 
   else
   {
-    v3 = *(a1 + 16);
-    type metadata accessor for _Deque._Storage();
+    v5 = *(a1 + 16);
+    type metadata accessor for _Deque._Storage(0, v5, v3, v4);
     _Deque._Storage.ensureUnique()();
-    v4 = *v1;
-    MEMORY[0x1EEE9AC00](v5);
-    v8[2] = v3;
-    return _Deque._Storage.read<A>(_:)(partial apply for closure #1 in _Deque.removeFirst(), v8, v6, v3, v3, partial apply for closure #1 in _Deque._Storage.update<A>(_:));
+    MEMORY[0x1EEE9AC00](v6);
+    v9[2] = v5;
+    return _Deque._Storage.read<A>(_:)(partial apply for closure #1 in _Deque.removeFirst(), v9, v7, v5, v5, partial apply for closure #1 in _Deque._Storage.update<A>(_:));
   }
 
   return result;
@@ -6655,26 +5581,24 @@ void AsyncStream._Storage.next(_:)(continuationChecking *a1)
   v3 = *(*v1 + 80);
   v4 = type metadata accessor for Optional();
   v22 = *(v4 - 8);
-  v5 = *(v22 + 64);
-  v6 = MEMORY[0x1EEE9AC00](v4);
-  v8 = &v22 - v7;
-  v9 = *(v3 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](v6);
-  v12 = &v22 - v11;
+  v5 = MEMORY[0x1EEE9AC00](v4);
+  v7 = &v22 - v6;
+  v8 = *(v3 - 8);
+  MEMORY[0x1EEE9AC00](v5);
+  v10 = &v22 - v9;
   _swift_async_stream_lock_lock((v1 + 72));
   v24 = a1;
-  v13 = MEMORY[0x1E69E73E0];
+  v11 = MEMORY[0x1E69E73E0];
   v23 = v4;
-  type metadata accessor for UnsafeContinuation();
+  type metadata accessor for UnsafeContinuation(255, v4, MEMORY[0x1E69E73E0], MEMORY[0x1E69E7410]);
   type metadata accessor for Array();
   Array.append(_:)();
-  v14 = *(v1 + 24);
+  v12 = *(v1 + 24);
 
-  _ss20ManagedBufferPointerVsRi__rlE017withUnsafeMutableC8ToHeaderyqd_0_qd_0_SpyxGqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(closure #1 in _Deque._Storage.count.getter, 0, v14, &type metadata for _DequeBufferHeader, v3, v13, MEMORY[0x1E69E6530], MEMORY[0x1E69E7410], v21);
-  v15 = v24;
+  _ss20ManagedBufferPointerVsRi__rlE017withUnsafeMutableC8ToHeaderyqd_0_qd_0_SpyxGqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(closure #1 in _Deque._Storage.count.getter, 0, v12, &type metadata for _DequeBufferHeader, v3, v11, MEMORY[0x1E69E6530], MEMORY[0x1E69E7410], v21);
+  v13 = v24;
 
-  if (v15 < 1)
+  if (v13 < 1)
   {
     v20 = v22;
     v19 = v23;
@@ -6686,26 +5610,26 @@ void AsyncStream._Storage.next(_:)(continuationChecking *a1)
 
     swift_getWitnessTable();
     RangeReplaceableCollection.removeFirst()();
-    v16 = v24;
+    v14 = v24;
     _swift_async_stream_lock_unlock((v1 + 72));
-    (*(v9 + 56))(v8, 1, 1, v3);
-    (*(v20 + 32))(*(*(v16 + 8) + 40), v8, v19);
+    (*(v8 + 56))(v7, 1, 1, v3);
+    (*(v20 + 32))(*(*(v14 + 8) + 40), v7, v19);
   }
 
   else
   {
     swift_getWitnessTable();
     RangeReplaceableCollection.removeFirst()();
-    v16 = v24;
-    v17 = type metadata accessor for _Deque();
+    v14 = v24;
+    v17 = type metadata accessor for _Deque(0, v3, v15, v16);
     _Deque.removeFirst()(v17);
     _swift_async_stream_lock_unlock((v1 + 72));
-    (*(v9 + 32))(v8, v12, v3);
-    (*(v9 + 56))(v8, 0, 1, v3);
-    (*(v22 + 32))(*(*(v16 + 8) + 40), v8, v23);
+    (*(v8 + 32))(v7, v10, v3);
+    (*(v8 + 56))(v7, 0, 1, v3);
+    (*(v22 + 32))(*(*(v14 + 8) + 40), v7, v23);
   }
 
-  swift_continuation_resume(v16, v18);
+  swift_continuation_resume(v14, v18);
 }
 
 void AsyncStream._Storage.next()(uint64_t a1)
@@ -6719,22 +5643,20 @@ void AsyncStream._Storage.next()(uint64_t a1)
 void AsyncStream._Storage.next()()
 {
   v1 = v0[3];
-  v2 = v0[4];
 
-  v3 = swift_task_alloc(32);
-  v0[5] = v3;
-  *(v3 + 16) = partial apply for implicit closure #2 in implicit closure #1 in AsyncStream._Storage.next();
-  *(v3 + 24) = v1;
-  v4 = swift_task_alloc(96);
-  v0[6] = v4;
-  v5 = *(v2 + 80);
+  v2 = swift_task_alloc(32);
+  v0[5] = v2;
+  *(v2 + 16) = partial apply for implicit closure #2 in implicit closure #1 in AsyncStream._Storage.next();
+  *(v2 + 24) = v1;
+  v3 = swift_task_alloc(96);
+  v0[6] = v3;
   type metadata accessor for Optional();
-  *v4 = v0;
-  v4[1] = AsyncStream._Storage.next();
-  v6 = v0[2];
-  v7 = v0[3];
+  *v3 = v0;
+  v3[1] = AsyncStream._Storage.next();
+  v4 = v0[2];
+  v5 = v0[3];
 
-  withTaskCancellationHandler<A>(operation:onCancel:isolation:)(v6, &async function pointer to partial apply for closure #1 in AsyncStream._Storage.next(), v7, partial apply for closure #2 in AsyncStream._Storage.next(), v3, 0, 0);
+  withTaskCancellationHandler<A>(operation:onCancel:isolation:)(v4, &async function pointer to partial apply for closure #1 in AsyncStream._Storage.next(), v5, partial apply for closure #2 in AsyncStream._Storage.next(), v2, 0, 0);
 }
 
 uint64_t AsyncStream._Storage.next()()
@@ -6749,12 +5671,11 @@ uint64_t AsyncStream._Storage.next()()
   }
 
   v4 = *(v2 + 40);
-  v5 = *(v2 + 24);
 
   v4;
-  v6 = *(v3 + 8);
+  v5 = *(v3 + 8);
 
-  return v6();
+  return v5();
 }
 
 void closure #1 in AsyncStream._Storage.next()(uint64_t a1, void *a2)
@@ -6767,17 +5688,15 @@ void closure #1 in AsyncStream._Storage.next()(uint64_t a1, void *a2)
 
 uint64_t closure #1 in AsyncStream._Storage.next()()
 {
-  v1 = v0[4];
-  v2 = swift_task_alloc(112);
-  v0[5] = v2;
-  v3 = *(v1 + 80);
-  v4 = type metadata accessor for Optional();
-  *v2 = v0;
-  v2[1] = closure #1 in AsyncStream._Storage.next();
-  v5 = v0[2];
-  v6 = v0[3];
+  v1 = swift_task_alloc(112);
+  v0[5] = v1;
+  v2 = type metadata accessor for Optional();
+  *v1 = v0;
+  v1[1] = closure #1 in AsyncStream._Storage.next();
+  v3 = v0[2];
+  v4 = v0[3];
 
-  return (withUnsafeContinuation<A>(isolation:_:))(v5, 0, 0, partial apply for closure #1 in closure #1 in AsyncStream._Storage.next(), v6, v4);
+  return (withUnsafeContinuation<A>(isolation:_:))(v3, 0, 0, partial apply for closure #1 in closure #1 in AsyncStream._Storage.next(), v4, v2);
 }
 
 {
@@ -6794,35 +5713,35 @@ uint64_t static AsyncStream._Storage.create(limit:)(uint64_t *a1)
   v3 = *(a1 + 8);
   protocol witness for static Equatable.== infix(_:_:) in conformance ContinuousClock.Instant.CodingKeys();
   v4 = swift_allocObject();
-  *&v8 = v2;
-  BYTE8(v8) = v3;
+  *&v10 = v2;
+  BYTE8(v10) = v3;
   v5 = *(v1 + 80);
-  AsyncStream._Storage.State.init(limit:)(&v8, &v13);
-  v8 = v13;
-  v9 = v14;
+  AsyncStream._Storage.State.init(limit:)(&v10, v5, &v15);
   v10 = v15;
   v11 = v16;
   v12 = v17;
-  v6 = type metadata accessor for AsyncStream._Storage.State();
-  (*(*(v6 - 8) + 32))(v4 + 16, &v8, v6);
+  v13 = v18;
+  v14 = v19;
+  v8 = type metadata accessor for AsyncStream._Storage.State(0, v5, v6, v7);
+  (*(*(v8 - 8) + 32))(v4 + 16, &v10, v8);
   _swift_async_stream_lock_init((v4 + 72));
   return v4;
 }
 
-uint64_t AsyncThrowingStream._Storage.State.init(limit:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t AsyncThrowingStream._Storage.State.init(limit:)@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
 {
-  v3 = *a1;
-  v4 = *(a1 + 8);
-  *a2 = 0;
-  *(a2 + 8) = _Deque._Storage.init()();
-  v5 = type metadata accessor for AsyncThrowingStream._Storage.State();
-  *(a2 + 32) = 0;
-  *(a2 + 40) = 0;
-  v6 = *(v5 + 56);
-  v7 = type metadata accessor for AsyncThrowingStream._Storage.Terminal();
-  result = (*(*(v7 - 8) + 56))(a2 + v6, 1, 1, v7);
-  *(a2 + 16) = v3;
-  *(a2 + 24) = v4;
+  v9 = *a1;
+  v10 = *(a1 + 8);
+  *a5 = 0;
+  *(a5 + 8) = _Deque._Storage.init()(a2);
+  v11 = type metadata accessor for AsyncThrowingStream._Storage.State(0, a2, a3, a4);
+  *(a5 + 32) = 0;
+  *(a5 + 40) = 0;
+  v12 = *(v11 + 56);
+  v13 = type metadata accessor for AsyncThrowingStream._Storage.Terminal(0, a2, a3, a4);
+  result = (*(*(v13 - 8) + 56))(a5 + v12, 1, 1, v13);
+  *(a5 + 16) = v9;
+  *(a5 + 24) = v10;
   return result;
 }
 
@@ -6833,34 +5752,31 @@ void *AsyncThrowingStream._Storage.deinit()
   v3 = v2[10];
   v4 = v2[11];
   v5 = v2[12];
-  v6 = type metadata accessor for AsyncThrowingStream.Continuation.Termination();
+  v6 = type metadata accessor for AsyncThrowingStream.Continuation.Termination(0, v3, v4, v5);
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v10 = &v17 - v9;
-  v11 = v1 + v2[13];
-  v12 = *(v11 + 4);
-  if (v12)
+  v9 = &v16 - v8;
+  v10 = v1 + v2[13];
+  v11 = *(v10 + 4);
+  if (v11)
   {
-    v13 = *(v11 + 5);
-    v14 = type metadata accessor for Optional();
-    (*(*(v14 - 8) + 56))(v10, 1, 1, v14);
+    v12 = *(v10 + 5);
+    v13 = type metadata accessor for Optional();
+    (*(*(v13 - 8) + 56))(v9, 1, 1, v13);
 
-    v12(v10);
-    _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v12);
-    (*(v7 + 8))(v10, v6);
+    v11(v9);
+    _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v11, v12);
+    (*(v7 + 8))(v9, v6);
   }
 
-  v15 = type metadata accessor for AsyncThrowingStream._Storage.State();
-  (*(*(v15 - 8) + 8))(v11, v15);
+  v14 = type metadata accessor for AsyncThrowingStream._Storage.State(0, v3, v4, v5);
+  (*(*(v14 - 8) + 8))(v10, v14);
   return v1;
 }
 
 uint64_t AsyncThrowingStream._Storage.__deallocating_deinit()
 {
   AsyncThrowingStream._Storage.deinit();
-  v1 = *(*v0 + 48);
-  v2 = *(*v0 + 52);
 
   return swift_deallocClassInstance();
 }
@@ -6868,25 +5784,26 @@ uint64_t AsyncThrowingStream._Storage.__deallocating_deinit()
 uint64_t AsyncThrowingStream._Storage.getOnTermination()()
 {
   _swift_async_stream_lock_lock((v0 + ((*(*v0 + 48) + 7) & 0x1FFFFFFF8)));
-  v1 = *(v0 + *(*v0 + 104) + 32);
-  _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOy_0(v1);
+  v1 = v0 + *(*v0 + 104);
+  v2 = *(v1 + 32);
+  _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOy_0(v2, *(v1 + 40));
   _swift_async_stream_lock_unlock((v0 + ((*(*v0 + 48) + 7) & 0x1FFFFFFF8)));
-  return v1;
+  return v2;
 }
 
 uint64_t AsyncThrowingStream._Storage.setOnTermination(_:)(uint64_t a1, uint64_t a2)
 {
   v5 = *v2;
-  _swift_async_stream_lock_lock((v2 + ((*(*v2 + 48) + 7) & 0x1FFFFFFF8)));
-  v7 = v2 + *(*v2 + 104);
-  v8 = *(v7 + 32);
-  v9 = *(v7 + 40);
+  _swift_async_stream_lock_lock((v2 + ((*(*v2 + 12) + 7) & 0x1FFFFFFF8)));
+  v7 = v2 + (*v2)[13];
+  v8 = *(v7 + 4);
+  v9 = *(v7 + 5);
   if (v8)
   {
     v6 = swift_allocObject();
     v10 = v6;
-    *(v6 + 16) = *(v5 + 80);
-    *(v6 + 32) = *(v5 + 96);
+    *(v6 + 16) = *(v5 + 5);
+    *(v6 + 32) = v5[12];
     *(v6 + 40) = v8;
     *(v6 + 48) = v9;
     v11 = thunk for @escaping @callee_guaranteed @Sendable (@in_guaranteed AsyncThrowingStream<A, B>.Continuation.Termination) -> ()partial apply;
@@ -6898,22 +5815,19 @@ uint64_t AsyncThrowingStream._Storage.setOnTermination(_:)(uint64_t a1, uint64_t
     v10 = 0;
   }
 
-  v20[0] = v11;
-  v20[1] = v10;
+  v17[0] = v11;
+  v17[1] = v10;
   MEMORY[0x1EEE9AC00](v6);
-  v19[2] = v2;
-  v19[3] = a1;
-  v19[4] = a2;
-  _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOy_0(v8);
-  v12 = *(v5 + 80);
-  v13 = *(v5 + 88);
-  v14 = *(v5 + 96);
-  type metadata accessor for AsyncThrowingStream.Continuation.Termination();
-  v15 = MEMORY[0x1E69E7CA8];
+  v16[2] = v2;
+  v16[3] = a1;
+  v16[4] = a2;
+  _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOy_0(v8, v9);
+  type metadata accessor for AsyncThrowingStream.Continuation.Termination(255, v5[10], v5[11], v5[12]);
+  v12 = MEMORY[0x1E69E7CA8];
   swift_getFunctionTypeMetadata1();
-  v16 = type metadata accessor for Optional();
-  _ss20withExtendedLifetimeyq0_x_q0_yq_YKXEtq_YKs5ErrorR_Ri_zRi0_zRi_0_r1_lF(v20, partial apply for closure #1 in AsyncThrowingStream._Storage.setOnTermination(_:), v19, v16, MEMORY[0x1E69E73E0], v15 + 8, MEMORY[0x1E69E7410], v17);
-  return _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v11);
+  v13 = type metadata accessor for Optional();
+  _ss20withExtendedLifetimeyq0_x_q0_yq_YKXEtq_YKs5ErrorR_Ri_zRi0_zRi_0_r1_lF(v17, partial apply for closure #1 in AsyncThrowingStream._Storage.setOnTermination(_:), v16, v13, MEMORY[0x1E69E73E0], v12 + 8, MEMORY[0x1E69E7410], v14);
+  return _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v11, v10);
 }
 
 void AsyncThrowingStream._Storage.cancel@Sendable ()()
@@ -6923,630 +5837,630 @@ void AsyncThrowingStream._Storage.cancel@Sendable ()()
   v3 = *(*v0 + 88);
   v4 = type metadata accessor for Optional();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v19 - v7;
-  v9 = *(v1 + 80);
-  v10 = *(v1 + 96);
-  v11 = type metadata accessor for AsyncThrowingStream.Continuation.Termination();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v15 = &v19 - v14;
+  v7 = &v15 - v6;
+  v8 = type metadata accessor for AsyncThrowingStream.Continuation.Termination(0, *(v1 + 80), v3, *(v1 + 96));
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = &v15 - v10;
   _swift_async_stream_lock_lock((v0 + ((*(v2 + 48) + 7) & 0x1FFFFFFF8)));
-  v16 = v0 + *(*v0 + 104);
-  v17 = *(v16 + 32);
-  v18 = *(v16 + 40);
-  *(v16 + 32) = 0;
-  *(v16 + 40) = 0;
+  v12 = v0 + *(*v0 + 104);
+  v13 = *(v12 + 32);
+  v14 = *(v12 + 40);
+  *(v12 + 32) = 0;
+  *(v12 + 40) = 0;
   _swift_async_stream_lock_unlock((v0 + ((*(*v0 + 48) + 7) & 0x1FFFFFFF8)));
-  if (v17)
+  if (v13)
   {
-    (*(v5 + 56))(v15, 1, 1, v4);
-    v17(v15);
-    _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v17);
-    (*(v12 + 8))(v15, v11);
+    (*(v5 + 56))(v11, 1, 1, v4);
+    v13(v11);
+    _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v13, v14);
+    (*(v9 + 8))(v11, v8);
   }
 
-  (*(*(v3 - 8) + 56))(v8, 1, 1, v3);
-  AsyncThrowingStream._Storage.finish(throwing:)(v8);
+  (*(*(v3 - 8) + 56))(v7, 1, 1, v3);
+  AsyncThrowingStream._Storage.finish(throwing:)(v7);
 }
 
 void AsyncThrowingStream._Storage.finish(throwing:)(uint64_t a1)
 {
   v2 = v1;
-  v119 = a1;
+  v117 = a1;
   v3 = *v1;
   v4 = *(*v1 + 80);
   v5 = *(*v1 + 88);
   v6 = *(*v1 + 96);
-  v7 = type metadata accessor for AsyncThrowingStream._Storage.Terminal();
-  v120 = *(v7 - 8);
-  v8 = *(v120 + 64);
-  v9 = MEMORY[0x1EEE9AC00](v7);
-  v96 = &v92 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v95 = &v92 - v11;
-  v12 = type metadata accessor for Optional();
-  v104 = *(v12 - 8);
-  v105 = v12;
-  v13 = *(v104 + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v103 = &v92 - v14;
-  v15 = type metadata accessor for AsyncThrowingStream.Continuation.Termination();
-  v110 = *(v15 - 8);
-  v111 = v15;
-  v16 = *(v110 + 64);
-  v17 = MEMORY[0x1EEE9AC00](v15);
-  v109 = &v92 - v18;
-  v102 = *(v4 - 8);
-  v19 = *(v102 + 64);
-  MEMORY[0x1EEE9AC00](v17);
-  v101 = &v92 - v20;
-  v21 = type metadata accessor for Optional();
-  v22 = *(v21 - 8);
-  v117 = v21;
-  v118 = v22;
-  v23 = *(v22 + 64);
-  v24 = MEMORY[0x1EEE9AC00](v21);
-  v26 = &v92 - v25;
-  v107 = *(v5 - 8);
-  v27 = *(v107 + 64);
-  v28 = MEMORY[0x1EEE9AC00](v24);
-  v93 = &v92 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v28);
-  v100 = (&v92 - v30);
-  v31 = type metadata accessor for Optional();
-  v32 = *(v31 - 8);
-  v33 = v32[8];
-  v34 = MEMORY[0x1EEE9AC00](v31);
-  v99 = &v92 - ((v35 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v34);
-  v37 = &v92 - v36;
+  v7 = type metadata accessor for AsyncThrowingStream._Storage.Terminal(0, v4, v5, v6);
+  v118 = *(v7 - 8);
+  v8 = MEMORY[0x1EEE9AC00](v7);
+  v94 = &v90 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8);
+  v93 = &v90 - v10;
+  v11 = type metadata accessor for Optional();
+  v102 = *(v11 - 8);
+  v103 = v11;
+  MEMORY[0x1EEE9AC00](v11);
+  v101 = &v90 - v12;
+  v13 = type metadata accessor for AsyncThrowingStream.Continuation.Termination(0, v4, v5, v6);
+  v108 = *(v13 - 8);
+  v109 = v13;
+  v14 = MEMORY[0x1EEE9AC00](v13);
+  v107 = &v90 - v15;
+  v100 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v14);
+  v99 = &v90 - v16;
+  v17 = type metadata accessor for Optional();
+  v18 = *(v17 - 8);
+  v115 = v17;
+  v116 = v18;
+  v19 = MEMORY[0x1EEE9AC00](v17);
+  v21 = &v90 - v20;
+  v105 = *(v5 - 8);
+  v22 = MEMORY[0x1EEE9AC00](v19);
+  v91 = &v90 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v22);
+  v98 = (&v90 - v24);
+  v25 = type metadata accessor for Optional();
+  v26 = *(v25 - 8);
+  v27 = MEMORY[0x1EEE9AC00](v25);
+  v97 = &v90 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v27);
+  v30 = &v90 - v29;
   _swift_async_stream_lock_lock((v2 + ((*(v3 + 48) + 7) & 0x1FFFFFFF8)));
-  v38 = (v2 + *(*v2 + 104));
-  v39 = v38[5];
-  v115 = v38[4];
-  v116 = v5;
-  v108 = v39;
-  v112 = v4;
-  v94 = v6;
-  v40 = type metadata accessor for AsyncThrowingStream._Storage.State();
-  v38[4] = 0;
-  v38[5] = 0;
-  v41 = *(v40 + 56);
-  v98 = v32[2];
-  v98(v37, v38 + v41, v31);
-  v42 = *(v120 + 48);
-  v114 = v7;
-  v97 = v42;
-  LODWORD(v7) = v42(v37, 1, v7);
-  v43 = v32[1];
-  v113 = v31;
-  v106 = v43;
-  v43(v37, v31);
+  v31 = (v2 + *(*v2 + 104));
+  v32 = v31[5];
+  v113 = v31[4];
+  v114 = v5;
+  v106 = v32;
+  v110 = v4;
+  v92 = v6;
+  v33 = type metadata accessor for AsyncThrowingStream._Storage.State(0, v4, v5, v6);
+  v31[4] = 0;
+  v31[5] = 0;
+  v34 = *(v33 + 56);
+  v96 = *(v26 + 16);
+  v96(v30, v31 + v34, v25);
+  v35 = *(v118 + 48);
+  v112 = v7;
+  v95 = v35;
+  LODWORD(v7) = v35(v30, 1, v7);
+  v36 = *(v26 + 8);
+  v111 = v25;
+  v104 = v36;
+  v36(v30, v25);
   if (v7 == 1)
   {
-    v92 = v41;
-    v44 = v118;
-    v45 = v117;
-    (*(v118 + 16))(v26, v119, v117);
-    v46 = v107;
-    v47 = v116;
-    if ((*(v107 + 48))(v26, 1, v116) == 1)
+    v90 = v34;
+    v37 = v116;
+    v38 = v115;
+    (*(v116 + 16))(v21, v117, v115);
+    v39 = v105;
+    v40 = v114;
+    if ((*(v105 + 48))(v21, 1, v114) == 1)
     {
-      (*(v44 + 8))(v26, v45);
-      v41 = v92;
-      v106(v38 + v92, v113);
-      v48 = 1;
+      (*(v37 + 8))(v21, v38);
+      v34 = v90;
+      v104(v31 + v90, v111);
+      v41 = 1;
     }
 
     else
     {
-      v49 = *(v46 + 32);
-      v50 = v100;
-      v49(v100, v26, v116);
-      v51 = v49;
-      v41 = v92;
-      v106(v38 + v92, v113);
-      v51(v38 + v41, v50, v116);
-      v47 = v116;
-      v48 = 0;
+      v42 = *(v39 + 32);
+      v43 = v98;
+      v42(v98, v21, v114);
+      v44 = v42;
+      v34 = v90;
+      v104(v31 + v90, v111);
+      v44(v31 + v34, v43, v114);
+      v40 = v114;
+      v41 = 0;
     }
 
-    (*(v46 + 56))(v38 + v41, v48, 1, v47);
-    (*(v120 + 56))(v38 + v41, 0, 1, v114);
+    (*(v39 + 56))(v31 + v34, v41, 1, v40);
+    (*(v118 + 56))(v31 + v34, 0, 1, v112);
   }
 
-  if (!*v38)
+  if (!*v31)
   {
     _swift_async_stream_lock_unlock((v2 + ((*(*v2 + 48) + 7) & 0x1FFFFFFF8)));
-    v62 = v115;
-    if (!v115)
+    v58 = v113;
+    if (!v113)
     {
-      (*(v118 + 8))(v119, v117);
+      (*(v116 + 8))(v117, v115);
       return;
     }
 
-    v63 = v118;
-    v64 = v109;
-    v65 = v117;
-    (*(v118 + 32))(v109, v119, v117);
+    v59 = v116;
+    v60 = v107;
+    v61 = v115;
+    (*(v116 + 32))(v107, v117, v115);
 LABEL_15:
-    (*(v63 + 56))(v64, 0, 1, v65);
-    (v62)(v64);
-    _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v62);
-    (*(v110 + 8))(v64, v111);
+    (*(v59 + 56))(v60, 0, 1, v61);
+    v65 = v106;
+    (v58)(v60);
+    _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v58, v65);
+    (*(v108 + 8))(v60, v109);
     return;
   }
 
-  v100 = *v38;
-  v52 = v41;
-  v53 = v38[1];
+  v98 = *v31;
+  v45 = v34;
+  v46 = v31[1];
 
-  v54 = v112;
-  _ss20ManagedBufferPointerVsRi__rlE017withUnsafeMutableC8ToHeaderyqd_0_qd_0_SpyxGqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(closure #1 in _Deque._Storage.count.getter, 0, v53, &type metadata for _DequeBufferHeader, v112, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6530], MEMORY[0x1E69E7410], v91);
-  v55 = v121;
+  v47 = v110;
+  _ss20ManagedBufferPointerVsRi__rlE017withUnsafeMutableC8ToHeaderyqd_0_qd_0_SpyxGqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(closure #1 in _Deque._Storage.count.getter, 0, v46, &type metadata for _DequeBufferHeader, v110, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6530], MEMORY[0x1E69E7410], v89);
+  v48 = v119;
 
-  if (v55 >= 1)
+  if (v48 >= 1)
   {
-    *v38 = 0;
-    v56 = type metadata accessor for _Deque();
-    v57 = v101;
-    _Deque.removeFirst()(v56);
+    *v31 = 0;
+    v51 = type metadata accessor for _Deque(0, v47, v49, v50);
+    v52 = v99;
+    _Deque.removeFirst()(v51);
     _swift_async_stream_lock_unlock((v2 + ((*(*v2 + 48) + 7) & 0x1FFFFFFF8)));
-    v58 = v115;
-    if (v115)
+    v53 = v113;
+    if (v113)
     {
-      v59 = v118;
-      v60 = v109;
-      v61 = v117;
-      (*(v118 + 32))(v109, v119, v117);
-      (*(v59 + 56))(v60, 0, 1, v61);
-      (v58)(v60);
-      _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v58);
-      (*(v110 + 8))(v60, v111);
+      v54 = v116;
+      v55 = v107;
+      v56 = v115;
+      (*(v116 + 32))(v107, v117, v115);
+      (*(v54 + 56))(v55, 0, 1, v56);
+      v57 = v106;
+      (v53)(v55);
+      _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v53, v57);
+      (*(v108 + 8))(v55, v109);
     }
 
     else
     {
-      (*(v118 + 8))(v119, v117);
+      (*(v116 + 8))(v117, v115);
     }
 
-    v70 = v102;
-    v69 = v103;
-    (*(v102 + 32))(v103, v57, v54);
-    (*(v70 + 56))(v69, 0, 1, v54);
-    v71 = v100;
-    (*(v104 + 32))(*(*(v100 + 8) + 40), v69, v105);
-    swift_continuation_throwingResume(v71, v72);
+    v67 = v100;
+    v66 = v101;
+    (*(v100 + 32))(v101, v52, v47);
+    (*(v67 + 56))(v66, 0, 1, v47);
+    v68 = v98;
+    (*(v102 + 32))(v98[8][5], v66, v103);
+    swift_continuation_throwingResume(v68, v69);
     return;
   }
 
-  v66 = v99;
-  v67 = v113;
-  v98(v99, v38 + v52, v113);
-  v68 = v114;
-  if (v97(v66, 1, v114) == 1)
+  v62 = v97;
+  v63 = v111;
+  v96(v97, v31 + v45, v111);
+  v64 = v112;
+  if (v95(v62, 1, v112) == 1)
   {
-    v106(v66, v67);
+    v104(v62, v63);
     _swift_async_stream_lock_unlock((v2 + ((*(*v2 + 48) + 7) & 0x1FFFFFFF8)));
-    v65 = v117;
-    v63 = v118;
-    v62 = v115;
-    if (!v115)
+    v61 = v115;
+    v59 = v116;
+    v58 = v113;
+    if (!v113)
     {
-      (*(v118 + 8))(v119, v117);
+      (*(v116 + 8))(v117, v115);
       return;
     }
 
-    v64 = v109;
-    (*(v118 + 32))(v109, v119, v117);
+    v60 = v107;
+    (*(v116 + 32))(v107, v117, v115);
     goto LABEL_15;
   }
 
-  v73 = *(v120 + 32);
-  v74 = v95;
-  v73(v95, v66, v68);
-  *v38 = 0;
+  v70 = *(v118 + 32);
+  v71 = v93;
+  v70(v93, v62, v64);
+  *v31 = 0;
   _swift_async_stream_lock_unlock((v2 + ((*(*v2 + 48) + 7) & 0x1FFFFFFF8)));
-  v75 = v115;
-  if (v115)
+  v72 = v113;
+  if (v113)
   {
-    v76 = v118;
-    v77 = v109;
-    v78 = v117;
-    (*(v118 + 32))(v109, v119, v117);
-    (*(v76 + 56))(v77, 0, 1, v78);
-    (v75)(v77);
-    _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v75);
-    (*(v110 + 8))(v77, v111);
+    v73 = v116;
+    v74 = v107;
+    v75 = v115;
+    (*(v116 + 32))(v107, v117, v115);
+    (*(v73 + 56))(v74, 0, 1, v75);
+    v76 = v106;
+    (v72)(v74);
+    _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v72, v76);
+    (*(v108 + 8))(v74, v109);
   }
 
   else
   {
-    (*(v118 + 8))(v119, v117);
+    (*(v116 + 8))(v117, v115);
   }
 
-  v79 = v104;
-  v80 = v96;
-  v73(v96, v74, v68);
-  v81 = v107;
-  v82 = v116;
-  if ((*(v107 + 48))(v80, 1, v116) == 1)
+  v77 = v102;
+  v78 = v94;
+  v70(v94, v71, v64);
+  v79 = v105;
+  v80 = v114;
+  if ((*(v105 + 48))(v78, 1, v114) == 1)
   {
-    v83 = v103;
-    (*(v102 + 56))(v103, 1, 1, v112);
-    v84 = v100;
-    (*(v79 + 32))(*(*(v100 + 8) + 40), v83, v105);
-    swift_continuation_throwingResume(v84, v85);
+    v81 = v101;
+    (*(v100 + 56))(v101, 1, 1, v110);
+    v82 = v98;
+    (*(v77 + 32))(v98[8][5], v81, v103);
+    swift_continuation_throwingResume(v82, v83);
   }
 
   else
   {
-    v86 = *(v81 + 32);
-    v87 = v93;
-    v86(v93, v80, v82);
-    v88 = swift_allocError();
-    v86(v89, v87, v82);
-    v121 = v88;
-    v90 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
-    UnsafeContinuation.resume(throwing:)(&v121, v100, v105, v90);
+    v84 = *(v79 + 32);
+    v85 = v91;
+    v84(v91, v78, v80);
+    v86 = swift_allocError();
+    v84(v87, v85, v80);
+    v119 = v86;
+    v88 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+    UnsafeContinuation.resume(throwing:)(&v119, v98, v103, v88, MEMORY[0x1E69E7288]);
   }
 }
 
 void AsyncThrowingStream._Storage.yield(_:)(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
-  v107 = a2;
-  v108 = a1;
+  v123 = a2;
+  v124 = a1;
   v3 = *v2;
-  v94 = *(*(*v2 + 88) - 8);
-  v4 = *(v94 + 64);
+  v110 = *(*(*v2 + 88) - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v92 = &v91 - v5;
-  v7 = *(v6 + 80);
-  v112 = *(v6 + 96);
-  v113 = v8;
-  v9 = type metadata accessor for AsyncThrowingStream._Storage.Terminal();
-  v110 = *(v9 - 8);
-  v10 = *(v110 + 64);
-  v11 = MEMORY[0x1EEE9AC00](v9);
-  v93 = &v91 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v96 = &v91 - v13;
-  v105 = type metadata accessor for Optional();
-  v103 = *(v105 - 8);
-  v14 = *(v103 + 64);
-  v15 = MEMORY[0x1EEE9AC00](v105);
-  v102 = &v91 - v16;
-  v111 = *(v7 - 8);
-  v17 = *(v111 + 64);
-  MEMORY[0x1EEE9AC00](v15);
-  v99 = &v91 - v18;
-  v109 = v9;
-  v19 = type metadata accessor for Optional();
-  v20 = *(v19 - 8);
-  v21 = *(v20 + 64);
-  v22 = MEMORY[0x1EEE9AC00](v19);
-  v24 = &v91 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v25 = MEMORY[0x1EEE9AC00](v22);
-  v95 = &v91 - v26;
-  MEMORY[0x1EEE9AC00](v25);
-  v28 = &v91 - v27;
+  v108 = &v107 - v4;
+  v6 = *(v5 + 80);
+  v128 = *(v5 + 96);
+  v129 = v7;
+  v8 = type metadata accessor for AsyncThrowingStream._Storage.Terminal(0, v6, v7, v128);
+  v126 = *(v8 - 8);
+  v9 = MEMORY[0x1EEE9AC00](v8);
+  v109 = &v107 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v112 = &v107 - v11;
+  v121 = type metadata accessor for Optional();
+  v119 = *(v121 - 8);
+  v12 = MEMORY[0x1EEE9AC00](v121);
+  v118 = &v107 - v13;
+  v127 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v115 = &v107 - v14;
+  v125 = v8;
+  v15 = type metadata accessor for Optional();
+  v16 = *(v15 - 8);
+  v17 = MEMORY[0x1EEE9AC00](v15);
+  v19 = &v107 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v20 = MEMORY[0x1EEE9AC00](v17);
+  v111 = &v107 - v21;
+  MEMORY[0x1EEE9AC00](v20);
+  v23 = &v107 - v22;
   _swift_async_stream_lock_lock((v2 + ((*(v3 + 48) + 7) & 0x1FFFFFFF8)));
-  v29 = *(*v2 + 104);
-  v106 = v2;
-  v101 = *(v2 + v29 + 16);
-  v100 = *(v2 + v29 + 24);
-  v30 = (v2 + v29);
-  v31 = *(v2 + v29 + 8);
-  v104 = (v2 + v29 + 8);
+  v24 = *(*v2 + 104);
+  v122 = v2;
+  v117 = *(v2 + v24 + 16);
+  v116 = *(v2 + v24 + 24);
+  v25 = (v2 + v24);
+  v26 = *(v2 + v24 + 8);
+  v120 = (v2 + v24 + 8);
 
-  _ss20ManagedBufferPointerVsRi__rlE017withUnsafeMutableC8ToHeaderyqd_0_qd_0_SpyxGqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(closure #1 in _Deque._Storage.count.getter, 0, v31, &type metadata for _DequeBufferHeader, v7, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6530], MEMORY[0x1E69E7410], v90);
-  v32 = v114;
+  _ss20ManagedBufferPointerVsRi__rlE017withUnsafeMutableC8ToHeaderyqd_0_qd_0_SpyxGqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(closure #1 in _Deque._Storage.count.getter, 0, v26, &type metadata for _DequeBufferHeader, v6, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6530], MEMORY[0x1E69E7410], v106);
+  v27 = v130;
 
-  v33 = *v30;
-  if (*v30)
+  v28 = *v25;
+  if (!*v25)
   {
-    v34 = v19;
-    v35 = v109;
-    v97 = v7;
-    v98 = v33;
-    v36 = *(type metadata accessor for AsyncThrowingStream._Storage.State() + 56);
-    v37 = *(v20 + 16);
-    v38 = v110;
-    v39 = (v110 + 48);
-    if (v32 < 1)
+    v47 = v128;
+    v46 = v129;
+    v48 = type metadata accessor for AsyncThrowingStream._Storage.State(0, v6, v129, v128);
+    (*(v16 + 16))(v19, v25 + *(v48 + 56), v15);
+    v49 = (*(v126 + 48))(v19, 1, v125);
+    (*(v16 + 8))(v19, v15);
+    if (v49 != 1)
     {
-      v104 = v30;
-      v54 = v95;
-      v37(v95, v30 + v36, v19);
-      if ((*v39)(v54, 1, v35) != 1)
+      (*(v127 + 8))(v124, v6);
+      type metadata accessor for AsyncThrowingStream.Continuation.YieldResult(0, v6, v46, v47);
+      goto LABEL_21;
+    }
+
+    v52 = v127;
+    if (v116)
+    {
+      v53 = v47;
+      v54 = v117;
+      if (v116 == 1)
       {
-        v59 = *(v111 + 8);
-        v60 = v108;
-        v108 = v19;
-        v61 = v38;
-        v62 = v97;
-        v59(v60, v97);
-        v63 = v35;
-        v64 = *(v38 + 32);
-        v64(v96, v54, v35);
-        v65 = v113;
-        type metadata accessor for AsyncThrowingStream.Continuation.YieldResult();
-        swift_storeEnumTagMultiPayload();
-        v66 = v104;
-        *v104 = 0;
-        (*(v20 + 8))(v66 + v36, v108);
-        v67 = v94;
-        (*(v94 + 56))(v66 + v36, 1, 1, v65);
-        (*(v61 + 56))(v66 + v36, 0, 1, v63);
-        _swift_async_stream_lock_unlock((v106 + ((*(*v106 + 48) + 7) & 0x1FFFFFFF8)));
-        v68 = v93;
-        v64(v93, v96, v63);
-        if ((*(v67 + 48))(v68, 1, v65) != 1)
+        if (v27 < v117)
         {
-          v79 = *(v67 + 32);
-          v80 = v92;
-          v79(v92, v68, v65);
-          v81 = swift_allocError();
-          v79(v82, v80, v65);
-          v114 = v81;
-          v83 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
-          UnsafeContinuation.resume(throwing:)(&v114, v98, v105, v83);
+          v55 = type metadata accessor for _Deque(0, v6, v50, v51);
+          v56 = v124;
+          _Deque.append(_:)(v124, v55);
+          (*(v52 + 8))(v56, v6);
+          if (!__OFSUB__(v54, v27 + 1))
+          {
+            *v123 = v54 - (v27 + 1);
+            type metadata accessor for AsyncThrowingStream.Continuation.YieldResult(0, v6, v46, v53);
+LABEL_21:
+            swift_storeEnumTagMultiPayload();
+LABEL_33:
+            _swift_async_stream_lock_unlock((v122 + ((*(*v122 + 48) + 7) & 0x1FFFFFFF8)));
+            return;
+          }
+
+          __break(1u);
+LABEL_52:
+          __break(1u);
           return;
         }
 
-        v69 = v102;
-        (*(v111 + 56))(v102, 1, 1, v62);
-        v70 = v98;
-        (*(v103 + 32))(*(*(v98 + 8) + 40), v69, v105);
-        v72 = v70;
-        goto LABEL_44;
-      }
-
-      (*(v20 + 8))(v54, v19);
-      v55 = v111;
-      if (v100)
-      {
-        v56 = v97;
-        v57 = v101;
-        if (v100 != 1)
+        if (v27 >= 1)
         {
-          v57 = 0x7FFFFFFFFFFFFFFFLL;
+          v101 = type metadata accessor for _Deque(0, v6, v50, v51);
+          _Deque.removeFirst()(v101);
+          type metadata accessor for AsyncThrowingStream.Continuation.YieldResult(0, v6, v46, v53);
+          swift_storeEnumTagMultiPayload();
+          v102 = v124;
+          _Deque.append(_:)(v124, v101);
+          (*(v52 + 8))(v102, v6);
+          goto LABEL_33;
         }
 
-        v58 = v103;
+        (*(v127 + 32))(v123, v124, v6);
+        v103 = v6;
+        v104 = v46;
+        v105 = v53;
+LABEL_50:
+        type metadata accessor for AsyncThrowingStream.Continuation.YieldResult(0, v103, v104, v105);
+        goto LABEL_21;
       }
 
-      else
-      {
-        v56 = v97;
-        v58 = v103;
-        v57 = v101;
-      }
-
-      *v107 = v57;
-      type metadata accessor for AsyncThrowingStream.Continuation.YieldResult();
-      swift_storeEnumTagMultiPayload();
-      *v30 = 0;
-      _swift_async_stream_lock_unlock((v106 + ((*(*v106 + 48) + 7) & 0x1FFFFFFF8)));
-      v84 = v102;
-      (*(v55 + 32))(v102, v108, v56);
-      (*(v55 + 56))(v84, 0, 1, v56);
-LABEL_43:
-      v87 = v98;
-      (*(v58 + 32))(*(*(v98 + 8) + 40), v84, v105);
-      v72 = v87;
-LABEL_44:
-      swift_continuation_throwingResume(v72, v71);
-      return;
+      *v123 = 0x7FFFFFFFFFFFFFFFLL;
+      type metadata accessor for AsyncThrowingStream.Continuation.YieldResult(0, v6, v46, v53);
     }
 
-    v40 = v32;
-    v37(v28, v30 + v36, v34);
-    v41 = (*v39)(v28, 1, v35);
-    (*(v20 + 8))(v28, v34);
-    if (v41 != 1)
+    else
     {
-      v43 = v111;
-      v42 = v97;
-      (*(v111 + 8))(v108, v97);
-      type metadata accessor for AsyncThrowingStream.Continuation.YieldResult();
+      if (v27 >= v117)
+      {
+        (*(v127 + 32))(v123, v124, v6);
+        v103 = v6;
+        v104 = v46;
+        v105 = v47;
+        goto LABEL_50;
+      }
+
+      if (__OFSUB__(v117, v27 + 1))
+      {
+        goto LABEL_52;
+      }
+
+      *v123 = v117 - (v27 + 1);
+      type metadata accessor for AsyncThrowingStream.Continuation.YieldResult(0, v6, v46, v47);
+    }
+
+    swift_storeEnumTagMultiPayload();
+    v90 = type metadata accessor for _Deque(0, v6, v88, v89);
+    v91 = v124;
+    _Deque.append(_:)(v124, v90);
+    (*(v52 + 8))(v91, v6);
+    goto LABEL_33;
+  }
+
+  v29 = v15;
+  v30 = v125;
+  v113 = v6;
+  v114 = v28;
+  v31 = v128;
+  v32 = *(type metadata accessor for AsyncThrowingStream._Storage.State(0, v6, v129, v128) + 56);
+  v33 = *(v16 + 16);
+  v34 = v126;
+  v35 = (v126 + 48);
+  if (v27 >= 1)
+  {
+    v36 = v27;
+    v33(v23, v25 + v32, v29);
+    v37 = (*v35)(v23, 1, v30);
+    (*(v16 + 8))(v23, v29);
+    if (v37 != 1)
+    {
+      v41 = v127;
+      v40 = v113;
+      (*(v127 + 8))(v124, v113);
+      type metadata accessor for AsyncThrowingStream.Continuation.YieldResult(0, v40, v129, v128);
       swift_storeEnumTagMultiPayload();
-      v58 = v103;
+      v63 = v119;
 LABEL_42:
-      *v30 = 0;
-      v85 = type metadata accessor for _Deque();
-      v86 = v99;
-      _Deque.removeFirst()(v85);
-      _swift_async_stream_lock_unlock((v106 + ((*(*v106 + 48) + 7) & 0x1FFFFFFF8)));
-      v84 = v102;
-      (*(v43 + 32))(v102, v86, v42);
-      (*(v43 + 56))(v84, 0, 1, v42);
+      *v25 = 0;
+      v98 = type metadata accessor for _Deque(0, v40, v64, v65);
+      v99 = v115;
+      _Deque.removeFirst()(v98);
+      _swift_async_stream_lock_unlock((v122 + ((*(*v122 + 48) + 7) & 0x1FFFFFFF8)));
+      v97 = v118;
+      (*(v41 + 32))(v118, v99, v40);
+      (*(v41 + 56))(v97, 0, 1, v40);
       goto LABEL_43;
     }
 
-    v42 = v97;
-    v43 = v111;
-    if (v100)
+    v40 = v113;
+    v41 = v127;
+    if (v116)
     {
-      v44 = v101;
-      if (v100 == 1)
+      v42 = v117;
+      if (v116 == 1)
       {
-        v45 = type metadata accessor for _Deque();
-        v46 = v45;
-        if (v40 < v44)
+        v43 = type metadata accessor for _Deque(0, v113, v38, v39);
+        v44 = v43;
+        if (v36 < v42)
         {
-          v47 = v108;
-          _Deque.append(_:)(v108, v45);
-          (*(v43 + 8))(v47, v42);
-          *v107 = v44 + ~v40;
-          type metadata accessor for AsyncThrowingStream.Continuation.YieldResult();
+          v45 = v124;
+          _Deque.append(_:)(v124, v43);
+          (*(v41 + 8))(v45, v40);
+          *v123 = v42 + ~v36;
+          type metadata accessor for AsyncThrowingStream.Continuation.YieldResult(0, v40, v129, v128);
 LABEL_40:
           swift_storeEnumTagMultiPayload();
           goto LABEL_41;
         }
 
-        _Deque.removeFirst()(v45);
-        type metadata accessor for AsyncThrowingStream.Continuation.YieldResult();
+        _Deque.removeFirst()(v43);
+        type metadata accessor for AsyncThrowingStream.Continuation.YieldResult(0, v40, v129, v128);
         swift_storeEnumTagMultiPayload();
-        v75 = v108;
-        v76 = v108;
-        v74 = v46;
+        v86 = v124;
+        v87 = v124;
+        v85 = v44;
 LABEL_38:
-        _Deque.append(_:)(v76, v74);
-        (*(v43 + 8))(v75, v42);
+        _Deque.append(_:)(v87, v85);
+        (*(v41 + 8))(v86, v40);
 LABEL_41:
-        v58 = v103;
+        v63 = v119;
         goto LABEL_42;
       }
 
-      v73 = 0x7FFFFFFFFFFFFFFFLL;
+      v82 = 0x7FFFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      if (v32 >= v101)
+      if (v27 >= v117)
       {
-        (*(v111 + 32))(v107, v108, v97);
-        type metadata accessor for AsyncThrowingStream.Continuation.YieldResult();
+        (*(v127 + 32))(v123, v124, v113);
+        type metadata accessor for AsyncThrowingStream.Continuation.YieldResult(0, v40, v129, v128);
         goto LABEL_40;
       }
 
-      v73 = v101 + ~v32;
+      v82 = v117 + ~v27;
     }
 
-    *v107 = v73;
-    type metadata accessor for AsyncThrowingStream.Continuation.YieldResult();
+    *v123 = v82;
+    type metadata accessor for AsyncThrowingStream.Continuation.YieldResult(0, v40, v129, v128);
     swift_storeEnumTagMultiPayload();
-    v74 = type metadata accessor for _Deque();
-    v75 = v108;
-    v76 = v108;
+    v85 = type metadata accessor for _Deque(0, v40, v83, v84);
+    v86 = v124;
+    v87 = v124;
     goto LABEL_38;
   }
 
-  v48 = type metadata accessor for AsyncThrowingStream._Storage.State();
-  (*(v20 + 16))(v24, v30 + *(v48 + 56), v19);
-  v49 = (*(v110 + 48))(v24, 1, v109);
-  (*(v20 + 8))(v24, v19);
-  if (v49 != 1)
+  v120 = v25;
+  v57 = v111;
+  v33(v111, v25 + v32, v29);
+  v58 = v30;
+  if ((*v35)(v57, 1, v30) != 1)
   {
-    (*(v111 + 8))(v108, v7);
-    type metadata accessor for AsyncThrowingStream.Continuation.YieldResult();
-    goto LABEL_21;
-  }
-
-  v50 = v111;
-  if (!v100)
-  {
-    if (v32 >= v101)
-    {
-LABEL_47:
-      (*(v111 + 32))(v107, v108, v7);
-      type metadata accessor for AsyncThrowingStream.Continuation.YieldResult();
-      goto LABEL_21;
-    }
-
-    if (__OFSUB__(v101, v32 + 1))
-    {
-      goto LABEL_49;
-    }
-
-    *v107 = v101 - (v32 + 1);
-    type metadata accessor for AsyncThrowingStream.Continuation.YieldResult();
-LABEL_32:
+    v66 = *(v127 + 8);
+    v67 = v124;
+    v68 = v31;
+    v124 = v29;
+    v69 = v34;
+    v70 = v113;
+    v66(v67, v113);
+    v71 = v58;
+    v72 = *(v34 + 32);
+    v73 = v68;
+    v72(v112, v57, v71);
+    v74 = v129;
+    type metadata accessor for AsyncThrowingStream.Continuation.YieldResult(0, v70, v129, v73);
     swift_storeEnumTagMultiPayload();
-    v77 = type metadata accessor for _Deque();
-    v78 = v108;
-    _Deque.append(_:)(v108, v77);
-    (*(v50 + 8))(v78, v7);
-    goto LABEL_33;
-  }
-
-  v51 = v101;
-  if (v100 != 1)
-  {
-    *v107 = 0x7FFFFFFFFFFFFFFFLL;
-    type metadata accessor for AsyncThrowingStream.Continuation.YieldResult();
-    goto LABEL_32;
-  }
-
-  if (v32 >= v101)
-  {
-    if (v32 >= 1)
+    v75 = v120;
+    *v120 = 0;
+    (*(v16 + 8))(v75 + v32, v124);
+    v76 = v110;
+    (*(v110 + 56))(v75 + v32, 1, 1, v74);
+    (*(v69 + 56))(v75 + v32, 0, 1, v71);
+    _swift_async_stream_lock_unlock((v122 + ((*(*v122 + 48) + 7) & 0x1FFFFFFF8)));
+    v77 = v109;
+    v72(v109, v112, v71);
+    if ((*(v76 + 48))(v77, 1, v74) != 1)
     {
-      v88 = type metadata accessor for _Deque();
-      _Deque.removeFirst()(v88);
-      type metadata accessor for AsyncThrowingStream.Continuation.YieldResult();
-      swift_storeEnumTagMultiPayload();
-      v89 = v108;
-      _Deque.append(_:)(v108, v88);
-      (*(v50 + 8))(v89, v7);
-      goto LABEL_33;
+      v92 = *(v76 + 32);
+      v93 = v108;
+      v92(v108, v77, v74);
+      v94 = swift_allocError();
+      v92(v95, v93, v74);
+      v130 = v94;
+      v96 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+      UnsafeContinuation.resume(throwing:)(&v130, v114, v121, v96, MEMORY[0x1E69E7288]);
+      return;
     }
 
-    goto LABEL_47;
+    v78 = v118;
+    (*(v127 + 56))(v118, 1, 1, v70);
+    v79 = v114;
+    (*(v119 + 32))(v114[8][5], v78, v121);
+    v81 = v79;
+    goto LABEL_44;
   }
 
-  v52 = type metadata accessor for _Deque();
-  v53 = v108;
-  _Deque.append(_:)(v108, v52);
-  (*(v50 + 8))(v53, v7);
-  if (!__OFSUB__(v51, v32 + 1))
+  (*(v16 + 8))(v57, v29);
+  v59 = v127;
+  if (v116)
   {
-    *v107 = v51 - (v32 + 1);
-    type metadata accessor for AsyncThrowingStream.Continuation.YieldResult();
-LABEL_21:
-    swift_storeEnumTagMultiPayload();
-LABEL_33:
-    _swift_async_stream_lock_unlock((v106 + ((*(*v106 + 48) + 7) & 0x1FFFFFFF8)));
-    return;
+    v60 = v113;
+    v61 = v129;
+    v62 = v117;
+    if (v116 != 1)
+    {
+      v62 = 0x7FFFFFFFFFFFFFFFLL;
+    }
+
+    v63 = v119;
   }
 
-  __break(1u);
-LABEL_49:
-  __break(1u);
+  else
+  {
+    v60 = v113;
+    v61 = v129;
+    v63 = v119;
+    v62 = v117;
+  }
+
+  *v123 = v62;
+  type metadata accessor for AsyncThrowingStream.Continuation.YieldResult(0, v60, v61, v31);
+  swift_storeEnumTagMultiPayload();
+  *v25 = 0;
+  _swift_async_stream_lock_unlock((v122 + ((*(*v122 + 48) + 7) & 0x1FFFFFFF8)));
+  v97 = v118;
+  (*(v59 + 32))(v118, v124, v60);
+  (*(v59 + 56))(v97, 0, 1, v60);
+LABEL_43:
+  v100 = v114;
+  (*(v63 + 32))(v114[8][5], v97, v121);
+  v81 = v100;
+LABEL_44:
+  swift_continuation_throwingResume(v81, v80);
 }
 
-void AsyncThrowingStream._Storage.next(_:)(continuationChecking *a1)
+void AsyncThrowingStream._Storage.next(_:)(atomic_ullong **a1)
 {
   v2 = v1;
-  v64 = a1;
+  v61 = a1;
   v3 = *v1;
-  v54 = *(*(*v1 + 88) - 8);
-  v4 = *(v54 + 64);
+  v51 = *(*(*v1 + 88) - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v52 = &v51 - v5;
-  v7 = *(v6 + 80);
-  v8 = *(v6 + 96);
-  v60 = v9;
-  v58 = v8;
-  v10 = type metadata accessor for AsyncThrowingStream._Storage.Terminal();
-  v59 = type metadata accessor for Optional();
-  v57 = *(v59 - 8);
-  v11 = *(v57 + 64);
-  v12 = MEMORY[0x1EEE9AC00](v59);
-  v14 = &v51 - v13;
-  v55 = *(v10 - 8);
-  v15 = *(v55 + 64);
-  v16 = MEMORY[0x1EEE9AC00](v12);
-  v53 = &v51 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v16);
-  v56 = &v51 - v18;
-  v19 = type metadata accessor for Optional();
-  v62 = *(v19 - 8);
-  v63 = v19;
-  v20 = *(v62 + 64);
-  v21 = MEMORY[0x1EEE9AC00](v19);
-  v61 = &v51 - v22;
-  v23 = *(v7 - 8);
-  v24 = *(v23 + 64);
-  MEMORY[0x1EEE9AC00](v21);
-  v26 = &v51 - v25;
+  v49 = &v48 - v4;
+  v6 = *(v5 + 80);
+  v7 = *(v5 + 96);
+  v57 = v8;
+  v55 = v7;
+  v9 = type metadata accessor for AsyncThrowingStream._Storage.Terminal(255, v6, v8, v7);
+  v56 = type metadata accessor for Optional();
+  v54 = *(v56 - 8);
+  v10 = MEMORY[0x1EEE9AC00](v56);
+  v12 = &v48 - v11;
+  v52 = *(v9 - 8);
+  v13 = MEMORY[0x1EEE9AC00](v10);
+  v50 = &v48 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13);
+  v53 = &v48 - v15;
+  v16 = type metadata accessor for Optional();
+  v59 = *(v16 - 8);
+  v60 = v16;
+  v17 = MEMORY[0x1EEE9AC00](v16);
+  v58 = &v48 - v18;
+  v19 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v17);
+  v21 = &v48 - v20;
   _swift_async_stream_lock_lock((v1 + ((*(v3 + 48) + 7) & 0x1FFFFFFF8)));
-  v27 = v1 + *(*v1 + 104);
-  if (*v27)
+  v22 = v1 + *(*v1 + 104);
+  if (*v22)
   {
     AsyncThrowingStream._Storage.unlock()();
     _assertionFailure(_:_:file:line:flags:)();
@@ -7555,69 +6469,69 @@ void AsyncThrowingStream._Storage.next(_:)(continuationChecking *a1)
 
   else
   {
-    v28 = *(v27 + 1);
+    v23 = *(v22 + 1);
 
-    _ss20ManagedBufferPointerVsRi__rlE017withUnsafeMutableC8ToHeaderyqd_0_qd_0_SpyxGqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(closure #1 in _Deque._Storage.count.getter, 0, v28, &type metadata for _DequeBufferHeader, v7, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6530], MEMORY[0x1E69E7410], v50);
-    v29 = v65;
+    _ss20ManagedBufferPointerVsRi__rlE017withUnsafeMutableC8ToHeaderyqd_0_qd_0_SpyxGqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(closure #1 in _Deque._Storage.count.getter, 0, v23, &type metadata for _DequeBufferHeader, v6, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6530], MEMORY[0x1E69E7410], v47);
+    v24 = v62;
 
-    if (v29 >= 1)
+    if (v24 >= 1)
     {
-      v30 = type metadata accessor for _Deque();
-      _Deque.removeFirst()(v30);
+      v27 = type metadata accessor for _Deque(0, v6, v25, v26);
+      _Deque.removeFirst()(v27);
       _swift_async_stream_lock_unlock((v1 + ((*(*v1 + 48) + 7) & 0x1FFFFFFF8)));
-      v31 = v61;
-      (*(v23 + 32))(v61, v26, v7);
-      (*(v23 + 56))(v31, 0, 1, v7);
+      v28 = v58;
+      (*(v19 + 32))(v58, v21, v6);
+      (*(v19 + 56))(v28, 0, 1, v6);
 LABEL_4:
-      v32 = v64;
-      (*(v62 + 32))(*(*(v64 + 8) + 40), v31, v63);
-      swift_continuation_throwingResume(v32, v33);
+      v29 = v61;
+      (*(v59 + 32))(v61[8][5], v28, v60);
+      swift_continuation_throwingResume(v29, v30);
       return;
     }
 
-    v34 = *(type metadata accessor for AsyncThrowingStream._Storage.State() + 56);
-    v35 = v57;
-    v36 = v59;
-    (*(v57 + 16))(v14, &v27[v34], v59);
-    v37 = v55;
-    if ((*(v55 + 48))(v14, 1, v10) == 1)
+    v31 = *(type metadata accessor for AsyncThrowingStream._Storage.State(0, v6, v57, v55) + 56);
+    v32 = v54;
+    v33 = v56;
+    (*(v54 + 16))(v12, &v22[v31], v56);
+    v34 = v52;
+    if ((*(v52 + 48))(v12, 1, v9) == 1)
     {
-      (*(v35 + 8))(v14, v36);
-      *v27 = v64;
+      (*(v32 + 8))(v12, v33);
+      *v22 = v61;
       _swift_async_stream_lock_unlock((v2 + ((*(*v2 + 48) + 7) & 0x1FFFFFFF8)));
     }
 
     else
     {
-      v38 = *(v37 + 32);
-      v51 = v10;
-      v38(v56, v14, v10);
-      (*(v35 + 8))(&v27[v34], v59);
-      v39 = v54;
-      v40 = v60;
-      (*(v54 + 56))(&v27[v34], 1, 1, v60);
-      v41 = &v27[v34];
-      v42 = v51;
-      (*(v37 + 56))(v41, 0, 1, v51);
+      v35 = *(v34 + 32);
+      v48 = v9;
+      v35(v53, v12, v9);
+      (*(v32 + 8))(&v22[v31], v56);
+      v36 = v51;
+      v37 = v57;
+      (*(v51 + 56))(&v22[v31], 1, 1, v57);
+      v38 = &v22[v31];
+      v39 = v48;
+      (*(v34 + 56))(v38, 0, 1, v48);
       _swift_async_stream_lock_unlock((v2 + ((*(*v2 + 48) + 7) & 0x1FFFFFFF8)));
-      v43 = v53;
-      v38(v53, v56, v42);
-      if ((*(v39 + 48))(v43, 1, v40) == 1)
+      v40 = v50;
+      v35(v50, v53, v39);
+      if ((*(v36 + 48))(v40, 1, v37) == 1)
       {
-        v31 = v61;
-        (*(v23 + 56))(v61, 1, 1, v7);
+        v28 = v58;
+        (*(v19 + 56))(v58, 1, 1, v6);
         goto LABEL_4;
       }
 
-      v44 = *(v39 + 32);
-      v45 = v52;
-      v46 = v60;
-      v44(v52, v43, v60);
-      v47 = swift_allocError();
-      v44(v48, v45, v46);
-      v65 = v47;
-      v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
-      UnsafeContinuation.resume(throwing:)(&v65, v64, v63, v49);
+      v41 = *(v36 + 32);
+      v42 = v49;
+      v43 = v57;
+      v41(v49, v40, v57);
+      v44 = swift_allocError();
+      v41(v45, v42, v43);
+      v62 = v44;
+      v46 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
+      UnsafeContinuation.resume(throwing:)(&v62, v61, v60, v46, MEMORY[0x1E69E7288]);
     }
   }
 }
@@ -7633,22 +6547,20 @@ void AsyncThrowingStream._Storage.next()(uint64_t a1)
 void AsyncThrowingStream._Storage.next()()
 {
   v1 = v0[3];
-  v2 = v0[4];
 
-  v3 = swift_task_alloc(32);
-  v0[5] = v3;
-  *(v3 + 16) = partial apply for implicit closure #2 in implicit closure #1 in AsyncThrowingStream._Storage.next();
-  *(v3 + 24) = v1;
-  v4 = swift_task_alloc(96);
-  v0[6] = v4;
-  v5 = *(v2 + 80);
+  v2 = swift_task_alloc(32);
+  v0[5] = v2;
+  *(v2 + 16) = partial apply for implicit closure #2 in implicit closure #1 in AsyncThrowingStream._Storage.next();
+  *(v2 + 24) = v1;
+  v3 = swift_task_alloc(96);
+  v0[6] = v3;
   type metadata accessor for Optional();
-  *v4 = v0;
-  v4[1] = AsyncThrowingStream._Storage.next();
-  v6 = v0[2];
-  v7 = v0[3];
+  *v3 = v0;
+  v3[1] = AsyncThrowingStream._Storage.next();
+  v4 = v0[2];
+  v5 = v0[3];
 
-  withTaskCancellationHandler<A>(operation:onCancel:isolation:)(v6, &async function pointer to partial apply for closure #1 in AsyncThrowingStream._Storage.next(), v7, partial apply for closure #2 in AsyncThrowingStream._Storage.next(), v3, 0, 0);
+  withTaskCancellationHandler<A>(operation:onCancel:isolation:)(v4, &async function pointer to partial apply for closure #1 in AsyncThrowingStream._Storage.next(), v5, partial apply for closure #2 in AsyncThrowingStream._Storage.next(), v2, 0, 0);
 }
 
 {
@@ -7665,25 +6577,22 @@ void AsyncThrowingStream._Storage.next()()
   else
   {
     v4 = v3[5];
-    v5 = v3[3];
 
     v4;
-    v6 = v3[1];
+    v5 = v3[1];
 
-    v6();
+    v5();
   }
 }
 
 uint64_t AsyncThrowingStream._Storage.next()()
 {
-  v1 = v0[5];
-  v2 = v0[3];
+  v1 = *(v0 + 40);
 
   v1;
-  v3 = v0[1];
-  v4 = v0[7];
+  v2 = *(v0 + 8);
 
-  return v3();
+  return v2();
 }
 
 void closure #1 in AsyncThrowingStream._Storage.next()(uint64_t a1, void *a2)
@@ -7696,21 +6605,18 @@ void closure #1 in AsyncThrowingStream._Storage.next()(uint64_t a1, void *a2)
 
 uint64_t closure #1 in AsyncThrowingStream._Storage.next()()
 {
-  v1 = v0[4];
-  v2 = swift_task_alloc(112);
-  v0[5] = v2;
-  v3 = *(v1 + 80);
-  v4 = type metadata accessor for Optional();
-  *v2 = v0;
-  v2[1] = closure #1 in AsyncThrowingStream._Storage.next();
-  v5 = v0[2];
-  v6 = v0[3];
+  v1 = swift_task_alloc(112);
+  v0[5] = v1;
+  v2 = type metadata accessor for Optional();
+  *v1 = v0;
+  v1[1] = closure #1 in AsyncThrowingStream._Storage.next();
+  v3 = v0[2];
+  v4 = v0[3];
 
-  return (withUnsafeThrowingContinuation<A>(isolation:_:))(v5, 0, 0, partial apply for closure #1 in closure #1 in AsyncThrowingStream._Storage.next(), v6, v4);
+  return (withUnsafeThrowingContinuation<A>(isolation:_:))(v3, 0, 0, partial apply for closure #1 in closure #1 in AsyncThrowingStream._Storage.next(), v4, v2);
 }
 
 {
-  v1 = *(v0 + 48);
   return (*(v0 + 8))();
 }
 
@@ -7740,24 +6646,21 @@ uint64_t static AsyncThrowingStream._Storage.create(limit:)(uint64_t a1)
   v4 = *(v1 + 80);
   v5 = *(v1 + 88);
   v6 = *(v2 + 96);
-  v7 = type metadata accessor for AsyncThrowingStream._Storage.State();
+  v7 = type metadata accessor for AsyncThrowingStream._Storage.State(0, v4, v5, v6);
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   MEMORY[0x1EEE9AC00](v7);
-  v11 = &v18 - v10;
-  v12 = *a1;
+  v10 = &v15 - v9;
+  v11 = *a1;
   LOBYTE(a1) = *(a1 + 8);
   protocol witness for static Equatable.== infix(_:_:) in conformance ContinuousClock.Instant.CodingKeys();
-  v13 = *(v2 + 52);
-  v14 = (*(v2 + 48) + 7) & 0x1FFFFFFF8;
-  v15 = swift_allocObject();
-  v16 = *(*v15 + 104);
-  v18 = v12;
-  v19 = a1;
-  AsyncThrowingStream._Storage.State.init(limit:)(&v18, v11);
-  (*(v8 + 32))(v15 + v16, v11, v7);
-  _swift_async_stream_lock_init((v15 + ((*(*v15 + 48) + 7) & 0x1FFFFFFF8)));
-  return v15;
+  v12 = swift_allocObject();
+  v13 = *(*v12 + 104);
+  v15 = v11;
+  v16 = a1;
+  AsyncThrowingStream._Storage.State.init(limit:)(&v15, v4, v5, v6, v10);
+  (*(v8 + 32))(v12 + v13, v10, v7);
+  _swift_async_stream_lock_init((v12 + ((*(*v12 + 48) + 7) & 0x1FFFFFFF8)));
+  return v12;
 }
 
 void _AsyncStreamCriticalStorage.value.getter(uint64_t a1@<X8>)
@@ -7774,25 +6677,20 @@ uint64_t static _AsyncStreamCriticalStorage.create(_:)(uint64_t a1)
 {
   v3 = *(v1 + 80);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](a1);
-  v7 = &v13 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   protocol witness for static Equatable.== infix(_:_:) in conformance ContinuousClock.Instant.CodingKeys();
-  v8 = *(v1 + 52);
-  v9 = (*(v1 + 48) + 7) & 0x1FFFFFFF8;
-  v10 = swift_allocObject();
-  v11 = *(*v10 + 88);
-  (*(v4 + 16))(v7, a1, v3);
-  (*(v4 + 32))(v10 + v11, v7, v3);
-  _swift_async_stream_lock_init((v10 + ((*(*v10 + 48) + 7) & 0x1FFFFFFF8)));
-  return v10;
+  v7 = swift_allocObject();
+  v8 = *(*v7 + 88);
+  (*(v4 + 16))(v6, a1, v3);
+  (*(v4 + 32))(v7 + v8, v6, v3);
+  _swift_async_stream_lock_init((v7 + ((*(*v7 + 48) + 7) & 0x1FFFFFFF8)));
+  return v7;
 }
 
 uint64_t TaskLocal.__deallocating_deinit()
 {
   (*(*(*(*v0 + 80) - 8) + 8))(v0 + *(*v0 + 88));
-  v1 = *(*v0 + 48);
-  v2 = *(*v0 + 52);
 
   return swift_deallocClassInstance();
 }
@@ -7805,75 +6703,73 @@ Swift::Int AsyncStream.Continuation.Termination.hashValue.getter()
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AsyncStream<A>.Continuation.Termination()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AsyncStream<A>.Continuation.Termination(uint64_t a1)
 {
   Hasher.init(_seed:)();
   AsyncStream.Continuation.Termination.hash(into:)();
   return Hasher._finalize()();
 }
 
-void *key path getter for AsyncStream.Continuation.onTermination : <A>AsyncStream<A>.Continuation@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t (**a4)()@<X8>)
+uint64_t (*key path getter for AsyncStream.Continuation.onTermination : <A>AsyncStream<A>.Continuation@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t (**a3)()@<X8>))()
 {
-  v5 = *(a2 + a3 - 8);
-  v11 = *a1;
+  v4 = *(a1 + a2 - 8);
   result = AsyncStream.Continuation.onTermination.getter();
   if (result)
   {
-    v8 = result;
-    v9 = v7;
+    v7 = result;
+    v8 = v6;
     result = swift_allocObject();
-    result[2] = v5;
-    result[3] = v8;
-    result[4] = v9;
-    v10 = partial apply for thunk for @escaping @callee_guaranteed @Sendable (@in_guaranteed AsyncStream<A>.Continuation.Termination) -> ();
-  }
-
-  else
-  {
-    v10 = 0;
-  }
-
-  *a4 = v10;
-  a4[1] = result;
-  return result;
-}
-
-uint64_t key path setter for AsyncStream.Continuation.onTermination : <A>AsyncStream<A>.Continuation(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
-{
-  v5 = *(a3 + a4 - 8);
-  v6 = *a1;
-  v7 = a1[1];
-  if (*a1)
-  {
-    v8 = swift_allocObject();
-    v8[2] = v5;
-    v8[3] = v6;
-    v8[4] = v7;
-    v9 = partial apply for thunk for @escaping @callee_guaranteed @Sendable (@in_guaranteed AsyncStream<A>.Continuation.Termination) -> (@out ());
+    *(result + 2) = v4;
+    *(result + 3) = v7;
+    *(result + 4) = v8;
+    v9 = partial apply for thunk for @escaping @callee_guaranteed @Sendable (@in_guaranteed AsyncStream<A>.Continuation.Termination) -> ();
   }
 
   else
   {
     v9 = 0;
-    v8 = 0;
   }
 
-  v11 = *a2;
-  _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOy_0(v6);
-  type metadata accessor for AsyncStream.Continuation();
-
-  specialized AsyncStream.Continuation.onTermination.setter(v9, v8);
-  _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v9);
+  *a3 = v9;
+  a3[1] = result;
+  return result;
 }
 
-uint64_t AsyncStream.Continuation.onTermination.setter(uint64_t a1, uint64_t a2)
+uint64_t key path setter for AsyncStream.Continuation.onTermination : <A>AsyncStream<A>.Continuation(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
+{
+  v4 = *(a3 + a4 - 8);
+  v5 = *a1;
+  v6 = a1[1];
+  if (*a1)
+  {
+    v7 = swift_allocObject();
+    v7[2] = v4;
+    v7[3] = v5;
+    v7[4] = v6;
+    v8 = partial apply for thunk for @escaping @callee_guaranteed @Sendable (@in_guaranteed AsyncStream<A>.Continuation.Termination) -> (@out ());
+  }
+
+  else
+  {
+    v8 = 0;
+    v7 = 0;
+  }
+
+  _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOy_0(v5, v6);
+  type metadata accessor for AsyncStream.Continuation(0, v4, v9, v10);
+
+  specialized AsyncStream.Continuation.onTermination.setter(v8, v7);
+  _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v8, v7);
+}
+
+uint64_t AsyncStream.Continuation.onTermination.setter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   specialized AsyncStream.Continuation.onTermination.setter(a1, a2);
 
-  return _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(a1);
+  return _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(a1, a2);
 }
 
-uint64_t (*AsyncStream.Continuation.onTermination.modify(uint64_t *a1))(uint64_t *a1, char a2)
+uint64_t (*AsyncStream.Continuation.onTermination.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 {
   a1[2] = *v1;
   *a1 = AsyncStream._Storage.getOnTermination()();
@@ -7897,24 +6793,24 @@ uint64_t AsyncStream._Context.__deallocating_deinit()
   return swift_deallocClassInstance();
 }
 
-uint64_t AsyncStream.init(_:bufferingPolicy:_:)@<X0>(uint64_t a1@<X1>, void (*a2)(uint64_t *)@<X2>, void *a3@<X8>)
+uint64_t AsyncStream.init(_:bufferingPolicy:_:)@<X0>(uint64_t a1@<X1>, void (*a2)(uint64_t *)@<X2>, uint64_t a3@<X4>, void *a4@<X8>, uint64_t a5@<X3>)
 {
-  v5 = *a1;
-  v6 = *(a1 + 8);
-  type metadata accessor for AsyncStream._Storage();
-  v10 = v5;
-  v11 = v6;
-  v7 = static AsyncStream._Storage.create(limit:)(&v10);
-  type metadata accessor for AsyncStream._Context();
-  v8 = swift_allocObject();
-  v8[2] = v7;
-  v8[3] = &async function pointer to partial apply for implicit closure #2 in implicit closure #1 in AsyncStream.init(_:bufferingPolicy:_:);
-  v8[4] = v7;
-  *a3 = v8;
+  v8 = *a1;
+  v9 = *(a1 + 8);
+  type metadata accessor for AsyncStream._Storage(0, a3, a2, a5);
+  v15 = v8;
+  v16 = v9;
+  v10 = static AsyncStream._Storage.create(limit:)(&v15);
+  type metadata accessor for AsyncStream._Context(0, a3, v11, v12);
+  v13 = swift_allocObject();
+  v13[2] = v10;
+  v13[3] = &async function pointer to partial apply for implicit closure #2 in implicit closure #1 in AsyncStream.init(_:bufferingPolicy:_:);
+  v13[4] = v10;
+  *a4 = v13;
 
-  v10 = v7;
+  v15 = v10;
 
-  a2(&v10);
+  a2(&v15);
 }
 
 void implicit closure #2 in implicit closure #1 in AsyncStream.init(_:bufferingPolicy:_:)(uint64_t a1)
@@ -7940,22 +6836,22 @@ void *AsyncStream.init(unfolding:onCancel:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<
 {
   type metadata accessor for Optional();
   swift_getFunctionTypeMetadata0();
-  type metadata accessor for Optional();
-  type metadata accessor for _AsyncStreamCriticalStorage();
-  v15[0] = a1;
-  v15[1] = a2;
-  v12 = static _AsyncStreamCriticalStorage.create(_:)(v15);
+  v12 = type metadata accessor for Optional();
+  type metadata accessor for _AsyncStreamCriticalStorage(0, v12, v13, v14);
+  v20[0] = a1;
+  v20[1] = a2;
+  v15 = static _AsyncStreamCriticalStorage.create(_:)(v20);
 
-  type metadata accessor for AsyncStream._Context();
-  v13 = swift_allocObject();
-  v13[2] = a5;
-  v13[3] = v12;
-  v13[4] = a3;
-  v13[5] = a4;
+  type metadata accessor for AsyncStream._Context(0, a5, v16, v17);
+  v18 = swift_allocObject();
+  v18[2] = a5;
+  v18[3] = v15;
+  v18[4] = a3;
+  v18[5] = a4;
   result = swift_allocObject();
   result[2] = 0;
   result[3] = &async function pointer to partial apply for closure #1 in AsyncStream.init(unfolding:onCancel:);
-  result[4] = v13;
+  result[4] = v18;
   *a6 = result;
   return result;
 }
@@ -8031,38 +6927,36 @@ void closure #1 in closure #1 in AsyncStream.init(unfolding:onCancel:)(uint64_t 
 
 uint64_t closure #1 in closure #1 in AsyncStream.init(unfolding:onCancel:)()
 {
-  v1 = v0[7];
   _AsyncStreamCriticalStorage.value.getter((v0 + 2));
-  v2 = v0[2];
-  v0[12] = v2;
-  if (v2)
+  v1 = v0[2];
+  v0[12] = v1;
+  if (v1)
   {
     v0[13] = v0[3];
-    v10 = (v2 + *v2);
-    v3 = swift_task_alloc(v2[1]);
-    v0[14] = v3;
-    *v3 = v0;
-    v3[1] = closure #1 in closure #1 in AsyncStream.init(unfolding:onCancel:);
-    v4 = v0[11];
+    v8 = (v1 + *v1);
+    v2 = swift_task_alloc(v1[1]);
+    v0[14] = v2;
+    *v2 = v0;
+    v2[1] = closure #1 in closure #1 in AsyncStream.init(unfolding:onCancel:);
+    v3 = v0[11];
 
-    return v10(v4);
+    return v8(v3);
   }
 
   else
   {
-    v6 = *(*(v0[8] - 8) + 56);
-    v6(v0[11], 1, 1);
-    v7 = v0[7];
+    v5 = *(*(v0[8] - 8) + 56);
+    v5(v0[11], 1, 1);
     (*(v0[10] + 8))(v0[11], v0[9]);
     v0[5] = 0;
     v0[4] = 0;
     specialized _AsyncStreamCriticalStorage.value.setter((v0 + 4));
-    v8 = v0[11];
-    (v6)(v0[6], 1, 1, v0[8]);
-    v8;
-    v9 = v0[1];
+    v6 = v0[11];
+    (v5)(v0[6], 1, 1, v0[8]);
+    v6;
+    v7 = v0[1];
 
-    return v9();
+    return v7();
   }
 }
 
@@ -8072,35 +6966,33 @@ uint64_t closure #1 in closure #1 in AsyncStream.init(unfolding:onCancel:)()
   v3 = *(v2 - 8);
   if ((*(v3 + 48))(v1, 1, v2) == 1)
   {
-    v4 = v0[7];
     (*(v0[10] + 8))(v1, v0[9]);
     v0[4] = 0;
     v0[5] = 0;
     specialized _AsyncStreamCriticalStorage.value.setter((v0 + 4));
-    v5 = 1;
+    v4 = 1;
   }
 
   else
   {
     (*(v3 + 32))(v0[6], v1, v2);
-    v5 = 0;
+    v4 = 0;
   }
 
-  v6 = v0[11];
-  (*(v3 + 56))(v0[6], v5, 1, v0[8]);
-  v6;
-  v7 = v0[1];
+  v5 = v0[11];
+  (*(v3 + 56))(v0[6], v4, 1, v0[8]);
+  v5;
+  v6 = v0[1];
 
-  return v7();
+  return v6();
 }
 
 void closure #1 in closure #1 in AsyncStream.init(unfolding:onCancel:)()
 {
   v1 = *(*v0 + 104);
   v2 = *(*v0 + 96);
-  v3 = *v0;
   *(*v0 + 112);
-  _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v2);
+  _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v2, v1);
 
   swift_task_switch(closure #1 in closure #1 in AsyncStream.init(unfolding:onCancel:), 0, 0);
 }
@@ -8165,13 +7057,12 @@ uint64_t AsyncStream.Iterator.next(isolation:)()
 }
 
 {
-  v1 = *(*v0 + 32);
-  v4 = *v0;
+  v3 = *v0;
   *(*v0 + 40);
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 void protocol witness for AsyncIteratorProtocol.next() in conformance AsyncStream<A>.Iterator(uint64_t a1)
@@ -8194,25 +7085,21 @@ void _sScS8IteratorVyx_GScIsScI4next9isolation7ElementQzSgScA_pSgYi_tYa7FailureQ
   AsyncStream.Iterator.next(isolation:)(a1, a2, a3);
 }
 
-uint64_t protocol witness for AsyncSequence.makeAsyncIterator() in conformance AsyncStream<A>@<X0>(void *a1@<X8>)
+uint64_t protocol witness for AsyncSequence.makeAsyncIterator() in conformance AsyncStream<A>@<X0>(uint64_t *a1@<X8>)
 {
   AsyncStream.makeAsyncIterator()(a1);
-  v2 = *v1;
 }
 
 void AsyncStream.Continuation.yield(with:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
-  v6 = *(a2 + 16);
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
+  v5 = *(a2 + 16);
+  v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for Result();
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v14 = &v17 - v13;
-  v15 = *v3;
-  (*(v16 + 16))(&v17 - v13, a1, v11);
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for Result();
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = &v13 - v10;
+  (*(v12 + 16))(&v13 - v10, a1, v9);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
     _diagnoseUnexpectedEnumCase<A>(type:)();
@@ -8221,24 +7108,26 @@ void AsyncStream.Continuation.yield(with:)(uint64_t a1@<X0>, uint64_t a2@<X1>, u
 
   else
   {
-    (*(v7 + 32))(v10, v14, v6);
-    AsyncStream._Storage.yield(_:)(v10, a3);
+    (*(v6 + 32))(v8, v11, v5);
+    AsyncStream._Storage.yield(_:)(v8, a3);
   }
 }
 
-uint64_t static AsyncStream.makeStream(of:bufferingPolicy:)(void *a1, void *a2, uint64_t a3, uint64_t *a4)
+uint64_t static AsyncStream.makeStream(of:bufferingPolicy:)(void *a1, void *a2, uint64_t a3, uint64_t *a4, uint64_t a5)
 {
-  v6 = *a4;
-  v7 = *(a4 + 8);
-  v13 = 0;
-  v10 = v6;
-  v11 = v7;
-  result = AsyncStream.init(_:bufferingPolicy:_:)(&v10, partial apply for closure #1 in static AsyncStream.makeStream(of:bufferingPolicy:), &v12);
-  v9 = v13;
-  *a1 = v12;
-  if (v9)
+  v7 = *a4;
+  v8 = *(a4 + 8);
+  v17 = 0;
+  v14 = v7;
+  v15 = v8;
+  v12 = a5;
+  v13 = &v17;
+  result = AsyncStream.init(_:bufferingPolicy:_:)(&v14, partial apply for closure #1 in static AsyncStream.makeStream(of:bufferingPolicy:), a5, &v16, v11);
+  v10 = v17;
+  *a1 = v16;
+  if (v10)
   {
-    *a2 = v9;
+    *a2 = v10;
   }
 
   else
@@ -8250,74 +7139,72 @@ uint64_t static AsyncStream.makeStream(of:bufferingPolicy:)(void *a1, void *a2, 
   return result;
 }
 
-uint64_t key path getter for AsyncThrowingStream.Continuation.onTermination : <A, B>AsyncThrowingStream<A, B>.Continuation@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t (**a4)()@<X8>)
+uint64_t key path getter for AsyncThrowingStream.Continuation.onTermination : <A, B>AsyncThrowingStream<A, B>.Continuation@<X0>(uint64_t a1@<X1>, uint64_t a2@<X2>, uint64_t (**a3)()@<X8>)
 {
-  v11 = *(a2 + a3 - 24);
-  v5 = *(a2 + a3 - 8);
-  v12 = *a1;
+  v10 = *(a1 + a2 - 24);
+  v4 = *(a1 + a2 - 8);
   result = AsyncThrowingStream.Continuation.onTermination.getter();
   if (result)
   {
-    v8 = result;
-    v9 = v7;
+    v7 = result;
+    v8 = v6;
     result = swift_allocObject();
-    *(result + 16) = v11;
-    *(result + 32) = v5;
-    *(result + 40) = v8;
-    *(result + 48) = v9;
-    v10 = partial apply for thunk for @escaping @callee_guaranteed @Sendable (@in_guaranteed AsyncThrowingStream<A, B>.Continuation.Termination) -> ();
+    *(result + 16) = v10;
+    *(result + 32) = v4;
+    *(result + 40) = v7;
+    *(result + 48) = v8;
+    v9 = partial apply for thunk for @escaping @callee_guaranteed @Sendable (@in_guaranteed AsyncThrowingStream<A, B>.Continuation.Termination) -> ();
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
-  *a4 = v10;
-  a4[1] = result;
+  *a3 = v9;
+  a3[1] = result;
   return result;
 }
 
 uint64_t key path setter for AsyncThrowingStream.Continuation.onTermination : <A, B>AsyncThrowingStream<A, B>.Continuation(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v5 = *(a3 + a4 - 24);
-  v6 = *(a3 + a4 - 16);
-  v7 = *(a3 + a4 - 8);
-  v8 = *a1;
-  v9 = a1[1];
+  v4 = *(a3 + a4 - 24);
+  v5 = *(a3 + a4 - 16);
+  v6 = *(a3 + a4 - 8);
+  v7 = *a1;
+  v8 = a1[1];
   if (*a1)
   {
-    v10 = swift_allocObject();
-    v10[2] = v5;
-    v10[3] = v6;
-    v10[4] = v7;
-    v10[5] = v8;
-    v10[6] = v9;
-    v11 = partial apply for thunk for @escaping @callee_guaranteed @Sendable (@in_guaranteed AsyncThrowingStream<A, B>.Continuation.Termination) -> (@out ());
+    v9 = swift_allocObject();
+    v9[2] = v4;
+    v9[3] = v5;
+    v9[4] = v6;
+    v9[5] = v7;
+    v9[6] = v8;
+    v10 = partial apply for thunk for @escaping @callee_guaranteed @Sendable (@in_guaranteed AsyncThrowingStream<A, B>.Continuation.Termination) -> (@out ());
   }
 
   else
   {
-    v11 = 0;
     v10 = 0;
+    v9 = 0;
   }
 
-  v13 = *a2;
-  _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOy_0(v8);
-  type metadata accessor for AsyncThrowingStream.Continuation();
+  _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOy_0(v7, v8);
+  type metadata accessor for AsyncThrowingStream.Continuation(0, v4, v5, v6);
 
-  specialized AsyncThrowingStream.Continuation.onTermination.setter(v11, v10);
-  _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v11);
+  specialized AsyncThrowingStream.Continuation.onTermination.setter(v10, v9);
+  _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v10, v9);
 }
 
-uint64_t AsyncThrowingStream.Continuation.onTermination.setter(uint64_t a1, uint64_t a2)
+uint64_t AsyncThrowingStream.Continuation.onTermination.setter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   specialized AsyncThrowingStream.Continuation.onTermination.setter(a1, a2);
 
-  return _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(a1);
+  return _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(a1, a2);
 }
 
-uint64_t (*AsyncThrowingStream.Continuation.onTermination.modify(uint64_t *a1))(uint64_t *a1, char a2)
+uint64_t (*AsyncThrowingStream.Continuation.onTermination.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
 {
   a1[2] = *v1;
   *a1 = AsyncThrowingStream._Storage.getOnTermination()();
@@ -8325,25 +7212,24 @@ uint64_t (*AsyncThrowingStream.Continuation.onTermination.modify(uint64_t *a1))(
   return AsyncThrowingStream.Continuation.onTermination.modify;
 }
 
-uint64_t AsyncStream.Continuation.onTermination.modify(uint64_t *a1, char a2, void (*a3)(uint64_t, uint64_t), void (*a4)(uint64_t, uint64_t), void (*a5)(uint64_t, uint64_t))
+uint64_t AsyncStream.Continuation.onTermination.modify(uint64_t *a1, char a2, void (*a3)(uint64_t, uint64_t), uint64_t (*a4)(uint64_t, uint64_t), void (*a5)(uint64_t, uint64_t))
 {
-  v9 = a1[1];
-  v8 = a1[2];
-  v10 = *a1;
+  v8 = a1[1];
+  v9 = *a1;
 
   if (a2)
   {
-    a5(v10, v9);
-    a3(v10, v9);
-    a4(v10, v9);
+    a5(v9, v8);
+    a3(v9, v8);
+    a4(v9, v8);
 
-    return (a4)(v10, v9);
+    return a4(v9, v8);
   }
 
   else
   {
-    a3(v10, v9);
-    a4(v10, v9);
+    a3(v9, v8);
+    a4(v9, v8);
   }
 }
 
@@ -8353,11 +7239,7 @@ uint64_t AsyncStream._Context.deinit(void (*a1)(uint64_t))
   {
 
     a1(v3);
-
-    v4 = *(v1 + 16);
   }
-
-  v5 = *(v1 + 32);
 
   return v1;
 }
@@ -8373,25 +7255,26 @@ uint64_t AsyncThrowingStream.init<>(_:bufferingPolicy:_:)@<X0>(uint64_t a1@<X1>,
 {
   v7 = *a1;
   v8 = *(a1 + 8);
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5Error_pMd, &_ss5Error_pMR);
-  type metadata accessor for AsyncThrowingStream._Storage();
-  v13 = v7;
-  v14 = v8;
-  v9 = static AsyncThrowingStream._Storage.create(limit:)(&v13);
-  type metadata accessor for AsyncThrowingStream._Context();
-  v10 = swift_allocObject();
-  v10[2] = a3;
-  v10[3] = &async function pointer to partial apply for implicit closure #2 in implicit closure #1 in AsyncThrowingStream.init<>(_:bufferingPolicy:_:);
-  v10[4] = v9;
-  v11 = swift_allocObject();
-  v11[2] = v9;
-  v11[3] = &async function pointer to partial apply for thunk for @escaping @callee_guaranteed @async () -> (@out A?, @error @owned Error);
-  v11[4] = v10;
-  *a4 = v11;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5Error_pMd, &_ss5Error_pMR);
+  v10 = MEMORY[0x1E69E7288];
+  type metadata accessor for AsyncThrowingStream._Storage(0, a3, v9, MEMORY[0x1E69E7288]);
+  v15 = v7;
+  v16 = v8;
+  v11 = static AsyncThrowingStream._Storage.create(limit:)(&v15);
+  type metadata accessor for AsyncThrowingStream._Context(0, a3, v9, v10);
+  v12 = swift_allocObject();
+  v12[2] = a3;
+  v12[3] = &async function pointer to partial apply for implicit closure #2 in implicit closure #1 in AsyncThrowingStream.init<>(_:bufferingPolicy:_:);
+  v12[4] = v11;
+  v13 = swift_allocObject();
+  v13[2] = v11;
+  v13[3] = &async function pointer to partial apply for thunk for @escaping @callee_guaranteed @async () -> (@out A?, @error @owned Error);
+  v13[4] = v12;
+  *a4 = v13;
 
-  v13 = v9;
+  v15 = v11;
 
-  a2(&v13);
+  a2(&v15);
 }
 
 void implicit closure #2 in implicit closure #1 in AsyncThrowingStream.init<>(_:bufferingPolicy:_:)(uint64_t a1)
@@ -8420,21 +7303,21 @@ void *AsyncThrowingStream.init<>(unfolding:)@<X0>(uint64_t a1@<X0>, uint64_t a2@
 {
   type metadata accessor for Optional();
   swift_getFunctionTypeMetadata0();
-  type metadata accessor for Optional();
-  type metadata accessor for _AsyncStreamCriticalStorage();
-  v11[0] = a1;
-  v11[1] = a2;
-  v8 = static _AsyncStreamCriticalStorage.create(_:)(v11);
+  v8 = type metadata accessor for Optional();
+  type metadata accessor for _AsyncStreamCriticalStorage(0, v8, v9, v10);
+  v15[0] = a1;
+  v15[1] = a2;
+  v11 = static _AsyncStreamCriticalStorage.create(_:)(v15);
 
-  __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5Error_pMd, &_ss5Error_pMR);
-  type metadata accessor for AsyncThrowingStream._Context();
-  v9 = swift_allocObject();
-  *(v9 + 16) = a3;
-  *(v9 + 24) = v8;
+  v12 = __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_ss5Error_pMd, &_ss5Error_pMR);
+  type metadata accessor for AsyncThrowingStream._Context(0, a3, v12, MEMORY[0x1E69E7288]);
+  v13 = swift_allocObject();
+  *(v13 + 16) = a3;
+  *(v13 + 24) = v11;
   result = swift_allocObject();
   result[2] = 0;
   result[3] = &async function pointer to partial apply for closure #1 in AsyncThrowingStream.init<>(unfolding:);
-  result[4] = v9;
+  result[4] = v13;
   *a4 = result;
   return result;
 }
@@ -8521,87 +7404,80 @@ void closure #1 in closure #1 in AsyncThrowingStream.init<>(unfolding:)(uint64_t
 
 uint64_t closure #1 in closure #1 in AsyncThrowingStream.init<>(unfolding:)()
 {
-  v1 = v0[7];
   _AsyncStreamCriticalStorage.value.getter((v0 + 2));
-  v2 = v0[2];
-  v3 = v0[3];
-  v0[12] = v2;
-  v0[13] = v3;
-  if (v2)
+  v1 = v0[2];
+  v2 = v0[3];
+  v0[12] = v1;
+  v0[13] = v2;
+  if (v1)
   {
-    v11 = (v2 + *v2);
-    v4 = swift_task_alloc(v2[1]);
-    v0[14] = v4;
-    *v4 = v0;
-    v4[1] = closure #1 in closure #1 in AsyncThrowingStream.init<>(unfolding:);
-    v5 = v0[11];
+    v9 = (v1 + *v1);
+    v3 = swift_task_alloc(v1[1]);
+    v0[14] = v3;
+    *v3 = v0;
+    v3[1] = closure #1 in closure #1 in AsyncThrowingStream.init<>(unfolding:);
+    v4 = v0[11];
 
-    return v11(v5);
+    return v9(v4);
   }
 
   else
   {
-    v7 = *(*(v0[8] - 8) + 56);
-    v7(v0[11], 1, 1);
-    v8 = v0[7];
+    v6 = *(*(v0[8] - 8) + 56);
+    v6(v0[11], 1, 1);
     (*(v0[10] + 8))(v0[11], v0[9]);
     v0[5] = 0;
     v0[4] = 0;
     specialized _AsyncStreamCriticalStorage.value.setter((v0 + 4));
-    v9 = v0[11];
-    (v7)(v0[6], 1, 1, v0[8]);
-    v9;
-    v10 = v0[1];
+    v7 = v0[11];
+    (v6)(v0[6], 1, 1, v0[8]);
+    v7;
+    v8 = v0[1];
 
-    return v10();
+    return v8();
   }
 }
 
 {
-  v1 = v0[13];
-  v2 = v0[11];
-  v3 = v0[8];
-  _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v0[12]);
-  v4 = *(v3 - 8);
-  if ((*(v4 + 48))(v2, 1, v3) == 1)
+  v1 = v0[11];
+  v2 = v0[8];
+  _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v0[12], v0[13]);
+  v3 = *(v2 - 8);
+  if ((*(v3 + 48))(v1, 1, v2) == 1)
   {
-    v5 = v0[7];
     (*(v0[10] + 8))(v0[11], v0[9]);
     v0[4] = 0;
     v0[5] = 0;
     specialized _AsyncStreamCriticalStorage.value.setter((v0 + 4));
-    v6 = 1;
+    v4 = 1;
   }
 
   else
   {
-    (*(v4 + 32))(v0[6], v0[11], v0[8]);
-    v6 = 0;
+    (*(v3 + 32))(v0[6], v0[11], v0[8]);
+    v4 = 0;
   }
 
-  v7 = v0[11];
-  (*(v4 + 56))(v0[6], v6, 1, v0[8]);
-  v7;
-  v8 = v0[1];
+  v5 = v0[11];
+  (*(v3 + 56))(v0[6], v4, 1, v0[8]);
+  v5;
+  v6 = v0[1];
 
-  return v8();
+  return v6();
 }
 
 {
-  v1 = v0[13];
-  v2 = v0[11];
-  _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v0[12]);
-  v2;
-  v3 = v0[1];
-  v4 = v0[15];
+  v1 = v0[11];
+  _sScS12ContinuationV11TerminationOyx__GRi_zRi0_zlyxIseghn_SglWOe_0(v0[12], v0[13]);
+  v1;
+  v2 = v0[1];
 
-  return v3();
+  return v2();
 }
 
 void closure #1 in closure #1 in AsyncThrowingStream.init<>(unfolding:)()
 {
   v2 = *(*v1 + 112);
-  v4 = *v1;
   *(*v1 + 120) = v0;
   v2;
   if (v0)
@@ -8652,21 +7528,19 @@ uint64_t AsyncThrowingStream.Iterator.next()()
   v2 = v0[6];
   v1 = v0[7];
   v3 = v0[5];
-  v4 = *(v0[3] + 32);
   swift_allocError();
-  (*(v2 + 32))(v5, v1, v3);
+  (*(v2 + 32))(v4, v1, v3);
   v1;
-  v6 = v0[1];
+  v5 = v0[1];
 
-  return v6();
+  return v5();
 }
 
 void AsyncThrowingStream.Iterator.next()()
 {
   v2 = *v1;
   v3 = *(*v1 + 72);
-  v4 = *(*v1 + 64);
-  v5 = *v1;
+  v4 = *v1;
   v3;
 
   if (v0)
@@ -8678,9 +7552,9 @@ void AsyncThrowingStream.Iterator.next()()
   else
   {
     *(v2 + 56);
-    v6 = *(v5 + 8);
+    v5 = *(v4 + 8);
 
-    v6();
+    v5();
   }
 }
 
@@ -8734,24 +7608,23 @@ void _sScs8IteratorV4next9isolationxSgScA_pSgYi_tYaq_YKFTQ1_()
 {
   v2 = *v1;
   v3 = (*v1)[11];
-  v4 = (*v1)[10];
-  v5 = *v1;
+  v4 = *v1;
   v3;
 
   if (v0)
   {
-    v6 = v2[8];
-    v7 = v2[9];
+    v5 = v2[8];
+    v6 = v2[9];
 
-    swift_task_switch(_sScs8IteratorV4next9isolationxSgScA_pSgYi_tYaq_YKFTY2_, v6, v7);
+    swift_task_switch(_sScs8IteratorV4next9isolationxSgScA_pSgYi_tYaq_YKFTY2_, v5, v6);
   }
 
   else
   {
     v2[7];
-    v8 = v5[1];
+    v7 = v4[1];
 
-    v8();
+    v7();
   }
 }
 
@@ -8794,30 +7667,27 @@ void _sScs8IteratorVyxq__GScIsScI4next9isolation7ElementQzSgScA_pSgYi_tYa7Failur
 
 void AsyncThrowingStream.Continuation.yield<>(with:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
-  v6 = *(a2 + 16);
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
+  v5 = *(a2 + 16);
+  v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](a1);
-  v10 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = *(v11 + 24);
-  v13 = type metadata accessor for Result();
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v13);
-  v16 = (&v19 - v15);
-  v17 = *v3;
-  (*(v18 + 16))(&v19 - v15, a1, v13);
+  v8 = &v15 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = *(v9 + 24);
+  v11 = type metadata accessor for Result();
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = (&v15 - v12);
+  (*(v14 + 16))(&v15 - v12, a1, v11);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    v20 = *v16;
-    AsyncThrowingStream._Storage.finish(throwing:)(&v20);
-    type metadata accessor for AsyncThrowingStream.Continuation.YieldResult();
+    v16 = *v13;
+    AsyncThrowingStream._Storage.finish(throwing:)(&v16);
+    type metadata accessor for AsyncThrowingStream.Continuation.YieldResult(0, v5, v10, MEMORY[0x1E69E7288]);
     swift_storeEnumTagMultiPayload();
   }
 
   else
   {
-    (*(v7 + 32))(v10, v16, v6);
-    AsyncThrowingStream._Storage.yield(_:)(v10, a3);
+    (*(v6 + 32))(v8, v13, v5);
+    AsyncThrowingStream._Storage.yield(_:)(v8, a3);
   }
 }
 
@@ -8845,7 +7715,7 @@ uint64_t static AsyncThrowingStream.makeStream<>(of:throwing:bufferingPolicy:)(v
   return result;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AsyncStream<A>.Continuation(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(_BYTE *))
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AsyncStream<A>.Continuation(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void *))
 {
   Hasher.init(_seed:)();
   a4(v6);
@@ -8854,46 +7724,42 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Asy
 
 void _DequeBuffer.deinit()
 {
-  v1 = *(*(*v0 + class metadata base offset for _DequeBuffer) - 8);
-  v3 = v0[3];
-  v2 = v0[4];
-  if (__OFADD__(v2, v3))
+  v2 = v0[3];
+  v1 = v0[4];
+  if (__OFADD__(v1, v2))
   {
     __break(1u);
   }
 
   else
   {
-    v4 = v0[2];
-    if (v4 >= v2 + v3)
+    v3 = v0[2];
+    if (v3 >= v1 + v2)
     {
-      v7 = v0 + ((*(v1 + 80) + 40) & ~*(v1 + 80)) + *(v1 + 72) * v2;
-      v8 = v0[3];
-      goto LABEL_7;
+      goto LABEL_5;
     }
 
-    v5 = v4 - v2;
-    if (!__OFSUB__(v4, v2))
+    v4 = v3 - v1;
+    if (!__OFSUB__(v3, v1))
     {
-      v6 = *(v1 + 72);
       UnsafeMutablePointer.deinitialize(count:)();
-      if (!__OFSUB__(v3, v5))
+      if (!__OFSUB__(v2, v4))
       {
-LABEL_7:
+LABEL_5:
         UnsafeMutablePointer.deinitialize(count:)();
 
-LABEL_13:
+LABEL_11:
         JUMPOUT(0x1865D4020);
       }
 
-LABEL_12:
+LABEL_10:
       __break(1u);
-      goto LABEL_13;
+      goto LABEL_11;
     }
   }
 
   __break(1u);
-  goto LABEL_12;
+  goto LABEL_10;
 }
 
 uint64_t _DequeBuffer.__deallocating_deinit()
@@ -8905,22 +7771,17 @@ uint64_t _DequeBuffer.__deallocating_deinit()
 
 uint64_t _DequeBuffer.description.getter()
 {
-  v1 = *(*v0 + class metadata base offset for _DequeBuffer);
   _StringGuts.grow(_:)(19);
 
-  strcpy(v8, "_DequeStorage<");
-  HIBYTE(v8[1]) = -18;
-  v2 = _typeName(_:qualified:)();
-  MEMORY[0x1865D3D30](v2);
+  strcpy(v3, "_DequeStorage<");
+  v0 = _typeName(_:qualified:)();
+  MEMORY[0x1865D3D30](v0);
 
   MEMORY[0x1865D3D30](62, 0xE100000000000000);
-  v3 = v0[2];
-  v4 = v0[3];
-  v5 = v0[4];
-  v6 = _DequeBufferHeader.description.getter();
-  MEMORY[0x1865D3D30](v6);
+  v1 = _DequeBufferHeader.description.getter();
+  MEMORY[0x1865D3D30](v1);
 
-  return v8[0];
+  return v3[0];
 }
 
 void *one-time initialization function for _emptyDequeStorage()
@@ -8955,19 +7816,10 @@ uint64_t _DequeBufferHeader.description.getter()
   return 0;
 }
 
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance _DequeBufferHeader()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  return _DequeBufferHeader.description.getter();
-}
-
 uint64_t protocol witness for CustomStringConvertible.description.getter in conformance _DequeSlot()
 {
-  v3 = *v0;
-  v1 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x1865D3D30](v1);
+  v0 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x1865D3D30](v0);
 
   return 64;
 }
@@ -8995,12 +7847,12 @@ uint64_t _ss20_UnsafeWrappedBufferV5first5count6secondAdByxGSPyxG_SiAGSitcfCyt_T
   return result;
 }
 
-uint64_t _UnsafeWrappedBuffer.init(first:count:second:count:)@<X0>(uint64_t a1@<X8>)
+uint64_t _UnsafeWrappedBuffer.init(first:count:second:count:)@<X0>(uint64_t a6@<X8>)
 {
-  v2 = UnsafeBufferPointer.init(start:count:)();
-  v4 = v3;
+  v7 = UnsafeBufferPointer.init(start:count:)();
+  v9 = v8;
   result = UnsafeBufferPointer.init(start:count:)();
-  if (v4 <= 0)
+  if (v9 <= 0)
   {
     result = _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
@@ -9008,11 +7860,11 @@ uint64_t _UnsafeWrappedBuffer.init(first:count:second:count:)@<X0>(uint64_t a1@<
 
   else
   {
-    *a1 = v2;
-    *(a1 + 8) = v4;
-    *(a1 + 16) = result;
-    *(a1 + 24) = v6;
-    *(a1 + 32) = 0;
+    *a6 = v7;
+    *(a6 + 8) = v9;
+    *(a6 + 16) = result;
+    *(a6 + 24) = v11;
+    *(a6 + 32) = 0;
   }
 
   return result;
@@ -9053,12 +7905,12 @@ uint64_t _UnsafeMutableWrappedBuffer.init(_:_:)@<X0>(uint64_t result@<X0>, uint6
   return result;
 }
 
-uint64_t _UnsafeMutableWrappedBuffer.init(first:count:second:count:)@<X0>(uint64_t a1@<X8>)
+uint64_t _UnsafeMutableWrappedBuffer.init(first:count:second:count:)@<X0>(uint64_t a6@<X8>)
 {
-  v2 = UnsafeMutableBufferPointer.init(start:count:)();
-  v4 = v3;
+  v7 = UnsafeMutableBufferPointer.init(start:count:)();
+  v9 = v8;
   result = UnsafeMutableBufferPointer.init(start:count:)();
-  if (v4 <= 0)
+  if (v9 <= 0)
   {
     result = _assertionFailure(_:_:file:line:flags:)();
     __break(1u);
@@ -9066,21 +7918,21 @@ uint64_t _UnsafeMutableWrappedBuffer.init(first:count:second:count:)@<X0>(uint64
 
   else
   {
-    if (v6)
+    if (v11)
     {
-      v7 = result;
+      v12 = result;
     }
 
     else
     {
-      v7 = 0;
+      v12 = 0;
     }
 
-    *a1 = v2;
-    *(a1 + 8) = v4;
-    *(a1 + 16) = v7;
-    *(a1 + 24) = v6;
-    *(a1 + 32) = v6 == 0;
+    *a6 = v7;
+    *(a6 + 8) = v9;
+    *(a6 + 16) = v12;
+    *(a6 + 24) = v11;
+    *(a6 + 32) = v11 == 0;
   }
 
   return result;
@@ -9155,50 +8007,42 @@ double _UnsafeMutableWrappedBuffer.init(mutating:)@<D0>(uint64_t a1@<X0>, uint64
 
 uint64_t _sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF@<X0>(void (*a1)(char *, char *)@<X0>, uint64_t a2@<X1>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X6>, uint64_t a6@<X8>)
 {
-  v29 = a5;
-  v30 = a2;
-  v32 = a4;
-  v31 = a1;
-  v28 = *(a3 - 8);
-  v10 = *(v28 + 64);
-  v11 = (MEMORY[0x1EEE9AC00])();
-  v13 = &v28 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = *(v14 + 16);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x1EEE9AC00](v11);
-  v20 = &v28 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = *(*(v21 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v18);
-  v24 = &v28 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v25 + 16))(v24, v6);
-  v26 = 1;
-  if ((*(v16 + 48))(v24, 1, v15) != 1)
+  v25 = a5;
+  v26 = a2;
+  v28 = a4;
+  v27 = a1;
+  v24 = *(a3 - 8);
+  v10 = MEMORY[0x1EEE9AC00](a1);
+  v12 = &v24 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = *(v13 + 16);
+  v15 = *(v14 - 8);
+  v16 = MEMORY[0x1EEE9AC00](v10);
+  v18 = &v24 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v16);
+  v20 = &v24 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v21 + 16))(v20, v6);
+  v22 = 1;
+  if ((*(v15 + 48))(v20, 1, v14) != 1)
   {
-    (*(v16 + 32))(v20, v24, v15);
-    v31(v20, v13);
-    (*(v16 + 8))(v20, v15);
+    (*(v15 + 32))(v18, v20, v14);
+    v27(v18, v12);
+    (*(v15 + 8))(v18, v14);
     if (v7)
     {
-      return (*(v28 + 32))(v29, v13, a3);
+      return (*(v24 + 32))(v25, v12, a3);
     }
 
-    v26 = 0;
+    v22 = 0;
   }
 
-  return (*(*(v32 - 8) + 56))(a6, v26, 1);
+  return (*(*(v28 - 8) + 56))(a6, v22, 1);
 }
 
 Swift::Void __swiftcall _UnsafeMutableWrappedBuffer.deinitialize()()
 {
-  v3 = *v1;
-  v2 = v1[1];
-  v4 = *(v0 + 16);
   UnsafeMutableBufferPointer._deinitializeAll()();
-  if ((v1[4] & 1) == 0)
+  if ((*(v0 + 32) & 1) == 0)
   {
-    v5 = v1[2];
-    v6 = v1[3];
 
     UnsafeMutableBufferPointer._deinitializeAll()();
   }
@@ -9224,98 +8068,96 @@ Swift::Void __swiftcall UnsafeMutableBufferPointer._deinitializeAll()()
 
 uint64_t _UnsafeMutableWrappedBuffer.initialize<A>(fromPrefixOf:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v34 = a3;
-  v35 = a4;
+  v32 = a3;
+  v33 = a4;
   v5 = *(a2 + 16);
   v6 = type metadata accessor for Optional();
-  v28 = *(v6 - 8);
-  v29 = v6;
-  v7 = *(v28 + 64);
-  v8 = MEMORY[0x1EEE9AC00](v6);
-  v10 = &v28 - v9;
-  v11 = *(*(v5 - 8) + 64);
-  v12 = MEMORY[0x1EEE9AC00](v8);
-  v31 = &v28 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v12);
-  v37 = &v28 - v14;
-  v36 = 0;
-  v15 = 0;
-  v16 = v4[1];
-  v38 = *v4;
-  v39 = v16;
-  v32 = v17;
-  v33 = (v17 + 48);
-  v18 = (v17 + 32);
-  v30 = v16;
+  v26 = *(v6 - 8);
+  v27 = v6;
+  v7 = MEMORY[0x1EEE9AC00](v6);
+  v9 = &v26 - v8;
+  v10 = MEMORY[0x1EEE9AC00](v7);
+  v29 = &v26 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v35 = &v26 - v12;
+  v34 = 0;
+  v13 = 0;
+  v14 = v4[1];
+  v36 = *v4;
+  v37 = v14;
+  v30 = v15;
+  v31 = (v15 + 48);
+  v16 = (v15 + 32);
+  v28 = v14;
   do
   {
-    if (v15 == v39)
+    if (v13 == v37)
     {
-      v19 = v37;
-      if (v36)
+      v17 = v35;
+      if (v34)
       {
-        v15 = v39;
+        v13 = v37;
         goto LABEL_16;
       }
 
       if (v4[4])
       {
-        return v39;
+        return v37;
       }
 
-      v20 = v4[3];
-      if (v20 < 1)
+      v18 = v4[3];
+      if (v18 < 1)
       {
-        return v39;
+        return v37;
       }
 
-      v15 = 0;
-      v38 = v4[2];
-      v39 = v20;
-      v36 = 1;
+      v13 = 0;
+      v36 = v4[2];
+      v37 = v18;
+      v34 = 1;
     }
 
     else
     {
-      v19 = v37;
+      v17 = v35;
     }
 
     dispatch thunk of IteratorProtocol.next()();
-    if ((*v33)(v10, 1, v5) == 1)
+    if ((*v31)(v9, 1, v5) == 1)
     {
       goto LABEL_13;
     }
 
-    v21 = *v18;
-    (*v18)(v19, v10, v5);
-    v22 = UnsafeMutableBufferPointer.baseAddress.getter();
-    if (!v22)
+    v19 = *v16;
+    (*v16)(v17, v9, v5);
+    v20 = UnsafeMutableBufferPointer.baseAddress.getter();
+    if (!v20)
     {
       goto LABEL_19;
     }
 
-    v23 = v19;
-    v24 = v31;
-    v25 = v22 + *(v32 + 72) * v15;
-    v21(v31, v23, v5);
-    v21(v25, v24, v5);
+    v21 = v17;
+    v22 = v29;
+    v23 = v20 + *(v30 + 72) * v13;
+    v19(v29, v21, v5);
+    v19(v23, v22, v5);
   }
 
-  while (!__OFADD__(v15++, 1));
+  while (!__OFADD__(v13++, 1));
   __break(1u);
 LABEL_13:
-  (*(v28 + 8))(v10, v29);
-  v39 = v15;
-  if ((v36 & 1) == 0)
+  (*(v26 + 8))(v9, v27);
+  v37 = v13;
+  if ((v34 & 1) == 0)
   {
-    return v39;
+    return v37;
   }
 
 LABEL_16:
-  v39 = v30 + v15;
-  if (!__OFADD__(v30, v15))
+  v37 = v28 + v13;
+  if (!__OFADD__(v28, v13))
   {
-    return v39;
+    return v37;
   }
 
   __break(1u);
@@ -9328,114 +8170,109 @@ LABEL_19:
 uint64_t _UnsafeMutableWrappedBuffer.initialize<A>(fromSequencePrefix:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v6 = v5;
-  v54 = a1;
-  v52 = a3;
+  v49 = a1;
+  v47 = a3;
   v10 = *(a3 + 16);
   v11 = type metadata accessor for Optional();
-  v49 = *(v11 - 8);
-  v50 = v11;
-  v12 = *(v49 + 64);
-  v13 = MEMORY[0x1EEE9AC00](v11);
-  v15 = &v48 - v14;
-  v59 = *(v10 - 8);
-  v16 = *(v59 + 64);
-  v17 = MEMORY[0x1EEE9AC00](v13);
-  v58 = &v48 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = MEMORY[0x1EEE9AC00](v17);
-  v21 = &v48 - v20;
-  v55 = *(a4 - 8);
-  v22 = *(v55 + 64);
-  MEMORY[0x1EEE9AC00](v19);
-  v24 = &v48 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v56 = a5;
+  v44 = *(v11 - 8);
+  v45 = v11;
+  v12 = MEMORY[0x1EEE9AC00](v11);
+  v14 = &v43 - v13;
+  v54 = *(v10 - 8);
+  v15 = MEMORY[0x1EEE9AC00](v12);
+  v53 = &v43 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v17 = MEMORY[0x1EEE9AC00](v15);
+  v19 = &v43 - v18;
+  v50 = *(a4 - 8);
+  MEMORY[0x1EEE9AC00](v17);
+  v21 = &v43 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v51 = a5;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v53 = *(AssociatedTypeWitness - 8);
-  v25 = *(v53 + 64);
+  v48 = *(AssociatedTypeWitness - 8);
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v61 = &v48 - v26;
-  v27 = v6[3];
-  v57 = v6[2];
-  v28 = *(v6 + 32);
-  if ((v28 & 1) == 0)
+  v56 = &v43 - v22;
+  v23 = *(v6 + 24);
+  v52 = *(v6 + 16);
+  v24 = *(v6 + 32);
+  if ((v24 & 1) == 0)
   {
-    v29 = v6[1];
-    if (v29 < dispatch thunk of Sequence.underestimatedCount.getter())
+    v25 = *(v6 + 8);
+    if (v25 < dispatch thunk of Sequence.underestimatedCount.getter())
     {
-      v30 = v54;
+      v26 = v49;
       dispatch thunk of Sequence.makeIterator()();
-      v31 = v30;
-      v32 = AssociatedTypeWitness;
+      v27 = v26;
+      v28 = AssociatedTypeWitness;
       AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-      v34 = v52;
+      v30 = v47;
 
-      return _UnsafeMutableWrappedBuffer.initialize<A>(fromPrefixOf:)(v31, v34, v32, AssociatedConformanceWitness);
+      return _UnsafeMutableWrappedBuffer.initialize<A>(fromPrefixOf:)(v27, v30, v28, AssociatedConformanceWitness);
     }
   }
 
-  v36 = *(v55 + 16);
-  v52 = a2;
-  v36(v24, a2, a4);
-  v37 = *v6;
-  v38 = v6[1];
-  v39 = dispatch thunk of Sequence._copyContents(initializing:)();
-  v51 = v38;
-  v40 = a4;
-  if (v39 != v38 || (v28 & 1) != 0)
+  v32 = *(v50 + 16);
+  v47 = a2;
+  v32(v21, a2, a4);
+  v33 = *(v6 + 8);
+  v34 = dispatch thunk of Sequence._copyContents(initializing:)();
+  v46 = v33;
+  v35 = a4;
+  if (v34 != v33 || (v24 & 1) != 0)
   {
-    (*(v55 + 8))(v52, a4);
+    (*(v50 + 8))(v47, a4);
 LABEL_19:
-    (*(v53 + 32))(v54, v61, AssociatedTypeWitness);
-    return v39;
+    (*(v48 + 32))(v49, v56, AssociatedTypeWitness);
+    return v34;
   }
 
-  if (v27 < 1)
+  if (v23 < 1)
   {
-    v27 = 0;
+    v23 = 0;
 LABEL_16:
-    (*(v55 + 8))(v52, v40);
-    v41 = v27;
+    (*(v50 + 8))(v47, v35);
+    v36 = v23;
   }
 
   else
   {
-    v48 = a4;
-    v56 = swift_getAssociatedConformanceWitness();
-    v41 = 0;
-    v42 = (v59 + 48);
-    v43 = (v59 + 32);
+    v43 = a4;
+    v51 = swift_getAssociatedConformanceWitness();
+    v36 = 0;
+    v37 = (v54 + 48);
+    v38 = (v54 + 32);
     while (1)
     {
       dispatch thunk of IteratorProtocol.next()();
-      if ((*v42)(v15, 1, v10) == 1)
+      if ((*v37)(v14, 1, v10) == 1)
       {
         break;
       }
 
-      v44 = *v43;
-      (*v43)(v21, v15, v10);
-      v45 = UnsafeMutableBufferPointer.baseAddress.getter();
-      if (!v45)
+      v39 = *v38;
+      (*v38)(v19, v14, v10);
+      v40 = UnsafeMutableBufferPointer.baseAddress.getter();
+      if (!v40)
       {
         goto LABEL_21;
       }
 
-      v46 = v58;
-      v47 = v45 + *(v59 + 72) * v41;
-      v44(v58, v21, v10);
-      v44(v47, v46, v10);
-      if (v27 == ++v41)
+      v41 = v53;
+      v42 = v40 + *(v54 + 72) * v36;
+      v39(v53, v19, v10);
+      v39(v42, v41, v10);
+      if (v23 == ++v36)
       {
-        v40 = v48;
+        v35 = v43;
         goto LABEL_16;
       }
     }
 
-    (*(v55 + 8))(v52, v48);
-    (*(v49 + 8))(v15, v50);
+    (*(v50 + 8))(v47, v43);
+    (*(v44 + 8))(v14, v45);
   }
 
-  v39 = v51 + v41;
-  if (!__OFADD__(v51, v41))
+  v34 = v46 + v36;
+  if (!__OFADD__(v46, v36))
   {
     goto LABEL_19;
   }
@@ -9449,59 +8286,55 @@ LABEL_21:
 
 uint64_t _UnsafeMutableWrappedBuffer.initialize<A>(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v66 = a2;
-  v67 = a1;
+  v62 = a2;
+  v63 = a1;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
   v9 = type metadata accessor for PartialRangeFrom();
-  v64 = *(v9 - 8);
-  v65 = v9;
-  v10 = *(v64 + 64);
+  v60 = *(v9 - 8);
+  v61 = v9;
   MEMORY[0x1EEE9AC00](v9);
-  v63 = &v47 - v11;
-  v12 = swift_getAssociatedTypeWitness();
-  v62 = *(v12 - 8);
-  v13 = *(v62 + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v61 = &v47 - v14;
-  v59 = AssociatedConformanceWitness;
-  v15 = type metadata accessor for PartialRangeUpTo();
-  v16 = *(*(v15 - 8) + 64);
-  v17 = MEMORY[0x1EEE9AC00](v15);
-  v57 = AssociatedTypeWitness;
-  v58 = &v47 - v18;
-  v60 = *(AssociatedTypeWitness - 8);
-  v19 = *(v60 + 64);
-  v20 = MEMORY[0x1EEE9AC00](v17);
-  v22 = &v47 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v23 = MEMORY[0x1EEE9AC00](v20);
-  v56 = &v47 - v25;
-  v26 = *(v4 + 24);
-  v27 = *(v4 + 32);
-  if (v27)
+  v59 = &v43 - v10;
+  v11 = swift_getAssociatedTypeWitness();
+  v58 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v57 = &v43 - v12;
+  v55 = AssociatedConformanceWitness;
+  v13 = type metadata accessor for PartialRangeUpTo();
+  v14 = MEMORY[0x1EEE9AC00](v13);
+  v53 = AssociatedTypeWitness;
+  v54 = &v43 - v15;
+  v56 = *(AssociatedTypeWitness - 8);
+  v16 = MEMORY[0x1EEE9AC00](v14);
+  v18 = &v43 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = MEMORY[0x1EEE9AC00](v16);
+  v52 = &v43 - v21;
+  v22 = *(v4 + 24);
+  v23 = *(v4 + 32);
+  if (v23)
   {
-    v28 = 0;
+    v24 = 0;
   }
 
   else
   {
-    v28 = *(v4 + 24);
+    v24 = *(v4 + 24);
   }
 
-  v29 = *(v4 + 8);
-  if (__OFADD__(v29, v28))
+  v25 = *(v4 + 8);
+  if (__OFADD__(v25, v24))
   {
     __break(1u);
     goto LABEL_14;
   }
 
-  v52 = v24;
-  v53 = v23;
-  v54 = v26;
-  v55 = v12;
-  v30 = v67;
-  v31 = a3;
-  if (v29 + v28 != dispatch thunk of Collection.count.getter())
+  v48 = v20;
+  v49 = v19;
+  v50 = v22;
+  v51 = v11;
+  v26 = v63;
+  v27 = a3;
+  if (v25 + v24 != dispatch thunk of Collection.count.getter())
   {
 LABEL_14:
     _assertionFailure(_:_:file:line:flags:)();
@@ -9512,96 +8345,92 @@ LABEL_15:
     return result;
   }
 
-  if ((v27 & 1) == 0)
+  if ((v23 & 1) == 0)
   {
-    v51 = *(v4 + 16);
+    v47 = *(v4 + 16);
     dispatch thunk of Collection.startIndex.getter();
-    v34 = *v4;
-    v48 = v29;
-    v49 = v34;
-    v35 = v56;
+    v30 = *v4;
+    v44 = v25;
+    v45 = v30;
+    v31 = v52;
     dispatch thunk of Collection.index(_:offsetBy:)();
-    v36 = v60;
-    v37 = v57;
-    (*(v60 + 8))(v22, v57);
-    v50 = *(v59 + 8);
+    v32 = v56;
+    v33 = v53;
+    (*(v56 + 8))(v18, v53);
+    v46 = *(v55 + 8);
     if (dispatch thunk of static Equatable.== infix(_:_:)())
     {
-      v38 = v58;
-      (*(v36 + 16))(v58, v35, v37);
-      v39 = v53;
+      v34 = v54;
+      (*(v32 + 16))(v54, v31, v33);
+      v35 = v49;
       swift_getWitnessTable();
-      v40 = v61;
+      v36 = v57;
       Collection.subscript.getter();
-      (*(v52 + 8))(v38, v39);
-      v41 = *(v66 + 16);
-      v42 = v55;
-      v43 = swift_getAssociatedConformanceWitness();
-      v66 = v41;
-      v59 = v43;
-      UnsafeMutableBufferPointer._initialize<A>(from:)(v40, v49, v48, v41, v42, v43);
-      v62 = *(v62 + 8);
-      (v62)(v40, v42);
+      (*(v48 + 8))(v34, v35);
+      v37 = *(v62 + 16);
+      v38 = v51;
+      v39 = swift_getAssociatedConformanceWitness();
+      v62 = v37;
+      v55 = v39;
+      UnsafeMutableBufferPointer._initialize<A>(from:)(v36, v45, v44, v37, v38, v39);
+      v58 = *(v58 + 8);
+      (v58)(v36, v38);
       if (dispatch thunk of static Equatable.== infix(_:_:)())
       {
-        v44 = v63;
-        (*(v36 + 32))(v63, v35, v37);
-        v45 = v65;
+        v40 = v59;
+        (*(v32 + 32))(v59, v31, v33);
+        v41 = v61;
         swift_getWitnessTable();
-        v46 = v67;
+        v42 = v63;
         Collection.subscript.getter();
-        (*(*(v31 - 8) + 8))(v46, v31);
-        (*(v64 + 8))(v44, v45);
-        UnsafeMutableBufferPointer._initialize<A>(from:)(v40, v51, v54, v66, v42, v59);
-        return (v62)(v40, v42);
+        (*(*(v27 - 8) + 8))(v42, v27);
+        (*(v60 + 8))(v40, v41);
+        UnsafeMutableBufferPointer._initialize<A>(from:)(v36, v47, v50, v62, v38, v55);
+        return (v58)(v36, v38);
       }
     }
 
     goto LABEL_15;
   }
 
-  UnsafeMutableBufferPointer._initialize<A>(from:)(v30, *v4, v29, *(v66 + 16), a3, a4);
-  v32 = *(*(a3 - 8) + 8);
+  UnsafeMutableBufferPointer._initialize<A>(from:)(v26, *v4, v25, *(v62 + 16), a3, a4);
+  v28 = *(*(a3 - 8) + 8);
 
-  return v32(v30, a3);
+  return v28(v26, a3);
 }
 
 uint64_t UnsafeMutableBufferPointer._initialize<A>(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v27 = a3;
-  v28 = a2;
-  v29 = a4;
-  v9 = type metadata accessor for Optional();
-  v30 = *(v9 - 8);
-  v31 = v9;
-  v10 = *(v30 + 64);
-  v11 = MEMORY[0x1EEE9AC00](v9);
-  v13 = &v26 - v12;
-  v14 = *(a5 - 8);
-  v15 = *(v14 + 64);
-  MEMORY[0x1EEE9AC00](v11);
-  v17 = &v26 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = *(a6 + 8);
+  v22 = a3;
+  v23 = a2;
+  v24 = a4;
+  v8 = type metadata accessor for Optional();
+  v25 = *(v8 - 8);
+  v26 = v8;
+  v9 = MEMORY[0x1EEE9AC00](v8);
+  v11 = &v21 - v10;
+  v12 = *(a5 - 8);
+  MEMORY[0x1EEE9AC00](v9);
+  v14 = &v21 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v20 = *(AssociatedTypeWitness - 8);
-  v21 = *(v20 + 64);
+  v16 = *(AssociatedTypeWitness - 8);
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v23 = &v26 - v22;
-  v24 = v27;
-  if (dispatch thunk of Collection.count.getter() == v24)
+  v18 = &v21 - v17;
+  v19 = v22;
+  if (dispatch thunk of Collection.count.getter() == v19)
   {
-    (*(v14 + 16))(v17, a1, a5);
-    if (dispatch thunk of Sequence._copyContents(initializing:)() == v24)
+    (*(v12 + 16))(v14, a1, a5);
+    if (dispatch thunk of Sequence._copyContents(initializing:)() == v19)
     {
       swift_getAssociatedConformanceWitness();
       dispatch thunk of IteratorProtocol.next()();
-      if ((*(*(v29 - 8) + 48))(v13, 1) == 1)
+      if ((*(*(v24 - 8) + 48))(v11, 1) == 1)
       {
-        (*(v20 + 8))(v23, AssociatedTypeWitness);
-        return (*(v30 + 8))(v13, v31);
+        (*(v16 + 8))(v18, AssociatedTypeWitness);
+        return (*(v25 + 8))(v11, v26);
       }
 
-      (*(v30 + 8))(v13, v31);
+      (*(v25 + 8))(v11, v26);
     }
   }
 
@@ -9613,29 +8442,28 @@ uint64_t UnsafeMutableBufferPointer._initialize<A>(from:)(uint64_t a1, uint64_t 
 uint64_t _UnsafeMutableWrappedBuffer.assign<A>(from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v9 = *(a3 - 8);
-  v10 = *(v9 + 64);
   MEMORY[0x1EEE9AC00](a1);
-  v12 = &v19 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = dispatch thunk of Collection.count.getter();
-  v14 = *(v4 + 24);
+  v11 = &v18 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = dispatch thunk of Collection.count.getter();
+  v13 = *(v4 + 24);
   if (*(v4 + 32))
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  v15 = *(v4 + 8);
-  v16 = __OFADD__(v15, v14);
-  v17 = v15 + v14;
-  if (v16)
+  v14 = *(v4 + 8);
+  v15 = __OFADD__(v14, v13);
+  v16 = v14 + v13;
+  if (v15)
   {
     __break(1u);
   }
 
-  else if (v13 == v17)
+  else if (v12 == v16)
   {
     _UnsafeMutableWrappedBuffer.deinitialize()();
-    (*(v9 + 16))(v12, a1, a3);
-    return _UnsafeMutableWrappedBuffer.initialize<A>(from:)(v12, a2, a3, a4);
+    (*(v9 + 16))(v11, a1, a3);
+    return _UnsafeMutableWrappedBuffer.initialize<A>(from:)(v11, a2, a3, a4);
   }
 
   result = _assertionFailure(_:_:file:line:flags:)();
@@ -9643,12 +8471,12 @@ uint64_t _UnsafeMutableWrappedBuffer.assign<A>(from:)(uint64_t a1, uint64_t a2, 
   return result;
 }
 
-uint64_t Sequence._withContiguousStorageIfAvailable_SR14663<A>(_:)@<X0>(uint64_t a1@<X2>, uint64_t a2@<X3>, uint64_t a3@<X8>)
+uint64_t Sequence._withContiguousStorageIfAvailable_SR14663<A>(_:)@<X0>(uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a6@<X8>)
 {
   swift_getAssociatedTypeWitness();
-  if (type metadata accessor for Array() == a1 && (_isBridgedVerbatimToObjectiveC<A>(_:)() & 1) != 0)
+  if (type metadata accessor for Array() == a3 && (_isBridgedVerbatimToObjectiveC<A>(_:)() & 1) != 0)
   {
-    return (*(*(a2 - 8) + 56))(a3, 1, 1, a2);
+    return (*(*(a4 - 8) + 56))(a6, 1, 1, a4);
   }
 
   else
@@ -9657,7 +8485,7 @@ uint64_t Sequence._withContiguousStorageIfAvailable_SR14663<A>(_:)@<X0>(uint64_t
   }
 }
 
-uint64_t _Deque._Storage.description.getter(void *a1)
+uint64_t _Deque._Storage.description.getter(uint64_t a1, uint64_t a2)
 {
   _StringGuts.grow(_:)(20);
 
@@ -9665,16 +8493,13 @@ uint64_t _Deque._Storage.description.getter(void *a1)
   MEMORY[0x1865D3D30](v2);
 
   MEMORY[0x1865D3D30](0x61726F74535F2E3ELL, 0xEA00000000006567);
-  v3 = a1[2];
-  v4 = a1[3];
-  v5 = a1[4];
-  v6 = _DequeBufferHeader.description.getter();
-  MEMORY[0x1865D3D30](v6);
+  v3 = _DequeBufferHeader.description.getter();
+  MEMORY[0x1865D3D30](v3);
 
   return 0x3C6575716544;
 }
 
-uint64_t _Deque._Storage.init()()
+uint64_t _Deque._Storage.init()(uint64_t a1)
 {
   if (one-time initialization token for _emptyDequeStorage != -1)
   {
@@ -9684,9 +8509,9 @@ uint64_t _Deque._Storage.init()()
   return ManagedBufferPointer.init(unsafeBufferObject:)();
 }
 
-uint64_t _Deque._Storage.init(minimumCapacity:)()
+uint64_t _Deque._Storage.init(minimumCapacity:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  type metadata accessor for _DequeBuffer();
+  type metadata accessor for _DequeBuffer(0, a2, a3, a4);
   static ManagedBuffer.create(minimumCapacity:makingHeaderWith:)();
 
   return ManagedBufferPointer.init(unsafeBufferObject:)();
@@ -9695,13 +8520,12 @@ uint64_t _Deque._Storage.init(minimumCapacity:)()
 uint64_t _ss20ManagedBufferPointerVsRi__rlE017withUnsafeMutableC8ToHeaderyqd_0_qd_0_SpyxGqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v11 = *(a6 - 8);
-  v12 = *(v11 + 64);
   MEMORY[0x1EEE9AC00](a1);
-  v14 = &v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = v17(v16 + ((*(*(v15 - 8) + 80) + 16) & ~*(*(v15 - 8) + 80)), v14);
+  v13 = &v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  result = v16(v15 + ((*(*(v14 - 8) + 80) + 16) & ~*(*(v14 - 8) + 80)), v13);
   if (v9)
   {
-    return (*(v11 + 32))(a9, v14, a6);
+    return (*(v11 + 32))(a9, v13, a6);
   }
 
   return result;
@@ -9710,34 +8534,33 @@ uint64_t _ss20ManagedBufferPointerVsRi__rlE017withUnsafeMutableC8ToHeaderyqd_0_q
 uint64_t _ss20ManagedBufferPointerVsRi__rlE25withUnsafeMutablePointersyqd_0_qd_0_SpyxG_Spyq_Gtqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   v11 = *(a6 - 8);
-  v12 = *(v11 + 64);
   result = MEMORY[0x1EEE9AC00](a1);
-  v18 = &v28 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = *(v19 - 8);
-  v21 = (*(v20 + 80) + 16) & ~*(v20 + 80);
-  v22 = *(v20 + 64);
-  v23 = __OFADD__(v21, v22);
-  v24 = v21 + v22;
-  if (v23)
+  v17 = &v27 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19 = *(v18 - 8);
+  v20 = (*(v19 + 80) + 16) & ~*(v19 + 80);
+  v21 = *(v19 + 64);
+  v22 = __OFADD__(v20, v21);
+  v23 = v20 + v21;
+  if (v22)
   {
     __break(1u);
     goto LABEL_7;
   }
 
-  v25 = *(*(v15 - 8) + 80);
-  v26 = __CFADD__(v24, v25 + 1);
-  v27 = v24 + v25 + 1;
-  if (v26)
+  v24 = *(*(v14 - 8) + 80);
+  v25 = __CFADD__(v23, v24 + 1);
+  v26 = v23 + v24 + 1;
+  if (v25)
   {
 LABEL_7:
     __break(1u);
     return result;
   }
 
-  result = v16(v14 + v21, v14 + ((v27 - 1) & ~v25), v18);
+  result = v15(v13 + v20, v13 + ((v26 - 1) & ~v24), v17);
   if (v9)
   {
-    return (*(v11 + 32))(a9, v18, a6);
+    return (*(v11 + 32))(a9, v17, a6);
   }
 
   return result;
@@ -9755,9 +8578,8 @@ uint64_t _Deque._Storage.read<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint
 
 Swift::Void __swiftcall _Deque._Storage.ensureUnique()()
 {
-  v1 = *(v0 + 16);
-  v2 = type metadata accessor for ManagedBufferPointer();
-  if ((MEMORY[0x1865D40D0](v2) & 1) == 0)
+  v0 = type metadata accessor for ManagedBufferPointer();
+  if ((MEMORY[0x1865D40D0](v0) & 1) == 0)
   {
 
     _Deque._Storage._makeUniqueCopy()();
@@ -9773,10 +8595,9 @@ Swift::Void __swiftcall _Deque._Storage._makeUniqueCopy()()
   *v1 = v5;
 }
 
-uint64_t _Deque._UnsafeHandle.copyElements()(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t _Deque._UnsafeHandle.copyElements()(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  type metadata accessor for _DequeBuffer();
-  v6 = *a1;
+  type metadata accessor for _DequeBuffer(0, a3, a3, a4);
   v10[8] = a1;
   v10[9] = a2;
   static ManagedBuffer.create(minimumCapacity:makingHeaderWith:)();
@@ -9876,10 +8697,10 @@ LABEL_17:
               if (*(v13 + 24) >= 1)
               {
                 specialized _Deque._UnsafeHandle.segments()(v14, v13 + 40, v24);
-                specialized _Deque._UnsafeHandle.initialize(at:from:)(*(v13 + 32), v24[0], v24[1], v18, v16 + 40, 201, specialized UnsafeMutablePointer.initialize(from:count:));
+                specialized _Deque._UnsafeHandle.initialize(at:from:)(*(v13 + 32), v24[0], v24[1], v18, v16 + 40, 201, specialized UnsafeMutablePointer.initialize(from:count:), 203);
                 if ((v25 & 1) == 0)
                 {
-                  specialized _Deque._UnsafeHandle.initialize(at:from:)(0, v24[2], v24[3], v18, v16 + 40, 201, specialized UnsafeMutablePointer.initialize(from:count:));
+                  specialized _Deque._UnsafeHandle.initialize(at:from:)(0, v24[2], v24[3], v18, v16 + 40, 201, specialized UnsafeMutablePointer.initialize(from:count:), 203);
                 }
               }
 
@@ -9965,5 +8786,1388 @@ LABEL_31:
 LABEL_38:
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);
+  return result;
+}
+
+Swift::Void __swiftcall _Deque._Storage._ensureUnique(minimumCapacity:linearGrowth:)(Swift::Int minimumCapacity, Swift::Bool linearGrowth)
+{
+  v4 = v2;
+  v7 = *(v2 + 16);
+  _ss20ManagedBufferPointerVsRi__rlE017withUnsafeMutableC8ToHeaderyqd_0_qd_0_SpyxGqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(closure #1 in _Deque._Storage.capacity.getter, 0, *v3, &type metadata for _DequeBufferHeader, v7, MEMORY[0x1E69E73E0], MEMORY[0x1E69E6530], MEMORY[0x1E69E7410], v18);
+  v8 = type metadata accessor for ManagedBufferPointer();
+  v9 = MEMORY[0x1865D40D0](v8);
+  v10 = v9;
+  if (v20 < minimumCapacity)
+  {
+    v11 = minimumCapacity;
+    v12 = *v3;
+    v13 = _Deque._Storage._growCapacity(to:linearly:)(v11, linearGrowth);
+    if (v10)
+    {
+      v18 = v7;
+      v19 = MEMORY[0x1EEE9AC00](v13);
+      v14 = partial apply for closure #2 in _Deque._Storage._ensureUnique(minimumCapacity:linearGrowth:);
+      v15 = partial apply for closure #1 in _Deque._Storage.update<A>(_:);
+LABEL_8:
+      _Deque._Storage.read<A>(_:)(v14, &v17, v12, v7, v4, v15);
+
+      *v3 = v20;
+      return;
+    }
+
+    v18 = v7;
+    v19 = MEMORY[0x1EEE9AC00](v13);
+    v16 = partial apply for closure #3 in _Deque._Storage._ensureUnique(minimumCapacity:linearGrowth:);
+LABEL_7:
+    v14 = v16;
+    v15 = partial apply for closure #1 in _Deque._Storage.read<A>(_:);
+    goto LABEL_8;
+  }
+
+  if ((v9 & 1) == 0)
+  {
+    v12 = *v3;
+    MEMORY[0x1EEE9AC00](v9);
+    v18 = v7;
+    v16 = partial apply for closure #1 in _Deque._Storage._ensureUnique(minimumCapacity:linearGrowth:);
+    goto LABEL_7;
+  }
+
+  _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+}
+
+uint64_t *specialized _Deque._UnsafeHandle.moveElements(minimumCapacity:)(uint64_t a1, void *a2, uint64_t a3)
+{
+  v3 = a2[1];
+  if (v3 > a1)
+  {
+    goto LABEL_13;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss12_DequeBufferCyytGMd, &_ss12_DequeBufferCyytGMR);
+  v6 = swift_allocObject();
+  v6[2] = _swift_stdlib_malloc_size(v6) - 40;
+  v6[3] = v3;
+  v6[4] = 0;
+  swift_getObjectType();
+  _swift_getObjCClassInstanceExtents();
+  if (v7 < 0)
+  {
+    goto LABEL_12;
+  }
+
+  if (v7 == 16)
+  {
+    goto LABEL_6;
+  }
+
+  _swift_getObjCClassInstanceExtents();
+  if (v8 < 0)
+  {
+LABEL_12:
+    _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+LABEL_13:
+    _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+    goto LABEL_14;
+  }
+
+  if (v8 != 40)
+  {
+LABEL_14:
+    result = _fatalErrorMessage(_:_:file:line:flags:)();
+    __break(1u);
+    return result;
+  }
+
+LABEL_6:
+  if ((_swift_objcClassUsesNativeSwiftReferenceCounting() & 1) == 0)
+  {
+    goto LABEL_14;
+  }
+
+  if (v3 > 0)
+  {
+    specialized _Deque._UnsafeHandle.segments()(a2, a3, v11);
+    _ss27_UnsafeMutableWrappedBufferV8mutatingAByxGs01_acD0VyxG_tcfCyt_Tt0g5(v11, v12);
+    v9 = specialized _Deque._UnsafeHandle.initialize(at:from:)(0, v12[0], v12[1], v6 + 2, (v6 + 5), 212, specialized UnsafeMutablePointer.moveInitialize(from:count:), 214);
+    if ((v13 & 1) == 0)
+    {
+      specialized _Deque._UnsafeHandle.initialize(at:from:)(v9, v12[2], v12[3], v6 + 2, (v6 + 5), 212, specialized UnsafeMutablePointer.moveInitialize(from:count:), 214);
+    }
+
+    a2[1] = 0;
+  }
+
+  return v6;
+}
+
+uint64_t _Deque._UnsafeHandle.moveElements(minimumCapacity:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4 = *(a2 + 8);
+  if (v4 > a1)
+  {
+    result = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+  }
+
+  else
+  {
+    v8 = type metadata accessor for _DequeBuffer(0, a4, a3, a4);
+    MEMORY[0x1EEE9AC00](v8);
+    v13 = v4;
+    static ManagedBuffer.create(minimumCapacity:makingHeaderWith:)();
+    v9 = ManagedBufferPointer.init(unsafeBufferObject:)();
+    v10 = v9;
+    if (v4 >= 1)
+    {
+      MEMORY[0x1EEE9AC00](v9);
+      v12[2] = a4;
+      v12[3] = a2;
+      v13 = a3;
+      _Deque._Storage.read<A>(_:)(partial apply for closure #2 in _Deque._UnsafeHandle.moveElements(minimumCapacity:), v12, v10, a4, MEMORY[0x1E69E7CA8] + 8, partial apply for closure #1 in _Deque._Storage.update<A>(_:));
+      *(a2 + 8) = 0;
+    }
+
+    return v10;
+  }
+
+  return result;
+}
+
+uint64_t *specialized _Deque._UnsafeHandle.copyElements(minimumCapacity:)(uint64_t a1, void *a2, uint64_t a3)
+{
+  if (a2[1] > a1)
+  {
+    goto LABEL_14;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss12_DequeBufferCyytGMd, &_ss12_DequeBufferCyytGMR);
+  v5 = swift_allocObject();
+  v6 = _swift_stdlib_malloc_size(v5);
+  v7 = a2[1];
+  v5[2] = v6 - 40;
+  v5[3] = v7;
+  v5[4] = 0;
+  swift_getObjectType();
+  _swift_getObjCClassInstanceExtents();
+  if (v8 < 0)
+  {
+LABEL_13:
+    _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+LABEL_14:
+    _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+    goto LABEL_15;
+  }
+
+  if (v8 != 16)
+  {
+    _swift_getObjCClassInstanceExtents();
+    if ((v9 & 0x8000000000000000) == 0)
+    {
+      if (v9 != 40)
+      {
+        goto LABEL_15;
+      }
+
+      goto LABEL_6;
+    }
+
+    goto LABEL_13;
+  }
+
+LABEL_6:
+  if (_swift_objcClassUsesNativeSwiftReferenceCounting())
+  {
+    v10 = a2[1];
+    if (v10 <= 0)
+    {
+      return v5;
+    }
+
+    if (v5[3] == v10 && !v5[4])
+    {
+      specialized _Deque._UnsafeHandle.segments()(a2, a3, v13);
+      v11 = specialized _Deque._UnsafeHandle.initialize(at:from:)(0, v13[0], v13[1], v5 + 2, (v5 + 5), 201, specialized UnsafeMutablePointer.initialize(from:count:), 203);
+      if ((v14 & 1) == 0)
+      {
+        specialized _Deque._UnsafeHandle.initialize(at:from:)(v11, v13[2], v13[3], v5 + 2, (v5 + 5), 201, specialized UnsafeMutablePointer.initialize(from:count:), 203);
+      }
+
+      return v5;
+    }
+
+    goto LABEL_14;
+  }
+
+LABEL_15:
+  result = _fatalErrorMessage(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+uint64_t _Deque._UnsafeHandle.copyElements(minimumCapacity:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (*(a2 + 8) > a1)
+  {
+    result = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+  }
+
+  else
+  {
+    v7 = type metadata accessor for _DequeBuffer(0, a4, a3, a4);
+    MEMORY[0x1EEE9AC00](v7);
+    v12 = a2;
+    v13 = a3;
+    static ManagedBuffer.create(minimumCapacity:makingHeaderWith:)();
+    v8 = ManagedBufferPointer.init(unsafeBufferObject:)();
+    v9 = v8;
+    if (*(a2 + 8) >= 1)
+    {
+      MEMORY[0x1EEE9AC00](v8);
+      v11[2] = a4;
+      v11[3] = a2;
+      v12 = a3;
+      _Deque._Storage.read<A>(_:)(partial apply for closure #2 in _Deque._UnsafeHandle.copyElements(minimumCapacity:), v11, v9, a4, MEMORY[0x1E69E7CA8] + 8, partial apply for closure #1 in _Deque._Storage.update<A>(_:));
+    }
+
+    return v9;
+  }
+
+  return result;
+}
+
+uint64_t _Deque._UnsafeHandle.ptr(at:)(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
+{
+  if ((a1 & 0x8000000000000000) == 0 && *a2 >= a1)
+  {
+    return a3 + *(*(a4 - 8) + 72) * a1;
+  }
+
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+uint64_t _Deque._UnsafeHandle.buffer(for:)(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
+{
+  if (*a3 < a2)
+  {
+    goto LABEL_7;
+  }
+
+  if (__OFSUB__(a2, a1))
+  {
+    __break(1u);
+LABEL_7:
+    result = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+    return result;
+  }
+
+  return UnsafeBufferPointer.init(start:count:)();
+}
+
+uint64_t _Deque._UnsafeHandle.limSlot.getter(uint64_t *a1)
+{
+  result = *a1;
+  if (result < 0)
+  {
+    result = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t specialized _Deque._UnsafeHandle.slot(after:)(uint64_t a1, uint64_t *a2)
+{
+  if (*a2 <= a1)
+  {
+    goto LABEL_7;
+  }
+
+  result = a1 + 1;
+  if (result >= *a2)
+  {
+    return 0;
+  }
+
+  if (a1 <= -2)
+  {
+LABEL_7:
+    result = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+  }
+
+  return result;
+}
+
+Swift::_DequeSlot __swiftcall _Deque._UnsafeHandle.slot(before:)(Swift::_DequeSlot before)
+{
+  v2 = *v1;
+  if (*v1 <= before.position)
+  {
+    goto LABEL_10;
+  }
+
+  if (!before.position)
+  {
+    if (v2 > 0)
+    {
+      return (v2 - 1);
+    }
+
+LABEL_10:
+    result.position = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+    return result;
+  }
+
+  v3 = __OFSUB__(before.position, 1);
+  result.position = before.position - 1;
+  if (v3)
+  {
+    __break(1u);
+    goto LABEL_10;
+  }
+
+  if (result.position < 0)
+  {
+    goto LABEL_10;
+  }
+
+  return result;
+}
+
+uint64_t specialized _Deque._UnsafeHandle.slot(_:offsetBy:)(uint64_t a1, uint64_t a2, uint64_t *a3)
+{
+  v3 = *a3;
+  if (*a3 < a1)
+  {
+    goto LABEL_15;
+  }
+
+  v5 = __OFADD__(a1, a2);
+  result = a1 + a2;
+  if (v5)
+  {
+    __break(1u);
+    goto LABEL_13;
+  }
+
+  if (a2 < 0)
+  {
+    if ((result & 0x8000000000000000) == 0)
+    {
+      return result;
+    }
+
+    v5 = __OFADD__(result, v3);
+    result += v3;
+    if (v5)
+    {
+      goto LABEL_14;
+    }
+
+LABEL_10:
+    if ((result & 0x8000000000000000) == 0)
+    {
+      return result;
+    }
+
+LABEL_15:
+    result = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+    return result;
+  }
+
+  v5 = __OFSUB__(result, v3);
+  v6 = result - v3;
+  if (v6 < 0 != v5)
+  {
+    goto LABEL_10;
+  }
+
+  if (v5)
+  {
+LABEL_13:
+    __break(1u);
+LABEL_14:
+    __break(1u);
+    goto LABEL_15;
+  }
+
+  result = v6;
+  if (v6 < 0)
+  {
+    goto LABEL_15;
+  }
+
+  return result;
+}
+
+Swift::_DequeSlot __swiftcall _Deque._UnsafeHandle.slot(forOffset:)(Swift::Int forOffset)
+{
+  if (forOffset < 0)
+  {
+    goto LABEL_9;
+  }
+
+  v2 = *v1;
+  if (*v1 < forOffset)
+  {
+    goto LABEL_9;
+  }
+
+  result.position = v1[2] + forOffset;
+  v4 = __OFSUB__(result.position, v2);
+  v5 = result.position - v2;
+  if (v5 < 0 != v4)
+  {
+    if ((result.position & 0x8000000000000000) == 0)
+    {
+      return result;
+    }
+
+LABEL_9:
+    result.position = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+    return result;
+  }
+
+  result.position = v5;
+  if (v5 < 0)
+  {
+    goto LABEL_9;
+  }
+
+  return result;
+}
+
+void *specialized _Deque._UnsafeHandle.segments()@<X0>(void *result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  v4 = result[2];
+  v5 = *result - v4;
+  if (__OFSUB__(*result, v4))
+  {
+    __break(1u);
+LABEL_17:
+    __break(1u);
+    goto LABEL_18;
+  }
+
+  v7 = result[1];
+  v9 = v4 < 0 || *result < v4;
+  if (v5 < v7)
+  {
+    if (!v9)
+    {
+      if (!__OFSUB__(v7, v5))
+      {
+        result = _ss20_UnsafeWrappedBufferV5first5count6secondAdByxGSPyxG_SiAGSitcfCyt_Tt3g5(a2 + v4, v5, a2, v7 - v5, v13);
+        v10 = v13[0];
+        v7 = v13[1];
+        v11 = v14;
+        v12 = v15;
+LABEL_15:
+        *a3 = v10;
+        *(a3 + 8) = v7;
+        *(a3 + 16) = v11;
+        *(a3 + 32) = v12;
+        return result;
+      }
+
+      goto LABEL_17;
+    }
+
+LABEL_18:
+    _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+    goto LABEL_19;
+  }
+
+  if (v9)
+  {
+    goto LABEL_18;
+  }
+
+  if ((v7 & 0x8000000000000000) == 0)
+  {
+    v10 = a2 + v4;
+    v11 = 0uLL;
+    v12 = 1;
+    goto LABEL_15;
+  }
+
+LABEL_19:
+  result = _fatalErrorMessage(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+uint64_t _Deque._UnsafeHandle.segments()@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v6 = *a1;
+  result = a1[2];
+  v8 = v6 - result;
+  if (__OFSUB__(v6, result))
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    v11 = a1[1];
+    _Deque._UnsafeHandle.ptr(at:)(result, a1, a2, a3);
+    if (v8 >= v11)
+    {
+      result = UnsafeBufferPointer.init(start:count:)();
+      v13 = 1;
+      LOBYTE(v15[0]) = 1;
+      v12 = 0uLL;
+      goto LABEL_6;
+    }
+
+    result = _Deque._UnsafeHandle.ptr(at:)(0, a1, a2, a3);
+    if (!__OFSUB__(a1[1], v8))
+    {
+      _UnsafeWrappedBuffer.init(first:count:second:count:)(v15);
+      v12 = v16;
+      v13 = v17;
+      result = v15[0];
+      v14 = v15[1];
+LABEL_6:
+      *a4 = result;
+      *(a4 + 8) = v14;
+      *(a4 + 16) = v12;
+      *(a4 + 32) = v13;
+      return result;
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t _Deque._UnsafeHandle.segments(forOffsets:)@<X0>(Swift::Int a1@<X0>, Swift::Int a2@<X1>, void *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+{
+  if ((a1 & 0x8000000000000000) == 0 && a3[1] >= a2)
+  {
+    v12.position = _Deque._UnsafeHandle.slot(forOffset:)(a1).position;
+    v13.position = _Deque._UnsafeHandle.slot(forOffset:)(a2).position;
+    v14 = __OFSUB__(a2, a1);
+    v15 = a2 - a1;
+    if (v14)
+    {
+      __break(1u);
+    }
+
+    else
+    {
+      position = v13.position;
+      _Deque._UnsafeHandle.ptr(at:)(v12.position, a3, a4, a5);
+      if (!v15 || v12.position < position)
+      {
+        result = UnsafeBufferPointer.init(start:count:)();
+        v18 = 1;
+        LOBYTE(v21[0]) = 1;
+        v17 = 0uLL;
+        goto LABEL_9;
+      }
+
+      if (!__OFSUB__(*a3, v12.position))
+      {
+        _Deque._UnsafeHandle.ptr(at:)(0, a3, a4, a5);
+        _UnsafeWrappedBuffer.init(first:count:second:count:)(v21);
+        v17 = v22;
+        v18 = v23;
+        result = v21[0];
+        v20 = v21[1];
+LABEL_9:
+        *a6 = result;
+        *(a6 + 8) = v20;
+        *(a6 + 16) = v17;
+        *(a6 + 32) = v18;
+        return result;
+      }
+    }
+
+    __break(1u);
+  }
+
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+uint64_t _Deque._UnsafeHandle.availableSegments()@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+{
+  v8 = specialized _Deque._UnsafeHandle.slot(_:offsetBy:)(a1[2], a1[1], a1);
+  if (a1[1] >= *a1)
+  {
+    _Deque._UnsafeHandle.ptr(at:)(v8, a1, a2, a3);
+    result = UnsafeMutableBufferPointer.init(start:count:)();
+    v13 = 0;
+    v14 = 0;
+    v15 = 1;
+    goto LABEL_12;
+  }
+
+  v9 = a1[2];
+  if (v8 < v9)
+  {
+    v10 = _Deque._UnsafeHandle.buffer(for:)(v8, v9, a1, a2, a3);
+    result = MEMORY[0x1865D3F60](v10);
+    v13 = 0;
+    v14 = 0;
+    v15 = 1;
+LABEL_12:
+    *a4 = result;
+    *(a4 + 8) = v12;
+    *(a4 + 16) = v13;
+    *(a4 + 24) = v14;
+    *(a4 + 32) = v15;
+    return result;
+  }
+
+  v16 = v8;
+  v17 = _Deque._UnsafeHandle.limSlot.getter(a1);
+  if (v17 < v16 || (v18 = _Deque._UnsafeHandle.buffer(for:)(v16, v17, a1, a2, a3), v19 = MEMORY[0x1865D3F60](v18), v21 = v20, v22 = a1[2], v22 < 0))
+  {
+    _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+  }
+
+  else
+  {
+    v23 = v19;
+    v24 = _Deque._UnsafeHandle.buffer(for:)(0, v22, a1, a2, a3);
+    v25 = MEMORY[0x1865D3F60](v24);
+    if (v21 > 0)
+    {
+      v14 = v26;
+      v12 = v21;
+      v15 = v14 == 0;
+      if (v14)
+      {
+        v13 = v25;
+      }
+
+      else
+      {
+        v13 = 0;
+      }
+
+      result = v23;
+      goto LABEL_12;
+    }
+  }
+
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+void *specialized UnsafeMutablePointer.initialize(from:count:)(char *__src, size_t __n, char *__dst)
+{
+  if ((__n & 0x8000000000000000) != 0 || &__dst[__n] > __src && &__src[__n] > __dst)
+  {
+    result = _fatalErrorMessage(_:_:file:line:flags:)();
+    __break(1u);
+  }
+
+  else
+  {
+
+    return memcpy(__dst, __src, __n);
+  }
+
+  return result;
+}
+
+uint64_t specialized _Deque._UnsafeHandle.initialize(at:from:)(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6, void (*a7)(uint64_t, uint64_t, uint64_t), uint64_t a8)
+{
+  v8 = result + a3;
+  if (__OFADD__(result, a3))
+  {
+    __break(1u);
+    goto LABEL_13;
+  }
+
+  if (*a4 < v8)
+  {
+    goto LABEL_13;
+  }
+
+  if (a3 < 1)
+  {
+    return result;
+  }
+
+  if (result < 0 || *a4 < result)
+  {
+    goto LABEL_13;
+  }
+
+  if (!a2)
+  {
+    _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+    goto LABEL_13;
+  }
+
+  a7(a2, a3, a5 + result);
+  result = v8;
+  if (v8 < 0)
+  {
+LABEL_13:
+    result = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+  }
+
+  return result;
+}
+
+uint64_t _Deque._UnsafeHandle.initialize(at:from:)(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t (*a8)(uint64_t, uint64_t, uint64_t), void (*a9)(uint64_t, uint64_t, uint64_t, uint64_t), uint64_t a10)
+{
+  v10 = result + a3;
+  if (__OFADD__(result, a3))
+  {
+    __break(1u);
+    goto LABEL_10;
+  }
+
+  if (*a4 < v10)
+  {
+    goto LABEL_10;
+  }
+
+  if (a3 < 1)
+  {
+    return result;
+  }
+
+  v15 = _Deque._UnsafeHandle.ptr(at:)(result, a4, a5, a6);
+  v16 = a8(a2, a3, a6);
+  if (!v16)
+  {
+    _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+    goto LABEL_10;
+  }
+
+  a9(v16, a3, v15, a6);
+  result = v10;
+  if (v10 < 0)
+  {
+LABEL_10:
+    result = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+  }
+
+  return result;
+}
+
+char *specialized UnsafeMutablePointer.moveInitialize(from:count:)(char *__src, size_t __len, char *__dst)
+{
+  if ((__len & 0x8000000000000000) != 0)
+  {
+    __src = _fatalErrorMessage(_:_:file:line:flags:)();
+    __break(1u);
+  }
+
+  else if (__dst != __src || &__src[__len] <= __dst)
+  {
+
+    return memmove(__dst, __src, __len);
+  }
+
+  return __src;
+}
+
+char *specialized UnsafeMutablePointer.moveInitialize(from:count:)(char *__src, uint64_t a2, char *__dst)
+{
+  if (a2 < 0)
+  {
+    __src = _fatalErrorMessage(_:_:file:line:flags:)();
+    __break(1u);
+  }
+
+  else if (__dst != __src || &__src[8 * a2] <= __dst)
+  {
+
+    return memmove(__dst, __src, 8 * a2);
+  }
+
+  return __src;
+}
+
+Swift::tuple_source__DequeSlot_target__DequeSlot __swiftcall _Deque._UnsafeHandle.move(from:to:count:)(Swift::_DequeSlot from, Swift::_DequeSlot to, Swift::Int count)
+{
+  if (count < 0)
+  {
+    goto LABEL_11;
+  }
+
+  position = from.position;
+  if (__OFADD__(from.position, count))
+  {
+    __break(1u);
+    goto LABEL_10;
+  }
+
+  v8 = v3;
+  if (*v3 < from.position + count)
+  {
+LABEL_11:
+    v12 = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+    goto LABEL_12;
+  }
+
+  if (__OFADD__(to.position, count))
+  {
+LABEL_10:
+    __break(1u);
+    goto LABEL_11;
+  }
+
+  if (*v3 < to.position + count)
+  {
+    goto LABEL_11;
+  }
+
+  if (count)
+  {
+    v9 = v5;
+    v10 = v4;
+    v11 = to.position;
+    _Deque._UnsafeHandle.ptr(at:)(to.position, v3, v4, v5);
+    _Deque._UnsafeHandle.ptr(at:)(position, v8, v10, v9);
+    UnsafeMutablePointer.moveInitialize(from:count:)();
+    position = specialized _Deque._UnsafeHandle.slot(_:offsetBy:)(position, count, v8);
+    to.position = specialized _Deque._UnsafeHandle.slot(_:offsetBy:)(v11, count, v8);
+  }
+
+  v12 = position;
+LABEL_12:
+  result.target = to;
+  result.source.position = v12;
+  return result;
+}
+
+uint64_t _Deque._UnsafeHandle.uncheckedReplaceInPlace<A>(inOffsets:with:)(Swift::Int a1, Swift::Int a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  if (a4[1] < a2)
+  {
+    goto LABEL_8;
+  }
+
+  result = dispatch thunk of Collection.count.getter();
+  if (__OFSUB__(a2, a1))
+  {
+    __break(1u);
+    goto LABEL_8;
+  }
+
+  if (result != a2 - a1)
+  {
+LABEL_8:
+    result = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+    return result;
+  }
+
+  if (a1 != a2)
+  {
+    _Deque._UnsafeHandle.segments(forOffsets:)(a1, a2, a4, a5, a6, v21);
+    _UnsafeMutableWrappedBuffer.init(mutating:)(v21, a6, v20);
+    v19 = type metadata accessor for _UnsafeMutableWrappedBuffer(0, a6, v17, v18);
+    return _UnsafeMutableWrappedBuffer.assign<A>(from:)(a3, v19, a7, a8);
+  }
+
+  return result;
+}
+
+uint64_t specialized _Deque._UnsafeHandle.uncheckedAppend(_:)(uint64_t *a1)
+{
+  v1 = a1[1];
+  if (v1 >= *a1 || (result = specialized _Deque._UnsafeHandle.slot(_:offsetBy:)(a1[2], v1, a1), result < 0) || *a1 < result)
+  {
+    result = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+  }
+
+  else
+  {
+    a1[1] = v1 + 1;
+  }
+
+  return result;
+}
+
+uint64_t _Deque._UnsafeHandle.uncheckedAppend(_:)(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
+{
+  v8 = *(a4 - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v10 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = *(v11 + 8);
+  if (v12 < *a2)
+  {
+    v13 = specialized _Deque._UnsafeHandle.slot(_:offsetBy:)(a2[2], v12, a2);
+    v14 = _Deque._UnsafeHandle.ptr(at:)(v13, a2, a3, a4);
+    (*(v8 + 16))(v10, a1, a4);
+    result = (*(v8 + 32))(v14, v10, a4);
+    v16 = a2[1];
+    v17 = __OFADD__(v16, 1);
+    v18 = v16 + 1;
+    if (!v17)
+    {
+      a2[1] = v18;
+      return result;
+    }
+
+    __break(1u);
+  }
+
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+Swift::Int _Deque._UnsafeHandle.uncheckedAppend(contentsOf:)(uint64_t a1, uint64_t a2, Swift::Int *a3, uint64_t a4, uint64_t a5)
+{
+  result = a3[1];
+  v8 = __OFADD__(result, a2);
+  v9 = result + a2;
+  if (v8)
+  {
+    __break(1u);
+    goto LABEL_8;
+  }
+
+  if (*a3 < v9)
+  {
+LABEL_8:
+    _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+    goto LABEL_9;
+  }
+
+  if (a2 < 1)
+  {
+    return result;
+  }
+
+  a3[1] = v9;
+  if (v9 < result)
+  {
+LABEL_9:
+    result = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+    return result;
+  }
+
+  _Deque._UnsafeHandle.segments(forOffsets:)(result, v9, a3, a4, a5, v17);
+  _UnsafeMutableWrappedBuffer.init(mutating:)(v17, a5, v16);
+  v17[0] = a1;
+  v17[1] = a2;
+  v13 = type metadata accessor for _UnsafeMutableWrappedBuffer(0, a5, v11, v12);
+  v14 = type metadata accessor for UnsafeBufferPointer();
+  WitnessTable = swift_getWitnessTable();
+  return _UnsafeMutableWrappedBuffer.initialize<A>(from:)(v17, v13, v14, WitnessTable);
+}
+
+uint64_t _Deque._UnsafeHandle.uncheckedPrepend(_:)(uint64_t a1, Swift::_DequeSlot *a2, uint64_t a3, uint64_t a4)
+{
+  v8 = *(a4 - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (v11[1] < *v11)
+  {
+    position = _Deque._UnsafeHandle.slot(before:)(a2[2]).position;
+    v13 = _Deque._UnsafeHandle.ptr(at:)(position, a2, a3, a4);
+    (*(v8 + 16))(v10, a1, a4);
+    result = (*(v8 + 32))(v13, v10, a4);
+    a2[2].position = position;
+    v15 = a2[1].position;
+    v16 = __OFADD__(v15, 1);
+    v17 = v15 + 1;
+    if (!v16)
+    {
+      a2[1].position = v17;
+      return result;
+    }
+
+    __break(1u);
+  }
+
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+uint64_t _Deque._UnsafeHandle.mutableWrappedBuffer(between:and:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+{
+  if (*a3 >= a1 && *a3 >= a2)
+  {
+    _Deque._UnsafeHandle.ptr(at:)(a1, a3, a4, a5);
+    if (a1 >= a2)
+    {
+      if (!__OFSUB__(*a3, a1))
+      {
+        _Deque._UnsafeHandle.ptr(at:)(0, a3, a4, a5);
+        _UnsafeMutableWrappedBuffer.init(first:count:second:count:)(v16);
+        v15 = v17;
+        v14 = v18;
+        result = v16[0];
+        v13 = v16[1];
+        goto LABEL_8;
+      }
+    }
+
+    else
+    {
+      if (!__OFSUB__(a2, a1))
+      {
+        result = UnsafeMutableBufferPointer.init(start:count:)();
+        v14 = 1;
+        LOBYTE(v16[0]) = 1;
+        v15 = 0uLL;
+LABEL_8:
+        *a6 = result;
+        *(a6 + 8) = v13;
+        *(a6 + 16) = v15;
+        *(a6 + 32) = v14;
+        return result;
+      }
+
+      __break(1u);
+    }
+
+    __break(1u);
+  }
+
+  result = _assertionFailure(_:_:file:line:flags:)();
+  __break(1u);
+  return result;
+}
+
+uint64_t _Deque._UnsafeHandle.uncheckedInsert<A>(contentsOf:count:atOffset:)(uint64_t a1, Swift::Int a2, Swift::Int a3, uint64_t *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  if (a4[1] >= a3 && dispatch thunk of Collection.count.getter() == a2)
+  {
+    if (a2 < 1)
+    {
+      v20 = *(*(a7 - 8) + 8);
+
+      return v20(a1, a7);
+    }
+
+    else
+    {
+      _Deque._UnsafeHandle.openGap(ofSize:atOffset:)(a2, a3, a4, a5, a6, v21);
+      v18 = type metadata accessor for _UnsafeMutableWrappedBuffer(0, a6, v16, v17);
+      return _UnsafeMutableWrappedBuffer.initialize<A>(from:)(a1, v18, a7, a8);
+    }
+  }
+
+  else
+  {
+    result = _assertionFailure(_:_:file:line:flags:)();
+    __break(1u);
+  }
+
+  return result;
+}
+
+double _Deque._UnsafeHandle.openGap(ofSize:atOffset:)@<D0>(Swift::Int a1@<X0>, Swift::Int a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+{
+  if (a2 < 0)
+  {
+    goto LABEL_64;
+  }
+
+  v8 = a3[1];
+  v9 = v8 - a2;
+  if (v8 < a2)
+  {
+    goto LABEL_64;
+  }
+
+  if (__OFADD__(v8, a1))
+  {
+    __break(1u);
+    goto LABEL_56;
+  }
+
+  if (*a3 < v8 + a1 || a1 <= 0)
+  {
+    goto LABEL_64;
+  }
+
+  v13 = a3[2];
+  if (v9 <= a2)
+  {
+    v23 = specialized _Deque._UnsafeHandle.slot(_:offsetBy:)(v13, v8, a3);
+    v24 = a3[1];
+    if (!__OFADD__(v24, a1))
+    {
+      v13 = v23;
+      v25 = specialized _Deque._UnsafeHandle.slot(_:offsetBy:)(a3[2], v24 + a1, a3);
+      v15.position = _Deque._UnsafeHandle.slot(forOffset:)(a2).position;
+      v26 = specialized _Deque._UnsafeHandle.slot(_:offsetBy:)(v15.position, a1, a3);
+      v14.position = v26;
+      v27 = *a3;
+      v28 = v13;
+      if (v13 || (v28 = *a3, (v27 & 0x8000000000000000) == 0))
+      {
+        v29 = v25;
+        if (v25 || (v29 = *a3, (v27 & 0x8000000000000000) == 0))
+        {
+          if (v28 >= v15.position)
+          {
+            if (v29 < v26)
+            {
+              v34 = _Deque._UnsafeHandle.limSlot.getter(a3) - a1;
+              if (v34 < 0)
+              {
+                goto LABEL_64;
+              }
+
+              _Deque._UnsafeHandle.move(from:to:count:)(v34, 0, v25);
+              v35 = __OFSUB__(v9, v25);
+              v9 -= v25;
+              if (v35)
+              {
+                __break(1u);
+LABEL_37:
+                if (v13 < v14.position)
+                {
+                  goto LABEL_64;
+                }
+
+                if (__OFSUB__(v17, v13))
+                {
+                  goto LABEL_61;
+                }
+
+                _Deque._UnsafeHandle.move(from:to:count:)(v13, v14, v17 - v13);
+                v32 = _Deque._UnsafeHandle.limSlot.getter(a3) - a1;
+                if (v32 < 0)
+                {
+                  goto LABEL_64;
+                }
+
+                v31.position = 0;
+                position = v15.position;
+                goto LABEL_42;
+              }
+            }
+          }
+
+          else if (v29 >= v26)
+          {
+            v40 = v13;
+            if (!v13)
+            {
+              v40 = *a3;
+              if (v27 < 0)
+              {
+                goto LABEL_64;
+              }
+            }
+
+            if (v40 >= a3[2])
+            {
+              goto LABEL_64;
+            }
+
+            _Deque._UnsafeHandle.move(from:to:count:)(0, a1, v13);
+            v9 = *a3 - v15.position;
+            if (__OFSUB__(*a3, v15.position))
+            {
+LABEL_63:
+              __break(1u);
+              goto LABEL_64;
+            }
+          }
+
+          else
+          {
+            _Deque._UnsafeHandle.move(from:to:count:)(0, a1, v13);
+            v30 = _Deque._UnsafeHandle.limSlot.getter(a3) - a1;
+            if (v30 < 0)
+            {
+              goto LABEL_64;
+            }
+
+            _Deque._UnsafeHandle.move(from:to:count:)(v30, 0, a1);
+            v17 = v9 - a1;
+            if (__OFSUB__(v9, a1))
+            {
+              goto LABEL_62;
+            }
+
+            v9 = v17 - v13;
+            if (__OFSUB__(v17, v13))
+            {
+              __break(1u);
+              goto LABEL_28;
+            }
+          }
+
+          _Deque._UnsafeHandle.move(from:to:count:)(v15, v14, v9);
+          v41 = a3[1];
+          v35 = __OFADD__(v41, a1);
+          v42 = v41 + a1;
+          if (v35)
+          {
+LABEL_58:
+            __break(1u);
+            goto LABEL_59;
+          }
+
+          a3[1] = v42;
+          if (v14.position || (v14.position = *a3, (*a3 & 0x8000000000000000) == 0))
+          {
+            v38 = v15.position;
+            v39 = v14.position;
+            goto LABEL_54;
+          }
+        }
+      }
+
+      while (1)
+      {
+LABEL_64:
+        _assertionFailure(_:_:file:line:flags:)();
+        __break(1u);
+      }
+    }
+
+LABEL_56:
+    __break(1u);
+    goto LABEL_57;
+  }
+
+  v14.position = specialized _Deque._UnsafeHandle.slot(_:offsetBy:)(v13, -a1, a3);
+  v15.position = _Deque._UnsafeHandle.slot(forOffset:)(a2).position;
+  v16 = specialized _Deque._UnsafeHandle.slot(_:offsetBy:)(v15.position, -a1, a3);
+  v9 = v16;
+  v17 = *a3;
+  v18 = v15.position;
+  if (!v15.position)
+  {
+    v18 = *a3;
+    if (v17 < 0)
+    {
+      goto LABEL_64;
+    }
+  }
+
+  v19 = v16;
+  if (!v16)
+  {
+    v19 = *a3;
+    if (v17 < 0)
+    {
+      goto LABEL_64;
+    }
+  }
+
+  if (v18 < v13)
+  {
+    if (v19 < v14.position)
+    {
+      if (__OFSUB__(v17, v13))
+      {
+LABEL_59:
+        __break(1u);
+        goto LABEL_60;
+      }
+
+      _Deque._UnsafeHandle.move(from:to:count:)(v13, v14, v17 - v13);
+      v20 = _Deque._UnsafeHandle.limSlot.getter(a3) - a1;
+      if (v20 < 0)
+      {
+        goto LABEL_64;
+      }
+
+      v21.position = 0;
+      v22 = a1;
+      goto LABEL_31;
+    }
+
+    goto LABEL_37;
+  }
+
+LABEL_28:
+  if (v19 < v14.position)
+  {
+    v22 = v17 - v14.position;
+    if (__OFSUB__(v17, v14.position))
+    {
+LABEL_60:
+      __break(1u);
+LABEL_61:
+      __break(1u);
+LABEL_62:
+      __break(1u);
+      goto LABEL_63;
+    }
+
+    v21.position = v13;
+    v20 = v14.position;
+LABEL_31:
+    _Deque._UnsafeHandle.move(from:to:count:)(v21, v20, v22);
+    v31.position = a1;
+    v32 = 0;
+    position = v9;
+    goto LABEL_42;
+  }
+
+  v31.position = v13;
+  v32 = v14.position;
+  position = a2;
+LABEL_42:
+  _Deque._UnsafeHandle.move(from:to:count:)(v31, v32, position);
+  a3[2] = v14.position;
+  v36 = a3[1];
+  v35 = __OFADD__(v36, a1);
+  v37 = v36 + a1;
+  if (v35)
+  {
+LABEL_57:
+    __break(1u);
+    goto LABEL_58;
+  }
+
+  a3[1] = v37;
+  if (!v15.position)
+  {
+    v15.position = *a3;
+    if (*a3 < 0)
+    {
+      goto LABEL_64;
+    }
+  }
+
+  v38 = v9;
+  v39 = v15.position;
+LABEL_54:
+  _Deque._UnsafeHandle.mutableWrappedBuffer(between:and:)(v38, v39, a3, a4, a5, v47);
+  v43 = v48;
+  result = *v47;
+  v45 = v47[1];
+  *a6 = v47[0];
+  *(a6 + 16) = v45;
+  *(a6 + 32) = v43;
   return result;
 }

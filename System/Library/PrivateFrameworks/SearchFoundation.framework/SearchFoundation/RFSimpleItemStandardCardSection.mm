@@ -454,11 +454,11 @@ LABEL_38:
 
 - (RFSimpleItemStandardCardSection)initWithProtobuf:(id)protobuf
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v49.receiver = self;
-  v49.super_class = RFSimpleItemStandardCardSection;
-  v5 = [(SFCardSection *)&v49 init];
+  v48.receiver = self;
+  v48.super_class = RFSimpleItemStandardCardSection;
+  v5 = [(SFCardSection *)&v48 init];
   if (v5)
   {
     text = [protobufCopy text];
@@ -492,33 +492,33 @@ LABEL_38:
       v15 = 0;
     }
 
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     text_3s2 = [protobufCopy text_3s];
-    v17 = [text_3s2 countByEnumeratingWithState:&v45 objects:v51 count:16];
+    v17 = [text_3s2 countByEnumeratingWithState:&v44 objects:v50 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v46;
+      v19 = *v45;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v46 != v19)
+          if (*v45 != v19)
           {
             objc_enumerationMutation(text_3s2);
           }
 
-          v21 = [[RFTextProperty alloc] initWithProtobuf:*(*(&v45 + 1) + 8 * i)];
+          v21 = [[RFTextProperty alloc] initWithProtobuf:*(*(&v44 + 1) + 8 * i)];
           if (v21)
           {
             [v15 addObject:v21];
           }
         }
 
-        v18 = [text_3s2 countByEnumeratingWithState:&v45 objects:v51 count:16];
+        v18 = [text_3s2 countByEnumeratingWithState:&v44 objects:v50 count:16];
       }
 
       while (v18);
@@ -536,33 +536,33 @@ LABEL_38:
       v23 = 0;
     }
 
-    v43 = 0u;
-    v44 = 0u;
-    v41 = 0u;
     v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     text_4s2 = [protobufCopy text_4s];
-    v25 = [text_4s2 countByEnumeratingWithState:&v41 objects:v50 count:16];
+    v25 = [text_4s2 countByEnumeratingWithState:&v40 objects:v49 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v42;
+      v27 = *v41;
       do
       {
         for (j = 0; j != v26; ++j)
         {
-          if (*v42 != v27)
+          if (*v41 != v27)
           {
             objc_enumerationMutation(text_4s2);
           }
 
-          v29 = [[RFTextProperty alloc] initWithProtobuf:*(*(&v41 + 1) + 8 * j)];
+          v29 = [[RFTextProperty alloc] initWithProtobuf:*(*(&v40 + 1) + 8 * j)];
           if (v29)
           {
             [v23 addObject:v29];
           }
         }
 
-        v26 = [text_4s2 countByEnumeratingWithState:&v41 objects:v50 count:16];
+        v26 = [text_4s2 countByEnumeratingWithState:&v40 objects:v49 count:16];
       }
 
       while (v26);
@@ -592,7 +592,6 @@ LABEL_38:
     v38 = v5;
   }
 
-  v39 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

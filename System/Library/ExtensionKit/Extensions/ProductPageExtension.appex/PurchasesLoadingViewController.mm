@@ -44,7 +44,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_1005656FC();
+  sub_1005656FC(selfCopy);
 }
 
 - (_TtC20ProductPageExtension30PurchasesLoadingViewController)initWithNibName:(id)name bundle:(id)bundle

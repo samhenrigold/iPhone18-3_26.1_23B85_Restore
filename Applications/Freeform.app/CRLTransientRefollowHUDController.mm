@@ -61,12 +61,12 @@
 
 - (NSDate)timeStartedShowing
 {
-  v3 = sub_1005B981C(&qword_101A0A320);
+  v3 = sub_1005B981C(&qword_101A0A320, &qword_10146D650);
   __chkstk_darwin(v3 - 8);
   v5 = &v13 - v4;
   v6 = OBJC_IVAR____TtC8Freeform33CRLTransientRefollowHUDController_timeStartedShowing;
   swift_beginAccess();
-  sub_10000BE14(self + v6, v5, &qword_101A0A320);
+  sub_10000BE14(self + v6, v5, &qword_101A0A320, &qword_10146D650);
   v7 = type metadata accessor for Date();
   v8 = *(v7 - 8);
   v9 = (*(v8 + 48))(v5, 1, v7);
@@ -83,7 +83,7 @@
 
 - (void)setTimeStartedShowing:(id)showing
 {
-  v5 = sub_1005B981C(&qword_101A0A320);
+  v5 = sub_1005B981C(&qword_101A0A320, &qword_10146D650);
   __chkstk_darwin(v5 - 8);
   v7 = &v12 - v6;
   if (showing)
@@ -190,20 +190,26 @@
 - (void)resumeButtonClickedWithSender:(id)sender
 {
   v3 = *(self + OBJC_IVAR____TtC8Freeform33CRLTransientRefollowHUDController_refollowClickedHandler);
-  selfCopy = self;
   if (v3)
   {
-    v5 = sub_10067F2EC(v3);
-    v3(v5);
-    selfCopy = sub_1000C1014(v3);
+    v4 = *(self + OBJC_IVAR____TtC8Freeform33CRLTransientRefollowHUDController_refollowClickedHandler + 8);
+    selfCopy = self;
+    v6 = sub_10067F2EC(v3, v4);
+    v3(v6);
+    sub_1000C1014(v3, v4);
+  }
+
+  else
+  {
+    selfCopy2 = self;
   }
 
   if (*(self + OBJC_IVAR____TtC8Freeform33CRLTransientRefollowHUDController_hideOnTouch) == 1)
   {
-    selfCopy = sub_100B08A80(1, &unk_101895490, sub_100B0C464, &unk_1018954A8);
+    sub_100B08A80(1, &unk_101895490, sub_100B0C464, &unk_1018954A8);
   }
 
-  _objc_release_x4(selfCopy);
+  _objc_release_x4();
 }
 
 - (_TtC8Freeform33CRLTransientRefollowHUDController)initWithManager:(id)manager followingParticipant:(id)participant delegate:(id)delegate canvasWidth:(double)width resumeButtonClickedHandler:(id)handler

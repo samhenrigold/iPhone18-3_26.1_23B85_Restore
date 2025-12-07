@@ -9,7 +9,7 @@
 - (NUViewGeometry)init;
 - (UIEdgeInsets)contentInsets;
 - (UIEdgeInsets)contentInsetsWithScale:(double)scale;
-- (uint64_t)insetBoundsForCrop:(CGFloat)crop inBounds:(CGFloat)bounds inFrame:(CGFloat)frame;
+- (void)insetBoundsForCrop:(CGFloat)crop inBounds:(CGFloat)bounds inFrame:(CGFloat)frame;
 @end
 
 @implementation NUViewGeometry
@@ -98,28 +98,28 @@
   return result;
 }
 
-- (uint64_t)insetBoundsForCrop:(CGFloat)crop inBounds:(CGFloat)bounds inFrame:(CGFloat)frame
+- (void)insetBoundsForCrop:(CGFloat)crop inBounds:(CGFloat)bounds inFrame:(CGFloat)frame
 {
-  v24.origin.x = a10;
-  v24.origin.y = a11;
-  v24.size.width = a12;
-  v24.size.height = a13;
-  Width = CGRectGetWidth(v24);
-  v25.origin.x = a2;
-  v25.origin.y = crop;
-  v25.size.width = bounds;
-  v25.size.height = frame;
-  CGRectGetWidth(v25);
-  v26.origin.x = a10;
-  v26.origin.y = a11;
-  v26.size.width = a12;
-  v26.size.height = a13;
-  CGRectGetHeight(v26);
-  v27.origin.x = a2;
-  v27.origin.y = crop;
-  v27.size.width = bounds;
-  v27.size.height = frame;
-  CGRectGetHeight(v27);
+  v21.origin.x = a10;
+  v21.origin.y = a11;
+  v21.size.width = a12;
+  v21.size.height = a13;
+  Width = CGRectGetWidth(v21);
+  v22.origin.x = a2;
+  v22.origin.y = crop;
+  v22.size.width = bounds;
+  v22.size.height = frame;
+  CGRectGetWidth(v22);
+  v23.origin.x = a10;
+  v23.origin.y = a11;
+  v23.size.width = a12;
+  v23.size.height = a13;
+  CGRectGetHeight(v23);
+  v24.origin.x = a2;
+  v24.origin.y = crop;
+  v24.size.width = bounds;
+  v24.size.height = frame;
+  CGRectGetHeight(v24);
   return [self contentInsets];
 }
 

@@ -292,7 +292,7 @@ void __62__NTKModularLargeColumnTemplateView__newLabelSubviewWithFont___block_in
   v3 = MEMORY[0x277CBBB08];
   device = [(NTKModuleView *)self device];
   ___LayoutConstants_block_invoke_55(device, v8);
-  v5 = [v3 systemFontOfSize:v8[0] weight:*MEMORY[0x277D74410]];
+  v5 = [v3 systemFontOfSize:*v8 weight:*MEMORY[0x277D74410]];
 
   v6 = [(NTKModularLargeColumnTemplateView *)self _newLabelSubviewWithFont:v5];
   return v6;
@@ -303,7 +303,7 @@ void __62__NTKModularLargeColumnTemplateView__newLabelSubviewWithFont___block_in
   v3 = MEMORY[0x277CBBB08];
   device = [(NTKModuleView *)self device];
   ___LayoutConstants_block_invoke_55(device, v8);
-  v5 = [v3 systemFontOfSize:v8[0]];
+  v5 = [v3 systemFontOfSize:*v8];
 
   v6 = [(NTKModularLargeColumnTemplateView *)self _newLabelSubviewWithFont:v5];
   return v6;

@@ -58,38 +58,38 @@
 
 - (BOOL)foundDataChangesSinceDate:(id)date
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = [(CoreThemeDocument *)self->document allObjectsForEntity:@"ElementProduction" withSortDescriptors:0];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     while (2)
     {
       v9 = 0;
       do
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        if ([date compare:{objc_msgSend(*(*(&v12 + 1) + 8 * v9), "associatedFileModificationDateWithDocument:", self->document)}] == -1)
+        if ([date compare:{objc_msgSend(*(*(&v11 + 1) + 8 * v9), "associatedFileModificationDateWithDocument:", self->document)}] == -1)
         {
           LOBYTE(v6) = 1;
-          goto LABEL_11;
+          return v6;
         }
 
         ++v9;
       }
 
       while (v7 != v9);
-      v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
       v7 = v6;
       if (v6)
       {
@@ -100,37 +100,35 @@
     }
   }
 
-LABEL_11:
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (id)productionsWithModifiedAssets
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   v3 = [(CoreThemeDocument *)self->document allObjectsForEntity:@"PhotoshopElementProduction" withSortDescriptors:0];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v31;
-    v28 = v3;
+    v6 = *v30;
+    v27 = v3;
     do
     {
       v7 = 0;
       do
       {
-        if (*v31 != v6)
+        if (*v30 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v30 + 1) + 8 * v7);
+        v8 = *(*(&v29 + 1) + 8 * v7);
         v9 = [v8 associatedFileModificationDateWithDocument:self->document];
         if (v9 && [v9 compare:{objc_msgSend(v8, "dateOfLastChange")}] == 1)
         {
@@ -185,7 +183,7 @@ LABEL_11:
               }
 
               v24 = ([(CTDPSDPreviewRef *)v10 sliceRowCount]/ v22);
-              v3 = v28;
+              v3 = v27;
               if (v17 == ([(CTDPSDPreviewRef *)v10 sliceColumnCount]/ v23) * v24)
               {
                 goto LABEL_20;
@@ -209,14 +207,13 @@ LABEL_20:
       }
 
       while (v5 != v7);
-      v25 = [v3 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v25 = [v3 countByEnumeratingWithState:&v29 objects:v33 count:16];
       v5 = v25;
     }
 
     while (v25);
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return array;
 }
 

@@ -22,24 +22,13 @@
 {
   v2 = [[EKSideTableContext alloc] initWithConcurrencyType:1];
   persistentStoreCoordinator = [(EKSideTableContext *)v2 persistentStoreCoordinator];
-  if (!persistentStoreCoordinator)
-  {
-    goto LABEL_4;
-  }
-
-  v4 = persistentStoreCoordinator;
-  persistentStoreCoordinator2 = [(EKSideTableContext *)v2 persistentStoreCoordinator];
-  persistentStores = [persistentStoreCoordinator2 persistentStores];
-  v7 = [persistentStores count];
-
-  if (v7)
+  if (persistentStoreCoordinator && (v4 = persistentStoreCoordinator, -[EKSideTableContext persistentStoreCoordinator](v2, "persistentStoreCoordinator"), v5 = objc_claimAutoreleasedReturnValue(), [v5 persistentStores], v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "count"), v6, v5, v4, v7))
   {
     v8 = v2;
   }
 
   else
   {
-LABEL_4:
     v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"+[EKSideTableContext sideTableContext]"];
     NSLog(&cfstr_FailedToCreate_0.isa, v9);
 
@@ -88,38 +77,36 @@ LABEL_4:
 
 - (void)deleteAllAlarms
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = [(EKSideTableContext *)self _alarmsMatchingPredicate:0];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        [(EKSideTableContext *)self deleteObject:*(*(&v9 + 1) + 8 * v7++)];
+        [(EKSideTableContext *)self deleteObject:*(*(&v8 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)nextAlarmFireTime
@@ -323,50 +310,49 @@ LABEL_4:
   v8 = [MEMORY[0x277CCABB0] numberWithBool:1];
   v9 = *MEMORY[0x277CBE1D8];
   v10 = [MEMORY[0x277CCABB0] numberWithBool:1];
-  v11 = *MEMORY[0x277CBE178];
-  v12 = [v7 dictionaryWithObjectsAndKeys:{v8, v9, v10, *MEMORY[0x277CBE178], *MEMORY[0x277CCA1B8], *MEMORY[0x277CBE240], 0}];
+  v11 = [v7 dictionaryWithObjectsAndKeys:{v8, v9, v10, *MEMORY[0x277CBE178], *MEMORY[0x277CCA1B8], *MEMORY[0x277CBE240], 0}];
 
-  v13 = *MEMORY[0x277CBE2E8];
-  v22 = 0;
-  v14 = [v6 addPersistentStoreWithType:v13 configuration:0 URL:_urlForPersistentStore options:v12 error:&v22];
-  v15 = v22;
+  v12 = *MEMORY[0x277CBE2E8];
+  v21 = 0;
+  v13 = [v6 addPersistentStoreWithType:v12 configuration:0 URL:_urlForPersistentStore options:v11 error:&v21];
+  v14 = v21;
 
-  if (v14)
+  if (v13)
   {
     goto LABEL_2;
   }
 
-  userInfo = [v15 userInfo];
-  NSLog(&cfstr_ErrorWhileImpo.isa, v15, userInfo);
+  userInfo = [v14 userInfo];
+  NSLog(&cfstr_ErrorWhileImpo.isa, v14, userInfo);
 
   if ([(EKSideTableContext *)self _removeSqliteFiles])
   {
-    v21 = 0;
-    v18 = [v6 addPersistentStoreWithType:v13 configuration:0 URL:_urlForPersistentStore options:v12 error:&v21];
-    v15 = v21;
+    v20 = 0;
+    v17 = [v6 addPersistentStoreWithType:v12 configuration:0 URL:_urlForPersistentStore options:v11 error:&v20];
+    v14 = v20;
 
-    if (v18)
+    if (v17)
     {
       NSLog(&cfstr_CreatedNewData.isa);
 LABEL_2:
-      v16 = v6;
+      v15 = v6;
       goto LABEL_9;
     }
 
-    userInfo2 = [v15 userInfo];
-    NSLog(&cfstr_SecondErrorWhi.isa, v15, userInfo2);
+    userInfo2 = [v14 userInfo];
+    NSLog(&cfstr_SecondErrorWhi.isa, v14, userInfo2);
   }
 
   else
   {
-    v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[EKSideTableContext _persistentStoreCoordinator]"];
-    NSLog(&cfstr_UnableToRemove.isa, v15);
+    v14 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[EKSideTableContext _persistentStoreCoordinator]"];
+    NSLog(&cfstr_UnableToRemove.isa, v14);
   }
 
-  v16 = 0;
+  v15 = 0;
 LABEL_9:
 
-  return v16;
+  return v15;
 }
 
 @end

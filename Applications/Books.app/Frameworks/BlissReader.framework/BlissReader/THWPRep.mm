@@ -706,7 +706,7 @@ LABEL_28:
             {
               if (v5)
               {
-                [v5 lineMetricsAtCharIndex:*v9 allowEndOfLine:0];
+                objc_msgSend_lineMetricsAtCharIndex_allowEndOfLine_(v5);
               }
 
               else
@@ -1046,7 +1046,7 @@ LABEL_28:
         layout = [(THWPRep *)self layout];
         if (layout)
         {
-          [layout transformInRoot];
+          objc_msgSend_transformInRoot(layout);
         }
 
         else

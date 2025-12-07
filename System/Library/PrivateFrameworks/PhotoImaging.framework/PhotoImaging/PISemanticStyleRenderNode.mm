@@ -41,7 +41,7 @@
       v10 = MEMORY[0x1E695F658];
       blackColor = [MEMORY[0x1E695F610] blackColor];
       v12 = [v10 imageWithColor:blackColor];
-      [v5 extent];
+      objc_msgSend_extent(v5);
       v7 = [v12 imageByCroppingToRect:?];
     }
 
@@ -69,7 +69,7 @@
       v17 = MEMORY[0x1E695F658];
       blackColor2 = [MEMORY[0x1E695F610] blackColor];
       v19 = [v17 imageWithColor:blackColor2];
-      [v5 extent];
+      objc_msgSend_extent(v5);
       v135 = [v19 imageByCroppingToRect:?];
     }
 
@@ -96,7 +96,7 @@
       v23 = MEMORY[0x1E695F658];
       blackColor3 = [MEMORY[0x1E695F610] blackColor];
       v25 = [v23 imageWithColor:blackColor3];
-      [v5 extent];
+      objc_msgSend_extent(v5);
       v20 = [v25 imageByCroppingToRect:?];
     }
 
@@ -273,7 +273,7 @@
           v91 = MEMORY[0x1E695F658];
           v92 = [MEMORY[0x1E695F610] colorWithRed:0.76 green:0.69 blue:0.88];
           v93 = [v91 imageWithColor:v92];
-          [outputImage extent];
+          objc_msgSend_extent(outputImage);
           v95 = v94;
           v97 = v96;
           v99 = v98;
@@ -293,7 +293,7 @@
           v102 = MEMORY[0x1E695F658];
           blackColor4 = [MEMORY[0x1E695F610] blackColor];
           v104 = [v102 imageWithColor:blackColor4];
-          [outputImage extent];
+          objc_msgSend_extent(outputImage);
           v106 = v105;
           v108 = v107;
           v110 = v109;
@@ -581,7 +581,7 @@ LABEL_21:
       {
         if (callStackSymbols)
         {
-          [callStackSymbols time];
+          objc_msgSend_time(callStackSymbols);
         }
 
         else

@@ -85,7 +85,7 @@ void __46__PUInternalGIFExportActivity_performActivity__block_invoke(uint64_t a1
   *(v4 + 40) = v3;
 }
 
-void __46__PUInternalGIFExportActivity_performActivity__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+void __46__PUInternalGIFExportActivity_performActivity__block_invoke_2(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
   v7 = *(a1 + 40);

@@ -29,7 +29,7 @@
 
 - (BOOL)_registerBundle:(id)bundle bundleIdentifier:(id)identifier
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   bundleCopy = bundle;
   identifierCopy = identifier;
   v8 = identifierCopy;
@@ -44,11 +44,11 @@ LABEL_21:
     }
 
     *buf = 136315650;
-    v46 = "[INCExtensionPlugInBundleManager _registerBundle:bundleIdentifier:]";
-    v47 = 2112;
-    v48 = bundleCopy;
-    v49 = 2112;
-    v50 = v8;
+    v45 = "[INCExtensionPlugInBundleManager _registerBundle:bundleIdentifier:]";
+    v46 = 2112;
+    v47 = bundleCopy;
+    v48 = 2112;
+    v49 = v8;
     v33 = "%s Unable to register '%@' bundle for '%@' bundleIdentifier";
     v34 = v32;
     v35 = 32;
@@ -67,9 +67,9 @@ LABEL_24:
     }
 
     *buf = 136315394;
-    v46 = "[INCExtensionPlugInBundleManager _registerBundle:bundleIdentifier:]";
-    v47 = 2112;
-    v48 = bundleCopy;
+    v45 = "[INCExtensionPlugInBundleManager _registerBundle:bundleIdentifier:]";
+    v46 = 2112;
+    v47 = bundleCopy;
     v33 = "%s SiriKit extension plugin does not specify an NSPrincipalClass, unable to load: %@";
     v34 = v36;
     v35 = 22;
@@ -80,7 +80,7 @@ LABEL_24:
   infoDictionary = [bundleCopy infoDictionary];
   v12 = [infoDictionary objectForKey:@"NSExtension"];
 
-  v39 = v12;
+  v38 = v12;
   v13 = [v12 objectForKey:@"NSExtensionAttributes"];
   v14 = MEMORY[0x277CBEB98];
   v15 = [v13 objectForKeyedSubscript:@"IntentsSupported"];
@@ -114,29 +114,29 @@ LABEL_24:
   v24 = [v20 setWithArray:v23];
 
   v25 = [[INCExtensionPlugInBundle alloc] initWithPrincipalClass:v10 intentsSupported:v19 intentsRestrictedWhileLocked:v24];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   v26 = v19;
-  v27 = [v26 countByEnumeratingWithState:&v40 objects:v44 count:16];
+  v27 = [v26 countByEnumeratingWithState:&v39 objects:v43 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v41;
+    v29 = *v40;
     do
     {
       for (i = 0; i != v28; ++i)
       {
-        if (*v41 != v29)
+        if (*v40 != v29)
         {
           objc_enumerationMutation(v26);
         }
 
-        [(INCExtensionPlugInBundleManager *)self _setExtensionPlugInBundle:v25 forIntent:*(*(&v40 + 1) + 8 * i) bundleIdentifier:v8];
+        [(INCExtensionPlugInBundleManager *)self _setExtensionPlugInBundle:v25 forIntent:*(*(&v39 + 1) + 8 * i) bundleIdentifier:v8];
       }
 
-      v28 = [v26 countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v28 = [v26 countByEnumeratingWithState:&v39 objects:v43 count:16];
     }
 
     while (v28);
@@ -145,13 +145,12 @@ LABEL_24:
   v31 = 1;
 LABEL_22:
 
-  v37 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
 - (BOOL)loadBundleForBundleIdentifier:(id)identifier wasPrewarmed:(BOOL *)prewarmed
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v7 = [(NSDictionary *)self->_pluginsPlistDictionary objectForKeyedSubscript:identifierCopy];
   if (v7)
@@ -167,11 +166,11 @@ LABEL_22:
     {
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v16 = 136315394;
-        v17 = "[INCExtensionPlugInBundleManager loadBundleForBundleIdentifier:wasPrewarmed:]";
-        v18 = 2112;
-        v19 = v9;
-        _os_log_impl(&dword_255503000, v11, OS_LOG_TYPE_INFO, "%s Successfully loaded bundle at path %@", &v16, 0x16u);
+        v15 = 136315394;
+        v16 = "[INCExtensionPlugInBundleManager loadBundleForBundleIdentifier:wasPrewarmed:]";
+        v17 = 2112;
+        v18 = v9;
+        _os_log_impl(&dword_255503000, v11, OS_LOG_TYPE_INFO, "%s Successfully loaded bundle at path %@", &v15, 0x16u);
       }
 
       v13 = [(INCExtensionPlugInBundleManager *)self _registerBundle:v10 bundleIdentifier:identifierCopy];
@@ -181,11 +180,11 @@ LABEL_22:
     {
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v16 = 136315394;
-        v17 = "[INCExtensionPlugInBundleManager loadBundleForBundleIdentifier:wasPrewarmed:]";
-        v18 = 2112;
-        v19 = v9;
-        _os_log_error_impl(&dword_255503000, v11, OS_LOG_TYPE_ERROR, "%s Error loading bundle at path %@", &v16, 0x16u);
+        v15 = 136315394;
+        v16 = "[INCExtensionPlugInBundleManager loadBundleForBundleIdentifier:wasPrewarmed:]";
+        v17 = 2112;
+        v18 = v9;
+        _os_log_error_impl(&dword_255503000, v11, OS_LOG_TYPE_ERROR, "%s Error loading bundle at path %@", &v15, 0x16u);
       }
 
       v13 = 0;
@@ -197,7 +196,6 @@ LABEL_22:
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -227,18 +225,16 @@ void __88__INCExtensionPlugInBundleManager__setExtensionPlugInBundle_forIntent_b
   v3 = v2;
   if (v2)
   {
-    v6 = v2;
+    v4 = v2;
   }
 
   else
   {
     v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v5 = a1[5];
-    v6 = v4;
     [*(a1[4] + 8) setObject:? forKeyedSubscript:?];
   }
 
-  [v6 setObject:a1[7] forKeyedSubscript:a1[6]];
+  [v4 setObject:a1[7] forKeyedSubscript:a1[6]];
 }
 
 - (id)_extensionPlugInBundleForIntent:(id)intent bundleIdentifier:(id)identifier
@@ -281,7 +277,7 @@ void __84__INCExtensionPlugInBundleManager__extensionPlugInBundleForIntent_bundl
 
 - (id)extensionForIntent:(id)intent
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   intentCopy = intent;
   extensionBundleId = [intentCopy extensionBundleId];
   _className = [intentCopy _className];
@@ -312,20 +308,18 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v13 = *MEMORY[0x277CD38C8];
+  v12 = *MEMORY[0x277CD38C8];
   if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
   {
     *buf = 136315394;
-    v15 = "[INCExtensionPlugInBundleManager extensionForIntent:]";
-    v16 = 2112;
-    v17 = intentCopy;
-    _os_log_error_impl(&dword_255503000, v13, OS_LOG_TYPE_ERROR, "%s Unable to get bundleIdentifier from %@", buf, 0x16u);
+    v14 = "[INCExtensionPlugInBundleManager extensionForIntent:]";
+    v15 = 2112;
+    v16 = intentCopy;
+    _os_log_error_impl(&dword_255503000, v12, OS_LOG_TYPE_ERROR, "%s Unable to get bundleIdentifier from %@", buf, 0x16u);
   }
 
   v10 = 0;
 LABEL_10:
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -358,7 +352,6 @@ LABEL_10:
 
 uint64_t __48__INCExtensionPlugInBundleManager_sharedManager__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   sharedManager_sharedManager_227 = objc_alloc_init(objc_opt_class());
 
   return MEMORY[0x2821F96F8]();

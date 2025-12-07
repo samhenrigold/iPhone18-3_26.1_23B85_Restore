@@ -586,7 +586,7 @@ LABEL_9:
 
 - (void)willAppearInContext:(id)context
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   collectionView = [contextCopy collectionView];
   [collectionView registerClass:objc_opt_class() forCellWithReuseIdentifier:0x2827FFD08];
@@ -603,11 +603,11 @@ LABEL_9:
   -[SKUIViewElementLayoutContext setContainerViewElementType:](self->_cellLayoutContext, "setContainerViewElementType:", [viewElement elementType]);
   v11 = &OBJC_IVAR___SKUIStackDocumentViewController__indexBarControlController;
   v12 = &OBJC_IVAR___SKUIStackDocumentViewController__indexBarControlController;
-  v53 = viewElement;
-  v54 = v6;
+  v54 = viewElement;
+  v55 = v6;
   if (viewElement)
   {
-    v52 = collectionView;
+    v53 = collectionView;
     self->_itemSize = *MEMORY[0x277CBF3A8];
     itemWidth = self->_itemWidth;
     if (itemWidth > 0.0)
@@ -632,60 +632,60 @@ LABEL_9:
     }
 
     self->_itemSpacing = v19;
-    v60 = 0u;
     v61 = 0u;
     v62 = 0u;
     v63 = 0u;
+    v64 = 0u;
     v20 = self->_modelObjects;
-    v21 = [(NSArray *)v20 countByEnumeratingWithState:&v60 objects:v65 count:16];
+    v21 = [(NSArray *)v20 countByEnumeratingWithState:&v61 objects:v66 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v61;
+      v23 = *v62;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v61 != v23)
+          if (*v62 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          [(objc_class *)[(SKUICarouselPageSection *)self _cellClassForViewElement:*(*(&v60 + 1) + 8 * i)] preferredSizeForViewElement:*(*(&v60 + 1) + 8 * i) context:self->_cellLayoutContext];
+          [(objc_class *)[(SKUICarouselPageSection *)self _cellClassForViewElement:*(*(&v61 + 1) + 8 * i)] preferredSizeForViewElement:*(*(&v61 + 1) + 8 * i) context:self->_cellLayoutContext];
           v26.f64[1] = v25;
           self->_itemSize = vbslq_s8(vcgtq_f64(v26, self->_itemSize), v26, self->_itemSize);
         }
 
-        v22 = [(NSArray *)v20 countByEnumeratingWithState:&v60 objects:v65 count:16];
+        v22 = [(NSArray *)v20 countByEnumeratingWithState:&v61 objects:v66 count:16];
       }
 
       while (v22);
     }
 
-    v58 = 0u;
     v59 = 0u;
-    v56 = 0u;
+    v60 = 0u;
     v57 = 0u;
+    v58 = 0u;
     v27 = self->_modelObjects;
-    v28 = [(NSArray *)v27 countByEnumeratingWithState:&v56 objects:v64 count:16];
-    collectionView = v52;
+    v28 = [(NSArray *)v27 countByEnumeratingWithState:&v57 objects:v65 count:16];
+    collectionView = v53;
     if (v28)
     {
       v29 = v28;
-      v30 = *v57;
+      v30 = *v58;
       do
       {
         for (j = 0; j != v29; ++j)
         {
-          if (*v57 != v30)
+          if (*v58 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
-          [(objc_class *)[(SKUICarouselPageSection *)self _cellClassForViewElement:*(*(&v56 + 1) + 8 * j)] requestLayoutForViewElement:*(*(&v56 + 1) + 8 * j) width:self->_cellLayoutContext context:self->_itemSize.width];
+          [(objc_class *)[(SKUICarouselPageSection *)self _cellClassForViewElement:*(*(&v57 + 1) + 8 * j)] requestLayoutForViewElement:*(*(&v57 + 1) + 8 * j) width:self->_cellLayoutContext context:self->_itemSize.width];
         }
 
-        v29 = [(NSArray *)v27 countByEnumeratingWithState:&v56 objects:v64 count:16];
+        v29 = [(NSArray *)v27 countByEnumeratingWithState:&v57 objects:v65 count:16];
       }
 
       while (v29);
@@ -703,55 +703,55 @@ LABEL_9:
   [contextCopy activePageWidth];
   v33 = v32;
   _carouselCollectionView = [(SKUICarouselPageSection *)self _carouselCollectionView];
-  [_carouselCollectionView setSemanticContentAttribute:storeSemanticContentAttribute()];
-  v35 = (self + v11[466]);
-  [_carouselCollectionView setFrame:{0.0, 0.0, v33, v35[1]}];
+  [_carouselCollectionView setSemanticContentAttribute:{storeSemanticContentAttribute(_carouselCollectionView, v35)}];
+  v36 = (self + v11[466]);
+  [_carouselCollectionView setFrame:{0.0, 0.0, v33, v36[1]}];
   collectionViewLayout = [_carouselCollectionView collectionViewLayout];
-  [collectionViewLayout setItemSize:{*v35, v35[1]}];
-  v37 = v12[460];
-  v38 = [*(&self->super.super.isa + v37) count];
-  if (v38)
+  [collectionViewLayout setItemSize:{*v36, v36[1]}];
+  v38 = v12[460];
+  v39 = [*(&self->super.super.isa + v38) count];
+  if (v39)
   {
-    v39 = v38;
+    v40 = v39;
     [_carouselCollectionView contentInset];
-    v41 = v40;
-    v43 = v42;
+    v42 = v41;
+    v44 = v43;
     [(SKUICarouselPageSection *)self _actualContentWidth];
-    v45 = v44;
-    if (v44 <= v33 + v33)
+    v46 = v45;
+    if (v45 <= v33 + v33)
     {
-      v46 = 0;
-      self->_cellCount = [*(&self->super.super.isa + v37) count];
-      v51 = (v33 - v45) * 0.5;
-      v47 = fmaxf(floorf(v51), 15.0);
-      v48 = v39 > 1;
+      v47 = 0;
+      self->_cellCount = [*(&self->super.super.isa + v38) count];
+      v52 = (v33 - v46) * 0.5;
+      v48 = fmaxf(floorf(v52), 15.0);
+      v49 = v40 > 1;
     }
 
     else
     {
       self->_cellCount = 100000;
-      v46 = [MEMORY[0x277CCAA70] indexPathForItem:20000 / v39 * v39 inSection:0];
-      v47 = 0.0;
-      v48 = 1;
+      v47 = [MEMORY[0x277CCAA70] indexPathForItem:20000 / v40 * v40 inSection:0];
+      v48 = 0.0;
+      v49 = 1;
     }
 
-    v49 = v54;
-    [_carouselCollectionView setAlwaysBounceHorizontal:v48];
-    [_carouselCollectionView setContentInset:{v41, v47, v43, v47}];
-    v50 = v53;
-    if (v46)
+    v50 = v55;
+    [_carouselCollectionView setAlwaysBounceHorizontal:v49];
+    [_carouselCollectionView setContentInset:{v42, v48, v44, v48}];
+    v51 = v54;
+    if (v47)
     {
       if (self->_needsReload)
       {
         if (!self->_reloadIndexPath)
         {
-          objc_storeStrong(&self->_reloadIndexPath, v46);
+          objc_storeStrong(&self->_reloadIndexPath, v47);
         }
       }
 
       else
       {
-        [(SKUICarouselPageSection *)self _scrollToItemAtIndexPath:v46 animated:0];
+        [(SKUICarouselPageSection *)self _scrollToItemAtIndexPath:v47 animated:0];
       }
     }
   }
@@ -759,15 +759,15 @@ LABEL_9:
   else
   {
     self->_cellCount = 0;
-    *v35 = v33;
-    v35[1] = 20.0;
-    v50 = v53;
-    v49 = v54;
+    *v36 = v33;
+    v36[1] = 20.0;
+    v51 = v54;
+    v50 = v55;
   }
 
-  v55.receiver = self;
-  v55.super_class = SKUICarouselPageSection;
-  [(SKUIStorePageSection *)&v55 willAppearInContext:contextCopy];
+  v56.receiver = self;
+  v56.super_class = SKUICarouselPageSection;
+  [(SKUIStorePageSection *)&v56 willAppearInContext:contextCopy];
 }
 
 - (void)willTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -1137,13 +1137,13 @@ LABEL_3:
     [(UICollectionView *)self->_carouselCollectionView setDelegate:self];
     [(UICollectionView *)self->_carouselCollectionView setScrollsToTop:0];
     [(UICollectionView *)self->_carouselCollectionView setShowsHorizontalScrollIndicator:0];
-    [(UICollectionView *)self->_carouselCollectionView setShowsVerticalScrollIndicator:0];
-    [(UICollectionView *)self->_carouselCollectionView setSemanticContentAttribute:storeSemanticContentAttribute()];
+    v8 = [(UICollectionView *)self->_carouselCollectionView setShowsVerticalScrollIndicator:0];
+    [(UICollectionView *)self->_carouselCollectionView setSemanticContentAttribute:storeSemanticContentAttribute(v8, v9)];
     [(UICollectionView *)self->_carouselCollectionView setPrefetchingEnabled:0];
-    v8 = [MEMORY[0x277CCAA70] indexPathForItem:0 inSection:{-[SKUIStorePageSection sectionIndex](self, "sectionIndex")}];
-    v9 = self->_carouselCollectionView;
-    v10 = [(SKUICarouselPageSection *)self backgroundColorForIndexPath:v8];
-    [(UICollectionView *)v9 setBackgroundColor:v10];
+    v10 = [MEMORY[0x277CCAA70] indexPathForItem:0 inSection:{-[SKUIStorePageSection sectionIndex](self, "sectionIndex")}];
+    v11 = self->_carouselCollectionView;
+    v12 = [(SKUICarouselPageSection *)self backgroundColorForIndexPath:v10];
+    [(UICollectionView *)v11 setBackgroundColor:v12];
 
     carouselCollectionView = self->_carouselCollectionView;
   }

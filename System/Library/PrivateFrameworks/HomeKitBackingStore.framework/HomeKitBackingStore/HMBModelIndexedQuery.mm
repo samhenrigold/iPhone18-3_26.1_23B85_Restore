@@ -9,7 +9,7 @@
 
 - (BOOL)hasExpectedIndexes
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   if (!+[HMBSQLStatement explainStatements])
   {
     _HMFPreconditionFailure();
@@ -34,14 +34,14 @@ LABEL_12:
   while (1)
   {
     queryPlans = [v9 queryPlans];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __42__HMBModelIndexedQuery_hasExpectedIndexes__block_invoke;
-    v23[3] = &unk_2786E1490;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __42__HMBModelIndexedQuery_hasExpectedIndexes__block_invoke;
+    v22[3] = &unk_2786E1490;
     v11 = v5;
-    v24 = v11;
+    v23 = v11;
     selfCopy = self;
-    v12 = [queryPlans na_any:v23];
+    v12 = [queryPlans na_any:v22];
 
     if ((v12 & 1) == 0)
     {
@@ -65,25 +65,24 @@ LABEL_12:
     v17 = HMFGetLogIdentifier();
     v18 = sqlite3_sql([v9 statement]);
     *buf = 138543874;
-    v27 = v17;
-    v28 = 2112;
-    v29 = v11;
-    v30 = 2080;
-    v31 = v18;
+    v26 = v17;
+    v27 = 2112;
+    v28 = v11;
+    v29 = 2080;
+    v30 = v18;
     _os_log_impl(&dword_22AD27000, v16, OS_LOG_TYPE_DEFAULT, "%{public}@Didn't find reference to %@ in query plan for %s:", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v14);
   queryPlans2 = [v9 queryPlans];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __42__HMBModelIndexedQuery_hasExpectedIndexes__block_invoke_174;
-  v22[3] = &unk_2786E14B8;
-  v22[4] = selfCopy2;
-  [queryPlans2 hmf_enumerateWithAutoreleasePoolUsingBlock:v22];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __42__HMBModelIndexedQuery_hasExpectedIndexes__block_invoke_174;
+  v21[3] = &unk_2786E14B8;
+  v21[4] = selfCopy2;
+  [queryPlans2 hmf_enumerateWithAutoreleasePoolUsingBlock:v21];
 
 LABEL_10:
-  v20 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -107,7 +106,7 @@ uint64_t __42__HMBModelIndexedQuery_hasExpectedIndexes__block_invoke(uint64_t a1
 
 void __42__HMBModelIndexedQuery_hasExpectedIndexes__block_invoke_174(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -118,19 +117,18 @@ void __42__HMBModelIndexedQuery_hasExpectedIndexes__block_invoke_174(uint64_t a1
     v8 = [v3 row];
     v9 = [v3 parent];
     v10 = [v3 detail];
-    v12 = 138544130;
-    v13 = v7;
-    v14 = 2048;
-    v15 = v8;
-    v16 = 2048;
-    v17 = v9;
-    v18 = 2112;
-    v19 = v10;
-    _os_log_impl(&dword_22AD27000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@    %lu.%lu %@", &v12, 0x2Au);
+    v11 = 138544130;
+    v12 = v7;
+    v13 = 2048;
+    v14 = v8;
+    v15 = 2048;
+    v16 = v9;
+    v17 = 2112;
+    v18 = v10;
+    _os_log_impl(&dword_22AD27000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@    %lu.%lu %@", &v11, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v4);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __42__HMBModelIndexedQuery_hasExpectedIndexes__block_invoke_2(uint64_t a1, void *a2)

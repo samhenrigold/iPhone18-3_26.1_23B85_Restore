@@ -8,13 +8,17 @@
 - (void)_handleActiveSystemEndpointDidChangeNotification:(id)notification;
 - (void)_presentRoutePickerWithConfiguration:(id)configuration;
 - (void)_reevaluatePillsIfDisplayMonitorAndFocusMonitorAreInSyncWithReason:(id)reason;
+- (void)controller:(id)controller playbackStateDidChangeFrom:(unsigned int)from to:(unsigned int)to;
 - (void)dealloc;
 - (void)dismissPillWithReason:(id)reason;
 - (void)dismissSystemAperturePillWithReason:(id)reason;
 - (void)handlePillTap;
 - (void)openRoutePicker;
+- (void)presentAudioBluePill:(id)pill remoteControl:(BOOL)control reason:(id)reason;
 - (void)presentBluePillWithPlainType:(unint64_t)type pulseType:(unint64_t)pulseType route:(id)route remoteControl:(BOOL)control reason:(id)reason;
 - (void)presentCarPlayBanner;
+- (void)presentSystemApertureBluePill:(id)pill remoteControl:(BOOL)control reason:(id)reason;
+- (void)presentVideoBluePill:(id)pill remoteControl:(BOOL)control reason:(id)reason;
 - (void)reevaluatePillsWithReason:(id)reason;
 - (void)setActiveSystemEndpoint:(id)endpoint;
 - (void)setOptimisticRoute:(id)route;
@@ -230,6 +234,45 @@
   return v7;
 }
 
+- (void)presentSystemApertureBluePill:(id)pill remoteControl:(BOOL)control reason:(id)reason
+{
+  controlCopy = control;
+  pillCopy = pill;
+  reasonCopy = reason;
+  v10 = _MRLogForCategory();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v19 = reasonCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[MRDRRC].RBAM Asked to presentApertureBluePill because %@", buf, 0xCu);
+  }
+
+  mediaActivityManager = [(MRDRoutedBackgroundActivityManager *)self mediaActivityManager];
+  [mediaActivityManager dismissConnectedBanner];
+
+  if (pillCopy)
+  {
+    v12 = pillCopy;
+    activeSystemEndpoint = 0;
+  }
+
+  else
+  {
+    activeSystemEndpoint = [(MRDRoutedBackgroundActivityManager *)self activeSystemEndpoint];
+    activeSystemEndpoint2 = [(MRDRoutedBackgroundActivityManager *)self activeSystemEndpoint];
+    v12 = [MRIRRoute routeWithEndpoint:activeSystemEndpoint2];
+  }
+
+  mediaActivityManager2 = [(MRDRoutedBackgroundActivityManager *)self mediaActivityManager];
+  optimisticDevices = [(MRDRoutedBackgroundActivityManager *)self optimisticDevices];
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_10007495C;
+  v17[3] = &unk_1004B8628;
+  v17[4] = self;
+  [mediaActivityManager2 postConnectedBannerRequestForRoute:v12 devices:optimisticDevices endpoint:activeSystemEndpoint remoteControl:controlCopy completion:v17];
+}
+
 - (void)dismissSystemAperturePillWithReason:(id)reason
 {
   reasonCopy = reason;
@@ -248,6 +291,82 @@
 
     mediaActivityManager2 = [(MRDRoutedBackgroundActivityManager *)self mediaActivityManager];
     [mediaActivityManager2 dismissConnectedBanner];
+  }
+}
+
+- (void)presentAudioBluePill:(id)pill remoteControl:(BOOL)control reason:(id)reason
+{
+  controlCopy = control;
+  pillCopy = pill;
+  reasonCopy = reason;
+  if ([(MRDRoutedBackgroundActivityManager *)self supportsCustomSystemAperturePill])
+  {
+    v10 = +[MRDDisplayMonitor sharedMonitor];
+    primaryUIApplicationBundleIdentifier = [v10 primaryUIApplicationBundleIdentifier];
+
+    mediaActivityManager = [(MRDRoutedBackgroundActivityManager *)self mediaActivityManager];
+    v13 = [mediaActivityManager presentingConnectedPillFor:primaryUIApplicationBundleIdentifier];
+
+    if (v13)
+    {
+      v14 = _MRLogForCategory();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        v15 = 138412546;
+        v16 = pillCopy;
+        v17 = 2112;
+        v18 = primaryUIApplicationBundleIdentifier;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[MRDRRC].RBAM Dropping audio pill for %@ because another one is already visible - %@", &v15, 0x16u);
+      }
+    }
+
+    else
+    {
+      [(MRDRoutedBackgroundActivityManager *)self presentSystemApertureBluePill:pillCopy remoteControl:controlCopy reason:reasonCopy];
+    }
+  }
+
+  else
+  {
+    [(MRDRoutedBackgroundActivityManager *)self presentBluePillWithPlainType:1 pulseType:2 route:pillCopy remoteControl:controlCopy reason:reasonCopy];
+  }
+}
+
+- (void)presentVideoBluePill:(id)pill remoteControl:(BOOL)control reason:(id)reason
+{
+  controlCopy = control;
+  pillCopy = pill;
+  reasonCopy = reason;
+  if ([(MRDRoutedBackgroundActivityManager *)self supportsCustomSystemAperturePill])
+  {
+    v10 = +[MRDDisplayMonitor sharedMonitor];
+    primaryUIApplicationBundleIdentifier = [v10 primaryUIApplicationBundleIdentifier];
+
+    mediaActivityManager = [(MRDRoutedBackgroundActivityManager *)self mediaActivityManager];
+    v13 = [mediaActivityManager presentingConnectedPillFor:primaryUIApplicationBundleIdentifier];
+
+    if (v13)
+    {
+      v14 = _MRLogForCategory();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        v15 = 138412546;
+        v16 = pillCopy;
+        v17 = 2112;
+        v18 = primaryUIApplicationBundleIdentifier;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[MRDRRC].RBAM Dropping video pill for %@ because another one is already visible - %@", &v15, 0x16u);
+      }
+    }
+
+    else
+    {
+      [(MRDRoutedBackgroundActivityManager *)self presentSystemApertureBluePill:pillCopy remoteControl:controlCopy reason:reasonCopy];
+    }
+  }
+
+  else
+  {
+    [(MRDRoutedBackgroundActivityManager *)self presentBluePillWithPlainType:3 pulseType:4 route:pillCopy remoteControl:controlCopy reason:reasonCopy];
   }
 }
 
@@ -401,6 +520,13 @@
   }
 
   objc_sync_exit(selfCopy);
+}
+
+- (void)controller:(id)controller playbackStateDidChangeFrom:(unsigned int)from to:(unsigned int)to
+{
+  [(MRDRoutedBackgroundActivityManager *)self setPlaybackState:*&to, *&from];
+
+  [(MRDRoutedBackgroundActivityManager *)self reevaluatePillsWithReason:@"playback state changed"];
 }
 
 - (void)_handleActiveSystemEndpointDidChangeNotification:(id)notification

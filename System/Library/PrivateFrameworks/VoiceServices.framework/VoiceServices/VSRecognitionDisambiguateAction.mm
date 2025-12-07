@@ -73,7 +73,7 @@
 
 - (id)_keywords
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   result = self->super._keywords;
   if (!result)
   {
@@ -91,28 +91,28 @@
       CFDictionaryApplyFunction(knownValues, _AddKnownKeywords, v4);
     }
 
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
-    v8 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
+    v8 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v4);
           }
 
-          [(NSArray *)v5 addObject:*(*(&v13 + 1) + 8 * i)];
+          [(NSArray *)v5 addObject:*(*(&v12 + 1) + 8 * i)];
         }
 
-        v9 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
@@ -120,10 +120,9 @@
 
     self->super._keywords = v5;
 
-    result = self->super._keywords;
+    return self->super._keywords;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 

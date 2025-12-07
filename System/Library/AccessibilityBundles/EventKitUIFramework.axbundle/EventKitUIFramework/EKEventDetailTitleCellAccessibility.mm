@@ -40,28 +40,28 @@
 
 - (void)_axAnnotateLocationViewsIfNeeded
 {
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   [(EKEventDetailTitleCellAccessibility *)self safeArrayForKey:@"_locationItems"];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v2 = v27 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v24 objects:v29 count:16];
+  v2 = v26 = 0u;
+  v3 = [v2 countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v25;
+    v5 = *v24;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v25 != v5)
+        if (*v24 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v24 + 1) + 8 * i);
-        v23 = 0;
+        v7 = *(*(&v23 + 1) + 8 * i);
+        v22 = 0;
         objc_opt_class();
         v8 = [v7 safeValueForKey:@"_locationView"];
         v9 = __UIAccessibilityCastAsSafeCategory();
@@ -74,7 +74,7 @@
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v24 objects:v29 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v23 objects:v28 count:16];
       if (v4)
       {
         continue;
@@ -87,37 +87,35 @@
   v11 = 0;
 LABEL_11:
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v12 = v2;
-  v13 = [v12 countByEnumeratingWithState:&v19 objects:v28 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v18 objects:v27 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v20;
+    v15 = *v19;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v20 != v15)
+        if (*v19 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = [*(*(&v19 + 1) + 8 * j) safeValueForKey:{@"_locationView", v19}];
+        v17 = [*(*(&v18 + 1) + 8 * j) safeValueForKey:{@"_locationView", v18}];
         [v17 setIsAccessibilityElement:v11];
         [v17 _accessibilitySetTextViewShouldBreakUpParagraphs:0];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v19 objects:v28 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v18 objects:v27 count:16];
     }
 
     while (v14);
   }
-
-  v18 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_accessibilityLoadAccessibilityInformation
@@ -249,29 +247,29 @@ uint64_t __93__EKEventDetailTitleCellAccessibility__addCustomActionToActionsArra
 
 - (id)accessibilityCustomContent
 {
-  v79 = *MEMORY[0x29EDCA608];
+  v78 = *MEMORY[0x29EDCA608];
   array = [MEMORY[0x29EDB8DE8] array];
   selfCopy = self;
   [(EKEventDetailTitleCellAccessibility *)self safeArrayForKey:@"_locationItems"];
+  v72 = 0u;
   v73 = 0u;
   v74 = 0u;
-  v75 = 0u;
-  obj = v76 = 0u;
-  v3 = [obj countByEnumeratingWithState:&v73 objects:v78 count:16];
+  obj = v75 = 0u;
+  v3 = [obj countByEnumeratingWithState:&v72 objects:v77 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v74;
+    v5 = *v73;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v74 != v5)
+        if (*v73 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v73 + 1) + 8 * i);
+        v7 = *(*(&v72 + 1) + 8 * i);
         v8 = [v7 safeValueForKey:@"_locationView"];
         v9 = v8;
         if (v8 && ([v8 isAccessibilityElement] & 1) == 0)
@@ -290,7 +288,7 @@ uint64_t __93__EKEventDetailTitleCellAccessibility__addCustomActionToActionsArra
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v73 objects:v78 count:16];
+      v4 = [obj countByEnumeratingWithState:&v72 objects:v77 count:16];
     }
 
     while (v4);
@@ -299,7 +297,7 @@ uint64_t __93__EKEventDetailTitleCellAccessibility__addCustomActionToActionsArra
   v18 = [(EKEventDetailTitleCellAccessibility *)selfCopy safeUIViewForKey:@"_conferenceDetailView"];
   if ([v18 _accessibilityViewIsVisible])
   {
-    v72 = 0;
+    v71 = 0;
     objc_opt_class();
     v19 = [v18 safeValueForKey:@"_listView"];
     v20 = __UIAccessibilityCastAsClass();
@@ -330,30 +328,30 @@ uint64_t __93__EKEventDetailTitleCellAccessibility__addCustomActionToActionsArra
     }
   }
 
-  v64 = v18;
-  v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
+  v63 = v18;
   v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
   v34 = [(EKEventDetailTitleCellAccessibility *)selfCopy safeArrayForKey:@"_dateTimeViews"];
-  v35 = [v34 countByEnumeratingWithState:&v68 objects:v77 count:16];
+  v35 = [v34 countByEnumeratingWithState:&v67 objects:v76 count:16];
   if (v35)
   {
     v36 = v35;
     v37 = 0;
-    v38 = *v69;
+    v38 = *v68;
     do
     {
       v39 = 0;
       v40 = v37;
       do
       {
-        if (*v69 != v38)
+        if (*v68 != v38)
         {
           objc_enumerationMutation(v34);
         }
 
-        v41 = *(*(&v68 + 1) + 8 * v39);
+        v41 = *(*(&v67 + 1) + 8 * v39);
         if (!v40)
         {
           v42 = @"date.title";
@@ -383,7 +381,7 @@ LABEL_27:
 
       while (v36 != v39);
       v37 += v36;
-      v36 = [v34 countByEnumeratingWithState:&v68 objects:v77 count:16];
+      v36 = [v34 countByEnumeratingWithState:&v67 objects:v76 count:16];
     }
 
     while (v36);
@@ -424,8 +422,6 @@ LABEL_27:
 
     [array addObject:v61];
   }
-
-  v62 = *MEMORY[0x29EDCA608];
 
   return array;
 }
@@ -495,10 +491,7 @@ uint64_t __107__EKEventDetailTitleCellAccessibility__accessibilityImageLabelforA
   if (a2)
   {
     v2 = result;
-    v3 = [*(result + 32) _accessibilityImageLabelforStatus:*(result + 48)];
-    v4 = *(*(v2 + 40) + 8);
-    v5 = *(v4 + 40);
-    *(v4 + 40) = v3;
+    *(*(*(v2 + 40) + 8) + 40) = [*(result + 32) _accessibilityImageLabelforStatus:*(result + 48)];
 
     return MEMORY[0x2A1C71028]();
   }

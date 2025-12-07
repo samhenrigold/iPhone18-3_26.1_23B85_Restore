@@ -12,22 +12,21 @@
 - (NSDate)renewalDate
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECAB75C0, &unk_1D9188A50);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v13 - v5;
-  sub_1D8CF6B1C(self + OBJC_IVAR___MTContentKeyResponse_renewalDate, &v13 - v5);
-  v7 = sub_1D9176E3C();
-  v8 = *(v7 - 8);
-  v9 = (*(v8 + 48))(v6, 1, v7);
-  v10 = 0;
-  if (v9 != 1)
+  v5 = &v12 - v4;
+  sub_1D8CF6B1C(self + OBJC_IVAR___MTContentKeyResponse_renewalDate, &v12 - v4);
+  v6 = sub_1D9176E3C();
+  v7 = *(v6 - 8);
+  v8 = (*(v7 + 48))(v5, 1, v6);
+  v9 = 0;
+  if (v8 != 1)
   {
-    v11 = _s10Foundation4DateV08PodcastsA0E18userDefaultsObjectSo6NSDateCSgyF_0();
-    (*(v8 + 8))(v6, v7);
-    v10 = v11;
+    v10 = _s10Foundation4DateV08PodcastsA0E18userDefaultsObjectSo6NSDateCSgyF_0();
+    (*(v7 + 8))(v5, v6);
+    v9 = v10;
   }
 
-  return v10;
+  return v9;
 }
 
 - (NSError)error
@@ -81,23 +80,22 @@
 - (MTContentKeyResponse)initWithRequest:(id)request keyData:(id)data renewalDate:(id)date error:(id)error
 {
   v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECAB75C0, &unk_1D9188A50);
-  v11 = *(*(v10 - 8) + 64);
   MEMORY[0x1EEE9AC00](v10 - 8);
-  v13 = &v27 - v12;
+  v12 = &v26 - v11;
   if (!data)
   {
     requestCopy = request;
     dateCopy = date;
     errorCopy = error;
-    v19 = 0xF000000000000000;
+    v18 = 0xF000000000000000;
     if (date)
     {
       goto LABEL_3;
     }
 
 LABEL_5:
-    v24 = sub_1D9176E3C();
-    (*(*(v24 - 8) + 56))(v13, 1, 1, v24);
+    v23 = sub_1D9176E3C();
+    (*(*(v23 - 8) + 56))(v12, 1, 1, v23);
     goto LABEL_6;
   }
 
@@ -106,7 +104,7 @@ LABEL_5:
   errorCopy2 = error;
   dataCopy = data;
   data = sub_1D9176C8C();
-  v19 = v18;
+  v18 = v17;
 
   if (!date)
   {
@@ -116,13 +114,13 @@ LABEL_5:
 LABEL_3:
   sub_1D9176DFC();
 
-  v20 = sub_1D9176E3C();
-  (*(*(v20 - 8) + 56))(v13, 0, 1, v20);
+  v19 = sub_1D9176E3C();
+  (*(*(v19 - 8) + 56))(v12, 0, 1, v19);
 LABEL_6:
-  v25 = sub_1D8FF9600(request, data, v19, v13, error);
+  v24 = sub_1D8FF9600(request, data, v18, v12, error);
 
-  sub_1D8D75668(data, v19);
-  return v25;
+  sub_1D8D75668(data, v18);
+  return v24;
 }
 
 - (MTContentKeyResponse)init

@@ -87,14 +87,14 @@ LABEL_6:
 
 void __61__LACUserInterfaceRemoteUIAdapter_processRequest_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = LACLogUI();
+  v4 = LACLogUI(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = v3;
-    _os_log_impl(&dword_1B0233000, v4, OS_LOG_TYPE_DEFAULT, "Did show UI with error: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v3;
+    _os_log_impl(&dword_1B0233000, v4, OS_LOG_TYPE_DEFAULT, "Did show UI with error: %@", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -103,95 +103,85 @@ void __61__LACUserInterfaceRemoteUIAdapter_processRequest_completion___block_inv
   {
     [WeakRetained _finishWithError:v3];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)terminateWithReason:(id)reason
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
-  v5 = LACLogUI();
+  v5 = LACLogUI(reasonCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412546;
+    v6 = 138412546;
     selfCopy = self;
-    v9 = 2114;
-    v10 = reasonCopy;
-    _os_log_impl(&dword_1B0233000, v5, OS_LOG_TYPE_DEFAULT, "%@ terminating with reason: %{public}@", &v7, 0x16u);
+    v8 = 2114;
+    v9 = reasonCopy;
+    _os_log_impl(&dword_1B0233000, v5, OS_LOG_TYPE_DEFAULT, "%@ terminating with reason: %{public}@", &v6, 0x16u);
   }
 
   [(LACXPCConnection *)self->_connection invalidate];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)uiDismissedForRequest:(id)request error:(id)error
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   errorCopy = error;
-  v6 = LACLogUI();
+  v6 = LACLogUI(errorCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412546;
+    v7 = 138412546;
     selfCopy = self;
-    v10 = 2114;
-    v11 = errorCopy;
-    _os_log_impl(&dword_1B0233000, v6, OS_LOG_TYPE_DEFAULT, "%@ UI dismissed with error: %{public}@", &v8, 0x16u);
+    v9 = 2114;
+    v10 = errorCopy;
+    _os_log_impl(&dword_1B0233000, v6, OS_LOG_TYPE_DEFAULT, "%@ UI dismissed with error: %{public}@", &v7, 0x16u);
   }
 
   [(LACUserInterfaceRemoteUIAdapter *)self _finishWithError:errorCopy];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectionDidActivate:(id)activate
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   activateCopy = activate;
-  v4 = LACLogUI();
+  v4 = LACLogUI(activateCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138412290;
-    v7 = activateCopy;
-    _os_log_impl(&dword_1B0233000, v4, OS_LOG_TYPE_DEFAULT, "%@ Activated", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = activateCopy;
+    _os_log_impl(&dword_1B0233000, v4, OS_LOG_TYPE_DEFAULT, "%@ Activated", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectionDidInterrupt:(id)interrupt
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   interruptCopy = interrupt;
-  v5 = LACLogUI();
+  v5 = LACLogUI(interruptCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = interruptCopy;
-    _os_log_impl(&dword_1B0233000, v5, OS_LOG_TYPE_DEFAULT, "%@ Interrupted", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = interruptCopy;
+    _os_log_impl(&dword_1B0233000, v5, OS_LOG_TYPE_DEFAULT, "%@ Interrupted", &v7, 0xCu);
   }
 
   v6 = [LACError errorWithCode:-1000 debugDescription:@"Connection to UI was interrupted"];
   [(LACUserInterfaceRemoteUIAdapter *)self _finishWithError:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectionDidInvalidate:(id)invalidate
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   invalidateCopy = invalidate;
-  v5 = LACLogUI();
+  v5 = LACLogUI(invalidateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = invalidateCopy;
-    _os_log_impl(&dword_1B0233000, v5, OS_LOG_TYPE_DEFAULT, "%@ Invalidated", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = invalidateCopy;
+    _os_log_impl(&dword_1B0233000, v5, OS_LOG_TYPE_DEFAULT, "%@ Invalidated", &v7, 0xCu);
   }
 
   v6 = [LACError errorWithCode:-1000 debugDescription:@"Connection to UI was invalidated"];
   [(LACUserInterfaceRemoteUIAdapter *)self _finishWithError:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_activateConnectionForRequest:(id)request
@@ -208,10 +198,10 @@ void __61__LACUserInterfaceRemoteUIAdapter_processRequest_completion___block_inv
 
 - (void)_finishWithError:(id)error
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   handler = self->_handler;
-  v6 = LACLogUI();
+  v6 = LACLogUI(errorCopy);
   v7 = v6;
   if (handler)
   {
@@ -219,8 +209,8 @@ void __61__LACUserInterfaceRemoteUIAdapter_processRequest_completion___block_inv
     {
       *buf = 138412546;
       selfCopy = self;
-      v22 = 2114;
-      v23 = errorCopy;
+      v21 = 2114;
+      v22 = errorCopy;
       _os_log_impl(&dword_1B0233000, v7, OS_LOG_TYPE_DEFAULT, "%@ finishing with error: %{public}@", buf, 0x16u);
     }
 
@@ -233,32 +223,29 @@ void __61__LACUserInterfaceRemoteUIAdapter_processRequest_completion___block_inv
     v11 = connection;
 
     replyQueue = self->_replyQueue;
-    v14 = MEMORY[0x1E69E9820];
-    v15 = 3221225472;
-    v16 = __52__LACUserInterfaceRemoteUIAdapter__finishWithError___block_invoke;
-    v17 = &unk_1E7A95798;
-    v19 = v8;
-    v18 = errorCopy;
+    v13 = MEMORY[0x1E69E9820];
+    v14 = 3221225472;
+    v15 = __52__LACUserInterfaceRemoteUIAdapter__finishWithError___block_invoke;
+    v16 = &unk_1E7A95798;
+    v18 = v8;
+    v17 = errorCopy;
     v7 = v8;
-    dispatch_async(replyQueue, &v14);
-    [(LACXPCConnection *)v11 invalidate:v14];
+    dispatch_async(replyQueue, &v13);
+    [(LACXPCConnection *)v11 invalidate:v13];
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [(LACUserInterfaceRemoteUIAdapter *)errorCopy _finishWithError:v7];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finishWithError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1B0233000, a2, OS_LOG_TYPE_DEBUG, "Ignoring redundant finish request (%{public}@)", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1B0233000, a2, OS_LOG_TYPE_DEBUG, "Ignoring redundant finish request (%{public}@)", &v2, 0xCu);
 }
 
 @end

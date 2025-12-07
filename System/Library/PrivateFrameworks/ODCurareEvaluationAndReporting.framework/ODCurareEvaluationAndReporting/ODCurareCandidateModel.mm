@@ -59,7 +59,7 @@
 
 - (id)getDatesOfEventsForStream
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   bMModelDataStream = [(ODCurareCandidateModel *)self BMModelDataStream];
   if (bMModelDataStream)
@@ -86,13 +86,13 @@ LABEL_4:
       bmReceiveInputBlock2 = [(ODCurareCandidateModel *)self bmReceiveInputBlock];
       v14 = [publisher filterWithIsIncluded:bmReceiveInputBlock2];
 
-      v43[0] = MEMORY[0x277D85DD0];
-      v43[1] = 3221225472;
-      v43[2] = __51__ODCurareCandidateModel_getDatesOfEventsForStream__block_invoke_2;
-      v43[3] = &unk_2799B9A88;
+      v42[0] = MEMORY[0x277D85DD0];
+      v42[1] = 3221225472;
+      v42[2] = __51__ODCurareCandidateModel_getDatesOfEventsForStream__block_invoke_2;
+      v42[3] = &unk_2799B9A88;
       v15 = v3;
-      v44 = v15;
-      v16 = [v14 sinkWithCompletion:&__block_literal_global receiveInput:v43];
+      v43 = v15;
+      v16 = [v14 sinkWithCompletion:&__block_literal_global receiveInput:v42];
       v17 = v15;
 
       goto LABEL_10;
@@ -128,80 +128,79 @@ LABEL_9:
   }
 
   knowledgeStore = [MEMORY[0x277CFE208] knowledgeStore];
+  v21 = 0;
   v22 = 0;
-  v23 = 0;
   while (1)
   {
-    v24 = objc_autoreleasePoolPush();
+    v23 = objc_autoreleasePoolPush();
     cDQuery2 = [(ODCurareCandidateModel *)self CDQuery];
-    v26 = [cDQuery2 copy];
+    v25 = [cDQuery2 copy];
 
-    [v26 setLimit:20];
-    [v26 setOffset:v22];
-    v42 = 0;
-    v27 = [knowledgeStore executeQuery:v26 error:&v42];
-    v28 = v42;
-    if (v28)
+    [v25 setLimit:20];
+    [v25 setOffset:v21];
+    v41 = 0;
+    v26 = [knowledgeStore executeQuery:v25 error:&v41];
+    v27 = v41;
+    if (v27)
     {
-      v35 = v28;
-      NSLog(&cfstr_Odcurarecandid_1.isa, v28);
+      v34 = v27;
+      NSLog(&cfstr_Odcurarecandid_1.isa, v27);
 
-      objc_autoreleasePoolPop(v24);
+      objc_autoreleasePoolPop(v23);
       v17 = 0;
       goto LABEL_32;
     }
 
-    if (![v27 count])
+    if (![v26 count])
     {
       break;
     }
 
-    context = v24;
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
+    context = v23;
     v39 = 0u;
-    v29 = v27;
-    v30 = [v29 countByEnumeratingWithState:&v38 objects:v45 count:16];
-    if (v30)
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v28 = v26;
+    v29 = [v28 countByEnumeratingWithState:&v37 objects:v44 count:16];
+    if (v29)
     {
-      v31 = v30;
-      v32 = *v39;
+      v30 = v29;
+      v31 = *v38;
       do
       {
-        for (i = 0; i != v31; ++i)
+        for (i = 0; i != v30; ++i)
         {
-          if (*v39 != v32)
+          if (*v38 != v31)
           {
-            objc_enumerationMutation(v29);
+            objc_enumerationMutation(v28);
           }
 
-          startDate = [*(*(&v38 + 1) + 8 * i) startDate];
+          startDate = [*(*(&v37 + 1) + 8 * i) startDate];
           [v3 addObject:startDate];
         }
 
-        v31 = [v29 countByEnumeratingWithState:&v38 objects:v45 count:16];
+        v30 = [v28 countByEnumeratingWithState:&v37 objects:v44 count:16];
       }
 
-      while (v31);
+      while (v30);
     }
 
-    ++v23;
+    ++v22;
     objc_autoreleasePoolPop(context);
-    v22 += 20;
-    if (v23 == 100001)
+    v21 += 20;
+    if (v22 == 100001)
     {
       goto LABEL_31;
     }
   }
 
-  objc_autoreleasePoolPop(v24);
+  objc_autoreleasePoolPop(v23);
 LABEL_31:
   v17 = v3;
 LABEL_32:
 
 LABEL_10:
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -383,7 +382,7 @@ uint64_t __75__ODCurareCandidateModel__setBiomeFilter_fromInclusive_toDate_toInc
 
 - (void)_setCoreDuetQuery:(id)query fromInclusive:(id)inclusive toDate:(id)date toInclusive:(id)toInclusive
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   queryCopy = query;
   inclusiveCopy = inclusive;
   dateCopy = date;
@@ -398,8 +397,8 @@ uint64_t __75__ODCurareCandidateModel__setBiomeFilter_fromInclusive_toDate_toInc
     cDModelDataStreamIdentifier2 = [(ODCurareCandidateModel *)self CDModelDataStreamIdentifier];
     v18 = [v16 eventStreamWithName:cDModelDataStreamIdentifier2];
 
-    v26[0] = v18;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
+    v25[0] = v18;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
     [v14 setEventStreams:v19];
 
     if (queryCopy && dateCopy)
@@ -437,12 +436,12 @@ uint64_t __75__ODCurareCandidateModel__setBiomeFilter_fromInclusive_toDate_toInc
     {
       if (inclusiveCopy && [inclusiveCopy BOOLValue])
       {
-        [MEMORY[0x277CCAC30] predicateWithFormat:@"(startDate >= %@)", queryCopy, v25];
+        [MEMORY[0x277CCAC30] predicateWithFormat:@"(startDate >= %@)", queryCopy, v24];
       }
 
       else
       {
-        [MEMORY[0x277CCAC30] predicateWithFormat:@"(startDate > %@)", queryCopy, v25];
+        [MEMORY[0x277CCAC30] predicateWithFormat:@"(startDate > %@)", queryCopy, v24];
       }
     }
 
@@ -457,12 +456,12 @@ uint64_t __75__ODCurareCandidateModel__setBiomeFilter_fromInclusive_toDate_toInc
 
       if (toInclusiveCopy && [toInclusiveCopy BOOLValue])
       {
-        [MEMORY[0x277CCAC30] predicateWithFormat:@"(startDate <= %@)", dateCopy, v25];
+        [MEMORY[0x277CCAC30] predicateWithFormat:@"(startDate <= %@)", dateCopy, v24];
       }
 
       else
       {
-        [MEMORY[0x277CCAC30] predicateWithFormat:@"(startDate < %@)", dateCopy, v25];
+        [MEMORY[0x277CCAC30] predicateWithFormat:@"(startDate < %@)", dateCopy, v24];
       }
     }
 
@@ -480,8 +479,6 @@ LABEL_27:
 
   NSLog(&cfstr_Odcurarecandid_5.isa);
 LABEL_28:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

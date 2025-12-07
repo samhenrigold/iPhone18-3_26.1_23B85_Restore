@@ -79,37 +79,37 @@ void __67__CHSWidgetConfigurationReader_allConfiguredWidgetsWithCompletion___blo
 
 void __50__CHSWidgetConfigurationReader__transformResults___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x1E695DF70] array];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v8 = [v6 containerDescriptors];
-  v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v9)
   {
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       v11 = 0;
       do
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = [*(*(&v17 + 1) + 8 * v11) widgets];
+        v12 = [*(*(&v16 + 1) + 8 * v11) widgets];
         [v7 addObjectsFromArray:v12];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
@@ -120,7 +120,6 @@ void __50__CHSWidgetConfigurationReader__transformResults___block_invoke(uint64_
   v15 = [(_CHSWidgetConfigurationHost *)v13 initWithIdentifier:v5 configurations:v7 metricsSpecification:v14];
 
   [*(a1 + 32) addObject:v15];
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

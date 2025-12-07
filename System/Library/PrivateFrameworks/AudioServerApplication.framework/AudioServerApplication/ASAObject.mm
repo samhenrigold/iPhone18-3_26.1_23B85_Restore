@@ -59,15 +59,15 @@
 
 - (unsigned)sizeOfProperty:(unsigned int)property scope:(unsigned int)scope ofElement:(unsigned int)element withQualifier:(void *)qualifier ofSize:(unsigned int)size
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v17.mElement = element;
+  v28 = *MEMORY[0x277D85DE8];
+  v16.mElement = element;
   outDataSize = 0;
-  v17.mSelector = property;
-  v17.mScope = scope;
-  result = AudioObjectHasProperty(self->_objectID, &v17);
+  v16.mSelector = property;
+  v16.mScope = scope;
+  result = AudioObjectHasProperty(self->_objectID, &v16);
   if (result)
   {
-    PropertyDataSize = AudioObjectGetPropertyDataSize(self->_objectID, &v17, size, qualifier, &outDataSize);
+    PropertyDataSize = AudioObjectGetPropertyDataSize(self->_objectID, &v16, size, qualifier, &outDataSize);
     if (PropertyDataSize)
     {
       outDataSize = 0;
@@ -77,28 +77,27 @@
     {
       objectID = self->_objectID;
       *buf = 67110144;
-      v20 = objectID;
-      v21 = 1024;
+      v19 = objectID;
+      v20 = 1024;
       propertyCopy = property;
-      v23 = 1024;
+      v22 = 1024;
       scopeCopy = scope;
-      v25 = 1024;
+      v24 = 1024;
       elementCopy = element;
-      v27 = 1024;
-      v28 = PropertyDataSize;
+      v26 = 1024;
+      v27 = PropertyDataSize;
       _os_log_debug_impl(&dword_2415BC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "object %u sizeOfProperty {%u, %u, %u} returned status %u", buf, 0x20u);
     }
 
-    result = outDataSize;
+    return outDataSize;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (BOOL)getProperty:(unsigned int)property scope:(unsigned int)scope ofElement:(unsigned int)element withData:(void *)data ofSize:(unsigned int *)size withQualifier:(void *)qualifier ofSize:(unsigned int)inQualifierDataSize
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   inAddress.mSelector = property;
   inAddress.mScope = scope;
   inAddress.mElement = element;
@@ -106,6 +105,63 @@
   {
     PropertyData = AudioObjectGetPropertyData(self->_objectID, &inAddress, inQualifierDataSize, qualifier, size, data);
     v17 = PropertyData == 0;
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+    {
+      objectID = self->_objectID;
+      *buf = 67110144;
+      v22 = objectID;
+      v23 = 1024;
+      propertyCopy = property;
+      v25 = 1024;
+      scopeCopy = scope;
+      v27 = 1024;
+      elementCopy = element;
+      v29 = 1024;
+      v30 = PropertyData;
+      _os_log_debug_impl(&dword_2415BC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "object %u getProperty {%u, %u, %u} returned status %u", buf, 0x20u);
+    }
+  }
+
+  else
+  {
+    v17 = 0;
+    if (data && size)
+    {
+      bzero(data, *size);
+      return 0;
+    }
+  }
+
+  return v17;
+}
+
+- (BOOL)setProperty:(unsigned int)property scope:(unsigned int)scope ofElement:(unsigned int)element withData:(void *)data ofSize:(unsigned int)size withQualifier:(void *)qualifier ofSize:(unsigned int)ofSize
+{
+  v32 = *MEMORY[0x277D85DE8];
+  inAddress.mSelector = property;
+  inAddress.mScope = scope;
+  inAddress.mElement = element;
+  if (!AudioObjectHasProperty(self->_objectID, &inAddress))
+  {
+    return 0;
+  }
+
+  outIsSettable = 0;
+  v15 = 0;
+  if (AudioObjectIsPropertySettable(self->_objectID, &inAddress, &outIsSettable))
+  {
+    v16 = 1;
+  }
+
+  else
+  {
+    v16 = outIsSettable == 0;
+  }
+
+  if (!v16)
+  {
+    v17 = AudioObjectSetPropertyData(self->_objectID, &inAddress, 0, 0, size, data);
+    v15 = v17 == 0;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
       objectID = self->_objectID;
@@ -118,127 +174,61 @@
       v28 = 1024;
       elementCopy = element;
       v30 = 1024;
-      v31 = PropertyData;
-      _os_log_debug_impl(&dword_2415BC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "object %u getProperty {%u, %u, %u} returned status %u", buf, 0x20u);
+      v31 = v17;
+      _os_log_debug_impl(&dword_2415BC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "object %u setProperty {%u, %u, %u} returned status %u", buf, 0x20u);
     }
   }
 
-  else
-  {
-    v17 = 0;
-    if (data && size)
-    {
-      bzero(data, *size);
-      v17 = 0;
-    }
-  }
-
-  v19 = *MEMORY[0x277D85DE8];
-  return v17;
-}
-
-- (BOOL)setProperty:(unsigned int)property scope:(unsigned int)scope ofElement:(unsigned int)element withData:(void *)data ofSize:(unsigned int)size withQualifier:(void *)qualifier ofSize:(unsigned int)ofSize
-{
-  v33 = *MEMORY[0x277D85DE8];
-  inAddress.mSelector = property;
-  inAddress.mScope = scope;
-  inAddress.mElement = element;
-  if (AudioObjectHasProperty(self->_objectID, &inAddress))
-  {
-    outIsSettable = 0;
-    v15 = 0;
-    if (AudioObjectIsPropertySettable(self->_objectID, &inAddress, &outIsSettable))
-    {
-      v16 = 1;
-    }
-
-    else
-    {
-      v16 = outIsSettable == 0;
-    }
-
-    if (!v16)
-    {
-      v17 = AudioObjectSetPropertyData(self->_objectID, &inAddress, 0, 0, size, data);
-      v15 = v17 == 0;
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
-      {
-        objectID = self->_objectID;
-        *buf = 67110144;
-        v24 = objectID;
-        v25 = 1024;
-        propertyCopy = property;
-        v27 = 1024;
-        scopeCopy = scope;
-        v29 = 1024;
-        elementCopy = element;
-        v31 = 1024;
-        v32 = v17;
-        _os_log_debug_impl(&dword_2415BC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "object %u setProperty {%u, %u, %u} returned status %u", buf, 0x20u);
-      }
-    }
-  }
-
-  else
-  {
-    v15 = 0;
-  }
-
-  v19 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (BOOL)isPropertySettable:(unsigned int)settable scope:(unsigned int)scope ofElement:(unsigned int)element
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   outIsSettable = 0;
-  v16.mSelector = settable;
-  v16.mScope = scope;
-  v16.mElement = element;
-  if (AudioObjectHasProperty(self->_objectID, &v16))
+  v15.mSelector = settable;
+  v15.mScope = scope;
+  v15.mElement = element;
+  if (!AudioObjectHasProperty(self->_objectID, &v15))
   {
-    IsPropertySettable = AudioObjectIsPropertySettable(self->_objectID, &v16, &outIsSettable);
-    v10 = IsPropertySettable;
-    if (outIsSettable)
-    {
-      v11 = IsPropertySettable == 0;
-    }
+    return 0;
+  }
 
-    else
-    {
-      v11 = 0;
-    }
-
-    v12 = v11;
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
-    {
-      objectID = self->_objectID;
-      *buf = 67110144;
-      v19 = objectID;
-      v20 = 1024;
-      settableCopy = settable;
-      v22 = 1024;
-      scopeCopy = scope;
-      v24 = 1024;
-      elementCopy = element;
-      v26 = 1024;
-      v27 = v10;
-      _os_log_debug_impl(&dword_2415BC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "object %u isPropertySettable {%u, %u, %u} returned status %u", buf, 0x20u);
-    }
+  IsPropertySettable = AudioObjectIsPropertySettable(self->_objectID, &v15, &outIsSettable);
+  v10 = IsPropertySettable;
+  if (outIsSettable)
+  {
+    v11 = IsPropertySettable == 0;
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = v11;
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+  {
+    objectID = self->_objectID;
+    *buf = 67110144;
+    v18 = objectID;
+    v19 = 1024;
+    settableCopy = settable;
+    v21 = 1024;
+    scopeCopy = scope;
+    v23 = 1024;
+    elementCopy = element;
+    v25 = 1024;
+    v26 = v10;
+    _os_log_debug_impl(&dword_2415BC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "object %u isPropertySettable {%u, %u, %u} returned status %u", buf, 0x20u);
+  }
+
   return v12;
 }
 
 - (BOOL)onQueue:(id)queue forProperty:(unsigned int)property scope:(unsigned int)scope ofElement:(unsigned int)element addListener:(id)listener
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   listenerCopy = listener;
   inAddress.mSelector = property;
@@ -252,15 +242,15 @@
     {
       objectID = self->_objectID;
       *buf = 67110144;
-      v21 = objectID;
-      v22 = 1024;
+      v20 = objectID;
+      v21 = 1024;
       propertyCopy = property;
-      v24 = 1024;
+      v23 = 1024;
       scopeCopy = scope;
-      v26 = 1024;
+      v25 = 1024;
       elementCopy = element;
-      v28 = 1024;
-      v29 = v14;
+      v27 = 1024;
+      v28 = v14;
       _os_log_debug_impl(&dword_2415BC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "object %u addListener {%u, %u, %u} returned status %u", buf, 0x20u);
     }
   }
@@ -270,13 +260,12 @@
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
 - (BOOL)onQueue:(id)queue forProperty:(unsigned int)property scope:(unsigned int)scope ofElement:(unsigned int)element removeListener:(id)listener
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   listenerCopy = listener;
   inAddress.mSelector = property;
@@ -290,15 +279,15 @@
     {
       objectID = self->_objectID;
       *buf = 67110144;
-      v21 = objectID;
-      v22 = 1024;
+      v20 = objectID;
+      v21 = 1024;
       propertyCopy = property;
-      v24 = 1024;
+      v23 = 1024;
       scopeCopy = scope;
-      v26 = 1024;
+      v25 = 1024;
       elementCopy = element;
-      v28 = 1024;
-      v29 = v14;
+      v27 = 1024;
+      v28 = v14;
       _os_log_debug_impl(&dword_2415BC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "object %u removeListener {%u, %u, %u} returned status %u", buf, 0x20u);
     }
   }
@@ -308,7 +297,6 @@
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -395,7 +383,7 @@
 
 - (id)diagnosticDescriptionWithIndent:(id)indent walkTree:(BOOL)tree
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   indentCopy = indent;
   string = [MEMORY[0x277CCAB68] string];
   coreAudioClassName = [(ASAObject *)self coreAudioClassName];
@@ -497,38 +485,36 @@
   if ([ownedObjectIDs count])
   {
     [string appendFormat:@"%@|    Owned Objects:\n", indentCopy];
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v19 = ownedObjectIDs;
-    v20 = [v19 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v20)
     {
       v21 = v20;
       v22 = 0;
-      v23 = *v28;
+      v23 = *v27;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v28 != v23)
+          if (*v27 != v23)
           {
             objc_enumerationMutation(v19);
           }
 
-          [string appendFormat:@"%@|        %u: %u\n", indentCopy, v22, objc_msgSend(*(*(&v27 + 1) + 8 * i), "unsignedIntValue")];
+          [string appendFormat:@"%@|        %u: %u\n", indentCopy, v22, objc_msgSend(*(*(&v26 + 1) + 8 * i), "unsignedIntValue")];
           v22 = (v22 + 1);
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v21);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return string;
 }

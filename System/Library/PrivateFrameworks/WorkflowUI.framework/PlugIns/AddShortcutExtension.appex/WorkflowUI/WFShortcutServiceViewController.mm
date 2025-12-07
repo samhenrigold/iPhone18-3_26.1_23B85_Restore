@@ -15,6 +15,7 @@
 - (void)buildForEditingVoiceShortcut:(id)shortcut;
 - (void)loadView;
 - (void)setupWithShortcutViewController:(id)controller;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation WFShortcutServiceViewController
@@ -428,7 +429,7 @@ LABEL_13:
     v7 = _auxiliaryConnection;
     if (_auxiliaryConnection)
     {
-      [_auxiliaryConnection auditToken];
+      objc_msgSend_auditToken(_auxiliaryConnection);
     }
 
     else
@@ -440,7 +441,7 @@ LABEL_13:
 
   else
   {
-    [(WFShortcutServiceViewController *)self _hostAuditToken];
+    objc_msgSend__hostAuditToken(self);
   }
 
   v11[0] = v12;
@@ -449,6 +450,14 @@ LABEL_13:
   associatedAppBundleIdentifier = [v8 associatedAppBundleIdentifier];
 
   return associatedAppBundleIdentifier;
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = WFShortcutServiceViewController;
+  [(WFShortcutServiceViewController *)&v4 viewWillDisappear:disappear];
+  [(WFShortcutServiceViewController *)self _stopAccessingAppBundle];
 }
 
 - (void)loadView

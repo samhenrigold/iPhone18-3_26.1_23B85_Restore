@@ -164,31 +164,30 @@ LABEL_11:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_objectIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_schemaIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_attachmentIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 8) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt64Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -207,47 +206,44 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  creationDate = self->_creationDate;
   PBDataWriterWriteDoubleField();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_10:
-    options = self->_options;
     PBDataWriterWriteInt64Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_11:
   if (self->_metadata)
   {
     PBDataWriterWriteDataField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    schemaVersion = self->_schemaVersion;
     PBDataWriterWriteInt64Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_systemBuildVersion)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_productType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_deviceName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 

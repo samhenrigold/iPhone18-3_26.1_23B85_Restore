@@ -408,7 +408,7 @@ void __111__HFAccessorySettingsItemProvider_buildItemTuplesForHomeKitSettings_us
 
 void __111__HFAccessorySettingsItemProvider_buildItemTuplesForHomeKitSettings_usageOptions_settingGroup_underNode_cache___block_invoke_6(void *a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = (*(a1[6] + 16))();
@@ -423,40 +423,37 @@ void __111__HFAccessorySettingsItemProvider_buildItemTuplesForHomeKitSettings_us
   if (objc_opt_isKindOfClass())
   {
     v8 = v6;
+    v14 = 0u;
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
-    v19 = 0u;
     v9 = [v8 items];
-    v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v17;
+      v12 = *v15;
       do
       {
         v13 = 0;
         do
         {
-          if (*v17 != v12)
+          if (*v15 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v16 + 1) + 8 * v13);
           (*(a1[8] + 16))();
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v11);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __111__HFAccessorySettingsItemProvider_buildItemTuplesForHomeKitSettings_usageOptions_settingGroup_underNode_cache___block_invoke_8(id *a1, void *a2)

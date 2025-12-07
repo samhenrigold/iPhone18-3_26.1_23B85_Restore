@@ -45,19 +45,18 @@ void sub_100001B38(void *a1, uint64_t a2)
   if (a2)
   {
     *(*(a1[6] + 8) + 24) = 1;
-    v3 = a1[5];
     (*(a1[5] + 16))();
   }
 
   else
   {
-    v4 = +[ICQOfferManager sharedOfferManager];
-    [v4 teardownCachedOffer];
+    v3 = +[ICQOfferManager sharedOfferManager];
+    [v3 teardownCachedOffer];
   }
 
-  v5 = a1[4];
+  v4 = a1[4];
 
-  dispatch_group_leave(v5);
+  dispatch_group_leave(v4);
 }
 
 void sub_100001BB0(void *a1, uint64_t a2)
@@ -65,19 +64,18 @@ void sub_100001BB0(void *a1, uint64_t a2)
   if (a2)
   {
     *(*(a1[6] + 8) + 24) = 1;
-    v3 = a1[5];
     (*(a1[5] + 16))();
   }
 
   else
   {
-    v4 = +[ICQOfferManager sharedOfferManager];
-    [v4 teardownCachedPremiumOffer];
+    v3 = +[ICQOfferManager sharedOfferManager];
+    [v3 teardownCachedPremiumOffer];
   }
 
-  v5 = a1[4];
+  v4 = a1[4];
 
-  dispatch_group_leave(v5);
+  dispatch_group_leave(v4);
 }
 
 BOOL sub_10000231C(id a1, FLFollowUpAction *a2, unint64_t a3, BOOL *a4)
@@ -156,21 +154,20 @@ void sub_100002BE0(uint64_t a1, void *a2)
 
 uint64_t sub_100002C90(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   objc_opt_class();
   result = objc_opt_isKindOfClass();
   if (result)
   {
-    v4 = objc_retainBlock(*(a1 + 48));
-    v5 = *(a1 + 40);
-    v6 = *(v5 + 56);
-    *(v5 + 56) = v4;
+    v3 = objc_retainBlock(*(a1 + 48));
+    v4 = *(a1 + 40);
+    v5 = *(v4 + 56);
+    *(v4 + 56) = v3;
 
-    v8 = *(a1 + 32);
-    v7 = *(a1 + 40);
-    v9 = *(a1 + 48);
+    v7 = *(a1 + 32);
+    v6 = *(a1 + 40);
+    v8 = *(a1 + 48);
 
-    return [v7 icqActionPresentOptInFlowForOffer:v8 withCompletion:v9];
+    return [v6 icqActionPresentOptInFlowForOffer:v7 withCompletion:v8];
   }
 
   return result;
@@ -208,10 +205,25 @@ id sub_100002EB8(uint64_t a1)
   return [v3 icqActionPresentPurchaseFlowForOffer:v4 withCompletion:v5];
 }
 
-void sub_10000336C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000336C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
+}
+
+void sub_1000033C8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ICQFollowupViewController icqActionPresentOptInFlowForOffer:withCompletion:]";
+  sub_10000336C(&_mh_execute_header, a1, a3, "Subclass must override %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100003440(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ICQFollowupViewController icqActionPresentPurchaseFlowForOffer:withCompletion:]";
+  sub_10000336C(&_mh_execute_header, a1, a3, "Subclass must override %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_1000034B8(uint64_t a1, NSObject *a2)
@@ -220,4 +232,11 @@ void sub_1000034B8(uint64_t a1, NSObject *a2)
   v4 = 138412290;
   v5 = v3;
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Followup triggered with non-offer request type %@", &v4, 0xCu);
+}
+
+void sub_10000355C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[ICQFollowupViewController icqActionPhotosOptimize:]";
+  sub_10000336C(&_mh_execute_header, a1, a3, "Subclass must override %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }

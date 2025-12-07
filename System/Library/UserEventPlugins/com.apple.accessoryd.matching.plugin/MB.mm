@@ -41,11 +41,9 @@ void ___generateUART_MB_AIDB_AccessoryConnectionStatisticsEvent_block_invoke(uin
     _os_log_impl(&def_3A0E8, v4, OS_LOG_TYPE_DEFAULT, "CoreAnalytics event: %@\neventDict: %@", &v9, 0x16u);
   }
 
-  v6 = *(a1 + 32);
   AnalyticsSendEvent();
-  v7 = *(a1 + 32);
-  AnalyticsSendEvent();
-  if (systemInfo_isInternalBuild())
+  v6 = AnalyticsSendEvent();
+  if (systemInfo_isInternalBuild(v6, v7))
   {
     v8 = [ACCAnalytics loggerForUser:0];
     [v8 logACCAnalyticsForEventNamed:@"accessoryConnectionStatistics" withAttributes:*(a1 + 32)];

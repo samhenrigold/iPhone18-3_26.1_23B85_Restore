@@ -94,13 +94,13 @@ uint64_t __45__PFFileSystemStagedURL_stageDeleteEndpoint___block_invoke(uint64_t
 
 uint64_t __70__PFFileSystemStagedURL_archiveObjectUsingNSKeyedArchiver_toEndpoint___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = *(a1 + 32);
-  v20 = 0;
-  v10 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v9 requiringSecureCoding:1 error:&v20];
-  v11 = v20;
+  v19 = 0;
+  v10 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v9 requiringSecureCoding:1 error:&v19];
+  v11 = v19;
   v12 = v11;
   if (!v10)
   {
@@ -115,9 +115,9 @@ uint64_t __70__PFFileSystemStagedURL_archiveObjectUsingNSKeyedArchiver_toEndpoin
       }
 
       v15 = MEMORY[0x1E696ABC0];
-      v21 = *MEMORY[0x1E696A588];
-      v22[0] = @"Unable to archive data";
-      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+      v20 = *MEMORY[0x1E696A588];
+      v21[0] = @"Unable to archive data";
+      v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
       v17 = [v15 pf_errorWithCode:0 userInfo:v16];
       *a4 = v17;
     }
@@ -129,7 +129,6 @@ uint64_t __70__PFFileSystemStagedURL_archiveObjectUsingNSKeyedArchiver_toEndpoin
   v13 = [*(a1 + 40) writeData:v10 relativeTo:v8 fileManager:v7 error:a4];
 LABEL_8:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -237,20 +236,19 @@ LABEL_8:
 
 - (BOOL)commitRelativeToURL:(id)l error:(id *)error
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
   v7 = objc_opt_class();
-  v11[0] = self;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+  v10[0] = self;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
   LOBYTE(error) = [v7 commitStagedURLs:v8 destinationURL:lCopy error:error];
 
-  v9 = *MEMORY[0x1E69E9840];
   return error;
 }
 
 + (BOOL)commitStagedURLs:(id)ls destinationURL:(id)l stagingURL:(id)rL fileManager:(id)manager error:(id *)error
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   lsCopy = ls;
   lCopy = l;
   rLCopy = rL;
@@ -265,25 +263,24 @@ LABEL_8:
     rLCopy = [v16 pf_temporaryDirectoryURLNamed:v20];
   }
 
-  v27[0] = lCopy;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:1];
-  v26 = rLCopy;
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v26 count:1];
+  v26[0] = lCopy;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+  v25 = rLCopy;
+  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
   v23 = [self commitStagedURLs:lsCopy destinationURLsForSwap:v21 stagingURLsForSwap:v22 stagingURL:rLCopy fileManager:managerCopy error:error];
 
-  v24 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
 + (BOOL)commitStagedURLs:(id)ls destinationURLsForSwap:(id)swap stagingURLsForSwap:(id)forSwap stagingURL:(id)l fileManager:(id)manager error:(id *)error
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   lsCopy = ls;
   swapCopy = swap;
   forSwapCopy = forSwap;
   lCopy = l;
   managerCopy = manager;
-  v52 = forSwapCopy;
+  v50 = forSwapCopy;
   if (![forSwapCopy count] || !objc_msgSend(swapCopy, "count") || (v17 = objc_msgSend(forSwapCopy, "count"), v17 != objc_msgSend(swapCopy, "count")))
   {
     if (error)
@@ -322,68 +319,68 @@ LABEL_8:
     if (!lCopy)
     {
 LABEL_15:
-      v26 = MEMORY[0x1E695DFF8];
-      v27 = MEMORY[0x1E696AEC0];
+      v25 = MEMORY[0x1E695DFF8];
+      v26 = MEMORY[0x1E696AEC0];
       uUID = [MEMORY[0x1E696AFB0] UUID];
       uUIDString = [uUID UUIDString];
-      v30 = [v27 stringWithFormat:@"StagedURLCommit-%@", uUIDString];
-      lCopy = [v26 pf_temporaryDirectoryURLNamed:v30];
+      v29 = [v26 stringWithFormat:@"StagedURLCommit-%@", uUIDString];
+      lCopy = [v25 pf_temporaryDirectoryURLNamed:v29];
     }
   }
 
-  v57 = 0u;
-  v58 = 0u;
   v55 = 0u;
   v56 = 0u;
+  v53 = 0u;
+  v54 = 0u;
   obj = lsCopy;
-  v31 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
-  if (v31)
+  v30 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
+  if (v30)
   {
-    v32 = *v56;
+    v31 = *v54;
     while (2)
     {
-      for (i = 0; i != v31; ++i)
+      for (i = 0; i != v30; ++i)
       {
-        if (*v56 != v32)
+        if (*v54 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v34 = *(*(&v55 + 1) + 8 * i);
-        v35 = MEMORY[0x1C691C400](v34[1]);
-        v54 = 0;
-        v36 = (v35)[2](v35, managerCopy, lCopy, &v54);
-        v37 = v54;
-        v38 = v37;
-        if ((v36 & 1) == 0)
+        v33 = *(*(&v53 + 1) + 8 * i);
+        v34 = MEMORY[0x1C691C400](v33[1]);
+        v52 = 0;
+        v35 = (v34)[2](v34, managerCopy, lCopy, &v52);
+        v36 = v52;
+        v37 = v36;
+        if ((v35 & 1) == 0)
         {
-          if (!v37)
+          if (!v36)
           {
-            v43 = PFFunctionNameForAddress(v8);
-            v46 = v43;
-            if (v43)
+            v42 = PFFunctionNameForAddress(v8);
+            v45 = v42;
+            if (v42)
             {
-              v47 = v43;
+              v46 = v42;
             }
 
             else
             {
-              v47 = @"(Unknown Location)";
+              v46 = @"(Unknown Location)";
             }
 
-            v38 = PFGeneralErrorFromObjectWithLocalizedFailureReason(v34, v47, 0, 0, 0, @"Commit was rejected.", v44, v45, 0);
+            v37 = PFGeneralErrorFromObjectWithLocalizedFailureReason(v33, v46, 0, 0, 0, @"Commit was rejected.", v43, v44, 0);
           }
 
           if (error)
           {
-            v48 = v38;
-            *error = v38;
+            v36 = v37;
+            *error = v37;
           }
 
-          v49 = PFLogCommon();
-          if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+          v47 = PFLogCommon(v36);
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
           {
-            [PFFileSystemStagedURL commitStagedURLs:v34 destinationURLsForSwap:v49 stagingURLsForSwap:? stagingURL:? fileManager:? error:?];
+            [PFFileSystemStagedURL commitStagedURLs:v33 destinationURLsForSwap:v47 stagingURLsForSwap:? stagingURL:? fileManager:? error:?];
           }
 
           v23 = 0;
@@ -391,8 +388,8 @@ LABEL_15:
         }
       }
 
-      v31 = [obj countByEnumeratingWithState:&v55 objects:v59 count:16];
-      if (v31)
+      v30 = [obj countByEnumeratingWithState:&v53 objects:v57 count:16];
+      if (v30)
       {
         continue;
       }
@@ -401,29 +398,28 @@ LABEL_15:
     }
   }
 
-  v39 = 0;
+  v38 = 0;
   v23 = 1;
-  while (v39 < [swapCopy count])
+  while (v38 < [swapCopy count])
   {
-    v40 = [swapCopy objectAtIndexedSubscript:v39];
-    v41 = [v52 objectAtIndexedSubscript:v39];
-    v42 = [managerCopy pf_replaceURL:v40 withURL:v41 error:error];
+    v39 = [swapCopy objectAtIndexedSubscript:v38];
+    v40 = [v50 objectAtIndexedSubscript:v38];
+    v41 = [managerCopy pf_replaceURL:v39 withURL:v40 error:error];
 
-    v23 &= v42;
-    ++v39;
+    v23 &= v41;
+    ++v38;
   }
 
 LABEL_37:
   [managerCopy removeItemAtURL:lCopy error:0];
 LABEL_13:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v23 & 1;
 }
 
 - (void)initWithEndpoint:(char *)a1 commitHandler:commitDescription:.cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"commitDescription"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -431,7 +427,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"commitDescription", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -441,7 +437,7 @@ LABEL_13:
 
 - (void)initWithEndpoint:(char *)a1 commitHandler:commitDescription:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"commitBlock"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -449,7 +445,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"commitBlock", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -459,7 +455,7 @@ LABEL_13:
 
 - (void)initWithEndpoint:(char *)a1 commitHandler:commitDescription:.cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"endpoint"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -467,7 +463,7 @@ LABEL_13:
     v3 = OUTLINED_FUNCTION_3();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"endpoint", v10, v11);
+    OUTLINED_FUNCTION_2(&dword_1C269D000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -477,11 +473,10 @@ LABEL_13:
 
 + (void)commitStagedURLs:(uint64_t)a1 destinationURLsForSwap:(NSObject *)a2 stagingURLsForSwap:stagingURL:fileManager:error:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C269D000, a2, OS_LOG_TYPE_ERROR, "[PFFileSystemStagedURL] error committing stagedURL: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C269D000, a2, OS_LOG_TYPE_ERROR, "[PFFileSystemStagedURL] error committing stagedURL: %{public}@", &v2, 0xCu);
 }
 
 @end

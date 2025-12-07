@@ -15,7 +15,7 @@
 
 - (void)_requestStatus
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   owner = [(HMDResidentMeshMeshStorage *)self owner];
   if (!owner)
   {
@@ -35,23 +35,23 @@
     [(HMDResidentMeshMeshStorage *)self setNestedStatusRequests:[(HMDResidentMeshMeshStorage *)self nestedStatusRequests]+ 1];
     if (!nestedStatusRequests)
     {
-      v23[0] = @"kMeshDevice";
+      v22[0] = @"kMeshDevice";
       residentDevice2 = [(HMDResidentMeshMeshStorage *)self residentDevice];
       device = [residentDevice2 device];
       identifier = [device identifier];
       uUIDString = [identifier UUIDString];
-      v23[1] = @"kMeshVersion";
-      v24[0] = uUIDString;
-      v24[1] = &unk_283E736D0;
-      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+      v22[1] = @"kMeshVersion";
+      v23[0] = uUIDString;
+      v23[1] = &unk_283E736D0;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
 
       residentDevice3 = [(HMDResidentMeshMeshStorage *)self residentDevice];
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __44__HMDResidentMeshMeshStorage__requestStatus__block_invoke;
-      v22[3] = &unk_278689DC0;
-      v22[4] = self;
-      [v4 _sendMessage:@"kDeviceMeshUpdateRequestKey" payload:v20 target:residentDevice3 force:0 responseHandler:v22];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __44__HMDResidentMeshMeshStorage__requestStatus__block_invoke;
+      v21[3] = &unk_278689DC0;
+      v21[4] = self;
+      [v4 _sendMessage:@"kDeviceMeshUpdateRequestKey" payload:v19 target:residentDevice3 force:0 responseHandler:v21];
 
       goto LABEL_10;
     }
@@ -64,9 +64,9 @@
       v12 = HMFGetLogIdentifier();
       residentDevice4 = [(HMDResidentMeshMeshStorage *)self residentDevice];
       *buf = 138543618;
-      v26 = v12;
-      v27 = 2112;
-      v28 = residentDevice4;
+      v25 = v12;
+      v26 = 2112;
+      v27 = residentDevice4;
       v14 = "%{public}@Not sending status request because we already have an outstanding request for device: %@";
 LABEL_8:
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, v14, buf, 0x16u);
@@ -83,9 +83,9 @@ LABEL_8:
       v12 = HMFGetLogIdentifier();
       residentDevice4 = [(HMDResidentMeshMeshStorage *)self residentDevice];
       *buf = 138543618;
-      v26 = v12;
-      v27 = 2112;
-      v28 = residentDevice4;
+      v25 = v12;
+      v26 = 2112;
+      v27 = residentDevice4;
       v14 = "%{public}@skipping update to unreachable resident %@";
       goto LABEL_8;
     }
@@ -93,13 +93,11 @@ LABEL_8:
 
   objc_autoreleasePoolPop(v9);
 LABEL_10:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __44__HMDResidentMeshMeshStorage__requestStatus__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) nestedStatusRequests];
@@ -115,13 +113,13 @@ void __44__HMDResidentMeshMeshStorage__requestStatus__block_invoke(uint64_t a1, 
       v12 = HMFGetLogIdentifier();
       v13 = [*(a1 + 32) residentDevice];
       v14 = [v13 device];
-      v24 = 138543874;
-      v25 = v12;
-      v26 = 2112;
-      v27 = v14;
-      v28 = 2112;
-      v29 = v5;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Got error result for kDeviceMeshUpdateRequestKey from %@: %@", &v24, 0x20u);
+      v23 = 138543874;
+      v24 = v12;
+      v25 = 2112;
+      v26 = v14;
+      v27 = 2112;
+      v28 = v5;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Got error result for kDeviceMeshUpdateRequestKey from %@: %@", &v23, 0x20u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -145,11 +143,11 @@ void __44__HMDResidentMeshMeshStorage__requestStatus__block_invoke(uint64_t a1, 
       {
         v20 = HMFGetLogIdentifier();
         v21 = [*(a1 + 32) residentDevice];
-        v24 = 138543618;
-        v25 = v20;
-        v26 = 2112;
-        v27 = v21;
-        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Retrying kDeviceMeshUpdateRequestKey message for %@", &v24, 0x16u);
+        v23 = 138543618;
+        v24 = v20;
+        v25 = 2112;
+        v26 = v21;
+        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Retrying kDeviceMeshUpdateRequestKey message for %@", &v23, 0x16u);
       }
 
       objc_autoreleasePoolPop(v17);
@@ -166,8 +164,6 @@ void __44__HMDResidentMeshMeshStorage__requestStatus__block_invoke(uint64_t a1, 
     v10 = [v6 hmf_dictionaryForKey:@"kMeshDeviceStorageSystemLoad"];
     [*(a1 + 32) setMetrics:v10];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDResidentMeshMeshStorage)initWithResidentDevice:(id)device owner:(id)owner

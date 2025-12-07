@@ -1,2537 +1,18 @@
-void sub_186086900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_186089FA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  IIODictionary::~IIODictionary(&a31);
-  IIODictionary::~IIODictionary((v31 - 176));
-  _Unwind_Resume(a1);
-}
-
-uint64_t HEIFReadPlugin::copyImageBlockSetTiles(uint64_t a1, const void *a2, uint64_t a3, const __CFDictionary **a4, unsigned int a5, double a6, double a7, double a8, double a9, uint64_t a10, _DWORD *a11)
-{
-  v11 = a11;
-  v17 = a6;
-  v18 = a3;
-  v128 = 0;
-  *a11 = 0;
-  if (a3)
-  {
-    CGImageProviderGetSize();
-    v22 = v21;
-    v24 = v23;
-    PixelSize = CGImageProviderGetPixelSize();
-  }
-
-  else
-  {
-    LODWORD(a6) = *(a1 + 308);
-    v22 = *&a6;
-    LODWORD(a6) = *(a1 + 312);
-    v24 = *&a6;
-    PixelSize = *(a1 + 324);
-  }
-
-  v129[0] = 0;
-  if ((a5 & 0x1FF) != 0)
-  {
-    v26 = 512;
-  }
-
-  else
-  {
-    v26 = a5;
-  }
-
-  if (!v26)
-  {
-    v99 = 0;
-    v100 = 0;
-    v39 = 0;
-    if (v18)
-    {
-      goto LABEL_129;
-    }
-
-    goto LABEL_135;
-  }
-
-  v27 = (v26 - 1);
-  v112 = (v17 / v26);
-  v113 = ((a7 + a9 + v27) / v26);
-  v117 = ((v17 + a8 + v27) / v26);
-  v115 = (a7 / v26);
-  *(a1 + 252) = 16 * ((a8 * PixelSize + 15.0) * 0.0625);
-  v28 = vmin_u32(vdup_n_s32(v26), *(a1 + 244));
-  v109 = (a1 + 308);
-  *(a1 + 308) = v28;
-  *(a1 + 316) = v28.i32[0] * PixelSize;
-  *(a1 + 104) = (v117 - v112) * (v113 - v115);
-  v29 = IIOCreateCMPhotoDecompressionSession(&v128);
-  if (v29)
-  {
-    HEIFReadPlugin::copyImageBlockSetTiles(v29);
-    v106 = 0;
-    v39 = 0;
-    v34 = 0;
-    goto LABEL_126;
-  }
-
-  v127 = 0;
-  v126 = 0;
-  v125 = 0;
-  Size = IIOImageReadSession::getSize(*(a1 + 24));
-  v31 = IIOImageReadSession::retainBytePointer(*(a1 + 24), &v125, 1);
-  if (!v31)
-  {
-    HEIFReadPlugin::copyImageBlockSetTiles();
-    v34 = 0;
-    v106 = 0;
-LABEL_131:
-    v39 = 0;
-    goto LABEL_132;
-  }
-
-  v32 = v31;
-  v33 = *(a1 + 488);
-  v116 = v26;
-  if (v33)
-  {
-    if (*(a1 + 496))
-    {
-      Size = *(a1 + 496);
-    }
-
-    else
-    {
-      v33 = 0;
-    }
-
-    v32 = v31 + v33;
-  }
-
-  v34 = CFDataCreateWithBytesNoCopy(*MEMORY[0x1E695E480], v32, Size, *MEMORY[0x1E695E498]);
-  if (!v34)
-  {
-    goto LABEL_121;
-  }
-
-  v36 = gFunc_CMPhotoDecompressionSessionCreateContainer(v128, 0, v34, &v126, &v127);
-  if (v36)
-  {
-    v35 = HEIFReadPlugin::copyImageBlockSetTiles(v36);
-LABEL_121:
-    v39 = 0;
-    v106 = 0;
-    v97 = 1;
-    goto LABEL_122;
-  }
-
-  IIOReadPlugin::allocateBlockArray(a1, *(a1 + 104));
-  v106 = IIOImageReadSession::mapData(*(a1 + 24));
-  v122 = 0;
-  v123 = 0;
-  v124 = 0;
-  IIODictionary::IIODictionary(&v122);
-  v121 = 0;
-  PixelFormatForBitDepth = HEIFReadPlugin::getPixelFormatForBitDepth(a1, *(a1 + 320), v37);
-  HEIFReadPlugin::updateHardwareDecodeOptions(a1, &v122, a4);
-  IIONumber::IIONumber(&dest, PixelFormatForBitDepth);
-  IIODictionary::setObjectForKey(&v122, &dest.data, *gIIO_kCMPhotoDecompressionOption_OutputPixelFormat);
-  IIONumber::~IIONumber(&dest);
-  HEIFReadPlugin::updateCreateImageOptions(a1, &v122, *(a1 + 48));
-  if ((gIIODebugFlags & 0x30000) != 0)
-  {
-    ImageIOLog("    copyImageBlockSetTiles - decoding %d x %d tiles\n", v113 - v115, v117 - v112);
-  }
-
-  v103 = a2;
-  v104 = v34;
-  v107 = v18;
-  v105 = v11;
-  if (v113 <= v115)
-  {
-    v39 = 0;
-    v114 = 1;
-  }
-
-  else
-  {
-    v39 = 0;
-    v40 = 0;
-    v108 = HIBYTE(PixelFormatForBitDepth);
-    v41 = ((PixelFormatForBitDepth << 8) >> 24);
-    *v111 = (PixelFormatForBitDepth >> 8);
-    *v110 = PixelFormatForBitDepth;
-    v114 = 1;
-    do
-    {
-      v42 = *(a1 + 312);
-      v43 = (v42 * v115);
-      v44 = v42;
-      if (v42 + v43 <= v24)
-      {
-        v45 = v42;
-      }
-
-      else
-      {
-        v45 = v24 - (v42 * v115);
-      }
-
-      if (v117 <= v112)
-      {
-LABEL_86:
-        v88 = 1;
-      }
-
-      else
-      {
-        v46 = v112;
-        while (1)
-        {
-          v118 = v46;
-          v47 = (v46 * v116);
-          LODWORD(v44) = *(a1 + 308);
-          v48 = *&v44;
-          if (v47 + v48 <= v22)
-          {
-            v49 = v48;
-          }
-
-          else
-          {
-            v49 = v22 - (v46 * v116);
-          }
-
-          v39 = _ImageIO_Malloc(*(a1 + 316) * *(a1 + 312), *(a1 + 416), v129, kImageMalloc_HEIF_Data[0], 0, 0);
-          if (!v39)
-          {
-            IIODictionary::~IIODictionary(&v122);
-            v34 = v104;
-            v11 = v105;
-            v18 = v107;
-            goto LABEL_131;
-          }
-
-          v50 = *(a1 + 332);
-          v51 = v43 * v50;
-          v52 = v49 * v50;
-          v53 = v50 >= 2 ? v45 * v50 : v45;
-          if (v50 >= 2)
-          {
-            v54 = v47 * v50;
-          }
-
-          else
-          {
-            v52 = v49;
-            v51 = v43;
-            v54 = v47;
-          }
-
-          DictionaryRepresentation = CGRectCreateDictionaryRepresentation(*(&v51 - 1));
-          IIODictionary::setObjectForKey(&v122, DictionaryRepresentation, *gIIO_kCMPhotoDecompressionOption_SourceCropRect);
-          CFRelease(DictionaryRepresentation);
-          v56 = gFunc_CMPhotoDecompressionContainerCreateImageForIndex(v127, *(a1 + 532), v123, 2, &v121);
-          v57 = v56;
-          if (v56)
-          {
-            break;
-          }
-
-          gFunc_CVPixelBufferLockBaseAddress(v121, 0);
-          IsPlanar = gFunc_CVPixelBufferIsPlanar(v121);
-          PixelFormatType = gFunc_CVPixelBufferGetPixelFormatType(v121);
-          v60 = PixelFormatType;
-          if (IsPlanar)
-          {
-            v61 = PixelFormatType >> 24;
-            if ((PixelFormatType >> 24) <= 0x7F)
-            {
-              v62 = *(MEMORY[0x1E69E9830] + 4 * v61 + 60) & 0x40000;
-            }
-
-            else
-            {
-              v62 = __maskrune(PixelFormatType >> 24, 0x40000uLL);
-            }
-
-            if (v62)
-            {
-              v76 = v61;
-            }
-
-            else
-            {
-              v76 = 46;
-            }
-
-            v77 = (v60 << 8) >> 24;
-            if (v77 <= 0x7F)
-            {
-              v78 = *(MEMORY[0x1E69E9830] + 4 * v77 + 60) & 0x40000;
-            }
-
-            else
-            {
-              v78 = __maskrune((v60 << 8) >> 24, 0x40000uLL);
-            }
-
-            if (v78)
-            {
-              v79 = v77;
-            }
-
-            else
-            {
-              v79 = 46;
-            }
-
-            v80 = v60 >> 8;
-            if (v80 <= 0x7F)
-            {
-              v81 = *(MEMORY[0x1E69E9830] + 4 * v80 + 60) & 0x40000;
-            }
-
-            else
-            {
-              v81 = __maskrune(v60 >> 8, 0x40000uLL);
-            }
-
-            v60 = v60;
-            if (v60 <= 0x7F)
-            {
-              v82 = *(MEMORY[0x1E69E9830] + 4 * v60 + 60) & 0x40000;
-            }
-
-            else
-            {
-              v82 = __maskrune(v60, 0x40000uLL);
-            }
-
-            if (v81)
-            {
-              v83 = v80;
-            }
-
-            else
-            {
-              v83 = 46;
-            }
-
-            if (v82)
-            {
-              v84 = v60;
-            }
-
-            else
-            {
-              v84 = 46;
-            }
-
-            _cg_jpeg_mem_term("copyImageBlockSetTiles", 3200, "*** '%c%c%c%c' request returned planar data - not handled\n", v76, v79, v83, v84);
-          }
-
-          else
-          {
-            BaseAddress = gFunc_CVPixelBufferGetBaseAddress(v121);
-            v64 = v40;
-            BytesPerRow = gFunc_CVPixelBufferGetBytesPerRow(v121);
-            v66 = v41;
-            Height = gFunc_CVPixelBufferGetHeight(v121);
-            if (Height >= *(a1 + 312))
-            {
-              v68 = *(a1 + 312);
-            }
-
-            else
-            {
-              v68 = Height;
-            }
-
-            if (v68)
-            {
-              v69 = *(a1 + 316);
-              if (BytesPerRow <= v69)
-              {
-                v70 = BytesPerRow;
-              }
-
-              else
-              {
-                v70 = v69;
-              }
-
-              v71 = v39;
-              do
-              {
-                memcpy(v71, BaseAddress, v70);
-                v71 += *(a1 + 316);
-                BaseAddress += BytesPerRow;
-                --v68;
-              }
-
-              while (v68);
-            }
-
-            v41 = v66;
-            v40 = v64;
-            if (v60 == 1111970369 && *(a1 + 436) == 1)
-            {
-              goto LABEL_55;
-            }
-
-            v72 = *(a1 + 316);
-            v73 = *(a1 + 308);
-            if (v72 >= 4 * v73)
-            {
-              v74 = *(a1 + 312);
-              dest.data = v39;
-              dest.height = v74;
-              dest.width = v73;
-              dest.rowBytes = v72;
-              *permuteMap = 50331906;
-              vImagePermuteChannels_ARGB8888(&dest, &dest, permuteMap, 0);
-            }
-
-            if (*(a1 + 436) == 1)
-            {
-LABEL_55:
-              if (*(a1 + 528) == 1 && (*(a1 + 529) & 1) == 0)
-              {
-                dest.data = v39;
-                v75.i64[0] = *v109;
-                v75.i64[1] = HIDWORD(*v109);
-                *&dest.height = vextq_s8(v75, v75, 8uLL);
-                dest.rowBytes = *(a1 + 316);
-                vImagePremultiplyData_RGBA8888(&dest, &dest, 0x10u);
-              }
-            }
-
-            v114 = 1;
-          }
-
-          gFunc_CVPixelBufferUnlockBaseAddress(v121, 0);
-          gFunc_CVPixelBufferRelease(v121);
-          v130.origin.x = v47;
-          v130.origin.y = v43;
-          v130.size.width = v49;
-          v130.size.height = v45;
-          *(*(a1 + 96) + 8 * v40) = IIOReadPlugin::createImageBlock(a1, v39, v129[0], v130, *(a1 + 316), 0);
-          if (CGRectEqualToRect(*(a1 + 120), *MEMORY[0x1E695F050]))
-          {
-            v85 = v43;
-            v86 = v45;
-          }
-
-          else
-          {
-            v131.origin.x = v47;
-            v131.origin.y = v43;
-            v131.size.width = v49;
-            v131.size.height = v45;
-            *&v44 = CGRectUnion(*(a1 + 120), v131);
-            v47 = v44;
-            v49 = v87;
-          }
-
-          *(a1 + 120) = v47;
-          *(a1 + 128) = v85;
-          *(a1 + 136) = v49;
-          *(a1 + 144) = v86;
-          ++v40;
-          v46 = v118 + 1;
-          if (v118 + 1 == v117)
-          {
-            v39 = 0;
-            goto LABEL_86;
-          }
-        }
-
-        if (v56 == -15470)
-        {
-          if (v107)
-          {
-            CGImageProviderSetProperty();
-          }
-
-          v88 = 0;
-        }
-
-        else
-        {
-          v88 = 1;
-        }
-
-        v89 = IIOCMErrorString(v57);
-        _cg_jpeg_mem_term("copyImageBlockSetTiles", 3186, "*** CMPhotoDecompressionContainerCreateImageForIndex  err = %s [%d]\n", v89, v57);
-        if ((*(MEMORY[0x1E69E9830] + 4 * v108 + 62) & 4) != 0)
-        {
-          v90 = v108;
-        }
-
-        else
-        {
-          v90 = 46;
-        }
-
-        if (v41 <= 0x7F)
-        {
-          v91 = *(MEMORY[0x1E69E9830] + 4 * v41 + 60) & 0x40000;
-        }
-
-        else
-        {
-          v91 = __maskrune(v41, 0x40000uLL);
-        }
-
-        if (v91)
-        {
-          v92 = v41;
-        }
-
-        else
-        {
-          v92 = 46;
-        }
-
-        if (v111[0] <= 0x7Fu)
-        {
-          v93 = *(MEMORY[0x1E69E9830] + 4 * *v111 + 60) & 0x40000;
-        }
-
-        else
-        {
-          v93 = __maskrune(v111[0], 0x40000uLL);
-        }
-
-        if (v110[0] <= 0x7Fu)
-        {
-          LODWORD(v95) = v110[0];
-          v94 = *(MEMORY[0x1E69E9830] + 4 * *v110 + 60) & 0x40000;
-        }
-
-        else
-        {
-          v94 = __maskrune(v110[0], 0x40000uLL);
-          LODWORD(v95) = v110[0];
-        }
-
-        if (v93)
-        {
-          v96 = v111[0];
-        }
-
-        else
-        {
-          v96 = 46;
-        }
-
-        if (v94)
-        {
-          v95 = v95;
-        }
-
-        else
-        {
-          v95 = 46;
-        }
-
-        _cg_jpeg_mem_term("copyImageBlockSetTiles", 3187, "    outputPixelFormat: %c%c%c%c\n", v90, v92, v96, v95);
-        ImageIODebugOptionsDictionary(v123);
-        v114 = 0;
-      }
-
-      ++v115;
-    }
-
-    while (v115 < v113 && (v88 & 1) != 0);
-  }
-
-  CFRelease(v127);
-  v34 = v104;
-  v11 = v105;
-  v18 = v107;
-  a2 = v103;
-  IIODictionary::~IIODictionary(&v122);
-  v97 = v114;
-LABEL_122:
-  gFunc_CMPhotoDecompressionSessionFlushCachedBuffers(v128, 0, 0, v35);
-  CFRelease(v128);
-  if (v125)
-  {
-    v98 = *(a1 + 24);
-    if (v98)
-    {
-      IIOImageReadSession::releaseBytePointer(v98, v125);
-    }
-  }
-
-  if (v97)
-  {
-LABEL_126:
-    v99 = IIOReadPlugin::imageBlockSetCreate(a1, v18, *(a1 + 104), *(a1 + 136), *(a1 + 144), *(a1 + 120), *(a1 + 128), *(a1 + 136), *(a1 + 144), *(a1 + 96), a2);
-    if (!v34)
-    {
-      goto LABEL_128;
-    }
-
-    goto LABEL_127;
-  }
-
-LABEL_132:
-  v99 = 0;
-  if (v34)
-  {
-LABEL_127:
-    CFRelease(v34);
-  }
-
-LABEL_128:
-  v100 = v106;
-  if (v18)
-  {
-LABEL_129:
-    IIOReadPlugin::freeBlockArray(a1);
-    goto LABEL_137;
-  }
-
-LABEL_135:
-  if (*(a1 + 104))
-  {
-    *v11 = 1;
-  }
-
-LABEL_137:
-  if (v100)
-  {
-    v101 = *(a1 + 24);
-    if (v101)
-    {
-      IIOImageReadSession::unmapData(v101);
-    }
-  }
-
-  if (v39)
-  {
-    _ImageIO_Free(v39, v129[0]);
-  }
-
-  return v99;
-}
-
-void sub_186087438(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
-{
-  IIONumber::~IIONumber(&a27);
-  IIODictionary::~IIODictionary(&a32);
-  _Unwind_Resume(a1);
-}
-
-uint64_t HEIFReadPlugin::copyImageBlockSetSingleTile(uint64_t a1, const void *a2, uint64_t a3, const __CFDictionary **a4, _DWORD *a5, double x, double y, double width, double a9)
-{
-  v86 = 0;
-  *a5 = 0;
-  if (a3)
-  {
-    PixelSize = CGImageProviderGetPixelSize();
-  }
-
-  else
-  {
-    PixelSize = *(a1 + 324);
-  }
-
-  v87[0] = 0;
-  *(a1 + 104) = 1;
-  IIOReadPlugin::allocateBlockArray(a1, 1uLL);
-  v17 = IIOImageReadSession::mapData(*(a1 + 24));
-  *(a1 + 308) = width;
-  *(a1 + 312) = a9;
-  v18 = width * PixelSize;
-  *(a1 + 316) = v18;
-  v19 = _ImageIO_Malloc(v18 * a9, *(a1 + 416), v87, kImageMalloc_HEIF_Data[0], 0, 0);
-  if (v19)
-  {
-    v20 = IIOCreateCMPhotoDecompressionSession(&v86);
-    if (v20)
-    {
-      HEIFReadPlugin::copyImageBlockSetSingleTile(v20);
-    }
-
-    else
-    {
-      v76 = v17;
-      cf = 0;
-      v84 = 0;
-      v83 = 0;
-      Size = IIOImageReadSession::getSize(*(a1 + 24));
-      v22 = IIOImageReadSession::retainBytePointer(*(a1 + 24), &v83, 1);
-      v23 = v22;
-      v24 = *(a1 + 488);
-      if (v24)
-      {
-        if (*(a1 + 496))
-        {
-          Size = *(a1 + 496);
-        }
-
-        else
-        {
-          v24 = 0;
-        }
-
-        v23 = v22 + v24;
-      }
-
-      if (v23)
-      {
-        v25 = CFDataCreateWithBytesNoCopy(*MEMORY[0x1E695E480], v23, Size, *MEMORY[0x1E695E498]);
-        if (v25)
-        {
-          v26 = v25;
-          v27 = gFunc_CMPhotoDecompressionSessionCreateContainer(v86, 0, v25, &v84, &cf);
-          if (v27)
-          {
-            v28 = v27;
-            v29 = IIOCMErrorString(v27);
-            _cg_jpeg_mem_term("copyImageBlockSetSingleTile", 2844, "*** CMPhotoDecompressionSessionCreateContainer  err = %s [%d]\n", v29, v28);
-            v30 = 0;
-          }
-
-          else
-          {
-            v80 = 0;
-            v81 = 0;
-            v82 = 0;
-            IIODictionary::IIODictionary(&v80);
-            v79 = 0;
-            PixelFormatForBitDepth = HEIFReadPlugin::getPixelFormatForBitDepth(a1, *(a1 + 320), v31);
-            if (CGImageProviderGetComponentType() == 6)
-            {
-              v33 = 1815162994;
-            }
-
-            else
-            {
-              v33 = PixelFormatForBitDepth;
-            }
-
-            HEIFReadPlugin::updateHardwareDecodeOptions(a1, &v80, a4);
-            IIONumber::IIONumber(&dest, v33);
-            IIODictionary::setObjectForKey(&v80, &dest.data, *gIIO_kCMPhotoDecompressionOption_OutputPixelFormat);
-            IIONumber::~IIONumber(&dest);
-            HEIFReadPlugin::updateCreateImageOptions(a1, &v80, *(a1 + 48));
-            v34 = a9;
-            v35 = width;
-            v36 = y;
-            v37 = x;
-            if (*(a1 + 332))
-            {
-              IIONumber::IIONumber(&dest, *(a1 + 508));
-              IIODictionary::setObjectForKey(&v80, &dest.data, *gIIO_kCMPhotoDecompressionOption_TiledDownsampling);
-              IIONumber::~IIONumber(&dest);
-              v38 = *(a1 + 308) <= *(a1 + 312) ? *(a1 + 312) : *(a1 + 308);
-              IIONumber::IIONumber(&dest, v38);
-              IIODictionary::setObjectForKey(&v80, &dest.data, *gIIO_kCMPhotoDecompressionOption_MaxPixelSize);
-              IIONumber::~IIONumber(&dest);
-              v34 = a9;
-              v39 = *(a1 + 332);
-              v35 = width;
-              v36 = y;
-              v37 = x;
-              if (v39 >= 2)
-              {
-                v37 = x * v39;
-                v36 = y * v39;
-                v35 = width * v39;
-                v34 = a9 * v39;
-              }
-            }
-
-            DictionaryRepresentation = CGRectCreateDictionaryRepresentation(*&v37);
-            IIODictionary::setObjectForKey(&v80, DictionaryRepresentation, *gIIO_kCMPhotoDecompressionOption_SourceCropRect);
-            CFRelease(DictionaryRepresentation);
-            v41 = gFunc_CMPhotoDecompressionContainerCreateImageForIndex(cf, *(a1 + 532), v81, 2, &v79);
-            v42 = v41;
-            if (v41)
-            {
-              v43 = IIOCMErrorString(v41);
-              _cg_jpeg_mem_term("copyImageBlockSetSingleTile", 2891, "*** CMPhotoDecompressionContainerCreateImageForIndex  err = %s [%d]\n", v43, v42);
-              v44 = MEMORY[0x1E69E9830];
-              if ((*(MEMORY[0x1E69E9830] + 4 * HIBYTE(v33) + 60) & 0x40000) != 0)
-              {
-                v45 = HIBYTE(v33);
-              }
-
-              else
-              {
-                v45 = 46;
-              }
-
-              v46 = (v33 << 8) >> 24;
-              if (v46 <= 0x7F)
-              {
-                v47 = *(MEMORY[0x1E69E9830] + 4 * v46 + 60) & 0x40000;
-              }
-
-              else
-              {
-                v47 = __maskrune((v33 << 8) >> 24, 0x40000uLL);
-              }
-
-              if (v47)
-              {
-                v50 = v46;
-              }
-
-              else
-              {
-                v50 = 46;
-              }
-
-              v51 = v33 >> 8;
-              if (v51 <= 0x7F)
-              {
-                v52 = *(v44 + 4 * v51 + 60) & 0x40000;
-              }
-
-              else
-              {
-                v52 = __maskrune(v33 >> 8, 0x40000uLL);
-              }
-
-              v33 = v33;
-              if (v33 <= 0x7F)
-              {
-                v53 = *(v44 + 4 * v33 + 60) & 0x40000;
-              }
-
-              else
-              {
-                v53 = __maskrune(v33, 0x40000uLL);
-              }
-
-              if (v52)
-              {
-                v54 = v51;
-              }
-
-              else
-              {
-                v54 = 46;
-              }
-
-              if (v53)
-              {
-                v55 = v33;
-              }
-
-              else
-              {
-                v55 = 46;
-              }
-
-              _cg_jpeg_mem_term("copyImageBlockSetSingleTile", 2892, "    outputPixelFormat: %c%c%c%c\n", v45, v50, v54, v55);
-              ImageIODebugOptionsDictionary(v81);
-              v30 = 0;
-            }
-
-            else
-            {
-              gFunc_CVPixelBufferLockBaseAddress(v79, 0);
-              IsPlanar = gFunc_CVPixelBufferIsPlanar(v79);
-              PixelFormatType = gFunc_CVPixelBufferGetPixelFormatType(v79);
-              v30 = IsPlanar == 0;
-              if (IsPlanar)
-              {
-                _cg_jpeg_mem_term("copyImageBlockSetSingleTile", 2903, "*** 'BGRA' request returned planar data - not handled\n");
-              }
-
-              else
-              {
-                v56 = PixelFormatType;
-                BaseAddress = gFunc_CVPixelBufferGetBaseAddress(v79);
-                BytesPerRow = gFunc_CVPixelBufferGetBytesPerRow(v79);
-                v73 = v56;
-                Height = gFunc_CVPixelBufferGetHeight(v79);
-                if (Height >= *(a1 + 312))
-                {
-                  v60 = *(a1 + 312);
-                }
-
-                else
-                {
-                  v60 = Height;
-                }
-
-                if (v60)
-                {
-                  v61 = *(a1 + 316);
-                  if (BytesPerRow <= v61)
-                  {
-                    v62 = BytesPerRow;
-                  }
-
-                  else
-                  {
-                    v62 = v61;
-                  }
-
-                  v63 = v19;
-                  do
-                  {
-                    memcpy(v63, BaseAddress, v62);
-                    v63 += *(a1 + 316);
-                    BaseAddress += BytesPerRow;
-                    --v60;
-                  }
-
-                  while (v60);
-                }
-
-                if (v73 == 1111970369 && *(a1 + 436) != 1)
-                {
-                  v64 = *(a1 + 316);
-                  v65 = *(a1 + 308);
-                  if (v64 >= 4 * v65)
-                  {
-                    v66 = *(a1 + 312);
-                    dest.data = v19;
-                    dest.height = v66;
-                    dest.width = v65;
-                    dest.rowBytes = v64;
-                    *permuteMap = 50331906;
-                    vImagePermuteChannels_ARGB8888(&dest, &dest, permuteMap, 0x10u);
-                  }
-                }
-
-                if (*(a1 + 436) == 1 && *(a1 + 528) == 1 && (*(a1 + 529) & 1) == 0)
-                {
-                  dest.data = v19;
-                  v67 = *(a1 + 308);
-                  v68.i64[0] = v67;
-                  v68.i64[1] = HIDWORD(v67);
-                  *&dest.height = vextq_s8(v68, v68, 8uLL);
-                  dest.rowBytes = *(a1 + 316);
-                  vImagePremultiplyData_RGBA8888(&dest, &dest, 0x10u);
-                }
-              }
-
-              gFunc_CVPixelBufferUnlockBaseAddress(v79, 0);
-              gFunc_CVPixelBufferRelease(v79);
-            }
-
-            CFRelease(cf);
-            IIODictionary::~IIODictionary(&v80);
-          }
-
-          CFRelease(v86);
-          CFRelease(v26);
-        }
-
-        else
-        {
-          CFRelease(v86);
-          v30 = 0;
-        }
-
-        v17 = v76;
-        if (v83)
-        {
-          v69 = *(a1 + 24);
-          if (v69)
-          {
-            IIOImageReadSession::releaseBytePointer(v69, v83);
-          }
-        }
-
-        if (v30)
-        {
-          v88.origin.x = x;
-          v88.origin.y = y;
-          v88.size.width = width;
-          v88.size.height = a9;
-          **(a1 + 96) = IIOReadPlugin::createImageBlock(a1, v19, v87[0], v88, *(a1 + 316), *(a1 + 371));
-          if (!CGRectEqualToRect(*(a1 + 120), *MEMORY[0x1E695F050]))
-          {
-            v90.origin.x = x;
-            v90.origin.y = y;
-            v90.size.width = width;
-            v90.size.height = a9;
-            v89 = CGRectUnion(*(a1 + 120), v90);
-            x = v89.origin.x;
-            y = v89.origin.y;
-            width = v89.size.width;
-            a9 = v89.size.height;
-          }
-
-          *(a1 + 120) = x;
-          *(a1 + 128) = y;
-          *(a1 + 136) = width;
-          *(a1 + 144) = a9;
-          if (a3)
-          {
-            v70 = IIOReadPlugin::imageBlockSetCreate(a1, a3, *(a1 + 104), width, a9, x, y, width, a9, *(a1 + 96), a2);
-            v19 = 0;
-            goto LABEL_83;
-          }
-
-          v19 = 0;
-          goto LABEL_85;
-        }
-      }
-
-      else
-      {
-        LogError("copyImageBlockSetSingleTile", 2834, "*** ERROR: retainBytePointer failed\n");
-      }
-    }
-  }
-
-  if (a3)
-  {
-    v70 = 0;
-LABEL_83:
-    IIOReadPlugin::freeBlockArray(a1);
-    if (!v17)
-    {
-      goto LABEL_91;
-    }
-
-    goto LABEL_89;
-  }
-
-LABEL_85:
-  if (*(a1 + 104))
-  {
-    v70 = 0;
-    *a5 = 1;
-    if (!v17)
-    {
-      goto LABEL_91;
-    }
-  }
-
-  else
-  {
-    v70 = 0;
-    if (!v17)
-    {
-      goto LABEL_91;
-    }
-  }
-
-LABEL_89:
-  v71 = *(a1 + 24);
-  if (v71)
-  {
-    IIOImageReadSession::unmapData(v71);
-  }
-
-LABEL_91:
-  if (v19)
-  {
-    _ImageIO_Free(v19, v87[0]);
-  }
-
-  return v70;
-}
-
-void sub_186087C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
-{
-  va_start(va, a14);
+  va_start(va, a19);
   IIODictionary::~IIODictionary(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t HEIFReadPlugin::createPixelBufferWithGainMapApplied(uint64_t a1, uint64_t a2, uint64_t a3, GlobalHEIFInfo *a4, uint64_t a5)
-{
-  v36 = 0;
-  v37 = 0;
-  v38 = 0;
-  IIODictionary::IIODictionary(&v36);
-  v34 = 0;
-  cf = 0;
-  space = 0;
-  value = 0;
-  Current = CFAbsoluteTimeGetCurrent();
-  if ((gIIODebugFlags & 0x300000) != 0)
-  {
-    ImageIOLog("☀️  %s\n", "createPixelBufferWithGainMapApplied");
-  }
-
-  if (IIORestrictedDecodingEnabledFlag())
-  {
-    IIODictionary::setObjectForKey(&v36, *MEMORY[0x1E695E4D0], *gIIO_kCMPhotoDecompressionOption_RestrictedDecoding);
-  }
-
-  if (*(a1 + 523) == 1)
-  {
-    v11 = HEIFReadPlugin::copyISOGainMapDictionary(a1, a2, v10, &v36);
-  }
-
-  else
-  {
-    v11 = HEIFReadPlugin::copyHDRGainMapDictionary(a1, a2, a4, &v36);
-  }
-
-  v12 = v11;
-  if (!v11)
-  {
-    v17 = 0;
-    goto LABEL_37;
-  }
-
-  CFDictionaryGetValueIfPresent(v11, *gIIO_kCMPhotoDecompressionContainerConstituent_FlexRangeGainMap, &value);
-  CFDictionaryGetValueIfPresent(v12, *gIIO_kCMPhotoDecompressionContainerConstituent_FlexRangeMetadata, &cf);
-  CFDictionaryGetValueIfPresent(v12, *gIIO_kCMPhotoDecompressionContainerConstituent_FlexRangeColorSpace, &space);
-  if (value)
-  {
-    Width = gFunc_CVPixelBufferGetWidth(a5);
-    Height = gFunc_CVPixelBufferGetHeight(a5);
-    v15 = *(a1 + 464);
-    v16 = *(a1 + 544);
-    memset(v31, 0, sizeof(v31));
-    IIODictionary::IIODictionary(v31);
-    v17 = IIOCreatePixelBuffer(Width, Height, v15, v31);
-    Alpha = IIOPixelBufferGetAlpha(a5);
-    IIOPixelBufferSetAlpha(v17, Alpha);
-    if (*(a1 + 524) == 1 && CGColorSpaceContainsFlexGTCInfo())
-    {
-      v19 = CGColorSpaceRetain(*(a1 + 160));
-    }
-
-    else
-    {
-      v20 = CGColorSpaceCreateWithName(v16);
-      if (v20 || (v20 = CGColorSpaceRetain(space)) != 0)
-      {
-LABEL_18:
-        IIOPixelBufferSetColorSpace(v17, v20);
-        CGColorSpaceRelease(v20);
-        v21 = *(a1 + 476);
-        if (v21 > 0.0)
-        {
-          IIONumber::IIONumber(v30, v21);
-          IIODictionary::setObjectForKey(&v36, v30, @"kCGTargetHeadroom");
-          IIONumber::~IIONumber(v30);
-        }
-
-        v22 = *(a1 + 480);
-        if (v22 > 0.0)
-        {
-          IIONumber::IIONumber(v30, v22);
-          IIODictionary::setObjectForKey(&v36, v30, @"kCGFallbackHDRGain");
-          IIONumber::~IIONumber(v30);
-        }
-
-        IIONumber::IIONumber(v30, *(a1 + 525));
-        IIODictionary::setObjectForKey(&v36, v30, @"kCGDisableMetal");
-        IIONumber::~IIONumber(v30);
-        IIONumber::IIONumber(v30, *(a1 + 524));
-        IIODictionary::setObjectForKey(&v36, v30, @"kCGGenerateFlexGTC");
-        IIONumber::~IIONumber(v30);
-        IIONumber::IIONumber(v30, *(a1 + 192));
-        IIODictionary::setObjectForKey(&v36, v30, @"kCGComputeHDRStats");
-        IIONumber::~IIONumber(v30);
-        IIONumber::IIONumber(v30, *(a1 + 504));
-        IIODictionary::setObjectForKey(&v36, v30, @"Orientation");
-        IIONumber::~IIONumber(v30);
-        if (!cf)
-        {
-          goto LABEL_31;
-        }
-
-        v23 = CFGetTypeID(cf);
-        if (v23 == CFDictionaryGetTypeID())
-        {
-          FlexRangeMetadata = CGImageCreateFlexRangeMetadata(cf, &v34);
-          if (FlexRangeMetadata)
-          {
-            _cg_jpeg_mem_term("createPixelBufferWithGainMapApplied", 4154, "*** ERROR: CGImageCreateFlexRangeMetadata failed to create gainmapdata (err=%d)\n", FlexRangeMetadata);
-          }
-
-          v25 = v34;
-          if (!v34)
-          {
-            goto LABEL_31;
-          }
-        }
-
-        else
-        {
-          v25 = CFRetain(cf);
-          v34 = v25;
-          if (!v25)
-          {
-LABEL_31:
-            ObjectForKey = IIODictionary::getObjectForKey(*(a1 + 56), @"{MakerApple}");
-            IIODictionary::setObjectForKey(&v36, ObjectForKey, @"{MakerApple}");
-            IIODictionary::setObjectForKey(&v36, space, @"kCGFlexRangeAlternateColorSpace");
-            if ((gIIODebugFlags & 0x300000) != 0)
-            {
-              ImageIOLog("☀️  'IIOCallApplyHDRGainmap'\n");
-            }
-
-            v27 = IIOApplyHDRGainMap(a5, value, v17, v37);
-            if (v27)
-            {
-              _cg_jpeg_mem_term("createPixelBufferWithGainMapApplied", 4176, "*** ERROR: IIOCallApplyHDRGainmap retuned %d\n", v27);
-            }
-
-            IIODictionary::~IIODictionary(v31);
-            goto LABEL_36;
-          }
-        }
-
-        IIODictionary::setObjectForKey(&v36, v25, @"kCGImageAuxiliaryDataInfoMetadata");
-        CFRelease(v34);
-        goto LABEL_31;
-      }
-
-      v19 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F178]);
-    }
-
-    v20 = v19;
-    goto LABEL_18;
-  }
-
-  v17 = 0;
-LABEL_36:
-  CFRelease(v12);
-LABEL_37:
-  if ((gIIODebugFlags & 0x300000) != 0)
-  {
-    v28 = CFAbsoluteTimeGetCurrent();
-    ImageIOLog("☀️  <<< %s [%g ms]\n", "createPixelBufferWithGainMapApplied", (v28 - Current) * 1000.0);
-  }
-
-  IIODictionary::~IIODictionary(&v36);
-  return v17;
-}
-
-void sub_1860881CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va2, a4);
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  va_copy(va2, va1);
-  v9 = va_arg(va2, void);
-  v11 = va_arg(va2, void);
-  v12 = va_arg(va2, void);
-  v13 = va_arg(va2, void);
-  v14 = va_arg(va2, void);
-  v15 = va_arg(va2, void);
-  v16 = va_arg(va2, void);
-  IIONumber::~IIONumber(va);
-  IIODictionary::~IIODictionary(va1);
-  IIODictionary::~IIODictionary(va2);
-  _Unwind_Resume(a1);
-}
-
-__IOSurface *HEIFReadPlugin::createSurfaceWithGainMapApplied(uint64_t a1, uint64_t a2, uint64_t a3, GlobalHEIFInfo *a4, __IOSurface *a5)
-{
-  v42 = 0;
-  v43 = 0;
-  v44 = 0;
-  IIODictionary::IIODictionary(&v42);
-  v40 = 0;
-  cf = 0;
-  space = 0;
-  value = 0;
-  Current = CFAbsoluteTimeGetCurrent();
-  if ((gIIODebugFlags & 0x300000) != 0)
-  {
-    ImageIOLog("☀️  %s\n", "createSurfaceWithGainMapApplied");
-  }
-
-  if (*(a1 + 523) == 1)
-  {
-    v11 = HEIFReadPlugin::copyISOGainMapDictionary(a1, a2, v9, &v42);
-  }
-
-  else
-  {
-    v11 = HEIFReadPlugin::copyHDRGainMapDictionary(a1, a2, a4, &v42);
-  }
-
-  v12 = v11;
-  if (!v11)
-  {
-    v22 = 0;
-    goto LABEL_43;
-  }
-
-  CFDictionaryGetValueIfPresent(v11, *gIIO_kCMPhotoDecompressionContainerConstituent_FlexRangeGainMap, &value);
-  CFDictionaryGetValueIfPresent(v12, *gIIO_kCMPhotoDecompressionContainerConstituent_FlexRangeMetadata, &cf);
-  CFDictionaryGetValueIfPresent(v12, *gIIO_kCMPhotoDecompressionContainerConstituent_FlexRangeColorSpace, &space);
-  if (!value)
-  {
-    goto LABEL_41;
-  }
-
-  Width = IOSurfaceGetWidth(a5);
-  Height = IOSurfaceGetHeight(a5);
-  v15 = *(a1 + 544);
-  v16 = *(a1 + 468);
-  v17 = *(a1 + 472);
-  IOSurfaceWithFormat = IIO_CreateIOSurfaceWithFormat(Width, Height, 0, *(a1 + 464), 0, v18, v19, v20);
-  v22 = IOSurfaceWithFormat;
-  if ((gIIODebugFlags & 0x2000000) != 0)
-  {
-    LogSurfaceFormat(IOSurfaceWithFormat, "outputSurface", "createSurfaceWithGainMapApplied", 4226);
-  }
-
-  Alpha = IIO_IOSurfaceGetAlpha(a5);
-  IIO_IOSurfaceSetAlpha(v22, Alpha);
-  if (*(a1 + 524) == 1 && CGColorSpaceContainsFlexGTCInfo())
-  {
-    v24 = CGColorSpaceRetain(*(a1 + 160));
-LABEL_17:
-    v25 = v24;
-    goto LABEL_18;
-  }
-
-  v25 = CGColorSpaceCreateWithName(v15);
-  if (!v25)
-  {
-    v25 = CGColorSpaceRetain(space);
-    if (!v25)
-    {
-      v24 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F178]);
-      goto LABEL_17;
-    }
-  }
-
-LABEL_18:
-  v26 = CGColorSpaceCopyPropertyList(v25);
-  if (v26)
-  {
-    IOSurfaceSetValue(v22, *MEMORY[0x1E696CEE0], v26);
-    CFRelease(v26);
-  }
-
-  CGColorSpaceRelease(v25);
-  if ((v16 - 1) <= 2)
-  {
-    IOSurfaceSetYCbCrMatrix();
-  }
-
-  if (v17 > 0.0)
-  {
-    IIONumber::IIONumber(v37, v17);
-    IOSurfaceSetValue(v22, @"IOSurfaceContentHeadroom", v37[2]);
-    IIONumber::~IIONumber(v37);
-  }
-
-  v27 = *(a1 + 476);
-  if (v27 > 0.0)
-  {
-    IIONumber::IIONumber(v37, v27);
-    IIODictionary::setObjectForKey(&v42, v37, @"kCGTargetHeadroom");
-    IIONumber::~IIONumber(v37);
-  }
-
-  v28 = *(a1 + 480);
-  if (v28 > 0.0)
-  {
-    IIONumber::IIONumber(v37, v28);
-    IIODictionary::setObjectForKey(&v42, v37, @"kCGFallbackHDRGain");
-    IIONumber::~IIONumber(v37);
-  }
-
-  IIONumber::IIONumber(v37, *(a1 + 525));
-  IIODictionary::setObjectForKey(&v42, v37, @"kCGDisableMetal");
-  IIONumber::~IIONumber(v37);
-  IIONumber::IIONumber(v37, *(a1 + 524));
-  IIODictionary::setObjectForKey(&v42, v37, @"kCGGenerateFlexGTC");
-  IIONumber::~IIONumber(v37);
-  IIONumber::IIONumber(v37, *(a1 + 192));
-  IIODictionary::setObjectForKey(&v42, v37, @"kCGComputeHDRStats");
-  IIONumber::~IIONumber(v37);
-  IIONumber::IIONumber(v37, *(a1 + 504));
-  IIODictionary::setObjectForKey(&v42, v37, @"Orientation");
-  IIONumber::~IIONumber(v37);
-  if (!cf)
-  {
-    goto LABEL_36;
-  }
-
-  v29 = CFGetTypeID(cf);
-  if (v29 == CFDictionaryGetTypeID())
-  {
-    FlexRangeMetadata = CGImageCreateFlexRangeMetadata(cf, &v40);
-    if (FlexRangeMetadata)
-    {
-      _cg_jpeg_mem_term("createSurfaceWithGainMapApplied", 4287, "*** ERROR: CGImageCreateFlexRangeMetadata failed to create gainmapdata (err=%d)\n", FlexRangeMetadata);
-    }
-
-    v31 = v40;
-    if (!v40)
-    {
-      goto LABEL_36;
-    }
-
-    goto LABEL_35;
-  }
-
-  v31 = CFRetain(cf);
-  v40 = v31;
-  if (v31)
-  {
-LABEL_35:
-    IIODictionary::setObjectForKey(&v42, v31, @"kCGImageAuxiliaryDataInfoMetadata");
-    CFRelease(v40);
-  }
-
-LABEL_36:
-  ObjectForKey = IIODictionary::getObjectForKey(*(a1 + 56), @"{MakerApple}");
-  IIODictionary::setObjectForKey(&v42, ObjectForKey, @"{MakerApple}");
-  IIODictionary::setObjectForKey(&v42, space, @"kCGFlexRangeAlternateColorSpace");
-  if ((gIIODebugFlags & 0x300000) != 0)
-  {
-    ImageIOLog("☀️  'IIOCallApplyHDRGainmap'\n");
-  }
-
-  v33 = IIOCallApplyHDRGainmap(a5, value, v22, v43);
-  if (!v33)
-  {
-    goto LABEL_42;
-  }
-
-  _cg_jpeg_mem_term("createSurfaceWithGainMapApplied", 4309, "*** ERROR: IIOCallApplyHDRGainmap retuned %d\n", v33);
-  if (!v22)
-  {
-    goto LABEL_42;
-  }
-
-  CFRelease(v22);
-LABEL_41:
-  v22 = 0;
-LABEL_42:
-  CFRelease(v12);
-LABEL_43:
-  v34 = gIIODebugFlags;
-  if ((gIIODebugFlags & 0x300000) != 0)
-  {
-    v35 = CFAbsoluteTimeGetCurrent();
-    ImageIOLog("☀️  %s [%g ms]\n", "createSurfaceWithGainMapApplied", (v35 - Current) * 1000.0);
-    v34 = gIIODebugFlags;
-  }
-
-  if ((v34 & 0x2000000) != 0)
-  {
-    LogSurfaceFormat(v22, "outputSurface", "createSurfaceWithGainMapApplied", 4318);
-  }
-
-  IIODictionary::~IIODictionary(&v42);
-  return v22;
-}
-
-void sub_1860887A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  IIONumber::~IIONumber(va);
-  IIODictionary::~IIODictionary(va1);
-  _Unwind_Resume(a1);
-}
-
-uint64_t HEIFReadPlugin::createPixelBufferWithToneMapApplied(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, const __CFString *a7, int a8)
-{
-  Current = CFAbsoluteTimeGetCurrent();
-  v22 = 0;
-  v23 = 0;
-  v24 = 0;
-  IIODictionary::IIODictionary(&v22);
-  v13 = MEMORY[0x1E695E4D0];
-  if (!a8)
-  {
-    v13 = MEMORY[0x1E695E4C0];
-  }
-
-  IIODictionary::setObjectForKey(&v22, *v13, @"kCGDisableMetal");
-  if ((gIIODebugFlags & 0x300000) != 0)
-  {
-    ImageIOLog("☀️  %s\n", "createPixelBufferWithToneMapApplied");
-  }
-
-  Width = gFunc_CVPixelBufferGetWidth(a5);
-  Height = gFunc_CVPixelBufferGetHeight(a5);
-  memset(v21, 0, sizeof(v21));
-  IIODictionary::IIODictionary(v21);
-  v16 = IIOCreatePixelBuffer(Width, Height, a6, v21);
-  v17 = CGColorSpaceCreateWithName(a7);
-  IIOPixelBufferSetColorSpace(v16, v17);
-  CGColorSpaceRelease(v17);
-  if ((gIIODebugFlags & 0x300000) != 0)
-  {
-    ImageIOLog("☀️  'IIOCallConvertHDRData'\n");
-  }
-
-  v18 = IIOConvertHDRData(a5, v16, v23);
-  if (v18)
-  {
-    _cg_jpeg_mem_term("createPixelBufferWithToneMapApplied", 4352, "*** ERROR: IIOCallConvertHDRData retuned %d\n", v18);
-    if (v16)
-    {
-      gFunc_CVPixelBufferRelease(v16);
-      v16 = 0;
-    }
-  }
-
-  if ((gIIODebugFlags & 0x300000) != 0)
-  {
-    v19 = CFAbsoluteTimeGetCurrent();
-    ImageIOLog("☀️  %s [%g ms]\n", "createPixelBufferWithToneMapApplied", (v19 - Current) * 1000.0);
-  }
-
-  IIODictionary::~IIODictionary(v21);
-  IIODictionary::~IIODictionary(&v22);
-  return v16;
-}
-
-void sub_186088A10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va1, a3);
-  va_start(va, a3);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
-  IIODictionary::~IIODictionary(va);
-  IIODictionary::~IIODictionary(va1);
-  _Unwind_Resume(a1);
-}
-
-__IOSurface *HEIFReadPlugin::createSurfaceWithToneMapApplied(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __IOSurface *a5, int a6, const __CFString *a7, int a8)
-{
-  Current = CFAbsoluteTimeGetCurrent();
-  v26 = 0;
-  v27 = 0;
-  v28 = 0;
-  IIODictionary::IIODictionary(&v26);
-  v13 = MEMORY[0x1E695E4D0];
-  if (!a8)
-  {
-    v13 = MEMORY[0x1E695E4C0];
-  }
-
-  IIODictionary::setObjectForKey(&v26, *v13, @"kCGDisableMetal");
-  if ((gIIODebugFlags & 0x300000) != 0)
-  {
-    ImageIOLog("☀️  %s\n", "createSurfaceWithToneMapApplied");
-  }
-
-  Width = IOSurfaceGetWidth(a5);
-  Height = IOSurfaceGetHeight(a5);
-  IOSurfaceWithFormat = IIO_CreateIOSurfaceWithFormat(Width, Height, 0, a6, 0, v16, v17, v18);
-  v20 = IOSurfaceWithFormat;
-  if ((gIIODebugFlags & 0x2000000) != 0)
-  {
-    LogSurfaceFormat(IOSurfaceWithFormat, "outputSurface", "createSurfaceWithToneMapApplied", 4383);
-  }
-
-  v21 = CGColorSpaceCreateWithName(a7);
-  v22 = CGColorSpaceCopyPropertyList(v21);
-  if (v22)
-  {
-    IOSurfaceSetValue(v20, *MEMORY[0x1E696CEE0], v22);
-    CFRelease(v22);
-  }
-
-  CGColorSpaceRelease(v21);
-  if ((gIIODebugFlags & 0x300000) != 0)
-  {
-    ImageIOLog("☀️  'IIOCallConvertHDRData'\n");
-  }
-
-  v23 = IIOCallConvertHDRData(a5, v20, v27);
-  if (v23)
-  {
-    _cg_jpeg_mem_term("createSurfaceWithToneMapApplied", 4397, "*** ERROR: IIOCallConvertHDRData retuned %d\n", v23);
-    if (v20)
-    {
-      CFRelease(v20);
-      v20 = 0;
-    }
-  }
-
-  if ((gIIODebugFlags & 0x300000) != 0)
-  {
-    v24 = CFAbsoluteTimeGetCurrent();
-    ImageIOLog("☀️  %s [%g ms]\n", "createSurfaceWithToneMapApplied", (v24 - Current) * 1000.0);
-  }
-
-  IIODictionary::~IIODictionary(&v26);
-  return v20;
-}
-
-void sub_186088C38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
-{
-  va_start(va, a4);
-  IIODictionary::~IIODictionary(va);
-  _Unwind_Resume(a1);
-}
-
-uint64_t HEIFReadPlugin::decodeImageImp(IIOReadPlugin *this, IIODecodeParameter *a2, int a3, __IOSurface **a4, uint64_t a5, uint64_t *a6)
-{
-  *(this + 56) = *(a2 + 9);
-  *(this + 371) = 0;
-  *(this + 440) = 1;
-  *(this + 26) = 1;
-  if ((gIIODebugFlags & 0x20000) != 0)
-  {
-    v11 = *(this + 55);
-    v12 = v11 >> 24;
-    v13 = MEMORY[0x1E69E9830];
-    if ((v11 >> 24) <= 0x7F)
-    {
-      v14 = *(MEMORY[0x1E69E9830] + 4 * v12 + 60) & 0x40000;
-    }
-
-    else
-    {
-      v14 = __maskrune(v12, 0x40000uLL);
-      v11 = *(this + 55);
-    }
-
-    if (v14)
-    {
-      v15 = (v11 >> 24);
-    }
-
-    else
-    {
-      v15 = 46;
-    }
-
-    v16 = v11 << 8 >> 24;
-    if (v16 <= 0x7F)
-    {
-      v17 = *(v13 + 4 * v16 + 60) & 0x40000;
-    }
-
-    else
-    {
-      v17 = __maskrune(v16, 0x40000uLL);
-      v11 = *(this + 55);
-    }
-
-    if (v17)
-    {
-      v18 = (v11 << 8 >> 24);
-    }
-
-    else
-    {
-      v18 = 46;
-    }
-
-    v19 = v11 >> 8;
-    if (v19 <= 0x7F)
-    {
-      v20 = *(v13 + 4 * v19 + 60) & 0x40000;
-    }
-
-    else
-    {
-      v20 = __maskrune(v19, 0x40000uLL);
-      v11 = *(this + 55);
-    }
-
-    if (v20)
-    {
-      v21 = (v11 >> 8);
-    }
-
-    else
-    {
-      v21 = 46;
-    }
-
-    if (v11 <= 0x7F)
-    {
-      if ((*(v13 + 4 * v11 + 60) & 0x40000) != 0)
-      {
-        goto LABEL_22;
-      }
-    }
-
-    else if (__maskrune(v11, 0x40000uLL))
-    {
-LABEL_22:
-      v22 = *(this + 220);
-LABEL_25:
-      ImageIOLog("♦️  '%c%c%c%c' [%s] %s\n", v15, v18, v21, v22, iioTypeStr[a3], "virtual OSStatus HEIFReadPlugin::decodeImageImp(IIODecodeParameter *, IIOImageType, IOSurfaceRef *, CVPixelBufferRef *, CGImageBlockSetRef *)");
-      goto LABEL_26;
-    }
-
-    v22 = 46;
-    goto LABEL_25;
-  }
-
-LABEL_26:
-  IIOReadPlugin::debugDecodeImage(this, a2);
-  v23 = IIOImageReadSession::globalInfoForType(*(this + 3), 1212500294);
-  if (!v23)
-  {
-    HEIFReadPlugin::decodeImageImp();
-    return 4294967246;
-  }
-
-  *(this + 133) = GlobalHEIFInfo::resolvedIndexForIndex(v23, *(this + 56));
-  if (a3 == 3)
-  {
-    v25 = *(a2 + 1);
-    v26 = *(a2 + 2);
-    v27 = *(a2 + 3);
-    v28 = *(a2 + 4);
-    v29 = *(a2 + 5);
-    v30 = *(a2 + 6);
-    v31 = *(a2 + 7);
-    v32 = *(a2 + 8);
-    XmpData = _APP1XMP::getXmpData(a2);
-    v34 = (*(*this + 208))(this, v25, v26, XmpData, v27, v28, v29, v30, v31, v32);
-    if (a6)
-    {
-      v24 = 0;
-      *a6 = v34;
-      return v24;
-    }
-
-    return 4294967246;
-  }
-
-  if (a3 != 1 || !a4)
-  {
-    return 4294967246;
-  }
-
-  if (*a4)
-  {
-    v24 = HEIFReadPlugin::decodeIntoIOSurface(this, a2, *a4);
-    if ((gIIODebugFlags & 0x2000000) != 0)
-    {
-      LogSurfaceFormat(*a4, "*ioSurface", "decodeImageImp", 3326);
-    }
-
-    if (v24)
-    {
-      _cg_jpeg_mem_term("decodeImageImp", 3328, "*** decodeIntoIOSurface - err = %d\n", v24);
-    }
-  }
-
-  else
-  {
-    v35 = *(a2 + 2);
-    v36 = _APP1XMP::getXmpData(a2);
-    v24 = (*(*this + 224))(this, v35, v36, a4, 0);
-    if ((gIIODebugFlags & 0x2000000) != 0)
-    {
-      LogSurfaceFormat(*a4, "*ioSurface", "decodeImageImp", 3335);
-    }
-  }
-
-  return v24;
-}
-
-uint64_t HEIFReadPlugin::decodeIntoIOSurface(HEIFReadPlugin *this, IIODecodeParameter *a2, __IOSurface *a3)
-{
-  memset(v59, 0, sizeof(v59));
-  XmpData = _APP1XMP::getXmpData(a2);
-  IIODictionary::IIODictionary(v59, XmpData);
-  v7 = *(a2 + 2);
-  v58 = 0;
-  v8 = *(this + 3);
-  if (!v8)
-  {
-LABEL_6:
-    v9 = 4294967246;
-    goto LABEL_7;
-  }
-
-  if ((*(this + 520) & 1) != 0 || *(this + 521) == 1)
-  {
-    if ((gIIODebugFlags & 0x300000) != 0)
-    {
-      ImageIOLog("☀️  ***ERROR: cannot applyGainMap / applyToneMap into a caller-provided IOSurface\n");
-    }
-
-    goto LABEL_6;
-  }
-
-  v11 = IIOImageReadSession::mapData(v8);
-  v57 = 0;
-  if (!gFunc_CMPhotoDecompressionSessionCreate)
-  {
-    _cg_jpeg_mem_term("decodeIntoIOSurface", 3380, "*** CMPhotoDecompressionSessionCreate symbol not found\n");
-  }
-
-  v12 = IIOCreateCMPhotoDecompressionSession(&v57);
-  v9 = v12;
-  if (v12)
-  {
-    v13 = IIOCMErrorString(v12);
-    _cg_jpeg_mem_term("decodeIntoIOSurface", 3387, "*** CMPhotoDecompressionSessionCreate  err = %s [%d]\n", v13, v9);
-    goto LABEL_12;
-  }
-
-  cf = 0;
-  v56 = 0;
-  v54 = 0;
-  v53 = 0;
-  Size = IIOImageReadSession::getSize(*(this + 3));
-  v16 = IIOImageReadSession::retainBytePointer(*(this + 3), &v53, 1);
-  v17 = v16;
-  if (v16)
-  {
-    v18 = *(this + 61);
-    if (v18)
-    {
-      if (*(this + 62))
-      {
-        Size = *(this + 62);
-      }
-
-      else
-      {
-        v18 = 0;
-      }
-
-      v17 = v16 + v18;
-    }
-
-    v19 = *MEMORY[0x1E695E480];
-    v20 = CFDataCreateWithBytesNoCopy(*MEMORY[0x1E695E480], v17, Size, *MEMORY[0x1E695E498]);
-    if (v20)
-    {
-      v22 = gFunc_CMPhotoDecompressionSessionCreateContainer(v57, 0, v20, &v54, &v56);
-      v9 = v22;
-      if (!v22 && v56)
-      {
-        v50 = 0;
-        v51 = 0;
-        v52 = 0;
-        IIODictionary::IIODictionary(&v50);
-        v23 = gFunc_CVPixelBufferCreateWithIOSurface(v19, a3, 0, &v58);
-        v24 = v23;
-        if (v23)
-        {
-          v25 = IIOCMErrorString(v23);
-          _cg_jpeg_mem_term("decodeIntoIOSurface", 3431, "*** CVPixelBufferCreateWithIOSurface  err = %s [%d]\n", v25, v24);
-        }
-
-        PixelFormat = IOSurfaceGetPixelFormat(a3);
-        v27 = IIOImageReadSession::globalInfoForType(*(this + 3), 1212500294);
-        GlobalHEIFInfo::getHEIFMainImageAtIndex(v27, *(this + 133));
-        if (GlobalHEIFInfo::hasHEIFSequence(v27))
-        {
-          v28 = GlobalHEIFInfo::useHEIFSequence(v27);
-        }
-
-        else
-        {
-          v28 = 0;
-        }
-
-        HEIFReadPlugin::updateHardwareDecodeOptions(this, &v50, v59);
-        IIONumber::IIONumber(v49, PixelFormat);
-        IIODictionary::setObjectForKey(&v50, v49, *gIIO_kCMPhotoDecompressionOption_OutputPixelFormat);
-        IIONumber::~IIONumber(v49);
-        IIODictionary::setObjectForKey(&v50, v58, *gIIO_kCMPhotoDecompressionOption_UseProvidedPixelBuffer);
-        HEIFReadPlugin::updateCreateImageOptions(this, &v50, *(this + 6));
-        if (v28)
-        {
-          v30 = gFunc_CMPhotoDecompressionContainerCreateSequenceContainer(v56, 0, 0, &cf);
-          v31 = v30;
-          if (v30)
-          {
-            v32 = IIOCMErrorString(v30);
-            _cg_jpeg_mem_term("decodeIntoIOSurface", 3450, "*** CMPhotoDecompressionSessionCreateContainer[sequence] err = %s [%d]\n", v32, v31);
-          }
-
-          if (*(this + 232) >= 2u)
-          {
-            p_cf = &cf;
-            if (*(this + 526))
-            {
-              goto LABEL_44;
-            }
-
-LABEL_41:
-            ThumbnailImageForIndex = gFunc_CMPhotoDecompressionContainerCreateThumbnailImageForIndex(*p_cf, *(this + 133), 0, v51, 2, 0);
-LABEL_45:
-            v9 = ThumbnailImageForIndex;
-            if (ThumbnailImageForIndex)
-            {
-              if (ThumbnailImageForIndex == -15470 && v7)
-              {
-                CGImageProviderSetProperty();
-              }
-
-              v35 = IIOCMErrorString(v9);
-              _cg_jpeg_mem_term("decodeIntoIOSurface", 3491, "*** CMPhotoDecompressionContainerCreateImageForIndex  err = %s [%d]\n", v35, v9);
-              v36 = PixelFormat >> 24;
-              if ((PixelFormat >> 24) <= 0x7F)
-              {
-                v37 = *(MEMORY[0x1E69E9830] + 4 * v36 + 60) & 0x40000;
-              }
-
-              else
-              {
-                v37 = __maskrune(PixelFormat >> 24, 0x40000uLL);
-              }
-
-              if (v37)
-              {
-                v38 = v36;
-              }
-
-              else
-              {
-                v38 = 46;
-              }
-
-              v39 = PixelFormat << 8 >> 24;
-              if (v39 <= 0x7F)
-              {
-                v40 = *(MEMORY[0x1E69E9830] + 4 * v39 + 60) & 0x40000;
-              }
-
-              else
-              {
-                v40 = __maskrune(PixelFormat << 8 >> 24, 0x40000uLL);
-              }
-
-              if (v40)
-              {
-                v41 = v39;
-              }
-
-              else
-              {
-                v41 = 46;
-              }
-
-              v42 = PixelFormat >> 8;
-              if (v42 <= 0x7F)
-              {
-                v43 = *(MEMORY[0x1E69E9830] + 4 * v42 + 60) & 0x40000;
-              }
-
-              else
-              {
-                v43 = __maskrune(PixelFormat >> 8, 0x40000uLL);
-              }
-
-              PixelFormat = PixelFormat;
-              if (PixelFormat <= 0x7F)
-              {
-                v44 = *(MEMORY[0x1E69E9830] + 4 * PixelFormat + 60) & 0x40000;
-              }
-
-              else
-              {
-                v44 = __maskrune(PixelFormat, 0x40000uLL);
-              }
-
-              if (v43)
-              {
-                v45 = v42;
-              }
-
-              else
-              {
-                v45 = 46;
-              }
-
-              if (v44)
-              {
-                v46 = PixelFormat;
-              }
-
-              else
-              {
-                v46 = 46;
-              }
-
-              _cg_jpeg_mem_term("decodeIntoIOSurface", 3492, "    outputPixelFormat: %c%c%c%c\n", v38, v41, v45, v46);
-              ImageIODebugOptionsDictionary(v51);
-            }
-
-            else
-            {
-              if (gFunc_CMPhotoDecompressionSessionDetachSurface)
-              {
-                v9 = gFunc_CMPhotoDecompressionSessionDetachSurface(v57, a3);
-              }
-
-              else
-              {
-                v9 = 0;
-              }
-
-              if ((gIIODebugFlags & 0x2000000) != 0)
-              {
-                LogSurfaceFormat(a3, "surface", "decodeIntoIOSurface", 3502);
-              }
-
-              if (v9)
-              {
-                v47 = IIOCMErrorString(v9);
-                _cg_jpeg_mem_term("decodeIntoIOSurface", 3505, "*** CMPhotoDecompressionSessionDetachSurface  err = %s [%d]\n", v47, v9);
-              }
-            }
-
-            if (cf)
-            {
-              CFRelease(cf);
-            }
-
-            CFRelease(v56);
-            IIODictionary::~IIODictionary(&v50);
-            goto LABEL_84;
-          }
-
-          p_cf = &cf;
-        }
-
-        else if (*(this + 232) == 2)
-        {
-          p_cf = &v56;
-          if ((*(this + 526) & 1) == 0)
-          {
-            goto LABEL_41;
-          }
-        }
-
-        else
-        {
-          p_cf = &v56;
-        }
-
-LABEL_44:
-        ThumbnailImageForIndex = gFunc_CMPhotoDecompressionContainerCreateImageForIndex(*p_cf, *(this + 133), v51, 2, 0);
-        goto LABEL_45;
-      }
-
-      v29 = IIOCMErrorString(v22);
-      v21 = _cg_jpeg_mem_term("decodeIntoIOSurface", 3419, "*** CMPhotoDecompressionSessionCreateContainer  err = %s [%d]\n", v29, v9);
-    }
-
-    else
-    {
-      v9 = 0;
-    }
-
-LABEL_84:
-    gFunc_CMPhotoDecompressionSessionFlushCachedBuffers(v57, 0, 0, v21);
-    CFRelease(v57);
-    if (v20)
-    {
-      CFRelease(v20);
-    }
-
-    if (v53)
-    {
-      v48 = *(this + 3);
-      if (v48)
-      {
-        IIOImageReadSession::releaseBytePointer(v48, v53);
-      }
-    }
-
-    goto LABEL_12;
-  }
-
-  LogError("decodeIntoIOSurface", 3402, "*** ERROR: retainBytePointer failed\n");
-  v9 = 0;
-LABEL_12:
-  if (v11)
-  {
-    v14 = *(this + 3);
-    if (v14)
-    {
-      IIOImageReadSession::unmapData(v14);
-    }
-  }
-
-  if (v58)
-  {
-    gFunc_CVPixelBufferRelease(v58);
-  }
-
-LABEL_7:
-  IIODictionary::~IIODictionary(v59);
-  return v9;
-}
-
-void sub_186089654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
-{
-  va_start(va1, a6);
-  va_start(va, a6);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  IIONumber::~IIONumber(va);
-  IIODictionary::~IIODictionary(va1);
-  IIODictionary::~IIODictionary((v6 - 104));
-  _Unwind_Resume(a1);
-}
-
-uint64_t HEIFReadPlugin::copyPixelBufferImp(uint64_t a1, uint64_t a2, __CFDictionary *a3, CFTypeRef *a4, uint64_t *a5)
-{
-  v69 = 0;
-  v70[0] = 0;
-  v67 = 0;
-  v68 = 0;
-  IIODictionary::IIODictionary(&v67, a3);
-  IIO_LoadHEIFSymbols();
-  v9 = *(a1 + 24);
-  if (!v9)
-  {
-    v12 = 4294967246;
-    goto LABEL_12;
-  }
-
-  v10 = IIOImageReadSession::mapData(v9);
-  v66 = 0;
-  if (!gFunc_CMPhotoDecompressionSessionCreate)
-  {
-    _cg_jpeg_mem_term("copyPixelBufferImp", 3558, "*** CMPhotoDecompressionSessionCreate symbol not found\n");
-  }
-
-  v11 = IIOCreateCMPhotoDecompressionSession(&v66);
-  v12 = v11;
-  if (v11)
-  {
-    v13 = IIOCMErrorString(v11);
-    _cg_jpeg_mem_term("copyPixelBufferImp", 3565, "*** CMPhotoDecompressionSessionCreate  err = %s [%d]\n", v13, v12);
-    goto LABEL_6;
-  }
-
-  cf = 0;
-  v65 = 0;
-  v63 = 0;
-  v62 = 0;
-  Size = IIOImageReadSession::getSize(*(a1 + 24));
-  v17 = IIOImageReadSession::retainBytePointer(*(a1 + 24), &v62, 1);
-  v18 = v17;
-  if (!v17)
-  {
-    LogError("copyPixelBufferImp", 3580, "*** ERROR: retainBytePointer failed\n");
-    v12 = 4294967277;
-    goto LABEL_6;
-  }
-
-  v19 = *(a1 + 488);
-  if (v19)
-  {
-    if (*(a1 + 496))
-    {
-      Size = *(a1 + 496);
-    }
-
-    else
-    {
-      v19 = 0;
-    }
-
-    v18 = v17 + v19;
-  }
-
-  v20 = CFDataCreateWithBytesNoCopy(*MEMORY[0x1E695E480], v18, Size, *MEMORY[0x1E695E498]);
-  if (!v20)
-  {
-    v12 = 0;
-LABEL_82:
-    CFRelease(v66);
-    if (v20)
-    {
-      CFRelease(v20);
-    }
-
-    if (v62)
-    {
-      v49 = *(a1 + 24);
-      if (v49)
-      {
-        IIOImageReadSession::releaseBytePointer(v49, v62);
-      }
-    }
-
-    goto LABEL_6;
-  }
-
-  v21 = gFunc_CMPhotoDecompressionSessionCreateContainer(v66, 0, v20, &v63, &v65);
-  v22 = v21;
-  if (v21 || !v65)
-  {
-    v24 = IIOCMErrorString(v21);
-    _cg_jpeg_mem_term("copyPixelBufferImp", 3596, "*** CMPhotoDecompressionSessionCreateContainer  err = %s [%d]\n", v24, v22);
-    if (v22)
-    {
-      v12 = v22;
-    }
-
-    else
-    {
-      v12 = 4294967246;
-    }
-
-    goto LABEL_82;
-  }
-
-  v59 = 0;
-  v60 = 0;
-  v61 = 0;
-  IIODictionary::IIODictionary(&v59);
-  v54 = IIOImageReadSession::globalInfoForType(*(a1 + 24), 1212500294);
-  if (GlobalHEIFInfo::hasHEIFSequence(v54))
-  {
-    v23 = GlobalHEIFInfo::useHEIFSequence(v54);
-  }
-
-  else
-  {
-    v23 = 0;
-  }
-
-  HEIFMainImageAtIndex = GlobalHEIFInfo::getHEIFMainImageAtIndex(v54, *(a1 + 532));
-  if (HEIFMainImageAtIndex)
-  {
-    v58 = 0;
-    if ((*(a1 + 528) & 1) != 0 || (gFunc_CMPhotoDecompressionContainerGetEncoderNativePixelFormatForIndexWithOptions(v65, *(a1 + 532), 0, &v58), (DecodePixelFormatForBitDepth = v58) == 0))
-    {
-      v27 = HEIFMainImage::bitDepth(HEIFMainImageAtIndex);
-      DecodePixelFormatForBitDepth = HEIFReadPlugin::getDecodePixelFormatForBitDepth(a1, v27);
-    }
-
-    HEIFReadPlugin::updateHardwareDecodeOptions(a1, &v59, *(a1 + 48));
-    IIONumber::IIONumber(v57, DecodePixelFormatForBitDepth);
-    IIODictionary::setObjectForKey(&v59, v57, *gIIO_kCMPhotoDecompressionOption_OutputPixelFormat);
-    IIONumber::~IIONumber(v57);
-    HEIFReadPlugin::updateCreateImageOptions(a1, &v59, *(a1 + 48));
-    if (IIODictionary::containsKey(&v67, @"kCGImageSurfaceFormatRequest") && (*(a1 + 520) & 1) == 0 && (*(a1 + 521) & 1) == 0)
-    {
-      DecodePixelFormatForBitDepth = IIODictionary::getUint32ForKey(&v67, @"kCGImageSurfaceFormatRequest");
-      IIONumber::IIONumber(v57, DecodePixelFormatForBitDepth);
-      IIODictionary::setObjectForKey(&v59, v57, *gIIO_kCMPhotoDecompressionOption_OutputPixelFormat);
-      IIONumber::~IIONumber(v57);
-    }
-
-    if (v23)
-    {
-      v28 = gFunc_CMPhotoDecompressionContainerCreateSequenceContainer(v65, 0, 0, &cf);
-      v12 = v28;
-      if (v28)
-      {
-        v29 = IIOCMErrorString(v28);
-        *&v34 = _cg_jpeg_mem_term("copyPixelBufferImp", 3637, "*** CMPhotoDecompressionSessionCreateContainer[sequence] err = %s [%d]\n", v29, v12).n128_u64[0];
-        goto LABEL_45;
-      }
-
-      if (*(a1 + 232) < 2u)
-      {
-        p_cf = &cf;
-      }
-
-      else
-      {
-        p_cf = &cf;
-        if ((*(a1 + 526) & 1) == 0)
-        {
-          goto LABEL_96;
-        }
-      }
-    }
-
-    else if (*(a1 + 232) == 2 && (*(a1 + 526) & 1) == 0)
-    {
-      p_cf = &v65;
-      if (!*(a1 + 488))
-      {
-LABEL_96:
-        ThumbnailImageForIndex = gFunc_CMPhotoDecompressionContainerCreateThumbnailImageForIndex(*p_cf, *(a1 + 532), 0, v60, 2, v70);
-        goto LABEL_44;
-      }
-    }
-
-    else
-    {
-      p_cf = &v65;
-    }
-
-    ThumbnailImageForIndex = gFunc_CMPhotoDecompressionContainerCreateImageForIndex(*p_cf, *(a1 + 532), v60, 2, v70);
-LABEL_44:
-    v12 = ThumbnailImageForIndex;
-LABEL_45:
-    if (v12)
-    {
-      if (v12 == -15470 && a2)
-      {
-        CGImageProviderSetProperty();
-      }
-
-      v36 = IIOCMErrorString(v12);
-      _cg_jpeg_mem_term("copyPixelBufferImp", 3682, "*** CMPhotoDecompressionContainerCreateImageForIndex  err = %s [%d]\n", v36, v12);
-      v37 = DecodePixelFormatForBitDepth >> 24;
-      if ((DecodePixelFormatForBitDepth >> 24) <= 0x7F)
-      {
-        v38 = *(MEMORY[0x1E69E9830] + 4 * v37 + 60) & 0x40000;
-      }
-
-      else
-      {
-        v38 = __maskrune(DecodePixelFormatForBitDepth >> 24, 0x40000uLL);
-      }
-
-      if (v38)
-      {
-        v40 = v37;
-      }
-
-      else
-      {
-        v40 = 46;
-      }
-
-      v55 = v40;
-      v41 = DecodePixelFormatForBitDepth << 8 >> 24;
-      if (v41 <= 0x7F)
-      {
-        v42 = *(MEMORY[0x1E69E9830] + 4 * v41 + 60) & 0x40000;
-      }
-
-      else
-      {
-        v42 = __maskrune(DecodePixelFormatForBitDepth << 8 >> 24, 0x40000uLL);
-      }
-
-      if (v42)
-      {
-        v43 = v41;
-      }
-
-      else
-      {
-        v43 = 46;
-      }
-
-      v44 = DecodePixelFormatForBitDepth >> 8;
-      if (v44 <= 0x7F)
-      {
-        v45 = *(MEMORY[0x1E69E9830] + 4 * v44 + 60) & 0x40000;
-      }
-
-      else
-      {
-        v45 = __maskrune(DecodePixelFormatForBitDepth >> 8, 0x40000uLL);
-      }
-
-      if (DecodePixelFormatForBitDepth <= 0x7F)
-      {
-        v46 = *(MEMORY[0x1E69E9830] + 4 * DecodePixelFormatForBitDepth + 60) & 0x40000;
-      }
-
-      else
-      {
-        v46 = __maskrune(DecodePixelFormatForBitDepth, 0x40000uLL);
-      }
-
-      if (v45)
-      {
-        v47 = v44;
-      }
-
-      else
-      {
-        v47 = 46;
-      }
-
-      if (v46)
-      {
-        v48 = DecodePixelFormatForBitDepth;
-      }
-
-      else
-      {
-        v48 = 46;
-      }
-
-      _cg_jpeg_mem_term("copyPixelBufferImp", 3683, "    outputPixelFormat: %c%c%c%c\n", v55, v43, v47, v48);
-      ImageIODebugOptionsDictionary(v60);
-      goto LABEL_79;
-    }
-
-    if (*(a1 + 520) == 1)
-    {
-      if ((gIIODebugFlags & 0x300000) != 0)
-      {
-        ImageIOLog("☀️  _requestedApplyGainMap --> createSurfaceWithGainMapApplied\n", v34);
-      }
-
-      PixelBufferWithGainMapApplied = HEIFReadPlugin::createPixelBufferWithGainMapApplied(a1, v65, v32, v54, v70[0]);
-      if (PixelBufferWithGainMapApplied)
-      {
-LABEL_94:
-        CFRelease(v70[0]);
-        v70[0] = PixelBufferWithGainMapApplied;
-      }
-    }
-
-    else if (*(a1 + 521) == 1)
-    {
-      if ((gIIODebugFlags & 0x300000) != 0)
-      {
-        ThumbnailImageForIndex = ImageIOLog("☀️  _requestedApplyToneMap --> createSurfaceWithToneMapApplied\n", v34);
-      }
-
-      PixelBufferWithGainMapApplied = HEIFReadPlugin::createPixelBufferWithToneMapApplied(ThumbnailImageForIndex, v31, v32, v33, v70[0], *(a1 + 464), *(a1 + 544), *(a1 + 525));
-      if (PixelBufferWithGainMapApplied)
-      {
-        goto LABEL_94;
-      }
-    }
-
-    else if ((*(a1 + 192) & 1) == 0 && (gIIODebugFlags & 0x300000) != 0)
-    {
-      ImageIOLog("☀️  no apply / no tone mapping / no compute stats [%p]\n", a1);
-    }
-
-    if (*(a1 + 192) == 1)
-    {
-      v50 = *(a1 + 352);
-      v51 = gIIODebugFlags & 0x300000;
-      if (v50 == 0.0)
-      {
-        if (v51)
-        {
-          ImageIOLog("☀️  _computeHDRStats --> IIOCallComputeHDRStats\n");
-        }
-
-        v56 = 0;
-        IIONumber::IIONumber(v57, *(a1 + 525));
-        IIODictionary::setObjectForKey(&v67, v57, @"kCGDisableMetal");
-        IIONumber::~IIONumber(v57);
-        v12 = CGImageComputeHDRImageStatistics(v70[0], 0, &v56, v68);
-        if (!v12)
-        {
-          *(a1 + 360) = 1;
-        }
-
-        memset(v57, 0, sizeof(v57));
-        IIODictionary::IIODictionary(v57, v56);
-        *(a1 + 352) = IIODictionary::getFloatForKey(v57, @"kCGContentBrightness");
-        FloatForKey = IIODictionary::getFloatForKey(v57, @"kCGContentHeadroom");
-        *(a1 + 356) = FloatForKey;
-        if ((gIIODebugFlags & 0x300000) != 0)
-        {
-          ImageIOLog("☀️  HDR Stats: headroom=%g brightness=%g  (%g)", FloatForKey, *(a1 + 352), *(a1 + 352) * 203.0);
-        }
-
-        IIODictionary::~IIODictionary(v57);
-      }
-
-      else
-      {
-        if (v51)
-        {
-          ImageIOLog("☀️  HDR Stats(cached): headroom=%g brightness=%g  (%g)", *(a1 + 356), v50, v50 * 203.0);
-        }
-
-        v12 = 0;
-      }
-
-      if (!CGImageProviderGetContentAverageLightLevelNits())
-      {
-        CGImageProviderSetContentAverageLightLevelNits();
-      }
-    }
-
-    else
-    {
-      v12 = 0;
-    }
-
-    if (!a5)
-    {
-      goto LABEL_79;
-    }
-
-    if (*(a1 + 523) == 1)
-    {
-      v53 = HEIFReadPlugin::copyISOGainMapDictionary(a1, v65, v32, &v67);
-    }
-
-    else
-    {
-      if (*(a1 + 522) != 1)
-      {
-LABEL_79:
-        if (cf)
-        {
-          CFRelease(cf);
-        }
-
-        CFRelease(v65);
-        IIODictionary::~IIODictionary(&v59);
-        goto LABEL_82;
-      }
-
-      v53 = HEIFReadPlugin::copyHDRGainMapDictionary(a1, v65, v54, &v67);
-    }
-
-    *a5 = v53;
-    goto LABEL_79;
-  }
-
-  LogError("copyPixelBufferImp", 3608, "*** ERROR: failed to get mainImage [#%d]\n", *(a1 + 532));
-  IIODictionary::~IIODictionary(&v59);
-  v12 = 4294967246;
-LABEL_6:
-  if (v10)
-  {
-    v14 = *(a1 + 24);
-    if (v14)
-    {
-      IIOImageReadSession::unmapData(v14);
-    }
-  }
-
-  if (a4)
-  {
-    *a4 = v70[0];
-  }
-
-LABEL_12:
-  IIODictionary::~IIODictionary(&v67);
-  return v12;
-}
-
-void sub_186089FA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
-{
-  va_start(va, a12);
-  IIODictionary::~IIODictionary(va);
-  IIODictionary::~IIODictionary((v12 - 120));
+  IIODictionary::~IIODictionary((v19 - 120));
   _Unwind_Resume(a1);
 }
 
 uint64_t HEIFReadPlugin::copyIOSurfaceImp(uint64_t a1, uint64_t a2, __CFDictionary *a3, __IOSurface **a4, uint64_t *a5)
 {
-  v72 = 0;
-  v73[0] = 0;
-  v70 = 0;
-  v71 = 0;
-  IIODictionary::IIODictionary(&v70, a3);
+  v56 = 0;
+  v57[0] = 0;
+  v54 = 0;
+  v55 = 0;
+  IIODictionary::IIODictionary(&v54, a3);
   IIO_LoadHEIFSymbols();
   v9 = *(a1 + 24);
   if (!v9)
@@ -2541,37 +22,37 @@ uint64_t HEIFReadPlugin::copyIOSurfaceImp(uint64_t a1, uint64_t a2, __CFDictiona
   }
 
   v10 = IIOImageReadSession::mapData(v9);
-  v69 = 0;
+  v53 = 0;
   if (!gFunc_CMPhotoDecompressionSessionCreate)
   {
     _cg_jpeg_mem_term("copyIOSurfaceImp", 3806, "*** CMPhotoDecompressionSessionCreate symbol not found\n");
   }
 
-  v11 = IIOCreateCMPhotoDecompressionSession(&v69);
+  v11 = IIOCreateCMPhotoDecompressionSession(&v53);
   updated = v11;
   if (v11)
   {
-    v13 = IIOCMErrorString(v11);
-    _cg_jpeg_mem_term("copyIOSurfaceImp", 3813, "*** CMPhotoDecompressionSessionCreate  err = %s [%d]\n", v13, updated);
+    IIOCMErrorString(v11);
+    _cg_jpeg_mem_term("copyIOSurfaceImp", 3813, "*** CMPhotoDecompressionSessionCreate  err = %s [%d]\n");
     goto LABEL_6;
   }
 
-  v67 = 0;
-  v68 = 0;
-  v66 = 0;
-  v65 = 0;
+  v51 = 0;
+  v52 = 0;
+  v50 = 0;
+  v49 = 0;
   Size = IIOImageReadSession::getSize(*(a1 + 24));
-  v17 = IIOImageReadSession::retainBytePointer(*(a1 + 24), &v65, 1);
-  v18 = v17;
-  if (!v17)
+  v16 = IIOImageReadSession::retainBytePointer(*(a1 + 24), &v49, 1);
+  v17 = v16;
+  if (!v16)
   {
     LogError("copyIOSurfaceImp", 3828, "*** ERROR: retainBytePointer failed\n");
     updated = 4294967277;
     goto LABEL_6;
   }
 
-  v19 = *(a1 + 488);
-  if (v19)
+  v18 = *(a1 + 488);
+  if (v18)
   {
     if (*(a1 + 496))
     {
@@ -2580,44 +61,44 @@ uint64_t HEIFReadPlugin::copyIOSurfaceImp(uint64_t a1, uint64_t a2, __CFDictiona
 
     else
     {
-      v19 = 0;
+      v18 = 0;
     }
 
-    v18 = v17 + v19;
+    v17 = v16 + v18;
   }
 
-  v58 = CFDataCreateWithBytesNoCopy(*MEMORY[0x1E695E480], v18, Size, *MEMORY[0x1E695E498]);
-  if (!v58)
+  v42 = CFDataCreateWithBytesNoCopy(*MEMORY[0x1E695E480], v17, Size, *MEMORY[0x1E695E498]);
+  if (!v42)
   {
     updated = 0;
-LABEL_127:
-    CFRelease(v69);
-    if (v58)
+LABEL_111:
+    CFRelease(v53);
+    if (v42)
     {
-      CFRelease(v58);
+      CFRelease(v42);
     }
 
-    if (v65)
+    if (v49)
     {
-      v57 = *(a1 + 24);
-      if (v57)
+      v41 = *(a1 + 24);
+      if (v41)
       {
-        IIOImageReadSession::releaseBytePointer(v57, v65);
+        IIOImageReadSession::releaseBytePointer(v41, v49);
       }
     }
 
     goto LABEL_6;
   }
 
-  v20 = gFunc_CMPhotoDecompressionSessionCreateContainer(v69, 0, v58, &v66, &v68);
-  v21 = v20;
-  if (v20 || !v68)
+  v19 = gFunc_CMPhotoDecompressionSessionCreateContainer(v53, 0, v42, &v50, &v52);
+  v20 = v19;
+  if (v19 || !v52)
   {
-    v24 = IIOCMErrorString(v20);
-    _cg_jpeg_mem_term("copyIOSurfaceImp", 3844, "*** CMPhotoDecompressionSessionCreateContainer  err = %s [%d]\n", v24, v21);
-    if (v21)
+    IIOCMErrorString(v19);
+    _cg_jpeg_mem_term("copyIOSurfaceImp", 3844, "*** CMPhotoDecompressionSessionCreateContainer  err = %s [%d]\n");
+    if (v20)
     {
-      updated = v21;
+      updated = v20;
     }
 
     else
@@ -2625,71 +106,71 @@ LABEL_127:
       updated = 4294967246;
     }
 
-    goto LABEL_127;
+    goto LABEL_111;
   }
 
-  v62 = 0;
-  v63 = 0;
-  v64 = 0;
-  IIODictionary::IIODictionary(&v62);
-  v22 = IIOImageReadSession::globalInfoForType(*(a1 + 24), 1212500294);
-  if (GlobalHEIFInfo::hasHEIFSequence(v22))
+  v46 = 0;
+  v47 = 0;
+  v48 = 0;
+  IIODictionary::IIODictionary(&v46);
+  v21 = IIOImageReadSession::globalInfoForType(*(a1 + 24), 1212500294);
+  if (GlobalHEIFInfo::hasHEIFSequence(v21))
   {
-    v23 = GlobalHEIFInfo::useHEIFSequence(v22);
+    v22 = GlobalHEIFInfo::useHEIFSequence(v21);
   }
 
   else
   {
-    v23 = 0;
+    v22 = 0;
   }
 
-  HEIFMainImageAtIndex = GlobalHEIFInfo::getHEIFMainImageAtIndex(v22, *(a1 + 532));
+  HEIFMainImageAtIndex = GlobalHEIFInfo::getHEIFMainImageAtIndex(v21, *(a1 + 532));
   if (HEIFMainImageAtIndex)
   {
-    v61 = 0;
-    if ((*(a1 + 528) & 1) != 0 || (gFunc_CMPhotoDecompressionContainerGetEncoderNativePixelFormatForIndexWithOptions(v68, *(a1 + 532), 0, &v61), (DecodePixelFormatForBitDepth = v61) == 0))
+    v45 = 0;
+    if ((*(a1 + 528) & 1) != 0 || (gFunc_CMPhotoDecompressionContainerGetEncoderNativePixelFormatForIndexWithOptions(v52, *(a1 + 532), 0, &v45), (DecodePixelFormatForBitDepth = v45) == 0))
     {
-      v27 = HEIFMainImage::bitDepth(HEIFMainImageAtIndex);
-      DecodePixelFormatForBitDepth = HEIFReadPlugin::getDecodePixelFormatForBitDepth(a1, v27);
+      v25 = HEIFMainImage::bitDepth(HEIFMainImageAtIndex);
+      DecodePixelFormatForBitDepth = HEIFReadPlugin::getDecodePixelFormatForBitDepth(a1, v25);
     }
 
-    HEIFReadPlugin::updateHardwareDecodeOptions(a1, &v62, *(a1 + 48));
-    IIONumber::IIONumber(v60, DecodePixelFormatForBitDepth);
-    IIODictionary::setObjectForKey(&v62, v60, *gIIO_kCMPhotoDecompressionOption_OutputPixelFormat);
-    IIONumber::~IIONumber(v60);
-    HEIFReadPlugin::updateCreateImageOptions(a1, &v62, *(a1 + 48));
-    if (IIODictionary::containsKey(&v70, @"kCGImageSurfaceFormatRequest") && (*(a1 + 520) & 1) == 0 && (*(a1 + 521) & 1) == 0)
+    HEIFReadPlugin::updateHardwareDecodeOptions(a1, &v46, *(a1 + 48));
+    IIONumber::IIONumber(v44, DecodePixelFormatForBitDepth);
+    IIODictionary::setObjectForKey(&v46, v44, *gIIO_kCMPhotoDecompressionOption_OutputPixelFormat);
+    IIONumber::~IIONumber(v44);
+    HEIFReadPlugin::updateCreateImageOptions(a1, &v46, *(a1 + 48));
+    if (IIODictionary::containsKey(&v54, @"kCGImageSurfaceFormatRequest") && (*(a1 + 520) & 1) == 0 && (*(a1 + 521) & 1) == 0)
     {
-      DecodePixelFormatForBitDepth = IIODictionary::getUint32ForKey(&v70, @"kCGImageSurfaceFormatRequest");
-      IIONumber::IIONumber(v60, DecodePixelFormatForBitDepth);
-      IIODictionary::setObjectForKey(&v62, v60, *gIIO_kCMPhotoDecompressionOption_OutputPixelFormat);
-      IIONumber::~IIONumber(v60);
+      DecodePixelFormatForBitDepth = IIODictionary::getUint32ForKey(&v54, @"kCGImageSurfaceFormatRequest");
+      IIONumber::IIONumber(v44, DecodePixelFormatForBitDepth);
+      IIODictionary::setObjectForKey(&v46, v44, *gIIO_kCMPhotoDecompressionOption_OutputPixelFormat);
+      IIONumber::~IIONumber(v44);
     }
 
-    if (v23)
+    if (v22)
     {
-      v28 = gFunc_CMPhotoDecompressionContainerCreateSequenceContainer(v68, 0, 0, &v67);
-      updated = v28;
-      if (v28)
+      v26 = gFunc_CMPhotoDecompressionContainerCreateSequenceContainer(v52, 0, 0, &v51);
+      updated = v26;
+      if (v26)
       {
-        v29 = IIOCMErrorString(v28);
-        _cg_jpeg_mem_term("copyIOSurfaceImp", 3887, "*** CMPhotoDecompressionSessionCreateContainer[sequence] err = %s [%d]\n", v29, updated);
+        IIOCMErrorString(v26);
+        _cg_jpeg_mem_term("copyIOSurfaceImp", 3887, "*** CMPhotoDecompressionSessionCreateContainer[sequence] err = %s [%d]\n");
       }
 
       else
       {
         if (*(a1 + 232) < 2u || (*(a1 + 526) & 1) != 0)
         {
-          ImageForIndex = gFunc_CMPhotoDecompressionContainerCreateImageForIndex(v67, *(a1 + 532), v63, 1, v73);
+          ImageForIndex = gFunc_CMPhotoDecompressionContainerCreateImageForIndex(v51, *(a1 + 532), v47, 1, v57);
         }
 
         else
         {
-          ImageForIndex = gFunc_CMPhotoDecompressionContainerCreateThumbnailImageForIndex(v67, *(a1 + 532), 0, v63, 1, v73);
+          ImageForIndex = gFunc_CMPhotoDecompressionContainerCreateThumbnailImageForIndex(v51, *(a1 + 532), 0, v47, 1, v57);
         }
 
         updated = ImageForIndex;
-        v30 = IIO_IOSurfaceLogAlphaInfo(v73[0], "HEIFSequence");
+        v27 = IIO_IOSurfaceLogAlphaInfo(v57[0], "HEIFSequence");
       }
     }
 
@@ -2697,16 +178,16 @@ LABEL_127:
     {
       if (*(a1 + 232) != 2 || (*(a1 + 526) & 1) != 0 || *(a1 + 488))
       {
-        ThumbnailImageForIndex = gFunc_CMPhotoDecompressionContainerCreateImageForIndex(v68, *(a1 + 532), v63, 1, v73);
+        ThumbnailImageForIndex = gFunc_CMPhotoDecompressionContainerCreateImageForIndex(v52, *(a1 + 532), v47, 1, v57);
       }
 
       else
       {
-        ThumbnailImageForIndex = gFunc_CMPhotoDecompressionContainerCreateThumbnailImageForIndex(v68, *(a1 + 532), 0, v63, 1, v73);
+        ThumbnailImageForIndex = gFunc_CMPhotoDecompressionContainerCreateThumbnailImageForIndex(v52, *(a1 + 532), 0, v47, 1, v57);
       }
 
       updated = ThumbnailImageForIndex;
-      v30 = IIO_IOSurfaceLogAlphaInfo(v73[0], "HEIF decode");
+      v27 = IIO_IOSurfaceLogAlphaInfo(v57[0], "HEIF decode");
     }
 
     if (updated)
@@ -2716,100 +197,37 @@ LABEL_127:
         CGImageProviderSetProperty();
       }
 
-      v36 = IIOCMErrorString(updated);
-      _cg_jpeg_mem_term("copyIOSurfaceImp", 3934, "*** CMPhotoDecompressionContainerCreateImageForIndex  err = %s [%d]\n", v36, updated);
-      v37 = DecodePixelFormatForBitDepth >> 24;
-      if ((DecodePixelFormatForBitDepth >> 24) <= 0x7F)
+      IIOCMErrorString(updated);
+      _cg_jpeg_mem_term("copyIOSurfaceImp", 3934, "*** CMPhotoDecompressionContainerCreateImageForIndex  err = %s [%d]\n");
+      if ((DecodePixelFormatForBitDepth >> 24) > 0x7F)
       {
-        v38 = *(MEMORY[0x1E69E9830] + 4 * v37 + 60) & 0x40000;
+        __maskrune(DecodePixelFormatForBitDepth >> 24, 0x40000uLL);
       }
 
-      else
+      if ((DecodePixelFormatForBitDepth << 8 >> 24) > 0x7F)
       {
-        v38 = __maskrune(DecodePixelFormatForBitDepth >> 24, 0x40000uLL);
+        __maskrune(DecodePixelFormatForBitDepth << 8 >> 24, 0x40000uLL);
       }
 
-      if (v38)
+      if ((DecodePixelFormatForBitDepth >> 8) > 0x7F)
       {
-        v39 = v37;
+        __maskrune(DecodePixelFormatForBitDepth >> 8, 0x40000uLL);
       }
 
-      else
+      if (DecodePixelFormatForBitDepth > 0x7F)
       {
-        v39 = 46;
+        __maskrune(DecodePixelFormatForBitDepth, 0x40000uLL);
       }
 
-      v40 = DecodePixelFormatForBitDepth << 8 >> 24;
-      if (v40 <= 0x7F)
-      {
-        v41 = *(MEMORY[0x1E69E9830] + 4 * v40 + 60) & 0x40000;
-      }
-
-      else
-      {
-        v41 = __maskrune(DecodePixelFormatForBitDepth << 8 >> 24, 0x40000uLL);
-      }
-
-      if (v41)
-      {
-        v42 = v40;
-      }
-
-      else
-      {
-        v42 = 46;
-      }
-
-      v43 = DecodePixelFormatForBitDepth >> 8;
-      if (v43 <= 0x7F)
-      {
-        v44 = *(MEMORY[0x1E69E9830] + 4 * v43 + 60) & 0x40000;
-      }
-
-      else
-      {
-        v44 = __maskrune(DecodePixelFormatForBitDepth >> 8, 0x40000uLL);
-      }
-
-      if (DecodePixelFormatForBitDepth <= 0x7F)
-      {
-        v45 = *(MEMORY[0x1E69E9830] + 4 * DecodePixelFormatForBitDepth + 60) & 0x40000;
-      }
-
-      else
-      {
-        v45 = __maskrune(DecodePixelFormatForBitDepth, 0x40000uLL);
-      }
-
-      if (v44)
-      {
-        v46 = v43;
-      }
-
-      else
-      {
-        v46 = 46;
-      }
-
-      if (v45)
-      {
-        v47 = DecodePixelFormatForBitDepth;
-      }
-
-      else
-      {
-        v47 = 46;
-      }
-
-      _cg_jpeg_mem_term("copyIOSurfaceImp", 3935, "    outputPixelFormat: %c%c%c%c\n", v39, v42, v46, v47);
-      ImageIODebugOptionsDictionary(v63);
-      goto LABEL_124;
+      _cg_jpeg_mem_term("copyIOSurfaceImp", 3935, "    outputPixelFormat: %c%c%c%c\n");
+      ImageIODebugOptionsDictionary(v47);
+      goto LABEL_108;
     }
 
     if (gFunc_CMPhotoDecompressionSessionDetachSurface)
     {
-      v30 = gFunc_CMPhotoDecompressionSessionDetachSurface(v69, v73[0]);
-      updated = v30;
+      v27 = gFunc_CMPhotoDecompressionSessionDetachSurface(v53, v57[0]);
+      updated = v27;
     }
 
     else
@@ -2824,18 +242,18 @@ LABEL_127:
         ImageIOLog("☀️  _requestedApplyGainMap --> createSurfaceWithGainMapApplied\n");
       }
 
-      SurfaceWithGainMapApplied = HEIFReadPlugin::createSurfaceWithGainMapApplied(a1, v68, v32, v22, v73[0]);
-      v49 = SurfaceWithGainMapApplied;
+      SurfaceWithGainMapApplied = HEIFReadPlugin::createSurfaceWithGainMapApplied(a1, v52, v29, v21, v57[0]);
+      v34 = SurfaceWithGainMapApplied;
       if ((gIIODebugFlags & 0x2000000) != 0)
       {
         LogSurfaceFormat(SurfaceWithGainMapApplied, "outputSurface", "copyIOSurfaceImp", 3949);
       }
 
-      if (v49)
+      if (v34)
       {
-LABEL_96:
-        CFRelease(v73[0]);
-        v73[0] = v49;
+LABEL_80:
+        CFRelease(v57[0]);
+        v57[0] = v34;
       }
     }
 
@@ -2843,19 +261,19 @@ LABEL_96:
     {
       if ((gIIODebugFlags & 0x300000) != 0)
       {
-        v30 = ImageIOLog("☀️  _requestedApplyToneMap --> createSurfaceWithToneMapApplied\n");
+        v27 = ImageIOLog("☀️  _requestedApplyToneMap --> createSurfaceWithToneMapApplied\n");
       }
 
-      SurfaceWithToneMapApplied = HEIFReadPlugin::createSurfaceWithToneMapApplied(v30, v31, v32, v33, v73[0], *(a1 + 464), *(a1 + 544), *(a1 + 525));
-      v49 = SurfaceWithToneMapApplied;
+      SurfaceWithToneMapApplied = HEIFReadPlugin::createSurfaceWithToneMapApplied(v27, v28, v29, v30, v57[0], *(a1 + 464), *(a1 + 544), *(a1 + 525));
+      v34 = SurfaceWithToneMapApplied;
       if ((gIIODebugFlags & 0x2000000) != 0)
       {
         LogSurfaceFormat(SurfaceWithToneMapApplied, "outputSurface", "copyIOSurfaceImp", 3960);
       }
 
-      if (v49)
+      if (v34)
       {
-        goto LABEL_96;
+        goto LABEL_80;
       }
     }
 
@@ -2866,32 +284,32 @@ LABEL_96:
 
     if (*(a1 + 192) != 1)
     {
-      goto LABEL_114;
+      goto LABEL_98;
     }
 
-    v51 = *(a1 + 352);
-    v52 = gIIODebugFlags & 0x300000;
-    if (v51 == 0.0)
+    v36 = *(a1 + 352);
+    v37 = gIIODebugFlags & 0x300000;
+    if (v36 == 0.0)
     {
-      if (v52)
+      if (v37)
       {
         ImageIOLog("☀️  _computeHDRStats --> IIOCallComputeHDRStats\n");
       }
 
       cf = 0;
-      IIONumber::IIONumber(v60, *(a1 + 525));
-      IIODictionary::setObjectForKey(&v70, v60, @"kCGDisableMetal");
-      IIONumber::~IIONumber(v60);
-      updated = IIOCallComputeHDRStats(v73[0], 0, 0, &cf, v71);
+      IIONumber::IIONumber(v44, *(a1 + 525));
+      IIODictionary::setObjectForKey(&v54, v44, @"kCGDisableMetal");
+      IIONumber::~IIONumber(v44);
+      updated = IIOCallComputeHDRStats(v57[0], 0, 0, &cf, v55);
       if (!updated)
       {
         *(a1 + 360) = 1;
       }
 
-      memset(v60, 0, sizeof(v60));
-      IIODictionary::IIODictionary(v60, cf);
-      *(a1 + 352) = IIODictionary::getFloatForKey(v60, @"kCGContentBrightness");
-      FloatForKey = IIODictionary::getFloatForKey(v60, @"kCGContentHeadroom");
+      memset(v44, 0, sizeof(v44));
+      IIODictionary::IIODictionary(v44, cf);
+      *(a1 + 352) = IIODictionary::getFloatForKey(v44, @"kCGContentBrightness");
+      FloatForKey = IIODictionary::getFloatForKey(v44, @"kCGContentHeadroom");
       *(a1 + 356) = FloatForKey;
       if ((gIIODebugFlags & 0x300000) != 0)
       {
@@ -2903,98 +321,98 @@ LABEL_96:
         CFRelease(cf);
       }
 
-      IIODictionary::~IIODictionary(v60);
+      IIODictionary::~IIODictionary(v44);
     }
 
-    else if (v52)
+    else if (v37)
     {
-      ImageIOLog("☀️  HDR Stats(cached): headroom=%g brightness=%g  (%g)", *(a1 + 356), v51, v51 * 203.0);
+      ImageIOLog("☀️  HDR Stats(cached): headroom=%g brightness=%g  (%g)", *(a1 + 356), v36, v36 * 203.0);
     }
 
     if (!CGImageProviderGetContentAverageLightLevelNits())
     {
       CGImageProviderSetContentAverageLightLevelNits();
-      v54 = v22;
+      v39 = v21;
     }
 
     else
     {
-LABEL_114:
-      v54 = v22;
+LABEL_98:
+      v39 = v21;
     }
 
     if (!a5)
     {
-      goto LABEL_121;
+      goto LABEL_105;
     }
 
     if (*(a1 + 523) == 1)
     {
-      v55 = HEIFReadPlugin::copyISOGainMapDictionary(a1, v68, v54, &v70);
+      v40 = HEIFReadPlugin::copyISOGainMapDictionary(a1, v52, v39, &v54);
     }
 
     else
     {
       if (*(a1 + 522) != 1)
       {
-        goto LABEL_121;
+        goto LABEL_105;
       }
 
-      v55 = HEIFReadPlugin::copyHDRGainMapDictionary(a1, v68, v54, &v70);
+      v40 = HEIFReadPlugin::copyHDRGainMapDictionary(a1, v52, v39, &v54);
     }
 
-    *a5 = v55;
-LABEL_121:
+    *a5 = v40;
+LABEL_105:
     if (updated)
     {
-      v56 = IIOCMErrorString(updated);
-      _cg_jpeg_mem_term("copyIOSurfaceImp", 4018, "*** CMPhotoDecompressionSessionDetachSurface  err = %s [%d]\n", v56, updated);
+      IIOCMErrorString(updated);
+      _cg_jpeg_mem_term("copyIOSurfaceImp", 4018, "*** CMPhotoDecompressionSessionDetachSurface  err = %s [%d]\n");
     }
 
     else
     {
-      updated = IIO_UpdateIOSurfaceOwnershipIdentity();
+      updated = IIO_UpdateIOSurfaceOwnershipIdentity(v57[0]);
     }
 
-LABEL_124:
-    if (v67)
+LABEL_108:
+    if (v51)
     {
-      CFRelease(v67);
+      CFRelease(v51);
     }
 
-    CFRelease(v68);
-    IIODictionary::~IIODictionary(&v62);
-    goto LABEL_127;
+    CFRelease(v52);
+    IIODictionary::~IIODictionary(&v46);
+    goto LABEL_111;
   }
 
   LogError("copyIOSurfaceImp", 3858, "*** ERROR: failed to get mainImage [#%d]\n", *(a1 + 532));
-  IIODictionary::~IIODictionary(&v62);
+  IIODictionary::~IIODictionary(&v46);
   updated = 4294967246;
 LABEL_6:
   if (v10)
   {
-    v14 = *(a1 + 24);
-    if (v14)
+    v13 = *(a1 + 24);
+    if (v13)
     {
-      IIOImageReadSession::unmapData(v14);
+      IIOImageReadSession::unmapData(v13);
     }
   }
 
   if (a4)
   {
-    *a4 = v73[0];
+    *a4 = v57[0];
   }
 
 LABEL_12:
-  IIODictionary::~IIODictionary(&v70);
+  IIODictionary::~IIODictionary(&v54);
   return updated;
 }
 
-void sub_18608AA40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_18608AA40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   IIODictionary::~IIODictionary(va);
-  IIODictionary::~IIODictionary((v12 - 120));
+  IIODictionary::~IIODictionary((v19 - 120));
   _Unwind_Resume(a1);
 }
 
@@ -3077,32 +495,38 @@ const char *AppleJPEGReadPlugin::appleJPEGErrorString(AppleJPEGReadPlugin *this,
   }
 }
 
-__n128 AppleJPEGReadPlugin::create_or_restoreIndexTable(uint64_t a1)
+void AppleJPEGReadPlugin::create_or_restoreIndexTable(void *a1, uint64_t a2)
 {
-  if (*(a1 + 656) && *(a1 + 664))
+  if (a1[82] && a1[83])
   {
-    v1 = applejpeg_decode_set_ra_table();
-    if (v1)
+    v2 = applejpeg_decode_set_ra_table();
+    if (!v2)
     {
-      AppleJPEGReadPlugin::appleJPEGErrorString(v1, v1);
-      return _cg_jpeg_mem_term("create_or_restoreIndexTable", 251, "    applejpeg_decode_set_ra_table err = %d '%s'\n");
+      return;
     }
+
+    AppleJPEGReadPlugin::appleJPEGErrorString(v2, v2);
+    v3 = "    applejpeg_decode_set_ra_table err = %d '%s'\n";
+    v4 = 251;
   }
 
   else
   {
-    v3 = applejpeg_decode_set_option_buildindex();
-    if (v3)
+    v5 = applejpeg_decode_set_option_buildindex();
+    if (!v5)
     {
-      AppleJPEGReadPlugin::appleJPEGErrorString(v3, v3);
-      return _cg_jpeg_mem_term("create_or_restoreIndexTable", 258, "    applejpeg_decode_set_option_buildindex err = %d '%s'\n");
+      return;
     }
+
+    AppleJPEGReadPlugin::appleJPEGErrorString(v5, v5);
+    v3 = "    applejpeg_decode_set_option_buildindex err = %d '%s'\n";
+    v4 = 258;
   }
 
-  return result;
+  _cg_jpeg_mem_term("create_or_restoreIndexTable", v4, v3);
 }
 
-__n128 AppleJPEGReadPlugin::save_index_table(AppleJPEGReadPlugin *this)
+void AppleJPEGReadPlugin::save_index_table(AppleJPEGReadPlugin *this)
 {
   if (!*(this + 82))
   {
@@ -3111,22 +535,19 @@ __n128 AppleJPEGReadPlugin::save_index_table(AppleJPEGReadPlugin *this)
     if (ra_table_sz)
     {
       *(this + 82) = malloc_type_malloc(ra_table_sz, 0x100004077774924uLL);
-      v4 = applejpeg_decode_dump_ra_table();
-      if (v4)
+      v3 = applejpeg_decode_dump_ra_table();
+      if (v3)
       {
-        v5 = v4;
-        v6 = AppleJPEGReadPlugin::appleJPEGErrorString(v4, v4);
-        return _cg_jpeg_mem_term("save_index_table", 276, "err = %d '%s'\n", v5, v6);
+        AppleJPEGReadPlugin::appleJPEGErrorString(v3, v3);
+        _cg_jpeg_mem_term("save_index_table", 276, "err = %d '%s'\n");
       }
     }
   }
-
-  return result;
 }
 
 void AppleJPEGReadPlugin::readQualityPropertiesFromJPEG(uint64_t a1, uint64_t a2, IIODictionary *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 4, MEMORY[0x1E695E9C0]);
@@ -3141,14 +562,14 @@ void AppleJPEGReadPlugin::readQualityPropertiesFromJPEG(uint64_t a1, uint64_t a2
       }
 
       while (v5 != 4);
-      memset(v20, 0, 64);
-      memset(v19, 0, sizeof(v19));
-      memset(v18, 0, sizeof(v18));
-      memset(v17, 0, sizeof(v17));
-      v13 = v17;
-      v14 = v18;
-      v15 = v19;
-      v16 = v20;
+      memset(v17, 0, 64);
+      memset(v16, 0, sizeof(v16));
+      memset(v15, 0, sizeof(v15));
+      memset(v14, 0, sizeof(v14));
+      v13[0] = v14;
+      v13[1] = v15;
+      v13[2] = v16;
+      v13[3] = v17;
       v11 = 0;
       v12 = 0;
       if (!applejpeg_decode_get_qtables())
@@ -3164,20 +585,27 @@ void AppleJPEGReadPlugin::readQualityPropertiesFromJPEG(uint64_t a1, uint64_t a2
     if (chroma_subsampling <= 3)
     {
       v8 = dword_186225A70[chroma_subsampling];
-      IIONumber::IIONumber(v17, dword_186225A60[chroma_subsampling]);
-      IIODictionary::setObjectForKeyGroup(a3, v17, @"ChromaSubsamplingX", @"{JPEG}");
-      IIONumber::~IIONumber(v17);
-      IIONumber::IIONumber(v17, v8);
-      IIODictionary::setObjectForKeyGroup(a3, v17, @"ChromaSubsamplingY", @"{JPEG}");
-      IIONumber::~IIONumber(v17);
+      IIONumber::IIONumber(v14, dword_186225A60[chroma_subsampling]);
+      IIODictionary::setObjectForKeyGroup(a3, v14, @"ChromaSubsamplingX", @"{JPEG}");
+      IIONumber::~IIONumber(v14);
+      IIONumber::IIONumber(v14, v8);
+      IIODictionary::setObjectForKeyGroup(a3, v14, @"ChromaSubsamplingY", @"{JPEG}");
+      IIONumber::~IIONumber(v14);
     }
   }
 }
 
+void sub_18608B0A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
+{
+  va_start(va, a34);
+  IIONumber::~IIONumber(va);
+  _Unwind_Resume(a1);
+}
+
 uint64_t AppleJPEGReadPlugin::copyImageBlockSetSingleTile(uint64_t a1, const void *a2, const void *a3, double a4, double a5, double a6, double a7, double a8, double a9, uint64_t a10, _DWORD *a11)
 {
-  v47 = *MEMORY[0x1E69E9840];
-  v42 = 0;
+  v40 = *MEMORY[0x1E69E9840];
+  v35 = 0;
   *a11 = 0;
   if (a3)
   {
@@ -3213,64 +641,58 @@ uint64_t AppleJPEGReadPlugin::copyImageBlockSetSingleTile(uint64_t a1, const voi
   IIOReadPlugin::debugCopyBlockSet(a1, a3, a4, a5, a6, a7, a8, a9);
   IIOReadPlugin::allocateBlockArray(a1, *(a1 + 104));
   applejpeg_decode_clear_options();
-  v22 = applejpeg_decode_set_option_outformat();
-  if (v22)
+  if (applejpeg_decode_set_option_outformat())
   {
-    _cg_jpeg_mem_term("copyImageBlockSetSingleTile", 2329, "err = %d\n", v22);
+    _cg_jpeg_mem_term("copyImageBlockSetSingleTile", 2329, "err = %d\n");
   }
 
-  v23 = applejpeg_decode_set_option_outsize();
-  if (v23)
+  if (applejpeg_decode_set_option_outsize())
   {
-    _cg_jpeg_mem_term("copyImageBlockSetSingleTile", 2342, "err = %d\n", v23);
+    _cg_jpeg_mem_term("copyImageBlockSetSingleTile", 2342, "err = %d\n");
   }
 
-  v43 = *(a1 + 316);
-  v44 = v43;
-  v45 = v43;
-  v46 = v43;
-  v24 = applejpeg_decode_set_option_stride();
-  if (v24)
+  v36 = *(a1 + 316);
+  v37 = v36;
+  v38 = v36;
+  v39 = v36;
+  if (applejpeg_decode_set_option_stride())
   {
-    _cg_jpeg_mem_term("copyImageBlockSetSingleTile", 2350, "err = %d\n", v24);
+    _cg_jpeg_mem_term("copyImageBlockSetSingleTile", 2350, "err = %d\n");
   }
 
   if (*(a1 + 369) == 1)
   {
-    AppleJPEGReadPlugin::create_or_restoreIndexTable(a1);
+    AppleJPEGReadPlugin::create_or_restoreIndexTable(a1, *(a1 + 528));
   }
 
-  v25 = applejpeg_decode_set_option_mosquito_spray();
-  if (v25)
+  if (applejpeg_decode_set_option_mosquito_spray())
   {
-    _cg_jpeg_mem_term("copyImageBlockSetSingleTile", 2382, "applejpeg_decode_set_option_mosquito_spray err = %d\n", v25);
+    _cg_jpeg_mem_term("copyImageBlockSetSingleTile", 2382, "applejpeg_decode_set_option_mosquito_spray err = %d\n");
   }
 
-  v26 = applejpeg_decode_set_option_multithread();
-  if (v26)
+  if (applejpeg_decode_set_option_multithread())
   {
-    _cg_jpeg_mem_term("copyImageBlockSetSingleTile", 2389, "applejpeg_decode_set_option_multithread err = %d\n", v26);
+    _cg_jpeg_mem_term("copyImageBlockSetSingleTile", 2389, "applejpeg_decode_set_option_multithread err = %d\n");
   }
 
-  v27 = applejpeg_decode_set_option_crop();
-  if (v27)
+  if (applejpeg_decode_set_option_crop())
   {
-    _cg_jpeg_mem_term("copyImageBlockSetSingleTile", 2421, "err = %d\n", v27);
+    _cg_jpeg_mem_term("copyImageBlockSetSingleTile", 2421, "err = %d\n");
   }
 
   applejpeg_decode_set_option_error_fill();
   output_dimensions = applejpeg_decode_get_output_dimensions();
   if (output_dimensions)
   {
-    v29 = output_dimensions;
-    v30 = AppleJPEGReadPlugin::appleJPEGErrorString(output_dimensions, output_dimensions);
-    _cg_jpeg_mem_term("copyImageBlockSetSingleTile", 2434, "*** ERROR: applejpeg_decode_get_output_dimensions - error %d (%s)\n", v29, v30);
+    v23 = output_dimensions;
+    AppleJPEGReadPlugin::appleJPEGErrorString(output_dimensions, output_dimensions);
+    _cg_jpeg_mem_term("copyImageBlockSetSingleTile", 2434, "*** ERROR: applejpeg_decode_get_output_dimensions - error %d (%s)\n");
     if ((gIIODebugFlags & 0x30000) != 0)
     {
-      ImageIOLog("    %s:%d: Options error %d\n", "copyImageBlockSetSingleTile", 2435, v29);
+      ImageIOLog("    %s:%d: Options error %d\n", "copyImageBlockSetSingleTile", 2435, v23);
     }
 
-    v31 = 0;
+    v24 = 0;
   }
 
   else
@@ -3278,7 +700,7 @@ uint64_t AppleJPEGReadPlugin::copyImageBlockSetSingleTile(uint64_t a1, const voi
     applejpeg_decode_get_output_buffer_size();
     if (*(a1 + 316))
     {
-      _cg_jpeg_mem_term("copyImageBlockSetSingleTile", 2444, "*** ERROR: get_output_buffer_size rb=%d  blockGeo.rb=%d\n", 0, *(a1 + 316));
+      _cg_jpeg_mem_term("copyImageBlockSetSingleTile", 2444, "*** ERROR: get_output_buffer_size rb=%d  blockGeo.rb=%d\n");
     }
 
     if ((gIIODebugFlags & 0x30000) != 0)
@@ -3286,27 +708,27 @@ uint64_t AppleJPEGReadPlugin::copyImageBlockSetSingleTile(uint64_t a1, const voi
       ImageIOLog("    %s:%d: applejpeg_decode_get_output_buffer_size:%ld rowB:%ld size:%ldx%ld\n", "copyImageBlockSetSingleTile", 2446, 0, 0, 0, 0);
     }
 
-    v31 = _ImageIO_Malloc(0, *(a1 + 416), &v42, kImageMalloc_APPLEJPEG_Data[0], 0, 0);
-    if (v31)
+    v24 = _ImageIO_Malloc(0, *(a1 + 416), &v35, kImageMalloc_APPLEJPEG_Data[0], 0, 0);
+    if (v24)
     {
       if ((gIIODebugFlags & 0x30000) != 0)
       {
         ImageIOLog("    %s:%d: Got outbuf\n", "copyImageBlockSetSingleTile", 2455);
       }
 
-      v33 = applejpeg_decode_image_all();
-      if (!v33)
+      v26 = applejpeg_decode_image_all();
+      if (!v26)
       {
         goto LABEL_60;
       }
 
-      v34 = v33;
+      v27 = v26;
       if ((gIIODebugFlags & 0x30000) != 0)
       {
-        ImageIOLog("    %s:%d: Decode error %d\n", "copyImageBlockSetSingleTile", 2462, v33);
+        ImageIOLog("    %s:%d: Decode error %d\n", "copyImageBlockSetSingleTile", 2462, v26);
       }
 
-      if (v34 == 9 || v34 == -1)
+      if (v27 == 9 || v27 == -1)
       {
 LABEL_60:
         if ((gIIODebugFlags & 0x30000) != 0)
@@ -3314,47 +736,47 @@ LABEL_60:
           ImageIOLog("    %s:%d: Decoded image\n", "copyImageBlockSetSingleTile", 2469);
         }
 
-        v48.origin.x = a4;
-        v48.origin.y = a5;
-        v48.size.width = a6;
-        v48.size.height = a7;
-        **(a1 + 96) = IIOReadPlugin::createImageBlock(a1, v31, v42, v48, *(a1 + 316), 0);
-        v35 = CGRectEqualToRect(*(a1 + 120), *MEMORY[0x1E695F050]);
-        v36 = a6;
-        v37 = a7;
-        if (!v35)
+        v41.origin.x = a4;
+        v41.origin.y = a5;
+        v41.size.width = a6;
+        v41.size.height = a7;
+        **(a1 + 96) = IIOReadPlugin::createImageBlock(a1, v24, v35, v41, *(a1 + 316), 0);
+        v28 = CGRectEqualToRect(*(a1 + 120), *MEMORY[0x1E695F050]);
+        v29 = a6;
+        v30 = a7;
+        if (!v28)
         {
-          v49.origin.x = a4;
-          v49.origin.y = a5;
-          v49.size.width = a6;
-          v49.size.height = a7;
-          *(&v36 - 2) = CGRectUnion(*(a1 + 120), v49);
-          a4 = v38;
-          a5 = v39;
+          v42.origin.x = a4;
+          v42.origin.y = a5;
+          v42.size.width = a6;
+          v42.size.height = a7;
+          *(&v29 - 2) = CGRectUnion(*(a1 + 120), v42);
+          a4 = v31;
+          a5 = v32;
         }
 
         *(a1 + 120) = a4;
         *(a1 + 128) = a5;
-        *(a1 + 136) = v36;
-        *(a1 + 144) = v37;
+        *(a1 + 136) = v29;
+        *(a1 + 144) = v30;
         if (*(a1 + 369) == 1)
         {
           AppleJPEGReadPlugin::save_index_table(a1);
         }
 
-        v31 = 0;
+        v24 = 0;
         if (a3)
         {
-          v40 = *(a1 + 104);
-          if (v40)
+          v33 = *(a1 + 104);
+          if (v33)
           {
-            v32 = IIOReadPlugin::imageBlockSetCreate(a1, a3, v40, a6, a7, *(a1 + 120), *(a1 + 128), *(a1 + 136), *(a1 + 144), *(a1 + 96), a2);
-            v31 = 0;
+            v25 = IIOReadPlugin::imageBlockSetCreate(a1, a3, v33, *(a1 + 96), a2, a6, a7, *(a1 + 120), *(a1 + 128), *(a1 + 136), *(a1 + 144));
+            v24 = 0;
 LABEL_29:
             IIOReadPlugin::freeBlockArray(a1);
-            if (!v31)
+            if (!v24)
             {
-              return v32;
+              return v25;
             }
 
             goto LABEL_54;
@@ -3366,38 +788,38 @@ LABEL_29:
 
   if (a3)
   {
-    v32 = 0;
+    v25 = 0;
     goto LABEL_29;
   }
 
   if (!*(a1 + 104))
   {
-    v32 = 0;
-    if (!v31)
+    v25 = 0;
+    if (!v24)
     {
-      return v32;
+      return v25;
     }
 
     goto LABEL_54;
   }
 
-  v32 = 0;
+  v25 = 0;
   *a11 = 1;
-  if (v31)
+  if (v24)
   {
 LABEL_54:
-    _ImageIO_Free(v31, v42);
+    _ImageIO_Free(v24, v35);
   }
 
-  return v32;
+  return v25;
 }
 
 uint64_t AppleJPEGReadPlugin::copyImageBlockSetTiles(uint64_t a1, const void *a2, const void *a3, unint64_t a4, _DWORD *a5, double a6, double a7, double a8, double a9, double a10, double a11)
 {
   v11 = a3;
   v17 = a6;
-  v81 = *MEMORY[0x1E69E9840];
-  v76 = 0;
+  v76 = *MEMORY[0x1E69E9840];
+  v71 = 0;
   *a5 = 0;
   if (a3)
   {
@@ -3438,7 +860,7 @@ uint64_t AppleJPEGReadPlugin::copyImageBlockSetTiles(uint64_t a1, const void *a2
   v26 = (a4 - 1);
   v27 = ((v17 + a8 + v26) / a4);
   v28 = (a7 / a4);
-  v73 = ((a7 + a9 + v26) / a4);
+  v68 = ((a7 + a9 + v26) / a4);
   *(a1 + 252) = 16 * ((a8 * PixelSize + 15.0) * 0.0625);
   v29 = *(a1 + 244);
   v30.i64[0] = v29.u32[0];
@@ -3446,46 +868,43 @@ uint64_t AppleJPEGReadPlugin::copyImageBlockSetTiles(uint64_t a1, const void *a2
   v31 = vbsl_s8(vmovn_s64(vcgtq_u64(v30, vdupq_n_s64(a4))), vdup_n_s32(a4), v29);
   *(a1 + 308) = v31;
   *(a1 + 316) = v31.i32[0] * PixelSize;
-  v70 = v27 - v25;
-  v32 = ((v27 - v25) * (v73 - v28));
+  v65 = v27 - v25;
+  v32 = ((v27 - v25) * (v68 - v28));
   *(a1 + 104) = v32;
   IIOReadPlugin::allocateBlockArray(a1, v32);
   applejpeg_decode_clear_options();
-  v33 = applejpeg_decode_set_option_outformat();
-  if (v33)
+  if (applejpeg_decode_set_option_outformat())
   {
-    _cg_jpeg_mem_term("copyImageBlockSetTiles", 2599, "err = %d\n", v33);
+    _cg_jpeg_mem_term("copyImageBlockSetTiles", 2599, "err = %d\n");
   }
 
   if (*(a1 + 332) <= 1u)
   {
-    v34 = 1;
+    v33 = 1;
   }
 
   else
   {
-    v34 = *(a1 + 332);
+    v33 = *(a1 + 332);
   }
 
-  v35 = applejpeg_decode_set_option_outsize();
-  if (v35)
+  if (applejpeg_decode_set_option_outsize())
   {
-    _cg_jpeg_mem_term("copyImageBlockSetTiles", 2612, "err = %d\n", v35);
+    _cg_jpeg_mem_term("copyImageBlockSetTiles", 2612, "err = %d\n");
   }
 
-  v77 = *(a1 + 316);
-  v78 = v77;
-  v79 = v77;
-  v80 = v77;
-  v36 = applejpeg_decode_set_option_stride();
-  if (v36)
+  v72 = *(a1 + 316);
+  v73 = v72;
+  v74 = v72;
+  v75 = v72;
+  if (applejpeg_decode_set_option_stride())
   {
-    _cg_jpeg_mem_term("copyImageBlockSetTiles", 2620, "err = %d\n", v36);
+    _cg_jpeg_mem_term("copyImageBlockSetTiles", 2620, "err = %d\n");
   }
 
   if (*(a1 + 369) == 1)
   {
-    AppleJPEGReadPlugin::create_or_restoreIndexTable(a1);
+    AppleJPEGReadPlugin::create_or_restoreIndexTable(a1, *(a1 + 528));
   }
 
   if (*(a1 + 701) != -1)
@@ -3494,98 +913,96 @@ uint64_t AppleJPEGReadPlugin::copyImageBlockSetTiles(uint64_t a1, const void *a2
   }
 
   applejpeg_decode_set_option_error_fill();
-  v37 = applejpeg_decode_set_option_mosquito_spray();
-  if (v37)
+  if (applejpeg_decode_set_option_mosquito_spray())
   {
-    _cg_jpeg_mem_term("copyImageBlockSetTiles", 2668, "applejpeg_decode_set_option_mosquito_spray err = %d\n", v37);
+    _cg_jpeg_mem_term("copyImageBlockSetTiles", 2668, "applejpeg_decode_set_option_mosquito_spray err = %d\n");
   }
 
-  v38 = applejpeg_decode_set_option_multithread();
-  if (v38)
+  v34 = applejpeg_decode_set_option_multithread();
+  if (v34)
   {
-    _cg_jpeg_mem_term("copyImageBlockSetTiles", 2675, "err = %d\n", v38);
+    _cg_jpeg_mem_term("copyImageBlockSetTiles", 2675, "err = %d\n");
   }
 
-  if (v73 > v28)
+  if (v68 > v28)
   {
-    v39 = (a7 / a4);
-    v74 = 0;
-    v71 = 0;
+    v35 = (a7 / a4);
+    v69 = 0;
+    v66 = 0;
     if (v25 <= v27)
     {
-      v40 = v27;
+      v36 = v27;
     }
 
     else
     {
-      v40 = (v17 / a4);
+      v36 = (v17 / a4);
     }
 
-    v41 = v34;
-    v42 = 8 * v40 - 8 * v25;
-    v68 = v25 * a4;
-    v43 = MEMORY[0x1E695F050];
-    v69 = v11;
-    v65 = (v17 / a4);
-    v66 = a2;
-    v63 = v42;
-    v64 = v27;
+    v37 = v33;
+    v38 = 8 * v36 - 8 * v25;
+    v63 = v25 * a4;
+    v39 = MEMORY[0x1E695F050];
+    v64 = v11;
+    v60 = (v17 / a4);
+    v61 = a2;
+    v58 = v38;
+    v59 = v27;
     while (1)
     {
-      v44 = *(a1 + 312);
-      v72 = v39;
-      v45 = v39 * v44;
-      v46 = v45;
-      v47 = v44 + v45 <= v23 ? v44 : v23 - v45;
+      v40 = *(a1 + 312);
+      v67 = v35;
+      v41 = v35 * v40;
+      v42 = v41;
+      v43 = v40 + v41 <= v23 ? v40 : v23 - v41;
       if (v27 > v25)
       {
         break;
       }
 
 LABEL_63:
-      v39 = v72 + 1;
-      v74 += v42;
-      if (v72 + 1 == v73)
+      v35 = v67 + 1;
+      v69 += v38;
+      if (v67 + 1 == v68)
       {
         goto LABEL_64;
       }
     }
 
-    v48 = v47 * v41;
-    v49 = v70;
-    v71 += v70;
-    v50 = v68;
-    v51 = v74;
+    v44 = v43 * v37;
+    v45 = v65;
+    v66 += v65;
+    v46 = v63;
+    v47 = v69;
     while (1)
     {
-      v52 = v50;
-      LODWORD(v48) = *(a1 + 308);
-      v53 = *&v48;
-      if (v50 + v53 <= v21)
+      v48 = v46;
+      LODWORD(v44) = *(a1 + 308);
+      v49 = *&v44;
+      if (v46 + v49 <= v21)
       {
-        v54 = v53;
+        v50 = v49;
       }
 
       else
       {
-        v54 = v21 - v50;
+        v50 = v21 - v46;
       }
 
-      if (!*(a1 + 332) && v38)
+      if (!*(a1 + 332) && v34)
       {
-        _cg_jpeg_mem_term("copyImageBlockSetTiles", 2719, "err = %d\n", v38);
+        _cg_jpeg_mem_term("copyImageBlockSetTiles", 2719, "err = %d\n");
       }
 
-      v55 = applejpeg_decode_set_option_crop();
-      if (v55)
+      if (applejpeg_decode_set_option_crop())
       {
-        _cg_jpeg_mem_term("copyImageBlockSetTiles", 2723, "err = %d\n", v55);
+        _cg_jpeg_mem_term("copyImageBlockSetTiles", 2723, "err = %d\n");
       }
 
       applejpeg_decode_get_output_buffer_size();
       if (*(a1 + 316))
       {
-        _cg_jpeg_mem_term("copyImageBlockSetTiles", 2730, "*** ERROR: get_output_buffer_size rb=%d  blockGeo.rb=%d\n", 0, *(a1 + 316));
+        _cg_jpeg_mem_term("copyImageBlockSetTiles", 2730, "*** ERROR: get_output_buffer_size rb=%d  blockGeo.rb=%d\n");
       }
 
       if ((gIIODebugFlags & 0x30000) != 0)
@@ -3593,8 +1010,8 @@ LABEL_63:
         ImageIOLog("    %s:%d: applejpeg_decode_get_output_buffer_size:%ld rowB:%ld size:%ldx%ld\n", "copyImageBlockSetTiles", 2732, 0, 0, *(a1 + 308), *(a1 + 312));
       }
 
-      v56 = _ImageIO_Malloc(0, *(a1 + 416), &v76, kImageMalloc_APPLEJPEG_Data[0], 0, 0);
-      if (!v56)
+      v51 = _ImageIO_Malloc(0, *(a1 + 416), &v71, kImageMalloc_APPLEJPEG_Data[0], 0, 0);
+      if (!v51)
       {
         break;
       }
@@ -3604,16 +1021,16 @@ LABEL_63:
         ImageIOLog("    %s:%d: Got outbuf\n", "copyImageBlockSetTiles", 2742);
       }
 
-      v57 = applejpeg_decode_image_all();
-      v38 = v57;
-      if (v57)
+      v52 = applejpeg_decode_image_all();
+      v34 = v52;
+      if (v52)
       {
         if ((gIIODebugFlags & 0x30000) != 0)
         {
-          ImageIOLog("    %s:%d: Decode error %d\n", "copyImageBlockSetTiles", 2749, v57);
+          ImageIOLog("    %s:%d: Decode error %d\n", "copyImageBlockSetTiles", 2749, v52);
         }
 
-        if (v38 != 9 && v38 != -1)
+        if (v34 != 9 && v34 != -1)
         {
           break;
         }
@@ -3624,47 +1041,47 @@ LABEL_63:
         ImageIOLog("    %s:%d: Decoded image\n", "copyImageBlockSetTiles", 2756);
       }
 
-      v82.origin.x = v50;
-      v82.origin.y = v46;
-      v82.size.width = v54;
-      v82.size.height = v47;
-      *(*(a1 + 96) + v51) = IIOReadPlugin::createImageBlock(a1, v56, v76, v82, *(a1 + 316), 0);
-      if (CGRectEqualToRect(*(a1 + 120), *v43))
+      v77.origin.x = v46;
+      v77.origin.y = v42;
+      v77.size.width = v50;
+      v77.size.height = v43;
+      *(*(a1 + 96) + v47) = IIOReadPlugin::createImageBlock(a1, v51, v71, v77, *(a1 + 316), 0);
+      if (CGRectEqualToRect(*(a1 + 120), *v39))
       {
-        v58 = v46;
-        v59 = v47;
+        v53 = v42;
+        v54 = v43;
       }
 
       else
       {
-        v83.origin.x = v50;
-        v83.origin.y = v46;
-        v83.size.width = v54;
-        v83.size.height = v47;
-        *&v48 = CGRectUnion(*(a1 + 120), v83);
-        v52 = v48;
-        v54 = v60;
+        v78.origin.x = v46;
+        v78.origin.y = v42;
+        v78.size.width = v50;
+        v78.size.height = v43;
+        *&v44 = CGRectUnion(*(a1 + 120), v78);
+        v48 = v44;
+        v50 = v55;
       }
 
-      *(a1 + 120) = v52;
-      *(a1 + 128) = v58;
-      v51 += 8;
-      v50 += a4;
-      *(a1 + 136) = v54;
-      *(a1 + 144) = v59;
-      if (!--v49)
+      *(a1 + 120) = v48;
+      *(a1 + 128) = v53;
+      v47 += 8;
+      v46 += a4;
+      *(a1 + 136) = v50;
+      *(a1 + 144) = v54;
+      if (!--v45)
       {
-        v11 = v69;
-        v25 = v65;
-        a2 = v66;
-        v42 = v63;
-        v27 = v64;
+        v11 = v64;
+        v25 = v60;
+        a2 = v61;
+        v38 = v58;
+        v27 = v59;
         goto LABEL_63;
       }
     }
 
-    v61 = 0;
-    if (!v69)
+    v56 = 0;
+    if (!v64)
     {
       goto LABEL_69;
     }
@@ -3680,8 +1097,8 @@ LABEL_64:
     AppleJPEGReadPlugin::save_index_table(a1);
   }
 
-  v61 = IIOReadPlugin::imageBlockSetCreate(a1, v11, *(a1 + 104), v21, v23, *(a1 + 120), *(a1 + 128), *(a1 + 136), *(a1 + 144), *(a1 + 96), a2);
-  v56 = 0;
+  v56 = IIOReadPlugin::imageBlockSetCreate(a1, v11, *(a1 + 104), *(a1 + 96), a2, v21, v23, *(a1 + 120), *(a1 + 128), *(a1 + 136), *(a1 + 144));
+  v51 = 0;
   if (v11)
   {
     goto LABEL_67;
@@ -3694,12 +1111,12 @@ LABEL_69:
   }
 
 LABEL_71:
-  if (v56)
+  if (v51)
   {
-    _ImageIO_Free(v56, v76);
+    _ImageIO_Free(v51, v71);
   }
 
-  return v61;
+  return v56;
 }
 
 uint64_t AppleJPEGReadPlugin::decodeIntoIOSurface(AppleJPEGReadPlugin *this, IIODecodeParameter *a2, __IOSurface *a3)
@@ -3711,29 +1128,29 @@ uint64_t AppleJPEGReadPlugin::decodeIntoIOSurface(AppleJPEGReadPlugin *this, IIO
   return 4294967246;
 }
 
-uint64_t AppleJPEGReadPlugin::copyIOSurfaceSet(_BYTE *a1)
+uint64_t AppleJPEGReadPlugin::copyIOSurfaceSet(_BYTE *a1, uint64_t a2, uint64_t a3)
 {
-  v2 = (*(*a1 + 240))(a1);
-  if (v2)
+  v4 = (*(*a1 + 240))(a1, a2);
+  if (v4)
   {
-    v3 = v2;
+    v5 = v4;
     Mutable = CFArrayCreateMutable(*MEMORY[0x1E695E480], 1, MEMORY[0x1E695E9C0]);
-    CFArrayAppendValue(Mutable, v3);
-    v5 = CGImageIOSurfaceSetCreate();
-    IIO_IOSurfaceRelease(v3);
+    CFArrayAppendValue(Mutable, v5);
+    v7 = CGImageIOSurfaceSetCreate();
+    IIO_IOSurfaceRelease(v5);
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
     a1[704] = 1;
     a1[520] = 0;
   }
 
-  return v5;
+  return v7;
 }
 
-__n128 ___ZN19AppleJPEGReadPlugin29createImageBlockFromIOSurfaceEP11__IOSurfaceP7InfoRecP15CGImageProvider_block_invoke()
+void ___ZN19AppleJPEGReadPlugin29createImageBlockFromIOSurfaceEP11__IOSurfaceP7InfoRecP15CGImageProvider_block_invoke()
 {
   pixelRange = *ymmword_1862259F0;
   *&matrix.Yp = xmmword_186225A10;
@@ -3741,15 +1158,12 @@ __n128 ___ZN19AppleJPEGReadPlugin29createImageBlockFromIOSurfaceEP11__IOSurfaceP
   v0 = vImageConvert_YpCbCrToARGB_GenerateConversion(&matrix, &pixelRange, &AppleJPEGReadPlugin::createImageBlockFromIOSurface(__IOSurface *,InfoRec *,CGImageProvider *)::conversion, kvImage422YpCbYpCr8, kvImageARGB8888, 0);
   if (v0)
   {
-    v2 = v0;
-    v3 = IIO_vImageErrorString(v0);
-    return _cg_jpeg_mem_term("createImageBlockFromIOSurface_block_invoke", 4028, "*** ERROR: vImageConvert_YpCbCrToARGB_GenerateConversion returned %ld (%s)\n", v2, v3);
+    IIO_vImageErrorString(v0);
+    _cg_jpeg_mem_term("createImageBlockFromIOSurface_block_invoke", 4028, "*** ERROR: vImageConvert_YpCbCrToARGB_GenerateConversion returned %ld (%s)\n");
   }
-
-  return result;
 }
 
-uint64_t OUTLINED_FUNCTION_2_11()
+uint64_t OUTLINED_FUNCTION_2_11(uint64_t a1, uint64_t a2)
 {
 
   return kdebug_trace();
@@ -4063,8 +1477,8 @@ LABEL_61:
 
 uint64_t ICNSWritePlugin::writeAll(IIOImageDestination **this)
 {
-  *&v41[1461] = *MEMORY[0x1E69E9840];
-  bzero(v40, 0x600uLL);
+  *&v43[1461] = *MEMORY[0x1E69E9840];
+  bzero(v42, 0x600uLL);
   ImageCount = IIOWritePlugin::getImageCount(this);
   if (ImageCount >= 0x10)
   {
@@ -4076,14 +1490,14 @@ uint64_t ICNSWritePlugin::writeAll(IIOImageDestination **this)
     v3 = ImageCount;
   }
 
-  v37 = v3;
+  v39 = v3;
   if (!ImageCount)
   {
     goto LABEL_35;
   }
 
   v4 = 0;
-  v36 = 0;
+  v38 = 0;
   v5 = 0;
   v6 = 72;
   Uint32ForKey = 72;
@@ -4091,7 +1505,7 @@ uint64_t ICNSWritePlugin::writeAll(IIOImageDestination **this)
   {
     PixelDataProviderAtIndex = IIOWritePlugin::getPixelDataProviderAtIndex(this, v4);
     PropertiesAtIndex = IIOWritePlugin::getPropertiesAtIndex(this, v4);
-    v10 = &v40[96 * v5];
+    v10 = &v42[96 * v5];
     *v10 = PixelDataProviderAtIndex;
     *(v10 + 2) = PropertiesAtIndex;
     v11 = IIOImageSource::count(PixelDataProviderAtIndex);
@@ -4101,9 +1515,11 @@ uint64_t ICNSWritePlugin::writeAll(IIOImageDestination **this)
       Uint32ForKey = IIODictionary::getUint32ForKey(PropertiesAtIndex, @"DPIWidth");
     }
 
-    if (IIODictionary::containsKey(PropertiesAtIndex, @"DPIHeight"))
+    v13 = IIODictionary::containsKey(PropertiesAtIndex, @"DPIHeight");
+    if (v13)
     {
-      v6 = IIODictionary::getUint32ForKey(PropertiesAtIndex, @"DPIHeight");
+      v13 = IIODictionary::getUint32ForKey(PropertiesAtIndex, @"DPIHeight");
+      v6 = v13;
     }
 
     if (Uint32ForKey != v6)
@@ -4114,122 +1530,122 @@ uint64_t ICNSWritePlugin::writeAll(IIOImageDestination **this)
 
     if (Uint32ForKey == 144)
     {
-      v13 = 2;
+      v15 = 2;
     }
 
     else
     {
-      v13 = 1;
+      v15 = 1;
     }
 
-    ICNSInfoTable = GetICNSInfoTable();
-    v15 = *ICNSInfoTable;
-    if (v15 == 0xFFFF)
+    ICNSInfoTable = GetICNSInfoTable(v13, v14);
+    v17 = *ICNSInfoTable;
+    if (v17 == 0xFFFF)
     {
 LABEL_23:
-      LogError("writeAll", 576, "unsupported ICNS image size (%d x %d) - scaling factor: %d  dpi: %d x %d\n", v11, v12, v13, Uint32ForKey, v6);
+      LogError("writeAll", 576, "unsupported ICNS image size (%d x %d) - scaling factor: %d  dpi: %d x %d\n", v11, v12, v15, Uint32ForKey, v6);
     }
 
     else
     {
-      v16 = ICNSInfoTable + 28;
-      while ((v15 & 0x8000) != 0 || *(v16 - 16) != v11 || *(v16 - 15) != v12 || v13 != *(v16 - 7) || *(v16 - 4) != 1)
+      v18 = ICNSInfoTable + 28;
+      while ((v17 & 0x8000) != 0 || *(v18 - 16) != v11 || *(v18 - 15) != v12 || v15 != *(v18 - 7) || *(v18 - 4) != 1)
       {
-        v17 = *v16;
-        v16 += 28;
-        LOWORD(v15) = v17;
-        if (v17 == 0xFFFF)
+        v19 = *v18;
+        v18 += 28;
+        LOWORD(v17) = v19;
+        if (v19 == 0xFFFF)
         {
           goto LABEL_23;
         }
       }
 
-      *(v10 + 24) = *(v16 - 28);
-      *(v10 + 40) = *(v16 - 20);
-      *(v10 + 56) = *(v16 - 12);
-      *(v10 + 9) = *(v16 - 1);
+      *(v10 + 24) = *(v18 - 28);
+      *(v10 + 40) = *(v18 - 20);
+      *(v10 + 56) = *(v18 - 12);
+      *(v10 + 9) = *(v18 - 1);
       ++v5;
-      v36 += (4 * v11 * v12);
+      v38 += (4 * v11 * v12);
     }
 
     ++v4;
   }
 
-  while (v4 != v37);
+  while (v4 != v39);
   if (v5)
   {
-    v18 = v41;
-    v19 = v5;
-    v20 = v5;
+    v20 = v43;
+    v21 = v5;
+    v22 = v5;
     do
     {
-      v21 = *v18;
-      v18 += 96;
-      if (v21 < 2)
+      v23 = *v20;
+      v20 += 96;
+      if (v23 < 2)
       {
-        ++v20;
+        ++v22;
       }
 
-      --v19;
+      --v21;
     }
 
-    while (v19);
-    v22 = (8 * v20 + 8);
-    v23 = malloc_type_calloc((v36 >> 2) + v36 + v22, 1uLL, 0x100004077774924uLL);
-    *v23 = 1936614249;
-    v23[2] = 541282132;
-    v23[3] = bswap32(v22);
-    __nitems = v22 + 8;
-    v25 = malloc_type_calloc((8 * v20) | 4, 1uLL, 0x100004052888210uLL);
-    v26 = v40;
+    while (v21);
+    v24 = (8 * v22 + 8);
+    v25 = malloc_type_calloc((v38 >> 2) + v38 + v24, 1uLL, 0x100004077774924uLL);
+    *v25 = 1936614249;
+    v25[2] = 541282132;
+    v25[3] = bswap32(v24);
+    __nitems = v24 + 8;
+    v27 = malloc_type_calloc((8 * v22) | 4, 1uLL, 0x100004052888210uLL);
+    v28 = v42;
     do
     {
-      v27 = v26[3];
-      v38[2] = v26[2];
-      v38[3] = v27;
-      v28 = v26[5];
-      v38[4] = v26[4];
-      v38[5] = v28;
-      v29 = *v26;
-      v30 = v26[1];
-      v26 += 6;
-      v38[0] = v29;
-      v38[1] = v30;
-      ICNSWritePlugin::writeOneICNS(this, v38, v23, v24, &__nitems, v25);
+      v29 = v28[3];
+      v40[2] = v28[2];
+      v40[3] = v29;
+      v30 = v28[5];
+      v40[4] = v28[4];
+      v40[5] = v30;
+      v31 = *v28;
+      v32 = v28[1];
+      v28 += 6;
+      v40[0] = v31;
+      v40[1] = v32;
+      ICNSWritePlugin::writeOneICNS(this, v40, v25, v26, &__nitems, v27);
       --v5;
     }
 
     while (v5);
-    memcpy(v23 + 4, v25 + 1, (8 * *v25));
-    free(v25);
-    v31 = __nitems;
-    v23[1] = bswap32(__nitems);
-    IIOImageWriteSession::putBytes(this[2], v23, v31);
-    v32 = 0;
+    memcpy(v25 + 4, v27 + 1, (8 * *v27));
+    free(v27);
+    v33 = __nitems;
+    v25[1] = bswap32(__nitems);
+    IIOImageWriteSession::putBytes(this[2], v25, v33);
+    v34 = 0;
   }
 
   else
   {
 LABEL_35:
-    v23 = 0;
-    v32 = 4294967246;
+    v25 = 0;
+    v34 = 4294967246;
   }
 
   for (i = 88; i != 1624; i += 96)
   {
-    v34 = *&v40[i];
-    if (v34)
+    v36 = *&v42[i];
+    if (v36)
     {
-      free(v34);
+      free(v36);
     }
   }
 
-  if (v23)
+  if (v25)
   {
-    free(v23);
+    free(v25);
   }
 
-  return v32;
+  return v34;
 }
 
 uint64_t ICNSWritePlugin::WriteProc(ICNSWritePlugin *this, IIOImageDestination *a2, void *a3, void *a4, void *a5)
@@ -4264,23 +1680,23 @@ uint64_t TIFFInitThunderScan(void *a1)
   return 1;
 }
 
-uint64_t ThunderSetupDecode(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ThunderSetupDecode(uint64_t a1)
 {
-  v8 = *(a1 + 116);
-  if (v8 == 4)
+  v1 = *(a1 + 116);
+  if (v1 == 4)
   {
     return 1;
   }
 
-  TIFFErrorExtR(a1, "ThunderSetupDecode", "Wrong bitspersample value (%d), Thunder decoder only supports 4bits per sample.", a4, a5, a6, a7, a8, v8);
+  TIFFErrorExtR(a1, "ThunderSetupDecode", "Wrong bitspersample value (%d), Thunder decoder only supports 4bits per sample.", v1);
   return 0;
 }
 
-uint64_t ThunderDecodeRow(uint64_t a1, char *__b, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t ThunderDecodeRow(uint64_t a1, char *__b, uint64_t a3)
 {
   if (a3 % *(a1 + 1104))
   {
-    TIFFErrorExtR(a1, "ThunderDecodeRow", "Fractional scanlines cannot be read", a4, a5, a6, a7, a8, v49);
+    TIFFErrorExtR(a1, "ThunderDecodeRow", "Fractional scanlines cannot be read");
     return 0;
   }
 
@@ -4289,223 +1705,221 @@ uint64_t ThunderDecodeRow(uint64_t a1, char *__b, uint64_t a3, uint64_t a4, uint
     return 1;
   }
 
-  v10 = *(a1 + 1152);
-  v11 = *(a1 + 1160);
+  v5 = *(a1 + 1152);
+  v6 = *(a1 + 1160);
   while (1)
   {
-    v12 = *(a1 + 88);
-    v13 = *(a1 + 88) != 0;
-    v14 = 0;
-    if (v12)
+    v7 = *(a1 + 88);
+    v8 = 0;
+    if (v7)
     {
-      v15 = v11 < 1;
+      v9 = v6 < 1;
     }
 
     else
     {
-      v15 = 1;
+      v9 = 1;
     }
 
-    if (!v15)
+    if (!v9)
     {
-      v17 = 0;
-      v18 = __b;
-      v19 = v11;
-      v50 = a3;
-      v51 = __b;
+      v11 = 0;
+      v12 = __b;
+      v13 = v6;
+      v37 = a3;
+      v38 = __b;
       while (1)
       {
-        v21 = *v10++;
-        v20 = v21;
-        v22 = v21 >> 6;
-        if (v21 >> 6 > 1)
+        v15 = *v5++;
+        v14 = v15;
+        v16 = v15 >> 6;
+        if (v15 >> 6 > 1)
         {
-          if (v22 != 2)
+          if (v16 != 2)
           {
-            v17 = v20 & 0xF;
-            v24 = v14 + 1;
-            if (v14)
+            v11 = v14 & 0xF;
+            v18 = v8 + 1;
+            if (v8)
             {
-              *v18++ |= v17;
+              *v12++ |= v11;
             }
 
             else
             {
-              *v18 = 16 * v20;
+              *v12 = 16 * v14;
             }
 
             goto LABEL_59;
           }
 
-          v23 = (v20 >> 3) & 7;
-          if (v23 == 4)
+          v17 = (v14 >> 3) & 7;
+          if (v17 == 4)
           {
-            v24 = v14;
+            v18 = v8;
           }
 
           else
           {
-            v29 = threebitdeltas[v23] + v17;
-            v17 = v29 & 0xF;
-            if (v14)
+            v23 = threebitdeltas[v17] + v11;
+            v11 = v23 & 0xF;
+            if (v8)
             {
-              v31 = v18 + 1;
-              v30 = *v18 | v17;
+              v25 = v12 + 1;
+              v24 = *v12 | v11;
             }
 
             else
             {
-              v30 = 16 * v29;
-              v31 = v18;
+              v24 = 16 * v23;
+              v25 = v12;
             }
 
-            v24 = v14 + 1;
-            *v18 = v30;
-            v18 = v31;
+            v18 = v8 + 1;
+            *v12 = v24;
+            v12 = v25;
           }
 
-          if ((v20 & 7) == 4)
+          if ((v14 & 7) == 4)
           {
             goto LABEL_59;
           }
 
-          v41 = threebitdeltas[v20 & 7];
+          v35 = threebitdeltas[v14 & 7];
         }
 
         else
         {
-          if (!v22)
+          if (!v16)
           {
-            if (v20)
+            if (v14)
             {
-              if (v14)
+              if (v8)
               {
-                v32 = *v18 | v17;
-                v17 = v32;
-                *v18++ = v32;
-                ++v14;
-                LODWORD(v20) = v20 - 1;
+                v26 = *v12 | v11;
+                v11 = v26;
+                *v12++ = v26;
+                ++v8;
+                LODWORD(v14) = v14 - 1;
               }
 
               else
               {
-                v17 |= 16 * v17;
+                v11 |= 16 * v11;
               }
 
-              v14 += v20;
-              if (v14 <= v12)
+              v8 += v14;
+              if (v8 <= v7)
               {
-                if (v20 >= 1)
+                if (v14 >= 1)
                 {
-                  v33 = v20 - 2;
-                  if (v20 < 2)
+                  v27 = v14 - 2;
+                  if (v14 < 2)
                   {
-                    v33 = 0;
+                    v27 = 0;
                   }
 
-                  v34 = v33 + 1;
-                  v35 = ((v33 + 1) >> 1) + 1;
-                  memset(v18, v17, v35);
-                  v18 += v35;
-                  if (v20 - (v34 & 0x7FFFFFFE) == 1)
+                  v28 = v27 + 1;
+                  v29 = ((v27 + 1) >> 1) + 1;
+                  memset(v12, v11, v29);
+                  v12 += v29;
+                  if (v14 - (v28 & 0x7FFFFFFE) == 1)
                   {
-                    v36 = *--v18;
-                    *v18 = v36 & 0xF0;
+                    v30 = *--v12;
+                    *v12 = v30 & 0xF0;
                   }
 
-                  a3 = v50;
-                  __b = v51;
+                  a3 = v37;
+                  __b = v38;
                 }
 
-                v17 &= 0xFu;
+                v11 &= 0xFu;
               }
             }
 
             goto LABEL_60;
           }
 
-          v25 = (v20 >> 4) & 3;
-          if (v25 != 2)
+          v19 = (v14 >> 4) & 3;
+          if (v19 != 2)
           {
-            v26 = twobitdeltas[v25] + v17;
-            v17 = v26 & 0xF;
-            if (v14)
+            v20 = twobitdeltas[v19] + v11;
+            v11 = v20 & 0xF;
+            if (v8)
             {
-              v28 = v18 + 1;
-              v27 = *v18 | v17;
+              v22 = v12 + 1;
+              v21 = *v12 | v11;
             }
 
             else
             {
-              v27 = 16 * v26;
-              v28 = v18;
+              v21 = 16 * v20;
+              v22 = v12;
             }
 
-            ++v14;
-            *v18 = v27;
-            v18 = v28;
+            ++v8;
+            *v12 = v21;
+            v12 = v22;
           }
 
-          v37 = (v20 >> 2) & 3;
-          if (v37 == 2 || (v38 = twobitdeltas[v37] + v17, v17 = v38 & 0xF, v14 >= v12))
+          v31 = (v14 >> 2) & 3;
+          if (v31 == 2 || (v32 = twobitdeltas[v31] + v11, v11 = v32 & 0xF, v8 >= v7))
           {
-            v24 = v14;
+            v18 = v8;
           }
 
           else
           {
-            if (v14)
+            if (v8)
             {
-              v40 = v18 + 1;
-              v39 = *v18 | v17;
+              v34 = v12 + 1;
+              v33 = *v12 | v11;
             }
 
             else
             {
-              v39 = 16 * v38;
-              v40 = v18;
+              v33 = 16 * v32;
+              v34 = v12;
             }
 
-            v24 = v14 + 1;
-            *v18 = v39;
-            v18 = v40;
+            v18 = v8 + 1;
+            *v12 = v33;
+            v12 = v34;
           }
 
-          if ((v20 & 3) == 2)
+          if ((v14 & 3) == 2)
           {
             goto LABEL_59;
           }
 
-          v41 = twobitdeltas[v20 & 3];
+          v35 = twobitdeltas[v14 & 3];
         }
 
-        v42 = v41 + v17;
-        v17 = v42 & 0xF;
-        if (v24 < v12)
+        v36 = v35 + v11;
+        v11 = v36 & 0xF;
+        if (v18 < v7)
         {
-          v14 = v24 + 1;
-          if (v24)
+          v8 = v18 + 1;
+          if (v18)
           {
-            *v18++ |= v17;
+            *v12++ |= v11;
           }
 
           else
           {
-            *v18 = 16 * v42;
+            *v12 = 16 * v36;
           }
 
           goto LABEL_60;
         }
 
 LABEL_59:
-        v14 = v24;
+        v8 = v18;
 LABEL_60:
-        v13 = v14 < v12;
-        v11 = v19 - 1;
-        if (v19 >= 2)
+        v6 = v13 - 1;
+        if (v13 >= 2)
         {
-          --v19;
-          if (v14 < v12)
+          --v13;
+          if (v8 < v7)
           {
             continue;
           }
@@ -4515,33 +1929,27 @@ LABEL_60:
       }
     }
 
-    v18 = __b;
+    v12 = __b;
 LABEL_12:
-    *(a1 + 1152) = v10;
-    *(a1 + 1160) = v11;
-    if (v14 != v12)
+    *(a1 + 1152) = v5;
+    *(a1 + 1160) = v6;
+    if (v8 != v7)
     {
       break;
     }
 
-    v16 = *(a1 + 1104);
-    __b += v16;
-    v15 = a3 <= v16;
-    a3 -= v16;
-    if (v15)
+    v10 = *(a1 + 1104);
+    __b += v10;
+    v9 = a3 <= v10;
+    a3 -= v10;
+    if (v9)
     {
       return 1;
     }
   }
 
-  bzero(v18, &__b[(v12 + 1) >> 1] - v18);
-  v48 = "Too much";
-  if (v13)
-  {
-    v48 = "Not enough";
-  }
-
-  TIFFErrorExtR(a1, "ThunderDecode", "%s data at scanline %lu (%llu != %llu)", v43, v44, v45, v46, v47, v48);
+  bzero(v12, &__b[(v7 + 1) >> 1] - v12);
+  TIFFErrorExtR(a1, "ThunderDecode", "%s data at scanline %lu (%llu != %llu)");
   return 0;
 }
 
@@ -4891,9 +2299,9 @@ __CFString *IIOSurfaceInfo(void *a1)
   return Mutable;
 }
 
-void sub_18608D818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_18608D818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   IIODictionary::~IIODictionary(va);
   _Unwind_Resume(a1);
 }
@@ -5388,7 +2796,7 @@ void IIO_CFShow(const __CFDictionary *a1, uint64_t a2, const char *a3)
 {
   while (1)
   {
-    v67 = *MEMORY[0x1E69E9840];
+    v75 = *MEMORY[0x1E69E9840];
     if (!a1)
     {
       break;
@@ -5398,21 +2806,21 @@ void IIO_CFShow(const __CFDictionary *a1, uint64_t a2, const char *a3)
     v4 = a2;
     v5 = a1;
     v6 = CFGetTypeID(a1);
-    memset(v66, 0, sizeof(v66));
+    memset(v74, 0, sizeof(v74));
+    v73 = 0u;
+    v72 = 0u;
+    v71 = 0u;
+    v70 = 0u;
+    v69 = 0u;
+    v68 = 0u;
+    v67 = 0u;
+    v66 = 0u;
     v65 = 0u;
     v64 = 0u;
     v63 = 0u;
     v62 = 0u;
     v61 = 0u;
     v60 = 0u;
-    v59 = 0u;
-    v58 = 0u;
-    v57 = 0u;
-    v56 = 0u;
-    v55 = 0u;
-    v54 = 0u;
-    v53 = 0u;
-    v52 = 0u;
     buffer = 63;
     if (v4 >= 1)
     {
@@ -5640,25 +3048,27 @@ LABEL_60:
       return;
     }
 
-    if (v6 == CFNumberGetTypeID())
+    TypeID = CFNumberGetTypeID();
+    if (v6 == TypeID)
     {
       valuePtr = 0.0;
       CFNumberGetValue(v5, kCFNumberDoubleType, &valuePtr);
-      v38 = *MEMORY[0x1E69E9848];
+      v40 = *MEMORY[0x1E69E9848];
       if (valuePtr == valuePtr)
       {
-        fprintf(v38, "%d\n", valuePtr);
+        fprintf(v40, "%d\n", valuePtr);
       }
 
       else
       {
-        fprintf(v38, "%f\n", valuePtr);
+        fprintf(v40, "%f\n", valuePtr);
       }
 
       return;
     }
 
-    if (v6 == CGImageMetadataPropertyGetTypeID())
+    v41 = CGImageMetadataPropertyGetTypeID(TypeID, v39);
+    if (v6 == v41)
     {
       if (v4 < 1)
       {
@@ -5668,74 +3078,74 @@ LABEL_60:
 
       else
       {
-        v39 = v4;
+        v43 = v4;
         do
         {
           ImageIOLog("    ");
-          --v39;
+          --v43;
         }
 
-        while (v39);
-        v40 = CGImageMetadataPropertyGetSchema(v5);
-        IIO_dump@"   schema: %s\n", v40;
-        v41 = v4;
+        while (v43);
+        v44 = CGImageMetadataPropertyGetSchema(v5);
+        IIO_dump@"   schema: %s\n", v44;
+        v45 = v4;
         do
         {
           ImageIOLog("    ");
-          --v41;
+          --v45;
         }
 
-        while (v41);
+        while (v45);
       }
 
       SuggestedPrefix = CGImageMetadataPropertyGetSuggestedPrefix(v5);
       IIO_dump@"            prefix: %s\n", SuggestedPrefix;
       if (v4 < 1)
       {
-        PropertyName = CGImageMetadataPropertyGetPropertyName(v5);
+        PropertyName = CGImageMetadataPropertyGetPropertyName(v5, v51);
         IIO_dump@"          property: %s\n", PropertyName;
       }
 
       else
       {
-        v46 = v4;
+        v52 = v4;
         do
         {
           ImageIOLog("    ");
-          --v46;
+          --v52;
         }
 
-        while (v46);
-        v48 = CGImageMetadataPropertyGetPropertyName(v5);
-        IIO_dump@"          property: %s\n", v48;
-        v49 = v4;
+        while (v52);
+        v55 = CGImageMetadataPropertyGetPropertyName(v5, v53);
+        IIO_dump@"          property: %s\n", v55;
+        v56 = v4;
         do
         {
           ImageIOLog("    ");
-          --v49;
+          --v56;
         }
 
-        while (v49);
+        while (v56);
       }
 
       fwrite("             value: \n", 0x15uLL, 1uLL, *MEMORY[0x1E69E9848]);
-      a1 = CGImageMetadataPropertyGetValue(v5);
+      a1 = CGImageMetadataPropertyGetValue(v5, v57);
       a2 = v4 + 1;
     }
 
     else
     {
-      if (v6 != CGImageMetadataValueGetTypeID())
+      if (v6 != CGImageMetadataValueGetTypeID(v41, v42))
       {
         if (v6)
         {
-          v42 = CFCopyDescription(v5);
-          if (v42)
+          v47 = CFCopyDescription(v5);
+          if (v47)
           {
-            v43 = v42;
-            IIO_dump@"%s\n", v42;
+            v48 = v47;
+            IIO_dump@"%s\n", v47;
 
-            CFRelease(v43);
+            CFRelease(v48);
           }
         }
 
@@ -5748,14 +3158,14 @@ LABEL_60:
         return;
       }
 
-      a1 = CGImageMetadataValueGetValue(v5);
+      a1 = CGImageMetadataValueGetValue(v5, v46);
       a2 = v4 - 2;
     }
 
     a3 = 0;
   }
 
-  ImageIOLog("(null)\n");
+  ImageIOLog("(null)\n", a2, a3);
 }
 
 CFComparisonResult keySort(CFTypeRef *a1, CFStringRef *a2)
@@ -5772,7 +3182,7 @@ CFComparisonResult keySort(CFTypeRef *a1, CFStringRef *a2)
   }
 }
 
-uint64_t std::string::basic_string[abi:fe200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:fe200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -5784,11 +3194,11 @@ uint64_t std::string::basic_string[abi:fe200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 void IIOMetadata_Tag::setName(IIOMetadata_Tag *this, const __CFString *a2)
@@ -5881,15 +3291,15 @@ uint64_t CGImageMetadataTagGetNamespace(uint64_t result)
 
 CGImageMetadataType CGImageMetadataTagGetType(CGImageMetadataTagRef tag)
 {
-  IIOInitDebugFlags();
+  IIOInitDebugFlags(tag, v1);
   if ((~gIIODebugFlags & 0x3000) == 0)
   {
     ImageIODebugOptions(3, "A", "CGImageMetadataTagGetType", 0, 0, -1, 0);
   }
 
-  if (tag && (v2 = *(tag + 3)) != 0)
+  if (tag && (v3 = *(tag + 3)) != 0)
   {
-    return *(v2 + 40);
+    return *(v3 + 40);
   }
 
   else
@@ -5919,7 +3329,7 @@ uint64_t CGImageMetadataTagGetPrefix(uint64_t result)
 
 CFArrayRef CGImageMetadataTagCopyQualifiers(CGImageMetadataTagRef tag)
 {
-  IIOInitDebugFlags();
+  IIOInitDebugFlags(tag, v1);
   if ((~gIIODebugFlags & 0x3000) == 0)
   {
     ImageIODebugOptions(3, "A", "CGImageMetadataTagCopyQualifiers", 0, 0, -1, 0);
@@ -5930,21 +3340,21 @@ CFArrayRef CGImageMetadataTagCopyQualifiers(CGImageMetadataTagRef tag)
     return 0;
   }
 
-  v2 = *(tag + 3);
-  if (!v2)
-  {
-    return 0;
-  }
-
-  v3 = *(v2 + 56);
+  v3 = *(tag + 3);
   if (!v3)
   {
     return 0;
   }
 
-  v4 = *MEMORY[0x1E695E480];
+  v4 = *(v3 + 56);
+  if (!v4)
+  {
+    return 0;
+  }
 
-  return CFArrayCreateCopy(v4, v3);
+  v5 = *MEMORY[0x1E695E480];
+
+  return CFArrayCreateCopy(v5, v4);
 }
 
 uint64_t CGImageMetadataTagCreateFromImageProperty(const void *a1, const void *a2, uint64_t a3)
@@ -5987,9 +3397,9 @@ uint64_t CGImageMetadataTagCreateFromImageProperty(const void *a1, const void *a
   return v10;
 }
 
-void sub_18608EEE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_18608EEE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6149,37 +3559,37 @@ CFStringRef _CGImageMetadataTagCopyDescription(CFTypeRef cf)
   }
 }
 
-void __CGInitializeImageIO_block_invoke_3()
+void __CGInitializeImageIO_block_invoke_3(uint64_t a1, uint64_t a2)
 {
   if (*&gFirstCallTime == 0.0)
   {
-    ImageIOLogInternal("⏹️   ImageIO: not launching XPCService (no ImageIO call within first 8 sec)...\n", *&gFirstCallTime);
-    IIONumber::IIONumber(v0, -2.0);
+    ImageIOLogInternal("⏹️   ImageIO: not launching XPCService (no ImageIO call within first 8 sec)...\n", a2, *&gFirstCallTime);
+    IIONumber::IIONumber(v2, -2.0);
     CFPreferencesSetAppValue(@"IIO_LaunchInfo", value, *MEMORY[0x1E695E8A8]);
-    IIONumber::~IIONumber(v0);
+    IIONumber::~IIONumber(v2);
   }
 }
 
-void sub_18608F2A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_18608F2A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IIONumber::~IIONumber(va);
   _Unwind_Resume(a1);
 }
 
-void __CGInitializeImageIO_block_invoke_4()
+void __CGInitializeImageIO_block_invoke_4(uint64_t a1, uint64_t a2)
 {
-  ImageIOLogInternal("✳️   ImageIO: launching XPCService: %g\n", *&gSavedFirstCallTime);
+  ImageIOLogInternal("✳️   ImageIO: launching XPCService: %g\n", a2, gSavedFirstCallTime);
   if (IIOXPCClient::GetIIOXPCClient(void)::xpcClientCreate != -1)
   {
     __CGInitializeImageIO_block_invoke_2_cold_1();
   }
 
-  v0 = IIOXPCClient::GetIIOXPCClient(void)::gIIOXPCClient;
+  v2 = IIOXPCClient::GetIIOXPCClient(void)::gIIOXPCClient;
   if (IIOIsOOPEnabled(0))
   {
 
-    IIOXPCClient::wakeup_xpc_service(v0);
+    IIOXPCClient::wakeup_xpc_service(v2);
   }
 }
 
@@ -6347,11 +3757,11 @@ xpc_object_t IIOXPCClient::send_message_with_reply(IIOXPCClient *this, _xpc_conn
   if (v9 == 1)
   {
     gFirstCallTime = CFAbsoluteTimeGetCurrent();
-    ImageIOLogInternal("⏹️   ImageIO: first ImageIO call after %g seconds [previously: %g]...\n", *&gFirstCallTime - *&gWakeupTime, *&gSavedFirstCallTime);
-    v10 = *&gFirstCallTime - *&gWakeupTime;
+    ImageIOLogInternal("⏹️   ImageIO: first ImageIO call after %g seconds [previously: %g]...\n", v10, *&gFirstCallTime - *&gWakeupTime, gSavedFirstCallTime);
+    v12 = *&gFirstCallTime - *&gWakeupTime;
     if (*&gSavedFirstCallTime >= 0.0)
     {
-      if (*&gSavedFirstCallTime - v10 <= 0.01)
+      if (*&gSavedFirstCallTime - v12 <= 0.01)
       {
 LABEL_9:
         v8 = kdebug_trace();
@@ -6359,25 +3769,25 @@ LABEL_9:
       }
 
       *&gSavedFirstCallTime = *&gFirstCallTime - *&gWakeupTime;
-      ImageIOLogInternal("⏹️   ImageIO: updating first IIO ImageIO to %g\n", v10);
-      IIONumber::IIONumber(v20, *&gSavedFirstCallTime);
+      ImageIOLogInternal("⏹️   ImageIO: updating first IIO ImageIO to %g\n", v11, *&v12);
+      IIONumber::IIONumber(v24, *&gSavedFirstCallTime);
       CFPreferencesSetAppValue(@"IIO_LaunchInfo", value, *MEMORY[0x1E695E8A8]);
     }
 
     else
     {
-      if (v10 > 8.0)
+      if (v12 > 8.0)
       {
-        v10 = 8.0;
+        v12 = 8.0;
       }
 
-      gSavedFirstCallTime = *&v10;
-      ImageIOLogInternal("⏹️   ImageIO: updating first ImageIO call to %g\n", v10);
-      IIONumber::IIONumber(v20, *&gSavedFirstCallTime);
+      gSavedFirstCallTime = *&v12;
+      ImageIOLogInternal("⏹️   ImageIO: updating first ImageIO call to %g\n", v11, *&v12);
+      IIONumber::IIONumber(v24, *&gSavedFirstCallTime);
       CFPreferencesSetAppValue(@"IIO_LaunchInfo", value, *MEMORY[0x1E695E8A8]);
     }
 
-    IIONumber::~IIONumber(v20);
+    IIONumber::~IIONumber(v24);
     goto LABEL_9;
   }
 
@@ -6388,63 +3798,63 @@ LABEL_10:
     xpc_dictionary_set_mach_send();
   }
 
-  IIOSavePermissionsToXPCObject(xdict);
-  IIOSaveAllowedTypesToXPCObject(xdict);
+  IIOSavePermissionsToXPCObject(xdict, v13);
+  IIOSaveAllowedTypesToXPCObject(xdict, v14);
   *(this + 101) = 1;
-  v11 = xpc_connection_send_message_with_reply_sync(a2, xdict);
-  empty = v11;
-  if (v11)
+  v15 = xpc_connection_send_message_with_reply_sync(a2, xdict);
+  empty = v15;
+  if (v15)
   {
-    v13 = MEMORY[0x186604600](v11);
-    if (v13 == MEMORY[0x1E69E9E98])
+    v17 = MEMORY[0x186604600](v15);
+    if (v17 == MEMORY[0x1E69E9E98])
     {
       kdebug_trace();
       string = xpc_dictionary_get_string(empty, *MEMORY[0x1E69E9E28]);
       LogFault("send_message_with_reply", 669, "❌ Error: ImageIOXPCService send message error: %s\n", string);
       xpc_release(empty);
       empty = xpc_dictionary_create_empty();
-      v14 = iio_xpc_add_message_dict(empty);
-      if (!v14)
+      v18 = iio_xpc_add_message_dict(empty);
+      if (!v18)
       {
 LABEL_20:
         uint64 = xpc_dictionary_get_uint64(xdict, "iio_xpc_message_id");
         xpc_dictionary_set_uint64(empty, "iio_xpc_message_id", uint64);
-        v18 = xpc_dictionary_get_uint64(xdict, "iio_xpc_transacion_id");
-        xpc_dictionary_set_uint64(empty, "iio_xpc_transacion_id", v18);
+        v22 = xpc_dictionary_get_uint64(xdict, "iio_xpc_transacion_id");
+        xpc_dictionary_set_uint64(empty, "iio_xpc_transacion_id", v22);
         return empty;
       }
 
-      v15 = 0x70000000FFFFFA88;
+      v19 = 0x70000000FFFFFA88;
     }
 
     else
     {
-      if (IIOXPCClient::replyIsValid(v13, empty))
+      if (IIOXPCClient::replyIsValid(v17, empty))
       {
         goto LABEL_20;
       }
 
       xpc_release(empty);
       empty = xpc_dictionary_create_empty();
-      v14 = iio_xpc_add_message_dict(empty);
-      if (!v14)
+      v18 = iio_xpc_add_message_dict(empty);
+      if (!v18)
       {
         goto LABEL_20;
       }
 
-      v15 = 0x70000000FFFFFA87;
+      v19 = 0x70000000FFFFFA87;
     }
 
-    xpc_dictionary_set_int64(v14, "iio_xpc_msg_error", v15);
+    xpc_dictionary_set_int64(v18, "iio_xpc_msg_error", v19);
     goto LABEL_20;
   }
 
   return empty;
 }
 
-void sub_18608FC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_18608FC4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   IIONumber::~IIONumber(va);
   _Unwind_Resume(a1);
 }
@@ -6512,11 +3922,11 @@ LABEL_6:
   return v4 & 1;
 }
 
-void sub_18608FDF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_18608FDF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 48), 8);
+  _Block_object_dispose((v13 - 48), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6757,17 +4167,17 @@ xpc_object_t iio_xpc_dictionary_copy_CFDictionary(void *a1, const char *a2)
   return result;
 }
 
-uint64_t iio_xpc_dictionary_add_CFDictionary(void *a1, const char *a2)
+uint64_t iio_xpc_dictionary_add_CFDictionary(void *a1, const char *a2, uint64_t a3)
 {
-  v4 = _CFXPCCreateXPCObjectFromCFObject();
-  if (!v4)
+  v5 = _CFXPCCreateXPCObjectFromCFObject();
+  if (!v5)
   {
     return 4294967246;
   }
 
-  v5 = v4;
-  xpc_dictionary_set_value(a1, a2, v4);
-  xpc_release(v5);
+  v6 = v5;
+  xpc_dictionary_set_value(a1, a2, v5);
+  xpc_release(v6);
   return 0;
 }
 
@@ -7268,44 +4678,36 @@ LABEL_88:
   return result;
 }
 
-void yyerror(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void yyerror(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
   __s1[0] = 0;
-  __s1[1] = &a9;
-  vasprintf(__s1, a2, &a9);
-  v10 = __s1[0];
+  va_copy(&__s1[1], va);
+  vasprintf(__s1, a2, va);
+  v9 = __s1[0];
   if (__s1[0])
   {
-    if (a1 && (v11 = *(a1 + 16)) != 0)
+    if (a1 && (v10 = *(a1 + 16)) != 0)
     {
-      if (!*(v11 + 16))
+      if (!*(v10 + 16))
       {
-        *(v11 + 16) = strdup(__s1[0]);
+        *(v10 + 16) = strdup(__s1[0]);
       }
     }
 
     else
     {
       fputs(__s1[0], *MEMORY[0x1E69E9848]);
-      v10 = __s1[0];
+      v9 = __s1[0];
     }
 
-    free(v10);
+    free(v9);
   }
-}
-
-void IIO_Reader_OpenEXR::createReadPlugin()
-{
-  operator new();
-}
-
-{
-  operator new();
 }
 
 BOOL IIO_Reader_OpenEXR::testHeader(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  result = AppleEXREnabled();
+  result = AppleEXREnabled(a1, a2);
   if (result)
   {
     return gFunc_axr_introspect_data(a2, a3, 0) == 0;
@@ -7316,7 +4718,7 @@ BOOL IIO_Reader_OpenEXR::testHeader(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t IIO_Reader_OpenEXR::getImageCount(IIO_Reader_OpenEXR *this, IIOImageReadSession *a2, IIODictionary *a3, CGImageSourceStatus *a4, unsigned int *a5)
 {
-  if (!AppleEXREnabled())
+  if (!AppleEXREnabled(this, a2))
   {
     part_count = 1;
     if (!a5)
@@ -7359,7 +4761,7 @@ LABEL_10:
   return 0;
 }
 
-uint64_t IIO_Reader_OpenEXR::UpdateImageInfo(uint64_t a1, uint64_t *a2)
+uint64_t IIO_Reader_OpenEXR::UpdateImageInfo(uint64_t a1, unint64_t *a2)
 {
   view_count = gFunc_axr_logical_image_list_get_view_count();
   v17 = view_count;
@@ -7501,14 +4903,14 @@ LABEL_24:
   }
 }
 
-void sub_186091094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_186091094(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   EXRPluginData::~EXRPluginData(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<EXRPluginData>::push_back[abi:fe200100](uint64_t *a1, __int128 *a2)
+uint64_t std::vector<EXRPluginData>::push_back[abi:fe200100](unint64_t *a1, __int128 *a2)
 {
   v3 = a1[1];
   if (v3 >= a1[2])
@@ -7637,18 +5039,18 @@ uint64_t IIO_Reader_OpenEXR::updatePartInfo(IIO_Reader_OpenEXR *this, IIODiction
   return 0;
 }
 
-void sub_1860914A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1860914A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   va_copy(va2, va1);
-  v10 = va_arg(va2, void);
-  v12 = va_arg(va2, void);
-  v13 = va_arg(va2, void);
+  v14 = va_arg(va2, void);
+  v16 = va_arg(va2, void);
+  v17 = va_arg(va2, void);
   IIOString::~IIOString(va);
   IIOArray::~IIOArray(va1);
   IIOArray::~IIOArray(va2);
@@ -7687,7 +5089,8 @@ uint64_t IIO_Reader_OpenEXR::updateChannelInfo(IIO_Reader_OpenEXR *this, IIODict
     gFunc_axr_data_get_channel_info(&__p, a3, v6, 0, 1);
     memcpy(__dst, v12 + 4, sizeof(__dst));
     __p = 0;
-    v12[0] = 0uLL;
+    v12[0] = 0;
+    v12[1] = 0;
     operator new();
   }
 
@@ -7698,7 +5101,7 @@ uint64_t IIO_Reader_OpenEXR::updateChannelInfo(IIO_Reader_OpenEXR *this, IIODict
 
 uint64_t IIO_Reader_OpenEXR::updateSourceProperties(IIO_Reader_OpenEXR *this, IIOImageReadSession *a2, IIODictionary *a3, IIODictionary *a4, IIODictionary *a5, CGImageSourceStatus *a6)
 {
-  if (!AppleEXREnabled())
+  if (!AppleEXREnabled(this, a2))
   {
     return 0;
   }
@@ -7879,9 +5282,9 @@ uint64_t IIO_Reader_OpenEXR::compareOptions(IIO_Reader_OpenEXR *this, const __CF
   return a3 ^ 1;
 }
 
-void sub_186091EA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_186091EA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   IIODictionary::~IIODictionary(va);
   _Unwind_Resume(a1);
 }
@@ -7955,7 +5358,7 @@ void sub_186091FC0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<EXRPluginData>::__emplace_back_slow_path<EXRPluginData const&>(uint64_t *a1, __int128 *a2)
+uint64_t std::vector<EXRPluginData>::__emplace_back_slow_path<EXRPluginData const&>(unint64_t *a1, __int128 *a2)
 {
   v2 = 0xCF3CF3CF3CF3CF3DLL * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
@@ -8052,17 +5455,17 @@ uint64_t std::vector<EXRPluginData>::__emplace_back_slow_path<EXRPluginData cons
   return v20;
 }
 
-void sub_1860921D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1860921D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
-  if (*(v4 + 79) < 0)
+  va_start(va, a7);
+  if (*(v7 + 79) < 0)
   {
-    operator delete(*(v4 + 56));
+    operator delete(*(v7 + 56));
   }
 
-  if (*(v4 + 55) < 0)
+  if (*(v7 + 55) < 0)
   {
-    operator delete(*(v4 + 32));
+    operator delete(*(v7 + 32));
   }
 
   std::__split_buffer<EXRPluginData>::~__split_buffer(va);
@@ -8079,7 +5482,7 @@ void std::__allocate_at_least[abi:fe200100]<std::allocator<EXRPluginData>>(uint6
   std::__throw_bad_array_new_length[abi:fe200100]();
 }
 
-uint64_t std::__uninitialized_allocator_relocate[abi:fe200100]<std::allocator<EXRPluginData>,EXRPluginData*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t std::__uninitialized_allocator_relocate[abi:fe200100]<std::allocator<EXRPluginData>,EXRPluginData*>(uint64_t a1, __int128 *a2, __int128 *a3, uint64_t a4)
 {
   v18 = a4;
   v19 = a4;
@@ -8101,24 +5504,24 @@ uint64_t std::__uninitialized_allocator_relocate[abi:fe200100]<std::allocator<EX
       v8 = *v7;
       *(a4 + 10) = *(v7 + 10);
       *a4 = v8;
-      v9 = *(v7 + 32);
-      *(a4 + 48) = *(v7 + 48);
+      v9 = v7[2];
+      *(a4 + 48) = *(v7 + 6);
       *(a4 + 32) = v9;
-      *(v7 + 40) = 0;
-      *(v7 + 48) = 0;
-      *(v7 + 32) = 0;
+      *(v7 + 5) = 0;
+      *(v7 + 6) = 0;
+      *(v7 + 4) = 0;
       v10 = *(v7 + 56);
-      *(a4 + 72) = *(v7 + 72);
+      *(a4 + 72) = *(v7 + 9);
       *(a4 + 56) = v10;
-      *(v7 + 64) = 0;
-      *(v7 + 72) = 0;
-      *(v7 + 56) = 0;
-      v11 = *(v7 + 80);
-      *(a4 + 96) = *(v7 + 96);
+      *(v7 + 8) = 0;
+      *(v7 + 9) = 0;
+      *(v7 + 7) = 0;
+      v11 = v7[5];
+      *(a4 + 96) = *(v7 + 12);
       *(a4 + 80) = v11;
-      *(v7 + 80) = 0;
-      *(v7 + 88) = 0;
-      *(v7 + 96) = 0;
+      *(v7 + 10) = 0;
+      *(v7 + 11) = 0;
+      *(v7 + 12) = 0;
       v12 = *(v7 + 104);
       v13 = *(v7 + 120);
       v14 = *(v7 + 136);
@@ -8126,7 +5529,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:fe200100]<std::allocator<EX
       *(a4 + 136) = v14;
       *(a4 + 120) = v13;
       *(a4 + 104) = v12;
-      v7 += 168;
+      v7 = (v7 + 168);
       a4 += 168;
     }
 
@@ -8136,7 +5539,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:fe200100]<std::allocator<EX
     while (v5 != a3)
     {
       std::allocator_traits<std::allocator<EXRPluginData>>::destroy[abi:fe200100]<EXRPluginData,0>(a1, v5);
-      v5 += 168;
+      v5 = (v5 + 168);
     }
   }
 
@@ -8255,12 +5658,12 @@ uint64_t IIO_Writer_PDF::write(IIO_Writer_PDF *this, IIOImageWriteSession *a2, I
     ImageIODebugOptions(gIIODebugFlags >> 14, "S", "IIO_Writer_PDF::write", 0, 0, -1, 0);
   }
 
-  memset(v7, 0, sizeof(v7));
-  PDFWritePlugin::PDFWritePlugin(v7, a2, a3);
-  PDFWritePlugin::setup(v7);
-  v5 = IIOWritePlugin::writeAll(v7);
-  PDFWritePlugin::done(v7);
-  PDFWritePlugin::~PDFWritePlugin(v7);
+  memset(v9, 0, sizeof(v9));
+  PDFWritePlugin::PDFWritePlugin(v9, a2, a3);
+  PDFWritePlugin::setup(v9);
+  v5 = IIOWritePlugin::writeAll(v9);
+  PDFWritePlugin::done(v9);
+  PDFWritePlugin::~PDFWritePlugin(v9, v6, v7);
   return v5;
 }
 
@@ -8385,7 +5788,7 @@ uint64_t png_do_swap(uint64_t result, unint64_t a2, unint64_t a3)
           break;
         }
 
-        v5 = v4 + 1;
+        v5 = (v4 + 1);
         if (v5 >= a3 || v5 < a2)
         {
           break;
@@ -8394,7 +5797,7 @@ uint64_t png_do_swap(uint64_t result, unint64_t a2, unint64_t a3)
         v6 = *(v5 - 1);
         *(v5 - 1) = *v5;
         *v5 = v6;
-        v4 = v5 + 1;
+        v4 = (v5 + 1);
         if (!--v3)
         {
           return result;
@@ -8429,7 +5832,7 @@ int *png_do_bgr(int *result, unint64_t a2, unint64_t a3)
               break;
             }
 
-            v20 = v19 + 4;
+            v20 = (v19 + 4);
             if (v20 >= a3)
             {
               break;
@@ -8443,7 +5846,7 @@ int *png_do_bgr(int *result, unint64_t a2, unint64_t a3)
             v21 = *(v20 - 4);
             *(v20 - 4) = *v20;
             *v20 = v21;
-            v22 = v20 - 3;
+            v22 = (v20 - 3);
             if (v22 >= a3)
             {
               break;
@@ -8454,7 +5857,7 @@ int *png_do_bgr(int *result, unint64_t a2, unint64_t a3)
               break;
             }
 
-            v23 = v22 + 4;
+            v23 = (v22 + 4);
             if (v23 >= a3 || v23 < a2)
             {
               break;
@@ -8463,7 +5866,7 @@ int *png_do_bgr(int *result, unint64_t a2, unint64_t a3)
             v24 = *(v23 - 4);
             *(v23 - 4) = *v23;
             *v23 = v24;
-            v19 = v23 + 1;
+            v19 = (v23 + 1);
             if (!--v4)
             {
               return result;
@@ -8484,7 +5887,7 @@ int *png_do_bgr(int *result, unint64_t a2, unint64_t a3)
             break;
           }
 
-          v11 = v10 + 4;
+          v11 = (v10 + 4);
           if (v11 >= a3)
           {
             break;
@@ -8498,7 +5901,7 @@ int *png_do_bgr(int *result, unint64_t a2, unint64_t a3)
           v12 = *(v11 - 4);
           *(v11 - 4) = *v11;
           *v11 = v12;
-          v13 = v11 - 3;
+          v13 = (v11 - 3);
           if (v13 >= a3)
           {
             break;
@@ -8509,7 +5912,7 @@ int *png_do_bgr(int *result, unint64_t a2, unint64_t a3)
             break;
           }
 
-          v14 = v13 + 4;
+          v14 = (v13 + 4);
           if (v14 >= a3 || v14 < a2)
           {
             break;
@@ -8518,7 +5921,7 @@ int *png_do_bgr(int *result, unint64_t a2, unint64_t a3)
           v15 = *(v14 - 4);
           *(v14 - 4) = *v14;
           *v14 = v15;
-          v10 = v14 + 3;
+          v10 = (v14 + 3);
           if (!--v4)
           {
             return result;
@@ -8543,7 +5946,7 @@ int *png_do_bgr(int *result, unint64_t a2, unint64_t a3)
               break;
             }
 
-            v17 = v16 + 2;
+            v17 = (v16 + 2);
             if (v17 >= a3 || v17 < a2)
             {
               break;
@@ -8552,7 +5955,7 @@ int *png_do_bgr(int *result, unint64_t a2, unint64_t a3)
             v18 = *(v17 - 2);
             *(v17 - 2) = *v17;
             *v17 = v18;
-            v16 = v17 + 1;
+            v16 = (v17 + 1);
             if (!--v4)
             {
               return result;
@@ -8573,7 +5976,7 @@ int *png_do_bgr(int *result, unint64_t a2, unint64_t a3)
             break;
           }
 
-          v7 = v6 + 2;
+          v7 = (v6 + 2);
           if (v7 >= a3 || v7 < a2)
           {
             break;
@@ -8582,7 +5985,7 @@ int *png_do_bgr(int *result, unint64_t a2, unint64_t a3)
           v8 = *(v7 - 2);
           *(v7 - 2) = *v7;
           *v7 = v8;
-          v6 = v7 + 2;
+          v6 = (v7 + 2);
           if (!--v4)
           {
             return result;
@@ -9117,9 +6520,9 @@ CGMutableImageMetadataRef CGImageMetadataCreateFromXPCObj(void *a1)
   return Mutable;
 }
 
-void sub_186093234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_186093234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   IIODictionary::~IIODictionary(va);
   _Unwind_Resume(a1);
 }
@@ -9140,57 +6543,59 @@ xpc_object_t CGImageMetadataCreateXPCObj(uint64_t a1)
   empty = xpc_dictionary_create_empty();
   if (empty)
   {
-    memset(v15, 0, sizeof(v15));
-    IIODictionary::IIODictionary(v15);
+    v16 = 0;
+    v17 = 0;
+    v18 = 0;
+    IIODictionary::IIODictionary(&v16);
     v4 = MEMORY[0x1E695E4D0];
     if (!*(a1 + 16))
     {
       v4 = MEMORY[0x1E695E4C0];
     }
 
-    IIODictionary::setObjectForKey(v15, *v4, @"mutable");
-    v12 = 0;
+    IIODictionary::setObjectForKey(&v16, *v4, @"mutable");
+    v13 = 0;
     value = 0;
-    v14 = 0;
-    IIOArray::IIOArray(&v12);
+    v15 = 0;
+    IIOArray::IIOArray(&v13);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 0x40000000;
     block[2] = ___ZL24IIOXPCEncodeMetadataTagsPK15CGImageMetadataP8IIOArray_block_invoke;
     block[3] = &__block_descriptor_tmp_316;
-    block[4] = &v12;
+    block[4] = &v13;
     CGImageMetadataEnumerateTagsUsingBlock(a1, 0, 0, block);
-    IIODictionary::setObjectForKey(v15, value, @"tags");
+    IIODictionary::setObjectForKey(&v16, value, @"tags");
     v5 = *(a1 + 32);
     if (v5)
     {
-      IIODictionary::setObjectForKey(v15, v5, @"NStoPrefix");
+      IIODictionary::setObjectForKey(&v16, v5, @"NStoPrefix");
     }
 
     v6 = *(a1 + 40);
     if (v6)
     {
-      IIODictionary::setObjectForKey(v15, v6, @"prefixToNS");
+      IIODictionary::setObjectForKey(&v16, v6, @"prefixToNS");
     }
 
     v7 = *(a1 + 48);
     if (v7)
     {
-      IIODictionary::setObjectForKey(v15, v7, @"makerNoteProps");
+      IIODictionary::setObjectForKey(&v16, v7, @"makerNoteProps");
     }
 
     v8 = *(a1 + 56);
     if (v8)
     {
-      IIODictionary::setObjectForKey(v15, v8, @"iptcComputedDigest");
+      IIODictionary::setObjectForKey(&v16, v8, @"iptcComputedDigest");
     }
 
     v9 = *(a1 + 64);
     if (v9)
     {
-      IIODictionary::setObjectForKey(v15, v9, @"iptcPSIRDigest");
+      IIODictionary::setObjectForKey(&v16, v9, @"iptcPSIRDigest");
     }
 
-    if (iio_xpc_dictionary_add_CFDictionary(empty, IIO_METADATA_OBJ))
+    if (iio_xpc_dictionary_add_CFDictionary(empty, IIO_METADATA_OBJ, v17))
     {
       _cg_jpeg_mem_term("CGImageMetadataCreateXPCObj", 353, "*** NOTE: failed to add metadata-dictionary to xpc_object_t - sending XMPData...\n");
       xpc_dictionary_set_BOOL(empty, IIO_METADATA_MUTABLE, *(a1 + 16));
@@ -9201,32 +6606,33 @@ xpc_object_t CGImageMetadataCreateXPCObj(uint64_t a1)
         CFRelease(XMPData);
       }
 
-      if (*(a1 + 48))
+      v11 = *(a1 + 48);
+      if (v11)
       {
-        iio_xpc_dictionary_add_CFDictionary(empty, IIO_METADATA_MAKER_ORIG);
+        iio_xpc_dictionary_add_CFDictionary(empty, IIO_METADATA_MAKER_ORIG, v11);
       }
     }
 
-    IIOArray::~IIOArray(&v12);
-    IIODictionary::~IIODictionary(v15);
+    IIOArray::~IIOArray(&v13);
+    IIODictionary::~IIODictionary(&v16);
   }
 
   return empty;
 }
 
-void sub_1860934A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1860934A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
+  v7 = va_arg(va1, void);
   IIOArray::~IIOArray(va);
   IIODictionary::~IIODictionary(va1);
   _Unwind_Resume(a1);
 }
 
-BOOL CGImageMetadataTagAppendQualifier(CGImageMetadata *a1, uint64_t a2, const void *a3)
+uint64_t CGImageMetadataTagAppendQualifier(CGImageMetadata *a1, uint64_t a2, const void *a3)
 {
   v4 = a2;
   Source = CGImageSourceGetSource(a2);
@@ -9314,9 +6720,9 @@ LABEL_13:
   return v4;
 }
 
-void sub_1860936DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1860936DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   IIOString::~IIOString(va);
   _Unwind_Resume(a1);
 }
@@ -9564,13 +6970,14 @@ LABEL_28:
   return v6;
 }
 
-char *CGImageMetadataCreateExtendedXMPWithEXIFFiltered(const CGImageMetadata *a1, CFDataRef *a2, CFDataRef *a3, CFDataRef *a4, int a5, int a6)
+CFDictionaryRef *CGImageMetadataCreateExtendedXMPWithEXIFFiltered(const CGImageMetadata *a1, CFDataRef *a2, CFDataRef *a3, CFDataRef *a4, uint64_t a5, int a6)
 {
+  v6 = a5;
   result = CGImageMetadataCreateWithEXIFFiltered(a1, a6);
   if (result)
   {
     v11 = result;
-    SerializedDataAndExtendedData = CGImageMetadataCreateSerializedDataAndExtendedData(result, a2, a3, a4, a5);
+    SerializedDataAndExtendedData = CGImageMetadataCreateSerializedDataAndExtendedData(result, a2, a3, a4, v6);
     CFRelease(v11);
     return SerializedDataAndExtendedData;
   }
@@ -9744,9 +7151,9 @@ LABEL_25:
   return v11;
 }
 
-void sub_186094204(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_186094204(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   IIOString::~IIOString(va);
   _Unwind_Resume(a1);
 }
@@ -9821,4 +7228,2546 @@ uint64_t CreateIntFromXMPFlashStruct(const void *a1)
   }
 
   return v5;
+}
+
+CFStringRef CreateXMPGPSCoordinateFromCFValue(CFStringRef result, const __CFString *a2, int a3)
+{
+  valuePtr = 0.0;
+  if (result)
+  {
+    v5 = result;
+    v6 = CFGetTypeID(result);
+    if (v6 == CFNumberGetTypeID())
+    {
+      if (CFNumberGetValue(v5, kCFNumberDoubleType, &valuePtr))
+      {
+        if (a2)
+        {
+LABEL_5:
+          if (a3)
+          {
+            v7 = CFStringCompare(a2, @"N", 0) == kCFCompareEqualTo;
+            LODWORD(v8) = 83;
+            v9 = 78;
+          }
+
+          else
+          {
+            v7 = CFStringCompare(a2, @"E", 0) == kCFCompareEqualTo;
+            LODWORD(v8) = 87;
+            v9 = 69;
+          }
+
+          if (v7)
+          {
+            v8 = v9;
+          }
+
+          else
+          {
+            v8 = v8;
+          }
+
+LABEL_23:
+          valuePtr = fabs(valuePtr);
+          return CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%d,%lg%c", valuePtr, (valuePtr - valuePtr) * 60.0, v8, *&valuePtr);
+        }
+
+LABEL_9:
+        if (valuePtr < 0.0)
+        {
+          LODWORD(v8) = 87;
+        }
+
+        else
+        {
+          LODWORD(v8) = 69;
+        }
+
+        if (valuePtr < 0.0)
+        {
+          v11 = 83;
+        }
+
+        else
+        {
+          v11 = 78;
+        }
+
+        if (a3)
+        {
+          v8 = v11;
+        }
+
+        else
+        {
+          v8 = v8;
+        }
+
+        goto LABEL_23;
+      }
+    }
+
+    else
+    {
+      v10 = CFGetTypeID(v5);
+      if (v10 == CFStringGetTypeID())
+      {
+        valuePtr = CFStringGetDoubleValue(v5);
+        if (a2)
+        {
+          goto LABEL_5;
+        }
+
+        goto LABEL_9;
+      }
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t GetLegacyGPSFromXMPGPSCoordinate(void *a1, double *a2, _BYTE *a3)
+{
+  IIOString::IIOString(v17, a1);
+  UTF8String = IIOString::createUTF8String(v17);
+  IIOString::~IIOString(v17);
+  v16 = 0;
+  v17[0] = 0;
+  v15 = 0.0;
+  v14 = 0;
+  v13 = 0;
+  if (UTF8String)
+  {
+    v6 = sscanf(UTF8String, "%d,%2d,%2d%1[NSEW]", &v16 + 4, &v16, &v14, &v13);
+    if (v6 <= 2)
+    {
+      v10 = sscanf(UTF8String, "%d,%lf%1[NSEW]", &v16 + 4, &v15, &v13);
+      if (v10 < 2)
+      {
+        v11 = sscanf(UTF8String, "%lf", v17);
+        v9 = 0;
+        if (!a2 || v11 != 1)
+        {
+          goto LABEL_16;
+        }
+
+        v7 = 0;
+        *a2 = *v17;
+        goto LABEL_15;
+      }
+
+      if (a2)
+      {
+        *a2 = v15 / 60.0 + SHIDWORD(v16);
+        v7 = v13;
+        v8 = v10 == 3;
+LABEL_9:
+        if (!v8)
+        {
+          v7 = 0;
+        }
+
+LABEL_15:
+        *a3 = v7;
+        v9 = 1;
+        goto LABEL_16;
+      }
+    }
+
+    else if (a2)
+    {
+      *a2 = v16 / 60.0 + SHIDWORD(v16) + v14 / 3600.0;
+      v7 = v13;
+      v8 = v6 == 4;
+      goto LABEL_9;
+    }
+
+    v9 = 0;
+LABEL_16:
+    free(UTF8String);
+    return v9;
+  }
+
+  return 0;
+}
+
+void sub_18609463C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+{
+  va_start(va, a15);
+  IIOString::~IIOString(va);
+  _Unwind_Resume(a1);
+}
+
+void CGImageMetadataCreateAndLogUTF8Error(const char *a1, int a2, int a3, char *a4, CFErrorRef *a5)
+{
+  userInfoKeys[1] = *MEMORY[0x1E69E9840];
+  LogError(a1, a2, a4);
+  if (a5)
+  {
+    v8 = *MEMORY[0x1E695E480];
+    v9 = CFStringCreateWithCString(*MEMORY[0x1E695E480], a4, 0x8000100u);
+    if (v9)
+    {
+      v10 = v9;
+      v11 = *MEMORY[0x1E695E620];
+      userInfoValues = v9;
+      userInfoKeys[0] = v11;
+      *a5 = CFErrorCreateWithUserInfoKeysAndValues(v8, @"kCFErrorDomainCGImageMetadata", a3, userInfoKeys, &userInfoValues, 1);
+      CFRelease(v10);
+    }
+  }
+}
+
+void CGImageMetadataCreateAndLogError(const char *a1, int a2, void *a3, CFErrorRef *a4)
+{
+  userInfoValues[1] = *MEMORY[0x1E69E9840];
+  IIOString::IIOString(userInfoKeys, a3);
+  UTF8String = IIOString::createUTF8String(userInfoKeys);
+  IIOString::~IIOString(userInfoKeys);
+  if (UTF8String)
+  {
+    LogError(a1, 0, UTF8String);
+    free(UTF8String);
+  }
+
+  if (a4)
+  {
+    userInfoKeys[0] = *MEMORY[0x1E695E620];
+    userInfoValues[0] = a3;
+    *a4 = CFErrorCreateWithUserInfoKeysAndValues(*MEMORY[0x1E695E480], @"kCFErrorDomainCGImageMetadata", a2, userInfoKeys, userInfoValues, 1);
+  }
+}
+
+void sub_18609481C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  IIOString::~IIOString(va);
+  _Unwind_Resume(a1);
+}
+
+CFStringRef CreateIPTCDateFromExifDateTime(void *a1)
+{
+  if (!a1)
+  {
+    return 0;
+  }
+
+  memset(v5, 0, sizeof(v5));
+  IIOString::IIOString(v5, a1);
+  v2 = IIOString::utf8String(v1);
+  if (strlen(v2) == 19)
+  {
+    v3 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%c%c%c%c%c%c%c%c", *v2, v2[1], v2[2], v2[3], v2[5], v2[6], v2[8], v2[9]);
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  IIOString::~IIOString(v5);
+  return v3;
+}
+
+CFStringRef CreateIPTCTimeFromExifDateTime(void *a1)
+{
+  if (!a1)
+  {
+    return 0;
+  }
+
+  memset(v5, 0, sizeof(v5));
+  IIOString::IIOString(v5, a1);
+  v2 = IIOString::utf8String(v1);
+  if (strlen(v2) == 19)
+  {
+    v3 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%c%c%c%c%c%c", SBYTE3(v2->info), SBYTE4(v2->info), SBYTE6(v2->info), SHIBYTE(v2->info), SBYTE1(v2->data), SBYTE2(v2->data));
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  IIOString::~IIOString(v5);
+  return v3;
+}
+
+CFStringRef CreateXMPDateFromXMPDateTimeAndSubsecTime(const __CFString *a1, uint64_t a2)
+{
+  v3 = 0;
+  *v7 = 0;
+  if (a1 && a2)
+  {
+    memset(&v8, 0, sizeof(v8));
+    if (GetDateTimeStructFromXMPDateTimeString(a1, &v8, &v7[1], v7) && v7[1])
+    {
+      if (!v7[0])
+      {
+        return CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%04d-%02d-%02dT%02d:%02d:%02d.%@", (v8.tm_year + 1900), (v8.tm_mon + 1), v8.tm_mday, v8.tm_hour, v8.tm_min, v8.tm_sec, a2);
+      }
+
+      LODWORD(v5) = v8.tm_gmtoff % 3600 / 60;
+      if (v5 >= 0)
+      {
+        v5 = v5;
+      }
+
+      else
+      {
+        v5 = (v8.tm_gmtoff % 3600 / -60);
+      }
+
+      return CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%04d-%02d-%02dT%02d:%02d:%02d.%@%+03d:%02d", (v8.tm_year + 1900), (v8.tm_mon + 1), v8.tm_mday, v8.tm_hour, v8.tm_min, v8.tm_sec, a2, v8.tm_gmtoff / 3600, v5);
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return v3;
+}
+
+void AddMWGRegionsFromExifAuxRegions(CGImageMetadata *a1, IIODictionary *this)
+{
+  v57 = *MEMORY[0x1E69E9840];
+  if (this)
+  {
+    ObjectForKey = IIODictionary::getObjectForKey(this, @"HeightAppliedTo");
+    v5 = IIODictionary::getObjectForKey(this, @"WidthAppliedTo");
+    v6 = IIODictionary::getObjectForKey(this, @"RegionList");
+    if (ObjectForKey)
+    {
+      if (v5)
+      {
+        v7 = v6;
+        if (v6)
+        {
+          if (CFArrayGetCount(v6) >= 1)
+          {
+            memset(v50, 0, sizeof(v50));
+            IIOArray::IIOArray(v50, v7);
+            CGImageMetadataRegisterNamespaceForPrefix(a1, @"http://www.metadataworkinggroup.com/schemas/regions/", @"mwg-rs", 0);
+            CGImageMetadataRegisterNamespaceForPrefix(a1, @"http://ns.apple.com/faceinfo/1.0/", @"apple-fi", 0);
+            CGImageMetadataRegisterNamespaceForPrefix(a1, @"http://ns.adobe.com/xap/1.0/sType/Dimensions#", @"stDim", 0);
+            CGImageMetadataSetValueWithPath(a1, 0, @"mwg-rs:Regions.AppliedToDimensions.stDim:h", ObjectForKey);
+            CGImageMetadataSetValueWithPath(a1, 0, @"mwg-rs:Regions.AppliedToDimensions.stDim:w", v5);
+            CGImageMetadataSetValueWithPath(a1, 0, @"mwg-rs:Regions.AppliedToDimensions.stDim:unit", @"pixel");
+            Count = IIOArray::getCount(v50);
+            if (Count)
+            {
+              v9 = 0;
+              alloc = *MEMORY[0x1E695E480];
+              v48 = Count;
+              metadata = a1;
+              while (1)
+              {
+                ObjectAtIndex = IIOArray::getObjectAtIndex(v50, v9);
+                v11 = ObjectAtIndex;
+                if (!ObjectAtIndex)
+                {
+                  goto LABEL_70;
+                }
+
+                v12 = CFGetTypeID(ObjectAtIndex);
+                if (v12 != CFDictionaryGetTypeID())
+                {
+                  goto LABEL_70;
+                }
+
+                memset(v49, 0, sizeof(v49));
+                IIODictionary::IIODictionary(v49, v11);
+                v13 = IIODictionary::getObjectForKey(v49, @"X");
+                v14 = IIODictionary::getObjectForKey(v49, @"Y");
+                v15 = IIODictionary::getObjectForKey(v49, @"Width");
+                v16 = IIODictionary::getObjectForKey(v49, @"Height");
+                if (v13)
+                {
+                  if (v14)
+                  {
+                    if (v15)
+                    {
+                      v17 = v16;
+                      if (v16)
+                      {
+                        v18 = CFStringCreateWithFormat(alloc, 0, @"[%ld]", v9);
+                        if (v18)
+                        {
+                          break;
+                        }
+                      }
+                    }
+                  }
+                }
+
+LABEL_69:
+                IIODictionary::~IIODictionary(v49);
+LABEL_70:
+                if (v48 == ++v9)
+                {
+                  goto LABEL_71;
+                }
+              }
+
+              v19 = CGImageMetadataTagCreate(@"http://ns.adobe.com/xmp/sType/Area#", @"stArea", @"x", kCGImageMetadataTypeString, v13);
+              v20 = CGImageMetadataTagCreate(@"http://ns.adobe.com/xmp/sType/Area#", @"stArea", @"y", kCGImageMetadataTypeString, v14);
+              v21 = CGImageMetadataTagCreate(@"http://ns.adobe.com/xmp/sType/Area#", @"stArea", @"w", kCGImageMetadataTypeString, v15);
+              v22 = CGImageMetadataTagCreate(@"http://ns.adobe.com/xmp/sType/Area#", @"stArea", @"h", kCGImageMetadataTypeString, v17);
+              v23 = CGImageMetadataTagCreate(@"http://ns.adobe.com/xmp/sType/Area#", @"stArea", @"unit", kCGImageMetadataTypeString, @"normalized");
+              v24 = v23;
+              if (v19 && v20 && v21 && v22 && v23)
+              {
+                *keys = xmmword_1E6F0BC28;
+                v55 = *off_1E6F0BC38;
+                v56 = @"unit";
+                values[0] = v19;
+                values[1] = v20;
+                values[2] = v21;
+                values[3] = v22;
+                values[4] = v23;
+                v25 = CFDictionaryCreate(alloc, keys, values, 5, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+                if (v25)
+                {
+                  v26 = CGImageMetadataTagCreate(@"http://www.metadataworkinggroup.com/schemas/regions/", @"mwg-rs", @"Area", kCGImageMetadataTypeStructure, v25);
+                  cf = v26;
+                  if (v26)
+                  {
+                    v51 = v26;
+                    v52 = @"Area";
+                    v27 = CFDictionaryCreate(alloc, &v52, &v51, 1, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+                    if (v27)
+                    {
+                      v28 = CGImageMetadataTagCreate(@"http://www.metadataworkinggroup.com/schemas/regions/", @"mwg-rs", v18, kCGImageMetadataTypeStructure, v27);
+                      CFRelease(v27);
+                    }
+
+                    else
+                    {
+                      v28 = 0;
+                    }
+
+                    CFRelease(cf);
+                  }
+
+                  else
+                  {
+                    v28 = 0;
+                  }
+
+                  CFRelease(v25);
+                }
+
+                else
+                {
+                  v28 = 0;
+                }
+              }
+
+              else
+              {
+                v28 = 0;
+                v29 = 0;
+                if (!v19)
+                {
+                  goto LABEL_32;
+                }
+              }
+
+              CFRelease(v19);
+              v29 = v28;
+LABEL_32:
+              if (v20)
+              {
+                CFRelease(v20);
+              }
+
+              if (v21)
+              {
+                CFRelease(v21);
+              }
+
+              if (v22)
+              {
+                CFRelease(v22);
+              }
+
+              if (v24)
+              {
+                CFRelease(v24);
+              }
+
+              CFRelease(v18);
+              if (v29)
+              {
+                v30 = IIODictionary::getObjectForKey(v49, @"Type");
+                v31 = v30;
+                if (v30 && (CFStringCompare(v30, @"Face", 0) == kCFCompareEqualTo || CFStringCompare(v31, @"Pet", 0) == kCFCompareEqualTo || CFStringCompare(v31, @"Focus", 0) == kCFCompareEqualTo || CFStringCompare(v31, @"BarCode", 0) == kCFCompareEqualTo || CFStringCompare(v31, @"CleanAperture", 0) == kCFCompareEqualTo))
+                {
+                  CGImageMetadataSetValueWithPath(metadata, v29, @"mwg-rs:Type", v31);
+                }
+
+                v32 = IIODictionary::getObjectForKey(v49, @"Timestamp");
+                v33 = IIODictionary::getObjectForKey(v49, @"AngleInfoYaw");
+                v34 = IIODictionary::getObjectForKey(v49, @"AngleInfoRoll");
+                v35 = IIODictionary::getObjectForKey(v49, @"ConfidenceLevel");
+                v36 = IIODictionary::getObjectForKey(v49, @"FaceID");
+                Mutable = CFDictionaryCreateMutable(alloc, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
+                if (Mutable)
+                {
+                  if (v32)
+                  {
+                    v38 = CGImageMetadataTagCreate(@"http://ns.apple.com/faceinfo/1.0/", @"apple-fi", @"Timestamp", kCGImageMetadataTypeString, v32);
+                    if (v38)
+                    {
+                      CFDictionarySetValue(Mutable, @"Timestamp", v38);
+                      CFRelease(v38);
+                    }
+                  }
+
+                  if (v33)
+                  {
+                    v39 = CGImageMetadataTagCreate(@"http://ns.apple.com/faceinfo/1.0/", @"apple-fi", @"AngleInfoYaw", kCGImageMetadataTypeString, v33);
+                    if (v39)
+                    {
+                      CFDictionarySetValue(Mutable, @"AngleInfoYaw", v39);
+                      CFRelease(v39);
+                    }
+                  }
+
+                  if (v34)
+                  {
+                    v40 = CGImageMetadataTagCreate(@"http://ns.apple.com/faceinfo/1.0/", @"apple-fi", @"AngleInfoRoll", kCGImageMetadataTypeString, v34);
+                    if (v40)
+                    {
+                      CFDictionarySetValue(Mutable, @"AngleInfoRoll", v40);
+                      CFRelease(v40);
+                    }
+                  }
+
+                  if (v35)
+                  {
+                    v41 = CGImageMetadataTagCreate(@"http://ns.apple.com/faceinfo/1.0/", @"apple-fi", @"ConfidenceLevel", kCGImageMetadataTypeString, v35);
+                    if (v41)
+                    {
+                      CFDictionarySetValue(Mutable, @"ConfidenceLevel", v41);
+                      CFRelease(v41);
+                    }
+                  }
+
+                  if (v36)
+                  {
+                    v42 = CGImageMetadataTagCreate(@"http://ns.apple.com/faceinfo/1.0/", @"apple-fi", @"FaceID", kCGImageMetadataTypeString, v36);
+                    if (v42)
+                    {
+                      CFDictionarySetValue(Mutable, @"FaceID", v42);
+                      CFRelease(v42);
+                    }
+                  }
+
+                  v43 = CGImageMetadataTagCreate(@"http://www.metadataworkinggroup.com/schemas/regions/", @"mwg-rs", @"Extensions", kCGImageMetadataTypeStructure, Mutable);
+                  CFRelease(Mutable);
+                  if (v43)
+                  {
+                    CGImageMetadataSetTagWithPath(metadata, v29, @"mwg-rs:Extensions", v43);
+                    CFRelease(v43);
+                  }
+                }
+
+                v44 = CFStringCreateWithFormat(alloc, 0, @"mwg-rs:Regions.RegionList[%ld]", v9);
+                if (v44)
+                {
+                  CGImageMetadataSetTagWithPath(metadata, 0, v44, v29);
+                  CFRelease(v44);
+                }
+
+                CFRelease(v29);
+              }
+
+              goto LABEL_69;
+            }
+
+LABEL_71:
+            IIOArray::~IIOArray(v50);
+          }
+        }
+      }
+    }
+  }
+}
+
+void sub_1860952F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  IIOArray::~IIOArray(va);
+  _Unwind_Resume(a1);
+}
+
+void ___ZL24IIOXPCDecodeMetadataTagsP8IIOArrayP15CGImageMetadata_block_invoke(uint64_t a1, const __CFDictionary *a2)
+{
+  memset(v4, 0, sizeof(v4));
+  IIODictionary::IIODictionary(v4, a2);
+  v3 = IIOXPCDecodeCGImageMetadataTag(v4);
+  if (v3)
+  {
+    CGImageMetadataAddTag(*(a1 + 32), v3);
+    CFRelease(v3);
+  }
+
+  IIODictionary::~IIODictionary(v4);
+}
+
+void sub_1860953BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  IIODictionary::~IIODictionary(va);
+  _Unwind_Resume(a1);
+}
+
+CGImageMetadataTagRef IIOXPCDecodeCGImageMetadataTag(IIODictionary *a1)
+{
+  ObjectForKey = IIODictionary::getObjectForKey(a1, @"nameSpace");
+  v3 = IIODictionary::getObjectForKey(a1, @"prefix");
+  v4 = IIODictionary::getObjectForKey(a1, @"name");
+  Uint32ForKey = IIODictionary::getUint32ForKey(a1, @"metadataType");
+  v6 = IIODictionary::getObjectForKey(a1, @"value");
+  v7 = v6;
+  if (Uint32ForKey > kCGImageMetadataTypeString)
+  {
+    if (v6)
+    {
+      TypeID = CFArrayGetTypeID();
+      if (TypeID == CFGetTypeID(v7))
+      {
+        v16 = 0;
+        v17 = &v16;
+        v18 = 0x2000000000;
+        operator new();
+      }
+
+      v10 = CFDictionaryGetTypeID();
+      if (v10 == CFGetTypeID(v7))
+      {
+        v16 = 0;
+        v17 = &v16;
+        v18 = 0x2000000000;
+        operator new();
+      }
+    }
+
+    return 0;
+  }
+
+  else
+  {
+    v8 = CGImageMetadataTagCreate(ObjectForKey, v3, v4, Uint32ForKey, v6);
+    if (v8)
+    {
+      v11 = IIODictionary::getUint32ForKey(a1, @"sourceType");
+      CGImageMetadataTagSetSource(v8, v11);
+      v12 = IIODictionary::getObjectForKey(a1, @"qualifiers");
+      if (v12)
+      {
+        v13 = v12;
+        Source = CGImageSourceGetSource(v8);
+        if (Source)
+        {
+          *(Source + 56) = CFArrayCreateMutableCopy(*MEMORY[0x1E695E480], 0, v13);
+        }
+      }
+    }
+  }
+
+  return v8;
+}
+
+void ___ZL30IIOXPCDecodeCGImageMetadataTagP13IIODictionary_block_invoke(uint64_t a1, const __CFDictionary *a2)
+{
+  memset(v4, 0, sizeof(v4));
+  IIODictionary::IIODictionary(v4, a2);
+  v3 = IIOXPCDecodeCGImageMetadataTag(v4);
+  if (v3)
+  {
+    IIOArray::addObject(*(*(*(a1 + 32) + 8) + 24), v3);
+    CFRelease(v3);
+  }
+
+  IIODictionary::~IIODictionary(v4);
+}
+
+void sub_186095818(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  IIODictionary::~IIODictionary(va);
+  _Unwind_Resume(a1);
+}
+
+void ___ZL30IIOXPCDecodeCGImageMetadataTagP13IIODictionary_block_invoke_2(uint64_t a1, const __CFString *a2, __CFDictionary *a3)
+{
+  memset(v6, 0, sizeof(v6));
+  IIODictionary::IIODictionary(v6, a3);
+  v5 = IIOXPCDecodeCGImageMetadataTag(v6);
+  if (v5)
+  {
+    IIODictionary::setObjectForKey(*(*(*(a1 + 32) + 8) + 24), v5, a2);
+    CFRelease(v5);
+  }
+
+  IIODictionary::~IIODictionary(v6);
+}
+
+void sub_1860958AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  IIODictionary::~IIODictionary(va);
+  _Unwind_Resume(a1);
+}
+
+void IIOXPCEncodeMetadataTag(CGImageMetadataTag *a1, IIOArray *a2)
+{
+  Source = CGImageSourceGetSource(a1);
+  v17 = 0;
+  v18 = 0;
+  v19 = 0;
+  IIODictionary::IIODictionary(&v17);
+  IIODictionary::setObjectForKey(v4, *(Source + 16), @"nameSpace");
+  IIODictionary::setObjectForKey(&v17, *(Source + 24), @"prefix");
+  IIODictionary::setObjectForKey(&v17, *(Source + 32), @"name");
+  IIODictionary::setObjectForKey(&v17, *(Source + 56), @"qualifiers");
+  v5 = *(Source + 40);
+  IIONumber::IIONumber(&v14, v5);
+  IIODictionary::setObjectForKey(&v17, v16, @"metadataType");
+  IIONumber::~IIONumber(&v14);
+  IIONumber::IIONumber(v6, *(Source + 68));
+  IIODictionary::setObjectForKey(&v17, v16, @"sourceType");
+  IIONumber::~IIONumber(&v14);
+  v7 = *(Source + 48);
+  if (v5 > 1)
+  {
+    TypeID = CFArrayGetTypeID();
+    if (TypeID == CFGetTypeID(v7))
+    {
+      v14 = 0;
+      v15 = &v14;
+      v16 = 0x2000000000;
+      operator new();
+    }
+
+    v9 = CFDictionaryGetTypeID();
+    if (v9 == CFGetTypeID(v7))
+    {
+      v14 = 0;
+      v15 = &v14;
+      v16 = 0x2000000000;
+      operator new();
+    }
+
+    CFShow(v7);
+    v10 = CFGetTypeID(v7);
+    v11 = CFCopyTypeIDDescription(v10);
+    IIOString::IIOString(&v14, v11);
+    v13 = IIOString::utf8String(v12);
+    LogError("IIOXPCEncodeMetadataTag", 127, "*** failed to serialize metadata = %s\n", v13);
+    IIOString::~IIOString(&v14);
+  }
+
+  else
+  {
+    IIODictionary::setObjectForKey(&v17, v7, @"value");
+  }
+
+  IIOArray::addObject(a2, v18);
+  IIODictionary::~IIODictionary(&v17);
+}
+
+void sub_186095C80(_Unwind_Exception *a1)
+{
+  _Block_object_dispose((v1 - 88), 8);
+  IIODictionary::~IIODictionary((v1 - 56));
+  _Unwind_Resume(a1);
+}
+
+void ___ZL23IIOXPCEncodeMetadataTagP18CGImageMetadataTagP8IIOArray_block_invoke(uint64_t a1, CGImageMetadataTag *a2)
+{
+  TypeID = CGImageMetadataTagGetTypeID();
+  if (TypeID == CFGetTypeID(a2))
+  {
+    v5 = *(*(*(a1 + 32) + 8) + 24);
+
+    IIOXPCEncodeMetadataTag(a2, v5);
+  }
+
+  else
+  {
+    v6 = CFGetTypeID(a2);
+    v7 = CFCopyTypeIDDescription(v6);
+    IIOString::IIOString(v9, v7);
+    v8 = IIOString::utf8String(v9);
+    LogError("IIOXPCEncodeMetadataTag_block_invoke", 97, "*** unexpected type in array: %s\n", v8);
+    IIOString::~IIOString(v9);
+  }
+}
+
+void sub_186095DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  IIOString::~IIOString(va);
+  _Unwind_Resume(a1);
+}
+
+void ___ZL23IIOXPCEncodeMetadataTagP18CGImageMetadataTagP8IIOArray_block_invoke_2(uint64_t a1, const __CFString *a2, CGImageMetadataTag *a3)
+{
+  memset(v13, 0, sizeof(v13));
+  IIOArray::IIOArray(v13);
+  TypeID = CGImageMetadataTagGetTypeID();
+  if (TypeID == CFGetTypeID(a3))
+  {
+    IIOXPCEncodeMetadataTag(a3, v13);
+    v7 = *(*(*(a1 + 32) + 8) + 24);
+    ObjectAtIndex = IIOArray::getObjectAtIndex(v13, 0);
+    IIODictionary::setObjectForKey(v7, ObjectAtIndex, a2);
+  }
+
+  else
+  {
+    v9 = CFGetTypeID(a3);
+    v10 = CFCopyTypeIDDescription(v9);
+    IIOString::IIOString(v12, v10);
+    v11 = IIOString::utf8String(v12);
+    LogError("IIOXPCEncodeMetadataTag_block_invoke_2", 117, "*** unexpected type in dictionary: %s\n", v11);
+    IIOString::~IIOString(v12);
+  }
+
+  IIOArray::~IIOArray(v13);
+}
+
+void sub_186095EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va1, a5);
+  va_start(va, a5);
+  v6 = va_arg(va1, void);
+  v8 = va_arg(va1, void);
+  v9 = va_arg(va1, void);
+  IIOString::~IIOString(va);
+  IIOArray::~IIOArray(va1);
+  _Unwind_Resume(a1);
+}
+
+uint64_t ___ZL37CGImageMetadataCreateWithEXIFFilteredPK15CGImageMetadatab_block_invoke(uint64_t a1, const __CFString *a2, uint64_t a3)
+{
+  Source = CGImageSourceGetSource(a3);
+  if (CFStringCompare(*(Source + 24), @"exif", 0) == kCFCompareEqualTo || CFStringCompare(*(Source + 24), @"tiff", 0) == kCFCompareEqualTo || CFStringCompare(*(Source + 24), @"exifEX", 0) == kCFCompareEqualTo)
+  {
+    CGImageMetadataRemoveTagWithPath(*(a1 + 32), 0, a2);
+  }
+
+  return 1;
+}
+
+double OUTLINED_FUNCTION_4_6(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8, double a9, double a10, double a11, double a12, double a13, double a14, double a15, double a16, double a17, double a18, double a19, double a20, double a21, double a22, double a23, double a24)
+{
+  result = a24;
+  *(v24 - 144) = a24;
+  return result;
+}
+
+uint64_t OUTLINED_FUNCTION_7_0()
+{
+
+  return CFStringGetCString(v1, v0, v2 + 1, 0x600u);
+}
+
+int32x2_t OUTLINED_FUNCTION_8_0(int32x2_t a1, int32x2_t a2)
+{
+  result = vadd_s32(a1, a2);
+  *(v2 - 128) = result;
+  return result;
+}
+
+uint64_t OUTLINED_FUNCTION_21_0()
+{
+
+  return CFStringGetCString(v1, v0, v2 + 1, 0x600u);
+}
+
+size_t myTIFFReadProc(IIOImageReadSession **a1, unsigned __int8 *a2, size_t a3)
+{
+  if (a1)
+  {
+    if (a1[2])
+    {
+      Bytes = IIOImageReadSession::getBytes(a1[2], a2, a3);
+LABEL_6:
+      v6 = Bytes;
+      goto LABEL_8;
+    }
+
+    v5 = a1[3];
+    if (v5)
+    {
+      Bytes = IIOImageWriteSession::getBytes(v5, a2, a3);
+      goto LABEL_6;
+    }
+  }
+
+  v6 = 0;
+LABEL_8:
+  if (v6 != a3)
+  {
+    _cg_jpeg_mem_term("myTIFFReadProc", 34, "*** expected: %lld   got: %lld\n");
+  }
+
+  return v6;
+}
+
+size_t myTIFFWriteProc(void *a1, void *a2, size_t a3)
+{
+  if (a1 && (v3 = a1[3]) != 0)
+  {
+    return IIOImageWriteSession::putBytes(v3, a2, a3);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+IIOImageRead *myTIFFSizeProc(IIOImageReadSession **a1)
+{
+  if (!a1)
+  {
+    return 0;
+  }
+
+  if (a1[2])
+  {
+    return IIOImageReadSession::getSize(a1[2]);
+  }
+
+  v2 = a1[3];
+  if (v2)
+  {
+    return IIOImageWriteSession::getSize(v2);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t myTIFFSeekProc(IIOImageReadSession **a1, unint64_t a2, int a3)
+{
+  if (!a1)
+  {
+    return 0;
+  }
+
+  if (a1[2])
+  {
+    return IIOImageReadSession::seek(a1[2], a2, a3);
+  }
+
+  v4 = a1[3];
+  if (v4)
+  {
+    return IIOImageWriteSession::seek(v4, a2, a3);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t myTIFFCloseProc(void *a1)
+{
+  if (a1)
+  {
+    (*(*a1 + 8))(a1);
+  }
+
+  return 0;
+}
+
+void SetupTIFFErrorHandler(void)
+{
+  if ((IIO_XPCServer() & 1) == 0 && SetupTIFFErrorHandler(void)::setupOnce != -1)
+  {
+    SetupTIFFErrorHandler();
+  }
+}
+
+size_t (*___Z21SetupTIFFErrorHandlerv_block_invoke())(const char *a1, const char *a2, va_list a3)
+{
+  _cg_TIFFSetErrorHandler(0);
+  _cg_TIFFSetErrorHandlerExt(IIOErrorHandler);
+
+  return _cg_TIFFSetWarningHandler(IIOWarningHandler);
+}
+
+uint64_t IIOErrorHandler(_BYTE *a1, const char *a2, char *a3, char *a4)
+{
+  result = LogModuleWithArguments(a2, a3, a4);
+  if (a2)
+  {
+    result = strcmp(a2, "ZIPDecode");
+    if (result)
+    {
+      result = strcmp(a2, "PackBitsDecode");
+      if (a1 && !result)
+      {
+        goto LABEL_5;
+      }
+    }
+
+    else if (a1)
+    {
+LABEL_5:
+      a1[32] = 1;
+    }
+  }
+
+  if (!a3)
+  {
+    return result;
+  }
+
+  result = strstr(a3, "Bad code word");
+  if (result || (result = strstr(a3, "Premature EOL at line")) != 0)
+  {
+    if (!a1)
+    {
+      return result;
+    }
+
+    goto LABEL_10;
+  }
+
+  result = strstr(a3, "Invalid tile byte count");
+  if (a1 && result)
+  {
+LABEL_10:
+    a1[32] = 1;
+  }
+
+  return result;
+}
+
+void IOTiffClientData::IOTiffClientData(IOTiffClientData *this, char a2)
+{
+  *(this + 34) = a2;
+  *this = &unk_1EF4DC4C8;
+  *(this + 1) = 0;
+  *(this + 2) = 0;
+  *(this + 3) = 0;
+  *(this + 16) = 0;
+}
+
+void GlobalTIFFInfo::GlobalTIFFInfo(GlobalTIFFInfo *this, char a2)
+{
+  *this = &unk_1EF4DC4E8;
+  *(this + 8) = 0;
+  *(this + 1) = 0u;
+  *(this + 2) = 0u;
+  *(this + 3) = 0u;
+  *(this + 4) = 0u;
+  *(this + 80) = a2;
+}
+
+void GlobalTIFFInfo::GlobalTIFFInfo(GlobalTIFFInfo *this, unsigned __int8 *a2, CFIndex a3)
+{
+  *this = &unk_1EF4DC4E8;
+  *(this + 8) = 0;
+  *(this + 1) = 0u;
+  v4 = (this + 16);
+  *(this + 2) = 0u;
+  *(this + 3) = 0u;
+  *(this + 4) = 0u;
+  buffer = 0;
+  *v10 = 0;
+  v9 = 0;
+  v5 = CFReadStreamCreateWithBytesNoCopy(*MEMORY[0x1E695E480], a2, a3, *MEMORY[0x1E695E498]);
+  v6 = v5;
+  if (v5)
+  {
+    if (CFReadStreamOpen(v5))
+    {
+      if (CFReadStreamRead(v6, &buffer, 1) == 1)
+      {
+        *(this + 8) = buffer;
+        if (CFReadStreamRead(v6, v10, 4) == 4)
+        {
+          if (!*v10 || (std::vector<unsigned long long>::resize(v4, *v10), v7 = CFReadStreamRead(v6, *v4, 8 * *v10), v7 == 8 * *v10))
+          {
+            if (CFReadStreamRead(v6, v10, 4) == 4)
+            {
+              if (!*v10 || (std::vector<unsigned long long>::resize(this + 5, *v10), v8 = CFReadStreamRead(v6, *(this + 5), 8 * *v10), v8 == 8 * *v10))
+              {
+                if (CFReadStreamRead(v6, &v9, 8) == 8)
+                {
+                  *(this + 8) = v9;
+                  if (CFReadStreamRead(v6, &v9, 8) == 8)
+                  {
+                    *(this + 9) = v9;
+                    if (CFReadStreamRead(v6, &buffer, 1) == 1)
+                    {
+                      *(this + 80) = buffer;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    CFRelease(v6);
+  }
+}
+
+void sub_1860965B4(_Unwind_Exception *exception_object)
+{
+  v4 = v1[5];
+  if (v4)
+  {
+    v1[6] = v4;
+    operator delete(v4);
+  }
+
+  v5 = *v2;
+  if (*v2)
+  {
+    v1[3] = v5;
+    operator delete(v5);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::vector<unsigned long long>::resize(void *result, unint64_t a2)
+{
+  v2 = (result[1] - *result) >> 3;
+  if (a2 <= v2)
+  {
+    if (a2 < v2)
+    {
+      result[1] = *result + 8 * a2;
+    }
+  }
+
+  else
+  {
+    std::vector<unsigned long long>::__append(result, a2 - v2);
+  }
+}
+
+void GlobalTIFFInfo::~GlobalTIFFInfo(GlobalTIFFInfo *this)
+{
+  *this = &unk_1EF4DC4E8;
+  v2 = *(this + 5);
+  if (v2)
+  {
+    *(this + 6) = v2;
+    operator delete(v2);
+  }
+
+  v3 = *(this + 2);
+  if (v3)
+  {
+    *(this + 3) = v3;
+    operator delete(v3);
+  }
+}
+
+{
+  GlobalTIFFInfo::~GlobalTIFFInfo(this);
+
+  JUMPOUT(0x186602850);
+}
+
+uint64_t ReleaseTIFFGlobalInfo(uint64_t result)
+{
+  if (result)
+  {
+    return (*(*result + 8))();
+  }
+
+  return result;
+}
+
+void std::vector<unsigned long long>::__append(uint64_t a1, unint64_t a2)
+{
+  v5 = *(a1 + 8);
+  v4 = *(a1 + 16);
+  if (a2 <= (v4 - v5) >> 3)
+  {
+    if (a2)
+    {
+      bzero(*(a1 + 8), 8 * a2);
+      v5 += 8 * a2;
+    }
+
+    *(a1 + 8) = v5;
+  }
+
+  else
+  {
+    v6 = *a1;
+    v7 = v5 - *a1;
+    v8 = a2 + (v7 >> 3);
+    if (v8 >> 61)
+    {
+      std::vector<IIOTag *>::__throw_length_error[abi:fe200100]();
+    }
+
+    v9 = v4 - v6;
+    if (v9 >> 2 > v8)
+    {
+      v8 = v9 >> 2;
+    }
+
+    if (v9 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      v10 = 0x1FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v10 = v8;
+    }
+
+    if (v10)
+    {
+      std::__allocate_at_least[abi:fe200100]<std::allocator<unsigned long long>>(a1, v10);
+    }
+
+    v11 = (8 * (v7 >> 3));
+    bzero(v11, 8 * a2);
+    memcpy(0, v6, v7);
+    v12 = *a1;
+    *a1 = 0;
+    *(a1 + 8) = &v11[8 * a2];
+    *(a1 + 16) = 0;
+    if (v12)
+    {
+
+      operator delete(v12);
+    }
+  }
+}
+
+CFIndex OUTLINED_FUNCTION_2_13@<X0>(uint64_t a1@<X8>, uint64_t a2)
+{
+  a2 = a1;
+
+  return CFWriteStreamWrite(v2, &a2, 8);
+}
+
+BOOL IIO_Reader_AI::testHeader(int a1, _BYTE *a2, int a3, CFStringRef theString1)
+{
+  if (!theString1)
+  {
+    return 0;
+  }
+
+  return CFStringCompare(theString1, @"com.adobe.illustrator.ai-image", 0) == kCFCompareEqualTo && *a2 == 37 && a2[1] == 80 && a2[2] == 68 && a2[3] == 70 && a2[4] == 45;
+}
+
+uint64_t IIO_Reader_AI::updateSourceProperties(IIO_Reader_AI *this, IIOImageReadSession *a2, IIODictionary *a3, IIODictionary *a4, IIODictionary *a5, CGImageSourceStatus *a6)
+{
+  ReaderHandler = IIO_ReaderHandler::GetReaderHandler(this);
+  v7 = *(*IIO_ReaderHandler::readerForType(ReaderHandler, 1346651680) + 56);
+
+  return v7();
+}
+
+uint64_t IIO_Reader_AI::compareOptions(IIO_Reader_AI *this, const __CFDictionary *a2, const __CFDictionary *a3)
+{
+  ReaderHandler = IIO_ReaderHandler::GetReaderHandler(this);
+  v4 = *(*IIO_ReaderHandler::readerForType(ReaderHandler, 1346651680) + 80);
+
+  return v4();
+}
+
+uint64_t IIO_Reader_AI::getImageCount(IIO_Reader_AI *this, IIOImageReadSession *a2, IIODictionary *a3, CGImageSourceStatus *a4, unsigned int *a5)
+{
+  if (a5)
+  {
+    *a5 = 0;
+  }
+
+  ReaderHandler = IIO_ReaderHandler::GetReaderHandler(this);
+  v10 = IIO_ReaderHandler::readerForType(ReaderHandler, 1346651680);
+  return (*(*v10 + 32))(v10, a2, a3, a4, a5);
+}
+
+uint64_t LogL16fromY(int a1, long double a2)
+{
+  if (a2 >= 1.8371976e19)
+  {
+    return 0x7FFFLL;
+  }
+
+  if (a2 <= -1.8371976e19)
+  {
+    return 0xFFFFLL;
+  }
+
+  if (a2 <= 5.4136769e-20)
+  {
+    if (a2 >= -5.4136769e-20)
+    {
+      return 0;
+    }
+
+    else
+    {
+      v5 = (log(-a2) * 1.44269504 + 64.0) * 256.0;
+      if (a1)
+      {
+        v5 = v5 + rand() * 4.65661288e-10 + -0.5;
+      }
+
+      return v5 | 0xFFFF8000;
+    }
+  }
+
+  else
+  {
+    v3 = (log(a2) * 1.44269504 + 64.0) * 256.0;
+    if (a1)
+    {
+      v3 = v3 + rand() * 4.65661288e-10 + -0.5;
+    }
+
+    return v3;
+  }
+}
+
+float *XYZtoRGB24(float *result, char *a2)
+{
+  v2 = *result;
+  v3 = result[1];
+  v4 = result[2];
+  v5 = v3 * -1.276 + v2 * 2.69 + v4 * -0.414;
+  v6 = v3 * 1.978 + v2 * -1.022 + v4 * 0.044;
+  v7 = v3 * -0.224 + v2 * 0.061;
+  if (v5 <= 0.0)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    v8 = vcvtd_n_s64_f64(sqrt(v5), 8uLL);
+    if (v5 >= 1.0)
+    {
+      v8 = -1;
+    }
+  }
+
+  v9 = v7 + v4 * 1.163;
+  *a2 = v8;
+  if (v6 <= 0.0)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v10 = vcvtd_n_s64_f64(sqrt(v6), 8uLL);
+    if (v6 >= 1.0)
+    {
+      v10 = -1;
+    }
+  }
+
+  a2[1] = v10;
+  if (v9 <= 0.0)
+  {
+    v11 = 0;
+  }
+
+  else
+  {
+    v11 = vcvtd_n_s64_f64(sqrt(v9), 8uLL);
+    if (v9 >= 1.0)
+    {
+      v11 = -1;
+    }
+  }
+
+  a2[2] = v11;
+  return result;
+}
+
+uint64_t LogL10fromY(int a1, long double a2)
+{
+  if (a2 >= 15.742)
+  {
+    return 1023;
+  }
+
+  if (a2 <= 0.00024283)
+  {
+    return 0;
+  }
+
+  v3 = (log(a2) * 1.44269504 + 12.0) * 64.0;
+  if (a1)
+  {
+    v3 = v3 + rand() * 4.65661288e-10 + -0.5;
+  }
+
+  return v3;
+}
+
+uint64_t uv_encode(int a1, __n128 a2, __n128 a3)
+{
+  v3 = a2.n128_f64[0];
+  v4 = a3.n128_f64[0];
+  if (a3.n128_f64[0] >= 0.0169399995)
+  {
+    v6 = (a3.n128_f64[0] + -0.0169399995) * 285.714277;
+    if (a1)
+    {
+      v6 = v6 + rand() * 4.65661288e-10 + -0.5;
+    }
+
+    if (v6 < 0xA3)
+    {
+      v7 = (&uv_row + 8 * v6);
+      v8 = *v7;
+      if (v3 >= v8)
+      {
+        v9 = (v3 - v8) * 285.714277;
+        if (a1)
+        {
+          v9 = v9 + rand() * 4.65661288e-10 + -0.5;
+        }
+
+        if (v9 < *(v7 + 2))
+        {
+          return (*(v7 + 3) + v9);
+        }
+      }
+    }
+  }
+
+  return oog_encode(v3, v4);
+}
+
+uint64_t oog_encode(double a1, double a2)
+{
+  v2 = a1;
+  v36 = *MEMORY[0x1E69E9840];
+  if ((oog_encode_initialized & 1) == 0)
+  {
+    v33 = a2;
+    memset_pattern16(__b, &unk_186226B20, 0x320uLL);
+    v3 = 162;
+    do
+    {
+      v4 = v3;
+      v5 = (&uv_row + 8 * v3);
+      v6 = *(v5 + 2);
+      if (v6 < 2 || v4 == 0 || v4 == 162)
+      {
+        v9 = 1;
+      }
+
+      else
+      {
+        v9 = v6 - 1;
+      }
+
+      v10 = v6 - 1;
+      if (v6 >= 1)
+      {
+        v11 = *v5;
+        do
+        {
+          v12 = atan2((v4 + 0.5) * 0.00350000011 + 0.0169399995 + -0.473684211, v11 + (v10 + 0.5) * 0.00350000011 + -0.210526316) * 15.9154943 + 50.0;
+          v13 = v12;
+          v14 = vabdd_f64(v12, v12 + 0.5);
+          if (v14 < __b[v13])
+          {
+            oog_encode_oog_table[v13] = v10 + *(v5 + 3);
+            __b[v13] = v14;
+          }
+
+          v10 -= v9;
+        }
+
+        while (v10 >= 0);
+      }
+
+      v3 = v4 - 1;
+    }
+
+    while (v4);
+    v15 = &v36;
+    v16 = &STACK[0x640];
+    v17 = 99;
+    v18 = 198;
+    v19 = 100;
+    v2 = a1;
+    do
+    {
+      v20 = v17;
+      v21 = v19 - 1;
+      if (__b[v17] > 1.5)
+      {
+        v22 = 1;
+        v23 = v19;
+        v24 = v15;
+        do
+        {
+          if (*&v24[-100 * (v23 / 0x64)] < 1.5)
+          {
+            break;
+          }
+
+          ++v22;
+          ++v24;
+          ++v23;
+        }
+
+        while (v22 != 50);
+        v25 = v19 + 99;
+        v26 = 1;
+        v27 = -1;
+        v28 = v18;
+        v29 = v16;
+        while (*&v29[-100 * (v28 / 0x64)] >= 1.5)
+        {
+          ++v26;
+          --v29;
+          --v28;
+          if (--v27 == -50)
+          {
+            v26 = 50;
+            break;
+          }
+        }
+
+        v30 = v25 + v27;
+        if (v22 >= v26)
+        {
+          v31 = v30;
+        }
+
+        else
+        {
+          v31 = v22 + v21;
+        }
+
+        oog_encode_oog_table[v20] = oog_encode_oog_table[v31 % 100];
+      }
+
+      v17 = v20 - 1;
+      --v15;
+      --v16;
+      --v18;
+      v19 = v21;
+    }
+
+    while (v20);
+    oog_encode_initialized = 1;
+    a2 = v33;
+  }
+
+  return oog_encode_oog_table[(atan2(a2 + -0.473684211, v2 + -0.210526316) * 15.9154943 + 50.0)];
+}
+
+uint64_t uv_decode(double *a1, double *a2, unsigned int a3)
+{
+  if (a3 > 0x3FA0)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  v4 = 0;
+  v5 = 163;
+  while (1)
+  {
+    v6 = (v4 + v5) >> 1;
+    v7 = *(&uv_row + 4 * v6 + 3);
+    v8 = __OFSUB__(a3, v7);
+    v9 = a3 - v7;
+    if ((v9 < 0) ^ v8 | (v9 == 0))
+    {
+      break;
+    }
+
+    v4 = (v4 + v5) >> 1;
+LABEL_8:
+    if (v5 - v4 <= 1)
+    {
+      v10 = v4;
+      v6 = v4;
+      goto LABEL_11;
+    }
+  }
+
+  if (v9 < 0)
+  {
+    v5 = (v4 + v5) >> 1;
+    goto LABEL_8;
+  }
+
+  v10 = (v4 + v5) >> 1;
+LABEL_11:
+  v3 = 0;
+  *a1 = *(&uv_row + 2 * v10) + ((a3 - *(&uv_row + 4 * v10 + 3)) + 0.5) * 0.00350000011;
+  *a2 = (v6 + 0.5) * 0.00350000011 + 0.0169399995;
+  return v3;
+}
+
+void LogLuv24toXYZ(unsigned int a1, uint64_t a2)
+{
+  v3 = (a1 >> 14) & 0x3FF;
+  if (v3 && (v4 = a1, v5 = exp((v3 + 0.5) * 0.0108304247 + -8.31776617), v5 > 0.0))
+  {
+    v6 = v5;
+    v14 = 0.0;
+    v15 = 0.0;
+    v7 = uv_decode(&v15, &v14, v4 & 0x3FFF);
+    v9 = v14;
+    v8 = v15;
+    if (v7 < 0)
+    {
+      v9 = 0.473684211;
+      v8 = 0.210526316;
+    }
+
+    v10 = 1.0 / (v9 * -16.0 + v8 * 6.0 + 12.0);
+    v11 = v8 * 9.0 * v10;
+    v12 = v9 * 4.0 * v10;
+    *&v10 = v6 * (v11 / v12);
+    v13 = v6;
+    *a2 = LODWORD(v10);
+    *(a2 + 4) = v13;
+    *&v11 = v6 * ((1.0 - v11 - v12) / v12);
+    *(a2 + 8) = LODWORD(v11);
+  }
+
+  else
+  {
+    *(a2 + 8) = 0;
+    *a2 = 0;
+  }
+}
+
+uint64_t LogLuv24fromXYZ(float *a1, int a2)
+{
+  v4 = LogL10fromY(a2, a1[1]);
+  v5.n128_u64[0] = 0x3FDE50D794B8199ELL;
+  v6.n128_u64[0] = 0x3FCAF286BD156C1ALL;
+  if (v4)
+  {
+    v7 = *a1;
+    v8 = a1[1];
+    v9 = v7 + v8 * 15.0 + a1[2] * 3.0;
+    if (v9 > 0.0)
+    {
+      v6.n128_f64[0] = v7 * 4.0 / v9;
+      v5.n128_f64[0] = v8 * 9.0 / v9;
+    }
+  }
+
+  v10 = uv_encode(a2, v6, v5);
+  if (v10 < 0)
+  {
+    v11.n128_u64[0] = 0x3FCAF286BD156C1ALL;
+    v12.n128_u64[0] = 0x3FDE50D794B8199ELL;
+    v10 = uv_encode(0, v11, v12);
+  }
+
+  return v10 | (v4 << 14);
+}
+
+void LogLuv32toXYZ(int a1, uint64_t a2)
+{
+  v3 = a1 >> 16;
+  if (((a1 >> 16) & 0x7FFF) == 0)
+  {
+    goto LABEL_6;
+  }
+
+  v4 = a1;
+  v5 = exp((((a1 >> 16) & 0x7FFF) + 0.5) * 0.00270760617 + -44.3614196);
+  if ((v3 & 0x8000) != 0)
+  {
+    v5 = -v5;
+  }
+
+  if (v5 > 0.0)
+  {
+    v6 = (HIBYTE(v4) + 0.5) * 0.00243902439;
+    v7 = (v4 + 0.5) * 0.00243902439;
+    v8 = 1.0 / (v7 * -16.0 + v6 * 6.0 + 12.0);
+    v9 = v6 * 9.0 * v8;
+    v10 = v7 * 4.0 * v8;
+    *&v8 = v5 * (v9 / v10);
+    v11 = v5;
+    *a2 = LODWORD(v8);
+    *(a2 + 4) = v11;
+    v12 = v5 * ((1.0 - v9 - v10) / v10);
+    *(a2 + 8) = v12;
+  }
+
+  else
+  {
+LABEL_6:
+    *(a2 + 8) = 0;
+    *a2 = 0;
+  }
+}
+
+uint64_t LogLuv32fromXYZ(float *a1, int a2)
+{
+  v4 = LogL16fromY(a2, a1[1]);
+  v5 = 0.210526316;
+  v6 = 0.473684211;
+  if (v4 && (v7 = *a1, v8 = a1[1], v9 = v7 + v8 * 15.0 + a1[2] * 3.0, v9 > 0.0) && (v5 = v7 * 4.0 / v9, v6 = v8 * 9.0 / v9, v5 <= 0.0))
+  {
+    v11 = 0;
+  }
+
+  else
+  {
+    v10 = v5 * 410.0;
+    if (a2)
+    {
+      v10 = v10 + rand() * 4.65661288e-10 + -0.5;
+    }
+
+    v11 = v10;
+  }
+
+  if (v6 <= 0.0)
+  {
+    v13 = 0;
+  }
+
+  else
+  {
+    v12 = v6 * 410.0;
+    if (a2)
+    {
+      v12 = v12 + rand() * 4.65661288e-10 + -0.5;
+    }
+
+    v13 = v12;
+  }
+
+  if (v11 >= 0xFF)
+  {
+    v14 = 255;
+  }
+
+  else
+  {
+    v14 = v11;
+  }
+
+  if (v13 >= 0xFF)
+  {
+    v13 = 255;
+  }
+
+  return v13 | (v14 << 8) | (v4 << 16);
+}
+
+uint64_t TIFFInitSGILog(int8x16_t *a1, unsigned int a2)
+{
+  if (a2 >> 1 != 17338)
+  {
+    TIFFInitSGILog_cold_1();
+  }
+
+  if (_TIFFMergeFields(a1->i64, LogLuvFields, 2))
+  {
+    v4 = malloc_type_malloc(0x38uLL, 0x1090040405F76DDuLL);
+    a1[68].i64[1] = v4;
+    if (v4)
+    {
+      v5 = v4;
+      _TIFFmemset(v4, 0, 0x38uLL);
+      *(v5 + 1) = -1;
+      *(v5 + 2) = a2 == 34677;
+      *(v5 + 4) = _logLuvNop;
+      a1[59].i64[1] = LogLuvFixupTags;
+      a1[60].i64[0] = LogLuvSetupDecode;
+      a1[64].i64[0] = LogLuvDecodeStrip;
+      a1[65].i64[0] = LogLuvDecodeTile;
+      a1[61].i64[0] = LogLuvSetupEncode;
+      a1[64].i64[1] = LogLuvEncodeStrip;
+      a1[65].i64[1] = LogLuvEncodeTile;
+      a1[66].i64[0] = LogLuvClose;
+      a1[67].i64[0] = LogLuvCleanup;
+      v6 = a1[80];
+      a1[80].i64[1] = LogLuvVGetField;
+      *(v5 + 40) = vextq_s8(v6, v6, 8uLL);
+      a1[80].i64[0] = LogLuvVSetField;
+      return 1;
+    }
+
+    TIFFErrorExtR(a1, "TIFFInitSGILog", "%s: No space for LogLuv state block");
+  }
+
+  else
+  {
+    TIFFErrorExtR(a1, "TIFFInitSGILog", "Merging SGILog codec-specific tags failed");
+  }
+
+  return 0;
+}
+
+uint64_t LogLuvSetupDecode(uint64_t a1)
+{
+  v2 = *(a1 + 1096);
+  *(a1 + 1248) = _TIFFNoPostDecode;
+  v3 = *(a1 + 122);
+  if (v3 == 32844)
+  {
+    result = LogL16InitState(a1);
+    if (!result)
+    {
+      return result;
+    }
+
+    *(a1 + 1008) = LogL16Decode;
+    v7 = *(v2 + 4);
+    if (v7 == 3)
+    {
+      v6 = L16toGry;
+      goto LABEL_23;
+    }
+
+    if (!v7)
+    {
+      v6 = L16toY;
+      goto LABEL_23;
+    }
+  }
+
+  else
+  {
+    if (v3 != 32845)
+    {
+      TIFFErrorExtR(a1, "LogLuvSetupDecode", "Inappropriate photometric interpretation %hu for SGILog compression; %s", *(a1 + 122), "must be either LogLUV or LogL");
+      return 0;
+    }
+
+    result = LogLuvInitState(a1);
+    if (!result)
+    {
+      return result;
+    }
+
+    if (*(a1 + 120) == 34677)
+    {
+      *(a1 + 1008) = LogLuvDecode24;
+      v5 = *(v2 + 4);
+      switch(v5)
+      {
+        case 3:
+          v6 = Luv24toRGB;
+          goto LABEL_23;
+        case 1:
+          v6 = Luv24toLuv48;
+          goto LABEL_23;
+        case 0:
+          v6 = Luv24toXYZ;
+LABEL_23:
+          *(v2 + 32) = v6;
+          break;
+      }
+    }
+
+    else
+    {
+      *(a1 + 1008) = LogLuvDecode32;
+      v8 = *(v2 + 4);
+      switch(v8)
+      {
+        case 3:
+          v6 = Luv32toRGB;
+          goto LABEL_23;
+        case 1:
+          v6 = Luv32toLuv48;
+          goto LABEL_23;
+        case 0:
+          v6 = Luv32toXYZ;
+          goto LABEL_23;
+      }
+    }
+  }
+
+  return 1;
+}
+
+uint64_t LogLuvDecodeStrip(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v10 = a2;
+  result = _cg_TIFFScanlineSize(a1, a2, a3, a4, a5, a6, a7, a8);
+  if (result)
+  {
+    v13 = result;
+    if (a3 % result)
+    {
+      LogLuvDecodeStrip_cold_1();
+    }
+
+    if (a3)
+    {
+      v14 = result - a3;
+      do
+      {
+        v15 = (*(a1 + 1008))(a1, v10, v13, a4);
+        v10 += v13;
+        if (v15)
+        {
+          v16 = v14 == 0;
+        }
+
+        else
+        {
+          v16 = 1;
+        }
+
+        v14 += v13;
+      }
+
+      while (!v16);
+      return v15 != 0;
+    }
+
+    else
+    {
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+uint64_t LogLuvDecodeTile(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = _cg_TIFFTileRowSize(a1);
+  if (result)
+  {
+    v9 = result;
+    if (a3 % result)
+    {
+      LogLuvDecodeTile_cold_1();
+    }
+
+    if (a3)
+    {
+      v10 = result - a3;
+      do
+      {
+        v11 = (*(a1 + 1008))(a1, a2, v9, a4);
+        a2 += v9;
+        if (v11)
+        {
+          v12 = v10 == 0;
+        }
+
+        else
+        {
+          v12 = 1;
+        }
+
+        v10 += v9;
+      }
+
+      while (!v12);
+      return v11 != 0;
+    }
+
+    else
+    {
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+uint64_t LogLuvSetupEncode(uint64_t a1)
+{
+  v2 = *(a1 + 1096);
+  v3 = *(a1 + 122);
+  if (v3 == 32844)
+  {
+    result = LogL16InitState(a1);
+    if (!result)
+    {
+      return result;
+    }
+
+    *(a1 + 1016) = LogL16Encode;
+    v7 = *(v2 + 4);
+    v6 = L16fromY;
+    if (!v7)
+    {
+      goto LABEL_18;
+    }
+
+    if (v7 == 1)
+    {
+      goto LABEL_19;
+    }
+
+    goto LABEL_20;
+  }
+
+  if (v3 == 32845)
+  {
+    result = LogLuvInitState(a1);
+    if (!result)
+    {
+      return result;
+    }
+
+    if (*(a1 + 120) == 34677)
+    {
+      *(a1 + 1016) = LogLuvEncode24;
+      v5 = *(v2 + 4);
+      v6 = Luv24fromXYZ;
+      if (!v5)
+      {
+LABEL_18:
+        *(v2 + 32) = v6;
+        goto LABEL_19;
+      }
+
+      if (v5 != 2)
+      {
+        if (v5 == 1)
+        {
+          v6 = Luv24fromLuv48;
+          goto LABEL_18;
+        }
+
+        goto LABEL_20;
+      }
+
+LABEL_19:
+      result = 1;
+      *v2 = 1;
+      return result;
+    }
+
+    *(a1 + 1016) = LogLuvEncode32;
+    v8 = *(v2 + 4);
+    v6 = Luv32fromXYZ;
+    switch(v8)
+    {
+      case 0:
+        goto LABEL_18;
+      case 2:
+        goto LABEL_19;
+      case 1:
+        v6 = Luv32fromLuv48;
+        goto LABEL_18;
+    }
+
+LABEL_20:
+    TIFFErrorExtR(a1, "LogLuvSetupEncode", "SGILog compression supported only for %s, or raw data");
+    return 0;
+  }
+
+  TIFFErrorExtR(a1, "LogLuvSetupEncode", "Inappropriate photometric interpretation %hu for SGILog compression; %s");
+  return 0;
+}
+
+uint64_t LogLuvEncodeStrip(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v10 = a2;
+  result = _cg_TIFFScanlineSize(a1, a2, a3, a4, a5, a6, a7, a8);
+  if (result)
+  {
+    v13 = result;
+    if (a3 % result)
+    {
+      LogLuvEncodeStrip_cold_1();
+    }
+
+    if (a3)
+    {
+      v14 = result - a3;
+      do
+      {
+        v15 = (*(a1 + 1016))(a1, v10, v13, a4);
+        v10 += v13;
+        v16 = v15 != 1 || v14 == 0;
+        v14 += v13;
+      }
+
+      while (!v16);
+      return v15 == 1;
+    }
+
+    else
+    {
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+uint64_t LogLuvEncodeTile(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  result = _cg_TIFFTileRowSize(a1);
+  if (result)
+  {
+    v9 = result;
+    if (a3 % result)
+    {
+      LogLuvEncodeTile_cold_1();
+    }
+
+    if (a3)
+    {
+      v10 = result - a3;
+      do
+      {
+        v11 = (*(a1 + 1016))(a1, a2, v9, a4);
+        a2 += v9;
+        v12 = v11 != 1 || v10 == 0;
+        v10 += v9;
+      }
+
+      while (!v12);
+      return v11 == 1;
+    }
+
+    else
+    {
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+uint64_t LogLuvClose(uint64_t result, uint64_t a2)
+{
+  v2 = *(result + 1096);
+  if (!v2)
+  {
+    LogLuvClose_cold_1();
+  }
+
+  if (*v2)
+  {
+    if (*(result + 122) == 32844)
+    {
+      v3 = 1;
+    }
+
+    else
+    {
+      v3 = 3;
+    }
+
+    *(result + 130) = v3;
+    *(result + 116) = 131088;
+  }
+
+  return result;
+}
+
+uint64_t LogLuvCleanup(void *a1)
+{
+  v1 = a1[137];
+  if (!v1)
+  {
+    LogLuvCleanup_cold_1();
+  }
+
+  v3 = v1[6];
+  a1[161] = v1[5];
+  a1[160] = v3;
+  v4 = v1[2];
+  if (v4)
+  {
+    free(v4);
+  }
+
+  free(v1);
+  a1[137] = 0;
+
+  return _TIFFSetDefaultCompressionState(a1);
+}
+
+uint64_t LogLuvVGetField(uint64_t a1, int a2, _DWORD **a3)
+{
+  v3 = *(a1 + 1096);
+  if (a2 != 65560)
+  {
+    return (*(v3 + 40))();
+  }
+
+  **a3 = *(v3 + 4);
+  return 1;
+}
+
+uint64_t LogLuvVSetField(uint64_t a1, int a2, unsigned int *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  v9 = *(a1 + 1096);
+  if (a2 == 65561)
+  {
+    v13 = *a3;
+    *(v9 + 8) = *a3;
+    if (v13 < 2)
+    {
+      return 1;
+    }
+
+    TIFFErrorExtR(a1, "LogLuvVSetField", "Unknown encoding %d for LogLuv compression", a4, a5, a6, a7, a8);
+    return 0;
+  }
+
+  if (a2 == 65560)
+  {
+    v10 = *a3;
+    *(v9 + 4) = *a3;
+    if (v10 > 1)
+    {
+      if (v10 == 2)
+      {
+        v12 = 1;
+        _cg_TIFFSetField(a1, 277, a3, a4, a5, a6, a7, a8, 1);
+        v11 = 32;
+        goto LABEL_19;
+      }
+
+      if (v10 == 3)
+      {
+        v11 = 8;
+        v12 = 1;
+        goto LABEL_19;
+      }
+    }
+
+    else
+    {
+      if (!v10)
+      {
+        v11 = 32;
+        v12 = 3;
+        goto LABEL_19;
+      }
+
+      if (v10 == 1)
+      {
+        v11 = 16;
+        v12 = 2;
+LABEL_19:
+        _cg_TIFFSetField(a1, 258, a3, a4, a5, a6, a7, a8, v11);
+        _cg_TIFFSetField(a1, 339, v16, v17, v18, v19, v20, v21, v12);
+        if ((*(a1 + 17) & 4) != 0)
+        {
+          v29 = _cg_TIFFTileSize(a1, v22, v23, v24, v25, v26, v27, v28);
+        }
+
+        else
+        {
+          v29 = -1;
+        }
+
+        *(a1 + 936) = v29;
+        *(a1 + 1104) = _cg_TIFFScanlineSize(a1, v22, v23, v24, v25, v26, v27, v28);
+        return 1;
+      }
+    }
+
+    TIFFErrorExtR(a1, *a1, "Unknown data format %d for LogLuv compression", a4, a5, a6, a7, a8);
+    return 0;
+  }
+
+  v14 = *(v9 + 48);
+
+  return v14();
+}
+
+uint64_t LogLuvInitState(uint64_t a1)
+{
+  v1 = *(a1 + 1096);
+  if (!v1)
+  {
+    LogLuvInitState_cold_2();
+  }
+
+  if (*(a1 + 122) != 32845)
+  {
+    LogLuvInitState_cold_1();
+  }
+
+  if (*(a1 + 170) != 1)
+  {
+    TIFFErrorExtR(a1, "LogLuvInitState", "SGILog compression cannot handle non-contiguous data");
+    return 0;
+  }
+
+  v3 = *(v1 + 4);
+  if (v3 == -1)
+  {
+    v4 = *(a1 + 118) | (8 * *(a1 + 116));
+    if (v4 > 256)
+    {
+      if ((v4 - 257) < 2)
+      {
+        goto LABEL_15;
+      }
+
+      if (v4 == 259)
+      {
+        v6 = 0;
+LABEL_21:
+        v3 = -1;
+        goto LABEL_22;
+      }
+
+      if (v4 == 260)
+      {
+LABEL_15:
+        v3 = 2;
+        v6 = -1;
+        goto LABEL_22;
+      }
+    }
+
+    else
+    {
+      if ((v4 - 129) <= 3 && v4 != 131)
+      {
+        v3 = -1;
+        v6 = 1;
+LABEL_22:
+        v7 = *(a1 + 130);
+        if (v7 != 3)
+        {
+          v6 = -1;
+        }
+
+        if (v7 != 1)
+        {
+          v3 = v6;
+        }
+
+        *(v1 + 4) = v3;
+        goto LABEL_27;
+      }
+
+      if (v4 == 65 || v4 == 68)
+      {
+        v3 = -1;
+        v6 = 3;
+        goto LABEL_22;
+      }
+    }
+
+    v6 = -1;
+    goto LABEL_21;
+  }
+
+LABEL_27:
+  if (v3 > 3)
+  {
+    TIFFErrorExtR(a1, "LogLuvInitState", "No support for converting user data format to LogLuv");
+  }
+
+  else
+  {
+    *(v1 + 12) = dword_186226B30[v3];
+    if ((*(a1 + 17) & 4) != 0)
+    {
+      v9 = *(a1 + 100);
+      v8 = *(a1 + 104);
+    }
+
+    else
+    {
+      v8 = *(a1 + 132);
+      v9 = *(a1 + 88);
+      if (v8 >= *(a1 + 92))
+      {
+        v8 = *(a1 + 92);
+      }
+    }
+
+    v10 = _TIFFMultiplySSize(0, v9, v8, 0);
+    *(v1 + 24) = v10;
+    if (_TIFFMultiplySSize(0, v10, 4, 0))
+    {
+      v11 = malloc_type_malloc(4 * *(v1 + 24), 0x100004052888210uLL);
+      *(v1 + 16) = v11;
+      if (v11)
+      {
+        return 1;
+      }
+    }
+
+    TIFFErrorExtR(a1, "LogLuvInitState", "No space for SGILog translation buffer");
+  }
+
+  return 0;
+}
+
+uint64_t LogLuvDecode24(void *a1, uint64_t a2, uint64_t a3, int a4)
+{
+  if (a4)
+  {
+    LogLuvDecode24_cold_1();
+  }
+
+  v4 = a1[137];
+  if (!v4)
+  {
+    LogLuvDecode24_cold_2();
+  }
+
+  v6 = a3 / *(v4 + 12);
+  if (*(v4 + 4) != 2)
+  {
+    if (*(v4 + 24) < v6)
+    {
+      TIFFErrorExtR(a1, "LogLuvDecode24", "Translation buffer too short");
+      return 0;
+    }
+
+    a2 = *(v4 + 16);
+  }
+
+  v7 = a1[144];
+  v8 = a1[145];
+  v9 = 0;
+  v10 = v6 < 1 || v8 < 3;
+  if (!v10)
+  {
+    v11 = a1[145];
+    do
+    {
+      *(a2 + 4 * v9) = (*v7 << 16) | (v7[1] << 8) | v7[2];
+      v7 += 3;
+      v8 = v11 - 3;
+      if (++v9 >= v6)
+      {
+        break;
+      }
+
+      v10 = v11 > 5;
+      v11 -= 3;
+    }
+
+    while (v10);
+  }
+
+  a1[144] = v7;
+  a1[145] = v8;
+  if (v6 == v9)
+  {
+    (*(v4 + 32))(v4);
+    return 1;
+  }
+
+  TIFFErrorExtR(a1, "LogLuvDecode24", "Not enough data at row %u (short %lld pixels)");
+  return 0;
+}
+
+void Luv24toXYZ(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (a3 >= 1)
+  {
+    v4 = *(a1 + 16);
+    v5 = a3 + 1;
+    do
+    {
+      v6 = *v4++;
+      LogLuv24toXYZ(v6, a2);
+      a2 += 12;
+      --v5;
+    }
+
+    while (v5 > 1);
+  }
+}
+
+uint64_t Luv24toLuv48(uint64_t result, _WORD *a2, uint64_t a3)
+{
+  if (a3 >= 1)
+  {
+    v12[7] = v3;
+    v12[8] = v4;
+    v6 = *(result + 16);
+    v7 = a3 + 1;
+    do
+    {
+      v11 = 0.0;
+      v12[0] = 0.0;
+      v8 = *v6;
+      *a2 = ((*v6 >> 12) & 0xFFD) + 13314;
+      result = uv_decode(v12, &v11, v8 & 0x3FFF);
+      if ((result & 0x80000000) != 0)
+      {
+        v9 = 6898;
+        v10 = 15521;
+      }
+
+      else
+      {
+        v9 = vcvtd_n_s64_f64(v12[0], 0xFuLL);
+        v10 = vcvtd_n_s64_f64(v11, 0xFuLL);
+      }
+
+      a2[1] = v9;
+      a2[2] = v10;
+      ++v6;
+      --v7;
+      a2 += 3;
+    }
+
+    while (v7 > 1);
+  }
+
+  return result;
+}
+
+float *Luv24toRGB(float *result, char *a2, uint64_t a3)
+{
+  v9 = *MEMORY[0x1E69E9840];
+  if (a3 >= 1)
+  {
+    v4 = *(result + 2);
+    v5 = a3 + 1;
+    do
+    {
+      v8 = 0;
+      v7 = 0;
+      v6 = *v4++;
+      LogLuv24toXYZ(v6, &v7);
+      result = XYZtoRGB24(&v7, a2);
+      a2 += 3;
+      --v5;
+    }
+
+    while (v5 > 1);
+  }
+
+  return result;
 }

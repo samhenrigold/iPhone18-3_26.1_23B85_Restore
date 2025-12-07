@@ -22,21 +22,21 @@
 
 - (VLLocalizationDebugInfo)initWithPixelBuffer:(double)buffer monotonicTimestamp:(double)timestamp timestamp:(double)a5 duration:(double)duration location:(uint64_t)location clLocation:(__CVBuffer *)clLocation heading:(__int128 *)heading gravity:(void *)self0 transform:(__int128 *)self1 cameraIntrinsics:(uint64_t)self2 radialDistortion:(unint64_t)self3 exposureTargetOffset:(double)self4 statistics:(double)self5 resultStatus:(double)self6 resultPose:(__int128)self7 preserveImageData:(__int128)self8
 {
-  v119 = *MEMORY[0x277D85DE8];
-  v91 = transform[1];
-  v92 = *transform;
+  v123 = *MEMORY[0x277D85DE8];
+  v95 = transform[1];
+  v96 = *transform;
   gravityCopy = gravity;
-  v102.receiver = self;
-  v102.super_class = VLLocalizationDebugInfo;
-  v34 = [(VLLocalizationDebugInfo *)&v102 init];
-  if (!v34)
+  v106.receiver = self;
+  v106.super_class = VLLocalizationDebugInfo;
+  v37 = [(VLLocalizationDebugInfo *)&v106 init];
+  if (!v37)
   {
     goto LABEL_42;
   }
 
   uUID = [MEMORY[0x277CCAD78] UUID];
-  identifier = v34->_identifier;
-  v34->_identifier = uUID;
+  identifier = v37->_identifier;
+  v37->_identifier = uUID;
 
   if (a27)
   {
@@ -64,34 +64,34 @@
       context = CGBitmapContextCreate(BaseAddressOfPlane, WidthOfPlane, HeightOfPlane, 8uLL, WidthOfPlane, space, 0);
       Image = CGBitmapContextCreateImage(context);
       data = [MEMORY[0x277CBEB28] data];
-      v115 = *MEMORY[0x277CD3438];
-      v113 = *MEMORY[0x277CD3428];
-      v114 = &unk_2881031C8;
-      v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v114 forKeys:&v113 count:1];
-      v116 = v43;
-      v44 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v116 forKeys:&v115 count:1];
+      v119 = *MEMORY[0x277CD3438];
+      v117 = *MEMORY[0x277CD3428];
+      v118 = &unk_2881031C8;
+      v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v118 forKeys:&v117 count:1];
+      v120 = v46;
+      v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v120 forKeys:&v119 count:1];
 
       identifier = [*MEMORY[0x277CE1E10] identifier];
-      v46 = CGImageDestinationCreateWithData(data, identifier, 1uLL, 0);
+      v49 = CGImageDestinationCreateWithData(data, identifier, 1uLL, 0);
 
-      CGImageDestinationAddImage(v46, Image, v44);
-      if (CGImageDestinationFinalize(v46))
+      CGImageDestinationAddImage(v49, Image, v47);
+      if (CGImageDestinationFinalize(v49))
       {
-        v47 = data;
+        v50 = data;
       }
 
       else
       {
-        v47 = 0;
+        v50 = 0;
       }
 
-      CFRelease(v46);
+      CFRelease(v49);
       CGImageRelease(Image);
       CGContextRelease(context);
       CGColorSpaceRelease(space);
 
       CVPixelBufferUnlockBaseAddress(clLocation, 1uLL);
-      if (v47)
+      if (v50)
       {
         goto LABEL_33;
       }
@@ -103,263 +103,271 @@
     }
 
 LABEL_15:
-    v108 = 0;
-    v109 = &v108;
-    v110 = 0x2050000000;
-    v48 = _MergedGlobals_0;
-    v111 = _MergedGlobals_0;
+    v112 = 0;
+    v113 = &v112;
+    v114 = 0x2050000000;
+    v51 = _MergedGlobals_0;
+    v115 = _MergedGlobals_0;
     if (!_MergedGlobals_0)
     {
-      v103 = MEMORY[0x277D85DD0];
-      v104 = 3221225472;
-      v105 = __getCIImageClass_block_invoke;
-      v106 = &unk_279E2D710;
-      v107 = &v108;
-      v112 = 0;
+      v107 = MEMORY[0x277D85DD0];
+      v108 = 3221225472;
+      v109 = __getCIImageClass_block_invoke;
+      v110 = &unk_279E2D710;
+      v111 = &v112;
+      v116 = 0;
       if (!qword_281181C58)
       {
-        *&v94 = MEMORY[0x277D85DD0];
-        *(&v94 + 1) = 3221225472;
-        *&v95 = __CoreImageLibraryCore_block_invoke;
-        *(&v95 + 1) = &__block_descriptor_40_e5_v8__0l;
-        *&v96 = &v112;
-        v117 = xmmword_279E2D730;
-        v118 = 0;
+        *&v98 = MEMORY[0x277D85DD0];
+        *(&v98 + 1) = 3221225472;
+        *&v99 = __CoreImageLibraryCore_block_invoke;
+        *(&v99 + 1) = &__block_descriptor_40_e5_v8__0l;
+        *&v100 = &v116;
+        v121 = xmmword_279E2D730;
+        v122 = 0;
         qword_281181C58 = _sl_dlopen();
+        v52 = v116;
         if (!qword_281181C58)
         {
           goto LABEL_43;
         }
 
-        if (v112)
+        if (v116)
         {
-          free(v112);
+          free(v116);
         }
       }
 
       Class = objc_getClass("CIImage");
-      *(v107[1] + 24) = Class;
-      if (!*(v107[1] + 24))
+      *(v111[1] + 24) = Class;
+      if (!*(v111[1] + 24))
       {
-        goto LABEL_43;
+        abort_report_np("Unable to find class %s", "CIImage");
+        goto LABEL_47;
       }
 
-      _MergedGlobals_0 = *(v107[1] + 24);
-      v48 = v109[3];
+      _MergedGlobals_0 = *(v111[1] + 24);
+      v51 = v113[3];
     }
 
-    v50 = v48;
-    _Block_object_dispose(&v108, 8);
-    v51 = [[v48 alloc] initWithCVPixelBuffer:clLocation];
-    v108 = 0;
-    v109 = &v108;
-    v110 = 0x2050000000;
-    v52 = qword_281181C60;
-    v111 = qword_281181C60;
+    v54 = v51;
+    _Block_object_dispose(&v112, 8);
+    v55 = [[v51 alloc] initWithCVPixelBuffer:clLocation];
+    v112 = 0;
+    v113 = &v112;
+    v114 = 0x2050000000;
+    v56 = qword_281181C60;
+    v115 = qword_281181C60;
     if (qword_281181C60)
     {
 LABEL_29:
-      v54 = v52;
-      _Block_object_dispose(&v108, 8);
-      context = [v52 context];
-      [v51 extent];
-      v56 = [context createCGImage:v51 fromRect:?];
+      v58 = v56;
+      _Block_object_dispose(&v112, 8);
+      context = [v56 context];
+      [v55 extent];
+      v60 = [context createCGImage:v55 fromRect:?];
 
       data2 = [MEMORY[0x277CBEB28] data];
       identifier2 = [*MEMORY[0x277CE1E10] identifier];
-      v59 = CGImageDestinationCreateWithData(data2, identifier2, 1uLL, 0);
+      v63 = CGImageDestinationCreateWithData(data2, identifier2, 1uLL, 0);
 
-      CGImageDestinationAddImage(v59, v56, 0);
-      if (CGImageDestinationFinalize(v59))
+      CGImageDestinationAddImage(v63, v60, 0);
+      if (CGImageDestinationFinalize(v63))
       {
-        v47 = data2;
+        v50 = data2;
       }
 
       else
       {
-        v47 = 0;
+        v50 = 0;
       }
 
-      CFRelease(v59);
-      CGImageRelease(v56);
+      CFRelease(v63);
+      CGImageRelease(v60);
 
 LABEL_33:
-      imageData = v34->_imageData;
-      v34->_imageData = v47;
+      imageData = v37->_imageData;
+      v37->_imageData = v50;
 
       goto LABEL_34;
     }
 
-    v103 = MEMORY[0x277D85DD0];
-    v104 = 3221225472;
-    v105 = __getCIContextClass_block_invoke;
-    v106 = &unk_279E2D710;
-    v107 = &v108;
-    v112 = 0;
-    if (!qword_281181C58)
+    v107 = MEMORY[0x277D85DD0];
+    v108 = 3221225472;
+    v109 = __getCIContextClass_block_invoke;
+    v110 = &unk_279E2D710;
+    v111 = &v112;
+    v116 = 0;
+    if (qword_281181C58)
     {
-      *&v94 = MEMORY[0x277D85DD0];
-      *(&v94 + 1) = 3221225472;
-      *&v95 = __CoreImageLibraryCore_block_invoke;
-      *(&v95 + 1) = &__block_descriptor_40_e5_v8__0l;
-      *&v96 = &v112;
-      v117 = xmmword_279E2D730;
-      v118 = 0;
-      qword_281181C58 = _sl_dlopen();
-      if (!qword_281181C58)
-      {
-        goto LABEL_43;
-      }
-
-      if (v112)
-      {
-        free(v112);
-      }
+      goto LABEL_27;
     }
 
-    v53 = objc_getClass("CIContext");
-    *(v107[1] + 24) = v53;
-    if (*(v107[1] + 24))
+    *&v98 = MEMORY[0x277D85DD0];
+    *(&v98 + 1) = 3221225472;
+    *&v99 = __CoreImageLibraryCore_block_invoke;
+    *(&v99 + 1) = &__block_descriptor_40_e5_v8__0l;
+    *&v100 = &v116;
+    v121 = xmmword_279E2D730;
+    v122 = 0;
+    qword_281181C58 = _sl_dlopen();
+    v52 = v116;
+    if (qword_281181C58)
     {
-      qword_281181C60 = *(v107[1] + 24);
-      v52 = v109[3];
-      goto LABEL_29;
+      if (v116)
+      {
+        free(v116);
+      }
+
+LABEL_27:
+      v57 = objc_getClass("CIContext");
+      *(v111[1] + 24) = v57;
+      if (*(v111[1] + 24))
+      {
+        qword_281181C60 = *(v111[1] + 24);
+        v56 = v113[3];
+        goto LABEL_29;
+      }
+
+      abort_report_np("Unable to find class %s", "CIContext");
+LABEL_47:
+      __break(1u);
     }
 
 LABEL_43:
-    abort_report_np();
-    __break(1u);
+    abort_report_np("%s", v52);
+    goto LABEL_47;
   }
 
 LABEL_34:
-  *(&v61 + 1) = *(&a19 + 1);
-  *(&v62 + 1) = *(&a20 + 1);
-  *(&v63 + 1) = *(&a21 + 1);
-  v34->_monotonicTimestamp = a2;
-  v34->_timestamp = buffer;
-  v34->_duration = timestamp;
-  v64 = *heading;
-  v65 = heading[1];
-  *&v34->_location.type = *(heading + 4);
-  *v34->_location.pos_geoc = v64;
-  *&v34->_location.pos_geoc[2] = v65;
-  v34->_heading.trueHeading = a5;
-  v34->_heading.accuracy = duration;
-  *v34->_gravity = v92;
-  *&v34->_gravity[16] = v91;
-  *v34->_anon_90 = pose;
-  *&v34->_anon_90[16] = data;
-  *&v34->_anon_90[32] = a19;
-  *&v34->_anon_90[48] = a20;
-  *v34->_anon_d0 = a21;
-  *&v34->_anon_d0[16] = a22;
-  *&v34->_anon_d0[32] = a23;
-  *v34->_radialDistortion = a24;
-  v34->_exposureTargetOffset = a25;
-  v34->_resultStatus = distortion;
+  *(&v65 + 1) = *(&a19 + 1);
+  *(&v66 + 1) = *(&a20 + 1);
+  *(&v67 + 1) = *(&a21 + 1);
+  v37->_monotonicTimestamp = a2;
+  v37->_timestamp = buffer;
+  v37->_duration = timestamp;
+  v68 = *heading;
+  v69 = heading[1];
+  *&v37->_location.type = *(heading + 4);
+  *v37->_location.pos_geoc = v68;
+  *&v37->_location.pos_geoc[2] = v69;
+  v37->_heading.trueHeading = a5;
+  v37->_heading.accuracy = duration;
+  *v37->_gravity = v96;
+  *&v37->_gravity[16] = v95;
+  *v37->_anon_90 = pose;
+  *&v37->_anon_90[16] = data;
+  *&v37->_anon_90[32] = a19;
+  *&v37->_anon_90[48] = a20;
+  *v37->_anon_d0 = a21;
+  *&v37->_anon_d0[16] = a22;
+  *&v37->_anon_d0[32] = a23;
+  *v37->_radialDistortion = a24;
+  v37->_exposureTargetOffset = a25;
+  v37->_resultStatus = distortion;
   if (intrinsics)
   {
-    v66 = [[_VLStatistics alloc] initWithStats:intrinsics];
-    statistics = v34->_statistics;
-    v34->_statistics = v66;
+    v70 = [[_VLStatistics alloc] initWithStats:intrinsics];
+    statistics = v37->_statistics;
+    v37->_statistics = v70;
   }
 
-  v34->_hasResultPose = a26 != 0;
+  v37->_hasResultPose = a26 != 0;
   if (a26)
   {
-    *&v68 = *a26;
-    *&v69 = *(a26 + 8);
-    *&v70 = *(a26 + 16);
-    v71 = *(a26 + 72);
-    *(&v68 + 1) = *(a26 + 24);
-    *(&v69 + 1) = *(a26 + 32);
-    *&v61 = *(a26 + 48);
-    *&v62 = *(a26 + 56);
-    *(&v70 + 1) = *(a26 + 40);
-    *&v63 = *(a26 + 64);
+    *&v72 = *a26;
+    *&v73 = *(a26 + 8);
+    *&v74 = *(a26 + 16);
+    v75 = *(a26 + 72);
+    *(&v72 + 1) = *(a26 + 24);
+    *(&v73 + 1) = *(a26 + 32);
+    *&v65 = *(a26 + 48);
+    *&v66 = *(a26 + 56);
+    *(&v74 + 1) = *(a26 + 40);
+    *&v67 = *(a26 + 64);
     __asm { FMOV            V7.2D, #1.0 }
 
     *&_Q7 = *(a26 + 88);
-    *v34->_anon_130 = v68;
-    *&v34->_anon_130[16] = v61;
-    *&v34->_anon_130[32] = v69;
-    *&v34->_anon_130[48] = v62;
-    *&v34->_anon_130[64] = v70;
-    *&v34->_anon_130[80] = v63;
-    *&v34->_anon_130[96] = v71;
-    *&v34->_anon_130[112] = _Q7;
-    *&v69 = *(a26 + 88);
-    *v34->_anon_1b0 = *(a26 + 72);
-    *&v34->_anon_1b0[16] = v69;
-    *&v34->_anon_1b0[32] = 0xBFF0000000000000;
-    v34->_resultConfidence = *(a26 + 96);
-    v34->_resultCovariance.v[0][0] = *(a26 + 100);
-    v34->_resultCovariance.v[0][1] = *(a26 + 104);
-    v34->_resultCovariance.v[0][2] = *(a26 + 108);
-    v34->_resultCovariance.v[0][3] = *(a26 + 112);
-    v34->_resultCovariance.v[0][4] = *(a26 + 116);
-    v34->_resultCovariance.v[0][5] = *(a26 + 120);
-    v34->_resultCovariance.v[1][0] = *(a26 + 124);
-    v34->_resultCovariance.v[1][1] = *(a26 + 128);
-    v34->_resultCovariance.v[1][2] = *(a26 + 132);
-    v34->_resultCovariance.v[1][3] = *(a26 + 136);
-    v34->_resultCovariance.v[1][4] = *(a26 + 140);
-    v34->_resultCovariance.v[1][5] = *(a26 + 144);
-    v34->_resultCovariance.v[2][0] = *(a26 + 148);
-    v34->_resultCovariance.v[2][1] = *(a26 + 152);
-    v34->_resultCovariance.v[2][2] = *(a26 + 156);
-    v34->_resultCovariance.v[2][3] = *(a26 + 160);
-    v34->_resultCovariance.v[2][4] = *(a26 + 164);
-    v34->_resultCovariance.v[2][5] = *(a26 + 168);
-    v34->_resultCovariance.v[3][0] = *(a26 + 172);
-    v34->_resultCovariance.v[3][1] = *(a26 + 176);
-    v34->_resultCovariance.v[3][2] = *(a26 + 180);
-    v34->_resultCovariance.v[3][3] = *(a26 + 184);
-    v34->_resultCovariance.v[3][4] = *(a26 + 188);
-    v34->_resultCovariance.v[3][5] = *(a26 + 192);
-    v34->_resultCovariance.v[4][0] = *(a26 + 196);
-    v34->_resultCovariance.v[4][1] = *(a26 + 200);
-    v34->_resultCovariance.v[4][2] = *(a26 + 204);
-    v34->_resultCovariance.v[4][3] = *(a26 + 208);
-    v34->_resultCovariance.v[4][4] = *(a26 + 212);
-    v34->_resultCovariance.v[4][5] = *(a26 + 216);
-    v34->_resultCovariance.v[5][0] = *(a26 + 220);
-    v34->_resultCovariance.v[5][1] = *(a26 + 224);
-    v34->_resultCovariance.v[5][2] = *(a26 + 228);
-    v34->_resultCovariance.v[5][3] = *(a26 + 232);
-    v34->_resultCovariance.v[5][4] = *(a26 + 236);
-    v34->_resultCovariance.v[5][5] = *(a26 + 240);
+    *v37->_anon_130 = v72;
+    *&v37->_anon_130[16] = v65;
+    *&v37->_anon_130[32] = v73;
+    *&v37->_anon_130[48] = v66;
+    *&v37->_anon_130[64] = v74;
+    *&v37->_anon_130[80] = v67;
+    *&v37->_anon_130[96] = v75;
+    *&v37->_anon_130[112] = _Q7;
+    *&v73 = *(a26 + 88);
+    *v37->_anon_1b0 = *(a26 + 72);
+    *&v37->_anon_1b0[16] = v73;
+    *&v37->_anon_1b0[32] = 0xBFF0000000000000;
+    v37->_resultConfidence = *(a26 + 96);
+    v37->_resultCovariance.v[0][0] = *(a26 + 100);
+    v37->_resultCovariance.v[0][1] = *(a26 + 104);
+    v37->_resultCovariance.v[0][2] = *(a26 + 108);
+    v37->_resultCovariance.v[0][3] = *(a26 + 112);
+    v37->_resultCovariance.v[0][4] = *(a26 + 116);
+    v37->_resultCovariance.v[0][5] = *(a26 + 120);
+    v37->_resultCovariance.v[1][0] = *(a26 + 124);
+    v37->_resultCovariance.v[1][1] = *(a26 + 128);
+    v37->_resultCovariance.v[1][2] = *(a26 + 132);
+    v37->_resultCovariance.v[1][3] = *(a26 + 136);
+    v37->_resultCovariance.v[1][4] = *(a26 + 140);
+    v37->_resultCovariance.v[1][5] = *(a26 + 144);
+    v37->_resultCovariance.v[2][0] = *(a26 + 148);
+    v37->_resultCovariance.v[2][1] = *(a26 + 152);
+    v37->_resultCovariance.v[2][2] = *(a26 + 156);
+    v37->_resultCovariance.v[2][3] = *(a26 + 160);
+    v37->_resultCovariance.v[2][4] = *(a26 + 164);
+    v37->_resultCovariance.v[2][5] = *(a26 + 168);
+    v37->_resultCovariance.v[3][0] = *(a26 + 172);
+    v37->_resultCovariance.v[3][1] = *(a26 + 176);
+    v37->_resultCovariance.v[3][2] = *(a26 + 180);
+    v37->_resultCovariance.v[3][3] = *(a26 + 184);
+    v37->_resultCovariance.v[3][4] = *(a26 + 188);
+    v37->_resultCovariance.v[3][5] = *(a26 + 192);
+    v37->_resultCovariance.v[4][0] = *(a26 + 196);
+    v37->_resultCovariance.v[4][1] = *(a26 + 200);
+    v37->_resultCovariance.v[4][2] = *(a26 + 204);
+    v37->_resultCovariance.v[4][3] = *(a26 + 208);
+    v37->_resultCovariance.v[4][4] = *(a26 + 212);
+    v37->_resultCovariance.v[4][5] = *(a26 + 216);
+    v37->_resultCovariance.v[5][0] = *(a26 + 220);
+    v37->_resultCovariance.v[5][1] = *(a26 + 224);
+    v37->_resultCovariance.v[5][2] = *(a26 + 228);
+    v37->_resultCovariance.v[5][3] = *(a26 + 232);
+    v37->_resultCovariance.v[5][4] = *(a26 + 236);
+    v37->_resultCovariance.v[5][5] = *(a26 + 240);
   }
 
-  v77 = [objc_alloc(MEMORY[0x277D0EDF8]) initWithCLLocation:gravityCopy location:heading heading:a5];
-  analyticsLocation = v34->_analyticsLocation;
-  v34->_analyticsLocation = v77;
+  v81 = [objc_alloc(MEMORY[0x277D0EDF8]) initWithCLLocation:gravityCopy location:heading heading:a5];
+  analyticsLocation = v37->_analyticsLocation;
+  v37->_analyticsLocation = v81;
 
-  if (v34->_statistics && v34->_hasResultPose)
+  if (v37->_statistics && v37->_hasResultPose)
   {
-    v79 = [VLLocalizationCrowdsourcingDetails alloc];
-    v80 = v34->_statistics;
-    v81 = *&v34->_anon_130[80];
-    v98 = *&v34->_anon_130[64];
-    v99 = v81;
-    v82 = *&v34->_anon_130[112];
-    v100 = *&v34->_anon_130[96];
-    v101 = v82;
-    v83 = *&v34->_anon_130[16];
-    v94 = *v34->_anon_130;
-    v95 = v83;
-    v84 = *&v34->_anon_130[48];
-    v96 = *&v34->_anon_130[32];
-    v97 = v84;
-    v85 = [(VLLocalizationCrowdsourcingDetails *)v79 initWithStats:v80 resultTransform:&v94];
-    crowdsourcingDetails = v34->_crowdsourcingDetails;
-    v34->_crowdsourcingDetails = v85;
+    v83 = [VLLocalizationCrowdsourcingDetails alloc];
+    v84 = v37->_statistics;
+    v85 = *&v37->_anon_130[80];
+    v102 = *&v37->_anon_130[64];
+    v103 = v85;
+    v86 = *&v37->_anon_130[112];
+    v104 = *&v37->_anon_130[96];
+    v105 = v86;
+    v87 = *&v37->_anon_130[16];
+    v98 = *v37->_anon_130;
+    v99 = v87;
+    v88 = *&v37->_anon_130[48];
+    v100 = *&v37->_anon_130[32];
+    v101 = v88;
+    v89 = [(VLLocalizationCrowdsourcingDetails *)v83 initWithStats:v84 resultTransform:&v98];
+    crowdsourcingDetails = v37->_crowdsourcingDetails;
+    v37->_crowdsourcingDetails = v89;
   }
 
-  v87 = v34;
+  v91 = v37;
 LABEL_42:
 
-  return v34;
+  return v37;
 }
 
 - (VLLocalizationDebugInfo)initWithCoder:(id)coder

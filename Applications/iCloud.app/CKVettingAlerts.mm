@@ -6,6 +6,7 @@
 + (id)_sanitizedShareURLSlug:(id)slug;
 + (id)alertContentDictionaryForDeviceOfflineErrorWithURLSlug:(id)slug;
 + (id)alertContentDictionaryForServiceUnavailableErrorWithURLSlug:(id)slug;
++ (id)alertContentForAppDownload:(id)download shareMetadata:(id)metadata isSourceICS:(BOOL)s;
 + (id)alertContentForAppStoreAppLookupFailureWithShareName:(id)name error:(id)error;
 + (id)alertContentForAppStoreUpdateLookupFailureWithShareName:(id)name appName:(id)appName error:(id)error;
 + (id)alertContentForCompleteVettingError:(id)error shareTitle:(id)title email:(id)email phone:(id)phone reconstructedShareURL:(id)l;
@@ -26,8 +27,12 @@
 + (id)getLaunchingOptionsFromOptions:(id)options isSourceICS:(BOOL)s;
 + (id)mediumNameFromComponents:(id)components;
 + (id)platformSpecificAlertOptionsWithOptions:(id)options bundleIdentifier:(id)identifier;
++ (void)showAlertWithContent:(id)content isSourceICS:(BOOL)s additionalOptions:(id)options responseHandler:(id)handler;
 + (void)showDropDownAlert:(id)alert defaultResponseBlock:(id)block alternateResponseBlock:(id)responseBlock errorBlock:(id)errorBlock;
++ (void)showFailureAlert:(id)alert isSourceICS:(BOOL)s;
 + (void)showICloudAccountSettingAlert:(id)alert appName:(id)name previewRequested:(BOOL *)requested isSourceICS:(BOOL)s maid:(BOOL)maid;
++ (void)showRequestAccessAlert:(id)alert isSourceICS:(BOOL)s requestAccessHandler:(id)handler cancelHandler:(id)cancelHandler;
++ (void)showRequestAccessResultAlert:(id)alert isSourceICS:(BOOL)s;
 @end
 
 @implementation CKVettingAlerts
@@ -50,121 +55,111 @@
   {
     if (((1 << specialContainerType) & 0x32200000) != 0)
     {
-      v55 = a2;
+      v85 = a2;
       selfCopy = self;
       share = [metadataCopy share];
       v24 = [share objectForKeyedSubscript:CKShareTypeKey];
 
-      v59 = v20;
+      v89 = v20;
       if ([v20 length])
       {
-        v25 = appNameCopy;
-        v48 = v20;
-        v52 = appNameCopy;
-        v26 = sub_1000038F4(@"TITLED_DOCUMENT_OPEN_TITLE", @"%@%@");
+        v31 = appNameCopy;
+        v32 = sub_1000038F4(@"TITLED_DOCUMENT_OPEN_TITLE", @"%@%@", v25, v26, v27, v28, v29, v30, v20);
       }
 
       else
       {
-        v27 = [CKVettingAlerts appSpecificLocKeyForBundleID:dCopy shareType:v24 prefix:@"UNTITLED_DOCUMENT_OPEN_TITLE_"];
-        v25 = appNameCopy;
-        v48 = appNameCopy;
-        v26 = sub_1000038F4(v27, @"%@");
+        v33 = [CKVettingAlerts appSpecificLocKeyForBundleID:dCopy shareType:v24 prefix:@"UNTITLED_DOCUMENT_OPEN_TITLE_"];
+        v31 = appNameCopy;
+        v32 = sub_1000038F4(v33, @"%@", v34, v35, v36, v37, v38, v39, appNameCopy);
       }
 
-      v60 = dCopy;
-      v28 = [CKVettingAlerts appSpecificLocKeyForBundleID:dCopy shareType:v24 prefix:@"PRIVATE_DOCUMENT_OPEN_BODY_", v48, v52];
+      v90 = dCopy;
+      v40 = [CKVettingAlerts appSpecificLocKeyForBundleID:dCopy shareType:v24 prefix:@"PRIVATE_DOCUMENT_OPEN_BODY_"];
       ownerIdentity = [metadataCopy ownerIdentity];
       nameComponents = [ownerIdentity nameComponents];
-      v31 = [CKVettingAlerts mediumNameFromComponents:nameComponents];
-      v53 = [CKVettingAlerts mediumNameFromComponents:userNameCopy];
-      v49 = v31;
-      v32 = sub_1000038F4(v28, @"%@%@%@");
+      v43 = [CKVettingAlerts mediumNameFromComponents:nameComponents];
+      v83 = [CKVettingAlerts mediumNameFromComponents:userNameCopy];
+      v50 = sub_1000038F4(v40, @"%@%@%@", v44, v45, v46, v47, v48, v49, v43);
 
-      appNameCopy = v25;
-      if (!v26 || !v32)
+      appNameCopy = v31;
+      if (!v32 || !v50)
       {
-        v46 = [NSAssertionHandler currentHandler:v31];
-        [v46 handleFailureInMethod:v55 object:selfCopy file:@"CKVettingAlerts.m" lineNumber:101 description:{@"Failed to construct alertTitle: %@ and/or alertBody: %@ for %@", v26, v32, v25}];
+        v81 = +[NSAssertionHandler currentHandler];
+        [v81 handleFailureInMethod:v85 object:selfCopy file:@"CKVettingAlerts.m" lineNumber:101 description:{@"Failed to construct alertTitle: %@ and/or alertBody: %@ for %@", v32, v50, v31}];
       }
 
-      v66[0] = @"ckVettingAlertTitle";
-      v66[1] = @"ckVettingAlertBody";
-      v67[0] = v26;
-      v67[1] = v32;
-      v33 = [NSDictionary dictionaryWithObjects:v67 forKeys:v66 count:2, v49];
+      v96[0] = @"ckVettingAlertTitle";
+      v96[1] = @"ckVettingAlertBody";
+      v97[0] = v32;
+      v97[1] = v50;
+      v51 = [NSDictionary dictionaryWithObjects:v97 forKeys:v96 count:2];
 
-      v20 = v59;
-      dCopy = v60;
+      v20 = v89;
+      dCopy = v90;
       goto LABEL_9;
     }
 
     if (specialContainerType == 4)
     {
-      v35 = +[NSAssertionHandler currentHandler];
-      [v35 handleFailureInMethod:a2 object:self file:@"CKVettingAlerts.m" lineNumber:77 description:@"ShareAcceptor isn't responsible for iWork FirstJoinAlert"];
+      v53 = +[NSAssertionHandler currentHandler];
+      [v53 handleFailureInMethod:a2 object:self file:@"CKVettingAlerts.m" lineNumber:77 description:@"ShareAcceptor isn't responsible for iWork FirstJoinAlert"];
 
-      v36 = +[NSAssertionHandler currentHandler];
-      [v36 handleFailureInMethod:a2 object:self file:@"CKVettingAlerts.m" lineNumber:131 description:{@"Appeasing the compiler, should never get here"}];
+      v54 = +[NSAssertionHandler currentHandler];
+      [v54 handleFailureInMethod:a2 object:self file:@"CKVettingAlerts.m" lineNumber:131 description:{@"Appeasing the compiler, should never get here"}];
 
-      v33 = &__NSDictionary0__struct;
+      v51 = &__NSDictionary0__struct;
       goto LABEL_9;
     }
   }
 
-  v56 = a2;
-  v61 = dCopy;
+  v86 = a2;
+  v91 = dCopy;
   selfCopy2 = self;
   if ([v20 length])
   {
-    v50 = v20;
-    v37 = @"TITLED_NONIWORK_DOCUMENT_OPEN_TITLE";
+    sub_1000038F4(@"TITLED_NONIWORK_DOCUMENT_OPEN_TITLE", @"%@", v55, v56, v57, v58, v59, v60, v20);
   }
 
   else
   {
-    v50 = appNameCopy;
-    v37 = @"UNTITLED_NONIWORK_DOCUMENT_OPEN_TITLE";
+    sub_1000038F4(@"UNTITLED_NONIWORK_DOCUMENT_OPEN_TITLE", @"%@", v55, v56, v57, v58, v59, v60, appNameCopy);
   }
-
-  v38 = sub_1000038F4(v37, @"%@");
+  v61 = ;
   share2 = [metadataCopy share];
   allowsAnonymousPublicAccess = [share2 allowsAnonymousPublicAccess];
 
   ownerIdentity2 = [metadataCopy ownerIdentity];
   nameComponents2 = [ownerIdentity2 nameComponents];
-  v43 = [CKVettingAlerts mediumNameFromComponents:nameComponents2];
-  v44 = v43;
+  v66 = [CKVettingAlerts mediumNameFromComponents:nameComponents2];
+  v73 = v66;
   if (allowsAnonymousPublicAccess)
   {
-    v51 = v43;
-    v45 = sub_1000038F4(@"PUBLIC_ANONYMOUS_SHARING_OPEN_BODY", @"%@");
+    v74 = sub_1000038F4(@"PUBLIC_ANONYMOUS_SHARING_OPEN_BODY", @"%@", v67, v68, v69, v70, v71, v72, v66);
   }
 
   else
   {
-    v52 = [CKVettingAlerts mediumNameFromComponents:userNameCopy];
-    v54 = usernameCopy;
-    v51 = v44;
-    v45 = sub_1000038F4(@"GENERIC_APP_SHARING_OPEN_BODY", @"%@%@%@");
+    v84 = [CKVettingAlerts mediumNameFromComponents:userNameCopy];
+    v74 = sub_1000038F4(@"GENERIC_APP_SHARING_OPEN_BODY", @"%@%@%@", v75, v76, v77, v78, v79, v80, v73);
   }
 
-  if (!v38 || !v45)
+  if (!v61 || !v74)
   {
-    v47 = [NSAssertionHandler currentHandler:v51];
-    [v47 handleFailureInMethod:v56 object:selfCopy2 file:@"CKVettingAlerts.m" lineNumber:126 description:{@"Filed to construct alertTitle: %@ and/or alertBody: %@ for generic share", v38, v45}];
+    v82 = +[NSAssertionHandler currentHandler];
+    [v82 handleFailureInMethod:v86 object:selfCopy2 file:@"CKVettingAlerts.m" lineNumber:126 description:{@"Filed to construct alertTitle: %@ and/or alertBody: %@ for generic share", v61, v74}];
   }
 
-  v64[0] = @"ckVettingAlertTitle";
-  v64[1] = @"ckVettingAlertBody";
-  v65[0] = v38;
-  v65[1] = v45;
-  v33 = [NSDictionary dictionaryWithObjects:v65 forKeys:v64 count:2, v51];
+  v94[0] = @"ckVettingAlertTitle";
+  v94[1] = @"ckVettingAlertBody";
+  v95[0] = v61;
+  v95[1] = v74;
+  v51 = [NSDictionary dictionaryWithObjects:v95 forKeys:v94 count:2];
 
-  dCopy = v61;
+  dCopy = v91;
 LABEL_9:
 
-  return v33;
+  return v51;
 }
 
 + (id)getAlertOptionsFromOptions:(id)options isSourceICS:(BOOL)s
@@ -319,6 +314,17 @@ LABEL_7:
 LABEL_8:
 
   return v6;
+}
+
++ (id)alertContentForAppDownload:(id)download shareMetadata:(id)metadata isSourceICS:(BOOL)s
+{
+  sCopy = s;
+  metadataCopy = metadata;
+  downloadCopy = download;
+  deviceTypeSpecificSuffix = [self deviceTypeSpecificSuffix];
+  v11 = [CKVettingAlerts _alertContentForAppStoreOperationWithApp:downloadCopy shareMetadata:metadataCopy keyPrefix:@"GET_APP_" titleKeySuffix:@"_IOS" bodyKeySuffix:deviceTypeSpecificSuffix isSourceICS:sCopy];
+
+  return v11;
 }
 
 + (id)alertContentForAppStoreAppLookupFailureWithShareName:(id)name error:(id)error
@@ -531,24 +537,24 @@ LABEL_10:
   errorCopy = error;
   titleCopy = title;
   addressCopy = address;
-  v12 = [NSString stringWithFormat:@"VETTING_FAILURE_ALERT_TITLE_CANT_SEND_LINK%@", @"_IOS"];
-  v13 = sub_1000038F4(v12, &stru_1000291A0);
-  v14 = sub_1000038F4(@"VETTING_FAILURE_ALERT_BODY_INITIATE_GENERIC_ERROR", &stru_1000291A0);
+  v12 = [NSString stringWithFormat:@"VETTING_FAILURE_ALERT_TITLE_CANT_SEND_LINK%@"];
+  v19 = sub_1000038F4(v12, &stru_1000291A0, v13, v14, v15, v16, v17, v18, @"_IOS");
+  v26 = sub_1000038F4(@"VETTING_FAILURE_ALERT_BODY_INITIATE_GENERIC_ERROR", &stru_1000291A0, v20, v21, v22, v23, v24, v25, v74);
   domain = [errorCopy domain];
-  v16 = [domain isEqualToString:CKErrorDomain];
+  v28 = [domain isEqualToString:CKErrorDomain];
 
-  if (v16)
+  if (v28)
   {
     userInfo = [errorCopy userInfo];
-    v18 = [userInfo objectForKeyedSubscript:NSUnderlyingErrorKey];
+    v30 = [userInfo objectForKeyedSubscript:NSUnderlyingErrorKey];
 
-    code = [v18 code];
+    code = [v30 code];
     if (code <= 8006)
     {
       if (code == 5005)
       {
-        v33 = titleCopy;
-        v20 = @"VETTING_FAILURE_ALERT_BODY_INITIATE_PCS_ERROR";
+        v75 = titleCopy;
+        v38 = @"VETTING_FAILURE_ALERT_BODY_INITIATE_PCS_ERROR";
       }
 
       else
@@ -558,19 +564,19 @@ LABEL_10:
           goto LABEL_29;
         }
 
-        v33 = addressCopy;
+        v75 = addressCopy;
         if (emailCopy)
         {
-          v20 = @"VETTING_FAILURE_ALERT_BODY_INITIATE_TOO_MANY_VETS_EMAIL";
+          v38 = @"VETTING_FAILURE_ALERT_BODY_INITIATE_TOO_MANY_VETS_EMAIL";
         }
 
         else
         {
-          v20 = @"VETTING_FAILURE_ALERT_BODY_INITIATE_TOO_MANY_VETS_NUMBER";
+          v38 = @"VETTING_FAILURE_ALERT_BODY_INITIATE_TOO_MANY_VETS_NUMBER";
         }
       }
 
-      v21 = @"%@";
+      v39 = @"%@";
       goto LABEL_26;
     }
 
@@ -578,40 +584,37 @@ LABEL_10:
     {
       if (code == 8008)
       {
-        v23 = +[CKContainer matterhornName];
-        v33 = addressCopy;
-        v34 = v23;
+        v41 = +[CKContainer matterhornName];
         if (emailCopy)
         {
-          v27 = @"VETTING_FAILURE_ALERT_BODY_INITIATE_VETTED_TO_OTHER_EMAIL";
+          sub_1000038F4(@"VETTING_FAILURE_ALERT_BODY_INITIATE_VETTED_TO_OTHER_EMAIL", @"%@%@", v57, v58, v59, v60, v61, v62, addressCopy);
         }
 
         else
         {
-          v27 = @"VETTING_FAILURE_ALERT_BODY_INITIATE_VETTED_TO_OTHER_NUMBER";
+          sub_1000038F4(@"VETTING_FAILURE_ALERT_BODY_INITIATE_VETTED_TO_OTHER_NUMBER", @"%@%@", v57, v58, v59, v60, v61, v62, addressCopy);
         }
+        v70 = ;
 
-        v29 = sub_1000038F4(v27, @"%@%@");
-
-        v25 = v13;
-        v14 = v29;
+        v49 = v19;
+        v26 = v70;
         goto LABEL_27;
       }
 
       if (code == 8010)
       {
-        v20 = @"VETTING_FAILURE_ALERT_BODY_INITIATE_SERVER_ERROR";
-        v21 = &stru_1000291A0;
+        v38 = @"VETTING_FAILURE_ALERT_BODY_INITIATE_SERVER_ERROR";
+        v39 = &stru_1000291A0;
 LABEL_26:
-        sub_1000038F4(v20, v21);
-        v23 = v14;
-        v14 = v25 = v13;
+        sub_1000038F4(v38, v39, v32, v33, v34, v35, v36, v37, v75);
+        v41 = v26;
+        v26 = v49 = v19;
 LABEL_27:
-        v24 = v12;
+        v42 = v12;
 LABEL_28:
 
-        v13 = v25;
-        v12 = v24;
+        v19 = v49;
+        v12 = v42;
       }
 
 LABEL_29:
@@ -619,63 +622,61 @@ LABEL_29:
       goto LABEL_30;
     }
 
-    userInfo2 = [v18 userInfo];
-    v23 = [userInfo2 objectForKeyedSubscript:CKErrorAccountPrimaryEmailKey];
+    userInfo2 = [v30 userInfo];
+    v41 = [userInfo2 objectForKeyedSubscript:CKErrorAccountPrimaryEmailKey];
 
     if (emailCopy)
     {
-      v24 = [@"VETTING_FAILURE_ALERT_TITLE_INITIATE_VETTED_TO_CALLER_ERROR_EMAIL" stringByAppendingString:@"_IOS"];
+      v42 = [@"VETTING_FAILURE_ALERT_TITLE_INITIATE_VETTED_TO_CALLER_ERROR_EMAIL" stringByAppendingString:@"_IOS"];
 
-      v25 = sub_1000038F4(v24, &stru_1000291A0);
+      v49 = sub_1000038F4(v42, &stru_1000291A0, v43, v44, v45, v46, v47, v48, v75);
 
-      if (!v23 || ([v23 isEqualToString:&stru_1000291A0] & 1) != 0)
+      if (!v41 || ([v41 isEqualToString:&stru_1000291A0] & 1) != 0)
       {
-        v33 = addressCopy;
-        v26 = @"VETTING_FAILURE_ALERT_BODY_INITIATE_VETTED_TO_CALLER_ERROR_EMAIL_NO_APPLE_ID";
+        v76 = addressCopy;
+        v56 = @"VETTING_FAILURE_ALERT_BODY_INITIATE_VETTED_TO_CALLER_ERROR_EMAIL_NO_APPLE_ID";
 LABEL_21:
-        v28 = @"%@";
+        v69 = @"%@";
 LABEL_36:
-        v32 = sub_1000038F4(v26, v28);
+        v73 = sub_1000038F4(v56, v69, v50, v51, v52, v53, v54, v55, v76);
 
-        v14 = v32;
+        v26 = v73;
         goto LABEL_28;
       }
 
-      v33 = addressCopy;
-      v34 = v23;
-      v26 = @"VETTING_FAILURE_ALERT_BODY_INITIATE_VETTED_TO_CALLER_ERROR_EMAIL";
+      v76 = addressCopy;
+      v56 = @"VETTING_FAILURE_ALERT_BODY_INITIATE_VETTED_TO_CALLER_ERROR_EMAIL";
     }
 
     else
     {
-      v24 = [@"VETTING_FAILURE_ALERT_TITLE_INITIATE_VETTED_TO_CALLER_ERROR_PHONE" stringByAppendingString:@"_IOS"];
+      v42 = [@"VETTING_FAILURE_ALERT_TITLE_INITIATE_VETTED_TO_CALLER_ERROR_PHONE" stringByAppendingString:@"_IOS"];
 
-      v25 = sub_1000038F4(v24, &stru_1000291A0);
+      v49 = sub_1000038F4(v42, &stru_1000291A0, v63, v64, v65, v66, v67, v68, v75);
 
-      if (!v23 || ([v23 isEqualToString:&stru_1000291A0] & 1) != 0)
+      if (!v41 || ([v41 isEqualToString:&stru_1000291A0] & 1) != 0)
       {
-        v33 = addressCopy;
-        v26 = @"VETTING_FAILURE_ALERT_BODY_INITIATE_VETTED_TO_CALLER_ERROR_PHONE_NO_APPLE_ID";
+        v76 = addressCopy;
+        v56 = @"VETTING_FAILURE_ALERT_BODY_INITIATE_VETTED_TO_CALLER_ERROR_PHONE_NO_APPLE_ID";
         goto LABEL_21;
       }
 
-      v33 = addressCopy;
-      v34 = v23;
-      v26 = @"VETTING_FAILURE_ALERT_BODY_INITIATE_VETTED_TO_CALLER_ERROR_PHONE";
+      v76 = addressCopy;
+      v56 = @"VETTING_FAILURE_ALERT_BODY_INITIATE_VETTED_TO_CALLER_ERROR_PHONE";
     }
 
-    v28 = @"%@%@";
+    v69 = @"%@%@";
     goto LABEL_36;
   }
 
 LABEL_30:
-  v35[0] = @"ckVettingAlertTitle";
-  v35[1] = @"ckVettingAlertBody";
-  v36[0] = v13;
-  v36[1] = v14;
-  v30 = [NSDictionary dictionaryWithObjects:v36 forKeys:v35 count:2, v33, v34];
+  v77[0] = @"ckVettingAlertTitle";
+  v77[1] = @"ckVettingAlertBody";
+  v78[0] = v19;
+  v78[1] = v26;
+  v71 = [NSDictionary dictionaryWithObjects:v78 forKeys:v77 count:2];
 
-  return v30;
+  return v71;
 }
 
 + (id)_sanitizedShareURLSlug:(id)slug
@@ -713,184 +714,182 @@ LABEL_30:
     v17 = @"_WITHOUT_SHARE_NAME";
   }
 
-  v83 = lCopy;
-  v84 = v17;
-  v85 = [self _sanitizedShareURLSlug:lCopy];
-  v18 = [@"VETTING_FAILURE_ALERT_TITLE_COMPLETE_GENERIC_ERROR" stringByAppendingString:@"_IOS"];
-  v19 = sub_1000038F4(v18, &stru_1000291A0);
-  v20 = sub_1000038F4(@"VETTING_FAILURE_ALERT_BODY_COMPLETE_GENERIC_ERROR_ADDRESS", &stru_1000291A0);
-  v86 = emailCopy;
+  v208 = lCopy;
+  v209 = v17;
+  v210 = [self _sanitizedShareURLSlug:lCopy];
+  v209 = [@"VETTING_FAILURE_ALERT_TITLE_COMPLETE_GENERIC_ERROR" stringByAppendingString:@"_IOS"];
+  v25 = sub_1000038F4(v209, &stru_1000291A0, v19, v20, v21, v22, v23, v24, v195);
+  v38 = sub_1000038F4(@"VETTING_FAILURE_ALERT_BODY_COMPLETE_GENERIC_ERROR_ADDRESS", &stru_1000291A0, v26, v27, v28, v29, v30, v31, v196);
+  v211 = emailCopy;
   if (emailCopy)
   {
-    v21 = sub_1000038F4(@"VETTING_FAILURE_ALERT_BODY_COMPLETE_GENERIC_ERROR_EMAIL", &stru_1000291A0);
+    v39 = sub_1000038F4(@"VETTING_FAILURE_ALERT_BODY_COMPLETE_GENERIC_ERROR_EMAIL", &stru_1000291A0, v32, v33, v34, v35, v36, v37, v197);
 
-    v20 = v21;
+    v38 = v39;
   }
 
-  v82 = phoneCopy;
+  v207 = phoneCopy;
   if (phoneCopy)
   {
-    v22 = sub_1000038F4(@"VETTING_FAILURE_ALERT_BODY_COMPLETE_GENERIC_ERROR_PHONE", &stru_1000291A0);
+    v40 = sub_1000038F4(@"VETTING_FAILURE_ALERT_BODY_COMPLETE_GENERIC_ERROR_PHONE", &stru_1000291A0, v32, v33, v34, v35, v36, v37, v197);
 
-    v20 = v22;
+    v38 = v40;
   }
 
   domain = [errorCopy domain];
-  v24 = [domain isEqualToString:CKErrorDomain];
+  v42 = [domain isEqualToString:CKErrorDomain];
 
-  if (!v24)
+  if (!v42)
   {
-    v28 = v82;
-    v31 = v84;
+    v46 = v207;
+    v55 = v209;
     goto LABEL_78;
   }
 
   userInfo = [errorCopy userInfo];
-  v26 = [userInfo objectForKeyedSubscript:NSUnderlyingErrorKey];
+  v44 = [userInfo objectForKeyedSubscript:NSUnderlyingErrorKey];
 
-  v81 = v26;
-  code = [v26 code];
+  v206 = v44;
+  code = [v44 code];
   if (code > 8008)
   {
     if (code == 8009)
     {
-      v41 = [NSString stringWithFormat:@"VETTING_FAILURE_ALERT_TITLE_COMPLETE_DRYRUN_KEYSWAP_FAILED%@_%@", @"_IOS", v85];
+      v83 = [NSString stringWithFormat:@"VETTING_FAILURE_ALERT_TITLE_COMPLETE_DRYRUN_KEYSWAP_FAILED%@_%@"];
 
-      v79 = sub_1000038F4(v41, &stru_1000291A0);
+      v204 = sub_1000038F4(v83, &stru_1000291A0, v84, v85, v86, v87, v88, v89, @"_IOS");
 
-      if (([v85 isEqualToString:kCKPhotosSharedLibraryShareURLSlug] & 1) != 0 || objc_msgSend(v85, "isEqualToString:", kCKFreeformShareURLSlug))
+      if (([v210 isEqualToString:kCKPhotosSharedLibraryShareURLSlug] & 1) != 0 || objc_msgSend(v210, "isEqualToString:", kCKFreeformShareURLSlug))
       {
-        v42 = @"PHONE";
-        v28 = v82;
-        if (!v82)
+        v90 = @"PHONE";
+        v46 = v207;
+        if (!v207)
         {
-          v42 = @"EMAIL";
+          v90 = @"EMAIL";
         }
 
-        v43 = [@"VETTING_FAILURE_ALERT_BODY_COMPLETE_DRYRUN_KEYSWAP_FAILED_" stringByAppendingFormat:@"%@_%@", v85, v42];
+        v116 = [@"VETTING_FAILURE_ALERT_BODY_COMPLETE_DRYRUN_KEYSWAP_FAILED_" stringByAppendingFormat:@"%@_%@", v210, v90];
       }
 
       else
       {
-        v28 = v82;
-        if (v82)
+        v46 = v207;
+        if (v207)
         {
-          v50 = @"PHONE";
+          v116 = @"PHONE";
         }
 
         else
         {
-          v50 = @"EMAIL";
+          v116 = @"EMAIL";
         }
 
-        v43 = [NSString stringWithFormat:@"VETTING_FAILURE_ALERT_BODY_COMPLETE_DRYRUN_KEYSWAP_FAILED%@_IOS_%@", v84, v50];
+        v116 = [NSString stringWithFormat:@"VETTING_FAILURE_ALERT_BODY_COMPLETE_DRYRUN_KEYSWAP_FAILED%@_IOS_%@", v209, v116];
       }
 
-      v18 = v43;
+      v209 = v116;
 
-      v75 = titleCopy;
-      v51 = sub_1000038F4(v18, @"%@");
-      v52 = v20;
-      v20 = v51;
-      v31 = v84;
-      v32 = v52;
+      v123 = sub_1000038F4(v209, @"%@", v117, v118, v119, v120, v121, v122, titleCopy);
+      v124 = v38;
+      v38 = v123;
+      v55 = v209;
+      v62 = v124;
       goto LABEL_40;
     }
 
     if (code == 8011)
     {
-      v28 = v82;
-      if (v86)
+      v46 = v207;
+      if (v211)
       {
-        v44 = [@"VETTING_FAILURE_ALERT_TITLE_COMPLETE_TOKEN_AUTH_FAILED_EMAIL" stringByAppendingString:@"_IOS"];
-        v45 = sub_1000038F4(v44, &stru_1000291A0);
+        v92 = [@"VETTING_FAILURE_ALERT_TITLE_COMPLETE_TOKEN_AUTH_FAILED_EMAIL" stringByAppendingString:@"_IOS"];
+        v99 = sub_1000038F4(v92, &stru_1000291A0, v93, v94, v95, v96, v97, v98, v197);
 
-        v46 = @"VETTING_FAILURE_ALERT_BODY_COMPLETE_TOKEN_AUTH_FAILED_EMAIL";
+        v100 = @"VETTING_FAILURE_ALERT_BODY_COMPLETE_TOKEN_AUTH_FAILED_EMAIL";
       }
 
       else
       {
-        v47 = [@"VETTING_FAILURE_ALERT_TITLE_COMPLETE_TOKEN_AUTH_FAILED_PHONE" stringByAppendingString:@"_IOS"];
-        v45 = sub_1000038F4(v47, &stru_1000291A0);
+        v101 = [@"VETTING_FAILURE_ALERT_TITLE_COMPLETE_TOKEN_AUTH_FAILED_PHONE" stringByAppendingString:@"_IOS"];
+        v99 = sub_1000038F4(v101, &stru_1000291A0, v102, v103, v104, v105, v106, v107, v197);
 
-        v46 = @"VETTING_FAILURE_ALERT_BODY_COMPLETE_TOKEN_AUTH_FAILED_PHONE";
+        v100 = @"VETTING_FAILURE_ALERT_BODY_COMPLETE_TOKEN_AUTH_FAILED_PHONE";
       }
 
-      v48 = [(__CFString *)v46 stringByAppendingString:@"_IOS"];
-      v49 = sub_1000038F4(v48, &stru_1000291A0);
+      v108 = [(__CFString *)v100 stringByAppendingString:@"_IOS"];
+      v115 = sub_1000038F4(v108, &stru_1000291A0, v109, v110, v111, v112, v113, v114, v198);
 
-      v20 = v49;
-      v32 = v48;
-      v30 = v45;
+      v38 = v115;
+      v62 = v108;
+      v54 = v99;
       goto LABEL_75;
     }
 
     if (code != 8012)
     {
-      v28 = v82;
-      v31 = v84;
+      v46 = v207;
+      v55 = v209;
       goto LABEL_77;
     }
 
-    userInfo2 = [v26 userInfo];
-    v34 = [userInfo2 objectForKeyedSubscript:NSUnderlyingErrorKey];
+    userInfo2 = [v44 userInfo];
+    v64 = [userInfo2 objectForKeyedSubscript:NSUnderlyingErrorKey];
 
-    v35 = v34;
-    domain2 = [v34 domain];
+    v65 = v64;
+    domain2 = [v64 domain];
     if ([domain2 isEqualToString:CKErrorDomain])
     {
-      v37 = v35;
-      code2 = [v35 code];
+      v67 = v65;
+      code2 = [v65 code];
 
       if (code2 != 2)
       {
-        v35 = v37;
+        v65 = v67;
 LABEL_42:
-        v53 = [v86 length];
-        v54 = @"_EMAIL";
-        if (!v53)
+        v125 = [v211 length];
+        v126 = @"_EMAIL";
+        if (!v125)
         {
-          v54 = @"_PHONE";
+          v126 = @"_PHONE";
         }
 
-        v55 = v54;
-        domain3 = [v35 domain];
-        v77 = v35;
+        v127 = v126;
+        domain3 = [v65 domain];
+        v202 = v65;
         if ([domain3 isEqualToString:CKErrorDomain])
         {
-          if ([v35 code] == 3)
+          if ([v65 code] == 3)
           {
 
             goto LABEL_60;
           }
 
-          code3 = [v35 code];
+          code3 = [v65 code];
 
-          v59 = code3 == 4;
-          v35 = v77;
-          if (v59)
+          v131 = code3 == 4;
+          v65 = v202;
+          if (v131)
           {
 LABEL_60:
-            v66 = [@"VETTING_FAILURE_ALERT_TITLE_COMPLETE_SHARE_METADATA_FETCH_FAILED" stringByAppendingFormat:@"%@_%@", @"_IOS", v85];
-            v80 = sub_1000038F4(v66, &stru_1000291A0);
+            v210 = [@"VETTING_FAILURE_ALERT_TITLE_COMPLETE_SHARE_METADATA_FETCH_FAILED" stringByAppendingFormat:@"%@_%@", @"_IOS", v210];
+            v205 = sub_1000038F4(v210, &stru_1000291A0, v152, v153, v154, v155, v156, v157, v199);
 
-            if (([v85 isEqualToString:kCKPhotosSharedLibraryShareURLSlug] & 1) != 0 || objc_msgSend(v85, "isEqualToString:", kCKFreeformShareURLSlug))
+            if (([v210 isEqualToString:kCKPhotosSharedLibraryShareURLSlug] & 1) != 0 || objc_msgSend(v210, "isEqualToString:", kCKFreeformShareURLSlug))
             {
-              v68 = [@"VETTING_FAILURE_ALERT_BODY_COMPLETE_SHARE_METADATA_FETCH_FAILED_OFFLINE_" stringByAppendingFormat:@"%@%@", v85, v55];
+              v127 = [@"VETTING_FAILURE_ALERT_BODY_COMPLETE_SHARE_METADATA_FETCH_FAILED_OFFLINE_" stringByAppendingFormat:@"%@%@", v210, v127];
             }
 
             else
             {
-              v68 = [NSString stringWithFormat:@"VETTING_FAILURE_ALERT_BODY_COMPLETE_SHARE_METADATA_FETCH_FAILED_OFFLINE%@%@", v84, v55];
+              v127 = [NSString stringWithFormat:@"VETTING_FAILURE_ALERT_BODY_COMPLETE_SHARE_METADATA_FETCH_FAILED_OFFLINE%@%@", v209, v127];
             }
 
-            v72 = v68;
-            v75 = titleCopy;
-            v70 = sub_1000038F4(v68, @"%@");
+            v192 = v127;
+            v178 = sub_1000038F4(v127, @"%@", v159, v160, v161, v162, v163, v164, titleCopy);
 
-            v20 = v72;
-            v32 = v77;
-            v30 = v80;
+            v38 = v192;
+            v62 = v202;
+            v54 = v205;
             goto LABEL_74;
           }
         }
@@ -899,46 +898,45 @@ LABEL_60:
         {
         }
 
-        domain4 = [v35 domain];
+        domain4 = [v65 domain];
         if ([domain4 isEqualToString:CKErrorDomain])
         {
-          code4 = [v35 code];
+          code4 = [v65 code];
 
-          v59 = code4 == 11;
-          v35 = v77;
-          if (v59)
+          v131 = code4 == 11;
+          v65 = v202;
+          if (v131)
           {
-            if ([@"_IOS" isEqualToString:@"_IOS"] && objc_msgSend(v85, "isEqualToString:", @"share"))
+            if ([@"_IOS" isEqualToString:@"_IOS"] && objc_msgSend(v210, "isEqualToString:", @"share"))
             {
-              v60 = v84;
-              v61 = v85;
-              v62 = [@"VETTING_FAILURE_ALERT_TITLE_COMPLETE_SHARE_METADATA_FETCH_FAILED_ITEM_UNAVAILABLE" stringByAppendingFormat:@"%@%@_%@", v84, @"_IOS", v85];
-              v63 = sub_1000038F4(v62, @"%@");
+              v132 = v209;
+              v133 = v210;
+              v2102 = [@"VETTING_FAILURE_ALERT_TITLE_COMPLETE_SHARE_METADATA_FETCH_FAILED_ITEM_UNAVAILABLE" stringByAppendingFormat:@"%@%@_%@", v209, @"_IOS", v210];
+              v141 = sub_1000038F4(v2102, @"%@", v135, v136, v137, v138, v139, v140, titleCopy);
             }
 
             else
             {
-              v61 = v85;
-              v62 = [@"VETTING_FAILURE_ALERT_TITLE_COMPLETE_SHARE_METADATA_FETCH_FAILED_ITEM_UNAVAILABLE" stringByAppendingFormat:@"%@_%@", @"_IOS", v85];
-              v63 = sub_1000038F4(v62, &stru_1000291A0);
-              v60 = v84;
+              v133 = v210;
+              v2102 = [@"VETTING_FAILURE_ALERT_TITLE_COMPLETE_SHARE_METADATA_FETCH_FAILED_ITEM_UNAVAILABLE" stringByAppendingFormat:@"%@_%@", @"_IOS", v210];
+              v141 = sub_1000038F4(v2102, &stru_1000291A0, v179, v180, v181, v182, v183, v184, v201);
+              v132 = v209;
             }
 
-            if (([v61 isEqualToString:kCKPhotosSharedLibraryShareURLSlug] & 1) != 0 || objc_msgSend(v61, "isEqualToString:", kCKFreeformShareURLSlug))
+            if (([v133 isEqualToString:kCKPhotosSharedLibraryShareURLSlug] & 1) != 0 || objc_msgSend(v133, "isEqualToString:", kCKFreeformShareURLSlug))
             {
-              v71 = [@"VETTING_FAILURE_ALERT_BODY_COMPLETE_SHARE_METADATA_FETCH_FAILED_ITEM_UNAVAILABLE_" stringByAppendingFormat:@"%@%@", v61, v55];
+              v1272 = [@"VETTING_FAILURE_ALERT_BODY_COMPLETE_SHARE_METADATA_FETCH_FAILED_ITEM_UNAVAILABLE_" stringByAppendingFormat:@"%@%@", v133, v127];
             }
 
             else
             {
-              v71 = [NSString stringWithFormat:@"VETTING_FAILURE_ALERT_BODY_COMPLETE_SHARE_METADATA_FETCH_FAILED_ITEM_UNAVAILABLE%@%@", v60, v55];
+              v1272 = [NSString stringWithFormat:@"VETTING_FAILURE_ALERT_BODY_COMPLETE_SHARE_METADATA_FETCH_FAILED_ITEM_UNAVAILABLE%@%@", v132, v127];
             }
 
-            v66 = v71;
-            v32 = v77;
-            v30 = v63;
-            v75 = titleCopy;
-            v70 = sub_1000038F4(v71, @"%@");
+            v210 = v1272;
+            v62 = v202;
+            v54 = v141;
+            v178 = sub_1000038F4(v1272, @"%@", v186, v187, v188, v189, v190, v191, titleCopy);
             goto LABEL_74;
           }
         }
@@ -947,29 +945,28 @@ LABEL_60:
         {
         }
 
-        domain5 = [v35 domain];
+        domain5 = [v65 domain];
         if ([domain5 isEqualToString:CKErrorDomain])
         {
-          code5 = [v35 code];
+          code5 = [v65 code];
 
           if (code5 == 1000)
           {
-            v66 = [@"VETTING_FAILURE_ALERT_TITLE_COMPLETE_SHARE_METADATA_FETCH_FAILED" stringByAppendingFormat:@"%@_%@", @"_IOS", v85];
-            v30 = sub_1000038F4(v66, &stru_1000291A0);
+            v210 = [@"VETTING_FAILURE_ALERT_TITLE_COMPLETE_SHARE_METADATA_FETCH_FAILED" stringByAppendingFormat:@"%@_%@"];
+            v54 = sub_1000038F4(v210, &stru_1000291A0, v145, v146, v147, v148, v149, v150, @"_IOS");
 
-            [NSString stringWithFormat:@"VETTING_FAILURE_ALERT_BODY_COMPLETE_SHARE_METADATA_FETCH_FAILED_SERVER_ERROR%@%@", v84, v55];
-            v69 = LABEL_65:;
-            v75 = titleCopy;
-            v70 = sub_1000038F4(v69, @"%@");
+            [NSString stringWithFormat:@"VETTING_FAILURE_ALERT_BODY_COMPLETE_SHARE_METADATA_FETCH_FAILED_SERVER_ERROR%@%@", v209, v127];
+            v171 = LABEL_65:;
+            v178 = sub_1000038F4(v171, @"%@", v172, v173, v174, v175, v176, v177, titleCopy);
 
-            v20 = v69;
-            v32 = v77;
+            v38 = v171;
+            v62 = v202;
 LABEL_74:
 
-            v20 = v70;
-            v28 = v82;
+            v38 = v178;
+            v46 = v207;
 LABEL_75:
-            v31 = v84;
+            v55 = v209;
             goto LABEL_76;
           }
         }
@@ -978,130 +975,123 @@ LABEL_75:
         {
         }
 
-        v66 = [@"VETTING_FAILURE_ALERT_TITLE_COMPLETE_SHARE_METADATA_FETCH_FAILED" stringByAppendingFormat:@"%@_%@", @"_IOS", v85];
-        v30 = sub_1000038F4(v66, &stru_1000291A0);
+        v210 = [@"VETTING_FAILURE_ALERT_TITLE_COMPLETE_SHARE_METADATA_FETCH_FAILED" stringByAppendingFormat:@"%@_%@", @"_IOS", v210];
+        v54 = sub_1000038F4(v210, &stru_1000291A0, v165, v166, v167, v168, v169, v170, v200);
 
-        [NSString stringWithFormat:@"VETTING_FAILURE_ALERT_BODY_COMPLETE_SHARE_METADATA_FETCH_FAILED_UNKNOWN%@%@", v84, v55];
+        [NSString stringWithFormat:@"VETTING_FAILURE_ALERT_BODY_COMPLETE_SHARE_METADATA_FETCH_FAILED_UNKNOWN%@%@", v209, v127];
         goto LABEL_65;
       }
 
-      domain2 = [v37 userInfo];
-      v39 = [domain2 objectForKeyedSubscript:CKPartialErrorsByItemIDKey];
-      v78 = [v39 objectForKeyedSubscript:v83];
+      domain2 = [v67 userInfo];
+      v69 = [domain2 objectForKeyedSubscript:CKPartialErrorsByItemIDKey];
+      v203 = [v69 objectForKeyedSubscript:v208];
 
-      v35 = v78;
+      v65 = v203;
     }
 
     goto LABEL_42;
   }
 
-  v28 = v82;
+  v46 = v207;
   if ((code - 8003) < 2)
   {
-    v29 = [@"VETTING_FAILURE_ALERT_TITLE_COMPLETE_GENERIC_ERROR" stringByAppendingString:@"_IOS"];
+    v47 = [@"VETTING_FAILURE_ALERT_TITLE_COMPLETE_GENERIC_ERROR" stringByAppendingString:@"_IOS"];
 
-    v30 = sub_1000038F4(v29, &stru_1000291A0);
+    v54 = sub_1000038F4(v47, &stru_1000291A0, v48, v49, v50, v51, v52, v53, v197);
 
-    v31 = v84;
-    v18 = [NSString stringWithFormat:@"VETTING_FAILURE_ALERT_BODY_COMPLETE_VETTING_RECORD_ERROR%@%@", v84, @"_IOS"];
+    v55 = v209;
+    v209 = [NSString stringWithFormat:@"VETTING_FAILURE_ALERT_BODY_COMPLETE_VETTING_RECORD_ERROR%@%@", v209, @"_IOS"];
 
-    v75 = titleCopy;
-    sub_1000038F4(v18, @"%@");
-    v20 = v32 = v20;
+    sub_1000038F4(v209, @"%@", v56, v57, v58, v59, v60, v61, titleCopy);
+    v38 = v62 = v38;
 LABEL_76:
 
-    v19 = v30;
+    v25 = v54;
     goto LABEL_77;
   }
 
   if (code == 8002)
   {
-    v40 = [@"VETTING_FAILURE_ALERT_TITLE_COMPLETE_TOKEN_INVALID" stringByAppendingString:@"_IOS"];
+    v70 = [@"VETTING_FAILURE_ALERT_TITLE_COMPLETE_TOKEN_INVALID" stringByAppendingString:@"_IOS"];
 
-    v79 = sub_1000038F4(v40, &stru_1000291A0);
+    v204 = sub_1000038F4(v70, &stru_1000291A0, v71, v72, v73, v74, v75, v76, v197);
 
-    v31 = v84;
-    v18 = [NSString stringWithFormat:@"VETTING_FAILURE_ALERT_BODY_COMPLETE_TOKEN_INVALID%@", v84];
+    v55 = v209;
+    v209 = [NSString stringWithFormat:@"VETTING_FAILURE_ALERT_BODY_COMPLETE_TOKEN_INVALID%@", v209];
 
-    if (v86)
+    if (v211)
     {
-      v75 = v86;
-      v76 = titleCopy;
+      sub_1000038F4(v209, @"%@%@", v77, v78, v79, v80, v81, v82, v211);
     }
 
     else
     {
-      v75 = v82;
-      v76 = titleCopy;
+      sub_1000038F4(v209, @"%@%@", v77, v78, v79, v80, v81, v82, v207);
     }
 
-    sub_1000038F4(v18, @"%@%@");
-    v20 = v32 = v20;
+    v38 = v62 = v38;
 LABEL_40:
-    v30 = v79;
+    v54 = v204;
     goto LABEL_76;
   }
 
-  v31 = v84;
+  v55 = v209;
 LABEL_77:
 
 LABEL_78:
-  v87[0] = @"ckVettingAlertTitle";
-  v87[1] = @"ckVettingAlertBody";
-  v88[0] = v19;
-  v88[1] = v20;
-  v73 = [NSDictionary dictionaryWithObjects:v88 forKeys:v87 count:2, v75, v76];
+  v212[0] = @"ckVettingAlertTitle";
+  v212[1] = @"ckVettingAlertBody";
+  v213[0] = v25;
+  v213[1] = v38;
+  v193 = [NSDictionary dictionaryWithObjects:v213 forKeys:v212 count:2];
 
-  return v73;
+  return v193;
 }
 
 + (id)alertContentForShareMetadataErrorWithURL:(id)l email:(id)email
 {
   emailCopy = email;
   cKURLSlug = [l CKURLSlug];
-  v7 = [@"ITEM_UNAVAILABLE_FAILURE_ALERT_TITLE" stringByAppendingFormat:@"%@_", @"_IOS"];
+  v7 = [@"ITEM_UNAVAILABLE_FAILURE_ALERT_TITLE" stringByAppendingFormat:@"%@_"];
   v8 = [CKVettingAlerts appSpecificLocKeyForURLSlug:cKURLSlug prefix:v7];
 
   if (emailCopy)
   {
-    v9 = @"ITEM_UNAVAILABLE_FAILURE_ALERT_BODY_EMAIL";
-    v10 = @"%@";
+    sub_1000038F4(@"ITEM_UNAVAILABLE_FAILURE_ALERT_BODY_EMAIL", @"%@", v9, v10, v11, v12, v13, v14, emailCopy);
   }
 
   else
   {
-    v9 = @"ITEM_UNAVAILABLE_FAILURE_ALERT_BODY";
-    v10 = &stru_1000291A0;
+    sub_1000038F4(@"ITEM_UNAVAILABLE_FAILURE_ALERT_BODY", &stru_1000291A0, v9, v10, v11, v12, v13, v14, @"_IOS");
   }
+  v15 = ;
+  v26[0] = @"ckVettingAlertTitle";
+  v22 = sub_1000038F4(v8, &stru_1000291A0, v16, v17, v18, v19, v20, v21, v25);
+  v26[1] = @"ckVettingAlertBody";
+  v27[0] = v22;
+  v27[1] = v15;
+  v23 = [NSDictionary dictionaryWithObjects:v27 forKeys:v26 count:2];
 
-  v11 = sub_1000038F4(v9, v10);
-  v15[0] = @"ckVettingAlertTitle";
-  v12 = sub_1000038F4(v8, &stru_1000291A0);
-  v15[1] = @"ckVettingAlertBody";
-  v16[0] = v12;
-  v16[1] = v11;
-  v13 = [NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:2];
-
-  return v13;
+  return v23;
 }
 
 + (id)alertContentForUnprovisionedDataclassWithURL:(id)l email:(id)email
 {
   emailCopy = email;
   cKURLSlug = [l CKURLSlug];
-  v7 = [@"ITEM_UNAVAILABLE_FAILURE_ALERT_TITLE" stringByAppendingFormat:@"%@_", @"_IOS"];
+  v7 = [@"ITEM_UNAVAILABLE_FAILURE_ALERT_TITLE" stringByAppendingFormat:@"%@_"];
   v8 = [CKVettingAlerts appSpecificLocKeyForURLSlug:cKURLSlug prefix:v7];
 
-  v13[0] = @"ckVettingAlertTitle";
-  v9 = sub_1000038F4(v8, &stru_1000291A0);
-  v13[1] = @"ckVettingAlertBody";
-  v14[0] = v9;
-  v10 = sub_1000038F4(@"ITEM_UNAVAILABLE_UNPROVISIONED_DATACLASS_ALERT_BODY", @"%@");
+  v25[0] = @"ckVettingAlertTitle";
+  v15 = sub_1000038F4(v8, &stru_1000291A0, v9, v10, v11, v12, v13, v14, @"_IOS");
+  v25[1] = @"ckVettingAlertBody";
+  v26[0] = v15;
+  v22 = sub_1000038F4(@"ITEM_UNAVAILABLE_UNPROVISIONED_DATACLASS_ALERT_BODY", @"%@", v16, v17, v18, v19, v20, v21, emailCopy);
 
-  v14[1] = v10;
-  emailCopy = [NSDictionary dictionaryWithObjects:v14 forKeys:v13 count:2, emailCopy];
+  v26[1] = v22;
+  v23 = [NSDictionary dictionaryWithObjects:v26 forKeys:v25 count:2];
 
-  return emailCopy;
+  return v23;
 }
 
 + (id)alertContentForICloudAccountError:(id)error shareMetadata:(id)metadata shareURL:(id)l
@@ -1357,6 +1347,74 @@ LABEL_23:
   return v28;
 }
 
++ (void)showAlertWithContent:(id)content isSourceICS:(BOOL)s additionalOptions:(id)options responseHandler:(id)handler
+{
+  sCopy = s;
+  optionsCopy = options;
+  handlerCopy = handler;
+  contentCopy = content;
+  v14 = [contentCopy objectForKeyedSubscript:@"ckVettingAlertTitle"];
+  v15 = [contentCopy objectForKeyedSubscript:@"ckVettingAlertBody"];
+
+  if (v14)
+  {
+    if (v15)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  else
+  {
+    v21 = +[NSAssertionHandler currentHandler];
+    [v21 handleFailureInMethod:a2 object:self file:@"CKVettingAlerts.m" lineNumber:711 description:@"Error alert title empty"];
+
+    if (v15)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v22 = +[NSAssertionHandler currentHandler];
+  [v22 handleFailureInMethod:a2 object:self file:@"CKVettingAlerts.m" lineNumber:712 description:@"Error alert body empty"];
+
+LABEL_3:
+  v24[0] = kCFUserNotificationAlertHeaderKey;
+  v24[1] = kCFUserNotificationAlertMessageKey;
+  v25[0] = v14;
+  v25[1] = v15;
+  v16 = [NSDictionary dictionaryWithObjects:v25 forKeys:v24 count:2];
+  v17 = [NSMutableDictionary dictionaryWithDictionary:v16];
+
+  if (optionsCopy)
+  {
+    [v17 addEntriesFromDictionary:optionsCopy];
+  }
+
+  v18 = [CKVettingAlerts platformSpecificAlertOptionsWithOptions:v17 bundleIdentifier:0];
+  v19 = [CKVettingAlerts getAlertOptionsFromOptions:v18 isSourceICS:sCopy];
+  v20 = CFUserNotificationCreate(0, 0.0, 3uLL, 0, v19);
+  v23 = 0;
+  CFUserNotificationReceiveResponse(v20, 604800.0, &v23);
+  CFRelease(v20);
+  if (handlerCopy)
+  {
+    handlerCopy[2](handlerCopy, v23);
+  }
+}
+
++ (void)showFailureAlert:(id)alert isSourceICS:(BOOL)s
+{
+  sCopy = s;
+  v9 = kCFUserNotificationDefaultButtonTitleKey;
+  alertCopy = alert;
+  v7 = CKLocalizedString();
+  v10 = v7;
+  v8 = [NSDictionary dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+
+  [self showAlertWithContent:alertCopy isSourceICS:sCopy additionalOptions:v8 responseHandler:0];
+}
+
 + (void)showICloudAccountSettingAlert:(id)alert appName:(id)name previewRequested:(BOOL *)requested isSourceICS:(BOOL)s maid:(BOOL)maid
 {
   maidCopy = maid;
@@ -1515,15 +1573,15 @@ LABEL_23:
 + (id)alertContentForGenericInitiateVettingError
 {
   v2 = [@"VETTING_FAILURE_ALERT_TITLE_CANT_SEND_LINK" stringByAppendingString:@"_IOS"];
-  v7[0] = @"ckVettingAlertTitle";
-  v3 = sub_1000038F4(v2, &stru_1000291A0);
-  v7[1] = @"ckVettingAlertBody";
-  v8[0] = v3;
-  v4 = sub_1000038F4(@"VETTING_FAILURE_ALERT_BODY_INITIATE_GENERIC_ERROR", &stru_1000291A0);
-  v8[1] = v4;
-  v5 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v21[0] = @"ckVettingAlertTitle";
+  v9 = sub_1000038F4(v2, &stru_1000291A0, v3, v4, v5, v6, v7, v8, v19);
+  v21[1] = @"ckVettingAlertBody";
+  v22[0] = v9;
+  v16 = sub_1000038F4(@"VETTING_FAILURE_ALERT_BODY_INITIATE_GENERIC_ERROR", &stru_1000291A0, v10, v11, v12, v13, v14, v15, v20);
+  v22[1] = v16;
+  v17 = [NSDictionary dictionaryWithObjects:v22 forKeys:v21 count:2];
 
-  return v5;
+  return v17;
 }
 
 + (id)mediumNameFromComponents:(id)components
@@ -1637,42 +1695,79 @@ LABEL_23:
   }
 
   v7 = [NSString stringWithFormat:@"ITEM_UNAVAILABLE_REQUEST_ACCESS_BODY_%@", v6];
-  v8 = sub_1000038F4(v7, @"%@");
+  v14 = sub_1000038F4(v7, @"%@", v8, v9, v10, v11, v12, v13, handleCopy);
 
-  v12[0] = @"ckVettingAlertTitle";
-  v9 = sub_1000038F4(@"ASK_FOR_ACCESS", &stru_1000291A0);
-  v12[1] = @"ckVettingAlertBody";
-  v13[0] = v9;
-  v13[1] = v8;
-  handleCopy = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:2, handleCopy];
+  v25[0] = @"ckVettingAlertTitle";
+  v21 = sub_1000038F4(@"ASK_FOR_ACCESS", &stru_1000291A0, v15, v16, v17, v18, v19, v20, v24);
+  v25[1] = @"ckVettingAlertBody";
+  v26[0] = v21;
+  v26[1] = v14;
+  v22 = [NSDictionary dictionaryWithObjects:v26 forKeys:v25 count:2];
 
-  return handleCopy;
+  return v22;
 }
 
 + (id)alertContentForRequestAccessConfirmation
 {
-  v6[0] = @"ckVettingAlertTitle";
-  v2 = sub_1000038F4(@"CLOUDKIT_VETTING_ACCESS_REQUEST_SENT_TITLE", &stru_1000291A0);
-  v6[1] = @"ckVettingAlertBody";
-  v7[0] = v2;
-  v3 = sub_1000038F4(@"CLOUDKIT_VETTING_ACCESS_REQUEST_SENT_MESSAGE", &stru_1000291A0);
-  v7[1] = v3;
-  v4 = [NSDictionary dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v20[0] = @"ckVettingAlertTitle";
+  v8 = sub_1000038F4(@"CLOUDKIT_VETTING_ACCESS_REQUEST_SENT_TITLE", &stru_1000291A0, v2, v3, v4, v5, v6, v7, v18);
+  v20[1] = @"ckVettingAlertBody";
+  v21[0] = v8;
+  v15 = sub_1000038F4(@"CLOUDKIT_VETTING_ACCESS_REQUEST_SENT_MESSAGE", &stru_1000291A0, v9, v10, v11, v12, v13, v14, v19);
+  v21[1] = v15;
+  v16 = [NSDictionary dictionaryWithObjects:v21 forKeys:v20 count:2];
 
-  return v4;
+  return v16;
 }
 
 + (id)alertContentForRequestAccessFailure
 {
-  v6[0] = @"ckVettingAlertTitle";
-  v2 = sub_1000038F4(@"CLOUDKIT_VETTING_ACCESS_CANT_SEND_REQUEST_TITLE", &stru_1000291A0);
-  v6[1] = @"ckVettingAlertBody";
-  v7[0] = v2;
-  v3 = sub_1000038F4(@"CLOUDKIT_VETTING_ACCESS_TRY_AGAIN_LATER", &stru_1000291A0);
-  v7[1] = v3;
-  v4 = [NSDictionary dictionaryWithObjects:v7 forKeys:v6 count:2];
+  v20[0] = @"ckVettingAlertTitle";
+  v8 = sub_1000038F4(@"CLOUDKIT_VETTING_ACCESS_CANT_SEND_REQUEST_TITLE", &stru_1000291A0, v2, v3, v4, v5, v6, v7, v18);
+  v20[1] = @"ckVettingAlertBody";
+  v21[0] = v8;
+  v15 = sub_1000038F4(@"CLOUDKIT_VETTING_ACCESS_TRY_AGAIN_LATER", &stru_1000291A0, v9, v10, v11, v12, v13, v14, v19);
+  v21[1] = v15;
+  v16 = [NSDictionary dictionaryWithObjects:v21 forKeys:v20 count:2];
 
-  return v4;
+  return v16;
+}
+
++ (void)showRequestAccessAlert:(id)alert isSourceICS:(BOOL)s requestAccessHandler:(id)handler cancelHandler:(id)cancelHandler
+{
+  sCopy = s;
+  handlerCopy = handler;
+  cancelHandlerCopy = cancelHandler;
+  v21[0] = kCFUserNotificationDefaultButtonTitleKey;
+  alertCopy = alert;
+  v13 = CKLocalizedString();
+  v22[0] = v13;
+  v21[1] = kCFUserNotificationAlternateButtonTitleKey;
+  v14 = CKLocalizedString();
+  v22[1] = v14;
+  v15 = [NSDictionary dictionaryWithObjects:v22 forKeys:v21 count:2];
+
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_1000083AC;
+  v18[3] = &unk_1000287F8;
+  v19 = handlerCopy;
+  v20 = cancelHandlerCopy;
+  v16 = cancelHandlerCopy;
+  v17 = handlerCopy;
+  [self showAlertWithContent:alertCopy isSourceICS:sCopy additionalOptions:v15 responseHandler:v18];
+}
+
++ (void)showRequestAccessResultAlert:(id)alert isSourceICS:(BOOL)s
+{
+  sCopy = s;
+  v9 = kCFUserNotificationDefaultButtonTitleKey;
+  alertCopy = alert;
+  v7 = CKLocalizedString();
+  v10 = v7;
+  v8 = [NSDictionary dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+
+  [self showAlertWithContent:alertCopy isSourceICS:sCopy additionalOptions:v8 responseHandler:0];
 }
 
 @end

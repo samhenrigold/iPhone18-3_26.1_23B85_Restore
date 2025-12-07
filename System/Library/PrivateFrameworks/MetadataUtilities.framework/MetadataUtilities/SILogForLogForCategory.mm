@@ -5,16 +5,12 @@
 
 os_log_t ___SILogForLogForCategory_block_invoke()
 {
-  v0 = 0;
-  v3 = *MEMORY[0x1E69E9840];
-  do
+  for (i = 0; i != 22; ++i)
   {
-    result = os_log_create("com.apple.spotlightindex", SILogCategoryNames[v0]);
-    gSILogArray[v0++] = result;
+    result = os_log_create("com.apple.spotlightindex", SILogCategoryNames[i]);
+    gSILogArray[i] = result;
   }
 
-  while (v0 != 22);
-  v2 = *MEMORY[0x1E69E9840];
   return result;
 }
 

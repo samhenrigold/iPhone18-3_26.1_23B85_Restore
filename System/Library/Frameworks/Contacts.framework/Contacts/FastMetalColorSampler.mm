@@ -94,7 +94,7 @@ void __54__FastMetalColorSampler_sharedPipelineStateForDevice___block_invoke_2(u
     v7 = v6;
     if (!v6)
     {
-      v8 = background_color_os_log();
+      v8 = background_color_os_log(0);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         __54__FastMetalColorSampler_sharedPipelineStateForDevice___block_invoke_2_cold_4();
@@ -106,7 +106,7 @@ void __54__FastMetalColorSampler_sharedPipelineStateForDevice___block_invoke_2(u
     v8 = [v6 newFunctionWithName:@"sampleColors"];
     if (!v8)
     {
-      v11 = background_color_os_log();
+      v11 = background_color_os_log(0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         __54__FastMetalColorSampler_sharedPipelineStateForDevice___block_invoke_2_cold_3();
@@ -116,26 +116,26 @@ void __54__FastMetalColorSampler_sharedPipelineStateForDevice___block_invoke_2(u
     }
 
     v9 = *(a1 + 40);
-    v16 = 0;
-    v10 = [v9 newComputePipelineStateWithFunction:v8 error:&v16];
-    v11 = v16;
+    v17 = 0;
+    v10 = [v9 newComputePipelineStateWithFunction:v8 error:&v17];
+    v11 = v17;
     v12 = *(*(a1 + 48) + 8);
     v13 = *(v12 + 40);
     *(v12 + 40) = v10;
 
     if (v11)
     {
-      v14 = background_color_os_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = background_color_os_log(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        __54__FastMetalColorSampler_sharedPipelineStateForDevice___block_invoke_2_cold_1(v11, v14);
+        __54__FastMetalColorSampler_sharedPipelineStateForDevice___block_invoke_2_cold_1(v11, v15);
       }
     }
 
     else
     {
-      v15 = *(*(*(a1 + 48) + 8) + 40);
-      if (!v15)
+      v16 = *(*(*(a1 + 48) + 8) + 40);
+      if (!v16)
       {
 LABEL_15:
 
@@ -143,11 +143,10 @@ LABEL_16:
         return;
       }
 
-      [sharedPipelineStateForDevice__pipelineCache setObject:v15 forKeyedSubscript:*(a1 + 32)];
-      v14 = background_color_os_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      v15 = background_color_os_log([sharedPipelineStateForDevice__pipelineCache setObject:v16 forKeyedSubscript:*(a1 + 32)]);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        __54__FastMetalColorSampler_sharedPipelineStateForDevice___block_invoke_2_cold_2(v5, v14);
+        __54__FastMetalColorSampler_sharedPipelineStateForDevice___block_invoke_2_cold_2(v5, v15);
       }
     }
 
@@ -182,29 +181,29 @@ LABEL_16:
     newCommandQueue = [device2 newCommandQueue];
     [(FastMetalColorSampler *)self setCommandQueue:newCommandQueue];
 
-    v7 = MEMORY[0x1E695F620];
+    v8 = MEMORY[0x1E695F620];
     device3 = [(FastMetalColorSampler *)self device];
-    v9 = [v7 contextWithMTLDevice:device3];
-    [(FastMetalColorSampler *)self setCiContext:v9];
+    v10 = [v8 contextWithMTLDevice:device3];
+    [(FastMetalColorSampler *)self setCiContext:v10];
 
-    v10 = objc_opt_class();
+    v11 = objc_opt_class();
     device4 = [(FastMetalColorSampler *)self device];
-    v12 = [v10 sharedPipelineStateForDevice:device4];
-    [(FastMetalColorSampler *)self setPipelineState:v12];
+    v13 = [v11 sharedPipelineStateForDevice:device4];
+    [(FastMetalColorSampler *)self setPipelineState:v13];
 
     pipelineState = [(FastMetalColorSampler *)self pipelineState];
 
-    v14 = background_color_os_log();
-    v15 = v14;
+    v16 = background_color_os_log(v15);
+    v17 = v16;
     if (pipelineState)
     {
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
         [FastMetalColorSampler setupMetal];
       }
     }
 
-    else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [FastMetalColorSampler setupMetal];
     }
@@ -212,8 +211,8 @@ LABEL_16:
 
   else
   {
-    v15 = background_color_os_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = background_color_os_log(v5);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [FastMetalColorSampler setupMetal];
     }

@@ -9,10 +9,10 @@
 
 - (TPSSubscriptionPickerCell)initWithStyle:(int64_t)style reuseIdentifier:(id)identifier
 {
-  v94[14] = *MEMORY[0x277D85DE8];
-  v93.receiver = self;
-  v93.super_class = TPSSubscriptionPickerCell;
-  v4 = [(PSTableCell *)&v93 initWithStyle:style reuseIdentifier:identifier];
+  v93[14] = *MEMORY[0x277D85DE8];
+  v92.receiver = self;
+  v92.super_class = TPSSubscriptionPickerCell;
+  v4 = [(PSTableCell *)&v92 initWithStyle:style reuseIdentifier:identifier];
   if (v4)
   {
     v5 = [objc_alloc(MEMORY[0x277D6ED58]) initWithTitle:&stru_282D54710 theme:7];
@@ -29,7 +29,7 @@
     contentView2 = [(TPSSubscriptionPickerCell *)v4 contentView];
     layoutMarginsGuide = [contentView2 layoutMarginsGuide];
     leadingAnchor2 = [layoutMarginsGuide leadingAnchor];
-    v92 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v91 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
 
     v14 = objc_alloc_init(MEMORY[0x277D756B8]);
     nameLabel = v4->_nameLabel;
@@ -47,19 +47,19 @@
     firstBaselineAnchor = [(UILabel *)v4->_nameLabel firstBaselineAnchor];
     contentView4 = [(TPSSubscriptionPickerCell *)v4 contentView];
     topAnchor = [contentView4 topAnchor];
-    v91 = [firstBaselineAnchor constraintEqualToSystemSpacingBelowAnchor:topAnchor multiplier:1.0];
+    v90 = [firstBaselineAnchor constraintEqualToSystemSpacingBelowAnchor:topAnchor multiplier:1.0];
 
     leadingAnchor3 = [(UILabel *)v4->_nameLabel leadingAnchor];
     badgeView3 = [(TPSSubscriptionPickerCell *)v4 badgeView];
     trailingAnchor = [badgeView3 trailingAnchor];
     defaultMetrics = [MEMORY[0x277D75520] defaultMetrics];
     [defaultMetrics scaledValueForValue:4.0];
-    v90 = [leadingAnchor3 constraintEqualToAnchor:trailingAnchor constant:?];
+    v89 = [leadingAnchor3 constraintEqualToAnchor:trailingAnchor constant:?];
 
     badgeView4 = [(TPSSubscriptionPickerCell *)v4 badgeView];
     centerYAnchor = [badgeView4 centerYAnchor];
     centerYAnchor2 = [(UILabel *)v4->_nameLabel centerYAnchor];
-    v89 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+    v88 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
 
     v29 = objc_alloc_init(MEMORY[0x277D756B8]);
     numberLabel = v4->_numberLabel;
@@ -78,23 +78,23 @@
 
     firstBaselineAnchor2 = [(UILabel *)v4->_numberLabel firstBaselineAnchor];
     lastBaselineAnchor = [(UILabel *)v4->_nameLabel lastBaselineAnchor];
-    v88 = [firstBaselineAnchor2 constraintEqualToSystemSpacingBelowAnchor:lastBaselineAnchor multiplier:1.0];
+    v87 = [firstBaselineAnchor2 constraintEqualToSystemSpacingBelowAnchor:lastBaselineAnchor multiplier:1.0];
 
     leadingAnchor4 = [(UILabel *)v4->_numberLabel leadingAnchor];
     badgeView5 = [(TPSSubscriptionPickerCell *)v4 badgeView];
     leadingAnchor5 = [badgeView5 leadingAnchor];
-    v87 = [leadingAnchor4 constraintEqualToAnchor:leadingAnchor5];
+    v86 = [leadingAnchor4 constraintEqualToAnchor:leadingAnchor5];
 
     trailingAnchor2 = [(UILabel *)v4->_numberLabel trailingAnchor];
     contentView6 = [(TPSSubscriptionPickerCell *)v4 contentView];
     layoutMarginsGuide2 = [contentView6 layoutMarginsGuide];
     trailingAnchor3 = [layoutMarginsGuide2 trailingAnchor];
-    v86 = [trailingAnchor2 constraintLessThanOrEqualToAnchor:trailingAnchor3];
+    v85 = [trailingAnchor2 constraintLessThanOrEqualToAnchor:trailingAnchor3];
 
     contentView7 = [(TPSSubscriptionPickerCell *)v4 contentView];
     bottomAnchor = [contentView7 bottomAnchor];
     lastBaselineAnchor2 = [(UILabel *)v4->_numberLabel lastBaselineAnchor];
-    v85 = [bottomAnchor constraintEqualToSystemSpacingBelowAnchor:lastBaselineAnchor2 multiplier:1.0];
+    v84 = [bottomAnchor constraintEqualToSystemSpacingBelowAnchor:lastBaselineAnchor2 multiplier:1.0];
 
     v46 = [objc_alloc(MEMORY[0x277D6ED58]) initWithTitle:&stru_282D54710 theme:7];
     centeredBadgeView = v4->_centeredBadgeView;
@@ -110,7 +110,7 @@
     contentView9 = [(TPSSubscriptionPickerCell *)v4 contentView];
     layoutMarginsGuide3 = [contentView9 layoutMarginsGuide];
     leadingAnchor7 = [layoutMarginsGuide3 leadingAnchor];
-    v84 = [leadingAnchor6 constraintEqualToAnchor:leadingAnchor7];
+    v83 = [leadingAnchor6 constraintEqualToAnchor:leadingAnchor7];
 
     v55 = objc_alloc_init(MEMORY[0x277D756B8]);
     centeredNameLabel = v4->_centeredNameLabel;
@@ -127,24 +127,24 @@
     centerYAnchor3 = [(UILabel *)v4->_centeredNameLabel centerYAnchor];
     contentView11 = [(TPSSubscriptionPickerCell *)v4 contentView];
     centerYAnchor4 = [contentView11 centerYAnchor];
-    v83 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
+    v82 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
 
     leadingAnchor8 = [(UILabel *)v4->_centeredNameLabel leadingAnchor];
     centeredBadgeView3 = [(TPSSubscriptionPickerCell *)v4 centeredBadgeView];
     trailingAnchor4 = [centeredBadgeView3 trailingAnchor];
     defaultMetrics2 = [MEMORY[0x277D75520] defaultMetrics];
     [defaultMetrics2 scaledValueForValue:4.0];
-    v82 = [leadingAnchor8 constraintEqualToAnchor:trailingAnchor4 constant:?];
+    v81 = [leadingAnchor8 constraintEqualToAnchor:trailingAnchor4 constant:?];
 
     centeredBadgeView4 = [(TPSSubscriptionPickerCell *)v4 centeredBadgeView];
     centerYAnchor5 = [centeredBadgeView4 centerYAnchor];
     centerYAnchor6 = [(UILabel *)v4->_centeredNameLabel centerYAnchor];
-    v81 = [centerYAnchor5 constraintEqualToAnchor:centerYAnchor6];
+    v80 = [centerYAnchor5 constraintEqualToAnchor:centerYAnchor6];
 
     trailingAnchor5 = [(UILabel *)v4->_nameLabel trailingAnchor];
     contentView12 = [(TPSSubscriptionPickerCell *)v4 contentView];
     trailingAnchor6 = [contentView12 trailingAnchor];
-    v80 = [trailingAnchor5 constraintLessThanOrEqualToAnchor:trailingAnchor6];
+    v79 = [trailingAnchor5 constraintLessThanOrEqualToAnchor:trailingAnchor6];
 
     trailingAnchor7 = [(UILabel *)v4->_centeredNameLabel trailingAnchor];
     contentView13 = [(TPSSubscriptionPickerCell *)v4 contentView];
@@ -152,25 +152,24 @@
     v75 = [trailingAnchor7 constraintLessThanOrEqualToAnchor:trailingAnchor8];
 
     v76 = MEMORY[0x277CCAAD0];
-    v94[0] = v92;
-    v94[1] = v91;
-    v94[2] = v90;
-    v94[3] = v89;
-    v94[4] = v88;
-    v94[5] = v87;
-    v94[6] = v86;
-    v94[7] = v85;
-    v94[8] = v84;
-    v94[9] = v83;
-    v94[10] = v82;
-    v94[11] = v81;
-    v94[12] = v80;
-    v94[13] = v75;
-    v77 = [MEMORY[0x277CBEA60] arrayWithObjects:v94 count:14];
+    v93[0] = v91;
+    v93[1] = v90;
+    v93[2] = v89;
+    v93[3] = v88;
+    v93[4] = v87;
+    v93[5] = v86;
+    v93[6] = v85;
+    v93[7] = v84;
+    v93[8] = v83;
+    v93[9] = v82;
+    v93[10] = v81;
+    v93[11] = v80;
+    v93[12] = v79;
+    v93[13] = v75;
+    v77 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:14];
     [v76 activateConstraints:v77];
   }
 
-  v78 = *MEMORY[0x277D85DE8];
   return v4;
 }
 
@@ -223,8 +222,8 @@
   tps_localizedShortLabel = [v5 tps_localizedShortLabel];
   label = [v5 label];
   tps_localizedPhoneNumber = [v5 tps_localizedPhoneNumber];
-  v9 = TPSLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = TPSLog(tps_localizedPhoneNumber, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
     v13 = "[TPSSubscriptionPickerCell refreshCellContentsWithSpecifier:]";
@@ -234,7 +233,7 @@
     v17 = label;
     v18 = 2112;
     v19 = tps_localizedPhoneNumber;
-    _os_log_impl(&dword_21B8E9000, v9, OS_LOG_TYPE_DEFAULT, "%s : Received badge: %@, label: %@, phoneNumber: %@", buf, 0x2Au);
+    _os_log_impl(&dword_21B8E9000, v10, OS_LOG_TYPE_DEFAULT, "%s : Received badge: %@, label: %@, phoneNumber: %@", buf, 0x2Au);
   }
 
   if ([tps_localizedPhoneNumber length])
@@ -248,8 +247,6 @@
   }
 
   [(TPSSubscriptionPickerCell *)self setNeedsLayout];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

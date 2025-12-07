@@ -2,7 +2,7 @@
 - (uint64_t)_ui_resolvedTextAlignment;
 - (uint64_t)_ui_resolvedTextAlignmentForUserInterfaceLayoutDirection:()UIKitAdditions;
 - (uint64_t)_ui_resolvedWritingDirection;
-- (uint64_t)_ui_resolvedWritingDirectionForUserInterfaceLayoutDirection:()UIKitAdditions;
+- (void)_ui_resolvedWritingDirectionForUserInterfaceLayoutDirection:()UIKitAdditions;
 @end
 
 @implementation NSParagraphStyle(UIKitAdditions)
@@ -47,12 +47,12 @@
   return [self _ui_resolvedWritingDirectionForUserInterfaceLayoutDirection:userInterfaceLayoutDirection];
 }
 
-- (uint64_t)_ui_resolvedWritingDirectionForUserInterfaceLayoutDirection:()UIKitAdditions
+- (void)_ui_resolvedWritingDirectionForUserInterfaceLayoutDirection:()UIKitAdditions
 {
   result = [self baseWritingDirection];
   if (result == -1)
   {
-    return a3 != 0;
+    return (a3 != 0);
   }
 
   return result;

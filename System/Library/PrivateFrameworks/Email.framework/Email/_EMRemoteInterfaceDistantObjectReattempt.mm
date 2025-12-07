@@ -38,26 +38,25 @@
 
 - (void)perform
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = +[EMRemoteConnection log];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     invocation = self->_invocation;
     v5 = NSStringFromSelector([(NSInvocation *)invocation selector]);
     target = [(NSInvocation *)self->_invocation target];
-    v8 = 138544130;
+    v7 = 138544130;
     selfCopy = self;
-    v10 = 2114;
-    v11 = invocation;
-    v12 = 2114;
-    v13 = v5;
-    v14 = 2048;
-    v15 = target;
-    _os_log_impl(&dword_1C6655000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: reattempting invocation: %{public}@, selector: %{public}@, target: %p", &v8, 0x2Au);
+    v9 = 2114;
+    v10 = invocation;
+    v11 = 2114;
+    v12 = v5;
+    v13 = 2048;
+    v14 = target;
+    _os_log_impl(&dword_1C6655000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@: reattempting invocation: %{public}@, selector: %{public}@, target: %p", &v7, 0x2Au);
   }
 
   [(NSInvocation *)self->_invocation invoke];
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -9,13 +9,13 @@
 
 - (FPCreateFolderOperation)initWithParentItem:(id)item folderName:(id)name
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   itemCopy = item;
   nameCopy = name;
   providerDomainID = [itemCopy providerDomainID];
-  v22.receiver = self;
-  v22.super_class = FPCreateFolderOperation;
-  v10 = [(FPActionOperation *)&v22 initWithProvider:providerDomainID action:@"Create"];
+  v21.receiver = self;
+  v21.super_class = FPCreateFolderOperation;
+  v10 = [(FPActionOperation *)&v21 initWithProvider:providerDomainID action:@"Create"];
 
   if (v10)
   {
@@ -34,14 +34,13 @@
     v18 = [objc_alloc(MEMORY[0x1E695DFD8]) initWithArray:&unk_1F1FC9C50];
     [(FPActionOperation *)v10 setSourceItemKeysAllowList:v18];
 
-    v23[0] = v17;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+    v22[0] = v17;
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
     [(FPActionOperation *)v10 setSourceItemsToPreflight:v19];
 
     [(FPActionOperation *)v10 setSetupRemoteOperationService:1];
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -135,13 +134,10 @@ void __37__FPCreateFolderOperation_actionMain__block_invoke(uint64_t a1, void *a
 
 void __37__FPCreateFolderOperation_actionMain__block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 fp_prettyDescription];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_15();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

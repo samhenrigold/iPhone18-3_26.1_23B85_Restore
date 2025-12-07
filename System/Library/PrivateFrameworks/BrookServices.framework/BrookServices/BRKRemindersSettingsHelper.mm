@@ -9,8 +9,6 @@
 - (id)remindersFooterTextAndLinkString;
 - (void)_fetchLocationAuthorizationStatus;
 - (void)_fetchLocationAvailableStatus;
-- (void)_handwashingAppBundleLocationManager;
-- (void)_handwashingLocationManager;
 - (void)_isCoreRoutineHomeAvailableWithCompletion:(id)completion;
 - (void)_updateWithLocationAuthorizationStatus:(int)status manager:(id)manager;
 - (void)dealloc;
@@ -68,14 +66,14 @@
 
 void __56__BRKRemindersSettingsHelper_initWithDelegate_settings___block_invoke(uint64_t a1, int a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = BRKLoggingObjectForDomain(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11[0] = 67109120;
-    v11[1] = a2;
-    _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "Selecting handwashing location manager with auth flow enabled result: %d", v11, 8u);
+    v10[0] = 67109120;
+    v10[1] = a2;
+    _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "Selecting handwashing location manager with auth flow enabled result: %d", v10, 8u);
   }
 
   v6 = objc_loadWeakRetained((a1 + 32));
@@ -92,8 +90,6 @@ void __56__BRKRemindersSettingsHelper_initWithDelegate_settings___block_invoke(u
   v8 = ;
   v9 = WeakRetained[5];
   WeakRetained[5] = v8;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -108,7 +104,7 @@ void __56__BRKRemindersSettingsHelper_initWithDelegate_settings___block_invoke(u
 
 - (BOOL)areRemindersAvailable
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if ([(BRKRemindersSettingsHelper *)self isLocationAvailable])
   {
     isLocationAuthorizationValid = [(BRKRemindersSettingsHelper *)self isLocationAuthorizationValid];
@@ -123,112 +119,101 @@ void __56__BRKRemindersSettingsHelper_initWithDelegate_settings___block_invoke(u
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = NSStringFromBOOL();
-    v8 = 136315394;
-    v9 = "[BRKRemindersSettingsHelper areRemindersAvailable]";
-    v10 = 2112;
-    v11 = v5;
-    _os_log_impl(&dword_241EE4000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[BRKRemindersSettingsHelper areRemindersAvailable]";
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&dword_241EE4000, v4, OS_LOG_TYPE_DEFAULT, "%s: %@", &v7, 0x16u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return isLocationAuthorizationValid;
 }
 
 - (BOOL)isMeCardAvailable
 {
-  v13[1] = *MEMORY[0x277D85DE8];
-  v13[0] = *MEMORY[0x277CBD018];
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[1] = *MEMORY[0x277D85DE8];
+  v12[0] = *MEMORY[0x277CBD018];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v4 = [(BRKRemindersSettingsHelper *)self meContactWithKeysToFetch:v3];
 
   v5 = BRKLoggingObjectForDomain(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = NSStringFromBOOL();
-    v9 = 136315394;
-    v10 = "[BRKRemindersSettingsHelper isMeCardAvailable]";
-    v11 = 2112;
-    v12 = v6;
-    _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "%s: %@", &v9, 0x16u);
+    v8 = 136315394;
+    v9 = "[BRKRemindersSettingsHelper isMeCardAvailable]";
+    v10 = 2112;
+    v11 = v6;
+    _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "%s: %@", &v8, 0x16u);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v4 != 0;
 }
 
 - (void)setCoreRoutineAvailable:(BOOL)available
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (self->_coreRoutineAvailable != available)
   {
     self->_coreRoutineAvailable = available;
     v4 = BRKLoggingObjectForDomain(13);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      coreRoutineAvailable = self->_coreRoutineAvailable;
-      v6 = NSStringFromBOOL();
-      v9 = 136315394;
-      v10 = "[BRKRemindersSettingsHelper setCoreRoutineAvailable:]";
-      v11 = 2112;
-      v12 = v6;
-      _os_log_impl(&dword_241EE4000, v4, OS_LOG_TYPE_DEFAULT, "%s -> %@", &v9, 0x16u);
+      v5 = NSStringFromBOOL();
+      v7 = 136315394;
+      v8 = "[BRKRemindersSettingsHelper setCoreRoutineAvailable:]";
+      v9 = 2112;
+      v10 = v5;
+      _os_log_impl(&dword_241EE4000, v4, OS_LOG_TYPE_DEFAULT, "%s -> %@", &v7, 0x16u);
     }
 
     delegate = [(BRKRemindersSettingsHelper *)self delegate];
     [delegate remindersSettingsDidUpdate:self];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLocationAvailable:(BOOL)available
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (self->_locationAvailable != available)
   {
     self->_locationAvailable = available;
     v4 = BRKLoggingObjectForDomain(13);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      locationAvailable = self->_locationAvailable;
-      v6 = NSStringFromBOOL();
-      v9 = 136315394;
-      v10 = "[BRKRemindersSettingsHelper setLocationAvailable:]";
-      v11 = 2112;
-      v12 = v6;
-      _os_log_impl(&dword_241EE4000, v4, OS_LOG_TYPE_DEFAULT, "%s -> %@", &v9, 0x16u);
+      v5 = NSStringFromBOOL();
+      v7 = 136315394;
+      v8 = "[BRKRemindersSettingsHelper setLocationAvailable:]";
+      v9 = 2112;
+      v10 = v5;
+      _os_log_impl(&dword_241EE4000, v4, OS_LOG_TYPE_DEFAULT, "%s -> %@", &v7, 0x16u);
     }
 
     delegate = [(BRKRemindersSettingsHelper *)self delegate];
     [delegate remindersSettingsDidUpdate:self];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setLocationAuthorizationValid:(BOOL)valid
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (self->_locationAuthorizationValid != valid)
   {
     self->_locationAuthorizationValid = valid;
     v4 = BRKLoggingObjectForDomain(13);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      locationAuthorizationValid = self->_locationAuthorizationValid;
-      v6 = NSStringFromBOOL();
-      v9 = 136315394;
-      v10 = "[BRKRemindersSettingsHelper setLocationAuthorizationValid:]";
-      v11 = 2112;
-      v12 = v6;
-      _os_log_impl(&dword_241EE4000, v4, OS_LOG_TYPE_DEFAULT, "%s -> %@", &v9, 0x16u);
+      v5 = NSStringFromBOOL();
+      v7 = 136315394;
+      v8 = "[BRKRemindersSettingsHelper setLocationAuthorizationValid:]";
+      v9 = 2112;
+      v10 = v5;
+      _os_log_impl(&dword_241EE4000, v4, OS_LOG_TYPE_DEFAULT, "%s -> %@", &v7, 0x16u);
     }
 
     delegate = [(BRKRemindersSettingsHelper *)self delegate];
     [delegate remindersSettingsDidUpdate:self];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)requestLocationAuthorizationIfNeeded
@@ -247,7 +232,7 @@ void __56__BRKRemindersSettingsHelper_initWithDelegate_settings___block_invoke(u
 
 void __66__BRKRemindersSettingsHelper_requestLocationAuthorizationIfNeeded__block_invoke(uint64_t a1, int a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v4 = BRKLoggingObjectForDomain(13);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
@@ -258,11 +243,11 @@ void __66__BRKRemindersSettingsHelper_requestLocationAuthorizationIfNeeded__bloc
       v5 = @"requestWhenInUseAuthorization";
     }
 
-    v10 = 136315394;
-    v11 = "[BRKRemindersSettingsHelper requestLocationAuthorizationIfNeeded]_block_invoke";
-    v12 = 2112;
-    v13 = v5;
-    _os_log_impl(&dword_241EE4000, v4, OS_LOG_TYPE_DEFAULT, "%s: requesting %@ location authorization", &v10, 0x16u);
+    v9 = 136315394;
+    v10 = "[BRKRemindersSettingsHelper requestLocationAuthorizationIfNeeded]_block_invoke";
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&dword_241EE4000, v4, OS_LOG_TYPE_DEFAULT, "%s: requesting %@ location authorization", &v9, 0x16u);
   }
 
   v6 = WeakRetained[5];
@@ -272,10 +257,10 @@ void __66__BRKRemindersSettingsHelper_requestLocationAuthorizationIfNeeded__bloc
     v7 = BRKLoggingObjectForDomain(13);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
+      LOWORD(v9) = 0;
       v8 = "[strongSelf.locationManager requestWhenInUseAuthorization]";
 LABEL_10:
-      _os_log_impl(&dword_241EE4000, v7, OS_LOG_TYPE_DEFAULT, v8, &v10, 2u);
+      _os_log_impl(&dword_241EE4000, v7, OS_LOG_TYPE_DEFAULT, v8, &v9, 2u);
     }
   }
 
@@ -285,34 +270,31 @@ LABEL_10:
     v7 = BRKLoggingObjectForDomain(13);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
+      LOWORD(v9) = 0;
       v8 = "[strongSelf.locationManager requestAlwaysAuthorization]";
       goto LABEL_10;
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)update
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = BRKLoggingObjectForDomain(13);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[BRKRemindersSettingsHelper update]";
-    _os_log_impl(&dword_241EE4000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[BRKRemindersSettingsHelper update]";
+    _os_log_impl(&dword_241EE4000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v4, 0xCu);
   }
 
   [(BRKRemindersSettingsHelper *)self _fetchLocationAvailableStatus];
   [(BRKRemindersSettingsHelper *)self _fetchLocationAuthorizationStatus];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)remindersFooterTextAndLinkString
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   v3 = +[BRKSettings remindersSettingFooter];
   if ([(BRKRemindersSettingsHelper *)self contactStoreAuthorizationStatus]!= 3)
   {
@@ -336,16 +318,16 @@ LABEL_10:
 
   if (![(BRKRemindersSettingsHelper *)self isMeCardAvailable]&& ![(BRKRemindersSettingsHelper *)self isLocationAvailable])
   {
-    v12 = +[BRKSettings remindersFooterExplanationNoLocationOrMeCard];
+    v11 = +[BRKSettings remindersFooterExplanationNoLocationOrMeCard];
     goto LABEL_20;
   }
 
   if (![(BRKRemindersSettingsHelper *)self isLocationAvailable])
   {
-    v12 = +[BRKSettings remindersFooterExplanationNoLocation];
+    v11 = +[BRKSettings remindersFooterExplanationNoLocation];
 LABEL_20:
-    v4 = v12;
-    v13 = +[BRKSettings remindersFooterLinkTitleContacts];
+    v4 = v11;
+    v12 = +[BRKSettings remindersFooterLinkTitleContacts];
     goto LABEL_22;
   }
 
@@ -356,9 +338,9 @@ LABEL_20:
   }
 
   v4 = +[BRKSettings remindersFooterExplanationInavlidLocationAuth];
-  v13 = +[BRKSettings remindersFooterLinkTitleLocation];
+  v12 = +[BRKSettings remindersFooterLinkTitleLocation];
 LABEL_22:
-  v6 = v13;
+  v6 = v12;
   if (v4)
   {
 LABEL_11:
@@ -371,19 +353,17 @@ LABEL_11:
 LABEL_12:
   if (v6)
   {
-    v15[0] = v3;
-    v15[1] = v6;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v14[0] = v3;
+    v14[1] = v6;
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
 
     goto LABEL_15;
   }
 
 LABEL_14:
-  v14 = v3;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
+  v13 = v3;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
 LABEL_15:
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -399,35 +379,34 @@ LABEL_15:
 
 - (void)locationManagerDidChangeAuthorization:(id)authorization
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   authorizationCopy = authorization;
   v5 = BRKLoggingObjectForDomain(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(authorizationCopy, "authorizationStatus")}];
-    v8 = 136315394;
-    v9 = "[BRKRemindersSettingsHelper locationManagerDidChangeAuthorization:]";
-    v10 = 2112;
-    v11 = v6;
-    _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "%s: %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[BRKRemindersSettingsHelper locationManagerDidChangeAuthorization:]";
+    v9 = 2112;
+    v10 = v6;
+    _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "%s: %@", &v7, 0x16u);
   }
 
   -[BRKRemindersSettingsHelper _updateWithLocationAuthorizationStatus:manager:](self, "_updateWithLocationAuthorizationStatus:manager:", [authorizationCopy authorizationStatus], authorizationCopy);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_handwashingLocationManager
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCA8D8] bundleWithPath:@"/System/Library/LocationBundles/HandwashingLocation.bundle"];
   v4 = objc_alloc(MEMORY[0x277CBFC10]);
   v5 = [v4 initWithEffectiveBundle:v3 delegate:self onQueue:MEMORY[0x277D85CD0]];
   v6 = BRKLoggingObjectForDomain(13);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315138;
-    v13 = "[BRKRemindersSettingsHelper _handwashingLocationManager]";
-    _os_log_impl(&dword_241EE4000, v6, OS_LOG_TYPE_DEFAULT, "%s [[CLLocationManager alloc] initWithEffectiveBundle:bundle delegate:self onQueue:dispatch_get_main_queue()]", &v12, 0xCu);
+    v11 = 136315138;
+    v12 = "[BRKRemindersSettingsHelper _handwashingLocationManager]";
+    _os_log_impl(&dword_241EE4000, v6, OS_LOG_TYPE_DEFAULT, "%s [[CLLocationManager alloc] initWithEffectiveBundle:bundle delegate:self onQueue:dispatch_get_main_queue()]", &v11, 0xCu);
   }
 
   if (v5)
@@ -450,22 +429,20 @@ LABEL_15:
     [(BRKRemindersSettingsHelper *)self setLocationAuthorizationValid:0];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (id)_handwashingAppBundleLocationManager
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CBFC10]);
   v4 = [v3 initWithEffectiveBundleIdentifier:@"com.apple.brook.BrookUI" delegate:self onQueue:MEMORY[0x277D85CD0]];
   v5 = BRKLoggingObjectForDomain(13);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 136315138;
-    v12 = "[BRKRemindersSettingsHelper _handwashingAppBundleLocationManager]";
-    _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "%s [[CLLocationManager alloc] initWithEffectiveBundleIdentifier:BROOK_UI_APP_BUNDLE_IDENTIFIER delegate:self onQueue:dispatch_get_main_queue()]", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[BRKRemindersSettingsHelper _handwashingAppBundleLocationManager]";
+    _os_log_impl(&dword_241EE4000, v5, OS_LOG_TYPE_DEFAULT, "%s [[CLLocationManager alloc] initWithEffectiveBundleIdentifier:BROOK_UI_APP_BUNDLE_IDENTIFIER delegate:self onQueue:dispatch_get_main_queue()]", &v10, 0xCu);
   }
 
   if (v4)
@@ -488,28 +465,24 @@ LABEL_15:
     [(BRKRemindersSettingsHelper *)self setLocationAuthorizationValid:0];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)_fetchLocationAuthorizationStatus
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = BRKLoggingObjectForDomain(13);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[BRKRemindersSettingsHelper _fetchLocationAuthorizationStatus]";
-    _os_log_impl(&dword_241EE4000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[BRKRemindersSettingsHelper _fetchLocationAuthorizationStatus]";
+    _os_log_impl(&dword_241EE4000, v3, OS_LOG_TYPE_DEFAULT, "%s", &v7, 0xCu);
   }
 
   locationManager = [(BRKRemindersSettingsHelper *)self locationManager];
   authorizationStatus = [locationManager authorizationStatus];
   locationManager2 = [(BRKRemindersSettingsHelper *)self locationManager];
   [(BRKRemindersSettingsHelper *)self _updateWithLocationAuthorizationStatus:authorizationStatus manager:locationManager2];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchLocationAvailableStatus
@@ -560,7 +533,7 @@ void __59__BRKRemindersSettingsHelper__fetchLocationAvailableStatus__block_invok
 
 void __72__BRKRemindersSettingsHelper__isCoreRoutineHomeAvailableWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
@@ -592,22 +565,21 @@ void __72__BRKRemindersSettingsHelper__isCoreRoutineHomeAvailableWithCompletion_
     {
       if (v12)
       {
-        v14 = 136315138;
-        v15 = "[BRKRemindersSettingsHelper _isCoreRoutineHomeAvailableWithCompletion:]_block_invoke";
-        _os_log_impl(&dword_241EE4000, v9, OS_LOG_TYPE_DEFAULT, "%s: found at least one location of interest for RTLocationOfInterestTypeHome", &v14, 0xCu);
+        v13 = 136315138;
+        v14 = "[BRKRemindersSettingsHelper _isCoreRoutineHomeAvailableWithCompletion:]_block_invoke";
+        _os_log_impl(&dword_241EE4000, v9, OS_LOG_TYPE_DEFAULT, "%s: found at least one location of interest for RTLocationOfInterestTypeHome", &v13, 0xCu);
       }
     }
 
     else if (v12)
     {
-      v14 = 136315138;
-      v15 = "[BRKRemindersSettingsHelper _isCoreRoutineHomeAvailableWithCompletion:]_block_invoke";
-      _os_log_impl(&dword_241EE4000, v9, OS_LOG_TYPE_DEFAULT, "%s: no locations of interest for RTLocationOfInterestTypeHome", &v14, 0xCu);
+      v13 = 136315138;
+      v14 = "[BRKRemindersSettingsHelper _isCoreRoutineHomeAvailableWithCompletion:]_block_invoke";
+      _os_log_impl(&dword_241EE4000, v9, OS_LOG_TYPE_DEFAULT, "%s: no locations of interest for RTLocationOfInterestTypeHome", &v13, 0xCu);
     }
   }
 
   (*(*(a1 + 32) + 16))();
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateWithLocationAuthorizationStatus:(int)status manager:(id)manager
@@ -630,7 +602,7 @@ void __72__BRKRemindersSettingsHelper__isCoreRoutineHomeAvailableWithCompletion_
 
 void __77__BRKRemindersSettingsHelper__updateWithLocationAuthorizationStatus_manager___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (!WeakRetained)
   {
@@ -646,11 +618,11 @@ void __77__BRKRemindersSettingsHelper__updateWithLocationAuthorizationStatus_man
     {
       [*(a1 + 32) _limitsPrecision];
       v6 = NSStringFromBOOL();
-      v11 = 136315394;
-      v12 = "[BRKRemindersSettingsHelper _updateWithLocationAuthorizationStatus:manager:]_block_invoke";
-      v13 = 2112;
-      v14 = v6;
-      _os_log_impl(&dword_241EE4000, v4, OS_LOG_TYPE_DEFAULT, "%s: location auth is always, _limitsPrecision: %@", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "[BRKRemindersSettingsHelper _updateWithLocationAuthorizationStatus:manager:]_block_invoke";
+      v12 = 2112;
+      v13 = v6;
+      _os_log_impl(&dword_241EE4000, v4, OS_LOG_TYPE_DEFAULT, "%s: location auth is always, _limitsPrecision: %@", &v10, 0x16u);
     }
 
     v7 = [*(a1 + 32) _limitsPrecision] ^ 1;
@@ -663,11 +635,11 @@ void __77__BRKRemindersSettingsHelper__updateWithLocationAuthorizationStatus_man
     if (v5)
     {
       v9 = [MEMORY[0x277CCABB0] numberWithInt:*(a1 + 48)];
-      v11 = 136315394;
-      v12 = "[BRKRemindersSettingsHelper _updateWithLocationAuthorizationStatus:manager:]_block_invoke";
-      v13 = 2112;
-      v14 = v9;
-      _os_log_impl(&dword_241EE4000, v4, OS_LOG_TYPE_DEFAULT, "%s: location auth is NOT always (%@)", &v11, 0x16u);
+      v10 = 136315394;
+      v11 = "[BRKRemindersSettingsHelper _updateWithLocationAuthorizationStatus:manager:]_block_invoke";
+      v12 = 2112;
+      v13 = v9;
+      _os_log_impl(&dword_241EE4000, v4, OS_LOG_TYPE_DEFAULT, "%s: location auth is NOT always (%@)", &v10, 0x16u);
     }
 
     v8 = WeakRetained;
@@ -679,13 +651,12 @@ LABEL_13:
 
   if (v5)
   {
-    v11 = 136315138;
-    v12 = "[BRKRemindersSettingsHelper _updateWithLocationAuthorizationStatus:manager:]_block_invoke";
-    _os_log_impl(&dword_241EE4000, v4, OS_LOG_TYPE_DEFAULT, "%s: location auth is undetermined", &v11, 0xCu);
+    v10 = 136315138;
+    v11 = "[BRKRemindersSettingsHelper _updateWithLocationAuthorizationStatus:manager:]_block_invoke";
+    _os_log_impl(&dword_241EE4000, v4, OS_LOG_TYPE_DEFAULT, "%s: location auth is undetermined", &v10, 0xCu);
   }
 
 LABEL_14:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BRKRemindersSettingsDelegate)delegate
@@ -695,38 +666,18 @@ LABEL_14:
   return WeakRetained;
 }
 
-- (void)_handwashingLocationManager
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_handwashingAppBundleLocationManager
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
 void __72__BRKRemindersSettingsHelper__isCoreRoutineHomeAvailableWithCompletion___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __72__BRKRemindersSettingsHelper__isCoreRoutineHomeAvailableWithCompletion___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

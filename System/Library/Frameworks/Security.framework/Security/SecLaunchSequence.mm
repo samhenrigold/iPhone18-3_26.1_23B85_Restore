@@ -15,62 +15,61 @@
 
 - (id)eventsByTime
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   obj = self;
   objc_sync_enter(obj);
   v2 = objc_alloc_init(MEMORY[0x1E696AB78]);
   [v2 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss.SSSZ"];
   array = [MEMORY[0x1E695DF70] array];
   events = [(SecLaunchSequence *)obj events];
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __33__SecLaunchSequence_eventsByTime__block_invoke;
-  v26[3] = &unk_1E70D4BC0;
-  v20 = v2;
-  v27 = v20;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __33__SecLaunchSequence_eventsByTime__block_invoke;
+  v25[3] = &unk_1E70D4BC0;
+  v19 = v2;
+  v26 = v19;
   v5 = array;
-  v28 = v5;
-  [events enumerateKeysAndObjectsUsingBlock:v26];
+  v27 = v5;
+  [events enumerateKeysAndObjectsUsingBlock:v25];
 
   [v5 sortUsingSelector:sel_compare_];
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   attributes = [(SecLaunchSequence *)obj attributes];
-  v7 = [attributes countByEnumeratingWithState:&v22 objects:v29 count:16];
+  v7 = [attributes countByEnumeratingWithState:&v21 objects:v28 count:16];
   if (v7)
   {
-    v8 = *v23;
+    v8 = *v22;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v23 != v8)
+        if (*v22 != v8)
         {
           objc_enumerationMutation(attributes);
         }
 
-        v10 = *(*(&v22 + 1) + 8 * i);
+        v10 = *(*(&v21 + 1) + 8 * i);
         v11 = MEMORY[0x1E696AEC0];
         attributes2 = [(SecLaunchSequence *)obj attributes];
         v13 = [attributes2 objectForKeyedSubscript:v10];
         v14 = [v13 description];
-        v15 = [v11 stringWithFormat:@"attr: %@: %@", v10, v14, v20];
+        v15 = [v11 stringWithFormat:@"attr: %@: %@", v10, v14, v19];
         [v5 addObject:v15];
       }
 
-      v7 = [attributes countByEnumeratingWithState:&v22 objects:v29 count:16];
+      v7 = [attributes countByEnumeratingWithState:&v21 objects:v28 count:16];
     }
 
     while (v7);
   }
 
-  v16 = v28;
+  v16 = v27;
   v17 = v5;
 
   objc_sync_exit(obj);
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }

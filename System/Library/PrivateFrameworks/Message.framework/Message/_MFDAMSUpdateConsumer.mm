@@ -9,7 +9,7 @@
 
 - (void)drainMailbox
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = objc_autoreleasePoolPush();
   v4 = self->super.mailbox == 0;
   uRLString = DALoggingwithCategory();
@@ -19,9 +19,9 @@
     if (v6)
     {
       folderID = [(MFDAMailbox *)self->super.mailbox folderID];
-      v11 = 138412290;
-      v12 = folderID;
-      _os_log_impl(&dword_1B0389000, uRLString, OS_LOG_TYPE_DEFAULT, "Failed erasing messages for folderID %@ - no such local mailbox.", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = folderID;
+      _os_log_impl(&dword_1B0389000, uRLString, OS_LOG_TYPE_DEFAULT, "Failed erasing messages for folderID %@ - no such local mailbox.", &v10, 0xCu);
     }
   }
 
@@ -30,9 +30,9 @@
     if (v6)
     {
       folderID2 = [(MFDAMailbox *)self->super.mailbox folderID];
-      v11 = 138412290;
-      v12 = folderID2;
-      _os_log_impl(&dword_1B0389000, uRLString, OS_LOG_TYPE_DEFAULT, "Erasing locally cached messages for folderID %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = folderID2;
+      _os_log_impl(&dword_1B0389000, uRLString, OS_LOG_TYPE_DEFAULT, "Erasing locally cached messages for folderID %@", &v10, 0xCu);
     }
 
     library = self->super.library;
@@ -41,12 +41,11 @@
   }
 
   objc_autoreleasePoolPop(v3);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)handleItems:(id)items
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   v5 = itemsCopy;
   if (self->super.error)
@@ -54,8 +53,8 @@
     goto LABEL_77;
   }
 
-  v46 = itemsCopy;
-  v45 = objc_autoreleasePoolPush();
+  v45 = itemsCopy;
+  v44 = objc_autoreleasePoolPush();
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
   array3 = [MEMORY[0x1E695DF70] array];
@@ -66,28 +65,28 @@
   array8 = [MEMORY[0x1E695DF70] array];
   array9 = [MEMORY[0x1E695DF70] array];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
-  v6 = v46;
-  v7 = [v6 countByEnumeratingWithState:&v61 objects:v67 count:16];
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
+  v6 = v45;
+  v7 = [v6 countByEnumeratingWithState:&v60 objects:v66 count:16];
   if (!v7)
   {
     goto LABEL_24;
   }
 
-  v8 = *v62;
+  v8 = *v61;
   do
   {
     for (i = 0; i != v7; ++i)
     {
-      if (*v62 != v8)
+      if (*v61 != v8)
       {
         objc_enumerationMutation(v6);
       }
 
-      v10 = *(*(&v61 + 1) + 8 * i);
+      v10 = *(*(&v60 + 1) + 8 * i);
       itemChangeType = [v10 itemChangeType];
       if (itemChangeType == 2)
       {
@@ -159,7 +158,7 @@
       }
     }
 
-    v7 = [v6 countByEnumeratingWithState:&v61 objects:v67 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v60 objects:v66 count:16];
   }
 
   while (v7);
@@ -167,28 +166,28 @@ LABEL_24:
 
   if ([dictionary count])
   {
-    v59 = 0u;
-    v60 = 0u;
-    v57 = 0u;
     v58 = 0u;
+    v59 = 0u;
+    v56 = 0u;
+    v57 = 0u;
     allKeys = [dictionary allKeys];
-    v21 = [allKeys countByEnumeratingWithState:&v57 objects:v65 count:16];
+    v21 = [allKeys countByEnumeratingWithState:&v56 objects:v64 count:16];
     if (!v21)
     {
       goto LABEL_49;
     }
 
-    v22 = *v58;
+    v22 = *v57;
     while (1)
     {
       for (j = 0; j != v21; ++j)
       {
-        if (*v58 != v22)
+        if (*v57 != v22)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v24 = *(*(&v57 + 1) + 8 * j);
+        v24 = *(*(&v56 + 1) + 8 * j);
         v25 = [dictionary objectForKey:v24];
         if ([v25 readIsSet])
         {
@@ -247,7 +246,7 @@ LABEL_46:
 LABEL_47:
       }
 
-      v21 = [allKeys countByEnumeratingWithState:&v57 objects:v65 count:16];
+      v21 = [allKeys countByEnumeratingWithState:&v56 objects:v64 count:16];
       if (!v21)
       {
 LABEL_49:
@@ -336,52 +335,49 @@ LABEL_49:
     [messageChangeManager reflectDeletedMessages:array2];
   }
 
-  v5 = v46;
-  objc_autoreleasePoolPop(v45);
+  v5 = v45;
+  objc_autoreleasePoolPop(v44);
 LABEL_77:
 
-  v43 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (void)receiveSyncActions:(id)actions
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   actionsCopy = actions;
-  v5 = [actionsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v5 = [actionsCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v5)
   {
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(actionsCopy);
         }
 
-        [(MFBufferedQueue *)self addItem:*(*(&v9 + 1) + 8 * v7++), v9];
+        [(MFBufferedQueue *)self addItem:*(*(&v8 + 1) + 8 * v7++), v8];
       }
 
       while (v5 != v7);
-      v5 = [actionsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [actionsCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleResponse:(id)response error:(id)error
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   errorCopy = error;
   if (!errorCopy)
@@ -393,15 +389,13 @@ LABEL_77:
   v9 = DALoggingwithCategory();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v12 = 138412290;
-    v13 = errorCopy;
-    _os_log_impl(&dword_1B0389000, v9, OS_LOG_TYPE_ERROR, "error syncing folder: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = errorCopy;
+    _os_log_impl(&dword_1B0389000, v9, OS_LOG_TYPE_ERROR, "error syncing folder: %@", &v11, 0xCu);
   }
 
   objc_storeStrong(&self->super.error, error);
   [(MFBufferedQueue *)self flush];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

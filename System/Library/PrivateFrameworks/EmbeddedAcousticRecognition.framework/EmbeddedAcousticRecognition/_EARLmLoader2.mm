@@ -28,7 +28,7 @@
   {
     if (rootCopy)
     {
-      [rootCopy ear_toString];
+      objc_msgSend_ear_toString(rootCopy);
     }
 
     else
@@ -55,11 +55,11 @@
   ptr = self->_loader.__ptr_;
   if (directoryCopy)
   {
-    [directoryCopy ear_toString];
+    objc_msgSend_ear_toString(directoryCopy);
     if (v8)
     {
 LABEL_3:
-      [v8 getRecognizer];
+      objc_msgSend_getRecognizer(v8);
       v10 = v13;
       goto LABEL_6;
     }
@@ -90,11 +90,11 @@ LABEL_6:
   ptr = self->_loader.__ptr_;
   if (directoryCopy)
   {
-    [directoryCopy ear_toString];
+    objc_msgSend_ear_toString(directoryCopy);
     if (recognizerCopy)
     {
 LABEL_3:
-      [recognizerCopy getRecognizer];
+      objc_msgSend_getRecognizer(recognizerCopy);
       v15 = v26;
       goto LABEL_6;
     }
@@ -118,11 +118,11 @@ LABEL_6:
   SysConfig = quasar::SpeechRecognizer::getSysConfig(v15);
   if (taskCopy)
   {
-    [taskCopy ear_toString];
+    objc_msgSend_ear_toString(taskCopy);
     if (nameCopy)
     {
 LABEL_8:
-      [nameCopy ear_toString];
+      objc_msgSend_ear_toString(nameCopy);
       goto LABEL_11;
     }
   }
@@ -142,7 +142,7 @@ LABEL_8:
   __p[1] = 0;
   v23 = 0;
 LABEL_11:
-  quasar::LmLoader2::loadForRecognition(SysConfig, ptr, v30, v24, __p, &v28);
+  quasar::LmLoader2::loadForRecognition(&v28, SysConfig, ptr, v30, v24, __p);
   if (SHIBYTE(v23) < 0)
   {
     operator delete(__p[0]);

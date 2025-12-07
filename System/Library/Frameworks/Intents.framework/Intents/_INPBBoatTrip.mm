@@ -294,7 +294,6 @@ LABEL_33:
 
   if (boatName)
   {
-    boatName = self->_boatName;
     PBDataWriterWriteStringField();
   }
 
@@ -302,7 +301,6 @@ LABEL_33:
 
   if (boatNumber)
   {
-    boatNumber = self->_boatNumber;
     PBDataWriterWriteStringField();
   }
 
@@ -318,19 +316,18 @@ LABEL_33:
 
   if (provider)
   {
-    provider = self->_provider;
     PBDataWriterWriteStringField();
   }
 
   tripDuration = [(_INPBBoatTrip *)self tripDuration];
 
-  v15 = toCopy;
+  v12 = toCopy;
   if (tripDuration)
   {
     tripDuration2 = [(_INPBBoatTrip *)self tripDuration];
     PBDataWriterWriteSubmessage();
 
-    v15 = toCopy;
+    v12 = toCopy;
   }
 }
 

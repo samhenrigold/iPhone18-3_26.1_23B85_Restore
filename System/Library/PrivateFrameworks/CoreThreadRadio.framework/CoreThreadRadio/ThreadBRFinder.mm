@@ -148,7 +148,7 @@ void __44__ThreadBRFinder_startScan_queue_timeInSec___block_invoke(uint64_t a1)
   borderAgentFinder = self->_borderAgentFinder;
   if (borderAgentFinder)
   {
-    [(THBorderAgentFinder *)borderAgentFinder stop];
+    objc_msgSend_stop(borderAgentFinder, a2);
   }
 }
 
@@ -308,7 +308,7 @@ LABEL_16:
     p_super = v14;
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [ThreadBRFinder matchTheListWithServer:?];
+      [ThreadBRFinder matchTheListWithServer:];
     }
 
     v64 = 0;
@@ -750,7 +750,7 @@ LABEL_26:
             v28 = THCredentialsServerLogHandleForCategory(1);
             if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
             {
-              [ThreadBRFinder matchTheRecord:?];
+              [ThreadBRFinder matchTheRecord:];
             }
 
             goto LABEL_92;
@@ -796,12 +796,12 @@ LABEL_64:
 
                 v34 = v37;
                 v47 = v31;
-                if (([*p_borderAgentIdToFind isEqualToData:v37] & 1) == 0)
+                if (![(NSData *)*p_borderAgentIdToFind isEqualToData:v37])
                 {
                   v44 = THCredentialsServerLogHandleForCategory(1);
                   if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
                   {
-                    [ThreadBRFinder matchTheRecord:?];
+                    [ThreadBRFinder matchTheRecord:];
                   }
 
                   goto LABEL_93;
@@ -843,7 +843,7 @@ LABEL_77:
 
               else if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
               {
-                [ThreadBRFinder matchTheRecord:?];
+                [ThreadBRFinder matchTheRecord:];
               }
 
               goto LABEL_22;
@@ -873,7 +873,7 @@ LABEL_77:
                 v33 = THCredentialsServerLogHandleForCategory(1);
                 if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
                 {
-                  [ThreadBRFinder matchTheRecord:?];
+                  [ThreadBRFinder matchTheRecord:];
                 }
 
 LABEL_88:
@@ -897,13 +897,13 @@ LABEL_92:
             v38 = THCredentialsServerLogHandleForCategory(1);
             if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
             {
-              [ThreadBRFinder matchTheRecord:?];
+              [ThreadBRFinder matchTheRecord:];
             }
           }
 
           else
           {
-            if (!*p_borderAgentIdToFind || ([*p_borderAgentIdToFind isEqualToData:v11] & 1) != 0)
+            if (!*p_borderAgentIdToFind || [(NSData *)*p_borderAgentIdToFind isEqualToData:v11])
             {
               v49 = v22;
               v51 = 0;
@@ -916,7 +916,7 @@ LABEL_92:
             v38 = THCredentialsServerLogHandleForCategory(1);
             if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
             {
-              [ThreadBRFinder matchTheRecord:?];
+              [ThreadBRFinder matchTheRecord:];
             }
           }
 
@@ -1030,9 +1030,10 @@ LABEL_27:
 
 - (void)matchTheListWithServer:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_15();
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v0, v1, "%s : %d can not parse dictionary data for server : %@", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v0, v1, "%s : %d can not parse dictionary data for server : %@", v2, v3, v4, v5, v6);
 }
 
 - (void)matchTheListWithServer:(void *)a1 .cold.2(void *a1)
@@ -1065,24 +1066,25 @@ LABEL_27:
 
 - (void)matchTheListWithServer:.cold.5()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_15();
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v0, v1, "%s : %d network name nsstring conversion failure for server : %@, continue to next network", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v0, v1, "%s : %d network name nsstring conversion failure for server : %@, continue to next network", v2, v3, v4, v5, v6);
 }
 
-- (void)matchTheListWithServer:(unsigned int *)a1 .cold.6(unsigned int *a1)
+- (void)matchTheListWithServer:.cold.6()
 {
-  v1 = *a1;
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x18u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 - (void)matchTheListWithServer:.cold.7()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_15();
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v0, v1, "%s : %d No text record data available for the server : %@, continue to next network, retry flag is on!", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v0, v1, "%s : %d No text record data available for the server : %@, continue to next network, retry flag is on!", v2, v3, v4, v5, v6);
 }
 
 - (void)matchTheListWithServer:.cold.8()
@@ -1094,9 +1096,10 @@ LABEL_27:
 
 - (void)matchTheRecord:.cold.1()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_15();
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v0, v1, "%s : %d can not parse dictionary data for server : %@", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v0, v1, "%s : %d can not parse dictionary data for server : %@", v2, v3, v4, v5, v6);
 }
 
 - (void)matchTheRecord:(void *)a1 .cold.2(void *a1, void *a2)
@@ -1108,99 +1111,104 @@ LABEL_27:
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x26u);
 }
 
-- (void)matchTheRecord:(uint64_t *)a1 .cold.3(uint64_t *a1)
+- (void)matchTheRecord:.cold.3()
 {
-  OUTLINED_FUNCTION_8_0(a1, __stack_chk_guard);
-  v3 = 136315906;
+  OUTLINED_FUNCTION_8_0(__stack_chk_guard);
+  v2 = 136315906;
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_4_6(&_mh_execute_header, v1, v2, "%s : %d: Network to find :%@ does not match with mdns record :%@", v3);
+  OUTLINED_FUNCTION_4_6(&_mh_execute_header, v0, v1, "%s : %d: Network to find :%@ does not match with mdns record :%@", v2);
 }
 
 - (void)matchTheRecord:.cold.4()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_15();
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v0, v1, "%s : %d network name nsstring conversion failure for server : %@, continue to next network", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v0, v1, "%s : %d network name nsstring conversion failure for server : %@, continue to next network", v2, v3, v4, v5, v6);
 }
 
-- (void)matchTheRecord:(uint64_t *)a1 .cold.5(uint64_t *a1)
+- (void)matchTheRecord:.cold.5()
 {
-  OUTLINED_FUNCTION_8_0(a1, __stack_chk_guard);
-  v3 = 136315906;
+  OUTLINED_FUNCTION_8_0(__stack_chk_guard);
+  v2 = 136315906;
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_4_6(&_mh_execute_header, v1, v2, "%s : %d: Xpanid to find :%@ does not match with mdns record xpanid :%@", v3);
+  OUTLINED_FUNCTION_4_6(&_mh_execute_header, v0, v1, "%s : %d: Xpanid to find :%@ does not match with mdns record xpanid :%@", v2);
 }
 
-- (void)matchTheRecord:(uint64_t *)a1 .cold.6(uint64_t *a1)
+- (void)matchTheRecord:.cold.6()
 {
-  OUTLINED_FUNCTION_8_0(a1, __stack_chk_guard);
-  v3 = 136315906;
+  OUTLINED_FUNCTION_8_0(__stack_chk_guard);
+  v2 = 136315906;
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_4_6(&_mh_execute_header, v1, v2, "%s : %d: BaID to find :%@ does not match with mdns record BaID :%@", v3);
+  OUTLINED_FUNCTION_4_6(&_mh_execute_header, v0, v1, "%s : %d: BaID to find :%@ does not match with mdns record BaID :%@", v2);
 }
 
-- (void)matchTheRecord:(uint64_t *)a1 .cold.7(uint64_t *a1)
+- (void)matchTheRecord:.cold.7()
 {
-  OUTLINED_FUNCTION_8_0(a1, __stack_chk_guard);
-  v3 = 136315906;
+  OUTLINED_FUNCTION_8_0(__stack_chk_guard);
+  v2 = 136315906;
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_4_6(&_mh_execute_header, v1, v2, "%s : %d: Xpanid to find :%@ does not match with mdns record xpanid :%@", v3);
+  OUTLINED_FUNCTION_4_6(&_mh_execute_header, v0, v1, "%s : %d: Xpanid to find :%@ does not match with mdns record xpanid :%@", v2);
 }
 
 - (void)matchTheRecord:.cold.8()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_15();
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v0, v1, "%s : %d hex string conversion to nsdata failure for server : %@", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v0, v1, "%s : %d hex string conversion to nsdata failure for server : %@", v2, v3, v4, v5, v6);
 }
 
 - (void)matchTheRecord:.cold.9()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_15();
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v0, v1, "%s : %d xpanid nsstring conversion failure, server : %@", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v0, v1, "%s : %d xpanid nsstring conversion failure, server : %@", v2, v3, v4, v5, v6);
 }
 
-- (void)matchTheRecord:(uint64_t *)a1 .cold.10(uint64_t *a1)
+- (void)matchTheRecord:.cold.10()
 {
-  OUTLINED_FUNCTION_8_0(a1, __stack_chk_guard);
-  v3 = 136315906;
+  OUTLINED_FUNCTION_8_0(__stack_chk_guard);
+  v2 = 136315906;
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_1_4();
-  OUTLINED_FUNCTION_4_6(&_mh_execute_header, v1, v2, "%s : %d: BaID to find :%@ does not match with mdns record BaID :%@", v3);
+  OUTLINED_FUNCTION_4_6(&_mh_execute_header, v0, v1, "%s : %d: BaID to find :%@ does not match with mdns record BaID :%@", v2);
 }
 
 - (void)matchTheRecord:.cold.11()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_15();
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v0, v1, "%s : %d hex string conversion to nsdata failure for server : %@, continue to next network", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v0, v1, "%s : %d hex string conversion to nsdata failure for server : %@, continue to next network", v2, v3, v4, v5, v6);
 }
 
 - (void)matchTheRecord:.cold.12()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_15();
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v0, v1, "%s : %d xpanid and baid nsstring conversion failure, server : %@, continue to next network", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v0, v1, "%s : %d xpanid and baid nsstring conversion failure, server : %@, continue to next network", v2, v3, v4, v5, v6);
 }
 
-- (void)matchTheRecord:(unsigned int *)a1 .cold.13(unsigned int *a1)
+- (void)matchTheRecord:.cold.13()
 {
-  v1 = *a1;
   OUTLINED_FUNCTION_3_3();
   OUTLINED_FUNCTION_2_1();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x18u);
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
 }
 
 - (void)matchTheRecord:.cold.14()
 {
+  v6 = 136315650;
   OUTLINED_FUNCTION_15();
   OUTLINED_FUNCTION_1_3();
-  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v0, v1, "%s : %d No text record data available for the server : %@, continue to next network, retry flag is on!", v2, v3, v4, v5, 2u);
+  OUTLINED_FUNCTION_5_3(&_mh_execute_header, v0, v1, "%s : %d No text record data available for the server : %@, continue to next network, retry flag is on!", v2, v3, v4, v5, v6);
 }
 
 - (void)matchTheRecord:.cold.15()

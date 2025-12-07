@@ -26,7 +26,7 @@
 
 - (id)dataSourceAccessoryWithUUID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dataSource = [(HMDAppleMediaAccessoryLocalMessageHandler *)self dataSource];
   v6 = dataSource;
@@ -43,25 +43,23 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = dCopy;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to get accessory with uuid: %@ due to no data source", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = dCopy;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to get accessory with uuid: %@ due to no data source", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (void)handleSiriEndpointDeleteSiriHistoryMessage:(id)message
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -70,9 +68,9 @@
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v39 = v8;
-    v40 = 2112;
-    v41 = messageCopy;
+    v38 = v8;
+    v39 = 2112;
+    v40 = messageCopy;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling siri endpoint delete siri history message: %@", buf, 0x16u);
   }
 
@@ -93,14 +91,14 @@
         if (endpointIdentifier)
         {
           assistantSettingsConnection = [(HMDAppleMediaAccessoryLocalMessageHandler *)selfCopy assistantSettingsConnection];
-          v36[0] = MEMORY[0x277D85DD0];
-          v36[1] = 3221225472;
-          v36[2] = __88__HMDAppleMediaAccessoryLocalMessageHandler_handleSiriEndpointDeleteSiriHistoryMessage___block_invoke;
-          v36[3] = &unk_27868A250;
-          v37 = messageCopy;
-          [assistantSettingsConnection deleteSiriHistoryWithEndpointUUID:endpointIdentifier completionHandler:v36];
+          v35[0] = MEMORY[0x277D85DD0];
+          v35[1] = 3221225472;
+          v35[2] = __88__HMDAppleMediaAccessoryLocalMessageHandler_handleSiriEndpointDeleteSiriHistoryMessage___block_invoke;
+          v35[3] = &unk_27868A250;
+          v36 = messageCopy;
+          [assistantSettingsConnection deleteSiriHistoryWithEndpointUUID:endpointIdentifier completionHandler:v35];
 
-          v17 = v37;
+          v17 = v36;
         }
 
         else
@@ -112,18 +110,18 @@
           if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
           {
             HMFGetLogIdentifier();
-            v33 = v35 = v30;
+            v33 = v34 = v30;
             *buf = 138544130;
-            v39 = v33;
-            v40 = 2112;
-            v41 = v14;
-            v42 = 2112;
-            v43 = messageCopy;
-            v44 = 2112;
-            v45 = v17;
+            v38 = v33;
+            v39 = 2112;
+            v40 = v14;
+            v41 = 2112;
+            v42 = messageCopy;
+            v43 = 2112;
+            v44 = v17;
             _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Failed to get endpoint identifier for accessory: %@ for delete siri history message: %@ error: %@", buf, 0x2Au);
 
-            v30 = v35;
+            v30 = v34;
           }
 
           objc_autoreleasePoolPop(v30);
@@ -141,13 +139,13 @@
         {
           v29 = HMFGetLogIdentifier();
           *buf = 138544130;
-          v39 = v29;
-          v40 = 2112;
-          v41 = accessoryUUID;
-          v42 = 2112;
-          v43 = messageCopy;
-          v44 = 2112;
-          v45 = endpointIdentifier;
+          v38 = v29;
+          v39 = 2112;
+          v40 = accessoryUUID;
+          v41 = 2112;
+          v42 = messageCopy;
+          v43 = 2112;
+          v44 = endpointIdentifier;
           _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to get accessory with uuid: %@ for delete siri history message: %@ error: %@", buf, 0x2Au);
         }
 
@@ -166,11 +164,11 @@
       {
         v25 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v39 = v25;
-        v40 = 2112;
-        v41 = messagePayload;
-        v42 = 2112;
-        v43 = accessoryUUID;
+        v38 = v25;
+        v39 = 2112;
+        v40 = messagePayload;
+        v41 = 2112;
+        v42 = accessoryUUID;
         _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode message payload from delete siri history message payload: %@ error: %@", buf, 0x20u);
       }
 
@@ -189,19 +187,17 @@
     {
       v21 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v39 = v21;
-      v40 = 2112;
-      v41 = messageCopy;
-      v42 = 2112;
-      v43 = v11;
+      v38 = v21;
+      v39 = 2112;
+      v40 = messageCopy;
+      v41 = 2112;
+      v42 = v11;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to get message payload from delete siri history message: %@ error: %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v18);
     [messageCopy respondWithError:v11];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __88__HMDAppleMediaAccessoryLocalMessageHandler_handleSiriEndpointDeleteSiriHistoryMessage___block_invoke(uint64_t a1, uint64_t a2)
@@ -261,10 +257,9 @@ LABEL_7:
 
 void __56__HMDAppleMediaAccessoryLocalMessageHandler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v7_64243;
-  logCategory__hmf_once_v7_64243 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v7_64243;
+  logCategory__hmf_once_v7_64243 = v0;
 }
 
 @end

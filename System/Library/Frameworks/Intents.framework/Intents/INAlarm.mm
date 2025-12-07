@@ -14,18 +14,18 @@
 
 - (id)_dictionaryRepresentation
 {
-  v24[7] = *MEMORY[0x1E69E9840];
+  v23[7] = *MEMORY[0x1E69E9840];
   identifier = self->_identifier;
-  v22 = identifier;
-  v23[0] = @"identifier";
+  v21 = identifier;
+  v22[0] = @"identifier";
   if (!identifier)
   {
     identifier = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = identifier;
-  v24[0] = identifier;
-  v23[1] = @"dateTime";
+  v20 = identifier;
+  v23[0] = identifier;
+  v22[1] = @"dateTime";
   dateTime = self->_dateTime;
   null = dateTime;
   if (!dateTime)
@@ -33,9 +33,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v20 = null;
-  v24[1] = null;
-  v23[2] = @"label";
+  v19 = null;
+  v23[1] = null;
+  v22[2] = @"label";
   label = self->_label;
   null2 = label;
   if (!label)
@@ -43,9 +43,9 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v18 = null2;
-  v24[2] = null2;
-  v23[3] = @"enabled";
+  v17 = null2;
+  v23[2] = null2;
+  v22[3] = @"enabled";
   enabled = self->_enabled;
   null3 = enabled;
   if (!enabled)
@@ -53,8 +53,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[3] = null3;
-  v23[4] = @"firing";
+  v23[3] = null3;
+  v22[4] = @"firing";
   firing = self->_firing;
   null4 = firing;
   if (!firing)
@@ -62,11 +62,11 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[4] = null4;
-  v23[5] = @"alarmRepeatScheduleOptions";
-  v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{self->_alarmRepeatScheduleOptions, v18}];
-  v24[5] = v12;
-  v23[6] = @"sleepAlarmAttribute";
+  v23[4] = null4;
+  v22[5] = @"alarmRepeatScheduleOptions";
+  v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{self->_alarmRepeatScheduleOptions, v17}];
+  v23[5] = v12;
+  v22[6] = @"sleepAlarmAttribute";
   sleepAlarmAttribute = self->_sleepAlarmAttribute;
   null5 = sleepAlarmAttribute;
   if (!sleepAlarmAttribute)
@@ -74,8 +74,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24[6] = null5;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:7];
+  v23[6] = null5;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:7];
   if (!sleepAlarmAttribute)
   {
   }
@@ -124,11 +124,9 @@ LABEL_18:
 LABEL_27:
 
 LABEL_19:
-  if (!v22)
+  if (!v21)
   {
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }

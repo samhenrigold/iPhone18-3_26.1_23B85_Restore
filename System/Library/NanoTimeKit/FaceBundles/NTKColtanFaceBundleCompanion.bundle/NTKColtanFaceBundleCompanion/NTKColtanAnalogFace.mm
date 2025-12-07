@@ -162,25 +162,17 @@ LABEL_7:
 
 - (Class)_optionClassForCustomEditMode:(int64_t)mode
 {
-  if (mode == 12)
+  if (mode == 12 || mode == 11)
   {
-    v4 = NTKAnalogDialShapeEditOption_ptr;
-LABEL_5:
-    v5 = *v4;
-    v6 = objc_opt_class();
-
-    return v6;
+    v4 = objc_opt_class();
   }
 
-  if (mode == 11)
+  else
   {
-    v4 = &off_10250;
-    goto LABEL_5;
+    v4 = 0;
   }
 
-  v6 = 0;
-
-  return v6;
+  return v4;
 }
 
 + (id)_localizedNameOverrideForCustomEditMode:(int64_t)mode forDevice:(id)device

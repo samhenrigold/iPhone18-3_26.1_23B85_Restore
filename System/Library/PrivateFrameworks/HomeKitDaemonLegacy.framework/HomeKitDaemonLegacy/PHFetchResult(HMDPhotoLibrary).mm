@@ -26,29 +26,29 @@
 
 - (id)faceCropDataByUUID
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v3 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:@"B8AC1970-2A44-4E05-A0DB-ED720A1D910C"];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   selfCopy = self;
-  v5 = [selfCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [selfCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         v10 = MEMORY[0x277CCAD78];
         localIdentifier = [v9 localIdentifier];
         v12 = [localIdentifier dataUsingEncoding:4];
@@ -58,14 +58,13 @@
         [dictionary setObject:resourceData forKeyedSubscript:v13];
       }
 
-      v6 = [selfCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v6 = [selfCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v6);
   }
 
-  v15 = [dictionary copy];
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = objc_msgSend_copy(dictionary);
 
   return v15;
 }

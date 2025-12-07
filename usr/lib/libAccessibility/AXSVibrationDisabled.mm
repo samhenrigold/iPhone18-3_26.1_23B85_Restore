@@ -3,7 +3,7 @@
 
 @implementation AXSVibrationDisabled
 
-uint64_t ___AXSVibrationDisabled_block_invoke()
+void *___AXSVibrationDisabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

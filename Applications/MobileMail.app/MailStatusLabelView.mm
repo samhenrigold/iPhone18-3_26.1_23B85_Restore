@@ -97,15 +97,15 @@
 
 - (void)layoutSubviews
 {
-  v45.receiver = self;
-  v45.super_class = MailStatusLabelView;
-  [(MailStatusLabelView *)&v45 layoutSubviews];
+  v50.receiver = self;
+  v50.super_class = MailStatusLabelView;
+  [(MailStatusLabelView *)&v50 layoutSubviews];
   if ((MUISolariumFeatureEnabled() & 1) == 0)
   {
     [(MailStatusLabelView *)self frame];
     v4 = v3;
-    v41 = v6;
-    v42 = v5;
+    v46 = v6;
+    v47 = v5;
     rect = v7;
     primaryLabel = [(MailStatusLabelView *)self primaryLabel];
     [primaryLabel sizeToFit];
@@ -122,56 +122,75 @@
 
     secondaryLabel2 = [(MailStatusLabelView *)self secondaryLabel];
     [secondaryLabel2 frame];
-    v39 = v20;
-    v43 = v21;
+    v44 = v20;
+    v48 = v21;
     v23 = v22;
     v25 = v24;
 
-    v44[0] = _NSConcreteStackBlock;
-    v44[1] = 3221225472;
-    v44[2] = sub_100133274;
-    v44[3] = &unk_1006511C0;
-    v44[4] = self;
-    *&v44[5] = v4;
-    *&v44[6] = v42;
-    *&v44[7] = v41;
-    *&v44[8] = rect;
-    v44[9] = 0;
-    v26 = objc_retainBlock(v44);
+    v49[0] = _NSConcreteStackBlock;
+    v49[1] = 3221225472;
+    v49[2] = sub_100133274;
+    v49[3] = &unk_1006511C0;
+    v49[4] = self;
+    *&v49[5] = v4;
+    *&v49[6] = v47;
+    *&v49[7] = v46;
+    *&v49[8] = rect;
+    v49[9] = 0;
+    v26 = objc_retainBlock(v49);
     v27 = (v26[2])(v12, v14, v16, v18);
-    v28 = (v26[2])(v26, v23, v39, v43, v25);
+    v28 = (v26[2])(v26, v23, v44, v48, v25);
     primaryLabel3 = [(MailStatusLabelView *)self primaryLabel];
     text = [primaryLabel3 text];
-    [text length];
+    v31 = [text length];
+
+    if (v31)
+    {
+      v32 = v18 + 0.0;
+    }
+
+    else
+    {
+      v32 = 0.0;
+    }
 
     secondaryLabel3 = [(MailStatusLabelView *)self secondaryLabel];
     text2 = [secondaryLabel3 text];
-    [text2 length];
+    v35 = [text2 length];
 
-    v46.origin.x = v4;
-    v46.size.width = v41;
-    v46.origin.y = v42;
-    v46.size.height = rect;
-    CGRectGetHeight(v46);
-    UIRoundToViewScale();
-    v34 = v33;
-    v47.origin.x = v27;
-    v47.origin.y = v34;
-    v47.size.width = v16;
-    v47.size.height = v18;
-    CGRectGetMinY(v47);
-    v48.origin.x = v28;
-    v48.origin.y = v39;
-    v48.size.width = v43;
-    v48.size.height = v25;
-    CGRectGetHeight(v48);
-    UIRoundToViewScale();
-    v36 = v35;
+    if (v35)
+    {
+      v32 = v25 + v32;
+    }
+
+    v51.origin.x = v4;
+    v51.size.width = v46;
+    v51.origin.y = v47;
+    v51.size.height = rect;
+    Height = CGRectGetHeight(v51);
+    v37 = -0.5;
+    if (!v35)
+    {
+      v37 = -1.0;
+    }
+
+    v38 = UIRoundToViewScale(v37 + (Height - v32) * 0.5);
+    v52.origin.x = v27;
+    v52.origin.y = v38;
+    v52.size.width = v16;
+    v52.size.height = v18;
+    MinY = CGRectGetMinY(v52);
+    v53.origin.x = v28;
+    v53.origin.y = v44;
+    v53.size.width = v48;
+    v53.size.height = v25;
+    v40 = CGRectGetHeight(v53);
+    v41 = UIRoundToViewScale(v32 + MinY - v40);
     primaryLabel4 = [(MailStatusLabelView *)self primaryLabel];
-    [primaryLabel4 setFrame:{v27, v34, v16, v18}];
+    [primaryLabel4 setFrame:{v27, v38, v16, v18}];
 
     secondaryLabel4 = [(MailStatusLabelView *)self secondaryLabel];
-    [secondaryLabel4 setFrame:{v28, v36, v43, v25}];
+    [secondaryLabel4 setFrame:{v28, v41, v48, v25}];
   }
 }
 

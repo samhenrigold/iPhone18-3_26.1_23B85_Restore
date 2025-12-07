@@ -15,8 +15,14 @@
 - (id)safeAreaLayoutGuide;
 - (id)transitioningView;
 - (int64_t)preferredWhitePointAdaptivityStyle;
+- (void)previewBecameFullScreen:(BOOL)screen animated:(BOOL)animated;
+- (void)previewDidAppear:(BOOL)appear;
+- (void)previewDidDisappear:(BOOL)disappear;
 - (void)previewIsAppearingWithProgress:(double)progress;
+- (void)previewWillAppear:(BOOL)appear;
+- (void)previewWillDisappear:(BOOL)disappear;
 - (void)previewWillFinishAppearing;
+- (void)setAppearance:(id)appearance animated:(BOOL)animated;
 - (void)setDelegate:(id)delegate;
 - (void)showPreviewViewController:(id)controller animatingWithCrossfade:(BOOL)crossfade;
 @end
@@ -26,7 +32,7 @@
 - (void)showPreviewViewController:(id)controller animatingWithCrossfade:(BOOL)crossfade
 {
   crossfadeCopy = crossfade;
-  v68[1] = *MEMORY[0x277D85DE8];
+  v67[1] = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   parentViewController = [controllerCopy parentViewController];
 
@@ -59,21 +65,21 @@
     v14 = view4;
     if (view4)
     {
-      [view4 transform];
+      objc_msgSend_transform(view4);
     }
 
     else
     {
-      v63 = 0u;
-      v64 = 0u;
       v62 = 0u;
+      v63 = 0u;
+      v61 = 0u;
     }
 
     view5 = [controllerCopy view];
-    v61[0] = v62;
-    v61[1] = v63;
-    v61[2] = v64;
-    [view5 setTransform:v61];
+    v60[0] = v61;
+    v60[1] = v62;
+    v60[2] = v63;
+    [view5 setTransform:v60];
 
     view6 = [(QLItemAggregatedViewController *)self view];
     [view6 bounds];
@@ -89,19 +95,19 @@
 
     view9 = [(QLItemAggregatedViewController *)self view];
     v28 = MEMORY[0x277CCAAD0];
-    v67 = @"preview";
+    v66 = @"preview";
     view10 = [controllerCopy view];
-    v68[0] = view10;
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:&v67 count:1];
+    v67[0] = view10;
+    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v67 forKeys:&v66 count:1];
     v31 = [v28 constraintsWithVisualFormat:@"H:|[preview]|" options:0 metrics:0 views:v30];
     [view9 addConstraints:v31];
 
     view11 = [(QLItemAggregatedViewController *)self view];
     v33 = MEMORY[0x277CCAAD0];
-    v65 = @"preview";
+    v64 = @"preview";
     view12 = [controllerCopy view];
-    v66 = view12;
-    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+    v65 = view12;
+    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
     v36 = [v33 constraintsWithVisualFormat:@"V:|[preview]|" options:0 metrics:0 views:v35];
     [view11 addConstraints:v36];
 
@@ -121,10 +127,10 @@
       aBlock[2] = __83__QLItemAggregatedViewController_showPreviewViewController_animatingWithCrossfade___block_invoke;
       aBlock[3] = &unk_278B56E00;
       v41 = v40;
-      v58 = v41;
+      v57 = v41;
       selfCopy = self;
       v42 = controllerCopy;
-      v60 = v42;
+      v59 = v42;
       v43 = _Block_copy(aBlock);
       view13 = [v42 view];
       v45 = view13;
@@ -133,24 +139,24 @@
         [view13 setAlpha:0.0];
 
         v46 = MEMORY[0x277D75D18];
-        v55[0] = MEMORY[0x277D85DD0];
-        v55[1] = 3221225472;
-        v55[2] = __83__QLItemAggregatedViewController_showPreviewViewController_animatingWithCrossfade___block_invoke_2;
-        v55[3] = &unk_278B57190;
-        v56 = v41;
-        [v46 animateWithDuration:0x10000 delay:v55 options:0 animations:0.5 completion:0.1];
+        v54[0] = MEMORY[0x277D85DD0];
+        v54[1] = 3221225472;
+        v54[2] = __83__QLItemAggregatedViewController_showPreviewViewController_animatingWithCrossfade___block_invoke_2;
+        v54[3] = &unk_278B57190;
+        v55 = v41;
+        [v46 animateWithDuration:0x10000 delay:v54 options:0 animations:0.5 completion:0.1];
         v47 = MEMORY[0x277D75D18];
-        v53[0] = MEMORY[0x277D85DD0];
-        v53[1] = 3221225472;
-        v53[2] = __83__QLItemAggregatedViewController_showPreviewViewController_animatingWithCrossfade___block_invoke_3;
-        v53[3] = &unk_278B57190;
-        v54 = v42;
-        v51[0] = MEMORY[0x277D85DD0];
-        v51[1] = 3221225472;
-        v51[2] = __83__QLItemAggregatedViewController_showPreviewViewController_animatingWithCrossfade___block_invoke_4;
-        v51[3] = &unk_278B57B40;
-        v52 = v43;
-        [v47 animateWithDuration:v53 animations:v51 completion:0.5];
+        v52[0] = MEMORY[0x277D85DD0];
+        v52[1] = 3221225472;
+        v52[2] = __83__QLItemAggregatedViewController_showPreviewViewController_animatingWithCrossfade___block_invoke_3;
+        v52[3] = &unk_278B57190;
+        v53 = v42;
+        v50[0] = MEMORY[0x277D85DD0];
+        v50[1] = 3221225472;
+        v50[2] = __83__QLItemAggregatedViewController_showPreviewViewController_animatingWithCrossfade___block_invoke_4;
+        v50[3] = &unk_278B57B40;
+        v51 = v43;
+        [v47 animateWithDuration:v52 animations:v50 completion:0.5];
       }
 
       else
@@ -176,11 +182,9 @@
     delegate3 = [(QLItemAggregatedViewController *)self delegate];
     [delegate3 previewItemViewControllerDidChangeCurrentPreviewController:self];
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __83__QLItemAggregatedViewController_showPreviewViewController_animatingWithCrossfade___block_invoke(uint64_t a1)
+void *__83__QLItemAggregatedViewController_showPreviewViewController_animatingWithCrossfade___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) willMoveToParentViewController:0];
   v2 = [*(a1 + 32) view];
@@ -209,11 +213,48 @@ void __83__QLItemAggregatedViewController_showPreviewViewController_animatingWit
   [v1 setAlpha:1.0];
 }
 
+- (void)setAppearance:(id)appearance animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  objc_storeStrong(&self->_appearance, appearance);
+  appearanceCopy = appearance;
+  [(QLItemViewController *)self->_currentPreviewViewController setAppearance:appearanceCopy animated:animatedCopy];
+}
+
 - (void)setDelegate:(id)delegate
 {
   delegateCopy = delegate;
   objc_storeWeak(&self->_delegate, delegateCopy);
   [(QLItemViewController *)self->_currentPreviewViewController setDelegate:delegateCopy];
+}
+
+- (void)previewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v10 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = QLItemAggregatedViewController;
+  [(QLItemViewController *)&v7 previewWillAppear:?];
+  if (self->_isVisible)
+  {
+    v5 = MEMORY[0x277D43EF8];
+    v6 = *MEMORY[0x277D43EF8];
+    if (!*MEMORY[0x277D43EF8])
+    {
+      QLSInitLogging();
+      v6 = *v5;
+    }
+
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 138412290;
+      selfCopy = self;
+      _os_log_impl(&dword_23A714000, v6, OS_LOG_TYPE_DEBUG, "previewWillAppear was called when the controller was already visible (after previewDidAppear) (%@) #AggregatedViewController", buf, 0xCu);
+    }
+  }
+
+  self->_isAppearing = 1;
+  [(QLItemViewController *)self->_currentPreviewViewController previewWillAppear:appearCopy];
 }
 
 - (void)previewIsAppearingWithProgress:(double)progress
@@ -224,12 +265,64 @@ void __83__QLItemAggregatedViewController_showPreviewViewController_animatingWit
   [(QLItemViewController *)self->_currentPreviewViewController previewIsAppearingWithProgress:progress];
 }
 
+- (void)previewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  delegate = [(QLItemAggregatedViewController *)self delegate];
+  currentPreviewViewController = self->_currentPreviewViewController;
+  [(QLItemViewController *)currentPreviewViewController edgePanGestureWidth];
+  [delegate previewItemViewController:currentPreviewViewController wantsToSetRemoteEdgePanGestureWidth:?];
+
+  v7.receiver = self;
+  v7.super_class = QLItemAggregatedViewController;
+  [(QLItemViewController *)&v7 previewDidAppear:appearCopy];
+  self->_isVisible = 1;
+  self->_isAppearing = 0;
+  [(QLItemViewController *)self->_currentPreviewViewController previewDidAppear:appearCopy];
+}
+
+- (void)previewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v5.receiver = self;
+  v5.super_class = QLItemAggregatedViewController;
+  [(QLItemViewController *)&v5 previewWillDisappear:?];
+  [(QLItemViewController *)self->_currentPreviewViewController previewWillDisappear:disappearCopy];
+}
+
+- (void)previewDidDisappear:(BOOL)disappear
+{
+  self->_isAppearing = 0;
+  if (self->_isVisible)
+  {
+    v8 = v3;
+    v9 = v4;
+    disappearCopy = disappear;
+    self->_isVisible = 0;
+    v7.receiver = self;
+    v7.super_class = QLItemAggregatedViewController;
+    [(QLItemViewController *)&v7 previewDidDisappear:?];
+    [(QLItemViewController *)self->_currentPreviewViewController previewDidDisappear:disappearCopy];
+  }
+}
+
 - (void)previewWillFinishAppearing
 {
   v3.receiver = self;
   v3.super_class = QLItemAggregatedViewController;
   [(QLItemViewController *)&v3 previewWillFinishAppearing];
   [(QLItemViewController *)self->_currentPreviewViewController previewWillFinishAppearing];
+}
+
+- (void)previewBecameFullScreen:(BOOL)screen animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  screenCopy = screen;
+  self->_fullScreen = screen;
+  [QLItemViewController previewBecameFullScreen:"previewBecameFullScreen:animated:" animated:?];
+  v7.receiver = self;
+  v7.super_class = QLItemAggregatedViewController;
+  [(QLItemViewController *)&v7 previewBecameFullScreen:screenCopy animated:animatedCopy];
 }
 
 - (BOOL)shouldAcceptTouch:(id)touch ofGestureRecognizer:(id)recognizer
@@ -400,7 +493,6 @@ void __83__QLItemAggregatedViewController_showPreviewViewController_animatingWit
 
 - (id)printer
 {
-  currentPreviewViewController = self->_currentPreviewViewController;
   if (objc_opt_respondsToSelector())
   {
     printer = [(QLItemViewController *)self->_currentPreviewViewController printer];

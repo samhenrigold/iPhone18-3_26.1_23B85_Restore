@@ -2,9 +2,10 @@ id TakeLiveStackshot()
 {
   if (!stackshot_config_create())
   {
-    v0 = *__error();
-    v1 = _ublogt();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v3 = __error();
+    v1 = *v3;
+    v2 = _ublogt(v3);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       TakeLiveStackshot_cold_4();
     }
@@ -15,26 +16,28 @@ id TakeLiveStackshot()
   if (stackshot_config_set_flags())
   {
     stackshot_config_dealloc();
-    v0 = *__error();
-    v1 = _ublogt();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v0 = __error();
+    v1 = *v0;
+    v2 = _ublogt(v0);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       TakeLiveStackshot_cold_1();
     }
 
 LABEL_13:
 
-    v2 = 0;
-    *__error() = v0;
+    v6 = 0;
+    *__error() = v1;
     goto LABEL_14;
   }
 
   if (stackshot_config_set_pid())
   {
     stackshot_config_dealloc();
-    v0 = *__error();
-    v1 = _ublogt();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v4 = __error();
+    v1 = *v4;
+    v2 = _ublogt(v4);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       TakeLiveStackshot_cold_2();
     }
@@ -45,9 +48,10 @@ LABEL_13:
   if (stackshot_capture_with_config())
   {
     stackshot_config_dealloc();
-    v0 = *__error();
-    v1 = _ublogt();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v5 = __error();
+    v1 = *v5;
+    v2 = _ublogt(v5);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       TakeLiveStackshot_cold_3();
     }
@@ -56,11 +60,11 @@ LABEL_13:
   }
 
   stackshot_buffer = stackshot_config_get_stackshot_buffer();
-  v2 = [MEMORY[0x277CBEA90] dataWithBytes:stackshot_buffer length:stackshot_config_get_stackshot_size()];
+  v6 = [MEMORY[0x277CBEA90] dataWithBytes:stackshot_buffer length:stackshot_config_get_stackshot_size()];
   stackshot_config_dealloc();
 LABEL_14:
 
-  return v2;
+  return v6;
 }
 
 double findTimeSpentBlocked(void *a1)
@@ -88,14 +92,14 @@ double findTimeSpentBlocked(void *a1)
   return v2;
 }
 
-void sub_27039A590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_27039A590(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -113,20 +117,21 @@ uint64_t WatchdogCodeForIssueType(uint64_t a1)
     return 4;
   }
 
-  v2 = *__error();
-  v3 = _ublogt();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+  v2 = __error();
+  v3 = *v2;
+  v4 = _ublogt(v2);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     WatchdogCodeForIssueType_cold_1();
   }
 
-  *__error() = v2;
+  *__error() = v3;
   return 3;
 }
 
 id UBCopyPathForPid(int a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   if (proc_pidpath(a1, buffer, 0x400u) < 1)
   {
     v1 = 0;
@@ -136,8 +141,6 @@ id UBCopyPathForPid(int a1)
   {
     v1 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:buffer];
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 
   return v1;
 }
@@ -181,14 +184,15 @@ void __48__UBUnblockReactiveRecovery_getDiagnosticsQueue__block_invoke()
 
   if (!getDiagnosticsQueue_queue)
   {
-    v4 = *__error();
-    v5 = _ublogt();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = __error();
+    v5 = *v4;
+    v6 = _ublogt(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       __48__UBUnblockReactiveRecovery_getDiagnosticsQueue__block_invoke_cold_1();
     }
 
-    *__error() = v4;
+    *__error() = v5;
   }
 }
 
@@ -384,8 +388,8 @@ void __49__UBUnblockReactiveRecovery_taskIs3PApp_options___block_invoke(uint64_t
 
 id __51__UBUnblockReactiveRecovery_emitTelemetryForError___block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  v8 = @"Error";
+  v8[1] = *MEMORY[0x277D85DE8];
+  v7 = @"Error";
   v1 = MEMORY[0x277CCABB0];
   v2 = [*(a1 + 32) code];
   if (v2)
@@ -399,10 +403,8 @@ id __51__UBUnblockReactiveRecovery_emitTelemetryForError___block_invoke(uint64_t
   }
 
   v4 = [v1 numberWithInteger:v3];
-  v9[0] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[0] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
 
   return v5;
 }
@@ -411,17 +413,18 @@ void __UBWQTotalThreadLimit_block_invoke()
 {
   if (!_gUBWorkQueueTotalThreadLimit)
   {
-    v2 = 4;
-    if (sysctlbyname("kern.wq_max_threads", &_gUBWorkQueueTotalThreadLimit, &v2, 0, 0))
+    v3 = 4;
+    if (sysctlbyname("kern.wq_max_threads", &_gUBWorkQueueTotalThreadLimit, &v3, 0, 0))
     {
-      v0 = *__error();
-      v1 = _ublogt();
-      if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+      v0 = __error();
+      v1 = *v0;
+      v2 = _ublogt(v0);
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
         __UBWQTotalThreadLimit_block_invoke_cold_1();
       }
 
-      *__error() = v0;
+      *__error() = v1;
       _gUBWorkQueueTotalThreadLimit = 512;
     }
   }
@@ -431,26 +434,28 @@ void __UBWQConstrainedThreadLimit_block_invoke()
 {
   if (!_gUBWorkQueueConstrainedThreadLimit)
   {
-    v2 = 4;
-    if (sysctlbyname("kern.wq_max_constrained_threads", &_gUBWorkQueueConstrainedThreadLimit, &v2, 0, 0))
+    v3 = 4;
+    if (sysctlbyname("kern.wq_max_constrained_threads", &_gUBWorkQueueConstrainedThreadLimit, &v3, 0, 0))
     {
-      v0 = *__error();
-      v1 = _ublogt();
-      if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+      v0 = __error();
+      v1 = *v0;
+      v2 = _ublogt(v0);
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
         __UBWQConstrainedThreadLimit_block_invoke_cold_1();
       }
 
-      *__error() = v0;
+      *__error() = v1;
       _gUBWorkQueueConstrainedThreadLimit = 64;
     }
   }
 }
 
-void OUTLINED_FUNCTION_9(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_9(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 2u);
 }
 
 id _UBCopySanitizedString(void *a1, char a2, void *a3)
@@ -508,16 +513,16 @@ uint64_t __34__UBUnblockService_sharedInstance__block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id _ublogt()
+id _ublogt(uint64_t a1)
 {
   if (_ublogt_onceToken != -1)
   {
     _ublogt_cold_1();
   }
 
-  v1 = _ublogt_myLogger;
+  v2 = _ublogt_myLogger;
 
-  return v1;
+  return v2;
 }
 
 void ___ublogt_block_invoke()
@@ -534,29 +539,23 @@ void ___ublogt_block_invoke()
 
 void TakeLiveStackshot_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void TakeLiveStackshot_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void TakeLiveStackshot_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_13();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void TakeLiveStackshot_cold_4()
@@ -568,10 +567,9 @@ void TakeLiveStackshot_cold_4()
 
 void WatchdogCodeForIssueType_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_12();
-  _os_log_fault_impl(&dword_270397000, v0, OS_LOG_TYPE_FAULT, "Bad issue type %ld", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_270397000, v0, OS_LOG_TYPE_FAULT, "Bad issue type %ld", v1, 0xCu);
 }
 
 void __48__UBUnblockReactiveRecovery_getDiagnosticsQueue__block_invoke_cold_1()
@@ -583,18 +581,14 @@ void __48__UBUnblockReactiveRecovery_getDiagnosticsQueue__block_invoke_cold_1()
 
 void __UBWQTotalThreadLimit_block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v5 = *__error();
+  __error();
   OUTLINED_FUNCTION_11();
   _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 8u);
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __UBWQConstrainedThreadLimit_block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v5 = *__error();
+  __error();
   OUTLINED_FUNCTION_11();
   _os_log_error_impl(v0, v1, OS_LOG_TYPE_ERROR, v2, v3, 8u);
-  v4 = *MEMORY[0x277D85DE8];
 }

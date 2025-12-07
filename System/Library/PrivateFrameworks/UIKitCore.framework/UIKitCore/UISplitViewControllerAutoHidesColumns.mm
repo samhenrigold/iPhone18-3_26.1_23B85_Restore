@@ -3,7 +3,7 @@
 
 @implementation UISplitViewControllerAutoHidesColumns
 
-uint64_t ___UISplitViewControllerAutoHidesColumns_block_invoke()
+void *___UISplitViewControllerAutoHidesColumns_block_invoke()
 {
   result = _resolvedPrefValue_0(@"UISplitViewControllerForceAutoHidesColumns", 0);
   byte_1ED49D881 = result;

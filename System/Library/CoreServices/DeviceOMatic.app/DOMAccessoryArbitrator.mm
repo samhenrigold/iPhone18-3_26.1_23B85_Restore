@@ -5,10 +5,12 @@
 - (id)createUserNotificationDict;
 - (id)jobType:(id)type jobType:(int *)jobType;
 - (void)addBadDevicesToDialogDictBody:(id)body;
+- (void)addMatchJobServiceNamed:(id)named info:(id)info jobType:(int)type;
 - (void)addMatchingThings:(id)things matchJob:(id)job;
 - (void)addNotification:(id)notification matchJob:(id)job;
 - (void)addPersonality:(id)personality matchJob:(id)job;
 - (void)dealloc;
+- (void)deviceArrived:(unsigned int)arrived;
 - (void)displayDialog;
 - (void)displayOverCurrentDialog;
 - (void)loadLaunchdJobsAtPath:(id)path;
@@ -523,6 +525,76 @@
   }
 }
 
+- (void)addMatchJobServiceNamed:(id)named info:(id)info jobType:(int)type
+{
+  v5 = *&type;
+  namedCopy = named;
+  infoCopy = info;
+  v10 = infoCopy;
+  switch(v5)
+  {
+    case 2:
+      v12 = [infoCopy objectForKey:@"IOKitPersonalities"];
+      if (v12)
+      {
+        v13 = v12;
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          v17[0] = _NSConcreteStackBlock;
+          v17[1] = 3221225472;
+          v17[2] = sub_1000033F4;
+          v17[3] = &unk_100010710;
+          v17[4] = self;
+          v18 = namedCopy;
+          [v13 enumerateKeysAndObjectsUsingBlock:v17];
+        }
+      }
+
+      break;
+    case 0xFFFFFFFF:
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+      {
+        sub_100008298();
+      }
+
+      v11 = 0;
+      goto LABEL_23;
+    case 1:
+      v14 = @"Notification";
+      break;
+    default:
+      v14 = @"IOKitPersonalities";
+      break;
+  }
+
+  v11 = [v10 objectForKey:v14];
+  if (!v5 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *v16 = 0;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "*** WARNING!! ***  adding a JT_IOKIT personality!", v16, 2u);
+  }
+
+  if (namedCopy && v11)
+  {
+    v15 = objc_alloc_init(DOMMatchJob);
+    [(DOMMatchJob *)v15 setJobType:v5];
+    [(DOMMatchJob *)v15 setKickMe:CFMessagePortCreateRemote(kCFAllocatorDefault, namedCopy)];
+    [(DOMMatchJob *)v15 setName:namedCopy];
+    if ([(DOMMatchJob *)v15 kickMe])
+    {
+      [(DOMAccessoryArbitrator *)self addMatchingThings:v11 matchJob:v15];
+    }
+
+    else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_100008310();
+    }
+  }
+
+LABEL_23:
+}
+
 - (void)scanPlistsAtPath:(id)path execBlock:(id)block
 {
   pathCopy = path;
@@ -534,7 +606,7 @@
   v7 = +[NSFileManager defaultManager];
   v8 = [v7 enumeratorAtPath:pathCopy];
 
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v9)
   {
     v10 = v9;
@@ -556,7 +628,7 @@
           blockCopy[2](blockCopy, v14);
           if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG))
           {
-            sub_100008388(buf, v13, &v20);
+            sub_100008388(buf, v13, &buf[4]);
           }
         }
 
@@ -564,7 +636,7 @@
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v10);
@@ -640,22 +712,22 @@ LABEL_8:
   deviceCopy = device;
   group = dispatch_group_create();
   iterator = 0;
-  v38 = objc_alloc_init(NSMutableSet);
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x3032000000;
-  v57 = sub_1000042A4;
-  v58 = sub_1000042B4;
-  v59 = 0;
-  v40 = deviceCopy;
+  v39 = objc_alloc_init(NSMutableSet);
+  v55 = 0;
+  v56 = &v55;
+  v57 = 0x3032000000;
+  v58 = sub_1000042A4;
+  v59 = sub_1000042B4;
+  v60 = 0;
+  v41 = deviceCopy;
   if (IORegistryEntryCreateIterator([deviceCopy io_service], "IOService", 1u, &iterator))
   {
-    v34 = &_os_log_default;
+    v35 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      v35 = __error();
-      v36 = strerror(*v35);
-      sub_1000083D4(v36, buf);
+      v36 = __error();
+      v37 = strerror(*v36);
+      sub_1000083D4(v37, buf);
     }
 
     winningDomPersonality = 0;
@@ -667,35 +739,35 @@ LABEL_8:
     do
     {
       IOIteratorReset(iterator);
-      v52 = 0u;
       v53 = 0u;
-      v50 = 0u;
+      v54 = 0u;
       v51 = 0u;
-      v5 = v38;
-      v6 = [v5 countByEnumeratingWithState:&v50 objects:v74 count:16];
+      v52 = 0u;
+      v5 = v39;
+      v6 = [v5 countByEnumeratingWithState:&v51 objects:v75 count:16];
       if (v6)
       {
-        v7 = *v51;
+        v7 = *v52;
         do
         {
           for (i = 0; i != v6; i = i + 1)
           {
-            if (*v51 != v7)
+            if (*v52 != v7)
             {
               objc_enumerationMutation(v5);
             }
 
-            IOObjectRelease([*(*(&v50 + 1) + 8 * i) unsignedIntValue]);
+            IOObjectRelease([*(*(&v51 + 1) + 8 * i) unsignedIntValue]);
           }
 
-          v6 = [v5 countByEnumeratingWithState:&v50 objects:v74 count:16];
+          v6 = [v5 countByEnumeratingWithState:&v51 objects:v75 count:16];
         }
 
         while (v6);
       }
 
       [v5 removeAllObjects];
-      [v55[5] removeAllObjects];
+      [v56[5] removeAllObjects];
       while (1)
       {
         v9 = IOIteratorNext(iterator);
@@ -707,19 +779,19 @@ LABEL_8:
         v10 = [NSNumber numberWithUnsignedInt:v9];
         [v5 addObject:v10];
 
-        v45[0] = _NSConcreteStackBlock;
-        v45[1] = 3221225472;
-        v46 = sub_1000042BC;
-        v47 = &unk_1000107B0;
-        v48 = &v54;
-        v49 = v9;
-        v11 = v45;
-        v12 = sub_100006494();
-        if (v12)
+        v46[0] = _NSConcreteStackBlock;
+        v46[1] = 3221225472;
+        v47 = sub_1000042BC;
+        v48 = &unk_1000107B0;
+        v49 = &v55;
+        v50 = v9;
+        v11 = v46;
+        v13 = sub_100006494(v11, v12);
+        if (v13)
         {
-          if (*(v12 + 44) >= 5)
+          if (*(v13 + 44) >= 5)
           {
-            v46(v11);
+            v47(v11);
           }
         }
       }
@@ -727,44 +799,44 @@ LABEL_8:
 
     while (!IOIteratorIsValid(iterator));
     IOObjectRelease(iterator);
-    v13 = selfCopy;
-    v43 = 0u;
+    v14 = selfCopy;
     v44 = 0u;
-    v41 = 0u;
+    v45 = 0u;
     v42 = 0u;
-    v14 = v5;
-    v15 = [v14 countByEnumeratingWithState:&v41 objects:v73 count:16];
-    if (v15)
+    v43 = 0u;
+    v15 = v5;
+    v16 = [v15 countByEnumeratingWithState:&v42 objects:v74 count:16];
+    if (v16)
     {
-      v16 = *v42;
+      v17 = *v43;
       do
       {
-        for (j = 0; j != v15; j = j + 1)
+        for (j = 0; j != v16; j = j + 1)
         {
-          if (*v42 != v16)
+          if (*v43 != v17)
           {
-            objc_enumerationMutation(v14);
+            objc_enumerationMutation(v15);
           }
 
-          unsignedIntValue = [*(*(&v41 + 1) + 8 * j) unsignedIntValue];
+          unsignedIntValue = [*(*(&v42 + 1) + 8 * j) unsignedIntValue];
           IOServiceWaitQuiet(unsignedIntValue, 0);
-          [(DOMAccessoryArbitrator *)v13 probePersonalitiesForService:unsignedIntValue ofDevice:v40 inGroup:group];
+          [(DOMAccessoryArbitrator *)v14 probePersonalitiesForService:unsignedIntValue ofDevice:v41 inGroup:group];
           IOObjectRelease(unsignedIntValue);
         }
 
-        v15 = [v14 countByEnumeratingWithState:&v41 objects:v73 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v42 objects:v74 count:16];
       }
 
-      while (v15);
+      while (v16);
     }
 
-    -[DOMAccessoryArbitrator probePersonalitiesForService:ofDevice:inGroup:](selfCopy, "probePersonalitiesForService:ofDevice:inGroup:", [v40 io_service], v40, group);
+    -[DOMAccessoryArbitrator probePersonalitiesForService:ofDevice:inGroup:](selfCopy, "probePersonalitiesForService:ofDevice:inGroup:", [v41 io_service], v41, group);
     dispatch_group_wait(group, 0xFFFFFFFFFFFFFFFFLL);
-    winningDomPersonality = [v40 winningDomPersonality];
-    v20 = &_os_log_default;
+    winningDomPersonality = [v41 winningDomPersonality];
+    v21 = &_os_log_default;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
     {
-      name = [v40 name];
+      name = [v41 name];
       if (winningDomPersonality)
       {
         personalityName = [winningDomPersonality personalityName];
@@ -775,23 +847,23 @@ LABEL_8:
         personalityName = @"nobody";
       }
 
-      winningScore = [v40 winningScore];
+      winningScore = [v41 winningScore];
       iOSDeviceThreshold = [(DOMAccessoryArbitrator *)selfCopy iOSDeviceThreshold];
-      properties = [v40 properties];
-      v26 = sub_100006574(properties);
-      v27 = sub_100006574(v55[5]);
+      properties = [v41 properties];
+      v27 = sub_100006574(properties);
+      v28 = sub_100006574(v56[5]);
       *buf = 138413570;
-      v62 = name;
-      v63 = 2112;
-      v64 = personalityName;
-      v65 = 2112;
-      v66 = winningScore;
-      v67 = 2048;
-      v68 = iOSDeviceThreshold;
-      v69 = 2112;
-      v70 = v26;
-      v71 = 2112;
-      v72 = v27;
+      v63 = name;
+      v64 = 2112;
+      v65 = personalityName;
+      v66 = 2112;
+      v67 = winningScore;
+      v68 = 2048;
+      v69 = iOSDeviceThreshold;
+      v70 = 2112;
+      v71 = v27;
+      v72 = 2112;
+      v73 = v28;
       _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "Device: %@, winner: %@, probeScore: %@, iOSDeviceThreshold: %lld, properties: %@ children: %@", buf, 0x3Eu);
 
       if (winningDomPersonality)
@@ -799,8 +871,8 @@ LABEL_8:
       }
     }
 
-    v28 = selfCopy;
-    if (!winningDomPersonality || [winningDomPersonality testAgainstDeviceThreshold] && (objc_msgSend(v40, "winningScore"), v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v29, "longLongValue"), v31 = v30 < -[DOMAccessoryArbitrator iOSDeviceThreshold](selfCopy, "iOSDeviceThreshold"), v29, v28 = selfCopy, v31) || objc_msgSend(winningDomPersonality, "require9Pin", selfCopy) && !MGGetBoolAnswer())
+    v29 = selfCopy;
+    if (!winningDomPersonality || [winningDomPersonality testAgainstDeviceThreshold] && (objc_msgSend(v41, "winningScore"), v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v30, "longLongValue"), v32 = v31 < -[DOMAccessoryArbitrator iOSDeviceThreshold](selfCopy, "iOSDeviceThreshold"), v30, v29 = selfCopy, v32) || objc_msgSend(winningDomPersonality, "require9Pin", selfCopy) && !MGGetBoolAnswer())
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
@@ -811,21 +883,149 @@ LABEL_8:
 
     else
     {
-      [(DOMAccessoryArbitrator *)v28 unregisterOffendingDomDevice:v40];
-      v32 = &_os_log_default;
+      [(DOMAccessoryArbitrator *)v29 unregisterOffendingDomDevice:v41];
+      v33 = &_os_log_default;
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
       {
         personalityName2 = [winningDomPersonality personalityName];
         *buf = 138412290;
-        v62 = personalityName2;
+        v63 = personalityName2;
         _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "starting winner: %@", buf, 0xCu);
       }
 
-      [winningDomPersonality startWithDomDevice:v40];
+      [winningDomPersonality startWithDomDevice:v41];
     }
   }
 
-  _Block_object_dispose(&v54, 8);
+  _Block_object_dispose(&v55, 8);
+}
+
+- (void)deviceArrived:(unsigned int)arrived
+{
+  v3 = *&arrived;
+  IOServiceWaitQuiet(arrived, 0);
+  v5 = [[DOMDevice alloc] initWithIOService:v3 notificationPort:[(DOMAccessoryArbitrator *)self ioNotificationPort]];
+  v6 = MGGetBoolAnswer();
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = 136315650;
+    v16 = "[DOMAccessoryArbitrator deviceArrived:]";
+    v17 = 1024;
+    v18 = v6;
+    v19 = 1024;
+    isThunderboltDevice = [(DOMDevice *)v5 isThunderboltDevice];
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "%s hostSupportsThunderbolt:%d deviceThunderbolt:%d", &v15, 0x18u);
+  }
+
+  if (![(DOMDevice *)v5 isThunderboltDevice]&& [(DOMDevice *)v5 powerHog])
+  {
+    v7 = @"%@: This accessory requires too much power.";
+    goto LABEL_29;
+  }
+
+  if ([(DOMDevice *)v5 isThunderboltDevice])
+  {
+    v8 = sub_10000626C(@"Cannot Use Thunderbolt Accessory");
+    [(DOMDevice *)v5 setDialogTitleKey:v8];
+
+    if (!v6)
+    {
+      v10 = MGCopyAnswer();
+      if ([v10 isEqualToString:@"iPad"])
+      {
+        v11 = @"Thunderbolt accessories are not supported on this iPad.";
+      }
+
+      else if ([v10 isEqualToString:@"iPhone"])
+      {
+        v11 = @"Thunderbolt accessories are not supported on this iPhone.";
+      }
+
+      else if ([v10 isEqualToString:@"iPod"])
+      {
+        v11 = @"Thunderbolt accessories are not supported on this iPod.";
+      }
+
+      else
+      {
+        v11 = @"Thunderbolt accessories are not supported on this device.";
+      }
+
+      v14 = sub_10000626C(v11);
+      [(DOMDevice *)v5 setDialogBodyKey:v14];
+
+      goto LABEL_34;
+    }
+
+    if ([(DOMDevice *)v5 powerHog])
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+      {
+        powerHog = [(DOMDevice *)v5 powerHog];
+        v15 = 67109120;
+        LODWORD(v16) = powerHog;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "hostSupportsThunderbolt, powerHog:%d", &v15, 8u);
+      }
+
+      v7 = @"This accessory requires too much power.";
+    }
+
+    else if ([(DOMDevice *)v5 tbtAccessoryWithIncompatibleCable])
+    {
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+      {
+        tbtAccessoryWithIncompatibleCable = [(DOMDevice *)v5 tbtAccessoryWithIncompatibleCable];
+        v15 = 67109120;
+        LODWORD(v16) = tbtAccessoryWithIncompatibleCable;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "hostSupportsThunderbolt, Incompatible cable:%d", &v15, 8u);
+      }
+
+      v7 = @"Connect accessory using a Thunderbolt capable cable.";
+    }
+
+    else
+    {
+      if (![(DOMDevice *)v5 tbtAccessoryWithIncompatiblePort])
+      {
+LABEL_35:
+        [(DOMAccessoryArbitrator *)self registerOffendingDomDevice:v5];
+        goto LABEL_36;
+      }
+
+      if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+      {
+        tbtAccessoryWithIncompatibleCable2 = [(DOMDevice *)v5 tbtAccessoryWithIncompatibleCable];
+        v15 = 67109120;
+        LODWORD(v16) = tbtAccessoryWithIncompatibleCable2;
+        _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "hostSupportsThunderbolt, Incompatible Port:%d", &v15, 8u);
+      }
+
+      v7 = @"Connect accessory to a Thunderbolt port.";
+    }
+
+LABEL_29:
+    v10 = sub_10000626C(v7);
+    [(DOMDevice *)v5 setDialogBodyKey:v10];
+LABEL_34:
+
+    goto LABEL_35;
+  }
+
+  if ([(DOMDevice *)v5 isBillboardDevice])
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v15) = 0;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "billboard device, but not a Thunderbolt device, don't do anything", &v15, 2u);
+    }
+  }
+
+  else if ([(DOMDevice *)v5 shouldMatchDevice])
+  {
+    [(DOMAccessoryArbitrator *)self matchDevice:v5];
+  }
+
+LABEL_36:
 }
 
 - (void)overcurrentCondition:(unsigned int)condition

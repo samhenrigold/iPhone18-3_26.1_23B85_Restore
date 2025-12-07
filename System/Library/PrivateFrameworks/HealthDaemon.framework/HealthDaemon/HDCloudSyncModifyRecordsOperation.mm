@@ -5,6 +5,7 @@
 - (NSArray)savedRecords;
 - (void)_limitExceededSavingRecords:(void *)records deletingRecordIDs:(void *)ds error:;
 - (void)_saveRecords:(void *)records deleteRecords:;
+- (void)synchronousTaskGroup:(id)group didFinishWithSuccess:(BOOL)success errors:(id)errors;
 @end
 
 @implementation HDCloudSyncModifyRecordsOperation
@@ -63,7 +64,7 @@
 
 - (void)_saveRecords:(void *)records deleteRecords:
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   recordsCopy = records;
   if (self)
@@ -96,9 +97,9 @@
         {
           v19 = MEMORY[0x277CCA9B8];
           v20 = *MEMORY[0x277CBBF50];
-          v33 = *MEMORY[0x277CCA450];
-          v34[0] = @"Synthesized error for preemptive split.";
-          v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+          v32 = *MEMORY[0x277CCA450];
+          v33[0] = @"Synthesized error for preemptive split.";
+          v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
           v22 = [v19 errorWithDomain:v20 code:27 userInfo:v21];
           [(HDCloudSyncModifyRecordsOperation *)self _limitExceededSavingRecords:v5 deletingRecordIDs:recordsCopy error:v22];
 
@@ -114,10 +115,10 @@ LABEL_18:
         v14 = v13;
         *buf = 138543874;
         selfCopy = self;
-        v29 = 2048;
-        v30 = [v5 count];
-        v31 = 2048;
-        v32 = [recordsCopy count];
+        v28 = 2048;
+        v29 = [v5 count];
+        v30 = 2048;
+        v31 = [recordsCopy count];
         _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: Saving %ld records and deleting %ld records.", buf, 0x20u);
       }
 
@@ -128,14 +129,14 @@ LABEL_18:
       }
 
       [v9 setSavePolicy:*(self + 168)];
-      v24[0] = MEMORY[0x277D85DD0];
-      v24[1] = 3221225472;
-      v24[2] = __64__HDCloudSyncModifyRecordsOperation__saveRecords_deleteRecords___block_invoke_315;
-      v24[3] = &unk_278616968;
-      v24[4] = self;
-      v25 = v5;
-      v26 = recordsCopy;
-      [v9 setModifyRecordsCompletionBlock:v24];
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __64__HDCloudSyncModifyRecordsOperation__saveRecords_deleteRecords___block_invoke_315;
+      v23[3] = &unk_278616968;
+      v23[4] = self;
+      v24 = v5;
+      v25 = recordsCopy;
+      [v9 setModifyRecordsCompletionBlock:v23];
       configuration = [self configuration];
       cachedCloudState = [configuration cachedCloudState];
       [cachedCloudState setOperationCountForAnalytics:{objc_msgSend(cachedCloudState, "operationCountForAnalytics") + 1}];
@@ -155,15 +156,13 @@ LABEL_18:
   }
 
 LABEL_19:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __57__HDCloudSyncModifyRecordsOperation__recordsSplitByZone___block_invoke(uint64_t a1, void *a2, void *a3, void (**a4)(void, void, void))
 {
   v7 = a4;
   v8 = a2;
-  v9 = [a3 copy];
+  v9 = objc_msgSend_copy(a3);
   (a4)[2](v7, v8, v9);
 }
 
@@ -171,13 +170,13 @@ void __59__HDCloudSyncModifyRecordsOperation__recordIDsSplitByZone___block_invok
 {
   v7 = a4;
   v8 = a2;
-  v9 = [a3 copy];
+  v9 = objc_msgSend_copy(a3);
   (a4)[2](v7, v8, v9);
 }
 
 - (void)_limitExceededSavingRecords:(void *)records deletingRecordIDs:(void *)ds error:
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   v7 = a2;
   recordsCopy = records;
   dsCopy = ds;
@@ -185,32 +184,32 @@ void __59__HDCloudSyncModifyRecordsOperation__recordIDsSplitByZone___block_invok
   if (self)
   {
     v9 = v7;
-    v74 = v7;
-    v75 = recordsCopy;
+    v73 = v7;
+    v74 = recordsCopy;
     if (v9)
     {
       v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v81 = 0u;
       v82 = 0u;
       v83 = 0u;
       v84 = 0u;
-      v85 = 0u;
       v12 = v9;
       v13 = v9;
-      v14 = [v13 countByEnumeratingWithState:&v82 objects:buf count:16];
+      v14 = [v13 countByEnumeratingWithState:&v81 objects:buf count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v83;
+        v16 = *v82;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v83 != v16)
+            if (*v82 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v18 = *(*(&v82 + 1) + 8 * i);
+            v18 = *(*(&v81 + 1) + 8 * i);
             recordID = [v18 recordID];
             zoneID = [recordID zoneID];
 
@@ -224,7 +223,7 @@ void __59__HDCloudSyncModifyRecordsOperation__recordIDsSplitByZone___block_invok
             [v21 addObject:v18];
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v82 objects:buf count:16];
+          v15 = [v13 countByEnumeratingWithState:&v81 objects:buf count:16];
         }
 
         while (v15);
@@ -233,7 +232,7 @@ void __59__HDCloudSyncModifyRecordsOperation__recordIDsSplitByZone___block_invok
       v10 = [v11 hk_map:&__block_literal_global_28];
 
       v9 = v12;
-      v7 = v74;
+      v7 = v73;
     }
 
     else
@@ -244,28 +243,28 @@ void __59__HDCloudSyncModifyRecordsOperation__recordIDsSplitByZone___block_invok
     v22 = recordsCopy;
     if (v22)
     {
-      v72 = v9;
+      v71 = v9;
       v24 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v81 = 0u;
       v82 = 0u;
       v83 = 0u;
       v84 = 0u;
-      v85 = 0u;
       v25 = v22;
-      v26 = [v25 countByEnumeratingWithState:&v82 objects:buf count:16];
+      v26 = [v25 countByEnumeratingWithState:&v81 objects:buf count:16];
       if (v26)
       {
         v27 = v26;
-        v28 = *v83;
+        v28 = *v82;
         do
         {
           for (j = 0; j != v27; ++j)
           {
-            if (*v83 != v28)
+            if (*v82 != v28)
             {
               objc_enumerationMutation(v25);
             }
 
-            v30 = *(*(&v82 + 1) + 8 * j);
+            v30 = *(*(&v81 + 1) + 8 * j);
             zoneID2 = [v30 zoneID];
             v32 = [v24 objectForKeyedSubscript:zoneID2];
             if (!v32)
@@ -277,7 +276,7 @@ void __59__HDCloudSyncModifyRecordsOperation__recordIDsSplitByZone___block_invok
             [v32 addObject:v30];
           }
 
-          v27 = [v25 countByEnumeratingWithState:&v82 objects:buf count:16];
+          v27 = [v25 countByEnumeratingWithState:&v81 objects:buf count:16];
         }
 
         while (v27);
@@ -285,9 +284,9 @@ void __59__HDCloudSyncModifyRecordsOperation__recordIDsSplitByZone___block_invok
 
       v23 = [v24 hk_map:&__block_literal_global_296];
 
-      v7 = v74;
-      recordsCopy = v75;
-      v9 = v72;
+      v7 = v73;
+      recordsCopy = v74;
+      v9 = v71;
     }
 
     else
@@ -310,7 +309,7 @@ void __59__HDCloudSyncModifyRecordsOperation__recordIDsSplitByZone___block_invok
       v39 = [v36 count];
       if (([v37 count] + v39) > 1)
       {
-        v73 = v38;
+        v72 = v38;
         firstObject = [v36 firstObject];
         recordID2 = [firstObject recordID];
         zoneID3 = [recordID2 zoneID];
@@ -323,17 +322,17 @@ void __59__HDCloudSyncModifyRecordsOperation__recordIDsSplitByZone___block_invok
         else
         {
           [v37 firstObject];
-          v70 = v37;
+          v69 = v37;
           v57 = v56 = recordsCopy;
           zoneID4 = [v57 zoneID];
 
           recordsCopy = v56;
-          v37 = v70;
+          v37 = v69;
         }
 
         if ([selfCopy permitNonAtomicZoneSaves])
         {
-          v38 = v73;
+          v38 = v72;
           if ([v36 count] && objc_msgSend(v37, "count"))
           {
             [(HDCloudSyncModifyRecordsOperation *)selfCopy _saveRecords:v36 deleteRecords:0];
@@ -347,9 +346,9 @@ void __59__HDCloudSyncModifyRecordsOperation__recordIDsSplitByZone___block_invok
             if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138543618;
-              v88 = selfCopy;
-              v89 = 2114;
-              v90 = zoneID4;
+              v87 = selfCopy;
+              v88 = 2114;
+              v89 = zoneID4;
               _os_log_impl(&dword_228986000, v59, OS_LOG_TYPE_DEFAULT, "%{public}@: Received limit exceeded error; retrying by splitting into multiple operations for zone %{public}@.", buf, 0x16u);
             }
 
@@ -363,8 +362,8 @@ void __59__HDCloudSyncModifyRecordsOperation__recordIDsSplitByZone___block_invok
             v65 = [v61 objectAtIndexedSubscript:1];
             [(HDCloudSyncModifyRecordsOperation *)selfCopy _saveRecords:v64 deleteRecords:v65];
 
-            recordsCopy = v75;
-            v38 = v73;
+            recordsCopy = v74;
+            v38 = v72;
           }
         }
 
@@ -372,18 +371,18 @@ void __59__HDCloudSyncModifyRecordsOperation__recordIDsSplitByZone___block_invok
         {
           _HKInitializeLogging();
           v58 = *MEMORY[0x277CCC328];
-          v38 = v73;
+          v38 = v72;
           if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v88 = selfCopy;
-            v89 = 2114;
-            v90 = zoneID4;
+            v87 = selfCopy;
+            v88 = 2114;
+            v89 = zoneID4;
             _os_log_error_impl(&dword_228986000, v58, OS_LOG_TYPE_ERROR, "%{public}@: Limit exceeded when syncing to a single zone (%{public}@), but non-atomic saves are not permitted.", buf, 0x16u);
           }
 
           [selfCopy[17] beginTask];
-          [selfCopy[17] failTaskWithError:v73];
+          [selfCopy[17] failTaskWithError:v72];
         }
       }
 
@@ -393,18 +392,18 @@ void __59__HDCloudSyncModifyRecordsOperation__recordIDsSplitByZone___block_invok
         v40 = *MEMORY[0x277CCC328];
         if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
         {
-          v67 = v40;
-          v68 = [v36 count];
-          v69 = [v37 count];
+          v66 = v40;
+          v67 = [v36 count];
+          v68 = [v37 count];
           *buf = 138544130;
-          v88 = selfCopy;
-          v89 = 2048;
-          v90 = v68;
-          v91 = 2048;
-          v92 = v69;
-          v93 = 2114;
-          v94 = v38;
-          _os_log_fault_impl(&dword_228986000, v67, OS_LOG_TYPE_FAULT, "%{public}@: Limit exceeded when we've already dropped down to minimal records per zone (%ld, %ld): %{public}@.", buf, 0x2Au);
+          v87 = selfCopy;
+          v88 = 2048;
+          v89 = v67;
+          v90 = 2048;
+          v91 = v68;
+          v92 = 2114;
+          v93 = v38;
+          _os_log_fault_impl(&dword_228986000, v66, OS_LOG_TYPE_FAULT, "%{public}@: Limit exceeded when we've already dropped down to minimal records per zone (%ld, %ld): %{public}@.", buf, 0x2Au);
         }
 
         [selfCopy[17] beginTask];
@@ -421,49 +420,47 @@ void __59__HDCloudSyncModifyRecordsOperation__recordIDsSplitByZone___block_invok
         v42 = v41;
         v43 = [v33 count];
         *buf = 138543618;
-        v88 = selfCopy;
-        v89 = 2048;
-        v90 = v43;
+        v87 = selfCopy;
+        v88 = 2048;
+        v89 = v43;
         _os_log_impl(&dword_228986000, v42, OS_LOG_TYPE_DEFAULT, "%{public}@: Received limit exceeded error; retrying with one operation per zone (%ld zones).", buf, 0x16u);
       }
 
-      v80 = 0u;
-      v81 = 0u;
-      v78 = 0u;
       v79 = 0u;
+      v80 = 0u;
+      v77 = 0u;
+      v78 = 0u;
       v36 = v33;
-      v44 = [v36 countByEnumeratingWithState:&v78 objects:v86 count:16];
+      v44 = [v36 countByEnumeratingWithState:&v77 objects:v85 count:16];
       if (v44)
       {
         v45 = v44;
         v46 = v7;
-        v47 = *v79;
+        v47 = *v78;
         do
         {
           for (k = 0; k != v45; ++k)
           {
-            if (*v79 != v47)
+            if (*v78 != v47)
             {
               objc_enumerationMutation(v36);
             }
 
-            v49 = *(*(&v78 + 1) + 8 * k);
+            v49 = *(*(&v77 + 1) + 8 * k);
             v50 = [v10 objectForKeyedSubscript:v49];
             v51 = [v23 objectForKeyedSubscript:v49];
             [(HDCloudSyncModifyRecordsOperation *)selfCopy _saveRecords:v50 deleteRecords:v51];
           }
 
-          v45 = [v36 countByEnumeratingWithState:&v78 objects:v86 count:16];
+          v45 = [v36 countByEnumeratingWithState:&v77 objects:v85 count:16];
         }
 
         while (v45);
         v7 = v46;
-        recordsCopy = v75;
+        recordsCopy = v74;
       }
     }
   }
-
-  v66 = *MEMORY[0x277D85DE8];
 }
 
 id __64__HDCloudSyncModifyRecordsOperation__saveRecords_deleteRecords___block_invoke(uint64_t a1, void *a2)
@@ -476,7 +473,7 @@ id __64__HDCloudSyncModifyRecordsOperation__saveRecords_deleteRecords___block_in
 
 void __64__HDCloudSyncModifyRecordsOperation__saveRecords_deleteRecords___block_invoke_315(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v136 = *MEMORY[0x277D85DE8];
+  v135 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -490,13 +487,13 @@ void __64__HDCloudSyncModifyRecordsOperation__saveRecords_deleteRecords___block_
   }
 
   v12 = *(a1 + 32);
-  v112 = 0;
-  v103 = v7;
-  v102 = v8;
+  v111 = 0;
+  v102 = v7;
+  v101 = v8;
   v13 = v10;
   v14 = v13;
-  v100 = v10;
-  v101 = v8;
+  v99 = v10;
+  v100 = v8;
   if (!v12)
   {
     goto LABEL_34;
@@ -525,44 +522,44 @@ void __64__HDCloudSyncModifyRecordsOperation__saveRecords_deleteRecords___block_
       if (v19 + 14400.0 < v23)
       {
         [v16 setDouble:v17 forKey:v23];
-        v134[0] = MEMORY[0x277D85DD0];
-        v134[1] = 3221225472;
-        v134[2] = __65__HDCloudSyncModifyRecordsOperation__evaluateErrorForTapToRadar___block_invoke;
-        v134[3] = &unk_278613968;
-        v135 = v15;
-        [HDCloudSyncTapToRadar showTapToRadarRequestWithTitle:@"Health Cloud Sync Encountered an unexpected error" message:@"Please file a radar." proceed:v134 disable:&__block_literal_global_331 completion:&__block_literal_global_334];
+        v133[0] = MEMORY[0x277D85DD0];
+        v133[1] = 3221225472;
+        v133[2] = __65__HDCloudSyncModifyRecordsOperation__evaluateErrorForTapToRadar___block_invoke;
+        v133[3] = &unk_278613968;
+        v134 = v15;
+        [HDCloudSyncTapToRadar showTapToRadarRequestWithTitle:@"Health Cloud Sync Encountered an unexpected error" message:@"Please file a radar." proceed:v133 disable:&__block_literal_global_331 completion:&__block_literal_global_334];
       }
     }
   }
 
   if ([v15 hk_isErrorInDomain:*v11 code:2])
   {
-    v94 = v14;
-    v96 = a1;
-    v98 = v7;
-    v104 = v15;
+    v93 = v14;
+    v95 = a1;
+    v97 = v7;
+    v103 = v15;
     v24 = [v15 userInfo];
     v25 = [v24 objectForKeyedSubscript:*MEMORY[0x277CBBFB0]];
 
-    v123 = 0u;
-    v124 = 0u;
-    v121 = 0u;
     v122 = 0u;
+    v123 = 0u;
+    v120 = 0u;
+    v121 = 0u;
     obj = v25;
-    v107 = [obj countByEnumeratingWithState:&v121 objects:v134 count:16];
-    if (v107)
+    v106 = [obj countByEnumeratingWithState:&v120 objects:v133 count:16];
+    if (v106)
     {
-      v105 = *v122;
+      v104 = *v121;
       do
       {
-        for (i = 0; i != v107; i = i + 1)
+        for (i = 0; i != v106; i = i + 1)
         {
-          if (*v122 != v105)
+          if (*v121 != v104)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v121 + 1) + 8 * i);
+          v27 = *(*(&v120 + 1) + 8 * i);
           v28 = [obj objectForKeyedSubscript:v27];
           _HKInitializeLogging();
           v29 = *MEMORY[0x277CCC328];
@@ -574,13 +571,13 @@ void __64__HDCloudSyncModifyRecordsOperation__saveRecords_deleteRecords___block_
             [*(v12 + 112) databaseScope];
             v43 = CKDatabaseScopeString();
             *buf = 138544130;
-            v127 = v12;
-            v128 = 2114;
-            v129 = v42;
-            v130 = 2114;
-            v131 = v43;
-            v132 = 2114;
-            v133 = v104;
+            v126 = v12;
+            v127 = 2114;
+            v128 = v42;
+            v129 = 2114;
+            v130 = v43;
+            v131 = 2114;
+            v132 = v103;
             _os_log_error_impl(&dword_228986000, v41, OS_LOG_TYPE_ERROR, "%{public}@ Failed to modify records in container %{public}@, database %{public}@, error %{public}@", buf, 0x2Au);
           }
 
@@ -599,36 +596,36 @@ void __64__HDCloudSyncModifyRecordsOperation__saveRecords_deleteRecords___block_
           [v39 handleCloudError:v28 operation:v12 container:*(v12 + 104) database:*(v12 + 112)];
         }
 
-        v107 = [obj countByEnumeratingWithState:&v121 objects:v134 count:16];
+        v106 = [obj countByEnumeratingWithState:&v120 objects:v133 count:16];
       }
 
-      while (v107);
+      while (v106);
     }
 
-    a1 = v96;
-    v7 = v98;
-    v14 = v94;
-    v15 = v104;
+    a1 = v95;
+    v7 = v97;
+    v14 = v93;
+    v15 = v103;
   }
 
   _HKInitializeLogging();
   v44 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
   {
-    v85 = *(v12 + 104);
-    v86 = v44;
-    v87 = [v85 containerIdentifier];
+    v84 = *(v12 + 104);
+    v85 = v44;
+    v86 = [v84 containerIdentifier];
     [*(v12 + 112) databaseScope];
-    v88 = CKDatabaseScopeString();
+    v87 = CKDatabaseScopeString();
     *buf = 138544130;
-    v127 = v12;
-    v128 = 2114;
-    v129 = v87;
-    v130 = 2114;
-    v131 = v88;
-    v132 = 2114;
-    v133 = v15;
-    _os_log_error_impl(&dword_228986000, v86, OS_LOG_TYPE_ERROR, "%{public}@ Failed to modify records in container %{public}@, database %{public}@, error %{public}@", buf, 0x2Au);
+    v126 = v12;
+    v127 = 2114;
+    v128 = v86;
+    v129 = 2114;
+    v130 = v87;
+    v131 = 2114;
+    v132 = v15;
+    _os_log_error_impl(&dword_228986000, v85, OS_LOG_TYPE_ERROR, "%{public}@ Failed to modify records in container %{public}@, database %{public}@, error %{public}@", buf, 0x2Au);
   }
 
   v45 = [v15 hd_errorSurfacingFatalCloudKitPartialFailure];
@@ -641,23 +638,23 @@ void __64__HDCloudSyncModifyRecordsOperation__saveRecords_deleteRecords___block_
       v48 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        v89 = v7;
-        v90 = *(v12 + 104);
-        v91 = v48;
-        v92 = [v90 containerIdentifier];
+        v88 = v7;
+        v89 = *(v12 + 104);
+        v90 = v48;
+        v91 = [v89 containerIdentifier];
         [*(v12 + 112) databaseScope];
-        v93 = CKDatabaseScopeString();
+        v92 = CKDatabaseScopeString();
         *buf = 138544130;
-        v127 = v12;
-        v128 = 2114;
-        v129 = v92;
-        v130 = 2114;
-        v131 = v93;
-        v132 = 2114;
-        v133 = v15;
-        _os_log_error_impl(&dword_228986000, v91, OS_LOG_TYPE_ERROR, "%{public}@ Treating error as fatal for %{public}@, database %{public}@, error %{public}@", buf, 0x2Au);
+        v126 = v12;
+        v127 = 2114;
+        v128 = v91;
+        v129 = 2114;
+        v130 = v92;
+        v131 = 2114;
+        v132 = v15;
+        _os_log_error_impl(&dword_228986000, v90, OS_LOG_TYPE_ERROR, "%{public}@ Treating error as fatal for %{public}@, database %{public}@, error %{public}@", buf, 0x2Au);
 
-        v7 = v89;
+        v7 = v88;
       }
 
       v49 = [v15 hd_errorStrippingCloudKitPartialFailuresWithShouldIgnoreBlock:&__block_literal_global_302_0];
@@ -667,35 +664,35 @@ void __64__HDCloudSyncModifyRecordsOperation__saveRecords_deleteRecords___block_
         v49 = v15;
       }
 
-      v112 = v49;
+      v111 = v49;
 
       goto LABEL_33;
     }
 
 LABEL_35:
-    v95 = v14;
-    v97 = a1;
-    v99 = v7;
-    v119 = 0u;
-    v120 = 0u;
-    v117 = 0u;
+    v94 = v14;
+    v96 = a1;
+    v98 = v7;
     v118 = 0u;
-    v108 = v103;
-    v52 = [v108 countByEnumeratingWithState:&v117 objects:buf count:16];
+    v119 = 0u;
+    v116 = 0u;
+    v117 = 0u;
+    v107 = v102;
+    v52 = [v107 countByEnumeratingWithState:&v116 objects:buf count:16];
     if (v52)
     {
       v53 = v52;
-      obja = *v118;
+      obja = *v117;
       while (2)
       {
         for (j = 0; j != v53; ++j)
         {
-          if (*v118 != obja)
+          if (*v117 != obja)
           {
-            objc_enumerationMutation(v108);
+            objc_enumerationMutation(v107);
           }
 
-          v55 = *(*(&v117 + 1) + 8 * j);
+          v55 = *(*(&v116 + 1) + 8 * j);
           v56 = [HDCloudSyncZoneIdentifier alloc];
           v57 = [v55 recordID];
           v58 = [v57 zoneID];
@@ -709,10 +706,10 @@ LABEL_35:
           v65 = [v64 accessibilityAssertion];
           v66 = [(HDCloudSyncCachedZone *)v61 initForZoneIdentifier:v60 repository:v63 accessibilityAssertion:v65];
 
-          LOBYTE(v62) = [v66 addRecord:v55 error:&v112];
+          LOBYTE(v62) = [v66 addRecord:v55 error:&v111];
           if ((v62 & 1) == 0)
           {
-            v81 = v108;
+            v81 = v107;
 LABEL_54:
 
             v51 = 0;
@@ -720,7 +717,7 @@ LABEL_54:
           }
         }
 
-        v53 = [v108 countByEnumeratingWithState:&v117 objects:buf count:16];
+        v53 = [v107 countByEnumeratingWithState:&v116 objects:buf count:16];
         if (v53)
         {
           continue;
@@ -730,26 +727,26 @@ LABEL_54:
       }
     }
 
-    v115 = 0u;
-    v116 = 0u;
-    v113 = 0u;
     v114 = 0u;
-    v106 = v102;
-    v67 = [v106 countByEnumeratingWithState:&v113 objects:v125 count:16];
+    v115 = 0u;
+    v112 = 0u;
+    v113 = 0u;
+    v105 = v101;
+    v67 = [v105 countByEnumeratingWithState:&v112 objects:v124 count:16];
     if (v67)
     {
       v68 = v67;
-      objb = *v114;
+      objb = *v113;
       while (2)
       {
         for (k = 0; k != v68; ++k)
         {
-          if (*v114 != objb)
+          if (*v113 != objb)
           {
-            objc_enumerationMutation(v106);
+            objc_enumerationMutation(v105);
           }
 
-          v70 = *(*(&v113 + 1) + 8 * k);
+          v70 = *(*(&v112 + 1) + 8 * k);
           v71 = [HDCloudSyncZoneIdentifier alloc];
           v72 = [v70 zoneID];
           v73 = [*(v12 + 104) containerIdentifier];
@@ -762,15 +759,15 @@ LABEL_54:
           v79 = [v78 accessibilityAssertion];
           v80 = [(HDCloudSyncCachedZone *)v75 initForZoneIdentifier:v74 repository:v77 accessibilityAssertion:v79];
 
-          LOBYTE(v76) = [v80 deleteRecordID:v70 error:&v112];
+          LOBYTE(v76) = [v80 deleteRecordID:v70 error:&v111];
           if ((v76 & 1) == 0)
           {
-            v81 = v106;
+            v81 = v105;
             goto LABEL_54;
           }
         }
 
-        v68 = [v106 countByEnumeratingWithState:&v113 objects:v125 count:16];
+        v68 = [v105 countByEnumeratingWithState:&v112 objects:v124 count:16];
         if (v68)
         {
           continue;
@@ -781,26 +778,26 @@ LABEL_54:
     }
 
     os_unfair_lock_lock((v12 + 144));
-    [*(v12 + 120) addObjectsFromArray:v108];
-    [*(v12 + 128) addObjectsFromArray:v106];
+    [*(v12 + 120) addObjectsFromArray:v107];
+    [*(v12 + 128) addObjectsFromArray:v105];
     os_unfair_lock_unlock((v12 + 144));
     v51 = 1;
 LABEL_55:
-    a1 = v97;
-    v7 = v99;
-    v14 = v95;
+    a1 = v96;
+    v7 = v98;
+    v14 = v94;
     goto LABEL_56;
   }
 
   v47 = v45;
-  v112 = v46;
+  v111 = v46;
 LABEL_33:
 
 LABEL_34:
   v51 = 0;
 LABEL_56:
 
-  v82 = v112;
+  v82 = v111;
   v83 = *(*(a1 + 32) + 136);
   if (v51)
   {
@@ -812,17 +809,15 @@ LABEL_56:
     [v83 failTaskWithError:v82];
   }
 
-  v10 = v100;
-  v8 = v101;
+  v10 = v99;
+  v8 = v100;
 LABEL_60:
-
-  v84 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)savedRecords
 {
   os_unfair_lock_lock(&self->_lock);
-  v3 = [(NSMutableArray *)self->_savedRecords copy];
+  v3 = objc_msgSend_copy(self->_savedRecords);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -831,7 +826,7 @@ LABEL_60:
 - (NSArray)deletedRecordIDs
 {
   os_unfair_lock_lock(&self->_lock);
-  v3 = [(NSMutableArray *)self->_deletedRecordIDs copy];
+  v3 = objc_msgSend_copy(self->_deletedRecordIDs);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -847,6 +842,13 @@ void __65__HDCloudSyncModifyRecordsOperation__evaluateErrorForTapToRadar___block
 {
   v0 = [MEMORY[0x277CBEBD0] standardUserDefaults];
   [v0 setBool:1 forKey:*MEMORY[0x277CCE2A0]];
+}
+
+- (void)synchronousTaskGroup:(id)group didFinishWithSuccess:(BOOL)success errors:(id)errors
+{
+  successCopy = success;
+  firstObject = [errors firstObject];
+  [(HDCloudSyncOperation *)self finishWithSuccess:successCopy error:firstObject];
 }
 
 @end

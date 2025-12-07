@@ -143,40 +143,40 @@
 {
   delegateCopy = delegate;
   v9 = a6;
-  v10 = THBundle();
-  v19.receiver = self;
-  v19.super_class = THChapterBrowserController;
-  v11 = [(THTOCViewController *)&v19 initWithNibName:@"THChapterBrowserController" bundle:v10 bookPropertiesDelegate:delegateCopy delegate:v9];
+  v11 = THBundle(v9, v10);
+  v20.receiver = self;
+  v20.super_class = THChapterBrowserController;
+  v12 = [(THTOCViewController *)&v20 initWithNibName:@"THChapterBrowserController" bundle:v11 bookPropertiesDelegate:delegateCopy delegate:v9];
 
-  if (v11)
+  if (v12)
   {
-    [(THChapterBrowserController *)v11 p_configureThumbsAndUpdateLayout:0];
-    [(THChapterBrowserController *)v11 setPreviousChapterIndex:0x7FFFFFFFFFFFFFFFLL];
-    v11->mChapterIndex = 0;
-    v11->mPreservedThumbnailOffset = CGPointZero;
-    v12 = +[NSMutableSet set];
-    [(THChapterBrowserController *)v11 setThumbnailsHiddenForPinch:v12];
-
+    [(THChapterBrowserController *)v12 p_configureThumbsAndUpdateLayout:0];
+    [(THChapterBrowserController *)v12 setPreviousChapterIndex:0x7FFFFFFFFFFFFFFFLL];
+    v12->mChapterIndex = 0;
+    v12->mPreservedThumbnailOffset = CGPointZero;
     v13 = +[NSMutableSet set];
-    [(THChapterBrowserController *)v11 setContentNodesAskedToLoad:v13];
+    [(THChapterBrowserController *)v12 setThumbnailsHiddenForPinch:v13];
 
-    v11->mCBCIsOnscreen = 0;
-    v11->mDeferPagesScrollViewScrolls = 0;
-    v11->mDeferBackgroundScrollViewScrolls = 0;
-    bottomWrapperView = [(THChapterBrowserController *)v11 bottomWrapperView];
+    v14 = +[NSMutableSet set];
+    [(THChapterBrowserController *)v12 setContentNodesAskedToLoad:v14];
+
+    v12->mCBCIsOnscreen = 0;
+    v12->mDeferPagesScrollViewScrolls = 0;
+    v12->mDeferBackgroundScrollViewScrolls = 0;
+    bottomWrapperView = [(THChapterBrowserController *)v12 bottomWrapperView];
     [bottomWrapperView setAcceptsHits:0];
 
-    v11->mDidPurgeIntroMediaController = 0;
-    v11->mDidAutoHideToolbar = 0;
-    v15 = +[NSMutableArray array];
-    [(THChapterBrowserController *)v11 setThumbnailViewsInTransition:v15];
+    v12->mDidPurgeIntroMediaController = 0;
+    v12->mDidAutoHideToolbar = 0;
+    v16 = +[NSMutableArray array];
+    [(THChapterBrowserController *)v12 setThumbnailViewsInTransition:v16];
 
-    bzero(&v11->_flags, 1uLL);
-    v16 = +[UITraitCollection bc_allAPITraits];
-    v17 = [(THChapterBrowserController *)v11 registerForTraitChanges:v16 withAction:"_traitCollectionDidChange:previousTraitCollection:"];
+    bzero(&v12->_flags, 1uLL);
+    v17 = +[UITraitCollection bc_allAPITraits];
+    v18 = [(THChapterBrowserController *)v12 registerForTraitChanges:v17 withAction:"_traitCollectionDidChange:previousTraitCollection:"];
   }
 
-  return v11;
+  return v12;
 }
 
 - (void)p_releaseOutlets
@@ -1618,7 +1618,7 @@ LABEL_12:
   mPagesScrollView = self->mPagesScrollView;
   if (mPagesScrollView)
   {
-    [(THScrollViewWithPassthrough *)mPagesScrollView transform];
+    objc_msgSend_transform(mPagesScrollView);
     ty = v9.ty;
     v8 = self->mPagesScrollView;
   }

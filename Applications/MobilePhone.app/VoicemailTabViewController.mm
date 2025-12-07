@@ -6,7 +6,7 @@
 
 - (void)presentVoicemailDetailsForUUID:(id)d
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v4 - 8);
   v6 = &v19 - v5;
   v7 = type metadata accessor for UUID();

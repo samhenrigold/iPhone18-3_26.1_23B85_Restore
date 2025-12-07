@@ -170,7 +170,7 @@
   indexPathsForSelectedItems = [collectionView indexPathsForSelectedItems];
   firstObject = [indexPathsForSelectedItems firstObject];
 
-  if (!firstObject || (-[_UIHorizontalIndexTitleBar selectedEntryIndexPath](self, "selectedEntryIndexPath"), v10 = objc_claimAutoreleasedReturnValue(), v11 = [firstObject isEqual:v10], v10, (v11 & 1) == 0))
+  if (!firstObject || ([(_UIHorizontalIndexTitleBar *)self selectedEntryIndexPath], v10 = objc_claimAutoreleasedReturnValue(), isEqual = objc_msgSend_isEqual_(firstObject), v10, (isEqual & 1) == 0))
   {
     collectionView2 = [(_UIHorizontalIndexTitleBar *)self collectionView];
     selectedEntryIndexPath = [(_UIHorizontalIndexTitleBar *)self selectedEntryIndexPath];

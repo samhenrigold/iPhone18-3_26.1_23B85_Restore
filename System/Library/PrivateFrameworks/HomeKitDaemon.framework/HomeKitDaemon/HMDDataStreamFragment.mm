@@ -83,7 +83,7 @@
 
 - (id)attributeDescriptions
 {
-  v17[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   v4 = MEMORY[0x277CCABB0];
   data = [(HMDDataStreamFragment *)self data];
@@ -92,14 +92,12 @@
   v8 = objc_alloc(MEMORY[0x277D0F778]);
   sequenceNumber = [(HMDDataStreamFragment *)self sequenceNumber];
   v10 = [v8 initWithName:@"Sequence Number" value:sequenceNumber];
-  v17[1] = v10;
+  v16[1] = v10;
   v11 = objc_alloc(MEMORY[0x277D0F778]);
   type = [(HMDDataStreamFragment *)self type];
   v13 = [v11 initWithName:@"Type" value:type];
-  v17[2] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v16[2] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
 
   return v14;
 }
@@ -138,11 +136,11 @@ LABEL_9:
   if (v13)
   {
     objc_storeStrong(&v13->_data, data);
-    v15 = [numberCopy copy];
+    v15 = objc_msgSend_copy(numberCopy);
     sequenceNumber = v14->_sequenceNumber;
     v14->_sequenceNumber = v15;
 
-    v17 = [v12 copy];
+    v17 = objc_msgSend_copy(v12);
     type = v14->_type;
     v14->_type = v17;
   }

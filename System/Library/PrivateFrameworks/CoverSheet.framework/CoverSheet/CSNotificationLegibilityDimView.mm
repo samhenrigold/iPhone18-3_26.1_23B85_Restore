@@ -216,41 +216,41 @@
 
 - (void)_configureColorMatrix
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   traitCollection = [(CSNotificationLegibilityDimView *)self traitCollection];
-  userInterfaceStyle = [traitCollection userInterfaceStyle];
+  [traitCollection userInterfaceStyle];
 
   dimType = [(CSNotificationLegibilityDimView *)self dimType];
   if (dimType < 2)
   {
-    v6 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA640]];
-    v9 = MEMORY[0x277CCAE60];
-    v10 = objc_opt_class();
-    if (v10)
+    v5 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA640]];
+    v8 = MEMORY[0x277CCAE60];
+    v9 = objc_opt_class();
+    if (v9)
     {
-      [v10 _localizedColorMatrixWithUserInterfaceStyle:userInterfaceStyle];
+      objc_msgSend__localizedColorMatrixWithUserInterfaceStyle_(v9);
 LABEL_11:
-      v12 = v9;
+      v11 = v8;
       goto LABEL_14;
     }
 
 LABEL_10:
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v15 = 0u;
     goto LABEL_11;
   }
 
   if (dimType == 2)
   {
-    v6 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA640]];
-    v9 = MEMORY[0x277CCAE60];
-    v11 = objc_opt_class();
-    if (v11)
+    v5 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA640]];
+    v8 = MEMORY[0x277CCAE60];
+    v10 = objc_opt_class();
+    if (v10)
     {
-      [v11 _fullDimColorMatrixWithUserInterfaceStyle:userInterfaceStyle];
+      objc_msgSend__fullDimColorMatrixWithUserInterfaceStyle_(v10);
       goto LABEL_11;
     }
 
@@ -262,35 +262,35 @@ LABEL_10:
     return;
   }
 
-  v6 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA2C0]];
-  [v6 setName:@"colorMatrix"];
-  v7 = MEMORY[0x277CCAE60];
-  v8 = objc_opt_class();
-  if (v8)
+  v5 = [MEMORY[0x277CD9EA0] filterWithType:*MEMORY[0x277CDA2C0]];
+  [v5 setName:@"colorMatrix"];
+  v6 = MEMORY[0x277CCAE60];
+  v7 = objc_opt_class();
+  if (v7)
   {
-    [v8 _noDimColorMatrix];
+    objc_msgSend__noDimColorMatrix(v7);
   }
 
   else
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v15 = 0u;
   }
 
-  v12 = v7;
+  v11 = v6;
 LABEL_14:
-  v13 = [v12 valueWithCAColorMatrix:{&v16, v16, v17, v18, v19, v20}];
-  [v6 setValue:v13 forKey:*MEMORY[0x277CDA440]];
+  v12 = [v11 valueWithCAColorMatrix:{&v15, v15, v16, v17, v18, v19}];
+  [v5 setValue:v12 forKey:*MEMORY[0x277CDA440]];
 
-  if (v6)
+  if (v5)
   {
     layer = [(CSNotificationLegibilityDimView *)self layer];
-    v21[0] = v6;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
-    [layer setFilters:v15];
+    v20[0] = v5;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
+    [layer setFilters:v14];
   }
 }
 
@@ -346,7 +346,7 @@ LABEL_14:
 - (void)_updateDimLayerVisibility
 {
   traitCollection = [(CSNotificationLegibilityDimView *)self traitCollection];
-  userInterfaceStyle = [traitCollection userInterfaceStyle];
+  [traitCollection userInterfaceStyle];
 
   dimType = [(CSNotificationLegibilityDimView *)self dimType];
   if (dimType >= 3)
@@ -358,40 +358,40 @@ LABEL_14:
 
     [(CSNotificationLegibilityDimView *)self setAlpha:1.0];
     layer = [(CSNotificationLegibilityDimView *)self layer];
-    v9 = MEMORY[0x277CCAE60];
+    v8 = MEMORY[0x277CCAE60];
     isVisible = [(CSNotificationLegibilityDimView *)self isVisible];
-    v11 = objc_opt_class();
+    v10 = objc_opt_class();
     if (isVisible)
     {
-      if (v11)
+      if (v10)
       {
-        [v11 _fullDimColorMatrixWithUserInterfaceStyle:userInterfaceStyle];
+        objc_msgSend__fullDimColorMatrixWithUserInterfaceStyle_(v10);
 LABEL_14:
-        v12 = [v9 valueWithCAColorMatrix:v13];
-        [layer setValue:v12 forKeyPath:@"filters.colorMatrix.inputColorMatrix"];
+        v11 = [v8 valueWithCAColorMatrix:v12];
+        [layer setValue:v11 forKeyPath:@"filters.colorMatrix.inputColorMatrix"];
 
         return;
       }
     }
 
-    else if (v11)
+    else if (v10)
     {
-      [v11 _noDimColorMatrix];
+      objc_msgSend__noDimColorMatrix(v10);
       goto LABEL_14;
     }
 
-    memset(v13, 0, sizeof(v13));
+    memset(v12, 0, sizeof(v12));
     goto LABEL_14;
   }
 
   isVisible2 = [(CSNotificationLegibilityDimView *)self isVisible];
-  v7 = 0.0;
+  v6 = 0.0;
   if (isVisible2)
   {
-    v7 = 1.0;
+    v6 = 1.0;
   }
 
-  [(CSNotificationLegibilityDimView *)self setAlpha:v7];
+  [(CSNotificationLegibilityDimView *)self setAlpha:v6];
 }
 
 - (void)_updateForUserInterfaceStyle

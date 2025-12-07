@@ -54,19 +54,19 @@
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __57__SURedeemCameraViewController_performAction_withObject___block_invoke(uint64_t result)
+void *__57__SURedeemCameraViewController_performAction_withObject___block_invoke(void *result)
 {
-  v1 = *(result + 48);
+  v1 = *(result + 6);
   if (v1 > 3)
   {
     switch(v1)
     {
       case 4:
-        return [*(result + 32) _recognitionError];
+        return [*(result + 4) _recognitionError];
       case 5:
-        return [*(result + 32) _recognitionSuccess];
+        return [*(result + 4) _recognitionSuccess];
       case 6:
-        return [*(result + 32) _setBackButtonTitle:*(result + 40)];
+        return [*(result + 4) _setBackButtonTitle:*(result + 5)];
     }
   }
 
@@ -74,18 +74,18 @@ uint64_t __57__SURedeemCameraViewController_performAction_withObject___block_inv
   {
     if (v1 == 2)
     {
-      return [*(result + 32) _pauseCamera];
+      return [*(result + 4) _pauseCamera];
     }
 
     else if (v1 == 3)
     {
-      return [*(result + 32) _resumeCamera];
+      return [*(result + 4) _resumeCamera];
     }
   }
 
   else
   {
-    return [*(result + 32) dismissViewControllerAnimated:1 completion:0];
+    return [*(result + 4) dismissViewControllerAnimated:1 completion:0];
   }
 
   return result;

@@ -898,7 +898,7 @@ void __65__NCNotificationSummarizedSectionList__collapseAllGroupListViews__block
 
 - (id)_clearAction
 {
-  v3 = NCUserNotificationsUIKitFrameworkBundle();
+  v3 = NCUserNotificationsUIKitFrameworkBundle(self);
   v4 = [v3 localizedStringForKey:@"NOTIFICATION_LIST_CLEAR" value:&stru_282FE84F8 table:0];
 
   objc_initWeak(&location, self);

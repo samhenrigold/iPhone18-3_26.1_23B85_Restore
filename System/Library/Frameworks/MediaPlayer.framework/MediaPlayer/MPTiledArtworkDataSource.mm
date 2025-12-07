@@ -160,7 +160,7 @@ uint64_t __119__MPTiledArtworkDataSource_loadArtworkEffectResultForEffectType_ca
   return result;
 }
 
-uint64_t __119__MPTiledArtworkDataSource_loadArtworkEffectResultForEffectType_catalog_options_systemEffectHandler_completionHandler___block_invoke_3(uint64_t a1)
+void *__119__MPTiledArtworkDataSource_loadArtworkEffectResultForEffectType_catalog_options_systemEffectHandler_completionHandler___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) _hasLoadingRequestForArtworkCatalog:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result ^ 1;
@@ -541,7 +541,7 @@ LABEL_40:
   _Block_object_dispose(&v95, 8);
 }
 
-uint64_t __82__MPTiledArtworkDataSource_loadRepresentationForArtworkCatalog_completionHandler___block_invoke_3(uint64_t a1)
+void *__82__MPTiledArtworkDataSource_loadRepresentationForArtworkCatalog_completionHandler___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) _hasLoadingRequestForArtworkCatalog:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result ^ 1;
@@ -709,12 +709,12 @@ void __82__MPTiledArtworkDataSource_loadRepresentationForArtworkCatalog_completi
   dispatch_group_leave(*(a1 + 56));
 }
 
-uint64_t __82__MPTiledArtworkDataSource_loadRepresentationForArtworkCatalog_completionHandler___block_invoke_6(uint64_t result)
+id *__82__MPTiledArtworkDataSource_loadRepresentationForArtworkCatalog_completionHandler___block_invoke_6(id *result)
 {
   v1 = result;
-  if (*(result + 32))
+  if (result[4])
   {
-    result = [*(result + 40) replaceObjectAtIndex:*(result + 64) withObject:?];
+    result = [result[5] replaceObjectAtIndex:result[8] withObject:?];
   }
 
   if (v1[6])

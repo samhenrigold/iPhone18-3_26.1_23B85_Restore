@@ -1,6 +1,7 @@
 @interface CKSQLiteReferencedObjectTable
 - (BOOL)isNotFoundEntry:(id)entry;
 - (BOOL)shouldLogError:(id)error;
+- (id)checkConstraintForProperty:(id)property info:(unsigned int)info;
 - (id)databaseReferenceIDForSavedReferent:(id)referent error:(id *)error;
 - (id)databaseReferenceIDForSearchingForReferent:(id)referent error:(id *)error;
 - (id)insertObject:(id)object;
@@ -11,6 +12,25 @@
 @end
 
 @implementation CKSQLiteReferencedObjectTable
+
+- (id)checkConstraintForProperty:(id)property info:(unsigned int)info
+{
+  v4 = *&info;
+  v17.receiver = self;
+  v17.super_class = CKSQLiteReferencedObjectTable;
+  propertyCopy = property;
+  v7 = [(CKSQLiteTable *)&v17 checkConstraintForProperty:propertyCopy info:v4];
+  v10 = objc_msgSend_primaryKey(self, v8, v9);
+  isEqualToString = objc_msgSend_isEqualToString_(propertyCopy, v11, v10);
+
+  if (isEqualToString)
+  {
+    v14 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v13, @"%@ != %@", v10, &unk_1EFA853C8, v17.receiver, v17.super_class);
+    objc_msgSend_addObject_(v7, v15, v14);
+  }
+
+  return v7;
+}
 
 - (BOOL)isNotFoundEntry:(id)entry
 {

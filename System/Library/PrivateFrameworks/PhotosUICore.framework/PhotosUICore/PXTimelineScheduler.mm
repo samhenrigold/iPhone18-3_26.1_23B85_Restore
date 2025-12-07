@@ -136,7 +136,7 @@ LABEL_11:
 
       v24 = [objc_alloc(*(v21 + 2944)) initWithStartDate:v13 endDate:v23];
       v25 = [v24 intersectionWithDateInterval:v17];
-      [v25 duration];
+      objc_msgSend_duration(v25);
       if (v26 <= 0.0)
       {
         if ([v45 compare:v23] == -1)

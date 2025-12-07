@@ -10,9 +10,9 @@
 - (id)ui_issueSandboxExtensionOfClass:()UIDocumentPicker error:;
 - (id)ui_resolveOnDiskBookmarkAndPromise;
 - (uint64_t)ui_isContentManaged;
-- (uint64_t)ui_isUnfulfilledPromiseURL;
 - (void)ui_canOpenInPlace;
 - (void)ui_isFileProviderURL;
+- (void)ui_isUnfulfilledPromiseURL;
 - (void)ui_scheduleForCleanup;
 - (void)ui_setIsContentManaged:()UIDocumentPicker;
 - (void)ui_setIsFileProviderURL:()UIDocumentPicker;
@@ -59,9 +59,9 @@
 {
   path = [self path];
   [path fileSystemRepresentation];
-  v2 = sandbox_check() == 0;
+  v4 = sandbox_check() == 0;
 
-  return v2;
+  return v4;
 }
 
 - (void)ui_isFileProviderURL
@@ -161,7 +161,7 @@
   }
 }
 
-- (uint64_t)ui_isUnfulfilledPromiseURL
+- (void)ui_isUnfulfilledPromiseURL
 {
   result = [self isFileURL];
   if (result)
@@ -192,7 +192,7 @@
 
     else
     {
-      return (HIBYTE(v10.st_flags) >> 6) & 1;
+      return ((HIBYTE(v10.st_flags) >> 6) & 1);
     }
   }
 

@@ -7,7 +7,7 @@
 
 - (void)handleCommand:(id)command withContext:(id)context taskTracker:(id)tracker completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   contextCopy = context;
   trackerCopy = tracker;
@@ -15,14 +15,14 @@
   v14 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
   {
-    v16 = v14;
-    v17 = objc_opt_class();
-    v18 = NSStringFromClass(v17);
-    v19 = 136315394;
-    v20 = "[SVXServiceCommandHandlerFallback handleCommand:withContext:taskTracker:completion:]";
-    v21 = 2112;
-    v22 = v18;
-    _os_log_error_impl(&dword_2695B9000, v16, OS_LOG_TYPE_ERROR, "%s Service command handler is missing for %@. Please file a radar.", &v19, 0x16u);
+    v15 = v14;
+    v16 = objc_opt_class();
+    v17 = NSStringFromClass(v16);
+    v18 = 136315394;
+    v19 = "[SVXServiceCommandHandlerFallback handleCommand:withContext:taskTracker:completion:]";
+    v20 = 2112;
+    v21 = v17;
+    _os_log_error_impl(&dword_2695B9000, v15, OS_LOG_TYPE_ERROR, "%s Service command handler is missing for %@. Please file a radar.", &v18, 0x16u);
 
     if (!completionCopy)
     {
@@ -39,8 +39,6 @@ LABEL_3:
   }
 
 LABEL_4:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (SVXServiceCommandHandlerFallback)initWithResult:(id)result

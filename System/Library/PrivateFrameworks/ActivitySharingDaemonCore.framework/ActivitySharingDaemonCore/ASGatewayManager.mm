@@ -42,7 +42,7 @@
 
 - (void)activitySharingManagerReady:(id)ready
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   readyCopy = ready;
   friendListManager = [readyCopy friendListManager];
   friendListManager = self->_friendListManager;
@@ -63,13 +63,12 @@
   if (os_log_type_enabled(*MEMORY[0x277CE8FE8], OS_LOG_TYPE_DEFAULT))
   {
     currentlyPairedWatchMeetsMinimumVersion = self->_currentlyPairedWatchMeetsMinimumVersion;
-    v14[0] = 67109120;
-    v14[1] = currentlyPairedWatchMeetsMinimumVersion;
-    _os_log_impl(&dword_23E5E3000, v11, OS_LOG_TYPE_DEFAULT, "Status for currentlyPairedWatchMeetsMinimumVersion: %{BOOL}d", v14, 8u);
+    v13[0] = 67109120;
+    v13[1] = currentlyPairedWatchMeetsMinimumVersion;
+    _os_log_impl(&dword_23E5E3000, v11, OS_LOG_TYPE_DEFAULT, "Status for currentlyPairedWatchMeetsMinimumVersion: %{BOOL}d", v13, 8u);
   }
 
   [(ASCloudKitManager *)self->_cloudKitManager addObserver:self];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)gatewayStatusWithCompletion:(id)completion
@@ -114,7 +113,7 @@ void __48__ASGatewayManager_gatewayStatusWithCompletion___block_invoke(uint64_t 
 
 void __48__ASGatewayManager_gatewayStatusWithCompletion___block_invoke_2(uint64_t a1, int a2, char a3, void *a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = a4;
   ASLoggingInitialize();
   v8 = *MEMORY[0x277CE8FE8];
@@ -122,9 +121,9 @@ void __48__ASGatewayManager_gatewayStatusWithCompletion___block_invoke_2(uint64_
   {
     v9 = *(a1 + 40);
     *buf = 67109376;
-    v20 = a2;
-    v21 = 1024;
-    v22 = v9;
+    v19 = a2;
+    v20 = 1024;
+    v21 = v9;
     _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "Gateway status, iCloud signed in: %{BOOL}d, need to upgrade: %{BOOL}d", buf, 0xEu);
   }
 
@@ -133,15 +132,13 @@ void __48__ASGatewayManager_gatewayStatusWithCompletion___block_invoke_2(uint64_
   block[2] = __48__ASGatewayManager_gatewayStatusWithCompletion___block_invoke_303;
   block[3] = &unk_278C4E8A8;
   v10 = *(a1 + 32);
-  v16 = a2;
-  v17 = *(a1 + 40);
-  v18 = a3;
-  v14 = v7;
-  v15 = v10;
+  v15 = a2;
+  v16 = *(a1 + 40);
+  v17 = a3;
+  v13 = v7;
+  v14 = v10;
   v11 = v7;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasReachedMaximumNumberOfFriends
@@ -154,15 +151,15 @@ void __48__ASGatewayManager_gatewayStatusWithCompletion___block_invoke_2(uint64_
 
 - (BOOL)shouldFilterIncomingMessageFromContact:(id)contact
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   ASLoggingInitialize();
   v5 = *MEMORY[0x277CE9008];
   if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 138412290;
-    v13 = contactCopy;
-    _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "Checking whitelist and blacklist for contact %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = contactCopy;
+    _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "Checking whitelist and blacklist for contact %@", &v11, 0xCu);
   }
 
   destinations = [contactCopy destinations];
@@ -178,13 +175,12 @@ void __48__ASGatewayManager_gatewayStatusWithCompletion___block_invoke_2(uint64_
     v8 = [(ASGatewayManager *)self _shouldFilterBlacklistContactDestinations:destinations2];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (BOOL)_shouldFilterWhitelistContactDestinations:(id)destinations
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   destinationsCopy = destinations;
   v5 = [(STConversation *)self->_screenTimeConversation allowableByContactsHandles:destinationsCopy];
   v6 = [v5 allowedByScreenTime] ^ 1;
@@ -192,20 +188,19 @@ void __48__ASGatewayManager_gatewayStatusWithCompletion___block_invoke_2(uint64_
   v7 = *MEMORY[0x277CE9008];
   if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 138412546;
-    v11 = destinationsCopy;
-    v12 = 1024;
-    v13 = v6;
-    _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "Should filter non-whitelisted incoming message from %@: %{BOOL}d", &v10, 0x12u);
+    v9 = 138412546;
+    v10 = destinationsCopy;
+    v11 = 1024;
+    v12 = v6;
+    _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "Should filter non-whitelisted incoming message from %@: %{BOOL}d", &v9, 0x12u);
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (BOOL)_shouldFilterBlacklistContactDestinations:(id)destinations
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   destinationsCopy = destinations;
   ASLoggingInitialize();
   v4 = MEMORY[0x277CE9008];
@@ -213,30 +208,30 @@ void __48__ASGatewayManager_gatewayStatusWithCompletion___block_invoke_2(uint64_
   if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v24 = destinationsCopy;
+    v23 = destinationsCopy;
     _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "Checking destinations: %@ against contacts blacklist for incoming message", buf, 0xCu);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v6 = destinationsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
+        v11 = *(*(&v18 + 1) + 8 * i);
         _stripFZIDPrefix = [v11 _stripFZIDPrefix];
         CMFItemFromString = CreateCMFItemFromString();
         IsItemBlocked = CMFBlockListIsItemBlocked();
@@ -252,9 +247,9 @@ void __48__ASGatewayManager_gatewayStatusWithCompletion___block_invoke_2(uint64_
           if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412546;
-            v24 = v11;
-            v25 = 1024;
-            v26 = 1;
+            v23 = v11;
+            v24 = 1024;
+            v25 = 1;
             _os_log_impl(&dword_23E5E3000, v16, OS_LOG_TYPE_DEFAULT, "Should filter blacklisted incoming message from %@ = %{BOOL}d", buf, 0x12u);
           }
 
@@ -263,7 +258,7 @@ void __48__ASGatewayManager_gatewayStatusWithCompletion___block_invoke_2(uint64_
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v18 objects:v26 count:16];
       if (v8)
       {
         continue;
@@ -276,7 +271,6 @@ void __48__ASGatewayManager_gatewayStatusWithCompletion___block_invoke_2(uint64_
   v15 = 0;
 LABEL_17:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -293,7 +287,7 @@ LABEL_17:
 
 void __31__ASGatewayManager_updateState__block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = FIDeviceMeetsMinimumOSVersionDaytona();
   v3 = *(a1 + 32);
   if (*(v3 + 48) != v2)
@@ -305,7 +299,7 @@ void __31__ASGatewayManager_updateState__block_invoke(uint64_t a1)
     {
       v5 = *(*(a1 + 32) + 48);
       *buf = 67109120;
-      v11 = v5;
+      v10 = v5;
       _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "Updating state - status for canProcessInvitation: %{BOOL}d", buf, 8u);
     }
 
@@ -318,8 +312,6 @@ void __31__ASGatewayManager_updateState__block_invoke(uint64_t a1)
     block[4] = v6;
     dispatch_async(v7, block);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __31__ASGatewayManager_updateState__block_invoke_306(uint64_t a1)
@@ -360,7 +352,7 @@ uint64_t __31__ASGatewayManager_updateState__block_invoke_306(uint64_t a1)
 
 - (void)_queue_notifyObservers
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v3 = *MEMORY[0x277CE8FE8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FE8], OS_LOG_TYPE_DEFAULT))
@@ -369,37 +361,35 @@ uint64_t __31__ASGatewayManager_updateState__block_invoke_306(uint64_t a1)
     _os_log_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_DEFAULT, "Gateway Manager status changed. Notifying observers", buf, 2u);
   }
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = self->_observers;
-  v5 = [(NSHashTable *)v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
+  v5 = [(NSHashTable *)v4 countByEnumeratingWithState:&v9 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) gatewayManagerStatusDidChange];
+        [*(*(&v9 + 1) + 8 * v8++) gatewayManagerStatusDidChange];
       }
 
       while (v6 != v8);
-      v6 = [(NSHashTable *)v4 countByEnumeratingWithState:&v10 objects:v15 count:16];
+      v6 = [(NSHashTable *)v4 countByEnumeratingWithState:&v9 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (unsigned)inviteCompatibilityVersion

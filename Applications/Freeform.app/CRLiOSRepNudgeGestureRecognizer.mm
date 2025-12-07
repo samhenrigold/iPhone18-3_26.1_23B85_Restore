@@ -983,7 +983,7 @@ LABEL_12:
         v24 = parent;
         if (parent)
         {
-          [parent transformInRoot];
+          objc_msgSend_transformInRoot(parent);
         }
 
         else

@@ -603,7 +603,7 @@ void __83__SBRemovalSwitcherModifier__performBlockWhileSimulatingPostRemovalAppL
             }
 
             v17 = *(*(&v19 + 1) + 8 * i);
-            if (([v5 containsObject:{v17, v19}] & 1) == 0)
+            if ((objc_msgSend_containsObject_(v5, v19) & 1) == 0)
             {
               [v5 addObject:v17];
             }

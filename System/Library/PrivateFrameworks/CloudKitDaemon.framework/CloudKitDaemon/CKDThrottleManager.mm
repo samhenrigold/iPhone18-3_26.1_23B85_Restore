@@ -1,9 +1,11 @@
 @interface CKDThrottleManager
++ (id)_expirationDateForTTLSeconds:(unsigned int)seconds;
 + (id)throttleFromPThrottlingConfig:(id)config;
 + (id)throttleFromServerJSONDictionary:(id)dictionary;
 - (BOOL)addThrottle:(id)throttle;
 - (CKDLogicalDeviceContext)deviceContext;
 - (CKDThrottleManager)initWithDeviceContext:(id)context;
+- (id)throttleTable:(BOOL)table;
 - (void)invalidateAdopterThrottles;
 - (void)loadThrottlesFromDatabase;
 - (void)noteDataChangeForThrottle:(id)throttle;
@@ -30,13 +32,68 @@
   return v6;
 }
 
+- (id)throttleTable:(BOOL)table
+{
+  v26 = *MEMORY[0x277D85DE8];
+  if (!self->_throttleTableGroup)
+  {
+    tableCopy = table;
+    v5 = objc_msgSend_deviceContext(self, a2, table);
+    v8 = objc_msgSend_deviceScopedDatabase(v5, v6, v7);
+
+    v12 = objc_msgSend_groupName(CKDThrottleTableGroup, v9, v10);
+    if (tableCopy)
+    {
+      v13 = 0;
+    }
+
+    else
+    {
+      v13 = 0x10000;
+    }
+
+    v23 = 0;
+    v14 = objc_msgSend_tableGroupInDatabase_withName_options_error_(CKDThrottleTableGroup, v11, v8, v12, v13, &v23);
+    v15 = v23;
+    throttleTableGroup = self->_throttleTableGroup;
+    self->_throttleTableGroup = v14;
+
+    if (v15)
+    {
+      if (*MEMORY[0x277CBC880] != -1)
+      {
+        dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
+      }
+
+      v18 = *MEMORY[0x277CBC830];
+      if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_FAULT))
+      {
+        *buf = 138543362;
+        v25 = v15;
+        _os_log_fault_impl(&dword_22506F000, v18, OS_LOG_TYPE_FAULT, "Failed to create the throttle table: %{public}@", buf, 0xCu);
+      }
+    }
+
+    else
+    {
+      v19 = objc_msgSend_tableWithName_(self->_throttleTableGroup, v17, @"Throttle");
+      throttleTable = self->_throttleTable;
+      self->_throttleTable = v19;
+    }
+  }
+
+  v21 = self->_throttleTable;
+
+  return v21;
+}
+
 - (void)loadThrottlesFromDatabase
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = objc_msgSend_throttleTable_(self, a2, 0);
-  v40 = 0;
-  v5 = objc_msgSend_fetchAllEntries_(v3, v4, &v40);
-  v6 = v40;
+  v39 = 0;
+  v5 = objc_msgSend_fetchAllEntries_(v3, v4, &v39);
+  v6 = v39;
   v7 = MEMORY[0x277CBC880];
   if (v6)
   {
@@ -54,36 +111,36 @@
     }
 
     *buf = 138543362;
-    v43 = v8;
+    v42 = v8;
     _os_log_fault_impl(&dword_22506F000, v9, OS_LOG_TYPE_FAULT, "Failed to fetch the throttle list: %{public}@", buf, 0xCu);
     v10 = 0;
   }
 
   else
   {
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
-    v35 = v5;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v34 = v5;
     v11 = v5;
-    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v36, v41, 16);
+    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v35, v40, 16);
     if (v13)
     {
       v16 = v13;
       v8 = 0;
-      v17 = *v37;
+      v17 = *v36;
       do
       {
         v18 = 0;
         do
         {
-          if (*v37 != v17)
+          if (*v36 != v17)
           {
             objc_enumerationMutation(v11);
           }
 
-          v19 = *(*(&v36 + 1) + 8 * v18);
+          v19 = *(*(&v35 + 1) + 8 * v18);
           v20 = objc_msgSend_expirationDate(v19, v14, v15);
           if ((objc_msgSend_isExpired(v19, v21, v22) & 1) != 0 || (objc_msgSend_timeIntervalSinceNow(v20, v23, v24), v25 > 172800.0))
           {
@@ -100,7 +157,7 @@
               if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_FAULT))
               {
                 *buf = 138543362;
-                v43 = v26;
+                v42 = v26;
                 _os_log_fault_impl(&dword_22506F000, v27, OS_LOG_TYPE_FAULT, "Failed to delete throttle: %{public}@", buf, 0xCu);
               }
 
@@ -122,7 +179,7 @@
         }
 
         while (v16 != v18);
-        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v36, v41, 16);
+        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v35, v40, 16);
       }
 
       while (v16);
@@ -136,7 +193,7 @@
     v30 = objc_msgSend_allThrottles(self, v28, v29);
     v10 = objc_msgSend_count(v30, v31, v32);
 
-    v5 = v35;
+    v5 = v34;
   }
 
   if (*v7 != -1)
@@ -149,11 +206,9 @@ LABEL_28:
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v43 = v10;
+    v42 = v10;
     _os_log_impl(&dword_22506F000, v33, OS_LOG_TYPE_INFO, "CKThrottle count at startup: %lu", buf, 0xCu);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidateAdopterThrottles
@@ -182,7 +237,7 @@ LABEL_28:
 
 - (void)throttleWasAdded:(id)added
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   addedCopy = added;
   if ((objc_msgSend_isExpired(addedCopy, v5, v6) & 1) == 0)
   {
@@ -203,20 +258,18 @@ LABEL_28:
         v14 = *MEMORY[0x277CBC830];
         if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_FAULT))
         {
-          v16 = 138543362;
-          v17 = v13;
-          _os_log_fault_impl(&dword_22506F000, v14, OS_LOG_TYPE_FAULT, "Failed to save new throttle: %{public}@", &v16, 0xCu);
+          v15 = 138543362;
+          v16 = v13;
+          _os_log_fault_impl(&dword_22506F000, v14, OS_LOG_TYPE_FAULT, "Failed to save new throttle: %{public}@", &v15, 0xCu);
         }
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)throttleWillBeRemoved:(id)removed
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   removedCopy = removed;
   v6 = objc_msgSend_throttleTable_(self, v5, 1);
   v8 = objc_msgSend_deleteObject_(v6, v7, removedCopy);
@@ -231,15 +284,13 @@ LABEL_28:
     v11 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_FAULT))
     {
-      v13 = 138543362;
-      v14 = v8;
-      _os_log_fault_impl(&dword_22506F000, v11, OS_LOG_TYPE_FAULT, "Failed to delete throttle: %{public}@", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v8;
+      _os_log_fault_impl(&dword_22506F000, v11, OS_LOG_TYPE_FAULT, "Failed to delete throttle: %{public}@", &v12, 0xCu);
     }
   }
 
   objc_msgSend_invalidateAdopterThrottles(self, v9, v10);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)throttleListBecameEmpty
@@ -259,7 +310,7 @@ LABEL_28:
 
 - (void)noteDataChangeForThrottle:(id)throttle
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   throttleCopy = throttle;
   v6 = objc_msgSend_throttleTable_(self, v5, 1);
   v8 = objc_msgSend_updateRequestCount_(v6, v7, throttleCopy);
@@ -274,13 +325,41 @@ LABEL_28:
     v9 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_FAULT))
     {
-      v11 = 138543362;
-      v12 = v8;
-      _os_log_fault_impl(&dword_22506F000, v9, OS_LOG_TYPE_FAULT, "Failed to save throttle changes: %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v8;
+      _os_log_fault_impl(&dword_22506F000, v9, OS_LOG_TYPE_FAULT, "Failed to save throttle changes: %{public}@", &v10, 0xCu);
+    }
+  }
+}
+
++ (id)_expirationDateForTTLSeconds:(unsigned int)seconds
+{
+  v9 = *MEMORY[0x277D85DE8];
+  secondsCopy = 86400;
+  if (seconds <= 0x15180)
+  {
+    secondsCopy = seconds;
+  }
+
+  else
+  {
+    if (*MEMORY[0x277CBC880] != -1)
+    {
+      dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
+    }
+
+    v5 = *MEMORY[0x277CBC830];
+    if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
+    {
+      v8[0] = 67109120;
+      v8[1] = seconds;
+      _os_log_error_impl(&dword_22506F000, v5, OS_LOG_TYPE_ERROR, "Received throttle config with large ttl (%d sec). Limiting to 24 hours.", v8, 8u);
     }
   }
 
-  v10 = *MEMORY[0x277D85DE8];
+  v6 = objc_msgSend_dateWithTimeIntervalSinceNow_(MEMORY[0x277CBEAA8], a2, *&seconds, secondsCopy);
+
+  return v6;
 }
 
 + (id)throttleFromServerJSONDictionary:(id)dictionary
@@ -781,7 +860,7 @@ LABEL_28:
 
 + (id)throttleFromPThrottlingConfig:(id)config
 {
-  v121 = *MEMORY[0x277D85DE8];
+  v120 = *MEMORY[0x277D85DE8];
   configCopy = config;
   if (objc_msgSend_hasLabel(configCopy, v5, v6))
   {
@@ -871,10 +950,10 @@ LABEL_28:
         v112 = *MEMORY[0x277CBC830];
         if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
         {
-          v115 = v112;
+          v114 = v112;
           *buf = 67109120;
-          v120 = objc_msgSend_databaseType(v12, v116, v117);
-          _os_log_error_impl(&dword_22506F000, v115, OS_LOG_TYPE_ERROR, "Received throttle with unknown database type: %d. Discarding.", buf, 8u);
+          v119 = objc_msgSend_databaseType(v12, v115, v116);
+          _os_log_error_impl(&dword_22506F000, v114, OS_LOG_TYPE_ERROR, "Received throttle with unknown database type: %d. Discarding.", buf, 8u);
         }
 
         v110 = 0;
@@ -960,7 +1039,7 @@ LABEL_28:
       v94 = objc_msgSend_currentCalendar(MEMORY[0x277CBEA80], v92, v93);
       v97 = objc_msgSend_date(MEMORY[0x277CBEAA8], v95, v96);
       objc_msgSend_startOfDayForDate_(v94, v98, v97);
-      v118 = v9;
+      v117 = v9;
       v99 = v17;
       v100 = v17 = self;
 
@@ -969,7 +1048,7 @@ LABEL_28:
 
       self = v17;
       LOBYTE(v17) = v99;
-      v9 = v118;
+      v9 = v117;
     }
 
     if ((v17 & 1) == 0 && objc_msgSend_hasTtlSec(configCopy, v89, v90))
@@ -1000,8 +1079,6 @@ LABEL_65:
 
   v110 = 0;
 LABEL_66:
-
-  v113 = *MEMORY[0x277D85DE8];
 
   return v110;
 }

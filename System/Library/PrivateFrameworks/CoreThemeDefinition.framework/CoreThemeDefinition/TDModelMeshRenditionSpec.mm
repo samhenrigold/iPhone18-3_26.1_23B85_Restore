@@ -1,5 +1,6 @@
 @interface TDModelMeshRenditionSpec
 + (id)fetchRequest;
+- (id)createCSIRepresentationWithCompression:(BOOL)compression colorSpaceID:(unint64_t)d document:(id)document;
 - (void)processSubMesh:(id)mesh withAssetSubmeshIndex:(unsigned int *)index assetKeySpec:(id)spec inDocument:(id)document;
 @end
 
@@ -7,7 +8,7 @@
 
 - (void)processSubMesh:(id)mesh withAssetSubmeshIndex:(unsigned int *)index assetKeySpec:(id)spec inDocument:(id)document
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v11 = [document newObjectForEntity:@"ModelIOSubmeshRenditionSpec"];
   v12 = [document newObjectForEntity:@"RenditionKeySpec"];
   [spec copyAttributesInto:v12];
@@ -18,32 +19,32 @@
   [v11 setParentRendition:self];
   [(TDModelMeshRenditionSpec *)self addSubmeshesObject:v11];
   [v11 setKeySpec:v12];
-  v29 = v11;
+  v28 = v11;
   [-[TDModelMeshRenditionSpec production](self "production")];
   material = [mesh material];
-  v27 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v26 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v25 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (material)
   {
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
-    v14 = [material countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v14 = [material countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v32;
+      v16 = *v31;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v32 != v16)
+          if (*v31 != v16)
           {
             objc_enumerationMutation(material);
           }
 
-          v18 = *(*(&v31 + 1) + 8 * i);
+          v18 = *(*(&v30 + 1) + 8 * i);
           uRLValue = [v18 URLValue];
           if ([v18 type] == 1 && uRLValue != 0)
           {
@@ -66,18 +67,57 @@
           }
         }
 
-        v15 = [material countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v15 = [material countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
       while (v15);
     }
   }
 
-  v30 = 0;
-  v24 = v26;
-  [documentCopy createNamedTexturesForCustomInfos:v27 referenceFiles:1 bitSource:objc_msgSend(documentCopy error:{"_themeBitSourceForReferencedFilesAtURLs:createIfNecessary:", v26, 1, v26), &v30}];
+  v29 = 0;
+  v24 = v25;
+  [documentCopy createNamedTexturesForCustomInfos:v26 referenceFiles:1 bitSource:objc_msgSend(documentCopy error:{"_themeBitSourceForReferencedFilesAtURLs:createIfNecessary:", v25, 1, v25), &v29}];
+}
 
-  v25 = *MEMORY[0x277D85DE8];
+- (id)createCSIRepresentationWithCompression:(BOOL)compression colorSpaceID:(unint64_t)d document:(id)document
+{
+  v20 = *MEMORY[0x277D85DE8];
+  v6 = [objc_msgSend(objc_msgSend(document "_cachedModelAssets")];
+  v7 = [objc_alloc(MEMORY[0x277D02668]) initWithModelMesh:v6];
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  submeshes = [(TDModelMeshRenditionSpec *)self submeshes];
+  v9 = [submeshes countByEnumeratingWithState:&v15 objects:v19 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v16;
+    do
+    {
+      v12 = 0;
+      do
+      {
+        if (*v16 != v11)
+        {
+          objc_enumerationMutation(submeshes);
+        }
+
+        [v7 addSubmeshReference:{objc_msgSend(MEMORY[0x277D026C8], "renditionKeyWithKeyList:", objc_msgSend(objc_msgSend(*(*(&v15 + 1) + 8 * v12++), "keySpec"), "key"))}];
+      }
+
+      while (v10 != v12);
+      v10 = [submeshes countByEnumeratingWithState:&v15 objects:v19 count:16];
+    }
+
+    while (v10);
+  }
+
+  [v7 setCompressionType:2];
+  v13 = [v7 CSIRepresentationWithCompression:1];
+
+  return v13;
 }
 
 + (id)fetchRequest

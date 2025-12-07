@@ -172,7 +172,7 @@ LABEL_11:
   if (v7)
   {
     v10 = [v7 characteristic];
-    v8 = [v10 service];
+    v8 = objc_msgSend_service(v10);
 
     v9 = [MEMORY[0x277CBEA60] na_arrayWithSafeObject:v8];
     goto LABEL_11;

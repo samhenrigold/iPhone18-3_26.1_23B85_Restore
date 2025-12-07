@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    isAvailable = self->_isAvailable;
     PBDataWriterWriteBOOLField();
   }
 }

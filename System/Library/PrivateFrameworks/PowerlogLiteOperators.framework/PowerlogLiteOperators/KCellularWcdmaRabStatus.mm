@@ -167,7 +167,6 @@ LABEL_7:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x10) == 0)
@@ -187,7 +186,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  totalRabCount = self->_totalRabCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -202,7 +200,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  r99RabCount = self->_r99RabCount;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -217,12 +214,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  hsRabCount = self->_hsRabCount;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 8) != 0)
   {
 LABEL_6:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 

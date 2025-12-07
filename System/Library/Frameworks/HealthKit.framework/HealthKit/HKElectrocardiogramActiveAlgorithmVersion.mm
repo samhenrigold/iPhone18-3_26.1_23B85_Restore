@@ -23,18 +23,19 @@
   }
 
   v12 = [HKKeyValueDomain heartRhythmDefaultsDomainWithHealthStore:storeCopy];
-  v18 = 0;
-  v13 = [v12 numberForKey:v7 error:&v18];
-  v14 = v18;
-  if (!v13 || ![v13 integerValue])
+  v20 = 0;
+  v13 = [v12 numberForKey:v7 error:&v20];
+  v14 = v20;
+  v16 = v14;
+  if (!v13 || (v14 = [v13 integerValue]) == 0)
   {
-    if (v14)
+    if (v16)
     {
-      _HKInitializeLogging();
-      v15 = HKLogHeartRhythm;
+      _HKInitializeLogging(v14, v15);
+      v17 = HKLogHeartRhythm;
       if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR))
       {
-        [(HKElectrocardiogramActiveAlgorithmVersion *)v7 versionWithHealthStore:v14 error:v15];
+        [(HKElectrocardiogramActiveAlgorithmVersion *)v7 versionWithHealthStore:v16 error:v17];
         if (error)
         {
           goto LABEL_10;
@@ -44,9 +45,9 @@
       else if (error)
       {
 LABEL_10:
-        v16 = v14;
+        v18 = v16;
         v11 = 0;
-        *error = v14;
+        *error = v16;
         goto LABEL_13;
       }
     }
@@ -75,73 +76,71 @@ LABEL_14:
   {
     if (v7 == 0x7FFFFFFF)
     {
-      _HKInitializeLogging();
-      v10 = HKLogHeartRhythm;
+      _HKInitializeLogging(integerValue, v10);
+      v11 = HKLogHeartRhythm;
       if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
       {
         v21 = 136446210;
         v22 = "+[HKElectrocardiogramActiveAlgorithmVersion knownAlgorithmVersionFromOnboardedVersion:keyValueDomain:]";
-        _os_log_impl(&dword_19197B000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}s] Alg version validation: Sync'd alg version is greater than max previously onboarded and known to build.", &v21, 0xCu);
+        _os_log_impl(&dword_19197B000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}s] Alg version validation: Sync'd alg version is greater than max previously onboarded and known to build.", &v21, 0xCu);
       }
 
-      v11 = v8;
+      v12 = v8;
     }
 
     else
     {
-      v14 = integerValue;
-      _HKInitializeLogging();
-      v15 = HKLogHeartRhythm;
-      v16 = os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT);
-      if (v7 >= v14)
+      v15 = integerValue;
+      _HKInitializeLogging(integerValue, v10);
+      v16 = HKLogHeartRhythm;
+      v17 = os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT);
+      if (v7 >= v15)
       {
-        if (v16)
+        if (v17)
         {
           v21 = 136446210;
           v22 = "+[HKElectrocardiogramActiveAlgorithmVersion knownAlgorithmVersionFromOnboardedVersion:keyValueDomain:]";
-          _os_log_impl(&dword_19197B000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}s] Alg version validation: Sync'd alg version is known to this build and not smaller than any version previously onboarded.", &v21, 0xCu);
+          _os_log_impl(&dword_19197B000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}s] Alg version validation: Sync'd alg version is known to this build and not smaller than any version previously onboarded.", &v21, 0xCu);
         }
 
-        v17 = MEMORY[0x1E696AD98];
-        v18 = v7;
+        v18 = MEMORY[0x1E696AD98];
+        v19 = v7;
       }
 
       else
       {
-        if (v16)
+        if (v17)
         {
           v21 = 136446210;
           v22 = "+[HKElectrocardiogramActiveAlgorithmVersion knownAlgorithmVersionFromOnboardedVersion:keyValueDomain:]";
-          _os_log_impl(&dword_19197B000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}s] Alg version validation: Sync'd alg version is less than max previously onboarded and known to build.", &v21, 0xCu);
+          _os_log_impl(&dword_19197B000, v16, OS_LOG_TYPE_DEFAULT, "[%{public}s] Alg version validation: Sync'd alg version is less than max previously onboarded and known to build.", &v21, 0xCu);
         }
 
-        v17 = MEMORY[0x1E696AD98];
-        v18 = v14;
+        v18 = MEMORY[0x1E696AD98];
+        v19 = v15;
       }
 
-      v11 = [v17 numberWithInteger:v18];
+      v12 = [v18 numberWithInteger:v19];
     }
 
-    v13 = v11;
+    v14 = v12;
   }
 
   else
   {
-    _HKInitializeLogging();
-    v12 = HKLogHeartRhythm;
+    _HKInitializeLogging(0, v10);
+    v13 = HKLogHeartRhythm;
     if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_DEFAULT))
     {
       v21 = 136446210;
       v22 = "+[HKElectrocardiogramActiveAlgorithmVersion knownAlgorithmVersionFromOnboardedVersion:keyValueDomain:]";
-      _os_log_impl(&dword_19197B000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}s] Alg version validation: Known onboarding history is empty.", &v21, 0xCu);
+      _os_log_impl(&dword_19197B000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}s] Alg version validation: Known onboarding history is empty.", &v21, 0xCu);
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
-  return v13;
+  return v14;
 }
 
 + (id)_maxKnownAlgorithmVersionOnboardedWithKeyValueDomain:(id)domain
@@ -159,13 +158,14 @@ LABEL_14:
 
   else
   {
-    if ([v3 count] >= 2)
+    v9 = [v3 count];
+    if (v9 >= 2)
     {
-      _HKInitializeLogging();
-      v9 = HKLogHeartRhythm;
+      _HKInitializeLogging(v9, v10);
+      v11 = HKLogHeartRhythm;
       if (os_log_type_enabled(HKLogHeartRhythm, OS_LOG_TYPE_ERROR))
       {
-        [HKElectrocardiogramActiveAlgorithmVersion _maxKnownAlgorithmVersionOnboardedWithKeyValueDomain:v9];
+        [HKElectrocardiogramActiveAlgorithmVersion _maxKnownAlgorithmVersionOnboardedWithKeyValueDomain:v11];
       }
     }
 
@@ -215,22 +215,20 @@ LABEL_14:
 
 + (void)versionWithHealthStore:(os_log_t)log error:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "Couldn't read heart rhythm onboarding completion state for key [%@]: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "Couldn't read heart rhythm onboarding completion state for key [%@]: %@", &v3, 0x16u);
 }
 
 + (void)_maxKnownAlgorithmVersionOnboardedWithKeyValueDomain:(os_log_t)log .cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "+[HKElectrocardiogramActiveAlgorithmVersion _maxKnownAlgorithmVersionOnboardedWithKeyValueDomain:]";
-  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "[%{pulic}s] More than one max alg version previously onboarded and known to the build.", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "+[HKElectrocardiogramActiveAlgorithmVersion _maxKnownAlgorithmVersionOnboardedWithKeyValueDomain:]";
+  _os_log_error_impl(&dword_19197B000, log, OS_LOG_TYPE_ERROR, "[%{pulic}s] More than one max alg version previously onboarded and known to the build.", &v1, 0xCu);
 }
 
 @end

@@ -16,7 +16,7 @@
 - (void)tintColorDidChange
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for ModernProductReviewCollectionViewCell();
+  v5.super_class = type metadata accessor for ModernProductReviewCollectionViewCell(0);
   v2 = v5.receiver;
   [(ModernProductReviewCollectionViewCell *)&v5 tintColorDidChange];
   v3 = *&v2[OBJC_IVAR____TtC23ShelfKitCollectionViews37ModernProductReviewCollectionViewCell_more];
@@ -27,7 +27,7 @@
 - (id)preferredLayoutAttributesFittingAttributes:(id)attributes
 {
   v8.receiver = self;
-  v8.super_class = type metadata accessor for ModernProductReviewCollectionViewCell();
+  v8.super_class = type metadata accessor for ModernProductReviewCollectionViewCell(0);
   attributesCopy = attributes;
   v5 = v8.receiver;
   v6 = [(ModernProductReviewCollectionViewCell *)&v8 preferredLayoutAttributesFittingAttributes:attributesCopy];

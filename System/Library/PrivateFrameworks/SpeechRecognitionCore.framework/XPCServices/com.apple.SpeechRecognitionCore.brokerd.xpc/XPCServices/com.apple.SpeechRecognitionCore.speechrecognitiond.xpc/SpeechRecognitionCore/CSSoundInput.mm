@@ -63,7 +63,7 @@
 
 - (BOOL)startRecording
 {
-  v3 = RXOSLog();
+  v3 = RXOSLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -75,61 +75,63 @@
     [(CSSoundInput *)self stopRecording];
   }
 
-  if (+[RDSoundInputImpl_iOS_Shared isSystemSleeping])
+  v4 = +[RDSoundInputImpl_iOS_Shared isSystemSleeping];
+  if (v4)
   {
-    v4 = RXOSLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = RXOSLog(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "System is sleeping, so don't start recording", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "System is sleeping, so don't start recording", buf, 2u);
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v6 = dispatch_time(0, 3000000000);
-    v7 = dispatch_semaphore_create(0);
+    v7 = dispatch_time(0, 3000000000);
+    v8 = dispatch_semaphore_create(0);
     csCommandControlListener = self->_csCommandControlListener;
-    v9 = +[CSCommandControlListenerOption defaultOption];
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_10000409C;
-    v14[3] = &unk_1000FDD00;
-    v14[4] = self;
-    v4 = v7;
-    v15 = v4;
-    [(CSCommandControlListener *)csCommandControlListener startListenWithOption:v9 completion:v14];
+    v10 = +[CSCommandControlListenerOption defaultOption];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_10000409C;
+    v16[3] = &unk_1000FDD00;
+    v16[4] = self;
+    v5 = v8;
+    v17 = v5;
+    [(CSCommandControlListener *)csCommandControlListener startListenWithOption:v10 completion:v16];
 
-    if (dispatch_semaphore_wait(v4, v6))
+    v11 = dispatch_semaphore_wait(v5, v7);
+    if (v11)
     {
-      v10 = RXOSLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = RXOSLog(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Timed out waiting to start CS recording", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Timed out waiting to start CS recording", buf, 2u);
       }
     }
 
-    v11 = RXOSLog();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = RXOSLog(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       recording = self->_recording;
       *buf = 67109120;
-      v17 = recording;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Started recording from CS = %d", buf, 8u);
+      v19 = recording;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Started recording from CS = %d", buf, 8u);
     }
 
-    v5 = self->_recording != 0;
+    v6 = self->_recording != 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)stopRecording
 {
-  v3 = RXOSLog();
+  v3 = RXOSLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -139,29 +141,30 @@
   v4 = dispatch_time(0, 3000000000);
   v5 = dispatch_semaphore_create(0);
   csCommandControlListener = self->_csCommandControlListener;
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_10000434C;
-  v10[3] = &unk_1000FDD00;
-  v10[4] = self;
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_10000434C;
+  v11[3] = &unk_1000FDD00;
+  v11[4] = self;
   v7 = v5;
-  v11 = v7;
-  [(CSCommandControlListener *)csCommandControlListener stopListenWithCompletion:v10];
-  if (dispatch_semaphore_wait(v7, v4))
+  v12 = v7;
+  [(CSCommandControlListener *)csCommandControlListener stopListenWithCompletion:v11];
+  v8 = dispatch_semaphore_wait(v7, v4);
+  if (v8)
   {
-    v8 = RXOSLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = RXOSLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Timed out waiting to stop CS recording", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Timed out waiting to stop CS recording", buf, 2u);
     }
   }
 
-  v9 = RXOSLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = RXOSLog(v8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Stopped to record from CS", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Stopped to record from CS", buf, 2u);
   }
 }
 
@@ -187,7 +190,7 @@
 - (void)commandControlListener:(id)listener didStopUnexpectedly:(BOOL)unexpectedly
 {
   unexpectedlyCopy = unexpectedly;
-  v6 = RXOSLog();
+  v6 = RXOSLog(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
@@ -211,91 +214,91 @@
 
 - (void)notifyObserver:(id)observer didChangeStateFrom:(unint64_t)from to:(unint64_t)to
 {
-  v8 = RXOSLog();
+  v8 = RXOSLog(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v21 = 134218240;
+    v25 = 134218240;
     fromCopy = from;
-    v23 = 2048;
+    v27 = 2048;
     toCopy = to;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "CS notification didChangeStateFrom %lld to %lld ", &v21, 0x16u);
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "CS notification didChangeStateFrom %lld to %lld ", &v25, 0x16u);
   }
 
-  v9 = RXOSLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = RXOSLog(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = @"YES";
+    v11 = @"YES";
     if ((to & 4) == 0)
     {
-      v10 = @"NO";
+      v11 = @"NO";
     }
 
-    v21 = 138412290;
-    fromCopy = v10;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Siri is listening: %@", &v21, 0xCu);
+    v25 = 138412290;
+    fromCopy = v11;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Siri is listening: %@", &v25, 0xCu);
   }
 
-  v11 = RXOSLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-  {
-    v12 = @"YES";
-    if ((to & 8) == 0)
-    {
-      v12 = @"NO";
-    }
-
-    v21 = 138412290;
-    fromCopy = v12;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Siri is speaking: %@", &v21, 0xCu);
-  }
-
-  self->_isSiriListeningOrSpeaking = (to & 0xC) != 0;
-  self->_isSiriIdle = to == 0;
-  v13 = RXOSLog();
+  v13 = RXOSLog(v12);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    if (self->_isSiriIdle)
-    {
-      v14 = @"YES";
-    }
-
-    else
+    v14 = @"YES";
+    if ((to & 8) == 0)
     {
       v14 = @"NO";
     }
 
-    v21 = 138412290;
+    v25 = 138412290;
     fromCopy = v14;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Siri is idle: %@", &v21, 0xCu);
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Siri is speaking: %@", &v25, 0xCu);
   }
 
-  if (+[RDSoundInputImpl_iOS_Shared isCarPlayActive])
+  self->_isSiriListeningOrSpeaking = (to & 0xC) != 0;
+  self->_isSiriIdle = to == 0;
+  v16 = RXOSLog(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = RXOSLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    if (self->_isSiriIdle)
     {
-      v16 = +[RDSoundInputImpl_iOS_Shared isCarPlayActive];
-      v17 = @"NO";
-      if (v16)
-      {
-        v17 = @"YES";
-      }
-
-      v21 = 138412290;
-      fromCopy = v17;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "CarPlay Active?: %@", &v21, 0xCu);
+      v17 = @"YES";
     }
 
-    recording = self->_recording;
+    else
+    {
+      v17 = @"NO";
+    }
+
+    v25 = 138412290;
+    fromCopy = v17;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Siri is idle: %@", &v25, 0xCu);
+  }
+
+  v18 = +[RDSoundInputImpl_iOS_Shared isCarPlayActive];
+  if (v18)
+  {
+    v19 = RXOSLog(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      v20 = +[RDSoundInputImpl_iOS_Shared isCarPlayActive];
+      v21 = @"NO";
+      if (v20)
+      {
+        v21 = @"YES";
+      }
+
+      v25 = 138412290;
+      fromCopy = v21;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "CarPlay Active?: %@", &v25, 0xCu);
+    }
+
     if (self->_isSiriIdle)
     {
       if (!self->_recording)
       {
-        v19 = RXOSLog();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v23 = RXOSLog(v22);
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v21) = 0;
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Start recording from CoreSpeech in CarPlay since Siri is Idle", &v21, 2u);
+          LOWORD(v25) = 0;
+          _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Start recording from CoreSpeech in CarPlay since Siri is Idle", &v25, 2u);
         }
 
         [(CSSoundInput *)self startRecording];
@@ -304,11 +307,11 @@
 
     else if (self->_recording)
     {
-      v20 = RXOSLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v24 = RXOSLog(v22);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v21) = 0;
-        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Stop recording from CoreSpeech in CarPlay since Siri is active", &v21, 2u);
+        LOWORD(v25) = 0;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Stop recording from CoreSpeech in CarPlay since Siri is active", &v25, 2u);
       }
 
       [(CSSoundInput *)self stopRecording];

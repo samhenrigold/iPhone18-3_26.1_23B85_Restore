@@ -29,19 +29,17 @@
   timeoutCopy = timeout;
   sub_22A4DE01C();
   swift_unknownObjectRelease();
-  v18 = sub_229565A48(homeCopy, id, endpointIdCopy, clusterIdCopy, attributeIdCopy, &v20, timeout);
+  v18 = sub_229565A48(homeCopy, id, endpointIdCopy, clusterIdCopy, attributeIdCopy, v20, timeout);
 
   return v18;
 }
 
 - (NSString)coreAnalyticsEventName
 {
-  v2 = *(self + OBJC_IVAR____TtC13HomeKitDaemon37MatterAccessoryWriteAttributeLogEvent_coreAnalyticsEventName);
-  v3 = *(self + OBJC_IVAR____TtC13HomeKitDaemon37MatterAccessoryWriteAttributeLogEvent_coreAnalyticsEventName + 8);
 
-  v4 = sub_22A4DD5AC();
+  v2 = sub_22A4DD5AC();
 
-  return v4;
+  return v2;
 }
 
 - (NSDictionary)coreAnalyticsEventDictionary
@@ -58,7 +56,6 @@
 - (_TtC13HomeKitDaemon37MatterAccessoryWriteAttributeLogEvent)initWithHomeUUID:(id)d
 {
   v3 = sub_22A4DB7DC();
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
   sub_22A4DB79C();
   result = _swift_stdlib_reportUnimplementedInitializer();
@@ -69,7 +66,6 @@
 - (_TtC13HomeKitDaemon37MatterAccessoryWriteAttributeLogEvent)initWithStartTime:(double)time homeUUID:(id)d
 {
   v4 = sub_22A4DB7DC();
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x28223BE20](v4 - 8);
   sub_22A4DB79C();
   result = _swift_stdlib_reportUnimplementedInitializer();

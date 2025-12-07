@@ -6,6 +6,9 @@
 - (LiveFSVolumeCore_FSFileNameBridge)initWithProxy:(id)proxy;
 - (LiveFSVolumeCore_FSFileNameBridge)initWithSyncConnection:(id)connection errorHandler:(id)handler;
 - (void)createIn:(id)in named:(id)named attributes:(id)attributes requestID:(unint64_t)d reply:(id)reply;
+- (void)endIO:(id)o range:(_NSRange)range status:(int)status flags:(unsigned int)flags operationID:(unint64_t)d reply:(id)reply;
+- (void)lookupIn:(id)in name:(id)name usingFlags:(unsigned int)flags requestID:(unint64_t)d reply:(id)reply;
+- (void)makeCloneOf:(id)of named:(id)named inDirectory:(id)directory attributes:(id)attributes usingFlags:(unsigned int)flags requestID:(unint64_t)d reply:(id)reply;
 - (void)makeDirectoryIn:(id)in named:(id)named attributes:(id)attributes requestID:(unint64_t)d reply:(id)reply;
 - (void)makeLinkOf:(id)of named:(id)named inDirectory:(id)directory requestID:(unint64_t)d reply:(id)reply;
 - (void)makeSymLinkIn:(id)in named:(id)named contents:(id)contents attributes:(id)attributes requestID:(unint64_t)d reply:(id)reply;
@@ -13,8 +16,11 @@
 - (void)readFrom:(id)from atOffset:(unint64_t)offset intoBuffer:(id)buffer requestID:(unint64_t)d reply:(id)reply;
 - (void)readFrom:(id)from length:(unint64_t)length atOffset:(unint64_t)offset requestID:(unint64_t)d reply:(id)reply;
 - (void)readLinkOf:(id)of requestID:(unint64_t)d reply:(id)reply;
+- (void)removeDirectory:(id)directory from:(id)from named:(id)named usingFlags:(int)flags requestID:(unint64_t)d reply:(id)reply;
+- (void)removeItem:(id)item from:(id)from named:(id)named usingFlags:(int)flags requestID:(unint64_t)d reply:(id)reply;
 - (void)renameItemIn:(id)in named:(id)named item:(id)item toDirectory:(id)directory newName:(id)name toItem:(id)toItem usingFlags:(unsigned int)flags requestID:(unint64_t)self0 reply:(id)self1;
 - (void)setOtherAttributeOf:(id)of named:(id)named value:(id)value requestID:(unint64_t)d reply:(id)reply;
+- (void)setXattrOf:(id)of named:(id)named value:(id)value how:(int)how requestID:(unint64_t)d reply:(id)reply;
 - (void)writeTo:(id)to atOffset:(unint64_t)offset fromBuffer:(id)buffer requestID:(unint64_t)d reply:(id)reply;
 - (void)writeTo:(id)to atOffset:(unint64_t)offset sharedBuffer:(id)buffer requestID:(unint64_t)d reply:(id)reply;
 - (void)xattrOf:(id)of named:(id)named requestID:(unint64_t)d reply:(id)reply;
@@ -93,6 +99,45 @@
   inCopy = in;
   string = [named string];
   [(LiveFSVolumeCore *)proxy createIn:inCopy named:string attributes:attributesCopy requestID:d reply:replyCopy];
+}
+
+- (void)endIO:(id)o range:(_NSRange)range status:(int)status flags:(unsigned int)flags operationID:(unint64_t)d reply:(id)reply
+{
+  v9 = *&flags;
+  v10 = *&status;
+  length = range.length;
+  location = range.location;
+  replyCopy = reply;
+  proxy = self->_proxy;
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_10000C724;
+  v18[3] = &unk_100060BB0;
+  v19 = replyCopy;
+  v17 = replyCopy;
+  [(LiveFSVolumeCore *)proxy endIO:o range:location status:length flags:v10 operationID:v9 reply:d, v18];
+}
+
+- (void)lookupIn:(id)in name:(id)name usingFlags:(unsigned int)flags requestID:(unint64_t)d reply:(id)reply
+{
+  v8 = *&flags;
+  proxy = self->_proxy;
+  replyCopy = reply;
+  inCopy = in;
+  string = [name string];
+  [(LiveFSVolumeCore *)proxy lookupIn:inCopy name:string usingFlags:v8 requestID:d reply:replyCopy];
+}
+
+- (void)makeCloneOf:(id)of named:(id)named inDirectory:(id)directory attributes:(id)attributes usingFlags:(unsigned int)flags requestID:(unint64_t)d reply:(id)reply
+{
+  v10 = *&flags;
+  proxy = self->_proxy;
+  replyCopy = reply;
+  attributesCopy = attributes;
+  directoryCopy = directory;
+  ofCopy = of;
+  string = [named string];
+  [(LiveFSVolumeCore *)proxy makeCloneOf:ofCopy named:string inDirectory:directoryCopy attributes:attributesCopy usingFlags:v10 requestID:d reply:replyCopy];
 }
 
 - (void)makeDirectoryIn:(id)in named:(id)named attributes:(id)attributes requestID:(unint64_t)d reply:(id)reply
@@ -174,6 +219,28 @@
   [(LiveFSVolumeCore *)proxy readLinkOf:of requestID:d reply:v11];
 }
 
+- (void)removeDirectory:(id)directory from:(id)from named:(id)named usingFlags:(int)flags requestID:(unint64_t)d reply:(id)reply
+{
+  v9 = *&flags;
+  proxy = self->_proxy;
+  replyCopy = reply;
+  fromCopy = from;
+  directoryCopy = directory;
+  string = [named string];
+  [(LiveFSVolumeCore *)proxy removeDirectory:directoryCopy from:fromCopy named:string usingFlags:v9 requestID:d reply:replyCopy];
+}
+
+- (void)removeItem:(id)item from:(id)from named:(id)named usingFlags:(int)flags requestID:(unint64_t)d reply:(id)reply
+{
+  v9 = *&flags;
+  proxy = self->_proxy;
+  replyCopy = reply;
+  fromCopy = from;
+  itemCopy = item;
+  string = [named string];
+  [(LiveFSVolumeCore *)proxy removeItem:itemCopy from:fromCopy named:string usingFlags:v9 requestID:d reply:replyCopy];
+}
+
 - (void)renameItemIn:(id)in named:(id)named item:(id)item toDirectory:(id)directory newName:(id)name toItem:(id)toItem usingFlags:(unsigned int)flags requestID:(unint64_t)self0 reply:(id)self1
 {
   replyCopy = reply;
@@ -210,6 +277,17 @@
   v19 = replyCopy;
   v17 = replyCopy;
   [(LiveFSVolumeCore *)proxy setOtherAttributeOf:ofCopy named:string value:valueCopy requestID:d reply:v18];
+}
+
+- (void)setXattrOf:(id)of named:(id)named value:(id)value how:(int)how requestID:(unint64_t)d reply:(id)reply
+{
+  v9 = *&how;
+  proxy = self->_proxy;
+  replyCopy = reply;
+  valueCopy = value;
+  ofCopy = of;
+  string = [named string];
+  [(LiveFSVolumeCore *)proxy setXattrOf:ofCopy named:string value:valueCopy how:v9 requestID:d reply:replyCopy];
 }
 
 - (void)writeTo:(id)to atOffset:(unint64_t)offset fromBuffer:(id)buffer requestID:(unint64_t)d reply:(id)reply

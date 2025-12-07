@@ -95,9 +95,9 @@
 
 void __47__PLCloudStreamShareJob_executeDaemonOperation__block_invoke(uint64_t a1)
 {
-  v170 = *MEMORY[0x1E69E9840];
-  v130 = +[PLPhotoSharingHelper sharingPersonID];
-  if (v130)
+  v169 = *MEMORY[0x1E69E9840];
+  v129 = +[PLPhotoSharingHelper sharingPersonID];
+  if (v129)
   {
     v1 = [*(a1 + 32) albumCloudGUID];
     *(*(*(a1 + 80) + 8) + 24) = v1 == 0;
@@ -114,25 +114,25 @@ void __47__PLCloudStreamShareJob_executeDaemonOperation__block_invoke(uint64_t a
       v9 = *(v8 + 40);
       *(v8 + 40) = v7;
 
-      v165 = 0u;
-      v166 = 0u;
-      v163 = 0u;
       v164 = 0u;
+      v165 = 0u;
+      v162 = 0u;
+      v163 = 0u;
       obj = *(*(a1 + 32) + 120);
-      v10 = [obj countByEnumeratingWithState:&v163 objects:v169 count:16];
+      v10 = [obj countByEnumeratingWithState:&v162 objects:v168 count:16];
       if (v10)
       {
-        v11 = *v164;
+        v11 = *v163;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v164 != v11)
+            if (*v163 != v11)
             {
               objc_enumerationMutation(obj);
             }
 
-            v13 = *(*(&v163 + 1) + 8 * i);
+            v13 = *(*(&v162 + 1) + 8 * i);
             v14 = [*(a1 + 40) managedObjectContext];
             v15 = [PLShareParticipant insertInManagedObjectContext:v14];
 
@@ -168,7 +168,7 @@ void __47__PLCloudStreamShareJob_executeDaemonOperation__block_invoke(uint64_t a
             [v15 setShare:*(*(*(a1 + 88) + 8) + 40)];
           }
 
-          v10 = [obj countByEnumeratingWithState:&v163 objects:v169 count:16];
+          v10 = [obj countByEnumeratingWithState:&v162 objects:v168 count:16];
         }
 
         while (v10);
@@ -189,46 +189,45 @@ void __47__PLCloudStreamShareJob_executeDaemonOperation__block_invoke(uint64_t a
     }
 
     v31 = [*(v24 + 40) pathManager];
-    v129 = [v31 temporaryDragAndDropDirectoryCreateIfNeeded:0 error:0];
+    v128 = [v31 temporaryDragAndDropDirectoryCreateIfNeeded:0 error:0];
 
-    v161 = 0u;
-    v162 = 0u;
-    v159 = 0u;
     v160 = 0u;
-    v128 = [*(a1 + 32) mediaSources];
-    v132 = [v128 countByEnumeratingWithState:&v159 objects:v168 count:16];
-    if (v132)
+    v161 = 0u;
+    v158 = 0u;
+    v159 = 0u;
+    v127 = [*(a1 + 32) mediaSources];
+    v131 = [v127 countByEnumeratingWithState:&v158 objects:v167 count:16];
+    if (v131)
     {
-      v131 = *v160;
-      v127 = *MEMORY[0x1E69C09D0];
+      v130 = *v159;
       do
       {
         v32 = 0;
         do
         {
-          if (*v160 != v131)
+          if (*v159 != v130)
           {
-            objc_enumerationMutation(v128);
+            objc_enumerationMutation(v127);
           }
 
-          v33 = *(*(&v159 + 1) + 8 * v32);
+          v33 = *(*(&v158 + 1) + 8 * v32);
           *buf = 0;
-          v154 = buf;
-          v155 = 0x3032000000;
-          v156 = __Block_byref_object_copy__67484;
-          v157 = __Block_byref_object_dispose__67485;
-          v158 = 0;
-          v147 = 0;
-          v148 = &v147;
-          v149 = 0x3032000000;
-          v150 = __Block_byref_object_copy__67484;
-          v151 = __Block_byref_object_dispose__67485;
-          v152 = 0;
+          v153 = buf;
+          v154 = 0x3032000000;
+          v155 = __Block_byref_object_copy__67484;
+          v156 = __Block_byref_object_dispose__67485;
+          v157 = 0;
+          v146 = 0;
+          v147 = &v146;
+          v148 = 0x3032000000;
+          v149 = __Block_byref_object_copy__67484;
+          v150 = __Block_byref_object_dispose__67485;
+          v151 = 0;
           if ([v33 mediaType] == 3)
           {
             v34 = [v33 mediaURL];
             v35 = [v34 path];
-            v36 = [v35 hasPrefix:v129];
+            v36 = [v35 hasPrefix:v128];
 
             if (v36)
             {
@@ -236,25 +235,25 @@ void __47__PLCloudStreamShareJob_executeDaemonOperation__block_invoke(uint64_t a
               v38 = [v37 pathExtension];
 
               v39 = *(a1 + 48);
-              v146[0] = MEMORY[0x1E69E9820];
-              v146[1] = 3221225472;
-              v146[2] = __47__PLCloudStreamShareJob_executeDaemonOperation__block_invoke_76;
-              v146[3] = &unk_1E7570050;
-              v146[4] = v33;
-              v146[5] = &v147;
-              v146[6] = buf;
-              writeToTemporaryMediaFileWithExtension(v38, v39, v146);
+              v145[0] = MEMORY[0x1E69E9820];
+              v145[1] = 3221225472;
+              v145[2] = __47__PLCloudStreamShareJob_executeDaemonOperation__block_invoke_76;
+              v145[3] = &unk_1E7570050;
+              v145[4] = v33;
+              v145[5] = &v146;
+              v145[6] = buf;
+              writeToTemporaryMediaFileWithExtension(v38, v39, v145);
             }
 
             else
             {
               v48 = [v33 videoComplement];
-              v49 = v148[5];
-              v148[5] = v48;
+              v49 = v147[5];
+              v147[5] = v48;
 
-              v50 = [v148[5] imagePath];
-              v51 = *(v154 + 5);
-              *(v154 + 5) = v50;
+              v50 = [v147[5] imagePath];
+              v51 = *(v153 + 5);
+              *(v153 + 5) = v50;
             }
           }
 
@@ -283,13 +282,13 @@ void __47__PLCloudStreamShareJob_executeDaemonOperation__block_invoke(uint64_t a
               }
 
               v47 = *(a1 + 48);
-              v145[0] = MEMORY[0x1E69E9820];
-              v145[1] = 3221225472;
-              v145[2] = __47__PLCloudStreamShareJob_executeDaemonOperation__block_invoke_90;
-              v145[3] = &unk_1E7570078;
-              v145[4] = v33;
-              v145[5] = buf;
-              writeToTemporaryMediaFileWithExtension(v42, v47, v145);
+              v144[0] = MEMORY[0x1E69E9820];
+              v144[1] = 3221225472;
+              v144[2] = __47__PLCloudStreamShareJob_executeDaemonOperation__block_invoke_90;
+              v144[3] = &unk_1E7570078;
+              v144[4] = v33;
+              v144[5] = buf;
+              writeToTemporaryMediaFileWithExtension(v42, v47, v144);
             }
 
             else
@@ -305,7 +304,7 @@ void __47__PLCloudStreamShareJob_executeDaemonOperation__block_invoke(uint64_t a
                 {
                   v55 = [v33 mediaURL];
                   v56 = [v55 path];
-                  v57 = [v56 hasPrefix:v129];
+                  v57 = [v56 hasPrefix:v128];
 
                   if (v57)
                   {
@@ -313,22 +312,22 @@ void __47__PLCloudStreamShareJob_executeDaemonOperation__block_invoke(uint64_t a
                     v59 = [v58 pathExtension];
 
                     v60 = *(a1 + 48);
-                    v144[0] = MEMORY[0x1E69E9820];
-                    v144[1] = 3221225472;
-                    v144[2] = __47__PLCloudStreamShareJob_executeDaemonOperation__block_invoke_2;
-                    v144[3] = &unk_1E7570078;
-                    v144[4] = v33;
-                    v144[5] = buf;
-                    writeToTemporaryMediaFileWithExtension(v59, v60, v144);
+                    v143[0] = MEMORY[0x1E69E9820];
+                    v143[1] = 3221225472;
+                    v143[2] = __47__PLCloudStreamShareJob_executeDaemonOperation__block_invoke_2;
+                    v143[3] = &unk_1E7570078;
+                    v143[4] = v33;
+                    v143[5] = buf;
+                    writeToTemporaryMediaFileWithExtension(v59, v60, v143);
                   }
 
                   else
                   {
                     v70 = [v33 mediaURL];
                     v71 = [v70 pathExtension];
-                    v72 = [v71 isEqualToString:v127];
+                    isEqualToString = objc_msgSend_isEqualToString_(v71);
 
-                    if (v72)
+                    if (isEqualToString)
                     {
                       v73 = objc_alloc(MEMORY[0x1E69C0918]);
                       v74 = [v33 mediaURL];
@@ -339,8 +338,8 @@ void __47__PLCloudStreamShareJob_executeDaemonOperation__block_invoke(uint64_t a
                       v78 = v77;
                       if (v76 && v77)
                       {
-                        objc_storeStrong(v148 + 5, v75);
-                        objc_storeStrong(v154 + 5, v76);
+                        objc_storeStrong(v147 + 5, v75);
+                        objc_storeStrong(v153 + 5, v76);
                       }
                     }
 
@@ -348,8 +347,8 @@ void __47__PLCloudStreamShareJob_executeDaemonOperation__block_invoke(uint64_t a
                     {
                       v85 = [v33 mediaURL];
                       v86 = [v85 path];
-                      v87 = *(v154 + 5);
-                      *(v154 + 5) = v86;
+                      v87 = *(v153 + 5);
+                      *(v153 + 5) = v86;
                     }
                   }
                 }
@@ -358,7 +357,7 @@ void __47__PLCloudStreamShareJob_executeDaemonOperation__block_invoke(uint64_t a
                 {
                   v61 = [v33 mediaURL];
                   v62 = [v61 scheme];
-                  v63 = [v62 isEqualToString:@"assets-library"];
+                  v63 = objc_msgSend_isEqualToString_(v62);
 
                   if (v63)
                   {
@@ -373,11 +372,11 @@ void __47__PLCloudStreamShareJob_executeDaemonOperation__block_invoke(uint64_t a
                       {
                         v124 = *(a1 + 32);
                         v125 = [v33 mediaURL];
-                        *v167 = 138412546;
-                        *&v167[4] = v124;
-                        *&v167[12] = 2112;
-                        *&v167[14] = v125;
-                        _os_log_impl(&dword_19BF1F000, v92, OS_LOG_TYPE_ERROR, "%@ couldn't load asset from asset url: %@", v167, 0x16u);
+                        *v166 = 138412546;
+                        *&v166[4] = v124;
+                        *&v166[12] = 2112;
+                        *&v166[14] = v125;
+                        _os_log_impl(&dword_19BF1F000, v92, OS_LOG_TYPE_ERROR, "%@ couldn't load asset from asset url: %@", v166, 0x16u);
                       }
 
                       goto LABEL_53;
@@ -385,8 +384,8 @@ void __47__PLCloudStreamShareJob_executeDaemonOperation__block_invoke(uint64_t a
 
                     v67 = [v66 mainFileURL];
                     v68 = [v67 path];
-                    v69 = *(v154 + 5);
-                    *(v154 + 5) = v68;
+                    v69 = *(v153 + 5);
+                    *(v153 + 5) = v68;
                   }
 
                   else
@@ -401,13 +400,13 @@ void __47__PLCloudStreamShareJob_executeDaemonOperation__block_invoke(uint64_t a
                       v83 = [v82 pathExtension];
 
                       v84 = *(a1 + 48);
-                      v141[0] = MEMORY[0x1E69E9820];
-                      v141[1] = 3221225472;
-                      v141[2] = __47__PLCloudStreamShareJob_executeDaemonOperation__block_invoke_95;
-                      v141[3] = &unk_1E7570078;
-                      v143 = buf;
-                      v142 = v81;
-                      writeToTemporaryMediaFileWithExtension(v83, v84, v141);
+                      v140[0] = MEMORY[0x1E69E9820];
+                      v140[1] = 3221225472;
+                      v140[2] = __47__PLCloudStreamShareJob_executeDaemonOperation__block_invoke_95;
+                      v140[3] = &unk_1E7570078;
+                      v142 = buf;
+                      v141 = v81;
+                      writeToTemporaryMediaFileWithExtension(v83, v84, v140);
                     }
                   }
                 }
@@ -415,17 +414,17 @@ void __47__PLCloudStreamShareJob_executeDaemonOperation__block_invoke(uint64_t a
             }
           }
 
-          if (!*(v154 + 5))
+          if (!*(v153 + 5))
           {
             v92 = PLPhotoSharingGetLog();
             if (os_log_type_enabled(v92, OS_LOG_TYPE_ERROR))
             {
               v93 = *(a1 + 32);
-              *v167 = 138412546;
-              *&v167[4] = v93;
-              *&v167[12] = 2112;
-              *&v167[14] = v33;
-              _os_log_impl(&dword_19BF1F000, v92, OS_LOG_TYPE_ERROR, "%@ unable to find media file path for source: %@", v167, 0x16u);
+              *v166 = 138412546;
+              *&v166[4] = v93;
+              *&v166[12] = 2112;
+              *&v166[14] = v33;
+              _os_log_impl(&dword_19BF1F000, v92, OS_LOG_TYPE_ERROR, "%@ unable to find media file path for source: %@", v166, 0x16u);
             }
 
 LABEL_53:
@@ -433,7 +432,7 @@ LABEL_53:
             goto LABEL_76;
           }
 
-          v140 = 0;
+          v139 = 0;
           v88 = [MEMORY[0x1E696AFB0] UUID];
           v89 = [v88 UUIDString];
 
@@ -450,14 +449,14 @@ LABEL_53:
           }
 
           v94 = [*(a1 + 40) pathManager];
-          v95 = [*(v154 + 5) pathExtension];
-          v96 = [PLCloudSharedAssetSaveJob nextDCIMSaveFileURLForCloudPersonID:v130 cloudAlbumGUID:obja pathManager:v94 fileExtension:v95 assetUUID:v89];
+          v95 = [*(v153 + 5) pathExtension];
+          v96 = [PLCloudSharedAssetSaveJob nextDCIMSaveFileURLForCloudPersonID:v129 cloudAlbumGUID:obja pathManager:v94 fileExtension:v95 assetUUID:v89];
 
           v97 = MEMORY[0x1E69BF238];
-          v98 = [MEMORY[0x1E695DFF8] fileURLWithPath:*(v154 + 5) isDirectory:0];
-          v139 = 0;
-          LOBYTE(v97) = [v97 copyItemAtURL:v98 toURL:v96 error:&v139];
-          v99 = v139;
+          v98 = [MEMORY[0x1E695DFF8] fileURLWithPath:*(v153 + 5) isDirectory:0];
+          v138 = 0;
+          LOBYTE(v97) = [v97 copyItemAtURL:v98 toURL:v96 error:&v138];
+          v99 = v138;
 
           if ((v97 & 1) == 0)
           {
@@ -465,11 +464,11 @@ LABEL_53:
             if (os_log_type_enabled(v104, OS_LOG_TYPE_ERROR))
             {
               v112 = *(a1 + 32);
-              *v167 = 138412546;
-              *&v167[4] = v112;
-              *&v167[12] = 2112;
-              *&v167[14] = v99;
-              _os_log_impl(&dword_19BF1F000, v104, OS_LOG_TYPE_ERROR, "%@ Failed to copy media for asset %@", v167, 0x16u);
+              *v166 = 138412546;
+              *&v166[4] = v112;
+              *&v166[12] = 2112;
+              *&v166[14] = v99;
+              _os_log_impl(&dword_19BF1F000, v104, OS_LOG_TYPE_ERROR, "%@ Failed to copy media for asset %@", v166, 0x16u);
             }
 
             v102 = 0;
@@ -479,33 +478,33 @@ LABEL_53:
 
           v100 = *(a1 + 40);
           v101 = [MEMORY[0x1E69BF328] savedAssetTypeForCloudSharedAsset];
-          v138 = 0;
-          v102 = [PLManagedAsset insertAssetIntoPhotoLibrary:v100 mainFileURL:v96 savedAssetType:v101 bundleScope:2 uuid:v89 replacementUUID:0 imageSource:&v140 imageData:&v138];
-          v103 = v138;
-          [v102 generateAndUpdateThumbnailsWithPreviewImage:0 thumbnailImage:0 fromImageSource:v140 imageData:v103 forceSRGBConversion:0];
+          v137 = 0;
+          v102 = [PLManagedAsset insertAssetIntoPhotoLibrary:v100 mainFileURL:v96 savedAssetType:v101 bundleScope:2 uuid:v89 replacementUUID:0 imageSource:&v139 imageData:&v137];
+          v103 = v137;
+          [v102 generateAndUpdateThumbnailsWithPreviewImage:0 thumbnailImage:0 fromImageSource:v139 imageData:v103 forceSRGBConversion:0];
           v104 = [MEMORY[0x1E69BF320] UUIDString];
           [v102 setCloudAssetGUID:v104];
           [v102 setCloudBatchID:*(a1 + 56)];
           [v102 setCloudBatchPublishDate:*(a1 + 64)];
           [v102 setCloudIsMyAsset:1];
           [v102 setCloudIsDeletable:1];
-          v105 = v148[5];
+          v105 = v147[5];
           if (v105)
           {
             v106 = [v105 pairingIdentifier];
             v107 = MEMORY[0x1E695DFF8];
-            v108 = [v148[5] videoPath];
+            v108 = [v147[5] videoPath];
             v109 = [v107 fileURLWithPath:v108 isDirectory:0];
-            v110 = v148[5];
+            v110 = v147[5];
             if (v110)
             {
-              [v110 originalVideoDuration];
-              v111 = v148[5];
+              objc_msgSend_originalVideoDuration(v110);
+              v111 = v147[5];
               if (v111)
               {
-                [v111 imageDisplayTime];
+                objc_msgSend_imageDisplayTime(v111);
 LABEL_65:
-                [v102 becomePhotoIrisWithMediaGroupUUID:v106 mainFileMetadata:0 videoURL:v109 videoDuration:v167 stillDisplayTime:v137 options:0];
+                [v102 becomePhotoIrisWithMediaGroupUUID:v106 mainFileMetadata:0 videoURL:v109 videoDuration:v166 stillDisplayTime:v136 options:0];
 
                 goto LABEL_66;
               }
@@ -513,10 +512,10 @@ LABEL_65:
 
             else
             {
-              memset(v167, 0, sizeof(v167));
+              memset(v166, 0, sizeof(v166));
             }
 
-            memset(v137, 0, sizeof(v137));
+            memset(v136, 0, sizeof(v136));
             goto LABEL_65;
           }
 
@@ -547,34 +546,34 @@ LABEL_66:
 LABEL_69:
           }
 
-          v136 = 0;
-          v120 = [PLResourceInstaller installInternalResourcesForExistingAsset:v102 assumeNoExistingResources:1 referencedResourceURLs:0 error:&v136];
-          v121 = v136;
+          v135 = 0;
+          v120 = [PLResourceInstaller installInternalResourcesForExistingAsset:v102 assumeNoExistingResources:1 referencedResourceURLs:0 error:&v135];
+          v121 = v135;
           if (!v120)
           {
             v122 = PLPhotoSharingGetLog();
             if (os_log_type_enabled(v122, OS_LOG_TYPE_ERROR))
             {
               v123 = *(a1 + 32);
-              *v167 = 138412546;
-              *&v167[4] = v123;
-              *&v167[12] = 2112;
-              *&v167[14] = v121;
-              _os_log_impl(&dword_19BF1F000, v122, OS_LOG_TYPE_ERROR, "%@ Failed to install resources for asset %@", v167, 0x16u);
+              *v166 = 138412546;
+              *&v166[4] = v123;
+              *&v166[12] = 2112;
+              *&v166[14] = v121;
+              _os_log_impl(&dword_19BF1F000, v122, OS_LOG_TYPE_ERROR, "%@ Failed to install resources for asset %@", v166, 0x16u);
             }
           }
 
 LABEL_75:
 LABEL_76:
-          _Block_object_dispose(&v147, 8);
+          _Block_object_dispose(&v146, 8);
 
           _Block_object_dispose(buf, 8);
           ++v32;
         }
 
-        while (v132 != v32);
-        v126 = [v128 countByEnumeratingWithState:&v159 objects:v168 count:16];
-        v132 = v126;
+        while (v131 != v32);
+        v126 = [v127 countByEnumeratingWithState:&v158 objects:v167 count:16];
+        v131 = v126;
       }
 
       while (v126);
@@ -582,7 +581,7 @@ LABEL_76:
 
     [*(*(*(a1 + 88) + 8) + 40) setLastModifiedDate:*(a1 + 64)];
     [*(*(*(a1 + 88) + 8) + 40) recomputeCachedValues];
-    v25 = v129;
+    v25 = v128;
   }
 
   else
@@ -810,7 +809,7 @@ uint64_t __47__PLCloudStreamShareJob_executeDaemonOperation__block_invoke_95(uin
   v4 = [(PLDaemonJob *)&v13 description];
   commentText = [(PLCloudStreamShareJob *)self commentText];
   mediaSources = [(PLCloudStreamShareJob *)self mediaSources];
-  v7 = [mediaSources count];
+  v7 = objc_msgSend_count(mediaSources);
   recipientsInfo = [(PLCloudStreamShareJob *)self recipientsInfo];
   albumCloudGUID = [(PLCloudStreamShareJob *)self albumCloudGUID];
   if (albumCloudGUID)
@@ -879,7 +878,7 @@ void __38__PLCloudStreamShareJob_runDaemonSide__block_invoke(uint64_t a1)
   if (v7)
   {
     v8 = PLArrayFromXPCDictionary();
-    v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v8, "count")}];
+    v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(v8)];
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;

@@ -29,7 +29,7 @@
 - (BOOL)ad_isNetworkDownError
 {
   userInfo = [(NSError *)self userInfo];
-  v4 = [userInfo objectForKey:NSUnderlyingErrorKey];
+  v4 = objc_msgSend_objectForKey_(userInfo);
   v5 = v4;
   if (v4)
   {
@@ -106,7 +106,7 @@ LABEL_10:
   else
   {
     userInfo = [(NSError *)self userInfo];
-    v9 = [userInfo objectForKey:NSUnderlyingErrorKey];
+    v9 = objc_msgSend_objectForKey_(userInfo);
 
     if (v9)
     {
@@ -334,7 +334,7 @@ LABEL_11:
 - (BOOL)ad_isStricterRetryableConnectionError
 {
   domain = [(NSError *)self domain];
-  if (-[NSError ad_isStricterUnreachableError](self, "ad_isStricterUnreachableError") || [domain isEqualToString:SiriCoreSiriConnectionErrorDomain] && (-[NSError userInfo](self, "userInfo"), v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v5, "objectForKey:", NSUnderlyingErrorKey), v6 = objc_claimAutoreleasedReturnValue(), v5, v6) && (v7 = objc_msgSend(v6, "ad_isStricterUnreachableError"), v6, (v7 & 1) != 0))
+  if (-[NSError ad_isStricterUnreachableError](self, "ad_isStricterUnreachableError") || [domain isEqualToString:SiriCoreSiriConnectionErrorDomain] && (-[NSError userInfo](self, "userInfo"), v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend_objectForKey_(v5), v6 = objc_claimAutoreleasedReturnValue(), v5, v6) && (v7 = objc_msgSend(v6, "ad_isStricterUnreachableError"), v6, (v7 & 1) != 0))
   {
     v4 = 0;
   }
@@ -396,7 +396,7 @@ LABEL_11:
     if ((code & 0xFFFFFFFFFFFFFFFELL) == 0x3E8)
     {
       userInfo = [(NSError *)self userInfo];
-      v7 = [userInfo objectForKey:NSUnderlyingErrorKey];
+      v7 = objc_msgSend_objectForKey_(userInfo);
 
       if (v7)
       {
@@ -421,7 +421,7 @@ LABEL_2:
   if ([domain isEqualToString:SiriCoreSiriConnectionErrorDomain])
   {
     userInfo2 = [(NSError *)self userInfo];
-    v10 = [userInfo2 objectForKey:NSUnderlyingErrorKey];
+    v10 = objc_msgSend_objectForKey_(userInfo2);
 
     if (v10)
     {
@@ -505,7 +505,7 @@ LABEL_13:
       else
       {
         userInfo = [(NSError *)self userInfo];
-        v8 = [userInfo objectForKey:SiriCoreSiriConnectionHTTPErrorStatusCodeKey];
+        v8 = objc_msgSend_objectForKey_(userInfo);
         intValue = [v8 intValue];
 
         sn_isNetworkUnreachable = 1;

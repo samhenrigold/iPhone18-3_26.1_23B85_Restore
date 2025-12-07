@@ -1188,16 +1188,18 @@ LABEL_17:
 
 - (void)setMaxLength:(int)maxLength
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v8);
-  WebCore::HTMLTextFormControlElement::setMaxLength(self->super.super.super.super._internal);
-  if (v7 == 1)
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v9);
+  WebCore::HTMLTextFormControlElement::setMaxLength(&v6, self->super.super.super.super._internal);
+  if (v8 == 1)
   {
-    v8[80] = v5;
-    v9 = v6;
+    v9[80] = v6;
+    v5 = v7;
+    v7 = 0;
+    v10 = v5;
     raiseDOMErrorException();
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v8, v4);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v9, v4);
 }
 
 - (id)min
@@ -1842,57 +1844,68 @@ LABEL_13:
 
 - (NSString)size
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v11);
-  WTF::String::number(*(self->super.super.super.super._internal + 58));
-  if (v9)
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v13);
+  WTF::String::number(&v11, *(self->super.super.super.super._internal + 58));
+  v3 = v11;
+  if (v11)
   {
-    atomic_fetch_add_explicit(v9, 2u, memory_order_relaxed);
-    MEMORY[0x1CCA63450](&v10);
-    if (atomic_fetch_add_explicit(v9, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    atomic_fetch_add_explicit(v11, 2u, memory_order_relaxed);
+    MEMORY[0x1CCA63450](&v12, v3);
+    if (atomic_fetch_add_explicit(v3, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v9, v3);
+      WTF::StringImpl::destroy(v3, v4);
     }
   }
 
   else
   {
+    v12 = &stru_1F472E7E8;
     v10 = &stru_1F472E7E8;
-    v8 = &stru_1F472E7E8;
   }
 
-  v4 = v10;
-  v10 = 0;
-  if (v4)
+  v5 = v12;
+  v12 = 0;
+  if (v5)
   {
-    v5 = v4;
-    v6 = v10;
-    v10 = 0;
-    if (v6)
+    v6 = v5;
+    v7 = v12;
+    v12 = 0;
+    if (v7)
     {
     }
   }
 
-  if (v9 && atomic_fetch_add_explicit(v9, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  v8 = v11;
+  v11 = 0;
+  if (v8 && atomic_fetch_add_explicit(v8, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v9, v3);
+    WTF::StringImpl::destroy(v8, v4);
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v11, v3);
-  return v4;
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v13, v4);
+  return v5;
 }
 
 - (void)setSize:(NSString *)size
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v9);
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v11);
   internal = self->super.super.super.super._internal;
   [(NSString *)size intValue];
-  WebCore::HTMLInputElement::setSize(internal);
-  if (v8 == 1 && v7 && atomic_fetch_add_explicit(v7, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  WebCore::HTMLInputElement::setSize(&v8, internal);
+  if (v10 == 1)
   {
-    WTF::StringImpl::destroy(v7, v6);
+    v7 = v9;
+    v9 = 0;
+    if (v7)
+    {
+      if (atomic_fetch_add_explicit(v7, 0xFFFFFFFE, memory_order_relaxed) == 2)
+      {
+        WTF::StringImpl::destroy(v7, v6);
+      }
+    }
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v9, v6);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v11, v6);
 }
 
 - (NSString)src
@@ -2863,30 +2876,34 @@ LABEL_13:
 
 - (void)stepUp:(int)up
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v8);
-  WebCore::HTMLInputElement::stepUp(self->super.super.super.super._internal);
-  if (v7 == 1)
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v9);
+  WebCore::HTMLInputElement::stepUp(&v6, self->super.super.super.super._internal);
+  if (v8 == 1)
   {
-    v8[80] = v5;
-    v9 = v6;
+    v9[80] = v6;
+    v5 = v7;
+    v7 = 0;
+    v10 = v5;
     raiseDOMErrorException();
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v8, v4);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v9, v4);
 }
 
 - (void)stepDown:(int)down
 {
-  WebCore::JSMainThreadNullState::JSMainThreadNullState(v8);
-  WebCore::HTMLInputElement::stepDown(self->super.super.super.super._internal);
-  if (v7 == 1)
+  WebCore::JSMainThreadNullState::JSMainThreadNullState(v9);
+  WebCore::HTMLInputElement::stepDown(&v6, self->super.super.super.super._internal);
+  if (v8 == 1)
   {
-    v8[80] = v5;
-    v9 = v6;
+    v9[80] = v6;
+    v5 = v7;
+    v7 = 0;
+    v10 = v5;
     raiseDOMErrorException();
   }
 
-  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v8, v4);
+  WebCore::JSMainThreadNullState::~JSMainThreadNullState(v9, v4);
 }
 
 - (BOOL)checkValidity
@@ -3333,7 +3350,7 @@ LABEL_23:
   }
 
   v3 = WebCore::RenderTextControl::textFormControlElement(*(self->super.super.super.super._internal + 9));
-  WebCore::HTMLTextFormControlElement::visiblePositionForIndex(v3);
+  WebCore::HTMLTextFormControlElement::visiblePositionForIndex(&v14, v3);
   v4 = v14;
   if (v14)
   {
@@ -3403,7 +3420,7 @@ LABEL_13:
   v3 = WebCore::RenderTextControl::textFormControlElement(*(self->super.super.super.super._internal + 9));
   v4 = WebCore::RenderTextControl::textFormControlElement(v2);
   (*(*v4 + 1400))(&v17);
-  WebCore::HTMLTextFormControlElement::visiblePositionForIndex(v3);
+  WebCore::HTMLTextFormControlElement::visiblePositionForIndex(&v18, v3);
   v7 = v17;
   v17 = 0;
   if (v7 && atomic_fetch_add_explicit(v7, 0xFFFFFFFE, memory_order_relaxed) == 2)

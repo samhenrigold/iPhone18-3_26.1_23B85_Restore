@@ -16,7 +16,7 @@
 
 - (void)registerObserver:(id)observer
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECFAFB0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECFAFB0, &qword_242F432A0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v11 - v6;
   v8 = sub_242F05450();

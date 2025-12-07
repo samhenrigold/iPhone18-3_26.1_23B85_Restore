@@ -6,20 +6,28 @@
 
 + (id)interpolateArpaFilePaths:(id)paths configPath:(id)path dataRoot:(id)root modelRoot:(id)modelRoot
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
   pathCopy = path;
   rootCopy = root;
   modelRootCopy = modelRoot;
   if (pathCopy)
   {
-    [pathCopy ear_toString];
+    objc_msgSend_ear_toString(pathCopy);
   }
 
+  else
+  {
+    __p[0] = 0;
+    __p[1] = 0;
+    *&v16 = 0;
+  }
+
+  memset(v14, 0, sizeof(v14));
   *buf = 0u;
-  v16 = 0u;
-  v17 = 1065353216;
-  quasar::SystemConfig::SystemConfig(v14);
+  v19 = 0u;
+  v20 = 1065353216;
+  quasar::SystemConfig::SystemConfig(v17, __p, v14, buf);
 }
 
 @end

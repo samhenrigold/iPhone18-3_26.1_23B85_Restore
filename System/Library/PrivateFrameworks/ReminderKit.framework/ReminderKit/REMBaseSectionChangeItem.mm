@@ -11,6 +11,7 @@
 - (NSString)description;
 - (REMAccountCapabilities)accountCapabilities;
 - (REMBaseSectionChangeItem)initWithSaveRequest:(id)request storage:(id)storage accountCapabilities:(id)capabilities changedKeysObserver:(id)observer;
+- (REMBaseSectionChangeItem)initWithSaveRequest:(id)request storage:(id)storage accountCapabilities:(id)capabilities observeInitialValues:(BOOL)values;
 - (id)changedKeys;
 - (id)resolutionTokenKeyForChangedKey:(id)key;
 - (id)shallowCopyWithSaveRequest:(id)request;
@@ -90,22 +91,58 @@ void __41__REMBaseSectionChangeItem_keysToObserve__block_invoke()
   return selfCopy;
 }
 
+- (REMBaseSectionChangeItem)initWithSaveRequest:(id)request storage:(id)storage accountCapabilities:(id)capabilities observeInitialValues:(BOOL)values
+{
+  valuesCopy = values;
+  requestCopy = request;
+  storageCopy = storage;
+  capabilitiesCopy = capabilities;
+  if (requestCopy)
+  {
+    if (storageCopy)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_6:
+    NSLog(&cfstr_SIsUnexpectedl.isa, "storage");
+    if (capabilitiesCopy)
+    {
+      goto LABEL_4;
+    }
+
+LABEL_7:
+    NSLog(&cfstr_SIsUnexpectedl.isa, "accountCapabilities");
+    goto LABEL_4;
+  }
+
+  NSLog(&cfstr_SIsUnexpectedl.isa, "saveRequest");
+  if (!storageCopy)
+  {
+    goto LABEL_6;
+  }
+
+LABEL_3:
+  if (!capabilitiesCopy)
+  {
+    goto LABEL_7;
+  }
+
+LABEL_4:
+  v13 = [storageCopy copy];
+  v14 = [REMChangedKeysObserver alloc];
+  keysToObserve = [objc_opt_class() keysToObserve];
+  v16 = [(REMChangedKeysObserver *)v14 initWithTarget:v13 keysToObserve:keysToObserve includeInitial:valuesCopy];
+
+  v17 = [(REMBaseSectionChangeItem *)self initWithSaveRequest:requestCopy storage:v13 accountCapabilities:capabilitiesCopy changedKeysObserver:v16];
+  return v17;
+}
+
 - (REMAccountCapabilities)accountCapabilities
 {
   storage = [(REMBaseSectionChangeItem *)self storage];
-  if (!storage)
+  if (!storage || (v4 = storage, -[REMBaseSectionChangeItem saveRequest](self, "saveRequest"), v5 = objc_claimAutoreleasedReturnValue(), -[REMBaseSectionChangeItem objectID](self, "objectID"), v6 = objc_claimAutoreleasedReturnValue(), [v5 _trackedAccountCapabilitiesForObjectID:v6], v7 = objc_claimAutoreleasedReturnValue(), v6, v5, v4, !v7))
   {
-    goto LABEL_3;
-  }
-
-  v4 = storage;
-  saveRequest = [(REMBaseSectionChangeItem *)self saveRequest];
-  objectID = [(REMBaseSectionChangeItem *)self objectID];
-  v7 = [saveRequest _trackedAccountCapabilitiesForObjectID:objectID];
-
-  if (!v7)
-  {
-LABEL_3:
     v8 = +[REMLogStore write];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
@@ -337,67 +374,52 @@ LABEL_17:
 
 - (void)accountCapabilities
 {
-  v10 = *MEMORY[0x1E69E9840];
   objectID = [self objectID];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v2, v3, "trackedAccountCapabilities is unexpectedly nil when getting baseSectionChangeItem.accountCapabilities {objectID: %{public}@}", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v2, v3, "trackedAccountCapabilities is unexpectedly nil when getting baseSectionChangeItem.accountCapabilities {objectID: %{public}@}", v4, v5, v6, v7);
 }
 
 + (void)newObjectID
 {
-  v10 = *MEMORY[0x1E69E9840];
   v0 = +[REMLogStore write];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
   {
     callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
     OUTLINED_FUNCTION_2();
-    OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v3, v4, "rem_log_fault_if (![NSStringFromClass([REMBaseSectionChangeItem class]) isEqualToString:NSStringFromClass(self)]) -- A subclass of REMBaseSectionStorage called '- [REMBaseSectionStorage newObjectID]'. The subclass should override this method. {callstack: %@}", v5, v6, v7, v8, v9);
+    OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v2, v3, "rem_log_fault_if (![NSStringFromClass([REMBaseSectionChangeItem class]) isEqualToString:NSStringFromClass(self)]) -- A subclass of REMBaseSectionStorage called '- [REMBaseSectionStorage newObjectID]'. The subclass should override this method. {callstack: %@}", v4, v5, v6, v7);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 + (void)objectIDWithUUID:.cold.1()
 {
-  v10 = *MEMORY[0x1E69E9840];
   v0 = +[REMLogStore write];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
   {
-    v2 = [MEMORY[0x1E696AF00] callStackSymbols];
+    v1 = [MEMORY[0x1E696AF00] callStackSymbols];
     OUTLINED_FUNCTION_2();
-    OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v3, v4, "rem_log_fault_if (![NSStringFromClass([REMBaseSectionChangeItem class]) isEqualToString:NSStringFromClass(self)]) -- A subclass of REMBaseSectionStorage called '- [REMBaseSectionStorage objectIDWithUUID:]'. The subclass should override this method. {callstack: %@}", v5, v6, v7, v8, v9);
+    OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v2, v3, "rem_log_fault_if (![NSStringFromClass([REMBaseSectionChangeItem class]) isEqualToString:NSStringFromClass(self)]) -- A subclass of REMBaseSectionStorage called '- [REMBaseSectionStorage objectIDWithUUID:]'. The subclass should override this method. {callstack: %@}", v4, v5, v6, v7);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 + (void)cdEntityName
 {
-  v10 = *MEMORY[0x1E69E9840];
   v0 = +[REMLogStore write];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
   {
     callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
     OUTLINED_FUNCTION_2();
-    OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v3, v4, "rem_log_fault_if (![NSStringFromClass([REMBaseSectionChangeItem class]) isEqualToString:NSStringFromClass(self)]) -- A subclass of REMBaseSectionStorage called '- [REMBaseSectionStorage cdEntityName]'. The subclass should override this method. {callstack: %@}", v5, v6, v7, v8, v9);
+    OUTLINED_FUNCTION_0_8(&dword_19A0DB000, v2, v3, "rem_log_fault_if (![NSStringFromClass([REMBaseSectionChangeItem class]) isEqualToString:NSStringFromClass(self)]) -- A subclass of REMBaseSectionStorage called '- [REMBaseSectionStorage cdEntityName]'. The subclass should override this method. {callstack: %@}", v4, v5, v6, v7);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 - (void)shallowCopyWithSaveRequest:(uint64_t)a1 .cold.2(uint64_t a1, const char *a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
   v6 = NSStringFromSelector(a2);
-  v7 = [v3 stringWithFormat:@"%@.%@"];
-  OUTLINED_FUNCTION_1(&dword_19A0DB000, v8, v9, "[%{public}@] self.objectID should not be nil when copying this change item {self: %@}", v10, v11, v12, v13, v5, v6, 2u);
-
-  v14 = *MEMORY[0x1E69E9840];
+  v15 = [v3 stringWithFormat:@"%@.%@", v5, v6];
+  OUTLINED_FUNCTION_1(&dword_19A0DB000, v7, v8, "[%{public}@] self.objectID should not be nil when copying this change item {self: %@}", v9, v10, v11, v12, v13, v14);
 }
 
 @end

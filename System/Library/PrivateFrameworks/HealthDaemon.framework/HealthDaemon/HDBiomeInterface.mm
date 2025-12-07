@@ -171,7 +171,7 @@ LABEL_20:
 
 - (void)_sendBiomeEvent:(id)event toSource:(id)source
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   sourceCopy = source;
   self->_mostRecentBiomeEventType = [eventCopy eventType];
@@ -180,19 +180,17 @@ LABEL_20:
   if (os_log_type_enabled(*MEMORY[0x277CCC330], OS_LOG_TYPE_DEFAULT))
   {
     v9 = v8;
-    *v12 = 138543874;
-    *&v12[4] = objc_opt_class();
-    *&v12[12] = 2048;
-    *&v12[14] = self;
-    *&v12[22] = 2114;
-    v13 = eventCopy;
-    v10 = *&v12[4];
-    _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@:%p] sending workout event %{public}@ to biome", v12, 0x20u);
+    *v11 = 138543874;
+    *&v11[4] = objc_opt_class();
+    *&v11[12] = 2048;
+    *&v11[14] = self;
+    *&v11[22] = 2114;
+    v12 = eventCopy;
+    v10 = *&v11[4];
+    _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@:%p] sending workout event %{public}@ to biome", v11, 0x20u);
   }
 
-  [sourceCopy sendEvent:{eventCopy, *v12, *&v12[16], v13}];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [sourceCopy sendEvent:{eventCopy, *v11, *&v11[8], v12}];
 }
 
 - (BOOL)sleepFocusOn
@@ -226,30 +224,27 @@ LABEL_20:
 
 void __32__HDBiomeInterface_sleepFocusOn__block_invoke(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
-  v3 = a2;
+  v12 = *MEMORY[0x277D85DE8];
+  v2 = a2;
   _HKInitializeLogging();
-  v4 = *MEMORY[0x277CCC2B0];
+  v3 = *MEMORY[0x277CCC2B0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = *(a1 + 32);
-    v6 = v4;
-    v7 = objc_opt_class();
-    v8 = v7;
-    v9 = [v3 error];
-    v11 = 138543618;
-    v12 = v7;
-    v13 = 2114;
-    v14 = v9;
-    _os_log_impl(&dword_228986000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] User focus computed mode publisher finished with error: %{public}@", &v11, 0x16u);
+    v4 = v3;
+    v5 = objc_opt_class();
+    v6 = v5;
+    v7 = [v2 error];
+    v8 = 138543618;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v7;
+    _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] User focus computed mode publisher finished with error: %{public}@", &v8, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __32__HDBiomeInterface_sleepFocusOn__block_invoke_298(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 eventBody];
 
@@ -260,23 +255,22 @@ void __32__HDBiomeInterface_sleepFocusOn__block_invoke_298(uint64_t a1, void *a2
   {
     if (v6)
     {
-      v7 = *(a1 + 32);
-      v8 = v5;
-      v9 = objc_opt_class();
-      v10 = v9;
-      v11 = [v3 eventBody];
-      v21 = 138543618;
-      v22 = v9;
-      v23 = 2114;
-      v24 = v11;
-      _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received event: %{public}@", &v21, 0x16u);
+      v7 = v5;
+      v8 = objc_opt_class();
+      v9 = v8;
+      v10 = [v3 eventBody];
+      v18 = 138543618;
+      v19 = v8;
+      v20 = 2114;
+      v21 = v10;
+      _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received event: %{public}@", &v18, 0x16u);
     }
 
-    v12 = [v3 eventBody];
-    if ([v12 semanticType] == 3)
+    v11 = [v3 eventBody];
+    if ([v11 semanticType] == 3)
     {
-      v13 = [v3 eventBody];
-      *(*(*(a1 + 40) + 8) + 24) = [v13 starting];
+      v12 = [v3 eventBody];
+      *(*(*(a1 + 40) + 8) + 24) = [v12 starting];
     }
 
     else
@@ -287,20 +281,17 @@ void __32__HDBiomeInterface_sleepFocusOn__block_invoke_298(uint64_t a1, void *a2
 
   else if (v6)
   {
-    v14 = *(a1 + 32);
-    v15 = v5;
-    v16 = objc_opt_class();
-    v17 = MEMORY[0x277CCABB0];
-    v18 = v16;
-    v19 = [v17 numberWithUnsignedChar:{objc_msgSend(v3, "error")}];
-    v21 = 138543618;
-    v22 = v16;
-    v23 = 2114;
-    v24 = v19;
-    _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received nil user focus computed mode with reason: %{public}@", &v21, 0x16u);
+    v13 = v5;
+    v14 = objc_opt_class();
+    v15 = MEMORY[0x277CCABB0];
+    v16 = v14;
+    v17 = [v15 numberWithUnsignedChar:{objc_msgSend(v3, "error")}];
+    v18 = 138543618;
+    v19 = v14;
+    v20 = 2114;
+    v21 = v17;
+    _os_log_impl(&dword_228986000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received nil user focus computed mode with reason: %{public}@", &v18, 0x16u);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 @end

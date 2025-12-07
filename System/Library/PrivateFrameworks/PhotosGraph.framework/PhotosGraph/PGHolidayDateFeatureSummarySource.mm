@@ -7,7 +7,7 @@
 
 - (id)summarizedFeaturesForMomentNodes:(id)nodes
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   dateNodes = [nodesCopy dateNodes];
   if (![dateNodes count] || (objc_msgSend(nodesCopy, "celebratedHolidayNodes"), v6 = objc_claimAutoreleasedReturnValue(), v7 = objc_msgSend(v6, "count"), v6, v7))
@@ -17,9 +17,9 @@
   }
 
   v9 = [dateNodes set];
-  v22 = 0;
-  v10 = [PGCommonTitleUtility containsCelebrationForDateNodes:v9 holidayName:&v22 titleGenerationContext:self->_titleGenerationContext graph:self->_graph];
-  v11 = v22;
+  v21 = 0;
+  v10 = [PGCommonTitleUtility containsCelebrationForDateNodes:v9 holidayName:&v21 titleGenerationContext:self->_titleGenerationContext graph:self->_graph];
+  v11 = v21;
 
   if (!v10)
   {
@@ -32,7 +32,7 @@
     if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v25 = dateNodes;
+      v24 = dateNodes;
       _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "Date %@ contains celebration but holiday name is nil", buf, 0xCu);
     }
 
@@ -50,13 +50,11 @@ LABEL_9:
   universalDateIntervals = [v15 universalDateIntervals];
   v18 = [(PGHolidayDateSummarizedFeature *)v16 initWithIntervalsPresent:universalDateIntervals isMandatoryForKeyAsset:0 holidayName:v11];
 
-  v23 = v18;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v23 count:1];
+  v22 = v18;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v22 count:1];
 
 LABEL_10:
 LABEL_11:
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

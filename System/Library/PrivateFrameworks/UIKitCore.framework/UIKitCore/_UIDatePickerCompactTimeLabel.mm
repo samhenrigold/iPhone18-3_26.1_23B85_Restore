@@ -1109,7 +1109,7 @@ LABEL_14:
   calendar = [(NSDateFormatter *)self->_formatter calendar];
   v5 = [(_UIDatePickerCalendarDateComponent *)v3 initWithDate:_currentDateForInput calendar:calendar];
 
-  if ([(_UIDatePickerCalendarDateComponent *)v5 isEqual:self->_selectedTime])
+  if (objc_msgSend_isEqual_(v5))
   {
     [(_UIDatePickerCompactTimeLabel *)self _updateInputFieldFromSelectedDateComponents];
   }
@@ -1626,9 +1626,9 @@ LABEL_12:
 {
   regionCopy = region;
   identifier = [regionCopy identifier];
-  v7 = [identifier isEqual:@"UIDatePicker.time.all"];
+  isEqual = objc_msgSend_isEqual_(identifier);
 
-  if (v7)
+  if (isEqual)
   {
     selfCopy = [(_UIDatePickerCompactTimeLabel *)self label];
     datePickerStyle = [(_UIDatePickerCompactTimeLabel *)self datePickerStyle];
@@ -1674,7 +1674,7 @@ LABEL_14:
   }
 
   identifier2 = [regionCopy identifier];
-  v12 = [identifier2 isEqual:@"UIDatePicker.time.hour"];
+  v12 = objc_msgSend_isEqual_(identifier2);
 
   if (v12)
   {
@@ -1686,7 +1686,7 @@ LABEL_9:
   }
 
   identifier3 = [regionCopy identifier];
-  v15 = [identifier3 isEqual:@"UIDatePicker.time.minute"];
+  v15 = objc_msgSend_isEqual_(identifier3);
 
   if (v15)
   {
@@ -1695,7 +1695,7 @@ LABEL_9:
   }
 
   identifier4 = [regionCopy identifier];
-  v17 = [identifier4 isEqual:@"UIDatePicker.time.timeOfDay"];
+  v17 = objc_msgSend_isEqual_(identifier4);
 
   if (v17)
   {
@@ -1704,7 +1704,7 @@ LABEL_9:
   }
 
   identifier5 = [regionCopy identifier];
-  v35 = [identifier5 isEqual:@"UIDatePicker.time.all.pencil"];
+  v35 = objc_msgSend_isEqual_(identifier5);
 
   if (v35)
   {
@@ -1742,9 +1742,9 @@ LABEL_15:
 {
   regionCopy = region;
   identifier = [regionCopy identifier];
-  v7 = [identifier isEqual:@"UIDatePicker.time.all"];
+  isEqual = objc_msgSend_isEqual_(identifier);
 
-  if (v7)
+  if (isEqual)
   {
     v8 = 1;
   }
@@ -1752,7 +1752,7 @@ LABEL_15:
   else
   {
     identifier2 = [regionCopy identifier];
-    v10 = [identifier2 isEqual:@"UIDatePicker.time.hour"];
+    v10 = objc_msgSend_isEqual_(identifier2);
 
     if (v10)
     {
@@ -1762,7 +1762,7 @@ LABEL_15:
     else
     {
       identifier3 = [regionCopy identifier];
-      v12 = [identifier3 isEqual:@"UIDatePicker.time.minute"];
+      v12 = objc_msgSend_isEqual_(identifier3);
 
       if (v12)
       {
@@ -1772,7 +1772,7 @@ LABEL_15:
       else
       {
         identifier4 = [regionCopy identifier];
-        v14 = [identifier4 isEqual:@"UIDatePicker.time.timeOfDay"];
+        v14 = objc_msgSend_isEqual_(identifier4);
 
         if (!v14)
         {

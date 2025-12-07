@@ -2,6 +2,7 @@
 + (id)_newClinicalNoteRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 statusCoding:(id)self5 documentTypeCodingCollection:(id)self6 noteCreationDate:(id)self7 categoriesCodingCollections:(id)self8 relevantStartDate:(id)self9 relevantEndDate:(id)endDate authors:(id)authors config:(id)config;
 + (id)cachedConceptRelationshipKeyPaths;
 + (id)clinicalNoteRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 country:(id)self2 state:(unint64_t)self3 statusCoding:(id)self4 documentTypeCodingCollection:(id)self5 noteCreationDate:(id)self6 categoriesCodingCollections:(id)self7 relevantStartDate:(id)self8 relevantEndDate:(id)self9 authors:(id)authors;
++ (id)clinicalNoteRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 statusCoding:(id)self5 documentTypeCodingCollection:(id)self6 noteCreationDate:(id)self7 categoriesCodingCollections:(id)self8 relevantStartDate:(id)self9 relevantEndDate:(id)endDate authors:(id)authors;
 + (id)defaultDisplayString;
 + (id)indexableConceptKeyPaths;
 - (BOOL)applyConcepts:(id)concepts forKeyPath:(id)path error:(id *)error;
@@ -100,6 +101,13 @@ LABEL_4:
   v3 = [v2 localizedStringForKey:@"UNSPECIFIED_CLINICAL_NOTE" value:&stru_1F05FF230 table:@"Localizable-Clinical-Notes"];
 
   return v3;
+}
+
++ (id)clinicalNoteRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 statusCoding:(id)self5 documentTypeCodingCollection:(id)self6 noteCreationDate:(id)self7 categoriesCodingCollections:(id)self8 relevantStartDate:(id)self9 relevantEndDate:(id)endDate authors:(id)authors
+{
+  v21 = [self _newClinicalNoteRecordWithType:type note:note enteredInError:error modifiedDate:date originIdentifier:identifier locale:locale extractionVersion:version device:device metadata:metadata sortDate:sortDate country:country state:state statusCoding:coding documentTypeCodingCollection:collection noteCreationDate:creationDate categoriesCodingCollections:collections relevantStartDate:startDate relevantEndDate:endDate authors:authors config:0];
+
+  return v21;
 }
 
 + (id)_newClinicalNoteRecordWithType:(id)type note:(id)note enteredInError:(BOOL)error modifiedDate:(id)date originIdentifier:(id)identifier locale:(id)locale extractionVersion:(int64_t)version device:(id)self0 metadata:(id)self1 sortDate:(id)self2 country:(id)self3 state:(unint64_t)self4 statusCoding:(id)self5 documentTypeCodingCollection:(id)self6 noteCreationDate:(id)self7 categoriesCodingCollections:(id)self8 relevantStartDate:(id)self9 relevantEndDate:(id)endDate authors:(id)authors config:(id)config
@@ -203,13 +211,12 @@ void __305__HKClinicalNoteRecord__newClinicalNoteRecordWithType_note_enteredInEr
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v10.receiver = self;
-  v10.super_class = HKClinicalNoteRecord;
-  v6 = [(HKSample *)&v10 description];
-  relevantEndDate = self->_relevantEndDate;
-  v8 = [v3 stringWithFormat:@"<%@:%p super=%@statusCoding = %@documentTypeCodingCollection = %@noteCreationDate = %@categoriesCodingCollections = %@relevantStartDate = %@relevantEndDate = %@authors = %@>", v5, self, v6, self->_statusCoding, self->_documentTypeCodingCollection, self->_noteCreationDate, self->_categoriesCodingCollections, self->_relevantStartDate, relevantEndDate, self->_authors];
+  v9.receiver = self;
+  v9.super_class = HKClinicalNoteRecord;
+  v6 = [(HKSample *)&v9 description];
+  v7 = [v3 stringWithFormat:@"<%@:%p super=%@statusCoding = %@documentTypeCodingCollection = %@noteCreationDate = %@categoriesCodingCollections = %@relevantStartDate = %@relevantEndDate = %@authors = %@>", v5, self, v6, self->_statusCoding, self->_documentTypeCodingCollection, self->_noteCreationDate, self->_categoriesCodingCollections, self->_relevantStartDate, self->_relevantEndDate, self->_authors];
 
-  return v8;
+  return v7;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -613,7 +620,7 @@ LABEL_56:
   noteCreationDate = self->_noteCreationDate;
   self->_noteCreationDate = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, noteCreationDate);
 }
 
 - (void)_setCategoriesCodingCollections:(id)collections
@@ -634,7 +641,7 @@ LABEL_56:
   relevantStartDate = self->_relevantStartDate;
   self->_relevantStartDate = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, relevantStartDate);
 }
 
 - (void)_setRelevantEndDate:(id)date
@@ -643,7 +650,7 @@ LABEL_56:
   relevantEndDate = self->_relevantEndDate;
   self->_relevantEndDate = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, relevantEndDate);
 }
 
 - (void)_setAuthors:(id)authors
@@ -652,7 +659,7 @@ LABEL_56:
   authors = self->_authors;
   self->_authors = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, authors);
 }
 
 - (HKConcept)status
@@ -677,17 +684,17 @@ LABEL_56:
   statusCopy = status;
   if (!statusCopy)
   {
-    _HKInitializeLogging();
-    v5 = HKLogHealthRecords;
+    _HKInitializeLogging(0, v4);
+    v6 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
     {
-      [(HKClinicalNoteRecord *)v5 _setStatus:v6, v7, v8, v9, v10, v11, v12];
+      [(HKClinicalNoteRecord *)v6 _setStatus:v7, v8, v9, v10, v11, v12, v13];
     }
   }
 
-  v13 = [statusCopy copy];
+  v14 = [statusCopy copy];
   status = self->_status;
-  self->_status = v13;
+  self->_status = v14;
 }
 
 - (HKConcept)documentType
@@ -712,17 +719,17 @@ LABEL_56:
   typeCopy = type;
   if (!typeCopy)
   {
-    _HKInitializeLogging();
-    v5 = HKLogHealthRecords;
+    _HKInitializeLogging(0, v4);
+    v6 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
     {
-      [(HKClinicalNoteRecord *)v5 _setDocumentType:v6, v7, v8, v9, v10, v11, v12];
+      [(HKClinicalNoteRecord *)v6 _setDocumentType:v7, v8, v9, v10, v11, v12, v13];
     }
   }
 
-  v13 = [typeCopy copy];
+  v14 = [typeCopy copy];
   documentType = self->_documentType;
-  self->_documentType = v13;
+  self->_documentType = v14;
 }
 
 - (NSArray)categories
@@ -747,17 +754,17 @@ LABEL_56:
   categoriesCopy = categories;
   if (!categoriesCopy)
   {
-    _HKInitializeLogging();
-    v5 = HKLogHealthRecords;
+    _HKInitializeLogging(0, v4);
+    v6 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_FAULT))
     {
-      [(HKClinicalNoteRecord *)v5 _setCategories:v6, v7, v8, v9, v10, v11, v12];
+      [(HKClinicalNoteRecord *)v6 _setCategories:v7, v8, v9, v10, v11, v12, v13];
     }
   }
 
-  v13 = [categoriesCopy copy];
+  v14 = [categoriesCopy copy];
   categories = self->_categories;
-  self->_categories = v13;
+  self->_categories = v14;
 }
 
 - (id)_validateWithConfiguration:(HKObjectValidationConfiguration)configuration
@@ -837,7 +844,7 @@ LABEL_12:
 
 - (id)codingsForKeyPath:(id)path error:(id *)error
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   v7 = [HKConceptIndexUtilities firstComponentForKeyPath:pathCopy error:error];
   v8 = v7;
@@ -852,8 +859,8 @@ LABEL_12:
     statusCoding = [(HKClinicalNoteRecord *)self statusCoding];
     v10 = [HKMedicalCodingCollection collectionWithCoding:statusCoding];
     v11 = [HKIndexableObject indexableObjectWithObject:v10];
-    v17[0] = v11;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+    v16[0] = v11;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
 
 LABEL_7:
 LABEL_8:
@@ -865,8 +872,8 @@ LABEL_8:
   {
     statusCoding = [(HKClinicalNoteRecord *)self documentTypeCodingCollection];
     v10 = [HKIndexableObject indexableObjectWithObject:statusCoding];
-    v16 = v10;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
+    v15 = v10;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v15 count:1];
     goto LABEL_7;
   }
 
@@ -877,12 +884,10 @@ LABEL_8:
     goto LABEL_8;
   }
 
-  v15.receiver = self;
-  v15.super_class = HKClinicalNoteRecord;
-  v12 = [(HKMedicalRecord *)&v15 codingsForKeyPath:pathCopy error:error];
+  v14.receiver = self;
+  v14.super_class = HKClinicalNoteRecord;
+  v12 = [(HKMedicalRecord *)&v14 codingsForKeyPath:pathCopy error:error];
 LABEL_9:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }

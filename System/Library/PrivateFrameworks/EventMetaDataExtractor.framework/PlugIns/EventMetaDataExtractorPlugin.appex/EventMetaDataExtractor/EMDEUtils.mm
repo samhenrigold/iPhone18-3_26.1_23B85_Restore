@@ -56,15 +56,16 @@
   v2 = qword_1000B6430;
   if (!qword_1000B6430)
   {
-    v12 = 0;
-    [self loadConfigFromFile:qword_1000B6440 assetFolderPath:qword_1000B6438 error:&v12];
-    v3 = v12;
+    v13 = 0;
+    [self loadConfigFromFile:qword_1000B6440 assetFolderPath:qword_1000B6438 error:&v13];
+    v3 = v13;
+    v4 = v3;
     if (v3)
     {
-      v4 = extractionLogHandle();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v5 = extractionLogHandle(v3);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        sub_10008B7E8(v3, v4, v5, v6, v7, v8, v9, v10);
+        sub_10008B7E8(v4, v5, v6, v7, v8, v9, v10, v11);
       }
     }
 
@@ -89,57 +90,58 @@
 
     if (error && *error)
     {
-      v15 = extractionLogHandle();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = extractionLogHandle(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        sub_10008B854(error, v15, v16, v17, v18, v19, v20, v21);
+        sub_10008B854(error, v16, v17, v18, v19, v20, v21, v22);
       }
     }
 
     else
     {
-      v24 = [NSPropertyListSerialization propertyListWithData:v14 options:0 format:0 error:error];
-      v25 = qword_1000B6430;
-      qword_1000B6430 = v24;
+      v25 = [NSPropertyListSerialization propertyListWithData:v14 options:0 format:0 error:error];
+      v26 = qword_1000B6430;
+      qword_1000B6430 = v25;
 
       if (error && *error)
       {
-        v15 = extractionLogHandle();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v16 = extractionLogHandle(v27);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          sub_10008B8C4(error, v15, v26, v27, v28, v29, v30, v31);
+          sub_10008B8C4(error, v16, v28, v29, v30, v31, v32, v33);
         }
       }
 
       else
       {
-        v15 = [qword_1000B6430 mutableCopy];
-        [v15 setObject:qword_1000B6438 forKey:@"EMDE_ASSET_FOLDER_PATH"];
-        v32 = [v15 copy];
-        v33 = qword_1000B6430;
-        qword_1000B6430 = v32;
+        v16 = [qword_1000B6430 mutableCopy];
+        [v16 setObject:qword_1000B6438 forKey:@"EMDE_ASSET_FOLDER_PATH"];
+        v34 = [v16 copy];
+        v35 = qword_1000B6430;
+        qword_1000B6430 = v34;
 
-        if ([objc_opt_class() isValidConfigFile])
+        isValidConfigFile = [objc_opt_class() isValidConfigFile];
+        if (isValidConfigFile)
         {
           [self loadDecodeVocabulary];
         }
 
         else
         {
-          v34 = extractionLogHandle();
-          if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+          v37 = extractionLogHandle(isValidConfigFile);
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
             sub_10008B934();
           }
 
           if (error)
           {
-            v37 = NSLocalizedDescriptionKey;
-            v35 = [NSString stringWithFormat:@"EMDEUtils - Loaded config file is not valid."];
-            v38 = v35;
-            v36 = [NSDictionary dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+            v40 = NSLocalizedDescriptionKey;
+            v38 = [NSString stringWithFormat:@"EMDEUtils - Loaded config file is not valid."];
+            v41 = v38;
+            v39 = [NSDictionary dictionaryWithObjects:&v41 forKeys:&v40 count:1];
 
-            *error = [NSError errorWithDomain:@"com.apple.eventMetaDataExtractor.eventMetaDataExtractorPlugin" code:500 userInfo:v36];
+            *error = [NSError errorWithDomain:@"com.apple.eventMetaDataExtractor.eventMetaDataExtractorPlugin" code:500 userInfo:v39];
           }
         }
       }
@@ -148,18 +150,18 @@
     goto LABEL_22;
   }
 
-  v22 = extractionLogHandle();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  v23 = extractionLogHandle(pathCopy);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
   {
-    sub_10008B968(fileCopy, v11, v22);
+    sub_10008B968(fileCopy, v11, v23);
   }
 
   if (error)
   {
-    v39 = NSLocalizedDescriptionKey;
-    v23 = [NSString stringWithFormat:@"Found nil in input parameters for loadConfigFromFile:%@ assetFolderPath:%@", fileCopy, v11];
-    v40 = v23;
-    v12 = [NSDictionary dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+    v42 = NSLocalizedDescriptionKey;
+    v24 = [NSString stringWithFormat:@"Found nil in input parameters for loadConfigFromFile:%@ assetFolderPath:%@", fileCopy, v11];
+    v43 = v24;
+    v12 = [NSDictionary dictionaryWithObjects:&v43 forKeys:&v42 count:1];
 
     *error = [NSError errorWithDomain:@"com.apple.eventMetaDataExtractor.eventMetaDataExtractorPlugin" code:500 userInfo:v12];
 LABEL_22:
@@ -168,44 +170,44 @@ LABEL_22:
 
 + (BOOL)isValidConfigFile
 {
-  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
   v2 = qword_1000B63F0;
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v19 count:16];
   if (v3)
   {
-    v4 = *v13;
+    v4 = *v14;
     while (2)
     {
       for (i = 0; i != v3; i = i + 1)
       {
-        if (*v13 != v4)
+        if (*v14 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v12 + 1) + 8 * i);
-        v7 = [qword_1000B6430 objectForKey:{v6, v12}];
+        v6 = *(*(&v13 + 1) + 8 * i);
+        v7 = [qword_1000B6430 objectForKey:{v6, v13}];
         v8 = v7 == 0;
 
         if (v8)
         {
-          v10 = extractionLogHandle();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+          v11 = extractionLogHandle(v9);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v17 = v6;
-            _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "EMDEUtils - Missing key %@ in loaded config", buf, 0xCu);
+            v18 = v6;
+            _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "EMDEUtils - Missing key %@ in loaded config", buf, 0xCu);
           }
 
-          v9 = 0;
+          v10 = 0;
           goto LABEL_13;
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v12 objects:v18 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v13 objects:v19 count:16];
       if (v3)
       {
         continue;
@@ -215,10 +217,10 @@ LABEL_22:
     }
   }
 
-  v9 = 1;
+  v10 = 1;
 LABEL_13:
 
-  return v9;
+  return v10;
 }
 
 + (void)loadDecodeVocabulary
@@ -419,7 +421,7 @@ LABEL_13:
   v25[2] = v15;
   do
   {
-    v17 = *&v29[v16 * 8 + 8];
+    v17 = v29[v16 + 1];
     if (v17)
     {
       CFRelease(v17);
@@ -484,16 +486,16 @@ LABEL_31:
 
 + (vector<float,)tokenizeInputSequence:(id)sequence
 {
-  v44 = a4;
-  if (v44)
+  v45 = a4;
+  if (v45)
   {
     v4 = +[EMDEUtils config];
     v5 = [v4 objectForKeyedSubscript:@"EMDE_ASSET_FOLDER_PATH"];
     v6 = +[EMDEUtils config];
     v7 = [v6 objectForKeyedSubscript:@"EMDE_SPIECE_MODEL_FILE"];
-    v42 = [v5 stringByAppendingPathComponent:v7];
+    v43 = [v5 stringByAppendingPathComponent:v7];
 
-    memset(v62, 0, sizeof(v62));
+    memset(v63, 0, sizeof(v63));
     v8 = +[EMDEUtils config];
     v9 = [v8 objectForKeyedSubscript:@"EMDE_TOKENISER_UPPERCASE_TOKEN_ID"];
 
@@ -508,11 +510,11 @@ LABEL_31:
         v13 = *v13;
       }
 
-      v48 = [NSString stringWithUTF8String:v13];
+      v49 = [NSString stringWithUTF8String:v13];
 
-      v45 = [NSRegularExpression regularExpressionWithPattern:@"(?<!\\p{L})\\p{Lu}\\p{Ll}*(?!\\p{L})" options:0 error:0];
+      v46 = [NSRegularExpression regularExpressionWithPattern:@"(?<!\\p{L})\\p{Lu}\\p{Ll}*(?!\\p{L})" options:0 error:0];
       v14 = +[NSCharacterSet whitespaceCharacterSet];
-      v15 = [v44 componentsSeparatedByCharactersInSet:v14];
+      v15 = [v45 componentsSeparatedByCharactersInSet:v14];
       v16 = [v15 mutableCopy];
 
       for (i = 0; [v16 count] > i; ++i)
@@ -521,40 +523,40 @@ LABEL_31:
         v19 = [v18 length];
 
         v20 = [v16 objectAtIndexedSubscript:i];
-        v46 = [v45 matchesInString:v20 options:0 range:{0, v19}];
+        v47 = [v46 matchesInString:v20 options:0 range:{0, v19}];
 
-        v60 = 0u;
         v61 = 0u;
-        v58 = 0u;
+        v62 = 0u;
         v59 = 0u;
-        obj = [v46 reverseObjectEnumerator];
-        v21 = [obj countByEnumeratingWithState:&v58 objects:v63 count:16];
+        v60 = 0u;
+        obj = [v47 reverseObjectEnumerator];
+        v21 = [obj countByEnumeratingWithState:&v59 objects:v64 count:16];
         if (v21)
         {
-          v22 = *v59;
+          v22 = *v60;
           do
           {
             for (j = 0; j != v21; j = j + 1)
             {
-              if (*v59 != v22)
+              if (*v60 != v22)
               {
                 objc_enumerationMutation(obj);
               }
 
-              range = [*(*(&v58 + 1) + 8 * j) range];
+              range = [*(*(&v59 + 1) + 8 * j) range];
               v26 = v25;
               v27 = [v16 objectAtIndexedSubscript:i];
               v28 = [v27 substringWithRange:{range, v26}];
 
               lowercaseString = [v28 lowercaseString];
-              v30 = [NSString stringWithFormat:@"%@%@", v48, lowercaseString];
+              v30 = [NSString stringWithFormat:@"%@%@", v49, lowercaseString];
 
               v31 = [v16 objectAtIndexedSubscript:i];
               v32 = [v31 stringByReplacingCharactersInRange:range withString:{v26, v30}];
               [v16 setObject:v32 atIndexedSubscript:i];
             }
 
-            v21 = [obj countByEnumeratingWithState:&v58 objects:v63 count:16];
+            v21 = [obj countByEnumeratingWithState:&v59 objects:v64 count:16];
           }
 
           while (v21);
@@ -563,12 +565,12 @@ LABEL_31:
 
       v34 = [v16 componentsJoinedByString:@" "];
       v35 = v34;
-      sub_100009A74(&v54, [v34 UTF8String]);
-      v37 = v54;
-      v36 = v55;
-      *v62 = *v56;
-      *&v62[3] = *&v56[3];
-      v38 = v57;
+      sub_100009A74(&v55, [v34 UTF8String]);
+      v37 = v55;
+      v36 = v56;
+      *v63 = *v57;
+      *&v63[3] = *&v57[3];
+      v38 = v58;
 
       if ((v38 & 0x80) == 0)
       {
@@ -578,38 +580,38 @@ LABEL_31:
 
     else
     {
-      sub_100009A74(&v54, [v44 UTF8String]);
-      v37 = v54;
-      v36 = v55;
-      *v62 = *v56;
-      *&v62[3] = *&v56[3];
-      v38 = v57;
-      if ((v57 & 0x80) == 0)
+      sub_100009A74(&v55, [v45 UTF8String]);
+      v37 = v55;
+      v36 = v56;
+      *v63 = *v57;
+      *&v63[3] = *&v57[3];
+      v38 = v58;
+      if ((v58 & 0x80) == 0)
       {
 LABEL_19:
         __dst[0] = v37;
         __dst[1] = v36;
-        *v52 = *v62;
-        *&v52[3] = *&v62[3];
-        v53 = v38;
+        *v53 = *v63;
+        *&v53[3] = *&v63[3];
+        v54 = v38;
 LABEL_22:
-        v39 = v42;
-        sub_100009A74(__p, [v42 UTF8String]);
-        SentencePiece::encode(__dst, __p, &retstr->__begin_);
-        if (v50 < 0)
+        v39 = v43;
+        sub_100009A74(__p, [v43 UTF8String]);
+        v40 = SentencePiece::encode(__dst, __p, &retstr->__begin_);
+        if (v51 < 0)
         {
           operator delete(__p[0]);
         }
 
-        if (v53 < 0)
+        if (v54 < 0)
         {
           operator delete(__dst[0]);
         }
 
         if (retstr->__end_ == retstr->__begin_)
         {
-          v40 = modelLogHandle();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+          v41 = modelLogHandle(v40);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
             sub_10008B9F0();
           }
@@ -628,7 +630,7 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v33 = modelLogHandle();
+  v33 = modelLogHandle(0);
   if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
   {
     sub_10008BA24();
@@ -735,7 +737,7 @@ LABEL_33:
 
   else
   {
-    v16 = extractionLogHandle();
+    v16 = extractionLogHandle(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_10008BA58();
@@ -778,7 +780,7 @@ LABEL_33:
 
   else
   {
-    v18 = extractionLogHandle();
+    v18 = extractionLogHandle(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       sub_10008BA8C();
@@ -793,41 +795,42 @@ LABEL_33:
 + (id)profaneRangesForText:(id)text usingLexicon:(_LXLexicon *)lexicon
 {
   textCopy = text;
+  v6 = textCopy;
   if (lexicon)
   {
-    v6 = [NLTagger alloc];
-    v19 = NLTagSchemeTokenType;
-    v7 = [NSArray arrayWithObjects:&v19 count:1];
-    v8 = [v6 initWithTagSchemes:v7];
+    v7 = [NLTagger alloc];
+    v20 = NLTagSchemeTokenType;
+    v8 = [NSArray arrayWithObjects:&v20 count:1];
+    v9 = [v7 initWithTagSchemes:v8];
 
-    [v8 setString:textCopy];
-    v9 = objc_opt_new();
-    v10 = [textCopy length];
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_10000BC84;
-    v15[3] = &unk_1000ACAD8;
-    v16 = textCopy;
+    [v9 setString:v6];
+    v10 = objc_opt_new();
+    v11 = [v6 length];
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_10000BC84;
+    v16[3] = &unk_1000ACAD8;
+    v17 = v6;
     lexiconCopy = lexicon;
-    v11 = v9;
-    v17 = v11;
-    [v8 enumerateTagsInRange:0 unit:v10 scheme:0 options:NLTagSchemeTokenType usingBlock:46, v15];
-    v12 = v17;
-    v13 = v11;
+    v12 = v10;
+    v18 = v12;
+    [v9 enumerateTagsInRange:0 unit:v11 scheme:0 options:NLTagSchemeTokenType usingBlock:46, v16];
+    v13 = v18;
+    v14 = v12;
   }
 
   else
   {
-    v8 = extractionLogHandle();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = extractionLogHandle(textCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10008BAC0();
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
-  return v13;
+  return v14;
 }
 
 + (unsigned)validateAndUpdateAllowedWords:(void *)words forWord:()basic_string<char isComplete:()std:(std::allocator<char>> *)std :char_traits<char>
@@ -835,7 +838,7 @@ LABEL_33:
   v53 = v4;
   if (!words)
   {
-    v10 = modelLogHandle();
+    v10 = modelLogHandle(self);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_10008BAF4();
@@ -899,11 +902,11 @@ LABEL_33:
   v66 = 0uLL;
   v67 = 0;
   sub_10000CA74(&v66, &__dst, v72, 3uLL);
-  for (i = 0; i != -72; i -= 24)
+  for (i = 0; i != -9; i -= 3)
   {
-    if (v71[i + 23] < 0)
+    if (SHIBYTE(v71[i + 2]) < 0)
     {
-      operator delete(*&v71[i]);
+      operator delete(v71[i]);
     }
   }
 
@@ -914,11 +917,11 @@ LABEL_33:
   v64 = 0;
   v65 = 0;
   sub_10000CA74(&v63, &__dst, v72, 3uLL);
-  for (j = 0; j != -72; j -= 24)
+  for (j = 0; j != -9; j -= 3)
   {
-    if (v71[j + 23] < 0)
+    if (SHIBYTE(v71[j + 2]) < 0)
     {
-      operator delete(*&v71[j]);
+      operator delete(v71[j]);
     }
   }
 
@@ -928,7 +931,7 @@ LABEL_33:
 
   if (!v23)
   {
-    [self allowedPrefixes];
+    objc_msgSend_allowedPrefixes(self);
     sub_10000CF24(&v66);
     v66 = __dst;
     v67 = v69;
@@ -954,13 +957,13 @@ LABEL_90:
     v55 = v24;
     if (*(v24 + 23) < 0)
     {
-      sub_100019AD4(&__dst, *v24, *(v24 + 1));
+      sub_100019AD4(&__dst, *v24, *(v24 + 8));
     }
 
     else
     {
       v25 = *v24;
-      v69 = *(v24 + 2);
+      v69 = *(v24 + 16);
       __dst = v25;
     }
 
@@ -1181,8 +1184,8 @@ LABEL_86:
 
     if (v41 == -1)
     {
-      v24 = (v55 + 24);
-      if ((v55 + 24) == v54)
+      v24 = v55 + 24;
+      if (v55 + 24 == v54)
       {
         goto LABEL_90;
       }

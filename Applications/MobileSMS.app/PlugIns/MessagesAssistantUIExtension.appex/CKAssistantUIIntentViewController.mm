@@ -2,8 +2,10 @@
 + (void)connectIfNeeded;
 - (CGSize)desiredSize;
 - (void)_configureSnippetContentViewWithChatAndContactsForAvatarView;
+- (void)_configureSnippetContentViewWithToField:(id)field contactsForAvatarView:(id)view messageContent:(id)content sent:(BOOL)sent;
 - (void)configureViewForParameters:(id)parameters ofInteraction:(id)interaction context:(unint64_t)context completion:(id)completion;
 - (void)configureWithInteraction:(id)interaction context:(unint64_t)context completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
 @end
 
@@ -28,6 +30,19 @@
     view = [(CKAssistantUIIntentViewController *)self view];
     [view bounds];
     [(CKAssistantUIContentView *)snippetContentView setFrame:?];
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = CKAssistantUIIntentViewController;
+  [(CKAssistantUIIntentViewController *)&v5 viewDidAppear:appear];
+  chatController = [(CKAssistantUIIntentViewController *)self chatController];
+
+  if (!chatController)
+  {
+    [(CKAssistantUIIntentViewController *)self _configureSnippetContentViewWithChatAndContactsForAvatarView];
   }
 }
 
@@ -184,6 +199,30 @@ LABEL_34:
   return result;
 }
 
+- (void)_configureSnippetContentViewWithToField:(id)field contactsForAvatarView:(id)view messageContent:(id)content sent:(BOOL)sent
+{
+  sentCopy = sent;
+  fieldCopy = field;
+  viewCopy = view;
+  contentCopy = content;
+  snippetContentView = self->_snippetContentView;
+  if (!snippetContentView)
+  {
+    v13 = [[CKAssistantUIContentView alloc] initWithFrame:CGRectZero.origin.x, CGRectZero.origin.y, CGRectZero.size.width, CGRectZero.size.height];
+    v14 = self->_snippetContentView;
+    self->_snippetContentView = v13;
+
+    view = [(CKAssistantUIIntentViewController *)self view];
+    [view addSubview:self->_snippetContentView];
+
+    snippetContentView = self->_snippetContentView;
+  }
+
+  [(CKAssistantUIContentView *)snippetContentView setToFieldText:fieldCopy];
+  [(CKAssistantUIContentView *)self->_snippetContentView setContactsForAvatarView:viewCopy];
+  [(CKAssistantUIContentView *)self->_snippetContentView setMessageContent:contentCopy sent:sentCopy];
+}
+
 - (void)_configureSnippetContentViewWithChatAndContactsForAvatarView
 {
   if (self->_snippetContentView)
@@ -247,23 +286,8 @@ LABEL_34:
     }
     v35 = ;
 
-    if (v35)
+    if (v35 || [v3 count] == 1 && (+[IMChatRegistry sharedRegistry](IMChatRegistry, "sharedRegistry"), v21 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "firstObject"), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "existingChatWithChatIdentifier:", v22), v35 = objc_claimAutoreleasedReturnValue(), v22, v21, v35))
     {
-      goto LABEL_21;
-    }
-
-    if ([v3 count] != 1)
-    {
-      goto LABEL_26;
-    }
-
-    v21 = +[IMChatRegistry sharedRegistry];
-    firstObject = [v3 firstObject];
-    v35 = [v21 existingChatWithChatIdentifier:firstObject];
-
-    if (v35)
-    {
-LABEL_21:
       v17 = [[CKConversation alloc] initWithChat:v35];
       v18 = v17;
       if (v17)
@@ -324,7 +348,6 @@ LABEL_29:
 
     else
     {
-LABEL_26:
       v18 = 0;
       v35 = 0;
     }

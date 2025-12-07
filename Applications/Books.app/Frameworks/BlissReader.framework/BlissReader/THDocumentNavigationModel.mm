@@ -174,7 +174,7 @@ LABEL_3:
 
 - (id)pageNumberStringForAbsolutePageIndex:(int64_t)index forPresentationType:(id)type
 {
-  v7 = [THBundle() localizedStringForKey:@"-" value:&stru_471858 table:0];
+  v7 = [THBundle(self a2)];
   if (index == 0x7FFFFFFFFFFFFFFFLL)
   {
     return v7;
@@ -280,7 +280,7 @@ LABEL_3:
   v3 = [(THDocumentNavigationModel *)self sectionIdentifierForNavigationUnit:unit];
   if (v3)
   {
-    return +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle() localizedStringForKey:@"Chapter %@" value:&stru_471858 table:0], v3);
+    return +[NSString stringWithFormat:](NSString, "stringWithFormat:", [THBundle(v3 v4)], v3);
   }
 
   else
@@ -369,17 +369,17 @@ LABEL_3:
   {
     v12 = [objc_msgSend(v7 "parent")];
     v13 = [objc_msgSend(v8 "parent")];
-    v14 = THBundle();
-    v15 = v13 + 1;
+    v15 = THBundle(v13, v14);
+    v16 = v13 + 1;
     if (v12)
     {
-      majorSnippet = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [v14 localizedStringForKey:@"Lesson %lu.%lu" value:&stru_471858 table:0], v15, v12);
+      majorSnippet = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [v15 localizedStringForKey:@"Lesson %lu.%lu" value:&stru_471858 table:0], v16, v12);
       v8 = v7;
     }
 
     else
     {
-      majorSnippet = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [v14 localizedStringForKey:@"Chapter %lu" value:&stru_471858 table:0], v15);
+      majorSnippet = +[NSString stringWithFormat:](NSString, "stringWithFormat:", [v15 localizedStringForKey:@"Chapter %lu" value:&stru_471858 table:0], v16);
     }
 
     title = [v8 title];
@@ -394,9 +394,9 @@ LABEL_3:
     }
   }
 
-  v17 = majorSnippet;
+  v18 = majorSnippet;
   result.var1 = v11;
-  result.var0 = v17;
+  result.var0 = v18;
   return result;
 }
 

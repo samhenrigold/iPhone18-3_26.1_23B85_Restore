@@ -11,6 +11,7 @@
 - (id)getRatingSystemTypeFrom:(id)from;
 - (id)localizedStringForAppRatingLabel:(id)label;
 - (id)ratingValuesByRatingSystemType;
+- (void)_loadRegionRatingsDataForStorefront:(id)storefront includeUnrated:(BOOL)unrated managementState:(id)state completionHandler:(id)handler;
 - (void)_loadRegionRatingsDataWithOptions:(id)options managementState:(id)state completionHandler:(id)handler;
 @end
 
@@ -159,6 +160,20 @@ void __87__STRegionRatings__loadRegionRatingsDataWithOptions_managementState_com
   (*(*(a1 + 48) + 16))();
 }
 
+- (void)_loadRegionRatingsDataForStorefront:(id)storefront includeUnrated:(BOOL)unrated managementState:(id)state completionHandler:(id)handler
+{
+  unratedCopy = unrated;
+  handlerCopy = handler;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __104__STRegionRatings__loadRegionRatingsDataForStorefront_includeUnrated_managementState_completionHandler___block_invoke;
+  v12[3] = &unk_1E7CE7918;
+  v12[4] = self;
+  v13 = handlerCopy;
+  v11 = handlerCopy;
+  [state loadRegionRatingsDataForStorefront:storefront includeUnrated:unratedCopy completionHandler:v12];
+}
+
 void __104__STRegionRatings__loadRegionRatingsDataForStorefront_includeUnrated_managementState_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -180,7 +195,7 @@ void __104__STRegionRatings__loadRegionRatingsDataForStorefront_includeUnrated_m
 
 uint64_t __104__STRegionRatings__loadRegionRatingsDataForStorefront_includeUnrated_managementState_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = +[STLog regionRating];
   v4 = v3;
@@ -189,9 +204,9 @@ uint64_t __104__STRegionRatings__loadRegionRatingsDataForStorefront_includeUnrat
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 32);
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_impl(&dword_1B831F000, v4, OS_LOG_TYPE_DEFAULT, "STRegionRatings loadRegionRatingsDataWithCompletionHandler received ratings data: %@", &v9, 0xCu);
+      v7 = 138412290;
+      v8 = v5;
+      _os_log_impl(&dword_1B831F000, v4, OS_LOG_TYPE_DEFAULT, "STRegionRatings loadRegionRatingsDataWithCompletionHandler received ratings data: %@", &v7, 0xCu);
     }
 
     [*(a1 + 40) setRegionRatingsData:*(a1 + 32)];
@@ -205,10 +220,7 @@ uint64_t __104__STRegionRatings__loadRegionRatingsDataForStorefront_includeUnrat
     }
   }
 
-  v6 = *(a1 + 48);
-  result = (*(*(a1 + 56) + 16))();
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 56) + 16))();
 }
 
 - (NSString)preferredRegion
@@ -304,7 +316,7 @@ uint64_t __104__STRegionRatings__loadRegionRatingsDataForStorefront_includeUnrat
 - (id)_localizedRatingsForRegion:(id)region type:(id)type includeAllContentKey:(BOOL)key
 {
   keyCopy = key;
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   regionCopy = region;
   typeCopy = type;
   if (_os_feature_enabled_impl())
@@ -330,43 +342,43 @@ uint64_t __104__STRegionRatings__loadRegionRatingsDataForStorefront_includeUnrat
 
     else
     {
-      v33 = keyCopy;
-      v34 = typeCopy;
-      v32 = v13;
+      v32 = keyCopy;
+      v33 = typeCopy;
+      v31 = v13;
       v14 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v13, "count")}];
+      v34 = 0u;
       v35 = 0u;
       v36 = 0u;
       v37 = 0u;
-      v38 = 0u;
       v16 = v11;
-      v17 = [v16 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v34 objects:v38 count:16];
       if (v17)
       {
         v18 = v17;
-        v19 = *v36;
+        v19 = *v35;
         do
         {
           for (i = 0; i != v18; ++i)
           {
-            if (*v36 != v19)
+            if (*v35 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            v21 = [*(*(&v35 + 1) + 8 * i) objectForKeyedSubscript:@"rating"];
+            v21 = [*(*(&v34 + 1) + 8 * i) objectForKeyedSubscript:@"rating"];
             v22 = [(STRegionRatings *)self _localizedLabelForRegion:regionCopy rating:v21];
             [v14 addObject:v22];
           }
 
-          v18 = [v16 countByEnumeratingWithState:&v35 objects:v39 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v34 objects:v38 count:16];
         }
 
         while (v18);
       }
 
-      typeCopy = v34;
-      keyCopy = v33;
-      v13 = v32;
+      typeCopy = v33;
+      keyCopy = v32;
+      v13 = v31;
     }
 
     v15 = [MEMORY[0x1E695DF90] dictionaryWithObjects:v14 forKeys:v13];
@@ -411,8 +423,6 @@ uint64_t __104__STRegionRatings__loadRegionRatingsDataForStorefront_includeUnrat
 LABEL_23:
   v29 = [v15 copy];
 
-  v30 = *MEMORY[0x1E69E9840];
-
   return v29;
 }
 
@@ -436,33 +446,33 @@ LABEL_23:
 
 - (id)getRatingSystemTypeFrom:(id)from
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   fromCopy = from;
   if (getRatingSystemTypeFrom__onceToken[0] != -1)
   {
     [STRegionRatings getRatingSystemTypeFrom:];
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v4 = fromCopy;
-  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = [getRatingSystemTypeFrom__typeValues objectForKeyedSubscript:{*(*(&v13 + 1) + 8 * i), v13}];
+        v9 = [getRatingSystemTypeFrom__typeValues objectForKeyedSubscript:{*(*(&v12 + 1) + 8 * i), v12}];
         if (v9)
         {
           v10 = v9;
@@ -470,7 +480,7 @@ LABEL_23:
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         continue;
@@ -483,33 +493,29 @@ LABEL_23:
   v10 = 0;
 LABEL_13:
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 void __43__STRegionRatings_getRatingSystemTypeFrom___block_invoke()
 {
-  v4[7] = *MEMORY[0x1E69E9840];
-  v3[0] = @"movies";
-  v3[1] = @"movie-bundles";
-  v4[0] = @"ratingMovies";
-  v4[1] = @"ratingMovies";
-  v3[2] = @"tv-seasons";
-  v3[3] = @"tv-episodes";
-  v4[2] = @"ratingTVShows";
-  v4[3] = @"ratingTVShows";
-  v3[4] = @"apps";
-  v3[5] = @"in-apps";
-  v4[4] = @"ratingApps";
-  v4[5] = @"ratingApps";
-  v3[6] = @"app-bundles";
-  v4[6] = @"ratingApps";
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:7];
+  v3[7] = *MEMORY[0x1E69E9840];
+  v2[0] = @"movies";
+  v2[1] = @"movie-bundles";
+  v3[0] = @"ratingMovies";
+  v3[1] = @"ratingMovies";
+  v2[2] = @"tv-seasons";
+  v2[3] = @"tv-episodes";
+  v3[2] = @"ratingTVShows";
+  v3[3] = @"ratingTVShows";
+  v2[4] = @"apps";
+  v2[5] = @"in-apps";
+  v3[4] = @"ratingApps";
+  v3[5] = @"ratingApps";
+  v2[6] = @"app-bundles";
+  v3[6] = @"ratingApps";
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:7];
   v1 = getRatingSystemTypeFrom__typeValues;
   getRatingSystemTypeFrom__typeValues = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (id)getClosestRestrictionMatch:(id)match within:(id)within forPayloadKey:(id)key
@@ -595,21 +601,19 @@ uint64_t __67__STRegionRatings_getClosestRestrictionMatch_within_forPayloadKey__
 
 void __87__STRegionRatings__loadRegionRatingsDataWithOptions_managementState_completionHandler___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "When loading region ratings, failed to fetch storefront: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "When loading region ratings, failed to fetch storefront: %{public}@", &v2, 0xCu);
 }
 
 void __104__STRegionRatings__loadRegionRatingsDataForStorefront_includeUnrated_managementState_completionHandler___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 48);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "STRegionRatings loadRegionRatingsDataWithCompletionHandler received error: %@", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1B831F000, a2, OS_LOG_TYPE_ERROR, "STRegionRatings loadRegionRatingsDataWithCompletionHandler received error: %@", &v3, 0xCu);
 }
 
 @end

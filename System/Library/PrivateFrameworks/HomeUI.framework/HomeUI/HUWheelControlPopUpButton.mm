@@ -30,7 +30,7 @@
   return v6;
 }
 
-void __40__HUWheelControlPopUpButton__createMenu__block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __40__HUWheelControlPopUpButton__createMenu__block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));

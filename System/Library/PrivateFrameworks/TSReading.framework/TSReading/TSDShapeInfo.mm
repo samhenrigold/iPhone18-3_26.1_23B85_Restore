@@ -315,13 +315,13 @@ LABEL_8:
   return result;
 }
 
-uint64_t __54__TSDShapeInfo_targetSizeForImageData_associatedHint___block_invoke(uint64_t a1)
+void *__54__TSDShapeInfo_targetSizeForImageData_associatedHint___block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   result = [objc_msgSend(TSUDynamicCast() "path")];
-  v3 = *(*(a1 + 32) + 8);
-  *(v3 + 32) = v4;
-  *(v3 + 40) = v5;
+  v4 = *(*(a1 + 32) + 8);
+  *(v4 + 32) = v5;
+  *(v4 + 40) = v6;
   return result;
 }
 

@@ -30,6 +30,7 @@
 - (void)_mainQueue_promptForInternalSysdiagnoseForDiagnosticData:(id)data completion:(id)completion;
 - (void)_mainQueue_startDiagnosticsOperation:(id)operation;
 - (void)_performVibrate;
+- (void)collectDiagnosticsWithDeviceScreenshotURL:(id)l carScreenshotURL:(id)rL attachmentURLs:(id)ls accessoryDetails:(id)details accessoryDescription:(id)description supportsStartSession:(BOOL)session activeBundleIdentifier:(id)identifier wallpaperDescription:(id)self0 assetDescription:(id)self1 loggingFileReceiver:(id)self2 completionHandler:(id)self3;
 - (void)collectDiagnosticsWithSession:(id)session displayReason:(id)reason additionalDescription:(id)description attachmentURLs:(id)ls completionHandler:(id)handler;
 - (void)collectVehicleLogsWithReceiver:(id)receiver completionHandler:(id)handler;
 - (void)dealloc;
@@ -113,6 +114,348 @@
   }
 
   return v9;
+}
+
+- (void)collectDiagnosticsWithDeviceScreenshotURL:(id)l carScreenshotURL:(id)rL attachmentURLs:(id)ls accessoryDetails:(id)details accessoryDescription:(id)description supportsStartSession:(BOOL)session activeBundleIdentifier:(id)identifier wallpaperDescription:(id)self0 assetDescription:(id)self1 loggingFileReceiver:(id)self2 completionHandler:(id)self3
+{
+  sessionCopy = session;
+  lCopy = l;
+  rLCopy = rL;
+  lsCopy = ls;
+  descriptionCopy = description;
+  identifierCopy = identifier;
+  wallpaperDescriptionCopy = wallpaperDescription;
+  assetDescriptionCopy = assetDescription;
+  receiverCopy = receiver;
+  handlerCopy = handler;
+  v22 = CarDiagnosticsLogging();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "collectDiagnosticsWithDeviceScreenshotURL", buf, 2u);
+  }
+
+  v80 = assetDescriptionCopy;
+
+  sessionStatus = [(CRDiagnosticsService *)self sessionStatus];
+  currentSession = [sessionStatus currentSession];
+
+  v79 = receiverCopy;
+  if (currentSession)
+  {
+    v78 = rLCopy;
+    configuration = [currentSession configuration];
+    [(CRDiagnosticsService *)self setLastConfiguration:configuration];
+    [(CRDiagnosticsService *)self setLoggingFileReceiver:receiverCopy];
+    v26 = objc_alloc_init(CRDiagnosticsData);
+    [(CRDiagnosticsService *)self setCurrentDiagnosticsData:v26];
+    -[CRDiagnosticsData setTransportType:](v26, "setTransportType:", [configuration transportType]);
+    v27 = wallpaperDescriptionCopy;
+    if (CRIsInternalInstall() && objc_opt_class())
+    {
+      [(CRDiagnosticsData *)v26 setActiveBundleIdentifier:identifierCopy];
+      if ([currentSession navigationOwner] == 1)
+      {
+        v28 = 1;
+      }
+
+      else
+      {
+        v28 = [identifierCopy isEqualToString:@"com.apple.Maps"];
+      }
+
+      [(CRDiagnosticsData *)v26 setMapsActive:v28];
+      [(CRDiagnosticsData *)v26 setVehicleSupportsStartSession:sessionCopy];
+      v35 = objc_opt_new();
+      [v35 setDateFormat:@"MM-dd-yyyy-HH_mm_ss"];
+      v36 = [(CRDiagnosticsData *)v26 _getCreationDateForAttachmentURL:lCopy];
+      v76 = v36;
+      v77 = v35;
+      if (v36)
+      {
+        v37 = [v35 stringFromDate:v36];
+        v38 = [NSString stringWithFormat:@"%@-%@%@", @"DeviceScreenshot", v37, @".png"];
+      }
+
+      else
+      {
+        v38 = [NSString stringWithFormat:@"%@%@", @"DeviceScreenshot", @".png"];
+      }
+
+      v75 = v38;
+      [(CRDiagnosticsData *)v26 addAttachment:lCopy asFilename:v38];
+      v39 = [(CRDiagnosticsData *)v26 _getCreationDateForAttachmentURL:v78];
+      v74 = v39;
+      if (v39)
+      {
+        v40 = [v77 stringFromDate:v39];
+        v41 = [NSString stringWithFormat:@"%@-%@%@", @"CarPlayScreenshot", v40, @".png"];
+      }
+
+      else
+      {
+        v41 = [NSString stringWithFormat:@"%@%@", @"CarPlayScreenshot", @".png"];
+      }
+
+      v73 = v41;
+      [(CRDiagnosticsData *)v26 addAttachment:v78 asFilename:v41];
+      v42 = CarDiagnosticsLogging();
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "collectDiagnosticsWithDeviceScreenshotURL screenshotURL added", buf, 2u);
+      }
+
+      _INFOResponseURL = [(CRDiagnosticsService *)self _INFOResponseURL];
+      [(CRDiagnosticsData *)v26 addAttachment:_INFOResponseURL asFilename:@"INFOResponse.plist"];
+
+      v44 = CarDiagnosticsLogging();
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "collectDiagnosticsWithDeviceScreenshotURL infoURL added", buf, 2u);
+      }
+
+      if ([wallpaperDescriptionCopy length])
+      {
+        [(CRDiagnosticsData *)v26 addTextAttachment:wallpaperDescriptionCopy asFilename:@"WallpaperPreferences.txt"];
+      }
+
+      if ([configuration supportsVehicleData])
+      {
+        [(CRDiagnosticsData *)v26 setIsVehicleDataSession:1];
+        if ([v80 length])
+        {
+          [(CRDiagnosticsData *)v26 addTextAttachment:v80 asFilename:@"VehicleAsset.txt"];
+        }
+
+        v45 = CarDiagnosticsLogging();
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Gathering CAFTool tree...", buf, 2u);
+        }
+
+        v94[0] = _NSConcreteStackBlock;
+        v94[1] = 3221225472;
+        v94[2] = sub_10005DB6C;
+        v94[3] = &unk_1000DF730;
+        v94[4] = self;
+        v95 = v26;
+        [(CRDiagnosticsService *)self _collectCAFToolTree:v94];
+      }
+
+      v46 = [(CRDiagnosticsService *)self _collectCarConfigurationForSession:currentSession supportingStartSession:sessionCopy];
+      [(CRDiagnosticsData *)v26 addTextAttachment:v46 asFilename:@"CarPlayConfiguration.txt"];
+
+      v47 = +[NSMutableString string];
+      v48 = v47;
+      if (descriptionCopy)
+      {
+        [v47 appendString:descriptionCopy];
+      }
+
+      descriptionForTransportType = [configuration descriptionForTransportType];
+      [v48 appendFormat:@"Transport Type: %@", descriptionForTransportType];
+
+      if ([configuration supportsVehicleData])
+      {
+        v50 = @"YES";
+      }
+
+      else
+      {
+        v50 = @"NO";
+      }
+
+      if ([configuration supportsLogTransfer])
+      {
+        v51 = @"YES";
+      }
+
+      else
+      {
+        v51 = @"NO";
+      }
+
+      [v48 appendFormat:@"\nSupports Vehicle Data: %@\nSupports Log Transfer: %@\n", v50, v51];
+      if ([configuration supportsSiriZLL])
+      {
+        v52 = @"YES";
+      }
+
+      else
+      {
+        v52 = @"NO";
+      }
+
+      [v48 appendFormat:@"Supports Siri ZLL: %@\n", v52];
+      if ([configuration supportsSiriZLLButton])
+      {
+        v53 = @"YES";
+      }
+
+      else
+      {
+        v53 = @"NO";
+      }
+
+      [v48 appendFormat:@"Supports Siri ZLL Button: %@\n", v53];
+      if ([configuration supportsSiriMixable])
+      {
+        v54 = @"YES";
+      }
+
+      else
+      {
+        v54 = @"NO";
+      }
+
+      [v48 appendFormat:@"Supports Siri Mixable: %@\n", v54];
+      [currentSession voiceTriggerMode];
+      v55 = CARStringFromVoiceTriggerMode();
+      [v48 appendFormat:@"Voice Trigger Mode: %@\n", v55];
+
+      infoResponse = [configuration infoResponse];
+      v57 = [infoResponse objectForKey:@"hevcInfo"];
+
+      if (v57)
+      {
+        v58 = @"YES";
+      }
+
+      else
+      {
+        v58 = @"NO";
+      }
+
+      [v48 appendFormat:@"Supports HEVC: %@\n", v58];
+      sourceVersion = [currentSession sourceVersion];
+      if (sourceVersion)
+      {
+        if (qword_100107FC8 != -1)
+        {
+          sub_10008894C();
+        }
+
+        v60 = qword_100107FC0;
+        v61 = [sourceVersion stringByReplacingOccurrencesOfString:@"." withString:&stru_1000E1378];
+        v62 = [v60 objectForKeyedSubscript:v61];
+        v63 = v62;
+        v64 = @"Unknown";
+        if (v62)
+        {
+          v64 = v62;
+        }
+
+        v65 = v64;
+
+        v66 = [NSString stringWithFormat:@"%@ (%@)", v65, sourceVersion];
+
+        [v48 appendFormat:@"Plug-in Source Version: %@", v66];
+      }
+
+      screens = [configuration screens];
+      v68 = [(CRDiagnosticsService *)self _stringForScreens:screens];
+      [v48 appendFormat:@"\n%@", v68];
+
+      [(CRDiagnosticsService *)self _configureDiagnosticsData:v26 withAttachmentURLs:lsCopy withAdditionalDescription:v48];
+      v27 = wallpaperDescriptionCopy;
+      if ([(CRDiagnosticsData *)v26 isMapsActive])
+      {
+        v69 = CarDiagnosticsLogging();
+        if (os_log_type_enabled(v69, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_DEFAULT, "Maps is frontmost or guidance is active, retreiving last location", buf, 2u);
+        }
+
+        DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
+        CFNotificationCenterPostNotification(DarwinNotifyCenter, @"com.apple.carkit.maps-diagnostics-starting", 0, 0, 1u);
+        locationManager = [(CRDiagnosticsService *)self locationManager];
+        [locationManager requestLocation];
+      }
+
+      if (![(CRDiagnosticsService *)self shouldTriggerSysdiagnose])
+      {
+        v72 = CarDiagnosticsLogging();
+        if (os_log_type_enabled(v72, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEFAULT, "No need for sysdiagnose now", buf, 2u);
+        }
+
+        handlerCopy[2](handlerCopy);
+        v33 = v77;
+        goto LABEL_73;
+      }
+
+      v29 = 1;
+      v30 = 1;
+    }
+
+    else
+    {
+      v29 = 0;
+      v30 = 0;
+    }
+
+    v31 = CarGeneralLogging();
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_FAULT))
+    {
+      sub_100088974();
+    }
+
+    if (v30)
+    {
+      v32 = CarDiagnosticsLogging();
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Will prompt for internal sysdiagnose", buf, 2u);
+      }
+
+      v88[0] = _NSConcreteStackBlock;
+      v88[1] = 3221225472;
+      v88[2] = sub_10005DD10;
+      v88[3] = &unk_1000DF758;
+      v89 = configuration;
+      selfCopy = self;
+      v91 = v26;
+      v93 = v29;
+      v92 = handlerCopy;
+      [(CRDiagnosticsService *)self _mainQueue_promptForInternalSysdiagnoseForDiagnosticData:v91 completion:v88];
+
+      v33 = v89;
+    }
+
+    else
+    {
+      v86[0] = _NSConcreteStackBlock;
+      v86[1] = 3221225472;
+      v86[2] = sub_10005DF70;
+      v86[3] = &unk_1000DD960;
+      v87 = handlerCopy;
+      [(CRDiagnosticsService *)self _mainQueue_gatherVehicleLogsThenPerformSysdiagnoseWithDiagnosticData:v26 isInternal:0 completion:v86];
+      v33 = v87;
+    }
+
+LABEL_73:
+
+    rLCopy = v78;
+    goto LABEL_74;
+  }
+
+  v34 = CarDiagnosticsLogging();
+  v27 = wallpaperDescriptionCopy;
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Trying to collect diagnostics but currentSession is nil", buf, 2u);
+  }
+
+  handlerCopy[2](handlerCopy);
+LABEL_74:
 }
 
 - (void)collectDiagnosticsWithSession:(id)session displayReason:(id)reason additionalDescription:(id)description attachmentURLs:(id)ls completionHandler:(id)handler
@@ -724,88 +1067,13 @@
   lastConfiguration = [(CRDiagnosticsService *)self lastConfiguration];
   vehicleManufacturer = [lastConfiguration vehicleManufacturer];
 
-  if (vehicleManufacturer)
+  if (vehicleManufacturer && ([lastConfiguration vehicleManufacturer], v10 = objc_claimAutoreleasedReturnValue(), (v7[2])(v7, v10), v11 = objc_claimAutoreleasedReturnValue(), v10, v11) || (objc_msgSend(lastConfiguration, "manufacturerName"), v12 = objc_claimAutoreleasedReturnValue(), v12, v12) && (objc_msgSend(lastConfiguration, "manufacturerName"), v13 = objc_claimAutoreleasedReturnValue(), (v7[2])(v7, v13), v11 = objc_claimAutoreleasedReturnValue(), v13, v11) || (objc_msgSend(lastConfiguration, "vehicleName"), v14 = objc_claimAutoreleasedReturnValue(), v14, v14) && (objc_msgSend(lastConfiguration, "vehicleName"), v15 = objc_claimAutoreleasedReturnValue(), (v7[2])(v7, v15), v11 = objc_claimAutoreleasedReturnValue(), v15, v11) || (objc_msgSend(lastConfiguration, "name"), v16 = objc_claimAutoreleasedReturnValue(), v16, v16) && (objc_msgSend(lastConfiguration, "name"), v17 = objc_claimAutoreleasedReturnValue(), (v7[2])(v7, v17), v11 = objc_claimAutoreleasedReturnValue(), v17, v11) || (objc_msgSend(lastConfiguration, "vehicleModelName"), v18 = objc_claimAutoreleasedReturnValue(), v18, v18) && (objc_msgSend(lastConfiguration, "vehicleModelName"), v19 = objc_claimAutoreleasedReturnValue(), (v7[2])(v7, v19), v11 = objc_claimAutoreleasedReturnValue(), v19, v11) || (objc_msgSend(lastConfiguration, "modelName"), v20 = objc_claimAutoreleasedReturnValue(), v20, v20) && (objc_msgSend(lastConfiguration, "modelName"), v21 = objc_claimAutoreleasedReturnValue(), (v7[2])(v7, v21), v11 = objc_claimAutoreleasedReturnValue(), v21, v11))
   {
-    vehicleManufacturer2 = [lastConfiguration vehicleManufacturer];
-    v11 = (v7[2])(v7, vehicleManufacturer2);
-
-    if (v11)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  manufacturerName = [lastConfiguration manufacturerName];
-
-  if (manufacturerName)
-  {
-    manufacturerName2 = [lastConfiguration manufacturerName];
-    v11 = (v7[2])(v7, manufacturerName2);
-
-    if (v11)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  vehicleName = [lastConfiguration vehicleName];
-
-  if (vehicleName)
-  {
-    vehicleName2 = [lastConfiguration vehicleName];
-    v11 = (v7[2])(v7, vehicleName2);
-
-    if (v11)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  name = [lastConfiguration name];
-
-  if (name)
-  {
-    name2 = [lastConfiguration name];
-    v11 = (v7[2])(v7, name2);
-
-    if (v11)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  vehicleModelName = [lastConfiguration vehicleModelName];
-
-  if (vehicleModelName)
-  {
-    vehicleModelName2 = [lastConfiguration vehicleModelName];
-    v11 = (v7[2])(v7, vehicleModelName2);
-
-    if (v11)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  modelName = [lastConfiguration modelName];
-
-  if (!modelName)
-  {
-    goto LABEL_30;
-  }
-
-  modelName2 = [lastConfiguration modelName];
-  v11 = (v7[2])(v7, modelName2);
-
-  if (v11)
-  {
-LABEL_13:
     [v5 addObject:v11];
   }
 
   else
   {
-LABEL_30:
     v11 = CarGeneralLogging();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {

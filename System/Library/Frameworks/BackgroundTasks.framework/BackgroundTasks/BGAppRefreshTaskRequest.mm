@@ -20,8 +20,8 @@
 + (id)_requestFromActivity:(id)activity
 {
   activityCopy = activity;
-  launchReason = [activityCopy launchReason];
-  v6 = [launchReason isEqualToString:*MEMORY[0x1E699A550]];
+  v5 = objc_msgSend_launchReason(activityCopy);
+  v6 = [v5 isEqualToString:*MEMORY[0x1E699A550]];
 
   if (v6)
   {

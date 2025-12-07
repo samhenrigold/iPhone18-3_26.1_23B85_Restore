@@ -582,11 +582,11 @@ LABEL_49:
   impl = self->_impl;
   if (impl)
   {
-    if (*(impl + 28) && (*(impl + 128) & 1) == 0)
+    if (impl[28] && (impl[32] & 1) == 0)
     {
       v24 = *(impl + 15);
       os_unfair_lock_lock(v24 + 188);
-      AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::push(*(impl + 15) + 696, *(impl + 28), *(impl + 28) + *(impl + 29) - 1);
+      AGX::Mempool<16u,0u,true,0u,0u,unsigned long long>::FreeIntervalList::push(*(impl + 15) + 696, impl[28], impl[28] + impl[29] - 1);
       os_unfair_lock_unlock(v24 + 188);
     }
 

@@ -318,11 +318,11 @@ LABEL_3:
 
 - (id)exportToLegacyDictionary
 {
-  timeRange = [(VCPProtoMovieHighlightResult *)self timeRange];
-  v4 = timeRange;
-  if (timeRange)
+  v3 = objc_msgSend_timeRange(self, a2);
+  v4 = v3;
+  if (v3)
   {
-    [timeRange timeRangeValue];
+    objc_msgSend_timeRangeValue(v3);
   }
 
   else
@@ -355,11 +355,11 @@ LABEL_3:
   v14 = v13;
   if (v13)
   {
-    timestamp = [v13 timestamp];
-    v16 = timestamp;
-    if (timestamp)
+    v15 = objc_msgSend_timestamp(v13);
+    v16 = v15;
+    if (v15)
     {
-      [timestamp timeValue];
+      objc_msgSend_timeValue(v15);
     }
 
     else

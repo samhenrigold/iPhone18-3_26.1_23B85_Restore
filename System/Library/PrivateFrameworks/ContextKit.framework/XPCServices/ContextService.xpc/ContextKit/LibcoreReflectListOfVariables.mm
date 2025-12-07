@@ -26,10 +26,11 @@
     JreThrowNullPointerException();
   }
 
-  v4 = [IOSObjectArray arrayWithLength:[(JavaUtilArrayList *)array size] type:JavaLangReflectTypeVariable_class_()];
-  v5 = self->array_;
+  v4 = [(JavaUtilArrayList *)array size];
+  v6 = [IOSObjectArray arrayWithLength:v4 type:JavaLangReflectTypeVariable_class_(v4, v5)];
+  v7 = self->array_;
 
-  return [(JavaUtilArrayList *)v5 toArrayWithNSObjectArray:v4];
+  return [(JavaUtilArrayList *)v7 toArrayWithNSObjectArray:v6];
 }
 
 - (LibcoreReflectListOfVariables)init

@@ -48,7 +48,7 @@
 
 - (void)scanAvailableNetworksWithCompletion:(id)completion
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = CWFGetOSLog();
   if (v5)
@@ -66,13 +66,13 @@
   {
     *location = 136446978;
     *&location[4] = "[CWFRemoteInterfaceManager scanAvailableNetworksWithCompletion:]";
-    v15 = 2082;
-    v16 = "CWFRemoteInterfaceManager.m";
-    v17 = 1024;
-    v18 = 61;
-    v19 = 2080;
-    v20 = "[CWFRemoteInterfaceManager scanAvailableNetworksWithCompletion:]";
-    _os_log_send_and_compose_impl();
+    v14 = 2082;
+    v15 = "CWFRemoteInterfaceManager.m";
+    v16 = 1024;
+    v17 = 61;
+    v18 = 2080;
+    v19 = "[CWFRemoteInterfaceManager scanAvailableNetworksWithCompletion:]";
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v6, 0, "[corewifi] %{public}s (%{public}s:%u) %s", location, 38);
   }
 
   objc_initWeak(location, self);
@@ -82,19 +82,18 @@
   block[2] = sub_1E0C19C3C;
   block[3] = &unk_1E86E6618;
   block[4] = self;
-  objc_copyWeak(&v13, location);
-  v12 = completionCopy;
+  objc_copyWeak(&v12, location);
+  v11 = completionCopy;
   v9 = completionCopy;
   dispatch_async(requestQueue, block);
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(location);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)associateNetwork:(id)network password:(id)password completion:(id)completion
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   networkCopy = network;
   passwordCopy = password;
   completionCopy = completion;
@@ -114,13 +113,13 @@
   {
     *location = 136446978;
     *&location[4] = "[CWFRemoteInterfaceManager associateNetwork:password:completion:]";
-    v25 = 2082;
-    v26 = "CWFRemoteInterfaceManager.m";
-    v27 = 1024;
-    v28 = 101;
-    v29 = 2080;
-    v30 = "[CWFRemoteInterfaceManager associateNetwork:password:completion:]";
-    _os_log_send_and_compose_impl();
+    v24 = 2082;
+    v25 = "CWFRemoteInterfaceManager.m";
+    v26 = 1024;
+    v27 = 101;
+    v28 = 2080;
+    v29 = "[CWFRemoteInterfaceManager associateNetwork:password:completion:]";
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v12, 0, "[corewifi] %{public}s (%{public}s:%u) %s", location, 38);
   }
 
   objc_initWeak(location, self);
@@ -130,23 +129,22 @@
   block[2] = sub_1E0C1A33C;
   block[3] = &unk_1E86E6668;
   block[4] = self;
-  objc_copyWeak(&v23, location);
-  v20 = networkCopy;
-  v21 = passwordCopy;
-  v22 = completionCopy;
+  objc_copyWeak(&v22, location);
+  v19 = networkCopy;
+  v20 = passwordCopy;
+  v21 = completionCopy;
   v15 = completionCopy;
   v16 = passwordCopy;
   v17 = networkCopy;
   dispatch_async(requestQueue, block);
 
-  objc_destroyWeak(&v23);
+  objc_destroyWeak(&v22);
   objc_destroyWeak(location);
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)wifiStatusWithCompletion:(id)completion
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   completionCopy = completion;
   v5 = CWFGetOSLog();
   if (v5)
@@ -164,13 +162,13 @@
   {
     *location = 136446978;
     *&location[4] = "[CWFRemoteInterfaceManager wifiStatusWithCompletion:]";
-    v15 = 2082;
-    v16 = "CWFRemoteInterfaceManager.m";
-    v17 = 1024;
-    v18 = 152;
-    v19 = 2080;
-    v20 = "[CWFRemoteInterfaceManager wifiStatusWithCompletion:]";
-    _os_log_send_and_compose_impl();
+    v14 = 2082;
+    v15 = "CWFRemoteInterfaceManager.m";
+    v16 = 1024;
+    v17 = 152;
+    v18 = 2080;
+    v19 = "[CWFRemoteInterfaceManager wifiStatusWithCompletion:]";
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v6, 0, "[corewifi] %{public}s (%{public}s:%u) %s", location, 38);
   }
 
   objc_initWeak(location, self);
@@ -180,14 +178,13 @@
   block[2] = sub_1E0C1A9E4;
   block[3] = &unk_1E86E6618;
   block[4] = self;
-  objc_copyWeak(&v13, location);
-  v12 = completionCopy;
+  objc_copyWeak(&v12, location);
+  v11 = completionCopy;
   v9 = completionCopy;
   dispatch_async(requestQueue, block);
 
-  objc_destroyWeak(&v13);
+  objc_destroyWeak(&v12);
   objc_destroyWeak(location);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startInterfaceDeactivationTimerIfNeeded
@@ -222,7 +219,7 @@
 
 - (void)_invalidateInterfaceDeactivationTimer
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   interfaceDeactivationTimer = [(CWFRemoteInterfaceManager *)self interfaceDeactivationTimer];
   if (interfaceDeactivationTimer)
   {
@@ -245,7 +242,13 @@
 
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        _os_log_send_and_compose_impl();
+        v10 = 136446722;
+        v11 = "[CWFRemoteInterfaceManager _invalidateInterfaceDeactivationTimer]";
+        v12 = 2082;
+        v13 = "CWFRemoteInterfaceManager.m";
+        v14 = 1024;
+        v15 = 206;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 0, "[corewifi] %{public}s (%{public}s:%u) Invalidating interfaceDeactivationTimer", &v10, 28);
       }
 
       interfaceDeactivationTimer2 = [(CWFRemoteInterfaceManager *)self interfaceDeactivationTimer];
@@ -254,8 +257,6 @@
       [(CWFRemoteInterfaceManager *)self setInterfaceDeactivationTimer:0];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isInterfaceDeactivationTimerValid
@@ -277,7 +278,7 @@
 
 - (void)_activateInterface
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = dispatch_get_current_queue();
   requestQueue = [(CWFRemoteInterfaceManager *)self requestQueue];
 
@@ -299,13 +300,11 @@
     {
       *location = 136446722;
       *&location[4] = "[CWFRemoteInterfaceManager _activateInterface]";
-      v19 = 2082;
-      v20 = "CWFRemoteInterfaceManager.m";
-      v21 = 1024;
-      v22 = 229;
-      LODWORD(v15) = 28;
-      v14 = location;
-      _os_log_send_and_compose_impl();
+      v16 = 2082;
+      v17 = "CWFRemoteInterfaceManager.m";
+      v18 = 1024;
+      v19 = 229;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 0, "[corewifi] %{public}s (%{public}s:%u) Activating CWFInterface...", location, 28);
     }
 
     interface = [(CWFRemoteInterfaceManager *)self interface];
@@ -317,8 +316,8 @@
       [(CWFRemoteInterfaceManager *)self setInterface:v11];
     }
 
-    v12 = [(CWFRemoteInterfaceManager *)self interface:v14];
-    [v12 activate];
+    interface2 = [(CWFRemoteInterfaceManager *)self interface];
+    [interface2 activate];
   }
 
   else
@@ -329,19 +328,17 @@
     block[1] = 3221225472;
     block[2] = sub_1E0C1B2D4;
     block[3] = &unk_1E86E6190;
-    objc_copyWeak(&v17, location);
+    objc_copyWeak(&v14, location);
     dispatch_async(requestQueue2, block);
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v14);
     objc_destroyWeak(location);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deactivateInterface
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = dispatch_get_current_queue();
   requestQueue = [(CWFRemoteInterfaceManager *)self requestQueue];
 
@@ -363,11 +360,11 @@
     {
       *location = 136446722;
       *&location[4] = "[CWFRemoteInterfaceManager _deactivateInterface]";
-      v14 = 2082;
-      v15 = "CWFRemoteInterfaceManager.m";
-      v16 = 1024;
-      v17 = 249;
-      _os_log_send_and_compose_impl();
+      v13 = 2082;
+      v14 = "CWFRemoteInterfaceManager.m";
+      v15 = 1024;
+      v16 = 249;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 0, "[corewifi] %{public}s (%{public}s:%u) Invalidating CWFInterface...", location, 28);
     }
 
     interface = [(CWFRemoteInterfaceManager *)self interface];
@@ -384,14 +381,12 @@
     block[1] = 3221225472;
     block[2] = sub_1E0C1B528;
     block[3] = &unk_1E86E6190;
-    objc_copyWeak(&v12, location);
+    objc_copyWeak(&v11, location);
     dispatch_async(requestQueue2, block);
 
-    objc_destroyWeak(&v12);
+    objc_destroyWeak(&v11);
     objc_destroyWeak(location);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_defaultScanParameters

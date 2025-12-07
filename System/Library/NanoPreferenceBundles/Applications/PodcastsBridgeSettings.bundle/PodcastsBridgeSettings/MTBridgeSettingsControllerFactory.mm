@@ -7,17 +7,10 @@
 
 + (id)allocWithZone:(_NSZone *)zone
 {
-  _supportsPodcastsPinningSettingsV2 = [self _supportsPodcastsPinningSettingsV2];
-  v5 = &off_1C228;
-  if (!_supportsPodcastsPinningSettingsV2)
-  {
-    v5 = off_1C220;
-  }
+  [self _supportsPodcastsPinningSettingsV2];
+  v4 = objc_opt_class();
 
-  v6 = *v5;
-  v7 = objc_opt_class();
-
-  return [v7 allocWithZone:zone];
+  return [v4 allocWithZone:zone];
 }
 
 + (BOOL)_supportsPodcastsPinningSettingsV2

@@ -1303,7 +1303,7 @@ dispatch_queue_t __61__PLTiledLayer_initWithJPEGData_placeholderImage_screenSize
 
 - (void)setupConverterForSourceColorSpace:(CGColorSpace *)space destinationColorSpace:(CGColorSpace *)colorSpace
 {
-  v81[1] = *MEMORY[0x277D85DE8];
+  v85[1] = *MEMORY[0x277D85DE8];
   v7 = objc_autoreleasePoolPush();
   v62 = 0;
   spaceCopy = &v62;
@@ -1336,9 +1336,9 @@ dispatch_queue_t __61__PLTiledLayer_initWithJPEGData_placeholderImage_screenSize
   self->_metalDevice = v11;
   if (v11)
   {
-    v80 = *MEMORY[0x277CBF4D0];
-    v81[0] = MEMORY[0x277CBEC38];
-    v12 = CGColorConversionInfoCreateFromList([MEMORY[0x277CBEAC0] dictionaryWithObjects:v81 forKeys:&v80 count:1], space, kCGColorConversionTransformFromSpace, kCGRenderingIntentDefault, colorSpace, 1, 0, 0);
+    v84 = *MEMORY[0x277CBF4D0];
+    v85[0] = MEMORY[0x277CBEC38];
+    v12 = CGColorConversionInfoCreateFromList([MEMORY[0x277CBEAC0] dictionaryWithObjects:v85 forKeys:&v84 count:1], space, kCGColorConversionTransformFromSpace, kCGRenderingIntentDefault, colorSpace, 1, 0, 0);
     if (v12)
     {
       v65 = 0;
@@ -1403,11 +1403,11 @@ dispatch_queue_t __61__PLTiledLayer_initWithJPEGData_placeholderImage_screenSize
       {
         if (v21)
         {
-          v78[0] = getkColorSyncProfile();
-          v79[0] = v20;
-          v78[1] = getkColorSyncRenderingIntent();
-          v79[1] = getkColorSyncRenderingIntentPerceptual();
-          v78[2] = getkColorSyncTransformTag();
+          v80[0] = getkColorSyncProfile(v23);
+          v81 = v20;
+          v80[1] = getkColorSyncRenderingIntent(v80[0]);
+          v82 = getkColorSyncRenderingIntentPerceptual(v80[1]);
+          v80[2] = getkColorSyncTransformTag(v82);
           v71 = 0;
           v72 = &v71;
           v73 = 0x2020000000;
@@ -1433,13 +1433,13 @@ dispatch_queue_t __61__PLTiledLayer_initWithJPEGData_placeholderImage_screenSize
             goto LABEL_41;
           }
 
-          v79[2] = *v24;
-          v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v79 forKeys:v78 count:3];
-          v76[0] = getkColorSyncProfile();
-          v77[0] = v21;
-          v76[1] = getkColorSyncRenderingIntent();
-          v77[1] = getkColorSyncRenderingIntentPerceptual();
-          v76[2] = getkColorSyncTransformTag();
+          v83 = *v24;
+          v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v81 forKeys:v80 count:3];
+          v76[0] = getkColorSyncProfile(v27);
+          v77 = v21;
+          v76[1] = getkColorSyncRenderingIntent(v76[0]);
+          v78 = getkColorSyncRenderingIntentPerceptual(v76[1]);
+          v76[2] = getkColorSyncTransformTag(v78);
           v71 = 0;
           v72 = &v71;
           v73 = 0x2020000000;
@@ -1467,8 +1467,8 @@ dispatch_queue_t __61__PLTiledLayer_initWithJPEGData_placeholderImage_screenSize
             goto LABEL_40;
           }
 
-          v77[2] = *v28;
-          v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v77 forKeys:v76 count:3];
+          v79 = *v28;
+          v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v77 forKeys:v76 count:3];
           v75[0] = v27;
           v75[1] = v31;
           v32 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:2];

@@ -10,18 +10,18 @@
 
 - (double)predictionForEvaluatedFeatures:(id)features withOutputIndexedSubscript:(int64_t)subscript
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   [(PPScoreInterpreterCoreMLModel *)self loadCoreMLModelIfNotAlreadyLoaded];
-  v18 = 0;
-  v7 = [objc_alloc(MEMORY[0x277CBFED0]) initWithDictionary:featuresCopy error:&v18];
-  v8 = v18;
+  v17 = 0;
+  v7 = [objc_alloc(MEMORY[0x277CBFED0]) initWithDictionary:featuresCopy error:&v17];
+  v8 = v17;
   if (v7)
   {
     coreMLModel = self->_coreMLModel;
-    v17 = v8;
-    v10 = [coreMLModel predictionFromFeatures:v7 error:&v17];
-    v11 = v17;
+    v16 = v8;
+    v10 = [coreMLModel predictionFromFeatures:v7 error:&v16];
+    v11 = v16;
 
     if (v11)
     {
@@ -29,7 +29,7 @@
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v20 = v11;
+        v19 = v11;
         _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "ScoreInterpreter - CoreMLModel - Error in predictionFromFeatures: %@", buf, 0xCu);
       }
     }
@@ -50,12 +50,11 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v20 = v8;
+      v19 = v8;
       _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "ScoreInterpreter - CoreMLModel - Error in initializing MLDictionaryFeatureProvider: %@", buf, 0xCu);
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -113,39 +112,40 @@ void __87__PPScoreInterpreterCoreMLModel_loadInstanceVariablesFromFeatures_outpu
 
 - (void)loadCoreMLModelIfNotAlreadyLoaded
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (!self->_coreMLModel)
   {
     if (self->_coreMLModelPath)
     {
       v3 = MEMORY[0x277CBFF20];
       v4 = [MEMORY[0x277CBEBC0] fileURLWithPath:?];
-      v10 = 0;
-      v5 = [v3 modelWithContentsOfURL:v4 error:&v10];
-      v6 = v10;
+      v9 = 0;
+      v5 = [v3 modelWithContentsOfURL:v4 error:&v9];
+      v6 = v9;
       coreMLModel = self->_coreMLModel;
       self->_coreMLModel = v5;
 
-      if (v6 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+      if (v6)
       {
-        coreMLModelPath = self->_coreMLModelPath;
-        *buf = 138412546;
-        v12 = coreMLModelPath;
-        v13 = 2112;
-        v14 = v6;
-        _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "error initializing %@ model: %@", buf, 0x16u);
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+        {
+          coreMLModelPath = self->_coreMLModelPath;
+          *buf = 138412546;
+          v11 = coreMLModelPath;
+          v12 = 2112;
+          v13 = v6;
+          _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "error initializing %@ model: %@", buf, 0x16u);
+        }
       }
     }
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v12 = 0;
+      v11 = 0;
       _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "error finding %@ model in assets", buf, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (PPScoreInterpreterCoreMLModel)initWithModelPath:(id)path features:(id)features outputSpecification:(id)specification
@@ -168,7 +168,7 @@ void __87__PPScoreInterpreterCoreMLModel_loadInstanceVariablesFromFeatures_outpu
 
 + (double)scoreForOutputValue:(id)value outputIndexedSubscript:(int64_t)subscript
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   valueCopy = value;
   type = [valueCopy type];
   v7 = type;
@@ -216,14 +216,13 @@ LABEL_8:
   int64Value = -31337.0;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v17 = 134217984;
-    v18 = v7;
-    _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "ScoreInterpreter - CoreMLModel - No valid outputType found for %td", &v17, 0xCu);
+    v16 = 134217984;
+    v17 = v7;
+    _os_log_error_impl(&dword_23224A000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "ScoreInterpreter - CoreMLModel - No valid outputType found for %td", &v16, 0xCu);
   }
 
 LABEL_13:
 
-  v15 = *MEMORY[0x277D85DE8];
   return int64Value;
 }
 

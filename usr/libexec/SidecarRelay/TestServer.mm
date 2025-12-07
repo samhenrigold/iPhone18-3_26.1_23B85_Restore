@@ -31,7 +31,7 @@
 
   selfCopy = self;
   sub_100054660(v7, v6, &unk_10008FBB8, sub_100055C1C, &unk_10008FBD0);
-  sub_100010FE8(v7);
+  sub_100010FE8(v7, v6);
 }
 
 @end

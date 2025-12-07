@@ -5,13 +5,13 @@
 
 void ___SFBrowserCreateConnection_block_invoke(uint64_t a1, void *a2)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1AC58D590](a2);
   if (v4 != MEMORY[0x1E69E9E98])
   {
     if (v4 != MEMORY[0x1E69E9E80])
     {
-      goto LABEL_52;
+      return;
     }
 
     context = xpc_connection_get_context(*(a1 + 40));
@@ -34,7 +34,7 @@ void ___SFBrowserCreateConnection_block_invoke(uint64_t a1, void *a2)
 
         else
         {
-          v25 = browser_log();
+          v25 = browser_log(0);
           if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
             ___SFBrowserCreateConnection_block_invoke_cold_1();
@@ -96,11 +96,11 @@ void ___SFBrowserCreateConnection_block_invoke(uint64_t a1, void *a2)
       }
     }
 
-    pthread_mutex_unlock((context + 88));
+    v32 = pthread_mutex_unlock((context + 88));
     if (context[16])
     {
-      v32 = browser_log();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v33 = browser_log(v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         ___SFBrowserCreateConnection_block_invoke_cold_2();
         if (!v26)
@@ -114,16 +114,17 @@ void ___SFBrowserCreateConnection_block_invoke(uint64_t a1, void *a2)
 
     else
     {
-      v33 = CFDictionaryContainsKey(*(context + 6), v7);
-      v34 = browser_log();
+      v34 = CFDictionaryContainsKey(*(context + 6), v7);
       v35 = v34;
-      if (v33)
+      v36 = browser_log(v34);
+      v37 = v36;
+      if (v35)
       {
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
           *&buf[4] = v7;
-          _os_log_impl(&dword_1A9662000, v35, OS_LOG_TYPE_DEFAULT, "SFBrowserCallBack (node = %@)", buf, 0xCu);
+          _os_log_impl(&dword_1A9662000, v37, OS_LOG_TYPE_DEFAULT, "SFBrowserCallBack (node = %@)", buf, 0xCu);
         }
 
         (*(context + 19))(context, v7, v26, 0, int64, *(context + 21));
@@ -135,7 +136,7 @@ void ___SFBrowserCreateConnection_block_invoke(uint64_t a1, void *a2)
         goto LABEL_49;
       }
 
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
         ___SFBrowserCreateConnection_block_invoke_cold_3();
         if (!v26)
@@ -146,7 +147,7 @@ LABEL_50:
             CFRelease(v7);
           }
 
-          goto LABEL_52;
+          return;
         }
 
 LABEL_49:
@@ -165,7 +166,7 @@ LABEL_49:
 
   if (a2 == MEMORY[0x1E69E9E20])
   {
-    v13 = browser_log();
+    v13 = browser_log(v4);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -176,7 +177,7 @@ LABEL_49:
   else
   {
     v10 = MEMORY[0x1E69E9E18];
-    v11 = browser_log();
+    v11 = browser_log(v4);
     v12 = os_log_type_enabled(v11, OS_LOG_TYPE_ERROR);
     if (a2 == v10)
     {
@@ -195,7 +196,7 @@ LABEL_49:
       if (v16)
       {
         v17 = v16;
-        v37 = v15;
+        v38 = v15;
         Count = CFArrayGetCount(v16);
         if (Count >= 1)
         {
@@ -213,7 +214,7 @@ LABEL_49:
         }
 
         CFRelease(v17);
-        v15 = v37;
+        v15 = v38;
       }
 
       xpc_release(v15);
@@ -224,17 +225,13 @@ LABEL_49:
       ___SFBrowserCreateConnection_block_invoke_cold_4();
     }
   }
-
-LABEL_52:
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 void ___SFBrowserCreateConnection_block_invoke_cold_3()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
-  _os_log_error_impl(&dword_1A9662000, v0, OS_LOG_TYPE_ERROR, "SFBrowserNotifyClient: node %@ not found", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1A9662000, v0, OS_LOG_TYPE_ERROR, "SFBrowserNotifyClient: node %@ not found", v1, 0xCu);
 }
 
 @end

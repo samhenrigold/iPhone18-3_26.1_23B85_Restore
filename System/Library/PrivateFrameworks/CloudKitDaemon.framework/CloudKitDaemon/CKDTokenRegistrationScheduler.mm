@@ -77,24 +77,22 @@
 
 - (void)registerTokenRefresh
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_unitTestingPushTokens(self, a2, v2);
 
   if (v4)
   {
-    goto LABEL_2;
+    return;
   }
 
-  v61 = objc_msgSend_currentProcess(CKDDaemonProcess, v5, v6);
-  if (objc_msgSend_isSystemInstalledBinary(v61, v8, v9))
+  v58 = objc_msgSend_currentProcess(CKDDaemonProcess, v5, v6);
+  if (objc_msgSend_isSystemInstalledBinary(v58, v7, v8))
   {
-    v12 = objc_msgSend_currentProcess(CKDDaemonProcess, v10, v11);
-    v15 = objc_msgSend_processType(v12, v13, v14);
+    v11 = objc_msgSend_currentProcess(CKDDaemonProcess, v9, v10);
+    v14 = objc_msgSend_processType(v11, v12, v13);
 
-    if (v15 == 2)
+    if (v14 == 2)
     {
-LABEL_2:
-      v7 = *MEMORY[0x277D85DE8];
       return;
     }
 
@@ -105,129 +103,125 @@ LABEL_2:
         dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
       }
 
-      v16 = *MEMORY[0x277CBC830];
+      v15 = *MEMORY[0x277CBC830];
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_debug_impl(&dword_22506F000, v16, OS_LOG_TYPE_DEBUG, "Running in sync bubble. Ignoring registerTokenRefresh", buf, 2u);
+        _os_log_debug_impl(&dword_22506F000, v15, OS_LOG_TYPE_DEBUG, "Running in sync bubble. Ignoring registerTokenRefresh", buf, 2u);
       }
 
-      goto LABEL_2;
+      return;
     }
 
     objc_initWeak(&location, self);
-    v20 = objc_msgSend_sharedScheduler(MEMORY[0x277CF0810], v18, v19);
-    v23 = objc_msgSend_queue(self, v21, v22);
-    v63[0] = MEMORY[0x277D85DD0];
-    v63[1] = 3221225472;
-    v63[2] = sub_2253B193C;
-    v63[3] = &unk_27854D108;
-    objc_copyWeak(&v64, &location);
-    objc_msgSend_registerForTaskWithIdentifier_usingQueue_launchHandler_(v20, v24, @"com.apple.cloudkit.tokenregistration", v23, v63);
+    v18 = objc_msgSend_sharedScheduler(MEMORY[0x277CF0810], v16, v17);
+    v21 = objc_msgSend_queue(self, v19, v20);
+    v60[0] = MEMORY[0x277D85DD0];
+    v60[1] = 3221225472;
+    v60[2] = sub_2253B193C;
+    v60[3] = &unk_27854D108;
+    objc_copyWeak(&v61, &location);
+    objc_msgSend_registerForTaskWithIdentifier_usingQueue_launchHandler_(v18, v22, @"com.apple.cloudkit.tokenregistration", v21, v60);
 
-    v27 = objc_msgSend_sharedScheduler(MEMORY[0x277CF0810], v25, v26);
-    v29 = objc_msgSend_taskRequestForIdentifier_(v27, v28, @"com.apple.cloudkit.tokenregistration");
-    LODWORD(v23) = v29 == 0;
+    v25 = objc_msgSend_sharedScheduler(MEMORY[0x277CF0810], v23, v24);
+    v27 = objc_msgSend_taskRequestForIdentifier_(v25, v26, @"com.apple.cloudkit.tokenregistration");
+    LODWORD(v21) = v27 == 0;
 
-    if (!v23)
+    if (!v21)
     {
 LABEL_26:
-      objc_destroyWeak(&v64);
+      objc_destroyWeak(&v61);
       objc_destroyWeak(&location);
-      goto LABEL_2;
+      return;
     }
 
-    v32 = objc_msgSend_deviceContext(self, v30, v31);
-    v35 = objc_msgSend_metadataCache(v32, v33, v34);
-    v38 = objc_msgSend_globalConfiguration(v35, v36, v37);
-    v40 = objc_msgSend_tokenRegisterDays_(v38, v39, 0);
+    v30 = objc_msgSend_deviceContext(self, v28, v29);
+    v33 = objc_msgSend_metadataCache(v30, v31, v32);
+    v36 = objc_msgSend_globalConfiguration(v33, v34, v35);
+    v38 = objc_msgSend_tokenRegisterDays_(v36, v37, 0);
 
-    if (v40 <= 1)
+    if (v38 <= 1)
     {
-      v41 = 1;
+      v39 = 1;
     }
 
     else
     {
-      v41 = v40;
+      v39 = v38;
     }
 
-    v42 = objc_alloc(MEMORY[0x277CF07D8]);
-    v44 = objc_msgSend_initWithIdentifier_(v42, v43, @"com.apple.cloudkit.tokenregistration");
-    objc_msgSend_setInterval_(v44, v45, v46, (86400 * v41));
-    objc_msgSend_setRequiresNetworkConnectivity_(v44, v47, 1);
-    v50 = objc_msgSend_sharedScheduler(MEMORY[0x277CF0810], v48, v49);
-    v62 = 0;
-    v52 = objc_msgSend_submitTaskRequest_error_(v50, v51, v44, &v62);
-    v53 = v62;
+    v40 = objc_alloc(MEMORY[0x277CF07D8]);
+    v42 = objc_msgSend_initWithIdentifier_(v40, v41, @"com.apple.cloudkit.tokenregistration");
+    objc_msgSend_setInterval_(v42, v43, v44, (86400 * v39));
+    objc_msgSend_setRequiresNetworkConnectivity_(v42, v45, 1);
+    v48 = objc_msgSend_sharedScheduler(MEMORY[0x277CF0810], v46, v47);
+    v59 = 0;
+    v50 = objc_msgSend_submitTaskRequest_error_(v48, v49, v42, &v59);
+    v51 = v59;
 
-    v54 = *MEMORY[0x277CBC878];
-    v55 = *MEMORY[0x277CBC880];
-    if (v52)
+    v52 = *MEMORY[0x277CBC878];
+    if (v50)
     {
       if (*MEMORY[0x277CBC880] != -1)
       {
-        dispatch_once(MEMORY[0x277CBC880], v54);
+        dispatch_once(MEMORY[0x277CBC880], v52);
       }
 
-      v56 = *MEMORY[0x277CBC830];
+      v53 = *MEMORY[0x277CBC830];
       if (!os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
       {
         goto LABEL_25;
       }
 
       *buf = 138412290;
-      v67 = v53;
-      v57 = "Failed to register operation info cache eviction task with error: %@";
-      v58 = v56;
-      v59 = 12;
+      v64 = v51;
+      v54 = "Failed to register operation info cache eviction task with error: %@";
+      v55 = v53;
+      v56 = 12;
     }
 
     else
     {
       if (*MEMORY[0x277CBC880] != -1)
       {
-        dispatch_once(MEMORY[0x277CBC880], v54);
+        dispatch_once(MEMORY[0x277CBC880], v52);
       }
 
-      v60 = *MEMORY[0x277CBC830];
+      v57 = *MEMORY[0x277CBC830];
       if (!os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
       {
         goto LABEL_25;
       }
 
       *buf = 0;
-      v57 = "Registered operation info cache eviction task";
-      v58 = v60;
-      v59 = 2;
+      v54 = "Registered operation info cache eviction task";
+      v55 = v57;
+      v56 = 2;
     }
 
-    _os_log_error_impl(&dword_22506F000, v58, OS_LOG_TYPE_ERROR, v57, buf, v59);
+    _os_log_error_impl(&dword_22506F000, v55, OS_LOG_TYPE_ERROR, v54, buf, v56);
 LABEL_25:
 
     goto LABEL_26;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_refreshApsToken:(id)token container:(id)container completionBlock:(id)block
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   containerCopy = container;
   blockCopy = block;
   if (!tokenCopy)
   {
-    v40 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v11, v12);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v40, v41, a2, self, @"CKDTokenRegistrationScheduler.m", 189, @"token must not be nil");
+    v38 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v11, v12);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v38, v39, a2, self, @"CKDTokenRegistrationScheduler.m", 189, @"token must not be nil");
   }
 
   v14 = objc_msgSend_unitTestingPushTokens(self, v11, v12);
 
   v15 = *MEMORY[0x277CBC878];
-  v16 = *MEMORY[0x277CBC880];
-  v17 = MEMORY[0x277CBC830];
+  v16 = MEMORY[0x277CBC830];
   if (v14)
   {
     if (*MEMORY[0x277CBC880] != -1)
@@ -235,19 +229,19 @@ LABEL_25:
       dispatch_once(MEMORY[0x277CBC880], v15);
     }
 
-    v18 = *v17;
-    if (os_log_type_enabled(*v17, OS_LOG_TYPE_DEBUG))
+    v17 = *v16;
+    if (os_log_type_enabled(*v16, OS_LOG_TYPE_DEBUG))
     {
-      v21 = v18;
-      v24 = objc_msgSend_account(containerCopy, v22, v23);
-      v27 = objc_msgSend_accountID(v24, v25, v26);
+      v20 = v17;
+      v23 = objc_msgSend_account(containerCopy, v21, v22);
+      v26 = objc_msgSend_accountID(v23, v24, v25);
       *buf = 138543874;
-      v49 = tokenCopy;
+      v47 = tokenCopy;
+      v48 = 2112;
+      v49 = containerCopy;
       v50 = 2112;
-      v51 = containerCopy;
-      v52 = 2112;
-      v53 = v27;
-      _os_log_debug_impl(&dword_22506F000, v21, OS_LOG_TYPE_DEBUG, "Refreshing token %{public}@ for container %@ using unit test account ID %@", buf, 0x20u);
+      v51 = v26;
+      _os_log_debug_impl(&dword_22506F000, v20, OS_LOG_TYPE_DEBUG, "Refreshing token %{public}@ for container %@ using unit test account ID %@", buf, 0x20u);
     }
   }
 
@@ -258,49 +252,48 @@ LABEL_25:
       dispatch_once(MEMORY[0x277CBC880], v15);
     }
 
-    v28 = *v17;
-    if (os_log_type_enabled(*v17, OS_LOG_TYPE_DEBUG))
+    v27 = *v16;
+    if (os_log_type_enabled(*v16, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412546;
-      v49 = tokenCopy;
-      v50 = 2112;
-      v51 = containerCopy;
-      _os_log_debug_impl(&dword_22506F000, v28, OS_LOG_TYPE_DEBUG, "Refreshing token %@ for container %@", buf, 0x16u);
+      v47 = tokenCopy;
+      v48 = 2112;
+      v49 = containerCopy;
+      _os_log_debug_impl(&dword_22506F000, v27, OS_LOG_TYPE_DEBUG, "Refreshing token %@ for container %@", buf, 0x16u);
     }
   }
 
-  v29 = objc_msgSend_defaultConvenienceOperationConfiguration(MEMORY[0x277CBC4F0], v19, v20);
-  objc_msgSend_setQualityOfService_(v29, v30, 17);
-  v31 = objc_opt_new();
-  objc_msgSend_setResolvedConfiguration_(v31, v32, v29);
-  v33 = [CKDTokenRegistrationSchedulerRegisterOperation alloc];
-  v35 = objc_msgSend_initWithOperationInfo_container_apsToken_(v33, v34, v31, containerCopy, tokenCopy);
-  objc_initWeak(buf, v35);
-  v42 = MEMORY[0x277D85DD0];
-  v43 = 3221225472;
-  v44 = sub_2253B1D50;
-  v45 = &unk_278547F28;
-  v36 = blockCopy;
-  v46 = v36;
-  objc_copyWeak(&v47, buf);
-  objc_msgSend_setCompletionBlock_(v35, v37, &v42);
-  objc_msgSend_addOperation_(containerCopy, v38, v35, v42, v43, v44, v45);
-  objc_destroyWeak(&v47);
+  v28 = objc_msgSend_defaultConvenienceOperationConfiguration(MEMORY[0x277CBC4F0], v18, v19);
+  objc_msgSend_setQualityOfService_(v28, v29, 17);
+  v30 = objc_opt_new();
+  objc_msgSend_setResolvedConfiguration_(v30, v31, v28);
+  v32 = [CKDTokenRegistrationSchedulerRegisterOperation alloc];
+  v34 = objc_msgSend_initWithOperationInfo_container_apsToken_(v32, v33, v30, containerCopy, tokenCopy);
+  objc_initWeak(buf, v34);
+  v40 = MEMORY[0x277D85DD0];
+  v41 = 3221225472;
+  v42 = sub_2253B1D50;
+  v43 = &unk_278547F28;
+  v35 = blockCopy;
+  v44 = v35;
+  objc_copyWeak(&v45, buf);
+  objc_msgSend_setCompletionBlock_(v34, v36, &v40);
+  objc_msgSend_addOperation_(containerCopy, v37, v34, v40, v41, v42, v43);
+  objc_destroyWeak(&v45);
 
   objc_destroyWeak(buf);
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeApsToken:(id)token appContainerAccountTuple:(id)tuple completionBlock:(id)block
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   tupleCopy = tuple;
   blockCopy = block;
   if (!tokenCopy)
   {
-    v37 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v11, v12);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v37, v38, a2, self, @"CKDTokenRegistrationScheduler.m", 212, @"token must not be nil");
+    v36 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v11, v12);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v36, v37, a2, self, @"CKDTokenRegistrationScheduler.m", 212, @"token must not be nil");
   }
 
   v14 = objc_msgSend_deviceContext(self, v11, v12);
@@ -315,15 +308,15 @@ LABEL_25:
   v20 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v33 = v20;
-    v36 = objc_msgSend_applicationBundleIdentifierForPush(v19, v34, v35);
+    v32 = v20;
+    v35 = objc_msgSend_applicationBundleIdentifierForPush(v19, v33, v34);
     *location = 138412802;
     *&location[4] = tokenCopy;
-    v46 = 2112;
-    v47 = tupleCopy;
-    v48 = 2114;
-    v49 = v36;
-    _os_log_debug_impl(&dword_22506F000, v33, OS_LOG_TYPE_DEBUG, "Removing token %@ for container %@ push bundle identifier %{public}@", location, 0x20u);
+    v45 = 2112;
+    v46 = tupleCopy;
+    v47 = 2114;
+    v48 = v35;
+    _os_log_debug_impl(&dword_22506F000, v32, OS_LOG_TYPE_DEBUG, "Removing token %@ for container %@ push bundle identifier %{public}@", location, 0x20u);
   }
 
   v23 = objc_msgSend_defaultConvenienceOperationConfiguration(MEMORY[0x277CBC4F0], v21, v22);
@@ -332,19 +325,18 @@ LABEL_25:
   v26 = [CKDTokenRegistrationSchedulerUnregisterOperation alloc];
   v28 = objc_msgSend_initWithOperationInfo_container_apsToken_(v26, v27, v24, v19, tokenCopy);
   objc_initWeak(location, v28);
-  v39 = MEMORY[0x277D85DD0];
-  v40 = 3221225472;
-  v41 = sub_2253B20BC;
-  v42 = &unk_278547F28;
+  v38 = MEMORY[0x277D85DD0];
+  v39 = 3221225472;
+  v40 = sub_2253B20BC;
+  v41 = &unk_278547F28;
   v29 = blockCopy;
-  v43 = v29;
-  objc_copyWeak(&v44, location);
-  objc_msgSend_setCompletionBlock_(v28, v30, &v39);
-  objc_msgSend_addOperation_(v19, v31, v28, v39, v40, v41, v42);
-  objc_destroyWeak(&v44);
+  v42 = v29;
+  objc_copyWeak(&v43, location);
+  objc_msgSend_setCompletionBlock_(v28, v30, &v38);
+  objc_msgSend_addOperation_(v19, v31, v28, v38, v39, v40, v41);
+  objc_destroyWeak(&v43);
 
   objc_destroyWeak(location);
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)refreshAllClientsNow:(BOOL)now completionHandler:(id)handler
@@ -356,7 +348,6 @@ LABEL_25:
   {
     v10 = CKIsRunningInSyncBubble();
     v11 = *MEMORY[0x277CBC878];
-    v12 = *MEMORY[0x277CBC880];
     if (!v10)
     {
       if (*MEMORY[0x277CBC880] != -1)
@@ -364,40 +355,40 @@ LABEL_25:
         dispatch_once(MEMORY[0x277CBC880], v11);
       }
 
-      v14 = *MEMORY[0x277CBC830];
+      v13 = *MEMORY[0x277CBC830];
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
       {
         *buf = 0;
-        _os_log_debug_impl(&dword_22506F000, v14, OS_LOG_TYPE_DEBUG, "Refreshing all client push tokens", buf, 2u);
+        _os_log_debug_impl(&dword_22506F000, v13, OS_LOG_TYPE_DEBUG, "Refreshing all client push tokens", buf, 2u);
       }
 
-      v17 = objc_msgSend_date(MEMORY[0x277CBEAA8], v15, v16);
-      v18 = dispatch_group_create();
-      v21 = objc_msgSend_deviceContext(self, v19, v20);
-      v24 = objc_msgSend_metadataCache(v21, v22, v23);
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = sub_2253B23EC;
-      v37[3] = &unk_27854D158;
-      v38 = v18;
+      v16 = objc_msgSend_date(MEMORY[0x277CBEAA8], v14, v15);
+      v17 = dispatch_group_create();
+      v20 = objc_msgSend_deviceContext(self, v18, v19);
+      v23 = objc_msgSend_metadataCache(v20, v21, v22);
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = sub_2253B23EC;
+      v36[3] = &unk_27854D158;
+      v37 = v17;
       selfCopy = self;
-      v25 = v21;
-      v40 = v25;
+      v24 = v20;
+      v39 = v24;
       nowCopy = now;
-      v26 = v18;
-      objc_msgSend_enumerateKnownAppContainerAccountTuplesUsingBlock_(v24, v27, v37);
+      v25 = v17;
+      objc_msgSend_enumerateKnownAppContainerAccountTuplesUsingBlock_(v23, v26, v36);
 
-      v30 = objc_msgSend_queue(self, v28, v29);
+      v29 = objc_msgSend_queue(self, v27, v28);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = sub_2253B2B58;
       block[3] = &unk_278546C30;
-      v34 = v25;
-      v35 = v17;
-      v36 = handlerCopy;
-      v31 = v17;
-      v32 = v25;
-      dispatch_group_notify(v26, v30, block);
+      v33 = v24;
+      v34 = v16;
+      v35 = handlerCopy;
+      v30 = v16;
+      v31 = v24;
+      dispatch_group_notify(v25, v29, block);
 
       goto LABEL_13;
     }
@@ -407,11 +398,11 @@ LABEL_25:
       dispatch_once(MEMORY[0x277CBC880], v11);
     }
 
-    v13 = *MEMORY[0x277CBC830];
+    v12 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_debug_impl(&dword_22506F000, v13, OS_LOG_TYPE_DEBUG, "Ignoring refresh of all clients", buf, 2u);
+      _os_log_debug_impl(&dword_22506F000, v12, OS_LOG_TYPE_DEBUG, "Ignoring refresh of all clients", buf, 2u);
       if (!handlerCopy)
       {
         goto LABEL_13;
@@ -432,7 +423,7 @@ LABEL_13:
 
 - (void)_handlePushToken:(id)token forContainer:(id)container completionBlock:(id)block
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   tokenCopy = token;
   containerCopy = container;
   blockCopy = block;
@@ -442,13 +433,13 @@ LABEL_13:
   os_activity_scope_enter(v11, &state);
   v14 = objc_msgSend_appContainerTuple(containerCopy, v12, v13);
   v17 = objc_msgSend_appContainerAccountTuple(containerCopy, v15, v16);
-  v45 = v11;
+  v44 = v11;
   v18 = [CKDPushToken alloc];
   v21 = objc_msgSend_apsEnvironmentString(containerCopy, v19, v20);
   v23 = objc_msgSend_initWithAPSEnvironmentString_apsToken_(v18, v22, v21, tokenCopy);
-  v47 = tokenCopy;
+  v46 = tokenCopy;
 
-  v48 = objc_msgSend_applicationBundleIdentifierForPush(containerCopy, v24, v25);
+  v47 = objc_msgSend_applicationBundleIdentifierForPush(containerCopy, v24, v25);
   v28 = objc_msgSend_deviceContext(self, v26, v27);
   v31 = objc_msgSend_metadataCache(v28, v29, v30);
   v33 = objc_msgSend_appContainerAccountMetadataForAppContainerAccountTuple_(v31, v32, v17);
@@ -462,26 +453,26 @@ LABEL_13:
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v58 = tokenCopy;
-    v59 = 2112;
-    v60 = v14;
-    v61 = 2114;
-    v62 = v48;
+    v57 = tokenCopy;
+    v58 = 2112;
+    v59 = v14;
+    v60 = 2114;
+    v61 = v47;
     _os_log_debug_impl(&dword_22506F000, v34, OS_LOG_TYPE_DEBUG, "Handling token %@ for container tuple %@, push bundle identifier %{public}@", buf, 0x20u);
   }
 
-  v37 = objc_msgSend_queue(self, v35, v36, v45);
+  v37 = objc_msgSend_queue(self, v35, v36, v44);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = sub_2253B2F4C;
   block[3] = &unk_27854D1A8;
   block[4] = self;
-  v50 = v17;
-  v51 = v14;
-  v52 = v23;
-  v54 = containerCopy;
-  v55 = blockCopy;
-  v53 = v33;
+  v49 = v17;
+  v50 = v14;
+  v51 = v23;
+  v53 = containerCopy;
+  v54 = blockCopy;
+  v52 = v33;
   v38 = containerCopy;
   v39 = blockCopy;
   v40 = v33;
@@ -491,12 +482,11 @@ LABEL_13:
   dispatch_async(v37, block);
 
   os_activity_scope_leave(&state);
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterTokenForAppContainerAccountTuple:(id)tuple
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   tupleCopy = tuple;
   v7 = objc_msgSend_unitTestingPushTokens(self, v5, v6);
 
@@ -513,7 +503,7 @@ LABEL_13:
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v32 = tupleCopy;
+        v31 = tupleCopy;
         _os_log_debug_impl(&dword_22506F000, v10, OS_LOG_TYPE_DEBUG, "Running in sync bubble. Ignoring unregister for container %@", buf, 0xCu);
       }
     }
@@ -525,9 +515,9 @@ LABEL_13:
       v16 = objc_msgSend_containerWithAppContainerAccountTuple_deviceContext_sharedContainerTable_(CKDContainer, v15, tupleCopy, v11, v14);
 
       v19 = objc_msgSend_sharedClient(CKDPDSClient, v17, v18);
-      v30 = 0;
-      v21 = objc_msgSend_unregisterTokenForContainer_outError_(v19, v20, v16, &v30);
-      v22 = v30;
+      v29 = 0;
+      v21 = objc_msgSend_unregisterTokenForContainer_outError_(v19, v20, v16, &v29);
+      v22 = v29;
 
       if ((v21 & 1) == 0)
       {
@@ -540,9 +530,9 @@ LABEL_13:
         if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v32 = tupleCopy;
-          v33 = 2112;
-          v34 = v22;
+          v31 = tupleCopy;
+          v32 = 2112;
+          v33 = v22;
           _os_log_error_impl(&dword_22506F000, v25, OS_LOG_TYPE_ERROR, "Failed to unregister with PDS, but continuing with CKDeviceService unregistration for %@: %@", buf, 0x16u);
         }
       }
@@ -553,17 +543,15 @@ LABEL_13:
       block[2] = sub_2253B3A34;
       block[3] = &unk_278545898;
       block[4] = self;
-      v29 = tupleCopy;
+      v28 = tupleCopy;
       dispatch_async(v26, block);
     }
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterAllTokensForAccountID:(id)d completionHandler:(id)handler
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   dCopy = d;
   handlerCopy = handler;
   v10 = objc_msgSend_unitTestingPushTokens(self, v8, v9);
@@ -598,9 +586,9 @@ LABEL_9:
   }
 
   v14 = objc_msgSend_sharedClient(CKDPDSClient, v11, v12);
-  v26 = 0;
-  v16 = objc_msgSend_unregisterAllTokensForAccountID_outError_(v14, v15, dCopy, &v26);
-  v17 = v26;
+  v25 = 0;
+  v16 = objc_msgSend_unregisterAllTokensForAccountID_outError_(v14, v15, dCopy, &v25);
+  v17 = v25;
 
   if ((v16 & 1) == 0)
   {
@@ -613,23 +601,22 @@ LABEL_9:
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v28 = dCopy;
+      v27 = dCopy;
       _os_log_error_impl(&dword_22506F000, v20, OS_LOG_TYPE_ERROR, "Failed to unregister with PDS, but continuing with CKDeviceService unregistration for %@", buf, 0xCu);
     }
   }
 
   v21 = objc_msgSend_queue(self, v18, v19);
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = sub_2253B3F5C;
-  v23[3] = &unk_278546C30;
-  v23[4] = self;
-  v24 = dCopy;
-  v25 = handlerCopy;
-  dispatch_async(v21, v23);
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = sub_2253B3F5C;
+  v22[3] = &unk_278546C30;
+  v22[4] = self;
+  v23 = dCopy;
+  v24 = handlerCopy;
+  dispatch_async(v21, v22);
 
 LABEL_16:
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)forceTokenRefreshForAllClients
@@ -675,7 +662,7 @@ LABEL_4:
 
 - (void)registerTokenForAdopterContainer:(id)container completionBlock:(id)block
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   blockCopy = block;
   v10 = objc_msgSend_deviceContext(self, v8, v9);
@@ -700,11 +687,11 @@ LABEL_4:
     v29 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
-      v47 = v29;
-      v50 = objc_msgSend_appContainerTuple(containerCopy, v48, v49);
+      v46 = v29;
+      v49 = objc_msgSend_appContainerTuple(containerCopy, v47, v48);
       *buf = 138412290;
-      v59 = v50;
-      _os_log_debug_impl(&dword_22506F000, v47, OS_LOG_TYPE_DEBUG, "Running in sync bubble. Ignoring token refresh for tuple %@", buf, 0xCu);
+      v58 = v49;
+      _os_log_debug_impl(&dword_22506F000, v46, OS_LOG_TYPE_DEBUG, "Running in sync bubble. Ignoring token refresh for tuple %@", buf, 0xCu);
     }
 
     blockCopy[2](blockCopy, 0);
@@ -715,9 +702,9 @@ LABEL_4:
     v30 = objc_msgSend_appContainerAccountTuple(containerCopy, v27, v28);
     v33 = objc_msgSend_appContainerTuple(containerCopy, v31, v32);
     v36 = objc_msgSend_sharedClient(CKDPDSClient, v34, v35);
-    v57 = 0;
-    v38 = objc_msgSend_ensureRegistrationForContainer_outError_(v36, v37, containerCopy, &v57);
-    v39 = v57;
+    v56 = 0;
+    v38 = objc_msgSend_ensureRegistrationForContainer_outError_(v36, v37, containerCopy, &v56);
+    v39 = v56;
 
     if ((v38 & 1) == 0 && v39)
     {
@@ -730,7 +717,7 @@ LABEL_4:
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v59 = v33;
+        v58 = v33;
         _os_log_error_impl(&dword_22506F000, v42, OS_LOG_TYPE_ERROR, "Failed to ensure PDS registration, but continuing with CKDeviceService registration for %@", buf, 0xCu);
       }
     }
@@ -741,17 +728,15 @@ LABEL_4:
     block[2] = sub_2253B49F0;
     block[3] = &unk_27854D270;
     block[4] = self;
-    v52 = v30;
-    v56 = blockCopy;
-    v53 = v33;
-    v54 = containerCopy;
-    v55 = v10;
+    v51 = v30;
+    v55 = blockCopy;
+    v52 = v33;
+    v53 = containerCopy;
+    v54 = v10;
     v44 = v33;
     v45 = v30;
     dispatch_async(v43, block);
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 @end

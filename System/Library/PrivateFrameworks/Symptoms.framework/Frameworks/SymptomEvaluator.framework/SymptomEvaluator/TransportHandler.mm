@@ -21,7 +21,8 @@
 {
   if (OUTLINED_FUNCTION_1_0())
   {
-    OUTLINED_FUNCTION_0_1(&dword_23255B000, v2, v3, "strict_malloc called with size 0", v4, v5, v6, v7, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0_1(&dword_23255B000, v2, v3, "strict_malloc called with size 0", v4, v5, v6, v7, v8);
   }
 
   *self = 0;
@@ -57,27 +58,27 @@
 
 + (void)updateFilters:(unint64_t)filters
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = transportConnections;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         if (*(v9 + 40) == filters)
         {
           *(v9 + 37) = 1;
@@ -94,39 +95,37 @@
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 + (void)requestExplicitDisconnectSymptom:(unint64_t)symptom
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v4 = transportConnections;
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
+        v9 = *(*(&v10 + 1) + 8 * v8);
         if (*(v9 + 88) == symptom)
         {
           *(v9 + 39) = 1;
@@ -136,13 +135,11 @@
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description
@@ -164,7 +161,7 @@
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = transportLogHandle;
   if (os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -196,15 +193,14 @@
   }
 
   self->_bundleId = 0;
-  v10.receiver = self;
-  v10.super_class = TransportHandler;
-  [(TransportHandler *)&v10 dealloc];
-  v9 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = TransportHandler;
+  [(TransportHandler *)&v9 dealloc];
 }
 
 - (void)generateLibnetcoreSymptomSignpost:(id)signpost
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   signpostCopy = signpost;
   memset(uu, 0, sizeof(uu));
   uuid_clear(uu);
@@ -223,7 +219,7 @@
     v8 = processName;
   }
 
-  v43 = v8;
+  v42 = v8;
   eventData = [signpostCopy eventData];
   v10 = eventData;
   v11 = *(eventData + 16);
@@ -239,7 +235,7 @@
     if (os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      *v45 = signpostCopy;
+      *v44 = signpostCopy;
       _os_log_impl(&dword_23255B000, v16, OS_LOG_TYPE_ERROR, "Received interface index zero in libnetcore event %@", buf, 0xCu);
     }
 
@@ -257,9 +253,9 @@ LABEL_6:
     if (os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109378;
-      *v45 = v12;
-      *&v45[4] = 2112;
-      *&v45[6] = signpostCopy;
+      *v44 = v12;
+      *&v44[4] = 2112;
+      *&v44[6] = signpostCopy;
       _os_log_impl(&dword_23255B000, v17, OS_LOG_TYPE_ERROR, "Can't lookup interface index %d from libnetcore event %@", buf, 0x12u);
     }
 
@@ -284,17 +280,17 @@ LABEL_15:
 
     if ([v15 type] != 4)
     {
-      v40 = transportLogHandle;
+      v39 = transportLogHandle;
       if (os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v41 = v40;
+        v40 = v39;
         *buf = 134218498;
-        *v45 = [v15 type];
-        *&v45[8] = 1024;
-        *&v45[10] = v12;
-        v46 = 2112;
-        v47 = signpostCopy;
-        _os_log_impl(&dword_23255B000, v41, OS_LOG_TYPE_ERROR, "Unexpected type %ld for interface index %d from libnetcore event %@", buf, 0x1Cu);
+        *v44 = [v15 type];
+        *&v44[8] = 1024;
+        *&v44[10] = v12;
+        v45 = 2112;
+        v46 = signpostCopy;
+        _os_log_impl(&dword_23255B000, v40, OS_LOG_TYPE_ERROR, "Unexpected type %ld for interface index %d from libnetcore event %@", buf, 0x1Cu);
       }
     }
 
@@ -339,23 +335,23 @@ LABEL_21:
           v26 = v33;
           processId = [signpostCopy processId];
           *buf = 136317187;
-          *v45 = v13;
-          *&v45[8] = 1024;
-          *&v45[10] = v12;
-          v46 = 2081;
-          v47 = v42;
-          v48 = 2081;
-          v49 = v43;
-          v50 = 2113;
-          v51 = v23;
-          v52 = 2048;
-          v53 = processId;
-          v54 = 2048;
-          v55 = v18;
-          v56 = 2112;
-          v57 = v4;
-          v58 = 2117;
-          v59 = v24;
+          *v44 = v13;
+          *&v44[8] = 1024;
+          *&v44[10] = v12;
+          v45 = 2081;
+          v46 = v41;
+          v47 = 2081;
+          v48 = v42;
+          v49 = 2113;
+          v50 = v23;
+          v51 = 2048;
+          v52 = processId;
+          v53 = 2048;
+          v54 = v18;
+          v55 = 2112;
+          v56 = v4;
+          v57 = 2117;
+          v58 = v24;
           v28 = "TLSHandshakeFailed";
           goto LABEL_46;
         }
@@ -368,23 +364,23 @@ LABEL_21:
           v26 = v37;
           processId2 = [signpostCopy processId];
           *buf = 136317187;
-          *v45 = v13;
-          *&v45[8] = 1024;
-          *&v45[10] = v12;
-          v46 = 2081;
-          v47 = v42;
-          v48 = 2081;
-          v49 = v43;
-          v50 = 2113;
-          v51 = v23;
-          v52 = 2048;
-          v53 = processId2;
-          v54 = 2048;
-          v55 = v18;
-          v56 = 2112;
-          v57 = v4;
-          v58 = 2117;
-          v59 = v24;
+          *v44 = v13;
+          *&v44[8] = 1024;
+          *&v44[10] = v12;
+          v45 = 2081;
+          v46 = v41;
+          v47 = 2081;
+          v48 = v42;
+          v49 = 2113;
+          v50 = v23;
+          v51 = 2048;
+          v52 = processId2;
+          v53 = 2048;
+          v54 = v18;
+          v55 = 2112;
+          v56 = v4;
+          v57 = 2117;
+          v58 = v24;
           v28 = "DNSFailed";
           goto LABEL_46;
         }
@@ -397,23 +393,23 @@ LABEL_21:
           v26 = v29;
           processId3 = [signpostCopy processId];
           *buf = 136317187;
-          *v45 = v13;
-          *&v45[8] = 1024;
-          *&v45[10] = v12;
-          v46 = 2081;
-          v47 = v42;
-          v48 = 2081;
-          v49 = v43;
-          v50 = 2113;
-          v51 = v23;
-          v52 = 2048;
-          v53 = processId3;
-          v54 = 2048;
-          v55 = v18;
-          v56 = 2112;
-          v57 = v4;
-          v58 = 2117;
-          v59 = v24;
+          *v44 = v13;
+          *&v44[8] = 1024;
+          *&v44[10] = v12;
+          v45 = 2081;
+          v46 = v41;
+          v47 = 2081;
+          v48 = v42;
+          v49 = 2113;
+          v50 = v23;
+          v51 = 2048;
+          v52 = processId3;
+          v53 = 2048;
+          v54 = v18;
+          v55 = 2112;
+          v56 = v4;
+          v57 = 2117;
+          v58 = v24;
           v28 = "TLSHandshakeTimeout";
           goto LABEL_46;
         }
@@ -433,23 +429,23 @@ LABEL_21:
           v26 = v31;
           processId4 = [signpostCopy processId];
           *buf = 136317187;
-          *v45 = v13;
-          *&v45[8] = 1024;
-          *&v45[10] = v12;
-          v46 = 2081;
-          v47 = v42;
-          v48 = 2081;
-          v49 = v43;
-          v50 = 2113;
-          v51 = v23;
-          v52 = 2048;
-          v53 = processId4;
-          v54 = 2048;
-          v55 = v18;
-          v56 = 2112;
-          v57 = v4;
-          v58 = 2117;
-          v59 = v24;
+          *v44 = v13;
+          *&v44[8] = 1024;
+          *&v44[10] = v12;
+          v45 = 2081;
+          v46 = v41;
+          v47 = 2081;
+          v48 = v42;
+          v49 = 2113;
+          v50 = v23;
+          v51 = 2048;
+          v52 = processId4;
+          v53 = 2048;
+          v54 = v18;
+          v55 = 2112;
+          v56 = v4;
+          v57 = 2117;
+          v58 = v24;
           v28 = "dataStall";
           goto LABEL_46;
         }
@@ -462,23 +458,23 @@ LABEL_21:
           v26 = v35;
           processId5 = [signpostCopy processId];
           *buf = 136317187;
-          *v45 = v13;
-          *&v45[8] = 1024;
-          *&v45[10] = v12;
-          v46 = 2081;
-          v47 = v42;
-          v48 = 2081;
-          v49 = v43;
-          v50 = 2113;
-          v51 = v23;
-          v52 = 2048;
-          v53 = processId5;
-          v54 = 2048;
-          v55 = v18;
-          v56 = 2112;
-          v57 = v4;
-          v58 = 2117;
-          v59 = v24;
+          *v44 = v13;
+          *&v44[8] = 1024;
+          *&v44[10] = v12;
+          v45 = 2081;
+          v46 = v41;
+          v47 = 2081;
+          v48 = v42;
+          v49 = 2113;
+          v50 = v23;
+          v51 = 2048;
+          v52 = processId5;
+          v53 = 2048;
+          v54 = v18;
+          v55 = 2112;
+          v56 = v4;
+          v57 = 2117;
+          v58 = v24;
           v28 = "adaptiveWriteTimeout";
           goto LABEL_46;
         }
@@ -491,23 +487,23 @@ LABEL_21:
           v26 = v25;
           processId6 = [signpostCopy processId];
           *buf = 136317187;
-          *v45 = v13;
-          *&v45[8] = 1024;
-          *&v45[10] = v12;
-          v46 = 2081;
-          v47 = v42;
-          v48 = 2081;
-          v49 = v43;
-          v50 = 2113;
-          v51 = v23;
-          v52 = 2048;
-          v53 = processId6;
-          v54 = 2048;
-          v55 = v18;
-          v56 = 2112;
-          v57 = v4;
-          v58 = 2117;
-          v59 = v24;
+          *v44 = v13;
+          *&v44[8] = 1024;
+          *&v44[10] = v12;
+          v45 = 2081;
+          v46 = v41;
+          v47 = 2081;
+          v48 = v42;
+          v49 = 2113;
+          v50 = v23;
+          v51 = 2048;
+          v52 = processId6;
+          v53 = 2048;
+          v54 = v18;
+          v55 = 2112;
+          v56 = v4;
+          v57 = 2117;
+          v58 = v24;
           v28 = "adaptiveReadTimeout";
 LABEL_46:
           _os_signpost_emit_with_name_impl(&dword_23255B000, v26, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v28, "iftype=%s ifIndex=%d bundle=%{private}s procName=%{private}s eprocName=%{private}@ pid=%lld epid=%lld EUUID=%@ endpoint=%{sensitive}@", buf, 0x58u);
@@ -516,13 +512,11 @@ LABEL_46:
         break;
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connect:(_transport_connection_s *)connect connId:(unint64_t)id writefn:(void *)writefn auditToken:(id *)token pid:(unint64_t)pid name:(char *)name verifiedDelegateSymptom:(BOOL)symptom
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   self->_connection = connect;
   self->_connectionId = id;
   self->_writeFn = writefn;
@@ -547,9 +541,9 @@ LABEL_46:
   v13 = [MEMORY[0x277D46F50] identifierWithPid:pid];
   if (v13)
   {
-    v31 = 0;
-    v14 = [MEMORY[0x277D46F48] handleForIdentifier:v13 error:&v31];
-    v15 = v31;
+    v30 = 0;
+    v14 = [MEMORY[0x277D46F48] handleForIdentifier:v13 error:&v30];
+    v15 = v30;
     if (v14)
     {
       identity = [v14 identity];
@@ -607,13 +601,11 @@ LABEL_46:
     v28 = [(TransportHandler *)self description];
     uTF8String2 = [v28 UTF8String];
     *buf = 136315138;
-    v33 = uTF8String2;
+    v32 = uTF8String2;
     _os_log_impl(&dword_23255B000, v27, OS_LOG_TYPE_DEBUG, "TransportHandler: Connect of %s", buf, 0xCu);
   }
 
   [transportConnections addObject:self];
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnect
@@ -648,7 +640,7 @@ LABEL_46:
 
 - (void)didReceiveEvent:(id)event
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v4 = transportLogHandle;
   if (os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_INFO))
@@ -661,19 +653,17 @@ LABEL_46:
   {
     v5 = v4;
     v6 = [eventCopy description];
-    v8 = 136315138;
+    v7 = 136315138;
     uTF8String = [v6 UTF8String];
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "Received basic symptom, event %s", &v8, 0xCu);
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "Received basic symptom, event %s", &v7, 0xCu);
   }
 
   [SimpleSymptomEvaluator postIncomingEvent:eventCopy];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendFilterUpdate
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (self->_filterUpdateOutstanding)
   {
     filterMessage = [(ReporterFilter *)self->_reporterFilter filterMessage];
@@ -685,7 +675,7 @@ LABEL_46:
       v6 = v5 + 12;
       if (v5 == -12)
       {
-        [(TransportHandler *)&v15 startRead];
+        [(TransportHandler *)&v14 startRead];
       }
 
       v7 = v5;
@@ -709,41 +699,38 @@ LABEL_46:
       {
         pid = self->_pid;
         processName = self->_processName;
-        v15 = 134218242;
-        v16 = pid;
-        v17 = 2080;
-        v18 = processName;
-        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_INFO, "Updating symptom filters for pid %llu,  %s", &v15, 0x16u);
+        v14 = 134218242;
+        v15 = pid;
+        v16 = 2080;
+        v17 = processName;
+        _os_log_impl(&dword_23255B000, v11, OS_LOG_TYPE_INFO, "Updating symptom filters for pid %llu,  %s", &v14, 0x16u);
       }
 
       (self->_writeFn)(self->_connection, self->_connectionId, v9, v6);
       free(v9);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_sendAck:(unsigned int)ack
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v5 = transportLogHandle;
   if (os_log_type_enabled(transportLogHandle, OS_LOG_TYPE_DEBUG))
   {
-    v7[0] = 67109120;
-    v7[1] = ack;
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "Sending an ack for seqno %d", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = ack;
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEBUG, "Sending an ack for seqno %d", v6, 8u);
   }
 
   dword_27DDA04E0 = ack;
   (self->_writeFn)(self->_connection, self->_connectionId);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivePayload:(const void *)payload length:(unint64_t)length
 {
   selfCopy = self;
-  v135 = *MEMORY[0x277D85DE8];
+  v134 = *MEMORY[0x277D85DE8];
   disabled = self->_disabled;
   v8 = &transportLogHandle;
   v9 = transportLogHandle;
@@ -752,7 +739,7 @@ LABEL_46:
   {
     if (!v10)
     {
-      goto LABEL_17;
+      return;
     }
 
     processName = selfCopy->_processName;
@@ -782,7 +769,7 @@ LABEL_46:
     *&buf[24] = v16;
     *&buf[28] = 1024;
     *&buf[30] = v17;
-    v133 = 2048;
+    v132 = 2048;
     lengthCopy = length;
     _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_DEBUG, "receivePayload: reporter %s desc %p type %d len %d msg size %lu\n", buf, 0x2Cu);
   }
@@ -823,16 +810,16 @@ LABEL_14:
         goto LABEL_16;
       }
 
-      v24 = selfCopy->_processName;
-      if (!v24)
+      v23 = selfCopy->_processName;
+      if (!v23)
       {
-        v24 = "unknown-process";
+        v23 = "unknown-process";
       }
 
       *buf = 134218242;
       *&buf[4] = length;
       *&buf[12] = 2080;
-      *&buf[14] = v24;
+      *&buf[14] = v23;
       v20 = "receivePayload: inner payload under size %lu, sender %s (possible mismatch between SymptomReporter framework and the daemon?)\n";
       goto LABEL_14;
     }
@@ -840,33 +827,33 @@ LABEL_14:
     payload = payload + 4;
   }
 
-  v25 = off_278989000;
-  v130 = selfCopy;
+  v24 = off_278989000;
+  v129 = selfCopy;
   while (1)
   {
-    v26 = *payload;
-    if (v26 > 2)
+    v25 = *payload;
+    if (v25 > 2)
     {
-      switch(v26)
+      switch(v25)
       {
         case 3u:
           if (!selfCopy->_reporterId)
           {
             if (*(payload + 1) != 36)
             {
-              v117 = *v8;
+              v116 = *v8;
               if (!os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
               {
                 goto LABEL_16;
               }
 
-              v118 = *(payload + 1);
+              v117 = *(payload + 1);
               *buf = 67109376;
               *&buf[4] = 36;
               *&buf[8] = 1024;
-              *&buf[10] = v118;
+              *&buf[10] = v117;
               v20 = "receivePayload: unexpected size for SYMTLV_SENDER_ID, expect %d, found %d (possible mismatch between SymptomReporter framework and the daemon?)";
-              v21 = v117;
+              v21 = v116;
 LABEL_162:
               v22 = 14;
               goto LABEL_15;
@@ -875,54 +862,54 @@ LABEL_162:
             selfCopy->_reporterVersion = *(payload + 4);
             if (*(payload + 5))
             {
-              v38 = [SymptomStore nameFromReporterId:?];
-              if (!v38)
+              v37 = [SymptomStore nameFromReporterId:?];
+              if (!v37)
               {
-                v106 = *v8;
+                v105 = *v8;
                 if (!os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_16;
                 }
 
-                v127 = *(payload + 5);
-                v128 = selfCopy->_processName;
-                if (!v128)
+                v126 = *(payload + 5);
+                v127 = selfCopy->_processName;
+                if (!v127)
                 {
-                  v128 = "unknown-process";
+                  v127 = "unknown-process";
                 }
 
 LABEL_195:
                 *buf = 67109378;
-                *&buf[4] = v127;
+                *&buf[4] = v126;
                 *&buf[8] = 2080;
-                *&buf[10] = v128;
+                *&buf[10] = v127;
                 v20 = "receivePayload: unknown reporter id: %u sender %s";
                 goto LABEL_196;
               }
 
-              v39 = v38;
+              v38 = v37;
               selfCopy->_reporterId = *(payload + 5);
-              uTF8String = [v38 UTF8String];
+              uTF8String = [v37 UTF8String];
               if (!uTF8String)
               {
                 [ManagedEventHandler initWithName:buf];
               }
 
-              v41 = strdup(uTF8String);
-              if (!v41)
+              v40 = strdup(uTF8String);
+              if (!v40)
               {
                 [EventDescription initWithType:buf length:? data:? fromPid:? named:? bundleId:?];
               }
 
-              selfCopy->_reporterName = v41;
-              v42 = [ReporterFilter filterForId:selfCopy->_reporterId];
+              selfCopy->_reporterName = v40;
+              v41 = [ReporterFilter filterForId:selfCopy->_reporterId];
               reporterFilter = selfCopy->_reporterFilter;
-              selfCopy->_reporterFilter = v42;
+              selfCopy->_reporterFilter = v41;
 
-              v44 = selfCopy->_reporterFilter;
-              if (v44)
+              v43 = selfCopy->_reporterFilter;
+              if (v43)
               {
-                filterMessage = [(ReporterFilter *)v44 filterMessage];
+                filterMessage = [(ReporterFilter *)v43 filterMessage];
 
                 if (filterMessage)
                 {
@@ -934,31 +921,31 @@ LABEL_195:
             else
             {
               selfCopy->_reporterId = 14613999;
-              v71 = strndup(payload + 8, 0x1FuLL);
-              if (!v71)
+              v70 = strndup(payload + 8, 0x1FuLL);
+              if (!v70)
               {
                 [TransportHandler receivePayload:buf length:?];
               }
 
-              selfCopy->_reporterName = v71;
+              selfCopy->_reporterName = v70;
             }
 
-            v72 = *v8;
+            v71 = *v8;
             if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEBUG))
             {
               reporterId = selfCopy->_reporterId;
-              v74 = selfCopy->_reporterName;
+              v73 = selfCopy->_reporterName;
               reporterVersion = selfCopy->_reporterVersion;
               filterUpdateOutstanding = selfCopy->_filterUpdateOutstanding;
               *buf = 67109890;
               *&buf[4] = reporterId;
               *&buf[8] = 2080;
-              *&buf[10] = v74;
+              *&buf[10] = v73;
               *&buf[18] = 1024;
               *&buf[20] = reporterVersion;
               *&buf[24] = 1024;
               *&buf[26] = filterUpdateOutstanding;
-              _os_log_impl(&dword_23255B000, v72, OS_LOG_TYPE_DEBUG, "Found Sender ID, Added reporter id %d name %s version %d filter updated %d", buf, 0x1Eu);
+              _os_log_impl(&dword_23255B000, v71, OS_LOG_TYPE_DEBUG, "Found Sender ID, Added reporter id %d name %s version %d filter updated %d", buf, 0x1Eu);
             }
           }
 
@@ -966,25 +953,25 @@ LABEL_100:
           payloadCopy3 = payload;
           goto LABEL_101;
         case 7u:
-          v27 = selfCopy->_reporterVersion;
-          if (v27)
+          v26 = selfCopy->_reporterVersion;
+          if (v26)
           {
-            if (v27 != 1)
+            if (v26 != 1)
             {
-              v114 = *v8;
+              v113 = *v8;
               if (!os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
               {
                 goto LABEL_16;
               }
 
-              v116 = selfCopy->_reporterVersion;
+              v115 = selfCopy->_reporterVersion;
               *buf = 67109376;
-              *&buf[4] = v116;
+              *&buf[4] = v115;
               *&buf[8] = 1024;
               *&buf[10] = 1;
               v20 = "receivePayload: unexpected version transition, %d to %d";
 LABEL_159:
-              v21 = v114;
+              v21 = v113;
               goto LABEL_162;
             }
           }
@@ -996,25 +983,25 @@ LABEL_159:
 
           if (*(payload + 1) != 48)
           {
-            v109 = *v8;
+            v108 = *v8;
             if (!os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
             {
               goto LABEL_16;
             }
 
-            v112 = *(payload + 1);
-            v113 = selfCopy->_processName;
-            if (!v113)
+            v111 = *(payload + 1);
+            v112 = selfCopy->_processName;
+            if (!v112)
             {
-              v113 = "unknown-process";
+              v112 = "unknown-process";
             }
 
             *buf = 67109634;
-            *&buf[4] = v112;
+            *&buf[4] = v111;
             *&buf[8] = 2048;
             *&buf[10] = 48;
             *&buf[18] = 2080;
-            *&buf[20] = v113;
+            *&buf[20] = v112;
             v20 = "receivePayload: SYMTLV_STATUS has bad len, %u, expect %lu,  sender %s (possible mismatch between SymptomReporter framework and the daemon?)\n";
             goto LABEL_156;
           }
@@ -1023,48 +1010,48 @@ LABEL_159:
           {
             if (*(payload + 5))
             {
-              v46 = [SymptomStore nameFromReporterId:?];
-              if (!v46)
+              v45 = [SymptomStore nameFromReporterId:?];
+              if (!v45)
               {
-                v106 = *v8;
+                v105 = *v8;
                 if (!os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_16;
                 }
 
-                v127 = *(payload + 5);
-                v128 = selfCopy->_processName;
-                if (!v128)
+                v126 = *(payload + 5);
+                v127 = selfCopy->_processName;
+                if (!v127)
                 {
-                  v128 = "unknown-process";
+                  v127 = "unknown-process";
                 }
 
                 goto LABEL_195;
               }
 
-              v47 = v46;
+              v46 = v45;
               selfCopy->_reporterId = *(payload + 5);
-              uTF8String2 = [v46 UTF8String];
+              uTF8String2 = [v45 UTF8String];
               if (!uTF8String2)
               {
                 [ManagedEventHandler initWithName:buf];
               }
 
-              v49 = strdup(uTF8String2);
-              if (!v49)
+              v48 = strdup(uTF8String2);
+              if (!v48)
               {
                 [EventDescription initWithType:buf length:? data:? fromPid:? named:? bundleId:?];
               }
 
-              selfCopy->_reporterName = v49;
-              v50 = [ReporterFilter filterForId:selfCopy->_reporterId];
-              v51 = selfCopy->_reporterFilter;
-              selfCopy->_reporterFilter = v50;
+              selfCopy->_reporterName = v48;
+              v49 = [ReporterFilter filterForId:selfCopy->_reporterId];
+              v50 = selfCopy->_reporterFilter;
+              selfCopy->_reporterFilter = v49;
 
-              v52 = selfCopy->_reporterFilter;
-              if (v52)
+              v51 = selfCopy->_reporterFilter;
+              if (v51)
               {
-                filterMessage2 = [(ReporterFilter *)v52 filterMessage];
+                filterMessage2 = [(ReporterFilter *)v51 filterMessage];
 
                 if (filterMessage2)
                 {
@@ -1076,13 +1063,13 @@ LABEL_159:
             else
             {
               selfCopy->_reporterId = 14613999;
-              v77 = strndup(payload + 20, 0x1FuLL);
-              if (!v77)
+              v76 = strndup(payload + 20, 0x1FuLL);
+              if (!v76)
               {
                 [TransportHandler receivePayload:buf length:?];
               }
 
-              selfCopy->_reporterName = v77;
+              selfCopy->_reporterName = v76;
             }
           }
 
@@ -1091,24 +1078,24 @@ LABEL_159:
             selfCopy->_readOutstanding = 0;
             if (*(payload + 2) != selfCopy->_ackId)
             {
-              v78 = *v8;
+              v77 = *v8;
               if (os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
               {
-                v79 = *(payload + 2);
+                v78 = *(payload + 2);
                 ackId = selfCopy->_ackId;
-                v81 = selfCopy->_processName;
-                if (!v81)
+                v80 = selfCopy->_processName;
+                if (!v80)
                 {
-                  v81 = "unknown-process";
+                  v80 = "unknown-process";
                 }
 
                 *buf = 67109634;
-                *&buf[4] = v79;
+                *&buf[4] = v78;
                 *&buf[8] = 1024;
                 *&buf[10] = ackId;
                 *&buf[14] = 2080;
-                *&buf[16] = v81;
-                _os_log_impl(&dword_23255B000, v78, OS_LOG_TYPE_ERROR, "receivePayload: SYMTLV_STATUS has ack ID %d, expect %d, sender %s\n", buf, 0x18u);
+                *&buf[16] = v80;
+                _os_log_impl(&dword_23255B000, v77, OS_LOG_TYPE_ERROR, "receivePayload: SYMTLV_STATUS has ack ID %d, expect %d, sender %s\n", buf, 0x18u);
               }
             }
           }
@@ -1120,20 +1107,20 @@ LABEL_159:
 
           goto LABEL_100;
         case 0x28u:
-          v104 = selfCopy->_reporterVersion;
-          if (v104)
+          v103 = selfCopy->_reporterVersion;
+          if (v103)
           {
-            if (v104 != 2)
+            if (v103 != 2)
             {
-              v114 = *v8;
+              v113 = *v8;
               if (!os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
               {
                 goto LABEL_16;
               }
 
-              v105 = selfCopy->_reporterVersion;
+              v104 = selfCopy->_reporterVersion;
               *buf = 67109376;
-              *&buf[4] = v105;
+              *&buf[4] = v104;
               *&buf[8] = 1024;
               *&buf[10] = 2;
               v20 = "receivePayload: unexpected version transition, %d to %d";
@@ -1152,124 +1139,124 @@ LABEL_159:
             goto LABEL_171;
           }
 
-          v106 = *v8;
+          v105 = *v8;
           if (!os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_16;
           }
 
-          v125 = *(payload + 1);
-          v126 = selfCopy->_processName;
-          if (!v126)
+          v124 = *(payload + 1);
+          v125 = selfCopy->_processName;
+          if (!v125)
           {
-            v126 = "unknown-process";
+            v125 = "unknown-process";
           }
 
           *buf = 67109378;
-          *&buf[4] = v125;
+          *&buf[4] = v124;
           *&buf[8] = 2080;
-          *&buf[10] = v126;
+          *&buf[10] = v125;
           v20 = "receivePayload: SYMTLV_TERMINAL_SOLICIT_ACK payload unexpected size %d, sender %s (possible mismatch between SymptomReporter framework and the daemon?)\n";
 LABEL_196:
-          v21 = v106;
+          v21 = v105;
           v22 = 18;
           goto LABEL_15;
       }
 
 LABEL_144:
-      v106 = *v8;
+      v105 = *v8;
       if (!os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_16;
       }
 
-      v107 = *payload;
-      v108 = selfCopy->_processName;
-      if (!v108)
+      v106 = *payload;
+      v107 = selfCopy->_processName;
+      if (!v107)
       {
-        v108 = "unknown-process";
+        v107 = "unknown-process";
       }
 
       *buf = 67109378;
-      *&buf[4] = v107;
+      *&buf[4] = v106;
       *&buf[8] = 2080;
-      *&buf[10] = v108;
+      *&buf[10] = v107;
       v20 = "Unknown SYMTLV value %d, sender %s\n";
       goto LABEL_196;
     }
 
-    if (v26 != 2)
+    if (v25 != 2)
     {
       if (!*payload)
       {
 LABEL_171:
         if (!selfCopy->_filterUpdateOutstanding)
         {
-          goto LABEL_17;
+          return;
         }
 
-        v122 = selfCopy->_reporterVersion;
-        v123 = filterLogHandle;
-        if (v122 == 2)
+        v121 = selfCopy->_reporterVersion;
+        v122 = filterLogHandle;
+        if (v121 == 2)
         {
           if (os_log_type_enabled(filterLogHandle, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_impl(&dword_23255B000, v123, OS_LOG_TYPE_DEBUG, "receivePayload: start filter update due to _filterUpdateOutstanding\n", buf, 2u);
+            _os_log_impl(&dword_23255B000, v122, OS_LOG_TYPE_DEBUG, "receivePayload: start filter update due to _filterUpdateOutstanding\n", buf, 2u);
           }
 
           [(TransportHandler *)selfCopy _sendFilterUpdate];
-          goto LABEL_17;
+          return;
         }
 
-        if (v122 == 1)
+        if (v121 == 1)
         {
           if (os_log_type_enabled(filterLogHandle, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
-            _os_log_impl(&dword_23255B000, v123, OS_LOG_TYPE_DEBUG, "receivePayload: start read due to _filterUpdateOutstanding\n", buf, 2u);
+            _os_log_impl(&dword_23255B000, v122, OS_LOG_TYPE_DEBUG, "receivePayload: start read due to _filterUpdateOutstanding\n", buf, 2u);
           }
 
           [(TransportHandler *)selfCopy startRead];
-          goto LABEL_17;
+          return;
         }
 
         if (!os_log_type_enabled(filterLogHandle, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_17;
+          return;
         }
 
-        v124 = selfCopy->_processName;
-        if (!v124)
+        v123 = selfCopy->_processName;
+        if (!v123)
         {
-          v124 = "unknown-process";
+          v123 = "unknown-process";
         }
 
         *buf = 136315138;
-        *&buf[4] = v124;
+        *&buf[4] = v123;
         v12 = "Unexpected update filter action for %s when reporterversion not known";
-        v13 = v123;
+        v13 = v122;
         v14 = OS_LOG_TYPE_ERROR;
 LABEL_6:
         _os_log_impl(&dword_23255B000, v13, v14, v12, buf, 0xCu);
-        goto LABEL_17;
+        return;
       }
 
-      if (v26 == 1)
+      if (v25 == 1)
       {
-        v84 = *v8;
+        v83 = *v8;
         if (os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
         {
-          v85 = selfCopy->_processName;
-          if (!v85)
+          v84 = selfCopy->_processName;
+          if (!v84)
           {
-            v85 = "unknown-process";
+            v84 = "unknown-process";
           }
 
           *buf = 136315138;
-          *&buf[4] = v85;
+          *&buf[4] = v84;
           v20 = "receivePayload: OUTER_ENVELOPE received, sender %s\n";
-          v21 = v84;
+          v21 = v83;
           v22 = 12;
 LABEL_15:
           _os_log_impl(&dword_23255B000, v21, OS_LOG_TYPE_ERROR, v20, buf, v22);
@@ -1277,7 +1264,7 @@ LABEL_15:
 
 LABEL_16:
         selfCopy->_disabled = 1;
-        goto LABEL_17;
+        return;
       }
 
       goto LABEL_144;
@@ -1285,42 +1272,42 @@ LABEL_16:
 
     if (*(payload + 1) != 88)
     {
-      v109 = *v8;
+      v108 = *v8;
       if (!os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_16;
       }
 
-      v110 = *(payload + 1);
-      v111 = selfCopy->_processName;
-      if (!v111)
+      v109 = *(payload + 1);
+      v110 = selfCopy->_processName;
+      if (!v110)
       {
-        v111 = "unknown-process";
+        v110 = "unknown-process";
       }
 
       *buf = 67109634;
-      *&buf[4] = v110;
+      *&buf[4] = v109;
       *&buf[8] = 2048;
       *&buf[10] = 88;
       *&buf[18] = 2080;
-      *&buf[20] = v111;
+      *&buf[20] = v110;
       v20 = "receivePayload: SYMTLV_SYM_BASIC has bad len, %d, expect %lu, sender %s (possible mismatch between SymptomReporter framework and the daemon?)\n";
 LABEL_156:
-      v21 = v109;
+      v21 = v108;
       v22 = 28;
       goto LABEL_15;
     }
 
-    v28 = objc_alloc(v25[8]);
+    v27 = objc_alloc(v24[8]);
     pid = selfCopy->_pid;
-    v30 = selfCopy->_processName;
+    v29 = selfCopy->_processName;
     bundleId = selfCopy->_bundleId;
     verifiedDelegateSymptom = selfCopy->_verifiedDelegateSymptom;
-    v33 = *&selfCopy->_auditToken.val[4];
+    v32 = *&selfCopy->_auditToken.val[4];
     *buf = *selfCopy->_auditToken.val;
-    *&buf[16] = v33;
-    LOBYTE(v129) = verifiedDelegateSymptom;
-    v131 = [v28 initWithType:0 length:88 data:payload + 4 fromAuditToken:buf fromPid:pid named:v30 bundleId:bundleId verifiedDelegateSymptom:v129];
+    *&buf[16] = v32;
+    LOBYTE(v128) = verifiedDelegateSymptom;
+    v130 = [v27 initWithType:0 length:88 data:payload + 4 fromAuditToken:buf fromPid:pid named:v29 bundleId:bundleId verifiedDelegateSymptom:v128];
     if ((*(payload + 11) & 0x40) != 0)
     {
       break;
@@ -1328,49 +1315,49 @@ LABEL_156:
 
     payloadCopy3 = payload;
 LABEL_36:
-    eventKey = [v131 eventKey];
+    eventKey = [v130 eventKey];
 
     if (!eventKey)
     {
-      v36 = [SymptomStore keyFromSymptomId:*(payload + 5)];
-      [v131 setEventKey:v36];
+      v35 = [SymptomStore keyFromSymptomId:*(payload + 5)];
+      [v130 setEventKey:v35];
     }
 
-    v37 = *(payload + 5);
-    selfCopy = v130;
-    if ((v37 & 0xFF000) == 0x67000 && (v37 & 0x67FFEu) - 421890 <= 5)
+    v36 = *(payload + 5);
+    selfCopy = v129;
+    if ((v36 & 0xFF000) == 0x67000 && (v36 & 0x67FFEu) - 421890 <= 5)
     {
-      [(TransportHandler *)v130 generateLibnetcoreSymptomSignpost:v131];
+      [(TransportHandler *)v129 generateLibnetcoreSymptomSignpost:v130];
     }
 
-    [(TransportHandler *)v130 didReceiveEvent:v131];
+    [(TransportHandler *)v129 didReceiveEvent:v130];
 
-    v25 = off_278989000;
+    v24 = off_278989000;
 LABEL_101:
-    v82 = payloadCopy3[1];
-    v83 = length >= v82 + 4;
-    length -= v82 + 4;
-    if (!v83)
+    v81 = payloadCopy3[1];
+    v82 = length >= v81 + 4;
+    length -= v81 + 4;
+    if (!v82)
     {
-      v86 = *v8;
+      v85 = *v8;
       if (os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
       {
-        v88 = *payloadCopy3;
-        v89 = payloadCopy3[1];
-        v90 = selfCopy->_processName;
-        if (!v90)
+        v87 = *payloadCopy3;
+        v88 = payloadCopy3[1];
+        v89 = selfCopy->_processName;
+        if (!v89)
         {
-          v90 = "unknown-process";
+          v89 = "unknown-process";
         }
 
         *buf = 67109634;
-        *&buf[4] = v88;
+        *&buf[4] = v87;
         *&buf[8] = 1024;
-        *&buf[10] = v89;
+        *&buf[10] = v88;
         *&buf[14] = 2080;
-        *&buf[16] = v90;
+        *&buf[16] = v89;
         v20 = "receivePayload: SYMTLV code %d has bad len, %ul, sender %s\n";
-        v21 = v86;
+        v21 = v85;
         v22 = 24;
         goto LABEL_15;
       }
@@ -1378,253 +1365,252 @@ LABEL_101:
       goto LABEL_16;
     }
 
-    payload = payloadCopy3 + v82 + 4;
+    payload = payloadCopy3 + v81 + 4;
     if (length <= 3)
     {
       goto LABEL_171;
     }
   }
 
-  v54 = *v8;
+  v53 = *v8;
   if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
-    _os_log_impl(&dword_23255B000, v54, OS_LOG_TYPE_DEBUG, "Parsing additional qualifiers", buf, 2u);
+    _os_log_impl(&dword_23255B000, v53, OS_LOG_TYPE_DEBUG, "Parsing additional qualifiers", buf, 2u);
   }
 
-  v55 = 20;
+  v54 = 20;
   payloadCopy3 = payload;
   while (1)
   {
-    v56 = payloadCopy3[1];
-    v57 = length - v56 - 4;
-    if (v57 <= 3)
+    v55 = payloadCopy3[1];
+    v56 = length - v55 - 4;
+    if (v56 <= 3)
     {
-      v91 = *v8;
-      v92 = v130;
+      v90 = *v8;
+      v91 = v129;
       if (os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
       {
-        v93 = v130->_processName;
-        if (!v93)
+        v92 = v129->_processName;
+        if (!v92)
         {
-          v93 = "unknown-process";
+          v92 = "unknown-process";
         }
 
         *buf = 134218242;
-        *&buf[4] = v57;
+        *&buf[4] = v56;
         *&buf[12] = 2080;
-        *&buf[14] = v93;
-        v94 = "receivePayload: remaining qualifier length %zd from %s is insufficient to form a tlv (corrupted or incomplete data?)";
-        v95 = v91;
-        v96 = 22;
+        *&buf[14] = v92;
+        v93 = "receivePayload: remaining qualifier length %zd from %s is insufficient to form a tlv (corrupted or incomplete data?)";
+        v94 = v90;
+        v95 = 22;
         goto LABEL_136;
       }
 
 LABEL_137:
-      v92->_disabled = 1;
+      v91->_disabled = 1;
       goto LABEL_138;
     }
 
-    v58 = payloadCopy3 + v56 + 4;
-    if (*v58 != 8)
+    v57 = payloadCopy3 + v55 + 4;
+    if (*v57 != 8)
     {
       goto LABEL_36;
     }
 
-    payloadCopy3 = (payloadCopy3 + v56 + 4);
-    v59 = *(v58 + 2);
-    v60 = *v8;
+    payloadCopy3 = (payloadCopy3 + v55 + 4);
+    v58 = *(v57 + 2);
+    v59 = *v8;
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 67109120;
-      *&buf[4] = v59;
-      _os_log_impl(&dword_23255B000, v60, OS_LOG_TYPE_DEBUG, "receivePayload: Additional qualifier with length %hu", buf, 8u);
+      *&buf[4] = v58;
+      _os_log_impl(&dword_23255B000, v59, OS_LOG_TYPE_DEBUG, "receivePayload: Additional qualifier with length %hu", buf, 8u);
     }
 
-    if ((v59 & 3) != 0)
+    if ((v58 & 3) != 0)
     {
-      v97 = *v8;
-      v92 = v130;
+      v96 = *v8;
+      v91 = v129;
       if (os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
       {
-        v98 = v130->_processName;
+        v97 = v129->_processName;
+        if (!v97)
+        {
+          v97 = "unknown-process";
+        }
+
+        *buf = 67109378;
+        *&buf[4] = v58;
+        *&buf[8] = 2080;
+        *&buf[10] = v97;
+        v93 = "receivePayload: found unpadded qualifier, supplied length %hu from %s";
+LABEL_131:
+        v94 = v96;
+        v95 = 18;
+LABEL_136:
+        _os_log_impl(&dword_23255B000, v94, OS_LOG_TYPE_ERROR, v93, buf, v95);
+      }
+
+      goto LABEL_137;
+    }
+
+    if (v56 < v58 + 4)
+    {
+      v96 = *v8;
+      v91 = v129;
+      if (os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
+      {
+        v98 = v129->_processName;
         if (!v98)
         {
           v98 = "unknown-process";
         }
 
         *buf = 67109378;
-        *&buf[4] = v59;
+        *&buf[4] = v58;
         *&buf[8] = 2080;
         *&buf[10] = v98;
-        v94 = "receivePayload: found unpadded qualifier, supplied length %hu from %s";
-LABEL_131:
-        v95 = v97;
-        v96 = 18;
-LABEL_136:
-        _os_log_impl(&dword_23255B000, v95, OS_LOG_TYPE_ERROR, v94, buf, v96);
+        v93 = "receivePayload: qualifier length %hu in excess of supplied data from %s";
+        goto LABEL_131;
       }
 
       goto LABEL_137;
     }
 
-    if (v57 < v59 + 4)
+    if (v58 <= 0xB)
     {
-      v97 = *v8;
-      v92 = v130;
+      v96 = *v8;
+      v91 = v129;
       if (os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
       {
-        v99 = v130->_processName;
+        v99 = v129->_processName;
         if (!v99)
         {
           v99 = "unknown-process";
         }
 
         *buf = 67109378;
-        *&buf[4] = v59;
+        *&buf[4] = v58;
         *&buf[8] = 2080;
         *&buf[10] = v99;
-        v94 = "receivePayload: qualifier length %hu in excess of supplied data from %s";
+        v93 = "receivePayload: symptom qualifier length %hu insufficient for qualifier from %s";
         goto LABEL_131;
       }
 
       goto LABEL_137;
     }
 
-    if (v59 <= 0xB)
+    v60 = (v57 + 4);
+    v61 = v8;
+    v62 = *(v57 + 8);
+    v63 = v61;
+    v64 = *v61;
+    if (os_log_type_enabled(*v61, OS_LOG_TYPE_DEBUG))
     {
-      v97 = *v8;
-      v92 = v130;
-      if (os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
-      {
-        v100 = v130->_processName;
-        if (!v100)
-        {
-          v100 = "unknown-process";
-        }
-
-        *buf = 67109378;
-        *&buf[4] = v59;
-        *&buf[8] = 2080;
-        *&buf[10] = v100;
-        v94 = "receivePayload: symptom qualifier length %hu insufficient for qualifier from %s";
-        goto LABEL_131;
-      }
-
-      goto LABEL_137;
-    }
-
-    v61 = (v58 + 4);
-    v62 = v8;
-    v63 = *(v58 + 8);
-    v64 = v62;
-    v65 = *v62;
-    if (os_log_type_enabled(*v62, OS_LOG_TYPE_DEBUG))
-    {
-      v66 = *v61;
+      v65 = *v60;
       *buf = 67109376;
-      *&buf[4] = v66;
+      *&buf[4] = v65;
       *&buf[8] = 1024;
-      *&buf[10] = v63;
-      _os_log_impl(&dword_23255B000, v65, OS_LOG_TYPE_DEBUG, "receivePayload: symptom qualifier type %u with length %u", buf, 0xEu);
+      *&buf[10] = v62;
+      _os_log_impl(&dword_23255B000, v64, OS_LOG_TYPE_DEBUG, "receivePayload: symptom qualifier type %u with length %u", buf, 0xEu);
     }
 
-    if (v63 + 8 > v59)
+    if (v62 + 8 > v58)
     {
-      v101 = *v64;
-      v102 = os_log_type_enabled(*v64, OS_LOG_TYPE_ERROR);
-      v92 = v130;
-      if (v102)
+      v100 = *v63;
+      v101 = os_log_type_enabled(*v63, OS_LOG_TYPE_ERROR);
+      v91 = v129;
+      if (v101)
       {
-        v103 = v130->_processName;
-        if (!v103)
+        v102 = v129->_processName;
+        if (!v102)
         {
-          v103 = "unknown-process";
+          v102 = "unknown-process";
         }
 
         *buf = 67109634;
-        *&buf[4] = v63;
+        *&buf[4] = v62;
         *&buf[8] = 1024;
-        *&buf[10] = v59;
+        *&buf[10] = v58;
         *&buf[14] = 2080;
-        *&buf[16] = v103;
-        v94 = "receivePayload: symptom qualifier unpadded length %u + symptom qualifier tlv is greater than padded length %hu from %s";
-        v95 = v101;
-        v96 = 24;
+        *&buf[16] = v102;
+        v93 = "receivePayload: symptom qualifier unpadded length %u + symptom qualifier tlv is greater than padded length %hu from %s";
+        v94 = v100;
+        v95 = 24;
         goto LABEL_136;
       }
 
       goto LABEL_137;
     }
 
-    if ((*v61 & 0x20000000) == 0)
+    if ((*v60 & 0x20000000) == 0)
     {
       break;
     }
 
-    v67 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v58 + 12 length:strnlen((v58 + 12) encoding:{*(v58 + 8)), 4}];
-    [v131 setEventKey:v67];
-    v8 = v64;
+    v66 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:v57 + 12 length:strnlen((v57 + 12) encoding:{*(v57 + 8)), 4}];
+    [v130 setEventKey:v66];
+    v8 = v63;
 LABEL_82:
 
-    v70 = *v8;
+    v69 = *v8;
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134217984;
-      *&buf[4] = v61;
-      _os_log_impl(&dword_23255B000, v70, OS_LOG_TYPE_DEBUG, "Added qualifier at %p", buf, 0xCu);
+      *&buf[4] = v60;
+      _os_log_impl(&dword_23255B000, v69, OS_LOG_TYPE_DEBUG, "Added qualifier at %p", buf, 0xCu);
     }
 
-    length = v57;
-    if (!--v55)
+    length = v56;
+    if (!--v54)
     {
       goto LABEL_36;
     }
   }
 
-  v67 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", *v61];
-  v8 = v64;
-  if ((*v61 & 0x80000000) == 0 || *(v58 + 8) == 32)
+  v66 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d", *v60];
+  v8 = v63;
+  if ((*v60 & 0x80000000) == 0 || *(v57 + 8) == 32)
   {
-    if ((*v61 & 0x40000000) == 0)
+    if ((*v60 & 0x40000000) == 0)
     {
-      v68 = [MEMORY[0x277CBEA90] dataWithBytes:v58 + 12 length:*(v58 + 8)];
-      eventQualifiers = [v131 eventQualifiers];
-      [eventQualifiers setObject:v68 forKey:v67];
+      v67 = [MEMORY[0x277CBEA90] dataWithBytes:v57 + 12 length:*(v57 + 8)];
+      eventQualifiers = [v130 eventQualifiers];
+      [eventQualifiers setObject:v67 forKey:v66];
     }
 
     goto LABEL_82;
   }
 
-  v119 = *v64;
-  if (os_log_type_enabled(*v64, OS_LOG_TYPE_ERROR))
+  v118 = *v63;
+  if (os_log_type_enabled(*v63, OS_LOG_TYPE_ERROR))
   {
-    v120 = *(v58 + 8);
-    v121 = v130->_processName;
-    if (!v121)
+    v119 = *(v57 + 8);
+    v120 = v129->_processName;
+    if (!v120)
     {
-      v121 = "unknown-process";
+      v120 = "unknown-process";
     }
 
     *buf = 67109378;
-    *&buf[4] = v120;
+    *&buf[4] = v119;
     *&buf[8] = 2080;
-    *&buf[10] = v121;
-    _os_log_impl(&dword_23255B000, v119, OS_LOG_TYPE_ERROR, "receivePayload: digest has bad len, %ul, sender %s\n", buf, 0x12u);
+    *&buf[10] = v120;
+    _os_log_impl(&dword_23255B000, v118, OS_LOG_TYPE_ERROR, "receivePayload: digest has bad len, %ul, sender %s\n", buf, 0x12u);
   }
 
-  v130->_disabled = 1;
+  v129->_disabled = 1;
 
 LABEL_138:
-LABEL_17:
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivePayload:(char *)a1 length:.cold.3(char **a1)
 {
   if (OUTLINED_FUNCTION_1_0())
   {
-    OUTLINED_FUNCTION_0_1(&dword_23255B000, v2, v3, "strndup() failed", v4, v5, v6, v7, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0_1(&dword_23255B000, v2, v3, "strndup() failed", v4, v5, v6, v7, v8);
   }
 
   *a1 = 0;

@@ -1054,7 +1054,7 @@ void __VCHardwareSettings_FrontCameraOffsetFromDisplayCenter_block_invoke()
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCHardwareSettings: Failed to allocate memory for hardware usage mode settings", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d VCHardwareSettings: Failed to allocate memory for hardware usage mode settings", v2, v3, v4, v5);
     }
   }
 }

@@ -14,8 +14,7 @@
   v4 = sub_238154EDC();
   selfCopy2 = self;
   v6 = v4;
-  v8 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC17DeviceDiscoveryUI25FieldPickerViewController_fieldSaveHandler);
-  v7 = *(&self->super.super.super._responderFlags + OBJC_IVAR____TtC17DeviceDiscoveryUI25FieldPickerViewController_fieldSaveHandler);
+  v7 = *(&self->super.super.super.super.isa + OBJC_IVAR____TtC17DeviceDiscoveryUI25FieldPickerViewController_fieldSaveHandler);
   if (!(v4 >> 62))
   {
     if (*((v4 & 0xFFFFFFFFFFFFFF8) + 0x10))
@@ -28,9 +27,9 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v13 = sub_2381554FC();
+  v12 = sub_2381554FC();
   selfCopy2 = self;
-  if (!v13)
+  if (!v12)
   {
     goto LABEL_10;
   }
@@ -39,8 +38,8 @@ LABEL_3:
   if ((v6 & 0xC000000000000001) != 0)
   {
 LABEL_11:
-    v14 = selfCopy2;
-    v11 = MEMORY[0x2383E9A70](0, v6);
+    v13 = selfCopy2;
+    v10 = MEMORY[0x2383E9A70](0, v6);
     goto LABEL_6;
   }
 
@@ -50,13 +49,13 @@ LABEL_11:
     return;
   }
 
-  v9 = *(v6 + 32);
-  v10 = selfCopy2;
-  v11 = v9;
+  v8 = *(v6 + 32);
+  v9 = selfCopy2;
+  v10 = v8;
 LABEL_6:
-  v12 = v11;
+  v11 = v10;
 
-  v8(v12);
+  v7(v11);
 }
 
 - (_TtC17DeviceDiscoveryUI25FieldPickerViewController)initWithCoder:(id)coder

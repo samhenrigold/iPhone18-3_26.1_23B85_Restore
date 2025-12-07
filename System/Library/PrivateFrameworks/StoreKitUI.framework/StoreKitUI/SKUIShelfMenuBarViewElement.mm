@@ -129,11 +129,11 @@ void __59__SKUIShelfMenuBarViewElement_enumerateChildrenUsingBlock___block_invok
   v39 = *MEMORY[0x277D85DE8];
   style = [(SKUIShelfMenuBarViewElement *)self style];
   v4 = [style valueForStyle:@"itml-shelf-layout"];
-  v5 = [v4 isEqualToString:@"zooming"];
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-  if (v5)
+  if (isEqualToString)
   {
-    v28 = v5;
+    v28 = isEqualToString;
     v29 = selfCopy;
     [(SKUIShelfMenuBarViewElement *)selfCopy children];
     v34 = 0u;
@@ -204,7 +204,7 @@ void __59__SKUIShelfMenuBarViewElement_enumerateChildrenUsingBlock___block_invok
 
     v18 = 2;
     selfCopy = v29;
-    v5 = v28;
+    isEqualToString = v28;
   }
 
   else
@@ -223,7 +223,7 @@ void __59__SKUIShelfMenuBarViewElement_enumerateChildrenUsingBlock___block_invok
   regularViewElements = selfCopy->_regularViewElements;
   selfCopy->_regularViewElements = v21;
 
-  if (v5)
+  if (isEqualToString)
   {
     v23 = &__block_literal_global_14;
     v24 = selfCopy;

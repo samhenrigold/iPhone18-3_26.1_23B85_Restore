@@ -31,9 +31,9 @@
 
 - (BOOL)canPerformWithActivityItems:(id)items
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
-  if (_ShareSheetIsBrowser())
+  if (_ShareSheetIsBrowser(itemsCopy, v4))
   {
     if (canPerformWithActivityItems__onceToken != -1)
     {
@@ -42,50 +42,50 @@
 
     if (canPerformWithActivityItems__addToHomeScreenDisabled == 1)
     {
-      v4 = share_sheet_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = share_sheet_log();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v5 = "UIAddToHomeScreenActivity: 'Add to Home Screen' is disabled";
+        v6 = "UIAddToHomeScreenActivity: 'Add to Home Screen' is disabled";
 LABEL_9:
-        _os_log_impl(&dword_18B359000, v4, OS_LOG_TYPE_DEFAULT, v5, buf, 2u);
+        _os_log_impl(&dword_18B359000, v5, OS_LOG_TYPE_DEFAULT, v6, buf, 2u);
       }
     }
 
     else
     {
-      v30 = 0u;
       v31 = 0u;
-      v28 = 0u;
+      v32 = 0u;
       v29 = 0u;
-      v4 = itemsCopy;
-      v8 = [v4 countByEnumeratingWithState:&v28 objects:v34 count:16];
-      if (v8)
+      v30 = 0u;
+      v5 = itemsCopy;
+      v9 = [v5 countByEnumeratingWithState:&v29 objects:v35 count:16];
+      if (v9)
       {
-        v9 = v8;
-        v10 = *v29;
+        v10 = v9;
+        v11 = *v30;
         while (2)
         {
-          for (i = 0; i != v9; ++i)
+          for (i = 0; i != v10; ++i)
           {
-            if (*v29 != v10)
+            if (*v30 != v11)
             {
-              objc_enumerationMutation(v4);
+              objc_enumerationMutation(v5);
             }
 
-            v12 = *(*(&v28 + 1) + 8 * i);
+            v13 = *(*(&v29 + 1) + 8 * i);
             if (objc_opt_respondsToSelector())
             {
-              v19 = [v12 URL];
-              isHTTPOrHTTPSURL = [v19 isHTTPOrHTTPSURL];
+              v20 = [v13 URL];
+              isHTTPOrHTTPSURL = [v20 isHTTPOrHTTPSURL];
 
               if ((isHTTPOrHTTPSURL & 1) == 0)
               {
-                v20 = share_sheet_log();
-                if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+                v21 = share_sheet_log();
+                if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 0;
-                  _os_log_impl(&dword_18B359000, v20, OS_LOG_TYPE_DEFAULT, "UIAddToHomeScreenActivity: Activity item did not provide an eligible HTTP(S) URL", buf, 2u);
+                  _os_log_impl(&dword_18B359000, v21, OS_LOG_TYPE_DEFAULT, "UIAddToHomeScreenActivity: Activity item did not provide an eligible HTTP(S) URL", buf, 2u);
                 }
               }
 
@@ -93,8 +93,8 @@ LABEL_9:
             }
           }
 
-          v9 = [v4 countByEnumeratingWithState:&v28 objects:v34 count:16];
-          if (v9)
+          v10 = [v5 countByEnumeratingWithState:&v29 objects:v35 count:16];
+          if (v10)
           {
             continue;
           }
@@ -105,35 +105,35 @@ LABEL_9:
 
       if (NSClassFromString(&cfstr_Wkwebview.isa))
       {
-        v26 = 0u;
         v27 = 0u;
-        v24 = 0u;
+        v28 = 0u;
         v25 = 0u;
-        v13 = v4;
-        v14 = [v13 countByEnumeratingWithState:&v24 objects:v33 count:16];
-        if (v14)
+        v26 = 0u;
+        v14 = v5;
+        v15 = [v14 countByEnumeratingWithState:&v25 objects:v34 count:16];
+        if (v15)
         {
-          v15 = v14;
-          v16 = *v25;
+          v16 = v15;
+          v17 = *v26;
 LABEL_23:
-          v17 = 0;
+          v18 = 0;
           while (1)
           {
-            if (*v25 != v16)
+            if (*v26 != v17)
             {
-              objc_enumerationMutation(v13);
+              objc_enumerationMutation(v14);
             }
 
-            v18 = *(*(&v24 + 1) + 8 * v17);
+            v19 = *(*(&v25 + 1) + 8 * v18);
             if (objc_opt_isKindOfClass())
             {
               break;
             }
 
-            if (v15 == ++v17)
+            if (v16 == ++v18)
             {
-              v15 = [v13 countByEnumeratingWithState:&v24 objects:v33 count:16];
-              if (v15)
+              v16 = [v14 countByEnumeratingWithState:&v25 objects:v34 count:16];
+              if (v16)
               {
                 goto LABEL_23;
               }
@@ -142,15 +142,15 @@ LABEL_23:
             }
           }
 
-          v4 = v18;
+          v5 = v19;
 
-          if (!v4)
+          if (!v5)
           {
             goto LABEL_37;
           }
 
-          v21 = [v4 URL];
-          isHTTPOrHTTPSURL2 = [v21 isHTTPOrHTTPSURL];
+          v22 = [v5 URL];
+          isHTTPOrHTTPSURL2 = [v22 isHTTPOrHTTPSURL];
 
           if (isHTTPOrHTTPSURL2)
           {
@@ -158,11 +158,11 @@ LABEL_23:
             goto LABEL_11;
           }
 
-          v23 = share_sheet_log();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          v24 = share_sheet_log();
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_18B359000, v23, OS_LOG_TYPE_DEFAULT, "UIAddToHomeScreenActivity: WKWebView is not currently displaying an eligible HTTP(S) URL", buf, 2u);
+            _os_log_impl(&dword_18B359000, v24, OS_LOG_TYPE_DEFAULT, "UIAddToHomeScreenActivity: WKWebView is not currently displaying an eligible HTTP(S) URL", buf, 2u);
           }
         }
 
@@ -171,24 +171,24 @@ LABEL_23:
 LABEL_29:
 
 LABEL_37:
-          v23 = share_sheet_log();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+          v24 = share_sheet_log();
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&dword_18B359000, v23, OS_LOG_TYPE_DEFAULT, "UIAddToHomeScreenActivity: activityItems array does not contain a WKWebView", buf, 2u);
+            _os_log_impl(&dword_18B359000, v24, OS_LOG_TYPE_DEFAULT, "UIAddToHomeScreenActivity: activityItems array does not contain a WKWebView", buf, 2u);
           }
 
-          v4 = 0;
+          v5 = 0;
         }
 
         goto LABEL_10;
       }
 
-      v4 = share_sheet_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = share_sheet_log();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v5 = "UIAddToHomeScreenActivity: activityItems array cannot contain a WKWebView";
+        v6 = "UIAddToHomeScreenActivity: activityItems array cannot contain a WKWebView";
         goto LABEL_9;
       }
     }
@@ -196,11 +196,11 @@ LABEL_37:
 
   else
   {
-    v4 = share_sheet_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = share_sheet_log();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v5 = "UIAddToHomeScreenActivity: App does not have the default browser entitlement";
+      v6 = "UIAddToHomeScreenActivity: App does not have the default browser entitlement";
       goto LABEL_9;
     }
   }
@@ -220,26 +220,26 @@ void __57__UIAddToHomeScreenActivity_canPerformWithActivityItems___block_invoke(
 
 - (void)prepareWithActivityItems:(id)items
 {
-  v41 = *MEMORY[0x1E69E9840];
-  v35 = 0u;
-  v36 = 0u;
+  v43 = *MEMORY[0x1E69E9840];
   v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   itemsCopy = items;
-  v4 = [itemsCopy countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v4 = [itemsCopy countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v4)
   {
-    v5 = *v36;
+    v5 = *v38;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v36 != v5)
+        if (*v38 != v5)
         {
           objc_enumerationMutation(itemsCopy);
         }
 
-        v7 = *(*(&v35 + 1) + 8 * i);
+        v7 = *(*(&v37 + 1) + 8 * i);
         getWKWebViewClass();
         if (objc_opt_isKindOfClass())
         {
@@ -248,25 +248,25 @@ void __57__UIAddToHomeScreenActivity_canPerformWithActivityItems___block_invoke(
 
           if (isHTTPOrHTTPSURL)
           {
-            objc_initWeak(&location, self);
-            v18 = objc_alloc(getSFAddToHomeScreenViewControllerClass());
-            v32[0] = MEMORY[0x1E69E9820];
-            v32[1] = 3221225472;
-            v32[2] = __54__UIAddToHomeScreenActivity_prepareWithActivityItems___block_invoke;
-            v32[3] = &unk_1E71F94C8;
-            objc_copyWeak(&v33, &location);
-            v19 = [v18 initWithWebView:v7 completion:v32];
+            inited = objc_initWeak(&location, self);
+            v20 = objc_alloc(getSFAddToHomeScreenViewControllerClass(inited));
+            v34[0] = MEMORY[0x1E69E9820];
+            v34[1] = 3221225472;
+            v34[2] = __54__UIAddToHomeScreenActivity_prepareWithActivityItems___block_invoke;
+            v34[3] = &unk_1E71F94C8;
+            objc_copyWeak(&v35, &location);
+            v21 = [v20 initWithWebView:v7 completion:v34];
             addToHomeScreenViewController = self->_addToHomeScreenViewController;
-            self->_addToHomeScreenViewController = v19;
+            self->_addToHomeScreenViewController = v21;
 
-            objc_destroyWeak(&v33);
+            objc_destroyWeak(&v35);
             objc_destroyWeak(&location);
             goto LABEL_26;
           }
         }
       }
 
-      v4 = [itemsCopy countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v4 = [itemsCopy countByEnumeratingWithState:&v37 objects:v42 count:16];
       if (v4)
       {
         continue;
@@ -276,25 +276,25 @@ void __57__UIAddToHomeScreenActivity_canPerformWithActivityItems___block_invoke(
     }
   }
 
+  v32 = 0u;
+  v33 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v28 = 0u;
-  v29 = 0u;
   v10 = itemsCopy;
-  v11 = [v10 countByEnumeratingWithState:&v28 objects:v39 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v30 objects:v41 count:16];
   if (v11)
   {
-    v12 = *v29;
+    v12 = *v31;
     while (2)
     {
       for (j = 0; j != v11; ++j)
       {
-        if (*v29 != v12)
+        if (*v31 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v28 + 1) + 8 * j);
+        v14 = *(*(&v30 + 1) + 8 * j);
         if (objc_opt_respondsToSelector() & 1) != 0 && (objc_opt_respondsToSelector())
         {
           v15 = v14;
@@ -303,21 +303,21 @@ void __57__UIAddToHomeScreenActivity_canPerformWithActivityItems___block_invoke(
 
           if (isHTTPOrHTTPSURL2)
           {
-            v21 = objc_alloc(getSFAddToHomeScreenViewControllerClass());
+            v23 = objc_alloc(getSFAddToHomeScreenViewControllerClass(v18));
             if (objc_opt_respondsToSelector())
             {
               objc_initWeak(&location, self);
-              v22 = v21;
-              v26[0] = MEMORY[0x1E69E9820];
-              v26[1] = 3221225472;
-              v26[2] = __54__UIAddToHomeScreenActivity_prepareWithActivityItems___block_invoke_2;
-              v26[3] = &unk_1E71F94C8;
-              objc_copyWeak(&v27, &location);
-              v23 = [v22 initWithAddToHomeScreenActivityItem:v15 completion:v26];
-              v24 = self->_addToHomeScreenViewController;
-              self->_addToHomeScreenViewController = v23;
+              v24 = v23;
+              v28[0] = MEMORY[0x1E69E9820];
+              v28[1] = 3221225472;
+              v28[2] = __54__UIAddToHomeScreenActivity_prepareWithActivityItems___block_invoke_2;
+              v28[3] = &unk_1E71F94C8;
+              objc_copyWeak(&v29, &location);
+              v25 = [v24 initWithAddToHomeScreenActivityItem:v15 completion:v28];
+              v26 = self->_addToHomeScreenViewController;
+              self->_addToHomeScreenViewController = v25;
 
-              objc_destroyWeak(&v27);
+              objc_destroyWeak(&v29);
               objc_destroyWeak(&location);
             }
 
@@ -326,7 +326,7 @@ void __57__UIAddToHomeScreenActivity_canPerformWithActivityItems___block_invoke(
         }
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v28 objects:v39 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v30 objects:v41 count:16];
       if (v11)
       {
         continue;

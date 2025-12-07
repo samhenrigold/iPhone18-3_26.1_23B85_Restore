@@ -38,11 +38,11 @@
 
 - (MPSGraphPackage)initWithSourcePackageURL:(id)l error:(id *)error
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v36[1] = *MEMORY[0x1E69E9840];
   lCopy = l;
-  v30.receiver = self;
-  v30.super_class = MPSGraphPackage;
-  v8 = [(MPSGraphPackage *)&v30 init];
+  v32.receiver = self;
+  v32.super_class = MPSGraphPackage;
+  v8 = [(MPSGraphPackage *)&v32 init];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   fileManager = v8->_fileManager;
   v8->_fileManager = defaultManager;
@@ -56,71 +56,71 @@
   v8->_temporaryPackageFileLock.__ptr_ = 0;
   if (ptr)
   {
-    llvm::LockFileManager::~LockFileManager(ptr);
+    llvm::LockFileManager::~LockFileManager(ptr, v12, v13);
     MEMORY[0x1E12E5B90]();
   }
 
-  v13 = v8->_writingLockGuard.__ptr_;
+  v15 = v8->_writingLockGuard.__ptr_;
   v8->_writingLockGuard.__ptr_ = 0;
-  if (v13)
+  if (v15)
   {
-    std::default_delete<InProcessPackageWritingGuard::LockGuard>::operator()[abi:ne200100](v13);
+    std::default_delete<InProcessPackageWritingGuard::LockGuard>::operator()[abi:ne200100](v15);
   }
 
-  v29 = 0;
-  v14 = v8->_fileManager;
+  v31 = 0;
+  v16 = v8->_fileManager;
   path = [(NSURL *)v8->_packageURL path];
-  LODWORD(v14) = [(NSFileManager *)v14 fileExistsAtPath:path isDirectory:&v29];
+  LODWORD(v16) = [(NSFileManager *)v16 fileExistsAtPath:path isDirectory:&v31];
 
-  if (!v14)
+  if (!v16)
   {
     if (!error)
     {
       goto LABEL_15;
     }
 
-    v21 = MEMORY[0x1E696ABC0];
-    v31 = *MEMORY[0x1E696A578];
-    v22 = MEMORY[0x1E696AEC0];
+    v23 = MEMORY[0x1E696ABC0];
+    v33 = *MEMORY[0x1E696A578];
+    v24 = MEMORY[0x1E696AEC0];
     absoluteString = [(NSURL *)v8->_packageURL absoluteString];
-    v24 = [v22 stringWithFormat:@"Error: did not find file at url: %@", absoluteString];
-    v32 = v24;
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
-    *error = [v21 errorWithDomain:@"com.apple.mps" code:-19 userInfo:v25];
+    v26 = [v24 stringWithFormat:@"Error: did not find file at url: %@", absoluteString];
+    v34 = v26;
+    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+    *error = [v23 errorWithDomain:@"com.apple.mps" code:-19 userInfo:v27];
 
 LABEL_14:
     error = 0;
     goto LABEL_15;
   }
 
-  if ((v29 & 1) == 0)
+  if ((v31 & 1) == 0)
   {
     if (!error)
     {
       goto LABEL_15;
     }
 
-    v26 = MEMORY[0x1E696ABC0];
-    v33 = *MEMORY[0x1E696A578];
-    v34[0] = @"Error: file is unexpectedly not a directory";
-    v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
-    *error = [v26 errorWithDomain:@"com.apple.mps" code:-19 userInfo:v27];
+    v28 = MEMORY[0x1E696ABC0];
+    v35 = *MEMORY[0x1E696A578];
+    v36[0] = @"Error: file is unexpectedly not a directory";
+    v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+    *error = [v28 errorWithDomain:@"com.apple.mps" code:-19 userInfo:v29];
 
     goto LABEL_14;
   }
 
-  v16 = [(NSURL *)v8->_packageURL URLByAppendingPathComponent:@"manifest.plist"];
-  v17 = loadPlistAtURL(v16, error);
-  v18 = v17;
-  if (!v17)
+  v18 = [(NSURL *)v8->_packageURL URLByAppendingPathComponent:@"manifest.plist"];
+  v19 = loadPlistAtURL(v18, error);
+  v20 = v19;
+  if (!v19)
   {
 
     goto LABEL_14;
   }
 
-  v19 = [v17 mutableCopy];
+  v21 = [v19 mutableCopy];
   plistRoot = v8->_plistRoot;
-  v8->_plistRoot = v19;
+  v8->_plistRoot = v21;
 
   error = v8;
 LABEL_15:
@@ -161,57 +161,57 @@ LABEL_15:
 
 - (MPSGraphPackage)initWithPackageURL:(id)l temporaryPackageURL:(id)rL append:(BOOL)append
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   l;
   rLCopy = rL;
-  v26.receiver = self;
-  v26.super_class = MPSGraphPackage;
-  v23 = [(MPSGraphPackage *)&v26 init];
-  objc_storeStrong(&v23->_packageURL, l);
-  objc_storeStrong(&v23->_temporaryPackageURL, rL);
+  v28.receiver = self;
+  v28.super_class = MPSGraphPackage;
+  v25 = [(MPSGraphPackage *)&v28 init];
+  objc_storeStrong(&v25->_packageURL, l);
+  objc_storeStrong(&v25->_temporaryPackageURL, rL);
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  fileManager = v23->_fileManager;
-  v23->_fileManager = defaultManager;
+  fileManager = v25->_fileManager;
+  v25->_fileManager = defaultManager;
 
   v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  plistRoot = v23->_plistRoot;
-  v23->_plistRoot = v10;
+  plistRoot = v25->_plistRoot;
+  v25->_plistRoot = v10;
 
   v12 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  [(NSMutableDictionary *)v23->_plistRoot setObject:v12 forKeyedSubscript:@"Package Version"];
+  [(NSMutableDictionary *)v25->_plistRoot setObject:v12 forKeyedSubscript:@"Package Version"];
 
-  [(MPSGraphPackage *)v23 commonInit];
+  [(MPSGraphPackage *)v25 commonInit];
   path = [rLCopy path];
-  v21 = [path stringByAppendingString:@".lock"];
+  v23 = [path stringByAppendingString:@".lock"];
 
-  v14 = v21;
-  v15 = [v21 cStringUsingEncoding:4];
+  v14 = v23;
+  v15 = [v23 cStringUsingEncoding:4];
   v16 = strlen(v15);
   if (v16 < 0x7FFFFFFFFFFFFFF8)
   {
-    v17 = v16;
+    v19 = v16;
     if (v16 < 0x17)
     {
-      v25 = v16;
+      v27 = v16;
       if (v16)
       {
         memmove(&__dst, v15, v16);
       }
 
-      *(&__dst + v17) = 0;
-      ptr = v23->_temporaryPackageFileLock.__ptr_;
-      v23->_temporaryPackageFileLock.__ptr_ = 0;
+      *(&__dst + v19) = 0;
+      ptr = v25->_temporaryPackageFileLock.__ptr_;
+      v25->_temporaryPackageFileLock.__ptr_ = 0;
       if (ptr)
       {
-        llvm::LockFileManager::~LockFileManager(ptr);
+        llvm::LockFileManager::~LockFileManager(ptr, v17, v18);
         MEMORY[0x1E12E5B90]();
       }
 
-      v19 = v23->_writingLockGuard.__ptr_;
-      v23->_writingLockGuard.__ptr_ = 0;
-      if (v19)
+      v21 = v25->_writingLockGuard.__ptr_;
+      v25->_writingLockGuard.__ptr_ = 0;
+      if (v21)
       {
-        std::default_delete<InProcessPackageWritingGuard::LockGuard>::operator()[abi:ne200100](v19);
+        std::default_delete<InProcessPackageWritingGuard::LockGuard>::operator()[abi:ne200100](v21);
       }
 
       operator new();
@@ -690,363 +690,362 @@ LABEL_41:
 {
   var1 = resources.var1;
   var0 = resources.var0;
-  v82[60] = *MEMORY[0x1E69E9840];
+  v81[60] = *MEMORY[0x1E69E9840];
   v6 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:resources.var1];
   v7 = v6;
   if (!var1)
   {
-    v17 = v6;
+    v16 = v6;
     goto LABEL_100;
   }
 
   selfCopy = self;
-  v67 = v6;
-  v80 = v82;
-  v81 = 0xA00000000;
+  v66 = v6;
+  v79 = v81;
+  v80 = 0xA00000000;
   if (var1 >= 0xB)
   {
     __dst[0] = 0;
-    llvm::SmallVectorBase<unsigned int>::mallocForGrow(&v80, v82, var1, 48, __dst);
-    v9 = v8;
-    v10 = v80;
-    if (v81)
+    v8 = llvm::SmallVectorBase<unsigned int>::mallocForGrow(&v79, v81, var1, 48, __dst);
+    v9 = v79;
+    if (v80)
     {
-      v11 = v80 + 48 * v81;
-      v12 = v9;
+      v10 = v79 + 48 * v80;
+      v11 = v8;
       do
       {
-        v13 = *v10;
-        *(v12 + 2) = *(v10 + 2);
-        *v12 = v13;
-        *(v10 + 1) = 0;
-        *(v10 + 2) = 0;
-        *v10 = 0;
-        v14 = *(v10 + 24);
-        *(v12 + 5) = *(v10 + 5);
-        *(v12 + 24) = v14;
-        v12 += 48;
-        v10 += 48;
+        v12 = *v9;
+        *(v11 + 2) = *(v9 + 2);
+        *v11 = v12;
+        *(v9 + 1) = 0;
+        *(v9 + 2) = 0;
+        *v9 = 0;
+        v13 = *(v9 + 24);
+        *(v11 + 5) = *(v9 + 5);
+        *(v11 + 24) = v13;
+        v11 += 48;
+        v9 += 48;
       }
 
-      while (v10 != v11);
-      v10 = v80;
-      if (v81)
+      while (v9 != v10);
+      v9 = v79;
+      if (v80)
       {
-        v15 = (v80 + 48 * v81 - 48);
-        v16 = -48 * v81;
+        v14 = (v79 + 48 * v80 - 48);
+        v15 = -48 * v80;
         do
         {
-          if (*(v15 + 23) < 0)
+          if (*(v14 + 23) < 0)
           {
-            operator delete(*v15);
+            operator delete(*v14);
           }
 
-          v15 -= 6;
-          v16 += 48;
+          v14 -= 6;
+          v15 += 48;
         }
 
-        while (v16);
-        v10 = v80;
+        while (v15);
+        v9 = v79;
       }
     }
 
-    v18 = __dst[0];
-    if (v10 != v82)
+    v17 = __dst[0];
+    if (v9 != v81)
     {
-      free(v10);
+      free(v9);
     }
 
-    v80 = v9;
-    HIDWORD(v81) = v18;
+    v79 = v8;
+    HIDWORD(v80) = v17;
   }
 
-  v19 = 8 * var1;
+  v18 = 8 * var1;
   do
   {
-    v20 = *var0;
-    v21 = *var0 + 16;
+    v19 = *var0;
+    v20 = *var0 + 16;
     if (!*(*var0 + 80))
     {
-      v21 = 0;
+      v20 = 0;
     }
 
-    v22 = *(v20 + 1);
-    if (v22 > 0x7FFFFFFFFFFFFFF7)
+    v21 = *(v19 + 1);
+    if (v21 > 0x7FFFFFFFFFFFFFF7)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v23 = *v20;
-    v68 = *v21;
-    v24 = *(v21 + 16);
-    if (v22 >= 0x17)
+    v22 = *v19;
+    v67 = *v20;
+    v23 = *(v20 + 16);
+    if (v21 >= 0x17)
     {
       operator new();
     }
 
-    v77 = *(v20 + 1);
-    if (v22)
+    v76 = *(v19 + 1);
+    if (v21)
     {
-      memmove(__dst, v23, v22);
+      memmove(__dst, v22, v21);
     }
 
-    *(__dst + v22) = 0;
-    v78 = v68;
-    v79 = v24;
-    v25 = v80;
-    if (v81 >= HIDWORD(v81))
+    *(__dst + v21) = 0;
+    v77 = v67;
+    v78 = v23;
+    v24 = v79;
+    if (v80 >= HIDWORD(v80))
     {
-      if (v80 <= __dst && v80 + 48 * v81 > __dst)
+      if (v79 <= __dst && v79 + 48 * v80 > __dst)
       {
-        llvm::SmallVectorTemplateBase<support::ResourceStorage::ResourceWriteInfo,false>::grow(&v80, v81 + 1);
-        v30 = (__dst - v25);
-        v25 = v80;
-        v26 = &v30[v80];
+        llvm::SmallVectorTemplateBase<support::ResourceStorage::ResourceWriteInfo,false>::grow(&v79, v80 + 1);
+        v29 = (__dst - v24);
+        v24 = v79;
+        v25 = &v29[v79];
       }
 
       else
       {
-        llvm::SmallVectorTemplateBase<support::ResourceStorage::ResourceWriteInfo,false>::grow(&v80, v81 + 1);
-        v26 = __dst;
-        v25 = v80;
+        llvm::SmallVectorTemplateBase<support::ResourceStorage::ResourceWriteInfo,false>::grow(&v79, v80 + 1);
+        v25 = __dst;
+        v24 = v79;
       }
     }
 
     else
     {
-      v26 = __dst;
+      v25 = __dst;
     }
 
-    v27 = &v25[48 * v81];
-    v28 = *v26;
-    *(v27 + 2) = v26[2];
-    *v27 = v28;
-    v26[1] = 0;
-    v26[2] = 0;
-    *v26 = 0;
-    v29 = *(v26 + 3);
-    *(v27 + 5) = v26[5];
-    *(v27 + 24) = v29;
-    LODWORD(v81) = v81 + 1;
-    if (v77 < 0)
+    v26 = &v24[48 * v80];
+    v27 = *v25;
+    *(v26 + 2) = v25[2];
+    *v26 = v27;
+    v25[1] = 0;
+    v25[2] = 0;
+    *v25 = 0;
+    v28 = *(v25 + 3);
+    *(v26 + 5) = v25[5];
+    *(v26 + 24) = v28;
+    LODWORD(v80) = v80 + 1;
+    if (v76 < 0)
     {
       operator delete(__dst[0]);
     }
 
     ++var0;
-    v19 -= 8;
+    v18 -= 8;
   }
 
-  while (v19);
+  while (v18);
   temporaryPackageURL = selfCopy->_temporaryPackageURL;
-  v32 = +[MPSGraphPackage getResourceFileName];
-  v33 = [(NSURL *)temporaryPackageURL URLByAppendingPathComponent:v32];
-  path = [v33 path];
-  v35 = path;
-  v36 = [path cStringUsingEncoding:4];
-  v37 = strlen(v36);
-  if (v37 > 0x7FFFFFFFFFFFFFF7)
+  v31 = +[MPSGraphPackage getResourceFileName];
+  v32 = [(NSURL *)temporaryPackageURL URLByAppendingPathComponent:v31];
+  path = [v32 path];
+  v34 = path;
+  v35 = [path cStringUsingEncoding:4];
+  v36 = strlen(v35);
+  if (v36 > 0x7FFFFFFFFFFFFFF7)
   {
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  v38 = v37;
-  if (v37 >= 0x17)
+  v37 = v36;
+  if (v36 >= 0x17)
   {
     operator new();
   }
 
-  v77 = v37;
-  if (v37)
+  v76 = v36;
+  if (v36)
   {
-    memmove(__dst, v36, v37);
+    memmove(__dst, v35, v36);
   }
 
-  *(__dst + v38) = 0;
+  *(__dst + v37) = 0;
 
-  v74[0] = 0;
-  v74[1] = 0;
-  v75 = 0;
+  v73[0] = 0;
+  v73[1] = 0;
+  v74 = 0;
+  v70 = 0;
   v71 = 0;
-  v72 = 0;
-  v73 = 0x1000000000;
-  if (v77 >= 0)
+  v72 = 0x1000000000;
+  if (v76 >= 0)
   {
-    v39 = __dst;
+    v38 = __dst;
   }
 
   else
   {
-    v39 = __dst[0];
+    v38 = __dst[0];
   }
 
-  if (v77 >= 0)
+  if (v76 >= 0)
   {
-    v40 = v77;
+    v39 = v76;
   }
 
   else
   {
-    v40 = __dst[1];
+    v39 = __dst[1];
   }
 
-  __p[0] = v80;
-  __p[1] = v81;
-  if ((support::ResourceStorage::add(v39, v40, __p, &v71, v74) & 1) == 0 && MTLReportFailureTypeEnabled())
+  __p[0] = v79;
+  __p[1] = v80;
+  if ((support::ResourceStorage::add(v38, v39, __p, &v70, v73) & 1) == 0 && MTLReportFailureTypeEnabled())
   {
-    if (v75 >= 0)
+    if (v74 >= 0)
     {
-      v64 = v74;
+      v63 = v73;
     }
 
     else
     {
-      v64 = v74[0];
+      v63 = v73[0];
     }
 
-    v65 = [MEMORY[0x1E696AEC0] stringWithCString:v64 encoding:4];
+    v64 = [MEMORY[0x1E696AEC0] stringWithCString:v63 encoding:4];
     MTLReportFailure();
   }
 
-  if (v72)
+  if (v71)
   {
-    v41 = v71;
-    if (*v71)
+    v40 = v70;
+    if (*v70)
     {
-      v42 = *v71 == -8;
+      v41 = *v70 == -8;
     }
 
     else
     {
-      v42 = 1;
+      v41 = 1;
     }
 
-    if (v42)
+    if (v41)
     {
       do
       {
-        v44 = *(v41 + 1);
-        v41 += 8;
-        v43 = v44;
-        if (v44)
+        v43 = *(v40 + 1);
+        v40 += 8;
+        v42 = v43;
+        if (v43)
         {
-          v45 = v43 == -8;
+          v44 = v42 == -8;
         }
 
         else
         {
-          v45 = 1;
+          v44 = 1;
         }
       }
 
-      while (v45);
+      while (v44);
     }
 
-    v46 = v71 + 8 * v72;
-    if (v41 != v46)
+    v45 = v70 + 8 * v71;
+    if (v40 != v45)
     {
-      v47 = *v41;
+      v46 = *v40;
       do
       {
-        v48 = *v47;
-        if (*v47 > 0x7FFFFFFFFFFFFFF7)
+        v47 = *v46;
+        if (*v46 > 0x7FFFFFFFFFFFFFF7)
         {
           std::string::__throw_length_error[abi:ne200100]();
         }
 
-        v49 = MEMORY[0x1E696AEC0];
-        if (v48 >= 0x17)
+        v48 = MEMORY[0x1E696AEC0];
+        if (v47 >= 0x17)
         {
           operator new();
         }
 
-        v70 = *v47;
-        if (v48)
+        v69 = *v46;
+        if (v47)
         {
-          memmove(__p, v47 + 2, v48);
+          memmove(__p, v46 + 2, v47);
         }
 
-        *(__p + v48) = 0;
-        if (v70 >= 0)
+        *(__p + v47) = 0;
+        if (v69 >= 0)
         {
-          v50 = __p;
+          v49 = __p;
         }
 
         else
         {
-          v50 = __p[0];
+          v49 = __p[0];
         }
 
-        v51 = [v49 stringWithCString:v50 encoding:{4, v65}];
-        if (v70 < 0)
+        v50 = [v48 stringWithCString:v49 encoding:{4, v64}];
+        if (v69 < 0)
         {
           operator delete(__p[0]);
         }
 
-        v52 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v47[1]];
-        [v67 setObject:v52 forKeyedSubscript:v51];
+        v51 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v46[1]];
+        [v66 setObject:v51 forKeyedSubscript:v50];
 
         do
         {
-          v53 = *(v41 + 1);
-          v41 += 8;
-          v47 = v53;
-          if (v53)
+          v52 = *(v40 + 1);
+          v40 += 8;
+          v46 = v52;
+          if (v52)
           {
-            v54 = v47 + 1 == 0;
+            v53 = v46 + 1 == 0;
           }
 
           else
           {
-            v54 = 1;
+            v53 = 1;
           }
         }
 
-        while (v54);
+        while (v53);
       }
 
-      while (v41 != v46);
+      while (v40 != v45);
     }
   }
 
-  v7 = v67;
-  v55 = v67;
-  if (HIDWORD(v72) && v72)
+  v7 = v66;
+  v54 = v66;
+  if (HIDWORD(v71) && v71)
   {
-    v56 = 0;
+    v55 = 0;
     do
     {
-      v57 = *(v71 + v56);
-      if (v57 != -8 && v57 != 0)
+      v56 = *(v70 + v55);
+      if (v56 != -8 && v56 != 0)
       {
-        llvm::deallocate_buffer(v57, (*v57 + 17));
+        llvm::deallocate_buffer(v56, (*v56 + 17));
       }
 
-      v56 += 8;
+      v55 += 8;
     }
 
-    while (8 * v72 != v56);
+    while (8 * v71 != v55);
   }
 
-  free(v71);
-  if ((SHIBYTE(v75) & 0x80000000) == 0)
+  free(v70);
+  if ((SHIBYTE(v74) & 0x80000000) == 0)
   {
-    if ((v77 & 0x80000000) == 0)
+    if ((v76 & 0x80000000) == 0)
     {
       goto LABEL_89;
     }
 
 LABEL_97:
     operator delete(__dst[0]);
+    v58 = v79;
     v59 = v80;
-    v60 = v81;
-    if (v81)
+    if (v80)
     {
       goto LABEL_90;
     }
 
 LABEL_98:
-    if (v59 == v82)
+    if (v58 == v81)
     {
       goto LABEL_100;
     }
@@ -1054,40 +1053,40 @@ LABEL_98:
     goto LABEL_99;
   }
 
-  operator delete(v74[0]);
-  if (v77 < 0)
+  operator delete(v73[0]);
+  if (v76 < 0)
   {
     goto LABEL_97;
   }
 
 LABEL_89:
+  v58 = v79;
   v59 = v80;
-  v60 = v81;
-  if (!v81)
+  if (!v80)
   {
     goto LABEL_98;
   }
 
 LABEL_90:
-  v61 = &v59[6 * v60 - 6];
-  v62 = -48 * v60;
+  v60 = &v58[6 * v59 - 6];
+  v61 = -48 * v59;
   do
   {
-    if (*(v61 + 23) < 0)
+    if (*(v60 + 23) < 0)
     {
-      operator delete(*v61);
+      operator delete(*v60);
     }
 
-    v61 -= 48;
-    v62 += 48;
+    v60 -= 48;
+    v61 += 48;
   }
 
-  while (v62);
-  v59 = v80;
-  if (v80 != v82)
+  while (v61);
+  v58 = v79;
+  if (v79 != v81)
   {
 LABEL_99:
-    free(v59);
+    free(v58);
   }
 
 LABEL_100:
@@ -1097,13 +1096,13 @@ LABEL_100:
 
 + (void)readResources:(id)resources fromURL:(id)l error:(id *)error usingAllocator:(function_ref<char *)(llvm:(unsigned long)long :(unsigned long)long StringRef
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   resourcesCopy = resources;
   lCopy = l;
-  v56 = resourcesCopy;
+  v57 = resourcesCopy;
   if ([resourcesCopy count])
   {
-    v53 = lCopy;
+    v54 = lCopy;
     path = [lCopy path];
     v10 = [path cStringUsingEncoding:4];
     v11 = strlen(v10);
@@ -1118,7 +1117,7 @@ LABEL_100:
       operator new();
     }
 
-    v70 = v11;
+    v71 = v11;
     if (v11)
     {
       memmove(__dst, v10, v11);
@@ -1128,172 +1127,172 @@ LABEL_100:
 
     __p[0] = 0;
     __p[1] = 0;
-    v68 = 0;
-    v64 = 0;
+    v69 = 0;
     v65 = 0;
-    v66 = 0x1000000000;
-    v60 = 0u;
+    v66 = 0;
+    v67 = 0x1000000000;
     v61 = 0u;
     v62 = 0u;
     v63 = 0u;
+    v64 = 0u;
     v13 = resourcesCopy;
-    v14 = [v13 countByEnumeratingWithState:&v60 objects:v75 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v61 objects:v76 count:16];
     if (v14)
     {
-      v57 = *v61;
+      v58 = *v62;
       do
       {
         v15 = 0;
         do
         {
-          if (*v61 != v57)
+          if (*v62 != v58)
           {
             objc_enumerationMutation(v13);
           }
 
-          v16 = *(*(&v60 + 1) + 8 * v15);
-          v59 = [v13 objectForKeyedSubscript:v16];
-          unsignedLongLongValue = [v59 unsignedLongLongValue];
+          v16 = *(*(&v61 + 1) + 8 * v15);
+          v60 = [v13 objectForKeyedSubscript:v16];
+          unsignedLongLongValue = [v60 unsignedLongLongValue];
           v18 = v16;
           uTF8String = [v16 UTF8String];
-          v21 = uTF8String;
+          v22 = uTF8String;
           if (uTF8String)
           {
-            v22 = strlen(uTF8String);
+            v23 = strlen(uTF8String);
           }
 
           else
           {
-            v22 = 0;
+            v23 = 0;
           }
 
-          v23 = llvm::StringMapImpl::hash(v21, v22, v20);
-          v24 = llvm::StringMapImpl::LookupBucketFor(&v64, v21, v22, v23);
-          v25 = v64;
-          v26 = *(v64 + v24);
-          if (v26 == -8)
+          v24 = llvm::StringMapImpl::hash(v22, v23, v20, v21);
+          v25 = llvm::StringMapImpl::LookupBucketFor(&v65, v22, v23, v24);
+          v26 = v65;
+          v27 = *(v65 + v25);
+          if (v27 == -8)
           {
-            LODWORD(v66) = v66 - 1;
+            LODWORD(v67) = v67 - 1;
           }
 
-          else if (v26)
+          else if (v27)
           {
             goto LABEL_18;
           }
 
-          buffer = llvm::allocate_buffer(v22 + 17, 8uLL);
-          v28 = buffer;
-          v58 = unsignedLongLongValue;
-          v29 = v14;
-          v30 = v13;
-          v31 = (buffer + 2);
-          if (v22)
+          buffer = llvm::allocate_buffer(v23 + 17, 8uLL);
+          v29 = buffer;
+          v59 = unsignedLongLongValue;
+          v30 = v14;
+          v31 = v13;
+          v32 = (buffer + 2);
+          if (v23)
           {
-            memcpy(buffer + 2, v21, v22);
+            memcpy(buffer + 2, v22, v23);
           }
 
-          v31[v22] = 0;
-          *v28 = v22;
-          v28[1] = 0;
-          v25[v24] = v28;
-          ++HIDWORD(v65);
-          v13 = v30;
-          v32 = llvm::StringMapImpl::RehashTable(&v64, v24);
-          v14 = v29;
-          unsignedLongLongValue = v58;
-          v33 = (v64 + 8 * v32);
-          v26 = *v33;
-          if (*v33)
+          v32[v23] = 0;
+          *v29 = v23;
+          v29[1] = 0;
+          v26[v25] = v29;
+          ++HIDWORD(v66);
+          v13 = v31;
+          v33 = llvm::StringMapImpl::RehashTable(&v65, v25);
+          v14 = v30;
+          unsignedLongLongValue = v59;
+          v34 = (v65 + 8 * v33);
+          v27 = *v34;
+          if (*v34)
           {
-            v34 = v26 == -8;
+            v35 = v27 == -8;
           }
 
           else
           {
-            v34 = 1;
+            v35 = 1;
           }
 
-          if (v34)
+          if (v35)
           {
             do
             {
-              v35 = v33[1];
-              ++v33;
-              v26 = v35;
-              if (v35)
+              v36 = v34[1];
+              ++v34;
+              v27 = v36;
+              if (v36)
               {
-                v36 = v26 == -8;
+                v37 = v27 == -8;
               }
 
               else
               {
-                v36 = 1;
+                v37 = 1;
               }
             }
 
-            while (v36);
+            while (v37);
           }
 
 LABEL_18:
-          *(v26 + 8) = unsignedLongLongValue;
+          *(v27 + 8) = unsignedLongLongValue;
 
           ++v15;
         }
 
         while (v15 != v14);
-        v37 = [v13 countByEnumeratingWithState:&v60 objects:v75 count:16];
-        v14 = v37;
+        v38 = [v13 countByEnumeratingWithState:&v61 objects:v76 count:16];
+        v14 = v38;
       }
 
-      while (v37);
+      while (v38);
     }
 
-    if (v70 >= 0)
+    if (v71 >= 0)
     {
-      v38 = __dst;
+      v39 = __dst;
     }
 
     else
     {
-      v38 = __dst[0];
+      v39 = __dst[0];
     }
 
-    if (v70 >= 0)
+    if (v71 >= 0)
     {
-      v39 = v70;
+      v40 = v71;
     }
 
     else
     {
-      v39 = __dst[1];
+      v40 = __dst[1];
     }
 
-    if (support::ResourceStorage::read(v38, v39, &v64, a6.var0, a6.var1, __p))
+    if (support::ResourceStorage::read(v39, v40, &v65, a6.var0, a6.var1, __p))
     {
 LABEL_52:
-      if (HIDWORD(v65) && v65)
+      if (HIDWORD(v66) && v66)
       {
-        v48 = 0;
+        v49 = 0;
         do
         {
-          v49 = *(v64 + v48);
-          if (v49 != -8 && v49 != 0)
+          v50 = *(v65 + v49);
+          if (v50 != -8 && v50 != 0)
           {
-            llvm::deallocate_buffer(v49, (*v49 + 17));
+            llvm::deallocate_buffer(v50, (*v50 + 17));
           }
 
-          v48 += 8;
+          v49 += 8;
         }
 
-        while (8 * v65 != v48);
+        while (8 * v66 != v49);
       }
 
-      free(v64);
-      if (SHIBYTE(v68) < 0)
+      free(v65);
+      if (SHIBYTE(v69) < 0)
       {
         operator delete(__p[0]);
-        lCopy = v53;
-        if ((v70 & 0x80000000) == 0)
+        lCopy = v54;
+        if ((v71 & 0x80000000) == 0)
         {
           goto LABEL_63;
         }
@@ -1301,8 +1300,8 @@ LABEL_52:
 
       else
       {
-        lCopy = v53;
-        if ((v70 & 0x80000000) == 0)
+        lCopy = v54;
+        if ((v71 & 0x80000000) == 0)
         {
           goto LABEL_63;
         }
@@ -1314,16 +1313,16 @@ LABEL_52:
 
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v51 = __p;
-      if (v68 < 0)
+      v52 = __p;
+      if (v69 < 0)
       {
-        v51 = __p[0];
+        v52 = __p[0];
       }
 
       *buf = 136315138;
-      v74 = v51;
+      v75 = v52;
       _os_log_error_impl(&dword_1DF9BF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "%s", buf, 0xCu);
-      v40 = 0x1E696A000;
+      v41 = 0x1E696A000;
       if (!error)
       {
         goto LABEL_47;
@@ -1332,47 +1331,47 @@ LABEL_52:
 
     else
     {
-      v40 = 0x1E696A000uLL;
+      v41 = 0x1E696A000uLL;
       if (!error)
       {
         goto LABEL_47;
       }
     }
 
-    if (v68 >= 0)
+    if (v69 >= 0)
     {
-      v41 = __p;
+      v42 = __p;
     }
 
     else
     {
-      v41 = __p[0];
+      v42 = __p[0];
     }
 
-    v42 = [*(v40 + 3776) stringWithCString:v41 encoding:4];
-    v43 = MPSGraphReportFailure(&stru_1F5B5DFD0.isa, v42);
+    v43 = [*(v41 + 3776) stringWithCString:v42 encoding:4];
+    v44 = MPSGraphReportFailure(&stru_1F5B5DFD0.isa, v43);
 
-    v44 = MEMORY[0x1E696ABC0];
-    v71 = *MEMORY[0x1E696A578];
-    v45 = [*(v40 + 3776) stringWithFormat:@"%s:%d:: %@ ", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/MPSGraphComputePackage.mm", 814, v43];
-    v72 = v45;
-    v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
-    *error = [v44 errorWithDomain:@"MPSGraph" code:-1 userInfo:v46];
+    v45 = MEMORY[0x1E696ABC0];
+    v72 = *MEMORY[0x1E696A578];
+    v46 = [*(v41 + 3776) stringWithFormat:@"%s:%d:: %@ ", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/MPSGraphComputePackage.mm", 814, v44];
+    v73 = v46;
+    v47 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
+    *error = [v45 errorWithDomain:@"MPSGraph" code:-1 userInfo:v47];
 
 LABEL_47:
     if (MTLReportFailureTypeEnabled())
     {
-      if (v68 >= 0)
+      if (v69 >= 0)
       {
-        v47 = __p;
+        v48 = __p;
       }
 
       else
       {
-        v47 = __p[0];
+        v48 = __p[0];
       }
 
-      v52 = [*(v40 + 3776) stringWithCString:v47 encoding:4];
+      v53 = [*(v41 + 3776) stringWithCString:v48 encoding:4];
       MTLReportFailure();
     }
 
@@ -1544,7 +1543,7 @@ LABEL_33:
 
   v16 = mlir::mps::copyFilesToNewBasePath(a5.var0.var0, v10, v11, v14, v15, var0, var1);
 
-  if ((v16 & 1) == 0 && MTLReportFailureTypeEnabled())
+  if (!v16 && MTLReportFailureTypeEnabled())
   {
     MTLReportFailure();
   }

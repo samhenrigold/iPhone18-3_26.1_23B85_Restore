@@ -10,12 +10,12 @@
 
 - (_RETransformedFeature)initWithTransformer:(id)transformer features:(id)features
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   transformerCopy = transformer;
   featuresCopy = features;
-  v28.receiver = self;
-  v28.super_class = _RETransformedFeature;
-  v8 = [(_RETransformedFeature *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = _RETransformedFeature;
+  v8 = [(_RETransformedFeature *)&v27 init];
   if (v8)
   {
     if (([objc_opt_class() supportsInvalidation] & 1) != 0 || objc_msgSend(objc_opt_class(), "supportsPersistence"))
@@ -31,34 +31,34 @@
     v8->_features = v10;
 
     string = [MEMORY[0x277CCAB68] string];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v13 = featuresCopy;
-    v14 = [v13 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v25;
+      v16 = *v24;
       do
       {
         v17 = 0;
         do
         {
-          if (*v25 != v16)
+          if (*v24 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          name = [*(*(&v24 + 1) + 8 * v17) name];
+          name = [*(*(&v23 + 1) + 8 * v17) name];
           [string appendString:name];
 
           ++v17;
         }
 
         while (v15 != v17);
-        v15 = [v13 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v15);
@@ -74,7 +74,6 @@
     [(_RETransformedFeature *)v8 _computeHash];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -163,39 +162,37 @@ LABEL_14:
 
 - (void)_computeHash
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   self->_hash = [(REFeatureTransformer *)self->_transformer hash];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v3 = self->_features;
-  v4 = [(REFeatureSet *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [(REFeatureSet *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        self->_hash ^= [*(*(&v9 + 1) + 8 * v7++) hash];
+        self->_hash ^= [*(*(&v8 + 1) + 8 * v7++) hash];
       }
 
       while (v5 != v7);
-      v5 = [(REFeatureSet *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [(REFeatureSet *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

@@ -363,8 +363,6 @@ LABEL_12:
 {
   if (factor > 0.0)
   {
-    numberOfNonZeroValues_low = LODWORD(self->_numberOfNonZeroValues);
-    sparseValues = self->_sparseValues;
     cblas_sscal_NEWLAPACK();
   }
 }
@@ -723,17 +721,17 @@ LABEL_12:
 + (void)sparseVectorWithLength:(unint64_t)length numberOfNonZeroValues:(unint64_t)values isSparseIndexInt64:(BOOL)int64 sparseIndices:(const void *)indices sparseValues:(const float *)sparseValues toDenseValues:(float *)denseValues withLength:(unint64_t)withLength
 {
   int64Copy = int64;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   if (withLength != length)
   {
     v15 = PML_LogHandle();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v20 = 134218240;
+      v19 = 134218240;
       lengthCopy = length;
-      v22 = 2048;
+      v21 = 2048;
       withLengthCopy = withLength;
-      _os_log_impl(&dword_260D68000, v15, OS_LOG_TYPE_INFO, "PMLSparseVector: dimensions do not match between source sparse vector (%llu) and destination dense vector (%llu)", &v20, 0x16u);
+      _os_log_impl(&dword_260D68000, v15, OS_LOG_TYPE_INFO, "PMLSparseVector: dimensions do not match between source sparse vector (%llu) and destination dense vector (%llu)", &v19, 0x16u);
     }
   }
 
@@ -785,8 +783,6 @@ LABEL_12:
       while (values != v17);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sparseVectorWithLength:(unint64_t)length numberOfNonZeroValues:(unint64_t)values block:(id)block

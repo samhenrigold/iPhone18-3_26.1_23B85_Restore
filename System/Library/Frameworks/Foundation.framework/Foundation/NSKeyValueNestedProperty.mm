@@ -139,7 +139,7 @@ LABEL_7:
     ImplicitObservanceAdditionInfo = NSKeyValueGetImplicitObservanceAdditionInfo();
     v13 = *ImplicitObservanceAdditionInfo;
     *ImplicitObservanceAdditionInfo = object;
-    *(ImplicitObservanceAdditionInfo + 8) = observance;
+    *(ImplicitObservanceAdditionInfo + 1) = observance;
     os_unfair_recursive_lock_unlock();
     v12 = [object valueForKey:self->_relationshipKey];
     [v12 addObserver:observance forKeyPath:self->_keyPathFromRelatedObject options:v9 context:selfCopy];
@@ -167,15 +167,15 @@ LABEL_7:
     objectCopy = object;
     v12 = ImplicitObservanceRemovalInfo;
     v14 = *ImplicitObservanceRemovalInfo;
-    v13 = *(ImplicitObservanceRemovalInfo + 8);
-    v15 = *(ImplicitObservanceRemovalInfo + 16);
-    v16 = *(ImplicitObservanceRemovalInfo + 24);
-    v17 = *(ImplicitObservanceRemovalInfo + 32);
-    v21 = *(ImplicitObservanceRemovalInfo + 40);
+    v13 = *(ImplicitObservanceRemovalInfo + 1);
+    v15 = *(ImplicitObservanceRemovalInfo + 2);
+    v16 = *(ImplicitObservanceRemovalInfo + 3);
+    v17 = *(ImplicitObservanceRemovalInfo + 4);
+    v21 = ImplicitObservanceRemovalInfo[40];
     *ImplicitObservanceRemovalInfo = v9;
-    *(ImplicitObservanceRemovalInfo + 8) = observance;
-    *(ImplicitObservanceRemovalInfo + 16) = self->_keyPathFromRelatedObject;
-    *(ImplicitObservanceRemovalInfo + 24) = objectCopy;
+    *(ImplicitObservanceRemovalInfo + 1) = observance;
+    *(ImplicitObservanceRemovalInfo + 2) = self->_keyPathFromRelatedObject;
+    *(ImplicitObservanceRemovalInfo + 3) = objectCopy;
     v20 = objectCopy;
     if (*(observance + 2) == self)
     {
@@ -187,15 +187,15 @@ LABEL_7:
       selfCopy = self;
     }
 
-    *(ImplicitObservanceRemovalInfo + 32) = selfCopy;
-    *(ImplicitObservanceRemovalInfo + 40) = 1;
+    *(ImplicitObservanceRemovalInfo + 4) = selfCopy;
+    ImplicitObservanceRemovalInfo[40] = 1;
     [v9 removeObserver:observance forKeyPath:self->_keyPathFromRelatedObject];
     *v12 = v14;
-    *(v12 + 8) = v13;
-    *(v12 + 16) = v15;
-    *(v12 + 24) = v16;
-    *(v12 + 32) = v17;
-    *(v12 + 40) = v21;
+    *(v12 + 1) = v13;
+    *(v12 + 2) = v15;
+    *(v12 + 3) = v16;
+    *(v12 + 4) = v17;
+    v12[40] = v21;
     os_unfair_recursive_lock_lock_with_options();
     object = v20;
   }
@@ -268,33 +268,33 @@ LABEL_7:
     }
 
     ImplicitObservanceRemovalInfo = NSKeyValueGetImplicitObservanceRemovalInfo();
-    v14 = *(ImplicitObservanceRemovalInfo + 8);
+    v14 = *(ImplicitObservanceRemovalInfo + 1);
     v26 = *ImplicitObservanceRemovalInfo;
-    v15 = *(ImplicitObservanceRemovalInfo + 24);
-    v28 = *(ImplicitObservanceRemovalInfo + 16);
-    v16 = *(ImplicitObservanceRemovalInfo + 32);
-    v27 = *(ImplicitObservanceRemovalInfo + 40);
+    v15 = *(ImplicitObservanceRemovalInfo + 3);
+    v28 = *(ImplicitObservanceRemovalInfo + 2);
+    v16 = *(ImplicitObservanceRemovalInfo + 4);
+    v27 = ImplicitObservanceRemovalInfo[40];
     *ImplicitObservanceRemovalInfo = v12;
-    *(ImplicitObservanceRemovalInfo + 8) = observance;
-    *(ImplicitObservanceRemovalInfo + 16) = self->_keyPathFromRelatedObject;
-    *(ImplicitObservanceRemovalInfo + 24) = object;
-    *(ImplicitObservanceRemovalInfo + 32) = selfCopy;
-    *(ImplicitObservanceRemovalInfo + 40) = 1;
+    *(ImplicitObservanceRemovalInfo + 1) = observance;
+    *(ImplicitObservanceRemovalInfo + 2) = self->_keyPathFromRelatedObject;
+    *(ImplicitObservanceRemovalInfo + 3) = object;
+    *(ImplicitObservanceRemovalInfo + 4) = selfCopy;
+    ImplicitObservanceRemovalInfo[40] = 1;
     [v12 removeObserver:observance forKeyPath:self->_keyPathFromRelatedObject];
     *ImplicitObservanceRemovalInfo = v26;
-    *(ImplicitObservanceRemovalInfo + 8) = v14;
-    *(ImplicitObservanceRemovalInfo + 16) = v28;
-    *(ImplicitObservanceRemovalInfo + 24) = v15;
-    *(ImplicitObservanceRemovalInfo + 32) = v16;
-    *(ImplicitObservanceRemovalInfo + 40) = v27;
+    *(ImplicitObservanceRemovalInfo + 1) = v14;
+    *(ImplicitObservanceRemovalInfo + 2) = v28;
+    *(ImplicitObservanceRemovalInfo + 3) = v15;
+    *(ImplicitObservanceRemovalInfo + 4) = v16;
+    ImplicitObservanceRemovalInfo[40] = v27;
     ImplicitObservanceAdditionInfo = NSKeyValueGetImplicitObservanceAdditionInfo();
     v18 = *ImplicitObservanceAdditionInfo;
-    v19 = ImplicitObservanceAdditionInfo[1];
+    v19 = *(ImplicitObservanceAdditionInfo + 1);
     *ImplicitObservanceAdditionInfo = object;
-    ImplicitObservanceAdditionInfo[1] = observance;
+    *(ImplicitObservanceAdditionInfo + 1) = observance;
     [objc_msgSend(object valueForKey:{self->_relationshipKey), "addObserver:forKeyPath:options:context:", observance, self->_keyPathFromRelatedObject, v25, selfCopy}];
     *ImplicitObservanceAdditionInfo = v18;
-    ImplicitObservanceAdditionInfo[1] = v19;
+    *(ImplicitObservanceAdditionInfo + 1) = v19;
     var0 = v23;
     values.var1 = var1;
     *&recurse = recurseCopy;

@@ -28,12 +28,13 @@ void __39__GCNotificationManager_sharedInstance__block_invoke()
 
 - (GCNotificationManager)init
 {
-  v7.receiver = self;
-  v7.super_class = GCNotificationManager;
-  v2 = [(GCNotificationManager *)&v7 init];
+  v9.receiver = self;
+  v9.super_class = GCNotificationManager;
+  v2 = [(GCNotificationManager *)&v9 init];
+  v4 = v2;
   if (v2)
   {
-    IsGameControllerDaemon = currentProcessIsGameControllerDaemon();
+    IsGameControllerDaemon = currentProcessIsGameControllerDaemon(v2, v3);
     if (IsGameControllerDaemon)
     {
       currentNotificationCenter = [objc_alloc(MEMORY[0x1E6983308]) initWithBundleIdentifier:@"com.apple.GameControllerNotifications"];
@@ -44,18 +45,18 @@ void __39__GCNotificationManager_sharedInstance__block_invoke()
       currentNotificationCenter = [MEMORY[0x1E6983308] currentNotificationCenter];
     }
 
-    userNotificationCenter = v2->_userNotificationCenter;
-    v2->_userNotificationCenter = currentNotificationCenter;
+    userNotificationCenter = v4->_userNotificationCenter;
+    v4->_userNotificationCenter = currentNotificationCenter;
 
-    v2->_isPermissionGranted = IsGameControllerDaemon;
+    v4->_isPermissionGranted = IsGameControllerDaemon;
   }
 
-  return v2;
+  return v4;
 }
 
 - (void)requestNotificationImpl:(id)impl withReply:(id)reply
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   implCopy = impl;
   if (self->_isPermissionGranted)
   {
@@ -93,16 +94,14 @@ void __39__GCNotificationManager_sharedInstance__block_invoke()
   else
   {
     v22 = MEMORY[0x1E696ABC0];
-    v28 = *MEMORY[0x1E696A578];
-    v29[0] = @"Permission not granted";
+    v27 = *MEMORY[0x1E696A578];
+    v28[0] = @"Permission not granted";
     v23 = MEMORY[0x1E695DF20];
     replyCopy2 = reply;
-    v25 = [v23 dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v25 = [v23 dictionaryWithObjects:v28 forKeys:&v27 count:1];
     v26 = [v22 errorWithDomain:@"GCNotificationManager" code:0 userInfo:v25];
     (*(reply + 2))(replyCopy2, v26);
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (void)requestNotification:(id)notification withReply:(id)reply
@@ -136,10 +135,9 @@ void __55__GCNotificationManager_requestNotification_withReply___block_invoke(ui
 {
   if (a3)
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 40) + 16);
+    v4 = *(*(a1 + 40) + 16);
 
-    v5();
+    v4();
   }
 
   else
@@ -148,16 +146,16 @@ void __55__GCNotificationManager_requestNotification_withReply___block_invoke(ui
 
     if (WeakRetained)
     {
-      v9 = objc_loadWeakRetained((a1 + 48));
-      v9[16] = a2;
-      [v9 requestNotificationImpl:*(a1 + 32) withReply:*(a1 + 40)];
+      v8 = objc_loadWeakRetained((a1 + 48));
+      v8[16] = a2;
+      [v8 requestNotificationImpl:*(a1 + 32) withReply:*(a1 + 40)];
     }
 
     else
     {
-      v8 = *(*(a1 + 40) + 16);
+      v7 = *(*(a1 + 40) + 16);
 
-      v8();
+      v7();
     }
   }
 }

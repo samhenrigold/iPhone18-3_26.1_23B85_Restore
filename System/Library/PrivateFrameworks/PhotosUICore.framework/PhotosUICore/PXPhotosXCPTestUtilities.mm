@@ -19,7 +19,7 @@
   sub_1A3C4D23C(0, &qword_1EB12AA68, type metadata accessor for PhotosAppTestLaunchConfiguration);
   v6 = __swift_project_value_buffer(v5, qword_1EB191438);
   swift_beginAccess();
-  v7 = type metadata accessor for PhotosAppTestLaunchConfiguration();
+  v7 = type metadata accessor for PhotosAppTestLaunchConfiguration(0);
   if ((*(*(v7 - 8) + 48))(v6, 1, v7))
   {
     v8 = sub_1A5240E64();
@@ -48,7 +48,7 @@
 - (PXPhotosXCPTestUtilities)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for PhotosXCPTestUtilities();
+  v3.super_class = type metadata accessor for PhotosXCPTestUtilities(self, a2);
   return [(PXPhotosXCPTestUtilities *)&v3 init];
 }
 
@@ -69,7 +69,7 @@
   v7 = __swift_project_value_buffer(v4, qword_1EB191438);
   swift_beginAccess();
   sub_1A439768C(v7, v6, &qword_1EB12AA68, type metadata accessor for PhotosAppTestLaunchConfiguration);
-  v8 = type metadata accessor for PhotosAppTestLaunchConfiguration();
+  v8 = type metadata accessor for PhotosAppTestLaunchConfiguration(0);
   v9 = *(v8 - 8);
   v10 = (*(v9 + 48))(v6, 1, v8);
   result = sub_1A3C688C0(v6, &qword_1EB12AA68, type metadata accessor for PhotosAppTestLaunchConfiguration);

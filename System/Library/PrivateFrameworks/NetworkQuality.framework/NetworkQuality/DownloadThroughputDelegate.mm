@@ -59,77 +59,88 @@
 
 - (BOOL)checkLimits
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   if ([(NetworkQualityConfiguration *)self->super._nqConfig maxDownlinkData])
   {
     currentBytesTransferred = self->super._currentBytesTransferred;
-    if (currentBytesTransferred > [(NetworkQualityConfiguration *)self->super._nqConfig maxDownlinkData])
+    maxDownlinkData = [(NetworkQualityConfiguration *)self->super._nqConfig maxDownlinkData];
+    if (currentBytesTransferred > maxDownlinkData)
     {
-      netqual_log_init();
-      v4 = os_log_netqual;
+      netqual_log_init(maxDownlinkData, v5);
+      v6 = os_log_netqual;
       if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_DEFAULT))
       {
-        v5 = self->super._currentBytesTransferred;
+        v7 = self->super._currentBytesTransferred;
         nqConfig = self->super._nqConfig;
-        v7 = v4;
+        v9 = v6;
         *buf = 136315906;
-        v26 = "[DownloadThroughputDelegate checkLimits]";
-        v27 = 1024;
-        v28 = 551;
-        v29 = 2048;
-        v30 = *&v5;
+        v28 = "[DownloadThroughputDelegate checkLimits]";
+        v29 = 1024;
+        v30 = 551;
         v31 = 2048;
-        maxDownlinkData = [(NetworkQualityConfiguration *)nqConfig maxDownlinkData];
-        _os_log_impl(&dword_25B962000, v7, OS_LOG_TYPE_DEFAULT, "%s:%u - Downloaded too many bytes: %ld max: %ld", buf, 0x26u);
+        v32 = *&v7;
+        v33 = 2048;
+        maxDownlinkData2 = [(NetworkQualityConfiguration *)nqConfig maxDownlinkData];
+        _os_log_impl(&dword_25B962000, v9, OS_LOG_TYPE_DEFAULT, "%s:%u - Downloaded too many bytes: %ld max: %ld", buf, 0x26u);
       }
 
       if (!self->super._canceled)
       {
-        v18 = objc_alloc(MEMORY[0x277CCA9B8]);
-        v23 = *MEMORY[0x277CCA450];
-        v24 = @"Datalimit exceeded";
-        v8 = 1;
-        v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
-        v20 = [v18 initWithDomain:@"NetworkQualityErrorDomain" code:1005 userInfo:v19];
+        v21 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v25 = *MEMORY[0x277CCA450];
+        v26 = @"Datalimit exceeded";
+        v10 = 1;
+        v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+        v23 = [v21 initWithDomain:@"NetworkQualityErrorDomain" code:1005 userInfo:v22];
         error = self->super._error;
-        self->super._error = v20;
+        self->super._error = v23;
 
-        v22 = self->super._error;
         (*(self->super._completionHandler + 2))();
-        goto LABEL_16;
+        return v10;
       }
 
-      goto LABEL_6;
+      return 1;
     }
   }
 
   [(SaturationDetection *)self->super._saturation getAverage];
-  if (self->super._exitCriteriaMet || (v10 = v9, ![(NetworkQualityConfiguration *)self->super._nqConfig maxDownlinkThroughput]) || [(NetworkQualityConfiguration *)self->super._nqConfig maxDownlinkThroughput]>= v10)
+  if (self->super._exitCriteriaMet)
   {
-    v8 = 0;
-    goto LABEL_16;
+    return 0;
   }
 
-  netqual_log_init();
-  v11 = os_log_netqual;
+  v12 = v11;
+  if (![(NetworkQualityConfiguration *)self->super._nqConfig maxDownlinkThroughput])
+  {
+    return 0;
+  }
+
+  maxDownlinkThroughput = [(NetworkQualityConfiguration *)self->super._nqConfig maxDownlinkThroughput];
+  if (maxDownlinkThroughput >= v12)
+  {
+    return 0;
+  }
+
+  netqual_log_init(maxDownlinkThroughput, v14);
+  v15 = os_log_netqual;
   if (os_log_type_enabled(os_log_netqual, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = self->super._nqConfig;
-    v13 = v11;
+    v16 = self->super._nqConfig;
+    v17 = v15;
     *buf = 136315906;
-    v26 = "[DownloadThroughputDelegate checkLimits]";
-    v27 = 1024;
-    v28 = 569;
-    v29 = 2048;
-    v30 = vcvtd_n_f64_s64(v10, 0x14uLL);
+    v28 = "[DownloadThroughputDelegate checkLimits]";
+    v29 = 1024;
+    v30 = 569;
     v31 = 2048;
-    maxDownlinkData = vcvtd_n_f64_s64([(NetworkQualityConfiguration *)v12 maxDownlinkThroughput], 0x14uLL);
-    _os_log_impl(&dword_25B962000, v13, OS_LOG_TYPE_DEFAULT, "%s:%u - Downlink throughput exceeded: %.3f Mbps max: %.3f Mbps", buf, 0x26u);
+    v32 = vcvtd_n_f64_s64(v12, 0x14uLL);
+    v33 = 2048;
+    maxDownlinkData2 = vcvtd_n_f64_s64([(NetworkQualityConfiguration *)v16 maxDownlinkThroughput], 0x14uLL);
+    _os_log_impl(&dword_25B962000, v17, OS_LOG_TYPE_DEFAULT, "%s:%u - Downlink throughput exceeded: %.3f Mbps max: %.3f Mbps", buf, 0x26u);
   }
 
   [(SaturationDetection *)self->super._saturation getAverage];
-  [(DownloadThroughputDelegate *)self updateResultsWithThroughput:v14 confidence:2];
-  v8 = 1;
+  [(DownloadThroughputDelegate *)self updateResultsWithThroughput:v18 confidence:2];
+  v10 = 1;
   self->super._exitCriteriaMet = 1;
   if (!self->super._saturationReached)
   {
@@ -139,13 +150,10 @@
       saturationHandler[2]();
     }
 
-LABEL_6:
-    v8 = 1;
+    return 1;
   }
 
-LABEL_16:
-  v16 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v10;
 }
 
 @end

@@ -71,16 +71,20 @@
 uint64_t __47__TVRUILoadingView_didStartLoadingWithTimeout___block_invoke_2(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v3 = WeakRetained;
-    if (([WeakRetained isLoaded] & 1) == 0)
+    v4 = WeakRetained;
+    WeakRetained = [WeakRetained isLoaded];
+    v2 = v4;
+    if ((WeakRetained & 1) == 0)
     {
-      [v3 loadingCompleteWithContent:0];
+      WeakRetained = [v4 loadingCompleteWithContent:0];
+      v2 = v4;
     }
   }
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](WeakRetained, v2);
 }
 
 - (void)loadingCompleteWithContent:(BOOL)content

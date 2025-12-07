@@ -9,6 +9,7 @@
 - (void)setTextFieldText:(id)text;
 - (void)textFieldDidEndEditing:(id)editing;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation HSPCTextFieldViewController
@@ -190,6 +191,22 @@
   [v8 na_safeAddObject:v46];
 
   [NSLayoutConstraint activateConstraints:v8];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = HSPCTextFieldViewController;
+  [(HSPCTextFieldViewController *)&v8 viewWillAppear:appear];
+  textField = [(HSPCTextFieldViewController *)self textField];
+  text = [textField text];
+  v6 = [text length];
+
+  if (!v6)
+  {
+    textField2 = [(HSPCTextFieldViewController *)self textField];
+    [textField2 becomeFirstResponder];
+  }
 }
 
 - (void)textFieldDidEndEditing:(id)editing

@@ -16,10 +16,10 @@
 
 - (id)accessibilityElements
 {
-  v21 = *MEMORY[0x29EDCA608];
-  v19.receiver = self;
-  v19.super_class = ACSportsBaseballScoreboardViewAccessibility;
-  accessibilityElements = [(ACSportsBaseballScoreboardViewAccessibility *)&v19 accessibilityElements];
+  v20 = *MEMORY[0x29EDCA608];
+  v18.receiver = self;
+  v18.super_class = ACSportsBaseballScoreboardViewAccessibility;
+  accessibilityElements = [(ACSportsBaseballScoreboardViewAccessibility *)&v18 accessibilityElements];
   v4 = [accessibilityElements mutableCopy];
 
   v5 = [(ACSportsBaseballScoreboardViewAccessibility *)self safeValueForKey:@"_hitsLineScoreView"];
@@ -29,35 +29,33 @@
   [v4 axSafelyAddObject:v5];
   [v4 axSafelyAddObject:v6];
   v7 = [(ACSportsBaseballScoreboardViewAccessibility *)self safeValueForKey:@"matchup"];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v8 = v4;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [*(*(&v15 + 1) + 8 * i) _accessibilitySetRetainedValue:v7 forKey:{@"AXSportsMatchup", v15}];
+        [*(*(&v14 + 1) + 8 * i) _accessibilitySetRetainedValue:v7 forKey:{@"AXSportsMatchup", v14}];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v14 objects:v19 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 
   return v8;
 }

@@ -55,62 +55,61 @@
 
 void __35__AMDAppTabInfo_saveTabInfo_error___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v29 = a1;
+  v31 = *MEMORY[0x277D85DE8];
   v28 = a1;
+  v27 = a1;
   memset(__b, 0, sizeof(__b));
   obj = MEMORY[0x277D82BE0](*(a1 + 32));
-  v19 = [obj countByEnumeratingWithState:__b objects:v31 count:16];
-  if (v19)
+  v18 = [obj countByEnumeratingWithState:__b objects:v30 count:16];
+  if (v18)
   {
-    v14 = *__b[2];
-    v15 = 0;
-    v16 = v19;
+    v13 = *__b[2];
+    v14 = 0;
+    v15 = v18;
     while (1)
     {
-      v13 = v15;
-      if (*__b[2] != v14)
+      v12 = v14;
+      if (*__b[2] != v13)
       {
         objc_enumerationMutation(obj);
       }
 
-      v27 = *(__b[1] + 8 * v15);
-      v25 = [*(a1 + 32) objectForKey:v27];
-      if (v25)
+      v26 = *(__b[1] + 8 * v14);
+      v24 = [*(a1 + 32) objectForKey:v26];
+      if (v24)
       {
-        memset(v22, 0, sizeof(v22));
-        v11 = MEMORY[0x277D82BE0](v25);
-        v12 = [v11 countByEnumeratingWithState:v22 objects:v30 count:16];
-        if (v12)
+        memset(v21, 0, sizeof(v21));
+        v10 = MEMORY[0x277D82BE0](v24);
+        v11 = [v10 countByEnumeratingWithState:v21 objects:v29 count:16];
+        if (v11)
         {
-          v8 = *v22[2];
-          v9 = 0;
-          v10 = v12;
+          v7 = *v21[2];
+          v8 = 0;
+          v9 = v11;
           while (1)
           {
-            v7 = v9;
-            if (*v22[2] != v8)
+            v6 = v8;
+            if (*v21[2] != v7)
             {
-              objc_enumerationMutation(v11);
+              objc_enumerationMutation(v10);
             }
 
-            v23 = *(v22[1] + 8 * v9);
-            v4 = MEMORY[0x277CBE408];
-            v6 = +[AMDAppTabInfo entity];
-            v5 = [v6 name];
-            v1 = *(a1 + 40);
-            v21 = [v4 insertNewObjectForEntityForName:? inManagedObjectContext:?];
+            v22 = *(v21[1] + 8 * v8);
+            v3 = MEMORY[0x277CBE408];
+            v5 = +[AMDAppTabInfo entity];
+            v4 = [v5 name];
+            v20 = [v3 insertNewObjectForEntityForName:? inManagedObjectContext:?];
+            MEMORY[0x277D82BD8](v4);
             MEMORY[0x277D82BD8](v5);
-            MEMORY[0x277D82BD8](v6);
-            [v21 setTabName:v27];
-            [v21 setUseCaseId:v23];
-            objc_storeStrong(&v21, 0);
-            ++v9;
-            if (v7 + 1 >= v10)
+            [v20 setTabName:v26];
+            [v20 setUseCaseId:v22];
+            objc_storeStrong(&v20, 0);
+            ++v8;
+            if (v6 + 1 >= v9)
             {
-              v9 = 0;
-              v10 = [v11 countByEnumeratingWithState:v22 objects:v30 count:16];
-              if (!v10)
+              v8 = 0;
+              v9 = [v10 countByEnumeratingWithState:v21 objects:v29 count:16];
+              if (!v9)
               {
                 break;
               }
@@ -118,22 +117,22 @@ void __35__AMDAppTabInfo_saveTabInfo_error___block_invoke(uint64_t a1)
           }
         }
 
-        MEMORY[0x277D82BD8](v11);
-        v24 = 0;
+        MEMORY[0x277D82BD8](v10);
+        v23 = 0;
       }
 
       else
       {
-        v24 = 3;
+        v23 = 3;
       }
 
-      objc_storeStrong(&v25, 0);
-      ++v15;
-      if (v13 + 1 >= v16)
+      objc_storeStrong(&v24, 0);
+      ++v14;
+      if (v12 + 1 >= v15)
       {
-        v15 = 0;
-        v16 = [obj countByEnumeratingWithState:__b objects:v31 count:16];
-        if (!v16)
+        v14 = 0;
+        v15 = [obj countByEnumeratingWithState:__b objects:v30 count:16];
+        if (!v15)
         {
           break;
         }
@@ -142,12 +141,11 @@ void __35__AMDAppTabInfo_saveTabInfo_error___block_invoke(uint64_t a1)
   }
 
   MEMORY[0x277D82BD8](obj);
-  v2 = *(a1 + 48);
-  v3 = (*(*(a1 + 56) + 8) + 40);
-  v20 = *v3;
-  [v2 save:&v20];
-  objc_storeStrong(v3, v20);
-  *MEMORY[0x277D85DE8];
+  v1 = *(a1 + 48);
+  v2 = (*(*(a1 + 56) + 8) + 40);
+  v19 = *v2;
+  [v1 save:&v19];
+  objc_storeStrong(v2, v19);
 }
 
 + (id)refreshTabsForUseCase:(id)case tabs:(id)tabs error:(id *)error
@@ -238,7 +236,6 @@ void __35__AMDAppTabInfo_saveTabInfo_error___block_invoke(uint64_t a1)
   objc_storeStrong(&v36, 0);
   objc_storeStrong(&v38, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v6 = v41;
 
   return v6;
@@ -246,42 +243,41 @@ void __35__AMDAppTabInfo_saveTabInfo_error___block_invoke(uint64_t a1)
 
 void __50__AMDAppTabInfo_refreshTabsForUseCase_tabs_error___block_invoke(void *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v19 = a1;
+  v20 = *MEMORY[0x277D85DE8];
   v18 = a1;
+  v17 = a1;
   memset(__b, 0, sizeof(__b));
   obj = MEMORY[0x277D82BE0](a1[4]);
-  v13 = [obj countByEnumeratingWithState:__b objects:v20 count:16];
-  if (v13)
+  v12 = [obj countByEnumeratingWithState:__b objects:v19 count:16];
+  if (v12)
   {
-    v8 = *__b[2];
-    v9 = 0;
-    v10 = v13;
+    v7 = *__b[2];
+    v8 = 0;
+    v9 = v12;
     while (1)
     {
-      v7 = v9;
-      if (*__b[2] != v8)
+      v6 = v8;
+      if (*__b[2] != v7)
       {
         objc_enumerationMutation(obj);
       }
 
-      v17 = *(__b[1] + 8 * v9);
-      v4 = MEMORY[0x277CBE408];
-      v6 = +[AMDAppTabInfo entity];
-      v5 = [v6 name];
-      v1 = a1[5];
-      v15 = [v4 insertNewObjectForEntityForName:? inManagedObjectContext:?];
+      v16 = *(__b[1] + 8 * v8);
+      v3 = MEMORY[0x277CBE408];
+      v5 = +[AMDAppTabInfo entity];
+      v4 = [v5 name];
+      v14 = [v3 insertNewObjectForEntityForName:? inManagedObjectContext:?];
+      MEMORY[0x277D82BD8](v4);
       MEMORY[0x277D82BD8](v5);
-      MEMORY[0x277D82BD8](v6);
-      [v15 setTabName:v17];
-      [v15 setUseCaseId:a1[6]];
-      objc_storeStrong(&v15, 0);
-      ++v9;
-      if (v7 + 1 >= v10)
+      [v14 setTabName:v16];
+      [v14 setUseCaseId:a1[6]];
+      objc_storeStrong(&v14, 0);
+      ++v8;
+      if (v6 + 1 >= v9)
       {
-        v9 = 0;
-        v10 = [obj countByEnumeratingWithState:__b objects:v20 count:16];
-        if (!v10)
+        v8 = 0;
+        v9 = [obj countByEnumeratingWithState:__b objects:v19 count:16];
+        if (!v9)
         {
           break;
         }
@@ -290,12 +286,11 @@ void __50__AMDAppTabInfo_refreshTabsForUseCase_tabs_error___block_invoke(void *a
   }
 
   MEMORY[0x277D82BD8](obj);
-  v2 = a1[7];
-  v3 = (*(a1[8] + 8) + 40);
-  v14 = *v3;
-  [v2 save:&v14];
-  objc_storeStrong(v3, v14);
-  *MEMORY[0x277D85DE8];
+  v1 = a1[7];
+  v2 = (*(a1[8] + 8) + 40);
+  v13 = *v2;
+  [v1 save:&v13];
+  objc_storeStrong(v2, v13);
 }
 
 + (id)deleteTabsForUseCase:(id)case error:(id *)error
@@ -545,7 +540,6 @@ void __37__AMDAppTabInfo_getInfoForTab_error___block_invoke(void *a1)
   objc_storeStrong(&v23, 0);
   objc_storeStrong(&v24, 0);
   objc_storeStrong(v25, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (id)deleteAllTabs:(id *)tabs

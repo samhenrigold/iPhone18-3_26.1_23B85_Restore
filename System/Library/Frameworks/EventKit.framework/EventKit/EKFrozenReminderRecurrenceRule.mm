@@ -1,6 +1,8 @@
 @interface EKFrozenReminderRecurrenceRule
 + (int)convertFromReminderKitFrequency:(int64_t)frequency;
 + (int)convertFromReminderKitWeekday:(int64_t)weekday;
++ (int64_t)convertToReminderKitFrequency:(int)frequency;
++ (int64_t)convertToReminderKitWeekday:(int)weekday;
 - (BOOL)_applyChangesToSaveRequest:(id)request error:(id *)error;
 - (EKFrozenReminderRecurrenceRule)initWithAlternateUniverseObject:(id)object inEventStore:(id)store withUpdatedChildObjects:(id)objects;
 - (EKFrozenReminderRecurrenceRule)initWithREMObject:(id)object inStore:(id)store withChanges:(id)changes;
@@ -309,6 +311,24 @@ id __46__EKFrozenReminderRecurrenceRule_frequencyRaw__block_invoke(uint64_t a1)
   return 1;
 }
 
++ (int64_t)convertToReminderKitFrequency:(int)frequency
+{
+  result = (frequency - 1);
+  if (result >= 4)
+  {
+    v4 = *&frequency;
+    v5 = +[EKReminderStore log];
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      [(EKFrozenReminderRecurrenceRule *)v4 convertToReminderKitFrequency:v5, v6, v7, v8, v9, v10, v11];
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
 - (int64_t)interval
 {
   v5[0] = MEMORY[0x1E69E9820];
@@ -369,103 +389,116 @@ id __54__EKFrozenReminderRecurrenceRule_firstDayOfTheWeekRaw__block_invoke(uint6
   return 7;
 }
 
++ (int64_t)convertToReminderKitWeekday:(int)weekday
+{
+  v3 = *&weekday;
+  if (weekday < 8)
+  {
+    return qword_1A81C3CD0[weekday];
+  }
+
+  v5 = +[EKReminderStore log];
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  {
+    [(EKFrozenReminderRecurrenceRule *)v3 convertToReminderKitWeekday:v5, v6, v7, v8, v9, v10, v11];
+  }
+
+  return 0;
+}
+
 - (id)daysOfTheWeekFromREMRecurrenceRule
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   _recurrenceRule = [(EKFrozenReminderRecurrenceRule *)self _recurrenceRule];
   daysOfTheWeek = [_recurrenceRule daysOfTheWeek];
 
   v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(daysOfTheWeek, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = daysOfTheWeek;
-  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         v12 = [EKRecurrenceDayOfWeek alloc];
         v13 = -[EKRecurrenceDayOfWeek initWithDayOfTheWeek:weekNumber:](v12, "initWithDayOfTheWeek:weekNumber:", -[EKFrozenReminderRecurrenceRule remWeekdayToEKWeekday:](self, "remWeekdayToEKWeekday:", [v11 dayOfTheWeek]), objc_msgSend(v11, "weekNumber"));
         [v5 addObject:v13];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)remDaysOfTheWeekFromEKDaysOfTheWeek:(id)week
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   weekCopy = week;
   v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(weekCopy, "count")}];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = weekCopy;
-  v6 = [obj countByEnumeratingWithState:&v17 objects:v27 count:16];
+  v6 = [obj countByEnumeratingWithState:&v16 objects:v26 count:16];
   if (v6)
   {
-    v7 = *v18;
-    v15 = v22;
+    v7 = *v17;
+    v14 = v21;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v7)
+        if (*v17 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v17 + 1) + 8 * i);
-        v23 = 0;
-        v24 = &v23;
-        v25 = 0x2050000000;
+        v9 = *(*(&v16 + 1) + 8 * i);
+        v22 = 0;
+        v23 = &v22;
+        v24 = 0x2050000000;
         v10 = getREMRecurrenceDayOfWeekClass_softClass;
-        v26 = getREMRecurrenceDayOfWeekClass_softClass;
+        v25 = getREMRecurrenceDayOfWeekClass_softClass;
         if (!getREMRecurrenceDayOfWeekClass_softClass)
         {
-          v21[0] = MEMORY[0x1E69E9820];
-          v21[1] = 3221225472;
-          v22[0] = __getREMRecurrenceDayOfWeekClass_block_invoke;
-          v22[1] = &unk_1E77FCFD8;
-          v22[2] = &v23;
-          __getREMRecurrenceDayOfWeekClass_block_invoke(v21);
-          v10 = v24[3];
+          v20[0] = MEMORY[0x1E69E9820];
+          v20[1] = 3221225472;
+          v21[0] = __getREMRecurrenceDayOfWeekClass_block_invoke;
+          v21[1] = &unk_1E77FCFD8;
+          v21[2] = &v22;
+          __getREMRecurrenceDayOfWeekClass_block_invoke(v20);
+          v10 = v23[3];
         }
 
         v11 = v10;
-        _Block_object_dispose(&v23, 8);
-        v12 = [[v10 alloc] initWithDayOfTheWeek:-[EKFrozenReminderRecurrenceRule ekWeekdayToREMWeekday:](self weekNumber:{"ekWeekdayToREMWeekday:", objc_msgSend(v9, "dayOfTheWeek", v15)), objc_msgSend(v9, "weekNumber")}];
+        _Block_object_dispose(&v22, 8);
+        v12 = [[v10 alloc] initWithDayOfTheWeek:-[EKFrozenReminderRecurrenceRule ekWeekdayToREMWeekday:](self weekNumber:{"ekWeekdayToREMWeekday:", objc_msgSend(v9, "dayOfTheWeek", v14)), objc_msgSend(v9, "weekNumber")}];
         [v5 addObject:v12];
       }
 
-      v6 = [obj countByEnumeratingWithState:&v17 objects:v27 count:16];
+      v6 = [obj countByEnumeratingWithState:&v16 objects:v26 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -525,50 +558,18 @@ id __43__EKFrozenReminderRecurrenceRule_specifier__block_invoke(uint64_t a1)
   *positions = [(EKRecurrenceHelper *)v19 setPositions];
 }
 
-- (void)_applyChangesToSaveRequest:error:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v0, v1, "Couldn't fetch reminder to be saved: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_applyChangesToSaveRequest:error:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v0, v1, "Rule to be saved doesn't have a parent reminder: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)convertFromReminderKitFrequency:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v0, v1, "Unknown REMFrequency: %li", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 + (void)convertToReminderKitFrequency:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, a2, a3, "Unknown frequency: %li", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)convertFromReminderKitWeekday:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, v0, v1, "Unknown REMWeekday: %li", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_4(&dword_1A805E000, a2, a3, "Unknown frequency: %li", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)convertToReminderKitWeekday:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_4(&dword_1A805E000, a2, a3, "Unknown Weekday: %li", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_4(&dword_1A805E000, a2, a3, "Unknown Weekday: %li", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

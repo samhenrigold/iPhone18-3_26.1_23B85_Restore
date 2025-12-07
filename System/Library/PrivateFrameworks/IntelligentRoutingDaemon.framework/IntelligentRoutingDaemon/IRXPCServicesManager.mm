@@ -29,38 +29,38 @@
 
 - (void)startServices
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v2 = self->_listeners;
-  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v15 objects:v21 count:16];
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v16;
+    v6 = *v15;
     v7 = MEMORY[0x277D21260];
     *&v4 = 138412290;
-    v14 = v4;
+    v13 = v4;
     do
     {
       v8 = 0;
       do
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * v8);
+        v9 = *(*(&v14 + 1) + 8 * v8);
         v10 = *v7;
         if (os_log_type_enabled(*v7, OS_LOG_TYPE_DEFAULT))
         {
           v11 = v10;
           serviceName = [v9 serviceName];
-          *buf = v14;
-          v20 = serviceName;
+          *buf = v13;
+          v19 = serviceName;
           _os_log_impl(&dword_25543D000, v11, OS_LOG_TYPE_DEFAULT, "[IRXPCServicesManager] resuming listener for mach service: %@", buf, 0xCu);
         }
 
@@ -69,18 +69,16 @@
       }
 
       while (v5 != v8);
-      v5 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v15 objects:v21 count:16];
+      v5 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createServices
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
   machServices = self->_machServices;
   self->_machServices = v3;
@@ -90,55 +88,53 @@
   self->_listeners = v5;
 
   v7 = [IRRecommendationService serviceWithQueue:self->_xpcQueue];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   machServicesNames = [v7 machServicesNames];
-  v9 = [machServicesNames countByEnumeratingWithState:&v19 objects:v25 count:16];
+  v9 = [machServicesNames countByEnumeratingWithState:&v18 objects:v24 count:16];
   if (v9)
   {
     v11 = v9;
-    v12 = *v20;
+    v12 = *v19;
     v13 = MEMORY[0x277D21260];
     *&v10 = 138412290;
-    v18 = v10;
+    v17 = v10;
     do
     {
       v14 = 0;
       do
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(machServicesNames);
         }
 
-        v15 = *(*(&v19 + 1) + 8 * v14);
+        v15 = *(*(&v18 + 1) + 8 * v14);
         v16 = *v13;
         if (os_log_type_enabled(*v13, OS_LOG_TYPE_DEFAULT))
         {
-          *buf = v18;
-          v24 = v15;
+          *buf = v17;
+          v23 = v15;
           _os_log_impl(&dword_25543D000, v16, OS_LOG_TYPE_DEFAULT, "[IRXPCServicesManager] creating recommendation mach service with name: %@", buf, 0xCu);
         }
 
-        [(NSMutableDictionary *)self->_machServices setObject:v7 forKey:v15, v18];
+        [(NSMutableDictionary *)self->_machServices setObject:v7 forKey:v15, v17];
         ++v14;
       }
 
       while (v11 != v14);
-      v11 = [machServicesNames countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v11 = [machServicesNames countByEnumeratingWithState:&v18 objects:v24 count:16];
     }
 
     while (v11);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupXPCListeners
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D21260];
   v4 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
@@ -147,31 +143,31 @@
     _os_log_impl(&dword_25543D000, v4, OS_LOG_TYPE_DEFAULT, "[IRXPCServicesManager] setting up XPC listeners", buf, 2u);
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   allKeys = [(NSMutableDictionary *)self->_machServices allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v14 objects:v20 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v13 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         v11 = *v3;
         if (os_log_type_enabled(*v3, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v19 = v10;
+          v18 = v10;
           _os_log_impl(&dword_25543D000, v11, OS_LOG_TYPE_DEFAULT, "[IRXPCServicesManager] setting up XPC listener for mach service: %@", buf, 0xCu);
         }
 
@@ -180,27 +176,25 @@
         [(NSMutableArray *)self->_listeners addObject:v12];
       }
 
-      v7 = [allKeys countByEnumeratingWithState:&v14 objects:v20 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v13 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   v8 = MEMORY[0x277D21260];
   v9 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = connectionCopy;
-    _os_log_impl(&dword_25543D000, v9, OS_LOG_TYPE_DEFAULT, "[IRXPCServicesManager] listener shouldAcceptNewConnection. Connection: %@", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = connectionCopy;
+    _os_log_impl(&dword_25543D000, v9, OS_LOG_TYPE_DEFAULT, "[IRXPCServicesManager] listener shouldAcceptNewConnection. Connection: %@", &v16, 0xCu);
   }
 
   machServices = self->_machServices;
@@ -223,22 +217,19 @@
     v13 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (void)listener:(void *)a1 shouldAcceptNewConnection:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 serviceName];
-  v6 = 138412546;
-  v7 = v4;
-  v8 = 2112;
-  v9 = a2;
-  _os_log_error_impl(&dword_25543D000, v3, OS_LOG_TYPE_ERROR, "[ErrorId - Service listener  error] [IRXPCServicesManager] no service listening for %@, connection: %@", &v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = v4;
+  v7 = 2112;
+  v8 = a2;
+  _os_log_error_impl(&dword_25543D000, v3, OS_LOG_TYPE_ERROR, "[ErrorId - Service listener  error] [IRXPCServicesManager] no service listening for %@, connection: %@", &v5, 0x16u);
 }
 
 @end

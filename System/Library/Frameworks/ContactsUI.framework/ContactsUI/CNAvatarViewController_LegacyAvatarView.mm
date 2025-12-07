@@ -36,13 +36,13 @@
   avatarView = [(CNAvatarViewController_LegacyAvatarView *)self avatarView];
   [avatarView setDelegate:self];
 
-  contacts = [(CNAvatarViewController_LegacyAvatarView *)self contacts];
+  v10 = objc_msgSend_contacts(self);
 
-  if (contacts)
+  if (v10)
   {
     avatarView2 = [(CNAvatarViewController_LegacyAvatarView *)self avatarView];
-    contacts2 = [(CNAvatarViewController_LegacyAvatarView *)self contacts];
-    [avatarView2 setContacts:contacts2];
+    v12 = objc_msgSend_contacts(self);
+    [avatarView2 setContacts:v12];
   }
 }
 

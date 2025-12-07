@@ -99,7 +99,7 @@ void __64__SUUIProductLockupCollectionViewCell_setPerspectiveTargetView___block_
   return reason;
 }
 
-uint64_t __86__SUUIProductLockupCollectionViewCell_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
+void *__86__SUUIProductLockupCollectionViewCell_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) prefetchResourcesForViewElement:a2 reason:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = (*(*(*(a1 + 40) + 8) + 24) | result) & 1;
@@ -138,7 +138,7 @@ uint64_t __86__SUUIProductLockupCollectionViewCell_prefetchResourcesForViewEleme
 
   if (v10)
   {
-    [(SUUIProductLockupLayout *)v10 layoutWidthsForWidth:width];
+    objc_msgSend_layoutWidthsForWidth_(v10, width);
   }
 
   v15 = [(SUUIProductLockupLayout *)v10 viewElementsForSection:4, 0, 0];
@@ -169,7 +169,7 @@ uint64_t __86__SUUIProductLockupCollectionViewCell_prefetchResourcesForViewEleme
 
   if (v9)
   {
-    [(SUUIProductLockupLayout *)v9 sizingToFitWidth:width, 0.0, 0.0, 0.0, 0];
+    objc_msgSend_sizingToFitWidth_(v9, width, 0.0, 0.0, 0.0, 0);
   }
 
   v14 = 0.0 > 0.00000011920929;
@@ -828,9 +828,9 @@ LABEL_24:
 
         v10 = *(*(&v15 + 1) + 8 * i);
         itmlID = [v10 itmlID];
-        v12 = [itmlID isEqualToString:identifierCopy];
+        isEqualToString = objc_msgSend_isEqualToString_(itmlID);
 
-        if (v12)
+        if (isEqualToString)
         {
           v13 = [(NSMapTable *)self->_elementViews objectForKey:v10];
           goto LABEL_11;

@@ -174,19 +174,17 @@ LABEL_14:
 
 uint64_t __54__DSWifiSyncDetailController_presentRemoveDeviceAlert__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = DSLogWifiSyncDetail;
   if (os_log_type_enabled(DSLogWifiSyncDetail, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_248C7E000, v2, OS_LOG_TYPE_INFO, "User confirmed disconnect for device: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_248C7E000, v2, OS_LOG_TYPE_INFO, "User confirmed disconnect for device: %@", &v5, 0xCu);
   }
 
-  result = [*(a1 + 40) returnFromDetailAndRemoveComputer];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) returnFromDetailAndRemoveComputer];
 }
 
 - (void)viewDidLoad

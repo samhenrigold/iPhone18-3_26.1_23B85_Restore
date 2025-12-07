@@ -72,7 +72,7 @@ void sub_29AB1302C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_DWORD *sub_29AB13044(_DWORD *result, int a2, int a3, int a4, int a5, int a6, int a7, int a8)
+_DWORD *sub_29AB13044(_DWORD *result, int a2, int a3, unsigned int a4, int a5, int a6, int a7, int a8)
 {
   if ((a8 + a7) | (a6 + a5))
   {
@@ -166,24 +166,24 @@ uint64_t sub_29AB130F0(uint64_t result, int a2, unsigned int a3, int a4)
   return result;
 }
 
-void sub_29AB1316C(void *a1, unint64_t a2)
+void sub_29AB1316C(void *result, unint64_t a2)
 {
-  v2 = (a1[1] - *a1) >> 1;
+  v2 = (result[1] - *result) >> 1;
   if (a2 <= v2)
   {
     if (a2 < v2)
     {
-      a1[1] = *a1 + 2 * a2;
+      result[1] = *result + 2 * a2;
     }
   }
 
   else
   {
-    sub_29AB15578(a1, a2 - v2);
+    sub_29AB15578(result, a2 - v2);
   }
 }
 
-_WORD *sub_29AB1319C(_WORD *result, int a2, int a3, int a4, int a5, int a6, int a7, int a8)
+_WORD *sub_29AB1319C(_WORD *result, int a2, int a3, unsigned int a4, int a5, int a6, int a7, int a8)
 {
   if ((a8 + a7) | (a6 + a5))
   {
@@ -277,7 +277,7 @@ uint64_t sub_29AB13248(uint64_t result, int a2, unsigned int a3, int a4)
   return result;
 }
 
-_DWORD *sub_29AB132C4(_DWORD *result, int a2, int a3, int a4, int a5, int a6, int a7, int a8)
+_DWORD *sub_29AB132C4(_DWORD *result, int a2, int a3, unsigned int a4, int a5, int a6, int a7, int a8)
 {
   if ((a8 + a7) | (a6 + a5))
   {
@@ -892,7 +892,7 @@ LABEL_31:
               }
 
               v84 = &off_2A2048B60;
-              sub_29A22C0F0();
+              sub_29A22C0F0(&v83);
             case 0x17:
               v21 = *(v72 + 24);
               v22 = *v21;
@@ -1114,12 +1114,12 @@ void sub_29AB147FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t pxrInternal__aapl__pxrReserved__::Hio_OpenEXRImage::_AttributeWriteCallback(uint64_t a1, uint64_t a2)
 {
-  v57[2] = *MEMORY[0x29EDCA608];
+  v53[2] = *MEMORY[0x29EDCA608];
   v4 = *(a1 + 136);
   v5 = pxrInternal__aapl__pxrReserved__::VtDictionary::begin(v4);
   v7 = v6;
-  v53 = v5;
-  v54 = v6;
+  v49 = v5;
+  v50 = v6;
   result = pxrInternal__aapl__pxrReserved__::VtDictionary::end(v4);
   if (v9)
   {
@@ -1135,12 +1135,12 @@ uint64_t pxrInternal__aapl__pxrReserved__::Hio_OpenEXRImage::_AttributeWriteCall
   if (v7 != v9 || (v11 & 1) == 0)
   {
     sub_29AB15498(__p, (v5 + 32));
-    if (sub_29A1EFC10(v57))
+    if (sub_29A1EFC10(v53))
     {
       v12 = *(a1 + 116);
-      v13 = v56;
+      v13 = v52;
       v14 = __p[0];
-      v15 = sub_29A1EFC48(v57);
+      v15 = sub_29A1EFC48(v53);
       if (v13 >= 0)
       {
         v16 = __p;
@@ -1162,160 +1162,156 @@ uint64_t pxrInternal__aapl__pxrReserved__::Hio_OpenEXRImage::_AttributeWriteCall
       }
 
       nanoexr_attr_set_string(a2, v12, v16, v17);
-      goto LABEL_36;
+      goto LABEL_33;
     }
 
-    if (sub_29A1F8DE8(v57))
+    if (sub_29A1F8DE8(v53))
     {
       v18 = *(a1 + 116);
-      v19 = v56;
+      v19 = v52;
       v20 = __p[0];
-      v21 = sub_29AB14B80(v57);
+      sub_29AB14B80(v53);
       if (v19 >= 0)
       {
-        v22 = __p;
+        v21 = __p;
       }
 
       else
       {
-        v22 = v20;
+        v21 = v20;
       }
-
-      v23 = *v21;
     }
 
-    else if (sub_29A1F9040(v57))
+    else if (sub_29A1F9040(v53))
     {
       v18 = *(a1 + 116);
-      v24 = v56;
-      v25 = __p[0];
-      v26 = sub_29AA9E568(v57);
-      if (v24 >= 0)
+      v22 = v52;
+      v23 = __p[0];
+      sub_29AA9E568(v53);
+      if (v22 >= 0)
       {
-        v22 = __p;
+        v21 = __p;
       }
 
       else
       {
-        v22 = v25;
+        v21 = v23;
       }
-
-      v23 = *v26;
     }
 
     else
     {
-      if (sub_29A293A9C(v57))
+      if (sub_29A293A9C(v53))
       {
         v18 = *(a1 + 116);
-        v27 = v56;
-        v28 = __p[0];
-        v29 = sub_29A346A20(v57);
+        v24 = v52;
+        v25 = __p[0];
+        sub_29A346A20(v53);
       }
 
       else
       {
-        if (!sub_29A3F94B8(v57))
+        if (!sub_29A3F94B8(v53))
         {
-          if (sub_29A3F9DF4(v57))
+          if (sub_29A3F9DF4(v53))
           {
-            v30 = *(a1 + 116);
-            v31 = v56;
-            v32 = __p[0];
-            v33 = sub_29A8D5794(v57);
-            if (v31 >= 0)
+            v26 = *(a1 + 116);
+            v27 = v52;
+            v28 = __p[0];
+            v29 = sub_29A8D5794(v53);
+            if (v27 >= 0)
             {
-              v34 = __p;
+              v30 = __p;
             }
 
             else
             {
-              v34 = v32;
+              v30 = v28;
             }
 
-            nanoexr_attr_set_float(a2, v30, v34, *v33);
+            nanoexr_attr_set_float(a2, v26, v30, *v29);
           }
 
-          else if (sub_29A346994(v57))
+          else if (sub_29A346994(v53))
           {
-            v35 = *(a1 + 116);
-            v36 = v56;
-            v37 = __p[0];
-            v38 = sub_29A337248(v57);
-            if (v36 >= 0)
+            v31 = *(a1 + 116);
+            v32 = v52;
+            v33 = __p[0];
+            v34 = sub_29A337248(v53);
+            if (v32 >= 0)
             {
-              v39 = __p;
+              v35 = __p;
             }
 
             else
             {
-              v39 = v37;
+              v35 = v33;
             }
 
-            nanoexr_attr_set_double(a2, v35, v39, *v38);
+            nanoexr_attr_set_double(a2, v31, v35, *v34);
           }
 
-          else if (sub_29A76D024(v57))
+          else if (sub_29A76D024(v53))
           {
-            v40 = *(a1 + 116);
-            v41 = v56;
-            v42 = __p[0];
-            v43 = sub_29AB14CA8(v57);
-            if (v41 >= 0)
+            v36 = *(a1 + 116);
+            v37 = v52;
+            v38 = __p[0];
+            v39 = sub_29AB14CA8(v53);
+            if (v37 >= 0)
             {
-              v44 = __p;
+              v40 = __p;
             }
 
             else
             {
-              v44 = v42;
+              v40 = v38;
             }
 
-            nanoexr_attr_set_m44f(a2, v40, v44, v43);
+            nanoexr_attr_set_m44f(a2, v36, v40, v39);
           }
 
-          else if (sub_29A3FC38C(v57))
+          else if (sub_29A3FC38C(v53))
           {
             if (sub_29AB13780(__p) || sub_29AB13920(__p))
             {
-              v45 = sub_29AB14D3C(v57);
-              pxrInternal__aapl__pxrReserved__::GfMatrix4f::GfMatrix4f(v52, v45);
-              if (v56 >= 0)
+              v41 = sub_29AB14D3C(v53);
+              pxrInternal__aapl__pxrReserved__::GfMatrix4f::GfMatrix4f(v48, v41);
+              if (v52 >= 0)
               {
-                v46 = __p;
+                v42 = __p;
               }
 
               else
               {
-                v46 = __p[0];
+                v42 = __p[0];
               }
 
-              nanoexr_attr_set_m44f(a2, *(a1 + 116), v46, v52);
+              nanoexr_attr_set_m44f(a2, *(a1 + 116), v42, v48);
             }
 
             else
             {
-              v47 = *(a1 + 116);
-              v48 = v56;
-              v49 = __p[0];
-              v50 = sub_29AB14D3C(v57);
-              if (v48 >= 0)
+              v43 = *(a1 + 116);
+              v44 = v52;
+              v45 = __p[0];
+              v46 = sub_29AB14D3C(v53);
+              if (v44 >= 0)
               {
-                v51 = __p;
+                v47 = __p;
               }
 
               else
               {
-                v51 = v49;
+                v47 = v45;
               }
 
-              nanoexr_attr_set_m44d(a2, v47, v51, v50);
+              nanoexr_attr_set_m44d(a2, v43, v47, v46);
             }
           }
 
-LABEL_36:
-          sub_29A186B14(v57);
-          if (v56 < 0)
+LABEL_33:
+          sub_29A186B14(v53);
+          if (v52 < 0)
           {
             operator delete(__p[0]);
           }
@@ -1324,34 +1320,32 @@ LABEL_36:
         }
 
         v18 = *(a1 + 116);
-        v27 = v56;
-        v28 = __p[0];
-        v29 = sub_29AB14C14(v57);
+        v24 = v52;
+        v25 = __p[0];
+        sub_29AB14C14(v53);
       }
 
-      if (v27 >= 0)
+      if (v24 >= 0)
       {
-        v22 = __p;
+        v21 = __p;
       }
 
       else
       {
-        v22 = v28;
+        v21 = v25;
       }
-
-      v23 = *v29;
     }
 
-    nanoexr_attr_set_int(a2, v18, v22, v23);
-    goto LABEL_36;
+    nanoexr_attr_set_int(a2, v18, v21);
+    goto LABEL_33;
   }
 
   return result;
 }
 
-void sub_29AB14B60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_29AB14B60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   sub_29A1855F0(va);
   _Unwind_Resume(a1);
 }
@@ -1537,7 +1531,7 @@ BOOL pxrInternal__aapl__pxrReserved__::Hio_OpenEXRImage::Write(uint64_t a1, uint
           v32 = *v32;
         }
 
-        v34 = nanoexr_write_exr(v32, pxrInternal__aapl__pxrReserved__::Hio_OpenEXRImage::_AttributeWriteCallback, a1, v9, *(a2 + 4), *(a2 + 16), 2u, v27, v8, v10, v29, v8, v10, v30, v8, v10, v31, v8, v10);
+        v34 = nanoexr_write_exr(v32, pxrInternal__aapl__pxrReserved__::Hio_OpenEXRImage::_AttributeWriteCallback, a1, v9, *(a2 + 4), *(a2 + 16), 2, v27, v8, v10, v29, v8, v10, v30, v8, v10, v31, v8, v10);
       }
 
       else
@@ -1547,7 +1541,7 @@ BOOL pxrInternal__aapl__pxrReserved__::Hio_OpenEXRImage::Write(uint64_t a1, uint
           v32 = *v32;
         }
 
-        v34 = nanoexr_write_exr(v32, pxrInternal__aapl__pxrReserved__::Hio_OpenEXRImage::_AttributeWriteCallback, a1, v9, *(a2 + 4), *(a2 + 16), 1u, v27, v8, v10, v29, v8, v10, v30, v8, v10, v31, v8, v10);
+        v34 = nanoexr_write_exr(v32, pxrInternal__aapl__pxrReserved__::Hio_OpenEXRImage::_AttributeWriteCallback, a1, v9, *(a2 + 4), *(a2 + 16), 1, v27, v8, v10, v29, v8, v10, v30, v8, v10, v31, v8, v10);
       }
 
       *(a1 + 136) = 0;
@@ -1663,7 +1657,7 @@ BOOL pxrInternal__aapl__pxrReserved__::Hio_OpenEXRImage::Write(uint64_t a1, uint
       v35 = *v35;
     }
 
-    v36 = nanoexr_write_exr(v35, pxrInternal__aapl__pxrReserved__::Hio_OpenEXRImage::_AttributeWriteCallback, a1, v13, v14, *(a2 + 16), 1u, v22, v8, v10, v23, v8, v10, v24, v8, v10, v25, v8, v10);
+    v36 = nanoexr_write_exr(v35, pxrInternal__aapl__pxrReserved__::Hio_OpenEXRImage::_AttributeWriteCallback, a1, v13, v14, *(a2 + 16), 1, v22, v8, v10, v23, v8, v10, v24, v8, v10, v25, v8, v10);
     *(a1 + 136) = 0;
     v11 = v36 == 0;
     if (__p)
@@ -1693,7 +1687,7 @@ void sub_29AB151C8(uint64_t a1)
   operator delete(v1);
 }
 
-uint64_t sub_29AB15228(uint64_t *a1)
+void *sub_29AB15228(uint64_t *a1)
 {
   v2 = operator new(8uLL);
   *v2 = &unk_2A2071850;
@@ -2105,9 +2099,9 @@ unint64_t sub_29AB15AE8(uint64_t a1, uint64_t a2)
   return bswap64(v10);
 }
 
-uint64_t sub_29AB15B5C(uint64_t *a1)
+atomic_uint *sub_29AB15B5C(atomic_uint **a1)
 {
-  v2 = atomic_load((*a1 + 24));
+  v2 = atomic_load(*a1 + 6);
   if (v2 != 1)
   {
     sub_29AB15BC4(*a1, &v4);
@@ -2274,7 +2268,7 @@ void sub_29AB16160(void *__p)
   }
 }
 
-uint64_t nanoexr_get_attribute_by_index(unsigned __int8 *a1, unsigned int a2, unsigned int a3, void *a4)
+uint64_t nanoexr_get_attribute_by_index(unsigned __int8 *a1, signed int a2, signed int a3, void *a4)
 {
   if (!a1)
   {
@@ -2286,7 +2280,7 @@ uint64_t nanoexr_get_attribute_by_index(unsigned __int8 *a1, unsigned int a2, un
     pthread_mutex_lock((a1 + 504));
   }
 
-  if ((a2 & 0x80000000) != 0 || *(a1 + 49) <= a2)
+  if (a2 < 0 || *(a1 + 49) <= a2)
   {
     if (*a1 == 1)
     {
@@ -2300,7 +2294,7 @@ uint64_t nanoexr_get_attribute_by_index(unsigned __int8 *a1, unsigned int a2, un
   {
     if (a4)
     {
-      if ((a3 & 0x80000000) != 0)
+      if (a3 < 0)
       {
         v9 = *a1;
       }
@@ -2347,7 +2341,7 @@ uint64_t nanoexr_get_attribute_by_index(unsigned __int8 *a1, unsigned int a2, un
   }
 }
 
-uint64_t nanoexr_get_attribute_count(unsigned __int8 *a1, unsigned int a2)
+uint64_t nanoexr_get_attribute_count(unsigned __int8 *a1, signed int a2)
 {
   if (!a1)
   {
@@ -2359,7 +2353,7 @@ uint64_t nanoexr_get_attribute_count(unsigned __int8 *a1, unsigned int a2)
     pthread_mutex_lock((a1 + 504));
   }
 
-  if ((a2 & 0x80000000) != 0)
+  if (a2 < 0)
   {
     v4 = *a1;
     goto LABEL_9;
@@ -2387,7 +2381,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t nanoexr_attr_set_string(uint64_t result, unsigned int a2, char *a3, char *a4)
+uint64_t nanoexr_attr_set_string(uint64_t result, signed int a2, char *a3, char *a4)
 {
   v27 = 0;
   if (!result)
@@ -2397,7 +2391,7 @@ uint64_t nanoexr_attr_set_string(uint64_t result, unsigned int a2, char *a3, cha
 
   v7 = result;
   pthread_mutex_lock((result + 504));
-  if ((a2 & 0x80000000) != 0 || *(v7 + 196) <= a2)
+  if (a2 < 0 || *(v7 + 196) <= a2)
   {
     goto LABEL_10;
   }
@@ -2591,8 +2585,10 @@ LABEL_28:
   return pthread_mutex_unlock((v7 + 504));
 }
 
-uint64_t sub_29AB16800(uint64_t a1, unsigned int a2, char *__s1, int a4)
+uint64_t sub_29AB16800(uint64_t a1, uint64_t a2, char *__s1, uint64_t a4)
 {
+  v4 = a4;
+  v6 = a2;
   if (!__s1)
   {
 LABEL_4:
@@ -2600,7 +2596,7 @@ LABEL_4:
     if (a1)
     {
       pthread_mutex_lock((a1 + 504));
-      if ((a2 & 0x80000000) != 0 || *(a1 + 196) <= a2)
+      if (v6 < 0 || *(a1 + 196) <= v6)
       {
         pthread_mutex_unlock((a1 + 504));
         return (*(a1 + 72))(a1, 4, "Part index (%d) out of range");
@@ -2618,7 +2614,7 @@ LABEL_4:
         return (*(a1 + 56))(a1, 8);
       }
 
-      v14 = *(*(a1 + 472) + 8 * a2);
+      v14 = *(*(a1 + 472) + 8 * v6);
       v15 = sub_29AB1DA70(a1, (v14 + 8), __s1, &v20);
       if (v15)
       {
@@ -2656,7 +2652,7 @@ LABEL_47:
       }
 
       v13 = 0;
-      *(v16 + 6) = a4;
+      *(v16 + 6) = v4;
       goto LABEL_47;
     }
 
@@ -2666,7 +2662,7 @@ LABEL_47:
   if (!strcmp(__s1, "version"))
   {
 
-    return sub_29AB1948C(a1, a2, a4);
+    return sub_29AB1948C(a1, v6, v4);
   }
 
   else
@@ -2682,7 +2678,7 @@ LABEL_47:
     }
 
     pthread_mutex_lock((a1 + 504));
-    if ((a2 & 0x80000000) != 0 || *(a1 + 196) <= a2)
+    if (v6 < 0 || *(a1 + 196) <= v6)
     {
       pthread_mutex_unlock((a1 + 504));
       return (*(a1 + 72))(a1, 4, "Part index (%d) out of range");
@@ -2700,7 +2696,7 @@ LABEL_47:
     {
       if (*a1)
       {
-        v17 = *(*(a1 + 472) + 8 * a2);
+        v17 = *(*(a1 + 472) + 8 * v6);
         v19 = (v17 + 128);
         v18 = *(v17 + 128);
         if (v18)
@@ -2724,8 +2720,8 @@ LABEL_47:
         }
 
         v13 = 0;
-        *(v18 + 24) = a4;
-        *(v17 + 244) = a4;
+        *(v18 + 24) = v4;
+        *(v17 + 244) = v4;
         goto LABEL_47;
       }
 
@@ -2739,8 +2735,9 @@ LABEL_47:
   }
 }
 
-uint64_t nanoexr_attr_set_float(uint64_t result, unsigned int a2, char *__s1, float a4)
+uint64_t nanoexr_attr_set_float(uint64_t result, uint64_t a2, char *__s1, float a4)
 {
+  v6 = a2;
   v7 = result;
   if (!__s1)
   {
@@ -2752,7 +2749,7 @@ LABEL_4:
     }
 
     pthread_mutex_lock((v7 + 504));
-    if ((a2 & 0x80000000) != 0 || *(v7 + 196) <= a2)
+    if (v6 < 0 || *(v7 + 196) <= v6)
     {
       pthread_mutex_unlock((v7 + 504));
       return (*(v7 + 72))(v7, 4, "Part index (%d) out of range");
@@ -2778,7 +2775,7 @@ LABEL_19:
       return v8(v9, v10);
     }
 
-    v11 = *(*(v7 + 472) + 8 * a2);
+    v11 = *(*(v7 + 472) + 8 * v6);
     v12 = sub_29AB1DA70(v7, (v11 + 8), __s1, &v14);
     if (v12)
     {
@@ -2807,7 +2804,7 @@ LABEL_19:
   if (!strcmp(__s1, "pixelAspectRatio"))
   {
 
-    return sub_29AB1EAB8(v7, a2, a4);
+    return sub_29AB1EAB8(v7, v6, a4);
   }
 
   else
@@ -2818,11 +2815,11 @@ LABEL_19:
       goto LABEL_4;
     }
 
-    return sub_29AB1EC40(v7, a2, a4);
+    return sub_29AB1EC40(v7, v6, a4);
   }
 }
 
-uint64_t nanoexr_attr_set_double(uint64_t result, unsigned int a2, char *a3, double a4)
+uint64_t nanoexr_attr_set_double(uint64_t result, signed int a2, char *a3, double a4)
 {
   v14 = 0;
   if (!result)
@@ -2832,7 +2829,7 @@ uint64_t nanoexr_attr_set_double(uint64_t result, unsigned int a2, char *a3, dou
 
   v7 = result;
   pthread_mutex_lock((result + 504));
-  if ((a2 & 0x80000000) != 0 || *(v7 + 196) <= a2)
+  if (a2 < 0 || *(v7 + 196) <= a2)
   {
     pthread_mutex_unlock((v7 + 504));
     return (*(v7 + 72))(v7, 4, "Part index (%d) out of range");
@@ -2884,7 +2881,7 @@ LABEL_10:
   return v8(v9, v10);
 }
 
-uint64_t nanoexr_attr_set_m44f(uint64_t result, unsigned int a2, char *a3, __int128 *a4)
+uint64_t nanoexr_attr_set_m44f(uint64_t result, signed int a2, char *a3, __int128 *a4)
 {
   v19 = 0;
   if (!result)
@@ -2894,7 +2891,7 @@ uint64_t nanoexr_attr_set_m44f(uint64_t result, unsigned int a2, char *a3, __int
 
   v7 = result;
   pthread_mutex_lock((result + 504));
-  if ((a2 & 0x80000000) != 0 || *(v7 + 196) <= a2)
+  if (a2 < 0 || *(v7 + 196) <= a2)
   {
     pthread_mutex_unlock((v7 + 504));
     return (*(v7 + 72))(v7, 4, "Part index (%d) out of range");
@@ -2970,7 +2967,7 @@ LABEL_10:
   return v8(v9, v10);
 }
 
-uint64_t nanoexr_attr_set_m44d(uint64_t result, unsigned int a2, char *a3, __int128 *a4)
+uint64_t nanoexr_attr_set_m44d(uint64_t result, signed int a2, char *a3, __int128 *a4)
 {
   v22 = 0;
   if (!result)
@@ -2980,7 +2977,7 @@ uint64_t nanoexr_attr_set_m44d(uint64_t result, unsigned int a2, char *a3, __int
 
   v7 = result;
   pthread_mutex_lock((result + 504));
-  if ((a2 & 0x80000000) != 0 || *(v7 + 196) <= a2)
+  if (a2 < 0 || *(v7 + 196) <= a2)
   {
     pthread_mutex_unlock((v7 + 504));
     return (*(v7 + 72))(v7, 4, "Part index (%d) out of range");
@@ -3364,13 +3361,14 @@ void nanoexr_free_storage(void **a1)
   }
 }
 
-uint64_t nanoexr_read_header(int32x2_t *a1, unint64_t a2, void (*a3)(uint64_t, unsigned __int8 *), uint64_t a4, unsigned int a5)
+uint64_t nanoexr_read_header(int32x2_t *a1, unint64_t a2, void (*a3)(uint64_t, uint64_t), uint64_t a4, uint64_t a5)
 {
   if (!a1)
   {
     return 3;
   }
 
+  v5 = a5;
   v33 = 0;
   v27 = 0;
   v31 = 0u;
@@ -3387,16 +3385,16 @@ uint64_t nanoexr_read_header(int32x2_t *a1, unint64_t a2, void (*a3)(uint64_t, u
   }
 
   v24 = 0uLL;
-  v9 = sub_29AB17EA0(v33, a5, &v24);
+  v9 = sub_29AB17EA0(v33, v5, &v24);
   if (v9)
   {
     goto LABEL_5;
   }
 
-  a1[1].i32[1] = a5;
+  a1[1].i32[1] = v5;
   a1[3] = vadd_s32(vsub_s32(*(&v24 + 8), *&v24), 0x100000001);
   v23 = 0;
-  v9 = sub_29AB18018(v33, a5, &v23);
+  v9 = sub_29AB18018(v33, v5, &v23);
   if (v9)
   {
     goto LABEL_5;
@@ -3413,7 +3411,7 @@ uint64_t nanoexr_read_header(int32x2_t *a1, unint64_t a2, void (*a3)(uint64_t, u
     goto LABEL_14;
   }
 
-  v9 = sub_29AB18110(v33, a5, &v22, &v21);
+  v9 = sub_29AB18110(v33, v5, &v22, &v21);
   if (!v9)
   {
     v15 = v21;
@@ -3427,7 +3425,7 @@ uint64_t nanoexr_read_header(int32x2_t *a1, unint64_t a2, void (*a3)(uint64_t, u
 LABEL_14:
     a1[5].i32[0] = v15;
     v20 = 0;
-    v12 = sub_29AB182B4(v33, a5, &v20);
+    v12 = sub_29AB182B4(v33, v5, &v20);
     if (v12)
     {
       goto LABEL_6;
@@ -3437,7 +3435,7 @@ LABEL_14:
     a1[2].i32[0] = *(*(v20 + 8) + 16);
     a1[2].i32[1] = v16;
     v19 = 0;
-    if (!sub_29AB18428(v33, a5, &v19) && v19)
+    if (!sub_29AB18428(v33, v5, &v19) && v19)
     {
       v17 = *(*(v19 + 24) + 8);
       if (!strncmp("black", v17, 5uLL))
@@ -3484,7 +3482,7 @@ LABEL_6:
   return v12;
 }
 
-uint64_t sub_29AB17A54(uint64_t *a1, char *a2, uint64_t a3)
+uint64_t sub_29AB17A54(char **a1, char *a2, uint64_t a3)
 {
   v28 = 0;
   v26 = 0u;
@@ -3600,8 +3598,8 @@ LABEL_34:
       return v16;
     }
 
-    *(v28 + 40) = sub_29AB1EFB8;
-    v17 = sub_29AB1F0B4(v15, v15 + 8, a2);
+    *(v28 + 5) = sub_29AB1EFB8;
+    v17 = sub_29AB1F0B4(v15, (v15 + 8), a2);
     if (v17)
     {
       goto LABEL_25;
@@ -3629,9 +3627,9 @@ LABEL_25:
       v13 = sub_29AB1F164;
     }
 
-    v20 = v13(v15, *(v15 + 136));
+    v20 = v13(v15, *(v15 + 17));
 LABEL_32:
-    *(v15 + 152) = v20;
+    *(v15 + 19) = v20;
     v16 = sub_29AB1F258(v15);
     if (!v16)
     {
@@ -3778,7 +3776,7 @@ LABEL_15:
   return 2;
 }
 
-uint64_t sub_29AB17EA0(uint64_t a1, unsigned int a2, _OWORD *a3)
+uint64_t sub_29AB17EA0(uint64_t a1, signed int a2, _OWORD *a3)
 {
   if (!a1)
   {
@@ -3790,7 +3788,7 @@ uint64_t sub_29AB17EA0(uint64_t a1, unsigned int a2, _OWORD *a3)
     pthread_mutex_lock((a1 + 504));
   }
 
-  if ((a2 & 0x80000000) != 0 || *(a1 + 196) <= a2)
+  if (a2 < 0 || *(a1 + 196) <= a2)
   {
     if (*a1 == 1)
     {
@@ -3851,7 +3849,7 @@ uint64_t sub_29AB17EA0(uint64_t a1, unsigned int a2, _OWORD *a3)
   }
 }
 
-uint64_t sub_29AB18018(unsigned __int8 *a1, unsigned int a2, _DWORD *a3)
+uint64_t sub_29AB18018(unsigned __int8 *a1, signed int a2, _DWORD *a3)
 {
   if (!a1)
   {
@@ -3863,7 +3861,7 @@ uint64_t sub_29AB18018(unsigned __int8 *a1, unsigned int a2, _DWORD *a3)
     pthread_mutex_lock((a1 + 504));
   }
 
-  if ((a2 & 0x80000000) != 0)
+  if (a2 < 0)
   {
     v6 = *a1;
   }
@@ -3904,7 +3902,7 @@ uint64_t sub_29AB18018(unsigned __int8 *a1, unsigned int a2, _DWORD *a3)
   return (*(a1 + 9))(a1, 4, "Part index (%d) out of range", a2);
 }
 
-uint64_t sub_29AB18110(uint64_t a1, unsigned int a2, int *a3, _DWORD *a4)
+uint64_t sub_29AB18110(uint64_t a1, signed int a2, int *a3, _DWORD *a4)
 {
   if (!a1)
   {
@@ -3916,7 +3914,7 @@ uint64_t sub_29AB18110(uint64_t a1, unsigned int a2, int *a3, _DWORD *a4)
     pthread_mutex_lock((a1 + 504));
   }
 
-  if ((a2 & 0x80000000) != 0 || *(a1 + 196) <= a2)
+  if (a2 < 0 || *(a1 + 196) <= a2)
   {
     if (*a1 == 1)
     {
@@ -3978,7 +3976,7 @@ uint64_t sub_29AB18110(uint64_t a1, unsigned int a2, int *a3, _DWORD *a4)
   }
 }
 
-uint64_t sub_29AB182B4(uint64_t a1, unsigned int a2, void *a3)
+uint64_t sub_29AB182B4(uint64_t a1, signed int a2, void *a3)
 {
   if (!a1)
   {
@@ -3990,7 +3988,7 @@ uint64_t sub_29AB182B4(uint64_t a1, unsigned int a2, void *a3)
     pthread_mutex_lock((a1 + 504));
   }
 
-  if ((a2 & 0x80000000) != 0 || *(a1 + 196) <= a2)
+  if (a2 < 0 || *(a1 + 196) <= a2)
   {
     if (*a1 == 1)
     {
@@ -4051,7 +4049,7 @@ uint64_t sub_29AB182B4(uint64_t a1, unsigned int a2, void *a3)
   }
 }
 
-uint64_t sub_29AB18428(uint64_t a1, unsigned int a2, void *a3)
+uint64_t sub_29AB18428(uint64_t a1, signed int a2, void *a3)
 {
   v9 = 0;
   if (!a1)
@@ -4064,7 +4062,7 @@ uint64_t sub_29AB18428(uint64_t a1, unsigned int a2, void *a3)
     pthread_mutex_lock((a1 + 504));
   }
 
-  if ((a2 & 0x80000000) != 0 || *(a1 + 196) <= a2)
+  if (a2 < 0 || *(a1 + 196) <= a2)
   {
     if (*a1 == 1)
     {
@@ -4103,7 +4101,7 @@ uint64_t sub_29AB18428(uint64_t a1, unsigned int a2, void *a3)
   }
 }
 
-uint64_t nanoexr_write_exr(char *a1, void (*a2)(uint64_t, uint64_t), uint64_t a3, int a4, int a5, int a6, unsigned int a7, uint64_t a8, int a9, int a10, uint64_t a11, int a12, int a13, uint64_t a14, int a15, int a16, uint64_t a17, int a18, int a19)
+uint64_t nanoexr_write_exr(char *a1, void (*a2)(uint64_t, uint64_t), uint64_t a3, int a4, int a5, int a6, uint64_t a7, uint64_t a8, int a9, int a10, uint64_t a11, int a12, int a13, uint64_t a14, int a15, int a16, uint64_t a17, int a18, int a19)
 {
   v19 = a8 != 0;
   if (a11)
@@ -4151,6 +4149,7 @@ uint64_t nanoexr_write_exr(char *a1, void (*a2)(uint64_t, uint64_t), uint64_t a3
     return v25;
   }
 
+  v23 = a7;
   v25 = 1;
   if (!sub_29AB1EDC8(v97, &v101, 1))
   {
@@ -4248,7 +4247,7 @@ LABEL_24:
     }
 
     v42 = sub_29AB22470(v26, (v101 + 8), "name", 19, 0, 0, (v101 + 104));
-    if (v42 || (v42 = sub_29AB1DD34(v26, *(*(v101 + 104) + 24), "beauty", 6), v42))
+    if (v42 || (v42 = sub_29AB1DD34(v26, *(*(v101 + 104) + 24), "beauty", 6u), v42))
     {
       v25 = v42;
       v43 = v26;
@@ -4503,13 +4502,13 @@ LABEL_101:
                       v57 = sub_29AB1EC40(v87, v44, 1.0);
                       if (!v57)
                       {
-                        if (!a17 || (v57 = sub_29AB192F0(v87, v136[0], "A", a7), !v57))
+                        if (!a17 || (v57 = sub_29AB192F0(v87, v136[0], "A", v23), !v57))
                         {
-                          if (!a14 || (v57 = sub_29AB192F0(v87, v136[0], "B", a7), !v57))
+                          if (!a14 || (v57 = sub_29AB192F0(v87, v136[0], "B", v23), !v57))
                           {
-                            if (!a11 || (v57 = sub_29AB192F0(v87, v136[0], "G", a7), !v57))
+                            if (!a11 || (v57 = sub_29AB192F0(v87, v136[0], "G", v23), !v57))
                             {
-                              if (!a8 || (v57 = sub_29AB192F0(v87, v136[0], "R", a7), !v57))
+                              if (!a8 || (v57 = sub_29AB192F0(v87, v136[0], "R", v23), !v57))
                               {
                                 sub_29AB1948C(v87, v136[0], 1);
                                 v133[0] = xmmword_29B6818F0;
@@ -4836,7 +4835,7 @@ LABEL_81:
   return v25;
 }
 
-uint64_t sub_29AB192F0(uint64_t a1, unsigned int a2, char *a3, unsigned int a4)
+uint64_t sub_29AB192F0(uint64_t a1, signed int a2, char *a3, unsigned int a4)
 {
   if (!a1)
   {
@@ -4844,7 +4843,7 @@ uint64_t sub_29AB192F0(uint64_t a1, unsigned int a2, char *a3, unsigned int a4)
   }
 
   pthread_mutex_lock((a1 + 504));
-  if ((a2 & 0x80000000) != 0 || *(a1 + 196) <= a2)
+  if (a2 < 0 || *(a1 + 196) <= a2)
   {
     pthread_mutex_unlock((a1 + 504));
     return (*(a1 + 72))(a1, 4, "Part index (%d) out of range");
@@ -4899,7 +4898,7 @@ LABEL_11:
   return v8(v9, v10);
 }
 
-uint64_t sub_29AB1948C(uint64_t a1, unsigned int a2, int a3)
+uint64_t sub_29AB1948C(uint64_t a1, signed int a2, int a3)
 {
   if (a3 != 1)
   {
@@ -4912,7 +4911,7 @@ uint64_t sub_29AB1948C(uint64_t a1, unsigned int a2, int a3)
   }
 
   pthread_mutex_lock((a1 + 504));
-  if ((a2 & 0x80000000) != 0 || *(a1 + 196) <= a2)
+  if (a2 < 0 || *(a1 + 196) <= a2)
   {
     pthread_mutex_unlock((a1 + 504));
     return (*(a1 + 72))(a1, 4, "Part index (%d) out of range");
@@ -4968,7 +4967,7 @@ LABEL_13:
   return v5(v6, v7);
 }
 
-uint64_t sub_29AB19618(uint64_t a1, unsigned int a2, _OWORD *a3)
+uint64_t sub_29AB19618(uint64_t a1, signed int a2, _OWORD *a3)
 {
   v18 = 0;
   if (!a1)
@@ -4977,7 +4976,7 @@ uint64_t sub_29AB19618(uint64_t a1, unsigned int a2, _OWORD *a3)
   }
 
   pthread_mutex_lock((a1 + 504));
-  if ((a2 & 0x80000000) != 0 || *(a1 + 196) <= a2)
+  if (a2 < 0 || *(a1 + 196) <= a2)
   {
     pthread_mutex_unlock((a1 + 504));
     return (*(a1 + 72))(a1, 4, "Part index (%d) out of range", a2);
@@ -5310,7 +5309,7 @@ LABEL_19:
   }
 }
 
-uint64_t sub_29AB19CBC(uint64_t a1, unsigned int a2, _DWORD *a3)
+uint64_t sub_29AB19CBC(uint64_t a1, signed int a2, _DWORD *a3)
 {
   if (!a1)
   {
@@ -5322,7 +5321,7 @@ uint64_t sub_29AB19CBC(uint64_t a1, unsigned int a2, _DWORD *a3)
     pthread_mutex_lock((a1 + 504));
   }
 
-  if ((a2 & 0x80000000) != 0 || *(a1 + 196) <= a2)
+  if (a2 < 0 || *(a1 + 196) <= a2)
   {
     if (*a1 == 1)
     {
@@ -5370,7 +5369,7 @@ uint64_t sub_29AB19CBC(uint64_t a1, unsigned int a2, _DWORD *a3)
   }
 }
 
-uint64_t sub_29AB19DF4(unsigned __int8 *a1, unsigned int a2, int a3, uint64_t a4)
+uint64_t sub_29AB19DF4(unsigned __int8 *a1, signed int a2, int a3, uint64_t a4)
 {
   if (!a1)
   {
@@ -5378,7 +5377,7 @@ uint64_t sub_29AB19DF4(unsigned __int8 *a1, unsigned int a2, int a3, uint64_t a4
   }
 
   pthread_mutex_lock((a1 + 504));
-  if ((a2 & 0x80000000) != 0 || *(a1 + 49) <= a2)
+  if (a2 < 0 || *(a1 + 49) <= a2)
   {
     pthread_mutex_unlock((a1 + 504));
     v12 = *(a1 + 9);
@@ -5506,7 +5505,7 @@ LABEL_11:
   return v9(v10, v11);
 }
 
-uint64_t sub_29AB1A054(unsigned __int8 *a1, unsigned int a2, __int128 *a3, uint64_t a4)
+uint64_t sub_29AB1A054(unsigned __int8 *a1, signed int a2, __int128 *a3, uint64_t a4)
 {
   if (!a1)
   {
@@ -5619,7 +5618,7 @@ LABEL_24:
   return (*(a1 + 9))(a1, 4, "Part index (%d) out of range", a2);
 }
 
-uint64_t sub_29AB1A22C(uint64_t result, unsigned int a2, __int128 *a3, uint64_t a4)
+uint64_t sub_29AB1A22C(uint64_t result, signed int a2, __int128 *a3, uint64_t a4)
 {
   if (result)
   {
@@ -5629,7 +5628,7 @@ uint64_t sub_29AB1A22C(uint64_t result, unsigned int a2, __int128 *a3, uint64_t 
       pthread_mutex_lock((result + 504));
     }
 
-    if ((a2 & 0x80000000) != 0 || *(v7 + 196) <= a2)
+    if (a2 < 0 || *(v7 + 196) <= a2)
     {
       if (*v7 == 1)
       {
@@ -5700,7 +5699,7 @@ uint64_t sub_29AB1A22C(uint64_t result, unsigned int a2, __int128 *a3, uint64_t 
   return result;
 }
 
-uint64_t sub_29AB1A3FC(uint64_t a1, unsigned int a2, uint64_t a3)
+uint64_t sub_29AB1A3FC(uint64_t a1, signed int a2, uint64_t a3)
 {
   if (!a1)
   {
@@ -5712,7 +5711,7 @@ uint64_t sub_29AB1A3FC(uint64_t a1, unsigned int a2, uint64_t a3)
     pthread_mutex_lock((a1 + 504));
   }
 
-  if ((a2 & 0x80000000) != 0 || *(a1 + 196) <= a2)
+  if (a2 < 0 || *(a1 + 196) <= a2)
   {
     if (*a1 == 1)
     {
@@ -5775,7 +5774,7 @@ uint64_t sub_29AB1A3FC(uint64_t a1, unsigned int a2, uint64_t a3)
   }
 }
 
-uint64_t sub_29AB1A5CC(uint64_t a1, unsigned int a2, uint64_t a3)
+uint64_t sub_29AB1A5CC(uint64_t a1, signed int a2, uint64_t *a3)
 {
   if (!a1)
   {
@@ -5787,7 +5786,7 @@ uint64_t sub_29AB1A5CC(uint64_t a1, unsigned int a2, uint64_t a3)
     pthread_mutex_lock((a1 + 504));
   }
 
-  if ((a2 & 0x80000000) != 0 || *(a1 + 196) <= a2)
+  if (a2 < 0 || *(a1 + 196) <= a2)
   {
     if (*a1 == 1)
     {
@@ -5813,7 +5812,7 @@ uint64_t sub_29AB1A5CC(uint64_t a1, unsigned int a2, uint64_t a3)
     return v26(a1, 3);
   }
 
-  if (*(a3 + 16) != a1 || *(a3 + 12) != a2)
+  if (a3[2] != a1 || *(a3 + 3) != a2)
   {
     if (*a1 == 1)
     {
@@ -5825,7 +5824,7 @@ uint64_t sub_29AB1A5CC(uint64_t a1, unsigned int a2, uint64_t a3)
     goto LABEL_39;
   }
 
-  if ((*(*(*(a1 + 472) + 8 * a2) + 4) & 0xFFFFFFFE) == 2 && (!*(a3 + 120) || *(a3 + 128) != 4 * *(a3 + 40) * *(a3 + 36)))
+  if ((*(*(*(a1 + 472) + 8 * a2) + 4) & 0xFFFFFFFE) == 2 && (!a3[15] || a3[16] != 4 * *(a3 + 10) * *(a3 + 9)))
   {
     if (*a1 == 1)
     {
@@ -5837,7 +5836,7 @@ uint64_t sub_29AB1A5CC(uint64_t a1, unsigned int a2, uint64_t a3)
     goto LABEL_39;
   }
 
-  v6 = *(a3 + 8);
+  v6 = *(a3 + 4);
   if (v6 >= 1)
   {
     v7 = 0;
@@ -5911,19 +5910,19 @@ LABEL_85:
     }
 
     while (v11 != v7);
-    *(a3 + 104) = 0;
-    v16 = (a3 + 104);
-    if (!*(a3 + 232))
+    a3[13] = 0;
+    v16 = a3 + 13;
+    if (!a3[29])
     {
       goto LABEL_52;
     }
 
     if (v9)
     {
-      v17 = sub_29AB26F38(a3, 0, (a3 + 96), (a3 + 112), v9);
+      v17 = sub_29AB26F38(a3, 0, a3 + 12, a3 + 14, v9);
       if (!v17)
       {
-        v17 = (*(a3 + 232))(a3);
+        v17 = (a3[29])(a3);
       }
 
       v18 = v17;
@@ -5933,13 +5932,13 @@ LABEL_85:
     goto LABEL_54;
   }
 
-  *(a3 + 104) = 0;
-  v16 = (a3 + 104);
-  if (!*(a3 + 232))
+  a3[13] = 0;
+  v16 = a3 + 13;
+  if (!a3[29])
   {
     v9 = 0;
 LABEL_52:
-    if (!*(a3 + 96) || v9 != *(a3 + 168))
+    if (!a3[12] || v9 != a3[21])
     {
       if (*a1 == 1)
       {
@@ -5967,7 +5966,7 @@ LABEL_55:
     return v18;
   }
 
-  v27 = *(a3 + 240);
+  v27 = a3[30];
   if (v27 && *v16)
   {
     v28 = v27(a3);
@@ -5979,20 +5978,20 @@ LABEL_55:
 
   else
   {
-    sub_29AB27DC4(a3, 2, (a3 + 160), (a3 + 176));
-    sub_29AB27DC4(a3, 5, (a3 + 136), (a3 + 152));
-    v29 = *(a3 + 96);
-    *(a3 + 168) = *(a3 + 104);
-    *(a3 + 176) = 0;
-    v30 = *(a3 + 120);
-    *(a3 + 152) = 0;
-    *(a3 + 160) = v29;
-    v31 = 4 * *(a3 + 40) * *(a3 + 36);
-    *(a3 + 136) = v30;
-    *(a3 + 144) = v31;
+    sub_29AB27DC4(a3, 2, a3 + 20, a3 + 22);
+    sub_29AB27DC4(a3, 5, a3 + 17, a3 + 19);
+    v29 = a3[12];
+    a3[21] = a3[13];
+    a3[22] = 0;
+    v30 = a3[15];
+    a3[19] = 0;
+    a3[20] = v29;
+    v31 = 4 * *(a3 + 10) * *(a3 + 9);
+    a3[17] = v30;
+    a3[18] = v31;
   }
 
-  v32 = *(a3 + 248);
+  v32 = a3[31];
   if (v32)
   {
     v28 = v32(a3);
@@ -6002,7 +6001,7 @@ LABEL_55:
     }
   }
 
-  v33 = *(a3 + 256);
+  v33 = a3[32];
   if (!v33)
   {
     return 0;
@@ -6095,8 +6094,9 @@ void nanoexr_release_image_data(void **a1)
   }
 }
 
-uint64_t nanoexr_read_tiled_exr(uint64_t a1, uint64_t a2, char *a3, unsigned int a4, uint64_t a5, _DWORD *a6)
+uint64_t nanoexr_read_tiled_exr(uint64_t a1, uint64_t a2, char *a3, uint64_t a4, uint64_t a5, _DWORD *a6)
 {
+  v8 = a4;
   *&v143[20] = *MEMORY[0x29EDCA608];
   v133 = 0u;
   v134 = 0u;
@@ -6154,19 +6154,19 @@ LABEL_3:
     pthread_mutex_lock((a1 + 504));
   }
 
-  if ((a4 & 0x80000000) != 0 || *(a1 + 196) <= a4)
+  if (v8 < 0 || *(a1 + 196) <= v8)
   {
     if (*a1 == 1)
     {
       pthread_mutex_unlock((a1 + 504));
     }
 
-    v20 = (*(a1 + 72))(a1, 4, "Part index (%d) out of range", a4);
+    v20 = (*(a1 + 72))(a1, 4, "Part index (%d) out of range", v8);
   }
 
   else
   {
-    v14 = *(*(a1 + 472) + 8 * a4);
+    v14 = *(*(a1 + 472) + 8 * v8);
     v15 = *(v14 + 96);
     if (!v15)
     {
@@ -6223,7 +6223,7 @@ LABEL_157:
   v18 = 0;
 LABEL_18:
   v104 = 0;
-  v21 = sub_29AB18110(a1, a4, &v104 + 1, &v104);
+  v21 = sub_29AB18110(a1, v8, &v104 + 1, &v104);
   if (v21)
   {
     v19 = v21;
@@ -6235,7 +6235,7 @@ LABEL_18:
     pthread_mutex_lock((a1 + 504));
   }
 
-  if ((a4 & 0x80000000) != 0 || *(a1 + 196) <= a4)
+  if (v8 < 0 || *(a1 + 196) <= v8)
   {
     if (*a1 == 1)
     {
@@ -6246,7 +6246,7 @@ LABEL_18:
     goto LABEL_155;
   }
 
-  v22 = *(*(a1 + 472) + 8 * a4);
+  v22 = *(*(a1 + 472) + 8 * v8);
   if ((*(v22 + 4) | 2) != 3)
   {
     if (*a1 == 1)
@@ -6343,7 +6343,7 @@ LABEL_46:
         goto LABEL_47;
       }
 
-      if (*(a1 + 196) <= a4)
+      if (*(a1 + 196) <= v8)
       {
         v36 = (*(a1 + 72))(a1, 4, "Part index (%d) out of range");
         goto LABEL_46;
@@ -6351,7 +6351,7 @@ LABEL_46:
 
       v136 = 0;
       v137 = 0;
-      v37 = *(*(a1 + 472) + 8 * a4);
+      v37 = *(*(a1 + 472) + 8 * v8);
       if ((*(v37 + 4) | 2) == 2)
       {
         v36 = (*(a1 + 56))(a1, 19);
@@ -6487,7 +6487,7 @@ LABEL_89:
       if (*(a1 + 5))
       {
         v73 = v143;
-        if (v142 != a4)
+        if (v142 != v8)
         {
           v74 = (*(a1 + 72))(a1, 22, "Corrupt tile (%d, %d), level (%d, %d) (chunk %d): bad part number (%d, expect %d)");
 LABEL_112:
@@ -6616,7 +6616,7 @@ LABEL_47:
 LABEL_48:
       if (v105)
       {
-        v38 = sub_29AB1BFBC(a1, a4, &v100, &v105);
+        v38 = sub_29AB1BFBC(a1, v8, &v100, &v105);
         if (v38)
         {
           break;
@@ -6625,13 +6625,13 @@ LABEL_48:
 
       else
       {
-        v38 = sub_29AB1B8C0(a1, a2, v96, a4, &v100, &v105, a6);
+        v38 = sub_29AB1B8C0(a1, a2, v96, v8, &v100, &v105, a6);
         if (v38)
         {
           break;
         }
 
-        v38 = sub_29AB1BBDC(a1, a4, &v105);
+        v38 = sub_29AB1BBDC(a1, v8, &v105);
         if (v38)
         {
           break;
@@ -6669,7 +6669,7 @@ LABEL_60:
         while (v39 < SWORD4(v105));
       }
 
-      v38 = sub_29AB1C0F0(a1, a4, &v105);
+      v38 = sub_29AB1C0F0(a1, v8, &v105);
       if (v38)
       {
         break;
@@ -6702,7 +6702,7 @@ LABEL_161:
   return v19;
 }
 
-uint64_t sub_29AB1B8C0(uint64_t a1, uint64_t a2, char *a3, unsigned int a4, __int128 *a5, uint64_t a6, _DWORD *a7)
+uint64_t sub_29AB1B8C0(uint64_t a1, uint64_t a2, char *a3, signed int a4, __int128 *a5, uint64_t a6, _DWORD *a7)
 {
   if (a1)
   {
@@ -6714,7 +6714,7 @@ LABEL_4:
       goto LABEL_13;
     }
 
-    if ((a4 & 0x80000000) != 0 || *(a1 + 196) <= a4)
+    if (a4 < 0 || *(a1 + 196) <= a4)
     {
       v13 = (*(a1 + 72))(a1, 4, "Part index (%d) out of range", a4);
 LABEL_13:
@@ -6874,7 +6874,7 @@ LABEL_14:
   return v14;
 }
 
-uint64_t sub_29AB1BBDC(uint64_t a1, unsigned int a2, uint64_t a3)
+uint64_t sub_29AB1BBDC(uint64_t a1, signed int a2, uint64_t *a3)
 {
   if (!a1)
   {
@@ -6889,7 +6889,7 @@ LABEL_4:
     return v3();
   }
 
-  if ((a2 & 0x80000000) != 0 || *(a1 + 196) <= a2)
+  if (a2 < 0 || *(a1 + 196) <= a2)
   {
     v51 = *(a1 + 72);
     v52 = "Part index (%d) out of range";
@@ -6903,7 +6903,7 @@ LABEL_4:
     goto LABEL_4;
   }
 
-  if (*(a3 + 16) != a1 || *(a3 + 12) != a2)
+  if (a3[2] != a1 || *(a3 + 3) != a2)
   {
     v45 = *(a1 + 72);
 
@@ -6912,7 +6912,7 @@ LABEL_4:
 
   v6 = *(*(a1 + 472) + 8 * a2);
   v7 = *(v6 + 4) & 0xFFFFFFFE;
-  v8 = *(a3 + 8);
+  v8 = *(a3 + 4);
   if (v8 < 1)
   {
     v21 = 0;
@@ -6941,22 +6941,22 @@ LABEL_90:
     if (v7 != 2 && (v46 == 0 && v43 ? (v47 = v16 == 0) : (v47 = 0), v47 ? (v48 = v21 < 1) : (v48 = 1), !v48 ? (v49 = v21 == v8) : (v49 = 0), v49))
     {
       result = 0;
-      *(a3 + 208) = sub_29AB317F0;
-      *(a3 + 216) = 0;
-      *(a3 + 232) = 0;
+      a3[26] = sub_29AB317F0;
+      a3[27] = 0;
+      a3[29] = 0;
     }
 
     else
     {
-      *(a3 + 208) = sub_29AB31990;
+      a3[26] = sub_29AB31990;
       if (v46)
       {
-        *(a3 + 216) = sub_29AB31B34;
+        a3[27] = sub_29AB31B34;
       }
 
       v50 = sub_29AB31C9C(a3, v7 == 2, v21, v24, v23, v19, v18, v17, v16, v12, v15, v14);
       result = 0;
-      *(a3 + 232) = v50;
+      a3[29] = v50;
     }
 
     return result;
@@ -7208,7 +7208,7 @@ LABEL_110:
   return v51(a1, v44, v52);
 }
 
-uint64_t sub_29AB1BFBC(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4)
+uint64_t sub_29AB1BFBC(uint64_t a1, signed int a2, _OWORD *a3, uint64_t a4)
 {
   if (!a1)
   {
@@ -7223,7 +7223,7 @@ LABEL_4:
     return v5();
   }
 
-  if ((a2 & 0x80000000) != 0 || *(a1 + 196) <= a2)
+  if (a2 < 0 || *(a1 + 196) <= a2)
   {
     return (*(a1 + 72))(a1, 4, "Part index (%d) out of range", a2);
   }
@@ -7237,9 +7237,9 @@ LABEL_4:
   if (*(a4 + 16) == a1 && *(a4 + 12) == a2)
   {
     result = sub_29AB26018(*a4, *(a4 + 8), a3, a1, *(*(a1 + 472) + 8 * a2));
-    v8 = *(a3 + 32);
-    v9 = *(a3 + 48);
-    v10 = *(a3 + 16);
+    v8 = a3[2];
+    v9 = a3[3];
+    v10 = a3[1];
     *(a4 + 24) = *a3;
     *(a4 + 72) = v9;
     *(a4 + 56) = v8;
@@ -7256,7 +7256,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t sub_29AB1C0F0(uint64_t a1, unsigned int a2, uint64_t a3)
+uint64_t sub_29AB1C0F0(uint64_t a1, signed int a2, uint64_t a3)
 {
   if (!a1)
   {
@@ -7271,7 +7271,7 @@ LABEL_4:
     return v4();
   }
 
-  if ((a2 & 0x80000000) != 0 || *(a1 + 196) <= a2)
+  if (a2 < 0 || *(a1 + 196) <= a2)
   {
     return (*(a1 + 72))(a1, 4, "Part index (%d) out of range", a2);
   }
@@ -7412,7 +7412,7 @@ double sub_29AB1C31C(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t nanoexr_read_scanline_exr(uint64_t a1, uint64_t a2, char *a3, unsigned int a4, _DWORD *a5)
+uint64_t nanoexr_read_scanline_exr(uint64_t a1, uint64_t a2, char *a3, signed int a4, _DWORD *a5)
 {
   v61 = *MEMORY[0x29EDCA608];
   memset(v54, 0, sizeof(v54));
@@ -7465,7 +7465,7 @@ LABEL_20:
       goto LABEL_21;
     }
 
-    if ((a4 & 0x80000000) != 0 || *(a1 + 196) <= a4)
+    if (a4 < 0 || *(a1 + 196) <= a4)
     {
       v17 = (*(a1 + 72))(a1, 4, "Part index (%d) out of range");
       goto LABEL_20;
@@ -7990,7 +7990,7 @@ _DWORD *copy_channel_float(_DWORD *result, uint64_t a2, uint64_t a3, int a4, int
   return result;
 }
 
-uint64_t nanoexr_read_exr(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, char *a5, int a6, signed int a7, uint64_t a8)
+uint64_t nanoexr_read_exr(char *a1, uint64_t a2, uint64_t a3, int32x2_t *a4, char *a5, int a6, uint64_t a7, uint64_t a8)
 {
   v87 = *MEMORY[0x29EDCA608];
   if (!a6)
@@ -8028,7 +8028,7 @@ uint64_t nanoexr_read_exr(char *a1, uint64_t a2, uint64_t a3, uint64_t a4, char 
     goto LABEL_7;
   }
 
-  if (sub_29AB1EDC8(v86.i64, &v75, 0))
+  if (sub_29AB1EDC8(&v86, &v75, 0))
   {
     v15 = 1;
 LABEL_7:
@@ -8186,14 +8186,14 @@ LABEL_46:
 
   v38 = dword_29B6C2B08[v37];
   v39 = vshl_s32(vadd_s32(vsub_s32(st_ino, v35), 0x100000001), vneg_s32(vdup_n_s32(a8)));
-  *(a4 + 24) = v39;
+  a4[3] = v39;
   v40 = v38 * (v39.i32[0] * a6 * v39.i32[1]);
-  *(a4 + 8) = v40;
-  *(a4 + 16) = v37;
-  *(a4 + 20) = a6;
+  a4[1] = v40;
+  a4[2].i32[0] = v37;
+  a4[2].i32[1] = a6;
   v41 = (HIDWORD(v85.st_ino) + 1) >> a8;
-  *(a4 + 32) = *&v85.st_mode >> a8;
-  *(a4 + 36) = v41;
+  a4[4].i32[0] = *&v85.st_mode >> a8;
+  a4[4].i32[1] = v41;
   v42 = malloc(v40);
   *a4 = v42;
   if (!v42)
@@ -8229,7 +8229,7 @@ LABEL_46:
   v52.i32[0] = vaddvq_s32(v52) & 0xF;
   *v52.i8 = vcnt_s8(*v52.i8);
   v52.i16[0] = vaddlv_u8(*v52.i8);
-  v53 = *(a4 + 20);
+  v53 = a4[2].i32[1];
   if (v53 <= v52.i32[0])
   {
     goto LABEL_96;
@@ -8237,7 +8237,7 @@ LABEL_46:
 
   if (v53 == 4 && v86.i32[3] == -1)
   {
-    v54 = *(a4 + 16);
+    v54 = a4[2].i32[0];
     if (v54)
     {
       if (v54 == 2)
@@ -8258,7 +8258,7 @@ LABEL_46:
   }
 
   v55 = v86.i32[1];
-  if (*(a4 + 20) >= 3 && v86.i32[2] == -1)
+  if (a4[2].i32[1] >= 3 && v86.i32[2] == -1)
   {
     v56 = v86.i32[0];
     if (v86.i32[1] >= 0)
@@ -8271,7 +8271,7 @@ LABEL_46:
       v57 = v86.i32[0] >> 31;
     }
 
-    v58 = *(a4 + 16);
+    v58 = a4[2].i32[0];
     if (v57 < 0)
     {
       if (v58)
@@ -8317,12 +8317,12 @@ LABEL_46:
     v56 = v86.i32[0];
   }
 
-  if (*(a4 + 20) < 2 || v55 != -1)
+  if (a4[2].i32[1] < 2 || v55 != -1)
   {
     goto LABEL_95;
   }
 
-  v59 = *(a4 + 16);
+  v59 = a4[2].i32[0];
   if (v56 < 0)
   {
     if (v59)
@@ -8346,7 +8346,7 @@ LABEL_46:
 LABEL_95:
     if (v56 == -1)
     {
-      v61 = *(a4 + 16);
+      v61 = a4[2].i32[0];
       if (v61)
       {
         if (v61 == 2)
@@ -8398,7 +8398,7 @@ LABEL_96:
   return v15;
 }
 
-uint64_t sub_29AB1D784(uint64_t a1, unsigned int a2, _DWORD *a3)
+uint64_t sub_29AB1D784(uint64_t a1, signed int a2, _DWORD *a3)
 {
   if (!a1)
   {
@@ -8410,7 +8410,7 @@ uint64_t sub_29AB1D784(uint64_t a1, unsigned int a2, _DWORD *a3)
     pthread_mutex_lock((a1 + 504));
   }
 
-  if ((a2 & 0x80000000) != 0 || *(a1 + 196) <= a2)
+  if (a2 < 0 || *(a1 + 196) <= a2)
   {
     if (*a1 == 1)
     {
@@ -8471,7 +8471,7 @@ uint64_t sub_29AB1D784(uint64_t a1, unsigned int a2, _DWORD *a3)
   }
 }
 
-uint64_t sub_29AB1D8F8(uint64_t a1, unsigned int a2, _OWORD *a3)
+uint64_t sub_29AB1D8F8(uint64_t a1, signed int a2, _OWORD *a3)
 {
   if (!a1)
   {
@@ -8483,7 +8483,7 @@ uint64_t sub_29AB1D8F8(uint64_t a1, unsigned int a2, _OWORD *a3)
     pthread_mutex_lock((a1 + 504));
   }
 
-  if ((a2 & 0x80000000) != 0 || *(a1 + 196) <= a2)
+  if (a2 < 0 || *(a1 + 196) <= a2)
   {
     if (*a1 == 1)
     {
@@ -8624,7 +8624,7 @@ LABEL_21:
   return result;
 }
 
-uint64_t sub_29AB1DBB8(uint64_t a1, int *a2, char *a3, int a4, int a5, void *a6, uint64_t *a7)
+uint64_t sub_29AB1DBB8(uint64_t a1, int *a2, char *a3, int a4, uint64_t a5, void *a6, uint64_t *a7)
 {
   v19 = 0;
   if (!a1)
@@ -8632,6 +8632,7 @@ uint64_t sub_29AB1DBB8(uint64_t a1, int *a2, char *a3, int a4, int a5, void *a6,
     return 2;
   }
 
+  v9 = a5;
   result = sub_29AB1DEFC(a1, a2, a3, a5, a6, a7);
   if (result)
   {
@@ -8653,7 +8654,7 @@ uint64_t sub_29AB1DBB8(uint64_t a1, int *a2, char *a3, int a4, int a5, void *a6,
     if (v15 <= *(a1 + 2))
     {
       v16 = &(&off_29F295EA8)[3 * (a4 - 1)];
-      result = sub_29AB1E050(a1, &v19, v16[2], a5, a6, a3, v15, 0, 0);
+      result = sub_29AB1E050(a1, &v19, v16[2], v9, a6, a3, v15, 0, 0);
       if (!result)
       {
         v17 = v19;
@@ -8685,7 +8686,7 @@ uint64_t sub_29AB1DBB8(uint64_t a1, int *a2, char *a3, int a4, int a5, void *a6,
   return result;
 }
 
-uint64_t sub_29AB1DD34(uint64_t a1, uint64_t a2, const char *a3, int a4)
+uint64_t sub_29AB1DD34(uint64_t a1, uint64_t a2, const char *a3, unsigned int a4)
 {
   if (!a1)
   {
@@ -9528,7 +9529,7 @@ uint64_t sub_29AB1E9C0(uint64_t a1, uint64_t a2, int a3)
   return result;
 }
 
-uint64_t sub_29AB1EAB8(uint64_t a1, unsigned int a2, float a3)
+uint64_t sub_29AB1EAB8(uint64_t a1, signed int a2, float a3)
 {
   if (!a1)
   {
@@ -9536,7 +9537,7 @@ uint64_t sub_29AB1EAB8(uint64_t a1, unsigned int a2, float a3)
   }
 
   pthread_mutex_lock((a1 + 504));
-  if ((a2 & 0x80000000) != 0 || *(a1 + 196) <= a2)
+  if (a2 < 0 || *(a1 + 196) <= a2)
   {
     pthread_mutex_unlock((a1 + 504));
     return (*(a1 + 72))(a1, 4, "Part index (%d) out of range");
@@ -9592,7 +9593,7 @@ LABEL_11:
   return v6(v7, v8);
 }
 
-uint64_t sub_29AB1EC40(uint64_t a1, unsigned int a2, float a3)
+uint64_t sub_29AB1EC40(uint64_t a1, signed int a2, float a3)
 {
   if (!a1)
   {
@@ -9600,7 +9601,7 @@ uint64_t sub_29AB1EC40(uint64_t a1, unsigned int a2, float a3)
   }
 
   pthread_mutex_lock((a1 + 504));
-  if ((a2 & 0x80000000) != 0 || *(a1 + 196) <= a2)
+  if (a2 < 0 || *(a1 + 196) <= a2)
   {
     pthread_mutex_unlock((a1 + 504));
     return (*(a1 + 72))(a1, 4, "Part index (%d) out of range");
@@ -9656,7 +9657,7 @@ LABEL_11:
   return v6(v7, v8);
 }
 
-uint64_t sub_29AB1EDC8(uint64_t *a1, uint64_t a2, int a3)
+uint64_t sub_29AB1EDC8(char **a1, uint64_t a2, int a3)
 {
   *a1 = 0;
   if (*(a2 + 40))

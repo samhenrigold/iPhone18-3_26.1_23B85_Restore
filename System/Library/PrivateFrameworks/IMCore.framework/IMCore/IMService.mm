@@ -8,55 +8,54 @@
 
 + (NSDate)myIdleTime
 {
-  v3 = MEMORY[0x1E695DF00];
-  v4 = objc_msgSend_sharedController(IMDaemonController, a2, v2);
-  v7 = objc_msgSend_listener(v4, v5, v6);
-  v10 = objc_msgSend_myIdleTime(v7, v8, v9);
-  v13 = objc_msgSend_dateWithTimeIntervalSinceNow_(v3, v11, v12, v10);
+  v2 = MEMORY[0x1E695DF00];
+  v3 = +[IMDaemonController sharedController];
+  listener = [v3 listener];
+  v5 = [v2 dateWithTimeIntervalSinceNow:{objc_msgSend(listener, "myIdleTime")}];
 
-  return v13;
+  return v5;
 }
 
 + (BOOL)isEmailAddress:(id)address inDomains:(id)domains
 {
   addressCopy = address;
   domainsCopy = domains;
-  v10 = objc_msgSend_count(domainsCopy, v7, v8);
-  if (!v10)
+  v7 = [domainsCopy count];
+  if (!v7)
   {
     goto LABEL_16;
   }
 
-  v11 = 0;
+  v8 = 0;
   while (1)
   {
-    v12 = objc_msgSend_objectAtIndex_(domainsCopy, v9, v11);
-    if (objc_msgSend_isEqualToString_(v12, v13, @"*"))
+    v9 = [domainsCopy objectAtIndex:v8];
+    if ([v9 isEqualToString:@"*"])
     {
 LABEL_11:
-      LOBYTE(v10) = 1;
+      LOBYTE(v7) = 1;
       goto LABEL_15;
     }
 
-    if (objc_msgSend_hasSuffix_(addressCopy, v14, v12))
+    if ([addressCopy hasSuffix:v9])
     {
       break;
     }
 
 LABEL_9:
 
-    if (v10 == ++v11)
+    if (v7 == ++v8)
     {
-      LOBYTE(v10) = 0;
+      LOBYTE(v7) = 0;
       goto LABEL_16;
     }
   }
 
-  v17 = objc_msgSend_length(addressCopy, v15, v16);
-  v20 = v17 + ~objc_msgSend_length(v12, v18, v19);
-  if (v20 < objc_msgSend_length(addressCopy, v21, v22))
+  v10 = [addressCopy length];
+  v11 = v10 + ~[v9 length];
+  if (v11 < [addressCopy length])
   {
-    if (v20 && v20 < objc_msgSend_length(addressCopy, v23, v24) && objc_msgSend_characterAtIndex_(addressCopy, v25, v20) == 64)
+    if (v11 && v11 < [addressCopy length] && objc_msgSend(addressCopy, "characterAtIndex:", v11) == 64)
     {
       goto LABEL_11;
     }
@@ -64,104 +63,108 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  v10 = IMLogHandleForCategory();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v7 = IMLogHandleForCategory();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    sub_1A84DEF40(addressCopy, v12, v10);
+    sub_1A84DEF40(addressCopy, v9, v7);
   }
 
-  LOBYTE(v10) = 0;
+  LOBYTE(v7) = 0;
 LABEL_15:
 
 LABEL_16:
-  return v10;
+  return v7;
 }
 
 - (id)_displayName
 {
-  v4 = objc_msgSend_name(self, a2, v2);
-  isEqualToString = objc_msgSend_isEqualToString_(v4, v5, *MEMORY[0x1E69A7AF8]);
+  name = [(IMService *)self name];
+  v4 = [name isEqualToString:*MEMORY[0x1E69A7AF8]];
 
-  if (isEqualToString)
+  if (v4)
   {
-    v9 = sub_1A8361964();
-    v10 = @"iMessage • Satellite";
-    objc_msgSend_localizedStringForKey_value_table_(v9, v11, @"PLACEHOLDER_TEXT_VIEW_SATELLITE_MESSAGE", @"iMessage • Satellite", @"IMCoreLocalizable");
-    v35 = LABEL_16:;
-    v36 = v35;
-    if (v35)
+    v5 = sub_1A8361964();
+    v6 = v5;
+    v7 = @"PLACEHOLDER_TEXT_VIEW_SATELLITE_MESSAGE";
+    v8 = @"iMessage • Satellite";
+LABEL_16:
+    v15 = [v5 localizedStringForKey:v7 value:v8 table:@"IMCoreLocalizable"];
+    v16 = v15;
+    if (v15)
     {
-      v37 = v35;
+      v17 = v15;
     }
 
     else
     {
-      v37 = v10;
+      v17 = v8;
     }
 
-    v27 = v37;
+    name3 = v17;
 
     goto LABEL_20;
   }
 
-  v12 = objc_msgSend_name(self, v7, v8);
-  v14 = objc_msgSend_isEqualToString_(v12, v13, *MEMORY[0x1E69A7AE8]);
+  name2 = [(IMService *)self name];
+  v10 = [name2 isEqualToString:*MEMORY[0x1E69A7AE8]];
 
-  if (v14)
+  if (v10)
   {
-    v9 = sub_1A8361964();
-    v10 = @"Text Message • Satellite";
-    objc_msgSend_localizedStringForKey_value_table_(v9, v17, @"PLACEHOLDER_TEXT_VIEW_SATELLITE_MESSAGE_SMS", @"Text Message • Satellite", @"IMCoreLocalizable");
+    v5 = sub_1A8361964();
+    v6 = v5;
+    v7 = @"PLACEHOLDER_TEXT_VIEW_SATELLITE_MESSAGE_SMS";
+    v8 = @"Text Message • Satellite";
     goto LABEL_16;
   }
 
-  v18 = objc_msgSend_smsService(IMServiceImpl, v15, v16);
+  v11 = +[IMServiceImpl smsService];
 
-  if (v18 == self)
+  if (v11 == self)
   {
-    v9 = sub_1A8361964();
-    v10 = @"Text Message • SMS";
-    objc_msgSend_localizedStringForKey_value_table_(v9, v28, @"TEXT_MESSAGE_SMS", @"Text Message • SMS", @"IMCoreLocalizable");
+    v5 = sub_1A8361964();
+    v6 = v5;
+    v7 = @"TEXT_MESSAGE_SMS";
+    v8 = @"Text Message • SMS";
     goto LABEL_16;
   }
 
-  v21 = objc_msgSend_iMessageService(IMServiceImpl, v19, v20);
+  v12 = +[IMServiceImpl iMessageService];
 
-  if (v21 == self)
+  if (v12 == self)
   {
-    v9 = sub_1A8361964();
-    v10 = @"iMessage";
-    objc_msgSend_localizedStringForKey_value_table_(v9, v29, @"MADRID", @"iMessage", @"IMCoreLocalizable");
+    v5 = sub_1A8361964();
+    v6 = v5;
+    v7 = @"MADRID";
+    v8 = @"iMessage";
     goto LABEL_16;
   }
 
-  v24 = objc_msgSend_rcsService(IMServiceImpl, v22, v23);
+  v13 = +[IMServiceImpl rcsService];
 
-  if (v24 == self)
+  if (v13 == self)
   {
-    if ((IMDeviceIsGreenTea() & 1) != 0 || objc_msgSend_IMDeviceIsChinaRegion(MEMORY[0x1E69A8020], v30, v31))
+    if ((IMDeviceIsGreenTea() & 1) != 0 || [MEMORY[0x1E69A8020] IMDeviceIsChinaRegion])
     {
-      v32 = sub_1A8361964();
-      v9 = v32;
-      v34 = @"5G_MESSAGING";
+      v5 = sub_1A8361964();
+      v6 = v5;
+      v7 = @"5G_MESSAGING";
     }
 
     else
     {
-      v32 = sub_1A8361964();
-      v9 = v32;
-      v34 = @"TEXT_MESSAGE_RCS";
+      v5 = sub_1A8361964();
+      v6 = v5;
+      v7 = @"TEXT_MESSAGE_RCS";
     }
 
-    v10 = @"Text Message • RCS";
-    objc_msgSend_localizedStringForKey_value_table_(v32, v33, v34, @"Text Message • RCS", @"IMCoreLocalizable");
+    v8 = @"Text Message • RCS";
     goto LABEL_16;
   }
 
-  v27 = objc_msgSend_name(self, v25, v26);
+  name3 = [(IMService *)self name];
 LABEL_20:
 
-  return v27;
+  return name3;
 }
 
 @end

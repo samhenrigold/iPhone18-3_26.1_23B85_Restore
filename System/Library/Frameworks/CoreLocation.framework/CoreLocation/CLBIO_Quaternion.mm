@@ -26,69 +26,71 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v5 = [equal isMemberOfClass:objc_opt_class()];
-  if (v5)
+  v5 = objc_opt_class();
+  isMemberOfClass = objc_msgSend_isMemberOfClass_(equal, v6, v5, v7);
+  if (isMemberOfClass)
   {
     X = self->_X;
-    [equal X];
-    if (X == v7 && (Y = self->_Y, [equal Y], Y == v9) && (Z = self->_Z, objc_msgSend(equal, "Z"), Z == v11))
+    objc_msgSend_X(equal, v9, v10, v11);
+    if (X == v16 && (Y = self->_Y, objc_msgSend_Y(equal, v13, v14, v15), Y == v21) && (Z = self->_Z, objc_msgSend_Z(equal, v18, v19, v20), Z == v26))
     {
       W = self->_W;
-      [equal W];
-      LOBYTE(v5) = W == v13;
+      objc_msgSend_W(equal, v23, v24, v25);
+      LOBYTE(isMemberOfClass) = W == v28;
     }
 
     else
     {
-      LOBYTE(v5) = 0;
+      LOBYTE(isMemberOfClass) = 0;
     }
   }
 
-  return v5;
+  return isMemberOfClass;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_opt_class() allocWithZone:zone];
-  [(CLBIO_Quaternion *)self X];
-  [(CLBIO_Quaternion *)self Y];
-  [(CLBIO_Quaternion *)self Z];
-  [(CLBIO_Quaternion *)self W];
+  v5 = objc_opt_class();
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
+  objc_msgSend_X(self, v9, v10, v11);
+  objc_msgSend_Y(self, v12, v13, v14);
+  objc_msgSend_Z(self, v15, v16, v17);
+  objc_msgSend_W(self, v18, v19, v20);
 
-  return MEMORY[0x1EEE66B58](v4, sel_initWithX_Y_Z_W_);
+  return MEMORY[0x1EEE66B58](v8, sel_initWithX_Y_Z_W_, v21, v22);
 }
 
 - (void)encodeWithCoder:(id)coder
 {
-  [(CLBIO_Quaternion *)self X];
-  [coder encodeDouble:@"quaternionX" forKey:?];
-  [(CLBIO_Quaternion *)self Y];
-  [coder encodeDouble:@"quaternionY" forKey:?];
-  [(CLBIO_Quaternion *)self Z];
-  [coder encodeDouble:@"quaternionZ" forKey:?];
-  [(CLBIO_Quaternion *)self W];
+  objc_msgSend_X(self, a2, coder, v3);
+  objc_msgSend_encodeDouble_forKey_(coder, v6, @"quaternionX", v7);
+  objc_msgSend_Y(self, v8, v9, v10);
+  objc_msgSend_encodeDouble_forKey_(coder, v11, @"quaternionY", v12);
+  objc_msgSend_Z(self, v13, v14, v15);
+  objc_msgSend_encodeDouble_forKey_(coder, v16, @"quaternionZ", v17);
+  objc_msgSend_W(self, v18, v19, v20);
 
-  [coder encodeDouble:@"quaternionW" forKey:?];
+  objc_msgSend_encodeDouble_forKey_(coder, v21, @"quaternionW", v22);
 }
 
 - (CLBIO_Quaternion)initWithCoder:(id)coder
 {
-  v10.receiver = self;
-  v10.super_class = CLBIO_Quaternion;
-  v4 = [(CLBIO_Quaternion *)&v10 init];
-  if (v4)
+  v18.receiver = self;
+  v18.super_class = CLBIO_Quaternion;
+  v6 = [(CLBIO_Quaternion *)&v18 init];
+  if (v6)
   {
-    [coder decodeDoubleForKey:@"quaternionX"];
-    v4->_X = v5;
-    [coder decodeDoubleForKey:@"quaternionY"];
-    v4->_Y = v6;
-    [coder decodeDoubleForKey:@"quaternionZ"];
-    v4->_Z = v7;
-    [coder decodeDoubleForKey:@"quaternionW"];
-    v4->_W = v8;
+    objc_msgSend_decodeDoubleForKey_(coder, v4, @"quaternionX", v5);
+    v6->_X = v7;
+    objc_msgSend_decodeDoubleForKey_(coder, v8, @"quaternionY", v9);
+    v6->_Y = v10;
+    objc_msgSend_decodeDoubleForKey_(coder, v11, @"quaternionZ", v12);
+    v6->_Z = v13;
+    objc_msgSend_decodeDoubleForKey_(coder, v14, @"quaternionW", v15);
+    v6->_W = v16;
   }
 
-  return v4;
+  return v6;
 }
 
 @end

@@ -1,5 +1,6 @@
 @interface ASDTIOA2SelectorControl
 - (ASDTIOA2Device)ioa2Device;
+- (ASDTIOA2SelectorControl)initWithIOA2Device:(id)device userClientID:(unsigned int)d isSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope objectClassID:(unsigned int)iD dictionary:(id)dictionary;
 - (BOOL)doSetValues:(const unsigned int *)values withCount:(unint64_t)count;
 - (BOOL)setSelectedValues:(const unsigned int *)values withCount:(unint64_t)count;
 - (BOOL)synchronizeWithRegistryDictionary:(id)dictionary;
@@ -11,6 +12,27 @@
 
 @implementation ASDTIOA2SelectorControl
 
+- (ASDTIOA2SelectorControl)initWithIOA2Device:(id)device userClientID:(unsigned int)d isSettable:(BOOL)settable forElement:(unsigned int)element inScope:(unsigned int)scope objectClassID:(unsigned int)iD dictionary:(id)dictionary
+{
+  v9 = *&iD;
+  v10 = *&scope;
+  v11 = *&element;
+  settableCopy = settable;
+  deviceCopy = device;
+  plugin = [deviceCopy plugin];
+  v19.receiver = self;
+  v19.super_class = ASDTIOA2SelectorControl;
+  v17 = [(ASDSelectorControl *)&v19 initWithIsSettable:settableCopy forElement:v11 inScope:v10 withPlugin:plugin andObjectClassID:v9];
+
+  if (v17)
+  {
+    objc_storeWeak(&v17->_ioa2Device, deviceCopy);
+    v17->_userClientID = d;
+  }
+
+  return v17;
+}
+
 - (void)dealloc
 {
   [(ASDControl *)self asdtRemoveControlProperties];
@@ -21,151 +43,149 @@
 
 - (NSArray)propertySelectorInfo
 {
-  v14[3] = *MEMORY[0x277D85DE8];
-  v12[0] = @"selector";
-  v12[1] = @"dataType";
-  v13[0] = &unk_285357930;
-  v13[1] = &unk_285357948;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v14[0] = v2;
-  v10[0] = @"selector";
-  v10[1] = @"dataType";
-  v11[0] = &unk_285357960;
-  v11[1] = &unk_285357948;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
-  v14[1] = v3;
-  v8[0] = @"selector";
-  v8[1] = @"dataType";
-  v9[0] = &unk_285357978;
-  v9[1] = &unk_285357990;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-  v14[2] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:3];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
+  v11[0] = @"selector";
+  v11[1] = @"dataType";
+  v12[0] = &unk_285357930;
+  v12[1] = &unk_285357948;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v13[0] = v2;
+  v9[0] = @"selector";
+  v9[1] = @"dataType";
+  v10[0] = &unk_285357960;
+  v10[1] = &unk_285357948;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v13[1] = v3;
+  v7[0] = @"selector";
+  v7[1] = @"dataType";
+  v8[0] = &unk_285357978;
+  v8[1] = &unk_285357990;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
+  v13[2] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
 
   return v5;
 }
 
 - (BOOL)synchronizeWithRegistryDictionary:(id)dictionary
 {
-  v92[1] = *MEMORY[0x277D85DE8];
+  v93[1] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   std::recursive_mutex::lock(&self->_lock);
   selfCopy = self;
   if (!dictionaryCopy)
   {
-    v52 = 0;
-    v9 = ASDTIOA2LogType();
     v53 = 0;
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = ASDTIOA2LogType(v5, v6);
+    v54 = 0;
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_2416BA000, v9, OS_LOG_TYPE_DEFAULT, "Error: Couldn't synchronize with registry", buf, 2u);
+      _os_log_impl(&dword_2416BA000, v11, OS_LOG_TYPE_DEFAULT, "Error: Couldn't synchronize with registry", buf, 2u);
     }
 
 LABEL_70:
 
-    dictionaryCopy = v52;
+    dictionaryCopy = v53;
     self = selfCopy;
     goto LABEL_71;
   }
 
-  v5 = [dictionaryCopy objectForKeyedSubscript:@"property selectors"];
-  v6 = [(ASDControl *)self asdtAddControlProperties:v5];
+  v7 = [dictionaryCopy objectForKeyedSubscript:@"property selectors"];
+  v8 = [(ASDControl *)self asdtAddControlProperties:v7];
 
-  if (v6)
+  if (v8)
   {
-    v7 = [dictionaryCopy objectForKeyedSubscript:@"multi-selector"];
-    v52 = dictionaryCopy;
-    self->_multiSelector = [v7 BOOLValue];
+    v9 = [dictionaryCopy objectForKeyedSubscript:@"multi-selector"];
+    v53 = dictionaryCopy;
+    self->_multiSelector = [v9 BOOLValue];
 
-    v53 = dictionaryCopy != 0;
+    v54 = dictionaryCopy != 0;
     if (self->_multiSelector)
     {
-      v8 = [dictionaryCopy objectForKeyedSubscript:@"value"];
+      v10 = [dictionaryCopy objectForKeyedSubscript:@"value"];
     }
 
     else
     {
-      v10 = [dictionaryCopy objectForKeyedSubscript:@"value"];
-      v92[0] = v10;
-      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v92 count:1];
+      v12 = [dictionaryCopy objectForKeyedSubscript:@"value"];
+      v93[0] = v12;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v93 count:1];
 
-      v8 = v11;
+      v10 = v13;
     }
 
     values = [(ASDSelectorControl *)self values];
-    v55 = v8;
-    v51 = [dictionaryCopy objectForKeyedSubscript:@"selectors"];
-    v57 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v51, "count")}];
-    v83 = 0u;
+    v56 = v10;
+    v52 = [dictionaryCopy objectForKeyedSubscript:@"selectors"];
+    v58 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v52, "count")}];
     v84 = 0u;
-    v81 = 0u;
+    v85 = 0u;
     v82 = 0u;
-    obj = v51;
-    v12 = [obj countByEnumeratingWithState:&v81 objects:v91 count:16];
-    if (v12)
+    v83 = 0u;
+    obj = v52;
+    v14 = [obj countByEnumeratingWithState:&v82 objects:v92 count:16];
+    if (v14)
     {
-      v13 = *v82;
-      v56 = *v82;
+      v15 = *v83;
+      v57 = *v83;
       do
       {
-        v60 = v12;
-        for (i = 0; i != v60; ++i)
+        v61 = v14;
+        for (i = 0; i != v61; ++i)
         {
-          if (*v82 != v13)
+          if (*v83 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v81 + 1) + 8 * i);
-          v16 = [v15 objectForKeyedSubscript:@"value"];
-          v17 = [v15 objectForKeyedSubscript:@"name"];
-          v18 = [v15 objectForKeyedSubscript:@"kind"];
-          unsignedIntValue = [v16 unsignedIntValue];
+          v17 = *(*(&v82 + 1) + 8 * i);
+          v18 = [v17 objectForKeyedSubscript:@"value"];
+          v19 = [v17 objectForKeyedSubscript:@"name"];
+          v20 = [v17 objectForKeyedSubscript:@"kind"];
+          unsignedIntValue = [v18 unsignedIntValue];
           if (unsignedIntValue)
           {
-            v20 = v17 == 0;
+            v22 = v19 == 0;
           }
 
           else
           {
-            v20 = 1;
+            v22 = 1;
           }
 
-          if (!v20)
+          if (!v22)
           {
             if ([values count])
             {
-              v79 = 0uLL;
               v80 = 0uLL;
-              v77 = 0uLL;
+              v81 = 0uLL;
               v78 = 0uLL;
-              v21 = values;
-              selected = [v21 countByEnumeratingWithState:&v77 objects:v90 count:16];
+              v79 = 0uLL;
+              v23 = values;
+              selected = [v23 countByEnumeratingWithState:&v78 objects:v91 count:16];
               if (selected)
               {
-                v23 = *v78;
+                v25 = *v79;
                 while (2)
                 {
                   for (j = 0; j != selected; ++j)
                   {
-                    if (*v78 != v23)
+                    if (*v79 != v25)
                     {
-                      objc_enumerationMutation(v21);
+                      objc_enumerationMutation(v23);
                     }
 
-                    v25 = *(*(&v77 + 1) + 8 * j);
-                    if ([v25 value] == unsignedIntValue)
+                    v27 = *(*(&v78 + 1) + 8 * j);
+                    if ([v27 value] == unsignedIntValue)
                     {
-                      v13 = v56;
-                      selected = [v25 selected];
+                      v15 = v57;
+                      selected = [v27 selected];
                       goto LABEL_39;
                     }
                   }
 
-                  selected = [v21 countByEnumeratingWithState:&v77 objects:v90 count:16];
+                  selected = [v23 countByEnumeratingWithState:&v78 objects:v91 count:16];
                   if (selected)
                   {
                     continue;
@@ -174,38 +194,38 @@ LABEL_70:
                   break;
                 }
 
-                v13 = v56;
+                v15 = v57;
               }
             }
 
             else
             {
-              v75 = 0uLL;
               v76 = 0uLL;
-              v73 = 0uLL;
+              v77 = 0uLL;
               v74 = 0uLL;
-              v21 = v55;
-              selected = [v21 countByEnumeratingWithState:&v73 objects:v89 count:16];
+              v75 = 0uLL;
+              v23 = v56;
+              selected = [v23 countByEnumeratingWithState:&v74 objects:v90 count:16];
               if (selected)
               {
-                v26 = *v74;
+                v28 = *v75;
                 while (2)
                 {
                   for (k = 0; k != selected; ++k)
                   {
-                    if (*v74 != v26)
+                    if (*v75 != v28)
                     {
-                      objc_enumerationMutation(v21);
+                      objc_enumerationMutation(v23);
                     }
 
-                    if ([*(*(&v73 + 1) + 8 * k) unsignedIntValue] == unsignedIntValue)
+                    if ([*(*(&v74 + 1) + 8 * k) unsignedIntValue] == unsignedIntValue)
                     {
                       selected = 1;
                       goto LABEL_39;
                     }
                   }
 
-                  selected = [v21 countByEnumeratingWithState:&v73 objects:v89 count:16];
+                  selected = [v23 countByEnumeratingWithState:&v74 objects:v90 count:16];
                   if (selected)
                   {
                     continue;
@@ -218,53 +238,53 @@ LABEL_70:
 
 LABEL_39:
 
-            v28 = [MEMORY[0x277CEFB70] withValue:unsignedIntValue name:v17 andKind:objc_msgSend(v18 selected:{"unsignedIntValue"), selected}];
-            [v57 addObject:v28];
+            v30 = [MEMORY[0x277CEFB70] withValue:unsignedIntValue name:v19 andKind:objc_msgSend(v20 selected:{"unsignedIntValue"), selected}];
+            [v58 addObject:v30];
           }
         }
 
-        v12 = [obj countByEnumeratingWithState:&v81 objects:v91 count:16];
+        v14 = [obj countByEnumeratingWithState:&v82 objects:v92 count:16];
       }
 
-      while (v12);
+      while (v14);
     }
 
-    v29 = selfCopy;
-    v30 = [v57 count];
-    if (v30 == [values count])
+    v31 = selfCopy;
+    v32 = [v58 count];
+    if (v32 == [values count])
     {
-      v71 = 0u;
       v72 = 0u;
-      v69 = 0u;
+      v73 = 0u;
       v70 = 0u;
-      v31 = v57;
-      v32 = [v31 countByEnumeratingWithState:&v69 objects:v88 count:16];
-      if (v32)
+      v71 = 0u;
+      v33 = v58;
+      v34 = [v33 countByEnumeratingWithState:&v70 objects:v89 count:16];
+      if (v34)
       {
-        v33 = 0;
-        v34 = *v70;
+        v35 = 0;
+        v36 = *v71;
         while (2)
         {
-          for (m = 0; m != v32; ++m)
+          for (m = 0; m != v34; ++m)
           {
-            if (*v70 != v34)
+            if (*v71 != v36)
             {
-              objc_enumerationMutation(v31);
+              objc_enumerationMutation(v33);
             }
 
-            v36 = *(*(&v69 + 1) + 8 * m);
-            if (v33 >= [values count] || (objc_msgSend(values, "objectAtIndexedSubscript:", v33), v37 = objc_claimAutoreleasedReturnValue(), v38 = objc_msgSend(v37, "value"), v39 = v38 == objc_msgSend(v36, "value"), v37, !v39))
+            v38 = *(*(&v70 + 1) + 8 * m);
+            if (v35 >= [values count] || (objc_msgSend(values, "objectAtIndexedSubscript:", v35), v39 = objc_claimAutoreleasedReturnValue(), v40 = objc_msgSend(v39, "value"), v41 = v40 == objc_msgSend(v38, "value"), v39, !v41))
             {
 
-              v29 = selfCopy;
+              v31 = selfCopy;
               goto LABEL_54;
             }
 
-            ++v33;
+            ++v35;
           }
 
-          v32 = [v31 countByEnumeratingWithState:&v69 objects:v88 count:16];
-          if (v32)
+          v34 = [v33 countByEnumeratingWithState:&v70 objects:v89 count:16];
+          if (v34)
           {
             continue;
           }
@@ -273,91 +293,90 @@ LABEL_39:
         }
       }
 
-      v40 = selfCopy;
+      v42 = selfCopy;
     }
 
     else
     {
 LABEL_54:
-      v67 = 0u;
       v68 = 0u;
-      v65 = 0u;
+      v69 = 0u;
       v66 = 0u;
-      v41 = values;
-      v42 = [v41 countByEnumeratingWithState:&v65 objects:v87 count:16];
-      if (v42)
+      v67 = 0u;
+      v43 = values;
+      v44 = [v43 countByEnumeratingWithState:&v66 objects:v88 count:16];
+      if (v44)
       {
-        v43 = *v66;
+        v45 = *v67;
         do
         {
-          for (n = 0; n != v42; ++n)
+          for (n = 0; n != v44; ++n)
           {
-            if (*v66 != v43)
+            if (*v67 != v45)
             {
-              objc_enumerationMutation(v41);
+              objc_enumerationMutation(v43);
             }
 
-            [(ASDSelectorControl *)v29 removeValue:*(*(&v65 + 1) + 8 * n)];
+            [(ASDSelectorControl *)v31 removeValue:*(*(&v66 + 1) + 8 * n)];
           }
 
-          v42 = [v41 countByEnumeratingWithState:&v65 objects:v87 count:16];
+          v44 = [v43 countByEnumeratingWithState:&v66 objects:v88 count:16];
         }
 
-        while (v42);
+        while (v44);
       }
 
-      v63 = 0u;
       v64 = 0u;
-      v61 = 0u;
+      v65 = 0u;
       v62 = 0u;
-      v45 = v57;
-      v46 = [v45 countByEnumeratingWithState:&v61 objects:v86 count:16];
-      if (v46)
+      v63 = 0u;
+      v47 = v58;
+      v48 = [v47 countByEnumeratingWithState:&v62 objects:v87 count:16];
+      if (v48)
       {
-        v47 = *v62;
+        v49 = *v63;
         do
         {
-          for (ii = 0; ii != v46; ++ii)
+          for (ii = 0; ii != v48; ++ii)
           {
-            if (*v62 != v47)
+            if (*v63 != v49)
             {
-              objc_enumerationMutation(v45);
+              objc_enumerationMutation(v47);
             }
 
-            [(ASDSelectorControl *)selfCopy addValue:*(*(&v61 + 1) + 8 * ii)];
+            [(ASDSelectorControl *)selfCopy addValue:*(*(&v62 + 1) + 8 * ii)];
           }
 
-          v46 = [v45 countByEnumeratingWithState:&v61 objects:v86 count:16];
+          v48 = [v47 countByEnumeratingWithState:&v62 objects:v87 count:16];
         }
 
-        while (v46);
+        while (v48);
       }
 
-      v40 = selfCopy;
+      v42 = selfCopy;
       [(ASDControl *)selfCopy asdtSendControlPropertyChangeNotificationAtIndex:1];
     }
 
-    [(ASDTIOA2SelectorControl *)v40 pushValues:v55];
+    [(ASDTIOA2SelectorControl *)v42 pushValues:v56];
 
-    v9 = v55;
+    v11 = v56;
     goto LABEL_70;
   }
 
-  v53 = 0;
+  v54 = 0;
 LABEL_71:
   std::recursive_mutex::unlock(&self->_lock);
 
-  v49 = *MEMORY[0x277D85DE8];
-  return v53;
+  return v54;
 }
 
 - (BOOL)doSetValues:(const unsigned int *)values withCount:(unint64_t)count
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   std::recursive_mutex::lock(&self->_lock);
-  v26.receiver = self;
-  v26.super_class = ASDTIOA2SelectorControl;
-  if ([(ASDSelectorControl *)&v26 setSelectedValues:values withCount:count])
+  v27.receiver = self;
+  v27.super_class = ASDTIOA2SelectorControl;
+  if ([(ASDSelectorControl *)&v27 setSelectedValues:values withCount:count])
   {
     v7 = NSStringFromSelector(sel_selectedValue);
     [(ASDTIOA2SelectorControl *)self willChangeValueForKey:v7];
@@ -368,39 +387,39 @@ LABEL_71:
 
     if (self->_multiSelector)
     {
-      v9 = ASDTIOA2LogType();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = ASDTIOA2LogType(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         WeakRetained = objc_loadWeakRetained(&self->_ioa2Device);
         deviceUID = [WeakRetained deviceUID];
         if ([(ASDTIOA2SelectorControl *)self objectClass]>> 29 && [(ASDTIOA2SelectorControl *)self objectClass]>> 24 <= 0x7E)
         {
-          v12 = [(ASDTIOA2SelectorControl *)self objectClass]>> 24;
+          v14 = [(ASDTIOA2SelectorControl *)self objectClass]>> 24;
         }
 
         else
         {
-          v12 = 32;
+          v14 = 32;
         }
 
         if (([(ASDTIOA2SelectorControl *)self objectClass]& 0xE00000) != 0 && ([(ASDTIOA2SelectorControl *)self objectClass]>> 16) <= 0x7Eu)
         {
-          v16 = ([(ASDTIOA2SelectorControl *)self objectClass]>> 16);
-        }
-
-        else
-        {
-          v16 = 32;
-        }
-
-        if (([(ASDTIOA2SelectorControl *)self objectClass]& 0xE000) != 0 && ([(ASDTIOA2SelectorControl *)self objectClass]>> 8) <= 0x7Eu)
-        {
-          v18 = ([(ASDTIOA2SelectorControl *)self objectClass]>> 8);
+          v18 = ([(ASDTIOA2SelectorControl *)self objectClass]>> 16);
         }
 
         else
         {
           v18 = 32;
+        }
+
+        if (([(ASDTIOA2SelectorControl *)self objectClass]& 0xE000) != 0 && ([(ASDTIOA2SelectorControl *)self objectClass]>> 8) <= 0x7Eu)
+        {
+          v20 = ([(ASDTIOA2SelectorControl *)self objectClass]>> 8);
+        }
+
+        else
+        {
+          v20 = 32;
         }
 
         if (([(ASDTIOA2SelectorControl *)self objectClass]& 0xE0) != 0 && [(ASDTIOA2SelectorControl *)self objectClass]<= 0x7Eu)
@@ -415,41 +434,31 @@ LABEL_71:
 
         values = [(ASDSelectorControl *)self values];
         *buf = 138413570;
-        v28 = deviceUID;
-        v29 = 1024;
-        v30 = v12;
-        v31 = 1024;
-        v32 = v16;
-        v33 = 1024;
-        v34 = v18;
-        v35 = 1024;
-        v36 = objectClass;
-        v37 = 2112;
-        v38 = values;
-        _os_log_impl(&dword_2416BA000, v9, OS_LOG_TYPE_DEFAULT, "%@: Control '%c%c%c%c' changed to: %@", buf, 0x2Eu);
+        v29 = deviceUID;
+        v30 = 1024;
+        v31 = v14;
+        v32 = 1024;
+        v33 = v18;
+        v34 = 1024;
+        v35 = v20;
+        v36 = 1024;
+        v37 = objectClass;
+        v38 = 2112;
+        v39 = values;
+        _os_log_impl(&dword_2416BA000, v11, OS_LOG_TYPE_DEFAULT, "%@: Control '%c%c%c%c' changed to: %@", buf, 0x2Eu);
       }
     }
 
     else
     {
-      v9 = ASDTIOA2LogType();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = ASDTIOA2LogType(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = objc_loadWeakRetained(&self->_ioa2Device);
-        deviceUID2 = [v13 deviceUID];
+        v15 = objc_loadWeakRetained(&self->_ioa2Device);
+        deviceUID2 = [v15 deviceUID];
         if ([(ASDTIOA2SelectorControl *)self objectClass]>> 29 && [(ASDTIOA2SelectorControl *)self objectClass]>> 24 <= 0x7E)
         {
-          v15 = [(ASDTIOA2SelectorControl *)self objectClass]>> 24;
-        }
-
-        else
-        {
-          v15 = 32;
-        }
-
-        if (([(ASDTIOA2SelectorControl *)self objectClass]& 0xE00000) != 0 && ([(ASDTIOA2SelectorControl *)self objectClass]>> 16) <= 0x7Eu)
-        {
-          v17 = ([(ASDTIOA2SelectorControl *)self objectClass]>> 16);
+          v17 = [(ASDTIOA2SelectorControl *)self objectClass]>> 24;
         }
 
         else
@@ -457,14 +466,24 @@ LABEL_71:
           v17 = 32;
         }
 
-        if (([(ASDTIOA2SelectorControl *)self objectClass]& 0xE000) != 0 && ([(ASDTIOA2SelectorControl *)self objectClass]>> 8) <= 0x7Eu)
+        if (([(ASDTIOA2SelectorControl *)self objectClass]& 0xE00000) != 0 && ([(ASDTIOA2SelectorControl *)self objectClass]>> 16) <= 0x7Eu)
         {
-          v19 = ([(ASDTIOA2SelectorControl *)self objectClass]>> 8);
+          v19 = ([(ASDTIOA2SelectorControl *)self objectClass]>> 16);
         }
 
         else
         {
           v19 = 32;
+        }
+
+        if (([(ASDTIOA2SelectorControl *)self objectClass]& 0xE000) != 0 && ([(ASDTIOA2SelectorControl *)self objectClass]>> 8) <= 0x7Eu)
+        {
+          v21 = ([(ASDTIOA2SelectorControl *)self objectClass]>> 8);
+        }
+
+        else
+        {
+          v21 = 32;
         }
 
         if (([(ASDTIOA2SelectorControl *)self objectClass]& 0xE0) != 0 && [(ASDTIOA2SelectorControl *)self objectClass]<= 0x7Eu)
@@ -479,30 +498,29 @@ LABEL_71:
 
         selectedValue = [(ASDSelectorControl *)self selectedValue];
         *buf = 138413570;
-        v28 = deviceUID2;
-        v29 = 1024;
-        v30 = v15;
-        v31 = 1024;
-        v32 = v17;
-        v33 = 1024;
-        v34 = v19;
-        v35 = 1024;
-        v36 = objectClass2;
-        v37 = 1024;
-        LODWORD(v38) = selectedValue;
-        _os_log_impl(&dword_2416BA000, v9, OS_LOG_TYPE_DEFAULT, "%@: Control '%c%c%c%c' changed to: %u", buf, 0x2Au);
+        v29 = deviceUID2;
+        v30 = 1024;
+        v31 = v17;
+        v32 = 1024;
+        v33 = v19;
+        v34 = 1024;
+        v35 = v21;
+        v36 = 1024;
+        v37 = objectClass2;
+        v38 = 1024;
+        LODWORD(v39) = selectedValue;
+        _os_log_impl(&dword_2416BA000, v11, OS_LOG_TYPE_DEFAULT, "%@: Control '%c%c%c%c' changed to: %u", buf, 0x2Au);
       }
     }
   }
 
   std::recursive_mutex::unlock(&self->_lock);
-  v24 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (BOOL)setSelectedValues:(const unsigned int *)values withCount:(unint64_t)count
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   values = [(ASDSelectorControl *)self values];
   v8 = [values count];
 
@@ -516,105 +534,25 @@ LABEL_71:
     v9 = v8;
   }
 
-  v32 = v9;
-  std::vector<unsigned int>::vector[abi:ne200100](__p, v9);
+  v33 = v9;
+  v10 = std::vector<unsigned int>::vector[abi:ne200100](__p, v9);
   if (self->_multiSelector)
   {
     if (v9 < count)
     {
-      v10 = ASDTIOA2LogType();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v12 = ASDTIOA2LogType(v10, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         WeakRetained = objc_loadWeakRetained(&self->_ioa2Device);
         deviceUID = [WeakRetained deviceUID];
         if ([(ASDTIOA2SelectorControl *)self objectClass]>> 29 && [(ASDTIOA2SelectorControl *)self objectClass]>> 24 <= 0x7E)
         {
-          v21 = [(ASDTIOA2SelectorControl *)self objectClass]>> 24;
+          v22 = [(ASDTIOA2SelectorControl *)self objectClass]>> 24;
         }
 
         else
         {
-          v21 = 32;
-        }
-
-        if (([(ASDTIOA2SelectorControl *)self objectClass]& 0xE00000) != 0 && ([(ASDTIOA2SelectorControl *)self objectClass]>> 16) <= 0x7Eu)
-        {
-          v25 = ([(ASDTIOA2SelectorControl *)self objectClass]>> 16);
-        }
-
-        else
-        {
-          v25 = 32;
-        }
-
-        if (([(ASDTIOA2SelectorControl *)self objectClass]& 0xE000) != 0 && ([(ASDTIOA2SelectorControl *)self objectClass]>> 8) <= 0x7Eu)
-        {
-          v27 = ([(ASDTIOA2SelectorControl *)self objectClass]>> 8);
-        }
-
-        else
-        {
-          v27 = 32;
-        }
-
-        if (([(ASDTIOA2SelectorControl *)self objectClass]& 0xE0) != 0 && [(ASDTIOA2SelectorControl *)self objectClass]<= 0x7Eu)
-        {
-          objectClass = [(ASDTIOA2SelectorControl *)self objectClass];
-        }
-
-        else
-        {
-          objectClass = 32;
-        }
-
-        *buf = 138413826;
-        v34 = deviceUID;
-        v35 = 1024;
-        v36 = v21;
-        v37 = 1024;
-        v38 = v25;
-        v39 = 1024;
-        v40 = v27;
-        v41 = 1024;
-        v42 = objectClass;
-        v43 = 2048;
-        countCopy2 = count;
-        v45 = 2048;
-        v46 = v9;
-        _os_log_error_impl(&dword_2416BA000, v10, OS_LOG_TYPE_ERROR, "%@: selector control '%c%c%c%c': bad number of items: %zu (max %zu)", buf, 0x38u);
-      }
-
-      goto LABEL_15;
-    }
-
-    v13 = objc_loadWeakRetained(&self->_ioa2Device);
-    v14 = [v13 _setControlValues:values withCount:count resultValues:__p[0] count:&v32 forControl:self->_userClientID];
-
-    if (v14)
-    {
-LABEL_12:
-      v15 = [ASDTIOA2SelectorControl doSetValues:"doSetValues:withCount:" withCount:?];
-      goto LABEL_16;
-    }
-  }
-
-  else
-  {
-    if (count != 1)
-    {
-      v16 = ASDTIOA2LogType();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
-      {
-        v22 = objc_loadWeakRetained(&self->_ioa2Device);
-        deviceUID2 = [v22 deviceUID];
-        if ([(ASDTIOA2SelectorControl *)self objectClass]>> 29 && [(ASDTIOA2SelectorControl *)self objectClass]>> 24 <= 0x7E)
-        {
-          v24 = [(ASDTIOA2SelectorControl *)self objectClass]>> 24;
-        }
-
-        else
-        {
-          v24 = 32;
+          v22 = 32;
         }
 
         if (([(ASDTIOA2SelectorControl *)self objectClass]& 0xE00000) != 0 && ([(ASDTIOA2SelectorControl *)self objectClass]>> 16) <= 0x7Eu)
@@ -639,6 +577,86 @@ LABEL_12:
 
         if (([(ASDTIOA2SelectorControl *)self objectClass]& 0xE0) != 0 && [(ASDTIOA2SelectorControl *)self objectClass]<= 0x7Eu)
         {
+          objectClass = [(ASDTIOA2SelectorControl *)self objectClass];
+        }
+
+        else
+        {
+          objectClass = 32;
+        }
+
+        *buf = 138413826;
+        v35 = deviceUID;
+        v36 = 1024;
+        v37 = v22;
+        v38 = 1024;
+        v39 = v26;
+        v40 = 1024;
+        v41 = v28;
+        v42 = 1024;
+        v43 = objectClass;
+        v44 = 2048;
+        countCopy2 = count;
+        v46 = 2048;
+        v47 = v9;
+        _os_log_error_impl(&dword_2416BA000, v12, OS_LOG_TYPE_ERROR, "%@: selector control '%c%c%c%c': bad number of items: %zu (max %zu)", buf, 0x38u);
+      }
+
+      goto LABEL_15;
+    }
+
+    v15 = objc_loadWeakRetained(&self->_ioa2Device);
+    v16 = [v15 _setControlValues:values withCount:count resultValues:__p[0] count:&v33 forControl:self->_userClientID];
+
+    if (v16)
+    {
+LABEL_12:
+      v17 = [ASDTIOA2SelectorControl doSetValues:"doSetValues:withCount:" withCount:?];
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+    if (count != 1)
+    {
+      v18 = ASDTIOA2LogType(v10, v11);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      {
+        v23 = objc_loadWeakRetained(&self->_ioa2Device);
+        deviceUID2 = [v23 deviceUID];
+        if ([(ASDTIOA2SelectorControl *)self objectClass]>> 29 && [(ASDTIOA2SelectorControl *)self objectClass]>> 24 <= 0x7E)
+        {
+          v25 = [(ASDTIOA2SelectorControl *)self objectClass]>> 24;
+        }
+
+        else
+        {
+          v25 = 32;
+        }
+
+        if (([(ASDTIOA2SelectorControl *)self objectClass]& 0xE00000) != 0 && ([(ASDTIOA2SelectorControl *)self objectClass]>> 16) <= 0x7Eu)
+        {
+          v27 = ([(ASDTIOA2SelectorControl *)self objectClass]>> 16);
+        }
+
+        else
+        {
+          v27 = 32;
+        }
+
+        if (([(ASDTIOA2SelectorControl *)self objectClass]& 0xE000) != 0 && ([(ASDTIOA2SelectorControl *)self objectClass]>> 8) <= 0x7Eu)
+        {
+          v29 = ([(ASDTIOA2SelectorControl *)self objectClass]>> 8);
+        }
+
+        else
+        {
+          v29 = 32;
+        }
+
+        if (([(ASDTIOA2SelectorControl *)self objectClass]& 0xE0) != 0 && [(ASDTIOA2SelectorControl *)self objectClass]<= 0x7Eu)
+        {
           objectClass2 = [(ASDTIOA2SelectorControl *)self objectClass];
         }
 
@@ -648,28 +666,28 @@ LABEL_12:
         }
 
         *buf = 138413570;
-        v34 = deviceUID2;
-        v35 = 1024;
-        v36 = v24;
-        v37 = 1024;
-        v38 = v26;
-        v39 = 1024;
-        v40 = v28;
-        v41 = 1024;
-        v42 = objectClass2;
-        v43 = 2048;
+        v35 = deviceUID2;
+        v36 = 1024;
+        v37 = v25;
+        v38 = 1024;
+        v39 = v27;
+        v40 = 1024;
+        v41 = v29;
+        v42 = 1024;
+        v43 = objectClass2;
+        v44 = 2048;
         countCopy2 = count;
-        _os_log_error_impl(&dword_2416BA000, v16, OS_LOG_TYPE_ERROR, "%@: selector control '%c%c%c%c': bad number of items: %zu (require 1)", buf, 0x2Eu);
+        _os_log_error_impl(&dword_2416BA000, v18, OS_LOG_TYPE_ERROR, "%@: selector control '%c%c%c%c': bad number of items: %zu (require 1)", buf, 0x2Eu);
       }
 
       goto LABEL_15;
     }
 
     *buf = *values;
-    v11 = objc_loadWeakRetained(&self->_ioa2Device);
-    v12 = [v11 _setControlValue:buf forControl:self->_userClientID];
+    v13 = objc_loadWeakRetained(&self->_ioa2Device);
+    v14 = [v13 _setControlValue:buf forControl:self->_userClientID];
 
-    if (v12)
+    if (v14)
     {
       *__p[0] = *buf;
       goto LABEL_12;
@@ -677,7 +695,7 @@ LABEL_12:
   }
 
 LABEL_15:
-  v15 = 0;
+  v17 = 0;
 LABEL_16:
   if (__p[0])
   {
@@ -685,13 +703,12 @@ LABEL_16:
     operator delete(__p[0]);
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v17;
 }
 
 - (void)pushValue:(unsigned int)value
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   if (!value || self->_multiSelector)
   {
     WeakRetained = objc_loadWeakRetained(&self->_ioa2Device);
@@ -703,42 +720,40 @@ LABEL_16:
   else
   {
     v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:?];
-    v9[0] = v4;
-    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v4;
+    v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   }
 
   [(ASDTIOA2SelectorControl *)self pushValues:v5];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pushValues:(id)values
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   valuesCopy = values;
   std::vector<unsigned int>::vector[abi:ne200100](__p, [valuesCopy count]);
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v5 = valuesCopy;
   v6 = 0;
-  v7 = [v5 countByEnumeratingWithState:&v13 objects:v18 count:16];
+  v7 = [v5 countByEnumeratingWithState:&v12 objects:v17 count:16];
   if (v7)
   {
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       v10 = v6;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        unsignedIntValue = [*(*(&v13 + 1) + 8 * v9) unsignedIntValue];
+        unsignedIntValue = [*(*(&v12 + 1) + 8 * v9) unsignedIntValue];
         v6 = v10 + 1;
         *(__p[0] + v10) = unsignedIntValue;
         ++v9;
@@ -746,7 +761,7 @@ LABEL_16:
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v18 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v17 count:16];
     }
 
     while (v7);
@@ -758,8 +773,6 @@ LABEL_16:
     __p[1] = __p[0];
     operator delete(__p[0]);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (ASDTIOA2Device)ioa2Device

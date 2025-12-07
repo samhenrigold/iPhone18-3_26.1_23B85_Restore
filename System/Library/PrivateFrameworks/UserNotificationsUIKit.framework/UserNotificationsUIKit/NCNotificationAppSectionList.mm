@@ -378,7 +378,7 @@ void __58__NCNotificationAppSectionList_modifyNotificationRequest___block_invoke
   return v7;
 }
 
-uint64_t __58__NCNotificationAppSectionList_removeNotificationRequest___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__58__NCNotificationAppSectionList_removeNotificationRequest___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 containsNotificationRequest:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1149,19 +1149,19 @@ void __56__NCNotificationAppSectionList__mergeFeaturedGroupLists__block_invoke(u
   footerView = self->_footerView;
   if (footerView)
   {
-    [(NCNotificationAppSectionListSummarizedContentView *)footerView setCount:[(NCNotificationAppSectionList *)self _summarizedCount]];
-    v4 = self->_footerView;
-    v5 = NCUserNotificationsUIKitFrameworkBundle();
-    v6 = [v5 localizedStringForKey:@"NOTIFICATION_SUMMARY_APP_TITLE" value:&stru_282FE84F8 table:0];
-    [(NCNotificationAppSectionListSummarizedContentView *)v4 setTitle:v6];
+    v4 = [(NCNotificationAppSectionListSummarizedContentView *)footerView setCount:[(NCNotificationAppSectionList *)self _summarizedCount]];
+    v5 = self->_footerView;
+    v6 = NCUserNotificationsUIKitFrameworkBundle(v4);
+    v7 = [v6 localizedStringForKey:@"NOTIFICATION_SUMMARY_APP_TITLE" value:&stru_282FE84F8 table:0];
+    [(NCNotificationAppSectionListSummarizedContentView *)v5 setTitle:v7];
 
-    v7 = self->_footerView;
+    v8 = self->_footerView;
     _summarizedContentStrings = [(NCNotificationAppSectionList *)self _summarizedContentStrings];
-    [(NCNotificationAppSectionListSummarizedContentView *)v7 setTitleAndContentStrings:_summarizedContentStrings];
+    [(NCNotificationAppSectionListSummarizedContentView *)v8 setTitleAndContentStrings:_summarizedContentStrings];
 
-    v9 = self->_footerView;
+    v10 = self->_footerView;
     _summarizedAttachmentImageViews = [(NCNotificationAppSectionList *)self _summarizedAttachmentImageViews];
-    [(NCNotificationAppSectionListSummarizedContentView *)v9 setAttachmentImageViews:_summarizedAttachmentImageViews];
+    [(NCNotificationAppSectionListSummarizedContentView *)v10 setAttachmentImageViews:_summarizedAttachmentImageViews];
 
     listView = [(NCNotificationStructuredSectionList *)self listView];
     [listView setNeedsLayout];
@@ -1196,7 +1196,7 @@ uint64_t __48__NCNotificationAppSectionList__summarizedCount__block_invoke(uint6
 
 - (id)_summarizedStringsForNotificationRequest:(id)request
 {
-  v24[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = [(NCNotificationAppSectionList *)self _shouldShowContentForNotificationRequest:requestCopy];
   content = [requestCopy content];
@@ -1204,33 +1204,34 @@ uint64_t __48__NCNotificationAppSectionList__summarizedCount__block_invoke(uint6
   if (v5)
   {
     title = [content title];
+    defaultHeader = title;
   }
 
   else
   {
     content2 = [requestCopy content];
-    title = [content2 defaultHeader];
+    defaultHeader = [content2 defaultHeader];
   }
 
-  if (title)
+  if (defaultHeader)
   {
-    v10 = MEMORY[0x277CCACA8];
-    v11 = NCUserNotificationsUIKitFrameworkBundle();
-    v12 = [v11 localizedStringForKey:@"NOTIFICATION_SUMMARY_APP_SECTION_TITLE_FORMAT" value:&stru_282FE84F8 table:0];
-    v13 = [v10 stringWithFormat:v12, title];
+    v11 = MEMORY[0x277CCACA8];
+    v12 = NCUserNotificationsUIKitFrameworkBundle(title);
+    v13 = [v12 localizedStringForKey:@"NOTIFICATION_SUMMARY_APP_SECTION_TITLE_FORMAT" value:&stru_282FE84F8 table:0];
+    v14 = [v11 stringWithFormat:v13, defaultHeader];
 
     if (v5)
     {
 LABEL_6:
       message = [v7 message];
-      v15 = [message copy];
+      v16 = [message copy];
       goto LABEL_12;
     }
   }
 
   else
   {
-    v13 = &stru_282FE84F8;
+    v14 = &stru_282FE84F8;
     if (v5)
     {
       goto LABEL_6;
@@ -1239,7 +1240,7 @@ LABEL_6:
 
   message = [requestCopy content];
   hiddenPreviewsBodyPlaceholder = [message hiddenPreviewsBodyPlaceholder];
-  v17 = hiddenPreviewsBodyPlaceholder;
+  v18 = hiddenPreviewsBodyPlaceholder;
   if (hiddenPreviewsBodyPlaceholder)
   {
     _localizedDefaultHiddenPreviewsBodyPlaceholder = hiddenPreviewsBodyPlaceholder;
@@ -1250,26 +1251,26 @@ LABEL_6:
     _localizedDefaultHiddenPreviewsBodyPlaceholder = [(NCNotificationAppSectionList *)self _localizedDefaultHiddenPreviewsBodyPlaceholder];
   }
 
-  v15 = _localizedDefaultHiddenPreviewsBodyPlaceholder;
+  v16 = _localizedDefaultHiddenPreviewsBodyPlaceholder;
 
 LABEL_12:
-  if (v15)
+  if (v16)
   {
-    v19 = v15;
+    v20 = v16;
   }
 
   else
   {
-    v19 = &stru_282FE84F8;
+    v20 = &stru_282FE84F8;
   }
 
-  v24[0] = v13;
-  v24[1] = v19;
-  v20 = MEMORY[0x277CBEA60];
-  v21 = v19;
-  v22 = [v20 arrayWithObjects:v24 count:2];
+  v25[0] = v14;
+  v25[1] = v20;
+  v21 = MEMORY[0x277CBEA60];
+  v22 = v20;
+  v23 = [v21 arrayWithObjects:v25 count:2];
 
-  return v22;
+  return v23;
 }
 
 - (id)_summarizedContentStrings
@@ -1314,7 +1315,7 @@ void __57__NCNotificationAppSectionList__summarizedContentStrings__block_invoke(
 
   else
   {
-    v6 = [*(a1 + 32) _summarizedStringsForNotificationRequest:a2];
+    v6 = [*(a1 + 32) _summarizedStringsForNotificationRequest:{a2, a4}];
     [*(a1 + 40) addObject:v6];
   }
 }
@@ -1339,7 +1340,7 @@ void __57__NCNotificationAppSectionList__summarizedContentStrings__block_invoke_
 - (id)_localizedDefaultHiddenPreviewsBodyPlaceholder
 {
   v2 = MEMORY[0x277CCACA8];
-  v3 = NCUserNotificationsUIKitFrameworkBundle();
+  v3 = NCUserNotificationsUIKitFrameworkBundle(self);
   v4 = [v3 localizedStringForKey:@"DEFAULT_HIDDEN_PREVIEW_PLACEHOLDER" value:&stru_282FE84F8 table:0];
   v5 = [v2 localizedStringWithFormat:v4, 1, 0];
 
@@ -1397,11 +1398,11 @@ void __57__NCNotificationAppSectionList__summarizedContentStrings__block_invoke_
   return v12;
 }
 
-uint64_t __85__NCNotificationAppSectionList__attachmentImageViewForSummaryForNotificationRequest___block_invoke(uint64_t result, uint64_t a2, int a3)
+id *__85__NCNotificationAppSectionList__attachmentImageViewForSummaryForNotificationRequest___block_invoke(id *result, uint64_t a2, int a3)
 {
   if (a3)
   {
-    return [*(result + 32) _updateSummarizedFooterViewContent];
+    return [result[4] _updateSummarizedFooterViewContent];
   }
 
   return result;

@@ -130,19 +130,19 @@ BOOL checkMainThread(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4, unsi
   return v12 == 1;
 }
 
-uint64_t (**initialize_trampolines(uint64_t (**result)(void), int a2))(void)
+uint64_t (**initialize_trampolines(uint64_t (**result)(void), uint64_t a2))(void)
 {
   if (result)
   {
     if (a2 == 1)
     {
-      initialize_trampolines_with_two_callbacks(result);
+      initialize_trampolines_with_two_callbacks(result, a2);
       return (&dword_0 + 1);
     }
 
     if (!a2)
     {
-      initialize_trampolines_with_one_callback(*result);
+      initialize_trampolines_with_one_callback(*result, a2);
       return (&dword_0 + 1);
     }
 
@@ -198,25 +198,11 @@ const char *parseUserSuppressionFile(const char *__filename)
         v4 = v3;
       }
 
-      else
+      else if (v2 == 47 || ((v18 = copyMainBundleExecutableDirectory()) == 0 || (v19 = v18, v4 = openSuppressionFileAtDirectory(v18, v1), CFRelease(v19), !v4)) && ((MainBundle = CFBundleGetMainBundle()) == 0 || (v21 = CFBundleCopyBundleURL(MainBundle)) == 0 || (v22 = v21, v4 = openSuppressionFileAtDirectory(v21, v1), CFRelease(v22), !v4)))
       {
-        if (v2 == 47)
-        {
-          goto LABEL_40;
-        }
-
-        v18 = copyMainBundleExecutableDirectory();
-        if (!v18 || (v19 = v18, v4 = openSuppressionFileAtDirectory(v18), CFRelease(v19), !v4))
-        {
-          MainBundle = CFBundleGetMainBundle();
-          if (!MainBundle || (v21 = CFBundleCopyBundleURL(MainBundle)) == 0 || (v22 = v21, v4 = openSuppressionFileAtDirectory(v21), CFRelease(v22), !v4))
-          {
-LABEL_40:
-            v16 = __stderrp;
-            v17 = __error();
-            return fprintf(v16, "Cannot open suppression file '%s', error %d.\n", v1, *v17);
-          }
-        }
+        v16 = __stderrp;
+        v17 = __error();
+        return fprintf(v16, "Cannot open suppression file '%s', error %d.\n", v1, *v17);
       }
 
       while (fgets(__s, 512, v4))
@@ -308,33 +294,33 @@ LABEL_36:
   return __filename;
 }
 
-FILE *openSuppressionFileAtDirectory(const __CFURL *a1)
+FILE *openSuppressionFileAtDirectory(const __CFURL *a1, uint64_t a2)
 {
-  v1 = CFURLCopyPath(a1);
-  if (!v1)
+  v2 = CFURLCopyPath(a1);
+  if (!v2)
   {
     return 0;
   }
 
-  v2 = v1;
+  v3 = v2;
   bzero(buffer, 0x400uLL);
-  if (CFStringGetCString(v2, buffer, 1023, 0x8000100u))
+  if (CFStringGetCString(v3, buffer, 1023, 0x8000100u))
   {
     strlen(buffer);
     __strncat_chk();
-    v3 = fopen(buffer, "r");
+    v4 = fopen(buffer, "r");
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  CFRelease(v2);
-  return v3;
+  CFRelease(v3);
+  return v4;
 }
 
-BOOL suppressionCheck(char *__s, char *a2, int a3)
+uint64_t suppressionCheck(char *__s, char *a2, int a3)
 {
   if (suppressionCheck_onceToken == -1)
   {

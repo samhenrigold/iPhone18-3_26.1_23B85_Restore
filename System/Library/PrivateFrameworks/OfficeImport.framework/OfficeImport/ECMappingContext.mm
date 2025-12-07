@@ -139,14 +139,14 @@
 {
   infoCopy = info;
   nameCopy = name;
-  v16[0] = index;
+  indexCopy = index;
   objectCopy = object;
   v13 = [(NSMutableArray *)self->mMappingInfos count];
   [(NSMutableArray *)self->mMappingInfos addObject:infoCopy];
   if (index != -1)
   {
-    v16[2] = v16;
-    std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&self->mIndexToMappedIndex, v16)[5] = v13;
+    v17 = &indexCopy;
+    std::__tree<std::__value_type<unsigned long,unsigned long>,std::__map_value_compare<unsigned long,std::__value_type<unsigned long,unsigned long>,std::less<unsigned long>,true>,std::allocator<std::__value_type<unsigned long,unsigned long>>>::__emplace_unique_key_args<unsigned long,std::piecewise_construct_t const&,std::tuple<unsigned long const&>,std::tuple<>>(&self->mIndexToMappedIndex, &indexCopy, &std::piecewise_construct, &v17)[5] = v13;
   }
 
   if (nameCopy && [nameCopy length])

@@ -312,7 +312,7 @@
 
 - (id)_dnds_safeStringArrayEntitlementForKey:()Entitlements
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = objc_opt_respondsToSelector();
   v6 = MEMORY[0x277CBEBF8];
@@ -333,8 +333,8 @@
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v12[0] = v8;
-        v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+        v11[0] = v8;
+        v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
       }
 
       else
@@ -343,8 +343,6 @@
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

@@ -1,7 +1,9 @@
 @interface UVFSAnalytics
 + (unsigned)getPartitionsParent:(unsigned int)parent;
 - (UVFSAnalytics)init;
+- (void)addVolumeProperties:(id)properties volumeCount:(int)count loadStatus:(int)status loadErrorReason:(id)reason;
 - (void)discoverDiskProperties:(unsigned int)properties;
+- (void)discoverPartitions:(unsigned int)partitions;
 - (void)discoverTopology:(id)topology;
 - (void)logTopology;
 - (void)sendEvent;
@@ -389,6 +391,139 @@
   if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_DEBUG))
   {
     sub_10001EB60(v8, v9, v10, v11, v12, v13, v14, v15);
+  }
+}
+
+- (void)addVolumeProperties:(id)properties volumeCount:(int)count loadStatus:(int)status loadErrorReason:(id)reason
+{
+  v7 = *&status;
+  v8 = *&count;
+  propertiesCopy = properties;
+  reasonCopy = reason;
+  v12 = userfs_log_default;
+  if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_DEBUG))
+  {
+    sub_10001EBD8(v12, v13, v14, v15, v16, v17, v18, v19);
+  }
+
+  volume = [(UVFSAnalytics *)self volume];
+  [volume setFsTypeName:propertiesCopy];
+
+  volume2 = [(UVFSAnalytics *)self volume];
+  [volume2 setVolumeCount:v8];
+
+  volume3 = [(UVFSAnalytics *)self volume];
+  [volume3 setVolumeLoadStatus:v7];
+
+  volume4 = [(UVFSAnalytics *)self volume];
+  [volume4 setVolumeLoadErrorReason:reasonCopy];
+}
+
+- (void)discoverPartitions:(unsigned int)partitions
+{
+  v3 = *&partitions;
+  v5 = userfs_log_default;
+  if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_DEBUG))
+  {
+    sub_10001EC50(v5, v6, v7, v8, v9, v10, v11, v12);
+  }
+
+  v13 = [UVFSAnalytics getPartitionsParent:v3];
+  if (v13)
+  {
+    v14 = v13;
+    iterator = 0;
+    if (IORegistryEntryGetChildIterator(v13, "IOService", &iterator))
+    {
+      v15 = userfs_log_default;
+      if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_ERROR))
+      {
+        sub_10001ECC8(v15, v16, v17, v18, v19, v20, v21, v22);
+      }
+    }
+
+    else
+    {
+      for (i = IOIteratorNext(iterator); i; i = IOIteratorNext(iterator))
+      {
+        properties = 0;
+        if (IORegistryEntryCreateCFProperties(i, &properties, 0, 0))
+        {
+          v32 = userfs_log_default;
+          if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_ERROR))
+          {
+            sub_10001ED40(v54, &v55, v32);
+          }
+        }
+
+        else
+        {
+          v33 = objc_alloc_init(UVFSPartitionAnalytics);
+          Value = CFDictionaryGetValue(properties, @"Content Hint");
+          if (Value)
+          {
+            v35 = [NSString stringWithString:Value];
+            [(UVFSPartitionAnalytics *)v33 setPartitionType:v35];
+          }
+
+          else
+          {
+            v36 = userfs_log_default;
+            if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_ERROR))
+            {
+              sub_10001ED84(v58, &v59, v36);
+            }
+          }
+
+          v37 = CFDictionaryGetValue(properties, @"Size");
+          if (v37)
+          {
+            valuePtr = 0;
+            CFNumberGetValue(v37, kCFNumberLongLongType, &valuePtr);
+            v38 = valuePtr;
+            v39 = log10(valuePtr);
+            v40 = __exp10(floor(v39));
+            [(UVFSPartitionAnalytics *)v33 setPartitionSize:v38 / v40 * v40];
+          }
+
+          else
+          {
+            v41 = userfs_log_default;
+            if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_ERROR))
+            {
+              sub_10001EDC8(v56, &v57, v41);
+            }
+          }
+
+          partitions = [(UVFSAnalytics *)self partitions];
+          [partitions addObject:v33];
+
+          CFRelease(properties);
+        }
+      }
+
+      if (iterator)
+      {
+        IOObjectRelease(iterator);
+      }
+    }
+
+    IOObjectRelease(v14);
+  }
+
+  else
+  {
+    v23 = userfs_log_default;
+    if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_10001EE0C(v23, v24, v25, v26, v27, v28, v29, v30);
+    }
+  }
+
+  v43 = userfs_log_default;
+  if (os_log_type_enabled(userfs_log_default, OS_LOG_TYPE_DEBUG))
+  {
+    sub_10001EE84(v43, v44, v45, v46, v47, v48, v49, v50);
   }
 }
 

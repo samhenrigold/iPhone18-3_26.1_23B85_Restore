@@ -854,14 +854,14 @@ LABEL_14:
 {
   v2 = [a2 toolPicker];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_1_2(&dword_1D4171000, v3, v4, "set selected tool: %@, toolPicker: %@", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_1_2(&dword_1D4171000, v3, v4, "set selected tool: %@, toolPicker: %@", v5, v6, v7, v8);
 }
 
 - (void)setColorUserInterfaceStyle:(void *)a1 .cold.1(void *a1)
 {
   v1 = [a1 toolPicker];
   OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_1_2(&dword_1D4171000, v2, v3, "set color UI style: %ld, toolPicker: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_2(&dword_1D4171000, v2, v3, "set color UI style: %ld, toolPicker: %@", v4, v5, v6, v7);
 }
 
 - (void)_toolPicker:(os_log_t)log shouldSetVisible:.cold.1(uint64_t a1, char a2, os_log_t log)

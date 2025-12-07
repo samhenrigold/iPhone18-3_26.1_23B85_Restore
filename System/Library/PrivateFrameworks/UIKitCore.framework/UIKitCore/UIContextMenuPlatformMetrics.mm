@@ -129,7 +129,7 @@ UIColor *__43___UIContextMenuPlatformMetrics_Glass_init__block_invoke(uint64_t a
   return [UIColor colorWithWhite:v3 alpha:0.08];
 }
 
-id __37___UIContextMenuPlatformMetrics_init__block_invoke(uint64_t a1, void *a2)
+_UIContextMenuBackgroundDescriptor *__37___UIContextMenuPlatformMetrics_init__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
   v3 = objc_opt_new();

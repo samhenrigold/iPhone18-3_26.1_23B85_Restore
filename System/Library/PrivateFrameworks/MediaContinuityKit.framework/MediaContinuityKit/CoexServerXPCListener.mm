@@ -12,14 +12,12 @@
   initWithMachServiceName_ = [v3 initWithMachServiceName_];
 
   *(&self->super.isa + OBJC_IVAR____TtC18MediaContinuityKit21CoexServerXPCListener_coexListener) = initWithMachServiceName_;
-  v6 = type metadata accessor for CoexSessionManager();
-  v7 = *(v6 + 48);
-  v8 = *(v6 + 52);
+  type metadata accessor for CoexSessionManager(0);
   swift_allocObject();
   *(&self->super.isa + OBJC_IVAR____TtC18MediaContinuityKit21CoexServerXPCListener_coexManager) = sub_2584CA2B8();
-  v10.receiver = self;
-  v10.super_class = type metadata accessor for CoexServerXPCListener();
-  return [(CoexServerXPCListener *)&v10 init];
+  v7.receiver = self;
+  v7.super_class = type metadata accessor for CoexServerXPCListener();
+  return [(CoexServerXPCListener *)&v7 init];
 }
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection

@@ -24,25 +24,17 @@
 
 + (Class)_concreteClassOfVersion:(unint64_t)version
 {
-  if (version == 0x10000)
+  if (version == 0x10000 || version == 196613)
   {
-    v4 = off_27884F478;
-LABEL_5:
-    v5 = *v4;
-    v6 = objc_opt_class();
-
-    return v6;
+    v4 = objc_opt_class();
   }
 
-  if (version == 196613)
+  else
   {
-    v4 = off_27884F480;
-    goto LABEL_5;
+    v4 = 0;
   }
 
-  v6 = 0;
-
-  return v6;
+  return v4;
 }
 
 - (ANSTISPAlgorithm)initWithConfiguration:(id)configuration

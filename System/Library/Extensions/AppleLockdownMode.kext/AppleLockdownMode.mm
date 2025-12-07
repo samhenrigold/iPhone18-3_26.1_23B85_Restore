@@ -264,8 +264,9 @@ OSMetaClass *_GLOBAL__sub_I_AppleLockdownMode_cpp()
   return result;
 }
 
-uint64_t ACMKernelTransport(_BYTE *a1, char a2, uint64_t a3, const void *a4, size_t a5, void *a6, IOByteCount *a7)
+uint64_t ACMKernelTransport(_BYTE *a1, uint64_t a2, uint64_t a3, const void *a4, size_t a5, void *a6, IOByteCount *a7)
 {
+  v11 = a2;
   v33 = 0;
   if (a7)
   {
@@ -342,7 +343,7 @@ LABEL_12:
   }
 
 LABEL_14:
-  v18 = LibCall_BuildCommand(a2, 0, 0, a4, a5, &v33);
+  v18 = LibCall_BuildCommand(v11, 0, 0, a4, a5, &v33);
   if (!v18)
   {
     IOLog("AssertMacros: %s (value: 0x%lx), %s, file: %s:%d\n", "command", 0, "---", "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_KernelLibs/ACMKernelLib/ACMKernelTransport.cpp", 135);
@@ -525,7 +526,7 @@ LABEL_10:
   return v12;
 }
 
-uint64_t LibCall_ACMContextCreate(uint64_t (*a1)(uint64_t, uint64_t, void, void, void, _BYTE *, uint64_t *), uint64_t a2, void *a3, char a4, _BYTE *a5, int a6)
+uint64_t LibCall_ACMContextCreate(uint64_t (*a1)(uint64_t, uint64_t, void, void, void, _BYTE *, uint64_t *), uint64_t a2, uint64_t *a3, char a4, _BYTE *a5, int a6)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -751,7 +752,7 @@ LABEL_24:
   return a1;
 }
 
-uint64_t LibCall_ACMContextDelete(uint64_t (*a1)(uint64_t, uint64_t, void, const void *, uint64_t, void, void), uint64_t a2, const void *a3, int a4)
+uint64_t LibCall_ACMContextDelete(uint64_t (*a1)(uint64_t, uint64_t, void, uint64_t, uint64_t, void, void), uint64_t a2, const void *a3, int a4)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -802,15 +803,16 @@ LABEL_9:
   return v9;
 }
 
-uint64_t LibCall_ACMContexAddCredentialWithScope(uint64_t (*a1)(uint64_t, uint64_t, void, const void *, unint64_t, void, void), uint64_t a2, _OWORD *a3, _DWORD *a4, int a5)
+uint64_t LibCall_ACMContexAddCredentialWithScope(uint64_t (*a1)(uint64_t, uint64_t, void, uint64_t, uint64_t, void, void), uint64_t a2, _OWORD *a3, _DWORD *a4, uint64_t a5)
 {
+  v5 = a5;
   if (gACMLoggingLevel <= 0xAu)
   {
     IOLog("%s: %s: called.\n", "ACM", "LibCall_ACMContexAddCredentialWithScope");
   }
 
   v20 = 0;
-  if (!a3 && a5 != 2)
+  if (!a3 && v5 != 2)
   {
     IOLog("AssertMacros: %s (value: 0x%lx), %s, file: %s:%d\n", "context || scope == kACMScopeGlobal", 0, "---", "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_KernelLibs/common/LibCall.c", 186);
 LABEL_18:
@@ -825,7 +827,7 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  SerializedAddCredentialSize = GetSerializedAddCredentialSize(a3, a4, a5, &v20);
+  SerializedAddCredentialSize = GetSerializedAddCredentialSize(a3, a4, v5, &v20);
   if (SerializedAddCredentialSize)
   {
     v18 = SerializedAddCredentialSize;
@@ -846,7 +848,7 @@ LABEL_18:
     goto LABEL_13;
   }
 
-  v13 = SerializeAddCredential(a3, a4, a5, v12, &v20);
+  v13 = SerializeAddCredential(a3, a4, v5, v12, &v20);
   if (v13)
   {
     v19 = 196;
@@ -888,7 +890,7 @@ LABEL_13:
   return v13;
 }
 
-uint64_t LibCall_ACMContextContainsCredentialTypeEx(uint64_t (*a1)(uint64_t, uint64_t, void, const void *, unint64_t, int *, uint64_t *), uint64_t a2, _OWORD *a3, uint64_t a4, uint64_t a5)
+uint64_t LibCall_ACMContextContainsCredentialTypeEx(uint64_t (*a1)(uint64_t, uint64_t, void, uint64_t, uint64_t, int *, uint64_t *), uint64_t a2, _OWORD *a3, uint64_t a4, uint64_t a5)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -982,7 +984,7 @@ uint64_t LibCall_ACMContextContainsCredentialTypeEx(uint64_t (*a1)(uint64_t, uin
   return v15;
 }
 
-uint64_t LibCall_ACMContexRemoveCredentialsByTypeAndScope(uint64_t (*a1)(uint64_t, uint64_t, void, _OWORD *, uint64_t, void, void), uint64_t a2, _OWORD *a3, int a4, int a5)
+uint64_t LibCall_ACMContexRemoveCredentialsByTypeAndScope(uint64_t (*a1)(uint64_t, uint64_t, void, uint64_t, uint64_t, void, void), uint64_t a2, _OWORD *a3, int a4, int a5)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -1048,15 +1050,16 @@ uint64_t LibCall_ACMContexRemoveCredentialsByTypeAndScope(uint64_t (*a1)(uint64_
   return v12;
 }
 
-uint64_t LibCall_ACMContextRemoveCredentialsByValueAndScope(uint64_t (*a1)(uint64_t, uint64_t, void, const void *, unint64_t, void, void), uint64_t a2, _OWORD *a3, _DWORD *a4, int a5)
+uint64_t LibCall_ACMContextRemoveCredentialsByValueAndScope(uint64_t (*a1)(uint64_t, uint64_t, void, uint64_t, uint64_t, void, void), uint64_t a2, _OWORD *a3, _DWORD *a4, uint64_t a5)
 {
+  v5 = a5;
   if (gACMLoggingLevel <= 0xAu)
   {
     IOLog("%s: %s: called.\n", "ACM", "LibCall_ACMContextRemoveCredentialsByValueAndScope");
   }
 
   v20 = 0;
-  if (!a3 && a5 != 2)
+  if (!a3 && v5 != 2)
   {
     IOLog("AssertMacros: %s (value: 0x%lx), %s, file: %s:%d\n", "context || scope == kACMScopeGlobal", 0, "---", "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_KernelLibs/common/LibCall.c", 279);
 LABEL_18:
@@ -1071,7 +1074,7 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  v10 = GetSerializedRemoveCredentialSize(a3, a4, a5, &v20);
+  v10 = GetSerializedRemoveCredentialSize(a3, a4, v5, &v20);
   if (v10)
   {
     v18 = v10;
@@ -1092,7 +1095,7 @@ LABEL_18:
     goto LABEL_13;
   }
 
-  v13 = SerializeRemoveCredential(a3, a4, a5, v12, &v20);
+  v13 = SerializeRemoveCredential(a3, a4, v5, v12, &v20);
   if (v13)
   {
     v19 = 289;
@@ -1134,7 +1137,7 @@ LABEL_13:
   return v13;
 }
 
-uint64_t LibCall_ACMContextVerifyPolicyAndCopyRequirementEx(uint64_t (*a1)(uint64_t, uint64_t, void, const void *, size_t, unsigned int *, unint64_t *), uint64_t a2, _OWORD *a3, char *__s1, _BOOL8 a5, _DWORD *a6, unsigned int a7, uint64_t a8, BOOL *a9, int **a10, char a11)
+uint64_t LibCall_ACMContextVerifyPolicyAndCopyRequirementEx(uint64_t (*a1)(uint64_t, uint64_t, void, uint64_t, uint64_t, _DWORD *, unint64_t *), uint64_t a2, _OWORD *a3, char *__s1, _BOOL8 a5, _DWORD *a6, uint64_t a7, uint64_t a8, BOOL *a9, int **a10, char a11)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -1285,7 +1288,7 @@ LABEL_23:
       goto LABEL_33;
     }
 
-    v33 = DeserializeRequirement(v30 + 1, v32 - 4, &v42, &v41);
+    v33 = DeserializeRequirement((v30 + 1), v32 - 4, &v42, &v41);
     v34 = v33;
     if (!v33)
     {
@@ -1386,26 +1389,22 @@ void LibCall_ACMKernelControl(uint64_t (*a1)(uint64_t, uint64_t, void, char *, s
   if (!a1)
   {
     IOLog("AssertMacros: %s (value: 0x%lx), %s, file: %s:%d\n", "transport", 0, "---", "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_KernelLibs/common/LibCall.c", 410);
-LABEL_19:
+LABEL_18:
     v17 = 70;
     v16 = -3;
-    goto LABEL_14;
+    goto LABEL_13;
   }
 
+  v14 = a5 != 0;
   if (a4)
   {
     v14 = a5 - 4097 < 0xFFFFFFFFFFFFF000;
   }
 
-  else
-  {
-    v14 = a5 != 0;
-  }
-
   if (v14)
   {
     IOLog("AssertMacros: %s (value: 0x%lx), %s, file: %s:%d\n", "(data && dataLength && dataLength <= 4096) || (!data && !dataLength)", 0, "---", "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_KernelLibs/common/LibCall.c", 411);
-    goto LABEL_19;
+    goto LABEL_18;
   }
 
   __chkstk_darwin();
@@ -1434,7 +1433,7 @@ LABEL_19:
     v17 = 10;
   }
 
-LABEL_14:
+LABEL_13:
   if (v17 >= gACMLoggingLevel)
   {
     IOLog("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMKernelControl", v16);
@@ -2067,7 +2066,7 @@ LABEL_139:
   return result;
 }
 
-uint64_t LibCall_ACMCredentialGetPropertyData(int *a1, int a2, int **a3, uint64_t *a4)
+uint64_t LibCall_ACMCredentialGetPropertyData(_DWORD *a1, int a2, void *a3, uint64_t *a4)
 {
   if (!a1)
   {
@@ -2247,7 +2246,7 @@ LABEL_103:
 
     if (a2 != 100)
     {
-      if (*a1 > 0x12 || ((1 << *a1) & 0x4060A) == 0)
+      if (*a1 > 0x12u || ((1 << *a1) & 0x4060A) == 0)
       {
         v23 = 792;
         goto LABEL_115;
@@ -2395,7 +2394,7 @@ LABEL_82:
         {
           result = 0;
           v11 = *(a1 + 205);
-          v14 = (a1 + 209);
+          v14 = a1 + 209;
           if (!*(a1 + 205))
           {
             v14 = 0;
@@ -3082,8 +3081,10 @@ uint64_t LibCall_ACMKernDoubleClickNotify(uint64_t (*a1)(uint64_t, uint64_t, voi
   return v5;
 }
 
-uint64_t LibCall_ACMContextCredentialGetProperty(uint64_t (*a1)(uint64_t, uint64_t, void, void *, uint64_t, uint64_t, uint64_t), uint64_t a2, _OWORD *a3, int a4, int a5, uint64_t a6, uint64_t a7)
+uint64_t LibCall_ACMContextCredentialGetProperty(uint64_t (*a1)(uint64_t, uint64_t, void, void *, uint64_t, uint64_t, uint64_t), uint64_t a2, _OWORD *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
+  v9 = a5;
+  v10 = a4;
   if (gACMLoggingLevel <= 0xAu)
   {
     IOLog("%s: %s: called.\n", "ACM", "LibCall_ACMContextCredentialGetProperty");
@@ -3112,7 +3113,7 @@ LABEL_17:
 
   memset(v20, 0, sizeof(v20));
   v19 = 24;
-  Property_Serialize = LibSer_ContextCredentialGetProperty_Serialize(a3, a4, a5, v20, &v19);
+  Property_Serialize = LibSer_ContextCredentialGetProperty_Serialize(a3, v10, v9, v20, &v19);
   if (Property_Serialize)
   {
     v16 = Property_Serialize;
@@ -3148,8 +3149,10 @@ LABEL_11:
   return v16;
 }
 
-uint64_t LibCall_ACMGlobalContextCredentialGetProperty(uint64_t (*a1)(uint64_t, uint64_t, void, uint64_t *, uint64_t, uint64_t, uint64_t), uint64_t a2, int a3, int a4, uint64_t a5, uint64_t a6)
+uint64_t LibCall_ACMGlobalContextCredentialGetProperty(uint64_t (*a1)(uint64_t, uint64_t, void, uint64_t *, uint64_t, uint64_t, uint64_t), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
+  v8 = a4;
+  v9 = a3;
   if (gACMLoggingLevel <= 0xAu)
   {
     IOLog("%s: %s: called.\n", "ACM", "LibCall_ACMGlobalContextCredentialGetProperty");
@@ -3172,7 +3175,7 @@ LABEL_15:
 
   v17 = 8;
   v18 = 0;
-  Property_Serialize = LibSer_GlobalContextCredentialGetProperty_Serialize(a3, a4, &v18, &v17);
+  Property_Serialize = LibSer_GlobalContextCredentialGetProperty_Serialize(v9, v8, &v18, &v17);
   if (Property_Serialize)
   {
     v14 = Property_Serialize;
@@ -3208,7 +3211,7 @@ LABEL_10:
   return v14;
 }
 
-uint64_t LibCall_ACMContextVerifyPolicyEx(uint64_t (*a1)(uint64_t, uint64_t, void, const void *, size_t, unsigned int *, unint64_t *), uint64_t a2, _OWORD *a3, char *__s1, _BOOL8 a5, _DWORD *a6, unsigned int a7, uint64_t a8, BOOL *a9, int **a10)
+uint64_t LibCall_ACMContextVerifyPolicyEx(uint64_t (*a1)(uint64_t, uint64_t, void, uint64_t, uint64_t, _DWORD *, unint64_t *), uint64_t a2, _OWORD *a3, char *__s1, _BOOL8 a5, _DWORD *a6, uint64_t a7, uint64_t a8, BOOL *a9, int **a10)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -3236,7 +3239,7 @@ uint64_t LibCall_ACMContextVerifyPolicyEx(uint64_t (*a1)(uint64_t, uint64_t, voi
   return v19;
 }
 
-uint64_t LibCall_ACMSecContextVerifyPolicyAndCopyRequirementEx(uint64_t (*a1)(uint64_t, uint64_t, void, const void *, size_t, unsigned int *, unint64_t *), uint64_t a2, _OWORD *a3, char *__s1, _DWORD *a5, unsigned int a6, uint64_t a7, BOOL *a8, int **a9)
+uint64_t LibCall_ACMSecContextVerifyPolicyAndCopyRequirementEx(uint64_t (*a1)(uint64_t, uint64_t, void, uint64_t, uint64_t, _DWORD *, unint64_t *), uint64_t a2, _OWORD *a3, char *__s1, _DWORD *a5, uint64_t a6, uint64_t a7, BOOL *a8, int **a9)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -3264,7 +3267,7 @@ uint64_t LibCall_ACMSecContextVerifyPolicyAndCopyRequirementEx(uint64_t (*a1)(ui
   return v18;
 }
 
-uint64_t LibCall_ACMGlobalContextVerifyPolicyEx(uint64_t (*a1)(uint64_t, uint64_t, void, const void *, size_t, unsigned int *, unint64_t *), uint64_t a2, char *a3, _BOOL8 a4, _DWORD *a5, unsigned int a6, BOOL *a7, int **a8)
+uint64_t LibCall_ACMGlobalContextVerifyPolicyEx(uint64_t (*a1)(uint64_t, uint64_t, void, uint64_t, uint64_t, _DWORD *, unint64_t *), uint64_t a2, char *a3, _BOOL8 a4, _DWORD *a5, uint64_t a6, BOOL *a7, int **a8)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -3370,32 +3373,28 @@ uint64_t LibCall_ACMSetEnvironmentVariable(uint64_t (*a1)(uint64_t, uint64_t, vo
   if (!a1)
   {
     IOLog("AssertMacros: %s (value: 0x%lx), %s, file: %s:%d\n", "transport", 0, "---", "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_KernelLibs/common/LibCall.c", 1378);
-LABEL_31:
+LABEL_30:
     v23 = 70;
     v22 = 4294967293;
-    goto LABEL_24;
+    goto LABEL_23;
   }
 
   if (a6 != 16 * (a5 != 0))
   {
     IOLog("AssertMacros: %s (value: 0x%lx), %s, file: %s:%d\n", "(keybagUuid && keybagUuidLength == 16) || (!keybagUuid && !keybagUuidLength)", 0, "---", "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_KernelLibs/common/LibCall.c", 1379);
-    goto LABEL_31;
+    goto LABEL_30;
   }
 
+  v16 = a8 != 0;
   if (a7)
   {
     v16 = a8 - 129 < 0xFFFFFFFFFFFFFF80;
   }
 
-  else
-  {
-    v16 = a8 != 0;
-  }
-
   if (v16)
   {
     IOLog("AssertMacros: %s (value: 0x%lx), %s, file: %s:%d\n", "(data && dataLength && dataLength <= 128) || (!data && !dataLength)", 0, "---", "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_KernelLibs/common/LibCall.c", 1380);
-    goto LABEL_31;
+    goto LABEL_30;
   }
 
   v17 = a8 + 44;
@@ -3418,7 +3417,7 @@ LABEL_31:
 
     if (v19 <= 0xF)
     {
-      goto LABEL_32;
+      goto LABEL_31;
     }
 
     *(v18 + 3) = *a4;
@@ -3434,7 +3433,7 @@ LABEL_31:
 
     if (v20 <= 0xF)
     {
-      goto LABEL_32;
+      goto LABEL_31;
     }
 
     *(v18 + 7) = *a5;
@@ -3442,17 +3441,17 @@ LABEL_31:
 
   if (!a8)
   {
-    goto LABEL_22;
+    goto LABEL_21;
   }
 
   if (a8 >= 0xFFFFFFFFFFFFFFD4)
   {
-LABEL_32:
+LABEL_31:
     __break(0xBFFEu);
   }
 
   memcpy(v18 + 11, a7, a8);
-LABEL_22:
+LABEL_21:
   v21 = a1(a2, 44, 0, &v25 - ((a8 + 59) & 0xFFFFFFFFFFFFFFF0), a8 + 44, 0, 0);
   v22 = v21;
   if (v21)
@@ -3466,7 +3465,7 @@ LABEL_22:
     v23 = 10;
   }
 
-LABEL_24:
+LABEL_23:
   if (v23 >= gACMLoggingLevel)
   {
     IOLog("%s: %s: returning, err = %ld.\n", "ACM", "LibCall_ACMSetEnvironmentVariable", v22);
@@ -3765,8 +3764,10 @@ LABEL_14:
   return v12;
 }
 
-uint64_t LibCall_ACMContextSetData(uint64_t (*a1)(uint64_t, uint64_t, void, const void *, size_t, void, void), uint64_t a2, _OWORD *a3, int a4, _DWORD *a5, unsigned int a6, const void *a7, size_t a8)
+uint64_t LibCall_ACMContextSetData(uint64_t (*a1)(uint64_t, uint64_t, void, uint64_t, uint64_t, void, void), uint64_t a2, _OWORD *a3, uint64_t a4, _DWORD *a5, uint64_t a6, const void *a7, size_t a8)
 {
+  v10 = a6;
+  v12 = a4;
   if (gACMLoggingLevel <= 0xAu)
   {
     IOLog("%s: %s: called.\n", "ACM", "LibCall_ACMContextSetData");
@@ -3802,7 +3803,7 @@ LABEL_20:
     goto LABEL_14;
   }
 
-  Size = LibSer_StorageSetData_GetSize(a8, a5, a6, &v26);
+  Size = LibSer_StorageSetData_GetSize(a8, a5, v10, &v26);
   if (Size)
   {
     v24 = Size;
@@ -3823,7 +3824,7 @@ LABEL_20:
     goto LABEL_14;
   }
 
-  v19 = LibSer_StorageSetData_Serialize(a3, a4, a7, a8, a5, a6, v18, &v26);
+  v19 = LibSer_StorageSetData_Serialize(a3, v12, a7, a8, a5, v10, v18, &v26);
   if (v19)
   {
     v25 = 1629;
@@ -3865,8 +3866,11 @@ LABEL_14:
   return v19;
 }
 
-uint64_t LibCall_ACMContextGetData(uint64_t (*a1)(uint64_t, uint64_t, void, const void *, unint64_t, uint64_t, uint64_t), uint64_t a2, _OWORD *a3, int a4, char a5, _DWORD *a6, unsigned int a7, uint64_t a8, uint64_t a9)
+uint64_t LibCall_ACMContextGetData(uint64_t (*a1)(uint64_t, uint64_t, void, uint64_t, uint64_t, uint64_t, uint64_t), uint64_t a2, _OWORD *a3, uint64_t a4, uint64_t a5, _DWORD *a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
+  v10 = a7;
+  v12 = a5;
+  v13 = a4;
   if (gACMLoggingLevel <= 0xAu)
   {
     IOLog("%s: %s: called.\n", "ACM", "LibCall_ACMContextGetData");
@@ -3896,7 +3900,7 @@ LABEL_19:
     goto LABEL_14;
   }
 
-  Size = LibSer_StorageGetData_GetSize(a6, a7, &v27);
+  Size = LibSer_StorageGetData_GetSize(a6, v10, &v27);
   if (Size)
   {
     v24 = Size;
@@ -3917,7 +3921,7 @@ LABEL_19:
     goto LABEL_14;
   }
 
-  Data_Serialize = LibSer_StorageGetData_Serialize(a3, a4, a5, a6, a7, v18, &v27);
+  Data_Serialize = LibSer_StorageGetData_Serialize(a3, v13, v12, a6, v10, v18, &v27);
   if (Data_Serialize)
   {
     v25 = 1664;
@@ -4135,8 +4139,10 @@ LABEL_10:
   return v11;
 }
 
-uint64_t verifyAclConstraintInternal(uint64_t (*a1)(uint64_t, void, void, const void *, unint64_t, unsigned int *, unint64_t *), uint64_t a2, unsigned int a3, _OWORD *a4, const void *a5, uint64_t a6, const void *a7, unsigned int a8, unsigned __int8 a9, _DWORD *a10, unsigned int a11, unsigned int a12, BOOL *a13, int **a14)
+uint64_t verifyAclConstraintInternal(uint64_t (*a1)(uint64_t, void, void, uint64_t, unint64_t, _DWORD *, unint64_t *), uint64_t a2, uint64_t a3, _OWORD *a4, const void *a5, uint64_t a6, const void *a7, uint64_t a8, unsigned __int8 a9, _DWORD *a10, unsigned int a11, unsigned int a12, BOOL *a13, int **a14)
 {
+  v14 = a8;
+  v18 = a3;
   if (gACMLoggingLevel <= 0xAu)
   {
     IOLog("%s: %s: called.\n", "ACM", "verifyAclConstraintInternal");
@@ -4167,10 +4173,10 @@ LABEL_31:
   }
 
   v39 = a1;
-  v40 = a3;
-  v21 = a3;
-  v22 = a8;
-  SerializedVerifyAclConstraintSize = GetSerializedVerifyAclConstraintSize(v21, a4, a5, a6, a7, a8, a9, a12, a10, a11, v45);
+  v40 = v18;
+  v21 = v18;
+  v22 = v14;
+  SerializedVerifyAclConstraintSize = GetSerializedVerifyAclConstraintSize(v21, a4, a5, a6, a7, v14, a9, a12, a10, a11, v45);
   if (SerializedVerifyAclConstraintSize)
   {
     v31 = SerializedVerifyAclConstraintSize;
@@ -4232,7 +4238,7 @@ LABEL_31:
       goto LABEL_17;
     }
 
-    v30 = DeserializeRequirement(v27 + 1, v29 - 4, &v43, &v42);
+    v30 = DeserializeRequirement((v27 + 1), v29 - 4, &v43, &v42);
     if (!v30)
     {
       v31 = 0;
@@ -4281,7 +4287,7 @@ LABEL_19:
   return v31;
 }
 
-uint64_t processAclCommandInternal(uint64_t (*a1)(uint64_t, uint64_t, void, char *, size_t, int *, uint64_t *), uint64_t a2, int a3, _OWORD *a4, unsigned __int8 *a5, uint64_t a6, unsigned __int8 *a7, uint64_t a8, _DWORD *a9, unsigned int a10, unsigned int a11, _DWORD *a12, BOOL *a13, void *a14, unint64_t *a15)
+uint64_t processAclCommandInternal(uint64_t (*a1)(uint64_t, uint64_t, void, char *, size_t, int *, uint64_t *), uint64_t a2, int a3, _OWORD *a4, unsigned __int8 *a5, uint64_t a6, unsigned __int8 *a7, uint64_t a8, _DWORD *a9, unsigned int a10, unsigned int a11, _DWORD *a12, BOOL *a13, void *a14, size_t *a15)
 {
   v20 = gACMLoggingLevel;
   if (gACMLoggingLevel <= 0xAu)
@@ -4639,7 +4645,7 @@ LABEL_74:
   return v27;
 }
 
-uint64_t LibCall_ACMSecContextVerifyAclConstraintAndCopyRequirement(uint64_t (*a1)(uint64_t, void, void, const void *, unint64_t, unsigned int *, unint64_t *), uint64_t a2, _OWORD *a3, const void *a4, uint64_t a5, const void *a6, unsigned int a7, unsigned __int8 a8, _DWORD *a9, unsigned int a10, unsigned int a11, BOOL *a12, int **a13)
+uint64_t LibCall_ACMSecContextVerifyAclConstraintAndCopyRequirement(uint64_t (*a1)(uint64_t, void, void, uint64_t, unint64_t, _DWORD *, unint64_t *), uint64_t a2, _OWORD *a3, const void *a4, uint64_t a5, const void *a6, uint64_t a7, unsigned __int8 a8, _DWORD *a9, unsigned int a10, unsigned int a11, BOOL *a12, int **a13)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -4673,7 +4679,7 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v21 = verifyAclConstraintInternal(a1, a2, 0xBu, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13);
+  v21 = verifyAclConstraintInternal(a1, a2, 11, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13);
   v22 = v21;
   if (v21)
   {
@@ -4847,8 +4853,9 @@ uint64_t LibCall_ACMSecSetBiometryAvailability(uint64_t (*a1)(uint64_t, uint64_t
   return v11;
 }
 
-uint64_t LibCall_ACMSecContextGetUnlockSecret(uint64_t (*a1)(void, void, void, void, void, void, void), uint64_t a2, _OWORD *a3, _DWORD *a4, unsigned int a5, void *a6, size_t *a7, _BYTE *a8)
+uint64_t LibCall_ACMSecContextGetUnlockSecret(uint64_t (*a1)(uint64_t, uint64_t, void, _BYTE *, uint64_t, _OWORD *, uint64_t *), uint64_t a2, _OWORD *a3, _DWORD *a4, uint64_t a5, void *a6, size_t *a7, _BYTE *a8)
 {
+  v11 = a5;
   if (gACMLoggingLevel <= 0xAu)
   {
     IOLog("%s: %s: called.\n", "ACM", "LibCall_ACMSecContextGetUnlockSecret");
@@ -4874,13 +4881,13 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  if ((a4 != 0) != (a5 != 0))
+  if ((a4 != 0) != (v11 != 0))
   {
     IOLog("AssertMacros: %s (value: 0x%lx), %s, file: %s:%d\n", "( (parametersCount > 0 && parameters != ((void*)0)) || ((parametersCount == 0) && parameters == ((void*)0)))", 0, "---", "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_KernelLibs/common/LibCall.c", 2159);
     goto LABEL_26;
   }
 
-  UnlockSecret_Serialize = LibSer_GetUnlockSecret_Serialize(a3, a4, a5, v30, &v27);
+  UnlockSecret_Serialize = LibSer_GetUnlockSecret_Serialize(a3, a4, v11, v30, &v27);
   if (UnlockSecret_Serialize)
   {
     v20 = UnlockSecret_Serialize;
@@ -4945,9 +4952,10 @@ LABEL_14:
   return v20;
 }
 
-uint64_t LibCall_ACMSEPControl(uint64_t (*a1)(uint64_t, uint64_t, void, char *, unint64_t, unsigned int *, unint64_t *), uint64_t a2, const void *a3, size_t a4, _OWORD *a5, _DWORD *a6, unsigned int a7, void *a8, size_t *a9)
+uint64_t LibCall_ACMSEPControl(uint64_t (*a1)(uint64_t, uint64_t, void, char *, uint64_t, unsigned int *, uint64_t *), uint64_t a2, const void *a3, size_t a4, _OWORD *a5, _DWORD *a6, uint64_t a7, void *a8, size_t *a9)
 {
   v30 = a8;
+  v9 = a7;
   if (gACMLoggingLevel <= 0xAu)
   {
     IOLog("%s: %s: called.\n", "ACM", "LibCall_ACMSEPControl");
@@ -4977,7 +4985,7 @@ LABEL_26:
     goto LABEL_26;
   }
 
-  Size = LibSer_SEPControl_GetSize(a4, a6, a7, &v34);
+  Size = LibSer_SEPControl_GetSize(a4, a6, v9, &v34);
   if (Size)
   {
     v27 = Size;
@@ -4990,7 +4998,7 @@ LABEL_26:
   __chkstk_darwin();
   v19 = &v29 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
   bzero(v19, v18);
-  v20 = LibSer_SEPControl_Serialize(a5, a6, a7, a3, a4, v19, &v34);
+  v20 = LibSer_SEPControl_Serialize(a5, a6, v9, a3, a4, v19, &v34);
   if (v20)
   {
     v21 = v20;
@@ -5237,7 +5245,7 @@ void acm_mem_free_info(const char *a1, const void *a2, unint64_t a3, const char 
   }
 }
 
-uint64_t GetSerializedVerifyPolicySize(uint64_t a1, char *__s1, uint64_t a3, uint64_t a4, _DWORD *a5, unsigned int a6, void *a7)
+uint64_t GetSerializedVerifyPolicySize(uint64_t a1, char *__s1, uint64_t a3, uint64_t a4, _DWORD *a5, uint64_t a6, void *a7)
 {
   v14 = 0;
   if (!a1)
@@ -5258,6 +5266,7 @@ uint64_t GetSerializedVerifyPolicySize(uint64_t a1, char *__s1, uint64_t a3, uin
     return 4294967293;
   }
 
+  v8 = a6;
   v10 = strnlen(__s1, 0x81uLL);
   if (v10 >= 0x81)
   {
@@ -5266,7 +5275,7 @@ uint64_t GetSerializedVerifyPolicySize(uint64_t a1, char *__s1, uint64_t a3, uin
   }
 
   v11 = v10;
-  LengthOfParameters = getLengthOfParameters(a5, a6, &v14);
+  LengthOfParameters = getLengthOfParameters(a5, v8, &v14);
   if (LengthOfParameters)
   {
     IOLog("AssertMacros: %s (value: 0x%lx), %s, file: %s:%d\n", "err == kACMErrorSuccess", 0, "---", "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_KernelLibs/common/LibSerialization.c", 253);
@@ -5346,7 +5355,7 @@ LABEL_10:
   return v11;
 }
 
-uint64_t SerializeVerifyPolicy(_OWORD *a1, char *__s1, char a3, uint64_t a4, _DWORD *a5, unsigned int a6, uint64_t a7, size_t *a8)
+uint64_t SerializeVerifyPolicy(_OWORD *a1, char *__s1, char a3, uint64_t a4, _DWORD *a5, uint64_t a6, uint64_t a7, size_t *a8)
 {
   v24 = 0;
   if (!a1)
@@ -5361,6 +5370,7 @@ uint64_t SerializeVerifyPolicy(_OWORD *a1, char *__s1, char a3, uint64_t a4, _DW
     return 4294967293;
   }
 
+  v9 = a6;
   if ((a5 != 0) != (a6 != 0))
   {
     IOLog("AssertMacros: %s (value: 0x%lx), %s, file: %s:%d\n", "(parameters && parametersCount) || (!parameters && !parametersCount)", 0, "---", "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_KernelLibs/common/LibSerialization.c", 280);
@@ -5419,7 +5429,7 @@ uint64_t SerializeVerifyPolicy(_OWORD *a1, char *__s1, char a3, uint64_t a4, _DW
   *(v19 + 17) = a3;
   *(v19 + 18) = v13;
   v23 = v18 + 22;
-  v20 = serializeParameters(a5, a6, a7, &v23);
+  v20 = serializeParameters(a5, v9, a7, &v23);
   v21 = v20;
   if (v20)
   {
@@ -5512,7 +5522,7 @@ LABEL_13:
   return v15;
 }
 
-uint64_t DeserializeVerifyPolicy(uint64_t a1, unint64_t a2, _OWORD *a3, void *a4, BOOL *a5, _DWORD *a6, void *a7, _DWORD *a8)
+uint64_t DeserializeVerifyPolicy(const char *a1, unint64_t a2, _OWORD *a3, void *a4, BOOL *a5, _DWORD *a6, void *a7, unsigned int *a8)
 {
   v28 = 0;
   v27 = 0;
@@ -5565,9 +5575,9 @@ uint64_t DeserializeVerifyPolicy(uint64_t a1, unint64_t a2, _OWORD *a3, void *a4
   }
 
   *a3 = *a1;
-  v15 = (a1 + 16);
+  v15 = a1 + 16;
   v16 = a2 - 16;
-  v17 = strnlen((a1 + 16), a2 - 16);
+  v17 = strnlen(a1 + 16, a2 - 16);
   v18 = v17;
   if (v17 >= 0x81uLL)
   {
@@ -5599,7 +5609,7 @@ LABEL_31:
     goto LABEL_33;
   }
 
-  v20 = *(a1 + v18 + 17) != 0;
+  v20 = a1[v18 + 17] != 0;
   v29 = v18 + 18;
   if (a2 - (v18 + 18) <= 3)
   {
@@ -5609,7 +5619,7 @@ LABEL_31:
 
   v26 = v19;
   v21 = a8;
-  v22 = *(a1 + v18 + 18);
+  v22 = *&a1[v18 + 18];
   v29 = v18 + 22;
   v23 = deserializeParameters(a1, a2, &v29, &v28, &v27);
   v24 = v23;
@@ -5944,7 +5954,7 @@ uint64_t SerializeVerifyAclConstraint(int a1, _OWORD *a2, const void *a3, unsign
   return v23;
 }
 
-uint64_t DeserializeVerifyAclConstraint(int a1, uint64_t a2, unsigned int a3, _OWORD *a4, void *a5, _DWORD *a6, size_t *a7, _DWORD *a8, BOOL *a9, _DWORD *a10, void *a11, _DWORD *a12)
+uint64_t DeserializeVerifyAclConstraint(int a1, uint64_t a2, unsigned int a3, _OWORD *a4, void *a5, _DWORD *a6, size_t *a7, _DWORD *a8, BOOL *a9, _DWORD *a10, void *a11, unsigned int *a12)
 {
   v36 = 0;
   v35 = 0;
@@ -6276,7 +6286,7 @@ uint64_t SerializeProcessAcl(_OWORD *a1, const void *a2, unsigned int a3, const 
   return v21;
 }
 
-uint64_t DeserializeProcessAcl(uint64_t a1, unsigned int a2, _OWORD *a3, void *a4, _DWORD *a5, size_t *a6, _DWORD *a7, _DWORD *a8, void *a9, _DWORD *a10)
+uint64_t DeserializeProcessAcl(uint64_t a1, unsigned int a2, _OWORD *a3, void *a4, _DWORD *a5, size_t *a6, _DWORD *a7, _DWORD *a8, void *a9, unsigned int *a10)
 {
   v33 = 0;
   v32 = 0;
@@ -6467,7 +6477,7 @@ LABEL_49:
   return v26;
 }
 
-uint64_t GetSerializedRequirementSize(uint64_t a1, int *a2, void *a3)
+uint64_t GetSerializedRequirementSize(uint64_t a1, unsigned int *a2, void *a3)
 {
   v13 = 0;
   if (!a2)
@@ -6577,7 +6587,7 @@ uint64_t getRequirementDataSizeForVersion(unsigned int a1, _DWORD *a2)
   }
 }
 
-uint64_t SerializeRequirement(uint64_t a1, int *a2, uint64_t a3, unint64_t *a4)
+uint64_t SerializeRequirement(uint64_t a1, unsigned int *a2, uint64_t a3, unint64_t *a4)
 {
   v25 = 0;
   if (!a2)
@@ -6719,7 +6729,7 @@ LABEL_9:
   return v14;
 }
 
-uint64_t DeserializeRequirement(unsigned int *a1, unint64_t a2, void **a3, uint64_t *a4)
+uint64_t DeserializeRequirement(unint64_t a1, unint64_t a2, void **a3, uint64_t *a4)
 {
   __dst = 0;
   if (!a1)
@@ -6760,7 +6770,7 @@ LABEL_39:
   {
     if (((1 << v8) & 0x30) != 0)
     {
-      v15 = a1[4];
+      v15 = *(a1 + 16);
       if (8 * v15 + 20 > a2)
       {
         v32 = 1067;
@@ -6779,11 +6789,11 @@ LABEL_39:
 
         if (*(__dst + 3) == 84)
         {
-          v18 = a1[4];
+          v18 = *(a1 + 16);
           *__dst = *a1;
           v17[3] = 84;
           v17[4] = v18;
-          if (!a1[4])
+          if (!*(a1 + 16))
           {
             v10 = 20;
             goto LABEL_12;
@@ -6809,7 +6819,7 @@ LABEL_39:
 
             *(__dst + 8 * v19 + 20) = v35;
             v10 += v34;
-            if (++v19 >= a1[4])
+            if (++v19 >= *(a1 + 16))
             {
               goto LABEL_12;
             }
@@ -6835,7 +6845,7 @@ LABEL_65:
 
     if (v8 == 7)
     {
-      v22 = a1[5];
+      v22 = *(a1 + 20);
       if (8 * v22 + 24 > a2)
       {
         v32 = 1100;
@@ -6864,10 +6874,10 @@ LABEL_65:
       }
 
       v25 = *a1;
-      *(__dst + 2) = *(a1 + 2);
+      *(__dst + 2) = *(a1 + 16);
       *v24 = v25;
       v24[3] = 88;
-      if (!a1[5])
+      if (!*(a1 + 20))
       {
         v10 = 24;
         goto LABEL_12;
@@ -6893,7 +6903,7 @@ LABEL_65:
 
         *(__dst + v26 + 3) = v35;
         v10 += v34;
-        if (++v26 >= a1[5])
+        if (++v26 >= *(a1 + 20))
         {
           goto LABEL_12;
         }
@@ -6911,7 +6921,7 @@ LABEL_56:
     goto LABEL_38;
   }
 
-  v9 = a1[3];
+  v9 = *(a1 + 12);
   v10 = v9 + 16;
   if (v9 + 16 > a2)
   {
@@ -7275,7 +7285,7 @@ LABEL_17:
   return v15;
 }
 
-uint64_t CopyCredential(uint64_t a1, void **a2)
+uint64_t CopyCredential(unsigned int *a1, void **a2)
 {
   __dst = 0;
   if (!a1)
@@ -7297,7 +7307,7 @@ uint64_t CopyCredential(uint64_t a1, void **a2)
     {
       if (__dst)
       {
-        memmove(__dst, a1, *(a1 + 28) + 32);
+        memmove(__dst, a1, a1[7] + 32);
         v5 = 0;
         *a2 = __dst;
         return v5;
@@ -7962,7 +7972,7 @@ LABEL_14:
   return v15;
 }
 
-void DeallocCredentialList(_DWORD **a1, unsigned int a2)
+void DeallocCredentialList(void *a1, unsigned int a2)
 {
   if (a1)
   {
@@ -9163,7 +9173,7 @@ uint64_t LibSer_SEPControlResponse_Serialize(void *__src, size_t __len, _DWORD *
   return result;
 }
 
-uint64_t LibSer_SEPControlResponse_Deserialize(unsigned int *a1, unint64_t a2, void *a3, void *a4)
+uint64_t LibSer_SEPControlResponse_Deserialize(unsigned int *a1, unint64_t a2, unsigned int **a3, void *a4)
 {
   if (!a1)
   {
@@ -9517,7 +9527,7 @@ char *Util_hexDumpToStrHelper(char *result, unint64_t a2, uint64_t a3, unint64_t
   return result;
 }
 
-uint64_t Util_WriteToBuffer(uint64_t a1, size_t a2, void *a3, void *__src, size_t __len)
+uint64_t Util_WriteToBuffer(uint64_t a1, size_t a2, size_t *a3, void *__src, size_t __len)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -9578,7 +9588,7 @@ LABEL_13:
   return v12;
 }
 
-uint64_t Util_ReadFromBuffer(uint64_t a1, size_t a2, void *a3, void *__dst, size_t __len)
+uint64_t Util_ReadFromBuffer(uint64_t a1, size_t a2, size_t *a3, void *__dst, size_t __len)
 {
   if (gACMLoggingLevel <= 0xAu)
   {
@@ -9650,7 +9660,7 @@ unint64_t Util_KeybagLockStateToEnvVar(unsigned int a1)
   return v1 & 3;
 }
 
-uint64_t Util_SafeDeallocParameters(uint64_t result, unsigned int a2)
+char *Util_SafeDeallocParameters(char *result, unsigned int a2)
 {
   if (result)
   {
@@ -9665,7 +9675,7 @@ uint64_t Util_SafeDeallocParameters(uint64_t result, unsigned int a2)
         v6 = *v4;
         if (*v4)
         {
-          v7 = *(v4 + 8);
+          v7 = *(v4 + 2);
           *v4 = 0;
           acm_mem_free_info("<data>", v6, v7, "/Library/Caches/com.apple.xbs/Sources/AppleCredentialManager_KernelLibs/common/CommonUtil.c", 118, "Util_SafeDeallocParameters");
           acm_mem_free_data(v6, v7);

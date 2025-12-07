@@ -76,27 +76,27 @@
 
 + (id)max:(id)max
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   maxCopy = max;
   v4 = 0;
-  v5 = [maxCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [maxCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(maxCopy);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         [v8 measure];
         v10 = v9;
         [v4 measure];
@@ -108,13 +108,11 @@
         }
       }
 
-      v5 = [maxCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [maxCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

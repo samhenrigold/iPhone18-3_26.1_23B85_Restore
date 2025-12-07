@@ -325,14 +325,14 @@ LABEL_69:
           goto LABEL_69;
         }
 
-        if ([v55 isEqualToString:*MEMORY[0x1E6998068]])
+        if (objc_msgSend_isEqualToString_(v55))
         {
           v57 = 2;
         }
 
         else
         {
-          if (![v56 isEqualToString:*MEMORY[0x1E6998060]])
+          if (!objc_msgSend_isEqualToString_(v56))
           {
 LABEL_62:
             [v51 setObject:v56 forKey:v54];

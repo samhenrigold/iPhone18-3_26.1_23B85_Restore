@@ -6,6 +6,7 @@
 - (id)estimateForTarget:(int64_t)target withFeatures:(id)features andModelDict:(id)dict;
 - (id)featureDictionaryForTarget:(int64_t)target withInitialFeatures:(id)features withError:(id *)error;
 - (id)getPayloadForPPSWithParams:(id)params andPredictionValue:(id)value;
+- (id)modelForTarget:(int64_t)target fromTrial:(BOOL)trial;
 - (id)modelVersionForTarget:(int64_t)target fromTrial:(BOOL)trial;
 @end
 
@@ -1147,6 +1148,35 @@ LABEL_152:
   }
 
   return v33;
+}
+
+- (id)modelForTarget:(int64_t)target fromTrial:(BOOL)trial
+{
+  v6 = [(BatteryAnalysisEstimator *)self modelVersionForTarget:target fromTrial:trial];
+  v7 = [NSBundle bundleForClass:objc_opt_class()];
+  v8 = [v6 objectForKeyedSubscript:@"model_name"];
+  v9 = sub_10001F62C(v7, v8);
+  v10 = [v9 mutableCopy];
+
+  v11 = [v6 objectForKeyedSubscript:@"model_name"];
+  [v10 setObject:v11 forKeyedSubscript:@"model_name"];
+
+  if (v10)
+  {
+    v12 = [v10 objectForKeyedSubscript:@"predictedFeatureNames"];
+    predictedFeatureNames = [(BatteryAnalysisEstimator *)self predictedFeatureNames];
+    v14 = [NSNumber numberWithInteger:target];
+    [predictedFeatureNames setObject:v12 forKeyedSubscript:v14];
+
+    v15 = v10;
+  }
+
+  else if (os_log_type_enabled(self->_logger, OS_LOG_TYPE_ERROR))
+  {
+    sub_100032BD0();
+  }
+
+  return v10;
 }
 
 - (id)estimateForTarget:(int64_t)target withFeatures:(id)features andModelDict:(id)dict

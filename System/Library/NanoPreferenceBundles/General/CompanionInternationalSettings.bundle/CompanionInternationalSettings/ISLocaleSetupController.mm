@@ -1,5 +1,6 @@
 @interface ISLocaleSetupController
 - (void)commitRegion;
+- (void)handleAlertActionAndChangeLanguage:(BOOL)language;
 - (void)setupController;
 @end
 
@@ -184,6 +185,21 @@
       [(ISLocaleSetupController *)v33 presentViewController:v29 animated:1 completion:0];
     }
   }
+}
+
+- (void)handleAlertActionAndChangeLanguage:(BOOL)language
+{
+  languageCopy = language;
+  selectedRegion = [(ISLocaleSetupController *)self selectedRegion];
+  regionCode = [selectedRegion regionCode];
+
+  parentController = [(ISLocaleSetupController *)self parentController];
+  localeSelector = [parentController localeSelector];
+  [localeSelector setRegion:regionCode changeLanguageVariant:languageCopy];
+
+  [parentController reloadSpecifiers];
+  [parentController updateSpecifiersForLocaleRegionChange:regionCode];
+  [(ISLocaleSetupController *)self dismissAnimated:1];
 }
 
 - (void)setupController

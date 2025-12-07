@@ -35,7 +35,7 @@
 
 + (id)extractALSCalibrationData
 {
-  v105 = *MEMORY[0x277D85DE8];
+  v108 = *MEMORY[0x277D85DE8];
   v3 = AMFDRSealingMapCopyLocalDataForClass();
   Length = CFDataGetLength(v3);
   if (Length == 10440)
@@ -68,7 +68,7 @@
       if (os_log_type_enabled(_TVLLogDefault_log_2, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
-        v104 = v8;
+        v107 = v8;
         _os_log_impl(&dword_26CD78000, v9, OS_LOG_TYPE_INFO, "FDR calibration data converted from v1 to v3. New size = %ld\n", buf, 0xCu);
       }
 
@@ -99,14 +99,15 @@
         _ALSIOHIDEventCallback_cold_2();
       }
 
-      v76 = _TVLLogDefault_log_2;
+      v79 = _TVLLogDefault_log_2;
       if (os_log_type_enabled(_TVLLogDefault_log_2, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_26CD78000, v76, OS_LOG_TYPE_INFO, "Found HmClData_VD6287_v3", buf, 2u);
+        _os_log_impl(&dword_26CD78000, v79, OS_LOG_TYPE_INFO, "Found HmClData_VD6287_v3", buf, 2u);
       }
 
       BytePtr = CFDataGetBytePtr(v3);
+      v81 = BytePtr;
       if (isInternalBuild_onceToken != -1)
       {
         +[TVLALSDataExtractor extractALSCalibrationData];
@@ -119,10 +120,10 @@
           _ALSIOHIDEventCallback_cold_2();
         }
 
-        print_HmCl_VD6287_v3(BytePtr, _TVLLogDefault_log_2);
+        print_HmCl_VD6287_v3(v81, _TVLLogDefault_log_2);
       }
 
-      if (BytePtr[10] != 2)
+      if (*(v81 + 10) != 2)
       {
         if (_TVLLogDefault_onceToken_2 != -1)
         {
@@ -131,14 +132,14 @@
 
         if (os_log_type_enabled(_TVLLogDefault_log_2, OS_LOG_TYPE_ERROR))
         {
-          +[(TVLALSDataExtractor *)BytePtr];
+          +[TVLALSDataExtractor extractALSCalibrationData];
         }
 
         goto LABEL_130;
       }
 
-      v78 = BytePtr + 4096;
-      if (BytePtr[5214] != 1)
+      v82 = v81 + 4096;
+      if (*(v81 + 5214) != 1)
       {
         if (_TVLLogDefault_onceToken_2 != -1)
         {
@@ -147,82 +148,81 @@
 
         if (os_log_type_enabled(_TVLLogDefault_log_2, OS_LOG_TYPE_ERROR))
         {
-          +[(TVLALSDataExtractor *)BytePtr];
+          +[TVLALSDataExtractor extractALSCalibrationData];
         }
 
         goto LABEL_130;
       }
 
-      if (BytePtr[5218] == 5)
+      if (*(v81 + 5218) == 5)
       {
         [(TVLALSCalibrationData *)v10 setVersion:&unk_287E0E9B8];
-        v79 = [MEMORY[0x277CCABB0] numberWithInt:BytePtr[5218]];
-        [(TVLALSCalibrationData *)v10 setChannels:v79];
+        v83 = [MEMORY[0x277CCABB0] numberWithInt:*(v81 + 5218)];
+        [(TVLALSCalibrationData *)v10 setChannels:v83];
 
-        v80 = [MEMORY[0x277CCABB0] numberWithInt:*(BytePtr + 5443)];
-        [(TVLALSCalibrationData *)v10 setWavelengthStartVisible:v80];
+        v84 = [MEMORY[0x277CCABB0] numberWithInt:*(v81 + 5443)];
+        [(TVLALSCalibrationData *)v10 setWavelengthStartVisible:v84];
 
-        v81 = [MEMORY[0x277CCABB0] numberWithInt:*(BytePtr + 5445)];
-        [(TVLALSCalibrationData *)v10 setWavelengthStartNIR:v81];
+        v85 = [MEMORY[0x277CCABB0] numberWithInt:*(v81 + 5445)];
+        [(TVLALSCalibrationData *)v10 setWavelengthStartNIR:v85];
 
-        v82 = [MEMORY[0x277CCABB0] numberWithInt:*(BytePtr + 5447)];
-        [(TVLALSCalibrationData *)v10 setWavelengthEnd:v82];
+        v86 = [MEMORY[0x277CCABB0] numberWithInt:*(v81 + 5447)];
+        [(TVLALSCalibrationData *)v10 setWavelengthEnd:v86];
 
-        v83 = [MEMORY[0x277CCABB0] numberWithInt:BytePtr[5449]];
-        [(TVLALSCalibrationData *)v10 setWavelengthStep:v83];
+        v87 = [MEMORY[0x277CCABB0] numberWithInt:*(v81 + 5449)];
+        [(TVLALSCalibrationData *)v10 setWavelengthStep:v87];
 
-        v84 = [MEMORY[0x277CCABB0] numberWithInt:*(BytePtr + 5415)];
-        [(TVLALSCalibrationData *)v10 setNormalizationFactor:v84];
+        v88 = [MEMORY[0x277CCABB0] numberWithInt:*(v81 + 5415)];
+        [(TVLALSCalibrationData *)v10 setNormalizationFactor:v88];
 
-        v85 = *(BytePtr + 5447);
-        v86 = *(BytePtr + 5443);
-        v87 = BytePtr[5449];
-        v102 = objc_alloc_init(MEMORY[0x277CBEB18]);
-        if (!BytePtr[5218])
+        v89 = *(v81 + 5447);
+        v90 = *(v81 + 5443);
+        v91 = *(v81 + 5449);
+        v105 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        if (!*(v81 + 5218))
         {
           goto LABEL_50;
         }
 
-        v100 = v3;
-        v101 = v10;
-        v88 = 0;
-        v89 = (~v86 + v85 + v87) / v87;
-        v90 = BytePtr + 5452;
+        v103 = v3;
+        v104 = v10;
+        v92 = 0;
+        v93 = (~v90 + v89 + v91) / v91;
+        v94 = (v81 + 5452);
         do
         {
-          v91 = objc_alloc_init(MEMORY[0x277CBEB18]);
-          v92 = v90;
-          v93 = (v89 & ~(v89 >> 31)) + 1;
-          if ((v89 & 0x80000000) == 0)
+          v95 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          v96 = v94;
+          v97 = (v93 & ~(v93 >> 31)) + 1;
+          if ((v93 & 0x80000000) == 0)
           {
             do
             {
-              v94 = *v92;
-              v92 += 2;
-              v95 = [MEMORY[0x277CCABB0] numberWithInt:{v94, v100, v101}];
-              [v91 addObject:v95];
+              v98 = *v96++;
+              v99 = [MEMORY[0x277CCABB0] numberWithInt:{v98, v103, v104}];
+              [v95 addObject:v99];
 
-              --v93;
+              --v97;
             }
 
-            while (v93);
+            while (v97);
           }
 
-          v96 = [MEMORY[0x277CBEA60] arrayWithArray:{v91, v100, v101}];
-          [v102 addObject:v96];
+          v100 = [MEMORY[0x277CBEA60] arrayWithArray:{v95, v103, v104}];
+          [v105 addObject:v100];
 
-          ++v88;
-          v90 += 802;
+          ++v92;
+          v94 += 401;
         }
 
-        while (v88 < v78[1122]);
+        while (v92 < *(v82 + 1122));
         goto LABEL_49;
       }
 
-      v97 = _TVLLogDefault();
-      if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
+      v101 = _TVLLogDefault(BytePtr);
+      if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
       {
-        +[(TVLALSDataExtractor *)BytePtr];
+        +[TVLALSDataExtractor extractALSCalibrationData];
       }
 
       goto LABEL_129;
@@ -235,14 +235,14 @@
         _ALSIOHIDEventCallback_cold_2();
       }
 
-      v33 = _TVLLogDefault_log_2;
+      v34 = _TVLLogDefault_log_2;
       if (os_log_type_enabled(_TVLLogDefault_log_2, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_26CD78000, v33, OS_LOG_TYPE_INFO, "Found HmClData", buf, 2u);
+        _os_log_impl(&dword_26CD78000, v34, OS_LOG_TYPE_INFO, "Found HmClData", buf, 2u);
       }
 
-      v34 = CFDataGetBytePtr(v3);
+      v35 = CFDataGetBytePtr(v3);
       if (isInternalBuild_onceToken != -1)
       {
         +[TVLALSDataExtractor extractALSCalibrationData];
@@ -255,70 +255,70 @@
           _ALSIOHIDEventCallback_cold_2();
         }
 
-        print_HmClData(v34, _TVLLogDefault_log_2);
+        print_HmClData(v35, _TVLLogDefault_log_2);
       }
 
       [(TVLALSCalibrationData *)v10 setVersion:&unk_287E0E9A0];
-      v35 = [MEMORY[0x277CCABB0] numberWithInt:v34[80]];
-      [(TVLALSCalibrationData *)v10 setChannels:v35];
+      v36 = [MEMORY[0x277CCABB0] numberWithInt:v35[80]];
+      [(TVLALSCalibrationData *)v10 setChannels:v36];
 
-      v36 = [MEMORY[0x277CCABB0] numberWithInt:*(v34 + 168)];
-      [(TVLALSCalibrationData *)v10 setWavelengthStartVisible:v36];
+      v37 = [MEMORY[0x277CCABB0] numberWithInt:*(v35 + 168)];
+      [(TVLALSCalibrationData *)v10 setWavelengthStartVisible:v37];
 
-      v37 = [MEMORY[0x277CCABB0] numberWithInt:*(v34 + 169)];
-      [(TVLALSCalibrationData *)v10 setWavelengthStartNIR:v37];
+      v38 = [MEMORY[0x277CCABB0] numberWithInt:*(v35 + 169)];
+      [(TVLALSCalibrationData *)v10 setWavelengthStartNIR:v38];
 
-      v38 = [MEMORY[0x277CCABB0] numberWithInt:*(v34 + 170)];
-      [(TVLALSCalibrationData *)v10 setWavelengthEnd:v38];
+      v39 = [MEMORY[0x277CCABB0] numberWithInt:*(v35 + 170)];
+      [(TVLALSCalibrationData *)v10 setWavelengthEnd:v39];
 
-      v39 = [MEMORY[0x277CCABB0] numberWithInt:v34[342]];
-      [(TVLALSCalibrationData *)v10 setWavelengthStep:v39];
+      v40 = [MEMORY[0x277CCABB0] numberWithInt:v35[342]];
+      [(TVLALSCalibrationData *)v10 setWavelengthStep:v40];
 
-      v40 = [MEMORY[0x277CCABB0] numberWithInt:*(v34 + 74)];
-      [(TVLALSCalibrationData *)v10 setNormalizationFactor:v40];
+      v41 = [MEMORY[0x277CCABB0] numberWithInt:*(v35 + 74)];
+      [(TVLALSCalibrationData *)v10 setNormalizationFactor:v41];
 
-      v41 = *(v34 + 170);
-      v42 = *(v34 + 168);
-      v43 = v34[342];
-      v102 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      if (!v34[80])
+      v42 = *(v35 + 170);
+      v43 = *(v35 + 168);
+      v44 = v35[342];
+      v105 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      if (!v35[80])
       {
         goto LABEL_50;
       }
 
-      v100 = v3;
-      v101 = v10;
-      v44 = 0;
-      v45 = (~v42 + v41 + v43) / v43;
-      v46 = v34 + 344;
+      v103 = v3;
+      v104 = v10;
+      v45 = 0;
+      v46 = (~v43 + v42 + v44) / v44;
+      v47 = v35 + 344;
       do
       {
-        v47 = objc_alloc_init(MEMORY[0x277CBEB18]);
-        v48 = v46;
-        v49 = (v45 & ~(v45 >> 31)) + 1;
-        if ((v45 & 0x80000000) == 0)
+        v48 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v49 = v47;
+        v50 = (v46 & ~(v46 >> 31)) + 1;
+        if ((v46 & 0x80000000) == 0)
         {
           do
           {
-            v50 = *v48;
-            v48 += 2;
-            v51 = [MEMORY[0x277CCABB0] numberWithInt:{v50, v100, v101}];
-            [v47 addObject:v51];
+            v51 = *v49;
+            v49 += 2;
+            v52 = [MEMORY[0x277CCABB0] numberWithInt:{v51, v103, v104}];
+            [v48 addObject:v52];
 
-            --v49;
+            --v50;
           }
 
-          while (v49);
+          while (v50);
         }
 
-        v52 = [MEMORY[0x277CBEA60] arrayWithArray:{v47, v100, v101}];
-        [v102 addObject:v52];
+        v53 = [MEMORY[0x277CBEA60] arrayWithArray:{v48, v103, v104}];
+        [v105 addObject:v53];
 
-        ++v44;
-        v46 += 802;
+        ++v45;
+        v47 += 802;
       }
 
-      while (v44 < v34[80]);
+      while (v45 < v35[80]);
       goto LABEL_49;
     }
 
@@ -332,114 +332,120 @@
       _ALSIOHIDEventCallback_cold_2();
     }
 
-    v56 = _TVLLogDefault_log_2;
+    v57 = _TVLLogDefault_log_2;
     if (os_log_type_enabled(_TVLLogDefault_log_2, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_26CD78000, v56, OS_LOG_TYPE_INFO, "Found HmClData_VD6287_v4", buf, 2u);
+      _os_log_impl(&dword_26CD78000, v57, OS_LOG_TYPE_INFO, "Found HmClData_VD6287_v4", buf, 2u);
     }
 
-    v13 = CFDataGetBytePtr(v3);
-    if (strncmp(v13, "lCmH", 5uLL))
+    v58 = CFDataGetBytePtr(v3);
+    v59 = strncmp(v58, "lCmH", 5uLL);
+    if (v59)
     {
-      if (v13[4] == 4)
+      if (v58[4] == 4)
       {
-        if (v13[10] == 2)
+        if (v58[10] == 2)
         {
-          v57 = v13 + 4096;
-          if (v13[4376] == 1)
+          v60 = v58 + 4096;
+          if (v58[4376] == 1)
           {
-            if (v13[4380] == 5)
+            if (v58[4380] == 5)
             {
               [(TVLALSCalibrationData *)v10 setVersion:&unk_287E0E9B8];
-              v58 = [MEMORY[0x277CCABB0] numberWithInt:v13[4380]];
-              [(TVLALSCalibrationData *)v10 setChannels:v58];
+              v61 = [MEMORY[0x277CCABB0] numberWithInt:v58[4380]];
+              [(TVLALSCalibrationData *)v10 setChannels:v61];
 
-              v59 = [MEMORY[0x277CCABB0] numberWithInt:*(v13 + 4571)];
-              [(TVLALSCalibrationData *)v10 setWavelengthStartVisible:v59];
+              v62 = [MEMORY[0x277CCABB0] numberWithInt:*(v58 + 4571)];
+              [(TVLALSCalibrationData *)v10 setWavelengthStartVisible:v62];
 
-              v60 = [MEMORY[0x277CCABB0] numberWithInt:*(v13 + 4573)];
-              [(TVLALSCalibrationData *)v10 setWavelengthStartNIR:v60];
+              v63 = [MEMORY[0x277CCABB0] numberWithInt:*(v58 + 4573)];
+              [(TVLALSCalibrationData *)v10 setWavelengthStartNIR:v63];
 
-              v61 = [MEMORY[0x277CCABB0] numberWithInt:*(v13 + 4575)];
-              [(TVLALSCalibrationData *)v10 setWavelengthEnd:v61];
+              v64 = [MEMORY[0x277CCABB0] numberWithInt:*(v58 + 4575)];
+              [(TVLALSCalibrationData *)v10 setWavelengthEnd:v64];
 
-              v62 = [MEMORY[0x277CCABB0] numberWithInt:v13[4577]];
-              [(TVLALSCalibrationData *)v10 setWavelengthStep:v62];
+              v65 = [MEMORY[0x277CCABB0] numberWithInt:v58[4577]];
+              [(TVLALSCalibrationData *)v10 setWavelengthStep:v65];
 
-              v63 = [MEMORY[0x277CCABB0] numberWithInt:*(v13 + 4547)];
-              [(TVLALSCalibrationData *)v10 setNormalizationFactor:v63];
+              v66 = [MEMORY[0x277CCABB0] numberWithInt:*(v58 + 4547)];
+              [(TVLALSCalibrationData *)v10 setNormalizationFactor:v66];
 
-              v64 = *(v13 + 4575);
-              v65 = *(v13 + 4571);
-              v66 = v13[4577];
-              v102 = objc_alloc_init(MEMORY[0x277CBEB18]);
-              if (!v13[4380])
+              v67 = *(v58 + 4575);
+              v68 = *(v58 + 4571);
+              v69 = v58[4577];
+              v105 = objc_alloc_init(MEMORY[0x277CBEB18]);
+              if (!v58[4380])
               {
                 goto LABEL_50;
               }
 
-              v100 = v3;
-              v101 = v10;
-              v67 = 0;
-              v68 = (~v65 + v64 + v66) / v66;
-              v69 = v13 + 4578;
+              v103 = v3;
+              v104 = v10;
+              v70 = 0;
+              v71 = (~v68 + v67 + v69) / v69;
+              v72 = v58 + 4578;
               do
               {
-                v70 = objc_alloc_init(MEMORY[0x277CBEB18]);
-                v71 = v69;
-                v72 = (v68 & ~(v68 >> 31)) + 1;
-                if ((v68 & 0x80000000) == 0)
+                v73 = objc_alloc_init(MEMORY[0x277CBEB18]);
+                v74 = v72;
+                v75 = (v71 & ~(v71 >> 31)) + 1;
+                if ((v71 & 0x80000000) == 0)
                 {
                   do
                   {
-                    v73 = *v71;
-                    v71 += 2;
-                    v74 = [MEMORY[0x277CCABB0] numberWithInt:{v73, v100, v101}];
-                    [v70 addObject:v74];
+                    v76 = *v74;
+                    v74 += 2;
+                    v77 = [MEMORY[0x277CCABB0] numberWithInt:{v76, v103, v104}];
+                    [v73 addObject:v77];
 
-                    --v72;
+                    --v75;
                   }
 
-                  while (v72);
+                  while (v75);
                 }
 
-                v75 = [MEMORY[0x277CBEA60] arrayWithArray:{v70, v100, v101}];
-                [v102 addObject:v75];
+                v78 = [MEMORY[0x277CBEA60] arrayWithArray:{v73, v103, v104}];
+                [v105 addObject:v78];
 
-                ++v67;
-                v69 += 802;
+                ++v70;
+                v72 += 802;
               }
 
-              while (v67 < v57[284]);
+              while (v70 < v60[284]);
               goto LABEL_49;
             }
 
-            v97 = _TVLLogDefault();
-            if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
+            v101 = _TVLLogDefault(v59);
+            if (!os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
             {
-              +[(TVLALSDataExtractor *)v13];
+              goto LABEL_129;
             }
+
+            goto LABEL_128;
           }
 
-          else
+          v101 = _TVLLogDefault(v59);
+          if (!os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
           {
-            v97 = _TVLLogDefault();
-            if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
-            {
-              +[(TVLALSDataExtractor *)v13];
-            }
+LABEL_129:
+
+            goto LABEL_130;
           }
 
+LABEL_122:
+          +[TVLALSDataExtractor extractALSCalibrationData];
           goto LABEL_129;
         }
 
-        v97 = _TVLLogDefault();
-        if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
+        v101 = _TVLLogDefault(v59);
+        if (!os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_116;
+          goto LABEL_129;
         }
 
+LABEL_116:
+        +[TVLALSDataExtractor extractALSCalibrationData];
         goto LABEL_129;
       }
 
@@ -469,7 +475,7 @@
 LABEL_98:
     +[TVLALSDataExtractor extractALSCalibrationData];
 LABEL_130:
-    v54 = 0;
+    v55 = 0;
     goto LABEL_131;
   }
 
@@ -481,7 +487,7 @@ LABEL_53:
       _ALSIOHIDEventCallback_cold_2();
     }
 
-    v55 = _TVLLogDefault_log_2;
+    v56 = _TVLLogDefault_log_2;
     if (os_log_type_enabled(_TVLLogDefault_log_2, OS_LOG_TYPE_FAULT))
     {
       +[(TVLALSDataExtractor *)v8];
@@ -503,7 +509,8 @@ LABEL_53:
   }
 
   v13 = CFDataGetBytePtr(v3);
-  if (!strncmp(v13, "lCmH", 5uLL))
+  v14 = strncmp(v13, "lCmH", 5uLL);
+  if (!v14)
   {
     if (_TVLLogDefault_onceToken_2 != -1)
     {
@@ -531,125 +538,122 @@ LABEL_53:
     }
 
 LABEL_106:
-    +[(TVLALSDataExtractor *)v13];
+    +[TVLALSDataExtractor extractALSCalibrationData];
     goto LABEL_130;
   }
 
   if (v13[10] != 2)
   {
-    v97 = _TVLLogDefault();
-    if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
+    v101 = _TVLLogDefault(v14);
+    if (!os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
     {
-LABEL_116:
-      +[(TVLALSDataExtractor *)v13];
+      goto LABEL_129;
     }
 
-LABEL_129:
-
-    goto LABEL_130;
+    goto LABEL_116;
   }
 
-  v14 = v13 + 4096;
+  v15 = v13 + 4096;
   if (v13[4420] != 1)
   {
-    v97 = _TVLLogDefault();
-    if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
+    v101 = _TVLLogDefault(v14);
+    if (!os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
     {
-      +[(TVLALSDataExtractor *)v13];
+      goto LABEL_129;
     }
 
-    goto LABEL_129;
+    goto LABEL_122;
   }
 
   if (v13[4424] != 5)
   {
-    v97 = _TVLLogDefault();
-    if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
+    v101 = _TVLLogDefault(v14);
+    if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
     {
-      +[(TVLALSDataExtractor *)v13];
+LABEL_128:
+      +[TVLALSDataExtractor extractALSCalibrationData];
+      goto LABEL_129;
     }
 
     goto LABEL_129;
   }
 
   [(TVLALSCalibrationData *)v10 setVersion:&unk_287E0E9B8];
-  v15 = [MEMORY[0x277CCABB0] numberWithInt:v13[4424]];
-  [(TVLALSCalibrationData *)v10 setChannels:v15];
+  v16 = [MEMORY[0x277CCABB0] numberWithInt:v13[4424]];
+  [(TVLALSCalibrationData *)v10 setChannels:v16];
 
-  v16 = [MEMORY[0x277CCABB0] numberWithInt:*(v13 + 4657)];
-  [(TVLALSCalibrationData *)v10 setWavelengthStartVisible:v16];
+  v17 = [MEMORY[0x277CCABB0] numberWithInt:*(v13 + 4657)];
+  [(TVLALSCalibrationData *)v10 setWavelengthStartVisible:v17];
 
-  v17 = [MEMORY[0x277CCABB0] numberWithInt:*(v13 + 4659)];
-  [(TVLALSCalibrationData *)v10 setWavelengthStartNIR:v17];
+  v18 = [MEMORY[0x277CCABB0] numberWithInt:*(v13 + 4659)];
+  [(TVLALSCalibrationData *)v10 setWavelengthStartNIR:v18];
 
-  v18 = [MEMORY[0x277CCABB0] numberWithInt:*(v13 + 4661)];
-  [(TVLALSCalibrationData *)v10 setWavelengthEnd:v18];
+  v19 = [MEMORY[0x277CCABB0] numberWithInt:*(v13 + 4661)];
+  [(TVLALSCalibrationData *)v10 setWavelengthEnd:v19];
 
-  v19 = [MEMORY[0x277CCABB0] numberWithInt:v13[4663]];
-  [(TVLALSCalibrationData *)v10 setWavelengthStep:v19];
+  v20 = [MEMORY[0x277CCABB0] numberWithInt:v13[4663]];
+  [(TVLALSCalibrationData *)v10 setWavelengthStep:v20];
 
-  v20 = [MEMORY[0x277CCABB0] numberWithInt:*(v13 + 4591)];
-  [(TVLALSCalibrationData *)v10 setNormalizationFactor:v20];
+  v21 = [MEMORY[0x277CCABB0] numberWithInt:*(v13 + 4591)];
+  [(TVLALSCalibrationData *)v10 setNormalizationFactor:v21];
 
-  v21 = *(v13 + 4661);
-  v22 = *(v13 + 4657);
-  v23 = v13[4663];
-  v102 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v22 = *(v13 + 4661);
+  v23 = *(v13 + 4657);
+  v24 = v13[4663];
+  v105 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (v13[4424])
   {
-    v100 = v3;
-    v101 = v10;
-    v24 = 0;
-    v25 = (~v22 + v21 + v23) / v23;
-    v26 = v13 + 4664;
+    v103 = v3;
+    v104 = v10;
+    v25 = 0;
+    v26 = (~v23 + v22 + v24) / v24;
+    v27 = v13 + 4664;
     do
     {
-      v27 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v28 = v26;
-      v29 = (v25 & ~(v25 >> 31)) + 1;
-      if ((v25 & 0x80000000) == 0)
+      v28 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v29 = v27;
+      v30 = (v26 & ~(v26 >> 31)) + 1;
+      if ((v26 & 0x80000000) == 0)
       {
         do
         {
-          v30 = *v28;
-          v28 += 2;
-          v31 = [MEMORY[0x277CCABB0] numberWithInt:{v30, v100, v101}];
-          [v27 addObject:v31];
+          v31 = *v29;
+          v29 += 2;
+          v32 = [MEMORY[0x277CCABB0] numberWithInt:{v31, v103, v104}];
+          [v28 addObject:v32];
 
-          --v29;
+          --v30;
         }
 
-        while (v29);
+        while (v30);
       }
 
-      v32 = [MEMORY[0x277CBEA60] arrayWithArray:{v27, v100, v101}];
-      [v102 addObject:v32];
+      v33 = [MEMORY[0x277CBEA60] arrayWithArray:{v28, v103, v104}];
+      [v105 addObject:v33];
 
-      ++v24;
-      v26 += 802;
+      ++v25;
+      v27 += 802;
     }
 
-    while (v24 < v14[328]);
+    while (v25 < v15[328]);
 LABEL_49:
-    v3 = v100;
-    v10 = v101;
+    v3 = v103;
+    v10 = v104;
   }
 
 LABEL_50:
-  v53 = [MEMORY[0x277CBEA60] arrayWithArray:v102];
-  [(TVLALSCalibrationData *)v10 setSpectrumNom:v53];
+  v54 = [MEMORY[0x277CBEA60] arrayWithArray:v105];
+  [(TVLALSCalibrationData *)v10 setSpectrumNom:v54];
 
   if (v3)
   {
     CFRelease(v3);
   }
 
-  v54 = v10;
+  v55 = v10;
 LABEL_131:
 
-  v98 = *MEMORY[0x277D85DE8];
-
-  return v54;
+  return v55;
 }
 
 + (unsigned)_displayID
@@ -709,27 +713,27 @@ void __38__TVLALSDataExtractor_extractALSData___block_invoke(uint64_t a1, void *
   [(NSTimer *)v6->_timer invalidate];
   v6->_readCount = extract;
   objc_initWeak(&location, v6);
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __43__TVLALSDataExtractor_extract_ALSReadings___block_invoke;
-  v27[3] = &unk_279D6BE68;
-  objc_copyWeak(&v29, &location);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __43__TVLALSDataExtractor_extract_ALSReadings___block_invoke;
+  v25[3] = &unk_279D6BE68;
+  objc_copyWeak(&v27, &location);
   v7 = readingsCopy;
-  v28 = v7;
-  v8 = MEMORY[0x26D6AEC20](v27);
+  v26 = v7;
+  v8 = MEMORY[0x26D6AEC20](v25);
   completion = v6->_completion;
   v6->_completion = v8;
 
   v10 = v6;
   v11 = MEMORY[0x277CBEBB8];
   v12 = v6->_readCount * 1.5;
-  v22 = MEMORY[0x277D85DD0];
-  v23 = 3221225472;
-  v24 = __43__TVLALSDataExtractor_extract_ALSReadings___block_invoke_3;
-  v25 = &unk_279D6BE90;
+  v20 = MEMORY[0x277D85DD0];
+  v21 = 3221225472;
+  v22 = __43__TVLALSDataExtractor_extract_ALSReadings___block_invoke_3;
+  v23 = &unk_279D6BE90;
   v13 = v10;
-  v26 = v13;
-  v14 = [v11 timerWithTimeInterval:0 repeats:&v22 block:v12];
+  v24 = v13;
+  v14 = [v11 timerWithTimeInterval:0 repeats:&v20 block:v12];
   timer = v6->_timer;
   v6->_timer = v14;
 
@@ -751,16 +755,14 @@ void __38__TVLALSDataExtractor_extractALSData___block_invoke(uint64_t a1, void *
       _os_log_impl(&dword_26CD78000, v18, OS_LOG_TYPE_INFO, "ScheduleHIDEventSystemClient", buf, 2u);
     }
 
-    v19 = *MEMORY[0x277CBECE8];
-    v20 = IOHIDEventSystemClientCreateWithType();
+    v19 = IOHIDEventSystemClientCreateWithType();
     IOHIDEventSystemClientRegisterEventCallback();
     CFRunLoopGetMain();
-    v21 = *MEMORY[0x277CBF048];
     IOHIDEventSystemClientScheduleWithRunLoop();
-    v17->_ioHIDSystemClient = v20;
+    v17->_ioHIDSystemClient = v19;
   }
 
-  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v27);
   objc_destroyWeak(&location);
 }
 
@@ -806,11 +808,10 @@ void __43__TVLALSDataExtractor_extract_ALSReadings___block_invoke_3(uint64_t a1,
 
 + (void)extractALSCalibrationData
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
   selfCopy = self;
-  _os_log_fault_impl(&dword_26CD78000, a2, OS_LOG_TYPE_FAULT, "Unsupported HmCl format, size %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_26CD78000, a2, OS_LOG_TYPE_FAULT, "Unsupported HmCl format, size %ld", &v2, 0xCu);
 }
 
 void __43__TVLALSDataExtractor_extract_ALSReadings___block_invoke_3_cold_2()

@@ -28,7 +28,7 @@ void __51__CMContinuityCaptureThermalMonitor_sharedInstance__block_invoke()
   v0 = [CMContinuityCaptureThermalMonitor alloc];
   v4 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
   v1 = dispatch_queue_create("com.apple.continuitycapture.thermalmonitor", v4);
-  v2 = [(CMContinuityCaptureThermalMonitor *)v0 initWithQueue:v1];
+  v2 = [(CMContinuityCaptureThermalMonitor *)v0 initWithQueue:?];
   v3 = _thermalMonitor;
   _thermalMonitor = v2;
 }
@@ -58,7 +58,7 @@ void __51__CMContinuityCaptureThermalMonitor_sharedInstance__block_invoke()
     [_thermalMonitor invalidate];
     v2 = _thermalMonitor;
 
-    [v2 setInvalidated:1];
+    [v2 setInvalidated:?];
   }
 }
 
@@ -133,9 +133,9 @@ void __54__CMContinuityCaptureThermalMonitor_setupNotification__block_invoke_3(u
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v3 = WeakRetained;
-    [WeakRetained _thermalNotification:*(a1 + 40)];
-    WeakRetained = v3;
+    v2 = WeakRetained;
+    [WeakRetained _thermalNotification:?];
+    WeakRetained = v2;
   }
 }
 
@@ -166,10 +166,10 @@ void __54__CMContinuityCaptureThermalMonitor_setupNotification__block_invoke_3(u
 
   if (v7 != self->_thermalLevel)
   {
-    [(CMContinuityCaptureThermalMonitor *)self willChangeValueForKey:@"thermalLevel"];
+    [(CMContinuityCaptureThermalMonitor *)self willChangeValueForKey:?];
     self->_thermalLevel = v7;
 
-    [(CMContinuityCaptureThermalMonitor *)self didChangeValueForKey:@"thermalLevel"];
+    [(CMContinuityCaptureThermalMonitor *)self didChangeValueForKey:?];
   }
 }
 

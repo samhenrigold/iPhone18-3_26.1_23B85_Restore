@@ -3850,86 +3850,8 @@ LABEL_375:
 
   industryCode = [(FHTransaction *)self industryCode];
   identifier4 = [(FHTransaction *)v7 industryCode];
-  if (industryCode != identifier4)
+  if (industryCode != identifier4 || (v113 = [(FHTransaction *)self category], identifier4 = [(FHTransaction *)v7 category], v113 != identifier4) || (v114 = [(FHTransaction *)self transactionStatus], identifier4 = [(FHTransaction *)v7 transactionStatus], v114 != identifier4) || (v115 = [(FHTransaction *)self transactionSource], identifier4 = [(FHTransaction *)v7 transactionSource], v115 != identifier4) || (v116 = [(FHTransaction *)self cardType], identifier4 = [(FHTransaction *)v7 cardType], v116 != identifier4) || (v117 = [(FHTransaction *)self transactionType], identifier4 = [(FHTransaction *)v7 transactionType], v117 != identifier4) || (v118 = [(FHTransaction *)self accountType], identifier4 = [(FHTransaction *)v7 accountType], v118 != identifier4) || (v119 = [(FHTransaction *)self transactionInternalState], identifier4 = [(FHTransaction *)v7 transactionInternalState], v119 != identifier4) || (v120 = [(FHTransaction *)self hasLocation], identifier4 = [(FHTransaction *)v7 hasLocation], v120 != identifier4) || (v121 = [(FHTransaction *)self mapsMerchantID], identifier4 = [(FHTransaction *)v7 mapsMerchantID], v121 != identifier4) || (v122 = [(FHTransaction *)self mapsMerchantResultProviderID], identifier4 = [(FHTransaction *)v7 mapsMerchantResultProviderID], v122 != identifier4) || (v123 = [(FHTransaction *)self mapsMerchantBrandID], identifier4 = [(FHTransaction *)v7 mapsMerchantBrandID], v123 != identifier4) || (v124 = [(FHTransaction *)self mapsMerchantBrandResultProviderID], identifier4 = [(FHTransaction *)v7 mapsMerchantBrandResultProviderID], v124 != identifier4) || (v125 = [(FHTransaction *)self disputeType], identifier4 = [(FHTransaction *)v7 disputeType], v125 != identifier4) || (v126 = [(FHTransaction *)self disputeStatus], identifier4 = [(FHTransaction *)v7 disputeStatus], v126 != identifier4))
   {
-    goto LABEL_503;
-  }
-
-  category = [(FHTransaction *)self category];
-  identifier4 = [(FHTransaction *)v7 category];
-  if (category != identifier4)
-  {
-    goto LABEL_503;
-  }
-
-  transactionStatus = [(FHTransaction *)self transactionStatus];
-  identifier4 = [(FHTransaction *)v7 transactionStatus];
-  if (transactionStatus != identifier4)
-  {
-    goto LABEL_503;
-  }
-
-  transactionSource = [(FHTransaction *)self transactionSource];
-  identifier4 = [(FHTransaction *)v7 transactionSource];
-  if (transactionSource != identifier4)
-  {
-    goto LABEL_503;
-  }
-
-  cardType = [(FHTransaction *)self cardType];
-  identifier4 = [(FHTransaction *)v7 cardType];
-  if (cardType != identifier4)
-  {
-    goto LABEL_503;
-  }
-
-  transactionType = [(FHTransaction *)self transactionType];
-  identifier4 = [(FHTransaction *)v7 transactionType];
-  if (transactionType != identifier4)
-  {
-    goto LABEL_503;
-  }
-
-  accountType = [(FHTransaction *)self accountType];
-  identifier4 = [(FHTransaction *)v7 accountType];
-  if (accountType != identifier4)
-  {
-    goto LABEL_503;
-  }
-
-  transactionInternalState = [(FHTransaction *)self transactionInternalState];
-  identifier4 = [(FHTransaction *)v7 transactionInternalState];
-  if (transactionInternalState != identifier4)
-  {
-    goto LABEL_503;
-  }
-
-  hasLocation = [(FHTransaction *)self hasLocation];
-  identifier4 = [(FHTransaction *)v7 hasLocation];
-  if (hasLocation != identifier4)
-  {
-    goto LABEL_503;
-  }
-
-  mapsMerchantID = [(FHTransaction *)self mapsMerchantID];
-  identifier4 = [(FHTransaction *)v7 mapsMerchantID];
-  if (mapsMerchantID != identifier4)
-  {
-    goto LABEL_503;
-  }
-
-  mapsMerchantResultProviderID = [(FHTransaction *)self mapsMerchantResultProviderID];
-  identifier4 = [(FHTransaction *)v7 mapsMerchantResultProviderID];
-  if (mapsMerchantResultProviderID != identifier4)
-  {
-    goto LABEL_503;
-  }
-
-  mapsMerchantBrandID = [(FHTransaction *)self mapsMerchantBrandID];
-  identifier4 = [(FHTransaction *)v7 mapsMerchantBrandID];
-  if (mapsMerchantBrandID != identifier4 || (v124 = [(FHTransaction *)self mapsMerchantBrandResultProviderID], identifier4 = [(FHTransaction *)v7 mapsMerchantBrandResultProviderID], v124 != identifier4) || (v125 = [(FHTransaction *)self disputeType], identifier4 = [(FHTransaction *)v7 disputeType], v125 != identifier4) || (v126 = [(FHTransaction *)self disputeStatus], identifier4 = [(FHTransaction *)v7 disputeStatus], v126 != identifier4))
-  {
-LABEL_503:
     v373 = 0;
     v384 = 0;
     v383 = 0;
@@ -5325,7 +5247,7 @@ LABEL_305:
 
 - (BOOL)bankConnectTransactionHasBeenUpdatedFrom:(id)from
 {
-  v183 = *MEMORY[0x277D85DE8];
+  v182 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = fromCopy;
   if (fromCopy == self)
@@ -5391,7 +5313,7 @@ LABEL_14:
     if (v26)
     {
 LABEL_17:
-      v172 = 1;
+      v171 = 1;
       goto LABEL_22;
     }
   }
@@ -5417,11 +5339,11 @@ LABEL_17:
   v32 = [v29 stringWithFormat:@"Finance Shared Identifier %@ -> %@", financeTransactionSharedIdentifier6, financeTransactionSharedIdentifier7];
   [v6 addObject:v32];
 
-  v172 = 0;
+  v171 = 0;
 LABEL_22:
   financeTransactionSource = [(FHTransaction *)self financeTransactionSource];
   financeTransactionSource2 = [(FHTransaction *)v5 financeTransactionSource];
-  v176 = financeTransactionSource;
+  v175 = financeTransactionSource;
   if (financeTransactionSource != financeTransactionSource2)
   {
     v34 = [MEMORY[0x277CCACA8] stringWithFormat:@"Finance Transaction Source %lu -> %lu", -[FHTransaction financeTransactionSource](v5, "financeTransactionSource"), -[FHTransaction financeTransactionSource](self, "financeTransactionSource")];
@@ -5447,7 +5369,7 @@ LABEL_31:
     v43 = [MEMORY[0x277CCACA8] stringWithFormat:@"Amount has changed"];
     [v6 addObject:v43];
 
-    v168 = 0;
+    v167 = 0;
     goto LABEL_32;
   }
 
@@ -5462,7 +5384,7 @@ LABEL_31:
   }
 
 LABEL_27:
-  v168 = 1;
+  v167 = 1;
 LABEL_32:
   currencyCode = [(FHTransaction *)self currencyCode];
   if (!currencyCode || ([(FHTransaction *)v5 currencyCode], (v45 = objc_claimAutoreleasedReturnValue()) == 0))
@@ -5530,7 +5452,7 @@ LABEL_47:
     v67 = [MEMORY[0x277CCACA8] stringWithFormat:@"TransactionDate %d -> %d", v62, v59];
     [v6 addObject:v67];
 
-    v166 = 0;
+    v165 = 0;
     goto LABEL_48;
   }
 
@@ -5540,7 +5462,7 @@ LABEL_47:
   }
 
 LABEL_43:
-  v166 = 1;
+  v165 = 1;
 LABEL_48:
   displayName = [(FHTransaction *)self displayName];
   if (!displayName || ([(FHTransaction *)v5 displayName], (v69 = objc_claimAutoreleasedReturnValue()) == 0))
@@ -5561,7 +5483,7 @@ LABEL_55:
     v76 = [MEMORY[0x277CCACA8] stringWithFormat:@"DisplayName has changed"];
     [v6 addObject:v76];
 
-    v170 = 0;
+    v169 = 0;
     goto LABEL_56;
   }
 
@@ -5576,9 +5498,9 @@ LABEL_55:
   }
 
 LABEL_51:
-  v170 = 1;
+  v169 = 1;
 LABEL_56:
-  v77 = v13 & v172;
+  v77 = v13 & v171;
   merchantUniqueIdentifier = [(FHTransaction *)self merchantUniqueIdentifier];
   if (!merchantUniqueIdentifier || ([(FHTransaction *)v5 merchantUniqueIdentifier], (v79 = objc_claimAutoreleasedReturnValue()) == 0))
   {
@@ -5601,7 +5523,7 @@ LABEL_63:
     v89 = [v86 stringWithFormat:@"MerchantUniqueIdentifier %@ -> %@", merchantUniqueIdentifier4, merchantUniqueIdentifier5];
     [v6 addObject:v89];
 
-    v173 = 0;
+    v172 = 0;
     goto LABEL_64;
   }
 
@@ -5616,9 +5538,9 @@ LABEL_63:
   }
 
 LABEL_59:
-  v173 = 1;
+  v172 = 1;
 LABEL_64:
-  v90 = v77 & v168;
+  v90 = v77 & v167;
   name = [(FHTransaction *)self name];
   if (!name || ([(FHTransaction *)v5 name], (v92 = objc_claimAutoreleasedReturnValue()) == 0))
   {
@@ -5679,7 +5601,7 @@ LABEL_79:
     v109 = v6;
     [v6 addObject:v114];
 
-    v164 = 0;
+    v163 = 0;
     goto LABEL_80;
   }
 
@@ -5697,9 +5619,9 @@ LABEL_79:
 
 LABEL_75:
   v109 = v6;
-  v164 = 1;
+  v163 = 1;
 LABEL_80:
-  v116 = v101 & v166;
+  v116 = v101 & v165;
   proprietaryBankTransactionIssuer = [(FHTransaction *)self proprietaryBankTransactionIssuer];
   if (proprietaryBankTransactionIssuer && ([(FHTransaction *)v5 proprietaryBankTransactionIssuer], (v118 = objc_claimAutoreleasedReturnValue()) != 0))
   {
@@ -5741,17 +5663,17 @@ LABEL_83:
 
   v124 = 0;
 LABEL_88:
-  v131 = v116 & v170;
+  v131 = v116 & v169;
   transactionType = [(FHTransaction *)self transactionType];
   transactionType2 = [(FHTransaction *)v5 transactionType];
-  v171 = transactionType;
+  v170 = transactionType;
   if (transactionType != transactionType2)
   {
     v133 = [MEMORY[0x277CCACA8] stringWithFormat:@"TransactionType %lu -> %lu", -[FHTransaction transactionType](v5, "transactionType"), -[FHTransaction transactionType](self, "transactionType")];
     [v109 addObject:v133];
   }
 
-  v134 = v131 & v173;
+  v134 = v131 & v172;
   accountType = [(FHTransaction *)self accountType];
   accountType2 = [(FHTransaction *)v5 accountType];
   if (accountType != accountType2)
@@ -5762,14 +5684,14 @@ LABEL_88:
 
   mapsMerchantID = [(FHTransaction *)self mapsMerchantID];
   mapsMerchantID2 = [(FHTransaction *)v5 mapsMerchantID];
-  v163 = mapsMerchantID;
+  v162 = mapsMerchantID;
   if (mapsMerchantID != mapsMerchantID2)
   {
     v137 = [MEMORY[0x277CCACA8] stringWithFormat:@"MapsMerchantID %llu -> %llu", -[FHTransaction mapsMerchantID](v5, "mapsMerchantID"), -[FHTransaction mapsMerchantID](self, "mapsMerchantID")];
     [v109 addObject:v137];
   }
 
-  v138 = v134 & v97 & v164;
+  v138 = v134 & v97 & v163;
   mapsMerchantBrandID = [(FHTransaction *)self mapsMerchantBrandID];
   mapsMerchantBrandID2 = [(FHTransaction *)v5 mapsMerchantBrandID];
   if (mapsMerchantBrandID != mapsMerchantBrandID2)
@@ -5808,13 +5730,13 @@ LABEL_103:
   v147 = mapsMerchantBrandID;
   v148 = v142;
   v150 = v149 = v109;
-  v165 = [transactionDescription4 isEqualToString:v150];
+  v164 = [transactionDescription4 isEqualToString:v150];
 
   v109 = v149;
   v142 = v148;
   mapsMerchantBrandID = v147;
 
-  if ((v165 & 1) == 0)
+  if ((v164 & 1) == 0)
   {
     goto LABEL_103;
   }
@@ -5824,12 +5746,12 @@ LABEL_99:
 LABEL_104:
   v155 = mapsMerchantBrandID != mapsMerchantBrandID2;
   v156 = v142 & v151 ^ 1;
-  if (v176 != financeTransactionSource2)
+  if (v175 != financeTransactionSource2)
   {
     v156 = 1;
   }
 
-  if (v171 != transactionType2)
+  if (v170 != transactionType2)
   {
     v156 = 1;
   }
@@ -5839,7 +5761,7 @@ LABEL_104:
     v156 = 1;
   }
 
-  if (v163 != mapsMerchantID2)
+  if (v162 != mapsMerchantID2)
   {
     v156 = 1;
   }
@@ -5853,17 +5775,16 @@ LABEL_104:
       identifier8 = [(FHTransaction *)self identifier];
       v159 = [v109 componentsJoinedByString:@"\n"];
       *buf = 136315651;
-      v178 = "[FHTransaction bankConnectTransactionHasBeenUpdatedFrom:]";
-      v179 = 2113;
-      v180 = identifier8;
-      v181 = 2113;
-      v182 = v159;
+      v177 = "[FHTransaction bankConnectTransactionHasBeenUpdatedFrom:]";
+      v178 = 2113;
+      v179 = identifier8;
+      v180 = 2113;
+      v181 = v159;
       _os_log_impl(&dword_226DD4000, v157, OS_LOG_TYPE_DEBUG, "%sTransaction %{private}@ has been updated:\n%{private}@", buf, 0x20u);
     }
   }
 
 LABEL_118:
-  v160 = *MEMORY[0x277D85DE8];
   return v14 & 1;
 }
 
@@ -6235,29 +6156,28 @@ LABEL_118:
 
 void __29__FHTransaction_fhProperties__block_invoke(uint64_t a1)
 {
-  v2 = objc_alloc_init(MEMORY[0x277CBEB98]);
-  v3 = fhProperties__fhProperties;
-  fhProperties__fhProperties = v2;
+  v1 = objc_alloc_init(MEMORY[0x277CBEB98]);
+  v2 = fhProperties__fhProperties;
+  fhProperties__fhProperties = v1;
 
-  v4 = objc_opt_new();
+  v3 = objc_opt_new();
   outCount = 0;
-  v5 = *(a1 + 32);
-  v6 = objc_opt_class();
-  v7 = class_copyIvarList(v6, &outCount);
+  v4 = objc_opt_class();
+  v5 = class_copyIvarList(v4, &outCount);
   if (outCount)
   {
     for (i = 0; i < outCount; ++i)
     {
-      v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:ivar_getName(v7[i])];
-      v10 = [v9 substringFromIndex:1];
-      [v4 addObject:v10];
+      v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:ivar_getName(v5[i])];
+      v8 = [v7 substringFromIndex:1];
+      [v3 addObject:v8];
     }
   }
 
-  free(v7);
-  v11 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v4];
-  v12 = fhProperties__fhProperties;
-  fhProperties__fhProperties = v11;
+  free(v5);
+  v9 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:v3];
+  v10 = fhProperties__fhProperties;
+  fhProperties__fhProperties = v9;
 }
 
 + (id)_allowedCountryNamesForMapsMerchant

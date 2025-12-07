@@ -11,7 +11,7 @@
 
 - (HMAccessorySetupPayload)initWithCoder:(id)coder
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMASP.internalSetupPayload"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMASP.ownershipToken"];
@@ -29,18 +29,17 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v11;
-      v16 = 2112;
-      v17 = 0;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Cannot initialize from internalSetupPayload: %@", &v14, 0x16u);
+      v13 = 138543618;
+      v14 = v11;
+      v15 = 2112;
+      v16 = 0;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Cannot initialize from internalSetupPayload: %@", &v13, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
     v8 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -115,12 +114,12 @@
 
 - (HMAccessorySetupPayload)initWithURL:(NSURL *)setupPayloadURL ownershipToken:(HMAccessoryOwnershipToken *)ownershipToken
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v6 = setupPayloadURL;
   v7 = ownershipToken;
-  v17 = 0;
-  v8 = [[HMSetupAccessoryPayload alloc] initWithSetupPayloadURL:v6 error:&v17];
-  v9 = v17;
+  v16 = 0;
+  v8 = [[HMSetupAccessoryPayload alloc] initWithSetupPayloadURL:v6 error:&v16];
+  v9 = v16;
   if (v8)
   {
     selfCopy = [(HMAccessorySetupPayload *)self initWithInternalSetupPayload:v8 ownershipToken:v7];
@@ -136,11 +135,11 @@
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v19 = v14;
-      v20 = 2112;
-      v21 = v6;
-      v22 = 2112;
-      v23 = v9;
+      v18 = v14;
+      v19 = 2112;
+      v20 = v6;
+      v21 = 2112;
+      v22 = v9;
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to create HMSetupAccessoryPayload from setup payload URL %@: %@", buf, 0x20u);
     }
 
@@ -148,7 +147,6 @@
     v11 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

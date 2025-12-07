@@ -304,19 +304,19 @@
 
 - (BOOL)writeToURL:(id)l payloadStartOffset:(unint64_t)offset error:(id *)error
 {
-  v159 = *MEMORY[0x277D85DE8];
+  v158 = *MEMORY[0x277D85DE8];
   lCopy = l;
   errorCopy = error;
   if (self->_plist)
   {
-    v146 = [MEMORY[0x277CBEB38] dictionaryWithContentsOfURL:?];
-    v147 = [v146 objectForKeyedSubscript:@"SuperBinary Payloads"];
+    v145 = [MEMORY[0x277CBEB38] dictionaryWithContentsOfURL:?];
+    v146 = [v145 objectForKeyedSubscript:@"SuperBinary Payloads"];
   }
 
   else
   {
+    v145 = 0;
     v146 = 0;
-    v147 = 0;
   }
 
   v8 = objc_opt_new();
@@ -345,11 +345,11 @@
           v17 = log;
           v18 = [(NSMutableArray *)v16 objectAtIndexedSubscript:v10];
           *buf = 138412290;
-          *v156 = v18;
+          *v155 = v18;
           _os_log_error_impl(&dword_247AA7000, v17, OS_LOG_TYPE_ERROR, "Missing payload\n%@", buf, 0xCu);
         }
 
-        v14 = [v147 objectAtIndexedSubscript:v10];
+        v14 = [v146 objectAtIndexedSubscript:v10];
         [v14 setObject:v11 forKeyedSubscript:@"Payload Missing"];
       }
 
@@ -393,32 +393,32 @@
 
       if (v23)
       {
-        v154 = 0;
-        v24 = [MEMORY[0x277CCA9F8] fileHandleForWritingToURL:lCopy error:&v154];
-        v25 = v154;
+        v153 = 0;
+        v24 = [MEMORY[0x277CCA9F8] fileHandleForWritingToURL:lCopy error:&v153];
+        v25 = v153;
         v26 = v25;
         if (v24)
         {
-          v135 = v25;
-          v136 = lCopy;
-          v137 = v21;
-          v158 = 0;
-          v157 = 0u;
-          *&v156[4] = 0u;
+          v134 = v25;
+          v135 = lCopy;
+          v136 = v21;
+          v157 = 0;
+          v156 = 0u;
+          *&v155[4] = 0u;
           *buf = self->_formatVersion;
-          *v156 = 44;
-          *&v156[8] = [(UARPAssetVersion *)self->_assetVersion majorVersion];
-          *&v156[12] = [(UARPAssetVersion *)self->_assetVersion minorVersion];
-          *&v156[16] = [(UARPAssetVersion *)self->_assetVersion releaseVersion];
-          LODWORD(v157) = [(UARPAssetVersion *)self->_assetVersion buildVersion];
-          *&v156[4] = 44;
-          v133 = 40 * [(NSMutableArray *)self->_payloads count];
-          v138 = malloc_type_calloc([(NSMutableArray *)self->_payloads count], 0x28uLL, 0x10000400A747E1EuLL);
-          v142 = v24;
+          *v155 = 44;
+          *&v155[8] = [(UARPAssetVersion *)self->_assetVersion majorVersion];
+          *&v155[12] = [(UARPAssetVersion *)self->_assetVersion minorVersion];
+          *&v155[16] = [(UARPAssetVersion *)self->_assetVersion releaseVersion];
+          LODWORD(v156) = [(UARPAssetVersion *)self->_assetVersion buildVersion];
+          *&v155[4] = 44;
+          v132 = 40 * [(NSMutableArray *)self->_payloads count];
+          v137 = malloc_type_calloc([(NSMutableArray *)self->_payloads count], 0x28uLL, 0x10000400A747E1EuLL);
+          v141 = v24;
           if ([(NSMutableArray *)self->_payloads count])
           {
             v27 = 0;
-            v28 = v138 + 7;
+            v28 = v137 + 7;
             do
             {
               v29 = [(NSMutableArray *)*p_payloads objectAtIndex:v27];
@@ -439,7 +439,7 @@
                   compressionHeaders = [v29 compressionHeaders];
                   [v33 setPayloadToData:compressionHeaders];
 
-                  v24 = v142;
+                  v24 = v141;
                 }
 
                 metaData = [v29 metaData];
@@ -453,24 +453,24 @@
             while (v27 < [(NSMutableArray *)*p_payloads count]);
           }
 
-          HIDWORD(v157) = *&v156[4];
-          v158 = v133;
-          *&v156[4] += v133;
-          DWORD1(v157) = *&v156[4];
+          HIDWORD(v156) = *&v155[4];
+          v157 = v132;
+          *&v155[4] += v132;
+          DWORD1(v156) = *&v155[4];
           prepareMetaData2 = [(UARPSuperBinaryAsset *)self prepareMetaData];
-          DWORD2(v157) = [prepareMetaData2 length];
-          *&v156[4] += DWORD2(v157);
+          DWORD2(v156) = [prepareMetaData2 length];
+          *&v155[4] += DWORD2(v156);
           if ([(NSMutableArray *)self->_payloads count])
           {
             v37 = 0;
-            v38 = v138 + 7;
+            v38 = v137 + 7;
             do
             {
-              v39 = *&v156[4];
-              *(v38 - 1) = *&v156[4];
+              v39 = *&v155[4];
+              *(v38 - 1) = *&v155[4];
               v40 = *v38;
               v38 += 10;
-              *&v156[4] = v40 + v39;
+              *&v155[4] = v40 + v39;
               ++v37;
             }
 
@@ -479,9 +479,9 @@
 
           if (offset)
           {
-            v41 = [MEMORY[0x277CBEB28] dataWithLength:offset - *&v156[4]];
+            v41 = [MEMORY[0x277CBEB28] dataWithLength:offset - *&v155[4]];
             v42 = [v41 length];
-            *&v156[4] += v42;
+            *&v155[4] += v42;
           }
 
           else
@@ -489,42 +489,42 @@
             v41 = 0;
           }
 
-          v21 = v137;
+          v21 = v136;
           if ([(NSMutableArray *)*p_payloads count])
           {
             v57 = 0;
-            v58 = v138 + 9;
+            v58 = v137 + 9;
             do
             {
-              v59 = *&v156[4];
-              *(v58 - 1) = *&v156[4];
+              v59 = *&v155[4];
+              *(v58 - 1) = *&v155[4];
               v60 = *v58;
               v58 += 10;
-              *&v156[4] = v60 + v59;
+              *&v155[4] = v60 + v59;
               ++v57;
             }
 
             while (v57 < [(NSMutableArray *)*p_payloads count]);
           }
 
-          v141 = v41;
+          v140 = v41;
           uarpSuperBinaryHeaderEndianSwap(buf, buf);
           [MEMORY[0x277CBEA90] dataWithBytes:buf length:44];
-          v132 = v153[1] = 0;
+          v131 = v152[1] = 0;
           v61 = [v24 uarpWriteData:? error:?];
           v62 = 0;
-          v134 = v62;
+          v133 = v62;
           if (!v61)
           {
             v86 = v62;
-            free(v138);
+            free(v137);
             v87 = @"<unknown>";
             if (v86)
             {
               v87 = v86;
             }
 
-            v65 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to write to superbinary header at %@ %@", v137, v87];;
+            v65 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to write to superbinary header at %@ %@", v136, v87];;
             v88 = objc_opt_new();
             [v88 setObject:v65 forKeyedSubscript:*MEMORY[0x277CCA450]];
             v89 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"com.apple.uarp" code:5 userInfo:v88];
@@ -535,30 +535,30 @@
               *errorCopy = v90;
             }
 
-            lCopy = v136;
-            v92 = v132;
+            lCopy = v135;
+            v92 = v131;
             if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
             {
               [UARPSuperBinaryAsset writeToURL:payloadStartOffset:error:];
             }
 
             v47 = 0;
-            v48 = v146;
+            v48 = v145;
             goto LABEL_134;
           }
 
-          v131 = prepareMetaData2;
+          v130 = prepareMetaData2;
           if ([(NSMutableArray *)*p_payloads count])
           {
             v63 = 0;
-            v64 = v138;
+            v64 = v137;
             while (1)
             {
               uarpPayloadHeaderEndianSwap(v64, v64);
               v65 = [MEMORY[0x277CBEA90] dataWithBytes:v64 length:40];
-              v153[0] = 0;
-              v66 = [v142 uarpWriteData:v65 error:v153];
-              v67 = v153[0];
+              v152[0] = 0;
+              v66 = [v141 uarpWriteData:v65 error:v152];
+              v67 = v152[0];
               v68 = v67;
               if ((v66 & 1) == 0)
               {
@@ -573,14 +573,14 @@
               }
             }
 
-            free(v138);
+            free(v137);
             v99 = @"<unknown>";
             if (v68)
             {
               v99 = v68;
             }
 
-            v100 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to write to superbinary payload header index %lu at %@ %@", v63, v137, v99];;
+            v100 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to write to superbinary payload header index %lu at %@ %@", v63, v136, v99];;
             v101 = objc_opt_new();
             [v101 setObject:v100 forKeyedSubscript:*MEMORY[0x277CCA450]];
             v102 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"com.apple.uarp" code:5 userInfo:v101];
@@ -591,28 +591,28 @@
               *errorCopy = v103;
             }
 
-            lCopy = v136;
-            v24 = v142;
-            prepareMetaData2 = v131;
+            lCopy = v135;
+            v24 = v141;
+            prepareMetaData2 = v130;
             if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
             {
               [UARPSuperBinaryAsset writeToURL:payloadStartOffset:error:];
             }
 
             v47 = 0;
-            v48 = v146;
-            v21 = v137;
+            v48 = v145;
+            v21 = v136;
             goto LABEL_133;
           }
 
 LABEL_62:
-          free(v138);
+          free(v137);
           metaData = self->_metaData;
-          v152 = 0;
-          v24 = v142;
-          v70 = [v142 uarpWriteData:metaData error:&v152];
-          v65 = v152;
-          lCopy = v136;
+          v151 = 0;
+          v24 = v141;
+          v70 = [v141 uarpWriteData:metaData error:&v151];
+          v65 = v151;
+          lCopy = v135;
           if (!v70)
           {
             v93 = @"<unknown>";
@@ -621,7 +621,7 @@ LABEL_62:
               v93 = v65;
             }
 
-            v94 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to write to superbinary metadata at %@ %@", v137, v93];;
+            v94 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to write to superbinary metadata at %@ %@", v136, v93];;
             v95 = objc_opt_new();
             [v95 setObject:v94 forKeyedSubscript:*MEMORY[0x277CCA450]];
             v96 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"com.apple.uarp" code:5 userInfo:v95];
@@ -638,7 +638,7 @@ LABEL_62:
             }
 
             v47 = 0;
-            v48 = v146;
+            v48 = v145;
             goto LABEL_132;
           }
 
@@ -649,9 +649,9 @@ LABEL_62:
             {
               v72 = [(NSMutableArray *)*p_payloads objectAtIndex:v71];
               metaData2 = [v72 metaData];
-              v151 = 0;
-              v74 = [v24 uarpWriteData:metaData2 error:&v151];
-              v75 = v151;
+              v150 = 0;
+              v74 = [v24 uarpWriteData:metaData2 error:&v150];
+              v75 = v150;
 
               if ((v74 & 1) == 0)
               {
@@ -659,7 +659,7 @@ LABEL_62:
               }
 
               ++v71;
-              v24 = v142;
+              v24 = v141;
               if (v71 >= [(NSMutableArray *)*p_payloads count])
               {
                 goto LABEL_67;
@@ -676,9 +676,9 @@ LABEL_62:
               v105 = @"<unknown>";
             }
 
-            v105 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to write to superbinary payload metadata index %lu at %@ %@", v71, v137, v105];;
+            v105 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to write to superbinary payload metadata index %lu at %@ %@", v71, v136, v105];;
             v107 = objc_opt_new();
-            v139 = v105;
+            v138 = v105;
             [v107 setObject:v105 forKeyedSubscript:*MEMORY[0x277CCA450]];
             v108 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"com.apple.uarp" code:5 userInfo:v107];
             v109 = v108;
@@ -688,7 +688,7 @@ LABEL_62:
               *errorCopy = v109;
             }
 
-            v24 = v142;
+            v24 = v141;
             if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
             {
               [UARPSuperBinaryAsset writeToURL:payloadStartOffset:error:];
@@ -698,11 +698,11 @@ LABEL_62:
           }
 
 LABEL_67:
-          if (v141)
+          if (v140)
           {
-            v150 = 0;
-            v76 = [v24 uarpWriteData:v141 error:&v150];
-            v77 = v150;
+            v149 = 0;
+            v76 = [v24 uarpWriteData:v140 error:&v149];
+            v77 = v149;
             v78 = v77;
             if ((v76 & 1) == 0)
             {
@@ -716,7 +716,7 @@ LABEL_67:
                 v111 = @"<unknown>";
               }
 
-              v111 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to write to superbinary padding at %@ %@", v137, v111];;
+              v111 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to write to superbinary padding at %@ %@", v136, v111];;
               v113 = objc_opt_new();
               [v113 setObject:v111 forKeyedSubscript:*MEMORY[0x277CCA450]];
               v114 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"com.apple.uarp" code:5 userInfo:v113];
@@ -742,9 +742,9 @@ LABEL_67:
             while (1)
             {
               v78 = [(NSMutableArray *)*p_payloads objectAtIndex:v79];
-              v149 = 0;
-              v80 = [v78 appendCompressedPayloadToFile:v24 error:&v149];
-              v81 = v149;
+              v148 = 0;
+              v80 = [v78 appendCompressedPayloadToFile:v24 error:&v148];
+              v81 = v148;
               v82 = v81;
               if ((v80 & 1) == 0)
               {
@@ -767,9 +767,9 @@ LABEL_67:
               v117 = @"<unknown>";
             }
 
-            v117 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to write to superbinary payload data index %lu at %@ %@", v79, v137, v117];;
+            v117 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to write to superbinary payload data index %lu at %@ %@", v79, v136, v117];;
             v119 = objc_opt_new();
-            v143 = v117;
+            v142 = v117;
             [v119 setObject:v117 forKeyedSubscript:*MEMORY[0x277CCA450]];
             v120 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"com.apple.uarp" code:5 userInfo:v119];
             v121 = v120;
@@ -788,33 +788,33 @@ LABEL_67:
           }
 
 LABEL_74:
-          v48 = v146;
-          v21 = v137;
-          if (!v146)
+          v48 = v145;
+          v21 = v136;
+          if (!v145)
           {
 LABEL_77:
             [v24 uarpCloseAndReturnError:errorCopy];
             v47 = 1;
 LABEL_132:
-            prepareMetaData2 = v131;
+            prepareMetaData2 = v130;
 LABEL_133:
-            v92 = v132;
+            v92 = v131;
 LABEL_134:
 
-            v26 = v135;
-            v50 = v141;
+            v26 = v134;
+            v50 = v140;
             goto LABEL_135;
           }
 
-          v78 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v146 requiringSecureCoding:0 error:errorCopy];
-          v148 = 0;
-          v83 = [v24 uarpWriteData:v78 error:&v148];
-          v84 = v148;
+          v78 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v145 requiringSecureCoding:0 error:errorCopy];
+          v147 = 0;
+          v83 = [v24 uarpWriteData:v78 error:&v147];
+          v84 = v147;
           v85 = v84;
           if (v83)
           {
 
-            v48 = v146;
+            v48 = v145;
             goto LABEL_77;
           }
 
@@ -824,9 +824,9 @@ LABEL_134:
             v123 = v84;
           }
 
-          v123 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to write to superbinary plist at %@ %@", v137, v123];;
+          v123 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to write to superbinary plist at %@ %@", v136, v123];;
           v125 = objc_opt_new();
-          v144 = v123;
+          v143 = v123;
           [v125 setObject:v123 forKeyedSubscript:*MEMORY[0x277CCA450]];
           v126 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"com.apple.uarp" code:5 userInfo:v125];
           v127 = v126;
@@ -844,8 +844,8 @@ LABEL_134:
 LABEL_130:
 LABEL_131:
           v47 = 0;
-          v48 = v146;
-          v21 = v137;
+          v48 = v145;
+          v21 = v136;
           goto LABEL_132;
         }
 
@@ -892,7 +892,7 @@ LABEL_131:
       }
 
       v47 = 0;
-      v48 = v146;
+      v48 = v145;
 LABEL_135:
 
       goto LABEL_136;
@@ -925,10 +925,9 @@ LABEL_39:
 
 LABEL_40:
   v47 = 0;
-  v48 = v146;
+  v48 = v145;
 LABEL_136:
 
-  v129 = *MEMORY[0x277D85DE8];
   return v47;
 }
 
@@ -1144,38 +1143,38 @@ LABEL_136:
 
 void __80__UARPSuperBinaryAsset_parseFromPlistSuperBinaryMetaDataTLVs_payloadsURL_error___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v6 = *(a1 + 40);
   v7 = *(*(a1 + 32) + 56);
   v8 = *(*(a1 + 48) + 8);
   obj = 0;
   v9 = [v7 tlvArrayWithKey:a2 keyValue:a3 payloadsURL:v6 error:&obj];
   objc_storeStrong((v8 + 40), obj);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       v14 = 0;
       do
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [*(a1 + 32) addMetaDataTLV:{*(*(&v16 + 1) + 8 * v14++), v16}];
+        [*(a1 + 32) addMetaDataTLV:{*(*(&v15 + 1) + 8 * v14++), v15}];
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v16 objects:v21 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v15 objects:v20 count:16];
     }
 
     while (v12);
@@ -1185,34 +1184,32 @@ void __80__UARPSuperBinaryAsset_parseFromPlistSuperBinaryMetaDataTLVs_payloadsUR
   {
     *a4 = 1;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)parseFromPlistSuperBinaryPayloads:(id)payloads payloadsURL:(id)l error:(id *)error
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   lCopy = l;
   [payloads objectForKeyedSubscript:@"SuperBinary Payloads"];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
-  v9 = v43 = 0u;
-  v10 = [v9 countByEnumeratingWithState:&v40 objects:v47 count:16];
+  v9 = v42 = 0u;
+  v10 = [v9 countByEnumeratingWithState:&v39 objects:v46 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v41;
+    v12 = *v40;
 LABEL_3:
     v13 = 0;
     while (1)
     {
-      if (*v41 != v12)
+      if (*v40 != v12)
       {
         objc_enumerationMutation(v9);
       }
 
-      v14 = [[UARPSuperBinaryAssetPayload alloc] initWithDictionary:*(*(&v40 + 1) + 8 * v13)];
+      v14 = [[UARPSuperBinaryAssetPayload alloc] initWithDictionary:*(*(&v39 + 1) + 8 * v13)];
       v15 = v14;
       if (!v14)
       {
@@ -1238,7 +1235,7 @@ LABEL_30:
 
       if (v11 == ++v13)
       {
-        v11 = [v9 countByEnumeratingWithState:&v40 objects:v47 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v39 objects:v46 count:16];
         if (v11)
         {
           goto LABEL_3;
@@ -1262,38 +1259,38 @@ LABEL_30:
   }
 
 LABEL_10:
-  v33 = v9;
-  v34 = lCopy;
+  v32 = v9;
+  v33 = lCopy;
 
-  v35 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v34 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   v16 = self->_payloads;
-  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v36 objects:v46 count:16];
+  v17 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v35 objects:v45 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v37;
+    v19 = *v36;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v37 != v19)
+        if (*v36 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v36 + 1) + 8 * i);
+        v21 = *(*(&v35 + 1) + 8 * i);
         if ([v21 needsCompression] && self->_formatVersion <= 2)
         {
           v22 = [[UARPSuperBinaryAssetPayload alloc] initWithTag:@"CHDR" majorVersion:&unk_2859CAC28 minorVersion:&unk_2859CAC28 releaseVersion:0 buildVersion:0];
           if (v22)
           {
-            v23 = -[UARPSuperBinaryAssetTLV initWithType:unsignedInt32:]([UARPSuperBinaryAssetTLV alloc], "initWithType:unsignedInt32:", 3436347663, [v35 count] + -[NSMutableArray count](self->_payloads, "count"));
+            v23 = -[UARPSuperBinaryAssetTLV initWithType:unsignedInt32:]([UARPSuperBinaryAssetTLV alloc], "initWithType:unsignedInt32:", 3436347663, [v34 count] + -[NSMutableArray count](self->_payloads, "count"));
             [v21 addMetaDataTLV:v23];
-            [v35 addObject:v22];
+            [v34 addObject:v22];
           }
 
           else
@@ -1309,37 +1306,35 @@ LABEL_10:
         }
       }
 
-      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v36 objects:v46 count:16];
+      v18 = [(NSMutableArray *)v16 countByEnumeratingWithState:&v35 objects:v45 count:16];
     }
 
     while (v18);
   }
 
-  v25 = v35;
-  [(NSMutableArray *)self->_payloads addObjectsFromArray:v35];
+  v25 = v34;
+  [(NSMutableArray *)self->_payloads addObjectsFromArray:v34];
   v26 = 1;
-  v9 = v33;
-  lCopy = v34;
+  v9 = v32;
+  lCopy = v33;
 LABEL_31:
 
-  v31 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
 - (BOOL)decomposeToURL:(id)l error:(id *)error
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   lCopy = l;
   url = self->_url;
-  p_url = &self->_url;
-  v59 = 0;
-  v8 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:url error:&v59];
-  v9 = v59;
+  v57 = 0;
+  v8 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:url error:&v57];
+  v9 = v57;
   if (!v8)
   {
     if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
     {
-      [UARPSuperBinaryAsset decomposeToURL:? error:?];
+      [UARPSuperBinaryAsset decomposeToURL:error:];
       if (error)
       {
         goto LABEL_30;
@@ -1370,9 +1365,9 @@ LABEL_30:
   if (self->_superBinaryHeader.superBinaryMetadataLength)
   {
     superBinaryMetadataOffset = self->_superBinaryHeader.superBinaryMetadataOffset;
-    v58 = 0;
-    v14 = [v8 uarpSeekToOffset:superBinaryMetadataOffset error:&v58];
-    v15 = v58;
+    v56 = 0;
+    v14 = [v8 uarpSeekToOffset:superBinaryMetadataOffset error:&v56];
+    v15 = v56;
     if ((v14 & 1) == 0)
     {
       if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
@@ -1400,8 +1395,8 @@ LABEL_30:
     self->_tlvs = v17;
   }
 
-  v45 = v10;
-  v46 = v9;
+  v44 = v10;
+  v45 = v9;
   v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
   payloads = self->_payloads;
   self->_payloads = v19;
@@ -1410,16 +1405,16 @@ LABEL_30:
   if (payloadHeadersLength < 0x28)
   {
 LABEL_23:
-    v50 = 0;
-    v36 = [v8 uarpCloseAndReturnError:&v50];
-    v37 = v50;
-    v10 = v45;
-    v9 = v46;
+    v48 = 0;
+    v36 = [v8 uarpCloseAndReturnError:&v48];
+    v37 = v48;
+    v10 = v44;
+    v9 = v45;
     if ((v36 & 1) == 0)
     {
       if (os_log_type_enabled(self->_log, OS_LOG_TYPE_ERROR))
       {
-        [UARPSuperBinaryAsset decomposeToURL:? error:?];
+        [UARPSuperBinaryAsset decomposeToURL:error:];
         if (!error)
         {
           goto LABEL_27;
@@ -1445,17 +1440,17 @@ LABEL_27:
   v23 = 0;
   v24 = payloadHeadersLength / 0x28uLL;
   errorCopy = error;
-  v48 = v24;
+  v47 = v24;
   while (1)
   {
     [v8 uarpSeekToOffset:v22 + self->_superBinaryHeader.payloadHeadersOffset error:error];
-    v57 = 0;
-    v55 = 0u;
-    v56 = 0u;
+    v55 = 0;
+    v53 = 0u;
+    v54 = 0u;
     v15 = [v8 uarpReadDataUpToLength:40 error:error];
-    [v15 getBytes:&v55 length:40];
-    uarpPayloadHeaderEndianSwap(&v55, &v55);
-    v25 = [[UARPSuperBinaryAssetPayload alloc] initWithPayloadHeader:&v55];
+    [v15 getBytes:&v53 length:40];
+    uarpPayloadHeaderEndianSwap(&v53, &v53);
+    v25 = [[UARPSuperBinaryAssetPayload alloc] initWithPayloadHeader:&v53];
     if (!v25)
     {
       log = self->_log;
@@ -1470,10 +1465,10 @@ LABEL_27:
     }
 
     v26 = v25;
-    v54 = 0;
-    uarpTagStructUnpack32(DWORD1(v55), &v54);
-    v53 = 1380206659;
-    if (!uarp4ccCompare(&v54, &v53))
+    v52 = 0;
+    uarpTagStructUnpack32(DWORD1(v53), &v52);
+    v51 = 1380206659;
+    if (!uarp4ccCompare(&v52, &v51))
     {
       break;
     }
@@ -1497,19 +1492,19 @@ LABEL_22:
     }
   }
 
-  [(UARPSuperBinaryAssetPayload *)v26 setSuperBinaryURL:*p_url];
-  if (!HIDWORD(v56))
+  [(UARPSuperBinaryAssetPayload *)v26 setSuperBinaryURL:self->_url];
+  if (!HIDWORD(v54))
   {
 LABEL_16:
-    if (lCopy && HIDWORD(v57))
+    if (lCopy && HIDWORD(v55))
     {
       *buf = 0;
-      uarpTagStructUnpack32(DWORD1(v55), buf);
+      uarpTagStructUnpack32(DWORD1(v53), buf);
       v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"%c%c%c%c.%lu", buf[0], buf[1], buf[2], buf[3], v23];
-      v51 = 0;
+      v49 = 0;
       v32 = lCopy;
-      v33 = [(UARPSuperBinaryAssetPayload *)v26 expandPayloadToURL:lCopy payloadFilename:v30 superbinary:v8 offset:v57 length:HIDWORD(v57) error:&v51];
-      v34 = v51;
+      v33 = [(UARPSuperBinaryAssetPayload *)v26 expandPayloadToURL:lCopy payloadFilename:v30 superbinary:v8 offset:v55 length:HIDWORD(v55) error:&v49];
+      v34 = v49;
       v35 = v34;
       if (!v33)
       {
@@ -1519,35 +1514,35 @@ LABEL_16:
         }
 
         lCopy = v32;
-        v9 = v46;
+        v9 = v45;
         if (errorCopy)
         {
           v42 = v35;
           *errorCopy = v35;
         }
 
-        v10 = v45;
+        v10 = v44;
         goto LABEL_43;
       }
 
       lCopy = v32;
       error = errorCopy;
-      v24 = v48;
+      v24 = v47;
     }
 
     [(NSMutableArray *)self->_payloads addObject:v26];
     goto LABEL_21;
   }
 
-  v52 = 0;
-  v29 = [v8 uarpSeekToOffset:DWORD2(v56) error:&v52];
-  v30 = v52;
+  v50 = 0;
+  v29 = [v8 uarpSeekToOffset:DWORD2(v54) error:&v50];
+  v30 = v50;
   if (v29)
   {
-    v31 = [v8 uarpReadDataUpToLength:HIDWORD(v56) error:error];
+    v31 = [v8 uarpReadDataUpToLength:HIDWORD(v54) error:error];
     [(UARPSuperBinaryAssetPayload *)v26 addMetaDataTLVs:v31];
 
-    v24 = v48;
+    v24 = v47;
     goto LABEL_16;
   }
 
@@ -1556,8 +1551,8 @@ LABEL_16:
     [UARPSuperBinaryAsset decomposeToURL:error:];
   }
 
-  v10 = v45;
-  v9 = v46;
+  v10 = v44;
+  v9 = v45;
   if (error)
   {
     v41 = v30;
@@ -1571,13 +1566,12 @@ LABEL_44:
 LABEL_45:
 
 LABEL_46:
-  v43 = *MEMORY[0x277D85DE8];
   return v36;
 }
 
 - (id)description
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CCAB68]);
   [v3 appendFormat:@"------------------\n"];
   [v3 appendFormat:@"SuperBinary Header\n"];
@@ -1599,58 +1593,58 @@ LABEL_46:
   [v3 appendFormat:@"-------------------------\n"];
   [v3 appendFormat:@"SuperBinary MetaData TLVs\n"];
   [v3 appendFormat:@"-------------------------\n"];
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v4 = self->_tlvs;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [v3 appendFormat:@"%@\n", *(*(&v21 + 1) + 8 * i)];
+        [v3 appendFormat:@"%@\n", *(*(&v20 + 1) + 8 * i)];
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v6);
   }
 
   [v3 appendFormat:@"\n"];
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v9 = self->_payloads;
-  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (j = 0; j != v11; ++j)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        [v3 appendFormat:@"%@\n", *(*(&v17 + 1) + 8 * j)];
+        [v3 appendFormat:@"%@\n", *(*(&v16 + 1) + 8 * j)];
       }
 
-      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v11);
@@ -1668,22 +1662,21 @@ LABEL_46:
   [v3 appendFormat:@"%@\n", dict];
 
   [v3 appendFormat:@"\n"];
-  v15 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)computeHash
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   url = self->_url;
-  v20 = 0;
-  v5 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:url error:&v20];
-  v6 = v20;
   v19 = 0;
-  v7 = [v5 uarpSeekToOffset:0 error:&v19];
-  v8 = v19;
+  v5 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:url error:&v19];
+  v6 = v19;
+  v18 = 0;
+  v7 = [v5 uarpSeekToOffset:0 error:&v18];
+  v8 = v18;
 
   if (v7)
   {
@@ -1693,18 +1686,18 @@ LABEL_46:
     do
     {
       v10 = v8;
-      v17 = 0;
-      v11 = [v5 uarpReadDataUpToLength:4096 error:&v17];
-      v8 = v17;
+      v16 = 0;
+      v11 = [v5 uarpReadDataUpToLength:4096 error:&v16];
+      v8 = v16;
 
       v9 = v11;
       CC_SHA256_Update(&c, [v11 bytes], objc_msgSend(v11, "length"));
     }
 
     while ([v11 length] == 4096);
-    v16 = 0;
-    [v5 uarpCloseAndReturnError:&v16];
-    v12 = v16;
+    v15 = 0;
+    [v5 uarpCloseAndReturnError:&v15];
+    v12 = v15;
 
     CC_SHA256_Final(md, &c);
     for (i = 0; i != 32; ++i)
@@ -1717,8 +1710,6 @@ LABEL_46:
   {
     v12 = v8;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -1794,46 +1785,45 @@ LABEL_46:
 
 - (id)prepareMetaData
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB28]);
   metaData = self->_metaData;
   self->_metaData = v3;
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = self->_tlvs;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       v9 = 0;
       do
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(&v14 + 1) + 8 * v9) generateTLV:{0, v14}];
+        v10 = [*(*(&v13 + 1) + 8 * v9) generateTLV:{0, v13}];
         [(NSMutableData *)self->_metaData appendData:v10];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
 
   v11 = [MEMORY[0x277CBEA90] dataWithData:self->_metaData];
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -1894,72 +1884,6 @@ LABEL_46:
   v6 = [[UARPAssetVersion alloc] initWithBVERString:v8];
   assetVersion = self->_assetVersion;
   self->_assetVersion = v6;
-}
-
-- (void)addMetaDataTLV:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v0, v1, "attempting to add a nil tlv to superbinary %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addPayload:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v0, v1, "attempting to add a nil payload to superbinary %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)writeToURL:payloadStartOffset:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v0, v1, "%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)decomposeToURL:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v0, v1, "Error seeking to offset for superbinary header; error is %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)decomposeToURL:error:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v0, v1, "Error seeking to offset for payload header; error is %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)decomposeToURL:error:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_247AA7000, v0, v1, "Error expanding payload to URL; error is %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)decomposeToURL:(uint64_t *)a1 error:.cold.4(uint64_t *a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_3_0(&dword_247AA7000, v2, v3, "Error closing URL %@ to decompose superbinary; error is %@");
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)decomposeToURL:(uint64_t *)a1 error:.cold.5(uint64_t *a1)
-{
-  v5 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_3_0(&dword_247AA7000, v2, v3, "Error opening URL %@ to decompose superbinary; error is %@");
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

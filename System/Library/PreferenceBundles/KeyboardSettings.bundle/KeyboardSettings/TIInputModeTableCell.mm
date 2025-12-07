@@ -135,29 +135,29 @@
       v11 = 0;
     }
 
-    if ([v7 isEqualToString:v11] & 1) != 0 || (objc_msgSend(v9, "isEqualToString:", v11) & 1) != 0 || (v14[0] = _NSConcreteStackBlock, v14[1] = 3221225472, v14[2] = sub_F7F8, v14[3] = &unk_492C0, v14[4] = NormalizedIdentifier, objc_msgSend(objc_msgSend(+[TIKeyboardListController inputModes](TIKeyboardListController, "inputModes"), "indexesOfObjectsPassingTest:", v14), "count") <= 1) && (objc_msgSend(objc_msgSend(+[TIKeyboardListController softwareLayoutsForBaseInputMode:](TIKeyboardListController, "softwareLayoutsForBaseInputMode:", NormalizedIdentifier), "firstObject"), "isEqualToString:", v10))
+    if ([v7 isEqualToString:v11] & 1) != 0 || (objc_msgSend(v9, "isEqualToString:", v11) & 1) != 0 || (v15[0] = _NSConcreteStackBlock, v15[1] = 3221225472, v15[2] = sub_F7F8, v15[3] = &unk_492C0, v15[4] = NormalizedIdentifier, objc_msgSend(objc_msgSend(+[TIKeyboardListController inputModes](TIKeyboardListController, "inputModes"), "indexesOfObjectsPassingTest:", v15), "count") <= 1) && (objc_msgSend(objc_msgSend(+[TIKeyboardListController softwareLayoutsForBaseInputMode:](TIKeyboardListController, "softwareLayoutsForBaseInputMode:", NormalizedIdentifier), "firstObject"), "isEqualToString:", v10))
     {
       v11 = 0;
     }
 
-    if (TIInputModeIsChineseShuangpin())
+    if (TIInputModeIsChineseShuangpin(identifier))
     {
       v11 = TIGetCurrentShuangpinName();
     }
 
-    if (TIInputModeIsChineseWubi())
+    if (TIInputModeIsChineseWubi(identifier))
     {
       v11 = TIGetCurrentWubiStandardName();
     }
 
     if ([+[TIInputModeAssetStatusManager sharedManager](TIInputModeAssetStatusManager "sharedManager")] == &dword_0 + 2)
     {
-      v12 = KeyboardSettingsLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = KeyboardSettingsLog(2, v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v16 = identifier;
-        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Showing downloading progress title for input mode %@", buf, 0xCu);
+        v17 = identifier;
+        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Showing downloading progress title for input mode %@", buf, 0xCu);
       }
 
       return [[NSBundle bundleForClass:?]value:"localizedStringForKey:value:table:" table:@"ASSETS_DOWNLOADING_PROGRESS_TITLE", &stru_49C80, @"Keyboard"];
@@ -180,7 +180,7 @@
 
 - (void)downloadButtonPressed:(id)pressed withEvent:(id)event
 {
-  v5 = KeyboardSettingsLog();
+  v5 = KeyboardSettingsLog(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412290;

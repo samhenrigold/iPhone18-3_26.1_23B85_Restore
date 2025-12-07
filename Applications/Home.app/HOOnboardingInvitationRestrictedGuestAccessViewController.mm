@@ -12,6 +12,8 @@
 - (void)invitationResponseController:(id)controller stateDidChange:(unint64_t)change;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation HOOnboardingInvitationRestrictedGuestAccessViewController
@@ -118,6 +120,29 @@
 
   centerVC2 = [(HOOnboardingInvitationRestrictedGuestAccessViewController *)self centerVC];
   [centerVC2 didMoveToParentViewController:self];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = HOOnboardingInvitationRestrictedGuestAccessViewController;
+  [(HOOnboardingInvitationRestrictedGuestAccessViewController *)&v7 viewWillAppear:appear];
+  v4 = +[HFHomeKitDispatcher sharedDispatcher];
+  [v4 addHomeManagerObserver:self];
+  [(HOOnboardingInvitationRestrictedGuestAccessViewController *)self setDidUserTriggerOnboardingDismissal:0];
+  v5 = +[UIColor systemGray4Color];
+  headerView = [(HOOnboardingInvitationRestrictedGuestAccessViewController *)self headerView];
+  [headerView setTintColor:v5];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5.receiver = self;
+  v5.super_class = HOOnboardingInvitationRestrictedGuestAccessViewController;
+  [(HOOnboardingInvitationRestrictedGuestAccessViewController *)&v5 viewWillDisappear:disappear];
+  v4 = +[HFHomeKitDispatcher sharedDispatcher];
+  [v4 removeHomeManagerObserver:self];
+  [(HOOnboardingInvitationRestrictedGuestAccessViewController *)self setDidUserTriggerOnboardingDismissal:0];
 }
 
 - (void)_continueButtonTapped:(id)tapped

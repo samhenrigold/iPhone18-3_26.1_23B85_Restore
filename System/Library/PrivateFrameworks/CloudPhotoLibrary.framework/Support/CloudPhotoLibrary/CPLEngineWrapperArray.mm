@@ -12,6 +12,7 @@
 - (CPLEngineWrapperArrayDelegate)delegate;
 - (NSArray)registeredLibraryIdentifiers;
 - (NSArray)wrapperStatuses;
+- (id)_instantiateWrapperWithParameters:(id)parameters createIfNecessary:(BOOL)necessary error:(id *)error;
 - (id)_loadWrapperWithIdentifier:(id)identifier error:(id *)error;
 - (id)_wrappersLibraryIdentifierEnumerator;
 - (id)openedWrapperWithLibraryIdentifier:(id)identifier;
@@ -21,6 +22,7 @@
 - (void)_addEngineWrapperOpenObserver:(id)observer withIdentifier:(id)identifier;
 - (void)_callStopAllBlocks;
 - (void)_executeMaintenanceWithEnumerator:(id)enumerator progress:(id)progress completionHandler:(id)handler;
+- (void)_forceBackupWithActivity:(id)activity forceClientPush:(BOOL)push enumerator:(id)enumerator progress:(id)progress completionHandler:(id)handler;
 - (void)_registerOpenError:(id)error forWrapper:(id)wrapper;
 - (void)_removeEngineWrapperOpenObserverWithIdentifier:(id)identifier;
 - (void)cancelConfigurationDictionariesRefresh;
@@ -29,6 +31,7 @@
 - (void)enumerateWrappersWithBlock:(id)block;
 - (void)executeMaintenanceWithCompletionHandler:(id)handler;
 - (void)executePeriodicUploadOfComputeStatesWithCompletionHandler:(id)handler;
+- (void)forceBackupWithActivity:(id)activity forceClientPush:(BOOL)push completionHandler:(id)handler;
 - (void)loadRegisteredWrappers;
 - (void)refreshAllConfigurationDictionariesWithCompletionHandler:(id)handler;
 - (void)requestRegisteredWrapperWithIdentifier:(id)identifier completionHandler:(id)handler;
@@ -86,39 +89,39 @@
 
 - (void)loadRegisteredWrappers
 {
-  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
   allDefinedParameters = [(CPLEngineParametersStorage *)self->_parametersStorage allDefinedParameters];
-  v4 = [allDefinedParameters countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v4 = [allDefinedParameters countByEnumeratingWithState:&v14 objects:v20 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v14;
+    v7 = *v15;
     *&v5 = 138412290;
-    v12 = v5;
+    v13 = v5;
     do
     {
       v8 = 0;
       do
       {
-        if (*v14 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(allDefinedParameters);
         }
 
-        libraryIdentifier = [*(*(&v13 + 1) + 8 * v8) libraryIdentifier];
+        libraryIdentifier = [*(*(&v14 + 1) + 8 * v8) libraryIdentifier];
         v10 = [(CPLEngineWrapperArray *)self _loadWrapperWithIdentifier:libraryIdentifier error:0];
 
         if (v10 && (_CPLSilentLogging & 1) == 0)
         {
-          v11 = sub_100013FC4();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+          v12 = sub_100013FC4(v11);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v12;
-            v18 = v10;
-            _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Found %@ at launch", buf, 0xCu);
+            *buf = v13;
+            v19 = v10;
+            _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Found %@ at launch", buf, 0xCu);
           }
         }
 
@@ -126,7 +129,7 @@
       }
 
       while (v6 != v8);
-      v6 = [allDefinedParameters countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v6 = [allDefinedParameters countByEnumeratingWithState:&v14 objects:v20 count:16];
     }
 
     while (v6);
@@ -285,7 +288,7 @@ LABEL_9:
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        sub_10018A754();
+        sub_10018A754(identifierCopy);
       }
 
       if (error)
@@ -318,6 +321,183 @@ LABEL_9:
   }
 
   return v8;
+}
+
+- (id)_instantiateWrapperWithParameters:(id)parameters createIfNecessary:(BOOL)necessary error:(id *)error
+{
+  necessaryCopy = necessary;
+  parametersCopy = parameters;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  v10 = WeakRetained;
+  if (WeakRetained)
+  {
+    queue = self->_queue;
+    v47 = 0;
+    v12 = [WeakRetained wrapperArray:self engineWrapperWithParameters:parametersCopy createIfNecessary:necessaryCopy queue:queue error:&v47];
+    v13 = v47;
+    if (v12)
+    {
+      if (!necessaryCopy)
+      {
+        [v12 setDelegate:self];
+        v45 = 0;
+        v20 = [(CPLEngineWrapperArray *)self _shouldAutoOpenWrapper:v12 error:&v45];
+        v21 = v45;
+        v17 = v21;
+        if ((v20 & 1) == 0)
+        {
+          if ((_CPLSilentLogging & 1) == 0)
+          {
+            v27 = sub_100013FC4(v21);
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+            {
+              localizedDescription = [v17 localizedDescription];
+              *buf = 138412546;
+              *&buf[4] = v12;
+              *&buf[12] = 2112;
+              *&buf[14] = localizedDescription;
+              _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "%@ will not open automatically: %@", buf, 0x16u);
+            }
+          }
+
+          v29 = self->_queue;
+          v42[0] = _NSConcreteStackBlock;
+          v42[1] = 3221225472;
+          v42[2] = sub_1000149D0;
+          v42[3] = &unk_1002721A0;
+          v42[4] = self;
+          v43 = v12;
+          v17 = v17;
+          v44 = v17;
+          v30 = v42;
+          *buf = _NSConcreteStackBlock;
+          *&buf[8] = 3221225472;
+          *&buf[16] = sub_1000027DC;
+          v49 = &unk_100271E98;
+          v50 = v30;
+          v31 = v29;
+          v32 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
+          dispatch_async(v31, v32);
+
+          goto LABEL_26;
+        }
+
+LABEL_12:
+        v41 = 0;
+        v22 = [v12 startWithError:&v41];
+        v23 = v41;
+        v24 = v23;
+        if ((v22 & 1) == 0)
+        {
+          if ((_CPLSilentLogging & 1) == 0)
+          {
+            v37 = sub_100013FC4(v23);
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+            {
+              *buf = 138412546;
+              *&buf[4] = v12;
+              *&buf[12] = 2112;
+              *&buf[14] = v24;
+              _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_ERROR, "Unable to start %@: %@", buf, 0x16u);
+            }
+          }
+
+          v38 = objc_loadWeakRetained(&self->_delegate);
+          [v38 wrapperArray:self wrapperShouldBeDropped:v12];
+
+          if (error)
+          {
+            v39 = v24;
+            *error = v24;
+          }
+
+          v18 = 0;
+          goto LABEL_34;
+        }
+
+LABEL_26:
+        wrappers = self->_wrappers;
+        libraryIdentifier = [parametersCopy libraryIdentifier];
+        [(NSMutableDictionary *)wrappers setObject:v12 forKeyedSubscript:libraryIdentifier];
+
+        unopenedWrappers = self->_unopenedWrappers;
+        libraryIdentifier2 = [parametersCopy libraryIdentifier];
+        [(NSMutableDictionary *)unopenedWrappers setObject:v12 forKeyedSubscript:libraryIdentifier2];
+
+        v18 = v12;
+LABEL_34:
+
+        goto LABEL_35;
+      }
+
+      v46 = 0;
+      v14 = [(CPLEngineWrapperArray *)self _canReallyOpenWrapper:v12 error:&v46];
+      v15 = v46;
+      v16 = v15;
+      if (v14)
+      {
+
+        [v12 setDelegate:self];
+        v17 = 0;
+        goto LABEL_12;
+      }
+
+      if ((_CPLSilentLogging & 1) == 0)
+      {
+        sub_10018A88C(v12, v15);
+      }
+
+      if (error)
+      {
+        v25 = v16;
+        *error = v16;
+      }
+
+      v26 = objc_loadWeakRetained(&self->_delegate);
+      [v26 wrapperArray:self wrapperShouldBeDropped:v12];
+
+      goto LABEL_20;
+    }
+
+    if (necessaryCopy)
+    {
+      sub_10018A944(parametersCopy);
+      if (error)
+      {
+        goto LABEL_10;
+      }
+    }
+
+    else if (error)
+    {
+LABEL_10:
+      v19 = v13;
+      v18 = 0;
+      *error = v13;
+LABEL_35:
+
+      goto LABEL_36;
+    }
+
+LABEL_20:
+    v18 = 0;
+    goto LABEL_35;
+  }
+
+  if (error)
+  {
+    [CPLErrors incorrectMachineStateErrorWithReason:@"missing delegate"];
+    *error = v18 = 0;
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+LABEL_36:
+
+  return v18;
 }
 
 - (void)_callStopAllBlocks
@@ -477,7 +657,7 @@ LABEL_9:
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      sub_10018AABC();
+      sub_10018AABC(parametersCopy);
     }
 
     if (error)
@@ -492,39 +672,40 @@ LABEL_12:
   }
 
   mostRecentConfigurationDictionary = [(CPLEngineWrapperArray *)self mostRecentConfigurationDictionary];
-  v28 = 0;
-  v11 = [(CPLEngineWrapperArray *)self _instantiateWrapperWithParameters:parametersCopy createIfNecessary:1 error:&v28];
-  v16 = v28;
+  v29 = 0;
+  v11 = [(CPLEngineWrapperArray *)self _instantiateWrapperWithParameters:parametersCopy createIfNecessary:1 error:&v29];
+  v16 = v29;
   v17 = v16;
   if (v11)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v18 = sub_100013FC4();
+      v18 = sub_100013FC4(v16);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v30 = v11;
-        v31 = 2112;
-        v32 = parametersCopy;
+        v31 = v11;
+        v32 = 2112;
+        v33 = parametersCopy;
         _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Created %@ for %@", buf, 0x16u);
       }
     }
 
     parametersStorage = self->_parametersStorage;
-    v27 = 0;
-    v20 = [(CPLEngineParametersStorage *)parametersStorage saveParameters:parametersCopy error:&v27];
-    v21 = v27;
+    v28 = 0;
+    v20 = [(CPLEngineParametersStorage *)parametersStorage saveParameters:parametersCopy error:&v28];
+    v21 = v28;
+    v22 = v21;
     if ((v20 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
     {
-      v22 = sub_100013FC4();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v23 = sub_100013FC4(v21);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412546;
-        v30 = parametersCopy;
-        v31 = 2112;
-        v32 = v21;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Failed to store %@ for automatic start: %@", buf, 0x16u);
+        v31 = parametersCopy;
+        v32 = 2112;
+        v33 = v22;
+        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Failed to store %@ for automatic start: %@", buf, 0x16u);
       }
     }
 
@@ -543,7 +724,7 @@ LABEL_12:
 
   else if (error)
   {
-    v25 = v16;
+    v26 = v16;
     *error = v17;
   }
 
@@ -688,6 +869,81 @@ LABEL_3:
   return objectEnumerator;
 }
 
+- (void)_forceBackupWithActivity:(id)activity forceClientPush:(BOOL)push enumerator:(id)enumerator progress:(id)progress completionHandler:(id)handler
+{
+  pushCopy = push;
+  activityCopy = activity;
+  enumeratorCopy = enumerator;
+  progressCopy = progress;
+  handlerCopy = handler;
+  nextObject = [enumeratorCopy nextObject];
+  if (!nextObject)
+  {
+    sub_10018AB50(handlerCopy, progressCopy);
+    goto LABEL_12;
+  }
+
+  v17 = [(NSMutableDictionary *)self->_wrappers objectForKeyedSubscript:nextObject];
+  if (v17)
+  {
+    v18 = [(NSMutableDictionary *)self->_unopenedWrappers objectForKeyedSubscript:nextObject];
+
+    if (!v18)
+    {
+      v21[0] = _NSConcreteStackBlock;
+      v21[1] = 3221225472;
+      v21[2] = sub_1000158D4;
+      v21[3] = &unk_100272998;
+      v22 = v17;
+      v28 = pushCopy;
+      v23 = activityCopy;
+      selfCopy = self;
+      v27 = handlerCopy;
+      v25 = enumeratorCopy;
+      v26 = progressCopy;
+      [v26 performAsCurrentWithPendingUnitCount:1 usingBlock:v21];
+
+      goto LABEL_11;
+    }
+
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v20 = sub_100013FC4(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        v30 = v17;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Requested forced backup for %@ can't be done as it is not fully opened", buf, 0xCu);
+      }
+    }
+
+    [progressCopy setCompletedUnitCount:{objc_msgSend(progressCopy, "completedUnitCount") + 1}];
+  }
+
+  [(CPLEngineWrapperArray *)self _forceBackupWithActivity:activityCopy forceClientPush:pushCopy enumerator:enumeratorCopy progress:progressCopy completionHandler:handlerCopy];
+LABEL_11:
+
+LABEL_12:
+}
+
+- (void)forceBackupWithActivity:(id)activity forceClientPush:(BOOL)push completionHandler:(id)handler
+{
+  pushCopy = push;
+  activityCopy = activity;
+  handlerCopy = handler;
+  if ([(NSMutableDictionary *)self->_wrappers count])
+  {
+    v10 = [NSProgress progressWithTotalUnitCount:[(NSMutableDictionary *)self->_wrappers count]];
+    _wrappersLibraryIdentifierEnumerator = [(CPLEngineWrapperArray *)self _wrappersLibraryIdentifierEnumerator];
+    [(CPLEngineWrapperArray *)self _forceBackupWithActivity:activityCopy forceClientPush:pushCopy enumerator:_wrappersLibraryIdentifierEnumerator progress:v10 completionHandler:handlerCopy];
+  }
+
+  else
+  {
+    sub_10018AC94(handlerCopy);
+  }
+}
+
 - (void)_executeMaintenanceWithEnumerator:(id)enumerator progress:(id)progress completionHandler:(id)handler
 {
   enumeratorCopy = enumerator;
@@ -703,7 +959,7 @@ LABEL_3:
   nextObject = [enumeratorCopy nextObject];
   if (!nextObject)
   {
-    sub_10018AD08();
+    sub_10018AD08(handlerCopy);
     goto LABEL_12;
   }
 
@@ -714,28 +970,28 @@ LABEL_3:
 
     if (!v13)
     {
-      v15[0] = _NSConcreteStackBlock;
-      v15[1] = 3221225472;
-      v15[2] = sub_100015F94;
-      v15[3] = &unk_100272568;
-      v16 = v12;
+      v16[0] = _NSConcreteStackBlock;
+      v16[1] = 3221225472;
+      v16[2] = sub_100015F94;
+      v16[3] = &unk_100272568;
+      v17 = v12;
       selfCopy = self;
-      v18 = enumeratorCopy;
-      v19 = progressCopy;
-      v20 = handlerCopy;
-      [v19 performAsCurrentWithPendingUnitCount:1 usingBlock:v15];
+      v19 = enumeratorCopy;
+      v20 = progressCopy;
+      v21 = handlerCopy;
+      [v20 performAsCurrentWithPendingUnitCount:1 usingBlock:v16];
 
       goto LABEL_11;
     }
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v14 = sub_100013FC4();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = sub_100013FC4(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
         *&buf[4] = v12;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Requested maintenance for %@ can't be done as it is not fully opened", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "Requested maintenance for %@ can't be done as it is not fully opened", buf, 0xCu);
       }
     }
   }
@@ -771,7 +1027,7 @@ LABEL_12:
 
   else
   {
-    sub_10018AE14();
+    sub_10018AE14(handlerCopy);
   }
 }
 
@@ -1146,19 +1402,19 @@ LABEL_11:
   if (v9)
   {
     [(NSMutableDictionary *)self->_unopenedWrappers removeObjectForKey:libraryIdentifier];
-    [(NSMutableDictionary *)self->_previousOpenErrors removeObjectForKey:libraryIdentifier];
+    v10 = [(NSMutableDictionary *)self->_previousOpenErrors removeObjectForKey:libraryIdentifier];
     if (errorCopy)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v12 = sub_100013FC4();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v13 = sub_100013FC4(v10);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v20 = wrapperCopy;
-          v21 = 2112;
-          v22 = errorCopy;
-          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to open %@: %@", buf, 0x16u);
+          v21 = wrapperCopy;
+          v22 = 2112;
+          v23 = errorCopy;
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to open %@: %@", buf, 0x16u);
         }
       }
 
@@ -1168,15 +1424,15 @@ LABEL_11:
     }
 
     openObservers = self->_openObservers;
-    v13 = _NSConcreteStackBlock;
-    v14 = 3221225472;
-    v15 = sub_100018068;
-    v16 = &unk_100272B98;
-    v17 = wrapperCopy;
-    v18 = errorCopy;
-    [(NSMutableDictionary *)openObservers enumerateKeysAndObjectsUsingBlock:&v13];
+    v14 = _NSConcreteStackBlock;
+    v15 = 3221225472;
+    v16 = sub_100018068;
+    v17 = &unk_100272B98;
+    v18 = wrapperCopy;
+    v19 = errorCopy;
+    [(NSMutableDictionary *)openObservers enumerateKeysAndObjectsUsingBlock:&v14];
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    [WeakRetained wrapperArrayCountDidChange:{self, v13, v14, v15, v16}];
+    [WeakRetained wrapperArrayCountDidChange:{self, v14, v15, v16, v17}];
   }
 }
 
@@ -1195,12 +1451,12 @@ LABEL_11:
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v10 = sub_100013FC4();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v11 = sub_100013FC4(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          v12 = 138412290;
-          v13 = closeCopy;
-          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%@ closed before even being opened", &v12, 0xCu);
+          v13 = 138412290;
+          v14 = closeCopy;
+          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%@ closed before even being opened", &v13, 0xCu);
         }
       }
 
@@ -1209,7 +1465,7 @@ LABEL_11:
 
     else if ((_CPLSilentLogging & 1) == 0)
     {
-      sub_10018B018();
+      sub_10018B018(closeCopy);
     }
 
     sub_10018A008(self, closeCopy);
@@ -1292,12 +1548,12 @@ LABEL_11:
   dispatch_assert_queue_V2(self->_queue);
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_100013FC4();
-    if (sub_100003424(v6))
+    v7 = sub_100013FC4(v6);
+    if (sub_100003424(v7))
     {
       sub_1000187DC();
       sub_10000FAA0();
-      _os_log_impl(v7, v8, v9, v10, v11, v12);
+      _os_log_impl(v8, v9, v10, v11, v12, v13);
     }
   }
 
@@ -1307,18 +1563,18 @@ LABEL_11:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v15 = sub_100013FC4();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = sub_100013FC4(0);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        *v16 = 0;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Closing immediately", v16, 2u);
+        *v17 = 0;
+        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Closing immediately", v17, 2u);
       }
     }
 
     exit(0);
   }
 
-  v14 = WeakRetained;
+  v15 = WeakRetained;
   [WeakRetained emergencyExitForWrapperArray:self];
 }
 
@@ -1327,21 +1583,22 @@ LABEL_11:
   droppedCopy = dropped;
   libraryIdentifier = [droppedCopy libraryIdentifier];
   parametersStorage = self->_parametersStorage;
-  v16 = 0;
-  v7 = [(CPLEngineParametersStorage *)parametersStorage removeParametersWithLibraryIdentifier:libraryIdentifier error:&v16];
-  v8 = v16;
+  v17 = 0;
+  v7 = [(CPLEngineParametersStorage *)parametersStorage removeParametersWithLibraryIdentifier:libraryIdentifier error:&v17];
+  v8 = v17;
+  v9 = v8;
   if (v7)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v9 = sub_100013FC4();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_100013FC4(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v18 = droppedCopy;
+        v19 = droppedCopy;
         sub_10000FAA0();
 LABEL_8:
-        _os_log_impl(v10, v11, v12, v13, v14, v15);
+        _os_log_impl(v11, v12, v13, v14, v15, v16);
         goto LABEL_9;
       }
 
@@ -1351,19 +1608,19 @@ LABEL_8:
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v9 = sub_100013FC4();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100013FC4(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v18 = droppedCopy;
-      v19 = 2112;
-      v20 = v8;
-      v10 = &_mh_execute_header;
-      v13 = "Failed to drop parameters for %@: %@";
-      v14 = buf;
-      v11 = v9;
-      v12 = OS_LOG_TYPE_ERROR;
-      v15 = 22;
+      v19 = droppedCopy;
+      v20 = 2112;
+      v21 = v9;
+      v11 = &_mh_execute_header;
+      v14 = "Failed to drop parameters for %@: %@";
+      v15 = buf;
+      v12 = v10;
+      v13 = OS_LOG_TYPE_ERROR;
+      v16 = 22;
       goto LABEL_8;
     }
 

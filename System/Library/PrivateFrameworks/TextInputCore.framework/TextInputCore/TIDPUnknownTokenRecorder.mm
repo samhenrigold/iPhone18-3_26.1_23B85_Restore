@@ -9,61 +9,61 @@
 
 - (BOOL)report
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   [(TIDPRecorder *)self characterExplodedRecords];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  obj = v38 = 0u;
-  v4 = [obj countByEnumeratingWithState:&v35 objects:v42 count:16];
+  obj = v37 = 0u;
+  v4 = [obj countByEnumeratingWithState:&v34 objects:v41 count:16];
   if (v4)
   {
     v5 = v4;
-    v28 = v3;
+    v27 = v3;
     coderVersion = 0;
-    v7 = *v36;
+    v7 = *v35;
     do
     {
       v8 = 0;
       v9 = coderVersion;
       do
       {
-        if (*v36 != v7)
+        if (*v35 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v35 + 1) + 8 * v8);
+        v10 = *(*(&v34 + 1) + 8 * v8);
         v11 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v10, "count")}];
+        v30 = 0u;
         v31 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v34 = 0u;
         v12 = v10;
-        v13 = [v12 countByEnumeratingWithState:&v31 objects:v41 count:16];
+        v13 = [v12 countByEnumeratingWithState:&v30 objects:v40 count:16];
         if (v13)
         {
           v14 = v13;
-          v15 = *v32;
+          v15 = *v31;
           do
           {
             for (i = 0; i != v14; ++i)
             {
-              if (*v32 != v15)
+              if (*v31 != v15)
               {
                 objc_enumerationMutation(v12);
               }
 
-              codedWord = [*(*(&v31 + 1) + 8 * i) codedWord];
+              codedWord = [*(*(&v30 + 1) + 8 * i) codedWord];
               if (codedWord)
               {
                 [v11 addObject:codedWord];
               }
             }
 
-            v14 = [v12 countByEnumeratingWithState:&v31 objects:v41 count:16];
+            v14 = [v12 countByEnumeratingWithState:&v30 objects:v40 count:16];
           }
 
           while (v14);
@@ -86,9 +86,9 @@
           v23 = v22;
 
           delegate = [(TIDPUnknownTokenRecorder *)selfCopy delegate];
-          v39 = @"VersionHash";
-          v40 = v23;
-          v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
+          v38 = @"VersionHash";
+          v39 = v23;
+          v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
 
           [delegate record:v19 metadata:v25];
         }
@@ -98,22 +98,21 @@
       }
 
       while (v8 != v5);
-      v5 = [obj countByEnumeratingWithState:&v35 objects:v42 count:16];
+      v5 = [obj countByEnumeratingWithState:&v34 objects:v41 count:16];
     }
 
     while (v5);
 
-    v3 = v28;
+    v3 = v27;
   }
 
   objc_autoreleasePoolPop(v3);
-  v26 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (id)records
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   characterCoder = [(TIDPRecorder *)self characterCoder];
 
   if (characterCoder)
@@ -164,17 +163,15 @@
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       recordingKeyLocaleSubstring = [(TIDPRecorder *)self recordingKeyLocaleSubstring];
-      v25 = 136315394;
-      v26 = "[TIDPUnknownTokenRecorder records]";
-      v27 = 2112;
-      v28 = recordingKeyLocaleSubstring;
-      _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s  Not recording unknown tokens for locale '%@' because a valid character coder could not be loaded.", &v25, 0x16u);
+      v24 = 136315394;
+      v25 = "[TIDPUnknownTokenRecorder records]";
+      v26 = 2112;
+      v27 = recordingKeyLocaleSubstring;
+      _os_log_impl(&dword_22CA55000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s  Not recording unknown tokens for locale '%@' because a valid character coder could not be loaded.", &v24, 0x16u);
     }
 
     v21 = MEMORY[0x277CBEBF8];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

@@ -1570,7 +1570,7 @@ void __45__UIDictationUtilities__properNameForString___block_invoke()
 + (unint64_t)maxLoggableLengthOfInsertionWithoutDeletion:(id)deletion
 {
   v3 = [deletion objectForKey:@"speechRecognitionSource"];
-  if ([v3 isEqualToString:@"local"])
+  if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = -1;
   }
@@ -1586,7 +1586,7 @@ void __45__UIDictationUtilities__properNameForString___block_invoke()
 + (unint64_t)maxLoggableLengthOfInsertionWithDeletion:(id)deletion
 {
   v3 = [deletion objectForKey:@"speechRecognitionSource"];
-  if ([v3 isEqualToString:@"local"])
+  if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = -1;
   }
@@ -1602,7 +1602,7 @@ void __45__UIDictationUtilities__properNameForString___block_invoke()
 + (unint64_t)maxLoggableLengthOfInsertionBySubstitution:(id)substitution
 {
   v3 = [substitution objectForKey:@"speechRecognitionSource"];
-  if ([v3 isEqualToString:@"local"])
+  if (objc_msgSend_isEqualToString_(v3))
   {
     v4 = -1;
   }

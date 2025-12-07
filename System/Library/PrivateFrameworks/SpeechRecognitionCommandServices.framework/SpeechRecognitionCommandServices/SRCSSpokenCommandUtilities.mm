@@ -169,37 +169,37 @@ uint64_t __76__SRCSSpokenCommandUtilities_wordUnitStringTokenizerRefForLocaleIde
 
 + (id)_suffixedURLsForURL:(id)l
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v24 = objc_opt_new();
+  v23 = objc_opt_new();
   uRLByDeletingLastPathComponent = [lCopy URLByDeletingLastPathComponent];
   pathExtension = [lCopy pathExtension];
   uRLByDeletingPathExtension = [lCopy URLByDeletingPathExtension];
   lastPathComponent = [uRLByDeletingPathExtension lastPathComponent];
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v23 = uRLByDeletingLastPathComponent;
+  v22 = uRLByDeletingLastPathComponent;
   v8 = [defaultManager contentsOfDirectoryAtURL:uRLByDeletingLastPathComponent includingPropertiesForKeys:0 options:0 error:0];
 
-  v9 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v27;
+    v11 = *v26;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v26 + 1) + 8 * i);
+        v13 = *(*(&v25 + 1) + 8 * i);
         lastPathComponent2 = [v13 lastPathComponent];
         lastPathComponent3 = [lCopy lastPathComponent];
         v16 = [lastPathComponent2 isEqualToString:lastPathComponent3];
@@ -215,21 +215,19 @@ uint64_t __76__SRCSSpokenCommandUtilities_wordUnitStringTokenizerRefForLocaleIde
             v20 = pathExtension2;
             if (!(pathExtension | pathExtension2) || (pathExtension == 0) == (pathExtension2 == 0) && [pathExtension isEqualToString:pathExtension2])
             {
-              [v24 addObject:v13];
+              [v23 addObject:v13];
             }
           }
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v10);
   }
 
-  v21 = *MEMORY[0x277D85DE8];
-
-  return v24;
+  return v23;
 }
 
 - (id)dictionaryForLocaleIdentifier:(id)identifier bundle:(id)bundle resourceFileName:(id)name resourceFileExtension:(id)extension
@@ -251,7 +249,7 @@ uint64_t __76__SRCSSpokenCommandUtilities_wordUnitStringTokenizerRefForLocaleIde
   v15 = [bundleCopy pathForResource:nameCopy ofType:extensionCopy inDirectory:0 forLocalization:identifierCopy];
   if (!v15)
   {
-    v30 = identifierCopy;
+    v31 = identifierCopy;
     goto LABEL_19;
   }
 
@@ -261,18 +259,18 @@ uint64_t __76__SRCSSpokenCommandUtilities_wordUnitStringTokenizerRefForLocaleIde
   {
 LABEL_19:
     v48 = v15;
-    v31 = MEMORY[0x277CCA8D8];
+    v32 = MEMORY[0x277CCA8D8];
     localizations = [bundleCopy localizations];
     [&unk_287C0D648 arrayByAddingObjectsFromArray:localizations];
-    v34 = v33 = v14;
+    v35 = v34 = v14;
     v58[0] = identifierCopy;
-    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:1];
-    v36 = [v31 preferredLocalizationsFromArray:v34 forPreferences:v35];
+    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:1];
+    v37 = [v32 preferredLocalizationsFromArray:v35 forPreferences:v36];
 
-    v14 = v33;
-    firstObject = [v36 firstObject];
-    v38 = firstObject;
-    if (!firstObject || ([firstObject isEqualToString:@"zxx"] & 1) != 0 || objc_msgSend(v38, "isEqualToString:", @"en") && !-[__CFString isEqualToString:](v33, "isEqualToString:", @"en"))
+    v14 = v34;
+    firstObject = [v37 firstObject];
+    v39 = firstObject;
+    if (!firstObject || ([firstObject isEqualToString:@"zxx"] & 1) != 0 || objc_msgSend(v39, "isEqualToString:", @"en") && !-[__CFString isEqualToString:](v34, "isEqualToString:", @"en"))
     {
 
       v18 = 0;
@@ -281,7 +279,7 @@ LABEL_19:
 
     else
     {
-      v18 = v38;
+      v18 = v39;
 
       v15 = [bundleCopy pathForResource:nameCopy ofType:extensionCopy inDirectory:0 forLocalization:v18];
 
@@ -332,7 +330,7 @@ LABEL_6:
 
         v25 = *(*(&v49 + 1) + 8 * v23);
         v26 = [objc_alloc(MEMORY[0x277CBEAC0]) initWithContentsOfURL:v25];
-        v27 = SRCSLogGeneral();
+        v27 = SRCSLogGeneral(v26);
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
           lastPathComponent = [v25 lastPathComponent];
@@ -357,18 +355,18 @@ LABEL_6:
   bundleCopy = v46;
   if (v16)
   {
-    v29 = SRCSLogGeneral();
+    v30 = SRCSLogGeneral(v29);
     v15 = v47;
     extensionCopy = v44;
     nameCopy = v45;
     v14 = v43;
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
       v54 = v18;
       v55 = 2112;
       v56 = identifierCopy;
-      _os_log_impl(&dword_26B44D000, v29, OS_LOG_TYPE_DEFAULT, "Found commands localization: %@ for desired locale: %@", buf, 0x16u);
+      _os_log_impl(&dword_26B44D000, v30, OS_LOG_TYPE_DEFAULT, "Found commands localization: %@ for desired locale: %@", buf, 0x16u);
     }
 
     goto LABEL_32;
@@ -379,21 +377,19 @@ LABEL_6:
   nameCopy = v45;
   v14 = v43;
 LABEL_29:
-  v29 = SRCSLogGeneral();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+  v30 = SRCSLogGeneral(v29);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
   {
     localizations2 = [bundleCopy localizations];
     *buf = 138412546;
     v54 = identifierCopy;
     v55 = 2112;
     v56 = localizations2;
-    _os_log_impl(&dword_26B44D000, v29, OS_LOG_TYPE_DEFAULT, "Failed to find commands for desired locale: %@ from localizations: %@", buf, 0x16u);
+    _os_log_impl(&dword_26B44D000, v30, OS_LOG_TYPE_DEFAULT, "Failed to find commands for desired locale: %@ from localizations: %@", buf, 0x16u);
   }
 
   v16 = 0;
 LABEL_32:
-
-  v40 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

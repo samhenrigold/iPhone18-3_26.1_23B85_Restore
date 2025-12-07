@@ -1,2952 +1,3 @@
-void sub_1C924599C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38, uint64_t a39, void *a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *__p, uint64_t a56, int a57, __int16 a58, char a59, char a60)
-{
-  if (a60 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (SLOBYTE(STACK[0x527]) < 0)
-  {
-    operator delete(STACK[0x510]);
-  }
-
-  if (SLOBYTE(STACK[0x487]) < 0)
-  {
-    operator delete(STACK[0x470]);
-  }
-
-  if (SLOBYTE(STACK[0x4A7]) < 0)
-  {
-    operator delete(STACK[0x490]);
-  }
-
-  if (*(v60 + 23) < 0)
-  {
-    operator delete(*v60);
-  }
-
-  AudioDSPGraph::Language::V1::UndefineLocals::~UndefineLocals(&STACK[0x4E8]);
-  v62 = STACK[0x4F8];
-  if (STACK[0x4F8])
-  {
-    STACK[0x500] = v62;
-    operator delete(v62);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void std::vector<AudioDSPGraph::Language::V1::Macro const*>::push_back[abi:ne200100](uint64_t a1, void *a2)
-{
-  v4 = *(a1 + 8);
-  v3 = *(a1 + 16);
-  if (v4 >= v3)
-  {
-    v6 = *a1;
-    v7 = v4 - *a1;
-    v8 = (v7 >> 3) + 1;
-    if (v8 >> 61)
-    {
-      std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__throw_length_error[abi:ne200100]();
-    }
-
-    v9 = v3 - v6;
-    if (v9 >> 2 > v8)
-    {
-      v8 = v9 >> 2;
-    }
-
-    if (v9 >= 0x7FFFFFFFFFFFFFF8)
-    {
-      v10 = 0x1FFFFFFFFFFFFFFFLL;
-    }
-
-    else
-    {
-      v10 = v8;
-    }
-
-    if (v10)
-    {
-      if (!(v10 >> 61))
-      {
-        operator new();
-      }
-
-      std::__throw_bad_array_new_length[abi:ne200100]();
-    }
-
-    v11 = (8 * (v7 >> 3));
-    *v11 = *a2;
-    v5 = v11 + 1;
-    memcpy(0, v6, v7);
-    *a1 = 0;
-    *(a1 + 8) = v5;
-    *(a1 + 16) = 0;
-    if (v6)
-    {
-      operator delete(v6);
-    }
-  }
-
-  else
-  {
-    *v4 = *a2;
-    v5 = v4 + 1;
-  }
-
-  *(a1 + 8) = v5;
-}
-
-void AudioDSPGraph::Language::V1::UndefineLocals::~UndefineLocals(AudioDSPGraph::Language::V1::UndefineLocals *this)
-{
-  v2 = *(this + 1);
-  v3 = *v2;
-  v4 = v2[1];
-  while (v3 != v4)
-  {
-    AudioDSPGraph::Language::V1::Preprocessor::undef(*this, *v3++);
-  }
-}
-
-void AudioDSPGraph::Language::V1::Preprocessor::undef(AudioDSPGraph::Language::V1::Preprocessor *this, const AudioDSPGraph::Language::V1::Macro *a2)
-{
-  if (!a2)
-  {
-    return;
-  }
-
-  v3 = *(this + 1);
-  v4 = *(this + 2);
-  if (v4 == v3)
-  {
-    return;
-  }
-
-  v5 = *(this + 4);
-  v6 = (v3 + 8 * (v5 >> 9));
-  v7 = *v6;
-  v8 = (*v6 + 8 * (v5 & 0x1FF));
-  v9 = *(v3 + (((*(this + 5) + v5) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(this + 5) + v5) & 0x1FF);
-  v10 = v6;
-  if (v8 == v9)
-  {
-    goto LABEL_10;
-  }
-
-  while (*v8 != a2)
-  {
-    if ((++v8 - v7) == 4096)
-    {
-      v11 = *(v10 + 1);
-      v10 += 8;
-      v7 = v11;
-      v8 = v11;
-    }
-
-    if (v8 == v9)
-    {
-      v8 = (*(v3 + (((*(this + 5) + v5) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(this + 5) + v5) & 0x1FF));
-      break;
-    }
-  }
-
-  if (v4 == v3)
-  {
-    if (!v8)
-    {
-      return;
-    }
-
-    v12 = 0;
-  }
-
-  else
-  {
-LABEL_10:
-    if ((*(v3 + (((*(this + 5) + v5) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((*(this + 5) + v5) & 0x1FF)) == v8)
-    {
-      return;
-    }
-
-    v12 = (*v6 + 8 * (v5 & 0x1FF));
-  }
-
-  if (v8 == v12)
-  {
-    v13 = *v6;
-LABEL_20:
-    v16 = (v3 + 8 * (v5 >> 9));
-    v18 = v12;
-LABEL_21:
-    v19 = (v8 - v13) >> 3;
-    if (v19 < 0)
-    {
-      v23 = 510 - v19;
-      v21 = &v16[-(v23 >> 9)];
-      v22 = (*v21 + 8 * (~v23 & 0x1FF));
-    }
-
-    else
-    {
-      v20 = v19 + 1;
-      v21 = &v16[v20 >> 9];
-      v22 = (*v21 + 8 * (v20 & 0x1FF));
-    }
-
-    if (v16 == v6)
-    {
-      v24 = v12;
-      v25 = v18;
-    }
-
-    else
-    {
-      std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::unique_ptr<AudioDSPGraph::Language::V1::Macro> *,std::__deque_iterator<std::unique_ptr<AudioDSPGraph::Language::V1::Macro>,std::unique_ptr<AudioDSPGraph::Language::V1::Macro> *,std::unique_ptr<AudioDSPGraph::Language::V1::Macro>&,std::unique_ptr<AudioDSPGraph::Language::V1::Macro> **,long,512l>,0>(v51, v13, v18, v21, v22);
-      v22 = v53;
-      v21 = v52;
-      v26 = v16 - 1;
-      while (v26 != v6)
-      {
-        v27 = *v26--;
-        std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::unique_ptr<AudioDSPGraph::Language::V1::Macro> *,std::__deque_iterator<std::unique_ptr<AudioDSPGraph::Language::V1::Macro>,std::unique_ptr<AudioDSPGraph::Language::V1::Macro> *,std::unique_ptr<AudioDSPGraph::Language::V1::Macro>&,std::unique_ptr<AudioDSPGraph::Language::V1::Macro> **,long,512l>,0>(v51, v27, v27 + 4096, v21, v22);
-        v22 = v53;
-        v21 = v52;
-      }
-
-      v25 = *v6 + 4096;
-      v24 = v12;
-    }
-
-    std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::unique_ptr<AudioDSPGraph::Language::V1::Macro> *,std::__deque_iterator<std::unique_ptr<AudioDSPGraph::Language::V1::Macro>,std::unique_ptr<AudioDSPGraph::Language::V1::Macro> *,std::unique_ptr<AudioDSPGraph::Language::V1::Macro>&,std::unique_ptr<AudioDSPGraph::Language::V1::Macro> **,long,512l>,0>(v51, v24, v25, v21, v22);
-    v28 = *v12;
-    *v12 = 0;
-    if (v28)
-    {
-      (*(*v28 + 8))(v28);
-    }
-
-    v29 = vaddq_s64(*(this + 2), xmmword_1C925F430);
-    *(this + 2) = v29;
-    if (v29.i64[0] >= 0x400uLL)
-    {
-      operator delete(**(this + 1));
-      *(this + 1) += 8;
-      *(this + 4) -= 512;
-    }
-
-    return;
-  }
-
-  v14 = ((v8 - *v10) >> 3) + ((v10 - v6) << 6);
-  v13 = *v6;
-  v15 = v14 - ((v12 - *v6) >> 3);
-  if (v14 == (v12 - *v6) >> 3)
-  {
-    v8 = v12;
-    goto LABEL_20;
-  }
-
-  if (v14 < 1)
-  {
-    v30 = 511 - v14;
-    v16 = &v6[-(v30 >> 9)];
-    v13 = *v16;
-    v17 = ~v30 & 0x1FFLL;
-  }
-
-  else
-  {
-    v16 = &v6[v14 >> 9];
-    v13 = *v16;
-    v17 = v14 & 0x1FF;
-  }
-
-  v18 = (v13 + 8 * v17);
-  v31 = *(this + 5);
-  if (v15 <= (v31 - 1) >> 1)
-  {
-    v8 = v18;
-    goto LABEL_21;
-  }
-
-  v32 = (v18 - v13) >> 3;
-  if (v32 < 0)
-  {
-    v35 = 510 - v32;
-    v33 = ~v35;
-    v34 = &v16[-(v35 >> 9)];
-  }
-
-  else
-  {
-    v33 = v32 + 1;
-    v34 = &v16[(v32 + 1) >> 9];
-  }
-
-  v36 = &(*v34)[v33 & 0x1FF];
-  v37 = v5 + v31;
-  v38 = (v3 + 8 * (v37 >> 9));
-  if (v4 == v3)
-  {
-    v39 = 0;
-  }
-
-  else
-  {
-    v39 = &(*v38)[v37 & 0x1FF];
-  }
-
-  if (v34 == v38)
-  {
-    v44 = v39;
-    v40 = v16;
-    v41 = v18;
-  }
-
-  else
-  {
-    std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::unique_ptr<AudioDSPGraph::Language::V1::Macro> *,std::__deque_iterator<std::unique_ptr<AudioDSPGraph::Language::V1::Macro>,std::unique_ptr<AudioDSPGraph::Language::V1::Macro> *,std::unique_ptr<AudioDSPGraph::Language::V1::Macro>&,std::unique_ptr<AudioDSPGraph::Language::V1::Macro> **,long,512l>,0>(v51, v36, *v34 + 512, v16, v18);
-    v41 = v53;
-    v40 = v52;
-    v42 = v34 + 1;
-    while (v42 != v38)
-    {
-      v43 = *v42++;
-      std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::unique_ptr<AudioDSPGraph::Language::V1::Macro> *,std::__deque_iterator<std::unique_ptr<AudioDSPGraph::Language::V1::Macro>,std::unique_ptr<AudioDSPGraph::Language::V1::Macro> *,std::unique_ptr<AudioDSPGraph::Language::V1::Macro>&,std::unique_ptr<AudioDSPGraph::Language::V1::Macro> **,long,512l>,0>(v51, v43, v43 + 512, v40, v41);
-      v41 = v53;
-      v40 = v52;
-    }
-
-    v36 = *v38;
-    v44 = v39;
-  }
-
-  std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::unique_ptr<AudioDSPGraph::Language::V1::Macro> *,std::__deque_iterator<std::unique_ptr<AudioDSPGraph::Language::V1::Macro>,std::unique_ptr<AudioDSPGraph::Language::V1::Macro> *,std::unique_ptr<AudioDSPGraph::Language::V1::Macro>&,std::unique_ptr<AudioDSPGraph::Language::V1::Macro> **,long,512l>,0>(v51, v36, v44, v40, v41);
-  v45 = *v53;
-  *v53 = 0;
-  if (v45)
-  {
-    (*(*v45 + 8))(v45);
-  }
-
-  v47 = *(this + 1);
-  v46 = *(this + 2);
-  if (v46 == v47)
-  {
-    v48 = 0;
-  }
-
-  else
-  {
-    v48 = ((v46 - v47) << 6) - 1;
-  }
-
-  v49 = *(this + 4);
-  v50 = *(this + 5) - 1;
-  *(this + 5) = v50;
-  if ((v48 - (v50 + v49)) >= 0x400)
-  {
-    operator delete(*(v46 - 8));
-    *(this + 2) -= 8;
-  }
-}
-
-uint64_t std::__move_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::unique_ptr<AudioDSPGraph::Language::V1::Macro> *,std::__deque_iterator<std::unique_ptr<AudioDSPGraph::Language::V1::Macro>,std::unique_ptr<AudioDSPGraph::Language::V1::Macro> *,std::unique_ptr<AudioDSPGraph::Language::V1::Macro>&,std::unique_ptr<AudioDSPGraph::Language::V1::Macro> **,long,512l>,0>(uint64_t result, uint64_t *a2, uint64_t *a3, void *a4, uint64_t *a5)
-{
-  v6 = a4;
-  v7 = a2;
-  v8 = result;
-  if (a2 == a3)
-  {
-    v14 = a2;
-    goto LABEL_17;
-  }
-
-  v10 = *a4;
-  while (1)
-  {
-    v11 = v10 - a5 + 4096;
-    v12 = a3 - v7 >= v11 >> 3 ? v11 >> 3 : a3 - v7;
-    if (v12)
-    {
-      break;
-    }
-
-LABEL_13:
-    v16 = v6[1];
-    ++v6;
-    v10 = v16;
-    a5 = v16;
-  }
-
-  v13 = 8 * v12;
-  v14 = &v7[v12];
-  do
-  {
-    v15 = *v7;
-    *v7 = 0;
-    result = *a5;
-    *a5 = v15;
-    if (result)
-    {
-      result = (*(*result + 8))(result);
-    }
-
-    ++v7;
-    ++a5;
-    v13 -= 8;
-  }
-
-  while (v13);
-  if (v14 != a3)
-  {
-    v7 = v14;
-    goto LABEL_13;
-  }
-
-  if ((*v6 + 4096) == a5)
-  {
-    v17 = v6[1];
-    ++v6;
-    a5 = v17;
-  }
-
-LABEL_17:
-  *v8 = v14;
-  v8[1] = v6;
-  v8[2] = a5;
-  return result;
-}
-
-uint64_t std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<std::unique_ptr<AudioDSPGraph::Language::V1::Macro> *,std::__deque_iterator<std::unique_ptr<AudioDSPGraph::Language::V1::Macro>,std::unique_ptr<AudioDSPGraph::Language::V1::Macro> *,std::unique_ptr<AudioDSPGraph::Language::V1::Macro>&,std::unique_ptr<AudioDSPGraph::Language::V1::Macro> **,long,512l>,0>(uint64_t result, uint64_t a2, uint64_t a3, void *a4, void *a5)
-{
-  v6 = a4;
-  v8 = result;
-  if (a2 == a3)
-  {
-    v9 = a2;
-  }
-
-  else
-  {
-    v9 = a3;
-    v10 = *a4;
-    v11 = a3;
-    while (1)
-    {
-      v12 = a5 - v10;
-      if ((v11 - a2) >> 3 >= v12 >> 3)
-      {
-        v13 = v12 >> 3;
-      }
-
-      else
-      {
-        v13 = (v11 - a2) >> 3;
-      }
-
-      if (v13)
-      {
-        v14 = -8 * v13;
-        v15 = (v11 - 8);
-        do
-        {
-          v16 = *v15;
-          *v15 = 0;
-          v17 = *--a5;
-          result = v17;
-          *a5 = v16;
-          if (v17)
-          {
-            result = (*(*result + 8))(result);
-          }
-
-          --v15;
-          v14 += 8;
-        }
-
-        while (v14);
-      }
-
-      v11 -= 8 * v13;
-      if (v11 == a2)
-      {
-        break;
-      }
-
-      v18 = *--v6;
-      v10 = v18;
-      a5 = (v18 + 4096);
-    }
-
-    if ((*v6 + 4096) == a5)
-    {
-      v19 = v6[1];
-      ++v6;
-      a5 = v19;
-    }
-  }
-
-  *v8 = v9;
-  v8[1] = v6;
-  v8[2] = a5;
-  return result;
-}
-
-void AudioDSPGraph::Language::V1::ArgMacro::~ArgMacro(void **this)
-{
-  *this = &unk_1F48D2398;
-  if (*(this + 79) < 0)
-  {
-    operator delete(this[7]);
-  }
-
-  AudioDSPGraph::Language::V1::Macro::~Macro(this);
-
-  JUMPOUT(0x1CCA84AE0);
-}
-
-{
-  *this = &unk_1F48D2398;
-  if (*(this + 79) < 0)
-  {
-    operator delete(this[7]);
-  }
-
-  AudioDSPGraph::Language::V1::Macro::~Macro(this);
-}
-
-void AudioDSPGraph::Language::V1::Macro::~Macro(void **this)
-{
-  *this = &unk_1F48D2368;
-  v2 = this + 4;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v2);
-  if (*(this + 31) < 0)
-  {
-    operator delete(this[1]);
-  }
-}
-
-void AudioDSPGraph::Language::V1::Preprocessor::parseToEnd(std::string::value_type **a1, char a2, std::string::value_type a3, std::string *this)
-{
-  if (SHIBYTE(this->__r_.__value_.__r.__words[2]) < 0)
-  {
-    *this->__r_.__value_.__l.__data_ = 0;
-    this->__r_.__value_.__l.__size_ = 0;
-  }
-
-  else
-  {
-    this->__r_.__value_.__s.__data_[0] = 0;
-    *(&this->__r_.__value_.__s + 23) = 0;
-  }
-
-  v8 = **a1;
-  if (!v8)
-  {
-LABEL_12:
-    std::string::basic_string[abi:ne200100]<0>(v12, "preprocessor error: expected closing brace");
-    AudioDSPGraph::ThrowException(1886548769, v12, off_1E8336FB0);
-  }
-
-  v9 = *a1 + 1;
-  v10 = 1;
-  while (1)
-  {
-    if (v8 != a3)
-    {
-      if (v8 == a2)
-      {
-        ++v10;
-      }
-
-      goto LABEL_11;
-    }
-
-    if (!--v10)
-    {
-      break;
-    }
-
-    v8 = a3;
-LABEL_11:
-    std::string::push_back(this, v8);
-    v11 = *v9++;
-    v8 = v11;
-    if (!v11)
-    {
-      goto LABEL_12;
-    }
-  }
-
-  *a1 = v9;
-}
-
-void sub_1C9246A28(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-BOOL AudioDSPGraph::Language::V1::Preprocessor::parseToken(AudioDSPGraph::Language::V1 *a1, uint64_t a2)
-{
-  AudioDSPGraph::Language::V1::skipspace(a1, a2);
-  if (*(a2 + 23) < 0)
-  {
-    **a2 = 0;
-    *(a2 + 8) = 0;
-  }
-
-  else
-  {
-    *a2 = 0;
-    *(a2 + 23) = 0;
-  }
-
-  v4 = AudioDSPGraph::Language::V1::endOfWord(**a1);
-  if (!v4)
-  {
-    for (i = *a1; ; ++i)
-    {
-      v6 = *i;
-      if (AudioDSPGraph::Language::V1::endOfWord(*i))
-      {
-        break;
-      }
-
-      std::string::push_back(a2, v6);
-    }
-
-    *a1 = i;
-  }
-
-  return !v4;
-}
-
-uint64_t AudioDSPGraph::Language::V1::Preprocessor::find(void *a1, const void **a2)
-{
-  v2 = a1[1];
-  if (a1[2] == v2)
-  {
-    return 0;
-  }
-
-  v3 = a1[4];
-  v4 = (v2 + 8 * (v3 >> 9));
-  v5 = *v4;
-  v6 = *v4 + 8 * (v3 & 0x1FF);
-  v7 = *(v2 + (((a1[5] + v3) >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * ((a1[5] + v3) & 0x1FF);
-  if (v6 == v7)
-  {
-    return 0;
-  }
-
-  v8 = *(a2 + 23);
-  if (v8 >= 0)
-  {
-    v9 = *(a2 + 23);
-  }
-
-  else
-  {
-    v9 = a2[1];
-  }
-
-  if (v8 >= 0)
-  {
-    v10 = a2;
-  }
-
-  else
-  {
-    v10 = *a2;
-  }
-
-  while (1)
-  {
-    v11 = *v6;
-    v12 = *(*v6 + 31);
-    v13 = v12;
-    if ((v12 & 0x80u) != 0)
-    {
-      v12 = *(*v6 + 16);
-    }
-
-    if (v12 == v9)
-    {
-      v14 = v13 >= 0 ? (v11 + 8) : *(v11 + 8);
-      if (!memcmp(v14, v10, v9))
-      {
-        break;
-      }
-    }
-
-    v6 += 8;
-    if (v6 - v5 == 4096)
-    {
-      v15 = v4[1];
-      ++v4;
-      v5 = v15;
-      v6 = v15;
-    }
-
-    if (v6 == v7)
-    {
-      return 0;
-    }
-  }
-
-  return v11;
-}
-
-BOOL AudioDSPGraph::Language::V1::Preprocessor::parseMacroBody(void *a1, AudioDSPGraph::Language::V1 *a2, uint64_t a3)
-{
-  v21[2] = *MEMORY[0x1E69E9840];
-  if (AudioDSPGraph::Language::V1::Preprocessor::parseToken(a2, a3) || (AudioDSPGraph::Language::V1::Preprocessor::parseString(a2, a3) & 1) != 0)
-  {
-    goto LABEL_23;
-  }
-
-  AudioDSPGraph::Language::V1::skipspace(a2, v6);
-  if (**a2 == 40)
-  {
-    ++*a2;
-    AudioDSPGraph::Language::V1::Preprocessor::parseToEnd(a2, 40, 41, a3);
-    v9 = (a3 + 8);
-    v8 = *(a3 + 8);
-    if (*(a3 + 23) >= 0)
-    {
-      v10 = *(a3 + 23);
-    }
-
-    else
-    {
-      v10 = *(a3 + 8);
-    }
-
-    p_p = &__p;
-    std::string::basic_string[abi:ne200100](&__p, v10 + 1);
-    if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-    {
-      p_p = __p.__r_.__value_.__r.__words[0];
-    }
-
-    p_p->__r_.__value_.__s.__data_[0] = 40;
-    v12 = &p_p->__r_.__value_.__l.__data_ + 1;
-    if (v10)
-    {
-      if (*(a3 + 23) >= 0)
-      {
-        v13 = a3;
-      }
-
-      else
-      {
-        v13 = *a3;
-      }
-
-      memmove(v12, v13, v10);
-    }
-
-    *(v12 + v10) = 0;
-    std::string::push_back(&__p, 41);
-    v21[0] = __p.__r_.__value_.__l.__size_;
-    v14 = __p.__r_.__value_.__r.__words[0];
-    *(v21 + 7) = *(&__p.__r_.__value_.__r.__words[1] + 7);
-    v15 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-    memset(&__p, 0, sizeof(__p));
-    if (*(a3 + 23) < 0)
-    {
-      operator delete(*a3);
-      v18 = SHIBYTE(__p.__r_.__value_.__r.__words[2]);
-      *a3 = v14;
-      *v9 = v21[0];
-      *(a3 + 15) = *(v21 + 7);
-      *(a3 + 23) = v15;
-      if (v18 < 0)
-      {
-        operator delete(__p.__r_.__value_.__l.__data_);
-      }
-    }
-
-    else
-    {
-      *a3 = v14;
-      *v9 = v21[0];
-      *(a3 + 15) = *(v21 + 7);
-      *(a3 + 23) = v15;
-    }
-
-    goto LABEL_23;
-  }
-
-  AudioDSPGraph::Language::V1::skipspace(a2, v7);
-  if (**a2 == 123)
-  {
-    ++*a2;
-    AudioDSPGraph::Language::V1::Preprocessor::parseToEnd(a2, 123, 125, a3);
-LABEL_23:
-    v19 = *MEMORY[0x1E69E9840];
-    return 1;
-  }
-
-  v16 = *MEMORY[0x1E69E9840];
-
-  return AudioDSPGraph::Language::V1::Preprocessor::parseMacroCall(a1, a2, a3);
-}
-
-void sub_1C9246E00(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t AudioDSPGraph::Language::V1::strToLong(uint64_t *a1, uint64_t a2, uint64_t a3)
-{
-  v5 = a1;
-  if (*(a1 + 23) < 0)
-  {
-    if (a1[1])
-    {
-      __endptr = 0;
-      a1 = *a1;
-      goto LABEL_6;
-    }
-
-LABEL_13:
-    caulk::make_string("empty %s argument", v13, a2);
-    AudioDSPGraph::ThrowException(1886548769, v13, a3);
-  }
-
-  if (!*(a1 + 23))
-  {
-    goto LABEL_13;
-  }
-
-  __endptr = 0;
-LABEL_6:
-  v6 = strtol(a1, &__endptr, 10);
-  if ((v6 - 0x7FFFFFFFFFFFFFFFLL) <= 1 && *__error())
-  {
-    if (*(v5 + 23) >= 0)
-    {
-      v9 = v5;
-    }
-
-    else
-    {
-      v9 = *v5;
-    }
-
-    caulk::make_string("out-of-range %s argument: %s", v11, a2, v9);
-    AudioDSPGraph::ThrowException(1886548769, v11, a3);
-  }
-
-  v7 = *(v5 + 23);
-  if (v7 < 0)
-  {
-    if (__endptr != (*v5 + v5[1]))
-    {
-      v5 = *v5;
-      goto LABEL_19;
-    }
-  }
-
-  else if (__endptr != v5 + v7)
-  {
-LABEL_19:
-    caulk::make_string("non-numerical characters in %s argument: %s", v10, a2, v5);
-    AudioDSPGraph::ThrowException(1886548769, v10, a3);
-  }
-
-  return v6;
-}
-
-void sub_1C9246F78(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *a17, uint64_t a18, int a19, __int16 a20, char a21, char a22)
-{
-  if (a22 < 0)
-  {
-    operator delete(a17);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t caulk::numeric::exceptional_add<long>(uint64_t a1, uint64_t a2)
-{
-  v2 = __OFADD__(a1, a2);
-  result = a1 + a2;
-  if (v2)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::overflow_error::overflow_error[abi:ne200100](exception, "arithmetic addition overflow");
-  }
-
-  return result;
-}
-
-uint64_t caulk::numeric::exceptional_mul<long>(uint64_t a1, uint64_t a2)
-{
-  result = a1 * a2;
-  if ((a1 * a2) >> 64 != result >> 63)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::overflow_error::overflow_error[abi:ne200100](exception, "arithmetic multiplication overflow");
-  }
-
-  return result;
-}
-
-uint64_t caulk::numeric::exceptional_sub<long>(uint64_t a1, uint64_t a2)
-{
-  v2 = __OFSUB__(a1, a2);
-  result = a1 - a2;
-  if (v2)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::overflow_error::overflow_error[abi:ne200100](exception, "arithmetic subtraction overflow");
-  }
-
-  return result;
-}
-
-uint64_t AudioDSPGraph::Language::V1::Preprocessor::skipMacroBody(AudioDSPGraph::Language::V1::Preprocessor *this, const char **a2)
-{
-  memset(&__p, 0, sizeof(__p));
-  if (AudioDSPGraph::Language::V1::Preprocessor::parseToken(this, &__p) || (AudioDSPGraph::Language::V1::Preprocessor::parseString(this, &__p) & 1) != 0)
-  {
-    goto LABEL_9;
-  }
-
-  AudioDSPGraph::Language::V1::skipspace(this, v3);
-  v5 = *this;
-  if (**this == 40)
-  {
-    v6 = 41;
-    v7 = 40;
-LABEL_8:
-    *this = v5 + 1;
-    AudioDSPGraph::Language::V1::Preprocessor::parseToEnd(this, v7, v6, &__p);
-LABEL_9:
-    v9 = 1;
-    goto LABEL_10;
-  }
-
-  AudioDSPGraph::Language::V1::skipspace(this, v4);
-  v5 = *this;
-  if (**this == 123 || (AudioDSPGraph::Language::V1::skipspace(this, v8), v5 = *this, **this == 91))
-  {
-    v6 = 125;
-    v7 = 123;
-    goto LABEL_8;
-  }
-
-  v9 = 0;
-LABEL_10:
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  return v9;
-}
-
-void sub_1C92471F8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t AudioDSPGraph::Language::V1::Preprocessor::parseString(AudioDSPGraph::Language::V1 *a1, uint64_t a2)
-{
-  AudioDSPGraph::Language::V1::skipspace(a1, a2);
-  if (AudioDSPGraph::Language::V1::Preprocessor::parseToken(a1, a2))
-  {
-    return 1;
-  }
-
-  if (*(a2 + 23) < 0)
-  {
-    **a2 = 0;
-    *(a2 + 8) = 0;
-  }
-
-  else
-  {
-    *a2 = 0;
-    *(a2 + 23) = 0;
-  }
-
-  if (**a1 == 34)
-  {
-    std::string::push_back(a2, 34);
-    v4 = *a1 - 1;
-    do
-    {
-      v5 = *(v4 + 2);
-      if (v5 == 10 || v5 == 0)
-      {
-        std::string::basic_string[abi:ne200100]<0>(v9, "unterminated string");
-        AudioDSPGraph::ThrowException(1886548769, v9, off_1E8337010);
-      }
-
-      v7 = v5;
-      std::string::push_back(a2, v5);
-      ++v4;
-    }
-
-    while (v7 != 34);
-    *a1 = v4 + 2;
-    return 1;
-  }
-
-  return 0;
-}
-
-void sub_1C924730C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-std::string *std::__fs::filesystem::path::path[abi:ne200100]<std::string,void>(std::string *a1, std::string *a2)
-{
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
-  a1->__r_.__value_.__r.__words[2] = 0;
-  v3 = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
-  size = a2->__r_.__value_.__l.__size_;
-  if (v3 < 0)
-  {
-    a2 = a2->__r_.__value_.__r.__words[0];
-  }
-
-  if (v3 < 0)
-  {
-    v3 = size;
-  }
-
-  std::string::append[abi:ne200100]<char const*,0>(a1, a2, (a2 + v3));
-  return a1;
-}
-
-void sub_1C9247374(_Unwind_Exception *exception_object)
-{
-  if (*(v1 + 23) < 0)
-  {
-    operator delete(*v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t *a2)
-{
-  a1[59] = 0;
-  v4 = MEMORY[0x1E69E5528] + 64;
-  a1[53] = MEMORY[0x1E69E5528] + 64;
-  v5 = *(MEMORY[0x1E69E54C8] + 16);
-  v6 = *(MEMORY[0x1E69E54C8] + 8);
-  *a1 = v6;
-  *(a1 + *(v6 - 24)) = v5;
-  a1[1] = 0;
-  v7 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v7, a1 + 2);
-  v8 = MEMORY[0x1E69E5528] + 24;
-  v7[1].__vftable = 0;
-  v7[1].__fmtflags_ = -1;
-  *a1 = v8;
-  a1[53] = v4;
-  MEMORY[0x1CCA846F0](a1 + 2);
-  if (*(a2 + 23) < 0)
-  {
-    v9 = *a2;
-  }
-
-  if (!std::filebuf::open())
-  {
-    std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 4);
-  }
-
-  return a1;
-}
-
-void sub_1C9247550(_Unwind_Exception *a1)
-{
-  std::istream::~istream();
-  MEMORY[0x1CCA849E0](v1);
-  _Unwind_Resume(a1);
-}
-
-std::string *std::optional<std::string>::emplace[abi:ne200100]<std::istreambuf_iterator<char>,std::istreambuf_iterator<char>,void>(std::string *this, void **a2, void **a3)
-{
-  if (this[1].__r_.__value_.__s.__data_[0] == 1)
-  {
-    if (SHIBYTE(this->__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(this->__r_.__value_.__l.__data_);
-    }
-
-    this[1].__r_.__value_.__s.__data_[0] = 0;
-  }
-
-  v6 = *a2;
-  v7 = *a3;
-  this->__r_.__value_.__r.__words[0] = 0;
-  this->__r_.__value_.__l.__size_ = 0;
-  this->__r_.__value_.__r.__words[2] = 0;
-  while (!v6)
-  {
-    v8 = 1;
-    if (!v7)
-    {
-      goto LABEL_21;
-    }
-
-LABEL_15:
-    if (v7[3] == v7[4])
-    {
-      if ((*(*v7 + 72))(v7) == -1)
-      {
-        goto LABEL_21;
-      }
-
-      if (!v8)
-      {
-        goto LABEL_29;
-      }
-    }
-
-    else if (!v8)
-    {
-      goto LABEL_29;
-    }
-
-LABEL_23:
-    v10 = v6[3];
-    if (v10 == v6[4])
-    {
-      v11 = (*(*v6 + 72))(v6);
-    }
-
-    else
-    {
-      v11 = *v10;
-    }
-
-    std::string::push_back(this, v11);
-    v12 = v6[3];
-    if (v12 == v6[4])
-    {
-      (*(*v6 + 80))(v6);
-    }
-
-    else
-    {
-      v6[3] = v12 + 1;
-    }
-  }
-
-  if (v6[3] != v6[4])
-  {
-    v8 = 0;
-    if (!v7)
-    {
-      goto LABEL_21;
-    }
-
-    goto LABEL_15;
-  }
-
-  v9 = (*(*v6 + 72))(v6);
-  v8 = v9 == -1;
-  if (v9 == -1)
-  {
-    v6 = 0;
-  }
-
-  if (v7)
-  {
-    goto LABEL_15;
-  }
-
-LABEL_21:
-  if (!v8)
-  {
-    v7 = 0;
-    goto LABEL_23;
-  }
-
-LABEL_29:
-  this[1].__r_.__value_.__s.__data_[0] = 1;
-  return this;
-}
-
-void sub_1C9247734(void *a1)
-{
-  __cxa_begin_catch(a1);
-  if (*(v1 + 23) < 0)
-  {
-    operator delete(*v1);
-  }
-
-  __cxa_rethrow();
-}
-
-void *std::ifstream::~ifstream(void *a1)
-{
-  v2 = MEMORY[0x1E69E54C8];
-  v3 = *MEMORY[0x1E69E54C8];
-  *a1 = *MEMORY[0x1E69E54C8];
-  *(a1 + *(v3 - 24)) = *(v2 + 24);
-  MEMORY[0x1CCA84700](a1 + 2);
-  std::istream::~istream();
-  MEMORY[0x1CCA849E0](a1 + 53);
-  return a1;
-}
-
-std::string *std::__fs::filesystem::operator/[abi:ne200100](std::string *this, uint64_t a2, std::__fs::filesystem::path *a3)
-{
-  if (*(a2 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(this, *a2, *(a2 + 8));
-  }
-
-  else
-  {
-    *this = *a2;
-  }
-
-  if (std::__fs::filesystem::path::__root_directory(a3).__size_)
-  {
-    return std::string::operator=(this, &a3->__pn_);
-  }
-
-  if (std::__fs::filesystem::path::__filename(this).__size_)
-  {
-    std::string::push_back(this, 47);
-  }
-
-  v6 = SHIBYTE(a3->__pn_.__r_.__value_.__r.__words[2]);
-  if (v6 >= 0)
-  {
-    v7 = a3;
-  }
-
-  else
-  {
-    v7 = a3->__pn_.__r_.__value_.__r.__words[0];
-  }
-
-  if (v6 >= 0)
-  {
-    size = HIBYTE(a3->__pn_.__r_.__value_.__r.__words[2]);
-  }
-
-  else
-  {
-    size = a3->__pn_.__r_.__value_.__l.__size_;
-  }
-
-  return std::string::append(this, v7, size);
-}
-
-void sub_1C92478D4(_Unwind_Exception *exception_object)
-{
-  if (*(v1 + 23) < 0)
-  {
-    operator delete(*v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t *std::ifstream::basic_ifstream(uint64_t *a1)
-{
-  a1[59] = 0;
-  v2 = MEMORY[0x1E69E5528] + 64;
-  a1[53] = MEMORY[0x1E69E5528] + 64;
-  v3 = *(MEMORY[0x1E69E54C8] + 16);
-  v4 = *(MEMORY[0x1E69E54C8] + 8);
-  *a1 = v4;
-  *(a1 + *(v4 - 24)) = v3;
-  a1[1] = 0;
-  v5 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v5, a1 + 2);
-  v6 = MEMORY[0x1E69E5528] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
-  *a1 = v6;
-  a1[53] = v2;
-  MEMORY[0x1CCA846F0](a1 + 2);
-  if (!std::filebuf::open())
-  {
-    std::ios_base::clear((a1 + *(*a1 - 24)), *(a1 + *(*a1 - 24) + 32) | 4);
-  }
-
-  return a1;
-}
-
-void sub_1C9247A70(_Unwind_Exception *a1)
-{
-  std::istream::~istream();
-  MEMORY[0x1CCA849E0](v1);
-  _Unwind_Resume(a1);
-}
-
-uint64_t AudioDSPGraph::Language::V1::Preprocessor::parseActualArg(uint64_t a1, AudioDSPGraph::Language::V1 *a2, uint64_t a3)
-{
-  v16[2] = *MEMORY[0x1E69E9840];
-  if (AudioDSPGraph::Language::V1::Preprocessor::parseToken(a2, a3) || (AudioDSPGraph::Language::V1::Preprocessor::parseString(a2, a3) & 1) != 0)
-  {
-    goto LABEL_10;
-  }
-
-  AudioDSPGraph::Language::V1::skipspace(a2, v6);
-  if (**a2 == 40)
-  {
-    ++*a2;
-    AudioDSPGraph::Language::V1::Preprocessor::parseToEnd(a2, 40, 41, a3);
-    std::operator+<char>();
-    v8 = std::string::append(&__p, ")", 1uLL);
-    v9 = v8->__r_.__value_.__r.__words[0];
-    v16[0] = v8->__r_.__value_.__l.__size_;
-    *(v16 + 7) = *(&v8->__r_.__value_.__r.__words[1] + 7);
-    v10 = HIBYTE(v8->__r_.__value_.__r.__words[2]);
-    v8->__r_.__value_.__l.__size_ = 0;
-    v8->__r_.__value_.__r.__words[2] = 0;
-    v8->__r_.__value_.__r.__words[0] = 0;
-    if (*(a3 + 23) < 0)
-    {
-      operator delete(*a3);
-    }
-
-    v11 = v16[0];
-    *a3 = v9;
-    *(a3 + 8) = v11;
-    *(a3 + 15) = *(v16 + 7);
-    *(a3 + 23) = v10;
-    if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-    {
-      operator delete(__p.__r_.__value_.__l.__data_);
-    }
-
-    goto LABEL_10;
-  }
-
-  AudioDSPGraph::Language::V1::skipspace(a2, v7);
-  if (**a2 == 123)
-  {
-    ++*a2;
-    AudioDSPGraph::Language::V1::Preprocessor::parseToEnd(a2, 123, 125, a3);
-LABEL_10:
-    v12 = *MEMORY[0x1E69E9840];
-    return 1;
-  }
-
-  v14 = *MEMORY[0x1E69E9840];
-
-  return AudioDSPGraph::Language::V1::Preprocessor::parseMacroCall(a1, a2, a3);
-}
-
-void sub_1C9247C5C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-std::__split_buffer<std::string>::pointer std::vector<std::string>::emplace_back<std::string const&>(uint64_t a1, __int128 *a2)
-{
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
-  {
-    result = std::vector<std::string>::__emplace_back_slow_path<std::string const&>(a1, a2);
-  }
-
-  else
-  {
-    std::vector<std::string>::__construct_one_at_end[abi:ne200100]<std::string const&>(a1, a2);
-    result = v3 + 1;
-  }
-
-  *(a1 + 8) = result;
-  return result;
-}
-
-uint64_t AudioDSPGraph::Language::V1::skipspace(AudioDSPGraph::Language::V1 *this, const char **a2)
-{
-  v3 = *this;
-  v4 = MEMORY[0x1E69E9830];
-  do
-  {
-    v5 = *v3;
-    if ((v5 & 0x80000000) != 0)
-    {
-      result = __maskrune(*v3, 0x4000uLL);
-      if (result)
-      {
-LABEL_4:
-        v3 = (*this + 1);
-        *this = v3;
-        continue;
-      }
-    }
-
-    else
-    {
-      result = *(v4 + 4 * v5 + 60) & 0x4000;
-      if (result)
-      {
-        goto LABEL_4;
-      }
-    }
-
-    if (v5 != 59)
-    {
-      return result;
-    }
-
-    v3 = *this;
-    do
-    {
-      v7 = *v3;
-      if (!*v3)
-      {
-        break;
-      }
-
-      *this = ++v3;
-    }
-
-    while (v7 != 10);
-  }
-
-  while (result);
-  return result;
-}
-
-BOOL AudioDSPGraph::Language::V1::Preprocessor::parseMacroCall(void *a1, const char **a2, uint64_t a3)
-{
-  v27 = *a2;
-  if (*(a3 + 23) < 0)
-  {
-    **a3 = 0;
-    *(a3 + 8) = 0;
-  }
-
-  else
-  {
-    *a3 = 0;
-    *(a3 + 23) = 0;
-  }
-
-  AudioDSPGraph::Language::V1::skipspace(&v27, a2);
-  v6 = *v27;
-  if (v6 == 91)
-  {
-    v26 = 0;
-    ++v27;
-    v25[0] = 0;
-    v25[1] = 0;
-    if (!AudioDSPGraph::Language::V1::Preprocessor::parseToken(&v27, v25))
-    {
-      std::string::basic_string[abi:ne200100]<0>(v24, "preprocessor error: expected macro name");
-      AudioDSPGraph::ThrowException(1886548769, v24, off_1E8336FC8);
-    }
-
-    __p[0] = 0;
-    __p[1] = 0;
-    v23 = 0;
-    v19 = 0;
-    v20 = 0;
-    v21 = 0;
-    while (AudioDSPGraph::Language::V1::Preprocessor::parseActualArg(a1, &v27, __p))
-    {
-      v8 = v20;
-      if (v20 >= v21)
-      {
-        v10 = std::vector<std::string>::__emplace_back_slow_path<std::string const&>(&v19, __p);
-      }
-
-      else
-      {
-        if (SHIBYTE(v23) < 0)
-        {
-          std::string::__init_copy_ctor_external(v20, __p[0], __p[1]);
-        }
-
-        else
-        {
-          v9 = *__p;
-          v20->__r_.__value_.__r.__words[2] = v23;
-          *&v8->__r_.__value_.__l.__data_ = v9;
-        }
-
-        v10 = v8 + 1;
-      }
-
-      v20 = v10;
-    }
-
-    AudioDSPGraph::Language::V1::skipspace(&v27, v7);
-    v11 = v27;
-    if (*v27 != 93)
-    {
-      std::string::basic_string[abi:ne200100]<0>(v18, "preprocessor error: expected closing brace");
-      AudioDSPGraph::ThrowException(1886548769, v18, off_1E8336FE0);
-    }
-
-    v12 = AudioDSPGraph::Language::V1::Preprocessor::find(a1, v25);
-    if (!v12)
-    {
-      if (v26 >= 0)
-      {
-        v14 = v25;
-      }
-
-      else
-      {
-        v14 = v25[0];
-      }
-
-      caulk::make_string("preprocessor error: macro %s not found.", v17, v14);
-      AudioDSPGraph::ThrowException(1852204065, v17, off_1E8336FF8);
-    }
-
-    *a2 = v11 + 1;
-    (*(*v12 + 16))(&v15);
-    if (*(a3 + 23) < 0)
-    {
-      operator delete(*a3);
-    }
-
-    *a3 = v15;
-    *(a3 + 16) = v16;
-    *&v15 = &v19;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v15);
-    if (SHIBYTE(v23) < 0)
-    {
-      operator delete(__p[0]);
-    }
-
-    if (SHIBYTE(v26) < 0)
-    {
-      operator delete(v25[0]);
-    }
-  }
-
-  return v6 == 91;
-}
-
-void sub_1C9247FC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, char a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34)
-{
-  if (a25 < 0)
-  {
-    operator delete(__p);
-  }
-
-  a11 = &a26;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a11);
-  if (a34 < 0)
-  {
-    operator delete(a29);
-  }
-
-  if (*(v34 - 73) < 0)
-  {
-    operator delete(*(v34 - 96));
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t AudioDSPGraph::Language::V1::CounterMacro::apply@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, std::string *a3@<X8>)
-{
-  std::to_string(a3, *(a1 + 56));
-  v5 = *a2;
-  v6 = *(a2 + 8);
-  if (*a2 == v6)
-  {
-    result = caulk::numeric::exceptional_add<long>(*(a1 + 56), *(a1 + 64));
-  }
-
-  else
-  {
-    if (v6 - v5 != 24)
-    {
-      std::string::basic_string[abi:ne200100]<0>(v9, "too many arguments to counter");
-      AudioDSPGraph::ThrowException(1886548769, v9, off_1E8337688);
-    }
-
-    v7 = AudioDSPGraph::Language::V1::strToLong(v5, "counter step", off_1E8337670);
-    result = caulk::numeric::exceptional_add<long>(*(a1 + 56), v7);
-  }
-
-  *(a1 + 56) = result;
-  return result;
-}
-
-void sub_1C924810C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (*(v15 + 23) < 0)
-  {
-    operator delete(*v15);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AudioDSPGraph::Language::V1::CounterMacro::~CounterMacro(void **this)
-{
-  AudioDSPGraph::Language::V1::Macro::~Macro(this);
-
-  JUMPOUT(0x1CCA84AE0);
-}
-
-BOOL AudioDSPGraph::Language::V1::endOfWord(unsigned int this)
-{
-  if (!this)
-  {
-    return 1;
-  }
-
-  if (this <= 0x7F)
-  {
-    if ((*(MEMORY[0x1E69E9830] + 4 * this + 60) & 0x4000) != 0)
-    {
-      return 1;
-    }
-  }
-
-  else if (__maskrune(this, 0x4000uLL))
-  {
-    return 1;
-  }
-}
-
-void AudioDSPGraph::Language::V1::StringSubMacro::~StringSubMacro(void **this)
-{
-  *this = &unk_1F48D2398;
-  if (*(this + 79) < 0)
-  {
-    operator delete(this[7]);
-  }
-
-  AudioDSPGraph::Language::V1::Macro::~Macro(this);
-
-  JUMPOUT(0x1CCA84AE0);
-}
-
-{
-  *this = &unk_1F48D2398;
-  if (*(this + 79) < 0)
-  {
-    operator delete(this[7]);
-  }
-
-  AudioDSPGraph::Language::V1::Macro::~Macro(this);
-}
-
-void AudioDSPGraph::Boxes::RingBufferBox::uninitialize(AudioDSPGraph::Boxes::RingBufferBox *this)
-{
-  AudioDSPGraph::Box::uninitialize(this);
-
-  AudioDSPGraph::SimpleABL::free((this + 800));
-}
-
-void AudioDSPGraph::Boxes::RingBufferBox::initialize(AudioDSPGraph::Boxes::RingBufferBox *this)
-{
-  AudioDSPGraph::Box::initialize(this);
-  v2 = (*(*this + 664))(this);
-  v3 = (*(*this + 632))(this);
-  v4 = *(this + 191);
-  if (v2)
-  {
-    v2 = *(this + 192);
-  }
-
-  v5 = (*(*this + 640))(this);
-  v6 = (*(*this + 624))(this);
-  if (v2 > v4)
-  {
-    caulk::make_string("numZeroes is greater than buffer capacity %u > %u", v12, v2, v4);
-    AudioDSPGraph::ThrowException(1919837985, v12, off_1E8337BE0);
-  }
-
-  v7 = v6;
-  *(this + 204) = v4;
-  v8 = v4 + 1;
-  if (v4 == -1)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::overflow_error::overflow_error[abi:ne200100](exception, "arithmetic addition overflow");
-  }
-
-  *(this + 205) = v8;
-  *(this + 206) = v5;
-  *(this + 828) = 0;
-  *(this + 209) = 0;
-  v9 = caulk::numeric::exceptional_mul<unsigned int>(v8, v5);
-  if (v7)
-  {
-    v10 = 1;
-  }
-
-  else
-  {
-    v10 = v3;
-  }
-
-  AudioDSPGraph::SimpleABL::alloc((this + 800), v10, v9, 0);
-  if (v2)
-  {
-
-    AudioDSPGraph::RingBuffer::initialize((this + 800), v2);
-  }
-}
-
-uint64_t AudioDSPGraph::Boxes::RingBufferBox::configureFromDryRun(AudioDSPGraph::Boxes::RingBufferBox *this)
-{
-  v2 = *(this + 98);
-  v3 = v2 * (*(*this + 648))(this);
-  v4 = *(*(this + 2) + 848);
-  v5 = (*(*this + 656))(this);
-  v6 = (v4 * v5 + ~v3) / (v4 * v5);
-  if (v6 <= 0)
-  {
-    v7 = 0;
-  }
-
-  else
-  {
-    v7 = -1;
-  }
-
-  if (HIDWORD(v6))
-  {
-    LODWORD(v6) = v7;
-  }
-
-  *(this + 192) = v6;
-  v8 = *(this + 99) - *(this + 98);
-  v9 = (*(*this + 648))(this);
-  v10 = *(*(this + 2) + 848);
-  result = (*(*this + 656))(this);
-  v12 = (v10 * result + v8 * v9 - 1) / (v10 * result);
-  if (v12 <= 0)
-  {
-    v13 = 0;
-  }
-
-  else
-  {
-    v13 = -1;
-  }
-
-  if (HIDWORD(v12))
-  {
-    LODWORD(v12) = v13;
-  }
-
-  *(this + 191) = v12;
-  return result;
-}
-
-uint64_t AudioDSPGraph::Boxes::SingleRateLPCMConverterBox::uninitialize(AudioDSPGraph::Boxes::SingleRateLPCMConverterBox *this)
-{
-  v2 = *(this + 96);
-  if (v2)
-  {
-    AudioConverterDispose(v2);
-  }
-
-  return AudioDSPGraph::Box::uninitialize(this);
-}
-
-uint64_t AudioDSPGraph::Boxes::SingleRateLPCMConverterBox::initialize(AudioConverterRef *this)
-{
-  AudioDSPGraph::Box::initialize(this);
-  v2 = this[9];
-  v3 = this[10];
-  if (((v3 - v2) & 0x1FFFFFFFE0) != 0x20 || (v4 = this[12], v5 = this[13], ((v5 - v4) & 0x1FFFFFFFE0) != 0x20))
-  {
-    std::string::basic_string[abi:ne200100]<0>(v19, "SingleRateLPCMConverterBox only supports 1 bus in 1 bus out");
-    AudioDSPGraph::ThrowException(1718449215, v19, off_1E83376A0);
-  }
-
-  if (v3 == v2)
-  {
-    v9 = this + 5;
-    if (*(this + 63) < 0)
-    {
-      v9 = *v9;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v20, v9, (v3 - v2) >> 5, 0);
-    AudioDSPGraph::ThrowException(1919837985, v20, off_1E8337C60);
-  }
-
-  v6 = *(*(v2 + 2) + 120);
-  if (v6->mFormatID != 1819304813)
-  {
-    std::string::basic_string[abi:ne200100]<0>(v18, "SingleRateLPCMConverterBox input format must be LPCM");
-    AudioDSPGraph::ThrowException(1718449215, v18, off_1E83376B8);
-  }
-
-  if (!v6->mChannelsPerFrame)
-  {
-    std::string::basic_string[abi:ne200100]<0>(v17, "SingleRateLPCMConverterBox input must have a non-zero number of channels");
-    AudioDSPGraph::ThrowException(1718449215, v17, off_1E83376D0);
-  }
-
-  if (v5 == v4)
-  {
-    v10 = (v5 - v4) >> 5;
-    v11 = this + 5;
-    if (*(this + 63) < 0)
-    {
-      v11 = *v11;
-    }
-
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v20, v11, v10, 0);
-    AudioDSPGraph::ThrowException(1919837985, v20, off_1E8337C78);
-  }
-
-  v7 = *(*(v4 + 2) + 120);
-  if (v7->mFormatID != 1819304813)
-  {
-    std::string::basic_string[abi:ne200100]<0>(v16, "SingleRateLPCMConverterBox output format must be non-interleaved float");
-    AudioDSPGraph::ThrowException(1718449215, v16, off_1E83376E8);
-  }
-
-  if (!v7->mChannelsPerFrame)
-  {
-    std::string::basic_string[abi:ne200100]<0>(v15, "SingleRateLPCMConverterBox output must have a non-zero number of channels");
-    AudioDSPGraph::ThrowException(1718449215, v15, off_1E8337700);
-  }
-
-  if (v6->mSampleRate != v7->mSampleRate)
-  {
-    std::string::basic_string[abi:ne200100]<0>(v14, "SingleRateLPCMConverterBox input and output sample rates must match");
-    AudioDSPGraph::ThrowException(1718449215, v14, off_1E8337718);
-  }
-
-  result = AudioConverterNew(v6, v7, this + 96);
-  if (result)
-  {
-    v12 = result;
-    std::string::basic_string[abi:ne200100]<0>(v13, "Error in AudioConverterNew");
-    AudioDSPGraph::ThrowException(v12, v13, off_1E8337730);
-  }
-
-  return result;
-}
-
-void sub_1C9248990(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, char a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, char a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, char a31, uint64_t a32, int a33, __int16 a34, char a35, char a36)
-{
-  if (a18 < 0)
-  {
-    operator delete(a13);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-double AudioDSPGraph::Boxes::SingleRateLPCMConverterBox::desc@<D0>(uint64_t a1@<X8>)
-{
-  result = 1.28814877e248;
-  *a1 = xmmword_1C925F390;
-  *(a1 + 16) = 0;
-  return result;
-}
-
-void AudioDSPGraph::Boxes::SingleRateLPCMConverterBox::~SingleRateLPCMConverterBox(AudioDSPGraph::Boxes::SingleRateLPCMConverterBox *this)
-{
-  AudioDSPGraph::Box::~Box(this);
-
-  JUMPOUT(0x1CCA84AE0);
-}
-
-uint64_t AudioDSPGraph::Boxes::FCBox::isNoOp(AudioDSPGraph::Boxes::FCBox *this)
-{
-  v2 = AudioDSPGraph::Boxes::FCBox::upstreamSampleRate(this);
-  if (v2 != AudioDSPGraph::Boxes::FCBox::downstreamSampleRate(this))
-  {
-    return 0;
-  }
-
-  v3 = AudioDSPGraph::Boxes::FCBox::upstreamBlockSize(this);
-  if (v3 != AudioDSPGraph::Boxes::FCBox::downstreamBlockSize(this))
-  {
-    return 0;
-  }
-
-  v4 = *(this + 9);
-  if (*(this + 10) == v4)
-  {
-    v15 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v15 = *v15;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v17, v15, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v17, off_1E8337898);
-  }
-
-  v5 = *(*(v4 + 16) + 120);
-  v6 = *(v5 + 8);
-  v9 = v6 != 1718773105 && v6 != 1819304813 && *(v5 + 16) != 0;
-  v10 = *(this + 12);
-  if (*(this + 13) == v10)
-  {
-    v16 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v16 = *v16;
-    }
-
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v17, v16, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v17, off_1E83378B0);
-  }
-
-  v11 = *(*(v10 + 16) + 120);
-  v12 = *(v11 + 8);
-  v14 = v12 != 1718773105 && v12 != 1819304813 && *(v11 + 16) != 0;
-  return v9 ^ v14 ^ 1u;
-}
-
-void sub_1C9248C28(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t AudioDSPGraph::Boxes::FCBox::upstreamSampleRate(AudioDSPGraph::Boxes::FCBox *this)
-{
-  v1 = *(this + 9);
-  if (*(this + 10) == v1)
-  {
-    v3 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v3 = *v3;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v4, v3, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v4, off_1E8337898);
-  }
-
-  return **(*(v1 + 16) + 120);
-}
-
-void sub_1C9248CD4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t AudioDSPGraph::Boxes::FCBox::downstreamSampleRate(AudioDSPGraph::Boxes::FCBox *this)
-{
-  v1 = *(this + 12);
-  if (*(this + 13) == v1)
-  {
-    v3 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v3 = *v3;
-    }
-
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v4, v3, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v4, off_1E83378B0);
-  }
-
-  return **(*(v1 + 16) + 120);
-}
-
-void sub_1C9248D78(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t AudioDSPGraph::Boxes::FCBox::upstreamBlockSize(AudioDSPGraph::Boxes::FCBox *this)
-{
-  v1 = *(this + 9);
-  if (*(this + 10) == v1)
-  {
-    v3 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v3 = *v3;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v4, v3, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v4, off_1E8337898);
-  }
-
-  return *(*(*(v1 + 16) + 120) + 40);
-}
-
-void sub_1C9248E18(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t AudioDSPGraph::Boxes::FCBox::downstreamBlockSize(AudioDSPGraph::Boxes::FCBox *this)
-{
-  v1 = *(this + 12);
-  if (*(this + 13) == v1)
-  {
-    v3 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v3 = *v3;
-    }
-
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v4, v3, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v4, off_1E83378B0);
-  }
-
-  return *(*(*(v1 + 16) + 120) + 40);
-}
-
-void sub_1C9248EB8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t AudioDSPGraph::Boxes::FCBox::copyOutput(AudioDSPGraph::Boxes::FCBox *this, unsigned int a2)
-{
-  v3 = *(this + 12);
-  if (*(this + 13) == v3)
-  {
-    v18 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v18 = *v18;
-    }
-
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v21, v18, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v21, off_1E8337C78);
-  }
-
-  v5 = *(v3 + 16);
-  v6 = *(*(v5 + 120) + 20);
-  v7 = *(v5 + 56);
-  *(v7 + 18) = 0;
-  AudioDSPGraph::Buffer::setByteSize(v7, *(v7 + 25));
-  v8 = *(this + 12);
-  if (*(this + 13) == v8)
-  {
-    v19 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v19 = *v19;
-    }
-
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v21, v19, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v21, off_1E8337C78);
-  }
-
-  result = AudioDSPGraph::RingBuffer::read((this + 800), a2 / v6, (*(*(v8 + 16) + 56) + 80));
-  v10 = *(this + 12);
-  if (*(this + 13) == v10)
-  {
-    v20 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v20 = *v20;
-    }
-
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v21, v20, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v21, off_1E8337C78);
-  }
-
-  v11 = *(*(v10 + 16) + 56);
-  *(v11 + 64) = 1;
-  v12 = *(*(this + 106) + 256);
-  *(v11 + 8) = v12;
-  if (*(this + 856) == 1)
-  {
-    *(v11 + 64) = 3;
-    v13 = v12 / AudioDSPGraph::Boxes::FCBox::downstreamSampleRate(this);
-    v14 = *(this + 109);
-    result = AudioDSPGraph::Boxes::FCBox::upstreamSampleRate(this);
-    *(v11 + 16) = *(this + 108) + llround((v13 - v14 / result) * 24000000.0);
-  }
-
-  v16 = *(this + 26);
-  v15 = *(this + 27);
-  while (v16 != v15)
-  {
-    v17 = *v16++;
-    result = AudioDSPGraph::FileRecorder::record(v17);
-  }
-
-  return result;
-}
-
-void sub_1C92490D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t AudioDSPGraph::Boxes::FCBox::ringBufferFramesPerPacket(AudioDSPGraph::Boxes::FCBox *this)
-{
-  v1 = *(this + 12);
-  if (*(this + 13) == v1)
-  {
-    v3 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v3 = *v3;
-    }
-
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v4, v3, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v4, off_1E83378B0);
-  }
-
-  return *(*(*(v1 + 16) + 120) + 20);
-}
-
-void sub_1C924917C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t AudioDSPGraph::Boxes::FCBox::bytesPerPacket(AudioDSPGraph::Boxes::FCBox *this)
-{
-  v1 = *(this + 12);
-  if (*(this + 13) == v1)
-  {
-    v3 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v3 = *v3;
-    }
-
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v4, v3, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v4, off_1E83378B0);
-  }
-
-  return *(*(*(v1 + 16) + 120) + 16);
-}
-
-void sub_1C9249220(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t AudioDSPGraph::Boxes::FCBox::numChannels(AudioDSPGraph::Boxes::FCBox *this)
-{
-  v1 = *(this + 12);
-  if (*(this + 13) == v1)
-  {
-    v3 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v3 = *v3;
-    }
-
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v4, v3, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v4, off_1E83378B0);
-  }
-
-  return *(*(*(v1 + 16) + 120) + 28);
-}
-
-void sub_1C92492C0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AudioDSPGraph::Boxes::FCBox::doProcess(AudioDSPGraph::Boxes::FCBox *this, uint64_t a2)
-{
-  if (atomic_fetch_or(this + 190, 0x80000000))
-  {
-    v4 = AudioDSPGraph::EventHandlerTree<AudioDSPGraph::BoxEventHandler,AudioDSPGraph::BoxEventDispatcher>::ConcurrentExchangedPointer<AudioDSPGraph::EventHandlerTree<AudioDSPGraph::BoxEventHandler,AudioDSPGraph::BoxEventDispatcher>::Root>::read(this + 672);
-    (*(*this + 464))(this);
-    (*(*this + 472))(this);
-    if (v4)
-    {
-      v5 = *(v4 + 8);
-      v6 = *(v4 + 16);
-      while (v5 != v6)
-      {
-        if (*v5)
-        {
-          (*(**v5 + 16))(*v5, this, a2);
-        }
-
-        v5 += 2;
-      }
-    }
-
-    (*(*this + 456))(this, a2);
-    if ((*(*this + 680))(this))
-    {
-      v7 = *(this + 26);
-      v8 = *(this + 27);
-      while (v7 != v8)
-      {
-        AudioDSPGraph::FileRecorder::record(*v7++);
-      }
-    }
-
-    v9 = *(this + 29);
-    v10 = *(this + 30);
-    while (v9 != v10)
-    {
-      AudioDSPGraph::FileInjector::inject(*v9++, a2);
-    }
-
-    if (v4)
-    {
-      v12 = *(v4 + 8);
-      v11 = *(v4 + 16);
-      while (v12 != v11)
-      {
-        if (*v12)
-        {
-          (*(**v12 + 24))(*v12, this, a2);
-        }
-
-        v12 += 2;
-      }
-    }
-  }
-
-  else
-  {
-    (*(*this + 456))(this, a2);
-  }
-
-  atomic_fetch_and(this + 190, 0x7FFFFFFFu);
-}
-
-void *AudioDSPGraph::Boxes::FCBox::isogroup(AudioDSPGraph::Box *a1, uint64_t a2, AudioDSPGraph::IsoGroup *a3)
-{
-  if ((*(*a1 + 680))(a1))
-  {
-
-    return AudioDSPGraph::Box::isogroup(a1, a2, a3);
-  }
-
-  else
-  {
-    result = std::__hash_table<AudioDSPGraph::Box *,std::hash<AudioDSPGraph::Box *>,std::equal_to<AudioDSPGraph::Box *>,std::allocator<AudioDSPGraph::Box *>>::find<AudioDSPGraph::Box *>(*a2, *(a2 + 8), a1);
-    if (!result)
-    {
-      std::__hash_table<AudioDSPGraph::Box *,std::hash<AudioDSPGraph::Box *>,std::equal_to<AudioDSPGraph::Box *>,std::allocator<AudioDSPGraph::Box *>>::__emplace_unique_key_args<AudioDSPGraph::Box *,AudioDSPGraph::Box *>(a2, a1);
-      AudioDSPGraph::IsoGroup::add(a3, a1);
-      std::__hash_table<AudioDSPGraph::Boxes::FCBox *,std::hash<AudioDSPGraph::Boxes::FCBox *>,std::equal_to<AudioDSPGraph::Boxes::FCBox *>,std::allocator<AudioDSPGraph::Boxes::FCBox *>>::__emplace_unique_key_args<AudioDSPGraph::Boxes::FCBox *,AudioDSPGraph::Boxes::FCBox * const&>(a3 + 17, a1);
-      *(a1 + 105) = a3;
-      v7 = *(*a1 + 408);
-
-      return v7(a1, a2, a3);
-    }
-  }
-
-  return result;
-}
-
-AudioDSPGraph::Boxes::FCBox *AudioDSPGraph::Boxes::FCBox::asOperativeFCBox(AudioDSPGraph::Boxes::FCBox *this)
-{
-  if ((*(*this + 680))(this))
-  {
-    return 0;
-  }
-
-  else
-  {
-    return this;
-  }
-}
-
-void AudioDSPGraph::Boxes::SRCBox::reset(AudioDSPGraph::Boxes::SRCBox *this)
-{
-  AudioDSPGraph::Boxes::RingBufferBox::reset(this);
-  if (*(this + 888) == 1)
-  {
-    v2 = *(this + 110);
-    AudioSampleRateConverterReset();
-  }
-}
-
-void AudioDSPGraph::Boxes::SRCBox::uninitialize(AudioDSPGraph::Boxes::SRCBox *this)
-{
-  AudioDSPGraph::Box::uninitialize(this);
-  AudioDSPGraph::SimpleABL::free((this + 904));
-  if (*(this + 888) == 1)
-  {
-    v2 = *(this + 110);
-    AudioSampleRateConverterDispose();
-    *(this + 888) = 0;
-  }
-}
-
-void AudioDSPGraph::Boxes::SRCBox::initialize(AudioDSPGraph::Boxes::SRCBox *this)
-{
-  v47 = *MEMORY[0x1E69E9840];
-  AudioDSPGraph::Boxes::RingBufferBox::initialize(this);
-  v2 = *(this + 12);
-  if (*(this + 13) == v2)
-  {
-    v20 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v20 = *v20;
-    }
-
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", &v41, v20, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, &v41, off_1E8337C78);
-  }
-
-  v3 = *(*(*(v2 + 16) + 120) + 28);
-  v4 = AudioDSPGraph::Boxes::FCBox::upstreamSampleRate(this);
-  v5 = AudioDSPGraph::Boxes::FCBox::downstreamSampleRate(this);
-  v6 = *(this + 9);
-  if (*(this + 10) == v6)
-  {
-    v21 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v21 = *v21;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", &v41, v21, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, &v41, off_1E8337C60);
-  }
-
-  if (*(*(*(v6 + 16) + 120) + 28) != v3)
-  {
-    std::string::basic_string[abi:ne200100]<0>(v34, "input and output channel counts don't match");
-    AudioDSPGraph::ThrowException(1667788321, v34, off_1E8337748);
-  }
-
-  v7 = v4;
-  v8 = v5;
-  v9 = *(this + 224);
-  if (v9 == 1852797549)
-  {
-    CA::AudioSampleRateConverterBuilder::AudioSampleRateConverterBuilder(&v41, 0);
-    CA::AudioSampleRateConverterBuilder::SetAttribute<unsigned int>(__len[0], *MEMORY[0x1E698D980], v3);
-    CA::AudioSampleRateConverterBuilder::SetAttribute<double>(__len[0], *MEMORY[0x1E698D978], v4);
-    CA::AudioSampleRateConverterBuilder::SetAttribute<double>(__len[0], *MEMORY[0x1E698D988], v8);
-    CA::AudioSampleRateConverterBuilder::SetAttribute<unsigned int>(__len[0], *MEMORY[0x1E698D960], *(this + 224));
-    CA::AudioSampleRateConverterBuilder::SetAttribute<unsigned int>(__len[0], *MEMORY[0x1E698D998], *(this + 225));
-    CA::AudioSampleRateConverterBuilder::SetAttribute<double>(__len[0], *MEMORY[0x1E698D970], 0.0);
-    CA::AudioSampleRateConverterBuilder::SetAttribute<unsigned int>(__len[0], *MEMORY[0x1E698D990], 2);
-    v12 = __len[0];
-    LOBYTE(valuePtr[0]) = 0;
-    v13 = CFNumberCreate(0, kCFNumberCharType, valuePtr);
-    v36 = v13;
-    if (!v13)
-    {
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Could not construct");
-    }
-
-    CFDictionarySetValue(v12, *MEMORY[0x1E698D968], v13);
-    CFRelease(v13);
-    CA::AudioSampleRateConverterBuilder::Build(&v36);
-    if ((v37 & 1) == 0)
-    {
-      v28 = v36;
-      v29 = (this + 40);
-      if (*(this + 63) < 0)
-      {
-        v29 = *v29;
-      }
-
-      caulk::make_string("failed to build %s sample rate converter", v32, v29);
-      AudioDSPGraph::ThrowException(v28, v32, off_1E8337778);
-    }
-
-    if (*(this + 888) == 1)
-    {
-      v14 = *(this + 110);
-      v15 = v36;
-    }
-
-    else
-    {
-      v14 = 0;
-      v15 = v36;
-      *(this + 888) = 1;
-    }
-
-    *(this + 110) = v15;
-    v36 = v14;
-    AudioSampleRateConverterDispose();
-  }
-
-  else
-  {
-    if (v9 != 1835626096)
-    {
-      v22 = (this + 40);
-      if (*(this + 63) < 0)
-      {
-        v22 = *v22;
-      }
-
-      caulk::string_from_4cc(&v30, v9);
-      size = HIBYTE(v30.__r_.__value_.__r.__words[2]);
-      v24 = v30.__r_.__value_.__r.__words[0];
-      if ((v30.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v24 = &v30;
-      }
-
-      else
-      {
-        size = v30.__r_.__value_.__l.__size_;
-      }
-
-      v39 = size;
-      v40 = 428;
-      valuePtr[2] = 428;
-      v36 = v22;
-      v38 = v24;
-      v41 = v45;
-      *__len = xmmword_1C925F110;
-      v43 = std::__format::__allocating_buffer<char>::__prepare_write[abi:ne200100];
-      v44 = 0;
-      __p = v45;
-      valuePtr[0] = 2;
-      valuePtr[1] = &v36;
-      std::__vformat_to[abi:ne200100]<std::back_insert_iterator<std::__format::__output_buffer<char>>,char,std::back_insert_iterator<std::__format::__output_buffer<char>>>(&v41, "failed to build {} sample rate converter with unsupported algorithm {}", 72, valuePtr);
-      std::string::basic_string<std::string_view,0>(__dst, __p, __len[1]);
-      if (__p != v45)
-      {
-        operator delete(__p);
-      }
-
-      AudioDSPGraph::ThrowException(1869640255, __dst, off_1E8337790);
-    }
-
-    CA::AudioSampleRateConverterBuilder::AudioSampleRateConverterBuilder(&v41, 1);
-    CA::AudioSampleRateConverterBuilder::SetAttribute<unsigned int>(__len[0], *MEMORY[0x1E698D948], v3);
-    CA::AudioSampleRateConverterBuilder::SetAttribute<double>(__len[0], *MEMORY[0x1E698D938], v4);
-    CA::AudioSampleRateConverterBuilder::SetAttribute<double>(__len[0], *MEMORY[0x1E698D950], v8);
-    CA::AudioSampleRateConverterBuilder::SetAttribute<unsigned int>(__len[0], *MEMORY[0x1E698D958], *(this + 225));
-    CA::AudioSampleRateConverterBuilder::SetAttribute<double>(__len[0], *MEMORY[0x1E698D940], 0.0);
-    CA::AudioSampleRateConverterBuilder::Build(&v36);
-    if ((v37 & 1) == 0)
-    {
-      v25 = v36;
-      v26 = (this + 40);
-      if (*(this + 63) < 0)
-      {
-        v26 = *v26;
-      }
-
-      caulk::make_string("failed to build %s sample rate converter", v33, v26);
-      AudioDSPGraph::ThrowException(v25, v33, off_1E8337760);
-    }
-
-    if (*(this + 888) == 1)
-    {
-      v10 = *(this + 110);
-      v11 = v36;
-    }
-
-    else
-    {
-      v10 = 0;
-      v11 = v36;
-      *(this + 888) = 1;
-    }
-
-    *(this + 110) = v11;
-    v36 = v10;
-    AudioSampleRateConverterDispose();
-  }
-
-  CA::AudioSampleRateConverterBuilder::~AudioSampleRateConverterBuilder(&v41);
-  v16 = *(this + 3);
-  v17 = *(v16 + 268);
-  if (v17 == 1)
-  {
-    v17 = *(v16 + 272);
-  }
-
-  v18 = vcvtpd_u64_f64(v8 * v17 / v7);
-  *(this + 230) = v18;
-  AudioDSPGraph::SimpleABL::alloc((this + 904), v3, 4 * v18, 0);
-  v19 = *MEMORY[0x1E69E9840];
-}
-
-void sub_1C9249D3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
-{
-  if (a24 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a18 < 0)
-  {
-    operator delete(a13);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t CA::AudioSampleRateConverterBuilder::AudioSampleRateConverterBuilder(uint64_t a1, int a2)
-{
-  v6 = *MEMORY[0x1E69E9840];
-  *a1 = a2;
-  Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  if (!Mutable)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  *(a1 + 8) = Mutable;
-  v4 = *MEMORY[0x1E69E9840];
-  return a1;
-}
-
-void sub_1C9249F48(_Unwind_Exception *a1, int a2)
-{
-  if (!a2)
-  {
-    _Unwind_Resume(a1);
-  }
-
-  __clang_call_terminate(a1);
-}
-
-void CA::AudioSampleRateConverterBuilder::SetAttribute<unsigned int>(__CFDictionary *a1, const void *a2, int a3)
-{
-  valuePtr = a3;
-  v5 = CFNumberCreate(0, kCFNumberIntType, &valuePtr);
-  if (!v5)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Could not construct");
-  }
-
-  CFDictionarySetValue(a1, a2, v5);
-  CFRelease(v5);
-}
-
-void CA::AudioSampleRateConverterBuilder::SetAttribute<double>(__CFDictionary *a1, const void *a2, double a3)
-{
-  valuePtr = a3;
-  v5 = CFNumberCreate(0, kCFNumberDoubleType, &valuePtr);
-  if (!v5)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    std::runtime_error::runtime_error(exception, "Could not construct");
-  }
-
-  CFDictionarySetValue(a1, a2, v5);
-  CFRelease(v5);
-}
-
-uint64_t CA::AudioSampleRateConverterBuilder::Build(CA::AudioSampleRateConverterBuilder *this)
-{
-  v4 = *MEMORY[0x1E69E9840];
-  result = AudioSampleRateConverterCreate();
-  if (!result)
-  {
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    _os_log_send_and_compose_impl();
-    _os_crash_msg();
-    __break(1u);
-  }
-
-  *this = result;
-  *(this + 8) = 0;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void sub_1C924A21C(_Unwind_Exception *a1, int a2)
-{
-  if (a2)
-  {
-    __clang_call_terminate(a1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void CA::AudioSampleRateConverterBuilder::~AudioSampleRateConverterBuilder(CA::AudioSampleRateConverterBuilder *this)
-{
-  v1 = *(this + 1);
-  if (v1)
-  {
-    CFRelease(v1);
-  }
-}
-
-uint64_t *caulk::__expected_detail::base<CA::AudioSampleRateConverter,int>::~base(uint64_t *a1)
-{
-  if (*(a1 + 8) == 1)
-  {
-    v2 = *a1;
-    AudioSampleRateConverterDispose();
-  }
-
-  return a1;
-}
-
-double AudioDSPGraph::Boxes::SRCBox::open(AudioDSPGraph::Boxes::SRCBox *this)
-{
-  result = *(*(this + 2) + 1040);
-  *(this + 112) = result;
-  return result;
-}
-
-__n128 AudioDSPGraph::Boxes::SRCBox::process(AudioDSPGraph::Boxes::SRCBox *this, int a2)
-{
-  if ((*(*this + 680))(this))
-  {
-    v4 = *(this + 12);
-    if (*(this + 13) == v4)
-    {
-      v26 = (this + 40);
-      if (*(this + 63) < 0)
-      {
-        v26 = *v26;
-      }
-
-      caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", &v37, v26, 0, 0);
-      AudioDSPGraph::ThrowException(1919837985, &v37, off_1E8337C78);
-    }
-
-    v5 = *(this + 9);
-    if (*(this + 10) == v5)
-    {
-      v28 = (this + 40);
-      if (*(this + 63) < 0)
-      {
-        v28 = *v28;
-      }
-
-      caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", &v37, v28, 0, 0);
-      AudioDSPGraph::ThrowException(1919837985, &v37, off_1E8337C60);
-    }
-
-    AudioDSPGraph::Buffer::copyFrom(*(*(v4 + 16) + 56), *(*(v5 + 16) + 56));
-  }
-
-  else
-  {
-    v7 = *(this + 9);
-    if (*(this + 10) == v7)
-    {
-      v27 = (this + 40);
-      if (*(this + 63) < 0)
-      {
-        v27 = *v27;
-      }
-
-      caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", &v37, v27, 0, 0);
-      AudioDSPGraph::ThrowException(1919837985, &v37, off_1E8337C60);
-    }
-
-    v8 = *(*(v7 + 16) + 56);
-    v9 = *(v8 + 64);
-    *(this + 856) = (v9 & 2) != 0;
-    if ((v9 & 2) != 0)
-    {
-      *(this + 108) = *(v8 + 16);
-      *(this + 109) = *(v8 + 8);
-    }
-
-    v35 = a2;
-    v36 = a2;
-    v10 = *(v8 + 80);
-    v11 = *(this + 110);
-    ExpectedNumberOfOutputFrames = AudioSampleRateConverterGetExpectedNumberOfOutputFrames();
-    v34 = ExpectedNumberOfOutputFrames;
-    v13 = *(this + 230);
-    if (ExpectedNumberOfOutputFrames > v13)
-    {
-      v29 = (this + 40);
-      if (*(this + 63) < 0)
-      {
-        v29 = *v29;
-      }
-
-      caulk::make_string("%s SRC output frame count %u is greater than output buffer frame capacity %u", v33, v29, ExpectedNumberOfOutputFrames, v13);
-      AudioDSPGraph::ThrowException(1718775073, v33, off_1E83377A8);
-    }
-
-    v14 = *(this + 113);
-    v15 = *(this + 110);
-    v16 = AudioSampleRateConverterProcessAudioBufferLists();
-    if (v16)
-    {
-      v30 = (this + 40);
-      if (*(this + 63) < 0)
-      {
-        v30 = *v30;
-      }
-
-      caulk::string_from_4cc(&v37, v16);
-      if ((v37.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v31 = &v37;
-      }
-
-      else
-      {
-        v31 = v37.__r_.__value_.__r.__words[0];
-      }
-
-      caulk::make_string("%s SRC failed to process with status %s", v32, v30, v31);
-      AudioDSPGraph::ThrowException(v16, v32, off_1E83377C0);
-    }
-
-    AudioDSPGraph::RingBuffer::write((this + 800), v34, (this + 904));
-  }
-
-  v17 = *(this + 9);
-  if (*(this + 10) == v17)
-  {
-    v25 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v25 = *v25;
-    }
-
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", &v37, v25, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, &v37, off_1E8337C60);
-  }
-
-  v18 = *(this + 12);
-  v19 = *(this + 13);
-  if (v18 != v19)
-  {
-    v20 = *(*(v17 + 16) + 56);
-    v21 = *(v20 + 72);
-    do
-    {
-      v22 = *(*(v18 + 16) + 56);
-      result = *(v20 + 8);
-      v23 = *(v20 + 24);
-      v24 = *(v20 + 40);
-      *(v22 + 56) = *(v20 + 56);
-      *(v22 + 40) = v24;
-      *(v22 + 24) = v23;
-      *(v22 + 8) = result;
-      *(v22 + 72) = v21;
-      v18 += 32;
-    }
-
-    while (v18 != v19);
-  }
-
-  return result;
-}
-
-void sub_1C924A624(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, int a20, __int16 a21, char a22, char a23)
-{
-  if (a17 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (*(v23 - 33) < 0)
-  {
-    operator delete(*(v23 - 56));
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t AudioDSPGraph::Boxes::SRCBox::setProperty(AudioDSPGraph::Boxes::SRCBox *this, int a2, int a3, unsigned int a4, int a5, _DWORD *a6)
-{
-  if (a2 > 1936876384)
-  {
-    if (a2 != 1936876401)
-    {
-      if (a2 != 1936876385)
-      {
-        return AudioDSPGraph::Box::setProperty(this, a2, a3, a4, a5, a6);
-      }
-
-      goto LABEL_7;
-    }
-
-LABEL_9:
-    if (a5 == 4)
-    {
-      v7 = 0;
-      *(this + 225) = *a6;
-      return v7;
-    }
-
-    return 561211770;
-  }
-
-  if (a2 == 26)
-  {
-    goto LABEL_9;
-  }
-
-  if (a2 != 3014)
-  {
-    return AudioDSPGraph::Box::setProperty(this, a2, a3, a4, a5, a6);
-  }
-
-LABEL_7:
-  if (a5 != 4)
-  {
-    return 561211770;
-  }
-
-  v7 = 0;
-  *(this + 224) = *a6;
-  return v7;
-}
-
-uint64_t AudioDSPGraph::Boxes::SRCBox::getProperty(AudioDSPGraph::Boxes::SRCBox *this, int a2, uint64_t a3, uint64_t a4, unsigned int *a5, CFStringRef *a6)
-{
-  if (a2 > 1936876384)
-  {
-    if (a2 != 1936876401)
-    {
-      if (a2 != 1936876385)
-      {
-        return AudioDSPGraph::Box::getProperty(this, a2, a3, a4, a5, a6);
-      }
-
-      goto LABEL_7;
-    }
-
-LABEL_9:
-    if (*a5 == 4)
-    {
-      v7 = 0;
-      v8 = *(this + 225);
-      goto LABEL_11;
-    }
-
-    return 561211770;
-  }
-
-  if (a2 == 26)
-  {
-    goto LABEL_9;
-  }
-
-  if (a2 != 3014)
-  {
-    return AudioDSPGraph::Box::getProperty(this, a2, a3, a4, a5, a6);
-  }
-
-LABEL_7:
-  if (*a5 != 4)
-  {
-    return 561211770;
-  }
-
-  v7 = 0;
-  v8 = *(this + 224);
-LABEL_11:
-  *a6 = v8;
-  return v7;
-}
-
-uint64_t AudioDSPGraph::Boxes::SRCBox::getPropertyInfo(AudioDSPGraph::Boxes::SRCBox *this, int a2, int a3)
-{
-  result = 0x100000004;
-  if (a2 > 1835626095)
-  {
-    if (a2 == 1835626096 || a2 == 1936876385 || a2 == 1936876401)
-    {
-      return result;
-    }
-
-    return AudioDSPGraph::Box::getPropertyInfo(this, a2, a3);
-  }
-
-  if (a2 != 26 && a2 != 3014)
-  {
-    return AudioDSPGraph::Box::getPropertyInfo(this, a2, a3);
-  }
-
-  return result;
-}
-
 AudioDSPGraph::Boxes::SRCBox *AudioDSPGraph::Boxes::SRCBox::asOperativeSRCBox(AudioDSPGraph::Boxes::SRCBox *this)
 {
   if ((*(*this + 680))(this))
@@ -2978,34 +29,33 @@ unint64_t AudioDSPGraph::Boxes::SRCBox::selfLatencyInTicks(AudioDSPGraph::Boxes:
   v3 = 0.0;
   if (*(this + 888) == 1)
   {
-    v4 = *(this + 110);
     AudioSampleRateConverterGetLatency();
   }
 
-  v5 = *(*(this + 2) + 848);
-  v6 = llround(ceil(v3 * v5));
-  if (v6)
+  v4 = *(*(this + 2) + 848);
+  v5 = llround(ceil(v3 * v4));
+  if (v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   else
   {
-    v7 = -1;
+    v6 = -1;
   }
 
-  if (v6 >= 0)
+  if (v5 >= 0)
   {
-    v8 = v6;
+    v7 = v5;
   }
 
   else
   {
-    v8 = v7;
+    v7 = v6;
   }
 
-  v9 = *(this + 192);
-  return v8 + v5 / (*(*this + 648))(this) * v9;
+  v8 = *(this + 192);
+  return v7 + v4 / (*(*this + 648))(this) * v8;
 }
 
 void AudioDSPGraph::Boxes::SRCBox::~SRCBox(AudioDSPGraph::Boxes::SRCBox *this)
@@ -3014,7 +64,6 @@ void AudioDSPGraph::Boxes::SRCBox::~SRCBox(AudioDSPGraph::Boxes::SRCBox *this)
   AudioDSPGraph::SimpleABL::free((this + 904));
   if (*(this + 888) == 1)
   {
-    v2 = *(this + 110);
     AudioSampleRateConverterDispose();
   }
 
@@ -3031,7 +80,6 @@ void AudioDSPGraph::Boxes::SRCBox::~SRCBox(AudioDSPGraph::Boxes::SRCBox *this)
   AudioDSPGraph::SimpleABL::free((this + 904));
   if (*(this + 888) == 1)
   {
-    v2 = *(this + 110);
     AudioSampleRateConverterDispose();
   }
 
@@ -3046,26 +94,13 @@ void AudioDSPGraph::Boxes::ReblockerBox::initialize(AudioDSPGraph::Boxes::Rebloc
 {
   if (((*(this + 10) - *(this + 9)) & 0x1FFFFFFFE0) == 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v7, "ReblockerBox has no inputs");
-    AudioDSPGraph::ThrowException(1970168609, v7, off_1E83377D8);
+    std::string::basic_string[abi:ne200100]<0>(v8, "ReblockerBox has no inputs");
+    AudioDSPGraph::ThrowException(1970168609, v8, off_1E83377D8);
   }
 
   AudioDSPGraph::Boxes::RingBufferBox::initialize(this);
-  v2 = *(this + 12);
-  if (*(this + 13) == v2)
-  {
-    v4 = (this + 40);
-    if (*(this + 63) < 0)
-    {
-      v4 = *v4;
-    }
-
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v8, v4, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v8, off_1E8337C78);
-  }
-
-  v3 = *(this + 9);
-  if (*(this + 10) == v3)
+  v3 = *(this + 12);
+  if (*(this + 13) == v3)
   {
     v5 = (this + 40);
     if (*(this + 63) < 0)
@@ -3073,14 +108,27 @@ void AudioDSPGraph::Boxes::ReblockerBox::initialize(AudioDSPGraph::Boxes::Rebloc
       v5 = *v5;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v8, v5, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v8, off_1E8337C60);
+    caulk::make_string(&v9, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v2, v5, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v9, off_1E8337C78);
   }
 
-  if (*(*(*(v3 + 16) + 120) + 28) != *(*(*(v2 + 16) + 120) + 28))
+  v4 = *(this + 9);
+  if (*(this + 10) == v4)
   {
-    std::string::basic_string[abi:ne200100]<0>(v6, "input and output channel counts don't match");
-    AudioDSPGraph::ThrowException(1667788321, v6, off_1E83377F0);
+    v6 = (this + 40);
+    if (*(this + 63) < 0)
+    {
+      v6 = *v6;
+    }
+
+    caulk::make_string(&v9, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v2, v6, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v9, off_1E8337C60);
+  }
+
+  if (*(*(*(v4 + 16) + 120) + 28) != *(*(*(v3 + 16) + 120) + 28))
+  {
+    std::string::basic_string[abi:ne200100]<0>(v7, "input and output channel counts don't match");
+    AudioDSPGraph::ThrowException(1667788321, v7, off_1E83377F0);
   }
 }
 
@@ -3098,21 +146,8 @@ __n128 AudioDSPGraph::Boxes::ReblockerBox::process(AudioDSPGraph::Boxes::Reblock
 {
   if ((*(*this + 680))(this))
   {
-    v4 = *(this + 12);
-    if (*(this + 13) == v4)
-    {
-      v17 = (this + 40);
-      if (*(this + 63) < 0)
-      {
-        v17 = *v17;
-      }
-
-      caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v20, v17, 0, 0);
-      AudioDSPGraph::ThrowException(1919837985, v20, off_1E8337C78);
-    }
-
-    v5 = *(this + 9);
-    if (*(this + 10) == v5)
+    v5 = *(this + 12);
+    if (*(this + 13) == v5)
     {
       v19 = (this + 40);
       if (*(this + 63) < 0)
@@ -3120,65 +155,78 @@ __n128 AudioDSPGraph::Boxes::ReblockerBox::process(AudioDSPGraph::Boxes::Reblock
         v19 = *v19;
       }
 
-      caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v20, v19, 0, 0);
-      AudioDSPGraph::ThrowException(1919837985, v20, off_1E8337C60);
+      caulk::make_string(&v22, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v4, v19, 0, 0);
+      AudioDSPGraph::ThrowException(1919837985, &v22, off_1E8337C78);
     }
 
-    AudioDSPGraph::Buffer::copyFrom(*(*(v4 + 16) + 56), *(*(v5 + 16) + 56));
+    v6 = *(this + 9);
+    if (*(this + 10) == v6)
+    {
+      v21 = (this + 40);
+      if (*(this + 63) < 0)
+      {
+        v21 = *v21;
+      }
+
+      caulk::make_string(&v22, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v4, v21, 0, 0);
+      AudioDSPGraph::ThrowException(1919837985, &v22, off_1E8337C60);
+    }
+
+    AudioDSPGraph::Buffer::copyFrom(*(*(v5 + 16) + 56), *(*(v6 + 16) + 56));
   }
 
   else
   {
-    v7 = *(this + 9);
-    if (*(this + 10) == v7)
+    v9 = *(this + 9);
+    if (*(this + 10) == v9)
     {
-      v18 = (this + 40);
+      v20 = (this + 40);
       if (*(this + 63) < 0)
       {
-        v18 = *v18;
+        v20 = *v20;
       }
 
-      caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v20, v18, 0, 0);
-      AudioDSPGraph::ThrowException(1919837985, v20, off_1E8337C60);
+      caulk::make_string(&v22, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v4, v20, 0, 0);
+      AudioDSPGraph::ThrowException(1919837985, &v22, off_1E8337C60);
     }
 
-    AudioDSPGraph::RingBuffer::write((this + 800), a2, (*(*(v7 + 16) + 56) + 80));
+    AudioDSPGraph::RingBuffer::write((this + 800), a2, (*(*(v9 + 16) + 56) + 80));
   }
 
-  v8 = *(this + 9);
-  if (*(this + 10) == v8)
+  v10 = *(this + 9);
+  if (*(this + 10) == v10)
   {
-    v16 = (this + 40);
+    v18 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v16 = *v16;
+      v18 = *v18;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v20, v16, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v20, off_1E8337C60);
+    caulk::make_string(&v22, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v7, v18, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v22, off_1E8337C60);
   }
 
-  v9 = *(this + 12);
-  v10 = *(this + 13);
-  if (v9 != v10)
+  v11 = *(this + 12);
+  v12 = *(this + 13);
+  if (v11 != v12)
   {
-    v11 = *(*(v8 + 16) + 56);
-    v12 = *(v11 + 72);
+    v13 = *(*(v10 + 16) + 56);
+    v14 = *(v13 + 72);
     do
     {
-      v13 = *(*(v9 + 16) + 56);
-      result = *(v11 + 8);
-      v14 = *(v11 + 24);
-      v15 = *(v11 + 40);
-      *(v13 + 56) = *(v11 + 56);
-      *(v13 + 40) = v15;
-      *(v13 + 24) = v14;
-      *(v13 + 8) = result;
-      *(v13 + 72) = v12;
-      v9 += 32;
+      v15 = *(*(v11 + 16) + 56);
+      result = *(v13 + 8);
+      v16 = *(v13 + 24);
+      v17 = *(v13 + 40);
+      *(v15 + 56) = *(v13 + 56);
+      *(v15 + 40) = v17;
+      *(v15 + 24) = v16;
+      *(v15 + 8) = result;
+      *(v15 + 72) = v14;
+      v11 += 32;
     }
 
-    while (v9 != v10);
+    while (v11 != v12);
   }
 
   return result;
@@ -3228,109 +276,109 @@ void AudioDSPGraph::Boxes::FreqSRCBox::uninitialize(AudioDSPGraph::Boxes::FreqSR
   AudioDSPGraph::SimpleABL::free((this + 880));
 }
 
-void AudioDSPGraph::Boxes::FreqSRCBox::initialize(AudioDSPGraph::Boxes::FreqSRCBox *this)
+void AudioDSPGraph::Boxes::FreqSRCBox::initialize(AudioDSPGraph::Boxes::FreqSRCBox *this, const char *a2)
 {
-  v2 = *(this + 12);
-  if (*(this + 13) == v2)
+  v3 = *(this + 12);
+  if (*(this + 13) == v3)
   {
-    v11 = (this + 40);
+    v15 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v11 = *v11;
+      v15 = *v15;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v26, v11, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v26, off_1E8337C78);
+    caulk::make_string(&v34, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v15, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v34, off_1E8337C78);
   }
 
-  v3 = *(this + 9);
-  v4 = *(this + 10);
-  if (((v4 - v3) & 0x1FFFFFFFE0) == 0)
+  v4 = *(this + 9);
+  v5 = *(this + 10);
+  if (((v5 - v4) & 0x1FFFFFFFE0) == 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v25, "FreqSRCBox has no inputs");
-    AudioDSPGraph::ThrowException(1970168609, v25, off_1E8337808);
+    std::string::basic_string[abi:ne200100]<0>(v33, "FreqSRCBox has no inputs");
+    AudioDSPGraph::ThrowException(1970168609, v33, off_1E8337808);
   }
 
-  if (v4 == v3)
+  if (v5 == v4)
   {
-    v12 = (v4 - v3) >> 5;
-    v13 = (this + 40);
+    v16 = (v5 - v4) >> 5;
+    v17 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v13 = *v13;
+      v17 = *v17;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v26, v13, v12, 0);
-    AudioDSPGraph::ThrowException(1919837985, v26, off_1E8337C60);
+    caulk::make_string(&v34, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v17, v16, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v34, off_1E8337C60);
   }
 
-  v5 = *(*(*(v2 + 16) + 120) + 28);
-  if (*(*(*(v3 + 16) + 120) + 28) != v5)
+  v6 = *(*(*(v3 + 16) + 120) + 28);
+  if (*(*(*(v4 + 16) + 120) + 28) != v6)
   {
-    std::string::basic_string[abi:ne200100]<0>(v24, "FreqSRCBox input and output channel counts don't match");
-    AudioDSPGraph::ThrowException(1667788321, v24, off_1E8337820);
+    std::string::basic_string[abi:ne200100]<0>(v32, "FreqSRCBox input and output channel counts don't match");
+    AudioDSPGraph::ThrowException(1667788321, v32, off_1E8337820);
   }
 
-  if (!AudioDSPGraph::Boxes::FreqSRCBox::isValidFreqSRCBoxConnection(this))
+  if (!AudioDSPGraph::Boxes::FreqSRCBox::isValidFreqSRCBoxConnection(this, a2))
   {
-    v14 = AudioDSPGraph::Boxes::FCBox::upstreamBlockSize(this);
-    v15 = AudioDSPGraph::Boxes::FCBox::upstreamSampleRate(this);
-    v16 = AudioDSPGraph::Boxes::FCBox::downstreamBlockSize(this);
-    v17 = AudioDSPGraph::Boxes::FCBox::downstreamSampleRate(this);
-    caulk::make_string("FreqSRCBox I/O sample rates and block sizes invalid  %u / %u <> %u / %u", v23, v14, v15, v16, v17);
-    AudioDSPGraph::ThrowException(1718444833, v23, off_1E8337838);
+    v18 = AudioDSPGraph::Boxes::FCBox::upstreamBlockSize(this, v7);
+    v20 = AudioDSPGraph::Boxes::FCBox::upstreamSampleRate(this, v19);
+    v22 = AudioDSPGraph::Boxes::FCBox::downstreamBlockSize(this, v21);
+    v24 = AudioDSPGraph::Boxes::FCBox::downstreamSampleRate(this, v23);
+    caulk::make_string(&v31, "FreqSRCBox I/O sample rates and block sizes invalid  %u / %u <> %u / %u", v25, v18, v20, v22, v24);
+    AudioDSPGraph::ThrowException(1718444833, &v31, off_1E8337838);
   }
 
   if (((*(*this + 424))(this) & 1) == 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v22, "FreqSRCBox box can not have ring buffer padding zeros");
-    AudioDSPGraph::ThrowException(1634628385, v22, off_1E8337850);
+    std::string::basic_string[abi:ne200100]<0>(v30, "FreqSRCBox box can not have ring buffer padding zeros");
+    AudioDSPGraph::ThrowException(1634628385, v30, off_1E8337850);
   }
 
-  v6 = *(this + 9);
-  if (*(this + 10) == v6)
+  v9 = *(this + 9);
+  if (*(this + 10) == v9)
   {
-    v18 = (this + 40);
+    v26 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v18 = *v18;
+      v26 = *v26;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v26, v18, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v26, off_1E8337898);
+    caulk::make_string(&v34, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v8, v26, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v34, off_1E8337898);
   }
 
-  v7 = *(*(v6 + 16) + 120);
-  if (*(v7 + 16) != 8 || *(v7 + 8) != 1718773105)
+  v10 = *(*(v9 + 16) + 120);
+  if (*(v10 + 16) != 8 || *(v10 + 8) != 1718773105)
   {
-    std::string::basic_string[abi:ne200100]<0>(v21, "FreqSRCBox box needs 8 byte packets at input");
-    AudioDSPGraph::ThrowException(1718449215, v21, off_1E8337868);
+    std::string::basic_string[abi:ne200100]<0>(v29, "FreqSRCBox box needs 8 byte packets at input");
+    AudioDSPGraph::ThrowException(1718449215, v29, off_1E8337868);
   }
 
-  v8 = *(this + 12);
-  if (*(this + 13) == v8)
+  v11 = *(this + 12);
+  if (*(this + 13) == v11)
   {
-    v19 = (this + 40);
+    v27 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v19 = *v19;
+      v27 = *v27;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v26, v19, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v26, off_1E83378B0);
+    caulk::make_string(&v34, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v8, v27, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v34, off_1E83378B0);
   }
 
-  v9 = *(*(v8 + 16) + 120);
-  if (*(v9 + 16) != 8 || *(v9 + 8) != 1718773105)
+  v12 = *(*(v11 + 16) + 120);
+  if (*(v12 + 16) != 8 || *(v12 + 8) != 1718773105)
   {
-    std::string::basic_string[abi:ne200100]<0>(v20, "FreqSRCBox box needs 8 byte packets at output");
-    AudioDSPGraph::ThrowException(1718449215, v20, off_1E8337880);
+    std::string::basic_string[abi:ne200100]<0>(v28, "FreqSRCBox box needs 8 byte packets at output");
+    AudioDSPGraph::ThrowException(1718449215, v28, off_1E8337880);
   }
 
   AudioDSPGraph::Boxes::RingBufferBox::initialize(this);
-  v10 = 8 * AudioDSPGraph::Boxes::FCBox::downstreamBlockSize(this);
+  v14 = 8 * AudioDSPGraph::Boxes::FCBox::downstreamBlockSize(this, v13);
 
-  AudioDSPGraph::SimpleABL::alloc((this + 880), v5, v10, 0);
+  AudioDSPGraph::SimpleABL::alloc((this + 880), v6, v14, 0);
 }
 
 void sub_1C924B39C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, int a16, __int16 a17, char a18, char a19, char a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, char a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, char a32, uint64_t a33, int a34, __int16 a35, char a36, char a37)
@@ -3343,157 +391,157 @@ void sub_1C924B39C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-BOOL AudioDSPGraph::Boxes::FreqSRCBox::isValidFreqSRCBoxConnection(AudioDSPGraph::Boxes::FreqSRCBox *this)
+BOOL AudioDSPGraph::Boxes::FreqSRCBox::isValidFreqSRCBoxConnection(AudioDSPGraph::Boxes::FreqSRCBox *this, const char *a2)
 {
-  v2 = AudioDSPGraph::Boxes::FCBox::upstreamSampleRate(this);
-  v3 = AudioDSPGraph::Boxes::FCBox::downstreamBlockSize(this) * v2;
-  v4 = AudioDSPGraph::Boxes::FCBox::downstreamSampleRate(this);
-  return v3 == AudioDSPGraph::Boxes::FCBox::upstreamBlockSize(this) * v4;
+  v3 = AudioDSPGraph::Boxes::FCBox::upstreamSampleRate(this, a2);
+  v5 = AudioDSPGraph::Boxes::FCBox::downstreamBlockSize(this, v4) * v3;
+  v7 = AudioDSPGraph::Boxes::FCBox::downstreamSampleRate(this, v6);
+  return v5 == AudioDSPGraph::Boxes::FCBox::upstreamBlockSize(this, v8) * v7;
 }
 
-unsigned int *AudioDSPGraph::Boxes::FreqSRCBox::process(AudioDSPGraph::Boxes::FreqSRCBox *this)
+unsigned int *AudioDSPGraph::Boxes::FreqSRCBox::process(AudioDSPGraph::Boxes::FreqSRCBox *this, const char *a2)
 {
-  if (!AudioDSPGraph::Boxes::FreqSRCBox::isValidFreqSRCBoxConnection(this))
+  if (!AudioDSPGraph::Boxes::FreqSRCBox::isValidFreqSRCBoxConnection(this, a2))
   {
     __assert_rtn("process", "SRCBox.cpp", 452, "isValidFreqSRCBoxConnection()");
   }
 
-  v2 = *(this + 9);
-  if (*(this + 10) == v2)
+  v4 = *(this + 9);
+  if (*(this + 10) == v4)
   {
-    v33 = (this + 40);
+    v45 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v33 = *v33;
+      v45 = *v45;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v39, v33, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v39, off_1E8337C60);
+    caulk::make_string(&v51, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v3, v45, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v51, off_1E8337C60);
   }
 
-  v3 = *(this + 12);
-  if (*(this + 13) == v3)
+  v5 = *(this + 12);
+  if (*(this + 13) == v5)
   {
-    v34 = (this + 40);
+    v46 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v34 = *v34;
+      v46 = *v46;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v39, v34, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v39, off_1E8337C78);
+    caulk::make_string(&v51, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v3, v46, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v51, off_1E8337C78);
   }
 
-  v4 = *(*(*(v2 + 16) + 56) + 80);
-  v5 = *v4;
-  if (v5 != **(*(*(v3 + 16) + 56) + 80))
+  v6 = *(*(*(v4 + 16) + 56) + 80);
+  v7 = *v6;
+  if (v7 != **(*(*(v5 + 16) + 56) + 80))
   {
     __assert_rtn("process", "SRCBox.cpp", 456, "inBuf->mNumberBuffers == outBuf->mNumberBuffers");
   }
 
-  v6 = AudioDSPGraph::Boxes::FCBox::downstreamBlockSize(this);
-  v37 = AudioDSPGraph::Boxes::FCBox::upstreamBlockSize(this);
-  v38 = v6;
-  if (v6 <= v37)
+  v8 = AudioDSPGraph::Boxes::FCBox::downstreamBlockSize(this, v3);
+  v49 = AudioDSPGraph::Boxes::FCBox::upstreamBlockSize(this, v9);
+  v50 = v8;
+  if (v8 <= v49)
   {
-    v7 = AudioDSPGraph::Boxes::FCBox::downstreamBlockSize(this);
-    v9 = 0;
+    v11 = AudioDSPGraph::Boxes::FCBox::downstreamBlockSize(this, v10);
+    v16 = 0;
   }
 
   else
   {
-    v7 = AudioDSPGraph::Boxes::FCBox::upstreamBlockSize(this);
-    v8 = AudioDSPGraph::Boxes::FCBox::downstreamBlockSize(this);
-    v9 = 4 * (v8 - AudioDSPGraph::Boxes::FCBox::upstreamBlockSize(this));
+    v11 = AudioDSPGraph::Boxes::FCBox::upstreamBlockSize(this, v10);
+    v13 = AudioDSPGraph::Boxes::FCBox::downstreamBlockSize(this, v12);
+    v16 = 4 * (v13 - AudioDSPGraph::Boxes::FCBox::upstreamBlockSize(this, v14));
   }
 
-  v36 = (this + 880);
-  if (v5)
+  v48 = (this + 880);
+  if (v7)
   {
-    v10 = (4 * v7);
-    v11 = (v4 + 4);
-    v12 = (*v36 + 16);
+    v17 = (4 * v11);
+    v18 = (v6 + 4);
+    v19 = (*v48 + 16);
     while (1)
     {
-      v13 = *v12;
-      v14 = *v11;
-      v15 = &v13[4 * AudioDSPGraph::Boxes::FCBox::downstreamBlockSize(this)];
-      v16 = &v14[4 * AudioDSPGraph::Boxes::FCBox::upstreamBlockSize(this)];
-      memcpy(v13, v14, v10);
-      v17 = AudioDSPGraph::Boxes::FCBox::upstreamBlockSize(this);
-      bzero(&v13[4 * v17], v9);
-      memcpy(v15, v16, v10);
-      v18 = AudioDSPGraph::Boxes::FCBox::upstreamBlockSize(this);
-      bzero(&v15[4 * v18], v9);
-      if (v38 > v37)
+      v20 = *v19;
+      v21 = *v18;
+      v22 = &v20[4 * AudioDSPGraph::Boxes::FCBox::downstreamBlockSize(this, v15)];
+      v24 = &v21[4 * AudioDSPGraph::Boxes::FCBox::upstreamBlockSize(this, v23)];
+      memcpy(v20, v21, v17);
+      v26 = AudioDSPGraph::Boxes::FCBox::upstreamBlockSize(this, v25);
+      bzero(&v20[4 * v26], v16);
+      memcpy(v22, v24, v17);
+      v28 = AudioDSPGraph::Boxes::FCBox::upstreamBlockSize(this, v27);
+      bzero(&v22[4 * v28], v16);
+      if (v50 > v49)
       {
         break;
       }
 
-      v21 = AudioDSPGraph::Boxes::FCBox::downstreamBlockSize(this);
-      if (v21 < AudioDSPGraph::Boxes::FCBox::upstreamBlockSize(this))
+      v32 = AudioDSPGraph::Boxes::FCBox::downstreamBlockSize(this, v29);
+      if (v32 < AudioDSPGraph::Boxes::FCBox::upstreamBlockSize(this, v33))
       {
-        v20 = *&v14[4 * AudioDSPGraph::Boxes::FCBox::downstreamBlockSize(this)];
+        v31 = *&v21[4 * AudioDSPGraph::Boxes::FCBox::downstreamBlockSize(this, v15)];
         goto LABEL_14;
       }
 
 LABEL_15:
-      v11 += 2;
-      v12 += 2;
-      if (!--v5)
+      v18 += 2;
+      v19 += 2;
+      if (!--v7)
       {
         goto LABEL_16;
       }
     }
 
-    v19 = *v16;
-    *&v13[4 * AudioDSPGraph::Boxes::FCBox::downstreamBlockSize(this)] = v19;
-    v20 = 0;
+    v30 = *v24;
+    *&v20[4 * AudioDSPGraph::Boxes::FCBox::downstreamBlockSize(this, v29)] = v30;
+    v31 = 0;
 LABEL_14:
-    *v15 = v20;
+    *v22 = v31;
     goto LABEL_15;
   }
 
 LABEL_16:
-  v22 = *(this + 9);
-  if (*(this + 10) == v22)
+  v34 = *(this + 9);
+  if (*(this + 10) == v34)
   {
-    v35 = (this + 40);
+    v47 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v35 = *v35;
+      v47 = *v47;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v39, v35, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v39, off_1E8337C60);
+    caulk::make_string(&v51, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v15, v47, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v51, off_1E8337C60);
   }
 
-  v23 = *(this + 12);
-  v24 = *(this + 13);
-  if (v23 != v24)
+  v35 = *(this + 12);
+  v36 = *(this + 13);
+  if (v35 != v36)
   {
-    v25 = *(*(v22 + 16) + 56);
-    v26 = *(v25 + 72);
+    v37 = *(*(v34 + 16) + 56);
+    v38 = *(v37 + 72);
     do
     {
-      v27 = *(*(v23 + 16) + 56);
-      v28 = *(v25 + 8);
-      v29 = *(v25 + 24);
-      v30 = *(v25 + 40);
-      *(v27 + 56) = *(v25 + 56);
-      *(v27 + 40) = v30;
-      *(v27 + 24) = v29;
-      *(v27 + 8) = v28;
-      *(v27 + 72) = v26;
-      v23 += 32;
+      v39 = *(*(v35 + 16) + 56);
+      v40 = *(v37 + 8);
+      v41 = *(v37 + 24);
+      v42 = *(v37 + 40);
+      *(v39 + 56) = *(v37 + 56);
+      *(v39 + 40) = v42;
+      *(v39 + 24) = v41;
+      *(v39 + 8) = v40;
+      *(v39 + 72) = v38;
+      v35 += 32;
     }
 
-    while (v23 != v24);
+    while (v35 != v36);
   }
 
-  v31 = AudioDSPGraph::Boxes::FCBox::downstreamBlockSize(this);
+  v43 = AudioDSPGraph::Boxes::FCBox::downstreamBlockSize(this, v15);
 
-  return AudioDSPGraph::RingBuffer::write((this + 800), v31, v36);
+  return AudioDSPGraph::RingBuffer::write((this + 800), v43, v48);
 }
 
 void sub_1C924B810(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, int a16, __int16 a17, char a18, char a19)
@@ -3553,30 +601,30 @@ uint64_t AudioDSPGraph::Boxes::SumBox::initialize(AudioDSPGraph::Boxes::SumBox *
 {
   if (((*(this + 10) - *(this + 9)) & 0x1FFFFFFFE0) == 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v20, "SumBox has no inputs");
-    AudioDSPGraph::ThrowException(1970168609, v20, off_1E83378C8);
+    std::string::basic_string[abi:ne200100]<0>(v21, "SumBox has no inputs");
+    AudioDSPGraph::ThrowException(1970168609, v21, off_1E83378C8);
   }
 
   result = AudioDSPGraph::Box::initialize(this);
-  v3 = *(this + 12);
-  if (*(this + 13) == v3)
+  v4 = *(this + 12);
+  if (*(this + 13) == v4)
   {
-    v15 = (this + 40);
+    v16 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v15 = *v15;
+      v16 = *v16;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v21, v15, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v21, off_1E8337C78);
+    caulk::make_string(&v22, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v3, v16, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v22, off_1E8337C78);
   }
 
-  v4 = *(*(v3 + 16) + 120);
-  v5 = v4[2];
-  if (v5 == 1819304813)
+  v5 = *(*(v4 + 16) + 120);
+  v6 = v5[2];
+  if (v6 == 1819304813)
   {
-    v6 = v4[3];
-    if ((v6 & 1) == 0 || v4[8] != 32)
+    v7 = v5[3];
+    if ((v7 & 1) == 0 || v5[8] != 32)
     {
       goto LABEL_29;
     }
@@ -3584,34 +632,34 @@ uint64_t AudioDSPGraph::Boxes::SumBox::initialize(AudioDSPGraph::Boxes::SumBox *
 
   else
   {
-    if (v5 != 1718773105 || v4[8] != 64)
+    if (v6 != 1718773105 || v5[8] != 64)
     {
 LABEL_29:
-      std::string::basic_string[abi:ne200100]<0>(v19, "SumBox output format must be non-interleaved float");
-      AudioDSPGraph::ThrowException(1718449215, v19, off_1E83378E0);
+      std::string::basic_string[abi:ne200100]<0>(v20, "SumBox output format must be non-interleaved float");
+      AudioDSPGraph::ThrowException(1718449215, v20, off_1E83378E0);
     }
 
-    v6 = v4[3];
+    v7 = v5[3];
   }
 
-  if ((v6 & 0x20) == 0)
+  if ((v7 & 0x20) == 0)
   {
     goto LABEL_29;
   }
 
-  v7 = *(this + 9);
-  v8 = *(this + 10);
-  if (v7 != v8)
+  v8 = *(this + 9);
+  v9 = *(this + 10);
+  if (v8 != v9)
   {
-    v9 = (v8 - v7) & 0x1FFFFFFFE0;
+    v10 = (v9 - v8) & 0x1FFFFFFFE0;
     do
     {
-      v10 = *(*(v7 + 16) + 120);
-      v11 = v10[2];
-      if (v11 == 1819304813)
+      v11 = *(*(v8 + 16) + 120);
+      v12 = v11[2];
+      if (v12 == 1819304813)
       {
-        v12 = v10[3];
-        if ((v12 & 1) == 0 || v10[8] != 32)
+        v13 = v11[3];
+        if ((v13 & 1) == 0 || v11[8] != 32)
         {
           goto LABEL_26;
         }
@@ -3619,42 +667,42 @@ LABEL_29:
 
       else
       {
-        if (v11 != 1718773105 || v10[8] != 64)
+        if (v12 != 1718773105 || v11[8] != 64)
         {
 LABEL_26:
-          std::string::basic_string[abi:ne200100]<0>(v18, "SumBox input format must be non-interleaved float");
-          AudioDSPGraph::ThrowException(1718449215, v18, off_1E83378F8);
+          std::string::basic_string[abi:ne200100]<0>(v19, "SumBox input format must be non-interleaved float");
+          AudioDSPGraph::ThrowException(1718449215, v19, off_1E83378F8);
         }
 
-        v12 = v10[3];
+        v13 = v11[3];
       }
 
-      if ((v12 & 0x20) == 0)
+      if ((v13 & 0x20) == 0)
       {
         goto LABEL_26;
       }
 
-      v13 = v10[7];
-      v14 = v4[7];
-      if (v13 != v14)
+      v14 = v11[7];
+      v15 = v5[7];
+      if (v14 != v15)
       {
-        if (v9 != 32)
+        if (v10 != 32)
         {
-          std::string::basic_string[abi:ne200100]<0>(v16, "SumBox channel mismatch");
-          AudioDSPGraph::ThrowException(1718449215, v16, off_1E8337928);
+          std::string::basic_string[abi:ne200100]<0>(v17, "SumBox channel mismatch");
+          AudioDSPGraph::ThrowException(1718449215, v17, off_1E8337928);
         }
 
-        if (v14 != 1)
+        if (v15 != 1)
         {
-          std::string::basic_string[abi:ne200100]<0>(v17, "SumBox output channel count must be mono or matched when input is single-bus");
-          AudioDSPGraph::ThrowException(1718449215, v17, off_1E8337910);
+          std::string::basic_string[abi:ne200100]<0>(v18, "SumBox output channel count must be mono or matched when input is single-bus");
+          AudioDSPGraph::ThrowException(1718449215, v18, off_1E8337910);
         }
       }
 
-      v7 += 32;
+      v8 += 32;
     }
 
-    while (v7 != v8);
+    while (v8 != v9);
   }
 
   return result;
@@ -3670,20 +718,20 @@ void sub_1C924BC18(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__n128 AudioDSPGraph::Boxes::SumBox::process(AudioDSPGraph::Boxes::SumBox *this, unsigned int a2)
+__n128 AudioDSPGraph::Boxes::SumBox::process(AudioDSPGraph::Boxes::SumBox *this, char *a2)
 {
   v2 = this;
   v3 = *(this + 12);
   if (*(this + 13) == v3)
   {
-    v38 = (this + 40);
+    v37 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v38 = *v38;
+      v37 = *v37;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v44, v38, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v44, off_1E8337C78);
+    caulk::make_string(&v43, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v37, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v43, off_1E8337C78);
   }
 
   v4 = *(*(*(v3 + 16) + 56) + 80);
@@ -3691,19 +739,19 @@ __n128 AudioDSPGraph::Boxes::SumBox::process(AudioDSPGraph::Boxes::SumBox *this,
   v6 = *(this + 9);
   v7 = *(this + 10);
   v8 = v7 - v6;
-  v9 = 4 * a2;
+  v9 = (4 * a2);
   if (((v7 - v6) & 0x1FFFFFFFE0) == 0)
   {
 LABEL_30:
     if (v5)
     {
-      v28 = (v4 + 4);
+      v27 = (v4 + 4);
       do
       {
-        v29 = *v28;
-        *(v28 - 1) = v9;
-        bzero(v29, v9);
-        v28 += 2;
+        v28 = *v27;
+        *(v27 - 1) = v9;
+        bzero(v28, v9);
+        v27 += 2;
         --v5;
       }
 
@@ -3712,29 +760,29 @@ LABEL_30:
       v7 = *(v2 + 10);
     }
 
-    v30 = 16;
+    v29 = 16;
     goto LABEL_36;
   }
 
   v10 = 0;
   v11 = a2;
   v13 = v5 != 1 || ((v7 - v6) & 0x1FFFFFFFE0) != 32;
-  v40 = v4;
-  v42 = (v4 + 4);
-  v43 = *v4;
+  v39 = v4;
+  v41 = (v4 + 4);
+  v42 = *v4;
   v14 = 1;
   do
   {
     if (v8 >> 5 <= v10)
     {
-      v37 = (v2 + 40);
+      v36 = (v2 + 40);
       if (*(v2 + 63) < 0)
       {
-        v37 = *v37;
+        v36 = *v36;
       }
 
-      caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v44, v37, v8 >> 5, v10);
-      AudioDSPGraph::ThrowException(1919837985, v44, off_1E8337C60);
+      caulk::make_string(&v43, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v36, v8 >> 5, v10);
+      AudioDSPGraph::ThrowException(1919837985, &v43, off_1E8337C60);
     }
 
     v15 = *(*(v6 + 32 * v10 + 16) + 56);
@@ -3748,23 +796,23 @@ LABEL_30:
           v17 = 0;
           v18 = 0;
           v19 = 4;
-          v20 = v42;
+          v20 = v41;
           do
           {
-            v21 = *&v16[v19];
-            v22 = *v20;
+            a2 = *&v16[v19];
+            v21 = *v20;
             *(v20 - 1) = v9;
             if (v18 == v17)
             {
-              if (v21 != v22)
+              if (a2 != v21)
               {
-                memcpy(v22, v21, v9);
+                memcpy(v21, a2, v9);
               }
             }
 
             else
             {
-              MEMORY[0x1CCA85330](v21, 1, v22, 1, v22, 1, v11);
+              MEMORY[0x1CCA85330](a2, 1, v21, 1, v21, 1, v11);
             }
 
             ++v18;
@@ -3782,23 +830,23 @@ LABEL_30:
 
       else if (v5)
       {
-        v24 = (v16 + 4);
-        v25 = v42;
+        v23 = (v16 + 4);
+        v24 = v41;
         do
         {
+          v25 = *v23;
+          v23 += 2;
           v26 = *v24;
+          *(v24 - 1) = v9;
+          MEMORY[0x1CCA85330](v25, 1, v26, 1, v26, 1, v11);
           v24 += 2;
-          v27 = *v25;
-          *(v25 - 1) = v9;
-          MEMORY[0x1CCA85330](v26, 1, v27, 1, v27, 1, v11);
-          v25 += 2;
           --v5;
         }
 
         while (v5);
         v14 = 0;
 LABEL_25:
-        v5 = v43;
+        v5 = v42;
         goto LABEL_27;
       }
 
@@ -3815,44 +863,44 @@ LABEL_27:
   while (v10 < ((v7 - v6) >> 5));
   if (v14)
   {
-    v4 = v40;
+    v4 = v39;
     goto LABEL_30;
   }
 
-  v30 = 0;
+  v29 = 0;
 LABEL_36:
   if (v7 == v6)
   {
-    v39 = (v2 + 40);
+    v38 = (v2 + 40);
     if (*(v2 + 63) < 0)
     {
-      v39 = *v39;
+      v38 = *v38;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v44, v39, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v44, off_1E8337C60);
+    caulk::make_string(&v43, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v38, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v43, off_1E8337C60);
   }
 
-  v31 = *(v2 + 12);
-  v32 = *(v2 + 13);
-  if (v31 != v32)
+  v30 = *(v2 + 12);
+  v31 = *(v2 + 13);
+  if (v30 != v31)
   {
-    v33 = *(*(v6 + 16) + 56);
+    v32 = *(*(v6 + 16) + 56);
     do
     {
-      v34 = *(*(v31 + 16) + 56);
-      result = *(v33 + 8);
-      v35 = *(v33 + 24);
-      v36 = *(v33 + 40);
-      *(v34 + 56) = *(v33 + 56);
-      *(v34 + 40) = v36;
-      *(v34 + 24) = v35;
-      *(v34 + 8) = result;
-      *(v34 + 72) = v30;
-      v31 += 32;
+      v33 = *(*(v30 + 16) + 56);
+      result = *(v32 + 8);
+      v34 = *(v32 + 24);
+      v35 = *(v32 + 40);
+      *(v33 + 56) = *(v32 + 56);
+      *(v33 + 40) = v35;
+      *(v33 + 24) = v34;
+      *(v33 + 8) = result;
+      *(v33 + 72) = v29;
+      v30 += 32;
     }
 
-    while (v31 != v32);
+    while (v30 != v31);
   }
 
   return result;
@@ -4185,14 +1233,14 @@ void AudioDSPGraph::Extras::ThreadCounterProfiler::~ThreadCounterProfiler(AudioD
 
 void AudioDSPGraph::Extras::ThreadCounterProfiler::Implementation::copyStatistics(AudioDSPGraph::Graph const&)const::{lambda(AudioDSPGraph::Metrics::Statistics const&)#1}::operator()(CFDictionaryRef *a1, uint64_t *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
-  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(v12, "WNumBlocks", a2);
-  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(&v13, "WNumFrames", a2 + 1);
-  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(&v14, "WCPUTime", a2 + 2);
-  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(&v15, "WCPUCycleCount", a2 + 3);
-  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(&v16, "WCPUInstrCount", a2 + 4);
-  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(&v17, "WWallClockTime", a2 + 5);
-  applesauce::CF::TypeRef::TypeRef(&v18, "WPeakCPU");
+  v28 = *MEMORY[0x1E69E9840];
+  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(v11, "WNumBlocks", a2);
+  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(&v12, "WNumFrames", a2 + 1);
+  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(&v13, "WCPUTime", a2 + 2);
+  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(&v14, "WCPUCycleCount", a2 + 3);
+  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(&v15, "WCPUInstrCount", a2 + 4);
+  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(&v16, "WWallClockTime", a2 + 5);
+  applesauce::CF::TypeRef::TypeRef(&v17, "WPeakCPU");
   valuePtr = a2[6];
   if (!CFNumberCreate(0, kCFNumberDoubleType, &valuePtr))
   {
@@ -4200,30 +1248,30 @@ void AudioDSPGraph::Extras::ThreadCounterProfiler::Implementation::copyStatistic
     std::runtime_error::runtime_error(exception, "Could not construct");
   }
 
-  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(&v20, "WPeakCPUBlockNum", a2 + 7);
+  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(&v19, "WPeakCPUBlockNum", a2 + 7);
   LODWORD(valuePtr) = 0;
-  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned int>(&v21, "WAvgMemDelta", &valuePtr);
-  v9 = 0;
-  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned int>(&v22, "CurrMem", &v9);
-  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(&v23, "TNumBlocks", a2 + 8);
-  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(&v24, "TNumFrames", a2 + 9);
-  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(&v25, "TCPUTime", a2 + 10);
-  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(&v26, "TCPUCycleCount", a2 + 11);
-  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(&v27, "TCPUInstrCount", a2 + 12);
-  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(v28, "TWallClockTime", a2 + 13);
-  v10[0] = v12;
-  v10[1] = 16;
+  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned int>(&v20, "WAvgMemDelta", &valuePtr);
+  v8 = 0;
+  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned int>(&v21, "CurrMem", &v8);
+  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(&v22, "TNumBlocks", a2 + 8);
+  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(&v23, "TNumFrames", a2 + 9);
+  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(&v24, "TCPUTime", a2 + 10);
+  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(&v25, "TCPUCycleCount", a2 + 11);
+  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(&v26, "TCPUInstrCount", a2 + 12);
+  applesauce::CF::TypeRefPair::TypeRefPair<char const* const&,unsigned long long const&>(v27, "TWallClockTime", a2 + 13);
+  v9[0] = v11;
+  v9[1] = 16;
   v4 = 0;
-  *a1 = applesauce::CF::details::make_CFDictionaryRef(v10);
+  *a1 = applesauce::CF::details::make_CFDictionaryRef(v9);
   do
   {
-    v5 = *&v28[v4 + 8];
+    v5 = *&v27[v4 + 8];
     if (v5)
     {
       CFRelease(v5);
     }
 
-    v6 = *&v28[v4];
+    v6 = *&v27[v4];
     if (v6)
     {
       CFRelease(v6);
@@ -4233,7 +1281,6 @@ void AudioDSPGraph::Extras::ThreadCounterProfiler::Implementation::copyStatistic
   }
 
   while (v4 != -256);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1C924C938(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
@@ -4249,7 +1296,7 @@ void sub_1C924C938(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::allocator_traits<std::allocator<applesauce::CF::TypeRefPair>>::construct[abi:ne200100]<applesauce::CF::TypeRefPair,char const*,applesauce::CF::DictionaryRef,void,0>(applesauce::CF::TypeRef *a1, const char *a2, const void **a3)
+CFTypeRef std::allocator_traits<std::allocator<applesauce::CF::TypeRefPair>>::construct[abi:ne200100]<applesauce::CF::TypeRefPair,char const*,applesauce::CF::DictionaryRef,void,0>(applesauce::CF::TypeRef *a1, const char *a2, const void **a3)
 {
   result = applesauce::CF::TypeRef::TypeRef(a1, a2);
   v6 = *a3;
@@ -4262,7 +1309,7 @@ void *std::allocator_traits<std::allocator<applesauce::CF::TypeRefPair>>::constr
   return result;
 }
 
-CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(uint64_t **a1)
+CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(char **a1)
 {
   v2 = (a1[1] - *a1) >> 4;
   keys = 0;
@@ -4288,7 +1335,7 @@ CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(uint64_t **a1)
     do
     {
       v11 = *v4;
-      if (!*v4 || !v4[1])
+      if (!*v4 || !*(v4 + 1))
       {
         keys = v5;
         values = v6;
@@ -4347,7 +1394,7 @@ CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(uint64_t **a1)
         v7 += 8;
       }
 
-      v17 = v4[1];
+      v17 = *(v4 + 1);
       if (v10 >= v9)
       {
         v18 = v10 - v6;
@@ -4399,7 +1446,7 @@ CFDictionaryRef applesauce::CF::details::make_CFDictionaryRef(uint64_t **a1)
         v10 += 8;
       }
 
-      v4 += 2;
+      v4 += 16;
     }
 
     while (v4 != v28);
@@ -4542,7 +1589,7 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<apples
     do
     {
       std::allocator_traits<std::allocator<applesauce::CF::TypeRefPair>>::destroy[abi:ne200100]<applesauce::CF::TypeRefPair,void,0>(v5);
-      v5 += 16;
+      v5 += 2;
     }
 
     while (v5 != a3);
@@ -4698,75 +1745,69 @@ uint64_t *AudioDSPGraph::Boxes::TimeFreqBox::uninitialize(uint64_t **this)
   return result;
 }
 
-void *AudioDSPGraph::Boxes::TimeFreqBox::initialize(AudioDSPGraph::Boxes::TimeFreqBox *this)
+const void **AudioDSPGraph::Boxes::TimeFreqBox::initialize(const void **this)
 {
   AudioDSPGraph::Box::initialize(this);
-  v2 = *(this + 9);
-  if (*(this + 10) == v2)
+  v3 = this[9];
+  if (this[10] == v3)
   {
-    v12 = (this + 40);
+    v11 = this + 5;
+    if (*(this + 63) < 0)
+    {
+      v11 = *v11;
+    }
+
+    caulk::make_string(&v15, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v2, v11, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v15, off_1E8337C60);
+  }
+
+  v4 = this[12];
+  if (this[13] == v4)
+  {
+    v12 = this + 5;
     if (*(this + 63) < 0)
     {
       v12 = *v12;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", &v16, v12, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, &v16, off_1E8337C60);
+    caulk::make_string(&v15, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v2, v12, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v15, off_1E8337C78);
   }
 
-  v3 = *(this + 12);
-  if (*(this + 13) == v3)
+  v5 = *(v3[2] + 120);
+  v6 = *(v4[2] + 120);
+  v7 = *(v5 + 28);
+  if (v7 != *(v6 + 28))
   {
-    v13 = (this + 40);
-    if (*(this + 63) < 0)
+    std::string::basic_string[abi:ne200100]<0>(v14, "channel mismatch.");
+    AudioDSPGraph::ThrowException(1718444833, v14, off_1E8337940);
+  }
+
+  v8 = *(v5 + 8);
+  if (v8 != 1718773105)
+  {
+    if (v8 == 1819304813 && *(v6 + 8) == 1718773105)
     {
-      v13 = *v13;
-    }
-
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", &v16, v13, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, &v16, off_1E8337C78);
-  }
-
-  v4 = *(*(v2 + 16) + 120);
-  v5 = *(*(v3 + 16) + 120);
-  v6 = *(v4 + 28);
-  if (v6 != *(v5 + 28))
-  {
-    std::string::basic_string[abi:ne200100]<0>(v15, "channel mismatch.");
-    AudioDSPGraph::ThrowException(1718444833, v15, off_1E8337940);
-  }
-
-  v7 = *(v4 + 8);
-  if (v7 != 1718773105)
-  {
-    if (v7 == 1819304813 && *(v5 + 8) == 1718773105)
-    {
-      v8 = 0;
+      v9 = 0;
       goto LABEL_10;
     }
 
-LABEL_15:
-    std::string::basic_string[abi:ne200100]<0>(v14, "formats are not between freq and time domains.");
-    AudioDSPGraph::ThrowException(1718444833, v14, off_1E8337958);
+LABEL_13:
+    std::string::basic_string[abi:ne200100]<0>(v13, "formats are not between freq and time domains.");
+    AudioDSPGraph::ThrowException(1718444833, v13, off_1E8337958);
   }
 
-  if (*(v5 + 8) != 1819304813)
+  if (*(v6 + 8) != 1819304813)
   {
-    goto LABEL_15;
+    goto LABEL_13;
   }
 
-  v8 = 1;
+  v9 = 1;
 LABEL_10:
-  *(this + 198) = v8;
-  result = std::vector<std::unique_ptr<TimeFreqConverter>>::reserve(this + 96, v6);
-  if (v6)
+  *(this + 198) = v9;
+  result = std::vector<std::unique_ptr<TimeFreqConverter>>::reserve(this + 96, v7);
+  if (v7)
   {
-    v10 = *(this + 3);
-    if (*(v10 + 268) == 1)
-    {
-      v11 = *(v10 + 272);
-    }
-
     operator new();
   }
 
@@ -4783,7 +1824,7 @@ void sub_1C924D660(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-__n128 AudioDSPGraph::Boxes::TimeFreqBox::process(AudioDSPGraph::Boxes::TimeFreqBox *this, unsigned int a2)
+__n128 AudioDSPGraph::Boxes::TimeFreqBox::process(AudioDSPGraph::Boxes::TimeFreqBox *this, const char *a2)
 {
   if (*(*(this + 3) + 268) != a2)
   {
@@ -4802,7 +1843,7 @@ __n128 AudioDSPGraph::Boxes::TimeFreqBox::process(AudioDSPGraph::Boxes::TimeFreq
       v29 = *v29;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", &v36, v29, v5, 0);
+    caulk::make_string(&v36, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v29, v5, 0);
     AudioDSPGraph::ThrowException(1919837985, &v36, off_1E8337C60);
   }
 
@@ -4815,7 +1856,7 @@ __n128 AudioDSPGraph::Boxes::TimeFreqBox::process(AudioDSPGraph::Boxes::TimeFreq
       v30 = *v30;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", &v36, v30, 0, 0);
+    caulk::make_string(&v36, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v30, 0, 0);
     AudioDSPGraph::ThrowException(1919837985, &v36, off_1E8337C78);
   }
 
@@ -4853,8 +1894,8 @@ __n128 AudioDSPGraph::Boxes::TimeFreqBox::process(AudioDSPGraph::Boxes::TimeFreq
 
       else
       {
-        v36.realp = *v14;
-        v36.imagp = &v16[v12];
+        v36.__r_.__value_.__r.__words[0] = *v14;
+        v36.__r_.__value_.__l.__size_ = v16 + 4 * v12;
         v19 = TimeFreqConverter::Analyze(*(*(this + 96) + 8 * v9), v15, &v36);
         if (v19)
         {
@@ -4883,7 +1924,7 @@ __n128 AudioDSPGraph::Boxes::TimeFreqBox::process(AudioDSPGraph::Boxes::TimeFreq
       v31 = *v31;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", &v36, v31, v5, 0);
+    caulk::make_string(&v36, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v31, v5, 0);
     AudioDSPGraph::ThrowException(1919837985, &v36, off_1E8337C60);
   }
 
@@ -4931,70 +1972,70 @@ double AudioDSPGraph::Boxes::TimeFreqBox::desc@<D0>(uint64_t a1@<X8>)
   return result;
 }
 
-uint64_t AudioDSPGraph::Boxes::TimeFreqBox::selfLatencyInTicks(AudioDSPGraph::Boxes::TimeFreqBox *this)
+uint64_t AudioDSPGraph::Boxes::TimeFreqBox::selfLatencyInTicks(AudioDSPGraph::Boxes::TimeFreqBox *this, const char *a2)
 {
   if ((*(*(this + 2) + 921) & 1) == 0)
   {
-    std::string::basic_string[abi:ne200100]<0>(v10, "not configured");
-    AudioDSPGraph::ThrowException(1667655457, v10, off_1E8337970);
+    std::string::basic_string[abi:ne200100]<0>(v11, "not configured");
+    AudioDSPGraph::ThrowException(1667655457, v11, off_1E8337970);
   }
 
-  v1 = *(this + 9);
-  if (*(this + 10) == v1)
+  v2 = *(this + 9);
+  if (*(this + 10) == v2)
   {
-    v6 = (this + 40);
+    v7 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v6 = *v6;
+      v7 = *v7;
     }
 
-    caulk::make_string("Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v11, v6, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v11, off_1E8337C60);
+    caulk::make_string(&v12, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v7, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v12, off_1E8337C60);
   }
 
-  v2 = *(*(*(v1 + 16) + 120) + 8);
-  if (v2 != 1718773105)
+  v3 = *(*(*(v2 + 16) + 120) + 8);
+  if (v3 != 1718773105)
   {
-    if (v2 == 1819304813)
+    if (v3 == 1819304813)
     {
-      v3 = *(this + 12);
-      if (*(this + 13) == v3)
+      v4 = *(this + 12);
+      if (*(this + 13) == v4)
       {
-        v7 = (this + 40);
+        v8 = (this + 40);
         if (*(this + 63) < 0)
         {
-          v7 = *v7;
+          v8 = *v8;
         }
 
-        caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v11, v7, 0, 0);
-        AudioDSPGraph::ThrowException(1919837985, v11, off_1E8337C78);
+        caulk::make_string(&v12, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v8, 0, 0);
+        AudioDSPGraph::ThrowException(1919837985, &v12, off_1E8337C78);
       }
 
-      if (*(*(*(v3 + 16) + 120) + 8) == 1718773105)
+      if (*(*(*(v4 + 16) + 120) + 8) == 1718773105)
       {
         return 0;
       }
     }
 
 LABEL_12:
-    std::string::basic_string[abi:ne200100]<0>(v9, "formats are not between freq and time domains.");
-    AudioDSPGraph::ThrowException(1718444833, v9, off_1E8337988);
+    std::string::basic_string[abi:ne200100]<0>(v10, "formats are not between freq and time domains.");
+    AudioDSPGraph::ThrowException(1718444833, v10, off_1E8337988);
   }
 
-  v5 = *(this + 12);
-  if (*(this + 13) == v5)
+  v6 = *(this + 12);
+  if (*(this + 13) == v6)
   {
-    v8 = (this + 40);
+    v9 = (this + 40);
     if (*(this + 63) < 0)
     {
-      v8 = *v8;
+      v9 = *v9;
     }
 
-    caulk::make_string("Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v11, v8, 0, 0);
-    AudioDSPGraph::ThrowException(1919837985, v11, off_1E8337C78);
+    caulk::make_string(&v12, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v9, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v12, off_1E8337C78);
   }
 
-  if (*(*(*(v5 + 16) + 120) + 8) != 1819304813)
+  if (*(*(*(v6 + 16) + 120) + 8) != 1819304813)
   {
     goto LABEL_12;
   }
@@ -5030,7 +2071,7 @@ void AudioDSPGraph::Boxes::TimeFreqBox::~TimeFreqBox(AudioDSPGraph::Boxes::TimeF
   AudioDSPGraph::Box::~Box(this);
 }
 
-void std::vector<float>::resize(uint64_t *a1, unint64_t a2)
+void std::vector<float>::resize(char **a1, unint64_t a2)
 {
   v3 = *a1;
   v4 = a1[1];
@@ -5042,7 +2083,7 @@ void std::vector<float>::resize(uint64_t *a1, unint64_t a2)
       return;
     }
 
-    v11 = v3 + 4 * a2;
+    v11 = (v3 + 4 * a2);
   }
 
   else
@@ -5053,7 +2094,7 @@ void std::vector<float>::resize(uint64_t *a1, unint64_t a2)
     {
       if (!(a2 >> 62))
       {
-        v8 = v7 - v3;
+        v8 = &v7[-v3];
         v9 = v8 >> 1;
         if (v8 >> 1 <= a2)
         {
@@ -5077,13 +2118,13 @@ void std::vector<float>::resize(uint64_t *a1, unint64_t a2)
     }
 
     bzero(a1[1], 4 * v6);
-    v11 = v4 + 4 * v6;
+    v11 = &v4[4 * v6];
   }
 
   a1[1] = v11;
 }
 
-uint64x2_t CreateMagicalWindow(float *a1, int a2, uint64x2_t result)
+uint64x2_t CreateMagicalWindow(float *a1, unsigned int a2, uint64x2_t result)
 {
   if (a2 >= 1)
   {
@@ -5185,7 +2226,7 @@ uint64x2_t CreateMagicalWindow(float *a1, int a2, uint64x2_t result)
 
 void TimeFreqConverter::TimeFreqConverter(TimeFreqConverter *this, int a2, int a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   *(this + 72) = 0u;
   *(this + 32) = 0;
   *(this + 48) = 0;
@@ -5212,10 +2253,10 @@ void TimeFreqConverter::TimeFreqConverter(TimeFreqConverter *this, int a2, int a
   }
 
   exception = __cxa_allocate_exception(0x10uLL);
-  v6 = 4;
-  strcpy(v5, "....");
-  caulk::make_string("failed to setup time-frequency converter with error %s", &v7, v5);
-  std::runtime_error::runtime_error(exception, &v7);
+  v7 = 4;
+  strcpy(v6, "....");
+  caulk::make_string(&v8, "failed to setup time-frequency converter with error %s", v5, v6);
+  std::runtime_error::runtime_error(exception, &v8);
 }
 
 void sub_1C924E728(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23)
@@ -5349,7 +2390,7 @@ uint64_t TimeFreqConverter::Synthesize(TimeFreqConverter *this, const DSPSplitCo
   return 0;
 }
 
-BOOL AudioDSPGraph::MinimalSafetyCheck(AudioDSPGraph *this, const AudioStreamBasicDescription *a2)
+uint64_t AudioDSPGraph::MinimalSafetyCheck(AudioDSPGraph *this, const AudioStreamBasicDescription *a2)
 {
   result = 0;
   if (*this >= 0.0 && *this < 3000000.0)
@@ -5391,7 +2432,7 @@ BOOL AudioDSPGraph::MinimalSafetyCheck(AudioDSPGraph *this, const AudioStreamBas
   return result;
 }
 
-void AudioDSPGraph::printi(void *a1, unsigned int a2, char *__s)
+void AudioDSPGraph::printi(void *a1, unsigned int a2, char *__s, ...)
 {
   v4 = a2;
   if (a2 >= 0x40)
@@ -5420,10 +2461,10 @@ void *AudioDSPGraph::print4cc(void *a1, unsigned int a2)
 {
   v3 = 0;
   v4 = 0;
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   *__s = 0;
-  v16 = 0;
-  v14 = bswap32(a2);
+  v15 = 0;
+  v13 = bswap32(a2);
   v5 = MEMORY[0x1E69E9830];
   do
   {
@@ -5466,9 +2507,7 @@ void *AudioDSPGraph::print4cc(void *a1, unsigned int a2)
 
   __s[v10] = 0;
   v11 = strlen(__s);
-  result = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, __s, v11);
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(a1, __s, v11);
 }
 
 void *AudioDSPGraph::printACD(void *a1, unsigned int *a2, int a3)
@@ -5724,26 +2763,27 @@ void sub_1C924F258(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-unsigned int **AudioDSPGraph::SimpleABL::copy(unsigned int **this, AudioDSPGraph::SimpleABL *a2)
+AudioDSPGraph::SimpleABL *AudioDSPGraph::SimpleABL::copy(AudioDSPGraph::SimpleABL *this, AudioDSPGraph::SimpleABL *a2)
 {
   v2 = *this;
   if (!*this)
   {
-    std::string::basic_string[abi:ne200100]<0>(v15, "null internal ABL");
-    AudioDSPGraph::ThrowException(1768843553, v15, off_1E8337A78);
+    std::string::basic_string[abi:ne200100]<0>(v14, "null internal ABL");
+    AudioDSPGraph::ThrowException(1768843553, v14, off_1E8337A78);
   }
 
+  v3 = a2;
   if (!a2)
   {
-    std::string::basic_string[abi:ne200100]<0>(v14, "null destination ABL");
-    AudioDSPGraph::ThrowException(1768843553, v14, off_1E8337A90);
+    std::string::basic_string[abi:ne200100]<0>(v13, "null destination ABL");
+    AudioDSPGraph::ThrowException(1768843553, v13, off_1E8337A90);
   }
 
   v4 = *v2;
   if (v4 != *a2)
   {
-    std::string::basic_string[abi:ne200100]<0>(v13, "mABL->mNumberBuffers != toABL->mNumberBuffers");
-    AudioDSPGraph::ThrowException(1718444833, v13, off_1E8337AA8);
+    std::string::basic_string[abi:ne200100]<0>(v12, "mABL->mNumberBuffers != toABL->mNumberBuffers");
+    AudioDSPGraph::ThrowException(1718444833, v12, off_1E8337AA8);
   }
 
   if (*v2)
@@ -5754,19 +2794,19 @@ unsigned int **AudioDSPGraph::SimpleABL::copy(unsigned int **this, AudioDSPGraph
     do
     {
       v8 = v2[v6 + 3];
-      v9 = a2 + v6 * 4;
-      v10 = *(a2 + v6 * 4 + 12);
+      v9 = v3 + v6 * 4;
+      v10 = *(v3 + v6 * 4 + 12);
       if (v8 > v10)
       {
-        caulk::make_string("mABL->mBuffers[%u].mDataByteSize (%u) > toABL->mBuffers[%u].mDataByteSize (%u)", v12, v7, v8, v7, v10);
-        AudioDSPGraph::ThrowException(1718775073, v12, off_1E8337AC0);
+        caulk::make_string(&v11, "mABL->mBuffers[%u].mDataByteSize (%u) > toABL->mBuffers[%u].mDataByteSize (%u)", a2, v7, v8, v7, v10);
+        AudioDSPGraph::ThrowException(1718775073, &v11, off_1E8337AC0);
       }
 
-      v11 = *&v2[v6 + 4];
+      a2 = *&v2[v6 + 4];
       this = *(v9 + 2);
-      if (v11 != this)
+      if (a2 != this)
       {
-        this = memcpy(this, v11, v8);
+        this = memcpy(this, a2, v8);
         v2 = *v5;
         v4 = **v5;
       }
@@ -5792,7 +2832,7 @@ void sub_1C924F420(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void applesauce::CF::convert_to<std::unordered_map<applesauce::CF::StringRef,applesauce::CF::TypeRef>,0>(uint64_t a1, const void *a2)
+void applesauce::CF::convert_to<std::unordered_map<applesauce::CF::StringRef,applesauce::CF::TypeRef>,0>(uint64_t *a1, const void *a2)
 {
   TypeID = CFDictionaryGetTypeID();
   if (TypeID != CFGetTypeID(a2))
@@ -5803,8 +2843,8 @@ void applesauce::CF::convert_to<std::unordered_map<applesauce::CF::StringRef,app
 
   Count = CFDictionaryGetCount(a2);
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 1065353216;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
   std::vector<void const*>::vector[abi:ne200100](keys, Count);
   std::vector<void const*>::vector[abi:ne200100](values, Count);
   CFDictionaryGetKeysAndValues(a2, keys[0], values[0]);
@@ -5840,7 +2880,7 @@ void applesauce::CF::convert_to<std::unordered_map<applesauce::CF::StringRef,app
       cf[1] = v9;
       v10 = std::hash<applesauce::CF::StringRef>::operator()(v21);
       v11 = v10;
-      v12 = *(a1 + 8);
+      v12 = a1[1];
       if (!*&v12)
       {
         goto LABEL_26;
@@ -5934,7 +2974,7 @@ LABEL_25:
   }
 }
 
-uint64_t **std::__hash_table<std::__hash_value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__unordered_map_hasher<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::hash<applesauce::CF::StringRef>,std::equal_to<applesauce::CF::StringRef>,true>,std::__unordered_map_equal<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::equal_to<applesauce::CF::StringRef>,std::hash<applesauce::CF::StringRef>,true>,std::allocator<std::__hash_value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::find<applesauce::CF::StringRef>(void *a1, const void **a2)
+uint64_t **std::__hash_table<std::__hash_value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::__unordered_map_hasher<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::hash<applesauce::CF::StringRef>,std::equal_to<applesauce::CF::StringRef>,true>,std::__unordered_map_equal<applesauce::CF::StringRef,std::__hash_value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,std::equal_to<applesauce::CF::StringRef>,std::hash<applesauce::CF::StringRef>,true>,std::allocator<std::__hash_value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>>>::find<applesauce::CF::StringRef>(void *a1, const __CFString **a2)
 {
   v4 = std::hash<applesauce::CF::StringRef>::operator()(*a2);
   v5 = a1[1];
@@ -6009,8 +3049,6 @@ void *std::vector<applesauce::CF::TypeRefPair>::reserve(void *result, unint64_t 
   {
     if (!(a2 >> 60))
     {
-      v2 = result[1] - *result;
-      v3 = result;
       std::allocator<applesauce::CF::TypeRefPair>::allocate_at_least[abi:ne200100](a2);
     }
 
@@ -6249,7 +3287,7 @@ BOOL std::regex_iterator<std::__wrap_iter<char const*>,char,std::regex_traits<ch
   return v10;
 }
 
-uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(uint64_t a1, std::sub_match<const char *> *a2, std::sub_match<const char *> *a3, std::vector<std::csub_match> *this, int a5)
+uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(uint64_t a1, std::sub_match<const char *> *a2, std::sub_match<const char *> *a3, std::vector<std::csub_match> *this, unsigned int a5)
 {
   if ((a5 & 0x80) != 0)
   {
@@ -6291,7 +3329,7 @@ uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator
       do
       {
         std::vector<std::sub_match<char const*>>::assign(this, 0xAAAAAAAAAAAAAAABLL * ((this->__end_ - this->__begin_) >> 3), v11);
-        v19 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v18, a3, this, v9 | 0x80u, 0);
+        v19 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v18, a3, this, v9 | 0x80, 0);
         begin = this->__begin_;
         end = this->__end_;
         if (v19)
@@ -6306,7 +3344,7 @@ uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator
     }
 
     std::vector<std::sub_match<char const*>>::assign(this, 0xAAAAAAAAAAAAAAABLL * ((this->__end_ - this->__begin_) >> 3), v11);
-    if (!std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v18, a3, this, v9 | 0x80u, 0))
+    if (!std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v18, a3, this, v9 | 0x80, 0))
     {
 LABEL_18:
       result = 0;
@@ -6337,50 +3375,49 @@ LABEL_8:
   return 1;
 }
 
-void *std::match_results<std::__wrap_iter<char const*>>::__assign[abi:ne200100]<char const*,std::allocator<std::sub_match<char const*>>>(void *result, uint64_t a2, uint64_t a3, uint64_t *a4, char a5)
+void std::match_results<std::__wrap_iter<char const*>>::__assign[abi:ne200100]<char const*,std::allocator<std::sub_match<char const*>>>(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t *a4, char a5)
 {
-  v5 = result;
-  v6 = a4[6];
-  v7 = a4[1] - *a4;
-  v8 = 0xAAAAAAAAAAAAAAABLL * (v7 >> 3);
-  v9 = *result;
-  v10 = result[1];
-  v11 = v10;
-  v12 = v10 - *result;
-  v13 = 0xAAAAAAAAAAAAAAABLL * (v12 >> 3);
-  v14 = v8 - v13;
-  if (v8 <= v13)
+  v5 = a4[6];
+  v6 = a4[1] - *a4;
+  v7 = 0xAAAAAAAAAAAAAAABLL * (v6 >> 3);
+  v8 = *a1;
+  v9 = a1[1];
+  v10 = v9;
+  v11 = v9 - *a1;
+  v12 = 0xAAAAAAAAAAAAAAABLL * (v11 >> 3);
+  v13 = v7 - v12;
+  if (v7 <= v12)
   {
-    if (v8 < v13)
+    if (v7 < v12)
     {
-      v11 = v9 + v7;
-      result[1] = v9 + v7;
+      v10 = v8 + v6;
+      a1[1] = v8 + v6;
     }
   }
 
   else
   {
-    v15 = result[2];
-    if (0xAAAAAAAAAAAAAAABLL * ((v15 - v10) >> 3) < v14)
+    v14 = a1[2];
+    if (0xAAAAAAAAAAAAAAABLL * ((v14 - v9) >> 3) < v13)
     {
-      if (v8 <= 0xAAAAAAAAAAAAAAALL)
+      if (v7 <= 0xAAAAAAAAAAAAAAALL)
       {
-        if (0x5555555555555556 * ((v15 - v9) >> 3) > v8)
+        if (0x5555555555555556 * ((v14 - v8) >> 3) > v7)
         {
-          v8 = 0x5555555555555556 * ((v15 - v9) >> 3);
+          v7 = 0x5555555555555556 * ((v14 - v8) >> 3);
         }
 
-        if (0xAAAAAAAAAAAAAAABLL * ((v15 - v9) >> 3) >= 0x555555555555555)
+        if (0xAAAAAAAAAAAAAAABLL * ((v14 - v8) >> 3) >= 0x555555555555555)
         {
-          v16 = 0xAAAAAAAAAAAAAAALL;
+          v15 = 0xAAAAAAAAAAAAAAALL;
         }
 
         else
         {
-          v16 = v8;
+          v15 = v7;
         }
 
-        if (v16 <= 0xAAAAAAAAAAAAAAALL)
+        if (v15 <= 0xAAAAAAAAAAAAAAALL)
         {
           operator new();
         }
@@ -6391,101 +3428,99 @@ void *std::match_results<std::__wrap_iter<char const*>>::__assign[abi:ne200100]<
       std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__throw_length_error[abi:ne200100]();
     }
 
-    v17 = 8 * (v7 >> 3) - 8 * (v12 >> 3);
+    v16 = 8 * (v6 >> 3) - 8 * (v11 >> 3);
     do
     {
-      *v11 = 0;
-      *(v11 + 8) = 0;
-      *(v11 + 16) = 0;
-      v11 += 24;
-      v17 -= 24;
+      *v10 = 0;
+      *(v10 + 8) = 0;
+      *(v10 + 16) = 0;
+      v10 += 24;
+      v16 -= 24;
     }
 
-    while (v17);
-    result[1] = v10 + 24 * v14;
-    v11 = v10 + 24 * v14;
+    while (v16);
+    a1[1] = v9 + 24 * v13;
+    v10 = v9 + 24 * v13;
   }
 
-  v18 = *result;
-  if (v11 == *result)
+  v17 = *a1;
+  if (v10 == *a1)
   {
-    v21 = a2 - v6;
+    v20 = a2 - v5;
   }
 
   else
   {
+    v18 = 0;
     v19 = 0;
-    v20 = 0;
-    v21 = a2 - v6;
-    v23 = *a4;
-    v22 = a4[1];
+    v20 = a2 - v5;
+    v22 = *a4;
+    v21 = a4[1];
     do
     {
-      v24 = 0xAAAAAAAAAAAAAAABLL * ((v22 - v23) >> 3);
-      v25 = (v23 + v19);
-      if (v24 <= v20)
+      v23 = 0xAAAAAAAAAAAAAAABLL * ((v21 - v22) >> 3);
+      v24 = (v22 + v18);
+      if (v23 <= v19)
+      {
+        v25 = a4 + 3;
+      }
+
+      else
+      {
+        v25 = v24;
+      }
+
+      *(v17 + v18) = v20 + *v25;
+      if (0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 3) <= v19)
       {
         v26 = a4 + 3;
       }
 
       else
       {
-        v26 = v25;
+        v26 = (*a4 + v18);
       }
 
-      *(v18 + v19) = v21 + *v26;
-      if (0xAAAAAAAAAAAAAAABLL * ((a4[1] - *a4) >> 3) <= v20)
+      *(*a1 + v18 + 8) = v20 + v26[1];
+      v22 = *a4;
+      v21 = a4[1];
+      if (0xAAAAAAAAAAAAAAABLL * ((v21 - *a4) >> 3) <= v19)
       {
         v27 = a4 + 3;
       }
 
       else
       {
-        v27 = (*a4 + v19);
+        v27 = (*a4 + v18);
       }
 
-      *(*v5 + v19 + 8) = v21 + v27[1];
-      v23 = *a4;
-      v22 = a4[1];
-      if (0xAAAAAAAAAAAAAAABLL * ((v22 - *a4) >> 3) <= v20)
-      {
-        v28 = a4 + 3;
-      }
-
-      else
-      {
-        v28 = (*a4 + v19);
-      }
-
-      v29 = *(v28 + 16);
-      v18 = *v5;
-      v30 = v5[1];
-      result = (*v5 + v19);
-      *(result + 16) = v29;
-      ++v20;
-      v19 += 24;
+      v28 = *(v27 + 16);
+      v17 = *a1;
+      v29 = a1[1];
+      *(*a1 + v18 + 16) = v28;
+      ++v19;
+      v18 += 24;
     }
 
-    while (v20 < 0xAAAAAAAAAAAAAAABLL * ((v30 - v18) >> 3));
+    while (v19 < 0xAAAAAAAAAAAAAAABLL * ((v29 - v17) >> 3));
   }
 
-  v5[3] = a3;
-  v5[4] = a3;
-  *(v5 + 40) = 0;
-  v31 = v21 + a4[6];
-  v5[6] = v31;
-  v5[7] = v21 + a4[7];
-  *(v5 + 64) = *(a4 + 64);
-  v5[9] = v21 + a4[9];
-  v5[10] = v21 + a4[10];
-  *(v5 + 88) = *(a4 + 88);
+  a1[3] = a3;
+  a1[4] = a3;
+  *(a1 + 40) = 0;
+  v30 = v20 + a4[6];
+  a1[6] = v30;
+  a1[7] = v20 + a4[7];
+  *(a1 + 64) = *(a4 + 64);
+  a1[9] = v20 + a4[9];
+  a1[10] = v20 + a4[10];
+  *(a1 + 88) = *(a4 + 88);
   if ((a5 & 1) == 0)
   {
-    v5[13] = v31;
+    a1[13] = v30;
   }
 
-  *(v5 + 96) = *(a4 + 96);
-  return result;
+  *(a1 + 96) = *(a4 + 96);
 }
 
 uint64_t std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(uint64_t a1, const char *a2, const char *a3, uint64_t *a4, int a5, char a6)
@@ -6537,7 +3572,7 @@ LABEL_186:
     v122 = 0;
     v68 = 0;
     v120 = 0;
-    v69 = a3 - a2;
+    v69 = (a3 - a2);
     v70 = *&v123[40];
     v71 = *&v123[8];
     v72 = *&v123[40] + *&v123[32] - 1;
@@ -6661,7 +3696,7 @@ LABEL_172:
               }
 
               v122 = 1;
-              v120 = a3 - a2;
+              v120 = (a3 - a2);
               break;
             }
 
@@ -6827,7 +3862,7 @@ LABEL_182:
         {
           v115 = *v118;
           *v115 = a2;
-          *(v115 + 8) = &a2[v120];
+          *(v115 + 8) = &v120[a2];
           v61 = 1;
           *(v115 + 16) = 1;
         }
@@ -6888,7 +3923,7 @@ LABEL_94:
   v16 = 0;
   v119 = a3;
   v121 = a2;
-  v17 = a3 - a2;
+  v17 = (a3 - a2);
   v18 = v131;
   *(v131 - 2) = v12;
   *(v18 - 2) = a5;
@@ -7196,7 +4231,7 @@ LABEL_45:
 
   v55 = *v117;
   *v55 = v121;
-  *(v55 + 8) = &v121[v14];
+  *(v55 + 8) = &v14[v121];
   *(v55 + 16) = 1;
   if (v128 != *&v127[32])
   {
@@ -7235,7 +4270,7 @@ LABEL_95:
   return v61;
 }
 
-void sub_1C9251598(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38)
+void sub_1C9251598(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38)
 {
   operator delete(v38);
   if (__p)
@@ -7339,7 +4374,7 @@ void std::vector<std::sub_match<char const*>>::assign(std::vector<std::csub_matc
   }
 }
 
-void std::vector<std::sub_match<char const*>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::sub_match<char const*>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -7534,7 +4569,7 @@ void sub_1C9251BC4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::__state<char>>::push_back[abi:ne200100](uint64_t *a1, uint64_t a2)
+void std::vector<std::__state<char>>::push_back[abi:ne200100](unint64_t *a1, uint64_t a2)
 {
   v3 = a1[1];
   v4 = a1[2];
@@ -7837,7 +4872,7 @@ void std::__destroy_at[abi:ne200100]<std::__state<char>,0>(void *a1)
   }
 }
 
-uint64_t std::vector<std::sub_match<char const*>>::__init_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::sub_match<char const*>>::__init_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7859,7 +4894,7 @@ void sub_1C9252244(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t *result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7913,7 +4948,7 @@ void std::vector<std::__state<char>>::__destroy_vector::operator()[abi:ne200100]
   }
 }
 
-void std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -7933,33 +4968,32 @@ void std::allocator<std::pair<unsigned long,char const*>>::allocate_at_least[abi
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-__n128 std::deque<std::__state<char>>::push_back(uint64_t a1, uint64_t a2)
+__n128 std::deque<std::__state<char>>::push_back(unint64_t *a1, uint64_t a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  v7 = v5 - v6;
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  v6 = v4 - v5;
+  if (v4 == v5)
   {
-    v8 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v8 = 42 * ((v5 - v6) >> 3) - 1;
+    v7 = 42 * ((v4 - v5) >> 3) - 1;
   }
 
-  v9 = *(a1 + 32);
-  v10 = *(a1 + 40) + v9;
-  if (v8 == v10)
+  v8 = a1[4];
+  v9 = a1[5] + v8;
+  if (v7 == v9)
   {
-    if (v9 < 0x2A)
+    if (v8 < 0x2A)
     {
-      v11 = *(a1 + 24);
-      v12 = &v11[-*a1];
-      if (v7 < v12)
+      v10 = a1[3];
+      v11 = v10 - *a1;
+      if (v6 < v11)
       {
-        if (v11 != v5)
+        if (v10 != v4)
         {
           operator new();
         }
@@ -7967,53 +5001,53 @@ __n128 std::deque<std::__state<char>>::push_back(uint64_t a1, uint64_t a2)
         operator new();
       }
 
-      if (v11 == *a1)
+      if (v10 == *a1)
       {
-        v13 = 1;
+        v12 = 1;
       }
 
       else
       {
-        v13 = v12 >> 2;
+        v12 = v11 >> 2;
       }
 
-      v19 = a1;
-      std::allocator<std::unique_ptr<ausdk::AUElement>>::allocate_at_least[abi:ne200100](v13);
+      v18 = a1;
+      std::allocator<std::unique_ptr<ausdk::AUElement>>::allocate_at_least[abi:ne200100](v12);
     }
 
-    *(a1 + 32) = v9 - 42;
-    *&v18 = *v6;
-    *(a1 + 8) = v6 + 8;
-    std::__split_buffer<std::string *>::emplace_back<std::string *&>(a1, &v18);
-    v6 = *(a1 + 8);
-    v10 = *(a1 + 40) + *(a1 + 32);
+    a1[4] = v8 - 42;
+    *&v17 = *v5;
+    a1[1] = (v5 + 1);
+    std::__split_buffer<std::string *>::emplace_back<std::string *&>(a1, &v17);
+    v5 = a1[1];
+    v9 = a1[5] + a1[4];
   }
 
-  v14 = *&v6[8 * (v10 / 0x2A)] - 4032 * (v10 / 0x2A) + 96 * v10;
-  v15 = *(a2 + 16);
-  *v14 = *a2;
-  *(v14 + 16) = v15;
-  *(v14 + 40) = 0;
-  *(v14 + 48) = 0;
-  *(v14 + 32) = 0;
-  *(v14 + 32) = *(a2 + 32);
-  *(v14 + 48) = *(a2 + 48);
+  v13 = v5[v9 / 0x2A] - 4032 * (v9 / 0x2A) + 96 * v9;
+  v14 = *(a2 + 16);
+  *v13 = *a2;
+  *(v13 + 16) = v14;
+  *(v13 + 40) = 0;
+  *(v13 + 48) = 0;
+  *(v13 + 32) = 0;
+  *(v13 + 32) = *(a2 + 32);
+  *(v13 + 48) = *(a2 + 48);
   *(a2 + 32) = 0;
   *(a2 + 40) = 0;
   *(a2 + 48) = 0;
-  *(v14 + 56) = 0;
-  *(v14 + 64) = 0;
-  *(v14 + 72) = 0;
+  *(v13 + 56) = 0;
+  *(v13 + 64) = 0;
+  *(v13 + 72) = 0;
   result = *(a2 + 56);
-  *(v14 + 56) = result;
-  *(v14 + 72) = *(a2 + 72);
+  *(v13 + 56) = result;
+  *(v13 + 72) = *(a2 + 72);
   *(a2 + 56) = 0;
   *(a2 + 64) = 0;
   *(a2 + 72) = 0;
-  v17 = *(a2 + 80);
-  *(v14 + 85) = *(a2 + 85);
-  *(v14 + 80) = v17;
-  ++*(a1 + 40);
+  v16 = *(a2 + 80);
+  *(v13 + 85) = *(a2 + 85);
+  *(v13 + 80) = v16;
+  ++a1[5];
   return result;
 }
 
@@ -8302,7 +5336,7 @@ void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)17
   MEMORY[0x1CCA84610](exception, 17);
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
+char *std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, unsigned __int8 *a2, char *a3)
 {
   end = a1->__end_;
   v7 = a2;
@@ -8391,7 +5425,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_basic_r
   return v4;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
+std::basic_regex<char>::value_type *std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, std::basic_regex<char>::value_type *a2, std::basic_regex<char>::value_type *a3)
 {
   v3 = a3;
   end = a1->__end_;
@@ -8507,7 +5541,7 @@ void std::__owns_two_states<char>::~__owns_two_states(void (__cdecl ***a1)(std::
   JUMPOUT(0x1CCA84AE0);
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<std::__wrap_iter<char const*>>(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3)
+std::basic_regex<char>::value_type *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<std::__wrap_iter<char const*>>(uint64_t a1, std::basic_regex<char>::value_type *a2, std::basic_regex<char>::value_type *a3)
 {
   v6 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_expression<std::__wrap_iter<char const*>>(a1, a2, a3);
   if (v6 == a2)
@@ -8531,7 +5565,7 @@ void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)15
   MEMORY[0x1CCA84610](exception, 15);
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_expression<std::__wrap_iter<char const*>>(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3)
+std::basic_regex<char>::value_type *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_expression<std::__wrap_iter<char const*>>(uint64_t a1, std::basic_regex<char>::value_type *a2, std::basic_regex<char>::value_type *a3)
 {
   v6 = *(a1 + 56);
   v7 = *(a1 + 28);
@@ -8590,7 +5624,7 @@ LABEL_9:
     goto LABEL_2;
   }
 
-  v11 = (a2 + 1);
+  v11 = a2 + 1;
   if (a2 + 1 == a3 || *a2 != 92)
   {
     goto LABEL_2;
@@ -8643,7 +5677,7 @@ LABEL_18:
         std::basic_regex<char,std::regex_traits<char>>::__push_begin_marked_subexpression(a1);
         v15 = *(a1 + 28);
         ++*(a1 + 36);
-        v16 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<std::__wrap_iter<char const*>>(a1, v8 + 1, a3);
+        v16 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<std::__wrap_iter<char const*>>(a1, (v8 + 1), a3);
         if (v16 == a3 || (v8 = v16, *v16 != 41))
         {
           std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)6>();
@@ -9957,7 +6991,7 @@ LABEL_129:
             {
               v33 = __p[0];
 LABEL_89:
-              std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](v7, *v33, *(v33 + 1));
+              std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](v7, *v33, v33[1]);
               goto LABEL_90;
             }
 
@@ -10010,4 +7044,5247 @@ LABEL_130:
   }
 
   return a2;
+}
+
+void sub_1C9255400(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, void *a41, uint64_t a42, int a43, __int16 a44, char a45, char a46)
+{
+  if (a28 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a34 < 0)
+  {
+    operator delete(a29);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)5>()
+{
+  exception = __cxa_allocate_exception(0x18uLL);
+  MEMORY[0x1CCA84610](exception, 5);
+}
+
+void sub_1C925570C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::locale *a10)
+{
+  std::locale::~locale(&a9);
+  a10 = v10 + 17;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a10);
+  locale = v10[14].__locale_;
+  if (locale)
+  {
+    v10[15].__locale_ = locale;
+    operator delete(locale);
+  }
+
+  std::vector<std::pair<std::string,std::string>>::__destroy_vector::operator()[abi:ne200100](&a10);
+  v16 = v10[8].__locale_;
+  if (v16)
+  {
+    v10[9].__locale_ = v16;
+    operator delete(v16);
+  }
+
+  v17 = *v13;
+  if (*v13)
+  {
+    v10[6].__locale_ = v17;
+    operator delete(v17);
+  }
+
+  std::locale::~locale(v10 + 2);
+  v10->__locale_ = v12;
+  v18 = v10[1].__locale_;
+  if (v18)
+  {
+    (*(*v18 + 8))(v18);
+  }
+
+  MEMORY[0x1CCA84AE0](v10, v11);
+  _Unwind_Resume(a1);
+}
+
+void std::__bracket_expression<char,std::regex_traits<char>>::__add_char[abi:ne200100](uint64_t a1, char a2)
+{
+  v7 = a2;
+  if (*(a1 + 169) == 1)
+  {
+    v6 = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    v3 = a1 + 40;
+    v4 = &v6;
+LABEL_5:
+    std::vector<char>::push_back[abi:ne200100](v3, v4);
+    return;
+  }
+
+  if (*(a1 + 170) == 1)
+  {
+    v5 = a2;
+    v3 = a1 + 40;
+    v4 = &v5;
+    goto LABEL_5;
+  }
+
+  std::vector<char>::push_back[abi:ne200100](a1 + 40, &v7);
+}
+
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_collating_symbol<std::__wrap_iter<char const*>>(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t a4)
+{
+  v15 = 23854;
+  v8 = std::__search_impl[abi:ne200100]<std::__wrap_iter<char const*>,std::__wrap_iter<char const*>,char *,char *,std::__equal_to,std::__identity,std::__identity,0>(a2, a3, &v15, &v16);
+  if (v8 == a3)
+  {
+    std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)5>();
+  }
+
+  v9 = v8;
+  std::regex_traits<char>::__lookup_collatename<std::__wrap_iter<char const*>>(&v13, a1, a2, v8);
+  if (*(a4 + 23) < 0)
+  {
+    operator delete(*a4);
+  }
+
+  *a4 = v13;
+  v10 = v14;
+  *(a4 + 16) = v14;
+  v11 = HIBYTE(v10);
+  if ((v11 & 0x80u) != 0)
+  {
+    v11 = *(a4 + 8);
+  }
+
+  if (v11 - 1 >= 2)
+  {
+    std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)1>();
+  }
+
+  return v9 + 2;
+}
+
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_class_escape<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t *a4, uint64_t a5)
+{
+  if (a2 == a3)
+  {
+    std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)3>();
+  }
+
+  v7 = *a2;
+  if (v7 > 0x61)
+  {
+    if (*a2 > 0x72u)
+    {
+      if (v7 != 115)
+      {
+        if (v7 != 119)
+        {
+          return std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<std::__wrap_iter<char const*>>(a1, a2, a3, a4);
+        }
+
+        *(a5 + 160) |= 0x500u;
+        std::__bracket_expression<char,std::regex_traits<char>>::__add_char[abi:ne200100](a5, 95);
+        return a2 + 1;
+      }
+
+      v9 = *(a5 + 160) | 0x4000;
+    }
+
+    else
+    {
+      if (v7 == 98)
+      {
+        if (*(a4 + 23) < 0)
+        {
+          a4[1] = 1;
+          a4 = *a4;
+        }
+
+        else
+        {
+          *(a4 + 23) = 1;
+        }
+
+        *a4 = 8;
+        return a2 + 1;
+      }
+
+      if (v7 != 100)
+      {
+        return std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<std::__wrap_iter<char const*>>(a1, a2, a3, a4);
+      }
+
+      v9 = *(a5 + 160) | 0x400;
+    }
+
+    *(a5 + 160) = v9;
+    return a2 + 1;
+  }
+
+  if (*a2 <= 0x52u)
+  {
+    if (!*a2)
+    {
+      if (*(a4 + 23) < 0)
+      {
+        a4[1] = 1;
+        a4 = *a4;
+      }
+
+      else
+      {
+        *(a4 + 23) = 1;
+      }
+
+      *a4 = 0;
+      return a2 + 1;
+    }
+
+    if (v7 == 68)
+    {
+      v8 = *(a5 + 164) | 0x400;
+LABEL_23:
+      *(a5 + 164) = v8;
+      return a2 + 1;
+    }
+
+    return std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<std::__wrap_iter<char const*>>(a1, a2, a3, a4);
+  }
+
+  if (v7 == 83)
+  {
+    v8 = *(a5 + 164) | 0x4000;
+    goto LABEL_23;
+  }
+
+  if (v7 != 87)
+  {
+    return std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<std::__wrap_iter<char const*>>(a1, a2, a3, a4);
+  }
+
+  *(a5 + 164) |= 0x500u;
+  v15 = 95;
+  if (*(a5 + 169) == 1)
+  {
+    v14 = (*(**(a5 + 24) + 40))(*(a5 + 24), 95);
+    v10 = a5 + 64;
+    v11 = &v14;
+  }
+
+  else
+  {
+    if (*(a5 + 170) != 1)
+    {
+      std::vector<char>::push_back[abi:ne200100](a5 + 64, &v15);
+      return a2 + 1;
+    }
+
+    v13 = 95;
+    v10 = a5 + 64;
+    v11 = &v13;
+  }
+
+  std::vector<char>::push_back[abi:ne200100](v10, v11);
+  return a2 + 1;
+}
+
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_awk_escape<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t *a4)
+{
+  if (a2 == a3)
+  {
+LABEL_82:
+    std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)3>();
+  }
+
+  v5 = *a2;
+  if (v5 > 0x65u)
+  {
+    if (v5 <= 0x71u)
+    {
+      if (v5 == 102)
+      {
+        if (a4)
+        {
+          if (*(a4 + 23) < 0)
+          {
+            a4[1] = 1;
+            a4 = *a4;
+          }
+
+          else
+          {
+            *(a4 + 23) = 1;
+          }
+
+          v11 = 12;
+          goto LABEL_77;
+        }
+
+        v5 = 12;
+        goto LABEL_61;
+      }
+
+      if (v5 == 110)
+      {
+        if (a4)
+        {
+          if (*(a4 + 23) < 0)
+          {
+            a4[1] = 1;
+            a4 = *a4;
+          }
+
+          else
+          {
+            *(a4 + 23) = 1;
+          }
+
+          v11 = 10;
+          goto LABEL_77;
+        }
+
+        v5 = 10;
+        goto LABEL_61;
+      }
+    }
+
+    else
+    {
+      switch(v5)
+      {
+        case 'r':
+          if (a4)
+          {
+            if (*(a4 + 23) < 0)
+            {
+              a4[1] = 1;
+              a4 = *a4;
+            }
+
+            else
+            {
+              *(a4 + 23) = 1;
+            }
+
+            v11 = 13;
+            goto LABEL_77;
+          }
+
+          v5 = 13;
+          goto LABEL_61;
+        case 't':
+          if (a4)
+          {
+            if (*(a4 + 23) < 0)
+            {
+              a4[1] = 1;
+              a4 = *a4;
+            }
+
+            else
+            {
+              *(a4 + 23) = 1;
+            }
+
+            v11 = 9;
+            goto LABEL_77;
+          }
+
+          v5 = 9;
+          goto LABEL_61;
+        case 'v':
+          if (a4)
+          {
+            if (*(a4 + 23) < 0)
+            {
+              a4[1] = 1;
+              a4 = *a4;
+            }
+
+            else
+            {
+              *(a4 + 23) = 1;
+            }
+
+            v11 = 11;
+            goto LABEL_77;
+          }
+
+          v5 = 11;
+          goto LABEL_61;
+      }
+    }
+
+    goto LABEL_39;
+  }
+
+  if (v5 <= 0x5Bu)
+  {
+    if (v5 != 34 && v5 != 47)
+    {
+      goto LABEL_39;
+    }
+
+LABEL_19:
+    if (a4)
+    {
+      if (*(a4 + 23) < 0)
+      {
+        a4[1] = 1;
+        a4 = *a4;
+      }
+
+      else
+      {
+        *(a4 + 23) = 1;
+      }
+
+      *a4 = v5;
+      *(a4 + 1) = 0;
+      return a2 + 1;
+    }
+
+    goto LABEL_61;
+  }
+
+  switch(v5)
+  {
+    case '\\':
+      goto LABEL_19;
+    case 'a':
+      if (a4)
+      {
+        if (*(a4 + 23) < 0)
+        {
+          a4[1] = 1;
+          a4 = *a4;
+        }
+
+        else
+        {
+          *(a4 + 23) = 1;
+        }
+
+        v11 = 7;
+        goto LABEL_77;
+      }
+
+      v5 = 7;
+LABEL_61:
+      std::basic_regex<char,std::regex_traits<char>>::__push_char(a1, v5);
+      return a2 + 1;
+    case 'b':
+      if (a4)
+      {
+        if (*(a4 + 23) < 0)
+        {
+          a4[1] = 1;
+          a4 = *a4;
+        }
+
+        else
+        {
+          *(a4 + 23) = 1;
+        }
+
+        v11 = 8;
+LABEL_77:
+        *a4 = v11;
+        return a2 + 1;
+      }
+
+      v5 = 8;
+      goto LABEL_61;
+  }
+
+LABEL_39:
+  if ((v5 & 0xFFFFFFF8) != 0x30)
+  {
+    goto LABEL_82;
+  }
+
+  v6 = v5 - 48;
+  v7 = a2 + 1;
+  if (a2 + 1 != a3)
+  {
+    if ((*v7 & 0xF8) != 0x30)
+    {
+      goto LABEL_51;
+    }
+
+    v6 = *v7 + 8 * v6 - 48;
+    if (a2 + 2 != a3)
+    {
+      v8 = a2[2];
+      v9 = v8 & 0xF8;
+      v10 = v8 + 8 * v6 - 48;
+      if (v9 == 48)
+      {
+        v7 = a2 + 3;
+      }
+
+      else
+      {
+        v7 = a2 + 2;
+      }
+
+      if (v9 == 48)
+      {
+        v6 = v10;
+      }
+
+      goto LABEL_51;
+    }
+  }
+
+  v7 = a3;
+LABEL_51:
+  if (a4)
+  {
+    if (*(a4 + 23) < 0)
+    {
+      a4[1] = 1;
+      a4 = *a4;
+    }
+
+    else
+    {
+      *(a4 + 23) = 1;
+    }
+
+    *a4 = v6;
+    *(a4 + 1) = 0;
+  }
+
+  else
+  {
+    std::basic_regex<char,std::regex_traits<char>>::__push_char(a1, v6);
+  }
+
+  return v7;
+}
+
+void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (*(a1 + 169) == 1)
+  {
+    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24), a2);
+    v11 = v5 | ((*(**(a1 + 24) + 40))(*(a1 + 24), a3) << 8);
+    v6 = a1 + 112;
+    v7 = &v11;
+  }
+
+  else
+  {
+    v8 = a2 | (a3 << 8);
+    if (*(a1 + 170) == 1)
+    {
+      v10 = v8;
+      v6 = a1 + 112;
+      v7 = &v10;
+    }
+
+    else
+    {
+      v9 = v8;
+      v6 = a1 + 112;
+      v7 = &v9;
+    }
+  }
+
+  std::vector<std::pair<char,char>>::push_back[abi:ne200100](v6, v7);
+}
+
+void std::vector<std::pair<char,char>>::push_back[abi:ne200100](uint64_t a1, __int16 *a2)
+{
+  v4 = *(a1 + 8);
+  v3 = *(a1 + 16);
+  if (v4 >= v3)
+  {
+    v6 = *a1;
+    v7 = v4 - *a1;
+    v8 = v7 >> 1;
+    if (v7 >> 1 <= -2)
+    {
+      std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__throw_length_error[abi:ne200100]();
+    }
+
+    v9 = v3 - v6;
+    if (v9 <= v8 + 1)
+    {
+      v10 = v8 + 1;
+    }
+
+    else
+    {
+      v10 = v9;
+    }
+
+    if (v9 >= 0x7FFFFFFFFFFFFFFELL)
+    {
+      v11 = 0x7FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v11 = v10;
+    }
+
+    if (v11)
+    {
+      if ((v11 & 0x8000000000000000) == 0)
+      {
+        operator new();
+      }
+
+      std::__throw_bad_array_new_length[abi:ne200100]();
+    }
+
+    v12 = (2 * v8);
+    v13 = &v12[-(v7 >> 1)];
+    *v12 = *a2;
+    v5 = v12 + 1;
+    memcpy(v13, v6, v7);
+    *a1 = v13;
+    *(a1 + 8) = v5;
+    *(a1 + 16) = 0;
+    if (v6)
+    {
+      operator delete(v6);
+    }
+  }
+
+  else
+  {
+    *v4 = *a2;
+    v5 = v4 + 1;
+  }
+
+  *(a1 + 8) = v5;
+}
+
+void std::regex_traits<char>::transform<std::__wrap_iter<char *>>(int a1, uint64_t a2, _BYTE *__src, _BYTE *a4)
+{
+  std::string::__init_with_size[abi:ne200100]<char *,char *>(__p, __src, a4, a4 - __src);
+  v5 = v8;
+  if ((v8 & 0x80u) == 0)
+  {
+    v6 = __p;
+  }
+
+  else
+  {
+    v6 = __p[0];
+  }
+
+  if ((v8 & 0x80u) != 0)
+  {
+    v5 = __p[1];
+  }
+
+  (*(**(a2 + 16) + 32))(*(a2 + 16), v6, v6 + v5);
+  if (v8 < 0)
+  {
+    operator delete(__p[0]);
+  }
+}
+
+void sub_1C925605C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](void **a1, __int128 *a2)
+{
+  v3 = a1[1];
+  v4 = a1[2];
+  if (v3 >= v4)
+  {
+    v8 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *a1) >> 4);
+    v9 = v8 + 1;
+    if (v8 + 1 > 0x555555555555555)
+    {
+      std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__throw_length_error[abi:ne200100]();
+    }
+
+    v10 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 4);
+    if (2 * v10 > v9)
+    {
+      v9 = 2 * v10;
+    }
+
+    if (v10 >= 0x2AAAAAAAAAAAAAALL)
+    {
+      v11 = 0x555555555555555;
+    }
+
+    else
+    {
+      v11 = v9;
+    }
+
+    if (v11)
+    {
+      if (v11 <= 0x555555555555555)
+      {
+        operator new();
+      }
+
+      std::__throw_bad_array_new_length[abi:ne200100]();
+    }
+
+    v12 = 48 * v8;
+    *v12 = *a2;
+    *(v12 + 16) = *(a2 + 2);
+    *a2 = 0uLL;
+    v13 = *(a2 + 24);
+    a2[1] = 0uLL;
+    *(v12 + 40) = *(a2 + 5);
+    a2[2] = 0uLL;
+    v7 = (48 * v8 + 48);
+    v14 = *a1;
+    v15 = a1[1] - *a1;
+    *(v12 + 24) = v13;
+    v16 = (48 * v8 - v15);
+    memcpy((v12 - v15), v14, v15);
+    *a1 = v16;
+    a1[1] = v7;
+    a1[2] = 0;
+    if (v14)
+    {
+      operator delete(v14);
+    }
+  }
+
+  else
+  {
+    v5 = *a2;
+    *(v3 + 2) = *(a2 + 2);
+    *v3 = v5;
+    *(a2 + 8) = 0uLL;
+    *a2 = 0;
+    v6 = *(a2 + 24);
+    *(v3 + 5) = *(a2 + 5);
+    *(v3 + 24) = v6;
+    a2[2] = 0uLL;
+    *(a2 + 3) = 0;
+    v7 = v3 + 48;
+  }
+
+  a1[1] = v7;
+}
+
+uint64_t std::pair<std::string,std::string>::~pair(uint64_t a1)
+{
+  if (*(a1 + 47) < 0)
+  {
+    operator delete(*(a1 + 24));
+  }
+
+  if (*(a1 + 23) < 0)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)9>()
+{
+  exception = __cxa_allocate_exception(0x18uLL);
+  MEMORY[0x1CCA84610](exception, 9);
+}
+
+void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)3>()
+{
+  exception = __cxa_allocate_exception(0x18uLL);
+  MEMORY[0x1CCA84610](exception, 3);
+}
+
+void std::basic_regex<char,std::regex_traits<char>>::__push_char(std::basic_regex<char> *this, std::basic_regex<char>::value_type __c)
+{
+  flags = this->__flags_;
+  if ((flags & 1) == 0)
+  {
+    if ((flags & 8) == 0)
+    {
+      operator new();
+    }
+
+    operator new();
+  }
+
+  operator new();
+}
+
+void sub_1C9256454(_Unwind_Exception *a1)
+{
+  std::locale::~locale(v2 + 2);
+  locale = v2[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  MEMORY[0x1CCA84AE0](v2, v1);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__match_char<char>::__exec(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 16);
+  if (v2 == *(a2 + 24) || *v2 != *(result + 16))
+  {
+    v3 = 0;
+    *a2 = -993;
+  }
+
+  else
+  {
+    *a2 = -995;
+    *(a2 + 16) = v2 + 1;
+    v3 = *(result + 8);
+  }
+
+  *(a2 + 80) = v3;
+  return result;
+}
+
+void std::__match_char<char>::~__match_char(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this))
+{
+  v1 = a1[1];
+  if (v1)
+  {
+    (*(*v1 + 1))(v1);
+  }
+
+  JUMPOUT(0x1CCA84AE0);
+}
+
+void (__cdecl ***std::__match_char<char>::~__match_char(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this)))(std::__owns_one_state<char> *__hidden this)
+{
+  v2 = a1[1];
+  if (v2)
+  {
+    (*(*v2 + 1))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__match_char_collate<char,std::regex_traits<char>>::__exec(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 16);
+  if (v2 == *(a2 + 24) || *v2 != *(result + 40))
+  {
+    v3 = 0;
+    *a2 = -993;
+  }
+
+  else
+  {
+    *a2 = -995;
+    *(a2 + 16) = v2 + 1;
+    v3 = *(result + 8);
+  }
+
+  *(a2 + 80) = v3;
+  return result;
+}
+
+void std::__match_char_collate<char,std::regex_traits<char>>::~__match_char_collate(std::locale *a1)
+{
+  a1->__locale_ = &unk_1F48D3C88;
+  std::locale::~locale(a1 + 2);
+  locale = a1[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  JUMPOUT(0x1CCA84AE0);
+}
+
+std::locale *std::__match_char_collate<char,std::regex_traits<char>>::~__match_char_collate(std::locale *a1)
+{
+  a1->__locale_ = &unk_1F48D3C88;
+  std::locale::~locale(a1 + 2);
+  locale = a1[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  return a1;
+}
+
+uint64_t std::__match_char_icase<char,std::regex_traits<char>>::__exec(uint64_t result, uint64_t a2)
+{
+  v3 = *(a2 + 16);
+  if (v3 == *(a2 + 24) || (v4 = result, result = (*(**(result + 24) + 40))(*(result + 24), *v3), *(v4 + 40) != result))
+  {
+    v5 = 0;
+    *a2 = -993;
+  }
+
+  else
+  {
+    *a2 = -995;
+    ++*(a2 + 16);
+    v5 = *(v4 + 8);
+  }
+
+  *(a2 + 80) = v5;
+  return result;
+}
+
+void std::__match_char_icase<char,std::regex_traits<char>>::~__match_char_icase(std::locale *a1)
+{
+  a1->__locale_ = &unk_1F48D3C58;
+  std::locale::~locale(a1 + 2);
+  locale = a1[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  JUMPOUT(0x1CCA84AE0);
+}
+
+std::locale *std::__match_char_icase<char,std::regex_traits<char>>::~__match_char_icase(std::locale *a1)
+{
+  a1->__locale_ = &unk_1F48D3C58;
+  std::locale::~locale(a1 + 2);
+  locale = a1[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  return a1;
+}
+
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t *a4)
+{
+  v4 = a2;
+  if (a2 == a3)
+  {
+    return v4;
+  }
+
+  v5 = *a2;
+  if (v5 <= 0x71)
+  {
+    if (*a2 <= 0x65u)
+    {
+      if (v5 != 48)
+      {
+        if (v5 != 99)
+        {
+          if (v5 == 95)
+          {
+            goto LABEL_93;
+          }
+
+          goto LABEL_70;
+        }
+
+        v4 = a2 + 1;
+        if (a2 + 1 != a3 && *v4 >= 65)
+        {
+          v6 = *v4;
+          if (v6 < 0x5B || (v6 - 97) <= 0x19u)
+          {
+            v7 = v6 & 0x1F;
+            goto LABEL_72;
+          }
+        }
+
+LABEL_93:
+        std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)3>();
+      }
+
+      if (a4)
+      {
+        if (*(a4 + 23) < 0)
+        {
+          a4[1] = 1;
+          a4 = *a4;
+        }
+
+        else
+        {
+          *(a4 + 23) = 1;
+        }
+
+        *a4 = 0;
+        return ++v4;
+      }
+
+      v7 = 0;
+      goto LABEL_75;
+    }
+
+    if (v5 == 102)
+    {
+      if (a4)
+      {
+        if (*(a4 + 23) < 0)
+        {
+          a4[1] = 1;
+          a4 = *a4;
+        }
+
+        else
+        {
+          *(a4 + 23) = 1;
+        }
+
+        v15 = 12;
+        goto LABEL_90;
+      }
+
+      v7 = 12;
+      goto LABEL_75;
+    }
+
+    if (v5 == 110)
+    {
+      if (a4)
+      {
+        if (*(a4 + 23) < 0)
+        {
+          a4[1] = 1;
+          a4 = *a4;
+        }
+
+        else
+        {
+          *(a4 + 23) = 1;
+        }
+
+        v15 = 10;
+        goto LABEL_90;
+      }
+
+      v7 = 10;
+      goto LABEL_75;
+    }
+
+    goto LABEL_70;
+  }
+
+  if (*a2 <= 0x74u)
+  {
+    if (v5 == 114)
+    {
+      if (a4)
+      {
+        if (*(a4 + 23) < 0)
+        {
+          a4[1] = 1;
+          a4 = *a4;
+        }
+
+        else
+        {
+          *(a4 + 23) = 1;
+        }
+
+        v15 = 13;
+        goto LABEL_90;
+      }
+
+      v7 = 13;
+      goto LABEL_75;
+    }
+
+    if (v5 == 116)
+    {
+      if (a4)
+      {
+        if (*(a4 + 23) < 0)
+        {
+          a4[1] = 1;
+          a4 = *a4;
+        }
+
+        else
+        {
+          *(a4 + 23) = 1;
+        }
+
+        v15 = 9;
+        goto LABEL_90;
+      }
+
+      v7 = 9;
+LABEL_75:
+      std::basic_regex<char,std::regex_traits<char>>::__push_char(a1, v7);
+      return ++v4;
+    }
+
+LABEL_70:
+    v7 = v5;
+    if (v5 < 0 || (a1->__traits_.__ct_->__tab_[v5] & 0x500) == 0)
+    {
+LABEL_72:
+      if (a4)
+      {
+        if (*(a4 + 23) < 0)
+        {
+          a4[1] = 1;
+          a4 = *a4;
+        }
+
+        else
+        {
+          *(a4 + 23) = 1;
+        }
+
+        *a4 = v7;
+        *(a4 + 1) = 0;
+        return ++v4;
+      }
+
+      goto LABEL_75;
+    }
+
+    goto LABEL_93;
+  }
+
+  if (v5 == 117)
+  {
+    if (a2 + 1 == a3)
+    {
+      goto LABEL_93;
+    }
+
+    v8 = a2[1];
+    if ((v8 & 0xF8) != 0x30 && (v8 & 0xFE) != 0x38 && (v8 | 0x20u) - 97 >= 6)
+    {
+      goto LABEL_93;
+    }
+
+    v4 = a2 + 2;
+    if (a2 + 2 == a3)
+    {
+      goto LABEL_93;
+    }
+
+    v9 = *v4;
+    if ((v9 & 0xF8) != 0x30 && (v9 & 0xFE) != 0x38 && (v9 | 0x20u) - 97 >= 6)
+    {
+      goto LABEL_93;
+    }
+
+    goto LABEL_43;
+  }
+
+  if (v5 == 118)
+  {
+    if (a4)
+    {
+      if (*(a4 + 23) < 0)
+      {
+        a4[1] = 1;
+        a4 = *a4;
+      }
+
+      else
+      {
+        *(a4 + 23) = 1;
+      }
+
+      v15 = 11;
+LABEL_90:
+      *a4 = v15;
+      return ++v4;
+    }
+
+    v7 = 11;
+    goto LABEL_75;
+  }
+
+  if (v5 != 120)
+  {
+    goto LABEL_70;
+  }
+
+LABEL_43:
+  if (v4 + 1 == a3)
+  {
+    goto LABEL_93;
+  }
+
+  v10 = v4[1];
+  v11 = -48;
+  if ((v10 & 0xF8) != 0x30 && (v10 & 0xFE) != 0x38)
+  {
+    v10 |= 0x20u;
+    if ((v10 - 97) >= 6u)
+    {
+      goto LABEL_93;
+    }
+
+    v11 = -87;
+  }
+
+  if (v4 + 2 == a3)
+  {
+    goto LABEL_93;
+  }
+
+  v12 = v4[2];
+  v13 = -48;
+  if ((v12 & 0xF8) != 0x30 && (v12 & 0xFE) != 0x38)
+  {
+    v12 |= 0x20u;
+    if ((v12 - 97) >= 6u)
+    {
+      goto LABEL_93;
+    }
+
+    v13 = -87;
+  }
+
+  v14 = v13 + v12 + 16 * (v11 + v10);
+  if (a4)
+  {
+    if (*(a4 + 23) < 0)
+    {
+      a4[1] = 1;
+      a4 = *a4;
+    }
+
+    else
+    {
+      *(a4 + 23) = 1;
+    }
+
+    *a4 = v14;
+    *(a4 + 1) = 0;
+  }
+
+  else
+  {
+    std::basic_regex<char,std::regex_traits<char>>::__push_char(a1, v14);
+  }
+
+  v4 += 3;
+  return v4;
+}
+
+void std::vector<char>::push_back[abi:ne200100](uint64_t a1, char *a2)
+{
+  v4 = *(a1 + 8);
+  v3 = *(a1 + 16);
+  if (v4 >= v3)
+  {
+    v6 = *a1;
+    v7 = &v4[-*a1];
+    v8 = (v7 + 1);
+    if ((v7 + 1) < 0)
+    {
+      std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__throw_length_error[abi:ne200100]();
+    }
+
+    v9 = v3 - v6;
+    if (2 * v9 > v8)
+    {
+      v8 = 2 * v9;
+    }
+
+    if (v9 >= 0x3FFFFFFFFFFFFFFFLL)
+    {
+      v10 = 0x7FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v10 = v8;
+    }
+
+    if (v10)
+    {
+      operator new();
+    }
+
+    v11 = &v4[-*a1];
+    *v7 = *a2;
+    v5 = v7 + 1;
+    memcpy(0, v6, v11);
+    *a1 = 0;
+    *(a1 + 8) = v7 + 1;
+    *(a1 + 16) = 0;
+    if (v6)
+    {
+      operator delete(v6);
+    }
+  }
+
+  else
+  {
+    *v4 = *a2;
+    v5 = v4 + 1;
+  }
+
+  *(a1 + 8) = v5;
+}
+
+unsigned __int8 *std::__search_impl[abi:ne200100]<std::__wrap_iter<char const*>,std::__wrap_iter<char const*>,char *,char *,std::__equal_to,std::__identity,std::__identity,0>(unsigned __int8 *result, uint64_t a2, unsigned __int8 *a3, unsigned __int8 *a4)
+{
+  v4 = a4 - a3;
+  if (a4 != a3)
+  {
+    if (a2 - result < v4)
+    {
+      return a2;
+    }
+
+    v5 = (a2 - v4 + 1);
+    if (v5 == result)
+    {
+      return a2;
+    }
+
+    else
+    {
+      v8 = *a3;
+      v6 = a3 + 1;
+      v7 = v8;
+      while (*result != v7)
+      {
+LABEL_11:
+        if (++result == v5)
+        {
+          return a2;
+        }
+      }
+
+      v9 = result + 1;
+      v10 = v6;
+      while (v10 != a4)
+      {
+        v12 = *v9++;
+        v11 = v12;
+        v13 = *v10++;
+        if (v11 != v13)
+        {
+          goto LABEL_11;
+        }
+      }
+    }
+  }
+
+  return result;
+}
+
+void std::regex_traits<char>::__lookup_collatename<std::__wrap_iter<char const*>>(uint64_t a1, uint64_t a2, _BYTE *__src, _BYTE *a4)
+{
+  std::string::__init_with_size[abi:ne200100]<char *,char *>(&__s, __src, a4, a4 - __src);
+  *a1 = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
+  {
+    if (!__s.__r_.__value_.__l.__size_)
+    {
+      goto LABEL_9;
+    }
+
+    p_s = __s.__r_.__value_.__r.__words[0];
+  }
+
+  else
+  {
+    if (!*(&__s.__r_.__value_.__s + 23))
+    {
+      return;
+    }
+
+    p_s = &__s;
+  }
+
+  std::__get_collation_name(&v11, p_s);
+  *a1 = *&v11.__r_.__value_.__l.__data_;
+  v7 = v11.__r_.__value_.__r.__words[2];
+  *(a1 + 16) = *(&v11.__r_.__value_.__l + 2);
+  v8 = HIBYTE(v7);
+  if ((v8 & 0x80u) != 0)
+  {
+    v8 = *(a1 + 8);
+  }
+
+  if (v8)
+  {
+    goto LABEL_9;
+  }
+
+  if ((SHIBYTE(__s.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+  {
+    if (__s.__r_.__value_.__l.__size_ >= 3)
+    {
+      goto LABEL_9;
+    }
+  }
+
+  else if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) >= 3)
+  {
+    return;
+  }
+
+  (*(**(a2 + 16) + 32))(&v11);
+  if (*(a1 + 23) < 0)
+  {
+    operator delete(*a1);
+  }
+
+  *a1 = v11;
+  if ((*(a1 + 23) & 0x80000000) == 0)
+  {
+    v9 = *(a1 + 23);
+    if (v9 != 12 && v9 != 1)
+    {
+      *a1 = 0;
+      *(a1 + 23) = 0;
+      goto LABEL_9;
+    }
+
+    goto LABEL_23;
+  }
+
+  v10 = *(a1 + 8);
+  if (v10 == 1 || v10 == 12)
+  {
+LABEL_23:
+    std::string::operator=(a1, &__s);
+    goto LABEL_9;
+  }
+
+  **a1 = 0;
+  *(a1 + 8) = 0;
+LABEL_9:
+  if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__s.__r_.__value_.__l.__data_);
+  }
+}
+
+void sub_1C9256FE0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (*(v17 + 23) < 0)
+  {
+    operator delete(*v17);
+  }
+
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)1>()
+{
+  exception = __cxa_allocate_exception(0x18uLL);
+  MEMORY[0x1CCA84610](exception, 1);
+}
+
+void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)2>()
+{
+  exception = __cxa_allocate_exception(0x18uLL);
+  MEMORY[0x1CCA84610](exception, 2);
+}
+
+void std::vector<std::pair<std::string,std::string>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+{
+  v1 = *a1;
+  v2 = **a1;
+  if (v2)
+  {
+    v4 = v1[1];
+    v5 = **a1;
+    if (v4 != v2)
+    {
+      do
+      {
+        v4 -= 48;
+        std::__destroy_at[abi:ne200100]<AudioDSPGraph::IR::BoxRelationModel,0>(v4);
+      }
+
+      while (v4 != v2);
+      v5 = **a1;
+    }
+
+    v1[1] = v2;
+
+    operator delete(v5);
+  }
+}
+
+void std::__bracket_expression<char,std::regex_traits<char>>::__exec(const std::__bracket_expression<char, std::regex_traits<char>> *this, std::__bracket_expression<char, std::regex_traits<char>>::__state *a2)
+{
+  current = a2->__current_;
+  last = a2->__last_;
+  if (current == last)
+  {
+    v9 = 0;
+    negate = this->__negate_;
+    goto LABEL_61;
+  }
+
+  if (!this->__might_have_digraph_ || current + 1 == last)
+  {
+    goto LABEL_38;
+  }
+
+  LOBYTE(__src) = *current;
+  v6 = current[1];
+  HIBYTE(__src) = current[1];
+  if (this->__icase_)
+  {
+    LOBYTE(__src) = (this->__traits_.__ct_->do_tolower)(this->__traits_.__ct_);
+    HIBYTE(__src) = (this->__traits_.__ct_->do_tolower)(this->__traits_.__ct_, v6);
+  }
+
+  *(&__s.__r_.__value_.__s + 23) = 2;
+  LOWORD(__s.__r_.__value_.__l.__data_) = __src;
+  __s.__r_.__value_.__s.__data_[2] = 0;
+  std::__get_collation_name(&v75, &__s);
+  __p = v75;
+  size = HIBYTE(v75.__r_.__value_.__r.__words[2]);
+  v8 = SHIBYTE(v75.__r_.__value_.__r.__words[2]);
+  if ((v75.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  {
+    size = v75.__r_.__value_.__l.__size_;
+  }
+
+  if (size)
+  {
+    goto LABEL_9;
+  }
+
+  if ((SHIBYTE(__s.__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
+  {
+    if (__s.__r_.__value_.__l.__size_ >= 3)
+    {
+      goto LABEL_9;
+    }
+  }
+
+  else if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) >= 3)
+  {
+    goto LABEL_14;
+  }
+
+  (*(*this->__traits_.__col_ + 32))(&v75);
+  if (v8 < 0)
+  {
+    operator delete(__p.__r_.__value_.__l.__data_);
+  }
+
+  __p = v75;
+  if ((SHIBYTE(v75.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  {
+    if (HIBYTE(v75.__r_.__value_.__r.__words[2]) != 12 && HIBYTE(v75.__r_.__value_.__r.__words[2]) != 1)
+    {
+      __p.__r_.__value_.__s.__data_[0] = 0;
+      *(&__p.__r_.__value_.__s + 23) = 0;
+      goto LABEL_9;
+    }
+
+    goto LABEL_167;
+  }
+
+  if (__p.__r_.__value_.__l.__size_ == 1 || __p.__r_.__value_.__l.__size_ == 12)
+  {
+LABEL_167:
+    std::string::operator=(&__p, &__s);
+    goto LABEL_9;
+  }
+
+  *__p.__r_.__value_.__l.__data_ = 0;
+  __p.__r_.__value_.__l.__size_ = 0;
+LABEL_9:
+  if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__s.__r_.__value_.__l.__data_);
+  }
+
+LABEL_14:
+  if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  {
+    if (*(&__p.__r_.__value_.__s + 23))
+    {
+      goto LABEL_16;
+    }
+
+LABEL_38:
+    negate = 0;
+    v9 = 1;
+    goto LABEL_39;
+  }
+
+  v23 = __p.__r_.__value_.__l.__size_;
+  operator delete(__p.__r_.__value_.__l.__data_);
+  if (!v23)
+  {
+    goto LABEL_38;
+  }
+
+LABEL_16:
+  begin = this->__digraphs_.__begin_;
+  v12 = this->__digraphs_.__end_ - begin;
+  if (v12)
+  {
+    v13 = v12 >> 1;
+    if ((v12 >> 1) <= 1)
+    {
+      v13 = 1;
+    }
+
+    p_second = &begin->second;
+    while (__src != *(p_second - 1) || HIBYTE(__src) != *p_second)
+    {
+      p_second += 2;
+      if (!--v13)
+      {
+        goto LABEL_25;
+      }
+    }
+
+    goto LABEL_163;
+  }
+
+LABEL_25:
+  if (this->__collate_ && this->__ranges_.__begin_ != this->__ranges_.__end_)
+  {
+    std::regex_traits<char>::transform<char *>(&__s, &this->__traits_, &__src, &v75);
+    v16 = this->__ranges_.__begin_;
+    v17 = this->__ranges_.__end_ - v16;
+    if (v17)
+    {
+      v18 = 0;
+      v19 = 0xAAAAAAAAAAAAAAABLL * (v17 >> 4);
+      while (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v16, &__s) > 0 || std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__s, v16->second.__r_.__value_.__r.__words) >= 1)
+      {
+        ++v18;
+        ++v16;
+        if (v18 >= v19)
+        {
+          goto LABEL_32;
+        }
+      }
+
+      v21 = 5;
+      v20 = 1;
+    }
+
+    else
+    {
+LABEL_32:
+      v20 = 0;
+      v21 = 0;
+    }
+
+    if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
+    {
+      operator delete(__s.__r_.__value_.__l.__data_);
+    }
+
+    if (v20)
+    {
+      v22 = 1;
+      goto LABEL_143;
+    }
+  }
+
+  if (this->__equivalences_.__begin_ == this->__equivalences_.__end_)
+  {
+    v22 = 0;
+    goto LABEL_145;
+  }
+
+  std::regex_traits<char>::__transform_primary<char *>(&__s, &this->__traits_, &__src, &v75);
+  v38 = this->__equivalences_.__begin_;
+  v39 = HIBYTE(__s.__r_.__value_.__r.__words[2]);
+  v40 = this->__equivalences_.__end_ - v38;
+  if (v40)
+  {
+    v41 = 0xAAAAAAAAAAAAAAABLL * (v40 >> 3);
+    if ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v42 = HIBYTE(__s.__r_.__value_.__r.__words[2]);
+    }
+
+    else
+    {
+      v42 = __s.__r_.__value_.__l.__size_;
+    }
+
+    if ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      p_s = &__s;
+    }
+
+    else
+    {
+      p_s = __s.__r_.__value_.__r.__words[0];
+    }
+
+    if (v41 <= 1)
+    {
+      v44 = 1;
+    }
+
+    else
+    {
+      v44 = 0xAAAAAAAAAAAAAAABLL * (v40 >> 3);
+    }
+
+    v45 = 1;
+    v46 = 1;
+    while (1)
+    {
+      v47 = HIBYTE(v38->__r_.__value_.__r.__words[2]);
+      v48 = v47;
+      if ((v47 & 0x80u) != 0)
+      {
+        v47 = v38->__r_.__value_.__l.__size_;
+      }
+
+      if (v42 == v47)
+      {
+        v49 = v48 >= 0 ? v38 : v38->__r_.__value_.__r.__words[0];
+        if (!memcmp(p_s, v49, v42))
+        {
+          break;
+        }
+      }
+
+      v46 = v45++ < v41;
+      ++v38;
+      if (!--v44)
+      {
+        goto LABEL_140;
+      }
+    }
+
+    v22 = 1;
+    v21 = 5;
+    if (v39 < 0)
+    {
+LABEL_141:
+      operator delete(__s.__r_.__value_.__l.__data_);
+    }
+  }
+
+  else
+  {
+    v46 = 0;
+LABEL_140:
+    v21 = 0;
+    v22 = 0;
+    if (v39 < 0)
+    {
+      goto LABEL_141;
+    }
+  }
+
+  if (!v46)
+  {
+LABEL_145:
+    if (__src < 0)
+    {
+      neg_mask = this->__neg_mask_;
+    }
+
+    else
+    {
+      mask = this->__mask_;
+      tab = this->__traits_.__ct_->__tab_;
+      v69 = tab[__src];
+      if (((v69 & mask) != 0 || __src == 95 && (mask & 0x80) != 0) && (SHIBYTE(__src) & 0x8000000000000000) == 0 && ((tab[SHIBYTE(__src)] & mask) != 0 || (mask & 0x80) != 0 && SHIBYTE(__src) == 95))
+      {
+        goto LABEL_163;
+      }
+
+      neg_mask = this->__neg_mask_;
+      if ((v69 & neg_mask) != 0 || __src == 95 && (neg_mask & 0x80) != 0)
+      {
+LABEL_162:
+        negate = v22;
+LABEL_164:
+        v9 = 2;
+        goto LABEL_61;
+      }
+    }
+
+    if ((SHIBYTE(__src) & 0x8000000000000000) == 0)
+    {
+      if ((this->__traits_.__ct_->__tab_[SHIBYTE(__src)] & neg_mask) == 0)
+      {
+        negate = 1;
+        if (SHIBYTE(__src) != 95 || (neg_mask & 0x80) == 0)
+        {
+          goto LABEL_164;
+        }
+      }
+
+      goto LABEL_162;
+    }
+
+LABEL_163:
+    negate = 1;
+    goto LABEL_164;
+  }
+
+LABEL_143:
+  v9 = 2;
+  negate = v22;
+  if (v21)
+  {
+    goto LABEL_61;
+  }
+
+LABEL_39:
+  v24 = *a2->__current_;
+  v75.__r_.__value_.__s.__data_[0] = *a2->__current_;
+  if (this->__icase_)
+  {
+    LODWORD(v24) = (this->__traits_.__ct_->do_tolower)(this->__traits_.__ct_, v24);
+    v75.__r_.__value_.__s.__data_[0] = v24;
+  }
+
+  v25 = this->__chars_.__begin_;
+  v26 = this->__chars_.__end_ - v25;
+  if (v26)
+  {
+    if (v26 <= 1)
+    {
+      v26 = 1;
+    }
+
+    do
+    {
+      v27 = *v25++;
+      if (v27 == v24)
+      {
+        goto LABEL_60;
+      }
+    }
+
+    while (--v26);
+  }
+
+  v28 = this->__neg_mask_;
+  if (v28 || this->__neg_chars_.__begin_ != this->__neg_chars_.__end_)
+  {
+    if ((v24 & 0x80000000) != 0 || (this->__traits_.__ct_->__tab_[v24] & v28) == 0)
+    {
+      v29 = (v24 == 95) & (v28 >> 7);
+    }
+
+    else
+    {
+      LOBYTE(v29) = 1;
+    }
+
+    end = this->__neg_chars_.__end_;
+    v31 = memchr(this->__neg_chars_.__begin_, v24, end - this->__neg_chars_.__begin_);
+    v32 = !v31 || v31 == end;
+    v33 = !v32;
+    if ((v29 & 1) == 0 && !v33)
+    {
+LABEL_60:
+      negate = 1;
+      goto LABEL_61;
+    }
+  }
+
+  v37 = this->__ranges_.__begin_;
+  v36 = this->__ranges_.__end_;
+  if (v37 == v36)
+  {
+    goto LABEL_99;
+  }
+
+  if (this->__collate_)
+  {
+    std::regex_traits<char>::transform<char *>(&__s, &this->__traits_, &v75, &v75.__r_.__value_.__s.__data_[1]);
+    v37 = this->__ranges_.__begin_;
+    v36 = this->__ranges_.__end_;
+  }
+
+  else
+  {
+    *(&__s.__r_.__value_.__s + 23) = 1;
+    LOWORD(__s.__r_.__value_.__l.__data_) = v24;
+  }
+
+  v50 = v36 - v37;
+  if (v50)
+  {
+    v51 = 0;
+    v52 = 0xAAAAAAAAAAAAAAABLL * (v50 >> 4);
+    while (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v37, &__s) > 0 || std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__s, v37->second.__r_.__value_.__r.__words) >= 1)
+    {
+      ++v51;
+      ++v37;
+      if (v51 >= v52)
+      {
+        goto LABEL_95;
+      }
+    }
+
+    v53 = 1;
+    negate = 1;
+  }
+
+  else
+  {
+LABEL_95:
+    v53 = 0;
+  }
+
+  if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(__s.__r_.__value_.__l.__data_);
+  }
+
+  if ((v53 & 1) == 0)
+  {
+LABEL_99:
+    if (this->__equivalences_.__begin_ == this->__equivalences_.__end_)
+    {
+LABEL_134:
+      v65 = this->__mask_;
+      if ((v75.__r_.__value_.__s.__data_[0] & 0x8000000000000000) == 0 && (this->__traits_.__ct_->__tab_[v75.__r_.__value_.__s.__data_[0]] & v65) != 0)
+      {
+        goto LABEL_60;
+      }
+
+      v66 = (v65 >> 7) & 1;
+      if (v75.__r_.__value_.__s.__data_[0] != 95)
+      {
+        LOBYTE(v66) = 0;
+      }
+
+      negate |= v66;
+      goto LABEL_61;
+    }
+
+    v54 = &__s;
+    std::regex_traits<char>::__transform_primary<char *>(&__s, &this->__traits_, &v75, &v75.__r_.__value_.__s.__data_[1]);
+    v55 = this->__equivalences_.__begin_;
+    v56 = this->__equivalences_.__end_ - v55;
+    if (v56)
+    {
+      v71 = HIBYTE(__s.__r_.__value_.__r.__words[2]);
+      v72 = v9;
+      v57 = 0xAAAAAAAAAAAAAAABLL * (v56 >> 3);
+      if ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v58 = HIBYTE(__s.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        v58 = __s.__r_.__value_.__l.__size_;
+      }
+
+      if ((__s.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      {
+        v54 = __s.__r_.__value_.__r.__words[0];
+      }
+
+      if (v57 <= 1)
+      {
+        v59 = 1;
+      }
+
+      else
+      {
+        v59 = 0xAAAAAAAAAAAAAAABLL * (v56 >> 3);
+      }
+
+      v60 = 1;
+      v61 = 1;
+      while (1)
+      {
+        v62 = HIBYTE(v55->__r_.__value_.__r.__words[2]);
+        v63 = v62;
+        if ((v62 & 0x80u) != 0)
+        {
+          v62 = v55->__r_.__value_.__l.__size_;
+        }
+
+        if (v58 == v62)
+        {
+          v64 = v63 >= 0 ? v55 : v55->__r_.__value_.__r.__words[0];
+          if (!memcmp(v54, v64, v58))
+          {
+            break;
+          }
+        }
+
+        v61 = v60++ < v57;
+        ++v55;
+        if (!--v59)
+        {
+          goto LABEL_131;
+        }
+      }
+
+      negate = 1;
+LABEL_131:
+      v9 = v72;
+      if ((v71 & 0x80) == 0)
+      {
+LABEL_133:
+        if (v61)
+        {
+          goto LABEL_61;
+        }
+
+        goto LABEL_134;
+      }
+    }
+
+    else
+    {
+      v61 = 0;
+      if ((*(&__s.__r_.__value_.__s + 23) & 0x80) == 0)
+      {
+        goto LABEL_133;
+      }
+    }
+
+    operator delete(__s.__r_.__value_.__l.__data_);
+    goto LABEL_133;
+  }
+
+LABEL_61:
+  if (this->__negate_ == (negate & 1))
+  {
+    first = 0;
+    v35 = -993;
+  }
+
+  else
+  {
+    a2->__current_ += v9;
+    first = this->__first_;
+    v35 = -995;
+  }
+
+  a2->__do_ = v35;
+  a2->__node_ = first;
+}
+
+void sub_1C9257940(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, int a13, __int16 a14, char a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26)
+{
+  if (a16 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a26 < 0)
+  {
+    operator delete(a21);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::regex_traits<char>::transform<char *>(int a1, uint64_t a2, _BYTE *__src, _BYTE *a4)
+{
+  std::string::__init_with_size[abi:ne200100]<char *,char *>(__p, __src, a4, a4 - __src);
+  v5 = v8;
+  if ((v8 & 0x80u) == 0)
+  {
+    v6 = __p;
+  }
+
+  else
+  {
+    v6 = __p[0];
+  }
+
+  if ((v8 & 0x80u) != 0)
+  {
+    v5 = __p[1];
+  }
+
+  (*(**(a2 + 16) + 32))(*(a2 + 16), v6, v6 + v5);
+  if (v8 < 0)
+  {
+    operator delete(__p[0]);
+  }
+}
+
+void sub_1C9257A24(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(void *a1, void *a2)
+{
+  v2 = a1[1];
+  if (*(a1 + 23) >= 0)
+  {
+    v3 = *(a1 + 23);
+  }
+
+  else
+  {
+    a1 = *a1;
+    v3 = v2;
+  }
+
+  v4 = a2[1];
+  if (*(a2 + 23) >= 0)
+  {
+    v5 = *(a2 + 23);
+  }
+
+  else
+  {
+    a2 = *a2;
+    v5 = v4;
+  }
+
+  if (v5 >= v3)
+  {
+    v6 = v3;
+  }
+
+  else
+  {
+    v6 = v5;
+  }
+
+  v7 = memcmp(a1, a2, v6);
+  if (v7)
+  {
+    if ((v7 & 0x80000000) == 0)
+    {
+      return 1;
+    }
+  }
+
+  else
+  {
+    if (v3 == v5)
+    {
+      return 0;
+    }
+
+    if (v3 >= v5)
+    {
+      return 1;
+    }
+  }
+
+  return 255;
+}
+
+void std::regex_traits<char>::__transform_primary<char *>(uint64_t a1, uint64_t a2, _BYTE *__src, _BYTE *a4)
+{
+  std::string::__init_with_size[abi:ne200100]<char *,char *>(__p, __src, a4, a4 - __src);
+  v6 = v12;
+  if ((v12 & 0x80u) == 0)
+  {
+    v7 = __p;
+  }
+
+  else
+  {
+    v7 = __p[0];
+  }
+
+  if ((v12 & 0x80u) != 0)
+  {
+    v6 = __p[1];
+  }
+
+  (*(**(a2 + 16) + 32))(*(a2 + 16), v7, v7 + v6);
+  v8 = *(a1 + 23);
+  v9 = v8;
+  if ((v8 & 0x80u) != 0)
+  {
+    v8 = *(a1 + 8);
+  }
+
+  if (v8 != 1)
+  {
+    if (v8 == 12)
+    {
+      if (v9 >= 0)
+      {
+        v10 = a1;
+      }
+
+      else
+      {
+        v10 = *a1;
+      }
+
+      v10[11] = v10[3];
+    }
+
+    else if (v9 < 0)
+    {
+      **a1 = 0;
+      *(a1 + 8) = 0;
+    }
+
+    else
+    {
+      *a1 = 0;
+      *(a1 + 23) = 0;
+    }
+  }
+
+  if (v12 < 0)
+  {
+    operator delete(__p[0]);
+  }
+}
+
+void sub_1C9257BC0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void *std::string::__init_with_size[abi:ne200100]<char *,char *>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+{
+  if (a4 >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  v4 = __dst;
+  if (a4 > 0x16)
+  {
+    operator new();
+  }
+
+  *(__dst + 23) = a4;
+  v5 = a3 - __src;
+  if (a3 != __src)
+  {
+    __dst = memmove(__dst, __src, v5);
+  }
+
+  *(v4 + v5) = 0;
+  return __dst;
+}
+
+void std::__bracket_expression<char,std::regex_traits<char>>::~__bracket_expression(std::locale *a1)
+{
+  std::__bracket_expression<char,std::regex_traits<char>>::~__bracket_expression(a1);
+
+  JUMPOUT(0x1CCA84AE0);
+}
+
+std::locale *std::__bracket_expression<char,std::regex_traits<char>>::~__bracket_expression(std::locale *a1)
+{
+  v7 = a1 + 17;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v7);
+  locale = a1[14].__locale_;
+  if (locale)
+  {
+    a1[15].__locale_ = locale;
+    operator delete(locale);
+  }
+
+  v7 = a1 + 11;
+  std::vector<std::pair<std::string,std::string>>::__destroy_vector::operator()[abi:ne200100](&v7);
+  v3 = a1[8].__locale_;
+  if (v3)
+  {
+    a1[9].__locale_ = v3;
+    operator delete(v3);
+  }
+
+  v4 = a1[5].__locale_;
+  if (v4)
+  {
+    a1[6].__locale_ = v4;
+    operator delete(v4);
+  }
+
+  std::locale::~locale(a1 + 2);
+  v5 = a1[1].__locale_;
+  if (v5)
+  {
+    (*(*v5 + 8))(v5);
+  }
+
+  return a1;
+}
+
+uint64_t std::__match_any<char>::__exec(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 16);
+  if (v2 == *(a2 + 24) || !*v2)
+  {
+    v3 = 0;
+    *a2 = -993;
+  }
+
+  else
+  {
+    *a2 = -995;
+    *(a2 + 16) = v2 + 1;
+    v3 = *(result + 8);
+  }
+
+  *(a2 + 80) = v3;
+  return result;
+}
+
+void std::__match_any<char>::~__match_any(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this))
+{
+  v1 = a1[1];
+  if (v1)
+  {
+    (*(*v1 + 1))(v1);
+  }
+
+  JUMPOUT(0x1CCA84AE0);
+}
+
+void (__cdecl ***std::__match_any<char>::~__match_any(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this)))(std::__owns_one_state<char> *__hidden this)
+{
+  v2 = a1[1];
+  if (v2)
+  {
+    (*(*v2 + 1))(v2);
+  }
+
+  return a1;
+}
+
+BOOL std::basic_regex<char,std::regex_traits<char>>::__test_back_ref(std::basic_regex<char> *this, char a2)
+{
+  if ((a2 & 0xF8) != 0x30 && (a2 & 0xFE) != 0x38 || a2 - 49 > 8)
+  {
+    return 0;
+  }
+
+  if (a2 - 48 > this->__marked_count_)
+  {
+    std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)4>();
+  }
+
+  std::basic_regex<char,std::regex_traits<char>>::__push_back_ref(this, a2 - 48);
+  return 1;
+}
+
+void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)4>()
+{
+  exception = __cxa_allocate_exception(0x18uLL);
+  MEMORY[0x1CCA84610](exception, 4);
+}
+
+void std::basic_regex<char,std::regex_traits<char>>::__push_back_ref(std::basic_regex<char> *this, int __i)
+{
+  flags = this->__flags_;
+  if ((flags & 1) == 0)
+  {
+    if ((flags & 8) == 0)
+    {
+      operator new();
+    }
+
+    operator new();
+  }
+
+  operator new();
+}
+
+unsigned int *std::__back_ref<char>::__exec(unsigned int *result, uint64_t a2)
+{
+  v2 = result[4];
+  v3 = *(a2 + 32);
+  if (0xAAAAAAAAAAAAAAABLL * ((*(a2 + 40) - v3) >> 3) < v2)
+  {
+    std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)4>();
+  }
+
+  v5 = v3 + 24 * (v2 - 1);
+  if (*(v5 + 16) == 1 && (v6 = result, result = *v5, v7 = *(v5 + 8) - *v5, v8 = *(a2 + 16), *(a2 + 24) - v8 >= v7) && (result = memcmp(result, *(a2 + 16), v7), !result))
+  {
+    *a2 = -994;
+    *(a2 + 16) = v8 + v7;
+    v9 = *(v6 + 1);
+  }
+
+  else
+  {
+    v9 = 0;
+    *a2 = -993;
+  }
+
+  *(a2 + 80) = v9;
+  return result;
+}
+
+void std::__back_ref<char>::~__back_ref(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this))
+{
+  v1 = a1[1];
+  if (v1)
+  {
+    (*(*v1 + 1))(v1);
+  }
+
+  JUMPOUT(0x1CCA84AE0);
+}
+
+void (__cdecl ***std::__back_ref<char>::~__back_ref(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this)))(std::__owns_one_state<char> *__hidden this)
+{
+  v2 = a1[1];
+  if (v2)
+  {
+    (*(*v2 + 1))(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__back_ref_collate<char,std::regex_traits<char>>::__exec(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 32) + 24 * (*(result + 40) - 1);
+  if (*(v2 + 16) == 1)
+  {
+    v3 = *v2;
+    v4 = *(v2 + 8) - *v2;
+    v5 = *(a2 + 16);
+    if (*(a2 + 24) - v5 >= v4)
+    {
+      if (v4 < 1)
+      {
+LABEL_9:
+        *a2 = -994;
+        *(a2 + 16) = v5 + v4;
+        v6 = *(result + 8);
+        goto LABEL_4;
+      }
+
+      v7 = v4;
+      v8 = *(a2 + 16);
+      while (1)
+      {
+        v10 = *v3++;
+        v9 = v10;
+        v11 = *v8++;
+        if (v9 != v11)
+        {
+          break;
+        }
+
+        if (!--v7)
+        {
+          goto LABEL_9;
+        }
+      }
+    }
+  }
+
+  v6 = 0;
+  *a2 = -993;
+LABEL_4:
+  *(a2 + 80) = v6;
+  return result;
+}
+
+void std::__back_ref_collate<char,std::regex_traits<char>>::~__back_ref_collate(std::locale *a1)
+{
+  a1->__locale_ = &unk_1F48D3D18;
+  std::locale::~locale(a1 + 2);
+  locale = a1[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  JUMPOUT(0x1CCA84AE0);
+}
+
+std::locale *std::__back_ref_collate<char,std::regex_traits<char>>::~__back_ref_collate(std::locale *a1)
+{
+  a1->__locale_ = &unk_1F48D3D18;
+  std::locale::~locale(a1 + 2);
+  locale = a1[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  return a1;
+}
+
+uint64_t std::__back_ref_icase<char,std::regex_traits<char>>::__exec(uint64_t result, uint64_t a2)
+{
+  v3 = *(a2 + 32) + 24 * (*(result + 40) - 1);
+  if (*(v3 + 16) == 1)
+  {
+    v4 = *(v3 + 8) - *v3;
+    v5 = *(a2 + 16);
+    if (*(a2 + 24) - v5 >= v4)
+    {
+      v7 = result;
+      if (v4 < 1)
+      {
+LABEL_10:
+        *a2 = -994;
+        *(a2 + 16) = v5 + v4;
+        v6 = *(v7 + 8);
+        goto LABEL_4;
+      }
+
+      v8 = 0;
+      while (1)
+      {
+        v9 = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*v3 + v8));
+        result = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*(a2 + 16) + v8));
+        if (v9 != result)
+        {
+          break;
+        }
+
+        if (v4 == ++v8)
+        {
+          v5 = *(a2 + 16);
+          goto LABEL_10;
+        }
+      }
+    }
+  }
+
+  v6 = 0;
+  *a2 = -993;
+LABEL_4:
+  *(a2 + 80) = v6;
+  return result;
+}
+
+void std::__back_ref_icase<char,std::regex_traits<char>>::~__back_ref_icase(std::locale *a1)
+{
+  a1->__locale_ = &unk_1F48D3CE8;
+  std::locale::~locale(a1 + 2);
+  locale = a1[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  JUMPOUT(0x1CCA84AE0);
+}
+
+std::locale *std::__back_ref_icase<char,std::regex_traits<char>>::~__back_ref_icase(std::locale *a1)
+{
+  a1->__locale_ = &unk_1F48D3CE8;
+  std::locale::~locale(a1 + 2);
+  locale = a1[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  return a1;
+}
+
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_simple_RE<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
+{
+  v3 = a2;
+  if (a2 == a3)
+  {
+    return v3;
+  }
+
+  v4 = a3;
+  end = a1->__end_;
+  marked_count = a1->__marked_count_;
+  v9 = a2 + 1;
+  v8 = *a2;
+  if (a2 + 1 == a3 && v8 == 36 || ((v8 - 46) <= 0x2E ? (v10 = ((1 << (v8 - 46)) & 0x600000000001) == 0) : (v10 = 1), !v10))
+  {
+    v11 = a2;
+    if (v9 != a3)
+    {
+      v12 = *a2;
+      if (v12 != 92)
+      {
+LABEL_17:
+        if (v12 == 46)
+        {
+          operator new();
+        }
+
+        goto LABEL_19;
+      }
+
+      v13 = *v9;
+      if ((v13 - 36) > 0x3A || ((1 << (v13 - 36)) & 0x580000000000441) == 0)
+      {
+LABEL_19:
+        v11 = std::basic_regex<char,std::regex_traits<char>>::__parse_bracket_expression<std::__wrap_iter<char const*>>(a1, v3, v4);
+        goto LABEL_20;
+      }
+
+      std::basic_regex<char,std::regex_traits<char>>::__push_char(a1, v13);
+      v11 = v3 + 2;
+      if (v3 + 2 != v3)
+      {
+        goto LABEL_41;
+      }
+    }
+
+    v12 = *v11;
+    goto LABEL_17;
+  }
+
+  std::basic_regex<char,std::regex_traits<char>>::__push_char(a1, v8);
+  v11 = v3 + 1;
+LABEL_20:
+  if (v11 == v3)
+  {
+    if (v9 == v4 || *v11 != 92)
+    {
+      return v3;
+    }
+
+    v15 = v3[1];
+    if (v15 == 40)
+    {
+      v16 = v3 + 2;
+    }
+
+    else
+    {
+      v16 = v11;
+    }
+
+    if (v16 == v3)
+    {
+      if (std::basic_regex<char,std::regex_traits<char>>::__test_back_ref(a1, v15))
+      {
+        v11 = v3 + 2;
+      }
+
+      goto LABEL_41;
+    }
+
+    std::basic_regex<char,std::regex_traits<char>>::__push_begin_marked_subexpression(a1);
+    v17 = a1->__marked_count_;
+    do
+    {
+      v18 = v16;
+      v16 = std::basic_regex<char,std::regex_traits<char>>::__parse_simple_RE<std::__wrap_iter<char const*>>(a1, v16, v4);
+    }
+
+    while (v18 != v16);
+    v11 = v4;
+    if (v18 != v4)
+    {
+      if (v18 + 1 == v4 || *v18 != 92)
+      {
+        goto LABEL_76;
+      }
+
+      if (v18[1] == 41)
+      {
+        v11 = v18 + 2;
+      }
+
+      else
+      {
+        v11 = v18;
+      }
+    }
+
+    if (v11 != v18)
+    {
+      std::basic_regex<char,std::regex_traits<char>>::__push_end_marked_subexpression(a1, v17);
+      goto LABEL_41;
+    }
+
+LABEL_76:
+    std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)6>();
+  }
+
+LABEL_41:
+  if (v11 != v3)
+  {
+    if (v11 == v4)
+    {
+      return v4;
+    }
+
+    v19 = a1->__marked_count_ + 1;
+    v20 = *v11;
+    if (v20 == 42)
+    {
+      std::basic_regex<char,std::regex_traits<char>>::__push_loop(a1, 0, 0xFFFFFFFFFFFFFFFFLL, end, marked_count + 1, a1->__marked_count_ + 1, 1);
+      return v11 + 1;
+    }
+
+    if (v11 + 1 == v4 || v20 != 92)
+    {
+      return v11;
+    }
+
+    v21 = v11[1] == 123 ? v11 + 2 : v11;
+    v3 = v11;
+    if (v11 != v21)
+    {
+      v30 = 0;
+      v22 = std::basic_regex<char,std::regex_traits<char>>::__parse_DUP_COUNT<std::__wrap_iter<char const*>>(v21, v4, &v30);
+      if (v22 == v21)
+      {
+        goto LABEL_78;
+      }
+
+      if (v22 != v4)
+      {
+        v23 = *v22;
+        if (v23 == 44)
+        {
+          v29 = -1;
+          v24 = std::basic_regex<char,std::regex_traits<char>>::__parse_DUP_COUNT<std::__wrap_iter<char const*>>(v22 + 1, v4, &v29);
+          if (v24 != v4)
+          {
+            if (v24 + 1 == v4 || *v24 != 92)
+            {
+              goto LABEL_77;
+            }
+
+            if (v24[1] == 125)
+            {
+              v4 = v24 + 2;
+            }
+
+            else
+            {
+              v4 = v24;
+            }
+          }
+
+          if (v4 != v24)
+          {
+            v26 = v29;
+            v25 = v30;
+            if (v29 == -1)
+            {
+              v27 = a1;
+              v26 = -1;
+              goto LABEL_75;
+            }
+
+            if (v29 >= v30)
+            {
+              v27 = a1;
+LABEL_75:
+              std::basic_regex<char,std::regex_traits<char>>::__push_loop(v27, v25, v26, end, marked_count + 1, v19, 1);
+              return v4;
+            }
+
+LABEL_78:
+            std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)8>();
+          }
+        }
+
+        else if (v22 + 1 != v4 && v23 == 92)
+        {
+          v4 = v22[1] == 125 ? v22 + 2 : v22;
+          if (v22 != v4)
+          {
+            v25 = v30;
+            v27 = a1;
+            v26 = v30;
+            goto LABEL_75;
+          }
+        }
+      }
+
+LABEL_77:
+      std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)7>();
+    }
+  }
+
+  return v3;
+}
+
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_term<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, unsigned __int8 *a2, char *a3)
+{
+  if (a2 == a3)
+  {
+    end = a1->__end_;
+    marked_count = a1->__marked_count_;
+LABEL_3:
+    v8 = a2;
+    goto LABEL_4;
+  }
+
+  v12 = *a2;
+  if (v12 > 0x5B)
+  {
+    if (v12 == 92)
+    {
+      if (a2 + 1 != a3)
+      {
+        v16 = a2[1];
+        if (v16 == 66)
+        {
+          v17 = 1;
+        }
+
+        else
+        {
+          if (v16 != 98)
+          {
+            goto LABEL_28;
+          }
+
+          v17 = 0;
+        }
+
+        std::basic_regex<char,std::regex_traits<char>>::__push_word_boundary(a1, v17);
+        v9 = a2 + 2;
+        goto LABEL_29;
+      }
+
+LABEL_28:
+      v9 = a2;
+      goto LABEL_29;
+    }
+
+    v9 = a2;
+    if (v12 != 94)
+    {
+      goto LABEL_29;
+    }
+
+    std::basic_regex<char,std::regex_traits<char>>::__push_l_anchor(a1);
+LABEL_23:
+    v9 = a2 + 1;
+    goto LABEL_29;
+  }
+
+  if (v12 == 36)
+  {
+    std::basic_regex<char,std::regex_traits<char>>::__push_r_anchor(a1);
+    goto LABEL_23;
+  }
+
+  v9 = a2;
+  if (v12 != 40)
+  {
+    goto LABEL_29;
+  }
+
+  if (a2 + 1 == a3 || a2[1] != 63 || a2 + 2 == a3)
+  {
+    goto LABEL_28;
+  }
+
+  v13 = a2[2];
+  if (v13 == 33)
+  {
+    std::regex_traits<char>::regex_traits(&v40.__traits_);
+    memset(&v40.__flags_, 0, 40);
+    v40.__flags_ = a1->__flags_;
+    v14 = std::basic_regex<char,std::regex_traits<char>>::__parse<std::__wrap_iter<char const*>>(&v40, a2 + 3, a3);
+    v27 = v40.__marked_count_;
+    std::basic_regex<char,std::regex_traits<char>>::__push_lookahead(a1, &v40, 1, a1->__marked_count_);
+    a1->__marked_count_ += v27;
+    if (v14 == a3 || *v14 != 41)
+    {
+      std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)6>();
+    }
+
+    goto LABEL_59;
+  }
+
+  if (v13 != 61)
+  {
+    goto LABEL_28;
+  }
+
+  std::regex_traits<char>::regex_traits(&v40.__traits_);
+  memset(&v40.__flags_, 0, 40);
+  v40.__flags_ = a1->__flags_;
+  v14 = std::basic_regex<char,std::regex_traits<char>>::__parse<std::__wrap_iter<char const*>>(&v40, a2 + 3, a3);
+  v15 = v40.__marked_count_;
+  std::basic_regex<char,std::regex_traits<char>>::__push_lookahead(a1, &v40, 0, a1->__marked_count_);
+  a1->__marked_count_ += v15;
+  if (v14 == a3 || *v14 != 41)
+  {
+    std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)6>();
+  }
+
+LABEL_59:
+  v9 = (v14 + 1);
+  std::basic_regex<char,std::regex_traits<char>>::~basic_regex(&v40.__traits_.__loc_);
+LABEL_29:
+  if (v9 != a2)
+  {
+    return v9;
+  }
+
+  end = a1->__end_;
+  marked_count = a1->__marked_count_;
+  if (a2 == a3)
+  {
+    goto LABEL_3;
+  }
+
+  v18 = *a2;
+  if (v18 <= 0x3E)
+  {
+    v8 = a2;
+    if (*a2 <= 0x28u)
+    {
+      if (v18 == 36)
+      {
+        goto LABEL_4;
+      }
+
+      if (v18 == 40)
+      {
+        if (a2 + 1 != a3)
+        {
+          if (a2 + 2 != a3 && a2[1] == 63 && a2[2] == 58)
+          {
+            ++a1->__open_count_;
+            v23 = std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<std::__wrap_iter<char const*>>(a1, a2 + 3, a3);
+            if (v23 != a3 && *v23 == 41)
+            {
+              --a1->__open_count_;
+              v8 = (v23 + 1);
+              goto LABEL_4;
+            }
+          }
+
+          else
+          {
+            std::basic_regex<char,std::regex_traits<char>>::__push_begin_marked_subexpression(a1);
+            v24 = a1->__marked_count_;
+            ++a1->__open_count_;
+            v25 = std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<std::__wrap_iter<char const*>>(a1, a2 + 1, a3);
+            if (v25 != a3)
+            {
+              v26 = v25;
+              if (*v25 == 41)
+              {
+                std::basic_regex<char,std::regex_traits<char>>::__push_end_marked_subexpression(a1, v24);
+                --a1->__open_count_;
+                v8 = (v26 + 1);
+                goto LABEL_4;
+              }
+            }
+          }
+        }
+
+        std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)6>();
+      }
+    }
+
+    else
+    {
+      if (v18 == 41)
+      {
+        goto LABEL_4;
+      }
+
+      if (v18 == 46)
+      {
+        operator new();
+      }
+
+      if (v18 - 42 < 2)
+      {
+LABEL_101:
+        std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)11>();
+      }
+    }
+
+LABEL_74:
+    std::basic_regex<char,std::regex_traits<char>>::__push_char(a1, v18);
+    v8 = a2 + 1;
+    goto LABEL_4;
+  }
+
+  v19 = v18 - 92;
+  if (v19 > 0x21)
+  {
+LABEL_71:
+    if (v18 == 91)
+    {
+      v8 = std::basic_regex<char,std::regex_traits<char>>::__parse_bracket_expression<std::__wrap_iter<char const*>>(a1, a2, a3);
+      goto LABEL_4;
+    }
+
+    if (v18 == 63)
+    {
+      goto LABEL_101;
+    }
+
+    goto LABEL_74;
+  }
+
+  v8 = a2;
+  if (((1 << (v18 - 92)) & 0x300000006) != 0)
+  {
+    goto LABEL_4;
+  }
+
+  if (v18 != 92)
+  {
+    if (v19 == 31)
+    {
+      goto LABEL_101;
+    }
+
+    goto LABEL_71;
+  }
+
+  v20 = a2 + 1;
+  if (a3 == (a2 + 1))
+  {
+    std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)3>();
+  }
+
+  v21 = *v20;
+  v22 = v21 - 48;
+  if (v21 == 48)
+  {
+    std::basic_regex<char,std::regex_traits<char>>::__push_char(a1, v22);
+    v8 = a2 + 2;
+    goto LABEL_78;
+  }
+
+  v8 = a2 + 1;
+  if ((v21 - 49) <= 8)
+  {
+    v8 = a2 + 2;
+    if (a2 + 2 == a3)
+    {
+      v8 = a3;
+    }
+
+    else
+    {
+      while (1)
+      {
+        v28 = *v8;
+        if ((v28 - 48) > 9)
+        {
+          break;
+        }
+
+        if (v22 >= 0x19999999)
+        {
+          goto LABEL_103;
+        }
+
+        ++v8;
+        v22 = v28 + 10 * v22 - 48;
+        if (v8 == a3)
+        {
+          v8 = a3;
+          break;
+        }
+      }
+
+      if (!v22)
+      {
+LABEL_103:
+        std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)4>();
+      }
+    }
+
+    if (v22 > marked_count)
+    {
+      goto LABEL_103;
+    }
+
+    std::basic_regex<char,std::regex_traits<char>>::__push_back_ref(a1, v22);
+  }
+
+LABEL_78:
+  if (v20 != v8)
+  {
+    goto LABEL_4;
+  }
+
+  v29 = *v20;
+  if (v29 <= 0x63)
+  {
+    if (v29 != 68)
+    {
+      if (v29 != 83)
+      {
+        v8 = a2 + 1;
+        if (v29 != 87)
+        {
+          goto LABEL_97;
+        }
+
+        v30 = a1;
+        v31 = 1;
+        goto LABEL_91;
+      }
+
+      v37 = a1;
+      v38 = 1;
+      goto LABEL_94;
+    }
+
+    v32 = a1;
+    v33 = 1;
+    goto LABEL_89;
+  }
+
+  if (v29 != 119)
+  {
+    if (v29 == 115)
+    {
+      v37 = a1;
+      v38 = 0;
+LABEL_94:
+      started = std::basic_regex<char,std::regex_traits<char>>::__start_matching_list(v37, v38);
+      v35 = started->__mask_ | 0x4000;
+      goto LABEL_95;
+    }
+
+    v8 = a2 + 1;
+    if (v29 != 100)
+    {
+      goto LABEL_97;
+    }
+
+    v32 = a1;
+    v33 = 0;
+LABEL_89:
+    started = std::basic_regex<char,std::regex_traits<char>>::__start_matching_list(v32, v33);
+    v35 = started->__mask_ | 0x400;
+LABEL_95:
+    started->__mask_ = v35;
+    goto LABEL_96;
+  }
+
+  v30 = a1;
+  v31 = 0;
+LABEL_91:
+  v36 = std::basic_regex<char,std::regex_traits<char>>::__start_matching_list(v30, v31);
+  v36->__mask_ |= 0x500u;
+  std::__bracket_expression<char,std::regex_traits<char>>::__add_char[abi:ne200100](v36, 95);
+LABEL_96:
+  v8 = a2 + 2;
+LABEL_97:
+  if (v20 == v8)
+  {
+    v39 = std::basic_regex<char,std::regex_traits<char>>::__parse_character_escape<std::__wrap_iter<char const*>>(a1, a2 + 1, a3, 0);
+    if (v39 == v20)
+    {
+      v8 = a2;
+    }
+
+    else
+    {
+      v8 = v39;
+    }
+  }
+
+LABEL_4:
+  v9 = a2;
+  if (v8 == a2)
+  {
+    return v9;
+  }
+
+  v10 = a1->__marked_count_ + 1;
+
+  return std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_dupl_symbol<std::__wrap_iter<char const*>>(a1, v8, a3, end, marked_count + 1, v10);
+}
+
+void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)11>()
+{
+  exception = __cxa_allocate_exception(0x18uLL);
+  MEMORY[0x1CCA84610](exception, 11);
+}
+
+void std::__match_any_but_newline<char>::~__match_any_but_newline(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this))
+{
+  v1 = a1[1];
+  if (v1)
+  {
+    (*(*v1 + 1))(v1);
+  }
+
+  JUMPOUT(0x1CCA84AE0);
+}
+
+void (__cdecl ***std::__match_any_but_newline<char>::~__match_any_but_newline(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this)))(std::__owns_one_state<char> *__hidden this)
+{
+  v2 = a1[1];
+  if (v2)
+  {
+    (*(*v2 + 1))(v2);
+  }
+
+  return a1;
+}
+
+void std::basic_regex<char,std::regex_traits<char>>::~basic_regex(std::locale *this)
+{
+  locale = this[6].__locale_;
+  if (locale)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](locale);
+  }
+
+  std::locale::~locale(this);
+}
+
+void std::__lookahead<char,std::regex_traits<char>>::__exec(uint64_t a1, uint64_t a2)
+{
+  v19 = 0;
+  v20 = 0;
+  v21 = 0;
+  memset(&v22, 0, 17);
+  v23 = 0;
+  v24 = 0;
+  memset(&__p, 0, sizeof(__p));
+  v4 = (*(a1 + 44) + 1);
+  v5 = *(a2 + 16);
+  v18.first = *(a2 + 24);
+  v18.second = v18.first;
+  v18.matched = 0;
+  std::vector<std::sub_match<char const*>>::assign(&__p, v4, &v18);
+  v19 = v5;
+  v20 = v5;
+  v21 = 0;
+  v22 = v18;
+  v24 = v5;
+  v23 = 1;
+  v6 = *(a2 + 16);
+  if (v6 == *(a2 + 8))
+  {
+    v7 = *(a2 + 92);
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  if (*(a1 + 84) == std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1 + 16, v6, *(a2 + 24), &__p, *(a2 + 88) & 0xFBF | 0x40u, v7))
+  {
+    *a2 = -993;
+    *(a2 + 80) = 0;
+    begin = __p.__begin_;
+    goto LABEL_10;
+  }
+
+  *a2 = -994;
+  *(a2 + 80) = *(a1 + 8);
+  begin = __p.__begin_;
+  v9 = 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3);
+  if (v9 < 2)
+  {
+LABEL_10:
+    if (!begin)
+    {
+      return;
+    }
+
+    goto LABEL_11;
+  }
+
+  v10 = *(a1 + 80);
+  v11 = *(a2 + 32);
+  v12 = 2;
+  v13 = 1;
+  do
+  {
+    v14 = &begin[v13];
+    v15 = v11 + 24 * (v10 + v12 - 2);
+    *v15 = v14->std::pair<const char *, const char *>;
+    *(v15 + 16) = v14->matched;
+    v13 = v12;
+  }
+
+  while (v9 > v12++);
+LABEL_11:
+
+  operator delete(begin);
+}
+
+void sub_1C9259510(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::__lookahead<char,std::regex_traits<char>>::~__lookahead(std::locale *a1)
+{
+  a1->__locale_ = &unk_1F48D3BE0;
+  locale = a1[8].__locale_;
+  if (locale)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](locale);
+  }
+
+  std::locale::~locale(a1 + 2);
+  v3 = a1[1].__locale_;
+  if (v3)
+  {
+    (*(*v3 + 8))(v3);
+  }
+
+  JUMPOUT(0x1CCA84AE0);
+}
+
+std::locale *std::__lookahead<char,std::regex_traits<char>>::~__lookahead(std::locale *a1)
+{
+  a1->__locale_ = &unk_1F48D3BE0;
+  locale = a1[8].__locale_;
+  if (locale)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](locale);
+  }
+
+  std::locale::~locale(a1 + 2);
+  v3 = a1[1].__locale_;
+  if (v3)
+  {
+    (*(*v3 + 8))(v3);
+  }
+
+  return a1;
+}
+
+uint64_t std::__word_boundary<char,std::regex_traits<char>>::__exec(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 8);
+  v3 = *(a2 + 24);
+  if (v2 == v3)
+  {
+    goto LABEL_17;
+  }
+
+  v4 = *(a2 + 16);
+  if (v4 == v3)
+  {
+    if ((*(a2 + 88) & 8) == 0)
+    {
+      v6 = *(v4 - 1);
+      goto LABEL_13;
+    }
+
+LABEL_17:
+    v10 = 0;
+    goto LABEL_25;
+  }
+
+  if (v4 == v2)
+  {
+    v5 = *(a2 + 88);
+    if ((v5 & 0x80) == 0)
+    {
+      if ((v5 & 4) == 0)
+      {
+        v6 = *v4;
+LABEL_13:
+        if (v6 == 95 || (v6 & 0x80) == 0 && (*(*(*(result + 24) + 16) + 4 * v6) & 0x500) != 0)
+        {
+          v10 = 1;
+          goto LABEL_25;
+        }
+
+        goto LABEL_17;
+      }
+
+      goto LABEL_17;
+    }
+  }
+
+  v7 = *(v4 - 1);
+  v8 = *v4;
+  v9 = v7 == 95 || (v7 & 0x80) == 0 && (*(*(*(result + 24) + 16) + 4 * v7) & 0x500) != 0;
+  v11 = v8 == 95 || (v8 & 0x80) == 0 && (*(*(*(result + 24) + 16) + 4 * v8) & 0x500) != 0;
+  v10 = v9 != v11;
+LABEL_25:
+  if (*(result + 40) == v10)
+  {
+    v12 = 0;
+    v13 = -993;
+  }
+
+  else
+  {
+    v12 = *(result + 8);
+    v13 = -994;
+  }
+
+  *a2 = v13;
+  *(a2 + 80) = v12;
+  return result;
+}
+
+void std::__word_boundary<char,std::regex_traits<char>>::~__word_boundary(std::locale *a1)
+{
+  a1->__locale_ = &unk_1F48D3BB0;
+  std::locale::~locale(a1 + 2);
+  locale = a1[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  JUMPOUT(0x1CCA84AE0);
+}
+
+std::locale *std::__word_boundary<char,std::regex_traits<char>>::~__word_boundary(std::locale *a1)
+{
+  a1->__locale_ = &unk_1F48D3BB0;
+  std::locale::~locale(a1 + 2);
+  locale = a1[1].__locale_;
+  if (locale)
+  {
+    (*(*locale + 8))(locale);
+  }
+
+  return a1;
+}
+
+uint64_t std::__shared_ptr_pointer<std::__empty_state<char> *,std::shared_ptr<std::__empty_state<char>>::__shared_ptr_default_delete<std::__empty_state<char>,std::__empty_state<char>>,std::allocator<std::__empty_state<char>>>::__on_zero_shared(uint64_t a1)
+{
+  result = *(a1 + 24);
+  if (result)
+  {
+    return (*(*result + 8))();
+  }
+
+  return result;
+}
+
+void std::__shared_ptr_pointer<std::__empty_state<char> *,std::shared_ptr<std::__empty_state<char>>::__shared_ptr_default_delete<std::__empty_state<char>,std::__empty_state<char>>,std::allocator<std::__empty_state<char>>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
+{
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1CCA84AE0);
+}
+
+void std::__empty_state<char>::~__empty_state(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this))
+{
+  v1 = a1[1];
+  if (v1)
+  {
+    (*(*v1 + 1))(v1);
+  }
+
+  JUMPOUT(0x1CCA84AE0);
+}
+
+void (__cdecl ***std::__empty_state<char>::~__empty_state(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this)))(std::__owns_one_state<char> *__hidden this)
+{
+  v2 = a1[1];
+  if (v2)
+  {
+    (*(*v2 + 1))(v2);
+  }
+
+  return a1;
+}
+
+CFHashCode std::hash<applesauce::CF::StringRef>::operator()(const void *a1)
+{
+  if (a1)
+  {
+    return CFHash(a1);
+  }
+
+  else
+  {
+    return 0xD7C06285B9DE677ALL;
+  }
+}
+
+CFComparisonResult applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(const __CFString *cf, const __CFString **a2)
+{
+  if (cf)
+  {
+    CFRetain(cf);
+    v4 = *a2;
+    if (!v4)
+    {
+      v5 = kCFCompareGreaterThan;
+LABEL_9:
+      CFRelease(cf);
+      return v5;
+    }
+  }
+
+  else
+  {
+    v4 = *a2;
+    if (!*a2)
+    {
+      return 0;
+    }
+  }
+
+  CFRetain(v4);
+  if (cf)
+  {
+    v5 = CFStringCompare(cf, v4, 0);
+  }
+
+  else
+  {
+    v5 = kCFCompareLessThan;
+  }
+
+  CFRelease(v4);
+  if (cf)
+  {
+    goto LABEL_9;
+  }
+
+  return v5;
+}
+
+void std::allocator<applesauce::CF::DictionaryRef>::allocate_at_least[abi:ne200100](unint64_t a1)
+{
+  if (!(a1 >> 61))
+  {
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:ne200100]();
+}
+
+void std::vector<applesauce::CF::DictionaryRef>::__swap_out_circular_buffer(uint64_t a1, void *a2)
+{
+  v4 = *a1;
+  v5 = *(a1 + 8);
+  v6 = a2[1] + *a1 - v5;
+  if (v5 != *a1)
+  {
+    v7 = *a1;
+    v8 = (a2[1] + *a1 - v5);
+    do
+    {
+      *v8++ = *v7;
+      *v7++ = 0;
+    }
+
+    while (v7 != v5);
+    do
+    {
+      v9 = *v4++;
+      std::__destroy_at[abi:ne200100]<applesauce::CF::DictionaryRef,0>(v9);
+    }
+
+    while (v4 != v5);
+    v4 = *a1;
+  }
+
+  a2[1] = v6;
+  *a1 = v6;
+  *(a1 + 8) = v4;
+  a2[1] = v4;
+  v10 = *(a1 + 8);
+  *(a1 + 8) = a2[2];
+  a2[2] = v10;
+  v11 = *(a1 + 16);
+  *(a1 + 16) = a2[3];
+  a2[3] = v11;
+  *a2 = a2[1];
+}
+
+uint64_t std::__split_buffer<applesauce::CF::DictionaryRef>::~__split_buffer(uint64_t a1)
+{
+  v3 = *(a1 + 8);
+  for (i = *(a1 + 16); i != v3; i = *(a1 + 16))
+  {
+    v4 = *(i - 8);
+    *(a1 + 16) = i - 8;
+    std::__destroy_at[abi:ne200100]<applesauce::CF::DictionaryRef,0>(v4);
+  }
+
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<applesauce::CF::StringRef,applesauce::CF::TypeRef>,void *>>>::operator()[abi:ne200100](char a1, void *__p)
+{
+  if (a1)
+  {
+    v3 = __p[3];
+    if (v3)
+    {
+      CFRelease(v3);
+    }
+
+    v4 = __p[2];
+    if (v4)
+    {
+      CFRelease(v4);
+    }
+  }
+
+  else if (!__p)
+  {
+    return;
+  }
+
+  operator delete(__p);
+}
+
+void std::vector<applesauce::CF::TypeRef>::__swap_out_circular_buffer(uint64_t a1, void *a2)
+{
+  v4 = *a1;
+  v5 = *(a1 + 8);
+  v6 = a2[1] + *a1 - v5;
+  if (v5 != *a1)
+  {
+    v7 = *a1;
+    v8 = (a2[1] + *a1 - v5);
+    do
+    {
+      *v8++ = *v7;
+      *v7++ = 0;
+    }
+
+    while (v7 != v5);
+    do
+    {
+      v9 = *v4++;
+      std::__destroy_at[abi:ne200100]<applesauce::CF::TypeRef,0>(v9);
+    }
+
+    while (v4 != v5);
+    v4 = *a1;
+  }
+
+  a2[1] = v6;
+  *a1 = v6;
+  *(a1 + 8) = v4;
+  a2[1] = v4;
+  v10 = *(a1 + 8);
+  *(a1 + 8) = a2[2];
+  a2[2] = v10;
+  v11 = *(a1 + 16);
+  *(a1 + 16) = a2[3];
+  a2[3] = v11;
+  *a2 = a2[1];
+}
+
+uint64_t std::__split_buffer<applesauce::CF::TypeRef>::~__split_buffer(uint64_t a1)
+{
+  v3 = *(a1 + 8);
+  for (i = *(a1 + 16); i != v3; i = *(a1 + 16))
+  {
+    v4 = *(i - 8);
+    *(a1 + 16) = i - 8;
+    std::__destroy_at[abi:ne200100]<applesauce::CF::TypeRef,0>(v4);
+  }
+
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+void AudioDSPGraph::Boxes::VectorGainBox::initialize(AudioDSPGraph::Boxes::VectorGainBox *this)
+{
+  AudioDSPGraph::Box::initialize(this);
+  v3 = *(this + 9);
+  v4 = *(this + 10);
+  v5 = v4 - v3;
+  v6 = (v4 - v3) >> 5;
+  if (v6 != 1)
+  {
+    v9 = *(this + 13) - *(this + 12);
+    goto LABEL_59;
+  }
+
+  v7 = *(this + 12);
+  v8 = *(this + 13);
+  v9 = v8 - v7;
+  if (((v8 - v7) & 0x1FFFFFFFE0) != 0x20)
+  {
+    v6 = 1;
+LABEL_59:
+    caulk::make_string(&v58, "There must be one input and output, instead of %u and %u.", v2, v6, v9 >> 5);
+    AudioDSPGraph::ThrowException(1667788321, &v58, off_1E8337C18);
+  }
+
+  if (v4 == v3)
+  {
+    v47 = (this + 40);
+    if (*(this + 63) < 0)
+    {
+      v47 = *v47;
+    }
+
+    caulk::make_string(&v59, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v2, v47, v5 >> 5, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v59, off_1E8337C60);
+  }
+
+  if (v8 == v7)
+  {
+    v48 = v9 >> 5;
+    v49 = (this + 40);
+    if (*(this + 63) < 0)
+    {
+      v49 = *v49;
+    }
+
+    caulk::make_string(&v59, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v2, v49, v48, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v59, off_1E8337C78);
+  }
+
+  v10 = *(*(v3 + 16) + 120);
+  v11 = *(*(v7 + 16) + 120);
+  if (v10[7] != *(v11 + 28))
+  {
+    v50 = *(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 28);
+    v51 = AudioDSPGraph::Box::out(this, 0);
+    caulk::make_string(&v57, "The input and output ports must have the same number of channels, but have %u and %u.", v52, v50, *(*(*(v51 + 16) + 120) + 28));
+    AudioDSPGraph::ThrowException(1667788321, &v57, off_1E8337C30);
+  }
+
+  if (v10[2] != 1718773105 || *(v11 + 8) != 1718773105)
+  {
+    if (*(*(*(AudioDSPGraph::Box::in(this, 0) + 16) + 120) + 8) == 1718773105)
+    {
+      v44 = "freq";
+    }
+
+    else
+    {
+      v44 = "time";
+    }
+
+    if (*(*(*(AudioDSPGraph::Box::out(this, 0) + 16) + 120) + 8) == 1718773105)
+    {
+      v46 = "freq";
+    }
+
+    else
+    {
+      v46 = "time";
+    }
+
+    caulk::make_string(&v56, "The input and output must both be frequency-domain, but are '%s' and '%s'", v45, v44, v46);
+    AudioDSPGraph::ThrowException(1718449215, &v56, off_1E8337C48);
+  }
+
+  v12 = v10[10];
+  *(this + 191) = v12;
+  v13 = *(this + 192);
+  v53 = 1065353216;
+  std::vector<float>::vector[abi:ne200100](&__p, v12, &v53);
+  v14 = *(this + 101);
+  v15 = *(this + 100);
+  v16 = 0xAAAAAAAAAAAAAAABLL * ((v14 - v15) >> 3);
+  v17 = v13 - v16;
+  if (v13 <= v16)
+  {
+    if (v13 >= v16)
+    {
+      goto LABEL_27;
+    }
+
+    v22 = (v15 + 24 * v13);
+    if (v14 != v22)
+    {
+      v23 = *(this + 101);
+      do
+      {
+        v25 = *(v23 - 3);
+        v23 -= 3;
+        v24 = v25;
+        if (v25)
+        {
+          *(v14 - 2) = v24;
+          operator delete(v24);
+        }
+
+        v14 = v23;
+      }
+
+      while (v23 != v22);
+    }
+  }
+
+  else
+  {
+    v18 = *(this + 102);
+    if (0xAAAAAAAAAAAAAAABLL * ((v18 - v14) >> 3) < v17)
+    {
+      v19 = 0xAAAAAAAAAAAAAAABLL * ((v18 - v15) >> 3);
+      v20 = 0x5555555555555556 * ((v18 - v15) >> 3);
+      if (v20 <= v13)
+      {
+        v20 = v13;
+      }
+
+      if (v19 >= 0x555555555555555)
+      {
+        v21 = 0xAAAAAAAAAAAAAAALL;
+      }
+
+      else
+      {
+        v21 = v20;
+      }
+
+      v60 = this + 800;
+      if (v21 <= 0xAAAAAAAAAAAAAAALL)
+      {
+        operator new();
+      }
+
+      std::__throw_bad_array_new_length[abi:ne200100]();
+    }
+
+    v22 = &v14[3 * v17];
+    v26 = 24 * v13 - 8 * ((v14 - v15) >> 3);
+    do
+    {
+      *v14 = 0;
+      v14[1] = 0;
+      v14[2] = 0;
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v14, __p, v55, (v55 - __p) >> 2);
+      v14 += 3;
+      v26 -= 24;
+    }
+
+    while (v26);
+  }
+
+  *(this + 101) = v22;
+LABEL_27:
+  if (__p)
+  {
+    v55 = __p;
+    operator delete(__p);
+  }
+
+  v27 = *(this + 191);
+  v28 = *(this + 98);
+  v29 = *(this + 97);
+  v30 = (v28 - v29) >> 2;
+  if (v27 <= v30)
+  {
+    if (v27 >= v30)
+    {
+      return;
+    }
+
+    v36 = v29 + 4 * v27;
+  }
+
+  else
+  {
+    v31 = v27 - v30;
+    v32 = *(this + 99);
+    if (v31 > (v32 - v28) >> 2)
+    {
+      v33 = v32 - v29;
+      v34 = (v32 - v29) >> 1;
+      if (v34 <= v27)
+      {
+        v34 = *(this + 191);
+      }
+
+      if (v33 >= 0x7FFFFFFFFFFFFFFCLL)
+      {
+        v35 = 0x3FFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v35 = v34;
+      }
+
+      std::allocator<unsigned int>::allocate_at_least[abi:ne200100](v35);
+    }
+
+    v37 = (v31 + 0x3FFFFFFFFFFFFFFFLL) & 0x3FFFFFFFFFFFFFFFLL;
+    v38 = vdupq_n_s64(v37);
+    v39 = v37 - ((v31 + 0x3FFFFFFFFFFFFFFFLL) & 3);
+    v40 = (v28 + 8);
+    v41 = -4;
+    do
+    {
+      v42 = vdupq_n_s64(v41 + 4);
+      v43 = vmovn_s64(vcgeq_u64(v38, vorrq_s8(v42, xmmword_1C925F100)));
+      if (vuzp1_s16(v43, *v38.i8).u8[0])
+      {
+        *(v40 - 2) = 1065353216;
+      }
+
+      if (vuzp1_s16(v43, *&v38).i8[2])
+      {
+        *(v40 - 1) = 1065353216;
+      }
+
+      if (vuzp1_s16(*&v38, vmovn_s64(vcgeq_u64(v38, vorrq_s8(v42, xmmword_1C925F0F0)))).i32[1])
+      {
+        *v40 = 1065353216;
+        v40[1] = 1065353216;
+      }
+
+      v41 += 4;
+      v40 += 4;
+    }
+
+    while (v39 != v41);
+    v36 = v28 + 4 * v31;
+  }
+
+  *(this + 98) = v36;
+}
+
+void sub_1C925A44C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, int a19, __int16 a20, char a21, char a22, uint64_t a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, uint64_t a29, uint64_t a30, int a31, __int16 a32, char a33, char a34)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t *std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
+{
+  if (a4)
+  {
+    std::vector<unsigned int>::__vallocate[abi:ne200100](result, a4);
+  }
+
+  return result;
+}
+
+void sub_1C925A53C(_Unwind_Exception *exception_object)
+{
+  v3 = *v1;
+  if (*v1)
+  {
+    *(v1 + 8) = v3;
+    operator delete(v3);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::__split_buffer<std::vector<float>>::~__split_buffer(uint64_t a1)
+{
+  v3 = *(a1 + 8);
+  v2 = *(a1 + 16);
+  while (v2 != v3)
+  {
+    v4 = *(v2 - 24);
+    *(a1 + 16) = v2 - 24;
+    if (v4)
+    {
+      *(v2 - 16) = v4;
+      operator delete(v4);
+      v2 = *(a1 + 16);
+    }
+
+    else
+    {
+      v2 -= 24;
+    }
+  }
+
+  if (*a1)
+  {
+    operator delete(*a1);
+  }
+
+  return a1;
+}
+
+void AudioDSPGraph::Boxes::VectorGainBox::process(AudioDSPGraph::Boxes::VectorGainBox *this, const char *a2)
+{
+  v3 = *(this + 9);
+  if (*(this + 10) == v3)
+  {
+    v27 = (this + 40);
+    if (*(this + 63) < 0)
+    {
+      v27 = *v27;
+    }
+
+    caulk::make_string(&v35, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", a2, v27, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v35, off_1E8337C60);
+  }
+
+  v4 = *(this + 12);
+  if (*(this + 13) == v4)
+  {
+    v28 = (this + 40);
+    if (*(this + 63) < 0)
+    {
+      v28 = *v28;
+    }
+
+    caulk::make_string(&v35, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", a2, v28, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v35, off_1E8337C78);
+  }
+
+  v5 = a2;
+  v6 = *(*(*(v3 + 16) + 56) + 80);
+  v7 = *(*(*(v4 + 16) + 56) + 80);
+  v8 = *v6;
+  __A = 1.0;
+  vDSP_vfill(&__A, *(this + 97), 1, (*(this + 98) - *(this + 97)) >> 2);
+  v10 = *(this + 100);
+  v11 = *(this + 101);
+  while (v10 != v11)
+  {
+    v12 = *v10;
+    v10 += 3;
+    vDSP_vmin(*(this + 97), 1, v12, 1, *(this + 97), 1, (*(this + 98) - *(this + 97)) >> 2);
+  }
+
+  if (v8)
+  {
+    v13 = (v7 + 16);
+    v14 = (v6 + 4);
+    do
+    {
+      v15 = *v14;
+      v14 += 2;
+      v16 = *v13;
+      v35.__r_.__value_.__r.__words[0] = v15;
+      v35.__r_.__value_.__l.__size_ = v15 + 4 * v5;
+      __C.realp = v16;
+      __C.imagp = &v16[v5];
+      v17 = *v35.__r_.__value_.__l.__size_;
+      vDSP_zrvmul(&v35, 1, *(this + 97), 1, &__C, 1, (*(this + 98) - *(this + 97)) >> 2);
+      *__C.imagp = v17;
+      *(v13 - 1) = 8 * v5;
+      v13 += 2;
+      --v8;
+    }
+
+    while (v8);
+  }
+
+  v18 = *(this + 9);
+  if (*(this + 10) == v18)
+  {
+    v29 = (this + 40);
+    if (*(this + 63) < 0)
+    {
+      v29 = *v29;
+    }
+
+    caulk::make_string(&v35, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v9, v29, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v35, off_1E8337C60);
+  }
+
+  v19 = *(this + 12);
+  if (*(this + 13) == v19)
+  {
+    v30 = (this + 40);
+    if (*(this + 63) < 0)
+    {
+      v30 = *v30;
+    }
+
+    caulk::make_string(&v35, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v9, v30, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v35, off_1E8337C78);
+  }
+
+  v20 = *(*(v18 + 16) + 56);
+  v21 = *(*(v19 + 16) + 56);
+  v22 = *(v20 + 8);
+  v23 = *(v20 + 24);
+  v24 = *(v20 + 40);
+  *(v21 + 56) = *(v20 + 56);
+  *(v21 + 40) = v24;
+  *(v21 + 24) = v23;
+  *(v21 + 8) = v22;
+  v25 = *(this + 9);
+  if (*(this + 10) == v25)
+  {
+    v31 = (this + 40);
+    if (*(this + 63) < 0)
+    {
+      v31 = *v31;
+    }
+
+    caulk::make_string(&v35, "Box::in inIndex out of range! box %s has %zu inputs but input %zu was requested", v9, v31, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v35, off_1E8337C60);
+  }
+
+  v26 = *(this + 12);
+  if (*(this + 13) == v26)
+  {
+    v32 = (this + 40);
+    if (*(this + 63) < 0)
+    {
+      v32 = *v32;
+    }
+
+    caulk::make_string(&v35, "Box::out inIndex out of range! box %s has %zu outputs but input %zu was requested", v9, v32, 0, 0);
+    AudioDSPGraph::ThrowException(1919837985, &v35, off_1E8337C78);
+  }
+
+  *(*(*(v26 + 16) + 56) + 72) = *(*(*(v25 + 16) + 56) + 72);
+}
+
+void sub_1C925A934(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+{
+  if (a21 < 0)
+  {
+    operator delete(a16);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t AudioDSPGraph::Boxes::VectorGainBox::setProperty(AudioDSPGraph::Boxes::VectorGainBox *this, int a2, int a3, unsigned int a4, unsigned int a5, int *a6)
+{
+  if (!(a4 | a3 | (a2 - 100)))
+  {
+    v8 = *(this + 2);
+    if (v8 && (*(v8 + 922) & 1) != 0)
+    {
+      return 4294956447;
+    }
+
+    if (a5 != 4)
+    {
+      return 4294956445;
+    }
+
+    v9 = 0;
+    *(this + 192) = *a6;
+    return v9;
+  }
+
+  if (a2 != 100 && !(a4 | a3) && (a2 - 100) <= *(this + 192))
+  {
+    v10 = a5 >> 2;
+    if (v10 == *(this + 191))
+    {
+      v11 = (*(this + 100) + 24 * (a2 - 101));
+      v12 = 4 * (a5 >> 2);
+      v13 = v11[2];
+      v14 = *v11;
+      if (v10 > (v13 - *v11) >> 2)
+      {
+        if (v14)
+        {
+          v11[1] = v14;
+          operator delete(v14);
+          v13 = 0;
+          *v11 = 0;
+          v11[1] = 0;
+          v11[2] = 0;
+        }
+
+        v15 = v13 >> 1;
+        if (v13 >> 1 <= v10)
+        {
+          v15 = v10;
+        }
+
+        if (v13 >= 0x7FFFFFFFFFFFFFFCLL)
+        {
+          v16 = 0x3FFFFFFFFFFFFFFFLL;
+        }
+
+        else
+        {
+          v16 = v15;
+        }
+
+        std::vector<unsigned int>::__vallocate[abi:ne200100](v11, v16);
+      }
+
+      v17 = v11[1];
+      v18 = v17 - v14;
+      if (v10 <= (v17 - v14) >> 2)
+      {
+        if (a5 >= 4)
+        {
+          memmove(*v11, a6, 4 * (a5 >> 2));
+        }
+
+        v9 = 0;
+        v19 = &v14[v12];
+      }
+
+      else
+      {
+        if (v17 != v14)
+        {
+          memmove(*v11, a6, v17 - v14);
+        }
+
+        v20 = v11[1];
+        if (v18 != v12)
+        {
+          v21 = (a6 + v18);
+          v22 = (&v14[v12] - v17);
+          v20 = v11[1];
+          do
+          {
+            v23 = *v21++;
+            *v20 = v23;
+            v20 += 4;
+            v22 -= 4;
+          }
+
+          while (v22);
+        }
+
+        v9 = 0;
+        v19 = v20;
+      }
+
+      v11[1] = v19;
+      return v9;
+    }
+
+    return 4294956445;
+  }
+
+  return AudioDSPGraph::Box::setProperty(this, a2, a3, a4, a5, a6);
+}
+
+void AudioDSPGraph::Boxes::VectorGainBox::getProperty(AudioDSPGraph::Boxes::VectorGainBox *this, int a2, uint64_t a3, uint64_t a4, unsigned int *a5, __n128 *__dst, __n128 a7)
+{
+  if (a4 | a3 | (a2 - 100))
+  {
+    if (a2 == 100 || a4 | a3 || (a2 - 100) > *(this + 192))
+    {
+
+      AudioDSPGraph::Box::getProperty(this, a2, a3, a4, a5, __dst, a7);
+    }
+
+    else if (*a5 == 4 * *(this + 191))
+    {
+      if (__dst)
+      {
+        v8 = *(this + 100) + 24 * (a2 - 101);
+        v9 = *v8;
+        v10 = *(v8 + 8);
+        if (v10 != v9)
+        {
+          memmove(__dst, v9, v10 - v9);
+        }
+      }
+    }
+  }
+
+  else if (*a5 == 4 && __dst)
+  {
+    __dst->n128_u32[0] = *(this + 192);
+  }
+}
+
+uint64_t AudioDSPGraph::Boxes::VectorGainBox::getPropertyInfo(AudioDSPGraph::Boxes::VectorGainBox *this, int a2, int a3, int a4)
+{
+  if (a4 | a3 | (a2 - 100))
+  {
+    if (a2 == 100 || a4 | a3 || (a2 - 100) > *(this + 192))
+    {
+      return AudioDSPGraph::Box::getPropertyInfo(this, a2, a3);
+    }
+
+    else
+    {
+      return (4 * *(this + 191)) | 0x100000000;
+    }
+  }
+
+  else
+  {
+    result = 0x100000004;
+    v6 = *(this + 2);
+    if (v6 && *(v6 + 922))
+    {
+      return 4;
+    }
+  }
+
+  return result;
+}
+
+double AudioDSPGraph::Boxes::VectorGainBox::desc@<D0>(uint64_t a1@<X8>)
+{
+  result = 1.90940534e262;
+  *a1 = xmmword_1C925F250;
+  *(a1 + 16) = 0;
+  return result;
+}
+
+void AudioDSPGraph::Boxes::VectorGainBox::~VectorGainBox(AudioDSPGraph::Boxes::VectorGainBox *this)
+{
+  *this = &unk_1F48D3F28;
+  v3 = (this + 800);
+  std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&v3);
+  v2 = *(this + 97);
+  if (v2)
+  {
+    *(this + 98) = v2;
+    operator delete(v2);
+  }
+
+  AudioDSPGraph::Box::~Box(this);
+
+  JUMPOUT(0x1CCA84AE0);
+}
+
+{
+  *this = &unk_1F48D3F28;
+  v3 = (this + 800);
+  std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&v3);
+  v2 = *(this + 97);
+  if (v2)
+  {
+    *(this + 98) = v2;
+    operator delete(v2);
+  }
+
+  AudioDSPGraph::Box::~Box(this);
+}
+
+void std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+{
+  v1 = *a1;
+  v2 = **a1;
+  if (v2)
+  {
+    v4 = v1[1];
+    v5 = **a1;
+    if (v4 != v2)
+    {
+      v6 = v1[1];
+      do
+      {
+        v8 = *(v6 - 3);
+        v6 -= 24;
+        v7 = v8;
+        if (v8)
+        {
+          *(v4 - 2) = v7;
+          operator delete(v7);
+        }
+
+        v4 = v6;
+      }
+
+      while (v6 != v2);
+      v5 = **a1;
+    }
+
+    v1[1] = v2;
+
+    operator delete(v5);
+  }
+}
+
+double AudioDSPGraph::Boxes::VolumeCurveBox::desc@<D0>(uint64_t a1@<X8>)
+{
+  result = 1.29504994e171;
+  *a1 = xmmword_1C925F360;
+  *(a1 + 16) = 0;
+  return result;
+}
+
+void AudioDSPGraph::Boxes::VolumeCurveBox::getParameterInfo(AudioDSPGraph::Boxes::VolumeCurveBox *this@<X0>, int a2@<W1>, unsigned int a3@<W2>, uint64_t a4@<X8>)
+{
+  if (a2)
+  {
+    v5 = 0;
+    v6 = -10866;
+LABEL_6:
+    *a4 = v6;
+    goto LABEL_7;
+  }
+
+  AudioDSPGraph::Boxes::VolumeCurveBox::parameterInfos(this);
+  if (0x4EC4EC4EC4EC4EC5 * ((qword_1EC3955C8 - AudioDSPGraph::Boxes::VolumeCurveBox::parameterInfos(void)::sParameterInfos) >> 3) <= a3)
+  {
+    v5 = 0;
+    v6 = -10878;
+    goto LABEL_6;
+  }
+
+  AudioDSPGraph::Boxes::VolumeCurveBox::parameterInfos(v8);
+  v9 = AudioDSPGraph::Boxes::VolumeCurveBox::parameterInfos(void)::sParameterInfos + 104 * a3;
+  v10 = *(v9 + 80);
+  *(a4 + 64) = *(v9 + 64);
+  *(a4 + 80) = v10;
+  *(a4 + 96) = *(v9 + 96);
+  v11 = *(v9 + 16);
+  *a4 = *v9;
+  *(a4 + 16) = v11;
+  v12 = *(v9 + 48);
+  *(a4 + 32) = *(v9 + 32);
+  *(a4 + 48) = v12;
+  v5 = 1;
+LABEL_7:
+  *(a4 + 104) = v5;
+}
+
+void sub_1C925AF30(void *a1)
+{
+  __cxa_begin_catch(a1);
+  *v1 = -1;
+  *(v1 + 104) = 0;
+  __cxa_end_catch();
+  JUMPOUT(0x1C925AF24);
+}
+
+void AudioDSPGraph::Boxes::VolumeCurveBox::parameterInfos(AudioDSPGraph::Boxes::VolumeCurveBox *this)
+{
+  {
+    if (v1)
+    {
+      AudioDSPGraph::Boxes::VolumeCurveBox::ParameterInfos::ParameterInfos(v1);
+    }
+  }
+}
+
+void AudioDSPGraph::Boxes::VolumeCurveBox::ParameterInfos::ParameterInfos(AudioDSPGraph::Boxes::VolumeCurveBox::ParameterInfos *this)
+{
+  v8 = *MEMORY[0x1E69E9840];
+  qword_1EC3955C8 = 0;
+  qword_1EC3955D0 = 0;
+  AudioDSPGraph::Boxes::VolumeCurveBox::parameterInfos(void)::sParameterInfos = 0;
+  v4 = 0;
+  v6 = 0u;
+  v7 = 3355443200;
+  LODWORD(v6) = 1;
+  DWORD2(v6) = 1097859072;
+  strcpy(v1, "Transfer function");
+  *&v1[18] = unk_1C92627E3;
+  *&v1[20] = unk_1C92627E5;
+  *&v1[24] = unk_1C92627E9;
+  v2 = xmmword_1C92627F1;
+  v3 = 0u;
+  LODWORD(v3) = 0;
+  v5 = @"Transfer function";
+  std::vector<AudioUnitParameterInfo>::push_back[abi:ne200100](v1);
+  v4 = 0;
+  LODWORD(v6) = 13;
+  *(&v6 + 4) = -COERCE_DOUBLE(0x7F0000007FLL);
+  HIDWORD(v6) = -1032847360;
+  v7 = 3355443200;
+  *v1 = *"Minimum volume";
+  *&v1[16] = unk_1C9262816;
+  v2 = xmmword_1C9262826;
+  v3 = 0u;
+  LODWORD(v3) = 0;
+  v5 = @"Minimum volume";
+  std::vector<AudioUnitParameterInfo>::push_back[abi:ne200100](v1);
+  v4 = 0;
+  HIDWORD(v6) = 0;
+  LODWORD(v6) = 13;
+  *(&v6 + 4) = -COERCE_DOUBLE(0x7F0000007FLL);
+  *v1 = *"Maximum volume";
+  *&v1[16] = unk_1C926284B;
+  v2 = xmmword_1C926285B;
+  v3 = 0u;
+  LODWORD(v3) = 0;
+  v5 = @"Maximum volume";
+  v7 = 3355443200;
+  std::vector<AudioUnitParameterInfo>::push_back[abi:ne200100](v1);
+  v4 = 0;
+  *&v6 = 0;
+  *(&v6 + 1) = 0x3E8000003F800000;
+  strcpy(v1, "Raw slider value");
+  v1[17] = 0;
+  *&v1[18] = 0;
+  *&v1[20] = 0;
+  *&v1[24] = 0;
+  v2 = xmmword_1C9262890;
+  v3 = 0u;
+  LODWORD(v3) = 0;
+  v5 = @"Raw slider value";
+  v7 = 3355443200;
+  std::vector<AudioUnitParameterInfo>::push_back[abi:ne200100](v1);
+  v4 = 0;
+  *&v6 = 0;
+  v7 = 1207959552;
+  *(&v6 + 1) = 0x3E8000003F800000;
+  strcpy(v1, "Mapped slider value");
+  *&v1[20] = unk_1C92628B9;
+  *&v1[24] = unk_1C92628BD;
+  v2 = xmmword_1C92628C5;
+  v3 = 0u;
+  LODWORD(v3) = 0;
+  v5 = @"Mapped slider value";
+  std::vector<AudioUnitParameterInfo>::push_back[abi:ne200100](v1);
+  v4 = 0;
+  LODWORD(v6) = 13;
+  *(&v6 + 4) = -COERCE_DOUBLE(0x7F0000007FLL);
+  HIDWORD(v6) = -1036779520;
+  v7 = 1207959552;
+  *v1 = *"Decibel gain";
+  *&v1[16] = unk_1C92628EA;
+  v2 = xmmword_1C92628FA;
+  v3 = 0u;
+  LODWORD(v3) = 0;
+  v5 = @"Decibel gain";
+  std::vector<AudioUnitParameterInfo>::push_back[abi:ne200100](v1);
+}
+
+void sub_1C925B210(_Unwind_Exception *exception_object)
+{
+  if (AudioDSPGraph::Boxes::VolumeCurveBox::parameterInfos(void)::sParameterInfos)
+  {
+    qword_1EC3955C8 = AudioDSPGraph::Boxes::VolumeCurveBox::parameterInfos(void)::sParameterInfos;
+    operator delete(AudioDSPGraph::Boxes::VolumeCurveBox::parameterInfos(void)::sParameterInfos);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::vector<AudioUnitParameterInfo>::push_back[abi:ne200100](__int128 *a1)
+{
+  v1 = qword_1EC3955C8;
+  if (qword_1EC3955C8 >= qword_1EC3955D0)
+  {
+    v8 = AudioDSPGraph::Boxes::VolumeCurveBox::parameterInfos(void)::sParameterInfos;
+    v9 = qword_1EC3955C8 - AudioDSPGraph::Boxes::VolumeCurveBox::parameterInfos(void)::sParameterInfos;
+    v10 = 0x4EC4EC4EC4EC4EC5 * ((qword_1EC3955C8 - AudioDSPGraph::Boxes::VolumeCurveBox::parameterInfos(void)::sParameterInfos) >> 3);
+    v11 = v10 + 1;
+    if ((v10 + 1) > 0x276276276276276)
+    {
+      std::vector<unsigned char,std::pmr::polymorphic_allocator<unsigned char>>::__throw_length_error[abi:ne200100]();
+    }
+
+    if (0x9D89D89D89D89D8ALL * ((qword_1EC3955D0 - AudioDSPGraph::Boxes::VolumeCurveBox::parameterInfos(void)::sParameterInfos) >> 3) > v11)
+    {
+      v11 = 0x9D89D89D89D89D8ALL * ((qword_1EC3955D0 - AudioDSPGraph::Boxes::VolumeCurveBox::parameterInfos(void)::sParameterInfos) >> 3);
+    }
+
+    if ((0x4EC4EC4EC4EC4EC5 * ((qword_1EC3955D0 - AudioDSPGraph::Boxes::VolumeCurveBox::parameterInfos(void)::sParameterInfos) >> 3)) >= 0x13B13B13B13B13BLL)
+    {
+      v12 = 0x276276276276276;
+    }
+
+    else
+    {
+      v12 = v11;
+    }
+
+    if (v12)
+    {
+      if (v12 <= 0x276276276276276)
+      {
+        operator new();
+      }
+
+      std::__throw_bad_array_new_length[abi:ne200100]();
+    }
+
+    v13 = a1[5];
+    v14 = 8 * ((qword_1EC3955C8 - AudioDSPGraph::Boxes::VolumeCurveBox::parameterInfos(void)::sParameterInfos) >> 3);
+    *(v14 + 64) = a1[4];
+    *(v14 + 80) = v13;
+    *(v14 + 96) = *(a1 + 12);
+    v15 = a1[1];
+    *v14 = *a1;
+    *(v14 + 16) = v15;
+    v16 = a1[3];
+    *(v14 + 32) = a1[2];
+    *(v14 + 48) = v16;
+    v7 = 104 * v10 + 104;
+    v17 = v14 - v9;
+    memcpy((v14 - v9), v8, v9);
+    AudioDSPGraph::Boxes::VolumeCurveBox::parameterInfos(void)::sParameterInfos = v17;
+    qword_1EC3955C8 = v7;
+    qword_1EC3955D0 = 0;
+    if (v8)
+    {
+      operator delete(v8);
+    }
+  }
+
+  else
+  {
+    v2 = *a1;
+    v3 = a1[2];
+    *(qword_1EC3955C8 + 16) = a1[1];
+    *(v1 + 32) = v3;
+    *v1 = v2;
+    v4 = a1[3];
+    v5 = a1[4];
+    v6 = a1[5];
+    *(v1 + 96) = *(a1 + 12);
+    *(v1 + 64) = v5;
+    *(v1 + 80) = v6;
+    *(v1 + 48) = v4;
+    v7 = v1 + 104;
+  }
+
+  qword_1EC3955C8 = v7;
+}
+
+AudioDSPGraph::Boxes::VolumeCurveBox *AudioDSPGraph::Boxes::VolumeCurveBox::getParameterList@<X0>(AudioDSPGraph::Boxes::VolumeCurveBox *this@<X0>, int a2@<W1>, uint64_t *a3@<X8>)
+{
+  if (a2)
+  {
+    *a3 = 0;
+    a3[1] = 0;
+    a3[2] = 0;
+  }
+
+  else
+  {
+    AudioDSPGraph::Boxes::VolumeCurveBox::parameterInfos(this);
+    this = std::vector<unsigned int>::vector[abi:ne200100](a3, 0x4EC4EC4EC4EC4EC5 * ((qword_1EC3955C8 - AudioDSPGraph::Boxes::VolumeCurveBox::parameterInfos(void)::sParameterInfos) >> 3));
+    v5 = *a3;
+    v4 = a3[1];
+    if (*a3 != v4)
+    {
+      v6 = 0;
+      v7 = (v4 - v5 - 4) >> 2;
+      v8 = vdupq_n_s64(v7);
+      v9 = (v7 + 4) & 0x7FFFFFFFFFFFFFFCLL;
+      v10 = (v5 + 8);
+      do
+      {
+        v11 = vdupq_n_s64(v6);
+        v12 = vmovn_s64(vcgeq_u64(v8, vorrq_s8(v11, xmmword_1C925F100)));
+        if (vuzp1_s16(v12, *v8.i8).u8[0])
+        {
+          *(v10 - 2) = v6;
+        }
+
+        if (vuzp1_s16(v12, *&v8).i8[2])
+        {
+          *(v10 - 1) = v6 + 1;
+        }
+
+        if (vuzp1_s16(*&v8, vmovn_s64(vcgeq_u64(v8, vorrq_s8(v11, xmmword_1C925F0F0)))).i32[1])
+        {
+          *v10 = v6 + 2;
+          v10[1] = v6 + 3;
+        }
+
+        v6 += 4;
+        v10 += 4;
+      }
+
+      while (v9 != v6);
+    }
+  }
+
+  return this;
+}
+
+void AudioDSPGraph::Boxes::VolumeCurveBox::getParameter(AudioDSPGraph::Boxes::VolumeCurveBox *this@<X0>, int a2@<W1>, int a3@<W2>, uint64_t a4@<X8>)
+{
+  if (a3)
+  {
+    LODWORD(v6) = -10866;
+    v5 = off_1E8337CD8;
+    goto LABEL_14;
+  }
+
+  if (a2 > 2)
+  {
+    switch(a2)
+    {
+      case 3:
+        v4 = *(this + 196);
+        goto LABEL_17;
+      case 4:
+        v4 = *(this + 197);
+        goto LABEL_17;
+      case 5:
+        v4 = *(this + 198);
+        goto LABEL_17;
+    }
+
+    goto LABEL_13;
+  }
+
+  if (!a2)
+  {
+    v4 = *(this + 191);
+    goto LABEL_17;
+  }
+
+  if (a2 == 1)
+  {
+    v4 = *(this + 194);
+    goto LABEL_17;
+  }
+
+  if (a2 != 2)
+  {
+LABEL_13:
+    LODWORD(v6) = -10878;
+    v5 = off_1E8334BA8;
+LABEL_14:
+    *(&v6 + 1) = v5;
+    v7 = 0;
+    *a4 = v6;
+    *(a4 + 16) = 0;
+    v8 = 0;
+    *(a4 + 24) = 0;
+    *(a4 + 32) = 0;
+    AudioDSPGraph::Error::~Error(&v6);
+    return;
+  }
+
+  v4 = *(this + 195);
+LABEL_17:
+  *a4 = v4;
+  *(a4 + 32) = 1;
+}
+
+void AudioDSPGraph::Boxes::VolumeCurveBox::setParameter(AudioDSPGraph::Boxes::VolumeCurveBox *this@<X0>, float a2@<S0>, int a3@<W1>, int a4@<W2>, uint64_t a5@<X8>)
+{
+  if (a4)
+  {
+    LODWORD(v24) = -10866;
+    v15 = off_1E8337C90;
+    goto LABEL_19;
+  }
+
+  if (a3 > 1)
+  {
+    if (a3 == 2)
+    {
+      v19 = *(this + 194);
+      if (v19 <= a2)
+      {
+        *(this + 195) = a2;
+        v20 = *(this + 196);
+        if (v20 < 0.0)
+        {
+          v20 = 0.0;
+        }
+
+        if (v20 > 1.0)
+        {
+          v20 = 1.0;
+        }
+
+        v21 = powf(v20, *(this + 192) / *(this + 193));
+        *(this + 197) = v21;
+        v11 = v19 + (v21 * (a2 - v19));
+        goto LABEL_34;
+      }
+
+      LODWORD(v24) = -66743;
+      *(&v24 + 1) = off_1E8337CC0;
+      v25 = 0;
+      v26 = 0;
+      v22 = "maximum volume must be greater than minimum volume";
+LABEL_38:
+      AudioDSPGraph::Error::setDescription<>(&v24, v22);
+      *a5 = v24;
+      v23 = v25;
+      v25 = 0;
+      *(a5 + 16) = v23;
+      LODWORD(v23) = v26;
+      v26 = 0;
+      *(a5 + 24) = v23;
+      goto LABEL_20;
+    }
+
+    if (a3 != 3)
+    {
+      goto LABEL_18;
+    }
+
+    v12 = 0.0;
+    if (a2 >= 0.0)
+    {
+      v12 = a2;
+    }
+
+    if (v12 > 1.0)
+    {
+      v12 = 1.0;
+    }
+
+    *(this + 196) = v12;
+    v13 = *(this + 192);
+    v14 = *(this + 193);
+  }
+
+  else
+  {
+    if (a3)
+    {
+      if (a3 == 1)
+      {
+        v8 = *(this + 195);
+        if (v8 >= a2)
+        {
+          *(this + 194) = a2;
+          v9 = *(this + 196);
+          if (v9 < 0.0)
+          {
+            v9 = 0.0;
+          }
+
+          if (v9 > 1.0)
+          {
+            v9 = 1.0;
+          }
+
+          v10 = powf(v9, *(this + 192) / *(this + 193));
+          *(this + 197) = v10;
+          v11 = a2 + (v10 * (v8 - a2));
+          goto LABEL_34;
+        }
+
+        LODWORD(v24) = -66743;
+        *(&v24 + 1) = off_1E8337CA8;
+        v25 = 0;
+        v26 = 0;
+        v22 = "minimum volume must be less than maximum volume";
+        goto LABEL_38;
+      }
+
+LABEL_18:
+      LODWORD(v24) = -10878;
+      v15 = off_1E8334BC0;
+LABEL_19:
+      *(&v24 + 1) = v15;
+      v25 = 0;
+      *a5 = v24;
+      *(a5 + 16) = 0;
+      v26 = 0;
+      *(a5 + 24) = 0;
+LABEL_20:
+      *(a5 + 32) = 0;
+      AudioDSPGraph::Error::~Error(&v24);
+      return;
+    }
+
+    v16 = a2;
+    *(this + 191) = a2;
+    v12 = 1.0;
+    v13 = 2.0;
+    v14 = 1.0;
+    if (v16 <= 0xF)
+    {
+      v13 = flt_1C9262910[v16];
+      v14 = flt_1C9262950[v16];
+    }
+
+    *(this + 192) = v13;
+    *(this + 193) = v14;
+    v17 = *(this + 196);
+    if (v17 < 0.0)
+    {
+      v17 = 0.0;
+    }
+
+    if (v17 <= 1.0)
+    {
+      v12 = v17;
+    }
+  }
+
+  v18 = powf(v12, v13 / v14);
+  *(this + 197) = v18;
+  v11 = *(this + 194) + (v18 * (*(this + 195) - *(this + 194)));
+LABEL_34:
+  *(this + 198) = v11;
+  *(a5 + 32) = 1;
+}
+
+void AudioDSPGraph::Boxes::VolumeCurveBox::~VolumeCurveBox(AudioDSPGraph::Boxes::VolumeCurveBox *this)
+{
+  AudioDSPGraph::Box::~Box(this);
+
+  JUMPOUT(0x1CCA84AE0);
+}
+
+uint64_t AudioDSPGraph::Wire::print(uint64_t result, void *a2, int a3, uint64_t a4)
+{
+  if (a3 >= 4)
+  {
+    v4 = a4;
+    v6 = result;
+    (*(*result + 32))(result, a2, a4, 1);
+    AudioDSPGraph::printi(a2, v4 + 4, "block size %u\n", *(*(v6 + 120) + 40));
+  }
+
+  return result;
+}
+
+void sub_1C925BA20(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
+{
+  if (a17 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void AudioDSPGraph::Wire::~Wire(AudioDSPGraph::Wire *this)
+{
+  *this = &unk_1F48D4428;
+  std::__hash_table<AudioDSPGraph::Box *,std::hash<AudioDSPGraph::Box *>,std::equal_to<AudioDSPGraph::Box *>,std::allocator<AudioDSPGraph::Box *>>::~__hash_table(this + 16);
+
+  JUMPOUT(0x1CCA84AE0);
+}
+
+{
+  *this = &unk_1F48D4428;
+  std::__hash_table<AudioDSPGraph::Box *,std::hash<AudioDSPGraph::Box *>,std::equal_to<AudioDSPGraph::Box *>,std::allocator<AudioDSPGraph::Box *>>::~__hash_table(this + 16);
+}
+
+uint64_t AudioDSPGraph::Wire::setSource(uint64_t this, AudioDSPGraph::OutputPort *a2)
+{
+  v2 = *(this + 8);
+  if (v2)
+  {
+    v3 = v2 == a2;
+  }
+
+  else
+  {
+    v3 = 1;
+  }
+
+  if (!v3)
+  {
+    v14 = this;
+    v6 = *(v2 + 1);
+    v7 = v6 + 40;
+    if (v6[63] < 0)
+    {
+      v7 = *v7;
+    }
+
+    v8 = (*(*v6 + 16))(v6, a2);
+    caulk::make_string(&v17, "wire already has a source: %s %s output %u", v9, v7, v8, *(*(v14 + 8) + 24));
+    AudioDSPGraph::ThrowException(1633903905, &v17, off_1E8337CF0);
+  }
+
+  v4 = *(a2 + 2);
+  if (v4)
+  {
+    v5 = v4 == this;
+  }
+
+  else
+  {
+    v5 = 1;
+  }
+
+  if (!v5)
+  {
+    v10 = *(a2 + 1);
+    v11 = v10 + 40;
+    if (v10[63] < 0)
+    {
+      v11 = *v11;
+    }
+
+    v12 = (*(*v10 + 16))(v10);
+    caulk::make_string(&v16, "output port already has a wire: %s %s output %u", v13, v11, v12, *(a2 + 6));
+    AudioDSPGraph::ThrowException(1633903905, &v16, off_1E8337D08);
+  }
+
+  *(this + 8) = a2;
+  *(a2 + 2) = this;
+  return this;
+}
+
+void sub_1C925BC30(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18)
+{
+  if (a18 < 0)
+  {
+    operator delete(a13);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+AudioDSPGraph::Wire *AudioDSPGraph::Wire::Wire(AudioDSPGraph::Wire *this, AudioDSPGraph::OutputPort *a2)
+{
+  *this = &unk_1F48D4428;
+  *(this + 8) = 0u;
+  *(this + 24) = 0u;
+  *(this + 5) = 0;
+  *(this + 12) = 1065353216;
+  *(this + 7) = 0;
+  *(this + 64) = 0;
+  *(this + 88) = 0u;
+  *(this + 13) = 0;
+  *(this + 72) = 0u;
+  *(this + 28) = 1;
+  *(this + 15) = this + 72;
+  if (a2)
+  {
+    AudioDSPGraph::Wire::setSource(this, a2);
+  }
+
+  return this;
+}
+
+void std::__hash_table<AudioDSPGraph::InputPort *,std::hash<AudioDSPGraph::InputPort *>,std::equal_to<AudioDSPGraph::InputPort *>,std::allocator<AudioDSPGraph::InputPort *>>::__emplace_unique_key_args<AudioDSPGraph::InputPort *,AudioDSPGraph::InputPort * const&>(float *a1, unint64_t a2, void *a3)
+{
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = *(a1 + 2);
+  if (!*&v6)
+  {
+    goto LABEL_18;
+  }
+
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
+  {
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
+    {
+      v8 = v5 % *&v6;
+    }
+  }
+
+  else
+  {
+    v8 = v5 & (*&v6 - 1);
+  }
+
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    v11 = v10[1];
+    if (v11 == v5)
+    {
+      break;
+    }
+
+    if (v7.u32[0] > 1uLL)
+    {
+      if (v11 >= *&v6)
+      {
+        v11 %= *&v6;
+      }
+    }
+
+    else
+    {
+      v11 &= *&v6 - 1;
+    }
+
+    if (v11 != v8)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v10 = *v10;
+    if (!v10)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (v10[2] != a2)
+  {
+    goto LABEL_17;
+  }
+}
+
+void AudioDSPGraph::Wire::addAll(AudioDSPGraph::Wire *this, AudioDSPGraph::Wire *a2)
+{
+  if (a2)
+  {
+    v2 = a2;
+    do
+    {
+      v4 = *(v2 + 2);
+      v5 = v4;
+      std::__hash_table<AudioDSPGraph::InputPort *,std::hash<AudioDSPGraph::InputPort *>,std::equal_to<AudioDSPGraph::InputPort *>,std::allocator<AudioDSPGraph::InputPort *>>::__emplace_unique_key_args<AudioDSPGraph::InputPort *,AudioDSPGraph::InputPort * const&>(this + 4, v4, &v5);
+      *(v4 + 16) = this;
+      v2 = *v2;
+    }
+
+    while (v2);
+  }
+}
+
+CFRange CFStringFind(CFStringRef theString, CFStringRef stringToFind, CFStringCompareFlags compareOptions)
+{
+  v3 = MEMORY[0x1EEDB7958](theString, stringToFind, compareOptions);
+  result.length = v4;
+  result.location = v3;
+  return result;
+}
+
+std::__fs::filesystem::path::__string_view std::__fs::filesystem::path::__filename(const std::__fs::filesystem::path *this)
+{
+  v1 = MEMORY[0x1EEE63A08](this);
+  result.__size_ = v2;
+  result.__data_ = v1;
+  return result;
+}
+
+std::__fs::filesystem::path::__string_view std::__fs::filesystem::path::__root_directory(const std::__fs::filesystem::path *this)
+{
+  v1 = MEMORY[0x1EEE63A20](this);
+  result.__size_ = v2;
+  result.__data_ = v1;
+  return result;
+}
+
+std::runtime_error *__cdecl std::runtime_error::runtime_error(std::runtime_error *this, const char *a2)
+{
+  return MEMORY[0x1EEE63B20](this, a2);
+}
+
+{
+  return MEMORY[0x1EEE63B38](this, a2);
+}
+
+std::runtime_error *__cdecl std::runtime_error::runtime_error(std::runtime_error *this, const std::string *a2)
+{
+  return MEMORY[0x1EEE63B28](this, a2);
+}
+
+{
+  return MEMORY[0x1EEE63B40](this, a2);
+}
+
+uint64_t std::to_chars(std::__1 *this, char *a2, char *a3, double a4)
+{
+  return MEMORY[0x1EEE64438](this, a2, a3, a4);
+}
+
+{
+  return MEMORY[0x1EEE64450](this, a2, a3, a4);
+}
+
+uint64_t std::to_chars()
+{
+  return MEMORY[0x1EEE64440]();
+}
+
+{
+  return MEMORY[0x1EEE64448]();
+}
+
+{
+  return MEMORY[0x1EEE64458]();
+}
+
+{
+  return MEMORY[0x1EEE64460]();
+}
+
+{
+  return MEMORY[0x1EEE64470]();
+}
+
+{
+  return MEMORY[0x1EEE64478]();
+}
+
+void operator delete[]()
+{
+    ;
+  }
+}
+
+void operator delete(void *__p)
+{
+    ;
+  }
+}
+
+void operator delete(void *__p, std::align_val_t a2)
+{
+    ;
+  }
+}
+
+void operator delete()
+{
+    ;
+  }
+}
+
+void operator new[]()
+{
+    ;
+  }
+}
+
+void *__cdecl operator new(size_t __sz)
+{
+    ;
+  }
+}
+
+void *__cdecl operator new(size_t __sz, std::align_val_t a2)
+{
+    ;
+  }
+}
+
+void operator new()
+{
+    ;
+  }
 }

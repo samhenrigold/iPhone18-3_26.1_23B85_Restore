@@ -1,5 +1,6 @@
 @interface CSDPersistedChannelRegistry
 + (id)sharedInstance;
+- (BOOL)_queue_tearDownPersistedChannelForApplicationIdentifier:(id)identifier teardownType:(int)type;
 - (BOOL)_queue_tearDownPersistedChannelForBundleIdentifier:(id)identifier teardownType:(int)type;
 - (BOOL)tearDownPersistedChannelForBundleIdentifier:(id)identifier teardownType:(int)type;
 - (BOOL)tearDownPersistedChannelForCall:(id)call teardownType:(int)type;
@@ -125,14 +126,15 @@
   v13 = [(CSDPersistedChannelIdentity *)v8 initWithApplicationIdentifier:providerIdentifier bundleIdentifier:bundleIdentifier channelUUID:uniqueProxyIdentifierUUID];
   if (_queue_activePersistedChannelIdentity)
   {
-    if ([(CSDPersistedChannelIdentity *)_queue_activePersistedChannelIdentity isEqualToPersistedChannelIdentity:v13])
+    v14 = [(CSDPersistedChannelIdentity *)_queue_activePersistedChannelIdentity isEqualToPersistedChannelIdentity:v13];
+    if (v14)
     {
-      v14 = sub_100004778();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_100004778(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v30 = _queue_activePersistedChannelIdentity;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "CXPersistedChannelRegistry newly connected channel matches persisted channel %@", buf, 0xCu);
+        v32 = _queue_activePersistedChannelIdentity;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "CXPersistedChannelRegistry newly connected channel matches persisted channel %@", buf, 0xCu);
       }
 
       goto LABEL_17;
@@ -140,49 +142,49 @@
 
     bundleIdentifier2 = [(CSDPersistedChannelIdentity *)_queue_activePersistedChannelIdentity bundleIdentifier];
     bundleIdentifier3 = [(CSDPersistedChannelIdentity *)v13 bundleIdentifier];
-    v17 = [bundleIdentifier2 isEqualToString:bundleIdentifier3];
+    v18 = [bundleIdentifier2 isEqualToString:bundleIdentifier3];
 
-    if (v17)
+    if (v18)
     {
-      v18 = sub_100004778();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v20 = sub_100004778(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v30 = v13;
-        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "CXPersistedChannelRegistry has updated channel %@", buf, 0xCu);
+        v32 = v13;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "CXPersistedChannelRegistry has updated channel %@", buf, 0xCu);
       }
     }
 
     else
     {
-      v19 = +[NSAssertionHandler currentHandler];
+      v21 = +[NSAssertionHandler currentHandler];
       bundleIdentifier4 = [(CSDPersistedChannelIdentity *)_queue_activePersistedChannelIdentity bundleIdentifier];
       bundleIdentifier5 = [(CSDPersistedChannelIdentity *)v13 bundleIdentifier];
-      [v19 handleFailureInMethod:a2 object:self file:@"CSDPersistedChannelRegistry.m" lineNumber:101 description:{@"only one active channel application allowed at a time. persisted:%@ active:%@", bundleIdentifier4, bundleIdentifier5}];
+      [v21 handleFailureInMethod:a2 object:self file:@"CSDPersistedChannelRegistry.m" lineNumber:101 description:{@"only one active channel application allowed at a time. persisted:%@ active:%@", bundleIdentifier4, bundleIdentifier5}];
     }
   }
 
-  v28 = 0;
-  v22 = [(CSDPersistedChannelIdentity *)v13 archivedDataWithError:&v28];
-  v23 = v28;
-  v14 = v23;
-  if (v22)
+  v30 = 0;
+  v24 = [(CSDPersistedChannelIdentity *)v13 archivedDataWithError:&v30];
+  v25 = v30;
+  v15 = v25;
+  if (v24)
   {
-    [(NSUserDefaults *)self->_defaults setObject:v22 forKey:@"CSDPersistedChannel"];
+    [(NSUserDefaults *)self->_defaults setObject:v24 forKey:@"CSDPersistedChannel"];
     observerQueue = self->_observerQueue;
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000CCEA8;
     block[3] = &unk_100619D88;
     block[4] = self;
-    v27 = v13;
+    v29 = v13;
     dispatch_async(observerQueue, block);
   }
 
-  else if (v23)
+  else if (v25)
   {
-    v25 = sub_100004778();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v27 = sub_100004778(v25);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       sub_100473C64();
     }
@@ -240,6 +242,30 @@ LABEL_17:
   _Block_object_dispose(&v14, 8);
 
   return v8;
+}
+
+- (BOOL)_queue_tearDownPersistedChannelForApplicationIdentifier:(id)identifier teardownType:(int)type
+{
+  v4 = *&type;
+  ivarQueue = self->_ivarQueue;
+  identifierCopy = identifier;
+  dispatch_assert_queue_V2(ivarQueue);
+  _queue_activePersistedChannelIdentity = [(CSDPersistedChannelRegistry *)self _queue_activePersistedChannelIdentity];
+  applicationIdentifier = [_queue_activePersistedChannelIdentity applicationIdentifier];
+  v10 = [applicationIdentifier isEqualToString:identifierCopy];
+
+  if (v10)
+  {
+    bundleIdentifier = [_queue_activePersistedChannelIdentity bundleIdentifier];
+    v12 = [(CSDPersistedChannelRegistry *)self _queue_tearDownPersistedChannelForBundleIdentifier:bundleIdentifier teardownType:v4];
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
 }
 
 - (BOOL)_queue_tearDownPersistedChannelForBundleIdentifier:(id)identifier teardownType:(int)type
@@ -341,7 +367,7 @@ LABEL_17:
 
     if (!v7)
     {
-      v8 = sub_100004778();
+      v8 = sub_100004778(v5);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_100473CCC();
@@ -417,7 +443,7 @@ LABEL_11:
 
   if (v11)
   {
-    bundleIdentifier = sub_100004778();
+    bundleIdentifier = sub_100004778(v11);
     if (os_log_type_enabled(bundleIdentifier, OS_LOG_TYPE_ERROR))
     {
       sub_100473DA8();

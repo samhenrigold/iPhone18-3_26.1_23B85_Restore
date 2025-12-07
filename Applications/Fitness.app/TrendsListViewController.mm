@@ -33,7 +33,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1003B1AF0();
+  sub_1003B1AF0(selfCopy);
 }
 
 - (void)wheelchairUseDidChangeWithNote:(id)note
@@ -41,10 +41,10 @@
   v4 = type metadata accessor for Notification();
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
-  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
-  sub_1003B2228();
+  sub_1003B2228(v9);
 
   (*(v5 + 8))(v7, v4);
 }
@@ -52,19 +52,21 @@
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_1003B2414();
+  sub_1003B2414(selfCopy);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_1003B25BC(appear);
+  sub_1003B25BC(appearCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_1003B2878(appear);
+  sub_1003B2878(appearCopy);
 }
 
 - (void)reloadForFontSizeChangeWithNote:(id)note
@@ -156,7 +158,7 @@
 
 - (uint64_t)tapToRadar
 {
-  v0 = sub_100140278(&unk_1008EB5B0);
+  v0 = sub_100140278(&unk_1008EB5B0, &unk_1006D2BF0);
   __chkstk_darwin(v0 - 8);
   v2 = &v13 - v1;
   v3 = type metadata accessor for URL();
@@ -167,7 +169,7 @@
   sub_100175B90(v2);
   if ((*(v4 + 48))(v2, 1, v3) == 1)
   {
-    return sub_10000EA04(v2, &unk_1008EB5B0);
+    return sub_10000EA04(v2, &unk_1008EB5B0, &unk_1006D2BF0);
   }
 
   (*(v4 + 32))(v6, v2, v3);

@@ -68,7 +68,7 @@
 {
   v7 = sub_1000024F8(current - [(HTHangHUDInfo *)self receivedTimestamp]);
   getHangHUDInfoKey = [(HTHangHUDInfo *)self getHangHUDInfoKey];
-  v9 = sub_100003824();
+  v9 = sub_100003824(getHangHUDInfoKey);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     sub_10003246C(getHangHUDInfoKey, v9, v7);

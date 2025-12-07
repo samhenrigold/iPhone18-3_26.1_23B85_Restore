@@ -135,68 +135,69 @@ void __55__ARSkeletonDefinition_defaultBody2DSkeletonDefinition__block_invoke()
 
 - (id)initDefault2DSkeletonDefinition
 {
-  v10[19] = *MEMORY[0x1E69E9840];
-  v8.receiver = self;
-  v8.super_class = ARSkeletonDefinition;
-  v2 = [(ARSkeletonDefinition *)&v8 init];
+  v12[19] = *MEMORY[0x1E69E9840];
+  v10.receiver = self;
+  v10.super_class = ARSkeletonDefinition;
+  v2 = [(ARSkeletonDefinition *)&v10 init];
+  v4 = v2;
   if (v2)
   {
-    if (ARLinkedOnOrAfterSydney())
+    if (ARLinkedOnOrAfterSydney(v2, v3))
     {
-      v10[0] = @"head_joint";
-      v10[1] = @"neck_1_joint";
-      v10[2] = @"right_shoulder_1_joint";
-      v10[3] = @"right_forearm_joint";
-      v10[4] = @"right_hand_joint";
-      v10[5] = @"left_shoulder_1_joint";
-      v10[6] = @"left_forearm_joint";
-      v10[7] = @"left_hand_joint";
-      v10[8] = @"right_upLeg_joint";
-      v10[9] = @"right_leg_joint";
-      v10[10] = @"right_foot_joint";
-      v10[11] = @"left_upLeg_joint";
-      v10[12] = @"left_leg_joint";
-      v10[13] = @"left_foot_joint";
-      v10[14] = @"right_eye_joint";
-      v10[15] = @"left_eye_joint";
-      v10[16] = @"root";
-      v10[17] = @"right_ear_joint";
-      v10[18] = @"left_ear_joint";
-      v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:19];
-      v4 = &unk_1F42590A0;
+      v12[0] = @"head_joint";
+      v12[1] = @"neck_1_joint";
+      v12[2] = @"right_shoulder_1_joint";
+      v12[3] = @"right_forearm_joint";
+      v12[4] = @"right_hand_joint";
+      v12[5] = @"left_shoulder_1_joint";
+      v12[6] = @"left_forearm_joint";
+      v12[7] = @"left_hand_joint";
+      v12[8] = @"right_upLeg_joint";
+      v12[9] = @"right_leg_joint";
+      v12[10] = @"right_foot_joint";
+      v12[11] = @"left_upLeg_joint";
+      v12[12] = @"left_leg_joint";
+      v12[13] = @"left_foot_joint";
+      v12[14] = @"right_eye_joint";
+      v12[15] = @"left_eye_joint";
+      v12[16] = @"root";
+      v12[17] = @"right_ear_joint";
+      v12[18] = @"left_ear_joint";
+      v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:19];
+      v6 = &unk_1F42590A0;
     }
 
     else
     {
-      v9[0] = @"head_joint";
-      v9[1] = @"neck_1_joint";
-      v9[2] = @"right_shoulder_1_joint";
-      v9[3] = @"right_forearm_joint";
-      v9[4] = @"right_hand_joint";
-      v9[5] = @"left_shoulder_1_joint";
-      v9[6] = @"left_forearm_joint";
-      v9[7] = @"left_hand_joint";
-      v9[8] = @"right_upLeg_joint";
-      v9[9] = @"right_leg_joint";
-      v9[10] = @"right_foot_joint";
-      v9[11] = @"left_upLeg_joint";
-      v9[12] = @"left_leg_joint";
-      v9[13] = @"left_foot_joint";
-      v9[14] = @"right_eye_joint";
-      v9[15] = @"left_eye_joint";
-      v9[16] = @"root";
-      v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:17];
-      v4 = &unk_1F42590B8;
+      v11[0] = @"head_joint";
+      v11[1] = @"neck_1_joint";
+      v11[2] = @"right_shoulder_1_joint";
+      v11[3] = @"right_forearm_joint";
+      v11[4] = @"right_hand_joint";
+      v11[5] = @"left_shoulder_1_joint";
+      v11[6] = @"left_forearm_joint";
+      v11[7] = @"left_hand_joint";
+      v11[8] = @"right_upLeg_joint";
+      v11[9] = @"right_leg_joint";
+      v11[10] = @"right_foot_joint";
+      v11[11] = @"left_upLeg_joint";
+      v11[12] = @"left_leg_joint";
+      v11[13] = @"left_foot_joint";
+      v11[14] = @"right_eye_joint";
+      v11[15] = @"left_eye_joint";
+      v11[16] = @"root";
+      v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:17];
+      v6 = &unk_1F42590B8;
     }
 
-    jointNames = v2->_jointNames;
-    v2->_jointNames = v3;
+    jointNames = v4->_jointNames;
+    v4->_jointNames = v5;
 
-    parentIndices = v2->_parentIndices;
-    v2->_parentIndices = v4;
+    parentIndices = v4->_parentIndices;
+    v4->_parentIndices = v6;
   }
 
-  return v2;
+  return v4;
 }
 
 - (NSUInteger)indexForJointName:(ARSkeletonJointName)jointName
@@ -210,7 +211,7 @@ void __55__ARSkeletonDefinition_defaultBody2DSkeletonDefinition__block_invoke()
     uTF8String = [(NSString *)v5 UTF8String];
     v9 = strlen(uTF8String);
     v10 = &uTF8String;
-    v6 = std::__hash_table<std::__hash_value_type<std::string_view,unsigned long>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,unsigned long>>>::__emplace_unique_key_args<std::string_view,std::piecewise_construct_t const&,std::tuple<std::string_view&&>,std::tuple<>>(&self->_jointname_to_index.__table_.__bucket_list_.__ptr_, &uTF8String)[4];
+    v6 = std::__hash_table<std::__hash_value_type<std::string_view,unsigned long>,std::__unordered_map_hasher<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::hash<std::string_view>,std::equal_to<std::string_view>,true>,std::__unordered_map_equal<std::string_view,std::__hash_value_type<std::string_view,unsigned long>,std::equal_to<std::string_view>,std::hash<std::string_view>,true>,std::allocator<std::__hash_value_type<std::string_view,unsigned long>>>::__emplace_unique_key_args<std::string_view,std::piecewise_construct_t const&,std::tuple<std::string_view&&>,std::tuple<>>(&self->_jointname_to_index, &uTF8String, &std::piecewise_construct, &v10)[4];
   }
 
   else

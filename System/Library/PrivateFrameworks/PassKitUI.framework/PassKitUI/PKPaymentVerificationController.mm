@@ -1235,28 +1235,28 @@ LABEL_17:
 LABEL_20:
 }
 
-uint64_t __89__PKPaymentVerificationController_canPerformVerificationInlineForMethodGroup_completion___block_invoke_2(uint64_t a1)
+uint64_t __89__PKPaymentVerificationController_canPerformVerificationInlineForMethodGroup_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v11 = *MEMORY[0x1E69E9840];
+  v3 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     if (*(*(*(a1 + 48) + 8) + 24))
     {
-      v3 = @"Yes";
+      v4 = @"Yes";
     }
 
     else
     {
-      v3 = @"No";
+      v4 = @"No";
     }
 
-    v4 = [*(a1 + 32) identifier];
-    v6 = 138412546;
-    v7 = v3;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_1BD026000, v2, OS_LOG_TYPE_DEFAULT, "Can perform verification inline: '%@' for '%@'", &v6, 0x16u);
+    v5 = [*(a1 + 32) identifier];
+    v7 = 138412546;
+    v8 = v4;
+    v9 = 2112;
+    v10 = v5;
+    _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Can perform verification inline: '%@' for '%@'", &v7, 0x16u);
   }
 
   return (*(*(a1 + 40) + 16))();
@@ -1425,11 +1425,11 @@ LABEL_11:
   }
 }
 
-uint64_t __72__PKPaymentVerificationController_completeVerificationUsingOutboundCall__block_invoke(uint64_t result, int a2)
+id *__72__PKPaymentVerificationController_completeVerificationUsingOutboundCall__block_invoke(id *result, int a2)
 {
   if (a2)
   {
-    return [*(result + 32) clearSelectedChannel];
+    return [result[4] clearSelectedChannel];
   }
 
   return result;
@@ -1813,48 +1813,48 @@ void __72__PKPaymentVerificationController_submitVerificationEntries_completion_
   objc_destroyWeak(v16);
 }
 
-void __72__PKPaymentVerificationController_submitVerificationEntries_completion___block_invoke_2(uint64_t a1)
+void __72__PKPaymentVerificationController_submitVerificationEntries_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v2 = *(a1 + 64);
-  v3 = PKLogFacilityTypeGetObject();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-  if (v2 == 1)
+  v18 = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 64);
+  v4 = PKLogFacilityTypeGetObject();
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  if (v3 == 1)
   {
-    if (v4)
+    if (v5)
     {
       *buf = 0;
-      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Successfully submitted verification code. Downloading pass.", buf, 2u);
+      _os_log_impl(&dword_1BD026000, v4, OS_LOG_TYPE_DEFAULT, "Successfully submitted verification code. Downloading pass.", buf, 2u);
     }
 
     WeakRetained = objc_loadWeakRetained((a1 + 56));
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __72__PKPaymentVerificationController_submitVerificationEntries_completion___block_invoke_159;
-    v11[3] = &unk_1E8017798;
-    v6 = *(a1 + 40);
-    v7 = *(a1 + 48);
-    v8 = *(a1 + 64);
-    v13 = v7;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __72__PKPaymentVerificationController_submitVerificationEntries_completion___block_invoke_159;
+    v12[3] = &unk_1E8017798;
+    v7 = *(a1 + 40);
+    v8 = *(a1 + 48);
+    v9 = *(a1 + 64);
     v14 = v8;
-    v12 = *(a1 + 40);
-    [WeakRetained _downloadAndAddPass:v6 completion:v11];
+    v15 = v9;
+    v13 = *(a1 + 40);
+    [WeakRetained _downloadAndAddPass:v7 completion:v12];
   }
 
   else
   {
-    if (v4)
+    if (v5)
     {
-      v9 = *(a1 + 32);
+      v10 = *(a1 + 32);
       *buf = 138412290;
-      v16 = v9;
-      _os_log_impl(&dword_1BD026000, v3, OS_LOG_TYPE_DEFAULT, "Failed to submit verification code with error: %@", buf, 0xCu);
+      v17 = v10;
+      _os_log_impl(&dword_1BD026000, v4, OS_LOG_TYPE_DEFAULT, "Failed to submit verification code with error: %@", buf, 0xCu);
     }
 
-    v10 = *(a1 + 48);
-    if (v10)
+    v11 = *(a1 + 48);
+    if (v11)
     {
-      (*(v10 + 16))(v10, *(a1 + 64), *(a1 + 40), *(a1 + 32));
+      (*(v11 + 16))(v11, *(a1 + 64), *(a1 + 40), *(a1 + 32));
     }
   }
 }

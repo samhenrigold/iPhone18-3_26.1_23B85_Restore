@@ -152,16 +152,16 @@ LABEL_16:
       goto LABEL_35;
     }
 
-    if (@"DogHead" == v6 || objc_msgSend_isEqualToString_(v6, v17, @"DogHead"))
+    if (@"DogHead" == v6 || (isEqualToString = objc_msgSend_isEqualToString_(v6, v17, @"DogHead"), isEqualToString))
     {
       objc_msgSend__objectsOfCategory_fromAcResult_(self, v17, 5, self->_acResult);
       goto LABEL_35;
     }
 
-    v26 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+    v27 = _ANSTLoggingGetOSLogForCategoryANSTKit(isEqualToString);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      sub_22E65C4B4(v6, v26);
+      sub_22E65C4B4(v6, v27);
     }
   }
 

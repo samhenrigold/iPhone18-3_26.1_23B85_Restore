@@ -61,7 +61,7 @@
     v26 = [imageByUnpremultiplyingAlpha imageByColorMatchingWorkingSpaceToColorSpace:{objc_msgSend(itur2100HLGColorSpace2, "CGColorSpace")}];
 
     curvesKernel = [(PICurvesFilterHDR *)self curvesKernel];
-    [v26 extent];
+    objc_msgSend_extent(v26);
     v29 = v28;
     v31 = v30;
     v33 = v32;

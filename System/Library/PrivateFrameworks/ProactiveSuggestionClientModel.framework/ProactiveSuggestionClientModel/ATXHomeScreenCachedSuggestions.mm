@@ -129,42 +129,40 @@ void __67__ATXHomeScreenCachedSuggestions_allSuggestionsInCachedSuggestions__blo
 
 void __67__ATXHomeScreenCachedSuggestions_allSuggestionsInCachedSuggestions__block_invoke_4(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
         v9 = *(a1 + 32);
-        v10 = [*(*(&v12 + 1) + 8 * v8) allSuggestionsInLayout];
+        v10 = [*(*(&v11 + 1) + 8 * v8) allSuggestionsInLayout];
         [v9 addObjectsFromArray:v10];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)minSuggestionsInCachedSuggestionsWithoutPreviewsOrFallbacks
@@ -239,42 +237,40 @@ void __93__ATXHomeScreenCachedSuggestions_minSuggestionsInCachedSuggestionsWitho
 
 void __93__ATXHomeScreenCachedSuggestions_minSuggestionsInCachedSuggestionsWithoutPreviewsOrFallbacks__block_invoke_4(uint64_t a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       v8 = 0;
       do
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
         v9 = *(a1 + 32);
-        v10 = [*(*(&v12 + 1) + 8 * v8) minSuggestionListInLayout];
+        v10 = [*(*(&v11 + 1) + 8 * v8) minSuggestionListInLayout];
         [v9 addObjectsFromArray:v10];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -315,50 +311,50 @@ void __93__ATXHomeScreenCachedSuggestions_minSuggestionsInCachedSuggestionsWitho
 
 - (NSString)description
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   uUIDString = [(NSUUID *)self->_uuid UUIDString];
   [v3 appendFormat:@"\n\n=== HomeScreenCachedSuggestions (ID: %@) ===\n", uUIDString];
 
   [v3 appendString:@"\n1. Layouts For Suggestion Widgets\n"]);
   cachedSuggestionWidgetLayouts = self->_cachedSuggestionWidgetLayouts;
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3221225472;
-  v41[2] = __45__ATXHomeScreenCachedSuggestions_description__block_invoke;
-  v41[3] = &unk_1E86A4720;
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __45__ATXHomeScreenCachedSuggestions_description__block_invoke;
+  v40[3] = &unk_1E86A4720;
   v6 = v3;
-  v42 = v6;
-  [(NSDictionary *)cachedSuggestionWidgetLayouts enumerateKeysAndObjectsUsingBlock:v41];
+  v41 = v6;
+  [(NSDictionary *)cachedSuggestionWidgetLayouts enumerateKeysAndObjectsUsingBlock:v40];
   [v6 appendString:@"\n2. Layouts for App Prediction Panels\n"]);
   cachedAppPredictionPanelLayouts = self->_cachedAppPredictionPanelLayouts;
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __45__ATXHomeScreenCachedSuggestions_description__block_invoke_2;
-  v39[3] = &unk_1E86A4720;
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __45__ATXHomeScreenCachedSuggestions_description__block_invoke_2;
+  v38[3] = &unk_1E86A4720;
   v8 = v6;
-  v40 = v8;
-  [(NSDictionary *)cachedAppPredictionPanelLayouts enumerateKeysAndObjectsUsingBlock:v39];
+  v39 = v8;
+  [(NSDictionary *)cachedAppPredictionPanelLayouts enumerateKeysAndObjectsUsingBlock:v38];
   [v8 appendString:@"\n3. Stack Suggestions\n"]);
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   obj = [(NSDictionary *)self->_cachedTopOfStackLayouts allKeys];
-  v9 = [obj countByEnumeratingWithState:&v35 objects:v44 count:16];
+  v9 = [obj countByEnumeratingWithState:&v34 objects:v43 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v36;
+    v11 = *v35;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v36 != v11)
+        if (*v35 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v35 + 1) + 8 * i);
+        v13 = *(*(&v34 + 1) + 8 * i);
         [v8 appendFormat:@"\nStack ID: %@\n", v13];
         [v8 appendString:@"\n Top of Stack \n"];
         v14 = [(NSDictionary *)self->_cachedTopOfStackLayouts objectForKeyedSubscript:v13];
@@ -366,37 +362,37 @@ void __93__ATXHomeScreenCachedSuggestions_minSuggestionsInCachedSuggestionsWitho
         [v8 appendString:v15];
 
         [v8 appendString:@"\n Suggested Widgets \n"];
-        v33 = 0u;
-        v34 = 0u;
-        v31 = 0u;
         v32 = 0u;
+        v33 = 0u;
+        v30 = 0u;
+        v31 = 0u;
         v16 = [(NSDictionary *)self->_cachedSuggestedWidgetsLayouts objectForKeyedSubscript:v13];
-        v17 = [v16 countByEnumeratingWithState:&v31 objects:v43 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v30 objects:v42 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v32;
+          v19 = *v31;
           do
           {
             for (j = 0; j != v18; ++j)
             {
-              if (*v32 != v19)
+              if (*v31 != v19)
               {
                 objc_enumerationMutation(v16);
               }
 
-              v21 = [*(*(&v31 + 1) + 8 * j) description];
+              v21 = [*(*(&v30 + 1) + 8 * j) description];
               [v8 appendString:v21];
             }
 
-            v18 = [v16 countByEnumeratingWithState:&v31 objects:v43 count:16];
+            v18 = [v16 countByEnumeratingWithState:&v30 objects:v42 count:16];
           }
 
           while (v18);
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v35 objects:v44 count:16];
+      v10 = [obj countByEnumeratingWithState:&v34 objects:v43 count:16];
     }
 
     while (v10);
@@ -404,17 +400,16 @@ void __93__ATXHomeScreenCachedSuggestions_minSuggestionsInCachedSuggestionsWitho
 
   [v8 appendString:@"\n4. Fallback Suggestions\n"]);
   fallbackSuggestions = self->_fallbackSuggestions;
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __45__ATXHomeScreenCachedSuggestions_description__block_invoke_3;
-  v29[3] = &unk_1E86A4770;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __45__ATXHomeScreenCachedSuggestions_description__block_invoke_3;
+  v28[3] = &unk_1E86A4770;
   v23 = v8;
-  v30 = v23;
-  [(NSArray *)fallbackSuggestions enumerateObjectsUsingBlock:v29];
-  v24 = v30;
+  v29 = v23;
+  [(NSArray *)fallbackSuggestions enumerateObjectsUsingBlock:v28];
+  v24 = v29;
   v25 = v23;
 
-  v26 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -449,50 +444,50 @@ void __45__ATXHomeScreenCachedSuggestions_description__block_invoke_3(uint64_t a
 
 - (id)descriptionWithoutPreviews
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   uUIDString = [(NSUUID *)self->_uuid UUIDString];
   [v3 appendFormat:@"\n\n=== HomeScreenCachedSuggestions (ID: %@) ===\n", uUIDString];
 
   [v3 appendString:@"\n1. Layouts For Suggestion Widgets\n"]);
   cachedSuggestionWidgetLayouts = self->_cachedSuggestionWidgetLayouts;
-  v41[0] = MEMORY[0x1E69E9820];
-  v41[1] = 3221225472;
-  v41[2] = __60__ATXHomeScreenCachedSuggestions_descriptionWithoutPreviews__block_invoke;
-  v41[3] = &unk_1E86A4720;
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __60__ATXHomeScreenCachedSuggestions_descriptionWithoutPreviews__block_invoke;
+  v40[3] = &unk_1E86A4720;
   v6 = v3;
-  v42 = v6;
-  [(NSDictionary *)cachedSuggestionWidgetLayouts enumerateKeysAndObjectsUsingBlock:v41];
+  v41 = v6;
+  [(NSDictionary *)cachedSuggestionWidgetLayouts enumerateKeysAndObjectsUsingBlock:v40];
   [v6 appendString:@"\n2. Layouts For App Prediction Panels\n"]);
   cachedAppPredictionPanelLayouts = self->_cachedAppPredictionPanelLayouts;
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __60__ATXHomeScreenCachedSuggestions_descriptionWithoutPreviews__block_invoke_2;
-  v39[3] = &unk_1E86A4720;
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __60__ATXHomeScreenCachedSuggestions_descriptionWithoutPreviews__block_invoke_2;
+  v38[3] = &unk_1E86A4720;
   v8 = v6;
-  v40 = v8;
-  [(NSDictionary *)cachedAppPredictionPanelLayouts enumerateKeysAndObjectsUsingBlock:v39];
+  v39 = v8;
+  [(NSDictionary *)cachedAppPredictionPanelLayouts enumerateKeysAndObjectsUsingBlock:v38];
   [v8 appendString:@"\n3. Stack Suggestions\n"]);
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   obj = [(NSDictionary *)self->_cachedTopOfStackLayouts allKeys];
-  v9 = [obj countByEnumeratingWithState:&v35 objects:v44 count:16];
+  v9 = [obj countByEnumeratingWithState:&v34 objects:v43 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v36;
+    v11 = *v35;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v36 != v11)
+        if (*v35 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v35 + 1) + 8 * i);
+        v13 = *(*(&v34 + 1) + 8 * i);
         [v8 appendFormat:@"\nStack ID: %@\n", v13];
         [v8 appendString:@"\n Top of Stack \n"];
         v14 = [(NSDictionary *)self->_cachedTopOfStackLayouts objectForKeyedSubscript:v13];
@@ -500,37 +495,37 @@ void __45__ATXHomeScreenCachedSuggestions_description__block_invoke_3(uint64_t a
         [v8 appendString:v15];
 
         [v8 appendString:@"\n Suggested Widgets \n"];
-        v33 = 0u;
-        v34 = 0u;
-        v31 = 0u;
         v32 = 0u;
+        v33 = 0u;
+        v30 = 0u;
+        v31 = 0u;
         v16 = [(NSDictionary *)self->_cachedSuggestedWidgetsLayouts objectForKeyedSubscript:v13];
-        v17 = [v16 countByEnumeratingWithState:&v31 objects:v43 count:16];
+        v17 = [v16 countByEnumeratingWithState:&v30 objects:v42 count:16];
         if (v17)
         {
           v18 = v17;
-          v19 = *v32;
+          v19 = *v31;
           do
           {
             for (j = 0; j != v18; ++j)
             {
-              if (*v32 != v19)
+              if (*v31 != v19)
               {
                 objc_enumerationMutation(v16);
               }
 
-              v21 = [*(*(&v31 + 1) + 8 * j) description];
+              v21 = [*(*(&v30 + 1) + 8 * j) description];
               [v8 appendString:v21];
             }
 
-            v18 = [v16 countByEnumeratingWithState:&v31 objects:v43 count:16];
+            v18 = [v16 countByEnumeratingWithState:&v30 objects:v42 count:16];
           }
 
           while (v18);
         }
       }
 
-      v10 = [obj countByEnumeratingWithState:&v35 objects:v44 count:16];
+      v10 = [obj countByEnumeratingWithState:&v34 objects:v43 count:16];
     }
 
     while (v10);
@@ -538,17 +533,16 @@ void __45__ATXHomeScreenCachedSuggestions_description__block_invoke_3(uint64_t a
 
   [v8 appendString:@"\n4. Fallback Suggestions\n"]);
   fallbackSuggestions = self->_fallbackSuggestions;
-  v29[0] = MEMORY[0x1E69E9820];
-  v29[1] = 3221225472;
-  v29[2] = __60__ATXHomeScreenCachedSuggestions_descriptionWithoutPreviews__block_invoke_3;
-  v29[3] = &unk_1E86A4770;
+  v28[0] = MEMORY[0x1E69E9820];
+  v28[1] = 3221225472;
+  v28[2] = __60__ATXHomeScreenCachedSuggestions_descriptionWithoutPreviews__block_invoke_3;
+  v28[3] = &unk_1E86A4770;
   v23 = v8;
-  v30 = v23;
-  [(NSArray *)fallbackSuggestions enumerateObjectsUsingBlock:v29];
-  v24 = v30;
+  v29 = v23;
+  [(NSArray *)fallbackSuggestions enumerateObjectsUsingBlock:v28];
+  v24 = v29;
   v25 = v23;
 
-  v26 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -639,48 +633,49 @@ LABEL_9:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v20 = __atxlog_handle_default();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+    v21 = __atxlog_handle_default(isKindOfClass);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
     {
-      [(ATXHomeScreenCachedSuggestions *)self initWithProto:v20];
+      [(ATXHomeScreenCachedSuggestions *)self initWithProto:v21];
     }
 
     goto LABEL_9;
   }
 
-  v5 = protoCopy;
-  fallbackSuggestions = [(ATXPBHomeScreenCachedSuggestion *)v5 fallbackSuggestions];
-  v7 = [ATXProactiveSuggestion suggestionsFromProtoSuggestions:fallbackSuggestions];
-  v8 = v7;
-  v9 = MEMORY[0x1E695E0F0];
-  if (v7)
+  v6 = protoCopy;
+  fallbackSuggestions = [(ATXPBHomeScreenCachedSuggestion *)v6 fallbackSuggestions];
+  v8 = [ATXProactiveSuggestion suggestionsFromProtoSuggestions:fallbackSuggestions];
+  v9 = v8;
+  v10 = MEMORY[0x1E695E0F0];
+  if (v8)
   {
-    v9 = v7;
+    v10 = v8;
   }
 
-  v26 = v9;
+  v27 = v10;
 
-  v10 = objc_alloc(MEMORY[0x1E696AFB0]);
-  uuidString = [(ATXPBHomeScreenCachedSuggestion *)v5 uuidString];
-  v23 = [v10 initWithUUIDString:uuidString];
-  cachedSuggestionWidgetIds = [(ATXPBHomeScreenCachedSuggestion *)v5 cachedSuggestionWidgetIds];
-  cachedSuggestionWidgetLayouts = [(ATXPBHomeScreenCachedSuggestion *)v5 cachedSuggestionWidgetLayouts];
-  v11 = [(ATXHomeScreenCachedSuggestions *)self _layoutDictionaryWithKeys:cachedSuggestionWidgetIds protoLayouts:cachedSuggestionWidgetLayouts];
-  cachedAppPredictionPanelIds = [(ATXPBHomeScreenCachedSuggestion *)v5 cachedAppPredictionPanelIds];
-  cachedAppPredictionPanelLayouts = [(ATXPBHomeScreenCachedSuggestion *)v5 cachedAppPredictionPanelLayouts];
-  v12 = [(ATXHomeScreenCachedSuggestions *)self _layoutDictionaryWithKeys:cachedAppPredictionPanelIds protoLayouts:cachedAppPredictionPanelLayouts];
-  cachedTopOfStackLayoutKeys = [(ATXPBHomeScreenCachedSuggestion *)v5 cachedTopOfStackLayoutKeys];
-  cachedTopOfStackLayouts = [(ATXPBHomeScreenCachedSuggestion *)v5 cachedTopOfStackLayouts];
-  v14 = [(ATXHomeScreenCachedSuggestions *)self _layoutDictionaryWithKeys:cachedTopOfStackLayoutKeys protoLayouts:cachedTopOfStackLayouts];
-  cachedSuggestedWidgetLayoutListKeys = [(ATXPBHomeScreenCachedSuggestion *)v5 cachedSuggestedWidgetLayoutListKeys];
-  cachedSuggestedWidgetLayoutLists = [(ATXPBHomeScreenCachedSuggestion *)v5 cachedSuggestedWidgetLayoutLists];
+  v11 = objc_alloc(MEMORY[0x1E696AFB0]);
+  uuidString = [(ATXPBHomeScreenCachedSuggestion *)v6 uuidString];
+  v24 = [v11 initWithUUIDString:uuidString];
+  cachedSuggestionWidgetIds = [(ATXPBHomeScreenCachedSuggestion *)v6 cachedSuggestionWidgetIds];
+  cachedSuggestionWidgetLayouts = [(ATXPBHomeScreenCachedSuggestion *)v6 cachedSuggestionWidgetLayouts];
+  v12 = [(ATXHomeScreenCachedSuggestions *)self _layoutDictionaryWithKeys:cachedSuggestionWidgetIds protoLayouts:cachedSuggestionWidgetLayouts];
+  cachedAppPredictionPanelIds = [(ATXPBHomeScreenCachedSuggestion *)v6 cachedAppPredictionPanelIds];
+  cachedAppPredictionPanelLayouts = [(ATXPBHomeScreenCachedSuggestion *)v6 cachedAppPredictionPanelLayouts];
+  v13 = [(ATXHomeScreenCachedSuggestions *)self _layoutDictionaryWithKeys:cachedAppPredictionPanelIds protoLayouts:cachedAppPredictionPanelLayouts];
+  cachedTopOfStackLayoutKeys = [(ATXPBHomeScreenCachedSuggestion *)v6 cachedTopOfStackLayoutKeys];
+  cachedTopOfStackLayouts = [(ATXPBHomeScreenCachedSuggestion *)v6 cachedTopOfStackLayouts];
+  v15 = [(ATXHomeScreenCachedSuggestions *)self _layoutDictionaryWithKeys:cachedTopOfStackLayoutKeys protoLayouts:cachedTopOfStackLayouts];
+  cachedSuggestedWidgetLayoutListKeys = [(ATXPBHomeScreenCachedSuggestion *)v6 cachedSuggestedWidgetLayoutListKeys];
+  cachedSuggestedWidgetLayoutLists = [(ATXPBHomeScreenCachedSuggestion *)v6 cachedSuggestedWidgetLayoutLists];
 
-  v17 = [(ATXHomeScreenCachedSuggestions *)self _layoutListDictionaryWithKeys:cachedSuggestedWidgetLayoutListKeys protoLayoutLists:cachedSuggestedWidgetLayoutLists];
-  v18 = [(ATXHomeScreenCachedSuggestions *)self initWithUUID:v23 suggestionWidgetLayouts:v11 appPredictionPanelLayouts:v12 topOfStackLayouts:v14 suggestedWidgetLayouts:v17 fallbackSuggestions:v26];
+  v18 = [(ATXHomeScreenCachedSuggestions *)self _layoutListDictionaryWithKeys:cachedSuggestedWidgetLayoutListKeys protoLayoutLists:cachedSuggestedWidgetLayoutLists];
+  v19 = [(ATXHomeScreenCachedSuggestions *)self initWithUUID:v24 suggestionWidgetLayouts:v12 appPredictionPanelLayouts:v13 topOfStackLayouts:v15 suggestedWidgetLayouts:v18 fallbackSuggestions:v27];
 
-  self = v18;
+  self = v19;
   selfCopy = self;
 LABEL_10:
 
@@ -824,7 +819,7 @@ void __47__ATXHomeScreenCachedSuggestions_protoForBiome__block_invoke(uint64_t a
   }
 }
 
-uint64_t __47__ATXHomeScreenCachedSuggestions_protoForBiome__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
+void *__47__ATXHomeScreenCachedSuggestions_protoForBiome__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
   result = [a2 isEqualToString:*MEMORY[0x1E698AF60]];
   if (result)
@@ -873,10 +868,10 @@ void __73__ATXHomeScreenCachedSuggestions__layoutDictionaryWithKeys_protoLayouts
 
   else
   {
-    v9 = __atxlog_handle_default();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = __atxlog_handle_default(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      __73__ATXHomeScreenCachedSuggestions__layoutDictionaryWithKeys_protoLayouts___block_invoke_cold_1(v9, v10, v11);
+      __73__ATXHomeScreenCachedSuggestions__layoutDictionaryWithKeys_protoLayouts___block_invoke_cold_1(v10, v11, v12);
     }
   }
 }
@@ -915,10 +910,10 @@ void __82__ATXHomeScreenCachedSuggestions__protoLayoutsFromLayoutDictionary_orde
 
   else
   {
-    v5 = __atxlog_handle_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      __82__ATXHomeScreenCachedSuggestions__protoLayoutsFromLayoutDictionary_orderedByKeys___block_invoke_cold_1(v5, v6, v7);
+      __82__ATXHomeScreenCachedSuggestions__protoLayoutsFromLayoutDictionary_orderedByKeys___block_invoke_cold_1(v6, v7, v8);
     }
   }
 }
@@ -947,31 +942,31 @@ void __82__ATXHomeScreenCachedSuggestions__protoLayoutsFromLayoutDictionary_orde
 
 void __81__ATXHomeScreenCachedSuggestions__layoutListDictionaryWithKeys_protoLayoutLists___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v15 = a2;
+  v22 = *MEMORY[0x1E69E9840];
+  v14 = a2;
   v4 = [*(a1 + 32) objectAtIndexedSubscript:a3];
   v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:-[ATXPBSuggestionLayoutList layoutsCount](v4)];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v6 = [(ATXPBSuggestionLayoutList *)v4 layouts];
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       v10 = 0;
       do
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [[ATXSuggestionLayout alloc] initWithProto:*(*(&v18 + 1) + 8 * v10)];
+        v11 = [[ATXSuggestionLayout alloc] initWithProto:*(*(&v17 + 1) + 8 * v10)];
         if (v11)
         {
           [v5 addObject:v11];
@@ -979,10 +974,10 @@ void __81__ATXHomeScreenCachedSuggestions__layoutListDictionaryWithKeys_protoLay
 
         else
         {
-          v12 = __atxlog_handle_default();
+          v12 = __atxlog_handle_default(0);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
           {
-            __81__ATXHomeScreenCachedSuggestions__layoutListDictionaryWithKeys_protoLayoutLists___block_invoke_cold_1(&v16, v17, v12);
+            __81__ATXHomeScreenCachedSuggestions__layoutListDictionaryWithKeys_protoLayoutLists___block_invoke_cold_1(&v15, v16, v12);
           }
         }
 
@@ -990,14 +985,13 @@ void __81__ATXHomeScreenCachedSuggestions__layoutListDictionaryWithKeys_protoLay
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
 
-  [*(a1 + 40) setObject:v5 forKeyedSubscript:v15];
-  v13 = *MEMORY[0x1E69E9840];
+  [*(a1 + 40) setObject:v5 forKeyedSubscript:v14];
 }
 
 - (id)_protoLayoutListsFromLayoutListDictionary:(id)dictionary orderedByKeys:(id)keys
@@ -1024,30 +1018,30 @@ void __81__ATXHomeScreenCachedSuggestions__layoutListDictionaryWithKeys_protoLay
 
 void __90__ATXHomeScreenCachedSuggestions__protoLayoutListsFromLayoutListDictionary_orderedByKeys___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_opt_new();
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = [*(a1 + 32) objectForKeyedSubscript:v3];
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       v9 = 0;
       do
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = [*(*(&v15 + 1) + 8 * v9) proto];
+        v10 = [*(*(&v14 + 1) + 8 * v9) proto];
         if (v10)
         {
           [(ATXPBSuggestionLayoutList *)v4 addLayout:v10];
@@ -1055,10 +1049,10 @@ void __90__ATXHomeScreenCachedSuggestions__protoLayoutListsFromLayoutListDiction
 
         else
         {
-          v11 = __atxlog_handle_default();
+          v11 = __atxlog_handle_default(0);
           if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
           {
-            __90__ATXHomeScreenCachedSuggestions__protoLayoutListsFromLayoutListDictionary_orderedByKeys___block_invoke_cold_1(&v13, v14, v11);
+            __90__ATXHomeScreenCachedSuggestions__protoLayoutListsFromLayoutListDictionary_orderedByKeys___block_invoke_cold_1(&v12, v13, v11);
           }
         }
 
@@ -1066,46 +1060,44 @@ void __90__ATXHomeScreenCachedSuggestions__protoLayoutListsFromLayoutListDiction
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
   [*(a1 + 40) addObject:v4];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_jsonRawDataForWidgetLayoutMapping:(id)mapping
 {
-  v20[4] = *MEMORY[0x1E69E9840];
+  v19[4] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E695DFD8];
   mappingCopy = mapping;
   v5 = [v3 alloc];
   v6 = *MEMORY[0x1E698AFD0];
-  v20[0] = *MEMORY[0x1E698AFC8];
-  v20[1] = v6;
+  v19[0] = *MEMORY[0x1E698AFC8];
+  v19[1] = v6;
   v7 = *MEMORY[0x1E698AF60];
-  v20[2] = *MEMORY[0x1E698AFD8];
-  v20[3] = v7;
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:4];
+  v19[2] = *MEMORY[0x1E698AFD8];
+  v19[3] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:4];
   v9 = [v5 initWithArray:v8];
 
   v10 = objc_opt_new();
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __69__ATXHomeScreenCachedSuggestions__jsonRawDataForWidgetLayoutMapping___block_invoke;
-  v17[3] = &unk_1E86A47E8;
-  v18 = v9;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __69__ATXHomeScreenCachedSuggestions__jsonRawDataForWidgetLayoutMapping___block_invoke;
+  v16[3] = &unk_1E86A47E8;
+  v17 = v9;
   v11 = v10;
-  v19 = v11;
+  v18 = v11;
   v12 = v9;
-  [mappingCopy enumerateKeysAndObjectsUsingBlock:v17];
+  [mappingCopy enumerateKeysAndObjectsUsingBlock:v16];
 
-  v13 = v19;
+  v13 = v18;
   v14 = v11;
 
-  v15 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -1144,42 +1136,38 @@ void __67__ATXHomeScreenCachedSuggestions__jsonRawDataForLayoutListMapping___blo
 
 - (id)jsonRawData
 {
-  v13[6] = *MEMORY[0x1E69E9840];
-  v12[0] = @"uuid";
+  v12[6] = *MEMORY[0x1E69E9840];
+  v11[0] = @"uuid";
   uUIDString = [(NSUUID *)self->_uuid UUIDString];
-  v13[0] = uUIDString;
-  v12[1] = @"cachedSuggestionWidgetLayouts";
+  v12[0] = uUIDString;
+  v11[1] = @"cachedSuggestionWidgetLayouts";
   v4 = [(ATXHomeScreenCachedSuggestions *)self _jsonRawDataForWidgetLayoutMapping:self->_cachedSuggestionWidgetLayouts];
-  v13[1] = v4;
-  v12[2] = @"cachedAppPredictionPanelLayouts";
+  v12[1] = v4;
+  v11[2] = @"cachedAppPredictionPanelLayouts";
   v5 = [(ATXHomeScreenCachedSuggestions *)self _jsonRawDataForWidgetLayoutMapping:self->_cachedAppPredictionPanelLayouts];
-  v13[2] = v5;
-  v12[3] = @"cachedTopOfStackLayouts";
+  v12[2] = v5;
+  v11[3] = @"cachedTopOfStackLayouts";
   v6 = [(ATXHomeScreenCachedSuggestions *)self _jsonRawDataForWidgetLayoutMapping:self->_cachedTopOfStackLayouts];
-  v13[3] = v6;
-  v12[4] = @"cachedSuggestedWidgetsLayouts";
+  v12[3] = v6;
+  v11[4] = @"cachedSuggestedWidgetsLayouts";
   v7 = [(ATXHomeScreenCachedSuggestions *)self _jsonRawDataForLayoutListMapping:self->_cachedSuggestedWidgetsLayouts];
-  v13[4] = v7;
-  v12[5] = @"fallbackSuggestions";
+  v12[4] = v7;
+  v11[5] = @"fallbackSuggestions";
   v8 = [(NSArray *)self->_fallbackSuggestions _pas_mappedArrayWithTransform:&__block_literal_global_83_0];
-  v13[5] = v8;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:6];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v12[5] = v8;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:6];
 
   return v9;
 }
 
 - (void)initWithProto:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_fault_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_FAULT, "ATXHomeScreenCachedSuggestions: Unable to construct class %@ from ProtoBuf object", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_fault_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_FAULT, "ATXHomeScreenCachedSuggestions: Unable to construct class %@ from ProtoBuf object", &v5, 0xCu);
 }
 
 void __81__ATXHomeScreenCachedSuggestions__layoutListDictionaryWithKeys_protoLayoutLists___block_invoke_cold_1(uint8_t *a1, _BYTE *a2, NSObject *a3)

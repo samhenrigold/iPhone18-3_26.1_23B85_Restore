@@ -3,9 +3,9 @@
 
 @implementation UIImage
 
-uint64_t __98__UIImage_SBUILegibilityAdditions__sbui_strikeImageForLegibilitySettings_strength_size_type_pool___block_invoke(uint64_t result)
+double *__98__UIImage_SBUILegibilityAdditions__sbui_strikeImageForLegibilitySettings_strength_size_type_pool___block_invoke(double *result)
 {
-  v1 = *(result + 40) * *(result + 48);
+  v1 = result[5] * result[6];
   if (v1 > 0.00000011920929)
   {
     v2 = result;
@@ -21,7 +21,7 @@ uint64_t __98__UIImage_SBUILegibilityAdditions__sbui_strikeImageForLegibilitySet
         v3 = 1.0;
       }
 
-      result = [*(v2 + 32) drawInRect:0 blendMode:*(v2 + 56) alpha:{*(v2 + 64), *(v2 + 72), *(v2 + 80), v3}];
+      result = [*(v2 + 4) drawInRect:0 blendMode:v2[7] alpha:{v2[8], v2[9], v2[10], v3}];
       v1 = v1 + -1.0;
     }
 
@@ -55,7 +55,7 @@ void __137__UIImage_SBUILegibilityAdditions__sbui_legibilityImageForSettings_sca
     v11 = *(a1 + 48);
     if (v11)
     {
-      [v11 shadowSettings];
+      objc_msgSend_shadowSettings(v11);
     }
 
     else
@@ -110,7 +110,7 @@ vImage_Error __137__UIImage_SBUILegibilityAdditions__sbui_legibilityImageForSett
   v3 = *(a1 + 32);
   if (v3)
   {
-    [v3 shadowSettings];
+    objc_msgSend_shadowSettings(v3);
     v4 = v8 * 0.2;
   }
 

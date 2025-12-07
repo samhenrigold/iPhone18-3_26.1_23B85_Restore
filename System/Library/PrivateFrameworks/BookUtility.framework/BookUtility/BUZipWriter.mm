@@ -106,36 +106,36 @@
   {
     if (self->_writeChannelCompletionGroup)
     {
-      BUReportAssertionFailureWithMessage("/Library/Caches/com.apple.xbs/Sources/AlderServices/frameworks/BookUtility/zip/BUZipWriter.m", 107, "[BUZipWriter p_writeChannel]", "_writeChannelCompletionGroup == nil", @"Write channel dispatch group should not be initialized.", v7, v8, v9, v23);
+      BUReportAssertionFailureWithMessage("/Library/Caches/com.apple.xbs/Sources/AlderServices/frameworks/BookUtility/zip/BUZipWriter.m", 107, "[BUZipWriter p_writeChannel]", "_writeChannelCompletionGroup == nil", @"Write channel dispatch group should not be initialized.", v7, v8, v9, v25);
       BUCrashBreakpoint();
-      result = BUIsRunningTests();
+      result = BUIsRunningTests(v11, v12);
       if (result)
       {
-        BUCrashFinalThrow(@"Write channel dispatch group should not be initialized.", v12, v13, v14, v15, v16, v17, v18, v24);
+        BUCrashFinalThrow(@"Write channel dispatch group should not be initialized.", v14, v15, v16, v17, v18, v19, v20, v26);
       }
 
       __break(1u);
       return result;
     }
 
-    v26 = 0;
-    v27 = &v26;
-    v28 = 0x3032000000;
-    v29 = sub_241DAD954;
-    v30 = sub_241DAD964;
-    v31 = dispatch_group_create();
-    dispatch_group_enter(v27[5]);
-    objc_msgSend_setWriteChannelCompletionGroup_(self, v19, v27[5]);
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = sub_241DAD96C;
-    v25[3] = &unk_278D1CE28;
-    v25[4] = &v26;
-    v21 = objc_msgSend_prepareWriteChannelWithCloseCompletionHandler_(self, v20, v25);
-    v22 = self->_writeChannel;
-    self->_writeChannel = v21;
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x3032000000;
+    v31 = sub_241DAD954;
+    v32 = sub_241DAD964;
+    v33 = dispatch_group_create();
+    dispatch_group_enter(v29[5]);
+    objc_msgSend_setWriteChannelCompletionGroup_(self, v21, v29[5]);
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = sub_241DAD96C;
+    v27[3] = &unk_278D1CE28;
+    v27[4] = &v28;
+    v23 = objc_msgSend_prepareWriteChannelWithCloseCompletionHandler_(self, v22, v27);
+    v24 = self->_writeChannel;
+    self->_writeChannel = v23;
 
-    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v28, 8);
     writeChannel = self->_writeChannel;
   }
 
@@ -171,11 +171,11 @@
   dateCopy = date;
   if (self->_closed)
   {
-    BUReportAssertionFailureWithMessage("/Library/Caches/com.apple.xbs/Sources/AlderServices/frameworks/BookUtility/zip/BUZipWriter.m", 133, "[BUZipWriter beginEntryWithNameImpl:force32BitSize:lastModificationDate:size:CRC:forceCalculatingSizeAndCRCForPreservingLastModificationDate:]", "!self->_closed", @"Already closed.", v16, v17, v18, v51);
+    BUReportAssertionFailureWithMessage("/Library/Caches/com.apple.xbs/Sources/AlderServices/frameworks/BookUtility/zip/BUZipWriter.m", 133, "[BUZipWriter beginEntryWithNameImpl:force32BitSize:lastModificationDate:size:CRC:forceCalculatingSizeAndCRCForPreservingLastModificationDate:]", "!self->_closed", @"Already closed.", v16, v17, v18, v53);
     BUCrashBreakpoint();
-    if (BUIsRunningTests())
+    if (BUIsRunningTests(v20, v21))
     {
-      BUCrashFinalThrow(@"Already closed.", v20, v21, v22, v23, v24, v25, v26, v52);
+      BUCrashFinalThrow(@"Already closed.", v22, v23, v24, v25, v26, v27, v28, v54);
     }
 
     __break(1u);
@@ -183,44 +183,22 @@
 
   else
   {
-    v27 = objc_msgSend_error(self, v14, v15);
+    v29 = objc_msgSend_error(self, v14, v15);
 
-    if (!v27)
+    if (!v29)
     {
-      objc_msgSend_finishEntry(self, v28, v29);
-      v31 = objc_msgSend_objectForKeyedSubscript_(self->_entriesMap, v30, implCopy);
+      objc_msgSend_finishEntry(self, v30, v31);
+      v33 = objc_msgSend_objectForKeyedSubscript_(self->_entriesMap, v32, implCopy);
 
-      if (!v31)
+      if (!v33)
       {
-        v32 = objc_alloc_init(BUZipWriterEntry);
+        v34 = objc_alloc_init(BUZipWriterEntry);
         currentEntry = self->_currentEntry;
-        self->_currentEntry = v32;
+        self->_currentEntry = v34;
 
-        objc_msgSend_setName_(self->_currentEntry, v34, implCopy);
-        objc_msgSend_setOffset_(self->_currentEntry, v35, self->_currentOffset);
+        objc_msgSend_setName_(self->_currentEntry, v36, implCopy);
+        objc_msgSend_setOffset_(self->_currentEntry, v37, self->_currentOffset);
         if (a6)
-        {
-          v37 = modificationDateCopy;
-        }
-
-        else
-        {
-          v37 = 1;
-        }
-
-        self->_calculateSize = v37;
-        if (modificationDateCopy)
-        {
-          objc_msgSend_setSize_(self->_currentEntry, v36, 0);
-        }
-
-        else
-        {
-          objc_msgSend_setSize_(self->_currentEntry, v36, a6);
-        }
-
-        self->_force32BitSize = self->_calculateSize && size;
-        if (v9)
         {
           v39 = modificationDateCopy;
         }
@@ -230,22 +208,44 @@
           v39 = 1;
         }
 
-        self->_calculateCRC = v39;
-        v40 = v9;
-        if (v39)
-        {
-          v40 = crc32(0, 0, 0);
-        }
-
-        objc_msgSend_setCRC_(self->_currentEntry, v38, v40);
+        self->_calculateSize = v39;
         if (modificationDateCopy)
         {
-          objc_msgSend_setLastModificationDate_(self->_currentEntry, v41, self->_updatedEntryLastModificationDate);
+          objc_msgSend_setSize_(self->_currentEntry, v38, 0);
+        }
+
+        else
+        {
+          objc_msgSend_setSize_(self->_currentEntry, v38, a6);
+        }
+
+        self->_force32BitSize = self->_calculateSize && size;
+        if (v9)
+        {
+          v41 = modificationDateCopy;
+        }
+
+        else
+        {
+          v41 = 1;
+        }
+
+        self->_calculateCRC = v41;
+        v42 = v9;
+        if (v41)
+        {
+          v42 = crc32(0, 0, 0);
+        }
+
+        objc_msgSend_setCRC_(self->_currentEntry, v40, v42);
+        if (modificationDateCopy)
+        {
+          objc_msgSend_setLastModificationDate_(self->_currentEntry, v43, self->_updatedEntryLastModificationDate);
           self->_sizeToMatch = a6;
           self->_CRCToMatch = v9;
-          v42 = dateCopy;
+          v44 = dateCopy;
           lastModificationDateIfSizeAndCRCMatches = self->_lastModificationDateIfSizeAndCRCMatches;
-          self->_lastModificationDateIfSizeAndCRCMatches = v42;
+          self->_lastModificationDateIfSizeAndCRCMatches = v44;
         }
 
         else
@@ -256,31 +256,31 @@
             updatedEntryLastModificationDate = self->_updatedEntryLastModificationDate;
           }
 
-          objc_msgSend_setLastModificationDate_(self->_currentEntry, v41, updatedEntryLastModificationDate);
+          objc_msgSend_setLastModificationDate_(self->_currentEntry, v43, updatedEntryLastModificationDate);
           lastModificationDateIfSizeAndCRCMatches = self->_lastModificationDateIfSizeAndCRCMatches;
           self->_sizeToMatch = 0;
           self->_lastModificationDateIfSizeAndCRCMatches = 0;
           self->_CRCToMatch = 0;
         }
 
-        v47 = objc_msgSend_localFileHeaderDataForEntry_(self, v45, self->_currentEntry);
+        v49 = objc_msgSend_localFileHeaderDataForEntry_(self, v47, self->_currentEntry);
         if ((self->_calculateSize || self->_calculateCRC) && (self->_options & 8) == 0)
         {
-          objc_storeStrong(&self->_localFileHeaderData, v47);
-          v48 = objc_alloc_init(MEMORY[0x277CBEB18]);
+          objc_storeStrong(&self->_localFileHeaderData, v49);
+          v50 = objc_alloc_init(MEMORY[0x277CBEB18]);
         }
 
         else
         {
-          objc_msgSend_writeData_(self, v46, v47);
+          objc_msgSend_writeData_(self, v48, v49);
           localFileHeaderData = self->_localFileHeaderData;
           self->_localFileHeaderData = 0;
 
-          v48 = 0;
+          v50 = 0;
         }
 
         entryDatas = self->_entryDatas;
-        self->_entryDatas = v48;
+        self->_entryDatas = v50;
 
         self->_entryDataSize = 0;
       }
@@ -315,12 +315,12 @@
   completionCopy = completion;
   if (!self->_closed)
   {
-    v23 = objc_msgSend_error(self, v10, v11);
-    if (v23)
+    v25 = objc_msgSend_error(self, v10, v11);
+    if (v25)
     {
-      v24 = MEMORY[0x245D00360](completionCopy);
-      v25 = v24;
-      if (v24)
+      v26 = MEMORY[0x245D00360](completionCopy);
+      v27 = v26;
+      if (v26)
       {
         if (queueCopy)
         {
@@ -328,14 +328,14 @@
           block[1] = 3221225472;
           block[2] = sub_241DAE120;
           block[3] = &unk_278D1CEA0;
-          v46 = v24;
-          v45 = v23;
+          v48 = v26;
+          v47 = v25;
           dispatch_async(queueCopy, block);
         }
 
         else
         {
-          (v24)[2](v24, v23);
+          (v26)[2](v26, v25);
         }
       }
 
@@ -350,65 +350,65 @@ LABEL_23:
       localFileHeaderData = self->_localFileHeaderData;
       if (dispatch_data_get_size(localFileHeaderData) + size + self->_entryDataSize < 0x40000)
       {
-        objc_msgSend_addObject_(entryDatas, v30, implCopy);
+        objc_msgSend_addObject_(entryDatas, v32, implCopy);
         self->_entryDataSize += size;
-        v36 = MEMORY[0x245D00360](completionCopy);
-        v37 = v36;
-        if (v36)
+        v38 = MEMORY[0x245D00360](completionCopy);
+        v39 = v38;
+        if (v38)
         {
           if (queueCopy)
           {
-            v42[0] = MEMORY[0x277D85DD0];
-            v42[1] = 3221225472;
-            v42[2] = sub_241DAE134;
-            v42[3] = &unk_278D1CEC8;
-            v43 = v36;
-            dispatch_async(queueCopy, v42);
+            v44[0] = MEMORY[0x277D85DD0];
+            v44[1] = 3221225472;
+            v44[2] = sub_241DAE134;
+            v44[3] = &unk_278D1CEC8;
+            v45 = v38;
+            dispatch_async(queueCopy, v44);
           }
 
           else
           {
-            v36[2](v36, 0);
+            v38[2](v38, 0);
           }
         }
 
         goto LABEL_19;
       }
 
-      objc_msgSend_writeData_(self, v30, localFileHeaderData);
-      v31 = self->_localFileHeaderData;
+      objc_msgSend_writeData_(self, v32, localFileHeaderData);
+      v33 = self->_localFileHeaderData;
       self->_localFileHeaderData = 0;
 
-      objc_msgSend_flushEntryData(self, v32, v33);
+      objc_msgSend_flushEntryData(self, v34, v35);
     }
 
-    objc_msgSend_writeData_queue_completion_(self, v26, implCopy, queueCopy, completionCopy);
+    objc_msgSend_writeData_queue_completion_(self, v28, implCopy, queueCopy, completionCopy);
 LABEL_19:
     if (self->_calculateSize)
     {
       currentEntry = self->_currentEntry;
-      v39 = objc_msgSend_size(currentEntry, v34, v35);
-      objc_msgSend_setSize_(currentEntry, v40, v39 + size);
+      v41 = objc_msgSend_size(currentEntry, v36, v37);
+      objc_msgSend_setSize_(currentEntry, v42, v41 + size);
     }
 
     if (self->_calculateCRC)
     {
-      v41[0] = MEMORY[0x277D85DD0];
-      v41[1] = 3221225472;
-      v41[2] = sub_241DAE148;
-      v41[3] = &unk_278D1CEF0;
-      v41[4] = self;
-      dispatch_data_apply(implCopy, v41);
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = sub_241DAE148;
+      v43[3] = &unk_278D1CEF0;
+      v43[4] = self;
+      dispatch_data_apply(implCopy, v43);
     }
 
     goto LABEL_23;
   }
 
-  BUReportAssertionFailureWithMessage("/Library/Caches/com.apple.xbs/Sources/AlderServices/frameworks/BookUtility/zip/BUZipWriter.m", 202, "[BUZipWriter addDataImpl:queue:completion:]", "!self->_closed", @"Already closed.", v12, v13, v14, v41[0]);
+  BUReportAssertionFailureWithMessage("/Library/Caches/com.apple.xbs/Sources/AlderServices/frameworks/BookUtility/zip/BUZipWriter.m", 202, "[BUZipWriter addDataImpl:queue:completion:]", "!self->_closed", @"Already closed.", v12, v13, v14, v43[0]);
   BUCrashBreakpoint();
-  if (BUIsRunningTests())
+  if (BUIsRunningTests(v16, v17))
   {
-    BUCrashFinalThrow(@"Already closed.", v16, v17, v18, v19, v20, v21, v22, v41[0]);
+    BUCrashFinalThrow(@"Already closed.", v18, v19, v20, v21, v22, v23, v24, v43[0]);
   }
 
   __break(1u);
@@ -482,16 +482,17 @@ LABEL_19:
   {
     if (self->_force32BitSize)
     {
-      if (objc_msgSend_size(self->_currentEntry, a2, currentEntry) >> 32)
+      v4 = objc_msgSend_size(self->_currentEntry, a2, currentEntry);
+      if (HIDWORD(v4))
       {
-        v4 = BUZipLog();
-        if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+        v5 = BUZipLog(v4);
+        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
         {
-          sub_241DCF7FC(v4, v5, v6, v7, v8, v9, v10, v11);
+          sub_241DCF7FC(v5, v6, v7, v8, v9, v10, v11, v12);
         }
 
-        v13 = objc_msgSend_bu_fileWriteUnknownErrorWithUserInfo_(MEMORY[0x277CCA9B8], v12, 0);
-        objc_msgSend_handleWriteError_(self, v14, v13);
+        v14 = objc_msgSend_bu_fileWriteUnknownErrorWithUserInfo_(MEMORY[0x277CCA9B8], v13, 0);
+        objc_msgSend_handleWriteError_(self, v15, v14);
 
         return;
       }
@@ -501,13 +502,13 @@ LABEL_19:
 
     if (self->_lastModificationDateIfSizeAndCRCMatches)
     {
-      v15 = objc_msgSend_size(currentEntry, a2, currentEntry);
+      v16 = objc_msgSend_size(currentEntry, a2, currentEntry);
       currentEntry = self->_currentEntry;
-      if (v15 == self->_sizeToMatch)
+      if (v16 == self->_sizeToMatch)
       {
-        v16 = objc_msgSend_CRC(self->_currentEntry, a2, currentEntry);
+        v17 = objc_msgSend_CRC(self->_currentEntry, a2, currentEntry);
         currentEntry = self->_currentEntry;
-        if (v16 == self->_CRCToMatch)
+        if (v17 == self->_CRCToMatch)
         {
           objc_msgSend_setLastModificationDate_(self->_currentEntry, a2, self->_lastModificationDateIfSizeAndCRCMatches);
           currentEntry = self->_currentEntry;
@@ -515,20 +516,20 @@ LABEL_19:
       }
     }
 
-    v19 = objc_msgSend_localFileHeaderDataForEntry_(self, a2, currentEntry);
+    v20 = objc_msgSend_localFileHeaderDataForEntry_(self, a2, currentEntry);
     if (self->_entryDatas)
     {
-      objc_msgSend_writeData_(self, v17, v19);
+      objc_msgSend_writeData_(self, v18, v20);
       localFileHeaderData = self->_localFileHeaderData;
       self->_localFileHeaderData = 0;
 
-      objc_msgSend_flushEntryData(self, v21, v22);
+      objc_msgSend_flushEntryData(self, v22, v23);
     }
 
     else
     {
-      v23 = objc_msgSend_offset(self->_currentEntry, v17, v18);
-      objc_msgSend_writeData_offset_(self, v24, v19, v23);
+      v24 = objc_msgSend_offset(self->_currentEntry, v18, v19);
+      objc_msgSend_writeData_offset_(self, v25, v20, v24);
     }
 
     currentEntry = self->_currentEntry;
@@ -536,14 +537,14 @@ LABEL_19:
 
   objc_msgSend_addObject_(self->_entries, a2, currentEntry);
   entriesMap = self->_entriesMap;
-  v25 = self->_currentEntry;
-  v29 = objc_msgSend_name(v25, v27, v28);
-  objc_msgSend_setObject_forKeyedSubscript_(entriesMap, v30, v25, v29);
+  v26 = self->_currentEntry;
+  v30 = objc_msgSend_name(v26, v28, v29);
+  objc_msgSend_setObject_forKeyedSubscript_(entriesMap, v31, v26, v30);
 
   sortedEntries = self->_sortedEntries;
   self->_sortedEntries = 0;
 
-  v32 = self->_currentEntry;
+  v33 = self->_currentEntry;
   self->_currentEntry = 0;
 }
 
@@ -727,95 +728,96 @@ LABEL_19:
   v11 = objc_msgSend_UTF8String(v8, v9, v10);
 
   __src = v11;
-  v14 = strlen(v11);
-  if (v14 >= 0x10000)
+  v12 = strlen(v11);
+  v15 = v12;
+  if (v12 >= 0x10000)
   {
-    v15 = BUZipLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = BUZipLog(v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_241DCF834(v15, v16, v17, v18, v19, v20, v21, v22);
+      sub_241DCF834(v16, v17, v18, v19, v20, v21, v22, v23);
     }
 
-    v14 = 0xFFFFLL;
+    v15 = 0xFFFFLL;
   }
 
-  v23 = self->_options & 1;
-  v24 = v23 | (objc_msgSend_size(entryCopy, v12, v13) >> 32);
-  v25 = v24 != 0;
-  if (v24 || self->_calculateSize)
+  v24 = self->_options & 1;
+  v25 = v24 | (objc_msgSend_size(entryCopy, v13, v14) >> 32);
+  v26 = v25 != 0;
+  if (v25 || self->_calculateSize)
   {
-    v53 = !self->_force32BitSize;
+    v54 = !self->_force32BitSize;
     if (self->_force32BitSize)
     {
-      v26 = 0;
+      v27 = 0;
     }
 
     else
     {
-      v26 = 20;
+      v27 = 20;
     }
   }
 
   else
   {
-    v53 = 0;
-    v26 = 0;
+    v54 = 0;
+    v27 = 0;
   }
 
-  v27 = v14 + v26;
-  v28 = malloc_type_malloc(v27 + 30, 0xC57CBB9CuLL);
-  v29 = v28 + 30;
-  *v28 = 67324752;
-  v28[1] = 20;
-  *(v28 + 4) = 0;
-  v32 = objc_msgSend_lastModificationDate(entryCopy, v30, v31);
-  v35 = objc_msgSend_bu_DOSTime(v32, v33, v34);
+  v28 = v15 + v27;
+  v29 = malloc_type_malloc(v28 + 30, 0xC57CBB9CuLL);
+  v30 = v29 + 30;
+  *v29 = 67324752;
+  v29[1] = 20;
+  *(v29 + 4) = 0;
+  v33 = objc_msgSend_lastModificationDate(entryCopy, v31, v32);
+  v36 = objc_msgSend_bu_DOSTime(v33, v34, v35);
 
-  HIDWORD(v36) = v35;
-  LODWORD(v36) = v35;
-  *(v28 + 10) = v36 >> 16;
-  *(v28 + 14) = objc_msgSend_CRC(entryCopy, v37, v38);
-  if (!v25)
+  HIDWORD(v37) = v36;
+  LODWORD(v37) = v36;
+  *(v29 + 10) = v37 >> 16;
+  *(v29 + 14) = objc_msgSend_CRC(entryCopy, v38, v39);
+  if (!v26)
   {
-    *(v28 + 18) = objc_msgSend_size(entryCopy, v39, v40);
+    *(v29 + 18) = objc_msgSend_size(entryCopy, v40, v41);
 LABEL_16:
-    v45 = objc_msgSend_size(entryCopy, v42, v43);
+    v46 = objc_msgSend_size(entryCopy, v43, v44);
     goto LABEL_18;
   }
 
   if (self->_force32BitSize)
   {
-    v41 = objc_msgSend_size(entryCopy, v39, v40);
+    v42 = objc_msgSend_size(entryCopy, v40, v41);
     force32BitSize = self->_force32BitSize;
-    *(v28 + 18) = v41;
+    *(v29 + 18) = v42;
     if (!force32BitSize)
     {
-      v45 = -1;
+      v46 = -1;
       goto LABEL_18;
     }
 
     goto LABEL_16;
   }
 
-  v45 = -1;
-  *(v28 + 18) = -1;
+  v46 = -1;
+  *(v29 + 18) = -1;
 LABEL_18:
-  *(v28 + 22) = v45;
-  *(v28 + 13) = v14;
-  *(v28 + 14) = v26;
-  memcpy(v29, __src, v14);
-  if (v53)
+  *(v29 + 22) = v46;
+  *(v29 + 13) = v15;
+  *(v29 + 14) = v27;
+  memcpy(v30, __src, v15);
+  if (v54)
   {
-    v48 = &v29[v14];
-    *v48 = BUZip64ExtraFieldSignature;
-    *(v48 + 1) = 16;
-    *(v48 + 4) = objc_msgSend_size(entryCopy, v46, v47);
-    *(v48 + 12) = objc_msgSend_size(entryCopy, v49, v50);
+    v49 = &v30[v15];
+    *v49 = BUZip64ExtraFieldSignature;
+    *(v49 + 1) = 16;
+    *(v49 + 4) = objc_msgSend_size(entryCopy, v47, v48);
+    *(v49 + 12) = objc_msgSend_size(entryCopy, v50, v51);
   }
 
-  v51 = dispatch_data_create(v28, v27 + 30, 0, *MEMORY[0x277D85CB0]);
+  v52 = dispatch_data_create(v29, v28 + 30, 0, *MEMORY[0x277D85CB0]);
 
-  return v51;
+  return v52;
 }
 
 - (void)writeCentralFileHeaderDataForEntry:(id)entry
@@ -825,77 +827,78 @@ LABEL_18:
   v8 = v7;
   v11 = objc_msgSend_UTF8String(v8, v9, v10);
 
-  v14 = strlen(v11);
-  if (v14 >= 0x10000)
+  v12 = strlen(v11);
+  v15 = v12;
+  if (v12 >= 0x10000)
   {
-    v15 = BUZipLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = BUZipLog(v12);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      sub_241DCF834(v15, v16, v17, v18, v19, v20, v21, v22);
+      sub_241DCF834(v16, v17, v18, v19, v20, v21, v22, v23);
     }
 
-    v14 = 0xFFFFLL;
+    v15 = 0xFFFFLL;
   }
 
   selfCopy = self;
-  v23 = self->_options & 2;
-  v24 = v23 | (objc_msgSend_size(entryCopy, v12, v13) >> 32);
-  v27 = v23 | (objc_msgSend_offset(entryCopy, v25, v26) >> 32);
-  v28 = 4 * ((v24 | v27) != 0);
-  if (v24)
+  v24 = self->_options & 2;
+  v25 = v24 | (objc_msgSend_size(entryCopy, v13, v14) >> 32);
+  v28 = v24 | (objc_msgSend_offset(entryCopy, v26, v27) >> 32);
+  v29 = 4 * ((v25 | v28) != 0);
+  if (v25)
   {
-    v28 = 20;
+    v29 = 20;
   }
 
-  v29 = v27 != 0;
-  if (v27)
+  v30 = v28 != 0;
+  if (v28)
   {
-    v30 = v28 | 8;
-  }
-
-  else
-  {
-    v30 = v28;
-  }
-
-  v56 = v14 + v30;
-  v31 = malloc_type_malloc(v14 + v30 + 46, 0xDAC6F913uLL);
-  v32 = v31 + 46;
-  *v31 = 33639248;
-  *(v31 + 4) = 1310782;
-  v35 = objc_msgSend_lastModificationDate(entryCopy, v33, v34);
-  v38 = objc_msgSend_bu_DOSTime(v35, v36, v37);
-
-  HIDWORD(v39) = v38;
-  LODWORD(v39) = v38;
-  *(v31 + 3) = v39 >> 16;
-  *(v31 + 4) = objc_msgSend_CRC(entryCopy, v40, v41);
-  if (v24)
-  {
-    v44 = -1;
-    *(v31 + 5) = -1;
+    v31 = v29 | 8;
   }
 
   else
   {
-    *(v31 + 5) = objc_msgSend_size(entryCopy, v42, v43);
-    v44 = objc_msgSend_size(entryCopy, v45, v46);
+    v31 = v29;
   }
 
-  *(v31 + 6) = v44;
-  *(v31 + 14) = v14;
-  *(v31 + 15) = v30;
-  *(v31 + 4) = 0;
-  *(v31 + 20) = 0;
-  if (v29)
+  v57 = v15 + v31;
+  v32 = malloc_type_malloc(v15 + v31 + 46, 0xDAC6F913uLL);
+  v33 = v32 + 46;
+  *v32 = 33639248;
+  *(v32 + 4) = 1310782;
+  v36 = objc_msgSend_lastModificationDate(entryCopy, v34, v35);
+  v39 = objc_msgSend_bu_DOSTime(v36, v37, v38);
+
+  HIDWORD(v40) = v39;
+  LODWORD(v40) = v39;
+  *(v32 + 3) = v40 >> 16;
+  *(v32 + 4) = objc_msgSend_CRC(entryCopy, v41, v42);
+  if (v25)
   {
-    *(v31 + 42) = -1;
-    memcpy(v32, v11, v14);
-    *&v32[v14] = BUZip64ExtraFieldSignature;
-    v49 = &v32[v14 + 4];
-    *&v32[v14 + 2] = 0;
-    v50 = &v32[v14 + 2];
-    if (!v24)
+    v45 = -1;
+    *(v32 + 5) = -1;
+  }
+
+  else
+  {
+    *(v32 + 5) = objc_msgSend_size(entryCopy, v43, v44);
+    v45 = objc_msgSend_size(entryCopy, v46, v47);
+  }
+
+  *(v32 + 6) = v45;
+  *(v32 + 14) = v15;
+  *(v32 + 15) = v31;
+  *(v32 + 4) = 0;
+  *(v32 + 20) = 0;
+  if (v30)
+  {
+    *(v32 + 42) = -1;
+    memcpy(v33, v11, v15);
+    *&v33[v15] = BUZip64ExtraFieldSignature;
+    v50 = &v33[v15 + 4];
+    *&v33[v15 + 2] = 0;
+    v51 = &v33[v15 + 2];
+    if (!v25)
     {
       goto LABEL_20;
     }
@@ -903,33 +906,33 @@ LABEL_18:
 
   else
   {
-    *(v31 + 42) = objc_msgSend_offset(entryCopy, v42, v43);
-    memcpy(v32, v11, v14);
-    if (!v24)
+    *(v32 + 42) = objc_msgSend_offset(entryCopy, v43, v44);
+    memcpy(v33, v11, v15);
+    if (!v25)
     {
       goto LABEL_21;
     }
 
-    v49 = &v32[v14 + 4];
-    *&v32[v14] = BUZip64ExtraFieldSignature;
-    v50 = &v32[v14 + 2];
+    v50 = &v33[v15 + 4];
+    *&v33[v15] = BUZip64ExtraFieldSignature;
+    v51 = &v33[v15 + 2];
   }
 
-  v51 = &v32[v14];
-  *v50 = 16;
-  *v49 = objc_msgSend_size(entryCopy, v47, v48);
-  *(v51 + 12) = objc_msgSend_size(entryCopy, v52, v53);
-  if (v29)
+  v52 = &v33[v15];
+  *v51 = 16;
+  *v50 = objc_msgSend_size(entryCopy, v48, v49);
+  *(v52 + 12) = objc_msgSend_size(entryCopy, v53, v54);
+  if (v30)
   {
-    v49 = (v51 + 20);
+    v50 = (v52 + 20);
 LABEL_20:
-    *v50 += 8;
-    *v49 = objc_msgSend_offset(entryCopy, v47, v48);
+    *v51 += 8;
+    *v50 = objc_msgSend_offset(entryCopy, v48, v49);
   }
 
 LABEL_21:
-  v54 = dispatch_data_create(v31, v56 + 46, 0, *MEMORY[0x277D85CB0]);
-  objc_msgSend_writeData_(selfCopy, v55, v54);
+  v55 = dispatch_data_create(v32, v57 + 46, 0, *MEMORY[0x277D85CB0]);
+  objc_msgSend_writeData_(selfCopy, v56, v55);
 }
 
 - (void)writeEndOfCentralDirectoryDataWithOffset:(int64_t)offset size:(int64_t)size entryCount:(unint64_t)count
@@ -1116,28 +1119,29 @@ LABEL_21:
   v7 = errorCopy;
   if (errorCopy)
   {
-    if (objc_msgSend_code(errorCopy, v5, v6) != 3072 || (objc_msgSend_domain(v7, v8, v9), v10 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v10, v11, *MEMORY[0x277CCA050]), v10, (isEqualToString & 1) == 0))
+    v8 = objc_msgSend_code(errorCopy, v5, v6);
+    if (v8 != 3072 || (objc_msgSend_domain(v7, v9, v10), v11 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v11, v12, *MEMORY[0x277CCA050]), v11, (isEqualToString & 1) == 0))
     {
-      v15 = BUZipLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v16 = BUZipLog(v8);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        sub_241DCF86C(v7, v15, v16);
+        sub_241DCF86C(v7, v16, v17);
       }
     }
 
-    v17 = objc_msgSend_error(self, v13, v14);
+    v18 = objc_msgSend_error(self, v14, v15);
 
-    if (!v17)
+    if (!v18)
     {
-      v20 = objc_msgSend_channelQueue(self, v18, v19);
+      v21 = objc_msgSend_channelQueue(self, v19, v20);
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = sub_241DB0A38;
       block[3] = &unk_278D1D148;
       block[4] = self;
-      dispatch_async(v20, block);
+      dispatch_async(v21, block);
 
-      objc_msgSend_setError_(self, v21, v7);
+      objc_msgSend_setError_(self, v22, v7);
     }
   }
 }

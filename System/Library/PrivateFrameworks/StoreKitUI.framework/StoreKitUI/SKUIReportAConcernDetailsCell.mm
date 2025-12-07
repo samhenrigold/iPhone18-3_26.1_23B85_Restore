@@ -128,9 +128,9 @@
   textView = [(SKUIReportAConcernDetailsCell *)self textView];
   text = [textView text];
   placeholderText = [(SKUIReportAConcernDetailsCell *)self placeholderText];
-  v6 = [text isEqualToString:placeholderText];
+  isEqualToString = objc_msgSend_isEqualToString_(text);
 
-  if (v6)
+  if (isEqualToString)
   {
     text2 = 0;
   }
@@ -153,9 +153,9 @@
   if (textCopy)
   {
     placeholderText = [(SKUIReportAConcernDetailsCell *)self placeholderText];
-    v9 = [v7 isEqualToString:placeholderText];
+    isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-    if (!v9)
+    if (!isEqualToString)
     {
       return;
     }

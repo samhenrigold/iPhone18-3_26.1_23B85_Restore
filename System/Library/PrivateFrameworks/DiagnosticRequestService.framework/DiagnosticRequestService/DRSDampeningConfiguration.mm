@@ -71,23 +71,23 @@
 - (DRSDampeningConfiguration)initWithPlistDict:(id)dict
 {
   dictCopy = dict;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 0;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __47__DRSDampeningConfiguration_initWithPlistDict___block_invoke;
-  v24[3] = &unk_27899FDA8;
-  v24[4] = &v25;
-  [dictCopy enumerateKeysAndObjectsUsingBlock:v24];
-  if (*(v26 + 24) == 1)
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __47__DRSDampeningConfiguration_initWithPlistDict___block_invoke;
+  v25[3] = &unk_27899FDA8;
+  v25[4] = &v26;
+  v5 = [dictCopy enumerateKeysAndObjectsUsingBlock:v25];
+  if (*(v27 + 24) == 1)
   {
-    v5 = DPLogHandle_DampeningManagerError();
-    if (os_signpost_enabled(v5))
+    v6 = DPLogHandle_DampeningManagerError(v5);
+    if (os_signpost_enabled(v6))
     {
-      *v23 = 0;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InvalidDampeningConfigurationPlist", "Found unexpected object types in plist dictionary", v23, 2u);
+      *v24 = 0;
+      _os_signpost_emit_with_name_impl(&dword_232906000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "InvalidDampeningConfigurationPlist", "Found unexpected object types in plist dictionary", v24, 2u);
     }
 
     selfCopy = 0;
@@ -95,46 +95,46 @@
 
   else
   {
-    v7 = [dictCopy objectForKeyedSubscript:kDRSDMHysteresisKey];
-    v8 = v7;
-    v9 = &unk_2847FF858;
-    if (v7)
+    v8 = [dictCopy objectForKeyedSubscript:kDRSDMHysteresisKey];
+    v9 = v8;
+    v10 = &unk_2847FF858;
+    if (v8)
     {
-      v9 = v7;
+      v10 = v8;
     }
 
-    v5 = v9;
+    v6 = v10;
 
-    v10 = [dictCopy objectForKeyedSubscript:kDRSDMCountCapKey];
-    v11 = v10;
-    v12 = &unk_2847FF828;
-    if (v10)
+    v11 = [dictCopy objectForKeyedSubscript:kDRSDMCountCapKey];
+    v12 = v11;
+    v13 = &unk_2847FF828;
+    if (v11)
     {
-      v12 = v10;
+      v13 = v11;
     }
 
-    v13 = v12;
+    v14 = v13;
 
-    v14 = [dictCopy objectForKeyedSubscript:kDRSDMAcceptanceRateKey];
-    v15 = v14;
-    v16 = &unk_2847FF868;
-    if (v14)
+    v15 = [dictCopy objectForKeyedSubscript:kDRSDMAcceptanceRateKey];
+    v16 = v15;
+    v17 = &unk_2847FF868;
+    if (v15)
     {
-      v16 = v14;
+      v17 = v15;
     }
 
-    v17 = v16;
+    v18 = v17;
 
-    [v5 floatValue];
-    v19 = v18;
-    unsignedIntegerValue = [v13 unsignedIntegerValue];
-    [v17 doubleValue];
-    self = [(DRSDampeningConfiguration *)self initWithHysteresis:unsignedIntegerValue cap:v19 acceptanceRate:v21];
+    [v6 floatValue];
+    v20 = v19;
+    unsignedIntegerValue = [v14 unsignedIntegerValue];
+    [v18 doubleValue];
+    self = [(DRSDampeningConfiguration *)self initWithHysteresis:unsignedIntegerValue cap:v20 acceptanceRate:v22];
 
     selfCopy = self;
   }
 
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v26, 8);
   return selfCopy;
 }
 
@@ -155,10 +155,10 @@ void __47__DRSDampeningConfiguration_initWithPlistDict___block_invoke(uint64_t a
 - (DRSDampeningConfiguration)initWithHysteresis:(double)hysteresis cap:(unint64_t)cap acceptanceRate:(double)rate
 {
   selfCopy = self;
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (hysteresis < 0.0)
   {
-    v7 = DPLogHandle_DampeningManagerError();
+    v7 = DPLogHandle_DampeningManagerError(self);
     if (os_signpost_enabled(v7))
     {
       *buf = 134217984;
@@ -174,7 +174,7 @@ LABEL_10:
 
   if (rate < 0.0 || rate > 1.0)
   {
-    v7 = DPLogHandle_DampeningManagerError();
+    v7 = DPLogHandle_DampeningManagerError(self);
     if (os_signpost_enabled(v7))
     {
       *buf = 134217984;
@@ -189,9 +189,9 @@ LABEL_11:
     goto LABEL_15;
   }
 
-  v16.receiver = self;
-  v16.super_class = DRSDampeningConfiguration;
-  v13 = [(DRSDampeningConfiguration *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = DRSDampeningConfiguration;
+  v13 = [(DRSDampeningConfiguration *)&v15 init];
   if (v13)
   {
     v13->_countCap = cap;
@@ -203,7 +203,6 @@ LABEL_11:
   v11 = selfCopy;
 LABEL_15:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -306,13 +305,13 @@ LABEL_7:
 
 - (id)jsonCompatibleDictRepresentation
 {
-  v13[3] = *MEMORY[0x277D85DE8];
-  v12[0] = kDRSDMHysteresisKey;
+  v12[3] = *MEMORY[0x277D85DE8];
+  v11[0] = kDRSDMHysteresisKey;
   v3 = MEMORY[0x277CCABB0];
   [(DRSDampeningConfiguration *)self hysteresis];
   v4 = [v3 numberWithDouble:?];
-  v13[0] = v4;
-  v12[1] = kDRSDMCountCapKey;
+  v12[0] = v4;
+  v11[1] = kDRSDMCountCapKey;
   countCap = [(DRSDampeningConfiguration *)self countCap];
   if (countCap == 0x7FFFFFFF)
   {
@@ -324,19 +323,17 @@ LABEL_7:
     v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[DRSDampeningConfiguration countCap](self, "countCap")}];
   }
 
-  v13[1] = v6;
-  v12[2] = kDRSDMAcceptanceRateKey;
+  v12[1] = v6;
+  v11[2] = kDRSDMAcceptanceRateKey;
   v7 = MEMORY[0x277CCABB0];
   [(DRSDampeningConfiguration *)self acceptanceRate];
   v8 = [v7 numberWithDouble:?];
-  v13[2] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
+  v12[2] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
 
   if (countCap != 0x7FFFFFFF)
   {
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

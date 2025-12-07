@@ -512,15 +512,15 @@ void __59__PXStoryPersistableRecipeManager__updatePersistableRecipe__block_invok
   v59 = 0u;
   if (recipeCopy)
   {
-    [recipeCopy overallDurationInfo];
+    objc_msgSend_overallDurationInfo(recipeCopy);
   }
 
   if (editsCopy)
   {
-    [editsCopy overallDurationInfo];
+    objc_msgSend_overallDurationInfo(editsCopy);
     if (v54)
     {
-      [editsCopy overallDurationInfo];
+      objc_msgSend_overallDurationInfo(editsCopy);
       v61 = v56;
       v62 = v57;
       v63 = v58;

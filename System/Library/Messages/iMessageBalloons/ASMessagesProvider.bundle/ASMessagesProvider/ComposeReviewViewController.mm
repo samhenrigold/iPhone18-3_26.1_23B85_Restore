@@ -8,7 +8,7 @@
 
 - (_TtC18ASMessagesProvider27ComposeReviewViewController)initWithCompositionURL:(id)l
 {
-  v4 = sub_BD88(&unk_93FD30);
+  v4 = sub_BD88(&unk_93FD30, qword_77F240);
   __chkstk_darwin(v4 - 8);
   v6 = &v10 - v5;
   if (l)

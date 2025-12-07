@@ -8,18 +8,16 @@
 
 + (void)logCapabilities
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = _LTOSLogAssets();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = _LTOSLogAssets(self, a2);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v4[0] = 67109376;
-    v4[1] = 1;
-    v5 = 1024;
-    v6 = 1;
-    _os_log_impl(&dword_232E53000, v2, OS_LOG_TYPE_INFO, "ANE hardware provider capabilities MG:%{BOOL}i ANE:%{BOOL}i", v4, 0xEu);
+    v3[0] = 67109376;
+    v3[1] = 1;
+    v4 = 1024;
+    v5 = 1;
+    _os_log_impl(&dword_232E53000, v2, OS_LOG_TYPE_INFO, "ANE hardware provider capabilities MG:%{BOOL}i ANE:%{BOOL}i", v3, 0xEu);
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)isAvailable

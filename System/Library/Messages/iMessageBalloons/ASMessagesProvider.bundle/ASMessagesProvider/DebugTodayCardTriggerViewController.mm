@@ -23,7 +23,7 @@
 - (void)refreshContent
 {
   selfCopy = self;
-  sub_1F1DB0();
+  sub_1F1DB0(v2);
 }
 
 - (id)tableView:(id)view titleForHeaderInSection:(int64_t)section
@@ -112,7 +112,7 @@ LABEL_7:
   v6 = *(v5 - 8);
   __chkstk_darwin(v5);
   v8 = &v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = sub_BD88(&unk_94EE60);
+  v9 = sub_BD88(&unk_94EE60, qword_7841A0);
   __chkstk_darwin(v9 - 8);
   v11 = &v19 - v10;
   sub_757590();
@@ -171,7 +171,7 @@ LABEL_13:
   sub_757590();
   viewCopy = view;
   selfCopy = self;
-  sub_1F3A5C();
+  sub_1F3A5C(v9);
 
   (*(v7 + 8))(v9, v6);
 }

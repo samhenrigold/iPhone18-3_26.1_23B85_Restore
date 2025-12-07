@@ -33,19 +33,8 @@
   }
 
   eSIMServerURL = [requestCopy eSIMServerURL];
-  if (!eSIMServerURL)
+  if (!eSIMServerURL || (v8 = eSIMServerURL, [requestCopy eSIMServerURL], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "scheme"), v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(&off_1000D73E8, "containsObject:", v10), v10, v9, v8, (v11 & 1) == 0))
   {
-    goto LABEL_5;
-  }
-
-  v8 = eSIMServerURL;
-  eSIMServerURL2 = [requestCopy eSIMServerURL];
-  scheme = [eSIMServerURL2 scheme];
-  v11 = [&off_1000D73E8 containsObject:scheme];
-
-  if ((v11 & 1) == 0)
-  {
-LABEL_5:
     if (!error)
     {
       goto LABEL_8;

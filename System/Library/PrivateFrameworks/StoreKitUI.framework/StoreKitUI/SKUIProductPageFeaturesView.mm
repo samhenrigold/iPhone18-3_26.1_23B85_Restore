@@ -31,10 +31,10 @@
     height->_bottomBorderView = v9;
 
     v11 = height->_bottomBorderView;
-    primaryTextColor = [(SKUIColorScheme *)height->_colorScheme primaryTextColor];
-    if (primaryTextColor)
+    v12 = objc_msgSend_primaryTextColor(height->_colorScheme);
+    if (v12)
     {
-      [(UIView *)v11 setBackgroundColor:primaryTextColor];
+      [(UIView *)v11 setBackgroundColor:v12];
     }
 
     else
@@ -203,7 +203,7 @@
 {
   titleCopy = title;
   title = [(SKUIProductPageFeaturesView *)self title];
-  if (title != titleCopy && ([title isEqualToString:titleCopy] & 1) == 0)
+  if (title != titleCopy && (objc_msgSend_isEqualToString_(title) & 1) == 0)
   {
     v5 = [titleCopy length];
     titleLabel = self->_titleLabel;

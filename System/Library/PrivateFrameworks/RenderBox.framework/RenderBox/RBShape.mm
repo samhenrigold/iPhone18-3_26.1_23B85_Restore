@@ -69,7 +69,7 @@
       v15 = xmmword_195E42770;
       v16 = 0;
       v17 = 0;
-      *&v8 = RB::Coverage::Primitive::bounds(&self->_data.data[12], &v14, xmmword_195E42760, xmmword_195E42770, v2, v3, v4, v5);
+      v8 = RB::Coverage::Primitive::bounds(&self->_data.data[12], &v14, xmmword_195E42760, xmmword_195E42770, v2, v3, v4, v5);
     }
 
     else
@@ -94,7 +94,7 @@
     v15 = xmmword_195E42770;
     v16 = 0;
     v17 = 0;
-    *&v8 = RB::Coverage::Stroke<RB::Coverage::StrokeablePath>::bounds(&self->_data.data[12], &v14);
+    *&v8 = RB::Coverage::Stroke<RB::Coverage::StrokeablePath>::bounds(&self->_data.data[12], &v14, 1.0, xmmword_195E42770);
   }
 
   else if (type == 4)
@@ -115,7 +115,7 @@
       v15 = xmmword_195E42770;
       v16 = 0;
       v17 = 0;
-      *&v8 = RB::Coverage::Stroke<RBStrokeRef>::bounds(&self->_data.data[12], &v14);
+      *&v8 = RB::Coverage::Stroke<RBStrokeRef>::bounds(&self->_data.data[12], &v14, 1.0, xmmword_195E42770);
     }
   }
 
@@ -197,32 +197,36 @@
 
 - (void)_setRect:(float64_t)rect
 {
-  v13.f64[0] = a2;
-  v13.f64[1] = rect;
-  v14.f64[0] = a4;
-  v14.f64[1] = a5;
-  if (self)
+  v17.f64[0] = a2;
+  v17.f64[1] = rect;
+  v18.f64[0] = a4;
+  v18.f64[1] = a5;
+  if (result)
   {
     if (CGRectIsInfinite(*&a2))
     {
-      [RBShape _setRect:self];
+      [RBShape _setRect:?];
     }
 
-    else if (RB::Rect::representable_cgrect(&v13, v6))
+    else if (RB::Rect::representable_cgrect(&v17, v6))
     {
-      [(RBShape *)self _setRect:&v14];
+      [(RBShape *)result _setRect:&v18];
     }
 
     else
     {
-      Rect = RBPathMakeRect(0, v13.f64[0], v13.f64[1], v14.f64[0], v14.f64[1]);
-      v9 = v8;
-      v10[0] = xmmword_195E42760;
-      v10[1] = xmmword_195E42770;
-      v11 = 0;
-      v12 = 0;
-      [(RBShape *)self _setRBPath:v8 transform:v10];
-      RBPathRelease(Rect, v9);
+      v8.n128_u64[0] = *&v17.f64[1];
+      v7.n128_u64[0] = *&v17.f64[0];
+      v10.n128_u64[0] = *&v18.f64[1];
+      v9.n128_u64[0] = *&v18.f64[0];
+      Rect = RBPathMakeRect(0, v7, v8, v9, v10);
+      v13 = v12;
+      v14[0] = xmmword_195E42760;
+      v14[1] = xmmword_195E42770;
+      v15 = 0;
+      v16 = 0;
+      [(RBShape *)result _setRBPath:v12 transform:v14];
+      RBPathRelease(Rect, v13);
     }
   }
 }
@@ -287,14 +291,14 @@
 
 - (void)setStrokedRect:(CGRect)rect lineWidth:(double)width
 {
-  v19.f64[0] = rect.origin.x;
-  v19.f64[1] = rect.origin.y;
-  v20.f64[0] = rect.size.width;
-  v20.f64[1] = rect.size.height;
+  v26.f64[0] = rect.origin.x;
+  v26.f64[1] = rect.origin.y;
+  v27.f64[0] = rect.size.width;
+  v27.f64[1] = rect.size.height;
   if (width <= 0.0)
   {
 
-    [(RBShape *)self _setEmpty];
+    [(RBShape *)self _setEmpty:rect];
   }
 
   else
@@ -311,21 +315,21 @@
 
     if (width <= width)
     {
-      v22 = CGRectInset(rect, width * -0.5, width * -0.5);
+      v30 = CGRectInset(rect, width * -0.5, width * -0.5);
 
-      [(RBShape *)self _setRect:v22.origin.y, v22.size.width, v22.size.height];
+      [(RBShape *)self _setRect:v30.origin.y, v30.size.width, v30.size.height];
     }
 
-    else if (RB::Rect::representable_cgrect(&v19, a2))
+    else if (RB::Rect::representable_cgrect(&v26, a2))
     {
-      v7 = vcvt_f32_f64(v19);
-      v8 = vcvt_f32_f64(v20);
+      v14 = vcvt_f32_f64(v26);
+      v15 = vcvt_f32_f64(v27);
       renderingMode = self->_renderingMode;
       RBShapeData::apply<RB::DestroyAny>(&self->_data.type);
       widthCopy = width;
       renderingModeArgument = self->_renderingModeArgument;
-      *&self->_data.data[12] = v7;
-      *&self->_data.data[20] = v8;
+      *&self->_data.data[12] = v14;
+      *&self->_data.data[20] = v15;
       *&self->_data.data[28] = 0;
       *&self->_data.data[36] = 0;
       *&self->_data.data[44] = 1065353216;
@@ -339,22 +343,26 @@
 
     else
     {
-      Rect = RBPathMakeRect(0, v19.f64[0], v19.f64[1], v20.f64[0], v20.f64[1]);
-      v16[0] = xmmword_195E42760;
-      v16[1] = xmmword_195E42770;
-      v17 = 0;
-      v18 = 0;
+      v11.n128_u64[0] = *&v26.f64[1];
+      v10.n128_u64[0] = *&v26.f64[0];
+      v13.n128_u64[0] = *&v27.f64[1];
+      v12.n128_u64[0] = *&v27.f64[0];
+      Rect = RBPathMakeRect(0, v10, v11, v12, v13);
+      v23[0] = xmmword_195E42760;
+      v23[1] = xmmword_195E42770;
+      v24 = 0;
+      v25 = 0;
       selfCopy = self;
-      v15 = v14;
-      [(RBShape *)selfCopy _setStrokedRBPath:v14 transform:v16 lineWidth:0 lineCap:kCGLineJoinMiter lineJoin:0 miterLimit:0 dashPhase:width dashPattern:10.0 dashCount:0.0];
-      RBPathRelease(Rect, v15);
+      v22 = v21;
+      [(RBShape *)selfCopy _setStrokedRBPath:v21 transform:v23 lineWidth:0 lineCap:kCGLineJoinMiter lineJoin:0 miterLimit:0 dashPhase:width dashPattern:10.0 dashCount:0.0];
+      RBPathRelease(Rect, v22);
     }
   }
 }
 
 - (void)_setStrokedRBPath:(uint64_t)path transform:(float64x2_t *)transform lineWidth:(unsigned int)width lineCap:(CGLineJoin)cap lineJoin:(double *)join miterLimit:(uint64_t)limit dashPhase:(double)phase dashPattern:(double)self0 dashCount:(double)self1
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   if (!self)
   {
     return;
@@ -366,96 +374,96 @@
     return;
   }
 
-  v51 = rb_line_cap(width);
+  v50 = rb_line_cap(width);
   v21 = rb_line_join(cap);
-  v23 = v21;
-  v24 = limit << (limit & 1);
-  v25 = v24 < 0;
-  if (v24 >= 0)
+  v22 = v21;
+  v23 = limit << (limit & 1);
+  v24 = v23 < 0;
+  if (v23 >= 0)
   {
-    v26 = limit << (limit & 1);
+    v25 = limit << (limit & 1);
   }
 
   else
   {
-    v26 = -v24;
+    v25 = -v23;
   }
 
-  if (v24 >= 0)
+  if (v23 >= 0)
   {
-    v27 = 4 * v26;
+    v26 = 4 * v25;
   }
 
   else
   {
-    v27 = -4 * v26;
+    v26 = -4 * v25;
   }
 
-  if (!(4 * v26))
+  if (!(4 * v25))
   {
-    v25 = 0;
+    v24 = 0;
   }
 
-  if (v26 >> 62 || v25)
+  if (v25 >> 62 || v24)
   {
-    if (v24)
+    if (v23)
     {
       return;
     }
 
-    v38 = 0;
-    v39 = 0;
     v37 = 0;
+    v38 = 0;
+    v36 = 0;
 LABEL_32:
-    if (v23)
+    if (v22)
     {
-      v41 = 1;
+      v40 = 1;
     }
 
     else
     {
-      v41 = pattern > 0.0;
+      v40 = pattern > 0.0;
     }
 
-    if (!v41)
+    if (!v40)
     {
-      LOBYTE(v23) = 2;
+      LOBYTE(v22) = 2;
     }
 
-    v42 = vandq_s8(vandq_s8(vceqq_f64(transform[1], xmmword_195E42770), vceqq_f64(*transform, xmmword_195E42760)), vceqzq_f64(transform[2]));
-    if (vandq_s8(vdupq_laneq_s64(v42, 1), v42).i64[0] < 0)
+    v41 = vandq_s8(vandq_s8(vceqq_f64(transform[1], xmmword_195E42770), vceqq_f64(*transform, xmmword_195E42760)), vceqzq_f64(transform[2]));
+    if (vandq_s8(vdupq_laneq_s64(v41, 1), v41).i64[0] < 0)
     {
       transform = 0;
     }
 
-    RB::Heap::reset(&self[16], &self[21], 256);
-    v43 = RBPathRetain(a2, path);
+    RB::Heap::reset((self + 128), (self + 168), 256);
+    v42 = RBPathRetain(a2, path);
     phaseCopy = phase;
     countCopy = count;
-    v52 = v43;
-    v53 = v46;
+    v51 = v42;
+    v52 = v45;
     transformCopy = transform;
-    v55 = phaseCopy;
-    v56 = countCopy;
-    v57 = v37;
-    v58 = v39;
-    v47 = rb_clip_mode(self[53].u8[4]);
-    RBShapeData::apply<RB::DestroyAny>(&self[2]);
-    self[2].i32[0] = 0;
-    self[4] = &unk_1F0A38388;
-    RB::Coverage::StrokeablePath::StrokeablePath(&self[5], &v52, &self[16]);
-    self[11] = 0x100000001000000;
-    self[12] = vneg_f32(0x80000000800000);
+    v54 = phaseCopy;
+    v55 = countCopy;
+    v56 = v36;
+    v57 = v38;
+    v46 = rb_clip_mode(*(self + 428));
+    RBShapeData::apply<RB::DestroyAny>((self + 16));
+    *(self + 16) = 0;
+    *(self + 32) = &unk_1F0A38388;
+    RB::Coverage::StrokeablePath::StrokeablePath((self + 40), &v51, (self + 128));
+    *(self + 88) = 0x100000001000000;
+    *(self + 96) = vneg_f32(0x80000000800000);
     patternCopy = pattern;
-    self[13].i8[0] = 0;
-    self[13].i8[1] = v51;
-    self[13].i8[2] = v23;
-    self[13].i8[3] = 15;
-    self[13].i8[4] = v47;
-    self[14].f32[0] = patternCopy;
-    self[2].i32[0] = 3;
-    RBPathRelease(v52, v53);
-    if (v38)
+    *(self + 104) = 0;
+    *(self + 105) = v50;
+    *(self + 106) = v22;
+    *(self + 107) = 15;
+    *(self + 108) = v46;
+    *(self + 112) = patternCopy;
+    *(self + 16) = 3;
+    RBPathRelease(v51, v52);
+    if (v37)
     {
       goto LABEL_40;
     }
@@ -463,81 +471,81 @@ LABEL_32:
     return;
   }
 
-  v50 = v27 > 0x1000;
-  if (v27 > 0x1000)
+  v49 = v26 > 0x1000;
+  if (v26 > 0x1000)
   {
-    v39 = malloc_type_malloc(v27, 0x100004052888210uLL);
-    if (!v24)
+    v38 = malloc_type_malloc(v26, 0x100004052888210uLL);
+    if (!v23)
     {
 LABEL_30:
-      v37 = 0;
+      v36 = 0;
 LABEL_31:
-      v38 = v50;
+      v37 = v49;
       goto LABEL_32;
     }
   }
 
   else
   {
-    MEMORY[0x1EEE9AC00](v21, v22);
-    v39 = &v49 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
-    bzero(v39, v27);
-    if (!v24)
+    MEMORY[0x1EEE9AC00](v21);
+    v38 = &v48 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+    bzero(v38, v26);
+    if (!v23)
     {
       goto LABEL_30;
     }
   }
 
-  if (v39)
+  if (v38)
   {
     if (limit)
     {
+      v27 = 8 * limit;
       v28 = 8 * limit;
-      v29 = 8 * limit;
-      v30 = v39;
+      v29 = v38;
       joinCopy = join;
       do
       {
-        v32 = *joinCopy++;
-        v33 = v32;
-        *v30++ = v33;
-        v29 -= 8;
+        v31 = *joinCopy++;
+        v32 = v31;
+        *v29++ = v32;
+        v28 -= 8;
       }
 
-      while (v29);
-      if (v24 != limit)
+      while (v28);
+      if (v23 != limit)
       {
-        v34 = &v39[4 * limit];
+        v33 = &v38[4 * limit];
         do
         {
-          v35 = *join++;
-          v36 = v35;
-          *v34++ = v36;
-          v28 -= 8;
+          v34 = *join++;
+          v35 = v34;
+          *v33++ = v35;
+          v27 -= 8;
         }
 
-        while (v28);
+        while (v27);
       }
     }
 
-    if (RB::Stroke::Dasher::prepare_pattern(limit << (limit & 1), v39, v40))
+    if (RB::Stroke::Dasher::prepare_pattern(limit << (limit & 1), v38, v39))
     {
-      v37 = limit << (limit & 1);
+      v36 = limit << (limit & 1);
     }
 
     else
     {
-      v37 = 0;
+      v36 = 0;
     }
 
     goto LABEL_31;
   }
 
-  if (v27 > 0x1000)
+  if (v26 > 0x1000)
   {
-    v39 = 0;
+    v38 = 0;
 LABEL_40:
-    free(v39);
+    free(v38);
   }
 }
 
@@ -546,7 +554,7 @@ LABEL_40:
   rectCopy = rect;
   sizeCopy = size;
   styleCopy = style;
-  v25 = a6;
+  v27 = a6;
   if (self)
   {
     if (CGRectIsInfinite(*&rect))
@@ -557,23 +565,25 @@ LABEL_40:
     else
     {
       v13 = RB::Rect::representable_cgrect(&rectCopy, v12);
-      v14.f64[0] = rectCopy;
-      v15.f64[0] = styleCopy;
+      v14.n128_f64[0] = rectCopy;
+      v15.n128_f64[0] = sizeCopy;
+      v16.n128_f64[0] = styleCopy;
+      v17.n128_f64[0] = v27;
       if (v13)
       {
-        set_rounded_rect(self, a2, v14, sizeCopy, v15, v25, a7, a8, 0.0);
+        set_rounded_rect(self, a2, v14, sizeCopy, v16, v27, a7, a8, 0.0);
       }
 
       else
       {
-        RoundedRect = RBPathMakeRoundedRect(rectCopy, sizeCopy, styleCopy, v25, a7, a8, a2, 0);
-        v18 = v17;
-        v19[0] = xmmword_195E42760;
-        v19[1] = xmmword_195E42770;
-        v20 = 0;
-        v21 = 0;
-        [(RBShape *)self _setRBPath:v17 transform:v19];
-        RBPathRelease(RoundedRect, v18);
+        RoundedRect = RBPathMakeRoundedRect(a2, 0, v14, v15, v16, v17, a7, a8);
+        v20 = v19;
+        v21[0] = xmmword_195E42760;
+        v21[1] = xmmword_195E42770;
+        v22 = 0;
+        v23 = 0;
+        [(RBShape *)self _setRBPath:v19 transform:v21];
+        RBPathRelease(RoundedRect, v20);
       }
     }
   }
@@ -581,7 +591,6 @@ LABEL_40:
 
 - (void)setRoundedRect:(CGRect)rect cornerRadii:(id)radii cornerStyle:(int)style
 {
-  v5 = *&style;
   var3 = radii.var3;
   var2 = radii.var2;
   var1 = radii.var1;
@@ -595,12 +604,12 @@ LABEL_40:
 
   else if (RB::Rect::representable_cgrect(&rectCopy, v11))
   {
-    set_rounded_rect(self, v5, rectCopy.origin.x, rectCopy.origin.y, rectCopy.size.width, rectCopy.size.height, var0, var1, var2, var3, 0.0);
+    set_rounded_rect(self, style, rectCopy.origin.x, rectCopy.origin.y, rectCopy.size.width, rectCopy.size.height, var0, var1, var2, var3, 0.0);
   }
 
   else
   {
-    UnevenRoundedRect = RBPathMakeUnevenRoundedRect(rectCopy.origin.x, rectCopy.origin.y, rectCopy.size.width, rectCopy.size.height, var0, var1, var2, var3, v5, 0);
+    UnevenRoundedRect = RBPathMakeUnevenRoundedRect(style, 0, rectCopy.origin.x, rectCopy.origin.y, rectCopy.size.width, rectCopy.size.height, var0, var1, var2, var3);
     v14 = v13;
     v15[0] = xmmword_195E42760;
     v15[1] = xmmword_195E42770;
@@ -619,32 +628,34 @@ LABEL_40:
     goto LABEL_6;
   }
 
-  v8 = *&style;
   if (!CGRectIsInfinite(rect))
   {
-    v11 = RB::Rect::representable_cgrect(&rectCopy, v10);
-    v12.f64[0] = rectCopy.origin.x;
-    v13.f64[0] = rectCopy.size.width;
-    if (v11)
+    v13 = RB::Rect::representable_cgrect(&rectCopy, v12);
+    v14.n128_u64[0] = *&rectCopy.origin.x;
+    v15.n128_u64[0] = *&rectCopy.origin.y;
+    v16.n128_u64[0] = *&rectCopy.size.width;
+    v17.n128_u64[0] = *&rectCopy.size.height;
+    if (v13)
     {
-      set_rounded_rect(self, v8, v12, rectCopy.origin.y, v13, rectCopy.size.height, radius, radius, width);
+      set_rounded_rect(self, style, v14, rectCopy.origin.y, v16, rectCopy.size.height, radius, radius, width);
     }
 
     else
     {
-      RoundedRect = RBPathMakeRoundedRect(rectCopy.origin.x, rectCopy.origin.y, rectCopy.size.width, rectCopy.size.height, radius, radius, v8, 0);
-      v16 = v15;
-      v17[0] = xmmword_195E42760;
-      v17[1] = xmmword_195E42770;
-      v18 = 0;
-      v19 = 0;
-      [(RBShape *)self _setStrokedRBPath:v15 transform:v17 lineWidth:0 lineCap:kCGLineJoinMiter lineJoin:0 miterLimit:0 dashPhase:width dashPattern:10.0 dashCount:0.0];
-      RBPathRelease(RoundedRect, v16);
+      RoundedRect = RBPathMakeRoundedRect(style, 0, v14, v15, v16, v17, radius, radius);
+      v20 = v19;
+      v21[0] = xmmword_195E42760;
+      v21[1] = xmmword_195E42770;
+      v22 = 0;
+      v23 = 0;
+      [(RBShape *)self _setStrokedRBPath:v19 transform:v21 lineWidth:0 lineCap:kCGLineJoinMiter lineJoin:0 miterLimit:0 dashPhase:width dashPattern:10.0 dashCount:0.0];
+      RBPathRelease(RoundedRect, v20);
     }
 
     return;
   }
 
+  rect.origin.x = INFINITY;
   if (width == INFINITY)
   {
 
@@ -655,7 +666,7 @@ LABEL_40:
   {
 LABEL_6:
 
-    [(RBShape *)self _setEmpty];
+    [(RBShape *)self _setEmpty:rect];
   }
 }
 
@@ -667,7 +678,6 @@ LABEL_6:
     goto LABEL_6;
   }
 
-  v7 = *&style;
   var3 = radii.var3;
   var2 = radii.var2;
   var1 = radii.var1;
@@ -676,12 +686,12 @@ LABEL_6:
   {
     if (RB::Rect::representable_cgrect(&rectCopy, v12))
     {
-      set_rounded_rect(self, v7, rectCopy.origin.x, rectCopy.origin.y, rectCopy.size.width, rectCopy.size.height, var0, var1, var2, var3, width);
+      set_rounded_rect(self, style, rectCopy.origin.x, rectCopy.origin.y, rectCopy.size.width, rectCopy.size.height, var0, var1, var2, var3, width);
     }
 
     else
     {
-      UnevenRoundedRect = RBPathMakeUnevenRoundedRect(rectCopy.origin.x, rectCopy.origin.y, rectCopy.size.width, rectCopy.size.height, var0, var1, var2, var3, v7, 0);
+      UnevenRoundedRect = RBPathMakeUnevenRoundedRect(style, 0, rectCopy.origin.x, rectCopy.origin.y, rectCopy.size.width, rectCopy.size.height, var0, var1, var2, var3);
       v15 = v14;
       v16[0] = xmmword_195E42760;
       v16[1] = xmmword_195E42770;
@@ -694,6 +704,7 @@ LABEL_6:
     return;
   }
 
+  rect.origin.x = INFINITY;
   if (width == INFINITY)
   {
 
@@ -704,7 +715,7 @@ LABEL_6:
   {
 LABEL_6:
 
-    [(RBShape *)self _setEmpty];
+    [(RBShape *)self _setEmpty:rect];
   }
 }
 
@@ -756,35 +767,35 @@ LABEL_6:
   if (width <= 0.0)
   {
 
-    [(RBShape *)self _setEmpty];
+    [(RBShape *)self _setEmpty:*&v5];
   }
 
   else
   {
-    v7 = width * 0.5;
-    if (v7 >= radius)
+    v11 = width * 0.5;
+    if (v11 >= radius)
     {
-      v16 = v7 + radius;
+      v20 = v11 + radius;
 
-      [(RBShape *)self _setCircleAtPoint:point radius:point.y, v16];
+      [(RBShape *)self _setCircleAtPoint:point radius:point.y, v20];
     }
 
     else
     {
       y = point.y;
-      v9 = vcvt_f32_f64(vsubq_f64(point, vdupq_lane_s64(*&radius, 0)));
-      v10 = radius + radius;
-      *&v10 = radius + radius;
-      v11 = vdup_lane_s32(*&v10, 0);
+      v13 = vcvt_f32_f64(vsubq_f64(point, vdupq_lane_s64(*&radius, 0)));
+      v14 = radius + radius;
+      *&v14 = radius + radius;
+      v15 = vdup_lane_s32(*&v14, 0);
       renderingMode = self->_renderingMode;
       RBShapeData::apply<RB::DestroyAny>(&self->_data.type);
-      v13.i32[1] = HIDWORD(radius);
-      *v13.i32 = radius;
+      v17.i32[1] = HIDWORD(radius);
+      *v17.i32 = radius;
       widthCopy = width;
       renderingModeArgument = self->_renderingModeArgument;
-      *&self->_data.data[12] = v9;
-      *&self->_data.data[20] = v11;
-      *&self->_data.data[28] = vdupq_lane_s32(v13, 0);
+      *&self->_data.data[12] = v13;
+      *&self->_data.data[20] = v15;
+      *&self->_data.data[28] = vdupq_lane_s32(v17, 0);
       *&self->_data.data[44] = 1065353216;
       *&self->_data.data[48] = widthCopy;
       *&self->_data.data[52] = renderingModeArgument;
@@ -801,7 +812,7 @@ LABEL_6:
   if (width <= 0.0)
   {
 
-    [(RBShape *)self _setEmpty];
+    [(RBShape *)self _setEmpty:*&width];
   }
 
   else
@@ -810,45 +821,45 @@ LABEL_6:
     x = toPoint.x;
     if (cap == 1)
     {
-      v11 = 7;
+      v14 = 7;
     }
 
     else
     {
-      v11 = 8;
+      v14 = 8;
     }
 
-    v19 = point.x;
-    v20 = point.y;
-    v12 = rb_clip_mode(LOBYTE(self->_renderingMode));
-    v13.f64[0] = v19;
-    v13.f64[1] = v20;
-    v14 = vcvt_f32_f64(v13);
-    *&v15 = x - v19;
-    *v13.f64 = y - v20;
-    HIDWORD(v15) = LODWORD(v13.f64[0]);
-    v21 = v15;
+    v22 = point.x;
+    v23 = point.y;
+    v15 = rb_clip_mode(LOBYTE(self->_renderingMode));
+    v16.f64[0] = v22;
+    v16.f64[1] = v23;
+    v17 = vcvt_f32_f64(v16);
+    *&v18 = x - v22;
+    *v16.f64 = y - v23;
+    HIDWORD(v18) = LODWORD(v16.f64[0]);
+    v24 = v18;
     RBShapeData::apply<RB::DestroyAny>(&self->_data.type);
     widthCopy = width;
     renderingModeArgument = self->_renderingModeArgument;
-    *&self->_data.data[12] = v14;
-    *&self->_data.data[20] = v21;
+    *&self->_data.data[12] = v17;
+    *&self->_data.data[20] = v24;
     *&self->_data.data[36] = 0;
     *&self->_data.data[44] = 1065353216;
     *&self->_data.data[48] = widthCopy;
     *&self->_data.data[52] = renderingModeArgument;
     if (cap)
     {
-      v18 = v11;
+      v21 = v14;
     }
 
     else
     {
-      v18 = 6;
+      v21 = 6;
     }
 
-    self->_data.data[56] = v18;
-    self->_data.data[57] = v12;
+    self->_data.data[56] = v21;
+    self->_data.data[57] = v15;
     self->_data.data[58] &= 0xF8u;
     self->_data.type = 1;
   }
@@ -922,7 +933,7 @@ LABEL_6:
     dilationCopy = dilation;
     if (positions < 0x201)
     {
-      MEMORY[0x1EEE9AC00](self, a2);
+      MEMORY[0x1EEE9AC00](self);
       v16 = &dilationCopy - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
       bzero(v16, v17);
       if (!positions)
@@ -1052,19 +1063,19 @@ LABEL_9:
 {
   if (self)
   {
-    switch(self[1].i32[0])
+    switch(self[2].i32[0])
     {
       case 1:
-        RB::Coverage::Primitive::attributes(self + 2, a2, attributes, a4, a5);
+        RB::Coverage::Primitive::attributes(self + 4, a2, attributes, a4, a5);
         break;
       case 2:
-        RB::Coverage::Path::attributes(&self[2], a2);
+        RB::Coverage::Path::attributes(&self[4], a2);
       case 3:
-        RB::Coverage::StrokeablePath::attributes(&self[2].i64[1]);
+        RB::Coverage::StrokeablePath::attributes(&self[5], &self[4], a2);
       case 4:
-        RB::Coverage::Glyphs::attributes(&self[2], a2);
+        RB::Coverage::Glyphs::attributes(&self[4], a2);
       case 5:
-        RBStrokeRef::attributes(&self[2].i64[1]);
+        RBStrokeRef::attributes(&self[5], a2, a2);
         break;
       default:
         return;

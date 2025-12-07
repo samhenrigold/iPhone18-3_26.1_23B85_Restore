@@ -22,16 +22,16 @@
       v4->_passURL = v6;
 
       v8 = [jSONObject PKStringForKey:@"appletState"];
-      if ([v8 isEqualToString:@"upgradePending"])
+      if (objc_msgSend_isEqualToString_(v8))
       {
         v9 = 1;
       }
 
       else
       {
-        v15 = [v8 isEqualToString:@"upgradeCompleted"];
+        isEqualToString = objc_msgSend_isEqualToString_(v8);
         v9 = 2;
-        if (!v15)
+        if (!isEqualToString)
         {
           v9 = 0;
         }

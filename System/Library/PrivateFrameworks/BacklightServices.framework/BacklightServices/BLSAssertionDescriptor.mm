@@ -264,24 +264,24 @@ BOOL __57__BLSAssertionDescriptor_initWithExplanation_attributes___block_invoke_
   return v8;
 }
 
-uint64_t __46__BLSAssertionDescriptor_attributesOfClasses___block_invoke(uint64_t a1)
+uint64_t __46__BLSAssertionDescriptor_attributesOfClasses___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
+  v2 = *(a1 + 32);
+  v3 = objc_opt_class();
 
-  return [v1 containsObject:v2];
+  return [v2 containsObject:v3];
 }
 
 - (BOOL)checkEntitlementSourceForRequiredEntitlements:(id)entitlements error:(id *)error
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   entitlementsCopy = entitlements;
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   attributes = [(BLSAssertionDescriptor *)self attributes];
-  v9 = [attributes countByEnumeratingWithState:&v33 objects:v39 count:16];
+  v9 = [attributes countByEnumeratingWithState:&v32 objects:v38 count:16];
   v10 = v9 == 0;
   if (!v9)
   {
@@ -292,32 +292,32 @@ LABEL_21:
   }
 
   v11 = v9;
-  v28 = a2;
+  v27 = a2;
   selfCopy = self;
   errorCopy = error;
-  v30 = v9 == 0;
+  v29 = v9 == 0;
   v12 = 0;
-  v13 = *v34;
+  v13 = *v33;
   v10 = 1;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v34 != v13)
+      if (*v33 != v13)
       {
         objc_enumerationMutation(attributes);
       }
 
-      v15 = *(*(&v33 + 1) + 8 * i);
-      v32 = 0;
-      v16 = [v15 checkEntitlementSourceForRequiredEntitlements:entitlementsCopy error:&v32];
-      v17 = v32;
+      v15 = *(*(&v32 + 1) + 8 * i);
+      v31 = 0;
+      v16 = [v15 checkEntitlementSourceForRequiredEntitlements:entitlementsCopy error:&v31];
+      v17 = v31;
       v18 = v17;
       if ((v16 & 1) == 0)
       {
         if (!v17)
         {
-          [(BLSAssertionDescriptor *)v15 checkEntitlementSourceForRequiredEntitlements:v28 error:selfCopy];
+          [(BLSAssertionDescriptor *)v15 checkEntitlementSourceForRequiredEntitlements:v27 error:selfCopy];
         }
 
         if (v12)
@@ -334,7 +334,7 @@ LABEL_21:
       }
     }
 
-    v11 = [attributes countByEnumeratingWithState:&v33 objects:v39 count:16];
+    v11 = [attributes countByEnumeratingWithState:&v32 objects:v38 count:16];
   }
 
   while (v11);
@@ -351,25 +351,24 @@ LABEL_21:
     else
     {
       v19 = MEMORY[0x277CCA9B8];
-      v37[0] = *MEMORY[0x277CCA450];
+      v36[0] = *MEMORY[0x277CCA450];
       v20 = MEMORY[0x277CCACA8];
       v21 = [entitlementsCopy description];
       localizedDescription = [attributes localizedDescription];
       v23 = [v20 stringWithFormat:@"%@ missing multiple entitlements including '%@'", v21, localizedDescription];
-      v37[1] = *MEMORY[0x277CCA578];
-      v38[0] = v23;
-      v38[1] = v12;
-      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
+      v36[1] = *MEMORY[0x277CCA578];
+      v37[0] = v23;
+      v37[1] = v12;
+      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
       *errorCopy = [v19 errorWithDomain:@"com.apple.BacklightServices" code:21 userInfo:v24];
     }
 
-    v10 = v30;
+    v10 = v29;
     goto LABEL_21;
   }
 
 LABEL_22:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -434,7 +433,7 @@ LABEL_22:
 
   else
   {
-    v9 = bls_assertions_log();
+    v9 = bls_assertions_log(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       [(BLSBacklightChangeRequest *)dictionaryCopy initWithXPCDictionary:v9];
@@ -463,22 +462,23 @@ uint64_t __48__BLSAssertionDescriptor_initWithXPCDictionary___block_invoke(uint6
   v5 = BSCreateDeserializedBSXPCEncodableObjectFromXPCDictionary();
   if (!v5)
   {
-    v6 = bls_assertions_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = bls_assertions_log(0);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      __48__BLSAssertionDescriptor_initWithXPCDictionary___block_invoke_cold_2(v4, v6);
+      __48__BLSAssertionDescriptor_initWithXPCDictionary___block_invoke_cold_2(v4, v7);
     }
 
     goto LABEL_8;
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v6 = bls_assertions_log();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    v7 = bls_assertions_log(isKindOfClass);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      __48__BLSAssertionDescriptor_initWithXPCDictionary___block_invoke_cold_1(v5, v4, v6);
+      __48__BLSAssertionDescriptor_initWithXPCDictionary___block_invoke_cold_1(v5, v4, v7);
     }
 
 LABEL_8:
@@ -498,24 +498,22 @@ LABEL_9:
   uTF8String = [@"explanation" UTF8String];
   [@"attributes" UTF8String];
   xpc_dictionary_set_string(xdict, uTF8String, [(NSString *)self->_explanation UTF8String]);
-  attributes = self->_attributes;
   BSSerializeArrayOfBSXPCEncodableObjectsToXPCDictionaryWithKey();
 }
 
 - (BLSAssertionDescriptor)initWithCoder:(id)coder
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"explanation"];
   v6 = MEMORY[0x277CBEB98];
-  v13[0] = objc_opt_class();
-  v13[1] = objc_opt_class();
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
+  v12[0] = objc_opt_class();
+  v12[1] = objc_opt_class();
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
   v8 = [v6 setWithArray:v7];
   v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"attributes"];
 
   v10 = [(BLSAssertionDescriptor *)self initWithExplanation:v5 attributes:v9];
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -557,22 +555,20 @@ LABEL_9:
 
 void __48__BLSAssertionDescriptor_initWithXPCDictionary___block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_fault_impl(&dword_21FE25000, log, OS_LOG_TYPE_FAULT, "decoded object:%{public}@ for %{public}@ is not a BLSAttribute class", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_fault_impl(&dword_21FE25000, log, OS_LOG_TYPE_FAULT, "decoded object:%{public}@ for %{public}@ is not a BLSAttribute class", &v3, 0x16u);
 }
 
 void __48__BLSAssertionDescriptor_initWithXPCDictionary___block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_fault_impl(&dword_21FE25000, a2, OS_LOG_TYPE_FAULT, "unable to decode attribute for %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_fault_impl(&dword_21FE25000, a2, OS_LOG_TYPE_FAULT, "unable to decode attribute for %{public}@", &v2, 0xCu);
 }
 
 @end

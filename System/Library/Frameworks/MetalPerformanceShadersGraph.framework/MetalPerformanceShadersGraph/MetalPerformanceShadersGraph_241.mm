@@ -1,3 +1,2548 @@
+void sub_1E0751200(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, void *a35, uint64_t a36, int a37, __int16 a38, char a39, char a40, void *a41, uint64_t a42, int a43, __int16 a44, char a45, char a46, void *a47, uint64_t a48, int a49, __int16 a50, char a51, char a52, char a53)
+{
+  if (a22 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a28 < 0)
+  {
+    operator delete(a23);
+    if (a34 < 0)
+    {
+LABEL_7:
+      operator delete(a29);
+      if ((a40 & 0x80000000) == 0)
+      {
+        goto LABEL_8;
+      }
+
+      goto LABEL_12;
+    }
+  }
+
+  else if (a34 < 0)
+  {
+    goto LABEL_7;
+  }
+
+  if ((a40 & 0x80000000) == 0)
+  {
+LABEL_8:
+    if (a46 < 0)
+    {
+      goto LABEL_9;
+    }
+
+    goto LABEL_13;
+  }
+
+LABEL_12:
+  operator delete(a35);
+  if (a46 < 0)
+  {
+LABEL_9:
+    operator delete(a41);
+    if (a52 < 0)
+    {
+LABEL_14:
+      operator delete(a47);
+
+      mlir::mps::CPUNDArray::~CPUNDArray(&a53);
+      _Unwind_Resume(a1);
+    }
+
+LABEL_15:
+
+    mlir::mps::CPUNDArray::~CPUNDArray(&a53);
+    _Unwind_Resume(a1);
+  }
+
+LABEL_13:
+  if (a52 < 0)
+  {
+    goto LABEL_14;
+  }
+
+  goto LABEL_15;
+}
+
+char *EmitterObjC::ConstantOpHandler::ConstantOpHandler(EmitObjC *,mlir::Operation *)::$_0::operator()(char *result, double a2)
+{
+  if (fabs(a2) == INFINITY)
+  {
+    result[23] = 8;
+    strcpy(result, "INFINITY");
+  }
+
+  else
+  {
+    std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](v5);
+    v3 = v6;
+    *(&v6 + *(v6 - 24) + 8) = *(&v6 + *(v6 - 24) + 8) & 0xFFFFFEFB | 4;
+    *(&v8[0].__locale_ + *(v3 - 24)) = 9;
+    MEMORY[0x1E12E56D0](&v6, a2);
+    std::stringbuf::str();
+    v5[0] = *MEMORY[0x1E69E54D8];
+    v4 = *(MEMORY[0x1E69E54D8] + 72);
+    *(v5 + *(v5[0] - 24)) = *(MEMORY[0x1E69E54D8] + 64);
+    v6 = v4;
+    v7 = MEMORY[0x1E69E5548] + 16;
+    if (v9 < 0)
+    {
+      operator delete(v8[7].__locale_);
+    }
+
+    v7 = MEMORY[0x1E69E5538] + 16;
+    std::locale::~locale(v8);
+    std::iostream::~basic_iostream();
+    return MEMORY[0x1E12E5AA0](&v10);
+  }
+
+  return result;
+}
+
+void sub_1E07516D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26)
+{
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a10);
+  MEMORY[0x1E12E5AA0](&a26);
+  _Unwind_Resume(a1);
+}
+
+EmitterObjC::ReadVariableOpHandler *EmitterObjC::ReadVariableOpHandler::ReadVariableOpHandler(EmitterObjC::ReadVariableOpHandler *this, id *a2, mlir::Operation *a3)
+{
+  *(this + 1) = a2;
+  *(this + 2) = a3;
+  *this = &unk_1F5B4AFD8;
+  if (*(*(a3 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::ReadVariableOp,void>::id)
+  {
+    v5 = a3;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  v6 = *(*(v5 + 9) + 24);
+  v7 = *(v5 + 9);
+  v8 = v5 - 16;
+  if (v7)
+  {
+    v9 = v8;
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v9, 0);
+  v11 = MEMORY[0x1E696AEC0];
+  v12 = v24;
+  (*(*a2 + 4))(v24, a2, NextResultAtOffset);
+  if (v25 < 0)
+  {
+    v12 = v24[0];
+  }
+
+  v23 = v6;
+  __p.__r_.__value_.__r.__words[0] = &v23;
+  v13 = std::__hash_table<std::__hash_value_type<void *,std::string>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::string>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::string>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::string>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(a2 + 32, &v23, &std::piecewise_construct, &__p);
+  v14 = v13 + 3;
+  if (*(v13 + 47) < 0)
+  {
+    v14 = *v14;
+  }
+
+  v21 = 0;
+  LOBYTE(v20) = 0;
+  EmitObjC::emitTensorName(a2, NextResultAtOffset, &v20, &__p);
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    p_p = &__p;
+  }
+
+  else
+  {
+    p_p = __p.__r_.__value_.__r.__words[0];
+  }
+
+  v16 = [v11 stringWithFormat:@"\n    MPSGraphTensor *%s = \n    [graph  readVariable:%s\n                    name:%s]\n    ", v12, v14, p_p];;
+  if ((SHIBYTE(__p.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+  {
+    if ((v21 & 0x80000000) == 0)
+    {
+      goto LABEL_16;
+    }
+
+LABEL_19:
+    operator delete(v20);
+    if ((v25 & 0x80000000) == 0)
+    {
+      goto LABEL_17;
+    }
+
+LABEL_20:
+    operator delete(v24[0]);
+    goto LABEL_17;
+  }
+
+  operator delete(__p.__r_.__value_.__l.__data_);
+  if (v21 < 0)
+  {
+    goto LABEL_19;
+  }
+
+LABEL_16:
+  if (v25 < 0)
+  {
+    goto LABEL_20;
+  }
+
+LABEL_17:
+  v17 = [a2[27] stringByAppendingString:v16];
+  v18 = a2[27];
+  a2[27] = v17;
+
+  return this;
+}
+
+void sub_1E07518E4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30)
+{
+  if (a23 < 0)
+  {
+    operator delete(a18);
+    if ((a17 & 0x80000000) == 0)
+    {
+LABEL_3:
+      if (a30 < 0)
+      {
+        goto LABEL_4;
+      }
+
+      goto LABEL_7;
+    }
+  }
+
+  else if ((a17 & 0x80000000) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  operator delete(a12);
+  if (a30 < 0)
+  {
+LABEL_4:
+    operator delete(__p);
+    _Unwind_Resume(exception_object);
+  }
+
+LABEL_7:
+  _Unwind_Resume(exception_object);
+}
+
+EmitterObjC::AssignVariableOpHandler *EmitterObjC::AssignVariableOpHandler::AssignVariableOpHandler(EmitterObjC::AssignVariableOpHandler *this, id *a2, mlir::Operation *a3)
+{
+  *(this + 1) = a2;
+  *(this + 2) = a3;
+  *this = &unk_1F5B4AFF0;
+  if (*(*(a3 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::AssignVariableOp,void>::id)
+  {
+    v5 = a3;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  v6 = *(v5 + 9);
+  v7 = *(v6 + 56);
+  v8 = *(v6 + 24);
+  v9 = MEMORY[0x1E696AEC0];
+  v10 = __p;
+  (*(*a2 + 4))(__p, a2, v7);
+  if (v22 < 0)
+  {
+    v10 = __p[0];
+  }
+
+  v20 = v7;
+  v23 = &v20;
+  v11 = std::__hash_table<std::__hash_value_type<void *,std::string>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::string>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::string>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::string>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(a2 + 32, &v20, &std::piecewise_construct, &v23);
+  v12 = v11 + 3;
+  if (*(v11 + 47) < 0)
+  {
+    v12 = *v12;
+  }
+
+  v19 = v8;
+  v23 = &v19;
+  v13 = std::__hash_table<std::__hash_value_type<void *,std::string>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::string>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::string>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::string>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(a2 + 32, &v19, &std::piecewise_construct, &v23);
+  v14 = v13 + 3;
+  if (*(v13 + 47) < 0)
+  {
+    v14 = *v14;
+  }
+
+  v15 = [v9 stringWithFormat:@"\n    MPSGraphOperation *%sassignOp = \n    [graph  assignVariable:%s\n         withValueOfTensor:%s\n                      name:%s]\n    ", v10, v12, v14, "nil"];;
+  if (v22 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+  v16 = [a2[27] stringByAppendingString:v15];
+  v17 = a2[27];
+  a2[27] = v16;
+
+  return this;
+}
+
+void sub_1E0751B04(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
+{
+  if (a21 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+EmitterObjC::BroadcastToOpHandler *EmitterObjC::BroadcastToOpHandler::BroadcastToOpHandler(EmitterObjC::BroadcastToOpHandler *this, id *a2, mlir::Operation *a3)
+{
+  *(this + 1) = a2;
+  *(this + 2) = a3;
+  *this = &unk_1F5B4B008;
+  if (*(*(a3 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::mps::BroadcastToOp,void>::id)
+  {
+    v5 = a3;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  v6 = *(*(v5 + 9) + 24);
+  v7 = *(v5 + 9);
+  v8 = v5 - 16;
+  if (v7)
+  {
+    v9 = v8;
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  NextResultAtOffset = mlir::detail::OpResultImpl::getNextResultAtOffset(v9, 0);
+  v11 = getMPSShapeFromMLIR(NextResultAtOffset);
+  v12 = MEMORY[0x1E696AEC0];
+  (*(*a2 + 4))(v24, a2, NextResultAtOffset);
+  if (v25 >= 0)
+  {
+    v13 = v24;
+  }
+
+  else
+  {
+    v13 = v24[0];
+  }
+
+  v23 = v6;
+  __p[0] = &v23;
+  v14 = std::__hash_table<std::__hash_value_type<void *,std::string>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::string>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::string>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::string>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(a2 + 32, &v23, &std::piecewise_construct, __p);
+  v15 = v14 + 3;
+  if (*(v14 + 47) < 0)
+  {
+    v15 = *v15;
+  }
+
+  EmitterObjC::emitMPSShape(v11, __p);
+  if (v22 >= 0)
+  {
+    v16 = __p;
+  }
+
+  else
+  {
+    v16 = __p[0];
+  }
+
+  v17 = [v12 stringWithFormat:@"\n    MPSGraphTensor *%s = \n    [graph  broadcastTensor:%s\n                    toShape:%s\n                       name:%s]\n    ", v13, v15, v16, "nil"];;
+  if (v22 < 0)
+  {
+    operator delete(__p[0]);
+    if ((v25 & 0x80000000) == 0)
+    {
+      goto LABEL_17;
+    }
+
+LABEL_19:
+    operator delete(v24[0]);
+    goto LABEL_17;
+  }
+
+  if (v25 < 0)
+  {
+    goto LABEL_19;
+  }
+
+LABEL_17:
+  v18 = [a2[27] stringByAppendingString:v17];
+  v19 = a2[27];
+  a2[27] = v18;
+
+  return this;
+}
+
+void sub_1E0751D08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
+{
+  if (a18 < 0)
+  {
+    operator delete(__p);
+    if ((a25 & 0x80000000) == 0)
+    {
+LABEL_3:
+
+      _Unwind_Resume(a1);
+    }
+  }
+
+  else if ((a25 & 0x80000000) == 0)
+  {
+    goto LABEL_3;
+  }
+
+  operator delete(a20);
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](uint64_t a1)
+{
+  *(a1 + 176) = 0;
+  v2 = MEMORY[0x1E69E5560] + 104;
+  *(a1 + 128) = MEMORY[0x1E69E5560] + 104;
+  v3 = a1 + 16;
+  v4 = MEMORY[0x1E69E5560] + 64;
+  *(a1 + 16) = MEMORY[0x1E69E5560] + 64;
+  v5 = MEMORY[0x1E69E54D8];
+  v6 = *(MEMORY[0x1E69E54D8] + 24);
+  v7 = *(MEMORY[0x1E69E54D8] + 16);
+  *a1 = v7;
+  *(a1 + *(v7 - 24)) = v6;
+  *(a1 + 8) = 0;
+  v8 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v8, (a1 + 24));
+  v9 = MEMORY[0x1E69E5560] + 24;
+  v8[1].__vftable = 0;
+  v8[1].__fmtflags_ = -1;
+  v10 = v5[5];
+  v11 = v5[4];
+  *(a1 + 16) = v11;
+  *(v3 + *(v11 - 24)) = v10;
+  v12 = v5[1];
+  *a1 = v12;
+  *(a1 + *(v12 - 24)) = v5[6];
+  *a1 = v9;
+  *(a1 + 128) = v2;
+  *(a1 + 16) = v4;
+  *(a1 + 24) = MEMORY[0x1E69E5538] + 16;
+  MEMORY[0x1E12E59E0](a1 + 32);
+  *(a1 + 88) = 0;
+  v13 = a1 + 88;
+  *(a1 + 64) = 0;
+  *(a1 + 72) = 0;
+  *(a1 + 80) = 0;
+  *(a1 + 24) = MEMORY[0x1E69E5548] + 16;
+  *(a1 + 96) = 0;
+  *(a1 + 104) = 0;
+  *(a1 + 120) = 24;
+  *(a1 + 40) = a1 + 88;
+  *(a1 + 48) = a1 + 88;
+  *(a1 + 56) = a1 + 88;
+  *(a1 + 112) = a1 + 88;
+  std::string::resize((a1 + 88), 0x16uLL, 0);
+  v14 = *(a1 + 111);
+  if (v14 < 0)
+  {
+    v14 = *(a1 + 96);
+  }
+
+  *(a1 + 64) = v13;
+  *(a1 + 72) = v13;
+  *(a1 + 80) = v13 + v14;
+  return a1;
+}
+
+void sub_1E075208C(_Unwind_Exception *a1)
+{
+  if (*(v1 + 111) < 0)
+  {
+    operator delete(*v3);
+  }
+
+  *(v1 + 24) = v4;
+  std::locale::~locale((v1 + 32));
+  std::iostream::~basic_iostream();
+  MEMORY[0x1E12E5AA0](v2);
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(uint64_t a1)
+{
+  v2 = MEMORY[0x1E69E54D8];
+  v3 = *MEMORY[0x1E69E54D8];
+  *a1 = *MEMORY[0x1E69E54D8];
+  v4 = *(v2 + 72);
+  *(a1 + *(v3 - 24)) = *(v2 + 64);
+  *(a1 + 16) = v4;
+  *(a1 + 24) = MEMORY[0x1E69E5548] + 16;
+  if (*(a1 + 111) < 0)
+  {
+    operator delete(*(a1 + 88));
+  }
+
+  *(a1 + 24) = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale((a1 + 32));
+
+  return std::iostream::~basic_iostream();
+}
+
+{
+  v2 = MEMORY[0x1E69E54D8];
+  v3 = *MEMORY[0x1E69E54D8];
+  *a1 = *MEMORY[0x1E69E54D8];
+  v4 = *(v2 + 72);
+  *(a1 + *(v3 - 24)) = *(v2 + 64);
+  *(a1 + 16) = v4;
+  *(a1 + 24) = MEMORY[0x1E69E5548] + 16;
+  if (*(a1 + 111) < 0)
+  {
+    operator delete(*(a1 + 88));
+  }
+
+  *(a1 + 24) = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale((a1 + 32));
+  std::iostream::~basic_iostream();
+  MEMORY[0x1E12E5AA0](a1 + 128);
+  return a1;
+}
+
+void sub_1E0752570(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, char a30)
+{
+  mlir::OperationState::~OperationState(&a30);
+
+  _Unwind_Resume(a1);
+}
+
+char *mlir::OpBuilder::create<mlir::tensor::ExtractOp,mlir::Value &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t a3)
+{
+  v18[38] = *MEMORY[0x1E69E9840];
+  v12 = a2;
+  Context = mlir::Attribute::getContext(&v12);
+  v7 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::tensor::ExtractOp,void>::id, Context);
+  if ((v8 & 1) == 0)
+  {
+    v16 = 1283;
+    v15[2] = "tensor.extract";
+    v15[3] = 14;
+    v14 = 259;
+    llvm::operator+(v15, &v13, v17);
+    llvm::report_fatal_error(v17, 1);
+  }
+
+  mlir::OperationState::OperationState(v18, a2, v7);
+  mlir::tensor::ExtractOp::build(a1, v18, a3, 1uLL, 0, 0);
+  v9 = mlir::OpBuilder::create(a1, v18);
+  if (*(*(v9 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::tensor::ExtractOp,void>::id)
+  {
+    v10 = v9;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  mlir::OperationState::~OperationState(v18);
+  return v10;
+}
+
+void sub_1E0752730(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  mlir::OperationState::~OperationState(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_1E0752744(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
+{
+  va_start(va, a25);
+  mlir::OperationState::~OperationState(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_1E0752A6C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, uint64_t a28, uint64_t a29, char a30)
+{
+  mlir::OperationState::~OperationState(&a30);
+
+  _Unwind_Resume(a1);
+}
+
+void controlFlowPostAutodiff(Autodiff *a1)
+{
+  llvm::outs(a1);
+  v3 = v4;
+  v4[0] = 0;
+  v4[1] = 0;
+  v4[2] = a1;
+  WeakRetained = objc_loadWeakRetained((*a1 + 32));
+  AutodiffSaveTemps::fixGraphInvalidTemps(&v3);
+  llvm::outs(v2);
+
+  std::__tree<std::__value_type<MPSGraphBlock * {__strong},AutodiffSaveTemps::BlockInfos>,std::__map_value_compare<MPSGraphBlock * {__strong},std::__value_type<MPSGraphBlock * {__strong},AutodiffSaveTemps::BlockInfos>,std::less<MPSGraphBlock * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphBlock * {__strong},AutodiffSaveTemps::BlockInfos>>>::destroy(&v3, v4[0]);
+}
+
+void sub_1E0752B64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  AutodiffSaveTemps::~AutodiffSaveTemps(va);
+  _Unwind_Resume(a1);
+}
+
+void AutodiffSaveTemps::fixGraphInvalidTemps(MPSGraphBlock **this)
+{
+  v246[15] = *MEMORY[0x1E69E9840];
+  BlockInfos = AutodiffSaveTemps::getBlockInfos(this, this[4]);
+  v210 = this[4];
+  v242[0] = 0;
+  v242[1] = 0;
+  v241 = v242;
+  v239 = 0u;
+  v240 = 0u;
+  v237 = 0u;
+  v238 = 0u;
+  v2 = this[3]->_blockOperations[10].super.super.isa;
+  v3 = [(objc_class *)v2 countByEnumeratingWithState:&v237 objects:&v245 count:16];
+  v226 = this;
+  if (!v3)
+  {
+
+    std::__tree<MPSGraphTensor * {__strong}>::destroy(&v241, v242[0]);
+    goto LABEL_170;
+  }
+
+  obj = v2;
+  v4 = 0;
+  v5 = *v238;
+  do
+  {
+    for (i = 0; i != v3; ++i)
+    {
+      if (*v238 != v5)
+      {
+        objc_enumerationMutation(obj);
+      }
+
+      v7 = v4 >> 3;
+      if (((v4 >> 3) + 1) >> 61)
+      {
+        std::vector<std::shared_ptr<MIL::IRArgument>>::__throw_length_error[abi:ne200100]();
+      }
+
+      if (v4 >> 3 != -1)
+      {
+        if (!(((v4 >> 3) + 1) >> 61))
+        {
+          operator new();
+        }
+
+        std::__throw_bad_array_new_length[abi:ne200100]();
+      }
+
+      *(8 * v7) = *(*(&v237 + 1) + 8 * i);
+      v8 = 8 * v7 + 8;
+      if (v4)
+      {
+        v9 = v4 - 8;
+        v10 = 0;
+        v11 = 0;
+        if ((v4 - 8) < 0x28)
+        {
+          goto LABEL_264;
+        }
+
+        if ((v9 & 0xFFFFFFFFFFFFFFF8) != 0xFFFFFFFFFFFFFFF8)
+        {
+          v10 = 0;
+          v11 = 0;
+          goto LABEL_17;
+        }
+
+        v12 = (v9 >> 3) + 1;
+        v11 = (8 * (v12 & 0x3FFFFFFFFFFFFFFCLL));
+        v10 = v11;
+        v13 = 16;
+        v14 = 16;
+        v15 = v12 & 0x3FFFFFFFFFFFFFFCLL;
+        do
+        {
+          v16 = *(v14 - 16);
+          v17 = *v14;
+          *(v14 - 16) = 0uLL;
+          *v14 = 0uLL;
+          *(v13 - 16) = v16;
+          *v13 = v17;
+          v13 += 32;
+          v14 += 32;
+          v15 -= 4;
+        }
+
+        while (v15);
+        if (v12 != (v12 & 0x3FFFFFFFFFFFFFFCLL))
+        {
+LABEL_264:
+          do
+          {
+LABEL_17:
+            v18 = *v10;
+            *v10++ = 0;
+            *v11++ = v18;
+          }
+
+          while (v10 != v4);
+        }
+
+        for (j = 0; j != v4; ++j)
+        {
+        }
+      }
+
+      v4 = v8;
+    }
+
+    v3 = [(objc_class *)obj countByEnumeratingWithState:&v237 objects:&v245 count:16];
+  }
+
+  while (v3);
+
+  while (v4)
+  {
+    v20 = *(v4 - 8);
+    v4 -= 8;
+    obja = v20;
+
+    v21 = v242[0];
+    if (!v242[0])
+    {
+LABEL_37:
+      operator new();
+    }
+
+    v22 = v242[0];
+    do
+    {
+      v23 = v22[4];
+      if (obja >= v23)
+      {
+        if (v23 >= obja)
+        {
+          goto LABEL_25;
+        }
+
+        ++v22;
+      }
+
+      v22 = *v22;
+    }
+
+    while (v22);
+    while (1)
+    {
+      while (1)
+      {
+        v24 = v21;
+        v25 = v21[4];
+        if (obja >= v25)
+        {
+          break;
+        }
+
+        v21 = *v24;
+        if (!*v24)
+        {
+          goto LABEL_37;
+        }
+      }
+
+      if (v25 >= obja)
+      {
+        break;
+      }
+
+      v21 = v24[1];
+      if (!v21)
+      {
+        goto LABEL_37;
+      }
+    }
+
+    if (!*(obja + 5))
+    {
+      goto LABEL_68;
+    }
+
+    v235 = 0u;
+    v236 = 0u;
+    v233 = 0u;
+    v234 = 0u;
+    v212 = *(*(obja + 5) + 8);
+    v26 = [v212 countByEnumeratingWithState:&v233 objects:v244 count:16];
+    if (!v26)
+    {
+      goto LABEL_67;
+    }
+
+    v215 = *v234;
+    do
+    {
+      v27 = 0;
+      v220 = v26;
+      do
+      {
+        if (*v234 != v215)
+        {
+          objc_enumerationMutation(v212);
+        }
+
+        v28 = *(*(&v233 + 1) + 8 * v27);
+        v229 = 0u;
+        v230 = 0u;
+        v231 = 0u;
+        v232 = 0u;
+        v29 = *(v28 + 16);
+        v30 = [v29 countByEnumeratingWithState:&v229 objects:v243 count:16];
+        v223 = v27;
+        if (v30)
+        {
+          v31 = *v230;
+          do
+          {
+            for (k = 0; k != v30; ++k)
+            {
+              if (*v230 != v31)
+              {
+                objc_enumerationMutation(v29);
+              }
+
+              if (((v4 >> 3) + 1) >> 61)
+              {
+                std::vector<std::shared_ptr<MIL::IRArgument>>::__throw_length_error[abi:ne200100]();
+              }
+
+              if (v4 >> 3 != -1)
+              {
+                if (!(((v4 >> 3) + 1) >> 61))
+                {
+                  operator new();
+                }
+
+                std::__throw_bad_array_new_length[abi:ne200100]();
+              }
+
+              v33 = (8 * (v4 >> 3));
+              *v33 = *(*(&v229 + 1) + 8 * k);
+              v34 = (v33 + 1);
+              if (v4)
+              {
+                v35 = v4 - 8;
+                v36 = 0;
+                v37 = 0;
+                if ((v4 - 8) < 0x28)
+                {
+                  goto LABEL_265;
+                }
+
+                if ((v35 & 0xFFFFFFFFFFFFFFF8) != 0xFFFFFFFFFFFFFFF8)
+                {
+                  v36 = 0;
+                  v37 = 0;
+                  goto LABEL_60;
+                }
+
+                v38 = (v35 >> 3) + 1;
+                v37 = (8 * (v38 & 0x3FFFFFFFFFFFFFFCLL));
+                v36 = v37;
+                v39 = 16;
+                v40 = 16;
+                v41 = v38 & 0x3FFFFFFFFFFFFFFCLL;
+                do
+                {
+                  v42 = *(v40 - 16);
+                  v43 = *v40;
+                  *(v40 - 16) = 0uLL;
+                  *v40 = 0uLL;
+                  *(v39 - 16) = v42;
+                  *v39 = v43;
+                  v39 += 32;
+                  v40 += 32;
+                  v41 -= 4;
+                }
+
+                while (v41);
+                if (v38 != (v38 & 0x3FFFFFFFFFFFFFFCLL))
+                {
+LABEL_265:
+                  do
+                  {
+LABEL_60:
+                    v44 = *v36;
+                    *v36++ = 0;
+                    *v37++ = v44;
+                  }
+
+                  while (v36 != v4);
+                }
+
+                for (m = 0; m != v4; ++m)
+                {
+                }
+              }
+
+              v4 = v34;
+            }
+
+            v30 = [v29 countByEnumeratingWithState:&v229 objects:v243 count:16];
+          }
+
+          while (v30);
+        }
+
+        v27 = (&v223->super.super.isa + 1);
+      }
+
+      while ((&v223->super.super.isa + 1) != v220);
+      v26 = [v212 countByEnumeratingWithState:&v233 objects:v244 count:16];
+    }
+
+    while (v26);
+LABEL_67:
+
+LABEL_68:
+    v213 = 0;
+    v206 = 0;
+    while (2)
+    {
+      v46 = [obja inputTensors];
+      v47 = v213 < [v46 count];
+
+      if (v47)
+      {
+        v48 = [*(obja + 2) objectAtIndexedSubscript:v213];
+        WeakRetained = objc_loadWeakRetained(obja + 6);
+        v50 = objc_loadWeakRetained(v48 + 4);
+        v51 = v210;
+        v52 = WeakRetained;
+        v53 = v50;
+        v221 = v51;
+        v224 = v53;
+        v54 = v52 == v51 || v52 == v53;
+        v55 = v52;
+        if (!v54)
+        {
+          v56 = v52;
+          do
+          {
+            v57 = [(MPSGraphBlock *)v56 parentOp];
+            v55 = objc_loadWeakRetained(v57 + 6);
+
+            v58 = v55 == v51 || v55 == v224;
+            v56 = v55;
+          }
+
+          while (!v58);
+        }
+
+        if (v55 != v224)
+        {
+          v59 = *(obja + 8);
+          if (*(*(v59 + 48) + 16) != &mlir::detail::TypeIDResolver<mlir::mps::BroadcastGradientArgsOp,void>::id || v213 != 1)
+          {
+            goto LABEL_111;
+          }
+
+          v61 = (*(*(*(v59 + 72) + 56) + 8) & 0xFFFFFFFFFFFFFFF8);
+          v62 = *v61;
+          {
+            v132 = llvm::getTypeName<mlir::ShapedType>();
+            mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v132, v133);
+          }
+
+          v63 = *(v62 + 16);
+          if (!v63)
+          {
+            goto LABEL_97;
+          }
+
+          v64 = *(v62 + 8);
+          v65 = *(v62 + 16);
+          do
+          {
+            v66 = v65 >> 1;
+            v67 = &v64[2 * (v65 >> 1)];
+            v69 = *v67;
+            v68 = v67 + 2;
+            v65 += ~(v65 >> 1);
+            if (v69 < mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id)
+            {
+              v64 = v68;
+            }
+
+            else
+            {
+              v65 = v66;
+            }
+          }
+
+          while (v65);
+          if (v64 != (*(v62 + 8) + 16 * v63) && *v64 == mlir::detail::TypeIDResolver<mlir::ShapedType,void>::resolveTypeID(void)::id && v64[1])
+          {
+            v70 = mlir::detail::InterfaceMap::lookup<mlir::ShapedType>(*v61 + 8);
+          }
+
+          else
+          {
+LABEL_97:
+            v61 = 0;
+            v70 = 0;
+          }
+
+          v228[0] = v61;
+          v228[1] = v70;
+          if (!v61 || !mlir::CallOpInterface::getArgOperands(v228))
+          {
+            goto LABEL_111;
+          }
+
+          ArgAttrsAttr = mlir::CallableOpInterface::getArgAttrsAttr(v228);
+          if (v72)
+          {
+            v73 = 8 * v72;
+            while (*ArgAttrsAttr != 0x8000000000000000)
+            {
+              ++ArgAttrsAttr;
+              v73 -= 8;
+              if (!v73)
+              {
+                goto LABEL_104;
+              }
+            }
+
+LABEL_111:
+            v97 = [v48 operation];
+            v98 = v97[8];
+            {
+              v130 = llvm::getTypeName<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>>();
+              mlir::detail::TypeIDResolver<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>,void>::resolveTypeID(void)::id = mlir::detail::FallbackTypeIDResolver::registerImplicitTypeID(v130, v131);
+            }
+
+            v99 = (*(**(v98 + 48) + 32))(*(v98 + 48), mlir::detail::TypeIDResolver<mlir::OpTrait::ConstantLike<mlir::TypeID mlir::TypeID::get<mlir::OpTrait::ConstantLike>(void)::Empty>,void>::resolveTypeID(void)::id);
+
+            if (v99)
+            {
+              ParentBlock = mlir::Value::getParentBlock((**(v226 + 3) + 8));
+              v101 = objc_loadWeakRetained((**(v226 + 3) + 32));
+              v102 = [v48 operation];
+              mlir::Operation::moveBefore(*(v102 + 64), ParentBlock, ParentBlock[5]);
+              v103 = objc_loadWeakRetained((v102 + 48));
+              [v103[2] removeObject:v102];
+              if (v101)
+              {
+                [v101[2] addObject:v102];
+              }
+
+              objc_storeWeak((v102 + 48), v101);
+              v104 = [v102 outputTensors];
+              v105 = [v104 objectAtIndexedSubscript:0];
+              objc_storeWeak(v105 + 4, v101);
+            }
+
+            else
+            {
+              v106 = *AutodiffSaveTemps::getBlockInfos(v226, v52);
+              v107 = *AutodiffSaveTemps::getBlockInfos(v226, v224);
+              v108 = v106 - v107;
+              if (v106 == v107)
+              {
+                v109 = v52;
+              }
+
+              else
+              {
+                do
+                {
+                  v110 = [(MPSGraphBlock *)v52 parentOp];
+                  v109 = objc_loadWeakRetained(v110 + 6);
+
+                  v52 = v109;
+                  --v108;
+                }
+
+                while (v108);
+              }
+
+              if (v224 != v221)
+              {
+                do
+                {
+                  v111 = [(MPSGraphBlock *)v224 parentOp];
+                  v112 = AutodiffSaveTemps::getBlockInfos(v226, v224)[5];
+                  if (!v112)
+                  {
+LABEL_126:
+                    operator new();
+                  }
+
+                  while (1)
+                  {
+                    while (1)
+                    {
+                      v113 = v112;
+                      v114 = v112[4];
+                      if (v48 >= v114)
+                      {
+                        break;
+                      }
+
+                      v112 = *v113;
+                      if (!*v113)
+                      {
+                        goto LABEL_126;
+                      }
+                    }
+
+                    if (v114 >= v48)
+                    {
+                      break;
+                    }
+
+                    v112 = v113[1];
+                    if (!v112)
+                    {
+                      goto LABEL_126;
+                    }
+                  }
+
+                  v115 = objc_loadWeakRetained(v111 + 6);
+
+                  v224 = v115;
+                  v116 = AutodiffSaveTemps::getBlockInfos(v226, v115)[2];
+                  if (!v116)
+                  {
+LABEL_133:
+                    operator new();
+                  }
+
+                  while (1)
+                  {
+                    while (1)
+                    {
+                      v117 = v116;
+                      v118 = v116[4];
+                      if (v111 >= v118)
+                      {
+                        break;
+                      }
+
+                      v116 = *v117;
+                      if (!*v117)
+                      {
+                        goto LABEL_133;
+                      }
+                    }
+
+                    if (v118 >= v111)
+                    {
+                      break;
+                    }
+
+                    v116 = v117[1];
+                    if (!v116)
+                    {
+                      goto LABEL_133;
+                    }
+                  }
+                }
+
+                while (v115 != v221);
+              }
+
+              v52 = v109;
+              if (v109 != v221)
+              {
+                do
+                {
+                  v119 = [(MPSGraphBlock *)v52 parentOp];
+                  v120 = AutodiffSaveTemps::getBlockInfos(v226, v52)[14];
+                  if (!v120)
+                  {
+LABEL_142:
+                    operator new();
+                  }
+
+                  while (1)
+                  {
+                    while (1)
+                    {
+                      v121 = v120;
+                      v122 = v120[4];
+                      if (v48 >= v122)
+                      {
+                        break;
+                      }
+
+                      v120 = *v121;
+                      if (!*v121)
+                      {
+                        goto LABEL_142;
+                      }
+                    }
+
+                    if (v122 >= v48)
+                    {
+                      break;
+                    }
+
+                    v120 = v121[1];
+                    if (!v120)
+                    {
+                      goto LABEL_142;
+                    }
+                  }
+
+                  v123 = objc_loadWeakRetained(v119 + 6);
+
+                  v216 = v123;
+                  v52 = v123;
+                  v124 = AutodiffSaveTemps::getBlockInfos(v226, v123)[11];
+                  if (!v124)
+                  {
+LABEL_149:
+                    operator new();
+                  }
+
+                  while (1)
+                  {
+                    while (1)
+                    {
+                      v125 = v124;
+                      v126 = v124[4];
+                      if (v119 >= v126)
+                      {
+                        break;
+                      }
+
+                      v124 = *v125;
+                      if (!*v125)
+                      {
+                        goto LABEL_149;
+                      }
+                    }
+
+                    if (v126 >= v119)
+                    {
+                      break;
+                    }
+
+                    v124 = v125[1];
+                    if (!v124)
+                    {
+                      goto LABEL_149;
+                    }
+                  }
+                }
+
+                while (v216 != v221);
+              }
+
+              v206 = 1;
+            }
+          }
+
+          else
+          {
+LABEL_104:
+            v74 = *(*(v226 + 3) + 16);
+            v222 = *(*(v74 + 56) + 16);
+            v75 = *(v74 + 176);
+            v76 = *(*(*(v226 + 3) + 16) + 56);
+            v77 = *(*(obja + 8) + 16);
+            MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+            *(v76 + 16) = v77;
+            *(v76 + 24) = v78;
+            v79 = objc_loadWeakRetained(obja + 6);
+            v80 = *(*(v226 + 3) + 16);
+            v81 = *(v80 + 176);
+            *(v80 + 176) = v79;
+
+            v82 = *(*(v226 + 3) + 16);
+            v83 = getMPSShapeFromMLIR(v228[0]);
+            v84 = [*(obja + 2) objectAtIndexedSubscript:1];
+            v85 = [v82 constantWithScalar:v83 shape:objc_msgSend(v84 dataType:{"dataType"), 0.0}];
+
+            v86 = obja;
+            v87 = v85;
+            v88 = [v86[2] mutableCopy];
+            [v88 setObject:v87 atIndexedSubscript:1];
+            v89 = v86[2];
+            v86[2] = v88;
+
+            v90 = v87[1];
+            v91 = *(v86[8] + 9);
+            v92 = v91 + 4;
+            v93 = v91[5];
+            if (v93)
+            {
+              v94 = *v92;
+              *v93 = *v92;
+              if (v94)
+              {
+                *(v94 + 8) = v93;
+              }
+            }
+
+            v91[7] = v90;
+            v91[5] = v90;
+            v95 = *v90;
+            v91[4] = *v90;
+            if (v95)
+            {
+              *(v95 + 8) = v92;
+            }
+
+            *v90 = v92;
+            v96 = *(*(*(v226 + 3) + 16) + 56);
+            if (v222)
+            {
+              *(v96 + 16) = v222;
+            }
+
+            else
+            {
+              *(v96 + 16) = 0;
+              *(v96 + 24) = 0;
+            }
+
+            v127 = *(*(v226 + 3) + 16);
+            v128 = *(v127 + 176);
+            *(v127 + 176) = v75;
+            v129 = v75;
+          }
+        }
+
+        ++v213;
+        continue;
+      }
+
+      break;
+    }
+
+    if (v206)
+    {
+      v134 = objc_loadWeakRetained(obja + 6);
+      v135 = AutodiffSaveTemps::getBlockInfos(v226, v134)[17];
+      if (!v135)
+      {
+LABEL_168:
+        operator new();
+      }
+
+      while (1)
+      {
+        while (1)
+        {
+          v136 = v135;
+          v137 = v135[4];
+          if (obja >= v137)
+          {
+            break;
+          }
+
+          v135 = *v136;
+          if (!*v136)
+          {
+            goto LABEL_168;
+          }
+        }
+
+        if (v137 >= obja)
+        {
+          break;
+        }
+
+        v135 = v136[1];
+        if (!v135)
+        {
+          goto LABEL_168;
+        }
+      }
+    }
+
+LABEL_25:
+  }
+
+  std::__tree<MPSGraphTensor * {__strong}>::destroy(&v241, v242[0]);
+LABEL_170:
+
+  v138 = v226;
+  v139 = AutodiffSaveTemps::getBlockInfos(v226, *(v226 + 4));
+  v140 = v139[1];
+  v141 = v139 + 2;
+  if (v140 != (v139 + 2))
+  {
+    do
+    {
+      v144 = v140[4];
+      AutodiffSaveTemps::extractTempsFromOp(v226, v144);
+
+      v145 = v140[1];
+      if (v145)
+      {
+        do
+        {
+          v146 = v145;
+          v145 = *v145;
+        }
+
+        while (v145);
+      }
+
+      else
+      {
+        do
+        {
+          v146 = v140[2];
+          v54 = *v146 == v140;
+          v140 = v146;
+        }
+
+        while (!v54);
+      }
+
+      v140 = v146;
+    }
+
+    while (v146 != v141);
+  }
+
+  v142 = BlockInfos[7];
+  if (v142 != (BlockInfos + 8))
+  {
+    v143 = BlockInfos + 14;
+    do
+    {
+      v147 = v142[4];
+      v148 = v142[5];
+      v149 = *v143;
+      if (!*v143)
+      {
+LABEL_187:
+        operator new();
+      }
+
+      while (1)
+      {
+        while (1)
+        {
+          v150 = v149;
+          v151 = v149[4];
+          if (v147 >= v151)
+          {
+            break;
+          }
+
+          v149 = *v150;
+          if (!*v150)
+          {
+            goto LABEL_187;
+          }
+        }
+
+        if (v151 >= v147)
+        {
+          break;
+        }
+
+        v149 = v150[1];
+        if (!v149)
+        {
+          goto LABEL_187;
+        }
+      }
+
+      v152 = v150;
+      v138 = v226;
+      v153 = v150[5];
+      v152[5] = v148;
+      v154 = v148;
+
+      v155 = v142[1];
+      if (v155)
+      {
+        do
+        {
+          v156 = v155;
+          v155 = *v155;
+        }
+
+        while (v155);
+      }
+
+      else
+      {
+        do
+        {
+          v156 = v142[2];
+          v54 = *v156 == v142;
+          v142 = v156;
+        }
+
+        while (!v54);
+      }
+
+      v142 = v156;
+    }
+
+    while (v156 != BlockInfos + 8);
+  }
+
+  v157 = AutodiffSaveTemps::getBlockInfos(v138, *(v138 + 4));
+  v158 = v157[10];
+  v159 = v157 + 11;
+  if (v158 != (v157 + 11))
+  {
+    do
+    {
+      v161 = v158[4];
+      AutodiffSaveTemps::injectTempsIntoOp(v138, v161);
+
+      v162 = v158[1];
+      if (v162)
+      {
+        do
+        {
+          v163 = v162;
+          v162 = *v162;
+        }
+
+        while (v162);
+      }
+
+      else
+      {
+        do
+        {
+          v163 = v158[2];
+          v54 = *v163 == v158;
+          v158 = v163;
+        }
+
+        while (!v54);
+      }
+
+      v158 = v163;
+    }
+
+    while (v163 != v159);
+  }
+
+  v160 = *v138;
+  v207 = (v138 + 8);
+  if (*v138 != (v138 + 8))
+  {
+    do
+    {
+      if (v160[23])
+      {
+        v209 = v160;
+        v244[0] = v160[4];
+        v164 = AutodiffSaveTemps::getBlockInfos(v138, v244[0]);
+        objb = *v164;
+        v246[0] = 0;
+        v246[1] = 0;
+        v245 = v246;
+        v165 = v164[16];
+        v211 = v164 + 17;
+        if (v165 == (v164 + 17))
+        {
+          v166 = 0;
+        }
+
+        else
+        {
+          do
+          {
+            v214 = v165;
+            __p = v165[4];
+            v225 = objc_loadWeakRetained(__p + 6);
+            for (n = 0; n < [__p[2] count]; ++n)
+            {
+              v168 = [__p[2] objectAtIndexedSubscript:n];
+              v169 = objc_loadWeakRetained((v168 + 32));
+              v170 = *(v226 + 4);
+              v171 = v225;
+              v172 = v169;
+              v173 = v171 == v172 || v171 == v170;
+              v174 = v171;
+              if (!v173)
+              {
+                v175 = v171;
+                do
+                {
+                  v176 = [(MPSGraphBlock *)v175 parentOp];
+                  v174 = objc_loadWeakRetained(v176 + 6);
+
+                  v177 = v174 == v170 || v174 == v172;
+                  v175 = v174;
+                }
+
+                while (!v177);
+              }
+
+              if (v174 != v172)
+              {
+                v178 = *AutodiffSaveTemps::getBlockInfos(v226, v172);
+                v179 = v171;
+                v180 = v179;
+                v181 = objb - v178;
+                if (v181)
+                {
+                  do
+                  {
+                    v183 = [(MPSGraphBlock *)v180 parentOp];
+                    v182 = objc_loadWeakRetained(v183 + 6);
+
+                    v180 = v182;
+                    --v181;
+                  }
+
+                  while (v181);
+                }
+
+                else
+                {
+                  v182 = v179;
+                }
+
+                v184 = AutodiffSaveTemps::getBlockInfos(v226, v182);
+                v187 = v184[14];
+                v185 = v184 + 14;
+                v186 = v187;
+                if (!v187)
+                {
+                  goto LABEL_233;
+                }
+
+                v188 = v185;
+                do
+                {
+                  v189 = v186[4];
+                  v190 = v189 >= v168;
+                  v191 = v189 < v168;
+                  if (v190)
+                  {
+                    v188 = v186;
+                  }
+
+                  v186 = v186[v191];
+                }
+
+                while (v186);
+                if (v188 == v185 || v168 < v188[4])
+                {
+LABEL_233:
+                  v188 = v185;
+                }
+
+                v192 = v188[5];
+                v193 = __p;
+                v194 = v192;
+                v195 = [v193[2] mutableCopy];
+                [v195 setObject:v194 atIndexedSubscript:n];
+                v196 = v193[2];
+                v193[2] = v195;
+
+                v197 = *(v168 + 8);
+                v198 = v246[0];
+LABEL_236:
+                if (!v198)
+                {
+LABEL_240:
+                  operator new();
+                }
+
+                while (1)
+                {
+                  v199 = v198;
+                  v200 = v198[4];
+                  if (v197 < v200)
+                  {
+                    v198 = *v199;
+                    goto LABEL_236;
+                  }
+
+                  if (v200 >= v197)
+                  {
+                    break;
+                  }
+
+                  v198 = v199[1];
+                  if (!v198)
+                  {
+                    goto LABEL_240;
+                  }
+                }
+              }
+            }
+
+            v201 = v214;
+            v202 = v214[1];
+            if (v202)
+            {
+              do
+              {
+                v203 = v202;
+                v202 = *v202;
+              }
+
+              while (v202);
+            }
+
+            else
+            {
+              do
+              {
+                v203 = v201[2];
+                v54 = *v203 == v201;
+                v201 = v203;
+              }
+
+              while (!v54);
+            }
+
+            v165 = v203;
+          }
+
+          while (v203 != v211);
+          v166 = v246[0];
+        }
+
+        std::__tree<void *>::destroy(v166);
+
+        v138 = v226;
+        v160 = v209;
+      }
+
+      v204 = v160[1];
+      if (v204)
+      {
+        do
+        {
+          v205 = v204;
+          v204 = *v204;
+        }
+
+        while (v204);
+      }
+
+      else
+      {
+        do
+        {
+          v205 = v160[2];
+          v54 = *v205 == v160;
+          v160 = v205;
+        }
+
+        while (!v54);
+      }
+
+      v160 = v205;
+    }
+
+    while (v205 != v207);
+  }
+}
+
+void sub_1E0754C34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, char *__p, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, void *a51)
+{
+
+  std::__tree<MPSGraphTensor * {__strong}>::destroy(&a50, a51);
+  if (__p)
+  {
+    while (v51 != __p)
+    {
+      v55 = *(v51 - 1);
+      v51 -= 8;
+    }
+
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t **AutodiffSaveTemps::getBlockInfos(uint64_t **this, MPSGraphBlock *a2)
+{
+  v3 = a2;
+  v4 = v3;
+  v6 = this + 1;
+  v5 = this[1];
+  if (!v5)
+  {
+    goto LABEL_9;
+  }
+
+  v7 = this + 1;
+  do
+  {
+    v8 = v5[4];
+    v9 = v8 >= v3;
+    v10 = v8 < v3;
+    if (v9)
+    {
+      v7 = v5;
+    }
+
+    v5 = v5[v10];
+  }
+
+  while (v5);
+  if (v7 == v6 || v7[4] > v3)
+  {
+LABEL_9:
+    v11 = v3;
+    v12 = v11;
+    if (this[4] == v11)
+    {
+      WeakRetained = v11;
+    }
+
+    else
+    {
+      v13 = 0;
+      v14 = v11;
+      do
+      {
+        v15 = [v14 parentOp];
+        ++v13;
+        WeakRetained = objc_loadWeakRetained(v15 + 6);
+
+        v14 = WeakRetained;
+      }
+
+      while (WeakRetained != this[4]);
+    }
+
+    v21 = v22;
+    v22[0] = 0;
+    v24[0] = 0;
+    v24[1] = 0;
+    v22[1] = 0;
+    v23 = v24;
+    v25 = v26;
+    v26[0] = 0;
+    v28[0] = 0;
+    v28[1] = 0;
+    v26[1] = 0;
+    v27 = v28;
+    v29 = v30;
+    v30[0] = 0;
+    v32[0] = 0;
+    v32[1] = 0;
+    v30[1] = 0;
+    v31 = v32;
+    v17 = *v6;
+    if (!*v6)
+    {
+LABEL_20:
+      operator new();
+    }
+
+    while (1)
+    {
+      while (1)
+      {
+        v18 = v17;
+        v19 = v17[4];
+        if (v19 <= v12)
+        {
+          break;
+        }
+
+        v17 = *v18;
+        if (!*v18)
+        {
+          goto LABEL_20;
+        }
+      }
+
+      if (v19 >= v12)
+      {
+        break;
+      }
+
+      v17 = v18[1];
+      if (!v17)
+      {
+        goto LABEL_20;
+      }
+    }
+
+    v7 = v18;
+    std::__tree<MPSGraphTensor * {__strong}>::destroy(&v31, 0);
+    std::__tree<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::__map_value_compare<MPSGraphTensor * {__strong},std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::less<MPSGraphTensor * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>>>::destroy(&v29, v30[0]);
+    std::__tree<MPSGraphTensor * {__strong}>::destroy(&v27, v28[0]);
+    std::__tree<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::__map_value_compare<MPSGraphTensor * {__strong},std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::less<MPSGraphTensor * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>>>::destroy(&v25, v26[0]);
+    std::__tree<MPSGraphTensor * {__strong}>::destroy(&v23, v24[0]);
+    std::__tree<MPSGraphTensor * {__strong}>::destroy(&v21, v22[0]);
+  }
+
+  return v7 + 5;
+}
+
+void sub_1E075529C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+{
+  va_start(va, a9);
+  AutodiffSaveTemps::BlockInfos::~BlockInfos(va);
+
+  _Unwind_Resume(a1);
+}
+
+void AutodiffSaveTemps::extractTempsFromOp(uint64_t **this, MPSGraphOperation *a2)
+{
+  v119 = *MEMORY[0x1E69E9840];
+  v3 = a2;
+  WeakRetained = objc_loadWeakRetained(&v3->_parentBlock);
+  v107 = this;
+  BlockInfos = AutodiffSaveTemps::getBlockInfos(this, WeakRetained);
+
+  v115 = 0;
+  v116 = 0;
+  v117 = 0;
+  v111 = 0u;
+  v112 = 0u;
+  v113 = 0u;
+  v114 = 0u;
+  obj = v3->_region->_blocks;
+  v97 = v3;
+  v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v111 objects:v118 count:16];
+  v98 = BlockInfos;
+  if (!v6)
+  {
+    v8 = 0;
+    goto LABEL_105;
+  }
+
+  v7 = 0;
+  v8 = 0;
+  v100 = *v112;
+  do
+  {
+    v101 = v6;
+    for (i = 0; i != v101; ++i)
+    {
+      if (*v112 != v100)
+      {
+        objc_enumerationMutation(obj);
+      }
+
+      v106 = *(*(&v111 + 1) + 8 * i);
+      v9 = AutodiffSaveTemps::getBlockInfos(v107, v106);
+      if (v9[6])
+      {
+        v10 = AutodiffSaveTemps::getBlockInfos(v107, v106);
+        v11 = v10[1];
+        v12 = v10 + 2;
+        if (v11 != (v10 + 2))
+        {
+          do
+          {
+            v14 = v11[4];
+            AutodiffSaveTemps::extractTempsFromOp(v107, v14);
+
+            v15 = v11[1];
+            if (v15)
+            {
+              do
+              {
+                v16 = v15;
+                v15 = *v15;
+              }
+
+              while (v15);
+            }
+
+            else
+            {
+              do
+              {
+                v16 = v11[2];
+                v17 = *v16 == v11;
+                v11 = v16;
+              }
+
+              while (!v17);
+            }
+
+            v11 = v16;
+          }
+
+          while (v16 != v12);
+        }
+
+        v13 = v9[4];
+        v105 = v9 + 5;
+        if (v13 != (v9 + 5))
+        {
+          v103 = v9 + 8;
+          while (1)
+          {
+            v18 = v13[4];
+            v19 = v18;
+            if (v8 < v7)
+            {
+              *v8 = v18;
+              v108 = (v8 + 8);
+              goto LABEL_38;
+            }
+
+            v20 = (v8 >> 3) + 1;
+            if (v20 >> 61)
+            {
+              std::vector<std::shared_ptr<MIL::IRArgument>>::__throw_length_error[abi:ne200100]();
+            }
+
+            if (v7 >> 2 > v20)
+            {
+              v20 = v7 >> 2;
+            }
+
+            if (v20)
+            {
+              if (!(v20 >> 61))
+              {
+                operator new();
+              }
+
+              std::__throw_bad_array_new_length[abi:ne200100]();
+            }
+
+            v21 = (8 * (v8 >> 3));
+            *v21 = v18;
+            v108 = v21 + 1;
+            if (v8)
+            {
+              break;
+            }
+
+LABEL_37:
+            v7 = 0;
+LABEL_38:
+            v33 = objc_loadWeakRetained(v19 + 4);
+            v34 = v33 == v106;
+
+            if (v34)
+            {
+              v40 = v116;
+              if (v116 < v117)
+              {
+                v41 = v19;
+                goto LABEL_52;
+              }
+
+              v43 = v115;
+              v49 = v116 - v115;
+              v50 = (v116 - v115) >> 3;
+              v51 = v50 + 1;
+              if ((v50 + 1) >> 61)
+              {
+                std::vector<std::shared_ptr<MIL::IRArgument>>::__throw_length_error[abi:ne200100]();
+              }
+
+              v52 = v117 - v115;
+              if ((v117 - v115) >> 2 > v51)
+              {
+                v51 = v52 >> 2;
+              }
+
+              if (v52 >= 0x7FFFFFFFFFFFFFF8)
+              {
+                v53 = 0x1FFFFFFFFFFFFFFFLL;
+              }
+
+              else
+              {
+                v53 = v51;
+              }
+
+              v104 = v7;
+              if (v53)
+              {
+                if (!(v53 >> 61))
+                {
+                  operator new();
+                }
+
+                std::__throw_bad_array_new_length[abi:ne200100]();
+              }
+
+              v68 = (v116 - v115) >> 3;
+              v56 = 0;
+              *(8 * v50) = v19;
+              v42 = 8 * v50 + 8;
+              if (v43 == v40)
+              {
+LABEL_100:
+                v7 = v104;
+                v115 = v56;
+                v116 = v42;
+                v117 = 0;
+                if (!v43)
+                {
+                  goto LABEL_94;
+                }
+
+LABEL_93:
+                operator delete(v43);
+                goto LABEL_94;
+              }
+
+              v69 = v40 - v43 - 8;
+              v70 = v43;
+              v71 = 0;
+              if (v69 < 0x38)
+              {
+                goto LABEL_136;
+              }
+
+              if (v43 < v49 + (v69 & 0xFFFFFFFFFFFFFFF8) - 8 * v68 + 8)
+              {
+                v70 = v43;
+                v71 = 0;
+                if ((v43 + (v69 & 0xFFFFFFFFFFFFFFF8)) != -8)
+                {
+                  goto LABEL_136;
+                }
+              }
+
+              v72 = (v69 >> 3) + 1;
+              v71 = (8 * (v72 & 0x3FFFFFFFFFFFFFFCLL));
+              v70 = (v71 + v43);
+              v73 = (-8 * v68 + 8 * v50 + 16);
+              v74 = (v43 + 2);
+              v75 = v72 & 0x3FFFFFFFFFFFFFFCLL;
+              do
+              {
+                v76 = *(v74 - 1);
+                v77 = *v74;
+                *(v74 - 1) = 0uLL;
+                *v74 = 0uLL;
+                *(v73 - 1) = v76;
+                *v73 = v77;
+                v73 += 2;
+                v74 += 2;
+                v75 -= 4;
+              }
+
+              while (v75);
+              if (v72 != (v72 & 0x3FFFFFFFFFFFFFFCLL))
+              {
+LABEL_136:
+                do
+                {
+                  v78 = *v70;
+                  *v70++ = 0;
+                  *v71++ = v78;
+                }
+
+                while (v70 != v40);
+              }
+
+              v7 = v104;
+              do
+              {
+              }
+
+              while (v43 != v40);
+            }
+
+            else
+            {
+              v35 = *v103;
+              if (!*v103)
+              {
+                goto LABEL_47;
+              }
+
+              v36 = v103;
+              do
+              {
+                v37 = v35[4];
+                v38 = v37 >= v19;
+                v39 = v37 < v19;
+                if (v38)
+                {
+                  v36 = v35;
+                }
+
+                v35 = v35[v39];
+              }
+
+              while (v35);
+              if (v36 == v103 || v19 < v36[4])
+              {
+LABEL_47:
+                v36 = v103;
+              }
+
+              v40 = v116;
+              if (v116 < v117)
+              {
+                v41 = v36[5];
+LABEL_52:
+                *v40 = v41;
+                v42 = (v40 + 8);
+                goto LABEL_94;
+              }
+
+              v43 = v115;
+              v44 = v116 - v115;
+              v45 = (v116 - v115) >> 3;
+              v46 = v45 + 1;
+              if ((v45 + 1) >> 61)
+              {
+                std::vector<std::shared_ptr<MIL::IRArgument>>::__throw_length_error[abi:ne200100]();
+              }
+
+              v47 = v117 - v115;
+              if ((v117 - v115) >> 2 > v46)
+              {
+                v46 = v47 >> 2;
+              }
+
+              if (v47 >= 0x7FFFFFFFFFFFFFF8)
+              {
+                v48 = 0x1FFFFFFFFFFFFFFFLL;
+              }
+
+              else
+              {
+                v48 = v46;
+              }
+
+              v104 = v7;
+              if (v48)
+              {
+                if (!(v48 >> 61))
+                {
+                  operator new();
+                }
+
+                std::__throw_bad_array_new_length[abi:ne200100]();
+              }
+
+              v54 = (v116 - v115) >> 3;
+              v55 = v36[5];
+              v56 = (8 * v45 - 8 * v54);
+              *(8 * v45) = v55;
+              v42 = 8 * v45 + 8;
+              if (v43 == v40)
+              {
+                goto LABEL_100;
+              }
+
+              v57 = v40 - v43 - 8;
+              v58 = v43;
+              v59 = (8 * v45 - 8 * v54);
+              if (v57 < 0x38)
+              {
+                goto LABEL_137;
+              }
+
+              if (v43 < v44 + (v57 & 0xFFFFFFFFFFFFFFF8) - 8 * v54 + 8)
+              {
+                v58 = v43;
+                v59 = (8 * v45 - 8 * v54);
+                if (v56 < v43 + (v57 & 0xFFFFFFFFFFFFFFF8) + 8)
+                {
+                  goto LABEL_137;
+                }
+              }
+
+              v60 = (v57 >> 3) + 1;
+              v61 = v60 & 0x3FFFFFFFFFFFFFFCLL;
+              v58 = &v43[v61];
+              v59 = &v56[v61 * 8];
+              v62 = (-8 * v54 + 8 * v45 + 16);
+              v63 = (v43 + 2);
+              v64 = v60 & 0x3FFFFFFFFFFFFFFCLL;
+              do
+              {
+                v65 = *(v63 - 1);
+                v66 = *v63;
+                *(v63 - 1) = 0uLL;
+                *v63 = 0uLL;
+                *(v62 - 1) = v65;
+                *v62 = v66;
+                v62 += 2;
+                v63 += 2;
+                v64 -= 4;
+              }
+
+              while (v64);
+              if (v60 != (v60 & 0x3FFFFFFFFFFFFFFCLL))
+              {
+LABEL_137:
+                do
+                {
+                  v67 = *v58;
+                  *v58++ = 0;
+                  *v59 = v67;
+                  v59 += 8;
+                }
+
+                while (v58 != v40);
+              }
+
+              v7 = v104;
+              do
+              {
+              }
+
+              while (v43 != v40);
+            }
+
+            v43 = v115;
+            v115 = v56;
+            v116 = v42;
+            v117 = 0;
+            if (v43)
+            {
+              goto LABEL_93;
+            }
+
+LABEL_94:
+            v116 = v42;
+
+            v79 = v13[1];
+            if (v79)
+            {
+              do
+              {
+                v80 = v79;
+                v79 = *v79;
+              }
+
+              while (v79);
+            }
+
+            else
+            {
+              do
+              {
+                v80 = v13[2];
+                v17 = *v80 == v13;
+                v13 = v80;
+              }
+
+              while (!v17);
+            }
+
+            v8 = v108;
+            v13 = v80;
+            if (v80 == v105)
+            {
+              goto LABEL_4;
+            }
+          }
+
+          v22 = v8 - 8;
+          v23 = 0;
+          v24 = 0;
+          if ((v8 - 8) < 0x28)
+          {
+            goto LABEL_138;
+          }
+
+          if ((v22 & 0xFFFFFFFFFFFFFFF8) != 0xFFFFFFFFFFFFFFF8)
+          {
+            v23 = 0;
+            v24 = 0;
+            goto LABEL_34;
+          }
+
+          v25 = (v22 >> 3) + 1;
+          v24 = (8 * (v25 & 0x3FFFFFFFFFFFFFFCLL));
+          v23 = v24;
+          v26 = 16;
+          v27 = 16;
+          v28 = v25 & 0x3FFFFFFFFFFFFFFCLL;
+          do
+          {
+            v29 = *(v27 - 16);
+            v30 = *v27;
+            *(v27 - 16) = 0uLL;
+            *v27 = 0uLL;
+            *(v26 - 16) = v29;
+            *v26 = v30;
+            v26 += 32;
+            v27 += 32;
+            v28 -= 4;
+          }
+
+          while (v28);
+          if (v25 != (v25 & 0x3FFFFFFFFFFFFFFCLL))
+          {
+LABEL_138:
+            do
+            {
+LABEL_34:
+              v31 = *v23;
+              *v23++ = 0;
+              *v24++ = v31;
+            }
+
+            while (v23 != v8);
+          }
+
+          for (j = 0; j != v8; ++j)
+          {
+          }
+
+          goto LABEL_37;
+        }
+      }
+
+LABEL_4:
+      ;
+    }
+
+    v6 = [(NSMutableArray *)obj countByEnumeratingWithState:&v111 objects:v118 count:16];
+  }
+
+  while (v6);
+LABEL_105:
+
+  OpData = getOpData(v97);
+  (*(OpData->super.super.isa + 5))(&v109);
+  if (v8)
+  {
+    v82 = 0;
+    v83 = (v98 + 8);
+    if ((v8 >> 3) <= 1)
+    {
+      v84 = 1;
+    }
+
+    else
+    {
+      v84 = v8 >> 3;
+    }
+
+    do
+    {
+      v85 = *v83;
+      if (!*v83)
+      {
+LABEL_115:
+        operator new();
+      }
+
+      v86 = *(8 * v82);
+      while (1)
+      {
+        while (1)
+        {
+          v87 = v85;
+          v88 = v85[4];
+          if (v86 >= v88)
+          {
+            break;
+          }
+
+          v85 = *v87;
+          if (!*v87)
+          {
+            goto LABEL_115;
+          }
+        }
+
+        if (v88 >= v86)
+        {
+          break;
+        }
+
+        v85 = v87[1];
+        if (!v85)
+        {
+          goto LABEL_115;
+        }
+      }
+
+      objc_storeStrong(v87 + 5, *(v109 + v82++));
+    }
+
+    while (v82 != v84);
+  }
+
+  v89 = v109;
+  if (v109)
+  {
+    v90 = v110;
+    v91 = v109;
+    if (v110 != v109)
+    {
+      do
+      {
+        v92 = *(v90 - 1);
+        v90 -= 8;
+      }
+
+      while (v90 != v89);
+      v91 = v109;
+    }
+
+    v110 = v89;
+    operator delete(v91);
+  }
+
+  v93 = v115;
+  if (v115)
+  {
+    v94 = v116;
+    v95 = v115;
+    if (v116 != v115)
+    {
+      do
+      {
+        v96 = *(v94 - 1);
+        v94 -= 8;
+      }
+
+      while (v94 != v93);
+      v95 = v115;
+    }
+
+    v116 = v93;
+    operator delete(v95);
+  }
+}
+
 void sub_1E0755C90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char *__p, char *a37)
 {
   if (__p)
@@ -22,7 +2567,7 @@ void sub_1E0755C90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t getOpData(MPSGraphOperation *a1)
+NSMutableArray *getOpData(MPSGraphOperation *a1)
 {
   v1 = a1;
   objc_opt_class();
@@ -76,7 +2621,7 @@ void sub_1E07561A0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void **std::vector<MPSGraphTensor * {__strong}>::~vector[abi:ne200100](void **a1)
+char **std::vector<MPSGraphTensor * {__strong}>::~vector[abi:ne200100](char **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -102,7 +2647,7 @@ void **std::vector<MPSGraphTensor * {__strong}>::~vector[abi:ne200100](void **a1
   return a1;
 }
 
-void AutodiffSaveTemps::injectTempsIntoOp(AutodiffSaveTemps *this, MPSGraphOperation *a2)
+void AutodiffSaveTemps::injectTempsIntoOp(uint64_t **this, MPSGraphOperation *a2)
 {
   v104 = *MEMORY[0x1E69E9840];
   v3 = a2;
@@ -139,11 +2684,11 @@ void AutodiffSaveTemps::injectTempsIntoOp(AutodiffSaveTemps *this, MPSGraphOpera
         v6 = *(*(&v96 + 1) + 8 * v5);
         v7 = AutodiffSaveTemps::getBlockInfos(v85, v6);
         v86 = v5;
-        if (*(v7 + 15))
+        if (v7[15])
         {
-          v8 = *(v7 + 13);
-          v89 = v7 + 112;
-          if (v8 == v7 + 112)
+          v8 = v7[13];
+          v89 = v7 + 14;
+          if (v8 == (v7 + 14))
           {
 LABEL_50:
             for (i = v102[0]; i; i = *v48)
@@ -204,8 +2749,8 @@ LABEL_56:
           v88 = v6;
           while (2)
           {
-            v11 = *(v8 + 4);
-            v90 = *(v8 + 5);
+            v11 = v8[4];
+            v90 = v8[5];
             v12 = v11;
             v13 = v12;
             if (((v10 >> 3) + 1) >> 61)
@@ -286,7 +2831,7 @@ LABEL_22:
             }
 
             v10 = v15;
-            v27 = *(BlockInfos + 14);
+            v27 = BlockInfos[14];
             if (!v27)
             {
 LABEL_107:
@@ -403,7 +2948,7 @@ LABEL_42:
 
             v9 = v32;
 
-            v44 = *(v8 + 1);
+            v44 = v8[1];
             if (v44)
             {
               do
@@ -419,7 +2964,7 @@ LABEL_42:
             {
               do
               {
-                v45 = *(v8 + 2);
+                v45 = v8[2];
                 v46 = *v45 == v8;
                 v8 = v45;
               }
@@ -450,7 +2995,7 @@ LABEL_4:
   }
 
   OpData = getOpData(v81);
-  (*(*OpData + 48))(&v94);
+  (*(OpData->super.super.isa + 6))(&v94);
   v54 = v100;
   if (v100 != v101)
   {
@@ -499,7 +3044,7 @@ LABEL_112:
       if (v93 != v92)
       {
         v60 = 0;
-        v61 = (v56 + 112);
+        v61 = (v56 + 14);
         do
         {
           v62 = *v61;
@@ -538,16 +3083,16 @@ LABEL_86:
       }
 
       v68 = AutodiffSaveTemps::getBlockInfos(v85, v55);
-      v69 = *(v68 + 10);
-      v70 = v68 + 88;
-      if (v69 != v68 + 88)
+      v69 = v68[10];
+      v70 = v68 + 11;
+      if (v69 != (v68 + 11))
       {
         do
         {
-          v77 = *(v69 + 4);
+          v77 = v69[4];
           AutodiffSaveTemps::injectTempsIntoOp(v85, v77);
 
-          v78 = *(v69 + 1);
+          v78 = v69[1];
           if (v78)
           {
             do
@@ -563,7 +3108,7 @@ LABEL_86:
           {
             do
             {
-              v79 = *(v69 + 2);
+              v79 = v69[2];
               v46 = *v79 == v69;
               v69 = v79;
             }
@@ -662,7 +3207,7 @@ void *std::pair<MPSGraphBlock * const {__strong},std::vector<MPSGraphTensor * {_
   return a1;
 }
 
-void sub_1E0757190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_1E0757190(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   std::__exception_guard_exceptions<std::vector<MPSGraphTensor * {__strong}>::__destroy_vector>::~__exception_guard_exceptions[abi:ne200100](&a9);
 
@@ -778,7 +3323,7 @@ LABEL_3:
   *(a1 + 8) = v5;
 }
 
-uint64_t mlir::OpBuilder::create<mlir::scf::IfOp,std::vector<mlir::Type> &,mlir::Value &,BOOL,BOOL>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, unsigned __int8 *a5, unsigned __int8 *a6)
+char *mlir::OpBuilder::create<mlir::scf::IfOp,std::vector<mlir::Type> &,mlir::Value &,BOOL,BOOL>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4, unsigned __int8 *a5, unsigned __int8 *a6)
 {
   v24[5] = *MEMORY[0x1E69E9840];
   v18 = a2;
@@ -798,7 +3343,7 @@ uint64_t mlir::OpBuilder::create<mlir::scf::IfOp,std::vector<mlir::Type> &,mlir:
   mlir::ValueRange::ValueRange(v24, *a3, (a3[1] - *a3) >> 3);
   mlir::scf::IfOp::build(a1, v23, v24[0], v24[1], *a4, *a5, *a6);
   v15 = mlir::OpBuilder::create(a1, v23);
-  if (*(*(v15 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::scf::IfOp,void>::id)
+  if (*(*(v15 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::scf::IfOp,void>::id)
   {
     v16 = v15;
   }
@@ -812,16 +3357,16 @@ uint64_t mlir::OpBuilder::create<mlir::scf::IfOp,std::vector<mlir::Type> &,mlir:
   return v16;
 }
 
-void sub_1E0758574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1E0758574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   mlir::OperationState::~OperationState(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1E0758588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1E0758588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   mlir::OperationState::~OperationState(va);
   _Unwind_Resume(a1);
 }
@@ -834,8 +3379,8 @@ uint64_t recurseForUsesOnEscaped(Autodiff *a1, MPSGraphBlock *a2, MPSGraphTensor
   v41 = v6;
   *&v42 = v5;
   v46[0] = &v42;
-  v7 = std::__hash_table<std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(a1 + 4, &v42);
-  v46[0] = v6;
+  v7 = std::__hash_table<std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(a1 + 4, &v42, &std::piecewise_construct, v46);
+  v46[0] = &v6->super.super.isa;
   v8 = std::__hash_table<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::__unordered_map_hasher<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::hash<mlir::Operation *>,std::equal_to<mlir::Operation *>,true>,std::__unordered_map_equal<mlir::Operation *,std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,std::equal_to<mlir::Operation *>,std::hash<mlir::Operation *>,true>,std::allocator<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>>>::find<mlir::Operation *>(v7 + 3, v46);
   if (v8)
   {
@@ -875,11 +3420,11 @@ uint64_t recurseForUsesOnEscaped(Autodiff *a1, MPSGraphBlock *a2, MPSGraphTensor
             v21 = BlockEscapeds;
             while (*v21 != v11)
             {
-              ++v21;
+              v21 += 8;
               v20 -= 8;
               if (!v20)
               {
-                v21 = (BlockEscapeds + v19);
+                v21 = BlockEscapeds + v19;
                 break;
               }
             }
@@ -890,17 +3435,17 @@ uint64_t recurseForUsesOnEscaped(Autodiff *a1, MPSGraphBlock *a2, MPSGraphTensor
             v21 = BlockEscapeds;
           }
 
-          if ((v21 - BlockEscapeds) != v19)
+          if (v21 - BlockEscapeds != v19)
           {
 
             *&v42 = v11;
             v46[0] = &v42;
-            v26 = std::__hash_table<std::__hash_value_type<void *,Autodiff::TensorFrame>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,Autodiff::TensorFrame>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,Autodiff::TensorFrame>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,Autodiff::TensorFrame>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(v7 + 3, v11);
+            v26 = std::__hash_table<std::__hash_value_type<void *,Autodiff::TensorFrame>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,Autodiff::TensorFrame>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,Autodiff::TensorFrame>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,Autodiff::TensorFrame>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(v7 + 3, v11, v46);
             *(v26 + 48) = 1;
             v26[4] = 1;
             v27 = [(MPSGraphBlock *)v10 parentOp];
-            v28 = *(getOpData(v27) + 32);
-            if (!v28)
+            isa = getOpData(v27)[4].super.super.isa;
+            if (!isa)
             {
 LABEL_25:
               operator new();
@@ -910,14 +3455,14 @@ LABEL_25:
             {
               while (1)
               {
-                v29 = v28;
-                v30 = v28[4];
+                v29 = isa;
+                v30 = *(isa + 4);
                 if (v30 <= v10)
                 {
                   break;
                 }
 
-                v28 = *v29;
+                isa = *v29;
                 if (!*v29)
                 {
                   goto LABEL_25;
@@ -929,18 +3474,18 @@ LABEL_25:
                 break;
               }
 
-              v28 = v29[1];
-              if (!v28)
+              isa = *(v29 + 1);
+              if (!isa)
               {
                 goto LABEL_25;
               }
             }
 
-            v38 = v29[6];
-            if (v38 < v29[7])
+            v38 = *(v29 + 6);
+            if (v38 < *(v29 + 7))
             {
               *v38 = v41;
-              v31 = (v38 + 1);
+              v31 = v38 + 1;
             }
 
             else
@@ -948,7 +3493,7 @@ LABEL_25:
               v31 = std::vector<MPSGraphTensor * {__strong}>::__emplace_back_slow_path<MPSGraphTensor * const {__strong}&>(v29 + 5, &v41);
             }
 
-            v29[6] = v31;
+            *(v29 + 6) = v31;
 
             LOBYTE(v9) = 1;
             goto LABEL_44;
@@ -982,13 +3527,13 @@ LABEL_25:
     v9 = v25;
     *&v42 = v11;
     v46[0] = &v42;
-    v32 = std::__hash_table<std::__hash_value_type<void *,Autodiff::TensorFrame>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,Autodiff::TensorFrame>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,Autodiff::TensorFrame>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,Autodiff::TensorFrame>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(v7 + 3, v11);
+    v32 = std::__hash_table<std::__hash_value_type<void *,Autodiff::TensorFrame>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,Autodiff::TensorFrame>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,Autodiff::TensorFrame>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,Autodiff::TensorFrame>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(v7 + 3, v11, v46);
     *(v32 + 48) = v9;
     v32[4] = 1;
     if (v9)
     {
       v33 = [(MPSGraphBlock *)v10 parentOp];
-      v34 = *(getOpData(v33) + 32);
+      v34 = getOpData(v33)[4].super.super.isa;
       if (!v34)
       {
 LABEL_35:
@@ -1000,7 +3545,7 @@ LABEL_35:
         while (1)
         {
           v35 = v34;
-          v36 = v34[4];
+          v36 = *(v34 + 4);
           if (v36 <= v10)
           {
             break;
@@ -1018,18 +3563,18 @@ LABEL_35:
           break;
         }
 
-        v34 = v35[1];
+        v34 = *(v35 + 1);
         if (!v34)
         {
           goto LABEL_35;
         }
       }
 
-      v39 = v35[6];
-      if (v39 < v35[7])
+      v39 = *(v35 + 6);
+      if (v39 < *(v35 + 7))
       {
         *v39 = v41;
-        v37 = (v39 + 1);
+        v37 = v39 + 1;
       }
 
       else
@@ -1037,7 +3582,7 @@ LABEL_35:
         v37 = std::vector<MPSGraphTensor * {__strong}>::__emplace_back_slow_path<MPSGraphTensor * const {__strong}&>(v35 + 5, &v41);
       }
 
-      v35[6] = v37;
+      *(v35 + 6) = v37;
     }
   }
 
@@ -1055,7 +3600,7 @@ void AutodiffOpData::createPartialDerivatives(AutodiffOpData *this, Autodiff *a2
   v90 = WeakRetained;
   v92 = &v90;
   v69 = a2;
-  v5 = std::__hash_table<std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(a2 + 4, &v90);
+  v5 = std::__hash_table<std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(a2 + 4, &v90, &std::piecewise_construct, &v92);
   v6 = 0;
   for (i = [v4 count]; v6 < i; i = objc_msgSend(v68, "count", v68))
   {
@@ -1158,13 +3703,13 @@ LABEL_17:
         }
 
         v22 = *(*(&v86 + 1) + 8 * j);
-        v23 = [v22 parentOp];
+        v23 = [(objc_class *)v22 parentOp];
         OpData = getOpData(v23);
 
-        v27 = *(OpData + 32);
-        v26 = (OpData + 32);
-        v25 = v27;
-        if (!v27)
+        isa = OpData[4].super.super.isa;
+        v26 = OpData + 4;
+        v25 = isa;
+        if (!isa)
         {
           goto LABEL_23;
         }
@@ -1172,7 +3717,7 @@ LABEL_17:
         v28 = v26;
         do
         {
-          v29 = v25[4];
+          v29 = v25[4].super.super.isa;
           v30 = v29 >= v22;
           v31 = v29 < v22;
           if (v30)
@@ -1180,19 +3725,19 @@ LABEL_17:
             v28 = v25;
           }
 
-          v25 = v25[v31];
+          v25 = v25[v31].super.super.isa;
         }
 
         while (v25);
-        if (v28 == v26 || v28[4] > v22)
+        if (v28 == v26 || v28[4].super.super.isa > v22)
         {
 LABEL_23:
         }
 
         else
         {
-          v33 = v28[5];
-          v32 = v28[6];
+          v33 = v28[5].super.super.isa;
+          v32 = v28[6].super.super.isa;
 
           for (; v33 != v32; ++v33)
           {
@@ -1449,7 +3994,7 @@ LABEL_42:
 LABEL_92:
 }
 
-void sub_1E075953C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, void *a36, uint64_t a37, char a38, void *a39)
+void sub_1E075953C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, uint64_t a38, void *a39)
 {
   std::vector<MPSGraphTensor * {__strong}>::~vector[abi:ne200100](&a15);
   std::vector<MPSGraphTensor * {__strong}>::~vector[abi:ne200100](&a18);
@@ -1495,7 +4040,7 @@ void sub_1E075A660(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t mlir::OpBuilder::create<mlir::scf::WhileOp,std::vector<mlir::Type> &,std::vector<mlir::Value> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+char *mlir::OpBuilder::create<mlir::scf::WhileOp,std::vector<mlir::Type> &,std::vector<mlir::Value> &>(mlir::OpBuilder *a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
   v20[5] = *MEMORY[0x1E69E9840];
   v14 = a2;
@@ -1516,7 +4061,7 @@ uint64_t mlir::OpBuilder::create<mlir::scf::WhileOp,std::vector<mlir::Type> &,st
   mlir::ValueRange::ValueRange(v18, *a4, (a4[1] - *a4) >> 3);
   mlir::scf::WhileOp::build(a1, v17, v20[0], v20[1], v18[0], v18[1], 0, 0);
   v11 = mlir::OpBuilder::create(a1, v17);
-  if (*(*(v11 + 48) + 16) == &mlir::detail::TypeIDResolver<mlir::scf::WhileOp,void>::id)
+  if (*(*(v11 + 6) + 16) == &mlir::detail::TypeIDResolver<mlir::scf::WhileOp,void>::id)
   {
     v12 = v11;
   }
@@ -1530,16 +4075,16 @@ uint64_t mlir::OpBuilder::create<mlir::scf::WhileOp,std::vector<mlir::Type> &,st
   return v12;
 }
 
-void sub_1E075AA0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1E075AA0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   mlir::OperationState::~OperationState(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1E075AA20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1E075AA20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   mlir::OperationState::~OperationState(va);
   _Unwind_Resume(a1);
 }
@@ -1551,18 +4096,18 @@ void sub_1E075ADE8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void std::__tree<std::__value_type<MPSGraphBlock * {__strong},AutodiffSaveTemps::BlockInfos>,std::__map_value_compare<MPSGraphBlock * {__strong},std::__value_type<MPSGraphBlock * {__strong},AutodiffSaveTemps::BlockInfos>,std::less<MPSGraphBlock * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphBlock * {__strong},AutodiffSaveTemps::BlockInfos>>>::destroy(uint64_t a1, void *a2)
+void std::__tree<std::__value_type<MPSGraphBlock * {__strong},AutodiffSaveTemps::BlockInfos>,std::__map_value_compare<MPSGraphBlock * {__strong},std::__value_type<MPSGraphBlock * {__strong},AutodiffSaveTemps::BlockInfos>,std::less<MPSGraphBlock * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphBlock * {__strong},AutodiffSaveTemps::BlockInfos>>>::destroy(uint64_t a1, char *a2)
 {
   if (a2)
   {
     std::__tree<std::__value_type<MPSGraphBlock * {__strong},AutodiffSaveTemps::BlockInfos>,std::__map_value_compare<MPSGraphBlock * {__strong},std::__value_type<MPSGraphBlock * {__strong},AutodiffSaveTemps::BlockInfos>,std::less<MPSGraphBlock * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphBlock * {__strong},AutodiffSaveTemps::BlockInfos>>>::destroy(a1, *a2);
-    std::__tree<std::__value_type<MPSGraphBlock * {__strong},AutodiffSaveTemps::BlockInfos>,std::__map_value_compare<MPSGraphBlock * {__strong},std::__value_type<MPSGraphBlock * {__strong},AutodiffSaveTemps::BlockInfos>,std::less<MPSGraphBlock * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphBlock * {__strong},AutodiffSaveTemps::BlockInfos>>>::destroy(a1, a2[1]);
-    std::__tree<MPSGraphTensor * {__strong}>::destroy((a2 + 21), a2[22]);
-    std::__tree<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::__map_value_compare<MPSGraphTensor * {__strong},std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::less<MPSGraphTensor * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>>>::destroy((a2 + 18), a2[19]);
-    std::__tree<MPSGraphTensor * {__strong}>::destroy((a2 + 15), a2[16]);
-    std::__tree<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::__map_value_compare<MPSGraphTensor * {__strong},std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::less<MPSGraphTensor * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>>>::destroy((a2 + 12), a2[13]);
-    std::__tree<MPSGraphTensor * {__strong}>::destroy((a2 + 9), a2[10]);
-    std::__tree<MPSGraphTensor * {__strong}>::destroy((a2 + 6), a2[7]);
+    std::__tree<std::__value_type<MPSGraphBlock * {__strong},AutodiffSaveTemps::BlockInfos>,std::__map_value_compare<MPSGraphBlock * {__strong},std::__value_type<MPSGraphBlock * {__strong},AutodiffSaveTemps::BlockInfos>,std::less<MPSGraphBlock * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphBlock * {__strong},AutodiffSaveTemps::BlockInfos>>>::destroy(a1, *(a2 + 1));
+    std::__tree<MPSGraphTensor * {__strong}>::destroy((a2 + 168), *(a2 + 22));
+    std::__tree<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::__map_value_compare<MPSGraphTensor * {__strong},std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::less<MPSGraphTensor * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>>>::destroy((a2 + 144), *(a2 + 19));
+    std::__tree<MPSGraphTensor * {__strong}>::destroy((a2 + 120), *(a2 + 16));
+    std::__tree<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::__map_value_compare<MPSGraphTensor * {__strong},std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::less<MPSGraphTensor * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>>>::destroy((a2 + 96), *(a2 + 13));
+    std::__tree<MPSGraphTensor * {__strong}>::destroy((a2 + 72), *(a2 + 10));
+    std::__tree<MPSGraphTensor * {__strong}>::destroy((a2 + 48), *(a2 + 7));
 
     operator delete(a2);
   }
@@ -1613,7 +4158,7 @@ void AutodiffIfData::~AutodiffIfData(AutodiffIfData *this)
   JUMPOUT(0x1E12E5B90);
 }
 
-void AutodiffIfData::buildGrad(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, unint64_t *a7)
+void AutodiffIfData::buildGrad(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, id **a7)
 {
   v82 = *MEMORY[0x1E69E9840];
   v50 = *(a1 + 8);
@@ -1691,7 +4236,7 @@ void AutodiffIfData::buildGrad(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, 
         if (v24 < v23)
         {
           *v24 = v22;
-          v21 = (v24 + 1);
+          v21 = (v24 + 8);
         }
 
         else
@@ -1874,29 +4419,29 @@ uint64_t AutodiffIfData::recurseForUsesFromOpOutput(id *this, Autodiff *a2, MPSG
   return (v12 | a2) & 1;
 }
 
-void AutodiffIfData::extractValues(uint64_t a1@<X0>, uint64_t *a2@<X1>, unint64_t *a3@<X8>)
+void AutodiffIfData::extractValues(uint64_t a1@<X0>, uint64_t *a2@<X1>, void ***a3@<X8>)
 {
-  v86 = *MEMORY[0x1E69E9840];
-  v61 = *(a1 + 8);
-  v71[0] = mlir::Attribute::getContext((v61[8] + 24));
-  v71[1] = 0;
-  v72 = 0;
-  v73 = 0;
-  v70 = &unk_1F5B4B188;
-  v67 = v61;
-  v65 = v67;
-  WeakRetained = objc_loadWeakRetained(v67 + 1);
-  v66 = &unk_1F5B4B208;
-  v69 = a2;
-  v5 = v67[8];
+  v80 = *MEMORY[0x1E69E9840];
+  v55 = *(a1 + 8);
+  v65[0] = mlir::Attribute::getContext((v55[8] + 24));
+  v65[1] = 0;
+  v66 = 0;
+  v67 = 0;
+  v64 = &unk_1F5B4B188;
+  v61 = v55;
+  v59 = v61;
+  WeakRetained = objc_loadWeakRetained(v61 + 1);
+  v60 = &unk_1F5B4B208;
+  v63 = a2;
+  v5 = v61[8];
   obj = *(WeakRetained + 22);
-  v64 = obj;
-  v62 = *(*(WeakRetained + 7) + 16);
-  v6 = v67;
-  v7 = v5[9];
+  v58 = obj;
+  v56 = *(*(WeakRetained + 7) + 16);
+  v6 = v61;
+  v7 = *(v5 + 9);
   if (v7)
   {
-    v8 = (v5 - 4);
+    v8 = v5 - 16;
   }
 
   else
@@ -1904,14 +4449,14 @@ void AutodiffIfData::extractValues(uint64_t a1@<X0>, uint64_t *a2@<X1>, unint64_
     v8 = 0;
   }
 
-  v84 = v8;
-  v85 = v7;
-  mlir::OperandRange::getTypes(&v84, v82);
-  v9 = v82[1];
-  v10 = v5[9];
+  v78 = v8;
+  v79 = v7;
+  mlir::OperandRange::getTypes(v76, &v78);
+  v9 = v76[1];
+  v10 = *(v5 + 9);
   if (v10)
   {
-    v11 = (v5 - 4);
+    v11 = v5 - 16;
   }
 
   else
@@ -1919,15 +4464,15 @@ void AutodiffIfData::extractValues(uint64_t a1@<X0>, uint64_t *a2@<X1>, unint64_
     v11 = 0;
   }
 
-  v84 = v11;
-  v85 = v10;
-  mlir::OperandRange::getTypes(&v84, v82);
-  v75 = 0;
-  v76 = 0;
+  v78 = v11;
+  v79 = v10;
+  mlir::OperandRange::getTypes(v76, &v78);
+  v69 = 0;
+  v70 = 0;
   __p = 0;
-  if (v83 != v9)
+  if (v77 != v9)
   {
-    if (!((v83 - v9) >> 61))
+    if (!((v77 - v9) >> 61))
     {
       operator new();
     }
@@ -1935,169 +4480,170 @@ void AutodiffIfData::extractValues(uint64_t a1@<X0>, uint64_t *a2@<X1>, unint64_
     std::vector<std::shared_ptr<MIL::IRArgument>>::__throw_length_error[abi:ne200100]();
   }
 
-  v13 = *(v5 + 2);
-  v14 = *(MPSGraphDelegateCompiler.precompilationDescriptor.modify(v5, v12) + 8);
-  v72 = v13;
-  v73 = v14;
+  v12 = *(v5 + 2);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+  v14 = *(v13 + 8);
+  v66 = v12;
+  v67 = v14;
   v15 = *(WeakRetained + 7);
   v16 = *(v5 + 2);
-  v18 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(v5, v17);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
   *(v15 + 16) = v16;
-  *(v15 + 24) = v18;
-  v19 = objc_loadWeakRetained(v67 + 6);
-  v20 = *(WeakRetained + 22);
-  *(WeakRetained + 22) = v19;
+  *(v15 + 24) = v17;
+  v18 = objc_loadWeakRetained(v61 + 6);
+  v19 = *(WeakRetained + 22);
+  *(WeakRetained + 22) = v18;
 
-  (*v66)(&v66, &__p);
-  v21 = *(v5 + 3);
-  v22 = *(*(v5 + 9) + 24);
-  v77 = v21;
-  Context = mlir::Attribute::getContext(&v77);
-  v24 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::scf::IfOp,void>::id, Context);
-  if ((v25 & 1) == 0)
+  (*v60)(&v60, &__p);
+  v20 = *(v5 + 3);
+  v21 = *(*(v5 + 9) + 24);
+  v71 = v20;
+  Context = mlir::Attribute::getContext(&v71);
+  v23 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::scf::IfOp,void>::id, Context);
+  if ((v24 & 1) == 0)
   {
-    v81 = 1283;
-    v80[2] = "scf.if";
-    v80[3] = 6;
-    v79 = 259;
-    llvm::operator+(v80, &v78, &v84);
-    llvm::report_fatal_error(&v84, 1);
+    v75 = 1283;
+    v74[2] = "scf.if";
+    v74[3] = 6;
+    v73 = 259;
+    llvm::operator+(v74, &v72, &v78);
+    llvm::report_fatal_error(&v78, 1);
   }
 
-  mlir::OperationState::OperationState(v82, v21, v24);
-  mlir::ValueRange::ValueRange(&v84, __p, (v75 - __p) >> 3);
-  mlir::scf::IfOp::build(v71, v82, v84, v85, v22, 1);
-  v26 = mlir::OpBuilder::create(v71, v82);
-  v27 = *(*(v26 + 48) + 16);
-  mlir::OperationState::~OperationState(v82);
-  if (v27 == &mlir::detail::TypeIDResolver<mlir::scf::IfOp,void>::id)
+  mlir::OperationState::OperationState(v76, v20, v23);
+  mlir::ValueRange::ValueRange(&v78, __p, (v69 - __p) >> 3);
+  mlir::scf::IfOp::build(v65, v76, v78, v79, v21, 1);
+  v25 = mlir::OpBuilder::create(v65, v76);
+  v26 = *(*(v25 + 6) + 16);
+  mlir::OperationState::~OperationState(v76);
+  if (v26 == &mlir::detail::TypeIDResolver<mlir::scf::IfOp,void>::id)
   {
-    v28 = v26;
-  }
-
-  else
-  {
-    v28 = 0;
-  }
-
-  mlir::Region::takeBody((((v28 + 64 + 16 * ((*(v28 + 44) >> 23) & 1) + ((*(v28 + 44) >> 21) & 0x7F8) + 7) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v28 + 40)), (((&v5[4 * ((v5[11] >> 23) & 1) + 17] + ((v5[11] >> 21) & 0x7F8) + 3) & 0xFFFFFFFFFFFFFFF8) + 32 * v5[10]));
-  mlir::Region::takeBody((((v28 + 64 + 16 * ((*(v28 + 44) >> 23) & 1) + ((*(v28 + 44) >> 21) & 0x7F8) + 7) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v28 + 40) + 24), (((&v5[4 * ((v5[11] >> 23) & 1) + 17] + ((v5[11] >> 21) & 0x7F8) + 3) & 0xFFFFFFFFFFFFFFF8) + 32 * v5[10] + 24));
-  AddInputsRewrite::replaceOp(&v67, v5, v28, v6[2]);
-  v29 = *(((v28 + 64 + 16 * ((*(v28 + 44) >> 23) & 1) + ((*(v28 + 44) >> 21) & 0x7F8) + 7) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v28 + 40) + 8);
-  if (v29)
-  {
-    v30 = (v29 - 8);
+    v27 = v25;
   }
 
   else
   {
-    v30 = 0;
+    v27 = 0;
   }
 
-  v31 = [*(v67[5] + 1) objectAtIndexedSubscript:0];
-  Terminator = mlir::Block::getTerminator(v30, v32);
-  v34 = *(WeakRetained + 7);
-  v35 = *(Terminator + 16);
-  v37 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(Terminator, v36);
-  *(v34 + 16) = v35;
-  *(v34 + 24) = v37;
-  objc_storeStrong(WeakRetained + 22, v31);
-  v38 = [v6[14] mutableCopy];
-  v66[1](&v66, v38);
-  objc_storeStrong(v6 + 14, v38);
-  AddInputsRewrite::extendBlockTermOp(&v70, v30, v38, 0);
-  v39 = *(((v28 + 64 + 16 * ((*(v28 + 44) >> 23) & 1) + ((*(v28 + 44) >> 21) & 0x7F8) + 7) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v28 + 40) + 32);
-  if (v39)
+  mlir::Region::takeBody((((v27 + 64 + 16 * ((*(v27 + 44) >> 23) & 1) + ((*(v27 + 44) >> 21) & 0x7F8) + 7) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v27 + 40)), (((v5 + 16 * ((*(v5 + 11) >> 23) & 1) + ((*(v5 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v5 + 10)));
+  mlir::Region::takeBody((((v27 + 64 + 16 * ((*(v27 + 44) >> 23) & 1) + ((*(v27 + 44) >> 21) & 0x7F8) + 7) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v27 + 40) + 24), (((v5 + 16 * ((*(v5 + 11) >> 23) & 1) + ((*(v5 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v5 + 10) + 24));
+  AddInputsRewrite::replaceOp(&v61, v5, v27, v6[2]);
+  v28 = *(((v27 + 64 + 16 * ((*(v27 + 44) >> 23) & 1) + ((*(v27 + 44) >> 21) & 0x7F8) + 7) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v27 + 40) + 8);
+  if (v28)
   {
-    v40 = (v39 - 8);
+    v29 = (v28 - 8);
   }
 
   else
   {
-    v40 = 0;
+    v29 = 0;
   }
 
-  v41 = [*(v67[5] + 1) objectAtIndexedSubscript:1];
-  v43 = mlir::Block::getTerminator(v40, v42);
-  v44 = *(WeakRetained + 7);
-  v45 = *(v43 + 16);
-  v47 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(v43, v46);
-  *(v44 + 16) = v45;
-  *(v44 + 24) = v47;
-  objc_storeStrong(WeakRetained + 22, v41);
-  v48 = [v6[13] mutableCopy];
-  v66[2](&v66, v48);
-  objc_storeStrong(v6 + 13, v48);
-  AddInputsRewrite::extendBlockTermOp(&v70, v40, v48, 0);
-  v49 = WeakRetained;
-  v50 = *(WeakRetained + 7);
-  if (v62)
+  v30 = [*(v61[5] + 1) objectAtIndexedSubscript:0];
+  mlir::Block::getTerminator(v29);
+  v31 = *(WeakRetained + 7);
+  v33 = *(v32 + 16);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+  *(v31 + 16) = v33;
+  *(v31 + 24) = v34;
+  objc_storeStrong(WeakRetained + 22, v30);
+  v35 = [v6[14] mutableCopy];
+  v60[1](&v60, v35);
+  objc_storeStrong(v6 + 14, v35);
+  AddInputsRewrite::extendBlockTermOp(&v64, v29, v35, 0);
+  v36 = *(((v27 + 64 + 16 * ((*(v27 + 44) >> 23) & 1) + ((*(v27 + 44) >> 21) & 0x7F8) + 7) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v27 + 40) + 32);
+  if (v36)
   {
-    *(v50 + 16) = v62;
+    v37 = (v36 - 8);
   }
 
   else
   {
-    *(v50 + 16) = 0;
-    *(v50 + 24) = 0;
-    v49 = WeakRetained;
+    v37 = 0;
   }
 
-  objc_storeStrong(v49 + 22, obj);
+  v38 = [*(v61[5] + 1) objectAtIndexedSubscript:1];
+  mlir::Block::getTerminator(v37);
+  v39 = *(WeakRetained + 7);
+  v41 = *(v40 + 16);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+  *(v39 + 16) = v41;
+  *(v39 + 24) = v42;
+  objc_storeStrong(WeakRetained + 22, v38);
+  v43 = [v6[13] mutableCopy];
+  v60[2](&v60, v43);
+  objc_storeStrong(v6 + 13, v43);
+  AddInputsRewrite::extendBlockTermOp(&v64, v37, v43, 0);
+  v44 = WeakRetained;
+  v45 = *(WeakRetained + 7);
+  if (v56)
+  {
+    *(v45 + 16) = v56;
+  }
+
+  else
+  {
+    *(v45 + 16) = 0;
+    *(v45 + 24) = 0;
+    v44 = WeakRetained;
+  }
+
+  objc_storeStrong(v44 + 22, obj);
 
   if (__p)
   {
-    v75 = __p;
+    v69 = __p;
     operator delete(__p);
   }
 
-  MPSGraphDelegateCompiler.precompilationDescriptor.modify(&v70, v51);
-  v53 = *v69;
-  v52 = v69[1];
-  v54 = (v52 - *v69) >> 3;
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+  v47 = *v63;
+  v46 = v63[1];
+  v48 = (v46 - *v63) >> 3;
   a3[1] = 0;
   a3[2] = 0;
   *a3 = 0;
-  std::vector<MPSGraphTensor * {__strong}>::reserve(a3, v54);
-  if (v52 != v53)
+  std::vector<MPSGraphTensor * {__strong}>::reserve(a3, v48);
+  if (v46 != v47)
   {
-    if (v54 <= 1)
+    if (v48 <= 1)
     {
-      v55 = 1;
+      v49 = 1;
     }
 
     else
     {
-      v55 = v54;
+      v49 = v48;
     }
 
-    v56 = -v54;
+    v50 = -v48;
     do
     {
-      v57 = [v67[3] objectAtIndexedSubscript:{v56 + objc_msgSend(v67[3], "count")}];
-      v82[0] = v57;
-      v58 = a3[1];
-      if (v58 >= a3[2])
+      v51 = [v61[3] objectAtIndexedSubscript:{v50 + objc_msgSend(v61[3], "count")}];
+      v76[0] = v51;
+      v52 = a3[1];
+      if (v52 >= a3[2])
       {
-        v60 = std::vector<MPSGraphTensor * {__strong}>::__emplace_back_slow_path<MPSGraphTensor * {__strong}>(a3, v82);
-        v59 = v82[0];
+        v54 = std::vector<MPSGraphTensor * {__strong}>::__emplace_back_slow_path<MPSGraphTensor * {__strong}>(a3, v76);
+        v53 = v76[0];
       }
 
       else
       {
-        v59 = 0;
-        v82[0] = 0;
-        *v58 = v57;
-        v60 = (v58 + 1);
+        v53 = 0;
+        v76[0] = 0;
+        *v52 = v51;
+        v54 = v52 + 1;
       }
 
-      a3[1] = v60;
+      a3[1] = v54;
 
-      ++v56;
-      --v55;
+      ++v50;
+      --v49;
     }
 
-    while (v55);
+    while (v49);
   }
 }
 
@@ -2108,7 +4654,7 @@ void sub_1E075D33C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void AutodiffIfData::injectValues(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X8>)
+void AutodiffIfData::injectValues(uint64_t a1@<X0>, void *a2@<X1>, uint64_t **a3@<X8>)
 {
   v4 = a1;
   WeakRetained = objc_loadWeakRetained((*(a1 + 8) + 8));
@@ -2119,7 +4665,7 @@ void AutodiffIfData::injectValues(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X8>
 
   a3[1] = 0;
   a3[2] = 0;
-  *a3 = a3 + 1;
+  *a3 = (a3 + 1);
   v8 = *a2;
   v62 = a2 + 1;
   v63 = a3 + 1;
@@ -2419,17 +4965,17 @@ LABEL_38:
   v58[22] = v61;
 }
 
-void sub_1E075D9AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, void **a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1E075D9AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, void *a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, void **a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va1, a13);
-  va_start(va, a13);
-  v14 = va_arg(va1, void *);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v21 = va_arg(va1, char *);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   std::vector<MPSGraphTensor * {__strong}>::~vector[abi:ne200100](va);
 
   std::pair<MPSGraphBlock * const {__strong},std::vector<MPSGraphTensor * {__strong}>>::~pair(va1);
-  std::__tree<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::__map_value_compare<MPSGraphBlock * {__strong},std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::less<MPSGraphBlock * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>>>::destroy(*a7);
+  std::__tree<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::__map_value_compare<MPSGraphBlock * {__strong},std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::less<MPSGraphBlock * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>>>::destroy(*a14);
 
   _Unwind_Resume(a1);
 }
@@ -2440,13 +4986,13 @@ void AutodiffOpData::~AutodiffOpData(AutodiffOpData *this)
   std::__tree<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::__map_value_compare<MPSGraphBlock * {__strong},std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::less<MPSGraphBlock * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>>>::destroy(*(this + 4));
 }
 
-id ___ZN14AutodiffIfData9buildGradEP8AutodiffRKNSt3__16vectorIU8__strongP14MPSGraphTensorNS2_9allocatorIS6_EEEERKNS2_3mapIS6_S6_NS2_4lessIS6_EENS7_INS2_4pairIU8__strongKS5_S6_EEEEEERS9_SM_SM__block_invoke(uint64_t a1)
+id ___ZN14AutodiffIfData9buildGradEP8AutodiffRKNSt3__16vectorIU8__strongP14MPSGraphTensorNS2_9allocatorIS6_EEEERKNS2_3mapIS6_S6_NS2_4lessIS6_EENS7_INS2_4pairIU8__strongKS5_S6_EEEEEERS9_SM_SM__block_invoke(uint64_t **a1)
 {
-  v2 = *(a1 + 40);
+  v2 = a1[5];
   v3 = [*(*(*(v2 + 8) + 40) + 8) objectAtIndexedSubscript:0];
-  v4 = *(a1 + 48);
-  v5 = *(*(a1 + 32) + 112);
-  v6 = *(a1 + 80);
+  v4 = a1[6];
+  v5 = a1[4][14];
+  v6 = a1[10];
   v25 = 0;
   v26 = 0;
   __p = 0;
@@ -2464,18 +5010,18 @@ id ___ZN14AutodiffIfData9buildGradEP8AutodiffRKNSt3__16vectorIU8__strongP14MPSGr
     std::vector<std::shared_ptr<MIL::IRArgument>>::__throw_length_error[abi:ne200100]();
   }
 
-  v9 = *(a1 + 88);
+  v9 = a1[11];
   v23[0] = 0;
   v23[1] = 0;
   v22 = v23;
   v12 = *v9;
-  v10 = v9 + 1;
+  v10 = (v9 + 1);
   v11 = v12;
   if (v12 != v10)
   {
     do
     {
-      std::__tree<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::__map_value_compare<MPSGraphTensor * {__strong},std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::less<MPSGraphTensor * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>>>::__emplace_hint_unique_key_args<MPSGraphTensor * {__strong},std::pair<MPSGraphTensor * const {__strong},MPSGraphTensor * {__strong}> const&>(&v22, v23, v11[4]);
+      std::__tree<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::__map_value_compare<MPSGraphTensor * {__strong},std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::less<MPSGraphTensor * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>>>::__emplace_hint_unique_key_args<MPSGraphTensor * {__strong},std::pair<MPSGraphTensor * const {__strong},MPSGraphTensor * {__strong}> const&>(&v22, v23, v11[4], v11 + 4);
       v19 = v11[1];
       if (v19)
       {
@@ -2506,7 +5052,7 @@ id ___ZN14AutodiffIfData9buildGradEP8AutodiffRKNSt3__16vectorIU8__strongP14MPSGr
     while (v20 != v10);
   }
 
-  v13 = AutodiffIfData::gradsForBlock(v2, v4, v3, v5, (a1 + 56), &__p, &v22);
+  v13 = AutodiffIfData::gradsForBlock(v2, v4, v3, v5, a1 + 7, &__p, &v22);
   std::__tree<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::__map_value_compare<MPSGraphTensor * {__strong},std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::less<MPSGraphTensor * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>>>::destroy(&v22, v23[0]);
   v14 = __p;
   if (__p)
@@ -2540,7 +5086,7 @@ void sub_1E075DC6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-id AutodiffIfData::gradsForBlock(uint64_t a1, Autodiff *a2, void *a3, void *a4, uint64_t **a5, uint64_t *a6, uint64_t a7)
+id AutodiffIfData::gradsForBlock(uint64_t a1, Autodiff *a2, void *a3, void *a4, uint64_t **a5, uint64_t *a6, uint64_t **a7)
 {
   v12 = a3;
   v42 = a4;
@@ -2555,7 +5101,7 @@ id AutodiffIfData::gradsForBlock(uint64_t a1, Autodiff *a2, void *a3, void *a4, 
   v15 = a5[1];
   if (*a5 != v15)
   {
-    v17 = (a7 + 8);
+    v17 = a7 + 1;
     do
     {
       v18 = *v16;
@@ -2626,16 +5172,16 @@ LABEL_9:
         v32 = BlockEscapeds;
         while (*v32 != v29)
         {
-          ++v32;
+          v32 += 8;
           v31 -= 8;
           if (!v31)
           {
-            v32 = (BlockEscapeds + 8 * v38);
+            v32 = BlockEscapeds + 8 * v38;
             break;
           }
         }
 
-        if ((v32 - BlockEscapeds) == (8 * v38) || (Autodiff::getGradientOf(v39, v40, v29), (v33 = objc_claimAutoreleasedReturnValue()) == 0))
+        if (v32 - BlockEscapeds == 8 * v38 || (Autodiff::getGradientOf(v39, v40, v29), (v33 = objc_claimAutoreleasedReturnValue()) == 0))
         {
           v33 = Autodiff::getFilledLike(v39, v30, 0.0, &cfstr_Ifescaped0.isa);
         }
@@ -2746,7 +5292,7 @@ id ___ZN14AutodiffIfData9buildGradEP8AutodiffRKNSt3__16vectorIU8__strongP14MPSGr
   {
     do
     {
-      std::__tree<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::__map_value_compare<MPSGraphTensor * {__strong},std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::less<MPSGraphTensor * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>>>::__emplace_hint_unique_key_args<MPSGraphTensor * {__strong},std::pair<MPSGraphTensor * const {__strong},MPSGraphTensor * {__strong}> const&>(&v22, v23, v11[4]);
+      std::__tree<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::__map_value_compare<MPSGraphTensor * {__strong},std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::less<MPSGraphTensor * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>>>::__emplace_hint_unique_key_args<MPSGraphTensor * {__strong},std::pair<MPSGraphTensor * const {__strong},MPSGraphTensor * {__strong}> const&>(&v22, v23, v11[4], v11 + 4);
       v19 = v11[1];
       if (v19)
       {
@@ -2811,16 +5357,16 @@ void sub_1E075E358(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t getBlockEscapeds(MPSGraphBlock *a1)
+Class getBlockEscapeds(MPSGraphBlock *a1)
 {
   v1 = a1;
   v2 = [(MPSGraphBlock *)v1 parentOp];
   OpData = getOpData(v2);
 
-  v6 = *(OpData + 32);
-  v5 = OpData + 32;
-  v4 = v6;
-  if (!v6)
+  isa = OpData[4].super.super.isa;
+  v5 = OpData + 4;
+  v4 = isa;
+  if (!isa)
   {
     goto LABEL_9;
   }
@@ -2828,7 +5374,7 @@ uint64_t getBlockEscapeds(MPSGraphBlock *a1)
   v7 = v5;
   do
   {
-    v8 = *(v4 + 32);
+    v8 = *(v4 + 4);
     v9 = v8 >= v1;
     v10 = v8 < v1;
     if (v9)
@@ -2836,13 +5382,13 @@ uint64_t getBlockEscapeds(MPSGraphBlock *a1)
       v7 = v4;
     }
 
-    v4 = *(v4 + 8 * v10);
+    v4 = *(v4 + v10);
   }
 
   while (v4);
-  if (v7 != v5 && *(v7 + 32) <= v1)
+  if (v7 != v5 && v7[4].super.super.isa <= v1)
   {
-    v11 = *(v7 + 40);
+    v11 = v7[5].super.super.isa;
   }
 
   else
@@ -2886,57 +5432,57 @@ void ***std::__exception_guard_exceptions<std::vector<MPSGraphTensor * {__strong
   return result;
 }
 
-void *std::__tree<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::__map_value_compare<MPSGraphTensor * {__strong},std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::less<MPSGraphTensor * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>>>::__emplace_hint_unique_key_args<MPSGraphTensor * {__strong},std::pair<MPSGraphTensor * const {__strong},MPSGraphTensor * {__strong}> const&>(void *result, void *a2, unint64_t a3)
+uint64_t **std::__tree<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::__map_value_compare<MPSGraphTensor * {__strong},std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::less<MPSGraphTensor * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>>>::__emplace_hint_unique_key_args<MPSGraphTensor * {__strong},std::pair<MPSGraphTensor * const {__strong},MPSGraphTensor * {__strong}> const&>(uint64_t **result, uint64_t *a2, unint64_t a3, id *a4)
 {
-  v3 = result + 1;
-  if (result + 1 == a2 || (v4 = a2[4], v4 > a3))
+  v4 = (result + 1);
+  if (result + 1 == a2 || (v5 = a2[4], v5 > a3))
   {
-    v5 = *a2;
+    v6 = *a2;
     if (*result == a2)
     {
-      v7 = a2;
+      v8 = a2;
       goto LABEL_16;
     }
 
-    if (v5)
+    if (v6)
     {
-      v6 = *a2;
+      v7 = *a2;
       do
       {
-        v7 = v6;
-        v6 = v6[1];
+        v8 = v7;
+        v7 = v7[1];
       }
 
-      while (v6);
+      while (v7);
     }
 
     else
     {
-      v11 = a2;
+      v12 = a2;
       do
       {
-        v7 = v11[2];
-        v12 = *v7 == v11;
-        v11 = v7;
+        v8 = v12[2];
+        v13 = *v8 == v12;
+        v12 = v8;
       }
 
-      while (v12);
+      while (v13);
     }
 
-    if (v7[4] < a3)
+    if (v8[4] < a3)
     {
 LABEL_16:
-      if (v5)
+      if (v6)
       {
-        v13 = v7 + 1;
+        v14 = v8 + 1;
       }
 
       else
       {
-        v13 = a2;
+        v14 = a2;
       }
 
-      if (*v13)
+      if (*v14)
       {
         return result;
       }
@@ -2945,8 +5491,8 @@ LABEL_34:
       operator new();
     }
 
-    v14 = *v3;
-    if (!*v3)
+    v15 = *v4;
+    if (!*v4)
     {
       goto LABEL_34;
     }
@@ -2955,27 +5501,27 @@ LABEL_34:
     {
       while (1)
       {
-        v15 = v14;
-        v16 = v14[4];
-        if (v16 <= a3)
+        v16 = v15;
+        v17 = v15[4];
+        if (v17 <= a3)
         {
           break;
         }
 
-        v14 = *v14;
-        if (!*v15)
+        v15 = *v15;
+        if (!*v16)
         {
           goto LABEL_34;
         }
       }
 
-      if (v16 >= a3)
+      if (v17 >= a3)
       {
         break;
       }
 
-      v14 = v14[1];
-      if (!v14)
+      v15 = v15[1];
+      if (!v15)
       {
         goto LABEL_34;
       }
@@ -2984,48 +5530,48 @@ LABEL_34:
 
   else
   {
-    if (v4 >= a3)
+    if (v5 >= a3)
     {
       return result;
     }
 
-    v8 = a2[1];
-    if (v8)
+    v9 = a2[1];
+    if (v9)
     {
       do
       {
-        v9 = v8;
-        v8 = *v8;
         v10 = v9;
+        v9 = *v9;
+        v11 = v10;
       }
 
-      while (v8);
+      while (v9);
     }
 
     else
     {
-      v10 = a2;
+      v11 = a2;
       do
       {
-        v17 = v10;
-        v10 = v10[2];
+        v18 = v11;
+        v11 = v11[2];
       }
 
-      while (*v10 != v17);
+      while (*v11 != v18);
     }
 
-    if (v10 == v3)
+    if (v11 == v4)
     {
       goto LABEL_34;
     }
 
-    if (v10[4] > a3)
+    if (v11[4] > a3)
     {
       goto LABEL_34;
     }
 
-    v18 = *v3;
-    if (!*v3)
+    v19 = *v4;
+    if (!*v4)
     {
       goto LABEL_34;
     }
@@ -3034,27 +5580,27 @@ LABEL_34:
     {
       while (1)
       {
-        v19 = v18;
-        v20 = v18[4];
-        if (v20 <= a3)
+        v20 = v19;
+        v21 = v19[4];
+        if (v21 <= a3)
         {
           break;
         }
 
-        v18 = *v18;
-        if (!*v19)
+        v19 = *v19;
+        if (!*v20)
         {
           goto LABEL_34;
         }
       }
 
-      if (v20 >= a3)
+      if (v21 >= a3)
       {
         break;
       }
 
-      v18 = v18[1];
-      if (!v18)
+      v19 = v19[1];
+      if (!v19)
       {
         goto LABEL_34;
       }
@@ -3064,9 +5610,9 @@ LABEL_34:
   return result;
 }
 
-void MyPatternRewriter::~MyPatternRewriter(MyPatternRewriter *this, uint64_t a2)
+void MyPatternRewriter::~MyPatternRewriter(MyPatternRewriter *this)
 {
-  MPSGraphDelegateCompiler.precompilationDescriptor.modify(this, a2);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
 
   JUMPOUT(0x1E12E5B90);
 }
@@ -3160,10 +5706,10 @@ void AddIfExtractValuesRewrite::addBlockOutputs(uint64_t a1, void *a2, int a3)
   }
 }
 
-void AddInputsRewrite::replaceOp(uint64_t *a1, unsigned int *a2, uint64_t a3, void *a4)
+void AddInputsRewrite::replaceOp(uint64_t *a1, mlir::Operation *a2, uint64_t a3, void *a4)
 {
-  v33 = a4;
-  v34 = a1;
+  v34 = a4;
+  v35 = a1;
   v7 = [*(*a1 + 24) mutableCopy];
   obj = a4;
   if (*(a3 + 36))
@@ -3186,9 +5732,9 @@ void AddInputsRewrite::replaceOp(uint64_t *a1, unsigned int *a2, uint64_t a3, vo
       if ([v7 count] <= v8)
       {
         v13 = [MPSGraphTensor alloc];
-        v15 = *v34;
-        v14 = v34[1];
-        WeakRetained = objc_loadWeakRetained((*v34 + 48));
+        v15 = *v35;
+        v14 = v35[1];
+        WeakRetained = objc_loadWeakRetained((*v35 + 48));
         v16 = [(MPSGraphTensor *)v13 initTensorWithOperation:v15 value:v11 graph:v14 parentBlock:WeakRetained name:0];
         [v7 addObject:v16];
       }
@@ -3207,33 +5753,23 @@ void AddInputsRewrite::replaceOp(uint64_t *a1, unsigned int *a2, uint64_t a3, vo
     while (v8 < *(a3 + 36));
   }
 
-  v17 = *v34;
+  v17 = *v35;
   *(v17 + 64) = a3;
   objc_storeStrong((v17 + 16), obj);
-  objc_storeStrong((*v34 + 24), v7);
-  v18 = a2[9];
-  if (v18)
+  objc_storeStrong((*v35 + 24), v7);
+  v19 = *(a2 + 9);
+  if (v19)
   {
-    for (i = 0; i != v18; ++i)
+    for (i = 0; i != v19; ++i)
     {
-      v20 = 4 * ~i;
-      v21 = &a2[v20];
-      v22 = (a3 + v20 * 4);
-      v23 = 6 * (5 - i);
-      v24 = (a3 - 96 + v23 * 4);
+      v21 = 16 * ~i;
+      v22 = (a2 + v21);
+      v23 = (a3 + v21);
+      v24 = 24 * (5 - i);
+      v25 = a3 - 96 + v24;
       if (i >= 6)
       {
-        v25 = &a2[v23 - 24];
-      }
-
-      else
-      {
-        v25 = v21;
-      }
-
-      if (i >= 6)
-      {
-        v26 = v24;
+        v26 = (a2 + v24 - 96);
       }
 
       else
@@ -3241,52 +5777,63 @@ void AddInputsRewrite::replaceOp(uint64_t *a1, unsigned int *a2, uint64_t a3, vo
         v26 = v22;
       }
 
+      if (i >= 6)
+      {
+        v27 = v25;
+      }
+
+      else
+      {
+        v27 = v23;
+      }
+
       while (1)
       {
-        v27 = *v25;
-        if (!*v25)
+        v28 = *v26;
+        if (!*v26)
         {
           break;
         }
 
-        v28 = v27[1];
-        if (v28)
+        v29 = v28[1];
+        if (v29)
         {
-          v29 = *v27;
-          *v28 = *v27;
-          if (v29)
+          v30 = *v28;
+          *v29 = *v28;
+          if (v30)
           {
-            *(v29 + 8) = v28;
+            *(v30 + 8) = v29;
           }
         }
 
-        v27[3] = v26;
-        v30 = *v26;
-        *v27 = *v26;
-        v27[1] = v26;
-        if (v30)
+        v28[3] = v27;
+        v31 = *v27;
+        *v28 = *v27;
+        v28[1] = v27;
+        if (v31)
         {
-          *(v30 + 8) = v27;
+          *(v31 + 8) = v28;
         }
 
-        *v26 = v27;
+        *v27 = v28;
       }
     }
   }
 
-  mlir::Operation::erase(a2);
+  mlir::Operation::erase(a2, v18);
 }
 
 void AddInputsRewrite::extendBlockTermOp(uint64_t a1, mlir::Block *a2, void *a3, unsigned int a4)
 {
   v17 = *MEMORY[0x1E69E9840];
   v6 = a3;
-  Terminator = mlir::Block::getTerminator(a2, v7);
+  mlir::Block::getTerminator(a2);
+  v8 = v7;
   v9 = [v6 count];
-  if ((*(Terminator + 46) & 0x80) != 0)
+  if ((*(v8 + 46) & 0x80) != 0)
   {
-    v10 = *(Terminator + 68);
-    v13 = Terminator;
+    v10 = *(v8 + 68);
+    v13 = v8;
     v11 = a4;
     if (v9 - v10 + a4)
     {
@@ -3297,7 +5844,7 @@ void AddInputsRewrite::extendBlockTermOp(uint64_t a1, mlir::Block *a2, void *a3,
   else
   {
     v10 = 0;
-    v13 = Terminator;
+    v13 = v8;
     v11 = a4;
     if (v9 + a4)
     {
@@ -3324,9 +5871,9 @@ LABEL_3:
   (*(*a1 + 48))(a1, v13);
 }
 
-void *std::vector<MPSGraphTensor * {__strong}>::reserve(void *result, unint64_t a2)
+void std::vector<MPSGraphTensor * {__strong}>::reserve(void ***a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > a1[2] - *a1)
   {
     if (!(a2 >> 61))
     {
@@ -3335,11 +5882,9 @@ void *std::vector<MPSGraphTensor * {__strong}>::reserve(void *result, unint64_t 
 
     std::vector<std::shared_ptr<MIL::IRArgument>>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-uint64_t std::vector<MPSGraphTensor * {__strong}>::__emplace_back_slow_path<MPSGraphTensor * {__strong}>(unint64_t *a1, uint64_t *a2)
+void *std::vector<MPSGraphTensor * {__strong}>::__emplace_back_slow_path<MPSGraphTensor * {__strong}>(void ***a1, uint64_t *a2)
 {
   v2 = a1[1] - *a1;
   v3 = v2 >> 3;
@@ -3447,14 +5992,14 @@ LABEL_27:
   }
 
   *a1 = v11;
-  a1[1] = 8 * v3 + 8;
+  a1[1] = (8 * v3 + 8);
   a1[2] = 0;
   if (v9)
   {
     operator delete(v9);
   }
 
-  return 8 * v3 + 8;
+  return (8 * v3 + 8);
 }
 
 uint64_t *std::unique_ptr<std::__tree_node<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t *result)
@@ -3598,11 +6143,11 @@ void AutodiffWhileData::~AutodiffWhileData(AutodiffWhileData *this)
   JUMPOUT(0x1E12E5B90);
 }
 
-void AutodiffLoopData::buildGrad(uint64_t a1, Autodiff *a2, id **a3, uint64_t a4, uint64_t a5, uint64_t a6, unint64_t *a7)
+void AutodiffLoopData::buildGrad(uint64_t a1, Autodiff *a2, id **a3, uint64_t a4, unint64_t *a5, uint64_t a6, uint64_t a7)
 {
   WeakRetained = objc_loadWeakRetained((*(a1 + 8) + 48));
   objc_opt_class();
-  v54 = a7;
+  v53 = a7;
   if (objc_opt_isKindOfClass())
   {
     v11 = *(a1 + 8);
@@ -3610,25 +6155,25 @@ void AutodiffLoopData::buildGrad(uint64_t a1, Autodiff *a2, id **a3, uint64_t a4
     {
       v12 = *(a1 + 8);
       Context = mlir::Attribute::getContext((v12[8] + 24));
+      v81 = 0;
       v82 = 0;
       v83 = 0;
-      v84 = 0;
       p_Context = &unk_1F5B4B188;
       v13 = v12;
-      v78 = v13;
-      v79 = objc_loadWeakRetained(v13 + 1);
-      v77 = &unk_1F5B4B370;
-      AddWhileInputsRewrite::rewrite(&v77, v13[8], &p_Context);
-      MPSGraphDelegateCompiler.precompilationDescriptor.modify(&p_Context, v14);
+      v77 = v13;
+      v78 = objc_loadWeakRetained(v13 + 1);
+      v76 = &unk_1F5B4B370;
+      AddWhileInputsRewrite::rewrite(&v76, v13[8], &p_Context);
+      MPSGraphDelegateCompiler.precompilationDescriptor.modify();
 
-      v15 = [v78[3] objectAtIndexedSubscript:{objc_msgSend(v78[3], "count") - 1}];
-      v16 = v11[19];
-      v11[19] = v15;
+      v14 = [v77[3] objectAtIndexedSubscript:{objc_msgSend(v77[3], "count") - 1}];
+      v15 = v11[19];
+      v11[19] = v14;
     }
 
-    v17 = [*(a1 + 16) constantWithScalar:536870944 dataType:0.0];
-    v18 = v11[19];
-    v56 = [*(a1 + 16) constantWithScalar:536870944 dataType:1.0];
+    v16 = [*(a1 + 16) constantWithScalar:536870944 dataType:0.0];
+    v17 = v11[19];
+    v55 = [*(a1 + 16) constantWithScalar:536870944 dataType:1.0];
   }
 
   else
@@ -3636,75 +6181,75 @@ void AutodiffLoopData::buildGrad(uint64_t a1, Autodiff *a2, id **a3, uint64_t a4
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v56 = 0;
-      v18 = 0;
+      v55 = 0;
       v17 = 0;
+      v16 = 0;
       goto LABEL_9;
     }
 
-    v19 = [*(a1 + 8) inputTensors];
-    v20 = [v19 objectAtIndexedSubscript:0];
-    v17 = AutodiffLoopData::buildGrad(Autodiff *,std::vector<MPSGraphTensor * {__strong}> const&,std::map<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}> const&,std::vector<MPSGraphTensor * {__strong}>&,std::map<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}> const&,std::map<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}> const&)::{lambda(MPSGraphTensor *)#1}::operator()(v20);
+    v18 = [*(a1 + 8) inputTensors];
+    v19 = [v18 objectAtIndexedSubscript:0];
+    v16 = AutodiffLoopData::buildGrad(Autodiff *,std::vector<MPSGraphTensor * {__strong}> const&,std::map<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}> const&,std::vector<MPSGraphTensor * {__strong}>&,std::map<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}> const&,std::map<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}> const&)::{lambda(MPSGraphTensor *)#1}::operator()(v19);
 
-    v21 = [*(a1 + 8) inputTensors];
-    v22 = [v21 objectAtIndexedSubscript:1];
-    v18 = AutodiffLoopData::buildGrad(Autodiff *,std::vector<MPSGraphTensor * {__strong}> const&,std::map<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}> const&,std::vector<MPSGraphTensor * {__strong}>&,std::map<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}> const&,std::map<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}> const&)::{lambda(MPSGraphTensor *)#1}::operator()(v22);
+    v20 = [*(a1 + 8) inputTensors];
+    v21 = [v20 objectAtIndexedSubscript:1];
+    v17 = AutodiffLoopData::buildGrad(Autodiff *,std::vector<MPSGraphTensor * {__strong}> const&,std::map<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}> const&,std::vector<MPSGraphTensor * {__strong}>&,std::map<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}> const&,std::map<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}> const&)::{lambda(MPSGraphTensor *)#1}::operator()(v21);
 
     v11 = [*(a1 + 8) inputTensors];
-    v23 = [v11 objectAtIndexedSubscript:2];
-    v56 = AutodiffLoopData::buildGrad(Autodiff *,std::vector<MPSGraphTensor * {__strong}> const&,std::map<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}> const&,std::vector<MPSGraphTensor * {__strong}>&,std::map<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}> const&,std::map<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}> const&)::{lambda(MPSGraphTensor *)#1}::operator()(v23);
+    v22 = [v11 objectAtIndexedSubscript:2];
+    v55 = AutodiffLoopData::buildGrad(Autodiff *,std::vector<MPSGraphTensor * {__strong}> const&,std::map<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}> const&,std::vector<MPSGraphTensor * {__strong}>&,std::map<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}> const&,std::map<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}> const&)::{lambda(MPSGraphTensor *)#1}::operator()(v22);
   }
 
 LABEL_9:
-  v59 = [MEMORY[0x1E695E0F0] mutableCopy];
   v58 = [MEMORY[0x1E695E0F0] mutableCopy];
-  v55 = v17;
-  v61 = [MEMORY[0x1E695E0F0] mutableCopy];
-  v24 = 0;
-  v25 = (a4 + 8);
-  while (v24 < [*(a1 + 56) count])
+  v57 = [MEMORY[0x1E695E0F0] mutableCopy];
+  v54 = v16;
+  v60 = [MEMORY[0x1E695E0F0] mutableCopy];
+  v23 = 0;
+  v24 = (a4 + 8);
+  while (v23 < [*(a1 + 56) count])
   {
-    v26 = [*(a1 + 56) objectAtIndexedSubscript:v24];
-    v27 = v26;
-    v28 = *v25;
-    if (!*v25)
+    v25 = [*(a1 + 56) objectAtIndexedSubscript:v23];
+    v26 = v25;
+    v27 = *v24;
+    if (!*v24)
     {
       goto LABEL_20;
     }
 
-    v29 = v25;
+    v28 = v24;
     do
     {
-      v30 = v28[4];
-      v31 = v30 >= v26;
-      v32 = v30 < v26;
-      if (v31)
+      v29 = v27[4];
+      v30 = v29 >= v25;
+      v31 = v29 < v25;
+      if (v30)
       {
-        v29 = v28;
+        v28 = v27;
       }
 
-      v28 = v28[v32];
+      v27 = v27[v31];
     }
 
-    while (v28);
-    if (v29 != v25 && v26 >= v29[4])
+    while (v27);
+    if (v28 != v24 && v25 >= v28[4])
     {
-      v33 = v29[5];
-      if (*(*(a1 + 120) + 4 * v24))
+      v32 = v28[5];
+      if (*(*(a1 + 120) + 4 * v23))
       {
 LABEL_21:
-        if (!v33)
+        if (!v32)
         {
-          v33 = Autodiff::getFilledLike(a2, v27, 0.0, &cfstr_Loopgradinit0.isa);
+          v32 = Autodiff::getFilledLike(a2, v26, 0.0, &cfstr_Loopgradinit0.isa);
         }
 
-        v34 = [*(a1 + 104) objectAtIndexedSubscript:v24];
-        [v59 addObject:v34];
+        v33 = [*(a1 + 104) objectAtIndexedSubscript:v23];
+        [v58 addObject:v33];
 
-        v35 = [*(a1 + 96) objectAtIndexedSubscript:v24];
-        [v58 addObject:v35];
+        v34 = [*(a1 + 96) objectAtIndexedSubscript:v23];
+        [v57 addObject:v34];
 
-        [v61 addObject:v33];
+        [v60 addObject:v32];
         operator new();
       }
     }
@@ -3712,112 +6257,112 @@ LABEL_21:
     else
     {
 LABEL_20:
-      v33 = 0;
-      if (*(*(a1 + 120) + 4 * v24))
+      v32 = 0;
+      if (*(*(a1 + 120) + 4 * v23))
       {
         goto LABEL_21;
       }
     }
 
-    ++v24;
+    ++v23;
   }
 
-  v36 = *a3;
-  v37 = a3[1];
-  if (*a3 != v37)
+  v35 = *a3;
+  v36 = a3[1];
+  if (*a3 != v36)
   {
     do
     {
-      v38 = *v36;
-      v39 = Autodiff::getFilledLike(a2, v38, 0.0, &cfstr_Loopgradinit0.isa);
-      [v61 addObject:v39];
+      v37 = *v35;
+      v38 = Autodiff::getFilledLike(a2, v37, 0.0, &cfstr_Loopgradinit0.isa);
+      [v60 addObject:v38];
 
-      ++v36;
+      ++v35;
     }
 
-    while (v36 != v37);
+    while (v35 != v36);
   }
 
-  v70[0] = MEMORY[0x1E69E9820];
-  v70[1] = 3321888768;
-  v70[2] = ___ZN16AutodiffLoopData9buildGradEP8AutodiffRKNSt3__16vectorIU8__strongP14MPSGraphTensorNS2_9allocatorIS6_EEEERKNS2_3mapIS6_S6_NS2_4lessIS6_EENS7_INS2_4pairIU8__strongKS5_S6_EEEEEERS9_SM_SM__block_invoke;
-  v70[3] = &__block_descriptor_81_ea8_40c39_ZTSNSt3__16vectorImNS_9allocatorImEEEE_e52___MPSGraphTensor_24__0__NSArray_8__NSMutableArray_16l;
-  v76 = 0;
-  v70[4] = a1;
+  v69[0] = MEMORY[0x1E69E9820];
+  v69[1] = 3321888768;
+  v69[2] = ___ZN16AutodiffLoopData9buildGradEP8AutodiffRKNSt3__16vectorIU8__strongP14MPSGraphTensorNS2_9allocatorIS6_EEEERKNS2_3mapIS6_S6_NS2_4lessIS6_EENS7_INS2_4pairIU8__strongKS5_S6_EEEEEERS9_SM_SM__block_invoke;
+  v69[3] = &__block_descriptor_81_ea8_40c39_ZTSNSt3__16vectorImNS_9allocatorImEEEE_e52___MPSGraphTensor_24__0__NSArray_8__NSMutableArray_16l;
+  v75 = 0;
+  v69[4] = a1;
   __p = 0;
+  v71 = 0;
   v72 = 0;
-  v73 = 0;
-  v74 = a2;
-  v75 = a3;
-  v63[0] = MEMORY[0x1E69E9820];
-  v63[1] = 3221225472;
-  v63[2] = ___ZN16AutodiffLoopData9buildGradEP8AutodiffRKNSt3__16vectorIU8__strongP14MPSGraphTensorNS2_9allocatorIS6_EEEERKNS2_3mapIS6_S6_NS2_4lessIS6_EENS7_INS2_4pairIU8__strongKS5_S6_EEEEEERS9_SM_SM__block_invoke_229;
-  v63[3] = &unk_1E86D4A38;
-  v66 = a1;
-  v67 = a2;
-  v69 = 0;
-  v68 = a3;
-  v53 = v58;
-  v64 = v53;
-  v52 = v59;
-  v65 = v52;
-  v40 = v55;
-  v41 = v18;
-  v42 = v56;
-  v43 = v61;
-  v57 = v70;
-  v44 = v63;
-  v45 = *(a1 + 16);
+  v73 = a2;
+  v74 = a3;
+  v62[0] = MEMORY[0x1E69E9820];
+  v62[1] = 3221225472;
+  v62[2] = ___ZN16AutodiffLoopData9buildGradEP8AutodiffRKNSt3__16vectorIU8__strongP14MPSGraphTensorNS2_9allocatorIS6_EEEERKNS2_3mapIS6_S6_NS2_4lessIS6_EENS7_INS2_4pairIU8__strongKS5_S6_EEEEEERS9_SM_SM__block_invoke_229;
+  v62[3] = &unk_1E86D4A38;
+  v65 = a1;
+  v66 = a2;
+  v68 = 0;
+  v67 = a3;
+  v52 = v57;
+  v63 = v52;
+  v51 = v58;
+  v64 = v51;
+  v39 = v54;
+  v40 = v17;
+  v41 = v55;
+  v42 = v60;
+  v56 = v69;
+  v43 = v62;
+  v44 = *(a1 + 16);
   p_Context = MEMORY[0x1E69E9820];
   Context = 3221225472;
-  v82 = ___ZN16AutodiffLoopData10createLoopEbP14MPSGraphTensorS1_S1_P7NSArrayIS1_EU13block_pointerFS1_S4_P14NSMutableArrayIS1_EEU13block_pointerFS4_S4_E_block_invoke_3;
-  v83 = &unk_1E86D4AB0;
-  v84 = v44;
-  v46 = [v45 forLoopWithLowerBound:v40 upperBound:v41 step:v42 initialBodyArguments:v43 body:&p_Context name:0];
+  v81 = ___ZN16AutodiffLoopData10createLoopEbP14MPSGraphTensorS1_S1_P7NSArrayIS1_EU13block_pointerFS1_S4_P14NSMutableArrayIS1_EEU13block_pointerFS4_S4_E_block_invoke_3;
+  v82 = &unk_1E86D4AB0;
+  v83 = v43;
+  v45 = [v44 forLoopWithLowerBound:v39 upperBound:v40 step:v41 initialBodyArguments:v42 body:&p_Context name:0];
 
   Context = 0;
-  v82 = 0;
+  v81 = 0;
   p_Context = &Context;
   if (a3[1] != *a3)
   {
-    v47 = 0;
+    v46 = 0;
     do
     {
-      v49 = [v46 objectAtIndexedSubscript:v47];
-      v50 = v49;
-      v77 = v49;
-      v51 = v54[1];
-      if (v51 < v54[2])
+      v48 = [v45 objectAtIndexedSubscript:v46];
+      v49 = v48;
+      v76 = v48;
+      v50 = *(v53 + 8);
+      if (v50 < *(v53 + 16))
       {
-        *v51 = v49;
-        v48 = (v51 + 1);
+        *v50 = v48;
+        v47 = v50 + 1;
       }
 
       else
       {
-        v48 = std::vector<MPSGraphTensor * {__strong}>::__emplace_back_slow_path<MPSGraphTensor * const {__strong}&>(v54, &v77);
+        v47 = std::vector<MPSGraphTensor * {__strong}>::__emplace_back_slow_path<MPSGraphTensor * const {__strong}&>(v53, &v76);
       }
 
-      v54[1] = v48;
+      *(v53 + 8) = v47;
 
-      ++v47;
+      ++v46;
     }
 
-    while (v47 < a3[1] - *a3);
+    while (v46 < a3[1] - *a3);
   }
 
   std::__tree<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::__map_value_compare<MPSGraphTensor * {__strong},std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>,std::less<MPSGraphTensor * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphTensor * {__strong},MPSGraphTensor * {__strong}>>>::destroy(&p_Context, Context);
 
   if (__p)
   {
-    v72 = __p;
+    v71 = __p;
     operator delete(__p);
   }
 }
 
 void sub_1E07602A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, void *__p, uint64_t a44)
 {
-  MPSGraphDelegateCompiler.precompilationDescriptor.modify(v46 - 160, v48);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
 
   _Unwind_Resume(a1);
 }
@@ -3929,72 +6474,72 @@ LABEL_11:
   return v12;
 }
 
-void AutodiffWhileData::extractValues(uint64_t a1@<X0>, uint64_t *a2@<X1>, unint64_t *a3@<X8>)
+void AutodiffWhileData::extractValues(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
   v5 = *(a1 + 8);
-  v21[1] = mlir::Attribute::getContext((v5[8] + 24));
-  memset(&v21[2], 0, 24);
-  v21[0] = &unk_1F5B4B188;
+  v20[1] = mlir::Attribute::getContext((v5[8] + 24));
+  memset(&v20[2], 0, 24);
+  v20[0] = &unk_1F5B4B188;
   v6 = v5;
-  v18 = v6;
+  v17 = v6;
   WeakRetained = objc_loadWeakRetained(v6 + 1);
-  v20 = a2;
-  v17 = &unk_1F5B4B3D8;
-  AddWhileInputsRewrite::rewrite(&v17, v6[8], v21);
-  MPSGraphDelegateCompiler.precompilationDescriptor.modify(v21, v7);
+  v19 = a2;
+  v16 = &unk_1F5B4B3D8;
+  AddWhileInputsRewrite::rewrite(&v16, v6[8], v20);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
 
-  v9 = *v20;
-  v8 = v20[1];
-  v10 = (v8 - *v20) >> 3;
-  a3[1] = 0;
-  a3[2] = 0;
+  v8 = *v19;
+  v7 = v19[1];
+  v9 = (v7 - *v19) >> 3;
+  *(a3 + 8) = 0;
+  *(a3 + 16) = 0;
   *a3 = 0;
-  std::vector<MPSGraphTensor * {__strong}>::reserve(a3, v10);
-  if (v8 != v9)
+  std::vector<MPSGraphTensor * {__strong}>::reserve(a3, v9);
+  if (v7 != v8)
   {
-    if (v10 <= 1)
+    if (v9 <= 1)
     {
-      v11 = 1;
+      v10 = 1;
     }
 
     else
     {
-      v11 = v10;
+      v10 = v9;
     }
 
-    v12 = -v10;
+    v11 = -v9;
     do
     {
       while (1)
       {
-        v13 = [v18[3] objectAtIndexedSubscript:{v12 + objc_msgSend(v18[3], "count")}];
-        v21[0] = v13;
-        v14 = a3[1];
-        if (v14 >= a3[2])
+        v12 = [v17[3] objectAtIndexedSubscript:{v11 + objc_msgSend(v17[3], "count")}];
+        v20[0] = v12;
+        v13 = *(a3 + 8);
+        if (v13 >= *(a3 + 16))
         {
           break;
         }
 
-        v21[0] = 0;
-        *v14 = v13;
-        a3[1] = (v14 + 1);
+        v20[0] = 0;
+        *v13 = v12;
+        *(a3 + 8) = v13 + 1;
 
-        ++v12;
-        if (!--v11)
+        ++v11;
+        if (!--v10)
         {
           goto LABEL_9;
         }
       }
 
-      v15 = std::vector<MPSGraphTensor * {__strong}>::__emplace_back_slow_path<MPSGraphTensor * {__strong}>(a3, v21);
-      v16 = v21[0];
-      a3[1] = v15;
+      v14 = std::vector<MPSGraphTensor * {__strong}>::__emplace_back_slow_path<MPSGraphTensor * {__strong}>(a3, v20);
+      v15 = v20[0];
+      *(a3 + 8) = v14;
 
-      ++v12;
-      --v11;
+      ++v11;
+      --v10;
     }
 
-    while (v11);
+    while (v10);
   }
 
 LABEL_9:
@@ -4010,85 +6555,76 @@ void sub_1E0760A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void AutodiffWhileData::injectValues(uint64_t a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
   v5 = *(a1 + 8);
-  v18[1] = mlir::Attribute::getContext((v5[8] + 24));
-  memset(&v18[2], 0, 24);
-  v18[0] = &unk_1F5B4B188;
+  v17[1] = mlir::Attribute::getContext((v5[8] + 24));
+  memset(&v17[2], 0, 24);
+  v17[0] = &unk_1F5B4B188;
   v6 = v5;
-  v13 = v6;
+  v12 = v6;
   WeakRetained = objc_loadWeakRetained(v6 + 1);
-  v12 = &unk_1F5B4B418;
-  v15 = a2;
-  v17[0] = 0;
-  v17[1] = 0;
-  v16 = v17;
-  AddWhileInputsRewrite::rewrite(&v12, v6[8], v18);
-  MPSGraphDelegateCompiler.precompilationDescriptor.modify(v18, v7);
+  v11 = &unk_1F5B4B418;
+  v14 = a2;
+  v16[0] = 0;
+  v16[1] = 0;
+  v15 = v16;
+  AddWhileInputsRewrite::rewrite(&v11, v6[8], v17);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
 
   a3[1] = 0;
   a3[2] = 0;
   *a3 = a3 + 1;
-  v8 = v16;
-  if (v16 != v17)
+  v7 = v15;
+  if (v15 != v16)
   {
     do
     {
-      std::__tree<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::__map_value_compare<MPSGraphBlock * {__strong},std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::less<MPSGraphBlock * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>>>::__emplace_hint_unique_key_args<MPSGraphBlock * {__strong},std::pair<MPSGraphBlock * const {__strong},std::vector<MPSGraphTensor * {__strong}>> const&>(a3, a3 + 1, v8[4]);
-      v9 = v8[1];
-      if (v9)
+      std::__tree<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::__map_value_compare<MPSGraphBlock * {__strong},std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::less<MPSGraphBlock * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>>>::__emplace_hint_unique_key_args<MPSGraphBlock * {__strong},std::pair<MPSGraphBlock * const {__strong},std::vector<MPSGraphTensor * {__strong}>> const&>(a3, a3 + 1, v7[4], (v7 + 4));
+      v8 = v7[1];
+      if (v8)
       {
         do
         {
-          v10 = v9;
-          v9 = *v9;
+          v9 = v8;
+          v8 = *v8;
         }
 
-        while (v9);
+        while (v8);
       }
 
       else
       {
         do
         {
-          v10 = v8[2];
-          v11 = *v10 == v8;
-          v8 = v10;
+          v9 = v7[2];
+          v10 = *v9 == v7;
+          v7 = v9;
         }
 
-        while (!v11);
+        while (!v10);
       }
 
-      v8 = v10;
+      v7 = v9;
     }
 
-    while (v10 != v17);
+    while (v9 != v16);
   }
 
-  v12 = &unk_1F5B4B418;
-  std::__tree<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::__map_value_compare<MPSGraphBlock * {__strong},std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::less<MPSGraphBlock * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>>>::destroy(v17[0]);
+  v11 = &unk_1F5B4B418;
+  std::__tree<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::__map_value_compare<MPSGraphBlock * {__strong},std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::less<MPSGraphBlock * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>>>::destroy(v16[0]);
 }
 
-void sub_1E0760C8C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E0760C8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v5 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va, a3);
   AddWhileInjectValuesRewrite::~AddWhileInjectValuesRewrite(va);
-  MPSGraphDelegateCompiler.precompilationDescriptor.modify(va1, v4);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
 
   _Unwind_Resume(a1);
 }
 
-void sub_1E0760CBC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E0760CBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  std::__tree<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::__map_value_compare<MPSGraphBlock * {__strong},std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::less<MPSGraphBlock * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>>>::destroy(*v2);
+  va_start(va, a3);
+  std::__tree<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::__map_value_compare<MPSGraphBlock * {__strong},std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::less<MPSGraphBlock * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>>>::destroy(*v3);
   AddWhileInjectValuesRewrite::~AddWhileInjectValuesRewrite(va);
   _Unwind_Resume(a1);
 }
@@ -4268,25 +6804,25 @@ uint64_t ___ZN16AutodiffLoopData9buildGradEP8AutodiffRKNSt3__16vectorIU8__strong
   return 0;
 }
 
-void sub_1E07611A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E07611A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<MPSGraphTensor * {__strong}>::~vector[abi:ne200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1E07611F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1E07611F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::__exception_guard_exceptions<std::vector<MPSGraphTensor * {__strong}>::__destroy_vector>::~__exception_guard_exceptions[abi:ne200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void AutodiffLoopData::gradsForBlock(uint64_t a1, char a2, void *a3, uint64_t *a4, void *a5, void *a6, void *a7, void *a8)
+void AutodiffLoopData::gradsForBlock(Autodiff *a1, char a2, void *a3, uint64_t *a4, void *a5, void *a6, void *a7, void *a8)
 {
-  v64 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   v57 = a3;
   v52 = a5;
   v51 = a6;
@@ -4339,7 +6875,7 @@ void AutodiffLoopData::gradsForBlock(uint64_t a1, char a2, void *a3, uint64_t *a
   v58 = 0u;
   v59 = 0u;
   obj = v52;
-  v21 = [obj countByEnumeratingWithState:&v58 objects:v63 count:16];
+  v21 = [obj countByEnumeratingWithState:&v58 objects:v64 count:16];
   if (v21)
   {
     v22 = *v59;
@@ -4356,9 +6892,9 @@ void AutodiffLoopData::gradsForBlock(uint64_t a1, char a2, void *a3, uint64_t *a
         v24 = *(*(&v58 + 1) + 8 * v23);
         v25 = v57;
         v26 = v24;
-        v62[0] = v25;
-        v62[2] = v62;
-        v27 = std::__hash_table<std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>((a1 + 32), v62);
+        v62 = v25;
+        v63 = &v62;
+        v27 = std::__hash_table<std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(a1 + 4, &v62, &std::piecewise_construct, &v63);
         v28 = v27[4];
         if (!*&v28)
         {
@@ -4465,7 +7001,7 @@ LABEL_35:
       }
 
       while (v23 != v21);
-      v41 = [obj countByEnumeratingWithState:&v58 objects:v63 count:16];
+      v41 = [obj countByEnumeratingWithState:&v58 objects:v64 count:16];
       v21 = v41;
     }
 
@@ -4611,17 +7147,17 @@ id ___ZN16AutodiffLoopData9buildGradEP8AutodiffRKNSt3__16vectorIU8__strongP14MPS
   return v5;
 }
 
-void sub_1E0761AD0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E0761AD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::vector<MPSGraphTensor * {__strong}>::~vector[abi:ne200100](va);
 
   _Unwind_Resume(a1);
 }
 
-void sub_1E0761AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1E0761AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::__exception_guard_exceptions<std::vector<MPSGraphTensor * {__strong}>::__destroy_vector>::~__exception_guard_exceptions[abi:ne200100](va);
 
   _Unwind_Resume(a1);
@@ -4629,12 +7165,12 @@ void sub_1E0761AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void AddWhileInputsRewrite::rewrite(uint64_t a1, uint64_t a2, void *a3)
 {
-  v66 = *(*(a1 + 16) + 176);
-  v6 = v66;
-  v72 = a1;
-  v73 = (a1 + 8);
-  v65 = *(*(*(a1 + 16) + 56) + 16);
-  v74 = *(a1 + 8);
+  v61 = *(*(a1 + 16) + 176);
+  v6 = v61;
+  v67 = a1;
+  v68 = (a1 + 8);
+  v60 = *(*(*(a1 + 16) + 56) + 16);
+  v69 = *(a1 + 8);
   v7 = *(a2 + 36);
   if (v7)
   {
@@ -4646,11 +7182,11 @@ void AddWhileInputsRewrite::rewrite(uint64_t a1, uint64_t a2, void *a3)
     v8 = 0;
   }
 
-  v83 = v8;
-  v84 = v7;
-  v67 = v6;
-  mlir::OperandRange::getTypes(&v83, &v79);
-  v9 = v80;
+  v78 = v8;
+  v79 = v7;
+  v62 = v6;
+  mlir::OperandRange::getTypes(&v74, &v78);
+  v9 = v75;
   v10 = *(a2 + 36);
   if (v10)
   {
@@ -4662,15 +7198,15 @@ void AddWhileInputsRewrite::rewrite(uint64_t a1, uint64_t a2, void *a3)
     v11 = 0;
   }
 
-  v83 = v11;
-  v84 = v10;
-  mlir::OperandRange::getTypes(&v83, &v79);
-  v77 = 0;
-  v78 = 0;
+  v78 = v11;
+  v79 = v10;
+  mlir::OperandRange::getTypes(&v74, &v78);
+  v72 = 0;
+  v73 = 0;
   __p = 0;
-  if (v82 != v9)
+  if (v77 != v9)
   {
-    if (!((v82 - v9) >> 61))
+    if (!((v77 - v9) >> 61))
     {
       operator new();
     }
@@ -4678,173 +7214,174 @@ void AddWhileInputsRewrite::rewrite(uint64_t a1, uint64_t a2, void *a3)
     std::vector<std::shared_ptr<MIL::IRArgument>>::__throw_length_error[abi:ne200100]();
   }
 
-  v12 = [*v73 inputTensors];
-  v13 = v72;
+  v12 = [*v68 inputTensors];
+  v13 = v67;
   v14 = [v12 mutableCopy];
 
-  v15 = *(v72[2] + 56);
+  v15 = *(v67[2] + 56);
   v16 = *(a2 + 16);
-  v75 = v14;
-  v18 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(a2, v17);
+  v70 = v14;
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
   *(v15 + 16) = v16;
-  *(v15 + 24) = v18;
-  WeakRetained = objc_loadWeakRetained((v72[1] + 48));
-  v20 = v72[2];
-  v21 = *(v20 + 176);
-  *(v20 + 176) = WeakRetained;
+  *(v15 + 24) = v17;
+  WeakRetained = objc_loadWeakRetained((v67[1] + 48));
+  v19 = v67[2];
+  v20 = *(v19 + 176);
+  *(v19 + 176) = WeakRetained;
 
-  v22 = __p;
-  v23 = v77;
-  (**v72)(v72, &__p, v14);
-  v79 = 0;
-  v80 = 0;
-  v81 = 0;
-  obj = v22;
-  v70 = __p;
-  v64 = (v77 - __p) >> 3;
-  v71 = a3;
-  if (v77 != __p)
+  v21 = __p;
+  v22 = v72;
+  (**v67)(v67, &__p, v14);
+  v74 = 0;
+  v75 = 0;
+  v76 = 0;
+  obj = v21;
+  v65 = __p;
+  v59 = (v72 - __p) >> 3;
+  v66 = a3;
+  if (v72 != __p)
   {
-    v63 = v23;
-    v25 = 0;
-    v26 = 0;
-    if (((v77 - __p) >> 3) <= 1)
+    v58 = v22;
+    v23 = 0;
+    v24 = 0;
+    if (((v72 - __p) >> 3) <= 1)
     {
-      v27 = 1;
+      v25 = 1;
     }
 
     else
     {
-      v27 = (v77 - __p) >> 3;
+      v25 = (v72 - __p) >> 3;
     }
 
     do
     {
-      v28 = [v14 objectAtIndexedSubscript:v26];
-      v29 = v28;
-      v30 = v25;
-      v31 = v25 >> 3;
-      if (((v25 >> 3) + 1) >> 61)
+      v26 = [v14 objectAtIndexedSubscript:v24];
+      v27 = v26;
+      v28 = v23;
+      v29 = v23 >> 3;
+      if (((v23 >> 3) + 1) >> 61)
       {
-        v80 = v25;
-        v81 = 0;
-        v79 = 0;
+        v75 = v23;
+        v76 = 0;
+        v74 = 0;
         std::vector<long>::__throw_length_error[abi:ne200100]();
       }
 
-      if (v25 >> 3 != -1)
+      if (v23 >> 3 != -1)
       {
-        if (!(((v25 >> 3) + 1) >> 61))
+        if (!(((v23 >> 3) + 1) >> 61))
         {
           operator new();
         }
 
-        v80 = v25;
-        v81 = 0;
-        v79 = 0;
+        v75 = v23;
+        v76 = 0;
+        v74 = 0;
         std::__throw_bad_array_new_length[abi:ne200100]();
       }
 
-      *(8 * v31) = *(v28 + 8);
-      v25 = 8 * v31 + 8;
-      memcpy(0, 0, v30);
-      v14 = v75;
+      *(8 * v29) = *(v26 + 8);
+      v23 = 8 * v29 + 8;
+      memcpy(0, 0, v28);
+      v14 = v70;
 
-      ++v26;
+      ++v24;
     }
 
-    while (v27 != v26);
-    v80 = v25;
-    v81 = 0;
-    v79 = 0;
-    a3 = v71;
-    v13 = v72;
-    v23 = v63;
+    while (v25 != v24);
+    v75 = v23;
+    v76 = 0;
+    v74 = 0;
+    a3 = v66;
+    v13 = v67;
+    v22 = v58;
   }
 
-  v32 = *(a2 + 16);
-  v33 = *(MPSGraphDelegateCompiler.precompilationDescriptor.modify(a2, v24) + 8);
-  a3[3] = v32;
-  a3[4] = v33;
-  v34 = mlir::OpBuilder::create<mlir::scf::WhileOp,std::vector<mlir::Type> &,std::vector<mlir::Value> &>((a3 + 1), *(a2 + 24), &__p, &v79);
-  v35 = v34 + 64;
-  v36 = (((v34 + 64 + 16 * ((*(v34 + 44) >> 23) & 1) + ((*(v34 + 44) >> 21) & 0x7F8) + 7) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v34 + 40));
-  mlir::RewriterBase::inlineRegionBefore(a3, (((a2 + 64 + 16 * ((*(a2 + 44) >> 23) & 1) + ((*(a2 + 44) >> 21) & 0x7F8) + 7) & 0xFFFFFFFFFFFFFFF8) + 32 * *(a2 + 40)), v36, v36);
-  mlir::RewriterBase::inlineRegionBefore(a3, (((a2 + 64 + 16 * ((*(a2 + 44) >> 23) & 1) + ((*(a2 + 44) >> 21) & 0x7F8) + 7) & 0xFFFFFFFFFFFFFFF8) + 32 * *(a2 + 40) + 24), ((v35 + 16 * ((*(v34 + 44) >> 23) & 1) + ((*(v34 + 44) >> 21) & 0x7F8) + 7) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v34 + 40) + 24, (((v35 + 16 * ((*(v34 + 44) >> 23) & 1) + ((*(v34 + 44) >> 21) & 0x7F8) + 7) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v34 + 40) + 24));
-  AddInputsRewrite::replaceOp(v73, a2, v34, v14);
-  v37 = *(((v34 + 64 + 16 * ((*(v34 + 44) >> 23) & 1) + ((*(v34 + 44) >> 21) & 0x7F8) + 7) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v34 + 40) + 8);
-  if (v37)
+  v30 = *(a2 + 16);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+  v32 = *(v31 + 8);
+  a3[3] = v30;
+  a3[4] = v32;
+  v33 = mlir::OpBuilder::create<mlir::scf::WhileOp,std::vector<mlir::Type> &,std::vector<mlir::Value> &>((a3 + 1), *(a2 + 24), &__p, &v74);
+  v34 = v33 + 64;
+  v35 = ((&v33[16 * ((*(v33 + 11) >> 23) & 1) + 71 + ((*(v33 + 11) >> 21) & 0x7F8)] & 0xFFFFFFFFFFFFFFF8) + 32 * *(v33 + 10));
+  mlir::RewriterBase::inlineRegionBefore(a3, (((a2 + 64 + 16 * ((*(a2 + 44) >> 23) & 1) + ((*(a2 + 44) >> 21) & 0x7F8) + 7) & 0xFFFFFFFFFFFFFFF8) + 32 * *(a2 + 40)), v35, v35);
+  mlir::RewriterBase::inlineRegionBefore(a3, (((a2 + 64 + 16 * ((*(a2 + 44) >> 23) & 1) + ((*(a2 + 44) >> 21) & 0x7F8) + 7) & 0xFFFFFFFFFFFFFFF8) + 32 * *(a2 + 40) + 24), (&v34[16 * ((*(v33 + 11) >> 23) & 1) + 7 + ((*(v33 + 11) >> 21) & 0x7F8)] & 0xFFFFFFFFFFFFFFF8) + 32 * *(v33 + 10) + 24, ((&v34[16 * ((*(v33 + 11) >> 23) & 1) + 7 + ((*(v33 + 11) >> 21) & 0x7F8)] & 0xFFFFFFFFFFFFFFF8) + 32 * *(v33 + 10) + 24));
+  AddInputsRewrite::replaceOp(v68, a2, v33, v14);
+  v36 = *((&v33[16 * ((*(v33 + 11) >> 23) & 1) + 71 + ((*(v33 + 11) >> 21) & 0x7F8)] & 0xFFFFFFFFFFFFFFF8) + 32 * *(v33 + 10) + 8);
+  if (v36)
   {
-    v38 = (v37 - 8);
+    v37 = (v36 - 8);
   }
 
   else
   {
-    v38 = 0;
+    v37 = 0;
   }
 
-  [*(*(*v73 + 5) + 8) objectAtIndexedSubscript:0];
-  v39 = v23 - obj;
-  obja = v40 = v64 - ((v23 - obj) >> 3);
-  v41 = AddInputsRewrite::extendBlockInputs(v73, v38, obja, v74[16], &v70[v39], v40);
-  v42 = v74[16];
-  v74[16] = v41;
+  [*(*(*v68 + 5) + 8) objectAtIndexedSubscript:0];
+  v38 = v22 - obj;
+  obja = v39 = v59 - ((v22 - obj) >> 3);
+  v40 = AddInputsRewrite::extendBlockInputs(v68, v37, obja, v69[16], &v65[v38], v39);
+  v41 = v69[16];
+  v69[16] = v40;
 
-  Terminator = mlir::Block::getTerminator(v38, v43);
-  v45 = *(v13[2] + 56);
-  v46 = *(Terminator + 16);
-  v48 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(Terminator, v47);
-  *(v45 + 16) = v46;
-  *(v45 + 24) = v48;
+  mlir::Block::getTerminator(v37);
+  v42 = *(v13[2] + 56);
+  v44 = *(v43 + 16);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+  *(v42 + 16) = v44;
+  *(v42 + 24) = v45;
   objc_storeStrong((v13[2] + 176), obja);
-  v49 = [v74[14] mutableCopy];
-  (*(*v13 + 8))(v13, v74[16], v49);
-  objc_storeStrong(v74 + 14, v49);
-  AddInputsRewrite::extendBlockTermOp(v71, v38, v49, 1u);
-  v50 = *(((v35 + 16 * ((*(v34 + 44) >> 23) & 1) + ((*(v34 + 44) >> 21) & 0x7F8) + 7) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v34 + 40) + 32);
-  if (v50)
+  v46 = [v69[14] mutableCopy];
+  (*(*v13 + 8))(v13, v69[16], v46);
+  objc_storeStrong(v69 + 14, v46);
+  AddInputsRewrite::extendBlockTermOp(v66, v37, v46, 1u);
+  v47 = *((&v34[16 * ((*(v33 + 11) >> 23) & 1) + 7 + ((*(v33 + 11) >> 21) & 0x7F8)] & 0xFFFFFFFFFFFFFFF8) + 32 * *(v33 + 10) + 32);
+  if (v47)
   {
-    v51 = (v50 - 8);
+    v48 = (v47 - 8);
   }
 
   else
   {
-    v51 = 0;
+    v48 = 0;
   }
 
-  v52 = [*(*(*v73 + 5) + 8) objectAtIndexedSubscript:1];
-  v53 = AddInputsRewrite::extendBlockInputs(v73, v51, v52, v74[17], &v70[v39], v40);
-  v54 = v74[17];
-  v74[17] = v53;
+  v49 = [*(*(*v68 + 5) + 8) objectAtIndexedSubscript:1];
+  v50 = AddInputsRewrite::extendBlockInputs(v68, v48, v49, v69[17], &v65[v38], v39);
+  v51 = v69[17];
+  v69[17] = v50;
 
-  v56 = mlir::Block::getTerminator(v51, v55);
-  v57 = *(v72[2] + 56);
-  v58 = *(v56 + 16);
-  v60 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(v56, v59);
-  *(v57 + 16) = v58;
-  *(v57 + 24) = v60;
-  objc_storeStrong((v72[2] + 176), v52);
-  v61 = [v74[15] mutableCopy];
-  (*(*v72 + 16))(v72, v74[17], v61);
-  objc_storeStrong(v74 + 15, v61);
-  AddInputsRewrite::extendBlockTermOp(v71, v51, v61, 0);
-  v62 = *(v72[2] + 56);
-  if (v65)
+  mlir::Block::getTerminator(v48);
+  v52 = *(v67[2] + 56);
+  v54 = *(v53 + 16);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+  *(v52 + 16) = v54;
+  *(v52 + 24) = v55;
+  objc_storeStrong((v67[2] + 176), v49);
+  v56 = [v69[15] mutableCopy];
+  (*(*v67 + 16))(v67, v69[17], v56);
+  objc_storeStrong(v69 + 15, v56);
+  AddInputsRewrite::extendBlockTermOp(v66, v48, v56, 0);
+  v57 = *(v67[2] + 56);
+  if (v60)
   {
-    *(v62 + 16) = v65;
+    *(v57 + 16) = v60;
   }
 
   else
   {
-    *(v62 + 16) = 0;
-    *(v62 + 24) = 0;
+    *(v57 + 16) = 0;
+    *(v57 + 24) = 0;
   }
 
-  objc_storeStrong((v72[2] + 176), v66);
+  objc_storeStrong((v67[2] + 176), v61);
 
   if (__p)
   {
-    v77 = __p;
+    v72 = __p;
     operator delete(__p);
   }
 }
@@ -5193,17 +7730,17 @@ void AddWhileInjectValuesRewrite::addOpInputs(uint64_t a1, uint64_t a2, void *a3
   }
 }
 
-void sub_1E0763148(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, ...)
+void sub_1E0763148(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
 
   std::pair<MPSGraphBlock * const {__strong},std::vector<MPSGraphTensor * {__strong}>>::~pair(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1E076316C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_1E076316C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
 
   std::pair<MPSGraphBlock * const {__strong},std::vector<MPSGraphTensor * {__strong}>>::~pair(va);
   _Unwind_Resume(a1);
@@ -5564,65 +8101,65 @@ LABEL_56:
 LABEL_67:
 }
 
-void sub_1E076377C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, ...)
+void sub_1E076377C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
 
   std::pair<MPSGraphBlock * const {__strong},std::vector<MPSGraphTensor * {__strong}>>::~pair(va);
   _Unwind_Resume(a1);
 }
 
-void *std::__tree<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::__map_value_compare<MPSGraphBlock * {__strong},std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::less<MPSGraphBlock * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>>>::__emplace_hint_unique_key_args<MPSGraphBlock * {__strong},std::pair<MPSGraphBlock * const {__strong},std::vector<MPSGraphTensor * {__strong}>> const&>(void *result, void *a2, unint64_t a3)
+uint64_t **std::__tree<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::__map_value_compare<MPSGraphBlock * {__strong},std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::less<MPSGraphBlock * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>>>::__emplace_hint_unique_key_args<MPSGraphBlock * {__strong},std::pair<MPSGraphBlock * const {__strong},std::vector<MPSGraphTensor * {__strong}>> const&>(uint64_t **result, uint64_t *a2, unint64_t a3, uint64_t a4)
 {
-  v3 = result + 1;
-  if (result + 1 == a2 || (v4 = a2[4], v4 > a3))
+  v4 = (result + 1);
+  if (result + 1 == a2 || (v5 = a2[4], v5 > a3))
   {
-    v5 = *a2;
+    v6 = *a2;
     if (*result == a2)
     {
-      v7 = a2;
+      v8 = a2;
       goto LABEL_16;
     }
 
-    if (v5)
+    if (v6)
     {
-      v6 = *a2;
+      v7 = *a2;
       do
       {
-        v7 = v6;
-        v6 = v6[1];
+        v8 = v7;
+        v7 = v7[1];
       }
 
-      while (v6);
+      while (v7);
     }
 
     else
     {
-      v11 = a2;
+      v12 = a2;
       do
       {
-        v7 = v11[2];
-        v12 = *v7 == v11;
-        v11 = v7;
+        v8 = v12[2];
+        v13 = *v8 == v12;
+        v12 = v8;
       }
 
-      while (v12);
+      while (v13);
     }
 
-    if (v7[4] < a3)
+    if (v8[4] < a3)
     {
 LABEL_16:
-      if (v5)
+      if (v6)
       {
-        v13 = v7 + 1;
+        v14 = v8 + 1;
       }
 
       else
       {
-        v13 = a2;
+        v14 = a2;
       }
 
-      if (*v13)
+      if (*v14)
       {
         return result;
       }
@@ -5631,8 +8168,8 @@ LABEL_34:
       operator new();
     }
 
-    v14 = *v3;
-    if (!*v3)
+    v15 = *v4;
+    if (!*v4)
     {
       goto LABEL_34;
     }
@@ -5641,27 +8178,27 @@ LABEL_34:
     {
       while (1)
       {
-        v15 = v14;
-        v16 = v14[4];
-        if (v16 <= a3)
+        v16 = v15;
+        v17 = v15[4];
+        if (v17 <= a3)
         {
           break;
         }
 
-        v14 = *v14;
-        if (!*v15)
+        v15 = *v15;
+        if (!*v16)
         {
           goto LABEL_34;
         }
       }
 
-      if (v16 >= a3)
+      if (v17 >= a3)
       {
         break;
       }
 
-      v14 = v14[1];
-      if (!v14)
+      v15 = v15[1];
+      if (!v15)
       {
         goto LABEL_34;
       }
@@ -5670,48 +8207,48 @@ LABEL_34:
 
   else
   {
-    if (v4 >= a3)
+    if (v5 >= a3)
     {
       return result;
     }
 
-    v8 = a2[1];
-    if (v8)
+    v9 = a2[1];
+    if (v9)
     {
       do
       {
-        v9 = v8;
-        v8 = *v8;
         v10 = v9;
+        v9 = *v9;
+        v11 = v10;
       }
 
-      while (v8);
+      while (v9);
     }
 
     else
     {
-      v10 = a2;
+      v11 = a2;
       do
       {
-        v17 = v10;
-        v10 = v10[2];
+        v18 = v11;
+        v11 = v11[2];
       }
 
-      while (*v10 != v17);
+      while (*v11 != v18);
     }
 
-    if (v10 == v3)
+    if (v11 == v4)
     {
       goto LABEL_34;
     }
 
-    if (v10[4] > a3)
+    if (v11[4] > a3)
     {
       goto LABEL_34;
     }
 
-    v18 = *v3;
-    if (!*v3)
+    v19 = *v4;
+    if (!*v4)
     {
       goto LABEL_34;
     }
@@ -5720,27 +8257,27 @@ LABEL_34:
     {
       while (1)
       {
-        v19 = v18;
-        v20 = v18[4];
-        if (v20 <= a3)
+        v20 = v19;
+        v21 = v19[4];
+        if (v21 <= a3)
         {
           break;
         }
 
-        v18 = *v18;
-        if (!*v19)
+        v19 = *v19;
+        if (!*v20)
         {
           goto LABEL_34;
         }
       }
 
-      if (v20 >= a3)
+      if (v21 >= a3)
       {
         break;
       }
 
-      v18 = v18[1];
-      if (!v18)
+      v19 = v19[1];
+      if (!v19)
       {
         goto LABEL_34;
       }
@@ -5750,9 +8287,9 @@ LABEL_34:
   return result;
 }
 
-void sub_1E07639EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E07639EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__tree_node<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -5795,72 +8332,72 @@ void AutodiffForData::~AutodiffForData(AutodiffForData *this)
   JUMPOUT(0x1E12E5B90);
 }
 
-void AutodiffForData::extractValues(uint64_t a1@<X0>, uint64_t *a2@<X1>, unint64_t *a3@<X8>)
+void AutodiffForData::extractValues(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
 {
   v5 = *(a1 + 8);
-  v21[1] = mlir::Attribute::getContext((v5[8] + 24));
-  memset(&v21[2], 0, 24);
-  v21[0] = &unk_1F5B4B188;
+  v20[1] = mlir::Attribute::getContext((v5[8] + 24));
+  memset(&v20[2], 0, 24);
+  v20[0] = &unk_1F5B4B188;
   v6 = v5;
-  v18 = v6;
+  v17 = v6;
   WeakRetained = objc_loadWeakRetained(v6 + 1);
-  v20 = a2;
-  v17 = &unk_1F5B4B4B8;
-  AddForInputsRewrite::rewrite(&v17, v6[8], v21);
-  MPSGraphDelegateCompiler.precompilationDescriptor.modify(v21, v7);
+  v19 = a2;
+  v16 = &unk_1F5B4B4B8;
+  AddForInputsRewrite::rewrite(&v16, v6[8], v20);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
 
-  v9 = *v20;
-  v8 = v20[1];
-  v10 = (v8 - *v20) >> 3;
-  a3[1] = 0;
-  a3[2] = 0;
+  v8 = *v19;
+  v7 = v19[1];
+  v9 = (v7 - *v19) >> 3;
+  *(a3 + 8) = 0;
+  *(a3 + 16) = 0;
   *a3 = 0;
-  std::vector<MPSGraphTensor * {__strong}>::reserve(a3, v10);
-  if (v8 != v9)
+  std::vector<MPSGraphTensor * {__strong}>::reserve(a3, v9);
+  if (v7 != v8)
   {
-    if (v10 <= 1)
+    if (v9 <= 1)
     {
-      v11 = 1;
+      v10 = 1;
     }
 
     else
     {
-      v11 = v10;
+      v10 = v9;
     }
 
-    v12 = -v10;
+    v11 = -v9;
     do
     {
       while (1)
       {
-        v13 = [v18[3] objectAtIndexedSubscript:{v12 + objc_msgSend(v18[3], "count")}];
-        v21[0] = v13;
-        v14 = a3[1];
-        if (v14 >= a3[2])
+        v12 = [v17[3] objectAtIndexedSubscript:{v11 + objc_msgSend(v17[3], "count")}];
+        v20[0] = v12;
+        v13 = *(a3 + 8);
+        if (v13 >= *(a3 + 16))
         {
           break;
         }
 
-        v21[0] = 0;
-        *v14 = v13;
-        a3[1] = (v14 + 1);
+        v20[0] = 0;
+        *v13 = v12;
+        *(a3 + 8) = v13 + 1;
 
-        ++v12;
-        if (!--v11)
+        ++v11;
+        if (!--v10)
         {
           goto LABEL_9;
         }
       }
 
-      v15 = std::vector<MPSGraphTensor * {__strong}>::__emplace_back_slow_path<MPSGraphTensor * {__strong}>(a3, v21);
-      v16 = v21[0];
-      a3[1] = v15;
+      v14 = std::vector<MPSGraphTensor * {__strong}>::__emplace_back_slow_path<MPSGraphTensor * {__strong}>(a3, v20);
+      v15 = v20[0];
+      *(a3 + 8) = v14;
 
-      ++v12;
-      --v11;
+      ++v11;
+      --v10;
     }
 
-    while (v11);
+    while (v10);
   }
 
 LABEL_9:
@@ -5873,223 +8410,216 @@ void sub_1E0763C88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void AutodiffForData::injectValues(uint64_t a1@<X0>, void *a2@<X1>, void *a3@<X8>)
+void AutodiffForData::injectValues(uint64_t a1@<X0>, void *a2@<X1>, uint64_t *a3@<X8>)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 8);
   Context = mlir::Attribute::getContext((v5[8] + 24));
-  v26 = 0uLL;
-  v27 = 0;
-  v24 = &unk_1F5B4B188;
+  v25 = 0uLL;
+  v26 = 0;
+  v23 = &unk_1F5B4B188;
   v6 = v5;
-  v19 = v6;
+  v18 = v6;
   WeakRetained = objc_loadWeakRetained(v6 + 1);
   v7 = *a2 + 40;
-  v18 = &unk_1F5B4B518;
-  v21 = v7;
+  v17 = &unk_1F5B4B518;
+  v20 = v7;
   __p = 0;
-  v23 = 0uLL;
-  AddForInputsRewrite::rewrite(&v18, v6[8], &v24);
-  MPSGraphDelegateCompiler.precompilationDescriptor.modify(&v24, v8);
+  v22 = 0uLL;
+  AddForInputsRewrite::rewrite(&v17, v6[8], &v23);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
 
-  v9 = [*(v19[5] + 8) objectAtIndexedSubscript:0];
-  v10 = __p;
-  v24 = v9;
+  v8 = [*(v18[5] + 8) objectAtIndexedSubscript:0];
+  v9 = __p;
+  v23 = v8;
   Context = __p;
-  v17 = v23;
-  v26 = v23;
-  v23 = 0uLL;
+  v16 = v22;
+  v25 = v22;
+  v22 = 0uLL;
   __p = 0;
   a3[1] = 0;
   a3[2] = 0;
-  *a3 = a3 + 1;
-  std::__tree<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::__map_value_compare<MPSGraphBlock * {__strong},std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::less<MPSGraphBlock * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>>>::__emplace_hint_unique_key_args<MPSGraphBlock * {__strong},std::pair<MPSGraphBlock * const {__strong},std::vector<MPSGraphTensor * {__strong}>> const&>(a3, a3 + 1, v9);
-  if (v10)
+  *a3 = (a3 + 1);
+  std::__tree<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::__map_value_compare<MPSGraphBlock * {__strong},std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::less<MPSGraphBlock * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>>>::__emplace_hint_unique_key_args<MPSGraphBlock * {__strong},std::pair<MPSGraphBlock * const {__strong},std::vector<MPSGraphTensor * {__strong}>> const&>(a3, a3 + 1, v8, &v23);
+  if (v9)
   {
-    for (i = v17; i != v10; i -= 8)
+    for (i = v16; i != v9; i -= 8)
     {
-      v12 = *(i - 1);
+      v11 = *(i - 1);
     }
 
-    operator delete(v10);
+    operator delete(v9);
   }
 
-  v18 = &unk_1F5B4B518;
-  v13 = __p;
+  v17 = &unk_1F5B4B518;
+  v12 = __p;
   if (__p)
   {
-    v14 = v23;
-    v15 = __p;
-    if (v23 != __p)
+    v13 = v22;
+    v14 = __p;
+    if (v22 != __p)
     {
       do
       {
-        v16 = *(v14 - 1);
-        v14 -= 8;
+        v15 = *(v13 - 1);
+        v13 -= 8;
       }
 
-      while (v14 != v13);
-      v15 = __p;
+      while (v13 != v12);
+      v14 = __p;
     }
 
-    *&v23 = v13;
-    operator delete(v15);
+    *&v22 = v12;
+    operator delete(v14);
   }
 }
 
-void sub_1E0763F1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1E0763F1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
   v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
-  std::__tree<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::__map_value_compare<MPSGraphBlock * {__strong},std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::less<MPSGraphBlock * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>>>::destroy(*v5);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  std::__tree<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::__map_value_compare<MPSGraphBlock * {__strong},std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>,std::less<MPSGraphBlock * {__strong}>,true>,std::allocator<std::__value_type<MPSGraphBlock * {__strong},std::vector<MPSGraphTensor * {__strong}>>>>::destroy(*v8);
   std::pair<MPSGraphBlock * const {__strong},std::vector<MPSGraphTensor * {__strong}>>::~pair(va1);
 
   AddForInjectValuesRewrite::~AddForInjectValuesRewrite(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1E0763F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1E0763F4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va, a7);
   AddForInjectValuesRewrite::~AddForInjectValuesRewrite(va);
-  MPSGraphDelegateCompiler.precompilationDescriptor.modify(va1, v6);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
 
   _Unwind_Resume(a1);
 }
 
-void AddForInputsRewrite::rewrite(uint64_t a1, uint64_t a2, void *a3)
+void AddForInputsRewrite::rewrite(uint64_t a1, mlir::Operation *a2, void *a3)
 {
-  v67[5] = *MEMORY[0x1E69E9840];
-  v60 = a2;
+  v64[5] = *MEMORY[0x1E69E9840];
+  v57 = a2;
   v5 = *(*(a1 + 16) + 176);
-  v55 = v5;
-  v53 = *(*(*(a1 + 16) + 56) + 16);
-  v58 = *(a1 + 8);
+  v52 = v5;
+  v50 = *(*(*(a1 + 16) + 56) + 16);
+  v55 = *(a1 + 8);
   v6 = *(*(a1 + 16) + 56);
-  v7 = *(a2 + 16);
-  v9 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(a2, v8);
+  v7 = *(a2 + 2);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
   *(v6 + 16) = v7;
-  *(v6 + 24) = v9;
+  *(v6 + 24) = v8;
   WeakRetained = objc_loadWeakRetained((*(a1 + 8) + 48));
-  v11 = *(a1 + 16);
-  v12 = *(v11 + 176);
-  *(v11 + 176) = WeakRetained;
+  v10 = *(a1 + 16);
+  v11 = *(v10 + 176);
+  *(v10 + 176) = WeakRetained;
 
-  v13 = [*(a1 + 8) inputTensors];
-  v14 = [v13 mutableCopy];
+  v12 = [*(a1 + 8) inputTensors];
+  v13 = [v12 mutableCopy];
 
-  v15 = [v14 count];
-  (**a1)(a1, v14);
-  v17 = [v14 count];
-  v56 = a1;
-  v59 = v14;
-  v54 = (a1 + 8);
-  if (v17 != v15)
+  v14 = [v13 count];
+  (**a1)(a1, v13);
+  v15 = [v13 count];
+  v53 = a1;
+  v56 = v13;
+  v51 = (a1 + 8);
+  if (v15 != v14)
   {
-    [v14 objectAtIndexedSubscript:v15];
+    [v13 objectAtIndexedSubscript:v14];
     objc_claimAutoreleasedReturnValue();
     operator new();
   }
 
-  if (v17 >= 4)
+  if (v15 >= 4)
   {
-    [v14 objectAtIndexedSubscript:3];
+    [v13 objectAtIndexedSubscript:3];
     objc_claimAutoreleasedReturnValue();
     operator new();
   }
 
-  v18 = *(v60 + 2);
-  v19 = *(MPSGraphDelegateCompiler.precompilationDescriptor.modify(v60, v16) + 8);
-  a3[3] = v18;
-  a3[4] = v19;
-  v20 = *(v60 + 3);
-  ODSOperandIndexAndLength = mlir::scf::ForOp::getODSOperandIndexAndLength(&v60, 0, v21, v22);
-  v24 = *(*(v60 + 9) + 32 * ODSOperandIndexAndLength + 24);
-  v27 = mlir::scf::ForOp::getODSOperandIndexAndLength(&v60, 1u, v25, v26);
-  v28 = *(*(v60 + 9) + 32 * v27 + 24);
-  v31 = mlir::scf::ForOp::getODSOperandIndexAndLength(&v60, 2u, v29, v30);
-  v32 = *(*(v60 + 9) + 32 * v31 + 24);
-  v61 = v20;
-  Context = mlir::Attribute::getContext(&v61);
-  v34 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::scf::ForOp,void>::id, Context);
-  if ((v35 & 1) == 0)
+  v16 = *(v57 + 2);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+  v18 = *(v17 + 8);
+  a3[3] = v16;
+  a3[4] = v18;
+  v19 = *(v57 + 3);
+  ODSOperandIndexAndLength = mlir::scf::ForOp::getODSOperandIndexAndLength(&v57, 0, v20, v21);
+  v23 = *(*(v57 + 9) + 32 * ODSOperandIndexAndLength + 24);
+  v26 = mlir::scf::ForOp::getODSOperandIndexAndLength(&v57, 1u, v24, v25);
+  v27 = *(*(v57 + 9) + 32 * v26 + 24);
+  v30 = mlir::scf::ForOp::getODSOperandIndexAndLength(&v57, 2u, v28, v29);
+  v31 = *(*(v57 + 9) + 32 * v30 + 24);
+  v58 = v19;
+  Context = mlir::Attribute::getContext(&v58);
+  v33 = mlir::RegisteredOperationName::lookup(&mlir::detail::TypeIDResolver<mlir::scf::ForOp,void>::id, Context);
+  if ((v34 & 1) == 0)
   {
-    v65 = 1283;
-    v64[2] = "scf.for";
-    v64[3] = 7;
-    v63 = 259;
-    llvm::operator+(v64, &v62, v67);
-    llvm::report_fatal_error(v67, 1);
+    v62 = 1283;
+    v61[2] = "scf.for";
+    v61[3] = 7;
+    v60 = 259;
+    llvm::operator+(v61, &v59, v64);
+    llvm::report_fatal_error(v64, 1);
   }
 
-  mlir::OperationState::OperationState(v66, v20, v34);
-  mlir::ValueRange::ValueRange(v67, 0, 0);
-  mlir::scf::ForOp::build((a3 + 1), v66, v24, v28, v32, v67[0], v67[1], v36, 0, v52);
-  v37 = mlir::OpBuilder::create((a3 + 1), v66);
-  v38 = *(*(v37 + 48) + 16);
-  mlir::OperationState::~OperationState(v66);
-  if (v38 != &mlir::detail::TypeIDResolver<mlir::scf::ForOp,void>::id)
+  mlir::OperationState::OperationState(v63, v19, v33);
+  mlir::ValueRange::ValueRange(v64, 0, 0);
+  mlir::scf::ForOp::build((a3 + 1), v63, v23, v27, v31, v64[0], v64[1], v35, 0, v49);
+  v36 = mlir::OpBuilder::create((a3 + 1), v63);
+  v37 = *(*(v36 + 6) + 16);
+  mlir::OperationState::~OperationState(v63);
+  if (v37 != &mlir::detail::TypeIDResolver<mlir::scf::ForOp,void>::id)
   {
-    v37 = 0;
+    v36 = 0;
   }
 
-  mlir::Region::takeBody((((v37 + 64 + 16 * ((*(v37 + 44) >> 23) & 1) + ((*(v37 + 44) >> 21) & 0x7F8) + 7) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v37 + 40)), (((&v60[4 * ((v60[11] >> 23) & 1) + 17] + ((v60[11] >> 21) & 0x7F8) + 3) & 0xFFFFFFFFFFFFFFF8) + 32 * v60[10]));
-  AddInputsRewrite::replaceOp(v54, v60, v37, v59);
-  v39 = *(((v37 + 64 + 16 * ((*(v37 + 44) >> 23) & 1) + ((*(v37 + 44) >> 21) & 0x7F8) + 7) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v37 + 40) + 8);
-  if (v39)
+  mlir::Region::takeBody(((&v36[16 * ((*(v36 + 11) >> 23) & 1) + 71 + ((*(v36 + 11) >> 21) & 0x7F8)] & 0xFFFFFFFFFFFFFFF8) + 32 * *(v36 + 10)), (((v57 + 16 * ((*(v57 + 11) >> 23) & 1) + ((*(v57 + 11) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v57 + 10)));
+  AddInputsRewrite::replaceOp(v51, v57, v36, v56);
+  v38 = *((&v36[16 * ((*(v36 + 11) >> 23) & 1) + 71 + ((*(v36 + 11) >> 21) & 0x7F8)] & 0xFFFFFFFFFFFFFFF8) + 32 * *(v36 + 10) + 8);
+  if (v38)
   {
-    v40 = (v39 - 8);
-  }
-
-  else
-  {
-    v40 = 0;
-  }
-
-  v41 = [*(*(*v54 + 40) + 8) objectAtIndexedSubscript:0];
-  v42 = AddInputsRewrite::extendBlockInputs(v54, v40, v41, v58[14], 0, 0);
-  v43 = v58[14];
-  v58[14] = v42;
-
-  Terminator = mlir::Block::getTerminator(v40, v44);
-  v46 = *(*(a1 + 16) + 56);
-  v47 = *(Terminator + 16);
-  v49 = MPSGraphDelegateCompiler.precompilationDescriptor.modify(Terminator, v48);
-  *(v46 + 16) = v47;
-  *(v46 + 24) = v49;
-  objc_storeStrong((v56[2] + 176), v41);
-  v50 = [v58[12] mutableCopy];
-  (*(*v56 + 8))(v56, v58[14], v50);
-  objc_storeStrong(v58 + 12, v50);
-  AddInputsRewrite::extendBlockTermOp(a3, v40, v50, 0);
-  v51 = *(v56[2] + 56);
-  if (v53)
-  {
-    *(v51 + 16) = v53;
+    v39 = (v38 - 8);
   }
 
   else
   {
-    *(v51 + 16) = 0;
-    *(v51 + 24) = 0;
+    v39 = 0;
   }
 
-  objc_storeStrong((v56[2] + 176), v5);
+  v40 = [*(*(*v51 + 40) + 8) objectAtIndexedSubscript:0];
+  v41 = AddInputsRewrite::extendBlockInputs(v51, v39, v40, v55[14], 0, 0);
+  v42 = v55[14];
+  v55[14] = v41;
+
+  mlir::Block::getTerminator(v39);
+  v43 = *(*(a1 + 16) + 56);
+  v45 = *(v44 + 16);
+  MPSGraphDelegateCompiler.precompilationDescriptor.modify();
+  *(v43 + 16) = v45;
+  *(v43 + 24) = v46;
+  objc_storeStrong((v53[2] + 176), v40);
+  v47 = [v55[12] mutableCopy];
+  (*(*v53 + 8))(v53, v55[14], v47);
+  objc_storeStrong(v55 + 12, v47);
+  AddInputsRewrite::extendBlockTermOp(a3, v39, v47, 0);
+  v48 = *(v53[2] + 56);
+  if (v50)
+  {
+    *(v48 + 16) = v50;
+  }
+
+  else
+  {
+    *(v48 + 16) = 0;
+    *(v48 + 24) = 0;
+  }
+
+  objc_storeStrong((v53[2] + 176), v5);
 }
 
 void sub_1E076470C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, void *a19, void *a20, void *__p, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
@@ -6196,12 +8726,12 @@ void AddForInjectValuesRewrite::addOpInputs(uint64_t a1, void *a2)
   }
 }
 
-void AddForInjectValuesRewrite::addBodyBlockOutputs(void *a1, void *a2, void *a3)
+void AddForInjectValuesRewrite::addBodyBlockOutputs(void ***a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = *(a1[1] + 64);
-  v8 = *(((v7 + 16 * ((*(v7 + 44) >> 23) & 1) + ((*(v7 + 44) >> 21) & 0x7F8) + 71) & 0xFFFFFFFFFFFFFFF8) + 32 * *(v7 + 40) + 8);
+  v7 = a1[1][8];
+  v8 = *(((&v7[4 * ((v7[11] >> 23) & 1) + 17] + ((v7[11] >> 21) & 0x7F8) + 3) & 0xFFFFFFFFFFFFFFF8) + 32 * v7[10] + 8);
   if (v8)
   {
     v9 = v8 - 8;
@@ -6212,16 +8742,16 @@ void AddForInjectValuesRewrite::addBodyBlockOutputs(void *a1, void *a2, void *a3
     v9 = 0;
   }
 
-  v10 = *(a1[2] + 56);
+  v10 = a1[2][7];
   v11 = *(v9 + 40);
-  *(v10 + 16) = v9;
-  *(v10 + 24) = v11;
-  if (*(a1[3] + 8) != *a1[3])
+  v10[2] = v9;
+  v10[3] = v11;
+  if (a1[3][1] != *a1[3])
   {
     v12 = 0;
     do
     {
-      v13 = [v5 objectAtIndexedSubscript:{v12 + objc_msgSend(v5, "count") - ((*(a1[3] + 8) - *a1[3]) >> 3)}];
+      v13 = [v5 objectAtIndexedSubscript:{v12 + objc_msgSend(v5, "count") - ((a1[3][1] - *a1[3]) >> 3)}];
       v14 = a1[2];
       v19 = v13;
       v15 = [v14 popBackFromList:v13 outputList:&v19 name:0];
@@ -6237,7 +8767,7 @@ void AddForInjectValuesRewrite::addBodyBlockOutputs(void *a1, void *a2, void *a3
       else
       {
         *v17 = v15;
-        v18 = (v17 + 1);
+        v18 = v17 + 1;
       }
 
       a1[5] = v18;
@@ -6246,27 +8776,128 @@ void AddForInjectValuesRewrite::addBodyBlockOutputs(void *a1, void *a2, void *a3
       ++v12;
     }
 
-    while (v12 < (*(a1[3] + 8) - *a1[3]) >> 3);
+    while (v12 < (a1[3][1] - *a1[3]) >> 3);
   }
 }
 
-void *std::__hash_table<std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(void *a1, uint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,std::unordered_map<void *,Autodiff::TensorFrame>>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(void *a1, unint64_t *a2, uint64_t a3, void **a4)
 {
-  v2 = *a2;
-  v3 = HIDWORD(*a2);
-  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFF) + 8) ^ v3);
-  v5 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) ^ ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) >> 47));
+  v4 = *a2;
+  v5 = HIDWORD(*a2);
+  v6 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFF) + 8) ^ v5);
+  v7 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) ^ ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) >> 47));
+  v8 = a1[1];
+  if (!*&v8)
+  {
+    goto LABEL_23;
+  }
+
+  v9 = vcnt_s8(v8);
+  v9.i16[0] = vaddlv_u8(v9);
+  if (v9.u32[0] > 1uLL)
+  {
+    v10 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) ^ ((0x9DDFEA08EB382D69 * (v5 ^ (v6 >> 47) ^ v6)) >> 47));
+    if (v7 >= *&v8)
+    {
+      v10 = v7 % *&v8;
+    }
+  }
+
+  else
+  {
+    v10 = v7 & (*&v8 - 1);
+  }
+
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
+  {
+LABEL_23:
+    operator new();
+  }
+
+  if (v9.u32[0] < 2uLL)
+  {
+    while (1)
+    {
+      v14 = v12[1];
+      if (v14 == v7)
+      {
+        if (v12[2] == v4)
+        {
+          return v12;
+        }
+      }
+
+      else if ((v14 & (*&v8 - 1)) != v10)
+      {
+        goto LABEL_23;
+      }
+
+      v12 = *v12;
+      if (!v12)
+      {
+        goto LABEL_23;
+      }
+    }
+  }
+
+  while (1)
+  {
+    v13 = v12[1];
+    if (v13 == v7)
+    {
+      break;
+    }
+
+    if (v13 >= *&v8)
+    {
+      v13 %= *&v8;
+    }
+
+    if (v13 != v10)
+    {
+      goto LABEL_23;
+    }
+
+LABEL_12:
+    v12 = *v12;
+    if (!v12)
+    {
+      goto LABEL_23;
+    }
+  }
+
+  if (v12[2] != v4)
+  {
+    goto LABEL_12;
+  }
+
+  return v12;
+}
+
+void sub_1E07650C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<std::__hash_node<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,void *>>>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void *std::__hash_table<std::__hash_value_type<void *,Autodiff::TensorFrame>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,Autodiff::TensorFrame>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,Autodiff::TensorFrame>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,Autodiff::TensorFrame>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(void *a1, unint64_t a2, void **a3)
+{
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
   v6 = a1[1];
   if (!*&v6)
   {
-    goto LABEL_23;
+    goto LABEL_22;
   }
 
   v7 = vcnt_s8(v6);
   v7.i16[0] = vaddlv_u8(v7);
   if (v7.u32[0] > 1uLL)
   {
-    v8 = 0x9DDFEA08EB382D69 * ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) ^ ((0x9DDFEA08EB382D69 * (v3 ^ (v4 >> 47) ^ v4)) >> 47));
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
     if (v5 >= *&v6)
     {
       v8 = v5 % *&v6;
@@ -6275,13 +8906,13 @@ void *std::__hash_table<std::__hash_value_type<void *,std::unordered_map<void *,
 
   else
   {
-    v8 = v5 & (*&v6 - 1);
+    v8 = (*&v6 - 1) & v5;
   }
 
   v9 = *(*a1 + 8 * v8);
   if (!v9 || (v10 = *v9) == 0)
   {
-LABEL_23:
+LABEL_22:
     operator new();
   }
 
@@ -6289,124 +8920,23 @@ LABEL_23:
   {
     while (1)
     {
-      v12 = v10[1];
-      if (v12 == v5)
+      v11 = v10[1];
+      if (v11 == v5)
       {
-        if (v10[2] == v2)
+        if (v10[2] == a2)
         {
           return v10;
         }
       }
 
-      else if ((v12 & (*&v6 - 1)) != v8)
+      else if ((v11 & (*&v6 - 1)) != v8)
       {
-        goto LABEL_23;
+        goto LABEL_22;
       }
 
       v10 = *v10;
       if (!v10)
       {
-        goto LABEL_23;
-      }
-    }
-  }
-
-  while (1)
-  {
-    v11 = v10[1];
-    if (v11 == v5)
-    {
-      break;
-    }
-
-    if (v11 >= *&v6)
-    {
-      v11 %= *&v6;
-    }
-
-    if (v11 != v8)
-    {
-      goto LABEL_23;
-    }
-
-LABEL_12:
-    v10 = *v10;
-    if (!v10)
-    {
-      goto LABEL_23;
-    }
-  }
-
-  if (v10[2] != v2)
-  {
-    goto LABEL_12;
-  }
-
-  return v10;
-}
-
-void sub_1E07650C0(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<mlir::Operation *,std::unordered_map<void *,MPSGraphTensorData * {__strong}>>,void *>>>>::~unique_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-void *std::__hash_table<std::__hash_value_type<void *,Autodiff::TensorFrame>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,Autodiff::TensorFrame>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,Autodiff::TensorFrame>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,Autodiff::TensorFrame>>>::__emplace_unique_key_args<void *,std::piecewise_construct_t const&,std::tuple<void *&&>,std::tuple<>>(void *a1, unint64_t a2)
-{
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (a2 & 0x1FFFFFFF) + 8) ^ HIDWORD(a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
-  {
-    goto LABEL_22;
-  }
-
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
-  {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
-    {
-      v7 = v4 % *&v5;
-    }
-  }
-
-  else
-  {
-    v7 = (*&v5 - 1) & v4;
-  }
-
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
-  {
-LABEL_22:
-    operator new();
-  }
-
-  if (v6.u32[0] < 2uLL)
-  {
-    while (1)
-    {
-      v10 = v9[1];
-      if (v10 == v4)
-      {
-        if (v9[2] == a2)
-        {
-          return v9;
-        }
-      }
-
-      else if ((v10 & (*&v5 - 1)) != v7)
-      {
-        goto LABEL_22;
-      }
-
-      v9 = *v9;
-      if (!v9)
-      {
         goto LABEL_22;
       }
     }
@@ -6414,46 +8944,46 @@ LABEL_22:
 
   while (1)
   {
-    v11 = v9[1];
-    if (v11 == v4)
+    v12 = v10[1];
+    if (v12 == v5)
     {
       break;
     }
 
-    if (v11 >= *&v5)
+    if (v12 >= *&v6)
     {
-      v11 %= *&v5;
+      v12 %= *&v6;
     }
 
-    if (v11 != v7)
+    if (v12 != v8)
     {
       goto LABEL_22;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_22;
     }
   }
 
-  if (v9[2] != a2)
+  if (v10[2] != a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
-void sub_1E0765414(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1E0765414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<void *,MPSGraphTensorData * {__strong}>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<void *,MPSGraphTensorData * {__strong}>,void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *std::__hash_table<std::__hash_value_type<void *,Autodiff::TensorFrame>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,Autodiff::TensorFrame>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,Autodiff::TensorFrame>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,Autodiff::TensorFrame>>>::find<void *>(void *a1, uint64_t *a2)
+void *std::__hash_table<std::__hash_value_type<void *,Autodiff::TensorFrame>,std::__unordered_map_hasher<void *,std::__hash_value_type<void *,Autodiff::TensorFrame>,std::hash<void *>,std::equal_to<void *>,true>,std::__unordered_map_equal<void *,std::__hash_value_type<void *,Autodiff::TensorFrame>,std::equal_to<void *>,std::hash<void *>,true>,std::allocator<std::__hash_value_type<void *,Autodiff::TensorFrame>>>::find<void *>(void *a1, unint64_t *a2)
 {
   v2 = a1[1];
   if (!*&v2)
@@ -6550,7 +9080,7 @@ void *std::__hash_table<std::__hash_value_type<void *,Autodiff::TensorFrame>,std
   return result;
 }
 
-uint64_t std::vector<MPSGraphTensor * {__strong}>::__emplace_back_slow_path<MPSGraphTensor * const {__strong}&>(unint64_t *a1, id *a2)
+void *std::vector<MPSGraphTensor * {__strong}>::__emplace_back_slow_path<MPSGraphTensor * const {__strong}&>(void ***a1, id *a2)
 {
   v2 = a1[1] - *a1;
   v3 = v2 >> 3;
@@ -6657,14 +9187,14 @@ LABEL_27:
   }
 
   *a1 = v11;
-  a1[1] = 8 * v3 + 8;
+  a1[1] = (8 * v3 + 8);
   a1[2] = 0;
   if (v9)
   {
     operator delete(v9);
   }
 
-  return 8 * v3 + 8;
+  return (8 * v3 + 8);
 }
 
 void std::__tree<void *>::destroy(void *a1)
@@ -6774,7 +9304,7 @@ void sub_1E076C034(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void MPSShapeToVector<unsigned long long>(void *a1@<X0>, void *a2@<X8>)
+void MPSShapeToVector<unsigned long long>(void *a1@<X0>, uint64_t *a2@<X8>)
 {
   v3 = a1;
   a2[1] = 0;
@@ -7011,68 +9541,68 @@ LABEL_69:
   return v21;
 }
 
-void getMLIRModuleOp(void *a1@<X0>, void *a2@<X2>, void *a3@<X8>)
+void getMLIRModuleOp(void *a1@<X0>, void *a3@<X2>, unsigned int **a4@<X8>)
 {
-  v36[1] = *MEMORY[0x1E69E9840];
-  v5 = a1;
-  v6 = v5;
-  if (v5)
+  v37[1] = *MEMORY[0x1E69E9840];
+  v6 = a1;
+  v7 = v6;
+  if (v6)
   {
-    v7 = [v5 path];
-    v8 = [v7 cStringUsingEncoding:4];
-    v9 = strlen(v8);
-    if (v9 >= 0x7FFFFFFFFFFFFFF8)
+    v8 = [v6 path];
+    v9 = [v8 cStringUsingEncoding:4];
+    v10 = strlen(v9);
+    if (v10 >= 0x7FFFFFFFFFFFFFF8)
     {
       std::string::__throw_length_error[abi:ne200100]();
     }
 
-    v10 = v9;
-    if (v9 >= 0x17)
+    v11 = v10;
+    if (v10 >= 0x17)
     {
       operator new();
     }
 
-    v32 = v9;
-    if (v9)
+    v33 = v10;
+    if (v10)
     {
-      memmove(__dst, v8, v9);
+      memmove(__dst, v9, v10);
     }
 
-    *(__dst + v10) = 0;
+    *(__dst + v11) = 0;
 
     __p = 0;
-    v29 = 0;
     v30 = 0;
-    if (v32 >= 0)
+    v31 = 0;
+    if (v33 >= 0)
     {
-      v15 = __dst;
+      v16 = __dst;
     }
 
     else
     {
-      v15 = __dst[0];
+      v16 = __dst[0];
     }
 
-    if (v32 >= 0)
+    if (v33 >= 0)
     {
-      v16 = v32;
+      v17 = v33;
     }
 
     else
     {
-      v16 = __dst[1];
+      v17 = __dst[1];
     }
 
-    mlir::openInputFile(v15, v16, &__p, &v27);
-    LOBYTE(v17) = HIBYTE(v30);
-    if (SHIBYTE(v30) < 0)
+    mlir::openInputFile(v16, v17, &__p, &v28);
+    LOBYTE(v18) = HIBYTE(v31);
+    if (SHIBYTE(v31) < 0)
     {
-      if (v29)
+      if (v30)
       {
 LABEL_21:
-        if (a2)
+        if (a3)
         {
-          if (v30 >= 0)
+          if (v31 >= 0)
           {
             p_p = &__p;
           }
@@ -7082,59 +9612,59 @@ LABEL_21:
             p_p = __p;
           }
 
-          v19 = [MEMORY[0x1E696AEC0] stringWithCString:p_p encoding:4];
-          v20 = MPSGraphReportFailure(&stru_1F5B5DFD0.isa, v19);
+          v20 = [MEMORY[0x1E696AEC0] stringWithCString:p_p encoding:4];
+          v21 = MPSGraphReportFailure(&stru_1F5B5DFD0.isa, v20);
 
-          v21 = MEMORY[0x1E696ABC0];
-          v33 = *MEMORY[0x1E696A578];
-          v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d:: %@ ", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/MPSGraphComputePackage.mm", 369, v20];
-          v34 = v22;
-          v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
-          *a2 = [v21 errorWithDomain:@"MPSGraph" code:-1 userInfo:v23];
+          v22 = MEMORY[0x1E696ABC0];
+          v34 = *MEMORY[0x1E696A578];
+          v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d:: %@ ", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/MPSGraphComputePackage.mm", 369, v21];
+          v35 = v23;
+          v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+          *a3 = [v22 errorWithDomain:@"MPSGraph" code:-1 userInfo:v24];
 
-          LOBYTE(v17) = HIBYTE(v30);
+          LOBYTE(v18) = HIBYTE(v31);
         }
 
-        v17 = v17;
-        if ((v17 & 0x80u) != 0)
+        v18 = v18;
+        if ((v18 & 0x80u) != 0)
         {
-          v17 = v29;
+          v18 = v30;
         }
 
-        if (v17 && MTLReportFailureTypeEnabled())
+        if (v18 && MTLReportFailureTypeEnabled())
         {
-          if (v30 >= 0)
+          if (v31 >= 0)
           {
-            v25 = &__p;
+            v26 = &__p;
           }
 
           else
           {
-            v25 = __p;
+            v26 = __p;
           }
 
-          v26 = [MEMORY[0x1E696AEC0] stringWithCString:v25 encoding:4];
+          v27 = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:4];
           MTLReportFailure();
         }
 
-        *a3 = 0;
-        v24 = v27;
-        v27 = 0;
-        if (v24)
+        *a4 = 0;
+        v25 = v28;
+        v28 = 0;
+        if (v25)
         {
-          (*(*v24 + 8))(v24);
+          (*(*v25 + 8))(v25);
         }
 
-        if (SHIBYTE(v30) < 0)
+        if (SHIBYTE(v31) < 0)
         {
           operator delete(__p);
-          if ((v32 & 0x80000000) == 0)
+          if ((v33 & 0x80000000) == 0)
           {
             goto LABEL_33;
           }
         }
 
-        else if ((v32 & 0x80000000) == 0)
+        else if ((v33 & 0x80000000) == 0)
         {
           goto LABEL_33;
         }
@@ -7144,7 +9674,7 @@ LABEL_21:
       }
     }
 
-    else if (HIBYTE(v30))
+    else if (HIBYTE(v31))
     {
       goto LABEL_21;
     }
@@ -7152,15 +9682,15 @@ LABEL_21:
     operator new();
   }
 
-  if (a2)
+  if (a3)
   {
-    v11 = MPSGraphReportFailure(&cfstr_ExpectedAValid.isa);
-    v12 = MEMORY[0x1E696ABC0];
-    v35 = *MEMORY[0x1E696A578];
-    v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d:: %@ ", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/MPSGraphComputePackage.mm", 360, v11];
-    v36[0] = v13;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
-    *a2 = [v12 errorWithDomain:@"MPSGraph" code:-1 userInfo:v14];
+    v12 = MPSGraphReportFailure(&cfstr_ExpectedAValid.isa);
+    v13 = MEMORY[0x1E696ABC0];
+    v36 = *MEMORY[0x1E696A578];
+    v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s:%d:: %@ ", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/MPSGraphComputePackage.mm", 360, v12];
+    v37[0] = v14;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+    *a3 = [v13 errorWithDomain:@"MPSGraph" code:-1 userInfo:v15];
   }
 
   if (MTLReportFailureTypeEnabled())
@@ -7168,2601 +9698,6 @@ LABEL_21:
     MTLReportFailure();
   }
 
-  *a3 = 0;
+  *a4 = 0;
 LABEL_33:
-}
-
-void sub_1E076DB64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21, void *a22, uint64_t a23, int a24, __int16 a25, char a26, char a27, void *a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
-{
-  if (a15)
-  {
-    (*(*a15 + 8))(a15);
-    if ((a21 & 0x80000000) == 0)
-    {
-LABEL_3:
-      if ((a27 & 0x80000000) == 0)
-      {
-LABEL_8:
-
-        _Unwind_Resume(a1);
-      }
-
-LABEL_7:
-      operator delete(a22);
-      goto LABEL_8;
-    }
-  }
-
-  else if ((a21 & 0x80000000) == 0)
-  {
-    goto LABEL_3;
-  }
-
-  operator delete(__p);
-  if ((a27 & 0x80000000) == 0)
-  {
-    goto LABEL_8;
-  }
-
-  goto LABEL_7;
-}
-
-void sub_1E076ED8C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, void *a15, void *a16, uint64_t a17, void *a18, void *a19, void *a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, void *a51, uint64_t a52, int a53, __int16 a54, char a55, char a56, void *__p, uint64_t a58, int a59, __int16 a60, char a61, char a62)
-{
-  if (a62 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void InProcessPackageWritingGuard::lockPath(uint64_t a1, const void *a2, size_t a3)
-{
-  __lk.__m_ = &qword_1ECE75360;
-  __lk.__owns_ = 1;
-  std::mutex::lock(&qword_1ECE75360);
-  if (a2)
-  {
-    if (a3 > 0x7FFFFFFFFFFFFFF7)
-    {
-      std::string::__throw_length_error[abi:ne200100]();
-    }
-
-    if (a3 >= 0x17)
-    {
-      operator new();
-    }
-
-    if (a3)
-    {
-      while (1)
-      {
-        HIBYTE(v13) = a3;
-        memmove(__dst, a2, a3);
-        *(__dst + a3) = 0;
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(&xmmword_1ECE75338, __dst);
-        if (SHIBYTE(v13) < 0)
-        {
-          v6 = v5;
-          operator delete(__dst[0]);
-          v5 = v6;
-        }
-
-        if (v5)
-        {
-          break;
-        }
-
-        std::condition_variable::wait(&unk_1ECE753A0, &__lk);
-      }
-    }
-
-    else
-    {
-      while (1)
-      {
-        HIBYTE(v13) = 0;
-        LOBYTE(__dst[0]) = 0;
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(&xmmword_1ECE75338, __dst);
-        if (SHIBYTE(v13) < 0)
-        {
-          v10 = v9;
-          operator delete(__dst[0]);
-          v9 = v10;
-        }
-
-        if (v9)
-        {
-          break;
-        }
-
-        std::condition_variable::wait(&unk_1ECE753A0, &__lk);
-      }
-    }
-  }
-
-  else
-  {
-    while (1)
-    {
-      __dst[0] = 0;
-      __dst[1] = 0;
-      v13 = 0;
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(&xmmword_1ECE75338, __dst);
-      if (SHIBYTE(v13) < 0)
-      {
-        v8 = v7;
-        operator delete(__dst[0]);
-        v7 = v8;
-      }
-
-      if (v7)
-      {
-        break;
-      }
-
-      std::condition_variable::wait(&unk_1ECE753A0, &__lk);
-    }
-  }
-
-  operator new();
-}
-
-void sub_1E076F244(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::mutex *a10, char a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
-{
-  if (a11 == 1)
-  {
-    std::mutex::unlock(a10);
-    _Unwind_Resume(exception_object);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-id MPSGraphOperatingSystemVersion::asString(MPSGraphOperatingSystemVersion *this)
-{
-  v2 = objc_alloc_init(MEMORY[0x1E696AEC0]);
-  v3 = objc_alloc(MEMORY[0x1E696AEC0]);
-  std::to_string(&v18, this->var0);
-  if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v4 = &v18;
-  }
-
-  else
-  {
-    v4 = v18.__r_.__value_.__r.__words[0];
-  }
-
-  v5 = [v3 initWithCString:v4 encoding:4];
-  v6 = [v2 stringByAppendingString:v5];
-
-  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v18.__r_.__value_.__l.__data_);
-  }
-
-  v7 = [v6 stringByAppendingString:@"."];
-
-  v8 = objc_alloc(MEMORY[0x1E696AEC0]);
-  std::to_string(&v18, this->var1);
-  if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v9 = &v18;
-  }
-
-  else
-  {
-    v9 = v18.__r_.__value_.__r.__words[0];
-  }
-
-  v10 = [v8 initWithCString:v9 encoding:4];
-  v11 = [v7 stringByAppendingString:v10];
-
-  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v18.__r_.__value_.__l.__data_);
-  }
-
-  v12 = [v11 stringByAppendingString:@"."];
-
-  v13 = objc_alloc(MEMORY[0x1E696AEC0]);
-  std::to_string(&v18, this->var2);
-  if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    v14 = &v18;
-  }
-
-  else
-  {
-    v14 = v18.__r_.__value_.__r.__words[0];
-  }
-
-  v15 = [v13 initWithCString:v14 encoding:4];
-  v16 = [v12 stringByAppendingString:v15];
-
-  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v18.__r_.__value_.__l.__data_);
-  }
-
-  return v16;
-}
-
-void sub_1E076F488(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
-{
-  if (a15 < 0)
-  {
-    operator delete(__p);
-
-    _Unwind_Resume(a1);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1E07700EC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, void *a15, uint64_t a16, void *a17, void *a18, void *a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, int a27, __int16 a28, char a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, _BYTE *a37, void *__p, uint64_t a39, int a40, __int16 a41, char a42, char a43)
-{
-  std::unique_ptr<llvm::ToolOutputFile>::~unique_ptr[abi:ne200100](&a37);
-  if (a43 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (*(v47 - 161) < 0)
-  {
-    operator delete(*(v47 - 184));
-  }
-
-  _Unwind_Resume(a1);
-}
-
-_BYTE **std::unique_ptr<llvm::ToolOutputFile>::~unique_ptr[abi:ne200100](_BYTE **result)
-{
-  v1 = *result;
-  *result = 0;
-  if (v1)
-  {
-    v2 = result;
-    if (v1[128] == 1)
-    {
-      llvm::raw_fd_ostream::~raw_fd_ostream((v1 + 32));
-    }
-
-    llvm::CleanupInstaller::~CleanupInstaller(v1);
-    MEMORY[0x1E12E5B90]();
-    return v2;
-  }
-
-  return result;
-}
-
-void sub_1E07705C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11, int a12, _BYTE *a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25)
-{
-  std::unique_ptr<llvm::ToolOutputFile>::~unique_ptr[abi:ne200100](&a13);
-  if (a19 < 0)
-  {
-    operator delete(__p);
-    if ((a25 & 0x80000000) == 0)
-    {
-LABEL_3:
-
-      _Unwind_Resume(a1);
-    }
-  }
-
-  else if ((a25 & 0x80000000) == 0)
-  {
-    goto LABEL_3;
-  }
-
-  operator delete(a20);
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1E07707E8(_Unwind_Exception *a1)
-{
-  v4 = v3;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1E07713F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, char a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, int a27, __int16 a28, char a29, char a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40)
-{
-  llvm::StringMap<support::ResourceStorage::ResourceReadInfo,llvm::MallocAllocator>::~StringMap(&a22);
-  if (a30 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a36 < 0)
-  {
-    operator delete(a31);
-  }
-
-  llvm::SmallVector<support::ResourceStorage::ResourceWriteInfo,10u>::~SmallVector(&a40);
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t llvm::StringMap<support::ResourceStorage::ResourceReadInfo,llvm::MallocAllocator>::~StringMap(uint64_t a1)
-{
-  if (*(a1 + 12))
-  {
-    v2 = *(a1 + 8);
-    if (v2)
-    {
-      v3 = 0;
-      do
-      {
-        v4 = *(*a1 + v3);
-        if (v4 != -8 && v4 != 0)
-        {
-          llvm::deallocate_buffer(v4, (*v4 + 17));
-        }
-
-        v3 += 8;
-      }
-
-      while (8 * v2 != v3);
-    }
-  }
-
-  free(*a1);
-  return a1;
-}
-
-void sub_1E0771B00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, void *__p, uint64_t a34, int a35, __int16 a36, char a37, char a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44)
-{
-  llvm::StringMap<support::ResourceStorage::ResourceReadInfo,llvm::MallocAllocator>::~StringMap(&a30);
-  if (a38 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a44 < 0)
-  {
-    operator delete(a39);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1E0771CB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
-{
-  v14 = v13;
-
-  _Unwind_Resume(a1);
-}
-
-void sub_1E0771E24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
-{
-  _Block_object_dispose(&a15, 8);
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
-{
-  *(result + 40) = *(a2 + 40);
-  *(a2 + 40) = 0;
-  return result;
-}
-
-void sub_1E0772984(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *__p, uint64_t a22, int a23, __int16 a24, char a25, char a26)
-{
-  if (a26 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void MPSGraphOperatingSystemVersion::MPSGraphOperatingSystemVersion(MPSGraphOperatingSystemVersion *this, NSString *a2)
-{
-  v3 = [(NSString *)a2 componentsSeparatedByString:@"."];
-  if ([v3 count])
-  {
-    v4 = [v3 objectAtIndexedSubscript:0];
-    this->var0 = [v4 integerValue];
-  }
-
-  else
-  {
-    this->var0 = 0;
-  }
-
-  if ([v3 count] < 2)
-  {
-    this->var1 = 0;
-  }
-
-  else
-  {
-    v5 = [v3 objectAtIndexedSubscript:1];
-    this->var1 = [v5 integerValue];
-  }
-
-  if ([v3 count] < 3)
-  {
-    this->var2 = 0;
-  }
-
-  else
-  {
-    v6 = [v3 objectAtIndexedSubscript:2];
-    this->var2 = [v6 integerValue];
-  }
-}
-
-void InProcessPackageWritingGuard::~InProcessPackageWritingGuard(InProcessPackageWritingGuard *this)
-{
-  std::condition_variable::~condition_variable((this + 104));
-  std::mutex::~mutex((this + 40));
-  v2 = *(this + 2);
-  if (v2)
-  {
-    do
-    {
-      v4 = *v2;
-      if (*(v2 + 39) < 0)
-      {
-        operator delete(v2[2]);
-      }
-
-      operator delete(v2);
-      v2 = v4;
-    }
-
-    while (v4);
-  }
-
-  v3 = *this;
-  *this = 0;
-  if (v3)
-  {
-    operator delete(v3);
-  }
-}
-
-uint64_t **std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(void *a1, uint64_t a2)
-{
-  v2 = a2;
-  v4 = *(a2 + 8);
-  if (*(a2 + 23) >= 0)
-  {
-    v5 = *(a2 + 23);
-  }
-
-  else
-  {
-    a2 = *a2;
-    v5 = v4;
-  }
-
-  v6 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:ne200100](&v24, a2, v5);
-  v7 = v6;
-  v8 = a1[1];
-  if (!*&v8)
-  {
-    goto LABEL_43;
-  }
-
-  v9 = vcnt_s8(v8);
-  v9.i16[0] = vaddlv_u8(v9);
-  if (v9.u32[0] > 1uLL)
-  {
-    v10 = v6;
-    if (v6 >= *&v8)
-    {
-      v10 = v6 % *&v8;
-    }
-  }
-
-  else
-  {
-    v10 = (*&v8 - 1) & v6;
-  }
-
-  v11 = *(*a1 + 8 * v10);
-  if (!v11 || (v12 = *v11) == 0)
-  {
-LABEL_43:
-    operator new();
-  }
-
-  v13 = v2[23];
-  if (v13 >= 0)
-  {
-    v14 = v2[23];
-  }
-
-  else
-  {
-    v14 = *(v2 + 1);
-  }
-
-  if (v13 < 0)
-  {
-    v2 = *v2;
-  }
-
-  if (v9.u32[0] < 2uLL)
-  {
-    while (1)
-    {
-      v19 = v12[1];
-      if (v19 == v7)
-      {
-        v20 = *(v12 + 39);
-        v21 = v20;
-        if (v20 < 0)
-        {
-          v20 = v12[3];
-        }
-
-        if (v20 == v14)
-        {
-          v22 = v21 >= 0 ? (v12 + 2) : v12[2];
-          if (!memcmp(v22, v2, v14))
-          {
-            return v12;
-          }
-        }
-      }
-
-      else if ((v19 & (*&v8 - 1)) != v10)
-      {
-        goto LABEL_43;
-      }
-
-      v12 = *v12;
-      if (!v12)
-      {
-        goto LABEL_43;
-      }
-    }
-  }
-
-  while (1)
-  {
-    v15 = v12[1];
-    if (v15 == v7)
-    {
-      break;
-    }
-
-    if (v15 >= *&v8)
-    {
-      v15 %= *&v8;
-    }
-
-    if (v15 != v10)
-    {
-      goto LABEL_43;
-    }
-
-LABEL_20:
-    v12 = *v12;
-    if (!v12)
-    {
-      goto LABEL_43;
-    }
-  }
-
-  v16 = *(v12 + 39);
-  v17 = v16;
-  if (v16 < 0)
-  {
-    v16 = v12[3];
-  }
-
-  if (v16 != v14)
-  {
-    goto LABEL_20;
-  }
-
-  v18 = v17 >= 0 ? (v12 + 2) : v12[2];
-  if (memcmp(v18, v2, v14))
-  {
-    goto LABEL_20;
-  }
-
-  return v12;
-}
-
-void sub_1E077329C(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,MPSMLIRViewerSPIOps>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,MPSMLIRViewerSPIOps>,void *>>>>::~unique_ptr[abi:ne200100](va);
-  _Unwind_Resume(a1);
-}
-
-mlir::Operation **mlir::OwningOpRef<mlir::ModuleOp>::~OwningOpRef(mlir::Operation **a1)
-{
-  v2 = *a1;
-  if (v2)
-  {
-    mlir::Operation::erase(v2);
-  }
-
-  return a1;
-}
-
-{
-  v2 = *a1;
-  if (v2)
-  {
-    mlir::Operation::erase(v2);
-  }
-
-  return a1;
-}
-
-void std::default_delete<InProcessPackageWritingGuard::LockGuard>::operator()[abi:ne200100](uint64_t a1)
-{
-  if ((atomic_load_explicit(&qword_1ECE75330, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&qword_1ECE75330))
-  {
-    unk_1ECE75348 = 0u;
-    xmmword_1ECE75338 = 0u;
-    dword_1ECE75358 = 1065353216;
-    qword_1ECE75360 = 850045863;
-    unk_1ECE75368 = 0u;
-    unk_1ECE75378 = 0u;
-    unk_1ECE75388 = 0u;
-    qword_1ECE75398 = 0;
-    unk_1ECE753A0 = 1018212795;
-    unk_1ECE753A8 = 0u;
-    unk_1ECE753B8 = 0u;
-    qword_1ECE753C8 = 0;
-    __cxa_atexit(InProcessPackageWritingGuard::~InProcessPackageWritingGuard, &xmmword_1ECE75338, &dword_1DF9BF000);
-    __cxa_guard_release(&qword_1ECE75330);
-  }
-
-  v3 = *a1;
-  v2 = *(a1 + 8);
-  std::mutex::lock(&qword_1ECE75360);
-  if (v3)
-  {
-    if (v2 >= 0x7FFFFFFFFFFFFFF8)
-    {
-      std::string::__throw_length_error[abi:ne200100]();
-    }
-
-    if (v2 >= 0x17)
-    {
-      operator new();
-    }
-
-    HIBYTE(v17) = v2;
-    if (v2)
-    {
-      memmove(__dst, v3, v2);
-    }
-
-    *(__dst + v2) = 0;
-    v4 = std::__hash_table<std::__hash_value_type<std::string,MPSMLIROps>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MPSMLIROps>>>::find<std::string>(&xmmword_1ECE75338, __dst);
-    if (!v4)
-    {
-LABEL_41:
-      if (SHIBYTE(v17) < 0)
-      {
-        operator delete(__dst[0]);
-      }
-
-      std::mutex::unlock(&qword_1ECE75360);
-      std::condition_variable::notify_all(&unk_1ECE753A0);
-
-      JUMPOUT(0x1E12E5B90);
-    }
-  }
-
-  else
-  {
-    __dst[0] = 0;
-    __dst[1] = 0;
-    v17 = 0;
-    v4 = std::__hash_table<std::__hash_value_type<std::string,MPSMLIROps>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,MPSMLIROps>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,MPSMLIROps>>>::find<std::string>(&xmmword_1ECE75338, __dst);
-    if (!v4)
-    {
-      goto LABEL_41;
-    }
-  }
-
-  v5 = *(&xmmword_1ECE75338 + 1);
-  v6 = v4[1];
-  v7 = vcnt_s8(*(&xmmword_1ECE75338 + 8));
-  v7.i16[0] = vaddlv_u8(v7);
-  if (v7.u32[0] > 1uLL)
-  {
-    if (v6 >= *(&xmmword_1ECE75338 + 1))
-    {
-      v6 = (v6 % *(&xmmword_1ECE75338 + 1));
-    }
-  }
-
-  else
-  {
-    v6 = ((*(&xmmword_1ECE75338 + 1) - 1) & v6);
-  }
-
-  v8 = xmmword_1ECE75338;
-  v9 = *(xmmword_1ECE75338 + 8 * v6);
-  do
-  {
-    v10 = v9;
-    v9 = *v9;
-  }
-
-  while (v9 != v4);
-  if (v10 == &unk_1ECE75348)
-  {
-    goto LABEL_29;
-  }
-
-  v11 = v10[1];
-  if (v7.u32[0] > 1uLL)
-  {
-    if (v11 >= *(&xmmword_1ECE75338 + 1))
-    {
-      v11 = (v11 % *(&xmmword_1ECE75338 + 1));
-    }
-  }
-
-  else
-  {
-    v11 = (v11 & (*(&xmmword_1ECE75338 + 1) - 1));
-  }
-
-  if (v11 != v6)
-  {
-LABEL_29:
-    if (!*v4)
-    {
-      goto LABEL_30;
-    }
-
-    v12 = (*v4)[1];
-    if (v7.u32[0] > 1uLL)
-    {
-      if (v12 >= *(&xmmword_1ECE75338 + 1))
-      {
-        v12 %= *(&xmmword_1ECE75338 + 1);
-      }
-    }
-
-    else
-    {
-      v12 &= *(&xmmword_1ECE75338 + 1) - 1;
-    }
-
-    if (v12 != v6)
-    {
-LABEL_30:
-      *(xmmword_1ECE75338 + 8 * v6) = 0;
-    }
-  }
-
-  v13 = *v4;
-  if (*v4)
-  {
-    v14 = v13[1];
-    if (v7.u32[0] > 1uLL)
-    {
-      if (v14 >= v5)
-      {
-        v14 = (v14 % v5);
-      }
-    }
-
-    else
-    {
-      v14 = (v14 & (v5 - 1));
-    }
-
-    if (v14 != v6)
-    {
-      *(v8 + 8 * v14) = v10;
-      v13 = *v4;
-    }
-  }
-
-  *v10 = v13;
-  *v4 = 0;
-  --qword_1ECE75350;
-  if (*(v4 + 39) < 0)
-  {
-    v15 = v4;
-    operator delete(v4[2]);
-    v4 = v15;
-  }
-
-  operator delete(v4);
-  goto LABEL_41;
-}
-
-uint64_t llvm::SmallVector<support::ResourceStorage::ResourceWriteInfo,10u>::~SmallVector(uint64_t a1)
-{
-  v2 = *a1;
-  v3 = *(a1 + 8);
-  if (v3)
-  {
-    v4 = v2 + 48 * v3 - 48;
-    v5 = -48 * v3;
-    do
-    {
-      if (*(v4 + 23) < 0)
-      {
-        operator delete(*v4);
-      }
-
-      v4 -= 48;
-      v5 += 48;
-    }
-
-    while (v5);
-    v2 = *a1;
-  }
-
-  if (v2 != (a1 + 16))
-  {
-    free(v2);
-  }
-
-  return a1;
-}
-
-void llvm::SmallVectorTemplateBase<support::ResourceStorage::ResourceWriteInfo,false>::grow(uint64_t a1, unint64_t a2)
-{
-  v16 = 0;
-  v3 = (a1 + 16);
-  llvm::SmallVectorBase<unsigned int>::mallocForGrow(a1, (a1 + 16), a2, 48, &v16);
-  v5 = v4;
-  v6 = *a1;
-  v7 = *(a1 + 8);
-  if (v7)
-  {
-    v8 = &v6[48 * v7];
-    v9 = v5;
-    do
-    {
-      v10 = *v6;
-      *(v9 + 16) = *(v6 + 2);
-      *v9 = v10;
-      *(v6 + 1) = 0;
-      *(v6 + 2) = 0;
-      *v6 = 0;
-      v11 = *(v6 + 24);
-      *(v9 + 40) = *(v6 + 5);
-      *(v9 + 24) = v11;
-      v9 += 48;
-      v6 += 48;
-    }
-
-    while (v6 != v8);
-    v6 = *a1;
-    v12 = *(a1 + 8);
-    if (v12)
-    {
-      v13 = &v6[48 * v12 - 48];
-      v14 = -48 * v12;
-      do
-      {
-        if (*(v13 + 23) < 0)
-        {
-          operator delete(*v13);
-        }
-
-        v13 -= 48;
-        v14 += 48;
-      }
-
-      while (v14);
-      v6 = *a1;
-    }
-  }
-
-  v15 = v16;
-  if (v6 != v3)
-  {
-    free(v6);
-  }
-
-  *a1 = v5;
-  *(a1 + 12) = v15;
-}
-
-id *GPU::PoolMaxOpHandler::PoolMaxOpHandler(id *this, id *a2, mlir::Operation *a3, GPU::MPSGraphKernelDAG *a4)
-{
-  v100 = *MEMORY[0x1E69E9840];
-  v7 = GPU::BaseOpHandler::BaseOpHandler(this, a2, a3, a4);
-  *v7 = &unk_1F5B4B630;
-  *(v7 + 15) = 0;
-  if (*(v7 + 40) != 1)
-  {
-    return this;
-  }
-
-  [a2[6] metalDevice];
-  v77 = v95 = a3;
-  WindowSizes = mlir::mps::PoolMaxGradientOp::getWindowSizes(&v95);
-  Strides = mlir::mps::PoolMaxGradientOp::getStrides(&v95);
-  InputAttributeNames = mlir::pdl_interp::CreateOperationOp::getInputAttributeNames(&v95);
-  *&v96 = v95;
-  mlir::mps::PoolMaxGradientOp::getIndicesResultType(&v96);
-  if (v8)
-  {
-    IndicesResultType = mlir::mps::PoolMaxGradientOp::getIndicesResultType(&v96);
-    if ((v10 & 1) == 0)
-    {
-      std::__throw_bad_optional_access[abi:ne200100]();
-    }
-
-    MPSDataType = getMPSDataType(IndicesResultType);
-  }
-
-  else
-  {
-    MPSDataType = 536870944;
-  }
-
-  PaddingStyle = mlir::mps::Conv3DOp::getPaddingStyle(&v96);
-  v98 = 0u;
-  v99 = 0u;
-  v96 = 0u;
-  v97 = 0u;
-  Offsets = mlir::mps::StencilOp::getOffsets(&v95);
-  v91 = v13;
-  v14 = *(*(v95 + 9) + 24);
-  v75 = MPSDataType;
-  v76 = PaddingStyle;
-  if (v14)
-  {
-    *&v88 = GPURegionRuntime::getStaticType(a2, v14);
-    mlir::ArrayAttr::getValue(&v88);
-    if (v15)
-    {
-      if ((v15 & 0x8000000000000000) == 0)
-      {
-        operator new();
-      }
-
-      std::vector<long>::__throw_length_error[abi:ne200100]();
-    }
-  }
-
-  v88 = xmmword_1E09A7718;
-  v89 = unk_1E09A7728;
-  v86 = xmmword_1E09A7718;
-  v87 = unk_1E09A7728;
-  v84 = xmmword_1E09A7718;
-  v85 = unk_1E09A7728;
-  if (Strides)
-  {
-    if (mlir::DenseElementsAttr::getNumElements(&Strides) == 4)
-    {
-      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v82, Strides, 0);
-      v16 = Strides;
-      NumElements = mlir::DenseElementsAttr::getNumElements(&Strides);
-      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v80, v16, NumElements);
-      if (v83 != v81)
-      {
-        v57 = 3;
-        do
-        {
-          mlir::DenseElementsAttr::IntElementIterator::operator*(&v82, &v78);
-          v58 = v79;
-          if (v79 < 0x41)
-          {
-            *(&v88 + v57--) = v78;
-          }
-
-          else
-          {
-            v59 = v58 - llvm::APInt::countLeadingZerosSlowCase(&v78);
-            v60 = v78;
-            if (v59 <= 0x40)
-            {
-              *(&v88 + v57--) = *v78;
-            }
-
-            else
-            {
-              *(&v88 + v57--) = -1;
-              if (!v60)
-              {
-                goto LABEL_78;
-              }
-            }
-
-            MEMORY[0x1E12E5B60]();
-          }
-
-LABEL_78:
-          *&v83 = v83 + 1;
-        }
-
-        while (v83 != v81);
-      }
-    }
-  }
-
-  if (WindowSizes)
-  {
-    if (mlir::DenseElementsAttr::getNumElements(&WindowSizes) == 4)
-    {
-      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v82, WindowSizes, 0);
-      v18 = WindowSizes;
-      v19 = mlir::DenseElementsAttr::getNumElements(&WindowSizes);
-      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v80, v18, v19);
-      if (v83 != v81)
-      {
-        v61 = 3;
-        do
-        {
-          mlir::DenseElementsAttr::IntElementIterator::operator*(&v82, &v78);
-          v62 = v79;
-          if (v79 < 0x41)
-          {
-            *(&v84 + v61--) = v78;
-          }
-
-          else
-          {
-            v63 = v62 - llvm::APInt::countLeadingZerosSlowCase(&v78);
-            v64 = v78;
-            if (v63 <= 0x40)
-            {
-              *(&v84 + v61--) = *v78;
-            }
-
-            else
-            {
-              *(&v84 + v61--) = -1;
-              if (!v64)
-              {
-                goto LABEL_87;
-              }
-            }
-
-            MEMORY[0x1E12E5B60]();
-          }
-
-LABEL_87:
-          *&v83 = v83 + 1;
-        }
-
-        while (v83 != v81);
-      }
-    }
-  }
-
-  if (InputAttributeNames)
-  {
-    if (mlir::DenseElementsAttr::getNumElements(&InputAttributeNames) == 4)
-    {
-      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v82, InputAttributeNames, 0);
-      v20 = InputAttributeNames;
-      v21 = mlir::DenseElementsAttr::getNumElements(&InputAttributeNames);
-      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v80, v20, v21);
-      if (v83 != v81)
-      {
-        v65 = 3;
-        do
-        {
-          mlir::DenseElementsAttr::IntElementIterator::operator*(&v82, &v78);
-          v66 = v79;
-          if (v79 < 0x41)
-          {
-            *(&v86 + v65--) = v78;
-          }
-
-          else
-          {
-            v67 = v66 - llvm::APInt::countLeadingZerosSlowCase(&v78);
-            v68 = v78;
-            if (v67 <= 0x40)
-            {
-              *(&v86 + v65--) = *v78;
-            }
-
-            else
-            {
-              *(&v86 + v65--) = -1;
-              if (!v68)
-              {
-                goto LABEL_96;
-              }
-            }
-
-            MEMORY[0x1E12E5B60]();
-          }
-
-LABEL_96:
-          *&v83 = v83 + 1;
-        }
-
-        while (v83 != v81);
-      }
-    }
-  }
-
-  if (v91 == 1 && mlir::DenseElementsAttr::getNumElements(&Offsets) == 8)
-  {
-    if ((v91 & 1) == 0)
-    {
-      std::__throw_bad_optional_access[abi:ne200100]();
-    }
-
-    mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v82, Offsets, 0);
-    v22 = Offsets;
-    v23 = mlir::DenseElementsAttr::getNumElements(&Offsets);
-    mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v80, v22, v23);
-    if (v83 != v81)
-    {
-      v69 = 7;
-      do
-      {
-        mlir::DenseElementsAttr::IntElementIterator::operator*(&v82, &v78);
-        v70 = v79;
-        if (v79 < 0x41)
-        {
-          *(&v96 + v69--) = v78;
-        }
-
-        else
-        {
-          v71 = v70 - llvm::APInt::countLeadingZerosSlowCase(&v78);
-          v72 = v78;
-          if (v71 <= 0x40)
-          {
-            *(&v96 + v69--) = *v78;
-          }
-
-          else
-          {
-            *(&v96 + v69--) = -1;
-            if (!v72)
-            {
-              goto LABEL_105;
-            }
-          }
-
-          MEMORY[0x1E12E5B60]();
-        }
-
-LABEL_105:
-        *&v83 = v83 + 1;
-      }
-
-      while (v83 != v81);
-    }
-  }
-
-  WeightsLayout = mlir::mps::Conv3DOp::getWeightsLayout(&v95);
-  mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v95);
-  v74 = a2;
-  mlir::mps::GRUOp::getResetAfter(&v95);
-  v25 = 0;
-  v26 = (v84 - 1) * v86 + 1;
-  if (WeightsLayout <= 2)
-  {
-    if (WeightsLayout)
-    {
-      if (WeightsLayout != 2)
-      {
-        goto LABEL_35;
-      }
-
-      goto LABEL_29;
-    }
-
-LABEL_34:
-    v25 = *(&v96 + 1);
-    goto LABEL_35;
-  }
-
-  if (WeightsLayout == 3)
-  {
-    goto LABEL_34;
-  }
-
-  if (WeightsLayout != 4)
-  {
-    goto LABEL_35;
-  }
-
-LABEL_29:
-  v27 = v88;
-  if (1 % v88)
-  {
-    v27 = 1 % v88;
-  }
-
-  v28 = (v26 - v27) & ~((v26 - v27) >> 63);
-  v29 = v28 >> 1;
-  v30 = v28 - (v28 >> 1);
-  if (WeightsLayout == 4)
-  {
-    v25 = v30;
-  }
-
-  else
-  {
-    v25 = v29;
-  }
-
-LABEL_35:
-  v31 = 0;
-  v32 = (*(&v84 + 1) - 1) * *(&v86 + 1) + 1;
-  v73 = a3;
-  if (WeightsLayout <= 2)
-  {
-    if (WeightsLayout)
-    {
-      if (WeightsLayout != 2)
-      {
-        goto LABEL_47;
-      }
-
-      goto LABEL_41;
-    }
-
-LABEL_46:
-    v31 = *(&v97 + 1);
-    goto LABEL_47;
-  }
-
-  if (WeightsLayout == 3)
-  {
-    goto LABEL_46;
-  }
-
-  if (WeightsLayout != 4)
-  {
-    goto LABEL_47;
-  }
-
-LABEL_41:
-  v33 = *(&v88 + 1);
-  if (1uLL % *(&v88 + 1))
-  {
-    v33 = 1uLL % *(&v88 + 1);
-  }
-
-  v34 = (v32 - v33) & ~((v32 - v33) >> 63);
-  v35 = v34 >> 1;
-  v36 = v34 - (v34 >> 1);
-  if (WeightsLayout == 4)
-  {
-    v31 = v36;
-  }
-
-  else
-  {
-    v31 = v35;
-  }
-
-LABEL_47:
-  v37 = 0;
-  v38 = (v85 - 1) * v87 + 1;
-  if (WeightsLayout <= 2)
-  {
-    if (WeightsLayout)
-    {
-      if (WeightsLayout != 2)
-      {
-        goto LABEL_59;
-      }
-
-      goto LABEL_53;
-    }
-
-LABEL_58:
-    v37 = *(&v98 + 1);
-    goto LABEL_59;
-  }
-
-  if (WeightsLayout == 3)
-  {
-    goto LABEL_58;
-  }
-
-  if (WeightsLayout != 4)
-  {
-    goto LABEL_59;
-  }
-
-LABEL_53:
-  v39 = v89;
-  if (1 % v89)
-  {
-    v39 = 1 % v89;
-  }
-
-  v40 = (v38 - v39) & ~((v38 - v39) >> 63);
-  v41 = v40 >> 1;
-  v42 = v40 - (v40 >> 1);
-  if (WeightsLayout == 4)
-  {
-    v37 = v42;
-  }
-
-  else
-  {
-    v37 = v41;
-  }
-
-LABEL_59:
-  v43 = 0;
-  v44 = (*(&v85 + 1) - 1) * *(&v87 + 1) + 1;
-  if (WeightsLayout <= 2)
-  {
-    if (WeightsLayout)
-    {
-      if (WeightsLayout != 2)
-      {
-        goto LABEL_71;
-      }
-
-LABEL_65:
-      v45 = *(&v89 + 1);
-      if (1uLL % *(&v89 + 1))
-      {
-        v45 = 1uLL % *(&v89 + 1);
-      }
-
-      v46 = (v44 - v45) & ~((v44 - v45) >> 63);
-      v47 = v46 >> 1;
-      v48 = v46 - (v46 >> 1);
-      if (WeightsLayout == 4)
-      {
-        v43 = v48;
-      }
-
-      else
-      {
-        v43 = v47;
-      }
-
-      goto LABEL_71;
-    }
-
-    goto LABEL_70;
-  }
-
-  if (WeightsLayout == 3)
-  {
-LABEL_70:
-    v43 = *(&v99 + 1);
-    goto LABEL_71;
-  }
-
-  if (WeightsLayout == 4)
-  {
-    goto LABEL_65;
-  }
-
-LABEL_71:
-  v49 = objc_alloc(MEMORY[0x1E69747E0]);
-  v82 = v84;
-  v83 = v85;
-  v50 = [v49 initWithDevice:v77 kernelSizes:&v82 poolingMode:1];
-  *&v82 = v26 / 2 - v25;
-  *(&v82 + 1) = v32 / 2 - v31;
-  *&v83 = v38 / 2 - v37;
-  *(&v83 + 1) = v44 / 2 - v43;
-  [v50 setPoolingOffsets:&v82];
-  v82 = v88;
-  v83 = v89;
-  [v50 setPoolingStrides:&v82];
-  v82 = v86;
-  v83 = v87;
-  [v50 setPoolingDilationRates:&v82];
-  if (v76 < 8)
-  {
-    v51 = v76 + 1;
-  }
-
-  else
-  {
-    v51 = 0;
-  }
-
-  [v50 setPoolingReturnIndicesMode:{v51, 1}];
-  [v50 setPoolingReturnIndicesDataType:v75];
-  [v50 setOptions:1];
-
-  v52 = this[1];
-  this[1] = v50;
-
-  v53 = [*(v74 + 6) metalDevice];
-  v54 = objc_claimAutoreleasedReturnValue();
-  v55 = this[15];
-  this[15] = v54;
-
-  [this[1] setOptions:{objc_msgSend(this[1], "options") | 1}];
-  [this[15] setOptions:{objc_msgSend(this[15], "options") | 1}];
-  return this;
-}
-
-void sub_1E0774180(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *__p, void *a16)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  GPU::BaseOpHandler::~BaseOpHandler(v16);
-  _Unwind_Resume(a1);
-}
-
-id GPU::anonymous namespace::createPoolingMaxGeneric<mlir::mps::PoolMaxOp,MPSNDArrayPoolingMultiDestinationKernel>(uint64_t a1, uint64_t a2, void *a3)
-{
-  v90 = *MEMORY[0x1E69E9840];
-  v85 = a2;
-  v67 = a3;
-  WindowSizes = mlir::mps::PoolMaxGradientOp::getWindowSizes(&v85);
-  Strides = mlir::mps::PoolMaxGradientOp::getStrides(&v85);
-  InputAttributeNames = mlir::pdl_interp::CreateOperationOp::getInputAttributeNames(&v85);
-  *&v86 = v85;
-  mlir::mps::PoolMaxGradientOp::getIndicesResultType(&v86);
-  if (v4)
-  {
-    IndicesResultType = mlir::mps::PoolMaxGradientOp::getIndicesResultType(&v86);
-    if ((v6 & 1) == 0)
-    {
-      std::__throw_bad_optional_access[abi:ne200100]();
-    }
-
-    MPSDataType = getMPSDataType(IndicesResultType);
-  }
-
-  else
-  {
-    MPSDataType = 536870944;
-  }
-
-  PaddingStyle = mlir::mps::Conv3DOp::getPaddingStyle(&v86);
-  v88 = 0u;
-  v89 = 0u;
-  v86 = 0u;
-  v87 = 0u;
-  Offsets = mlir::mps::StencilOp::getOffsets(&v85);
-  v81 = v9;
-  v10 = *(*(v85 + 72) + 24);
-  v66 = PaddingStyle;
-  if (v10)
-  {
-    *&v78 = GPURegionRuntime::getStaticType(a1, v10);
-    mlir::ArrayAttr::getValue(&v78);
-    if (v11)
-    {
-      if ((v11 & 0x8000000000000000) == 0)
-      {
-        operator new();
-      }
-
-      std::vector<long>::__throw_length_error[abi:ne200100]();
-    }
-  }
-
-  v78 = xmmword_1E09A7718;
-  v79 = unk_1E09A7728;
-  v76 = xmmword_1E09A7718;
-  v77 = unk_1E09A7728;
-  v74 = xmmword_1E09A7718;
-  v75 = unk_1E09A7728;
-  if (Strides)
-  {
-    if (mlir::DenseElementsAttr::getNumElements(&Strides) == 4)
-    {
-      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v72, Strides, 0);
-      v12 = Strides;
-      NumElements = mlir::DenseElementsAttr::getNumElements(&Strides);
-      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v70, v12, NumElements);
-      if (v73 != v71)
-      {
-        v50 = 3;
-        do
-        {
-          mlir::DenseElementsAttr::IntElementIterator::operator*(&v72, &v68);
-          v51 = v69;
-          if (v69 < 0x41)
-          {
-            *(&v78 + v50--) = v68;
-          }
-
-          else
-          {
-            v52 = v51 - llvm::APInt::countLeadingZerosSlowCase(&v68);
-            v53 = v68;
-            if (v52 <= 0x40)
-            {
-              *(&v78 + v50--) = *v68;
-            }
-
-            else
-            {
-              *(&v78 + v50--) = -1;
-              if (!v53)
-              {
-                goto LABEL_78;
-              }
-            }
-
-            MEMORY[0x1E12E5B60]();
-          }
-
-LABEL_78:
-          *&v73 = v73 + 1;
-        }
-
-        while (v73 != v71);
-      }
-    }
-  }
-
-  if (WindowSizes)
-  {
-    if (mlir::DenseElementsAttr::getNumElements(&WindowSizes) == 4)
-    {
-      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v72, WindowSizes, 0);
-      v14 = WindowSizes;
-      v15 = mlir::DenseElementsAttr::getNumElements(&WindowSizes);
-      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v70, v14, v15);
-      if (v73 != v71)
-      {
-        v54 = 3;
-        do
-        {
-          mlir::DenseElementsAttr::IntElementIterator::operator*(&v72, &v68);
-          v55 = v69;
-          if (v69 < 0x41)
-          {
-            *(&v74 + v54--) = v68;
-          }
-
-          else
-          {
-            v56 = v55 - llvm::APInt::countLeadingZerosSlowCase(&v68);
-            v57 = v68;
-            if (v56 <= 0x40)
-            {
-              *(&v74 + v54--) = *v68;
-            }
-
-            else
-            {
-              *(&v74 + v54--) = -1;
-              if (!v57)
-              {
-                goto LABEL_87;
-              }
-            }
-
-            MEMORY[0x1E12E5B60]();
-          }
-
-LABEL_87:
-          *&v73 = v73 + 1;
-        }
-
-        while (v73 != v71);
-      }
-    }
-  }
-
-  if (InputAttributeNames)
-  {
-    if (mlir::DenseElementsAttr::getNumElements(&InputAttributeNames) == 4)
-    {
-      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v72, InputAttributeNames, 0);
-      v16 = InputAttributeNames;
-      v17 = mlir::DenseElementsAttr::getNumElements(&InputAttributeNames);
-      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v70, v16, v17);
-      if (v73 != v71)
-      {
-        v58 = 3;
-        do
-        {
-          mlir::DenseElementsAttr::IntElementIterator::operator*(&v72, &v68);
-          v59 = v69;
-          if (v69 < 0x41)
-          {
-            *(&v76 + v58--) = v68;
-          }
-
-          else
-          {
-            v60 = v59 - llvm::APInt::countLeadingZerosSlowCase(&v68);
-            v61 = v68;
-            if (v60 <= 0x40)
-            {
-              *(&v76 + v58--) = *v68;
-            }
-
-            else
-            {
-              *(&v76 + v58--) = -1;
-              if (!v61)
-              {
-                goto LABEL_96;
-              }
-            }
-
-            MEMORY[0x1E12E5B60]();
-          }
-
-LABEL_96:
-          *&v73 = v73 + 1;
-        }
-
-        while (v73 != v71);
-      }
-    }
-  }
-
-  if (v81 == 1 && mlir::DenseElementsAttr::getNumElements(&Offsets) == 8)
-  {
-    if ((v81 & 1) == 0)
-    {
-      std::__throw_bad_optional_access[abi:ne200100]();
-    }
-
-    mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v72, Offsets, 0);
-    v18 = Offsets;
-    v19 = mlir::DenseElementsAttr::getNumElements(&Offsets);
-    mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v70, v18, v19);
-    if (v73 != v71)
-    {
-      v62 = 7;
-      do
-      {
-        mlir::DenseElementsAttr::IntElementIterator::operator*(&v72, &v68);
-        v63 = v69;
-        if (v69 < 0x41)
-        {
-          *(&v86 + v62--) = v68;
-        }
-
-        else
-        {
-          v64 = v63 - llvm::APInt::countLeadingZerosSlowCase(&v68);
-          v65 = v68;
-          if (v64 <= 0x40)
-          {
-            *(&v86 + v62--) = *v68;
-          }
-
-          else
-          {
-            *(&v86 + v62--) = -1;
-            if (!v65)
-            {
-              goto LABEL_105;
-            }
-          }
-
-          MEMORY[0x1E12E5B60]();
-        }
-
-LABEL_105:
-        *&v73 = v73 + 1;
-      }
-
-      while (v73 != v71);
-    }
-  }
-
-  WeightsLayout = mlir::mps::Conv3DOp::getWeightsLayout(&v85);
-  mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v85);
-  v21 = MPSDataType;
-  mlir::mps::GRUOp::getResetAfter(&v85);
-  v22 = 0;
-  v23 = (v74 - 1) * v76 + 1;
-  if (WeightsLayout <= 2)
-  {
-    if (WeightsLayout)
-    {
-      if (WeightsLayout != 2)
-      {
-        goto LABEL_34;
-      }
-
-      goto LABEL_28;
-    }
-
-LABEL_33:
-    v22 = *(&v86 + 1);
-    goto LABEL_34;
-  }
-
-  if (WeightsLayout == 3)
-  {
-    goto LABEL_33;
-  }
-
-  if (WeightsLayout != 4)
-  {
-    goto LABEL_34;
-  }
-
-LABEL_28:
-  v24 = v78;
-  if (1 % v78)
-  {
-    v24 = 1 % v78;
-  }
-
-  v25 = (v23 - v24) & ~((v23 - v24) >> 63);
-  v26 = v25 >> 1;
-  v27 = v25 - (v25 >> 1);
-  if (WeightsLayout == 4)
-  {
-    v22 = v27;
-  }
-
-  else
-  {
-    v22 = v26;
-  }
-
-LABEL_34:
-  v28 = 0;
-  v29 = (*(&v74 + 1) - 1) * *(&v76 + 1) + 1;
-  if (WeightsLayout <= 2)
-  {
-    if (WeightsLayout)
-    {
-      if (WeightsLayout != 2)
-      {
-        goto LABEL_46;
-      }
-
-      goto LABEL_40;
-    }
-
-LABEL_45:
-    v28 = *(&v87 + 1);
-    goto LABEL_46;
-  }
-
-  if (WeightsLayout == 3)
-  {
-    goto LABEL_45;
-  }
-
-  if (WeightsLayout != 4)
-  {
-    goto LABEL_46;
-  }
-
-LABEL_40:
-  v30 = *(&v78 + 1);
-  if (1uLL % *(&v78 + 1))
-  {
-    v30 = 1uLL % *(&v78 + 1);
-  }
-
-  v31 = (v29 - v30) & ~((v29 - v30) >> 63);
-  v32 = v31 >> 1;
-  v33 = v31 - (v31 >> 1);
-  if (WeightsLayout == 4)
-  {
-    v28 = v33;
-  }
-
-  else
-  {
-    v28 = v32;
-  }
-
-LABEL_46:
-  v34 = 0;
-  v35 = (v75 - 1) * v77 + 1;
-  if (WeightsLayout <= 2)
-  {
-    if (WeightsLayout)
-    {
-      if (WeightsLayout != 2)
-      {
-        goto LABEL_58;
-      }
-
-      goto LABEL_52;
-    }
-
-LABEL_57:
-    v34 = *(&v88 + 1);
-    goto LABEL_58;
-  }
-
-  if (WeightsLayout == 3)
-  {
-    goto LABEL_57;
-  }
-
-  if (WeightsLayout != 4)
-  {
-    goto LABEL_58;
-  }
-
-LABEL_52:
-  v36 = v79;
-  if (1 % v79)
-  {
-    v36 = 1 % v79;
-  }
-
-  v37 = (v35 - v36) & ~((v35 - v36) >> 63);
-  v38 = v37 >> 1;
-  v39 = v37 - (v37 >> 1);
-  if (WeightsLayout == 4)
-  {
-    v34 = v39;
-  }
-
-  else
-  {
-    v34 = v38;
-  }
-
-LABEL_58:
-  v40 = 0;
-  v41 = (*(&v75 + 1) - 1) * *(&v77 + 1) + 1;
-  if (WeightsLayout <= 2)
-  {
-    if (WeightsLayout)
-    {
-      if (WeightsLayout != 2)
-      {
-        goto LABEL_70;
-      }
-
-      goto LABEL_64;
-    }
-
-LABEL_69:
-    v40 = *(&v89 + 1);
-    goto LABEL_70;
-  }
-
-  if (WeightsLayout == 3)
-  {
-    goto LABEL_69;
-  }
-
-  if (WeightsLayout != 4)
-  {
-    goto LABEL_70;
-  }
-
-LABEL_64:
-  v42 = *(&v79 + 1);
-  if (1uLL % *(&v79 + 1))
-  {
-    v42 = 1uLL % *(&v79 + 1);
-  }
-
-  v43 = (v41 - v42) & ~((v41 - v42) >> 63);
-  v44 = v43 >> 1;
-  v45 = v43 - (v43 >> 1);
-  if (WeightsLayout == 4)
-  {
-    v40 = v45;
-  }
-
-  else
-  {
-    v40 = v44;
-  }
-
-LABEL_70:
-  v46 = objc_alloc(MEMORY[0x1E69747E8]);
-  v72 = v74;
-  v73 = v75;
-  v47 = [v46 initWithDevice:v67 kernelSizes:&v72 poolingMode:1];
-  *&v72 = v23 / 2 - v22;
-  *(&v72 + 1) = v29 / 2 - v28;
-  *&v73 = v35 / 2 - v34;
-  *(&v73 + 1) = v41 / 2 - v40;
-  [v47 setPoolingOffsets:&v72];
-  v72 = v78;
-  v73 = v79;
-  [v47 setPoolingStrides:&v72];
-  v72 = v76;
-  v73 = v77;
-  [v47 setPoolingDilationRates:&v72];
-  if (v66 < 8)
-  {
-    v48 = v66 + 1;
-  }
-
-  else
-  {
-    v48 = 0;
-  }
-
-  [v47 setPoolingReturnIndicesMode:{v48, 1}];
-  [v47 setPoolingReturnIndicesDataType:v21];
-  [v47 setOptions:1];
-
-  return v47;
-}
-
-void sub_1E0774B88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, void *a12)
-{
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void GPU::PoolMaxOpHandler::encodeOp(GPU::PoolMaxOpHandler *this, GPU::EncodeDescriptor *a2)
-{
-  v25[1] = *MEMORY[0x1E69E9840];
-  GPU::BaseOpHandler::_inferJITOutputTypes(this, a2);
-  v4 = *(this + 3);
-  v24 = *(this + 15);
-  if (!v24)
-  {
-    v5 = *(this + 2);
-    v6 = [*(v5 + 48) metalDevice];
-    v24 = objc_claimAutoreleasedReturnValue();
-  }
-
-  v7 = (*(**(this + 2) + 48))(*(this + 2), *(*(v4 + 72) + 24), 0);
-  v8 = [v7 mpsndarray];
-
-  if (!v8 && MTLReportFailureTypeEnabled())
-  {
-    MTLReportFailure();
-  }
-
-  v9 = *(this + 3);
-  v10 = *(v9 + 36);
-  v11 = v9 - 16;
-  if (v10)
-  {
-    v12 = v11;
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  v13 = [MEMORY[0x1E695DF70] arrayWithCapacity:v10];
-  if (v10)
-  {
-    v23 = v8;
-    v14 = 0;
-    for (i = 0; i != v10; ++i)
-    {
-      v16 = *mlir::detail::OpResultImpl::getNextResultAtOffset(v12, i);
-      if (!v16)
-      {
-        goto LABEL_15;
-      }
-
-      v17 = 0;
-      do
-      {
-        v16 = *v16;
-        --v17;
-      }
-
-      while (v16);
-      if (v17)
-      {
-        v18 = (*(**(this + 2) + 80))(*(this + 2));
-        v19 = [v18 mpsndarray];
-        [v13 addObject:v19];
-        v14 = (1 << i) | v14;
-      }
-
-      else
-      {
-LABEL_15:
-        v18 = [MEMORY[0x1E695DFB0] null];
-        [v13 addObject:v18];
-      }
-    }
-
-    v8 = v23;
-    if ((v14 & 2) != 0)
-    {
-      [v24 poolingReturnIndicesMode];
-      if (![v24 poolingReturnIndicesMode])
-      {
-        if (MTLReportFailureTypeEnabled())
-        {
-          MTLReportFailure();
-        }
-      }
-    }
-  }
-
-  else
-  {
-    v14 = 0;
-  }
-
-  v20 = GPU::EncodeDescriptor::getcomputeEncoder(a2);
-  v21 = *(a2 + 1);
-  v25[0] = v8;
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
-  [v24 encodeToMPSCommandEncoder:v20 commandBuffer:v21 sourceArrays:v22 destinationArrays:v13 activeDestinationMask:v14];
-}
-
-void GPU::PoolingGradientOpHandler<mlir::mps::PoolMaxGradientOp,(MPSNDArrayPoolingMode_s)1>::_createNDArrayMultiaryKernel(uint64_t a1)
-{
-  v100 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 16);
-  v2 = *(a1 + 24);
-  [*(v3 + 48) metalDevice];
-  v4 = v93 = v2;
-  WindowSizes = mlir::mps::PoolMaxGradientOp::getWindowSizes(&v93);
-  Strides = mlir::mps::PoolMaxGradientOp::getStrides(&v93);
-  InputAttributeNames = mlir::pdl_interp::CreateOperationOp::getInputAttributeNames(&v93);
-  *&v94 = v93;
-  mlir::mps::PoolMaxGradientOp::getIndicesResultType(&v94);
-  if (v5)
-  {
-    IndicesResultType = mlir::mps::PoolMaxGradientOp::getIndicesResultType(&v94);
-    if ((v7 & 1) == 0)
-    {
-      std::__throw_bad_optional_access[abi:ne200100]();
-    }
-
-    MPSDataType = getMPSDataType(IndicesResultType);
-  }
-
-  else
-  {
-    MPSDataType = 536870944;
-  }
-
-  PaddingStyle = mlir::mps::Conv3DOp::getPaddingStyle(&v94);
-  v96 = 0u;
-  v97 = 0u;
-  v94 = 0u;
-  v95 = 0u;
-  Offsets = mlir::mps::StencilOp::getOffsets(&v93);
-  v89 = v10;
-  ODSOperandIndexAndLength = mlir::mps::PoolMaxGradientOp::getODSOperandIndexAndLength(&v93, 1u);
-  if ((*(v93 + 46) & 0x80) != 0)
-  {
-    v12 = *(v93 + 72);
-    v13 = ODSOperandIndexAndLength;
-    if (HIDWORD(ODSOperandIndexAndLength) + ODSOperandIndexAndLength == ODSOperandIndexAndLength)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  else
-  {
-    v12 = 0;
-    v13 = ODSOperandIndexAndLength;
-    if (HIDWORD(ODSOperandIndexAndLength) + ODSOperandIndexAndLength == ODSOperandIndexAndLength)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  v14 = *(v12 + 32 * v13 + 24);
-  if (v14)
-  {
-    *&v98 = GPURegionRuntime::getStaticType(v3, v14);
-    mlir::ArrayAttr::getValue(&v98);
-    if (v15)
-    {
-      if ((v15 & 0x8000000000000000) == 0)
-      {
-        operator new();
-      }
-
-      std::vector<long>::__throw_length_error[abi:ne200100]();
-    }
-
-    goto LABEL_21;
-  }
-
-LABEL_13:
-  *&v86 = v93;
-  *&v98 = v99;
-  *(&v98 + 1) = 0x400000000;
-  v16 = mlir::mps::PoolMaxGradientOp::getODSOperandIndexAndLength(&v86, 3u);
-  if ((*(v86 + 46) & 0x80) == 0)
-  {
-    v17 = 0;
-    v18 = v16;
-    if (HIDWORD(v16) + v16 == v16)
-    {
-      goto LABEL_15;
-    }
-
-LABEL_17:
-    v19 = *(v17 + 32 * v18 + 24);
-    goto LABEL_18;
-  }
-
-  v17 = *(v86 + 72);
-  v18 = v16;
-  if (HIDWORD(v16) + v16 != v16)
-  {
-    goto LABEL_17;
-  }
-
-LABEL_15:
-  v19 = 0;
-LABEL_18:
-  mlir::matchConstantWithIntVector<long long>(v19, &v98);
-  if (DWORD2(v98))
-  {
-    operator new();
-  }
-
-  if (v98 != v99)
-  {
-    free(v98);
-  }
-
-LABEL_21:
-  v98 = xmmword_1E09A7718;
-  v99[0] = unk_1E09A7728;
-  v86 = xmmword_1E09A7718;
-  v87 = unk_1E09A7728;
-  v84 = xmmword_1E09A7718;
-  v85 = unk_1E09A7728;
-  v75 = a1;
-  v76 = MPSDataType;
-  v77 = PaddingStyle;
-  if (Strides)
-  {
-    if (mlir::DenseElementsAttr::getNumElements(&Strides) == 4)
-    {
-      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v82, Strides, 0);
-      v20 = Strides;
-      NumElements = mlir::DenseElementsAttr::getNumElements(&Strides);
-      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v80, v20, NumElements);
-      if (v83 != v81)
-      {
-        v59 = 3;
-        do
-        {
-          mlir::DenseElementsAttr::IntElementIterator::operator*(&v82, &v78);
-          v60 = v79;
-          if (v79 < 0x41)
-          {
-            *(&v99[-1] + v59--) = v78;
-          }
-
-          else
-          {
-            v61 = v60 - llvm::APInt::countLeadingZerosSlowCase(&v78);
-            v62 = v78;
-            if (v61 <= 0x40)
-            {
-              *(&v99[-1] + v59--) = *v78;
-            }
-
-            else
-            {
-              *(&v99[-1] + v59--) = -1;
-              if (!v62)
-              {
-                goto LABEL_91;
-              }
-            }
-
-            MEMORY[0x1E12E5B60]();
-          }
-
-LABEL_91:
-          *&v83 = v83 + 1;
-        }
-
-        while (v83 != v81);
-      }
-    }
-  }
-
-  if (WindowSizes)
-  {
-    if (mlir::DenseElementsAttr::getNumElements(&WindowSizes) == 4)
-    {
-      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v82, WindowSizes, 0);
-      v22 = WindowSizes;
-      v23 = mlir::DenseElementsAttr::getNumElements(&WindowSizes);
-      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v80, v22, v23);
-      if (v83 != v81)
-      {
-        v63 = 3;
-        do
-        {
-          mlir::DenseElementsAttr::IntElementIterator::operator*(&v82, &v78);
-          v64 = v79;
-          if (v79 < 0x41)
-          {
-            *(&v84 + v63--) = v78;
-          }
-
-          else
-          {
-            v65 = v64 - llvm::APInt::countLeadingZerosSlowCase(&v78);
-            v66 = v78;
-            if (v65 <= 0x40)
-            {
-              *(&v84 + v63--) = *v78;
-            }
-
-            else
-            {
-              *(&v84 + v63--) = -1;
-              if (!v66)
-              {
-                goto LABEL_100;
-              }
-            }
-
-            MEMORY[0x1E12E5B60]();
-          }
-
-LABEL_100:
-          *&v83 = v83 + 1;
-        }
-
-        while (v83 != v81);
-      }
-    }
-  }
-
-  if (InputAttributeNames)
-  {
-    if (mlir::DenseElementsAttr::getNumElements(&InputAttributeNames) == 4)
-    {
-      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v82, InputAttributeNames, 0);
-      v24 = InputAttributeNames;
-      v25 = mlir::DenseElementsAttr::getNumElements(&InputAttributeNames);
-      mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v80, v24, v25);
-      if (v83 != v81)
-      {
-        v67 = 3;
-        do
-        {
-          mlir::DenseElementsAttr::IntElementIterator::operator*(&v82, &v78);
-          v68 = v79;
-          if (v79 < 0x41)
-          {
-            *(&v86 + v67--) = v78;
-          }
-
-          else
-          {
-            v69 = v68 - llvm::APInt::countLeadingZerosSlowCase(&v78);
-            v70 = v78;
-            if (v69 <= 0x40)
-            {
-              *(&v86 + v67--) = *v78;
-            }
-
-            else
-            {
-              *(&v86 + v67--) = -1;
-              if (!v70)
-              {
-                goto LABEL_109;
-              }
-            }
-
-            MEMORY[0x1E12E5B60]();
-          }
-
-LABEL_109:
-          *&v83 = v83 + 1;
-        }
-
-        while (v83 != v81);
-      }
-    }
-  }
-
-  if (v89 == 1 && mlir::DenseElementsAttr::getNumElements(&Offsets) == 8)
-  {
-    if ((v89 & 1) == 0)
-    {
-      std::__throw_bad_optional_access[abi:ne200100]();
-    }
-
-    mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(&v82, Offsets, 0);
-    v26 = Offsets;
-    v27 = mlir::DenseElementsAttr::getNumElements(&Offsets);
-    mlir::DenseElementsAttr::IntElementIterator::IntElementIterator(v80, v26, v27);
-    if (v83 != v81)
-    {
-      v71 = 7;
-      do
-      {
-        mlir::DenseElementsAttr::IntElementIterator::operator*(&v82, &v78);
-        v72 = v79;
-        if (v79 < 0x41)
-        {
-          *(&v94 + v71--) = v78;
-        }
-
-        else
-        {
-          v73 = v72 - llvm::APInt::countLeadingZerosSlowCase(&v78);
-          v74 = v78;
-          if (v73 <= 0x40)
-          {
-            *(&v94 + v71--) = *v78;
-          }
-
-          else
-          {
-            *(&v94 + v71--) = -1;
-            if (!v74)
-            {
-              goto LABEL_118;
-            }
-          }
-
-          MEMORY[0x1E12E5B60]();
-        }
-
-LABEL_118:
-        *&v83 = v83 + 1;
-      }
-
-      while (v83 != v81);
-    }
-  }
-
-  WeightsLayout = mlir::mps::Conv3DOp::getWeightsLayout(&v93);
-  mlir::pdl_interp::CreateOperationOp::getInferredResultTypes(&v93);
-  mlir::mps::GRUOp::getResetAfter(&v93);
-  v29 = 0;
-  v30 = (v84 - 1) * v86 + 1;
-  if (WeightsLayout <= 2)
-  {
-    if (WeightsLayout)
-    {
-      v31 = v4;
-      if (WeightsLayout != 2)
-      {
-        goto LABEL_49;
-      }
-
-      goto LABEL_43;
-    }
-
-LABEL_48:
-    v31 = v4;
-    v29 = *(&v94 + 1);
-    goto LABEL_49;
-  }
-
-  if (WeightsLayout == 3)
-  {
-    goto LABEL_48;
-  }
-
-  v31 = v4;
-  if (WeightsLayout != 4)
-  {
-    goto LABEL_49;
-  }
-
-LABEL_43:
-  v32 = v98;
-  if (1 % v98)
-  {
-    v32 = 1 % v98;
-  }
-
-  v33 = (v30 - v32) & ~((v30 - v32) >> 63);
-  v34 = v33 >> 1;
-  v35 = v33 - (v33 >> 1);
-  if (WeightsLayout == 4)
-  {
-    v29 = v35;
-  }
-
-  else
-  {
-    v29 = v34;
-  }
-
-LABEL_49:
-  v36 = 0;
-  v37 = (*(&v84 + 1) - 1) * *(&v86 + 1) + 1;
-  if (WeightsLayout <= 2)
-  {
-    if (WeightsLayout)
-    {
-      if (WeightsLayout != 2)
-      {
-        goto LABEL_61;
-      }
-
-      goto LABEL_55;
-    }
-
-LABEL_60:
-    v36 = *(&v95 + 1);
-    goto LABEL_61;
-  }
-
-  if (WeightsLayout == 3)
-  {
-    goto LABEL_60;
-  }
-
-  if (WeightsLayout != 4)
-  {
-    goto LABEL_61;
-  }
-
-LABEL_55:
-  v38 = *(&v98 + 1);
-  if (1uLL % *(&v98 + 1))
-  {
-    v38 = 1uLL % *(&v98 + 1);
-  }
-
-  v39 = (v37 - v38) & ~((v37 - v38) >> 63);
-  v40 = v39 >> 1;
-  v41 = v39 - (v39 >> 1);
-  if (WeightsLayout == 4)
-  {
-    v36 = v41;
-  }
-
-  else
-  {
-    v36 = v40;
-  }
-
-LABEL_61:
-  v42 = 0;
-  v43 = (v85 - 1) * v87 + 1;
-  if (WeightsLayout <= 2)
-  {
-    if (WeightsLayout)
-    {
-      if (WeightsLayout != 2)
-      {
-        goto LABEL_73;
-      }
-
-      goto LABEL_67;
-    }
-
-LABEL_72:
-    v42 = *(&v96 + 1);
-    goto LABEL_73;
-  }
-
-  if (WeightsLayout == 3)
-  {
-    goto LABEL_72;
-  }
-
-  if (WeightsLayout != 4)
-  {
-    goto LABEL_73;
-  }
-
-LABEL_67:
-  v44 = *&v99[0];
-  if (1uLL % *&v99[0])
-  {
-    v44 = 1uLL % *&v99[0];
-  }
-
-  v45 = (v43 - v44) & ~((v43 - v44) >> 63);
-  v46 = v45 >> 1;
-  v47 = v45 - (v45 >> 1);
-  if (WeightsLayout == 4)
-  {
-    v42 = v47;
-  }
-
-  else
-  {
-    v42 = v46;
-  }
-
-LABEL_73:
-  v48 = 0;
-  v49 = (*(&v85 + 1) - 1) * *(&v87 + 1) + 1;
-  if (WeightsLayout <= 2)
-  {
-    if (WeightsLayout)
-    {
-      if (WeightsLayout != 2)
-      {
-        goto LABEL_85;
-      }
-
-      goto LABEL_79;
-    }
-
-LABEL_84:
-    v48 = *(&v97 + 1);
-    goto LABEL_85;
-  }
-
-  if (WeightsLayout == 3)
-  {
-    goto LABEL_84;
-  }
-
-  if (WeightsLayout != 4)
-  {
-    goto LABEL_85;
-  }
-
-LABEL_79:
-  v50 = *(&v99[0] + 1);
-  if (1uLL % *(&v99[0] + 1))
-  {
-    v50 = 1uLL % *(&v99[0] + 1);
-  }
-
-  v51 = (v49 - v50) & ~((v49 - v50) >> 63);
-  v52 = v51 >> 1;
-  v53 = v51 - (v51 >> 1);
-  if (WeightsLayout == 4)
-  {
-    v48 = v53;
-  }
-
-  else
-  {
-    v48 = v52;
-  }
-
-LABEL_85:
-  v54 = objc_alloc(MEMORY[0x1E69747E0]);
-  v82 = v84;
-  v83 = v85;
-  v55 = [v54 initWithDevice:v31 kernelSizes:&v82 poolingMode:1];
-  *&v82 = v30 / 2 - v29;
-  *(&v82 + 1) = v37 / 2 - v36;
-  *&v83 = v43 / 2 - v42;
-  *(&v83 + 1) = v49 / 2 - v48;
-  [v55 setPoolingOffsets:&v82];
-  v82 = v98;
-  v83 = v99[0];
-  [v55 setPoolingStrides:&v82];
-  v82 = v86;
-  v83 = v87;
-  [v55 setPoolingDilationRates:&v82];
-  if (v77 < 8)
-  {
-    v56 = v77 + 1;
-  }
-
-  else
-  {
-    v56 = 0;
-  }
-
-  [v55 setPoolingReturnIndicesMode:v56];
-  [v55 setPoolingReturnIndicesDataType:v76];
-  [v55 setOptions:1];
-  v57 = v55;
-
-  v58 = *(v75 + 8);
-  *(v75 + 8) = v57;
 }

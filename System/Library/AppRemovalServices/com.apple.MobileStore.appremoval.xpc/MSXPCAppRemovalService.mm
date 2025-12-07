@@ -8,14 +8,14 @@
 - (void)removeAppWithReply:(id)reply
 {
   replyCopy = reply;
-  v5 = OS_LOG_XPCAPPREMOVAL();
+  v5 = OS_LOG_XPCAPPREMOVAL(replyCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     sub_100001060(v5, v6, v7, v8, v9, v10, v11, v12);
   }
 
   _deleteAllUserDefaults = [(MSXPCAppRemovalService *)self _deleteAllUserDefaults];
-  v14 = OS_LOG_XPCAPPREMOVAL();
+  v14 = OS_LOG_XPCAPPREMOVAL(_deleteAllUserDefaults);
   v15 = os_log_type_enabled(v14, OS_LOG_TYPE_ERROR);
   if (_deleteAllUserDefaults)
   {
@@ -59,7 +59,7 @@
         }
 
         v9 = *(*(&v14 + 1) + 8 * v8);
-        v10 = OS_LOG_XPCAPPREMOVAL();
+        v10 = OS_LOG_XPCAPPREMOVAL(v5);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
@@ -67,15 +67,16 @@
           _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Removing user default key: %@", buf, 0xCu);
         }
 
-        [v2 removeObjectForKey:v9];
+        v5 = [v2 removeObjectForKey:v9];
         v8 = v8 + 1;
       }
 
       while (v6 != v8);
-      v6 = [allKeys countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v5 = [allKeys countByEnumeratingWithState:&v14 objects:v22 count:16];
+      v6 = v5;
     }
 
-    while (v6);
+    while (v5);
   }
 
   if ([v2 synchronize])

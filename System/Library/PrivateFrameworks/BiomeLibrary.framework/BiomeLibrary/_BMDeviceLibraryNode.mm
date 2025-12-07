@@ -26,22 +26,20 @@
 
 + (id)ScreenLocked
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForScreenLocked = [self configurationForScreenLocked];
   v3 = +[BMDeviceScreenLocked columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Device.ScreenLocked" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Device.ScreenLocked" schema:v9 configuration:configurationForScreenLocked];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -69,49 +67,45 @@
 
 + (id)sublibraries
 {
-  v15[9] = *MEMORY[0x1E69E9840];
+  v14[9] = *MEMORY[0x1E69E9840];
   activity = [self Activity];
   audio = [self Audio];
-  v15[1] = audio;
+  v14[1] = audio;
   charging = [self Charging];
-  v15[2] = charging;
+  v14[2] = charging;
   display = [self Display];
-  v15[3] = display;
+  v14[3] = display;
   externalDisplay = [self ExternalDisplay];
-  v15[4] = externalDisplay;
+  v14[4] = externalDisplay;
   networking = [self Networking];
-  v15[5] = networking;
+  v14[5] = networking;
   power = [self Power];
-  v15[6] = power;
+  v14[6] = power;
   thermals = [self Thermals];
-  v15[7] = thermals;
+  v14[7] = thermals;
   wireless = [self Wireless];
-  v15[8] = wireless;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:9];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v14[8] = wireless;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:9];
 
   return v12;
 }
 
 + (id)TimeZone
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForTimeZone = [self configurationForTimeZone];
   v3 = +[BMDeviceTimeZone columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Device.TimeZone" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Device.TimeZone" schema:v9 configuration:configurationForTimeZone];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -139,22 +133,20 @@
 
 + (id)BootSession
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForBootSession = [self configurationForBootSession];
   v3 = +[BMDeviceBootSession columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Device.BootSession" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Device.BootSession" schema:v9 configuration:configurationForBootSession];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -174,22 +166,20 @@
 
 + (id)KeybagLocked
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForKeybagLocked = [self configurationForKeybagLocked];
   v3 = +[BMDeviceKeybagLocked columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Device.KeybagLocked" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Device.KeybagLocked" schema:v9 configuration:configurationForKeybagLocked];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -217,22 +207,20 @@
 
 + (id)Metadata
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForMetadata = [self configurationForMetadata];
   v3 = +[BMDeviceMetadata columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Device.Metadata" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Device.Metadata" schema:v9 configuration:configurationForMetadata];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -261,22 +249,20 @@
 
 + (id)SilentMode
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   configurationForSilentMode = [self configurationForSilentMode];
   v3 = +[BMDeviceSilentMode columns];
   v4 = BMEventTimestampSQLColumn();
-  v13 = v4;
+  v12 = v4;
   v5 = BMEventBodyDataSQLColumn();
-  v14 = v5;
+  v13 = v5;
   v6 = BMEventClassNameSQLColumn();
-  v15 = v6;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v13 count:3];
-  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v13, v14}];
+  v14 = v6;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:3];
+  v8 = [v3 arrayByAddingObjectsFromArray:{v7, v12, v13}];
 
   v9 = [objc_alloc(MEMORY[0x1E698F2F0]) initWithTableName:@"Device.SilentMode" columns:v8];
   v10 = [objc_alloc(MEMORY[0x1E698F320]) initWithIdentifier:@"Device.SilentMode" schema:v9 configuration:configurationForSilentMode];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

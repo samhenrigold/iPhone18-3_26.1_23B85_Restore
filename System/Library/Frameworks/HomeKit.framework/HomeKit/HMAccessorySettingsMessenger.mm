@@ -23,14 +23,12 @@
 
 - (NSArray)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc(MEMORY[0x1E69A29C8]);
   messageTargetUUID = [(HMAccessorySettingsMessenger *)self messageTargetUUID];
   v5 = [v3 initWithName:@"messageTargetUUID" value:messageTargetUUID];
-  v9[0] = v5;
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = v5;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
 
   return v6;
 }
@@ -44,7 +42,7 @@
 
 - (void)submitMetricEventWithMessage:(id)message error:(id)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   errorCopy = error;
   if (messageCopy)
@@ -61,20 +59,18 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v12;
-      _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to submit fetch event due to message lost before metric submission", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v12;
+      _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to submit fetch event due to message lost before metric submission", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendUpdateAccessorySettingRequestWithAccessoryUUID:(id)d keyPath:(id)path settingValue:(id)value completionHandler:(id)handler
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   dCopy = d;
   pathCopy = path;
   valueCopy = value;
@@ -86,13 +82,13 @@
   {
     v17 = HMFGetLogIdentifier();
     *buf = 138544130;
-    v35 = v17;
-    v36 = 2112;
-    v37 = dCopy;
-    v38 = 2112;
-    v39 = pathCopy;
-    v40 = 2112;
-    v41 = valueCopy;
+    v34 = v17;
+    v35 = 2112;
+    v36 = dCopy;
+    v37 = 2112;
+    v38 = pathCopy;
+    v39 = 2112;
+    v40 = valueCopy;
     _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_INFO, "%{public}@Sending update request message with accessory UUID: %@ key path: %@ setting value: %@", buf, 0x2Au);
   }
 
@@ -107,28 +103,26 @@
   v24 = [v22 initWithName:@"HMAccessorySettingsUpdateRequestMessage" destination:v21 payload:payloadCopy];
 
   v25 = [v24 copy];
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __122__HMAccessorySettingsMessenger_sendUpdateAccessorySettingRequestWithAccessoryUUID_keyPath_settingValue_completionHandler___block_invoke;
-  v31[3] = &unk_1E754E480;
-  v31[4] = selfCopy;
-  v32 = v25;
-  v33 = handlerCopy;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __122__HMAccessorySettingsMessenger_sendUpdateAccessorySettingRequestWithAccessoryUUID_keyPath_settingValue_completionHandler___block_invoke;
+  v30[3] = &unk_1E754E480;
+  v30[4] = selfCopy;
+  v31 = v25;
+  v32 = handlerCopy;
   v26 = handlerCopy;
   v27 = v25;
-  [v24 setResponseHandler:v31];
+  [v24 setResponseHandler:v30];
   metricsDispatcher = [(HMAccessorySettingsMessenger *)selfCopy metricsDispatcher];
   [metricsDispatcher startEventWithMessage:v24 updateKeyPath:pathCopy];
 
   messageDispatcher = [(HMAccessorySettingsMessenger *)selfCopy messageDispatcher];
   [messageDispatcher sendMessage:v24];
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __122__HMAccessorySettingsMessenger_sendUpdateAccessorySettingRequestWithAccessoryUUID_keyPath_settingValue_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -140,24 +134,24 @@ void __122__HMAccessorySettingsMessenger_sendUpdateAccessorySettingRequestWithAc
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v19 = 138543618;
-      v20 = v11;
-      v21 = 2112;
-      v22 = v5;
+      v18 = 138543618;
+      v19 = v11;
+      v20 = 2112;
+      v21 = v5;
       v12 = "%{public}@Update request message responded with error: %@";
       v13 = v10;
       v14 = OS_LOG_TYPE_ERROR;
       v15 = 22;
 LABEL_6:
-      _os_log_impl(&dword_19BB39000, v13, v14, v12, &v19, v15);
+      _os_log_impl(&dword_19BB39000, v13, v14, v12, &v18, v15);
     }
   }
 
   else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v19 = 138543362;
-    v20 = v11;
+    v18 = 138543362;
+    v19 = v11;
     v12 = "%{public}@Update request message responded";
     v13 = v10;
     v14 = OS_LOG_TYPE_INFO;
@@ -168,13 +162,11 @@ LABEL_6:
   objc_autoreleasePoolPop(v7);
   [*(a1 + 32) submitMetricEventWithMessage:*(a1 + 40) error:v5];
   (*(*(a1 + 48) + 16))(*(a1 + 48), v5, v16, v17);
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendFetchAccessorySettingsRequestWithAccessoryUUID:(id)d keyPaths:(id)paths completionHandler:(id)handler
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   dCopy = d;
   pathsCopy = paths;
   handlerCopy = handler;
@@ -185,11 +177,11 @@ LABEL_6:
   {
     v14 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v32 = v14;
-    v33 = 2112;
-    v34 = dCopy;
-    v35 = 2112;
-    v36 = pathsCopy;
+    v31 = v14;
+    v32 = 2112;
+    v33 = dCopy;
+    v34 = 2112;
+    v35 = pathsCopy;
     _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_INFO, "%{public}@Sending fetch request message with accessory UUID: %@ key paths: %@", buf, 0x20u);
   }
 
@@ -204,28 +196,26 @@ LABEL_6:
   v21 = [v19 initWithName:@"HMAccessorySettingsFetchRequestMessage" destination:v18 payload:payloadCopy];
 
   v22 = [v21 copy];
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __110__HMAccessorySettingsMessenger_sendFetchAccessorySettingsRequestWithAccessoryUUID_keyPaths_completionHandler___block_invoke;
-  v28[3] = &unk_1E754E480;
-  v29 = v22;
-  v30 = handlerCopy;
-  v28[4] = selfCopy;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __110__HMAccessorySettingsMessenger_sendFetchAccessorySettingsRequestWithAccessoryUUID_keyPaths_completionHandler___block_invoke;
+  v27[3] = &unk_1E754E480;
+  v28 = v22;
+  v29 = handlerCopy;
+  v27[4] = selfCopy;
   v23 = v22;
   v24 = handlerCopy;
-  [v21 setResponseHandler:v28];
+  [v21 setResponseHandler:v27];
   metricsDispatcher = [(HMAccessorySettingsMessenger *)selfCopy metricsDispatcher];
   [metricsDispatcher startEventWithMessage:v21 updateKeyPath:0];
 
   messageDispatcher = [(HMAccessorySettingsMessenger *)selfCopy messageDispatcher];
   [messageDispatcher sendMessage:v21];
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 void __110__HMAccessorySettingsMessenger_sendFetchAccessorySettingsRequestWithAccessoryUUID_keyPaths_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -240,11 +230,11 @@ void __110__HMAccessorySettingsMessenger_sendFetchAccessorySettingsRequestWithAc
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         v12 = HMFGetLogIdentifier();
-        v28 = 138543618;
-        v29 = v12;
-        v30 = 2112;
-        v31 = v7;
-        _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_INFO, "%{public}@Fetch request message responded with response payload: %@", &v28, 0x16u);
+        v27 = 138543618;
+        v28 = v12;
+        v29 = 2112;
+        v30 = v7;
+        _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_INFO, "%{public}@Fetch request message responded with response payload: %@", &v27, 0x16u);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -276,11 +266,11 @@ void __110__HMAccessorySettingsMessenger_sendFetchAccessorySettingsRequestWithAc
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         v24 = HMFGetLogIdentifier();
-        v28 = 138543618;
-        v29 = v24;
-        v30 = 2112;
-        v31 = v6;
-        _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode fetch response using payload: %@", &v28, 0x16u);
+        v27 = 138543618;
+        v28 = v24;
+        v29 = 2112;
+        v30 = v6;
+        _os_log_impl(&dword_19BB39000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to decode fetch response using payload: %@", &v27, 0x16u);
       }
 
       objc_autoreleasePoolPop(v8);
@@ -303,19 +293,17 @@ void __110__HMAccessorySettingsMessenger_sendFetchAccessorySettingsRequestWithAc
     if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       v23 = HMFGetLogIdentifier();
-      v28 = 138543618;
-      v29 = v23;
-      v30 = 2112;
-      v31 = v5;
-      _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@Fetch request message responded with error: %@", &v28, 0x16u);
+      v27 = 138543618;
+      v28 = v23;
+      v29 = 2112;
+      v30 = v5;
+      _os_log_impl(&dword_19BB39000, v22, OS_LOG_TYPE_ERROR, "%{public}@Fetch request message responded with error: %@", &v27, 0x16u);
     }
 
     objc_autoreleasePoolPop(v20);
     (*(*(a1 + 48) + 16))();
     [*(a1 + 32) submitMetricEventWithMessage:*(a1 + 40) error:v5];
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 - (HMAccessorySettingsMessenger)initWithMessageDispatcher:(id)dispatcher messageTargetUUID:(id)d metricsDispatcher:(id)metricsDispatcher
@@ -372,12 +360,11 @@ LABEL_9:
 
 uint64_t __43__HMAccessorySettingsMessenger_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v9_49078;
-  logCategory__hmf_once_v9_49078 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v9_49078;
+  logCategory__hmf_once_v9_49078 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)shortDescription

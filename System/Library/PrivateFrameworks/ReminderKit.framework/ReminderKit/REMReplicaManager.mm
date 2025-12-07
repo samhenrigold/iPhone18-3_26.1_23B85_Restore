@@ -65,7 +65,7 @@
 
 void __54__REMReplicaManager_replicaManagerForAccountID_store___block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) uuid];
   v3 = [managerByAccountID objectForKeyedSubscript:v2];
   v4 = *(*(a1 + 48) + 8);
@@ -89,9 +89,9 @@ void __54__REMReplicaManager_replicaManagerForAccountID_store___block_invoke(uin
 
       v12 = v11;
       v13 = *(a1 + 32);
-      v32 = 0;
-      v14 = [(REMStore *)v11 fetchReplicaManagerForAccountID:v13 error:&v32];
-      v15 = v32;
+      v31 = 0;
+      v14 = [(REMStore *)v11 fetchReplicaManagerForAccountID:v13 error:&v31];
+      v15 = v31;
       if (v14)
       {
         v16 = +[REMLog crdt];
@@ -100,15 +100,15 @@ void __54__REMReplicaManager_replicaManagerForAccountID_store___block_invoke(uin
           v17 = [v14 managerData];
           v18 = [v17 length];
           *buf = 138412546;
-          v34 = v2;
-          v35 = 2048;
-          v36 = v18;
+          v33 = v2;
+          v34 = 2048;
+          v35 = v18;
           _os_log_impl(&dword_19A0DB000, v16, OS_LOG_TYPE_INFO, "Deserializing existing replica manager {account = %@, size = %lu}", buf, 0x16u);
         }
 
-        v31 = v15;
-        v19 = [REMReplicaManager replicaManagerWithSerializedData:v14 error:&v31];
-        v20 = v31;
+        v30 = v15;
+        v19 = [REMReplicaManager replicaManagerWithSerializedData:v14 error:&v30];
+        v20 = v30;
 
         v21 = *(*(a1 + 48) + 8);
         v22 = *(v21 + 40);
@@ -123,7 +123,7 @@ void __54__REMReplicaManager_replicaManagerForAccountID_store___block_invoke(uin
         if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v34 = v2;
+          v33 = v2;
           _os_log_impl(&dword_19A0DB000, v23, OS_LOG_TYPE_INFO, "Creating a new replica manager {account = %@}", buf, 0xCu);
         }
 
@@ -140,7 +140,7 @@ void __54__REMReplicaManager_replicaManagerForAccountID_store___block_invoke(uin
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v34 = v2;
+        v33 = v2;
         _os_log_impl(&dword_19A0DB000, v6, OS_LOG_TYPE_INFO, "Creating a new, in-memory only replica manager {account = %@}", buf, 0xCu);
       }
 
@@ -164,8 +164,6 @@ void __54__REMReplicaManager_replicaManagerForAccountID_store___block_invoke(uin
 
     [v27 setObject:*(*(*(a1 + 48) + 8) + 40) forKeyedSubscript:v2];
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)shouldUseNewInMemoryOnlyReplicaManager
@@ -354,33 +352,33 @@ LABEL_36:
 
 - (void)encodeIntoArchive:(void *)archive
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   obj = [(REMReplicaManager *)self replicaUUIDs];
-  v4 = [obj countByEnumeratingWithState:&v46 objects:v53 count:16];
+  v4 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
   if (v4)
   {
-    v5 = *v47;
+    v5 = *v46;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v47 != v5)
+        if (*v46 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = [*(*(&v46 + 1) + 8 * i) getUUIDBytes:v52];
+        v7 = [*(*(&v45 + 1) + 8 * i) getUUIDBytes:v51];
         v8 = *(archive + 13);
         v9 = *(archive + 12);
         if (v9 >= v8)
         {
           if (v8 == *(archive + 14))
           {
-            v7 = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 5, v8 + 1);
+            v7 = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 10, v8 + 1);
           }
 
           google::protobuf::internal::StringTypeHandlerBase::New(v7);
@@ -388,34 +386,34 @@ LABEL_36:
 
         v10 = *(archive + 5);
         *(archive + 12) = v9 + 1;
-        MEMORY[0x19A8FCFF0](*(v10 + 8 * v9), v52, 16);
+        MEMORY[0x19A8FCFF0](*(v10 + 8 * v9), v51, 16);
       }
 
-      v4 = [obj countByEnumeratingWithState:&v46 objects:v53 count:16];
+      v4 = [obj countByEnumeratingWithState:&v45 objects:v52 count:16];
     }
 
     while (v4);
   }
 
-  v44 = 0u;
-  v45 = 0u;
-  v42 = 0u;
   v43 = 0u;
+  v44 = 0u;
+  v41 = 0u;
+  v42 = 0u;
   obja = [(REMReplicaManager *)self replicaEntries];
-  v11 = [obja countByEnumeratingWithState:&v42 objects:v51 count:16];
+  v11 = [obja countByEnumeratingWithState:&v41 objects:v50 count:16];
   if (v11)
   {
-    v12 = *v43;
+    v12 = *v42;
     do
     {
       for (j = 0; j != v11; ++j)
       {
-        if (*v43 != v12)
+        if (*v42 != v12)
         {
           objc_enumerationMutation(obja);
         }
 
-        v14 = *(*(&v42 + 1) + 8 * j);
+        v14 = *(*(&v41 + 1) + 8 * j);
         v15 = *(archive + 18);
         v16 = v14;
         uTF8String = [v14 UTF8String];
@@ -426,7 +424,7 @@ LABEL_36:
         {
           if (v19 == *(archive + 20))
           {
-            v18 = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 8, v19 + 1);
+            v18 = google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 16, v19 + 1);
           }
 
           google::protobuf::internal::StringTypeHandlerBase::New(v18);
@@ -438,34 +436,34 @@ LABEL_36:
         replicaEntries = [(REMReplicaManager *)self replicaEntries];
         v23 = [replicaEntries objectForKeyedSubscript:v14];
 
-        v40 = 0u;
-        v41 = 0u;
-        v38 = 0u;
         v39 = 0u;
+        v40 = 0u;
+        v37 = 0u;
+        v38 = 0u;
         v24 = v23;
-        v25 = [v24 countByEnumeratingWithState:&v38 objects:v50 count:16];
+        v25 = [v24 countByEnumeratingWithState:&v37 objects:v49 count:16];
         v26 = v25;
         if (v25)
         {
-          v27 = *v39;
+          v27 = *v38;
           do
           {
             v28 = 0;
             do
             {
-              if (*v39 != v27)
+              if (*v38 != v27)
               {
                 objc_enumerationMutation(v24);
               }
 
-              v29 = *(*(&v38 + 1) + 8 * v28);
+              v29 = *(*(&v37 + 1) + 8 * v28);
               v30 = *(archive + 25);
               v31 = *(archive + 24);
               if (v31 >= v30)
               {
                 if (v30 == *(archive + 26))
                 {
-                  google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 11, v30 + 1);
+                  google::protobuf::internal::RepeatedPtrFieldBase::Reserve(archive + 22, v30 + 1);
                 }
 
                 google::protobuf::internal::GenericTypeHandler<replica_manager::ReplicaEntry>::New();
@@ -481,20 +479,18 @@ LABEL_36:
             }
 
             while (v26 != v28);
-            v26 = [v24 countByEnumeratingWithState:&v38 objects:v50 count:16];
+            v26 = [v24 countByEnumeratingWithState:&v37 objects:v49 count:16];
           }
 
           while (v26);
         }
       }
 
-      v11 = [obja countByEnumeratingWithState:&v42 objects:v51 count:16];
+      v11 = [obja countByEnumeratingWithState:&v41 objects:v50 count:16];
     }
 
     while (v11);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performLocked:(id)locked
@@ -533,17 +529,14 @@ LABEL_36:
 
 uint64_t __50__REMReplicaManager_checkoutReplicaUUIDForClient___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) l_checkoutReplicaUUIDForClient:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) l_checkoutReplicaUUIDForClient:*(a1 + 40)];
 
   return MEMORY[0x1EEE66BB8]();
 }
 
 - (id)l_checkoutReplicaUUIDForClient:(id)client
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   clientCopy = client;
   selfCopy = self;
   replicaEntries = [(REMReplicaManager *)self replicaEntries];
@@ -560,34 +553,34 @@ uint64_t __50__REMReplicaManager_checkoutReplicaUUIDForClient___block_invoke(uin
     v6 = array;
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   obj = [(REMReplicaManager *)selfCopy replicaUUIDs];
-  v10 = [obj countByEnumeratingWithState:&v43 objects:v57 count:16];
+  v10 = [obj countByEnumeratingWithState:&v42 objects:v56 count:16];
   if (v10)
   {
-    v12 = *v44;
+    v12 = *v43;
     *&v11 = 138413058;
-    v37 = v11;
+    v36 = v11;
 LABEL_5:
     v13 = 0;
     while (1)
     {
-      if (*v44 != v12)
+      if (*v43 != v12)
       {
         objc_enumerationMutation(obj);
       }
 
-      v14 = *(*(&v43 + 1) + 8 * v13);
-      v42[0] = MEMORY[0x1E69E9820];
-      v42[1] = 3221225472;
-      v42[2] = __52__REMReplicaManager_l_checkoutReplicaUUIDForClient___block_invoke;
-      v42[3] = &unk_1E75077A0;
-      v42[4] = selfCopy;
-      v42[5] = v14;
-      v15 = [v6 indexOfObjectPassingTest:{v42, v37}];
+      v14 = *(*(&v42 + 1) + 8 * v13);
+      v41[0] = MEMORY[0x1E69E9820];
+      v41[1] = 3221225472;
+      v41[2] = __52__REMReplicaManager_l_checkoutReplicaUUIDForClient___block_invoke;
+      v41[3] = &unk_1E75077A0;
+      v41[4] = selfCopy;
+      v41[5] = v14;
+      v15 = [v6 indexOfObjectPassingTest:{v41, v36}];
       if (v15 == 0x7FFFFFFFFFFFFFFFLL)
       {
         v26 = v14;
@@ -617,7 +610,7 @@ LABEL_5:
           if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
           {
             v21 = clientDescription(clientCopy);
-            [(REMReplicaManager *)v21 l_checkoutReplicaUUIDForClient:v55, &v56, v20];
+            [(REMReplicaManager *)v21 l_checkoutReplicaUUIDForClient:v54, &v55, v20];
           }
         }
 
@@ -646,16 +639,16 @@ LABEL_5:
           v24 = +[REMLog crdt];
           if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
           {
-            v38 = clientDescription(clientCopy);
+            v37 = clientDescription(clientCopy);
             clockElementList3 = [v16 clockElementList];
-            *buf = v37;
-            v48 = v38;
-            v49 = 2112;
-            v50 = v17;
-            v51 = 2112;
-            v52 = clockElementList3;
-            v53 = 2112;
-            v54 = v14;
+            *buf = v36;
+            v47 = v37;
+            v48 = 2112;
+            v49 = v17;
+            v50 = 2112;
+            v51 = clockElementList3;
+            v52 = 2112;
+            v53 = v14;
             _os_log_fault_impl(&dword_19A0DB000, v24, OS_LOG_TYPE_FAULT, "Client clock newer that replica manager clock {client: %@, clientClockElementList: %@, replicaEntry.clockElementList: %@, replicaUUID: %@}", buf, 0x2Au);
           }
         }
@@ -663,7 +656,7 @@ LABEL_5:
 
       if (v10 == ++v13)
       {
-        v10 = [obj countByEnumeratingWithState:&v43 objects:v57 count:16];
+        v10 = [obj countByEnumeratingWithState:&v42 objects:v56 count:16];
         if (v10)
         {
           goto LABEL_5;
@@ -688,8 +681,6 @@ LABEL_24:
 LABEL_25:
   [(REMReplicaManager *)selfCopy setCurrentVersion:[(REMReplicaManager *)selfCopy currentVersion]+ 1];
 LABEL_26:
-
-  v35 = *MEMORY[0x1E69E9840];
 
   return v26;
 }
@@ -722,30 +713,30 @@ uint64_t __52__REMReplicaManager_l_checkoutReplicaUUIDForClient___block_invoke(u
 
 void __55__REMReplicaManager_modifyReplicaEntryForClient_block___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) replicaEntries];
   v3 = [*(a1 + 40) crdtID];
   v4 = [v2 objectForKey:v3];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v5 = v4;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
-    v7 = *v16;
+    v7 = *v15;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         v10 = [*(a1 + 32) replicaUUIDs];
         v11 = [v10 objectAtIndex:{objc_msgSend(v9, "replicaUUIDIndex")}];
 
@@ -760,7 +751,7 @@ void __55__REMReplicaManager_modifyReplicaEntryForClient_block___block_invoke(ui
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -771,8 +762,6 @@ void __55__REMReplicaManager_modifyReplicaEntryForClient_block___block_invoke(ui
   }
 
 LABEL_11:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateVersionForClient:(id)client
@@ -790,16 +779,16 @@ LABEL_11:
 
 void __44__REMReplicaManager_updateVersionForClient___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) replicaUUID];
   if (([v3 inUse] & 1) == 0)
   {
-    v8 = +[REMLog crdt];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v7 = +[REMLog crdt];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      v9 = clientDescription(*(a1 + 32));
-      __44__REMReplicaManager_updateVersionForClient___block_invoke_cold_1(v9, v4, v18);
+      v8 = clientDescription(*(a1 + 32));
+      __44__REMReplicaManager_updateVersionForClient___block_invoke_cold_1(v8, v4, v17);
     }
   }
 
@@ -809,17 +798,17 @@ void __44__REMReplicaManager_updateVersionForClient___block_invoke(uint64_t a1, 
 
   if ((v5 & 1) == 0)
   {
-    v10 = +[REMLog crdt];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v9 = +[REMLog crdt];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v11 = clientDescription(*(a1 + 32));
-      v12 = [v3 client];
-      v13 = clientDescription(v12);
-      v14 = 138412546;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v13;
-      _os_log_fault_impl(&dword_19A0DB000, v10, OS_LOG_TYPE_FAULT, "rem_log_fault_if (client != entry.client) -- Client attempt to update a replica not checked out by it {client: %@, entry.client: %@}", &v14, 0x16u);
+      v10 = clientDescription(*(a1 + 32));
+      v11 = [v3 client];
+      v12 = clientDescription(v11);
+      v13 = 138412546;
+      v14 = v10;
+      v15 = 2112;
+      v16 = v12;
+      _os_log_fault_impl(&dword_19A0DB000, v9, OS_LOG_TYPE_FAULT, "rem_log_fault_if (client != entry.client) -- Client attempt to update a replica not checked out by it {client: %@, entry.client: %@}", &v13, 0x16u);
     }
   }
 
@@ -827,8 +816,6 @@ void __44__REMReplicaManager_updateVersionForClient___block_invoke(uint64_t a1, 
   {
     [*(a1 + 40) setCurrentVersion:{objc_msgSend(*(a1 + 40), "currentVersion") + 1}];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)l_updateVersionOfEntry:(id)entry forClient:(id)client
@@ -870,16 +857,16 @@ void __44__REMReplicaManager_updateVersionForClient___block_invoke(uint64_t a1, 
 
 void __44__REMReplicaManager_returnReplicaForClient___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) replicaUUID];
   if (([v3 inUse] & 1) == 0)
   {
-    v8 = +[REMLog crdt];
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v7 = +[REMLog crdt];
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      v9 = clientDescription(*(a1 + 32));
-      __44__REMReplicaManager_returnReplicaForClient___block_invoke_cold_1(v9, v4, v20);
+      v8 = clientDescription(*(a1 + 32));
+      __44__REMReplicaManager_returnReplicaForClient___block_invoke_cold_1(v8, v4, v19);
     }
   }
 
@@ -889,19 +876,19 @@ void __44__REMReplicaManager_returnReplicaForClient___block_invoke(uint64_t a1, 
 
   if ((v5 & 1) == 0)
   {
-    v10 = +[REMLog crdt];
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v9 = +[REMLog crdt];
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v11 = clientDescription(*(a1 + 32));
-      v12 = [v3 client];
-      v13 = clientDescription(v12);
-      v14 = 138412802;
-      v15 = v11;
-      v16 = 2112;
-      v17 = v4;
-      v18 = 2112;
-      v19 = v13;
-      _os_log_fault_impl(&dword_19A0DB000, v10, OS_LOG_TYPE_FAULT, "rem_log_fault_if (client != entry.client) -- Client attempts to return replicaUUID not checked out by it {client = %@, replicaUUID = %@, checked out by = %@}", &v14, 0x20u);
+      v10 = clientDescription(*(a1 + 32));
+      v11 = [v3 client];
+      v12 = clientDescription(v11);
+      v13 = 138412802;
+      v14 = v10;
+      v15 = 2112;
+      v16 = v4;
+      v17 = 2112;
+      v18 = v12;
+      _os_log_fault_impl(&dword_19A0DB000, v9, OS_LOG_TYPE_FAULT, "rem_log_fault_if (client != entry.client) -- Client attempts to return replicaUUID not checked out by it {client = %@, replicaUUID = %@, checked out by = %@}", &v13, 0x20u);
     }
   }
 
@@ -911,8 +898,6 @@ void __44__REMReplicaManager_returnReplicaForClient___block_invoke(uint64_t a1, 
   {
     [*(a1 + 40) setCurrentVersion:{objc_msgSend(*(a1 + 40), "currentVersion") + 1}];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (id)description
@@ -938,13 +923,12 @@ void __44__REMReplicaManager_returnReplicaForClient___block_invoke(uint64_t a1, 
 
 void __32__REMReplicaManager_description__block_invoke(uint64_t a1)
 {
-  v7 = [*(a1 + 32) l_replicaUUIDsDescription];
+  v6 = [*(a1 + 32) l_replicaUUIDsDescription];
   v2 = [*(a1 + 32) l_replicaEntriesDescriptionForPersistence:0];
-  v3 = *(a1 + 32);
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<%@: %p> {\n\tcurrentVersion: %llu\n\tmaxLastSavedVersion: %llu\n\tReplica UUIDs: %@\n\tReplica Entries: %@\n}", objc_opt_class(), v3, objc_msgSend(v3, "currentVersion"), objc_msgSend(v3, "maxLastSavedVersion"), v7, v2];
-  v5 = *(*(a1 + 40) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = v4;
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<%@: %p> {\n\tcurrentVersion: %llu\n\tmaxLastSavedVersion: %llu\n\tReplica UUIDs: %@\n\tReplica Entries: %@\n}", objc_opt_class(), *(a1 + 32), objc_msgSend(*(a1 + 32), "currentVersion"), objc_msgSend(*(a1 + 32), "maxLastSavedVersion"), v6, v2];
+  v4 = *(*(a1 + 40) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 }
 
 - (id)l_replicaUUIDsDescription
@@ -1001,14 +985,14 @@ void __46__REMReplicaManager_l_replicaUUIDsDescription__block_invoke(uint64_t a1
 
 void __63__REMReplicaManager_l_replicaEntriesDescriptionForPersistence___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x1E69E9840];
-  v27 = a2;
-  v28 = a3;
-  if ([v28 count] == 1)
+  v35 = *MEMORY[0x1E69E9840];
+  v26 = a2;
+  v27 = a3;
+  if ([v27 count] == 1)
   {
     v8 = MEMORY[0x1E696AEC0];
     v9 = *(a1 + 40);
-    [v28 firstObject];
+    [v27 firstObject];
     if (v9 == 1)
       v4 = {;
       [v4 persistenceDescription];
@@ -1032,26 +1016,26 @@ void __63__REMReplicaManager_l_replicaEntriesDescriptionForPersistence___block_i
 
   else
   {
-    v11 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v28, "count")}];
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
+    v11 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v27, "count")}];
     v32 = 0u;
-    obj = v28;
-    v12 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    obj = v27;
+    v12 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (v12)
     {
-      v13 = *v32;
+      v13 = *v31;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v32 != v13)
+          if (*v31 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v31 + 1) + 8 * i);
+          v15 = *(*(&v30 + 1) + 8 * i);
           v16 = MEMORY[0x1E696AEC0];
           v17 = *(a1 + 40);
           if (v17 == 1)
@@ -1080,7 +1064,7 @@ void __63__REMReplicaManager_l_replicaEntriesDescriptionForPersistence___block_i
           }
         }
 
-        v12 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v12 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
       }
 
       while (v12);
@@ -1092,10 +1076,8 @@ void __63__REMReplicaManager_l_replicaEntriesDescriptionForPersistence___block_i
   }
 
   v24 = *(a1 + 32);
-  v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"\t\t%@: %@", v27, v23];
+  v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"\t\t%@: %@", v26, v23];
   [v24 addObject:v25];
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (id)persistenceDescription
@@ -1147,7 +1129,7 @@ void __43__REMReplicaManager_persistenceDescription__block_invoke(uint64_t a1)
   return v2;
 }
 
-unint64_t __38__REMReplicaManager_hasUnsavedChanges__block_invoke(uint64_t a1)
+void *__38__REMReplicaManager_hasUnsavedChanges__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isPersistable];
   if (result)
@@ -1194,26 +1176,26 @@ unint64_t __38__REMReplicaManager_hasUnsavedChanges__block_invoke(uint64_t a1)
 
 void __57__REMReplicaManager_unsavedReplicaManagersForAccountIDs___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
-    v4 = *v12;
+    v4 = *v11;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v12 != v4)
+        if (*v11 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v11 + 1) + 8 * i);
+        v6 = *(*(&v10 + 1) + 8 * i);
         v7 = managerByAccountID;
         v8 = [v6 uuid];
         v9 = [v7 objectForKeyedSubscript:v8];
@@ -1224,13 +1206,11 @@ void __57__REMReplicaManager_unsavedReplicaManagersForAccountIDs___block_invoke(
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v3);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (id)replicaManagerWithSerializedData:(id)data error:(id *)error
@@ -1364,37 +1344,34 @@ void __57__REMReplicaManager_serializedDataCappedAtMaxSize_error___block_invoke(
   {
     if ([v3 exceededMaxSerializedSize])
     {
-      v4 = +[REMReplicaManagerSerializedData serializedDataRepresentingDiscardedReplicaManager];
-      v5 = *(*(a1 + 40) + 8);
-      v6 = *(v5 + 40);
-      *(v5 + 40) = v4;
+      *(*(*(a1 + 40) + 8) + 40) = +[REMReplicaManagerSerializedData serializedDataRepresentingDiscardedReplicaManager];
 
       MEMORY[0x1EEE66BB8]();
     }
 
     else
     {
-      v11 = *(a1 + 32);
-      v12 = *(*(a1 + 48) + 8);
-      v23 = *(v12 + 40);
-      v13 = [v11 l_serializedDataWithError:&v23];
-      objc_storeStrong((v12 + 40), v23);
-      v14 = *(*(a1 + 40) + 8);
-      v15 = *(v14 + 40);
-      *(v14 + 40) = v13;
+      v8 = *(a1 + 32);
+      v9 = *(*(a1 + 48) + 8);
+      v20 = *(v9 + 40);
+      v10 = [v8 l_serializedDataWithError:&v20];
+      objc_storeStrong((v9 + 40), v20);
+      v11 = *(*(a1 + 40) + 8);
+      v12 = *(v11 + 40);
+      *(v11 + 40) = v10;
 
-      v16 = *(*(*(a1 + 40) + 8) + 40);
-      if (v16)
+      v13 = *(*(*(a1 + 40) + 8) + 40);
+      if (v13)
       {
-        v17 = [v16 managerData];
-        v18 = [v17 length];
+        v14 = [v13 managerData];
+        v15 = [v14 length];
 
-        if (v18 > 0x19000)
+        if (v15 > 0x19000)
         {
-          v19 = +[REMReplicaManagerSerializedData serializedDataRepresentingDiscardedReplicaManager];
-          v20 = *(*(a1 + 40) + 8);
-          v21 = *(v20 + 40);
-          *(v20 + 40) = v19;
+          v16 = +[REMReplicaManagerSerializedData serializedDataRepresentingDiscardedReplicaManager];
+          v17 = *(*(a1 + 40) + 8);
+          v18 = *(v17 + 40);
+          *(v17 + 40) = v16;
 
           [*(a1 + 32) setExceededMaxSerializedSize:1];
         }
@@ -1404,13 +1381,13 @@ void __57__REMReplicaManager_serializedDataCappedAtMaxSize_error___block_invoke(
 
   else
   {
-    v7 = *(*(a1 + 48) + 8);
-    obj = *(v7 + 40);
-    v8 = [v3 l_serializedDataWithError:&obj];
-    objc_storeStrong((v7 + 40), obj);
-    v9 = *(*(a1 + 40) + 8);
-    v10 = *(v9 + 40);
-    *(v9 + 40) = v8;
+    v4 = *(*(a1 + 48) + 8);
+    obj = *(v4 + 40);
+    v5 = [v3 l_serializedDataWithError:&obj];
+    objc_storeStrong((v4 + 40), obj);
+    v6 = *(*(a1 + 40) + 8);
+    v7 = *(v6 + 40);
+    *(v6 + 40) = v5;
   }
 }
 
@@ -1425,7 +1402,7 @@ void __57__REMReplicaManager_serializedDataCappedAtMaxSize_error___block_invoke(
   [(REMReplicaManager *)self performLocked:v3];
 }
 
-unint64_t __36__REMReplicaManager_didSaveVersion___block_invoke(uint64_t a1)
+void *__36__REMReplicaManager_didSaveVersion___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) maxLastSavedVersion];
   if (result < *(a1 + 40))
@@ -1615,7 +1592,7 @@ void __50__REMReplicaManager_clockOfFirstReplicaForCRDTID___block_invoke(uint64_
 
 - (BOOL)hasEqualPersistedEntriesAs:(id)as
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   asCopy = as;
   if (self == asCopy)
   {
@@ -1655,26 +1632,26 @@ LABEL_21:
       goto LABEL_25;
     }
 
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     replicaEntries3 = [(REMReplicaManager *)self replicaEntries];
-    v17 = [replicaEntries3 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v17 = [replicaEntries3 countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v17)
     {
-      v31 = *v34;
+      v30 = *v33;
       obj = replicaEntries3;
       while (2)
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v34 != v31)
+          if (*v33 != v30)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v33 + 1) + 8 * i);
+          v19 = *(*(&v32 + 1) + 8 * i);
           replicaEntries4 = [(REMReplicaManager *)self replicaEntries];
           v21 = [replicaEntries4 objectForKeyedSubscript:v19];
 
@@ -1707,7 +1684,7 @@ LABEL_22:
         }
 
         replicaEntries3 = obj;
-        v17 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v17 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
         v11 = 1;
         if (v17)
         {
@@ -1728,7 +1705,6 @@ LABEL_24:
 
 LABEL_25:
 
-  v29 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

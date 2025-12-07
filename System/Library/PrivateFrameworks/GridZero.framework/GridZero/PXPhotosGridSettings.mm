@@ -20,9 +20,11 @@
 
 uint64_t __38__PXPhotosGridSettings_sharedInstance__block_invoke()
 {
-  sharedInstance__sharedInstance = objc_alloc_init(PXPhotosGridSettings);
+  v0 = objc_alloc_init(PXPhotosGridSettings);
+  v1 = sharedInstance__sharedInstance;
+  sharedInstance__sharedInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (PXPhotosGridSettings)init

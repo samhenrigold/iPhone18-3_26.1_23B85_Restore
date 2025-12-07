@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    setAuthRandomIfNotPaired = self->_setAuthRandomIfNotPaired;
     PBDataWriterWriteBOOLField();
   }
 }

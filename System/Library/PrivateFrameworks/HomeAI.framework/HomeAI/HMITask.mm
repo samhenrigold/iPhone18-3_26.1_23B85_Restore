@@ -22,7 +22,6 @@
 
 - (NSDictionary)results
 {
-  v14[1] = *MEMORY[0x277D85DE8];
   error = [(HMFOperation *)self error];
   if (error && (v4 = error, -[HMFOperation error](self, "error"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 code], v5, v4, v6 == 12))
   {
@@ -40,11 +39,9 @@
     }
   }
 
-  v13 = @"resultCode";
-  v14[0] = v7;
   v9 = MEMORY[0x277CBEAC0];
   v10 = v7;
-  v11 = [v9 dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v11 = [v9 dictionaryWithObjects:? forKeys:? count:?];
 
   return v11;
 }
@@ -60,14 +57,13 @@
 - (void)mainInsideAutoreleasePool
 {
   v2 = MEMORY[0x277CBEAD8];
-  v3 = *MEMORY[0x277CBE658];
-  v4 = MEMORY[0x277CCACA8];
-  v5 = NSStringFromSelector(a2);
-  v6 = [v4 stringWithFormat:@"You must override %@ in a subclass", v5];
-  v7 = [v2 exceptionWithName:v3 reason:v6 userInfo:0];
-  v8 = v7;
+  v3 = MEMORY[0x277CCACA8];
+  v4 = NSStringFromSelector(a2);
+  v5 = [v3 stringWithFormat:v4];
+  v6 = [v2 exceptionWithName:? reason:? userInfo:?];
+  v7 = v6;
 
-  objc_exception_throw(v7);
+  objc_exception_throw(v6);
 }
 
 @end

@@ -2236,7 +2236,7 @@ LABEL_16:
   return isViewPointCorrectionSupported_result;
 }
 
-uint64_t __60__VCHardwareSettingsEmbedded_isViewPointCorrectionSupported__block_invoke(uint64_t a1)
+void *__60__VCHardwareSettingsEmbedded_isViewPointCorrectionSupported__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isViewPointCorrectionSupportedNoDispatch];
   isViewPointCorrectionSupported_result = result;
@@ -2634,7 +2634,7 @@ LABEL_6:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to copy device name", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to copy device name", v2, v3, v4, v5);
     }
   }
 }
@@ -2648,7 +2648,7 @@ LABEL_6:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Attempting to initialize with NULL device code", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Attempting to initialize with NULL device code", v2, v3, v4, v5);
     }
   }
 }
@@ -2662,7 +2662,7 @@ LABEL_6:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to initialize", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to initialize", v2, v3, v4, v5);
     }
   }
 }

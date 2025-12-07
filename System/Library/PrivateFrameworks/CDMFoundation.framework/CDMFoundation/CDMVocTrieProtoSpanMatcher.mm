@@ -9,23 +9,21 @@
 
 + (id)getCDMServiceAssetConfig
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(CDMServiceAssetConfig);
-  v7 = @"vocTrie";
-  v8 = @"com.apple.siri.nl.voc";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v7 count:1];
-  v9[0] = v3;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v6 = @"vocTrie";
+  v7 = @"com.apple.siri.nl.voc";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v6 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   [(CDMServiceAssetConfig *)v2 addCDMFactorToFoldersMapping:v4 forAssetSet:0];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 - (id)matchSpansForTokenChain:(id)chain asrHypothesis:(id)hypothesis
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   chainCopy = chain;
   hypothesisCopy = hypothesis;
   array = [MEMORY[0x1E695DF70] array];
@@ -46,35 +44,35 @@
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v42 = 0x2020000000;
-    v43 = 0;
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x2020000000;
-    v38 = 0;
+    v41 = 0x2020000000;
+    v42 = 0;
+    v34 = 0;
+    v35 = &v34;
+    v36 = 0x2020000000;
+    v37 = 0;
     selfCopy = self;
     useNormalizedValues = self->useNormalizedValues;
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __68__CDMVocTrieProtoSpanMatcher_matchSpansForTokenChain_asrHypothesis___block_invoke;
-    v30[3] = &unk_1E862F5B8;
-    v30[4] = selfCopy;
-    v31 = chainCopy;
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __68__CDMVocTrieProtoSpanMatcher_matchSpansForTokenChain_asrHypothesis___block_invoke;
+    v29[3] = &unk_1E862F5B8;
+    v29[4] = selfCopy;
+    v30 = chainCopy;
     p_buf = &buf;
-    v34 = &v35;
+    v33 = &v34;
     v17 = array;
-    v32 = v17;
-    [CDMProtoSpanMatcherHelper enumerateTokenChain:v31 useNormalizedValues:useNormalizedValues withCallback:v30];
+    v31 = v17;
+    [CDMProtoSpanMatcherHelper enumerateTokenChain:v30 useNormalizedValues:useNormalizedValues withCallback:v29];
     v18 = v9;
-    if (*(*(&buf + 1) + 24) == 1 && *(v36 + 6))
+    if (*(*(&buf + 1) + 24) == 1 && *(v35 + 6))
     {
-      v19 = [MEMORY[0x1E696AE18] predicateWithFormat:@"NOT(SELF.startTokenIndex >= %d AND SELF.endTokenIndex <= %d AND SELF.label !=%@)", 0, *(v36 + 6), @"voiceTrigger"];
+      v19 = [MEMORY[0x1E696AE18] predicateWithFormat:@"NOT(SELF.startTokenIndex >= %d AND SELF.endTokenIndex <= %d AND SELF.label !=%@)", 0, *(v35 + 6), @"voiceTrigger"];
       v20 = CDMLogContext;
       v21 = v20;
       if (v12 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
       {
-        *v39 = 0;
-        _os_signpost_emit_with_name_impl(&dword_1DC287000, v21, OS_SIGNPOST_INTERVAL_END, v18, "SpanMatcher", "", v39, 2u);
+        *v38 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1DC287000, v21, OS_SIGNPOST_INTERVAL_END, v18, "SpanMatcher", "", v38, 2u);
       }
 
       v22 = [v17 filteredArrayUsingPredicate:v19];
@@ -86,8 +84,8 @@
       v24 = v23;
       if (v12 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
       {
-        *v39 = 0;
-        _os_signpost_emit_with_name_impl(&dword_1DC287000, v24, OS_SIGNPOST_INTERVAL_END, v9, "SpanMatcher", "", v39, 2u);
+        *v38 = 0;
+        _os_signpost_emit_with_name_impl(&dword_1DC287000, v24, OS_SIGNPOST_INTERVAL_END, v9, "SpanMatcher", "", v38, 2u);
       }
 
       if ([v17 count] < 0x65)
@@ -100,9 +98,9 @@
         v25 = CDMOSLoggerForCategory(0);
         if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
         {
-          *v39 = 136315138;
-          v40 = "[CDMVocTrieProtoSpanMatcher matchSpansForTokenChain:asrHypothesis:]";
-          _os_log_debug_impl(&dword_1DC287000, v25, OS_LOG_TYPE_DEBUG, "%s VOC spans exceeding 100, sort based on identifer count to promote important spans", v39, 0xCu);
+          *v38 = 136315138;
+          v39 = "[CDMVocTrieProtoSpanMatcher matchSpansForTokenChain:asrHypothesis:]";
+          _os_log_debug_impl(&dword_1DC287000, v25, OS_LOG_TYPE_DEBUG, "%s VOC spans exceeding 100, sort based on identifer count to promote important spans", v38, 0xCu);
         }
 
         spanIdentifierCountComparator = [objc_opt_class() spanIdentifierCountComparator];
@@ -110,7 +108,7 @@
       }
     }
 
-    _Block_object_dispose(&v35, 8);
+    _Block_object_dispose(&v34, 8);
     _Block_object_dispose(&buf, 8);
   }
 
@@ -127,48 +125,46 @@
     v22 = array;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return v22;
 }
 
 void __68__CDMVocTrieProtoSpanMatcher_matchSpansForTokenChain_asrHypothesis___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   v9 = a2;
   v10 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v69 = "[CDMVocTrieProtoSpanMatcher matchSpansForTokenChain:asrHypothesis:]_block_invoke";
-    v70 = 2112;
-    v71 = v9;
+    v68 = "[CDMVocTrieProtoSpanMatcher matchSpansForTokenChain:asrHypothesis:]_block_invoke";
+    v69 = 2112;
+    v70 = v9;
     _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, "%s Voc matcher Matching search chunk: %@", buf, 0x16u);
   }
 
-  v52 = v9;
+  v51 = v9;
   [*(*(a1 + 32) + 8) entriesForText:v9];
+  v62 = 0u;
   v63 = 0u;
   v64 = 0u;
-  v65 = 0u;
-  obj = v66 = 0u;
-  v59 = [obj countByEnumeratingWithState:&v63 objects:v67 count:16];
-  if (v59)
+  obj = v65 = 0u;
+  v58 = [obj countByEnumeratingWithState:&v62 objects:v66 count:16];
+  if (v58)
   {
-    v58 = *v64;
-    v53 = a5;
-    v54 = a6;
+    v57 = *v63;
+    v52 = a5;
+    v53 = a6;
     do
     {
       v11 = 0;
       do
       {
-        if (*v64 != v58)
+        if (*v63 != v57)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v63 + 1) + 8 * v11);
+        v12 = *(*(&v62 + 1) + 8 * v11);
         context = objc_autoreleasePoolPush();
         v13 = [*(a1 + 40) string];
         v14 = [v13 substringWithRange:{a3, a4}];
@@ -194,7 +190,7 @@ void __68__CDMVocTrieProtoSpanMatcher_matchSpansForTokenChain_asrHypothesis___bl
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315138;
-            v69 = "[CDMVocTrieProtoSpanMatcher matchSpansForTokenChain:asrHypothesis:]_block_invoke";
+            v68 = "[CDMVocTrieProtoSpanMatcher matchSpansForTokenChain:asrHypothesis:]_block_invoke";
             _os_log_debug_impl(&dword_1DC287000, v20, OS_LOG_TYPE_DEBUG, "%s Voc matcher got UsoGraph from asset", buf, 0xCu);
           }
 
@@ -213,7 +209,7 @@ void __68__CDMVocTrieProtoSpanMatcher_matchSpansForTokenChain_asrHypothesis___bl
             }
 
             *buf = 136315138;
-            v69 = "[CDMVocTrieProtoSpanMatcher matchSpansForTokenChain:asrHypothesis:]_block_invoke";
+            v68 = "[CDMVocTrieProtoSpanMatcher matchSpansForTokenChain:asrHypothesis:]_block_invoke";
             v25 = v24;
             v26 = "%s [WARN]: VOC span UsoGraph only has 1 root node, not going to attach alignments or identifiers";
 LABEL_32:
@@ -221,7 +217,7 @@ LABEL_32:
             goto LABEL_33;
           }
 
-          v56 = v17;
+          v55 = v17;
           v32 = [v12 usoGraph];
           v33 = [v32 nodesCount];
           v34 = [v12 nodeIndex];
@@ -235,7 +231,7 @@ LABEL_32:
             }
 
             *buf = 136315138;
-            v69 = "[CDMVocTrieProtoSpanMatcher matchSpansForTokenChain:asrHypothesis:]_block_invoke";
+            v68 = "[CDMVocTrieProtoSpanMatcher matchSpansForTokenChain:asrHypothesis:]_block_invoke";
             v25 = v24;
             v26 = "%s [WARN]: VOC span UsoGraph node index invalid";
             goto LABEL_32;
@@ -259,7 +255,7 @@ LABEL_32:
             [v38 setStringPayload:v39];
           }
 
-          v55 = v38;
+          v54 = v38;
           v40 = [v12 label];
           v41 = [v12 semantic];
           v42 = +[CDMProtoSpanMatcherHelper buildUsoIdentifier:semantic:nodeIndex:](CDMProtoSpanMatcherHelper, "buildUsoIdentifier:semantic:nodeIndex:", v40, v41, [v12 nodeIndex]);
@@ -270,13 +266,13 @@ LABEL_32:
             [v43 addIdentifiers:v42];
           }
 
-          a5 = v53;
-          a6 = v54;
+          a5 = v52;
+          a6 = v53;
           if (+[CDMFeatureFlags isUsoEntitySpanEnabled])
           {
             v44 = [v12 label];
             v45 = [v12 semantic];
-            v46 = +[CDMProtoSpanMatcherHelper buildUsoEntitySpan:semantic:nodeIndex:startIndex:endIndex:tokenCount:](CDMProtoSpanMatcherHelper, "buildUsoEntitySpan:semantic:nodeIndex:startIndex:endIndex:tokenCount:", v44, v45, [v12 nodeIndex], a3, (a3 + a4), v56);
+            v46 = +[CDMProtoSpanMatcherHelper buildUsoEntitySpan:semantic:nodeIndex:startIndex:endIndex:tokenCount:](CDMProtoSpanMatcherHelper, "buildUsoEntitySpan:semantic:nodeIndex:startIndex:endIndex:tokenCount:", v44, v45, [v12 nodeIndex], a3, (a3 + a4), v55);
 
             if (v46)
             {
@@ -284,8 +280,8 @@ LABEL_32:
               [v47 addSpans:v46];
             }
 
-            a5 = v53;
-            a6 = v54;
+            a5 = v52;
+            a6 = v53;
           }
         }
 
@@ -302,7 +298,7 @@ LABEL_32:
           if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315138;
-            v69 = "[CDMVocTrieProtoSpanMatcher matchSpansForTokenChain:asrHypothesis:]_block_invoke";
+            v68 = "[CDMVocTrieProtoSpanMatcher matchSpansForTokenChain:asrHypothesis:]_block_invoke";
             _os_log_debug_impl(&dword_1DC287000, v24, OS_LOG_TYPE_DEBUG, "%s Voc matcher got (potentially empty) UsoGraph from mapper code", buf, 0xCu);
           }
         }
@@ -333,14 +329,12 @@ LABEL_38:
         ++v11;
       }
 
-      while (v59 != v11);
-      v59 = [obj countByEnumeratingWithState:&v63 objects:v67 count:16];
+      while (v58 != v11);
+      v58 = [obj countByEnumeratingWithState:&v62 objects:v66 count:16];
     }
 
-    while (v59);
+    while (v58);
   }
-
-  v51 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)utteranceStartsWithVoiceTriggerSpan:(id)span

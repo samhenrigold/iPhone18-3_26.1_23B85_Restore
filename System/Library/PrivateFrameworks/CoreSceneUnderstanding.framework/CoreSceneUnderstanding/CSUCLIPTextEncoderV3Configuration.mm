@@ -65,7 +65,7 @@ LABEL_24:
           goto LABEL_25;
         }
 
-        v56 = sub_1AC090E50();
+        v56 = sub_1AC090E50(0);
         if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
         {
           sub_1AC122130(v56, v57, v58, v59, v60, v61, v62, v63);
@@ -92,7 +92,7 @@ LABEL_17:
         goto LABEL_24;
       }
 
-      v46 = sub_1AC090E50();
+      v46 = sub_1AC090E50(0);
       if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
         sub_1AC122168(v46, v47, v48, v49, v50, v51, v52, v53);
@@ -121,7 +121,7 @@ LABEL_25:
       goto LABEL_25;
     }
 
-    v36 = sub_1AC090E50();
+    v36 = sub_1AC090E50(0);
     if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
       sub_1AC1221A0(v36, v37, v38, v39, v40, v41, v42, v43);

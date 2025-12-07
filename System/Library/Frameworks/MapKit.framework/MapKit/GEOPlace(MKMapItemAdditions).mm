@@ -93,13 +93,13 @@
 
     [v10 setReferenceFrame:v13];
 
-    region = [v4 region];
-    if (region)
+    v14 = objc_msgSend_region(v4);
+    if (v14)
     {
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v15 = region;
+        v15 = v14;
         [v15 center];
         v17 = v16;
         [v15 center];

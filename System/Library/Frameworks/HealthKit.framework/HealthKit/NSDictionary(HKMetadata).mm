@@ -28,9 +28,9 @@
     +[NSDictionary(HKMetadata) hk_acceptedMetadataValueClasses];
   }
 
-  v1 = hk_acceptedMetadataValueClasses_valueClasses;
+  v2 = hk_acceptedMetadataValueClasses_valueClasses;
 
-  return v1;
+  return v2;
 }
 
 + (id)hk_secureCodingClasses
@@ -104,13 +104,13 @@
 
 - (id)_copyWithoutPrivateMetadataKeysShouldDerivePublicKeys:()HKMetadata
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
+  v16 = 0u;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
   allKeys = [self allKeys];
-  v5 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v5 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (!v5)
   {
 
@@ -119,18 +119,18 @@
 
   v7 = v5;
   v8 = 0;
-  v9 = *v19;
+  v9 = *v17;
   do
   {
     v10 = 0;
     do
     {
-      if (*v19 != v9)
+      if (*v17 != v9)
       {
         objc_enumerationMutation(allKeys);
       }
 
-      v11 = *(*(&v18 + 1) + 8 * v10);
+      v11 = *(*(&v16 + 1) + 8 * v10);
       if (_HKMetadataKeyIsPrivate(v11, v6))
       {
         if (v8)
@@ -158,7 +158,7 @@ LABEL_9:
     }
 
     while (v7 != v10);
-    v12 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v12 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
     v7 = v12;
   }
 
@@ -168,12 +168,10 @@ LABEL_9:
   {
     v13 = [v8 copy];
 
-    v14 = *MEMORY[0x1E69E9840];
     return v13;
   }
 
 LABEL_19:
-  v16 = *MEMORY[0x1E69E9840];
 
   return self;
 }
@@ -212,14 +210,14 @@ LABEL_19:
     +[NSDictionary(HKMetadata) hk_acceptedPublicMetadataValueClasses];
   }
 
-  v1 = hk_acceptedPublicMetadataValueClasses_valueClasses;
+  v2 = hk_acceptedPublicMetadataValueClasses_valueClasses;
 
-  return v1;
+  return v2;
 }
 
 + (uint64_t)hk_acceptsMetadataValue:()HKMetadata allowPrivateMetadata:
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v6 = a3;
   if (a4)
   {
@@ -231,24 +229,23 @@ LABEL_19:
     [self hk_acceptedPublicMetadataValueClasses];
   }
 
-  v16 = 0u;
-  v17 = 0u;
   v14 = 0u;
-  v7 = v15 = 0u;
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v15 = 0u;
+  v12 = 0u;
+  v7 = v13 = 0u;
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
-    v9 = *v15;
+    v9 = *v13;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v14 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
           v8 = 1;
@@ -256,7 +253,7 @@ LABEL_19:
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v8)
       {
         continue;
@@ -268,7 +265,6 @@ LABEL_19:
 
 LABEL_14:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

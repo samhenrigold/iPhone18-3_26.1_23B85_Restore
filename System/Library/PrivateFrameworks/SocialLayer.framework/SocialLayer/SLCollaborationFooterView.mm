@@ -138,23 +138,23 @@ void __78__SLCollaborationFooterView_renderRemoteContentForLayerContextID_style_
     [*(a1 + 32) setLastRenderedSlotStyle:*(a1 + 40)];
   }
 
-  [*(a1 + 32) setRemoteContentIsLoaded:*(a1 + 48) != 0];
+  v5 = [*(a1 + 32) setRemoteContentIsLoaded:*(a1 + 48) != 0];
   if (*(a1 + 48))
   {
     (*(*(a1 + 56) + 16))();
     [*(a1 + 32) invalidateIntrinsicContentSize];
     [*(a1 + 32) setNeedsLayout];
     [*(a1 + 32) layoutIfNeeded];
-    v6 = [*(a1 + 32) delegate];
-    [v6 footerViewContentsDidChange:*(a1 + 32)];
+    v7 = [*(a1 + 32) delegate];
+    [v7 footerViewContentsDidChange:*(a1 + 32)];
   }
 
   else
   {
-    v5 = SLFrameworkLogHandle();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = SLFrameworkLogHandle(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __78__SLCollaborationFooterView_renderRemoteContentForLayerContextID_style_yield___block_invoke_2_cold_1(v2, v5);
+      __78__SLCollaborationFooterView_renderRemoteContentForLayerContextID_style_yield___block_invoke_2_cold_1(v2, v6);
     }
   }
 }
@@ -168,19 +168,17 @@ void __78__SLCollaborationFooterView_renderRemoteContentForLayerContextID_style_
 
 void __78__SLCollaborationFooterView_renderRemoteContentForLayerContextID_style_yield___block_invoke_2_cold_1(id *a1, NSObject *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   v5 = [*a1 model];
   [*a1 maxWidth];
-  v8 = 134218498;
-  v9 = v4;
-  v10 = 2112;
-  v11 = v5;
-  v12 = 2048;
-  v13 = v6;
-  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "[SLCollaborationFooterView: %p] sociallayerd returned nil remote content for model: [%@], maxWidth: [%f]", &v8, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 134218498;
+  v8 = v4;
+  v9 = 2112;
+  v10 = v5;
+  v11 = 2048;
+  v12 = v6;
+  _os_log_error_impl(&dword_231772000, a2, OS_LOG_TYPE_ERROR, "[SLCollaborationFooterView: %p] sociallayerd returned nil remote content for model: [%@], maxWidth: [%f]", &v7, 0x20u);
 }
 
 @end

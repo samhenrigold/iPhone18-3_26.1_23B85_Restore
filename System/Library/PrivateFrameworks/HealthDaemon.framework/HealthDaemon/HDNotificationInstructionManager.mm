@@ -92,7 +92,7 @@ void __57__HDNotificationInstructionManager_diagnosticDescription__block_invoke(
 
 - (void)_unitTest_notifyDidEvaluateIfMaintenanceWorkIsNeeded:(void *)needed
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   unitTest_didEvaluateIfMaintenanceWorkIsNeeded = [needed unitTest_didEvaluateIfMaintenanceWorkIsNeeded];
   v5 = unitTest_didEvaluateIfMaintenanceWorkIsNeeded;
   if (unitTest_didEvaluateIfMaintenanceWorkIsNeeded)
@@ -107,18 +107,16 @@ void __57__HDNotificationInstructionManager_diagnosticDescription__block_invoke(
     if (os_log_type_enabled(*MEMORY[0x277CCC300], OS_LOG_TYPE_DEFAULT))
     {
       v7 = v6;
-      v10 = 138543874;
-      v11 = objc_opt_class();
-      v12 = 2048;
+      v9 = 138543874;
+      v10 = objc_opt_class();
+      v11 = 2048;
       neededCopy = needed;
-      v14 = 1024;
-      v15 = a2;
-      v8 = v11;
-      _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@:%p] Did evaluate for maintenance work: %d", &v10, 0x1Cu);
+      v13 = 1024;
+      v14 = a2;
+      v8 = v10;
+      _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@:%p] Did evaluate for maintenance work: %d", &v9, 0x1Cu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)currentDate
@@ -222,51 +220,51 @@ void __81__HDNotificationInstructionManager__queue_enqueueMaintenanceInvalidatio
 
 uint64_t __81__HDNotificationInstructionManager__queue_enqueueMaintenanceInvalidationIfNeeded__block_invoke_2(uint64_t a1)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
     dispatch_assert_queue_V2(*(v2 + 16));
-    v27 = 0;
+    v26 = 0;
     dispatch_assert_queue_V2(*(v2 + 16));
-    v32 = 0;
-    v33 = &v32;
-    v34 = 0x3032000000;
-    v35 = __Block_byref_object_copy__135;
-    v36 = __Block_byref_object_dispose__135;
-    v37 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v28 = 0;
-    v29 = &v28;
-    v30 = 0x2020000000;
     v31 = 0;
+    v32 = &v31;
+    v33 = 0x3032000000;
+    v34 = __Block_byref_object_copy__135;
+    v35 = __Block_byref_object_dispose__135;
+    v36 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v27 = 0;
+    v28 = &v27;
+    v29 = 0x2020000000;
+    v30 = 0;
     WeakRetained = objc_loadWeakRetained((v2 + 8));
     v4 = [WeakRetained database];
     *buf = MEMORY[0x277D85DD0];
     *&buf[8] = 3221225472;
     *&buf[16] = __101__HDNotificationInstructionManager__queue_readInvalidInstructionsAndCheckForValidInstructions_error___block_invoke;
-    v39 = &unk_278625D90;
-    v40 = v2;
-    v41 = &v28;
-    v42 = &v32;
-    v43 = 50;
-    v5 = [(HDHealthEntity *)HDDataEntity performReadTransactionWithHealthDatabase:v4 error:&v27 block:buf];
+    v38 = &unk_278625D90;
+    v39 = v2;
+    v40 = &v27;
+    v41 = &v31;
+    v42 = 50;
+    v5 = [(HDHealthEntity *)HDDataEntity performReadTransactionWithHealthDatabase:v4 error:&v26 block:buf];
 
     if (v5)
     {
-      v6 = v29;
-      if (v29[3])
+      v6 = v28;
+      if (v28[3])
       {
         v7 = 1;
       }
 
       else
       {
-        v7 = [v33[5] count] == 50;
-        v6 = v29;
+        v7 = [v32[5] count] == 50;
+        v6 = v28;
       }
 
       *(v6 + 24) = v7;
-      v8 = [v33[5] copy];
+      v8 = objc_msgSend_copy(v32[5]);
     }
 
     else
@@ -275,53 +273,31 @@ uint64_t __81__HDNotificationInstructionManager__queue_enqueueMaintenanceInvalid
       v7 = 1;
     }
 
-    _Block_object_dispose(&v28, 8);
-    _Block_object_dispose(&v32, 8);
+    _Block_object_dispose(&v27, 8);
+    _Block_object_dispose(&v31, 8);
 
-    v9 = v27;
+    v9 = v26;
     if (v8)
     {
-      if (![v8 count])
-      {
-        goto LABEL_11;
-      }
-
-      v10 = [v8 copy];
-      v32 = 0;
-      v11 = v10;
-      dispatch_assert_queue_V2(*(v2 + 16));
-      v12 = objc_loadWeakRetained((v2 + 8));
-      v13 = [v12 database];
-      *buf = MEMORY[0x277D85DD0];
-      *&buf[8] = 3221225472;
-      *&buf[16] = __72__HDNotificationInstructionManager__queue_invalidateInstructions_error___block_invoke;
-      v39 = &unk_278613218;
-      v14 = v11;
-      v40 = v14;
-      v41 = v2;
-      v15 = [(HDHealthEntity *)HDNotificationInstructionEntity performWriteTransactionWithHealthDatabase:v13 error:&v32 block:buf];
-
-      v9 = v32;
-      if (!v15)
+      if ([v8 count] && (v9, v10 = objc_msgSend_copy(v8), v31 = 0, v11 = v10, dispatch_assert_queue_V2(*(v2 + 16)), v12 = objc_loadWeakRetained((v2 + 8)), objc_msgSend(v12, "database"), v13 = objc_claimAutoreleasedReturnValue(), *buf = MEMORY[0x277D85DD0], *&buf[8] = 3221225472, *&buf[16] = __72__HDNotificationInstructionManager__queue_invalidateInstructions_error___block_invoke, v38 = &unk_278613218, v14 = v11, v39 = v14, v40 = v2, v15 = +[HDHealthEntity performWriteTransactionWithHealthDatabase:error:block:](HDNotificationInstructionEntity, "performWriteTransactionWithHealthDatabase:error:block:", v13, &v31, buf), v39, v13, v12, v14, v9 = v31, v14, !v15))
       {
         _HKInitializeLogging();
         v20 = *MEMORY[0x277CCC300];
         if (os_log_type_enabled(*MEMORY[0x277CCC300], OS_LOG_TYPE_ERROR))
         {
-          v24 = v20;
-          v25 = objc_opt_class();
+          v23 = v20;
+          v24 = objc_opt_class();
           *buf = 138543618;
-          *&buf[4] = v25;
+          *&buf[4] = v24;
           *&buf[12] = 2114;
           *&buf[14] = v9;
-          v26 = v25;
-          _os_log_error_impl(&dword_228986000, v24, OS_LOG_TYPE_ERROR, "[%{public}@] Error invalidating instructions: %{public}@", buf, 0x16u);
+          v25 = v24;
+          _os_log_error_impl(&dword_228986000, v23, OS_LOG_TYPE_ERROR, "[%{public}@] Error invalidating instructions: %{public}@", buf, 0x16u);
         }
       }
 
       else
       {
-LABEL_11:
         *(v2 + 24) = v7;
       }
     }
@@ -347,7 +323,6 @@ LABEL_11:
   }
 
   v21 = *(*(a1 + 40) + 16);
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21();
 }
@@ -419,29 +394,29 @@ LABEL_12:
 
 uint64_t __72__HDNotificationInstructionManager__queue_invalidateInstructions_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = *(a1 + 32);
-  v6 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     while (2)
     {
       v9 = 0;
       do
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = [*(*(&v17 + 1) + 8 * v9) messageIdentifier];
+        v10 = [*(*(&v16 + 1) + 8 * v9) messageIdentifier];
         v11 = [(HDNotificationInstructionManager *)*(a1 + 40) currentDate];
         v12 = [HDNotificationInstructionEntity invalidateNotificationInstructionWithMessageIdentifier:v10 modificationDate:v11 transaction:v5 error:a3];
 
@@ -455,7 +430,7 @@ uint64_t __72__HDNotificationInstructionManager__queue_invalidateInstructions_er
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v7)
       {
         continue;
@@ -468,7 +443,6 @@ uint64_t __72__HDNotificationInstructionManager__queue_invalidateInstructions_er
   v13 = 1;
 LABEL_11:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -674,29 +648,29 @@ void __87__HDNotificationInstructionManager__queue_insertOrIgnoreNotificationIns
 
 uint64_t __99__HDNotificationInstructionManager_invalidateNotificationInstructionsWithMessageIdentifiers_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = a2;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   obj = *(a1 + 32);
-  v6 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     while (2)
     {
       v9 = 0;
       do
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * v9);
+        v10 = *(*(&v15 + 1) + 8 * v9);
         v11 = [(HDNotificationInstructionManager *)*(a1 + 40) currentDate];
         LODWORD(v10) = [HDNotificationInstructionEntity invalidateNotificationInstructionWithMessageIdentifier:v10 modificationDate:v11 transaction:v5 error:a3];
 
@@ -710,7 +684,7 @@ uint64_t __99__HDNotificationInstructionManager_invalidateNotificationInstructio
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -723,7 +697,6 @@ uint64_t __99__HDNotificationInstructionManager_invalidateNotificationInstructio
   v12 = 1;
 LABEL_11:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -786,41 +759,40 @@ LABEL_11:
 
 - (void)unregisterObserver:(id)observer
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   os_unfair_lock_lock(&self->_lock);
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   allKeys = [(NSMutableDictionary *)self->_lock_observersByClientIdentifier allKeys];
-  v6 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        [(HDNotificationInstructionManager *)self _lock_unregisterObserver:observerCopy clientIdentifier:*(*(&v11 + 1) + 8 * v9++)];
+        [(HDNotificationInstructionManager *)self _lock_unregisterObserver:observerCopy clientIdentifier:*(*(&v10 + 1) + 8 * v9++)];
       }
 
       while (v7 != v9);
-      v7 = [allKeys countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

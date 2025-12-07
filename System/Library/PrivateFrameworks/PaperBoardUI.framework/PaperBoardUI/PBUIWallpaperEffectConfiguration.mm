@@ -5,6 +5,7 @@
 - (BOOL)isEqual:(id)equal;
 - (BOOL)requiresMaterialKitRendering;
 - (double)backdropParameters;
+- (double)uniqueIdentifier;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix;
 - (id)descriptionWithMultilinePrefix:(id)prefix;
@@ -15,12 +16,11 @@
 - (unint64_t)hash;
 - (void)configurationByRemovingTint;
 - (void)configurationWithUserInterfaceStyle:(void *)style;
-- (void)uniqueIdentifier;
 @end
 
 @implementation PBUIWallpaperEffectConfiguration
 
-- (void)uniqueIdentifier
+- (double)uniqueIdentifier
 {
   selfCopy = self;
   if (self)
@@ -30,7 +30,7 @@
       v2 = MEMORY[0x277CCACA8];
       v3 = PBUIWallpaperStyleDescription(*(self + 2));
       v4 = v3;
-      v5 = selfCopy[3];
+      v5 = *(selfCopy + 3);
       v6 = @"Unspecified";
       if (v5 == 2)
       {
@@ -100,7 +100,7 @@
 
       v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%d:%d:%d:%1.1f:%d:%1.1f:%1.1f", *(self + 4), v8, v9, *&v11, v10, *&v12, *&v13];
       v14 = MEMORY[0x277CCACA8];
-      v15 = PBUIWallpaperStyleDescription(selfCopy[2]);
+      v15 = PBUIWallpaperStyleDescription(*(selfCopy + 2));
       v16 = v15;
       if (*(selfCopy + 8))
       {
@@ -122,11 +122,11 @@
 + (id)normal
 {
   objc_opt_self();
-  v0 = [PBUIWallpaperEffectConfiguration alloc];
+  v2 = [PBUIWallpaperEffectConfiguration alloc];
   whiteColor = [MEMORY[0x277D75348] whiteColor];
-  v2 = [(PBUIWallpaperEffectConfiguration *)v0 initWithStyle:whiteColor contentColor:0 userInterfaceStyle:?];
+  v4 = [(PBUIWallpaperEffectConfiguration *)v2 initWithStyle:whiteColor contentColor:0 userInterfaceStyle:?];
 
-  return v2;
+  return v4;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

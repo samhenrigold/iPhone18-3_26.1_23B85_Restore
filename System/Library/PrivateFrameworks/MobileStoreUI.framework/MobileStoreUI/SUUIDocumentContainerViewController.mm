@@ -528,10 +528,10 @@ void __78__SUUIDocumentContainerViewController_initWithDocument_options_clientCo
 
     style = [_navigationBarViewElement style];
     visibility = [style visibility];
-    v18 = [visibility isEqualToString:@"hidden"];
+    isEqualToString = objc_msgSend_isEqualToString_(visibility);
 
     navigationController = [(SUUIDocumentContainerViewController *)self navigationController];
-    [navigationController setNavigationBarHidden:v18 animated:appearCopy];
+    [navigationController setNavigationBarHidden:isEqualToString animated:appearCopy];
   }
 
   [(SUUIViewController *)self forceOrientationBackToSupportedOrientation];
@@ -677,9 +677,9 @@ LABEL_24:
   width = size.width;
   coordinatorCopy = coordinator;
   v8 = [(NSDictionary *)self->_presentationOptions objectForKey:@"type"];
-  v9 = [v8 isEqualToString:@"popover"];
+  isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-  if ((v9 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     self->_viewSize.width = width;
     self->_viewSize.height = height;
@@ -692,7 +692,7 @@ LABEL_24:
 
     if (coordinatorCopy)
     {
-      [coordinatorCopy targetTransform];
+      objc_msgSend_targetTransform(coordinatorCopy);
     }
 
     else
@@ -767,7 +767,7 @@ LABEL_24:
 
 - (void)documentDidUpdate:(id)update
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   if (!self->_pageResponseAbsoluteTime)
   {
@@ -808,19 +808,17 @@ LABEL_24:
   [(NSNumber *)self->_pageResponseAbsoluteTime doubleValue];
   v14 = Current - v13;
   v15 = [(NSDictionary *)self->_presentationOptions objectForKey:@"url"];
-  v58 = 138412802;
-  v59 = v10;
-  v60 = 2048;
-  v61 = v14;
-  v62 = 2112;
-  v63 = v15;
-  LODWORD(v55) = 32;
-  v54 = &v58;
-  v16 = _os_log_send_and_compose_impl();
+  v57 = 138412802;
+  v58 = v10;
+  v59 = 2048;
+  v60 = v14;
+  v61 = 2112;
+  v62 = v15;
+  v16 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_259CB8000, oSLogObject, 2, "%@: First DOM update after page response took %.2f seconds for URL: %@", &v57, 32);
 
   if (v16)
   {
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v16 encoding:{4, &v58, v55}];
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v16 encoding:4];
     free(v16);
     v54 = oSLogObject;
     SSFileLog();
@@ -873,8 +871,8 @@ LABEL_13:
 
     if (SUUIViewControllerIsVisible(self->_childViewController))
     {
-      v57 = *MEMORY[0x277CBE738];
-      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
+      v56 = *MEMORY[0x277CBE738];
+      v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
       [updateCopy performSelector:sel_onUpdate withObject:0 afterDelay:v28 inModes:0.0];
     }
   }
@@ -900,7 +898,7 @@ LABEL_13:
   _navigationBarViewElement = [(SUUIDocumentContainerViewController *)self _navigationBarViewElement];
   navigationItem = [(SUUIDocumentContainerViewController *)self navigationItem];
   navigationBarController = self->_navigationBarController;
-  v56 = updateCopy;
+  v55 = updateCopy;
   if (_navigationBarViewElement)
   {
     navigationBarViewElement = [(SUUINavigationBarController *)navigationBarController navigationBarViewElement];
@@ -938,10 +936,10 @@ LABEL_13:
 
     style = [_navigationBarViewElement style];
     visibility = [style visibility];
-    v42 = [visibility isEqualToString:@"hidden"];
+    isEqualToString = objc_msgSend_isEqualToString_(visibility);
 
     navigationController = [(SUUIDocumentContainerViewController *)self navigationController];
-    [navigationController setNavigationBarHidden:v42 animated:0];
+    [navigationController setNavigationBarHidden:isEqualToString animated:0];
   }
 
   [(SUUIDocumentContainerViewController *)self _reloadDefaultBarButtonItems];
@@ -1031,22 +1029,22 @@ LABEL_13:
 
   v7 = [userInfo2 objectForKeyedSubscript:0x286AFEBE0];
 
-  if ([v8 isEqualToString:0x286AFEB20])
+  if (objc_msgSend_isEqualToString_(v8))
   {
     [(SUUIDocumentContainerViewController *)self _onReportPlatformJsonTimes:v7];
   }
 
-  else if ([v8 isEqualToString:0x286AFEB40])
+  else if (objc_msgSend_isEqualToString_(v8))
   {
     [(SUUIDocumentContainerViewController *)self _onReportDOMChange:v7];
   }
 
-  else if ([v8 isEqualToString:0x286AFEB60])
+  else if (objc_msgSend_isEqualToString_(v8))
   {
     [(SUUIDocumentContainerViewController *)self _onReportRequestTimes:v7];
   }
 
-  else if ([v8 isEqualToString:0x286AFEB80])
+  else if (objc_msgSend_isEqualToString_(v8))
   {
     [(SUUIDocumentContainerViewController *)self _onReportDocumentReady:v7];
   }
@@ -1104,7 +1102,7 @@ LABEL_13:
 - (id)mediaQueryEvaluator:(id)evaluator valueForKey:(id)key
 {
   keyCopy = key;
-  if ([keyCopy isEqualToString:0x286AECA60])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v6 = MEMORY[0x277CCABB0];
     height = self->_viewSize.height;
@@ -1113,14 +1111,14 @@ LABEL_5:
     goto LABEL_6;
   }
 
-  if ([keyCopy isEqualToString:0x286AECB20])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     v6 = MEMORY[0x277CCABB0];
     height = self->_viewSize.width;
     goto LABEL_5;
   }
 
-  if ([keyCopy isEqualToString:0x286AFFE40])
+  if (objc_msgSend_isEqualToString_(keyCopy))
   {
     mEMORY[0x277D7FD00] = [MEMORY[0x277D7FD00] sharedInstance];
     v8 = SUUIMediaQueryNetworkTypeString([mEMORY[0x277D7FD00] networkType]);
@@ -1599,7 +1597,7 @@ void __70__SUUIDocumentContainerViewController__networkTypeChangeNotification___
 
 - (void)_enqueueLoadURLOperation
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CBEBC0]) initWithString:self->_urlString];
   clientContext = [(SUUIViewController *)self clientContext];
   v5 = [clientContext newLoadStoreURLOperationWithURL:v3];
@@ -1612,54 +1610,58 @@ void __70__SUUIDocumentContainerViewController__networkTypeChangeNotification___
 
   objc_initWeak(&location, self);
   v9 = self->_loadURLOperation;
-  v21 = MEMORY[0x277D85DD0];
-  v22 = 3221225472;
-  v23 = __63__SUUIDocumentContainerViewController__enqueueLoadURLOperation__block_invoke;
-  v24 = &unk_2798FE578;
-  objc_copyWeak(&v25, &location);
-  [(SSVLoadURLOperation *)v9 setOutputBlock:&v21];
+  v20 = MEMORY[0x277D85DD0];
+  v21 = 3221225472;
+  v22 = __63__SUUIDocumentContainerViewController__enqueueLoadURLOperation__block_invoke;
+  v23 = &unk_2798FE578;
+  objc_copyWeak(&v24, &location);
+  [(SSVLoadURLOperation *)v9 setOutputBlock:&v20];
   mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedConfig];
-  shouldLog = [mEMORY[0x277D69B38] shouldLog];
+  LODWORD(v11) = [mEMORY[0x277D69B38] shouldLog];
   shouldLogToDisk = [mEMORY[0x277D69B38] shouldLogToDisk];
   oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
   v14 = oSLogObject;
   if (shouldLogToDisk)
   {
-    shouldLog |= 2u;
+    LODWORD(v11) = v11 | 2;
   }
 
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
   {
-    shouldLog &= 2u;
+    v11 = v11;
   }
 
-  if (!shouldLog)
+  else
   {
-    goto LABEL_8;
+    v11 &= 2u;
+  }
+
+  if (!v11)
+  {
+    goto LABEL_9;
   }
 
   v15 = objc_opt_class();
   urlString = self->_urlString;
-  v27 = 138412546;
-  v28 = v15;
-  v29 = 2112;
-  v30 = urlString;
+  v26 = 138412546;
+  v27 = v15;
+  v28 = 2112;
+  v29 = urlString;
   v17 = v15;
-  LODWORD(v20) = 22;
-  v18 = _os_log_send_and_compose_impl();
+  v18 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &dword_259CB8000, v14, 2, "%@: Loading document with URL: %@", &v26, 22, v20, v21, v22, v23);
 
   if (v18)
   {
-    v14 = [MEMORY[0x277CCACA8] stringWithCString:v18 encoding:{4, &v27, v20, v21, v22, v23, v24}];
+    v14 = [MEMORY[0x277CCACA8] stringWithCString:v18 encoding:4];
     free(v18);
     SSFileLog();
-LABEL_8:
+LABEL_9:
   }
 
   operationQueue = [(SUUIViewController *)self operationQueue];
   [operationQueue addOperation:self->_loadURLOperation];
 
-  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v24);
   objc_destroyWeak(&location);
 }
 
@@ -1721,10 +1723,10 @@ void __63__SUUIDocumentContainerViewController__enqueueLoadURLOperation__block_i
 
 - (void)_finishLoadOperationWithResponse:(id)response error:(id)error
 {
-  v111 = *MEMORY[0x277D85DE8];
+  v110 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   errorCopy = error;
-  v93 = errorCopy;
+  v92 = errorCopy;
   if (!responseCopy || errorCopy)
   {
     mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedConfig];
@@ -1756,18 +1758,16 @@ void __63__SUUIDocumentContainerViewController__enqueueLoadURLOperation__block_i
       urlString = self->_urlString;
       *location = 138412802;
       *&location[4] = v39;
-      v107 = 2112;
-      v108 = v93;
-      v109 = 2112;
-      v110 = urlString;
+      v106 = 2112;
+      v107 = v92;
+      v108 = 2112;
+      v109 = urlString;
       v41 = v39;
-      LODWORD(v90) = 32;
-      v89 = location;
-      v42 = _os_log_send_and_compose_impl();
+      v42 = _os_log_send_and_compose_impl(v38, 0, 0, 0, &dword_259CB8000, oSLogObject, 0, "%@: Document failed to load with error: %@, URL: %@", location, 32);
 
       if (v42)
       {
-        v43 = [MEMORY[0x277CCACA8] stringWithCString:v42 encoding:{4, location, v90}];
+        v43 = [MEMORY[0x277CCACA8] stringWithCString:v42 encoding:4];
         free(v42);
         v89 = v43;
         SSFileLog();
@@ -1793,12 +1793,12 @@ void __63__SUUIDocumentContainerViewController__enqueueLoadURLOperation__block_i
     v58 = [(SUUIErrorDocumentViewController *)v56 initWithBackgroundColor:backgroundColor clientContext:clientContext];
 
     objc_initWeak(location, self);
-    v102[0] = MEMORY[0x277D85DD0];
-    v102[1] = 3221225472;
-    v102[2] = __78__SUUIDocumentContainerViewController__finishLoadOperationWithResponse_error___block_invoke;
-    v102[3] = &unk_2798F67A0;
-    objc_copyWeak(&v103, location);
-    [(SUUIErrorDocumentViewController *)v58 setRetryActionBlock:v102];
+    v101[0] = MEMORY[0x277D85DD0];
+    v101[1] = 3221225472;
+    v101[2] = __78__SUUIDocumentContainerViewController__finishLoadOperationWithResponse_error___block_invoke;
+    v101[3] = &unk_2798F67A0;
+    objc_copyWeak(&v102, location);
+    [(SUUIErrorDocumentViewController *)v58 setRetryActionBlock:v101];
     [(SUUIDocumentContainerViewController *)self _setChildViewController:v58];
     v59 = +[SUUIMetricsUtilities newErrorPageEvent];
     [v59 setPageURL:self->_urlString];
@@ -1811,7 +1811,7 @@ void __63__SUUIDocumentContainerViewController__enqueueLoadURLOperation__block_i
     mEMORY[0x277D7FD00] = [MEMORY[0x277D7FD00] sharedInstance];
     [defaultCenter addObserver:self selector:sel__networkTypeChangeNotification_ name:*MEMORY[0x277D7FCC0] object:mEMORY[0x277D7FD00]];
 
-    objc_destroyWeak(&v103);
+    objc_destroyWeak(&v102);
     objc_destroyWeak(location);
   }
 
@@ -1902,20 +1902,20 @@ void __63__SUUIDocumentContainerViewController__enqueueLoadURLOperation__block_i
                 [v82 setDataProvider:provider];
                 objc_initWeak(location, v82);
                 objc_initWeak(&from, self);
-                v94[0] = MEMORY[0x277D85DD0];
-                v94[1] = 3221225472;
-                v94[2] = __78__SUUIDocumentContainerViewController__finishLoadOperationWithResponse_error___block_invoke_2_261;
-                v94[3] = &unk_2798FE5A0;
-                objc_copyWeak(&v97, location);
-                objc_copyWeak(&v98, &from);
-                v95 = responseCopy;
-                v96 = v28;
-                [v82 setCompletionBlock:v94];
+                v93[0] = MEMORY[0x277D85DD0];
+                v93[1] = 3221225472;
+                v93[2] = __78__SUUIDocumentContainerViewController__finishLoadOperationWithResponse_error___block_invoke_2_261;
+                v93[3] = &unk_2798FE5A0;
+                objc_copyWeak(&v96, location);
+                objc_copyWeak(&v97, &from);
+                v94 = responseCopy;
+                v95 = v28;
+                [v82 setCompletionBlock:v93];
                 operationQueue = [(SUUIViewController *)self operationQueue];
                 [operationQueue addOperation:v82];
 
-                objc_destroyWeak(&v98);
                 objc_destroyWeak(&v97);
+                objc_destroyWeak(&v96);
                 objc_destroyWeak(&from);
                 objc_destroyWeak(location);
               }
@@ -1928,13 +1928,13 @@ void __63__SUUIDocumentContainerViewController__enqueueLoadURLOperation__block_i
           uRLResponse3 = [responseCopy URLResponse];
           v80 = [uRLResponse3 URL];
           v81 = +[SUUIClientContext amsBag];
-          v100[0] = MEMORY[0x277D85DD0];
-          v100[1] = 3221225472;
-          v100[2] = __78__SUUIDocumentContainerViewController__finishLoadOperationWithResponse_error___block_invoke_243;
-          v100[3] = &unk_2798FBB00;
-          v100[4] = self;
-          v101 = responseCopy;
-          [SUUIURLResolver isLegacyWebViewForURL:v80 bag:v81 completion:v100];
+          v99[0] = MEMORY[0x277D85DD0];
+          v99[1] = 3221225472;
+          v99[2] = __78__SUUIDocumentContainerViewController__finishLoadOperationWithResponse_error___block_invoke_243;
+          v99[3] = &unk_2798FBB00;
+          v99[4] = self;
+          v100 = responseCopy;
+          [SUUIURLResolver isLegacyWebViewForURL:v80 bag:v81 completion:v99];
         }
       }
 
@@ -1981,16 +1981,14 @@ void __63__SUUIDocumentContainerViewController__enqueueLoadURLOperation__block_i
         v49 = self->_urlString;
         *location = 138412546;
         *&location[4] = v48;
-        v107 = 2112;
-        v108 = v49;
+        v106 = 2112;
+        v107 = v49;
         v50 = v48;
-        LODWORD(v90) = 22;
-        v89 = location;
-        v51 = _os_log_send_and_compose_impl();
+        v51 = _os_log_send_and_compose_impl(v47, 0, 0, 0, &dword_259CB8000, oSLogObject2, 2, "%@: ITML document did load: %@", location, 22);
 
         if (v51)
         {
-          v52 = [MEMORY[0x277CCACA8] stringWithCString:v51 encoding:{4, location, v90}];
+          v52 = [MEMORY[0x277CCACA8] stringWithCString:v51 encoding:4];
           free(v51);
           v89 = v52;
           SSFileLog();
@@ -2005,19 +2003,19 @@ void __63__SUUIDocumentContainerViewController__enqueueLoadURLOperation__block_i
       pageResponseAbsoluteTime = self->_pageResponseAbsoluteTime;
       self->_pageResponseAbsoluteTime = v69;
 
-      v104[0] = @"requestStartTime";
+      v103[0] = @"requestStartTime";
       [metricsPageEvent requestStartTime];
       v71 = [SUUIMetricsUtilities jsTimeFromTimeInterval:?];
-      v105[0] = v71;
-      v104[1] = @"responseStartTime";
+      v104[0] = v71;
+      v103[1] = @"responseStartTime";
       [metricsPageEvent responseStartTime];
       v72 = [SUUIMetricsUtilities jsTimeFromTimeInterval:?];
-      v105[1] = v72;
-      v104[2] = @"responseEndTime";
+      v104[1] = v72;
+      v103[2] = @"responseEndTime";
       [metricsPageEvent responseEndTime];
       v73 = [SUUIMetricsUtilities jsTimeFromTimeInterval:?];
-      v105[2] = v73;
-      v74 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v105 forKeys:v104 count:3];
+      v104[2] = v73;
+      v74 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v104 forKeys:v103 count:3];
 
       clientContext4 = [(SUUIViewController *)self clientContext];
       document = self->_document;
@@ -2063,7 +2061,7 @@ void __78__SUUIDocumentContainerViewController__finishLoadOperationWithResponse_
     block[3] = &unk_2798F5AF8;
     v3 = *(a1 + 40);
     block[4] = *(a1 + 32);
-    v14 = v3;
+    v13 = v3;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
     return;
@@ -2097,24 +2095,23 @@ void __78__SUUIDocumentContainerViewController__finishLoadOperationWithResponse_
     goto LABEL_12;
   }
 
-  v12[0] = 0;
-  LODWORD(v10) = 2;
-  v9 = _os_log_send_and_compose_impl();
+  v11[0] = 0;
+  v9 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &dword_259CB8000, v7, 16, "URL not legacy, but is returning HTML", v11, 2);
 
   if (v9)
   {
-    v7 = [MEMORY[0x277CCACA8] stringWithCString:v9 encoding:{4, v12, v10}];
+    v7 = [MEMORY[0x277CCACA8] stringWithCString:v9 encoding:4];
     free(v9);
     SSFileLog();
 LABEL_12:
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __78__SUUIDocumentContainerViewController__finishLoadOperationWithResponse_error___block_invoke_244;
-  v11[3] = &unk_2798F5BE8;
-  v11[4] = *(a1 + 32);
-  dispatch_async(MEMORY[0x277D85CD0], v11);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __78__SUUIDocumentContainerViewController__finishLoadOperationWithResponse_error___block_invoke_244;
+  v10[3] = &unk_2798F5BE8;
+  v10[4] = *(a1 + 32);
+  dispatch_async(MEMORY[0x277D85CD0], v10);
 }
 
 void __78__SUUIDocumentContainerViewController__finishLoadOperationWithResponse_error___block_invoke_2(uint64_t a1)
@@ -2225,10 +2222,10 @@ void __78__SUUIDocumentContainerViewController__finishLoadOperationWithResponse_
           {
             v19 = elementCopy;
             type = [v19 type];
-            v21 = [type isEqualToString:@"modern"];
+            isEqualToString = objc_msgSend_isEqualToString_(type);
 
             v22 = off_2798F40A8;
-            if (!v21)
+            if (!isEqualToString)
             {
               v22 = off_2798F3DA8;
             }
@@ -2853,7 +2850,7 @@ void __96__SUUIDocumentContainerViewController__sendOnViewAttributesChangeWithAt
   optionsCopy = options;
   contextCopy = context;
   v7 = [optionsCopy objectForKey:@"sidepackType"];
-  if ([v7 isEqualToString:0x286B00C80])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     v8 = [optionsCopy objectForKey:@"sidepackData"];
     objc_opt_class();

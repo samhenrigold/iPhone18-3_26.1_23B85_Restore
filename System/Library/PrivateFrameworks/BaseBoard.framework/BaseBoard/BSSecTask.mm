@@ -33,9 +33,9 @@
     dispatch_once(&qword_1ED44FF78, &__block_literal_global_29);
   }
 
-  v0 = qword_1ED44FF80;
+  v1 = qword_1ED44FF80;
 
-  return v0;
+  return v1;
 }
 
 void __37__BSSecTask_secTaskForCurrentProcess__block_invoke()

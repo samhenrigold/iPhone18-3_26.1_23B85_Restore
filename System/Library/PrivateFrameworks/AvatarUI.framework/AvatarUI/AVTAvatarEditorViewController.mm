@@ -52,17 +52,18 @@
     v2 = AVTUIHasDisplayedSplashScreen() ^ 1;
   }
 
-  if ((AVTUIForceCameraDisclosures_once() & 1) != 0 || AVTDeviceIsGreenTea())
+  v3 = AVTUIForceCameraDisclosures_once();
+  if ((v3 & 1) != 0 || AVTDeviceIsGreenTea(v3, v4))
   {
-    v3 = AVTUIHasDisplayedCameraDisclosureSplashScreen() ^ 1;
+    v5 = AVTUIHasDisplayedCameraDisclosureSplashScreen() ^ 1;
   }
 
   else
   {
-    LOBYTE(v3) = 0;
+    LOBYTE(v5) = 0;
   }
 
-  return (v2 | v3) & 1;
+  return (v2 | v5) & 1;
 }
 
 + (id)defaultSessionProvider
@@ -331,47 +332,48 @@
 
 - (void)loadSplashScreen
 {
-  v27 = objc_alloc_init(AVTSplashScreenConfiguration);
-  v3 = AVTAvatarUIBundle();
+  v32 = objc_alloc_init(AVTSplashScreenConfiguration);
+  v3 = AVTAvatarUIBundle(v32);
   v4 = [v3 localizedStringForKey:@"MEMOJI_SPLASH_TITLE" value:&stru_1F39618F0 table:@"Localized"];
-  [(AVTSplashScreenConfiguration *)v27 setTitleString:v4];
+  [(AVTSplashScreenConfiguration *)v32 setTitleString:v4];
 
-  LODWORD(v3) = AVTUIIsFacetrackingSupported();
-  v5 = AVTAvatarUIBundle();
-  v6 = v5;
+  v7 = AVTUIIsFacetrackingSupported(v5, v6);
+  LODWORD(v3) = v7;
+  v8 = AVTAvatarUIBundle(v7);
+  v9 = v8;
   if (v3)
   {
-    v7 = @"MEMOJI_SPLASH_SUBTITLE";
+    v10 = @"MEMOJI_SPLASH_SUBTITLE";
   }
 
   else
   {
-    v7 = @"MEMOJI_SPLASH_SUBTITLE_NO_FACE_TRACKING";
+    v10 = @"MEMOJI_SPLASH_SUBTITLE_NO_FACE_TRACKING";
   }
 
-  v8 = [v5 localizedStringForKey:v7 value:&stru_1F39618F0 table:@"Localized"];
-  [(AVTSplashScreenConfiguration *)v27 setSubTitleString:v8];
+  v11 = [v8 localizedStringForKey:v10 value:&stru_1F39618F0 table:@"Localized"];
+  [(AVTSplashScreenConfiguration *)v32 setSubTitleString:v11];
 
-  v9 = AVTAvatarUIBundle();
-  v10 = [v9 localizedStringForKey:@"MEMOJI_SPLASH_CREATE_YOURS" value:&stru_1F39618F0 table:@"Localized"];
-  [(AVTSplashScreenConfiguration *)v27 setButtonString:v10];
+  v13 = AVTAvatarUIBundle(v12);
+  v14 = [v13 localizedStringForKey:@"MEMOJI_SPLASH_CREATE_YOURS" value:&stru_1F39618F0 table:@"Localized"];
+  [(AVTSplashScreenConfiguration *)v32 setButtonString:v14];
 
-  v11 = AVTAvatarEditorSplashVideo();
-  [(AVTSplashScreenConfiguration *)v27 setPrimaryPlayerItem:v11];
+  v16 = AVTAvatarEditorSplashVideo(v15);
+  [(AVTSplashScreenConfiguration *)v32 setPrimaryPlayerItem:v16];
 
-  v12 = [[AVTSplashScreenViewController alloc] initWithConfiguration:v27];
+  v17 = [[AVTSplashScreenViewController alloc] initWithConfiguration:v32];
   splashScreenViewController = self->_splashScreenViewController;
-  self->_splashScreenViewController = v12;
+  self->_splashScreenViewController = v17;
 
   [(AVTSplashScreenViewController *)self->_splashScreenViewController setDelegate:self];
   view = [(AVTAvatarEditorViewController *)self view];
   [view bounds];
-  v16 = v15;
-  v18 = v17;
-  v20 = v19;
-  v22 = v21;
+  v21 = v20;
+  v23 = v22;
+  v25 = v24;
+  v27 = v26;
   view2 = [(AVTSplashScreenViewController *)self->_splashScreenViewController view];
-  [view2 setFrame:{v16, v18, v20, v22}];
+  [view2 setFrame:{v21, v23, v25, v27}];
 
   view3 = [(AVTSplashScreenViewController *)self->_splashScreenViewController view];
   [view3 setAutoresizingMask:18];
@@ -449,12 +451,12 @@
     [toolbar removeFromSuperview];
 
     v6 = [AVTToolbarButton alloc];
-    v7 = AVTAvatarUIBundle();
+    v7 = AVTAvatarUIBundle(v6);
     v8 = [v7 localizedStringForKey:@"DONE" value:&stru_1F39618F0 table:@"Localized"];
     doneButtonItem = [(AVTToolbarButton *)v6 initWithTitle:v8 isDefault:1];
 
     v10 = [AVTToolbarButton alloc];
-    v11 = AVTAvatarUIBundle();
+    v11 = AVTAvatarUIBundle(v10);
     v12 = [v11 localizedStringForKey:@"CANCEL" value:&stru_1F39618F0 table:@"Localized"];
     navigationItem2 = [(AVTToolbarButton *)v10 initWithTitle:v12 isDefault:0];
 
@@ -755,43 +757,44 @@ void __53__AVTAvatarEditorViewController_handleDiscardAttempt__block_invoke(uint
 {
   cancelCopy = cancel;
   isCreating = [(AVTAvatarEditorViewController *)self isCreating];
-  v6 = AVTAvatarUIBundle();
-  v7 = v6;
-  if (isCreating)
+  v6 = isCreating;
+  v7 = AVTAvatarUIBundle(isCreating);
+  v8 = v7;
+  if (v6)
   {
-    v8 = @"EDITING_CREATE_DISCARD_CONFIRMATION_TITLE";
+    v9 = @"EDITING_CREATE_DISCARD_CONFIRMATION_TITLE";
   }
 
   else
   {
-    v8 = @"EDITING_DISCARD_CONFIRMATION_TITLE";
+    v9 = @"EDITING_DISCARD_CONFIRMATION_TITLE";
   }
 
-  v9 = [v6 localizedStringForKey:v8 value:&stru_1F39618F0 table:@"Localized"];
+  v10 = [v7 localizedStringForKey:v9 value:&stru_1F39618F0 table:@"Localized"];
 
-  v10 = [AVTAlertController alertControllerWithTitle:v9 message:0 preferredStyle:0];
-  v11 = MEMORY[0x1E69DC648];
-  v12 = AVTAvatarUIBundle();
-  v13 = [v12 localizedStringForKey:@"EDITING_DISCARD_CONFIRM" value:&stru_1F39618F0 table:@"Localized"];
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __47__AVTAvatarEditorViewController_confirmCancel___block_invoke;
-  v24[3] = &unk_1E7F3B388;
-  v24[4] = self;
-  v14 = [v11 actionWithTitle:v13 style:2 handler:v24];
-  [v10 addAction:v14];
+  v11 = [AVTAlertController alertControllerWithTitle:v10 message:0 preferredStyle:0];
+  v12 = MEMORY[0x1E69DC648];
+  v13 = AVTAvatarUIBundle(v11);
+  v14 = [v13 localizedStringForKey:@"EDITING_DISCARD_CONFIRM" value:&stru_1F39618F0 table:@"Localized"];
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __47__AVTAvatarEditorViewController_confirmCancel___block_invoke;
+  v26[3] = &unk_1E7F3B388;
+  v26[4] = self;
+  v15 = [v12 actionWithTitle:v14 style:2 handler:v26];
+  [v11 addAction:v15];
 
-  v15 = MEMORY[0x1E69DC648];
-  v16 = AVTAvatarUIBundle();
-  v17 = [v16 localizedStringForKey:@"EDITING_DISCARD_CANCEL" value:&stru_1F39618F0 table:@"Localized"];
-  v18 = [v15 actionWithTitle:v17 style:1 handler:0];
-  [v10 addAction:v18];
+  v16 = MEMORY[0x1E69DC648];
+  v18 = AVTAvatarUIBundle(v17);
+  v19 = [v18 localizedStringForKey:@"EDITING_DISCARD_CANCEL" value:&stru_1F39618F0 table:@"Localized"];
+  v20 = [v16 actionWithTitle:v19 style:1 handler:0];
+  [v11 addAction:v20];
 
   objc_opt_class();
-  LOBYTE(v18) = objc_opt_isKindOfClass();
-  popoverPresentationController = [v10 popoverPresentationController];
-  v20 = popoverPresentationController;
-  if (v18)
+  LOBYTE(v20) = objc_opt_isKindOfClass();
+  popoverPresentationController = [v11 popoverPresentationController];
+  v22 = popoverPresentationController;
+  if (v20)
   {
     [popoverPresentationController setBarButtonItem:cancelCopy];
   }
@@ -804,18 +807,18 @@ void __53__AVTAvatarEditorViewController_handleDiscardAttempt__block_invoke(uint
   cancelButtonItem = [(AVTAvatarEditorViewController *)self cancelButtonItem];
   if (cancelButtonItem == cancelCopy)
   {
-    v22 = 1;
+    v24 = 1;
   }
 
   else
   {
-    v22 = 15;
+    v24 = 15;
   }
 
-  popoverPresentationController2 = [v10 popoverPresentationController];
-  [popoverPresentationController2 setPermittedArrowDirections:v22];
+  popoverPresentationController2 = [v11 popoverPresentationController];
+  [popoverPresentationController2 setPermittedArrowDirections:v24];
 
-  [(AVTAvatarEditorViewController *)self presentViewController:v10 animated:1 completion:0];
+  [(AVTAvatarEditorViewController *)self presentViewController:v11 animated:1 completion:0];
 }
 
 void __47__AVTAvatarEditorViewController_confirmCancel___block_invoke(uint64_t a1)

@@ -41,18 +41,18 @@
   return v5;
 }
 
-void __46__ICMentionsFilterTypeSelection_currentUserID__block_invoke(uint64_t a1)
+void __46__ICMentionsFilterTypeSelection_currentUserID__block_invoke(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
-  v2 = [*(a1 + 32) managedObjectContext];
-  v3 = [*(a1 + 32) accountObjectID];
-  v4 = [v2 ic_existingObjectWithID:v3];
-  v8 = ICDynamicCast();
+  v3 = [*(a1 + 32) managedObjectContext];
+  v4 = [*(a1 + 32) accountObjectID];
+  v5 = [v3 ic_existingObjectWithID:v4];
+  v9 = ICDynamicCast();
 
-  v5 = [v8 userRecordName];
-  v6 = *(*(a1 + 40) + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  v6 = [v9 userRecordName];
+  v7 = *(*(a1 + 40) + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone

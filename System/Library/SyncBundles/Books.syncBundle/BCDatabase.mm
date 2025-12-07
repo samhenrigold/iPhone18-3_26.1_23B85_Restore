@@ -82,77 +82,78 @@
 
     while (1)
     {
-      v21 = 0;
-      if ([(NSPersistentStoreCoordinator *)self->_psc addPersistentStoreWithType:NSSQLiteStoreType configuration:0 URL:databaseURL options:v5 error:&v21])
+      v24 = 0;
+      if ([(NSPersistentStoreCoordinator *)self->_psc addPersistentStoreWithType:NSSQLiteStoreType configuration:0 URL:databaseURL options:v5 error:&v24])
       {
         break;
       }
 
-      v8 = v21;
-      v9 = BCDefaultLog();
-      v10 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
-      if (v8)
+      v9 = v24;
+      v10 = BCDefaultLog(0, v8);
+      v11 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+      if (v9)
       {
-        if (v10)
+        if (v11)
         {
           *buf = 138412290;
-          v25 = v21;
-          _os_log_error_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "Failed to addPersistentStoreWithType: %@", buf, 0xCu);
+          v28 = v24;
+          _os_log_error_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "Failed to addPersistentStoreWithType: %@", buf, 0xCu);
         }
       }
 
       else
       {
-        if (v10)
-        {
-          sub_13954(&v19, v20, v9);
-        }
-
-        v21 = [NSError errorWithDomain:NSCocoaErrorDomain code:-1 userInfo:0];
-      }
-
-      v18 = 0;
-      if (([(NSPersistentStoreCoordinator *)self->_psc _destroyPersistentStoreAtURL:databaseURL withType:NSSQLiteStoreType options:0 error:&v18]& 1) == 0)
-      {
-        v11 = v18;
-        v12 = BCDefaultLog();
-        v13 = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
         if (v11)
         {
-          if (v13)
+          sub_13954(&v22, v23, v10);
+        }
+
+        v24 = [NSError errorWithDomain:NSCocoaErrorDomain code:-1 userInfo:0];
+      }
+
+      v21 = 0;
+      v12 = [(NSPersistentStoreCoordinator *)self->_psc _destroyPersistentStoreAtURL:databaseURL withType:NSSQLiteStoreType options:0 error:&v21];
+      if ((v12 & 1) == 0)
+      {
+        v14 = v21;
+        v15 = BCDefaultLog(v12, v13);
+        v16 = os_log_type_enabled(v15, OS_LOG_TYPE_ERROR);
+        if (v14)
+        {
+          if (v16)
           {
             *buf = 138412290;
-            v25 = v18;
-            _os_log_error_impl(&dword_0, v12, OS_LOG_TYPE_ERROR, "Failed to destroyPersistentStoreAtURL: %@", buf, 0xCu);
+            v28 = v21;
+            _os_log_error_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "Failed to destroyPersistentStoreAtURL: %@", buf, 0xCu);
           }
         }
 
-        else if (v13)
+        else if (v16)
         {
-          sub_13994(&v16, v17, v12);
+          sub_13994(&v19, v20, v15);
         }
 
         [+[NSAssertionHandler currentHandler](NSAssertionHandler handleFailureInMethod:"handleFailureInMethod:object:file:lineNumber:description:" object:a2 file:self lineNumber:@"BCDatabase.m" description:111, @"_destroyPersistentStoreAtURL failed: %@ -- URL: %@", self, databaseURL];
       }
 
-      if (![(BCDatabase *)self shouldRetryAddingPersistentStoreAfterError:v21])
+      if (![(BCDatabase *)self shouldRetryAddingPersistentStoreAfterError:v24])
       {
         [+[NSAssertionHandler currentHandler](NSAssertionHandler handleFailureInMethod:"handleFailureInMethod:object:file:lineNumber:description:" object:a2 file:self lineNumber:@"BCDatabase.m" description:116, @"invalid Persistent Store: %@ -- URL: %@", self, databaseURL];
         break;
       }
     }
 
-    v14 = objc_alloc_init(NSFileManager);
-    v15 = [v14 attributesOfItemAtPath:objc_msgSend(databaseURL error:{"path"), 0}];
-    if (v15)
+    v17 = objc_alloc_init(NSFileManager);
+    v18 = [v17 attributesOfItemAtPath:objc_msgSend(databaseURL error:{"path"), 0}];
+    if (v18)
     {
-      if (([objc_msgSend(v15 "fileOwnerAccountName")] & 1) == 0)
+      if (([objc_msgSend(v18 "fileOwnerAccountName")] & 1) == 0)
       {
-        v22[0] = NSFileOwnerAccountName;
-        v22[1] = NSFileGroupOwnerAccountName;
-        v23[0] = @"mobile";
-        v23[1] = @"mobile";
-        [v14 setAttributes:+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary ofItemAtPath:"dictionaryWithObjects:forKeys:count:" error:{v23, v22, 2), objc_msgSend(databaseURL, "path"), 0}];
+        v25[0] = NSFileOwnerAccountName;
+        v25[1] = NSFileGroupOwnerAccountName;
+        v26[0] = @"mobile";
+        v26[1] = @"mobile";
+        [v17 setAttributes:+[NSDictionary dictionaryWithObjects:forKeys:count:](NSDictionary ofItemAtPath:"dictionaryWithObjects:forKeys:count:" error:{v26, v25, 2), objc_msgSend(databaseURL, "path"), 0}];
       }
     }
 

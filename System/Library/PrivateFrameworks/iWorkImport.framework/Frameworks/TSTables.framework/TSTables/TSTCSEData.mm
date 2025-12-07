@@ -34,72 +34,72 @@
   var1 = data.var1;
   var0 = data.var0;
   expressionCopy = expression;
-  v31[0] = expressionCopy;
-  v31[1] = var0;
-  v31[2] = var1;
-  sub_22113183C(&self->_nodesToData.__table_.__bucket_list_.__ptr_, v31);
-  objc_msgSend_addObject_(self->_retainedExpressions, v8, expressionCopy, v9, v10);
+  v25[0] = expressionCopy;
+  v25[1] = var0;
+  v25[2] = var1;
+  sub_22113183C(&self->_nodesToData.__table_.__bucket_list_.__ptr_, v25, v25);
+  objc_msgSend_addObject_(self->_retainedExpressions, v8, expressionCopy, v9);
   hashesToNodeSets = self->_hashesToNodeSets;
-  v15 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v12, var0, v13, v14);
-  v19 = objc_msgSend_objectForKey_(hashesToNodeSets, v16, v15, v17, v18);
+  v13 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v11, var0, v12);
+  v16 = objc_msgSend_objectForKey_(hashesToNodeSets, v14, v13, v15);
 
-  if (!v19)
+  if (!v16)
   {
-    v23 = objc_alloc_init(MEMORY[0x277D81258]);
-    v24 = self->_hashesToNodeSets;
-    v28 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v25, var0, v26, v27);
-    objc_msgSend_setObject_forKey_(v24, v29, v23, v28, v30);
+    v19 = objc_alloc_init(MEMORY[0x277D81258]);
+    v20 = self->_hashesToNodeSets;
+    v23 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v21, var0, v22);
+    objc_msgSend_setObject_forKey_(v20, v24, v19, v23);
 
-    v19 = v23;
+    v16 = v19;
   }
 
-  objc_msgSend_addObject_(v19, v20, expressionCopy, v21, v22);
+  objc_msgSend_addObject_(v16, v17, expressionCopy, v18);
 }
 
 - (id)expressionsMatchingCSENodeData:(TSTCSENodeData)data forNode:(id)node
 {
   var0 = data.var0;
-  v40 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   nodeCopy = node;
   hashesToNodeSets = self->_hashesToNodeSets;
-  v11 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v8, var0, v9, v10);
-  v15 = objc_msgSend_objectForKey_(hashesToNodeSets, v12, v11, v13, v14);
+  v10 = objc_msgSend_numberWithUnsignedInteger_(MEMORY[0x277CCABB0], v8, var0, v9);
+  v13 = objc_msgSend_objectForKey_(hashesToNodeSets, v11, v10, v12);
 
-  v20 = objc_msgSend_set(MEMORY[0x277D81258], v16, v17, v18, v19);
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
-  v21 = v15;
-  v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v22, &v35, v39, 16);
-  if (v26)
+  v17 = objc_msgSend_set(MEMORY[0x277D81258], v14, v15, v16);
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v18 = v13;
+  v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v19, &v30, v34, 16);
+  if (v22)
   {
-    v27 = *v36;
+    v23 = *v31;
     do
     {
-      for (i = 0; i != v26; ++i)
+      for (i = 0; i != v22; ++i)
       {
-        if (*v36 != v27)
+        if (*v31 != v23)
         {
-          objc_enumerationMutation(v21);
+          objc_enumerationMutation(v18);
         }
 
-        v29 = *(*(&v35 + 1) + 8 * i);
-        if (objc_msgSend_isEqualToExpressionNode_(nodeCopy, v23, v29, v24, v25, v35))
+        v25 = *(*(&v30 + 1) + 8 * i);
+        if (objc_msgSend_isEqualToExpressionNode_(nodeCopy, v20, v25, v21, v30))
         {
-          objc_msgSend_addObject_(v20, v23, v29, v24, v25);
+          objc_msgSend_addObject_(v17, v20, v25, v21);
         }
       }
 
-      v26 = objc_msgSend_countByEnumeratingWithState_objects_count_(v21, v23, &v35, v39, 16);
+      v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(v18, v20, &v30, v34, 16);
     }
 
-    while (v26);
+    while (v22);
   }
 
-  v33 = objc_msgSend_setWithSet_(MEMORY[0x277D812C0], v30, v20, v31, v32);
+  v28 = objc_msgSend_setWithSet_(MEMORY[0x277D812C0], v26, v17, v27);
 
-  return v33;
+  return v28;
 }
 
 - (id)expressionsIdenticalToExpression:(id)expression
@@ -140,38 +140,38 @@
 
 - (id)description
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v6 = objc_msgSend_string(MEMORY[0x277CCAB68], a2, v2, v3, v4);
-  v23 = 0u;
-  v24 = 0u;
+  v23 = *MEMORY[0x277D85DE8];
+  v5 = objc_msgSend_string(MEMORY[0x277CCAB68], a2, v2, v3);
+  v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v7 = self->_hashesToNodeSets;
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v21, v25, 16);
-  if (v12)
+  v18 = 0u;
+  v19 = 0u;
+  v6 = self->_hashesToNodeSets;
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v18, v22, 16);
+  if (v10)
   {
-    v13 = *v22;
+    v11 = *v19;
     do
     {
-      for (i = 0; i != v12; ++i)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v13)
+        if (*v19 != v11)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * i);
-        v16 = objc_msgSend_objectForKey_(self->_hashesToNodeSets, v9, v15, v10, v11);
-        objc_msgSend_appendFormat_(v6, v17, @"%@ -> %@\n", v18, v19, v15, v16, v21);
+        v13 = *(*(&v18 + 1) + 8 * i);
+        v14 = objc_msgSend_objectForKey_(self->_hashesToNodeSets, v8, v13, v9);
+        objc_msgSend_appendFormat_(v5, v15, @"%@ -> %@\n", v16, v13, v14, v18);
       }
 
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v9, &v21, v25, 16);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v8, &v18, v22, 16);
     }
 
-    while (v12);
+    while (v10);
   }
 
-  return v6;
+  return v5;
 }
 
 - (id).cxx_construct

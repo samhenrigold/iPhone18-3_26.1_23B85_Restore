@@ -2321,7 +2321,7 @@ LABEL_49:
   [view2 setAccessibilityIdentifier:@"CarGuidanceCardView"];
 
   v5 = objc_opt_new();
-  [(CarGuidanceCardViewController *)self cornerMaskForCarCardLayout:v5];
+  objc_msgSend_cornerMaskForCarCardLayout_(self);
   v6 = location[2];
 
   if (self->_presentationType)

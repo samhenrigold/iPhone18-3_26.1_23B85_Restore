@@ -30,7 +30,7 @@
     {
       if (*(sampled_impl + 56) == 1)
       {
-        v3 = sampled_impl[6];
+        v3 = *(sampled_impl + 6);
         if (WORD2(*(v3 + 5696)) | HIWORD(*(v3 + 5696)))
         {
           if ((*(sampled_impl + 58) & 1) == 0)
@@ -43,19 +43,21 @@
             block[4] = v4;
             if (AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::setupDriverIntersectionTableIfNeeded(void)::onceToken != -1)
             {
+              v5 = v4;
               dispatch_once(&AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::setupDriverIntersectionTableIfNeeded(void)::onceToken, block);
+              v4 = v5;
             }
 
-            AGX::DriverIntersectionFunctionTableBase<AGX::DriverIntersectionFunctionTableGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>,AGX::HAL300::Encoders,AGX::HAL300::Classes>::appendProgramAddressTables();
+            AGX::DriverIntersectionFunctionTableBase<AGX::DriverIntersectionFunctionTableGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>,AGX::HAL300::Encoders,AGX::HAL300::Classes>::appendProgramAddressTables(*(v4 + 6288), *(sampled_impl + 1), *(sampled_impl + 2));
           }
         }
       }
     }
   }
 
-  v5.receiver = self;
-  v5.super_class = AGXG18PFamilySampledComputeContext_mtlnext;
-  [(AGXG18PFamilyComputeContext_mtlnext *)&v5 destroyImpl];
+  v6.receiver = self;
+  v6.super_class = AGXG18PFamilySampledComputeContext_mtlnext;
+  [(AGXG18PFamilyComputeContext_mtlnext *)&v6 destroyImpl];
 }
 
 - (void)dispatchThreads:(id *)threads threadsPerThreadgroup:(id *)threadgroup
@@ -300,7 +302,7 @@ LABEL_8:
                 dispatch_once(&AGX::Device<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::setupDriverIntersectionTableIfNeeded(void)::onceToken, block);
               }
 
-              AGX::DriverIntersectionFunctionTableBase<AGX::DriverIntersectionFunctionTableGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>,AGX::HAL300::Encoders,AGX::HAL300::Classes>::appendProgramAddressTables();
+              AGX::DriverIntersectionFunctionTableBase<AGX::DriverIntersectionFunctionTableGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>,AGX::HAL300::Encoders,AGX::HAL300::Classes>::appendProgramAddressTables(*(v18 + 6288), v10[1], v10[2]);
             }
           }
         }

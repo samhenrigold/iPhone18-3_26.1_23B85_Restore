@@ -551,9 +551,9 @@ void __60__PLPlatterActionButtonsView_senderForActionWithIdentifier___block_invo
   [(PLPlatterActionButtonsView *)self defaultWidth];
   [(PLPlatterActionButtonsView *)self stretchedWidth];
   [(PLPlatterActionButtonsView *)self bounds];
-  CGRectGetHeight(v5);
+  CGRectGetHeight(v7);
   clippingView = self->_clippingView;
-  PLMainScreenScale();
+  PLMainScreenScale(v4, v5);
   UIRectIntegralWithScale();
 
   [(UIView *)clippingView setFrame:?];

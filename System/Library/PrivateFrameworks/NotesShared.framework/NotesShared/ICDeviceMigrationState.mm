@@ -211,24 +211,24 @@ void __68__ICDeviceMigrationState_deviceMigrationStatesByAccountIDInContext___bl
   return v6;
 }
 
-void __42__ICDeviceMigrationState_ic_loggingValues__block_invoke(uint64_t a1)
+void __42__ICDeviceMigrationState_ic_loggingValues__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = [objc_opt_class() stringFromMigrationState:{objc_msgSend(*(a1 + 40), "state")}];
-  [*(a1 + 32) setObject:v2 forKeyedSubscript:@"state"];
+  v3 = [objc_opt_class() stringFromMigrationState:{objc_msgSend(*(a1 + 40), "state")}];
+  [*(a1 + 32) setObject:v3 forKeyedSubscript:@"state"];
 
-  v3 = [*(a1 + 40) stateModificationDate];
-  v5 = v3;
-  if (v3)
+  v4 = [*(a1 + 40) stateModificationDate];
+  v6 = v4;
+  if (v4)
   {
-    v4 = v3;
+    v5 = v4;
   }
 
   else
   {
-    v4 = @"nil";
+    v5 = @"nil";
   }
 
-  [*(a1 + 32) setObject:v4 forKeyedSubscript:@"stateModificationDate"];
+  [*(a1 + 32) setObject:v5 forKeyedSubscript:@"stateModificationDate"];
 }
 
 + (id)existingCloudObjectForRecordID:(id)d accountID:(id)iD context:(id)context

@@ -32,7 +32,7 @@ id sub_1000012DC()
   }
 
   v7.receiver = v1;
-  v7.super_class = type metadata accessor for Reader();
+  v7.super_class = type metadata accessor for Reader(0);
   return objc_msgSendSuper2(&v7, "dealloc");
 }
 
@@ -48,186 +48,186 @@ void sub_100001498(void *a1, int a2, void *aBlock, void (*a4)(void))
 
 uint64_t sub_1000015B8(void *a1, uint64_t a2)
 {
-  v4 = (*(*(sub_100002E7C(&unk_100010990, &qword_100009D48) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
-  v6 = &v71 - v5;
-  v7 = *(*(type metadata accessor for String.Encoding() - 8) + 64);
-  __chkstk_darwin();
+  v4 = sub_100002E7C(&unk_100010990, &qword_100009D48);
+  __chkstk_darwin(v4 - 8, v5);
+  v7 = &v73 - v6;
+  v8 = type metadata accessor for String.Encoding();
+  __chkstk_darwin(v8 - 8, v9);
   if (qword_100010810 != -1)
   {
     swift_once();
   }
 
-  v8 = type metadata accessor for Logger();
-  sub_100002DE0(v8, qword_100010818);
-  v9 = a1;
-  v10 = Logger.logObject.getter();
-  v11 = static os_log_type_t.default.getter();
+  v10 = type metadata accessor for Logger();
+  sub_100002DE0(v10, qword_100010818);
+  v11 = a1;
+  v12 = Logger.logObject.getter();
+  v13 = static os_log_type_t.default.getter();
 
-  v12 = os_log_type_enabled(v10, v11);
-  v74 = v6;
-  if (v12)
+  v14 = os_log_type_enabled(v12, v13);
+  v76 = v7;
+  if (v14)
   {
-    v13 = a2;
-    v14 = swift_slowAlloc();
-    v15 = swift_slowAlloc();
-    v76 = v15;
-    *v14 = 136446210;
-    *(v14 + 4) = sub_100006E44(*&v9[OBJC_IVAR____TtC21automationmode_writer6Reader_stateFilePath], *&v9[OBJC_IVAR____TtC21automationmode_writer6Reader_stateFilePath + 8], &v76);
-    _os_log_impl(&_mh_execute_header, v10, v11, "Reader client asked if automation mode is enabled, checking for state file at %{public}s", v14, 0xCu);
-    sub_100003050(v15);
+    v15 = a2;
+    v16 = swift_slowAlloc();
+    v17 = swift_slowAlloc();
+    v78 = v17;
+    *v16 = 136446210;
+    *(v16 + 4) = sub_100006E44(*&v11[OBJC_IVAR____TtC21automationmode_writer6Reader_stateFilePath], *&v11[OBJC_IVAR____TtC21automationmode_writer6Reader_stateFilePath + 8], &v78);
+    _os_log_impl(&_mh_execute_header, v12, v13, "Reader client asked if automation mode is enabled, checking for state file at %{public}s", v16, 0xCu);
+    sub_100003050(v17);
 
-    a2 = v13;
+    a2 = v15;
   }
 
-  v73 = objc_opt_self();
-  v16 = [v73 defaultManager];
-  v17 = *&v9[OBJC_IVAR____TtC21automationmode_writer6Reader_stateFilePath];
-  v18 = *&v9[OBJC_IVAR____TtC21automationmode_writer6Reader_stateFilePath + 8];
-  v19 = String._bridgeToObjectiveC()();
-  v20 = [v16 fileExistsAtPath:v19];
+  v75 = objc_opt_self();
+  v18 = [v75 defaultManager];
+  v19 = *&v11[OBJC_IVAR____TtC21automationmode_writer6Reader_stateFilePath];
+  v20 = *&v11[OBJC_IVAR____TtC21automationmode_writer6Reader_stateFilePath + 8];
+  v21 = String._bridgeToObjectiveC()();
+  v22 = [v18 fileExistsAtPath:v21];
 
-  v21 = v9;
-  v22 = Logger.logObject.getter();
-  v23 = static os_log_type_t.info.getter();
+  v23 = v11;
+  v24 = Logger.logObject.getter();
+  v25 = static os_log_type_t.info.getter();
 
-  v24 = os_log_type_enabled(v22, v23);
-  if (v20)
+  v26 = os_log_type_enabled(v24, v25);
+  if (v22)
   {
-    if (v24)
+    if (v26)
     {
-      v25 = swift_slowAlloc();
-      v26 = swift_slowAlloc();
-      v76 = v26;
-      *v25 = 136446210;
-      *(v25 + 4) = sub_100006E44(v17, v18, &v76);
-      _os_log_impl(&_mh_execute_header, v22, v23, "State file exists at path %{public}s", v25, 0xCu);
-      sub_100003050(v26);
+      v27 = swift_slowAlloc();
+      v28 = swift_slowAlloc();
+      v78 = v28;
+      *v27 = 136446210;
+      *(v27 + 4) = sub_100006E44(v19, v20, &v78);
+      _os_log_impl(&_mh_execute_header, v24, v25, "State file exists at path %{public}s", v27, 0xCu);
+      sub_100003050(v28);
     }
 
     static String.Encoding.utf8.getter();
-    v27 = String.init(contentsOfFile:encoding:)();
-    v71 = v18;
-    v72 = v17;
-    v32 = v27;
-    v34 = v33;
-    v35 = Logger.logObject.getter();
-    v36 = static os_log_type_t.info.getter();
-    if (os_log_type_enabled(v35, v36))
+    v29 = String.init(contentsOfFile:encoding:)();
+    v73 = v20;
+    v74 = v19;
+    v34 = v29;
+    v36 = v35;
+    v37 = Logger.logObject.getter();
+    v38 = static os_log_type_t.info.getter();
+    if (os_log_type_enabled(v37, v38))
     {
-      v37 = swift_slowAlloc();
-      v38 = swift_slowAlloc();
-      v76 = v38;
-      *v37 = 136446210;
+      v39 = swift_slowAlloc();
+      v40 = swift_slowAlloc();
+      v78 = v40;
+      *v39 = 136446210;
 
-      v39 = a2;
-      v40 = sub_100006E44(v32, v34, &v76);
+      v41 = a2;
+      v42 = sub_100006E44(v34, v36, &v78);
 
-      *(v37 + 4) = v40;
-      a2 = v39;
-      _os_log_impl(&_mh_execute_header, v35, v36, "Read boot session id from automation mode state file: %{public}s", v37, 0xCu);
-      sub_100003050(v38);
+      *(v39 + 4) = v42;
+      a2 = v41;
+      _os_log_impl(&_mh_execute_header, v37, v38, "Read boot session id from automation mode state file: %{public}s", v39, 0xCu);
+      sub_100003050(v40);
     }
 
-    v41 = v74;
-    sub_100002EC4(&v21[OBJC_IVAR____TtC21automationmode_writer6Reader_bootSessionUUID], v74);
-    v42 = type metadata accessor for UUID();
-    v43 = *(v42 - 8);
-    v44 = (*(v43 + 48))(v41, 1, v42);
+    v43 = v76;
+    sub_100002EC4(&v23[OBJC_IVAR____TtC21automationmode_writer6Reader_bootSessionUUID], v76);
+    v44 = type metadata accessor for UUID();
+    v45 = *(v44 - 8);
+    v46 = (*(v45 + 48))(v43, 1, v44);
 
-    if (v44 == 1)
+    if (v46 == 1)
     {
-      sub_100002F34(v41);
+      sub_100002F34(v43);
 
-      v45 = v34;
+      v47 = v36;
     }
 
     else
     {
-      v46 = UUID.uuidString.getter();
-      v45 = v47;
-      (*(v43 + 8))(v41, v42);
-      if (v32 != v46)
+      v48 = UUID.uuidString.getter();
+      v47 = v49;
+      (*(v45 + 8))(v43, v44);
+      if (v34 != v48)
       {
         goto LABEL_21;
       }
     }
 
-    if (v34 == v45)
+    if (v36 == v47)
     {
 
       goto LABEL_22;
     }
 
 LABEL_21:
-    v48 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v50 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-    if ((v48 & 1) == 0)
+    if ((v50 & 1) == 0)
     {
-      v49 = v21;
-      v50 = Logger.logObject.getter();
-      v51 = static os_log_type_t.info.getter();
+      v51 = v23;
+      v52 = Logger.logObject.getter();
+      v53 = static os_log_type_t.info.getter();
 
-      if (os_log_type_enabled(v50, v51))
+      if (os_log_type_enabled(v52, v53))
       {
-        v52 = swift_slowAlloc();
-        v53 = a2;
         v54 = swift_slowAlloc();
-        v76 = v54;
-        *v52 = 136446210;
-        v56 = v71;
-        v55 = v72;
-        *(v52 + 4) = sub_100006E44(v72, v71, &v76);
-        _os_log_impl(&_mh_execute_header, v50, v51, "Removing expired state file at path %{public}s", v52, 0xCu);
-        sub_100003050(v54);
-        a2 = v53;
+        v55 = a2;
+        v56 = swift_slowAlloc();
+        v78 = v56;
+        *v54 = 136446210;
+        v58 = v73;
+        v57 = v74;
+        *(v54 + 4) = sub_100006E44(v74, v73, &v78);
+        _os_log_impl(&_mh_execute_header, v52, v53, "Removing expired state file at path %{public}s", v54, 0xCu);
+        sub_100003050(v56);
+        a2 = v55;
       }
 
       else
       {
 
-        v56 = v71;
-        v55 = v72;
+        v58 = v73;
+        v57 = v74;
       }
 
-      v57 = [v73 defaultManager];
-      v58 = String._bridgeToObjectiveC()();
-      v76 = 0;
-      v59 = [v57 removeItemAtPath:v58 error:&v76];
+      v59 = [v75 defaultManager];
+      v60 = String._bridgeToObjectiveC()();
+      v78 = 0;
+      v61 = [v59 removeItemAtPath:v60 error:&v78];
 
-      if (v59)
+      if (v61)
       {
-        v60 = v76;
+        v62 = v78;
       }
 
       else
       {
-        v61 = v76;
-        v62 = _convertNSErrorToError(_:)();
+        v63 = v78;
+        v64 = _convertNSErrorToError(_:)();
 
         swift_willThrow();
-        v63 = v49;
+        v65 = v51;
         swift_errorRetain();
-        v64 = Logger.logObject.getter();
-        v65 = static os_log_type_t.error.getter();
+        v66 = Logger.logObject.getter();
+        v67 = static os_log_type_t.error.getter();
 
-        if (os_log_type_enabled(v64, v65))
+        if (os_log_type_enabled(v66, v67))
         {
-          v66 = swift_slowAlloc();
-          v76 = swift_slowAlloc();
-          *v66 = 136446466;
-          *(v66 + 4) = sub_100006E44(v55, v56, &v76);
-          *(v66 + 12) = 2082;
-          v75 = v62;
+          v68 = swift_slowAlloc();
+          v78 = swift_slowAlloc();
+          *v68 = 136446466;
+          *(v68 + 4) = sub_100006E44(v57, v58, &v78);
+          *(v68 + 12) = 2082;
+          v77 = v64;
           swift_errorRetain();
           sub_100002E7C(&qword_100010BE0, &qword_100009D50);
-          v67 = String.init<A>(describing:)();
-          v69 = a2;
-          v70 = sub_100006E44(v67, v68, &v76);
+          v69 = String.init<A>(describing:)();
+          v71 = a2;
+          v72 = sub_100006E44(v69, v70, &v78);
 
-          *(v66 + 14) = v70;
-          a2 = v69;
-          _os_log_impl(&_mh_execute_header, v64, v65, "Failed to remove expired automation mode state file at %{public}s: %{public}s", v66, 0x16u);
+          *(v68 + 14) = v72;
+          a2 = v71;
+          _os_log_impl(&_mh_execute_header, v66, v67, "Failed to remove expired automation mode state file at %{public}s: %{public}s", v68, 0x16u);
           swift_arrayDestroy();
         }
 
@@ -243,20 +243,20 @@ LABEL_22:
     (*(a2 + 16))(a2, 1);
   }
 
-  if (v24)
+  if (v26)
   {
-    v28 = swift_slowAlloc();
-    v29 = swift_slowAlloc();
-    v76 = v29;
-    *v28 = 136446210;
-    *(v28 + 4) = sub_100006E44(v17, v18, &v76);
-    _os_log_impl(&_mh_execute_header, v22, v23, "State file does not exist at path %{public}s", v28, 0xCu);
-    sub_100003050(v29);
+    v30 = swift_slowAlloc();
+    v31 = swift_slowAlloc();
+    v78 = v31;
+    *v30 = 136446210;
+    *(v30 + 4) = sub_100006E44(v19, v20, &v78);
+    _os_log_impl(&_mh_execute_header, v24, v25, "State file does not exist at path %{public}s", v30, 0xCu);
+    sub_100003050(v31);
   }
 
-  v30 = *(a2 + 16);
+  v32 = *(a2 + 16);
 
-  return v30(a2, 0);
+  return v32(a2, 0);
 }
 
 uint64_t sub_100002070(char *a1, uint64_t a2)
@@ -326,20 +326,19 @@ uint64_t sub_100002250(void *a1)
 id sub_1000023A8()
 {
   v0 = sub_100002E7C(&unk_100010990, &qword_100009D48);
-  v1 = *(*(v0 - 8) + 64);
-  __chkstk_darwin(v0);
-  v77 = &v71 - v2;
+  __chkstk_darwin(v0, v1);
+  v75 = &v69 - v2;
   v3 = XAMAutomationModeDataVaultPath();
-  v73 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v72 = v4;
+  v71 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v70 = v4;
 
   v5 = XAMAutomationModeStateFilePath();
-  v78 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v76 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v7 = v6;
 
   v8 = XAMAutomationModeDoesNotRequireAuthenticationFilePath();
-  v75 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v79 = v9;
+  v73 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v77 = v9;
 
   v10 = XAMAutomationModeWriterMachServiceName();
   if (!v10)
@@ -348,7 +347,7 @@ id sub_1000023A8()
     v10 = String._bridgeToObjectiveC()();
   }
 
-  v74 = v10;
+  v72 = v10;
   v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v13 = v12;
   if (qword_100010810 != -1)
@@ -365,11 +364,11 @@ id sub_1000023A8()
   if (os_log_type_enabled(v15, v16))
   {
     v17 = swift_slowAlloc();
-    v83[0] = swift_slowAlloc();
+    v81[0] = swift_slowAlloc();
     *v17 = 136446466;
-    *(v17 + 4) = sub_100006E44(v78, v7, v83);
+    *(v17 + 4) = sub_100006E44(v76, v7, v81);
     *(v17 + 12) = 2082;
-    v18 = sub_100006E44(v11, v13, v83);
+    v18 = sub_100006E44(v11, v13, v81);
 
     *(v17 + 14) = v18;
     _os_log_impl(&_mh_execute_header, v15, v16, "AutomationMode writer daemon launched with state file %{public}s, mach service name %{public}s.", v17, 0x16u);
@@ -389,131 +388,129 @@ id sub_1000023A8()
     swift_once();
   }
 
-  v76 = v7;
+  v74 = v7;
   v22 = qword_100010C28;
   if (qword_100010860 != -1)
   {
     swift_once();
   }
 
-  v71 = sub_100002DE0(v0, qword_100010C38);
-  v23 = v77;
-  sub_100002EC4(v71, v77);
-  v84 = v19;
-  v85 = &off_10000C6E0;
-  v83[0] = v20;
-  v24 = type metadata accessor for Writer();
+  v69 = sub_100002DE0(v0, qword_100010C38);
+  v23 = v75;
+  sub_100002EC4(v69, v75);
+  v82 = v19;
+  v83 = &off_10000C6E0;
+  v81[0] = v20;
+  v24 = type metadata accessor for Writer(0);
   v25 = objc_allocWithZone(v24);
-  v26 = v84;
-  v27 = sub_100002F9C(v83, v84);
-  v28 = *(*(v26 - 8) + 64);
-  __chkstk_darwin(v27);
-  v30 = (&v71 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0));
-  (*(v31 + 16))(v30);
-  v32 = *v30;
-  v82[3] = v19;
-  v82[4] = &off_10000C6E0;
-  v82[0] = v32;
+  v26 = sub_100002F9C(v81, v82);
+  __chkstk_darwin(v26, v26);
+  v28 = (&v69 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0));
+  (*(v29 + 16))(v28);
+  v30 = *v28;
+  v80[3] = v19;
+  v80[4] = &off_10000C6E0;
+  v80[0] = v30;
   *&v25[OBJC_IVAR____TtC21automationmode_writer6Writer_lock] = 0;
   *&v25[OBJC_IVAR____TtC21automationmode_writer6Writer_userPreferencesScope] = kCFPreferencesAnyUser;
-  v33 = &v25[OBJC_IVAR____TtC21automationmode_writer6Writer_dataVaultPath];
-  v34 = v72;
-  *v33 = v73;
+  v31 = &v25[OBJC_IVAR____TtC21automationmode_writer6Writer_dataVaultPath];
+  v32 = v70;
+  *v31 = v71;
+  v31[1] = v32;
+  v33 = &v25[OBJC_IVAR____TtC21automationmode_writer6Writer_stateFilePath];
+  v34 = v74;
+  *v33 = v76;
   v33[1] = v34;
-  v35 = &v25[OBJC_IVAR____TtC21automationmode_writer6Writer_stateFilePath];
-  v36 = v76;
-  *v35 = v78;
+  v35 = &v25[OBJC_IVAR____TtC21automationmode_writer6Writer_noAuthRequiredFilePath];
+  v36 = v77;
+  *v35 = v73;
   v35[1] = v36;
-  v37 = &v25[OBJC_IVAR____TtC21automationmode_writer6Writer_noAuthRequiredFilePath];
-  v38 = v79;
-  *v37 = v75;
-  v37[1] = v38;
   v25[OBJC_IVAR____TtC21automationmode_writer6Writer_enforcesClientEntitlement] = 1;
-  sub_100002FEC(v82, &v25[OBJC_IVAR____TtC21automationmode_writer6Writer_authorizationManager]);
+  sub_100002FEC(v80, &v25[OBJC_IVAR____TtC21automationmode_writer6Writer_authorizationManager]);
   *&v25[OBJC_IVAR____TtC21automationmode_writer6Writer_credentialTimeout] = v22;
   sub_100002EC4(v23, &v25[OBJC_IVAR____TtC21automationmode_writer6Writer_bootSessionUUID]);
-  v81.receiver = v25;
-  v81.super_class = v24;
-  v39 = kCFPreferencesAnyUser;
-  v40 = objc_msgSendSuper2(&v81, "init");
+  v79.receiver = v25;
+  v79.super_class = v24;
+  v37 = kCFPreferencesAnyUser;
+  v38 = objc_msgSendSuper2(&v79, "init");
   sub_100002F34(v23);
-  sub_100003050(v82);
-  sub_100003050(v83);
-  v41 = objc_allocWithZone(NSXPCListener);
-  v42 = v40;
-  v43 = v74;
-  v44 = [v41 initWithMachServiceName:v74];
+  sub_100003050(v80);
+  sub_100003050(v81);
+  v39 = objc_allocWithZone(NSXPCListener);
+  v40 = v38;
+  v41 = v72;
+  v42 = [v39 initWithMachServiceName:v72];
 
-  v45 = v44;
-  [v45 setDelegate:v42];
+  v43 = v42;
+  [v43 setDelegate:v40];
 
-  [v45 resume];
-  v46 = XAMAutomationModeReaderMachServiceName();
-  if (!v46)
+  [v43 resume];
+  v44 = XAMAutomationModeReaderMachServiceName();
+  if (!v44)
   {
     static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v46 = String._bridgeToObjectiveC()();
+    v44 = String._bridgeToObjectiveC()();
   }
 
-  v47 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v49 = v48;
-  v50 = Logger.logObject.getter();
-  v51 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v50, v51))
+  v45 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v47 = v46;
+  v48 = Logger.logObject.getter();
+  v49 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v48, v49))
   {
-    v52 = swift_slowAlloc();
-    v53 = swift_slowAlloc();
-    v83[0] = v53;
-    *v52 = 136446210;
-    v54 = sub_100006E44(v47, v49, v83);
+    v50 = swift_slowAlloc();
+    v51 = swift_slowAlloc();
+    v81[0] = v51;
+    *v50 = 136446210;
+    v52 = sub_100006E44(v45, v47, v81);
 
-    *(v52 + 4) = v54;
-    _os_log_impl(&_mh_execute_header, v50, v51, "AutomationMode reader listening to mach service name %{public}s", v52, 0xCu);
-    sub_100003050(v53);
+    *(v50 + 4) = v52;
+    _os_log_impl(&_mh_execute_header, v48, v49, "AutomationMode reader listening to mach service name %{public}s", v50, 0xCu);
+    sub_100003050(v51);
   }
 
   else
   {
   }
 
-  v55 = v77;
-  sub_100002EC4(v71, v77);
-  v56 = type metadata accessor for Reader();
-  v57 = objc_allocWithZone(v56);
-  v58 = &v57[OBJC_IVAR____TtC21automationmode_writer6Reader_stateFilePath];
-  v59 = v75;
-  v60 = v76;
-  *v58 = v78;
-  *(v58 + 1) = v60;
-  v61 = &v57[OBJC_IVAR____TtC21automationmode_writer6Reader_noAuthRequiredFilePath];
-  *v61 = v59;
-  v61[1] = v79;
-  sub_100002EC4(v55, &v57[OBJC_IVAR____TtC21automationmode_writer6Reader_bootSessionUUID]);
-  v80.receiver = v57;
-  v80.super_class = v56;
-  v62 = objc_msgSendSuper2(&v80, "init");
-  sub_100002F34(v55);
-  v63 = objc_allocWithZone(NSXPCListener);
-  v64 = v62;
-  v65 = [v63 initWithMachServiceName:v46];
+  v53 = v75;
+  sub_100002EC4(v69, v75);
+  v54 = type metadata accessor for Reader(0);
+  v55 = objc_allocWithZone(v54);
+  v56 = &v55[OBJC_IVAR____TtC21automationmode_writer6Reader_stateFilePath];
+  v57 = v73;
+  v58 = v74;
+  *v56 = v76;
+  *(v56 + 1) = v58;
+  v59 = &v55[OBJC_IVAR____TtC21automationmode_writer6Reader_noAuthRequiredFilePath];
+  *v59 = v57;
+  v59[1] = v77;
+  sub_100002EC4(v53, &v55[OBJC_IVAR____TtC21automationmode_writer6Reader_bootSessionUUID]);
+  v78.receiver = v55;
+  v78.super_class = v54;
+  v60 = objc_msgSendSuper2(&v78, "init");
+  sub_100002F34(v53);
+  v61 = objc_allocWithZone(NSXPCListener);
+  v62 = v60;
+  v63 = [v61 initWithMachServiceName:v44];
 
-  v66 = v65;
-  [v66 setDelegate:v64];
+  v64 = v63;
+  [v64 setDelegate:v62];
 
-  [v66 resume];
-  v67 = Logger.logObject.getter();
-  v68 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v67, v68))
+  [v64 resume];
+  v65 = Logger.logObject.getter();
+  v66 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v65, v66))
   {
-    v69 = swift_slowAlloc();
-    *v69 = 0;
-    _os_log_impl(&_mh_execute_header, v67, v68, "Waiting for connections", v69, 2u);
+    v67 = swift_slowAlloc();
+    *v67 = 0;
+    _os_log_impl(&_mh_execute_header, v65, v66, "Waiting for connections", v67, 2u);
   }
 
-  return v42;
+  return v40;
 }
 
-uint64_t type metadata accessor for Reader()
+uint64_t type metadata accessor for Reader(uint64_t a1)
 {
   result = qword_100010968;
   if (!qword_100010968)
@@ -524,25 +521,24 @@ uint64_t type metadata accessor for Reader()
   return result;
 }
 
-void sub_100002C20()
+void sub_100002C20(uint64_t a1)
 {
-  sub_100002CBC();
+  sub_100002CBC(319);
   if (v1 <= 0x3F)
   {
-    v2 = *(v0 - 8) + 64;
     swift_updateClassMetadata2();
   }
 }
 
-void sub_100002CBC()
+void sub_100002CBC(uint64_t a1)
 {
   if (!qword_100010B30)
   {
     type metadata accessor for UUID();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &qword_100010B30);
+      atomic_store(v1, &qword_100010B30);
     }
   }
 }
@@ -587,12 +583,12 @@ uint64_t sub_100002D58(uint64_t result, int a2, int a3)
   return result;
 }
 
-void sub_100002D94(uint64_t a1, unint64_t *a2)
+void sub_100002D94(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -611,14 +607,11 @@ uint64_t sub_100002DE0(uint64_t a1, uint64_t a2)
 
 uint64_t *sub_100002E18(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -629,7 +622,6 @@ uint64_t sub_100002E7C(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -651,7 +643,7 @@ uint64_t sub_100002F34(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_100002F9C(uint64_t a1, uint64_t a2)
+uint64_t sub_100002F9C(uint64_t result, uint64_t a2)
 {
   if ((*(*(a2 - 8) + 80) & 0x20000) != 0)
   {
@@ -659,7 +651,7 @@ uint64_t sub_100002F9C(uint64_t a1, uint64_t a2)
     return v2;
   }
 
-  return result;
+  return v3;
 }
 
 uint64_t sub_100002FEC(uint64_t a1, uint64_t a2)
@@ -671,15 +663,17 @@ uint64_t sub_100002FEC(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_100003050(uint64_t *a1)
+uint64_t sub_100003050(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_10000309C()
@@ -747,20 +741,19 @@ id sub_100003198(uint64_t a1, uint64_t a2, void (*a3)(uint64_t), uint64_t a4, vo
 
 uint64_t sub_10000336C(uint64_t a1, uint64_t a2, void *a3)
 {
-  v5 = *(a1 + 32);
-  v4 = *(a1 + 40);
+  v4 = *(a1 + 32);
   if (a2)
   {
-    v6 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
+    v5 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  v7 = a3;
-  v5(v6, a3);
+  v6 = a3;
+  v4(v5, a3);
 }
 
 id sub_10000344C()
@@ -783,11 +776,11 @@ id sub_10000344C()
   }
 
   v7.receiver = v1;
-  v7.super_class = type metadata accessor for Writer();
+  v7.super_class = type metadata accessor for Writer(0);
   return objc_msgSendSuper2(&v7, "dealloc");
 }
 
-uint64_t type metadata accessor for Writer()
+uint64_t type metadata accessor for Writer(uint64_t a1)
 {
   result = qword_100010B20;
   if (!qword_100010B20)
@@ -800,120 +793,117 @@ uint64_t type metadata accessor for Writer()
 
 uint64_t sub_100003670(int a1)
 {
-  v134 = a1;
+  v136 = a1;
   v1 = type metadata accessor for String.Encoding();
-  v126 = *(v1 - 8);
-  v127 = v1;
-  v2 = *(v126 + 64);
-  __chkstk_darwin(v1);
-  v129 = &v116 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v128 = *(v1 - 8);
+  v129 = v1;
+  __chkstk_darwin(v1, v2);
+  v131 = &v118 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v4 = sub_100002E7C(&unk_100010990, &qword_100009D48);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = __chkstk_darwin(v4 - 8);
-  v8 = &v116 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v6);
-  v10 = &v116 - v9;
-  v11 = type metadata accessor for URL();
-  v131 = *(v11 - 8);
-  v12 = *(v131 + 64);
-  v13 = __chkstk_darwin(v11);
-  v15 = &v116 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v13);
-  v17 = &v116 - v16;
+  v6 = __chkstk_darwin(v4 - 8, v5);
+  v8 = &v118 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6, v9);
+  v11 = &v118 - v10;
+  v12 = type metadata accessor for URL();
+  v133 = *(v12 - 8);
+  v14 = __chkstk_darwin(v12, v13);
+  v16 = &v118 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v14, v17);
+  v19 = &v118 - v18;
   if (qword_100010838 != -1)
   {
     swift_once();
   }
 
-  v132 = v17;
-  v18 = type metadata accessor for Logger();
-  v19 = sub_100002DE0(v18, qword_100010A00);
-  v20 = Logger.logObject.getter();
-  v21 = static os_log_type_t.default.getter();
-  v22 = os_log_type_enabled(v20, v21);
-  v130 = v11;
-  v125 = v15;
-  if (v22)
+  v134 = v19;
+  v20 = type metadata accessor for Logger();
+  v21 = sub_100002DE0(v20, qword_100010A00);
+  v22 = Logger.logObject.getter();
+  v23 = static os_log_type_t.default.getter();
+  v24 = os_log_type_enabled(v22, v23);
+  v132 = v12;
+  v127 = v16;
+  if (v24)
   {
-    v23 = swift_slowAlloc();
-    v24 = swift_slowAlloc();
-    v136[0] = v24;
-    *v23 = 136446210;
-    if (v134)
+    v25 = swift_slowAlloc();
+    v26 = swift_slowAlloc();
+    v138[0] = v26;
+    *v25 = 136446210;
+    if (v136)
     {
-      v25 = 0x454C42414E45;
+      v27 = 0x454C42414E45;
     }
 
     else
     {
-      v25 = 0x656C6261736964;
+      v27 = 0x656C6261736964;
     }
 
-    if (v134)
+    if (v136)
     {
-      v26 = 0xE600000000000000;
+      v28 = 0xE600000000000000;
     }
 
     else
     {
-      v26 = 0xE700000000000000;
+      v28 = 0xE700000000000000;
     }
 
-    v27 = sub_100006E44(v25, v26, v136);
+    v29 = sub_100006E44(v27, v28, v138);
 
-    *(v23 + 4) = v27;
-    _os_log_impl(&_mh_execute_header, v20, v21, "Executing request to %{public}s automation mode", v23, 0xCu);
-    sub_100003050(v24);
+    *(v25 + 4) = v29;
+    _os_log_impl(&_mh_execute_header, v22, v23, "Executing request to %{public}s automation mode", v25, 0xCu);
+    sub_100003050(v26);
   }
 
-  v28 = OBJC_IVAR____TtC21automationmode_writer6Writer_lock;
-  v29 = v133;
+  v30 = OBJC_IVAR____TtC21automationmode_writer6Writer_lock;
+  v31 = v135;
   swift_beginAccess();
-  os_unfair_lock_lock(&v29[v28]);
+  os_unfair_lock_lock(&v31[v30]);
   swift_endAccess();
-  v128 = objc_opt_self();
-  v30 = [v128 defaultManager];
-  v31 = &v29[OBJC_IVAR____TtC21automationmode_writer6Writer_stateFilePath];
-  v32 = *&v29[OBJC_IVAR____TtC21automationmode_writer6Writer_stateFilePath];
-  v33 = *(v31 + 1);
-  v34 = String._bridgeToObjectiveC()();
-  v35 = [v30 fileExistsAtPath:v34];
+  v130 = objc_opt_self();
+  v32 = [v130 defaultManager];
+  v33 = &v31[OBJC_IVAR____TtC21automationmode_writer6Writer_stateFilePath];
+  v34 = *&v31[OBJC_IVAR____TtC21automationmode_writer6Writer_stateFilePath];
+  v35 = *(v33 + 1);
+  v36 = String._bridgeToObjectiveC()();
+  v37 = [v32 fileExistsAtPath:v36];
 
-  if (((v35 ^ v134) & 1) == 0)
+  if (((v37 ^ v136) & 1) == 0)
   {
-    v52 = Logger.logObject.getter();
-    v53 = static os_log_type_t.default.getter();
-    if (os_log_type_enabled(v52, v53))
+    v54 = Logger.logObject.getter();
+    v55 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v54, v55))
     {
-      v54 = swift_slowAlloc();
-      v55 = swift_slowAlloc();
-      v136[0] = v55;
-      *v54 = 136446210;
-      if (v134)
+      v56 = swift_slowAlloc();
+      v57 = swift_slowAlloc();
+      v138[0] = v57;
+      *v56 = 136446210;
+      if (v136)
       {
-        v56 = 0x44454C42414E45;
+        v58 = 0x44454C42414E45;
       }
 
       else
       {
-        v56 = 0x64656C6261736964;
+        v58 = 0x64656C6261736964;
       }
 
-      if (v134)
+      if (v136)
       {
-        v57 = 0xE700000000000000;
+        v59 = 0xE700000000000000;
       }
 
       else
       {
-        v57 = 0xE800000000000000;
+        v59 = 0xE800000000000000;
       }
 
-      v58 = sub_100006E44(v56, v57, v136);
+      v60 = sub_100006E44(v58, v59, v138);
 
-      *(v54 + 4) = v58;
-      _os_log_impl(&_mh_execute_header, v52, v53, "Requested automation mode state matches current state (%{public}s), nothing to do.", v54, 0xCu);
-      sub_100003050(v55);
+      *(v56 + 4) = v60;
+      _os_log_impl(&_mh_execute_header, v54, v55, "Requested automation mode state matches current state (%{public}s), nothing to do.", v56, 0xCu);
+      sub_100003050(v57);
 
       goto LABEL_25;
     }
@@ -921,194 +911,194 @@ uint64_t sub_100003670(int a1)
 LABEL_26:
 
 LABEL_27:
-    v59 = v133;
+    v61 = v135;
     swift_beginAccess();
-    v60 = &v59[v28];
+    v62 = &v61[v30];
     goto LABEL_36;
   }
 
-  v122 = v10;
-  v36 = v132;
+  v124 = v11;
+  v38 = v134;
   URL.init(fileURLWithPath:)();
-  v37 = v133;
-  v124 = v19;
-  v38 = Logger.logObject.getter();
-  v39 = static os_log_type_t.debug.getter();
+  v39 = v135;
+  v126 = v21;
+  v40 = Logger.logObject.getter();
+  v41 = static os_log_type_t.debug.getter();
 
-  v40 = os_log_type_enabled(v38, v39);
-  v119 = v8;
-  v120 = v32;
-  v121 = v33;
-  if (v40)
+  v42 = os_log_type_enabled(v40, v41);
+  v121 = v8;
+  v122 = v34;
+  v123 = v35;
+  if (v42)
   {
-    v41 = swift_slowAlloc();
-    v42 = v28;
     v43 = swift_slowAlloc();
-    v136[0] = v43;
-    *v41 = 136446210;
-    *(v41 + 4) = sub_100006E44(v32, v33, v136);
-    _os_log_impl(&_mh_execute_header, v38, v39, "State file path %{public}s", v41, 0xCu);
-    sub_100003050(v43);
-    v28 = v42;
+    v44 = v30;
+    v45 = swift_slowAlloc();
+    v138[0] = v45;
+    *v43 = 136446210;
+    *(v43 + 4) = sub_100006E44(v34, v35, v138);
+    _os_log_impl(&_mh_execute_header, v40, v41, "State file path %{public}s", v43, 0xCu);
+    sub_100003050(v45);
+    v30 = v44;
 
-    v36 = v132;
+    v38 = v134;
   }
 
-  v44 = v131;
-  v45 = v129;
-  if (v134)
+  v46 = v133;
+  v47 = v131;
+  if (v136)
   {
-    v118 = OBJC_IVAR____TtC21automationmode_writer6Writer_bootSessionUUID;
-    v46 = v122;
-    sub_100008FF4(&v37[OBJC_IVAR____TtC21automationmode_writer6Writer_bootSessionUUID], v122, &unk_100010990, &qword_100009D48);
-    v47 = type metadata accessor for UUID();
-    v48 = *(v47 - 8);
-    v117 = *(v48 + 48);
-    v49 = v117(v46, 1, v47);
-    v123 = v28;
-    v116 = v48;
-    if (v49 == 1)
+    v120 = OBJC_IVAR____TtC21automationmode_writer6Writer_bootSessionUUID;
+    v48 = v124;
+    sub_100008FF4(&v39[OBJC_IVAR____TtC21automationmode_writer6Writer_bootSessionUUID], v124, &unk_100010990, &qword_100009D48);
+    v49 = type metadata accessor for UUID();
+    v50 = *(v49 - 8);
+    v119 = *(v50 + 48);
+    v51 = v119(v48, 1, v49);
+    v125 = v30;
+    v118 = v50;
+    if (v51 == 1)
     {
-      v50 = 0x6E776F6E6B6E75;
-      sub_10000905C(v46, &unk_100010990, &qword_100009D48);
-      v51 = 0xE700000000000000;
+      v52 = 0x6E776F6E6B6E75;
+      sub_10000905C(v48, &unk_100010990, &qword_100009D48);
+      v53 = 0xE700000000000000;
     }
 
     else
     {
-      v50 = UUID.uuidString.getter();
-      v51 = v68;
-      (*(v48 + 8))(v46, v47);
+      v52 = UUID.uuidString.getter();
+      v53 = v70;
+      (*(v50 + 8))(v48, v49);
     }
 
-    v136[0] = v50;
-    v136[1] = v51;
+    v138[0] = v52;
+    v138[1] = v53;
     static String.Encoding.utf8.getter();
     sub_100008DD8();
-    v69 = v132;
+    v71 = v134;
     StringProtocol.write(to:atomically:encoding:)();
-    (*(v126 + 8))(v45, v127);
+    (*(v128 + 8))(v47, v129);
 
-    v82 = v125;
-    v83 = v130;
-    (*(v44 + 16))(v125, v69, v130);
-    v84 = v37;
-    v85 = Logger.logObject.getter();
-    v86 = static os_log_type_t.default.getter();
+    v84 = v127;
+    v85 = v132;
+    (*(v46 + 16))(v127, v71, v132);
+    v86 = v39;
+    v87 = Logger.logObject.getter();
+    v88 = static os_log_type_t.default.getter();
 
-    if (os_log_type_enabled(v85, v86))
+    if (os_log_type_enabled(v87, v88))
     {
-      LODWORD(v129) = v86;
-      v88 = swift_slowAlloc();
-      v127 = swift_slowAlloc();
-      v136[0] = v127;
-      *v88 = 136446466;
-      sub_1000090BC(&qword_100010C00, &type metadata accessor for URL);
-      v89 = dispatch thunk of CustomStringConvertible.description.getter();
-      v90 = v83;
-      v92 = v91;
-      v93 = *(v44 + 8);
-      v131 = v44 + 8;
+      LODWORD(v131) = v88;
+      v90 = swift_slowAlloc();
+      v129 = swift_slowAlloc();
+      v138[0] = v129;
+      *v90 = 136446466;
+      sub_1000090BC(&qword_100010C00, &type metadata accessor for URL, &protocol conformance descriptor for URL);
+      v91 = dispatch thunk of CustomStringConvertible.description.getter();
+      v92 = v85;
       v94 = v93;
-      v93(v82, v90);
-      v95 = sub_100006E44(v89, v92, v136);
+      v95 = *(v46 + 8);
+      v133 = v46 + 8;
+      v96 = v95;
+      v95(v84, v92);
+      v97 = sub_100006E44(v91, v94, v138);
 
-      *(v88 + 4) = v95;
-      *(v88 + 12) = 2082;
-      v96 = v119;
-      sub_100008FF4(&v37[v118], v119, &unk_100010990, &qword_100009D48);
-      if (v117(v96, 1, v47) == 1)
+      *(v90 + 4) = v97;
+      *(v90 + 12) = 2082;
+      v98 = v121;
+      sub_100008FF4(&v39[v120], v121, &unk_100010990, &qword_100009D48);
+      if (v119(v98, 1, v49) == 1)
       {
-        v97 = 0x6E776F6E6B6E75;
-        sub_10000905C(v96, &unk_100010990, &qword_100009D48);
-        v98 = 0xE700000000000000;
+        v99 = 0x6E776F6E6B6E75;
+        sub_10000905C(v98, &unk_100010990, &qword_100009D48);
+        v100 = 0xE700000000000000;
       }
 
       else
       {
-        v97 = UUID.uuidString.getter();
-        v98 = v100;
-        (*(v116 + 8))(v96, v47);
+        v99 = UUID.uuidString.getter();
+        v100 = v102;
+        (*(v118 + 8))(v98, v49);
       }
 
-      v101 = v132;
-      v102 = sub_100006E44(v97, v98, v136);
+      v103 = v134;
+      v104 = sub_100006E44(v99, v100, v138);
 
-      *(v88 + 14) = v102;
-      _os_log_impl(&_mh_execute_header, v85, v129, "Created state file for automation mode at %{public}s with boot session id %{public}s", v88, 0x16u);
+      *(v90 + 14) = v104;
+      _os_log_impl(&_mh_execute_header, v87, v131, "Created state file for automation mode at %{public}s with boot session id %{public}s", v90, 0x16u);
       swift_arrayDestroy();
 
-      v94(v101, v130);
+      v96(v103, v132);
     }
 
     else
     {
 
-      v99 = *(v44 + 8);
-      v99(v82, v83);
-      v99(v69, v83);
+      v101 = *(v46 + 8);
+      v101(v84, v85);
+      v101(v71, v85);
     }
 
-    v28 = v123;
+    v30 = v125;
 LABEL_44:
-    v103 = [v128 defaultManager];
-    v104 = String._bridgeToObjectiveC()();
-    v105 = [v103 fileExistsAtPath:v104];
+    v105 = [v130 defaultManager];
+    v106 = String._bridgeToObjectiveC()();
+    v107 = [v105 fileExistsAtPath:v106];
 
-    LOBYTE(v104) = v105 ^ v134;
-    v52 = Logger.logObject.getter();
-    if ((v104 & 1) == 0)
+    LOBYTE(v106) = v107 ^ v136;
+    v54 = Logger.logObject.getter();
+    if ((v106 & 1) == 0)
     {
-      v108 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v52, v108))
+      v110 = static os_log_type_t.default.getter();
+      if (os_log_type_enabled(v54, v110))
       {
-        v109 = swift_slowAlloc();
-        v110 = swift_slowAlloc();
-        v136[0] = v110;
-        *v109 = 136446210;
-        if (v134)
+        v111 = swift_slowAlloc();
+        v112 = swift_slowAlloc();
+        v138[0] = v112;
+        *v111 = 136446210;
+        if (v136)
         {
-          v111 = 0x44454C42414E45;
+          v113 = 0x44454C42414E45;
         }
 
         else
         {
-          v111 = 0x64656C6261736964;
+          v113 = 0x64656C6261736964;
         }
 
-        if (v134)
+        if (v136)
         {
-          v112 = 0xE700000000000000;
+          v114 = 0xE700000000000000;
         }
 
         else
         {
-          v112 = 0xE800000000000000;
+          v114 = 0xE800000000000000;
         }
 
-        v113 = sub_100006E44(v111, v112, v136);
+        v115 = sub_100006E44(v113, v114, v138);
 
-        *(v109 + 4) = v113;
-        _os_log_impl(&_mh_execute_header, v52, v108, "Successfully set automation mode to %{public}s", v109, 0xCu);
-        sub_100003050(v110);
+        *(v111 + 4) = v115;
+        _os_log_impl(&_mh_execute_header, v54, v110, "Successfully set automation mode to %{public}s", v111, 0xCu);
+        sub_100003050(v112);
       }
 
-      v114 = XAMAutomationModeStateChangedNotificationName();
+      v116 = XAMAutomationModeStateChangedNotificationName();
       static String._unconditionallyBridgeFromObjectiveC(_:)();
 
-      v115 = String.utf8CString.getter();
+      v117 = String.utf8CString.getter();
 
-      notify_post((v115 + 32));
+      notify_post((v117 + 32));
 
       goto LABEL_27;
     }
 
-    v106 = static os_log_type_t.fault.getter();
-    if (os_log_type_enabled(v52, v106))
+    v108 = static os_log_type_t.fault.getter();
+    if (os_log_type_enabled(v54, v108))
     {
-      v107 = swift_slowAlloc();
-      *v107 = 0;
-      _os_log_impl(&_mh_execute_header, v52, v106, "Failed to change automation mode", v107, 2u);
+      v109 = swift_slowAlloc();
+      *v109 = 0;
+      _os_log_impl(&_mh_execute_header, v54, v108, "Failed to change automation mode", v109, 2u);
 LABEL_25:
 
       goto LABEL_26;
@@ -1117,66 +1107,65 @@ LABEL_25:
     goto LABEL_26;
   }
 
-  v61 = [v128 defaultManager];
-  URL._bridgeToObjectiveC()(v62);
-  v64 = v63;
-  v136[0] = 0;
-  v65 = [v61 removeItemAtURL:v63 error:v136];
+  v63 = [v130 defaultManager];
+  URL._bridgeToObjectiveC()(v64);
+  v66 = v65;
+  v138[0] = 0;
+  v67 = [v63 removeItemAtURL:v65 error:v138];
 
-  if (v65)
+  if (v67)
   {
-    v66 = *(v44 + 8);
-    v67 = v136[0];
-    v66(v36, v130);
+    v68 = *(v46 + 8);
+    v69 = v138[0];
+    v68(v38, v132);
     goto LABEL_44;
   }
 
-  v123 = v28;
-  v70 = v136[0];
-  v71 = _convertNSErrorToError(_:)();
+  v125 = v30;
+  v72 = v138[0];
+  v73 = _convertNSErrorToError(_:)();
 
   swift_willThrow();
-  (*(v44 + 8))(v36, v130);
+  (*(v46 + 8))(v38, v132);
   swift_errorRetain();
-  v72 = Logger.logObject.getter();
-  v73 = static os_log_type_t.fault.getter();
+  v74 = Logger.logObject.getter();
+  v75 = static os_log_type_t.fault.getter();
 
-  if (os_log_type_enabled(v72, v73))
+  if (os_log_type_enabled(v74, v75))
   {
-    v74 = swift_slowAlloc();
-    v75 = swift_slowAlloc();
-    v136[0] = v75;
-    *v74 = 136446210;
-    v135 = v71;
+    v76 = swift_slowAlloc();
+    v77 = swift_slowAlloc();
+    v138[0] = v77;
+    *v76 = 136446210;
+    v137 = v73;
     swift_errorRetain();
     sub_100002E7C(&qword_100010BE0, &qword_100009D50);
-    v76 = String.init<A>(describing:)();
-    v78 = sub_100006E44(v76, v77, v136);
+    v78 = String.init<A>(describing:)();
+    v80 = sub_100006E44(v78, v79, v138);
 
-    *(v74 + 4) = v78;
-    _os_log_impl(&_mh_execute_header, v72, v73, "Failed to change automation mode: %{public}s", v74, 0xCu);
-    sub_100003050(v75);
+    *(v76 + 4) = v80;
+    _os_log_impl(&_mh_execute_header, v74, v75, "Failed to change automation mode: %{public}s", v76, 0xCu);
+    sub_100003050(v77);
   }
 
   else
   {
   }
 
-  v79 = v123;
-  v80 = v133;
+  v81 = v125;
+  v82 = v135;
   swift_beginAccess();
-  v60 = &v80[v79];
+  v62 = &v82[v81];
 LABEL_36:
-  os_unfair_lock_unlock(v60);
+  os_unfair_lock_unlock(v62);
   return swift_endAccess();
 }
 
-void sub_1000044D0()
+void sub_1000044D0(uint64_t a1)
 {
-  sub_100002CBC();
+  sub_100002CBC(319);
   if (v1 <= 0x3F)
   {
-    v2 = *(v0 - 8) + 64;
     swift_updateClassMetadata2();
   }
 }
@@ -1312,11 +1301,12 @@ double sub_100004A04()
     v6 = 0xE000000000000000;
   }
 
-  v8 = sub_100007628(v7, v6);
+  v12 = 0.0;
+  v8 = sub_100007628(v7, v6, &v12);
 
   if (v8)
   {
-    return 0.0;
+    return v12;
   }
 
   if (qword_100010848 != -1)
@@ -1344,23 +1334,20 @@ uint64_t sub_100004B8C()
     swift_once();
   }
 
-  v1 = sub_100007720();
-  v2 = *(v0 + OBJC_IVAR____TtC21automationmode_writer6Writer_userPreferencesScope);
-  v3 = *(v0 + OBJC_IVAR____TtC21automationmode_writer6Writer_dataVaultPath);
-  v4 = *(v0 + OBJC_IVAR____TtC21automationmode_writer6Writer_dataVaultPath + 8);
-  v5 = String._bridgeToObjectiveC()();
-  v6 = _CFPreferencesCopyValueWithContainer();
+  v0 = sub_100007720();
+  v1 = String._bridgeToObjectiveC()();
+  v2 = _CFPreferencesCopyValueWithContainer();
 
-  if (v6)
+  if (v2)
   {
     objc_opt_self();
-    v7 = swift_dynamicCastObjCClass();
-    if (v7)
+    v3 = swift_dynamicCastObjCClass();
+    if (v3)
     {
-      [v7 doubleValue];
-      v9 = v8;
+      [v3 doubleValue];
+      v5 = v4;
       swift_unknownObjectRelease();
-      return v9;
+      return v5;
     }
 
     swift_unknownObjectRelease();
@@ -1373,22 +1360,21 @@ void sub_100004CA8(uint64_t a1, char a2)
 {
   if ((a2 & 1) == 0)
   {
-    v3 = v2;
     if (qword_100010838 != -1)
     {
       swift_once();
     }
 
-    v5 = type metadata accessor for Logger();
-    sub_100002DE0(v5, qword_100010A00);
-    v6 = Logger.logObject.getter();
-    v7 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v6, v7))
+    v3 = type metadata accessor for Logger();
+    sub_100002DE0(v3, qword_100010A00);
+    v4 = Logger.logObject.getter();
+    v5 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v4, v5))
     {
-      v8 = swift_slowAlloc();
-      *v8 = 134217984;
-      *(v8 + 4) = a1;
-      _os_log_impl(&_mh_execute_header, v6, v7, "Storing credential creation time:  %f", v8, 0xCu);
+      v6 = swift_slowAlloc();
+      *v6 = 134217984;
+      *(v6 + 4) = a1;
+      _os_log_impl(&_mh_execute_header, v4, v5, "Storing credential creation time:  %f", v6, 0xCu);
     }
 
     if (qword_100010840 != -1)
@@ -1396,12 +1382,9 @@ void sub_100004CA8(uint64_t a1, char a2)
       swift_once();
     }
 
-    v9 = [objc_allocWithZone(NSNumber) initWithDouble:*&a1];
-    v10 = sub_100007720();
-    v11 = *(v3 + OBJC_IVAR____TtC21automationmode_writer6Writer_userPreferencesScope);
-    v12 = *(v3 + OBJC_IVAR____TtC21automationmode_writer6Writer_dataVaultPath);
-    v13 = *(v3 + OBJC_IVAR____TtC21automationmode_writer6Writer_dataVaultPath + 8);
-    v14 = String._bridgeToObjectiveC()();
+    v7 = [objc_allocWithZone(NSNumber) initWithDouble:*&a1];
+    v8 = sub_100007720();
+    v9 = String._bridgeToObjectiveC()();
     _CFPreferencesSetValueWithContainer();
   }
 }
@@ -1420,21 +1403,18 @@ uint64_t sub_100004ED0()
     swift_once();
   }
 
-  v1 = sub_100007720();
-  v2 = *(v0 + OBJC_IVAR____TtC21automationmode_writer6Writer_userPreferencesScope);
-  v3 = *(v0 + OBJC_IVAR____TtC21automationmode_writer6Writer_dataVaultPath);
-  v4 = *(v0 + OBJC_IVAR____TtC21automationmode_writer6Writer_dataVaultPath + 8);
-  v5 = String._bridgeToObjectiveC()();
-  v6 = _CFPreferencesCopyValueWithContainer();
+  v0 = sub_100007720();
+  v1 = String._bridgeToObjectiveC()();
+  v2 = _CFPreferencesCopyValueWithContainer();
 
-  if (!v6)
+  if (!v2)
   {
     return 0;
   }
 
   if (swift_dynamicCast())
   {
-    return v8;
+    return v4;
   }
 
   return 0;
@@ -1444,27 +1424,26 @@ void sub_100004FE0(uint64_t a1, unint64_t a2)
 {
   if (a2)
   {
-    v3 = v2;
     if (qword_100010838 != -1)
     {
       swift_once();
     }
 
-    v6 = type metadata accessor for Logger();
-    sub_100002DE0(v6, qword_100010A00);
+    v4 = type metadata accessor for Logger();
+    sub_100002DE0(v4, qword_100010A00);
 
-    v7 = Logger.logObject.getter();
-    v8 = static os_log_type_t.debug.getter();
+    v5 = Logger.logObject.getter();
+    v6 = static os_log_type_t.debug.getter();
 
-    if (os_log_type_enabled(v7, v8))
+    if (os_log_type_enabled(v5, v6))
     {
-      v9 = swift_slowAlloc();
-      v10 = swift_slowAlloc();
-      v17 = v10;
-      *v9 = 136315138;
-      *(v9 + 4) = sub_100006E44(a1, a2, &v17);
-      _os_log_impl(&_mh_execute_header, v7, v8, "Storing credential boot session UUID:  %s", v9, 0xCu);
-      sub_100003050(v10);
+      v7 = swift_slowAlloc();
+      v8 = swift_slowAlloc();
+      v12 = v8;
+      *v7 = 136315138;
+      *(v7 + 4) = sub_100006E44(a1, a2, &v12);
+      _os_log_impl(&_mh_execute_header, v5, v6, "Storing credential boot session UUID:  %s", v7, 0xCu);
+      sub_100003050(v8);
     }
 
     if (qword_100010858 != -1)
@@ -1472,13 +1451,10 @@ void sub_100004FE0(uint64_t a1, unint64_t a2)
       swift_once();
     }
 
-    v11 = String._bridgeToObjectiveC()();
+    v9 = String._bridgeToObjectiveC()();
 
-    v12 = sub_100007720();
-    v13 = *(v3 + OBJC_IVAR____TtC21automationmode_writer6Writer_userPreferencesScope);
-    v14 = *(v3 + OBJC_IVAR____TtC21automationmode_writer6Writer_dataVaultPath);
-    v15 = *(v3 + OBJC_IVAR____TtC21automationmode_writer6Writer_dataVaultPath + 8);
-    v16 = String._bridgeToObjectiveC()();
+    v10 = sub_100007720();
+    v11 = String._bridgeToObjectiveC()();
     _CFPreferencesSetValueWithContainer();
   }
 }
@@ -1486,70 +1462,68 @@ void sub_100004FE0(uint64_t a1, unint64_t a2)
 BOOL sub_100005214()
 {
   v1 = sub_100002E7C(&unk_100010990, &qword_100009D48);
-  v2 = *(*(v1 - 8) + 64);
-  __chkstk_darwin(v1 - 8);
-  v4 = &v55 - v3;
+  __chkstk_darwin(v1 - 8, v2);
+  v4 = &v56 - v3;
   v5 = type metadata accessor for UUID();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = __chkstk_darwin(v5);
-  v10 = &v55 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v8);
-  v12 = &v55 - v11;
-  *&v13 = COERCE_DOUBLE(sub_100004B8C());
-  if (v14)
+  v8 = __chkstk_darwin(v5, v7);
+  v10 = &v56 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v8, v11);
+  v13 = &v56 - v12;
+  *&v14 = COERCE_DOUBLE(sub_100004B8C());
+  if (v15)
   {
     if (qword_100010838 != -1)
     {
       swift_once();
     }
 
-    v15 = type metadata accessor for Logger();
-    sub_100002DE0(v15, qword_100010A00);
-    v16 = Logger.logObject.getter();
-    v17 = static os_log_type_t.debug.getter();
-    if (!os_log_type_enabled(v16, v17))
+    v16 = type metadata accessor for Logger();
+    sub_100002DE0(v16, qword_100010A00);
+    v17 = Logger.logObject.getter();
+    v18 = static os_log_type_t.debug.getter();
+    if (!os_log_type_enabled(v17, v18))
     {
       goto LABEL_14;
     }
 
-    v18 = swift_slowAlloc();
-    *v18 = 0;
-    v19 = "No previous credential exists";
+    v19 = swift_slowAlloc();
+    *v19 = 0;
+    v20 = "No previous credential exists";
 LABEL_13:
-    _os_log_impl(&_mh_execute_header, v16, v17, v19, v18, 2u);
+    _os_log_impl(&_mh_execute_header, v17, v18, v20, v19, 2u);
 
 LABEL_14:
 
     return 0;
   }
 
-  v20 = *&v13;
-  v21 = sub_100004ED0();
-  if (!v22)
+  v21 = *&v14;
+  v22 = sub_100004ED0();
+  if (!v23)
   {
     if (qword_100010838 != -1)
     {
       swift_once();
     }
 
-    v25 = type metadata accessor for Logger();
-    sub_100002DE0(v25, qword_100010A00);
-    v16 = Logger.logObject.getter();
-    v17 = static os_log_type_t.info.getter();
-    if (!os_log_type_enabled(v16, v17))
+    v26 = type metadata accessor for Logger();
+    sub_100002DE0(v26, qword_100010A00);
+    v17 = Logger.logObject.getter();
+    v18 = static os_log_type_t.info.getter();
+    if (!os_log_type_enabled(v17, v18))
     {
       goto LABEL_14;
     }
 
-    v18 = swift_slowAlloc();
-    *v18 = 0;
-    v19 = "Previous credential did not record boot session, will require new authorization";
+    v19 = swift_slowAlloc();
+    *v19 = 0;
+    v20 = "Previous credential did not record boot session, will require new authorization";
     goto LABEL_13;
   }
 
-  v23 = v21;
   v24 = v22;
+  v25 = v23;
   sub_100008FF4(v0 + OBJC_IVAR____TtC21automationmode_writer6Writer_bootSessionUUID, v4, &unk_100010990, &qword_100009D48);
   if ((*(v6 + 48))(v4, 1, v5) == 1)
   {
@@ -1559,65 +1533,65 @@ LABEL_14:
 
   else
   {
-    (*(v6 + 32))(v12, v4, v5);
-    if (v23 == UUID.uuidString.getter() && v24 == v27)
+    (*(v6 + 32))(v13, v4, v5);
+    if (v24 == UUID.uuidString.getter() && v25 == v28)
     {
     }
 
     else
     {
-      v29 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v30 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-      if ((v29 & 1) == 0)
+      if ((v30 & 1) == 0)
       {
         if (qword_100010838 != -1)
         {
           swift_once();
         }
 
-        v30 = type metadata accessor for Logger();
-        sub_100002DE0(v30, qword_100010A00);
-        (*(v6 + 16))(v10, v12, v5);
+        v31 = type metadata accessor for Logger();
+        sub_100002DE0(v31, qword_100010A00);
+        (*(v6 + 16))(v10, v13, v5);
 
-        v31 = Logger.logObject.getter();
-        v32 = static os_log_type_t.info.getter();
+        v32 = Logger.logObject.getter();
+        v33 = static os_log_type_t.info.getter();
 
-        if (os_log_type_enabled(v31, v32))
+        if (os_log_type_enabled(v32, v33))
         {
-          v33 = swift_slowAlloc();
-          v55 = swift_slowAlloc();
-          v56 = v55;
-          *v33 = 136315394;
-          v34 = sub_100006E44(v23, v24, &v56);
+          v34 = swift_slowAlloc();
+          v56 = swift_slowAlloc();
+          v57 = v56;
+          *v34 = 136315394;
+          v35 = sub_100006E44(v24, v25, &v57);
 
-          *(v33 + 4) = v34;
-          *(v33 + 12) = 2080;
-          v35 = UUID.uuidString.getter();
-          v37 = v36;
-          v38 = *(v6 + 8);
-          v38(v10, v5);
-          v39 = sub_100006E44(v35, v37, &v56);
+          *(v34 + 4) = v35;
+          *(v34 + 12) = 2080;
+          v36 = UUID.uuidString.getter();
+          v38 = v37;
+          v39 = *(v6 + 8);
+          v39(v10, v5);
+          v40 = sub_100006E44(v36, v38, &v57);
 
-          *(v33 + 14) = v39;
-          _os_log_impl(&_mh_execute_header, v31, v32, "Previous credential boot session does not match current (%s != %s, will require new authorization", v33, 0x16u);
+          *(v34 + 14) = v40;
+          _os_log_impl(&_mh_execute_header, v32, v33, "Previous credential boot session does not match current (%s != %s, will require new authorization", v34, 0x16u);
           swift_arrayDestroy();
 
-          v38(v12, v5);
+          v39(v13, v5);
         }
 
         else
         {
 
-          v54 = *(v6 + 8);
-          v54(v10, v5);
-          v54(v12, v5);
+          v55 = *(v6 + 8);
+          v55(v10, v5);
+          v55(v13, v5);
         }
 
         return 0;
       }
     }
 
-    (*(v6 + 8))(v12, v5);
+    (*(v6 + 8))(v13, v5);
   }
 
   if (qword_100010838 != -1)
@@ -1625,51 +1599,51 @@ LABEL_14:
     swift_once();
   }
 
-  v40 = type metadata accessor for Logger();
-  sub_100002DE0(v40, qword_100010A00);
-  v41 = Logger.logObject.getter();
-  v42 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v41, v42))
+  v41 = type metadata accessor for Logger();
+  sub_100002DE0(v41, qword_100010A00);
+  v42 = Logger.logObject.getter();
+  v43 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v42, v43))
   {
-    v43 = swift_slowAlloc();
-    *v43 = 134217984;
-    *(v43 + 4) = v20;
-    _os_log_impl(&_mh_execute_header, v41, v42, "Last credential created at %f", v43, 0xCu);
+    v44 = swift_slowAlloc();
+    *v44 = 134217984;
+    *(v44 + 4) = v21;
+    _os_log_impl(&_mh_execute_header, v42, v43, "Last credential created at %f", v44, 0xCu);
   }
 
   TMGetKernelMonotonicClock();
-  v45 = v44;
-  v46 = v44 - v20;
-  v47 = Logger.logObject.getter();
-  v48 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v47, v48))
+  v46 = v45;
+  v47 = v45 - v21;
+  v48 = Logger.logObject.getter();
+  v49 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v48, v49))
   {
-    v49 = swift_slowAlloc();
-    *v49 = 134218240;
-    *(v49 + 4) = v45;
-    *(v49 + 12) = 2048;
-    *(v49 + 14) = v46;
-    _os_log_impl(&_mh_execute_header, v47, v48, "Credential age based on current time %f is %f", v49, 0x16u);
+    v50 = swift_slowAlloc();
+    *v50 = 134218240;
+    *(v50 + 4) = v46;
+    *(v50 + 12) = 2048;
+    *(v50 + 14) = v47;
+    _os_log_impl(&_mh_execute_header, v48, v49, "Credential age based on current time %f is %f", v50, 0x16u);
   }
 
-  v50 = v0;
-  v51 = Logger.logObject.getter();
-  v52 = static os_log_type_t.debug.getter();
+  v51 = v0;
+  v52 = Logger.logObject.getter();
+  v53 = static os_log_type_t.debug.getter();
 
-  if (os_log_type_enabled(v51, v52))
+  if (os_log_type_enabled(v52, v53))
   {
-    v53 = swift_slowAlloc();
-    *v53 = 134217984;
-    *(v53 + 4) = *&v50[OBJC_IVAR____TtC21automationmode_writer6Writer_credentialTimeout];
-    _os_log_impl(&_mh_execute_header, v51, v52, "Credential timeout: %f", v53, 0xCu);
+    v54 = swift_slowAlloc();
+    *v54 = 134217984;
+    *(v54 + 4) = *&v51[OBJC_IVAR____TtC21automationmode_writer6Writer_credentialTimeout];
+    _os_log_impl(&_mh_execute_header, v52, v53, "Credential timeout: %f", v54, 0xCu);
   }
 
-  if (v46 < 0.0)
+  if (v47 < 0.0)
   {
     return 0;
   }
 
-  return v46 < *&v50[OBJC_IVAR____TtC21automationmode_writer6Writer_credentialTimeout];
+  return v47 < *&v51[OBJC_IVAR____TtC21automationmode_writer6Writer_credentialTimeout];
 }
 
 char *sub_100005990()
@@ -1682,139 +1656,137 @@ char *sub_100005990()
 
 char *sub_1000059E8@<X0>(char *a1@<X8>)
 {
-  v2 = (*(*(sub_100002E7C(&unk_100010990, &qword_100009D48) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (__chkstk_darwin)();
-  v4 = &v58 - v3;
-  v5 = type metadata accessor for UUID();
-  v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = (__chkstk_darwin)();
-  v10 = &v58 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v8);
-  v12 = &v58 - v11;
-  v13 = type metadata accessor for String.Encoding();
-  v14 = *(*(v13 - 8) + 64);
-  __chkstk_darwin(v13 - 8);
-  v16 = &v58 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v63 = 37;
-  v17 = static Array._allocateBufferUninitialized(minimumCapacity:)();
-  *(v17 + 16) = 37;
-  *(v17 + 48) = 0u;
-  *(v17 + 61) = 0;
-  *(v17 + 32) = 0u;
-  if (!sysctlbyname("kern.bootsessionuuid", (v17 + 32), &v63, 0, 0))
+  v2 = sub_100002E7C(&unk_100010990, &qword_100009D48);
+  __chkstk_darwin(v2 - 8, v3);
+  v5 = &v60 - v4;
+  v6 = type metadata accessor for UUID();
+  v7 = *(v6 - 8);
+  v9 = __chkstk_darwin(v6, v8);
+  v11 = &v60 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v9, v12);
+  v14 = &v60 - v13;
+  v15 = type metadata accessor for String.Encoding();
+  __chkstk_darwin(v15 - 8, v16);
+  v18 = &v60 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v65 = 37;
+  v19 = static Array._allocateBufferUninitialized(minimumCapacity:)();
+  *(v19 + 16) = 37;
+  *(v19 + 48) = 0u;
+  *(v19 + 61) = 0;
+  *(v19 + 32) = 0u;
+  if (!sysctlbyname("kern.bootsessionuuid", (v19 + 32), &v65, 0, 0))
   {
 
     static String.Encoding.ascii.getter();
-    v30 = sub_100006220(v17, v16);
-    if (!v31)
+    v32 = sub_100006220(v19, v18);
+    if (!v33)
     {
       if (qword_100010838 != -1)
       {
         swift_once();
       }
 
-      v40 = type metadata accessor for Logger();
-      sub_100002DE0(v40, qword_100010A00);
-      v25 = Logger.logObject.getter();
-      v41 = static os_log_type_t.fault.getter();
-      if (!os_log_type_enabled(v25, v41))
+      v42 = type metadata accessor for Logger();
+      sub_100002DE0(v42, qword_100010A00);
+      v27 = Logger.logObject.getter();
+      v43 = static os_log_type_t.fault.getter();
+      if (!os_log_type_enabled(v27, v43))
       {
         goto LABEL_21;
       }
 
-      v42 = swift_slowAlloc();
-      v43 = swift_slowAlloc();
-      v64 = v43;
-      *v42 = 136315138;
+      v44 = swift_slowAlloc();
+      v45 = swift_slowAlloc();
+      v66 = v45;
+      *v44 = 136315138;
 
-      v44 = Array.description.getter();
-      v46 = v45;
+      v46 = Array.description.getter();
+      v48 = v47;
 
-      v47 = sub_100006E44(v44, v46, &v64);
+      v49 = sub_100006E44(v46, v48, &v66);
 
-      *(v42 + 4) = v47;
-      _os_log_impl(&_mh_execute_header, v25, v41, "Unable to convert kern.bootsessionuuid value %s to ascii string.", v42, 0xCu);
-      sub_100003050(v43);
+      *(v44 + 4) = v49;
+      _os_log_impl(&_mh_execute_header, v27, v43, "Unable to convert kern.bootsessionuuid value %s to ascii string.", v44, 0xCu);
+      sub_100003050(v45);
 
       goto LABEL_13;
     }
 
-    v32 = v31;
-    v33 = v30;
+    v34 = v33;
+    v35 = v32;
     UUID.init(uuidString:)();
-    if ((*(v6 + 48))(v4, 1, v5) != 1)
+    if ((*(v7 + 48))(v5, 1, v6) != 1)
     {
-      v62 = a1;
+      v64 = a1;
 
-      v48 = *(v6 + 32);
-      v48(v12, v4, v5);
+      v50 = *(v7 + 32);
+      v50(v14, v5, v6);
       if (qword_100010838 != -1)
       {
         swift_once();
       }
 
-      v49 = type metadata accessor for Logger();
-      sub_100002DE0(v49, qword_100010A00);
-      (*(v6 + 16))(v10, v12, v5);
-      v50 = Logger.logObject.getter();
-      v51 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v50, v51))
+      v51 = type metadata accessor for Logger();
+      sub_100002DE0(v51, qword_100010A00);
+      (*(v7 + 16))(v11, v14, v6);
+      v52 = Logger.logObject.getter();
+      v53 = static os_log_type_t.default.getter();
+      if (os_log_type_enabled(v52, v53))
       {
-        v52 = swift_slowAlloc();
-        v59 = v52;
-        v60 = swift_slowAlloc();
-        v64 = v60;
-        *v52 = 136446210;
-        sub_1000090BC(&qword_100010C08, &type metadata accessor for UUID);
-        v53 = dispatch thunk of CustomStringConvertible.description.getter();
-        v61 = v48;
-        v55 = v54;
-        (*(v6 + 8))(v10, v5);
-        v56 = sub_100006E44(v53, v55, &v64);
-        v48 = v61;
+        v54 = swift_slowAlloc();
+        v61 = v54;
+        v62 = swift_slowAlloc();
+        v66 = v62;
+        *v54 = 136446210;
+        sub_1000090BC(&qword_100010C08, &type metadata accessor for UUID, &protocol conformance descriptor for UUID);
+        v55 = dispatch thunk of CustomStringConvertible.description.getter();
+        v63 = v50;
+        v57 = v56;
+        (*(v7 + 8))(v11, v6);
+        v58 = sub_100006E44(v55, v57, &v66);
+        v50 = v63;
 
-        v57 = v59;
-        *(v59 + 1) = v56;
-        _os_log_impl(&_mh_execute_header, v50, v51, "Boot session UUID is %{public}s", v57, 0xCu);
-        sub_100003050(v60);
+        v59 = v61;
+        *(v61 + 1) = v58;
+        _os_log_impl(&_mh_execute_header, v52, v53, "Boot session UUID is %{public}s", v59, 0xCu);
+        sub_100003050(v62);
       }
 
       else
       {
 
-        (*(v6 + 8))(v10, v5);
+        (*(v7 + 8))(v11, v6);
       }
 
-      a1 = v62;
-      v48(v62, v12, v5);
-      v39 = 0;
+      a1 = v64;
+      v50(v64, v14, v6);
+      v41 = 0;
       goto LABEL_22;
     }
 
-    sub_10000905C(v4, &unk_100010990, &qword_100009D48);
+    sub_10000905C(v5, &unk_100010990, &qword_100009D48);
     if (qword_100010838 != -1)
     {
       swift_once();
     }
 
-    v34 = type metadata accessor for Logger();
-    sub_100002DE0(v34, qword_100010A00);
+    v36 = type metadata accessor for Logger();
+    sub_100002DE0(v36, qword_100010A00);
 
-    v25 = Logger.logObject.getter();
-    v35 = static os_log_type_t.fault.getter();
+    v27 = Logger.logObject.getter();
+    v37 = static os_log_type_t.fault.getter();
 
-    if (os_log_type_enabled(v25, v35))
+    if (os_log_type_enabled(v27, v37))
     {
-      v36 = swift_slowAlloc();
-      v37 = swift_slowAlloc();
-      v64 = v37;
-      *v36 = 136446210;
-      v38 = sub_100006E44(v33, v32, &v64);
+      v38 = swift_slowAlloc();
+      v39 = swift_slowAlloc();
+      v66 = v39;
+      *v38 = 136446210;
+      v40 = sub_100006E44(v35, v34, &v66);
 
-      *(v36 + 4) = v38;
-      _os_log_impl(&_mh_execute_header, v25, v35, "Unable to convert kern.bootsessionuuid value %{public}s to UUID", v36, 0xCu);
-      sub_100003050(v37);
+      *(v38 + 4) = v40;
+      _os_log_impl(&_mh_execute_header, v27, v37, "Unable to convert kern.bootsessionuuid value %{public}s to UUID", v38, 0xCu);
+      sub_100003050(v39);
 
       goto LABEL_13;
     }
@@ -1824,29 +1796,29 @@ LABEL_20:
     goto LABEL_21;
   }
 
-  v18 = errno.getter();
-  result = strerror(v18);
+  v20 = errno.getter();
+  result = strerror(v20);
   if (result)
   {
-    v20 = String.init(utf8String:)();
-    if (v21)
+    v22 = String.init(utf8String:)();
+    if (v23)
     {
-      v22 = v20;
+      v24 = v22;
     }
 
     else
     {
-      v22 = 0x6E776F6E6B6E55;
+      v24 = 0x6E776F6E6B6E55;
     }
 
-    if (v21)
+    if (v23)
     {
-      v23 = v21;
+      v25 = v23;
     }
 
     else
     {
-      v23 = 0xE700000000000000;
+      v25 = 0xE700000000000000;
     }
 
     if (qword_100010838 != -1)
@@ -1854,33 +1826,33 @@ LABEL_20:
       swift_once();
     }
 
-    v24 = type metadata accessor for Logger();
-    sub_100002DE0(v24, qword_100010A00);
+    v26 = type metadata accessor for Logger();
+    sub_100002DE0(v26, qword_100010A00);
 
-    v25 = Logger.logObject.getter();
-    v26 = static os_log_type_t.fault.getter();
+    v27 = Logger.logObject.getter();
+    v28 = static os_log_type_t.fault.getter();
 
-    if (os_log_type_enabled(v25, v26))
+    if (os_log_type_enabled(v27, v28))
     {
-      v27 = swift_slowAlloc();
-      v28 = swift_slowAlloc();
-      v64 = v28;
-      *v27 = 67109378;
-      *(v27 + 4) = errno.getter();
-      *(v27 + 8) = 2082;
-      v29 = sub_100006E44(v22, v23, &v64);
+      v29 = swift_slowAlloc();
+      v30 = swift_slowAlloc();
+      v66 = v30;
+      *v29 = 67109378;
+      *(v29 + 4) = errno.getter();
+      *(v29 + 8) = 2082;
+      v31 = sub_100006E44(v24, v25, &v66);
 
-      *(v27 + 10) = v29;
-      _os_log_impl(&_mh_execute_header, v25, v26, "Error %d from sysctlbyname: %{public}s", v27, 0x12u);
-      sub_100003050(v28);
+      *(v29 + 10) = v31;
+      _os_log_impl(&_mh_execute_header, v27, v28, "Error %d from sysctlbyname: %{public}s", v29, 0x12u);
+      sub_100003050(v30);
 
 LABEL_13:
 
 LABEL_21:
 
-      v39 = 1;
+      v41 = 1;
 LABEL_22:
-      (*(v6 + 56))(a1, v39, 1, v5);
+      (*(v7 + 56))(a1, v41, 1, v6);
     }
 
     goto LABEL_20;
@@ -1894,8 +1866,7 @@ uint64_t sub_100006220(uint64_t a1, char *a2)
 {
   v4 = type metadata accessor for String.Encoding();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin();
+  __chkstk_darwin(v4, v6);
   v8 = &v21 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static String.Encoding.utf8.getter();
   v9 = static String.Encoding.== infix(_:_:)();
@@ -1995,20 +1966,18 @@ id sub_100006504()
   {
     v5 = swift_slowAlloc();
     v6 = swift_slowAlloc();
-    v13 = v6;
+    v11 = v6;
     *v5 = 136315138;
-    *(v5 + 4) = sub_100006E44(*&v2[OBJC_IVAR____TtC21automationmode_writer6Writer_noAuthRequiredFilePath], *&v2[OBJC_IVAR____TtC21automationmode_writer6Writer_noAuthRequiredFilePath + 8], &v13);
+    *(v5 + 4) = sub_100006E44(*&v2[OBJC_IVAR____TtC21automationmode_writer6Writer_noAuthRequiredFilePath], *&v2[OBJC_IVAR____TtC21automationmode_writer6Writer_noAuthRequiredFilePath + 8], &v11);
     _os_log_impl(&_mh_execute_header, v3, v4, "Checking for '%s'", v5, 0xCu);
     sub_100003050(v6);
   }
 
   v7 = [objc_opt_self() defaultManager];
-  v8 = *&v2[OBJC_IVAR____TtC21automationmode_writer6Writer_noAuthRequiredFilePath];
-  v9 = *&v2[OBJC_IVAR____TtC21automationmode_writer6Writer_noAuthRequiredFilePath + 8];
-  v10 = String._bridgeToObjectiveC()();
-  v11 = [v7 fileExistsAtPath:v10];
+  v8 = String._bridgeToObjectiveC()();
+  v9 = [v7 fileExistsAtPath:v8];
 
-  return v11;
+  return v9;
 }
 
 uint64_t sub_1000066A8()
@@ -2115,8 +2084,7 @@ LABEL_12:
 uint64_t sub_100006A70(uint64_t a1, void (*a2)(uint64_t), uint64_t a3, uint64_t a4)
 {
   v7 = sub_100002E7C(&unk_100010990, &qword_100009D48);
-  v8 = *(*(v7 - 8) + 64);
-  __chkstk_darwin(v7 - 8);
+  __chkstk_darwin(v7 - 8, v8);
   v10 = &v20 - v9;
   if (a1)
   {
@@ -2196,7 +2164,7 @@ LABEL_6:
   return result;
 }
 
-uint64_t sub_100006E44(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_100006E44(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_100006F10(v11, 0, 0, 1, a1, a2);
@@ -2296,11 +2264,9 @@ LABEL_8:
 
 char *sub_10000701C(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_100007068(a1, a2);
+  v3 = sub_100007068(a1, a2);
   sub_100007198(&off_10000C608);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_100007068(uint64_t a1, unint64_t a2)
@@ -2400,7 +2366,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -2414,15 +2379,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_1000072F8(result, v12, 1, v3);
+  result = sub_1000072F8(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -2437,15 +2402,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -2454,12 +2419,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -2569,12 +2534,11 @@ char *sub_1000072F8(char *result, int64_t a2, char a3, char *a4)
 
 unint64_t sub_1000073EC(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v6 = Hasher._finalize()();
+  v4 = Hasher._finalize()();
 
-  return sub_1000074A8(a1, a2, v6);
+  return sub_1000074A8(a1, a2, v4);
 }
 
 unint64_t sub_100007464(uint64_t a1)
@@ -2640,7 +2604,7 @@ unint64_t sub_100007560(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-BOOL sub_100007628(uint64_t a1, uint64_t a2)
+BOOL sub_100007628(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if ((a2 & 0x1000000000000000) == 0)
   {
@@ -2656,12 +2620,12 @@ BOOL sub_100007628(uint64_t a1, uint64_t a2)
 
     if ((a1 & 0x1000000000000000) != 0)
     {
-      v3 = *((a2 & 0xFFFFFFFFFFFFFFFLL) + 0x20);
-      if (v3 >= 0x21 || ((0x100003E01uLL >> v3) & 1) == 0)
+      v4 = *((a2 & 0xFFFFFFFFFFFFFFFLL) + 0x20);
+      if (v4 >= 0x21 || ((0x100003E01uLL >> v4) & 1) == 0)
       {
 LABEL_10:
-        v5 = _swift_stdlib_strtod_clocale();
-        return v5 && *v5 == 0;
+        v6 = _swift_stdlib_strtod_clocale();
+        return v6 && *v6 == 0;
       }
 
       return 0;
@@ -2669,12 +2633,12 @@ LABEL_10:
   }
 
   _StringGuts._slowWithCString<A>(_:)();
-  if (!v2)
+  if (!v3)
   {
-    return v7;
+    return v8;
   }
 
-  return v4;
+  return v5;
 }
 
 NSString sub_100007720()
@@ -2684,15 +2648,12 @@ NSString sub_100007720()
   v2 = [v1 environment];
 
   v3 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-  if (*(v3 + 16) && (v4 = sub_1000073EC(0xD00000000000002ELL, 0x800000010000A1D0), (v5 & 1) != 0))
+  if (*(v3 + 16) && (sub_1000073EC(0xD00000000000002ELL, 0x800000010000A1D0), (v4 & 1) != 0))
   {
-    v6 = (*(v3 + 56) + 16 * v4);
-    v7 = *v6;
-    v8 = v6[1];
 
-    v9 = String._bridgeToObjectiveC()();
+    v5 = String._bridgeToObjectiveC()();
 
-    return v9;
+    return v5;
   }
 
   else
@@ -3020,13 +2981,11 @@ void sub_1000083A8(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for String.Encoding();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4);
+  __chkstk_darwin(v4, v6);
   v8 = &v33 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   v9 = type metadata accessor for URL();
   v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
+  __chkstk_darwin(v9, v11);
   v13 = &v33 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (sub_1000080D8())
   {
@@ -3111,8 +3070,7 @@ void sub_10000888C(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for URL();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4);
+  __chkstk_darwin(v4, v6);
   v8 = &v37 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (sub_1000080D8())
   {
@@ -3213,12 +3171,11 @@ uint64_t sub_100008D30(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_100008D90(uint64_t a1, unint64_t *a2, uint64_t *a3)
+uint64_t sub_100008D90(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
   {
-    v5 = *a3;
     objc_opt_self();
     result = swift_getObjCClassMetadata();
     atomic_store(result, a2);
@@ -3239,13 +3196,13 @@ unint64_t sub_100008DD8()
   return result;
 }
 
-uint64_t sub_100008E2C(uint64_t a1, unint64_t a2)
+uint64_t sub_100008E2C(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -3259,7 +3216,6 @@ uint64_t sub_100008E80()
 
 uint64_t sub_100008ED0()
 {
-  v1 = *(v0 + 24);
 
   return _swift_deallocObject(v0, 40, 7);
 }
@@ -3293,7 +3249,7 @@ uint64_t sub_10000905C(uint64_t a1, uint64_t *a2, uint64_t *a3)
   return a1;
 }
 
-uint64_t sub_1000090BC(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_1000090BC(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -3308,24 +3264,23 @@ uint64_t sub_1000090BC(unint64_t *a1, void (*a2)(uint64_t))
 
 _BYTE *sub_100009104@<X0>(_BYTE *result@<X0>, BOOL *a2@<X8>)
 {
-  v3 = *result;
-  v4 = v3 > 0x20;
-  v5 = (1 << v3) & 0x100003E01;
-  if (v4 || v5 == 0)
+  v2 = *result;
+  v3 = v2 > 0x20;
+  v4 = (1 << v2) & 0x100003E01;
+  if (v3 || v4 == 0)
   {
-    v8 = *(v2 + 16);
     result = _swift_stdlib_strtod_clocale();
     if (result)
     {
-      v9 = *result == 0;
+      v7 = *result == 0;
     }
 
     else
     {
-      v9 = 0;
+      v7 = 0;
     }
 
-    *a2 = v9;
+    *a2 = v7;
   }
 
   else

@@ -14,6 +14,7 @@
 - (void)encodeWithCoder:(id)coder;
 - (void)removeJournalAfterNotificationFence;
 - (void)removeJournalFile;
+- (void)sendNotification:(int)notification forApps:(id)apps withPlugins:(BOOL)plugins options:(id)options;
 - (void)setPrimaryBundleID:(id)d;
 - (void)shouldExpectEntityToExist;
 - (void)writeFinalJournal;
@@ -24,11 +25,9 @@
 
 + (void)createInstallJournalDirectoryIfRequired
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_9_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (_LSInstallNotificationJournaller)initWithCoder:(id)coder
@@ -125,7 +124,7 @@
   installOperation = [(_LSInstallNotificationJournaller *)self installOperation];
   if (installOperation >= 9)
   {
-    v5 = _LSInstallLog();
+    v5 = _LSInstallLog(installOperation);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [(_LSInstallNotificationJournaller *)self shouldExpectEntityToExist];
@@ -176,7 +175,7 @@
   result = 1;
   if ((!shouldExpectEntityToExist | v5) == 1 && (shouldExpectEntityToExist || v7))
   {
-    v9 = _LSInstallLog();
+    v9 = _LSInstallLog(1);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
       [(_LSInstallNotificationJournaller *)shouldExpectEntityToExist applicableForCurrentDatabase];
@@ -190,18 +189,16 @@
 
 - (id)synthesizedPreliminaryJournalledNotifications
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v3 = [(_LSInstallNotificationJournaller *)self installOperation]== 8;
   v4 = [_LSInstallProgressService notificationTypeForOperation:[(_LSInstallNotificationJournaller *)self installOperation]];
   v5 = [_LSJournalledNotification alloc];
   primaryBundleID = [(_LSInstallNotificationJournaller *)self primaryBundleID];
-  v12 = primaryBundleID;
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v12 count:1];
+  v11 = primaryBundleID;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v11 count:1];
   v8 = [(_LSJournalledNotification *)v5 initWithNotification:v4 bundleIDs:v7 plugins:v3 options:0];
-  v13[0] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v12[0] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
 
   return v9;
 }
@@ -223,9 +220,9 @@
 
 - (id)journalURL
 {
-  installJournalDirectoryURL = [__LSDefaultsGetSharedInstance() installJournalDirectoryURL];
+  v3 = [__LSDefaultsGetSharedInstance(self a2)];
   v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@.%f.%d", self->_primaryBundleID, *&self->_timestamp, self->_operationType];
-  v5 = [installJournalDirectoryURL URLByAppendingPathComponent:v4];
+  v5 = [v3 URLByAppendingPathComponent:v4];
   v6 = [v5 URLByAppendingPathExtension:@"notejournal"];
 
   return v6;
@@ -233,22 +230,17 @@
 
 - (void)removeJournalFile
 {
-  v7 = *MEMORY[0x1E69E9840];
   journalURL = [self journalURL];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_20();
   _os_log_fault_impl(v2, v3, OS_LOG_TYPE_FAULT, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_writeJournalUnconditionally
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_9_0();
   _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)writePreliminaryJournal
@@ -259,30 +251,30 @@
 
 - (void)writeFinalJournal
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   primaryBundleID = self->_primaryBundleID;
-  v4 = _LSInstallLog();
+  v4 = _LSInstallLog(self);
   v5 = v4;
   if (primaryBundleID)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v6 = self->_primaryBundleID;
-      v10 = 138412290;
-      v11 = v6;
-      _os_log_impl(&dword_18162D000, v5, OS_LOG_TYPE_INFO, "writing final journal for %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v6;
+      _os_log_impl(&dword_18162D000, v5, OS_LOG_TYPE_INFO, "writing final journal for %@", &v9, 0xCu);
     }
 
     self->_preliminary = 0;
     if (![(NSMutableArray *)self->_journalledNotifications count])
     {
-      v7 = _LSInstallLog();
+      v7 = _LSInstallLog(0);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v8 = self->_primaryBundleID;
-        v10 = 138412290;
-        v11 = v8;
-        _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "journal for %@ had no logs but was the final journal... that's suspicious.", &v10, 0xCu);
+        v9 = 138412290;
+        v10 = v8;
+        _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "journal for %@ had no logs but was the final journal... that's suspicious.", &v9, 0xCu);
       }
     }
 
@@ -293,20 +285,18 @@
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_18162D000, v5, OS_LOG_TYPE_DEFAULT, "not writing final journal for install operation with no known bundle ID.", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_18162D000, v5, OS_LOG_TYPE_DEFAULT, "not writing final journal for install operation with no known bundle ID.", &v9, 2u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setPrimaryBundleID:(id)d
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   dCopy = d;
   primaryBundleID = self->_primaryBundleID;
-  v6 = _LSInstallLog();
+  v6 = _LSInstallLog(dCopy);
   v7 = v6;
   if (primaryBundleID)
   {
@@ -320,17 +310,15 @@
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = dCopy;
-      _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "Setting bundleID of journaller to %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = dCopy;
+      _os_log_impl(&dword_18162D000, v7, OS_LOG_TYPE_DEFAULT, "Setting bundleID of journaller to %@", &v9, 0xCu);
     }
 
     v8 = [dCopy copy];
     v7 = self->_primaryBundleID;
     self->_primaryBundleID = v8;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeJournalAfterNotificationFence
@@ -347,25 +335,38 @@
   [v4 addSendNotificationFenceWithTimeout:v6 fenceBlock:60.0];
 }
 
+- (void)sendNotification:(int)notification forApps:(id)apps withPlugins:(BOOL)plugins options:(id)options
+{
+  pluginsCopy = plugins;
+  v8 = *&notification;
+  appsCopy = apps;
+  optionsCopy = options;
+  if ([objc_opt_class() shouldJournalNotificationType:v8])
+  {
+    v11 = [[_LSJournalledNotification alloc] initWithNotification:v8 bundleIDs:appsCopy plugins:pluginsCopy options:optionsCopy];
+    [(NSMutableArray *)self->_journalledNotifications addObject:v11];
+  }
+
+  v12 = +[_LSInstallProgressService sharedInstance];
+  [v12 sendNotification:v8 forApps:appsCopy withPlugins:pluginsCopy completion:0];
+}
+
 - (void)shouldExpectEntityToExist
 {
-  v6 = *MEMORY[0x1E69E9840];
   [self installOperation];
   OUTLINED_FUNCTION_4_0();
   OUTLINED_FUNCTION_20();
   _os_log_fault_impl(v1, v2, OS_LOG_TYPE_FAULT, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)applicableForCurrentDatabase
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 67109376;
-  v4[1] = self & 1;
-  v5 = 1024;
-  v6 = a2 & 1;
-  _os_log_fault_impl(&dword_18162D000, log, OS_LOG_TYPE_FAULT, "Unreachable code reached. This is a bug. %d %d", v4, 0xEu);
-  v3 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109376;
+  v3[1] = self & 1;
+  v4 = 1024;
+  v5 = a2 & 1;
+  _os_log_fault_impl(&dword_18162D000, log, OS_LOG_TYPE_FAULT, "Unreachable code reached. This is a bug. %d %d", v3, 0xEu);
 }
 
 @end

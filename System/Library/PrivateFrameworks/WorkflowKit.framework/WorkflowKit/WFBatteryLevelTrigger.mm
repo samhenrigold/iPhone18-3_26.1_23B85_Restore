@@ -75,7 +75,7 @@
 
 - (id)localizedPastTenseDescription
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ADA0];
   v4 = MEMORY[0x1E696AD98];
   *&v5 = [(WFBatteryLevelTrigger *)self level]/ 100.0;
@@ -107,8 +107,8 @@ LABEL_7:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v17 = "[WFBatteryLevelTrigger localizedPastTenseDescription]";
-    v18 = 2114;
+    v16 = "[WFBatteryLevelTrigger localizedPastTenseDescription]";
+    v17 = 2114;
     selfCopy = self;
     _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", buf, 0x16u);
   }
@@ -116,14 +116,12 @@ LABEL_7:
   v12 = &stru_1F4A1C408;
 LABEL_11:
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (id)localizedDescriptionWithConfigurationSummary
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ADA0];
   v4 = MEMORY[0x1E696AD98];
   *&v5 = [(WFBatteryLevelTrigger *)self level]/ 100.0;
@@ -155,16 +153,14 @@ LABEL_7:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315394;
-    v17 = "[WFBatteryLevelTrigger localizedDescriptionWithConfigurationSummary]";
-    v18 = 2114;
+    v16 = "[WFBatteryLevelTrigger localizedDescriptionWithConfigurationSummary]";
+    v17 = 2114;
     selfCopy = self;
     _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_FAULT, "%s Invalid config for %{public}@", buf, 0x16u);
   }
 
   v12 = &stru_1F4A1C408;
 LABEL_11:
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -208,14 +204,12 @@ LABEL_11:
 
 + (id)displayGlyphHierarchicalColors
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E69E09E0] colorWithSystemColor:1];
-  v7[0] = v2;
+  v6[0] = v2;
   batteryOutlineColor = [MEMORY[0x1E69E09E0] batteryOutlineColor];
-  v7[1] = batteryOutlineColor;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = batteryOutlineColor;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }

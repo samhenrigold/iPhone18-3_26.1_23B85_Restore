@@ -3,54 +3,62 @@
 - (BOOL)hasRequiredFields;
 - (BOOL)parsePayloadData:(id)data;
 - (NEIKEv2Payload)init;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (uint64_t)isValid;
 - (void)setPayloadSubHeader:(uint64_t)header;
 @end
 
 @implementation NEIKEv2Payload
 
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  typeDescription = [(NEIKEv2Payload *)self typeDescription];
+  [v7 appendPrettyObject:typeDescription withName:@"Payload Type" andIndent:v5 options:options];
+
+  return v7;
+}
+
 - (BOOL)parsePayloadData:(id)data
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v7 = 138412290;
+    v6 = 138412290;
     selfCopy = self;
-    _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "Cannot parse payload data for %@", &v7, 0xCu);
+    _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "Cannot parse payload data for %@", &v6, 0xCu);
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (BOOL)generatePayloadData
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = ne_log_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
+    v5 = 138412290;
     selfCopy = self;
-    _os_log_error_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_ERROR, "Cannot generate payload data for %@", &v6, 0xCu);
+    _os_log_error_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_ERROR, "Cannot generate payload data for %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
 - (BOOL)hasRequiredFields
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = ne_log_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
+    v5 = 138412290;
     selfCopy = self;
-    _os_log_error_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_ERROR, "Cannot check for required fields on generic payload %@", &v6, 0xCu);
+    _os_log_error_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_ERROR, "Cannot check for required fields on generic payload %@", &v5, 0xCu);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -105,7 +113,7 @@ LABEL_6:
 
 - (uint64_t)isValid
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v1 = result;
@@ -113,30 +121,26 @@ LABEL_6:
     {
       if ([result hasRequiredFields])
       {
-LABEL_4:
-        result = 1;
-        goto LABEL_9;
+        return 1;
       }
     }
 
     else if ([result generatePayloadData])
     {
-      goto LABEL_4;
+      return 1;
     }
 
     v2 = ne_log_obj();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v4 = 138412290;
-      v5 = v1;
-      _os_log_error_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_ERROR, "Failed to validate %@", &v4, 0xCu);
+      v3 = 138412290;
+      v4 = v1;
+      _os_log_error_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_ERROR, "Failed to validate %@", &v3, 0xCu);
     }
 
-    result = 0;
+    return 0;
   }
 
-LABEL_9:
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 

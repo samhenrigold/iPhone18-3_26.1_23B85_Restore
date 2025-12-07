@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)roleAsString:(int)string;
 - (int)StringAsRole:(id)role;
 - (int)role;
 - (unint64_t)hash;
@@ -55,18 +56,28 @@ LABEL_9:
   v9 = *(v5 + 3);
   if (surroundSystem)
   {
-    if (v9)
+    if (!v9)
     {
-      [(HMMediaGroupProtoSurroundSystemRoles *)surroundSystem mergeFrom:?];
+      goto LABEL_15;
     }
+
+    surroundSystem = [(HMMediaGroupProtoSurroundSystemRoles *)surroundSystem mergeFrom:?];
   }
 
-  else if (v9)
+  else
   {
-    [(HMMediaGroupProtoMediaGroupRole *)self setSurroundSystem:?];
+    if (!v9)
+    {
+      goto LABEL_15;
+    }
+
+    surroundSystem = [(HMMediaGroupProtoMediaGroupRole *)self setSurroundSystem:?];
   }
 
-  MEMORY[0x1EEE66BB8]();
+  v5 = v10;
+LABEL_15:
+
+  MEMORY[0x1EEE66BB8](surroundSystem, v5);
 }
 
 - (unint64_t)hash
@@ -93,7 +104,6 @@ LABEL_9:
     goto LABEL_11;
   }
 
-  v5 = *(equalCopy + 32);
   if (*&self->_has)
   {
     if ((*(equalCopy + 32) & 1) == 0 || self->_role != *(equalCopy + 4))
@@ -105,7 +115,7 @@ LABEL_9:
   else if (*(equalCopy + 32))
   {
 LABEL_11:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_12;
   }
 
@@ -118,17 +128,17 @@ LABEL_11:
   surroundSystem = self->_surroundSystem;
   if (surroundSystem | *(equalCopy + 3))
   {
-    v8 = [(HMMediaGroupProtoSurroundSystemRoles *)surroundSystem isEqual:?];
+    v7 = [(HMMediaGroupProtoSurroundSystemRoles *)surroundSystem isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_12:
 
-  return v8;
+  return v7;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -272,6 +282,21 @@ LABEL_12:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)roleAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7546988[string];
   }
 
   return v4;

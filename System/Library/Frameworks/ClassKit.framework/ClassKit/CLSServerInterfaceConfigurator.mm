@@ -29,10 +29,10 @@
 
 - (CLSServerInterfaceConfigurator)init
 {
-  v17[1] = *MEMORY[0x277D85DE8];
-  v16.receiver = self;
-  v16.super_class = CLSServerInterfaceConfigurator;
-  v3 = [(CLSServerInterfaceConfigurator *)&v16 init];
+  v16[1] = *MEMORY[0x277D85DE8];
+  v15.receiver = self;
+  v15.super_class = CLSServerInterfaceConfigurator;
+  v3 = [(CLSServerInterfaceConfigurator *)&v15 init];
   if (v3)
   {
     v4 = objc_msgSend_interfaceWithProtocol_(MEMORY[0x277CCAE90], v2, &unk_284A33358);
@@ -44,14 +44,13 @@
     v3->_contextsSet = v6;
 
     v8 = MEMORY[0x277CBEB98];
-    v17[0] = objc_opt_class();
-    v10 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v9, v17, 1);
+    v16[0] = objc_opt_class();
+    v10 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v9, v16, 1);
     v12 = objc_msgSend_setWithArray_(v8, v11, v10);
     arraySet = v3->_arraySet;
     v3->_arraySet = v12;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -98,17 +97,16 @@
 
 - (void)configureRosterQueryAPI
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = ManagedOrganizationContactsQueryResponse();
   objc_msgSend_setInterface_forSelector_argumentIndex_ofReply_(self->_interface, v4, v3, sel_remote_executeRosterQuery_executeQuery_completion_, 0, 0);
   v5 = MEMORY[0x277CBEB98];
-  v12[0] = objc_opt_class();
-  v12[1] = objc_opt_class();
-  v7 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v6, v12, 2);
+  v11[0] = objc_opt_class();
+  v11[1] = objc_opt_class();
+  v7 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v6, v11, 2);
   v9 = objc_msgSend_setWithArray_(v5, v8, v7);
 
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(self->_interface, v10, v9, sel_remote_executeRosterQuery_executeQuery_completion_, 1, 0);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureSaveAPI
@@ -134,7 +132,7 @@
 
 - (void)configureContextAPI
 {
-  v41[2] = *MEMORY[0x277D85DE8];
+  v40[2] = *MEMORY[0x277D85DE8];
   interface = self->_interface;
   v4 = MEMORY[0x277CBEB98];
   v5 = objc_opt_class();
@@ -151,9 +149,9 @@
 
   v17 = self->_interface;
   v18 = MEMORY[0x277CBEB98];
-  v41[0] = objc_opt_class();
-  v41[1] = objc_opt_class();
-  v20 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v19, v41, 2);
+  v40[0] = objc_opt_class();
+  v40[1] = objc_opt_class();
+  v20 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v19, v40, 2);
   v22 = objc_msgSend_setWithArray_(v18, v21, v20);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v17, v23, v22, sel_remote_contextsMatchingIdentifierPath_parentContextID_completion_, 0, 0);
 
@@ -173,7 +171,6 @@
   v37 = self->_interface;
   v38 = objc_opt_class();
   objc_msgSend_setClass_forSelector_argumentIndex_ofReply_(v37, v39, v38, sel_remote_deleteThumbnailBlobForContextID_completion_, 0, 0);
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureProgressReportingAPI
@@ -237,7 +234,7 @@
 
 - (void)configureAppsAPI
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   interface = self->_interface;
   v4 = objc_opt_class();
   objc_msgSend_setClass_forSelector_argumentIndex_ofReply_(interface, v5, v4, sel_remote_setOverrideBundleIdentifier_completion_, 0, 0);
@@ -246,17 +243,16 @@
   objc_msgSend_setClass_forSelector_argumentIndex_ofReply_(v6, v8, v7, sel_remote_deleteAppWithBundleIdentifier_completion_, 0, 0);
   v9 = self->_interface;
   v10 = MEMORY[0x277CBEB98];
+  v19 = objc_opt_class();
   v20 = objc_opt_class();
   v21 = objc_opt_class();
-  v22 = objc_opt_class();
-  v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v11, &v20, 3);
-  v14 = objc_msgSend_setWithArray_(v10, v13, v12, v20, v21);
+  v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v11, &v19, 3);
+  v14 = objc_msgSend_setWithArray_(v10, v13, v12, v19, v20);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v9, v15, v14, sel_remote_listAppsWithCompletion_, 0, 1);
 
   v16 = self->_interface;
   v17 = objc_opt_class();
   objc_msgSend_setClass_forSelector_argumentIndex_ofReply_(v16, v18, v17, sel_remote_listAppsWithCompletion_, 1, 1);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureUserNotificationAPI
@@ -290,18 +286,18 @@
 
 - (void)configureUtilityServerAPI
 {
-  v55[4] = *MEMORY[0x277D85DE8];
-  v53 = objc_msgSend_classesForSelector_argumentIndex_ofReply_(self->_interface, a2, sel_remote_statusWithCompletion_, 0, 1);
+  v54[4] = *MEMORY[0x277D85DE8];
+  v52 = objc_msgSend_classesForSelector_argumentIndex_ofReply_(self->_interface, a2, sel_remote_statusWithCompletion_, 0, 1);
   v3 = objc_opt_class();
-  v5 = objc_msgSend_setByAddingObject_(v53, v4, v3);
+  v5 = objc_msgSend_setByAddingObject_(v52, v4, v3);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(self->_interface, v6, v5, sel_remote_statusWithCompletion_, 0, 1);
   interface = self->_interface;
   v8 = MEMORY[0x277CBEB98];
-  v55[0] = objc_opt_class();
-  v55[1] = objc_opt_class();
-  v55[2] = objc_opt_class();
-  v55[3] = objc_opt_class();
-  v10 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v9, v55, 4);
+  v54[0] = objc_opt_class();
+  v54[1] = objc_opt_class();
+  v54[2] = objc_opt_class();
+  v54[3] = objc_opt_class();
+  v10 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v9, v54, 4);
   v12 = objc_msgSend_setWithArray_(v8, v11, v10);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(interface, v13, v12, sel_remote_syncStatsWithCompletion_, 0, 1);
 
@@ -329,9 +325,9 @@
   objc_msgSend_setClass_forSelector_argumentIndex_ofReply_(v33, v35, v34, sel_remote_addOrganization_withLocations_completion_, 0, 0);
   v36 = self->_interface;
   v37 = MEMORY[0x277CBEB98];
-  v54[0] = objc_opt_class();
-  v54[1] = objc_opt_class();
-  v39 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v38, v54, 2);
+  v53[0] = objc_opt_class();
+  v53[1] = objc_opt_class();
+  v39 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v38, v53, 2);
   v41 = objc_msgSend_setWithArray_(v37, v40, v39);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v36, v42, v41, sel_remote_addOrganization_withLocations_completion_, 1, 0);
 
@@ -344,34 +340,32 @@
   v49 = self->_interface;
   v50 = objc_opt_class();
   objc_msgSend_setClass_forSelector_argumentIndex_ofReply_(v49, v51, v50, sel_remote_deleteOrganization_completion_, 0, 0);
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureAuthorizationStatusAPI
 {
-  v63[2] = *MEMORY[0x277D85DE8];
+  v62[2] = *MEMORY[0x277D85DE8];
   interface = self->_interface;
   v4 = MEMORY[0x277CBEB98];
-  v63[0] = objc_opt_class();
-  v63[1] = objc_opt_class();
-  v6 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v5, v63, 2);
+  v62[0] = objc_opt_class();
+  v62[1] = objc_opt_class();
+  v6 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v5, v62, 2);
   v8 = objc_msgSend_setWithArray_(v4, v7, v6);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(interface, v9, v8, sel_remote_addAuthorizationStatus_forContextAtPath_completion_, 1, 0);
 
   v10 = self->_interface;
   v11 = MEMORY[0x277CBEB98];
-  v62[0] = objc_opt_class();
-  v62[1] = objc_opt_class();
-  v13 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v12, v62, 2);
+  v61[0] = objc_opt_class();
+  v61[1] = objc_opt_class();
+  v13 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v12, v61, 2);
   v15 = objc_msgSend_setWithArray_(v11, v14, v13);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v10, v16, v15, sel_remote_removeAuthorizationStatus_forContextAtPath_completion_, 1, 0);
 
   v17 = self->_interface;
   v18 = MEMORY[0x277CBEB98];
-  v61[0] = objc_opt_class();
-  v61[1] = objc_opt_class();
-  v20 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v19, v61, 2);
+  v60[0] = objc_opt_class();
+  v60[1] = objc_opt_class();
+  v20 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v19, v60, 2);
   v22 = objc_msgSend_setWithArray_(v18, v21, v20);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v17, v23, v22, sel_remote_authorizationStatusForContextAtPath_completion_, 0, 0);
 
@@ -386,17 +380,17 @@
   objc_msgSend_setClass_forSelector_argumentIndex_ofReply_(v30, v32, v31, sel_remote_authorizationStatusForHandoutAssignedItem_completion_, 0, 1);
   v33 = self->_interface;
   v34 = MEMORY[0x277CBEB98];
-  v60[0] = objc_opt_class();
-  v60[1] = objc_opt_class();
-  v36 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v35, v60, 2);
+  v59[0] = objc_opt_class();
+  v59[1] = objc_opt_class();
+  v36 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v35, v59, 2);
   v38 = objc_msgSend_setWithArray_(v34, v37, v36);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v33, v39, v38, sel_remote_addAuthorizationStatus_forHandoutAssignedItem_completion_, 1, 0);
 
   v40 = self->_interface;
   v41 = MEMORY[0x277CBEB98];
-  v59[0] = objc_opt_class();
-  v59[1] = objc_opt_class();
-  v43 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v42, v59, 2);
+  v58[0] = objc_opt_class();
+  v58[1] = objc_opt_class();
+  v43 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v42, v58, 2);
   v45 = objc_msgSend_setWithArray_(v41, v44, v43);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v40, v46, v45, sel_remote_removeAuthorizationStatus_forHandoutAssignedItem_completion_, 1, 0);
 
@@ -405,13 +399,11 @@
   objc_msgSend_setClass_forSelector_argumentIndex_ofReply_(v47, v49, v48, sel_remote_authTreeWithCompletion_, 0, 1);
   v50 = self->_interface;
   v51 = MEMORY[0x277CBEB98];
-  v58[0] = objc_opt_class();
-  v58[1] = objc_opt_class();
-  v53 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v52, v58, 2);
+  v57[0] = objc_opt_class();
+  v57[1] = objc_opt_class();
+  v53 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v52, v57, 2);
   v55 = objc_msgSend_setWithArray_(v51, v54, v53);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v50, v56, v55, sel_remote_authTreeForAttachment_withCompletion_, 0, 1);
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureHandoutAPI
@@ -501,29 +493,29 @@
 
 - (void)configureStudentActivityAPI
 {
-  v69[2] = *MEMORY[0x277D85DE8];
+  v68[2] = *MEMORY[0x277D85DE8];
   interface = self->_interface;
   v4 = MEMORY[0x277CBEB98];
-  v69[0] = objc_opt_class();
-  v69[1] = objc_opt_class();
-  v6 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v5, v69, 2);
+  v68[0] = objc_opt_class();
+  v68[1] = objc_opt_class();
+  v6 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v5, v68, 2);
   v8 = objc_msgSend_setWithArray_(v4, v7, v6);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(interface, v9, v8, sel_remote_studentActivityForAttachmentsWithIDs_completion_, 0, 0);
 
   v10 = self->_interface;
   v11 = MEMORY[0x277CBEB98];
-  v68[0] = objc_opt_class();
-  v68[1] = objc_opt_class();
-  v68[2] = objc_opt_class();
-  v13 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v12, v68, 3);
+  v67[0] = objc_opt_class();
+  v67[1] = objc_opt_class();
+  v67[2] = objc_opt_class();
+  v13 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v12, v67, 3);
   v15 = objc_msgSend_setWithArray_(v11, v14, v13);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v10, v16, v15, sel_remote_studentActivityForAttachmentsWithIDs_completion_, 0, 1);
 
   v17 = self->_interface;
   v18 = MEMORY[0x277CBEB98];
-  v67[0] = objc_opt_class();
-  v67[1] = objc_opt_class();
-  v20 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v19, v67, 2);
+  v66[0] = objc_opt_class();
+  v66[1] = objc_opt_class();
+  v20 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v19, v66, 2);
   v22 = objc_msgSend_setWithArray_(v18, v21, v20);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v17, v23, v22, sel_remote_fetchAndCompleteActiveAssignedActivitiesForContextPath_withCompletion_, 0, 0);
 
@@ -539,10 +531,10 @@
   objc_msgSend_setClass_forSelector_argumentIndex_ofReply_(v31, v33, v32, sel_remote_fetchHandoutAttachmentForDocumentURL_withCompletion_, 0, 0);
   v34 = self->_interface;
   v35 = MEMORY[0x277CBEB98];
-  v66[0] = objc_opt_class();
-  v66[1] = objc_opt_class();
-  v37 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v36, v66, 2);
-  v39 = objc_msgSend_setWithArray_(v35, v38, v37, v66[0]);
+  v65[0] = objc_opt_class();
+  v65[1] = objc_opt_class();
+  v37 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v36, v65, 2);
+  v39 = objc_msgSend_setWithArray_(v35, v38, v37, v65[0]);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v34, v40, v39, sel_remote_fetchHandoutAttachmentForDocumentURL_withCompletion_, 0, 1);
 
   v41 = self->_interface;
@@ -569,12 +561,11 @@
   v62 = self->_interface;
   v63 = objc_opt_class();
   objc_msgSend_setClass_forSelector_argumentIndex_ofReply_(v62, v64, v63, sel_remote_currentUserIsStudent_, 0, 1);
-  v65 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureFeatureAvailabilityAPI
 {
-  v39[3] = *MEMORY[0x277D85DE8];
+  v38[3] = *MEMORY[0x277D85DE8];
   interface = self->_interface;
   v4 = objc_opt_class();
   objc_msgSend_setClass_forSelector_argumentIndex_ofReply_(interface, v5, v4, sel_remote_featureIsEnabled_completion_, 0, 0);
@@ -583,10 +574,10 @@
   objc_msgSend_setClass_forSelector_argumentIndex_ofReply_(v6, v8, v7, sel_remote_featureIsEnabled_completion_, 0, 1);
   v9 = self->_interface;
   v10 = MEMORY[0x277CBEB98];
-  v39[0] = objc_opt_class();
-  v39[1] = objc_opt_class();
-  v39[2] = objc_opt_class();
-  v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v11, v39, 3);
+  v38[0] = objc_opt_class();
+  v38[1] = objc_opt_class();
+  v38[2] = objc_opt_class();
+  v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v11, v38, 3);
   v14 = objc_msgSend_setWithArray_(v10, v13, v12);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v9, v15, v14, sel_remote_getUserDefaultsConfigurationDictionaryWithCompletion_, 0, 1);
 
@@ -595,29 +586,28 @@
   objc_msgSend_setClass_forSelector_argumentIndex_ofReply_(v16, v18, v17, sel_remote_getUserDefaultForDefaultNamed_completion_, 0, 0);
   v19 = self->_interface;
   v20 = MEMORY[0x277CBEB98];
-  v38[0] = objc_opt_class();
-  v38[1] = objc_opt_class();
-  v22 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v21, v38, 2);
+  v37[0] = objc_opt_class();
+  v37[1] = objc_opt_class();
+  v22 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v21, v37, 2);
   v24 = objc_msgSend_setWithArray_(v20, v23, v22);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v19, v25, v24, sel_remote_getUserDefaultForDefaultNamed_completion_, 0, 1);
 
   v26 = self->_interface;
   v27 = MEMORY[0x277CBEB98];
-  v37[0] = objc_opt_class();
-  v37[1] = objc_opt_class();
-  v29 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v28, v37, 2);
-  v31 = objc_msgSend_setWithArray_(v27, v30, v29, v37[0]);
+  v36[0] = objc_opt_class();
+  v36[1] = objc_opt_class();
+  v29 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v28, v36, 2);
+  v31 = objc_msgSend_setWithArray_(v27, v30, v29, v36[0]);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v26, v32, v31, sel_remote_setUserDefaultValue_forDefaultNamed_completion_, 0, 0);
 
   v33 = self->_interface;
   v34 = objc_opt_class();
   objc_msgSend_setClass_forSelector_argumentIndex_ofReply_(v33, v35, v34, sel_remote_setUserDefaultValue_forDefaultNamed_completion_, 1, 0);
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureAssetSupportAPI
 {
-  v137[5] = *MEMORY[0x277D85DE8];
+  v136[5] = *MEMORY[0x277D85DE8];
   interface = self->_interface;
   v4 = objc_opt_class();
   objc_msgSend_setClass_forSelector_argumentIndex_ofReply_(interface, v5, v4, sel_remote_urlSuitableForOpeningForExpectedURL_itemID_ownerName_zoneName_completion_, 0, 0);
@@ -632,12 +622,12 @@
   objc_msgSend_setClass_forSelector_argumentIndex_ofReply_(v12, v14, v13, sel_remote_urlSuitableForOpeningForExpectedURL_itemID_ownerName_zoneName_completion_, 3, 0);
   v15 = self->_interface;
   v16 = MEMORY[0x277CBEB98];
-  v137[0] = objc_opt_class();
-  v137[1] = objc_opt_class();
-  v137[2] = objc_opt_class();
-  v137[3] = objc_opt_class();
-  v137[4] = objc_opt_class();
-  v18 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v17, v137, 5);
+  v136[0] = objc_opt_class();
+  v136[1] = objc_opt_class();
+  v136[2] = objc_opt_class();
+  v136[3] = objc_opt_class();
+  v136[4] = objc_opt_class();
+  v18 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v17, v136, 5);
   v20 = objc_msgSend_setWithArray_(v16, v19, v18);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v15, v21, v20, sel_remote_urlSuitableForOpeningForExpectedURL_itemID_ownerName_zoneName_completion_, 0, 1);
 
@@ -651,12 +641,12 @@
   objc_msgSend_setInterface_forSelector_argumentIndex_ofReply_(self->_interface, v29, v25, sel_remote_cloudKitUrlSuitableForOpeningForAsset_downloadObserver_completion_, 1, 0);
   v30 = self->_interface;
   v31 = MEMORY[0x277CBEB98];
-  v136[0] = objc_opt_class();
-  v136[1] = objc_opt_class();
-  v136[2] = objc_opt_class();
-  v136[3] = objc_opt_class();
-  v136[4] = objc_opt_class();
-  v33 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v32, v136, 5);
+  v135[0] = objc_opt_class();
+  v135[1] = objc_opt_class();
+  v135[2] = objc_opt_class();
+  v135[3] = objc_opt_class();
+  v135[4] = objc_opt_class();
+  v33 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v32, v135, 5);
   v35 = objc_msgSend_setWithArray_(v31, v34, v33);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v30, v36, v35, sel_remote_cloudKitUrlSuitableForOpeningForAsset_downloadObserver_completion_, 0, 1);
 
@@ -668,12 +658,12 @@
   objc_msgSend_setClass_forSelector_argumentIndex_ofReply_(v40, v42, v41, sel_remote_cloudKitThumbnailUrlSuitableForOpeningForAsset_completion_, 0, 0);
   v43 = self->_interface;
   v44 = MEMORY[0x277CBEB98];
-  v135[0] = objc_opt_class();
-  v135[1] = objc_opt_class();
-  v135[2] = objc_opt_class();
-  v135[3] = objc_opt_class();
-  v135[4] = objc_opt_class();
-  v46 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v45, v135, 5);
+  v134[0] = objc_opt_class();
+  v134[1] = objc_opt_class();
+  v134[2] = objc_opt_class();
+  v134[3] = objc_opt_class();
+  v134[4] = objc_opt_class();
+  v46 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v45, v134, 5);
   v48 = objc_msgSend_setWithArray_(v44, v47, v46);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v43, v49, v48, sel_remote_cloudKitThumbnailUrlSuitableForOpeningForAsset_completion_, 0, 1);
 
@@ -760,17 +750,15 @@
   v130 = objc_opt_class();
   v132 = objc_msgSend_setWithObjects_(v128, v131, v129, v130, 0);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v127, v133, v132, sel_remote_currentUserContentStoreCacheDirectoryURLWithCompletion_, 1, 1);
-
-  v134 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureAdminRequestAPI
 {
-  v34[2] = *MEMORY[0x277D85DE8];
+  v33[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB98];
-  v34[0] = objc_opt_class();
-  v34[1] = objc_opt_class();
-  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v4, v34, 2);
+  v33[0] = objc_opt_class();
+  v33[1] = objc_opt_class();
+  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v4, v33, 2);
   v7 = objc_msgSend_setWithArray_(v3, v6, v5);
 
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(self->_interface, v8, v7, sel_remote_publishAdminRequests_withRequestor_adminRequestAccounts_completion_, 0, 0);
@@ -779,9 +767,9 @@
   objc_msgSend_setClass_forSelector_argumentIndex_ofReply_(interface, v11, v10, sel_remote_publishAdminRequests_withRequestor_adminRequestAccounts_completion_, 1, 0);
   v12 = self->_interface;
   v13 = MEMORY[0x277CBEB98];
-  v33[0] = objc_opt_class();
-  v33[1] = objc_opt_class();
-  v15 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v14, v33, 2);
+  v32[0] = objc_opt_class();
+  v32[1] = objc_opt_class();
+  v15 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v14, v32, 2);
   v17 = objc_msgSend_setWithArray_(v13, v16, v15);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v12, v18, v17, sel_remote_publishAdminRequests_withRequestor_adminRequestAccounts_completion_, 2, 0);
 
@@ -798,18 +786,16 @@
   v29 = self->_interface;
   v30 = objc_opt_class();
   objc_msgSend_setClass_forSelector_argumentIndex_ofReply_(v29, v31, v30, sel_remote_deleteAdminRequestID_completion_, 0, 0);
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureSurveyAnswerAPI
 {
-  v28[3] = *MEMORY[0x277D85DE8];
+  v27[3] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB98];
-  v28[0] = objc_opt_class();
-  v28[1] = objc_opt_class();
-  v28[2] = objc_opt_class();
-  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v4, v28, 3);
+  v27[0] = objc_opt_class();
+  v27[1] = objc_opt_class();
+  v27[2] = objc_opt_class();
+  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v4, v27, 3);
   v7 = objc_msgSend_setWithArray_(v3, v6, v5);
 
   interface = self->_interface;
@@ -824,15 +810,13 @@
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(v12, v18, v17, sel_remote_publishSurveyAnswers_completion_, 1, 1);
 
   v19 = MEMORY[0x277CBEB98];
-  v27[0] = objc_opt_class();
-  v27[1] = objc_opt_class();
-  v21 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v20, v27, 2);
+  v26[0] = objc_opt_class();
+  v26[1] = objc_opt_class();
+  v21 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v20, v26, 2);
   v23 = objc_msgSend_setWithArray_(v19, v22, v21);
 
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(self->_interface, v24, v23, sel_remote_fetchSurveyAnswer_responderIDs_completion_, 0, 0);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(self->_interface, v25, v23, sel_remote_fetchSurveyAnswer_responderIDs_completion_, 1, 0);
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureRelayRequestAPI
@@ -852,11 +836,11 @@
 
 - (void)configureInsightEventsAPI
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB98];
-  v17[0] = objc_opt_class();
-  v17[1] = objc_opt_class();
-  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v4, v17, 2);
+  v16[0] = objc_opt_class();
+  v16[1] = objc_opt_class();
+  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v4, v16, 2);
   v7 = objc_msgSend_setWithArray_(v3, v6, v5);
 
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(self->_interface, v8, v7, sel_remote_saveInsightEvents_completion_, 0, 0);
@@ -866,8 +850,6 @@
   v12 = objc_opt_class();
   v14 = objc_msgSend_setWithObjects_(v10, v13, v11, v12, 0);
   objc_msgSend_setClasses_forSelector_argumentIndex_ofReply_(interface, v15, v14, sel_remote_saveInsightEvents_completion_, 1, 1);
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -207,10 +207,10 @@
 
 - (VCSessionParticipantLocal)initWithConfig:(id)config delegate:(id)delegate
 {
-  v112 = *MEMORY[0x1E69E9840];
-  v95.receiver = self;
-  v95.super_class = VCSessionParticipantLocal;
-  v5 = [(VCSessionParticipant *)&v95 initWithConfig:config delegate:delegate];
+  v116 = *MEMORY[0x1E69E9840];
+  v99.receiver = self;
+  v99.super_class = VCSessionParticipantLocal;
+  v5 = [(VCSessionParticipant *)&v99 initWithConfig:config delegate:delegate];
   v6 = v5;
   if (v5)
   {
@@ -231,13 +231,13 @@
       {
         videoPriorityEnabled = v6->_videoPriorityEnabled;
         *buf = 136315906;
-        v101 = v9;
-        v102 = 2080;
-        v103 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
-        v104 = 1024;
-        v105 = 245;
-        v106 = 1024;
-        LODWORD(v107) = videoPriorityEnabled;
+        v105 = v9;
+        v106 = 2080;
+        v107 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
+        v108 = 1024;
+        v109 = 245;
+        v110 = 1024;
+        LODWORD(v111) = videoPriorityEnabled;
         _os_log_impl(&dword_1DB56E000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d _videoPriorityEnabled=%d", buf, 0x22u);
       }
     }
@@ -254,23 +254,23 @@
     v13 = [objc_msgSend(MEMORY[0x1E696AFB0] "UUID")];
     v6->super._uuid = v13;
     -[VCObject setLogPrefix:](v6, "setLogPrefix:", [MEMORY[0x1E696AEC0] stringWithFormat:@"uuid:%@ (local)", v13]);
-    [(VCSessionParticipantLocal *)v6 logDashboardLinks];
-    v6->super._creationTime.wide = GetNTPTime();
+    logDashboardLinks = [(VCSessionParticipantLocal *)v6 logDashboardLinks];
+    v6->super._creationTime.wide = GetNTPTime(logDashboardLinks, v15);
     v6->_connectionStatsStreamID = [(VCSessionParticipantLocal *)v6 generateIDSStreamID];
     v6->_lastVideoPriority = 0;
     v6->_lastAudioPriority = 0;
     pthread_rwlock_init(&v6->_audioTimestampRWLock, 0);
-    v14 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-    v6->_generatedStreamIDs = v14;
-    if (v14)
+    v16 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+    v6->_generatedStreamIDs = v16;
+    if (v16)
     {
-      v15 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-      v6->_generatedSSRCs = v15;
-      if (v15)
+      v17 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+      v6->_generatedSSRCs = v17;
+      if (v17)
       {
-        v16 = [[VCAudioPowerSpectrumSource alloc] initWithStreamToken:[(VCSessionParticipant *)v6 participantVideoToken] delegate:v6];
-        v6->_powerSpectrumSource = v16;
-        if (v16)
+        v18 = [[VCAudioPowerSpectrumSource alloc] initWithStreamToken:[(VCSessionParticipant *)v6 participantVideoToken] delegate:v6];
+        v6->_powerSpectrumSource = v18;
+        if (v18)
         {
           [+[VCAudioPowerSpectrumManager sharedInstance](VCAudioPowerSpectrumManager registerAudioPowerMeterSource:"registerAudioPowerMeterSource:", v6->_powerSpectrumSource];
           v6->super._transportSessionID = [(VCSessionParticipant *)v6 participantVideoToken];
@@ -278,9 +278,9 @@
           v6->_cachedPeerSubscribedStreams = objc_alloc_init(MEMORY[0x1E695DF70]);
           v6->_localPublishedStreams = objc_alloc_init(MEMORY[0x1E695DFA8]);
           v6->_redundancyEnabledStreamGroups = objc_alloc_init(MEMORY[0x1E695DFA8]);
-          v17 = objc_alloc_init(MEMORY[0x1E695DF90]);
-          v6->_oneToOneSettings.streamInfo = v17;
-          if (v17)
+          v19 = objc_alloc_init(MEMORY[0x1E695DF90]);
+          v6->_oneToOneSettings.streamInfo = v19;
+          if (v19)
           {
             newUplinkBandwidthAllocators = [(VCSessionParticipantLocal *)v6 newUplinkBandwidthAllocators];
             v6->_uplinkBandwidthAllocators = newUplinkBandwidthAllocators;
@@ -289,7 +289,7 @@
               v6->_uplinkBandwidthAllocator = [(NSArray *)newUplinkBandwidthAllocators objectAtIndexedSubscript:v6->super._oneToOneModeEnabled];
               [(VCSessionParticipantLocal *)v6 setupSystemAudioCapture];
               v6->_isOneToOneAuthenticationTagEnabled = [config isOneToOneAuthenticationTagEnabled];
-              v19 = -[VCSessionParticipantLocal processCachedParticipantData:](v6, "processCachedParticipantData:", [config participantData]);
+              v21 = -[VCSessionParticipantLocal processCachedParticipantData:](v6, "processCachedParticipantData:", [config participantData]);
               v6->_audioPayloadTypes = objc_alloc_init(MEMORY[0x1E695DFA8]);
               v6->_videoPayloadTypes = objc_alloc_init(MEMORY[0x1E695DFA8]);
               v6->_forceL4SHighDataRate = [config forceL4SHighDataRate];
@@ -305,34 +305,34 @@
                   goto LABEL_24;
                 }
 
-                v21 = VRTraceErrorLogLevelToCSTR();
-                v22 = *MEMORY[0x1E6986650];
+                v23 = VRTraceErrorLogLevelToCSTR();
+                v24 = *MEMORY[0x1E6986650];
                 if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
                 {
                   goto LABEL_24;
                 }
 
                 *buf = 136315650;
-                v101 = v21;
-                v102 = 2080;
-                v103 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
-                v104 = 1024;
-                v105 = 301;
-                v23 = " [%s] %s:%d Expected _audioMachineLearningCoordinator to be nil for uplink.";
-                v24 = v22;
-                v25 = 28;
+                v105 = v23;
+                v106 = 2080;
+                v107 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
+                v108 = 1024;
+                v109 = 301;
+                v25 = " [%s] %s:%d Expected _audioMachineLearningCoordinator to be nil for uplink.";
+                v26 = v24;
+                v27 = 28;
               }
 
               else
               {
                 if (objc_opt_respondsToSelector())
                 {
-                  v20 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
+                  v22 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
                 }
 
                 else
                 {
-                  v20 = &stru_1F570E008;
+                  v22 = &stru_1F570E008;
                 }
 
                 if (VRTraceGetErrorLogLevelForModule() < 5)
@@ -340,29 +340,29 @@
                   goto LABEL_24;
                 }
 
-                v26 = VRTraceErrorLogLevelToCSTR();
-                v27 = *MEMORY[0x1E6986650];
+                v28 = VRTraceErrorLogLevelToCSTR();
+                v29 = *MEMORY[0x1E6986650];
                 if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
                 {
                   goto LABEL_24;
                 }
 
                 *buf = 136316162;
-                v101 = v26;
-                v102 = 2080;
-                v103 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
-                v104 = 1024;
-                v105 = 301;
-                v106 = 2112;
-                v107 = v20;
-                v108 = 2048;
-                v109 = v6;
-                v23 = " [%s] %s:%d %@(%p) Expected _audioMachineLearningCoordinator to be nil for uplink.";
-                v24 = v27;
-                v25 = 48;
+                v105 = v28;
+                v106 = 2080;
+                v107 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
+                v108 = 1024;
+                v109 = 301;
+                v110 = 2112;
+                v111 = v22;
+                v112 = 2048;
+                v113 = v6;
+                v25 = " [%s] %s:%d %@(%p) Expected _audioMachineLearningCoordinator to be nil for uplink.";
+                v26 = v29;
+                v27 = 48;
               }
 
-              _os_log_impl(&dword_1DB56E000, v24, OS_LOG_TYPE_DEFAULT, v23, buf, v25);
+              _os_log_impl(&dword_1DB56E000, v26, OS_LOG_TYPE_DEFAULT, v25, buf, v27);
 LABEL_24:
 
 LABEL_25:
@@ -371,24 +371,24 @@ LABEL_25:
               {
                 if (VRTraceGetErrorLogLevelForModule() >= 7)
                 {
-                  v29 = VRTraceErrorLogLevelToCSTR();
-                  v30 = *MEMORY[0x1E6986650];
+                  v31 = VRTraceErrorLogLevelToCSTR();
+                  v32 = *MEMORY[0x1E6986650];
                   if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
                   {
                     audioMachineLearningCoordinator = v6->super._audioMachineLearningCoordinator;
                     *buf = 136315906;
-                    v101 = v29;
-                    v102 = 2080;
-                    v103 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
-                    v104 = 1024;
-                    v105 = 305;
-                    v106 = 2048;
-                    v107 = audioMachineLearningCoordinator;
-                    v32 = " [%s] %s:%d Uplink audioMachineLearningCoordinator=%p";
-                    v33 = v30;
-                    v34 = 38;
+                    v105 = v31;
+                    v106 = 2080;
+                    v107 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
+                    v108 = 1024;
+                    v109 = 305;
+                    v110 = 2048;
+                    v111 = audioMachineLearningCoordinator;
+                    v34 = " [%s] %s:%d Uplink audioMachineLearningCoordinator=%p";
+                    v35 = v32;
+                    v36 = 38;
 LABEL_35:
-                    _os_log_impl(&dword_1DB56E000, v33, OS_LOG_TYPE_DEFAULT, v32, buf, v34);
+                    _os_log_impl(&dword_1DB56E000, v35, OS_LOG_TYPE_DEFAULT, v34, buf, v36);
                   }
                 }
               }
@@ -397,36 +397,36 @@ LABEL_35:
               {
                 if (objc_opt_respondsToSelector())
                 {
-                  v28 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
+                  v30 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
                 }
 
                 else
                 {
-                  v28 = &stru_1F570E008;
+                  v30 = &stru_1F570E008;
                 }
 
                 if (VRTraceGetErrorLogLevelForModule() >= 7)
                 {
-                  v35 = VRTraceErrorLogLevelToCSTR();
-                  v36 = *MEMORY[0x1E6986650];
+                  v37 = VRTraceErrorLogLevelToCSTR();
+                  v38 = *MEMORY[0x1E6986650];
                   if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
                   {
-                    v37 = v6->super._audioMachineLearningCoordinator;
+                    v39 = v6->super._audioMachineLearningCoordinator;
                     *buf = 136316418;
-                    v101 = v35;
-                    v102 = 2080;
-                    v103 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
-                    v104 = 1024;
-                    v105 = 305;
-                    v106 = 2112;
-                    v107 = v28;
-                    v108 = 2048;
-                    v109 = v6;
-                    v110 = 2048;
-                    v111 = v37;
-                    v32 = " [%s] %s:%d %@(%p) Uplink audioMachineLearningCoordinator=%p";
-                    v33 = v36;
-                    v34 = 58;
+                    v105 = v37;
+                    v106 = 2080;
+                    v107 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
+                    v108 = 1024;
+                    v109 = 305;
+                    v110 = 2112;
+                    v111 = v30;
+                    v112 = 2048;
+                    v113 = v6;
+                    v114 = 2048;
+                    v115 = v39;
+                    v34 = " [%s] %s:%d %@(%p) Uplink audioMachineLearningCoordinator=%p";
+                    v35 = v38;
+                    v36 = 58;
                     goto LABEL_35;
                   }
                 }
@@ -435,15 +435,15 @@ LABEL_35:
               [(VCSessionParticipantLocal *)v6 setUpCaptions];
               if ([config sessionMode] == 2)
               {
-                v38 = [[VCSessionMediaStreamPresenceConfigurationProvider alloc] initWithConfigurationType:1 supportedAudioRules:v6->super._supportedAudioRules streamIDGenerator:v6];
-                if (v38)
+                v40 = [[VCSessionMediaStreamPresenceConfigurationProvider alloc] initWithConfigurationType:1 supportedAudioRules:v6->super._supportedAudioRules streamIDGenerator:v6];
+                if (v40)
                 {
-                  v39 = v38;
-                  if ([(VCSessionParticipantLocal *)v6 setupStreamInputsWithConfig:v38])
+                  v41 = v40;
+                  if ([(VCSessionParticipantLocal *)v6 setupStreamInputsWithConfig:v40])
                   {
-                    if ([(VCSessionParticipantLocal *)v6 setupStreamGroupsWithConfig:v39 negotiatorConfig:v19])
+                    if ([(VCSessionParticipantLocal *)v6 setupStreamGroupsWithConfig:v41 negotiatorConfig:v21])
                     {
-                      v40 = 0;
+                      v42 = 0;
                       goto LABEL_49;
                     }
 
@@ -463,31 +463,31 @@ LABEL_35:
 
                     if (objc_opt_respondsToSelector())
                     {
-                      v64 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
+                      v68 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
                     }
 
                     else
                     {
-                      v64 = &stru_1F570E008;
+                      v68 = &stru_1F570E008;
                     }
 
                     if (VRTraceGetErrorLogLevelForModule() >= 3)
                     {
-                      v88 = VRTraceErrorLogLevelToCSTR();
-                      v83 = *MEMORY[0x1E6986650];
+                      v92 = VRTraceErrorLogLevelToCSTR();
+                      v87 = *MEMORY[0x1E6986650];
                       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
                       {
                         *buf = 136316162;
-                        v101 = v88;
-                        v102 = 2080;
-                        v103 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
-                        v104 = 1024;
-                        v105 = 319;
-                        v106 = 2112;
-                        v107 = v64;
-                        v108 = 2048;
-                        v109 = v6;
-                        v84 = " [%s] %s:%d %@(%p) Failed to setup the stream groups";
+                        v105 = v92;
+                        v106 = 2080;
+                        v107 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
+                        v108 = 1024;
+                        v109 = 319;
+                        v110 = 2112;
+                        v111 = v68;
+                        v112 = 2048;
+                        v113 = v6;
+                        v88 = " [%s] %s:%d %@(%p) Failed to setup the stream groups";
                         goto LABEL_185;
                       }
                     }
@@ -511,39 +511,39 @@ LABEL_35:
 
                     if (objc_opt_respondsToSelector())
                     {
-                      v62 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
+                      v66 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
                     }
 
                     else
                     {
-                      v62 = &stru_1F570E008;
+                      v66 = &stru_1F570E008;
                     }
 
                     if (VRTraceGetErrorLogLevelForModule() >= 3)
                     {
-                      v82 = VRTraceErrorLogLevelToCSTR();
-                      v83 = *MEMORY[0x1E6986650];
+                      v86 = VRTraceErrorLogLevelToCSTR();
+                      v87 = *MEMORY[0x1E6986650];
                       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
                       {
                         *buf = 136316162;
-                        v101 = v82;
-                        v102 = 2080;
-                        v103 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
-                        v104 = 1024;
-                        v105 = 316;
-                        v106 = 2112;
-                        v107 = v62;
-                        v108 = 2048;
-                        v109 = v6;
-                        v84 = " [%s] %s:%d %@(%p) Failed to setup the stream inputs";
+                        v105 = v86;
+                        v106 = 2080;
+                        v107 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
+                        v108 = 1024;
+                        v109 = 316;
+                        v110 = 2112;
+                        v111 = v66;
+                        v112 = 2048;
+                        v113 = v6;
+                        v88 = " [%s] %s:%d %@(%p) Failed to setup the stream inputs";
 LABEL_185:
-                        _os_log_error_impl(&dword_1DB56E000, v83, OS_LOG_TYPE_ERROR, v84, buf, 0x30u);
+                        _os_log_error_impl(&dword_1DB56E000, v87, OS_LOG_TYPE_ERROR, v88, buf, 0x30u);
                       }
                     }
                   }
 
 LABEL_217:
-                  v40 = 0;
+                  v42 = 0;
                   goto LABEL_218;
                 }
 
@@ -563,50 +563,50 @@ LABEL_217:
 
                 if (objc_opt_respondsToSelector())
                 {
-                  v61 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
+                  v65 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
                 }
 
                 else
                 {
-                  v61 = &stru_1F570E008;
+                  v65 = &stru_1F570E008;
                 }
 
                 if (VRTraceGetErrorLogLevelForModule() >= 3)
                 {
-                  v81 = VRTraceErrorLogLevelToCSTR();
-                  v69 = *MEMORY[0x1E6986650];
+                  v85 = VRTraceErrorLogLevelToCSTR();
+                  v73 = *MEMORY[0x1E6986650];
                   if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
                   {
                     *buf = 136316162;
-                    v101 = v81;
-                    v102 = 2080;
-                    v103 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
-                    v104 = 1024;
-                    v105 = 313;
-                    v106 = 2112;
-                    v107 = v61;
-                    v108 = 2048;
-                    v109 = v6;
-                    v70 = " [%s] %s:%d %@(%p) Failed to allocate config provider";
+                    v105 = v85;
+                    v106 = 2080;
+                    v107 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
+                    v108 = 1024;
+                    v109 = 313;
+                    v110 = 2112;
+                    v111 = v65;
+                    v112 = 2048;
+                    v113 = v6;
+                    v74 = " [%s] %s:%d %@(%p) Failed to allocate config provider";
                     goto LABEL_215;
                   }
                 }
 
 LABEL_216:
-                v39 = 0;
+                v41 = 0;
                 goto LABEL_217;
               }
 
               v6->_videoCaptureSource = 3;
               if (VCDefaults_GetBoolValueForKey(@"simulateWebRTCOnlyClient", 0))
               {
-                v40 = 0;
+                v42 = 0;
               }
 
               else
               {
-                v41 = -[VCSessionMediaStreamConfigurationProvider initWithStreamIDGenerator:sessionMode:supportedAudioRules:]([VCSessionMediaStreamConfigurationProvider alloc], "initWithStreamIDGenerator:sessionMode:supportedAudioRules:", v6, [config sessionMode], v6->super._supportedAudioRules);
-                if (!v41)
+                v43 = -[VCSessionMediaStreamConfigurationProvider initWithStreamIDGenerator:sessionMode:supportedAudioRules:]([VCSessionMediaStreamConfigurationProvider alloc], "initWithStreamIDGenerator:sessionMode:supportedAudioRules:", v6, [config sessionMode], v6->super._supportedAudioRules);
+                if (!v43)
                 {
                   if (objc_opt_class() == v6)
                   {
@@ -624,31 +624,31 @@ LABEL_216:
 
                   if (objc_opt_respondsToSelector())
                   {
-                    v78 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
+                    v82 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
                   }
 
                   else
                   {
-                    v78 = &stru_1F570E008;
+                    v82 = &stru_1F570E008;
                   }
 
                   if (VRTraceGetErrorLogLevelForModule() >= 3)
                   {
-                    v92 = VRTraceErrorLogLevelToCSTR();
-                    v69 = *MEMORY[0x1E6986650];
+                    v96 = VRTraceErrorLogLevelToCSTR();
+                    v73 = *MEMORY[0x1E6986650];
                     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
                     {
                       *buf = 136316162;
-                      v101 = v92;
-                      v102 = 2080;
-                      v103 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
-                      v104 = 1024;
-                      v105 = 328;
-                      v106 = 2112;
-                      v107 = v78;
-                      v108 = 2048;
-                      v109 = v6;
-                      v70 = " [%s] %s:%d %@(%p) Failed to allocate config provider";
+                      v105 = v96;
+                      v106 = 2080;
+                      v107 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
+                      v108 = 1024;
+                      v109 = 328;
+                      v110 = 2112;
+                      v111 = v82;
+                      v112 = 2048;
+                      v113 = v6;
+                      v74 = " [%s] %s:%d %@(%p) Failed to allocate config provider";
                       goto LABEL_215;
                     }
                   }
@@ -656,11 +656,11 @@ LABEL_216:
                   goto LABEL_216;
                 }
 
-                v40 = v41;
-                audioStreamConfigurations = [(VCSessionMediaStreamConfigurationProvider *)v41 audioStreamConfigurations];
-                v98 = @"streamGroupID";
-                v99 = &unk_1F579A1E8;
-                if (!-[VCSessionParticipantLocal setupAudioStreamGroupWithStreamConfigs:negotiatorConfig:streamGroupConfiguration:](v6, "setupAudioStreamGroupWithStreamConfigs:negotiatorConfig:streamGroupConfiguration:", audioStreamConfigurations, v19, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v99 forKeys:&v98 count:1]))
+                v42 = v43;
+                audioStreamConfigurations = [(VCSessionMediaStreamConfigurationProvider *)v43 audioStreamConfigurations];
+                v102 = @"streamGroupID";
+                v103 = &unk_1F579A1E8;
+                if (!-[VCSessionParticipantLocal setupAudioStreamGroupWithStreamConfigs:negotiatorConfig:streamGroupConfiguration:](v6, "setupAudioStreamGroupWithStreamConfigs:negotiatorConfig:streamGroupConfiguration:", audioStreamConfigurations, v21, [MEMORY[0x1E695DF20] dictionaryWithObjects:&v103 forKeys:&v102 count:1]))
                 {
                   if (objc_opt_class() == v6)
                   {
@@ -678,45 +678,45 @@ LABEL_216:
 
                   if (objc_opt_respondsToSelector())
                   {
-                    v79 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
+                    v83 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
                   }
 
                   else
                   {
-                    v79 = &stru_1F570E008;
+                    v83 = &stru_1F570E008;
                   }
 
                   if (VRTraceGetErrorLogLevelForModule() >= 3)
                   {
-                    v93 = VRTraceErrorLogLevelToCSTR();
-                    v86 = *MEMORY[0x1E6986650];
+                    v97 = VRTraceErrorLogLevelToCSTR();
+                    v90 = *MEMORY[0x1E6986650];
                     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
                     {
                       *buf = 136316162;
-                      v101 = v93;
-                      v102 = 2080;
-                      v103 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
-                      v104 = 1024;
-                      v105 = 331;
-                      v106 = 2112;
-                      v107 = v79;
-                      v108 = 2048;
-                      v109 = v6;
-                      v87 = " [%s] %s:%d %@(%p) Failed to setup audio streams";
+                      v105 = v97;
+                      v106 = 2080;
+                      v107 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
+                      v108 = 1024;
+                      v109 = 331;
+                      v110 = 2112;
+                      v111 = v83;
+                      v112 = 2048;
+                      v113 = v6;
+                      v91 = " [%s] %s:%d %@(%p) Failed to setup audio streams";
                       goto LABEL_227;
                     }
                   }
 
 LABEL_228:
-                  v39 = 0;
+                  v41 = 0;
                   goto LABEL_218;
                 }
 
-                v96[0] = @"streamGroupID";
-                v96[1] = @"streamGroupSyncGroupID";
-                v97[0] = &unk_1F579A200;
-                v97[1] = &unk_1F579A1E8;
-                if (!-[VCSessionParticipantLocal setupCameraStreamGroupWithStreamConfigs:negotiatorConfig:streamGroupConfiguration:](v6, "setupCameraStreamGroupWithStreamConfigs:negotiatorConfig:streamGroupConfiguration:", -[VCSessionMediaStreamConfigurationProvider videoStreamConfigurations](v40, "videoStreamConfigurations"), v19, [MEMORY[0x1E695DF20] dictionaryWithObjects:v97 forKeys:v96 count:2]))
+                v100[0] = @"streamGroupID";
+                v100[1] = @"streamGroupSyncGroupID";
+                v101[0] = &unk_1F579A200;
+                v101[1] = &unk_1F579A1E8;
+                if (!-[VCSessionParticipantLocal setupCameraStreamGroupWithStreamConfigs:negotiatorConfig:streamGroupConfiguration:](v6, "setupCameraStreamGroupWithStreamConfigs:negotiatorConfig:streamGroupConfiguration:", -[VCSessionMediaStreamConfigurationProvider videoStreamConfigurations](v42, "videoStreamConfigurations"), v21, [MEMORY[0x1E695DF20] dictionaryWithObjects:v101 forKeys:v100 count:2]))
                 {
                   if (objc_opt_class() == v6)
                   {
@@ -734,31 +734,31 @@ LABEL_228:
 
                   if (objc_opt_respondsToSelector())
                   {
-                    v80 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
+                    v84 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
                   }
 
                   else
                   {
-                    v80 = &stru_1F570E008;
+                    v84 = &stru_1F570E008;
                   }
 
                   if (VRTraceGetErrorLogLevelForModule() >= 3)
                   {
-                    v94 = VRTraceErrorLogLevelToCSTR();
-                    v86 = *MEMORY[0x1E6986650];
+                    v98 = VRTraceErrorLogLevelToCSTR();
+                    v90 = *MEMORY[0x1E6986650];
                     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
                     {
                       *buf = 136316162;
-                      v101 = v94;
-                      v102 = 2080;
-                      v103 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
-                      v104 = 1024;
-                      v105 = 336;
-                      v106 = 2112;
-                      v107 = v80;
-                      v108 = 2048;
-                      v109 = v6;
-                      v87 = " [%s] %s:%d %@(%p) Failed to setup video stream";
+                      v105 = v98;
+                      v106 = 2080;
+                      v107 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
+                      v108 = 1024;
+                      v109 = 336;
+                      v110 = 2112;
+                      v111 = v84;
+                      v112 = 2048;
+                      v113 = v6;
+                      v91 = " [%s] %s:%d %@(%p) Failed to setup video stream";
                       goto LABEL_227;
                     }
                   }
@@ -767,11 +767,11 @@ LABEL_228:
                 }
               }
 
-              v43 = [[VCSessionMediaStreamPresenceConfigurationProvider alloc] initWithConfigurationType:2 supportedAudioRules:v6->super._supportedAudioRules streamIDGenerator:v6];
-              if (v43)
+              v45 = [[VCSessionMediaStreamPresenceConfigurationProvider alloc] initWithConfigurationType:2 supportedAudioRules:v6->super._supportedAudioRules streamIDGenerator:v6];
+              if (v45)
               {
-                v39 = v43;
-                if (![(VCSessionParticipantLocal *)v6 setupStreamInputsWithConfig:v43])
+                v41 = v45;
+                if (![(VCSessionParticipantLocal *)v6 setupStreamInputsWithConfig:v45])
                 {
                   if (objc_opt_class() == v6)
                   {
@@ -789,12 +789,12 @@ LABEL_228:
 
                   if (objc_opt_respondsToSelector())
                   {
-                    v65 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
+                    v69 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
                   }
 
                   else
                   {
-                    v65 = &stru_1F570E008;
+                    v69 = &stru_1F570E008;
                   }
 
                   if (VRTraceGetErrorLogLevelForModule() < 3)
@@ -802,28 +802,28 @@ LABEL_228:
                     goto LABEL_218;
                   }
 
-                  v89 = VRTraceErrorLogLevelToCSTR();
-                  v76 = *MEMORY[0x1E6986650];
+                  v93 = VRTraceErrorLogLevelToCSTR();
+                  v80 = *MEMORY[0x1E6986650];
                   if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
                   {
                     goto LABEL_218;
                   }
 
                   *buf = 136316162;
-                  v101 = v89;
-                  v102 = 2080;
-                  v103 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
-                  v104 = 1024;
-                  v105 = 343;
-                  v106 = 2112;
-                  v107 = v65;
-                  v108 = 2048;
-                  v109 = v6;
-                  v77 = " [%s] %s:%d %@(%p) Failed to setup the stream inputs";
+                  v105 = v93;
+                  v106 = 2080;
+                  v107 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
+                  v108 = 1024;
+                  v109 = 343;
+                  v110 = 2112;
+                  v111 = v69;
+                  v112 = 2048;
+                  v113 = v6;
+                  v81 = " [%s] %s:%d %@(%p) Failed to setup the stream inputs";
                   goto LABEL_201;
                 }
 
-                if (![(VCSessionParticipantLocal *)v6 setupStreamGroupsWithConfig:v39 negotiatorConfig:v19])
+                if (![(VCSessionParticipantLocal *)v6 setupStreamGroupsWithConfig:v41 negotiatorConfig:v21])
                 {
                   if (objc_opt_class() == v6)
                   {
@@ -841,12 +841,12 @@ LABEL_228:
 
                   if (objc_opt_respondsToSelector())
                   {
-                    v66 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
+                    v70 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
                   }
 
                   else
                   {
-                    v66 = &stru_1F570E008;
+                    v70 = &stru_1F570E008;
                   }
 
                   if (VRTraceGetErrorLogLevelForModule() < 3)
@@ -854,47 +854,47 @@ LABEL_228:
                     goto LABEL_218;
                   }
 
-                  v90 = VRTraceErrorLogLevelToCSTR();
-                  v76 = *MEMORY[0x1E6986650];
+                  v94 = VRTraceErrorLogLevelToCSTR();
+                  v80 = *MEMORY[0x1E6986650];
                   if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
                   {
                     goto LABEL_218;
                   }
 
                   *buf = 136316162;
-                  v101 = v90;
-                  v102 = 2080;
-                  v103 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
-                  v104 = 1024;
-                  v105 = 346;
-                  v106 = 2112;
-                  v107 = v66;
-                  v108 = 2048;
-                  v109 = v6;
-                  v77 = " [%s] %s:%d %@(%p) Failed to setup the stream groups";
+                  v105 = v94;
+                  v106 = 2080;
+                  v107 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
+                  v108 = 1024;
+                  v109 = 346;
+                  v110 = 2112;
+                  v111 = v70;
+                  v112 = 2048;
+                  v113 = v6;
+                  v81 = " [%s] %s:%d %@(%p) Failed to setup the stream groups";
                   goto LABEL_201;
                 }
 
 LABEL_49:
                 if (VRTraceGetErrorLogLevelForModule() >= 7)
                 {
-                  v44 = VRTraceErrorLogLevelToCSTR();
-                  v45 = *MEMORY[0x1E6986650];
+                  v46 = VRTraceErrorLogLevelToCSTR();
+                  v47 = *MEMORY[0x1E6986650];
                   if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
                   {
                     videoPayloadTypes = v6->_videoPayloadTypes;
                     audioPayloadTypes = v6->_audioPayloadTypes;
                     *buf = 136316162;
-                    v101 = v44;
-                    v102 = 2080;
-                    v103 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
-                    v104 = 1024;
-                    v105 = 348;
-                    v106 = 2112;
-                    v107 = videoPayloadTypes;
-                    v108 = 2112;
-                    v109 = audioPayloadTypes;
-                    _os_log_impl(&dword_1DB56E000, v45, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d video payload types=%@, audio payload types=%@", buf, 0x30u);
+                    v105 = v46;
+                    v106 = 2080;
+                    v107 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
+                    v108 = 1024;
+                    v109 = 348;
+                    v110 = 2112;
+                    v111 = videoPayloadTypes;
+                    v112 = 2112;
+                    v113 = audioPayloadTypes;
+                    _os_log_impl(&dword_1DB56E000, v47, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d video payload types=%@, audio payload types=%@", buf, 0x30u);
                   }
                 }
 
@@ -913,38 +913,38 @@ LABEL_56:
                     v6->_audioPriorityDecaySlow = [+[VCDefaults sharedInstance](VCDefaults audioPriorityDecaySlow];
                     v6->_audioPriorityDecayFast = [+[VCDefaults sharedInstance](VCDefaults audioPriorityDecayFast];
                     [+[VCDefaults sharedInstance](VCDefaults audioVoiceDetectionSensitivity];
-                    v6->_audioVoiceDetectionSensitivity = v48;
-                    v49 = 2.0 / ([+[VCDefaults silenceLevelMovingAveragePeriod]+ 1 sharedInstance];
-                    v6->_audioSilencePowerAverageMultiplier = v49;
+                    v6->_audioVoiceDetectionSensitivity = v50;
+                    v51 = 2.0 / ([+[VCDefaults silenceLevelMovingAveragePeriod]+ 1 sharedInstance];
+                    v6->_audioSilencePowerAverageMultiplier = v51;
                     v6->_forcedAudioPriorityValue = [+[VCDefaults sharedInstance](VCDefaults forceAudioPriorityValue];
                     v6->_forcedAudioPriorityEnabled = [+[VCDefaults sharedInstance](VCDefaults forceAudioPriorityEnabled];
-                    [(VCSessionParticipantLocal *)v6 createOpaqueData];
-                    v50 = micro();
-                    v6->_initTime = v50;
-                    v6->_lastVideoEnabledChangedTime = v50;
-                    v6->_presenceProvider = v39;
+                    createOpaqueData = [(VCSessionParticipantLocal *)v6 createOpaqueData];
+                    v54 = micro(createOpaqueData, v53);
+                    v6->_initTime = v54;
+                    v6->_lastVideoEnabledChangedTime = v54;
+                    v6->_presenceProvider = v41;
                     v6->_isHigherAudioREDCutoverU1Enabled = [config isHigherAudioREDCutoverU1Enabled];
                     v6->_isLowBandwidthSinglePacketDuplicationEnabled = [config isLowBandwidthSinglePacketDuplicationEnabled];
                     v6->_isLateKeyFrameDetectionEnabled = [config isLateKeyFrameDetectionEnabled];
                     MEMORY[0x1E128B580](&dword_1DB56E000, "@:@ VCSessionParticipantLocal-initialized");
                     if (VRTraceGetErrorLogLevelForModule() >= 6)
                     {
-                      v51 = VRTraceErrorLogLevelToCSTR();
-                      v52 = *MEMORY[0x1E6986650];
+                      v55 = VRTraceErrorLogLevelToCSTR();
+                      v56 = *MEMORY[0x1E6986650];
                       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
                       {
-                        v53 = [(VCSessionParticipant *)v6 description];
+                        v57 = [(VCSessionParticipant *)v6 description];
                         *buf = 136316162;
-                        v101 = v51;
-                        v102 = 2080;
-                        v103 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
-                        v104 = 1024;
-                        v105 = 388;
-                        v106 = 2048;
-                        v107 = v6;
-                        v108 = 2112;
-                        v109 = v53;
-                        _os_log_impl(&dword_1DB56E000, v52, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @:@ VCSessionParticipantLocal-initialized (%p) Participant init %@", buf, 0x30u);
+                        v105 = v55;
+                        v106 = 2080;
+                        v107 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
+                        v108 = 1024;
+                        v109 = 388;
+                        v110 = 2048;
+                        v111 = v6;
+                        v112 = 2112;
+                        v113 = v57;
+                        _os_log_impl(&dword_1DB56E000, v56, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @:@ VCSessionParticipantLocal-initialized (%p) Participant init %@", buf, 0x30u);
                       }
                     }
 
@@ -972,39 +972,39 @@ LABEL_56:
 
                   if (objc_opt_respondsToSelector())
                   {
-                    v67 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
+                    v71 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
                   }
 
                   else
                   {
-                    v67 = &stru_1F570E008;
+                    v71 = &stru_1F570E008;
                   }
 
                   if (VRTraceGetErrorLogLevelForModule() >= 3)
                   {
-                    v91 = VRTraceErrorLogLevelToCSTR();
-                    v76 = *MEMORY[0x1E6986650];
+                    v95 = VRTraceErrorLogLevelToCSTR();
+                    v80 = *MEMORY[0x1E6986650];
                     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
                     {
                       *buf = 136316162;
-                      v101 = v91;
-                      v102 = 2080;
-                      v103 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
-                      v104 = 1024;
-                      v105 = 358;
-                      v106 = 2112;
-                      v107 = v67;
-                      v108 = 2048;
-                      v109 = v6;
-                      v77 = " [%s] %s:%d %@(%p) Failed to create participant info";
+                      v105 = v95;
+                      v106 = 2080;
+                      v107 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
+                      v108 = 1024;
+                      v109 = 358;
+                      v110 = 2112;
+                      v111 = v71;
+                      v112 = 2048;
+                      v113 = v6;
+                      v81 = " [%s] %s:%d %@(%p) Failed to create participant info";
                       goto LABEL_201;
                     }
                   }
 
 LABEL_218:
 
-                  v40 = v39;
-                  v39 = v6;
+                  v42 = v41;
+                  v41 = v6;
                   v6 = 0;
 LABEL_59:
 
@@ -1027,12 +1027,12 @@ LABEL_59:
 
                 if (objc_opt_respondsToSelector())
                 {
-                  v60 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
+                  v64 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
                 }
 
                 else
                 {
-                  v60 = &stru_1F570E008;
+                  v64 = &stru_1F570E008;
                 }
 
                 if (VRTraceGetErrorLogLevelForModule() < 3)
@@ -1040,26 +1040,26 @@ LABEL_59:
                   goto LABEL_218;
                 }
 
-                v75 = VRTraceErrorLogLevelToCSTR();
-                v76 = *MEMORY[0x1E6986650];
+                v79 = VRTraceErrorLogLevelToCSTR();
+                v80 = *MEMORY[0x1E6986650];
                 if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
                 {
                   goto LABEL_218;
                 }
 
                 *buf = 136316162;
-                v101 = v75;
-                v102 = 2080;
-                v103 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
-                v104 = 1024;
-                v105 = 354;
-                v106 = 2112;
-                v107 = v60;
-                v108 = 2048;
-                v109 = v6;
-                v77 = " [%s] %s:%d %@(%p) Failed to initialize media negotiator";
+                v105 = v79;
+                v106 = 2080;
+                v107 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
+                v108 = 1024;
+                v109 = 354;
+                v110 = 2112;
+                v111 = v64;
+                v112 = 2048;
+                v113 = v6;
+                v81 = " [%s] %s:%d %@(%p) Failed to initialize media negotiator";
 LABEL_201:
-                _os_log_error_impl(&dword_1DB56E000, v76, OS_LOG_TYPE_ERROR, v77, buf, 0x30u);
+                _os_log_error_impl(&dword_1DB56E000, v80, OS_LOG_TYPE_ERROR, v81, buf, 0x30u);
                 goto LABEL_218;
               }
 
@@ -1079,33 +1079,33 @@ LABEL_201:
 
               if (objc_opt_respondsToSelector())
               {
-                v63 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
+                v67 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
               }
 
               else
               {
-                v63 = &stru_1F570E008;
+                v67 = &stru_1F570E008;
               }
 
               if (VRTraceGetErrorLogLevelForModule() >= 3)
               {
-                v85 = VRTraceErrorLogLevelToCSTR();
-                v86 = *MEMORY[0x1E6986650];
+                v89 = VRTraceErrorLogLevelToCSTR();
+                v90 = *MEMORY[0x1E6986650];
                 if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
                 {
                   *buf = 136316162;
-                  v101 = v85;
-                  v102 = 2080;
-                  v103 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
-                  v104 = 1024;
-                  v105 = 340;
-                  v106 = 2112;
-                  v107 = v63;
-                  v108 = 2048;
-                  v109 = v6;
-                  v87 = " [%s] %s:%d %@(%p) Failed to allocate config provider";
+                  v105 = v89;
+                  v106 = 2080;
+                  v107 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
+                  v108 = 1024;
+                  v109 = 340;
+                  v110 = 2112;
+                  v111 = v67;
+                  v112 = 2048;
+                  v113 = v6;
+                  v91 = " [%s] %s:%d %@(%p) Failed to allocate config provider";
 LABEL_227:
-                  _os_log_error_impl(&dword_1DB56E000, v86, OS_LOG_TYPE_ERROR, v87, buf, 0x30u);
+                  _os_log_error_impl(&dword_1DB56E000, v90, OS_LOG_TYPE_ERROR, v91, buf, 0x30u);
                   goto LABEL_228;
                 }
               }
@@ -1129,12 +1129,12 @@ LABEL_227:
 
             if (objc_opt_respondsToSelector())
             {
-              v59 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
+              v63 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
             }
 
             else
             {
-              v59 = &stru_1F570E008;
+              v63 = &stru_1F570E008;
             }
 
             if (VRTraceGetErrorLogLevelForModule() < 3)
@@ -1142,24 +1142,24 @@ LABEL_227:
               goto LABEL_216;
             }
 
-            v74 = VRTraceErrorLogLevelToCSTR();
-            v69 = *MEMORY[0x1E6986650];
+            v78 = VRTraceErrorLogLevelToCSTR();
+            v73 = *MEMORY[0x1E6986650];
             if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
             {
               goto LABEL_216;
             }
 
             *buf = 136316162;
-            v101 = v74;
-            v102 = 2080;
-            v103 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
-            v104 = 1024;
-            v105 = 285;
-            v106 = 2112;
-            v107 = v59;
-            v108 = 2048;
-            v109 = v6;
-            v70 = " [%s] %s:%d %@(%p) Failed to create uplinkBandwidthAllocators";
+            v105 = v78;
+            v106 = 2080;
+            v107 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
+            v108 = 1024;
+            v109 = 285;
+            v110 = 2112;
+            v111 = v63;
+            v112 = 2048;
+            v113 = v6;
+            v74 = " [%s] %s:%d %@(%p) Failed to create uplinkBandwidthAllocators";
           }
 
           else
@@ -1180,12 +1180,12 @@ LABEL_227:
 
             if (objc_opt_respondsToSelector())
             {
-              v58 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
+              v62 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
             }
 
             else
             {
-              v58 = &stru_1F570E008;
+              v62 = &stru_1F570E008;
             }
 
             if (VRTraceGetErrorLogLevelForModule() < 3)
@@ -1193,24 +1193,24 @@ LABEL_227:
               goto LABEL_216;
             }
 
-            v73 = VRTraceErrorLogLevelToCSTR();
-            v69 = *MEMORY[0x1E6986650];
+            v77 = VRTraceErrorLogLevelToCSTR();
+            v73 = *MEMORY[0x1E6986650];
             if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
             {
               goto LABEL_216;
             }
 
             *buf = 136316162;
-            v101 = v73;
-            v102 = 2080;
-            v103 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
-            v104 = 1024;
-            v105 = 282;
-            v106 = 2112;
-            v107 = v58;
-            v108 = 2048;
-            v109 = v6;
-            v70 = " [%s] %s:%d %@(%p) Failed to allocate oneToOne streamInfo dictionary";
+            v105 = v77;
+            v106 = 2080;
+            v107 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
+            v108 = 1024;
+            v109 = 282;
+            v110 = 2112;
+            v111 = v62;
+            v112 = 2048;
+            v113 = v6;
+            v74 = " [%s] %s:%d %@(%p) Failed to allocate oneToOne streamInfo dictionary";
           }
         }
 
@@ -1232,12 +1232,12 @@ LABEL_227:
 
           if (objc_opt_respondsToSelector())
           {
-            v57 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
+            v61 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
           }
 
           else
           {
-            v57 = &stru_1F570E008;
+            v61 = &stru_1F570E008;
           }
 
           if (VRTraceGetErrorLogLevelForModule() < 3)
@@ -1245,24 +1245,24 @@ LABEL_227:
             goto LABEL_216;
           }
 
-          v72 = VRTraceErrorLogLevelToCSTR();
-          v69 = *MEMORY[0x1E6986650];
+          v76 = VRTraceErrorLogLevelToCSTR();
+          v73 = *MEMORY[0x1E6986650];
           if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
           {
             goto LABEL_216;
           }
 
           *buf = 136316162;
-          v101 = v72;
-          v102 = 2080;
-          v103 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
-          v104 = 1024;
-          v105 = 269;
-          v106 = 2112;
-          v107 = v57;
-          v108 = 2048;
-          v109 = v6;
-          v70 = " [%s] %s:%d %@(%p) Failed to allocate power spectrum source";
+          v105 = v76;
+          v106 = 2080;
+          v107 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
+          v108 = 1024;
+          v109 = 269;
+          v110 = 2112;
+          v111 = v61;
+          v112 = 2048;
+          v113 = v6;
+          v74 = " [%s] %s:%d %@(%p) Failed to allocate power spectrum source";
         }
       }
 
@@ -1284,12 +1284,12 @@ LABEL_227:
 
         if (objc_opt_respondsToSelector())
         {
-          v56 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
+          v60 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
         }
 
         else
         {
-          v56 = &stru_1F570E008;
+          v60 = &stru_1F570E008;
         }
 
         if (VRTraceGetErrorLogLevelForModule() < 3)
@@ -1297,24 +1297,24 @@ LABEL_227:
           goto LABEL_216;
         }
 
-        v71 = VRTraceErrorLogLevelToCSTR();
-        v69 = *MEMORY[0x1E6986650];
+        v75 = VRTraceErrorLogLevelToCSTR();
+        v73 = *MEMORY[0x1E6986650];
         if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
         {
           goto LABEL_216;
         }
 
         *buf = 136316162;
-        v101 = v71;
-        v102 = 2080;
-        v103 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
-        v104 = 1024;
-        v105 = 266;
-        v106 = 2112;
-        v107 = v56;
-        v108 = 2048;
-        v109 = v6;
-        v70 = " [%s] %s:%d %@(%p) Failed to allocate generated SSRC set";
+        v105 = v75;
+        v106 = 2080;
+        v107 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
+        v108 = 1024;
+        v109 = 266;
+        v110 = 2112;
+        v111 = v60;
+        v112 = 2048;
+        v113 = v6;
+        v74 = " [%s] %s:%d %@(%p) Failed to allocate generated SSRC set";
       }
     }
 
@@ -1336,12 +1336,12 @@ LABEL_227:
 
       if (objc_opt_respondsToSelector())
       {
-        v55 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
+        v59 = [(VCSessionParticipantLocal *)v6 performSelector:sel_logPrefix];
       }
 
       else
       {
-        v55 = &stru_1F570E008;
+        v59 = &stru_1F570E008;
       }
 
       if (VRTraceGetErrorLogLevelForModule() < 3)
@@ -1349,28 +1349,28 @@ LABEL_227:
         goto LABEL_216;
       }
 
-      v68 = VRTraceErrorLogLevelToCSTR();
-      v69 = *MEMORY[0x1E6986650];
+      v72 = VRTraceErrorLogLevelToCSTR();
+      v73 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
       {
         goto LABEL_216;
       }
 
       *buf = 136316162;
-      v101 = v68;
-      v102 = 2080;
-      v103 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
-      v104 = 1024;
-      v105 = 264;
-      v106 = 2112;
-      v107 = v55;
-      v108 = 2048;
-      v109 = v6;
-      v70 = " [%s] %s:%d %@(%p) Failed to allocate generated stream ID set";
+      v105 = v72;
+      v106 = 2080;
+      v107 = "[VCSessionParticipantLocal initWithConfig:delegate:]";
+      v108 = 1024;
+      v109 = 264;
+      v110 = 2112;
+      v111 = v59;
+      v112 = 2048;
+      v113 = v6;
+      v74 = " [%s] %s:%d %@(%p) Failed to allocate generated stream ID set";
     }
 
 LABEL_215:
-    _os_log_error_impl(&dword_1DB56E000, v69, OS_LOG_TYPE_ERROR, v70, buf, 0x30u);
+    _os_log_error_impl(&dword_1DB56E000, v73, OS_LOG_TYPE_ERROR, v74, buf, 0x30u);
     goto LABEL_216;
   }
 
@@ -1379,64 +1379,66 @@ LABEL_215:
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   [(VCSessionParticipantLocal *)self cleanupStreamInputs];
   v3 = +[VCAudioPowerSpectrumManager sharedInstance];
-  -[VCAudioPowerSpectrumManager unregisterAudioPowerSpectrumSourceForStreamToken:](v3, "unregisterAudioPowerSpectrumSourceForStreamToken:", [MEMORY[0x1E696AD98] numberWithInteger:{-[VCAudioPowerSpectrumSource streamToken](self->_powerSpectrumSource, "streamToken")}]);
-  [VCPowerManager_DefaultManager() setFeature:16 enable:0];
-  [VCPowerManager_DefaultManager() setFeature:8 enable:0];
+  v4 = -[VCAudioPowerSpectrumManager unregisterAudioPowerSpectrumSourceForStreamToken:](v3, "unregisterAudioPowerSpectrumSourceForStreamToken:", [MEMORY[0x1E696AD98] numberWithInteger:{-[VCAudioPowerSpectrumSource streamToken](self->_powerSpectrumSource, "streamToken")}]);
+  v6 = [VCPowerManager_DefaultManager(v4 v5)];
+  [VCPowerManager_DefaultManager(v6 v7)];
   [(VCAudioPowerSpectrumSource *)self->_powerSpectrumSource invalidate];
 
   pthread_rwlock_destroy(&self->_audioTimestampRWLock);
   [(VCRedundancyControllerAudio *)self->_oneToOneSettings.audioRedundancyController unregisterStatistics];
 
   [(VCAudioMachineLearningCoordinator *)self->super._audioMachineLearningCoordinator invalidate];
-  v4.receiver = self;
-  v4.super_class = VCSessionParticipantLocal;
-  [(VCSessionParticipant *)&v4 dealloc];
+  v8.receiver = self;
+  v8.super_class = VCSessionParticipantLocal;
+  [(VCSessionParticipant *)&v8 dealloc];
 }
 
 - (void)logDashboardLinks
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"https://avc-gft-dashboard.apple.com/multiway/conference/%@", self->super._uuid];
-  if (VRTraceGetErrorLogLevelForModule() >= 6)
+  ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+  if (ErrorLogLevelForModule >= 6)
   {
-    v3 = VRTraceErrorLogLevelToCSTR();
-    v4 = *MEMORY[0x1E6986650];
-    if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+    v5 = VRTraceErrorLogLevelToCSTR();
+    v6 = *MEMORY[0x1E6986650];
+    ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT);
+    if (ErrorLogLevelForModule)
     {
       *buf = 136315906;
-      v10 = v3;
-      v11 = 2080;
-      v12 = "[VCSessionParticipantLocal logDashboardLinks]";
-      v13 = 1024;
-      v14 = 433;
-      v15 = 2112;
-      v16 = v2;
-      _os_log_impl(&dword_1DB56E000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d AVCDashboard Participant DisplayURL=%@", buf, 0x26u);
+      v12 = v5;
+      v13 = 2080;
+      v14 = "[VCSessionParticipantLocal logDashboardLinks]";
+      v15 = 1024;
+      v16 = 433;
+      v17 = 2112;
+      v18 = v2;
+      _os_log_impl(&dword_1DB56E000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d AVCDashboard Participant DisplayURL=%@", buf, 0x26u);
     }
   }
 
-  v5 = VCGetSerialNumber();
-  if (v5)
+  v7 = VCGetSerialNumber(ErrorLogLevelForModule, v4);
+  if (v7)
   {
-    v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"https://avc-gft-dashboard.apple.com/multiway?serial=%@", v5];
+    v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"https://avc-gft-dashboard.apple.com/multiway?serial=%@", v7];
     if (VRTraceGetErrorLogLevelForModule() >= 6)
     {
-      v7 = VRTraceErrorLogLevelToCSTR();
-      v8 = *MEMORY[0x1E6986650];
+      v9 = VRTraceErrorLogLevelToCSTR();
+      v10 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315906;
-        v10 = v7;
-        v11 = 2080;
-        v12 = "[VCSessionParticipantLocal logDashboardLinks]";
-        v13 = 1024;
-        v14 = 437;
-        v15 = 2112;
-        v16 = v6;
-        _os_log_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d AVCDashboard Serial DisplayURL=%@", buf, 0x26u);
+        v12 = v9;
+        v13 = 2080;
+        v14 = "[VCSessionParticipantLocal logDashboardLinks]";
+        v15 = 1024;
+        v16 = 437;
+        v17 = 2112;
+        v18 = v8;
+        _os_log_impl(&dword_1DB56E000, v10, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d AVCDashboard Serial DisplayURL=%@", buf, 0x26u);
       }
     }
   }
@@ -1691,11 +1693,11 @@ LABEL_25:
   dispatch_async(participantQueue, block);
 }
 
-uint64_t __52__VCSessionParticipantLocal_setLowPowerModeEnabled___block_invoke(uint64_t result)
+unsigned __int8 *__52__VCSessionParticipantLocal_setLowPowerModeEnabled___block_invoke(unsigned __int8 *result)
 {
   v13 = *MEMORY[0x1E69E9840];
-  v1 = *(result + 32);
-  v2 = *(result + 40);
+  v1 = *(result + 4);
+  v2 = result[40];
   if (*(v1 + 538) != v2)
   {
     v3 = result;
@@ -1704,7 +1706,7 @@ uint64_t __52__VCSessionParticipantLocal_setLowPowerModeEnabled___block_invoke(u
     v12 = 0u;
     v9 = 0u;
     v10 = 0u;
-    v4 = [*(result + 32) cameraGroups];
+    v4 = [*(result + 4) cameraGroups];
     result = [v4 countByEnumeratingWithState:&v9 objects:v8 count:16];
     if (result)
     {
@@ -1720,7 +1722,7 @@ uint64_t __52__VCSessionParticipantLocal_setLowPowerModeEnabled___block_invoke(u
             objc_enumerationMutation(v4);
           }
 
-          [*(*(&v9 + 1) + 8 * v7++) setLowPowerModeEnabled:*(v3 + 40)];
+          [*(*(&v9 + 1) + 8 * v7++) setLowPowerModeEnabled:v3[40]];
         }
 
         while (v5 != v7);
@@ -3000,7 +3002,7 @@ LABEL_11:
     *&buf[16] = v20;
     *&buf[32] = v20;
     *buf = v20;
-    [(VCSessionParticipantLocal *)self audioIOConfigWithDeviceRole:self->super._deviceRole operatingMode:operatingMode];
+    objc_msgSend_audioIOConfigWithDeviceRole_operatingMode_(self);
     v21 = [(VCAudioIO *)self->super._audioIO reconfigureWithConfig:buf];
     if (v21)
     {
@@ -3154,7 +3156,6 @@ LABEL_57:
 
 - (BOOL)reconfigureAudioIOForMode:(int)mode error:(id *)error
 {
-  v5 = *&mode;
   v72 = *MEMORY[0x1E69E9840];
   if (objc_opt_class() == self)
   {
@@ -3171,7 +3172,7 @@ LABEL_57:
         *&buf[22] = 1024;
         *&buf[24] = 908;
         *&buf[28] = 1024;
-        *&buf[30] = v5;
+        *&buf[30] = mode;
         v10 = " [%s] %s:%d Updating videoEnabled on the local participant audioIO with newMode=%d";
         v11 = v9;
         v12 = 34;
@@ -3210,7 +3211,7 @@ LABEL_11:
         *&buf[38] = 2048;
         *&buf[40] = self;
         LOWORD(v60) = 1024;
-        *(&v60 + 2) = v5;
+        *(&v60 + 2) = mode;
         v10 = " [%s] %s:%d %@(%p) Updating videoEnabled on the local participant audioIO with newMode=%d";
         v11 = v14;
         v12 = 54;
@@ -3219,7 +3220,7 @@ LABEL_11:
     }
   }
 
-  if ([(VCAudioIO *)self->super._audioIO operatingMode]== v5)
+  if ([(VCAudioIO *)self->super._audioIO operatingMode]== mode)
   {
     if (objc_opt_class() == self)
     {
@@ -3243,7 +3244,7 @@ LABEL_11:
       *&buf[22] = 1024;
       *&buf[24] = 911;
       *&buf[28] = 1024;
-      *&buf[30] = v5;
+      *&buf[30] = mode;
       *&buf[34] = 1024;
       *&buf[36] = dispatchedIsAnyCameraMediaTypeEnabled;
       v23 = " [%s] %s:%d OneToOne Audio Stream is already configured in mode %d for cameraEnabled=%{BOOL}d";
@@ -3287,7 +3288,7 @@ LABEL_11:
       *&buf[38] = 2048;
       *&buf[40] = self;
       LOWORD(v60) = 1024;
-      *(&v60 + 2) = v5;
+      *(&v60 + 2) = mode;
       WORD3(v60) = 1024;
       DWORD2(v60) = dispatchedIsAnyCameraMediaTypeEnabled2;
       v23 = " [%s] %s:%d %@(%p) OneToOne Audio Stream is already configured in mode %d for cameraEnabled=%{BOOL}d";
@@ -3322,7 +3323,7 @@ LABEL_11:
   *&buf[16] = v17;
   *&buf[32] = v17;
   *buf = v17;
-  [(VCSessionParticipantLocal *)self audioIOConfigWithDeviceRole:self->super._deviceRole operatingMode:v5];
+  objc_msgSend_audioIOConfigWithDeviceRole_operatingMode_(self);
   v18 = [(VCAudioIO *)self->super._audioIO reconfigureWithConfig:buf];
   if (v18)
   {
@@ -3353,7 +3354,7 @@ LABEL_11:
         v48 = 2048;
         v49 = audioIO;
         v50 = 1024;
-        *v51 = v5;
+        *v51 = mode;
         *&v51[4] = 1024;
         *&v51[6] = deviceRole;
         LOWORD(v52) = 1024;
@@ -3400,7 +3401,7 @@ LABEL_40:
         *&v51[8] = 2048;
         v52 = v38;
         v53 = 1024;
-        v54 = v5;
+        modeCopy = mode;
         v55 = 1024;
         v56 = v39;
         v57 = 1024;
@@ -4387,7 +4388,7 @@ LABEL_60:
       _os_log_impl(&dword_1DB56E000, v67, OS_LOG_TYPE_DEFAULT, v66, v75, v68);
 LABEL_73:
       *&v59 = v40;
-      [(VCMediaRecorder *)self->super._mediaRecorder setFrameRate:v59, *v75, *&v75[8], *v76, *&v76[16], *&v76[24], *&v76[32], *&v76[48], *&v76[64]];
+      [(VCMediaRecorder *)self->super._mediaRecorder setFrameRate:v59, *v75, *&v75[8], *v76, *&v76[16], *&v76[24], *&v76[32], *&v76[48], *&v76[56]];
       return;
     }
 
@@ -4640,14 +4641,14 @@ void __63__VCSessionParticipantLocal_suspendStreamsOnOneToOneModeSwitch__block_i
   dispatch_sync(participantQueue, v3);
 }
 
-uint64_t __62__VCSessionParticipantLocal_resumeStreamsOnOneToOneModeSwitch__block_invoke(uint64_t a1)
+id *__62__VCSessionParticipantLocal_resumeStreamsOnOneToOneModeSwitch__block_invoke(uint64_t a1)
 {
   result = *(a1 + 32);
-  if (!*(result + 168))
+  if (!*(result + 42))
   {
     if (*(result + 408) == 1)
     {
-      v3 = [objc_msgSend(objc_msgSend(objc_msgSend(*(result + 992) objectForKeyedSubscript:{&unk_1F579A200), "streamConfigs"), "objectAtIndexedSubscript:", 0), "framerate"}];
+      v3 = [objc_msgSend(objc_msgSend(objc_msgSend(result[124] objectForKeyedSubscript:{&unk_1F579A200), "streamConfigs"), "objectAtIndexedSubscript:", 0), "framerate"}];
     }
 
     else
@@ -4746,7 +4747,7 @@ LABEL_11:
 
   *(*(a1 + 32) + 1096) = [*(a1 + 40) copy];
   *(*(a1 + 32) + 1104) = [*(*(a1 + 32) + 1096) count] > 1;
-  v11 = [*(a1 + 32) streamGroupWithID:{1835623282, *v16, *&v16[16], v17, v18}];
+  v11 = [*(a1 + 32) streamGroupWithID:{1835623282, *v16, *&v16[8], v17, v18}];
   v12 = *(*(a1 + 32) + 1104);
   [v11 updateVoiceActivityEnabled:v12 isMediaPriorityEnabled:v12];
   v13 = [*(a1 + 32) streamGroupWithID:1835623287];
@@ -5141,7 +5142,7 @@ LABEL_25:
   dispatch_sync(participantQueue, block);
 }
 
-uint64_t __56__VCSessionParticipantLocal_collectVideoChannelMetrics___block_invoke(uint64_t a1)
+void *__56__VCSessionParticipantLocal_collectVideoChannelMetrics___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v8 = 0u;
@@ -5164,7 +5165,8 @@ uint64_t __56__VCSessionParticipantLocal_collectVideoChannelMetrics___block_invo
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) collectAndLogChannelMetrics:*(a1 + 40)];
+        [*(*(&v8 + 1) + 8 * v6) collectAndLogChannelMetrics:*(a1 + 40)];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -5532,10 +5534,10 @@ LABEL_32:
   dispatch_sync(participantQueue, block);
 }
 
-uint64_t __59__VCSessionParticipantLocal_updateMediaSettingsWithConfig___block_invoke(uint64_t result)
+void *__59__VCSessionParticipantLocal_updateMediaSettingsWithConfig___block_invoke(void *result)
 {
   v28 = *MEMORY[0x1E69E9840];
-  if (!*(*(result + 32) + 168))
+  if (!*(result[4] + 168))
   {
     v1 = result;
     if (VRTraceGetErrorLogLevelForModule() >= 7)
@@ -5544,7 +5546,7 @@ uint64_t __59__VCSessionParticipantLocal_updateMediaSettingsWithConfig___block_i
       v3 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
-        v4 = *(v1 + 40);
+        v4 = v1[5];
         *buf = 136315906;
         v21 = v2;
         v22 = 2080;
@@ -5557,41 +5559,41 @@ uint64_t __59__VCSessionParticipantLocal_updateMediaSettingsWithConfig___block_i
       }
     }
 
-    *(*(v1 + 32) + 373) = [*(v1 + 40) audioEnabled];
-    *(*(v1 + 32) + 376) = [*(v1 + 40) audioPaused];
-    [*(v1 + 32) syncMicMediaStateFromLegacyState];
-    v5 = [*(v1 + 40) videoEnabled];
-    v6 = *(v1 + 32);
+    *(v1[4] + 373) = [v1[5] audioEnabled];
+    *(v1[4] + 376) = [v1[5] audioPaused];
+    [v1[4] syncMicMediaStateFromLegacyState];
+    v5 = [v1[5] videoEnabled];
+    v6 = v1[4];
     if (v6[374] == v5)
     {
-      v7 = [*(v1 + 32) dispatchedIsAnyCameraMediaTypeEnabled];
-      v8 = v7 ^ +[VCSessionParticipantLocal isCameraEnabledWithMediaStates:](VCSessionParticipantLocal, "isCameraEnabledWithMediaStates:", [*(v1 + 40) mediaStates]);
+      v7 = [v1[4] dispatchedIsAnyCameraMediaTypeEnabled];
+      v8 = v7 ^ +[VCSessionParticipantLocal isCameraEnabledWithMediaStates:](VCSessionParticipantLocal, "isCameraEnabledWithMediaStates:", [v1[5] mediaStates]);
     }
 
     else
     {
-      [v6 applyVideoEnabledSetting:{objc_msgSend(*(v1 + 40), "videoEnabled")}];
+      [v6 applyVideoEnabledSetting:{objc_msgSend(v1[5], "videoEnabled")}];
       v8 = 0;
     }
 
-    v9 = [*(v1 + 40) screenEnabled];
-    v10 = *(v1 + 32);
+    v9 = [v1[5] screenEnabled];
+    v10 = v1[4];
     if (v10[375] != v9)
     {
-      [v10 applyScreenEnabledSetting:{objc_msgSend(*(v1 + 40), "screenEnabled")}];
+      [v10 applyScreenEnabledSetting:{objc_msgSend(v1[5], "screenEnabled")}];
     }
 
-    *(*(v1 + 32) + 377) = [*(v1 + 40) videoPaused];
-    [*(v1 + 32) syncCameraMediaStateFromLegacyState];
-    [*(v1 + 40) volume];
-    [*(v1 + 32) setVolume:?];
-    [*(v1 + 32) setMuted:{objc_msgSend(*(v1 + 40), "audioMuted")}];
-    [*(v1 + 32) updateMediaStatesWithConfig:*(v1 + 40)];
+    *(v1[4] + 377) = [v1[5] videoPaused];
+    [v1[4] syncCameraMediaStateFromLegacyState];
+    [v1[5] volume];
+    [v1[4] setVolume:?];
+    [v1[4] setMuted:{objc_msgSend(v1[5], "audioMuted")}];
+    [v1[4] updateMediaStatesWithConfig:v1[5]];
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v11 = *(*(v1 + 32) + 480);
+    v11 = *(v1[4] + 480);
     result = [v11 countByEnumeratingWithState:&v16 objects:v15 count:16];
     if (result)
     {
@@ -5607,7 +5609,8 @@ uint64_t __59__VCSessionParticipantLocal_updateMediaSettingsWithConfig___block_i
             objc_enumerationMutation(v11);
           }
 
-          [*(*(&v16 + 1) + 8 * v14++) updateOperatingMode:{objc_msgSend(*(v1 + 32), "operatingMode")}];
+          [*(*(&v16 + 1) + 8 * v14) updateOperatingMode:{objc_msgSend(v1[4], "operatingMode")}];
+          v14 = (v14 + 1);
         }
 
         while (v12 != v14);
@@ -5620,7 +5623,7 @@ uint64_t __59__VCSessionParticipantLocal_updateMediaSettingsWithConfig___block_i
 
     if (v8)
     {
-      return [*(v1 + 32) applyMicReconfigurationForCameraTransition];
+      return [v1[4] applyMicReconfigurationForCameraTransition];
     }
   }
 
@@ -5715,7 +5718,7 @@ uint64_t __59__VCSessionParticipantLocal_updateMediaSettingsWithConfig___block_i
   v42 = v7;
   if (self)
   {
-    [(VCSessionParticipantLocal *)self audioIOConfigWithDeviceRole:*&role operatingMode:*&mode, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56];
+    objc_msgSend_audioIOConfigWithDeviceRole_operatingMode_(self, a2, *&role, *&mode, v42, v43, v44, v45, v46, v47, v48, v49, v50, v51, v52, v53, v54, v55, v56);
   }
 
   else
@@ -10567,7 +10570,7 @@ void __94__VCSessionParticipantLocal_configureWithOneToOneParticipantConfig_shou
 
     _os_log_impl(&dword_1DB56E000, v10, OS_LOG_TYPE_DEFAULT, v9, v32, v11);
 LABEL_18:
-    [*(a1 + 40) setupOneToOneVideoStreamWithConfig:*(a1 + 32) streamGroupID:{1935897189, *v32, *&v32[16], v33, v34}];
+    [*(a1 + 40) setupOneToOneVideoStreamWithConfig:*(a1 + 32) streamGroupID:{1935897189, *v32, *&v32[8], v33, v34}];
     [*(a1 + 40) setupOneToOneAudioStreamWithConfig:*(a1 + 32) streamGroupID:1937339233];
   }
 
@@ -11100,7 +11103,7 @@ LABEL_6:
   if (local)
   {
     self->super._presentationState = state;
-    [VCPowerManager_DefaultManager() setFeature:16 enable:state == 1];
+    [VCPowerManager_DefaultManager(self a2)];
     [(VCSessionParticipant *)self reportingAgent];
     reportingPIPEnabled();
     goto LABEL_20;
@@ -11198,7 +11201,7 @@ LABEL_6:
 
     _os_log_impl(&dword_1DB56E000, v21, OS_LOG_TYPE_DEFAULT, v20, v26, v22);
 LABEL_19:
-    [(VCSessionUplinkBandwidthAllocator *)self->_uplinkBandwidthAllocator addBandwidthAllocationTableEntry:0 updateNow:1, *v26, *&v26[16], *v27, *&v27[16], *&v28, v29];
+    [(VCSessionUplinkBandwidthAllocator *)self->_uplinkBandwidthAllocator addBandwidthAllocationTableEntry:0 updateNow:1, *v26, *&v26[8], *v27, *&v27[16], *&v28, v29];
     [(VCSessionParticipantLocal *)self updateUplinkTargetBitrateForStreamGroups];
   }
 
@@ -11567,7 +11570,7 @@ LABEL_11:
   dispatch_async(participantQueue, block);
 }
 
-uint64_t __38__VCSessionParticipantLocal_setMuted___block_invoke(uint64_t a1)
+void *__38__VCSessionParticipantLocal_setMuted___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   *(*(a1 + 32) + 372) = *(a1 + 40);
@@ -11592,7 +11595,8 @@ uint64_t __38__VCSessionParticipantLocal_setMuted___block_invoke(uint64_t a1)
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) setMuted:*(a1 + 40)];
+        [*(*(&v8 + 1) + 8 * v6) setMuted:*(a1 + 40)];
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -11641,54 +11645,55 @@ uint64_t __38__VCSessionParticipantLocal_setMuted___block_invoke(uint64_t a1)
 
 - (void)updateAudioPriorityWithSampleBuffer:(opaqueVCAudioBufferList *)buffer
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   Priority = VCAudioBufferList_GetPriority(buffer);
+  v7 = Priority;
   if (!self->_forcedAudioPriorityEnabled)
   {
     goto LABEL_6;
   }
 
-  v6 = micro();
-  if (v6 - self->_forcedAudioPriorityLastUpdateTime > 1.0)
+  v8 = micro(Priority, v6);
+  if (v8 - self->_forcedAudioPriorityLastUpdateTime > 1.0)
   {
     self->_forcedAudioPriorityValue = [+[VCDefaults sharedInstance](VCDefaults forceAudioPriorityValue];
-    self->_forcedAudioPriorityLastUpdateTime = v6;
+    self->_forcedAudioPriorityLastUpdateTime = v8;
   }
 
   forcedAudioPriorityValue = self->_forcedAudioPriorityValue;
   if (self->_forcedAudioPriorityValue)
   {
     VCAudioBufferList_SetPriority(buffer, self->_forcedAudioPriorityValue);
-    Priority = forcedAudioPriorityValue;
+    v7 = forcedAudioPriorityValue;
   }
 
   else
   {
 LABEL_6:
-    if (!Priority)
+    if (!v7)
     {
       if (self->super._oneToOneModeEnabled)
       {
-        Priority = 0;
+        v7 = 0;
       }
 
       else
       {
-        Priority = VCVoiceDetector_ProcessSampleBuffer(self->_voiceDetector, buffer, self->super._isMuted);
+        v7 = VCVoiceDetector_ProcessSampleBuffer(self->_voiceDetector, buffer, self->super._isMuted);
       }
     }
   }
 
-  if (Priority != self->_lastAudioPriority)
+  if (v7 != self->_lastAudioPriority)
   {
-    self->_lastAudioPriority = Priority;
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __65__VCSessionParticipantLocal_updateAudioPriorityWithSampleBuffer___block_invoke;
-    v8[3] = &unk_1E85F6758;
-    v8[4] = self;
-    v9 = Priority;
-    [(VCSessionParticipant *)self callDelegateWithBlock:v8];
+    self->_lastAudioPriority = v7;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = __65__VCSessionParticipantLocal_updateAudioPriorityWithSampleBuffer___block_invoke;
+    v10[3] = &unk_1E85F6758;
+    v10[4] = self;
+    v11 = v7;
+    [(VCSessionParticipant *)self callDelegateWithBlock:v10];
   }
 }
 
@@ -13432,7 +13437,7 @@ LABEL_33:
   dispatch_async(participantQueue, block);
 }
 
-uint64_t __54__VCSessionParticipantLocal_setRetransmissionEnabled___block_invoke(uint64_t a1)
+void *__54__VCSessionParticipantLocal_setRetransmissionEnabled___block_invoke(uint64_t a1)
 {
   v13 = *MEMORY[0x1E69E9840];
   v9 = 0u;
@@ -13461,7 +13466,7 @@ uint64_t __54__VCSessionParticipantLocal_setRetransmissionEnabled___block_invoke
           [v7 setRetransmissionEnabled:*(a1 + 40)];
         }
 
-        ++v6;
+        v6 = v6 + 1;
       }
 
       while (v4 != v6);
@@ -13562,19 +13567,19 @@ uint64_t __54__VCSessionParticipantLocal_setRetransmissionEnabled___block_invoke
   dispatch_async(participantQueue, v3);
 }
 
-uint64_t __42__VCSessionParticipantLocal_setUpCaptions__block_invoke(uint64_t result)
+void *__42__VCSessionParticipantLocal_setUpCaptions__block_invoke(void *result)
 {
   v6 = *MEMORY[0x1E69E9840];
-  if (*(*(result + 32) + 528))
+  if (*(result[4] + 528))
   {
     v1 = result;
-    *(*(result + 32) + 1136) = VCUniqueIDGenerator_GenerateID();
-    [*(*(v1 + 32) + 216) setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithInteger:", *(*(v1 + 32) + 1136)), &unk_1F579A2C0}];
+    *(result[4] + 1136) = VCUniqueIDGenerator_GenerateID();
+    [*(v1[4] + 216) setObject:objc_msgSend(MEMORY[0x1E696AD98] forKeyedSubscript:{"numberWithInteger:", *(v1[4] + 1136)), &unk_1F579A2C0}];
     v5 = 0;
     memset(v4, 0, sizeof(v4));
-    v2 = *(v1 + 32);
+    v2 = v1[4];
     v3 = *(v2 + 1136);
-    return [*(*(v1 + 32) + 528) registerStreamWithConfig:{&v3, Format_Float(v4, 1, *(v2 + 400))}];
+    return [*(v1[4] + 528) registerStreamWithConfig:{&v3, Format_Float(v4, 1, *(v2 + 400))}];
   }
 
   return result;
@@ -13705,7 +13710,7 @@ LABEL_18:
 
   *(v18 + 592) = *v19;
   *(*(a1 + 32) + 596) = *(a1 + 44);
-  return [*(a1 + 32) dispatchedUpdateUplinkTargetBitrate:*(a1 + 40) rateChangeCounter:{*v21, *&v21[16], v22, v23, v24, v25}];
+  return [*(a1 + 32) dispatchedUpdateUplinkTargetBitrate:*(a1 + 40) rateChangeCounter:{*v21, *&v21[8], v22, v23, v24, v25}];
 }
 
 - (void)updateUplinkTargetBitrateForStreamGroups
@@ -13789,7 +13794,7 @@ LABEL_11:
     }
   }
 
-  return [*(a1 + 32) dispatchedUpdateUplinkTargetBitrate:*(*(a1 + 32) + 592) rateChangeCounter:{*(*(a1 + 32) + 596), *v14, *&v14[16], v15, v16, v17, v18}];
+  return [*(a1 + 32) dispatchedUpdateUplinkTargetBitrate:*(*(a1 + 32) + 592) rateChangeCounter:{*(*(a1 + 32) + 596), *v14, *&v14[8], v15, v16, v17, v18}];
 }
 
 - (void)dispatchedUpdateUplinkTargetBitrate:(unsigned int)bitrate rateChangeCounter:(unsigned int)counter
@@ -13938,7 +13943,7 @@ LABEL_11:
   *(*(a1 + 32) + 1012) = *(a1 + 44);
   *(*(a1 + 32) + 592) = *(a1 + 40);
   *(*(a1 + 32) + 596) = *(a1 + 44);
-  return [*(a1 + 32) dispatchedUpdateUplinkTargetBitrate:*(a1 + 40) rateChangeCounter:{*v20, *&v20[16], v21, v22, v23, v24, v25}];
+  return [*(a1 + 32) dispatchedUpdateUplinkTargetBitrate:*(a1 + 40) rateChangeCounter:{*v20, *&v20[8], v21, v22, v23, v24, v25}];
 }
 
 - (void)updateVCMediaQueueSize:(unsigned int)size
@@ -14145,31 +14150,43 @@ LABEL_23:
   return result;
 }
 
-uint64_t __77__VCSessionParticipantLocal_generateSSRC_streamID_repairStreamID_v2StreamID___block_invoke(uint64_t a1)
+uint64_t __77__VCSessionParticipantLocal_generateSSRC_streamID_repairStreamID_v2StreamID___block_invoke(uint64_t result)
 {
+  v1 = result;
   do
   {
-    result = RTPGenerateSSRC();
-    *(*(*(a1 + 40) + 8) + 32) = result;
-    *(*(*(a1 + 40) + 8) + 36) = *(*(*(a1 + 40) + 8) + 32);
-    *(*(*(a1 + 40) + 8) + 38) = *(*(*(a1 + 40) + 8) + 36) + 1;
-    v3 = *(*(a1 + 40) + 8);
-    v4 = *(v3 + 36);
-    if (v4 < 0xFF9Bu)
+    result = RTPGenerateSSRC(result);
+    *(*(*(v1 + 40) + 8) + 32) = result;
+    *(*(*(v1 + 40) + 8) + 36) = *(*(*(v1 + 40) + 8) + 32);
+    *(*(*(v1 + 40) + 8) + 38) = *(*(*(v1 + 40) + 8) + 36) + 1;
+    v2 = *(*(v1 + 40) + 8);
+    v3 = *(v2 + 36);
+    if (v3 < 0xFF9Bu)
     {
-      v5 = 100;
+      v4 = 100;
     }
 
     else
     {
-      v5 = 101;
+      v4 = 101;
     }
 
-    *(v3 + 40) = v5 + v4;
-    if (*(a1 + 48) == 1)
+    *(v2 + 40) = v4 + v3;
+    if (*(v1 + 48) == 1)
     {
-      result = [*(a1 + 32) containsStreamWithSSRC:*(*(*(a1 + 40) + 8) + 32)];
-      v6 = (result & 1) != 0 || *(*(*(a1 + 40) + 8) + 32) < 0x40u;
+      result = [*(v1 + 32) containsStreamWithSSRC:*(*(*(v1 + 40) + 8) + 32)];
+      v5 = (result & 1) != 0 || *(*(*(v1 + 40) + 8) + 32) < 0x40u;
+    }
+
+    else
+    {
+      v5 = 0;
+    }
+
+    if (*(v1 + 49) == 1)
+    {
+      result = [*(*(v1 + 32) + 1072) containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedShort:", *(*(*(v1 + 40) + 8) + 36))}];
+      v6 = (result & 1) != 0 || *(*(*(v1 + 40) + 8) + 36) == 0;
     }
 
     else
@@ -14177,10 +14194,10 @@ uint64_t __77__VCSessionParticipantLocal_generateSSRC_streamID_repairStreamID_v2
       v6 = 0;
     }
 
-    if (*(a1 + 49) == 1)
+    if (*(v1 + 50) == 1)
     {
-      result = [*(*(a1 + 32) + 1072) containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedShort:", *(*(*(a1 + 40) + 8) + 36))}];
-      v7 = (result & 1) != 0 || *(*(*(a1 + 40) + 8) + 36) == 0;
+      result = [*(*(v1 + 32) + 1072) containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedShort:", *(*(*(v1 + 40) + 8) + 38))}];
+      v7 = (result & 1) != 0 || *(*(*(v1 + 40) + 8) + 38) == 0;
     }
 
     else
@@ -14188,72 +14205,61 @@ uint64_t __77__VCSessionParticipantLocal_generateSSRC_streamID_repairStreamID_v2
       v7 = 0;
     }
 
-    if (*(a1 + 50) == 1)
+    if (*(v1 + 51) == 1)
     {
-      result = [*(*(a1 + 32) + 1072) containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedShort:", *(*(*(a1 + 40) + 8) + 38))}];
-      v8 = (result & 1) != 0 || *(*(*(a1 + 40) + 8) + 38) == 0;
+      result = [*(*(v1 + 32) + 1072) containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedShort:", *(*(*(v1 + 40) + 8) + 40))}];
+      v8 = (result & 1) != 0 || *(*(*(v1 + 40) + 8) + 40) == 0;
     }
 
     else
     {
       v8 = 0;
     }
-
-    if (*(a1 + 51) == 1)
-    {
-      result = [*(*(a1 + 32) + 1072) containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedShort:", *(*(*(a1 + 40) + 8) + 40))}];
-      v9 = (result & 1) != 0 || *(*(*(a1 + 40) + 8) + 40) == 0;
-    }
-
-    else
-    {
-      v9 = 0;
-    }
   }
 
-  while (v6 || v7 || v8 || v9);
-  if (*(a1 + 49) == 1)
+  while (v5 || v6 || v7 || v8);
+  if (*(v1 + 49) == 1)
   {
-    result = [*(*(a1 + 32) + 1072) addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedShort:", *(*(*(a1 + 40) + 8) + 36))}];
+    result = [*(*(v1 + 32) + 1072) addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedShort:", *(*(*(v1 + 40) + 8) + 36))}];
   }
 
   else
   {
-    *(*(*(a1 + 40) + 8) + 36) = 0;
+    *(*(*(v1 + 40) + 8) + 36) = 0;
   }
 
-  if (*(a1 + 50) == 1)
+  if (*(v1 + 50) == 1)
   {
-    result = [*(*(a1 + 32) + 1072) addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedShort:", *(*(*(a1 + 40) + 8) + 38))}];
-  }
-
-  else
-  {
-    *(*(*(a1 + 40) + 8) + 38) = 0;
-  }
-
-  if (*(a1 + 51) == 1)
-  {
-    result = [*(*(a1 + 32) + 1072) addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedShort:", *(*(*(a1 + 40) + 8) + 40))}];
+    result = [*(*(v1 + 32) + 1072) addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedShort:", *(*(*(v1 + 40) + 8) + 38))}];
   }
 
   else
   {
-    *(*(*(a1 + 40) + 8) + 40) = 0;
+    *(*(*(v1 + 40) + 8) + 38) = 0;
   }
 
-  if (*(a1 + 48) == 1)
+  if (*(v1 + 51) == 1)
   {
-    v10 = *(a1 + 40);
-    v11 = *(*(a1 + 32) + 1080);
-    v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(*(v10 + 8) + 32)];
-
-    return [v11 addObject:v12];
+    result = [*(*(v1 + 32) + 1072) addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedShort:", *(*(*(v1 + 40) + 8) + 40))}];
   }
 
   else
   {
-    *(*(*(a1 + 40) + 8) + 32) = 0;
+    *(*(*(v1 + 40) + 8) + 40) = 0;
+  }
+
+  if (*(v1 + 48) == 1)
+  {
+    v9 = *(v1 + 40);
+    v10 = *(*(v1 + 32) + 1080);
+    v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*(*(v9 + 8) + 32)];
+
+    return [v10 addObject:v11];
+  }
+
+  else
+  {
+    *(*(*(v1 + 40) + 8) + 32) = 0;
   }
 
   return result;
@@ -14326,7 +14332,7 @@ LABEL_11:
   }
 
   *&v6 = change;
-  [(VCMediaRecorder *)self->super._mediaRecorder setFrameRate:v6, *v14, *&v14[16], v15, selfCopy, v17, v18];
+  [(VCMediaRecorder *)self->super._mediaRecorder setFrameRate:v6, *v14, *&v14[8], v15, selfCopy, v17, v18];
 }
 
 - (id)copyOnVideoFrameBlock
@@ -14410,7 +14416,7 @@ LABEL_11:
 - (void)thermalLevelDidChange:(int)change
 {
   v3 = *&change;
-  v35 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if (objc_opt_class() == self)
   {
     if (VRTraceGetErrorLogLevelForModule() >= 7)
@@ -14420,13 +14426,13 @@ LABEL_11:
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315906;
-        v24 = v6;
-        v25 = 2080;
-        v26 = "[VCSessionParticipantLocal thermalLevelDidChange:]";
-        v27 = 1024;
-        v28 = 4075;
+        v26 = v6;
+        v27 = 2080;
+        v28 = "[VCSessionParticipantLocal thermalLevelDidChange:]";
         v29 = 1024;
-        LODWORD(v30) = v3;
+        v30 = 4075;
+        v31 = 1024;
+        LODWORD(v32) = v3;
         v8 = " [%s] %s:%d thermalLevelDidChange %u";
         v9 = v7;
         v10 = 34;
@@ -14455,17 +14461,17 @@ LABEL_11:
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136316418;
-        v24 = v11;
-        v25 = 2080;
-        v26 = "[VCSessionParticipantLocal thermalLevelDidChange:]";
-        v27 = 1024;
-        v28 = 4075;
-        v29 = 2112;
-        v30 = v5;
-        v31 = 2048;
+        v26 = v11;
+        v27 = 2080;
+        v28 = "[VCSessionParticipantLocal thermalLevelDidChange:]";
+        v29 = 1024;
+        v30 = 4075;
+        v31 = 2112;
+        v32 = v5;
+        v33 = 2048;
         selfCopy = self;
-        v33 = 1024;
-        v34 = v3;
+        v35 = 1024;
+        v36 = v3;
         v8 = " [%s] %s:%d %@(%p) thermalLevelDidChange %u";
         v9 = v12;
         v10 = 54;
@@ -14474,36 +14480,36 @@ LABEL_11:
     }
   }
 
-  [(VCSessionParticipant *)self reportingAgent];
-  micro();
+  reportingAgent = [(VCSessionParticipant *)self reportingAgent];
+  micro(reportingAgent, v14);
   reportingThermal();
   [(VCSessionParticipantLocal *)self checkAndReportThermalIncreaseAudioOnly:v3];
+  v23 = 0u;
+  v24 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
   remoteParticipants = self->_remoteParticipants;
-  v14 = [(NSArray *)remoteParticipants countByEnumeratingWithState:&v19 objects:v18 count:16];
-  if (v14)
+  v16 = [(NSArray *)remoteParticipants countByEnumeratingWithState:&v21 objects:v20 count:16];
+  if (v16)
   {
-    v15 = v14;
-    v16 = *v20;
+    v17 = v16;
+    v18 = *v22;
     do
     {
-      for (i = 0; i != v15; ++i)
+      for (i = 0; i != v17; ++i)
       {
-        if (*v20 != v16)
+        if (*v22 != v18)
         {
           objc_enumerationMutation(remoteParticipants);
         }
 
-        [*(*(&v19 + 1) + 8 * i) updateThermalLevel:v3];
+        [*(*(&v21 + 1) + 8 * i) updateThermalLevel:v3];
       }
 
-      v15 = [(NSArray *)remoteParticipants countByEnumeratingWithState:&v19 objects:v18 count:16];
+      v17 = [(NSArray *)remoteParticipants countByEnumeratingWithState:&v21 objects:v20 count:16];
     }
 
-    while (v15);
+    while (v17);
   }
 }
 
@@ -14756,7 +14762,7 @@ uint64_t __44__VCSessionParticipantLocal_didStopReacting__block_invoke(uint64_t 
 {
   enabledCopy = enabled;
   v9[3] = *MEMORY[0x1E69E9840];
-  v5 = micro();
+  v5 = micro(self, a2);
   lastVideoEnabledChangedTime = self->_lastVideoEnabledChangedTime;
   v8[0] = @"VCSPUUID";
   uuid = self->super._uuid;
@@ -14849,61 +14855,63 @@ uint64_t __44__VCSessionParticipantLocal_didStopReacting__block_invoke(uint64_t 
 
 uint64_t __58__VCSessionParticipantLocal_handleActiveConnectionChange___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   MEMORY[0x1E128B580](&dword_1DB56E000, "@:@ VCSessionParticipantLocal-handleActiveConnectionChange");
-  if (VRTraceGetErrorLogLevelForModule() >= 6)
+  ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+  if (ErrorLogLevelForModule >= 6)
   {
-    v2 = VRTraceErrorLogLevelToCSTR();
-    v3 = *MEMORY[0x1E6986650];
-    if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+    v4 = VRTraceErrorLogLevelToCSTR();
+    v5 = *MEMORY[0x1E6986650];
+    ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT);
+    if (ErrorLogLevelForModule)
     {
-      v4 = *(a1 + 32);
-      v5 = [(__CFString *)v4 logPrefix];
-      v6 = [*(a1 + 40) uplinkBitrateCap];
-      v27 = 136316418;
-      v28 = v2;
-      v29 = 2080;
-      v30 = "[VCSessionParticipantLocal handleActiveConnectionChange:]_block_invoke";
-      v31 = 1024;
-      v32 = 4284;
-      v33 = 2048;
-      v34 = v4;
-      v35 = 2112;
-      v36 = v5;
-      v37 = 1024;
-      v38 = v6;
-      _os_log_impl(&dword_1DB56E000, v3, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @:@ VCSessionParticipantLocal-handleActiveConnectionChange (%p) %@ Active connection changed with new connection uplinkBitrateCap %d", &v27, 0x36u);
+      v6 = *(a1 + 32);
+      v7 = [(__CFString *)v6 logPrefix];
+      v8 = [*(a1 + 40) uplinkBitrateCap];
+      v29 = 136316418;
+      v30 = v4;
+      v31 = 2080;
+      v32 = "[VCSessionParticipantLocal handleActiveConnectionChange:]_block_invoke";
+      v33 = 1024;
+      v34 = 4284;
+      v35 = 2048;
+      v36 = v6;
+      v37 = 2112;
+      v38 = v7;
+      v39 = 1024;
+      v40 = v8;
+      _os_log_impl(&dword_1DB56E000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @:@ VCSessionParticipantLocal-handleActiveConnectionChange (%p) %@ Active connection changed with new connection uplinkBitrateCap %d", &v29, 0x36u);
     }
   }
 
-  v7 = VCPowerManager_DefaultManager();
-  [v7 setFeature:8 enable:VCConnection_IsLocalOnCellular(*(a1 + 40))];
+  v9 = VCPowerManager_DefaultManager(ErrorLogLevelForModule, v3);
+  [v9 setFeature:8 enable:VCConnection_IsLocalOnCellular(*(a1 + 40))];
   *(*(a1 + 32) + 432) = VCConnection_IsLocalOnWiFiOrWired(*(a1 + 40));
   IsEndToEndLink = VCConnection_IsEndToEndLink(*(a1 + 40));
-  v9 = *(a1 + 32);
+  v11 = *(a1 + 32);
   if (IsEndToEndLink)
   {
-    if (([v9 dispatchedIsAnyCameraMediaTypeEnabled] & 1) != 0 || *(*(a1 + 32) + 375) == 1)
+    if (([v11 dispatchedIsAnyCameraMediaTypeEnabled] & 1) != 0 || *(*(a1 + 32) + 375) == 1)
     {
-      v10 = [*(a1 + 40) uplinkBitrateCapOneToOne];
+      v12 = [*(a1 + 40) uplinkBitrateCapOneToOne];
     }
 
     else
     {
-      v10 = [*(a1 + 40) uplinkAudioBitrateCapOneToOne];
+      v12 = [*(a1 + 40) uplinkAudioBitrateCapOneToOne];
     }
 
-    v12 = v10;
-    v13 = *(a1 + 32);
-    if (*(v13 + 1032) == 1)
+    v14 = v12;
+    v15 = *(a1 + 32);
+    if (*(v15 + 1032) == 1)
     {
-      v12 = *(v13 + 1036);
+      v14 = *(v15 + 1036);
     }
 
-    if (v12 < *(v13 + 1008))
+    if (v14 < *(v15 + 1008))
     {
-      *(v13 + 1008) = v12;
-      *(*(a1 + 32) + 592) = v12;
+      *(v15 + 1008) = v14;
+      *(*(a1 + 32) + 592) = v14;
     }
 
     if (objc_opt_class() == *(a1 + 32))
@@ -14913,36 +14921,36 @@ uint64_t __58__VCSessionParticipantLocal_handleActiveConnectionChange___block_in
         goto LABEL_28;
       }
 
-      v15 = VRTraceErrorLogLevelToCSTR();
-      v16 = *MEMORY[0x1E6986650];
+      v17 = VRTraceErrorLogLevelToCSTR();
+      v18 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_28;
       }
 
-      v27 = 136315906;
-      v28 = v15;
-      v29 = 2080;
-      v30 = "[VCSessionParticipantLocal handleActiveConnectionChange:]_block_invoke";
-      v31 = 1024;
-      v32 = 4297;
+      v29 = 136315906;
+      v30 = v17;
+      v31 = 2080;
+      v32 = "[VCSessionParticipantLocal handleActiveConnectionChange:]_block_invoke";
       v33 = 1024;
-      LODWORD(v34) = v12;
-      v17 = " [%s] %s:%d Active connection changed with new connection oneToOneUplinkBitrateCap %d";
-      v18 = v16;
-      v19 = 34;
+      v34 = 4297;
+      v35 = 1024;
+      LODWORD(v36) = v14;
+      v19 = " [%s] %s:%d Active connection changed with new connection oneToOneUplinkBitrateCap %d";
+      v20 = v18;
+      v21 = 34;
     }
 
     else
     {
       if (objc_opt_respondsToSelector())
       {
-        v14 = [*(a1 + 32) performSelector:sel_logPrefix];
+        v16 = [*(a1 + 32) performSelector:sel_logPrefix];
       }
 
       else
       {
-        v14 = &stru_1F570E008;
+        v16 = &stru_1F570E008;
       }
 
       if (VRTraceGetErrorLogLevelForModule() < 7)
@@ -14950,65 +14958,65 @@ uint64_t __58__VCSessionParticipantLocal_handleActiveConnectionChange___block_in
         goto LABEL_28;
       }
 
-      v20 = VRTraceErrorLogLevelToCSTR();
-      v21 = *MEMORY[0x1E6986650];
+      v22 = VRTraceErrorLogLevelToCSTR();
+      v23 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_28;
       }
 
-      v22 = *(a1 + 32);
-      v27 = 136316418;
-      v28 = v20;
-      v29 = 2080;
-      v30 = "[VCSessionParticipantLocal handleActiveConnectionChange:]_block_invoke";
-      v31 = 1024;
-      v32 = 4297;
-      v33 = 2112;
-      v34 = v14;
-      v35 = 2048;
-      v36 = v22;
-      v37 = 1024;
-      v38 = v12;
-      v17 = " [%s] %s:%d %@(%p) Active connection changed with new connection oneToOneUplinkBitrateCap %d";
-      v18 = v21;
-      v19 = 54;
+      v24 = *(a1 + 32);
+      v29 = 136316418;
+      v30 = v22;
+      v31 = 2080;
+      v32 = "[VCSessionParticipantLocal handleActiveConnectionChange:]_block_invoke";
+      v33 = 1024;
+      v34 = 4297;
+      v35 = 2112;
+      v36 = v16;
+      v37 = 2048;
+      v38 = v24;
+      v39 = 1024;
+      v40 = v14;
+      v19 = " [%s] %s:%d %@(%p) Active connection changed with new connection oneToOneUplinkBitrateCap %d";
+      v20 = v23;
+      v21 = 54;
     }
 
-    _os_log_impl(&dword_1DB56E000, v18, OS_LOG_TYPE_DEFAULT, v17, &v27, v19);
+    _os_log_impl(&dword_1DB56E000, v20, OS_LOG_TYPE_DEFAULT, v19, &v29, v21);
 LABEL_28:
     *(*(a1 + 32) + 1016) = 1;
     goto LABEL_29;
   }
 
-  if (*(v9 + 1032) == 1)
+  if (*(v11 + 1032) == 1)
   {
-    v11 = *(v9 + 1036);
+    v13 = *(v11 + 1036);
   }
 
   else
   {
-    v11 = [*(a1 + 40) uplinkBitrateCap];
-    v9 = *(a1 + 32);
+    v13 = [*(a1 + 40) uplinkBitrateCap];
+    v11 = *(a1 + 32);
   }
 
-  *(v9 + 592) = v11;
+  *(v11 + 592) = v13;
 LABEL_29:
   *(*(a1 + 32) + 592) = VCDefaults_GetIntValueForKey(@"forcedTxRate", *(*(a1 + 32) + 592));
   [*(a1 + 32) dispatchedHandleActiveConnectionChangeForStreamGroups:*(a1 + 40)];
   IsLocalOnCellular = VCConnection_IsLocalOnCellular(*(a1 + 40));
-  v24 = *(*(a1 + 32) + 424);
+  v26 = *(*(a1 + 32) + 424);
   if (IsLocalOnCellular)
   {
-    v25 = [*(a1 + 40) connectionMTU];
+    v27 = [*(a1 + 40) connectionMTU];
   }
 
   else
   {
-    v25 = 1280;
+    v27 = 1280;
   }
 
-  return VCMediaQueue_SetMTUBytes(v24, v25);
+  return VCMediaQueue_SetMTUBytes(v26, v27);
 }
 
 - (void)didReceiveReportPacket:(tagRTCPPACKET *)packet arrivalNTPTime:(tagNTP)time
@@ -15167,17 +15175,17 @@ LABEL_20:
   dispatch_async(participantQueue, v5);
 }
 
-uint64_t __62__VCSessionParticipantLocal_streamGroup_didRequestRedundancy___block_invoke(uint64_t result)
+id *__62__VCSessionParticipantLocal_streamGroup_didRequestRedundancy___block_invoke(id *result)
 {
   v15 = *MEMORY[0x1E69E9840];
-  if (*(*(result + 32) + 408) == 1)
+  if (*(result[4] + 408) == 1)
   {
     v1 = result;
-    v2 = [*(result + 40) streamGroupID];
-    [*(v1 + 32) enableRedundancy:*(v1 + 48)];
-    if ([*(*(v1 + 32) + 832) containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", v2)}])
+    v2 = [result[5] streamGroupID];
+    [v1[4] enableRedundancy:*(v1 + 48)];
+    if ([*(v1[4] + 104) containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", v2)}])
     {
-      if ((*(v1 + 48) & 1) == 0)
+      if ((v1[6] & 1) == 0)
       {
         if (VRTraceGetErrorLogLevelForModule() >= 7)
         {
@@ -15197,17 +15205,17 @@ uint64_t __62__VCSessionParticipantLocal_streamGroup_didRequestRedundancy___bloc
           }
         }
 
-        [*(*(v1 + 32) + 832) removeObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", v2)}];
-        return [*(v1 + 32) dispatchedUpdateUplinkTargetBitrate:*(*(v1 + 32) + 592) rateChangeCounter:*(*(v1 + 32) + 596)];
+        [*(v1[4] + 104) removeObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", v2)}];
+        return [v1[4] dispatchedUpdateUplinkTargetBitrate:*(v1[4] + 148) rateChangeCounter:*(v1[4] + 149)];
       }
     }
 
-    else if ((*(v1 + 48) & 1) == 0)
+    else if ((v1[6] & 1) == 0)
     {
-      return [*(v1 + 32) dispatchedUpdateUplinkTargetBitrate:*(*(v1 + 32) + 592) rateChangeCounter:*(*(v1 + 32) + 596)];
+      return [v1[4] dispatchedUpdateUplinkTargetBitrate:*(v1[4] + 148) rateChangeCounter:*(v1[4] + 149)];
     }
 
-    if (([*(*(v1 + 32) + 832) containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", v2)}] & 1) == 0)
+    if (([*(v1[4] + 104) containsObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", v2)}] & 1) == 0)
     {
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
@@ -15227,10 +15235,10 @@ uint64_t __62__VCSessionParticipantLocal_streamGroup_didRequestRedundancy___bloc
         }
       }
 
-      [*(*(v1 + 32) + 832) addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", v2)}];
+      [*(v1[4] + 104) addObject:{objc_msgSend(MEMORY[0x1E696AD98], "numberWithUnsignedInt:", v2)}];
     }
 
-    return [*(v1 + 32) dispatchedUpdateUplinkTargetBitrate:*(*(v1 + 32) + 592) rateChangeCounter:*(*(v1 + 32) + 596)];
+    return [v1[4] dispatchedUpdateUplinkTargetBitrate:*(v1[4] + 148) rateChangeCounter:*(v1[4] + 149)];
   }
 
   return result;
@@ -15457,7 +15465,7 @@ LABEL_14:
   return v3;
 }
 
-uint64_t __45__VCSessionParticipantLocal_feedbackDelegate__block_invoke(uint64_t a1)
+void *__45__VCSessionParticipantLocal_feedbackDelegate__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) isVideoEnabled];
   if (result)
@@ -15465,7 +15473,7 @@ uint64_t __45__VCSessionParticipantLocal_feedbackDelegate__block_invoke(uint64_t
     v3 = *(a1 + 32);
     if (v3)
     {
-      [v3 oneToOneSettings];
+      objc_msgSend_oneToOneSettings(v3);
       v3 = v5;
     }
 

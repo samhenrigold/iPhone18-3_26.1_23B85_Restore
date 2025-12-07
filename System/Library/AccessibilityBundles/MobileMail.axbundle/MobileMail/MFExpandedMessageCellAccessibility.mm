@@ -78,37 +78,22 @@ uint64_t __56__MFExpandedMessageCellAccessibility_accessibilityLabel__block_invo
 
 - (id)accessibilityElements
 {
-  v13[1] = *MEMORY[0x29EDCA608];
+  v12[1] = *MEMORY[0x29EDCA608];
   v3 = [(MFExpandedMessageCellAccessibility *)self _accessibilityAncestorIsKindOf:objc_opt_class()];
   v4 = [v3 safeBoolForKey:@"_accessibilityShouldUseCollectionViewCellAccessibilityElements"];
 
-  if (!v4)
+  if (v4 && (v11 = 0, objc_opt_class(), -[MFExpandedMessageCellAccessibility safeValueForKey:](self, "safeValueForKey:", @"messageViewController"), v5 = objc_claimAutoreleasedReturnValue(), __UIAccessibilityCastAsClass(), v6 = objc_claimAutoreleasedReturnValue(), v5, [v6 view], v7 = objc_claimAutoreleasedReturnValue(), v6, v7))
   {
-    goto LABEL_4;
-  }
-
-  v12 = 0;
-  objc_opt_class();
-  v5 = [(MFExpandedMessageCellAccessibility *)self safeValueForKey:@"messageViewController"];
-  v6 = __UIAccessibilityCastAsClass();
-
-  view = [v6 view];
-
-  if (view)
-  {
-    v13[0] = view;
-    accessibilityElements = [MEMORY[0x29EDB8D80] arrayWithObjects:v13 count:1];
+    v12[0] = v7;
+    accessibilityElements = [MEMORY[0x29EDB8D80] arrayWithObjects:v12 count:1];
   }
 
   else
   {
-LABEL_4:
-    v11.receiver = self;
-    v11.super_class = MFExpandedMessageCellAccessibility;
-    accessibilityElements = [(MFExpandedMessageCellAccessibility *)&v11 accessibilityElements];
+    v10.receiver = self;
+    v10.super_class = MFExpandedMessageCellAccessibility;
+    accessibilityElements = [(MFExpandedMessageCellAccessibility *)&v10 accessibilityElements];
   }
-
-  v9 = *MEMORY[0x29EDCA608];
 
   return accessibilityElements;
 }

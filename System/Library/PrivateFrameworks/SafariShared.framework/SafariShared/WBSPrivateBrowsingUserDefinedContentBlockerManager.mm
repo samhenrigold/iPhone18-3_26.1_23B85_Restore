@@ -41,7 +41,7 @@
 
 - (void)_setCachedGlobalContentBlockerActions:(id)actions
 {
-  v3 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker();
+  v3 = WBS_LOG_CHANNEL_PREFIXUserDefinedContentBlocker(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [WBSPrivateBrowsingUserDefinedContentBlockerManager _setCachedGlobalContentBlockerActions:];

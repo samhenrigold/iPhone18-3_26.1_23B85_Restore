@@ -144,7 +144,7 @@ LABEL_17:
   {
     if (![(OrgApacheLuceneCodecsLucene50Lucene50DocValuesProducer_CompressedBinaryDocValues_CompressedBinaryTermsEnum *)self next])
     {
-      v13 = &OrgApacheLuceneIndexTermsEnum_SeekStatusEnum_values_;
+      v13 = OrgApacheLuceneIndexTermsEnum_SeekStatusEnum_values_;
       if (atomic_load_explicit(OrgApacheLuceneIndexTermsEnum_SeekStatusEnum__initialized, memory_order_acquire))
       {
         return *v13;

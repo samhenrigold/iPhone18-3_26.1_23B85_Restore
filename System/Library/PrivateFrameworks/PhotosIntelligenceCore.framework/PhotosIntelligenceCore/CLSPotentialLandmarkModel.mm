@@ -56,9 +56,7 @@ void __38__CLSPotentialLandmarkModel_modelInfo__block_invoke(uint64_t a1, void *
 - (void)setupVersion33
 {
   self->_version = 33;
-  v3 = [[CLSSignalNode alloc] initWithIdentifier:2147483135 name:@"PL - Landmark" operatingPoint:0.61 highPrecisionOperatingPoint:0.91 highRecallOperatingPoint:0.4];
-  landmarkNode = self->_landmarkNode;
-  self->_landmarkNode = v3;
+  self->_landmarkNode = [[CLSSignalNode alloc] initWithIdentifier:2147483135 name:@"PL - Landmark" operatingPoint:0.61 highPrecisionOperatingPoint:0.91 highRecallOperatingPoint:0.4];
 
   MEMORY[0x2821F96F8]();
 }
@@ -66,19 +64,17 @@ void __38__CLSPotentialLandmarkModel_modelInfo__block_invoke(uint64_t a1, void *
 - (void)setupVersion32
 {
   self->_version = 32;
-  v3 = [[CLSSignalNode alloc] initWithIdentifier:2147483135 name:@"PL - Landmark" operatingPoint:0.98 highPrecisionOperatingPoint:0.98 highRecallOperatingPoint:0.98];
-  landmarkNode = self->_landmarkNode;
-  self->_landmarkNode = v3;
+  self->_landmarkNode = [[CLSSignalNode alloc] initWithIdentifier:2147483135 name:@"PL - Landmark" operatingPoint:0.98 highPrecisionOperatingPoint:0.98 highRecallOperatingPoint:0.98];
 
   MEMORY[0x2821F96F8]();
 }
 
 - (CLSPotentialLandmarkModel)initWithSceneAnalysisVersion:(unint64_t)version
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v9.receiver = self;
-  v9.super_class = CLSPotentialLandmarkModel;
-  v4 = [(CLSPotentialLandmarkModel *)&v9 init];
+  v13 = *MEMORY[0x277D85DE8];
+  v8.receiver = self;
+  v8.super_class = CLSPotentialLandmarkModel;
+  v4 = [(CLSPotentialLandmarkModel *)&v8 init];
   v5 = v4;
   if (v4)
   {
@@ -96,12 +92,12 @@ void __38__CLSPotentialLandmarkModel_modelInfo__block_invoke(uint64_t a1, void *
           v6 = objc_opt_class();
           *buf = 67109378;
           versionCopy = version;
-          v12 = 2112;
-          v13 = v6;
+          v11 = 2112;
+          v12 = v6;
           _os_log_impl(&dword_25E5F0000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Unsupported version %d in %@", buf, 0x12u);
         }
 
-        v5 = 0;
+        return 0;
       }
     }
 
@@ -111,7 +107,6 @@ void __38__CLSPotentialLandmarkModel_modelInfo__block_invoke(uint64_t a1, void *
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

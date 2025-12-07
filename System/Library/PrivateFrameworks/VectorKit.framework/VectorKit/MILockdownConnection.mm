@@ -40,43 +40,42 @@
   {
     v3 = objc_autoreleasePoolPush();
     cf = 0;
-    lockdown = self->_lockdown;
-    v5 = lockdown_receive_message();
-    v6 = cf;
-    v7 = +[NSThread currentThread];
-    isCancelled = [v7 isCancelled];
+    v4 = lockdown_receive_message();
+    v5 = cf;
+    v6 = +[NSThread currentThread];
+    isCancelled = [v6 isCancelled];
 
     if (isCancelled)
     {
       break;
     }
 
-    if (v5)
+    if (v4)
     {
-      v22[0] = _NSConcreteStackBlock;
-      v22[1] = 3221225472;
-      v22[2] = sub_100000EF0;
-      v22[3] = &unk_100004290;
-      v22[4] = self;
-      dispatch_async(&_dispatch_main_q, v22);
+      v21[0] = _NSConcreteStackBlock;
+      v21[1] = 3221225472;
+      v21[2] = sub_100000EF0;
+      v21[3] = &unk_100004290;
+      v21[4] = self;
+      dispatch_async(&_dispatch_main_q, v21);
       break;
     }
 
-    Value = CFDictionaryGetValue(v6, @"MIPartialMessageKey");
+    Value = CFDictionaryGetValue(v5, @"MIPartialMessageKey");
     if (Value)
     {
-      v10 = Value;
+      v9 = Value;
       incomingData = self->_incomingData;
       if (incomingData)
       {
-        [(NSMutableData *)incomingData appendData:v10];
+        [(NSMutableData *)incomingData appendData:v9];
       }
 
       else
       {
-        v15 = [[NSMutableData alloc] initWithData:v10];
-        v16 = self->_incomingData;
-        self->_incomingData = v15;
+        v14 = [[NSMutableData alloc] initWithData:v9];
+        v15 = self->_incomingData;
+        self->_incomingData = v14;
       }
 
       CFRelease(cf);
@@ -84,38 +83,38 @@
 
     else
     {
-      v12 = CFDictionaryGetValue(v6, @"MIFinalMessageKey");
-      v13 = self->_incomingData;
-      if (v12)
+      v11 = CFDictionaryGetValue(v5, @"MIFinalMessageKey");
+      v12 = self->_incomingData;
+      if (v11)
       {
-        if (v13)
+        if (v12)
         {
-          [(NSMutableData *)v13 appendData:v12];
-          v14 = self->_incomingData;
+          [(NSMutableData *)v12 appendData:v11];
+          v13 = self->_incomingData;
         }
 
         else
         {
-          v14 = 0;
+          v13 = 0;
         }
 
-        if (!v14)
+        if (!v13)
         {
-          v14 = v12;
+          v13 = v11;
         }
 
-        v17 = v14;
+        v16 = v13;
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = sub_100000EF8;
         block[3] = &unk_1000042B8;
         block[4] = self;
-        v21 = v17;
-        v18 = v17;
+        v20 = v16;
+        v17 = v16;
         dispatch_async(&_dispatch_main_q, block);
 
         CFRelease(cf);
-        v19 = self->_incomingData;
+        v18 = self->_incomingData;
         self->_incomingData = 0;
       }
 
@@ -192,14 +191,13 @@
       }
 
       CFDictionarySetValue(Mutable, v13, v10);
-      lockdown = self->_lockdown;
-      v15 = lockdown_send_message();
+      v14 = lockdown_send_message();
       if (v12)
       {
         CFRelease(v12);
       }
 
-      if (v15)
+      if (v14)
       {
         break;
       }

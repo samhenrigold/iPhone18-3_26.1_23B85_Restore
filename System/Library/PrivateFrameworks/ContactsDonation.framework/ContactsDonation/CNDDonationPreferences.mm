@@ -4,6 +4,7 @@
 - (CNDDonationPreferences)init;
 - (CNDDonationPreferences)initWithNotificationCenter:(id)center logger:(id)logger donationPreferenceCheckingBlock:(id)block donationPreferenceSettingBlock:(id)settingBlock;
 - (NSString)description;
+- (void)setDonationsEnabled:(BOOL)enabled;
 @end
 
 @implementation CNDDonationPreferences
@@ -115,29 +116,38 @@ void __30__CNDDonationPreferences_init__block_invoke_2(uint64_t a1, int a2)
   return v3;
 }
 
+- (void)setDonationsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  logger = [(CNDDonationPreferences *)self logger];
+  [logger setDonationsEnabled:enabledCopy];
+
+  (*(self->_donationPreferenceSettingBlock + 2))();
+  notificationCenter = [(CNDDonationPreferences *)self notificationCenter];
+  [notificationCenter postNotificationName:@"CNDDonationsEnabledPreferencesKey" object:0];
+}
+
 + (id)observableWithPreferences:(id)preferences notificationCenter:(id)center schedulerProvider:(id)provider
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   preferencesCopy = preferences;
   v7 = MEMORY[0x277CFBE60];
   providerCopy = provider;
   v9 = [v7 observableOnDarwinNotificationCenterWithName:@"com.apple.suggestions.settingsChanged"];
   null = [MEMORY[0x277CBEB68] null];
-  v21[0] = null;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = null;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   backgroundScheduler = [providerCopy backgroundScheduler];
 
   v13 = [v9 startWith:v11 scheduler:backgroundScheduler];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __89__CNDDonationPreferences_observableWithPreferences_notificationCenter_schedulerProvider___block_invoke;
-  v19[3] = &unk_278569FF8;
-  v20 = preferencesCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __89__CNDDonationPreferences_observableWithPreferences_notificationCenter_schedulerProvider___block_invoke;
+  v18[3] = &unk_278569FF8;
+  v19 = preferencesCopy;
   v14 = preferencesCopy;
-  v15 = [v13 map:v19];
+  v15 = [v13 map:v18];
   distinctUntilChanged = [v15 distinctUntilChanged];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return distinctUntilChanged;
 }

@@ -33,7 +33,7 @@ id __96___CUIGraphicVariantVectorGlyph_rasterizeImageUsingScaleFactor_forTargetS
     }
   }
 
-  return [v4 objectAtIndex:?];
+  return [v4 objectAtIndex:a3];
 }
 
 id __92___CUIGraphicVariantVectorGlyph_layerStackWithDisplayScale_forTargetSize_withPaletteColors___block_invoke(void *a1, uint64_t a2, unint64_t a3)
@@ -53,7 +53,7 @@ id __92___CUIGraphicVariantVectorGlyph_layerStackWithDisplayScale_forTargetSize_
     }
   }
 
-  return [v4 objectAtIndex:?];
+  return [v4 objectAtIndex:a3];
 }
 
 @end

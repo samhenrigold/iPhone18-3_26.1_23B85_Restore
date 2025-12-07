@@ -183,8 +183,8 @@ void __85__PLAssetsdCloudService_computeStableHashesOfAssetWithObjectURI_synchro
   libraryServicesManager = [(PLAbstractLibraryServicesManagerService *)self libraryServicesManager];
   isCloudPhotoLibraryEnabled = [libraryServicesManager isCloudPhotoLibraryEnabled];
 
-  v18 = [assetsCopy count];
-  if (v18 == [tokensCopy count])
+  v18 = objc_msgSend_count(assetsCopy);
+  if (v18 == objc_msgSend_count(tokensCopy))
   {
     v19 = [MEMORY[0x1E695DF70] arrayWithCapacity:v18];
     if (v18)
@@ -226,7 +226,7 @@ void __85__PLAssetsdCloudService_computeStableHashesOfAssetWithObjectURI_synchro
 
   else
   {
-    v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Mismatch between the number of asset uuids and tokens, assetUUIDs count: %tu, doneTokens count: %tu", v18, objc_msgSend(tokensCopy, "count")];
+    v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Mismatch between the number of asset uuids and tokens, assetUUIDs count: %tu, doneTokens count: %tu", v18, objc_msgSend_count(tokensCopy)];
     v26 = PLImageManagerGetLog();
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {

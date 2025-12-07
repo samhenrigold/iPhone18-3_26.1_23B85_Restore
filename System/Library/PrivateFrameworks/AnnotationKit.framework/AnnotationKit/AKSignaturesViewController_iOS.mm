@@ -292,7 +292,7 @@
 
 - (void)_continueToCreateSignature:(id)signature
 {
-  AKLog(@"%s");
+  AKLog();
   delegate = [(AKSignaturesViewController_iOS *)self delegate];
   if (objc_opt_respondsToSelector())
   {
@@ -302,7 +302,7 @@
 
 - (void)_cancelPicker:(id)picker
 {
-  AKLog(@"%s");
+  AKLog();
   delegate = [(AKSignaturesViewController_iOS *)self delegate];
   if (objc_opt_respondsToSelector())
   {
@@ -334,7 +334,7 @@
     signatureModelController = [controller signatureModelController];
     v6 = [signatureModelController mutableArrayValueForKey:@"signatures"];
 
-    AKLog(@"Delete signature %@");
+    AKLog();
     [v6 removeObject:{signatureCopy, signatureCopy}];
   }
 }
@@ -526,7 +526,7 @@ LABEL_19:
   signatureModelController = [controller signatureModelController];
   [signatureModelController setSelectedSignature:v9];
 
-  AKLog(@"Selected signature %@");
+  AKLog();
   [viewCopy deselectRowAtIndexPath:pathCopy animated:{1, v9}];
 
   delegate = [(AKSignaturesViewController_iOS *)self delegate];

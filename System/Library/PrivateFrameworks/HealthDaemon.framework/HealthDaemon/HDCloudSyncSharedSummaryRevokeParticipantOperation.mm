@@ -15,7 +15,7 @@
   v7 = [(HDCloudSyncOperation *)&v11 initWithConfiguration:configuration cloudState:0];
   if (v7)
   {
-    v8 = [entryCopy copy];
+    v8 = objc_msgSend_copy(entryCopy);
     codableEntry = v7->_codableEntry;
     v7->_codableEntry = v8;
   }
@@ -25,28 +25,28 @@
 
 - (void)main
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   configuration = [(HDCloudSyncOperation *)self configuration];
   cachedCloudState = [configuration cachedCloudState];
   configuration2 = [(HDCloudSyncOperation *)self configuration];
   repository = [configuration2 repository];
   primaryCKContainer = [repository primaryCKContainer];
   containerIdentifier = [primaryCKContainer containerIdentifier];
-  v46 = 0;
-  v9 = [cachedCloudState privateMetadataZoneForContainerID:containerIdentifier error:&v46];
-  v10 = v46;
+  v45 = 0;
+  v9 = [cachedCloudState privateMetadataZoneForContainerID:containerIdentifier error:&v45];
+  v10 = v45;
 
   if (v9)
   {
     codableEntry = self->_codableEntry;
-    v45 = 0;
-    v12 = [(HDCloudSyncSharedSummaryRevokeParticipantOperation *)self _updatedParticipantRecordInZone:v9 entry:codableEntry error:&v45];
-    v13 = v45;
+    v44 = 0;
+    v12 = [(HDCloudSyncSharedSummaryRevokeParticipantOperation *)self _updatedParticipantRecordInZone:v9 entry:codableEntry error:&v44];
+    v13 = v44;
     if (v12)
     {
-      v44 = 0;
-      v14 = [(HDCloudSyncSharedSummaryRevokeParticipantOperation *)self _deleteZonesOperationForParticipant:v12 error:&v44];
-      v15 = v44;
+      v43 = 0;
+      v14 = [(HDCloudSyncSharedSummaryRevokeParticipantOperation *)self _deleteZonesOperationForParticipant:v12 error:&v43];
+      v15 = v43;
       if (v14)
       {
         v16 = [HDCloudSyncCompoundOperation alloc];
@@ -54,18 +54,18 @@
         v18 = [(HDCloudSyncCompoundOperation *)v16 initWithConfiguration:configuration3 cloudState:0 name:@"Revoke Participant" continueOnSubOperationError:0];
 
         [(HDCloudSyncCompoundOperation *)v18 addOperation:v14 transitionHandler:0];
-        v40 = v15;
+        v39 = v15;
         v19 = [HDCloudSyncModifyRecordsOperation alloc];
         configuration4 = [(HDCloudSyncOperation *)self configuration];
         configuration5 = [(HDCloudSyncOperation *)self configuration];
         [configuration5 repository];
-        v21 = v42 = v13;
+        v21 = v41 = v13;
         [v21 primaryCKContainer];
-        v22 = v41 = v14;
+        v22 = v40 = v14;
         [v12 record];
-        v23 = v43 = v10;
-        v47 = v23;
-        [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
+        v23 = v42 = v10;
+        v46 = v23;
+        [MEMORY[0x277CBEA60] arrayWithObjects:&v46 count:1];
         v24 = v9;
         v26 = v25 = v12;
         v27 = v19;
@@ -75,14 +75,14 @@
         v12 = v25;
         v9 = v24;
 
-        v10 = v43;
-        v14 = v41;
+        v10 = v42;
+        v14 = v40;
 
-        v13 = v42;
+        v13 = v41;
         [(HDCloudSyncCompoundOperation *)v18 addOperation:v29 transitionHandler:0];
         [(HDCloudSyncOperation *)self delegateToOperation:v18];
 
-        v15 = v40;
+        v15 = v39;
       }
 
       else
@@ -91,15 +91,15 @@
         v33 = *MEMORY[0x277CCC328];
         if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
         {
-          v37 = v33;
+          v36 = v33;
           zoneIdentifier = [v9 zoneIdentifier];
           *buf = 138543874;
           selfCopy2 = self;
-          v50 = 2114;
-          v51 = zoneIdentifier;
-          v52 = 2114;
-          v53 = v15;
-          _os_log_error_impl(&dword_228986000, v37, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@ Failed to find zone for participant %{public}@, %{public}@", buf, 0x20u);
+          v49 = 2114;
+          v50 = zoneIdentifier;
+          v51 = 2114;
+          v52 = v15;
+          _os_log_error_impl(&dword_228986000, v36, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@ Failed to find zone for participant %{public}@, %{public}@", buf, 0x20u);
         }
 
         [(HDCloudSyncOperation *)self finishWithSuccess:0 error:v15];
@@ -112,15 +112,15 @@
       v30 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        v35 = v30;
+        v34 = v30;
         zoneIdentifier2 = [v9 zoneIdentifier];
         *buf = 138543874;
         selfCopy2 = self;
-        v50 = 2114;
-        v51 = zoneIdentifier2;
-        v52 = 2114;
-        v53 = v13;
-        _os_log_error_impl(&dword_228986000, v35, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@ Failed to find participant record for %{public}@, %{public}@", buf, 0x20u);
+        v49 = 2114;
+        v50 = zoneIdentifier2;
+        v51 = 2114;
+        v52 = v13;
+        _os_log_error_impl(&dword_228986000, v34, OS_LOG_TYPE_ERROR, "[summary-sharing] %{public}@ Failed to find participant record for %{public}@, %{public}@", buf, 0x20u);
       }
 
       if (v13)
@@ -148,8 +148,6 @@
 
     [(HDCloudSyncOperation *)self finishWithSuccess:0 error:v10];
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_updatedParticipantRecordInZone:(id)zone entry:(id)entry error:(id *)error
@@ -213,7 +211,7 @@ uint64_t __98__HDCloudSyncSharedSummaryRevokeParticipantOperation__updatedPartic
 
 - (id)_deleteZonesOperationForParticipant:(id)participant error:(id *)error
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   participantCopy = participant;
   configuration = [(HDCloudSyncOperation *)self configuration];
   repository = [configuration repository];
@@ -230,20 +228,20 @@ uint64_t __98__HDCloudSyncSharedSummaryRevokeParticipantOperation__updatedPartic
 
   configuration2 = [(HDCloudSyncOperation *)self configuration];
   cachedCloudState = [configuration2 cachedCloudState];
-  v35 = 0;
-  v18 = [cachedCloudState zonesByIdentifierWithError:&v35];
-  v19 = v35;
+  v34 = 0;
+  v18 = [cachedCloudState zonesByIdentifierWithError:&v34];
+  v19 = v34;
 
   if (v18 || !v19)
   {
     allValues = [v18 allValues];
-    v33[0] = MEMORY[0x277D85DD0];
-    v33[1] = 3221225472;
-    v33[2] = __96__HDCloudSyncSharedSummaryRevokeParticipantOperation__deleteZonesOperationForParticipant_error___block_invoke;
-    v33[3] = &unk_2786147D0;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = 3221225472;
+    v32[2] = __96__HDCloudSyncSharedSummaryRevokeParticipantOperation__deleteZonesOperationForParticipant_error___block_invoke;
+    v32[3] = &unk_2786147D0;
     v23 = v15;
-    v34 = v23;
-    v24 = [allValues hk_filter:v33];
+    v33 = v23;
+    v24 = [allValues hk_filter:v32];
 
     if ([v24 count] >= 2)
     {
@@ -253,8 +251,8 @@ uint64_t __98__HDCloudSyncSharedSummaryRevokeParticipantOperation__updatedPartic
       {
         *buf = 138543618;
         selfCopy = self;
-        v39 = 2114;
-        v40 = v23;
+        v38 = 2114;
+        v39 = v23;
         _os_log_fault_impl(&dword_228986000, v25, OS_LOG_TYPE_FAULT, "[summary-sharing] %{public}@ Retrieved multiple cached participant zones for identifier %{public}@. This is unexpected.", buf, 0x16u);
       }
     }
@@ -267,8 +265,8 @@ uint64_t __98__HDCloudSyncSharedSummaryRevokeParticipantOperation__updatedPartic
     if (firstObject)
     {
       zoneIdentifier = [firstObject zoneIdentifier];
-      v36 = zoneIdentifier;
-      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+      v35 = zoneIdentifier;
+      v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
       [(HDCloudSyncDeleteZonesOperation *)v21 setZonesToDelete:v30];
     }
   }
@@ -285,8 +283,6 @@ uint64_t __98__HDCloudSyncSharedSummaryRevokeParticipantOperation__updatedPartic
     _HKLogDroppedError();
     v21 = 0;
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

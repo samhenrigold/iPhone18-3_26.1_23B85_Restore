@@ -874,7 +874,7 @@ LABEL_157:
 LABEL_174:
                     v653 = v512;
                     v659 = objc_msgSend_referenceSubstring(v653, v654, v655, v656, v657, v658);
-                    v664 = objc_msgSend_relativeLocationFromAbsoluteLocation_(v653, v660, v1218 + v456, v661, v662, v663);
+                    v664 = objc_msgSend_relativeLocationFromAbsoluteLocation_(v653, v660, &v456[v1218], v661, v662, v663);
                     recta = 0;
                     if (objc_msgSend_length(v659, v665, v666, v667, v668, v669) && (v664 & 0x8000000000000000) == 0)
                     {

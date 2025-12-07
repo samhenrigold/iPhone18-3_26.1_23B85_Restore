@@ -23,7 +23,7 @@ void ___AddParticipantsToLibraryScope_block_invoke(uint64_t a1)
   [v4 addParticipants:*(a1 + 40)];
 }
 
-void ___AddParticipantsToLibraryScope_block_invoke_4(uint64_t a1, uint64_t a2, void *a3)
+void ___AddParticipantsToLibraryScope_block_invoke_4(uint64_t a1, int a2, void *a3)
 {
   v5 = *MEMORY[0x1E69E9840];
   v4 = a3;

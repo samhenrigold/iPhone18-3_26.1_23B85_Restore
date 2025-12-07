@@ -66,7 +66,7 @@ void __64__PKProximityAdvertiser_startAdvertisingForDuration_completion___block_
 
   [*(*(a1 + 32) + 8) setAdvertiseRate:60];
   v5 = *(*(a1 + 32) + 8);
-  v6 = off_1ED6D10A0();
+  v6 = (off_1ED6D10A0)();
   [v5 setIdentifier:v6];
 
   [*(*(a1 + 32) + 8) setOverrideScreenOff:1];

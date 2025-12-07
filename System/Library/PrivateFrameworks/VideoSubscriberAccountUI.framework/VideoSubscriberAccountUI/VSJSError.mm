@@ -43,15 +43,15 @@
 
 - (id)error
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   message = [(VSJSError *)self message];
   v4 = message;
   if (message)
   {
-    v10 = *MEMORY[0x277CCA450];
+    v9 = *MEMORY[0x277CCA450];
     v5 = [message copy];
-    v11[0] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v10[0] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   }
 
   else
@@ -60,8 +60,6 @@
   }
 
   v7 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CE2480] code:-[VSJSError code](self userInfo:{"code"), v6}];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

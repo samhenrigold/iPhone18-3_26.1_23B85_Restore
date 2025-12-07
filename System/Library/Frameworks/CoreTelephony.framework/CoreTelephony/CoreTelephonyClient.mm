@@ -81,9 +81,11 @@
 - (id)context:(id)context getPhoneNumberSignature:(id *)signature;
 - (id)context:(id)context getPseudoIdentityFor:(id)for error:(id *)error;
 - (id)context:(id)context getSystemCapabilities:(id *)capabilities;
+- (id)context:(id)context mandatoryDisableVoLTE:(BOOL)e;
 - (id)context:(id)context modifyAttachApnSettings:(id)settings;
 - (id)context:(id)context recheckPhoneServicesAccountStatus:(id)status;
 - (id)context:(id)context removePhoneServicesDevice:(id)device;
+- (id)context:(id)context setCapability:(id)capability enabled:(BOOL)enabled with:(id)with;
 - (id)copyBundleIdentifier:(id)identifier bundleType:(id)type error:(id *)error;
 - (id)copyBundleLocation:(id)location bundleType:(id)type error:(id *)error;
 - (id)copyBundleVersion:(id)version bundleType:(id)type error:(id *)error;
@@ -93,6 +95,8 @@
 - (id)copyCarrierBundleValueWithCountryBundleLookup:(id)lookup keyHierarchy:(id)hierarchy matchingInfo:(id)info error:(id *)error;
 - (id)copyCarrierBundleValueWithDefault:(id)default key:(id)key bundleType:(id)type error:(id *)error;
 - (id)copyCarrierBundleValueWithDefault:(id)default keyHierarchy:(id)hierarchy bundleType:(id)type error:(id *)error;
+- (id)copyCarrierBundleValues:(id)values keyHierarchies:(id)hierarchies defaultValues:(id)defaultValues bundleType:(id)type withFallbackBundleCheck:(BOOL)check error:(id *)error;
+- (id)copyCarrierBundleValues:(id)values keys:(id)keys defaultValues:(id)defaultValues bundleType:(id)type withFallbackBundleCheck:(BOOL)check error:(id *)error;
 - (id)copyCarrierBundleVersion:(id)version error:(id *)error;
 - (id)copyEmergencyModeWithError:(id *)error;
 - (id)copyGid1:(id)gid1 error:(id *)error;
@@ -139,6 +143,8 @@
 - (id)getConnectionAssistantConfigWithError:(id *)error;
 - (id)getConnectionAssistantServicePlotWithError:(id *)error;
 - (id)getConnectionAssistantStateWithError:(id *)error;
+- (id)getConnectionAvailability:(id)availability connectionType:(int)type error:(id *)error;
+- (id)getConnectionState:(id)state connectionType:(int)type error:(id *)error;
 - (id)getCountryBundleIdentifierForCountryCode:(id)code error:(id *)error;
 - (id)getCountryBundleLocationForBundleIdentifier:(id)identifier error:(id *)error;
 - (id)getCountryBundleLocationForMatchingInfo:(id)info error:(id *)error;
@@ -203,6 +209,7 @@
 - (id)getSimHardwareInfo:(id)info error:(id *)error;
 - (id)getSimLabel:(id)label error:(id *)error;
 - (id)getSliceTrafficDescriptors:(id *)descriptors;
+- (id)getSliceTrafficDescriptorsInfo:(id)info connectionType:(int)type error:(id *)error;
 - (id)getSmsReadyState:(id)state error:(id *)error;
 - (id)getSmscAddress:(id)address error:(id *)error;
 - (id)getStewieSupport:(id *)support;
@@ -215,6 +222,7 @@
 - (id)getSystemConfiguration:(id)configuration withError:(id *)error;
 - (id)getTARandomizationSetting:(id)setting error:(id *)error;
 - (id)getTetheringStatusSync:(id *)sync;
+- (id)getTetheringStatusSync:(id *)sync connectionType:(int)type;
 - (id)getTransportKeysToUpdate:(id *)update;
 - (id)getTypeAllocationCode:(id)code error:(id *)error;
 - (id)getUIConfiguredApns:(id)apns error:(id *)error;
@@ -229,10 +237,15 @@
 - (id)isSimMatching:(id)matching carrierDescriptors:(id)descriptors error:(id *)error;
 - (id)listPersonalWallets:(id *)wallets;
 - (id)loadCarrierStoreVisitStatusForCarrier:(id)carrier error:(id *)error;
+- (id)loadGSMASettings:(id)settings state:(BOOL)state;
 - (id)loadSimSetupInfo:(id)info error:(id *)error;
 - (id)private_getActiveConnections:(id)connections error:(id *)error;
+- (id)private_getConnectionAvailability:(id)availability connectionType:(int)type error:(id *)error;
+- (id)private_getConnectionState:(id)state connectionType:(int)type error:(id *)error;
 - (id)private_getDataStatus:(id)status error:(id *)error;
 - (id)private_getSliceTrafficDescriptors:(id *)descriptors;
+- (id)private_getSliceTrafficDescriptorsInfo:(id)info connectionType:(int)type error:(id *)error;
+- (id)private_setPacketContextActiveByServiceType:(id)type connectionType:(int)connectionType active:(BOOL)active;
 - (id)proxyWithErrorHandler:(id)handler;
 - (id)readCachedCapabilities:(id)capabilities forDestination:(id)destination withError:(id *)error;
 - (id)readCachedChatBotRenderInformation:(id)information forChatBot:(id)bot withError:(id *)error;
@@ -242,6 +255,7 @@
 - (id)renamePersonalWallet:(id)wallet to:(id)to;
 - (id)reportStewieConnectionAssistantEvent:(id)event;
 - (id)reportStewieDeviceOrientation:(id)orientation;
+- (id)reprovisionSatelliteMsg:(BOOL)msg;
 - (id)requestQoSLinkCharacteristics;
 - (id)resetAPNSettings;
 - (id)retrieveAllIncomingMessageIDs:(id)ds withError:(id *)error;
@@ -250,16 +264,29 @@
 - (id)selectSIMToolkitListItem:(id)item session:(id)session response:(id)response index:(id)index;
 - (id)selectSIMToolkitMenuItem:(id)item index:(id)index;
 - (id)sendDeadPeerDetection;
+- (id)sendSIMToolkitBooleanResponse:(id)response session:(id)session response:(id)a5 yesNo:(BOOL)no;
 - (id)sendSIMToolkitDisplayReady:(id)ready;
 - (id)sendSIMToolkitResponse:(id)response session:(id)session response:(id)a5;
 - (id)sendSIMToolkitStringResponse:(id)response session:(id)session response:(id)a5 string:(id)string;
 - (id)sendSIMToolkitUSSDResponse:(id)response response:(id)a4;
 - (id)sendSIMToolkitUserActivity:(id)activity;
 - (id)setApplicationCategory:(id)category;
+- (id)setInternationalDataAccessStatus:(BOOL)status;
+- (id)setInternationalDataAccessSync:(id)sync status:(BOOL)status;
+- (id)setInternetActive:(BOOL)active;
 - (id)setLocalPolicies:(id)policies;
 - (id)setMaxDataRate:(id)rate rate:(int64_t)a4;
+- (id)setPacketContextActiveByServiceType:(id)type connectionType:(int)connectionType active:(BOOL)active;
 - (id)setProvisioningServerURL:(id)l url:(id)url;
+- (id)setRatSelectionMask:(id)mask selection:(unsigned __int8)selection preferred:(unsigned __int8)preferred;
 - (id)setSatelliteMsgCfgUpdated:(id)updated;
+- (id)setShouldShowBrandedCallingInfo:(BOOL)info;
+- (id)setStewieBlocked:(BOOL)blocked;
+- (id)setSupportDynamicDataSimSwitch:(BOOL)switch;
+- (id)setSupports5GStandalone:(id)standalone enabled:(BOOL)enabled;
+- (id)setTARandomizationUserSetting:(id)setting enabled:(BOOL)enabled;
+- (id)setTetheringActive:(BOOL)active;
+- (id)setTransportKeysUpdated:(BOOL)updated with:(id)with;
 - (id)setWiFiCallingSettingPreferences:(id)preferences key:(id)key value:(id)value;
 - (id)shouldAllowSimLockFor:(id)for;
 - (id)shouldAllowSimLockFor:(id)for error:(id *)error;
@@ -270,6 +297,7 @@
 - (id)synchronousRequestWithNumberResult:(id)result error:(id *)error;
 - (id)synchronousRequestWithStringResult:(id)result error:(id *)error;
 - (id)transferPersonalWallet:(id)wallet to:(id)to;
+- (id)updatePrivateNetworkProfile:(id)profile setProfileAside:(BOOL)aside;
 - (id)usageCollectionEnabledSync:(id *)sync;
 - (id)userEnteredBillingEndDayOfMont:(id)mont error:(id *)error;
 - (id)userEnteredMonthlyBudget:(id)budget error:(id *)error;
@@ -289,6 +317,7 @@
 - (void)activateProximityTransfer:(unint64_t)transfer completion:(id)completion;
 - (void)activateStewieEmergencyTryOutWithCompletion:(id)completion;
 - (void)activateTurboMode:(id)mode;
+- (void)addLowLatencyFilter:(id)filter pdp:(int)pdp queueSetId:(unint64_t)id uplink:(BOOL)uplink completion:(id)completion;
 - (void)asynchronousRequest:(id)request completion:(id)completion;
 - (void)asynchronousRequest:(id)request completionWithArray:(id)array;
 - (void)asynchronousRequest:(id)request completionWithNumber:(id)number;
@@ -296,9 +325,11 @@
 - (void)authenticate:(id)authenticate request:(id)request completion:(id)completion;
 - (void)automaticallySelectNetwork:(id)network completion:(id)completion;
 - (void)bootstrapPlanTransferForEndpoint:(unint64_t)endpoint flowType:(unint64_t)type usingMessageSession:(id)session completion:(id)completion;
+- (void)cancelCellularPlanTransfer:(id)transfer fromDevice:(id)device keepCache:(BOOL)cache completionHandler:(id)handler;
 - (void)carrierOneTimeCodeSendersWithCompletion:(id)completion;
 - (void)changePIN:(id)n oldPin:(id)pin newPin:(id)newPin completion:(id)completion;
 - (void)changePIN:(id)n oldPin:(id)pin newPin:(id)newPin error:(id *)error;
+- (void)checkForUpdatedBundlesWithAutoInstall:(BOOL)install completion:(id)completion;
 - (void)checkRadioBootHealth:(id)health;
 - (void)checkRadioBootHealthDetails:(id)details;
 - (void)clearReconnectionCredentials:(id)credentials;
@@ -320,6 +351,7 @@
 - (void)context:(id)context modifyAttachApnSettings:(id)settings completion:(id)completion;
 - (void)context:(id)context removePhoneServicesDevice:(id)device withCompletion:(id)completion;
 - (void)context:(id)context resetPhoneNumber:(id)number;
+- (void)context:(id)context setCapability:(id)capability enabled:(BOOL)enabled with:(id)with completion:(id)completion;
 - (void)context:(id)context supportedIdentityProtectionFor:(id)for completion:(id)completion;
 - (void)copyAbbreviatedOperatorName:(id)name completion:(id)completion;
 - (void)copyBandInfo:(id)info completion:(id)completion;
@@ -332,6 +364,8 @@
 - (void)copyCarrierBundleValue:(id)value keyHierarchy:(id)hierarchy bundleType:(id)type completion:(id)completion;
 - (void)copyCarrierBundleValueWithDefault:(id)default key:(id)key bundleType:(id)type completion:(id)completion;
 - (void)copyCarrierBundleValueWithDefault:(id)default keyHierarchy:(id)hierarchy bundleType:(id)type completion:(id)completion;
+- (void)copyCarrierBundleValues:(id)values keyHierarchies:(id)hierarchies defaultValues:(id)defaultValues bundleType:(id)type withFallbackBundleCheck:(BOOL)check completion:(id)completion;
+- (void)copyCarrierBundleValues:(id)values keys:(id)keys defaultValues:(id)defaultValues bundleType:(id)type withFallbackBundleCheck:(BOOL)check completion:(id)completion;
 - (void)copyCarrierBundleVersion:(id)version completion:(id)completion;
 - (void)copyCellId:(id)id completion:(id)completion;
 - (void)copyCellInfo:(id)info completion:(id)completion;
@@ -366,13 +400,14 @@
 - (void)copySIMIdentity:(id)identity completion:(id)completion;
 - (void)copyServingPlmn:(id)plmn completion:(id)completion;
 - (void)copyWirelessTechnology:(id)technology completion:(id)completion;
+- (void)createAssertionForConnectionType:(int)type allocator:(__CFAllocator *)allocator error:(id *)error onReAssertError:(id)assertError;
 - (void)createEncryptedIdentity:(id)identity identity:(id)a4 completion:(id)completion;
 - (void)dataUsageForLastPeriods:(unint64_t)periods completion:(id)completion;
 - (void)dataUsageForLastPeriodsOnActivePairedDevice:(unint64_t)device completion:(id)completion;
 - (void)dealloc;
 - (void)deleteHiddenSims:(id)sims;
+- (void)deleteLowLatencyFilter:(id)filter pdp:(int)pdp queueSetId:(unint64_t)id uplink:(BOOL)uplink completion:(id)completion;
 - (void)deletePersonalWallet:(id)wallet completion:(id)completion;
-- (void)dispatchBlockToClientAsync:(id)async;
 - (void)establishReconnectionCredentialsUsingMessageSession:(id)session completion:(id)completion;
 - (void)evaluateMobileSubscriberIdentity:(id)identity identity:(id)a4 completion:(id)completion;
 - (void)exitStewieWithContext:(id)context completion:(id)completion;
@@ -391,6 +426,8 @@
 - (void)getConnectionAssistantConfig:(id)config;
 - (void)getConnectionAssistantServicePlot:(id)plot;
 - (void)getConnectionAssistantState:(id)state;
+- (void)getConnectionAvailability:(id)availability connectionType:(int)type completion:(id)completion;
+- (void)getConnectionState:(id)state connectionType:(int)type completion:(id)completion;
 - (void)getCurrentDataServiceDescriptor:(id)descriptor;
 - (void)getCurrentDataSubscriptionContext:(id)context;
 - (void)getDataStatus:(id)status completion:(id)completion;
@@ -407,6 +444,7 @@
 - (void)getInternetDataStatus:(id)status;
 - (void)getInternetDataStatusBasic:(id)basic;
 - (void)getLocalPolicies:(id)policies completion:(id)completion;
+- (void)getLowLatencyFilters:(int)filters queueSetId:(unint64_t)id completion:(id)completion;
 - (void)getMaxDataRate:(id)rate completion:(id)completion;
 - (void)getMobileSubscriberHomeCountryList:(id)list completion:(id)completion;
 - (void)getNATTKeepAliveOverCell:(id)cell completion:(id)completion;
@@ -419,6 +457,7 @@
 - (void)getPreferredDataServiceDescriptor:(id)descriptor;
 - (void)getPreferredDataSubscriptionContext:(id)context;
 - (void)getPrivateNetworkCapabilitiesForContext:(id)context completion:(id)completion;
+- (void)getProximityTransportSession:(unint64_t)session remoteDeviceInfo:(id)info usePreSharedKey:(BOOL)key completion:(id)completion;
 - (void)getRatSelection:(id)selection completion:(id)completion;
 - (void)getRegulatedRatsSwitchEnabled:(id)enabled completion:(id)completion;
 - (void)getRegulatedRatsUserPreference:(id)preference completion:(id)completion;
@@ -449,11 +488,13 @@
 - (void)getSweetgumUsage:(id)usage completion:(id)completion;
 - (void)getSweetgumUserConsentInfo:(id)info completion:(id)completion;
 - (void)getTetheringStatus:(id)status;
+- (void)getTetheringStatus:(id)status connectionType:(int)type;
 - (void)getTransportKeysToUpdateWithCompletion:(id)completion;
 - (void)getUIConfiguredApns:(id)apns completion:(id)completion;
 - (void)getVoiceLinkQualityMetric:(id)metric completion:(id)completion;
 - (void)getWiFiCallingSettingPreferences:(id)preferences key:(id)key completion:(id)completion;
 - (void)invalidateCrossPlatformPlanTransfer:(id)transfer;
+- (void)invalidateProximityTransfer:(unint64_t)transfer force:(BOOL)force completion:(id)completion;
 - (void)isAnyPlanOfTransferCapability:(unint64_t)capability availableForThisDeviceWithCompletion:(id)completion;
 - (void)isAttachApnSettingAllowed:(id)allowed completion:(id)completion;
 - (void)isEmergencyNumber:(id)number number:(id)a4 completion:(id)completion;
@@ -467,11 +508,13 @@
 - (void)isPrivateNetworkSIM:(id)m completion:(id)completion;
 - (void)isTetheringEditingSupported:(id)supported completion:(id)completion;
 - (void)issuePNRRequest:(id)request pnrReqType:(id)type completion:(id)completion;
+- (void)performNetworkAccessFlowIfAllowed:(id)allowed ignoreForeground:(BOOL)foreground completion:(id)completion;
 - (void)ping:(id)ping;
 - (void)prepareCrossPlatformCellularPlanLabel:(id)label completion:(id)completion;
 - (void)prepareCrossPlatformPlanTransfer:(id)transfer completion:(id)completion;
 - (void)promptForSIMUnlock:(id)unlock completion:(id)completion;
 - (void)purchaseSweetgumPlan:(id)plan completion:(id)completion;
+- (void)queryAnbrBitrate:(id)bitrate bitrate:(id)a4 direction:(int)direction completion:(id)completion;
 - (void)refreshCellMonitor:(id)monitor completion:(id)completion;
 - (void)refreshSweetgumAll:(id)all completion:(id)completion;
 - (void)refreshSweetgumApps:(id)apps completion:(id)completion;
@@ -488,27 +531,42 @@
 - (void)resetAPNSettings:(id)settings;
 - (void)resetProximityTransportExtension:(id)extension;
 - (void)resetUIConfiguredApns:(id)apns completion:(id)completion;
+- (void)saveCarrierStoreVisitStatus:(id)status visited:(BOOL)visited completion:(id)completion;
+- (void)saveSIMLockValue:(id)value enabled:(BOOL)enabled pin:(id)pin completion:(id)completion;
+- (void)saveSIMLockValue:(id)value enabled:(BOOL)enabled pin:(id)pin error:(id *)error;
 - (void)saveSimSetupInfo:(id)info info:(id)a4 completion:(id)completion;
 - (void)selectNetwork:(id)network network:(id)a4 completion:(id)completion;
 - (void)selectRoadsideProviderWithContext:(id)context completion:(id)completion;
 - (void)sendDeadPeerDetection:(id)detection;
 - (void)sendTaggedInfo:(id)info type:(unint64_t)type payload:(id)payload completion:(id)completion;
+- (void)set2GUserPreference:(BOOL)preference completion:(id)completion;
 - (void)setActiveBandInfo:(id)info bands:(id)bands error:(id *)error;
 - (void)setActiveUserDataSelection:(id)selection completion:(id)completion;
 - (void)setActiveUserDataSelection:(id)selection error:(id *)error;
 - (void)setBandInfo:(id)info bands:(id)bands completion:(id)completion;
+- (void)setCoalescing:(BOOL)coalescing udp:(BOOL)udp completion:(id)completion;
 - (void)setDefaultVoice:(id)voice completion:(id)completion;
 - (void)setDefaultVoice:(id)voice error:(id *)error;
 - (void)setDelegate:(id)delegate;
+- (void)setInternationalDataAccess:(id)access status:(BOOL)status completion:(id)completion;
 - (void)setInternationalDataAccessStatus:(BOOL)status completion:(id)completion;
+- (void)setInternetActive:(BOOL)active completion:(id)completion;
 - (void)setLabel:(id)label label:(id)a4 completion:(id)completion;
 - (void)setLabel:(id)label label:(id)a4 error:(id *)error;
 - (void)setLocalPolicies:(id)policies completion:(id)completion;
 - (void)setMaxDataRate:(id)rate rate:(int64_t)a4 completion:(id)completion;
+- (void)setPacketContextActiveByServiceType:(id)type connectionType:(int)connectionType active:(BOOL)active completion:(id)completion;
 - (void)setRatSelection:(id)selection selection:(id)a4 preferred:(id)preferred completion:(id)completion;
+- (void)setRegulatedRatsUserPreference:(id)preference enable:(BOOL)enable completion:(id)completion;
 - (void)setRemotePolicies:(id)policies completion:(id)completion;
 - (void)setSatelliteAppCategories:(id)categories appCategories:(id)appCategories completion:(id)completion;
+- (void)setStewieBlocked:(BOOL)blocked completion:(id)completion;
+- (void)setSupportDynamicDataSimSwitch:(BOOL)switch completion:(id)completion;
+- (void)setSupportDynamicDataSimSwitch:(BOOL)switch forIccid:(id)iccid completion:(id)completion;
+- (void)setSweetgumUserConsent:(id)consent userConsent:(BOOL)userConsent completion:(id)completion;
+- (void)setTetheringActive:(BOOL)active completion:(id)completion;
 - (void)setUIConfiguredApns:(id)apns apns:(id)a4 completion:(id)completion;
+- (void)setUsageCollectionEnabled:(BOOL)enabled completion:(id)completion;
 - (void)setUserEntered:(id)entered monthlyBudget:(id)budget completion:(id)completion;
 - (void)setUserEntered:(id)entered monthlyBudget:(id)budget error:(id *)error;
 - (void)setUserEntered:(id)entered monthlyRoamingBudget:(id)budget completion:(id)completion;
@@ -518,13 +576,18 @@
 - (void)setVoLTEAudioCodec:(id)codec codecInfo:(id)info completion:(id)completion;
 - (void)setWiFiCallingSettingPreferences:(id)preferences key:(id)key value:(id)value completion:(id)completion;
 - (void)shouldShowUserWarningWhenDialingCallOnContext:(id)context completion:(id)completion;
+- (void)simulateDataStall:(BOOL)stall pdp:(int)pdp completion:(id)completion;
 - (void)synchronousRequest:(id)request error:(id *)error;
 - (void)transferRemotePlan:(id)plan completion:(id)completion;
 - (void)transferRemotePlan:(id)plan fromDevice:(id)device completion:(id)completion;
+- (void)triggerKeepaliveWakeupEvent:(int)event completion:(id)completion;
 - (void)unlockPIN:(id)n pin:(id)pin completion:(id)completion;
 - (void)unlockPIN:(id)n pin:(id)pin error:(id *)error;
 - (void)unlockPUK:(id)k puk:(id)puk newPin:(id)pin completion:(id)completion;
 - (void)unlockPUK:(id)k puk:(id)puk newPin:(id)pin error:(id *)error;
+- (void)updateAvsTrafficStatus:(int)status dataType:(int)type completion:(id)completion;
+- (void)updateIdsTrafficStatus:(BOOL)status dataType:(int)type completion:(id)completion;
+- (void)updateVoipCallTrafficStatus:(BOOL)status completion:(id)completion;
 - (void)usageCollectionEnabled:(id)enabled;
 - (void)userEnteredBillingEndDayOfMont:(id)mont completion:(id)completion;
 - (void)userEnteredMonthlyBudget:(id)budget completion:(id)completion;
@@ -563,12 +626,41 @@
     [(CoreTelephonyClientMux *)mux removeDelegate:self->fDelegateAddr];
   }
 
-  fOsStateHandle = self->fOsStateHandle;
   os_state_remove_handler();
   self->fOsStateHandle = 0;
-  v5.receiver = self;
-  v5.super_class = CoreTelephonyClient;
-  [(CoreTelephonyClient *)&v5 dealloc];
+  v4.receiver = self;
+  v4.super_class = CoreTelephonyClient;
+  [(CoreTelephonyClient *)&v4 dealloc];
+}
+
+- (id)private_setPacketContextActiveByServiceType:(id)type connectionType:(int)connectionType active:(BOOL)active
+{
+  activeCopy = active;
+  v6 = *&connectionType;
+  typeCopy = type;
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy_;
+  v18 = __Block_byref_object_dispose_;
+  v19 = 0;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __101__CoreTelephonyClient_hiddenData__private_setPacketContextActiveByServiceType_connectionType_active___block_invoke;
+  v13[3] = &unk_1E6A43BB0;
+  v13[4] = &v14;
+  v9 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v13];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __101__CoreTelephonyClient_hiddenData__private_setPacketContextActiveByServiceType_connectionType_active___block_invoke_2;
+  v12[3] = &unk_1E6A43BB0;
+  v12[4] = &v14;
+  [v9 setPacketContextActiveByServiceType:typeCopy connectionType:v6 active:activeCopy completion:v12];
+  v10 = v15[5];
+
+  _Block_object_dispose(&v14, 8);
+
+  return v10;
 }
 
 void __101__CoreTelephonyClient_hiddenData__private_setPacketContextActiveByServiceType_connectionType_active___block_invoke(uint64_t a1, void *a2)
@@ -591,6 +683,57 @@ void __101__CoreTelephonyClient_hiddenData__private_setPacketContextActiveByServ
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
     v4 = v5;
   }
+}
+
+- (id)private_getConnectionAvailability:(id)availability connectionType:(int)type error:(id *)error
+{
+  v6 = *&type;
+  availabilityCopy = availability;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = __Block_byref_object_copy_;
+  v25 = __Block_byref_object_dispose_;
+  v26 = 0;
+  if (error)
+  {
+    *error = 0;
+  }
+
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __90__CoreTelephonyClient_hiddenData__private_getConnectionAvailability_connectionType_error___block_invoke;
+  v20[3] = &unk_1E6A43BB0;
+  v20[4] = &v21;
+  v9 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v20];
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy_;
+  v18 = __Block_byref_object_dispose_;
+  v19 = 0;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __90__CoreTelephonyClient_hiddenData__private_getConnectionAvailability_connectionType_error___block_invoke_2;
+  v13[3] = &unk_1E6A43BD8;
+  v13[4] = &v21;
+  v13[5] = &v14;
+  [v9 getConnectionAvailability:availabilityCopy connectionType:v6 completion:v13];
+  if (error)
+  {
+    v10 = v22[5];
+    if (v10)
+    {
+      *error = v10;
+    }
+  }
+
+  v11 = v15[5];
+  _Block_object_dispose(&v14, 8);
+
+  _Block_object_dispose(&v21, 8);
+
+  return v11;
 }
 
 void __90__CoreTelephonyClient_hiddenData__private_getConnectionAvailability_connectionType_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -663,6 +806,71 @@ void __70__CoreTelephonyClient_hiddenData__private_getActiveConnections_error___
   *(v6 + 40) = v5;
 }
 
+- (id)private_getConnectionState:(id)state connectionType:(int)type error:(id *)error
+{
+  v6 = *&type;
+  stateCopy = state;
+  if ([(CoreTelephonyClient *)self supportsRequestWithSelector:a2])
+  {
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x3032000000;
+    v25 = __Block_byref_object_copy_;
+    v26 = __Block_byref_object_dispose_;
+    v27 = 0;
+    if (error)
+    {
+      *error = 0;
+    }
+
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __83__CoreTelephonyClient_hiddenData__private_getConnectionState_connectionType_error___block_invoke;
+    v21[3] = &unk_1E6A43BB0;
+    v21[4] = &v22;
+    v10 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v21];
+    v15 = 0;
+    v16 = &v15;
+    v17 = 0x3032000000;
+    v18 = __Block_byref_object_copy_;
+    v19 = __Block_byref_object_dispose_;
+    v20 = 0;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __83__CoreTelephonyClient_hiddenData__private_getConnectionState_connectionType_error___block_invoke_2;
+    v14[3] = &unk_1E6A43C28;
+    v14[4] = &v22;
+    v14[5] = &v15;
+    [v10 getConnectionState:stateCopy connectionType:v6 completion:v14];
+    if (error)
+    {
+      v11 = v23[5];
+      if (v11)
+      {
+        *error = v11;
+      }
+    }
+
+    v12 = v16[5];
+    _Block_object_dispose(&v15, 8);
+
+    _Block_object_dispose(&v22, 8);
+  }
+
+  else if (error)
+  {
+    [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:19 userInfo:0];
+    *error = v12 = 0;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
+}
+
 void __83__CoreTelephonyClient_hiddenData__private_getConnectionState_connectionType_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -671,6 +879,71 @@ void __83__CoreTelephonyClient_hiddenData__private_getConnectionState_connection
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
+}
+
+- (id)private_getSliceTrafficDescriptorsInfo:(id)info connectionType:(int)type error:(id *)error
+{
+  v6 = *&type;
+  infoCopy = info;
+  if ([(CoreTelephonyClient *)self supportsRequestWithSelector:a2])
+  {
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x3032000000;
+    v25 = __Block_byref_object_copy_;
+    v26 = __Block_byref_object_dispose_;
+    v27 = 0;
+    if (error)
+    {
+      *error = 0;
+    }
+
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __95__CoreTelephonyClient_hiddenData__private_getSliceTrafficDescriptorsInfo_connectionType_error___block_invoke;
+    v21[3] = &unk_1E6A43BB0;
+    v21[4] = &v22;
+    v10 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v21];
+    v15 = 0;
+    v16 = &v15;
+    v17 = 0x3032000000;
+    v18 = __Block_byref_object_copy_;
+    v19 = __Block_byref_object_dispose_;
+    v20 = 0;
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __95__CoreTelephonyClient_hiddenData__private_getSliceTrafficDescriptorsInfo_connectionType_error___block_invoke_2;
+    v14[3] = &unk_1E6A43C00;
+    v14[4] = &v22;
+    v14[5] = &v15;
+    [v10 getSliceTrafficDescriptorsInfo:infoCopy connectionType:v6 completion:v14];
+    if (error)
+    {
+      v11 = v23[5];
+      if (v11)
+      {
+        *error = v11;
+      }
+    }
+
+    v12 = v16[5];
+    _Block_object_dispose(&v15, 8);
+
+    _Block_object_dispose(&v22, 8);
+  }
+
+  else if (error)
+  {
+    [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:19 userInfo:0];
+    *error = v12 = 0;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
 }
 
 void __95__CoreTelephonyClient_hiddenData__private_getSliceTrafficDescriptorsInfo_connectionType_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -899,6 +1172,23 @@ void __74__CoreTelephonyClient_hiddenData__private_getNATTKeepAliveOverCell_erro
   *(*(*(a1 + 40) + 8) + 24) = a2;
 }
 
+- (void)setPacketContextActiveByServiceType:(id)type connectionType:(int)connectionType active:(BOOL)active completion:(id)completion
+{
+  activeCopy = active;
+  v8 = *&connectionType;
+  typeCopy = type;
+  completionCopy = completion;
+  v11 = [(CoreTelephonyClient *)self proxyWithErrorHandler:completionCopy];
+  [v11 setPacketContextActiveByServiceType:typeCopy connectionType:v8 active:activeCopy completion:completionCopy];
+}
+
+- (id)setPacketContextActiveByServiceType:(id)type connectionType:(int)connectionType active:(BOOL)active
+{
+  v5 = [(CoreTelephonyClient *)self private_setPacketContextActiveByServiceType:type connectionType:*&connectionType active:active];
+
+  return v5;
+}
+
 - (void)requestSliceByUUID:(id)d completion:(id)completion
 {
   dCopy = d;
@@ -920,6 +1210,27 @@ void __74__CoreTelephonyClient_hiddenData__private_getNATTKeepAliveOverCell_erro
   [v4 requestSliceDeactivation:deactivationCopy completion:&__block_literal_global_19];
 }
 
+- (void)setInternetActive:(BOOL)active completion:(id)completion
+{
+  activeCopy = active;
+  completionCopy = completion;
+  if ([(CoreTelephonyClient *)self supportsRequestWithSelector:a2])
+  {
+    v8 = [(CoreTelephonyClient *)self proxyWithErrorHandler:completionCopy];
+    [v8 setPacketContextActiveByServiceType:0 connectionType:0 active:activeCopy completion:completionCopy];
+  }
+
+  else
+  {
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __58__CoreTelephonyClient_Data__setInternetActive_completion___block_invoke;
+    v9[3] = &unk_1E6A43D10;
+    v10 = completionCopy;
+    [(CoreTelephonyClient *)self dispatchBlockToClientAsync:v9];
+  }
+}
+
 void __58__CoreTelephonyClient_Data__setInternetActive_completion___block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
@@ -927,11 +1238,66 @@ void __58__CoreTelephonyClient_Data__setInternetActive_completion___block_invoke
   (*(v1 + 16))(v1);
 }
 
+- (id)setInternetActive:(BOOL)active
+{
+  activeCopy = active;
+  if ([(CoreTelephonyClient *)self supportsRequestWithSelector:a2])
+  {
+    [(CoreTelephonyClient *)self private_setPacketContextActiveByServiceType:0 connectionType:0 active:activeCopy];
+  }
+
+  else
+  {
+    [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:19 userInfo:0];
+  }
+  v5 = ;
+
+  return v5;
+}
+
+- (void)setTetheringActive:(BOOL)active completion:(id)completion
+{
+  activeCopy = active;
+  completionCopy = completion;
+  if ([(CoreTelephonyClient *)self supportsRequestWithSelector:a2])
+  {
+    v8 = [(CoreTelephonyClient *)self proxyWithErrorHandler:completionCopy];
+    [v8 setPacketContextActiveByServiceType:0 connectionType:4 active:activeCopy completion:completionCopy];
+  }
+
+  else
+  {
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __59__CoreTelephonyClient_Data__setTetheringActive_completion___block_invoke;
+    v9[3] = &unk_1E6A43D10;
+    v10 = completionCopy;
+    [(CoreTelephonyClient *)self dispatchBlockToClientAsync:v9];
+  }
+}
+
 void __59__CoreTelephonyClient_Data__setTetheringActive_completion___block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
   v2 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:19 userInfo:0];
   (*(v1 + 16))(v1);
+}
+
+- (id)setTetheringActive:(BOOL)active
+{
+  activeCopy = active;
+  if ([(CoreTelephonyClient *)self supportsRequestWithSelector:a2])
+  {
+    [(CoreTelephonyClient *)self private_setPacketContextActiveByServiceType:0 connectionType:4 active:activeCopy];
+  }
+
+  else
+  {
+    [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:19 userInfo:0];
+  }
+  v5 = ;
+
+  return v5;
 }
 
 - (void)resetAPNSettings:(id)settings
@@ -996,6 +1362,37 @@ void __45__CoreTelephonyClient_Data__resetAPNSettings__block_invoke_2(uint64_t a
   }
 }
 
+- (void)addLowLatencyFilter:(id)filter pdp:(int)pdp queueSetId:(unint64_t)id uplink:(BOOL)uplink completion:(id)completion
+{
+  uplinkCopy = uplink;
+  v10 = *&pdp;
+  filterCopy = filter;
+  completionCopy = completion;
+  if ([(CoreTelephonyClient *)self supportsRequestWithSelector:a2])
+  {
+    v18 = MEMORY[0x1E69E9820];
+    v19 = 3221225472;
+    v20 = __82__CoreTelephonyClient_Data__addLowLatencyFilter_pdp_queueSetId_uplink_completion___block_invoke_2;
+    v21 = &unk_1E6A43CC8;
+    v15 = completionCopy;
+    v22 = v15;
+    v16 = [(CoreTelephonyClient *)self proxyWithErrorHandler:&v18];
+    [v16 addLowLatencyFilter:filterCopy pdp:v10 queueSetId:id uplink:uplinkCopy completion:{v15, v18, v19, v20, v21}];
+    v17 = &v22;
+  }
+
+  else
+  {
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __82__CoreTelephonyClient_Data__addLowLatencyFilter_pdp_queueSetId_uplink_completion___block_invoke;
+    v23[3] = &unk_1E6A43D10;
+    v24 = completionCopy;
+    [(CoreTelephonyClient *)self dispatchBlockToClientAsync:v23];
+    v17 = &v24;
+  }
+}
+
 void __82__CoreTelephonyClient_Data__addLowLatencyFilter_pdp_queueSetId_uplink_completion___block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
@@ -1003,11 +1400,71 @@ void __82__CoreTelephonyClient_Data__addLowLatencyFilter_pdp_queueSetId_uplink_c
   (*(v1 + 16))(v1);
 }
 
+- (void)getLowLatencyFilters:(int)filters queueSetId:(unint64_t)id completion:(id)completion
+{
+  v6 = *&filters;
+  completionCopy = completion;
+  if ([(CoreTelephonyClient *)self supportsRequestWithSelector:a2])
+  {
+    v13 = MEMORY[0x1E69E9820];
+    v14 = 3221225472;
+    v15 = __72__CoreTelephonyClient_Data__getLowLatencyFilters_queueSetId_completion___block_invoke_2;
+    v16 = &unk_1E6A43CC8;
+    v10 = completionCopy;
+    v17 = v10;
+    v11 = [(CoreTelephonyClient *)self proxyWithErrorHandler:&v13];
+    [v11 getLowLatencyFilters:v6 queueSetId:id completion:{v10, v13, v14, v15, v16}];
+    v12 = &v17;
+  }
+
+  else
+  {
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __72__CoreTelephonyClient_Data__getLowLatencyFilters_queueSetId_completion___block_invoke;
+    v18[3] = &unk_1E6A43D10;
+    v19 = completionCopy;
+    [(CoreTelephonyClient *)self dispatchBlockToClientAsync:v18];
+    v12 = &v19;
+  }
+}
+
 void __72__CoreTelephonyClient_Data__getLowLatencyFilters_queueSetId_completion___block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
   v2 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:19 userInfo:0];
   (*(v1 + 16))(v1, 0);
+}
+
+- (void)deleteLowLatencyFilter:(id)filter pdp:(int)pdp queueSetId:(unint64_t)id uplink:(BOOL)uplink completion:(id)completion
+{
+  uplinkCopy = uplink;
+  v10 = *&pdp;
+  filterCopy = filter;
+  completionCopy = completion;
+  if ([(CoreTelephonyClient *)self supportsRequestWithSelector:a2])
+  {
+    v18 = MEMORY[0x1E69E9820];
+    v19 = 3221225472;
+    v20 = __85__CoreTelephonyClient_Data__deleteLowLatencyFilter_pdp_queueSetId_uplink_completion___block_invoke_2;
+    v21 = &unk_1E6A43CC8;
+    v15 = completionCopy;
+    v22 = v15;
+    v16 = [(CoreTelephonyClient *)self proxyWithErrorHandler:&v18];
+    [v16 deleteLowLatencyFilter:filterCopy pdp:v10 queueSetId:id uplink:uplinkCopy completion:{v15, v18, v19, v20, v21}];
+    v17 = &v22;
+  }
+
+  else
+  {
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __85__CoreTelephonyClient_Data__deleteLowLatencyFilter_pdp_queueSetId_uplink_completion___block_invoke;
+    v23[3] = &unk_1E6A43D10;
+    v24 = completionCopy;
+    [(CoreTelephonyClient *)self dispatchBlockToClientAsync:v23];
+    v17 = &v24;
+  }
 }
 
 void __85__CoreTelephonyClient_Data__deleteLowLatencyFilter_pdp_queueSetId_uplink_completion___block_invoke(uint64_t a1)
@@ -1107,6 +1564,60 @@ void __73__CoreTelephonyClient_Data__setInternationalDataAccessStatus_completion
 
   v9 = v6;
   [*(a1 + 32) setInternationalDataAccess:v6 status:*(a1 + 48) completion:*(a1 + 40)];
+}
+
+- (id)setInternationalDataAccessStatus:(BOOL)status
+{
+  statusCopy = status;
+  v9 = 0;
+  v5 = [(CoreTelephonyClient *)self getCurrentDataServiceDescriptorSync:&v9];
+  v6 = v9;
+  if (!v5)
+  {
+    v5 = [[CTServiceDescriptor alloc] initWithDomain:1 instance:&unk_1EF062110];
+  }
+
+  v7 = [(CoreTelephonyClient *)self setInternationalDataAccessSync:v5 status:statusCopy];
+
+  return v7;
+}
+
+- (void)setInternationalDataAccess:(id)access status:(BOOL)status completion:(id)completion
+{
+  statusCopy = status;
+  accessCopy = access;
+  completionCopy = completion;
+  v9 = [(CoreTelephonyClient *)self proxyWithErrorHandler:completionCopy];
+  [v9 setInternationalDataAccess:accessCopy status:statusCopy completion:completionCopy];
+}
+
+- (id)setInternationalDataAccessSync:(id)sync status:(BOOL)status
+{
+  statusCopy = status;
+  syncCopy = sync;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy_;
+  v16 = __Block_byref_object_dispose_;
+  v17 = 0;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __67__CoreTelephonyClient_Data__setInternationalDataAccessSync_status___block_invoke;
+  v11[3] = &unk_1E6A43BB0;
+  v11[4] = &v12;
+  v7 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v11];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __67__CoreTelephonyClient_Data__setInternationalDataAccessSync_status___block_invoke_2;
+  v10[3] = &unk_1E6A43BB0;
+  v10[4] = &v12;
+  [v7 setInternationalDataAccess:syncCopy status:statusCopy completion:v10];
+  v8 = v13[5];
+
+  _Block_object_dispose(&v12, 8);
+
+  return v8;
 }
 
 void __67__CoreTelephonyClient_Data__setInternationalDataAccessSync_status___block_invoke(uint64_t a1, void *a2)
@@ -1243,6 +1754,51 @@ void __66__CoreTelephonyClient_Data__getInternationalDataAccessSync_error___bloc
   *(*(*(a1 + 40) + 8) + 24) = a2;
 }
 
+- (void)setSupportDynamicDataSimSwitch:(BOOL)switch completion:(id)completion
+{
+  switchCopy = switch;
+  completionCopy = completion;
+  v6 = [(CoreTelephonyClient *)self proxyWithErrorHandler:?];
+  [v6 setSupportDynamicDataSimSwitch:switchCopy completion:completionCopy];
+}
+
+- (void)setSupportDynamicDataSimSwitch:(BOOL)switch forIccid:(id)iccid completion:(id)completion
+{
+  switchCopy = switch;
+  iccidCopy = iccid;
+  completionCopy = completion;
+  v9 = [(CoreTelephonyClient *)self proxyWithErrorHandler:completionCopy];
+  [v9 setSupportDynamicDataSimSwitch:switchCopy forIccid:iccidCopy completion:completionCopy];
+}
+
+- (id)setSupportDynamicDataSimSwitch:(BOOL)switch
+{
+  switchCopy = switch;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy_;
+  v13 = __Block_byref_object_dispose_;
+  v14 = 0;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __60__CoreTelephonyClient_Data__setSupportDynamicDataSimSwitch___block_invoke;
+  v8[3] = &unk_1E6A43BB0;
+  v8[4] = &v9;
+  v4 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v8];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __60__CoreTelephonyClient_Data__setSupportDynamicDataSimSwitch___block_invoke_2;
+  v7[3] = &unk_1E6A43BB0;
+  v7[4] = &v9;
+  [v4 setSupportDynamicDataSimSwitch:switchCopy completion:v7];
+  v5 = v10[5];
+
+  _Block_object_dispose(&v9, 8);
+
+  return v5;
+}
+
 void __60__CoreTelephonyClient_Data__setSupportDynamicDataSimSwitch___block_invoke(uint64_t a1, void *a2)
 {
   v4 = a2;
@@ -1373,6 +1929,28 @@ void __64__CoreTelephonyClient_Data__getSupportDynamicDataSimSwitchSync___block_
   return v5;
 }
 
+- (void)getConnectionAvailability:(id)availability connectionType:(int)type completion:(id)completion
+{
+  v6 = *&type;
+  availabilityCopy = availability;
+  completionCopy = completion;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __81__CoreTelephonyClient_Data__getConnectionAvailability_connectionType_completion___block_invoke;
+  v12[3] = &unk_1E6A43CC8;
+  v10 = completionCopy;
+  v13 = v10;
+  v11 = [(CoreTelephonyClient *)self proxyWithErrorHandler:v12];
+  [v11 getConnectionAvailability:availabilityCopy connectionType:v6 completion:v10];
+}
+
+- (id)getConnectionAvailability:(id)availability connectionType:(int)type error:(id *)error
+{
+  v5 = [(CoreTelephonyClient *)self private_getConnectionAvailability:availability connectionType:*&type error:error];
+
+  return v5;
+}
+
 - (void)getInternetConnectionAvailability:(id)availability
 {
   availabilityCopy = availability;
@@ -1452,11 +2030,71 @@ void __63__CoreTelephonyClient_Data__getInternetConnectionAvailability___block_i
   return v4;
 }
 
+- (void)getConnectionState:(id)state connectionType:(int)type completion:(id)completion
+{
+  v6 = *&type;
+  stateCopy = state;
+  completionCopy = completion;
+  if ([(CoreTelephonyClient *)self supportsRequestWithSelector:a2])
+  {
+    v14 = MEMORY[0x1E69E9820];
+    v15 = 3221225472;
+    v16 = __74__CoreTelephonyClient_Data__getConnectionState_connectionType_completion___block_invoke_2;
+    v17 = &unk_1E6A43CC8;
+    v11 = completionCopy;
+    v18 = v11;
+    v12 = [(CoreTelephonyClient *)self proxyWithErrorHandler:&v14];
+    [v12 getConnectionState:stateCopy connectionType:v6 completion:{v11, v14, v15, v16, v17}];
+    v13 = &v18;
+  }
+
+  else
+  {
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __74__CoreTelephonyClient_Data__getConnectionState_connectionType_completion___block_invoke;
+    v19[3] = &unk_1E6A43D10;
+    v20 = completionCopy;
+    [(CoreTelephonyClient *)self dispatchBlockToClientAsync:v19];
+    v13 = &v20;
+  }
+}
+
 void __74__CoreTelephonyClient_Data__getConnectionState_connectionType_completion___block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
   v2 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:19 userInfo:0];
   (*(v1 + 16))(v1, 0);
+}
+
+- (id)getConnectionState:(id)state connectionType:(int)type error:(id *)error
+{
+  v5 = [(CoreTelephonyClient *)self private_getConnectionState:state connectionType:*&type error:error];
+
+  return v5;
+}
+
+- (id)getSliceTrafficDescriptorsInfo:(id)info connectionType:(int)type error:(id *)error
+{
+  v6 = *&type;
+  infoCopy = info;
+  if ([(CoreTelephonyClient *)self supportsRequestWithSelector:a2])
+  {
+    v10 = [(CoreTelephonyClient *)self private_getSliceTrafficDescriptorsInfo:infoCopy connectionType:v6 error:error];
+  }
+
+  else if (error)
+  {
+    [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:19 userInfo:0];
+    *error = v10 = 0;
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  return v10;
 }
 
 - (id)getSliceTrafficDescriptors:(id *)descriptors
@@ -2011,6 +2649,37 @@ void __63__CoreTelephonyClient_Data__getAnbrActivationState_completion___block_i
   (*(v1 + 16))(v1, 0);
 }
 
+- (void)queryAnbrBitrate:(id)bitrate bitrate:(id)a4 direction:(int)direction completion:(id)completion
+{
+  v7 = *&direction;
+  bitrateCopy = bitrate;
+  v12 = a4;
+  completionCopy = completion;
+  if ([(CoreTelephonyClient *)self supportsRequestWithSelector:a2])
+  {
+    v17 = MEMORY[0x1E69E9820];
+    v18 = 3221225472;
+    v19 = __75__CoreTelephonyClient_Data__queryAnbrBitrate_bitrate_direction_completion___block_invoke_2;
+    v20 = &unk_1E6A43CC8;
+    v14 = completionCopy;
+    v21 = v14;
+    v15 = [(CoreTelephonyClient *)self proxyWithErrorHandler:&v17];
+    [v15 queryAnbrBitrate:bitrateCopy bitrate:v12 direction:v7 completion:{v14, v17, v18, v19, v20}];
+    v16 = &v21;
+  }
+
+  else
+  {
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __75__CoreTelephonyClient_Data__queryAnbrBitrate_bitrate_direction_completion___block_invoke;
+    v22[3] = &unk_1E6A43D10;
+    v23 = completionCopy;
+    [(CoreTelephonyClient *)self dispatchBlockToClientAsync:v22];
+    v16 = &v23;
+  }
+}
+
 void __75__CoreTelephonyClient_Data__queryAnbrBitrate_bitrate_direction_completion___block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
@@ -2018,11 +2687,71 @@ void __75__CoreTelephonyClient_Data__queryAnbrBitrate_bitrate_direction_completi
   (*(v1 + 16))(v1);
 }
 
+- (void)setCoalescing:(BOOL)coalescing udp:(BOOL)udp completion:(id)completion
+{
+  udpCopy = udp;
+  coalescingCopy = coalescing;
+  completionCopy = completion;
+  if ([(CoreTelephonyClient *)self supportsRequestWithSelector:a2])
+  {
+    v13 = MEMORY[0x1E69E9820];
+    v14 = 3221225472;
+    v15 = __58__CoreTelephonyClient_Data__setCoalescing_udp_completion___block_invoke_2;
+    v16 = &unk_1E6A43CC8;
+    v10 = completionCopy;
+    v17 = v10;
+    v11 = [(CoreTelephonyClient *)self proxyWithErrorHandler:&v13];
+    [v11 setCoalescing:coalescingCopy udp:udpCopy completion:{v10, v13, v14, v15, v16}];
+    v12 = &v17;
+  }
+
+  else
+  {
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __58__CoreTelephonyClient_Data__setCoalescing_udp_completion___block_invoke;
+    v18[3] = &unk_1E6A43D10;
+    v19 = completionCopy;
+    [(CoreTelephonyClient *)self dispatchBlockToClientAsync:v18];
+    v12 = &v19;
+  }
+}
+
 void __58__CoreTelephonyClient_Data__setCoalescing_udp_completion___block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
   v2 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:19 userInfo:0];
   (*(v1 + 16))(v1);
+}
+
+- (void)simulateDataStall:(BOOL)stall pdp:(int)pdp completion:(id)completion
+{
+  v5 = *&pdp;
+  stallCopy = stall;
+  completionCopy = completion;
+  if ([(CoreTelephonyClient *)self supportsRequestWithSelector:a2])
+  {
+    v13 = MEMORY[0x1E69E9820];
+    v14 = 3221225472;
+    v15 = __62__CoreTelephonyClient_Data__simulateDataStall_pdp_completion___block_invoke_2;
+    v16 = &unk_1E6A43CC8;
+    v10 = completionCopy;
+    v17 = v10;
+    v11 = [(CoreTelephonyClient *)self proxyWithErrorHandler:&v13];
+    [v11 simulateDataStall:stallCopy pdp:v5 completion:{v10, v13, v14, v15, v16}];
+    v12 = &v17;
+  }
+
+  else
+  {
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __62__CoreTelephonyClient_Data__simulateDataStall_pdp_completion___block_invoke;
+    v18[3] = &unk_1E6A43D10;
+    v19 = completionCopy;
+    [(CoreTelephonyClient *)self dispatchBlockToClientAsync:v18];
+    v12 = &v19;
+  }
 }
 
 void __62__CoreTelephonyClient_Data__simulateDataStall_pdp_completion___block_invoke(uint64_t a1)
@@ -2528,6 +3257,35 @@ void __48__CoreTelephonyClient_Data__getTetheringStatus___block_invoke(uint64_t 
   (*(v1 + 16))(v1, 0);
 }
 
+- (void)getTetheringStatus:(id)status connectionType:(int)type
+{
+  v4 = *&type;
+  statusCopy = status;
+  if ([(CoreTelephonyClient *)self supportsRequestWithSelector:a2])
+  {
+    v11 = MEMORY[0x1E69E9820];
+    v12 = 3221225472;
+    v13 = __63__CoreTelephonyClient_Data__getTetheringStatus_connectionType___block_invoke_2;
+    v14 = &unk_1E6A43CC8;
+    v8 = statusCopy;
+    v15 = v8;
+    v9 = [(CoreTelephonyClient *)self proxyWithErrorHandler:&v11];
+    [v9 getTetheringStatus:v8 connectionType:{v4, v11, v12, v13, v14}];
+    v10 = &v15;
+  }
+
+  else
+  {
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __63__CoreTelephonyClient_Data__getTetheringStatus_connectionType___block_invoke;
+    v16[3] = &unk_1E6A43D10;
+    v17 = statusCopy;
+    [(CoreTelephonyClient *)self dispatchBlockToClientAsync:v16];
+    v10 = &v17;
+  }
+}
+
 void __63__CoreTelephonyClient_Data__getTetheringStatus_connectionType___block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
@@ -2556,6 +3314,70 @@ void __63__CoreTelephonyClient_Data__getTetheringStatus_connectionType___block_i
   }
 
   return v5;
+}
+
+- (id)getTetheringStatusSync:(id *)sync connectionType:(int)type
+{
+  v4 = *&type;
+  if ([(CoreTelephonyClient *)self supportsRequestWithSelector:a2])
+  {
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x3032000000;
+    v22 = __Block_byref_object_copy_;
+    v23 = __Block_byref_object_dispose_;
+    v24 = 0;
+    if (sync)
+    {
+      *sync = 0;
+    }
+
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __67__CoreTelephonyClient_Data__getTetheringStatusSync_connectionType___block_invoke;
+    v18[3] = &unk_1E6A43BB0;
+    v18[4] = &v19;
+    v7 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v18];
+    v12 = 0;
+    v13 = &v12;
+    v14 = 0x3032000000;
+    v15 = __Block_byref_object_copy_;
+    v16 = __Block_byref_object_dispose_;
+    v17 = 0;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __67__CoreTelephonyClient_Data__getTetheringStatusSync_connectionType___block_invoke_2;
+    v11[3] = &unk_1E6A43E78;
+    v11[4] = &v19;
+    v11[5] = &v12;
+    [v7 getTetheringStatus:v11 connectionType:v4];
+    if (sync)
+    {
+      v8 = v20[5];
+      if (v8)
+      {
+        *sync = v8;
+      }
+    }
+
+    v9 = v13[5];
+    _Block_object_dispose(&v12, 8);
+
+    _Block_object_dispose(&v19, 8);
+  }
+
+  else if (sync)
+  {
+    [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:19 userInfo:0];
+    *sync = v9 = 0;
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  return v9;
 }
 
 void __67__CoreTelephonyClient_Data__getTetheringStatusSync_connectionType___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -2623,6 +3445,92 @@ void __46__CoreTelephonyClient_Data__enterLoopBackMode__block_invoke_2(uint64_t 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
     v4 = v5;
   }
+}
+
+- (void)createAssertionForConnectionType:(int)type allocator:(__CFAllocator *)allocator error:(id *)error onReAssertError:(id)assertError
+{
+  v8 = *&type;
+  assertErrorCopy = assertError;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy_;
+  v28 = __Block_byref_object_dispose_;
+  v29 = 0;
+  if (error)
+  {
+    *error = 0;
+  }
+
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __94__CoreTelephonyClient_Data__createAssertionForConnectionType_allocator_error_onReAssertError___block_invoke;
+  v23[3] = &unk_1E6A43BB0;
+  v23[4] = &v24;
+  v11 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v23];
+  if (v11)
+  {
+    v12 = [(CoreTelephonyClient *)self createCTAssertionForConnectionType:v8 allocator:allocator proxy:v11];
+    if (v12)
+    {
+      v22[0] = MEMORY[0x1E69E9820];
+      v22[1] = 3221225472;
+      v22[2] = __94__CoreTelephonyClient_Data__createAssertionForConnectionType_allocator_error_onReAssertError___block_invoke_2;
+      v22[3] = &unk_1E6A43BB0;
+      v22[4] = &v24;
+      [v11 setAssertionForConnectionType:v8 enable:1 completion:v22];
+      v13 = v25[5];
+      if (!v13)
+      {
+        objc_initWeak(&location, self);
+        v17[0] = MEMORY[0x1E69E9820];
+        v17[1] = 3221225472;
+        v17[2] = __94__CoreTelephonyClient_Data__createAssertionForConnectionType_allocator_error_onReAssertError___block_invoke_3;
+        v17[3] = &unk_1E6A43EA0;
+        objc_copyWeak(&v19, &location);
+        v18 = assertErrorCopy;
+        v20 = v8;
+        [(CoreTelephonyClient *)self registerBlockForInvalidationNotification:v12 callback:v17];
+
+        objc_destroyWeak(&v19);
+        objc_destroyWeak(&location);
+        goto LABEL_16;
+      }
+
+      if (error)
+      {
+        *error = v13;
+      }
+
+      CFRelease(v12);
+      goto LABEL_14;
+    }
+
+    if (error)
+    {
+      v15 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v14 = [v15 initWithDomain:*MEMORY[0x1E696A798] code:12 userInfo:0];
+      goto LABEL_13;
+    }
+
+LABEL_14:
+    v12 = 0;
+    goto LABEL_16;
+  }
+
+  if (!error)
+  {
+    goto LABEL_14;
+  }
+
+  v14 = v25[5];
+LABEL_13:
+  v12 = 0;
+  *error = v14;
+LABEL_16:
+
+  _Block_object_dispose(&v24, 8);
+  return v12;
 }
 
 void __94__CoreTelephonyClient_Data__createAssertionForConnectionType_allocator_error_onReAssertError___block_invoke_2(uint64_t a1, void *a2)
@@ -2741,6 +3649,50 @@ void __52__CoreTelephonyClient_Data__setApplicationCategory___block_invoke_2(uin
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
     v4 = v5;
   }
+}
+
+- (void)updateIdsTrafficStatus:(BOOL)status dataType:(int)type completion:(id)completion
+{
+  v5 = *&type;
+  statusCopy = status;
+  completionCopy = completion;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __72__CoreTelephonyClient_Data__updateIdsTrafficStatus_dataType_completion___block_invoke;
+  v11[3] = &unk_1E6A43CC8;
+  v9 = completionCopy;
+  v12 = v9;
+  v10 = [(CoreTelephonyClient *)self proxyWithErrorHandler:v11];
+  [v10 updateIdsTrafficStatus:statusCopy dataType:v5 completion:v9];
+}
+
+- (void)updateAvsTrafficStatus:(int)status dataType:(int)type completion:(id)completion
+{
+  v5 = *&type;
+  v6 = *&status;
+  completionCopy = completion;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __72__CoreTelephonyClient_Data__updateAvsTrafficStatus_dataType_completion___block_invoke;
+  v11[3] = &unk_1E6A43CC8;
+  v9 = completionCopy;
+  v12 = v9;
+  v10 = [(CoreTelephonyClient *)self proxyWithErrorHandler:v11];
+  [v10 updateAvsTrafficStatus:v6 dataType:v5 completion:v9];
+}
+
+- (void)updateVoipCallTrafficStatus:(BOOL)status completion:(id)completion
+{
+  statusCopy = status;
+  completionCopy = completion;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __68__CoreTelephonyClient_Data__updateVoipCallTrafficStatus_completion___block_invoke;
+  v9[3] = &unk_1E6A43CC8;
+  v7 = completionCopy;
+  v10 = v7;
+  v8 = [(CoreTelephonyClient *)self proxyWithErrorHandler:v9];
+  [v8 updateVoipCallTrafficStatus:statusCopy completion:v7];
 }
 
 - (void)setWiFiCallingSettingPreferences:(id)preferences key:(id)key value:(id)value completion:(id)completion
@@ -3461,6 +4413,34 @@ void __58__CoreTelephonyClient_Call__shouldShowBrandedCallingInfo___block_invoke
   v7 = *(*(a1 + 40) + 8);
   v8 = *(v7 + 40);
   *(v7 + 40) = v6;
+}
+
+- (id)setShouldShowBrandedCallingInfo:(BOOL)info
+{
+  infoCopy = info;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__4;
+  v13 = __Block_byref_object_dispose__4;
+  v14 = 0;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __61__CoreTelephonyClient_Call__setShouldShowBrandedCallingInfo___block_invoke;
+  v8[3] = &unk_1E6A441F0;
+  v8[4] = &v9;
+  v4 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v8];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __61__CoreTelephonyClient_Call__setShouldShowBrandedCallingInfo___block_invoke_2;
+  v7[3] = &unk_1E6A441F0;
+  v7[4] = &v9;
+  [v4 setShouldShowBrandedCallingInfo:infoCopy completion:v7];
+  v5 = v10[5];
+
+  _Block_object_dispose(&v9, 8);
+
+  return v5;
 }
 
 - (void)getCallCapabilities:(id)capabilities completion:(id)completion
@@ -5885,6 +6865,20 @@ void __61__CoreTelephonyClient_DataUsage__usageCollectionEnabledSync___block_inv
   *(v6 + 40) = v5;
 }
 
+- (void)setUsageCollectionEnabled:(BOOL)enabled completion:(id)completion
+{
+  enabledCopy = enabled;
+  completionCopy = completion;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __71__CoreTelephonyClient_DataUsage__setUsageCollectionEnabled_completion___block_invoke;
+  v9[3] = &unk_1E6A43CC8;
+  v7 = completionCopy;
+  v10 = v7;
+  v8 = [(CoreTelephonyClient *)self proxyWithErrorHandler:v9];
+  [v8 setUsageCollectionEnabled:enabledCopy completion:v7];
+}
+
 - (void)userEnteredMonthlyBudget:(id)budget completion:(id)completion
 {
   budgetCopy = budget;
@@ -6624,6 +7618,97 @@ void __91__CoreTelephonyClient_CarrierBundle__copyCarrierBundleValue_keyHierarch
   *(v6 + 40) = v5;
 }
 
+- (void)copyCarrierBundleValues:(id)values keys:(id)keys defaultValues:(id)defaultValues bundleType:(id)type withFallbackBundleCheck:(BOOL)check completion:(id)completion
+{
+  checkCopy = check;
+  valuesCopy = values;
+  keysCopy = keys;
+  defaultValuesCopy = defaultValues;
+  typeCopy = type;
+  completionCopy = completion;
+  v33 = 0;
+  v20 = [(CoreTelephonyClient *)self supportsSelector:a2 withContext:valuesCopy error:&v33];
+  v21 = v33;
+  if (v20)
+  {
+    v25 = MEMORY[0x1E69E9820];
+    v26 = 3221225472;
+    v27 = __127__CoreTelephonyClient_CarrierBundle__copyCarrierBundleValues_keys_defaultValues_bundleType_withFallbackBundleCheck_completion___block_invoke_2;
+    v28 = &unk_1E6A43CC8;
+    v22 = completionCopy;
+    v29 = v22;
+    v23 = [(CoreTelephonyClient *)self proxyWithErrorHandler:&v25];
+    [v23 copyCarrierBundleValues:valuesCopy keys:keysCopy defaultValues:defaultValuesCopy bundleType:typeCopy withFallbackBundleCheck:checkCopy completion:{v22, v25, v26, v27, v28}];
+    v24 = &v29;
+  }
+
+  else
+  {
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __127__CoreTelephonyClient_CarrierBundle__copyCarrierBundleValues_keys_defaultValues_bundleType_withFallbackBundleCheck_completion___block_invoke;
+    v30[3] = &unk_1E6A459B0;
+    v32 = completionCopy;
+    v31 = v21;
+    [(CoreTelephonyClient *)self dispatchBlockToClientAsync:v30];
+    v24 = &v32;
+    v23 = v31;
+  }
+}
+
+- (id)copyCarrierBundleValues:(id)values keys:(id)keys defaultValues:(id)defaultValues bundleType:(id)type withFallbackBundleCheck:(BOOL)check error:(id *)error
+{
+  checkCopy = check;
+  valuesCopy = values;
+  keysCopy = keys;
+  defaultValuesCopy = defaultValues;
+  typeCopy = type;
+  if ([(CoreTelephonyClient *)self supportsSelector:a2 withContext:valuesCopy error:error])
+  {
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x3032000000;
+    v33 = __Block_byref_object_copy__8;
+    v34 = __Block_byref_object_dispose__8;
+    v35 = 0;
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __122__CoreTelephonyClient_CarrierBundle__copyCarrierBundleValues_keys_defaultValues_bundleType_withFallbackBundleCheck_error___block_invoke;
+    v29[3] = &unk_1E6A43BB0;
+    v29[4] = &v30;
+    v19 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v29];
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x3032000000;
+    v26 = __Block_byref_object_copy__8;
+    v27 = __Block_byref_object_dispose__8;
+    v28 = 0;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __122__CoreTelephonyClient_CarrierBundle__copyCarrierBundleValues_keys_defaultValues_bundleType_withFallbackBundleCheck_error___block_invoke_2;
+    v22[3] = &unk_1E6A43C00;
+    v22[4] = &v30;
+    v22[5] = &v23;
+    [v19 copyCarrierBundleValues:valuesCopy keys:keysCopy defaultValues:defaultValuesCopy bundleType:typeCopy withFallbackBundleCheck:checkCopy completion:v22];
+    if (error)
+    {
+      *error = v31[5];
+    }
+
+    v20 = v24[5];
+    _Block_object_dispose(&v23, 8);
+
+    _Block_object_dispose(&v30, 8);
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  return v20;
+}
+
 void __122__CoreTelephonyClient_CarrierBundle__copyCarrierBundleValues_keys_defaultValues_bundleType_withFallbackBundleCheck_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -6632,6 +7717,97 @@ void __122__CoreTelephonyClient_CarrierBundle__copyCarrierBundleValues_keys_defa
   v6 = *(*(a1 + 40) + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
+}
+
+- (void)copyCarrierBundleValues:(id)values keyHierarchies:(id)hierarchies defaultValues:(id)defaultValues bundleType:(id)type withFallbackBundleCheck:(BOOL)check completion:(id)completion
+{
+  checkCopy = check;
+  valuesCopy = values;
+  hierarchiesCopy = hierarchies;
+  defaultValuesCopy = defaultValues;
+  typeCopy = type;
+  completionCopy = completion;
+  v33 = 0;
+  v20 = [(CoreTelephonyClient *)self supportsSelector:a2 withContext:valuesCopy error:&v33];
+  v21 = v33;
+  if (v20)
+  {
+    v25 = MEMORY[0x1E69E9820];
+    v26 = 3221225472;
+    v27 = __137__CoreTelephonyClient_CarrierBundle__copyCarrierBundleValues_keyHierarchies_defaultValues_bundleType_withFallbackBundleCheck_completion___block_invoke_2;
+    v28 = &unk_1E6A43CC8;
+    v22 = completionCopy;
+    v29 = v22;
+    v23 = [(CoreTelephonyClient *)self proxyWithErrorHandler:&v25];
+    [v23 copyCarrierBundleValues:valuesCopy keyHierarchies:hierarchiesCopy defaultValues:defaultValuesCopy bundleType:typeCopy withFallbackBundleCheck:checkCopy completion:{v22, v25, v26, v27, v28}];
+    v24 = &v29;
+  }
+
+  else
+  {
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __137__CoreTelephonyClient_CarrierBundle__copyCarrierBundleValues_keyHierarchies_defaultValues_bundleType_withFallbackBundleCheck_completion___block_invoke;
+    v30[3] = &unk_1E6A459B0;
+    v32 = completionCopy;
+    v31 = v21;
+    [(CoreTelephonyClient *)self dispatchBlockToClientAsync:v30];
+    v24 = &v32;
+    v23 = v31;
+  }
+}
+
+- (id)copyCarrierBundleValues:(id)values keyHierarchies:(id)hierarchies defaultValues:(id)defaultValues bundleType:(id)type withFallbackBundleCheck:(BOOL)check error:(id *)error
+{
+  checkCopy = check;
+  valuesCopy = values;
+  hierarchiesCopy = hierarchies;
+  defaultValuesCopy = defaultValues;
+  typeCopy = type;
+  if ([(CoreTelephonyClient *)self supportsSelector:a2 withContext:valuesCopy error:error])
+  {
+    v30 = 0;
+    v31 = &v30;
+    v32 = 0x3032000000;
+    v33 = __Block_byref_object_copy__8;
+    v34 = __Block_byref_object_dispose__8;
+    v35 = 0;
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __132__CoreTelephonyClient_CarrierBundle__copyCarrierBundleValues_keyHierarchies_defaultValues_bundleType_withFallbackBundleCheck_error___block_invoke;
+    v29[3] = &unk_1E6A43BB0;
+    v29[4] = &v30;
+    v19 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v29];
+    v23 = 0;
+    v24 = &v23;
+    v25 = 0x3032000000;
+    v26 = __Block_byref_object_copy__8;
+    v27 = __Block_byref_object_dispose__8;
+    v28 = 0;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __132__CoreTelephonyClient_CarrierBundle__copyCarrierBundleValues_keyHierarchies_defaultValues_bundleType_withFallbackBundleCheck_error___block_invoke_2;
+    v22[3] = &unk_1E6A43C00;
+    v22[4] = &v30;
+    v22[5] = &v23;
+    [v19 copyCarrierBundleValues:valuesCopy keyHierarchies:hierarchiesCopy defaultValues:defaultValuesCopy bundleType:typeCopy withFallbackBundleCheck:checkCopy completion:v22];
+    if (error)
+    {
+      *error = v31[5];
+    }
+
+    v20 = v24[5];
+    _Block_object_dispose(&v23, 8);
+
+    _Block_object_dispose(&v30, 8);
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  return v20;
 }
 
 void __132__CoreTelephonyClient_CarrierBundle__copyCarrierBundleValues_keyHierarchies_defaultValues_bundleType_withFallbackBundleCheck_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -7774,6 +8950,20 @@ void __74__CoreTelephonyClient_CarrierBundle__copyBundleLocation_bundleType_erro
   *(v6 + 40) = v5;
 }
 
+- (void)checkForUpdatedBundlesWithAutoInstall:(BOOL)install completion:(id)completion
+{
+  installCopy = install;
+  completionCopy = completion;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __87__CoreTelephonyClient_CarrierBundle__checkForUpdatedBundlesWithAutoInstall_completion___block_invoke;
+  v9[3] = &unk_1E6A43CC8;
+  v7 = completionCopy;
+  v10 = v7;
+  v8 = [(CoreTelephonyClient *)self proxyWithErrorHandler:v9];
+  [v8 checkForUpdatedBundlesWithAutoInstall:installCopy completion:v7];
+}
+
 - (id)getCountryBundleLocationForMatchingInfo:(id)info error:(id *)error
 {
   infoCopy = info;
@@ -8184,6 +9374,35 @@ void __62__CoreTelephonyClient_Radio__getTARandomizationSetting_error___block_in
   *(v9 + 40) = v6;
 }
 
+- (id)setTARandomizationUserSetting:(id)setting enabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  settingCopy = setting;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__9;
+  v16 = __Block_byref_object_dispose__9;
+  v17 = 0;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __68__CoreTelephonyClient_Radio__setTARandomizationUserSetting_enabled___block_invoke;
+  v11[3] = &unk_1E6A43BB0;
+  v11[4] = &v12;
+  v7 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v11];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __68__CoreTelephonyClient_Radio__setTARandomizationUserSetting_enabled___block_invoke_2;
+  v10[3] = &unk_1E6A43BB0;
+  v10[4] = &v12;
+  [v7 setTARandomizationUserSetting:settingCopy enabled:enabledCopy completion:v10];
+  v8 = v13[5];
+
+  _Block_object_dispose(&v12, 8);
+
+  return v8;
+}
+
 - (void)setVoLTEAudioCodec:(id)codec codecInfo:(id)info completion:(id)completion
 {
   codecCopy = codec;
@@ -8412,6 +9631,37 @@ void __64__CoreTelephonyClient_SIMToolkit__getSIMToolkitListItems_items___block_
   _Block_object_dispose(&v19, 8);
 
   return v15;
+}
+
+- (id)sendSIMToolkitBooleanResponse:(id)response session:(id)session response:(id)a5 yesNo:(BOOL)no
+{
+  noCopy = no;
+  responseCopy = response;
+  sessionCopy = session;
+  v12 = a5;
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy__10;
+  v22 = __Block_byref_object_dispose__10;
+  v23 = 0;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __88__CoreTelephonyClient_SIMToolkit__sendSIMToolkitBooleanResponse_session_response_yesNo___block_invoke;
+  v17[3] = &unk_1E6A43BB0;
+  v17[4] = &v18;
+  v13 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v17];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __88__CoreTelephonyClient_SIMToolkit__sendSIMToolkitBooleanResponse_session_response_yesNo___block_invoke_2;
+  v16[3] = &unk_1E6A43BB0;
+  v16[4] = &v18;
+  [v13 sendSIMToolkitBooleanResponseForContext:responseCopy session:sessionCopy response:v12 yesNo:noCopy completion:v16];
+  v14 = v19[5];
+
+  _Block_object_dispose(&v18, 8);
+
+  return v14;
 }
 
 - (id)sendSIMToolkitUserActivity:(id)activity
@@ -8938,8 +10188,8 @@ void __58__CoreTelephonyClient_Subscriber__copyFirmwareUpdateInfo___block_invoke
   supportedCopy = supported;
   if (!supportedCopy)
   {
-    v11 = CTLogClientXPC();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v12 = CTLogClientXPC(0, v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       [CoreTelephonyClient(Subscriber) context:isProtectedIdentitySupported:error:];
       if (error)
@@ -8951,20 +10201,20 @@ void __58__CoreTelephonyClient_Subscriber__copyFirmwareUpdateInfo___block_invoke
     else if (error)
     {
 LABEL_5:
-      v12 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v10 = 0;
-      *error = [v12 initWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
+      v13 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v11 = 0;
+      *error = [v13 initWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
       goto LABEL_8;
     }
 
-    v10 = 0;
+    v11 = 0;
     goto LABEL_8;
   }
 
-  v10 = [(CoreTelephonyClient *)self context:contextCopy supportedIdentityProtectionFor:supportedCopy error:error]!= 0;
+  v11 = [(CoreTelephonyClient *)self context:contextCopy supportedIdentityProtectionFor:supportedCopy error:error]!= 0;
 LABEL_8:
 
-  return v10;
+  return v11;
 }
 
 - (void)context:(id)context isProtectedIdentitySupported:(id)supported completion:(id)completion
@@ -8972,29 +10222,29 @@ LABEL_8:
   contextCopy = context;
   supportedCopy = supported;
   completionCopy = completion;
-  v11 = completionCopy;
+  v12 = completionCopy;
   if (supportedCopy)
   {
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __83__CoreTelephonyClient_Subscriber__context_isProtectedIdentitySupported_completion___block_invoke;
-    v15[3] = &unk_1E6A46420;
-    v16 = completionCopy;
-    [(CoreTelephonyClient *)self context:contextCopy supportedIdentityProtectionFor:supportedCopy completion:v15];
-    v12 = v16;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __83__CoreTelephonyClient_Subscriber__context_isProtectedIdentitySupported_completion___block_invoke;
+    v16[3] = &unk_1E6A46420;
+    v17 = completionCopy;
+    [(CoreTelephonyClient *)self context:contextCopy supportedIdentityProtectionFor:supportedCopy completion:v16];
+    v13 = v17;
   }
 
   else
   {
-    v13 = CTLogClientXPC();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v14 = CTLogClientXPC(completionCopy, v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       [CoreTelephonyClient(Subscriber) context:isProtectedIdentitySupported:error:];
     }
 
-    v14 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v12 = [v14 initWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
-    (v11)[2](v11, 0, v12);
+    v15 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v13 = [v15 initWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
+    (v12)[2](v12, 0, v13);
   }
 }
 
@@ -9003,35 +10253,36 @@ LABEL_8:
   contextCopy = context;
   forCopy = for;
   completionCopy = completion;
+  v12 = completionCopy;
   if (forCopy)
   {
-    v11 = [[CTXPCSubscriberSupportsEncryptedIdentityRequest alloc] initWithContext:contextCopy service:forCopy];
+    v13 = [[CTXPCSubscriberSupportsEncryptedIdentityRequest alloc] initWithContext:contextCopy service:forCopy];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __85__CoreTelephonyClient_Subscriber__context_supportedIdentityProtectionFor_completion___block_invoke;
+    v20[3] = &unk_1E6A43CC8;
+    v14 = v12;
+    v21 = v14;
+    v15 = [(CoreTelephonyClient *)self proxyWithErrorHandler:v20];
     v18[0] = MEMORY[0x1E69E9820];
     v18[1] = 3221225472;
-    v18[2] = __85__CoreTelephonyClient_Subscriber__context_supportedIdentityProtectionFor_completion___block_invoke;
-    v18[3] = &unk_1E6A43CC8;
-    v12 = completionCopy;
-    v19 = v12;
-    v13 = [(CoreTelephonyClient *)self proxyWithErrorHandler:v18];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __85__CoreTelephonyClient_Subscriber__context_supportedIdentityProtectionFor_completion___block_invoke_2;
-    v16[3] = &unk_1E6A463D0;
-    v17 = v12;
-    [v13 sendRequest:v11 completionHandler:v16];
+    v18[2] = __85__CoreTelephonyClient_Subscriber__context_supportedIdentityProtectionFor_completion___block_invoke_2;
+    v18[3] = &unk_1E6A463D0;
+    v19 = v14;
+    [v15 sendRequest:v13 completionHandler:v18];
   }
 
   else
   {
-    v14 = CTLogClientXPC();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v16 = CTLogClientXPC(completionCopy, v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       [CoreTelephonyClient(Subscriber) context:isProtectedIdentitySupported:error:];
     }
 
-    v15 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v11 = [v15 initWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
-    (*(completionCopy + 2))(completionCopy, 0, v11);
+    v17 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v13 = [v17 initWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
+    (v12)[2](v12, 0, v13);
   }
 }
 
@@ -9064,14 +10315,14 @@ void __85__CoreTelephonyClient_Subscriber__context_supportedIdentityProtectionFo
 {
   contextCopy = context;
   forCopy = for;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x2020000000;
-  v28 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
+  v29 = 0;
   if (!forCopy)
   {
-    v14 = CTLogClientXPC();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v15 = CTLogClientXPC(0, v9);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
       [CoreTelephonyClient(Subscriber) context:isProtectedIdentitySupported:error:];
       if (!error)
@@ -9083,51 +10334,51 @@ void __85__CoreTelephonyClient_Subscriber__context_supportedIdentityProtectionFo
     else if (!error)
     {
 LABEL_9:
-      v13 = v26[3];
+      v14 = v27[3];
       goto LABEL_10;
     }
 
-    v15 = objc_alloc(MEMORY[0x1E696ABC0]);
-    *error = [v15 initWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
+    v16 = objc_alloc(MEMORY[0x1E696ABC0]);
+    *error = [v16 initWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
     goto LABEL_9;
   }
 
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__11;
-  v23 = __Block_byref_object_dispose__11;
-  v24 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__11;
+  v24 = __Block_byref_object_dispose__11;
+  v25 = 0;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __80__CoreTelephonyClient_Subscriber__context_supportedIdentityProtectionFor_error___block_invoke;
+  v19[3] = &unk_1E6A43BB0;
+  v19[4] = &v20;
+  v11 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v19];
+  v12 = [[CTXPCSubscriberSupportsEncryptedIdentityRequest alloc] initWithContext:contextCopy service:forCopy];
   v18[0] = MEMORY[0x1E69E9820];
   v18[1] = 3221225472;
-  v18[2] = __80__CoreTelephonyClient_Subscriber__context_supportedIdentityProtectionFor_error___block_invoke;
-  v18[3] = &unk_1E6A43BB0;
-  v18[4] = &v19;
-  v10 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v18];
-  v11 = [[CTXPCSubscriberSupportsEncryptedIdentityRequest alloc] initWithContext:contextCopy service:forCopy];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __80__CoreTelephonyClient_Subscriber__context_supportedIdentityProtectionFor_error___block_invoke_2;
-  v17[3] = &unk_1E6A44B30;
-  v17[4] = &v25;
-  v17[5] = &v19;
-  [v10 sendRequest:v11 completionHandler:v17];
+  v18[2] = __80__CoreTelephonyClient_Subscriber__context_supportedIdentityProtectionFor_error___block_invoke_2;
+  v18[3] = &unk_1E6A44B30;
+  v18[4] = &v26;
+  v18[5] = &v20;
+  [v11 sendRequest:v12 completionHandler:v18];
   if (error)
   {
-    v12 = v20[5];
-    if (v12)
+    v13 = v21[5];
+    if (v13)
     {
-      *error = v12;
+      *error = v13;
     }
   }
 
-  v13 = v26[3];
+  v14 = v27[3];
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v20, 8);
 LABEL_10:
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v26, 8);
 
-  return v13;
+  return v14;
 }
 
 void __80__CoreTelephonyClient_Subscriber__context_supportedIdentityProtectionFor_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -9162,38 +10413,38 @@ void __80__CoreTelephonyClient_Subscriber__context_supportedIdentityProtectionFo
   identityCopy = identity;
   v9 = a4;
   completionCopy = completion;
-  v11 = completionCopy;
+  v12 = completionCopy;
   if (v9)
   {
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __79__CoreTelephonyClient_Subscriber__createEncryptedIdentity_identity_completion___block_invoke;
-    v20[3] = &unk_1E6A43CC8;
-    v12 = completionCopy;
-    v21 = v12;
-    v13 = [(CoreTelephonyClient *)self proxyWithErrorHandler:v20];
-    v14 = [[CTXPCCreateEncryptedIdentityRequest alloc] initWithContext:identityCopy identity:v9];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __79__CoreTelephonyClient_Subscriber__createEncryptedIdentity_identity_completion___block_invoke_2;
-    v18[3] = &unk_1E6A463D0;
-    v19 = v12;
-    [v13 sendRequest:v14 completionHandler:v18];
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = __79__CoreTelephonyClient_Subscriber__createEncryptedIdentity_identity_completion___block_invoke;
+    v21[3] = &unk_1E6A43CC8;
+    v13 = completionCopy;
+    v22 = v13;
+    v14 = [(CoreTelephonyClient *)self proxyWithErrorHandler:v21];
+    v15 = [[CTXPCCreateEncryptedIdentityRequest alloc] initWithContext:identityCopy identity:v9];
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __79__CoreTelephonyClient_Subscriber__createEncryptedIdentity_identity_completion___block_invoke_2;
+    v19[3] = &unk_1E6A463D0;
+    v20 = v13;
+    [v14 sendRequest:v15 completionHandler:v19];
 
-    v15 = v21;
+    v16 = v22;
   }
 
   else
   {
-    v16 = CTLogClientXPC();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v17 = CTLogClientXPC(completionCopy, v11);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
       [CoreTelephonyClient(Subscriber) createEncryptedIdentity:identity:completion:];
     }
 
-    v17 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v15 = [v17 initWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
-    (v11)[2](v11, 0, v15);
+    v18 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v16 = [v18 initWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
+    (v12)[2](v12, 0, v16);
   }
 }
 
@@ -9226,23 +10477,24 @@ void __79__CoreTelephonyClient_Subscriber__createEncryptedIdentity_identity_comp
   contextCopy = context;
   forCopy = for;
   completionCopy = completion;
+  v12 = completionCopy;
   if (forCopy)
   {
-    v11 = [[CTXPCSubscriberGetPseudoIdentityRequest alloc] initWithContext:contextCopy service:forCopy];
-    [(CoreTelephonyClient *)self asynchronousRequest:v11 completionWithString:completionCopy];
+    v13 = [[CTXPCSubscriberGetPseudoIdentityRequest alloc] initWithContext:contextCopy service:forCopy];
+    [(CoreTelephonyClient *)self asynchronousRequest:v13 completionWithString:v12];
   }
 
   else
   {
-    v12 = CTLogClientXPC();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v14 = CTLogClientXPC(completionCopy, v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       [CoreTelephonyClient(Subscriber) context:isProtectedIdentitySupported:error:];
     }
 
-    v13 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v14 = [v13 initWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
-    completionCopy[2](completionCopy, 0, v14);
+    v15 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v16 = [v15 initWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
+    (v12)[2](v12, 0, v16);
   }
 }
 
@@ -9252,14 +10504,14 @@ void __79__CoreTelephonyClient_Subscriber__createEncryptedIdentity_identity_comp
   forCopy = for;
   if (forCopy)
   {
-    v10 = [[CTXPCSubscriberGetPseudoIdentityRequest alloc] initWithContext:contextCopy service:forCopy];
-    v11 = [(CoreTelephonyClient *)self synchronousRequestWithStringResult:v10 error:error];
+    v11 = [[CTXPCSubscriberGetPseudoIdentityRequest alloc] initWithContext:contextCopy service:forCopy];
+    v12 = [(CoreTelephonyClient *)self synchronousRequestWithStringResult:v11 error:error];
 
     goto LABEL_8;
   }
 
-  v12 = CTLogClientXPC();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+  v13 = CTLogClientXPC(0, v9);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
   {
     [CoreTelephonyClient(Subscriber) context:isProtectedIdentitySupported:error:];
     if (error)
@@ -9271,32 +10523,32 @@ void __79__CoreTelephonyClient_Subscriber__createEncryptedIdentity_identity_comp
   else if (error)
   {
 LABEL_5:
-    v13 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v11 = 0;
-    *error = [v13 initWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
+    v14 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v12 = 0;
+    *error = [v14 initWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
     goto LABEL_8;
   }
 
-  v11 = 0;
+  v12 = 0;
 LABEL_8:
 
-  return v11;
+  return v12;
 }
 
 - (id)context:(id)context getEncryptedIdentity:(id)identity error:(id *)error
 {
   contextCopy = context;
   identityCopy = identity;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__11;
-  v29 = __Block_byref_object_dispose__11;
-  v30 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__11;
+  v30 = __Block_byref_object_dispose__11;
+  v31 = 0;
   if (!identityCopy)
   {
-    v14 = CTLogClientXPC();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v15 = CTLogClientXPC(0, v9);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
       [CoreTelephonyClient(Subscriber) createEncryptedIdentity:identity:completion:];
       if (!error)
@@ -9308,51 +10560,51 @@ LABEL_8:
     else if (!error)
     {
 LABEL_9:
-      v13 = v26[5];
+      v14 = v27[5];
       goto LABEL_10;
     }
 
-    v15 = objc_alloc(MEMORY[0x1E696ABC0]);
-    *error = [v15 initWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
+    v16 = objc_alloc(MEMORY[0x1E696ABC0]);
+    *error = [v16 initWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
     goto LABEL_9;
   }
 
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__11;
-  v23 = __Block_byref_object_dispose__11;
-  v24 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__11;
+  v24 = __Block_byref_object_dispose__11;
+  v25 = 0;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __70__CoreTelephonyClient_Subscriber__context_getEncryptedIdentity_error___block_invoke;
+  v19[3] = &unk_1E6A43BB0;
+  v19[4] = &v20;
+  v11 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v19];
+  v12 = [[CTXPCCreateEncryptedIdentityRequest alloc] initWithContext:contextCopy identity:identityCopy];
   v18[0] = MEMORY[0x1E69E9820];
   v18[1] = 3221225472;
-  v18[2] = __70__CoreTelephonyClient_Subscriber__context_getEncryptedIdentity_error___block_invoke;
-  v18[3] = &unk_1E6A43BB0;
-  v18[4] = &v19;
-  v10 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v18];
-  v11 = [[CTXPCCreateEncryptedIdentityRequest alloc] initWithContext:contextCopy identity:identityCopy];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __70__CoreTelephonyClient_Subscriber__context_getEncryptedIdentity_error___block_invoke_2;
-  v17[3] = &unk_1E6A44B30;
-  v17[4] = &v25;
-  v17[5] = &v19;
-  [v10 sendRequest:v11 completionHandler:v17];
+  v18[2] = __70__CoreTelephonyClient_Subscriber__context_getEncryptedIdentity_error___block_invoke_2;
+  v18[3] = &unk_1E6A44B30;
+  v18[4] = &v26;
+  v18[5] = &v20;
+  [v11 sendRequest:v12 completionHandler:v18];
   if (error)
   {
-    v12 = v20[5];
-    if (v12)
+    v13 = v21[5];
+    if (v13)
     {
-      *error = v12;
+      *error = v13;
     }
   }
 
-  v13 = v26[5];
+  v14 = v27[5];
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v20, 8);
 LABEL_10:
-  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v26, 8);
 
-  return v13;
+  return v14;
 }
 
 void __70__CoreTelephonyClient_Subscriber__context_getEncryptedIdentity_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -9535,8 +10787,8 @@ LABEL_14:
   codeCopy = code;
   if (!codeCopy)
   {
-    v9 = CTLogClientXPC();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = CTLogClientXPC(0, v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [CoreTelephonyClient(Subscriber) copyMobileSubscriberIsoCountryCode:error:];
       if (error)
@@ -9549,30 +10801,30 @@ LABEL_14:
     {
 LABEL_5:
       [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
-      *error = v8 = 0;
+      *error = v9 = 0;
       goto LABEL_8;
     }
 
-    v8 = 0;
+    v9 = 0;
     goto LABEL_8;
   }
 
-  v7 = [[CTXPCConvertCountryCodeToISORequest alloc] initWithMcc:codeCopy];
-  v8 = [(CoreTelephonyClient *)self synchronousRequestWithStringResult:v7 error:error];
+  v8 = [[CTXPCConvertCountryCodeToISORequest alloc] initWithMcc:codeCopy];
+  v9 = [(CoreTelephonyClient *)self synchronousRequestWithStringResult:v8 error:error];
 
 LABEL_8:
-  return v8;
+  return v9;
 }
 
 - (id)copyMobileSubscriberIsoSubregionCode:(id)code MNC:(id)c error:(id *)error
 {
   codeCopy = code;
   cCopy = c;
-  v10 = cCopy;
+  v11 = cCopy;
   if (!codeCopy || !cCopy)
   {
-    v13 = CTLogClientXPC();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v14 = CTLogClientXPC(cCopy, v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       [CoreTelephonyClient(Subscriber) copyMobileSubscriberIsoSubregionCode:MNC:error:];
       if (error)
@@ -9585,19 +10837,19 @@ LABEL_8:
     {
 LABEL_6:
       [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
-      *error = v12 = 0;
+      *error = v13 = 0;
       goto LABEL_9;
     }
 
-    v12 = 0;
+    v13 = 0;
     goto LABEL_9;
   }
 
-  v11 = [[CTXPCMobileSubscriberISOSubregionCodeRequest alloc] initWithMcc:codeCopy mnc:cCopy];
-  v12 = [(CoreTelephonyClient *)self synchronousRequestWithArrayResult:v11 error:error];
+  v12 = [[CTXPCMobileSubscriberISOSubregionCodeRequest alloc] initWithMcc:codeCopy mnc:cCopy];
+  v13 = [(CoreTelephonyClient *)self synchronousRequestWithArrayResult:v12 error:error];
 
 LABEL_9:
-  return v12;
+  return v13;
 }
 
 - (id)getSimHardwareInfo:(id)info error:(id *)error
@@ -9811,38 +11063,41 @@ void __60__CoreTelephonyClient_Subscriber__getSimHardwareInfo_error___block_invo
   return v8;
 }
 
-- (void)unlockPIN:(id)n pin:(id)pin completion:(id)completion
+- (void)saveSIMLockValue:(id)value enabled:(BOOL)enabled pin:(id)pin completion:(id)completion
 {
-  nCopy = n;
+  enabledCopy = enabled;
+  valueCopy = value;
   pinCopy = pin;
   completionCopy = completion;
+  v14 = completionCopy;
   if (pinCopy)
   {
-    v11 = [[CTXPCUnlockPINRequest alloc] initWithContext:nCopy pin:pinCopy];
-    [(CoreTelephonyClient *)self asynchronousRequest:v11 completion:completionCopy];
+    v15 = [[CTXPCEnablePINRequest alloc] initWithContext:valueCopy enable:enabledCopy pin:pinCopy];
+    [(CoreTelephonyClient *)self asynchronousRequest:v15 completion:v14];
   }
 
   else
   {
-    v12 = CTLogClientXPC();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v16 = CTLogClientXPC(completionCopy, v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       [CoreTelephonyClient(Subscriber) saveSIMLockValue:enabled:pin:completion:];
     }
 
-    v13 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
-    completionCopy[2](completionCopy, v13);
+    v15 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
+    (v14)[2](v14, v15);
   }
 }
 
-- (void)unlockPIN:(id)n pin:(id)pin error:(id *)error
+- (void)saveSIMLockValue:(id)value enabled:(BOOL)enabled pin:(id)pin error:(id *)error
 {
-  nCopy = n;
+  enabledCopy = enabled;
+  valueCopy = value;
   pinCopy = pin;
   if (!pinCopy)
   {
-    v11 = CTLogClientXPC();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v14 = CTLogClientXPC(0, v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       [CoreTelephonyClient(Subscriber) saveSIMLockValue:enabled:pin:completion:];
       if (!error)
@@ -9860,8 +11115,64 @@ void __60__CoreTelephonyClient_Subscriber__getSimHardwareInfo_error___block_invo
     goto LABEL_6;
   }
 
-  v10 = [[CTXPCUnlockPINRequest alloc] initWithContext:nCopy pin:pinCopy];
-  [(CoreTelephonyClient *)self synchronousRequest:v10 error:error];
+  v13 = [[CTXPCEnablePINRequest alloc] initWithContext:valueCopy enable:enabledCopy pin:pinCopy];
+  [(CoreTelephonyClient *)self synchronousRequest:v13 error:error];
+
+LABEL_6:
+}
+
+- (void)unlockPIN:(id)n pin:(id)pin completion:(id)completion
+{
+  nCopy = n;
+  pinCopy = pin;
+  completionCopy = completion;
+  v12 = completionCopy;
+  if (pinCopy)
+  {
+    v13 = [[CTXPCUnlockPINRequest alloc] initWithContext:nCopy pin:pinCopy];
+    [(CoreTelephonyClient *)self asynchronousRequest:v13 completion:v12];
+  }
+
+  else
+  {
+    v14 = CTLogClientXPC(completionCopy, v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    {
+      [CoreTelephonyClient(Subscriber) saveSIMLockValue:enabled:pin:completion:];
+    }
+
+    v15 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
+    (v12)[2](v12, v15);
+  }
+}
+
+- (void)unlockPIN:(id)n pin:(id)pin error:(id *)error
+{
+  nCopy = n;
+  pinCopy = pin;
+  if (!pinCopy)
+  {
+    v12 = CTLogClientXPC(0, v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    {
+      [CoreTelephonyClient(Subscriber) saveSIMLockValue:enabled:pin:completion:];
+      if (!error)
+      {
+        goto LABEL_6;
+      }
+    }
+
+    else if (!error)
+    {
+      goto LABEL_6;
+    }
+
+    *error = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
+    goto LABEL_6;
+  }
+
+  v11 = [[CTXPCUnlockPINRequest alloc] initWithContext:nCopy pin:pinCopy];
+  [(CoreTelephonyClient *)self synchronousRequest:v11 error:error];
 
 LABEL_6:
 }
@@ -9872,22 +11183,23 @@ LABEL_6:
   pukCopy = puk;
   pinCopy = pin;
   completionCopy = completion;
+  v15 = completionCopy;
   if (pukCopy && pinCopy)
   {
-    v14 = [[CTXPCUnblockPUKRequest alloc] initWithContext:kCopy puk:pukCopy pin:pinCopy];
-    [(CoreTelephonyClient *)self asynchronousRequest:v14 completion:completionCopy];
+    v16 = [[CTXPCUnblockPUKRequest alloc] initWithContext:kCopy puk:pukCopy pin:pinCopy];
+    [(CoreTelephonyClient *)self asynchronousRequest:v16 completion:v15];
   }
 
   else
   {
-    v15 = CTLogClientXPC();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v17 = CTLogClientXPC(completionCopy, v14);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
       [CoreTelephonyClient(Subscriber) unlockPUK:puk:newPin:completion:];
     }
 
-    v16 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
-    completionCopy[2](completionCopy, v16);
+    v18 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
+    (v15)[2](v15, v18);
   }
 }
 
@@ -9896,11 +11208,11 @@ LABEL_6:
   kCopy = k;
   pukCopy = puk;
   pinCopy = pin;
-  v13 = pinCopy;
+  v14 = pinCopy;
   if (!pukCopy || !pinCopy)
   {
-    v15 = CTLogClientXPC();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v16 = CTLogClientXPC(pinCopy, v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       [CoreTelephonyClient(Subscriber) unlockPUK:puk:newPin:completion:];
       if (!error)
@@ -9918,8 +11230,8 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v14 = [[CTXPCUnblockPUKRequest alloc] initWithContext:kCopy puk:pukCopy pin:pinCopy];
-  [(CoreTelephonyClient *)self synchronousRequest:v14 error:error];
+  v15 = [[CTXPCUnblockPUKRequest alloc] initWithContext:kCopy puk:pukCopy pin:pinCopy];
+  [(CoreTelephonyClient *)self synchronousRequest:v15 error:error];
 
 LABEL_7:
 }
@@ -9930,22 +11242,23 @@ LABEL_7:
   pinCopy = pin;
   newPinCopy = newPin;
   completionCopy = completion;
+  v15 = completionCopy;
   if (pinCopy && newPinCopy)
   {
-    v14 = [[CTXPCChangePINRequest alloc] initWithContext:nCopy currentPin:pinCopy updatedPin:newPinCopy];
-    [(CoreTelephonyClient *)self asynchronousRequest:v14 completion:completionCopy];
+    v16 = [[CTXPCChangePINRequest alloc] initWithContext:nCopy currentPin:pinCopy updatedPin:newPinCopy];
+    [(CoreTelephonyClient *)self asynchronousRequest:v16 completion:v15];
   }
 
   else
   {
-    v15 = CTLogClientXPC();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v17 = CTLogClientXPC(completionCopy, v14);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
       [CoreTelephonyClient(Subscriber) saveSIMLockValue:enabled:pin:completion:];
     }
 
-    v16 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
-    completionCopy[2](completionCopy, v16);
+    v18 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
+    (v15)[2](v15, v18);
   }
 }
 
@@ -9954,11 +11267,11 @@ LABEL_7:
   nCopy = n;
   pinCopy = pin;
   newPinCopy = newPin;
-  v13 = newPinCopy;
+  v14 = newPinCopy;
   if (!pinCopy || !newPinCopy)
   {
-    v15 = CTLogClientXPC();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
+    v16 = CTLogClientXPC(newPinCopy, v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       [CoreTelephonyClient(Subscriber) saveSIMLockValue:enabled:pin:completion:];
       if (!error)
@@ -9976,8 +11289,8 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v14 = [[CTXPCChangePINRequest alloc] initWithContext:nCopy currentPin:pinCopy updatedPin:newPinCopy];
-  [(CoreTelephonyClient *)self synchronousRequest:v14 error:error];
+  v15 = [[CTXPCChangePINRequest alloc] initWithContext:nCopy currentPin:pinCopy updatedPin:newPinCopy];
+  [(CoreTelephonyClient *)self synchronousRequest:v15 error:error];
 
 LABEL_7:
 }
@@ -10206,33 +11519,34 @@ void __53__CoreTelephonyClient_Subscriber__getSimLabel_error___block_invoke_2(ui
   labelCopy = label;
   v9 = a4;
   completionCopy = completion;
+  v12 = completionCopy;
   if (v9)
   {
-    v11 = [[CTXPCSetSimLabelRequest alloc] initWithContext:labelCopy label:v9];
-    [(CoreTelephonyClient *)self asynchronousRequest:v11 completion:completionCopy];
+    v13 = [[CTXPCSetSimLabelRequest alloc] initWithContext:labelCopy label:v9];
+    [(CoreTelephonyClient *)self asynchronousRequest:v13 completion:v12];
   }
 
   else
   {
-    v12 = CTLogClientXPC();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v14 = CTLogClientXPC(completionCopy, v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       [CoreTelephonyClient(Subscriber) setLabel:label:completion:];
     }
 
-    v13 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
-    completionCopy[2](completionCopy, v13);
+    v15 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
+    (v12)[2](v12, v15);
   }
 }
 
 - (void)setLabel:(id)label label:(id)a4 error:(id *)error
 {
   labelCopy = label;
-  v9 = a4;
-  if (!v9)
+  v10 = a4;
+  if (!v10)
   {
-    v11 = CTLogClientXPC();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+    v12 = CTLogClientXPC(0, v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
       [CoreTelephonyClient(Subscriber) setLabel:label:completion:];
       if (!error)
@@ -10250,8 +11564,8 @@ void __53__CoreTelephonyClient_Subscriber__getSimLabel_error___block_invoke_2(ui
     goto LABEL_6;
   }
 
-  v10 = [[CTXPCSetSimLabelRequest alloc] initWithContext:labelCopy label:v9];
-  [(CoreTelephonyClient *)self synchronousRequest:v10 error:error];
+  v11 = [[CTXPCSetSimLabelRequest alloc] initWithContext:labelCopy label:v10];
+  [(CoreTelephonyClient *)self synchronousRequest:v11 error:error];
 
 LABEL_6:
 }
@@ -10291,37 +11605,37 @@ LABEL_6:
   simCopy = sim;
   paramsCopy = params;
   completionCopy = completion;
-  v11 = completionCopy;
+  v12 = completionCopy;
   if (paramsCopy)
   {
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __92__CoreTelephonyClient_Subscriber__generateAuthenticationInfoUsingSim_authParams_completion___block_invoke;
-    v19[3] = &unk_1E6A43CC8;
-    v12 = completionCopy;
-    v20 = v12;
-    v13 = [(CoreTelephonyClient *)self proxyWithErrorHandler:v19];
-    v14 = [[CTXPCSubscriberAuthenticateRequest alloc] initWithContext:simCopy authInfo:paramsCopy];
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __92__CoreTelephonyClient_Subscriber__generateAuthenticationInfoUsingSim_authParams_completion___block_invoke_2;
-    v17[3] = &unk_1E6A463D0;
-    v18 = v12;
-    [v13 sendRequest:v14 completionHandler:v17];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __92__CoreTelephonyClient_Subscriber__generateAuthenticationInfoUsingSim_authParams_completion___block_invoke;
+    v20[3] = &unk_1E6A43CC8;
+    v13 = completionCopy;
+    v21 = v13;
+    v14 = [(CoreTelephonyClient *)self proxyWithErrorHandler:v20];
+    v15 = [[CTXPCSubscriberAuthenticateRequest alloc] initWithContext:simCopy authInfo:paramsCopy];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __92__CoreTelephonyClient_Subscriber__generateAuthenticationInfoUsingSim_authParams_completion___block_invoke_2;
+    v18[3] = &unk_1E6A463D0;
+    v19 = v13;
+    [v14 sendRequest:v15 completionHandler:v18];
 
-    v15 = v20;
+    v16 = v21;
   }
 
   else
   {
-    v16 = CTLogClientXPC();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v17 = CTLogClientXPC(completionCopy, v11);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
       [CoreTelephonyClient(Subscriber) generateAuthenticationInfoUsingSim:authParams:completion:];
     }
 
-    v15 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
-    (v11)[2](v11, 0, v15);
+    v16 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
+    (v12)[2](v12, 0, v16);
   }
 }
 
@@ -10599,11 +11913,11 @@ void __76__CoreTelephonyClient_Subscriber__getLastKnownSimDeactivationInfoFor_er
 {
   codeCopy = code;
   cCopy = c;
-  v10 = cCopy;
+  v11 = cCopy;
   if (!codeCopy || !cCopy)
   {
-    v13 = CTLogClientXPC();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v14 = CTLogClientXPC(cCopy, v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
       [CoreTelephonyClient(Subscriber) copyMobileSubscriberIsoSubregionCode:MNC:error:];
       if (error)
@@ -10616,19 +11930,19 @@ void __76__CoreTelephonyClient_Subscriber__getLastKnownSimDeactivationInfoFor_er
     {
 LABEL_6:
       [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
-      *error = v12 = 0;
+      *error = v13 = 0;
       goto LABEL_9;
     }
 
-    v12 = 0;
+    v13 = 0;
     goto LABEL_9;
   }
 
-  v11 = [[CTXPCConvertMCCMNCToISORequest alloc] initWithMcc:codeCopy mnc:cCopy];
-  v12 = [(CoreTelephonyClient *)self synchronousRequestWithArrayResult:v11 error:error];
+  v12 = [[CTXPCConvertMCCMNCToISORequest alloc] initWithMcc:codeCopy mnc:cCopy];
+  v13 = [(CoreTelephonyClient *)self synchronousRequestWithArrayResult:v12 error:error];
 
 LABEL_9:
-  return v12;
+  return v13;
 }
 
 - (id)checkEmbeddedSimHealthWithError:(id *)error
@@ -10661,8 +11975,8 @@ LABEL_9:
   codeCopy = code;
   if (!codeCopy)
   {
-    v9 = CTLogClientXPC();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = CTLogClientXPC(0, v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       [CoreTelephonyClient(Subscriber) copyMccOrPlmnsListForIso3CountryCode:error:];
       if (error)
@@ -10675,19 +11989,19 @@ LABEL_9:
     {
 LABEL_5:
       [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
-      *error = v8 = 0;
+      *error = v9 = 0;
       goto LABEL_8;
     }
 
-    v8 = 0;
+    v9 = 0;
     goto LABEL_8;
   }
 
-  v7 = [[CTXPCConvertISOToMCCMNCRequest alloc] initWithIso:codeCopy];
-  v8 = [(CoreTelephonyClient *)self synchronousRequestWithArrayResult:v7 error:error];
+  v8 = [[CTXPCConvertISOToMCCMNCRequest alloc] initWithIso:codeCopy];
+  v9 = [(CoreTelephonyClient *)self synchronousRequestWithArrayResult:v8 error:error];
 
 LABEL_8:
-  return v8;
+  return v9;
 }
 
 - (id)isAnySimReadyWithError:(id *)error
@@ -10702,17 +12016,17 @@ LABEL_8:
 {
   matchingCopy = matching;
   descriptorsCopy = descriptors;
-  v10 = descriptorsCopy;
+  v11 = descriptorsCopy;
   if (matchingCopy && descriptorsCopy)
   {
-    v11 = [[CTXPCIsSimMatchingRequest alloc] initWithDescriptor:matchingCopy carrierDescriptors:descriptorsCopy];
-    v12 = [(CoreTelephonyClient *)self synchronousRequestWithNumberResult:v11 error:error];
+    v12 = [[CTXPCIsSimMatchingRequest alloc] initWithDescriptor:matchingCopy carrierDescriptors:descriptorsCopy];
+    v13 = [(CoreTelephonyClient *)self synchronousRequestWithNumberResult:v12 error:error];
 
     goto LABEL_8;
   }
 
-  v13 = CTLogClientXPC();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+  v14 = CTLogClientXPC(descriptorsCopy, v10);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
   {
     [CoreTelephonyClient(Subscriber) isSimMatching:carrierDescriptors:error:];
     if (!error)
@@ -10730,10 +12044,10 @@ LABEL_6:
   }
 
 LABEL_7:
-  v12 = [MEMORY[0x1E696AD98] numberWithBool:0];
+  v13 = [MEMORY[0x1E696AD98] numberWithBool:0];
 LABEL_8:
 
-  return v12;
+  return v13;
 }
 
 - (void)synchronousRequest:(id)request error:(id *)error
@@ -11189,6 +12503,15 @@ void __75__CoreTelephonyClient_Subscriber__asynchronousRequest_completionWithArr
   v11 = v8;
   v9 = [(CoreTelephonyClient *)self proxyWithErrorHandler:v10];
   [v9 getSweetgumUserConsentInfo:infoCopy completion:v8];
+}
+
+- (void)setSweetgumUserConsent:(id)consent userConsent:(BOOL)userConsent completion:(id)completion
+{
+  userConsentCopy = userConsent;
+  consentCopy = consent;
+  completionCopy = completion;
+  v9 = [(CoreTelephonyClient *)self proxyWithErrorHandler:completionCopy];
+  [v9 setSweetgumUserConsent:consentCopy userConsent:userConsentCopy completion:completionCopy];
 }
 
 - (void)getSweetgumUsage:(id)usage completion:(id)completion
@@ -11692,6 +13015,35 @@ void __67__CoreTelephonyClient_PrivateNetwork__removePrivateNetworkProfile___blo
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
     v4 = v5;
   }
+}
+
+- (id)updatePrivateNetworkProfile:(id)profile setProfileAside:(BOOL)aside
+{
+  asideCopy = aside;
+  profileCopy = profile;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__12;
+  v16 = __Block_byref_object_dispose__12;
+  v17 = 0;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __83__CoreTelephonyClient_PrivateNetwork__updatePrivateNetworkProfile_setProfileAside___block_invoke;
+  v11[3] = &unk_1E6A43BB0;
+  v11[4] = &v12;
+  v7 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v11];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __83__CoreTelephonyClient_PrivateNetwork__updatePrivateNetworkProfile_setProfileAside___block_invoke_2;
+  v10[3] = &unk_1E6A43BB0;
+  v10[4] = &v12;
+  [v7 updatePrivateNetworkProfile:profileCopy setProfileAside:asideCopy completion:v10];
+  v8 = v13[5];
+
+  _Block_object_dispose(&v12, 8);
+
+  return v8;
 }
 
 void __83__CoreTelephonyClient_PrivateNetwork__updatePrivateNetworkProfile_setProfileAside___block_invoke(uint64_t a1, void *a2)
@@ -12209,6 +13561,35 @@ void __62__CoreTelephonyClient_Provisioning__getTransportKeysToUpdate___block_in
   [v6 getTransportKeysToUpdate:v5];
 }
 
+- (id)setTransportKeysUpdated:(BOOL)updated with:(id)with
+{
+  updatedCopy = updated;
+  withCopy = with;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__14;
+  v16 = __Block_byref_object_dispose__14;
+  v17 = 0;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __66__CoreTelephonyClient_Provisioning__setTransportKeysUpdated_with___block_invoke;
+  v11[3] = &unk_1E6A441F0;
+  v11[4] = &v12;
+  v7 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v11];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __66__CoreTelephonyClient_Provisioning__setTransportKeysUpdated_with___block_invoke_2;
+  v10[3] = &unk_1E6A441F0;
+  v10[4] = &v12;
+  [v7 setTransportKeysUpdated:updatedCopy with:withCopy completion:v10];
+  v8 = v13[5];
+
+  _Block_object_dispose(&v12, 8);
+
+  return v8;
+}
+
 - (id)forceRollAllTransportKeys
 {
   v7 = 0;
@@ -12329,6 +13710,34 @@ void __64__CoreTelephonyClient_Provisioning__getSatelliteMsgCfgToUpdate___block_
   _Block_object_dispose(&v10, 8);
 
   return v6;
+}
+
+- (id)reprovisionSatelliteMsg:(BOOL)msg
+{
+  msgCopy = msg;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__14;
+  v13 = __Block_byref_object_dispose__14;
+  v14 = 0;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __61__CoreTelephonyClient_Provisioning__reprovisionSatelliteMsg___block_invoke;
+  v8[3] = &unk_1E6A441F0;
+  v8[4] = &v9;
+  v4 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v8];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __61__CoreTelephonyClient_Provisioning__reprovisionSatelliteMsg___block_invoke_2;
+  v7[3] = &unk_1E6A441F0;
+  v7[4] = &v9;
+  [v4 reprovisionSatelliteMsg:msgCopy completion:v7];
+  v5 = v10[5];
+
+  _Block_object_dispose(&v9, 8);
+
+  return v5;
 }
 
 - (BOOL)hasDedicatedBearerSupport
@@ -13193,6 +14602,51 @@ void *__71__CoreTelephonyClient_Capabilities__context_getCapability_status_with_
   return result;
 }
 
+- (void)context:(id)context setCapability:(id)capability enabled:(BOOL)enabled with:(id)with completion:(id)completion
+{
+  enabledCopy = enabled;
+  v12 = [(CoreTelephonyClient *)self proxyWithErrorHandler:completion];
+
+  [v12 context:context setCapability:capability enabled:enabledCopy info:with completion:completion];
+}
+
+- (id)context:(id)context setCapability:(id)capability enabled:(BOOL)enabled with:(id)with
+{
+  enabledCopy = enabled;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3052000000;
+  v20 = __Block_byref_object_copy__16;
+  v21 = __Block_byref_object_dispose__16;
+  v22 = 0;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __72__CoreTelephonyClient_Capabilities__context_setCapability_enabled_with___block_invoke;
+  v16[3] = &unk_1E6A441F0;
+  v16[4] = &v17;
+  v10 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v16];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __72__CoreTelephonyClient_Capabilities__context_setCapability_enabled_with___block_invoke_2;
+  v15[3] = &unk_1E6A441F0;
+  v15[4] = &v17;
+  [v10 context:context setCapability:capability enabled:enabledCopy info:with completion:v15];
+  v11 = v18[5];
+  if (v11)
+  {
+    v12 = v11;
+    v13 = v18[5];
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  _Block_object_dispose(&v17, 8);
+  return v13;
+}
+
 void *__72__CoreTelephonyClient_Capabilities__context_setCapability_enabled_with___block_invoke(void *result, void *a2)
 {
   if (a2)
@@ -13800,6 +15254,43 @@ void *__67__CoreTelephonyClient_Capabilities__wifiCallingCTFollowUpComplete___bl
   return result;
 }
 
+- (id)context:(id)context mandatoryDisableVoLTE:(BOOL)e
+{
+  eCopy = e;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3052000000;
+  v16 = __Block_byref_object_copy__16;
+  v17 = __Block_byref_object_dispose__16;
+  v18 = 0;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __67__CoreTelephonyClient_Capabilities__context_mandatoryDisableVoLTE___block_invoke;
+  v12[3] = &unk_1E6A441F0;
+  v12[4] = &v13;
+  v6 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v12];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __67__CoreTelephonyClient_Capabilities__context_mandatoryDisableVoLTE___block_invoke_2;
+  v11[3] = &unk_1E6A441F0;
+  v11[4] = &v13;
+  [v6 context:context mandatoryDisableVoLTE:eCopy withCompletion:v11];
+  v7 = v14[5];
+  if (v7)
+  {
+    v8 = v7;
+    v9 = v14[5];
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  _Block_object_dispose(&v13, 8);
+  return v9;
+}
+
 void *__67__CoreTelephonyClient_Capabilities__context_mandatoryDisableVoLTE___block_invoke(void *result, void *a2)
 {
   if (a2)
@@ -13908,9 +15399,9 @@ void *__70__CoreTelephonyClient_Capabilities__context_isMandatoryDisabledVoLTE__
 {
   multiplexerCopy = multiplexer;
   helperCopy = helper;
-  v21.receiver = self;
-  v21.super_class = CoreTelephonyClient;
-  v11 = [(CoreTelephonyClient *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = CoreTelephonyClient;
+  v11 = [(CoreTelephonyClient *)&v20 init];
   if (v11)
   {
     if (queue)
@@ -13930,15 +15421,15 @@ void *__70__CoreTelephonyClient_Capabilities__context_isMandatoryDisabledVoLTE__
     if (!queueCopy)
     {
       global_queue = dispatch_get_global_queue(21, 0);
-      v17 = global_queue;
+      v16 = global_queue;
       if (global_queue)
       {
         dispatch_retain(global_queue);
-        v18 = v11->_userQueue.fObj.fObj;
-        v11->_userQueue.fObj.fObj = v17;
-        if (v18)
+        v17 = v11->_userQueue.fObj.fObj;
+        v11->_userQueue.fObj.fObj = v16;
+        if (v17)
         {
-          dispatch_release(v18);
+          dispatch_release(v17);
         }
       }
 
@@ -13951,11 +15442,10 @@ void *__70__CoreTelephonyClient_Capabilities__context_isMandatoryDisabledVoLTE__
     objc_storeStrong(&v11->_mux, multiplexer);
     objc_storeStrong(&v11->_gestaltHelper, helper);
     objc_initWeak(&location, v11);
-    v14 = v11->_userQueue.fObj.fObj;
-    objc_copyWeak(v19, &location);
-    v19[1] = queue;
+    objc_copyWeak(v18, &location);
+    v18[1] = queue;
     v11->fOsStateHandle = os_state_add_handler();
-    objc_destroyWeak(v19);
+    objc_destroyWeak(v18);
     objc_destroyWeak(&location);
   }
 
@@ -13964,72 +15454,73 @@ void *__70__CoreTelephonyClient_Capabilities__context_isMandatoryDisabledVoLTE__
 
 char *__63__CoreTelephonyClient_initWithQueue_multiplexer_gestaltHelper___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v6 = WeakRetained;
   if (!WeakRetained)
   {
 LABEL_11:
-    v12 = 0;
+    v16 = 0;
     goto LABEL_16;
   }
 
-  v6 = *(a2 + 16);
-  v5 = (a2 + 16);
-  if (v6 != 3)
+  v8 = *(a2 + 16);
+  v7 = (a2 + 16);
+  if (v8 != 3)
   {
-    v16 = CTLogClient();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v20 = CTLogClient(WeakRetained, v5);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      __63__CoreTelephonyClient_initWithQueue_multiplexer_gestaltHelper___block_invoke_cold_1(v5, v16);
+      __63__CoreTelephonyClient_initWithQueue_multiplexer_gestaltHelper___block_invoke_cold_1(v7, v20);
     }
 
     goto LABEL_11;
   }
 
-  v7 = [MEMORY[0x1E695DF90] dictionary];
-  v8 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(WeakRetained, "supportsCellular")}];
-  [v7 setObject:v8 forKeyedSubscript:@"hasCellular"];
+  v9 = [MEMORY[0x1E695DF90] dictionary];
+  v10 = [MEMORY[0x1E696AD98] numberWithBool:{objc_msgSend(v6, "supportsCellular")}];
+  [v9 setObject:v10 forKeyedSubscript:@"hasCellular"];
 
-  v20 = 0;
-  v9 = [MEMORY[0x1E696AE40] dataWithPropertyList:v7 format:200 options:0 error:&v20];
-  v10 = v20;
-  if (v9)
+  v23 = 0;
+  v11 = [MEMORY[0x1E696AE40] dataWithPropertyList:v9 format:200 options:0 error:&v23];
+  v12 = v23;
+  v14 = v12;
+  if (v11)
   {
-    v11 = CTLogClient();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v15 = CTLogClient(v12, v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      __63__CoreTelephonyClient_initWithQueue_multiplexer_gestaltHelper___block_invoke_cold_2(buf, [v9 length], v11);
+      __63__CoreTelephonyClient_initWithQueue_multiplexer_gestaltHelper___block_invoke_cold_2(buf, [v11 length], v15);
     }
 
-    v12 = malloc_type_calloc(1uLL, [v9 length] + 200, 0x1000040BEF03554uLL);
-    *v12 = 1;
-    *(v12 + 1) = [v9 length];
+    v16 = malloc_type_calloc(1uLL, [v11 length] + 200, 0x1000040BEF03554uLL);
+    *v16 = 1;
+    *(v16 + 1) = [v11 length];
     label = dispatch_queue_get_label(*(a1 + 40));
-    v14 = "unknown";
+    v18 = "unknown";
     if (label)
     {
-      v14 = label;
+      v18 = label;
     }
 
-    snprintf(v12 + 136, 0x40uLL, "CoreTelephonyClient: %s", v14);
-    v15 = v9;
-    memcpy(v12 + 200, [v9 bytes], objc_msgSend(v9, "length"));
+    snprintf(v16 + 136, 0x40uLL, "CoreTelephonyClient: %s", v18);
+    v19 = v11;
+    memcpy(v16 + 200, [v11 bytes], objc_msgSend(v11, "length"));
   }
 
   else
   {
-    v17 = CTLogClient();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v21 = CTLogClient(v12, v13);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      __63__CoreTelephonyClient_initWithQueue_multiplexer_gestaltHelper___block_invoke_cold_3(v10, v17);
+      __63__CoreTelephonyClient_initWithQueue_multiplexer_gestaltHelper___block_invoke_cold_3(v14, v21);
     }
 
-    v12 = 0;
+    v16 = 0;
   }
 
 LABEL_16:
-  v18 = *MEMORY[0x1E69E9840];
-  return v12;
+  return v16;
 }
 
 - (void)setDelegate:(id)delegate
@@ -14053,7 +15544,6 @@ LABEL_16:
 
       objc_storeWeak(&self->_delegate, obj);
       self->fDelegateAddr = obj;
-      fObj = self->_userQueue.fObj.fObj;
       [CoreTelephonyClientMux addDelegate:"addDelegate:queue:" queue:?];
       v5 = obj;
     }
@@ -14061,9 +15551,9 @@ LABEL_16:
 
   else
   {
-    v10 = self->_mux;
-    v11 = objc_loadWeakRetained(&self->_delegate);
-    [(CoreTelephonyClientMux *)v10 removeDelegate:v11];
+    v9 = self->_mux;
+    v10 = objc_loadWeakRetained(&self->_delegate);
+    [(CoreTelephonyClientMux *)v9 removeDelegate:v10];
 
     objc_storeWeak(&self->_delegate, 0);
     self->fDelegateAddr = 0;
@@ -14436,13 +15926,6 @@ void __59__CoreTelephonyClient_getEvolvedSubscriptionLabelID_error___block_invok
   }
 
   return supportsCellular;
-}
-
-- (void)dispatchBlockToClientAsync:(id)async
-{
-  _Block_copy(async);
-  fObj = self->_userQueue.fObj.fObj;
-  operator new();
 }
 
 - (id)delegate
@@ -15912,6 +17395,36 @@ void __67__CoreTelephonyClient_Registration__getSupports5GStandalone_error___blo
   }
 }
 
+- (id)setSupports5GStandalone:(id)standalone enabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  standaloneCopy = standalone;
+  v13 = 0;
+  v14 = &v13;
+  v15 = 0x3032000000;
+  v16 = __Block_byref_object_copy__18;
+  v17 = __Block_byref_object_dispose__18;
+  v18 = 0;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __69__CoreTelephonyClient_Registration__setSupports5GStandalone_enabled___block_invoke;
+  v12[3] = &unk_1E6A43BB0;
+  v12[4] = &v13;
+  v7 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v12];
+  v8 = [[CTXPCSetSupports5GStandaloneRequest alloc] initWithDescriptor:standaloneCopy enabled:enabledCopy];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __69__CoreTelephonyClient_Registration__setSupports5GStandalone_enabled___block_invoke_2;
+  v11[3] = &unk_1E6A44B08;
+  v11[4] = &v13;
+  [v7 sendRequest:v8 completionHandler:v11];
+  v9 = v14[5];
+
+  _Block_object_dispose(&v13, 8);
+
+  return v9;
+}
+
 - (void)copyRadioAccessTechnology:(id)technology completion:(id)completion
 {
   technologyCopy = technology;
@@ -16277,6 +17790,37 @@ void __84__CoreTelephonyClient_Registration__setRatSelection_selection_preferred
   v1 = *(a1 + 32);
   v2 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
   (*(v1 + 16))(v1);
+}
+
+- (id)setRatSelectionMask:(id)mask selection:(unsigned __int8)selection preferred:(unsigned __int8)preferred
+{
+  preferredCopy = preferred;
+  selectionCopy = selection;
+  maskCopy = mask;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x3032000000;
+  v18 = __Block_byref_object_copy__18;
+  v19 = __Block_byref_object_dispose__18;
+  v20 = 0;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __77__CoreTelephonyClient_Registration__setRatSelectionMask_selection_preferred___block_invoke;
+  v14[3] = &unk_1E6A43BB0;
+  v14[4] = &v15;
+  v9 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v14];
+  v10 = [[CTXPCSetRatSelectionMaskRequest alloc] initWithDescriptor:maskCopy selection:selectionCopy preferred:preferredCopy];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __77__CoreTelephonyClient_Registration__setRatSelectionMask_selection_preferred___block_invoke_2;
+  v13[3] = &unk_1E6A44B08;
+  v13[4] = &v15;
+  [v9 sendRequest:v10 completionHandler:v13];
+  v11 = v16[5];
+
+  _Block_object_dispose(&v15, 8);
+
+  return v11;
 }
 
 - (void)copyBandInfo:(id)info completion:(id)completion
@@ -17442,6 +18986,27 @@ void __61__CoreTelephonyClient_Registration__get2GUserPreferenceSync___block_inv
   *(*(*(a1 + 40) + 8) + 24) = [v9 enabled];
 }
 
+- (void)set2GUserPreference:(BOOL)preference completion:(id)completion
+{
+  preferenceCopy = preference;
+  completionCopy = completion;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __68__CoreTelephonyClient_Registration__set2GUserPreference_completion___block_invoke;
+  v13[3] = &unk_1E6A43CC8;
+  v7 = completionCopy;
+  v14 = v7;
+  v8 = [(CoreTelephonyClient *)self proxyWithErrorHandler:v13];
+  v9 = [[CTXPCSet2GUserPreferenceRequest alloc] initWithEnable:preferenceCopy];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __68__CoreTelephonyClient_Registration__set2GUserPreference_completion___block_invoke_2;
+  v11[3] = &unk_1E6A463D0;
+  v10 = v7;
+  v12 = v10;
+  [v8 sendRequest:v9 completionHandler:v11];
+}
+
 - (void)getRegulatedRatsSwitchEnabled:(id)enabled completion:(id)completion
 {
   enabledCopy = enabled;
@@ -17652,6 +19217,28 @@ void __78__CoreTelephonyClient_Registration__getRegulatedRatsUserPreferenceSync_
 
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a3);
   *(*(*(a1 + 40) + 8) + 24) = [v9 enabled];
+}
+
+- (void)setRegulatedRatsUserPreference:(id)preference enable:(BOOL)enable completion:(id)completion
+{
+  enableCopy = enable;
+  preferenceCopy = preference;
+  completionCopy = completion;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __86__CoreTelephonyClient_Registration__setRegulatedRatsUserPreference_enable_completion___block_invoke;
+  v16[3] = &unk_1E6A43CC8;
+  v10 = completionCopy;
+  v17 = v10;
+  v11 = [(CoreTelephonyClient *)self proxyWithErrorHandler:v16];
+  v12 = [[CTXPCSetRegulatedRATsUserPreferenceRequest alloc] initWithContext:preferenceCopy enable:enableCopy];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __86__CoreTelephonyClient_Registration__setRegulatedRatsUserPreference_enable_completion___block_invoke_2;
+  v14[3] = &unk_1E6A463D0;
+  v13 = v10;
+  v15 = v13;
+  [v11 sendRequest:v12 completionHandler:v14];
 }
 
 - (void)fetchNetworkList:(id)list completion:(id)completion
@@ -18284,6 +19871,27 @@ void __78__CoreTelephonyClient_Registration__getSignalStrengthMeasurements_compl
   (*(v10 + 16))(v10, v11, v6);
 }
 
+- (void)triggerKeepaliveWakeupEvent:(int)event completion:(id)completion
+{
+  v4 = *&event;
+  completionCopy = completion;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __76__CoreTelephonyClient_Registration__triggerKeepaliveWakeupEvent_completion___block_invoke;
+  v13[3] = &unk_1E6A43CC8;
+  v7 = completionCopy;
+  v14 = v7;
+  v8 = [(CoreTelephonyClient *)self proxyWithErrorHandler:v13];
+  v9 = [[CTXPCTriggerKeepAliveWakeupRequest alloc] initWithNetworkInterfaceType:v4];
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __76__CoreTelephonyClient_Registration__triggerKeepaliveWakeupEvent_completion___block_invoke_2;
+  v11[3] = &unk_1E6A463D0;
+  v10 = v7;
+  v12 = v10;
+  [v8 sendRequest:v9 completionHandler:v11];
+}
+
 - (id)getPublicSignalStrength:(id)strength error:(id *)error
 {
   strengthCopy = strength;
@@ -18688,6 +20296,21 @@ void __69__CoreTelephonyClient_DataUsagePolicy__getRemotePolicies_completion___b
   [v12 setSatelliteAppCategories:categoriesCopy appCategories:appCategoriesCopy completion:v9];
 }
 
+- (void)performNetworkAccessFlowIfAllowed:(id)allowed ignoreForeground:(BOOL)foreground completion:(id)completion
+{
+  foregroundCopy = foreground;
+  completionCopy = completion;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __102__CoreTelephonyClient_DataUsagePolicy__performNetworkAccessFlowIfAllowed_ignoreForeground_completion___block_invoke;
+  v12[3] = &unk_1E6A441C8;
+  v13 = completionCopy;
+  v9 = completionCopy;
+  allowedCopy = allowed;
+  v11 = [(CoreTelephonyClient *)self proxyWithErrorHandler:v12];
+  [v11 performNetworkAccessFlowIfAllowed:allowedCopy ignoreForeground:foregroundCopy completion:v9];
+}
+
 - (void)setUIConfiguredApns:(id)apns apns:(id)a4 completion:(id)completion
 {
   apnsCopy = apns;
@@ -18890,6 +20513,35 @@ void __71__CoreTelephonyClient_DeviceManagement__getGSMAUIControlSetting_error__
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), obj);
   v6 = obj;
   *(*(*(a1 + 40) + 8) + 24) = a2;
+}
+
+- (id)loadGSMASettings:(id)settings state:(BOOL)state
+{
+  stateCopy = state;
+  settingsCopy = settings;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy__22;
+  v16 = __Block_byref_object_dispose__22;
+  v17 = 0;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __64__CoreTelephonyClient_DeviceManagement__loadGSMASettings_state___block_invoke;
+  v11[3] = &unk_1E6A43BB0;
+  v11[4] = &v12;
+  v7 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v11];
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __64__CoreTelephonyClient_DeviceManagement__loadGSMASettings_state___block_invoke_2;
+  v10[3] = &unk_1E6A43BB0;
+  v10[4] = &v12;
+  [v7 loadGSMASettings:settingsCopy state:stateCopy completion:v10];
+  v8 = v13[5];
+
+  _Block_object_dispose(&v12, 8);
+
+  return v8;
 }
 
 - (void)deletePersonalWallet:(id)wallet completion:(id)completion
@@ -19327,6 +20979,48 @@ void __74__CoreTelephonyClient_Stewie__getConnectionAssistantServicePlotWithErro
   {
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
   }
+}
+
+- (void)setStewieBlocked:(BOOL)blocked completion:(id)completion
+{
+  blockedCopy = blocked;
+  completionCopy = completion;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __59__CoreTelephonyClient_Stewie__setStewieBlocked_completion___block_invoke;
+  v9[3] = &unk_1E6A441C8;
+  v10 = completionCopy;
+  v7 = completionCopy;
+  v8 = [(CoreTelephonyClient *)self proxyWithErrorHandler:v9];
+  [v8 setStewieBlocked:blockedCopy completion:v7];
+}
+
+- (id)setStewieBlocked:(BOOL)blocked
+{
+  blockedCopy = blocked;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy__23;
+  v13 = __Block_byref_object_dispose__23;
+  v14 = 0;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __48__CoreTelephonyClient_Stewie__setStewieBlocked___block_invoke;
+  v8[3] = &unk_1E6A441F0;
+  v8[4] = &v9;
+  v4 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v8];
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __48__CoreTelephonyClient_Stewie__setStewieBlocked___block_invoke_2;
+  v7[3] = &unk_1E6A441F0;
+  v7[4] = &v9;
+  [v4 setStewieBlocked:blockedCopy completion:v7];
+  v5 = v10[5];
+
+  _Block_object_dispose(&v9, 8);
+
+  return v5;
 }
 
 - (void)reportStewieDeviceOrientation:(id)orientation completion:(id)completion
@@ -19860,6 +21554,65 @@ void __104__CoreTelephonyClient_PlanTransfer__isAnyPlanOfTransferCapability_avai
   [v6 clearReconnectionCredentials:v5];
 }
 
+- (void)cancelCellularPlanTransfer:(id)transfer fromDevice:(id)device keepCache:(BOOL)cache completionHandler:(id)handler
+{
+  cacheCopy = cache;
+  transferCopy = transfer;
+  deviceCopy = device;
+  handlerCopy = handler;
+  if (handlerCopy)
+  {
+    v13 = handlerCopy;
+  }
+
+  else
+  {
+    v13 = &__block_literal_global_8;
+  }
+
+  if (transferCopy && deviceCopy)
+  {
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __103__CoreTelephonyClient_PlanTransfer__cancelCellularPlanTransfer_fromDevice_keepCache_completionHandler___block_invoke_2;
+    v20[3] = &unk_1E6A43CC8;
+    v14 = v13;
+    v21 = v14;
+    v15 = [(CoreTelephonyClient *)self synchronousProxyWithErrorHandler:v20];
+    if (v15)
+    {
+      v16 = [[CTXPCCancelTransferPlanRequest alloc] initWithPlan:transferCopy fromDevice:deviceCopy keepCache:cacheCopy];
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __103__CoreTelephonyClient_PlanTransfer__cancelCellularPlanTransfer_fromDevice_keepCache_completionHandler___block_invoke_3;
+      v18[3] = &unk_1E6A463D0;
+      v19 = v14;
+      [v15 sendRequest:v16 completionHandler:v18];
+    }
+  }
+
+  else
+  {
+    v17 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
+    (*(v13 + 2))(v13, v17);
+  }
+}
+
+- (void)getProximityTransportSession:(unint64_t)session remoteDeviceInfo:(id)info usePreSharedKey:(BOOL)key completion:(id)completion
+{
+  keyCopy = key;
+  infoCopy = info;
+  completionCopy = completion;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __110__CoreTelephonyClient_PlanTransfer__getProximityTransportSession_remoteDeviceInfo_usePreSharedKey_completion___block_invoke;
+  v14[3] = &unk_1E6A43CC8;
+  v12 = completionCopy;
+  v15 = v12;
+  v13 = [(CoreTelephonyClient *)self proxyWithErrorHandler:v14];
+  [v13 getProximityTransportSession:session remoteDeviceInfo:infoCopy usePreSharedKey:keyCopy completion:v12];
+}
+
 - (void)activateProximityTransfer:(unint64_t)transfer completion:(id)completion
 {
   completionCopy = completion;
@@ -19878,6 +21631,27 @@ void __104__CoreTelephonyClient_PlanTransfer__isAnyPlanOfTransferCapability_avai
   v10 = v7;
   v12 = v10;
   [v8 sendRequest:v9 completionHandler:v11];
+}
+
+- (void)invalidateProximityTransfer:(unint64_t)transfer force:(BOOL)force completion:(id)completion
+{
+  forceCopy = force;
+  completionCopy = completion;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __82__CoreTelephonyClient_PlanTransfer__invalidateProximityTransfer_force_completion___block_invoke;
+  v15[3] = &unk_1E6A43CC8;
+  v9 = completionCopy;
+  v16 = v9;
+  v10 = [(CoreTelephonyClient *)self proxyWithErrorHandler:v15];
+  v11 = [[CTXPCInvalidateProximityTransferRequest alloc] initWithEndpoint:transfer force:forceCopy];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __82__CoreTelephonyClient_PlanTransfer__invalidateProximityTransfer_force_completion___block_invoke_2;
+  v13[3] = &unk_1E6A463D0;
+  v12 = v9;
+  v14 = v12;
+  [v10 sendRequest:v11 completionHandler:v13];
 }
 
 - (void)validateProximityTransfer:(unint64_t)transfer pin:(id)pin completion:(id)completion
@@ -20158,8 +21932,8 @@ void __86__CoreTelephonyClient_PlanTransfer__prepareCrossPlatformCellularPlanLab
 
 void __77__CoreTelephonyClient_PlanTransfer__carrierOneTimeCodeSendersWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v35[2] = *MEMORY[0x1E69E9840];
-  v21 = a2;
+  v34[2] = *MEMORY[0x1E69E9840];
+  v20 = a2;
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (!WeakRetained)
@@ -20180,39 +21954,39 @@ LABEL_6:
     goto LABEL_25;
   }
 
-  v24 = [[CTBundle alloc] initWithBundleType:1, WeakRetained];
-  v35[0] = @"PhoneAccountTransfer";
-  v35[1] = @"OneTimeCodeSenders";
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
+  v23 = [[CTBundle alloc] initWithBundleType:1, WeakRetained];
+  v34[0] = @"PhoneAccountTransfer";
+  v34[1] = @"OneTimeCodeSenders";
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
   v27 = 0u;
-  v8 = [v21 subscriptions];
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v8 = [v20 subscriptions];
   obj = v8;
-  v9 = [v8 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v25 objects:v33 count:16];
   if (v9)
   {
-    v22 = 0;
+    v21 = 0;
     v6 = 0;
-    v10 = *v27;
+    v10 = *v26;
     do
     {
       v11 = 0;
       v12 = v6;
       do
       {
-        if (*v27 != v10)
+        if (*v26 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v26 + 1) + 8 * v11);
+        v13 = *(*(&v25 + 1) + 8 * v11);
         v14 = *(a1 + 32);
         v15 = [v13 context];
-        v25 = v12;
-        v16 = [v14 copyCarrierBundleValue:v15 keyHierarchy:v7 bundleType:v24 error:&v25];
-        v6 = v25;
+        v24 = v12;
+        v16 = [v14 copyCarrierBundleValue:v15 keyHierarchy:v7 bundleType:v23 error:&v24];
+        v6 = v24;
 
         if (v6)
         {
@@ -20220,23 +21994,23 @@ LABEL_6:
           {
             v17 = CTSubscriptionSlotAsString([v13 slotID]);
             *buf = 136315394;
-            v31 = v17;
-            v32 = 2112;
-            v33 = v6;
+            v30 = v17;
+            v31 = 2112;
+            v32 = v6;
             _os_log_error_impl(&dword_182E9B000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "query CB for %s failed with error : %@", buf, 0x16u);
           }
         }
 
         else if (v16)
         {
-          if (v22)
+          if (v21)
           {
-            [v22 addObjectsFromArray:v16];
+            [v21 addObjectsFromArray:v16];
           }
 
           else
           {
-            v22 = [MEMORY[0x1E695DF70] arrayWithArray:v16];
+            v21 = [MEMORY[0x1E695DF70] arrayWithArray:v16];
           }
         }
 
@@ -20246,7 +22020,7 @@ LABEL_6:
 
       while (v9 != v11);
       v8 = obj;
-      v18 = [obj countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v18 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
       v9 = v18;
     }
 
@@ -20255,14 +22029,52 @@ LABEL_6:
 
   else
   {
-    v22 = 0;
+    v21 = 0;
     v6 = 0;
   }
 
   (*(*(a1 + 40) + 16))();
 LABEL_25:
+}
 
-  v19 = *MEMORY[0x1E69E9840];
+- (void)saveCarrierStoreVisitStatus:(id)status visited:(BOOL)visited completion:(id)completion
+{
+  visitedCopy = visited;
+  statusCopy = status;
+  completionCopy = completion;
+  if (completionCopy)
+  {
+    v10 = completionCopy;
+  }
+
+  else
+  {
+    v10 = &__block_literal_global_28_0;
+  }
+
+  if ([statusCopy length])
+  {
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __84__CoreTelephonyClient_PlanTransfer__saveCarrierStoreVisitStatus_visited_completion___block_invoke_2;
+    v17[3] = &unk_1E6A43CC8;
+    v11 = v10;
+    v18 = v11;
+    v12 = [(CoreTelephonyClient *)self proxyWithErrorHandler:v17];
+    v13 = [[CTXPCSaveCarrierStoreVisitStatusRequest alloc] initWithCarrier:statusCopy visited:visitedCopy];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __84__CoreTelephonyClient_PlanTransfer__saveCarrierStoreVisitStatus_visited_completion___block_invoke_3;
+    v15[3] = &unk_1E6A463D0;
+    v16 = v11;
+    [v12 sendRequest:v13 completionHandler:v15];
+  }
+
+  else
+  {
+    v14 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
+    (*(v10 + 2))(v10, v14);
+  }
 }
 
 - (id)loadCarrierStoreVisitStatusForCarrier:(id)carrier error:(id *)error

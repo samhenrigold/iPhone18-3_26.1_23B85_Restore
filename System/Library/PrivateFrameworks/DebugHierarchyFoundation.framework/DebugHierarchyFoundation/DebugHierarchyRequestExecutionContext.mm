@@ -11,6 +11,7 @@
 - (void)_collectRuntimeInformationForObjectType:(id)type;
 - (void)addDebugHierarchyObject:(id)object withVisibility:(int64_t)visibility fetchStatus:(int64_t)status toGroupWithID:(id)d asDirectChild:(BOOL)child belowParent:(id)parent;
 - (void)addProperties:(id)properties toObject:(id)object;
+- (void)addReferencedDebugHierarchyObject:(id)object withVisibility:(int64_t)visibility toGroupWithID:(id)d asDirectChild:(BOOL)child belowParent:(id)parent;
 - (void)logRequestErrorWithTitle:(id)title message:(id)message fromMethod:(const char *)method;
 @end
 
@@ -130,6 +131,28 @@
     v17 = [NSString stringWithFormat:@"DebugHierarchyObject must not be nil. Will be ignored."];
     [(DebugHierarchyRequestExecutionContext *)self logRequestErrorWithTitle:@"Unexpected nil object." message:v17 fromMethod:"[DebugHierarchyRequestExecutionContext addDebugHierarchyObject:withVisibility:fetchStatus:toGroupWithID:asDirectChild:belowParent:]"];
   }
+}
+
+- (void)addReferencedDebugHierarchyObject:(id)object withVisibility:(int64_t)visibility toGroupWithID:(id)d asDirectChild:(BOOL)child belowParent:(id)parent
+{
+  childCopy = child;
+  dCopy = d;
+  parentCopy = parent;
+  if (object)
+  {
+    object = CFStringCreateWithFormat(0, 0, @"%p", object);
+  }
+
+  v17[0] = object;
+  v16[0] = @"objectID";
+  v16[1] = @"propertyVisibility";
+  v14 = [NSNumber numberWithLong:visibility];
+  v16[2] = @"propertyLogicalType";
+  v17[1] = v14;
+  v17[2] = @"DebugHierarchyLogicalPropertyTypePointer";
+  v15 = [NSDictionary dictionaryWithObjects:v17 forKeys:v16 count:3];
+
+  [(DebugHierarchyRequestExecutionContext *)self _addDebugHierarchyObjectDict:v15 toGroupWithID:dCopy asDirectChild:childCopy belowParent:parentCopy];
 }
 
 - (void)_addDebugHierarchyObject:(id)object withDict:(id)dict toTopLevelGroupWithID:(id)d

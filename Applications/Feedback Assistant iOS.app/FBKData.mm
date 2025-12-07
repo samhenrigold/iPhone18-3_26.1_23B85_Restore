@@ -27,13 +27,13 @@
 {
   contextCopy = context;
   selfCopy = self;
-  sub_100057988();
+  sub_100057988(contextCopy, v6);
 
   sub_1000497E4(0, &qword_100109958, FBKUploadTask_ptr);
   sub_100057CFC(&qword_100109960, &qword_100109958, FBKUploadTask_ptr);
-  v6.super.isa = Set._bridgeToObjectiveC()().super.isa;
+  v7.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
-  return v6.super.isa;
+  return v7.super.isa;
 }
 
 @end

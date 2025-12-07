@@ -30,62 +30,72 @@ uint64_t __61__BWStillImageConditionalRouterOverCaptureConfiguration_init__block
 {
   *a3 = 0;
   v5 = CMGetAttachment(target, @"BWStillImageCaptureSettings", 0);
-  if (v5 && (v6 = v5, (v7 = [CMGetAttachment(target *off_1E798A3C8]) != 0))
+  if (v5)
   {
-    v8 = v7;
-    if ([objc_msgSend(v6 "captureStreamSettings")] >= 2)
+    v6 = v5;
+    v7 = [CMGetAttachment(target *off_1E798A3C8];
+    if (v7)
     {
-      v9 = [MEMORY[0x1E695DF70] array];
-      v20 = 0u;
-      v21 = 0u;
-      v22 = 0u;
-      v23 = 0u;
-      v10 = [v6 captureStreamSettings];
-      v11 = [v10 countByEnumeratingWithState:&v20 objects:v19 count:16];
-      if (v11)
+      v8 = v7;
+      if ([objc_msgSend(v6 "captureStreamSettings")] >= 2)
       {
-        v12 = v11;
-        v13 = *v21;
-        do
+        v9 = [MEMORY[0x1E695DF70] array];
+        v19 = 0u;
+        v20 = 0u;
+        v21 = 0u;
+        v22 = 0u;
+        v10 = [v6 captureStreamSettings];
+        v11 = [v10 countByEnumeratingWithState:&v19 objects:v18 count:16];
+        if (v11)
         {
-          for (i = 0; i != v12; ++i)
+          v12 = v11;
+          v13 = *v20;
+          do
           {
-            if (*v21 != v13)
+            for (i = 0; i != v12; ++i)
             {
-              objc_enumerationMutation(v10);
+              if (*v20 != v13)
+              {
+                objc_enumerationMutation(v10);
+              }
+
+              v15 = *(*(&v19 + 1) + 8 * i);
+              if ([v15 hasValidFrames])
+              {
+                [v9 addObject:{objc_msgSend(v15, "portType")}];
+              }
             }
 
-            v15 = *(*(&v20 + 1) + 8 * i);
-            if ([v15 hasValidFrames])
-            {
-              [v9 addObject:{objc_msgSend(v15, "portType")}];
-            }
+            v12 = [v10 countByEnumeratingWithState:&v19 objects:v18 count:16];
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v20 objects:v19 count:16];
+          while (v12);
         }
 
-        while (v12);
-      }
+        v16 = *off_1E798A0C0;
+        if ([v9 containsObject:*off_1E798A0C0] && objc_msgSend(v9, "containsObject:", *off_1E798A0D8))
+        {
+          *a3 = objc_msgSend_isEqualToString_(v8);
+        }
 
-      v16 = *off_1E798A0C0;
-      if ([v9 containsObject:*off_1E798A0C0] && objc_msgSend(v9, "containsObject:", *off_1E798A0D8))
-      {
-        *a3 = [v8 isEqualToString:v16];
+        if ([v9 containsObject:*off_1E798A0D0] && objc_msgSend(v9, "containsObject:", v16))
+        {
+          *a3 = objc_msgSend_isEqualToString_(v8);
+        }
       }
+    }
 
-      v17 = *off_1E798A0D0;
-      if ([v9 containsObject:*off_1E798A0D0] && objc_msgSend(v9, "containsObject:", v16))
-      {
-        *a3 = [v8 isEqualToString:v17];
-      }
+    else
+    {
+      OUTLINED_FUNCTION_0();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
   }
 
   else
   {
     OUTLINED_FUNCTION_0();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
   }
 
   return 1;

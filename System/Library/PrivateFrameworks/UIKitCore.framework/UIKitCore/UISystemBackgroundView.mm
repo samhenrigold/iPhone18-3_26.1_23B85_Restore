@@ -248,11 +248,11 @@ void __68___UISystemBackgroundView__transitionFromOldMaterial_toNewMaterial___bl
   [*(a1 + 32) _setBackground:v2];
 }
 
-uint64_t __68___UISystemBackgroundView__transitionFromOldMaterial_toNewMaterial___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3)
+id *__68___UISystemBackgroundView__transitionFromOldMaterial_toNewMaterial___block_invoke_2(id *result, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    return [*(result + 32) _setBackground:*(result + 40)];
+    return [result[4] _setBackground:result[5]];
   }
 
   return result;

@@ -6,6 +6,8 @@
 - (void)_handleExtensionsAdded:(id)added;
 - (void)_handleExtensionsRemoved:(id)removed;
 - (void)_registerForExtensionsIfNeeded;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 @end
 
 @implementation ExtensionsSettingsPane
@@ -119,6 +121,23 @@
   }
 
   return v3;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = ExtensionsSettingsPane;
+  [(ExtensionsSettingsPane *)&v5 viewDidAppear:appear];
+  parentController = [(ExtensionsSettingsPane *)self parentController];
+  [(ExtensionsSettingsPane *)self setParentListController:parentController];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = ExtensionsSettingsPane;
+  [(ExtensionsSettingsPane *)&v4 viewDidDisappear:disappear];
+  [(ExtensionsSettingsPane *)self setParentListController:0];
 }
 
 - (id)_valueOfExtensionSpecifier:(id)specifier

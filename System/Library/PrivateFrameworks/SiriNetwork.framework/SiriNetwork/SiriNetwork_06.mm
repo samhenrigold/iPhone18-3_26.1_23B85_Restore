@@ -1,2755 +1,15 @@
-id NetworkAnalytics.__allocating_init()()
-{
-  v1 = objc_allocWithZone(v0);
-
-  return [v1 init];
-}
-
-id NetworkAnalytics.__deallocating_deinit()
-{
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for NetworkAnalytics(0);
-  return objc_msgSendSuper2(&v2, sel_dealloc);
-}
-
-void type metadata completion function for NetworkAnalytics()
-{
-  type metadata accessor for UUID?();
-  if (v1 <= 0x3F)
-  {
-    v4 = *(v0 - 8) + 64;
-    v2 = type metadata accessor for NetworkAnalyticsEventMessage(319);
-    if (v3 <= 0x3F)
-    {
-      v5 = *(v2 - 8) + 64;
-      swift_updateClassMetadata2();
-    }
-  }
-}
-
-void type metadata accessor for UUID?()
-{
-  if (!lazy cache variable for type metadata for UUID?)
-  {
-    type metadata accessor for UUID();
-    v0 = type metadata accessor for Optional();
-    if (!v1)
-    {
-      atomic_store(v0, &lazy cache variable for type metadata for UUID?);
-    }
-  }
-}
-
-void type metadata completion function for NetworkAnalyticsEventMessage()
-{
-  type metadata accessor for UUID?();
-  if (v0 <= 0x3F)
-  {
-    type metadata accessor for NETSchemaNETClientEvent?();
-    if (v1 <= 0x3F)
-    {
-      type metadata accessor for UInt64?();
-      if (v2 <= 0x3F)
-      {
-        swift_cvw_initStructMetadataWithLayoutString();
-      }
-    }
-  }
-}
-
-void type metadata accessor for NETSchemaNETClientEvent?()
-{
-  if (!lazy cache variable for type metadata for NETSchemaNETClientEvent?)
-  {
-    type metadata accessor for CTServiceDescriptor(255, &lazy cache variable for type metadata for NETSchemaNETClientEvent, 0x277D58B78);
-    v0 = type metadata accessor for Optional();
-    if (!v1)
-    {
-      atomic_store(v0, &lazy cache variable for type metadata for NETSchemaNETClientEvent?);
-    }
-  }
-}
-
-void type metadata accessor for UInt64?()
-{
-  if (!lazy cache variable for type metadata for UInt64?)
-  {
-    v0 = type metadata accessor for Optional();
-    if (!v1)
-    {
-      atomic_store(v0, &lazy cache variable for type metadata for UInt64?);
-    }
-  }
-}
-
-void partial apply for closure #1 in NetworkAnalytics.emitAllCachedMessagesFor(_:)()
-{
-  v0 = type metadata accessor for UUID();
-  OUTLINED_FUNCTION_11_1(v0);
-  v2 = *(v1 + 80);
-  v3 = OUTLINED_FUNCTION_52_1();
-
-  closure #1 in NetworkAnalytics.emitAllCachedMessagesFor(_:)(v3, v4);
-}
-
-uint64_t getEnumTagSinglePayload for ConnectionEndpointReport(uint64_t a1, int a2)
-{
-  if (a2)
-  {
-    if (a2 < 0 && *(a1 + 24))
-    {
-      LODWORD(v2) = *a1 + 0x7FFFFFFF;
-    }
-
-    else
-    {
-      v2 = *(a1 + 8);
-      if (v2 >= 0xFFFFFFFF)
-      {
-        LODWORD(v2) = -1;
-      }
-    }
-  }
-
-  else
-  {
-    LODWORD(v2) = -1;
-  }
-
-  return (v2 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for ConnectionEndpointReport(uint64_t result, int a2, int a3)
-{
-  if (a2 < 0)
-  {
-    *(result + 8) = 0;
-    *(result + 16) = 0;
-    *result = a2 & 0x7FFFFFFF;
-    if (a3 < 0)
-    {
-      *(result + 24) = 1;
-    }
-  }
-
-  else
-  {
-    if ((a3 & 0x80000000) == 0)
-    {
-      if (!a2)
-      {
-        return result;
-      }
-
-LABEL_8:
-      *(result + 8) = (a2 - 1);
-      return result;
-    }
-
-    *(result + 24) = 0;
-    if (a2)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  return result;
-}
-
-uint64_t get_enum_tag_for_layout_string_11SiriNetwork23ConnectionProviderStateO(uint64_t a1)
-{
-  if ((*(a1 + 8) & 2) != 0)
-  {
-    return (*a1 + 2);
-  }
-
-  else
-  {
-    return *(a1 + 8) & 3;
-  }
-}
-
-uint64_t __swift_memcpy9_8(uint64_t result, uint64_t *a2)
-{
-  v2 = *a2;
-  *(result + 8) = *(a2 + 8);
-  *result = v2;
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for ConnectionProviderState(uint64_t a1, unsigned int a2)
-{
-  if (a2)
-  {
-    if (a2 >= 0xFE && *(a1 + 9))
-    {
-      v2 = *a1 + 253;
-    }
-
-    else
-    {
-      v3 = *(a1 + 8);
-      if (v3 <= 2)
-      {
-        v2 = -1;
-      }
-
-      else
-      {
-        v2 = v3 ^ 0xFF;
-      }
-    }
-  }
-
-  else
-  {
-    v2 = -1;
-  }
-
-  return (v2 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for ConnectionProviderState(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0xFD)
-  {
-    *(result + 8) = 0;
-    *result = a2 - 254;
-    if (a3 >= 0xFE)
-    {
-      *(result + 9) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0xFE)
-    {
-      *(result + 9) = 0;
-    }
-
-    if (a2)
-    {
-      *(result + 8) = -a2;
-    }
-  }
-
-  return result;
-}
-
-uint64_t destructiveInjectEnumTag for ConnectionProviderState(uint64_t result, unsigned int a2)
-{
-  if (a2 >= 2)
-  {
-    *result = a2 - 2;
-    LOBYTE(a2) = 2;
-  }
-
-  *(result + 8) = a2;
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type NWError and conformance NWError()
-{
-  result = lazy protocol witness table cache variable for type NWError and conformance NWError;
-  if (!lazy protocol witness table cache variable for type NWError and conformance NWError)
-  {
-    type metadata accessor for NWError();
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type NWError and conformance NWError);
-  }
-
-  return result;
-}
-
-BOOL NetworkWiFiManager.registerOneShotPowerStateDidChangeForWiFiInterface(_:)(uint64_t a1, uint64_t a2)
-{
-  v5 = type metadata accessor for DispatchWorkItemFlags();
-  v6 = OUTLINED_FUNCTION_0_0(v5);
-  v8 = v7;
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v6);
-  OUTLINED_FUNCTION_0_1();
-  v13 = v12 - v11;
-  v14 = type metadata accessor for DispatchQoS();
-  v15 = OUTLINED_FUNCTION_0_0(v14);
-  v17 = *(v16 + 64);
-  MEMORY[0x28223BE20](v15);
-  OUTLINED_FUNCTION_0_1();
-  v22 = v21 - v20;
-  if (a1)
-  {
-    v23 = *(v2 + OBJC_IVAR___SNNetworkWiFiManagerInternal_queue);
-    v30 = v19;
-    v31 = v18;
-    v24 = swift_allocObject();
-    swift_unknownObjectWeakInit();
-    v25 = swift_allocObject();
-    v25[2] = v24;
-    v25[3] = a1;
-    v25[4] = a2;
-    v35 = partial apply for closure #1 in NetworkWiFiManager.registerOneShotPowerStateDidChangeForWiFiInterface(_:);
-    v36 = v25;
-    OUTLINED_FUNCTION_1_1();
-    OUTLINED_FUNCTION_0_3(COERCE_DOUBLE(1107296256));
-    v33 = v26;
-    v34 = &block_descriptor_7;
-    v27 = _Block_copy(aBlock);
-    v28 = v23;
-
-    outlined copy of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(a1, a2);
-    static DispatchQoS.unspecified.getter();
-    lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
-    dispatch thunk of SetAlgebra.init<A>(_:)();
-    MEMORY[0x223DE2460](0, v22, v13, v27);
-    _Block_release(v27);
-
-    (*(v8 + 8))(v13, v5);
-    (*(v30 + 8))(v22, v31);
-  }
-
-  return a1 != 0;
-}
-
-void closure #1 in NetworkWiFiManager.registerOneShotPowerStateDidChangeForWiFiInterface(_:)(uint64_t a1, void (*a2)(uint64_t), uint64_t a3)
-{
-  v47 = *MEMORY[0x277D85DE8];
-  v5 = type metadata accessor for DispatchWorkItemFlags();
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5);
-  swift_beginAccess();
-  Strong = swift_unknownObjectWeakLoadStrong();
-  if (!Strong)
-  {
-    goto LABEL_17;
-  }
-
-  v8 = Strong;
-  if (NetworkWiFiManager.isWiFiEnabled()())
-  {
-    if (a2)
-    {
-
-      a2(v9);
-
-      outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(a2);
-      goto LABEL_17;
-    }
-
-LABEL_14:
-
-    goto LABEL_17;
-  }
-
-  v10 = OBJC_IVAR___SNNetworkWiFiManagerInternal_queueGroup;
-  if (!*&v8[OBJC_IVAR___SNNetworkWiFiManagerInternal_queueGroup])
-  {
-    v11 = OBJC_IVAR___SNNetworkWiFiManagerInternal_interface;
-    v12 = *&v8[OBJC_IVAR___SNNetworkWiFiManagerInternal_interface];
-    if (v12)
-    {
-      v13 = swift_allocObject();
-      *(v13 + 16) = v8;
-      v45 = partial apply for closure #1 in closure #1 in NetworkWiFiManager.registerOneShotPowerStateDidChangeForWiFiInterface(_:);
-      v46 = v13;
-      aBlock = MEMORY[0x277D85DD0];
-      v42 = 1107296256;
-      v43 = thunk for @escaping @callee_guaranteed (@guaranteed OspreyConnectionMetrics) -> ();
-      v44 = &block_descriptor_16_1;
-      v14 = _Block_copy(&aBlock);
-      v15 = v12;
-      v40 = v8;
-
-      [v15 setEventHandler_];
-      _Block_release(v14);
-
-      v16 = *&v8[v11];
-      if (v16)
-      {
-        aBlock = 0;
-        if (![v16 startMonitoringEventType:1 error:&aBlock])
-        {
-          v30 = aBlock;
-          v31 = _convertNSErrorToError(_:)();
-
-          swift_willThrow();
-          if (one-time initialization token for siriNetwork != -1)
-          {
-            swift_once();
-          }
-
-          v32 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v32, static Logger.siriNetwork);
-          v33 = v31;
-          v34 = Logger.logObject.getter();
-          v35 = static os_log_type_t.error.getter();
-
-          if (os_log_type_enabled(v34, v35))
-          {
-            v36 = swift_slowAlloc();
-            v37 = swift_slowAlloc();
-            *v36 = 138412290;
-            v38 = v31;
-            v39 = _swift_stdlib_bridgeErrorToNSError();
-            *(v36 + 4) = v39;
-            *v37 = v39;
-            _os_log_impl(&dword_223515000, v34, v35, "NetworkWiFiManager - PowerNotification: Failed registering for power notifications, error: %@", v36, 0xCu);
-            outlined destroy of NSObject?(v37);
-            MEMORY[0x223DE38F0](v37, -1, -1);
-            MEMORY[0x223DE38F0](v36, -1, -1);
-          }
-
-          else
-          {
-          }
-
-          goto LABEL_17;
-        }
-
-        v17 = aBlock;
-      }
-    }
-
-    v18 = dispatch_group_create();
-    v19 = *&v8[v10];
-    *&v8[v10] = v18;
-    v20 = v18;
-
-    dispatch_group_enter(v20);
-    if (!*&v8[v10])
-    {
-      goto LABEL_14;
-    }
-  }
-
-  if (!a2)
-  {
-    goto LABEL_14;
-  }
-
-  v21 = swift_allocObject();
-  *(v21 + 16) = a2;
-  *(v21 + 24) = a3;
-  v45 = partial apply for thunk for @callee_guaranteed () -> ();
-  v46 = v21;
-  aBlock = MEMORY[0x277D85DD0];
-  v42 = 1107296256;
-  v43 = thunk for @escaping @callee_guaranteed @Sendable () -> ();
-  v44 = &block_descriptor_22;
-  _Block_copy(&aBlock);
-  outlined copy of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(a2, a3);
-  lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags();
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-  lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
-  dispatch thunk of SetAlgebra.init<A>(_:)();
-  v22 = type metadata accessor for DispatchWorkItem();
-  v23 = *(v22 + 48);
-  v24 = *(v22 + 52);
-  swift_allocObject();
-  DispatchWorkItem.init(flags:block:)();
-
-  v25 = *&v8[v10];
-  if (v25)
-  {
-    v26 = *&v8[OBJC_IVAR___SNNetworkWiFiManagerInternal_queue];
-    v27 = v25;
-    v28 = v26;
-    OS_dispatch_group.notify(queue:work:)();
-    outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(a2);
-  }
-
-  else
-  {
-    outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(a2);
-  }
-
-LABEL_17:
-  v29 = *MEMORY[0x277D85DE8];
-}
-
-void closure #1 in closure #1 in NetworkWiFiManager.registerOneShotPowerStateDidChangeForWiFiInterface(_:)(void *a1, char *a2)
-{
-  if ([a1 type] == 1)
-  {
-    v3 = *&a2[OBJC_IVAR___SNNetworkWiFiManagerInternal_interface];
-    if (v3 && (v4 = [v3 interfaceName]) != 0)
-    {
-      v5 = v4;
-      v6 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-      v8 = v7;
-    }
-
-    else
-    {
-      v6 = 0;
-      v8 = 0xE000000000000000;
-    }
-
-    v9 = MEMORY[0x223DE2070](v6, v8);
-
-    [a2 powerStateDidChangeForWiFiInterfaceWithName_];
-  }
-}
-
-Swift::Void __swiftcall NetworkWiFiManager.powerStateDidChangeForWiFiInterface(withName:)(Swift::String withName)
-{
-  v2 = type metadata accessor for DispatchWorkItemFlags();
-  v3 = OUTLINED_FUNCTION_0_0(v2);
-  v5 = v4;
-  v7 = *(v6 + 64);
-  MEMORY[0x28223BE20](v3);
-  OUTLINED_FUNCTION_0_1();
-  v10 = v9 - v8;
-  v11 = type metadata accessor for DispatchQoS();
-  v12 = OUTLINED_FUNCTION_0_0(v11);
-  v14 = v13;
-  v16 = *(v15 + 64);
-  MEMORY[0x28223BE20](v12);
-  OUTLINED_FUNCTION_0_1();
-  v19 = v18 - v17;
-  if (NetworkWiFiManager.isWiFiEnabled()())
-  {
-    v20 = *(v1 + OBJC_IVAR___SNNetworkWiFiManagerInternal_queue);
-    v25 = v11;
-    v21 = swift_allocObject();
-    swift_unknownObjectWeakInit();
-    v29 = partial apply for closure #1 in NetworkWiFiManager.powerStateDidChangeForWiFiInterface(withName:);
-    v30 = v21;
-    OUTLINED_FUNCTION_1_1();
-    OUTLINED_FUNCTION_0_3(COERCE_DOUBLE(1107296256));
-    v27 = v22;
-    v28 = &block_descriptor_7_0;
-    v23 = _Block_copy(aBlock);
-    v24 = v20;
-
-    static DispatchQoS.unspecified.getter();
-    lazy protocol witness table accessor for type DispatchWorkItemFlags and conformance DispatchWorkItemFlags();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
-    lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
-    dispatch thunk of SetAlgebra.init<A>(_:)();
-    MEMORY[0x223DE2460](0, v19, v10, v23);
-    _Block_release(v23);
-
-    (*(v5 + 8))(v10, v2);
-    (*(v14 + 8))(v19, v25);
-  }
-}
-
-void closure #1 in NetworkWiFiManager.powerStateDidChangeForWiFiInterface(withName:)()
-{
-  swift_beginAccess();
-  Strong = swift_unknownObjectWeakLoadStrong();
-  if (Strong)
-  {
-    v1 = Strong;
-    v2 = OBJC_IVAR___SNNetworkWiFiManagerInternal_queueGroup;
-    v3 = *(Strong + OBJC_IVAR___SNNetworkWiFiManagerInternal_queueGroup);
-    if (v3)
-    {
-      dispatch_group_leave(v3);
-      v4 = OBJC_IVAR___SNNetworkWiFiManagerInternal_interface;
-      v5 = *&v1[OBJC_IVAR___SNNetworkWiFiManagerInternal_interface];
-      if (v5)
-      {
-        [v5 setEventHandler_];
-        v6 = *&v1[v4];
-        if (v6)
-        {
-          [v6 stopMonitoringEventType_];
-        }
-      }
-
-      v7 = *&v1[v2];
-      *&v1[v2] = 0;
-
-      v1 = v7;
-    }
-  }
-}
-
-double ConnectionMetrics.init()@<D0>(uint64_t a1@<X8>)
-{
-  *a1 = 0;
-  *(a1 + 8) = 1;
-  v2 = MEMORY[0x277D84F90];
-  *(a1 + 16) = MEMORY[0x277D84F90];
-  *(a1 + 24) = 0u;
-  *(a1 + 40) = v2;
-  *(a1 + 48) = 0;
-  *(a1 + 52) = 1;
-  *(a1 + 56) = 0u;
-  *(a1 + 72) = 0u;
-  *(a1 + 88) = 0;
-  _s11SiriNetwork27ConnectionPreparationReportVSgWOi0_(v4);
-  memcpy((a1 + 96), v4, 0x168uLL);
-  *(a1 + 456) = 0u;
-  *(a1 + 472) = 0u;
-  *(a1 + 488) = 0u;
-  *(a1 + 504) = 0u;
-  *(a1 + 520) = 0u;
-  *(a1 + 536) = 0u;
-  *(a1 + 552) = 0u;
-  _s11SiriNetwork24ConnectionSnapshotReportVSgWOi0_(__src);
-  memcpy((a1 + 568), __src, 0x2C8uLL);
-  *(a1 + 1280) = v2;
-  result = 0.0;
-  *(a1 + 1288) = 0u;
-  *(a1 + 1304) = 0u;
-  *(a1 + 1320) = 0;
-  *(a1 + 1328) = 1;
-  *(a1 + 1336) = 0;
-  *(a1 + 1344) = 1;
-  *(a1 + 1352) = 0;
-  *(a1 + 1360) = 1;
-  *(a1 + 1368) = 0u;
-  *(a1 + 1384) = 0;
-  *(a1 + 1388) = 1;
-  *(a1 + 1392) = 0;
-  *(a1 + 1400) = 1;
-  *(a1 + 1408) = 0;
-  *(a1 + 1416) = 1;
-  *(a1 + 1424) = 0;
-  *(a1 + 1432) = 1;
-  return result;
-}
-
-uint64_t ConnectionMetrics.connectionIdentifier.getter()
-{
-  result = *v0;
-  v2 = *(v0 + 8);
-  return result;
-}
-
-uint64_t ConnectionMetrics.connectionIdentifier.setter(uint64_t result, char a2)
-{
-  *v2 = result;
-  *(v2 + 8) = a2 & 1;
-  return result;
-}
-
-void *__swift_coroFrameAllocStub(size_t a1)
-{
-  if (MEMORY[0x277D84FD8])
-  {
-    return swift_coroFrameAlloc();
-  }
-
-  return malloc(a1);
-}
-
-uint64_t ConnectionMetrics.connectionMethodHistory.setter(uint64_t a1)
-{
-  v3 = *(v1 + 16);
-
-  *(v1 + 16) = a1;
-  return result;
-}
-
-uint64_t ConnectionMetrics.policyId.getter()
-{
-  v1 = *(v0 + 24);
-  v2 = *(v0 + 32);
-
-  return OUTLINED_FUNCTION_14_3();
-}
-
-uint64_t ConnectionMetrics.policyId.setter()
-{
-  OUTLINED_FUNCTION_13_3();
-  v3 = *(v1 + 32);
-
-  *(v1 + 24) = v2;
-  *(v1 + 32) = v0;
-  return result;
-}
-
-void *ConnectionMetrics.remoteMetrics.getter@<X0>(void *a1@<X8>)
-{
-  v3 = *(v1 + 40);
-  if (*(v3 + 16))
-  {
-    memcpy(__dst, (v3 + 32), 0x599uLL);
-    memmove(a1, (v3 + 32), 0x599uLL);
-    destructiveProjectEnumData for ConnectionConfigurationError(a1);
-    return outlined init with copy of ConnectionMetrics(__dst, &v5);
-  }
-
-  else
-  {
-    _s11SiriNetwork17ConnectionMetricsVSgWOi0_(__dst);
-    return memcpy(a1, __dst, 0x599uLL);
-  }
-}
-
-uint64_t key path setter for ConnectionMetrics.remoteMetrics : ConnectionMetrics(void *__src)
-{
-  memcpy(__dst, __src, 0x599uLL);
-  outlined init with copy of ConnectionMetrics?(__dst, &v3);
-  return ConnectionMetrics.remoteMetrics.setter(__src);
-}
-
-uint64_t ConnectionMetrics.remoteMetrics.setter(void *__src)
-{
-  memcpy(v8, __src, 0x599uLL);
-  v2 = _s11SiriNetwork17ConnectionMetricsVSgWOg(v8);
-  v4 = *(v1 + 40);
-  v3 = (v1 + 40);
-
-  *v3 = MEMORY[0x277D84F90];
-  if (v2 != 1)
-  {
-    specialized Array._makeUniqueAndReserveCapacityIfNotUnique()(specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:));
-    v6 = *(*v3 + 16);
-    specialized Array._reserveCapacityAssumingUniqueBuffer(oldCount:)(v6, specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:));
-    v7 = *v3;
-    *(v7 + 16) = v6 + 1;
-    result = memcpy((v7 + 1440 * v6 + 32), v8, 0x599uLL);
-    *v3 = v7;
-  }
-
-  return result;
-}
-
-void (*ConnectionMetrics.remoteMetrics.modify(void *a1))(void **a1, char a2)
-{
-  v3 = __swift_coroFrameAllocStub(0x1690uLL);
-  v4 = v3;
-  *a1 = v3;
-  v3[720] = v1;
-  v5 = *(v1 + 40);
-  v3[721] = v5;
-  if (*(v5 + 16))
-  {
-    memcpy(v3 + 180, (v5 + 32), 0x599uLL);
-    memmove(v4, (v5 + 32), 0x599uLL);
-    destructiveProjectEnumData for ConnectionConfigurationError(v4);
-    outlined init with copy of ConnectionMetrics(v4 + 1440, v4 + 2880);
-  }
-
-  else
-  {
-    _s11SiriNetwork17ConnectionMetricsVSgWOi0_(v3);
-  }
-
-  return ConnectionMetrics.remoteMetrics.modify;
-}
-
-void ConnectionMetrics.remoteMetrics.modify(void **a1, char a2)
-{
-  v3 = *a1;
-  if (a2)
-  {
-    OUTLINED_FUNCTION_17_4(v15);
-    OUTLINED_FUNCTION_17_4(v3 + 180);
-    v4 = _s11SiriNetwork17ConnectionMetricsVSgWOg(v3 + 180);
-    v5 = v3[721];
-    if (v4 == 1)
-    {
-      v6 = v3[721];
-
-      v7 = MEMORY[0x277D84F90];
-    }
-
-    else
-    {
-      v13 = v3[720];
-      memcpy(v3 + 360, v15, 0x599uLL);
-      outlined init with copy of ConnectionMetrics((v3 + 360), (v3 + 540));
-
-      *(v13 + 40) = MEMORY[0x277D84F90];
-      OUTLINED_FUNCTION_5_11();
-      specialized Array._makeUniqueAndReserveCapacityIfNotUnique()(v14);
-      OUTLINED_FUNCTION_15_4();
-      v7 = *(v13 + 40);
-      *(v7 + 16) = 4321;
-      memcpy((v7 + 6220832), v3 + 180, 0x599uLL);
-    }
-
-    *(v3[720] + 40) = v7;
-    OUTLINED_FUNCTION_17_4(v3 + 360);
-    outlined destroy of ConnectionMetrics?((v3 + 360));
-  }
-
-  else
-  {
-    v8 = v3[721];
-    OUTLINED_FUNCTION_17_4(v3 + 180);
-    v9 = _s11SiriNetwork17ConnectionMetricsVSgWOg(v3 + 180);
-
-    v10 = MEMORY[0x277D84F90];
-    if (v9 != 1)
-    {
-      v11 = v3[720];
-      *(v11 + 40) = MEMORY[0x277D84F90];
-      OUTLINED_FUNCTION_5_11();
-      specialized Array._makeUniqueAndReserveCapacityIfNotUnique()(v12);
-      OUTLINED_FUNCTION_15_4();
-      v10 = *(v11 + 40);
-      *(v10 + 16) = v2 + 1;
-      memcpy((v10 + 1440 * v2 + 32), v3 + 180, 0x599uLL);
-    }
-
-    *(v3[720] + 40) = v10;
-  }
-
-  free(v3);
-}
-
-uint64_t ConnectionMetrics.metricsCount.setter(uint64_t result)
-{
-  *(v1 + 48) = result;
-  *(v1 + 52) = BYTE4(result) & 1;
-  return result;
-}
-
-uint64_t ConnectionMetrics.attemptedEndpoints.setter(uint64_t a1)
-{
-  v3 = *(v1 + 1280);
-
-  *(v1 + 1280) = a1;
-  return result;
-}
-
-uint64_t ConnectionMetrics.connectionEdgeID.getter()
-{
-  v1 = *(v0 + 1288);
-  v2 = *(v0 + 1296);
-
-  return OUTLINED_FUNCTION_14_3();
-}
-
-uint64_t ConnectionMetrics.connectionEdgeID.setter()
-{
-  OUTLINED_FUNCTION_13_3();
-  v3 = *(v1 + 1296);
-
-  *(v1 + 1288) = v2;
-  *(v1 + 1296) = v0;
-  return result;
-}
-
-uint64_t ConnectionMetrics.connectionEdgeType.getter()
-{
-  v1 = *(v0 + 1304);
-  v2 = *(v0 + 1312);
-
-  return OUTLINED_FUNCTION_14_3();
-}
-
-uint64_t ConnectionMetrics.connectionEdgeType.setter()
-{
-  OUTLINED_FUNCTION_13_3();
-  v3 = *(v1 + 1312);
-
-  *(v1 + 1304) = v2;
-  *(v1 + 1312) = v0;
-  return result;
-}
-
-uint64_t ConnectionMetrics.connectionFallbackReason.getter()
-{
-  result = *(v0 + 1320);
-  v2 = *(v0 + 1328);
-  return result;
-}
-
-uint64_t ConnectionMetrics.connectionFallbackReason.setter(uint64_t result, char a2)
-{
-  *(v2 + 1320) = result;
-  *(v2 + 1328) = a2 & 1;
-  return result;
-}
-
-uint64_t ConnectionMetrics.connectionDelay.getter()
-{
-  result = *(v0 + 1336);
-  v2 = *(v0 + 1344);
-  return result;
-}
-
-uint64_t ConnectionMetrics.connectionDelay.setter(uint64_t result, char a2)
-{
-  *(v2 + 1336) = result;
-  *(v2 + 1344) = a2 & 1;
-  return result;
-}
-
-uint64_t ConnectionMetrics.firstTxByteDelay.getter()
-{
-  result = *(v0 + 1352);
-  v2 = *(v0 + 1360);
-  return result;
-}
-
-uint64_t ConnectionMetrics.firstTxByteDelay.setter(uint64_t result, char a2)
-{
-  *(v2 + 1352) = result;
-  *(v2 + 1360) = a2 & 1;
-  return result;
-}
-
-uint64_t ConnectionMetrics.wifiChannelInfo.getter()
-{
-  v1 = *(v0 + 1368);
-  v2 = *(v0 + 1376);
-
-  return OUTLINED_FUNCTION_14_3();
-}
-
-uint64_t ConnectionMetrics.wifiChannelInfo.setter()
-{
-  OUTLINED_FUNCTION_13_3();
-  v3 = *(v1 + 1376);
-
-  *(v1 + 1368) = v2;
-  *(v1 + 1376) = v0;
-  return result;
-}
-
-uint64_t ConnectionMetrics.simSubscriptions.setter(uint64_t result)
-{
-  *(v1 + 1384) = result;
-  *(v1 + 1388) = BYTE4(result) & 1;
-  return result;
-}
-
-uint64_t ConnectionMetrics.idsLastMessageDelay.getter()
-{
-  result = *(v0 + 1392);
-  v2 = *(v0 + 1400);
-  return result;
-}
-
-uint64_t ConnectionMetrics.idsLastMessageDelay.setter(uint64_t result, char a2)
-{
-  *(v2 + 1392) = result;
-  *(v2 + 1400) = a2 & 1;
-  return result;
-}
-
-uint64_t ConnectionMetrics.idsLastSocketDelay.getter()
-{
-  result = *(v0 + 1408);
-  v2 = *(v0 + 1416);
-  return result;
-}
-
-uint64_t ConnectionMetrics.idsLastSocketDelay.setter(uint64_t result, char a2)
-{
-  *(v2 + 1408) = result;
-  *(v2 + 1416) = a2 & 1;
-  return result;
-}
-
-uint64_t ConnectionMetrics.idsLastSocketOpenError.getter()
-{
-  result = *(v0 + 1424);
-  v2 = *(v0 + 1432);
-  return result;
-}
-
-uint64_t ConnectionMetrics.idsLastSocketOpenError.setter(uint64_t result, char a2)
-{
-  *(v2 + 1424) = result;
-  *(v2 + 1432) = a2 & 1;
-  return result;
-}
-
-uint64_t outlined destroy of ConnectionMetrics?(uint64_t a1)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork17ConnectionMetricsVSgMd, &_s11SiriNetwork17ConnectionMetricsVSgMR);
-  (*(*(v2 - 8) + 8))(a1, v2);
-  return a1;
-}
-
-uint64_t storeEnumTagSinglePayload for ConnectionMetrics(uint64_t result, int a2, int a3)
-{
-  if (a2 < 0)
-  {
-    *(result + 248) = 0u;
-    *(result + 232) = 0u;
-    *(result + 216) = 0u;
-    *(result + 200) = 0u;
-    *(result + 184) = 0u;
-    *(result + 168) = 0u;
-    *(result + 152) = 0u;
-    *(result + 136) = 0u;
-    *(result + 120) = 0u;
-    *(result + 104) = 0u;
-    *(result + 88) = 0u;
-    *(result + 72) = 0u;
-    *(result + 56) = 0u;
-    *(result + 40) = 0u;
-    *(result + 24) = 0u;
-    *(result + 8) = 0u;
-    *(result + 1432) = 0;
-    *(result + 1416) = 0u;
-    *(result + 1400) = 0u;
-    *(result + 1384) = 0u;
-    *(result + 1368) = 0u;
-    *(result + 1352) = 0u;
-    *(result + 1336) = 0u;
-    *(result + 1320) = 0u;
-    *(result + 1304) = 0u;
-    *(result + 1288) = 0u;
-    *(result + 1272) = 0u;
-    *(result + 1256) = 0u;
-    *(result + 1240) = 0u;
-    *(result + 1224) = 0u;
-    *(result + 1208) = 0u;
-    *(result + 1192) = 0u;
-    *(result + 1176) = 0u;
-    *(result + 1160) = 0u;
-    *(result + 1144) = 0u;
-    *(result + 1128) = 0u;
-    *(result + 1112) = 0u;
-    *(result + 1096) = 0u;
-    *(result + 1080) = 0u;
-    *(result + 1064) = 0u;
-    *(result + 1048) = 0u;
-    *(result + 1032) = 0u;
-    *(result + 1016) = 0u;
-    *(result + 1000) = 0u;
-    *(result + 984) = 0u;
-    *(result + 968) = 0u;
-    *(result + 952) = 0u;
-    *(result + 936) = 0u;
-    *(result + 920) = 0u;
-    *(result + 904) = 0u;
-    *(result + 888) = 0u;
-    *(result + 872) = 0u;
-    *(result + 856) = 0u;
-    *(result + 840) = 0u;
-    *(result + 824) = 0u;
-    *(result + 808) = 0u;
-    *(result + 792) = 0u;
-    *(result + 776) = 0u;
-    *(result + 760) = 0u;
-    *(result + 744) = 0u;
-    *(result + 728) = 0u;
-    *(result + 712) = 0u;
-    *(result + 696) = 0u;
-    *(result + 680) = 0u;
-    *(result + 664) = 0u;
-    *(result + 648) = 0u;
-    *(result + 632) = 0u;
-    *(result + 616) = 0u;
-    *(result + 600) = 0u;
-    *(result + 584) = 0u;
-    *(result + 568) = 0u;
-    *(result + 552) = 0u;
-    *(result + 536) = 0u;
-    *(result + 520) = 0u;
-    *(result + 504) = 0u;
-    *(result + 488) = 0u;
-    *(result + 472) = 0u;
-    *(result + 456) = 0u;
-    *(result + 440) = 0u;
-    *(result + 424) = 0u;
-    *(result + 408) = 0u;
-    *(result + 392) = 0u;
-    *(result + 376) = 0u;
-    *(result + 360) = 0u;
-    *(result + 344) = 0u;
-    *(result + 328) = 0u;
-    *(result + 312) = 0u;
-    *(result + 296) = 0u;
-    *(result + 280) = 0u;
-    *(result + 264) = 0u;
-    *result = a2 & 0x7FFFFFFF;
-    if (a3 < 0)
-    {
-      *(result + 1433) = 1;
-    }
-  }
-
-  else
-  {
-    if ((a3 & 0x80000000) == 0)
-    {
-      if (!a2)
-      {
-        return result;
-      }
-
-LABEL_8:
-      *(result + 16) = (a2 - 1);
-      return result;
-    }
-
-    *(result + 1433) = 0;
-    if (a2)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  return result;
-}
-
-void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC11SiriNetwork21ConnectionPolicyRouteV_Tt1g5(uint64_t a1, uint64_t a2)
-{
-  if (a2 <= a1)
-  {
-    v2 = a1;
-  }
-
-  else
-  {
-    v2 = a2;
-  }
-
-  if (!v2)
-  {
-    return MEMORY[0x277D84F90];
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy11SiriNetwork21ConnectionPolicyRouteVGMd, &_ss23_ContiguousArrayStorageCy11SiriNetwork21ConnectionPolicyRouteVGMR);
-  v4 = swift_allocObject();
-  v5 = _swift_stdlib_malloc_size(v4);
-  v4[2] = a1;
-  v4[3] = 2 * ((v5 - 32) / 120);
-  return v4;
-}
-
-char *specialized UnsafeMutablePointer.moveInitialize(from:count:)(char *result, uint64_t a2, char *a3)
-{
-  if (a3 != result || &result[16 * a2] <= a3)
-  {
-    return OUTLINED_FUNCTION_0_24(a3, result);
-  }
-
-  return result;
-}
-
-{
-  if (a3 != result || &result[32 * a2] <= a3)
-  {
-    return OUTLINED_FUNCTION_0_24(a3, result);
-  }
-
-  return result;
-}
-
-uint64_t outlined init with copy of ConnectionMetrics?(uint64_t a1, uint64_t a2)
-{
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork17ConnectionMetricsVSgMd, &_s11SiriNetwork17ConnectionMetricsVSgMR);
-  (*(*(v4 - 8) + 16))(a2, a1, v4);
-  return a2;
-}
-
-char *specialized UnsafeMutablePointer.moveInitialize(from:count:)(char *__src, uint64_t a2, char *__dst)
-{
-  if (__dst != __src || &__src[120 * a2] <= __dst)
-  {
-    return memmove(__dst, __src, 120 * a2);
-  }
-
-  return __src;
-}
-
-uint64_t specialized == infix<A>(_:_:)(char a1, char a2)
-{
-  v2 = (a1 & 1) == 0;
-  if (a1)
-  {
-    v3 = 0xD000000000000010;
-  }
-
-  else
-  {
-    v3 = 0x6563697665444941;
-  }
-
-  if (v2)
-  {
-    v4 = 0xEF726573776F7242;
-  }
-
-  else
-  {
-    v4 = 0x80000002235F64B0;
-  }
-
-  if (a2)
-  {
-    v5 = 0xD000000000000010;
-  }
-
-  else
-  {
-    v5 = 0x6563697665444941;
-  }
-
-  if (a2)
-  {
-    v6 = 0x80000002235F64B0;
-  }
-
-  else
-  {
-    v6 = 0xEF726573776F7242;
-  }
-
-  if (v3 == v5 && v4 == v6)
-  {
-    v8 = 1;
-  }
-
-  else
-  {
-    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
-  }
-
-  return v8 & 1;
-}
-
-{
-  v2 = "mits = %@ tfoSynDataAcked = %@}";
-  if (a1)
-  {
-    v3 = "remoteIntelligenceClient";
-  }
-
-  else
-  {
-    v3 = "mits = %@ tfoSynDataAcked = %@}";
-  }
-
-  if (a2)
-  {
-    v2 = "remoteIntelligenceClient";
-  }
-
-  if ((v3 | 0x8000000000000000) == (v2 | 0x8000000000000000))
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = _stringCompareWithSmolCheck(_:_:expecting:)();
-  }
-
-  return v4 & 1;
-}
-
-uint64_t specialized == infix<A>(_:_:)(unsigned __int8 a1, char a2)
-{
-  v2 = 1685024615;
-  v3 = 0xE400000000000000;
-  v4 = a1;
-  v5 = 1685024615;
-  switch(v4)
-  {
-    case 1:
-      v3 = 0xE300000000000000;
-      v5 = 6578530;
-      break;
-    case 2:
-      v5 = 0x616C696176616E75;
-      v3 = 0xEB00000000656C62;
-      break;
-    case 3:
-      v3 = 0xE700000000000000;
-      v5 = 0x6E776F6E6B6E75;
-      break;
-    default:
-      break;
-  }
-
-  v6 = 0xE400000000000000;
-  switch(a2)
-  {
-    case 1:
-      v6 = 0xE300000000000000;
-      v2 = 6578530;
-      break;
-    case 2:
-      v2 = 0x616C696176616E75;
-      v6 = 0xEB00000000656C62;
-      break;
-    case 3:
-      v6 = 0xE700000000000000;
-      v2 = 0x6E776F6E6B6E75;
-      break;
-    default:
-      break;
-  }
-
-  if (v5 == v2 && v3 == v6)
-  {
-    v8 = 1;
-  }
-
-  else
-  {
-    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
-  }
-
-  return v8 & 1;
-}
-
-BOOL specialized == infix<A>(_:_:)(char a1, char a2)
-{
-  return qword_2235F1770[a1] == qword_2235F1770[a2];
-}
-
-{
-  return (0x70403020100FFuLL >> (8 * a1)) == (0x70403020100FFuLL >> (8 * a2));
-}
-
-SiriNetwork::ConnectionType_optional __swiftcall ConnectionType.init(fromStringValue:)(Swift::String fromStringValue)
-{
-  v2 = v1;
-  v3 = String.lowercased()();
-
-  v4 = v3._countAndFlagsBits == 0x6E776F6E6B6E75 && v3._object == 0xE700000000000000;
-  if (v4 || (OUTLINED_FUNCTION_0_25() & 1) != 0)
-  {
-
-    v6 = 0;
-  }
-
-  else
-  {
-    v7 = v3._countAndFlagsBits == 0x69662D6977 && v3._object == 0xE500000000000000;
-    if (v7 || (OUTLINED_FUNCTION_0_25() & 1) != 0)
-    {
-
-      v6 = 1;
-    }
-
-    else
-    {
-      v8 = v3._countAndFlagsBits == 1851881335 && v3._object == 0xE400000000000000;
-      if (v8 || (OUTLINED_FUNCTION_0_25() & 1) != 0)
-      {
-
-        v6 = 2;
-      }
-
-      else
-      {
-        v9 = v3._countAndFlagsBits == 0x6E61727475 && v3._object == 0xE500000000000000;
-        if (v9 || (OUTLINED_FUNCTION_0_25() & 1) != 0)
-        {
-
-          v6 = 3;
-        }
-
-        else
-        {
-          v10 = v3._countAndFlagsBits == 0x31616D6463206732 && v3._object == 0xE900000000000078;
-          if (v10 || (OUTLINED_FUNCTION_0_25() & 1) != 0)
-          {
-
-            v6 = 4;
-          }
-
-          else
-          {
-            v11 = v3._countAndFlagsBits == 0x73727067206732 && v3._object == 0xE700000000000000;
-            if (v11 || (OUTLINED_FUNCTION_0_25() & 1) != 0)
-            {
-
-              v6 = 5;
-            }
-
-            else
-            {
-              v12 = v3._countAndFlagsBits == 0x65676465206732 && v3._object == 0xE700000000000000;
-              if (v12 || (OUTLINED_FUNCTION_0_25() & 1) != 0)
-              {
-
-                v6 = 6;
-              }
-
-              else
-              {
-                v13 = v3._countAndFlagsBits == 0x616D646377206733 && v3._object == 0xE800000000000000;
-                if (v13 || (OUTLINED_FUNCTION_0_25() & 1) != 0)
-                {
-
-                  v6 = 7;
-                }
-
-                else
-                {
-                  v14 = v3._countAndFlagsBits == 0x6170647368206733 && v3._object == 0xE800000000000000;
-                  if (v14 || (OUTLINED_FUNCTION_0_25() & 1) != 0)
-                  {
-
-                    v6 = 8;
-                  }
-
-                  else
-                  {
-                    v15 = v3._countAndFlagsBits == 0x6170757368206733 && v3._object == 0xE800000000000000;
-                    if (v15 || (OUTLINED_FUNCTION_0_25() & 1) != 0)
-                    {
-
-                      v6 = 9;
-                    }
-
-                    else
-                    {
-                      v16 = v3._countAndFlagsBits == 0x64766520616D6463 && v3._object == 0xED0000307665726FLL;
-                      if (v16 || (OUTLINED_FUNCTION_0_25() & 1) != 0)
-                      {
-
-                        v6 = 10;
-                      }
-
-                      else
-                      {
-                        v17 = v3._countAndFlagsBits == 0x64766520616D6463 && v3._object == 0xED0000617665726FLL;
-                        if (v17 || (OUTLINED_FUNCTION_0_25() & 1) != 0)
-                        {
-
-                          v6 = 11;
-                        }
-
-                        else
-                        {
-                          v18 = v3._countAndFlagsBits == 0x64766520616D6463 && v3._object == 0xED0000627665726FLL;
-                          if (v18 || (OUTLINED_FUNCTION_0_25() & 1) != 0)
-                          {
-
-                            v6 = 12;
-                          }
-
-                          else
-                          {
-                            v19 = v3._countAndFlagsBits == 1685090920 && v3._object == 0xE400000000000000;
-                            if (v19 || (OUTLINED_FUNCTION_0_25() & 1) != 0)
-                            {
-
-                              v6 = 13;
-                            }
-
-                            else
-                            {
-                              v20 = v3._countAndFlagsBits == 6648940 && v3._object == 0xE300000000000000;
-                              if (v20 || (OUTLINED_FUNCTION_0_25() & 1) != 0)
-                              {
-
-                                v6 = 14;
-                              }
-
-                              else
-                              {
-                                v21 = v3._countAndFlagsBits == 0x61736E726E206735 && v3._object == 0xE800000000000000;
-                                if (v21 || (OUTLINED_FUNCTION_0_25() & 1) != 0)
-                                {
-
-                                  v6 = 15;
-                                }
-
-                                else
-                                {
-                                  v22 = v3._countAndFlagsBits == 0x726E206735 && v3._object == 0xE500000000000000;
-                                  if (v22 || (OUTLINED_FUNCTION_0_25() & 1) != 0)
-                                  {
-
-                                    v6 = 16;
-                                  }
-
-                                  else
-                                  {
-                                    v23 = v3._countAndFlagsBits == 0x706374706DLL && v3._object == 0xE500000000000000;
-                                    if (v23 || (OUTLINED_FUNCTION_0_25() & 1) != 0)
-                                    {
-
-                                      v6 = 17;
-                                    }
-
-                                    else
-                                    {
-                                      v24 = v3._countAndFlagsBits == 0x796C6C656264656CLL && v3._object == 0xE800000000000000;
-                                      if (v24 || (OUTLINED_FUNCTION_0_25() & 1) != 0)
-                                      {
-
-                                        v6 = 18;
-                                      }
-
-                                      else
-                                      {
-                                        v25 = v3._countAndFlagsBits == 7562345 && v3._object == 0xE300000000000000;
-                                        if (v25 || (OUTLINED_FUNCTION_0_25() & 1) != 0)
-                                        {
-
-                                          v6 = 19;
-                                        }
-
-                                        else
-                                        {
-                                          v26 = v3._countAndFlagsBits == 7368560 && v3._object == 0xE300000000000000;
-                                          if (v26 || (OUTLINED_FUNCTION_0_25() & 1) != 0)
-                                          {
-
-                                            v6 = 20;
-                                          }
-
-                                          else
-                                          {
-                                            v27 = v3._countAndFlagsBits == 0x65636E65726F6C66 && v3._object == 0xE800000000000000;
-                                            if (v27 || (OUTLINED_FUNCTION_0_25() & 1) != 0)
-                                            {
-
-                                              v6 = 21;
-                                            }
-
-                                            else
-                                            {
-                                              v28 = v3._countAndFlagsBits == 0x6C61636F6CLL && v3._object == 0xE500000000000000;
-                                              if (v28 || (OUTLINED_FUNCTION_0_25() & 1) != 0)
-                                              {
-
-                                                v6 = 22;
-                                              }
-
-                                              else
-                                              {
-                                                v29 = v3._countAndFlagsBits == 0x706374706D776ELL && v3._object == 0xE700000000000000;
-                                                if (v29 || (OUTLINED_FUNCTION_0_25() & 1) != 0)
-                                                {
-
-                                                  v6 = 23;
-                                                }
-
-                                                else if (v3._countAndFlagsBits == 0x6365737069 && v3._object == 0xE500000000000000)
-                                                {
-
-                                                  v6 = 24;
-                                                }
-
-                                                else
-                                                {
-                                                  v31 = OUTLINED_FUNCTION_0_25();
-
-                                                  if (v31)
-                                                  {
-                                                    v6 = 24;
-                                                  }
-
-                                                  else
-                                                  {
-                                                    v6 = 25;
-                                                  }
-                                                }
-                                              }
-                                            }
-                                          }
-                                        }
-                                      }
-                                    }
-                                  }
-                                }
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  *v2 = v6;
-  return result;
-}
-
-uint64_t ConnectionType.diagnosticConnectionType()()
-{
-  result = 2;
-  v2 = 1 << *v0;
-  if ((v2 & 0x1FFFC) == 0)
-  {
-    return (v2 & 0x1FE0001) == 0;
-  }
-
-  return result;
-}
-
-uint64_t protocol witness for RawRepresentable.rawValue.getter in conformance ConnectionType@<X0>(uint64_t *a1@<X8>)
-{
-  result = ConnectionType.rawValue.getter();
-  *a1 = result;
-  return result;
-}
-
-uint64_t ConnectionTypeWrapper.diagnosticConnectionType()()
-{
-  result = 2;
-  v2 = 1 << *(v0 + OBJC_IVAR___SNConnectionTypeInternal_connectionType);
-  if ((v2 & 0x1FFFC) == 0)
-  {
-    return (v2 & 0x1FE0001) == 0;
-  }
-
-  return result;
-}
-
-id ConnectionTypeWrapper.__allocating_init()()
-{
-  v1 = objc_allocWithZone(v0);
-
-  return [v1 init];
-}
-
-id ConnectionTypeWrapper.__deallocating_deinit()
-{
-  v2.receiver = v0;
-  v2.super_class = type metadata accessor for ConnectionTypeWrapper();
-  return objc_msgSendSuper2(&v2, sel_dealloc);
-}
-
-unint64_t lazy protocol witness table accessor for type ConnectionType and conformance ConnectionType()
-{
-  result = lazy protocol witness table cache variable for type ConnectionType and conformance ConnectionType;
-  if (!lazy protocol witness table cache variable for type ConnectionType and conformance ConnectionType)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type ConnectionType and conformance ConnectionType);
-  }
-
-  return result;
-}
-
-uint64_t getEnumTagSinglePayload for ConnectionType(unsigned __int8 *a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    v5 = -1;
-    return (v5 + 1);
-  }
-
-  if (a2 >= 0xE8)
-  {
-    if (a2 + 24 >= 0xFFFF00)
-    {
-      v2 = 4;
-    }
-
-    else
-    {
-      v2 = 2;
-    }
-
-    if ((a2 + 24) >> 8 < 0xFF)
-    {
-      v3 = 1;
-    }
-
-    else
-    {
-      v3 = v2;
-    }
-
-    if (v3 == 4)
-    {
-      v4 = *(a1 + 1);
-      if (!v4)
-      {
-        goto LABEL_17;
-      }
-    }
-
-    else if (v3 == 2)
-    {
-      v4 = *(a1 + 1);
-      if (!*(a1 + 1))
-      {
-        goto LABEL_17;
-      }
-    }
-
-    else
-    {
-      v4 = a1[1];
-      if (!a1[1])
-      {
-        goto LABEL_17;
-      }
-    }
-
-    v5 = (*a1 | (v4 << 8)) - 25;
-    return (v5 + 1);
-  }
-
-LABEL_17:
-  v6 = *a1;
-  v7 = v6 >= 0x19;
-  v5 = v6 - 25;
-  if (!v7)
-  {
-    v5 = -1;
-  }
-
-  return (v5 + 1);
-}
-
-_BYTE *storeEnumTagSinglePayload for ConnectionType(_BYTE *result, unsigned int a2, unsigned int a3)
-{
-  if (a3 + 24 >= 0xFFFF00)
-  {
-    v3 = 4;
-  }
-
-  else
-  {
-    v3 = 2;
-  }
-
-  if ((a3 + 24) >> 8 < 0xFF)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (a3 >= 0xE8)
-  {
-    v5 = v4;
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  if (a2 > 0xE7)
-  {
-    v6 = ((a2 - 232) >> 8) + 1;
-    *result = a2 + 24;
-    switch(v5)
-    {
-      case 1:
-        result[1] = v6;
-        break;
-      case 2:
-        *(result + 1) = v6;
-        break;
-      case 3:
-LABEL_23:
-        __break(1u);
-        break;
-      case 4:
-        *(result + 1) = v6;
-        break;
-      default:
-        return result;
-    }
-  }
-
-  else
-  {
-    switch(v5)
-    {
-      case 1:
-        result[1] = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      case 2:
-        *(result + 1) = 0;
-        goto LABEL_17;
-      case 3:
-        goto LABEL_23;
-      case 4:
-        *(result + 1) = 0;
-        if (!a2)
-        {
-          return result;
-        }
-
-        goto LABEL_18;
-      default:
-LABEL_17:
-        if (a2)
-        {
-LABEL_18:
-          *result = a2 + 24;
-        }
-
-        break;
-    }
-  }
-
-  return result;
-}
-
-uint64_t (*AceObject.internalAceId.modify(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  a1[2] = v1;
-  *a1 = outlined bridged method (pb) of @objc AceObject.aceId.getter(v1, &selRef_aceId);
-  a1[1] = v3;
-  return AceObject.internalAceId.modify;
-}
-
-uint64_t key path setter for AceObject.internalAceId : AceObject(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t))
-{
-  v7 = *a1;
-  v6 = a1[1];
-  v8 = *a2;
-
-  v9 = OUTLINED_FUNCTION_2_13();
-  return a5(v9);
-}
-
-void AceObject.internalAceId.setter(uint64_t a1, uint64_t a2, SEL *a3)
-{
-  if (a2)
-  {
-    v5 = MEMORY[0x223DE2070]();
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  [v3 *a3];
-}
-
-uint64_t (*AceObject.internalRefId.modify(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  a1[2] = v1;
-  *a1 = outlined bridged method (pb) of @objc AceObject.aceId.getter(v1, &selRef_refId);
-  a1[1] = v3;
-  return AceObject.internalRefId.modify;
-}
-
-uint64_t AceObject.internalAceId.modify(uint64_t *a1, char a2, void (*a3)(uint64_t))
-{
-  v5 = *a1;
-  v4 = a1[1];
-  v6 = a1[2];
-  if (a2)
-  {
-    v7 = a1[1];
-
-    v8 = OUTLINED_FUNCTION_2_13();
-    a3(v8);
-  }
-
-  else
-  {
-    v10 = OUTLINED_FUNCTION_2_13();
-    return (a3)(v10);
-  }
-}
-
-BOOL @objc AceObject.isRestartable()(void *a1)
-{
-  v1 = a1;
-  v2 = AceObject.isRestartable()();
-
-  return v2;
-}
-
-Swift::String_optional __swiftcall AceObject.sessionRequestId()()
-{
-  v0 = 0;
-  v1 = 0;
-  result.value._object = v1;
-  result.value._countAndFlagsBits = v0;
-  return result;
-}
-
-uint64_t @objc AceObject.setSessionRequestId(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  if (a3)
-  {
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
-  }
-}
-
-uint64_t (*protocol witness for SessionObject.internalAceId.modify in conformance AceObject(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  v3 = *v1;
-  a1[2] = *v1;
-  *a1 = outlined bridged method (pb) of @objc AceObject.aceId.getter(v3, &selRef_aceId);
-  a1[1] = v4;
-  return AceObject.internalAceId.modify;
-}
-
-uint64_t (*protocol witness for SessionObject.internalRefId.modify in conformance AceObject(uint64_t *a1))(uint64_t *a1, char a2)
-{
-  v3 = *v1;
-  a1[2] = *v1;
-  *a1 = outlined bridged method (pb) of @objc AceObject.aceId.getter(v3, &selRef_refId);
-  a1[1] = v4;
-  return AceObject.internalRefId.modify;
-}
-
-id protocol witness for SessionObject.serializedAceData() in conformance AceObject()
-{
-  v7[1] = *MEMORY[0x277D85DE8];
-  v1 = *v0;
-  v7[0] = 0;
-  v2 = [v1 serializedAceDataAndReturnError_];
-  if (v2)
-  {
-    v3 = v7[0];
-  }
-
-  else
-  {
-    v4 = v7[0];
-    _convertNSErrorToError(_:)();
-
-    swift_willThrow();
-  }
-
-  v5 = *MEMORY[0x277D85DE8];
-  return v2;
-}
-
-void protocol witness for SessionObject.setSessionRequestId(_:) in conformance AceObject(uint64_t a1, uint64_t a2)
-{
-  v3 = *v2;
-  if (a2)
-  {
-    v4 = MEMORY[0x223DE2070]();
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  v5 = v4;
-  [v3 setSessionRequestId_];
-}
-
-Swift::String_optional __swiftcall SARollbackRequest.sessionRequestId()()
-{
-  v1 = outlined bridged method (pb) of @objc AceObject.aceId.getter(v0, &selRef_requestId);
-  result.value._object = v2;
-  result.value._countAndFlagsBits = v1;
-  return result;
-}
-
-uint64_t @objc SARollbackRequest.setSessionRequestId(_:)(void *a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t))
-{
-  if (a3)
-  {
-    static String._unconditionallyBridgeFromObjectiveC(_:)();
-  }
-
-  v6 = a1;
-  v7 = OUTLINED_FUNCTION_2_13();
-  a4(v7);
-}
-
-Swift::String_optional __swiftcall SASSpeechCorrectionStatistics.sessionRequestId()()
-{
-  v1 = outlined bridged method (pb) of @objc AceObject.aceId.getter(v0, &selRef_interactionId);
-  result.value._object = v2;
-  result.value._countAndFlagsBits = v1;
-  return result;
-}
-
-id @objc SARollbackRequest.sessionRequestId()(void *a1, uint64_t a2, uint64_t (*a3)(void))
-{
-  v4 = a1;
-  v5 = a3();
-  v7 = v6;
-
-  if (v7)
-  {
-    v8 = MEMORY[0x223DE2070](v5, v7);
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  return v8;
-}
-
-void SARollbackRequest.setSessionRequestId(_:)(uint64_t a1, uint64_t a2, SEL *a3)
-{
-  if (a2)
-  {
-    v5 = MEMORY[0x223DE2070]();
-  }
-
-  else
-  {
-    v5 = 0;
-  }
-
-  v6 = v5;
-  [v3 *a3];
-}
-
-uint64_t specialized Data.InlineData.withUnsafeBytes<A>(_:)(uint64_t a1, uint64_t a2)
-{
-  v15 = *MEMORY[0x277D85DE8];
-  v4 = type metadata accessor for DispatchData();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v8 = v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12[1] = a1;
-  v14 = WORD2(a2);
-  v13 = a2;
-  DispatchData.init(bytes:)();
-  v9 = DispatchData._bridgeToObjectiveC()();
-  (*(v5 + 8))(v8, v4);
-  v10 = *MEMORY[0x277D85DE8];
-  return v9;
-}
-
-{
-  v15 = *MEMORY[0x277D85DE8];
-  v4 = type metadata accessor for DispatchData();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v8 = v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12[1] = a1;
-  v14 = WORD2(a2);
-  v13 = a2;
-  DispatchData.init(bytes:)();
-  v9 = DispatchData._bridgeToObjectiveC()();
-  (*(v5 + 8))(v8, v4);
-  v10 = *MEMORY[0x277D85DE8];
-  return v9;
-}
-
-{
-  v15 = *MEMORY[0x277D85DE8];
-  v4 = type metadata accessor for DispatchData();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
-  v8 = v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12[1] = a1;
-  v14 = WORD2(a2);
-  v13 = a2;
-  DispatchData.init(bytes:)();
-  v9 = DispatchData._bridgeToObjectiveC()();
-  (*(v5 + 8))(v8, v4);
-  v10 = *MEMORY[0x277D85DE8];
-  return v9;
-}
-
-uint64_t outlined bridged method (pb) of @objc AceObject.aceId.getter(void *a1, SEL *a2)
-{
-  v2 = [a1 *a2];
-  if (!v2)
-  {
-    return 0;
-  }
-
-  v3 = v2;
-  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-
-  return v4;
-}
-
-Swift::Int __swiftcall PingInfo.totalPingCount()()
-{
-  OUTLINED_FUNCTION_0_26();
-  v1 = *(*(v0 + 32) + 16);
-  v2 = *(v0 + 16);
-  result = v1 + v2;
-  if (__OFADD__(v1, v2))
-  {
-    __break(1u);
-  }
-
-  return result;
-}
-
-void closure #1 in NetworkManager.acquireWiFiAssertion(wifiAssertionType:)(uint64_t a1, char a2)
-{
-  swift_beginAccess();
-  Strong = swift_unknownObjectWeakLoadStrong();
-  if (Strong)
-  {
-    v4 = Strong;
-    v5 = *(Strong + OBJC_IVAR___SNNetworkManagerInternal_networkWiFiManager);
-    v7 = a2;
-    v6 = v5;
-    NetworkWiFiManager.acquireWiFiAssertion(wifiAssertionType:)(&v7);
-  }
-}
-
-void closure #1 in closure #1 in NetworkManager.updateNetworkPerformanceFeed()(uint64_t a1, void *a2)
-{
-  swift_beginAccess();
-  Strong = swift_unknownObjectWeakLoadStrong();
-  if (Strong)
-  {
-    v5 = Strong;
-    if (one-time initialization token for siriNetwork != -1)
-    {
-      swift_once();
-    }
-
-    v6 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v6, static Logger.siriNetwork);
-    v7 = a2;
-    v8 = Logger.logObject.getter();
-    v9 = static os_log_type_t.debug.getter();
-
-    if (os_log_type_enabled(v8, v9))
-    {
-      v10 = swift_slowAlloc();
-      v11 = swift_slowAlloc();
-      v27[0] = v11;
-      *v10 = 136315138;
-      if (a2)
-      {
-        v26 = a2;
-        v12 = a2;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
-        v13 = String.init<A>(describing:)();
-        v15 = v14;
-      }
-
-      else
-      {
-        v15 = 0xE300000000000000;
-        v13 = 7104878;
-      }
-
-      v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v15, v27);
-
-      *(v10 + 4) = v16;
-      _os_log_impl(&dword_223515000, v8, v9, "NetworkManager - PerformanceFeed: Historical data for WiFi. Error: %s", v10, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v11);
-      MEMORY[0x223DE38F0](v11, -1, -1);
-      MEMORY[0x223DE38F0](v10, -1, -1);
-    }
-
-    LOBYTE(v26) = 0;
-    if (a1)
-    {
-      v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys11AnyHashableVypGMd, &_sSDys11AnyHashableVypGMR);
-      v18 = a1;
-    }
-
-    else
-    {
-      v18 = 0;
-      v17 = 0;
-      v27[1] = 0;
-      v27[2] = 0;
-    }
-
-    v27[0] = v18;
-    v27[3] = v17;
-
-    v19 = NetworkManager.acceptableSuccessRate(fullScorecard:hasMetrics:)(v27, &v26);
-    outlined destroy of Any?(v27);
-    v20 = v26;
-    v21 = OBJC_IVAR___SNNetworkManagerInternal_lockConnectionQuality;
-    [*&v5[OBJC_IVAR___SNNetworkManagerInternal_lockConnectionQuality] lock];
-    if (v20 == 1)
-    {
-      v5[OBJC_IVAR___SNNetworkManagerInternal_connectionQualityReport + 2] = (v19 & 1) == 0;
-      [*&v5[v21] unlock];
-      v22 = Logger.logObject.getter();
-      v23 = static os_log_type_t.debug.getter();
-      if (os_log_type_enabled(v22, v23))
-      {
-        v24 = swift_slowAlloc();
-        *v24 = 67109120;
-        *(v24 + 4) = v19 & 1;
-        _os_log_impl(&dword_223515000, v22, v23, "NetworkManager - PerformanceFeed: Symptoms WiFi Historical: %{BOOL}d", v24, 8u);
-        MEMORY[0x223DE38F0](v24, -1, -1);
-      }
-    }
-
-    else
-    {
-      v5[OBJC_IVAR___SNNetworkManagerInternal_connectionQualityReport + 2] = 2;
-      v25 = *&v5[v21];
-      [v25 unlock];
-    }
-  }
-}
-
-void closure #1 in closure #2 in NetworkManager.updateNetworkPerformanceFeed()(uint64_t a1, void *a2)
-{
-  swift_beginAccess();
-  Strong = swift_unknownObjectWeakLoadStrong();
-  if (Strong)
-  {
-    v5 = Strong;
-    if (one-time initialization token for siriNetwork != -1)
-    {
-      swift_once();
-    }
-
-    v6 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v6, static Logger.siriNetwork);
-    v7 = a2;
-    v8 = Logger.logObject.getter();
-    v9 = static os_log_type_t.debug.getter();
-
-    if (os_log_type_enabled(v8, v9))
-    {
-      v10 = swift_slowAlloc();
-      v11 = swift_slowAlloc();
-      v27[0] = v11;
-      *v10 = 136315138;
-      if (a2)
-      {
-        v26 = a2;
-        v12 = a2;
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
-        v13 = String.init<A>(describing:)();
-        v15 = v14;
-      }
-
-      else
-      {
-        v15 = 0xE300000000000000;
-        v13 = 7104878;
-      }
-
-      v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v15, v27);
-
-      *(v10 + 4) = v16;
-      _os_log_impl(&dword_223515000, v8, v9, "NetworkManager - PerformanceFeed: Historical data for Cell. Error: %s", v10, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v11);
-      MEMORY[0x223DE38F0](v11, -1, -1);
-      MEMORY[0x223DE38F0](v10, -1, -1);
-    }
-
-    LOBYTE(v26) = 0;
-    if (a1)
-    {
-      v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDys11AnyHashableVypGMd, &_sSDys11AnyHashableVypGMR);
-      v18 = a1;
-    }
-
-    else
-    {
-      v18 = 0;
-      v17 = 0;
-      v27[1] = 0;
-      v27[2] = 0;
-    }
-
-    v27[0] = v18;
-    v27[3] = v17;
-
-    v19 = NetworkManager.acceptableSuccessRate(fullScorecard:hasMetrics:)(v27, &v26);
-    outlined destroy of Any?(v27);
-    v20 = v26;
-    v21 = OBJC_IVAR___SNNetworkManagerInternal_lockConnectionQuality;
-    [*&v5[OBJC_IVAR___SNNetworkManagerInternal_lockConnectionQuality] lock];
-    if (v20 == 1)
-    {
-      v5[OBJC_IVAR___SNNetworkManagerInternal_connectionQualityReport + 3] = (v19 & 1) == 0;
-      [*&v5[v21] unlock];
-      v22 = Logger.logObject.getter();
-      v23 = static os_log_type_t.debug.getter();
-      if (os_log_type_enabled(v22, v23))
-      {
-        v24 = swift_slowAlloc();
-        *v24 = 67109120;
-        *(v24 + 4) = v19 & 1;
-        _os_log_impl(&dword_223515000, v22, v23, "NetworkManager - PerformanceFeed: Symptoms Cellular Historical: %{BOOL}d", v24, 8u);
-        MEMORY[0x223DE38F0](v24, -1, -1);
-      }
-    }
-
-    else
-    {
-      v5[OBJC_IVAR___SNNetworkManagerInternal_connectionQualityReport + 3] = 2;
-      v25 = *&v5[v21];
-      [v25 unlock];
-    }
-  }
-}
-
-uint64_t NetworkManager.networkQuality(networkType:)(uint64_t a1)
-{
-  v2 = NetworkManager.currentConnectionQualityReport()();
-  v3 = v2;
-  if (!a1)
-  {
-    return qword_2235F19C0[v3];
-  }
-
-  if (a1 == 1)
-  {
-    v3 = v2 >> 8;
-    return qword_2235F19C0[v3];
-  }
-
-  if (a1 != 2)
-  {
-    return 0;
-  }
-
-  result = 1;
-  if (v3)
-  {
-    v5 = v3 >> 8;
-    v6 = BYTE1(v3) == 1 || v3 == 1;
-    v7 = 2;
-    if (!v6)
-    {
-      v7 = 0;
-    }
-
-    if (v5)
-    {
-      return v7;
-    }
-  }
-
-  return result;
-}
-
-uint64_t static ConnectionTCPInfoMetrics.connectionTCPInfoMetrics(from:wasConnected:)(uint64_t a1, char a2)
-{
-  if ((a2 & 1) == 0)
-  {
-    return MEMORY[0x277D84F90];
-  }
-
-  outlined init with copy of NetworkConnectionProtocol?(a1, &v13);
-  if (!v17)
-  {
-    outlined destroy of ConnectionSnapshotReport?(&v13, &_s11SiriNetwork0B18ConnectionProtocol_pSgMd, &_s11SiriNetwork0B18ConnectionProtocol_pSgMR);
-    return MEMORY[0x277D84F90];
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork0B18ConnectionProtocol_pMd, _s11SiriNetwork0B18ConnectionProtocol_pMR);
-  v2 = type metadata accessor for NWConnection();
-  if ((swift_dynamicCast() & 1) == 0)
-  {
-    return MEMORY[0x277D84F90];
-  }
-
-  MEMORY[0x223DE1A50]();
-  v3 = nw_connection_copy_tcp_info();
-  swift_unknownObjectRelease();
-  v17 = v2;
-  v18 = &protocol witness table for NWConnection;
-  v13 = v12;
-
-  static ConnectionTCPInfoMetrics.connectionCopyTCPInfo(from:wasConnected:xpcTCPInfo:)(&v13, 1, v3, v4, v5, v6, v7, v8, v12, SHIDWORD(v12), v13, v14, v15, v16, v17, SHIDWORD(v17), v18, v19, v20, v21, v22, v23, v24, vars0, vars8);
-  v10 = v9;
-  swift_unknownObjectRelease();
-
-  outlined destroy of ConnectionSnapshotReport?(&v13, &_s11SiriNetwork0B18ConnectionProtocol_pSgMd, &_s11SiriNetwork0B18ConnectionProtocol_pSgMR);
-  return v10;
-}
-
-void static ConnectionTCPInfoMetrics.connectionCopyTCPInfo(from:wasConnected:xpcTCPInfo:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, int a9, int a10, uint64_t a11, int a12, int a13, uint64_t a14, int a15, int a16, uint64_t a17, int a18, int a19, uint64_t a20, uint64_t a21, int a22, int a23, uint64_t a24, uint64_t a25)
-{
-  OUTLINED_FUNCTION_46();
-  a24 = v25;
-  a25 = v26;
-  v28 = v27;
-  v30 = v29;
-  v32 = v31;
-  v33 = type metadata accessor for NWInterface.InterfaceType();
-  v34 = OUTLINED_FUNCTION_0_0(v33);
-  v36 = v35;
-  v38 = *(v37 + 64);
-  MEMORY[0x28223BE20](v34);
-  OUTLINED_FUNCTION_0_1();
-  v41 = v40 - v39;
-  v42 = type metadata accessor for NWInterface();
-  v43 = OUTLINED_FUNCTION_0_0(v42);
-  v142 = v44;
-  v46 = *(v45 + 64);
-  v47 = MEMORY[0x28223BE20](v43);
-  v49 = &v119 - ((v48 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v47);
-  v51 = &v119 - v50;
-  v52 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Network6NWPathVSgMd, &_s7Network6NWPathVSgMR);
-  v53 = *(*(v52 - 8) + 64);
-  MEMORY[0x28223BE20](v52 - 8);
-  v55 = &v119 - v54;
-  if ((v30 & 1) == 0)
-  {
-    goto LABEL_13;
-  }
-
-  outlined init with copy of NetworkConnectionProtocol?(v32, &v145);
-  if (!v147)
-  {
-    outlined destroy of ConnectionSnapshotReport?(&v145, &_s11SiriNetwork0B18ConnectionProtocol_pSgMd, &_s11SiriNetwork0B18ConnectionProtocol_pSgMR);
-    goto LABEL_13;
-  }
-
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork0B18ConnectionProtocol_pMd, _s11SiriNetwork0B18ConnectionProtocol_pMR);
-  type metadata accessor for NWConnection();
-  if ((swift_dynamicCast() & 1) == 0)
-  {
-LABEL_13:
-    OUTLINED_FUNCTION_47();
-    return;
-  }
-
-  v138 = v33;
-  v56 = v143;
-  v145._countAndFlagsBits = NWConnection.identifier.getter();
-  countAndFlagsBits = dispatch thunk of CustomStringConvertible.description.getter();
-  v139 = v58;
-  if (!v28)
-  {
-LABEL_7:
-    if (one-time initialization token for siriNetwork != -1)
-    {
-LABEL_60:
-      OUTLINED_FUNCTION_0_6();
-    }
-
-    v61 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v61, static Logger.siriNetwork);
-    v62 = v139;
-
-    v63 = Logger.logObject.getter();
-    v64 = static os_log_type_t.error.getter();
-
-    if (os_log_type_enabled(v63, v64))
-    {
-      v65 = countAndFlagsBits;
-      v66 = swift_slowAlloc();
-      v67 = swift_slowAlloc();
-      v145._countAndFlagsBits = v67;
-      *v66 = 136315138;
-      v68 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v65, v62, &v145._countAndFlagsBits);
-
-      *(v66 + 4) = v68;
-      _os_log_impl(&dword_223515000, v63, v64, "NetworkMetrics: TCP Info not reachable for connection %s because path doesn't exist", v66, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v67);
-      OUTLINED_FUNCTION_12();
-      OUTLINED_FUNCTION_12();
-    }
-
-    else
-    {
-    }
-
-    goto LABEL_13;
-  }
-
-  v59 = swift_unknownObjectRetain();
-  v60 = MEMORY[0x223DE3B00](v59);
-  if (v60 != XPC_TYPE_DICTIONARY.getter() || xpc_dictionary_get_count(v28) < 1)
-  {
-    swift_unknownObjectRelease();
-    goto LABEL_7;
-  }
-
-  v124 = countAndFlagsBits;
-  v150 = MEMORY[0x277D84F98];
-  v69 = swift_allocObject();
-  *(v69 + 16) = &v150;
-  v70 = swift_allocObject();
-  *(v70 + 16) = partial apply for closure #1 in static ConnectionTCPInfoMetrics.connectionCopyTCPInfo(from:wasConnected:xpcTCPInfo:);
-  *(v70 + 24) = v69;
-  v126 = v69;
-  v148 = partial apply for thunk for @callee_guaranteed (@unowned UnsafePointer<Int8>, @guaranteed OS_xpc_object) -> (@unowned Bool);
-  v149 = v70;
-  v145._countAndFlagsBits = MEMORY[0x277D85DD0];
-  v145._object = 1107296256;
-  v146 = thunk for @escaping @callee_guaranteed (@unowned UnsafePointer<Int8>, @guaranteed OS_xpc_object) -> (@unowned Bool);
-  v147 = &block_descriptor_9;
-  v71 = _Block_copy(&v145);
-  v136 = v28;
-
-  v72 = v136;
-
-  xpc_dictionary_apply(v72, v71);
-  _Block_release(v71);
-  LOBYTE(v71) = swift_isEscapingClosureAtFileLocation();
-
-  if (v71)
-  {
-LABEL_62:
-    __break(1u);
-    goto LABEL_63;
-  }
-
-  if (!*(v150 + 16))
-  {
-
-    swift_unknownObjectRelease();
-
-    goto LABEL_13;
-  }
-
-  NWConnection.currentPath.getter();
-  countAndFlagsBits = type metadata accessor for NWPath();
-  if (__swift_getEnumTagSinglePayload(v55, 1, countAndFlagsBits) == 1)
-  {
-    outlined destroy of ConnectionSnapshotReport?(v55, &_s7Network6NWPathVSgMd, &_s7Network6NWPathVSgMR);
-    goto LABEL_53;
-  }
-
-  v122 = v56;
-  v73 = NWPath.availableInterfaces.getter();
-  (*(*(countAndFlagsBits - 8) + 8))(v55, countAndFlagsBits);
-  v135 = *(v73 + 16);
-  if (!v135)
-  {
-LABEL_52:
-
-LABEL_53:
-
-    static ConnectionTCPInfoMetrics.setConnectionMetricsTCPInfo(_:from:)();
-    v36 = v110;
-
-    v41 = v139;
-    if (one-time initialization token for siriNetwork == -1)
-    {
-LABEL_54:
-      v111 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v111, static Logger.siriNetwork);
-
-      v112 = Logger.logObject.getter();
-      v113 = static os_log_type_t.default.getter();
-
-      if (os_log_type_enabled(v112, v113))
-      {
-        v114 = swift_slowAlloc();
-        v145._countAndFlagsBits = swift_slowAlloc();
-        *v114 = 136315394;
-        v115 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v124, v41, &v145._countAndFlagsBits);
-
-        *(v114 + 4) = v115;
-        *(v114 + 12) = 2080;
-        v116 = MEMORY[0x223DE2280](v36, &type metadata for ConnectionTCPInfoMetrics);
-        v118 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v116, v117, &v145._countAndFlagsBits);
-
-        *(v114 + 14) = v118;
-        _os_log_impl(&dword_223515000, v112, v113, "NetworkMetrics: TCP Info by interface for connection %s: %s", v114, 0x16u);
-        swift_arrayDestroy();
-        OUTLINED_FUNCTION_12();
-        OUTLINED_FUNCTION_12();
-      }
-
-      else
-      {
-      }
-
-      swift_unknownObjectRelease();
-
-      goto LABEL_13;
-    }
-
-LABEL_63:
-    OUTLINED_FUNCTION_0_6();
-    goto LABEL_54;
-  }
-
-  v74 = 0;
-  OUTLINED_FUNCTION_9_7();
-  v134 = v75;
-  v132 = v76 + 32;
-  v133 = v76 + 16;
-  v131 = (v36 + 11);
-  v130 = *MEMORY[0x277CD8CB0];
-  v127 = *MEMORY[0x277CD8CA8];
-  v125 = *MEMORY[0x277CD8CB8];
-  v123 = *MEMORY[0x277CD8CA0];
-  v129 = v76 + 8;
-  v120 = (v36 + 1);
-  v36 = MEMORY[0x277D84F98];
-  v121 = *MEMORY[0x277CD8CC0];
-  v128 = v73;
-  while (1)
-  {
-    if (v74 >= *(v73 + 16))
-    {
-      __break(1u);
-LABEL_59:
-      __break(1u);
-      goto LABEL_60;
-    }
-
-    countAndFlagsBits = v142;
-    v77 = (*(v142 + 16))(v51, v134 + *(v142 + 72) * v74, v42);
-    v140 = MEMORY[0x223DE1820](v77);
-    v141 = v78;
-    (*(countAndFlagsBits + 32))(v49, v51, v42);
-    NWInterface.type.getter();
-    (*v131)(v41, v138);
-    OUTLINED_FUNCTION_7_12(&a23);
-    if (v84)
-    {
-LABEL_25:
-      MEMORY[0x223DE1820]();
-      v79 = String.lowercased()();
-      countAndFlagsBits = v79._countAndFlagsBits;
-
-      v145 = v79;
-      v143 = 0x6365737069;
-      v144 = 0xE500000000000000;
-      lazy protocol witness table accessor for type String and conformance String();
-      v80 = StringProtocol.contains<A>(_:)();
-
-      v81 = OUTLINED_FUNCTION_0_27();
-      v82(v81);
-      if (v80)
-      {
-        countAndFlagsBits_low = 24;
-      }
-
-      else
-      {
-        countAndFlagsBits_low = 0;
-      }
-
-      goto LABEL_39;
-    }
-
-    OUTLINED_FUNCTION_7_12(&a19);
-    if (v84)
-    {
-      v85 = OUTLINED_FUNCTION_0_27();
-      v86(v85);
-      countAndFlagsBits_low = 1;
-LABEL_39:
-      v137 = countAndFlagsBits_low;
-      goto LABEL_40;
-    }
-
-    OUTLINED_FUNCTION_7_12(&a16);
-    if (v87)
-    {
-      if (one-time initialization token for shared != -1)
-      {
-        OUTLINED_FUNCTION_4_11();
-        swift_once();
-      }
-
-      NetworkManager.connectionTechnologyForCellularInterface()();
-      v88 = OUTLINED_FUNCTION_0_27();
-      v89(v88);
-      countAndFlagsBits_low = LOBYTE(v145._countAndFlagsBits);
-      goto LABEL_39;
-    }
-
-    OUTLINED_FUNCTION_7_12(&a13);
-    if (v90)
-    {
-      v91 = OUTLINED_FUNCTION_0_27();
-      v92(v91);
-      countAndFlagsBits_low = 23;
-      goto LABEL_39;
-    }
-
-    OUTLINED_FUNCTION_7_12(&a10);
-    if (v107)
-    {
-      goto LABEL_25;
-    }
-
-    v108 = OUTLINED_FUNCTION_0_27();
-    v109(v108);
-    (*v120)(v41, v138);
-    v137 = 0;
-LABEL_40:
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v145._countAndFlagsBits = v36;
-    v94 = specialized __RawDictionaryStorage.find<A>(_:)(v140, v141);
-    v96 = v36[2];
-    v97 = (v95 & 1) == 0;
-    v98 = v96 + v97;
-    if (__OFADD__(v96, v97))
-    {
-      goto LABEL_59;
-    }
-
-    countAndFlagsBits = v94;
-    v99 = v95;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss17_NativeDictionaryVySS11SiriNetwork14ConnectionTypeOGMd, &_ss17_NativeDictionaryVySS11SiriNetwork14ConnectionTypeOGMR);
-    if (_NativeDictionary.ensureUnique(isUnique:capacity:)(isUniquelyReferenced_nonNull_native, v98))
-    {
-      break;
-    }
-
-LABEL_44:
-    v73 = v128;
-    if (v99)
-    {
-
-      v36 = v145._countAndFlagsBits;
-      *(*(v145._countAndFlagsBits + 56) + countAndFlagsBits) = v137;
-    }
-
-    else
-    {
-      v36 = v145._countAndFlagsBits;
-      *(v145._countAndFlagsBits + 8 * (countAndFlagsBits >> 6) + 64) |= 1 << countAndFlagsBits;
-      v102 = (v36[6] + 16 * countAndFlagsBits);
-      v103 = v141;
-      *v102 = v140;
-      v102[1] = v103;
-      *(v36[7] + countAndFlagsBits) = v137;
-      v104 = v36[2];
-      v105 = __OFADD__(v104, 1);
-      v106 = v104 + 1;
-      if (v105)
-      {
-        __break(1u);
-        goto LABEL_62;
-      }
-
-      v36[2] = v106;
-    }
-
-    if (v135 == ++v74)
-    {
-      goto LABEL_52;
-    }
-  }
-
-  v100 = specialized __RawDictionaryStorage.find<A>(_:)(v140, v141);
-  if ((v99 & 1) == (v101 & 1))
-  {
-    countAndFlagsBits = v100;
-    goto LABEL_44;
-  }
-
-  KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-  __break(1u);
-}
-
 uint64_t closure #1 in static ConnectionTCPInfoMetrics.connectionTCPInfoMetrics(from:wasConnected:queue:deadline:_:)(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t))
 {
-  v21 = type metadata accessor for NWConnection();
+  v9[3] = type metadata accessor for NWConnection();
+  v9[4] = &protocol witness table for NWConnection;
+  v9[0] = a2;
 
-  static ConnectionTCPInfoMetrics.connectionCopyTCPInfo(from:wasConnected:xpcTCPInfo:)(&v17, a3, a1, v8, v9, v10, v11, v12, v16, SHIDWORD(v16), a2, v18, v19, v20, v21, SHIDWORD(v21), &protocol witness table for NWConnection, v22, v23, v24, v25, v26, v27, v28, v29);
-  v14 = v13;
-  outlined destroy of ConnectionSnapshotReport?(&v17, &_s11SiriNetwork0B18ConnectionProtocol_pSgMd, &_s11SiriNetwork0B18ConnectionProtocol_pSgMR);
+  static ConnectionTCPInfoMetrics.connectionCopyTCPInfo(from:wasConnected:xpcTCPInfo:)();
+  v7 = v6;
+  outlined destroy of ConnectionSnapshotReport?(v9, &_s11SiriNetwork0B18ConnectionProtocol_pSgMd, &_s11SiriNetwork0B18ConnectionProtocol_pSgMR);
   if (a4)
   {
-    a4(v14);
+    a4(v7);
   }
 }
 
@@ -2759,29 +19,27 @@ void closure #2 in static ConnectionTCPInfoMetrics.connectionTCPInfoMetrics(from
   v1 = v0;
   v3 = v2;
   v4 = type metadata accessor for DispatchWorkItemFlags();
-  v5 = OUTLINED_FUNCTION_0_0(v4);
-  v7 = v6;
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20](v5);
+  OUTLINED_FUNCTION_0_0();
+  v6 = v5;
+  MEMORY[0x28223BE20](v7);
   OUTLINED_FUNCTION_0_1();
-  v12 = v11 - v10;
-  v13 = type metadata accessor for DispatchQoS();
-  v14 = OUTLINED_FUNCTION_0_0(v13);
-  v16 = v15;
-  v18 = *(v17 + 64);
+  v10 = v9 - v8;
+  v11 = type metadata accessor for DispatchQoS();
+  OUTLINED_FUNCTION_0_0();
+  v13 = v12;
   MEMORY[0x28223BE20](v14);
   OUTLINED_FUNCTION_0_1();
-  v21 = v20 - v19;
-  v22 = swift_allocObject();
-  *(v22 + 16) = v1;
-  *(v22 + 24) = v3;
-  v24[4] = partial apply for closure #1 in closure #2 in static ConnectionTCPInfoMetrics.connectionTCPInfoMetrics(from:wasConnected:queue:deadline:_:);
-  v24[5] = v22;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 1107296256;
-  v24[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
-  v24[3] = &block_descriptor_10;
-  v23 = _Block_copy(v24);
+  v17 = v16 - v15;
+  v18 = swift_allocObject();
+  *(v18 + 16) = v1;
+  *(v18 + 24) = v3;
+  v20[4] = partial apply for closure #1 in closure #2 in static ConnectionTCPInfoMetrics.connectionTCPInfoMetrics(from:wasConnected:queue:deadline:_:);
+  v20[5] = v18;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 1107296256;
+  v20[2] = thunk for @escaping @callee_guaranteed @Sendable () -> ();
+  v20[3] = &block_descriptor_10;
+  v19 = _Block_copy(v20);
   swift_unknownObjectRetain();
 
   static DispatchQoS.unspecified.getter();
@@ -2789,10 +47,10 @@ void closure #2 in static ConnectionTCPInfoMetrics.connectionTCPInfoMetrics(from
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay8Dispatch0A13WorkItemFlagsVGMd, &_sSay8Dispatch0A13WorkItemFlagsVGMR);
   lazy protocol witness table accessor for type [DispatchWorkItemFlags] and conformance [A]();
   dispatch thunk of SetAlgebra.init<A>(_:)();
-  MEMORY[0x223DE2460](0, v21, v12, v23);
-  _Block_release(v23);
-  (*(v7 + 8))(v12, v4);
-  (*(v16 + 8))(v21, v13);
+  MEMORY[0x223DE2460](0, v17, v10, v19);
+  _Block_release(v19);
+  (*(v6 + 8))(v10, v4);
+  (*(v13 + 8))(v17, v11);
 
   OUTLINED_FUNCTION_47();
 }
@@ -2823,7 +81,7 @@ uint64_t closure #1 in closure #2 in static ConnectionTCPInfoMetrics.connectionT
     v9 = *(a1 + 24);
 
     v8(a2);
-    outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v8);
+    outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v8, v9);
   }
 
   swift_beginAccess();
@@ -2831,14 +89,14 @@ uint64_t closure #1 in closure #2 in static ConnectionTCPInfoMetrics.connectionT
   v11 = *(a1 + 24);
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
-  return outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v10);
+  return outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v10, v11);
 }
 
 uint64_t closure #3 in static ConnectionTCPInfoMetrics.connectionTCPInfoMetrics(from:wasConnected:queue:deadline:_:)(uint64_t a1)
 {
   if (one-time initialization token for siriNetwork != -1)
   {
-    OUTLINED_FUNCTION_0_6();
+    OUTLINED_FUNCTION_0_6(&one-time initialization token for siriNetwork);
   }
 
   v2 = type metadata accessor for Logger();
@@ -2860,7 +118,7 @@ uint64_t closure #3 in static ConnectionTCPInfoMetrics.connectionTCPInfoMetrics(
     v7 = *(a1 + 24);
 
     v6(0);
-    outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v6);
+    outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v6, v7);
   }
 
   swift_beginAccess();
@@ -2868,10 +126,10 @@ uint64_t closure #3 in static ConnectionTCPInfoMetrics.connectionTCPInfoMetrics(
   v9 = *(a1 + 24);
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
-  return outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v8);
+  return outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v8, v9);
 }
 
-uint64_t closure #1 in static ConnectionTCPInfoMetrics.connectionCopyTCPInfo(from:wasConnected:xpcTCPInfo:)(int a1, xpc_object_t xdata, uint64_t *a3)
+uint64_t closure #1 in static ConnectionTCPInfoMetrics.connectionCopyTCPInfo(from:wasConnected:xpcTCPInfo:)(uint64_t a1, xpc_object_t xdata, uint64_t *a3)
 {
   result = xpc_data_get_bytes_ptr(xdata);
   if (result)
@@ -2881,11 +139,10 @@ uint64_t closure #1 in static ConnectionTCPInfoMetrics.connectionCopyTCPInfo(fro
     {
       String.init(cString:)();
       MEMORY[0x223DE13C0](v6, 424);
-      v8 = *a3;
       swift_isUniquelyReferenced_nonNull_native();
-      v9 = *a3;
+      v8 = *a3;
       specialized _NativeDictionary.setValue(_:forKey:isUnique:)();
-      *a3 = v9;
+      *a3 = v8;
 
       return 1;
     }
@@ -2990,10 +247,9 @@ uint64_t SpeechPacket.internalAceId.getter(void *a1)
 {
   v2 = (v1 + *a1);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
+  v3 = *v2;
 
-  return v4;
+  return v3;
 }
 
 void @objc SpeechPacket.internalAceId.setter(void *a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t, uint64_t))
@@ -3017,55 +273,44 @@ void @objc SpeechPacket.internalAceId.setter(void *a1, uint64_t a2, uint64_t a3,
 uint64_t SpeechPacket.internalAceId.setter(uint64_t a1, uint64_t a2, void *a3)
 {
   v6 = (v3 + *a3);
-  OUTLINED_FUNCTION_95();
-  v7 = v6[1];
+  OUTLINED_FUNCTION_95(v6, v8);
   *v6 = a1;
   v6[1] = a2;
 }
 
-uint64_t key path setter for SpeechPacket.internalAceId : SpeechPacket(uint64_t *a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t))
+uint64_t key path setter for SpeechPacket.internalAceId : SpeechPacket(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t))
 {
   v7 = *a1;
   v6 = a1[1];
-  v8 = *a2;
 
   return a5(v7, v6);
 }
 
-uint64_t SpeechPacket.packets.getter()
+double SpeechPacket.packets.getter(uint64_t a1)
 {
-  v1 = OBJC_IVAR___SNSpeechPacketInternal_packets;
-  OUTLINED_FUNCTION_6_13();
-  v2 = *(v0 + v1);
+  OUTLINED_FUNCTION_6_13(a1);
+
+  return result;
 }
 
 uint64_t SpeechPacket.packets.setter(uint64_t a1)
 {
   v3 = OBJC_IVAR___SNSpeechPacketInternal_packets;
-  OUTLINED_FUNCTION_95();
-  v4 = *(v1 + v3);
+  OUTLINED_FUNCTION_95(v1 + OBJC_IVAR___SNSpeechPacketInternal_packets, v5);
   *(v1 + v3) = a1;
 }
 
-uint64_t key path setter for SpeechPacket.packets : SpeechPacket(uint64_t *a1, uint64_t *a2)
+uint64_t SpeechPacket.packetNumber.getter(uint64_t a1)
 {
-  v2 = *a1;
-  v3 = *a2;
-
-  return SpeechPacket.packets.setter(v4);
-}
-
-uint64_t SpeechPacket.packetNumber.getter()
-{
-  v1 = OBJC_IVAR___SNSpeechPacketInternal_packetNumber;
-  OUTLINED_FUNCTION_6_13();
-  return *(v0 + v1);
+  v2 = OBJC_IVAR___SNSpeechPacketInternal_packetNumber;
+  OUTLINED_FUNCTION_6_13(a1);
+  return *(v1 + v2);
 }
 
 uint64_t SpeechPacket.packetNumber.setter(uint64_t a1)
 {
   v3 = OBJC_IVAR___SNSpeechPacketInternal_packetNumber;
-  result = OUTLINED_FUNCTION_95();
+  result = OUTLINED_FUNCTION_95(v1 + OBJC_IVAR___SNSpeechPacketInternal_packetNumber, v5);
   *(v1 + v3) = a1;
   return result;
 }
@@ -3097,21 +342,20 @@ id SpeechPacket.init(aceId:refId:packets:packetNumber:)(uint64_t a1, uint64_t a2
   *&v6[OBJC_IVAR___SNSpeechPacketInternal_packets] = MEMORY[0x277D84F90];
   v15 = OBJC_IVAR___SNSpeechPacketInternal_packetNumber;
   *&v6[OBJC_IVAR___SNSpeechPacketInternal_packetNumber] = 0;
-  OUTLINED_FUNCTION_95();
+  OUTLINED_FUNCTION_95(v12, v22);
   *v12 = v11;
   *(v12 + 1) = v10;
-  OUTLINED_FUNCTION_95();
+  OUTLINED_FUNCTION_95(v13, v21);
   *v13 = v9;
   *(v13 + 1) = v8;
-  OUTLINED_FUNCTION_95();
-  v16 = *&v6[v14];
+  OUTLINED_FUNCTION_95(&v6[v14], v20);
   *&v6[v14] = v7;
 
-  OUTLINED_FUNCTION_95();
+  OUTLINED_FUNCTION_95(&v6[v15], v19);
   *&v6[v15] = a6;
-  v19.receiver = v6;
-  v19.super_class = type metadata accessor for SpeechPacket();
-  return objc_msgSendSuper2(&v19, sel_init);
+  v18.receiver = v6;
+  v18.super_class = type metadata accessor for SpeechPacket();
+  return objc_msgSendSuper2(&v18, sel_init);
 }
 
 size_t SpeechPacket.serializedAceData()()
@@ -3157,20 +401,6 @@ id SpeechPacket.__deallocating_deinit()
   return objc_msgSendSuper2(&v2, sel_dealloc);
 }
 
-uint64_t (*protocol witness for SessionObject.internalAceId.modify in conformance SpeechPacket())()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  return RPCOspreyConnectionProvider.connectionMetrics.modify;
-}
-
-uint64_t (*protocol witness for SessionObject.internalRefId.modify in conformance SpeechPacket())()
-{
-  v1 = *v0;
-  swift_beginAccess();
-  return RPCOspreyConnectionProvider.connectionMetrics.modify;
-}
-
 unint64_t type metadata accessor for NSData()
 {
   result = lazy cache variable for type metadata for NSData;
@@ -3202,53 +432,48 @@ uint64_t one-time initialization function for logger()
 
 uint64_t AsyncSequentialExecutor.__allocating_init(label:priority:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = *(v3 + 48);
-  v8 = *(v3 + 52);
-  v9 = swift_allocObject();
+  v6 = swift_allocObject();
   AsyncSequentialExecutor.init(label:priority:)(a1, a2, a3);
-  return v9;
+  return v6;
 }
 
 void *AsyncSequentialExecutor.init(label:priority:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
-  v34 = a3;
-  v35 = a2;
-  v32 = *v3;
-  v33 = a1;
+  v28 = a3;
+  v29 = a2;
+  v26 = *v3;
+  v27 = a1;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOy11SiriNetwork23AsyncSequentialExecutorC0F4Work33_929935727E72E3DCCC3D8351439F96F6LLV__GMd, &_sScS12ContinuationV15BufferingPolicyOy11SiriNetwork23AsyncSequentialExecutorC0F4Work33_929935727E72E3DCCC3D8351439F96F6LLV__GMR);
-  OUTLINED_FUNCTION_0_0(v5);
+  OUTLINED_FUNCTION_0_0();
   v7 = v6;
-  v9 = *(v8 + 64);
   OUTLINED_FUNCTION_10();
-  MEMORY[0x28223BE20](v10);
-  v12 = &v32 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy11SiriNetwork23AsyncSequentialExecutorC0D4Work33_929935727E72E3DCCC3D8351439F96F6LLV_GMd, &_sScS12ContinuationVy11SiriNetwork23AsyncSequentialExecutorC0D4Work33_929935727E72E3DCCC3D8351439F96F6LLV_GMR);
-  OUTLINED_FUNCTION_0_0(v13);
-  v15 = v14;
-  v17 = *(v16 + 64);
+  MEMORY[0x28223BE20](v8);
+  v10 = &v26 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy11SiriNetwork23AsyncSequentialExecutorC0D4Work33_929935727E72E3DCCC3D8351439F96F6LLV_GMd, &_sScS12ContinuationVy11SiriNetwork23AsyncSequentialExecutorC0D4Work33_929935727E72E3DCCC3D8351439F96F6LLV_GMR);
+  OUTLINED_FUNCTION_0_0();
+  v13 = v12;
   OUTLINED_FUNCTION_10();
-  MEMORY[0x28223BE20](v18);
-  v20 = &v32 - v19;
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy11SiriNetwork23AsyncSequentialExecutorC0C4Work33_929935727E72E3DCCC3D8351439F96F6LLVGMd, &_sScSy11SiriNetwork23AsyncSequentialExecutorC0C4Work33_929935727E72E3DCCC3D8351439F96F6LLVGMR);
-  OUTLINED_FUNCTION_0_0(v21);
-  v23 = v22;
-  v25 = *(v24 + 64);
+  MEMORY[0x28223BE20](v14);
+  v16 = &v26 - v15;
+  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy11SiriNetwork23AsyncSequentialExecutorC0C4Work33_929935727E72E3DCCC3D8351439F96F6LLVGMd, &_sScSy11SiriNetwork23AsyncSequentialExecutorC0C4Work33_929935727E72E3DCCC3D8351439F96F6LLVGMR);
+  OUTLINED_FUNCTION_0_0();
+  v19 = v18;
   OUTLINED_FUNCTION_10();
-  MEMORY[0x28223BE20](v26);
-  v28 = &v32 - v27;
+  MEMORY[0x28223BE20](v20);
+  v22 = &v26 - v21;
   swift_defaultActor_initialize();
-  (*(v7 + 104))(v12, *MEMORY[0x277D85778], v5);
+  (*(v7 + 104))(v10, *MEMORY[0x277D85778], v5);
   static AsyncStream.makeStream(of:bufferingPolicy:)();
-  (*(v7 + 8))(v12, v5);
-  (*(v15 + 16))(v4 + OBJC_IVAR____TtC11SiriNetwork23AsyncSequentialExecutor_streamContinuation, v20, v13);
-  v29 = v34;
-  v30 = static AsyncSequentialExecutor.asynchronouslyConsume(stream:withPriority:label:)(v28, v34, v33, v35);
+  (*(v7 + 8))(v10, v5);
+  (*(v13 + 16))(v4 + OBJC_IVAR____TtC11SiriNetwork23AsyncSequentialExecutor_streamContinuation, v16, v11);
+  v23 = v28;
+  v24 = static AsyncSequentialExecutor.asynchronouslyConsume(stream:withPriority:label:)(v22, v28, v27, v29);
 
-  outlined destroy of TaskPriority?(v29);
-  (*(v15 + 8))(v20, v13);
-  (*(v23 + 8))(v28, v21);
-  *(v4 + OBJC_IVAR____TtC11SiriNetwork23AsyncSequentialExecutor_task) = v30;
+  outlined destroy of TaskPriority?(v23);
+  (*(v13 + 8))(v16, v11);
+  (*(v19 + 8))(v22, v17);
+  *(v4 + OBJC_IVAR____TtC11SiriNetwork23AsyncSequentialExecutor_task) = v24;
   return v4;
 }
 
@@ -3258,23 +483,22 @@ uint64_t static AsyncSequentialExecutor.asynchronouslyConsume(stream:withPriorit
   v10 = *(v9 - 8);
   v11 = *(v10 + 64);
   MEMORY[0x28223BE20](v9);
-  v13 = &v21 - v12;
+  v13 = &v20 - v12;
   v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v15 = *(*(v14 - 8) + 64);
   MEMORY[0x28223BE20](v14 - 8);
-  v17 = &v21 - v16;
-  outlined init with copy of TaskPriority?(a2, &v21 - v16);
+  v16 = &v20 - v15;
+  outlined init with copy of TaskPriority?(a2, &v20 - v15);
   (*(v10 + 16))(v13, a1, v9);
-  v18 = (*(v10 + 80) + 48) & ~*(v10 + 80);
-  v19 = swift_allocObject();
-  *(v19 + 2) = 0;
-  *(v19 + 3) = 0;
-  *(v19 + 4) = a3;
-  *(v19 + 5) = a4;
-  (*(v10 + 32))(&v19[v18], v13, v9);
-  *&v19[(v11 + v18 + 7) & 0xFFFFFFFFFFFFFFF8] = v4;
+  v17 = (*(v10 + 80) + 48) & ~*(v10 + 80);
+  v18 = swift_allocObject();
+  *(v18 + 2) = 0;
+  *(v18 + 3) = 0;
+  *(v18 + 4) = a3;
+  *(v18 + 5) = a4;
+  (*(v10 + 32))(&v18[v17], v13, v9);
+  *&v18[(v11 + v17 + 7) & 0xFFFFFFFFFFFFFFF8] = v4;
 
-  return _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v17, &async function pointer to partial apply for closure #1 in static AsyncSequentialExecutor.asynchronouslyConsume(stream:withPriority:label:), v19);
+  return _sScTss5Error_pRs_rlE4name8priority9operationScTyxsAA_pGSSSg_ScPSgxyYaKYAcntcfCyt_Tt2g5(0, 0, v16, &async function pointer to partial apply for closure #1 in static AsyncSequentialExecutor.asynchronouslyConsume(stream:withPriority:label:), v18);
 }
 
 uint64_t outlined destroy of TaskPriority?(uint64_t a1)
@@ -3291,9 +515,7 @@ uint64_t closure #1 in static AsyncSequentialExecutor.asynchronouslyConsume(stre
   v6[10] = a4;
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS8IteratorVy11SiriNetwork23AsyncSequentialExecutorC0D4Work33_929935727E72E3DCCC3D8351439F96F6LLV_GMd, &_sScS8IteratorVy11SiriNetwork23AsyncSequentialExecutorC0D4Work33_929935727E72E3DCCC3D8351439F96F6LLV_GMR);
   v6[13] = v7;
-  v8 = *(v7 - 8);
-  v6[14] = v8;
-  v9 = *(v8 + 64) + 15;
+  v6[14] = *(v7 - 8);
   v6[15] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](closure #1 in static AsyncSequentialExecutor.asynchronouslyConsume(stream:withPriority:label:), 0, 0);
@@ -3302,31 +524,27 @@ uint64_t closure #1 in static AsyncSequentialExecutor.asynchronouslyConsume(stre
 uint64_t closure #1 in static AsyncSequentialExecutor.asynchronouslyConsume(stream:withPriority:label:)()
 {
   OUTLINED_FUNCTION_7_0();
-  v1 = *(v0 + 120);
-  v2 = *(v0 + 96);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy11SiriNetwork23AsyncSequentialExecutorC0C4Work33_929935727E72E3DCCC3D8351439F96F6LLVGMd, &_sScSy11SiriNetwork23AsyncSequentialExecutorC0C4Work33_929935727E72E3DCCC3D8351439F96F6LLVGMR);
   AsyncStream.makeAsyncIterator()();
-  v3 = *(MEMORY[0x277D85798] + 4);
-  v4 = swift_task_alloc();
-  v5 = OUTLINED_FUNCTION_4_13(v4);
-  *v5 = v6;
-  v7 = OUTLINED_FUNCTION_0_29(v5);
+  v0 = swift_task_alloc();
+  v1 = OUTLINED_FUNCTION_4_13(v0);
+  *v1 = v2;
+  v3 = OUTLINED_FUNCTION_0_29(v1);
 
-  return MEMORY[0x2822003E8](v7);
+  return MEMORY[0x2822003E8](v3);
 }
 
 {
   OUTLINED_FUNCTION_7_0();
-  v1 = *(*v0 + 128);
-  v2 = *v0;
+  v1 = *v0;
   OUTLINED_FUNCTION_5_1();
-  *v3 = v2;
+  *v2 = v1;
 
   return MEMORY[0x2822009F8](closure #1 in static AsyncSequentialExecutor.asynchronouslyConsume(stream:withPriority:label:), 0, 0);
 }
 
 {
-  v25 = v0;
+  v22 = v0;
   v1 = v0[2];
   v3 = v0[4];
   v2 = v0[5];
@@ -3337,7 +555,7 @@ uint64_t closure #1 in static AsyncSequentialExecutor.asynchronouslyConsume(stre
   {
     if (one-time initialization token for logger != -1)
     {
-      OUTLINED_FUNCTION_2_16();
+      OUTLINED_FUNCTION_2_16(&one-time initialization token for logger);
     }
 
     v4 = type metadata accessor for Logger();
@@ -3350,10 +568,10 @@ uint64_t closure #1 in static AsyncSequentialExecutor.asynchronouslyConsume(stre
     {
       v7 = OUTLINED_FUNCTION_55();
       v8 = OUTLINED_FUNCTION_54();
-      v24 = v8;
+      v21 = v8;
       *v7 = 136315138;
 
-      v9 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v3, v2, &v24);
+      v9 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v3, v2, &v21);
 
       *(v7 + 4) = v9;
       _os_log_impl(&dword_223515000, v5, v6, "#AsyncSequentialExecutor Starting async task: %s", v7, 0xCu);
@@ -3362,14 +580,13 @@ uint64_t closure #1 in static AsyncSequentialExecutor.asynchronouslyConsume(stre
       OUTLINED_FUNCTION_12();
     }
 
-    v23 = (v1 + *v1);
-    v10 = v1[1];
-    v11 = swift_task_alloc();
-    v0[21] = v11;
-    *v11 = v0;
-    v11[1] = closure #1 in static AsyncSequentialExecutor.asynchronouslyConsume(stream:withPriority:label:);
+    v20 = (v1 + *v1);
+    v10 = swift_task_alloc();
+    v0[21] = v10;
+    *v10 = v0;
+    v10[1] = closure #1 in static AsyncSequentialExecutor.asynchronouslyConsume(stream:withPriority:label:);
 
-    return v23();
+    return v20();
   }
 
   else
@@ -3377,137 +594,120 @@ uint64_t closure #1 in static AsyncSequentialExecutor.asynchronouslyConsume(stre
     (*(v0[14] + 8))(v0[15], v0[13]);
     if (one-time initialization token for logger != -1)
     {
-      OUTLINED_FUNCTION_2_16();
+      OUTLINED_FUNCTION_2_16(&one-time initialization token for logger);
     }
 
-    v13 = v0[11];
-    v14 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v14, static AsyncSequentialExecutor.logger);
+    v12 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v12, static AsyncSequentialExecutor.logger);
 
-    v15 = Logger.logObject.getter();
-    v16 = static os_log_type_t.debug.getter();
+    v13 = Logger.logObject.getter();
+    v14 = static os_log_type_t.debug.getter();
 
-    if (os_log_type_enabled(v15, v16))
+    if (os_log_type_enabled(v13, v14))
     {
-      v18 = v0[10];
-      v17 = v0[11];
-      v19 = OUTLINED_FUNCTION_55();
-      v20 = OUTLINED_FUNCTION_54();
-      v24 = v20;
-      *v19 = 136315138;
-      *(v19 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v17, &v24);
-      _os_log_impl(&dword_223515000, v15, v16, "#AsyncSequentialExecutor ending main task: %s", v19, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v20);
+      v16 = v0[10];
+      v15 = v0[11];
+      v17 = OUTLINED_FUNCTION_55();
+      v18 = OUTLINED_FUNCTION_54();
+      v21 = v18;
+      *v17 = 136315138;
+      *(v17 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v16, v15, &v21);
+      _os_log_impl(&dword_223515000, v13, v14, "#AsyncSequentialExecutor ending main task: %s", v17, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v18);
       OUTLINED_FUNCTION_12();
       OUTLINED_FUNCTION_12();
     }
 
-    v21 = v0[15];
+    v19 = v0[1];
 
-    v22 = v0[1];
-
-    return v22();
+    return v19();
   }
 }
 
 {
   OUTLINED_FUNCTION_7_0();
-  v2 = *(*v1 + 168);
-  v3 = *v1;
+  v2 = *v1;
   OUTLINED_FUNCTION_5_1();
-  *v4 = v3;
-  *(v5 + 176) = v0;
+  *v3 = v2;
+  *(v4 + 176) = v0;
 
   if (v0)
   {
-    v6 = closure #1 in static AsyncSequentialExecutor.asynchronouslyConsume(stream:withPriority:label:);
+    v5 = closure #1 in static AsyncSequentialExecutor.asynchronouslyConsume(stream:withPriority:label:);
   }
 
   else
   {
-    v6 = closure #1 in static AsyncSequentialExecutor.asynchronouslyConsume(stream:withPriority:label:);
+    v5 = closure #1 in static AsyncSequentialExecutor.asynchronouslyConsume(stream:withPriority:label:);
   }
 
-  return MEMORY[0x2822009F8](v6, 0, 0);
+  return MEMORY[0x2822009F8](v5, 0, 0);
 }
 
 {
-  v21 = v0;
-  v1 = v0[19];
-  v2 = v0[20];
-  v3 = v0[17];
+  v15 = v0;
 
-  v4 = Logger.logObject.getter();
-  v5 = static os_log_type_t.debug.getter();
+  v1 = Logger.logObject.getter();
+  v2 = static os_log_type_t.debug.getter();
 
-  v6 = os_log_type_enabled(v4, v5);
-  v7 = v0[19];
-  if (v6)
+  v3 = os_log_type_enabled(v1, v2);
+  v4 = *(v0 + 152);
+  if (v3)
   {
-    v8 = v0[17];
-    v9 = v0[18];
-    v10 = OUTLINED_FUNCTION_55();
-    v11 = OUTLINED_FUNCTION_54();
-    v20 = v11;
-    *v10 = 136315138;
+    v5 = *(v0 + 144);
+    v6 = OUTLINED_FUNCTION_55();
+    v7 = OUTLINED_FUNCTION_54();
+    v14 = v7;
+    *v6 = 136315138;
 
-    v12 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v9, v7, &v20);
+    v8 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v5, v4, &v14);
 
-    *(v10 + 4) = v12;
-    _os_log_impl(&dword_223515000, v4, v5, "#AsyncSequentialExecutor Ending async task: %s", v10, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v11);
+    *(v6 + 4) = v8;
+    _os_log_impl(&dword_223515000, v1, v2, "#AsyncSequentialExecutor Ending async task: %s", v6, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v7);
     OUTLINED_FUNCTION_12();
     OUTLINED_FUNCTION_12();
   }
 
   else
   {
-    v13 = v0[17];
   }
 
-  v14 = *(MEMORY[0x277D85798] + 4);
-  v15 = swift_task_alloc();
-  v16 = OUTLINED_FUNCTION_4_13(v15);
-  *v16 = v17;
-  v18 = OUTLINED_FUNCTION_0_29(v16);
+  v9 = swift_task_alloc();
+  v10 = OUTLINED_FUNCTION_4_13(v9);
+  *v10 = v11;
+  v12 = OUTLINED_FUNCTION_0_29(v10);
 
-  return MEMORY[0x2822003E8](v18);
+  return MEMORY[0x2822003E8](v12);
 }
 
 {
-  v30 = v0;
+  v20 = v0;
   v1 = v0[22];
-  v3 = v0[19];
-  v2 = v0[20];
-  v4 = v0[17];
 
-  v5 = v1;
-  v6 = Logger.logObject.getter();
-  v7 = static os_log_type_t.error.getter();
+  v2 = v1;
+  v3 = Logger.logObject.getter();
+  v4 = static os_log_type_t.error.getter();
 
-  if (os_log_type_enabled(v6, v7))
+  if (os_log_type_enabled(v3, v4))
   {
-    v8 = v0[22];
-    v9 = v0[18];
-    v10 = v0[19];
-    v11 = v0[17];
-    v12 = swift_slowAlloc();
-    v29 = swift_slowAlloc();
-    *v12 = 136315394;
+    v5 = v0[22];
+    v6 = v0[18];
+    v7 = v0[19];
+    v8 = swift_slowAlloc();
+    v19 = swift_slowAlloc();
+    *v8 = 136315394;
 
-    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v9, v10, &v29);
+    v9 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v6, v7, &v19);
 
-    *(v12 + 4) = v13;
-    *(v12 + 12) = 2080;
+    *(v8 + 4) = v9;
+    *(v8 + 12) = 2080;
     swift_getErrorValue();
-    v15 = v0[6];
-    v14 = v0[7];
-    v16 = v0[8];
-    v17 = Error.localizedDescription.getter();
-    v19 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v18, &v29);
+    v10 = Error.localizedDescription.getter();
+    v12 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v11, &v19);
 
-    *(v12 + 14) = v19;
-    _os_log_impl(&dword_223515000, v6, v7, "#AsyncSequentialExecutor async task %s threw an exception: %s", v12, 0x16u);
+    *(v8 + 14) = v12;
+    _os_log_impl(&dword_223515000, v3, v4, "#AsyncSequentialExecutor async task %s threw an exception: %s", v8, 0x16u);
     swift_arrayDestroy();
     OUTLINED_FUNCTION_12();
     OUTLINED_FUNCTION_12();
@@ -3515,89 +715,83 @@ uint64_t closure #1 in static AsyncSequentialExecutor.asynchronouslyConsume(stre
 
   else
   {
-    v20 = v0[22];
-    v21 = v0[19];
-    v22 = v0[17];
+    v13 = v0[22];
   }
 
-  v23 = *(MEMORY[0x277D85798] + 4);
-  v24 = swift_task_alloc();
-  v25 = OUTLINED_FUNCTION_4_13(v24);
-  *v25 = v26;
-  v27 = OUTLINED_FUNCTION_0_29(v25);
+  v14 = swift_task_alloc();
+  v15 = OUTLINED_FUNCTION_4_13(v14);
+  *v15 = v16;
+  v17 = OUTLINED_FUNCTION_0_29(v15);
 
-  return MEMORY[0x2822003E8](v27);
+  return MEMORY[0x2822003E8](v17);
 }
 
 uint64_t AsyncSequentialExecutor.submit(taskName:task:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV11YieldResultOy11SiriNetwork23AsyncSequentialExecutorC0F4Work33_929935727E72E3DCCC3D8351439F96F6LLV__GMd, &_sScS12ContinuationV11YieldResultOy11SiriNetwork23AsyncSequentialExecutorC0F4Work33_929935727E72E3DCCC3D8351439F96F6LLV__GMR);
-  OUTLINED_FUNCTION_0_0(v8);
+  OUTLINED_FUNCTION_0_0();
   v10 = v9;
-  v12 = *(v11 + 64);
   OUTLINED_FUNCTION_10();
-  MEMORY[0x28223BE20](v13);
-  v15 = &v25 - v14;
-  v16 = one-time initialization token for logger;
+  MEMORY[0x28223BE20](v11);
+  v13 = &v23 - v12;
+  v14 = one-time initialization token for logger;
 
-  if (v16 != -1)
+  if (v14 != -1)
   {
-    OUTLINED_FUNCTION_2_16();
+    OUTLINED_FUNCTION_2_16(&one-time initialization token for logger);
   }
 
-  v17 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v17, static AsyncSequentialExecutor.logger);
+  v15 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v15, static AsyncSequentialExecutor.logger);
 
-  v18 = Logger.logObject.getter();
-  v19 = static os_log_type_t.info.getter();
+  v16 = Logger.logObject.getter();
+  v17 = static os_log_type_t.info.getter();
 
-  if (os_log_type_enabled(v18, v19))
+  if (os_log_type_enabled(v16, v17))
   {
-    v20 = OUTLINED_FUNCTION_55();
-    v25 = a3;
+    v18 = OUTLINED_FUNCTION_55();
+    v23 = a3;
+    v19 = v18;
+    v20 = OUTLINED_FUNCTION_54();
+    v24 = v8;
+    v25[0] = v20;
     v21 = v20;
-    v22 = OUTLINED_FUNCTION_54();
-    v26 = v8;
-    v27[0] = v22;
-    v23 = v22;
-    *v21 = 136315138;
-    *(v21 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, v27);
-    _os_log_impl(&dword_223515000, v18, v19, "#AsyncSequentialExecutor Submitting async task: %s", v21, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v23);
-    v8 = v26;
+    *v19 = 136315138;
+    *(v19 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(a1, a2, v25);
+    _os_log_impl(&dword_223515000, v16, v17, "#AsyncSequentialExecutor Submitting async task: %s", v19, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v21);
+    v8 = v24;
     OUTLINED_FUNCTION_12();
-    a3 = v25;
+    a3 = v23;
     OUTLINED_FUNCTION_12();
   }
 
-  v27[0] = a3;
-  v27[1] = a4;
-  v27[2] = a1;
-  v27[3] = a2;
+  v25[0] = a3;
+  v25[1] = a4;
+  v25[2] = a1;
+  v25[3] = a2;
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy11SiriNetwork23AsyncSequentialExecutorC0D4Work33_929935727E72E3DCCC3D8351439F96F6LLV_GMd, &_sScS12ContinuationVy11SiriNetwork23AsyncSequentialExecutorC0D4Work33_929935727E72E3DCCC3D8351439F96F6LLV_GMR);
   AsyncStream.Continuation.yield(_:)();
 
-  return (*(v10 + 8))(v15, v8);
+  return (*(v10 + 8))(v13, v8);
 }
 
 uint64_t AsyncSequentialExecutor.deinit()
 {
   v1 = v0;
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy11SiriNetwork23AsyncSequentialExecutorC0D4Work33_929935727E72E3DCCC3D8351439F96F6LLV_GMd, &_sScS12ContinuationVy11SiriNetwork23AsyncSequentialExecutorC0D4Work33_929935727E72E3DCCC3D8351439F96F6LLV_GMR);
-  OUTLINED_FUNCTION_0_0(v2);
+  OUTLINED_FUNCTION_0_0();
   v4 = v3;
-  v6 = *(v5 + 64);
   OUTLINED_FUNCTION_10();
-  MEMORY[0x28223BE20](v7);
-  v9 = &v14 - v8;
-  v10 = OBJC_IVAR____TtC11SiriNetwork23AsyncSequentialExecutor_streamContinuation;
-  (*(v4 + 16))(&v14 - v8, v1 + OBJC_IVAR____TtC11SiriNetwork23AsyncSequentialExecutor_streamContinuation, v2);
+  MEMORY[0x28223BE20](v5);
+  v7 = &v11 - v6;
+  v8 = OBJC_IVAR____TtC11SiriNetwork23AsyncSequentialExecutor_streamContinuation;
+  (*(v4 + 16))(&v11 - v6, v1 + OBJC_IVAR____TtC11SiriNetwork23AsyncSequentialExecutor_streamContinuation, v2);
   AsyncStream.Continuation.finish()();
-  v11 = *(v4 + 8);
-  v11(v9, v2);
-  v11((v1 + v10), v2);
-  v12 = *(v1 + OBJC_IVAR____TtC11SiriNetwork23AsyncSequentialExecutor_task);
+  v9 = *(v4 + 8);
+  v9(v7, v2);
+  v9((v1 + v8), v2);
 
   swift_defaultActor_destroy();
   return v1;
@@ -3610,7 +804,7 @@ uint64_t AsyncSequentialExecutor.__deallocating_deinit()
   return MEMORY[0x282200960](v0);
 }
 
-uint64_t type metadata accessor for AsyncSequentialExecutor()
+uint64_t type metadata accessor for AsyncSequentialExecutor(uint64_t a1)
 {
   result = type metadata singleton initialization cache for AsyncSequentialExecutor;
   if (!type metadata singleton initialization cache for AsyncSequentialExecutor)
@@ -3621,12 +815,11 @@ uint64_t type metadata accessor for AsyncSequentialExecutor()
   return result;
 }
 
-void type metadata completion function for AsyncSequentialExecutor()
+void type metadata completion function for AsyncSequentialExecutor(uint64_t a1)
 {
   type metadata accessor for AsyncStream<AsyncSequentialExecutor.AsyncWork>.Continuation();
   if (v1 <= 0x3F)
   {
-    v2 = *(v0 - 8) + 64;
     swift_updateClassMetadata2();
   }
 }
@@ -3733,11 +926,10 @@ uint64_t partial apply for closure #1 in static AsyncSequentialExecutor.asynchro
   v8 = v1[3];
   v9 = v1[4];
   v10 = v1[5];
-  v11 = *(v1 + ((*(v5 + 64) + v6 + 7) & 0xFFFFFFFFFFFFFFF8));
-  v12 = swift_task_alloc();
-  *(v3 + 16) = v12;
-  *v12 = v3;
-  v12[1] = partial apply for closure #1 in static AsyncSequentialExecutor.asynchronouslyConsume(stream:withPriority:label:);
+  v11 = swift_task_alloc();
+  *(v3 + 16) = v11;
+  *v11 = v3;
+  v11[1] = partial apply for closure #1 in static AsyncSequentialExecutor.asynchronouslyConsume(stream:withPriority:label:);
 
   return closure #1 in static AsyncSequentialExecutor.asynchronouslyConsume(stream:withPriority:label:)(a1, v7, v8, v9, v10, v1 + v6);
 }
@@ -3745,14 +937,13 @@ uint64_t partial apply for closure #1 in static AsyncSequentialExecutor.asynchro
 uint64_t partial apply for closure #1 in static AsyncSequentialExecutor.asynchronouslyConsume(stream:withPriority:label:)()
 {
   OUTLINED_FUNCTION_7_0();
-  v1 = *(*v0 + 16);
-  v2 = *v0;
+  v1 = *v0;
   OUTLINED_FUNCTION_5_1();
-  *v3 = v2;
+  *v2 = v1;
 
-  v4 = *(v2 + 8);
+  v3 = *(v1 + 8);
 
-  return v4();
+  return v3();
 }
 
 Swift::Int MessageCenterEventState.hashValue.getter()
@@ -3765,14 +956,14 @@ Swift::Int MessageCenterEventState.hashValue.getter()
 
 uint64_t MessageCenterEvent.date.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = *(type metadata accessor for MessageCenterEvent() + 24);
+  v3 = *(type metadata accessor for MessageCenterEvent(0) + 24);
   v4 = type metadata accessor for Date();
   v5 = *(*(v4 - 8) + 16);
 
   return v5(a1, v1 + v3, v4);
 }
 
-uint64_t type metadata accessor for MessageCenterEvent()
+uint64_t type metadata accessor for MessageCenterEvent(uint64_t a1)
 {
   result = type metadata singleton initialization cache for MessageCenterEvent;
   if (!type metadata singleton initialization cache for MessageCenterEvent)
@@ -3783,27 +974,11 @@ uint64_t type metadata accessor for MessageCenterEvent()
   return result;
 }
 
-uint64_t MessageCenterEvent.messageCenter.getter()
-{
-  v1 = (v0 + *(type metadata accessor for MessageCenterEvent() + 28));
-  v2 = *v1;
-  v3 = v1[1];
-  return swift_unknownObjectRetain();
-}
-
 void *MessageCenterEvent.error.getter()
 {
-  v1 = *(v0 + *(type metadata accessor for MessageCenterEvent() + 32));
+  v1 = *(v0 + *(type metadata accessor for MessageCenterEvent(0) + 32));
   v2 = v1;
   return v1;
-}
-
-uint64_t MessageCenterEvent.size.getter()
-{
-  v1 = (v0 + *(type metadata accessor for MessageCenterEvent() + 36));
-  result = *v1;
-  v3 = *(v1 + 8);
-  return result;
 }
 
 unint64_t lazy protocol witness table accessor for type MessageCenterEventState and conformance MessageCenterEventState()
@@ -3987,22 +1162,22 @@ LABEL_18:
   return result;
 }
 
-void type metadata completion function for MessageCenterEvent()
+void type metadata completion function for MessageCenterEvent(uint64_t a1)
 {
   type metadata accessor for MessageCenterMessage();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     type metadata accessor for Date();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       type metadata accessor for MessageCenterProtocol?(319, &lazy cache variable for type metadata for MessageCenterProtocol?, &_s11SiriNetwork21MessageCenterProtocol_pMd, &_s11SiriNetwork21MessageCenterProtocol_pMR);
-      if (v2 <= 0x3F)
+      if (v3 <= 0x3F)
       {
         type metadata accessor for MessageCenterProtocol?(319, &lazy cache variable for type metadata for Error?, &_ss5Error_pMd, &_ss5Error_pMR);
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           type metadata accessor for Int?();
-          if (v4 <= 0x3F)
+          if (v5 <= 0x3F)
           {
             swift_cvw_initStructMetadataWithLayoutString();
           }
@@ -4056,26 +1231,24 @@ uint64_t specialized Data.withUnsafeBytes<A>(_:)(uint64_t result, unint64_t a2, 
   switch(a2 >> 62)
   {
     case 1uLL:
-      v17 = result >> 32;
+      v15 = result >> 32;
       if (result >> 32 >= result)
       {
-        v18 = result;
+        v16 = result;
 
-        v15 = a2 & 0x3FFFFFFFFFFFFFFFLL;
-        v13 = v18;
-        v14 = v17;
+        v13 = a2 & 0x3FFFFFFFFFFFFFFFLL;
+        v11 = v16;
+        v12 = v15;
         goto LABEL_8;
       }
 
       __break(1u);
       return result;
     case 2uLL:
-      v12 = *(result + 16);
-      v11 = *(result + 24);
 
-      v13 = OUTLINED_FUNCTION_53();
+      v11 = OUTLINED_FUNCTION_53();
 LABEL_8:
-      v16 = specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(v13, v14, v15, a3, a4);
+      v14 = specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(v11, v12, v13, a3, a4);
       goto LABEL_9;
     case 3uLL:
 
@@ -4087,20 +1260,20 @@ LABEL_8:
       v9 = a2 & 0xFFFFFFFFFFFFFFLL;
       v10 = v8;
 LABEL_5:
-      v16 = specialized Data.InlineData.withUnsafeBytes<A>(_:)(v10, v9, a3, a4);
+      v14 = specialized Data.InlineData.withUnsafeBytes<A>(_:)(v10, v9, a3, a4);
 LABEL_9:
-      v19 = v16;
+      v17 = v14;
 
       if (!v4)
       {
-        return v19 & 1;
+        return v17 & 1;
       }
 
       return result;
   }
 }
 
-uint64_t (*CommunicationProtocolAce.safetyNetBuffer.modify())()
+uint64_t (*CommunicationProtocolAce.safetyNetBuffer.modify())(uint64_t a1)
 {
   OUTLINED_FUNCTION_27_1();
   swift_beginAccess();
@@ -4131,20 +1304,19 @@ void CommunicationProtocolAce.barrier(with:)(uint64_t a1, uint64_t a2)
   swift_beginAccess();
   if (a1)
   {
-    outlined copy of (@escaping @callee_guaranteed @Sendable () -> (@out UMUserPersonProtocol?))?(a1);
-    v7 = *(v2 + 208);
+    outlined copy of (@escaping @callee_guaranteed @Sendable () -> (@out UMUserPersonProtocol?))?(a1, a2);
     swift_isUniquelyReferenced_nonNull_native();
     v13 = *(v2 + 208);
-    v8 = OUTLINED_FUNCTION_57();
-    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v8, v9, v5);
+    v7 = OUTLINED_FUNCTION_57();
+    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v7, v8, v5);
     *(v2 + 208) = v13;
   }
 
   else
   {
-    outlined copy of (@escaping @callee_guaranteed @Sendable () -> (@out UMUserPersonProtocol?))?(0);
-    v10 = specialized Dictionary._Variant.removeValue(forKey:)(v5);
-    outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v10);
+    outlined copy of (@escaping @callee_guaranteed @Sendable () -> (@out UMUserPersonProtocol?))?(0, a2);
+    v9 = specialized Dictionary._Variant.removeValue(forKey:)(v5);
+    outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v9, v10);
   }
 
   swift_endAccess();
@@ -4425,62 +1597,30 @@ uint64_t CommunicationProtocolAce.handleAceEnd()()
     MEMORY[0x223DE38F0](v11);
   }
 
-  OUTLINED_FUNCTION_36_2();
-  if (v0[6] >> 60 != 15)
+  OUTLINED_FUNCTION_36_2((v0 + 5), v12, v13, v14);
+  if (v0[6] >> 60 != 15 && (v22 = OUTLINED_FUNCTION_2_13(), outlined copy of Data._Representation(v22, v23), v24 = OUTLINED_FUNCTION_2_13(), v25 = MEMORY[0x223DE13E0](v24), v26 = OUTLINED_FUNCTION_2_13(), outlined consume of Data?(v26, v27), v25 > 0) || (OUTLINED_FUNCTION_37_1((v0 + 9), v15, v16, v17, v18, v19, v20, v21, v48), v0[10] >> 60 != 15) && (v28 = OUTLINED_FUNCTION_2_13(), outlined copy of Data._Representation(v28, v29), v30 = OUTLINED_FUNCTION_2_13(), v31 = MEMORY[0x223DE13E0](v30), v32 = OUTLINED_FUNCTION_2_13(), outlined consume of Data?(v32, v33), v31 > 0) || v0[28])
   {
-    v12 = v0[5];
-    v13 = OUTLINED_FUNCTION_2_13();
-    outlined copy of Data._Representation(v13, v14);
-    v15 = OUTLINED_FUNCTION_2_13();
-    v16 = MEMORY[0x223DE13E0](v15);
-    v17 = OUTLINED_FUNCTION_2_13();
-    outlined consume of Data?(v17, v18);
-    if (v16 > 0)
-    {
-      goto LABEL_10;
-    }
-  }
-
-  OUTLINED_FUNCTION_37_1();
-  if (v0[10] >> 60 != 15)
-  {
-    v19 = v0[9];
-    v20 = OUTLINED_FUNCTION_2_13();
-    outlined copy of Data._Representation(v20, v21);
-    v22 = OUTLINED_FUNCTION_2_13();
-    v23 = MEMORY[0x223DE13E0](v22);
-    v24 = OUTLINED_FUNCTION_2_13();
-    outlined consume of Data?(v24, v25);
-    if (v23 > 0)
-    {
-      goto LABEL_10;
-    }
-  }
-
-  if (v0[28])
-  {
-LABEL_10:
-    v26 = Logger.logObject.getter();
+    v34 = Logger.logObject.getter();
     static os_log_type_t.error.getter();
-    v27 = OUTLINED_FUNCTION_16_0();
-    if (os_log_type_enabled(v27, v28))
+    v35 = OUTLINED_FUNCTION_16_0();
+    if (os_log_type_enabled(v35, v36))
     {
       OUTLINED_FUNCTION_17_5();
-      v29 = swift_slowAlloc();
-      OUTLINED_FUNCTION_11_7(v29);
+      v37 = swift_slowAlloc();
+      OUTLINED_FUNCTION_11_7(v37);
       OUTLINED_FUNCTION_15_0();
-      _os_log_impl(v30, v31, v32, v33, v34, 2u);
-      v35 = OUTLINED_FUNCTION_6_15();
-      MEMORY[0x223DE38F0](v35);
+      _os_log_impl(v38, v39, v40, v41, v42, 2u);
+      v43 = OUTLINED_FUNCTION_6_15();
+      MEMORY[0x223DE38F0](v43);
     }
 
     if (CommunicationProtocolAce.aceDelegate.getter())
     {
       lazy protocol witness table accessor for type BackgroundConnectionError and conformance BackgroundConnectionError();
       OUTLINED_FUNCTION_10_0();
-      v36 = swift_allocError();
-      OUTLINED_FUNCTION_8_10(v37, 1);
-      BackgroundConnection.didEncounterError(_:)();
+      v44 = swift_allocError();
+      OUTLINED_FUNCTION_8_10(v45, 1);
+      BackgroundConnection.didEncounterError(_:)(v46);
       swift_unknownObjectRelease();
     }
   }
@@ -4518,7 +1658,7 @@ void CommunicationProtocolAce.handleAceNop()()
   }
 }
 
-uint64_t closure #1 in CommunicationProtocolAce.pingTimerFired()(char a1)
+uint64_t closure #1 in CommunicationProtocolAce.pingTimerFired()(char a1, uint64_t a2)
 {
   swift_beginAccess();
   result = swift_weakLoadStrong();
@@ -4526,39 +1666,39 @@ uint64_t closure #1 in CommunicationProtocolAce.pingTimerFired()(char a1)
   {
     if (a1)
     {
-      v3 = *(result + 240);
-      if (v3)
+      v4 = *(result + 240);
+      if (v4)
       {
-        v4 = PingInfo.totalPingCount()();
-        v5 = PingInfo.numberOfUnacknowledgedPings()();
+        v5 = PingInfo.totalPingCount()();
+        v6 = PingInfo.numberOfUnacknowledgedPings()();
       }
 
       else
       {
+        v6 = 0;
         v5 = 0;
-        v4 = 0;
       }
 
-      v6 = v3 == 0;
-      v7 = v3 == 0;
-      if (v6)
+      v7 = v4 == 0;
+      v8 = v4 == 0;
+      if (v7)
       {
-        v8 = 0x3000000000000001;
+        v9 = 0x3000000000000001;
       }
 
       else
       {
-        v8 = 0x3000000000000000;
+        v9 = 0x3000000000000000;
       }
 
       lazy protocol witness table accessor for type NetworkConnectionError and conformance NetworkConnectionError();
-      v9 = swift_allocError();
-      *v10 = v4;
-      v10[1] = v7;
-      v10[2] = v5;
-      v10[3] = v8;
-      v10[4] = 0;
-      BackgroundConnection.didEncounterIntermediateError(_:)();
+      v10 = swift_allocError();
+      *v11 = v5;
+      v11[1] = v8;
+      v11[2] = v6;
+      v11[3] = v9;
+      v11[4] = 0;
+      BackgroundConnection.didEncounterIntermediateError(_:)(v10);
     }
   }
 
@@ -4567,37 +1707,33 @@ uint64_t closure #1 in CommunicationProtocolAce.pingTimerFired()(char a1)
 
 void CommunicationProtocolAce.checkForProgressOnReadingData()()
 {
-  OUTLINED_FUNCTION_40_1();
-  v1 = v0[6];
+  OUTLINED_FUNCTION_40_1(v0 + 40, v18);
   OUTLINED_FUNCTION_48_0();
-  if (!(!v3 & v2))
+  if (!(!v2 & v1))
   {
-    v4 = v0[5];
 
+    v3 = OUTLINED_FUNCTION_3_2();
+    outlined copy of Data?(v3, v4);
     v5 = OUTLINED_FUNCTION_3_2();
-    outlined copy of Data?(v5, v6);
-    v7 = OUTLINED_FUNCTION_3_2();
-    specialized Data.withUnsafeBytes<A>(_:)(v7, v8, v0, v9);
-    v10 = OUTLINED_FUNCTION_3_2();
-    outlined consume of Data?(v10, v11);
+    specialized Data.withUnsafeBytes<A>(_:)(v5, v6, v0, v7);
+    v8 = OUTLINED_FUNCTION_3_2();
+    outlined consume of Data?(v8, v9);
   }
 
-  OUTLINED_FUNCTION_40_1();
-  v12 = v0[10];
+  OUTLINED_FUNCTION_40_1(v0 + 72, v17);
   OUTLINED_FUNCTION_48_0();
-  if (!(!v3 & v2))
+  if (!(!v2 & v1))
   {
-    v13 = v0[9];
 
-    v14 = OUTLINED_FUNCTION_3_2();
-    outlined copy of Data?(v14, v15);
-    v16 = OUTLINED_FUNCTION_3_2();
-    specialized Data.withUnsafeBytes<A>(_:)(v16, v17, v0, v18);
-    v19 = OUTLINED_FUNCTION_3_2();
-    outlined consume of Data?(v19, v20);
+    v10 = OUTLINED_FUNCTION_3_2();
+    outlined copy of Data?(v10, v11);
+    v12 = OUTLINED_FUNCTION_3_2();
+    specialized Data.withUnsafeBytes<A>(_:)(v12, v13, v0, v14);
+    v15 = OUTLINED_FUNCTION_3_2();
+    outlined consume of Data?(v15, v16);
   }
 
-  if (__OFADD__(v0[36], v0[39]))
+  if (__OFADD__(*(v0 + 288), *(v0 + 312)))
   {
     __break(1u);
   }
@@ -4902,28 +2038,26 @@ LABEL_16:
   return outlined consume of Data?(v28, v29);
 }
 
-uint64_t CommunicationProtocolAce.handleBarrierReply(barrierValue:)(unsigned int a1)
+uint64_t CommunicationProtocolAce.handleBarrierReply(barrierValue:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  result = OUTLINED_FUNCTION_36_2();
-  v4 = *(v1 + 208);
-  if (*(v4 + 16))
+  result = OUTLINED_FUNCTION_36_2(v4 + 208, a2, a3, a4);
+  v7 = *(v4 + 208);
+  if (*(v7 + 16))
   {
     result = specialized __RawDictionaryStorage.find<A>(_:)(a1);
-    if (v5)
+    if (v8)
     {
-      v6 = *(v4 + 56) + 16 * result;
-      v8 = *v6;
-      v7 = *(v6 + 8);
-      v10[0] = 1;
+      v9 = *(*(v7 + 56) + 16 * result);
+      v12[0] = 1;
 
-      v8(v10);
+      v9(v12);
 
       OUTLINED_FUNCTION_27_1();
       swift_beginAccess();
       specialized Dictionary._Variant.removeValue(forKey:)(a1);
       swift_endAccess();
-      v9 = OUTLINED_FUNCTION_14_3();
-      return outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v9);
+      v10 = OUTLINED_FUNCTION_14_3();
+      return outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v10, v11);
     }
   }
 
@@ -4955,30 +2089,15 @@ BOOL protocol witness for CommunicationProtocol.hasBufferedDataOrOutstandPings()
   v1 = *v0;
   swift_beginAccess();
   v2 = v1[6];
-  if (v2 >> 60 != 15)
-  {
-    v3 = v1[5];
-    outlined copy of Data._Representation(v3, v1[6]);
-    v4 = MEMORY[0x223DE13E0](v3, v2);
-    outlined consume of Data?(v3, v2);
-    if (v4 > 0)
-    {
-      return 1;
-    }
-  }
-
-  swift_beginAccess();
-  v5 = v1[10];
-  if (v5 >> 60 == 15)
+  if ((v2 >> 60 == 15 || (v3 = v1[5], outlined copy of Data._Representation(v3, v1[6]), v4 = MEMORY[0x223DE13E0](v3, v2), outlined consume of Data?(v3, v2), v4 <= 0)) && ((swift_beginAccess(), v5 = v1[10], v5 >> 60 == 15) || (v6 = v1[9], outlined copy of Data._Representation(v6, v1[10]), v7 = MEMORY[0x223DE13E0](v6, v5), outlined consume of Data?(v6, v5), v7 <= 0)))
   {
     return v1[28] != 0;
   }
 
-  v6 = v1[9];
-  outlined copy of Data._Representation(v6, v1[10]);
-  v7 = MEMORY[0x223DE13E0](v6, v5);
-  outlined consume of Data?(v6, v5);
-  return v7 > 0 || v1[28] != 0;
+  else
+  {
+    return 1;
+  }
 }
 
 uint64_t thunk for @escaping @callee_guaranteed () -> (@unowned UInt32)@<X0>(uint64_t (*a1)(void)@<X0>, _DWORD *a2@<X8>)
@@ -4990,18 +2109,17 @@ uint64_t thunk for @escaping @callee_guaranteed () -> (@unowned UInt32)@<X0>(uin
 
 uint64_t specialized Data.InlineData.withUnsafeBytes<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(unsigned __int8 *__return_ptr, uint64_t *, char *))
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v7 = a1;
-  v9 = WORD2(a2);
-  v8 = a2;
-  a4(&v10, &v7, &v7 + BYTE6(a2));
+  v10 = *MEMORY[0x277D85DE8];
+  v6 = a1;
+  v8 = WORD2(a2);
+  v7 = a2;
+  a4(&v9, &v6, &v6 + BYTE6(a2));
 
   if (!v4)
   {
-    result = v10;
+    return v9;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5085,32 +2203,24 @@ unint64_t lazy protocol witness table accessor for type BackgroundConnectionErro
   return result;
 }
 
-uint64_t partial apply for closure #1 in CommunicationProtocolAce.pingTimerFired()(char a1)
-{
-  v2 = v1[2];
-  v3 = v1[3];
-  v4 = v1[4];
-  return closure #1 in CommunicationProtocolAce.pingTimerFired()(a1);
-}
-
-uint64_t outlined copy of AceSerializationError(uint64_t a1, unint64_t a2, unsigned __int8 a3)
+uint64_t outlined copy of AceSerializationError(uint64_t result, unint64_t a2, unsigned __int8 a3)
 {
   if (a3 - 1 <= 1)
   {
-    return outlined copy of Data?(a1, a2);
+    return outlined copy of Data?(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
-uint64_t outlined consume of AceSerializationError(uint64_t a1, unint64_t a2, unsigned __int8 a3)
+uint64_t outlined consume of AceSerializationError(uint64_t result, unint64_t a2, unsigned __int8 a3)
 {
   if (a3 - 1 <= 1)
   {
-    return outlined consume of Data?(a1, a2);
+    return outlined consume of Data?(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
 uint64_t outlined consume of BackgroundConnectionError(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, char a5)
@@ -5120,20 +2230,6 @@ uint64_t outlined consume of BackgroundConnectionError(uint64_t a1, void *a2, ui
   }
 
   return result;
-}
-
-uint64_t partial apply for specialized closure #1 in OSAllocatedUnfairLock<A>.withLock<A>(_:)()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return v1();
-}
-
-uint64_t partial apply for thunk for @escaping @callee_guaranteed (@unowned Bool) -> ()(unsigned __int8 *a1)
-{
-  v2 = *(v1 + 16);
-  v3 = *(v1 + 24);
-  return v2(*a1);
 }
 
 uint64_t objectdestroy_84Tm(void (*a1)(void), void (*a2)(void))
@@ -5147,11 +2243,10 @@ uint64_t objectdestroy_84Tm(void (*a1)(void), void (*a2)(void))
 
 uint64_t outlined init with copy of DataDecompressing?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
 {
-  v5 = OUTLINED_FUNCTION_75_0(a1, a2, a3, a4);
-  OUTLINED_FUNCTION_71(v5);
-  v7 = *(v6 + 16);
-  v8 = OUTLINED_FUNCTION_14_3();
-  v9(v8);
+  OUTLINED_FUNCTION_75_0(a1, a2, a3, a4);
+  OUTLINED_FUNCTION_71();
+  v5 = OUTLINED_FUNCTION_14_3();
+  v6(v5);
   return v4;
 }
 
@@ -5176,7 +2271,6 @@ id OUTLINED_FUNCTION_79_0(id a1, uint64_t a2)
 uint64_t MessageCenterMessage.messageType.getter()
 {
   v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
 
   return v1;
 }
@@ -5191,10 +2285,9 @@ uint64_t MessageCenterMessage.__allocating_init()()
 
 uint64_t *MessageCenterMessage.init()()
 {
-  v3 = *v0;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork013MessageCenterC0CmMd, &_s11SiriNetwork013MessageCenterC0CmMR);
-  v0[2] = String.init<A>(describing:)();
-  v0[3] = v1;
+  *(v0 + 16) = String.init<A>(describing:)();
+  *(v0 + 24) = v1;
   return v0;
 }
 
@@ -5223,7 +2316,7 @@ Swift::Int MessageCenterMessage.CodingKeys.hashValue.getter()
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance MessageCenterMessage.CodingKeys()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance MessageCenterMessage.CodingKeys(uint64_t a1)
 {
   Hasher.init(_seed:)();
   MEMORY[0x223DE2980](0);
@@ -5258,39 +2351,26 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
   return MEMORY[0x2821FE720](a1, v2);
 }
 
-uint64_t MessageCenterMessage.deinit()
-{
-  v1 = *(v0 + 24);
-
-  return v0;
-}
-
 uint64_t MessageCenterMessage.__deallocating_deinit()
 {
-  v1 = *(v0 + 24);
 
-  v2 = OUTLINED_FUNCTION_41();
+  v0 = OUTLINED_FUNCTION_41();
 
-  return MEMORY[0x2821FE8D8](v2, v3, v4);
+  return MEMORY[0x2821FE8D8](v0, v1, v2);
 }
 
 uint64_t MessageCenterMessage.encode(to:)(void *a1)
 {
-  v3 = v1;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy11SiriNetwork013MessageCenterF0C10CodingKeys33_A2F59A18C718FF7409E73977D77D451FLLOGMd, &_ss22KeyedEncodingContainerVy11SiriNetwork013MessageCenterF0C10CodingKeys33_A2F59A18C718FF7409E73977D77D451FLLOGMR);
-  v6 = OUTLINED_FUNCTION_1_16(v5);
-  v8 = v7;
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v6);
-  v12 = &v17 - v11;
-  v13 = a1[4];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy11SiriNetwork013MessageCenterF0C10CodingKeys33_A2F59A18C718FF7409E73977D77D451FLLOGMd, &_ss22KeyedEncodingContainerVy11SiriNetwork013MessageCenterF0C10CodingKeys33_A2F59A18C718FF7409E73977D77D451FLLOGMR);
+  OUTLINED_FUNCTION_1_16();
+  v4 = v3;
+  MEMORY[0x28223BE20](v5);
+  v7 = &v9 - v6;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type MessageCenterMessage.CodingKeys and conformance MessageCenterMessage.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v14 = *(v3 + 16);
-  v15 = *(v3 + 24);
   KeyedEncodingContainer.encode(_:forKey:)();
-  return (*(v8 + 8))(v12, v2);
+  return (*(v4 + 8))(v7, v1);
 }
 
 unint64_t lazy protocol witness table accessor for type MessageCenterMessage.CodingKeys and conformance MessageCenterMessage.CodingKeys()
@@ -5338,7 +2418,7 @@ unint64_t lazy protocol witness table accessor for type MessageCenterMessage.Cod
   return result;
 }
 
-uint64_t MessageCenterMessage.__allocating_init(from:)(uint64_t *a1)
+uint64_t MessageCenterMessage.__allocating_init(from:)(void *a1)
 {
   OUTLINED_FUNCTION_41();
   v2 = swift_allocObject();
@@ -5346,16 +2426,14 @@ uint64_t MessageCenterMessage.__allocating_init(from:)(uint64_t *a1)
   return v2;
 }
 
-uint64_t MessageCenterMessage.init(from:)(uint64_t *a1)
+uint64_t MessageCenterMessage.init(from:)(void *a1)
 {
   v4 = v1;
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy11SiriNetwork013MessageCenterF0C10CodingKeys33_A2F59A18C718FF7409E73977D77D451FLLOGMd, &_ss22KeyedDecodingContainerVy11SiriNetwork013MessageCenterF0C10CodingKeys33_A2F59A18C718FF7409E73977D77D451FLLOGMR);
-  v7 = OUTLINED_FUNCTION_1_16(v6);
-  v9 = v8;
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v7);
-  v13 = &v19 - v12;
-  v14 = a1[4];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy11SiriNetwork013MessageCenterF0C10CodingKeys33_A2F59A18C718FF7409E73977D77D451FLLOGMd, &_ss22KeyedDecodingContainerVy11SiriNetwork013MessageCenterF0C10CodingKeys33_A2F59A18C718FF7409E73977D77D451FLLOGMR);
+  OUTLINED_FUNCTION_1_16();
+  v7 = v6;
+  MEMORY[0x28223BE20](v8);
+  v10 = &v15 - v9;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type MessageCenterMessage.CodingKeys and conformance MessageCenterMessage.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -5367,11 +2445,11 @@ uint64_t MessageCenterMessage.init(from:)(uint64_t *a1)
 
   else
   {
-    v16 = KeyedDecodingContainer.decode(_:forKey:)();
-    v18 = v17;
-    (*(v9 + 8))(v13, v3);
-    *(v4 + 16) = v16;
-    *(v4 + 24) = v18;
+    v12 = KeyedDecodingContainer.decode(_:forKey:)();
+    v14 = v13;
+    (*(v7 + 8))(v10, v3);
+    *(v4 + 16) = v12;
+    *(v4 + 24) = v14;
   }
 
   __swift_destroy_boxed_opaque_existential_0(a1);
@@ -5380,13 +2458,13 @@ uint64_t MessageCenterMessage.init(from:)(uint64_t *a1)
 
 uint64_t instantiation function for generic protocol witness table for MessageCenterMessage(uint64_t a1)
 {
-  *(a1 + 8) = lazy protocol witness table accessor for type MessageCenterMessage and conformance MessageCenterMessage(&lazy protocol witness table cache variable for type MessageCenterMessage and conformance MessageCenterMessage);
-  result = lazy protocol witness table accessor for type MessageCenterMessage and conformance MessageCenterMessage(&lazy protocol witness table cache variable for type MessageCenterMessage and conformance MessageCenterMessage);
+  *(a1 + 8) = lazy protocol witness table accessor for type MessageCenterMessage and conformance MessageCenterMessage(&lazy protocol witness table cache variable for type MessageCenterMessage and conformance MessageCenterMessage, &protocol conformance descriptor for MessageCenterMessage);
+  result = lazy protocol witness table accessor for type MessageCenterMessage and conformance MessageCenterMessage(&lazy protocol witness table cache variable for type MessageCenterMessage and conformance MessageCenterMessage, &protocol conformance descriptor for MessageCenterMessage);
   *(a1 + 16) = result;
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type MessageCenterMessage and conformance MessageCenterMessage(unint64_t *a1)
+uint64_t lazy protocol witness table accessor for type MessageCenterMessage and conformance MessageCenterMessage(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -5542,14 +2620,12 @@ double MessageCenterDeviceProtocol.user.getter@<D0>(_OWORD *a1@<X8>)
 uint64_t MessageCenterDevice.idsIdentifier.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
 
 uint64_t MessageCenterDevice.idsIdentifier.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = v2[1];
 
   *v2 = a1;
   v2[1] = a2;
@@ -5559,21 +2635,19 @@ uint64_t MessageCenterDevice.idsIdentifier.setter(uint64_t a1, uint64_t a2)
 uint64_t MessageCenterDevice.model.getter()
 {
   v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
 
   return v1;
 }
 
 uint64_t MessageCenterDevice.model.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 24);
 
   *(v2 + 16) = a1;
   *(v2 + 24) = a2;
   return result;
 }
 
-uint64_t MessageCenterDevice.user.getter@<X0>(uint64_t *a1@<X8>)
+double MessageCenterDevice.user.getter@<D0>(uint64_t *a1@<X8>)
 {
   v2 = v1[4];
   v3 = v1[5];
@@ -5583,10 +2657,10 @@ uint64_t MessageCenterDevice.user.getter@<X0>(uint64_t *a1@<X8>)
   a1[1] = v3;
   a1[2] = v4;
   a1[3] = v5;
-  return outlined copy of MessageCenterUser?(v2, v3);
+  return outlined copy of MessageCenterUser?(v2, v3, v4, v5);
 }
 
-uint64_t outlined copy of MessageCenterUser?(uint64_t a1, uint64_t a2)
+double outlined copy of MessageCenterUser?(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2)
   {
@@ -5597,13 +2671,11 @@ uint64_t outlined copy of MessageCenterUser?(uint64_t a1, uint64_t a2)
 
 __n128 MessageCenterDevice.user.setter(uint64_t a1)
 {
-  v3 = v1[6];
-  v4 = v1[7];
-  outlined consume of MessageCenterUser?(v1[4], v1[5]);
+  outlined consume of MessageCenterUser?(*(v1 + 32), *(v1 + 40));
   result = *a1;
-  v6 = *(a1 + 16);
-  *(v1 + 2) = *a1;
-  *(v1 + 3) = v6;
+  v4 = *(a1 + 16);
+  *(v1 + 32) = *a1;
+  *(v1 + 48) = v4;
   return result;
 }
 
@@ -5622,8 +2694,6 @@ unint64_t MessageCenterDevice.description.getter()
 
   MEMORY[0x223DE2180](*v0, v0[1]);
   MEMORY[0x223DE2180](0x3D6C65646F6D202CLL, 0xE800000000000000);
-  v3 = v0[2];
-  v4 = v0[3];
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSSSgMd, &_sSSSgMR);
   v1 = String.init<A>(describing:)();
@@ -5644,39 +2714,39 @@ uint64_t MessageCenterDevice.init(actor:endpoint:)@<X0>(uint64_t a1@<X0>, uint64
   *(a3 + 96) = 0u;
   *(a3 + 32) = 0u;
   *(a3 + 48) = 0u;
-  outlined init with copy of MessageCenterEndpointProtocol?(a2, v35);
-  v7 = v36;
-  if (v36)
+  outlined init with copy of MessageCenterEndpointProtocol?(a2, v33);
+  v7 = v34;
+  if (v34)
   {
-    v8 = v37;
-    __swift_project_boxed_opaque_existential_1(v35, v36);
+    v8 = v35;
+    __swift_project_boxed_opaque_existential_1(v33, v34);
     v9 = (*(v8 + 16))(v7, v8);
     v11 = v10;
-    __swift_destroy_boxed_opaque_existential_0(v35);
+    __swift_destroy_boxed_opaque_existential_0(v33);
     if (v11)
     {
       outlined assign with copy of MessageCenterActorProtocol?(a1, v6, &_s11SiriNetwork26MessageCenterActorProtocol_pSgMd, &_s11SiriNetwork26MessageCenterActorProtocol_pSgMR);
       outlined assign with copy of MessageCenterActorProtocol?(v3, v6 + 40, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMd, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMR);
       *a3 = v9;
       *(a3 + 8) = v11;
-      outlined init with copy of MessageCenterEndpointProtocol?(v3, v35);
-      v12 = v36;
-      if (v36)
+      outlined init with copy of MessageCenterEndpointProtocol?(v3, v33);
+      v12 = v34;
+      if (v34)
       {
-        v13 = v37;
-        __swift_project_boxed_opaque_existential_1(v35, v36);
+        v13 = v35;
+        __swift_project_boxed_opaque_existential_1(v33, v34);
         v14 = (*(v13 + 24))(v12, v13);
         v16 = v15;
         outlined destroy of ConnectionSnapshotReport?(v3, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMd, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMR);
         outlined destroy of ConnectionSnapshotReport?(a1, &_s11SiriNetwork26MessageCenterActorProtocol_pSgMd, &_s11SiriNetwork26MessageCenterActorProtocol_pSgMR);
-        result = __swift_destroy_boxed_opaque_existential_0(v35);
+        result = __swift_destroy_boxed_opaque_existential_0(v33);
       }
 
       else
       {
         outlined destroy of ConnectionSnapshotReport?(v3, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMd, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMR);
         outlined destroy of ConnectionSnapshotReport?(a1, &_s11SiriNetwork26MessageCenterActorProtocol_pSgMd, &_s11SiriNetwork26MessageCenterActorProtocol_pSgMR);
-        result = outlined destroy of ConnectionSnapshotReport?(v35, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMd, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMR);
+        result = outlined destroy of ConnectionSnapshotReport?(v33, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMd, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMR);
         v14 = 0;
         v16 = 0;
       }
@@ -5689,7 +2759,7 @@ uint64_t MessageCenterDevice.init(actor:endpoint:)@<X0>(uint64_t a1@<X0>, uint64
 
   else
   {
-    outlined destroy of ConnectionSnapshotReport?(v35, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMd, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMR);
+    outlined destroy of ConnectionSnapshotReport?(v33, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMd, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMR);
   }
 
   if (one-time initialization token for messageCenter != -1)
@@ -5699,37 +2769,37 @@ uint64_t MessageCenterDevice.init(actor:endpoint:)@<X0>(uint64_t a1@<X0>, uint64
 
   v18 = type metadata accessor for Logger();
   __swift_project_value_buffer(v18, static Logger.messageCenter);
-  outlined init with copy of MessageCenterEndpointProtocol?(v3, v35);
+  outlined init with copy of MessageCenterEndpointProtocol?(v3, v33);
   v19 = Logger.logObject.getter();
   v20 = static os_log_type_t.error.getter();
   if (os_log_type_enabled(v19, v20))
   {
     v21 = swift_slowAlloc();
-    v33 = swift_slowAlloc();
-    v38 = v33;
+    v31 = swift_slowAlloc();
+    v36 = v31;
     *v21 = 136315138;
-    outlined init with copy of MessageCenterEndpointProtocol?(v35, v34);
+    outlined init with copy of MessageCenterEndpointProtocol?(v33, v32);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMd, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMR);
     v22 = String.init<A>(describing:)();
     v23 = v3;
     v24 = a1;
     v26 = v25;
-    outlined destroy of ConnectionSnapshotReport?(v35, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMd, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMR);
-    v27 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v26, &v38);
+    outlined destroy of ConnectionSnapshotReport?(v33, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMd, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMR);
+    v27 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v26, &v36);
     a1 = v24;
     v3 = v23;
 
     *(v21 + 4) = v27;
     _os_log_impl(&dword_223515000, v19, v20, "Ignoring MessageCenterDevice initializer as endpoint does not have an ids identifier %s", v21, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v33);
-    MEMORY[0x223DE38F0](v33, -1, -1);
+    __swift_destroy_boxed_opaque_existential_0(v31);
+    MEMORY[0x223DE38F0](v31, -1, -1);
     MEMORY[0x223DE38F0](v21, -1, -1);
   }
 
   else
   {
 
-    outlined destroy of ConnectionSnapshotReport?(v35, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMd, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMR);
+    outlined destroy of ConnectionSnapshotReport?(v33, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMd, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMR);
   }
 
   lazy protocol witness table accessor for type MessageCenterError and conformance MessageCenterError();
@@ -5742,14 +2812,12 @@ uint64_t MessageCenterDevice.init(actor:endpoint:)@<X0>(uint64_t a1@<X0>, uint64
   swift_willThrow();
   outlined destroy of ConnectionSnapshotReport?(v3, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMd, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMR);
   outlined destroy of ConnectionSnapshotReport?(a1, &_s11SiriNetwork26MessageCenterActorProtocol_pSgMd, &_s11SiriNetwork26MessageCenterActorProtocol_pSgMR);
-  v31 = *(a3 + 48);
-  v32 = *(a3 + 56);
   outlined consume of MessageCenterUser?(*(a3 + 32), *(a3 + 40));
   outlined destroy of ConnectionSnapshotReport?(v6, &_s11SiriNetwork26MessageCenterActorProtocol_pSgMd, &_s11SiriNetwork26MessageCenterActorProtocol_pSgMR);
   return outlined destroy of ConnectionSnapshotReport?(v6 + 40, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMd, &_s11SiriNetwork29MessageCenterEndpointProtocol_pSgMR);
 }
 
-uint64_t static MessageCenterDevice.== infix(_:_:)(void *a1, void *a2)
+uint64_t static MessageCenterDevice.== infix(_:_:)(uint64_t *a1, void *a2)
 {
   if (*a1 == *a2 && a1[1] == a2[1])
   {
@@ -5762,27 +2830,16 @@ uint64_t static MessageCenterDevice.== infix(_:_:)(void *a1, void *a2)
   }
 }
 
-uint64_t MessageCenterDevice.hash(into:)()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  return String.hash(into:)();
-}
-
 Swift::Int MessageCenterDevice.hashValue.getter()
 {
   Hasher.init(_seed:)();
-  v1 = *v0;
-  v2 = v0[1];
   String.hash(into:)();
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance MessageCenterDevice()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance MessageCenterDevice(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  v1 = *v0;
-  v2 = v0[1];
   String.hash(into:)();
   return Hasher._finalize()();
 }
@@ -6021,20 +3078,17 @@ uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.gett
 
 uint64_t MessageCenterEndpointPayload.encode(to:)(void *a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy11SiriNetwork28MessageCenterEndpointPayloadV10CodingKeys33_8D5DBEF99912F277E07A3932C7939D03LLOGMd, &_ss22KeyedEncodingContainerVy11SiriNetwork28MessageCenterEndpointPayloadV10CodingKeys33_8D5DBEF99912F277E07A3932C7939D03LLOGMR);
-  OUTLINED_FUNCTION_0_0(v3);
-  v5 = v4;
-  v7 = *(v6 + 64);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy11SiriNetwork28MessageCenterEndpointPayloadV10CodingKeys33_8D5DBEF99912F277E07A3932C7939D03LLOGMd, &_ss22KeyedEncodingContainerVy11SiriNetwork28MessageCenterEndpointPayloadV10CodingKeys33_8D5DBEF99912F277E07A3932C7939D03LLOGMR);
+  OUTLINED_FUNCTION_0_0();
+  v4 = v3;
   OUTLINED_FUNCTION_10();
-  MEMORY[0x28223BE20](v8);
-  v10 = &v14 - v9;
-  v11 = *v1;
-  v12 = a1[4];
+  MEMORY[0x28223BE20](v5);
+  v7 = &v9 - v6;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type MessageCenterEndpointPayload.CodingKeys and conformance MessageCenterEndpointPayload.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
   KeyedEncodingContainer.encode(_:forKey:)();
-  return (*(v5 + 8))(v10, v3);
+  return (*(v4 + 8))(v7, v2);
 }
 
 unint64_t lazy protocol witness table accessor for type MessageCenterEndpointPayload.CodingKeys and conformance MessageCenterEndpointPayload.CodingKeys()
@@ -6082,24 +3136,22 @@ unint64_t lazy protocol witness table accessor for type MessageCenterEndpointPay
   return result;
 }
 
-uint64_t MessageCenterEndpointPayload.init(from:)@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t MessageCenterEndpointPayload.init(from:)@<X0>(void *a1@<X0>, _BYTE *a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy11SiriNetwork28MessageCenterEndpointPayloadV10CodingKeys33_8D5DBEF99912F277E07A3932C7939D03LLOGMd, &_ss22KeyedDecodingContainerVy11SiriNetwork28MessageCenterEndpointPayloadV10CodingKeys33_8D5DBEF99912F277E07A3932C7939D03LLOGMR);
-  OUTLINED_FUNCTION_0_0(v5);
+  OUTLINED_FUNCTION_0_0();
   v7 = v6;
-  v9 = *(v8 + 64);
   OUTLINED_FUNCTION_10();
-  MEMORY[0x28223BE20](v10);
-  v12 = &v16 - v11;
-  v13 = a1[4];
+  MEMORY[0x28223BE20](v8);
+  v10 = &v13 - v9;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type MessageCenterEndpointPayload.CodingKeys and conformance MessageCenterEndpointPayload.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (!v2)
   {
-    v14 = KeyedDecodingContainer.decode(_:forKey:)();
-    (*(v7 + 8))(v12, v5);
-    *a2 = v14 & 1;
+    v11 = KeyedDecodingContainer.decode(_:forKey:)();
+    (*(v7 + 8))(v10, v5);
+    *a2 = v11 & 1;
   }
 
   return __swift_destroy_boxed_opaque_existential_0(a1);
@@ -6115,125 +3167,119 @@ unint64_t MessageCenterEndpointBrowser.description.getter()
 
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> MessageCenterEndpointBrowser.start()()
 {
-  v1 = *v0;
 
   OUTLINED_FUNCTION_25_3();
-  specialized MessageCenterEndpointBrowser.executeAsPersonaIfNeeded<A>(_:)(v2, v3, v4, v5);
+  specialized MessageCenterEndpointBrowser.executeAsPersonaIfNeeded<A>(_:)(v0, v1, v2, v3);
 }
 
 void closure #1 in MessageCenterEndpointBrowser.start()(uint64_t a1)
 {
   v2 = type metadata accessor for NWBrowser.Descriptor();
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x28223BE20](v2 - 8);
   if (*(a1 + 208) == 1)
   {
-    v4 = Logger.logObject.getter();
-    v5 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v4, v5))
+    v3 = Logger.logObject.getter();
+    v4 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v3, v4))
     {
-      v6 = swift_slowAlloc();
-      *v6 = 0;
-      _os_log_impl(&dword_223515000, v4, v5, "NetworkDeviceBrowser has already been started", v6, 2u);
-      MEMORY[0x223DE38F0](v6, -1, -1);
+      v5 = swift_slowAlloc();
+      *v5 = 0;
+      _os_log_impl(&dword_223515000, v3, v4, "NetworkDeviceBrowser has already been started", v5, 2u);
+      MEMORY[0x223DE38F0](v5, -1, -1);
     }
   }
 
   else
   {
     *(a1 + 208) = 1;
-    v7 = *(a1 + 112);
-    if (v7)
+    v6 = *(a1 + 112);
+    if (v6)
     {
-      v8 = *(a1 + 120);
+      v7 = *(a1 + 120);
 
-      v7(v30, v9);
-      outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v7);
+      v6(v24, v8);
+      outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v6, v7);
     }
 
     else
     {
 
-      v10 = Logger.logObject.getter();
-      v11 = static os_log_type_t.default.getter();
+      v9 = Logger.logObject.getter();
+      v10 = static os_log_type_t.default.getter();
 
-      if (os_log_type_enabled(v10, v11))
+      if (os_log_type_enabled(v9, v10))
       {
+        v11 = swift_slowAlloc();
         v12 = swift_slowAlloc();
-        v13 = swift_slowAlloc();
-        v30[0] = v13;
-        *v12 = 136315138;
-        v14 = MessageCenterEndpointBrowser.description.getter();
-        v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v14, v15, v30);
+        v24[0] = v12;
+        *v11 = 136315138;
+        v13 = MessageCenterEndpointBrowser.description.getter();
+        v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v14, v24);
 
-        *(v12 + 4) = v16;
-        _os_log_impl(&dword_223515000, v10, v11, "%s Creating NWBrowser", v12, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0(v13);
-        MEMORY[0x223DE38F0](v13, -1, -1);
+        *(v11 + 4) = v15;
+        _os_log_impl(&dword_223515000, v9, v10, "%s Creating NWBrowser", v11, 0xCu);
+        __swift_destroy_boxed_opaque_existential_0(v12);
         MEMORY[0x223DE38F0](v12, -1, -1);
+        MEMORY[0x223DE38F0](v11, -1, -1);
       }
 
       static MessageCenterEndpointBrowser.defaultBrowseDescriptor.getter();
       static MessageCenterEndpointBrowser.defaultBrowseParameters.getter();
-      v17 = type metadata accessor for NWBrowser();
-      v18 = *(v17 + 48);
-      v19 = *(v17 + 52);
+      v16 = type metadata accessor for NWBrowser();
       swift_allocObject();
-      v20 = NWBrowser.init(for:using:)();
-      v31 = v17;
-      v32 = &protocol witness table for NWBrowser;
-      v30[0] = v20;
+      v17 = NWBrowser.init(for:using:)();
+      v25 = v16;
+      v26 = &protocol witness table for NWBrowser;
+      v24[0] = v17;
     }
 
     swift_beginAccess();
-    outlined assign with take of MessageCenterBrowserProtocol?(v30, a1 + 128);
+    outlined assign with take of MessageCenterBrowserProtocol?(v24, a1 + 128);
     swift_endAccess();
-    v22 = MessageCenterEndpointBrowser.browser.modify();
-    v23 = *(v21 + 24);
-    if (v23)
+    v19 = MessageCenterEndpointBrowser.browser.modify(v24);
+    v20 = *(v18 + 24);
+    if (v20)
     {
-      v24 = *(v21 + 32);
-      __swift_mutable_project_boxed_opaque_existential_1(v21, *(v21 + 24));
-      v25 = *(v24 + 16);
+      v21 = *(v18 + 32);
+      __swift_mutable_project_boxed_opaque_existential_1(v18, *(v18 + 24));
+      v22 = *(v21 + 16);
 
-      v25(partial apply for closure #1 in closure #1 in MessageCenterEndpointBrowser.start(), a1, v23, v24);
+      v22(partial apply for closure #1 in closure #1 in MessageCenterEndpointBrowser.start(), a1, v20, v21);
     }
 
-    (v22)(v30, 0);
+    (v19)(v24, 0);
     swift_beginAccess();
-    outlined init with copy of MessageCenterBrowserProtocol?(a1 + 128, v30, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMd, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMR);
-    if (v31)
+    outlined init with copy of MessageCenterBrowserProtocol?(a1 + 128, v24, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMd, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMR);
+    if (v25)
     {
-      outlined init with copy of UMUserPersonProtocol(v30, v29);
-      outlined destroy of NetworkConnectionProtocol?(v30, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMd, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMR);
-      v26 = __swift_project_boxed_opaque_existential_1(v29, v29[3]);
-      v27 = *(a1 + 168);
-      v28 = *v26;
+      outlined init with copy of UMUserPersonProtocol(v24, v23);
+      outlined destroy of NetworkConnectionProtocol?(v24, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMd, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMR);
+      __swift_project_boxed_opaque_existential_1(v23, v23[3]);
       NWBrowser.start(queue:)();
-      __swift_destroy_boxed_opaque_existential_0(v29);
+      __swift_destroy_boxed_opaque_existential_0(v23);
     }
 
     else
     {
-      outlined destroy of NetworkConnectionProtocol?(v30, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMd, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMR);
+      outlined destroy of NetworkConnectionProtocol?(v24, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMd, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMR);
     }
   }
 }
 
 uint64_t static MessageCenterEndpointBrowser.defaultBrowseDescriptor.getter()
 {
-  v0 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7Network9NWBrowserC10DescriptorOSgMd, &_s7Network9NWBrowserC10DescriptorOSgMR) - 8) + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Network9NWBrowserC10DescriptorOSgMd, &_s7Network9NWBrowserC10DescriptorOSgMR);
   OUTLINED_FUNCTION_10();
-  MEMORY[0x28223BE20](v1);
-  v3 = &v11 - v2;
-  v4 = String.utf8CString.getter();
-  nw_browse_descriptor_create_application_service((v4 + 32));
+  MEMORY[0x28223BE20](v0);
+  v2 = &v8 - v1;
+  v3 = String.utf8CString.getter();
+  nw_browse_descriptor_create_application_service((v3 + 32));
 
   nw_browse_descriptor_set_browse_scope();
   swift_unknownObjectRetain();
   NWBrowser.Descriptor.init(_:)();
-  v5 = type metadata accessor for NWBrowser.Descriptor();
-  result = __swift_getEnumTagSinglePayload(v3, 1, v5);
+  v4 = type metadata accessor for NWBrowser.Descriptor();
+  result = __swift_getEnumTagSinglePayload(v2, 1, v4);
   if (result == 1)
   {
     __break(1u);
@@ -6242,10 +3288,9 @@ uint64_t static MessageCenterEndpointBrowser.defaultBrowseDescriptor.getter()
   else
   {
     swift_unknownObjectRelease();
-    OUTLINED_FUNCTION_13_4(v5);
-    v8 = *(v7 + 32);
-    v9 = OUTLINED_FUNCTION_14_3();
-    return v10(v9);
+    OUTLINED_FUNCTION_13_4();
+    v6 = OUTLINED_FUNCTION_14_3();
+    return v7(v6);
   }
 
   return result;
@@ -6253,193 +3298,192 @@ uint64_t static MessageCenterEndpointBrowser.defaultBrowseDescriptor.getter()
 
 uint64_t static MessageCenterEndpointBrowser.defaultBrowseParameters.getter()
 {
-  v0 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7Network15NWApplicationIDVSgMd, &_s7Network15NWApplicationIDVSgMR) - 8) + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Network15NWApplicationIDVSgMd, &_s7Network15NWApplicationIDVSgMR);
   OUTLINED_FUNCTION_10();
-  v2 = MEMORY[0x28223BE20](v1);
-  v4 = &v14 - v3;
-  v5 = MEMORY[0x223DE3050](v2);
-  v6 = xpc_array_create(0, 0);
-  v7 = xpc_string_create("com.apple.rapport.browse");
-  xpc_array_append_value(v6, v7);
-  v8 = xpc_array_create(0, 0);
-  v9 = xpc_string_create("RapportBrowseAgent");
-  xpc_array_append_value(v8, v9);
+  v1 = MEMORY[0x28223BE20](v0);
+  v3 = &v13 - v2;
+  v4 = MEMORY[0x223DE3050](v1);
+  v5 = xpc_array_create(0, 0);
+  v6 = xpc_string_create("com.apple.rapport.browse");
+  xpc_array_append_value(v5, v6);
+  v7 = xpc_array_create(0, 0);
+  v8 = xpc_string_create("RapportBrowseAgent");
+  xpc_array_append_value(v7, v8);
   swift_unknownObjectRetain();
   nw_parameters_set_required_netagent_classes();
-  MEMORY[0x223DE3070](v5, 1);
+  MEMORY[0x223DE3070](v4, 1);
   static NWApplicationID.self.getter();
-  v10 = type metadata accessor for NWApplicationID();
-  if (__swift_getEnumTagSinglePayload(v4, 1, v10) == 1)
+  v9 = type metadata accessor for NWApplicationID();
+  if (__swift_getEnumTagSinglePayload(v3, 1, v9) == 1)
   {
-    outlined destroy of NetworkConnectionProtocol?(v4, &_s7Network15NWApplicationIDVSgMd, &_s7Network15NWApplicationIDVSgMR);
+    outlined destroy of NetworkConnectionProtocol?(v3, &_s7Network15NWApplicationIDVSgMd, &_s7Network15NWApplicationIDVSgMR);
   }
 
   else
   {
     NWApplicationID.nw.getter();
-    OUTLINED_FUNCTION_13_4(v10);
-    (*(v11 + 8))(v4, v10);
+    OUTLINED_FUNCTION_13_4();
+    (*(v10 + 8))(v3, v9);
   }
 
   nw_parameters_set_application_id();
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
   type metadata accessor for NWParameters();
-  v12 = NWParameters.__allocating_init(_:)();
+  v11 = NWParameters.__allocating_init(_:)();
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
-  return v12;
+  return v11;
 }
 
-uint64_t closure #1 in closure #1 in MessageCenterEndpointBrowser.start()(uint64_t a1, uint64_t a2, uint64_t a3)
+void closure #1 in closure #1 in MessageCenterEndpointBrowser.start()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = MEMORY[0x28223BE20](v5 - 8);
-  v46 = v40 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v10 = v40 - v9;
-  v11 = type metadata accessor for NWBrowser.Result.Change();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  v14 = MEMORY[0x28223BE20](v11);
-  v45 = v40 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v14);
-  v52 = v40 - v15;
+  v6 = MEMORY[0x28223BE20](v5 - 8);
+  v43 = v37 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v9 = v37 - v8;
+  v10 = type metadata accessor for NWBrowser.Result.Change();
+  v11 = *(v10 - 8);
+  v12 = *(v11 + 64);
+  v13 = MEMORY[0x28223BE20](v10);
+  v42 = v37 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v13);
+  v49 = v37 - v14;
   swift_unownedRetainStrong();
   swift_unownedRetain();
   swift_unownedRetain();
-  v50 = a3;
+  v47 = a3;
 
-  v16 = a2 + 56;
-  v17 = 1 << *(a2 + 32);
-  v18 = -1;
-  if (v17 < 64)
+  v15 = a2 + 56;
+  v16 = 1 << *(a2 + 32);
+  v17 = -1;
+  if (v16 < 64)
   {
-    v18 = ~(-1 << v17);
+    v17 = ~(-1 << v16);
   }
 
-  v19 = v18 & *(a2 + 56);
-  v20 = (v17 + 63) >> 6;
-  v41 = v13 + 7;
-  v42 = v12 + 16;
-  v47 = v12;
-  v40[0] = v12 + 8;
-  v40[1] = v12 + 32;
-  v51 = a2;
+  v18 = v17 & *(a2 + 56);
+  v19 = (v16 + 63) >> 6;
+  v38 = v12 + 7;
+  v39 = v11 + 16;
+  v44 = v11;
+  v37[0] = v11 + 8;
+  v37[1] = v11 + 32;
+  v48 = a2;
 
-  v22 = 0;
-  v43 = v20;
-  v44 = a2 + 56;
-  v48 = v11;
-  v49 = v10;
-  if (v19)
+  v20 = 0;
+  v40 = v19;
+  v41 = a2 + 56;
+  v45 = v10;
+  v46 = v9;
+  if (v18)
   {
     goto LABEL_8;
   }
 
   while (1)
   {
-    v23 = v22 + 1;
-    if (__OFADD__(v22, 1))
+    v21 = v20 + 1;
+    if (__OFADD__(v20, 1))
     {
       break;
     }
 
-    if (v23 >= v20)
+    if (v21 >= v19)
     {
       swift_unownedRelease();
       swift_unownedRelease();
+
+      return;
     }
 
-    v19 = *(v16 + 8 * v23);
-    ++v22;
-    if (v19)
+    v18 = *(v15 + 8 * v21);
+    ++v20;
+    if (v18)
     {
-      v22 = v23;
+      v20 = v21;
       do
       {
 LABEL_8:
-        v24 = v52;
-        v25 = v47;
-        v26 = *(v47 + 16);
-        v26(v52, *(v51 + 48) + *(v47 + 72) * (__clz(__rbit64(v19)) | (v22 << 6)), v11);
-        v27 = type metadata accessor for TaskPriority();
-        __swift_storeEnumTagSinglePayload(v10, 1, 1, v27);
-        v28 = v10;
-        v29 = v45;
-        v26(v45, v24, v11);
-        v30 = (*(v25 + 80) + 32) & ~*(v25 + 80);
-        v31 = (v41 + v30) & 0xFFFFFFFFFFFFFFF8;
-        v32 = swift_allocObject();
-        *(v32 + 16) = 0;
-        *(v32 + 24) = 0;
-        (*(v25 + 32))(v32 + v30, v29, v11);
-        *(v32 + v31) = v50;
-        v33 = v46;
-        outlined init with copy of MessageCenterBrowserProtocol?(v28, v46, &_sScPSgMd, &_sScPSgMR);
-        LODWORD(v30) = __swift_getEnumTagSinglePayload(v33, 1, v27);
+        v22 = v49;
+        v23 = v44;
+        v24 = *(v44 + 16);
+        v24(v49, *(v48 + 48) + *(v44 + 72) * (__clz(__rbit64(v18)) | (v20 << 6)), v10);
+        v25 = type metadata accessor for TaskPriority();
+        __swift_storeEnumTagSinglePayload(v9, 1, 1, v25);
+        v26 = v9;
+        v27 = v42;
+        v24(v42, v22, v10);
+        v28 = (*(v23 + 80) + 32) & ~*(v23 + 80);
+        v29 = (v38 + v28) & 0xFFFFFFFFFFFFFFF8;
+        v30 = swift_allocObject();
+        *(v30 + 16) = 0;
+        *(v30 + 24) = 0;
+        (*(v23 + 32))(v30 + v28, v27, v10);
+        *(v30 + v29) = v47;
+        v31 = v43;
+        outlined init with copy of MessageCenterBrowserProtocol?(v26, v43, &_sScPSgMd, &_sScPSgMR);
+        LODWORD(v28) = __swift_getEnumTagSinglePayload(v31, 1, v25);
         swift_unownedRetain();
 
-        if (v30 == 1)
+        if (v28 == 1)
         {
-          outlined destroy of NetworkConnectionProtocol?(v33, &_sScPSgMd, &_sScPSgMR);
+          outlined destroy of NetworkConnectionProtocol?(v31, &_sScPSgMd, &_sScPSgMR);
         }
 
         else
         {
           TaskPriority.rawValue.getter();
-          (*(*(v27 - 8) + 8))(v33, v27);
+          (*(*(v25 - 8) + 8))(v31, v25);
         }
 
-        v34 = *(v32 + 16);
-        v35 = *(v32 + 24);
+        v32 = *(v30 + 16);
         swift_unknownObjectRetain();
 
-        v10 = v49;
-        v20 = v43;
-        if (v34)
+        v9 = v46;
+        v19 = v40;
+        if (v32)
         {
           swift_getObjectType();
-          v36 = dispatch thunk of Actor.unownedExecutor.getter();
-          v38 = v37;
+          v33 = dispatch thunk of Actor.unownedExecutor.getter();
+          v35 = v34;
           swift_unknownObjectRelease();
         }
 
         else
         {
-          v36 = 0;
-          v38 = 0;
+          v33 = 0;
+          v35 = 0;
         }
 
-        outlined destroy of NetworkConnectionProtocol?(v10, &_sScPSgMd, &_sScPSgMR);
-        v39 = swift_allocObject();
-        *(v39 + 16) = &async function pointer to partial apply for closure #1 in closure #1 in closure #1 in closure #1 in MessageCenterEndpointBrowser.start();
-        *(v39 + 24) = v32;
-        if (v38 | v36)
+        outlined destroy of NetworkConnectionProtocol?(v9, &_sScPSgMd, &_sScPSgMR);
+        v36 = swift_allocObject();
+        *(v36 + 16) = &async function pointer to partial apply for closure #1 in closure #1 in closure #1 in closure #1 in MessageCenterEndpointBrowser.start();
+        *(v36 + 24) = v30;
+        if (v35 | v33)
         {
-          v53 = 0;
-          v54 = 0;
-          v55 = v36;
-          v56 = v38;
+          v50 = 0;
+          v51 = 0;
+          v52 = v33;
+          v53 = v35;
         }
 
-        v16 = v44;
-        v19 &= v19 - 1;
+        v15 = v41;
+        v18 &= v18 - 1;
         swift_task_create();
 
-        v11 = v48;
-        result = (*v40[0])(v52, v48);
+        v10 = v45;
+        (*v37[0])(v49, v45);
       }
 
-      while (v19);
+      while (v18);
     }
   }
 
   __break(1u);
-  return result;
 }
 
 uint64_t closure #1 in closure #1 in closure #1 in closure #1 in MessageCenterEndpointBrowser.start()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -6448,23 +3492,17 @@ uint64_t closure #1 in closure #1 in closure #1 in closure #1 in MessageCenterEn
   v5[3] = a5;
   v6 = type metadata accessor for NWEndpoint();
   v5[4] = v6;
-  v7 = *(v6 - 8);
-  v5[5] = v7;
-  v8 = *(v7 + 64) + 15;
+  v5[5] = *(v6 - 8);
   v5[6] = swift_task_alloc();
   v5[7] = swift_task_alloc();
-  v9 = type metadata accessor for NWBrowser.Result();
-  v5[8] = v9;
-  v10 = *(v9 - 8);
-  v5[9] = v10;
-  v11 = *(v10 + 64) + 15;
+  v7 = type metadata accessor for NWBrowser.Result();
+  v5[8] = v7;
+  v5[9] = *(v7 - 8);
   v5[10] = swift_task_alloc();
   v5[11] = swift_task_alloc();
-  v12 = type metadata accessor for NWBrowser.Result.Change();
-  v5[12] = v12;
-  v13 = *(v12 - 8);
-  v5[13] = v13;
-  v14 = *(v13 + 64) + 15;
+  v8 = type metadata accessor for NWBrowser.Result.Change();
+  v5[12] = v8;
+  v5[13] = *(v8 - 8);
   v5[14] = swift_task_alloc();
 
   return MEMORY[0x2822009F8](closure #1 in closure #1 in closure #1 in closure #1 in MessageCenterEndpointBrowser.start(), 0, 0);
@@ -6472,68 +3510,58 @@ uint64_t closure #1 in closure #1 in closure #1 in closure #1 in MessageCenterEn
 
 void closure #1 in closure #1 in closure #1 in closure #1 in MessageCenterEndpointBrowser.start()()
 {
-  v2 = *(v0 + 104);
-  (*(v2 + 16))(*(v0 + 112), *(v0 + 16), *(v0 + 96));
-  v3 = *(v2 + 88);
-  v4 = OUTLINED_FUNCTION_41_0();
-  v6 = v5(v4);
-  if (v6 == *MEMORY[0x277CD9130])
+  (*(*(v0 + 104) + 16))(*(v0 + 112), *(v0 + 16), *(v0 + 96));
+  v1 = OUTLINED_FUNCTION_41_0();
+  v3 = v2(v1);
+  if (v3 == *MEMORY[0x277CD9130])
   {
-    v7 = OUTLINED_FUNCTION_24_2();
-    v8(v7);
-    v9 = *(v1 + 32);
-    v10 = OUTLINED_FUNCTION_14_3();
-    v11(v10);
+    v4 = OUTLINED_FUNCTION_24_2();
+    v5(v4);
+    v6 = OUTLINED_FUNCTION_14_3();
+    v7(v6);
     swift_unownedRetainStrong();
     NWBrowser.Result.endpoint.getter();
     OUTLINED_FUNCTION_4_15(&async function pointer to specialized MessageCenterEndpointBrowser.handleEndpointAdded(_:));
-    v12 = swift_task_alloc();
-    *(v0 + 120) = v12;
-    *v12 = v0;
-    v13 = closure #1 in closure #1 in closure #1 in closure #1 in MessageCenterEndpointBrowser.start();
+    v8 = swift_task_alloc();
+    *(v0 + 120) = v8;
+    *v8 = v0;
+    v9 = closure #1 in closure #1 in closure #1 in closure #1 in MessageCenterEndpointBrowser.start();
   }
 
   else
   {
-    if (v6 != *MEMORY[0x277CD9140])
+    if (v3 != *MEMORY[0x277CD9140])
     {
-      v23 = *(v0 + 104);
-      v24 = *(v0 + 112);
-      v25 = *(v0 + 96);
-      if (v6 == *MEMORY[0x277CD9138])
+      v16 = *(v0 + 104);
+      v17 = *(v0 + 112);
+      v18 = *(v0 + 96);
+      if (v3 == *MEMORY[0x277CD9138])
       {
-        v27 = *(v0 + 80);
-        v26 = *(v0 + 88);
-        v28 = *(v0 + 64);
-        v29 = *(v0 + 72);
-        v30 = *(v0 + 56);
-        v44 = *(v0 + 48);
-        v31 = *(v0 + 24);
-        (*(v23 + 96))(v24, v25);
-        v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Network9NWBrowserC6ResultV3old_AE3newAE6ChangeO5FlagsV5flagstMd, &_s7Network9NWBrowserC6ResultV3old_AE3newAE6ChangeO5FlagsV5flagstMR);
-        v33 = *(v32 + 48);
-        *(v0 + 144) = *(v32 + 64);
-        v34 = *(v29 + 32);
-        v35 = OUTLINED_FUNCTION_14_3();
-        v34(v35);
-        (v34)(v27, v24 + v33, v28);
+        v19 = *(v0 + 80);
+        v20 = *(v0 + 64);
+        v21 = *(v0 + 72);
+        (*(v16 + 96))(v17, v18);
+        v22 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Network9NWBrowserC6ResultV3old_AE3newAE6ChangeO5FlagsV5flagstMd, &_s7Network9NWBrowserC6ResultV3old_AE3newAE6ChangeO5FlagsV5flagstMR);
+        v23 = *(v22 + 48);
+        *(v0 + 144) = *(v22 + 64);
+        v24 = *(v21 + 32);
+        v25 = OUTLINED_FUNCTION_14_3();
+        v24(v25);
+        (v24)(v19, v17 + v23, v20);
         swift_unownedRetainStrong();
         NWBrowser.Result.endpoint.getter();
         NWBrowser.Result.endpoint.getter();
         OUTLINED_FUNCTION_4_15(&async function pointer to specialized MessageCenterEndpointBrowser.handleEndpointChanged(_:newEndpoint:));
-        v36 = swift_task_alloc();
-        *(v0 + 136) = v36;
-        *v36 = v0;
-        v36[1] = closure #1 in closure #1 in closure #1 in closure #1 in MessageCenterEndpointBrowser.start();
-        v37 = *(v0 + 48);
-        v38 = *(v0 + 56);
-        v39 = *(v0 + 24);
+        v26 = swift_task_alloc();
+        *(v0 + 136) = v26;
+        *v26 = v0;
+        v26[1] = closure #1 in closure #1 in closure #1 in closure #1 in MessageCenterEndpointBrowser.start();
         OUTLINED_FUNCTION_63_0();
 
         __asm { BR              X3 }
       }
 
-      (*(v23 + 8))(*(v0 + 112), v25);
+      (*(v16 + 8))(*(v0 + 112), v18);
       OUTLINED_FUNCTION_50_2();
 
       OUTLINED_FUNCTION_6_3();
@@ -6542,23 +3570,20 @@ void closure #1 in closure #1 in closure #1 in closure #1 in MessageCenterEndpoi
       __asm { BRAA            X1, X16 }
     }
 
-    v14 = OUTLINED_FUNCTION_24_2();
-    v15(v14);
-    v16 = *(v1 + 32);
-    v17 = OUTLINED_FUNCTION_14_3();
-    v18(v17);
+    v10 = OUTLINED_FUNCTION_24_2();
+    v11(v10);
+    v12 = OUTLINED_FUNCTION_14_3();
+    v13(v12);
     swift_unownedRetainStrong();
     NWBrowser.Result.endpoint.getter();
     OUTLINED_FUNCTION_4_15(&async function pointer to specialized MessageCenterEndpointBrowser.handleEndpointRemoved(_:));
-    v12 = swift_task_alloc();
-    *(v0 + 128) = v12;
-    *v12 = v0;
-    v13 = closure #1 in closure #1 in closure #1 in closure #1 in MessageCenterEndpointBrowser.start();
+    v8 = swift_task_alloc();
+    *(v0 + 128) = v8;
+    *v8 = v0;
+    v9 = closure #1 in closure #1 in closure #1 in closure #1 in MessageCenterEndpointBrowser.start();
   }
 
-  v12[1] = v13;
-  v19 = *(v0 + 56);
-  v20 = *(v0 + 24);
+  v8[1] = v9;
   OUTLINED_FUNCTION_63_0();
 
   __asm { BR              X2 }
@@ -6568,21 +3593,15 @@ uint64_t closure #1 in closure #1 in closure #1 in closure #1 in MessageCenterEn
 {
   OUTLINED_FUNCTION_29();
   OUTLINED_FUNCTION_11_0();
-  v2 = v1[15];
-  v3 = v1[7];
-  v4 = v1[5];
-  v5 = v1[4];
-  v6 = v1[3];
-  v7 = *v0;
+  v1 = *v0;
   OUTLINED_FUNCTION_5_1();
-  *v8 = v7;
+  *v2 = v1;
 
-  v9 = *(v4 + 8);
-  v10 = OUTLINED_FUNCTION_41_0();
-  v11(v10);
-  v12 = OUTLINED_FUNCTION_36_3();
+  v3 = OUTLINED_FUNCTION_41_0();
+  v4(v3);
+  v5 = OUTLINED_FUNCTION_36_3();
 
-  return MEMORY[0x2822009F8](v12, v13, v14);
+  return MEMORY[0x2822009F8](v5, v6, v7);
 }
 
 {
@@ -6598,61 +3617,52 @@ uint64_t closure #1 in closure #1 in closure #1 in closure #1 in MessageCenterEn
 {
   OUTLINED_FUNCTION_29();
   OUTLINED_FUNCTION_11_0();
-  v2 = v1[16];
-  v3 = v1[7];
-  v4 = v1[5];
-  v5 = v1[4];
-  v6 = v1[3];
-  v7 = *v0;
+  v1 = *v0;
   OUTLINED_FUNCTION_5_1();
-  *v8 = v7;
+  *v2 = v1;
 
-  v9 = *(v4 + 8);
-  v10 = OUTLINED_FUNCTION_41_0();
-  v11(v10);
-  v12 = OUTLINED_FUNCTION_36_3();
+  v3 = OUTLINED_FUNCTION_41_0();
+  v4(v3);
+  v5 = OUTLINED_FUNCTION_36_3();
 
-  return MEMORY[0x2822009F8](v12, v13, v14);
+  return MEMORY[0x2822009F8](v5, v6, v7);
 }
 
 {
   OUTLINED_FUNCTION_40_3();
   OUTLINED_FUNCTION_11_0();
-  v2 = v1[17];
-  v3 = v1[7];
-  v4 = v1[6];
-  v5 = v1[5];
-  v6 = v1[4];
-  v7 = v1[3];
-  v8 = *v0;
+  v2 = v1[7];
+  v3 = v1[6];
+  v4 = v1[5];
+  v5 = v1[4];
+  v6 = *v0;
   OUTLINED_FUNCTION_5_1();
-  *v9 = v8;
+  *v7 = v6;
 
-  v10 = *(v5 + 8);
-  v10(v4, v6);
-  v10(v3, v6);
-  v11 = OUTLINED_FUNCTION_36_3();
+  v8 = *(v4 + 8);
+  v8(v3, v5);
+  v8(v2, v5);
+  v9 = OUTLINED_FUNCTION_36_3();
 
-  return MEMORY[0x2822009F8](v11, v12, v13);
+  return MEMORY[0x2822009F8](v9, v10, v11);
 }
 
 {
   OUTLINED_FUNCTION_40_3();
   v1 = *(v0 + 144);
   v2 = *(v0 + 112);
-  v3 = *(v0 + 88);
-  v4 = *(*(v0 + 72) + 8);
-  (v4)(*(v0 + 80), *(v0 + 64));
-  v5 = OUTLINED_FUNCTION_41_0();
-  v4(v5);
-  v6 = type metadata accessor for NWBrowser.Result.Change.Flags();
-  OUTLINED_FUNCTION_71(v6);
-  (*(v7 + 8))(v2 + v1);
+  v3 = *(*(v0 + 72) + 8);
+  (v3)(*(v0 + 80), *(v0 + 64));
+  v4 = OUTLINED_FUNCTION_41_0();
+  v3(v4);
+  type metadata accessor for NWBrowser.Result.Change.Flags();
+  OUTLINED_FUNCTION_71();
+  (*(v5 + 8))(v2 + v1);
   OUTLINED_FUNCTION_50_2();
 
   OUTLINED_FUNCTION_6_3();
 
-  return v8();
+  return v6();
 }
 
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> MessageCenterEndpointBrowser.stop()()
@@ -6677,32 +3687,32 @@ void closure #1 in MessageCenterEndpointBrowser.stop()(uint64_t a1)
   {
     *(a1 + 208) = 0;
     swift_beginAccess();
-    outlined init with copy of MessageCenterBrowserProtocol?(a1 + 128, v7, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMd, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMR);
-    if (v8)
+    outlined init with copy of MessageCenterBrowserProtocol?(a1 + 128, v6, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMd, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMR);
+    if (v7)
     {
-      outlined init with copy of UMUserPersonProtocol(v7, v6);
-      outlined destroy of NetworkConnectionProtocol?(v7, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMd, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMR);
-      v2 = *__swift_project_boxed_opaque_existential_1(v6, v6[3]);
+      outlined init with copy of UMUserPersonProtocol(v6, v5);
+      outlined destroy of NetworkConnectionProtocol?(v6, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMd, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMR);
+      __swift_project_boxed_opaque_existential_1(v5, v5[3]);
       NWBrowser.cancel()();
-      __swift_destroy_boxed_opaque_existential_0(v6);
+      __swift_destroy_boxed_opaque_existential_0(v5);
     }
 
     else
     {
-      outlined destroy of NetworkConnectionProtocol?(v7, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMd, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMR);
+      outlined destroy of NetworkConnectionProtocol?(v6, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMd, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMR);
     }
   }
 
   else
   {
-    v3 = Logger.logObject.getter();
-    v4 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v3, v4))
+    v2 = Logger.logObject.getter();
+    v3 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v2, v3))
     {
-      v5 = swift_slowAlloc();
-      *v5 = 0;
-      _os_log_impl(&dword_223515000, v3, v4, "NetworkDeviceBrowser has already been stopped", v5, 2u);
-      MEMORY[0x223DE38F0](v5, -1, -1);
+      v4 = swift_slowAlloc();
+      *v4 = 0;
+      _os_log_impl(&dword_223515000, v2, v3, "NetworkDeviceBrowser has already been stopped", v4, 2u);
+      MEMORY[0x223DE38F0](v4, -1, -1);
     }
   }
 }
@@ -6710,45 +3720,331 @@ void closure #1 in MessageCenterEndpointBrowser.stop()(uint64_t a1)
 void *static MessageCenterEndpointBrowser.defaultConnectionParametersForPersona(persona:)(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for AdoptPersonaExecutionStrategy(0);
-  v5 = OUTLINED_FUNCTION_71(v4);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x28223BE20](v5);
-  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  *v10 = a1;
-  *(v10 + 1) = a2;
-  v11 = *(v8 + 20);
-  v12 = one-time initialization token for messageCenterActor;
+  OUTLINED_FUNCTION_71();
+  v6 = MEMORY[0x28223BE20](v5);
+  v8 = &v16 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  *v8 = a1;
+  *(v8 + 1) = a2;
+  v9 = *(v6 + 20);
+  v10 = one-time initialization token for messageCenterActor;
 
-  if (v12 != -1)
+  if (v10 != -1)
   {
     OUTLINED_FUNCTION_14_4();
     swift_once();
   }
 
-  v13 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v13, static Logger.messageCenterActor);
-  OUTLINED_FUNCTION_13_4(v13);
-  (*(v14 + 16))(&v10[v11]);
-  v15 = &v10[*(v4 + 24)];
-  *v15 = 0;
-  *(v15 + 1) = 0;
-  v16 = specialized AdoptPersonaExecutionStrategy.executeAsUser<A>(_:)(v10);
-  outlined destroy of AdoptPersonaExecutionStrategy(v10);
-  return v16;
+  v11 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v11, static Logger.messageCenterActor);
+  OUTLINED_FUNCTION_13_4();
+  (*(v12 + 16))(&v8[v9]);
+  v13 = &v8[*(v4 + 24)];
+  *v13 = 0;
+  *(v13 + 1) = 0;
+  v14 = specialized AdoptPersonaExecutionStrategy.executeAsUser<A>(_:)(v8);
+  outlined destroy of AdoptPersonaExecutionStrategy(v8);
+  return v14;
 }
 
-uint64_t _s11SiriNetwork29AdoptPersonaExecutionStrategyV13executeAsUseryxxyKXEKlFyt_Tg504_s11a47Network28MessageCenterEndpointBrowserC24executehD32IfNeededyxxyKXEKlFxyKXEfU_yt_Tg5xs5Error_pRi_zRi0_zlyytIsgrzo_Tf1ncn_n0jaklmnO18C5startyyKFyyXEfU_AA0lmnO0CAIXDXMTTf1nnc_n@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
+uint64_t _s11SiriNetwork29AdoptPersonaExecutionStrategyV13executeAsUseryxxyKXEKlFyt_Tg504_s11a47Network28MessageCenterEndpointBrowserC24executehD32IfNeededyxxyKXEKlFxyKXEfU_yt_Tg5xs5Error_pRi_zRi0_zlyytIsgrzo_Tf1ncn_n0jaklmnO18C5startyyKFyyXEfU_AA0lmnO0CAIXDXMTTf1nnc_n@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v105 = a4;
+  v103 = a4;
   v7 = type metadata accessor for AdoptPersonaExecutionStrategy(0);
-  v8 = *(*(v7 - 8) + 64);
-  v9 = MEMORY[0x28223BE20](v7);
-  v104 = (&v97 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v11 = MEMORY[0x28223BE20](v9);
-  v13 = (&v97 - v12);
-  v14 = MEMORY[0x28223BE20](v11);
-  v16 = (&v97 - v15);
-  v17 = (a1 + *(v14 + 24));
+  v8 = MEMORY[0x28223BE20](v7);
+  v102 = (&v95 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v10 = MEMORY[0x28223BE20](v8);
+  v12 = (&v95 - v11);
+  v13 = MEMORY[0x28223BE20](v10);
+  v15 = (&v95 - v14);
+  v16 = (a1 + *(v13 + 24));
+  v17 = *v16;
+  v18 = v16[1];
+  if (*v16)
+  {
+    v19 = *v16;
+  }
+
+  else
+  {
+    v19 = UMUserPersona.current();
+  }
+
+  if (*v16)
+  {
+    v20 = v16[1];
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  swift_retain_n();
+  v21 = outlined copy of (@escaping @callee_guaranteed @Sendable () -> (@out UMUserPersonProtocol?))?(v17, v18);
+  v105 = v20;
+  (v19)(v107, v21);
+  v22 = v108;
+  if (v108)
+  {
+    v101 = a3;
+    v23 = v109;
+    __swift_project_boxed_opaque_existential_1(v107, v108);
+    (*(v23 + 16))(&v110, v22, v23);
+    __swift_destroy_boxed_opaque_existential_0(v107);
+    if (*(&v111 + 1))
+    {
+      v100 = a2;
+      outlined init with take of RPCOspreyConnectionProtocol(&v110, v113);
+      v24 = a1;
+      v25 = *a1;
+      v99 = v24;
+      v26 = v24[1];
+      v28 = v114;
+      v27 = v115;
+      __swift_project_boxed_opaque_existential_1(v113, v114);
+      v29 = *(v27 + 8);
+
+      v30 = v29(v28, v27);
+      if (v31)
+      {
+        if (v25 == v30 && v31 == v26)
+        {
+
+LABEL_22:
+          outlined init with copy of AdoptPersonaExecutionStrategy(v99, v15);
+          v51 = Logger.logObject.getter();
+          v52 = static os_log_type_t.debug.getter();
+          if (os_log_type_enabled(v51, v52))
+          {
+            v53 = swift_slowAlloc();
+            v54 = swift_slowAlloc();
+            *&v110 = v54;
+            *v53 = 136315138;
+            v55 = *v15;
+            v56 = v15[1];
+
+            outlined destroy of AdoptPersonaExecutionStrategy(v15);
+            v57 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v55, v56, &v110);
+
+            *(v53 + 4) = v57;
+            _os_log_impl(&dword_223515000, v51, v52, "Already running as persona %s, nothing to do", v53, 0xCu);
+            __swift_destroy_boxed_opaque_existential_0(v54);
+            MEMORY[0x223DE38F0](v54, -1, -1);
+            MEMORY[0x223DE38F0](v53, -1, -1);
+          }
+
+          else
+          {
+
+            outlined destroy of AdoptPersonaExecutionStrategy(v15);
+          }
+
+          specialized closure #1 in MessageCenterEndpointBrowser.executeAsPersonaIfNeeded<A>(_:)(v80);
+LABEL_40:
+
+          __swift_destroy_boxed_opaque_existential_0(v113);
+        }
+
+        v98 = v25;
+        v33 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+        if (v33)
+        {
+          goto LABEL_22;
+        }
+      }
+
+      else
+      {
+        v98 = v25;
+      }
+
+      v35 = *(v7 + 20);
+      v36 = v99;
+      outlined init with copy of AdoptPersonaExecutionStrategy(v99, v12);
+      outlined init with copy of UMUserPersonProtocol(v113, &v110);
+      v97 = v35;
+      v37 = Logger.logObject.getter();
+      v38 = static os_log_type_t.default.getter();
+      v39 = os_log_type_enabled(v37, v38);
+      v96 = v26;
+      if (v39)
+      {
+        v40 = swift_slowAlloc();
+        v106 = swift_slowAlloc();
+        v41 = v36;
+        v42 = v106;
+        *v40 = 136315394;
+        v43 = *v12;
+        v44 = v12[1];
+
+        outlined destroy of AdoptPersonaExecutionStrategy(v12);
+        v45 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v43, v44, &v106);
+
+        *(v40 + 4) = v45;
+        *(v40 + 12) = 2080;
+        outlined init with copy of UMUserPersonProtocol(&v110, v107);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork20UMUserPersonProtocol_pMd, &_s11SiriNetwork20UMUserPersonProtocol_pMR);
+        v46 = String.init<A>(describing:)();
+        v48 = v47;
+        __swift_destroy_boxed_opaque_existential_0(&v110);
+        v49 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v46, v48, &v106);
+
+        *(v40 + 14) = v49;
+        _os_log_impl(&dword_223515000, v37, v38, "Request to execute as user %s, currently running as %s", v40, 0x16u);
+        swift_arrayDestroy();
+        v50 = v42;
+        v36 = v41;
+        MEMORY[0x223DE38F0](v50, -1, -1);
+        MEMORY[0x223DE38F0](v40, -1, -1);
+      }
+
+      else
+      {
+
+        __swift_destroy_boxed_opaque_existential_0(&v110);
+        outlined destroy of AdoptPersonaExecutionStrategy(v12);
+      }
+
+      v58 = v114;
+      v59 = v115;
+      __swift_project_boxed_opaque_existential_1(v113, v114);
+      v60 = v104;
+      v61 = (*(v59 + 40))(v58, v59);
+      if (!v60)
+      {
+        v62 = v61;
+        v63 = v114;
+        v64 = v115;
+        __swift_project_boxed_opaque_existential_1(v113, v114);
+        v65 = (*(v64 + 32))(v98, v96, v63, v64);
+        if (v65)
+        {
+          v66 = v65;
+          v104 = v62;
+          v67 = v102;
+          outlined init with copy of AdoptPersonaExecutionStrategy(v36, v102);
+          v68 = v66;
+          v69 = Logger.logObject.getter();
+          v70 = static os_log_type_t.error.getter();
+          if (os_log_type_enabled(v69, v70))
+          {
+            v71 = swift_slowAlloc();
+            v72 = swift_slowAlloc();
+            *&v110 = v72;
+            *v71 = 136315394;
+            v73 = v67;
+            v74 = *v67;
+            v75 = *(v73 + 8);
+
+            outlined destroy of AdoptPersonaExecutionStrategy(v73);
+            v76 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v74, v75, &v110);
+
+            *(v71 + 4) = v76;
+            *(v71 + 12) = 2080;
+            swift_getErrorValue();
+            v77 = Error.localizedDescription.getter();
+            v79 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v77, v78, &v110);
+
+            *(v71 + 14) = v79;
+            _os_log_impl(&dword_223515000, v69, v70, "Failed adopting persona %s: %s", v71, 0x16u);
+            swift_arrayDestroy();
+            MEMORY[0x223DE38F0](v72, -1, -1);
+            MEMORY[0x223DE38F0](v71, -1, -1);
+          }
+
+          else
+          {
+
+            outlined destroy of AdoptPersonaExecutionStrategy(v67);
+          }
+
+          lazy protocol witness table accessor for type AdoptPersonaExecutionStrategy.AdoptPersonaExecutionStrategyError and conformance AdoptPersonaExecutionStrategy.AdoptPersonaExecutionStrategyError();
+          swift_allocError();
+          *v89 = 0;
+          swift_willThrow();
+
+          v90 = v104;
+          $defer #1 <A>() in AdoptPersonaExecutionStrategy.executeAsUser<A>(_:)(v113, v104);
+        }
+
+        else
+        {
+          v81 = Logger.logObject.getter();
+          v82 = static os_log_type_t.default.getter();
+          if (os_log_type_enabled(v81, v82))
+          {
+            v104 = v62;
+            v83 = swift_slowAlloc();
+            v102 = swift_slowAlloc();
+            *&v110 = v102;
+            *v83 = 136315138;
+            v84 = [objc_opt_self() currentPersona];
+            if (v84)
+            {
+              v85 = v84;
+              v86 = UMUserPersona.logDescription.getter();
+              v88 = v87;
+            }
+
+            else
+            {
+              v88 = 0xE300000000000000;
+              v86 = 7104878;
+            }
+
+            v91 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v86, v88, &v110);
+
+            *(v83 + 4) = v91;
+            _os_log_impl(&dword_223515000, v81, v82, "Executing as %s", v83, 0xCu);
+            v92 = v102;
+            __swift_destroy_boxed_opaque_existential_0(v102);
+            MEMORY[0x223DE38F0](v92, -1, -1);
+            MEMORY[0x223DE38F0](v83, -1, -1);
+
+            v62 = v104;
+          }
+
+          else
+          {
+          }
+
+          specialized closure #1 in MessageCenterEndpointBrowser.executeAsPersonaIfNeeded<A>(_:)(v93);
+          $defer #1 <A>() in AdoptPersonaExecutionStrategy.executeAsUser<A>(_:)(v113, v62);
+        }
+      }
+
+      goto LABEL_40;
+    }
+  }
+
+  else
+  {
+    outlined destroy of NetworkConnectionProtocol?(v107, &_s11SiriNetwork20UMUserPersonProtocol_pSgMd, &_s11SiriNetwork20UMUserPersonProtocol_pSgMR);
+    v110 = 0u;
+    v111 = 0u;
+    v112 = 0;
+  }
+
+  outlined destroy of NetworkConnectionProtocol?(&v110, &_s11SiriNetwork20UMUserPersonProtocol_pSgMd, &_s11SiriNetwork20UMUserPersonProtocol_pSgMR);
+  lazy protocol witness table accessor for type AdoptPersonaExecutionStrategy.AdoptPersonaExecutionStrategyError and conformance AdoptPersonaExecutionStrategy.AdoptPersonaExecutionStrategyError();
+  swift_allocError();
+  *v34 = 1;
+  swift_willThrow();
+}
+
+uint64_t _s11SiriNetwork29AdoptPersonaExecutionStrategyV13executeAsUseryxxyKXEKlFyt_Tg504_s11a47Network28MessageCenterEndpointBrowserC24executehD32IfNeededyxxyKXEKlFxyKXEfU_yt_Tg5xs5Error_pRi_zRi0_zlyytIsgrzo_Tf1ncn_n0jaklmnO17C4stopyyKFyyXEfU_AA0lmnO0CTf1nnc_n@<X0>(uint64_t *a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
+{
+  v6 = type metadata accessor for AdoptPersonaExecutionStrategy(0);
+  v7 = MEMORY[0x28223BE20](v6);
+  v9 = (v90 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v10 = MEMORY[0x28223BE20](v7);
+  v12 = (v90 - v11);
+  v13 = MEMORY[0x28223BE20](v10);
+  v15 = (v90 - v14);
+  v16 = *(v13 + 24);
+  v96 = a1;
+  v17 = (a1 + v16);
   v18 = *v17;
   v19 = v17[1];
   if (*v17)
@@ -6772,651 +4068,75 @@ uint64_t _s11SiriNetwork29AdoptPersonaExecutionStrategyV13executeAsUseryxxyKXEKl
   }
 
   swift_retain_n();
-  v22 = outlined copy of (@escaping @callee_guaranteed @Sendable () -> (@out UMUserPersonProtocol?))?(v18);
-  v107 = v21;
-  v20(v109, v22);
-  v23 = v110;
-  if (v110)
+  v22 = outlined copy of (@escaping @callee_guaranteed @Sendable () -> (@out UMUserPersonProtocol?))?(v18, v19);
+  v97 = v21;
+  (v20)(v99, v22);
+  v23 = v100;
+  if (v100)
   {
-    v103 = a3;
-    v24 = v111;
-    __swift_project_boxed_opaque_existential_1(v109, v110);
-    (*(v24 + 16))(&v112, v23, v24);
-    __swift_destroy_boxed_opaque_existential_0(v109);
-    if (*(&v113 + 1))
+    v94 = a3;
+    v24 = v101;
+    __swift_project_boxed_opaque_existential_1(v99, v100);
+    (*(v24 + 16))(&v102, v23, v24);
+    __swift_destroy_boxed_opaque_existential_0(v99);
+    if (*(&v103 + 1))
     {
-      v102 = a2;
-      outlined init with take of RPCOspreyConnectionProtocol(&v112, v115);
-      v25 = a1;
-      v26 = *a1;
-      v101 = v25;
-      v27 = *(v25 + 8);
-      v29 = v116;
-      v28 = v117;
-      __swift_project_boxed_opaque_existential_1(v115, v116);
-      v30 = *(v28 + 8);
+      v92 = v9;
+      v93 = a2;
+      outlined init with take of RPCOspreyConnectionProtocol(&v102, v105);
+      v25 = *v96;
+      v26 = v96[1];
+      v28 = v106;
+      v27 = v107;
+      __swift_project_boxed_opaque_existential_1(v105, v106);
+      v29 = *(v27 + 8);
 
-      v31 = v30(v29, v28);
-      if (v32)
+      v30 = v29(v28, v27);
+      if (v31)
       {
-        if (v26 == v31 && v32 == v27)
+        if (v25 == v30 && v31 == v26)
         {
 
 LABEL_22:
-          v52 = *(v7 + 20);
-          outlined init with copy of AdoptPersonaExecutionStrategy(v101, v16);
-          v53 = Logger.logObject.getter();
-          v54 = static os_log_type_t.debug.getter();
-          if (os_log_type_enabled(v53, v54))
+          outlined init with copy of AdoptPersonaExecutionStrategy(v96, v15);
+          v47 = Logger.logObject.getter();
+          v48 = static os_log_type_t.debug.getter();
+          if (os_log_type_enabled(v47, v48))
           {
-            v55 = swift_slowAlloc();
-            v56 = swift_slowAlloc();
-            *&v112 = v56;
-            *v55 = 136315138;
-            v57 = *v16;
-            v58 = v16[1];
-
-            outlined destroy of AdoptPersonaExecutionStrategy(v16);
-            v59 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v57, v58, &v112);
-
-            *(v55 + 4) = v59;
-            _os_log_impl(&dword_223515000, v53, v54, "Already running as persona %s, nothing to do", v55, 0xCu);
-            __swift_destroy_boxed_opaque_existential_0(v56);
-            MEMORY[0x223DE38F0](v56, -1, -1);
-            MEMORY[0x223DE38F0](v55, -1, -1);
-          }
-
-          else
-          {
-
-            outlined destroy of AdoptPersonaExecutionStrategy(v16);
-          }
-
-          specialized closure #1 in MessageCenterEndpointBrowser.executeAsPersonaIfNeeded<A>(_:)(v82);
-LABEL_40:
-
-          __swift_destroy_boxed_opaque_existential_0(v115);
-        }
-
-        v100 = v26;
-        v34 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-        if (v34)
-        {
-          goto LABEL_22;
-        }
-      }
-
-      else
-      {
-        v100 = v26;
-      }
-
-      v36 = *(v7 + 20);
-      v37 = v101;
-      outlined init with copy of AdoptPersonaExecutionStrategy(v101, v13);
-      outlined init with copy of UMUserPersonProtocol(v115, &v112);
-      v99 = v36;
-      v38 = Logger.logObject.getter();
-      v39 = static os_log_type_t.default.getter();
-      v40 = os_log_type_enabled(v38, v39);
-      v98 = v27;
-      if (v40)
-      {
-        v41 = swift_slowAlloc();
-        v108 = swift_slowAlloc();
-        v42 = v37;
-        v43 = v108;
-        *v41 = 136315394;
-        v44 = *v13;
-        v45 = v13[1];
-
-        outlined destroy of AdoptPersonaExecutionStrategy(v13);
-        v46 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v44, v45, &v108);
-
-        *(v41 + 4) = v46;
-        *(v41 + 12) = 2080;
-        outlined init with copy of UMUserPersonProtocol(&v112, v109);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork20UMUserPersonProtocol_pMd, &_s11SiriNetwork20UMUserPersonProtocol_pMR);
-        v47 = String.init<A>(describing:)();
-        v49 = v48;
-        __swift_destroy_boxed_opaque_existential_0(&v112);
-        v50 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v47, v49, &v108);
-
-        *(v41 + 14) = v50;
-        _os_log_impl(&dword_223515000, v38, v39, "Request to execute as user %s, currently running as %s", v41, 0x16u);
-        swift_arrayDestroy();
-        v51 = v43;
-        v37 = v42;
-        MEMORY[0x223DE38F0](v51, -1, -1);
-        MEMORY[0x223DE38F0](v41, -1, -1);
-      }
-
-      else
-      {
-
-        __swift_destroy_boxed_opaque_existential_0(&v112);
-        outlined destroy of AdoptPersonaExecutionStrategy(v13);
-      }
-
-      v60 = v116;
-      v61 = v117;
-      __swift_project_boxed_opaque_existential_1(v115, v116);
-      v62 = v106;
-      v63 = (*(v61 + 40))(v60, v61);
-      if (!v62)
-      {
-        v64 = v63;
-        v65 = v116;
-        v66 = v117;
-        __swift_project_boxed_opaque_existential_1(v115, v116);
-        v67 = (*(v66 + 32))(v100, v98, v65, v66);
-        if (v67)
-        {
-          v68 = v67;
-          v106 = v64;
-          v69 = v104;
-          outlined init with copy of AdoptPersonaExecutionStrategy(v37, v104);
-          v70 = v68;
-          v71 = Logger.logObject.getter();
-          v72 = static os_log_type_t.error.getter();
-          if (os_log_type_enabled(v71, v72))
-          {
-            v73 = swift_slowAlloc();
-            v74 = swift_slowAlloc();
-            *&v112 = v74;
-            *v73 = 136315394;
-            v75 = v69;
-            v76 = *v69;
-            v77 = *(v75 + 8);
-
-            outlined destroy of AdoptPersonaExecutionStrategy(v75);
-            v78 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v76, v77, &v112);
-
-            *(v73 + 4) = v78;
-            *(v73 + 12) = 2080;
-            swift_getErrorValue();
-            v79 = Error.localizedDescription.getter();
-            v81 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v79, v80, &v112);
-
-            *(v73 + 14) = v81;
-            _os_log_impl(&dword_223515000, v71, v72, "Failed adopting persona %s: %s", v73, 0x16u);
-            swift_arrayDestroy();
-            MEMORY[0x223DE38F0](v74, -1, -1);
-            MEMORY[0x223DE38F0](v73, -1, -1);
-          }
-
-          else
-          {
-
-            outlined destroy of AdoptPersonaExecutionStrategy(v69);
-          }
-
-          lazy protocol witness table accessor for type AdoptPersonaExecutionStrategy.AdoptPersonaExecutionStrategyError and conformance AdoptPersonaExecutionStrategy.AdoptPersonaExecutionStrategyError();
-          swift_allocError();
-          *v91 = 0;
-          swift_willThrow();
-
-          v92 = v106;
-          $defer #1 <A>() in AdoptPersonaExecutionStrategy.executeAsUser<A>(_:)(v115, v106);
-        }
-
-        else
-        {
-          v83 = Logger.logObject.getter();
-          v84 = static os_log_type_t.default.getter();
-          if (os_log_type_enabled(v83, v84))
-          {
-            v106 = v64;
-            v85 = swift_slowAlloc();
-            v104 = swift_slowAlloc();
-            *&v112 = v104;
-            *v85 = 136315138;
-            v86 = [objc_opt_self() currentPersona];
-            if (v86)
-            {
-              v87 = v86;
-              v88 = UMUserPersona.logDescription.getter();
-              v90 = v89;
-            }
-
-            else
-            {
-              v90 = 0xE300000000000000;
-              v88 = 7104878;
-            }
-
-            v93 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v88, v90, &v112);
-
-            *(v85 + 4) = v93;
-            _os_log_impl(&dword_223515000, v83, v84, "Executing as %s", v85, 0xCu);
-            v94 = v104;
-            __swift_destroy_boxed_opaque_existential_0(v104);
-            MEMORY[0x223DE38F0](v94, -1, -1);
-            MEMORY[0x223DE38F0](v85, -1, -1);
-
-            v64 = v106;
-          }
-
-          else
-          {
-          }
-
-          specialized closure #1 in MessageCenterEndpointBrowser.executeAsPersonaIfNeeded<A>(_:)(v95);
-          $defer #1 <A>() in AdoptPersonaExecutionStrategy.executeAsUser<A>(_:)(v115, v64);
-        }
-      }
-
-      goto LABEL_40;
-    }
-  }
-
-  else
-  {
-    outlined destroy of NetworkConnectionProtocol?(v109, &_s11SiriNetwork20UMUserPersonProtocol_pSgMd, &_s11SiriNetwork20UMUserPersonProtocol_pSgMR);
-    v112 = 0u;
-    v113 = 0u;
-    v114 = 0;
-  }
-
-  outlined destroy of NetworkConnectionProtocol?(&v112, &_s11SiriNetwork20UMUserPersonProtocol_pSgMd, &_s11SiriNetwork20UMUserPersonProtocol_pSgMR);
-  lazy protocol witness table accessor for type AdoptPersonaExecutionStrategy.AdoptPersonaExecutionStrategyError and conformance AdoptPersonaExecutionStrategy.AdoptPersonaExecutionStrategyError();
-  swift_allocError();
-  *v35 = 1;
-  swift_willThrow();
-}
-
-uint64_t _s11SiriNetwork29AdoptPersonaExecutionStrategyV13executeAsUseryxxyKXEKlFyt_Tg504_s11a47Network28MessageCenterEndpointBrowserC24executehD32IfNeededyxxyKXEKlFxyKXEfU_yt_Tg5xs5Error_pRi_zRi0_zlyytIsgrzo_Tf1ncn_n0jaklmnO17C4stopyyKFyyXEfU_AA0lmnO0CTf1nnc_n@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
-{
-  v6 = type metadata accessor for AdoptPersonaExecutionStrategy(0);
-  v7 = *(*(v6 - 8) + 64);
-  v8 = MEMORY[0x28223BE20](v6);
-  v10 = (v92 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v11 = MEMORY[0x28223BE20](v8);
-  v13 = (v92 - v12);
-  v14 = MEMORY[0x28223BE20](v11);
-  v16 = (v92 - v15);
-  v17 = *(v14 + 24);
-  v98 = a1;
-  v18 = (a1 + v17);
-  v19 = *v18;
-  v20 = v18[1];
-  if (*v18)
-  {
-    v21 = *v18;
-  }
-
-  else
-  {
-    v21 = UMUserPersona.current();
-  }
-
-  if (*v18)
-  {
-    v22 = v18[1];
-  }
-
-  else
-  {
-    v22 = 0;
-  }
-
-  swift_retain_n();
-  v23 = outlined copy of (@escaping @callee_guaranteed @Sendable () -> (@out UMUserPersonProtocol?))?(v19);
-  v99 = v22;
-  v21(v101, v23);
-  v24 = v102;
-  if (v102)
-  {
-    v96 = a3;
-    v25 = v103;
-    __swift_project_boxed_opaque_existential_1(v101, v102);
-    (*(v25 + 16))(&v104, v24, v25);
-    __swift_destroy_boxed_opaque_existential_0(v101);
-    if (*(&v105 + 1))
-    {
-      v94 = v10;
-      v95 = a2;
-      outlined init with take of RPCOspreyConnectionProtocol(&v104, v107);
-      v26 = *v98;
-      v27 = v98[1];
-      v29 = v108;
-      v28 = v109;
-      __swift_project_boxed_opaque_existential_1(v107, v108);
-      v30 = *(v28 + 8);
-
-      v31 = v30(v29, v28);
-      if (v32)
-      {
-        if (v26 == v31 && v32 == v27)
-        {
-
-LABEL_22:
-          v48 = *(v6 + 20);
-          outlined init with copy of AdoptPersonaExecutionStrategy(v98, v16);
-          v49 = Logger.logObject.getter();
-          v50 = static os_log_type_t.debug.getter();
-          if (os_log_type_enabled(v49, v50))
-          {
-            v51 = swift_slowAlloc();
-            v52 = swift_slowAlloc();
-            *&v104 = v52;
-            *v51 = 136315138;
-            v53 = *v16;
-            v54 = v16[1];
-
-            outlined destroy of AdoptPersonaExecutionStrategy(v16);
-            v55 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v53, v54, &v104);
-
-            *(v51 + 4) = v55;
-            _os_log_impl(&dword_223515000, v49, v50, "Already running as persona %s, nothing to do", v51, 0xCu);
-            __swift_destroy_boxed_opaque_existential_0(v52);
-            MEMORY[0x223DE38F0](v52, -1, -1);
-            MEMORY[0x223DE38F0](v51, -1, -1);
-          }
-
-          else
-          {
-
-            outlined destroy of AdoptPersonaExecutionStrategy(v16);
-          }
-
-          closure #1 in MessageCenterEndpointBrowser.stop()(v77);
-
-LABEL_40:
-
-          __swift_destroy_boxed_opaque_existential_0(v107);
-        }
-
-        v93 = v26;
-        v34 = _stringCompareWithSmolCheck(_:_:expecting:)();
-
-        if (v34)
-        {
-          goto LABEL_22;
-        }
-      }
-
-      else
-      {
-        v93 = v26;
-      }
-
-      v36 = *(v6 + 20);
-      outlined init with copy of AdoptPersonaExecutionStrategy(v98, v13);
-      outlined init with copy of UMUserPersonProtocol(v107, &v104);
-      v92[1] = v36;
-      v37 = Logger.logObject.getter();
-      v38 = static os_log_type_t.default.getter();
-      if (os_log_type_enabled(v37, v38))
-      {
-        v39 = swift_slowAlloc();
-        v40 = swift_slowAlloc();
-        v100 = v40;
-        *v39 = 136315394;
-        v41 = *v13;
-        v42 = v13[1];
-
-        outlined destroy of AdoptPersonaExecutionStrategy(v13);
-        v43 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v41, v42, &v100);
-
-        *(v39 + 4) = v43;
-        *(v39 + 12) = 2080;
-        outlined init with copy of UMUserPersonProtocol(&v104, v101);
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork20UMUserPersonProtocol_pMd, &_s11SiriNetwork20UMUserPersonProtocol_pMR);
-        v44 = String.init<A>(describing:)();
-        v46 = v45;
-        __swift_destroy_boxed_opaque_existential_0(&v104);
-        v47 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v44, v46, &v100);
-
-        *(v39 + 14) = v47;
-        _os_log_impl(&dword_223515000, v37, v38, "Request to execute as user %s, currently running as %s", v39, 0x16u);
-        swift_arrayDestroy();
-        MEMORY[0x223DE38F0](v40, -1, -1);
-        MEMORY[0x223DE38F0](v39, -1, -1);
-      }
-
-      else
-      {
-
-        __swift_destroy_boxed_opaque_existential_0(&v104);
-        outlined destroy of AdoptPersonaExecutionStrategy(v13);
-      }
-
-      v56 = v94;
-      v57 = v108;
-      v58 = v109;
-      __swift_project_boxed_opaque_existential_1(v107, v108);
-      v59 = v97;
-      v60 = (*(v58 + 40))(v57, v58);
-      if (!v59)
-      {
-        v61 = v60;
-        v62 = v108;
-        v63 = v109;
-        __swift_project_boxed_opaque_existential_1(v107, v108);
-        v64 = (*(v63 + 32))(v93, v27, v62, v63);
-        if (v64)
-        {
-          v65 = v64;
-          v97 = v61;
-          outlined init with copy of AdoptPersonaExecutionStrategy(v98, v56);
-          v66 = v65;
-          v67 = Logger.logObject.getter();
-          v68 = static os_log_type_t.error.getter();
-          if (os_log_type_enabled(v67, v68))
-          {
-            v69 = swift_slowAlloc();
-            v70 = swift_slowAlloc();
-            *&v104 = v70;
-            *v69 = 136315394;
-            v71 = *v56;
-            v72 = v56[1];
-
-            outlined destroy of AdoptPersonaExecutionStrategy(v56);
-            v73 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v71, v72, &v104);
-
-            *(v69 + 4) = v73;
-            *(v69 + 12) = 2080;
-            swift_getErrorValue();
-            v74 = Error.localizedDescription.getter();
-            v76 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v74, v75, &v104);
-
-            *(v69 + 14) = v76;
-            _os_log_impl(&dword_223515000, v67, v68, "Failed adopting persona %s: %s", v69, 0x16u);
-            swift_arrayDestroy();
-            MEMORY[0x223DE38F0](v70, -1, -1);
-            MEMORY[0x223DE38F0](v69, -1, -1);
-          }
-
-          else
-          {
-
-            outlined destroy of AdoptPersonaExecutionStrategy(v56);
-          }
-
-          lazy protocol witness table accessor for type AdoptPersonaExecutionStrategy.AdoptPersonaExecutionStrategyError and conformance AdoptPersonaExecutionStrategy.AdoptPersonaExecutionStrategyError();
-          swift_allocError();
-          *v86 = 0;
-          swift_willThrow();
-
-          v87 = v97;
-          $defer #1 <A>() in AdoptPersonaExecutionStrategy.executeAsUser<A>(_:)(v107, v97);
-        }
-
-        else
-        {
-          v78 = Logger.logObject.getter();
-          v79 = static os_log_type_t.default.getter();
-          if (os_log_type_enabled(v78, v79))
-          {
-            v97 = v61;
-            v80 = swift_slowAlloc();
-            v95 = swift_slowAlloc();
-            *&v104 = v95;
-            *v80 = 136315138;
-            v81 = [objc_opt_self() currentPersona];
-            if (v81)
-            {
-              v82 = v81;
-              v83 = UMUserPersona.logDescription.getter();
-              v85 = v84;
-            }
-
-            else
-            {
-              v85 = 0xE300000000000000;
-              v83 = 7104878;
-            }
-
-            v88 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v83, v85, &v104);
-
-            *(v80 + 4) = v88;
-            _os_log_impl(&dword_223515000, v78, v79, "Executing as %s", v80, 0xCu);
-            v89 = v95;
-            __swift_destroy_boxed_opaque_existential_0(v95);
-            MEMORY[0x223DE38F0](v89, -1, -1);
-            MEMORY[0x223DE38F0](v80, -1, -1);
-
-            v61 = v97;
-          }
-
-          else
-          {
-          }
-
-          closure #1 in MessageCenterEndpointBrowser.stop()(v90);
-
-          $defer #1 <A>() in AdoptPersonaExecutionStrategy.executeAsUser<A>(_:)(v107, v61);
-        }
-      }
-
-      goto LABEL_40;
-    }
-  }
-
-  else
-  {
-    outlined destroy of NetworkConnectionProtocol?(v101, &_s11SiriNetwork20UMUserPersonProtocol_pSgMd, &_s11SiriNetwork20UMUserPersonProtocol_pSgMR);
-    v104 = 0u;
-    v105 = 0u;
-    v106 = 0;
-  }
-
-  outlined destroy of NetworkConnectionProtocol?(&v104, &_s11SiriNetwork20UMUserPersonProtocol_pSgMd, &_s11SiriNetwork20UMUserPersonProtocol_pSgMR);
-  lazy protocol witness table accessor for type AdoptPersonaExecutionStrategy.AdoptPersonaExecutionStrategyError and conformance AdoptPersonaExecutionStrategy.AdoptPersonaExecutionStrategyError();
-  swift_allocError();
-  *v35 = 1;
-  swift_willThrow();
-}
-
-void *specialized AdoptPersonaExecutionStrategy.executeAsUser<A>(_:)(void *a1)
-{
-  v3 = type metadata accessor for AdoptPersonaExecutionStrategy(0);
-  v4 = *(*(v3 - 8) + 64);
-  v5 = MEMORY[0x28223BE20](v3);
-  v7 = (v89 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v8 = MEMORY[0x28223BE20](v5);
-  v10 = (v89 - v9);
-  v11 = MEMORY[0x28223BE20](v8);
-  v13 = (v89 - v12);
-  v14 = (a1 + *(v11 + 24));
-  v15 = v14[1];
-  if (*v14)
-  {
-    v16 = *v14;
-  }
-
-  else
-  {
-    v16 = UMUserPersona.current();
-  }
-
-  if (*v14)
-  {
-    v17 = v14[1];
-  }
-
-  else
-  {
-    v17 = 0;
-  }
-
-  v18 = outlined copy of (@escaping @callee_guaranteed @Sendable () -> (@out UMUserPersonProtocol?))?(*v14);
-  v16(v96, v18);
-  v19 = v97;
-  if (v97)
-  {
-    v91 = v7;
-    v20 = v98;
-    __swift_project_boxed_opaque_existential_1(v96, v97);
-    (*(v20 + 16))(&v99, v19, v20);
-    __swift_destroy_boxed_opaque_existential_0(v96);
-    if (*(&v100 + 1))
-    {
-      v92 = v1;
-      v93 = v17;
-      outlined init with take of RPCOspreyConnectionProtocol(&v99, v102);
-      v21 = *a1;
-      v22 = a1[1];
-      v94 = a1;
-      v23 = v103;
-      v24 = v104;
-      __swift_project_boxed_opaque_existential_1(v102, v103);
-      v25 = *(v24 + 8);
-
-      v26 = v25(v23, v24);
-      if (v27)
-      {
-        if (v21 == v26 && v27 == v22)
-        {
-
-          v30 = v94;
-LABEL_22:
-          v47 = *(v3 + 20);
-          outlined init with copy of AdoptPersonaExecutionStrategy(v30, v13);
-          v48 = Logger.logObject.getter();
-          v49 = static os_log_type_t.debug.getter();
-          if (os_log_type_enabled(v48, v49))
-          {
+            v49 = swift_slowAlloc();
             v50 = swift_slowAlloc();
-            v51 = swift_slowAlloc();
-            *&v99 = v51;
-            *v50 = 136315138;
-            v52 = *v13;
-            v53 = v13[1];
+            *&v102 = v50;
+            *v49 = 136315138;
+            v51 = *v15;
+            v52 = v15[1];
 
-            outlined destroy of AdoptPersonaExecutionStrategy(v13);
-            v54 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v52, v53, &v99);
+            outlined destroy of AdoptPersonaExecutionStrategy(v15);
+            v53 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v51, v52, &v102);
 
-            *(v50 + 4) = v54;
-            _os_log_impl(&dword_223515000, v48, v49, "Already running as persona %s, nothing to do", v50, 0xCu);
-            __swift_destroy_boxed_opaque_existential_0(v51);
-            MEMORY[0x223DE38F0](v51, -1, -1);
+            *(v49 + 4) = v53;
+            _os_log_impl(&dword_223515000, v47, v48, "Already running as persona %s, nothing to do", v49, 0xCu);
+            __swift_destroy_boxed_opaque_existential_0(v50);
             MEMORY[0x223DE38F0](v50, -1, -1);
+            MEMORY[0x223DE38F0](v49, -1, -1);
           }
 
           else
           {
 
-            v55 = outlined destroy of AdoptPersonaExecutionStrategy(v13);
+            outlined destroy of AdoptPersonaExecutionStrategy(v15);
           }
 
-          v75 = MEMORY[0x223DE3050](v55);
-          nw_parameters_set_include_peer_to_peer(v75, 1);
-          type metadata accessor for NWParameters();
-          v19 = NWParameters.__allocating_init(_:)();
-LABEL_36:
+          closure #1 in MessageCenterEndpointBrowser.stop()(v75);
 
-          __swift_destroy_boxed_opaque_existential_0(v102);
-          return v19;
+LABEL_40:
+
+          __swift_destroy_boxed_opaque_existential_0(v105);
         }
 
-        v90 = v21;
-        v29 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        v91 = v25;
+        v33 = _stringCompareWithSmolCheck(_:_:expecting:)();
 
-        v30 = v94;
-        if (v29)
+        if (v33)
         {
           goto LABEL_22;
         }
@@ -7424,43 +4144,38 @@ LABEL_36:
 
       else
       {
-        v90 = v21;
-
-        v30 = v94;
+        v91 = v25;
       }
 
-      v32 = *(v3 + 20);
-      outlined init with copy of AdoptPersonaExecutionStrategy(v30, v10);
-      outlined init with copy of UMUserPersonProtocol(v102, &v99);
-      v33 = Logger.logObject.getter();
-      v34 = static os_log_type_t.default.getter();
-      v35 = os_log_type_enabled(v33, v34);
-      v36 = v92;
-      if (v35)
+      v35 = *(v6 + 20);
+      outlined init with copy of AdoptPersonaExecutionStrategy(v96, v12);
+      outlined init with copy of UMUserPersonProtocol(v105, &v102);
+      v90[1] = v35;
+      v36 = Logger.logObject.getter();
+      v37 = static os_log_type_t.default.getter();
+      if (os_log_type_enabled(v36, v37))
       {
-        v37 = swift_slowAlloc();
-        v89[1] = v32;
-        v38 = v37;
+        v38 = swift_slowAlloc();
         v39 = swift_slowAlloc();
-        v95 = v39;
+        v98 = v39;
         *v38 = 136315394;
-        v41 = *v10;
-        v40 = v10[1];
+        v40 = *v12;
+        v41 = v12[1];
 
-        outlined destroy of AdoptPersonaExecutionStrategy(v10);
-        v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v41, v40, &v95);
+        outlined destroy of AdoptPersonaExecutionStrategy(v12);
+        v42 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v40, v41, &v98);
 
         *(v38 + 4) = v42;
         *(v38 + 12) = 2080;
-        outlined init with copy of UMUserPersonProtocol(&v99, v96);
+        outlined init with copy of UMUserPersonProtocol(&v102, v99);
         __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork20UMUserPersonProtocol_pMd, &_s11SiriNetwork20UMUserPersonProtocol_pMR);
         v43 = String.init<A>(describing:)();
         v45 = v44;
-        __swift_destroy_boxed_opaque_existential_0(&v99);
-        v46 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v43, v45, &v95);
+        __swift_destroy_boxed_opaque_existential_0(&v102);
+        v46 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v43, v45, &v98);
 
         *(v38 + 14) = v46;
-        _os_log_impl(&dword_223515000, v33, v34, "Request to execute as user %s, currently running as %s", v38, 0x16u);
+        _os_log_impl(&dword_223515000, v36, v37, "Request to execute as user %s, currently running as %s", v38, 0x16u);
         swift_arrayDestroy();
         MEMORY[0x223DE38F0](v39, -1, -1);
         MEMORY[0x223DE38F0](v38, -1, -1);
@@ -7469,47 +4184,48 @@ LABEL_36:
       else
       {
 
-        __swift_destroy_boxed_opaque_existential_0(&v99);
-        outlined destroy of AdoptPersonaExecutionStrategy(v10);
+        __swift_destroy_boxed_opaque_existential_0(&v102);
+        outlined destroy of AdoptPersonaExecutionStrategy(v12);
       }
 
-      v19 = v103;
-      v56 = v104;
-      __swift_project_boxed_opaque_existential_1(v102, v103);
-      v57 = (*(v56 + 40))(v19, v56);
-      if (!v36)
+      v54 = v92;
+      v55 = v106;
+      v56 = v107;
+      __swift_project_boxed_opaque_existential_1(v105, v106);
+      v57 = v95;
+      v58 = (*(v56 + 40))(v55, v56);
+      if (!v57)
       {
-        v58 = v57;
-        v59 = v103;
-        v60 = v104;
-        __swift_project_boxed_opaque_existential_1(v102, v103);
-        v61 = (*(v60 + 32))(v90, v22, v59, v60);
-        if (v61)
+        v59 = v58;
+        v60 = v106;
+        v61 = v107;
+        __swift_project_boxed_opaque_existential_1(v105, v106);
+        v62 = (*(v61 + 32))(v91, v26, v60, v61);
+        if (v62)
         {
-          v62 = v61;
-          v93 = v58;
-          v63 = v91;
-          outlined init with copy of AdoptPersonaExecutionStrategy(v94, v91);
-          v64 = v62;
+          v63 = v62;
+          v95 = v59;
+          outlined init with copy of AdoptPersonaExecutionStrategy(v96, v54);
+          v64 = v63;
           v65 = Logger.logObject.getter();
           v66 = static os_log_type_t.error.getter();
           if (os_log_type_enabled(v65, v66))
           {
             v67 = swift_slowAlloc();
             v68 = swift_slowAlloc();
-            *&v99 = v68;
+            *&v102 = v68;
             *v67 = 136315394;
-            v69 = *v63;
-            v70 = v63[1];
+            v69 = *v54;
+            v70 = v54[1];
 
-            outlined destroy of AdoptPersonaExecutionStrategy(v63);
-            v71 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v69, v70, &v99);
+            outlined destroy of AdoptPersonaExecutionStrategy(v54);
+            v71 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v69, v70, &v102);
 
             *(v67 + 4) = v71;
             *(v67 + 12) = 2080;
             swift_getErrorValue();
             v72 = Error.localizedDescription.getter();
-            v74 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v72, v73, &v99);
+            v74 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v72, v73, &v102);
 
             *(v67 + 14) = v74;
             _os_log_impl(&dword_223515000, v65, v66, "Failed adopting persona %s: %s", v67, 0x16u);
@@ -7521,7 +4237,7 @@ LABEL_36:
           else
           {
 
-            outlined destroy of AdoptPersonaExecutionStrategy(v63);
+            outlined destroy of AdoptPersonaExecutionStrategy(v54);
           }
 
           lazy protocol witness table accessor for type AdoptPersonaExecutionStrategy.AdoptPersonaExecutionStrategyError and conformance AdoptPersonaExecutionStrategy.AdoptPersonaExecutionStrategyError();
@@ -7529,8 +4245,8 @@ LABEL_36:
           *v84 = 0;
           swift_willThrow();
 
-          v19 = v93;
-          $defer #1 <A>() in AdoptPersonaExecutionStrategy.executeAsUser<A>(_:)(v102, v93);
+          v85 = v95;
+          $defer #1 <A>() in AdoptPersonaExecutionStrategy.executeAsUser<A>(_:)(v105, v95);
         }
 
         else
@@ -7539,9 +4255,10 @@ LABEL_36:
           v77 = static os_log_type_t.default.getter();
           if (os_log_type_enabled(v76, v77))
           {
+            v95 = v59;
             v78 = swift_slowAlloc();
             v93 = swift_slowAlloc();
-            *&v99 = v93;
+            *&v102 = v93;
             *v78 = 136315138;
             v79 = [objc_opt_self() currentPersona];
             if (v79)
@@ -7557,7 +4274,7 @@ LABEL_36:
               v81 = 7104878;
             }
 
-            v86 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v81, v83, &v99);
+            v86 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v81, v83, &v102);
 
             *(v78 + 4) = v86;
             _os_log_impl(&dword_223515000, v76, v77, "Executing as %s", v78, 0xCu);
@@ -7565,13 +4282,298 @@ LABEL_36:
             __swift_destroy_boxed_opaque_existential_0(v93);
             MEMORY[0x223DE38F0](v87, -1, -1);
             MEMORY[0x223DE38F0](v78, -1, -1);
+
+            v59 = v95;
           }
 
-          v88 = MEMORY[0x223DE3050]();
-          nw_parameters_set_include_peer_to_peer(v88, 1);
+          else
+          {
+          }
+
+          closure #1 in MessageCenterEndpointBrowser.stop()(v88);
+
+          $defer #1 <A>() in AdoptPersonaExecutionStrategy.executeAsUser<A>(_:)(v105, v59);
+        }
+      }
+
+      goto LABEL_40;
+    }
+  }
+
+  else
+  {
+    outlined destroy of NetworkConnectionProtocol?(v99, &_s11SiriNetwork20UMUserPersonProtocol_pSgMd, &_s11SiriNetwork20UMUserPersonProtocol_pSgMR);
+    v102 = 0u;
+    v103 = 0u;
+    v104 = 0;
+  }
+
+  outlined destroy of NetworkConnectionProtocol?(&v102, &_s11SiriNetwork20UMUserPersonProtocol_pSgMd, &_s11SiriNetwork20UMUserPersonProtocol_pSgMR);
+  lazy protocol witness table accessor for type AdoptPersonaExecutionStrategy.AdoptPersonaExecutionStrategyError and conformance AdoptPersonaExecutionStrategy.AdoptPersonaExecutionStrategyError();
+  swift_allocError();
+  *v34 = 1;
+  swift_willThrow();
+}
+
+void *specialized AdoptPersonaExecutionStrategy.executeAsUser<A>(_:)(void *a1)
+{
+  v3 = type metadata accessor for AdoptPersonaExecutionStrategy(0);
+  v4 = MEMORY[0x28223BE20](v3);
+  v6 = (v86 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v7 = MEMORY[0x28223BE20](v4);
+  v9 = (v86 - v8);
+  v10 = MEMORY[0x28223BE20](v7);
+  v12 = (v86 - v11);
+  v13 = (a1 + *(v10 + 24));
+  if (*v13)
+  {
+    v14 = *v13;
+  }
+
+  else
+  {
+    v14 = UMUserPersona.current();
+  }
+
+  if (*v13)
+  {
+    v15 = v13[1];
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  v16 = outlined copy of (@escaping @callee_guaranteed @Sendable () -> (@out UMUserPersonProtocol?))?(*v13, v13[1]);
+  (v14)(v93, v16);
+  v17 = v94;
+  if (v94)
+  {
+    v88 = v6;
+    v18 = v95;
+    __swift_project_boxed_opaque_existential_1(v93, v94);
+    (*(v18 + 16))(&v96, v17, v18);
+    __swift_destroy_boxed_opaque_existential_0(v93);
+    if (*(&v97 + 1))
+    {
+      v89 = v1;
+      v90 = v15;
+      outlined init with take of RPCOspreyConnectionProtocol(&v96, v99);
+      v19 = *a1;
+      v20 = a1[1];
+      v91 = a1;
+      v21 = v100;
+      v22 = v101;
+      __swift_project_boxed_opaque_existential_1(v99, v100);
+      v23 = *(v22 + 8);
+
+      v24 = v23(v21, v22);
+      if (v25)
+      {
+        if (v19 == v24 && v25 == v20)
+        {
+
+          v28 = v91;
+LABEL_22:
+          outlined init with copy of AdoptPersonaExecutionStrategy(v28, v12);
+          v45 = Logger.logObject.getter();
+          v46 = static os_log_type_t.debug.getter();
+          if (os_log_type_enabled(v45, v46))
+          {
+            v47 = swift_slowAlloc();
+            v48 = swift_slowAlloc();
+            *&v96 = v48;
+            *v47 = 136315138;
+            v49 = *v12;
+            v50 = v12[1];
+
+            outlined destroy of AdoptPersonaExecutionStrategy(v12);
+            v51 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v49, v50, &v96);
+
+            *(v47 + 4) = v51;
+            _os_log_impl(&dword_223515000, v45, v46, "Already running as persona %s, nothing to do", v47, 0xCu);
+            __swift_destroy_boxed_opaque_existential_0(v48);
+            MEMORY[0x223DE38F0](v48, -1, -1);
+            MEMORY[0x223DE38F0](v47, -1, -1);
+          }
+
+          else
+          {
+
+            v52 = outlined destroy of AdoptPersonaExecutionStrategy(v12);
+          }
+
+          v72 = MEMORY[0x223DE3050](v52);
+          nw_parameters_set_include_peer_to_peer(v72, 1);
           type metadata accessor for NWParameters();
-          v19 = NWParameters.__allocating_init(_:)();
-          $defer #1 <A>() in AdoptPersonaExecutionStrategy.executeAsUser<A>(_:)(v102, v58);
+          v17 = NWParameters.__allocating_init(_:)();
+LABEL_36:
+
+          __swift_destroy_boxed_opaque_existential_0(v99);
+          return v17;
+        }
+
+        v87 = v19;
+        v27 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+        v28 = v91;
+        if (v27)
+        {
+          goto LABEL_22;
+        }
+      }
+
+      else
+      {
+        v87 = v19;
+
+        v28 = v91;
+      }
+
+      v30 = *(v3 + 20);
+      outlined init with copy of AdoptPersonaExecutionStrategy(v28, v9);
+      outlined init with copy of UMUserPersonProtocol(v99, &v96);
+      v31 = Logger.logObject.getter();
+      v32 = static os_log_type_t.default.getter();
+      v33 = os_log_type_enabled(v31, v32);
+      v34 = v89;
+      if (v33)
+      {
+        v35 = swift_slowAlloc();
+        v86[1] = v30;
+        v36 = v35;
+        v37 = swift_slowAlloc();
+        v92 = v37;
+        *v36 = 136315394;
+        v39 = *v9;
+        v38 = v9[1];
+
+        outlined destroy of AdoptPersonaExecutionStrategy(v9);
+        v40 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v39, v38, &v92);
+
+        *(v36 + 4) = v40;
+        *(v36 + 12) = 2080;
+        outlined init with copy of UMUserPersonProtocol(&v96, v93);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork20UMUserPersonProtocol_pMd, &_s11SiriNetwork20UMUserPersonProtocol_pMR);
+        v41 = String.init<A>(describing:)();
+        v43 = v42;
+        __swift_destroy_boxed_opaque_existential_0(&v96);
+        v44 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v41, v43, &v92);
+
+        *(v36 + 14) = v44;
+        _os_log_impl(&dword_223515000, v31, v32, "Request to execute as user %s, currently running as %s", v36, 0x16u);
+        swift_arrayDestroy();
+        MEMORY[0x223DE38F0](v37, -1, -1);
+        MEMORY[0x223DE38F0](v36, -1, -1);
+      }
+
+      else
+      {
+
+        __swift_destroy_boxed_opaque_existential_0(&v96);
+        outlined destroy of AdoptPersonaExecutionStrategy(v9);
+      }
+
+      v17 = v100;
+      v53 = v101;
+      __swift_project_boxed_opaque_existential_1(v99, v100);
+      v54 = (*(v53 + 40))(v17, v53);
+      if (!v34)
+      {
+        v55 = v54;
+        v56 = v100;
+        v57 = v101;
+        __swift_project_boxed_opaque_existential_1(v99, v100);
+        v58 = (*(v57 + 32))(v87, v20, v56, v57);
+        if (v58)
+        {
+          v59 = v58;
+          v90 = v55;
+          v60 = v88;
+          outlined init with copy of AdoptPersonaExecutionStrategy(v91, v88);
+          v61 = v59;
+          v62 = Logger.logObject.getter();
+          v63 = static os_log_type_t.error.getter();
+          if (os_log_type_enabled(v62, v63))
+          {
+            v64 = swift_slowAlloc();
+            v65 = swift_slowAlloc();
+            *&v96 = v65;
+            *v64 = 136315394;
+            v66 = *v60;
+            v67 = v60[1];
+
+            outlined destroy of AdoptPersonaExecutionStrategy(v60);
+            v68 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v66, v67, &v96);
+
+            *(v64 + 4) = v68;
+            *(v64 + 12) = 2080;
+            swift_getErrorValue();
+            v69 = Error.localizedDescription.getter();
+            v71 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v69, v70, &v96);
+
+            *(v64 + 14) = v71;
+            _os_log_impl(&dword_223515000, v62, v63, "Failed adopting persona %s: %s", v64, 0x16u);
+            swift_arrayDestroy();
+            MEMORY[0x223DE38F0](v65, -1, -1);
+            MEMORY[0x223DE38F0](v64, -1, -1);
+          }
+
+          else
+          {
+
+            outlined destroy of AdoptPersonaExecutionStrategy(v60);
+          }
+
+          lazy protocol witness table accessor for type AdoptPersonaExecutionStrategy.AdoptPersonaExecutionStrategyError and conformance AdoptPersonaExecutionStrategy.AdoptPersonaExecutionStrategyError();
+          swift_allocError();
+          *v81 = 0;
+          swift_willThrow();
+
+          v17 = v90;
+          $defer #1 <A>() in AdoptPersonaExecutionStrategy.executeAsUser<A>(_:)(v99, v90);
+        }
+
+        else
+        {
+          v73 = Logger.logObject.getter();
+          v74 = static os_log_type_t.default.getter();
+          if (os_log_type_enabled(v73, v74))
+          {
+            v75 = swift_slowAlloc();
+            v90 = swift_slowAlloc();
+            *&v96 = v90;
+            *v75 = 136315138;
+            v76 = [objc_opt_self() currentPersona];
+            if (v76)
+            {
+              v77 = v76;
+              v78 = UMUserPersona.logDescription.getter();
+              v80 = v79;
+            }
+
+            else
+            {
+              v80 = 0xE300000000000000;
+              v78 = 7104878;
+            }
+
+            v83 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v78, v80, &v96);
+
+            *(v75 + 4) = v83;
+            _os_log_impl(&dword_223515000, v73, v74, "Executing as %s", v75, 0xCu);
+            v84 = v90;
+            __swift_destroy_boxed_opaque_existential_0(v90);
+            MEMORY[0x223DE38F0](v84, -1, -1);
+            MEMORY[0x223DE38F0](v75, -1, -1);
+          }
+
+          v85 = MEMORY[0x223DE3050]();
+          nw_parameters_set_include_peer_to_peer(v85, 1);
+          type metadata accessor for NWParameters();
+          v17 = NWParameters.__allocating_init(_:)();
+          $defer #1 <A>() in AdoptPersonaExecutionStrategy.executeAsUser<A>(_:)(v99, v55);
         }
       }
 
@@ -7581,19 +4583,19 @@ LABEL_36:
 
   else
   {
-    outlined destroy of NetworkConnectionProtocol?(v96, &_s11SiriNetwork20UMUserPersonProtocol_pSgMd, &_s11SiriNetwork20UMUserPersonProtocol_pSgMR);
-    v99 = 0u;
-    v100 = 0u;
-    v101 = 0;
+    outlined destroy of NetworkConnectionProtocol?(v93, &_s11SiriNetwork20UMUserPersonProtocol_pSgMd, &_s11SiriNetwork20UMUserPersonProtocol_pSgMR);
+    v96 = 0u;
+    v97 = 0u;
+    v98 = 0;
   }
 
-  outlined destroy of NetworkConnectionProtocol?(&v99, &_s11SiriNetwork20UMUserPersonProtocol_pSgMd, &_s11SiriNetwork20UMUserPersonProtocol_pSgMR);
+  outlined destroy of NetworkConnectionProtocol?(&v96, &_s11SiriNetwork20UMUserPersonProtocol_pSgMd, &_s11SiriNetwork20UMUserPersonProtocol_pSgMR);
   lazy protocol witness table accessor for type AdoptPersonaExecutionStrategy.AdoptPersonaExecutionStrategyError and conformance AdoptPersonaExecutionStrategy.AdoptPersonaExecutionStrategyError();
   swift_allocError();
-  *v31 = 1;
+  *v29 = 1;
   swift_willThrow();
 
-  return v19;
+  return v17;
 }
 
 uint64_t specialized MessageCenterEndpointBrowser.executeAsPersonaIfNeeded<A>(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
@@ -7613,17 +4615,15 @@ uint64_t specialized MessageCenterEndpointBrowser.executeAsPersonaIfNeeded<A>(_:
 
 uint64_t MessageCenterEndpointBrowser.deinit()
 {
-  v1 = *(v0 + 120);
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(*(v0 + 112));
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(*(v0 + 112), *(v0 + 120));
   outlined destroy of NetworkConnectionProtocol?(v0 + 128, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMd, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMR);
 
   outlined destroy of weak ConnectionProviderDelegate?(v0 + 176);
-  v2 = *(v0 + 200);
 
-  v3 = OBJC_IVAR____TtC11SiriNetwork28MessageCenterEndpointBrowser_logger;
-  v4 = type metadata accessor for Logger();
-  OUTLINED_FUNCTION_71(v4);
-  (*(v5 + 8))(v0 + v3);
+  v1 = OBJC_IVAR____TtC11SiriNetwork28MessageCenterEndpointBrowser_logger;
+  type metadata accessor for Logger();
+  OUTLINED_FUNCTION_71();
+  (*(v2 + 8))(v0 + v1);
   outlined destroy of AdoptPersonaExecutionStrategy(v0 + OBJC_IVAR____TtC11SiriNetwork28MessageCenterEndpointBrowser_executionStrategy);
   swift_defaultActor_destroy();
   return v0;
@@ -7638,27 +4638,27 @@ uint64_t MessageCenterEndpointBrowser.__deallocating_deinit()
 
 unint64_t NWEndpoint.isMeDevice.getter()
 {
-  v0 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s7Network11NWTXTRecordVSgMd, &_s7Network11NWTXTRecordVSgMR) - 8) + 64);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Network11NWTXTRecordVSgMd, &_s7Network11NWTXTRecordVSgMR);
   OUTLINED_FUNCTION_10();
-  MEMORY[0x28223BE20](v1);
-  v3 = &v10 - v2;
+  MEMORY[0x28223BE20](v0);
+  v2 = &v9 - v1;
   NWEndpoint.txtRecord.getter();
-  v4 = type metadata accessor for NWTXTRecord();
-  if (__swift_getEnumTagSinglePayload(v3, 1, v4) == 1)
+  v3 = type metadata accessor for NWTXTRecord();
+  if (__swift_getEnumTagSinglePayload(v2, 1, v3) == 1)
   {
-    outlined destroy of NetworkConnectionProtocol?(v3, &_s7Network11NWTXTRecordVSgMd, &_s7Network11NWTXTRecordVSgMR);
+    outlined destroy of NetworkConnectionProtocol?(v2, &_s7Network11NWTXTRecordVSgMd, &_s7Network11NWTXTRecordVSgMR);
     return 0;
   }
 
   else
   {
-    v6 = NWTXTRecord.statusFlags.getter();
-    v5 = (v6 >> 7) & 1 & ~v7;
-    OUTLINED_FUNCTION_13_4(v4);
-    (*(v8 + 8))(v3, v4);
+    v5 = NWTXTRecord.statusFlags.getter();
+    v4 = (v5 >> 7) & 1 & ~v6;
+    OUTLINED_FUNCTION_13_4();
+    (*(v7 + 8))(v2, v3);
   }
 
-  return v5;
+  return v4;
 }
 
 uint64_t NWEndpoint.endpointPayload.getter()
@@ -7668,35 +4668,35 @@ uint64_t NWEndpoint.endpointPayload.getter()
   return MEMORY[0x282125278](&type metadata for MessageCenterEndpointPayload, v0);
 }
 
-uint64_t NWEndpoint.discoverActor(persona:invalidationHandler:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+uint64_t NWEndpoint.discoverActor(persona:invalidationHandler:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a5@<X8>)
 {
   if (one-time initialization token for actorSystem != -1)
   {
     swift_once();
   }
 
-  outlined init with copy of UMUserPersonProtocol(&static MessageCenter.actorSystem, v15);
+  outlined init with copy of UMUserPersonProtocol(static MessageCenter.actorSystem, v17);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork34MessageCenterNWActorSystemProtocol_pMd, &_s11SiriNetwork34MessageCenterNWActorSystemProtocol_pMR);
   type metadata accessor for NWActorSystem();
   if (swift_dynamicCast())
   {
     type metadata accessor for MessageCenterEndpointBrowser(0);
     static MessageCenterEndpointBrowser.defaultConnectionParametersForPersona(persona:)(a1, a2);
-    if (v3)
+    if (v5)
     {
     }
 
     else
     {
-      v8 = type metadata accessor for MessageCenterActor(0);
+      v10 = type metadata accessor for MessageCenterActor(0);
       OUTLINED_FUNCTION_12_5();
-      lazy protocol witness table accessor for type NWEndpoint and conformance NWEndpoint(v9, v10);
-      v12 = static DistributedActor<>.discover(_:connectionParameters:using:invalidationHandler:)();
-      a3[3] = v8;
+      lazy protocol witness table accessor for type NWEndpoint and conformance NWEndpoint(v11, v12, &protocol conformance descriptor for MessageCenterActor);
+      v14 = static DistributedActor<>.discover(_:connectionParameters:using:invalidationHandler:)();
+      a5[3] = v10;
       OUTLINED_FUNCTION_12_5();
-      a3[4] = lazy protocol witness table accessor for type NWEndpoint and conformance NWEndpoint(v13, v14);
+      a5[4] = lazy protocol witness table accessor for type NWEndpoint and conformance NWEndpoint(v15, v16, &protocol conformance descriptor for MessageCenterActor);
 
-      *a3 = v12;
+      *a5 = v14;
     }
   }
 
@@ -7704,15 +4704,15 @@ uint64_t NWEndpoint.discoverActor(persona:invalidationHandler:)@<X0>(uint64_t a1
   {
     lazy protocol witness table accessor for type MessageCenterError and conformance MessageCenterError();
     swift_allocError();
-    *v7 = 1;
-    *(v7 + 8) = 8;
+    *v9 = 1;
+    *(v9 + 8) = 8;
     return swift_willThrow();
   }
 
   return result;
 }
 
-uint64_t NWTXTRecord.statusFlags.getter()
+unint64_t NWTXTRecord.statusFlags.getter()
 {
   result = NWTXTRecord.subscript.getter();
   if (!v2)
@@ -8063,7 +5063,7 @@ id @nonobjc UMUserPersona.generateAndRestorePersonaContext(withPersonaUniqueStri
 {
   if (a2)
   {
-    v3 = MEMORY[0x223DE2070]();
+    v3 = MEMORY[0x223DE2070](a1);
   }
 
   else
@@ -8078,23 +5078,22 @@ id @nonobjc UMUserPersona.generateAndRestorePersonaContext(withPersonaUniqueStri
 
 id @nonobjc UMUserPersona.copyCurrentPersonaContext()()
 {
-  v6[1] = *MEMORY[0x277D85DE8];
-  v6[0] = 0;
+  v5[1] = *MEMORY[0x277D85DE8];
+  v5[0] = 0;
   v1 = [v0 copyCurrentPersonaContextWithError_];
   if (v1)
   {
-    v2 = v6[0];
+    v2 = v5[0];
   }
 
   else
   {
-    v3 = v6[0];
+    v3 = v5[0];
     _convertNSErrorToError(_:)();
 
     swift_willThrow();
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
@@ -8111,46 +5110,46 @@ void $defer #1 <A>() in AdoptPersonaExecutionStrategy.executeAsUser<A>(_:)(void 
   v4 = a1[4];
   __swift_project_boxed_opaque_existential_1(a1, v3);
 
-  v5 = *(type metadata accessor for AdoptPersonaExecutionStrategy(0) + 20);
-  v6 = a2;
+  type metadata accessor for AdoptPersonaExecutionStrategy(0);
+  v5 = a2;
   oslog = Logger.logObject.getter();
-  v7 = static os_log_type_t.default.getter();
+  v6 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(oslog, v7))
+  if (os_log_type_enabled(oslog, v6))
   {
+    v7 = swift_slowAlloc();
     v8 = swift_slowAlloc();
-    v9 = swift_slowAlloc();
-    v22 = v9;
-    *v8 = 136315394;
-    v10 = [v6 description];
-    v11 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v13 = v12;
+    v21 = v8;
+    *v7 = 136315394;
+    v9 = [v5 description];
+    v10 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v12 = v11;
 
-    v14 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v13, &v22);
+    v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v12, &v21);
 
-    *(v8 + 4) = v14;
-    *(v8 + 12) = 2080;
-    v15 = [objc_opt_self() currentPersona];
-    if (v15)
+    *(v7 + 4) = v13;
+    *(v7 + 12) = 2080;
+    v14 = [objc_opt_self() currentPersona];
+    if (v14)
     {
-      v16 = v15;
-      v17 = UMUserPersona.logDescription.getter();
-      v19 = v18;
+      v15 = v14;
+      v16 = UMUserPersona.logDescription.getter();
+      v18 = v17;
     }
 
     else
     {
-      v19 = 0xE300000000000000;
-      v17 = 7104878;
+      v18 = 0xE300000000000000;
+      v16 = 7104878;
     }
 
-    v20 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v17, v19, &v22);
+    v19 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v16, v18, &v21);
 
-    *(v8 + 14) = v20;
-    _os_log_impl(&dword_223515000, oslog, v7, "Restored persona context %s, executing as %s", v8, 0x16u);
+    *(v7 + 14) = v19;
+    _os_log_impl(&dword_223515000, oslog, v6, "Restored persona context %s, executing as %s", v7, 0x16u);
     swift_arrayDestroy();
-    MEMORY[0x223DE38F0](v9, -1, -1);
     MEMORY[0x223DE38F0](v8, -1, -1);
+    MEMORY[0x223DE38F0](v7, -1, -1);
   }
 }
 
@@ -8215,7 +5214,7 @@ uint64_t MessageCenterEndpointPayloadProducer.init(capabilityProvider:)@<X0>(uin
 
   v7 = type metadata accessor for Logger();
   __swift_project_value_buffer(v7, static Logger.messageCenterActor);
-  OUTLINED_FUNCTION_13_4(v7);
+  OUTLINED_FUNCTION_13_4();
   result = (*(v8 + 16))(&a3[v6]);
   *a3 = a1;
   *(a3 + 1) = a2;
@@ -8224,74 +5223,72 @@ uint64_t MessageCenterEndpointPayloadProducer.init(capabilityProvider:)@<X0>(uin
 
 SiriNetwork::MessageCenterEndpointPayload __swiftcall MessageCenterEndpointPayloadProducer.payload()()
 {
-  v2 = v1;
-  v3 = v0;
-  v4 = *v1;
+  v2 = v0;
+  v3 = *v1;
   if (*v1)
   {
-    v5 = *(v1 + 8);
-    v6 = *(v2 + 8);
+    v4 = *(v1 + 8);
 
-    v8 = v4(v7);
-    outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v4);
+    v6 = v3(v5);
+    outlined consume of (@escaping @callee_guaranteed (@guaranteed SNLinkRecommendationInfo?) -> ())?(v3, v4);
   }
 
   else
   {
-    v9 = MEMORY[0x223DE2070](0xD000000000000024, 0x80000002235F80E0);
-    v8 = MGGetBoolAnswer();
+    v7 = MEMORY[0x223DE2070](0xD000000000000024, 0x80000002235F80E0);
+    v6 = MGGetBoolAnswer();
   }
 
-  v10 = v2 + *(type metadata accessor for MessageCenterEndpointPayloadProducer(0) + 20);
-  v11 = Logger.logObject.getter();
-  v12 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v11, v12))
+  type metadata accessor for MessageCenterEndpointPayloadProducer(0);
+  v8 = Logger.logObject.getter();
+  v9 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v8, v9))
   {
-    v13 = OUTLINED_FUNCTION_55();
-    v14 = OUTLINED_FUNCTION_54();
-    *v13 = 136315138;
-    v23 = v14;
+    v10 = OUTLINED_FUNCTION_55();
+    v11 = OUTLINED_FUNCTION_54();
+    *v10 = 136315138;
+    v20 = v11;
     _StringGuts.grow(_:)(28);
 
     OUTLINED_FUNCTION_60_2();
-    v21 = v16;
-    v22 = v15;
-    if (v8)
+    v18 = v13;
+    v19 = v12;
+    if (v6)
     {
-      v17 = 1702195828;
+      v14 = 1702195828;
     }
 
     else
     {
-      v17 = 0x65736C6166;
+      v14 = 0x65736C6166;
     }
 
-    if (v8)
+    if (v6)
     {
-      v18 = 0xE400000000000000;
+      v15 = 0xE400000000000000;
     }
 
     else
     {
-      v18 = 0xE500000000000000;
+      v15 = 0xE500000000000000;
     }
 
-    MEMORY[0x223DE2180](v17, v18);
+    MEMORY[0x223DE2180](v14, v15);
 
-    v19 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v21, v22, &v23);
+    v16 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v18, v19, &v20);
 
-    *(v13 + 4) = v19;
-    _os_log_impl(&dword_223515000, v11, v12, "Producing endpoint payload %s", v13, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v14);
+    *(v10 + 4) = v16;
+    _os_log_impl(&dword_223515000, v8, v9, "Producing endpoint payload %s", v10, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v11);
     OUTLINED_FUNCTION_12();
     OUTLINED_FUNCTION_11();
   }
 
-  *v3 = v8 & 1;
+  *v2 = v6 & 1;
   return result;
 }
 
-uint64_t specialized Sequence.first(where:)@<X0>(uint64_t (*a1)(__int128 *)@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
+void specialized Sequence.first(where:)(uint64_t (*a1)(__int128 *)@<X0>, uint64_t a2@<X2>, uint64_t a3@<X8>)
 {
   v7 = a2 + 56;
   v8 = 1 << *(a2 + 32);
@@ -8304,41 +5301,43 @@ uint64_t specialized Sequence.first(where:)@<X0>(uint64_t (*a1)(__int128 *)@<X0>
   v10 = v9 & *(a2 + 56);
   v11 = (v8 + 63) >> 6;
 
-  v13 = 0;
+  v12 = 0;
   if (v10)
   {
     while (1)
     {
-      v14 = v13;
+      v13 = v12;
 LABEL_8:
-      outlined init with copy of MessageCenterEndpoint(*(a2 + 48) + 40 * (__clz(__rbit64(v10)) | (v14 << 6)), v20);
-      v17 = v20[0];
-      v18 = v20[1];
-      v19 = v21;
-      v15 = a1(&v17);
+      outlined init with copy of MessageCenterEndpoint(*(a2 + 48) + 40 * (__clz(__rbit64(v10)) | (v13 << 6)), v19);
+      v16 = v19[0];
+      v17 = v19[1];
+      v18 = v20;
+      v14 = a1(&v16);
       if (v3)
       {
-        outlined destroy of MessageCenterEndpoint(&v17);
+        outlined destroy of MessageCenterEndpoint(&v16);
+
+        return;
       }
 
-      if (v15)
+      if (v14)
       {
         break;
       }
 
       v10 &= v10 - 1;
-      result = outlined destroy of MessageCenterEndpoint(&v17);
-      v13 = v14;
+      outlined destroy of MessageCenterEndpoint(&v16);
+      v12 = v13;
       if (!v10)
       {
         goto LABEL_5;
       }
     }
 
-    v16 = v18;
-    *a3 = v17;
-    *(a3 + 16) = v16;
-    *(a3 + 32) = v19;
+    v15 = v17;
+    *a3 = v16;
+    *(a3 + 16) = v15;
+    *(a3 + 32) = v18;
   }
 
   else
@@ -8346,23 +5345,23 @@ LABEL_8:
 LABEL_5:
     while (1)
     {
-      v14 = v13 + 1;
-      if (__OFADD__(v13, 1))
+      v13 = v12 + 1;
+      if (__OFADD__(v12, 1))
       {
         break;
       }
 
-      if (v14 >= v11)
+      if (v13 >= v11)
       {
 
         *(a3 + 32) = 0;
         *a3 = 0u;
         *(a3 + 16) = 0u;
-        return result;
+        return;
       }
 
-      v10 = *(v7 + 8 * v14);
-      ++v13;
+      v10 = *(v7 + 8 * v13);
+      ++v12;
       if (v10)
       {
         goto LABEL_8;
@@ -8371,11 +5370,9 @@ LABEL_5:
 
     __break(1u);
   }
-
-  return result;
 }
 
-BOOL specialized Sequence.contains(where:)(uint64_t (*a1)(void *), uint64_t a2, uint64_t a3)
+BOOL specialized Sequence.contains(where:)(uint64_t (*a1)(void *, __n128), uint64_t a2, uint64_t a3)
 {
   v5 = (a3 + 40);
   v6 = *(a3 + 16) + 1;
@@ -8390,7 +5387,7 @@ BOOL specialized Sequence.contains(where:)(uint64_t (*a1)(void *), uint64_t a2, 
     v11[0] = *(v5 - 1);
     v11[1] = v7;
 
-    v8 = a1(v11);
+    v8 = (a1)(v11);
     if (v3)
     {
 
@@ -8449,7 +5446,7 @@ unint64_t specialized Collection.dropFirst(_:)(unint64_t result, uint64_t a2, un
   return result;
 }
 
-void (*specialized Dictionary.subscript.modify(void *a1, uint64_t a2, uint64_t a3))(uint64_t a1)
+void (*specialized Dictionary.subscript.modify(void *a1, uint64_t a2, uint64_t a3))(void **a1)
 {
   v6 = __swift_coroFrameAllocStub(0x28uLL);
   *a1 = v6;
@@ -8457,19 +5454,18 @@ void (*specialized Dictionary.subscript.modify(void *a1, uint64_t a2, uint64_t a
   return Dictionary.subscript.modifyspecialized ;
 }
 
-void Dictionary.subscript.modifyspecialized (uint64_t a1)
+void Dictionary.subscript.modifyspecialized (void **a1)
 {
   v1 = *a1;
-  v2 = *(*a1 + 32);
-  v3 = OUTLINED_FUNCTION_34_3();
-  v4(v3);
+  v2 = OUTLINED_FUNCTION_34_3();
+  v3(v2);
 
   free(v1);
 }
 
 uint64_t instantiation function for generic protocol witness table for NWEndpoint(uint64_t a1)
 {
-  result = lazy protocol witness table accessor for type NWEndpoint and conformance NWEndpoint(&lazy protocol witness table cache variable for type NWEndpoint and conformance NWEndpoint, MEMORY[0x277CD8B10]);
+  result = lazy protocol witness table accessor for type NWEndpoint and conformance NWEndpoint(&lazy protocol witness table cache variable for type NWEndpoint and conformance NWEndpoint, MEMORY[0x277CD8B10], MEMORY[0x277CD8B18]);
   *(a1 + 8) = result;
   return result;
 }
@@ -8647,64 +5643,54 @@ uint64_t dispatch thunk of MessageCenterEndpointBrowseDelegate.browser(_:didFind
 {
   OUTLINED_FUNCTION_38_1();
   OUTLINED_FUNCTION_21();
-  v6 = OUTLINED_FUNCTION_28(v1, v2, v3, v4, v5);
-  v7 = *(v6 + 8);
-  v21 = v6 + 8;
+  v17 = OUTLINED_FUNCTION_28(v1, v2, v3, v4, v5) + 8;
   OUTLINED_FUNCTION_57_0();
-  v22 = v8 + *v8;
-  v10 = *(v9 + 4);
-  v11 = swift_task_alloc();
-  *(v0 + 16) = v11;
-  *v11 = v0;
-  OUTLINED_FUNCTION_22_4(v11);
+  v18 = v6 + *v6;
+  v7 = swift_task_alloc();
+  *(v0 + 16) = v7;
+  *v7 = v0;
+  OUTLINED_FUNCTION_22_4(v7);
   OUTLINED_FUNCTION_26_3();
 
-  return v17(v12, v13, v14, v15, v16, v17, v18, v19, v21, v22);
+  return v13(v8, v9, v10, v11, v12, v13, v14, v15, v17, v18);
 }
 
 uint64_t dispatch thunk of MessageCenterEndpointBrowseDelegate.browser(_:didLoseEndpoint:)()
 {
   OUTLINED_FUNCTION_38_1();
   OUTLINED_FUNCTION_21();
-  v6 = OUTLINED_FUNCTION_28(v1, v2, v3, v4, v5);
-  v7 = *(v6 + 16);
-  v21 = v6 + 16;
+  v17 = OUTLINED_FUNCTION_28(v1, v2, v3, v4, v5) + 16;
   OUTLINED_FUNCTION_57_0();
-  v22 = v8 + *v8;
-  v10 = *(v9 + 4);
-  v11 = swift_task_alloc();
-  *(v0 + 16) = v11;
-  *v11 = v0;
-  OUTLINED_FUNCTION_22_4(v11);
+  v18 = v6 + *v6;
+  v7 = swift_task_alloc();
+  *(v0 + 16) = v7;
+  *v7 = v0;
+  OUTLINED_FUNCTION_22_4(v7);
   OUTLINED_FUNCTION_26_3();
 
-  return v17(v12, v13, v14, v15, v16, v17, v18, v19, v21, v22);
+  return v13(v8, v9, v10, v11, v12, v13, v14, v15, v17, v18);
 }
 
 uint64_t dispatch thunk of MessageCenterEndpointBrowseDelegate.browser(_:didUpdateEndpoint:from:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v13 = *(a6 + 24);
   OUTLINED_FUNCTION_57_0();
-  v19 = (v14 + *v14);
-  v16 = *(v15 + 4);
-  v17 = swift_task_alloc();
-  *(v6 + 16) = v17;
-  *v17 = v6;
-  v17[1] = dispatch thunk of MessageCenterEndpointBrowseDelegate.browser(_:didLoseEndpoint:);
+  v16 = (v13 + *v13);
+  v14 = swift_task_alloc();
+  *(v6 + 16) = v14;
+  *v14 = v6;
+  v14[1] = dispatch thunk of MessageCenterEndpointBrowseDelegate.browser(_:didLoseEndpoint:);
 
-  return v19(a1, a2, a3, a4, a5, a6);
+  return v16(a1, a2, a3, a4, a5, a6);
 }
 
-uint64_t type metadata completion function for MessageCenterEndpointBrowser()
+uint64_t type metadata completion function for MessageCenterEndpointBrowser(uint64_t a1)
 {
   result = type metadata accessor for Logger();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v3 = *(result - 8) + 64;
     result = type metadata accessor for AdoptPersonaExecutionStrategy(319);
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
-      v4 = *(result - 8) + 64;
       return swift_updateClassMetadata2();
     }
   }
@@ -8712,39 +5698,39 @@ uint64_t type metadata completion function for MessageCenterEndpointBrowser()
   return result;
 }
 
-void type metadata completion function for MessageCenterEndpointPayloadProducer()
+void type metadata completion function for MessageCenterEndpointPayloadProducer(uint64_t a1)
 {
-  type metadata accessor for (())?();
-  if (v0 <= 0x3F)
+  type metadata accessor for (())?(319);
+  if (v1 <= 0x3F)
   {
     type metadata accessor for Logger();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
   }
 }
 
-void type metadata accessor for (())?()
+void type metadata accessor for (())?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for (())?)
   {
     __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_syycMd, &_syycMR);
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for (())?);
+      atomic_store(v1, &lazy cache variable for type metadata for (())?);
     }
   }
 }
 
-void type metadata completion function for AdoptPersonaExecutionStrategy()
+void type metadata completion function for AdoptPersonaExecutionStrategy(uint64_t a1)
 {
   type metadata accessor for Logger();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for (())?();
-    if (v1 <= 0x3F)
+    type metadata accessor for (())?(319);
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -8830,12 +5816,12 @@ LABEL_19:
 
 uint64_t instantiation function for generic protocol witness table for MessageCenterEndpointBrowser(uint64_t a1)
 {
-  result = lazy protocol witness table accessor for type NWEndpoint and conformance NWEndpoint(&lazy protocol witness table cache variable for type MessageCenterEndpointBrowser and conformance MessageCenterEndpointBrowser, type metadata accessor for MessageCenterEndpointBrowser);
+  result = lazy protocol witness table accessor for type NWEndpoint and conformance NWEndpoint(&lazy protocol witness table cache variable for type MessageCenterEndpointBrowser and conformance MessageCenterEndpointBrowser, type metadata accessor for MessageCenterEndpointBrowser, &protocol conformance descriptor for MessageCenterEndpointBrowser);
   *(a1 + 8) = result;
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type NWEndpoint and conformance NWEndpoint(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type NWEndpoint and conformance NWEndpoint(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -8895,7 +5881,7 @@ unsigned __int8 *specialized _parseInteger<A, B>(ascii:radix:)(uint64_t a1, uint
   v7 = v5;
   if ((v5 & 0x1000000000000000) != 0)
   {
-    v6 = static String._copying(_:)();
+    v6 = static String._copying(_:)(result, v5);
     v40 = v39;
 
     v7 = v40;
@@ -9407,22 +6393,35 @@ LABEL_134:
   return result;
 }
 
-uint64_t static String._copying(_:)()
+uint64_t static String._copying(_:)(uint64_t a1, unint64_t a2)
 {
-  v0 = specialized Collection.subscript.getter();
-  v4 = static String._copying(_:)(v0, v1, v2, v3);
+  v2 = specialized Collection.subscript.getter(implicit closure #1 in static String._copying(_:), 0, a1, a2);
+  v6 = static String._copying(_:)(v2, v3, v4, v5);
 
-  return v4;
+  return v6;
 }
 
 uint64_t static String._copying(_:)(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
 {
-  if ((a4 & 0x1000000000000000) == 0)
+  if ((a4 & 0x1000000000000000) != 0)
+  {
+    v9 = Substring.UTF8View.distance(from:to:)();
+    if (!v9 || (v10 = v9, v11 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(v9, 0), v12 = specialized Sequence._copySequenceContents(initializing:)(v14, (v11 + 4), v10, a1, a2, a3, a4), , , v12 == v10))
+    {
+      v13 = static String._uncheckedFromUTF8(_:)();
+
+      return v13;
+    }
+
+    __break(1u);
+  }
+
+  else
   {
     if ((a4 & 0x2000000000000000) != 0)
     {
-      v15[0] = a3;
-      v15[1] = a4 & 0xFFFFFFFFFFFFFFLL;
+      v14[0] = a3;
+      v14[1] = a4 & 0xFFFFFFFFFFFFFFLL;
       return static String._uncheckedFromUTF8(_:)();
     }
 
@@ -9430,32 +6429,8 @@ uint64_t static String._copying(_:)(unint64_t a1, unint64_t a2, unint64_t a3, un
     {
       goto LABEL_4;
     }
-
-    goto LABEL_11;
   }
 
-  v9 = Substring.UTF8View.distance(from:to:)();
-  if (!v9)
-  {
-    v11 = MEMORY[0x277D84F90];
-    goto LABEL_13;
-  }
-
-  v10 = v9;
-  v11 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(v9, 0);
-  v12 = specialized Sequence._copySequenceContents(initializing:)(v15, (v11 + 4), v10, a1, a2, a3, a4);
-
-  if (v12 == v10)
-  {
-LABEL_13:
-    v13 = v11[2];
-    v14 = static String._uncheckedFromUTF8(_:)();
-
-    return v14;
-  }
-
-  __break(1u);
-LABEL_11:
   _StringObject.sharedUTF8.getter();
 LABEL_4:
 
@@ -9612,7 +6587,7 @@ LABEL_40:
   return result;
 }
 
-uint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a1;
   v4 = a1 >> 14;
@@ -9647,10 +6622,10 @@ uint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, 
 
 unsigned __int8 *specialized _parseInteger<A, B>(ascii:radix:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v82 = a1;
-  v83 = a2;
-  v84 = a3;
-  v85 = a4;
+  v84 = a1;
+  v85 = a2;
+  v86 = a3;
+  v87 = a4;
   lazy protocol witness table accessor for type Substring and conformance Substring();
 
   result = String.init<A>(_:)();
@@ -9658,12 +6633,12 @@ unsigned __int8 *specialized _parseInteger<A, B>(ascii:radix:)(uint64_t a1, uint
   v9 = v7;
   if ((v7 & 0x1000000000000000) != 0)
   {
-    OUTLINED_FUNCTION_32();
-    v8 = static String._copying(_:)();
-    v46 = v45;
+    v45 = OUTLINED_FUNCTION_32();
+    v8 = static String._copying(_:)(v45, v46);
+    v48 = v47;
 
-    v9 = v46;
-    if ((v46 & 0x2000000000000000) == 0)
+    v9 = v48;
+    if ((v48 & 0x2000000000000000) == 0)
     {
       goto LABEL_3;
     }
@@ -9925,68 +6900,68 @@ LABEL_146:
     goto LABEL_147;
   }
 
-  v47 = HIBYTE(v9) & 0xF;
-  v82 = v8;
-  v83 = v9 & 0xFFFFFFFFFFFFFFLL;
+  v49 = HIBYTE(v9) & 0xF;
+  v84 = v8;
+  v85 = v9 & 0xFFFFFFFFFFFFFFLL;
   if (v8 != 43)
   {
     if (v8 != 45)
     {
-      if (v47)
+      if (v49)
       {
         OUTLINED_FUNCTION_5_15();
-        if (v72 ^ v73 | v71)
+        if (v74 ^ v75 | v73)
         {
-          v75 = 65;
+          v77 = 65;
         }
 
-        if (!(v72 ^ v73 | v71))
+        if (!(v74 ^ v75 | v73))
         {
-          v76 = 58;
+          v78 = 58;
         }
 
-        v77 = &v82;
+        v79 = &v84;
         while (1)
         {
-          v78 = *v77;
-          if (v78 < 0x30 || v78 >= v76)
+          v80 = *v79;
+          if (v80 < 0x30 || v80 >= v78)
           {
-            if (v78 < 0x41 || v78 >= v75)
+            if (v80 < 0x41 || v80 >= v77)
             {
               OUTLINED_FUNCTION_39_1();
-              if (!v24 || v78 >= v80)
+              if (!v24 || v80 >= v82)
               {
                 goto LABEL_142;
               }
 
-              v79 = -87;
+              v81 = -87;
             }
 
             else
             {
-              v79 = -55;
+              v81 = -55;
             }
           }
 
           else
           {
-            v79 = -48;
+            v81 = -48;
           }
 
-          v81 = v52 * a5;
-          if ((v52 * a5) >> 64 != (v52 * a5) >> 63)
+          v83 = v54 * a5;
+          if ((v54 * a5) >> 64 != (v54 * a5) >> 63)
           {
             goto LABEL_141;
           }
 
-          v52 = v81 + (v78 + v79);
-          if (__OFADD__(v81, (v78 + v79)))
+          v54 = v83 + (v80 + v81);
+          if (__OFADD__(v83, (v80 + v81)))
           {
             goto LABEL_141;
           }
 
-          v77 = (v77 + 1);
-          if (!--v74)
+          v79 = (v79 + 1);
+          if (!--v76)
           {
             goto LABEL_140;
           }
@@ -9996,63 +6971,63 @@ LABEL_146:
       goto LABEL_141;
     }
 
-    if (v47)
+    if (v49)
     {
-      if (v47 != 1)
+      if (v49 != 1)
       {
         OUTLINED_FUNCTION_5_15();
-        if (v49 ^ v50 | v48)
+        if (v51 ^ v52 | v50)
         {
-          v53 = 65;
+          v55 = 65;
         }
 
-        if (!(v49 ^ v50 | v48))
+        if (!(v51 ^ v52 | v50))
         {
-          v54 = 58;
+          v56 = 58;
         }
 
-        v55 = &v82 + 1;
+        v57 = &v84 + 1;
         while (1)
         {
-          v56 = *v55;
-          if (v56 < 0x30 || v56 >= v54)
+          v58 = *v57;
+          if (v58 < 0x30 || v58 >= v56)
           {
-            if (v56 < 0x41 || v56 >= v53)
+            if (v58 < 0x41 || v58 >= v55)
             {
               OUTLINED_FUNCTION_39_1();
-              if (!v24 || v56 >= v58)
+              if (!v24 || v58 >= v60)
               {
                 goto LABEL_142;
               }
 
-              v57 = -87;
+              v59 = -87;
             }
 
             else
             {
-              v57 = -55;
+              v59 = -55;
             }
           }
 
           else
           {
-            v57 = -48;
+            v59 = -48;
           }
 
-          v59 = v52 * a5;
-          if ((v52 * a5) >> 64 != (v52 * a5) >> 63)
+          v61 = v54 * a5;
+          if ((v54 * a5) >> 64 != (v54 * a5) >> 63)
           {
             goto LABEL_141;
           }
 
-          v52 = v59 - (v56 + v57);
-          if (__OFSUB__(v59, (v56 + v57)))
+          v54 = v61 - (v58 + v59);
+          if (__OFSUB__(v61, (v58 + v59)))
           {
             goto LABEL_141;
           }
 
-          ++v55;
-          if (!--v51)
+          ++v57;
+          if (!--v53)
           {
             goto LABEL_140;
           }
@@ -10065,68 +7040,68 @@ LABEL_146:
     goto LABEL_145;
   }
 
-  if (v47)
+  if (v49)
   {
-    if (v47 != 1)
+    if (v49 != 1)
     {
       OUTLINED_FUNCTION_5_15();
-      if (v61 ^ v62 | v60)
+      if (v63 ^ v64 | v62)
       {
-        v64 = 65;
+        v66 = 65;
       }
 
-      if (!(v61 ^ v62 | v60))
+      if (!(v63 ^ v64 | v62))
       {
-        v65 = 58;
+        v67 = 58;
       }
 
-      v66 = &v82 + 1;
+      v68 = &v84 + 1;
       do
       {
-        v67 = *v66;
-        if (v67 < 0x30 || v67 >= v65)
+        v69 = *v68;
+        if (v69 < 0x30 || v69 >= v67)
         {
-          if (v67 < 0x41 || v67 >= v64)
+          if (v69 < 0x41 || v69 >= v66)
           {
             OUTLINED_FUNCTION_39_1();
-            if (!v24 || v67 >= v69)
+            if (!v24 || v69 >= v71)
             {
               goto LABEL_142;
             }
 
-            v68 = -87;
+            v70 = -87;
           }
 
           else
           {
-            v68 = -55;
+            v70 = -55;
           }
         }
 
         else
         {
-          v68 = -48;
+          v70 = -48;
         }
 
-        v70 = v52 * a5;
-        if ((v52 * a5) >> 64 != (v52 * a5) >> 63)
+        v72 = v54 * a5;
+        if ((v54 * a5) >> 64 != (v54 * a5) >> 63)
         {
           goto LABEL_141;
         }
 
-        v52 = v70 + (v67 + v68);
-        if (__OFADD__(v70, (v67 + v68)))
+        v54 = v72 + (v69 + v70);
+        if (__OFADD__(v72, (v69 + v70)))
         {
           goto LABEL_141;
         }
 
-        ++v66;
-        --v63;
+        ++v68;
+        --v65;
       }
 
-      while (v63);
+      while (v65);
 LABEL_140:
-      v8 = v52;
+      v8 = v54;
       goto LABEL_142;
     }
 
@@ -10136,4 +7111,2780 @@ LABEL_140:
 LABEL_147:
   __break(1u);
   return result;
+}
+
+void (*specialized Dictionary._Variant.subscript.modify(void *a1, uint64_t a2, uint64_t a3))(uint64_t a1)
+{
+  v6 = __swift_coroFrameAllocStub(0x50uLL);
+  *a1 = v6;
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v6[8] = specialized Dictionary._Variant.asNative.modify(v6);
+  v6[9] = specialized _NativeDictionary.subscript.modify(v6 + 4, a2, a3, isUniquelyReferenced_nonNull_native);
+  return Dictionary._Variant.subscript.modifyspecialized ;
+}
+
+void Dictionary._Variant.subscript.modifyspecialized (uint64_t a1)
+{
+  v1 = *a1;
+  v2 = *(*a1 + 64);
+  (*(*a1 + 72))();
+  v3 = OUTLINED_FUNCTION_34_3();
+  v2(v3);
+
+  free(v1);
+}
+
+void (*specialized _NativeDictionary.subscript.modify(void *a1, uint64_t a2, uint64_t a3, char a4))(uint64_t **a1)
+{
+  v5 = v4;
+  v10 = __swift_coroFrameAllocStub(0x30uLL);
+  *a1 = v10;
+  v10[2] = a3;
+  v10[3] = v4;
+  v10[1] = a2;
+  v11 = *v4;
+  v12 = specialized __RawDictionaryStorage.find<A>(_:)(a2, a3);
+  *(v10 + 40) = v13 & 1;
+  v14 = *(v11 + 16);
+  v15 = (v13 & 1) == 0;
+  v16 = v14 + v15;
+  if (__OFADD__(v14, v15))
+  {
+    __break(1u);
+    goto LABEL_10;
+  }
+
+  v17 = v12;
+  v18 = v13;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss17_NativeDictionaryVySSShy11SiriNetwork21MessageCenterEndpointVGGMd, &_ss17_NativeDictionaryVySSShy11SiriNetwork21MessageCenterEndpointVGGMR);
+  if (_NativeDictionary.ensureUnique(isUnique:capacity:)(a4 & 1, v16))
+  {
+    v19 = specialized __RawDictionaryStorage.find<A>(_:)(a2, a3);
+    if ((v18 & 1) == (v20 & 1))
+    {
+      v17 = v19;
+      goto LABEL_5;
+    }
+
+LABEL_10:
+    result = KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
+    __break(1u);
+    return result;
+  }
+
+LABEL_5:
+  v10[4] = v17;
+  if (v18)
+  {
+    v21 = *(*(*v5 + 56) + 8 * v17);
+  }
+
+  else
+  {
+    v21 = 0;
+  }
+
+  *v10 = v21;
+  return _NativeDictionary.subscript.modifyspecialized ;
+}
+
+void _NativeDictionary.subscript.modifyspecialized (uint64_t **a1)
+{
+  v1 = *a1;
+  v2 = **a1;
+  v3 = *(*a1 + 40);
+  if (v2)
+  {
+    v4 = v1[4];
+    v5 = *v1[3];
+    if (v3)
+    {
+      *(v5[7] + 8 * v4) = v2;
+    }
+
+    else
+    {
+      specialized _NativeDictionary._insert(at:key:value:)(v4, v1[1], v1[2], v2, v5);
+    }
+  }
+
+  else if ((*a1)[5])
+  {
+    outlined destroy of String(*(*v1[3] + 48) + 16 * v1[4]);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sShy11SiriNetwork21MessageCenterEndpointVGMd, &_sShy11SiriNetwork21MessageCenterEndpointVGMR);
+    _NativeDictionary._delete(at:)();
+  }
+
+  free(v1);
+}
+
+uint64_t (*specialized Dictionary._Variant.asNative.modify(void *a1))(uint64_t result)
+{
+  *a1 = *v1;
+  a1[1] = v1;
+  return Dictionary._Variant.asNative.modifyspecialized ;
+}
+
+unint64_t type metadata accessor for UMUserPersona()
+{
+  result = lazy cache variable for type metadata for UMUserPersona;
+  if (!lazy cache variable for type metadata for UMUserPersona)
+  {
+    objc_opt_self();
+    result = swift_getObjCClassMetadata();
+    atomic_store(result, &lazy cache variable for type metadata for UMUserPersona);
+  }
+
+  return result;
+}
+
+uint64_t outlined assign with take of MessageCenterBrowserProtocol?(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMd, &_s11SiriNetwork28MessageCenterBrowserProtocol_pSgMR);
+  (*(*(v4 - 8) + 40))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t partial apply for closure #1 in closure #1 in closure #1 in closure #1 in MessageCenterEndpointBrowser.start()()
+{
+  OUTLINED_FUNCTION_40_3();
+  v3 = v2;
+  type metadata accessor for NWBrowser.Result.Change();
+  OUTLINED_FUNCTION_57_0();
+  v5 = (*(v4 + 80) + 32) & ~*(v4 + 80);
+  v7 = *(v0 + 16);
+  v8 = *(v0 + 24);
+  v9 = *(v0 + ((*(v6 + 64) + v5 + 7) & 0xFFFFFFFFFFFFFFF8));
+  swift_task_alloc();
+  OUTLINED_FUNCTION_27_2();
+  *(v1 + 16) = v10;
+  *v10 = v11;
+  v10[1] = partial apply for closure #1 in closure #1 in closure #1 in closure #1 in MessageCenterEndpointBrowser.start();
+
+  return closure #1 in closure #1 in closure #1 in closure #1 in MessageCenterEndpointBrowser.start()(v3, v7, v8, v0 + v5, v9);
+}
+
+{
+  OUTLINED_FUNCTION_7_0();
+  OUTLINED_FUNCTION_11_0();
+  v1 = *v0;
+  OUTLINED_FUNCTION_5_1();
+  *v2 = v1;
+
+  OUTLINED_FUNCTION_6_3();
+
+  return v3();
+}
+
+uint64_t outlined init with copy of MessageCenterBrowserProtocol?(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t *a4)
+{
+  __swift_instantiateConcreteTypeFromMangledNameV2(a3, a4);
+  OUTLINED_FUNCTION_71();
+  v5 = OUTLINED_FUNCTION_14_3();
+  v6(v5);
+  return a2;
+}
+
+uint64_t _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5TA()
+{
+  OUTLINED_FUNCTION_29();
+  swift_task_alloc();
+  OUTLINED_FUNCTION_27_2();
+  *(v0 + 16) = v1;
+  *v1 = v2;
+  v1[1] = partial apply for closure #1 in closure #1 in closure #1 in closure #1 in MessageCenterEndpointBrowser.start();
+
+  return _sxIeAgHr_xs5Error_pIegHrzo_s8SendableRzs5NeverORs_r0_lTRyt_Tg5();
+}
+
+uint64_t _ss5SliceV32withContiguousStorageIfAvailableyqd__Sgqd__SRy7ElementQzGKXEKlFSRyxGq_s5Error_pRi_zRi0_zRi__Ri0__r0_lys5UInt8Vqd__Isgyrzo_ABySS8UTF8ViewVGADsAI_pAMRszr__lIetMggrzo_Tpq5SiSg_Tg5061_ss17FixedWidthIntegerPsE_5radixxSgqd___SitcSyRd__lufcADSRys5I15VGXEfU_Si_SsTG5SiTf1cn_n(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4, uint64_t a5)
+{
+  if ((a4 & 0x1000000000000000) != 0)
+  {
+    result = 0;
+    goto LABEL_8;
+  }
+
+  if ((a4 & 0x2000000000000000) != 0)
+  {
+    v12 = HIBYTE(a4) & 0xF;
+    v15[0] = a3;
+    v15[1] = a4 & 0xFFFFFFFFFFFFFFLL;
+    v11 = v15;
+  }
+
+  else if ((a3 & 0x1000000000000000) != 0)
+  {
+    v11 = ((a4 & 0xFFFFFFFFFFFFFFFLL) + 32);
+    v12 = a3 & 0xFFFFFFFFFFFFLL;
+  }
+
+  else
+  {
+    v11 = _StringObject.sharedUTF8.getter();
+  }
+
+  result = _ss5SliceV32withContiguousStorageIfAvailableyqd__Sgqd__SRy7ElementQzGKXEKlFqd__AGKXEfU_SRys5UInt8VGABySS8UTF8ViewVGSRyxGq_s5Error_pRi_zRi0_zRi__Ri0__r0_lyAIqd__Isgyrzo_qd__sAO_pALRszr__lIetyggrzo_Tpq5SiSg_Tg5061_ss17FixedWidthIntegerPsE_5radixxSgqd___SitcSyRd__lufcADSRys5H15VGXEfU_Si_SsTG5SiTf1nnc_n(v11, v12, a1, a2, a3, a4, a5);
+  if (!v5)
+  {
+    v17 = v14 & 1;
+LABEL_8:
+    v16 = (a4 & 0x1000000000000000) != 0;
+  }
+
+  return result;
+}
+
+uint64_t _ss5SliceV32withContiguousStorageIfAvailableyqd__Sgqd__SRy7ElementQzGKXEKlFqd__AGKXEfU_SRys5UInt8VGABySS8UTF8ViewVGSRyxGq_s5Error_pRi_zRi0_zRi__Ri0__r0_lyAIqd__Isgyrzo_qd__sAO_pALRszr__lIetyggrzo_Tpq5SiSg_Tg5061_ss17FixedWidthIntegerPsE_5radixxSgqd___SitcSyRd__lufcADSRys5H15VGXEfU_Si_SsTG5SiTf1nnc_n(uint64_t result, uint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, unint64_t a6, uint64_t a7)
+{
+  v11 = a3;
+  v12 = result;
+  v13 = (a5 >> 59) & 1;
+  if ((a6 & 0x1000000000000000) == 0)
+  {
+    LOBYTE(v13) = 1;
+  }
+
+  v14 = 4 << v13;
+  v15 = a3 & 0xC;
+  v16 = a3;
+  if (v15 == 4 << v13)
+  {
+    result = _StringGuts._slowEnsureMatchingEncoding(_:)(a3, a5, a6);
+    v16 = result;
+  }
+
+  v17 = HIBYTE(a6) & 0xF;
+  if ((a6 & 0x1000000000000000) != 0)
+  {
+    v19 = a5 & 0xFFFFFFFFFFFFLL;
+    if ((a6 & 0x2000000000000000) != 0)
+    {
+      v19 = HIBYTE(a6) & 0xF;
+    }
+
+    if (v19 < v16 >> 16)
+    {
+      goto LABEL_96;
+    }
+
+    result = String.UTF8View._foreignDistance(from:to:)();
+    v18 = result;
+    v17 = HIBYTE(a6) & 0xF;
+  }
+
+  else
+  {
+    v18 = v16 >> 16;
+  }
+
+  if (v15 == v14)
+  {
+    v20 = v17;
+    result = _StringGuts._slowEnsureMatchingEncoding(_:)(v11, a5, a6);
+    v17 = v20;
+    v11 = result;
+  }
+
+  if ((a4 & 0xC) == v14)
+  {
+    v21 = a4;
+    v22 = v17;
+    result = _StringGuts._slowEnsureMatchingEncoding(_:)(v21, a5, a6);
+    v17 = v22;
+    a4 = result;
+    if ((a6 & 0x1000000000000000) == 0)
+    {
+      goto LABEL_11;
+    }
+  }
+
+  else if ((a6 & 0x1000000000000000) == 0)
+  {
+LABEL_11:
+    result = (a4 >> 16) - (v11 >> 16);
+    goto LABEL_22;
+  }
+
+  v23 = a5 & 0xFFFFFFFFFFFFLL;
+  if ((a6 & 0x2000000000000000) != 0)
+  {
+    v23 = v17;
+  }
+
+  if (v23 < v11 >> 16)
+  {
+    goto LABEL_92;
+  }
+
+  if (v23 < a4 >> 16)
+  {
+LABEL_93:
+    __break(1u);
+    goto LABEL_94;
+  }
+
+  result = String.UTF8View._foreignDistance(from:to:)();
+LABEL_22:
+  v24 = v18 + result;
+  if (__OFADD__(v18, result))
+  {
+    __break(1u);
+    goto LABEL_91;
+  }
+
+  if (v24 < v18)
+  {
+LABEL_91:
+    __break(1u);
+LABEL_92:
+    __break(1u);
+    goto LABEL_93;
+  }
+
+  v25 = (v18 + v12);
+  if (!v12)
+  {
+    v25 = 0;
+  }
+
+  v26 = *v25;
+  if (v26 == 43)
+  {
+    if (result >= 1)
+    {
+      if (result != 1)
+      {
+        v37 = a7 + 48;
+        v38 = a7 + 55;
+        v39 = a7 + 87;
+        if (a7 > 10)
+        {
+          v37 = 58;
+        }
+
+        else
+        {
+          v39 = 97;
+          v38 = 65;
+        }
+
+        if (v25)
+        {
+          v30 = 0;
+          v40 = v25 + 1;
+          v41 = result - 1;
+          do
+          {
+            v42 = *v40;
+            if (v42 < 0x30 || v42 >= v37)
+            {
+              if (v42 < 0x41 || v42 >= v38)
+              {
+                v35 = 0;
+                if (v42 < 0x61 || v42 >= v39)
+                {
+                  return v35;
+                }
+
+                v43 = -87;
+              }
+
+              else
+              {
+                v43 = -55;
+              }
+            }
+
+            else
+            {
+              v43 = -48;
+            }
+
+            v44 = v30 * a7;
+            if ((v30 * a7) >> 64 != (v30 * a7) >> 63)
+            {
+              return 0;
+            }
+
+            v30 = v44 + (v42 + v43);
+            if (__OFADD__(v44, (v42 + v43)))
+            {
+              return 0;
+            }
+
+            ++v40;
+            --v41;
+          }
+
+          while (v41);
+          return v30;
+        }
+
+        return 0;
+      }
+
+      return 0;
+    }
+
+    goto LABEL_95;
+  }
+
+  if (v26 != 45)
+  {
+    if (v24 != v18)
+    {
+      v45 = a7 + 48;
+      v46 = a7 + 55;
+      v47 = a7 + 87;
+      if (a7 > 10)
+      {
+        v45 = 58;
+      }
+
+      else
+      {
+        v47 = 97;
+        v46 = 65;
+      }
+
+      if (v25)
+      {
+        v30 = 0;
+        while (1)
+        {
+          v48 = *v25;
+          if (v48 < 0x30 || v48 >= v45)
+          {
+            if (v48 < 0x41 || v48 >= v46)
+            {
+              v35 = 0;
+              if (v48 < 0x61 || v48 >= v47)
+              {
+                return v35;
+              }
+
+              v49 = -87;
+            }
+
+            else
+            {
+              v49 = -55;
+            }
+          }
+
+          else
+          {
+            v49 = -48;
+          }
+
+          v50 = v30 * a7;
+          if ((v30 * a7) >> 64 != (v30 * a7) >> 63)
+          {
+            return 0;
+          }
+
+          v30 = v50 + (v48 + v49);
+          if (__OFADD__(v50, (v48 + v49)))
+          {
+            return 0;
+          }
+
+          ++v25;
+          if (!--result)
+          {
+            return v30;
+          }
+        }
+      }
+
+      return 0;
+    }
+
+    return 0;
+  }
+
+  if (result >= 1)
+  {
+    if (result != 1)
+    {
+      v27 = a7 + 48;
+      v28 = a7 + 55;
+      v29 = a7 + 87;
+      if (a7 > 10)
+      {
+        v27 = 58;
+      }
+
+      else
+      {
+        v29 = 97;
+        v28 = 65;
+      }
+
+      if (v25)
+      {
+        v30 = 0;
+        v31 = v25 + 1;
+        v32 = result - 1;
+        while (1)
+        {
+          v33 = *v31;
+          if (v33 < 0x30 || v33 >= v27)
+          {
+            if (v33 < 0x41 || v33 >= v28)
+            {
+              v35 = 0;
+              if (v33 < 0x61 || v33 >= v29)
+              {
+                return v35;
+              }
+
+              v34 = -87;
+            }
+
+            else
+            {
+              v34 = -55;
+            }
+          }
+
+          else
+          {
+            v34 = -48;
+          }
+
+          v36 = v30 * a7;
+          if ((v30 * a7) >> 64 != (v30 * a7) >> 63)
+          {
+            return 0;
+          }
+
+          v30 = v36 - (v33 + v34);
+          if (__OFSUB__(v36, (v33 + v34)))
+          {
+            return 0;
+          }
+
+          ++v31;
+          if (!--v32)
+          {
+            return v30;
+          }
+        }
+      }
+
+      return 0;
+    }
+
+    return 0;
+  }
+
+LABEL_94:
+  __break(1u);
+LABEL_95:
+  __break(1u);
+LABEL_96:
+  __break(1u);
+  return result;
+}
+
+uint64_t specialized MessageCenterActorBrowser.checkDeviceForRemoteIntelligence(_:)(uint64_t a1, uint64_t a2)
+{
+  v28[3] = &type metadata for MessageCenterEndpoint;
+  v28[4] = lazy protocol witness table accessor for type MessageCenterEndpoint and conformance MessageCenterEndpoint();
+  v4 = swift_allocObject();
+  v28[0] = v4;
+  outlined init with copy of MessageCenterEndpoint(a1, (v4 + 2));
+  if (*(a2 + 152))
+  {
+    v5 = 0x80000002235F64B0;
+  }
+
+  else
+  {
+    v5 = 0xEF726573776F7242;
+  }
+
+  if ((*(a2 + 152) & 1) != 0 || v5 != 0xEF726573776F7242)
+  {
+    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+    v7 = 0;
+    if ((v6 & 1) == 0)
+    {
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+  }
+
+  outlined init with copy of UMUserPersonProtocol(v28, v27);
+  v8 = Logger.logObject.getter();
+  v9 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v8, v9))
+  {
+    v10 = swift_slowAlloc();
+    v11 = swift_slowAlloc();
+    v26 = v11;
+    *v10 = 136315138;
+    outlined init with copy of UMUserPersonProtocol(v27, &v25);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork29MessageCenterEndpointProtocol_pMd, &_s11SiriNetwork29MessageCenterEndpointProtocol_pMR);
+    v12 = String.init<A>(describing:)();
+    v14 = v13;
+    __swift_destroy_boxed_opaque_existential_0(v27);
+    v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v14, &v26);
+
+    *(v10 + 4) = v15;
+    _os_log_impl(&dword_223515000, v8, v9, "checking device for remote intelligence %s", v10, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v11);
+    MEMORY[0x223DE38F0](v11, -1, -1);
+    MEMORY[0x223DE38F0](v10, -1, -1);
+  }
+
+  else
+  {
+
+    __swift_destroy_boxed_opaque_existential_0(v27);
+  }
+
+  v16 = v4[5];
+  v17 = v4[6];
+  __swift_project_boxed_opaque_existential_1(v4 + 2, v16);
+  v18 = (*(v17 + 32))(v16, v17);
+  v19 = specialized MessageCenterActorBrowser.deviceSupportsAppleIntelligence(_:)((v4 + 2));
+  v20 = v19;
+  if (v18 & 1) != 0 && (v19)
+  {
+    v7 = 1;
+  }
+
+  else
+  {
+    v21 = Logger.logObject.getter();
+    v22 = static os_log_type_t.info.getter();
+    if (os_log_type_enabled(v21, v22))
+    {
+      v23 = swift_slowAlloc();
+      *v23 = 67109376;
+      *(v23 + 4) = v18 & 1;
+      *(v23 + 8) = 1024;
+      *(v23 + 10) = v20 & 1;
+      _os_log_impl(&dword_223515000, v21, v22, "Device is not eligible for remote intelligence. meDevice = %{BOOL}d, supportsAI = %{BOOL}d", v23, 0xEu);
+      MEMORY[0x223DE38F0](v23, -1, -1);
+    }
+
+    v7 = 0;
+  }
+
+LABEL_17:
+  __swift_destroy_boxed_opaque_existential_0(v28);
+  return v7;
+}
+
+uint64_t specialized MessageCenterActorBrowser.deviceSupportsAppleIntelligence(_:)(uint64_t a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  MEMORY[0x28223BE20](v2 - 8);
+  v4 = &v83[-2] - v3;
+  v88 = &type metadata for MessageCenterEndpoint;
+  v5 = lazy protocol witness table accessor for type MessageCenterEndpoint and conformance MessageCenterEndpoint();
+  v89 = v5;
+  v87[0] = swift_allocObject();
+  outlined init with copy of MessageCenterEndpoint(a1, v87[0] + 16);
+  __swift_project_boxed_opaque_existential_1(v87, &type metadata for MessageCenterEndpoint);
+  (*(v5 + 48))(&v85, &type metadata for MessageCenterEndpoint, v5);
+  LOBYTE(v6) = v85;
+  if (v85 == 2)
+  {
+    outlined init with copy of UMUserPersonProtocol(v87, &v85);
+    v7 = Logger.logObject.getter();
+    v8 = static os_log_type_t.default.getter();
+    if (os_log_type_enabled(v7, v8))
+    {
+      v9 = swift_slowAlloc();
+      v10 = swift_slowAlloc();
+      v84 = v10;
+      *v9 = 136315138;
+      outlined init with copy of UMUserPersonProtocol(&v85, v83);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork29MessageCenterEndpointProtocol_pMd, &_s11SiriNetwork29MessageCenterEndpointProtocol_pMR);
+      v11 = String.init<A>(describing:)();
+      v13 = v12;
+      __swift_destroy_boxed_opaque_existential_0(&v85);
+      v14 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v13, &v84);
+
+      *(v9 + 4) = v14;
+      _os_log_impl(&dword_223515000, v7, v8, "Payload missing on endpoint %s. Falling back to builtin list", v9, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v10);
+      MEMORY[0x223DE38F0](v10, -1, -1);
+      MEMORY[0x223DE38F0](v9, -1, -1);
+    }
+
+    else
+    {
+
+      v15 = __swift_destroy_boxed_opaque_existential_0(&v85);
+    }
+
+    MEMORY[0x28223BE20](v15);
+    v80 = v87;
+    if (specialized Sequence.contains(where:)(partial apply for closure #1 in MessageCenterActorBrowser.deviceSupportsAppleIntelligence(_:), (&v82 - 4), &outlined read-only object #0 of one-time initialization function for kSupportedDevices))
+    {
+      LOBYTE(v6) = 1;
+      goto LABEL_30;
+    }
+
+    v19 = v88;
+    v20 = v89;
+    __swift_project_boxed_opaque_existential_1(v87, v88);
+    v21 = (*(v20 + 24))(v19, v20);
+    v6 = v22;
+    if (!v22)
+    {
+      goto LABEL_30;
+    }
+
+    v23 = v21;
+    v85 = v21;
+    v86 = v22;
+    strcpy(v83, "^iPhone(\\d+)");
+    BYTE1(v83[3]) = 0;
+    HIWORD(v83[3]) = -5120;
+    v24 = type metadata accessor for Locale();
+    __swift_storeEnumTagSinglePayload(v4, 1, 1, v24);
+    v25 = lazy protocol witness table accessor for type String and conformance String();
+    v80 = v25;
+    v81 = v25;
+    StringProtocol.range<A>(of:options:range:locale:)();
+    v27 = v26;
+    outlined destroy of NetworkConnectionProtocol?(v4, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+    if (v27)
+    {
+      v85 = v23;
+      v86 = v6;
+      strcpy(v83, "^iPad(\\d+)");
+      HIBYTE(v83[2]) = 0;
+      v83[3] = -369098752;
+      __swift_storeEnumTagSinglePayload(v4, 1, 1, v24);
+      v80 = v25;
+      v81 = v25;
+      StringProtocol.range<A>(of:options:range:locale:)();
+      v29 = v28;
+      outlined destroy of NetworkConnectionProtocol?(v4, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+      if ((v29 & 1) == 0)
+      {
+        v52 = String.subscript.getter();
+        v54 = v53;
+        v56 = v55;
+        v58 = v57;
+
+        v59 = MEMORY[0x223DE2130](v52, v54, v56, v58);
+        v61 = v60;
+
+        v62 = specialized Collection.dropFirst(_:)(4uLL, v59, v61);
+        v66 = v65;
+        if ((v62 ^ v63) >= 0x4000)
+        {
+          v67 = v62;
+          v68 = v63;
+          v69 = v64;
+          v70 = _ss5SliceV32withContiguousStorageIfAvailableyqd__Sgqd__SRy7ElementQzGKXEKlFSRyxGq_s5Error_pRi_zRi0_zRi__Ri0__r0_lys5UInt8Vqd__Isgyrzo_ABySS8UTF8ViewVGADsAI_pAMRszr__lIetMggrzo_Tpq5SiSg_Tg5061_ss17FixedWidthIntegerPsE_5radixxSgqd___SitcSyRd__lufcADSRys5I15VGXEfU_Si_SsTG5SiTf1cn_n(v62, v63, v64, v65, 10);
+          if ((v71 & 0x100) != 0)
+          {
+            v72 = specialized _parseInteger<A, B>(ascii:radix:)(v67, v68, v69, v66, 10);
+            v78 = v77;
+
+            if ((v78 & 1) == 0)
+            {
+LABEL_26:
+              v76 = v72 <= 13;
+LABEL_27:
+              LOBYTE(v6) = !v76;
+              goto LABEL_30;
+            }
+          }
+
+          else
+          {
+            v72 = v70;
+            v73 = v71;
+
+            if ((v73 & 1) == 0)
+            {
+              goto LABEL_26;
+            }
+          }
+
+LABEL_25:
+          LOBYTE(v6) = 0;
+          goto LABEL_30;
+        }
+      }
+    }
+
+    else
+    {
+      v30 = String.subscript.getter();
+      v32 = v31;
+      v34 = v33;
+      v36 = v35;
+
+      v37 = MEMORY[0x223DE2130](v30, v32, v34, v36);
+      v39 = v38;
+
+      v40 = specialized Collection.dropFirst(_:)(6uLL, v37, v39);
+      v44 = v43;
+      if ((v40 ^ v41) >= 0x4000)
+      {
+        v45 = v40;
+        v46 = v41;
+        v47 = v42;
+        v48 = _ss5SliceV32withContiguousStorageIfAvailableyqd__Sgqd__SRy7ElementQzGKXEKlFSRyxGq_s5Error_pRi_zRi0_zRi__Ri0__r0_lys5UInt8Vqd__Isgyrzo_ABySS8UTF8ViewVGADsAI_pAMRszr__lIetMggrzo_Tpq5SiSg_Tg5061_ss17FixedWidthIntegerPsE_5radixxSgqd___SitcSyRd__lufcADSRys5I15VGXEfU_Si_SsTG5SiTf1cn_n(v40, v41, v42, v43, 10);
+        if ((v49 & 0x100) != 0)
+        {
+          v50 = specialized _parseInteger<A, B>(ascii:radix:)(v45, v46, v47, v44, 10);
+          v75 = v74;
+
+          if (v75)
+          {
+            goto LABEL_25;
+          }
+        }
+
+        else
+        {
+          v50 = v48;
+          v51 = v49;
+
+          if (v51)
+          {
+            goto LABEL_25;
+          }
+        }
+
+        v76 = v50 <= 15;
+        goto LABEL_27;
+      }
+    }
+
+    goto LABEL_25;
+  }
+
+  v16 = Logger.logObject.getter();
+  v17 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v16, v17))
+  {
+    v18 = swift_slowAlloc();
+    *v18 = 67109120;
+    *(v18 + 4) = v6 & 1;
+    _os_log_impl(&dword_223515000, v16, v17, "Found endpoint with Apple Intelligence support: %{BOOL}d", v18, 8u);
+    MEMORY[0x223DE38F0](v18, -1, -1);
+  }
+
+LABEL_30:
+  __swift_destroy_boxed_opaque_existential_0(v87);
+  return v6 & 1;
+}
+
+uint64_t specialized MessageCenterEndpointBrowser.handleEndpointAdded(_:)(uint64_t a1, uint64_t a2)
+{
+  v2[17] = a2;
+  v4 = type metadata accessor for NWEndpoint();
+  v2[5] = v4;
+  v2[6] = lazy protocol witness table accessor for type NWEndpoint and conformance NWEndpoint(&lazy protocol witness table cache variable for type NWEndpoint and conformance NWEndpoint, MEMORY[0x277CD8B10], &protocol conformance descriptor for NWEndpoint);
+  v2[18] = __swift_allocate_boxed_opaque_existential_1(v2 + 2);
+  (*(*(v4 - 8) + 16))();
+
+  return MEMORY[0x2822009F8](specialized MessageCenterEndpointBrowser.handleEndpointAdded(_:), a2, 0);
+}
+
+uint64_t specialized MessageCenterEndpointBrowser.handleEndpointAdded(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18)
+{
+  OUTLINED_FUNCTION_38_1();
+  a17 = v19;
+  a18 = v20;
+  OUTLINED_FUNCTION_21();
+  a16 = v18;
+  outlined init with copy of UMUserPersonProtocol((v18 + 2), (v18 + 7));
+
+  v21 = Logger.logObject.getter();
+  v22 = static os_log_type_t.default.getter();
+
+  if (os_log_type_enabled(v21, v22))
+  {
+    v23 = swift_slowAlloc();
+    a10 = swift_slowAlloc();
+    *v23 = 136315394;
+    v24 = MessageCenterEndpointBrowser.description.getter();
+    v26 = v25;
+    getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v24, v25, &a10);
+
+    OUTLINED_FUNCTION_47_1();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork29MessageCenterEndpointProtocol_pMd, &_s11SiriNetwork29MessageCenterEndpointProtocol_pMR);
+    String.init<A>(describing:)();
+    OUTLINED_FUNCTION_55_1();
+    v27 = __swift_destroy_boxed_opaque_existential_0(v18 + 7);
+    OUTLINED_FUNCTION_70_0(v27, v28, &a10);
+    OUTLINED_FUNCTION_68_2();
+    *(v23 + 14) = v26;
+    OUTLINED_FUNCTION_16_7();
+    _os_log_impl(v29, v30, v31, v32, v33, 0x16u);
+    swift_arrayDestroy();
+    OUTLINED_FUNCTION_7_13();
+    OUTLINED_FUNCTION_12();
+  }
+
+  else
+  {
+
+    __swift_destroy_boxed_opaque_existential_0(v18 + 7);
+  }
+
+  Strong = swift_unknownObjectWeakLoadStrong();
+  v18[19] = Strong;
+  if (Strong)
+  {
+    OUTLINED_FUNCTION_4_15(&async function pointer to specialized MessageCenterActorBrowser.handleEndpointFound(_:on:));
+    v54 = v35;
+    v36 = swift_task_alloc();
+    v18[20] = v36;
+    *v36 = v18;
+    OUTLINED_FUNCTION_31_3(v36);
+    OUTLINED_FUNCTION_26_3();
+
+    return v40(v37, v38, v39, v40, v41, v42, v43, v44, v54, a10);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_2_18(v18 + 2);
+    OUTLINED_FUNCTION_26_3();
+
+    return v47(v46, v47, v48, v49, v50, v51, v52, v53, a9, a10);
+  }
+}
+
+uint64_t specialized MessageCenterEndpointBrowser.handleEndpointAdded(_:)()
+{
+  OUTLINED_FUNCTION_7_0();
+  OUTLINED_FUNCTION_11_0();
+  v1 = *v0;
+  OUTLINED_FUNCTION_5_1();
+  *v2 = v1;
+
+  swift_unknownObjectRelease();
+  v3 = OUTLINED_FUNCTION_3_14();
+
+  return MEMORY[0x2822009F8](v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_7_0();
+  OUTLINED_FUNCTION_2_18((v0 + 16));
+
+  return v1();
+}
+
+uint64_t specialized MessageCenterEndpointBrowser.handleEndpointRemoved(_:)(uint64_t a1, uint64_t a2)
+{
+  v2[17] = a2;
+  v4 = type metadata accessor for NWEndpoint();
+  v2[5] = v4;
+  v2[6] = lazy protocol witness table accessor for type NWEndpoint and conformance NWEndpoint(&lazy protocol witness table cache variable for type NWEndpoint and conformance NWEndpoint, MEMORY[0x277CD8B10], &protocol conformance descriptor for NWEndpoint);
+  v2[18] = __swift_allocate_boxed_opaque_existential_1(v2 + 2);
+  (*(*(v4 - 8) + 16))();
+
+  return MEMORY[0x2822009F8](specialized MessageCenterEndpointBrowser.handleEndpointRemoved(_:), a2, 0);
+}
+
+uint64_t specialized MessageCenterEndpointBrowser.handleEndpointRemoved(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18)
+{
+  OUTLINED_FUNCTION_38_1();
+  a17 = v19;
+  a18 = v20;
+  OUTLINED_FUNCTION_21();
+  a16 = v18;
+  outlined init with copy of UMUserPersonProtocol((v18 + 2), (v18 + 7));
+
+  v21 = Logger.logObject.getter();
+  v22 = static os_log_type_t.default.getter();
+
+  if (os_log_type_enabled(v21, v22))
+  {
+    v23 = swift_slowAlloc();
+    a10 = swift_slowAlloc();
+    *v23 = 136315394;
+    v24 = MessageCenterEndpointBrowser.description.getter();
+    v26 = v25;
+    getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v24, v25, &a10);
+
+    OUTLINED_FUNCTION_47_1();
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork29MessageCenterEndpointProtocol_pMd, &_s11SiriNetwork29MessageCenterEndpointProtocol_pMR);
+    String.init<A>(describing:)();
+    OUTLINED_FUNCTION_55_1();
+    v27 = __swift_destroy_boxed_opaque_existential_0(v18 + 7);
+    OUTLINED_FUNCTION_70_0(v27, v28, &a10);
+    OUTLINED_FUNCTION_68_2();
+    *(v23 + 14) = v26;
+    OUTLINED_FUNCTION_16_7();
+    _os_log_impl(v29, v30, v31, v32, v33, 0x16u);
+    swift_arrayDestroy();
+    OUTLINED_FUNCTION_7_13();
+    OUTLINED_FUNCTION_12();
+  }
+
+  else
+  {
+
+    __swift_destroy_boxed_opaque_existential_0(v18 + 7);
+  }
+
+  Strong = swift_unknownObjectWeakLoadStrong();
+  v18[19] = Strong;
+  if (Strong)
+  {
+    OUTLINED_FUNCTION_4_15(&async function pointer to specialized MessageCenterActorBrowser.handleEndpointLost(_:on:));
+    v54 = v35;
+    v36 = swift_task_alloc();
+    v18[20] = v36;
+    *v36 = v18;
+    OUTLINED_FUNCTION_31_3(v36);
+    OUTLINED_FUNCTION_26_3();
+
+    return v40(v37, v38, v39, v40, v41, v42, v43, v44, v54, a10);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_2_18(v18 + 2);
+    OUTLINED_FUNCTION_26_3();
+
+    return v47(v46, v47, v48, v49, v50, v51, v52, v53, a9, a10);
+  }
+}
+
+uint64_t specialized MessageCenterEndpointBrowser.handleEndpointRemoved(_:)()
+{
+  OUTLINED_FUNCTION_7_0();
+  OUTLINED_FUNCTION_11_0();
+  v1 = *v0;
+  OUTLINED_FUNCTION_5_1();
+  *v2 = v1;
+
+  swift_unknownObjectRelease();
+  v3 = OUTLINED_FUNCTION_3_14();
+
+  return MEMORY[0x2822009F8](v3, v4, v5);
+}
+
+uint64_t specialized MessageCenterEndpointBrowser.handleEndpointChanged(_:newEndpoint:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3[32] = a3;
+  v6 = type metadata accessor for NWEndpoint();
+  v3[5] = v6;
+  v7 = lazy protocol witness table accessor for type NWEndpoint and conformance NWEndpoint(&lazy protocol witness table cache variable for type NWEndpoint and conformance NWEndpoint, MEMORY[0x277CD8B10], &protocol conformance descriptor for NWEndpoint);
+  v3[6] = v7;
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v3 + 2);
+  v9 = *(*(v6 - 8) + 16);
+  (v9)(boxed_opaque_existential_1, a1, v6);
+  v3[10] = v6;
+  v3[11] = v7;
+  v3[33] = __swift_allocate_boxed_opaque_existential_1(v3 + 7);
+  v9();
+
+  return MEMORY[0x2822009F8](specialized MessageCenterEndpointBrowser.handleEndpointChanged(_:newEndpoint:), a3, 0);
+}
+
+uint64_t specialized MessageCenterEndpointBrowser.handleEndpointChanged(_:newEndpoint:)()
+{
+  v22 = v0;
+  outlined init with copy of UMUserPersonProtocol((v0 + 2), (v0 + 12));
+  outlined init with copy of UMUserPersonProtocol((v0 + 7), (v0 + 17));
+  v1 = Logger.logObject.getter();
+  v2 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v1, v2))
+  {
+    v3 = swift_slowAlloc();
+    v21 = swift_slowAlloc();
+    *v3 = 136315394;
+    outlined init with copy of UMUserPersonProtocol((v0 + 12), (v0 + 22));
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork29MessageCenterEndpointProtocol_pMd, &_s11SiriNetwork29MessageCenterEndpointProtocol_pMR);
+    v4 = String.init<A>(describing:)();
+    v6 = v5;
+    __swift_destroy_boxed_opaque_existential_0(v0 + 12);
+    v7 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v4, v6, &v21);
+
+    *(v3 + 4) = v7;
+    *(v3 + 12) = 2080;
+    outlined init with copy of UMUserPersonProtocol((v0 + 17), (v0 + 27));
+    v8 = String.init<A>(describing:)();
+    v10 = v9;
+    __swift_destroy_boxed_opaque_existential_0(v0 + 17);
+    v11 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v10, &v21);
+
+    *(v3 + 14) = v11;
+    _os_log_impl(&dword_223515000, v1, v2, "Browser changed endpoint %s->%s", v3, 0x16u);
+    swift_arrayDestroy();
+    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_12();
+  }
+
+  else
+  {
+
+    __swift_destroy_boxed_opaque_existential_0(v0 + 17);
+    __swift_destroy_boxed_opaque_existential_0(v0 + 12);
+  }
+
+  Strong = swift_unknownObjectWeakLoadStrong();
+  v0[34] = Strong;
+  if (Strong)
+  {
+    v13 = Strong;
+    OUTLINED_FUNCTION_4_15(&async function pointer to specialized MessageCenterActorBrowser.handleEndpointChanged(_:on:));
+    v20 = v14;
+    v15 = swift_task_alloc();
+    v0[35] = v15;
+    *v15 = v0;
+    v15[1] = specialized MessageCenterEndpointBrowser.handleEndpointChanged(_:newEndpoint:);
+    v16 = v0[32];
+    v17 = v0[33];
+
+    return v20(v17, v16, v13);
+  }
+
+  else
+  {
+    __swift_destroy_boxed_opaque_existential_0(v0 + 2);
+    OUTLINED_FUNCTION_2_18(v0 + 7);
+
+    return v19();
+  }
+}
+
+{
+  OUTLINED_FUNCTION_7_0();
+  OUTLINED_FUNCTION_11_0();
+  v1 = *v0;
+  OUTLINED_FUNCTION_5_1();
+  *v2 = v1;
+
+  swift_unknownObjectRelease();
+  v3 = OUTLINED_FUNCTION_3_14();
+
+  return MEMORY[0x2822009F8](v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_7_0();
+  __swift_destroy_boxed_opaque_existential_0((v0 + 16));
+  OUTLINED_FUNCTION_2_18((v0 + 56));
+
+  return v1();
+}
+
+uint64_t specialized MessageCenterActorBrowser.handleEndpointChanged(_:on:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3[106] = a3;
+  v3[105] = a2;
+  v6 = type metadata accessor for NWEndpoint();
+  v3[41] = v6;
+  v3[42] = lazy protocol witness table accessor for type NWEndpoint and conformance NWEndpoint(&lazy protocol witness table cache variable for type NWEndpoint and conformance NWEndpoint, MEMORY[0x277CD8B10], &protocol conformance descriptor for NWEndpoint);
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v3 + 38);
+  (*(*(v6 - 8) + 16))(boxed_opaque_existential_1, a1, v6);
+  v3[107] = lazy protocol witness table accessor for type NWEndpoint and conformance NWEndpoint(&lazy protocol witness table cache variable for type MessageCenterEndpointBrowser and conformance MessageCenterEndpointBrowser, type metadata accessor for MessageCenterEndpointBrowser, &protocol conformance descriptor for MessageCenterEndpointBrowser);
+
+  return MEMORY[0x2822009F8](specialized MessageCenterActorBrowser.handleEndpointChanged(_:on:), a3, 0);
+}
+
+uint64_t specialized MessageCenterActorBrowser.handleEndpointChanged(_:on:)()
+{
+  OUTLINED_FUNCTION_40_3();
+  outlined init with copy of UMUserPersonProtocol(v0 + 304, v0 + 384);
+  MessageCenterEndpoint.init(_:)((v0 + 384), v0 + 344);
+  *(v0 + 864) = 0;
+  *(v0 + 944) = specialized MessageCenterActorBrowser.checkDeviceForRemoteIntelligence(_:)(v0 + 344, *(v0 + 848)) & 1;
+  swift_getObjectType();
+  v2 = dispatch thunk of Actor.unownedExecutor.getter();
+
+  return MEMORY[0x2822009F8](specialized MessageCenterActorBrowser.handleEndpointChanged(_:on:), v2, v1);
+}
+
+{
+  v32 = v0;
+  v1 = v0[113];
+  OUTLINED_FUNCTION_59_0();
+  MessageCenterActorBrowser.addActiveEndpoint(_:to:)();
+  OUTLINED_FUNCTION_20_3();
+  v30 = &type metadata for MessageCenterEndpoint;
+  v31 = lazy protocol witness table accessor for type MessageCenterEndpoint and conformance MessageCenterEndpoint();
+  OUTLINED_FUNCTION_44_3();
+  v2 = swift_allocObject();
+  OUTLINED_FUNCTION_67(v2);
+  MessageCenterDevice.init(actor:endpoint:)(&v28, v29, (v0 + 2));
+  if (v1)
+  {
+    OUTLINED_FUNCTION_25_3();
+    outlined destroy of NetworkConnectionProtocol?(v3, v4, v5);
+    OUTLINED_FUNCTION_25_3();
+    outlined destroy of NetworkConnectionProtocol?(v6, v7, v8);
+    outlined destroy of MessageCenterEndpoint((v0 + 43));
+    v9 = v1;
+    v10 = Logger.logObject.getter();
+    static os_log_type_t.default.getter();
+
+    if (OUTLINED_FUNCTION_52_2())
+    {
+      OUTLINED_FUNCTION_55();
+      v11 = OUTLINED_FUNCTION_30_4();
+      OUTLINED_FUNCTION_69_0(5.7779e-34);
+      v12 = _swift_stdlib_bridgeErrorToNSError();
+      OUTLINED_FUNCTION_58_1(v12);
+      OUTLINED_FUNCTION_15_5(&dword_223515000, v13, v14, "Ignoring endpoint %@");
+      outlined destroy of NetworkConnectionProtocol?(v11, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      OUTLINED_FUNCTION_7_13();
+      OUTLINED_FUNCTION_11();
+    }
+
+    else
+    {
+    }
+
+LABEL_10:
+    OUTLINED_FUNCTION_2_18(v0 + 38);
+
+    return v27();
+  }
+
+  Strong = swift_unknownObjectWeakLoadStrong();
+  v0[114] = Strong;
+  if (!Strong)
+  {
+    outlined destroy of MessageCenterDevice((v0 + 2));
+    OUTLINED_FUNCTION_25_3();
+    outlined destroy of NetworkConnectionProtocol?(v21, v22, v23);
+    OUTLINED_FUNCTION_25_3();
+    outlined destroy of NetworkConnectionProtocol?(v24, v25, v26);
+    outlined destroy of MessageCenterEndpoint((v0 + 43));
+    goto LABEL_10;
+  }
+
+  swift_task_alloc();
+  OUTLINED_FUNCTION_27_2();
+  v0[115] = v16;
+  *v16 = v17;
+  v16[1] = specialized MessageCenterActorBrowser.handleEndpointChanged(_:on:);
+  OUTLINED_FUNCTION_59_0();
+
+  return MessageCenter.didFindDevice(_:for:)((v0 + 2), v18, v19);
+}
+
+{
+  OUTLINED_FUNCTION_7_0();
+  OUTLINED_FUNCTION_11_0();
+  v1 = *v0;
+  OUTLINED_FUNCTION_5_1();
+  *v2 = v1;
+
+  swift_unknownObjectRelease();
+  v3 = OUTLINED_FUNCTION_3_14();
+
+  return MEMORY[0x2822009F8](v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_7_0();
+  outlined destroy of MessageCenterDevice(v0 + 16);
+  OUTLINED_FUNCTION_25_3();
+  outlined destroy of NetworkConnectionProtocol?(v1, v2, v3);
+  OUTLINED_FUNCTION_25_3();
+  outlined destroy of NetworkConnectionProtocol?(v4, v5, v6);
+  outlined destroy of MessageCenterEndpoint(v0 + 344);
+  OUTLINED_FUNCTION_2_18((v0 + 304));
+
+  return v7();
+}
+
+{
+  v20 = v0;
+  v1 = v0[111];
+  OUTLINED_FUNCTION_59_0();
+  MessageCenterActorBrowser.addActiveIneligibleEndpoint(_:to:)();
+  OUTLINED_FUNCTION_20_3();
+  v18 = &type metadata for MessageCenterEndpoint;
+  v19 = lazy protocol witness table accessor for type MessageCenterEndpoint and conformance MessageCenterEndpoint();
+  OUTLINED_FUNCTION_44_3();
+  v2 = swift_allocObject();
+  OUTLINED_FUNCTION_67(v2);
+  MessageCenterDevice.init(actor:endpoint:)(&v16, v17, (v0 + 20));
+  if (v1)
+  {
+    outlined destroy of NetworkConnectionProtocol?((v0 + 53), &_s11SiriNetwork21MessageCenterEndpointVSgMd, &_s11SiriNetwork21MessageCenterEndpointVSgMR);
+    outlined destroy of MessageCenterEndpoint((v0 + 43));
+    v3 = v1;
+    v4 = Logger.logObject.getter();
+    static os_log_type_t.default.getter();
+
+    if (OUTLINED_FUNCTION_52_2())
+    {
+      OUTLINED_FUNCTION_55();
+      v5 = OUTLINED_FUNCTION_30_4();
+      OUTLINED_FUNCTION_69_0(5.7779e-34);
+      v6 = _swift_stdlib_bridgeErrorToNSError();
+      OUTLINED_FUNCTION_58_1(v6);
+      OUTLINED_FUNCTION_15_5(&dword_223515000, v7, v8, "Ignoring endpoint %@");
+      outlined destroy of NetworkConnectionProtocol?(v5, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      OUTLINED_FUNCTION_7_13();
+      OUTLINED_FUNCTION_11();
+    }
+
+    else
+    {
+    }
+
+LABEL_10:
+    OUTLINED_FUNCTION_2_18(v0 + 38);
+
+    return v15();
+  }
+
+  Strong = swift_unknownObjectWeakLoadStrong();
+  v0[116] = Strong;
+  if (!Strong)
+  {
+    outlined destroy of MessageCenterDevice((v0 + 20));
+    outlined destroy of NetworkConnectionProtocol?((v0 + 53), &_s11SiriNetwork21MessageCenterEndpointVSgMd, &_s11SiriNetwork21MessageCenterEndpointVSgMR);
+    outlined destroy of MessageCenterEndpoint((v0 + 43));
+    goto LABEL_10;
+  }
+
+  swift_task_alloc();
+  OUTLINED_FUNCTION_27_2();
+  v0[117] = v10;
+  *v10 = v11;
+  v10[1] = specialized MessageCenterActorBrowser.handleEndpointChanged(_:on:);
+  OUTLINED_FUNCTION_59_0();
+
+  return MessageCenter.didLoseDevice(_:for:)((v0 + 20), v12, v13);
+}
+
+{
+  OUTLINED_FUNCTION_7_0();
+  OUTLINED_FUNCTION_11_0();
+  v1 = *v0;
+  OUTLINED_FUNCTION_5_1();
+  *v2 = v1;
+
+  swift_unknownObjectRelease();
+  v3 = OUTLINED_FUNCTION_3_14();
+
+  return MEMORY[0x2822009F8](v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_7_0();
+  outlined destroy of MessageCenterDevice(v0 + 160);
+  outlined destroy of NetworkConnectionProtocol?(v0 + 424, &_s11SiriNetwork21MessageCenterEndpointVSgMd, &_s11SiriNetwork21MessageCenterEndpointVSgMR);
+  outlined destroy of MessageCenterEndpoint(v0 + 344);
+  OUTLINED_FUNCTION_2_18((v0 + 304));
+
+  return v1();
+}
+
+uint64_t specialized MessageCenterActorBrowser.handleEndpointChanged(_:on:)(uint64_t a1)
+{
+  v2 = v1[106];
+  v3 = v1[105];
+  v1[109] = *(v3 + 192);
+  v1[110] = *(v3 + 200);
+  return OUTLINED_FUNCTION_0_31(a1, v2);
+}
+
+uint64_t specialized MessageCenterActorBrowser.handleEndpointChanged(_:on:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18)
+{
+  OUTLINED_FUNCTION_38_1();
+  a17 = v19;
+  a18 = v20;
+  OUTLINED_FUNCTION_21();
+  a16 = v18;
+  swift_beginAccess();
+
+  OUTLINED_FUNCTION_32();
+  v21 = specialized Dictionary.subscript.getter();
+
+  if (!v21)
+  {
+    *(v18 + 456) = 0;
+    *(v18 + 424) = 0u;
+    *(v18 + 440) = 0u;
+    v22 = *(v18 + 864);
+    goto LABEL_8;
+  }
+
+  v22 = *(v18 + 864);
+  *(swift_task_alloc() + 16) = v18 + 344;
+  specialized Sequence.first(where:)(partial apply for closure #1 in MessageCenterActorBrowser.handleEndpointChanged(_:on:), v21, v18 + 424);
+  *(v18 + 888) = v22;
+
+  if (!*(v18 + 448))
+  {
+LABEL_8:
+    *(v18 + 896) = v22;
+    goto LABEL_12;
+  }
+
+  if (*(v18 + 944) == 1)
+  {
+    outlined destroy of NetworkConnectionProtocol?(v18 + 424, &_s11SiriNetwork21MessageCenterEndpointVSgMd, &_s11SiriNetwork21MessageCenterEndpointVSgMR);
+    outlined destroy of MessageCenterEndpoint(v18 + 344);
+    OUTLINED_FUNCTION_2_18((v18 + 304));
+    OUTLINED_FUNCTION_26_3();
+
+    return v24(v23, v24, v25, v26, v27, v28, v29, v30, a9, a10);
+  }
+
+  outlined init with copy of MessageCenterEndpoint(v18 + 344, v18 + 584);
+  v32 = Logger.logObject.getter();
+  v33 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v32, v33))
+  {
+    v34 = OUTLINED_FUNCTION_55();
+    v35 = OUTLINED_FUNCTION_54();
+    a9 = v35;
+    *v34 = 136315138;
+    MessageCenterEndpoint.description.getter();
+    OUTLINED_FUNCTION_55_1();
+    v36 = outlined destroy of MessageCenterEndpoint(v18 + 584);
+    OUTLINED_FUNCTION_70_0(v36, v37, &a9);
+    OUTLINED_FUNCTION_68_2();
+    *(v34 + 4) = v18 + 584;
+    OUTLINED_FUNCTION_16_7();
+    _os_log_impl(v38, v39, v40, v41, v42, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v35);
+    OUTLINED_FUNCTION_7_13();
+    OUTLINED_FUNCTION_12();
+  }
+
+  else
+  {
+
+    outlined destroy of MessageCenterEndpoint(v18 + 584);
+  }
+
+LABEL_12:
+  OUTLINED_FUNCTION_26_3();
+
+  return MEMORY[0x2822009F8](v43, v44, v45);
+}
+
+{
+  OUTLINED_FUNCTION_38_1();
+  a17 = v19;
+  a18 = v20;
+  OUTLINED_FUNCTION_21();
+  a16 = v18;
+  swift_beginAccess();
+
+  OUTLINED_FUNCTION_32();
+  v21 = specialized Dictionary.subscript.getter();
+
+  if (v21)
+  {
+    v22 = *(v18 + 896);
+    *(swift_task_alloc() + 16) = v18 + 344;
+    specialized Sequence.first(where:)(partial apply for closure #1 in MessageCenterActorBrowser.handleEndpointChanged(_:on:), v21, v18 + 464);
+    *(v18 + 904) = v22;
+
+    if (*(v18 + 488) && *(v18 + 944) == 1)
+    {
+      outlined init with copy of MessageCenterEndpoint(v18 + 344, v18 + 504);
+      v23 = Logger.logObject.getter();
+      v24 = static os_log_type_t.default.getter();
+      if (os_log_type_enabled(v23, v24))
+      {
+        v25 = OUTLINED_FUNCTION_55();
+        v26 = OUTLINED_FUNCTION_54();
+        a9 = v26;
+        *v25 = 136315138;
+        MessageCenterEndpoint.description.getter();
+        OUTLINED_FUNCTION_55_1();
+        v27 = outlined destroy of MessageCenterEndpoint(v18 + 504);
+        OUTLINED_FUNCTION_70_0(v27, v28, &a9);
+        OUTLINED_FUNCTION_68_2();
+        *(v25 + 4) = v18 + 504;
+        OUTLINED_FUNCTION_16_7();
+        _os_log_impl(v29, v30, v31, v32, v33, 0xCu);
+        __swift_destroy_boxed_opaque_existential_0(v26);
+        OUTLINED_FUNCTION_7_13();
+        OUTLINED_FUNCTION_12();
+      }
+
+      else
+      {
+
+        outlined destroy of MessageCenterEndpoint(v18 + 504);
+      }
+
+      OUTLINED_FUNCTION_26_3();
+
+      return MEMORY[0x2822009F8](v43, v44, v45);
+    }
+  }
+
+  else
+  {
+    *(v18 + 496) = 0;
+    *(v18 + 464) = 0u;
+    *(v18 + 480) = 0u;
+  }
+
+  outlined destroy of NetworkConnectionProtocol?(v18 + 464, &_s11SiriNetwork21MessageCenterEndpointVSgMd, &_s11SiriNetwork21MessageCenterEndpointVSgMR);
+  outlined destroy of NetworkConnectionProtocol?(v18 + 424, &_s11SiriNetwork21MessageCenterEndpointVSgMd, &_s11SiriNetwork21MessageCenterEndpointVSgMR);
+  outlined destroy of MessageCenterEndpoint(v18 + 344);
+  OUTLINED_FUNCTION_2_18((v18 + 304));
+  OUTLINED_FUNCTION_26_3();
+
+  return v35(v34, v35, v36, v37, v38, v39, v40, v41, a9, a10);
+}
+
+uint64_t specialized MessageCenterActorBrowser.handleEndpointLost(_:on:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3[44] = a2;
+  v3[45] = a3;
+  v6 = type metadata accessor for NWEndpoint();
+  v3[23] = v6;
+  v3[24] = lazy protocol witness table accessor for type NWEndpoint and conformance NWEndpoint(&lazy protocol witness table cache variable for type NWEndpoint and conformance NWEndpoint, MEMORY[0x277CD8B10], &protocol conformance descriptor for NWEndpoint);
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v3 + 20);
+  (*(*(v6 - 8) + 16))(boxed_opaque_existential_1, a1, v6);
+  v3[46] = lazy protocol witness table accessor for type NWEndpoint and conformance NWEndpoint(&lazy protocol witness table cache variable for type MessageCenterEndpointBrowser and conformance MessageCenterEndpointBrowser, type metadata accessor for MessageCenterEndpointBrowser, &protocol conformance descriptor for MessageCenterEndpointBrowser);
+
+  return MEMORY[0x2822009F8](specialized MessageCenterActorBrowser.handleEndpointLost(_:on:), a3, 0);
+}
+
+uint64_t specialized MessageCenterActorBrowser.handleEndpointLost(_:on:)()
+{
+  OUTLINED_FUNCTION_40_3();
+  v1 = v0[45];
+  v2 = v0[23];
+  v3 = v0[24];
+  v4 = __swift_project_boxed_opaque_existential_1(v0 + 20, v2);
+  LOBYTE(v2) = specialized MessageCenterActorBrowser.checkDeviceForRemoteIntelligence(_:)(v4, v1, v2, v3);
+  swift_getObjectType();
+  v6 = dispatch thunk of Actor.unownedExecutor.getter();
+  if (v2)
+  {
+    v7 = specialized MessageCenterActorBrowser.handleEndpointLost(_:on:);
+  }
+
+  else
+  {
+    v7 = specialized MessageCenterActorBrowser.handleEndpointLost(_:on:);
+  }
+
+  return MEMORY[0x2822009F8](v7, v6, v5);
+}
+
+{
+  v15 = v0;
+  *(v0 + 392) = OBJC_IVAR____TtC11SiriNetwork25MessageCenterActorBrowser_activeEndpoints;
+  swift_beginAccess();
+
+  v1 = specialized Dictionary.subscript.getter();
+
+  if (!v1)
+  {
+LABEL_8:
+    OUTLINED_FUNCTION_2_18((v0 + 160));
+    OUTLINED_FUNCTION_64_0();
+
+    __asm { BRAA            X1, X16 }
+  }
+
+  *(swift_task_alloc() + 16) = v0 + 160;
+  specialized Sequence.first(where:)(partial apply for closure #1 in MessageCenterActorBrowser.handleEndpointLost(_:on:), v1, v0 + 240);
+
+  if (!*(v0 + 264))
+  {
+    outlined destroy of NetworkConnectionProtocol?(v0 + 240, &_s11SiriNetwork21MessageCenterEndpointVSgMd, &_s11SiriNetwork21MessageCenterEndpointVSgMR);
+    goto LABEL_8;
+  }
+
+  v2 = *(v0 + 256);
+  *(v0 + 200) = *(v0 + 240);
+  *(v0 + 216) = v2;
+  *(v0 + 232) = *(v0 + 272);
+  OUTLINED_FUNCTION_20_3();
+  v13 = &type metadata for MessageCenterEndpoint;
+  v14 = lazy protocol witness table accessor for type MessageCenterEndpoint and conformance MessageCenterEndpoint();
+  OUTLINED_FUNCTION_44_3();
+  v3 = swift_allocObject();
+  OUTLINED_FUNCTION_66_1(v3);
+  MessageCenterDevice.init(actor:endpoint:)(&v11, v12, v0 + 16);
+  OUTLINED_FUNCTION_64_0();
+
+  return MEMORY[0x2822009F8](v4, v5, v6);
+}
+
+{
+  OUTLINED_FUNCTION_29();
+  swift_beginAccess();
+  v1 = OUTLINED_FUNCTION_32();
+  specialized Dictionary._Variant.removeValue(forKey:)(v1, v2);
+  swift_endAccess();
+
+  OUTLINED_FUNCTION_2_18((v0 + 160));
+
+  return v3();
+}
+
+{
+  OUTLINED_FUNCTION_29();
+  swift_beginAccess();
+  v1 = OUTLINED_FUNCTION_32();
+  specialized Dictionary._Variant.removeValue(forKey:)(v1, v2);
+  swift_endAccess();
+
+  v3 = swift_task_alloc();
+  v0[52] = v3;
+  *v3 = v0;
+  v3[1] = specialized MessageCenterActorBrowser.handleEndpointLost(_:on:);
+  v4 = v0[47];
+  v5 = v0[48];
+
+  return MessageCenterActorBrowser.handleActorInvalidation(error:for:)(0, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_7_0();
+  OUTLINED_FUNCTION_11_0();
+  v2 = *(v1 + 360);
+  v3 = *v0;
+  OUTLINED_FUNCTION_5_1();
+  *v4 = v3;
+
+  return MEMORY[0x2822009F8](specialized MessageCenterActorBrowser.handleEndpointLost(_:on:), v2, 0);
+}
+
+{
+  OUTLINED_FUNCTION_7_0();
+  Strong = swift_unknownObjectWeakLoadStrong();
+  v0[53] = Strong;
+  if (Strong)
+  {
+    swift_task_alloc();
+    OUTLINED_FUNCTION_27_2();
+    v0[54] = v2;
+    *v2 = v3;
+    v2[1] = specialized MessageCenterActorBrowser.handleEndpointLost(_:on:);
+    v4 = v0[47];
+    v5 = v0[48];
+
+    return MessageCenter.didLoseDevice(_:for:)((v0 + 2), v4, v5);
+  }
+
+  else
+  {
+    outlined destroy of MessageCenterDevice((v0 + 2));
+    outlined destroy of MessageCenterEndpoint((v0 + 25));
+    OUTLINED_FUNCTION_2_18(v0 + 20);
+
+    return v7();
+  }
+}
+
+{
+  OUTLINED_FUNCTION_7_0();
+  OUTLINED_FUNCTION_11_0();
+  v1 = *v0;
+  OUTLINED_FUNCTION_5_1();
+  *v2 = v1;
+
+  swift_unknownObjectRelease();
+  v3 = OUTLINED_FUNCTION_3_14();
+
+  return MEMORY[0x2822009F8](v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_7_0();
+  outlined destroy of MessageCenterDevice(v0 + 16);
+  outlined destroy of MessageCenterEndpoint(v0 + 200);
+  OUTLINED_FUNCTION_2_18((v0 + 160));
+
+  return v1();
+}
+
+uint64_t specialized MessageCenterActorBrowser.handleEndpointLost(_:on:)(uint64_t a1)
+{
+  v3 = v1[44];
+  v2 = v1[45];
+  v1[47] = *(v3 + 192);
+  v1[48] = *(v3 + 200);
+  return OUTLINED_FUNCTION_0_31(a1, v2);
+}
+
+{
+  v3 = v1[44];
+  v2 = v1[45];
+  v1[50] = *(v3 + 192);
+  v1[51] = *(v3 + 200);
+  return OUTLINED_FUNCTION_0_31(a1, v2);
+}
+
+uint64_t specialized MessageCenterActorBrowser.handleEndpointFound(_:on:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v3[35] = a2;
+  v3[36] = a3;
+  v5 = type metadata accessor for NWEndpoint();
+  v3[23] = v5;
+  v3[24] = lazy protocol witness table accessor for type NWEndpoint and conformance NWEndpoint(&lazy protocol witness table cache variable for type NWEndpoint and conformance NWEndpoint, MEMORY[0x277CD8B10], &protocol conformance descriptor for NWEndpoint);
+  boxed_opaque_existential_1 = __swift_allocate_boxed_opaque_existential_1(v3 + 20);
+  (*(*(v5 - 8) + 16))(boxed_opaque_existential_1, a1, v5);
+  lazy protocol witness table accessor for type NWEndpoint and conformance NWEndpoint(&lazy protocol witness table cache variable for type MessageCenterEndpointBrowser and conformance MessageCenterEndpointBrowser, type metadata accessor for MessageCenterEndpointBrowser, &protocol conformance descriptor for MessageCenterEndpointBrowser);
+  swift_getObjectType();
+  v8 = dispatch thunk of Actor.unownedExecutor.getter();
+
+  return MEMORY[0x2822009F8](specialized MessageCenterActorBrowser.handleEndpointFound(_:on:), v8, v7);
+}
+
+uint64_t specialized MessageCenterActorBrowser.handleEndpointFound(_:on:)(uint64_t a1)
+{
+  v3 = v1[35];
+  v2 = v1[36];
+  v1[37] = *(v3 + 192);
+  v1[38] = *(v3 + 200);
+  return OUTLINED_FUNCTION_0_31(a1, v2);
+}
+
+uint64_t specialized MessageCenterActorBrowser.handleEndpointFound(_:on:)()
+{
+  v41 = v0;
+  outlined init with copy of UMUserPersonProtocol((v0 + 20), (v0 + 30));
+  MessageCenterEndpoint.init(_:)(v0 + 30, (v0 + 25));
+  OUTLINED_FUNCTION_20_3();
+  v40[3] = &type metadata for MessageCenterEndpoint;
+  v40[4] = lazy protocol witness table accessor for type MessageCenterEndpoint and conformance MessageCenterEndpoint();
+  OUTLINED_FUNCTION_44_3();
+  v1 = swift_allocObject();
+  OUTLINED_FUNCTION_66_1(v1);
+  MessageCenterDevice.init(actor:endpoint:)(&v36, v40, (v0 + 2));
+  v4 = specialized MessageCenterActorBrowser.checkDeviceForRemoteIntelligence(_:)((v0 + 25), v0[36]);
+  v5 = OBJC_IVAR____TtC11SiriNetwork25MessageCenterActorBrowser_logger;
+
+  v6 = Logger.logObject.getter();
+  static os_log_type_t.info.getter();
+  OUTLINED_FUNCTION_43_2();
+
+  v7 = OUTLINED_FUNCTION_52_2();
+  if ((v4 & 1) == 0)
+  {
+    if (v7)
+    {
+      v26 = OUTLINED_FUNCTION_55();
+      v27 = OUTLINED_FUNCTION_54();
+      v40[0] = v27;
+      *(v26 + 4) = OUTLINED_FUNCTION_65_1(4.8149e-34, v27, v28, v29, v30, v31, v32, v33, v34, v36, v37, v38, v39);
+      OUTLINED_FUNCTION_51_2(&dword_223515000, v35, v5, "Endpoint for persona %s does not support remote intelligence");
+      __swift_destroy_boxed_opaque_existential_0(v27);
+      OUTLINED_FUNCTION_12();
+      OUTLINED_FUNCTION_7_13();
+    }
+
+    MessageCenterActorBrowser.addActiveIneligibleEndpoint(_:to:)();
+LABEL_15:
+    outlined destroy of MessageCenterDevice((v0 + 2));
+    outlined destroy of MessageCenterEndpoint((v0 + 25));
+    OUTLINED_FUNCTION_2_18(v0 + 20);
+    OUTLINED_FUNCTION_64_0();
+
+    __asm { BRAA            X1, X16 }
+  }
+
+  if (v7)
+  {
+    v8 = OUTLINED_FUNCTION_55();
+    v9 = OUTLINED_FUNCTION_54();
+    v40[0] = v9;
+    *(v8 + 4) = OUTLINED_FUNCTION_65_1(4.8149e-34, v9, v10, v11, v12, v13, v14, v15, v16, v36, v37, v38, v39);
+    OUTLINED_FUNCTION_51_2(&dword_223515000, v17, v5, "Endpoint created for persona %s");
+    __swift_destroy_boxed_opaque_existential_0(v9);
+    OUTLINED_FUNCTION_12();
+    OUTLINED_FUNCTION_7_13();
+  }
+
+  MessageCenterActorBrowser.addActiveEndpoint(_:to:)();
+  Strong = swift_unknownObjectWeakLoadStrong();
+  v0[39] = Strong;
+  if (!Strong)
+  {
+    goto LABEL_15;
+  }
+
+  swift_task_alloc();
+  OUTLINED_FUNCTION_27_2();
+  v0[40] = v19;
+  *v19 = v20;
+  v19[1] = specialized MessageCenterActorBrowser.handleEndpointFound(_:on:);
+  OUTLINED_FUNCTION_64_0();
+
+  return MessageCenter.didFindDevice(_:for:)(v21, v22, v23);
+}
+
+{
+  OUTLINED_FUNCTION_7_0();
+  OUTLINED_FUNCTION_11_0();
+  v1 = *v0;
+  OUTLINED_FUNCTION_5_1();
+  *v2 = v1;
+
+  swift_unknownObjectRelease();
+  v3 = OUTLINED_FUNCTION_3_14();
+
+  return MEMORY[0x2822009F8](v3, v4, v5);
+}
+
+unint64_t lazy protocol witness table accessor for type MessageCenterEndpoint and conformance MessageCenterEndpoint()
+{
+  result = lazy protocol witness table cache variable for type MessageCenterEndpoint and conformance MessageCenterEndpoint;
+  if (!lazy protocol witness table cache variable for type MessageCenterEndpoint and conformance MessageCenterEndpoint)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type MessageCenterEndpoint and conformance MessageCenterEndpoint);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type MessageCenterEndpoint and conformance MessageCenterEndpoint;
+  if (!lazy protocol witness table cache variable for type MessageCenterEndpoint and conformance MessageCenterEndpoint)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type MessageCenterEndpoint and conformance MessageCenterEndpoint);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type MessageCenterEndpoint and conformance MessageCenterEndpoint;
+  if (!lazy protocol witness table cache variable for type MessageCenterEndpoint and conformance MessageCenterEndpoint)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type MessageCenterEndpoint and conformance MessageCenterEndpoint);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type Substring and conformance Substring()
+{
+  result = lazy protocol witness table cache variable for type Substring and conformance Substring;
+  if (!lazy protocol witness table cache variable for type Substring and conformance Substring)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Substring and conformance Substring);
+  }
+
+  return result;
+}
+
+uint64_t outlined init with copy of UMUserPersonProtocol(uint64_t a1, uint64_t a2)
+{
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 32) = *(a1 + 32);
+  OUTLINED_FUNCTION_13_4();
+  (*v3)(a2);
+  return a2;
+}
+
+unint64_t lazy protocol witness table accessor for type MessageCenterEndpointPayload and conformance MessageCenterEndpointPayload()
+{
+  result = lazy protocol witness table cache variable for type MessageCenterEndpointPayload and conformance MessageCenterEndpointPayload;
+  if (!lazy protocol witness table cache variable for type MessageCenterEndpointPayload and conformance MessageCenterEndpointPayload)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type MessageCenterEndpointPayload and conformance MessageCenterEndpointPayload);
+  }
+
+  return result;
+}
+
+_BYTE *storeEnumTagSinglePayload for AdoptPersonaExecutionStrategy.AdoptPersonaExecutionStrategyError(_BYTE *result, unsigned int a2, unsigned int a3)
+{
+  if (a3 + 1 >= 0xFFFF00)
+  {
+    v3 = 4;
+  }
+
+  else
+  {
+    v3 = 2;
+  }
+
+  if ((a3 + 1) >> 8 < 0xFF)
+  {
+    v4 = 1;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (a3 >= 0xFF)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = 0;
+  }
+
+  if (a2 > 0xFE)
+  {
+    v6 = ((a2 - 255) >> 8) + 1;
+    *result = a2 + 1;
+    switch(v5)
+    {
+      case 1:
+        result[1] = v6;
+        break;
+      case 2:
+        *(result + 1) = v6;
+        break;
+      case 3:
+LABEL_23:
+        __break(1u);
+        break;
+      case 4:
+        *(result + 1) = v6;
+        break;
+      default:
+        return result;
+    }
+  }
+
+  else
+  {
+    switch(v5)
+    {
+      case 1:
+        result[1] = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      case 2:
+        *(result + 1) = 0;
+        goto LABEL_17;
+      case 3:
+        goto LABEL_23;
+      case 4:
+        *(result + 1) = 0;
+        if (!a2)
+        {
+          return result;
+        }
+
+        goto LABEL_18;
+      default:
+LABEL_17:
+        if (a2)
+        {
+LABEL_18:
+          *result = a2 + 1;
+        }
+
+        break;
+    }
+  }
+
+  return result;
+}
+
+id OUTLINED_FUNCTION_69_0(float a1)
+{
+  *v2 = a1;
+
+  return v1;
+}
+
+uint64_t (*MessageCenterProtocol.errorDelegate.modify(void *a1))()
+{
+  v2 = __swift_coroFrameAllocStub(0x28uLL);
+  *a1 = v2;
+  v2[4] = MessageCenterProtocol.errorDelegate.modify(v2);
+  return MessageCenterProtocol.errorDelegate.modify;
+}
+
+{
+  *a1 = 0;
+  a1[1] = 0;
+  return MessageCenterProtocol.errorDelegate.modify;
+}
+
+void MessageCenterProtocol.errorDelegate.modify(void *a1)
+{
+  v1 = *a1;
+  (*(*a1 + 32))(*a1);
+
+  free(v1);
+}
+
+uint64_t MessageCenterProtocol.instrumentationEventStream.getter@<X0>(uint64_t a1@<X8>)
+{
+  return MessageCenterProtocol.instrumentationEventStream.getter(a1);
+}
+
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy11SiriNetwork26MessageCenterEventProtocol_pGMd, &_sScSy11SiriNetwork26MessageCenterEventProtocol_pGMR);
+
+  return __swift_storeEnumTagSinglePayload(a1, 1, 1, v2);
+}
+
+uint64_t MessageCenterProtocol.sendMessage(_:toSiriSharedUserId:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v6 = swift_task_alloc();
+  *(v5 + 16) = v6;
+  *v6 = v5;
+  v6[1] = dispatch thunk of MessageCenterEndpointBrowseDelegate.browser(_:didLoseEndpoint:);
+
+  return MessageCenterProtocol.sendMessage(_:toSiriSharedUserId:)();
+}
+
+uint64_t specialized MessageCenterProtocol.sendMessage(_:toSiriSharedUserId:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = swift_task_alloc();
+  *(v3 + 16) = v4;
+  *v4 = v3;
+  v4[1] = dispatch thunk of MessageCenterEndpointBrowseDelegate.browser(_:didLoseEndpoint:);
+
+  return MessageCenter.sendMessage(_:toSiriSharedUserId:timeout:)();
+}
+
+uint64_t MessageCenterProtocol.sendMessage(_:toSiriSharedUserId:)()
+{
+  OUTLINED_FUNCTION_38_1();
+  OUTLINED_FUNCTION_21();
+  OUTLINED_FUNCTION_9_9();
+  v18 = OUTLINED_FUNCTION_70_1(v0, v1, v2, v3, v4) + 104;
+  OUTLINED_FUNCTION_57_0();
+  v19 = v5 + *v5;
+  v6 = swift_task_alloc();
+  v7 = OUTLINED_FUNCTION_34(v6);
+  *v7 = v8;
+  v7[1] = dispatch thunk of MessageCenterEndpointBrowseDelegate.browser(_:didLoseEndpoint:);
+  OUTLINED_FUNCTION_4_16();
+  OUTLINED_FUNCTION_26_3();
+
+  return v14(v9, v10, v11, v12, v13, v14, v15, v16, v18, v19);
+}
+
+uint64_t MessageCenterProtocol.sendMessage(_:toSiriSharedUserId:timeout:)()
+{
+  v1 = swift_task_alloc();
+  *(v0 + 16) = v1;
+  *v1 = v0;
+  v1[1] = dispatch thunk of MessageCenterEndpointBrowseDelegate.browser(_:didLoseEndpoint:);
+
+  return MessageCenterProtocol.sendMessage(_:toSiriSharedUserId:timeout:)();
+}
+
+uint64_t MessageCenterProtocol.sendMessage(_:toPersona:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v6 = swift_task_alloc();
+  *(v5 + 16) = v6;
+  *v6 = v5;
+  v6[1] = dispatch thunk of MessageCenterEndpointBrowseDelegate.browser(_:didLoseEndpoint:);
+
+  return MessageCenterProtocol.sendMessage(_:toPersona:)();
+}
+
+uint64_t specialized MessageCenterProtocol.sendMessage(_:toPersona:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = swift_task_alloc();
+  *(v3 + 16) = v4;
+  *v4 = v3;
+  v4[1] = dispatch thunk of MessageCenterEndpointBrowseDelegate.browser(_:didLoseEndpoint:);
+
+  return MessageCenter.sendMessage(_:toPersona:timeout:)();
+}
+
+uint64_t MessageCenterProtocol.sendMessage(_:toPersona:)()
+{
+  OUTLINED_FUNCTION_38_1();
+  OUTLINED_FUNCTION_21();
+  OUTLINED_FUNCTION_9_9();
+  v18 = OUTLINED_FUNCTION_70_1(v0, v1, v2, v3, v4) + 120;
+  OUTLINED_FUNCTION_57_0();
+  v19 = v5 + *v5;
+  v6 = swift_task_alloc();
+  v7 = OUTLINED_FUNCTION_34(v6);
+  *v7 = v8;
+  v7[1] = dispatch thunk of MessageCenterEndpointBrowseDelegate.browser(_:didLoseEndpoint:);
+  OUTLINED_FUNCTION_4_16();
+  OUTLINED_FUNCTION_26_3();
+
+  return v14(v9, v10, v11, v12, v13, v14, v15, v16, v18, v19);
+}
+
+uint64_t MessageCenterProtocol.sendMessage(_:toPersona:timeout:)()
+{
+  v1 = swift_task_alloc();
+  *(v0 + 16) = v1;
+  *v1 = v0;
+  v1[1] = dispatch thunk of MessageCenterEndpointBrowseDelegate.browser(_:didLoseEndpoint:);
+
+  return MessageCenterProtocol.sendMessage(_:toSiriSharedUserId:timeout:)();
+}
+
+uint64_t MessageCenterProtocol.sendMessage(_:to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5 = swift_task_alloc();
+  *(v4 + 16) = v5;
+  *v5 = v4;
+  v5[1] = dispatch thunk of MessageCenterEndpointBrowseDelegate.browser(_:didLoseEndpoint:);
+
+  return MessageCenterProtocol.sendMessage(_:to:)();
+}
+
+uint64_t specialized MessageCenterProtocol.sendMessage(_:to:)(uint64_t a1, uint64_t a2)
+{
+  v3 = swift_task_alloc();
+  *(v2 + 16) = v3;
+  *v3 = v2;
+  v3[1] = dispatch thunk of MessageCenterEndpointBrowseDelegate.browser(_:didLoseEndpoint:);
+
+  return MessageCenter.sendMessage(_:to:timeout:)();
+}
+
+uint64_t MessageCenterProtocol.sendMessage(_:to:)()
+{
+  OUTLINED_FUNCTION_21();
+  OUTLINED_FUNCTION_13_5(v0, v1, v2, v3);
+  OUTLINED_FUNCTION_10_6();
+  v4 = swift_task_alloc();
+  v5 = OUTLINED_FUNCTION_34(v4);
+  *v5 = v6;
+  v5[1] = dispatch thunk of MessageCenterEndpointBrowseDelegate.browser(_:didLoseEndpoint:);
+  v7 = OUTLINED_FUNCTION_7_14();
+
+  return v8(v7);
+}
+
+uint64_t MessageCenterProtocol.sendMessage(_:to:timeout:)()
+{
+  v1 = swift_task_alloc();
+  *(v0 + 16) = v1;
+  *v1 = v0;
+  v1[1] = dispatch thunk of MessageCenterEndpointBrowseDelegate.browser(_:didLoseEndpoint:);
+
+  return MessageCenterProtocol.sendMessage(_:to:timeout:)();
+}
+
+uint64_t MessageCenterProtocol.reset()()
+{
+  v1 = swift_task_alloc();
+  *(v0 + 16) = v1;
+  *v1 = v0;
+  v1[1] = dispatch thunk of MessageCenterEndpointBrowseDelegate.browser(_:didLoseEndpoint:);
+
+  return MessageCenterProtocol.reset()();
+}
+
+uint64_t key path setter for MessageCenterProtocol.instrumentationEventStream : <A>A(uint64_t a1)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy11SiriNetwork26MessageCenterEventProtocol_pGSgMd, &_sScSy11SiriNetwork26MessageCenterEventProtocol_pGSgMR);
+  MEMORY[0x28223BE20](v2 - 8);
+  v4 = &v6 - v3;
+  outlined init with copy of AsyncStream<MessageCenterEventProtocol>?(a1, &v6 - v3, &_sScSy11SiriNetwork26MessageCenterEventProtocol_pGSgMd, &_sScSy11SiriNetwork26MessageCenterEventProtocol_pGSgMR);
+  return MessageCenterProtocol.instrumentationEventStream.setter(v4);
+}
+
+void (*MessageCenterProtocol.instrumentationEventStream.modify(void **a1))(uint64_t a1, char a2)
+{
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy11SiriNetwork26MessageCenterEventProtocol_pGSgMd, &_sScSy11SiriNetwork26MessageCenterEventProtocol_pGSgMR);
+  OUTLINED_FUNCTION_11_1(v2);
+  v4 = *(v3 + 64);
+  *a1 = __swift_coroFrameAllocStub(v4);
+  v5 = __swift_coroFrameAllocStub(v4);
+  a1[1] = v5;
+  MessageCenterProtocol.instrumentationEventStream.getter(v5);
+  return MessageCenterProtocol.instrumentationEventStream.modify;
+}
+
+void MessageCenterProtocol.instrumentationEventStream.modify(uint64_t a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(a1 + 8);
+  if (a2)
+  {
+    outlined init with copy of AsyncStream<MessageCenterEventProtocol>?(*(a1 + 8), v2, &_sScSy11SiriNetwork26MessageCenterEventProtocol_pGSgMd, &_sScSy11SiriNetwork26MessageCenterEventProtocol_pGSgMR);
+    outlined destroy of AsyncStream<MessageCenterEventProtocol>?(v2, &_sScSy11SiriNetwork26MessageCenterEventProtocol_pGSgMd, &_sScSy11SiriNetwork26MessageCenterEventProtocol_pGSgMR);
+  }
+
+  outlined destroy of AsyncStream<MessageCenterEventProtocol>?(v3, &_sScSy11SiriNetwork26MessageCenterEventProtocol_pGSgMd, &_sScSy11SiriNetwork26MessageCenterEventProtocol_pGSgMR);
+  free(v3);
+
+  free(v2);
+}
+
+SiriNetwork::MessageCenter::MessageCenterApplicationType_optional __swiftcall MessageCenter.MessageCenterApplicationType.init(rawValue:)(Swift::String rawValue)
+{
+  object = rawValue._object;
+  v3._countAndFlagsBits = rawValue._countAndFlagsBits;
+  v4 = v1;
+  v3._object = object;
+  v5 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of MessageCenter.MessageCenterApplicationType.init(rawValue:), v3);
+
+  if (v5 == 1)
+  {
+    v7 = 1;
+  }
+
+  else
+  {
+    v7 = 2;
+  }
+
+  if (!v5)
+  {
+    v7 = 0;
+  }
+
+  *v4 = v7;
+  return result;
+}
+
+unint64_t protocol witness for RawRepresentable.rawValue.getter in conformance MessageCenter.MessageCenterApplicationType@<X0>(void *a1@<X8>)
+{
+  result = MessageCenter.MessageCenterApplicationType.rawValue.getter();
+  *a1 = 0xD000000000000018;
+  a1[1] = v3;
+  return result;
+}
+
+uint64_t one-time initialization function for actorSystem()
+{
+  v0 = type metadata accessor for NWListener.Service();
+  v1 = OUTLINED_FUNCTION_11_1(v0);
+  MEMORY[0x28223BE20](v1);
+  NWListener.Service.init(applicationService:)();
+  type metadata accessor for NWParameters();
+  static NWParameters.applicationService.getter();
+  v2 = type metadata accessor for NWActorSystem();
+  swift_allocObject();
+  OUTLINED_FUNCTION_14_3();
+  result = NWActorSystem.init(service:parameters:)();
+  qword_281327350 = v2;
+  unk_281327358 = &protocol witness table for NWActorSystem;
+  static MessageCenter.actorSystem[0] = result;
+  return result;
+}
+
+uint64_t key path getter for MessageCenter.messageDelegate : MessageCenter@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+{
+  v3 = *a1;
+  swift_beginAccess();
+  result = swift_unknownObjectWeakLoadStrong();
+  v5 = *(v3 + 168);
+  *a2 = result;
+  a2[1] = v5;
+  return result;
+}
+
+uint64_t key path setter for MessageCenter.messageDelegate : MessageCenter(uint64_t *a1, uint64_t *a2)
+{
+  v2 = a1[1];
+  v3 = *a2;
+  swift_beginAccess();
+  *(v3 + 168) = v2;
+  return swift_unknownObjectWeakAssign();
+}
+
+uint64_t MessageCenter.messageDelegate.setter()
+{
+  OUTLINED_FUNCTION_13_3();
+  OUTLINED_FUNCTION_95(v1 + 160, v3);
+  *(v1 + 168) = v0;
+  swift_unknownObjectWeakAssign();
+  return swift_unknownObjectRelease();
+}
+
+uint64_t (*MessageCenter.messageDelegate.modify(void *a1))()
+{
+  v3 = __swift_coroFrameAllocStub(0x30uLL);
+  *a1 = v3;
+  v3[5] = v1;
+  swift_beginAccess();
+  Strong = swift_unknownObjectWeakLoadStrong();
+  v5 = *(v1 + 168);
+  v3[3] = Strong;
+  v3[4] = v5;
+  return MessageCenter.messageDelegate.modify;
+}
+
+uint64_t key path getter for MessageCenter.errorDelegate : MessageCenter@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+{
+  v3 = *a1;
+  swift_beginAccess();
+  result = swift_unknownObjectWeakLoadStrong();
+  v5 = *(v3 + 184);
+  *a2 = result;
+  a2[1] = v5;
+  return result;
+}
+
+uint64_t key path setter for MessageCenter.errorDelegate : MessageCenter(uint64_t *a1, uint64_t *a2)
+{
+  v2 = a1[1];
+  v3 = *a2;
+  swift_beginAccess();
+  *(v3 + 184) = v2;
+  return swift_unknownObjectWeakAssign();
+}
+
+uint64_t MessageCenter.errorDelegate.setter()
+{
+  OUTLINED_FUNCTION_13_3();
+  OUTLINED_FUNCTION_95(v1 + 176, v3);
+  *(v1 + 184) = v0;
+  swift_unknownObjectWeakAssign();
+  return swift_unknownObjectRelease();
+}
+
+uint64_t (*MessageCenter.errorDelegate.modify(void *a1))()
+{
+  v3 = __swift_coroFrameAllocStub(0x30uLL);
+  *a1 = v3;
+  v3[5] = v1;
+  swift_beginAccess();
+  Strong = swift_unknownObjectWeakLoadStrong();
+  v5 = *(v1 + 184);
+  v3[3] = Strong;
+  v3[4] = v5;
+  return MessageCenter.errorDelegate.modify;
+}
+
+uint64_t MessageCenter.init(_:)(char *a1)
+{
+  v2 = v1;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationV15BufferingPolicyOy11SiriNetwork26MessageCenterEventProtocol_p__GMd, &_sScS12ContinuationV15BufferingPolicyOy11SiriNetwork26MessageCenterEventProtocol_p__GMR);
+  v5 = *(v4 - 8);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v29 - v6;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy11SiriNetwork26MessageCenterEventProtocol_pG6stream_ScS12ContinuationVyAaB_p_G12continuationtMd, &_sScSy11SiriNetwork26MessageCenterEventProtocol_pG6stream_ScS12ContinuationVyAaB_p_G12continuationtMR);
+  v9 = MEMORY[0x28223BE20](v8);
+  v11 = &v29 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v9);
+  v13 = &v29 - v12;
+  v14 = *a1;
+  swift_defaultActor_initialize();
+  *(v2 + 144) = 0;
+  swift_unknownObjectWeakInit();
+  *(v2 + 168) = 0;
+  swift_unknownObjectWeakInit();
+  *(v2 + 184) = 0;
+  swift_unknownObjectWeakInit();
+  v15 = OBJC_IVAR____TtC11SiriNetwork13MessageCenter_logger;
+  if (one-time initialization token for messageCenter != -1)
+  {
+    swift_once();
+  }
+
+  v16 = type metadata accessor for Logger();
+  v17 = __swift_project_value_buffer(v16, static Logger.messageCenter);
+  (*(*(v16 - 8) + 16))(v2 + v15, v17, v16);
+  *(v2 + OBJC_IVAR____TtC11SiriNetwork13MessageCenter_started) = 0;
+  v18 = OBJC_IVAR____TtC11SiriNetwork13MessageCenter_registeredMessages;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork23MessageCenterMessagable_pXpMd, &_s11SiriNetwork23MessageCenterMessagable_pXpMR);
+  *(v2 + v18) = Dictionary.init(dictionaryLiteral:)();
+  *(v2 + 152) = v14;
+  type metadata accessor for MessageCenterActorBrowser(0);
+  swift_allocObject();
+  *(v2 + 112) = MessageCenterActorBrowser.init(browserType:usePersona:)(0, 1);
+  type metadata accessor for MessageCenterActorListenerPublisher(0);
+  swift_allocObject();
+  v19 = MessageCenterActorListenerPublisher.init()();
+  v20 = lazy protocol witness table accessor for type MessageCenter and conformance MessageCenter(&lazy protocol witness table cache variable for type MessageCenterActorListenerPublisher and conformance MessageCenterActorListenerPublisher, type metadata accessor for MessageCenterActorListenerPublisher);
+  *(v2 + 120) = v19;
+  *(v2 + 128) = v20;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11SiriNetwork26MessageCenterEventProtocol_pMd, &_s11SiriNetwork26MessageCenterEventProtocol_pMR);
+  (*(v5 + 104))(v7, *MEMORY[0x277D85778], v4);
+  static AsyncStream.makeStream(of:bufferingPolicy:)();
+  (*(v5 + 8))(v7, v4);
+  v21 = OBJC_IVAR____TtC11SiriNetwork13MessageCenter_instrumentationEventStream;
+  outlined init with copy of AsyncStream<MessageCenterEventProtocol>?(v13, v11, &_sScSy11SiriNetwork26MessageCenterEventProtocol_pG6stream_ScS12ContinuationVyAaB_p_G12continuationtMd, &_sScSy11SiriNetwork26MessageCenterEventProtocol_pG6stream_ScS12ContinuationVyAaB_p_G12continuationtMR);
+  v22 = *(v8 + 48);
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScSy11SiriNetwork26MessageCenterEventProtocol_pGMd, &_sScSy11SiriNetwork26MessageCenterEventProtocol_pGMR);
+  v24 = *(v23 - 8);
+  (*(v24 + 32))(v2 + v21, v11, v23);
+  __swift_storeEnumTagSinglePayload(v2 + v21, 0, 1, v23);
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy11SiriNetwork26MessageCenterEventProtocol_p_GMd, &_sScS12ContinuationVy11SiriNetwork26MessageCenterEventProtocol_p_GMR);
+  v26 = *(v25 - 8);
+  (*(v26 + 8))(&v11[v22], v25);
+  v27 = OBJC_IVAR____TtC11SiriNetwork13MessageCenter_continuation;
+  outlined init with take of (stream: AsyncStream<MessageCenterEventProtocol>, continuation: AsyncStream<MessageCenterEventProtocol>.Continuation)(v13, v11);
+  (*(v26 + 32))(v2 + v27, &v11[*(v8 + 48)], v25);
+  __swift_storeEnumTagSinglePayload(v2 + v27, 0, 1, v25);
+  (*(v24 + 8))(v11, v23);
+  return v2;
+}
+
+uint64_t MessageCenter.deinit()
+{
+  v1 = v0;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy11SiriNetwork26MessageCenterEventProtocol_p_GSgMd, &_sScS12ContinuationVy11SiriNetwork26MessageCenterEventProtocol_p_GSgMR);
+  v3 = OUTLINED_FUNCTION_11_1(v2);
+  MEMORY[0x28223BE20](v3);
+  v5 = &v15 - v4;
+  v6 = OBJC_IVAR____TtC11SiriNetwork13MessageCenter_continuation;
+  outlined init with copy of AsyncStream<MessageCenterEventProtocol>?(v1 + OBJC_IVAR____TtC11SiriNetwork13MessageCenter_continuation, &v15 - v4, &_sScS12ContinuationVy11SiriNetwork26MessageCenterEventProtocol_p_GSgMd, &_sScS12ContinuationVy11SiriNetwork26MessageCenterEventProtocol_p_GSgMR);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScS12ContinuationVy11SiriNetwork26MessageCenterEventProtocol_p_GMd, &_sScS12ContinuationVy11SiriNetwork26MessageCenterEventProtocol_p_GMR);
+  v8 = OUTLINED_FUNCTION_44_0();
+  OUTLINED_FUNCTION_66_2(v8, v9, v7);
+  if (v10)
+  {
+    outlined destroy of AsyncStream<MessageCenterEventProtocol>?(v5, &_sScS12ContinuationVy11SiriNetwork26MessageCenterEventProtocol_p_GSgMd, &_sScS12ContinuationVy11SiriNetwork26MessageCenterEventProtocol_p_GSgMR);
+  }
+
+  else
+  {
+    AsyncStream.Continuation.finish()();
+    OUTLINED_FUNCTION_13_4();
+    (*(v11 + 8))(v5, v7);
+  }
+
+  swift_unknownObjectRelease();
+  outlined destroy of weak ConnectionProviderDelegate?(v1 + 136);
+  outlined destroy of weak ConnectionProviderDelegate?(v1 + 160);
+  outlined destroy of weak ConnectionProviderDelegate?(v1 + 176);
+  v12 = OBJC_IVAR____TtC11SiriNetwork13MessageCenter_logger;
+  type metadata accessor for Logger();
+  OUTLINED_FUNCTION_13_4();
+  (*(v13 + 8))(v1 + v12);
+
+  outlined destroy of AsyncStream<MessageCenterEventProtocol>?(v1 + OBJC_IVAR____TtC11SiriNetwork13MessageCenter_instrumentationEventStream, &_sScSy11SiriNetwork26MessageCenterEventProtocol_pGSgMd, &_sScSy11SiriNetwork26MessageCenterEventProtocol_pGSgMR);
+  outlined destroy of AsyncStream<MessageCenterEventProtocol>?(v1 + v6, &_sScS12ContinuationVy11SiriNetwork26MessageCenterEventProtocol_p_GSgMd, &_sScS12ContinuationVy11SiriNetwork26MessageCenterEventProtocol_p_GSgMR);
+  swift_defaultActor_destroy();
+  return v1;
+}
+
+uint64_t MessageCenter.__deallocating_deinit()
+{
+  MessageCenter.deinit();
+
+  return MEMORY[0x282200960](v0);
+}
+
+uint64_t MessageCenter.setMessageDelegate(_:)(uint64_t a1, uint64_t a2)
+{
+  v3[6] = a2;
+  v3[7] = v2;
+  v3[5] = a1;
+  return OUTLINED_FUNCTION_1_0(MessageCenter.setMessageDelegate(_:), v2);
+}
+
+uint64_t MessageCenter.setMessageDelegate(_:)()
+{
+  OUTLINED_FUNCTION_29();
+  v2 = *(v0 + 48);
+  v1 = *(v0 + 56);
+  OUTLINED_FUNCTION_95(v1 + 160, v0 + 16);
+  *(v1 + 168) = v2;
+  swift_unknownObjectWeakAssign();
+  OUTLINED_FUNCTION_6_3();
+
+  return v3();
+}
+
+uint64_t MessageCenter.setErrorDelegate(_:)(uint64_t a1, uint64_t a2)
+{
+  v3[6] = a2;
+  v3[7] = v2;
+  v3[5] = a1;
+  return OUTLINED_FUNCTION_1_0(MessageCenter.setErrorDelegate(_:), v2);
+}
+
+uint64_t MessageCenter.setErrorDelegate(_:)()
+{
+  OUTLINED_FUNCTION_29();
+  v2 = *(v0 + 48);
+  v1 = *(v0 + 56);
+  OUTLINED_FUNCTION_95(v1 + 176, v0 + 16);
+  *(v1 + 184) = v2;
+  swift_unknownObjectWeakAssign();
+  OUTLINED_FUNCTION_6_3();
+
+  return v3();
+}
+
+uint64_t MessageCenter.getActiveDevices()()
+{
+  *(v1 + 16) = v0;
+  return OUTLINED_FUNCTION_1_0(MessageCenter.getActiveDevices(), v0);
+}
+
+{
+  OUTLINED_FUNCTION_7_0();
+  v0[3] = *(v0[2] + 112);
+
+  v1 = swift_task_alloc();
+  v0[4] = v1;
+  *v1 = v0;
+  OUTLINED_FUNCTION_33(v1);
+
+  return MessageCenterActorBrowser.getActiveEndpointsDevices()();
+}
+
+{
+  OUTLINED_FUNCTION_7_0();
+  OUTLINED_FUNCTION_11_0();
+  v1 = *v0;
+  OUTLINED_FUNCTION_5_1();
+  *v2 = v1;
+
+  v3 = OUTLINED_FUNCTION_74_1();
+
+  return v4(v3);
+}
+
+uint64_t static MessageCenter.makeMessageCenter(applicationType:)(char *a1)
+{
+  v2 = *a1;
+  swift_allocObject();
+  return MessageCenter.init(_:)(&v2);
+}
+
+uint64_t MessageCenter.start()()
+{
+  *(v1 + 16) = v0;
+  return OUTLINED_FUNCTION_1_0(MessageCenter.start(), v0);
+}
+
+{
+  OUTLINED_FUNCTION_29();
+  v1 = v0[2];
+  if (*(v1 + OBJC_IVAR____TtC11SiriNetwork13MessageCenter_started) == 1)
+  {
+    v2 = Logger.logObject.getter();
+    v3 = static os_log_type_t.error.getter();
+    if (OUTLINED_FUNCTION_57_1(v3))
+    {
+      v4 = OUTLINED_FUNCTION_14();
+      OUTLINED_FUNCTION_85(v4);
+      OUTLINED_FUNCTION_32_3(&dword_223515000, v5, v6, "message center is already running");
+      OUTLINED_FUNCTION_42_0();
+    }
+
+    v7 = lazy protocol witness table accessor for type MessageCenterError and conformance MessageCenterError();
+    OUTLINED_FUNCTION_60(&type metadata for MessageCenterError, v7);
+    *v8 = 0;
+    *(v8 + 8) = 8;
+    swift_willThrow();
+    OUTLINED_FUNCTION_6_3();
+
+    return v9();
+  }
+
+  else
+  {
+    *(v1 + OBJC_IVAR____TtC11SiriNetwork13MessageCenter_started) = 1;
+    v0[3] = OBJC_IVAR____TtC11SiriNetwork13MessageCenter_logger;
+    v11 = Logger.logObject.getter();
+    v12 = static os_log_type_t.default.getter();
+    if (OUTLINED_FUNCTION_57_1(v12))
+    {
+      v13 = OUTLINED_FUNCTION_14();
+      OUTLINED_FUNCTION_85(v13);
+      OUTLINED_FUNCTION_32_3(&dword_223515000, v14, v15, "starting MessageCenter...");
+      OUTLINED_FUNCTION_42_0();
+    }
+
+    v16 = v0[2];
+
+    v0[4] = *(v16 + 120);
+    OUTLINED_FUNCTION_54_2();
+    swift_unknownObjectRetain();
+    v17 = OUTLINED_FUNCTION_14_5();
+
+    return MEMORY[0x2822009F8](v17, v18, v19);
+  }
+}
+
+{
+  OUTLINED_FUNCTION_7_0();
+  *(*(v0 + 32) + 184) = &protocol witness table for MessageCenter;
+  swift_unknownObjectWeakAssign();
+  swift_unknownObjectRelease();
+  v1 = OUTLINED_FUNCTION_3_14();
+
+  return MEMORY[0x2822009F8](v1, v2, v3);
+}
+
+{
+  OUTLINED_FUNCTION_7_0();
+  v0[5] = *(v0[2] + 120);
+  swift_unknownObjectRetain();
+  v1 = swift_task_alloc();
+  v0[6] = v1;
+  *v1 = v0;
+  OUTLINED_FUNCTION_33(v1);
+
+  return MessageCenterActorListenerPublisher.publish()();
+}
+
+{
+  OUTLINED_FUNCTION_29();
+  OUTLINED_FUNCTION_11_0();
+  v3 = v2;
+  OUTLINED_FUNCTION_11_8();
+  *v4 = v3;
+  v5 = *v1;
+  OUTLINED_FUNCTION_5_1();
+  *v6 = v5;
+
+  swift_unknownObjectRelease();
+  if (v0)
+  {
+    v7 = *(v5 + 8);
+
+    return v7();
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_86_0();
+
+    return MEMORY[0x2822009F8](v9, v10, v11);
+  }
+}
+
+{
+  OUTLINED_FUNCTION_29();
+  v1 = Logger.logObject.getter();
+  v2 = static os_log_type_t.default.getter();
+  if (OUTLINED_FUNCTION_57_1(v2))
+  {
+    v3 = OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_85(v3);
+    OUTLINED_FUNCTION_32_3(&dword_223515000, v4, v5, "published listener");
+    OUTLINED_FUNCTION_42_0();
+  }
+
+  v6 = *(v0 + 16);
+
+  if (*(v6 + 152))
+  {
+    v7 = "remoteIntelligenceClient";
+  }
+
+  else
+  {
+    v7 = "mits = %@ tfoSynDataAcked = %@}";
+  }
+
+  if ((v7 | 0x8000000000000000) == 0x80000002235F6460)
+  {
+
+LABEL_9:
+    *(v0 + 56) = *(*(v0 + 16) + 112);
+    OUTLINED_FUNCTION_54_2();
+
+    v9 = OUTLINED_FUNCTION_14_5();
+
+    return MEMORY[0x2822009F8](v9, v10, v11);
+  }
+
+  v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+  if (v8)
+  {
+    goto LABEL_9;
+  }
+
+  OUTLINED_FUNCTION_26_4();
+
+  return v12();
+}
+
+{
+  OUTLINED_FUNCTION_7_0();
+  *(*(v0 + 56) + 144) = &protocol witness table for MessageCenter;
+  swift_unknownObjectWeakAssign();
+
+  v1 = OUTLINED_FUNCTION_3_14();
+
+  return MEMORY[0x2822009F8](v1, v2, v3);
+}
+
+{
+  OUTLINED_FUNCTION_7_0();
+  v0[8] = *(v0[2] + 112);
+
+  v1 = swift_task_alloc();
+  v0[9] = v1;
+  *v1 = v0;
+  OUTLINED_FUNCTION_33(v1);
+
+  return MessageCenterActorBrowser.start()();
+}
+
+{
+  OUTLINED_FUNCTION_7_0();
+  OUTLINED_FUNCTION_11_0();
+  v3 = v2;
+  OUTLINED_FUNCTION_11_8();
+  *v4 = v3;
+  v5 = *v1;
+  OUTLINED_FUNCTION_5_1();
+  *v6 = v5;
+  *(v3 + 80) = v0;
+
+  if (v0)
+  {
+    v7 = *(v3 + 16);
+    v8 = MessageCenter.start();
+  }
+
+  else
+  {
+    v9 = *(v3 + 16);
+
+    v8 = MessageCenter.start();
+    v7 = v9;
+  }
+
+  return MEMORY[0x2822009F8](v8, v7, 0);
+}
+
+{
+  OUTLINED_FUNCTION_29();
+  v0 = Logger.logObject.getter();
+  v1 = static os_log_type_t.default.getter();
+  if (OUTLINED_FUNCTION_57_1(v1))
+  {
+    v2 = OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_85(v2);
+    OUTLINED_FUNCTION_32_3(&dword_223515000, v3, v4, "started browser");
+    OUTLINED_FUNCTION_42_0();
+  }
+
+  OUTLINED_FUNCTION_26_4();
+
+  return v5();
+}
+
+{
+  OUTLINED_FUNCTION_7_0();
+
+  OUTLINED_FUNCTION_6_3();
+
+  return v0();
 }

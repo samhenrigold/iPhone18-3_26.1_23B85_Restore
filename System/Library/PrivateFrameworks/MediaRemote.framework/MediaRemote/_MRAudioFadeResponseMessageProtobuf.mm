@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    fadeDuration = self->_fadeDuration;
     PBDataWriterWriteInt64Field();
   }
 }

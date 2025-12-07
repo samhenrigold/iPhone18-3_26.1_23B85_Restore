@@ -25,7 +25,7 @@
   swift_getObjectType();
   swift_unknownObjectRetain();
   MEMORY[0x277D82BE0](self);
-  sub_214BF8348();
+  sub_214BF8348(delegate);
   MEMORY[0x277D82BD8](self);
 }
 

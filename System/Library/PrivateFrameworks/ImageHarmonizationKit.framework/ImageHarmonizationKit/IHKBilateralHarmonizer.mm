@@ -62,7 +62,7 @@
 
 - (id)harmonize:(id)harmonize
 {
-  v120 = *MEMORY[0x277D85DE8];
+  v119 = *MEMORY[0x277D85DE8];
   harmonizeCopy = harmonize;
   v9 = objc_msgSend_fg(harmonizeCopy, v5, v6, v7, v8);
   v13 = objc_msgSend_convertCGImageToBGRA_sRGB_PixelBuffer_(IHKImageUtils, v10, v9, v11, v12);
@@ -76,16 +76,16 @@
   CVPixelBufferRelease(v13);
   CVPixelBufferRelease(v22);
   ptr = self->_net.__ptr_;
-  v100 = objc_msgSend_UTF8String(self->_fgName, v32, v33, v34, v35);
-  sub_254AE2B00(&v106, &v100, &self->_fgInput);
-  v99 = objc_msgSend_UTF8String(self->_bgName, v36, v37, v38, v39);
-  sub_254AE2B00(v114, &v99, &self->_bgInput);
+  v99 = objc_msgSend_UTF8String(self->_fgName, v32, v33, v34, v35);
+  sub_254AE2B00(&v105, &v99, &self->_fgInput);
+  v98 = objc_msgSend_UTF8String(self->_bgName, v36, v37, v38, v39);
+  sub_254AE2B00(v113, &v98, &self->_bgInput);
   *__dst = 0u;
   *__p = 0u;
-  v103 = 1065353216;
-  sub_254AD7344(__dst, &v106);
-  sub_254AD7344(__dst, v114);
-  sub_254AE24A4(ptr, __dst, v104);
+  v102 = 1065353216;
+  sub_254AD7344(__dst, &v105, &v105);
+  sub_254AD7344(__dst, v113, v113);
+  sub_254AE24A4(ptr, __dst, v103);
   v44 = __p[0];
   if (__p[0])
   {
@@ -144,42 +144,42 @@ LABEL_12:
     operator delete(v48);
   }
 
-  v116 = &unk_2866F58E8;
-  v49 = v119;
-  if (v119 && !atomic_fetch_add(&v119->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v115 = &unk_2866F58E8;
+  v49 = v118;
+  if (v118 && !atomic_fetch_add(&v118->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v49->__on_zero_shared)(v49);
     std::__shared_weak_count::__release_weak(v49);
   }
 
-  if (v117)
+  if (v116)
   {
-    v118 = v117;
-    operator delete(v117);
+    v117 = v116;
+    operator delete(v116);
   }
 
-  if (v115 < 0)
+  if (v114 < 0)
   {
-    operator delete(v114[0]);
+    operator delete(v113[0]);
   }
 
-  v109 = &unk_2866F58E8;
-  v50 = v113;
-  if (v113 && !atomic_fetch_add(&v113->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v108 = &unk_2866F58E8;
+  v50 = v112;
+  if (v112 && !atomic_fetch_add(&v112->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v50->__on_zero_shared)(v50);
     std::__shared_weak_count::__release_weak(v50);
   }
 
-  if (v111)
+  if (v110)
   {
-    v112 = v111;
-    operator delete(v111);
+    v111 = v110;
+    operator delete(v110);
   }
 
-  if (SHIBYTE(v108) < 0)
+  if (SHIBYTE(v107) < 0)
   {
-    operator delete(v106);
+    operator delete(v105);
     gatingOutName = self->_gatingOutName;
     if (gatingOutName)
     {
@@ -219,17 +219,17 @@ LABEL_28:
   }
 
   *(__dst + v54) = 0;
-  v57 = sub_254AD4BF0(v104, __dst);
+  v57 = sub_254AD4BF0(v103, __dst);
   if (!v57)
   {
     sub_254AD4B94("unordered_map::at: key not found");
   }
 
-  v106 = &unk_2866F58E8;
-  v107 = *(v57 + 12);
-  v109 = 0;
-  v110 = 0;
+  v105 = &unk_2866F58E8;
+  v106 = *(v57 + 12);
   v108 = 0;
+  v109 = 0;
+  v107 = 0;
   v59 = v57[7];
   v58 = v57[8];
   if (v58 != v59)
@@ -243,33 +243,33 @@ LABEL_28:
   }
 
   v60 = v57[11];
-  v111 = v57[10];
-  v112 = v60;
+  v110 = v57[10];
+  v111 = v60;
   if (v60)
   {
     atomic_fetch_add_explicit(v60 + 1, 1uLL, memory_order_relaxed);
   }
 
-  v106 = &unk_2866F58A0;
+  v105 = &unk_2866F58A0;
   if (SHIBYTE(__p[0]) < 0)
   {
     operator delete(__dst[0]);
   }
 
-  v61 = v112;
-  v56 = **(v111 + 1);
+  v61 = v111;
+  v56 = **(v110 + 1);
   v55 = v56 > self->_gatingThreshold;
-  v106 = &unk_2866F58E8;
-  if (v112 && !atomic_fetch_add(&v112->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+  v105 = &unk_2866F58E8;
+  if (v111 && !atomic_fetch_add(&v111->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
   {
     (v61->__on_zero_shared)(v61);
     std::__shared_weak_count::__release_weak(v61);
   }
 
-  if (v108)
+  if (v107)
   {
-    v109 = v108;
-    operator delete(v108);
+    v108 = v107;
+    operator delete(v107);
   }
 
 LABEL_49:
@@ -295,17 +295,17 @@ LABEL_49:
     }
 
     *(__dst + v68) = 0;
-    v70 = sub_254AD4BF0(v104, __dst);
+    v70 = sub_254AD4BF0(v103, __dst);
     if (!v70)
     {
       sub_254AD4B94("unordered_map::at: key not found");
     }
 
-    v106 = &unk_2866F58E8;
-    v107 = *(v70 + 12);
-    v109 = 0;
-    v110 = 0;
+    v105 = &unk_2866F58E8;
+    v106 = *(v70 + 12);
     v108 = 0;
+    v109 = 0;
+    v107 = 0;
     v72 = v70[7];
     v71 = v70[8];
     if (v71 != v72)
@@ -319,23 +319,23 @@ LABEL_49:
     }
 
     v73 = v70[11];
-    v111 = v70[10];
-    v112 = v73;
+    v110 = v70[10];
+    v111 = v73;
     if (v73)
     {
       atomic_fetch_add_explicit(v73 + 1, 1uLL, memory_order_relaxed);
     }
 
-    v106 = &unk_2866F58A0;
+    v105 = &unk_2866F58A0;
     if (SHIBYTE(__p[0]) < 0)
     {
       operator delete(__dst[0]);
     }
 
-    v74 = *(v111 + 1);
-    v75 = *(v111 + 11);
-    v76 = *(v111 + 12);
-    v77 = 4 * v75 * *(v111 + 13) * *(v111 + 14);
+    v74 = *(v110 + 1);
+    v75 = *(v110 + 11);
+    v76 = *(v110 + 12);
+    v77 = 4 * v75 * *(v110 + 13) * *(v110 + 14);
     v78 = malloc_type_malloc(v77 * v76, 0x100004077774924uLL);
     memcpy(v78, v74, v77 * v76);
     objc_msgSend_unlock(self->_lock, v79, v80, v81, v82);
@@ -348,18 +348,18 @@ LABEL_49:
     *&v89 = v88 * self->_baseHarmonizationStrength;
     v69 = objc_msgSend_autoApplyGridBufferWithGridBuffer_image_assume_BGRA_sRGB_gridStrength_(_TtC21ImageHarmonizationKit21IHKBilateralGridUtils, v90, __dst, v83, 1, v89);
     free(v78);
-    v106 = &unk_2866F58E8;
-    v91 = v112;
-    if (v112 && !atomic_fetch_add(&v112->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
+    v105 = &unk_2866F58E8;
+    v91 = v111;
+    if (v111 && !atomic_fetch_add(&v111->__shared_owners_, 0xFFFFFFFFFFFFFFFFLL))
     {
       (v91->__on_zero_shared)(v91);
       std::__shared_weak_count::__release_weak(v91);
     }
 
-    if (v108)
+    if (v107)
     {
-      v109 = v108;
-      operator delete(v108);
+      v108 = v107;
+      operator delete(v107);
     }
   }
 
@@ -373,9 +373,7 @@ LABEL_49:
   v92 = [IHKHarmonizationResult alloc];
   *&v93 = v56;
   shouldHarmonize = objc_msgSend_initWithHarmonized_gatingScore_shouldHarmonize_(v92, v94, v69, v55, v95, v93);
-  sub_254AD20AC(v104);
-
-  v97 = *MEMORY[0x277D85DE8];
+  sub_254AD20AC(v103);
 
   return shouldHarmonize;
 }

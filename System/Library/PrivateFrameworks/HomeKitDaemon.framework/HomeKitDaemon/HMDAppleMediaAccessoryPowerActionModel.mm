@@ -91,25 +91,23 @@
 
 void __52__HMDAppleMediaAccessoryPowerActionModel_properties__block_invoke(uint64_t a1)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v9.receiver = *(a1 + 32);
-  v9.super_class = &OBJC_METACLASS___HMDAppleMediaAccessoryPowerActionModel;
-  v1 = objc_msgSendSuper2(&v9, sel_properties);
+  v10[2] = *MEMORY[0x277D85DE8];
+  v8.receiver = *(a1 + 32);
+  v8.super_class = &OBJC_METACLASS___HMDAppleMediaAccessoryPowerActionModel;
+  v1 = objc_msgSendSuper2(&v8, sel_properties);
   v2 = [v1 mutableCopy];
   v3 = properties__properties_247243;
   properties__properties_247243 = v2;
 
   v4 = properties__properties_247243;
-  v10[0] = @"accessoryUUID";
+  v9[0] = @"accessoryUUID";
   v5 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v10[1] = @"targetSleepWakeState";
-  v11[0] = v5;
+  v9[1] = @"targetSleepWakeState";
+  v10[0] = v5;
   v6 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v11[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
   [v4 addEntriesFromDictionary:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

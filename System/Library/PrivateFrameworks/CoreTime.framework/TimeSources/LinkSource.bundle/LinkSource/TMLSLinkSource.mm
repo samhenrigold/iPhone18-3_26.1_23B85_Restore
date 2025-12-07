@@ -199,7 +199,7 @@
 
   if (os_log_type_enabled(TIMELINK_FACILITY, OS_LOG_TYPE_DEBUG))
   {
-    sub_7F58(zoneCopy, self);
+    sub_7F58();
   }
 
   companionTimeZone = self->_companionTimeZone;

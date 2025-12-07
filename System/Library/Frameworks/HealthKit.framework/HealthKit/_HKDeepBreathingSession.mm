@@ -165,17 +165,17 @@
 
 - (void)_queue_transitionToServerState:(int64_t)state
 {
-  v13 = *MEMORY[0x1E69E9840];
-  _HKInitializeLogging();
+  v12 = *MEMORY[0x1E69E9840];
+  _HKInitializeLogging(self, a2);
   v6 = HKLogDeepBreathing;
   if (os_log_type_enabled(HKLogDeepBreathing, OS_LOG_TYPE_DEFAULT))
   {
     serverState = self->_serverState;
-    v9 = 134218240;
-    v10 = serverState;
-    v11 = 2048;
+    v8 = 134218240;
+    v9 = serverState;
+    v10 = 2048;
     stateCopy = state;
-    _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "transitioning server state (%ld -> %ld)", &v9, 0x16u);
+    _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "transitioning server state (%ld -> %ld)", &v8, 0x16u);
   }
 
   if (state == 3 && self->_serverState != 2)
@@ -184,7 +184,6 @@
   }
 
   self->_serverState = state;
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_connectionDidEncounterError:(id)error

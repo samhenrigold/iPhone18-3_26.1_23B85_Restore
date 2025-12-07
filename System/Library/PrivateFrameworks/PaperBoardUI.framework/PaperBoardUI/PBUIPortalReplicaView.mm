@@ -49,9 +49,9 @@
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v22.receiver = self;
-  v22.super_class = PBUIPortalReplicaView;
-  v7 = [(PBUIPortalReplicaView *)&v22 initWithFrame:?];
+  v24.receiver = self;
+  v24.super_class = PBUIPortalReplicaView;
+  v7 = [(PBUIPortalReplicaView *)&v24 initWithFrame:?];
   v8 = v7;
   if (v7)
   {
@@ -70,8 +70,8 @@
     [(PBUIPortalReplicaView *)v8 addSubview:v8->_portalView];
     [(PBUIPortalReplicaView *)v8 setAutoresizingMask:18];
     [(PBUIPortalReplicaView *)v8 setClipsToBounds:1];
-    [(PBUIPortalReplicaView *)v8 setShouldMatchWallpaperPosition:1];
-    if (PBUIReplicaDebugModeIsEnabled())
+    v12 = [(PBUIPortalReplicaView *)v8 setShouldMatchWallpaperPosition:1];
+    if (PBUIReplicaDebugModeIsEnabled(v12, v13))
     {
       height = [[PBUIReplicaDebugView alloc] initWithFrame:x, y, width, height];
       debugView = v8->_debugView;
@@ -82,23 +82,23 @@
         [(PBUIReplicaDebugView *)v8->_debugView setAutoresizingMask:18];
       }
 
-      v14 = MEMORY[0x277CCACA8];
-      v15 = objc_opt_class();
-      v16 = NSStringFromClass(v15);
-      v17 = [v14 stringWithFormat:@"%@ (%p)", v16, v8];
+      v16 = MEMORY[0x277CCACA8];
+      v17 = objc_opt_class();
+      v18 = NSStringFromClass(v17);
+      v19 = [v16 stringWithFormat:@"%@ (%p)", v18, v8];
 
-      [(PBUIReplicaDebugView *)v8->_debugView setTitle:v17];
-      v18 = v8->_debugView;
+      [(PBUIReplicaDebugView *)v8->_debugView setTitle:v19];
+      v20 = v8->_debugView;
       blueColor = [MEMORY[0x277D75348] blueColor];
-      v20 = [blueColor colorWithAlphaComponent:0.4];
-      [(PBUIReplicaDebugView *)v18 setColor:v20];
+      v22 = [blueColor colorWithAlphaComponent:0.4];
+      [(PBUIReplicaDebugView *)v20 setColor:v22];
 
       [(PBUIPortalReplicaView *)v8 addSubview:v8->_debugView];
     }
 
     else
     {
-      v17 = v8->_debugView;
+      v19 = v8->_debugView;
       v8->_debugView = 0;
     }
   }
@@ -324,24 +324,24 @@ LABEL_9:
   if (!windowCopy || (-[PBUIPortalReplicaView setSubscribed:](self, "setSubscribed:", 1), [windowCopy screen], v5 = objc_claimAutoreleasedReturnValue(), objc_msgSend(MEMORY[0x277D759A0], "mainScreen"), v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v5 == v6))
   {
     portalLayer = [(_UIPortalView *)self->_portalView portalLayer];
-    v9 = portalLayer;
-    v10 = 0;
+    v10 = portalLayer;
+    v11 = 0;
   }
 
   else
   {
-    v7 = PBUILogCommon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = PBUILogCommon(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(PBUIPortalReplicaView *)self willMoveToWindow:v7];
+      [(PBUIPortalReplicaView *)self willMoveToWindow:v8];
     }
 
     portalLayer = [(_UIPortalView *)self->_portalView portalLayer];
-    v9 = portalLayer;
-    v10 = 1;
+    v10 = portalLayer;
+    v11 = 1;
   }
 
-  [portalLayer setCrossDisplay:v10];
+  [portalLayer setCrossDisplay:v11];
 }
 
 - (PBUIPosterReplicaPortalProviding)provider

@@ -98,9 +98,9 @@
 {
   errorCopy3 = error;
   sourceCopy3 = source;
-  v48 = 0;
-  v49 = 0;
-  v47 = 0;
+  v52 = 0;
+  v53 = 0;
+  v51 = 0;
   if (self->_cancelRetryAlertState == 1)
   {
     v9 = [SSLogConfig sharedDaemonConfig:d];
@@ -112,89 +112,99 @@
     shouldLog = [v9 shouldLog];
     if ([v9 shouldLogToDisk])
     {
-      v11 = shouldLog | 2;
+      LODWORD(v11) = shouldLog | 2;
     }
 
     else
     {
-      v11 = shouldLog;
+      LODWORD(v11) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v9 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v9 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v11 = v11;
+    }
+
+    else
     {
       v11 &= 2u;
     }
 
     if (v11)
     {
-      v50 = 138543362;
-      v51 = objc_opt_class();
-      LODWORD(v42) = 12;
-      v12 = _os_log_send_and_compose_impl();
-      if (v12)
+      v54 = 138543362;
+      v55 = objc_opt_class();
+      v13 = _os_log_send_and_compose_impl(v11, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Skipping authentication after cancel retry was cancelled", &v54, 12);
+      if (v13)
       {
-        v13 = v12;
-        [NSString stringWithCString:v12 encoding:4, &v50, v42];
-        free(v13);
+        v14 = v13;
+        [NSString stringWithCString:v13 encoding:4];
+        free(v14);
         SSFileLog();
       }
     }
 
-    v14 = 0;
-    v49 = SSError();
-LABEL_44:
+    v15 = 0;
+    v53 = SSError();
+LABEL_47:
     dCopy2 = d;
-    goto LABEL_45;
+    goto LABEL_48;
   }
 
-  v16 = [(NSString *)self->_restoreReason isEqualToString:@"cancel-retry"];
-  if (!v16)
-  {
-    goto LABEL_27;
-  }
-
-LABEL_14:
-  if (self->_cancelRetryAlertState)
-  {
-    goto LABEL_27;
-  }
-
-  v17 = +[SSLogConfig sharedDaemonConfig];
+  v17 = [(NSString *)self->_restoreReason isEqualToString:@"cancel-retry"];
   if (!v17)
   {
-    v17 = +[SSLogConfig sharedConfig];
+    goto LABEL_29;
   }
 
-  shouldLog2 = [v17 shouldLog];
-  if ([v17 shouldLogToDisk])
+LABEL_15:
+  if (self->_cancelRetryAlertState)
   {
-    v19 = shouldLog2 | 2;
+    goto LABEL_29;
+  }
+
+  v18 = +[SSLogConfig sharedDaemonConfig];
+  if (!v18)
+  {
+    v18 = +[SSLogConfig sharedConfig];
+  }
+
+  shouldLog2 = [v18 shouldLog];
+  if ([v18 shouldLogToDisk])
+  {
+    LODWORD(v20) = shouldLog2 | 2;
   }
 
   else
   {
-    v19 = shouldLog2;
+    LODWORD(v20) = shouldLog2;
   }
 
-  if (!os_log_type_enabled([v17 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject2 = [v18 OSLogObject];
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
   {
-    v19 &= 2u;
+    v20 = v20;
   }
 
-  if (v19)
+  else
   {
-    v20 = objc_opt_class();
-    v50 = 138543362;
-    v51 = v20;
-    LODWORD(v42) = 12;
-    v41 = &v50;
-    v21 = _os_log_send_and_compose_impl();
-    if (v21)
+    v20 &= 2u;
+  }
+
+  if (v20)
+  {
+    v22 = objc_opt_class();
+    v54 = 138543362;
+    v55 = v22;
+    LODWORD(v46) = 12;
+    v23 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%{public}@: Prompting user for restore cancel retry", &v54, v46);
+    if (v23)
     {
-      v22 = v21;
-      v23 = [NSString stringWithCString:v21 encoding:4, &v50, v42];
-      free(v22);
-      v41 = v23;
+      v24 = v23;
+      v25 = [NSString stringWithCString:v23 encoding:4];
+      free(v24);
+      v45 = v25;
       SSFileLog();
     }
   }
@@ -204,14 +214,14 @@ LABEL_14:
     self->_cancelRetryAlertState = 2;
     while (1)
     {
-LABEL_27:
-      v46.receiver = self;
-      v46.super_class = RestoreDownloadsOperation;
-      v24 = [(RestoreDownloadsOperation *)&v46 copyAccountID:&v48 credentialSource:&v47 byAuthenticatingWithContext:context returningError:&v49, v40];
-      if ((v24 | v16 ^ 1))
+LABEL_29:
+      v50.receiver = self;
+      v50.super_class = RestoreDownloadsOperation;
+      v26 = [(RestoreDownloadsOperation *)&v50 copyAccountID:&v52 credentialSource:&v51 byAuthenticatingWithContext:context returningError:&v53, v44];
+      if ((v26 | v17 ^ 1))
       {
-        v14 = v24;
-        goto LABEL_43;
+        v15 = v26;
+        goto LABEL_46;
       }
 
       if (!ISErrorIsEqual())
@@ -219,139 +229,150 @@ LABEL_27:
         break;
       }
 
-      v25 = +[SSLogConfig sharedDaemonConfig];
-      if (!v25)
+      v27 = +[SSLogConfig sharedDaemonConfig];
+      if (!v27)
       {
-        v25 = +[SSLogConfig sharedConfig];
+        v27 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog3 = [v25 shouldLog];
-      if ([v25 shouldLogToDisk])
+      shouldLog3 = [v27 shouldLog];
+      if ([v27 shouldLogToDisk])
       {
-        v27 = shouldLog3 | 2;
+        LODWORD(v29) = shouldLog3 | 2;
       }
 
       else
       {
-        v27 = shouldLog3;
+        LODWORD(v29) = shouldLog3;
       }
 
-      if (!os_log_type_enabled([v25 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject3 = [v27 OSLogObject];
+      if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
       {
-        v27 &= 2u;
+        v29 = v29;
       }
 
-      if (v27)
+      else
       {
-        v28 = objc_opt_class();
-        v50 = 138543362;
-        v51 = v28;
-        LODWORD(v42) = 12;
-        v40 = &v50;
-        v29 = _os_log_send_and_compose_impl();
-        if (v29)
+        v29 &= 2u;
+      }
+
+      if (v29)
+      {
+        v31 = objc_opt_class();
+        v54 = 138543362;
+        v55 = v31;
+        LODWORD(v46) = 12;
+        v32 = _os_log_send_and_compose_impl(v29, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%{public}@: User cancelled auth during cancel retry", &v54, v46);
+        if (v32)
         {
-          v30 = v29;
-          v31 = [NSString stringWithCString:v29 encoding:4, &v50, v42];
-          free(v30);
-          v40 = v31;
+          v33 = v32;
+          v34 = [NSString stringWithCString:v32 encoding:4];
+          free(v33);
+          v44 = v34;
           SSFileLog();
         }
       }
 
       self->_cancelRetryAlertState = 0;
 
-      v48 = 0;
-      if (v16)
+      v52 = 0;
+      if (v17)
       {
-        goto LABEL_14;
+        goto LABEL_15;
       }
     }
 
-    v14 = 0;
-LABEL_43:
+    v15 = 0;
+LABEL_46:
     sourceCopy3 = source;
     errorCopy3 = error;
-    goto LABEL_44;
+    goto LABEL_47;
   }
 
-  v34 = +[SSLogConfig sharedDaemonConfig];
-  if (!v34)
+  v37 = +[SSLogConfig sharedDaemonConfig];
+  if (!v37)
   {
-    v34 = +[SSLogConfig sharedConfig];
+    v37 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog4 = [v34 shouldLog];
-  if ([v34 shouldLogToDisk])
+  shouldLog4 = [v37 shouldLog];
+  if ([v37 shouldLogToDisk])
   {
-    v36 = shouldLog4 | 2;
+    LODWORD(v39) = shouldLog4 | 2;
   }
 
   else
   {
-    v36 = shouldLog4;
+    LODWORD(v39) = shouldLog4;
   }
 
-  if (!os_log_type_enabled([v34 OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject4 = [v37 OSLogObject];
+  if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
   {
-    v36 &= 2u;
+    v39 = v39;
+  }
+
+  else
+  {
+    v39 &= 2u;
   }
 
   sourceCopy3 = source;
   errorCopy3 = error;
   dCopy2 = d;
-  if (v36)
+  if (v39)
   {
-    v37 = objc_opt_class();
-    v50 = 138543362;
-    v51 = v37;
-    LODWORD(v42) = 12;
-    v38 = _os_log_send_and_compose_impl();
-    if (v38)
+    v41 = objc_opt_class();
+    v54 = 138543362;
+    v55 = v41;
+    LODWORD(v46) = 12;
+    v42 = _os_log_send_and_compose_impl(v39, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%{public}@: User cancelled cancel retry", &v54, v46);
+    if (v42)
     {
-      v39 = v38;
-      [NSString stringWithCString:v38 encoding:4, &v50, v42];
-      free(v39);
+      v43 = v42;
+      [NSString stringWithCString:v42 encoding:4];
+      free(v43);
       SSFileLog();
     }
   }
 
   self->_cancelRetryAlertState = 1;
-  v14 = 0;
-  v49 = SSError();
-LABEL_45:
+  v15 = 0;
+  v53 = SSError();
+LABEL_48:
   if (dCopy2)
   {
-    *dCopy2 = v48;
+    *dCopy2 = v52;
     if (!sourceCopy3)
     {
-      goto LABEL_48;
+      goto LABEL_51;
     }
 
-    goto LABEL_47;
+    goto LABEL_50;
   }
 
   if (sourceCopy3)
   {
-LABEL_47:
-    *sourceCopy3 = v47;
+LABEL_50:
+    *sourceCopy3 = v51;
   }
 
-LABEL_48:
+LABEL_51:
   if (errorCopy3)
   {
-    *errorCopy3 = v49;
+    *errorCopy3 = v53;
   }
 
-  return v14;
+  return v15;
 }
 
 - (void)run
 {
-  v172 = objc_alloc_init(NSMutableDictionary);
-  v183 = objc_alloc_init(NSMutableDictionary);
-  v173 = objc_alloc_init(NSMutableArray);
-  v184 = +[SSAccountStore defaultStore];
+  v182 = objc_alloc_init(NSMutableDictionary);
+  v193 = objc_alloc_init(NSMutableDictionary);
+  v183 = objc_alloc_init(NSMutableArray);
+  v194 = +[SSAccountStore defaultStore];
   self->_hadAutoRetrySoftFailure = 0;
   self->_hadCancelFailure = 0;
   v3 = +[SSLogConfig sharedDaemonConfig];
@@ -371,906 +392,909 @@ LABEL_48:
     v5 = shouldLog;
   }
 
-  if (os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_DEBUG))
+  oSLogObject = [v3 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
   {
-    v6 = v5;
+    v7 = v5;
   }
 
   else
   {
-    v6 = v5 & 2;
+    v7 = v5 & 2;
   }
 
-  if (v6)
+  if (v7)
   {
-    v7 = objc_opt_class();
-    v8 = [(NSOrderedSet *)self->_downloadIDs count];
-    *v220 = 138543618;
-    *&v220[4] = v7;
-    *&v220[12] = 2048;
-    *&v220[14] = v8;
-    LODWORD(v162) = 22;
-    v154 = v220;
-    v9 = _os_log_send_and_compose_impl();
-    if (v9)
+    v8 = objc_opt_class();
+    v9 = [(NSOrderedSet *)self->_downloadIDs count];
+    *v230 = 138543618;
+    *&v230[4] = v8;
+    *&v230[12] = 2048;
+    *&v230[14] = v9;
+    v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 2, "%{public}@: Attempting restore for %lu download(s)", v230, 22);
+    if (v10)
     {
-      v10 = v9;
-      v162 = [NSString stringWithCString:v9 encoding:4, v220, v162];
-      free(v10);
-      v154 = v162;
+      v11 = v10;
+      v12 = [NSString stringWithCString:v10 encoding:4];
+      free(v11);
+      v164 = v12;
       SSFileLog();
     }
   }
 
-  v174 = objc_alloc_init(NSMutableArray);
-  v171 = objc_alloc_init(NSMutableArray);
-  v168 = objc_alloc_init(NSMutableArray);
-  v12 = objc_alloc_init(FamilyCircleOperation);
-  if ([(RestoreDownloadsOperation *)self runSubOperation:v12 returningError:0]&& [(FamilyCircleOperation *)v12 familyCircle])
+  v184 = objc_alloc_init(NSMutableArray);
+  v181 = objc_alloc_init(NSMutableArray);
+  v178 = objc_alloc_init(NSMutableArray);
+  v13 = objc_alloc_init(FamilyCircleOperation);
+  if ([(RestoreDownloadsOperation *)self runSubOperation:v13 returningError:0]&& [(FamilyCircleOperation *)v13 familyCircle])
   {
     [(RestoreDownloadsOperation *)self _establishPrimaryAccount];
-    activeAccount = [v184 activeAccount];
-    v14 = [objc_msgSend(-[SSFamilyCircle allITunesIdentifiers](-[FamilyCircleOperation familyCircle](v12 "familyCircle")];
-    v15 = [objc_msgSend(+[SSAccountStore defaultStore](SSAccountStore "defaultStore")];
-    if (v15)
+    activeAccount = [v194 activeAccount];
+    v15 = [objc_msgSend(-[SSFamilyCircle allITunesIdentifiers](-[FamilyCircleOperation familyCircle](v13 "familyCircle")];
+    v16 = [objc_msgSend(+[SSAccountStore defaultStore](SSAccountStore "defaultStore")];
+    if (v16)
     {
-      [v14 removeObject:v15];
+      [v15 removeObject:v16];
     }
 
-    v170 = 1;
+    v180 = 1;
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
     activeAccount = 0;
-    v170 = 0;
+    v180 = 0;
   }
 
-  v16 = [(RestoreDownloadsOperation *)self _newRestoreItemsWithDownloadIDs:self->_downloadIDs];
-  v211 = 0u;
-  v212 = 0u;
-  v213 = 0u;
-  v214 = 0u;
-  v17 = [v16 countByEnumeratingWithState:&v211 objects:v219 count:16];
+  v17 = [(RestoreDownloadsOperation *)self _newRestoreItemsWithDownloadIDs:self->_downloadIDs];
+  v221 = 0u;
+  v222 = 0u;
+  v223 = 0u;
+  v224 = 0u;
+  v18 = [v17 countByEnumeratingWithState:&v221 objects:v229 count:16];
   selfCopy = self;
-  v182 = v14;
-  if (!v17)
+  v192 = v15;
+  if (!v18)
   {
     activeAccount2 = activeAccount;
     goto LABEL_112;
   }
 
-  v18 = v17;
-  v19 = *v212;
-  v188 = SSDownloadPhaseDownloading;
+  v19 = v18;
+  v20 = *v222;
+  v198 = SSDownloadPhaseDownloading;
   activeAccount2 = activeAccount;
-  obj = *v212;
-  v175 = v16;
+  obj = *v222;
+  v185 = v17;
   do
   {
-    v21 = 0;
-    v180 = v18;
+    v22 = 0;
+    v190 = v19;
     do
     {
-      if (*v212 != v19)
+      if (*v222 != v20)
       {
-        objc_enumerationMutation(v16);
+        objc_enumerationMutation(v17);
       }
 
-      v22 = *(*(&v211 + 1) + 8 * v21);
-      [v22 downloadKind];
+      v23 = *(*(&v221 + 1) + 8 * v22);
+      [v23 downloadKind];
       IsPodcastKind = SSDownloadKindIsPodcastKind();
-      v210 = 0;
-      if ((IsPodcastKind & 1) == 0 && ![v22 storeAccountID])
+      v220 = 0;
+      if ((IsPodcastKind & 1) == 0 && ![v23 storeAccountID])
       {
-        storeAccountAppleID = [v22 storeAccountAppleID];
+        storeAccountAppleID = [v23 storeAccountAppleID];
         if (storeAccountAppleID)
         {
-          uniqueIdentifier = [(RestoreDownloadsOperation *)self _accountIDForAccountName:storeAccountAppleID error:&v210];
+          uniqueIdentifier = [(RestoreDownloadsOperation *)self _accountIDForAccountName:storeAccountAppleID error:&v220];
           goto LABEL_42;
         }
 
-        if ((v170 & 1) == 0)
+        if ((v180 & 1) == 0)
         {
           [(RestoreDownloadsOperation *)self _establishPrimaryAccount];
-          activeAccount2 = [v184 activeAccount];
+          activeAccount2 = [v194 activeAccount];
         }
 
         if (activeAccount2)
         {
-          v26 = activeAccount2;
-          v27 = +[SSLogConfig sharedDaemonConfig];
-          if (!v27)
+          v27 = activeAccount2;
+          v28 = +[SSLogConfig sharedDaemonConfig];
+          if (!v28)
           {
-            v27 = +[SSLogConfig sharedConfig];
+            v28 = +[SSLogConfig sharedConfig];
           }
 
-          shouldLog2 = [v27 shouldLog];
-          if ([v27 shouldLogToDisk])
+          shouldLog2 = [v28 shouldLog];
+          if ([v28 shouldLogToDisk])
           {
-            v29 = shouldLog2 | 2;
-          }
-
-          else
-          {
-            v29 = shouldLog2;
-          }
-
-          if (os_log_type_enabled([v27 OSLogObject], OS_LOG_TYPE_DEFAULT))
-          {
-            v30 = v29;
+            v30 = shouldLog2 | 2;
           }
 
           else
           {
-            v30 = v29 & 2;
+            v30 = shouldLog2;
           }
 
-          if (v30)
+          oSLogObject2 = [v28 OSLogObject];
+          if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
           {
-            v31 = objc_opt_class();
-            downloadIdentifier = [v22 downloadIdentifier];
-            *v220 = 138543618;
-            *&v220[4] = v31;
+            v32 = v30;
+          }
+
+          else
+          {
+            v32 = v30 & 2;
+          }
+
+          if (v32)
+          {
+            v33 = objc_opt_class();
+            downloadIdentifier = [v23 downloadIdentifier];
+            *v230 = 138543618;
+            *&v230[4] = v33;
             self = selfCopy;
-            *&v220[12] = 2048;
-            *&v220[14] = downloadIdentifier;
-            LODWORD(v162) = 22;
-            v154 = v220;
-            v33 = _os_log_send_and_compose_impl();
-            if (v33)
+            *&v230[12] = 2048;
+            *&v230[14] = downloadIdentifier;
+            LODWORD(v172) = 22;
+            v35 = _os_log_send_and_compose_impl(v32, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: Falling back to primary account to restore download: %lld", v230, v172);
+            if (v35)
             {
-              v34 = v33;
-              v1622 = [NSString stringWithCString:v33 encoding:4, v220, v162];
-              free(v34);
-              v154 = v1622;
+              v36 = v35;
+              v37 = [NSString stringWithCString:v35 encoding:4];
+              free(v36);
+              v164 = v37;
               SSFileLog();
             }
           }
 
-          activeAccount2 = v26;
-          [v22 setStoreAccountAppleID:{objc_msgSend(v26, "accountName", v154)}];
-          uniqueIdentifier = [v26 uniqueIdentifier];
-          v170 = 1;
-          v18 = v180;
-          v14 = v182;
-          v19 = obj;
+          activeAccount2 = v27;
+          [v23 setStoreAccountAppleID:{objc_msgSend(v27, "accountName", v164)}];
+          uniqueIdentifier = [v27 uniqueIdentifier];
+          v180 = 1;
+          v19 = v190;
+          v15 = v192;
+          v20 = obj;
 LABEL_42:
-          [v22 setStoreAccountID:uniqueIdentifier];
+          [v23 setStoreAccountID:uniqueIdentifier];
         }
 
         else
         {
-          v170 = 1;
+          v180 = 1;
         }
 
-        storeAccountID = [v22 storeAccountID];
-        if (!(storeAccountID | v210))
+        storeAccountID = [v23 storeAccountID];
+        if (!(storeAccountID | v220))
         {
-          v210 = SSError();
+          v220 = SSError();
         }
       }
 
-      storeAccountID2 = [v22 storeAccountID];
+      storeAccountID2 = [v23 storeAccountID];
       if (storeAccountID2)
       {
-        v38 = activeAccount2 == 0;
+        v40 = activeAccount2 == 0;
       }
 
       else
       {
-        v38 = 1;
+        v40 = 1;
       }
 
-      if (!v38)
+      if (!v40)
       {
-        v39 = storeAccountID2;
-        if ([v14 containsObject:storeAccountID2])
+        v41 = storeAccountID2;
+        if ([v15 containsObject:storeAccountID2])
         {
-          [v22 setStoreOriginalPurchaserAccountID:v39];
-          [v22 setStoreAccountID:{objc_msgSend(activeAccount2, "uniqueIdentifier")}];
+          [v23 setStoreOriginalPurchaserAccountID:v41];
+          [v23 setStoreAccountID:{objc_msgSend(activeAccount2, "uniqueIdentifier")}];
         }
       }
 
-      v209 = 0;
+      v219 = 0;
       if (IsPodcastKind)
       {
-        if ([v22 isEligibleForRestore:&v209])
+        if ([v23 isEligibleForRestore:&v219])
         {
-          [v173 addObject:v22];
+          [v183 addObject:v23];
           goto LABEL_106;
         }
 
 LABEL_93:
-        v62 = -[DownloadSessionProperties initWithClientIdentifier:handlerIdentifier:]([DownloadSessionProperties alloc], "initWithClientIdentifier:handlerIdentifier:", [v22 clientIdentifier], objc_msgSend(v22, "handlerIdentifier"));
-        [(DownloadSessionProperties *)v62 setDownloadPhase:v188];
-        [v22 setDownloadSessionProperties:v62];
-        if (v209)
+        v66 = -[DownloadSessionProperties initWithClientIdentifier:handlerIdentifier:]([DownloadSessionProperties alloc], "initWithClientIdentifier:handlerIdentifier:", [v23 clientIdentifier], objc_msgSend(v23, "handlerIdentifier"));
+        [(DownloadSessionProperties *)v66 setDownloadPhase:v198];
+        [v23 setDownloadSessionProperties:v66];
+        if (v219)
         {
-          v63 = v209;
+          v67 = v219;
         }
 
         else
         {
-          v63 = v210;
+          v67 = v220;
         }
 
-        [v22 setError:v63];
-        if ([(RestoreDownloadsOperation *)self _isErrorCancelFailure:v210])
+        [v23 setError:v67];
+        if ([(RestoreDownloadsOperation *)self _isErrorCancelFailure:v220])
         {
-          [v174 addObject:v22];
+          [v184 addObject:v23];
           self->_hadCancelFailure = 1;
         }
 
-        else if (v210 && [(RestoreDownloadsOperation *)self _isErrorSoftFail:?])
+        else if (v220 && [(RestoreDownloadsOperation *)self _isErrorSoftFail:?])
         {
-          [v168 addObject:v22];
+          [v178 addObject:v23];
           if (self->_hadAutoRetrySoftFailure)
           {
-            v64 = 1;
+            v68 = 1;
           }
 
           else
           {
-            v64 = [(RestoreDownloadsOperation *)self _shouldAutomaticallyRetryAfterSoftFailError:v210];
+            v68 = [(RestoreDownloadsOperation *)self _shouldAutomaticallyRetryAfterSoftFailError:v220];
           }
 
-          self->_hadAutoRetrySoftFailure = v64;
+          self->_hadAutoRetrySoftFailure = v68;
         }
 
         else
         {
-          [v171 addObject:v22];
+          [v181 addObject:v23];
         }
 
         goto LABEL_106;
       }
 
-      if (![v22 storeAccountID] || (objc_msgSend(v22, "isEligibleForRestore:", &v209) & 1) == 0)
+      if (![v23 storeAccountID] || (objc_msgSend(v23, "isEligibleForRestore:", &v219) & 1) == 0)
       {
         goto LABEL_93;
       }
 
-      storeOriginalPurchaserAccountID = [v22 storeOriginalPurchaserAccountID];
+      storeOriginalPurchaserAccountID = [v23 storeOriginalPurchaserAccountID];
       if (!storeOriginalPurchaserAccountID)
       {
-        storeOriginalPurchaserAccountID = [v22 storeAccountID];
+        storeOriginalPurchaserAccountID = [v23 storeAccountID];
       }
 
-      v41 = [v172 objectForKey:storeOriginalPurchaserAccountID];
-      if (!v41)
-      {
-        v41 = [v184 accountWithUniqueIdentifier:storeOriginalPurchaserAccountID];
-        if (!v41)
-        {
-          v41 = objc_alloc_init(SSAccount);
-          [v41 setUniqueIdentifier:storeOriginalPurchaserAccountID];
-        }
-
-        [v172 setObject:v41 forKey:storeOriginalPurchaserAccountID];
-      }
-
-      if (![v41 accountName])
-      {
-        [v41 setAccountName:{objc_msgSend(v22, "storeAccountAppleID")}];
-      }
-
-      if (![v41 storeFrontIdentifier])
-      {
-        [v41 setStoreFrontIdentifier:{objc_msgSend(v22, "storeFrontID")}];
-      }
-
-      v42 = activeAccount2;
-      v43 = +[SSLogConfig sharedAccountsConfig];
+      v43 = [v182 objectForKey:storeOriginalPurchaserAccountID];
       if (!v43)
       {
-        v43 = +[SSLogConfig sharedConfig];
-      }
-
-      shouldLog3 = [v43 shouldLog];
-      if ([v43 shouldLogToDisk])
-      {
-        v45 = shouldLog3 | 2;
-      }
-
-      else
-      {
-        v45 = shouldLog3;
-      }
-
-      if (os_log_type_enabled([v43 OSLogObject], OS_LOG_TYPE_DEFAULT))
-      {
-        v46 = v45;
-      }
-
-      else
-      {
-        v46 = v45 & 2;
-      }
-
-      if (v46)
-      {
-        v47 = objc_opt_class();
-        [v41 accountName];
-        v48 = SSHashIfNeeded();
-        *v220 = 138543618;
-        *&v220[4] = v47;
-        *&v220[12] = 2114;
-        *&v220[14] = v48;
-        LODWORD(v162) = 22;
-        v154 = v220;
-        v49 = _os_log_send_and_compose_impl();
-        if (v49)
+        v43 = [v194 accountWithUniqueIdentifier:storeOriginalPurchaserAccountID];
+        if (!v43)
         {
-          v50 = v49;
-          v1623 = [NSString stringWithCString:v49 encoding:4, v220, v162];
-          free(v50);
-          v154 = v1623;
+          v43 = objc_alloc_init(SSAccount);
+          [v43 setUniqueIdentifier:storeOriginalPurchaserAccountID];
+        }
+
+        [v182 setObject:v43 forKey:storeOriginalPurchaserAccountID];
+      }
+
+      if (![v43 accountName])
+      {
+        [v43 setAccountName:{objc_msgSend(v23, "storeAccountAppleID")}];
+      }
+
+      if (![v43 storeFrontIdentifier])
+      {
+        [v43 setStoreFrontIdentifier:{objc_msgSend(v23, "storeFrontID")}];
+      }
+
+      v44 = activeAccount2;
+      v45 = +[SSLogConfig sharedAccountsConfig];
+      if (!v45)
+      {
+        v45 = +[SSLogConfig sharedConfig];
+      }
+
+      shouldLog3 = [v45 shouldLog];
+      if ([v45 shouldLogToDisk])
+      {
+        v47 = shouldLog3 | 2;
+      }
+
+      else
+      {
+        v47 = shouldLog3;
+      }
+
+      oSLogObject3 = [v45 OSLogObject];
+      if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
+      {
+        v49 = v47;
+      }
+
+      else
+      {
+        v49 = v47 & 2;
+      }
+
+      if (v49)
+      {
+        v50 = objc_opt_class();
+        [v43 accountName];
+        v51 = SSHashIfNeeded();
+        *v230 = 138543618;
+        *&v230[4] = v50;
+        *&v230[12] = 2114;
+        *&v230[14] = v51;
+        LODWORD(v172) = 22;
+        v52 = _os_log_send_and_compose_impl(v49, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%{public}@: Updating an account during a restore operation. Saving %{public}@.", v230, v172);
+        if (v52)
+        {
+          v53 = v52;
+          v54 = [NSString stringWithCString:v52 encoding:4];
+          free(v53);
+          v164 = v54;
           SSFileLog();
         }
       }
 
-      v208 = 0;
-      activeAccount2 = v42;
-      if (([v184 saveAccount:v41 verifyCredentials:0 error:{&v208, v154}] & 1) == 0 && v208)
+      v218 = 0;
+      activeAccount2 = v44;
+      if (([v194 saveAccount:v43 verifyCredentials:0 error:{&v218, v164}] & 1) == 0 && v218)
       {
-        v52 = +[SSLogConfig sharedAccountsConfig];
-        if (!v52)
+        v55 = +[SSLogConfig sharedAccountsConfig];
+        if (!v55)
         {
-          v52 = +[SSLogConfig sharedConfig];
+          v55 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog4 = [v52 shouldLog];
-        if ([v52 shouldLogToDisk])
+        shouldLog4 = [v55 shouldLog];
+        if ([v55 shouldLogToDisk])
         {
-          v54 = shouldLog4 | 2;
-        }
-
-        else
-        {
-          v54 = shouldLog4;
-        }
-
-        if (os_log_type_enabled([v52 OSLogObject], OS_LOG_TYPE_ERROR))
-        {
-          v55 = v54;
+          v57 = shouldLog4 | 2;
         }
 
         else
         {
-          v55 = v54 & 2;
+          v57 = shouldLog4;
         }
 
-        activeAccount2 = v42;
-        if (v55)
+        oSLogObject4 = [v55 OSLogObject];
+        if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_ERROR))
         {
-          v56 = objc_opt_class();
-          [v41 accountName];
-          v57 = SSHashIfNeeded();
-          *v220 = 138543874;
-          *&v220[4] = v56;
-          *&v220[12] = 2114;
-          *&v220[14] = v57;
-          *&v220[22] = 2114;
-          v221 = v208;
-          LODWORD(v162) = 32;
-          v155 = v220;
-          v58 = _os_log_send_and_compose_impl();
-          if (v58)
+          v59 = v57;
+        }
+
+        else
+        {
+          v59 = v57 & 2;
+        }
+
+        activeAccount2 = v44;
+        if (v59)
+        {
+          v60 = objc_opt_class();
+          [v43 accountName];
+          v61 = SSHashIfNeeded();
+          *v230 = 138543874;
+          *&v230[4] = v60;
+          *&v230[12] = 2114;
+          *&v230[14] = v61;
+          *&v230[22] = 2114;
+          v231 = v218;
+          LODWORD(v172) = 32;
+          v62 = _os_log_send_and_compose_impl(v59, 0, 0, 0, &_mh_execute_header, oSLogObject4, 16, "%{public}@: Unabled to save an account during a restore operation. Saving %{public}@. Error: %{public}@", v230, v172);
+          if (v62)
           {
-            v59 = v58;
-            v1624 = [NSString stringWithCString:v58 encoding:4, v220, v162];
-            free(v59);
-            v155 = v1624;
+            v63 = v62;
+            v64 = [NSString stringWithCString:v62 encoding:4];
+            free(v63);
+            v165 = v64;
             SSFileLog();
           }
         }
       }
 
-      v61 = [v183 objectForKey:storeOriginalPurchaserAccountID];
-      if (!v61)
+      v65 = [v193 objectForKey:storeOriginalPurchaserAccountID];
+      if (!v65)
       {
-        v61 = +[NSMutableArray array];
-        [v183 setObject:v61 forKey:storeOriginalPurchaserAccountID];
+        v65 = +[NSMutableArray array];
+        [v193 setObject:v65 forKey:storeOriginalPurchaserAccountID];
       }
 
-      [v61 addObject:{v22, v155}];
+      [v65 addObject:{v23, v165}];
       self = selfCopy;
-      v18 = v180;
-      v14 = v182;
-      v16 = v175;
-      v19 = obj;
+      v19 = v190;
+      v15 = v192;
+      v17 = v185;
+      v20 = obj;
 LABEL_106:
-      v21 = v21 + 1;
+      v22 = v22 + 1;
     }
 
-    while (v18 != v21);
-    v65 = [v16 countByEnumeratingWithState:&v211 objects:v219 count:16];
-    v18 = v65;
+    while (v19 != v22);
+    v69 = [v17 countByEnumeratingWithState:&v221 objects:v229 count:16];
+    v19 = v69;
   }
 
-  while (v65);
+  while (v69);
 LABEL_112:
 
-  v66 = objc_alloc_init(NSMutableArray);
-  v169 = activeAccount2;
-  if ([v171 count])
+  v70 = objc_alloc_init(NSMutableArray);
+  v179 = activeAccount2;
+  if ([v181 count])
   {
-    v67 = +[SSLogConfig sharedDaemonConfig];
-    if (!v67)
+    v71 = +[SSLogConfig sharedDaemonConfig];
+    if (!v71)
     {
-      v67 = +[SSLogConfig sharedConfig];
+      v71 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog5 = [v67 shouldLog];
-    if ([v67 shouldLogToDisk])
+    shouldLog5 = [v71 shouldLog];
+    if ([v71 shouldLogToDisk])
     {
-      v69 = shouldLog5 | 2;
-    }
-
-    else
-    {
-      v69 = shouldLog5;
-    }
-
-    if (os_log_type_enabled([v67 OSLogObject], OS_LOG_TYPE_DEFAULT))
-    {
-      v70 = v69;
+      v73 = shouldLog5 | 2;
     }
 
     else
     {
-      v70 = v69 & 2;
+      v73 = shouldLog5;
     }
 
-    if (v70)
+    oSLogObject5 = [v71 OSLogObject];
+    if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
     {
-      v71 = objc_opt_class();
-      v72 = [v171 componentsJoinedByString:{@", "}];
-      *v220 = 138543618;
-      *&v220[4] = v71;
-      *&v220[12] = 2114;
-      *&v220[14] = v72;
-      LODWORD(v162) = 22;
-      v73 = _os_log_send_and_compose_impl();
-      if (v73)
+      v75 = v73;
+    }
+
+    else
+    {
+      v75 = v73 & 2;
+    }
+
+    if (v75)
+    {
+      v76 = objc_opt_class();
+      v77 = [v181 componentsJoinedByString:{@", "}];
+      *v230 = 138543618;
+      *&v230[4] = v76;
+      *&v230[12] = 2114;
+      *&v230[14] = v77;
+      LODWORD(v172) = 22;
+      v78 = _os_log_send_and_compose_impl(v75, 0, 0, 0, &_mh_execute_header, oSLogObject5, 0, "%{public}@: Hard fail invalid restore items: [%{public}@]", v230, v172);
+      if (v78)
       {
-        v74 = v73;
-        [NSString stringWithCString:v73 encoding:4, v220, v162];
-        free(v74);
+        v79 = v78;
+        [NSString stringWithCString:v78 encoding:4];
+        free(v79);
         SSFileLog();
       }
     }
 
-    v156 = objc_opt_class();
-    v163 = [v171 componentsJoinedByString:{@", "}];
+    v166 = objc_opt_class();
+    v173 = [v181 componentsJoinedByString:{@", "}];
     SSDebugLog();
-    v75 = objc_alloc_init(RestoreDownloadItemsResponse);
-    [(RestoreDownloadItemsResponse *)v75 setRequestItems:v171, v156, v163];
-    [v66 addObject:v75];
+    v80 = objc_alloc_init(RestoreDownloadItemsResponse);
+    [(RestoreDownloadItemsResponse *)v80 setRequestItems:v181, v166, v173];
+    [v70 addObject:v80];
 
-    activeAccount2 = v169;
+    activeAccount2 = v179;
   }
 
-  if ([v168 count])
+  if ([v178 count])
   {
-    v76 = +[SSLogConfig sharedDaemonConfig];
-    if (!v76)
+    v81 = +[SSLogConfig sharedDaemonConfig];
+    if (!v81)
     {
-      v76 = +[SSLogConfig sharedConfig];
+      v81 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog6 = [v76 shouldLog];
-    if ([v76 shouldLogToDisk])
+    shouldLog6 = [v81 shouldLog];
+    if ([v81 shouldLogToDisk])
     {
-      v78 = shouldLog6 | 2;
-    }
-
-    else
-    {
-      v78 = shouldLog6;
-    }
-
-    if (os_log_type_enabled([v76 OSLogObject], OS_LOG_TYPE_DEFAULT))
-    {
-      v79 = v78;
+      v83 = shouldLog6 | 2;
     }
 
     else
     {
-      v79 = v78 & 2;
+      v83 = shouldLog6;
     }
 
-    if (v79)
+    oSLogObject6 = [v81 OSLogObject];
+    if (os_log_type_enabled(oSLogObject6, OS_LOG_TYPE_DEFAULT))
     {
-      v80 = objc_opt_class();
-      v81 = [v168 componentsJoinedByString:{@", "}];
-      *v220 = 138543618;
-      *&v220[4] = v80;
-      *&v220[12] = 2114;
-      *&v220[14] = v81;
-      LODWORD(v162) = 22;
-      v82 = _os_log_send_and_compose_impl();
-      if (v82)
+      v85 = v83;
+    }
+
+    else
+    {
+      v85 = v83 & 2;
+    }
+
+    if (v85)
+    {
+      v86 = objc_opt_class();
+      v87 = [v178 componentsJoinedByString:{@", "}];
+      *v230 = 138543618;
+      *&v230[4] = v86;
+      *&v230[12] = 2114;
+      *&v230[14] = v87;
+      LODWORD(v172) = 22;
+      v88 = _os_log_send_and_compose_impl(v85, 0, 0, 0, &_mh_execute_header, oSLogObject6, 0, "%{public}@: Soft fail invalid restore items: [%{public}@]", v230, v172);
+      if (v88)
       {
-        v83 = v82;
-        [NSString stringWithCString:v82 encoding:4, v220, v162];
-        free(v83);
+        v89 = v88;
+        [NSString stringWithCString:v88 encoding:4];
+        free(v89);
         SSFileLog();
       }
     }
 
-    v158 = objc_opt_class();
-    v164 = [v168 componentsJoinedByString:{@", "}];
+    v168 = objc_opt_class();
+    v174 = [v178 componentsJoinedByString:{@", "}];
     SSDebugLog();
-    v84 = objc_alloc_init(RestoreDownloadItemsResponse);
-    [(RestoreDownloadItemsResponse *)v84 setRequestItems:v168, v158, v164];
-    [(RestoreDownloadItemsResponse *)v84 setServerResponseWithError:SSError()];
-    [v66 addObject:v84];
+    v90 = objc_alloc_init(RestoreDownloadItemsResponse);
+    [(RestoreDownloadItemsResponse *)v90 setRequestItems:v178, v168, v174];
+    [(RestoreDownloadItemsResponse *)v90 setServerResponseWithError:SSError()];
+    [v70 addObject:v90];
 
-    activeAccount2 = v169;
+    activeAccount2 = v179;
   }
 
-  if ([v174 count])
+  if ([v184 count])
   {
-    v85 = +[SSLogConfig sharedDaemonConfig];
-    if (!v85)
+    v91 = +[SSLogConfig sharedDaemonConfig];
+    if (!v91)
     {
-      v85 = +[SSLogConfig sharedConfig];
+      v91 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog7 = [v85 shouldLog];
-    if ([v85 shouldLogToDisk])
+    shouldLog7 = [v91 shouldLog];
+    if ([v91 shouldLogToDisk])
     {
-      v87 = shouldLog7 | 2;
-    }
-
-    else
-    {
-      v87 = shouldLog7;
-    }
-
-    if (os_log_type_enabled([v85 OSLogObject], OS_LOG_TYPE_DEFAULT))
-    {
-      v88 = v87;
+      v93 = shouldLog7 | 2;
     }
 
     else
     {
-      v88 = v87 & 2;
+      v93 = shouldLog7;
     }
 
-    if (v88)
+    oSLogObject7 = [v91 OSLogObject];
+    if (os_log_type_enabled(oSLogObject7, OS_LOG_TYPE_DEFAULT))
     {
-      v89 = objc_opt_class();
-      v90 = [v174 componentsJoinedByString:{@", "}];
-      *v220 = 138543618;
-      *&v220[4] = v89;
-      *&v220[12] = 2114;
-      *&v220[14] = v90;
-      LODWORD(v162) = 22;
-      v91 = _os_log_send_and_compose_impl();
-      if (v91)
+      v95 = v93;
+    }
+
+    else
+    {
+      v95 = v93 & 2;
+    }
+
+    if (v95)
+    {
+      v96 = objc_opt_class();
+      v97 = [v184 componentsJoinedByString:{@", "}];
+      *v230 = 138543618;
+      *&v230[4] = v96;
+      *&v230[12] = 2114;
+      *&v230[14] = v97;
+      LODWORD(v172) = 22;
+      v98 = _os_log_send_and_compose_impl(v95, 0, 0, 0, &_mh_execute_header, oSLogObject7, 0, "%{public}@: Cancel invalid restore items: [%{public}@]", v230, v172);
+      if (v98)
       {
-        v92 = v91;
-        [NSString stringWithCString:v91 encoding:4, v220, v162];
-        free(v92);
+        v99 = v98;
+        [NSString stringWithCString:v98 encoding:4];
+        free(v99);
         SSFileLog();
       }
     }
 
-    v159 = objc_opt_class();
-    v165 = [v174 componentsJoinedByString:{@", "}];
+    v169 = objc_opt_class();
+    v175 = [v184 componentsJoinedByString:{@", "}];
     SSDebugLog();
-    v93 = objc_alloc_init(RestoreDownloadItemsResponse);
-    [(RestoreDownloadItemsResponse *)v93 setRequestItems:v174, v159, v165];
-    [(RestoreDownloadItemsResponse *)v93 setServerResponseWithError:SSError()];
-    [v66 addObject:v93];
+    v100 = objc_alloc_init(RestoreDownloadItemsResponse);
+    [(RestoreDownloadItemsResponse *)v100 setRequestItems:v184, v169, v175];
+    [(RestoreDownloadItemsResponse *)v100 setServerResponseWithError:SSError()];
+    [v70 addObject:v100];
 
-    activeAccount2 = v169;
+    activeAccount2 = v179;
   }
 
-  if ([v66 count])
+  if ([v70 count])
   {
-    v207[0] = _NSConcreteStackBlock;
-    v207[1] = 3221225472;
-    v207[2] = sub_10014FF3C;
-    v207[3] = &unk_100327F38;
-    v207[4] = self;
-    v207[5] = v66;
+    v217[0] = _NSConcreteStackBlock;
+    v217[1] = 3221225472;
+    v217[2] = sub_10014FF3C;
+    v217[3] = &unk_100327F38;
+    v217[4] = self;
+    v217[5] = v70;
     [+[DownloadsDatabase downloadsDatabase](DownloadsDatabase "downloadsDatabase")];
   }
 
-  if ([v183 count])
+  if ([v193 count])
   {
-    if ((v170 & 1) == 0 && ![(NSString *)self->_restoreReason isEqualToString:@"cancel-retry"])
+    if ((v180 & 1) == 0 && ![(NSString *)self->_restoreReason isEqualToString:@"cancel-retry"])
     {
       [(RestoreDownloadsOperation *)self _establishPrimaryAccount];
     }
 
-    v94 = [objc_msgSend(+[SSAccountStore defaultStore](SSAccountStore "defaultStore")];
-    allKeys = [v183 allKeys];
-    *v220 = _NSConcreteStackBlock;
-    *&v220[8] = 3221225472;
-    *&v220[16] = sub_100153BF4;
-    v221 = &unk_100329EE0;
-    v222 = v94;
-    v223 = v183;
-    v96 = [allKeys sortedArrayUsingComparator:v220];
-    v181 = objc_alloc_init(NSMutableArray);
-    v97 = objc_alloc_init(NSCountedSet);
-    v203 = 0u;
-    v204 = 0u;
-    v205 = 0u;
-    v206 = 0u;
-    obja = v96;
-    v98 = [v96 countByEnumeratingWithState:&v203 objects:v218 count:16];
-    if (v98)
+    v101 = [objc_msgSend(+[SSAccountStore defaultStore](SSAccountStore "defaultStore")];
+    allKeys = [v193 allKeys];
+    *v230 = _NSConcreteStackBlock;
+    *&v230[8] = 3221225472;
+    *&v230[16] = sub_100153BF4;
+    v231 = &unk_100329EE0;
+    v232 = v101;
+    v233 = v193;
+    v103 = [allKeys sortedArrayUsingComparator:v230];
+    v191 = objc_alloc_init(NSMutableArray);
+    v104 = objc_alloc_init(NSCountedSet);
+    v213 = 0u;
+    v214 = 0u;
+    v215 = 0u;
+    v216 = 0u;
+    obja = v103;
+    v105 = [v103 countByEnumeratingWithState:&v213 objects:v228 count:16];
+    if (v105)
     {
-      v99 = v98;
-      v185 = *v204;
-      v189 = 1;
+      v106 = v105;
+      v195 = *v214;
+      v199 = 1;
       do
       {
-        for (i = 0; i != v99; i = i + 1)
+        for (i = 0; i != v106; i = i + 1)
         {
-          if (*v204 != v185)
+          if (*v214 != v195)
           {
             objc_enumerationMutation(obja);
           }
 
-          v101 = *(*(&v203 + 1) + 8 * i);
-          v102 = [v14 containsObject:v101];
-          v210 = 0;
-          v103 = [(RestoreDownloadsOperation *)self _preflightAccountWithID:v101 isFamily:v102 error:&v210];
-          v104 = +[SSAccountStore defaultStore];
-          if (v102)
+          v108 = *(*(&v213 + 1) + 8 * i);
+          v109 = [v15 containsObject:v108];
+          v220 = 0;
+          v110 = [(RestoreDownloadsOperation *)self _preflightAccountWithID:v108 isFamily:v109 error:&v220];
+          v111 = +[SSAccountStore defaultStore];
+          if (v109)
           {
-            activeAccount3 = [v104 activeAccount];
+            activeAccount3 = [v111 activeAccount];
           }
 
           else
           {
-            activeAccount3 = [v104 accountWithUniqueIdentifier:v101];
+            activeAccount3 = [v111 accountWithUniqueIdentifier:v108];
           }
 
-          v106 = activeAccount3;
-          v107 = [v183 objectForKey:v101];
-          v108 = [[RestoreDownloadItemsOperation alloc] initWithDownloadItems:v107 account:v106];
-          if (v103)
+          v113 = activeAccount3;
+          v114 = [v193 objectForKey:v108];
+          v115 = [[RestoreDownloadItemsOperation alloc] initWithDownloadItems:v114 account:v113];
+          if (v110)
           {
-            v201 = 0u;
-            v202 = 0u;
-            v199 = 0u;
-            v200 = 0u;
-            v109 = [v107 countByEnumeratingWithState:&v199 objects:v217 count:16];
-            v14 = v182;
-            if (v109)
-            {
-              v110 = v109;
-              v111 = *v200;
-              do
-              {
-                for (j = 0; j != v110; j = j + 1)
-                {
-                  if (*v200 != v111)
-                  {
-                    objc_enumerationMutation(v107);
-                  }
-
-                  [v97 addObject:{objc_msgSend(*(*(&v199 + 1) + 8 * j), "downloadKind")}];
-                }
-
-                v110 = [v107 countByEnumeratingWithState:&v199 objects:v217 count:16];
-              }
-
-              while (v110);
-            }
-
-            [v181 addObject:v108];
-          }
-
-          else
-          {
-            v113 = +[SSLogConfig sharedDaemonConfig];
-            if (!v113)
-            {
-              v113 = +[SSLogConfig sharedConfig];
-            }
-
-            shouldLog8 = [v113 shouldLog];
-            if ([v113 shouldLogToDisk])
-            {
-              v115 = shouldLog8 | 2;
-            }
-
-            else
-            {
-              v115 = shouldLog8;
-            }
-
-            if (os_log_type_enabled([v113 OSLogObject], OS_LOG_TYPE_DEFAULT))
-            {
-              v116 = v115;
-            }
-
-            else
-            {
-              v116 = v115 & 2;
-            }
-
+            v211 = 0u;
+            v212 = 0u;
+            v209 = 0u;
+            v210 = 0u;
+            v116 = [v114 countByEnumeratingWithState:&v209 objects:v227 count:16];
+            v15 = v192;
             if (v116)
             {
-              v117 = objc_opt_class();
-              v118 = [v107 componentsJoinedByString:{@", "}];
-              *v220 = 138543874;
-              *&v220[4] = v117;
-              *&v220[12] = 2114;
-              *&v220[14] = v118;
-              *&v220[22] = 2114;
-              v221 = v210;
-              LODWORD(v162) = 32;
-              v119 = _os_log_send_and_compose_impl();
-              if (v119)
+              v117 = v116;
+              v118 = *v210;
+              do
               {
-                v120 = v119;
-                [NSString stringWithCString:v119 encoding:4, v220, v162];
-                free(v120);
+                for (j = 0; j != v117; j = j + 1)
+                {
+                  if (*v210 != v118)
+                  {
+                    objc_enumerationMutation(v114);
+                  }
+
+                  [v104 addObject:{objc_msgSend(*(*(&v209 + 1) + 8 * j), "downloadKind")}];
+                }
+
+                v117 = [v114 countByEnumeratingWithState:&v209 objects:v227 count:16];
+              }
+
+              while (v117);
+            }
+
+            [v191 addObject:v115];
+          }
+
+          else
+          {
+            v120 = +[SSLogConfig sharedDaemonConfig];
+            if (!v120)
+            {
+              v120 = +[SSLogConfig sharedConfig];
+            }
+
+            shouldLog8 = [v120 shouldLog];
+            if ([v120 shouldLogToDisk])
+            {
+              v122 = shouldLog8 | 2;
+            }
+
+            else
+            {
+              v122 = shouldLog8;
+            }
+
+            oSLogObject8 = [v120 OSLogObject];
+            if (os_log_type_enabled(oSLogObject8, OS_LOG_TYPE_DEFAULT))
+            {
+              v124 = v122;
+            }
+
+            else
+            {
+              v124 = v122 & 2;
+            }
+
+            if (v124)
+            {
+              v125 = objc_opt_class();
+              v126 = [v114 componentsJoinedByString:{@", "}];
+              *v230 = 138543874;
+              *&v230[4] = v125;
+              *&v230[12] = 2114;
+              *&v230[14] = v126;
+              *&v230[22] = 2114;
+              v231 = v220;
+              LODWORD(v172) = 32;
+              v127 = _os_log_send_and_compose_impl(v124, 0, 0, 0, &_mh_execute_header, oSLogObject8, 0, "%{public}@: Failing restore items: [%{public}@] after account preflight failure: %{public}@", v230, v172);
+              if (v127)
+              {
+                v128 = v127;
+                [NSString stringWithCString:v127 encoding:4];
+                free(v128);
                 SSFileLog();
               }
             }
 
             self = selfCopy;
-            v121 = objc_opt_class();
-            v122 = [v107 componentsJoinedByString:{@", "}];
-            v167 = v210;
-            v160 = v121;
-            v166 = v122;
+            v129 = objc_opt_class();
+            v130 = [v114 componentsJoinedByString:{@", "}];
+            v177 = v220;
+            v170 = v129;
+            v176 = v130;
             SSDebugLog();
-            v123 = objc_alloc_init(RestoreDownloadItemsResponse);
-            [(RestoreDownloadItemsResponse *)v123 setRequestItems:v107, v160, v166, v101, v167];
-            [(RestoreDownloadItemsResponse *)v123 setServerResponseWithError:v210];
-            [(RestoreDownloadsOperation *)selfCopy restoreDownloadItemsOperation:v108 didReceiveResponse:v123];
+            v131 = objc_alloc_init(RestoreDownloadItemsResponse);
+            [(RestoreDownloadItemsResponse *)v131 setRequestItems:v114, v170, v176, v108, v177];
+            [(RestoreDownloadItemsResponse *)v131 setServerResponseWithError:v220];
+            [(RestoreDownloadsOperation *)selfCopy restoreDownloadItemsOperation:v115 didReceiveResponse:v131];
 
-            v189 = 0;
-            v14 = v182;
+            v199 = 0;
+            v15 = v192;
           }
         }
 
-        v99 = [obja countByEnumeratingWithState:&v203 objects:v218 count:16];
+        v106 = [obja countByEnumeratingWithState:&v213 objects:v228 count:16];
       }
 
-      while (v99);
+      while (v106);
     }
 
     else
     {
-      v189 = 1;
+      v199 = 1;
     }
 
-    v125 = +[SSLogConfig sharedDaemonConfig];
-    if (!v125)
+    v133 = +[SSLogConfig sharedDaemonConfig];
+    if (!v133)
     {
-      v125 = +[SSLogConfig sharedConfig];
+      v133 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog9 = [v125 shouldLog];
-    if ([v125 shouldLogToDisk])
+    shouldLog9 = [v133 shouldLog];
+    if ([v133 shouldLogToDisk])
     {
-      v127 = shouldLog9 | 2;
-    }
-
-    else
-    {
-      v127 = shouldLog9;
-    }
-
-    if (os_log_type_enabled([v125 OSLogObject], OS_LOG_TYPE_DEFAULT))
-    {
-      v128 = v127;
+      v135 = shouldLog9 | 2;
     }
 
     else
     {
-      v128 = v127 & 2;
+      v135 = shouldLog9;
     }
 
-    activeAccount2 = v169;
-    if (v128)
+    oSLogObject9 = [v133 OSLogObject];
+    if (os_log_type_enabled(oSLogObject9, OS_LOG_TYPE_DEFAULT))
     {
-      v129 = objc_opt_class();
-      v130 = [v181 count];
-      *v220 = 138543618;
-      *&v220[4] = v129;
-      *&v220[12] = 2048;
-      *&v220[14] = v130;
-      LODWORD(v162) = 22;
-      v157 = v220;
-      v131 = _os_log_send_and_compose_impl();
-      if (v131)
+      v137 = v135;
+    }
+
+    else
+    {
+      v137 = v135 & 2;
+    }
+
+    activeAccount2 = v179;
+    if (v137)
+    {
+      v138 = objc_opt_class();
+      v139 = [v191 count];
+      *v230 = 138543618;
+      *&v230[4] = v138;
+      *&v230[12] = 2048;
+      *&v230[14] = v139;
+      LODWORD(v172) = 22;
+      v140 = _os_log_send_and_compose_impl(v137, 0, 0, 0, &_mh_execute_header, oSLogObject9, 0, "%{public}@: Attempting restore for %lu accounts", v230, v172);
+      if (v140)
       {
-        v132 = v131;
-        v1625 = [NSString stringWithCString:v131 encoding:4, v220, v162];
-        free(v132);
-        v157 = v1625;
+        v141 = v140;
+        v142 = [NSString stringWithCString:v140 encoding:4];
+        free(v141);
+        v167 = v142;
         SSFileLog();
       }
     }
 
     shouldSuppressTermsAndConditionsDialogs = [objc_opt_class() shouldSuppressTermsAndConditionsDialogs];
-    v195 = 0u;
-    v196 = 0u;
-    v197 = 0u;
-    v198 = 0u;
-    objb = [v181 countByEnumeratingWithState:&v195 objects:v216 count:16];
+    v205 = 0u;
+    v206 = 0u;
+    v207 = 0u;
+    v208 = 0u;
+    objb = [v191 countByEnumeratingWithState:&v205 objects:v226 count:16];
     if (objb)
     {
-      v135 = shouldSuppressTermsAndConditionsDialogs ^ 1;
-      v176 = *v196;
-      v124 = v189;
+      v144 = shouldSuppressTermsAndConditionsDialogs ^ 1;
+      v186 = *v206;
+      v132 = v199;
       do
       {
         for (k = 0; k != objb; k = k + 1)
         {
-          if (*v196 != v176)
+          if (*v206 != v186)
           {
-            objc_enumerationMutation(v181);
+            objc_enumerationMutation(v191);
           }
 
-          v190 = v124;
-          v137 = *(*(&v195 + 1) + 8 * k);
-          v186 = objc_alloc_init(NSAutoreleasePool);
-          [v137 setDelegate:self];
-          [v137 setShouldShowTermsAndConditionsDialog:v135 & 1];
-          v138 = [(RestoreDownloadsOperation *)self runSubOperation:v137 returningError:0];
-          responses = [v137 responses];
-          v191 = 0u;
-          v192 = 0u;
-          v193 = 0u;
-          v194 = 0u;
-          v140 = [responses countByEnumeratingWithState:&v191 objects:v215 count:16];
-          if (v140)
+          v200 = v132;
+          v146 = *(*(&v205 + 1) + 8 * k);
+          v196 = objc_alloc_init(NSAutoreleasePool);
+          [v146 setDelegate:self];
+          [v146 setShouldShowTermsAndConditionsDialog:v144 & 1];
+          v147 = [(RestoreDownloadsOperation *)self runSubOperation:v146 returningError:0];
+          responses = [v146 responses];
+          v201 = 0u;
+          v202 = 0u;
+          v203 = 0u;
+          v204 = 0u;
+          v149 = [responses countByEnumeratingWithState:&v201 objects:v225 count:16];
+          if (v149)
           {
-            v141 = v140;
-            v142 = *v192;
+            v150 = v149;
+            v151 = *v202;
             do
             {
-              for (m = 0; m != v141; m = m + 1)
+              for (m = 0; m != v150; m = m + 1)
               {
-                if (*v192 != v142)
+                if (*v202 != v151)
                 {
                   objc_enumerationMutation(responses);
                 }
 
-                [objc_msgSend(*(*(&v191 + 1) + 8 * m) serverResponse];
-                v135 &= ISErrorIsEqual() ^ 1;
+                [objc_msgSend(*(*(&v201 + 1) + 8 * m) serverResponse];
+                v144 &= ISErrorIsEqual() ^ 1;
               }
 
-              v141 = [responses countByEnumeratingWithState:&v191 objects:v215 count:16];
+              v150 = [responses countByEnumeratingWithState:&v201 objects:v225 count:16];
             }
 
-            while (v141);
+            while (v150);
           }
 
-          v124 = v190 & v138;
-          [v137 setDelegate:{0, v157}];
-          [v186 drain];
+          v132 = v200 & v147;
+          [v146 setDelegate:{0, v167}];
+          [v196 drain];
           self = selfCopy;
         }
 
-        objb = [v181 countByEnumeratingWithState:&v195 objects:v216 count:16];
+        objb = [v191 countByEnumeratingWithState:&v205 objects:v226 count:16];
       }
 
       while (objb);
-      LOBYTE(shouldSuppressTermsAndConditionsDialogs) = v135 ^ 1;
-      v14 = v182;
-      activeAccount2 = v169;
+      LOBYTE(shouldSuppressTermsAndConditionsDialogs) = v144 ^ 1;
+      v15 = v192;
+      activeAccount2 = v179;
     }
 
     else
     {
-      LOBYTE(v124) = v189;
+      LOBYTE(v132) = v199;
     }
 
     [objc_opt_class() setShouldSuppressTermsAndConditionsDialogs:shouldSuppressTermsAndConditionsDialogs & 1];
@@ -1278,63 +1302,63 @@ LABEL_112:
 
   else
   {
-    LOBYTE(v124) = 1;
+    LOBYTE(v132) = 1;
   }
 
-  if ([v173 count])
+  if ([v183 count])
   {
-    v144 = +[SSLogConfig sharedDaemonConfig];
-    if (!v144)
+    v153 = +[SSLogConfig sharedDaemonConfig];
+    if (!v153)
     {
-      v144 = +[SSLogConfig sharedConfig];
+      v153 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog10 = [v144 shouldLog];
-    if ([v144 shouldLogToDisk])
+    shouldLog10 = [v153 shouldLog];
+    if ([v153 shouldLogToDisk])
     {
-      v146 = shouldLog10 | 2;
-    }
-
-    else
-    {
-      v146 = shouldLog10;
-    }
-
-    if (os_log_type_enabled([v144 OSLogObject], OS_LOG_TYPE_DEFAULT))
-    {
-      v147 = v146;
+      v155 = shouldLog10 | 2;
     }
 
     else
     {
-      v147 = v146 & 2;
+      v155 = shouldLog10;
     }
 
-    if (v147)
+    oSLogObject10 = [v153 OSLogObject];
+    if (os_log_type_enabled(oSLogObject10, OS_LOG_TYPE_DEFAULT))
     {
-      v148 = objc_opt_class();
-      v149 = [v173 componentsJoinedByString:{@", "}];
-      *v220 = 138543618;
-      *&v220[4] = v148;
-      *&v220[12] = 2114;
-      *&v220[14] = v149;
-      LODWORD(v162) = 22;
-      v161 = v220;
-      v150 = _os_log_send_and_compose_impl();
-      if (v150)
+      v157 = v155;
+    }
+
+    else
+    {
+      v157 = v155 & 2;
+    }
+
+    if (v157)
+    {
+      v158 = objc_opt_class();
+      v159 = [v183 componentsJoinedByString:{@", "}];
+      *v230 = 138543618;
+      *&v230[4] = v158;
+      *&v230[12] = 2114;
+      *&v230[14] = v159;
+      LODWORD(v172) = 22;
+      v160 = _os_log_send_and_compose_impl(v157, 0, 0, 0, &_mh_execute_header, oSLogObject10, 0, "%{public}@: Attempting restore of podcast items: [%{public}@]", v230, v172);
+      if (v160)
       {
-        v151 = v150;
-        v1626 = [NSString stringWithCString:v150 encoding:4, v220, v162];
-        free(v151);
-        v161 = v1626;
+        v161 = v160;
+        v162 = [NSString stringWithCString:v160 encoding:4];
+        free(v161);
+        v171 = v162;
         SSFileLog();
       }
     }
 
-    v153 = [[RestorePodcastItemsOperation alloc] initWithDownloadItems:v173];
-    [(RestorePodcastItemsOperation *)v153 setDelegate:self];
-    LOBYTE(v124) = v124 & [(RestoreDownloadsOperation *)self runSubOperation:v153 returningError:0];
-    [(RestorePodcastItemsOperation *)v153 setDelegate:0];
+    v163 = [[RestorePodcastItemsOperation alloc] initWithDownloadItems:v183];
+    [(RestorePodcastItemsOperation *)v163 setDelegate:self];
+    LOBYTE(v132) = v132 & [(RestoreDownloadsOperation *)self runSubOperation:v163 returningError:0];
+    [(RestorePodcastItemsOperation *)v163 setDelegate:0];
   }
 
   if (self->_hadAutoRetrySoftFailure)
@@ -1347,7 +1371,7 @@ LABEL_112:
     [(RestoreDownloadsOperation *)self _scheduleCancelRetry];
   }
 
-  [(RestoreDownloadsOperation *)self setSuccess:v124 & 1, v161];
+  [(RestoreDownloadsOperation *)self setSuccess:v132 & 1, v171];
 }
 
 - (void)restoreDownloadItemsOperation:(id)operation didReceiveResponse:(id)response
@@ -1375,32 +1399,32 @@ LABEL_112:
 
 - (id)_accountIDForAccountName:(id)name error:(id *)error
 {
-  v52 = 0;
-  v53 = 0;
+  v55 = 0;
+  v56 = 0;
   [(RestoreDownloadsOperation *)self lock];
   if (!self->_accountIDsByAppleID)
   {
     v7 = [+[SSAccountStore defaultStore](SSAccountStore "defaultStore")];
     self->_accountIDsByAppleID = objc_alloc_init(NSMutableDictionary);
-    v48 = 0u;
-    v49 = 0u;
-    v50 = 0u;
     v51 = 0u;
-    v8 = [v7 countByEnumeratingWithState:&v48 objects:v62 count:16];
+    v52 = 0u;
+    v53 = 0u;
+    v54 = 0u;
+    v8 = [v7 countByEnumeratingWithState:&v51 objects:v65 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v49;
+      v10 = *v52;
       do
       {
         for (i = 0; i != v9; i = i + 1)
         {
-          if (*v49 != v10)
+          if (*v52 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v48 + 1) + 8 * i);
+          v12 = *(*(&v51 + 1) + 8 * i);
           uniqueIdentifier = [v12 uniqueIdentifier];
           accountName = [v12 accountName];
           if (uniqueIdentifier)
@@ -1419,7 +1443,7 @@ LABEL_112:
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v48 objects:v62 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v51 objects:v65 count:16];
       }
 
       while (v9);
@@ -1431,7 +1455,7 @@ LABEL_112:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v52 = v16;
+    v55 = v16;
   }
 
   else
@@ -1439,7 +1463,7 @@ LABEL_112:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v53 = v16;
+      v56 = v16;
     }
 
     else if (!v16)
@@ -1459,257 +1483,271 @@ LABEL_112:
       shouldLog = [v18 shouldLog];
       if ([v18 shouldLogToDisk])
       {
-        v20 = shouldLog | 2;
+        LODWORD(v20) = shouldLog | 2;
       }
 
       else
       {
-        v20 = shouldLog;
+        LODWORD(v20) = shouldLog;
       }
 
-      if (!os_log_type_enabled([v18 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      oSLogObject = [v18 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      {
+        v20 = v20;
+      }
+
+      else
       {
         v20 &= 2u;
       }
 
       if (v20)
       {
-        v21 = objc_opt_class();
-        v54 = 138543618;
-        v55 = v21;
-        v56 = 2112;
+        v22 = objc_opt_class();
+        v57 = 138543618;
+        v58 = v22;
+        v59 = 2112;
         nameCopy3 = name;
-        LODWORD(v47) = 22;
-        v45 = &v54;
-        v22 = _os_log_send_and_compose_impl();
-        if (v22)
+        v23 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Attempting to resolve unknown Apple ID: %@", &v57, 22);
+        if (v23)
         {
-          v23 = v22;
-          v24 = [NSString stringWithCString:v22 encoding:4, &v54, v47];
-          free(v23);
-          v45 = v24;
+          v24 = v23;
+          v25 = [NSString stringWithCString:v23 encoding:4];
+          free(v24);
+          v48 = v25;
           SSFileLog();
         }
       }
 
-      if (-[RestoreDownloadsOperation copyAccountID:credentialSource:byAuthenticatingWithContext:returningError:](self, "copyAccountID:credentialSource:byAuthenticatingWithContext:returningError:", &v53, 0, v17, &v52, v45) && (v25 = +[SSAccountStore defaultStore](SSAccountStore, "defaultStore"), v26 = [objc_msgSend(v25 accountWithUniqueIdentifier:{v53), "accountName"}], objc_msgSend(v26, "length")))
+      if (-[RestoreDownloadsOperation copyAccountID:credentialSource:byAuthenticatingWithContext:returningError:](self, "copyAccountID:credentialSource:byAuthenticatingWithContext:returningError:", &v56, 0, v17, &v55, v48) && (v26 = +[SSAccountStore defaultStore](SSAccountStore, "defaultStore"), v27 = [objc_msgSend(v26 accountWithUniqueIdentifier:{v56), "accountName"}], objc_msgSend(v27, "length")))
       {
-        v27 = +[SSLogConfig sharedDaemonConfig];
-        if (!v27)
+        v28 = +[SSLogConfig sharedDaemonConfig];
+        if (!v28)
         {
-          v27 = +[SSLogConfig sharedConfig];
+          v28 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog2 = [v27 shouldLog];
-        if ([v27 shouldLogToDisk])
+        shouldLog2 = [v28 shouldLog];
+        if ([v28 shouldLogToDisk])
         {
-          v29 = shouldLog2 | 2;
+          LODWORD(v30) = shouldLog2 | 2;
         }
 
         else
         {
-          v29 = shouldLog2;
+          LODWORD(v30) = shouldLog2;
         }
 
-        if (!os_log_type_enabled([v27 OSLogObject], OS_LOG_TYPE_DEFAULT))
+        oSLogObject2 = [v28 OSLogObject];
+        if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
         {
-          v29 &= 2u;
+          v30 = v30;
         }
 
-        if (v29)
+        else
         {
-          v30 = objc_opt_class();
-          v54 = 138544130;
-          v55 = v30;
-          v56 = 2114;
+          v30 &= 2u;
+        }
+
+        if (v30)
+        {
+          v32 = objc_opt_class();
+          v57 = 138544130;
+          v58 = v32;
+          v59 = 2114;
           nameCopy3 = name;
-          v58 = 2114;
-          v59 = v26;
-          v60 = 2114;
-          v61 = v53;
-          LODWORD(v47) = 42;
-          v46 = &v54;
-          v31 = _os_log_send_and_compose_impl();
-          if (v31)
+          v61 = 2114;
+          v62 = v27;
+          v63 = 2114;
+          v64 = v56;
+          LODWORD(v50) = 42;
+          v33 = _os_log_send_and_compose_impl(v30, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: Resolved AppleID: %{public}@ to AppleID: %{public}@ and DSID: %{public}@", &v57, v50);
+          if (v33)
           {
-            v32 = v31;
-            v33 = [NSString stringWithCString:v31 encoding:4, &v54, v47];
-            free(v32);
-            v46 = v33;
+            v34 = v33;
+            v35 = [NSString stringWithCString:v33 encoding:4];
+            free(v34);
+            v49 = v35;
             SSFileLog();
           }
         }
 
-        [(NSMutableDictionary *)self->_accountIDsByAppleID setObject:v53 forKey:name, v46];
+        [(NSMutableDictionary *)self->_accountIDsByAppleID setObject:v56 forKey:name, v49];
         accountIDsByAppleID = self->_accountIDsByAppleID;
-        v35 = v53;
-        nameCopy4 = v26;
+        v37 = v56;
+        nameCopy4 = v27;
       }
 
       else
       {
-        v37 = +[SSLogConfig sharedDaemonConfig];
-        if (!v37)
+        v39 = +[SSLogConfig sharedDaemonConfig];
+        if (!v39)
         {
-          v37 = +[SSLogConfig sharedConfig];
+          v39 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog3 = [v37 shouldLog];
-        if ([v37 shouldLogToDisk])
+        shouldLog3 = [v39 shouldLog];
+        if ([v39 shouldLogToDisk])
         {
-          v39 = shouldLog3 | 2;
+          LODWORD(v41) = shouldLog3 | 2;
         }
 
         else
         {
-          v39 = shouldLog3;
+          LODWORD(v41) = shouldLog3;
         }
 
-        if (!os_log_type_enabled([v37 OSLogObject], OS_LOG_TYPE_ERROR))
+        oSLogObject3 = [v39 OSLogObject];
+        if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_ERROR))
         {
-          v39 &= 2u;
+          v41 = v41;
         }
 
-        if (v39)
+        else
         {
-          v40 = objc_opt_class();
-          v54 = 138543874;
-          v55 = v40;
-          v56 = 2114;
+          v41 &= 2u;
+        }
+
+        if (v41)
+        {
+          v43 = objc_opt_class();
+          v57 = 138543874;
+          v58 = v43;
+          v59 = 2114;
           nameCopy3 = name;
-          v58 = 2114;
-          v59 = v52;
-          LODWORD(v47) = 32;
-          v46 = &v54;
-          v41 = _os_log_send_and_compose_impl();
-          if (v41)
+          v61 = 2114;
+          v62 = v55;
+          LODWORD(v50) = 32;
+          v44 = _os_log_send_and_compose_impl(v41, 0, 0, 0, &_mh_execute_header, oSLogObject3, 16, "%{public}@: Could not resolve AppleID: %{public}@ error: %{public}@", &v57, v50);
+          if (v44)
           {
-            v42 = v41;
-            v43 = [NSString stringWithCString:v41 encoding:4, &v54, v47];
-            free(v42);
-            v46 = v43;
+            v45 = v44;
+            v46 = [NSString stringWithCString:v44 encoding:4];
+            free(v45);
+            v49 = v46;
             SSFileLog();
           }
         }
 
-        v35 = v52;
-        if (!v52)
+        v37 = v55;
+        if (!v55)
         {
-          v35 = SSError();
-          v52 = v35;
+          v37 = SSError();
+          v55 = v37;
         }
 
         accountIDsByAppleID = self->_accountIDsByAppleID;
         nameCopy4 = name;
       }
 
-      [(NSMutableDictionary *)accountIDsByAppleID setObject:v35 forKey:nameCopy4, v46];
+      [(NSMutableDictionary *)accountIDsByAppleID setObject:v37 forKey:nameCopy4, v49];
     }
   }
 
   if (error)
   {
-    *error = v52;
+    *error = v55;
   }
 
-  return v53;
+  return v56;
 }
 
 - (void)_applyResponses:(id)responses withTransaction:(id)transaction
 {
   transactionCopy = transaction;
   database = [transaction database];
-  v81 = +[DownloadHandlerManager handlerManager];
-  v72 = [(NSString *)self->_restoreReason isEqualToString:@"cancel-retry"];
-  v97 = 0u;
-  v98 = 0u;
-  v99 = 0u;
-  v100 = 0u;
+  v86 = +[DownloadHandlerManager handlerManager];
+  v77 = [(NSString *)self->_restoreReason isEqualToString:@"cancel-retry"];
+  v102 = 0u;
+  v103 = 0u;
+  v104 = 0u;
+  v105 = 0u;
   obj = responses;
-  v74 = [responses countByEnumeratingWithState:&v97 objects:v110 count:16];
-  if (v74)
+  v79 = [responses countByEnumeratingWithState:&v102 objects:v115 count:16];
+  if (v79)
   {
-    v73 = *v98;
-    v76 = SSDownloadPhaseCanceled;
-    v82 = transactionCopy;
+    v78 = *v103;
+    v81 = SSDownloadPhaseCanceled;
+    v87 = transactionCopy;
     do
     {
       v7 = 0;
       do
       {
-        if (*v98 != v73)
+        if (*v103 != v78)
         {
           objc_enumerationMutation(obj);
         }
 
-        v75 = v7;
-        v8 = *(*(&v97 + 1) + 8 * v7);
-        v88 = objc_alloc_init(NSMutableDictionary);
+        v80 = v7;
+        v8 = *(*(&v102 + 1) + 8 * v7);
+        v93 = objc_alloc_init(NSMutableDictionary);
         serverResponse = [v8 serverResponse];
         userIdentifier = [serverResponse userIdentifier];
         error = [serverResponse error];
-        v84 = [(RestoreDownloadsOperation *)self _downloadRestoreStateForError:?];
-        v77 = serverResponse;
+        v89 = [(RestoreDownloadsOperation *)self _downloadRestoreStateForError:?];
+        v82 = serverResponse;
         downloads = [serverResponse downloads];
-        v93 = 0u;
-        v94 = 0u;
-        v95 = 0u;
-        v96 = 0u;
-        v11 = [downloads countByEnumeratingWithState:&v93 objects:v109 count:16];
+        v98 = 0u;
+        v99 = 0u;
+        v100 = 0u;
+        v101 = 0u;
+        v11 = [downloads countByEnumeratingWithState:&v98 objects:v114 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v94;
+          v13 = *v99;
           do
           {
             for (i = 0; i != v12; i = i + 1)
             {
-              if (*v94 != v13)
+              if (*v99 != v13)
               {
                 objc_enumerationMutation(downloads);
               }
 
-              v15 = *(*(&v93 + 1) + 8 * i);
+              v15 = *(*(&v98 + 1) + 8 * i);
               v16 = [[NSNumber alloc] initWithItemIdentifier:{objc_msgSend(v15, "itemIdentifier")}];
-              [v88 setObject:v15 forKey:v16];
+              [v93 setObject:v15 forKey:v16];
             }
 
-            v12 = [downloads countByEnumeratingWithState:&v93 objects:v109 count:16];
+            v12 = [downloads countByEnumeratingWithState:&v98 objects:v114 count:16];
           }
 
           while (v12);
         }
 
         requestItems = [v8 requestItems];
-        v89 = 0u;
-        v90 = 0u;
-        v91 = 0u;
-        v92 = 0u;
-        v83 = requestItems;
-        v87 = [requestItems countByEnumeratingWithState:&v89 objects:v108 count:16];
-        if (v87)
+        v94 = 0u;
+        v95 = 0u;
+        v96 = 0u;
+        v97 = 0u;
+        v88 = requestItems;
+        v92 = [requestItems countByEnumeratingWithState:&v94 objects:v113 count:16];
+        if (v92)
         {
-          v86 = *v90;
-          v18 = v72;
-          if (v84 != 3)
+          v91 = *v95;
+          v18 = v77;
+          if (v89 != 3)
           {
             v18 = 0;
           }
 
-          v78 = v18;
+          v83 = v18;
           do
           {
-            for (j = 0; j != v87; j = j + 1)
+            for (j = 0; j != v92; j = j + 1)
             {
-              if (*v90 != v86)
+              if (*v95 != v91)
               {
-                objc_enumerationMutation(v83);
+                objc_enumerationMutation(v88);
               }
 
-              v20 = *(*(&v89 + 1) + 8 * j);
+              v20 = *(*(&v94 + 1) + 8 * j);
               v21 = -[DownloadEntity initWithPersistentID:inDatabase:]([DownloadEntity alloc], "initWithPersistentID:inDatabase:", [v20 downloadIdentifier], database);
               storeItemID = [v20 storeItemID];
-              v23 = [v88 objectForKey:storeItemID];
+              v23 = [v93 objectForKey:storeItemID];
               if (v23)
               {
                 v24 = v23;
@@ -1744,43 +1782,43 @@ LABEL_112:
                     v29 = shouldLog;
                   }
 
-                  if (os_log_type_enabled([v27 OSLogObject], OS_LOG_TYPE_DEFAULT))
+                  oSLogObject = [v27 OSLogObject];
+                  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
                   {
-                    v30 = v29;
+                    v31 = v29;
                   }
 
                   else
                   {
-                    v30 = v29 & 2;
+                    v31 = v29 & 2;
                   }
 
-                  if (v30)
+                  if (v31)
                   {
-                    v31 = objc_opt_class();
+                    v32 = objc_opt_class();
                     persistentID = [(DownloadEntity *)v21 persistentID];
-                    v102 = 138543874;
-                    v103 = v31;
-                    v104 = 2048;
-                    v105 = persistentID;
-                    v106 = 2114;
-                    v107 = storeItemID;
-                    LODWORD(v70) = 32;
-                    v67 = &v102;
-                    v33 = _os_log_send_and_compose_impl();
-                    if (v33)
+                    v107 = 138543874;
+                    v108 = v32;
+                    v109 = 2048;
+                    v110 = persistentID;
+                    v111 = 2114;
+                    v112 = storeItemID;
+                    LODWORD(v75) = 32;
+                    v34 = _os_log_send_and_compose_impl(v31, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Forwarding download: %lld itemID: %{public}@ to bookassetd", &v107, v75);
+                    if (v34)
                     {
-                      v34 = v33;
-                      v35 = [NSString stringWithCString:v33 encoding:4, &v102, v70];
-                      free(v34);
-                      v67 = v35;
+                      v35 = v34;
+                      v36 = [NSString stringWithCString:v34 encoding:4];
+                      free(v35);
+                      v72 = v36;
                       SSFileLog();
                     }
                   }
 
-                  [v24 setRequestPersistentID:{+[NSNumber numberWithLongLong:](NSNumber, "numberWithLongLong:", objc_msgSend(v20, "downloadIdentifier", v67))}];
-                  v101 = v24;
-                  [BookAssetDaemonUtility sendRestoreDownloads:[NSArray arrayWithObjects:&v101 count:1] withReason:@"restoring books"];
-                  transactionCopy = v82;
+                  [v24 setRequestPersistentID:{+[NSNumber numberWithLongLong:](NSNumber, "numberWithLongLong:", objc_msgSend(v20, "downloadIdentifier", v72))}];
+                  v106 = v24;
+                  [BookAssetDaemonUtility sendRestoreDownloads:[NSArray arrayWithObjects:&v106 count:1] withReason:@"restoring books"];
+                  transactionCopy = v87;
                 }
 
                 else if (v26)
@@ -1789,52 +1827,52 @@ LABEL_112:
                   goto LABEL_99;
                 }
 
-                v43 = +[SSLogConfig sharedDaemonConfig];
-                if (!v43)
+                v45 = +[SSLogConfig sharedDaemonConfig];
+                if (!v45)
                 {
-                  v43 = +[SSLogConfig sharedConfig];
+                  v45 = +[SSLogConfig sharedConfig];
                 }
 
-                shouldLog2 = [v43 shouldLog];
-                if ([v43 shouldLogToDisk])
+                shouldLog2 = [v45 shouldLog];
+                if ([v45 shouldLogToDisk])
                 {
-                  v45 = shouldLog2 | 2;
-                }
-
-                else
-                {
-                  v45 = shouldLog2;
-                }
-
-                if (os_log_type_enabled([v43 OSLogObject], OS_LOG_TYPE_DEFAULT))
-                {
-                  v46 = v45;
+                  v47 = shouldLog2 | 2;
                 }
 
                 else
                 {
-                  v46 = v45 & 2;
+                  v47 = shouldLog2;
                 }
 
-                if (v46)
+                oSLogObject2 = [v45 OSLogObject];
+                if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
                 {
-                  v47 = objc_opt_class();
+                  v49 = v47;
+                }
+
+                else
+                {
+                  v49 = v47 & 2;
+                }
+
+                if (v49)
+                {
+                  v50 = objc_opt_class();
                   persistentID2 = [(DownloadEntity *)v21 persistentID];
-                  v102 = 138543874;
-                  v103 = v47;
-                  v104 = 2048;
-                  v105 = persistentID2;
-                  v106 = 2112;
-                  v107 = storeItemID;
-                  LODWORD(v70) = 32;
-                  v67 = &v102;
-                  v49 = _os_log_send_and_compose_impl();
-                  if (v49)
+                  v107 = 138543874;
+                  v108 = v50;
+                  v109 = 2048;
+                  v110 = persistentID2;
+                  v111 = 2112;
+                  v112 = storeItemID;
+                  LODWORD(v75) = 32;
+                  v52 = _os_log_send_and_compose_impl(v49, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: Cancelling forwarded book download: %lld itemID: %@", &v107, v75);
+                  if (v52)
                   {
-                    v50 = v49;
-                    v51 = [NSString stringWithCString:v49 encoding:4, &v102, v70];
-                    free(v50);
-                    v67 = v51;
+                    v53 = v52;
+                    v54 = [NSString stringWithCString:v52 encoding:4];
+                    free(v53);
+                    v72 = v54;
                     SSFileLog();
                   }
                 }
@@ -1842,199 +1880,202 @@ LABEL_112:
                 [transactionCopy unionChangeset:{-[DownloadEntity failWithError:](v21, "failWithError:", SSError())}];
               }
 
-              else if (v84)
+              else if (v89)
               {
-                v36 = [(RestoreDownloadsOperation *)self _copyDownloadSessionPropertiesForItem:v20 download:v21];
-                if ([v81 canOpenSessionWithProperties:v36])
+                v37 = [(RestoreDownloadsOperation *)self _copyDownloadSessionPropertiesForItem:v20 download:v21];
+                if ([v86 canOpenSessionWithProperties:v37])
                 {
-                  v37 = +[SSLogConfig sharedDaemonConfig];
-                  if (!v37)
+                  v38 = +[SSLogConfig sharedDaemonConfig];
+                  if (!v38)
                   {
-                    v37 = +[SSLogConfig sharedConfig];
+                    v38 = +[SSLogConfig sharedConfig];
                   }
 
-                  shouldLog3 = [v37 shouldLog];
-                  if ([v37 shouldLogToDisk])
+                  shouldLog3 = [v38 shouldLog];
+                  if ([v38 shouldLogToDisk])
                   {
                     shouldLog3 |= 2u;
                   }
 
-                  if (os_log_type_enabled([v37 OSLogObject], OS_LOG_TYPE_DEFAULT))
+                  oSLogObject3 = [v38 OSLogObject];
+                  if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_DEFAULT))
                   {
-                    v39 = shouldLog3;
+                    v41 = shouldLog3;
                   }
 
                   else
                   {
-                    v39 = shouldLog3 & 2;
+                    v41 = shouldLog3 & 2;
                   }
 
-                  if (v39)
+                  if (v41)
                   {
-                    v40 = objc_opt_class();
-                    v102 = 138543618;
-                    v103 = v40;
-                    v104 = 2114;
-                    v105 = v20;
-                    LODWORD(v70) = 22;
-                    v41 = _os_log_send_and_compose_impl();
-                    if (v41)
+                    v42 = objc_opt_class();
+                    v107 = 138543618;
+                    v108 = v42;
+                    v109 = 2114;
+                    v110 = v20;
+                    LODWORD(v75) = 22;
+                    v43 = _os_log_send_and_compose_impl(v41, 0, 0, 0, &_mh_execute_header, oSLogObject3, 0, "%{public}@: Restore failed for item: %{public}@", &v107, v75);
+                    if (v43)
                     {
-                      v42 = v41;
-                      [NSString stringWithCString:v41 encoding:4, &v102, v70];
-                      free(v42);
+                      v44 = v43;
+                      [NSString stringWithCString:v43 encoding:4];
+                      free(v44);
                       SSFileLog();
                     }
                   }
 
-                  v68 = objc_opt_class();
+                  v73 = objc_opt_class();
                   SSDebugLog();
-                  [(DownloadEntity *)v21 setValue:[NSNumber forProperty:"numberWithInteger:" numberWithInteger:v84, v68, v20], @"download_state.restore_state"];
+                  [(DownloadEntity *)v21 setValue:[NSNumber forProperty:"numberWithInteger:" numberWithInteger:v89, v73, v20], @"download_state.restore_state"];
                 }
 
-                else if (v84 == 1)
+                else if (v89 == 1)
                 {
                   error2 = [v20 error];
                   if (storeItemID && !error2)
                   {
-                    error2 = [v77 errorForItemIdentifier:storeItemID];
+                    error2 = [v82 errorForItemIdentifier:storeItemID];
                   }
 
                   if (error2)
                   {
-                    v60 = error2;
+                    v64 = error2;
                   }
 
                   else
                   {
-                    v60 = error;
+                    v64 = error;
                   }
 
-                  [(RestoreDownloadsOperation *)self _hardFailRestoreItem:v20 download:v21 transaction:transactionCopy error:v60, v67];
+                  [(RestoreDownloadsOperation *)self _hardFailRestoreItem:v20 download:v21 transaction:transactionCopy error:v64, v72];
                 }
 
-                else if (v78)
+                else if (v83)
                 {
-                  v61 = +[SSLogConfig sharedDaemonConfig];
-                  if (!v61)
+                  v65 = +[SSLogConfig sharedDaemonConfig];
+                  if (!v65)
                   {
-                    v61 = +[SSLogConfig sharedConfig];
+                    v65 = +[SSLogConfig sharedConfig];
                   }
 
-                  shouldLog4 = [v61 shouldLog];
-                  if ([v61 shouldLogToDisk])
+                  shouldLog4 = [v65 shouldLog];
+                  if ([v65 shouldLogToDisk])
                   {
                     shouldLog4 |= 2u;
                   }
 
-                  if (os_log_type_enabled([v61 OSLogObject], OS_LOG_TYPE_DEFAULT))
+                  oSLogObject4 = [v65 OSLogObject];
+                  if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_DEFAULT))
                   {
-                    v63 = shouldLog4;
+                    v68 = shouldLog4;
                   }
 
                   else
                   {
-                    v63 = shouldLog4 & 2;
+                    v68 = shouldLog4 & 2;
                   }
 
-                  if (v63)
+                  if (v68)
                   {
-                    v64 = objc_opt_class();
-                    v102 = 138543618;
-                    v103 = v64;
-                    v104 = 2114;
-                    v105 = v20;
-                    LODWORD(v70) = 22;
-                    v65 = _os_log_send_and_compose_impl();
-                    if (v65)
+                    v69 = objc_opt_class();
+                    v107 = 138543618;
+                    v108 = v69;
+                    v109 = 2114;
+                    v110 = v20;
+                    LODWORD(v75) = 22;
+                    v70 = _os_log_send_and_compose_impl(v68, 0, 0, 0, &_mh_execute_header, oSLogObject4, 0, "%{public}@: Restore cancel retry failed for item: %{public}@", &v107, v75);
+                    if (v70)
                     {
-                      v66 = v65;
-                      [NSString stringWithCString:v65 encoding:4, &v102, v70];
-                      free(v66);
+                      v71 = v70;
+                      [NSString stringWithCString:v70 encoding:4];
+                      free(v71);
                       SSFileLog();
                     }
                   }
 
-                  v69 = objc_opt_class();
+                  v74 = objc_opt_class();
                   SSDebugLog();
-                  [transactionCopy finishDownloadWithID:-[DownloadEntity persistentID](v21 finalPhase:{"persistentID", v69, v20), v76}];
+                  [transactionCopy finishDownloadWithID:-[DownloadEntity persistentID](v21 finalPhase:{"persistentID", v74, v20), v81}];
                 }
 
                 else
                 {
-                  [transactionCopy unionChangeset:{-[RestoreDownloadsOperation _softFailRestoreItem:download:withRestoreState:error:](self, "_softFailRestoreItem:download:withRestoreState:error:", v20, v21, v84, error)}];
+                  [transactionCopy unionChangeset:{-[RestoreDownloadsOperation _softFailRestoreItem:download:withRestoreState:error:](self, "_softFailRestoreItem:download:withRestoreState:error:", v20, v21, v89, error)}];
                 }
               }
 
               else
               {
-                v52 = +[SSLogConfig sharedDaemonConfig];
-                if (!v52)
+                v55 = +[SSLogConfig sharedDaemonConfig];
+                if (!v55)
                 {
-                  v52 = +[SSLogConfig sharedConfig];
+                  v55 = +[SSLogConfig sharedConfig];
                 }
 
-                shouldLog5 = [v52 shouldLog];
-                if ([v52 shouldLogToDisk])
+                shouldLog5 = [v55 shouldLog];
+                if ([v55 shouldLogToDisk])
                 {
-                  v54 = shouldLog5 | 2;
-                }
-
-                else
-                {
-                  v54 = shouldLog5;
-                }
-
-                if (os_log_type_enabled([v52 OSLogObject], OS_LOG_TYPE_DEFAULT))
-                {
-                  v55 = v54;
+                  v57 = shouldLog5 | 2;
                 }
 
                 else
                 {
-                  v55 = v54 & 2;
+                  v57 = shouldLog5;
                 }
 
-                if (v55)
+                oSLogObject5 = [v55 OSLogObject];
+                if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
                 {
-                  v56 = objc_opt_class();
-                  v102 = 138543618;
-                  v103 = v56;
-                  v104 = 2114;
-                  v105 = v20;
-                  LODWORD(v70) = 22;
-                  v57 = _os_log_send_and_compose_impl();
-                  if (v57)
+                  v59 = v57;
+                }
+
+                else
+                {
+                  v59 = v57 & 2;
+                }
+
+                if (v59)
+                {
+                  v60 = objc_opt_class();
+                  v107 = 138543618;
+                  v108 = v60;
+                  v109 = 2114;
+                  v110 = v20;
+                  LODWORD(v75) = 22;
+                  v61 = _os_log_send_and_compose_impl(v59, 0, 0, 0, &_mh_execute_header, oSLogObject5, 0, "%{public}@: Restore transient failed item: %{public}@", &v107, v75);
+                  if (v61)
                   {
-                    v58 = v57;
-                    [NSString stringWithCString:v57 encoding:4, &v102, v70];
-                    free(v58);
+                    v62 = v61;
+                    [NSString stringWithCString:v61 encoding:4];
+                    free(v62);
                     SSFileLog();
                   }
                 }
 
-                v67 = objc_opt_class();
-                v70 = v20;
+                v72 = objc_opt_class();
+                v75 = v20;
                 SSDebugLog();
               }
 
 LABEL_99:
             }
 
-            v87 = [v83 countByEnumeratingWithState:&v89 objects:v108 count:16];
+            v92 = [v88 countByEnumeratingWithState:&v94 objects:v113 count:16];
           }
 
-          while (v87);
+          while (v92);
         }
 
-        v7 = v75 + 1;
+        v7 = v80 + 1;
       }
 
-      while ((v75 + 1) != v74);
-      v74 = [obj countByEnumeratingWithState:&v97 objects:v110 count:16];
+      while ((v80 + 1) != v79);
+      v79 = [obj countByEnumeratingWithState:&v102 objects:v115 count:16];
     }
 
-    while (v74);
+    while (v79);
   }
 }
 
@@ -2093,15 +2134,21 @@ LABEL_99:
     shouldLog = [v3 shouldLog];
     if ([v3 shouldLogToDisk])
     {
-      v5 = shouldLog | 2;
+      LODWORD(v5) = shouldLog | 2;
     }
 
     else
     {
-      v5 = shouldLog;
+      LODWORD(v5) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v3 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = v5;
+    }
+
+    else
     {
       v5 &= 2u;
     }
@@ -2110,23 +2157,22 @@ LABEL_99:
     {
       v10 = 138543362;
       v11 = objc_opt_class();
-      LODWORD(v9) = 12;
-      v6 = _os_log_send_and_compose_impl();
-      if (v6)
+      v7 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Attempt to establish primary account", &v10, 12);
+      if (v7)
       {
-        v7 = v6;
-        [NSString stringWithCString:v6 encoding:4, &v10, v9];
-        free(v7);
+        v8 = v7;
+        [NSString stringWithCString:v7 encoding:4];
+        free(v8);
         SSFileLog();
       }
     }
 
-    v8 = objc_alloc_init(SSMutableAuthenticationContext);
-    [v8 setAccountNameEditable:1];
-    [v8 setCanCreateNewAccount:0];
-    [v8 setPersistsAcrossDeviceLock:1];
-    [v8 setPromptStyle:1001];
-    [(RestoreDownloadsOperation *)self copyAccountID:0 credentialSource:0 byAuthenticatingWithContext:v8 returningError:0];
+    v9 = objc_alloc_init(SSMutableAuthenticationContext);
+    [v9 setAccountNameEditable:1];
+    [v9 setCanCreateNewAccount:0];
+    [v9 setPersistsAcrossDeviceLock:1];
+    [v9 setPromptStyle:1001];
+    [(RestoreDownloadsOperation *)self copyAccountID:0 credentialSource:0 byAuthenticatingWithContext:v9 returningError:0];
   }
 }
 
@@ -2145,89 +2191,99 @@ LABEL_99:
     shouldLog = [v12 shouldLog];
     if ([v12 shouldLogToDisk])
     {
-      v14 = shouldLog | 2;
+      LODWORD(v14) = shouldLog | 2;
     }
 
     else
     {
-      v14 = shouldLog;
+      LODWORD(v14) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v12 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v12 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = v14;
+    }
+
+    else
     {
       v14 &= 2u;
     }
 
     if (v14)
     {
-      v25 = 138543618;
-      v26 = objc_opt_class();
-      v27 = 2114;
+      v26 = 138543618;
+      v27 = objc_opt_class();
+      v28 = 2114;
       itemCopy3 = item;
-      LODWORD(v23) = 22;
-      v15 = _os_log_send_and_compose_impl();
-      if (v15)
+      v16 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Podcast not found on server for item: %{public}@", &v26, 22);
+      if (v16)
       {
-        v16 = v15;
-        [NSString stringWithCString:v15 encoding:4, &v25, v23];
-        free(v16);
+        v17 = v16;
+        [NSString stringWithCString:v16 encoding:4];
+        free(v17);
         SSFileLog();
       }
     }
 
-    v22 = objc_opt_class();
+    v24 = objc_opt_class();
     itemCopy4 = item;
   }
 
   else
   {
-    v17 = +[SSLogConfig sharedDaemonConfig];
-    if (!v17)
+    v18 = +[SSLogConfig sharedDaemonConfig];
+    if (!v18)
     {
-      v17 = +[SSLogConfig sharedConfig];
+      v18 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v17 shouldLog];
-    if ([v17 shouldLogToDisk])
+    shouldLog2 = [v18 shouldLog];
+    if ([v18 shouldLogToDisk])
     {
-      v19 = shouldLog2 | 2;
+      LODWORD(v20) = shouldLog2 | 2;
     }
 
     else
     {
-      v19 = shouldLog2;
+      LODWORD(v20) = shouldLog2;
     }
 
-    if (!os_log_type_enabled([v17 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject2 = [v18 OSLogObject];
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
     {
-      v19 &= 2u;
+      v20 = v20;
     }
 
-    if (v19)
+    else
     {
-      v25 = 138543874;
-      v26 = objc_opt_class();
-      v27 = 2114;
+      v20 &= 2u;
+    }
+
+    if (v20)
+    {
+      v26 = 138543874;
+      v27 = objc_opt_class();
+      v28 = 2114;
       itemCopy3 = item;
-      v29 = 2114;
+      v30 = 2114;
       errorCopy = error;
-      LODWORD(v23) = 32;
-      v20 = _os_log_send_and_compose_impl();
-      if (v20)
+      v22 = _os_log_send_and_compose_impl(v20, 0, 0, 0, &_mh_execute_header, oSLogObject2, 0, "%{public}@: Restore hard failed item: %{public}@ error: %{public}@", &v26, 32);
+      if (v22)
       {
-        v21 = v20;
-        [NSString stringWithCString:v20 encoding:4, &v25, v23];
-        free(v21);
+        v23 = v22;
+        [NSString stringWithCString:v22 encoding:4];
+        free(v23);
         SSFileLog();
       }
     }
 
     itemCopy4 = item;
-    v22 = objc_opt_class();
+    v24 = objc_opt_class();
   }
 
   SSDebugLog();
-  [transaction finishDownloadWithID:persistentID finalPhase:{SSDownloadPhaseCanceled, v22, itemCopy4}];
+  [transaction finishDownloadWithID:persistentID finalPhase:{SSDownloadPhaseCanceled, v24, itemCopy4}];
 }
 
 - (BOOL)_isErrorCancelFailure:(id)failure
@@ -2307,36 +2363,40 @@ LABEL_4:
   shouldLog = [v7 shouldLog];
   if ([v7 shouldLogToDisk])
   {
-    v9 = shouldLog | 2;
+    LODWORD(v9) = shouldLog | 2;
   }
 
   else
   {
-    v9 = shouldLog;
+    LODWORD(v9) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v7 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
 
   if (v9)
   {
-    v10 = objc_opt_class();
-    v11 = [v5 count];
+    v11 = objc_opt_class();
+    v12 = [v5 count];
     *v31 = 138543618;
-    *&v31[4] = v10;
+    *&v31[4] = v11;
     v32 = 2048;
-    v33 = v11;
-    LODWORD(v23) = 22;
-    v22 = v31;
-    v12 = _os_log_send_and_compose_impl();
-    if (v12)
+    v33 = v12;
+    v13 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%{public}@: Loading restore data size for %lu items", v31, 22);
+    if (v13)
     {
-      v13 = v12;
-      v14 = [NSString stringWithCString:v12 encoding:4, v31, v23];
-      free(v13);
-      v22 = v14;
+      v14 = v13;
+      v15 = [NSString stringWithCString:v13 encoding:4];
+      free(v14);
+      v23 = v15;
       SSFileLog();
     }
   }
@@ -2347,34 +2407,34 @@ LABEL_4:
     v28 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v15 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
-    if (v15)
+    v16 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+    if (v16)
     {
-      v16 = v15;
-      v17 = *v26;
+      v17 = v16;
+      v18 = *v26;
       do
       {
-        for (i = 0; i != v16; i = i + 1)
+        for (i = 0; i != v17; i = i + 1)
         {
-          if (*v26 != v17)
+          if (*v26 != v18)
           {
             objc_enumerationMutation(v5);
           }
 
-          v19 = *(*(&v25 + 1) + 8 * i);
-          bundleID = [v19 bundleID];
+          v20 = *(*(&v25 + 1) + 8 * i);
+          bundleID = [v20 bundleID];
           if (bundleID)
           {
             *v31 = 0;
-            [v19 setHasRestoreData:{+[RestoreBackupOperation restoreDataExistsForApplicationWithBundleID:size:](RestoreBackupOperation, "restoreDataExistsForApplicationWithBundleID:size:", bundleID, v31)}];
-            [v19 setRestoreDataSize:*v31];
+            [v20 setHasRestoreData:{+[RestoreBackupOperation restoreDataExistsForApplicationWithBundleID:size:](RestoreBackupOperation, "restoreDataExistsForApplicationWithBundleID:size:", bundleID, v31)}];
+            [v20 setRestoreDataSize:*v31];
           }
         }
 
-        v16 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
+        v17 = [v5 countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
-      while (v16);
+      while (v17);
     }
 
     v24[0] = _NSConcreteStackBlock;
@@ -2390,16 +2450,16 @@ LABEL_4:
 
 - (BOOL)_preflightAccountWithID:(id)d isFamily:(BOOL)family error:(id *)error
 {
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
+  v46 = 1;
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x3052000000;
+  v40 = sub_100152F70;
+  v41 = sub_100152F80;
   v42 = 0;
-  v43 = &v42;
-  v44 = 0x2020000000;
-  v45 = 1;
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3052000000;
-  v39 = sub_100152F70;
-  v40 = sub_100152F80;
-  v41 = 0;
   v8 = +[SSAccountStore defaultStore];
   v9 = v8;
   if (family)
@@ -2430,106 +2490,116 @@ LABEL_4:
         v14 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog = [v14 shouldLog];
+      LODWORD(v15) = [v14 shouldLog];
       shouldLogToDisk = [v14 shouldLogToDisk];
       oSLogObject = [v14 OSLogObject];
+      v18 = oSLogObject;
       if (shouldLogToDisk)
       {
-        shouldLog |= 2u;
+        LODWORD(v15) = v15 | 2;
       }
 
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
       {
-        shouldLog &= 2u;
+        v15 = v15;
       }
 
-      if (shouldLog)
+      else
       {
-        v18 = objc_opt_class();
-        v46 = 138543618;
-        v47 = v18;
-        v48 = 2114;
+        v15 &= 2u;
+      }
+
+      if (v15)
+      {
+        v19 = objc_opt_class();
+        v47 = 138543618;
+        v48 = v19;
+        v49 = 2114;
         dCopy = v11;
-        LODWORD(v34) = 22;
-        v19 = _os_log_send_and_compose_impl();
-        if (v19)
+        v20 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &_mh_execute_header, v18, 2, "%{public}@: Preflight account: %{public}@", &v47, 22);
+        if (v20)
         {
-          v20 = v19;
-          [NSString stringWithCString:v19 encoding:4, &v46, v34];
-          free(v20);
+          v21 = v20;
+          [NSString stringWithCString:v20 encoding:4];
+          free(v21);
           SSFileLog();
         }
       }
 
-      v21 = dispatch_semaphore_create(0);
-      v35[0] = _NSConcreteStackBlock;
-      v35[1] = 3221225472;
-      v35[2] = sub_100152F8C;
-      v35[3] = &unk_100329EB8;
-      v35[6] = &v36;
-      v35[4] = v21;
-      v35[5] = &v42;
-      [v13 startWithAuthenticateResponseBlock:v35];
-      dispatch_semaphore_wait(v21, 0xFFFFFFFFFFFFFFFFLL);
-      dispatch_release(v21);
+      v22 = dispatch_semaphore_create(0);
+      v36[0] = _NSConcreteStackBlock;
+      v36[1] = 3221225472;
+      v36[2] = sub_100152F8C;
+      v36[3] = &unk_100329EB8;
+      v36[6] = &v37;
+      v36[4] = v22;
+      v36[5] = &v43;
+      [v13 startWithAuthenticateResponseBlock:v36];
+      dispatch_semaphore_wait(v22, 0xFFFFFFFFFFFFFFFFLL);
+      dispatch_release(v22);
     }
   }
 
   else
   {
-    v22 = +[SSLogConfig sharedDaemonConfig];
-    if (!v22)
+    v23 = +[SSLogConfig sharedDaemonConfig];
+    if (!v23)
     {
-      v22 = +[SSLogConfig sharedConfig];
+      v23 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog2 = [v22 shouldLog];
-    shouldLogToDisk2 = [v22 shouldLogToDisk];
-    oSLogObject2 = [v22 OSLogObject];
+    LODWORD(v24) = [v23 shouldLog];
+    shouldLogToDisk2 = [v23 shouldLogToDisk];
+    oSLogObject2 = [v23 OSLogObject];
+    v27 = oSLogObject2;
     if (shouldLogToDisk2)
     {
-      shouldLog2 |= 2u;
+      LODWORD(v24) = v24 | 2;
     }
 
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
     {
-      shouldLog2 &= 2u;
+      v24 = v24;
     }
 
-    if (shouldLog2)
+    else
     {
-      v26 = objc_opt_class();
-      v46 = 138543618;
-      v47 = v26;
-      v48 = 2114;
+      v24 &= 2u;
+    }
+
+    if (v24)
+    {
+      v28 = objc_opt_class();
+      v47 = 138543618;
+      v48 = v28;
+      v49 = 2114;
       dCopy = d;
-      LODWORD(v34) = 22;
-      v27 = _os_log_send_and_compose_impl();
-      if (v27)
+      v29 = _os_log_send_and_compose_impl(v24, 0, 0, 0, &_mh_execute_header, v27, 1, "%{public}@: Cannot restore without an AppleID for account: %{public}@", &v47, 22);
+      if (v29)
       {
-        v28 = v27;
-        [NSString stringWithCString:v27 encoding:4, &v46, v34];
-        free(v28);
+        v30 = v29;
+        [NSString stringWithCString:v29 encoding:4];
+        free(v30);
         SSFileLog();
       }
     }
 
-    v29 = SSError();
-    v37[5] = v29;
-    *(v43 + 24) = 0;
+    v31 = SSError();
+    v38[5] = v31;
+    *(v44 + 24) = 0;
   }
 
-  v30 = v37[5];
+  v32 = v38[5];
   if (error)
   {
-    *error = v30;
+    *error = v32;
   }
 
-  v31 = v30;
-  v32 = *(v43 + 24);
-  _Block_object_dispose(&v36, 8);
-  _Block_object_dispose(&v42, 8);
-  return v32;
+  v33 = v32;
+  v34 = *(v44 + 24);
+  _Block_object_dispose(&v37, 8);
+  _Block_object_dispose(&v43, 8);
+  return v34;
 }
 
 - (void)_scheduleAutomaticRetry
@@ -2548,55 +2618,60 @@ LABEL_4:
     shouldLog = [v5 shouldLog];
     if ([v5 shouldLogToDisk])
     {
-      v7 = shouldLog | 2;
+      LODWORD(v7) = shouldLog | 2;
     }
 
     else
     {
-      v7 = shouldLog;
+      LODWORD(v7) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v5 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = v7;
+    }
+
+    else
     {
       v7 &= 2u;
     }
 
     if (v7)
     {
-      v8 = v4 + 1;
+      v9 = v4 + 1;
       v14 = 138543874;
       v15 = objc_opt_class();
       v16 = 2048;
       v17 = v4 + 1;
       v18 = 2048;
       v19 = 0x40AC200000000000;
-      LODWORD(v13) = 32;
-      v9 = _os_log_send_and_compose_impl();
-      if (v9)
+      v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Schedule restore soft-fail retry #%ld in %.0f seconds", &v14, 32);
+      if (v10)
       {
-        v10 = v9;
-        [NSString stringWithCString:v9 encoding:4, &v14, v13];
-        free(v10);
+        v11 = v10;
+        [NSString stringWithCString:v10 encoding:4];
+        free(v11);
         SSFileLog();
       }
     }
 
     else
     {
-      v8 = v4 + 1;
+      v9 = v4 + 1;
     }
 
-    v11 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_int64(v11, XPC_ACTIVITY_DELAY, 3600);
-    xpc_dictionary_set_BOOL(v11, XPC_ACTIVITY_REQUIRE_INEXPENSIVE_NETWORK_CONNECTIVITY, 1);
-    xpc_dictionary_set_BOOL(v11, XPC_ACTIVITY_REQUIRE_NETWORK_CONNECTIVITY, 1);
-    v12 = [[BackgroundTaskRequest alloc] initWithBackgroundTaskAgentJob:v11];
-    [(BackgroundTaskRequest *)v12 setRequestIdentifier:@"com.apple.itunesstored.RetrySoftFailedRestoreDownloads"];
+    v12 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_int64(v12, XPC_ACTIVITY_DELAY, 3600);
+    xpc_dictionary_set_BOOL(v12, XPC_ACTIVITY_REQUIRE_INEXPENSIVE_NETWORK_CONNECTIVITY, 1);
+    xpc_dictionary_set_BOOL(v12, XPC_ACTIVITY_REQUIRE_NETWORK_CONNECTIVITY, 1);
+    v13 = [[BackgroundTaskRequest alloc] initWithBackgroundTaskAgentJob:v12];
+    [(BackgroundTaskRequest *)v13 setRequestIdentifier:@"com.apple.itunesstored.RetrySoftFailedRestoreDownloads"];
     [+[Daemon daemon](Daemon "daemon")];
 
-    CFPreferencesSetAppValue(@"RestoreSoftFailRetryCount", [NSNumber numberWithInteger:v8], v2);
+    CFPreferencesSetAppValue(@"RestoreSoftFailRetryCount", [NSNumber numberWithInteger:v9], v2);
     CFPreferencesAppSynchronize(v2);
-    xpc_release(v11);
+    xpc_release(v12);
   }
 }
 
@@ -2611,15 +2686,21 @@ LABEL_4:
   shouldLog = [v2 shouldLog];
   if ([v2 shouldLogToDisk])
   {
-    v4 = shouldLog | 2;
+    LODWORD(v4) = shouldLog | 2;
   }
 
   else
   {
-    v4 = shouldLog;
+    LODWORD(v4) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v2 OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [v2 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v4 = v4;
+  }
+
+  else
   {
     v4 &= 2u;
   }
@@ -2630,26 +2711,25 @@ LABEL_4:
     v11 = objc_opt_class();
     v12 = 2048;
     v13 = 0x40F5180000000000;
-    LODWORD(v9) = 22;
-    v5 = _os_log_send_and_compose_impl();
-    if (v5)
+    v6 = _os_log_send_and_compose_impl(v4, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Schedule restore cancel retry in %.0f seconds", &v10, 22);
+    if (v6)
     {
-      v6 = v5;
-      [NSString stringWithCString:v5 encoding:4, &v10, v9];
-      free(v6);
+      v7 = v6;
+      [NSString stringWithCString:v6 encoding:4];
+      free(v7);
       SSFileLog();
     }
   }
 
-  v7 = xpc_dictionary_create(0, 0, 0);
-  xpc_dictionary_set_int64(v7, XPC_ACTIVITY_DELAY, 3600);
-  xpc_dictionary_set_BOOL(v7, XPC_ACTIVITY_REQUIRE_INEXPENSIVE_NETWORK_CONNECTIVITY, 1);
-  xpc_dictionary_set_BOOL(v7, XPC_ACTIVITY_REQUIRE_NETWORK_CONNECTIVITY, 1);
-  v8 = [[BackgroundTaskRequest alloc] initWithBackgroundTaskAgentJob:v7];
-  [(BackgroundTaskRequest *)v8 setRequestIdentifier:@"com.apple.itunesstored.RetryCanceledRestoreDownloads"];
+  v8 = xpc_dictionary_create(0, 0, 0);
+  xpc_dictionary_set_int64(v8, XPC_ACTIVITY_DELAY, 3600);
+  xpc_dictionary_set_BOOL(v8, XPC_ACTIVITY_REQUIRE_INEXPENSIVE_NETWORK_CONNECTIVITY, 1);
+  xpc_dictionary_set_BOOL(v8, XPC_ACTIVITY_REQUIRE_NETWORK_CONNECTIVITY, 1);
+  v9 = [[BackgroundTaskRequest alloc] initWithBackgroundTaskAgentJob:v8];
+  [(BackgroundTaskRequest *)v9 setRequestIdentifier:@"com.apple.itunesstored.RetryCanceledRestoreDownloads"];
   [+[Daemon daemon](Daemon "daemon")];
 
-  xpc_release(v7);
+  xpc_release(v8);
 }
 
 - (BOOL)_shouldAuthenticateForCancelRetry
@@ -2720,15 +2800,21 @@ LABEL_4:
   shouldLog = [v12 shouldLog];
   if ([v12 shouldLogToDisk])
   {
-    v14 = shouldLog | 2;
+    LODWORD(v14) = shouldLog | 2;
   }
 
   else
   {
-    v14 = shouldLog;
+    LODWORD(v14) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v12 OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [v12 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+  {
+    v14 = v14;
+  }
+
+  else
   {
     v14 &= 2u;
   }
@@ -2741,24 +2827,23 @@ LABEL_4:
     itemCopy = item;
     v26 = 2114;
     errorCopy = error;
-    LODWORD(v20) = 32;
-    v15 = _os_log_send_and_compose_impl();
-    if (v15)
+    v16 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Soft failed item: %{public}@ error: %{public}@", &v22, 32);
+    if (v16)
     {
-      v16 = v15;
-      [NSString stringWithCString:v15 encoding:4, &v22, v20];
-      free(v16);
+      v17 = v16;
+      [NSString stringWithCString:v16 encoding:4];
+      free(v17);
       SSFileLog();
     }
   }
 
   itemCopy2 = item;
-  v19 = objc_opt_class();
+  v20 = objc_opt_class();
   error = 1;
   SSDebugLog();
   if (!self->_hadAutoRetrySoftFailure)
   {
-    error = [(RestoreDownloadsOperation *)self _shouldAutomaticallyRetryAfterSoftFailError:error, v19, itemCopy2, error];
+    error = [(RestoreDownloadsOperation *)self _shouldAutomaticallyRetryAfterSoftFailError:error, v20, itemCopy2, error];
   }
 
   self->_hadAutoRetrySoftFailure = error;
@@ -2785,17 +2870,18 @@ LABEL_4:
     v12 = shouldLog;
   }
 
-  if (os_log_type_enabled([v10 OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject = [v10 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = v12;
+    v14 = v12;
   }
 
   else
   {
-    v13 = v12 & 2;
+    v14 = v12 & 2;
   }
 
-  if (v13)
+  if (v14)
   {
     v24 = 138544386;
     v25 = objc_opt_class();
@@ -2807,33 +2893,31 @@ LABEL_4:
     artistName = [download artistName];
     v32 = 2114;
     title = [download title];
-    LODWORD(v22) = 52;
-    v21 = &v24;
-    v14 = _os_log_send_and_compose_impl();
-    if (v14)
+    v15 = _os_log_send_and_compose_impl(v14, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Updating download %lld with restore metadata for item: [%llu, %{public}@, %{public}@]", &v24, 52);
+    if (v15)
     {
-      v15 = v14;
-      v16 = [NSString stringWithCString:v14 encoding:4, &v24, v22];
-      free(v15);
-      v21 = v16;
+      v16 = v15;
+      v17 = [NSString stringWithCString:v15 encoding:4];
+      free(v16);
+      v22 = v17;
       SSFileLog();
     }
   }
 
-  v17 = [(RestoreDownloadsOperation *)self _newDownloadWithStoreDownload:download, v21];
-  v18 = v17;
+  v18 = [(RestoreDownloadsOperation *)self _newDownloadWithStoreDownload:download, v22];
+  v19 = v18;
   if (d)
   {
-    [v17 setValue:d forProperty:@"store_account_id"];
+    [v18 setValue:d forProperty:@"store_account_id"];
   }
 
-  v19 = [transaction updateDownloadEntityWithIdentifier:objc_msgSend(entity withDownload:{"persistentID"), v18}];
-  if (v19)
+  v20 = [transaction updateDownloadEntityWithIdentifier:objc_msgSend(entity withDownload:{"persistentID"), v19}];
+  if (v20)
   {
     [download writeToFile:objc_msgSend(+[ScratchManager directoryPathForDownloadID:kind:createIfNeeded:](ScratchManager options:"directoryPathForDownloadID:kind:createIfNeeded:" error:{objc_msgSend(entity, "persistentID"), objc_msgSend(download, "kind"), 1), "stringByAppendingPathComponent:", @"iTunesMetadata.plist", 0, 0}];
   }
 
-  return v19;
+  return v20;
 }
 
 @end

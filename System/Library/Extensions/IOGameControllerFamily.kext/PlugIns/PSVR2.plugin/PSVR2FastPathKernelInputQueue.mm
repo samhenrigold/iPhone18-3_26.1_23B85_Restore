@@ -97,7 +97,7 @@ LABEL_40:
     v23 = [v11 getProperties:&off_10D10 dictionary:&v22];
     if (v23)
     {
-      sub_8B8C(&v23);
+      sub_8B8C();
       goto LABEL_27;
     }
   }
@@ -107,7 +107,7 @@ LABEL_40:
     v23 = sub_7870(*(v6 + 3), *(v6 + 14), &off_10D10, &v22);
     if (v23)
     {
-      sub_8C20(&v23);
+      sub_8C20();
       goto LABEL_27;
     }
   }

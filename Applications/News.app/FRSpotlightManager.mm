@@ -90,18 +90,18 @@
   _spotlightFolder = [objc_opt_class() _spotlightFolder];
   path = [_spotlightFolder path];
   v5 = +[NSFileManager defaultManager];
-  v13 = 0;
-  if ([v5 fileExistsAtPath:path isDirectory:&v13])
+  v15 = 0;
+  if ([v5 fileExistsAtPath:path isDirectory:&v15])
   {
-    v6 = v13;
-    if ((v13 & 1) == 0)
+    v6 = v15;
+    if ((v15 & 1) == 0)
     {
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         sub_10007483C();
       }
 
-      v6 = v13;
+      v6 = v15;
     }
 
     if (v6)
@@ -110,18 +110,18 @@
       goto LABEL_17;
     }
 
-    v12 = 0;
-    v8 = [v5 removeItemAtPath:path error:&v12];
-    v9 = v12;
+    v14 = 0;
+    v8 = [v5 removeItemAtPath:path error:&v14];
+    v9 = v14;
     if ((v8 & 1) == 0 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       sub_1000748FC();
     }
   }
 
-  v11 = 0;
-  v10 = [v5 createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v11];
-  v7 = v11;
+  v13 = 0;
+  v10 = [v5 createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:&v13];
+  v7 = v13;
   if ((v10 & 1) == 0)
   {
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
@@ -140,7 +140,7 @@
 
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_100074A94();
+      sub_100074A94(path, v11, v12);
     }
   }
 

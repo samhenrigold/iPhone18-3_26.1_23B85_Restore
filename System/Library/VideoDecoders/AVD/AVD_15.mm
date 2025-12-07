@@ -1513,7 +1513,7 @@ uint64_t CAHDecHibiscusAvx::setVPInstrFifo(uint64_t this, int a2)
   return this;
 }
 
-void *createSalviaLghDecoder(uint64_t a1)
+CAHDecSalviaLgh *createSalviaLghDecoder(CAVDLghDecoder *a1)
 {
   v2 = operator new(0xC48uLL, MEMORY[0x277D826F0]);
   v3 = v2;
@@ -3575,7 +3575,7 @@ LABEL_20:
   return 307;
 }
 
-CAHDecDahliaLgh *CAVDLghDecoder::allocateHwDecoder(CAVDLghDecoder *this)
+CAHDecTansyLgh *CAVDLghDecoder::allocateHwDecoder(CAVDLghDecoder *this)
 {
   v8 = *MEMORY[0x277D85DE8];
   v1 = *(this + 588);
@@ -3725,68 +3725,67 @@ LABEL_85:
   }
 }
 
-void CAVDLghDecoder::~CAVDLghDecoder(CAVDLghDecoder *this)
+void CAVDLghDecoder::~CAVDLghDecoder(void **this)
 {
   *this = &unk_2886667D0;
-  for (i = 24; i != 1056; i += 8)
+  for (i = 3; i != 132; ++i)
   {
-    v3 = *(this + i);
+    v3 = this[i];
     if (v3)
     {
-      CAVDDecoder::unmapAVDMemory(this, *(this + 293), (v3 + 8), 1);
+      CAVDDecoder::unmapAVDMemory(this, this[293], v3 + 8, 1);
       free(v3);
     }
 
-    *(this + i) = 0;
+    this[i] = 0;
   }
 
   do
   {
-    v4 = *(this + i);
+    v4 = this[i];
     if (v4)
     {
-      CAVDDecoder::unmapAVDMemory(this, *(this + 293), (v4 + 8), *(v4 + 169));
+      CAVDDecoder::unmapAVDMemory(this, this[293], v4 + 8, v4[169]);
       free(v4);
     }
 
-    *(this + i) = 0;
-    i += 8;
+    this[i++] = 0;
   }
 
-  while (i != 2088);
-  v5 = *(this + 262);
+  while (i != 261);
+  v5 = this[262];
   if (v5)
   {
     (*(*v5 + 144))(v5);
-    (*(**(this + 262) + 160))(*(this + 262), 0);
-    v6 = *(this + 262);
+    (*(*this[262] + 160))(this[262], 0);
+    v6 = this[262];
     if (v6)
     {
       (*(*v6 + 8))(v6);
     }
 
-    *(this + 262) = 0;
+    this[262] = 0;
   }
 
-  *(this + 2320) = 0;
-  v7 = *(this + 2227);
+  this[2320] = 0;
+  v7 = this[2227];
   if (v7)
   {
     (*(*v7 + 8))(v7);
   }
 
-  *(this + 2227) = 0;
-  v8 = *(this + 2228);
+  this[2227] = 0;
+  v8 = this[2228];
   if (v8)
   {
     (*(*v8 + 8))(v8);
   }
 
-  *(this + 2228) = 0;
-  free(*(this + 2225));
-  *(this + 2225) = 0;
-  free(*(this + 2381));
-  *(this + 2381) = 0;
+  this[2228] = 0;
+  free(this[2225]);
+  this[2225] = 0;
+  free(this[2381]);
+  this[2381] = 0;
 
   CAVDDecoder::~CAVDDecoder(this);
 }
@@ -6156,15 +6155,15 @@ uint64_t LGH_RLM::Rel_Disp_Buf(uint64_t result, uint64_t a2)
   return result;
 }
 
-unsigned __int8 *med3(unsigned __int8 *a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t (*a4)(void))
+unsigned __int8 *med3(unsigned __int8 *a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t (*a4)(unsigned __int8 *, unsigned __int8 *))
 {
-  v8 = a4();
-  v9 = (a4)(a2, a3);
+  v8 = (a4)();
+  v9 = a4(a2, a3);
   if (v8 < 0)
   {
     if ((v9 & 0x80000000) == 0)
     {
-      if ((a4)(a1, a3) >= 0)
+      if (a4(a1, a3) >= 0)
       {
         return a1;
       }
@@ -6178,7 +6177,7 @@ unsigned __int8 *med3(unsigned __int8 *a1, unsigned __int8 *a2, unsigned __int8 
 
   else if (v9 <= 0)
   {
-    if ((a4)(a1, a3) <= 0)
+    if (a4(a1, a3) <= 0)
     {
       return a1;
     }
@@ -6192,7 +6191,7 @@ unsigned __int8 *med3(unsigned __int8 *a1, unsigned __int8 *a2, unsigned __int8 
   return a2;
 }
 
-uint64_t qSort(uint64_t result, unsigned int a2, unsigned int a3, uint64_t (*a4)(void))
+uint64_t qSort(uint64_t result, unsigned int a2, unsigned int a3, uint64_t (*a4)(unsigned __int8 *, unsigned __int8 *))
 {
   v7 = result;
   v69 = 0;
@@ -6225,7 +6224,7 @@ uint64_t qSort(uint64_t result, unsigned int a2, unsigned int a3, uint64_t (*a4)
       {
         v26 = (a2 >> 3) * a3;
         v27 = med3(result, (result + v26), (result + 2 * v26), a4);
-        v24 = med3(&v24[-v26], &v7[(a2 >> 1) * a3], &v24[v26], a4);
+        v24 = med3(&v24[-v26], (v7 + (a2 >> 1) * a3), &v24[v26], a4);
         v25 = med3(&v25[-2 * v26], &v25[-v26], v25, a4);
       }
 
@@ -6241,8 +6240,8 @@ uint64_t qSort(uint64_t result, unsigned int a2, unsigned int a3, uint64_t (*a4)
         v29 = 0;
         do
         {
-          v30 = v7[v29];
-          v7[v29] = v24[v29];
+          v30 = *(v7 + v29);
+          *(v7 + v29) = v24[v29];
           v24[v29++] = v30;
         }
 
@@ -6253,8 +6252,8 @@ uint64_t qSort(uint64_t result, unsigned int a2, unsigned int a3, uint64_t (*a4)
       {
         do
         {
-          v31 = *&v7[v28];
-          *&v7[v28] = *&v24[v28];
+          v31 = *(v7 + v28);
+          *(v7 + v28) = *&v24[v28];
           *&v24[v28] = v31;
           v28 += 8;
         }
@@ -6272,14 +6271,14 @@ uint64_t qSort(uint64_t result, unsigned int a2, unsigned int a3, uint64_t (*a4)
     }
 
     v66 = a2;
-    v33 = &v7[(a2 - 1) * a3];
+    v33 = (v7 + (a2 - 1) * a3);
     v34 = v7;
     v35 = v7;
     v36 = v33;
 LABEL_35:
     while (v35 <= v33)
     {
-      result = (a4)(v35, v32);
+      result = a4(v35, v32);
       if (result > 0)
       {
         break;
@@ -6295,9 +6294,9 @@ LABEL_35:
             v38 = 0;
             do
             {
-              v39 = v34[v38];
-              v34[v38] = v35[v38];
-              v35[v38++] = v39;
+              v39 = *(v34 + v38);
+              *(v34 + v38) = *(v35 + v38);
+              *(v35 + v38++) = v39;
             }
 
             while (v8 != v38);
@@ -6307,9 +6306,9 @@ LABEL_35:
           {
             do
             {
-              v40 = *&v34[v37];
-              *&v34[v37] = *&v35[v37];
-              *&v35[v37] = v40;
+              v40 = *(v34 + v37);
+              *(v34 + v37) = *(v35 + v37);
+              *(v35 + v37) = v40;
               v37 += 8;
             }
 
@@ -6324,15 +6323,15 @@ LABEL_35:
           *v35 = v50;
         }
 
-        v34 += v8;
+        v34 = (v34 + v8);
       }
 
-      v35 += v8;
+      v35 = (v35 + v8);
     }
 
     while (v35 <= v33)
     {
-      result = (a4)(v33, v32);
+      result = a4(v33, v32);
       if ((result & 0x80000000) != 0)
       {
         if (v68)
@@ -6343,9 +6342,9 @@ LABEL_35:
             v47 = 0;
             do
             {
-              v48 = v35[v47];
-              v35[v47] = v33[v47];
-              v33[v47++] = v48;
+              v48 = *(v35 + v47);
+              *(v35 + v47) = *(v33 + v47);
+              *(v33 + v47++) = v48;
             }
 
             while (v8 != v47);
@@ -6355,9 +6354,9 @@ LABEL_35:
           {
             do
             {
-              v49 = *&v35[v46];
-              *&v35[v46] = *&v33[v46];
-              *&v33[v46] = v49;
+              v49 = *(v35 + v46);
+              *(v35 + v46) = *(v33 + v46);
+              *(v33 + v46) = v49;
               v46 += 8;
             }
 
@@ -6372,8 +6371,8 @@ LABEL_35:
           *v33 = v51;
         }
 
-        v35 += v8;
-        v33 += v9;
+        v35 = (v35 + v8);
+        v33 = (v33 + v9);
         goto LABEL_35;
       }
 
@@ -6387,9 +6386,9 @@ LABEL_35:
             v42 = 0;
             do
             {
-              v43 = v33[v42];
-              v33[v42] = v36[v42];
-              v36[v42++] = v43;
+              v43 = *(v33 + v42);
+              *(v33 + v42) = *(v36 + v42);
+              *(v36 + v42++) = v43;
             }
 
             while (v8 != v42);
@@ -6399,9 +6398,9 @@ LABEL_35:
           {
             do
             {
-              v44 = *&v33[v41];
-              *&v33[v41] = *&v36[v41];
-              *&v36[v41] = v44;
+              v44 = *(v33 + v41);
+              *(v33 + v41) = *(v36 + v41);
+              *(v36 + v41) = v44;
               v41 += 8;
             }
 
@@ -6416,16 +6415,16 @@ LABEL_35:
           *v36 = v45;
         }
 
-        v36 += v9;
+        v36 = (v36 + v9);
       }
 
-      v33 += v9;
+      v33 = (v33 + v9);
     }
 
-    v52 = &v7[a3 * v66];
+    v52 = v7 + a3 * v66;
     v53 = v34 - v7;
     v54 = v35 - v34;
-    if (v34 - v7 >= v35 - v34)
+    if ((v34 - v7) >= v35 - v34)
     {
       v53 = v35 - v34;
     }
@@ -6439,8 +6438,8 @@ LABEL_35:
         do
         {
           v57 = *v56;
-          *v56++ = v35[v55];
-          v35[v55] = v57;
+          *v56++ = *(v35 + v55);
+          *(v35 + v55) = v57;
           v58 = __CFADD__(v55++, 1);
         }
 
@@ -6453,9 +6452,8 @@ LABEL_35:
         do
         {
           v60 = *v59;
-          *v59 = *&v35[v55];
-          v59 += 8;
-          *&v35[v55] = v60;
+          *v59++ = *(v35 + v55);
+          *(v35 + v55) = v60;
           v55 += 8;
         }
 
@@ -6464,7 +6462,7 @@ LABEL_35:
     }
 
     v61 = v36 - v33;
-    v62 = v52 - &v36[v8];
+    v62 = v52 - (v36 + v8);
     if (v36 - v33 < v62)
     {
       v62 = v36 - v33;
@@ -6478,8 +6476,9 @@ LABEL_35:
         do
         {
           v64 = *v35;
-          *v35++ = v52[v63];
-          v52[v63] = v64;
+          *v35 = *(v52 + v63);
+          v35 = (v35 + 1);
+          *(v52 + v63) = v64;
           v58 = __CFADD__(v63++, 1);
         }
 
@@ -6491,9 +6490,8 @@ LABEL_35:
         do
         {
           v65 = *v35;
-          *v35 = *&v52[v63];
-          v35 += 8;
-          *&v52[v63] = v65;
+          *v35++ = *(v52 + v63);
+          *(v52 + v63) = v65;
           v63 += 8;
         }
 
@@ -6503,12 +6501,12 @@ LABEL_35:
 
     if (v54 > v8)
     {
-      result = qSort(v7, v54 / v8, a3, a4);
+      result = qSort(v7, (v54 / v8), a3, a4);
     }
 
     if (v61 > v8)
     {
-      return qSort(&v52[-v61], v61 / v8, a3, a4);
+      return qSort(v52 - v61, (v61 / v8), a3, a4);
     }
   }
 
@@ -6530,7 +6528,7 @@ LABEL_35:
           {
             v17 = v16;
             v16 += v9;
-            result = (a4)(v16, v17);
+            result = a4(v16, v17);
             if (result < 1)
             {
               break;
@@ -6591,7 +6589,7 @@ LABEL_35:
   return result;
 }
 
-CAHDec *createSalviaAvcDecoder(uint64_t a1)
+CAHDecSalviaAvc *createSalviaAvcDecoder(CAVDAvcDecoder *a1)
 {
   v2 = operator new(0x3EE0uLL, MEMORY[0x277D826F0]);
   v3 = v2;
@@ -6737,8 +6735,9 @@ uint64_t CAHDecSalviaAvc::populateSlices(CAHDecSalviaAvc *this, unsigned int a2)
   return 0;
 }
 
-uint64_t CAHDecSalviaAvc::populateSliceRegisters(uint64_t a1, uint64_t a2, signed int a3)
+uint64_t CAHDecSalviaAvc::populateSliceRegisters(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   v6 = 0;
   v100 = *MEMORY[0x277D85DE8];
   v7 = *(a1 + 256);
@@ -6771,6 +6770,7 @@ uint64_t CAHDecSalviaAvc::populateSliceRegisters(uint64_t a1, uint64_t a2, signe
     v17 = 0;
   }
 
+  v18 = a3;
   v19 = v17 | v16;
   *(a2 + 4) = v19;
   if (*(v14 + 24) == 1)
@@ -6880,7 +6880,7 @@ LABEL_20:
     v27 = *(a2 + 4);
   }
 
-  v84 = a3;
+  v84 = v3;
   v85 = a1;
   v83 = (v10 + 604 * v9);
   *(a2 + 4) = v27 & 0x77FFFF | 0x2D000000;
@@ -6888,7 +6888,7 @@ LABEL_20:
   if (v36 <= 1)
   {
     v37 = v7 + 6760;
-    v38 = v13 + 13040 * a3;
+    v38 = v13 + 13040 * v18;
     if (*(v38 + 13032))
     {
       v39 = 0;
@@ -8774,42 +8774,41 @@ void CAVDAvcDecoder::CAVDAvcDecoder(CAVDAvcDecoder *this, void *a2, unsigned int
   bzero(this + 24, 0x810uLL);
 }
 
-void CAVDAvcDecoder::~CAVDAvcDecoder(CAVDAvcDecoder *this)
+void CAVDAvcDecoder::~CAVDAvcDecoder(void **this)
 {
   *this = &unk_2886669C0;
-  for (i = 24; i != 1056; i += 8)
+  for (i = 3; i != 132; ++i)
   {
-    v3 = *(this + i);
+    v3 = this[i];
     if (v3)
     {
-      CAVDDecoder::unmapAVDMemory(this, *(this + 293), (v3 + 8), 1);
+      CAVDDecoder::unmapAVDMemory(this, this[293], v3 + 8, 1);
       free(v3);
     }
 
-    *(this + i) = 0;
+    this[i] = 0;
   }
 
   do
   {
-    v4 = *(this + i);
+    v4 = this[i];
     if (v4)
     {
-      CAVDDecoder::unmapAVDMemory(this, *(this + 293), (v4 + 8), *(v4 + 169));
+      CAVDDecoder::unmapAVDMemory(this, this[293], v4 + 8, v4[169]);
       free(v4);
     }
 
-    *(this + i) = 0;
-    i += 8;
+    this[i++] = 0;
   }
 
-  while (i != 2088);
-  if (*(this + 400) && *(this + 3694))
+  while (i != 261);
+  if (this[400] && *(this + 3694))
   {
     v5 = 0;
     v6 = 20;
     do
     {
-      AvcReleaseSliceHeader(*(this + 400) + v6);
+      AvcReleaseSliceHeader();
       ++v5;
       v6 += 1848;
     }
@@ -8817,42 +8816,42 @@ void CAVDAvcDecoder::~CAVDAvcDecoder(CAVDAvcDecoder *this)
     while (v5 < *(this + 3694));
   }
 
-  v7 = *(this + 262);
+  v7 = this[262];
   if (v7)
   {
     (*(*v7 + 144))(v7);
-    (*(**(this + 262) + 160))(*(this + 262), 0);
-    v8 = *(this + 262);
+    (*(*this[262] + 160))(this[262], 0);
+    v8 = this[262];
     if (v8)
     {
       (*(*v8 + 8))(v8);
     }
 
-    *(this + 262) = 0;
+    this[262] = 0;
   }
 
-  v9 = *(this + 372);
+  v9 = this[372];
   if (v9)
   {
     (*(*v9 + 8))(v9);
   }
 
-  *(this + 372) = 0;
-  free(*(this + 398));
-  *(this + 398) = 0;
-  free(*(this + 399));
-  *(this + 399) = 0;
-  free(*(this + 400));
-  *(this + 400) = 0;
-  free(*(this + 401));
-  *(this + 401) = 0;
-  v10 = *(this + 374);
+  this[372] = 0;
+  free(this[398]);
+  this[398] = 0;
+  free(this[399]);
+  this[399] = 0;
+  free(this[400]);
+  this[400] = 0;
+  free(this[401]);
+  this[401] = 0;
+  v10 = this[374];
   if (v10)
   {
     (*(*v10 + 8))(v10);
   }
 
-  *(this + 374) = 0;
+  this[374] = 0;
 
   CAVDDecoder::~CAVDDecoder(this);
 }
@@ -9034,7 +9033,7 @@ LABEL_30:
   return 307;
 }
 
-CAHDecLotusAvc *CAVDAvcDecoder::allocateHwDecoder(CAVDAvcDecoder *this)
+CAHDecTansyAvc *CAVDAvcDecoder::allocateHwDecoder(CAVDAvcDecoder *this)
 {
   v8 = *MEMORY[0x277D85DE8];
   v1 = *(this + 588);
@@ -10550,7 +10549,7 @@ LABEL_213:
     }
 
     v55 = *(a1 + 3200) + 1848 * v35;
-    AvcReleaseSliceHeader(v55 + 20);
+    AvcReleaseSliceHeader();
     bzero((v55 + 20), 0x588uLL);
     if (AVC_RBSP::parseSliceHeader(*(a1 + 2976), (v55 + 20), v155, *(a1 + 3192), *(a1 + 3184)))
     {

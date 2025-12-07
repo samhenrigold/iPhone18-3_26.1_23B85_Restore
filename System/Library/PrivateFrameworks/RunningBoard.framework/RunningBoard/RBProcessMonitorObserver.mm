@@ -21,13 +21,10 @@
 
 - (void)_lock_sendPendingStateUpdates
 {
-  v10 = *MEMORY[0x277D85DE8];
   [*self count];
-  v3 = *(a2 + 16);
   OUTLINED_FUNCTION_0_18();
   OUTLINED_FUNCTION_1_19();
-  _os_log_debug_impl(v4, v5, v6, v7, v8, 0x12u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x12u);
 }
 
 void __57__RBProcessMonitorObserver__lock_sendPendingStateUpdates__block_invoke_2(uint64_t a1)
@@ -61,7 +58,7 @@ void __57__RBProcessMonitorObserver__lock_sendPendingStateUpdates__block_invoke_
 
 - (void)_lock_rebuildConfiguration
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->_lock);
   self->_qos = 9;
   objc_storeWeak(&self->_lastMatchedHandle, 0);
@@ -70,26 +67,26 @@ void __57__RBProcessMonitorObserver__lock_sendPendingStateUpdates__block_invoke_
 
   v4 = [MEMORY[0x277CBEB58] set];
   allValues = [(NSMutableDictionary *)self->_configurations allValues];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v6 = [allValues countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v24;
+    v9 = *v23;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * i);
+        v11 = *(*(&v22 + 1) + 8 * i);
         qos = self->_qos;
         serviceClass = [v11 serviceClass];
         if (qos <= serviceClass)
@@ -114,7 +111,7 @@ void __57__RBProcessMonitorObserver__lock_sendPendingStateUpdates__block_invoke_
         }
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v7);
@@ -134,7 +131,6 @@ void __57__RBProcessMonitorObserver__lock_sendPendingStateUpdates__block_invoke_
   [(RBSProcessStateDescriptor *)v20 setEndowmentNamespaces:allObjects];
 
   [(RBSProcessStateDescriptor *)self->_stateDescriptor setValues:v8];
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -178,39 +174,37 @@ void __57__RBProcessMonitorObserver__lock_sendPendingStateUpdates__block_invoke_
 
 - (void)_lock_addAllConfiguredStatesToPending
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_owner(&self->_lock);
-  v11 = 0u;
-  v12 = 0u;
-  v9 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   allValues = [(NSMutableDictionary *)self->_configurations allValues];
-  v4 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [(RBProcessMonitorObserver *)self _lock_addConfigurationStatesToPending:*(*(&v9 + 1) + 8 * v7++)];
+        [(RBProcessMonitorObserver *)self _lock_addConfigurationStatesToPending:*(*(&v8 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [allValues countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [allValues countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __63__RBProcessMonitorObserver__lock_clearPendingNonterminalStates__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -296,59 +290,59 @@ LABEL_4:
 
 - (void)_lock_addConfigurationStatesToPending:(id)pending
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   pendingCopy = pending;
   os_unfair_lock_assert_owner(&self->_lock);
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__6;
-  v35 = __Block_byref_object_dispose__6;
-  v36 = 0;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__6;
-  v29 = __Block_byref_object_dispose__6;
   v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__6;
+  v34 = __Block_byref_object_dispose__6;
+  v35 = 0;
+  v24 = 0;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy__6;
+  v28 = __Block_byref_object_dispose__6;
+  v29 = 0;
   monitorSerializationQueue = [(RBProcessMonitoring *)self->_monitor monitorSerializationQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __66__RBProcessMonitorObserver__lock_addConfigurationStatesToPending___block_invoke;
   block[3] = &unk_279B33DE8;
-  v23 = &v31;
+  v22 = &v30;
   block[4] = self;
   v6 = pendingCopy;
-  v22 = v6;
-  v24 = &v25;
+  v21 = v6;
+  v23 = &v24;
   dispatch_sync(monitorSerializationQueue, block);
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
-  v7 = v32[5];
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v37 count:16];
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v7 = v31[5];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v36 count:16];
   if (v8)
   {
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         pendingProcessState = self->_pendingProcessState;
         process = [v11 process];
         identity = [process identity];
         v15 = [(RBProcessMap *)pendingProcessState setValue:v11 forIdentity:identity];
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v17 objects:v37 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v16 objects:v36 count:16];
     }
 
     while (v8);
@@ -356,13 +350,11 @@ LABEL_4:
 
   if (([v6 events] & 2) != 0)
   {
-    objc_storeStrong(&self->_pendingPreventLaunchPredicates, v26[5]);
+    objc_storeStrong(&self->_pendingPreventLaunchPredicates, v25[5]);
   }
 
-  _Block_object_dispose(&v25, 8);
-  _Block_object_dispose(&v31, 8);
-
-  v16 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v24, 8);
+  _Block_object_dispose(&v30, 8);
 }
 
 uint64_t __66__RBProcessMonitorObserver__lock_addConfigurationStatesToPending___block_invoke(void *a1)
@@ -372,17 +364,14 @@ uint64_t __66__RBProcessMonitorObserver__lock_addConfigurationStatesToPending___
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  v5 = [*(a1[4] + 8) preventLaunchPredicates];
-  v6 = *(a1[7] + 8);
-  v7 = *(v6 + 40);
-  *(v6 + 40) = v5;
+  *(*(a1[7] + 8) + 40) = [*(a1[4] + 8) preventLaunchPredicates];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (void)addConfiguration:(id)configuration
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   os_unfair_lock_lock(&self->_lock);
   if (![(NSMutableDictionary *)self->_configurations count])
@@ -400,18 +389,18 @@ uint64_t __66__RBProcessMonitorObserver__lock_addConfigurationStatesToPending___
   {
     if (v9)
     {
-      v14 = 138543362;
-      v15 = configurationCopy;
+      v13 = 138543362;
+      v14 = configurationCopy;
       v10 = "monitor changed to %{public}@";
 LABEL_8:
-      _os_log_impl(&dword_262485000, v8, OS_LOG_TYPE_INFO, v10, &v14, 0xCu);
+      _os_log_impl(&dword_262485000, v8, OS_LOG_TYPE_INFO, v10, &v13, 0xCu);
     }
   }
 
   else if (v9)
   {
-    v14 = 138543362;
-    v15 = configurationCopy;
+    v13 = 138543362;
+    v14 = configurationCopy;
     v10 = "monitor established %{public}@";
     goto LABEL_8;
   }
@@ -424,8 +413,6 @@ LABEL_8:
   [(RBProcessMonitorObserver *)self _lock_rebuildConfiguration];
   [(RBProcessMonitorObserver *)self _lock_sendPendingStateUpdates];
   os_unfair_lock_unlock(&self->_lock);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeConfigurationWithIdentifier:(unint64_t)identifier
@@ -454,44 +441,41 @@ LABEL_8:
 - (void)processMonitor:(id)monitor didChangeProcessStates:(id)states
 {
   statesCopy = states;
-  calloutQueue = self->_calloutQueue;
-  qos = self->_qos;
-  v9 = statesCopy;
-  v8 = statesCopy;
+  v4 = statesCopy;
   RBSDispatchAsyncWithQoS();
 }
 
 void __66__RBProcessMonitorObserver_processMonitor_didChangeProcessStates___block_invoke(uint64_t a1)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock((*(a1 + 32) + 40));
   if ([*(*(a1 + 32) + 72) count])
   {
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     obj = *(a1 + 40);
-    v2 = [obj countByEnumeratingWithState:&v35 objects:v46 count:16];
+    v2 = [obj countByEnumeratingWithState:&v34 objects:v45 count:16];
     if (v2)
     {
       v4 = v2;
-      v5 = *v36;
+      v5 = *v35;
       *&v3 = 134218498;
-      v27 = v3;
-      v28 = *v36;
+      v26 = v3;
+      v27 = *v35;
       do
       {
         v6 = 0;
-        v29 = v4;
+        v28 = v4;
         do
         {
-          if (*v36 != v5)
+          if (*v35 != v5)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v35 + 1) + 8 * v6);
+          v7 = *(*(&v34 + 1) + 8 * v6);
           v8 = [v7 process];
           WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 88));
           v10 = [WeakRetained isEqual:v8];
@@ -505,26 +489,26 @@ void __66__RBProcessMonitorObserver_processMonitor_didChangeProcessStates___bloc
 
           else
           {
-            v33 = 0u;
-            v34 = 0u;
-            v31 = 0u;
             v32 = 0u;
+            v33 = 0u;
+            v30 = 0u;
+            v31 = 0u;
             v12 = [*(*(a1 + 32) + 72) allValues];
-            v14 = [v12 countByEnumeratingWithState:&v31 objects:v45 count:16];
+            v14 = [v12 countByEnumeratingWithState:&v30 objects:v44 count:16];
             if (v14)
             {
               v15 = v14;
-              v16 = *v32;
+              v16 = *v31;
               while (2)
               {
                 for (i = 0; i != v15; ++i)
                 {
-                  if (*v32 != v16)
+                  if (*v31 != v16)
                   {
                     objc_enumerationMutation(v12);
                   }
 
-                  v18 = *(*(&v31 + 1) + 8 * i);
+                  v18 = *(*(&v30 + 1) + 8 * i);
                   v19 = [v18 stateDescriptor];
 
                   if (v19 && [v18 matchesProcess:v8])
@@ -534,12 +518,12 @@ void __66__RBProcessMonitorObserver_processMonitor_didChangeProcessStates___bloc
                     {
                       v24 = [v8 identity];
                       v25 = *(*(a1 + 32) + 16);
-                      *buf = v27;
-                      v40 = v7;
-                      v41 = 2114;
-                      v42 = v24;
-                      v43 = 2114;
-                      v44 = v25;
+                      *buf = v26;
+                      v39 = v7;
+                      v40 = 2114;
+                      v41 = v24;
+                      v42 = 2114;
+                      v43 = v25;
                       _os_log_debug_impl(&dword_262485000, v20, OS_LOG_TYPE_DEBUG, "Sending state %p for %{public}@ to %{public}@", buf, 0x20u);
                     }
 
@@ -552,7 +536,7 @@ void __66__RBProcessMonitorObserver_processMonitor_didChangeProcessStates___bloc
                   }
                 }
 
-                v15 = [v12 countByEnumeratingWithState:&v31 objects:v45 count:16];
+                v15 = [v12 countByEnumeratingWithState:&v30 objects:v44 count:16];
                 if (v15)
                 {
                   continue;
@@ -562,8 +546,8 @@ void __66__RBProcessMonitorObserver_processMonitor_didChangeProcessStates___bloc
               }
 
 LABEL_22:
-              v5 = v28;
-              v4 = v29;
+              v5 = v27;
+              v4 = v28;
             }
           }
 
@@ -571,7 +555,7 @@ LABEL_22:
         }
 
         while (v6 != v4);
-        v4 = [obj countByEnumeratingWithState:&v35 objects:v46 count:16];
+        v4 = [obj countByEnumeratingWithState:&v34 objects:v45 count:16];
       }
 
       while (v4);
@@ -581,53 +565,49 @@ LABEL_22:
   }
 
   os_unfair_lock_unlock((*(a1 + 32) + 40));
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didObserveProcessExit:(id)exit
 {
   exitCopy = exit;
-  calloutQueue = self->_calloutQueue;
-  qos = self->_qos;
-  v8 = exitCopy;
-  v7 = exitCopy;
+  v3 = exitCopy;
   RBSDispatchAsyncWithQoS();
 }
 
 void __50__RBProcessMonitorObserver_didObserveProcessExit___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   os_unfair_lock_lock((*(a1 + 32) + 40));
   if ([*&(*v2)[18]._os_unfair_lock_opaque count])
   {
     v3 = [*(a1 + 40) handle];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v4 = [*(*(a1 + 32) + 72) allValues];
-    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v15;
+      v7 = *v14;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v15 != v7)
+          if (*v14 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v14 + 1) + 8 * i);
+          v9 = *(*(&v13 + 1) + 8 * i);
           if ([v9 events] && objc_msgSend(v9, "matchesProcess:", v3))
           {
             v10 = rbs_monitor_log();
             if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
             {
-              __50__RBProcessMonitorObserver_didObserveProcessExit___block_invoke_cold_1(v3, v2);
+              __50__RBProcessMonitorObserver_didObserveProcessExit___block_invoke_cold_1(v3);
             }
 
             v11 = objc_alloc_init(MEMORY[0x277D46F30]);
@@ -642,7 +622,7 @@ void __50__RBProcessMonitorObserver_didObserveProcessExit___block_invoke(uint64_
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v6)
         {
           continue;
@@ -656,46 +636,42 @@ LABEL_15:
   }
 
   os_unfair_lock_unlock(*v2 + 10);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didResolvePreventLaunchPredicates:(id)predicates
 {
   predicatesCopy = predicates;
-  calloutQueue = self->_calloutQueue;
-  qos = self->_qos;
-  v8 = predicatesCopy;
-  v7 = predicatesCopy;
+  v3 = predicatesCopy;
   RBSDispatchAsyncWithQoS();
 }
 
 void __62__RBProcessMonitorObserver_didResolvePreventLaunchPredicates___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   os_unfair_lock_lock((*(a1 + 32) + 40));
   if ([*(*v2 + 9) count])
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v3 = [*(*v2 + 9) allValues];
-    v4 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v16;
+      v6 = *v15;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v16 != v6)
+          if (*v15 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          if ([*(*(&v15 + 1) + 8 * i) events])
+          if ([*(*(&v14 + 1) + 8 * i) events])
           {
             v8 = rbs_monitor_log();
             if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
@@ -724,7 +700,7 @@ void __62__RBProcessMonitorObserver_didResolvePreventLaunchPredicates___block_in
           }
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v5)
         {
           continue;
@@ -738,7 +714,6 @@ LABEL_17:
   }
 
   os_unfair_lock_unlock(*v2 + 10);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)stateCaptureTitle
@@ -754,45 +729,45 @@ LABEL_17:
 
 - (void)_checkForBadActorWithPendingStates:(id)states
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   statesCopy = states;
   os_unfair_lock_lock(&self->_lock);
   v5 = objc_alloc_init(MEMORY[0x277CCA940]);
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x2020000000;
-  v57 = 0;
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x3032000000;
-  v51 = __Block_byref_object_copy__6;
-  v52 = __Block_byref_object_dispose__6;
-  v53 = 0;
-  v46[0] = 0;
-  v46[1] = v46;
-  v46[2] = 0x3032000000;
-  v46[3] = __Block_byref_object_copy__6;
-  v46[4] = __Block_byref_object_dispose__6;
-  v47 = &stru_287507640;
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __63__RBProcessMonitorObserver__checkForBadActorWithPendingStates___block_invoke;
-  v41[3] = &unk_279B33E10;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
+  v55 = 0;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x3032000000;
+  v49 = __Block_byref_object_copy__6;
+  v50 = __Block_byref_object_dispose__6;
+  v51 = 0;
+  v44[0] = 0;
+  v44[1] = v44;
+  v44[2] = 0x3032000000;
+  v44[3] = __Block_byref_object_copy__6;
+  v44[4] = __Block_byref_object_dispose__6;
+  v45 = &stru_287507640;
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __63__RBProcessMonitorObserver__checkForBadActorWithPendingStates___block_invoke;
+  v39[3] = &unk_279B33E10;
   v6 = v5;
-  v42 = v6;
-  v43 = &v54;
-  v44 = &v48;
-  v45 = v46;
-  [statesCopy enumerateWithBlock:v41];
+  v40 = v6;
+  v41 = &v52;
+  v42 = &v46;
+  v43 = v44;
+  [statesCopy enumerateWithBlock:v39];
   v7 = rbs_monitor_log();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = v55[3];
-    v9 = v49[5];
+    v8 = v53[3];
+    v9 = v47[5];
     *buf = 134218242;
-    v59 = v8;
-    v60 = 2114;
-    v61 = v9;
+    v57 = v8;
+    v58 = 2114;
+    v59 = v9;
     _os_log_impl(&dword_262485000, v7, OS_LOG_TYPE_DEFAULT, "checkForBadActor: %lu instances of '%{public}@' have been terminated since last update read", buf, 0x16u);
   }
 
@@ -824,34 +799,34 @@ LABEL_17:
       v17 = v16;
     }
 
-    v18 = v55[3];
+    v18 = v53[3];
     v19 = rbs_process_log();
     v20 = v18 & 0x1FF | (v17 << 9) | 0xB10CCA1100000000;
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       process = self->_process;
-      v38 = [(RBProcessMap *)self->_pendingProcessState count];
+      v36 = [(RBProcessMap *)self->_pendingProcessState count];
       if (_RBMaxPendingProcessStates_onceToken != -1)
       {
         [RBProcessMonitorObserver _checkForBadActorWithPendingStates:];
       }
 
-      v39 = v55[3];
-      v40 = v49[5];
+      v37 = v53[3];
+      v38 = v47[5];
       *buf = 138544898;
-      v59 = process;
-      v60 = 2048;
-      v61 = v38;
-      v62 = 1024;
-      v63 = _RBMaxPendingProcessStates_maxPendingProcessStates;
+      v57 = process;
+      v58 = 2048;
+      v59 = v36;
+      v60 = 1024;
+      v61 = _RBMaxPendingProcessStates_maxPendingProcessStates;
+      v62 = 2048;
+      v63 = v15;
       v64 = 2048;
-      v65 = v15;
-      v66 = 2048;
-      v67 = v39;
-      v68 = 2114;
-      v69 = v40;
-      v70 = 2048;
-      v71 = v20;
+      v65 = v37;
+      v66 = 2114;
+      v67 = v38;
+      v68 = 2048;
+      v69 = v20;
       _os_log_error_impl(&dword_262485000, v19, OS_LOG_TYPE_ERROR, "%{public}@ is over the maximum number of pending updates:%lu vs. %u.\nLast unread update sent %f seconds ago.\n%lu of those updates were for terminated '%{public}@' processes.\nExceptionCode %llx", buf, 0x44u);
     }
 
@@ -864,23 +839,22 @@ LABEL_17:
       [RBProcessMonitorObserver _checkForBadActorWithPendingStates:];
     }
 
-    v25 = v55[3];
-    v26 = [v22 stringWithFormat:@"%@ is over the maximum number of pending updates:%lu vs. %u. Last unread update sent %f seconds ago. %lu of those updates were for terminated '%@' processes.", v23, v24, _RBMaxPendingProcessStates_maxPendingProcessStates, *&v15, v25, v49[5]];
-    v27 = [v21 initWithExplanation:v26];
+    v25 = [v22 stringWithFormat:@"%@ is over the maximum number of pending updates:%lu vs. %u. Last unread update sent %f seconds ago. %lu of those updates were for terminated '%@' processes.", v23, v24, _RBMaxPendingProcessStates_maxPendingProcessStates, *&v15, v53[3], v47[5]];
+    v26 = [v21 initWithExplanation:v25];
 
-    [v27 setExceptionCode:v20];
-    [v27 setExceptionDomain:15];
-    [v27 setMaximumTerminationResistance:50];
-    [v27 setReportType:1];
+    [v26 setExceptionCode:v20];
+    [v26 setExceptionDomain:15];
+    [v26 setMaximumTerminationResistance:50];
+    [v26 setReportType:1];
     identity = [(RBProcess *)self->_process identity];
-    v29 = rbs_sp_telemetry_log();
-    if (os_signpost_enabled(v29))
+    v28 = rbs_sp_telemetry_log();
+    if (os_signpost_enabled(v28))
     {
       embeddedApplicationIdentifier = [identity embeddedApplicationIdentifier];
-      v31 = embeddedApplicationIdentifier;
+      v30 = embeddedApplicationIdentifier;
       if (embeddedApplicationIdentifier)
       {
-        v32 = 0;
+        v31 = 0;
         consistentLaunchdJobLabel = embeddedApplicationIdentifier;
       }
 
@@ -890,7 +864,7 @@ LABEL_17:
         v14 = xpcServiceIdentifier;
         if (xpcServiceIdentifier)
         {
-          v32 = 0;
+          v31 = 0;
           consistentLaunchdJobLabel = xpcServiceIdentifier;
         }
 
@@ -898,32 +872,31 @@ LABEL_17:
         {
           consistentLaunchdJobLabel = [identity consistentLaunchdJobLabel];
           v14 = 0;
-          v32 = 1;
+          v31 = 1;
         }
       }
 
       *buf = 138543362;
-      v59 = consistentLaunchdJobLabel;
-      _os_signpost_emit_with_name_impl(&dword_262485000, v29, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "RBProcessStatesMaxCountReached_ProcessTerminated", "BundleIdOverride=%{public, signpost.description:attribute}@ enableTelemetry=YES ", buf, 0xCu);
-      if (v32)
+      v57 = consistentLaunchdJobLabel;
+      _os_signpost_emit_with_name_impl(&dword_262485000, v28, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "RBProcessStatesMaxCountReached_ProcessTerminated", "BundleIdOverride=%{public, signpost.description:attribute}@ enableTelemetry=YES ", buf, 0xCu);
+      if (v31)
       {
       }
 
-      if (!v31)
+      if (!v30)
       {
       }
     }
 
-    v35 = self->_process;
+    v34 = self->_process;
     os_unfair_lock_unlock(&self->_lock);
-    [(RBProcess *)v35 terminateWithContext:v27];
+    [(RBProcess *)v34 terminateWithContext:v26];
   }
 
-  _Block_object_dispose(v46, 8);
-  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(v44, 8);
+  _Block_object_dispose(&v46, 8);
 
-  _Block_object_dispose(&v54, 8);
-  v36 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v52, 8);
 }
 
 void __63__RBProcessMonitorObserver__checkForBadActorWithPendingStates___block_invoke(uint64_t a1, void *a2)
@@ -1034,37 +1007,29 @@ void __57__RBProcessMonitorObserver__lock_sendPendingStateUpdates__block_invoke_
   [v2 handleFailureInMethod:v1 object:v0 file:@"RBProcessMonitorObserver.m" lineNumber:98 description:{@"Invalid parameter not satisfying: %@", @"connection != nil"}];
 }
 
-void __50__RBProcessMonitorObserver_didObserveProcessExit___block_invoke_cold_1(void *a1, uint64_t a2)
+void __50__RBProcessMonitorObserver_didObserveProcessExit___block_invoke_cold_1(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v9 = [a1 identity];
-  v10 = *(*a2 + 16);
+  v6 = [a1 identity];
   OUTLINED_FUNCTION_1_19();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
 void __62__RBProcessMonitorObserver_didResolvePreventLaunchPredicates___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v2 = *(*a1 + 16);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_debug_impl(&dword_262485000, a2, OS_LOG_TYPE_DEBUG, "Sending prevent launch update to %{public}@", &v4, 0xCu);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_debug_impl(&dword_262485000, a2, OS_LOG_TYPE_DEBUG, "Sending prevent launch update to %{public}@", &v3, 0xCu);
 }
 
 void __57__RBProcessMonitorObserver__lock_sendPendingStateUpdates__block_invoke_108_cold_1()
 {
   OUTLINED_FUNCTION_0_0();
-  v9 = *MEMORY[0x277D85DE8];
-  [*(v1 + 32) count];
-  v2 = *(*(v0 + 40) + 16);
+  [*(v0 + 32) count];
   OUTLINED_FUNCTION_0_18();
   OUTLINED_FUNCTION_1_19();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x12u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v1, v2, v3, v4, v5, 0x12u);
 }
 
 @end

@@ -586,10 +586,10 @@ LABEL_14:
 {
   commandMap = self->_commandMap;
   nameCopy = name;
-  v7 = [(NSDictionary *)commandMap objectForKey:domain];
-  v8 = [v7 objectForKey:nameCopy];
+  v6 = objc_msgSend_objectForKey_(commandMap);
+  v7 = objc_msgSend_objectForKey_(v6);
 
-  return v8;
+  return v7;
 }
 
 - (id)_providerServiceDelegate

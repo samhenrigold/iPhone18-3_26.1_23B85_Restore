@@ -1,6 +1,7 @@
 @interface OrgApacheLuceneUtilFstBuilder_UnCompiledNode
 - (id)getLastOutputWithInt:(int)int;
 - (void)__javaClone;
+- (void)addArcWithInt:(int)int withOrgApacheLuceneUtilFstBuilder_Node:(id)node;
 - (void)clear;
 - (void)dealloc;
 - (void)prependOutputWithId:(id)id;
@@ -42,6 +43,60 @@
   }
 
   return v7[4].super.isa;
+}
+
+- (void)addArcWithInt:(int)int withOrgApacheLuceneUtilFstBuilder_Node:(id)node
+{
+  p_arcs = &self->arcs_;
+  arcs = self->arcs_;
+  numArcs = self->numArcs_;
+  if (numArcs == arcs->super.size_)
+  {
+    if ((atomic_load_explicit(&OrgApacheLuceneUtilRamUsageEstimator__initialized, memory_order_acquire) & 1) == 0)
+    {
+      sub_1000120A8();
+    }
+
+    v14 = OrgApacheLuceneUtilArrayUtil_oversizeWithInt_withInt_(numArcs + 1, OrgApacheLuceneUtilRamUsageEstimator_NUM_BYTES_OBJECT_REF_, *&int, node, v4, v5, v6, v7);
+    if (qword_100554848 != -1)
+    {
+      sub_100138564();
+    }
+
+    v15 = [IOSObjectArray arrayWithLength:v14 type:qword_100554840];
+    JavaLangSystem_arraycopyWithId_withInt_withId_withInt_withInt_(self->arcs_, 0, v15, 0, self->arcs_->super.size_);
+    v16 = self->numArcs_;
+    if (v16 < v15->super.size_)
+    {
+      do
+      {
+        IOSObjectArray_SetAndConsume(v15, v16++, [OrgApacheLuceneUtilFstBuilder_Arc alloc]);
+      }
+
+      while (v16 < v15->super.size_);
+    }
+
+    JreStrongAssign(p_arcs, v15);
+    arcs = self->arcs_;
+    numArcs = self->numArcs_;
+  }
+
+  self->numArcs_ = numArcs + 1;
+  size = arcs->super.size_;
+  if (numArcs < 0 || numArcs >= size)
+  {
+    IOSArray_throwOutOfBoundsWithMsg(size, numArcs);
+  }
+
+  v18 = (&arcs->elementType_)[numArcs];
+  if (!v18 || (LODWORD(v18[1].super.isa) = int, objc_storeWeak(&v18[2].super.isa, node), (Weak = objc_loadWeak(&self->owner_)) == 0))
+  {
+    JreThrowNullPointerException();
+  }
+
+  v20 = JreStrongAssign(&v18[5].super.isa, Weak[9]);
+  JreStrongAssign(&v18[4].super.isa, v20);
+  LOBYTE(v18[3].super.isa) = 0;
 }
 
 - (void)replaceLastWithInt:(int)int withOrgApacheLuceneUtilFstBuilder_Node:(id)node withId:(id)id withBoolean:(BOOL)boolean

@@ -339,13 +339,11 @@ LABEL_82:
 
 - (void)dealloc
 {
-  encoderPlan = self->encoderPlan;
   espresso_plan_destroy();
-  encoderCtx = self->encoderCtx;
   espresso_context_destroy();
-  v5.receiver = self;
-  v5.super_class = SCMLImageAnalyzer;
-  [(SCMLImageAnalyzer *)&v5 dealloc];
+  v3.receiver = self;
+  v3.super_class = SCMLImageAnalyzer;
+  [(SCMLImageAnalyzer *)&v3 dealloc];
 }
 
 - (BOOL)loadNetworkForURL:(id)l espressoEngine:(int)engine storageType:(int)type deviceId:(int)id
@@ -356,144 +354,120 @@ LABEL_82:
   if (!context)
   {
     exception = __cxa_allocate_exception(0x10uLL);
-    std::to_string(&v57, engine);
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Could not create espresso context for engine: ", &v57, &v58);
-    v29 = std::string::append(&v58, " and device id: ", 0x10uLL);
-    v30 = *&v29->__r_.__value_.__l.__data_;
-    v59.__r_.__value_.__r.__words[2] = v29->__r_.__value_.__r.__words[2];
-    *&v59.__r_.__value_.__l.__data_ = v30;
-    v29->__r_.__value_.__l.__size_ = 0;
-    v29->__r_.__value_.__r.__words[2] = 0;
-    v29->__r_.__value_.__r.__words[0] = 0;
-    std::to_string(&v56, id);
-    if ((v56.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    std::to_string(&v37, engine);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>("Could not create espresso context for engine: ", &v37, &v38);
+    v16 = std::string::append(&v38, " and device id: ", 0x10uLL);
+    v17 = *&v16->__r_.__value_.__l.__data_;
+    v39.__r_.__value_.__r.__words[2] = v16->__r_.__value_.__r.__words[2];
+    *&v39.__r_.__value_.__l.__data_ = v17;
+    v16->__r_.__value_.__l.__size_ = 0;
+    v16->__r_.__value_.__r.__words[2] = 0;
+    v16->__r_.__value_.__r.__words[0] = 0;
+    std::to_string(&v36, id);
+    if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v31 = &v56;
+      v18 = &v36;
     }
 
     else
     {
-      v31 = v56.__r_.__value_.__r.__words[0];
+      v18 = v36.__r_.__value_.__r.__words[0];
     }
 
-    if ((v56.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v36.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v56.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v36.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v56.__r_.__value_.__l.__size_;
+      size = v36.__r_.__value_.__l.__size_;
     }
 
-    v33 = std::string::append(&v59, v31, size);
-    v34 = *&v33->__r_.__value_.__l.__data_;
-    v60.__r_.__value_.__r.__words[2] = v33->__r_.__value_.__r.__words[2];
-    *&v60.__r_.__value_.__l.__data_ = v34;
-    v33->__r_.__value_.__l.__size_ = 0;
-    v33->__r_.__value_.__r.__words[2] = 0;
-    v33->__r_.__value_.__r.__words[0] = 0;
-    std::runtime_error::runtime_error(exception, &v60);
+    v20 = std::string::append(&v39, v18, size);
+    v21 = *&v20->__r_.__value_.__l.__data_;
+    v40.__r_.__value_.__r.__words[2] = v20->__r_.__value_.__r.__words[2];
+    *&v40.__r_.__value_.__l.__data_ = v21;
+    v20->__r_.__value_.__l.__size_ = 0;
+    v20->__r_.__value_.__r.__words[2] = 0;
+    v20->__r_.__value_.__r.__words[0] = 0;
+    std::runtime_error::runtime_error(exception, &v40);
     __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
   self->encoderPlan = espresso_create_plan();
   path = [lCopy path];
   [path UTF8String];
-  p_encoderNet = &self->encoderNet;
-  v14 = espresso_plan_add_network();
+  v13 = espresso_plan_add_network();
 
-  if (v14)
+  if (v13)
   {
-    v35 = __cxa_allocate_exception(0x10uLL);
-    encoderPlan = self->encoderPlan;
+    v22 = __cxa_allocate_exception(0x10uLL);
     espresso_plan_get_error_info();
-    std::runtime_error::runtime_error(v35, v37);
-    __cxa_throw(v35, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    std::runtime_error::runtime_error(v22, v23);
+    __cxa_throw(v22, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  v15 = self->encoderPlan;
   if (espresso_plan_build())
   {
-    v38 = __cxa_allocate_exception(0x10uLL);
-    v39 = self->encoderPlan;
+    v24 = __cxa_allocate_exception(0x10uLL);
     espresso_plan_get_error_info();
-    std::runtime_error::runtime_error(v38, v40);
-    __cxa_throw(v38, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    std::runtime_error::runtime_error(v24, v25);
+    __cxa_throw(v24, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  memset(&v60, 0, sizeof(v60));
-  memset(&v59, 0, sizeof(v59));
-  plan = p_encoderNet->plan;
-  v17 = *&self->encoderNet.network_index;
+  memset(&v40, 0, sizeof(v40));
+  memset(&v39, 0, sizeof(v39));
   if (c_network_get_input_names())
   {
-    v41 = __cxa_allocate_exception(0x10uLL);
-    v42 = self->encoderPlan;
+    v26 = __cxa_allocate_exception(0x10uLL);
     espresso_plan_get_error_info();
-    std::runtime_error::runtime_error(v41, v43);
-    __cxa_throw(v41, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-  }
-
-  v18 = p_encoderNet->plan;
-  v19 = *&self->encoderNet.network_index;
-  if (*(v60.__r_.__value_.__r.__words[0] + 23) < 0)
-  {
-    v20 = *v60.__r_.__value_.__l.__data_;
+    std::runtime_error::runtime_error(v26, v27);
+    __cxa_throw(v26, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
   if (espresso_network_query_blob_dimensions())
   {
-    v44 = __cxa_allocate_exception(0x10uLL);
-    v45 = self->encoderPlan;
+    v28 = __cxa_allocate_exception(0x10uLL);
     espresso_plan_get_error_info();
-    std::runtime_error::runtime_error(v44, v46);
-    __cxa_throw(v44, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    std::runtime_error::runtime_error(v28, v29);
+    __cxa_throw(v28, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  v21 = p_encoderNet->plan;
-  v22 = *&self->encoderNet.network_index;
   if (espresso_network_bind_buffer())
   {
-    v47 = __cxa_allocate_exception(0x10uLL);
-    v48 = self->encoderPlan;
+    v30 = __cxa_allocate_exception(0x10uLL);
     espresso_plan_get_error_info();
-    std::runtime_error::runtime_error(v47, v49);
-    __cxa_throw(v47, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    std::runtime_error::runtime_error(v30, v31);
+    __cxa_throw(v30, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
   if ([(SCMLImageAnalyzer *)self shouldProcessDetections])
   {
-    v23 = p_encoderNet->plan;
-    v24 = *&self->encoderNet.network_index;
     if (espresso_network_bind_buffer())
     {
-      v50 = __cxa_allocate_exception(0x10uLL);
-      v51 = self->encoderPlan;
+      v32 = __cxa_allocate_exception(0x10uLL);
       espresso_plan_get_error_info();
-      std::runtime_error::runtime_error(v50, v52);
-      __cxa_throw(v50, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      std::runtime_error::runtime_error(v32, v33);
+      __cxa_throw(v32, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
 
-    v25 = p_encoderNet->plan;
-    v26 = *&self->encoderNet.network_index;
     if (espresso_network_bind_buffer())
     {
-      v53 = __cxa_allocate_exception(0x10uLL);
-      v54 = self->encoderPlan;
+      v34 = __cxa_allocate_exception(0x10uLL);
       espresso_plan_get_error_info();
-      std::runtime_error::runtime_error(v53, v55);
-      __cxa_throw(v53, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      std::runtime_error::runtime_error(v34, v35);
+      __cxa_throw(v34, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
     }
   }
 
   self->__espressoEngine = engine;
   self->__espressoDeviceId = id;
   self->__espressoStorageType = type;
-  v58.__r_.__value_.__r.__words[0] = &v59;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v58);
-  v59.__r_.__value_.__r.__words[0] = &v60;
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v59);
+  v38.__r_.__value_.__r.__words[0] = &v39;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v38);
+  v39.__r_.__value_.__r.__words[0] = &v40;
+  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v39);
 
   return 1;
 }
@@ -539,8 +513,8 @@ LABEL_82:
     else if (error)
     {
       path3 = [v12 path];
-      scml::strFromNSString(path3, __p);
-      scml::strCat<char const(&)[38],std::string>("unable to read operating thresholds: ", __p, v24);
+      scml::strFromNSString(__p, path3);
+      scml::strCat<char const(&)[38],std::string>("unable to read operating thresholds: ", v24, __p);
       if (v23 < 0)
       {
         operator delete(__p[0]);
@@ -615,7 +589,7 @@ LABEL_82:
 
 - (void)_extractThresholdForOTGXMain:(id)main
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   mainCopy = main;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   v5 = [mainCopy objectForKeyedSubscript:@"class_thresholds"];
@@ -630,26 +604,26 @@ LABEL_82:
     v6 = 0;
   }
 
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
   v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   obj = v6;
-  v7 = [obj countByEnumeratingWithState:&v64 objects:v69 count:16];
+  v7 = [obj countByEnumeratingWithState:&v63 objects:v68 count:16];
   if (v7)
   {
-    v55 = *v65;
+    v54 = *v64;
     do
     {
-      v57 = v7;
-      for (i = 0; i != v57; ++i)
+      v56 = v7;
+      for (i = 0; i != v56; ++i)
       {
-        if (*v65 != v55)
+        if (*v64 != v54)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v64 + 1) + 8 * i);
+        v9 = *(*(&v63 + 1) + 8 * i);
         v10 = [v9 objectForKeyedSubscript:@"class"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
@@ -701,8 +675,8 @@ LABEL_82:
           isKindOfClass = objc_opt_isKindOfClass();
           if (isKindOfClass)
           {
-            v53 = [v9 objectForKeyedSubscript:@"thresholds"];
-            v6 = [v53 objectForKeyedSubscript:@"balanced"];
+            v52 = [v9 objectForKeyedSubscript:@"thresholds"];
+            v6 = [v52 objectForKeyedSubscript:@"balanced"];
             v19 = v6;
           }
 
@@ -724,7 +698,7 @@ LABEL_82:
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v64 objects:v69 count:16];
+      v7 = [obj countByEnumeratingWithState:&v63 objects:v68 count:16];
     }
 
     while (v7);
@@ -740,37 +714,37 @@ LABEL_82:
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v47 = [mainCopy objectForKeyedSubscript:@"detection_thresholds"];
+      v46 = [mainCopy objectForKeyedSubscript:@"detection_thresholds"];
     }
 
     else
     {
-      v47 = 0;
+      v46 = 0;
     }
 
     dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-    v50 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v62 = 0u;
-    v63 = 0u;
-    v60 = 0u;
+    v49 = objc_alloc_init(MEMORY[0x1E695DF90]);
     v61 = 0u;
-    v54 = v47;
-    v26 = [(NSDictionary *)v54 countByEnumeratingWithState:&v60 objects:v68 count:16];
+    v62 = 0u;
+    v59 = 0u;
+    v60 = 0u;
+    v53 = v46;
+    v26 = [(NSDictionary *)v53 countByEnumeratingWithState:&v59 objects:v67 count:16];
     if (v26)
     {
-      v56 = *v61;
+      v55 = *v60;
       do
       {
-        v58 = v26;
-        for (j = 0; j != v58; ++j)
+        v57 = v26;
+        for (j = 0; j != v57; ++j)
         {
-          if (*v61 != v56)
+          if (*v60 != v55)
           {
-            objc_enumerationMutation(v54);
+            objc_enumerationMutation(v53);
           }
 
-          v28 = *(*(&v60 + 1) + 8 * j);
-          v29 = [v28 objectForKeyedSubscript:{@"class", v47}];
+          v28 = *(*(&v59 + 1) + 8 * j);
+          v29 = [v28 objectForKeyedSubscript:{@"class", v46}];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -840,7 +814,7 @@ LABEL_59:
 
           if (v40)
           {
-            [v50 setObject:v40 forKeyedSubscript:v32];
+            [v49 setObject:v40 forKeyedSubscript:v32];
           }
 
           if (v32)
@@ -851,7 +825,7 @@ LABEL_59:
 LABEL_61:
         }
 
-        v26 = [(NSDictionary *)v54 countByEnumeratingWithState:&v60 objects:v68 count:16];
+        v26 = [(NSDictionary *)v53 countByEnumeratingWithState:&v59 objects:v67 count:16];
       }
 
       while (v26);
@@ -861,11 +835,11 @@ LABEL_61:
     acceptedDetectionOutputIndices = self->_acceptedDetectionOutputIndices;
     self->_acceptedDetectionOutputIndices = v42;
 
-    v44 = [v50 copy];
+    v44 = [v49 copy];
     detectionThresholdByOutputIndex = self->_detectionThresholdByOutputIndex;
     self->_detectionThresholdByOutputIndex = v44;
 
-    v25 = v54;
+    v25 = v53;
   }
 
   else
@@ -876,8 +850,6 @@ LABEL_61:
     v25 = self->_detectionThresholdByOutputIndex;
     self->_detectionThresholdByOutputIndex = 0;
   }
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isSensitive:(id)sensitive sensitivityScore:(id *)score classificationMode:(unint64_t)mode
@@ -1064,28 +1036,28 @@ LABEL_61:
   return v12;
 }
 
-CVPixelBufferRef __64__SCMLImageAnalyzer_generateClassificationScoresForImage_error___block_invoke(uint64_t a1)
+CVPixelBufferRef __64__SCMLImageAnalyzer_generateClassificationScoresForImage_error___block_invoke(void *a1)
 {
   v3 = kCGInterpolationNone;
-  interpolationForScaleMethod(*(a1 + 32), &v3);
-  result = scaledPixelBuffer32BGRAFromCGImage(*(a1 + 56), *(*(a1 + 40) + 24), *(*(a1 + 40) + 32), v3);
-  *(*(*(a1 + 48) + 8) + 24) = result;
+  interpolationForScaleMethod(a1[4], &v3);
+  result = scaledPixelBuffer32BGRAFromCGImage(a1[7], *(a1[5] + 24), *(a1[5] + 32), v3);
+  *(*(a1[6] + 8) + 24) = result;
   return result;
 }
 
-double __64__SCMLImageAnalyzer_generateClassificationScoresForImage_error___block_invoke_78(void *a1)
+double __64__SCMLImageAnalyzer_generateClassificationScoresForImage_error___block_invoke_78(void *a1, const char *a2)
 {
-  v2 = a1[4];
-  v3 = *(*(a1[5] + 8) + 24);
-  v4 = *(a1[6] + 8);
-  v7 = *(v4 + 40);
-  v6 = (v4 + 40);
-  v5 = v7;
-  obj = v7;
-  if (v2)
+  v3 = a1[4];
+  v4 = *(*(a1[5] + 8) + 24);
+  v5 = *(a1[6] + 8);
+  v8 = *(v5 + 40);
+  v7 = (v5 + 40);
+  v6 = v8;
+  obj = v8;
+  if (v3)
   {
-    [v2 _computeOutputForPixelBuffer:v3 error:&obj];
-    objc_storeStrong(v6, obj);
+    objc_msgSend__computeOutputForPixelBuffer_error_(v3, a2, v4, &obj);
+    objc_storeStrong(v7, obj);
     if (*(*(a1[6] + 8) + 40))
     {
       return result;
@@ -1095,22 +1067,22 @@ double __64__SCMLImageAnalyzer_generateClassificationScoresForImage_error___bloc
   }
 
   result = 0.0;
-  v17 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  if (!v5)
+  v17 = 0u;
+  if (!v6)
   {
 LABEL_3:
-    v9 = a1[4];
-    v13[0] = v15;
-    v13[1] = v16;
-    v13[2] = v17;
-    v13[3] = v18;
-    v10 = [v9 _processNetworkOutput:v13];
-    v11 = *(a1[7] + 8);
-    v12 = *(v11 + 40);
-    *(v11 + 40) = v10;
+    v10 = a1[4];
+    v14[0] = v16;
+    v14[1] = v17;
+    v14[2] = v18;
+    v14[3] = v19;
+    v11 = [v10 _processNetworkOutput:v14];
+    v12 = *(a1[7] + 8);
+    v13 = *(v12 + 40);
+    *(v12 + 40) = v11;
   }
 
   return result;
@@ -1287,62 +1259,56 @@ __CVBuffer *__70__SCMLImageAnalyzer_generateClassificationScoresForPixelBuffer_e
   return result;
 }
 
-double __70__SCMLImageAnalyzer_generateClassificationScoresForPixelBuffer_error___block_invoke_81(void *a1)
+double __70__SCMLImageAnalyzer_generateClassificationScoresForPixelBuffer_error___block_invoke_81(void *a1, const char *a2)
 {
-  v2 = a1[4];
-  v3 = *(*(a1[6] + 8) + 24);
-  v4 = *(a1[7] + 8);
-  v6 = *(v4 + 40);
-  v5 = (v4 + 40);
-  obj = v6;
-  if (v2)
+  v3 = a1[4];
+  v4 = *(*(a1[6] + 8) + 24);
+  v5 = *(a1[7] + 8);
+  v7 = *(v5 + 40);
+  v6 = (v5 + 40);
+  obj = v7;
+  if (v3)
   {
-    [v2 _computeOutputForPixelBuffer:v3 error:&obj];
-    objc_storeStrong(v5, obj);
+    objc_msgSend__computeOutputForPixelBuffer_error_(v3, a2, v4, &obj);
+    objc_storeStrong(v6, obj);
   }
 
   else
   {
-    v15 = 0u;
     v16 = 0u;
-    v13 = 0u;
+    v17 = 0u;
     v14 = 0u;
+    v15 = 0u;
   }
 
-  v7 = *(a1[5] + 8);
-  result = *&v13;
-  v9 = v14;
-  v11 = v15;
-  v10 = v16;
-  v7[3] = v13;
-  v7[4] = v9;
-  v7[5] = v11;
-  v7[6] = v10;
+  v8 = *(a1[5] + 8);
+  result = *&v14;
+  v10 = v15;
+  v12 = v16;
+  v11 = v17;
+  v8[3] = v14;
+  v8[4] = v10;
+  v8[5] = v12;
+  v8[6] = v11;
   return result;
 }
 
 - (NetworkOutputs)_computeOutputForPixelBuffer:(SEL)buffer error:(__CVBuffer *)error
 {
-  p_encoderNet = &self->encoderNet;
-  plan = self->encoderNet.plan;
-  v9 = *&p_encoderNet->network_index;
   if (espresso_network_bind_cvpixelbuffer())
   {
     exception = __cxa_allocate_exception(0x10uLL);
-    encoderPlan = self->encoderPlan;
     espresso_plan_get_error_info();
-    std::runtime_error::runtime_error(exception, v17);
+    std::runtime_error::runtime_error(exception, v12);
     __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
-  v10 = self->encoderPlan;
   if (espresso_plan_execute_sync())
   {
-    v18 = __cxa_allocate_exception(0x10uLL);
-    v19 = self->encoderPlan;
+    v13 = __cxa_allocate_exception(0x10uLL);
     espresso_plan_get_error_info();
-    std::runtime_error::runtime_error(v18, v20);
-    __cxa_throw(v18, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    std::runtime_error::runtime_error(v13, v14);
+    __cxa_throw(v13, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
   }
 
   if ([(SCMLImageAnalyzer *)self shouldProcessDetections])
@@ -1351,8 +1317,8 @@ double __70__SCMLImageAnalyzer_generateClassificationScoresForPixelBuffer_error_
 
   else
   {
-    v23 = 0uLL;
-    v24 = 0;
+    v17 = 0uLL;
+    v18 = 0;
   }
 
   result = [(SCMLImageAnalyzer *)self shouldProcessDetections];
@@ -1362,46 +1328,46 @@ double __70__SCMLImageAnalyzer_generateClassificationScoresForPixelBuffer_error_
 
   else
   {
-    v21 = 0uLL;
-    v22 = 0;
+    v15 = 0uLL;
+    v16 = 0;
   }
 
   if (self->leafProbabilities.sequence_length != 1)
   {
-    v13 = "buf->sequence_length == 1";
-    v14 = 491;
+    v9 = "buf->sequence_length == 1";
+    v10 = 491;
     goto LABEL_18;
   }
 
   if (self->leafProbabilities.batch_number != 1)
   {
-    v13 = "buf->batch_number == 1";
-    v14 = 492;
+    v9 = "buf->batch_number == 1";
+    v10 = 492;
     goto LABEL_18;
   }
 
   if (self->leafProbabilities.height != 1)
   {
-    v13 = "buf->height == 1";
-    v14 = 493;
+    v9 = "buf->height == 1";
+    v10 = 493;
     goto LABEL_18;
   }
 
   if (self->leafProbabilities.width != 1)
   {
-    v13 = "buf->width == 1";
-    v14 = 494;
+    v9 = "buf->width == 1";
+    v10 = 494;
 LABEL_18:
-    __assert_rtn("tensorViewC", "SCMLImageAnalyzer.mm", v14, v13);
+    __assert_rtn("tensorViewC", "SCMLImageAnalyzer.mm", v10, v9);
   }
 
   channels = self->leafProbabilities.channels;
   retstr->var0.var0 = self->leafProbabilities.data;
   retstr->var0.var1.var0[0] = channels;
-  *&retstr->var1.var0 = v23;
-  retstr->var1.var1.var0[2] = v24;
-  *&retstr->var2.var0 = v21;
-  retstr->var2.var1.var0[2] = v22;
+  *&retstr->var1.var0 = v17;
+  retstr->var1.var1.var0[2] = v18;
+  *&retstr->var2.var0 = v15;
+  retstr->var2.var1.var0[2] = v16;
   return result;
 }
 
@@ -1421,7 +1387,7 @@ LABEL_18:
   v11[0] = a4->var2.var0;
   v11[1] = v8;
   v12 = v9;
-  SCML::topDetections(&var0, v11, 100, retstr);
+  SCML::topDetections(&var0, v11, 100, &retstr->var0);
   result = __p[0];
   if (__p[0])
   {
@@ -1460,29 +1426,29 @@ LABEL_18:
 
 - (id)_processNetworkOutput:(NetworkOutputs *)output
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
-  v44 = 0u;
+  v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   acceptedOutputIndices = [(SCMLImageAnalyzer *)self acceptedOutputIndices];
   allKeys = [acceptedOutputIndices allKeys];
 
-  v7 = [allKeys countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v7 = [allKeys countByEnumeratingWithState:&v38 objects:v42 count:16];
   if (v7)
   {
-    v8 = *v44;
+    v8 = *v39;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v44 != v8)
+        if (*v39 != v8)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v10 = *(*(&v43 + 1) + 8 * i);
+        v10 = *(*(&v38 + 1) + 8 * i);
         v11 = MEMORY[0x1E696AD98];
         *&v12 = output->var0.var0[[v10 intValue]];
         v13 = [v11 numberWithFloat:v12];
@@ -1491,75 +1457,57 @@ LABEL_18:
         [dictionary setObject:v13 forKeyedSubscript:v15];
       }
 
-      v7 = [allKeys countByEnumeratingWithState:&v43 objects:v47 count:16];
+      v7 = [allKeys countByEnumeratingWithState:&v38 objects:v42 count:16];
     }
 
     while (v7);
   }
 
-  v38 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v34 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v16 = [dictionary copy];
-  [v38 setObject:v16 forKeyedSubscript:SCMLHandlerImageClassificationScores[0]];
+  [v34 setObject:v16 forKeyedSubscript:SCMLHandlerImageClassificationScores[0]];
 
   if ([(SCMLImageAnalyzer *)self shouldProcessDetections])
   {
-    v17 = *&output->var1.var0;
-    v40[0] = output->var0;
-    v40[1] = v17;
-    v18 = *output->var2.var1.var0;
-    v40[2] = *&output->var1.var1.var0[2];
-    v40[3] = v18;
-    [(SCMLImageAnalyzer *)self _processDetectionOutput:v40];
-    v19 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v20 = __p;
-    v21 = v42;
-    if (__p != v42)
+    objc_msgSend__processDetectionOutput_(self);
+    v17 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    for (j = __p; j != v37; j += 10)
     {
-      do
+      acceptedDetectionOutputIndices = [(SCMLImageAnalyzer *)self acceptedDetectionOutputIndices];
+      v20 = [MEMORY[0x1E696AD98] numberWithInt:*(j + 1)];
+      v21 = [acceptedDetectionOutputIndices objectForKeyedSubscript:v20];
+
+      if (v21)
       {
-        acceptedDetectionOutputIndices = [(SCMLImageAnalyzer *)self acceptedDetectionOutputIndices];
-        v23 = [MEMORY[0x1E696AD98] numberWithInt:*(v20 + 1)];
-        v24 = [acceptedDetectionOutputIndices objectForKeyedSubscript:v23];
+        v22 = *j;
+        detectionThresholdByOutputIndex = [(SCMLImageAnalyzer *)self detectionThresholdByOutputIndex];
+        v24 = [MEMORY[0x1E696AD98] numberWithInt:*(j + 1)];
+        v25 = [detectionThresholdByOutputIndex objectForKeyedSubscript:v24];
+        [v25 floatValue];
+        v27 = v22 < v26;
 
-        if (v24)
+        if (!v27)
         {
-          v25 = *v20;
-          detectionThresholdByOutputIndex = [(SCMLImageAnalyzer *)self detectionThresholdByOutputIndex];
-          v27 = [MEMORY[0x1E696AD98] numberWithInt:*(v20 + 1)];
-          v28 = [detectionThresholdByOutputIndex objectForKeyedSubscript:v27];
-          [v28 floatValue];
-          v30 = v25 < v29;
+          v28 = +[SCMLImageLabelCoder instance];
+          v29 = [v28 encodeToP1:v21];
 
-          if (!v30)
-          {
-            v31 = +[SCMLImageLabelCoder instance];
-            v32 = [v31 encodeToP1:v24];
-
-            v33 = [SCMLDetectionBox alloc];
-            *&v34 = *v20;
-            v35 = [(SCMLDetectionBox *)v33 initWithScore:v32 label:v34 rect:*(v20 + 1), *(v20 + 2), *(v20 + 3), *(v20 + 4)];
-            [v19 addObject:v35];
-          }
+          v30 = [SCMLDetectionBox alloc];
+          *&v31 = *j;
+          v32 = [(SCMLDetectionBox *)v30 initWithScore:v29 label:v31 rect:*(j + 1), *(j + 2), *(j + 3), *(j + 4)];
+          [v17 addObject:v32];
         }
-
-        v20 += 10;
       }
-
-      while (v20 != v21);
     }
 
-    [v38 setObject:v19 forKeyedSubscript:SCMLHandlerImageDetections[0]];
+    [v34 setObject:v17 forKeyedSubscript:SCMLHandlerImageDetections[0]];
 
     if (__p)
     {
-      v42 = __p;
       operator delete(__p);
     }
   }
 
-  v36 = *MEMORY[0x1E69E9840];
-
-  return v38;
+  return v34;
 }
 
 + (id)getOperatingPointDataForClassName:(id)name modelURL:(id)l error:(id *)error
@@ -1585,29 +1533,23 @@ LABEL_18:
 
 - (void)loadNetworkForURL:(const std::runtime_error *)a1 espressoEngine:storageType:deviceId:.cold.1(const std::runtime_error *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   std::runtime_error::what(a1);
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_computeOutputForPixelBuffer:(const std::runtime_error *)a1 error:.cold.1(const std::runtime_error *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   std::runtime_error::what(a1);
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 + (void)getOperatingPointDataForClassName:(const std::runtime_error *)a1 modelURL:error:.cold.1(const std::runtime_error *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
   std::runtime_error::what(a1);
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

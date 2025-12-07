@@ -478,7 +478,7 @@ void __64__UIDictationSerializableResults_initWithArrayOfArrayOfStrings___block_
       }
 
       tokens = [v14 tokens];
-      v17 = [UIDictationController serializedInterpretationFromTokens:tokens transform:[(UIDictationSerializableResults *)self transform] capitalization:v15];
+      v17 = [UIDictationController serializedInterpretationFromTokens:tokens transform:objc_msgSend_transform(self) capitalization:v15];
 
       if (v9 && (([v14 removeSpaceBefore] | removeSpaceAfter) & 1) == 0)
       {
@@ -554,7 +554,7 @@ void __64__UIDictationSerializableResults_initWithArrayOfArrayOfStrings___block_
       }
 
       tokens = [v16 tokens];
-      v19 = [UIDictationController serializedInterpretationFromTokens:tokens transform:[(UIDictationSerializableResults *)self transform] capitalization:v17];
+      v19 = [UIDictationController serializedInterpretationFromTokens:tokens transform:objc_msgSend_transform(self) capitalization:v17];
 
       if (v11 && (([v16 removeSpaceBefore] | removeSpaceAfter) & 1) == 0)
       {
@@ -683,7 +683,7 @@ LABEL_15:
       }
 
       tokens = [v13 tokens];
-      v30 = [UIDictationController serializedInterpretationFromTokens:tokens transform:[(UIDictationSerializableResults *)self transform] capitalization:v28];
+      v30 = [UIDictationController serializedInterpretationFromTokens:tokens transform:objc_msgSend_transform(self) capitalization:v28];
 
       if (v7 && (([v13 removeSpaceBefore] | removeSpaceAfter) & 1) == 0)
       {
@@ -823,7 +823,7 @@ void __54__UIDictationSerializableResults_dictationPhraseArray__block_invoke(uin
   }
 
   v11 = [v9 tokens];
-  v12 = +[UIDictationController serializedInterpretationFromTokens:transform:capitalization:](UIDictationController, "serializedInterpretationFromTokens:transform:capitalization:", v11, [*(a1 + 32) transform], v10);
+  v12 = [UIDictationController serializedInterpretationFromTokens:v11 transform:objc_msgSend_transform(*(a1 + 32)) capitalization:v10];
 
   v13 = [v5 interpretations];
   if ([v13 count] < 2)
@@ -922,7 +922,7 @@ void __54__UIDictationSerializableResults_dictationPhraseArray__block_invoke_2(u
     *(*(*(a1 + 72) + 8) + 24) &= [v5 removeSpaceAfter];
     v6 = [v5 tokens];
 
-    v7 = +[UIDictationController serializedInterpretationFromTokens:transform:capitalization:](UIDictationController, "serializedInterpretationFromTokens:transform:capitalization:", v6, [*(a1 + 32) transform], *(a1 + 88));
+    v7 = [UIDictationController serializedInterpretationFromTokens:v6 transform:objc_msgSend_transform(*(a1 + 32)) capitalization:*(a1 + 88)];
 
     [*(a1 + 40) addObject:v7];
   }

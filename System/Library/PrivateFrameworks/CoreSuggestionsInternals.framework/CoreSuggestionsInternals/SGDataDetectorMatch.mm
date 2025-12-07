@@ -609,7 +609,7 @@ LABEL_13:
   return v6 & 1;
 }
 
-BOOL __45__SGDataDetectorMatch_stringHasDatesOrTimes___block_invoke(uint64_t a1)
+BOOL __45__SGDataDetectorMatch_stringHasDatesOrTimes___block_invoke(uint64_t a1, uint64_t a2)
 {
   Category = DDResultGetCategory();
   if (Category == 4)
@@ -677,17 +677,17 @@ BOOL __45__SGDataDetectorMatch_stringHasDatesOrTimes___block_invoke(uint64_t a1)
 void __87__SGDataDetectorMatch__detectionsInPlainText_withEligibleRegions_ddSignature_baseDate___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = a1;
-  v60 = *MEMORY[0x277D85DE8];
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __87__SGDataDetectorMatch__detectionsInPlainText_withEligibleRegions_ddSignature_baseDate___block_invoke_2;
-  v50[3] = &unk_27894CB68;
+  v58 = *MEMORY[0x277D85DE8];
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = __87__SGDataDetectorMatch__detectionsInPlainText_withEligibleRegions_ddSignature_baseDate___block_invoke_2;
+  v48[3] = &unk_27894CB68;
   v6 = *(a1 + 56);
-  v53 = *(a1 + 64);
+  v51 = *(a1 + 64);
   v7 = *(a1 + 32);
-  v51 = *(a1 + 40);
-  v52 = *(v5 + 48);
-  SGDataDetectorsScanRange(v6, v7, a2, a3, 3, v50);
+  v49 = *(a1 + 40);
+  v50 = *(v5 + 48);
+  SGDataDetectorsScanRange(v6, v7, a2, a3, 3, v48);
   v8 = *(v5 + 64);
   if (v8 && *(v5 + 72))
   {
@@ -710,158 +710,154 @@ void __87__SGDataDetectorMatch__detectionsInPlainText_withEligibleRegions_ddSign
         v16 = 0;
         v17 = 0;
         v18 = 0;
-        v19 = *MEMORY[0x277D04160];
-        v44 = v5;
-        v45 = v14;
-        v43 = v15;
+        v42 = v5;
+        v43 = v14;
+        v41 = v15;
         do
         {
-          v20 = objc_opt_new();
+          v19 = objc_opt_new();
           CFArrayGetValueAtIndex(*(v5 + 64), v18);
           SubResults = DDResultGetSubResults();
           if (SubResults)
           {
-            v22 = SubResults;
-            v23 = CFArrayGetCount(SubResults);
-            if (v23 > v17)
+            v21 = SubResults;
+            v22 = CFArrayGetCount(SubResults);
+            if (v22 > v17)
             {
-              v17 = v23;
+              v17 = v22;
               v16 = v18;
             }
 
-            if (v23 >= 1)
+            if (v22 >= 1)
             {
-              v24 = v23;
-              v25 = v17;
-              v26 = v16;
-              for (i = 0; i != v24; ++i)
+              v23 = v22;
+              v24 = v17;
+              v25 = v16;
+              for (i = 0; i != v23; ++i)
               {
-                CFArrayGetValueAtIndex(v22, i);
+                CFArrayGetValueAtIndex(v21, i);
                 if (DDResultHasType())
                 {
                   *buf = 0;
                   if (DDResultCopyPhoneValue())
                   {
-                    v28 = *buf;
+                    v27 = *buf;
                     if (*buf)
                     {
-                      v29 = SGNormalizePhoneNumber();
-                      [v20 addObject:v29];
+                      v28 = SGNormalizePhoneNumber();
+                      [v19 addObject:v28];
                     }
                   }
                 }
               }
 
-              v16 = v26;
-              v17 = v25;
-              v5 = v44;
-              v14 = v45;
-              v15 = v43;
+              v16 = v25;
+              v17 = v24;
+              v5 = v42;
+              v14 = v43;
+              v15 = v41;
             }
           }
 
-          [v15 addObject:v20];
+          [v15 addObject:v19];
 
           ++v18;
         }
 
         while (v18 != v14);
-        v30 = v17;
-        v48 = 0u;
-        v49 = 0u;
+        v29 = v17;
         v46 = 0u;
         v47 = 0u;
-        v31 = v15;
-        v32 = [v31 countByEnumeratingWithState:&v46 objects:v59 count:16];
-        if (v32)
+        v44 = 0u;
+        v45 = 0u;
+        v30 = v15;
+        v31 = [v30 countByEnumeratingWithState:&v44 objects:v57 count:16];
+        if (v31)
         {
-          v33 = v32;
-          v34 = 0;
-          v35 = *v47;
+          v32 = v31;
+          v33 = 0;
+          v34 = *v45;
           do
           {
-            for (j = 0; j != v33; ++j)
+            for (j = 0; j != v32; ++j)
             {
-              if (*v47 != v35)
+              if (*v45 != v34)
               {
-                objc_enumerationMutation(v31);
+                objc_enumerationMutation(v30);
               }
 
-              if (v34)
+              if (v33)
               {
-                [v34 intersectSet:*(*(&v46 + 1) + 8 * j)];
+                [v33 intersectSet:*(*(&v44 + 1) + 8 * j)];
               }
 
               else
               {
-                v34 = [*(*(&v46 + 1) + 8 * j) mutableCopy];
+                v33 = [*(*(&v44 + 1) + 8 * j) mutableCopy];
               }
             }
 
-            v33 = [v31 countByEnumeratingWithState:&v46 objects:v59 count:16];
+            v32 = [v30 countByEnumeratingWithState:&v44 objects:v57 count:16];
           }
 
-          while (v33);
+          while (v32);
         }
 
         else
         {
-          v34 = 0;
+          v33 = 0;
         }
 
-        if ([v34 count] && v30 >= 1)
+        if (objc_msgSend_count(v33) && v29 >= 1)
         {
-          v37 = sgLogHandle();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+          v36 = sgLogHandle();
+          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
           {
             *buf = 67109632;
-            *&buf[4] = v45;
+            *&buf[4] = v43;
+            v53 = 1024;
+            v54 = v16;
             v55 = 1024;
-            v56 = v16;
-            v57 = 1024;
-            v58 = v30;
-            _os_log_debug_impl(&dword_231E60000, v37, OS_LOG_TYPE_DEBUG, "Found %i DD sigs for same person. Using sig %i with %i subresults", buf, 0x14u);
+            v56 = v29;
+            _os_log_debug_impl(&dword_231E60000, v36, OS_LOG_TYPE_DEBUG, "Found %i DD sigs for same person. Using sig %i with %i subresults", buf, 0x14u);
           }
 
-          v38 = *(v5 + 72);
+          v37 = *(v5 + 72);
           CFArrayGetValueAtIndex(*(v5 + 64), v16);
-          v39 = DDResultGetRange();
-          *v38 = SGRangeFromCFRange(v39, v40);
-          v38[1] = v41;
+          v38 = DDResultGetRange();
+          *v37 = SGRangeFromCFRange(v38, v39);
+          v37[1] = v40;
         }
       }
     }
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __87__SGDataDetectorMatch__detectionsInPlainText_withEligibleRegions_ddSignature_baseDate___block_invoke_2(uint64_t a1, const void *a2)
 {
-  v4 = *MEMORY[0x277D04170];
   if (DDResultHasType())
   {
-    v5 = *(a1 + 48);
-    if (v5)
+    v4 = *(a1 + 48);
+    if (v4)
     {
-      CFArrayAppendValue(v5, a2);
+      CFArrayAppendValue(v4, a2);
     }
 
     SubResults = DDResultGetSubResults();
     if (SubResults)
     {
-      v7 = SubResults;
+      v6 = SubResults;
       Count = CFArrayGetCount(SubResults);
       if (Count >= 1)
       {
-        v9 = Count;
-        for (i = 0; i != v9; ++i)
+        v8 = Count;
+        for (i = 0; i != v8; ++i)
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(v7, i);
-          v12 = matchFromSimpleDDResult(ValueAtIndex, *(a1 + 32));
-          if (v12)
+          ValueAtIndex = CFArrayGetValueAtIndex(v6, i);
+          v11 = matchFromSimpleDDResult(ValueAtIndex, *(a1 + 32));
+          if (v11)
           {
-            [*(a1 + 40) coalesceAddress:ValueAtIndex orAppendMatch:v12];
+            [*(a1 + 40) coalesceAddress:ValueAtIndex orAppendMatch:v11];
           }
         }
       }
@@ -870,10 +866,10 @@ uint64_t __87__SGDataDetectorMatch__detectionsInPlainText_withEligibleRegions_dd
 
   else
   {
-    v13 = matchFromSimpleDDResult(a2, *(a1 + 32));
-    if (v13)
+    v12 = matchFromSimpleDDResult(a2, *(a1 + 32));
+    if (v12)
     {
-      [*(a1 + 40) coalesceAddress:a2 orAppendMatch:v13];
+      [*(a1 + 40) coalesceAddress:a2 orAppendMatch:v12];
     }
   }
 
@@ -963,66 +959,63 @@ uint64_t __87__SGDataDetectorMatch__detectionsInPlainText_withEligibleRegions_dd
 
 + (BOOL)partialDateForDataDetectorResult:(__DDResult *)result
 {
-  v3 = *MEMORY[0x277D040B0];
   if (DDResultHasType())
   {
-    v4 = *MEMORY[0x277D040A8];
     DDResultGetSubresultWithType();
   }
 
-  v5 = CFStringCreateWithCString(0, "PartialDate", 0x8000100u);
-  v6 = CFStringCreateWithCString(0, "RelativeDayOfWeek", 0x8000100u);
-  v8 = 1;
+  v3 = CFStringCreateWithCString(0, "PartialDate", 0x8000100u);
+  v4 = CFStringCreateWithCString(0, "RelativeDayOfWeek", 0x8000100u);
+  v5 = 1;
   if (!DDResultGetSubresultWithType() && !DDResultGetSubresultWithType())
   {
-    v7 = *MEMORY[0x277D040A8];
     DDResultGetSubresultWithType();
     if (!DDResultGetSubresultWithType())
     {
-      v8 = 0;
+      v5 = 0;
     }
   }
 
-  CFRelease(v5);
-  CFRelease(v6);
-  return v8;
+  CFRelease(v3);
+  CFRelease(v4);
+  return v5;
 }
 
 + (BOOL)inferredDateForDataDetectorResult:(__DDResult *)result
 {
-  v3 = CFTimeZoneCopyDefault();
+  v4 = CFTimeZoneCopyDefault();
   if (calendarsAndFormatters_onceToken != -1)
   {
     dispatch_once(&calendarsAndFormatters_onceToken, &__block_literal_global_9187);
   }
 
-  v4 = calendarsAndFormatters_result_0;
+  v5 = calendarsAndFormatters_result_0;
   distantPast = [MEMORY[0x277CBEAA8] distantPast];
-  v6 = [v4 components:28 fromDate:distantPast];
-  v7 = SGDataDetectorsGetDate();
-  CFRelease(v3);
-  if (v7)
+  v7 = [v5 components:28 fromDate:distantPast];
+  v8 = SGDataDetectorsGetDate(result, distantPast, v4);
+  CFRelease(v4);
+  if (v8)
   {
-    v8 = [v4 components:28 fromDate:v7];
-    year = [v8 year];
-    if (year == [v6 year] && (v10 = objc_msgSend(v8, "month"), v10 == objc_msgSend(v6, "month")))
+    v9 = [v5 components:28 fromDate:v8];
+    year = [v9 year];
+    if (year == [v7 year] && (v11 = objc_msgSend(v9, "month"), v11 == objc_msgSend(v7, "month")))
     {
-      v11 = [v8 day];
-      v12 = v11 == [v6 day];
+      v12 = [v9 day];
+      v13 = v12 == [v7 day];
     }
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 @end

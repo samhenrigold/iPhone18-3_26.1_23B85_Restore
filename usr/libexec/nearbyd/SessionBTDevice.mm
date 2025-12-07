@@ -13,18 +13,18 @@
   v6 = v5;
   v12.receiver = self;
   v12.super_class = SessionBTDevice;
-  v13[0] = addr;
+  addrCopy = addr;
   v9 = [(SessionBTDevice *)&v12 init];
   if (v9)
   {
     v11 = sub_100005288();
-    stdCopy = v13;
-    v13[1] = &v11;
-    sub_100020BD0(&v9->uwbAddrs.__table_.__bucket_list_.__ptr_, v13);
+    stdCopy = &addrCopy;
+    v14 = &v11;
+    sub_100020BD0(v9 + 2, &addrCopy, &unk_100548C50, &stdCopy, &v14);
     stdCopy = std;
-    *(sub_10002106C(&v9->ratePerClient.__table_.__bucket_list_.__ptr_, std) + 10) = v6;
-    v9->ticketId = d;
-    v9->_isRunning = 0;
+    *(sub_10002106C(v9 + 7, std, &unk_100548C50, &stdCopy, &v14) + 10) = v6;
+    *(v9 + 24) = d;
+    *(v9 + 96) = 0;
   }
 
   return v9;
@@ -34,7 +34,8 @@
 {
   if (v4 || !sub_100021574(&self->ratePerClient.__table_.__bucket_list_.__ptr_, std))
   {
-    *(sub_10002106C(&self->ratePerClient.__table_.__bucket_list_.__ptr_, std) + 10) = rate;
+    stdCopy = std;
+    *(sub_10002106C(&self->ratePerClient.__table_.__bucket_list_.__ptr_, std, &unk_100548C50, &stdCopy, &v8) + 10) = rate;
   }
 }
 

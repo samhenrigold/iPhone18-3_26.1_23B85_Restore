@@ -756,8 +756,8 @@ void __88__HROnboardingElectrocardiogramSetupCompleteViewController__setUpElectr
       _os_log_impl(&dword_2521E7000, v5, OS_LOG_TYPE_DEFAULT, "[%@]: Stopping query for new electrocardiograms", v10, 0xCu);
     }
 
-    delegate = [(HROnboardingElectrocardiogramSetupCompleteViewController *)self delegate];
-    healthStore = [delegate healthStore];
+    v7 = [(HROnboardingElectrocardiogramSetupCompleteViewController *)self delegate:*v10];
+    healthStore = [v7 healthStore];
     electrocardiogramQuery2 = [(HROnboardingElectrocardiogramSetupCompleteViewController *)self electrocardiogramQuery];
     [healthStore stopQuery:electrocardiogramQuery2];
 
@@ -798,7 +798,7 @@ void __88__HROnboardingElectrocardiogramSetupCompleteViewController__setUpElectr
   v2 = a2;
   v3 = objc_opt_class();
   v4 = OUTLINED_FUNCTION_0_1(v3);
-  OUTLINED_FUNCTION_1_1(&dword_2521E7000, v5, v6, "[%@]: Error fetching electrocardiograms during on-boarding: %@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_1_1(&dword_2521E7000, v5, v6, "[%@]: Error fetching electrocardiograms during on-boarding: %@", v7, v8, v9, v10);
 }
 
 void __88__HROnboardingElectrocardiogramSetupCompleteViewController__setUpElectrocardiogramQuery__block_invoke_2_348_cold_1(uint64_t a1, void *a2)
@@ -807,7 +807,7 @@ void __88__HROnboardingElectrocardiogramSetupCompleteViewController__setUpElectr
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = objc_opt_class();
   v6 = OUTLINED_FUNCTION_0_1(v5);
-  OUTLINED_FUNCTION_1_1(&dword_2521E7000, v7, v8, "[%@]: Error fetching electrocardiograms during on-boarding: %@", v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_1_1(&dword_2521E7000, v7, v8, "[%@]: Error fetching electrocardiograms during on-boarding: %@", v9, v10, v11, v12);
 }
 
 @end

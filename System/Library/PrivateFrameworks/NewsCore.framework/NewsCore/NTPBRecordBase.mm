@@ -1,11 +1,11 @@
 @interface NTPBRecordBase
-- (BOOL)hasExpiredAssetURLs;
-- (BOOL)needsAssetURLRefresh;
+- (uint64_t)hasExpiredAssetURLs;
+- (uint64_t)needsAssetURLRefresh;
 @end
 
 @implementation NTPBRecordBase
 
-- (BOOL)needsAssetURLRefresh
+- (uint64_t)needsAssetURLRefresh
 {
   selfCopy = self;
   if (self)
@@ -29,7 +29,7 @@
   return selfCopy;
 }
 
-- (BOOL)hasExpiredAssetURLs
+- (uint64_t)hasExpiredAssetURLs
 {
   selfCopy = self;
   if (self)

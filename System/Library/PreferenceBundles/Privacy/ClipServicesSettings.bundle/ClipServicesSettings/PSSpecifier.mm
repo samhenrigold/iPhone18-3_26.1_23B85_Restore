@@ -58,15 +58,16 @@
   cps_bundleIdentifier = [(PSSpecifier *)self cps_bundleIdentifier];
   if ([cps_bundleIdentifier length])
   {
-    v7 = 0;
-    v3 = [[LSApplicationRecord alloc] initWithBundleIdentifier:cps_bundleIdentifier allowPlaceholder:0 error:&v7];
-    v4 = v7;
+    v9 = 0;
+    v3 = [[LSApplicationRecord alloc] initWithBundleIdentifier:cps_bundleIdentifier allowPlaceholder:0 error:&v9];
+    v4 = v9;
+    v6 = v4;
     if (v4)
     {
-      v5 = sub_59B0();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v7 = sub_59B0(v4, v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        sub_A370(cps_bundleIdentifier, v5, v4);
+        sub_A370(cps_bundleIdentifier, v7, v6);
       }
     }
   }

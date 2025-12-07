@@ -7,25 +7,18 @@ id SOClockAlarmCreateFromMTAlarm(void *a1)
     v3 = [v1 sound];
     v4 = [v3 toneIdentifier];
 
-    if (!v4)
+    v9 = 0;
+    if (v4)
     {
-      goto LABEL_5;
-    }
+      v5 = [getTLToneManagerClass() sharedToneManager];
+      v6 = [v1 sound];
+      v7 = [v6 toneIdentifier];
+      v8 = [v5 _hasUnderlyingPlaybackArchiveForToneIdentifier:v7];
 
-    v5 = [getTLToneManagerClass() sharedToneManager];
-    v6 = [v1 sound];
-    v7 = [v6 toneIdentifier];
-    v8 = [v5 _hasUnderlyingPlaybackArchiveForToneIdentifier:v7];
-
-    if (v8)
-    {
-      v9 = 1;
-    }
-
-    else
-    {
-LABEL_5:
-      v9 = 0;
+      if (v8)
+      {
+        v9 = 1;
+      }
     }
 
     v10 = MEMORY[0x277CEF1E8];
@@ -109,39 +102,39 @@ void *__ToneLibraryLibrary_block_invoke()
 
 id SOClockAlarmCreateFromMTAlarms(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 count];
   if (v2)
   {
     v3 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v2];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v4 = v1;
-    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v14;
+      v7 = *v13;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = SOClockAlarmCreateFromMTAlarm(*(*(&v13 + 1) + 8 * i));
+          v9 = SOClockAlarmCreateFromMTAlarm(*(*(&v12 + 1) + 8 * i));
           if (v9)
           {
-            [v3 addObject:{v9, v13}];
+            [v3 addObject:{v9, v12}];
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v6);
@@ -162,8 +155,6 @@ id SOClockAlarmCreateFromMTAlarms(void *a1)
   {
     v10 = MEMORY[0x277CBEBF8];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -192,39 +183,39 @@ void sub_268592110(_Unwind_Exception *a1)
 
 id _SOClockAlarmObserverGetAlarmIDsFromAlarms(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 count];
   if (v2)
   {
     v3 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v2];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v4 = v1;
-    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v14;
+      v7 = *v13;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = [*(*(&v13 + 1) + 8 * i) alarmID];
+          v9 = [*(*(&v12 + 1) + 8 * i) alarmID];
           if (v9)
           {
             [v3 addObject:v9];
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v6);
@@ -246,12 +237,10 @@ id _SOClockAlarmObserverGetAlarmIDsFromAlarms(void *a1)
     v10 = MEMORY[0x277CBEBF8];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
-uint64_t SOClockTimerGetTimerStateFromMTTimer(void *a1)
+char *SOClockTimerGetTimerStateFromMTTimer(void *a1)
 {
   result = [a1 state];
   if ((result - 1) >= 3)
@@ -351,39 +340,39 @@ void __SOClockTimerCreateFromMTTimer_block_invoke(uint64_t a1, void *a2)
 
 id SOClockTimerCreateFromMTTimers(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 count];
   if (v2)
   {
     v3 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v2];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v4 = v1;
-    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v14;
+      v7 = *v13;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = SOClockTimerCreateFromMTTimer(*(*(&v13 + 1) + 8 * i));
+          v9 = SOClockTimerCreateFromMTTimer(*(*(&v12 + 1) + 8 * i));
           if (v9)
           {
-            [v3 addObject:{v9, v13}];
+            [v3 addObject:{v9, v12}];
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v6);
@@ -404,8 +393,6 @@ id SOClockTimerCreateFromMTTimers(void *a1)
   {
     v10 = MEMORY[0x277CBEBF8];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -511,33 +498,33 @@ LABEL_12:
 
 uint64_t SOAlarmRepeatScheduleGetFromNames(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if ([v1 count])
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
-    v13 = v1;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    v12 = v1;
     v2 = v1;
-    v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v3)
     {
       v4 = v3;
       v5 = 0;
-      v6 = *v15;
+      v6 = *v14;
       do
       {
         v7 = 0;
         do
         {
-          if (*v15 != v6)
+          if (*v14 != v6)
           {
             objc_enumerationMutation(v2);
           }
 
-          v8 = *(*(&v14 + 1) + 8 * v7);
+          v8 = *(*(&v13 + 1) + 8 * v7);
           if ([v8 length])
           {
             if (_SOAlarmRepeatScheduleGetFromName_onceToken != -1)
@@ -559,7 +546,7 @@ uint64_t SOAlarmRepeatScheduleGetFromNames(void *a1)
         }
 
         while (v4 != v7);
-        v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v4);
@@ -570,7 +557,7 @@ uint64_t SOAlarmRepeatScheduleGetFromNames(void *a1)
       v5 = 0;
     }
 
-    v1 = v13;
+    v1 = v12;
   }
 
   else
@@ -578,7 +565,6 @@ uint64_t SOAlarmRepeatScheduleGetFromNames(void *a1)
     v5 = 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1198,39 +1184,39 @@ void sub_26859D234(_Unwind_Exception *a1)
 
 id _SOClockTimerObserverGetTimerIDsFromTimers(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 count];
   if (v2)
   {
     v3 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v2];
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     v4 = v1;
-    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v14;
+      v7 = *v13;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          v9 = [*(*(&v13 + 1) + 8 * i) timerID];
+          v9 = [*(*(&v12 + 1) + 8 * i) timerID];
           if (v9)
           {
             [v3 addObject:v9];
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v6);
@@ -1251,8 +1237,6 @@ id _SOClockTimerObserverGetTimerIDsFromTimers(void *a1)
   {
     v10 = MEMORY[0x277CBEBF8];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

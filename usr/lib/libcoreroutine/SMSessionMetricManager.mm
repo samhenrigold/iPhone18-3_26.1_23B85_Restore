@@ -2819,7 +2819,7 @@ void __72__SMSessionMetricManager_onShouldUpdateETAUpperBoundWithETAUpdateState_
   dispatch_async(queue, v6);
 }
 
-uint64_t __82__SMSessionMetricManager_updateClosestTimeIntervalToExceedingETAWithTimeInterval___block_invoke(uint64_t a1)
+void *__82__SMSessionMetricManager_updateClosestTimeIntervalToExceedingETAWithTimeInterval___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 40);
   result = [*(a1 + 32) closestTimeIntervalToExceedingETA];
@@ -2967,45 +2967,45 @@ uint64_t __61__SMSessionMetricManager_onDeclareAnomalyForTriggerCategory___block
   dispatch_async(queue, block);
 }
 
-void __92__SMSessionMetricManager_onUserActionWithRemoteCommand_remoteCommandType_error_errorDomain___block_invoke(uint64_t a1)
+void __92__SMSessionMetricManager_onUserActionWithRemoteCommand_remoteCommandType_error_errorDomain___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v13 = objc_opt_new();
-  v2 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 48)];
-  [v13 setObject:v2 forKeyedSubscript:*MEMORY[0x277D4AD58]];
+  v14 = objc_opt_new();
+  v3 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 48)];
+  [v14 setObject:v3 forKeyedSubscript:*MEMORY[0x277D4AD58]];
 
-  v3 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 56)];
-  [v13 setObject:v3 forKeyedSubscript:*MEMORY[0x277D4AD60]];
+  v4 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 56)];
+  [v14 setObject:v4 forKeyedSubscript:*MEMORY[0x277D4AD60]];
 
-  v4 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "_isCellularActivated")}];
-  [v13 setObject:v4 forKeyedSubscript:*MEMORY[0x277D4AD78]];
+  v5 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "_isCellularActivated")}];
+  [v14 setObject:v5 forKeyedSubscript:*MEMORY[0x277D4AD78]];
 
-  v5 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "_isStandalone")}];
-  [v13 setObject:v5 forKeyedSubscript:*MEMORY[0x277D4AD80]];
+  v6 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(*(a1 + 32), "_isStandalone")}];
+  [v14 setObject:v6 forKeyedSubscript:*MEMORY[0x277D4AD80]];
 
-  v6 = *MEMORY[0x277D4AD88];
+  v7 = *MEMORY[0x277D4AD88];
   if (*(a1 + 64))
   {
-    [v13 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:v6];
-    v7 = [MEMORY[0x277CCABB0] numberWithLong:*(a1 + 64)];
-    [v13 setObject:v7 forKeyedSubscript:*MEMORY[0x277D4AD68]];
+    [v14 setObject:MEMORY[0x277CBEC28] forKeyedSubscript:v7];
+    v8 = [MEMORY[0x277CCABB0] numberWithLong:*(a1 + 64)];
+    [v14 setObject:v8 forKeyedSubscript:*MEMORY[0x277D4AD68]];
 
-    v8 = *(a1 + 40);
-    v9 = *MEMORY[0x277D4AD70];
+    v9 = *(a1 + 40);
+    v10 = *MEMORY[0x277D4AD70];
   }
 
   else
   {
-    [v13 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v6];
-    [v13 setObject:&unk_28459F360 forKeyedSubscript:*MEMORY[0x277D4AD68]];
-    v9 = *MEMORY[0x277D4AD70];
-    v8 = @"Unknown";
+    [v14 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:v7];
+    [v14 setObject:&unk_28459F360 forKeyedSubscript:*MEMORY[0x277D4AD68]];
+    v10 = *MEMORY[0x277D4AD70];
+    v9 = @"Unknown";
   }
 
-  [v13 setObject:v8 forKeyedSubscript:v9];
-  v10 = objc_alloc(MEMORY[0x277CCACA8]);
-  v11 = [v10 initWithCString:RTAnalyticsEventSafetyMonitorRemoteUserActionsMetrics encoding:1];
-  log_analytics_submission(v11, v13);
-  v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.%@", v11];
+  [v14 setObject:v9 forKeyedSubscript:v10];
+  v11 = objc_alloc(MEMORY[0x277CCACA8]);
+  v12 = [v11 initWithCString:RTAnalyticsEventSafetyMonitorRemoteUserActionsMetrics encoding:1];
+  log_analytics_submission(v12, v14);
+  v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.%@", v12];
   AnalyticsSendEvent();
 }
 

@@ -8,7 +8,7 @@
 
 - (id)sysdiagnoseLinesWithError:(id *)error
 {
-  v95 = *MEMORY[0x277D85DE8];
+  v94 = *MEMORY[0x277D85DE8];
   v5 = [objc_alloc(MEMORY[0x277CBEB98]) initWithArray:self->_environments];
   v6 = [(TRIAllocationStatusDefaultProvider *)self->_statusProvider activeExperimentInformationWithEnvironments:v5 error:error];
   v7 = v6;
@@ -22,38 +22,38 @@
 
     if ([v7 count])
     {
-      v60 = v5;
+      v59 = v5;
       v8 = objc_opt_new();
       [v8 addObject:@"experiments:"];
-      v89 = 0u;
-      v90 = 0u;
-      v87 = 0u;
       v88 = 0u;
-      v59 = v7;
+      v89 = 0u;
+      v86 = 0u;
+      v87 = 0u;
+      v58 = v7;
       obj = v7;
-      v63 = [obj countByEnumeratingWithState:&v87 objects:v94 count:16];
-      if (!v63)
+      v62 = [obj countByEnumeratingWithState:&v86 objects:v93 count:16];
+      if (!v62)
       {
         goto LABEL_47;
       }
 
-      v62 = *v88;
+      v61 = *v87;
       while (1)
       {
         v9 = 0;
         do
         {
-          if (*v88 != v62)
+          if (*v87 != v61)
           {
             objc_enumerationMutation(obj);
           }
 
-          v66 = v9;
-          v10 = *(*(&v87 + 1) + 8 * v9);
+          v65 = v9;
+          v10 = *(*(&v86 + 1) + 8 * v9);
           v11 = [v10 objectForKey:@"deploymentId"];
           v12 = objc_alloc(MEMORY[0x277CCACA8]);
           v13 = [v10 objectForKey:@"experiment"];
-          v65 = v11;
+          v64 = v11;
           intValue = [v11 intValue];
           if (intValue)
           {
@@ -74,33 +74,33 @@
           [v8 addObject:v19];
 
           [v8 addObject:@"      namespaces:"];
-          v85 = 0u;
-          v86 = 0u;
-          v83 = 0u;
           v84 = 0u;
-          v64 = v10;
-          v67 = [v10 objectForKey:@"namespaces"];
-          v69 = [v67 countByEnumeratingWithState:&v83 objects:v93 count:16];
-          if (v69)
+          v85 = 0u;
+          v82 = 0u;
+          v83 = 0u;
+          v63 = v10;
+          v66 = [v10 objectForKey:@"namespaces"];
+          v68 = [v66 countByEnumeratingWithState:&v82 objects:v92 count:16];
+          if (v68)
           {
-            v68 = *v84;
+            v67 = *v83;
             do
             {
               v20 = 0;
               do
               {
-                if (*v84 != v68)
+                if (*v83 != v67)
                 {
-                  objc_enumerationMutation(v67);
+                  objc_enumerationMutation(v66);
                 }
 
-                v72 = v20;
-                v21 = *(*(&v83 + 1) + 8 * v20);
+                v71 = v20;
+                v21 = *(*(&v82 + 1) + 8 * v20);
                 context = objc_autoreleasePoolPush();
                 v22 = [v21 objectForKey:@"compatibility"];
                 v23 = objc_alloc(MEMORY[0x277CCACA8]);
                 v24 = [v21 objectForKey:@"name"];
-                v70 = v22;
+                v69 = v22;
                 intValue2 = [v22 intValue];
                 if (intValue2)
                 {
@@ -116,26 +116,26 @@
                 [v8 addObject:v27];
 
                 [v8 addObject:@"         factors:"];
-                v81 = 0u;
-                v82 = 0u;
-                v79 = 0u;
                 v80 = 0u;
+                v81 = 0u;
+                v78 = 0u;
+                v79 = 0u;
                 v28 = [v21 objectForKey:@"factors"];
-                v29 = [v28 countByEnumeratingWithState:&v79 objects:v92 count:16];
+                v29 = [v28 countByEnumeratingWithState:&v78 objects:v91 count:16];
                 if (v29)
                 {
                   v30 = v29;
-                  v31 = *v80;
+                  v31 = *v79;
                   do
                   {
                     for (i = 0; i != v30; ++i)
                     {
-                      if (*v80 != v31)
+                      if (*v79 != v31)
                       {
                         objc_enumerationMutation(v28);
                       }
 
-                      v33 = *(*(&v79 + 1) + 8 * i);
+                      v33 = *(*(&v78 + 1) + 8 * i);
                       v34 = objc_autoreleasePoolPush();
                       v35 = objc_alloc(MEMORY[0x277CCACA8]);
                       v36 = [v33 objectForKey:@"name"];
@@ -167,13 +167,13 @@
                           goto LABEL_32;
                         }
 
-                        v77[0] = MEMORY[0x277D85DD0];
-                        v77[1] = 3221225472;
-                        v77[2] = __69__TRIActiveExperimentsSysdiagnoseProvider_sysdiagnoseLinesWithError___block_invoke;
-                        v77[3] = &unk_27885EA88;
-                        v78 = v8;
-                        [v47 enumerateKeysAndObjectsUsingBlock:v77];
-                        v48 = v78;
+                        v76[0] = MEMORY[0x277D85DD0];
+                        v76[1] = 3221225472;
+                        v76[2] = __69__TRIActiveExperimentsSysdiagnoseProvider_sysdiagnoseLinesWithError___block_invoke;
+                        v76[3] = &unk_27885EA88;
+                        v77 = v8;
+                        [v47 enumerateKeysAndObjectsUsingBlock:v76];
+                        v48 = v77;
                       }
 
                       else
@@ -187,68 +187,68 @@ LABEL_32:
                       objc_autoreleasePoolPop(v34);
                     }
 
-                    v30 = [v28 countByEnumeratingWithState:&v79 objects:v92 count:16];
+                    v30 = [v28 countByEnumeratingWithState:&v78 objects:v91 count:16];
                   }
 
                   while (v30);
                 }
 
                 objc_autoreleasePoolPop(context);
-                v20 = v72 + 1;
+                v20 = v71 + 1;
               }
 
-              while (v72 + 1 != v69);
-              v69 = [v67 countByEnumeratingWithState:&v83 objects:v93 count:16];
+              while (v71 + 1 != v68);
+              v68 = [v66 countByEnumeratingWithState:&v82 objects:v92 count:16];
             }
 
-            while (v69);
+            while (v68);
           }
 
-          v49 = [v64 objectForKey:@"counterfactualTreatments"];
+          v49 = [v63 objectForKey:@"counterfactualTreatments"];
           if (v49)
           {
             [v8 addObject:@"      counterfactualTreatments:"];
-            v75 = 0u;
-            v76 = 0u;
-            v73 = 0u;
             v74 = 0u;
+            v75 = 0u;
+            v72 = 0u;
+            v73 = 0u;
             v50 = v49;
-            v51 = [v50 countByEnumeratingWithState:&v73 objects:v91 count:16];
+            v51 = [v50 countByEnumeratingWithState:&v72 objects:v90 count:16];
             if (v51)
             {
               v52 = v51;
-              v53 = *v74;
+              v53 = *v73;
               do
               {
                 for (j = 0; j != v52; ++j)
                 {
-                  if (*v74 != v53)
+                  if (*v73 != v53)
                   {
                     objc_enumerationMutation(v50);
                   }
 
-                  v55 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"       - %@", *(*(&v73 + 1) + 8 * j)];
+                  v55 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"       - %@", *(*(&v72 + 1) + 8 * j)];
                   [v8 addObject:v55];
                 }
 
-                v52 = [v50 countByEnumeratingWithState:&v73 objects:v91 count:16];
+                v52 = [v50 countByEnumeratingWithState:&v72 objects:v90 count:16];
               }
 
               while (v52);
             }
           }
 
-          v9 = v66 + 1;
+          v9 = v65 + 1;
         }
 
-        while (v66 + 1 != v63);
-        v63 = [obj countByEnumeratingWithState:&v87 objects:v94 count:16];
-        if (!v63)
+        while (v65 + 1 != v62);
+        v62 = [obj countByEnumeratingWithState:&v86 objects:v93 count:16];
+        if (!v62)
         {
 LABEL_47:
 
-          v7 = v59;
-          v5 = v60;
+          v7 = v58;
+          v5 = v59;
           goto LABEL_51;
         }
       }
@@ -264,8 +264,6 @@ LABEL_47:
 
   v8 = v56;
 LABEL_51:
-
-  v57 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

@@ -156,7 +156,7 @@
       {
         if ([v72 isFocused])
         {
-          +[UIColor blackColor];
+          objc_msgSend_blackColor(UIColor);
         }
 
         else

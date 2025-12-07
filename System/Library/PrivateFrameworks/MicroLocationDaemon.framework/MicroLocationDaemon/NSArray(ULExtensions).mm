@@ -33,30 +33,30 @@
 
 + (void)toFloatVector:()ULExtensions
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   a2[1] = 0;
   a2[2] = 0;
   *a2 = 0;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v4 = selfCopy;
-  v5 = [v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v5)
   {
-    v6 = *v22;
+    v6 = *v21;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v22 != v6)
+        if (*v21 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v21 + 1) + 8 * i);
+        v8 = *(*(&v20 + 1) + 8 * i);
         [v8 floatValue];
         v11 = a2[1];
         v10 = a2[2];
@@ -93,7 +93,7 @@
           }
 
           *(4 * v15) = v9;
-          v12 = 4 * v15 + 4;
+          v12 = (4 * v15 + 4);
           memcpy(0, v13, v14);
           v19 = *a2;
           *a2 = 0;
@@ -108,19 +108,17 @@
         else
         {
           *v11 = v9;
-          v12 = (v11 + 4);
+          v12 = v11 + 4;
         }
 
         a2[1] = v12;
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v5);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 + (id)fromStringVector:()ULExtensions
@@ -141,7 +139,7 @@
       v8 = [MEMORY[0x277CCACA8] stringWithUTF8String:v7];
       [array addObject:v8];
 
-      v5 += 3;
+      v5 += 24;
     }
 
     while (v5 != v6);
@@ -154,30 +152,30 @@
 
 - (id)getFilteredArrayByDistinctProperty:()ULExtensions
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = objc_alloc_init(MEMORY[0x277CBEB58]);
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   selfCopy = self;
-  v8 = [selfCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [selfCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
-        v12 = [v11 valueForKey:{v4, v18}];
+        v11 = *(*(&v17 + 1) + 8 * i);
+        v12 = [v11 valueForKey:{v4, v17}];
         v13 = [v5 containsObject:v12];
 
         if ((v13 & 1) == 0)
@@ -189,14 +187,13 @@
         }
       }
 
-      v8 = [selfCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [selfCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
   }
 
   v15 = [v6 copy];
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

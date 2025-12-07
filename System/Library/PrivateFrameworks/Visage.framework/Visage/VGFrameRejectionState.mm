@@ -44,13 +44,13 @@
 
 - (VGFrameRejectionState)initWithCoder:(id)coder
 {
-  v25[4] = *MEMORY[0x277D85DE8];
+  v24[4] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v25[0] = objc_opt_class();
-  v25[1] = objc_opt_class();
-  v25[2] = objc_opt_class();
-  v25[3] = objc_opt_class();
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
+  v24[0] = objc_opt_class();
+  v24[1] = objc_opt_class();
+  v24[2] = objc_opt_class();
+  v24[3] = objc_opt_class();
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:4];
   v6 = [coderCopy decodeIntForKey:@"reason"];
   v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"description"];
   [coderCopy decodeFloatForKey:@"outOfFovOffset"];
@@ -60,17 +60,17 @@
   v12 = [MEMORY[0x277CBEB98] setWithArray:v5];
   v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"debugDictionary"];
 
-  v20 = v6;
+  v19 = v6;
   v14 = v7;
-  v21 = v14;
-  v22 = v9;
-  v23 = v11;
+  v20 = v14;
+  v21 = v9;
+  v22 = v11;
   v15 = v13;
   v16 = v15;
-  v24 = v15;
+  v23 = v15;
   if (self)
   {
-    v17 = [(VGFrameRejectionState *)self initFromInternalRejectionState:&v20];
+    v17 = [(VGFrameRejectionState *)self initFromInternalRejectionState:&v19];
   }
 
   else
@@ -79,7 +79,6 @@
     v17 = 0;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

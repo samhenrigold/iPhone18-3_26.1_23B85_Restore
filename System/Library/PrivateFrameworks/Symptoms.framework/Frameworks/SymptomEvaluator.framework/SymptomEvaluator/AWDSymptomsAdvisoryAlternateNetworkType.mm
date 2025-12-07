@@ -1,8 +1,22 @@
 @interface AWDSymptomsAdvisoryAlternateNetworkType
 - (BOOL)isEqual:(id)equal;
+- (id)adviceAsString:(int)string;
+- (id)advisorAsString:(int)string;
+- (id)bailOutOfAsString:(int)string;
+- (id)cellEgressTriggersAsString:(int)string;
+- (id)cellIngressTriggersAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)egressMobilityCodeAsString:(int)string;
+- (id)egressTriggerAsString:(int)string;
+- (id)egressTriggerOnAsString:(int)string;
+- (id)ingressMobilityCodeAsString:(int)string;
+- (id)ingressTriggerAsString:(int)string;
+- (id)ingressTriggerOnAsString:(int)string;
+- (id)policyAsString:(int)string;
+- (id)wifiEgressTriggersAsString:(int)string;
+- (id)wifiIngressTriggersAsString:(int)string;
 - (int)StringAsAdvice:(id)advice;
 - (int)StringAsAdvisor:(id)advisor;
 - (int)StringAsBailOutOf:(id)of;
@@ -116,6 +130,21 @@
   self->_has = (*&self->_has & 0xFFFFFFF7 | v3);
 }
 
+- (id)adviceAsString:(int)string
+{
+  if ((string - 1) >= 6)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898B858[string - 1];
+  }
+
+  return v4;
+}
+
 - (int)StringAsAdvice:(id)advice
 {
   adviceCopy = advice;
@@ -185,6 +214,21 @@
   self->_has = (*&self->_has & 0xFFFFFFDF | v3);
 }
 
+- (id)bailOutOfAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898B888[string - 1];
+  }
+
+  return v4;
+}
+
 - (int)StringAsBailOutOf:(id)of
 {
   ofCopy = of;
@@ -252,6 +296,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFBFFF | v3);
+}
+
+- (id)ingressTriggerAsString:(int)string
+{
+  if ((string - 1) >= 0x21)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898B8E8[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsIngressTrigger:(id)trigger
@@ -458,6 +517,21 @@
   self->_has = (*&self->_has & 0xFFFEFFFF | v3);
 }
 
+- (id)ingressTriggerOnAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898B888[string - 1];
+  }
+
+  return v4;
+}
+
 - (int)StringAsIngressTriggerOn:(id)on
 {
   onCopy = on;
@@ -540,6 +614,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFDFF | v3);
+}
+
+- (id)egressTriggerAsString:(int)string
+{
+  if ((string - 1) >= 0x21)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898B8E8[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsEgressTrigger:(id)trigger
@@ -746,6 +835,21 @@
   self->_has = (*&self->_has & 0xFFFFF7FF | v3);
 }
 
+- (id)egressTriggerOnAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898B888[string - 1];
+  }
+
+  return v4;
+}
+
 - (int)StringAsEgressTriggerOn:(id)on
 {
   onCopy = on;
@@ -881,6 +985,21 @@
   self->_has = (*&self->_has & 0xFFFFDFFF | v3);
 }
 
+- (id)ingressMobilityCodeAsString:(int)string
+{
+  if ((string - 1) >= 6)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898B8A0[string - 1];
+  }
+
+  return v4;
+}
+
 - (int)StringAsIngressMobilityCode:(id)code
 {
   codeCopy = code;
@@ -948,6 +1067,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFEFF | v3);
+}
+
+- (id)egressMobilityCodeAsString:(int)string
+{
+  if ((string - 1) >= 6)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898B8A0[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsEgressMobilityCode:(id)code
@@ -1049,6 +1183,21 @@
   self->_has = (*&self->_has & 0xFFFBFFFF | v3);
 }
 
+- (id)policyAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898B8D0[string - 1];
+  }
+
+  return v4;
+}
+
 - (int)StringAsPolicy:(id)policy
 {
   policyCopy = policy;
@@ -1103,6 +1252,26 @@
   self->_has = (*&self->_has & 0xFFFFFFEF | v3);
 }
 
+- (id)advisorAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"CellFallbackAdvisor";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"NoBackhaulAdvisor";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsAdvisor:(id)advisor
 {
   advisorCopy = advisor;
@@ -1152,6 +1321,21 @@
   }
 
   return p_wifiIngressTriggers->list[index];
+}
+
+- (id)wifiIngressTriggersAsString:(int)string
+{
+  if ((string - 1) >= 0x21)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898B8E8[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsWifiIngressTriggers:(id)triggers
@@ -1346,6 +1530,21 @@
   return p_cellIngressTriggers->list[index];
 }
 
+- (id)cellIngressTriggersAsString:(int)string
+{
+  if ((string - 1) >= 0x21)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898B8E8[string - 1];
+  }
+
+  return v4;
+}
+
 - (int)StringAsCellIngressTriggers:(id)triggers
 {
   triggersCopy = triggers;
@@ -1538,6 +1737,21 @@
   return p_wifiEgressTriggers->list[index];
 }
 
+- (id)wifiEgressTriggersAsString:(int)string
+{
+  if ((string - 1) >= 0x21)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898B8E8[string - 1];
+  }
+
+  return v4;
+}
+
 - (int)StringAsWifiEgressTriggers:(id)triggers
 {
   triggersCopy = triggers;
@@ -1728,6 +1942,21 @@
   }
 
   return p_cellEgressTriggers->list[index];
+}
+
+- (id)cellEgressTriggersAsString:(int)string
+{
+  if ((string - 1) >= 0x21)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27898B8E8[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsCellEgressTriggers:(id)triggers
@@ -2479,12 +2708,11 @@ LABEL_28:
 
 - (void)writeTo:(id)to
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   toCopy = to;
   has = self->_has;
   if ((*&has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 8) == 0)
@@ -2504,7 +2732,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  advice = self->_advice;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -2519,7 +2746,6 @@ LABEL_4:
   }
 
 LABEL_53:
-  bailOutOf = self->_bailOutOf;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 1) == 0)
@@ -2534,7 +2760,6 @@ LABEL_5:
   }
 
 LABEL_54:
-  adviceHeldForSecs = self->_adviceHeldForSecs;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -2549,7 +2774,6 @@ LABEL_6:
   }
 
 LABEL_55:
-  kernelProbingActivated = self->_kernelProbingActivated;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -2564,7 +2788,6 @@ LABEL_7:
   }
 
 LABEL_56:
-  ingressTrigger = self->_ingressTrigger;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -2579,7 +2802,6 @@ LABEL_8:
   }
 
 LABEL_57:
-  ingressTriggerOn = self->_ingressTriggerOn;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -2594,7 +2816,6 @@ LABEL_9:
   }
 
 LABEL_58:
-  ingressTriggerMultiplier = self->_ingressTriggerMultiplier;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -2609,7 +2830,6 @@ LABEL_10:
   }
 
 LABEL_59:
-  ingressTriggerPercentagex100 = self->_ingressTriggerPercentagex100;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -2624,7 +2844,6 @@ LABEL_11:
   }
 
 LABEL_60:
-  egressTrigger = self->_egressTrigger;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -2639,7 +2858,6 @@ LABEL_12:
   }
 
 LABEL_61:
-  egressTriggerOn = self->_egressTriggerOn;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -2654,84 +2872,85 @@ LABEL_13:
   }
 
 LABEL_62:
-  egressTriggerMultiplier = self->_egressTriggerMultiplier;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x1000) != 0)
   {
 LABEL_14:
-    egressTriggerPercentagex100 = self->_egressTriggerPercentagex100;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_15:
-  v56 = 0u;
-  v57 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v7 = self->_ingressTriggerSignatures;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v54 objects:v59 count:16];
-  if (v8)
+  v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v6 = self->_ingressTriggerSignatures;
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v55;
+    v8 = v7;
+    v9 = *v27;
     do
     {
-      for (i = 0; i != v9; ++i)
+      v10 = 0;
+      do
       {
-        if (*v55 != v10)
+        if (*v27 != v9)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v54 + 1) + 8 * i);
         PBDataWriterWriteStringField();
+        ++v10;
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v54 objects:v59 count:16];
+      while (v8 != v10);
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
-  v52 = 0u;
-  v53 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v13 = self->_egressTriggerSignatures;
-  v14 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v50 objects:v58 count:16];
-  if (v14)
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v11 = self->_egressTriggerSignatures;
+  v12 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  if (v12)
   {
-    v15 = v14;
-    v16 = *v51;
+    v13 = v12;
+    v14 = *v23;
     do
     {
-      for (j = 0; j != v15; ++j)
+      v15 = 0;
+      do
       {
-        if (*v51 != v16)
+        if (*v23 != v14)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v11);
         }
 
-        v18 = *(*(&v50 + 1) + 8 * j);
         PBDataWriterWriteStringField();
+        ++v15;
       }
 
-      v15 = [(NSMutableArray *)v13 countByEnumeratingWithState:&v50 objects:v58 count:16];
+      while (v13 != v15);
+      v13 = [(NSMutableArray *)v11 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
-    while (v15);
+    while (v13);
   }
 
-  v19 = self->_has;
-  if ((*&v19 & 0x80) != 0)
+  v16 = self->_has;
+  if ((*&v16 & 0x80) != 0)
   {
-    comingFromState = self->_comingFromState;
     PBDataWriterWriteUint32Field();
-    v19 = self->_has;
-    if ((*&v19 & 0x2000) == 0)
+    v16 = self->_has;
+    if ((*&v16 & 0x2000) == 0)
     {
 LABEL_31:
-      if ((*&v19 & 0x100) == 0)
+      if ((*&v16 & 0x100) == 0)
       {
         goto LABEL_32;
       }
@@ -2740,18 +2959,17 @@ LABEL_31:
     }
   }
 
-  else if ((*&v19 & 0x2000) == 0)
+  else if ((*&v16 & 0x2000) == 0)
   {
     goto LABEL_31;
   }
 
-  ingressMobilityCode = self->_ingressMobilityCode;
   PBDataWriterWriteInt32Field();
-  v19 = self->_has;
-  if ((*&v19 & 0x100) == 0)
+  v16 = self->_has;
+  if ((*&v16 & 0x100) == 0)
   {
 LABEL_32:
-    if ((*&v19 & 0x80000) == 0)
+    if ((*&v16 & 0x80000) == 0)
     {
       goto LABEL_33;
     }
@@ -2760,13 +2978,12 @@ LABEL_32:
   }
 
 LABEL_66:
-  egressMobilityCode = self->_egressMobilityCode;
   PBDataWriterWriteInt32Field();
-  v19 = self->_has;
-  if ((*&v19 & 0x80000) == 0)
+  v16 = self->_has;
+  if ((*&v16 & 0x80000) == 0)
   {
 LABEL_33:
-    if ((*&v19 & 0x40) == 0)
+    if ((*&v16 & 0x40) == 0)
     {
       goto LABEL_34;
     }
@@ -2775,13 +2992,12 @@ LABEL_33:
   }
 
 LABEL_67:
-  transitionsSuppressedByMobility = self->_transitionsSuppressedByMobility;
   PBDataWriterWriteUint32Field();
-  v19 = self->_has;
-  if ((*&v19 & 0x40) == 0)
+  v16 = self->_has;
+  if ((*&v16 & 0x40) == 0)
   {
 LABEL_34:
-    if ((*&v19 & 0x40000) == 0)
+    if ((*&v16 & 0x40000) == 0)
     {
       goto LABEL_35;
     }
@@ -2790,13 +3006,12 @@ LABEL_34:
   }
 
 LABEL_68:
-  cellularDataUsage = self->_cellularDataUsage;
   PBDataWriterWriteUint32Field();
-  v19 = self->_has;
-  if ((*&v19 & 0x40000) == 0)
+  v16 = self->_has;
+  if ((*&v16 & 0x40000) == 0)
   {
 LABEL_35:
-    if ((*&v19 & 0x10) == 0)
+    if ((*&v16 & 0x10) == 0)
     {
       goto LABEL_36;
     }
@@ -2805,13 +3020,12 @@ LABEL_35:
   }
 
 LABEL_69:
-  policy = self->_policy;
   PBDataWriterWriteInt32Field();
-  v19 = self->_has;
-  if ((*&v19 & 0x10) == 0)
+  v16 = self->_has;
+  if ((*&v16 & 0x10) == 0)
   {
 LABEL_36:
-    if ((*&v19 & 4) == 0)
+    if ((*&v16 & 4) == 0)
     {
       goto LABEL_38;
     }
@@ -2820,70 +3034,62 @@ LABEL_36:
   }
 
 LABEL_70:
-  advisor = self->_advisor;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_37:
-    activationIdentifier = self->_activationIdentifier;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_38:
   if (self->_wifiIngressTriggers.count)
   {
-    v21 = 0;
+    v17 = 0;
     do
     {
-      v22 = self->_wifiIngressTriggers.list[v21];
       PBDataWriterWriteInt32Field();
-      ++v21;
+      ++v17;
     }
 
-    while (v21 < self->_wifiIngressTriggers.count);
+    while (v17 < self->_wifiIngressTriggers.count);
   }
 
   if (self->_cellIngressTriggers.count)
   {
-    v23 = 0;
+    v18 = 0;
     do
     {
-      v24 = self->_cellIngressTriggers.list[v23];
       PBDataWriterWriteInt32Field();
-      ++v23;
+      ++v18;
     }
 
-    while (v23 < self->_cellIngressTriggers.count);
+    while (v18 < self->_cellIngressTriggers.count);
   }
 
   if (self->_wifiEgressTriggers.count)
   {
-    v25 = 0;
+    v19 = 0;
     do
     {
-      v26 = self->_wifiEgressTriggers.list[v25];
       PBDataWriterWriteInt32Field();
-      ++v25;
+      ++v19;
     }
 
-    while (v25 < self->_wifiEgressTriggers.count);
+    while (v19 < self->_wifiEgressTriggers.count);
   }
 
   p_cellEgressTriggers = &self->_cellEgressTriggers;
   if (p_cellEgressTriggers->count)
   {
-    v28 = 0;
+    v21 = 0;
     do
     {
-      v29 = p_cellEgressTriggers->list[v28];
       PBDataWriterWriteInt32Field();
-      ++v28;
+      ++v21;
     }
 
-    while (v28 < p_cellEgressTriggers->count);
+    while (v21 < p_cellEgressTriggers->count);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -3270,7 +3476,7 @@ LABEL_32:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -3456,67 +3662,67 @@ LABEL_14:
   }
 
 LABEL_15:
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   v8 = self->_ingressTriggerSignatures;
-  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v28;
+    v11 = *v27;
     do
     {
       v12 = 0;
       do
       {
-        if (*v28 != v11)
+        if (*v27 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [*(*(&v27 + 1) + 8 * v12) copyWithZone:zone];
+        v13 = [*(*(&v26 + 1) + 8 * v12) copyWithZone:zone];
         [v6 addIngressTriggerSignature:v13];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v10);
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v14 = self->_egressTriggerSignatures;
-  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v15 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v24;
+    v17 = *v23;
     do
     {
       v18 = 0;
       do
       {
-        if (*v24 != v17)
+        if (*v23 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = [*(*(&v23 + 1) + 8 * v18) copyWithZone:{zone, v23}];
+        v19 = [*(*(&v22 + 1) + 8 * v18) copyWithZone:{zone, v22}];
         [v6 addEgressTriggerSignature:v19];
 
         ++v18;
       }
 
       while (v16 != v18);
-      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v16 = [(NSMutableArray *)v14 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v16);
@@ -3634,7 +3840,6 @@ LABEL_38:
   PBRepeatedInt32Copy();
   PBRepeatedInt32Copy();
   PBRepeatedInt32Copy();
-  v21 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -3717,7 +3922,6 @@ LABEL_118:
     goto LABEL_118;
   }
 
-  v7 = *(equalCopy + 216);
   if (self->_kernelProbingActivated)
   {
     if ((*(equalCopy + 216) & 1) == 0)
@@ -3851,108 +4055,108 @@ LABEL_24:
     }
   }
 
-  v10 = self->_has;
-  v11 = *(equalCopy + 55);
-  if ((*&v10 & 0x80) != 0)
+  v9 = self->_has;
+  v10 = *(equalCopy + 55);
+  if ((*&v9 & 0x80) != 0)
   {
-    if ((v11 & 0x80) == 0 || self->_comingFromState != *(equalCopy + 35))
+    if ((v10 & 0x80) == 0 || self->_comingFromState != *(equalCopy + 35))
     {
       goto LABEL_118;
     }
   }
 
-  else if ((v11 & 0x80) != 0)
+  else if ((v10 & 0x80) != 0)
   {
     goto LABEL_118;
   }
 
-  if ((*&v10 & 0x2000) != 0)
+  if ((*&v9 & 0x2000) != 0)
   {
-    if ((v11 & 0x2000) == 0 || self->_ingressMobilityCode != *(equalCopy + 44))
+    if ((v10 & 0x2000) == 0 || self->_ingressMobilityCode != *(equalCopy + 44))
     {
       goto LABEL_118;
     }
   }
 
-  else if ((v11 & 0x2000) != 0)
+  else if ((v10 & 0x2000) != 0)
   {
     goto LABEL_118;
   }
 
-  if ((*&v10 & 0x100) != 0)
+  if ((*&v9 & 0x100) != 0)
   {
-    if ((v11 & 0x100) == 0 || self->_egressMobilityCode != *(equalCopy + 36))
+    if ((v10 & 0x100) == 0 || self->_egressMobilityCode != *(equalCopy + 36))
     {
       goto LABEL_118;
     }
   }
 
-  else if ((v11 & 0x100) != 0)
+  else if ((v10 & 0x100) != 0)
   {
     goto LABEL_118;
   }
 
-  if ((*&v10 & 0x80000) != 0)
+  if ((*&v9 & 0x80000) != 0)
   {
-    if ((v11 & 0x80000) == 0 || self->_transitionsSuppressedByMobility != *(equalCopy + 53))
+    if ((v10 & 0x80000) == 0 || self->_transitionsSuppressedByMobility != *(equalCopy + 53))
     {
       goto LABEL_118;
     }
   }
 
-  else if ((v11 & 0x80000) != 0)
+  else if ((v10 & 0x80000) != 0)
   {
     goto LABEL_118;
   }
 
-  if ((*&v10 & 0x40) != 0)
+  if ((*&v9 & 0x40) != 0)
   {
-    if ((v11 & 0x40) == 0 || self->_cellularDataUsage != *(equalCopy + 34))
+    if ((v10 & 0x40) == 0 || self->_cellularDataUsage != *(equalCopy + 34))
     {
       goto LABEL_118;
     }
   }
 
-  else if ((v11 & 0x40) != 0)
+  else if ((v10 & 0x40) != 0)
   {
     goto LABEL_118;
   }
 
-  if ((*&v10 & 0x40000) != 0)
+  if ((*&v9 & 0x40000) != 0)
   {
-    if ((v11 & 0x40000) == 0 || self->_policy != *(equalCopy + 52))
+    if ((v10 & 0x40000) == 0 || self->_policy != *(equalCopy + 52))
     {
       goto LABEL_118;
     }
   }
 
-  else if ((v11 & 0x40000) != 0)
+  else if ((v10 & 0x40000) != 0)
   {
     goto LABEL_118;
   }
 
-  if ((*&v10 & 0x10) != 0)
+  if ((*&v9 & 0x10) != 0)
   {
-    if ((v11 & 0x10) == 0 || self->_advisor != *(equalCopy + 32))
+    if ((v10 & 0x10) == 0 || self->_advisor != *(equalCopy + 32))
     {
       goto LABEL_118;
     }
   }
 
-  else if ((v11 & 0x10) != 0)
+  else if ((v10 & 0x10) != 0)
   {
     goto LABEL_118;
   }
 
-  if ((*&v10 & 4) != 0)
+  if ((*&v9 & 4) != 0)
   {
-    if ((v11 & 4) == 0 || self->_activationIdentifier != *(equalCopy + 30))
+    if ((v10 & 4) == 0 || self->_activationIdentifier != *(equalCopy + 30))
     {
       goto LABEL_118;
     }
   }
 
-  else if ((v11 & 4) != 0)
+  else if ((v10 & 4) != 0)
   {
     goto LABEL_118;
   }
@@ -4265,7 +4469,7 @@ LABEL_45:
 
 - (void)mergeFrom:(id)from
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   v5 = fromCopy;
   v6 = *(fromCopy + 55);
@@ -4451,57 +4655,57 @@ LABEL_14:
   }
 
 LABEL_15:
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v7 = *(fromCopy + 25);
-  v8 = [v7 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v36;
+    v10 = *v35;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v36 != v10)
+        if (*v35 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [(AWDSymptomsAdvisoryAlternateNetworkType *)self addIngressTriggerSignature:*(*(&v35 + 1) + 8 * i)];
+        [(AWDSymptomsAdvisoryAlternateNetworkType *)self addIngressTriggerSignature:*(*(&v34 + 1) + 8 * i)];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v9);
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v12 = *(v5 + 21);
-  v13 = [v12 countByEnumeratingWithState:&v31 objects:v39 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v32;
+    v15 = *v31;
     do
     {
       for (j = 0; j != v14; ++j)
       {
-        if (*v32 != v15)
+        if (*v31 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [(AWDSymptomsAdvisoryAlternateNetworkType *)self addEgressTriggerSignature:*(*(&v31 + 1) + 8 * j), v31];
+        [(AWDSymptomsAdvisoryAlternateNetworkType *)self addEgressTriggerSignature:*(*(&v30 + 1) + 8 * j), v30];
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v14);
@@ -4654,8 +4858,6 @@ LABEL_38:
       -[AWDSymptomsAdvisoryAlternateNetworkType addCellEgressTriggers:](self, "addCellEgressTriggers:", [v5 cellEgressTriggersAtIndex:ii]);
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -30,7 +30,7 @@
 
 - (void)_sendCurrentResult
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   lastResult = [(_IMDRelayingServiceReachabilityResponseHandler *)self lastResult];
 
   v4 = IMOSLoggingEnabled();
@@ -55,15 +55,15 @@
         requestID = [(_IMDRelayingServiceReachabilityResponseHandler *)self requestID];
         pushToken = [(_IMDRelayingServiceReachabilityResponseHandler *)self pushToken];
         fromIdentifier = [(_IMDRelayingServiceReachabilityResponseHandler *)self fromIdentifier];
-        v21 = 138413058;
-        v22 = v7;
-        v23 = 2112;
-        v24 = requestID;
-        v25 = 2112;
-        v26 = pushToken;
-        v27 = 2112;
-        v28 = fromIdentifier;
-        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Sending %@ result for request ID %@ to %@/%@", &v21, 0x2Au);
+        v20 = 138413058;
+        v21 = v7;
+        v22 = 2112;
+        v23 = requestID;
+        v24 = 2112;
+        v25 = pushToken;
+        v26 = 2112;
+        v27 = fromIdentifier;
+        _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Sending %@ result for request ID %@ to %@/%@", &v20, 0x2Au);
       }
     }
 
@@ -84,12 +84,10 @@
     v19 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      LOWORD(v21) = 0;
-      _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "Not sending current result, no result cached yet?", &v21, 2u);
+      LOWORD(v20) = 0;
+      _os_log_impl(&dword_22B4CC000, v19, OS_LOG_TYPE_INFO, "Not sending current result, no result cached yet?", &v20, 2u);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deferSendingCurrentResultIfNeeded
@@ -128,7 +126,7 @@
 
 - (void)reachabilityRequest:(id)request updatedWithResult:(id)result
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   resultCopy = result;
   if (IMOSLoggingEnabled())
@@ -137,16 +135,14 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       requestID = [requestCopy requestID];
-      v11 = 138412290;
-      v12 = requestID;
-      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Received update for request ID %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = requestID;
+      _os_log_impl(&dword_22B4CC000, v8, OS_LOG_TYPE_INFO, "Received update for request ID %@", &v10, 0xCu);
     }
   }
 
   [(_IMDRelayingServiceReachabilityResponseHandler *)self setLastResult:resultCopy];
   [(_IMDRelayingServiceReachabilityResponseHandler *)self _deferSendingCurrentResultIfNeeded];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

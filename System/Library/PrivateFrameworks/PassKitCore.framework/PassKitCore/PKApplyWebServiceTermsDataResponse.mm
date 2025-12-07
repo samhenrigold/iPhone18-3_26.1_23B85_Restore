@@ -104,9 +104,9 @@ LABEL_24:
       goto LABEL_21;
     }
 
-    v16 = [hexEncoding isEqualToString:v14];
+    isEqualToString = objc_msgSend_isEqualToString_(hexEncoding);
 
-    if ((v16 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
 LABEL_21:
       v23 = PKLogFacilityTypeGetObject(0xEuLL);

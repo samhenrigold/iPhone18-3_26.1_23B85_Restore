@@ -19,7 +19,7 @@
 - (id)overrideToken:(id)token
 {
   swift_getObjectType();
-  sub_1E13006E4(0, &qword_1EE1E2DB8);
+  sub_1E13006E4(0, &qword_1EE1E2DB8, 0x1E696EB40);
   tokenCopy = token;
   v5 = sub_1E1AF6D4C();
   v6 = sub_1E1AF6D5C();
@@ -36,7 +36,7 @@
     swift_once();
   }
 
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECEB4DA8);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECEB4DA8, &qword_1E1B12110);
   __swift_project_value_buffer(v2, qword_1EE1EAE20);
   sub_1E1AF3C8C();
 
@@ -55,7 +55,7 @@
     swift_once();
   }
 
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECEB4DA8);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECEB4DA8, &qword_1E1B12110);
   v5 = __swift_project_value_buffer(v4, qword_1EE1EAE20);
   v7[3] = v4;
   v7[4] = sub_1E14F0120();

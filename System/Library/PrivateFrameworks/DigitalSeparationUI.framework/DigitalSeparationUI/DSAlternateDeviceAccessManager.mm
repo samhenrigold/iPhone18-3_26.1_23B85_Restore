@@ -394,22 +394,20 @@ void __70__DSAlternateDeviceAccessManager_resetAllAccessMethodsWithCompletion___
 
 id __88__DSAlternateDeviceAccessManager_sendSummaryAnalyticsWithReviewAction_resetAction_exit___block_invoke(uint64_t a1)
 {
-  v10[4] = *MEMORY[0x277D85DE8];
-  v9[0] = @"didReviewAccess";
+  v9[4] = *MEMORY[0x277D85DE8];
+  v8[0] = @"didReviewAccess";
   v2 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 40)];
-  v10[0] = v2;
-  v9[1] = @"didResetAccess";
+  v9[0] = v2;
+  v8[1] = @"didResetAccess";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 41)];
-  v10[1] = v3;
-  v9[2] = @"didGoToSafetyCheck";
+  v9[1] = v3;
+  v8[2] = @"didGoToSafetyCheck";
   v4 = [MEMORY[0x277CCABB0] numberWithBool:*(a1 + 42)];
-  v10[2] = v4;
-  v9[3] = @"numMethodsReset";
+  v9[2] = v4;
+  v8[3] = @"numMethodsReset";
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:*(a1 + 32)];
-  v10[3] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[3] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:4];
 
   return v6;
 }
@@ -477,38 +475,6 @@ id __88__DSAlternateDeviceAccessManager_sendSummaryAnalyticsWithReviewAction_res
 
   os_unfair_lock_unlock(&self->_providerLock);
   return v3;
-}
-
-void __61__DSAlternateDeviceAccessManager_performFetchWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_248C7E000, v0, v1, "Error fetching continuity devices: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __61__DSAlternateDeviceAccessManager_performFetchWithCompletion___block_invoke_308_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_248C7E000, v0, v1, "Error fetching remote devices: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __70__DSAlternateDeviceAccessManager_resetAllAccessMethodsWithCompletion___block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_248C7E000, v0, v1, "Error disconnecting continuity devices: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __70__DSAlternateDeviceAccessManager_resetAllAccessMethodsWithCompletion___block_invoke_315_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_248C7E000, v0, v1, "Error unpairing remote devices: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -121,102 +121,102 @@
 
 - (void)calculateDetailedAddStatusWithIdentifyingModelObject:(id)object children:(id)children
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   childrenCopy = children;
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x2810000000;
-  v50 = &unk_1D5749B1F;
+  v46 = 0;
+  v47 = &v46;
+  v48 = 0x2810000000;
+  v49 = &unk_1D5749B1F;
+  v50 = 0;
   v51 = 0;
-  v52 = 0;
   _underlyingModelObject = [objectCopy _underlyingModelObject];
   MPModelObjectClass_0 = getMPModelObjectClass_0();
-  v44[0] = MEMORY[0x1E69E9820];
-  v44[1] = 3221225472;
-  v44[2] = __113__MusicKit_SoftLinking_MPLibraryAddStatusObserver_calculateDetailedAddStatusWithIdentifyingModelObject_children___block_invoke;
-  v44[3] = &unk_1E84C3998;
-  v46 = &v47;
+  v43[0] = MEMORY[0x1E69E9820];
+  v43[1] = 3221225472;
+  v43[2] = __113__MusicKit_SoftLinking_MPLibraryAddStatusObserver_calculateDetailedAddStatusWithIdentifyingModelObject_children___block_invoke;
+  v43[3] = &unk_1E84C3998;
+  v45 = &v46;
   v9 = _underlyingModelObject;
-  v45 = v9;
-  [MPModelObjectClass_0 performWithoutEnforcement:v44];
-  v40 = 0;
-  v41 = &v40;
-  v42 = 0x2020000000;
-  v43 = v48[34];
-  v58 = 0;
-  v59 = &v58;
-  v60 = 0x2050000000;
+  v44 = v9;
+  [MPModelObjectClass_0 performWithoutEnforcement:v43];
+  v39 = 0;
+  v40 = &v39;
+  v41 = 0x2020000000;
+  v42 = v47[34];
+  v57 = 0;
+  v58 = &v57;
+  v59 = 0x2050000000;
   v10 = getMPModelAlbumClass_softClass_0;
-  v61 = getMPModelAlbumClass_softClass_0;
+  v60 = getMPModelAlbumClass_softClass_0;
   if (!getMPModelAlbumClass_softClass_0)
   {
-    v53 = MEMORY[0x1E69E9820];
-    v54 = 3221225472;
-    v55 = __getMPModelAlbumClass_block_invoke_0;
-    v56 = &unk_1E84C3838;
-    v57 = &v58;
-    __getMPModelAlbumClass_block_invoke_0(&v53);
-    v10 = v59[3];
+    v52 = MEMORY[0x1E69E9820];
+    v53 = 3221225472;
+    v54 = __getMPModelAlbumClass_block_invoke_0;
+    v55 = &unk_1E84C3838;
+    v56 = &v57;
+    __getMPModelAlbumClass_block_invoke_0(&v52);
+    v10 = v58[3];
   }
 
   v11 = v10;
-  _Block_object_dispose(&v58, 8);
+  _Block_object_dispose(&v57, 8);
   isKindOfClass = objc_opt_isKindOfClass();
-  v13 = v41;
-  if ((isKindOfClass & 1) != 0 && (v41[3] & 1) == 0)
+  v13 = v40;
+  if ((isKindOfClass & 1) != 0 && (v40[3] & 1) == 0)
   {
-    v30 = v9;
-    v31 = objectCopy;
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
+    v29 = v9;
+    v30 = objectCopy;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v14 = childrenCopy;
-    v15 = [v14 countByEnumeratingWithState:&v36 objects:v62 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v35 objects:v61 count:16];
     if (v15)
     {
-      v16 = *v37;
+      v16 = *v36;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v37 != v16)
+          if (*v36 != v16)
           {
             objc_enumerationMutation(v14);
           }
 
-          _underlyingModelObject2 = [*(*(&v36 + 1) + 8 * i) _underlyingModelObject];
-          v58 = 0;
-          v59 = &v58;
-          v60 = 0x2050000000;
+          _underlyingModelObject2 = [*(*(&v35 + 1) + 8 * i) _underlyingModelObject];
+          v57 = 0;
+          v58 = &v57;
+          v59 = 0x2050000000;
           v19 = getMPModelSongClass_softClass_2;
-          v61 = getMPModelSongClass_softClass_2;
+          v60 = getMPModelSongClass_softClass_2;
           if (!getMPModelSongClass_softClass_2)
           {
-            v53 = MEMORY[0x1E69E9820];
-            v54 = 3221225472;
-            v55 = __getMPModelSongClass_block_invoke_2;
-            v56 = &unk_1E84C3838;
-            v57 = &v58;
-            __getMPModelSongClass_block_invoke_2(&v53);
-            v19 = v59[3];
+            v52 = MEMORY[0x1E69E9820];
+            v53 = 3221225472;
+            v54 = __getMPModelSongClass_block_invoke_2;
+            v55 = &unk_1E84C3838;
+            v56 = &v57;
+            __getMPModelSongClass_block_invoke_2(&v52);
+            v19 = v58[3];
           }
 
           v20 = v19;
-          _Block_object_dispose(&v58, 8);
+          _Block_object_dispose(&v57, 8);
           if (objc_opt_isKindOfClass())
           {
             v21 = getMPModelObjectClass_0();
-            v33[0] = MEMORY[0x1E69E9820];
-            v33[1] = 3221225472;
-            v33[2] = __113__MusicKit_SoftLinking_MPLibraryAddStatusObserver_calculateDetailedAddStatusWithIdentifyingModelObject_children___block_invoke_2;
-            v33[3] = &unk_1E84C3998;
-            v35 = &v40;
+            v32[0] = MEMORY[0x1E69E9820];
+            v32[1] = 3221225472;
+            v32[2] = __113__MusicKit_SoftLinking_MPLibraryAddStatusObserver_calculateDetailedAddStatusWithIdentifyingModelObject_children___block_invoke_2;
+            v32[3] = &unk_1E84C3998;
+            v34 = &v39;
             v22 = _underlyingModelObject2;
-            v34 = v22;
-            [v21 performWithoutEnforcement:v33];
-            LOBYTE(v21) = *(v41 + 24);
+            v33 = v22;
+            [v21 performWithoutEnforcement:v32];
+            LOBYTE(v21) = *(v40 + 24);
 
             if (v21)
             {
@@ -226,7 +226,7 @@
           }
         }
 
-        v15 = [v14 countByEnumeratingWithState:&v36 objects:v62 count:16];
+        v15 = [v14 countByEnumeratingWithState:&v35 objects:v61 count:16];
         if (v15)
         {
           continue;
@@ -238,28 +238,28 @@
 
 LABEL_18:
 
-    v13 = v41;
-    objectCopy = v31;
-    v9 = v30;
+    v13 = v40;
+    objectCopy = v30;
+    v9 = v29;
   }
 
-  v23 = v48;
-  if (*(v13 + 24) == 1 && (v48[34] & 1) == 0)
+  v23 = v47;
+  if (*(v13 + 24) == 1 && (v47[34] & 1) == 0)
   {
-    v24 = v48[32];
+    v24 = v47[32];
     v25 = 0x1000000;
-    if (!v48[35])
+    if (!v47[35])
     {
       v25 = 0;
     }
 
     v26 = 256;
-    if (!v48[33])
+    if (!v47[33])
     {
       v26 = 0;
     }
 
-    v48[36] = v48[36] != 0;
+    v47[36] = v47[36] != 0;
     *(v23 + 8) = v26 | v24 | v25 | 0x10000;
   }
 
@@ -267,10 +267,8 @@ LABEL_18:
   _underlyingModelObject3 = [objectCopy _underlyingModelObject];
   [(MPLibraryAddStatusObserver *)underlyingLibraryAddStatusObserver setConfiguration:*(v23 + 8) | (v23[36] << 32) identifyingModelObject:_underlyingModelObject3];
 
-  _Block_object_dispose(&v40, 8);
-  _Block_object_dispose(&v47, 8);
-
-  v29 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v46, 8);
 }
 
 - (void)_handleUpdatedUnderlyingLibraryAddStatus:(int64_t)status

@@ -573,26 +573,27 @@ uint64_t __60__VNGreedyClusteringReadWrite_getClustersWithOptions_error___block_
 - (VNGreedyClusteringReadWrite)initWithOptions:(id)options error:(id *)error
 {
   optionsCopy = options;
-  v29.receiver = self;
-  v29.super_class = VNGreedyClusteringReadWrite;
-  v7 = [(VNGreedyClusteringReadWrite *)&v29 init];
+  v31.receiver = self;
+  v31.super_class = VNGreedyClusteringReadWrite;
+  v7 = [(VNGreedyClusteringReadWrite *)&v31 init];
   v8 = v7;
   if (!v7 || ![(VNGreedyClusteringReadOnly *)v7 _parseOptions:optionsCopy error:error])
   {
-    v15 = 0;
+    v17 = 0;
     goto LABEL_31;
   }
 
   faceprintRevision = v8->super._faceprintRevision;
   torsoprintRevision = v8->super._torsoprintRevision;
-  strlen([(NSString *)v8->super._algorithmType UTF8String]);
-  apple::vision::GreedyClusteringParamsWrapper::createClusteringHacksWrapper(&v27, faceprintRevision, torsoprintRevision);
-  if (!v27)
+  uTF8String = [(NSString *)v8->super._algorithmType UTF8String];
+  v12 = strlen(uTF8String);
+  apple::vision::GreedyClusteringParamsWrapper::createClusteringHacksWrapper(&v29, faceprintRevision, torsoprintRevision, uTF8String, v12);
+  if (!v29)
   {
     if (error)
     {
-      v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Creating clustering parameters object failed for following face and torsoprint revisions: %lu and %lu and algorithm type: %@", v8->super._faceprintRevision, v8->super._torsoprintRevision, v8->super._algorithmType];
-      *error = [VNError errorForInternalErrorWithLocalizedDescription:v16];
+      v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Creating clustering parameters object failed for following face and torsoprint revisions: %lu and %lu and algorithm type: %@", v8->super._faceprintRevision, v8->super._torsoprintRevision, v8->super._algorithmType];
+      *error = [VNError errorForInternalErrorWithLocalizedDescription:v18];
     }
 
     goto LABEL_28;
@@ -600,22 +601,22 @@ uint64_t __60__VNGreedyClusteringReadWrite_getClustersWithOptions_error___block_
 
   if ([(NSString *)v8->super._algorithmType isEqualToString:@"VNClusteringAlgorithm_Greedy"])
   {
-    uTF8String = [(NSString *)v8->super._cacheFolderPath UTF8String];
+    uTF8String2 = [(NSString *)v8->super._cacheFolderPath UTF8String];
     vectorMapReadOnlyFlag = v8->super._vectorMapReadOnlyFlag;
     bytes = [(NSData *)v8->super._state bytes];
-    v14 = [(NSData *)v8->super._state length];
-    v33 = uTF8String;
-    v32 = vectorMapReadOnlyFlag;
-    if (uTF8String)
+    v16 = [(NSData *)v8->super._state length];
+    v36 = uTF8String2;
+    v35 = vectorMapReadOnlyFlag;
+    if (uTF8String2)
     {
-      if (v14)
+      if (v16)
       {
-        v31 = bytes;
-        *&v30 = bytes + v14;
-        std::allocate_shared[abi:ne200100]<std::vector<unsigned char>,std::allocator<std::vector<unsigned char>>,unsigned char const* const&,unsigned char const*,0>();
+        v34 = bytes;
+        *&v32 = &bytes[v16];
+        std::allocate_shared[abi:ne200100]<std::vector<unsigned char>,std::allocator<std::vector<unsigned char>>,unsigned char const* const&,unsigned char const*,0>(&v33, &v34, &v32);
       }
 
-      std::allocate_shared[abi:ne200100]<vision::mod::GreedyClustererFaces,std::allocator<vision::mod::GreedyClustererFaces>,char const*&,std::shared_ptr<apple::vision::GreedyClusteringParamsWrapper> const&,0>();
+      std::allocate_shared[abi:ne200100]<vision::mod::GreedyClustererFaces,std::allocator<vision::mod::GreedyClustererFaces>,char const*&,std::shared_ptr<apple::vision::GreedyClusteringParamsWrapper> const&,0>(&v33, &v36, &v29);
     }
   }
 
@@ -626,22 +627,22 @@ uint64_t __60__VNGreedyClusteringReadWrite_getClustersWithOptions_error___block_
       goto LABEL_20;
     }
 
-    uTF8String2 = [(NSString *)v8->super._cacheFolderPath UTF8String];
-    v18 = v8->super._vectorMapReadOnlyFlag;
+    uTF8String3 = [(NSString *)v8->super._cacheFolderPath UTF8String];
+    v20 = v8->super._vectorMapReadOnlyFlag;
     bytes2 = [(NSData *)v8->super._state bytes];
-    v20 = [(NSData *)v8->super._state length];
-    v33 = uTF8String2;
-    v32 = v18;
-    if (uTF8String2)
+    v22 = [(NSData *)v8->super._state length];
+    v36 = uTF8String3;
+    v35 = v20;
+    if (uTF8String3)
     {
-      if (v20)
+      if (v22)
       {
-        v31 = bytes2;
-        *&v30 = bytes2 + v20;
-        std::allocate_shared[abi:ne200100]<std::vector<unsigned char>,std::allocator<std::vector<unsigned char>>,unsigned char const* const&,unsigned char const*,0>();
+        v34 = bytes2;
+        *&v32 = &bytes2[v22];
+        std::allocate_shared[abi:ne200100]<std::vector<unsigned char>,std::allocator<std::vector<unsigned char>>,unsigned char const* const&,unsigned char const*,0>(&v33, &v34, &v32);
       }
 
-      std::allocate_shared[abi:ne200100]<vision::mod::GreedyClustererFacesWithTorso,std::allocator<vision::mod::GreedyClustererFacesWithTorso>,char const*&,std::shared_ptr<apple::vision::GreedyClusteringParamsWrapper> const&,0>();
+      std::allocate_shared[abi:ne200100]<vision::mod::GreedyClustererFacesWithTorso,std::allocator<vision::mod::GreedyClustererFacesWithTorso>,char const*&,std::shared_ptr<apple::vision::GreedyClusteringParamsWrapper> const&,0>(&v33, &v36, &v29);
     }
   }
 
@@ -656,44 +657,44 @@ LABEL_20:
   if (v8->m_ClusteringImpl.__ptr_)
   {
     ptr = v8->m_ClusteringImpl.__ptr_;
-    v22 = v8->m_ClusteringImpl.__cntrl_;
-    v26 = v22;
-    if (v22)
+    v24 = v8->m_ClusteringImpl.__cntrl_;
+    v28 = v24;
+    if (v24)
     {
-      atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    v24.receiver = v8;
-    v24.super_class = VNGreedyClusteringReadWrite;
-    [(VNGreedyClusteringReadOnly *)&v24 setGreedyClustererFaces_const:&ptr];
-    if (v26)
+    v26.receiver = v8;
+    v26.super_class = VNGreedyClusteringReadWrite;
+    [(VNGreedyClusteringReadOnly *)&v26 setGreedyClustererFaces_const:&ptr];
+    if (v28)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v28);
     }
 
     [(VNGreedyClusteringReadOnly *)v8 initializeLogging];
-    v15 = v8;
+    v17 = v8;
     goto LABEL_29;
   }
 
   if (error)
   {
     [VNError errorForInternalErrorWithLocalizedDescription:@"Error initializing cluster state"];
-    *error = v15 = 0;
+    *error = v17 = 0;
     goto LABEL_29;
   }
 
 LABEL_28:
-  v15 = 0;
+  v17 = 0;
 LABEL_29:
-  if (v28)
+  if (v30)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v30);
   }
 
 LABEL_31:
 
-  return v15;
+  return v17;
 }
 
 @end

@@ -12,34 +12,35 @@
 - (_RWITCPRelayMessage)initWithPayload:(id)payload
 {
   payloadCopy = payload;
-  v18.receiver = self;
-  v18.super_class = _RWITCPRelayMessage;
-  v5 = [(_RWITCPRelayMessage *)&v18 init];
+  v19.receiver = self;
+  v19.super_class = _RWITCPRelayMessage;
+  v5 = [(_RWITCPRelayMessage *)&v19 init];
   if (v5)
   {
-    if ([payloadCopy length] < 0xFFFFFFFC)
+    v6 = [payloadCopy length];
+    if (v6 < 0xFFFFFFFC)
     {
-      v15 = [payloadCopy copy];
+      v16 = [payloadCopy copy];
       payload = v5->_payload;
-      v5->_payload = v15;
+      v5->_payload = v16;
 
       v5->_writtenHeader = 0;
       v5->_writtenPayloadOffset = 0;
-      v14 = v5;
+      v15 = v5;
       goto LABEL_8;
     }
 
-    v6 = RWIDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = RWIDefaultLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(_RWITCPRelayMessage *)v6 initWithPayload:v7, v8, v9, v10, v11, v12, v13];
+      [(_RWITCPRelayMessage *)v7 initWithPayload:v8, v9, v10, v11, v12, v13, v14];
     }
   }
 
-  v14 = 0;
+  v15 = 0;
 LABEL_8:
 
-  return v14;
+  return v15;
 }
 
 + (id)TCPRelayMessageFromDataStream:(id)stream error:(id *)error
@@ -48,10 +49,10 @@ LABEL_8:
   v6 = streamCopy;
   if (!error)
   {
-    v20 = RWIDefaultLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = RWIDefaultLog(streamCopy);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      [(_RWITCPRelayMessage *)v20 TCPRelayMessageFromDataStream:v21 error:v22, v23, v24, v25, v26, v27];
+      [(_RWITCPRelayMessage *)v21 TCPRelayMessageFromDataStream:v22 error:v23, v24, v25, v26, v27, v28];
     }
 
     goto LABEL_10;
@@ -64,38 +65,38 @@ LABEL_8:
   }
 
   v8 = v7;
-  v29 = 0;
-  [v6 getBytes:&v29 length:4];
-  v9 = bswap32(v29);
-  v29 = v9;
-  if (v9 >= 0xFFFFFFFB)
+  v30 = 0;
+  v9 = [v6 getBytes:&v30 length:4];
+  v10 = bswap32(v30);
+  v30 = v10;
+  if (v10 >= 0xFFFFFFFB)
   {
-    v10 = RWIDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = RWIDefaultLog(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(_RWITCPRelayMessage *)v10 TCPRelayMessageFromDataStream:v11 error:v12, v13, v14, v15, v16, v17];
+      [(_RWITCPRelayMessage *)v11 TCPRelayMessageFromDataStream:v12 error:v13, v14, v15, v16, v17, v18];
     }
 
-    v18 = [MEMORY[0x277CBEAC0] dictionaryWithObject:@"Cannot read _RWITCPRelayMessage from stream. Corrupt header." forKey:*MEMORY[0x277CCA450]];
-    v19 = 0;
-    *error = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"_RWITCPRelayMessage" code:1 userInfo:v18];
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObject:@"Cannot read _RWITCPRelayMessage from stream. Corrupt header." forKey:*MEMORY[0x277CCA450]];
+    v20 = 0;
+    *error = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"_RWITCPRelayMessage" code:1 userInfo:v19];
     goto LABEL_13;
   }
 
-  if (v8 < v9 + 4)
+  if (v8 < v10 + 4)
   {
 LABEL_10:
-    v19 = 0;
+    v20 = 0;
     goto LABEL_14;
   }
 
-  v18 = [v6 subdataWithRange:4];
-  v19 = [_RWITCPRelayMessage TCPRelayMessageWithPayload:v18];
+  v19 = [v6 subdataWithRange:4];
+  v20 = [_RWITCPRelayMessage TCPRelayMessageWithPayload:v19];
 LABEL_13:
 
 LABEL_14:
 
-  return v19;
+  return v20;
 }
 
 + (id)TCPRelayMessageWithPayload:(id)payload
@@ -131,19 +132,20 @@ LABEL_14:
   internalCopy = internal;
   if (!self->_writtenHeader)
   {
-    v15 = bswap32([(NSData *)self->_payload length]);
-    v5 = [MEMORY[0x277CBEA90] dataWithBytes:&v15 length:4];
+    v17 = bswap32([(NSData *)self->_payload length]);
+    v5 = [MEMORY[0x277CBEA90] dataWithBytes:&v17 length:4];
     if (internalCopy[2](internalCopy, [v5 bytes], objc_msgSend(v5, "length")) < 0)
     {
-      if (*__error() == 35)
+      v12 = __error();
+      if (*v12 == 35)
       {
         v8 = 2;
       }
 
       else
       {
-        v12 = RWIDefaultLog();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v14 = RWIDefaultLog(v12);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           [_RWITCPRelayMessage writeInternal:];
         }
@@ -171,14 +173,15 @@ LABEL_14:
       goto LABEL_16;
     }
 
-    if (*__error() == 35)
+    v13 = __error();
+    if (*v13 == 35)
     {
       v8 = 2;
       goto LABEL_16;
     }
 
-    v14 = RWIDefaultLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = RWIDefaultLog(v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [_RWITCPRelayMessage writeInternal:];
     }
@@ -192,24 +195,20 @@ LABEL_16:
 
 - (void)writeInternal:.cold.1()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2(&dword_273C9C000, v2, v3, "_RWITCPRelayMessage header write failure: %{public}d - %{public}s", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_273C9C000, v1, v2, "_RWITCPRelayMessage header write failure: %{public}d - %{public}s", v3, v4, v5, v6);
 }
 
 - (void)writeInternal:.cold.2()
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = *__error();
-  v1 = __error();
-  strerror(*v1);
+  __error();
+  v0 = __error();
+  strerror(*v0);
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_2(&dword_273C9C000, v2, v3, "_RWITCPRelayMessage payload write failure: %{public}d - %{public}s", v4, v5, v6, v7, v9);
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2(&dword_273C9C000, v1, v2, "_RWITCPRelayMessage payload write failure: %{public}d - %{public}s", v3, v4, v5, v6);
 }
 
 @end

@@ -5,6 +5,7 @@
 - (id)isDeviceAddressReachable:(id)reachable;
 - (void)_clearUnreachablePendingForContext:(id)context;
 - (void)_evaluateDebounceTimer;
+- (void)_notifyListeners:(id)listeners address:(id)address isReachable:(BOOL)reachable;
 - (void)_serviceExpiredUnreachableDevices;
 - (void)_setUnreachablePendingForContext:(id)context;
 - (void)addListener:(id)listener forDeviceAddress:(id)address;
@@ -17,7 +18,7 @@
 
 - (void)_serviceExpiredUnreachableDevices
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   os_unfair_lock_lock_with_options();
   [(HMDModernTransportDeviceReachabilityObserver *)self setDebounceTimer:?];
@@ -67,9 +68,9 @@
         v16 = HMFGetLogIdentifier();
         address = [firstObject address];
         *buf = 138543618;
-        v34 = v16;
-        v35 = 2112;
-        v36 = address;
+        v33 = v16;
+        v34 = 2112;
+        v35 = address;
         _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_DEBUG, "%{public}@Unreachable Debounce timer did fire for device address %@", buf, 0x16u);
       }
 
@@ -124,14 +125,12 @@
   [(HMDModernTransportDeviceReachabilityObserver *)self _evaluateDebounceTimer];
 
   os_unfair_lock_unlock(&self->_lock);
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __81__HMDModernTransportDeviceReachabilityObserver__serviceExpiredUnreachableDevices__block_invoke;
-  v32[3] = &unk_27972FF58;
-  v32[4] = self;
-  [dictionary enumerateKeysAndObjectsUsingBlock:v32];
-
-  v31 = *MEMORY[0x277D85DE8];
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __81__HMDModernTransportDeviceReachabilityObserver__serviceExpiredUnreachableDevices__block_invoke;
+  v31[3] = &unk_27972FF58;
+  v31[4] = self;
+  [dictionary enumerateKeysAndObjectsUsingBlock:v31];
 }
 
 - (void)setDebounceTimer:(uint64_t)timer
@@ -142,10 +141,86 @@
   }
 }
 
+- (void)_notifyListeners:(id)listeners address:(id)address isReachable:(BOOL)reachable
+{
+  reachableCopy = reachable;
+  v33 = *MEMORY[0x277D85DE8];
+  listenersCopy = listeners;
+  addressCopy = address;
+  v10 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v12 = HMFGetOSLogHandle();
+  v13 = v12;
+  if (addressCopy)
+  {
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = HMFGetLogIdentifier();
+      v15 = @"unreachable";
+      *buf = 138543874;
+      v28 = v14;
+      v29 = 2112;
+      if (reachableCopy)
+      {
+        v15 = @"reachable";
+      }
+
+      v30 = v15;
+      v31 = 2112;
+      v32 = addressCopy;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@Notifying listeners that device address is %@: %@", buf, 0x20u);
+    }
+
+    objc_autoreleasePoolPop(v10);
+    v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
+    v16 = listenersCopy;
+    v17 = [v16 countByEnumeratingWithState:&v22 objects:v26 count:16];
+    if (v17)
+    {
+      v18 = v17;
+      v19 = *v23;
+      do
+      {
+        v20 = 0;
+        do
+        {
+          if (*v23 != v19)
+          {
+            objc_enumerationMutation(v16);
+          }
+
+          [*(*(&v22 + 1) + 8 * v20++) modernTransportDeviceReachabilityObserverDidUpdate:addressCopy isReachable:{reachableCopy, v22}];
+        }
+
+        while (v18 != v20);
+        v18 = [v16 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      }
+
+      while (v18);
+    }
+  }
+
+  else
+  {
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      v21 = HMFGetLogIdentifier();
+      *buf = 138543362;
+      v28 = v21;
+      _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Cannot notify listeners for reachability change with nil address", buf, 0xCu);
+    }
+
+    objc_autoreleasePoolPop(v10);
+  }
+}
+
 - (void)transport:(id)transport idsIdentifier:(id)identifier didAppearReachable:(BOOL)reachable
 {
   reachableCopy = reachable;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   transportCopy = transport;
   identifierCopy = identifier;
   v10 = objc_autoreleasePoolPush();
@@ -155,18 +230,18 @@
   {
     v13 = HMFGetLogIdentifier();
     v14 = @"unreachable";
-    *v25 = 138543874;
-    *&v25[4] = v13;
-    *&v25[12] = 2112;
+    *v24 = 138543874;
+    *&v24[4] = v13;
+    *&v24[12] = 2112;
     if (reachableCopy)
     {
       v14 = @"reachable";
     }
 
-    *&v25[14] = v14;
-    v26 = 2112;
-    v27 = identifierCopy;
-    _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Device with idsIdentifier reporting %@: %@ ", v25, 0x20u);
+    *&v24[14] = v14;
+    v25 = 2112;
+    v26 = identifierCopy;
+    _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Device with idsIdentifier reporting %@: %@ ", v24, 0x20u);
   }
 
   objc_autoreleasePoolPop(v10);
@@ -211,7 +286,7 @@ LABEL_13:
     }
   }
 
-  [v17 setReachability:{MEMORY[0x277CBEC38], *v25}];
+  [v17 setReachability:{MEMORY[0x277CBEC38], *v24, *&v24[8]}];
   address = [v17 address];
   listeners = [v17 listeners];
   allObjects = [listeners allObjects];
@@ -220,7 +295,6 @@ LABEL_13:
   [(HMDModernTransportDeviceReachabilityObserver *)selfCopy _notifyListeners:allObjects address:address isReachable:1];
 
 LABEL_14:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_clearUnreachablePendingForContext:(id)context
@@ -243,7 +317,7 @@ LABEL_14:
 
 - (void)_setUnreachablePendingForContext:(id)context
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   os_unfair_lock_assert_owner(&self->_lock);
   if (([(NSMutableArray *)self->_devicesWithPendingUnreachability containsObject:contextCopy]& 1) == 0)
@@ -258,11 +332,11 @@ LABEL_14:
       {
         v12 = HMFGetLogIdentifier();
         address = [contextCopy address];
-        v15 = 138543618;
-        v16 = v12;
-        v17 = 2112;
-        v18 = address;
-        _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Device address %@ reported unreachable.  Debouncing reachability", &v15, 0x16u);
+        v14 = 138543618;
+        v15 = v12;
+        v16 = 2112;
+        v17 = address;
+        _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Device address %@ reported unreachable.  Debouncing reachability", &v14, 0x16u);
       }
 
       objc_autoreleasePoolPop(v9);
@@ -272,8 +346,6 @@ LABEL_14:
       [(HMDModernTransportDeviceReachabilityObserver *)selfCopy _evaluateDebounceTimer];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_evaluateDebounceTimer
@@ -339,7 +411,7 @@ LABEL_14:
 
 - (void)removeListener:(id)listener forDeviceAddress:(id)address
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   addressCopy = address;
   v8 = objc_autoreleasePoolPush();
@@ -348,13 +420,13 @@ LABEL_14:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v23 = 138543874;
-    v24 = v11;
-    v25 = 2048;
-    v26 = listenerCopy;
-    v27 = 2112;
-    v28 = addressCopy;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Removing listener %p for address: %@", &v23, 0x20u);
+    v22 = 138543874;
+    v23 = v11;
+    v24 = 2048;
+    v25 = listenerCopy;
+    v26 = 2112;
+    v27 = addressCopy;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Removing listener %p for address: %@", &v22, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -401,12 +473,11 @@ LABEL_14:
   }
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addListener:(id)listener forDeviceAddress:(id)address
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   addressCopy = address;
   v8 = objc_autoreleasePoolPush();
@@ -415,13 +486,13 @@ LABEL_14:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = HMFGetLogIdentifier();
-    v21 = 138543874;
-    v22 = v11;
-    v23 = 2048;
-    v24 = listenerCopy;
-    v25 = 2112;
-    v26 = addressCopy;
-    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Adding listener %p for address: %@", &v21, 0x20u);
+    v20 = 138543874;
+    v21 = v11;
+    v22 = 2048;
+    v23 = listenerCopy;
+    v24 = 2112;
+    v25 = addressCopy;
+    _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Adding listener %p for address: %@", &v20, 0x20u);
   }
 
   objc_autoreleasePoolPop(v8);
@@ -462,7 +533,6 @@ LABEL_14:
   [listeners addObject:listenerCopy];
 
   os_unfair_lock_unlock(&selfCopy->_lock);
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDModernTransportDeviceReachabilityObserver)initWithTimerProvider:(id)provider dateProvider:(id)dateProvider
@@ -512,12 +582,11 @@ LABEL_14:
 
 uint64_t __59__HMDModernTransportDeviceReachabilityObserver_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v13_158020;
-  logCategory__hmf_once_v13_158020 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v13_158020;
+  logCategory__hmf_once_v13_158020 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

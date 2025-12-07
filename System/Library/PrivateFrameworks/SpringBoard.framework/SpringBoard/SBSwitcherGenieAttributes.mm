@@ -1,5 +1,5 @@
 @interface SBSwitcherGenieAttributes
-+ (id)genieAttributesForIconPosition:(CGPoint)position windowPosition:(CGPoint)windowPosition initialVelocity:(CGPoint)velocity windowSize:(CGSize)size minimizedSize:(CGSize)minimizedSize minimizedScale:(double)scale containerSize:(CGSize)containerSize minimumOutsetSize:(CGSize)self0 genieScale:(double)self1 multiplier:(CGPoint)self2 active:(double)self3 glassHighlight:(SBSwitcherGenieGlassHighlight *)self4 layoutSettings:(id)self5;
++ (id)genieAttributesForIconPosition:(CGPoint)position windowPosition:(CGPoint)windowPosition initialVelocity:(CGPoint)velocity windowSize:(CGSize)size minimizedSize:(CGSize)minimizedSize minimizedScale:(double)scale containerSize:(CGSize)containerSize minimumOutsetSize:(CGSize)self0 genieScale:(double)self1 multiplier:(CGPoint)self2 active:(BOOL)self3 glassHighlight:(SBSwitcherGenieGlassHighlight *)self4 layoutSettings:(id)self5;
 - (CGPoint)counterOffsetForSize:(CGSize)size;
 - (CGPoint)genieAmount;
 - (CGPoint)iconPosition;
@@ -21,7 +21,7 @@
 
 @implementation SBSwitcherGenieAttributes
 
-+ (id)genieAttributesForIconPosition:(CGPoint)position windowPosition:(CGPoint)windowPosition initialVelocity:(CGPoint)velocity windowSize:(CGSize)size minimizedSize:(CGSize)minimizedSize minimizedScale:(double)scale containerSize:(CGSize)containerSize minimumOutsetSize:(CGSize)self0 genieScale:(double)self1 multiplier:(CGPoint)self2 active:(double)self3 glassHighlight:(SBSwitcherGenieGlassHighlight *)self4 layoutSettings:(id)self5
++ (id)genieAttributesForIconPosition:(CGPoint)position windowPosition:(CGPoint)windowPosition initialVelocity:(CGPoint)velocity windowSize:(CGSize)size minimizedSize:(CGSize)minimizedSize minimizedScale:(double)scale containerSize:(CGSize)containerSize minimumOutsetSize:(CGSize)self0 genieScale:(double)self1 multiplier:(CGPoint)self2 active:(BOOL)self3 glassHighlight:(SBSwitcherGenieGlassHighlight *)self4 layoutSettings:(id)self5
 {
   height = minimizedSize.height;
   width = minimizedSize.width;
@@ -42,7 +42,7 @@
   [v24 setWindowSize:{v27, v28}];
   [v24 setMinimizedSize:{scale, genieScale}];
   [v24 setMinimizedScale:multiplier.x];
-  [v24 setContainerSize:{multiplier.y, active}];
+  [v24 setContainerSize:{multiplier.y, *&active}];
   [v24 setMinimumOutsetSize:{*&highlight, *&settings}];
   [v24 setGenieScale:v32];
   [v24 setMultiplier:{v33, v34}];

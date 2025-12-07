@@ -266,39 +266,7 @@ flatbuffers::DetachedBuffer *__51__QSSTextToSpeechSpeechFeatureRequest_flatbuffD
       v19 = v10->_root;
       if (v19)
       {
-        if (!flatbuffers::Verifier::VerifyTableStart(&v36, v11->_root->var0) || !flatbuffers::Table::VerifyOffset(v19, &v36, 4u))
-        {
-          goto LABEL_40;
-        }
-
-        v20 = (v19 - *v19);
-        if (*v20 >= 5u && (v21 = v20[2]) != 0)
-        {
-          v22 = v19 + v21 + *(v19 + v21);
-        }
-
-        else
-        {
-          v22 = 0;
-        }
-
-        if (!flatbuffers::Verifier::VerifyString(&v36, v22) || !flatbuffers::Table::VerifyOffset(v19, &v36, 6u))
-        {
-          goto LABEL_40;
-        }
-
-        v23 = (v19 - *v19);
-        if (*v23 >= 7u && (v24 = v23[3]) != 0)
-        {
-          v25 = v19 + v24 + *(v19 + v24);
-        }
-
-        else
-        {
-          v25 = 0;
-        }
-
-        if (!flatbuffers::Verifier::VerifyString(&v36, v25) || !flatbuffers::Table::VerifyOffset(v19, &v36, 8u) || (v26 = (v19 - *v19), *v26 >= 9u) && (v27 = v26[4]) != 0 && !siri::speech::schema_fb::TextToSpeechSpeechFeatureModelIdentifier::Verify((v19 + v27 + *(v19 + v27)), &v36) || !flatbuffers::Table::VerifyOffset(v19, &v36, 0xAu) || (v28 = (v19 - *v19), *v28 >= 0xBu) && (v29 = v28[5]) != 0 && !siri::speech::schema_fb::TextToSpeechSpeechFeatureInputText::Verify((v19 + v29 + *(v19 + v29)), &v36) || !flatbuffers::Table::VerifyOffset(v19, &v36, 0xCu) || (v30 = (v19 - *v19), *v30 >= 0xDu) && (v31 = v30[6]) != 0 && !siri::speech::schema_fb::TextToSpeechVoiceResource::Verify((v19 + v31 + *(v19 + v31)), &v36))
+        if (!flatbuffers::Verifier::VerifyTableStart(&v36, v11->_root->var0) || !flatbuffers::Table::VerifyOffset(v19, &v36, 4u) || ((v20 = (v19 - *v19), *v20 < 5u) || (v21 = v20[2]) == 0 ? (v22 = 0) : (v22 = v19 + v21 + *(v19 + v21)), !flatbuffers::Verifier::VerifyString(&v36, v22) || !flatbuffers::Table::VerifyOffset(v19, &v36, 6u) || ((v23 = (v19 - *v19), *v23 < 7u) || (v24 = v23[3]) == 0 ? (v25 = 0) : (v25 = v19 + v24 + *(v19 + v24)), !flatbuffers::Verifier::VerifyString(&v36, v25) || !flatbuffers::Table::VerifyOffset(v19, &v36, 8u) || (v26 = (v19 - *v19), *v26 >= 9u) && (v27 = v26[4]) != 0 && !siri::speech::schema_fb::TextToSpeechSpeechFeatureModelIdentifier::Verify((v19 + v27 + *(v19 + v27)), &v36) || !flatbuffers::Table::VerifyOffset(v19, &v36, 0xAu) || (v28 = (v19 - *v19), *v28 >= 0xBu) && (v29 = v28[5]) != 0 && !siri::speech::schema_fb::TextToSpeechSpeechFeatureInputText::Verify((v19 + v29 + *(v19 + v29)), &v36) || !flatbuffers::Table::VerifyOffset(v19, &v36, 0xCu) || (v30 = (v19 - *v19), *v30 >= 0xDu) && (v31 = v30[6]) != 0 && !siri::speech::schema_fb::TextToSpeechVoiceResource::Verify((v19 + v31 + *(v19 + v31)), &v36))))
         {
 LABEL_40:
           v34 = 0;

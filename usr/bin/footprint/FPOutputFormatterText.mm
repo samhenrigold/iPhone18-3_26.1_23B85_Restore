@@ -1,5 +1,6 @@
 @interface FPOutputFormatterText
 - (void)endAtTime:(id)time;
+- (void)endProcessHeader:(id)header;
 - (void)printGlobalAuxData:(id)data;
 - (void)printHeader;
 - (void)printProcessAuxData:(id)data forProcess:(id)process;
@@ -22,10 +23,9 @@
   if (self->_multipleOutputs)
   {
     dateFormatter = self->_dateFormatter;
-    v12 = sub_100017000(time);
-    v6 = [(NSISO8601DateFormatter *)dateFormatter stringFromDate:v12];
-    uTF8String = [v6 UTF8String];
-    sub_1000182F4(self, 0, 0, "Time: %s\n", v8, v9, v10, v11, uTF8String);
+    v7 = sub_100017000(time);
+    v6 = [(NSISO8601DateFormatter *)dateFormatter stringFromDate:v7];
+    sub_1000182F4(self, 0, 0, "Time: %s\n", [v6 UTF8String]);
   }
 }
 
@@ -118,7 +118,7 @@
 
 - (void)printHeader
 {
-  if (self && !sub_10000EDEC())
+  if (self && !sub_10000EDEC(FPFootprint))
   {
 
     sub_100019D50(self, "VM Object Dirty Analysis: Enabled\n", v3, v4, v5, v6, v7, v8, v10);
@@ -141,78 +141,119 @@
 
   self->_pageSize = [v5 pageSize];
   options = self->_options;
-  sub_1000182F4(self, v5, 1, "%s%s%s%*s%s%s%*s%s%s\n", v10, v11, v12, v13, "==========");
+  v10 = options << 62;
+  if ((options & 2) != 0)
+  {
+    v11 = "==========";
+  }
+
+  else
+  {
+    v11 = "";
+  }
+
+  v12 = options << 63 >> 63;
+  if (options)
+  {
+    v13 = "==========";
+  }
+
+  else
+  {
+    v13 = "";
+  }
+
+  sub_1000182F4(self, v5, 1, "%s%s%s%*s%s%s%*s%s%s\n", "==========", "==========", "==========", (v10 >> 63) & 0xA, v11, "==========", "==========", v12 & 0xA, v13, "==========", "==========");
   displayString = [v5 displayString];
-  LOBYTE(v8) = [displayString UTF8String];
-  [v5 is64bit];
-  [v5 isTranslated];
-  sub_1000182F4(self, v5, 1, "%s: %s-bit%s", v15, v16, v17, v18, v8);
+  uTF8String = [displayString UTF8String];
+  if ([v5 is64bit])
+  {
+    v16 = "64";
+  }
+
+  else
+  {
+    v16 = "32";
+  }
+
+  isTranslated = [v5 isTranslated];
+  v18 = " (translated)";
+  if (!isTranslated)
+  {
+    v18 = "";
+  }
+
+  sub_1000182F4(self, v5, 1, "%s: %s-bit%s", uTF8String, v16, v18);
 
   warnings = [v5 warnings];
   errors = [v5 errors];
   if ([warnings count])
   {
-    sub_1000182F4(self, v5, 1, "\nWarnings were encountered while examining the process.\n", v21, v22, v23, v24, v47);
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
-    v53 = 0u;
-    v25 = warnings;
-    v26 = [v25 countByEnumeratingWithState:&v52 objects:v57 count:16];
-    if (v26)
+    sub_1000182F4(self, v5, 1, "\nWarnings were encountered while examining the process.\n");
+    v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v21 = warnings;
+    v22 = [v21 countByEnumeratingWithState:&v35 objects:v40 count:16];
+    if (v22)
     {
-      v27 = v26;
-      v28 = *v53;
+      v23 = v22;
+      v24 = *v36;
       do
       {
-        for (i = 0; i != v27; i = i + 1)
+        v25 = 0;
+        do
         {
-          if (*v53 != v28)
+          if (*v36 != v24)
           {
-            objc_enumerationMutation(v25);
+            objc_enumerationMutation(v21);
           }
 
-          [*(*(&v52 + 1) + 8 * i) UTF8String];
-          sub_1000182F4(self, v5, 1, "%s%s\n", v30, v31, v32, v33, "    ");
+          sub_1000182F4(self, v5, 1, "%s%s\n", "    ", [*(*(&v35 + 1) + 8 * v25) UTF8String]);
+          v25 = v25 + 1;
         }
 
-        v27 = [v25 countByEnumeratingWithState:&v52 objects:v57 count:16];
+        while (v23 != v25);
+        v23 = [v21 countByEnumeratingWithState:&v35 objects:v40 count:16];
       }
 
-      while (v27);
+      while (v23);
     }
   }
 
   if ([errors count])
   {
-    sub_1000182F4(self, v5, 1, "\nErrors were encountered while examining the process. Results may be incomplete or incorrect.\n", v34, v35, v36, v37, v47);
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
-    v49 = 0u;
-    v38 = errors;
-    v39 = [v38 countByEnumeratingWithState:&v48 objects:v56 count:16];
-    if (v39)
+    sub_1000182F4(self, v5, 1, "\nErrors were encountered while examining the process. Results may be incomplete or incorrect.\n");
+    v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v26 = errors;
+    v27 = [v26 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    if (v27)
     {
-      v40 = v39;
-      v41 = *v49;
+      v28 = v27;
+      v29 = *v32;
       do
       {
-        for (j = 0; j != v40; j = j + 1)
+        v30 = 0;
+        do
         {
-          if (*v49 != v41)
+          if (*v32 != v29)
           {
-            objc_enumerationMutation(v38);
+            objc_enumerationMutation(v26);
           }
 
-          [*(*(&v48 + 1) + 8 * j) UTF8String];
-          sub_1000182F4(self, v5, 1, "%s%s\n", v43, v44, v45, v46, "    ");
+          sub_1000182F4(self, v5, 1, "%s%s\n", "    ", [*(*(&v31 + 1) + 8 * v30) UTF8String]);
+          v30 = v30 + 1;
         }
 
-        v40 = [v38 countByEnumeratingWithState:&v48 objects:v56 count:16];
+        while (v28 != v30);
+        v28 = [v26 countByEnumeratingWithState:&v31 objects:v39 count:16];
       }
 
-      while (v40);
+      while (v28);
     }
   }
 }
@@ -220,11 +261,37 @@
 - (void)printProcessTotal:(id)total forProcess:(id)process
 {
   processCopy = process;
-  v12 = sub_100018EC4(self, [total longLongValue]);
-  v7 = v12;
-  [v12 UTF8String];
-  [processCopy pageSize];
-  sub_1000182F4(self, processCopy, 1, "%sFootprint: %s (%lu bytes per page)\n", v8, v9, v10, v11, "    ");
+  v8 = sub_100018EC4(self, [total longLongValue]);
+  v7 = v8;
+  sub_1000182F4(self, processCopy, 1, "%sFootprint: %s (%lu bytes per page)\n", "    ", [v8 UTF8String], objc_msgSend(processCopy, "pageSize"));
+}
+
+- (void)endProcessHeader:(id)header
+{
+  options = self->_options;
+  v4 = options << 62;
+  if ((options & 2) != 0)
+  {
+    v5 = "==========";
+  }
+
+  else
+  {
+    v5 = "";
+  }
+
+  v6 = options << 63 >> 63;
+  if (options)
+  {
+    v7 = "==========";
+  }
+
+  else
+  {
+    v7 = "";
+  }
+
+  sub_1000182F4(self, header, 1, "%s%s%s%*s%s%s%*s%s%s\n\n", "==========", "==========", "==========", (v4 >> 63) & 0xA, v5, "==========", "==========", v6 & 0xA, v7, "==========", "==========");
 }
 
 - (void)printProcessCategories:(id)categories total:(id *)total forProcess:(id)process
@@ -232,52 +299,168 @@
   summaryFormat = self->_summaryFormat;
   processCopy = process;
   categoriesCopy = categories;
-  [@"Dirty" UTF8String];
+  uTF8String = [@"Dirty" UTF8String];
   if ((self->_options & 2) != 0)
   {
-    self->_summaryFormat;
-    [(NSString *)self->_swappedColumnName UTF8String];
+    if (self->_summaryFormat == 1)
+    {
+      v8 = 11;
+    }
+
+    else
+    {
+      v8 = 14;
+    }
+
+    v33 = v8;
+    uTF8String2 = [(NSString *)self->_swappedColumnName UTF8String];
   }
 
-  v7 = self->_summaryFormat;
-  [@"Clean" UTF8String];
-  v8 = self->_summaryFormat;
-  [@"Reclaimable" UTF8String];
+  else
+  {
+    v33 = 0;
+    uTF8String2 = "";
+  }
+
+  v9 = self->_summaryFormat;
+  uTF8String3 = [@"Clean" UTF8String];
+  v11 = self->_summaryFormat;
+  uTF8String4 = [@"Reclaimable" UTF8String];
   if (self->_options)
   {
-    self->_summaryFormat;
-    [(NSString *)self->_wiredColumnName UTF8String];
+    if (self->_summaryFormat == 1)
+    {
+      v13 = 11;
+    }
+
+    else
+    {
+      v13 = 14;
+    }
+
+    uTF8String5 = [(NSString *)self->_wiredColumnName UTF8String];
   }
 
-  [@"Regions" UTF8String];
-  [@"Category" UTF8String];
+  else
+  {
+    v13 = 0;
+    uTF8String5 = "";
+  }
+
+  uTF8String6 = [@"Regions" UTF8String];
+  uTF8String7 = [@"Category" UTF8String];
+  if (v11 == 1)
+  {
+    v15 = 13;
+  }
+
+  else
+  {
+    v15 = 14;
+  }
+
+  v29 = v15;
+  if (v9 == 1)
+  {
+    v16 = 11;
+  }
+
+  else
+  {
+    v16 = 14;
+  }
+
+  v28 = v16;
   if (summaryFormat == 1)
   {
-    v13 = 7;
+    v17 = 7;
   }
 
   else
   {
-    v13 = 11;
+    v17 = 11;
   }
 
-  sub_1000182F4(self, processCopy, 1, "%*s%*s%*s%*s%*s %10s    %s\n", v9, v10, v11, v12, v13);
+  sub_1000182F4(self, processCopy, 1, "%*s%*s%*s%*s%*s %10s    %s\n", v17, uTF8String, v33, uTF8String2, v28, uTF8String3, v29, uTF8String4, v13, uTF8String5, uTF8String6, uTF8String7);
+  v18 = self->_summaryFormat;
   options = self->_options;
-  if (self->_summaryFormat == 1)
+  v20 = v18 == 1;
+  if (v18 == 1)
   {
-    v19 = 7;
+    v21 = 11;
   }
 
   else
   {
-    v19 = 11;
+    v21 = 14;
   }
 
-  sub_1000182F4(self, processCopy, 1, "%*s%*s%*s%*s%*s %10s    %s\n", v14, v15, v16, v17, v19);
+  if (v20)
+  {
+    v22 = 7;
+  }
+
+  else
+  {
+    v22 = 11;
+  }
+
+  if (v20)
+  {
+    v23 = 11;
+  }
+
+  else
+  {
+    v23 = 14;
+  }
+
+  if (v20)
+  {
+    v24 = 13;
+  }
+
+  else
+  {
+    v24 = 14;
+  }
+
+  if ((options & 2) != 0)
+  {
+    v25 = v21;
+  }
+
+  else
+  {
+    v25 = 0;
+  }
+
+  if ((options & 2) != 0)
+  {
+    v26 = "---";
+  }
+
+  else
+  {
+    v26 = "";
+  }
+
+  if (options)
+  {
+    v27 = "---";
+  }
+
+  else
+  {
+    v21 = 0;
+    v27 = "";
+  }
+
+  sub_1000182F4(self, processCopy, 1, "%*s%*s%*s%*s%*s %10s    %s\n", v22, "---", v25, v26, v23, "---", v24, "---", v21, v27, "---", "---");
   sub_100019290(self, categoriesCopy, processCopy);
 
   sub_1000194D4(self, total, processCopy);
-  sub_1000182F4(self, processCopy, 1, "\n", v20, v21, v22, v23, v24);
+  sub_1000182F4(self, processCopy, 1, "\n");
 }
 
 - (void)printSharedCategories:(id)categories sharedWith:(id)with forProcess:(id)process hasProcessView:(BOOL)view total:(id *)total
@@ -291,130 +474,243 @@
   processes2 = [withCopy processes];
   v15 = [processes2 count];
 
-  v62 = withCopy;
+  v52 = withCopy;
   if (v15 < 0x15)
   {
-    sub_1000182F4(self, processCopy, 1, "Shared with", v16, v17, v18, v19, v57);
-    v66 = 0u;
-    v67 = 0u;
-    v64 = 0u;
-    v65 = 0u;
+    sub_1000182F4(self, processCopy, 1, "Shared with");
+    v56 = 0u;
+    v57 = 0u;
+    v54 = 0u;
+    v55 = 0u;
     processes3 = [withCopy processes];
-    v21 = [processes3 countByEnumeratingWithState:&v64 objects:v68 count:16];
-    if (v21)
+    v17 = [processes3 countByEnumeratingWithState:&v54 objects:v58 count:16];
+    if (v17)
     {
-      v22 = v21;
-      v23 = *v65;
+      v18 = v17;
+      v19 = *v55;
       do
       {
-        for (i = 0; i != v22; i = i + 1)
+        for (i = 0; i != v18; i = i + 1)
         {
-          if (*v65 != v23)
+          if (*v55 != v19)
           {
             objc_enumerationMutation(processes3);
           }
 
-          v25 = *(*(&v64 + 1) + 8 * i);
-          if (v25 != processCopy)
+          v21 = *(*(&v54 + 1) + 8 * i);
+          if (v21 != processCopy)
           {
-            displayString = [v25 displayString];
-            uTF8String = [displayString UTF8String];
-            sub_1000182F4(self, processCopy, 1, " %s", v28, v29, v30, v31, uTF8String);
+            displayString = [v21 displayString];
+            sub_1000182F4(self, processCopy, 1, " %s", [displayString UTF8String]);
 
             if (--v13)
             {
-              sub_1000182F4(self, processCopy, 1, ",", v32, v33, v34, v35, v58);
+              sub_1000182F4(self, processCopy, 1, ",");
             }
           }
         }
 
-        v22 = [processes3 countByEnumeratingWithState:&v64 objects:v68 count:16];
+        v18 = [processes3 countByEnumeratingWithState:&v54 objects:v58 count:16];
       }
 
-      while (v22);
+      while (v18);
     }
 
-    sub_1000182F4(self, processCopy, 1, ":\n", v36, v37, v38, v39, v58);
+    sub_1000182F4(self, processCopy, 1, ":\n");
   }
 
   else
   {
-    sub_1000182F4(self, processCopy, 1, "Shared with %lu processes:\n", v16, v17, v18, v19, v13);
+    sub_1000182F4(self, processCopy, 1, "Shared with %lu processes:\n");
   }
 
   summaryFormat = self->_summaryFormat;
-  [@"Dirty" UTF8String];
+  uTF8String = [@"Dirty" UTF8String];
   if ((self->_options & 2) != 0)
   {
-    self->_summaryFormat;
-    [(NSString *)self->_swappedColumnName UTF8String];
+    if (self->_summaryFormat == 1)
+    {
+      v23 = 11;
+    }
+
+    else
+    {
+      v23 = 14;
+    }
+
+    v48 = v23;
+    uTF8String2 = [(NSString *)self->_swappedColumnName UTF8String];
   }
 
-  v40 = self->_summaryFormat;
-  [@"Clean" UTF8String];
-  v41 = self->_summaryFormat;
-  [@"Reclaimable" UTF8String];
+  else
+  {
+    uTF8String2 = "";
+    v48 = 0;
+  }
+
+  v24 = self->_summaryFormat;
+  uTF8String3 = [@"Clean" UTF8String];
+  v26 = self->_summaryFormat;
+  uTF8String4 = [@"Reclaimable" UTF8String];
   if (self->_options)
   {
-    self->_summaryFormat;
-    [(NSString *)self->_wiredColumnName UTF8String];
+    if (self->_summaryFormat == 1)
+    {
+      v28 = 11;
+    }
+
+    else
+    {
+      v28 = 14;
+    }
+
+    uTF8String5 = [(NSString *)self->_wiredColumnName UTF8String];
   }
 
-  [@"Regions" UTF8String];
-  [@"Category" UTF8String];
+  else
+  {
+    v28 = 0;
+    uTF8String5 = "";
+  }
+
+  uTF8String6 = [@"Regions" UTF8String];
+  uTF8String7 = [@"Category" UTF8String];
+  if (v26 == 1)
+  {
+    v30 = 13;
+  }
+
+  else
+  {
+    v30 = 14;
+  }
+
+  v44 = v30;
+  if (v24 == 1)
+  {
+    v31 = 11;
+  }
+
+  else
+  {
+    v31 = 14;
+  }
+
+  v43 = v31;
   if (summaryFormat == 1)
   {
-    v46 = 7;
+    v32 = 7;
   }
 
   else
   {
-    v46 = 11;
+    v32 = 11;
   }
 
-  sub_1000182F4(self, processCopy, 1, "%*s%*s%*s%*s%*s %10s    %s\n", v42, v43, v44, v45, v46);
+  sub_1000182F4(self, processCopy, 1, "%*s%*s%*s%*s%*s %10s    %s\n", v32, uTF8String, v48, uTF8String2, v43, uTF8String3, v44, uTF8String4, v28, uTF8String5, uTF8String6, uTF8String7);
+  v33 = self->_summaryFormat;
   options = self->_options;
-  if (self->_summaryFormat == 1)
+  v35 = v33 == 1;
+  if (v33 == 1)
   {
-    v52 = 7;
+    v36 = 11;
   }
 
   else
   {
-    v52 = 11;
+    v36 = 14;
   }
 
-  sub_1000182F4(self, processCopy, 1, "%*s%*s%*s%*s%*s %10s    %s\n", v47, v48, v49, v50, v52);
+  if (v35)
+  {
+    v37 = 7;
+  }
+
+  else
+  {
+    v37 = 11;
+  }
+
+  if (v35)
+  {
+    v38 = 11;
+  }
+
+  else
+  {
+    v38 = 14;
+  }
+
+  if (v35)
+  {
+    v39 = 13;
+  }
+
+  else
+  {
+    v39 = 14;
+  }
+
+  if ((options & 2) != 0)
+  {
+    v40 = v36;
+  }
+
+  else
+  {
+    v40 = 0;
+  }
+
+  if ((options & 2) != 0)
+  {
+    v41 = "---";
+  }
+
+  else
+  {
+    v41 = "";
+  }
+
+  if (options)
+  {
+    v42 = "---";
+  }
+
+  else
+  {
+    v36 = 0;
+    v42 = "";
+  }
+
+  sub_1000182F4(self, processCopy, 1, "%*s%*s%*s%*s%*s %10s    %s\n", v37, "---", v40, v41, v38, "---", v39, "---", v36, v42, "---", "---");
   sub_100019290(self, categoriesCopy, processCopy);
   sub_1000194D4(self, total, processCopy);
-  sub_1000182F4(self, processCopy, 1, "\n", v53, v54, v55, v56, v59);
+  sub_1000182F4(self, processCopy, 1, "\n");
 }
 
 - (void)printSharedCache:(id)cache categories:(id)categories sharedWith:(id)with total:(id *)total
 {
-  options = self->_options;
   withCopy = with;
   categoriesCopy = categories;
   cacheCopy = cache;
-  sub_100019D50(self, "%s%s%s%*s%s%s%*s%s%s\n", v12, v13, v14, v15, v16, v17, "==========");
+  sub_100019D50(self, "%s%s%s%*s%s%s%*s%s%s\n", v11, v12, v13, v14, v15, v16, "==========");
   if (cacheCopy)
   {
-    v18 = cacheCopy[2];
+    v17 = cacheCopy[2];
   }
 
   else
   {
-    v18 = 0;
+    v17 = 0;
   }
 
-  v19 = v18;
+  v18 = v17;
 
-  uUIDString = [v19 UUIDString];
+  uUIDString = [v18 UUIDString];
   uTF8String = [uUIDString UTF8String];
-  sub_100019D50(self, "Shared Cache %s\n", v22, v23, v24, v25, v26, v27, uTF8String);
+  sub_100019D50(self, "Shared Cache %s\n", v21, v22, v23, v24, v25, v26, uTF8String);
 
-  v28 = self->_options;
-  sub_100019D50(self, "%s%s%s%*s%s%s%*s%s%s\n\n", v29, v30, v31, v32, v33, v34, "==========");
+  sub_100019D50(self, "%s%s%s%*s%s%s%*s%s%s\n\n", v27, v28, v29, v30, v31, v32, "==========");
   [(FPOutputFormatterText *)self printSharedCategories:categoriesCopy sharedWith:withCopy forProcess:0 hasProcessView:0 total:total];
 }
 
@@ -423,18 +719,18 @@
   if (data)
   {
     processCopy = process;
-    v18 = processCopy;
+    v9 = processCopy;
     if (self)
     {
-      v11 = processCopy;
+      v7 = processCopy;
       dataCopy = data;
-      sub_1000182F4(self, v11, 1, "Auxiliary data:\n", v13, v14, v15, v16, v17);
-      sub_10001A8FC(self, dataCopy, 1, v11);
+      sub_1000182F4(self, v7, 1, "Auxiliary data:\n");
+      sub_10001A8FC(self, dataCopy, 1, v7);
 
-      processCopy = v18;
+      processCopy = v9;
     }
 
-    sub_1000182F4(self, processCopy, 1, "\n", v7, v8, v9, v10, v17);
+    sub_1000182F4(self, processCopy, 1, "\n");
   }
 }
 
@@ -443,120 +739,118 @@
   warningsCopy = warnings;
   errorsCopy = errors;
   globalErrorsCopy = globalErrors;
-  v69 = globalErrorsCopy;
-  v70 = warningsCopy;
+  v61 = globalErrorsCopy;
+  v62 = warningsCopy;
   if ([warningsCopy count])
   {
-    sub_100019D50(self, "\nWarnings were encountered while examining the following processes:\n", v11, v12, v13, v14, v15, v16, v68);
-    v81 = 0u;
-    v82 = 0u;
-    v79 = 0u;
-    v80 = 0u;
+    sub_100019D50(self, "\nWarnings were encountered while examining the following processes:\n", v11, v12, v13, v14, v15, v16, v60);
+    v73 = 0u;
+    v74 = 0u;
+    v71 = 0u;
+    v72 = 0u;
     v17 = warningsCopy;
-    v18 = [v17 countByEnumeratingWithState:&v79 objects:v85 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v71 objects:v77 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v80;
+      v20 = *v72;
       do
       {
         for (i = 0; i != v19; i = i + 1)
         {
-          if (*v80 != v20)
+          if (*v72 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v79 + 1) + 8 * i);
+          v22 = *(*(&v71 + 1) + 8 * i);
           name = [v22 name];
-          [name UTF8String];
-          sub_1000182F4(self, v22, 1, "%s%s\n", v24, v25, v26, v27, "    ");
+          sub_1000182F4(self, v22, 1, "%s%s\n", "    ", [name UTF8String]);
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v79 objects:v85 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v71 objects:v77 count:16];
       }
 
       while (v19);
     }
 
-    globalErrorsCopy = v69;
-    warningsCopy = v70;
+    globalErrorsCopy = v61;
+    warningsCopy = v62;
   }
 
   if ([errorsCopy count])
   {
-    sub_100019D50(self, "\nErrors were encountered while examining the following processes:\n", v28, v29, v30, v31, v32, v33, v68);
-    v77 = 0u;
-    v78 = 0u;
-    v75 = 0u;
-    v76 = 0u;
-    v34 = errorsCopy;
-    v35 = [v34 countByEnumeratingWithState:&v75 objects:v84 count:16];
-    if (v35)
+    sub_100019D50(self, "\nErrors were encountered while examining the following processes:\n", v24, v25, v26, v27, v28, v29, v60);
+    v69 = 0u;
+    v70 = 0u;
+    v67 = 0u;
+    v68 = 0u;
+    v30 = errorsCopy;
+    v31 = [v30 countByEnumeratingWithState:&v67 objects:v76 count:16];
+    if (v31)
     {
-      v36 = v35;
-      v37 = *v76;
+      v32 = v31;
+      v33 = *v68;
       do
       {
-        for (j = 0; j != v36; j = j + 1)
+        for (j = 0; j != v32; j = j + 1)
         {
-          if (*v76 != v37)
+          if (*v68 != v33)
           {
-            objc_enumerationMutation(v34);
+            objc_enumerationMutation(v30);
           }
 
-          v39 = *(*(&v75 + 1) + 8 * j);
-          name2 = [v39 name];
-          [name2 UTF8String];
-          sub_1000182F4(self, v39, 1, "%s%s\n", v41, v42, v43, v44, "    ");
+          v35 = *(*(&v67 + 1) + 8 * j);
+          name2 = [v35 name];
+          sub_1000182F4(self, v35, 1, "%s%s\n", "    ", [name2 UTF8String]);
         }
 
-        v36 = [v34 countByEnumeratingWithState:&v75 objects:v84 count:16];
+        v32 = [v30 countByEnumeratingWithState:&v67 objects:v76 count:16];
       }
 
-      while (v36);
+      while (v32);
     }
 
-    globalErrorsCopy = v69;
-    warningsCopy = v70;
+    globalErrorsCopy = v61;
+    warningsCopy = v62;
   }
 
   if ([globalErrorsCopy count])
   {
-    sub_100019D50(self, "\nErrors were encountered:\n", v45, v46, v47, v48, v49, v50, v68);
-    v73 = 0u;
-    v74 = 0u;
-    v71 = 0u;
-    v72 = 0u;
-    v51 = globalErrorsCopy;
-    v52 = [v51 countByEnumeratingWithState:&v71 objects:v83 count:16];
-    if (v52)
+    sub_100019D50(self, "\nErrors were encountered:\n", v37, v38, v39, v40, v41, v42, v60);
+    v65 = 0u;
+    v66 = 0u;
+    v63 = 0u;
+    v64 = 0u;
+    v43 = globalErrorsCopy;
+    v44 = [v43 countByEnumeratingWithState:&v63 objects:v75 count:16];
+    if (v44)
     {
-      v53 = v52;
-      v54 = *v72;
+      v45 = v44;
+      v46 = *v64;
       do
       {
-        for (k = 0; k != v53; k = k + 1)
+        for (k = 0; k != v45; k = k + 1)
         {
-          if (*v72 != v54)
+          if (*v64 != v46)
           {
-            objc_enumerationMutation(v51);
+            objc_enumerationMutation(v43);
           }
 
-          [*(*(&v71 + 1) + 8 * k) UTF8String];
-          sub_100019D50(self, "%s%s\n", v56, v57, v58, v59, v60, v61, "    ");
+          [*(*(&v63 + 1) + 8 * k) UTF8String];
+          sub_100019D50(self, "%s%s\n", v48, v49, v50, v51, v52, v53, "    ");
         }
 
-        v53 = [v51 countByEnumeratingWithState:&v71 objects:v83 count:16];
+        v45 = [v43 countByEnumeratingWithState:&v63 objects:v75 count:16];
       }
 
-      while (v53);
+      while (v45);
     }
   }
 
   if ([errorsCopy count] || objc_msgSend(globalErrorsCopy, "count"))
   {
-    sub_100019D50(self, "\nDue to errors, summary results may be incomplete or incorrect\n", v62, v63, v64, v65, v66, v67, v68);
+    sub_100019D50(self, "\nDue to errors, summary results may be incomplete or incorrect\n", v54, v55, v56, v57, v58, v59, v60);
   }
 }
 
@@ -565,62 +859,53 @@
   categoriesCopy = categories;
   if (self->_processCount != 1)
   {
-    options = self->_options;
-    v46 = categoriesCopy;
+    v43 = categoriesCopy;
     sub_100019D50(self, "%s%s%s%*s%s%s%*s%s%s\n", v8, v9, v10, v11, v12, v13, "==========");
-    v15 = sub_100018EC4(self, total->var1 + total->var0);
-    uTF8String = [v15 UTF8String];
-    sub_100019D50(self, "Summary Footprint: %s%s\n", v17, v18, v19, v20, v21, v22, uTF8String);
+    v14 = sub_100018EC4(self, total->var1 + total->var0);
+    uTF8String = [v14 UTF8String];
+    sub_100019D50(self, "Summary Footprint: %s%s\n", v16, v17, v18, v19, v20, v21, uTF8String);
 
-    v23 = self->_options;
-    sub_100019D50(self, "%s%s%s%*s%s%s%*s%s%s\n\n", v24, v25, v26, v27, v28, v29, "==========");
-    categoriesCopy = v46;
-    if (v46)
+    sub_100019D50(self, "%s%s%s%*s%s%s%*s%s%s\n\n", v22, v23, v24, v25, v26, v27, "==========");
+    categoriesCopy = v43;
+    if (v43)
     {
       if (self->_summaryFormat == 1)
       {
-        v30 = 7;
+        v28 = 7;
       }
 
       else
       {
-        v30 = 11;
+        v28 = 11;
       }
 
-      v45 = v30;
+      v42 = v28;
       [@"Dirty" UTF8String];
       if ((self->_options & 2) != 0)
       {
-        self->_summaryFormat;
         [(NSString *)self->_swappedColumnName UTF8String];
       }
 
-      self->_summaryFormat;
       [@"Clean" UTF8String];
-      self->_summaryFormat;
       [@"Reclaimable" UTF8String];
       if (self->_options)
       {
-        self->_summaryFormat;
         [(NSString *)self->_wiredColumnName UTF8String];
       }
 
       [@"Regions" UTF8String];
       [@"Category" UTF8String];
-      sub_100019D50(self, "%*s%*s%*s%*s%*s %10s    %s\n", v31, v32, v33, v34, v35, v36, v45);
-      v43 = self->_options;
-      self->_summaryFormat;
-      v44 = 7;
+      sub_100019D50(self, "%*s%*s%*s%*s%*s %10s    %s\n", v29, v30, v31, v32, v33, v34, v42);
+      v41 = 7;
       if (self->_summaryFormat != 1)
       {
-        v44 = 11;
+        v41 = 11;
       }
 
-      self->_summaryFormat;
-      sub_100019D50(self, "%*s%*s%*s%*s%*s %10s    %s\n", v37, v38, v39, v40, v41, v42, v44);
-      sub_100019290(self, v46, 0);
+      sub_100019D50(self, "%*s%*s%*s%*s%*s %10s    %s\n", v35, v36, v37, v38, v39, v40, v41);
+      sub_100019290(self, v43, 0);
       sub_1000194D4(self, total, 0);
-      categoriesCopy = v46;
+      categoriesCopy = v43;
     }
   }
 }
@@ -630,80 +915,77 @@
   dataCopy = data;
   if (self->_processCount != 1)
   {
-    v50 = dataCopy;
-    sub_100019D50(self, "\n", v5, v6, v7, v8, v9, v10, v48);
-    if (v50)
+    v40 = dataCopy;
+    sub_100019D50(self, "\n", v5, v6, v7, v8, v9, v10, v38);
+    if (v40)
     {
-      sub_1000182F4(self, 0, 1, "System auxiliary data:\n", v13, v14, v15, v16, v49);
-      v17 = v50;
+      sub_1000182F4(self, 0, 1, "System auxiliary data:\n");
+      v17 = v40;
       v18 = &off_10002C428;
-      v51 = 0u;
-      v52 = 0u;
-      v53 = 0u;
-      v54 = 0u;
-      v19 = [&off_10002C428 countByEnumeratingWithState:&v51 objects:v55 count:16];
+      v41 = 0u;
+      v42 = 0u;
+      v43 = 0u;
+      v44 = 0u;
+      v19 = [&off_10002C428 countByEnumeratingWithState:&v41 objects:v45 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v52;
+        v21 = *v42;
         do
         {
           for (i = 0; i != v20; i = i + 1)
           {
-            if (*v52 != v21)
+            if (*v42 != v21)
             {
               objc_enumerationMutation(&off_10002C428);
             }
 
-            v23 = *(*(&v51 + 1) + 8 * i);
+            v23 = *(*(&v41 + 1) + 8 * i);
             v24 = [v17 objectForKeyedSubscript:v23];
-            strlen([v23 UTF8String]);
-            v25 = [v17 objectForKeyedSubscript:v23];
+            v25 = strlen([v23 UTF8String]);
+            v26 = [v17 objectForKeyedSubscript:v23];
 
-            if (v25)
+            if (v26)
             {
               if ([v24 fp_isContainer])
               {
-                uTF8String = [v23 UTF8String];
-                sub_1000182F4(self, 0, 1, "%s:\n", v27, v28, v29, v30, uTF8String);
+                sub_1000182F4(self, 0, 1, "%s:\n", [v23 UTF8String]);
               }
 
               else
               {
-                v31 = v24;
+                v27 = v24;
                 if ([v23 isEqualToString:@"sys_footprint"])
                 {
-                  sub_100019D50(self, "%s%s\n", v32, v33, v34, v35, v36, v37, "    ");
+                  sub_100019D50(self, "%s%s\n", v28, v29, v30, v31, v32, v33, "    ");
                 }
 
-                if ([v31 supportsFormattedValue])
+                v34 = 33 - v25;
+                if ([v27 supportsFormattedValue])
                 {
-                  [v23 UTF8String];
-                  [v31 formattedValue];
-                  sub_1000182F4(self, 0, 1, "%s%s:%*s\n", v38, v39, v40, v41, "    ");
+                  sub_1000182F4(self, 0, 1, "%s%s:%*s\n", "    ", [v23 UTF8String], v34, objc_msgSend(v27, "formattedValue"));
                 }
 
                 else
                 {
-                  value = [v31 value];
-                  [v23 UTF8String];
-                  v43 = sub_100018EC4(self, value);
-                  [v43 UTF8String];
-                  sub_1000182F4(self, 0, 1, "%s%s:%*s\n", v44, v45, v46, v47, "    ");
+                  value = [v27 value];
+                  uTF8String = [v23 UTF8String];
+                  v37 = sub_100018EC4(self, value);
+                  sub_1000182F4(self, 0, 1, "%s%s:%*s\n", "    ", uTF8String, v34, [v37 UTF8String]);
                 }
               }
             }
           }
 
-          v20 = [&off_10002C428 countByEnumeratingWithState:&v51 objects:v55 count:16];
+          v20 = [&off_10002C428 countByEnumeratingWithState:&v41 objects:v45 count:16];
         }
 
         while (v20);
       }
     }
 
-    sub_100019D50(self, "\n", v11, v12, v13, v14, v15, v16, v49);
-    dataCopy = v50;
+    sub_100019D50(self, "\n", v11, v12, v13, v14, v15, v16, v39);
+    dataCopy = v40;
   }
 }
 

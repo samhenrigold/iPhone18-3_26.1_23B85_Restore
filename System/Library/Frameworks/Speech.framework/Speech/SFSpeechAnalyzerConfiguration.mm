@@ -16,7 +16,7 @@
 {
   formatCopy = format;
   selfCopy = self;
-  sub_1AC651304(format);
+  sub_1AC651304(format, selfCopy);
 }
 
 @end

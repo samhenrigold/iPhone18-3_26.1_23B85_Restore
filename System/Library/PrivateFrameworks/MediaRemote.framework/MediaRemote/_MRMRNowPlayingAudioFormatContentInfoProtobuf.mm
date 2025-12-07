@@ -292,19 +292,18 @@ LABEL_16:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v16 = toCopy;
+  v7 = toCopy;
   if (self->_bundleID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v16;
+    toCopy = v7;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    audioSessionID = self->_audioSessionID;
     PBDataWriterWriteUint64Field();
-    toCopy = v16;
+    toCopy = v7;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -323,35 +322,32 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  audioFormat = self->_audioFormat;
   PBDataWriterWriteUint64Field();
-  toCopy = v16;
+  toCopy = v7;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_6:
-    channelCount = self->_channelCount;
     PBDataWriterWriteUint64Field();
-    toCopy = v16;
+    toCopy = v7;
   }
 
 LABEL_7:
   if (self->_bestAvailableContent)
   {
     PBDataWriterWriteStringField();
-    toCopy = v16;
+    toCopy = v7;
   }
 
-  v7 = self->_has;
-  if ((v7 & 0x80) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x80) != 0)
   {
-    eligibleForSpatialization = self->_eligibleForSpatialization;
     PBDataWriterWriteBOOLField();
-    toCopy = v16;
-    v7 = self->_has;
-    if ((v7 & 0x100) == 0)
+    toCopy = v7;
+    v6 = self->_has;
+    if ((v6 & 0x100) == 0)
     {
 LABEL_11:
-      if ((v7 & 8) == 0)
+      if ((v6 & 8) == 0)
       {
         goto LABEL_12;
       }
@@ -365,14 +361,13 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  spatialized = self->_spatialized;
   PBDataWriterWriteBOOLField();
-  toCopy = v16;
-  v7 = self->_has;
-  if ((v7 & 8) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 8) == 0)
   {
 LABEL_12:
-    if ((v7 & 0x40) == 0)
+    if ((v6 & 0x40) == 0)
     {
       goto LABEL_13;
     }
@@ -381,14 +376,13 @@ LABEL_12:
   }
 
 LABEL_24:
-  intendedSpatialExperience = self->_intendedSpatialExperience;
   PBDataWriterWriteInt64Field();
-  toCopy = v16;
-  v7 = self->_has;
-  if ((v7 & 0x40) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 0x40) == 0)
   {
 LABEL_13:
-    if ((v7 & 0x10) == 0)
+    if ((v6 & 0x10) == 0)
     {
       goto LABEL_14;
     }
@@ -397,14 +391,13 @@ LABEL_13:
   }
 
 LABEL_25:
-  resolvedSpatialExperience = self->_resolvedSpatialExperience;
   PBDataWriterWriteInt64Field();
-  toCopy = v16;
-  v7 = self->_has;
-  if ((v7 & 0x10) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 0x10) == 0)
   {
 LABEL_14:
-    if ((v7 & 0x20) == 0)
+    if ((v6 & 0x20) == 0)
     {
       goto LABEL_16;
     }
@@ -413,15 +406,13 @@ LABEL_14:
   }
 
 LABEL_26:
-  pid = self->_pid;
   PBDataWriterWriteUint64Field();
-  toCopy = v16;
+  toCopy = v7;
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_15:
-    renderingMode = self->_renderingMode;
     PBDataWriterWriteInt64Field();
-    toCopy = v16;
+    toCopy = v7;
   }
 
 LABEL_16:
@@ -757,7 +748,6 @@ LABEL_11:
       goto LABEL_58;
     }
 
-    v10 = *(equalCopy + 80);
     if (self->_eligibleForSpatialization)
     {
       if ((*(equalCopy + 80) & 1) == 0)
@@ -785,7 +775,7 @@ LABEL_11:
     }
 
 LABEL_58:
-    v12 = 0;
+    v10 = 0;
     goto LABEL_59;
   }
 
@@ -794,7 +784,6 @@ LABEL_58:
     goto LABEL_58;
   }
 
-  v11 = *(equalCopy + 81);
   if (self->_spatialized)
   {
     if ((*(equalCopy + 81) & 1) == 0)
@@ -855,17 +844,17 @@ LABEL_26:
       goto LABEL_58;
     }
 
-    v12 = 1;
+    v10 = 1;
   }
 
   else
   {
-    v12 = (v9 & 0x20) == 0;
+    v10 = (v9 & 0x20) == 0;
   }
 
 LABEL_59:
 
-  return v12;
+  return v10;
 }
 
 - (unint64_t)hash

@@ -98,9 +98,9 @@
 
 - (void)viewWillLayoutSubviews
 {
-  v147.receiver = self;
-  v147.super_class = PKRemoteApplicationAuthorizationViewController;
-  [(PKRemoteApplicationAuthorizationViewController *)&v147 viewWillLayoutSubviews];
+  v146.receiver = self;
+  v146.super_class = PKRemoteApplicationAuthorizationViewController;
+  [(PKRemoteApplicationAuthorizationViewController *)&v146 viewWillLayoutSubviews];
   view = [(PKRemoteApplicationAuthorizationViewController *)self view];
   [view bounds];
   v5 = v4;
@@ -122,7 +122,7 @@
     springFactory = 0;
   }
 
-  v126 = springFactory;
+  v125 = springFactory;
   Tracker = PKCATrackedLayoutGetTracker();
   background = self->_background;
   if (background)
@@ -130,7 +130,7 @@
     [(PKBackdropView *)background setFrame:v5, v7, v9, v11];
     visible = self->_visible;
     v23 = self->_background;
-    v24 = v126;
+    v24 = v125;
     layer = [(PKBackdropView *)v23 layer];
     v26 = v24;
     v27 = 26.6666667;
@@ -142,121 +142,120 @@
     sub_100007A14(layer, v26, v27);
     if (visible)
     {
-      v120 = xmmword_10000E760;
-      v116 = xmmword_10000E770;
-      v118 = 0u;
-      v123 = xmmword_10000E750;
-      v114 = xmmword_10000E750;
+      v119 = xmmword_10000E760;
+      v115 = xmmword_10000E770;
+      v117 = 0u;
+      v122 = xmmword_10000E750;
+      v113 = xmmword_10000E750;
     }
 
     else
     {
-      v28 = CAColorMatrixIdentity[2];
-      v118 = v28;
-      v120 = CAColorMatrixIdentity[1];
-      v123 = CAColorMatrixIdentity[0];
-      v114 = CAColorMatrixIdentity[3];
-      v116 = CAColorMatrixIdentity[4];
+      v117 = CAColorMatrixIdentity[2];
+      v119 = CAColorMatrixIdentity[1];
+      v122 = CAColorMatrixIdentity[0];
+      v113 = CAColorMatrixIdentity[3];
+      v115 = CAColorMatrixIdentity[4];
     }
 
-    v29 = layer;
-    v30 = v26;
-    if (!v29)
+    v28 = layer;
+    v29 = v26;
+    if (!v28)
     {
       goto LABEL_65;
     }
 
-    v31 = v30;
-    v32 = [v29 valueForKeyPath:@"filters.colorMatrix.inputColorMatrix"];
-    v33 = v32;
+    v30 = v29;
+    v31 = [v28 valueForKeyPath:@"filters.colorMatrix.inputColorMatrix"];
+    v32 = v31;
     memset(&location, 0, 80);
-    if (v32)
+    if (v31)
     {
-      [v32 CAColorMatrixValue];
+      objc_msgSend_CAColorMatrixValue(v31);
     }
 
     else
     {
-      v34 = CAColorMatrixIdentity[3];
+      v33 = CAColorMatrixIdentity[3];
       *&location.m21 = CAColorMatrixIdentity[2];
-      *&location.m23 = v34;
+      *&location.m23 = v33;
       *&location.m31 = CAColorMatrixIdentity[4];
-      v35 = CAColorMatrixIdentity[1];
+      v34 = CAColorMatrixIdentity[1];
       *&location.m11 = CAColorMatrixIdentity[0];
-      *&location.m13 = v35;
+      *&location.m13 = v34;
     }
 
-    if ((vminvq_u8(vuzp1q_s8(vuzp1q_s16(vceqq_f32(*&location.m11, v123), vceqq_f32(*&location.m13, v120)), vuzp1q_s16(vceqq_f32(*&location.m21, v118), vceqq_f32(*&location.m23, v114)))) & 1) == 0 || (~vaddvq_s32(vandq_s8(vceqq_f32(*&location.m31, v116), xmmword_10000E780)) & 0xF) != 0)
+    if ((vminvq_u8(vuzp1q_s8(vuzp1q_s16(vceqq_f32(*&location.m11, v122), vceqq_f32(*&location.m13, v119)), vuzp1q_s16(vceqq_f32(*&location.m21, v117), vceqq_f32(*&location.m23, v113)))) & 1) == 0 || (~vaddvq_s32(vandq_s8(vceqq_f32(*&location.m31, v115), xmmword_10000E780)) & 0xF) != 0)
     {
-      v112 = view;
-      v136 = v123;
-      v137 = v120;
-      v138 = v118;
-      v139 = v114;
-      v140 = v116;
-      v36 = [NSValue valueWithCAColorMatrix:&v136];
-      if (v31)
+      v111 = view;
+      v135 = v122;
+      v136 = v119;
+      v137 = v117;
+      v138 = v113;
+      v139 = v115;
+      v35 = [NSValue valueWithCAColorMatrix:&v135];
+      if (v30)
       {
-        v124 = PKCATrackedLayoutGetTracker();
-        presentationLayer = [v29 presentationLayer];
-        v38 = presentationLayer;
+        v123 = PKCATrackedLayoutGetTracker();
+        presentationLayer = [v28 presentationLayer];
+        v37 = presentationLayer;
         if (presentationLayer)
         {
-          v39 = presentationLayer;
+          v38 = presentationLayer;
         }
 
         else
         {
-          v39 = v29;
+          v38 = v28;
         }
 
-        v40 = v39;
+        v39 = v38;
 
-        v121 = v40;
-        v41 = [v40 valueForKeyPath:@"filters.colorMatrix.inputColorMatrix"];
-        v42 = v41;
-        v139 = 0u;
-        v140 = 0u;
-        v137 = 0u;
+        v120 = v39;
+        v40 = [v39 valueForKeyPath:@"filters.colorMatrix.inputColorMatrix"];
+        v41 = v40;
         v138 = 0u;
+        v139 = 0u;
         v136 = 0u;
-        if (v41)
+        v137 = 0u;
+        v135 = 0u;
+        if (v40)
         {
-          [v41 CAColorMatrixValue];
+          objc_msgSend_CAColorMatrixValue(v40);
         }
 
         else
         {
-          v43 = CAColorMatrixIdentity[3];
-          v138 = CAColorMatrixIdentity[2];
-          v139 = v43;
-          v140 = CAColorMatrixIdentity[4];
-          v44 = CAColorMatrixIdentity[1];
-          v136 = CAColorMatrixIdentity[0];
-          v137 = v44;
+          v42 = CAColorMatrixIdentity[3];
+          v137 = CAColorMatrixIdentity[2];
+          v138 = v42;
+          v139 = CAColorMatrixIdentity[4];
+          v43 = CAColorMatrixIdentity[1];
+          v135 = CAColorMatrixIdentity[0];
+          v136 = v43;
         }
 
-        v45 = [(PKSpringAnimationFactory *)v31 springAnimationWithKeyPath:@"filters.colorMatrix.inputColorMatrix", v23];
-        [v45 setAdditive:0];
-        *&v135.m23 = v139;
-        *&v135.m31 = v140;
-        *&v135.m13 = v137;
-        *&v135.m21 = v138;
-        *&v135.m11 = v136;
-        v46 = [NSValue valueWithCAColorMatrix:&v135];
-        [v45 setFromValue:v46];
+        v44 = [(PKSpringAnimationFactory *)v30 springAnimationWithKeyPath:@"filters.colorMatrix.inputColorMatrix", v23];
+        [v44 setAdditive:0];
+        *&v134.m23 = v138;
+        *&v134.m31 = v139;
+        *&v134.m13 = v136;
+        *&v134.m21 = v137;
+        *&v134.m11 = v135;
+        v45 = [NSValue valueWithCAColorMatrix:&v134];
+        [v44 setFromValue:v45];
 
-        [v45 setToValue:v36];
-        [v124 trackAnimation:v45];
-        [v29 removeAnimationForKey:@"colorMatrix"];
-        [v29 addAnimation:v45 forKey:@"colorMatrix"];
+        [v44 setToValue:v35];
+        [v123 trackAnimation:v44];
+        [v28 removeAnimationForKey:@"colorMatrix"];
+        [v28 addAnimation:v44 forKey:@"colorMatrix"];
 
-        v23 = v111;
+        v23 = v110;
       }
 
-      [v29 setValue:v36 forKeyPath:@"filters.colorMatrix.inputColorMatrix"];
+      [v28 setValue:v35 forKeyPath:@"filters.colorMatrix.inputColorMatrix"];
 
-      view = v112;
+      view = v111;
     }
   }
 
@@ -267,177 +266,177 @@ LABEL_64:
     return;
   }
 
-  v122 = v9;
-  v47 = self->_visible;
-  if (v47)
+  v121 = v9;
+  v46 = self->_visible;
+  if (v46)
   {
     state = self->_state;
-    v49 = state != 1;
+    v48 = state != 1;
     if (state == 1)
     {
-      v50 = 0.95;
+      v49 = 0.95;
     }
 
     else
     {
-      v50 = 1.0;
+      v49 = 1.0;
     }
   }
 
   else
   {
-    v49 = 0;
-    v50 = 0.95;
+    v48 = 0;
+    v49 = 0.95;
   }
 
-  v51 = self->_contentVisible || self->_contentVisibilityAnimationCounter != 0;
-  v144[0] = _NSConcreteStackBlock;
-  v144[1] = 3221225472;
-  v144[2] = sub_10000404C;
-  v144[3] = &unk_100010618;
-  v144[4] = self;
-  v146 = v47;
-  v52 = v126;
-  v145 = v52;
-  v53 = objc_retainBlock(v144);
-  v54 = v53;
+  v50 = self->_contentVisible || self->_contentVisibilityAnimationCounter != 0;
+  v143[0] = _NSConcreteStackBlock;
+  v143[1] = 3221225472;
+  v143[2] = sub_10000404C;
+  v143[3] = &unk_100010618;
+  v143[4] = self;
+  v145 = v46;
+  v51 = v125;
+  v144 = v51;
+  v52 = objc_retainBlock(v143);
+  v53 = v52;
   if (Tracker)
   {
     objc_initWeak(&location, self);
     ++self->_contentVisibilityAnimationCounter;
-    v142[0] = _NSConcreteStackBlock;
-    v142[1] = 3221225472;
-    v142[2] = sub_100004298;
-    v142[3] = &unk_100010640;
-    objc_copyWeak(&v143, &location);
-    [Tracker performTransactionWithBlock:v54 completion:v142];
-    objc_destroyWeak(&v143);
+    v141[0] = _NSConcreteStackBlock;
+    v141[1] = 3221225472;
+    v141[2] = sub_100004298;
+    v141[3] = &unk_100010640;
+    objc_copyWeak(&v142, &location);
+    [Tracker performTransactionWithBlock:v53 completion:v141];
+    objc_destroyWeak(&v142);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    (v53[2])(v53);
+    (v52[2])(v52);
   }
 
   memset(&location, 0, sizeof(location));
-  if (v49)
+  if (v48)
   {
-    v55 = *&CATransform3DIdentity.m33;
+    v54 = *&CATransform3DIdentity.m33;
     *&location.m31 = *&CATransform3DIdentity.m31;
-    *&location.m33 = v55;
-    v56 = *&CATransform3DIdentity.m43;
+    *&location.m33 = v54;
+    v55 = *&CATransform3DIdentity.m43;
     *&location.m41 = *&CATransform3DIdentity.m41;
-    *&location.m43 = v56;
-    v57 = *&CATransform3DIdentity.m13;
+    *&location.m43 = v55;
+    v56 = *&CATransform3DIdentity.m13;
     *&location.m11 = *&CATransform3DIdentity.m11;
-    *&location.m13 = v57;
-    v58 = *&CATransform3DIdentity.m23;
+    *&location.m13 = v56;
+    v57 = *&CATransform3DIdentity.m23;
     *&location.m21 = *&CATransform3DIdentity.m21;
-    *&location.m23 = v58;
+    *&location.m23 = v57;
   }
 
   else
   {
-    CATransform3DMakeScale(&location, v50, v50, 1.0);
+    CATransform3DMakeScale(&location, v49, v49, 1.0);
   }
 
   content = self->_content;
   beginTrackingAnimation = [Tracker beginTrackingAnimation];
-  v135 = location;
-  [(UIView *)content pkui_setTransform:&v135 withAdditiveAnimationFactory:v52 completion:beginTrackingAnimation];
+  v134 = location;
+  objc_msgSend_pkui_setTransform_withAdditiveAnimationFactory_completion_(content);
 
-  if (v52 != 0 && v51)
+  if (v51 != 0 && v50)
   {
-    v61 = v52;
+    v60 = v51;
   }
 
   else
   {
-    v61 = 0;
+    v60 = 0;
   }
 
-  v127[0] = _NSConcreteStackBlock;
-  v127[1] = 3221225472;
-  v127[2] = sub_1000042E8;
-  v127[3] = &unk_100010690;
-  v119 = v5;
-  v131 = v5;
-  v132 = v7;
-  v133 = v122;
-  v134 = v11;
-  v62 = v61;
+  v126[0] = _NSConcreteStackBlock;
+  v126[1] = 3221225472;
+  v126[2] = sub_1000042E8;
+  v126[3] = &unk_100010690;
+  v118 = v5;
+  v130 = v5;
+  v131 = v7;
+  v132 = v121;
+  v133 = v11;
+  v61 = v60;
+  v127 = v61;
+  v62 = Tracker;
   v128 = v62;
-  v63 = Tracker;
-  v129 = v63;
   selfCopy = self;
-  v64 = objc_retainBlock(v127);
-  v65 = v11;
-  v66 = v7 + v13;
-  v117 = v15;
-  v67 = v65 - (v13 + v17);
-  v115 = v122 - (v15 + v19);
-  v68 = (v64[2])();
-  v70 = v69;
-  v72 = v71;
-  v74 = v73;
-  v75 = self->_content;
-  beginTrackingAnimation2 = [v63 beginTrackingAnimation];
-  [(UIView *)v75 pkui_setBounds:v62 withAdditiveAnimationFactory:beginTrackingAnimation2 completion:v68, v70, v72, v74];
+  v63 = objc_retainBlock(v126);
+  v64 = v11;
+  v65 = v7 + v13;
+  v116 = v15;
+  v66 = v64 - (v13 + v17);
+  v114 = v121 - (v15 + v19);
+  v67 = (v63[2])();
+  v69 = v68;
+  v71 = v70;
+  v73 = v72;
+  v74 = self->_content;
+  beginTrackingAnimation2 = [v62 beginTrackingAnimation];
+  [(UIView *)v74 pkui_setBounds:v61 withAdditiveAnimationFactory:beginTrackingAnimation2 completion:v67, v69, v71, v73];
 
-  if (v50 != 1.0)
+  if (v49 != 1.0)
   {
     PKFloatRoundToPixel();
     PKFloatRoundToPixel();
   }
 
   PKSizeAlignedInRect();
-  v78 = v77;
-  v80 = v79;
-  v82 = v81;
-  v84 = fmax(fmin(v83, v66 + v67 - v81), v66);
+  v77 = v76;
+  v79 = v78;
+  v81 = v80;
+  v83 = fmax(fmin(v82, v65 + v66 - v80), v65);
   if (self->_state)
   {
 LABEL_63:
     [(UIView *)self->_content anchorPoint];
-    v106 = fmax(fmin(v78, v119 + v117 + v115 - v80), v119 + v117) + v105 * v80;
-    v108 = v84 + v107 * v82;
-    v109 = self->_content;
-    beginTrackingAnimation3 = [v63 beginTrackingAnimation];
-    [(UIView *)v109 pkui_setPosition:v62 withAdditiveAnimationFactory:beginTrackingAnimation3 completion:v106, v108];
+    v105 = fmax(fmin(v77, v118 + v116 + v114 - v79), v118 + v116) + v104 * v79;
+    v107 = v83 + v106 * v81;
+    v108 = self->_content;
+    beginTrackingAnimation3 = [v62 beginTrackingAnimation];
+    [(UIView *)v108 pkui_setPosition:v61 withAdditiveAnimationFactory:beginTrackingAnimation3 completion:v105, v107];
 
     goto LABEL_64;
   }
 
-  v113 = view;
-  v85 = view;
-  if (v85)
+  v112 = view;
+  v84 = view;
+  if (v84)
   {
-    v86 = v85;
-    window = [v85 window];
-    v88 = window;
+    v85 = v84;
+    window = [v84 window];
+    v87 = window;
     if (window)
     {
       windowScene = [window windowScene];
-      v90 = windowScene;
+      v89 = windowScene;
       if (windowScene)
       {
         screen = [windowScene screen];
-        v92 = screen;
+        v91 = screen;
         if (screen)
         {
           fixedCoordinateSpace = [screen fixedCoordinateSpace];
-          v94 = fixedCoordinateSpace;
+          v93 = fixedCoordinateSpace;
           if (fixedCoordinateSpace)
           {
             [fixedCoordinateSpace bounds];
             LAUIPhysicalButtonNormalizedFrame();
             PKRectRoundToPixel();
-            [v86 convertRect:v94 fromCoordinateSpace:?];
-            x = v95;
-            y = v97;
-            width = v99;
-            height = v101;
+            [v85 convertRect:v93 fromCoordinateSpace:?];
+            x = v94;
+            y = v96;
+            width = v98;
+            height = v100;
           }
 
           else
@@ -475,18 +474,18 @@ LABEL_63:
       height = CGRectNull.size.height;
     }
 
-    v148.origin.x = x;
-    v148.origin.y = y;
-    v148.size.width = width;
-    v148.size.height = height;
-    IsNull = CGRectIsNull(v148);
-    v104 = fmax(v84, y + height);
+    v147.origin.x = x;
+    v147.origin.y = y;
+    v147.size.width = width;
+    v147.size.height = height;
+    IsNull = CGRectIsNull(v147);
+    v103 = fmax(v83, y + height);
     if (!IsNull)
     {
-      v84 = v104;
+      v83 = v103;
     }
 
-    view = v113;
+    view = v112;
     goto LABEL_63;
   }
 

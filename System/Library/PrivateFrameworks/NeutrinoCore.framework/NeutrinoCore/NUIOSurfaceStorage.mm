@@ -152,7 +152,7 @@ void __62__NUIOSurfaceStorage__copyFromIOSurfaceStorage_region_device___block_in
   v4 = a1[4];
   if (v4)
   {
-    [v4 bounds];
+    objc_msgSend_bounds(v4);
     v6 = v11;
     v5 = v12;
     v7 = *v13;

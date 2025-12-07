@@ -15,25 +15,25 @@
 
 - (HMFHardwareAddress)initWithAddressString:(id)string length:(unint64_t)length
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   stringCopy = string;
   v7 = stringCopy;
   if (length - 1 > 7)
   {
-    v14 = objc_autoreleasePoolPush();
-    v15 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v15 = objc_autoreleasePoolPush();
+    v17 = HMFGetOSLogHandle(0, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v16 = HMFGetLogIdentifier(0);
+      v18 = HMFGetLogIdentifier(0);
       *buf = 138543618;
-      v21 = v16;
-      v22 = 2048;
+      v22 = v18;
+      v23 = 2048;
       lengthCopy = length;
-      _os_log_impl(&dword_22ADEC000, v15, OS_LOG_TYPE_ERROR, "%{public}@Failed to create hardware address with invalid length: %lu", buf, 0x16u);
+      _os_log_impl(&dword_22ADEC000, v17, OS_LOG_TYPE_ERROR, "%{public}@Failed to create hardware address with invalid length: %lu", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v14);
-    v13 = 0;
+    objc_autoreleasePoolPop(v15);
+    v14 = 0;
   }
 
   else
@@ -45,33 +45,32 @@
     {
       v9 = v8;
       v10 = objc_autoreleasePoolPush();
-      v11 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = HMFGetOSLogHandle(0, v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v12 = HMFGetLogIdentifier(0);
+        v13 = HMFGetLogIdentifier(0);
         *buf = 138543874;
-        v21 = v12;
-        v22 = 2112;
+        v22 = v13;
+        v23 = 2112;
         lengthCopy = v7;
-        v24 = 1024;
-        v25 = v9;
-        _os_log_impl(&dword_22ADEC000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to convert string to hardware address %@: %d", buf, 0x1Cu);
+        v25 = 1024;
+        v26 = v9;
+        _os_log_impl(&dword_22ADEC000, v12, OS_LOG_TYPE_ERROR, "%{public}@Failed to convert string to hardware address %@: %d", buf, 0x1Cu);
       }
 
       objc_autoreleasePoolPop(v10);
-      v13 = 0;
+      v14 = 0;
     }
 
     else
     {
-      v17 = [MEMORY[0x277CBEA90] dataWithBytes:&buf[-((length + 15) & 0xFFFFFFFFFFFFFFF0)] length:length];
-      v13 = [(HMFHardwareAddress *)self initWithAddressData:v17];
-      self = v17;
+      v19 = [MEMORY[0x277CBEA90] dataWithBytes:&buf[-((length + 15) & 0xFFFFFFFFFFFFFFF0)] length:length];
+      v14 = [(HMFHardwareAddress *)self initWithAddressData:v19];
+      self = v19;
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
-  return v13;
+  return v14;
 }
 
 - (HMFHardwareAddress)initWithAddressData:(id)data
@@ -81,35 +80,34 @@
   if (![dataCopy length] || objc_msgSend(dataCopy, "length") >= 9)
   {
     v5 = objc_autoreleasePoolPush();
-    v6 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = HMFGetOSLogHandle(0, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v7 = HMFGetLogIdentifier(0);
+      v8 = HMFGetLogIdentifier(0);
       *buf = 138543618;
-      v14 = v7;
+      v14 = v8;
       v15 = 2112;
       v16 = dataCopy;
-      _os_log_impl(&dword_22ADEC000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to create hardware address with data of invalid length: %@", buf, 0x16u);
+      _os_log_impl(&dword_22ADEC000, v7, OS_LOG_TYPE_ERROR, "%{public}@Failed to create hardware address with data of invalid length: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
-    v8 = 0;
+    v9 = 0;
     goto LABEL_8;
   }
 
   v12.receiver = self;
   v12.super_class = HMFHardwareAddress;
-  v8 = [(HMFHardwareAddress *)&v12 init];
-  if (v8)
+  v9 = [(HMFHardwareAddress *)&v12 init];
+  if (v9)
   {
-    v9 = [dataCopy copy];
-    self = *(v8 + 2);
-    *(v8 + 2) = v9;
+    v10 = [dataCopy copy];
+    self = *(v9 + 2);
+    *(v9 + 2) = v10;
 LABEL_8:
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-  return v8;
+  return v9;
 }
 
 - (NSString)propertyDescription
@@ -131,11 +129,11 @@ LABEL_8:
 
 - (NSString)formattedString
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   formattedString = self->_formattedString;
   if (!formattedString)
   {
-    v4 = v10 - ((3 * [(HMFHardwareAddress *)self length]+ 15) & 0xFFFFFFFFFFFFFFF0);
+    v4 = v9 - ((3 * [(HMFHardwareAddress *)self length]+ 15) & 0xFFFFFFFFFFFFFFF0);
     data = [(HMFHardwareAddress *)self data];
     [data bytes];
     [(HMFHardwareAddress *)self length];
@@ -147,8 +145,6 @@ LABEL_8:
 
     formattedString = self->_formattedString;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return formattedString;
 }

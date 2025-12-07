@@ -72,14 +72,14 @@ void __29__EFSQLPreparedStatement_log__block_invoke(uint64_t a1)
 
 - (EFSQLPreparedStatement)initWithString:(id)string connection:(id)connection transactionLabel:(id)label queryLogger:(id)logger
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   stringCopy = string;
   connectionCopy = connection;
   labelCopy = label;
   loggerCopy = logger;
-  v22.receiver = self;
-  v22.super_class = EFSQLPreparedStatement;
-  v14 = [(EFSQLPreparedStatement *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = EFSQLPreparedStatement;
+  v14 = [(EFSQLPreparedStatement *)&v21 init];
   v15 = v14;
   if (v14)
   {
@@ -99,11 +99,11 @@ void __29__EFSQLPreparedStatement_log__block_invoke(uint64_t a1)
 
       memset(__b, 170, sizeof(__b));
       __b[8] = 0;
-      *v26 = 0xE00000001;
-      v27 = 1;
-      v28 = getpid();
-      v23 = 648;
-      if (!sysctl(v26, 4u, __b, &v23, 0, 0) && (__b[8] & 0x800) != 0)
+      *v25 = 0xE00000001;
+      v26 = 1;
+      v27 = getpid();
+      v22 = 648;
+      if (!sysctl(v25, 4u, __b, &v22, 0, 0) && (__b[8] & 0x800) != 0)
       {
         __debugbreak();
       }
@@ -112,7 +112,6 @@ void __29__EFSQLPreparedStatement_log__block_invoke(uint64_t a1)
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -256,19 +255,19 @@ void __70__EFSQLPreparedStatement_executeWithIndexedBindings_usingBlock_error___
 
 LABEL_13:
   originalString = [(EFSQLPreparedStatement *)self originalString];
-  if (EFSQLVerboseDebugLoggingEnabled())
+  if (EFSQLVerboseDebugLoggingEnabled(originalString, v16))
   {
-    v16 = +[EFSQLPreparedStatement log];
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v17 = +[EFSQLPreparedStatement log];
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
-      [(EFSQLPreparedStatement *)originalString executeUsingBlock:v16 error:v9];
+      [(EFSQLPreparedStatement *)originalString executeUsingBlock:v17 error:v9];
     }
   }
 
   if (v9 > self->_allowedExecutionTime)
   {
-    v17 = +[EFSQLPreparedStatement log];
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = +[EFSQLPreparedStatement log];
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       allowedExecutionTime = self->_allowedExecutionTime;
       *buf = 134218498;
@@ -277,77 +276,77 @@ LABEL_13:
       v59 = v9;
       v60 = 2112;
       v61 = originalString;
-      _os_log_error_impl(&dword_1C6152000, v17, OS_LOG_TYPE_ERROR, "Query execution exceeded threshold of %.02f seconds - Took %0.05f seconds for query %@", buf, 0x20u);
+      _os_log_error_impl(&dword_1C6152000, v18, OS_LOG_TYPE_ERROR, "Query execution exceeded threshold of %.02f seconds - Took %0.05f seconds for query %@", buf, 0x20u);
     }
 
     if (v9 > 2.0 && v12 == 101)
     {
-      v18 = [objc_alloc(MEMORY[0x1E696AE88]) initWithString:originalString];
-      v19 = 0;
-      while ([v18 scanUpToString:@"WHERE" intoString:0] && objc_msgSend(v18, "scanString:intoString:", @"WHERE", 0))
+      v19 = [objc_alloc(MEMORY[0x1E696AE88]) initWithString:originalString];
+      v20 = 0;
+      while ([v19 scanUpToString:@"WHERE" intoString:0] && objc_msgSend(v19, "scanString:intoString:", @"WHERE", 0))
       {
         whitespaceCharacterSet = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
-        [v18 scanCharactersFromSet:whitespaceCharacterSet intoString:0];
+        [v19 scanCharactersFromSet:whitespaceCharacterSet intoString:0];
 
         v54 = 0;
-        v21 = [v18 scanUpToString:@"UNION" intoString:&v54];
-        v22 = v54;
-        if (v21)
+        v22 = [v19 scanUpToString:@"UNION" intoString:&v54];
+        v23 = v54;
+        if (v22)
         {
-          if (v19)
+          if (v20)
           {
-            v23 = +[EFSQLPreparedStatement log];
-            ++v19;
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+            v24 = +[EFSQLPreparedStatement log];
+            ++v20;
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
               *buf = 134218498;
               selfCopy3 = self;
               v58 = 2048;
-              v59 = *&v19;
+              v59 = *&v20;
               v60 = 2112;
-              v61 = v22;
-              _os_log_error_impl(&dword_1C6152000, v23, OS_LOG_TYPE_ERROR, "%p QUERY PLAN for clause(%llu): %@", buf, 0x20u);
+              v61 = v23;
+              _os_log_error_impl(&dword_1C6152000, v24, OS_LOG_TYPE_ERROR, "%p QUERY PLAN for clause(%llu): %@", buf, 0x20u);
             }
           }
 
           else
           {
-            v23 = +[EFSQLPreparedStatement log];
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+            v24 = +[EFSQLPreparedStatement log];
+            if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
             {
               *buf = 134218242;
               selfCopy3 = self;
               v58 = 2112;
-              v59 = *&v22;
-              _os_log_error_impl(&dword_1C6152000, v23, OS_LOG_TYPE_ERROR, "%p QUERY PLAN for clause: %@", buf, 0x16u);
+              v59 = *&v23;
+              _os_log_error_impl(&dword_1C6152000, v24, OS_LOG_TYPE_ERROR, "%p QUERY PLAN for clause: %@", buf, 0x16u);
             }
 
-            v19 = 1;
+            v20 = 1;
           }
         }
       }
 
-      if (!v19)
+      if (!v20)
       {
-        v24 = +[EFSQLPreparedStatement log];
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v25 = +[EFSQLPreparedStatement log];
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
-          [(EFSQLPreparedStatement *)originalString executeUsingBlock:v24 error:?];
+          [(EFSQLPreparedStatement *)originalString executeUsingBlock:v25 error:?];
         }
       }
 
-      v25 = [MEMORY[0x1E696AEC0] stringWithFormat:@"EXPLAIN QUERY PLAN %@", originalString];
-      v26 = sqlite3_db_handle(compiled);
+      v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"EXPLAIN QUERY PLAN %@", originalString];
+      v27 = sqlite3_db_handle(compiled);
       ppStmt = 0;
-      v27 = v25;
-      v28 = sqlite3_prepare_v2(v26, [v25 UTF8String], -1, &ppStmt, 0);
-      if (v28)
+      v28 = v26;
+      v29 = sqlite3_prepare_v2(v27, [v26 UTF8String], -1, &ppStmt, 0);
+      if (v29)
       {
-        v29 = +[EFSQLPreparedStatement log];
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v30 = +[EFSQLPreparedStatement log];
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
-          v30 = [MEMORY[0x1E696ABC0] ef_SQLiteErrorWithCode:v28];
-          [(EFSQLPreparedStatement *)v30 executeUsingBlock:buf error:v29];
+          v31 = [MEMORY[0x1E696ABC0] ef_SQLiteErrorWithCode:v29];
+          [(EFSQLPreparedStatement *)v31 executeUsingBlock:buf error:v30];
         }
       }
 
@@ -355,34 +354,34 @@ LABEL_13:
       {
         while (1)
         {
-          v31 = sqlite3_step(ppStmt);
-          v32 = v31;
-          if (v31 != 100)
+          v32 = sqlite3_step(ppStmt);
+          v33 = v32;
+          if (v32 != 100)
           {
             break;
           }
 
-          v33 = sqlite3_column_text(ppStmt, 3);
-          v34 = objc_alloc(MEMORY[0x1E696AEC0]);
-          v35 = [v34 initWithBytes:v33 length:sqlite3_column_bytes(ppStmt encoding:{3), 4}];
-          v36 = +[EFSQLPreparedStatement log];
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+          v34 = sqlite3_column_text(ppStmt, 3);
+          v35 = objc_alloc(MEMORY[0x1E696AEC0]);
+          v36 = [v35 initWithBytes:v34 length:sqlite3_column_bytes(ppStmt encoding:{3), 4}];
+          v37 = +[EFSQLPreparedStatement log];
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
             *buf = 134218242;
             selfCopy3 = self;
             v58 = 2112;
-            v59 = *&v35;
-            _os_log_error_impl(&dword_1C6152000, v36, OS_LOG_TYPE_ERROR, "%p: %@", buf, 0x16u);
+            v59 = *&v36;
+            _os_log_error_impl(&dword_1C6152000, v37, OS_LOG_TYPE_ERROR, "%p: %@", buf, 0x16u);
           }
         }
 
-        if (v31 && v31 != 101)
+        if (v32 && v32 != 101)
         {
-          v37 = +[EFSQLPreparedStatement log];
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+          v38 = +[EFSQLPreparedStatement log];
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
           {
-            v38 = [MEMORY[0x1E696ABC0] ef_SQLiteErrorWithCode:v32];
-            [(EFSQLPreparedStatement *)v38 executeUsingBlock:buf error:v37];
+            v39 = [MEMORY[0x1E696ABC0] ef_SQLiteErrorWithCode:v33];
+            [(EFSQLPreparedStatement *)v39 executeUsingBlock:buf error:v38];
           }
         }
 
@@ -416,10 +415,9 @@ LABEL_13:
 
   [(EFSQLPreparedStatement *)self clearBindingsWithError:0];
   [(EFSQLPreparedStatement *)self resetWithError:0];
-  v46 = [EFSQLConnection isSuccessResultCode:v12 forStep:1 error:error];
+  v47 = [EFSQLConnection isSuccessResultCode:v12 forStep:1 error:error];
 
-  v47 = *MEMORY[0x1E69E9840];
-  return v46;
+  return v47;
 }
 
 - (BOOL)resetWithError:(id *)error
@@ -454,24 +452,22 @@ LABEL_13:
 
 - (void)executeUsingBlock:(double)a3 error:.cold.1(uint64_t a1, NSObject *a2, double a3)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 134218242;
-  v5 = a3;
-  v6 = 2112;
-  v7 = a1;
-  _os_log_debug_impl(&dword_1C6152000, a2, OS_LOG_TYPE_DEBUG, "Execution took %0.05f seconds for query %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 134218242;
+  v4 = a3;
+  v5 = 2112;
+  v6 = a1;
+  _os_log_debug_impl(&dword_1C6152000, a2, OS_LOG_TYPE_DEBUG, "Execution took %0.05f seconds for query %@", &v3, 0x16u);
 }
 
 - (void)executeUsingBlock:(os_log_t)log error:.cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 134218242;
-  v5 = a2;
-  v6 = 2112;
-  v7 = a1;
-  _os_log_error_impl(&dword_1C6152000, log, OS_LOG_TYPE_ERROR, "%p QUERY PLAN for statement: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 134218242;
+  v4 = a2;
+  v5 = 2112;
+  v6 = a1;
+  _os_log_error_impl(&dword_1C6152000, log, OS_LOG_TYPE_ERROR, "%p QUERY PLAN for statement: %@", &v3, 0x16u);
 }
 
 - (void)executeUsingBlock:(os_log_t)log error:.cold.3(void *a1, uint8_t *buf, os_log_t log)

@@ -41,13 +41,13 @@
   pathCopy = path;
   ptr = self->_entityQueryResult.__ptr_;
   [pathCopy item];
-  mlcore::EntityQueryResult::entityAtIndex(ptr);
+  mlcore::EntityQueryResult::entityAtIndex(&v11, ptr);
   +[MPMediaLibrary logDatabaseAccess];
   if (v11)
   {
     entityTranslator = self->_entityTranslator;
     itemProperties = [(MPModelRequest *)self->_request itemProperties];
-    v8 = (*(*v11 + 48))();
+    v8 = (*(*v11 + 48))(v11);
     v9 = [(MPMediaLibraryEntityTranslator *)entityTranslator objectForPropertySet:itemProperties entityClass:v8 propertyCache:mlcore::Entity::propertyCache(v11) context:self->_entityTranslationContext];
   }
 

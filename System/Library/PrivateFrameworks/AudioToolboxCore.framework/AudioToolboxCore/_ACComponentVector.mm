@@ -32,42 +32,42 @@
 
 - (_ACComponentVector)initWithCoder:(id)coder
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = MEMORY[0x1E695DFD8];
-  v21[0] = objc_opt_class();
-  v21[1] = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
+  v20[0] = objc_opt_class();
+  v20[1] = objc_opt_class();
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
   v7 = [v5 setWithArray:v6];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"components"];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v10)
     {
-      v11 = *v17;
+      v11 = *v16;
       do
       {
         v12 = 0;
         do
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(v9);
           }
 
-          v13 = *(*(&v16 + 1) + 8 * v12);
+          v13 = *(*(&v15 + 1) + 8 * v12);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            std::vector<std::shared_ptr<CA::ADMPackFormat>>::push_back[abi:ne200100](&self->mVector, (v13 + 8));
+            std::vector<std::shared_ptr<CA::ADMPackFormat>>::push_back[abi:ne200100](&self->mVector.__begin_, (v13 + 8));
             self->mVector.mSorted = 0;
           }
 
@@ -75,14 +75,13 @@
         }
 
         while (v10 != v12);
-        v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v10);
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return self;
 }
 

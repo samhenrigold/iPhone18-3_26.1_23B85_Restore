@@ -138,7 +138,6 @@
 
 - (optional<rose::finding::SignallingData>)getSignallingData
 {
-  self->_rangingActive;
   v2 = *&self->_signallingData.var0.__val_.isPhone;
   v3 = *&self->_signallingData.var0.__null_state_;
   *&result.var0.__null_state_ = v3;

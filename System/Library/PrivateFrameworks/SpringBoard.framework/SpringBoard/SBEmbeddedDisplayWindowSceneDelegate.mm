@@ -138,7 +138,7 @@ void __74__SBEmbeddedDisplayWindowSceneDelegate__windowWillBecomeHiddenExemptRol
 {
   roleCopy = role;
   _individuallyManagedRoles = [objc_opt_class() _individuallyManagedRoles];
-  v5 = [_individuallyManagedRoles containsObject:roleCopy];
+  v5 = objc_msgSend_containsObject_(_individuallyManagedRoles);
 
   return v5 ^ 1;
 }
@@ -147,25 +147,25 @@ void __74__SBEmbeddedDisplayWindowSceneDelegate__windowWillBecomeHiddenExemptRol
 {
   roleCopy = role;
   _windowWillBecomeHiddenExemptRoles = [objc_opt_class() _windowWillBecomeHiddenExemptRoles];
-  v5 = [_windowWillBecomeHiddenExemptRoles containsObject:roleCopy];
+  v5 = objc_msgSend_containsObject_(_windowWillBecomeHiddenExemptRoles);
 
   return v5 ^ 1;
 }
 
 - (void)_configureForConnectingWindowScene:(id)scene windowSceneContext:(id)context
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
   contextCopy = context;
-  v8 = SBLogStartup();
+  v8 = SBLogStartup(contextCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = _SBFLoggingMethodProem();
     *buf = 138543874;
-    v34 = v9;
-    v35 = 2114;
-    v36 = sceneCopy;
-    v37 = 2114;
+    v35 = v9;
+    v36 = 2114;
+    v37 = sceneCopy;
+    v38 = 2114;
     selfCopy = self;
     _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] : %{public}@; %{public}@", buf, 0x20u);
   }
@@ -175,32 +175,32 @@ void __74__SBEmbeddedDisplayWindowSceneDelegate__windowWillBecomeHiddenExemptRol
   v12 = [(SBMainDisplaySystemGestureManager *)v10 initWithDisplayIdentity:_fbsDisplayIdentity];
 
   [contextCopy setSystemGestureManager:v12];
-  v32.receiver = self;
-  v32.super_class = SBEmbeddedDisplayWindowSceneDelegate;
-  [(SBAbstractWindowSceneDelegate *)&v32 _configureForConnectingWindowScene:sceneCopy windowSceneContext:contextCopy];
-  v13 = SBLogStartup();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v33.receiver = self;
+  v33.super_class = SBEmbeddedDisplayWindowSceneDelegate;
+  v13 = [(SBAbstractWindowSceneDelegate *)&v33 _configureForConnectingWindowScene:sceneCopy windowSceneContext:contextCopy];
+  v14 = SBLogStartup(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = _SBFLoggingMethodProem();
+    v15 = _SBFLoggingMethodProem();
     *buf = 138543362;
-    v34 = v14;
-    _os_log_impl(&dword_21ED4E000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] setting SBMainWindowScene", buf, 0xCu);
+    v35 = v15;
+    _os_log_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEFAULT, "[%{public}@] setting SBMainWindowScene", buf, 0xCu);
   }
 
   SBSetMainWindowScene(sceneCopy);
   [(SBTraitsEmbeddedDisplayPipelineManager *)self->_traitsEmbeddedPipelineManager startListeningForLockScreenUIPresentations];
-  v15 = [SBSystemPointerInteractionManager alloc];
+  v16 = [SBSystemPointerInteractionManager alloc];
   multiDisplayUserInteractionCoordinator = [SBApp multiDisplayUserInteractionCoordinator];
-  v17 = [(SBSystemPointerInteractionManager *)v15 initWithMultiDisplayUserInteractionCoordinator:multiDisplayUserInteractionCoordinator];
+  v18 = [(SBSystemPointerInteractionManager *)v16 initWithMultiDisplayUserInteractionCoordinator:multiDisplayUserInteractionCoordinator];
 
-  [contextCopy setSystemPointerInteractionManager:v17];
-  [(SBSystemGestureManager *)v12 setSystemPointerInteractionDelegate:v17];
-  v18 = [[SBHomeAffordanceInteractionManager alloc] initWithWindowScene:sceneCopy];
-  [contextCopy setHomeAffordanceInteractionManager:v18];
-  v19 = [[SBModalUIFluidDismissGestureManager alloc] initWithWindowScene:sceneCopy systemGestureManager:v12];
-  [contextCopy setModalUIFluidDismissGestureManager:v19];
-  v20 = [[SBTransientUIInteractionManager alloc] initWithSystemGestureManager:v12];
-  [contextCopy setTransientUIInteractionManager:v20];
+  [contextCopy setSystemPointerInteractionManager:v18];
+  [(SBSystemGestureManager *)v12 setSystemPointerInteractionDelegate:v18];
+  v19 = [[SBHomeAffordanceInteractionManager alloc] initWithWindowScene:sceneCopy];
+  [contextCopy setHomeAffordanceInteractionManager:v19];
+  v20 = [[SBModalUIFluidDismissGestureManager alloc] initWithWindowScene:sceneCopy systemGestureManager:v12];
+  [contextCopy setModalUIFluidDismissGestureManager:v20];
+  v21 = [[SBTransientUIInteractionManager alloc] initWithSystemGestureManager:v12];
+  [contextCopy setTransientUIInteractionManager:v21];
   systemApertureController = [SBApp systemApertureController];
   [contextCopy setSystemApertureController:systemApertureController];
   if ((SBFIsShellSceneKitAvailable() & 1) == 0)
@@ -211,21 +211,21 @@ void __74__SBEmbeddedDisplayWindowSceneDelegate__windowWillBecomeHiddenExemptRol
   }
 
   objc_initWeak(buf, self);
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = __94__SBEmbeddedDisplayWindowSceneDelegate__configureForConnectingWindowScene_windowSceneContext___block_invoke;
-  v27[3] = &unk_2783B4560;
-  objc_copyWeak(&v31, buf);
-  v28 = sceneCopy;
-  v29 = contextCopy;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __94__SBEmbeddedDisplayWindowSceneDelegate__configureForConnectingWindowScene_windowSceneContext___block_invoke;
+  v28[3] = &unk_2783B4560;
+  objc_copyWeak(&v32, buf);
+  v29 = sceneCopy;
+  v30 = contextCopy;
   selfCopy2 = self;
-  v23 = contextCopy;
-  v24 = sceneCopy;
-  v25 = MEMORY[0x223D6F7F0](v27);
+  v24 = contextCopy;
+  v25 = sceneCopy;
+  v26 = MEMORY[0x223D6F7F0](v28);
   startupCompletionAfterAllEmbeddedScenesConnectBlock = self->_startupCompletionAfterAllEmbeddedScenesConnectBlock;
-  self->_startupCompletionAfterAllEmbeddedScenesConnectBlock = v25;
+  self->_startupCompletionAfterAllEmbeddedScenesConnectBlock = v26;
 
-  objc_destroyWeak(&v31);
+  objc_destroyWeak(&v32);
   objc_destroyWeak(buf);
 }
 

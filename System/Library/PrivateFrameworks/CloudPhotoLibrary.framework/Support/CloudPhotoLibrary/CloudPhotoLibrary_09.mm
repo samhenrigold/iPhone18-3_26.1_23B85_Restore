@@ -1,696 +1,10 @@
-void sub_100199D40(uint64_t a1, uint64_t a2, uint64_t a3)
+void sub_10019BBDC(uint64_t a1)
 {
-  if (_CPLSilentLogging != 1)
-  {
-    v6 = __CPLGenericOSLogDomain();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 138412290;
-      v10 = a3;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Invalid CloudKit rescheduler: %@", buf, 0xCu);
-    }
-  }
-
-  v7 = +[NSAssertionHandler currentHandler];
-  v8 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitRescheduler.m"];
-  [v7 handleFailureInMethod:a1 object:a2 file:v8 lineNumber:26 description:{@"Invalid CloudKit rescheduler: %@", a3}];
-
-  abort();
-}
-
-void sub_100199E54(uint64_t a1, void *a2)
-{
-  if ((_CPLSilentLogging & 1) == 0)
-  {
-    v4 = __CPLGenericOSLogDomain();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      v5 = 138412290;
-      v6 = a1;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "%@ is unsupported", &v5, 0xCu);
-    }
-  }
-
-  *a2 = a1;
-}
-
-void sub_100199F18(void *a1, NSObject **a2)
-{
-  v4 = __CPLGenericOSLogDomain();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-  {
-    v5 = [a1 objectAtIndexedSubscript:2];
-    v6 = 138412290;
-    v7 = v5;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Invalid max pixel count '%@'", &v6, 0xCu);
-  }
-
-  *a2 = v4;
-}
-
-void sub_10019A038(uint64_t a1)
-{
-  if ((_CPLSilentLogging & 1) == 0)
-  {
-    v2 = sub_100003700();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
-    {
-      LODWORD(v10) = 138412290;
-      *(&v10 + 4) = *(*(a1 + 40) + 288);
-      sub_100021D44();
-      _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
-    }
-  }
-
-  v8 = *(*(a1 + 40) + 272);
-  v9 = +[CPLErrors unknownError];
-  (*(v8 + 16))(v8, v9);
-}
-
-void sub_10019A130(uint64_t *a1)
-{
-  v2 = sub_100003700();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
-  {
-    v3 = *a1;
-    v4 = 138412290;
-    v5 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "Zone is not present even though the delete failed: %@", &v4, 0xCu);
-  }
-}
-
-uint64_t sub_10019A1EC(id *a1, void *a2, uint64_t a3)
-{
-  if ((_CPLSilentLogging & 1) == 0)
-  {
-    v6 = sub_100003700();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      v7 = [*a1 scopeIdentifier];
-      v14 = [a2 cpl_zoneName];
-      sub_100021D44();
-      _os_log_impl(v8, v9, v10, v11, v12, 0x16u);
-    }
-  }
-
-  return (*(*(a3 + 272) + 16))(*(a3 + 272), 0, a3);
-}
-
-void sub_10019A2F8(uint64_t a1, uint64_t *a2)
-{
-  v4 = sub_100003700();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-  {
-    v5 = *a2;
-    v6 = 138412546;
-    v7 = a1;
-    v8 = 2112;
-    v9 = v5;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Trying to delete transport scope %@ for %@ but it is invalid (contains current user as owner name) - ignoring", &v6, 0x16u);
-  }
-}
-
-void sub_10019A3B8(uint64_t *a1, uint64_t a2)
-{
-  if ((_CPLSilentLogging & 1) == 0)
-  {
-    v4 = sub_100003700();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      v13 = *a1;
-      sub_100021D44();
-      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
-    }
-  }
-
-  v10 = *(a2 + 280);
-  v11 = *(a2 + 272);
-  if (v10 == 1)
-  {
-    v12 = +[CPLErrors notImplementedError];
-    (*(v11 + 16))(v11, v12);
-  }
-
-  else
-  {
-    (*(v11 + 16))(v11, 0);
-  }
-}
-
-void sub_10019A4D4(uint64_t a1, void *a2, void *a3, void *a4)
-{
-  v7 = a2;
-  v8 = a3;
-  v9 = a4;
-  if (v8)
-  {
-    v10 = (*(*(a1 + 32) + 16))();
-    v11 = v10;
-    if (v10)
-    {
-      [v10 updateCKShareParticipant:v8];
-    }
-
-    else if ((_CPLSilentLogging & 1) == 0)
-    {
-      v12 = sub_100003744();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-      {
-        v13 = 138412290;
-        v14 = v8;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Fetched unidentified participant %@", &v13, 0xCu);
-      }
-    }
-
-    [*(*(*(a1 + 40) + 8) + 40) addObject:v8];
-LABEL_12:
-
-    goto LABEL_13;
-  }
-
-  if ((_CPLSilentLogging & 1) == 0)
-  {
-    v11 = sub_100003744();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-    {
-      v13 = 138412546;
-      v14 = v7;
-      v15 = 2112;
-      v16 = v9;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to fetch some participant with lookup info %@: %@", &v13, 0x16u);
-    }
-
-    goto LABEL_12;
-  }
-
-LABEL_13:
-}
-
-void sub_10019A67C(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  if (v3)
-  {
-    if ((_CPLSilentLogging & 1) == 0)
-    {
-      v4 = sub_100003744();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-      {
-        v5 = *(a1 + 32);
-        sub_100003474();
-        v6 = "Failed to delete partially created zone %{public}@: %@";
-        v7 = v4;
-        v8 = OS_LOG_TYPE_ERROR;
-        v9 = 22;
-LABEL_8:
-        _os_log_impl(&_mh_execute_header, v7, v8, v6, &v11, v9);
-        goto LABEL_9;
-      }
-
-      goto LABEL_9;
-    }
-  }
-
-  else if ((_CPLSilentLogging & 1) == 0)
-  {
-    v4 = sub_100003744();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      v10 = *(a1 + 32);
-      v11 = 138543362;
-      v12 = v10;
-      v6 = "Successfully deleted partially created zone %{public}@";
-      v7 = v4;
-      v8 = OS_LOG_TYPE_DEFAULT;
-      v9 = 12;
-      goto LABEL_8;
-    }
-
-LABEL_9:
-  }
-}
-
-void sub_10019A7B0(uint64_t a1)
-{
-  v2 = sub_100003744();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
-  {
-    v3 = 138412290;
-    v4 = a1;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "Fetched a CK participant with no lookup info: %@", &v3, 0xCu);
-  }
-}
-
-void sub_10019A854(void *a1, uint64_t a2, uint64_t *a3)
-{
-  v5 = [a1 userRecordID];
-  v6 = [v5 recordName];
-
-  *a3 = [*(a2 + 40) objectForKeyedSubscript:v6];
-}
-
-uint64_t sub_10019A8B4(char a1, uint64_t a2)
-{
-  if ((a1 & 1) == 0)
-  {
-    v4 = sub_100003744();
-    if (sub_1000033C0(v4))
-    {
-      v5 = *(a2 + 48);
-      sub_100003474();
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "Failed to fetch share participant for %@: %@", v7, 0x16u);
-    }
-  }
-
-  return (*(*(a2 + 56) + 16))();
-}
-
-uint64_t sub_10019A97C(char a1, id *a2, uint64_t a3)
-{
-  if ((a1 & 1) == 0)
-  {
-    v5 = sub_100003744();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-    {
-      v6 = [*a2 scope];
-      v7 = *(*(*(a3 + 64) + 8) + 40);
-      v10 = 138412546;
-      v11 = v6;
-      v12 = 2112;
-      v13 = v7;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Fetched participants for %@: %@", &v10, 0x16u);
-    }
-  }
-
-  v8 = *(*(*(a3 + 64) + 8) + 40);
-  return (*(*(a3 + 56) + 16))();
-}
-
-void sub_10019AA7C(void *a1)
-{
-  if ((_CPLSilentLogging & 1) == 0)
-  {
-    v2 = sub_100003744();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
-    {
-      v3 = [a1 engineScope];
-      *buf = 138412290;
-      v9 = v3;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "Creating a zone for %@ is not supported", buf, 0xCu);
-    }
-  }
-
-  v4 = a1[38];
-  v5 = +[CPLScopeChange descriptionForScopeType:](CPLScopeChange, "descriptionForScopeType:", [a1 scopeType]);
-  v6 = [a1 scopeIdentifier];
-  v7 = [CPLErrors cplErrorWithCode:38 description:@"%@ %@ is an unsupported scope to create", v5, v6];
-  (*(v4 + 16))(v4, 0, 0, v7);
-}
-
-void sub_10019ABDC(uint64_t a1, id *a2)
-{
-  if (_CPLSilentLogging != 1)
-  {
-    v5 = sub_100003744();
-    if (sub_1000033C0(v5))
-    {
-      v6 = [*a2 scope];
-      v14 = 138412290;
-      v15 = v6;
-      sub_10004DA10(&_mh_execute_header, v7, v8, "Failed to find a share type to create for %@", &v14);
-    }
-  }
-
-  v9 = +[NSAssertionHandler currentHandler];
-  v10 = *(a1 + 48);
-  v11 = *a2;
-  v12 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitCreateScopeTask.m"];
-  v13 = [*a2 scope];
-  [v9 handleFailureInMethod:v10 object:v11 file:v12 lineNumber:396 description:{@"Failed to find a share type to create for %@", v13}];
-
-  abort();
-}
-
-void sub_10019ACE0(uint64_t a1, id *a2)
-{
-  if (_CPLSilentLogging != 1)
-  {
-    v5 = sub_100003744();
-    if (sub_1000033C0(v5))
-    {
-      v6 = [*a2 scope];
-      v14 = 138412290;
-      v15 = v6;
-      sub_10004DA10(&_mh_execute_header, v7, v8, "Failed to find a share record to create for %@", &v14);
-    }
-  }
-
-  v9 = +[NSAssertionHandler currentHandler];
-  v10 = *(a1 + 48);
-  v11 = *a2;
-  v12 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitCreateScopeTask.m"];
-  v13 = [*a2 scope];
-  [v9 handleFailureInMethod:v10 object:v11 file:v12 lineNumber:382 description:{@"Failed to find a share record to create for %@", v13}];
-
-  abort();
-}
-
-uint64_t sub_10019ADE4(id *a1, uint64_t a2, uint64_t *a3)
-{
-  if ((_CPLSilentLogging & 1) == 0)
-  {
-    v7 = sub_100003744();
-    if (sub_1000033C0(v7))
-    {
-      v8 = [*a1 scope];
-      v14 = 138412290;
-      v15 = v8;
-      sub_10004DA10(&_mh_execute_header, v9, v10, "While trying to create zone for %@, CloudKit returned no errors but also returned no saved zones", &v14);
-    }
-  }
-
-  v11 = *(a2 + 64);
-  v12 = [CPLErrors cplErrorWithCode:150 description:@"CloudKit returned no zones with no errors"];
-  *a3 = v12;
-  return (*(v11 + 16))(v11, v12);
-}
-
-id sub_10019AEE0(uint8_t *a1, uint64_t a2, uint64_t *a3, void *a4)
-{
-  if ((_CPLSilentLogging & 1) == 0)
-  {
-    v8 = sub_100003744();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
-    {
-      *a1 = 138412290;
-      *a3 = a2;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Adding new participant %@", a1, 0xCu);
-    }
-  }
-
-  return [a4 addParticipant:a2];
-}
-
-void sub_10019AF88(uint64_t a1, void *a2, void *a3, void *a4)
-{
-  v7 = a2;
-  v8 = a3;
-  v9 = a4;
-  if (v9)
-  {
-    objc_storeStrong((*(*(a1 + 48) + 8) + 40), a4);
-    if ((_CPLSilentLogging & 1) == 0)
-    {
-      v10 = sub_100003788();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-      {
-        v20 = 138412290;
-        v21 = v9;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to accept share %@", &v20, 0xCu);
-      }
-    }
-
-    goto LABEL_15;
-  }
-
-  if ((_CPLSilentLogging & 1) == 0)
-  {
-    v11 = sub_100003788();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-    {
-      v12 = *(*(a1 + 32) + 272);
-      v20 = 138412546;
-      v21 = v8;
-      v22 = 2112;
-      v23 = v12;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Accepted share %@ for %@", &v20, 0x16u);
-    }
-  }
-
-  v13 = *(*(a1 + 32) + 296);
-  v14 = [objc_opt_class() shareTypes];
-  if (![v14 count])
-  {
-    goto LABEL_13;
-  }
-
-  v15 = [v8 objectForKeyedSubscript:CKShareTypeKey];
-  if (v15)
-  {
-
-LABEL_13:
-LABEL_14:
-    [*(a1 + 32) _updateScopeAndFlagsWithCKRecord:v8 currentUserID:*(a1 + 40)];
-    goto LABEL_15;
-  }
-
-  v16 = +[NSUserDefaults standardUserDefaults];
-  v17 = [v16 BOOLForKey:@"CPLDisableWorkaroundFor94171958"];
-
-  if (v17)
-  {
-    goto LABEL_14;
-  }
-
-  if ((_CPLSilentLogging & 1) == 0)
-  {
-    v18 = sub_100003788();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
-    {
-      v19 = [v8 recordID];
-      v20 = 138412290;
-      v21 = v19;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "Share type is missing on %@ - will just use it to update participants", &v20, 0xCu);
-    }
-  }
-
-  [*(a1 + 32) _updateScopeParticipantsWithCKShare:v8 currentUserID:*(a1 + 40)];
-LABEL_15:
-}
-
-uint64_t sub_10019B21C(uint64_t a1, void *a2, uint64_t *a3)
-{
-  if ((_CPLSilentLogging & 1) == 0)
-  {
-    v6 = sub_100003788();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      v7 = [*(a1 + 32) cpl_redactedShareURL];
-      *buf = 138543618;
-      v14 = v7;
-      v15 = 2112;
-      v16 = a2;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to accept share at %{public}@: %@", buf, 0x16u);
-    }
-  }
-
-  v8 = [a2 domain];
-  if ([v8 isEqualToString:CKUnderlyingErrorDomain])
-  {
-    if ([a2 code] == 7)
-    {
-
-LABEL_11:
-      v9 = [a2 localizedDescription];
-      v10 = [CPLErrors cplErrorWithCode:35 underlyingError:a2 description:@"Rate limited or throttled: %@", v9];
-      goto LABEL_12;
-    }
-
-    v11 = [a2 code];
-
-    if (v11 == 2008)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  else
-  {
-  }
-
-  v9 = [*(a1 + 40) lastOperationRequestUUIDs];
-  v10 = [CPLCloudKitErrors CPLErrorForCloudKitError:a2 withRequestUUIDs:v9 description:@"Failed to accept share URL"];
-LABEL_12:
-  *a3 = v10;
-
-  return (*(*(*(a1 + 40) + 312) + 16))();
-}
-
-void sub_10019B41C(uint64_t a1, uint64_t a2)
-{
-  if (_CPLSilentLogging != 1)
-  {
-    v5 = sub_100003788();
-    if (sub_1000033C0(v5))
-    {
-      v8 = *(a1 + 272);
-      v11 = 138412290;
-      v12 = v8;
-      sub_10004DA10(&_mh_execute_header, v6, v7, "%@ should have an identification at this point", &v11);
-    }
-  }
-
-  v9 = +[NSAssertionHandler currentHandler];
-  v10 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitAcceptSharedScopeTask.m"];
-  [v9 handleFailureInMethod:a2 object:a1 file:v10 lineNumber:91 description:{@"%@ should have an identification at this point", *(a1 + 272)}];
-
-  abort();
-}
-
-void sub_10019B504(void *a1, id obj, uint64_t a3)
-{
-  if ((_CPLSilentLogging & 1) == 0)
-  {
-    v7 = sub_100003788();
-    if (sub_1000033C0(v7))
-    {
-      v8 = [a1 cpl_redactedShareURL];
-      v9 = 138543618;
-      v10 = v8;
-      v11 = 2112;
-      v12 = obj;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Failed to fetch share metadata for %{public}@: %@", &v9, 0x16u);
-    }
-  }
-
-  objc_storeStrong((*(*(a3 + 40) + 8) + 40), obj);
-}
-
-uint64_t sub_10019B5F4(uint64_t a1, uint64_t a2)
-{
-  if ((_CPLSilentLogging & 1) == 0)
-  {
-    v5 = sub_100003788();
-    if (sub_1000033C0(v5))
-    {
-      v9 = 138412290;
-      v10 = a1;
-      sub_10004DA10(&_mh_execute_header, v6, v7, "Failed to fetch share metadata: %@", &v9);
-    }
-  }
-
-  return (*(*(a2 + 64) + 16))();
-}
-
-uint64_t sub_10019B6B8(uint64_t a1, uint64_t a2, uint64_t *a3)
-{
-  if ((_CPLSilentLogging & 1) == 0)
-  {
-    v6 = sub_100003788();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      v7 = *(*a1 + 272);
-      v8 = [*(a2 + 48) cpl_redactedShareURL];
-      v10 = 138412546;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v8;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Trying to accept %@ but the metadata at %@ does not have sufficient information to accept it", &v10, 0x16u);
-    }
-  }
-
-  result = [CPLErrors cplErrorWithCode:38 description:@"Failed to identify share scope type"];
-  *a3 = result;
-  return result;
-}
-
-void sub_10019B7CC(uint64_t a1, uint64_t a2)
-{
-  if (_CPLSilentLogging != 1)
-  {
-    v5 = sub_100003788();
-    if (sub_1000033C0(v5))
-    {
-      v8 = *(a1 + 272);
-      v11 = 138412290;
-      v12 = v8;
-      sub_10004DA10(&_mh_execute_header, v6, v7, "Should have a zone identification for %@", &v11);
-    }
-  }
-
-  v9 = +[NSAssertionHandler currentHandler];
-  v10 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitAcceptSharedScopeTask.m"];
-  [v9 handleFailureInMethod:a2 object:a1 file:v10 lineNumber:228 description:{@"Should have a zone identification for %@", *(a1 + 272)}];
-
-  abort();
-}
-
-uint64_t sub_10019B8B4(uint64_t a1, uint64_t a2)
-{
-  if ((_CPLSilentLogging & 1) == 0)
-  {
-    v5 = sub_100003788();
-    if (sub_1000033C0(v5))
-    {
-      v9 = 138412290;
-      v10 = a1;
-      sub_10004DA10(&_mh_execute_header, v6, v7, "Failed to accept shares %@", &v9);
-    }
-  }
-
-  return (*(*(a2 + 48) + 16))();
-}
-
-void sub_10019B974(void *a1, void *a2, void *a3, void *a4)
-{
-  v7 = a2;
-  v8 = a3;
-  v9 = a4;
-  if ((*(*(a1[7] + 8) + 24) & 1) == 0)
-  {
-    if ([v7 isEqual:a1[4]])
-    {
-      v10 = a1[5];
-      v13[0] = _NSConcreteStackBlock;
-      v13[1] = 3221225472;
-      v13[2] = sub_10005122C;
-      v13[3] = &unk_100271F40;
-      v13[4] = v10;
-      [v10 dispatchAsync:v13];
-      (*(a1[6] + 16))();
-    }
-
-    else if ((_CPLSilentLogging & 1) == 0)
-    {
-      v11 = sub_1000037CC();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        v12 = a1[4];
-        *buf = 138412546;
-        v15 = v7;
-        v16 = 2112;
-        v17 = v12;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Received zoneID %@ expected zoneID %@", buf, 0x16u);
-      }
-    }
-  }
-}
-
-void sub_10019BB00(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  if (_CPLSilentLogging != 1)
-  {
-    v6 = sub_1000037CC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
-    {
-      sub_10002B064(&_mh_execute_header, v7, v8, "No zone ID for %@", v9, v10, v11, v12, v15, v16, 2u);
-    }
-  }
-
-  v13 = +[NSAssertionHandler currentHandler];
-  v14 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitDownloadBatchTask.m"];
-  [v13 handleFailureInMethod:a1 object:a2 file:v14 lineNumber:101 description:{@"No zone ID for %@", a3}];
-
-  abort();
-}
-
-void sub_10019BBDC()
-{
-  v0 = sub_1000037CC();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = sub_1000037CC(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     sub_1000187A4();
-    sub_1000187BC(&_mh_execute_header, v1, v2, "Invalid sync obligation change token for %@: %@", v3, v4, v5, v6, v7);
+    sub_1000187BC(&_mh_execute_header, v2, v3, "Invalid sync obligation change token for %@: %@", v4, v5, v6, v7);
   }
 }
 
@@ -698,10 +12,10 @@ void sub_10019BC78(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (_CPLSilentLogging != 1)
   {
-    v6 = sub_1000037CC();
+    v6 = sub_1000037CC(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_10002B064(&_mh_execute_header, v7, v8, "Missing transport scope for partner scope %@", v9, v10, v11, v12, v15, v16, 2u);
+      sub_10002B064(&_mh_execute_header, v7, v8, "Missing transport scope for partner scope %@", v9, v10, v11, v12, v15, v16);
     }
   }
 
@@ -716,7 +30,7 @@ void sub_10019BD68(uint64_t *a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v2 = sub_1000037CC();
+    v2 = sub_1000037CC(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *a1;
@@ -735,13 +49,13 @@ void sub_10019BE24(id obj, void *a2, uint64_t a3)
   }
 }
 
-void sub_10019BE68()
+void sub_10019BE68(uint64_t a1)
 {
-  v0 = sub_1000037CC();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = sub_1000037CC(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     sub_1000187A4();
-    sub_1000187BC(&_mh_execute_header, v1, v2, "Failed to get record %@ when fetching changes: %@", v3, v4, v5, v6, v7);
+    sub_1000187BC(&_mh_execute_header, v2, v3, "Failed to get record %@ when fetching changes: %@", v4, v5, v6, v7);
   }
 }
 
@@ -760,55 +74,56 @@ void sub_10019BF08(uint64_t a1, void *a2)
   }
 
   v7 = objc_autoreleasePoolPush();
+  v8 = v7;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v8 = sub_1000037CC();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v9 = sub_1000037CC(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v9 = *(*(*(a1 + 48) + 8) + 24);
-      v18 = 134218240;
-      v19 = v9;
-      v20 = 2048;
-      v21 = [v6 count];
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Fetch operation got a batch and counted %lu change events (%lu sync obligations)", &v18, 0x16u);
+      v10 = *(*(*(a1 + 48) + 8) + 24);
+      v20 = 134218240;
+      v21 = v10;
+      v22 = 2048;
+      v23 = [v6 count];
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "Fetch operation got a batch and counted %lu change events (%lu sync obligations)", &v20, 0x16u);
     }
   }
 
   objc_storeStrong((*(*(a1 + 56) + 8) + 40), a2);
   [*(a1 + 32) sendProgressBatch:*(*(*(a1 + 64) + 8) + 40) updatedScopeChange:*(*(*(a1 + 72) + 8) + 40) updatedFlags:*(*(*(a1 + 80) + 8) + 40) updatedSyncAnchor:*(*(*(a1 + 56) + 8) + 40) zoneIDsWithSyncObligations:v6];
-  v10 = objc_alloc_init(CPLChangeBatch);
-  v11 = *(*(a1 + 64) + 8);
-  v12 = *(v11 + 40);
-  *(v11 + 40) = v10;
+  v11 = objc_alloc_init(CPLChangeBatch);
+  v12 = *(*(a1 + 64) + 8);
+  v13 = *(v12 + 40);
+  *(v12 + 40) = v11;
 
-  v13 = *(*(a1 + 72) + 8);
-  v14 = *(v13 + 40);
-  *(v13 + 40) = 0;
+  v14 = *(*(a1 + 72) + 8);
+  v15 = *(v14 + 40);
+  *(v14 + 40) = 0;
 
-  v15 = *(*(a1 + 80) + 8);
-  v16 = *(v15 + 40);
-  *(v15 + 40) = 0;
+  v16 = *(*(a1 + 80) + 8);
+  v17 = *(v16 + 40);
+  *(v16 + 40) = 0;
 
   *(*(*(a1 + 48) + 8) + 24) = 0;
   if (_CPLSilentLogging != 1)
   {
-    v17 = sub_1000037CC();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v19 = sub_1000037CC(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
-      v18 = 138412290;
-      v19 = a2;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "Updated sync anchor: %@", &v18, 0xCu);
+      v20 = 138412290;
+      v21 = a2;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "Updated sync anchor: %@", &v20, 0xCu);
     }
   }
 
-  objc_autoreleasePoolPop(v7);
+  objc_autoreleasePoolPop(v8);
 }
 
 void sub_10019C13C(uint64_t a1)
 {
   if (_CPLSilentLogging != 1)
   {
-    v2 = sub_1000037CC();
+    v2 = sub_1000037CC(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       *v7 = 0;
@@ -825,15 +140,18 @@ void sub_10019C13C(uint64_t a1)
   abort();
 }
 
-void sub_10019C214(uint64_t a1, uint64_t *a2)
+void sub_10019C214(uint64_t a1, void *a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_1000037CC();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_1000037CC(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v10 = *a2;
-      sub_1000187BC(&_mh_execute_header, v4, v5, "Received zoneID %@ expected zoneID %@", v6, v7, v8, v9, 2u);
+      *v11 = 138412546;
+      *&v11[4] = a1;
+      *&v11[12] = 2112;
+      *&v11[14] = *a2;
+      sub_1000187BC(&_mh_execute_header, v5, v6, "Received zoneID %@ expected zoneID %@", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16]);
     }
   }
 }
@@ -873,7 +191,7 @@ id sub_10019C7B0(id *a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v2 = sub_10005189C();
+    v2 = sub_10005189C(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       *v4 = 0;
@@ -913,21 +231,19 @@ void sub_10019CF28(uint64_t a1, void *a2)
       v7 = *(a1 + 40);
       v8 = *a2;
       *buf = 138412802;
-      v15 = v6;
+      v13 = v6;
+      v14 = 2112;
+      v15 = v7;
       v16 = 2112;
-      v17 = v7;
-      v18 = 2112;
-      v19 = v8;
+      v17 = v8;
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "%@ has been called for %@ but %@ has not been started yet", buf, 0x20u);
     }
   }
 
   v9 = +[NSAssertionHandler currentHandler];
-  v10 = *(a1 + 72);
-  v11 = *(a1 + 48);
-  v12 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitOperationsTracker.m"];
-  v13 = NSStringFromSelector(*(a1 + 72));
-  [sub_1000034C0() handleFailureInMethod:v13 object:*(a1 + 40) file:*a2 lineNumber:? description:?];
+  v10 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitOperationsTracker.m"];
+  v11 = NSStringFromSelector(*(a1 + 72));
+  [sub_1000034C0() handleFailureInMethod:v11 object:*(a1 + 40) file:*a2 lineNumber:? description:?];
 
   abort();
 }
@@ -980,7 +296,7 @@ id sub_10019DA60(id *a1, uint64_t a2, uint64_t a3)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_100004B38();
+    v6 = sub_100004B38(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = [*(*a1 + 2) count];
@@ -1125,7 +441,8 @@ void sub_10019E614(uint64_t a1, uint64_t a2)
     v5 = __CPLGenericOSLogDomain();
     if (sub_1000033C0(v5))
     {
-      sub_10000AF60(&_mh_execute_header, v6, v7, "Trying to create a CPLCloudKitScope with no zone", v8, v9, v10, v11, 0);
+      v14 = 0;
+      sub_10000AF60(&_mh_execute_header, v6, v7, "Trying to create a CPLCloudKitScope with no zone", v8, v9, v10, v11, v14);
     }
   }
 
@@ -1143,7 +460,8 @@ void sub_10019E6D0(uint64_t a1, uint64_t a2)
     v5 = __CPLGenericOSLogDomain();
     if (sub_1000033C0(v5))
     {
-      sub_10000AF60(&_mh_execute_header, v6, v7, "Trying to create a CPLCloudKitScope with no zone ID", v8, v9, v10, v11, 0);
+      v14 = 0;
+      sub_10000AF60(&_mh_execute_header, v6, v7, "Trying to create a CPLCloudKitScope with no zone ID", v8, v9, v10, v11, v14);
     }
   }
 
@@ -1181,7 +499,8 @@ void sub_10019E8A4(uint64_t a1, uint64_t a2)
     v5 = __CPLGenericOSLogDomain();
     if (sub_1000033C0(v5))
     {
-      sub_10000AF60(&_mh_execute_header, v6, v7, "Trying to create a CPLCloudKitScope with no zone ID", v8, v9, v10, v11, 0);
+      v14 = 0;
+      sub_10000AF60(&_mh_execute_header, v6, v7, "Trying to create a CPLCloudKitScope with no zone ID", v8, v9, v10, v11, v14);
     }
   }
 
@@ -1207,7 +526,7 @@ void sub_10019EA18(id a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v1 = sub_100003810();
+    v1 = sub_100003810(a1);
     if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
     {
       *v3 = 0;
@@ -1225,55 +544,56 @@ void sub_10019EA18(id a1)
 void sub_10019EAD8(uint64_t a1, void *a2)
 {
   v4 = a2;
+  v5 = v4;
   if (a1)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v5 = sub_100003810();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v6 = sub_100003810(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
         v24 = a1;
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "Launching %@", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "Launching %@", buf, 0xCu);
       }
     }
 
     objc_storeStrong((a1 + 216), a2);
     [*(a1 + 224) resetTrackingCounts];
-    if (v4)
+    if (v5)
     {
-      [v4 createCloudKitReschedulerIfNecessary];
-      v6 = [v4 rescheduler];
-      if (v6)
+      [v5 createCloudKitReschedulerIfNecessary];
+      v7 = [v5 rescheduler];
+      if (v7)
       {
       }
 
       else
       {
-        v7 = [v4 detachedActivity];
+        v8 = [v5 detachedActivity];
 
-        if (!v7)
+        if (!v8)
         {
           *(a1 + 73) = 1;
         }
       }
     }
 
-    v8 = [*(a1 + 200) operationTracker];
-    [v8 taskWillStart:a1];
+    v9 = [*(a1 + 200) operationTracker];
+    [v9 taskWillStart:a1];
 
-    v9 = +[NSProgress currentProgress];
-    if (v9)
+    v10 = +[NSProgress currentProgress];
+    if (v10)
     {
       *(a1 + 74) = 1;
-      v10 = CPLCopyDefaultSerialQueueAttributes();
-      v11 = dispatch_queue_create("com.apple.cpl.cloudkit.task.progress", v10);
-      v12 = *(a1 + 88);
-      *(a1 + 88) = v11;
+      v11 = CPLCopyDefaultSerialQueueAttributes();
+      v12 = dispatch_queue_create("com.apple.cpl.cloudkit.task.progress", v11);
+      v13 = *(a1 + 88);
+      *(a1 + 88) = v12;
 
-      v13 = [NSProgress progressWithTotalUnitCount:1];
-      v14 = *(a1 + 80);
-      *(a1 + 80) = v13;
+      v14 = [NSProgress progressWithTotalUnitCount:1];
+      v15 = *(a1 + 80);
+      *(a1 + 80) = v14;
     }
 
     sub_1000034D4();
@@ -1284,7 +604,6 @@ void sub_10019EAD8(uint64_t a1, void *a2)
     [a1 dispatchAsync:v18];
     if (*(a1 + 74) == 1)
     {
-      v15 = *(a1 + 88);
       sub_100021D24();
       v17[1] = 3221225472;
       v17[2] = sub_10005B6E4;
@@ -1302,47 +621,46 @@ void sub_10019ED0C(uint64_t a1)
     v3 = __CPLQOSOSLogDomain();
     if (sub_10000FABC(v3))
     {
-      v4 = *(a1 + 32);
-      v5 = objc_opt_class();
-      v6 = v5;
+      v4 = objc_opt_class();
+      v5 = v4;
       CPLCurrentQOS();
-      *v18 = 138412546;
-      *&v18[4] = v5;
-      *&v18[14] = *&v18[12] = 2112;
+      *v17 = 138412546;
+      *&v17[4] = v4;
+      *&v17[14] = *&v17[12] = 2112;
       sub_1000033F8();
-      _os_log_impl(v7, v8, v9, v10, v11, 0x16u);
+      _os_log_impl(v6, v7, v8, v9, v10, 0x16u);
     }
   }
 
-  v12 = [*(*(a1 + 32) + 216) cloudKitRescheduler];
-  v13 = *(a1 + 32);
-  if (v12)
+  v11 = [*(*(a1 + 32) + 216) cloudKitRescheduler];
+  v12 = *(a1 + 32);
+  if (v11)
   {
-    v17 = sub_10000489C(v13);
-    v13 = *(a1 + 32);
-    if (v17)
+    v16 = sub_10000489C(v12);
+    v12 = *(a1 + 32);
+    if (v16)
     {
-      [v13 _acquireActivityAndLaunchOperation];
+      [v12 _acquireActivityAndLaunchOperation];
       goto LABEL_11;
     }
   }
 
-  else if (!*(v13 + 120))
+  else if (!*(v12 + 120))
   {
-    v14 = [*(v13 + 216) detachedActivity];
-    v15 = *(a1 + 32);
-    v16 = *(v15 + 120);
-    *(v15 + 120) = v14;
+    v13 = [*(v12 + 216) detachedActivity];
+    v14 = *(a1 + 32);
+    v15 = *(v14 + 120);
+    *(v14 + 120) = v13;
 
-    v13 = *(a1 + 32);
-    if (*(v13 + 120))
+    v12 = *(a1 + 32);
+    if (*(v12 + 120))
     {
-      [v13 setHasBackgroundActivity:1];
-      v13 = *(a1 + 32);
+      [v12 setHasBackgroundActivity:1];
+      v12 = *(a1 + 32);
     }
   }
 
-  [v13 _reallyStartOperation];
+  [v12 _reallyStartOperation];
 LABEL_11:
 }
 
@@ -1357,19 +675,20 @@ id *sub_10019EE84(id *result)
   *(result + 128) = 1;
   if (!result[27])
   {
-    if (![result[1] count])
+    v3 = [result[1] count];
+    if (!v3)
     {
       if (!v2[18] || (_CPLSilentLogging & 1) != 0)
       {
         goto LABEL_12;
       }
 
-      v6 = sub_100003810();
-      if (sub_10000FABC(v6))
+      v7 = sub_100003810(0);
+      if (sub_10000FABC(v7))
       {
-        v7 = [v2 idleDescription];
-        sub_10005FE88(v7, 5.778e-34);
-        sub_10005FED0(&_mh_execute_header, v8, v9, "Cancelling '%@' for %@");
+        v8 = [v2 idleDescription];
+        sub_10005FE88(v8, 5.778e-34);
+        sub_10005FED0(&_mh_execute_header, v9, v10, "Cancelling '%@' for %@");
       }
 
       goto LABEL_11;
@@ -1377,11 +696,11 @@ id *sub_10019EE84(id *result)
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v3 = sub_100003810();
-      if (sub_10000FABC(v3))
+      v4 = sub_100003810(v3);
+      if (sub_10000FABC(v4))
       {
         sub_10005FE88([v2[1] count], 3.8521e-34);
-        sub_10005FED0(&_mh_execute_header, v4, v5, "Cancelling %lu operations for %@");
+        sub_10005FED0(&_mh_execute_header, v5, v6, "Cancelling %lu operations for %@");
       }
 
 LABEL_11:
@@ -1389,39 +708,36 @@ LABEL_11:
   }
 
 LABEL_12:
-  v19 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v10 = v2[1];
-  v11 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
-  if (v11)
+  v19 = 0u;
+  v11 = v2[1];
+  v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  if (v12)
   {
-    v12 = v11;
-    v13 = *v18;
+    v13 = v12;
+    v14 = *v19;
     do
     {
-      v14 = 0;
-      do
+      for (i = 0; i != v13; i = i + 1)
       {
-        if (*v18 != v13)
+        if (*v19 != v14)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v17 + 1) + 8 * v14);
-        v16 = [v2[25] operationTracker];
-        [v16 operationHasBeenCancelled:v15];
+        v16 = *(*(&v18 + 1) + 8 * i);
+        v17 = [v2[25] operationTracker];
+        [v17 operationHasBeenCancelled:v16];
 
-        [v15 cancel];
-        v14 = v14 + 1;
+        [v16 cancel];
       }
 
-      while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
-    while (v12);
+    while (v13);
   }
 
   return [v2 _cancelCallbackProgress];
@@ -1431,7 +747,7 @@ id sub_10019F22C(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_100003810();
+    v3 = sub_100003810(a1);
     if (sub_100021E38(v3))
     {
       v6 = *(a1 + 32);
@@ -1451,6 +767,13 @@ id sub_10019F22C(uint64_t a1)
   {
     return [v7 _cancelAllOperationsIfBlocked];
   }
+}
+
+void sub_10019F8C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+{
+  va_start(va, a32);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_10019F8E0(uint64_t a1)
@@ -1500,8 +823,8 @@ void sub_10019FA98(void *a1, void *a2, void *a3, void *a4, void *a5, void *a6)
 void CPLTaskLogCKCodeRequestAndResponse()
 {
   sub_10005FEF0();
-  v32 = v0;
-  v33 = v1;
+  v33 = v0;
+  v34 = v1;
   v3 = v2;
   v5 = v4;
   v7 = v6;
@@ -1524,19 +847,19 @@ void CPLTaskLogCKCodeRequestAndResponse()
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v16 = sub_10005FD40();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v17 = sub_10005FD40(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           sub_10005FE48();
-          v27 = v10;
-          v28 = v17;
-          v29 = v11;
-          v30 = 2114;
-          v31 = v15;
+          v28 = v10;
+          v29 = v18;
+          v30 = v11;
+          v31 = 2114;
+          v32 = v15;
           sub_10005FE78();
-          v23 = 42;
+          v24 = 42;
 LABEL_19:
-          _os_log_impl(v18, v19, v20, v21, v22, v23);
+          _os_log_impl(v19, v20, v21, v22, v23, v24);
         }
 
 LABEL_20:
@@ -1552,19 +875,19 @@ LABEL_20:
       goto LABEL_21;
     }
 
-    v16 = sub_10005FD40();
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = sub_10005FD40(v16);
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_20;
     }
 
     sub_10005FE48();
-    v27 = v11;
-    v28 = 2114;
-    v29 = v15;
+    v28 = v11;
+    v29 = 2114;
+    v30 = v15;
     sub_10005FE78();
 LABEL_15:
-    v23 = 32;
+    v24 = 32;
     goto LABEL_19;
   }
 
@@ -1575,35 +898,35 @@ LABEL_15:
       goto LABEL_21;
     }
 
-    v16 = sub_10005FD40();
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_10005FD40(v16);
+    if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_20;
     }
 
     sub_10005FE48();
-    v27 = v10;
-    v28 = 2114;
-    v29 = v15;
-    v18 = &_mh_execute_header;
-    v21 = "Success for %@\nresponse: %@\n\nrequest UUIDs: (%{public}@)";
-    v22 = &v24;
-    v19 = v16;
-    v20 = OS_LOG_TYPE_DEFAULT;
+    v28 = v10;
+    v29 = 2114;
+    v30 = v15;
+    v19 = &_mh_execute_header;
+    v22 = "Success for %@\nresponse: %@\n\nrequest UUIDs: (%{public}@)";
+    v23 = &v25;
+    v20 = v17;
+    v21 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_15;
   }
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v16 = sub_10005FD40();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = sub_10005FD40(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      v24 = 138412546;
-      v25 = v9;
-      v26 = 2114;
-      v27 = v15;
+      v25 = 138412546;
+      v26 = v9;
+      v27 = 2114;
+      v28 = v15;
       sub_10005FE78();
-      v23 = 22;
+      v24 = 22;
       goto LABEL_19;
     }
 
@@ -1631,83 +954,84 @@ void sub_1001A00F8(id a1)
 
     if (v7 && (_CPLSilentLogging & 1) == 0)
     {
-      v8 = sub_100003810();
-      if (sub_10000FABC(v8))
+      v9 = sub_100003810(v8);
+      if (sub_10000FABC(v9))
       {
-        LOWORD(v29) = 0;
+        LOWORD(v32) = 0;
         sub_1000033F8();
-        _os_log_impl(v9, v10, v11, v12, v13, 2u);
+        _os_log_impl(v10, v11, v12, v13, v14, 2u);
       }
     }
   }
 
   else
   {
-    v14 = +[NSUserDefaults standardUserDefaults];
-    v15 = [v14 BOOLForKey:@"_CPLCloudKitAutoDisableGateKeeper"];
+    v15 = +[NSUserDefaults standardUserDefaults];
+    v16 = [v15 BOOLForKey:@"_CPLCloudKitAutoDisableGateKeeper"];
 
-    if (v15)
+    if (v16)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v16 = sub_100003810();
-        if (sub_10000FABC(v16))
+        v18 = sub_100003810(v17);
+        if (sub_10000FABC(v18))
         {
-          LOWORD(v29) = 0;
+          LOWORD(v32) = 0;
           sub_1000033F8();
-          _os_log_impl(v17, v18, v19, v20, v21, 2u);
+          _os_log_impl(v19, v20, v21, v22, v23, 2u);
         }
       }
 
-      v22 = 0;
+      v24 = 0;
       _CPLCloudKitGateKeeperDisabledByServer = 1;
     }
 
     else
     {
-      v22 = 1;
+      v24 = 1;
     }
 
-    _CPLCloudKitUseGateKeeper = v22;
+    _CPLCloudKitUseGateKeeper = v24;
   }
 
   if (_CPLCloudKitUseGateKeeper == 1)
   {
-    v23 = +[NSUserDefaults standardUserDefaults];
-    v24 = [v23 stringForKey:@"CPLCloudKitGateKeeperTranscodeType"];
-    v25 = [v24 lowercaseString];
+    v25 = +[NSUserDefaults standardUserDefaults];
+    v26 = [v25 stringForKey:@"CPLCloudKitGateKeeperTranscodeType"];
+    v27 = [v26 lowercaseString];
 
-    if (v25)
+    if (v27)
     {
-      if ([v25 isEqualToString:@"mmcs"])
+      if ([v27 isEqualToString:@"mmcs"])
       {
-        v26 = &unk_1002D2000;
-        v27 = 1;
+        v28 = &unk_1002D2000;
+        v29 = 1;
       }
 
       else
       {
-        if (![v25 isEqualToString:@"transcode"])
+        v30 = [v27 isEqualToString:@"transcode"];
+        if (!v30)
         {
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v28 = sub_100003810();
-            if (sub_1000033C0(v28))
+            v31 = sub_100003810(v30);
+            if (sub_1000033C0(v31))
             {
-              v29 = 138412290;
-              v30 = v25;
-              _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Invalid value for transcode type: '%@'", &v29, 0xCu);
+              v32 = 138412290;
+              v33 = v27;
+              _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_ERROR, "Invalid value for transcode type: '%@'", &v32, 0xCu);
             }
           }
 
           goto LABEL_27;
         }
 
-        v26 = &unk_1002D2000;
-        v27 = 2;
+        v28 = &unk_1002D2000;
+        v29 = 2;
       }
 
-      v26[414] = v27;
+      v28[414] = v29;
     }
 
 LABEL_27:
@@ -1734,26 +1058,24 @@ void sub_1001A044C()
   abort();
 }
 
-void sub_1001A04FC(uint64_t *a1)
+void sub_1001A04FC(void *a1)
 {
   if (_CPLSilentLogging != 1)
   {
-    v3 = sub_100003810();
-    if (sub_10002B0A8(v3))
+    v2 = sub_100003810(a1);
+    if (sub_10002B0A8(v2))
     {
-      v4 = *a1;
       *buf = 138412290;
-      v11 = objc_opt_class();
-      v5 = v11;
+      v8 = objc_opt_class();
+      v3 = v8;
       _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "Unexpected current user ID (%@)", buf, 0xCu);
     }
   }
 
-  v6 = +[NSAssertionHandler currentHandler];
-  v7 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitTransportTask.m"];
-  v8 = *a1;
-  v9 = objc_opt_class();
-  [sub_10002B108() handleFailureInMethod:v9 object:? file:? lineNumber:? description:?];
+  v4 = +[NSAssertionHandler currentHandler];
+  v5 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitTransportTask.m"];
+  v6 = objc_opt_class();
+  [sub_10002B108() handleFailureInMethod:v6 object:? file:? lineNumber:? description:?];
 
   abort();
 }
@@ -1762,10 +1084,10 @@ void sub_1001A05F8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (_CPLSilentLogging != 1)
   {
-    v6 = sub_100003810();
+    v6 = sub_100003810(a1);
     if (sub_10002B0A8(v6))
     {
-      sub_10002B0D4(&_mh_execute_header, v7, v8, "%@ is an invalid transport group for %@", v9, v10, v11, v12, v15, v16, 2u);
+      sub_10002B0D4(&_mh_execute_header, v7, v8, "%@ is an invalid transport group for %@", v9, v10, v11, v12, v15, v16);
     }
   }
 
@@ -1780,7 +1102,7 @@ id sub_1001A06D4(void *a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_100003810();
+    v3 = sub_100003810(a1);
     if (sub_10000FABC(v3))
     {
       LODWORD(v10) = 138412290;
@@ -1797,11 +1119,11 @@ void sub_1001A0780(uint64_t a1, uint64_t a2)
 {
   if (_CPLSilentLogging != 1)
   {
-    v5 = sub_100003810();
+    v5 = sub_100003810(a1);
     if (sub_1000033C0(v5))
     {
       v6 = objc_opt_class();
-      sub_10000348C(&_mh_execute_header, v7, v8, "%@ should not have any outstanding operations while waiting for an activity", v9, v10, v11, v12, v15, v16, 2u);
+      sub_10000348C(&_mh_execute_header, v7, v8, "%@ should not have any outstanding operations while waiting for an activity", v9, v10, v11, v12, v15, v16);
     }
   }
 
@@ -1816,7 +1138,7 @@ id *sub_1001A0868(void *a1, void *a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_100003810();
+    v4 = sub_100003810(a1);
     if (sub_100021E38(v4))
     {
       v7 = *a1;
@@ -1839,16 +1161,16 @@ id *sub_1001A0868(void *a1, void *a2)
   }
 }
 
-id sub_1001A092C(void *a1, void *a2, void ***a3)
+id sub_1001A092C(void *a1, void **a2, void ***a3)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_100003810();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100003810(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 138412290;
-      v8 = a2;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Delaying cancelling %@, giving it a chance to complete", &v7, 0xCu);
+      v8 = 138412290;
+      v9 = a2;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Delaying cancelling %@, giving it a chance to complete", &v8, 0xCu);
     }
   }
 
@@ -1864,11 +1186,11 @@ void sub_1001A0F30(void *a1, uint64_t a2, uint64_t a3)
 {
   if (_CPLSilentLogging != 1)
   {
-    v6 = sub_100003810();
+    v6 = sub_100003810(a1);
     if (sub_10002B0A8(v6))
     {
       v7 = [a1 idleDescription];
-      sub_10002B0D4(&_mh_execute_header, v8, v9, "Trying to launch %@ while %@", v10, v11, v12, v13, v19, v20, 2u);
+      sub_10002B0D4(&_mh_execute_header, v8, v9, "Trying to launch %@ while %@", v10, v11, v12, v13, v19, v20);
     }
   }
 
@@ -1895,7 +1217,7 @@ id sub_1001A1064(id *a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_100003810();
+    v3 = sub_100003810(a1);
     if (sub_10000FABC(v3))
     {
       v4 = *a1;
@@ -1923,18 +1245,18 @@ void sub_1001A114C(const char *a1, uint64_t a2)
 {
   if (_CPLSilentLogging != 1)
   {
-    v5 = sub_100003810();
+    v5 = sub_100003810(a1);
     if (sub_1000033C0(v5))
     {
-      v6 = NSStringFromSelector(a1);
-      sub_10000348C(&_mh_execute_header, v7, v8, "Calling %@ while there is no running callback operation", v9, v10, v11, v12, v16, v17, 2u);
+      v17 = NSStringFromSelector(a1);
+      sub_10000348C(&_mh_execute_header, v6, v7, "Calling %@ while there is no running callback operation", v8, v9, v10, v11, v15, v16);
     }
   }
 
-  v13 = +[NSAssertionHandler currentHandler];
-  v14 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitTransportTask.m"];
-  v15 = NSStringFromSelector(a1);
-  [v13 handleFailureInMethod:a1 object:a2 file:v14 lineNumber:805 description:{@"Calling %@ while there is no running callback operation", v15}];
+  v12 = +[NSAssertionHandler currentHandler];
+  v13 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitTransportTask.m"];
+  v14 = NSStringFromSelector(a1);
+  [v12 handleFailureInMethod:a1 object:a2 file:v13 lineNumber:805 description:{@"Calling %@ while there is no running callback operation", v14}];
 
   abort();
 }
@@ -1943,12 +1265,12 @@ void sub_1001A1244(const char *a1, void *a2)
 {
   if (_CPLSilentLogging != 1)
   {
-    v5 = sub_100003810();
+    v5 = sub_100003810(a1);
     if (sub_10002B0A8(v5))
     {
       v6 = NSStringFromSelector(a1);
       v19 = [a2 cplOperationClassDescription];
-      sub_10002B0D4(&_mh_execute_header, v7, v8, "%@ for %@ called while it has not started yet", v9, v10, v11, v12, v17, v18, 2u);
+      sub_10002B0D4(&_mh_execute_header, v7, v8, "%@ for %@ called while it has not started yet", v9, v10, v11, v12, v17, v18);
     }
   }
 
@@ -1965,12 +1287,12 @@ void sub_1001A1370(const char *a1, void *a2)
 {
   if (_CPLSilentLogging != 1)
   {
-    v5 = sub_100003810();
+    v5 = sub_100003810(a1);
     if (sub_10002B0A8(v5))
     {
       v6 = NSStringFromSelector(a1);
       v19 = [a2 cplOperationClassDescription];
-      sub_10002B0D4(&_mh_execute_header, v7, v8, "%@ for %@ called while it has not started yet", v9, v10, v11, v12, v17, v18, 2u);
+      sub_10002B0D4(&_mh_execute_header, v7, v8, "%@ for %@ called while it has not started yet", v9, v10, v11, v12, v17, v18);
     }
   }
 
@@ -1987,12 +1309,12 @@ void sub_1001A149C(const char *a1, void *a2)
 {
   if (_CPLSilentLogging != 1)
   {
-    v5 = sub_100003810();
+    v5 = sub_100003810(a1);
     if (sub_10002B0A8(v5))
     {
       v6 = NSStringFromSelector(a1);
       v19 = [a2 cplOperationClassDescription];
-      sub_10002B0D4(&_mh_execute_header, v7, v8, "%@ for %@ called while it has not started yet", v9, v10, v11, v12, v17, v18, 2u);
+      sub_10002B0D4(&_mh_execute_header, v7, v8, "%@ for %@ called while it has not started yet", v9, v10, v11, v12, v17, v18);
     }
   }
 
@@ -2009,10 +1331,10 @@ void sub_1001A16C4(uint64_t a1, uint64_t a2)
 {
   if (_CPLSilentLogging != 1)
   {
-    v5 = sub_100003810();
+    v5 = sub_100003810(a1);
     if (sub_1000033C0(v5))
     {
-      sub_10000348C(&_mh_execute_header, v6, v7, "%@ while the task is not running", v8, v9, v10, v11, v14, v15, 2u);
+      sub_10000348C(&_mh_execute_header, v6, v7, "%@ while the task is not running", v8, v9, v10, v11, v14, v15);
     }
   }
 
@@ -2025,7 +1347,7 @@ void sub_1001A16C4(uint64_t a1, uint64_t a2)
 
 void sub_1001A1790(id *a1, uint64_t a2)
 {
-  v4 = sub_100003810();
+  v4 = sub_100003810(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = [*a1 path];
@@ -2041,7 +1363,7 @@ void sub_1001A1860(void *a1, uint64_t a2, void *a3)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_100003810();
+    v6 = sub_100003810(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138412290;
@@ -2060,11 +1382,11 @@ void sub_1001A1860(void *a1, uint64_t a2, void *a3)
   [a1 fetchUserRecordIDFetchWithCompletionHandler:a2];
 }
 
-uint64_t sub_1001A19A0(char a1, uint64_t a2, uint64_t *a3)
+uint64_t sub_1001A19A0(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
   if ((a1 & 1) == 0)
   {
-    v6 = sub_100003810();
+    v6 = sub_100003810(a1);
     if (sub_1000033C0(v6))
     {
       *v8 = 0;
@@ -2080,11 +1402,10 @@ void sub_1001A1A74(void *a1, uint64_t a2, uint64_t a3)
 {
   if (_CPLSilentLogging != 1)
   {
-    v6 = sub_100003854();
+    v6 = sub_100003854(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v17 = HIDWORD(*a1);
-      sub_10002B064(&_mh_execute_header, v7, v8, "Unable to find destination shared record for %@", v9, v10, v11, v12, v15, v16, 2u);
+      sub_10002B064(&_mh_execute_header, v7, v8, "Unable to find destination shared record for %@", v9, v10, v11, v12, v15, v16);
     }
   }
 
@@ -2099,10 +1420,10 @@ void sub_1001A1B58(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (_CPLSilentLogging != 1)
   {
-    v6 = sub_100003854();
+    v6 = sub_100003854(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_10002B064(&_mh_execute_header, v7, v8, "Unable to find scoped identifier matching %@", v9, v10, v11, v12, v15, v16, 2u);
+      sub_10002B064(&_mh_execute_header, v7, v8, "Unable to find scoped identifier matching %@", v9, v10, v11, v12, v15, v16);
     }
   }
 
@@ -2115,7 +1436,7 @@ void sub_1001A1B58(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void sub_1001A1C34(uint64_t a1)
 {
-  v2 = sub_100003854();
+  v2 = sub_100003854(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = 138412290;
@@ -2166,8 +1487,7 @@ void sub_1001A1EF0(void *a1, char a2)
     v4 = __CPLGenericOSLogDomain();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v18 = *(*(a1[6] + 8) + 24);
-      sub_1000233B4(&_mh_execute_header, v5, v6, "%s called too many times on %@", v7, v8, v9, v10, v16, v17, 2u);
+      sub_1000233B4(&_mh_execute_header, v5, v6, "%s called too many times on %@", v7, v8, v9, v10, v16, v17);
     }
   }
 
@@ -2220,7 +1540,7 @@ void sub_1001A211C(uint64_t a1, char a2)
     v4 = __CPLGenericOSLogDomain();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_1000233B4(&_mh_execute_header, v5, v6, "%s called but expected %s", v7, v8, v9, v10, v17, v18, 2u);
+      sub_1000233B4(&_mh_execute_header, v5, v6, "%s called but expected %s", v7, v8, v9, v10, v17, v18);
     }
   }
 
@@ -2280,7 +1600,7 @@ void sub_1001A2718(uint64_t a1)
     v3 = __CPLGenericOSLogDomain();
     if (sub_100003448(v3))
     {
-      sub_10006D00C(&_mh_execute_header, v4, v5, "%@ has no associated record type", v6, v7, v8, v9, v13, v14, 2u);
+      sub_10006D00C(&_mh_execute_header, v4, v5, "%@ has no associated record type", v6, v7, v8, v9, v13, v14);
     }
   }
 
@@ -2338,7 +1658,7 @@ void sub_1001A2A28(uint64_t a1)
     v3 = __CPLGenericOSLogDomain();
     if (sub_100003448(v3))
     {
-      sub_10006D00C(&_mh_execute_header, v4, v5, "Missing record identifier for %@", v6, v7, v8, v9, v13, v14, 2u);
+      sub_10006D00C(&_mh_execute_header, v4, v5, "Missing record identifier for %@", v6, v7, v8, v9, v13, v14);
     }
   }
 
@@ -2396,7 +1716,7 @@ void sub_1001A2D4C(uint64_t a1)
     v3 = __CPLGenericOSLogDomain();
     if (sub_100003448(v3))
     {
-      sub_10006D00C(&_mh_execute_header, v4, v5, "Missing shared record identifier for %@", v6, v7, v8, v9, v13, v14, 2u);
+      sub_10006D00C(&_mh_execute_header, v4, v5, "Missing shared record identifier for %@", v6, v7, v8, v9, v13, v14);
     }
   }
 
@@ -2427,12 +1747,12 @@ void sub_1001A2F1C(void *a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v2 = sub_100068094();
+    v2 = sub_100068094(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = [a1 recordID];
       sub_100059FB8();
-      sub_10006D044(&_mh_execute_header, v4, v5, "%@ record points to unknown zone %@", v6, v7, v8, v9, v10);
+      sub_10006D044(&_mh_execute_header, v4, v5, "%@ record points to unknown zone %@", v6, v7, v8, v9);
     }
   }
 }
@@ -2451,12 +1771,12 @@ void sub_1001A2FE0(void *a1, uint64_t a2, void *a3)
 
 void sub_1001A3094(void *a1)
 {
-  v2 = sub_100068094();
+  v2 = sub_100068094(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [a1 recordID];
     sub_100059FB8();
-    sub_10006D044(&_mh_execute_header, v4, v5, "%@ record points to unknown zone %@", v6, v7, v8, v9, v10);
+    sub_10006D044(&_mh_execute_header, v4, v5, "%@ record points to unknown zone %@", v6, v7, v8, v9);
   }
 }
 
@@ -2467,7 +1787,7 @@ void sub_1001A3148(uint64_t a1, uint64_t a2, uint64_t a3)
     v5 = __CPLGenericOSLogDomain();
     if (sub_10002B0A8(v5))
     {
-      sub_10002B064(&_mh_execute_header, v6, v7, "Unsupported class type: %@", v8, v9, v10, v11, v14, v15, 2u);
+      sub_10002B064(&_mh_execute_header, v6, v7, "Unsupported class type: %@", v8, v9, v10, v11, v14, v15);
     }
   }
 
@@ -2482,7 +1802,7 @@ void sub_1001A322C(void *a1, void *a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_100069014();
+    v5 = sub_100069014(a1);
     if (sub_100003448(v5))
     {
       v6 = [a1 recordType];
@@ -2495,104 +1815,104 @@ void sub_1001A322C(void *a1, void *a2)
   }
 }
 
-void sub_1001A334C(void *a1)
+void sub_1001A334C(void *a1, uint64_t a2)
 {
-  v2 = sub_100069014();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = sub_100069014(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v3 = [a1 recordType];
-    v4 = [a1 recordID];
-    v11 = [v4 recordName];
-    v5 = objc_opt_class();
+    v4 = [a1 recordType];
+    v5 = [a1 recordID];
+    v12 = [v5 recordName];
+    v6 = objc_opt_class();
     sub_10000FAAC();
-    _os_log_impl(v6, v7, v8, v9, v10, 0x20u);
+    _os_log_impl(v7, v8, v9, v10, v11, 0x20u);
   }
 }
 
-void sub_1001A3474()
+void sub_1001A3474(uint64_t a1)
 {
   if (_CPLSilentLogging != 1)
   {
-    v2 = __CPLGenericOSLogDomain();
-    if (sub_10002B0A8(v2))
+    v3 = __CPLGenericOSLogDomain();
+    if (sub_10002B0A8(v3))
     {
-      v3 = objc_opt_class();
-      v1 = sub_10006D084(v3);
-      sub_10002B064(&_mh_execute_header, v4, v5, "%@ does not support deletion", v6, v7, v8, v9, v11, v13, v14);
+      v4 = objc_opt_class();
+      v2 = sub_10006D084(v4);
+      sub_10002B064(&_mh_execute_header, v5, v6, "%@ does not support deletion", v7, v8, v9, v10, v12, v14);
     }
   }
 
-  v10 = +[NSAssertionHandler currentHandler];
+  v11 = +[NSAssertionHandler currentHandler];
   [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CKRecord+CPL_base.m"];
   objc_claimAutoreleasedReturnValue();
-  v12 = sub_10006D09C();
-  [sub_10002B108() handleFailureInMethod:v12 object:? file:? lineNumber:? description:?];
+  v13 = sub_10006D09C();
+  [sub_10002B108() handleFailureInMethod:v13 object:? file:? lineNumber:? description:?];
 
   abort();
 }
 
-void sub_1001A3550()
+void sub_1001A3550(uint64_t a1)
 {
   if (_CPLSilentLogging != 1)
   {
-    v2 = __CPLGenericOSLogDomain();
-    if (sub_10002B0A8(v2))
+    v3 = __CPLGenericOSLogDomain();
+    if (sub_10002B0A8(v3))
     {
-      v3 = objc_opt_class();
-      v1 = sub_10006D084(v3);
-      sub_10002B064(&_mh_execute_header, v4, v5, "%@ should be directly deleted and not expunged", v6, v7, v8, v9, v11, v13, v14);
+      v4 = objc_opt_class();
+      v2 = sub_10006D084(v4);
+      sub_10002B064(&_mh_execute_header, v5, v6, "%@ should be directly deleted and not expunged", v7, v8, v9, v10, v12, v14);
     }
   }
 
-  v10 = +[NSAssertionHandler currentHandler];
+  v11 = +[NSAssertionHandler currentHandler];
   [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CKRecord+CPL_base.m"];
   objc_claimAutoreleasedReturnValue();
-  v12 = sub_10006D09C();
-  [sub_10002B108() handleFailureInMethod:v12 object:? file:? lineNumber:? description:?];
+  v13 = sub_10006D09C();
+  [sub_10002B108() handleFailureInMethod:v13 object:? file:? lineNumber:? description:?];
 
   abort();
 }
 
-void sub_1001A362C()
+void sub_1001A362C(uint64_t a1)
 {
   if (_CPLSilentLogging != 1)
   {
-    v2 = __CPLGenericOSLogDomain();
-    if (sub_10002B0A8(v2))
+    v3 = __CPLGenericOSLogDomain();
+    if (sub_10002B0A8(v3))
     {
-      v3 = objc_opt_class();
-      v1 = sub_10006D084(v3);
-      sub_10002B064(&_mh_execute_header, v4, v5, "%@ does not support deletion", v6, v7, v8, v9, v11, v13, v14);
+      v4 = objc_opt_class();
+      v2 = sub_10006D084(v4);
+      sub_10002B064(&_mh_execute_header, v5, v6, "%@ does not support deletion", v7, v8, v9, v10, v12, v14);
     }
   }
 
-  v10 = +[NSAssertionHandler currentHandler];
+  v11 = +[NSAssertionHandler currentHandler];
   [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CKRecord+CPL_base.m"];
   objc_claimAutoreleasedReturnValue();
-  v12 = sub_10006D09C();
-  [sub_10002B108() handleFailureInMethod:v12 object:? file:? lineNumber:? description:?];
+  v13 = sub_10006D09C();
+  [sub_10002B108() handleFailureInMethod:v13 object:? file:? lineNumber:? description:?];
 
   abort();
 }
 
-void sub_1001A3708()
+void sub_1001A3708(uint64_t a1)
 {
   if (_CPLSilentLogging != 1)
   {
-    v2 = __CPLGenericOSLogDomain();
-    if (sub_10002B0A8(v2))
+    v3 = __CPLGenericOSLogDomain();
+    if (sub_10002B0A8(v3))
     {
-      v3 = objc_opt_class();
-      v1 = sub_10006D084(v3);
-      sub_10002B064(&_mh_execute_header, v4, v5, "%@ should be directly deleted and not expunged", v6, v7, v8, v9, v11, v13, v14);
+      v4 = objc_opt_class();
+      v2 = sub_10006D084(v4);
+      sub_10002B064(&_mh_execute_header, v5, v6, "%@ should be directly deleted and not expunged", v7, v8, v9, v10, v12, v14);
     }
   }
 
-  v10 = +[NSAssertionHandler currentHandler];
+  v11 = +[NSAssertionHandler currentHandler];
   [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CKRecord+CPL_base.m"];
   objc_claimAutoreleasedReturnValue();
-  v12 = sub_10006D09C();
-  [sub_10002B108() handleFailureInMethod:v12 object:? file:? lineNumber:? description:?];
+  v13 = sub_10006D09C();
+  [sub_10002B108() handleFailureInMethod:v13 object:? file:? lineNumber:? description:?];
 
   abort();
 }
@@ -2672,48 +1992,50 @@ void sub_1001A3B60(uint64_t a1, void *a2, uint64_t a3)
 
 uint64_t sub_1001A3C60(uint64_t a1)
 {
-  if (![*(a1 + 32) isBlocked])
+  v2 = [*(a1 + 32) isBlocked];
+  if (!v2)
   {
-    v2 = [*(a1 + 32) _unBlockedReasonStatus];
-    if (!v2)
+    v8 = [*(a1 + 32) _unBlockedReasonStatus];
+    v3 = v8;
+    if (!v8)
     {
       if (_CPLSilentLogging)
       {
         goto LABEL_12;
       }
 
-      v3 = sub_10006E74C();
-      if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v4 = sub_10006E74C(0);
+      if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_11;
       }
 
-      v4 = [*(a1 + 32) _isBlockedKeyPath];
-      *v9 = 138543362;
-      *&v9[4] = v4;
-      v5 = "DAS (%{public}@) is reporting that CPL is not blocked any more";
-      v6 = v3;
-      v7 = 12;
+      v5 = [*(a1 + 32) _isBlockedKeyPath];
+      *v11 = 138543362;
+      *&v11[4] = v5;
+      v6 = "DAS (%{public}@) is reporting that CPL is not blocked any more";
+      v7 = v4;
+      v9 = 12;
       goto LABEL_10;
     }
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v3 = sub_10006E74C();
-      if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      v4 = sub_10006E74C(v8);
+      if (!os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_11:
 
         goto LABEL_12;
       }
 
-      v4 = [*(a1 + 32) _isBlockedKeyPath];
-      *v9 = 138543618;
-      *&v9[4] = v4;
-      *&v9[12] = 2114;
-      *&v9[14] = v2;
-      v5 = "DAS (%{public}@) is reporting that CPL is not blocked any more (reason: %{public}@)";
-      v6 = v3;
+      v5 = [*(a1 + 32) _isBlockedKeyPath];
+      *v11 = 138543618;
+      *&v11[4] = v5;
+      *&v11[12] = 2114;
+      *&v11[14] = v3;
+      v6 = "DAS (%{public}@) is reporting that CPL is not blocked any more (reason: %{public}@)";
+      v7 = v4;
       goto LABEL_9;
     }
 
@@ -2724,21 +2046,21 @@ LABEL_12:
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v2 = sub_10006E74C();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = sub_10006E74C(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [*(a1 + 32) _isBlockedKeyPath];
-      v4 = [*(a1 + 32) _blockedReasonStatus];
-      *v9 = 138543618;
-      *&v9[4] = v3;
-      *&v9[12] = 2114;
-      *&v9[14] = v4;
-      v5 = "DAS (%{public}@) is reporting that CPL is blocked by %{public}@";
-      v6 = v2;
+      v4 = [*(a1 + 32) _isBlockedKeyPath];
+      v5 = [*(a1 + 32) _blockedReasonStatus];
+      *v11 = 138543618;
+      *&v11[4] = v4;
+      *&v11[12] = 2114;
+      *&v11[14] = v5;
+      v6 = "DAS (%{public}@) is reporting that CPL is blocked by %{public}@";
+      v7 = v3;
 LABEL_9:
-      v7 = 22;
+      v9 = 22;
 LABEL_10:
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, v5, v9, v7);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, v6, v11, v9);
 
       goto LABEL_11;
     }
@@ -2747,36 +2069,37 @@ LABEL_10:
   }
 
 LABEL_13:
-  [*(*(a1 + 32) + 16) enumerateObjectsUsingBlock:{&stru_100275540, *v9, *&v9[16]}];
+  [*(*(a1 + 32) + 16) enumerateObjectsUsingBlock:{&stru_100275540, *v11, *&v11[8]}];
   return 1;
 }
 
 void sub_1001A40A0(uint64_t a1)
 {
   v2 = [*(a1 + 32) operationDidFinishWithError:*(a1 + 40)];
+  v3 = v2;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_100003898();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = sub_100003898(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v4 = [*(a1 + 48) componentsJoinedByString:{@", "}];
+      v5 = [*(a1 + 48) componentsJoinedByString:{@", "}];
       *buf = 138412546;
-      *&buf[4] = v4;
+      *&buf[4] = v5;
       *&buf[12] = 2112;
-      *&buf[14] = v2;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "Finished fetching %@ with error %@", buf, 0x16u);
+      *&buf[14] = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "Finished fetching %@ with error %@", buf, 0x16u);
     }
   }
 
-  if (!v2)
+  if (!v3)
   {
     goto LABEL_14;
   }
 
-  if ((*(a1 + 88) & 1) != 0 || ![CPLCloudKitErrors isPartialFailureError:v2])
+  if ((*(a1 + 88) & 1) != 0 || ![CPLCloudKitErrors isPartialFailureError:v3])
   {
-    v8 = [*(a1 + 32) lastOperationRequestUUIDs];
-    v6 = [CPLCloudKitErrors CPLErrorForCloudKitError:v2 withRequestUUIDs:v8 description:@"Failed to fetch some records"];
+    v9 = [*(a1 + 32) lastOperationRequestUUIDs];
+    v7 = [CPLCloudKitErrors CPLErrorForCloudKitError:v3 withRequestUUIDs:v9 description:@"Failed to fetch some records"];
   }
 
   else
@@ -2784,69 +2107,69 @@ void sub_1001A40A0(uint64_t a1)
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v20 = sub_100004470;
-    v21 = sub_10000531C;
-    v22 = 0;
-    v5 = [CPLCloudKitErrors errorsPerRecordIDForPartialFailureError:v2];
-    v18[0] = _NSConcreteStackBlock;
-    v18[1] = 3221225472;
-    v18[2] = sub_10006F1A4;
-    v18[3] = &unk_1002755D0;
-    v18[4] = *(a1 + 32);
-    v18[5] = buf;
-    [v5 enumerateKeysAndObjectsUsingBlock:v18];
-    v6 = *(*&buf[8] + 40);
-    if (v6)
+    v21 = sub_100004470;
+    v22 = sub_10000531C;
+    v23 = 0;
+    v6 = [CPLCloudKitErrors errorsPerRecordIDForPartialFailureError:v3];
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_10006F1A4;
+    v19[3] = &unk_1002755D0;
+    v19[4] = *(a1 + 32);
+    v19[5] = buf;
+    [v6 enumerateKeysAndObjectsUsingBlock:v19];
+    v7 = *(*&buf[8] + 40);
+    if (v7)
     {
-      v7 = [*(a1 + 32) lastOperationRequestUUIDs];
-      v6 = [CPLCloudKitErrors CPLErrorForCloudKitError:v6 withRequestUUIDs:v7 description:@"Failed to fetch some records"];
+      v8 = [*(a1 + 32) lastOperationRequestUUIDs];
+      v7 = [CPLCloudKitErrors CPLErrorForCloudKitError:v7 withRequestUUIDs:v8 description:@"Failed to fetch some records"];
 
-      v2 = v7;
+      v3 = v8;
     }
 
     _Block_object_dispose(buf, 8);
   }
 
-  if (v6)
+  if (v7)
   {
-    v9 = [*(a1 + 32) lastOperationRequestUUIDs];
+    v10 = [*(a1 + 32) lastOperationRequestUUIDs];
     (*(*(a1 + 80) + 16))();
   }
 
   else
   {
 LABEL_14:
-    v10 = *(a1 + 56);
-    if (v10)
+    v11 = *(a1 + 56);
+    if (v11)
     {
-      v11 = *(a1 + 64);
-      v15[0] = _NSConcreteStackBlock;
-      v15[1] = 3221225472;
-      v15[2] = sub_10006F320;
-      v15[3] = &unk_1002755F8;
-      v16 = v10;
-      v17 = *(a1 + 72);
-      [v11 enumerateKeysAndObjectsUsingBlock:v15];
+      v12 = *(a1 + 64);
+      v16[0] = _NSConcreteStackBlock;
+      v16[1] = 3221225472;
+      v16[2] = sub_10006F320;
+      v16[3] = &unk_1002755F8;
+      v17 = v11;
+      v18 = *(a1 + 72);
+      [v12 enumerateKeysAndObjectsUsingBlock:v16];
     }
 
-    v12 = *(a1 + 72);
-    v13 = *(a1 + 80);
-    if (v12)
+    v13 = *(a1 + 72);
+    v14 = *(a1 + 80);
+    if (v13)
     {
-      v14 = [v12 copy];
-      (*(v13 + 16))(v13, v14, 0, 0);
+      v15 = [v13 copy];
+      (*(v14 + 16))(v14, v15, 0, 0);
     }
 
     else
     {
-      (*(v13 + 16))(*(a1 + 80), *(a1 + 64), 0, 0);
+      (*(v14 + 16))(*(a1 + 80), *(a1 + 64), 0, 0);
     }
   }
 }
 
-void sub_1001A4414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1001A4414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2854,30 +2177,31 @@ void sub_1001A4414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 void sub_1001A4434(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_100003898();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100003898(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 48);
+      v7 = *(a1 + 48);
       if (*(a1 + 56))
       {
-        v7 = "";
+        v8 = "";
       }
 
       else
       {
-        v7 = " unknown";
+        v8 = " unknown";
       }
 
-      v8 = *(a1 + 32);
-      v9 = 134218498;
-      v10 = v6;
-      v11 = 2080;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v8;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Updated target mapping for %lu %stargets:\n%@", &v9, 0x20u);
+      v9 = *(a1 + 32);
+      v10 = 134218498;
+      v11 = v7;
+      v12 = 2080;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v9;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Updated target mapping for %lu %stargets:\n%@", &v10, 0x20u);
     }
   }
 
@@ -2897,7 +2221,7 @@ void sub_1001A45B4(uint64_t a1, uint64_t a2)
 {
   if (_CPLSilentLogging != 1)
   {
-    v4 = sub_100003898();
+    v4 = sub_100003898(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *v7 = 0;
@@ -2916,10 +2240,10 @@ void sub_1001A469C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (_CPLSilentLogging != 1)
   {
-    v6 = sub_100003898();
+    v6 = sub_100003898(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_10002B064(&_mh_execute_header, v7, v8, "%@ should not be expunged here", v9, v10, v11, v12, v15, v16, 2u);
+      sub_10002B064(&_mh_execute_header, v7, v8, "%@ should not be expunged here", v9, v10, v11, v12, v15, v16);
     }
   }
 
@@ -2934,10 +2258,10 @@ void sub_1001A4778(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (_CPLSilentLogging != 1)
   {
-    v6 = sub_100003898();
+    v6 = sub_100003898(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_10002B064(&_mh_execute_header, v7, v8, "Asked to fetch %@ with no proposed target", v9, v10, v11, v12, v15, v16, 2u);
+      sub_10002B064(&_mh_execute_header, v7, v8, "Asked to fetch %@ with no proposed target", v9, v10, v11, v12, v15, v16);
     }
   }
 
@@ -2952,7 +2276,7 @@ void sub_1001A4854(uint64_t a1, uint64_t a2)
 {
   if (_CPLSilentLogging != 1)
   {
-    v4 = sub_100003898();
+    v4 = sub_100003898(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
@@ -2974,7 +2298,7 @@ void sub_1001A4958(void *a1, uint64_t a2, uint64_t a3)
 {
   if (_CPLSilentLogging != 1)
   {
-    v6 = sub_1000038DC();
+    v6 = sub_1000038DC(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = [a1 realCloudScopedIdentifier];
@@ -3000,10 +2324,11 @@ void sub_1001A4AA0(uint64_t a1, uint64_t a2)
 {
   if (_CPLSilentLogging != 1)
   {
-    v4 = sub_1000038DC();
+    v4 = sub_1000038DC(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_10000AF60(&_mh_execute_header, v5, v6, "We should have a destination CloudKit scope here", v7, v8, v9, v10, 0);
+      v13 = 0;
+      sub_10000AF60(&_mh_execute_header, v5, v6, "We should have a destination CloudKit scope here", v7, v8, v9, v10, v13);
     }
   }
 
@@ -3018,10 +2343,11 @@ void sub_1001A4B64(uint64_t a1, uint64_t a2)
 {
   if (_CPLSilentLogging != 1)
   {
-    v4 = sub_1000038DC();
+    v4 = sub_1000038DC(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_10000AF60(&_mh_execute_header, v5, v6, "We should have a destination scope identifier here", v7, v8, v9, v10, 0);
+      v13 = 0;
+      sub_10000AF60(&_mh_execute_header, v5, v6, "We should have a destination scope identifier here", v7, v8, v9, v10, v13);
     }
   }
 
@@ -3036,7 +2362,7 @@ void sub_1001A4C3C(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   if (_CPLSilentLogging != 1)
   {
-    v6 = sub_1000038DC();
+    v6 = sub_1000038DC(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
@@ -3063,29 +2389,29 @@ void sub_1001A4D30(void *a1, void *a2, void *a3, void *a4)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v11 = sub_100003920();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_100003920(0);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = [v8 rootRecord];
+        v13 = [v8 rootRecord];
         *buf = 138412290;
-        v21 = v12;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Fetched share metadata root record: %@", buf, 0xCu);
+        v22 = v13;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Fetched share metadata root record: %@", buf, 0xCu);
       }
     }
 
-    v13 = a1[4];
-    v14 = a1[5];
-    v19 = 0;
-    v15 = [v13 _scopeChangeFromShareMetadata:v8 currentUserID:v14 error:&v19];
-    v16 = v19;
-    v10 = v19;
-    v17 = *(a1[7] + 8);
-    v18 = *(v17 + 40);
-    *(v17 + 40) = v15;
+    v14 = a1[4];
+    v15 = a1[5];
+    v20 = 0;
+    v16 = [v14 _scopeChangeFromShareMetadata:v8 currentUserID:v15 error:&v20];
+    v17 = v20;
+    v11 = v20;
+    v18 = *(a1[7] + 8);
+    v19 = *(v18 + 40);
+    *(v18 + 40) = v16;
 
     if (!*(*(a1[7] + 8) + 40))
     {
-      objc_storeStrong((*(a1[6] + 8) + 40), v16);
+      objc_storeStrong((*(a1[6] + 8) + 40), v17);
     }
 
     goto LABEL_11;
@@ -3094,39 +2420,38 @@ void sub_1001A4D30(void *a1, void *a2, void *a3, void *a4)
   objc_storeStrong((*(a1[6] + 8) + 40), a4);
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v10 = sub_100003920();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100003920(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v21 = v9;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Error fetching metadata: %@", buf, 0xCu);
+      v22 = v9;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Error fetching metadata: %@", buf, 0xCu);
     }
 
 LABEL_11:
   }
 }
 
-uint64_t sub_1001A4F2C(char a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1001A4F2C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if ((a1 & 1) == 0)
   {
-    v5 = sub_100003920();
+    v5 = sub_100003920(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = *(*(*(a2 + 56) + 8) + 40);
-      v9 = 138412290;
-      v10 = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Fetched shared scope: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Fetched shared scope: %@", &v8, 0xCu);
     }
   }
 
-  v7 = *(*(*(a2 + 56) + 8) + 40);
   return (*(*(*a3 + 280) + 16))();
 }
 
 void sub_1001A5018(uint64_t a1)
 {
-  v2 = sub_100003920();
+  v2 = sub_100003920(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = 138412290;
@@ -3160,27 +2485,28 @@ void *sub_1001A50BC(void *a1, void *a2)
 void sub_1001A5128(NSObject *a1)
 {
   v2 = a1;
-  if (([(objc_class *)a1[4].isa opened]& 1) != 0)
+  v3 = [(objc_class *)a1[4].isa opened];
+  if (v3)
   {
     isa = v2[4].isa;
     if (isa[19] != 3)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v8 = sub_1000770DC();
-        if (sub_10000FABC(v8))
+        v9 = sub_1000770DC(isa);
+        if (sub_10000FABC(v9))
         {
-          LOWORD(v16) = 0;
+          LOWORD(v17) = 0;
           sub_1000033F8();
-          _os_log_impl(v9, v10, v11, v12, v13, 2u);
+          _os_log_impl(v10, v11, v12, v13, v14, 2u);
         }
 
         isa = v2[4].isa;
       }
 
-      v14 = [isa abstractObject];
-      v15 = [v14 engineLibrary];
-      v2 = [v15 scheduler];
+      v15 = [isa abstractObject];
+      v16 = [v15 engineLibrary];
+      v2 = [v16 scheduler];
 
       [v2 noteQuotaHasChanged];
       goto LABEL_15;
@@ -3191,15 +2517,15 @@ void sub_1001A5128(NSObject *a1)
       return;
     }
 
-    v4 = sub_1000770DC();
-    if (!sub_10000FAE0(v4))
+    v5 = sub_1000770DC(isa);
+    if (!sub_10000FAE0(v5))
     {
       goto LABEL_15;
     }
 
-    v17 = 0;
-    v5 = "Features have changed but user has logged off iCloud";
-    v6 = &v17;
+    v18 = 0;
+    v6 = "Features have changed but user has logged off iCloud";
+    v7 = &v18;
     goto LABEL_9;
   }
 
@@ -3208,14 +2534,14 @@ void sub_1001A5128(NSObject *a1)
     return;
   }
 
-  v7 = sub_1000770DC();
-  if (sub_10000FAE0(v7))
+  v8 = sub_1000770DC(v3);
+  if (sub_10000FAE0(v8))
   {
     *buf = 0;
-    v5 = "Features have changed but engine is closed";
-    v6 = buf;
+    v6 = "Features have changed but engine is closed";
+    v7 = buf;
 LABEL_9:
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, v5, v6, 2u);
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, v6, v7, 2u);
   }
 
 LABEL_15:
@@ -3233,7 +2559,7 @@ void sub_1001A5278(uint64_t a1)
         return;
       }
 
-      v4 = sub_1000770DC();
+      v4 = sub_1000770DC(a1);
       if (!os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_21;
@@ -3250,7 +2576,7 @@ LABEL_21:
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v15 = sub_1000770DC();
+      v15 = sub_1000770DC(a1);
       if (sub_10000FABC(v15))
       {
         *v24 = 0;
@@ -3276,7 +2602,7 @@ LABEL_21:
         return;
       }
 
-      v4 = sub_1000770DC();
+      v4 = sub_1000770DC(a1);
       if (!os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_21;
@@ -3289,7 +2615,7 @@ LABEL_21:
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v6 = sub_1000770DC();
+      v6 = sub_1000770DC(a1);
       if (sub_10000FABC(v6))
       {
         [*(*(a1 + 32) + 256) timeIntervalSinceNow];
@@ -3310,7 +2636,18 @@ LABEL_21:
 uint64_t sub_1001A5700(uint64_t a1)
 {
   v3 = *(a1 + 32);
-  if (!v3[14] || *(a1 + 64) != v3[15] || ![v3 opened])
+  if (!v3[14])
+  {
+    goto LABEL_21;
+  }
+
+  if (*(a1 + 64) != v3[15])
+  {
+    goto LABEL_21;
+  }
+
+  v4 = [v3 opened];
+  if (!v4)
   {
     goto LABEL_21;
   }
@@ -3322,13 +2659,12 @@ uint64_t sub_1001A5700(uint64_t a1)
       goto LABEL_21;
     }
 
-    v4 = sub_1000770DC();
-    if (!sub_100003448(v4))
+    v5 = sub_1000770DC(v4);
+    if (!sub_100003448(v5))
     {
       goto LABEL_20;
     }
 
-    v5 = *(a1 + 40);
     sub_10000343C();
     sub_100021D44();
     v11 = 12;
@@ -3379,7 +2715,7 @@ uint64_t sub_1001A5700(uint64_t a1)
     goto LABEL_21;
   }
 
-  v13 = sub_1000770DC();
+  v13 = sub_1000770DC(v4);
   if (sub_100003448(v13))
   {
     sub_100021D44();
@@ -3404,7 +2740,7 @@ void sub_1001A5D20(void **a1, void *a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_1000770DC();
+    v4 = sub_1000770DC(a1);
     if (sub_10000FABC(v4))
     {
       LOWORD(v13) = 0;
@@ -3657,7 +2993,7 @@ id sub_1001A69FC(void **a1, void *a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_1000770DC();
+    v4 = sub_1000770DC(a1);
     if (sub_10000FABC(v4))
     {
       LOWORD(v11) = 0;
@@ -3675,7 +3011,7 @@ uint64_t sub_1001A6A78(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v2 = sub_1000770DC();
+    v2 = sub_1000770DC(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
       *v4 = 0;
@@ -3686,13 +3022,13 @@ uint64_t sub_1001A6A78(uint64_t a1)
   return (*(a1 + 16))(a1);
 }
 
-void sub_1001A6B04()
+void sub_1001A6B04(uint64_t a1)
 {
-  v1 = sub_1000770DC();
-  if (sub_10000FAE0(v1))
+  v2 = sub_1000770DC(a1);
+  if (sub_10000FAE0(v2))
   {
     sub_100080C88();
-    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
 }
 
@@ -3700,7 +3036,7 @@ void sub_1001A6B98(void *a1, void *a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_1000770DC();
+    v5 = sub_1000770DC(a1);
     if (sub_100003424(v5))
     {
       LOWORD(v15) = 0;
@@ -3722,7 +3058,7 @@ id sub_1001A6C5C(uint64_t a1, void *a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_1000770DC();
+    v5 = sub_1000770DC(a1);
     if (sub_100003424(v5))
     {
       LODWORD(v12) = 138412290;
@@ -3735,15 +3071,14 @@ id sub_1001A6C5C(uint64_t a1, void *a2)
   return [a2 disableSynchronizationWithReason:{a1, v12}];
 }
 
-void sub_1001A6D18(uint64_t *a1)
+void sub_1001A6D18(uint64_t a1)
 {
-  v3 = sub_1000770DC();
-  if (sub_10000FAE0(v3))
+  v2 = sub_1000770DC(a1);
+  if (sub_10000FAE0(v2))
   {
-    v4 = *a1;
     sub_100003460();
     sub_100080C88();
-    _os_log_impl(v5, v6, v7, v8, v9, 0x16u);
+    _os_log_impl(v3, v4, v5, v6, v7, 0x16u);
   }
 }
 
@@ -3773,37 +3108,33 @@ void sub_1001A6E00(uint64_t a1, uint64_t a2)
   abort();
 }
 
-uint64_t sub_1001A6EE0(char a1, void *a2)
+uint64_t sub_1001A6EE0(uint64_t a1)
 {
   if ((a1 & 1) == 0)
   {
-    v4 = sub_1000770DC();
-    if (sub_10000FABC(v4))
+    v2 = sub_1000770DC(a1);
+    if (sub_10000FABC(v2))
     {
-      v5 = a2[5];
-      v6 = a2[6];
       sub_100003460();
       sub_1000033F8();
-      _os_log_impl(v7, v8, v9, v10, v11, 0x16u);
+      _os_log_impl(v3, v4, v5, v6, v7, 0x16u);
     }
   }
 
-  v12 = sub_100021D84(a2[10]);
-  return v13(v12);
+  sub_100021D84();
+  return v8();
 }
 
 void sub_1001A6F8C(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_1000770DC();
-    if (sub_10000FAE0(v3))
+    v2 = sub_1000770DC(a1);
+    if (sub_10000FAE0(v2))
     {
-      v4 = *(a1 + 40);
-      v5 = *(a1 + 56);
       sub_100003460();
       sub_100080C88();
-      _os_log_impl(v6, v7, v8, v9, v10, 0x16u);
+      _os_log_impl(v3, v4, v5, v6, v7, 0x16u);
     }
   }
 }
@@ -3864,92 +3195,87 @@ void sub_1001A7218(id *a1, id *a2, uint64_t a3, uint64_t a4)
   [v10 provideScopeChangeForScopeWithIdentifier:v11 completionHandler:a3];
 }
 
-uint64_t sub_1001A7310(uint64_t a1, uint64_t *a2)
+uint64_t sub_1001A7310(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_1000770DC();
-    if (sub_100003448(v5))
+    v2 = sub_1000770DC(a1);
+    if (sub_100003448(v2))
     {
-      v6 = *(a1 + 56);
-      v7 = *a2;
       sub_100003460();
       sub_100021D44();
-      _os_log_impl(v8, v9, v10, v11, v12, 0x16u);
+      _os_log_impl(v3, v4, v5, v6, v7, 0x16u);
     }
   }
 
-  v13 = sub_100021D84(*(a1 + 64));
-  return v14(v13);
+  sub_100021D84();
+  return v8();
 }
 
-uint64_t sub_1001A73D8(uint64_t a1, uint64_t a2)
+uint64_t sub_1001A73D8(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_1000770DC();
-    if (sub_100003448(v4))
+    v2 = sub_1000770DC(a1);
+    if (sub_100003448(v2))
     {
       sub_100021D44();
-      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+      _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
     }
   }
 
-  v10 = sub_100021D84(*(a2 + 32));
-  return v11(v10);
+  sub_100021D84();
+  return v10(v8, v9);
 }
 
-uint64_t sub_1001A7498(uint64_t a1, uint64_t *a2)
+uint64_t sub_1001A7498(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_1000770DC();
-    if (sub_100003448(v5))
+    v2 = sub_1000770DC(a1);
+    if (sub_100003448(v2))
     {
-      v6 = *(a1 + 40);
-      v7 = *a2;
       sub_100003460();
       sub_100021D44();
-      _os_log_impl(v8, v9, v10, v11, v12, 0x16u);
+      _os_log_impl(v3, v4, v5, v6, v7, 0x16u);
     }
   }
 
-  v13 = sub_100021D84(*(a1 + 64));
-  return v14(v13);
+  sub_100021D84();
+  return v8();
 }
 
-uint64_t sub_1001A7560(uint64_t *a1, uint64_t a2)
+uint64_t sub_1001A7560(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_1000770DC();
-    if (sub_100003448(v5))
+    v2 = sub_1000770DC(a1);
+    if (sub_100003448(v2))
     {
-      v6 = *a1;
       sub_10000343C();
       sub_100021D44();
-      _os_log_impl(v7, v8, v9, v10, v11, 0xCu);
+      _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
     }
   }
 
-  v12 = sub_100021D84(*(a2 + 64));
-  return v13(v12);
+  sub_100021D84();
+  return v8();
 }
 
-uint64_t sub_1001A7620(uint64_t a1, uint64_t a2)
+uint64_t sub_1001A7620(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_1000770DC();
-    if (sub_100003448(v4))
+    v2 = sub_1000770DC(a1);
+    if (sub_100003448(v2))
     {
       sub_100021D44();
-      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+      _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
     }
   }
 
-  v10 = sub_100021D84(*(a2 + 32));
-  return v11(v10);
+  sub_100021D84();
+  return v10(v8, v9);
 }
 
 void sub_1001A76E0(uint64_t a1, void *a2)
@@ -3979,7 +3305,7 @@ id sub_1001A77C8(void *a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_1000770DC();
+    v3 = sub_1000770DC(a1);
     if (sub_10000FABC(v3))
     {
       [a1 cplOperationClassDescription];
@@ -3996,7 +3322,7 @@ void sub_1001A7890(void *a1, void *a2, void *a3)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_1000770DC();
+    v6 = sub_1000770DC(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *v10 = 0;
@@ -4016,7 +3342,7 @@ id sub_1001A79B8(void *a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_1000770DC();
+    v3 = sub_1000770DC(a1);
     if (sub_10000FABC(v3))
     {
       LOWORD(v10) = 0;
@@ -4032,7 +3358,7 @@ void sub_1001A7A2C(uint64_t a1, void *a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_1000770DC();
+    v5 = sub_1000770DC(a1);
     if (sub_100003424(v5))
     {
       LOWORD(v14[0]) = 0;
@@ -4082,7 +3408,7 @@ void sub_1001A7B60(uint64_t a1, uint64_t *a2, void *a3)
 
 void sub_1001A7C54(void *a1, uint64_t a2, uint64_t a3)
 {
-  v6 = sub_1000770DC();
+  v6 = sub_1000770DC(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
     v7 = [*(*a1 + a2) path];
@@ -4094,41 +3420,39 @@ void sub_1001A7C54(void *a1, uint64_t a2, uint64_t a3)
   }
 }
 
-uint64_t sub_1001A7D2C(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1001A7D2C(uint64_t a1, uint64_t a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v7 = sub_1000770DC();
-    if (sub_1000033C0(v7))
+    v4 = sub_1000770DC(a1);
+    if (sub_1000033C0(v4))
     {
-      v8 = *a1;
       sub_100003460();
-      v13 = a2;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Failed to create temp destination %{public}@: %@", v12, 0x16u);
+      v8 = a2;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "Failed to create temp destination %{public}@: %@", v7, 0x16u);
     }
   }
 
-  v9 = sub_100021D84(*(a3 + 48));
-  return v10(v9);
+  sub_100021D84();
+  return v5();
 }
 
-void sub_1001A7DFC(uint64_t *a1, uint64_t a2)
+void sub_1001A7DFC(uint64_t a1, uint64_t a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_1000770DC();
-    if (sub_100003448(v5))
+    v4 = sub_1000770DC(a1);
+    if (sub_100003448(v4))
     {
-      v6 = *a1;
       sub_10000343C();
       sub_100021D44();
-      _os_log_impl(v7, v8, v9, v10, v11, 0xCu);
+      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
     }
   }
 
-  v12 = *(a2 + 48);
-  v13 = +[CPLErrors unknownError];
-  (*(v12 + 16))(v12, 0, v13);
+  v10 = *(a2 + 48);
+  v11 = +[CPLErrors unknownError];
+  (*(v10 + 16))(v10, 0, v11);
 }
 
 void sub_1001A823C(uint64_t a1, void *a2, void *a3)
@@ -4145,37 +3469,37 @@ void sub_1001A823C(uint64_t a1, void *a2, void *a3)
 
   if (!v9)
   {
-    v10 = *(*(a1 + 40) + 320);
-    v11 = [v7 itemScopedIdentifier];
-    v12 = [v10 objectForKeyedSubscript:v11];
+    v11 = *(*(a1 + 40) + 320);
+    v12 = [v7 itemScopedIdentifier];
+    v13 = [v11 objectForKeyedSubscript:v12];
 
-    if (v12)
+    if (v13)
     {
-      [v5 associateCloudResource:v7 ofRecord:v12];
+      [v5 associateCloudResource:v7 ofRecord:v13];
     }
   }
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v13 = sub_100003964();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v14 = sub_100003964(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      v14 = sub_1001A8CE0(*(a1 + 64));
-      v15 = [v5 cloudRecord];
-      v16 = v15;
-      v17 = @"unknown record";
-      v18 = 138412802;
-      v19 = v7;
-      if (v15)
+      v15 = sub_1001A8CE0(*(a1 + 64));
+      v16 = [v5 cloudRecord];
+      v17 = v16;
+      v18 = @"unknown record";
+      v19 = 138412802;
+      v20 = v7;
+      if (v16)
       {
-        v17 = v15;
+        v18 = v16;
       }
 
-      v20 = 2112;
-      v21 = v14;
-      v22 = 2112;
-      v23 = v17;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEBUG, "Downloading %@ from %@ (from %@)", &v18, 0x20u);
+      v21 = 2112;
+      v22 = v15;
+      v23 = 2112;
+      v24 = v18;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEBUG, "Downloading %@ from %@ (from %@)", &v19, 0x20u);
     }
   }
 }
@@ -4184,42 +3508,43 @@ void sub_1001A8428(uint64_t a1)
 {
   v2 = [*(a1 + 32) objectForKeyedSubscript:*(a1 + 40)];
   v3 = [*(*(a1 + 48) + 272) cloudResourceForRecordWithScopedIdentifier:v2];
+  v4 = v3;
   if (v3)
   {
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_1000824C4;
-    v13[3] = &unk_1002721A0;
-    v4 = *(a1 + 48);
-    v14 = *(a1 + 56);
-    v15 = v3;
-    v16 = *(a1 + 64);
-    [v4 updateContextWithBlock:v13];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_1000824C4;
+    v14[3] = &unk_1002721A0;
+    v5 = *(a1 + 48);
+    v15 = *(a1 + 56);
+    v16 = v4;
+    v17 = *(a1 + 64);
+    [v5 updateContextWithBlock:v14];
   }
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_100003964();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = sub_100003964(v3);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v7 = *(a1 + 64);
-      v6 = *(a1 + 72);
+      v8 = *(a1 + 64);
+      v7 = *(a1 + 72);
       *buf = 138412546;
-      v18 = v6;
-      v19 = 2112;
-      v20 = v7;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "Got asset %@ - %@", buf, 0x16u);
+      v19 = v7;
+      v20 = 2112;
+      v21 = v8;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "Got asset %@ - %@", buf, 0x16u);
     }
   }
 
-  v8 = *(a1 + 64);
-  if (v8)
+  v9 = *(a1 + 64);
+  if (v9)
   {
-    v9 = [*(a1 + 48) lastOperationRequestUUIDs];
-    v10 = [*(*(a1 + 48) + 272) resourceTypeDescription];
-    v11 = [CPLCloudKitErrors CPLErrorForCloudKitError:v8 withRequestUUIDs:v9 description:@"Failed to download %@ for %@", v10, v2];
+    v10 = [*(a1 + 48) lastOperationRequestUUIDs];
+    v11 = [*(*(a1 + 48) + 272) resourceTypeDescription];
+    v12 = [CPLCloudKitErrors CPLErrorForCloudKitError:v9 withRequestUUIDs:v10 description:@"Failed to download %@ for %@", v11, v2];
 
-    [*(*(a1 + 48) + 272) resourceWithRecordScopedIdentifier:v2 didFailToDownloadWithError:v11];
+    [*(*(a1 + 48) + 272) resourceWithRecordScopedIdentifier:v2 didFailToDownloadWithError:v12];
   }
 
   else
@@ -4229,15 +3554,15 @@ void sub_1001A8428(uint64_t a1)
     if (*(a1 + 104))
     {
       [*(a1 + 80) setTranscodedItemCount:{objc_msgSend(*(a1 + 80), "transcodedItemCount") + 1}];
-      v12 = *(a1 + 104);
+      v13 = *(a1 + 104);
     }
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
 
-    [*(*(a1 + 48) + 272) resourceWithRecordScopedIdentifier:v2 didDownloadCKAsset:*(a1 + 72) withOperationType:*(*(a1 + 48) + 280) transcoderVersion:v12 withFingerPrint:*(a1 + 88) andFileUTI:*(a1 + 96)];
+    [*(*(a1 + 48) + 272) resourceWithRecordScopedIdentifier:v2 didDownloadCKAsset:*(a1 + 72) withOperationType:*(*(a1 + 48) + 280) transcoderVersion:v13 withFingerPrint:*(a1 + 88) andFileUTI:*(a1 + 96)];
   }
 }
 
@@ -4245,10 +3570,11 @@ void sub_1001A86E4(uint64_t a1, uint64_t a2)
 {
   if (_CPLSilentLogging != 1)
   {
-    v5 = sub_100003964();
+    v5 = sub_100003964(a1);
     if (sub_1000033C0(v5))
     {
-      sub_10000AF60(&_mh_execute_header, v6, v7, "missing error parameter", v8, v9, v10, v11, 0);
+      v14 = 0;
+      sub_10000AF60(&_mh_execute_header, v6, v7, "missing error parameter", v8, v9, v10, v11, v14);
     }
   }
 
@@ -4263,10 +3589,11 @@ void sub_1001A87A0(uint64_t a1, uint64_t a2)
 {
   if (_CPLSilentLogging != 1)
   {
-    v5 = sub_100003964();
+    v5 = sub_100003964(a1);
     if (sub_1000033C0(v5))
     {
-      sub_10000AF60(&_mh_execute_header, v6, v7, "We should at least be able to download the first task", v8, v9, v10, v11, 0);
+      v14 = 0;
+      sub_10000AF60(&_mh_execute_header, v6, v7, "We should at least be able to download the first task", v8, v9, v10, v11, v14);
     }
   }
 
@@ -4281,10 +3608,11 @@ void sub_1001A885C(uint64_t a1, uint64_t a2)
 {
   if (_CPLSilentLogging != 1)
   {
-    v5 = sub_100003964();
+    v5 = sub_100003964(a1);
     if (sub_1000033C0(v5))
     {
-      sub_10000AF60(&_mh_execute_header, v6, v7, "Did not manage to produce a group of tasks to download", v8, v9, v10, v11, 0);
+      v14 = 0;
+      sub_10000AF60(&_mh_execute_header, v6, v7, "Did not manage to produce a group of tasks to download", v8, v9, v10, v11, v14);
     }
   }
 
@@ -4299,10 +3627,11 @@ void sub_1001A8918(uint64_t a1, uint64_t *a2)
 {
   if (_CPLSilentLogging != 1)
   {
-    v5 = sub_100003964();
+    v5 = sub_100003964(a1);
     if (sub_1000033C0(v5))
     {
-      sub_10000AF60(&_mh_execute_header, v6, v7, "invalid scope", v8, v9, v10, v11, 0);
+      v16 = 0;
+      sub_10000AF60(&_mh_execute_header, v6, v7, "invalid scope", v8, v9, v10, v11, v16);
     }
   }
 
@@ -4319,11 +3648,11 @@ void sub_1001A89DC(void *a1, uint64_t a2, uint64_t a3)
 {
   if (_CPLSilentLogging != 1)
   {
-    v6 = sub_100003964();
+    v6 = sub_100003964(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v18 = [a1 resource];
-      sub_10002B0D4(&_mh_execute_header, v7, v8, "%@ (%@) has no cloud resource to download", v9, v10, v11, v12, v16, v17, 2u);
+      sub_10002B0D4(&_mh_execute_header, v7, v8, "%@ (%@) has no cloud resource to download", v9, v10, v11, v12, v16, v17);
     }
   }
 
@@ -4339,11 +3668,11 @@ void sub_1001A8AEC(void *a1, uint64_t a2, uint64_t a3)
 {
   if (_CPLSilentLogging != 1)
   {
-    v6 = sub_100003964();
+    v6 = sub_100003964(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v18 = [a1 resource];
-      sub_10002B0D4(&_mh_execute_header, v7, v8, "%@ (%@) has no cloud resource to download", v9, v10, v11, v12, v16, v17, 2u);
+      sub_10002B0D4(&_mh_execute_header, v7, v8, "%@ (%@) has no cloud resource to download", v9, v10, v11, v12, v16, v17);
     }
   }
 
@@ -4481,10 +3810,10 @@ void sub_1001A8D0C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (_CPLSilentLogging != 1)
   {
-    v6 = sub_1000039A8();
+    v6 = sub_1000039A8(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_10002B064(&_mh_execute_header, v7, v8, "Trying to create sparse private records for a non supported record class %@", v9, v10, v11, v12, v15, v16, 2u);
+      sub_10002B064(&_mh_execute_header, v7, v8, "Trying to create sparse private records for a non supported record class %@", v9, v10, v11, v12, v15, v16);
     }
   }
 
@@ -4499,7 +3828,7 @@ void sub_1001A8DE8(uint64_t a1, uint64_t a2)
 {
   if (_CPLSilentLogging != 1)
   {
-    v4 = sub_1000039A8();
+    v4 = sub_1000039A8(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *v7 = 0;
@@ -4516,7 +3845,7 @@ void sub_1001A8DE8(uint64_t a1, uint64_t a2)
 
 void sub_1001A8ED0(uint64_t *a1, void *a2)
 {
-  v4 = sub_1000039A8();
+  v4 = sub_1000039A8(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     v5 = *a1;
@@ -4533,7 +3862,7 @@ void sub_1001A8FA4(uint64_t a1, uint64_t a2)
 {
   if (_CPLSilentLogging != 1)
   {
-    v4 = sub_1000039A8();
+    v4 = sub_1000039A8(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
@@ -4565,10 +3894,10 @@ void sub_1001A910C(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (_CPLSilentLogging != 1)
   {
-    v6 = sub_1000039A8();
+    v6 = sub_1000039A8(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_10002B064(&_mh_execute_header, v7, v8, "Missing target for %@", v9, v10, v11, v12, v15, v16, 2u);
+      sub_10002B064(&_mh_execute_header, v7, v8, "Missing target for %@", v9, v10, v11, v12, v15, v16);
     }
   }
 
@@ -4586,8 +3915,7 @@ void sub_1001A9210(uint64_t a1, uint64_t a2)
     v5 = __CPLGenericOSLogDomain();
     if (sub_1000033C0(v5))
     {
-      v16 = HIDWORD(*(a1 + 32));
-      sub_10000348C(&_mh_execute_header, v6, v7, "Root record for %@ has not type", v8, v9, v10, v11, v14, v15, 2u);
+      sub_10000348C(&_mh_execute_header, v6, v7, "Root record for %@ has not type", v8, v9, v10, v11, v14, v15);
     }
   }
 
@@ -4605,8 +3933,7 @@ void sub_1001A92E4(uint64_t a1, uint64_t a2)
     v5 = __CPLGenericOSLogDomain();
     if (sub_1000033C0(v5))
     {
-      v16 = HIDWORD(*(a1 + 32));
-      sub_10000348C(&_mh_execute_header, v6, v7, "Root record for %@ has not type", v8, v9, v10, v11, v14, v15, 2u);
+      sub_10000348C(&_mh_execute_header, v6, v7, "Root record for %@ has not type", v8, v9, v10, v11, v14, v15);
     }
   }
 
@@ -4624,8 +3951,7 @@ void sub_1001A93B8(uint64_t a1, uint64_t a2)
     v5 = __CPLGenericOSLogDomain();
     if (sub_1000033C0(v5))
     {
-      v16 = HIDWORD(*(a1 + 32));
-      sub_10000348C(&_mh_execute_header, v6, v7, "Scope change for %@ should not be nil", v8, v9, v10, v11, v14, v15, 2u);
+      sub_10000348C(&_mh_execute_header, v6, v7, "Scope change for %@ should not be nil", v8, v9, v10, v11, v14, v15);
     }
   }
 
@@ -4643,8 +3969,7 @@ void sub_1001A948C(uint64_t a1, uint64_t a2)
     v5 = __CPLGenericOSLogDomain();
     if (sub_1000033C0(v5))
     {
-      v16 = HIDWORD(*(a1 + 32));
-      sub_10000348C(&_mh_execute_header, v6, v7, "Missing share types for %@", v8, v9, v10, v11, v14, v15, 2u);
+      sub_10000348C(&_mh_execute_header, v6, v7, "Missing share types for %@", v8, v9, v10, v11, v14, v15);
     }
   }
 
@@ -4662,7 +3987,7 @@ void sub_1001A9560(uint64_t a1, uint64_t a2, uint64_t a3)
     v7 = __CPLGenericOSLogDomain();
     if (sub_10002B0A8(v7))
     {
-      sub_10002B0D4(&_mh_execute_header, v8, v9, "Invalid scope change %@ for %@", v10, v11, v12, v13, v16, v17, 2u);
+      sub_10002B0D4(&_mh_execute_header, v8, v9, "Invalid scope change %@ for %@", v10, v11, v12, v13, v16, v17);
     }
   }
 
@@ -4683,7 +4008,7 @@ void sub_1001A9654(void *a1, uint64_t a2, uint64_t a3)
       v7 = [a1 engineScope];
       v8 = objc_opt_class();
       v9 = sub_10008F0A4(v8);
-      sub_10002B0D4(&_mh_execute_header, v10, v11, "Unexpected class for %@: %@", v12, v13, v14, v15, v19, v20, v21);
+      sub_10002B0D4(&_mh_execute_header, v10, v11, "Unexpected class for %@: %@", v12, v13, v14, v15, v19, v20);
     }
   }
 
@@ -4705,7 +4030,7 @@ void sub_1001A9764(void *a1, uint64_t a2, uint64_t a3)
       v7 = [a1 engineScope];
       v8 = objc_opt_class();
       v9 = sub_10008F0A4(v8);
-      sub_10002B0D4(&_mh_execute_header, v10, v11, "Unexpected class for %@: %@", v12, v13, v14, v15, v19, v20, v21);
+      sub_10002B0D4(&_mh_execute_header, v10, v11, "Unexpected class for %@: %@", v12, v13, v14, v15, v19, v20);
     }
   }
 
@@ -4727,7 +4052,7 @@ void sub_1001A9874(void *a1, uint64_t a2, uint64_t a3)
       v7 = [a1 engineScope];
       v8 = objc_opt_class();
       v9 = sub_10008F0A4(v8);
-      sub_10002B0D4(&_mh_execute_header, v10, v11, "Unexpected class for %@: %@", v12, v13, v14, v15, v19, v20, v21);
+      sub_10002B0D4(&_mh_execute_header, v10, v11, "Unexpected class for %@: %@", v12, v13, v14, v15, v19, v20);
     }
   }
 
@@ -4744,32 +4069,38 @@ void sub_1001A99AC(uint64_t a1, void *a2, void *a3)
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
-  v12 = 0;
-  v8 = [v7 removeItemAtURL:v6 error:&v12];
-  v9 = v12;
-  if ((v8 & 1) == 0 && ([*(a1 + 32) cplIsFileDoesNotExistError:v9] & 1) == 0 && (_CPLSilentLogging & 1) == 0)
+  v13 = 0;
+  v8 = [v7 removeItemAtURL:v6 error:&v13];
+  v9 = v13;
+  if ((v8 & 1) == 0)
   {
-    v10 = sub_100003A30();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v10 = [*(a1 + 32) cplIsFileDoesNotExistError:v9];
+    if ((v10 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
     {
-      v11 = [v6 path];
-      *buf = 138412802;
-      v14 = v5;
-      v15 = 2112;
-      v16 = v11;
-      v17 = 2112;
-      v18 = v9;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "[CCSS] Failed to delete downloaded compute state %@ at %@: %@", buf, 0x20u);
+      v11 = sub_100003A30(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        v12 = [v6 path];
+        *buf = 138412802;
+        v15 = v5;
+        v16 = 2112;
+        v17 = v12;
+        v18 = 2112;
+        v19 = v9;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "[CCSS] Failed to delete downloaded compute state %@ at %@: %@", buf, 0x20u);
+      }
     }
   }
 }
 
-void sub_1001A9AF0()
+void sub_1001A9AF0(uint64_t a1)
 {
-  v0 = sub_100003A30();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = sub_100003A30(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    sub_1000119B0(&_mh_execute_header, v1, v2, "[CCSS] Ignoring expunged record %@", v3, v4, v5, v6, 2u);
+    LODWORD(v9) = 138412290;
+    *(&v9 + 4) = a1;
+    sub_1000119B0(&_mh_execute_header, v3, v4, "[CCSS] Ignoring expunged record %@", v5, v6, v7, v8, v9, DWORD2(v9));
   }
 }
 
@@ -4799,7 +4130,7 @@ uint64_t sub_1001A9B84(uint64_t a1, char *a2)
 
 void sub_1001A9C00(uint64_t a1)
 {
-  v2 = sub_100003A30();
+  v2 = sub_100003A30(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     v3 = 138412546;
@@ -4814,10 +4145,10 @@ void sub_1001A9CB8(uint64_t a1, uint64_t a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_100003A30();
+    v4 = sub_100003A30(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_10000348C(&_mh_execute_header, v5, v6, "%@ should have a payload file", v7, v8, v9, v10, v15, v16, 2u);
+      sub_10000348C(&_mh_execute_header, v5, v6, "%@ should have a payload file", v7, v8, v9, v10, v15, v16);
     }
   }
 
@@ -4830,14 +4161,16 @@ void sub_1001A9CB8(uint64_t a1, uint64_t a2)
   abort();
 }
 
-void sub_1001A9D94()
+void sub_1001A9D94(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v0 = sub_100003A30();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+    v2 = sub_100003A30(a1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      sub_1000119B0(&_mh_execute_header, v1, v2, "[CCSS] %@ has no record compute state", v3, v4, v5, v6, 2u);
+      LODWORD(v9) = 138412290;
+      HIDWORD(v9) = a1;
+      sub_1000119B0(&_mh_execute_header, v3, v4, "[CCSS] %@ has no record compute state", v5, v6, v7, v8, v9, HIDWORD(a1));
     }
   }
 }
@@ -4846,11 +4179,10 @@ void sub_1001A9E38(uint64_t a1, void *a2)
 {
   if (_CPLSilentLogging != 1)
   {
-    v4 = sub_100003A30();
+    v4 = sub_100003A30(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v17 = HIDWORD(*a2);
-      sub_10000348C(&_mh_execute_header, v5, v6, "Failed to find scoped identifier for %@", v7, v8, v9, v10, v15, v16, 2u);
+      sub_10000348C(&_mh_execute_header, v5, v6, "Failed to find scoped identifier for %@", v7, v8, v9, v10, v15, v16);
     }
   }
 
@@ -4868,35 +4200,36 @@ void sub_1001A9F34(NSObject *a1, void *a2, void *a3, void *a4)
   v7 = a2;
   v8 = a3;
   v9 = a4;
+  v10 = v9;
   if (v8)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v10 = sub_100003A74();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = sub_100003A74(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v23 = v8;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "Upload for record %@ completed", buf, 0xCu);
+        v24 = v8;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "Upload for record %@ completed", buf, 0xCu);
       }
     }
 
     isa = a1[4].isa;
-    v15[0] = _NSConcreteStackBlock;
-    v15[1] = 3221225472;
-    v15[2] = sub_1000930E8;
-    v15[3] = &unk_100273DF8;
-    v16 = v8;
-    v12 = a1[5].isa;
-    v13 = a1[4].isa;
-    v17 = v12;
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_1000930E8;
+    v16[3] = &unk_100273DF8;
+    v17 = v8;
+    v13 = a1[5].isa;
+    v14 = a1[4].isa;
     v18 = v13;
-    v19 = a1[6].isa;
-    v20 = v9;
-    v21 = a1[7].isa;
-    [(objc_class *)isa dispatchAsync:v15];
+    v19 = v14;
+    v20 = a1[6].isa;
+    v21 = v10;
+    v22 = a1[7].isa;
+    [(objc_class *)isa dispatchAsync:v16];
 
-    a1 = v16;
+    a1 = v17;
 LABEL_10:
 
     goto LABEL_11;
@@ -4904,13 +4237,13 @@ LABEL_10:
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v14 = sub_100003A74();
-    if (sub_10002B0A8(v14))
+    v15 = sub_100003A74(v9);
+    if (sub_10002B0A8(v15))
     {
       *buf = 138412546;
-      v23 = v7;
-      v24 = 2112;
-      v25 = v9;
+      v24 = v7;
+      v25 = 2112;
+      v26 = v10;
       _os_log_impl(&_mh_execute_header, a1, OS_LOG_TYPE_ERROR, "Failed to save %@: %@", buf, 0x16u);
     }
 
@@ -4924,7 +4257,7 @@ id sub_1001AA134(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v2 = sub_100003A74();
+    v2 = sub_100003A74(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       if ((a1 - 1) > 3)
@@ -4964,41 +4297,38 @@ id sub_1001AA134(uint64_t a1)
   return v5;
 }
 
-void sub_1001AA290(uint64_t a1)
+void sub_1001AA290()
 {
-  v1 = *(a1 + 32);
   sub_1001AA134(2);
   objc_claimAutoreleasedReturnValue();
-  v2 = sub_100095D88();
-  v3(v2);
+  v0 = sub_100095D88();
+  v1(v0);
 }
 
-void sub_1001AA2E0(uint64_t a1)
+void sub_1001AA2E0()
 {
-  v1 = *(a1 + 32);
   sub_1001AA134(3);
   objc_claimAutoreleasedReturnValue();
-  v2 = sub_100095D88();
-  v3(v2);
+  v0 = sub_100095D88();
+  v1(v0);
 }
 
-void sub_1001AA330(uint64_t a1)
+void sub_1001AA330()
 {
-  v1 = *(a1 + 32);
   sub_1001AA134(4);
   objc_claimAutoreleasedReturnValue();
-  v2 = sub_100095D88();
-  v3(v2);
+  v0 = sub_100095D88();
+  v1(v0);
 }
 
 void sub_1001AA3D0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (_CPLSilentLogging != 1)
   {
-    v7 = sub_100003A74();
+    v7 = sub_100003A74(a1);
     if (sub_10002B0A8(v7))
     {
-      sub_10002B064(&_mh_execute_header, v8, v9, "Asked to fetch shared records %@ but we have no shared sync zone to work with", v10, v11, v12, v13, v16, v17, 2u);
+      sub_10002B064(&_mh_execute_header, v8, v9, "Asked to fetch shared records %@ but we have no shared sync zone to work with", v10, v11, v12, v13, v16, v17);
     }
   }
 
@@ -5013,10 +4343,10 @@ void sub_1001AA4A4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (_CPLSilentLogging != 1)
   {
-    v7 = sub_100003A74();
+    v7 = sub_100003A74(a1);
     if (sub_10002B0A8(v7))
     {
-      sub_10002B064(&_mh_execute_header, v8, v9, "Asked to fetch shared records %@ but we have no shared sync zone to work with", v10, v11, v12, v13, v16, v17, 2u);
+      sub_10002B064(&_mh_execute_header, v8, v9, "Asked to fetch shared records %@ but we have no shared sync zone to work with", v10, v11, v12, v13, v16, v17);
     }
   }
 
@@ -5031,10 +4361,10 @@ void sub_1001AA578(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   if (_CPLSilentLogging != 1)
   {
-    v7 = sub_100003A74();
+    v7 = sub_100003A74(a1);
     if (sub_10002B0A8(v7))
     {
-      sub_10002B064(&_mh_execute_header, v8, v9, "Failed to transform a CK error to a CPL error: %@", v10, v11, v12, v13, v18, v19, 2u);
+      sub_10002B064(&_mh_execute_header, v8, v9, "Failed to transform a CK error to a CPL error: %@", v10, v11, v12, v13, v18, v19);
     }
   }
 
@@ -5047,17 +4377,15 @@ void sub_1001AA578(uint64_t a1, uint64_t *a2, uint64_t a3)
   abort();
 }
 
-void sub_1001AA654(uint64_t *a1, uint64_t *a2)
+void sub_1001AA654(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_100003A74();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v1 = sub_100003A74(a1);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
-      v10 = *a1;
-      v11 = *a2;
       sub_10000FAAC();
-      _os_log_impl(v5, v6, v7, v8, v9, 0x16u);
+      _os_log_impl(v2, v3, v4, v5, v6, 0x16u);
     }
   }
 }
@@ -5066,7 +4394,7 @@ uint64_t sub_1001AA720(uint64_t *a1, uint64_t a2, uint64_t *a3)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_100003A74();
+    v6 = sub_100003A74(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = *a1;
@@ -5086,7 +4414,7 @@ uint64_t sub_1001AA828(uint64_t a1, uint64_t a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_100003A74();
+    v4 = sub_100003A74(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [*(a1 + 48) count];
@@ -5099,15 +4427,15 @@ uint64_t sub_1001AA828(uint64_t a1, uint64_t a2)
   return (*(*(*a2 + 272) + 16))();
 }
 
-void sub_1001AA910()
+void sub_1001AA910(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v0 = sub_100003A74();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+    v1 = sub_100003A74(a1);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10000FAAC();
-      _os_log_impl(v1, v2, v3, v4, v5, 2u);
+      _os_log_impl(v2, v3, v4, v5, v6, 2u);
     }
   }
 }
@@ -5119,7 +4447,7 @@ void sub_1001AA984(void *a1, void *a2)
   v4 = v3;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_100003A74();
+    v5 = sub_100003A74(v4);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10000FAAC();
@@ -5132,7 +4460,7 @@ void sub_1001AAA44(uint64_t a1, uint64_t a2, void *a3)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_100003A74();
+    v6 = sub_100003A74(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 138412290;
@@ -5170,7 +4498,7 @@ id *sub_1001AAB10(id *a1, void *a2, void *a3, void *a4)
 
 void sub_1001AAD70(void *a1)
 {
-  v2 = sub_100003AB8();
+  v2 = sub_100003AB8(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [a1 recordID];
@@ -5183,40 +4511,40 @@ void sub_1001AAD70(void *a1)
   }
 }
 
-uint64_t sub_1001AAE68(void *a1, uint64_t a2)
+uint64_t sub_1001AAE68(void *a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_100003AB8();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v2 = sub_100003AB8(a1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v16 = HIDWORD(*a1);
-      sub_1000990E8(&_mh_execute_header, v5, v6, "Tried to publish an unsupported resource type in memory: %@", v7, v8, v9, v10, 2u);
+      LODWORD(v13) = 138412290;
+      *(&v13 + 4) = *a1;
+      sub_1000990E8(&_mh_execute_header, v3, v4, "Tried to publish an unsupported resource type in memory: %@", v5, v6, v7, v8, v13, HIDWORD(*a1));
     }
   }
 
-  v11 = *(a2 + 304);
-  v12 = [CPLErrors incorrectParametersErrorForParameter:@"resourceType"];
-  v13 = sub_1000990C0(v12);
-  return v14(v13);
+  v9 = [CPLErrors incorrectParametersErrorForParameter:@"resourceType"];
+  v10 = sub_1000990C0(v9);
+  return v11(v10);
 }
 
-uint64_t sub_1001AAF4C(void *a1, uint64_t a2)
+uint64_t sub_1001AAF4C(void *a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_100003AB8();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v2 = sub_100003AB8(a1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v16 = HIDWORD(*a1);
-      sub_1000990E8(&_mh_execute_header, v5, v6, "Tried to get a streaming URL for a resource with no item identifier: %@", v7, v8, v9, v10, 2u);
+      LODWORD(v13) = 138412290;
+      *(&v13 + 4) = *a1;
+      sub_1000990E8(&_mh_execute_header, v3, v4, "Tried to get a streaming URL for a resource with no item identifier: %@", v5, v6, v7, v8, v13, HIDWORD(*a1));
     }
   }
 
-  v11 = *(a2 + 304);
-  v12 = [CPLErrors incorrectParametersErrorForParameter:@"itemScopedIdentifier"];
-  v13 = sub_1000990C0(v12);
-  return v14(v13);
+  v9 = [CPLErrors incorrectParametersErrorForParameter:@"itemScopedIdentifier"];
+  v10 = sub_1000990C0(v9);
+  return v11(v10);
 }
 
 id sub_1001ABA94(void *a1)
@@ -5325,7 +4653,9 @@ LABEL_6:
     v10 = __CPLGenericOSLogDomain();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_1000A1064(&_mh_execute_header, v11, v12, "Failed to compute fingerprint for projectData: %@", v13, v14, v15, v16, 2u);
+      LODWORD(v18) = 138412290;
+      HIDWORD(v18) = v9;
+      sub_1000A1064(&_mh_execute_header, v11, v12, "Failed to compute fingerprint for projectData: %@", v13, v14, v15, v16, v18, HIDWORD(v9));
     }
 
     goto LABEL_6;
@@ -5363,7 +4693,9 @@ LABEL_6:
     v10 = __CPLGenericOSLogDomain();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_1000A1064(&_mh_execute_header, v11, v12, "Failed to compute fingerprint for projectPreviewImageData: %@", v13, v14, v15, v16, 2u);
+      LODWORD(v18) = 138412290;
+      HIDWORD(v18) = v9;
+      sub_1000A1064(&_mh_execute_header, v11, v12, "Failed to compute fingerprint for projectPreviewImageData: %@", v13, v14, v15, v16, v18, HIDWORD(v9));
     }
 
     goto LABEL_6;
@@ -5402,7 +4734,9 @@ LABEL_6:
     v9 = __CPLGenericOSLogDomain();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      sub_1000A1064(&_mh_execute_header, v11, v12, "Failed to compute fingerprint for faceCrop: %@", v13, v14, v15, v16, 2u);
+      LODWORD(v17) = 138412290;
+      HIDWORD(v17) = v8;
+      sub_1000A1064(&_mh_execute_header, v11, v12, "Failed to compute fingerprint for faceCrop: %@", v13, v14, v15, v16, v17, HIDWORD(v8));
     }
 
     goto LABEL_6;
@@ -5418,7 +4752,7 @@ void sub_1001AC2C4(uint64_t a1, uint64_t a2)
     v5 = __CPLGenericOSLogDomain();
     if (sub_1000033C0(v5))
     {
-      sub_10000348C(&_mh_execute_header, v6, v7, "Missing resourceData for %@", v8, v9, v10, v11, v14, v15, 2u);
+      sub_10000348C(&_mh_execute_header, v6, v7, "Missing resourceData for %@", v8, v9, v10, v11, v14, v15);
     }
   }
 
@@ -5436,7 +4770,7 @@ void sub_1001AC390(uint64_t a1, uint64_t a2)
     v5 = __CPLGenericOSLogDomain();
     if (sub_1000033C0(v5))
     {
-      sub_10000348C(&_mh_execute_header, v6, v7, "Cannot have nil personIdentifier for %@", v8, v9, v10, v11, v14, v15, 2u);
+      sub_10000348C(&_mh_execute_header, v6, v7, "Cannot have nil personIdentifier for %@", v8, v9, v10, v11, v14, v15);
     }
   }
 
@@ -5454,7 +4788,7 @@ void sub_1001AC45C(uint64_t a1, uint64_t a2)
     v5 = __CPLGenericOSLogDomain();
     if (sub_1000033C0(v5))
     {
-      sub_10000348C(&_mh_execute_header, v6, v7, "%@ should have a master", v8, v9, v10, v11, v14, v15, 2u);
+      sub_10000348C(&_mh_execute_header, v6, v7, "%@ should have a master", v8, v9, v10, v11, v14, v15);
     }
   }
 
@@ -5472,7 +4806,7 @@ void sub_1001AC528(uint64_t a1, uint64_t a2)
     v5 = __CPLGenericOSLogDomain();
     if (sub_1000033C0(v5))
     {
-      sub_10000348C(&_mh_execute_header, v6, v7, "%@ should have an asset", v8, v9, v10, v11, v14, v15, 2u);
+      sub_10000348C(&_mh_execute_header, v6, v7, "%@ should have an asset", v8, v9, v10, v11, v14, v15);
     }
   }
 
@@ -5490,7 +4824,7 @@ void sub_1001AC5F4(uint64_t a1, uint64_t a2)
     v5 = __CPLGenericOSLogDomain();
     if (sub_1000033C0(v5))
     {
-      sub_10000348C(&_mh_execute_header, v6, v7, "%@ should have an asset", v8, v9, v10, v11, v14, v15, 2u);
+      sub_10000348C(&_mh_execute_header, v6, v7, "%@ should have an asset", v8, v9, v10, v11, v14, v15);
     }
   }
 
@@ -5527,7 +4861,7 @@ void sub_1001AC794(uint64_t a1, uint64_t a2, uint64_t a3)
     v6 = __CPLGenericOSLogDomain();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_10002B064(&_mh_execute_header, v7, v8, "Unexpected error domain for %@", v9, v10, v11, v12, v15, v16, 2u);
+      sub_10002B064(&_mh_execute_header, v7, v8, "Unexpected error domain for %@", v9, v10, v11, v12, v15, v16);
     }
   }
 
@@ -5545,7 +4879,7 @@ void sub_1001AC870(uint64_t a1, uint64_t a2, uint64_t a3)
     v6 = __CPLGenericOSLogDomain();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      sub_10002B064(&_mh_execute_header, v7, v8, "incorrect partial failure error: %@", v9, v10, v11, v12, v15, v16, 2u);
+      sub_10002B064(&_mh_execute_header, v7, v8, "incorrect partial failure error: %@", v9, v10, v11, v12, v15, v16);
     }
   }
 
@@ -5566,9 +4900,9 @@ void sub_1001AC94C(void *a1, void *a2)
       v5 = *a2;
       v6 = a1[4];
       *buf = 138412546;
-      v13 = v5;
-      v14 = 2112;
-      v15 = v6;
+      v12 = v5;
+      v13 = 2112;
+      v14 = v6;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "incorrect item (not %@) in partial failure error %@", buf, 0x16u);
     }
   }
@@ -5577,7 +4911,6 @@ void sub_1001AC94C(void *a1, void *a2)
   v8 = a1[7];
   v9 = a1[8];
   v10 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitErrors.m"];
-  v11 = *a2;
   [v7 handleFailureInMethod:v8 object:v9 file:v10 lineNumber:680 description:{@"incorrect item (not %@) in partial failure error %@", *a2, a1[4]}];
 
   abort();
@@ -5727,7 +5060,7 @@ void sub_1001ACDC4(uint64_t a1, void *a2, void *a3, void *a4)
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v10 = sub_100003AFC();
+    v10 = sub_100003AFC(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       v11 = 138412290;
@@ -5745,10 +5078,9 @@ void sub_1001ACED0(uint64_t a1)
   {
     v4 = v3;
     v5 = [*(a1 + 40) lastOperationRequestUUIDs];
-    v18 = *(*(a1 + 40) + 280);
-    v6 = [CPLCloudKitErrors CPLErrorForCloudKitError:v4 withRequestUUIDs:v5 description:@"Error fetching %@ in memory"];
+    v6 = [CPLCloudKitErrors CPLErrorForCloudKitError:v4 withRequestUUIDs:v5 description:@"Error fetching %@ in memory", *(*(a1 + 40) + 280)];
 
-    [*(a1 + 56) setError:v6];
+    v7 = [*(a1 + 56) setError:v6];
     if (!v6)
     {
       goto LABEL_13;
@@ -5757,13 +5089,12 @@ void sub_1001ACED0(uint64_t a1)
 LABEL_8:
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v10 = sub_100003AFC();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = sub_100003AFC(v7);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v11 = *(a1 + 72);
         sub_1000A5768();
-        v21 = v6;
-        sub_10002B0D4(&_mh_execute_header, v12, v13, "Failed to fetch asset %@ : %@", v14, v15, v16, v17, v18, v19, v20);
+        *(&v19[2] + 6) = v6;
+        sub_10002B0D4(&_mh_execute_header, v12, v13, "Failed to fetch asset %@ : %@", v14, v15, v16, v17, v18, v19[0]);
       }
     }
 
@@ -5783,13 +5114,13 @@ LABEL_8:
     goto LABEL_13;
   }
 
-  v7 = *(a1 + 64);
-  v8 = *(*(a1 + 40) + 280);
-  v19 = 0;
-  v9 = [CPLCloudKitFakeDynamicDerivatives transformData:v2 fileType:v7 matchingResource:v8 error:&v19];
-  v6 = v19;
+  v8 = *(a1 + 64);
+  v9 = *(*(a1 + 40) + 280);
+  v19[0] = 0;
+  v10 = [CPLCloudKitFakeDynamicDerivatives transformData:v2 fileType:v8 matchingResource:v9 error:v19];
+  v6 = v19[0];
 
-  v2 = v9;
+  v2 = v10;
   if (v6)
   {
     goto LABEL_8;
@@ -5803,17 +5134,14 @@ uint64_t sub_1001AD0F0(void *a1, void *a2, uint64_t *a3)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_100003AFC();
+    v6 = sub_100003AFC(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v7 = *a1;
-      v8 = *a2;
       sub_1000A5768();
-      sub_10002B0D4(&_mh_execute_header, v9, v10, "Fetching %@ for %@ succeeded but did not return the resource", v11, v12, v13, v14, v17, v18, v19);
+      sub_10002B0D4(&_mh_execute_header, v7, v8, "Fetching %@ for %@ succeeded but did not return the resource", v9, v10, v11, v12, v14, v15);
     }
   }
 
-  v15 = *a1;
   result = [CPLErrors cplErrorWithCode:150 description:@"Fetching %@ for %@ succeeded but did not return the resource", *a1, *a2];
   *a3 = result;
   return result;
@@ -5823,7 +5151,7 @@ uint64_t sub_1001AD1D8(void *a1, uint64_t *a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_100003AFC();
+    v4 = sub_100003AFC(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = *a1;
@@ -5842,7 +5170,7 @@ uint64_t sub_1001AD2C4(uint64_t *a1, uint64_t a2, uint64_t *a3)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_100003AFC();
+    v6 = sub_100003AFC(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = *a1;
@@ -5883,45 +5211,45 @@ void sub_1001AD4F4(uint64_t a1, void *a2, void *a3, void *a4)
   v7 = a2;
   v8 = a3;
   v9 = a4;
+  v10 = v9;
   if (v8)
   {
-    v10 = [[CPLShareParticipant alloc] initWithCKShareParticipant:v8 currentUserID:*(a1 + 32)];
-    [*(*(*(a1 + 40) + 8) + 40) addObject:v10];
+    v11 = [[CPLShareParticipant alloc] initWithCKShareParticipant:v8 currentUserID:*(a1 + 32)];
+    [*(*(*(a1 + 40) + 8) + 40) addObject:v11];
   }
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v11 = sub_100003B40();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = sub_100003B40(v9);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412546;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v9;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "Failed to fetch some participant with lookup info %@: %@", &v12, 0x16u);
+      v13 = 138412546;
+      v14 = v7;
+      v15 = 2112;
+      v16 = v10;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to fetch some participant with lookup info %@: %@", &v13, 0x16u);
     }
   }
 }
 
 void sub_1001AD640(uint64_t a1, char a2, void *a3)
 {
-  v5 = a3;
+  v4 = a3;
+  v5 = v4;
   if (a2)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v6 = sub_100003B84();
+      v6 = sub_100003B84(v4);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = *(a1 + 32);
-        v8 = *(a1 + 40);
         sub_1000AB0AC();
-        v9 = "Sent exit feedback for batch ID: %@, operation ID: %@";
-        v10 = v6;
-        v11 = OS_LOG_TYPE_DEFAULT;
-        v12 = 22;
+        v7 = "Sent exit feedback for batch ID: %@, operation ID: %@";
+        v8 = v6;
+        v9 = OS_LOG_TYPE_DEFAULT;
+        v10 = 22;
 LABEL_8:
-        _os_log_impl(&_mh_execute_header, v10, v11, v9, &v13, v12);
+        _os_log_impl(&_mh_execute_header, v8, v9, v7, &v11, v10);
         goto LABEL_9;
       }
 
@@ -5931,15 +5259,15 @@ LABEL_8:
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_100003B84();
+    v6 = sub_100003B84(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v13 = 138412290;
-      v14 = v5;
-      v9 = "Failed to send exit feedback with error: %@";
-      v10 = v6;
-      v11 = OS_LOG_TYPE_ERROR;
-      v12 = 12;
+      v11 = 138412290;
+      v12 = v5;
+      v7 = "Failed to send exit feedback with error: %@";
+      v8 = v6;
+      v9 = OS_LOG_TYPE_ERROR;
+      v10 = 12;
       goto LABEL_8;
     }
 
@@ -5951,15 +5279,13 @@ uint64_t sub_1001ADA54(uint64_t a1, void *a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_100003B84();
+    v5 = sub_100003B84(a1);
     if (sub_1000033C0(v5))
     {
-      v6 = *(a1 + 40);
-      v7 = *(a1 + 48);
       sub_1000AB0AC();
-      v11 = v8;
-      v12 = a2;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "Failed to move %@ to %@: %@", v10, 0x20u);
+      v9 = v6;
+      v10 = a2;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "Failed to move %@ to %@: %@", v8, 0x20u);
     }
   }
 
@@ -5971,17 +5297,15 @@ uint64_t sub_1001ADA54(uint64_t a1, void *a2)
   return (*(*(*(a1 + 32) + 280) + 16))();
 }
 
-id sub_1001ADB54(uint64_t *a1, uint64_t a2, id *a3)
+id sub_1001ADB54(uint64_t a1, uint64_t a2, id *a3)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_100003B84();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v5 = sub_100003B84(a1);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v7 = *a1;
-      v8 = *(a2 + 48);
       sub_1000AB0AC();
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "Successfully moved %@ back to %@", v10, 0x16u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "Successfully moved %@ back to %@", v7, 0x16u);
     }
   }
 
@@ -5991,8 +5315,8 @@ id sub_1001ADB54(uint64_t *a1, uint64_t a2, id *a3)
 void sub_1001ADC28()
 {
   sub_10002B0F4();
-  v18 = v0;
-  v19 = v1;
+  v20 = v0;
+  v21 = v1;
   v3 = v2;
   v5 = v4;
   v6 = [*v4 lastOperationRequestUUIDs];
@@ -6000,25 +5324,26 @@ void sub_1001ADC28()
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v8 = sub_100003B84();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100003B84(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v16 = 138412290;
-      v17 = v3;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Failed to get next batch to move: %@", &v16, 0xCu);
+      v18 = 138412290;
+      v19 = v3;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Failed to get next batch to move: %@", &v18, 0xCu);
     }
   }
 
-  if ([v7 isCPLErrorWithCode:23] && _CPLSilentLogging != 1)
+  v10 = [v7 isCPLErrorWithCode:23];
+  if (v10 && _CPLSilentLogging != 1)
   {
-    v9 = sub_100003B84();
-    if (sub_100003424(v9))
+    v11 = sub_100003B84(v10);
+    if (sub_100003424(v11))
     {
-      v10 = [*(*v5 + 36) zoneID];
-      v16 = 138412290;
-      v17 = v10;
+      v12 = [*(*v5 + 36) zoneID];
+      v18 = 138412290;
+      v19 = v12;
       sub_100013990();
-      _os_log_impl(v11, v12, v13, v14, v15, 0xCu);
+      _os_log_impl(v13, v14, v15, v16, v17, 0xCu);
     }
   }
 
@@ -6029,7 +5354,7 @@ id sub_1001ADDC8(void *a1, id *a2, uint64_t a3)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_100003B84();
+    v6 = sub_100003B84(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *a1;
@@ -6042,30 +5367,30 @@ id sub_1001ADDC8(void *a1, id *a2, uint64_t a3)
   return [*a2 _moveBatchRecordWithNames:*a1 userRecordID:*(a3 + 56) operationID:*(a3 + 64) moveBatchID:*(a3 + 72) hasMore:*(a3 + 80)];
 }
 
-void sub_1001ADEA8()
+void sub_1001ADEA8(uint64_t a1)
 {
   if (_CPLSilentLogging != 1)
   {
-    v1 = sub_100003B84();
-    if (sub_1000033C0(v1))
+    v2 = sub_100003B84(a1);
+    if (sub_1000033C0(v2))
     {
-      *v4 = 0;
-      _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_ERROR, "Trying to launch auxiliary operation but it is not relevant to begin with", v4, 2u);
+      *v5 = 0;
+      _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "Trying to launch auxiliary operation but it is not relevant to begin with", v5, 2u);
     }
   }
 
-  v2 = +[NSAssertionHandler currentHandler];
-  v3 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitCleanupStagedScopeTask.m"];
+  v3 = +[NSAssertionHandler currentHandler];
+  v4 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitCleanupStagedScopeTask.m"];
   [sub_1000034AC() handleFailureInMethod:? object:? file:? lineNumber:? description:?];
 
   abort();
 }
 
-void sub_1001ADF70(uint64_t a1, void *a2)
+void sub_1001ADF70(uint64_t a1, uint64_t *a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_100003B84();
+    v5 = sub_100003B84(a1);
     if (sub_100003424(v5))
     {
       sub_100013990();
@@ -6080,7 +5405,7 @@ id sub_1001AE024(void *a1, uint64_t a2, void *a3)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_100003B84();
+    v6 = sub_100003B84(a1);
     if (sub_100003424(v6))
     {
       LODWORD(v13) = 138412290;
@@ -6099,13 +5424,13 @@ void sub_1001AE0EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 {
   sub_10002B0F4();
   a18 = v19;
-  a19 = v20;
-  v22 = v21;
-  v24 = v23;
-  v26 = v25;
+  a19 = v21;
+  v23 = v22;
+  v25 = v24;
+  v26 = v20;
   if (_CPLSilentLogging != 1)
   {
-    v27 = sub_100003B84();
+    v27 = sub_100003B84(v20);
     if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       v28 = *v26;
@@ -6117,30 +5442,29 @@ void sub_1001AE0EC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
   v29 = +[NSAssertionHandler currentHandler];
   v30 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/CloudKit/CPLCloudKitCleanupStagedScopeTask.m"];
-  v31 = *v26;
-  [v29 handleFailureInMethod:v24 object:v22 file:v30 lineNumber:256 description:@"main %@ is already launched"];
+  [v29 handleFailureInMethod:v25 object:v23 file:v30 lineNumber:256 description:@"main %@ is already launched"];
 
   abort();
 }
 
-void sub_1001AE9FC()
+void sub_1001AE9FC(uint64_t a1)
 {
-  v2 = CPLCopyDefaultSerialQueueAttributes();
-  v0 = dispatch_queue_create("com.apple.cpl.cloudkit.metrics", v2);
-  v1 = qword_1002C5648;
-  qword_1002C5648 = v0;
+  v3 = CPLCopyDefaultSerialQueueAttributes();
+  v1 = dispatch_queue_create("com.apple.cpl.cloudkit.metrics", v3);
+  v2 = qword_1002C5648;
+  qword_1002C5648 = v1;
 }
 
 void sub_1001AEA6C(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v2 = sub_1000ABB78();
+    v2 = sub_1000ABB78(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = [*(a1 + 40) containerIdentifier];
       sub_1000ACA54();
-      sub_10006D044(&_mh_execute_header, v4, v5, "%@: submitting to %@", v6, v7, v8, v9, v10);
+      sub_10006D044(&_mh_execute_header, v4, v5, "%@: submitting to %@", v6, v7, v8, v9);
     }
   }
 }
@@ -6149,12 +5473,12 @@ void sub_1001AEB28(uint64_t a1, void *a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_1000ABB78();
+    v3 = sub_1000ABB78(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = [a2 cplOperationClassDescription];
       sub_1000ACA54();
-      sub_10006D044(&_mh_execute_header, v5, v6, "%@: associating %@", v7, v8, v9, v10, v11);
+      sub_10006D044(&_mh_execute_header, v5, v6, "%@: associating %@", v7, v8, v9, v10);
     }
   }
 }
@@ -6163,19 +5487,19 @@ void sub_1001AEBE8(uint64_t a1, void *a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_1000ABB78();
+    v3 = sub_1000ABB78(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = [a2 cplOperationClassDescription];
       sub_1000ACA54();
-      sub_10006D044(&_mh_execute_header, v5, v6, "%@: finished %@", v7, v8, v9, v10, v11);
+      sub_10006D044(&_mh_execute_header, v5, v6, "%@: finished %@", v7, v8, v9, v10);
     }
   }
 }
 
 void sub_1001AECA8(uint64_t *a1, uint64_t a2, uint64_t *a3)
 {
-  v6 = sub_1000ABB78();
+  v6 = sub_1000ABB78(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *a1;
@@ -6218,7 +5542,7 @@ void sub_1001AEEAC(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   if (_CPLSilentLogging != 1)
   {
-    v6 = sub_100003BC8();
+    v6 = sub_100003BC8(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
@@ -6240,7 +5564,7 @@ void sub_1001AEFA0(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_100003BC8();
+    v3 = sub_100003BC8(a1);
     if (sub_100003448(v3))
     {
       LOWORD(v11) = 0;
@@ -6258,7 +5582,7 @@ void sub_1001AF048(uint64_t a1, uint64_t *a2)
 {
   if (_CPLSilentLogging != 1)
   {
-    v4 = sub_100003BC8();
+    v4 = sub_100003BC8(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *v9 = 0;
@@ -6279,61 +5603,58 @@ uint64_t sub_1001AF138(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_100003BC8();
-    if (sub_100003448(v3))
+    v2 = sub_100003BC8(a1);
+    if (sub_100003448(v2))
     {
-      v4 = *(a1 + 288);
       sub_10000343C();
       sub_100021D44();
-      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+      _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
     }
   }
 
-  v10 = [CPLErrors incorrectParametersErrorForParameter:@"currentUserParticipant"];
-  return sub_1000AF008(v10);
+  v8 = [CPLErrors incorrectParametersErrorForParameter:@"currentUserParticipant"];
+  return sub_1000AF008(v8);
 }
 
 uint64_t sub_1001AF208(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_100003BC8();
-    if (sub_100003448(v3))
+    v2 = sub_100003BC8(a1);
+    if (sub_100003448(v2))
     {
-      v4 = *(a1 + 288);
       sub_10000343C();
       sub_100021D44();
-      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+      _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
     }
   }
 
-  v10 = [CPLErrors incorrectParametersErrorForParameter:@"currentUserParticipant"];
-  return sub_1000AF008(v10);
+  v8 = [CPLErrors incorrectParametersErrorForParameter:@"currentUserParticipant"];
+  return sub_1000AF008(v8);
 }
 
 uint64_t sub_1001AF2D8(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_100003BC8();
-    if (sub_100003448(v3))
+    v2 = sub_100003BC8(a1);
+    if (sub_100003448(v2))
     {
-      v4 = *(a1 + 288);
       sub_10000343C();
       sub_100021D44();
-      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+      _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
     }
   }
 
-  v10 = [CPLErrors incorrectParametersErrorForParameter:@"currentUserParticipant"];
-  return sub_1000AF008(v10);
+  v8 = [CPLErrors incorrectParametersErrorForParameter:@"currentUserParticipant"];
+  return sub_1000AF008(v8);
 }
 
 void sub_1001AF3A8(id *a1, uint64_t a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_100003BC8();
+    v4 = sub_100003BC8(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = *a1;
@@ -6349,25 +5670,26 @@ void sub_1001AF3A8(id *a1, uint64_t a2)
   (*(v6 + 16))(v6, 0, v8);
 }
 
-uint64_t sub_1001AF4E4(char a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1001AF4E4(uint64_t a1, uint64_t a2)
 {
   if ((a1 & 1) == 0)
   {
-    v5 = sub_100003C0C();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v3 = sub_100003C0C(a1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [*(*a2 + 304) scopeIdentifier];
-      sub_1000B17BC(&_mh_execute_header, v7, v8, "Still unable to determine scope type for %@", v9, v10, v11, v12, 2u);
+      v4 = [*(*a2 + 304) scopeIdentifier];
+      LODWORD(v12) = 138412290;
+      HIDWORD(v12) = v4;
+      sub_1000B17BC(&_mh_execute_header, v5, v6, "Still unable to determine scope type for %@", v7, v8, v9, v10, v12, HIDWORD(v4));
     }
   }
 
-  v13 = *(*a2 + a3);
   return (*(*(*a2 + 272) + 16))();
 }
 
 void sub_1001AF5D8(uint64_t a1, void *a2)
 {
-  v4 = sub_100003C0C();
+  v4 = sub_100003C0C(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(*(a1 + 32) + 288);
@@ -6384,66 +5706,67 @@ void sub_1001AF6B8(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v1 = sub_100003C0C();
+    v1 = sub_100003C0C(a1);
     if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
     {
-      sub_1000B17DC(&_mh_execute_header, v3, v4, "No more candidate for a shared zone", v5, v6, v7, v8, 0);
+      sub_1000B17DC(&_mh_execute_header, v2, v3, "No more candidate for a shared zone", v4, v5, v6, v7, 0);
     }
   }
 
-  v9 = *(a1 + 272);
   [CPLErrors cplErrorWithCode:39 description:@"No Shared Zone available"];
   objc_claimAutoreleasedReturnValue();
-  v10 = sub_1000B1798();
-  v11(v10);
+  v8 = sub_1000B1798();
+  v9(v8);
 }
 
-id sub_1001AF758(char a1, uint64_t a2, void *a3)
+id sub_1001AF758(uint64_t a1, uint64_t a2, void *a3)
 {
   if ((a1 & 1) == 0)
   {
-    v5 = sub_100003C0C();
+    v5 = sub_100003C0C(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = [*(a2 + 64) cpl_zoneName];
-      sub_1000B17BC(&_mh_execute_header, v7, v8, "Unable to determine scope type for %{public}@", v9, v10, v11, v12, 2u);
+      LODWORD(v14) = 138543362;
+      HIDWORD(v14) = v6;
+      sub_1000B17BC(&_mh_execute_header, v7, v8, "Unable to determine scope type for %{public}@", v9, v10, v11, v12, v14, HIDWORD(v6));
     }
   }
 
   return [*(a2 + 32) _validateLastZoneIDInArray:*(a2 + 72) currentUserID:*a3];
 }
 
-id sub_1001AF820(char a1, id *a2, uint64_t a3)
+id sub_1001AF820(uint64_t a1, id *a2, uint64_t a3)
 {
   if ((a1 & 1) == 0)
   {
-    v5 = sub_100003C0C();
+    v5 = sub_100003C0C(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      [*a2 count];
-      sub_1000B17BC(&_mh_execute_header, v6, v7, "Found %lu potential candidates for a shared zone", v8, v9, v10, v11, 0);
+      LODWORD(v13) = 134217984;
+      *(&v13 + 4) = [*a2 count];
+      sub_1000B17BC(&_mh_execute_header, v6, v7, "Found %lu potential candidates for a shared zone", v8, v9, v10, v11, v13, DWORD2(v13));
     }
   }
 
   return [*(a3 + 32) _validateLastZoneIDInArray:*a2 currentUserID:*(a3 + 48)];
 }
 
-void sub_1001AF8DC(char a1, uint64_t a2)
+void sub_1001AF8DC(uint64_t a1)
 {
   if ((a1 & 1) == 0)
   {
-    v2 = sub_100003C0C();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v1 = sub_100003C0C(a1);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
     {
-      sub_1000B17DC(&_mh_execute_header, v4, v5, "No valid zones for a shared zone", v6, v7, v8, v9, 0);
+      sub_1000B17DC(&_mh_execute_header, v2, v3, "No valid zones for a shared zone", v4, v5, v6, v7, 0);
     }
   }
 
-  v10 = *(*(a2 + 32) + 272);
   [CPLErrors cplErrorWithCode:39 description:@"No Shared Zone available"];
   objc_claimAutoreleasedReturnValue();
-  v11 = sub_1000B1798();
-  v12(v11);
+  v8 = sub_1000B1798();
+  v9(v8);
 }
 
 void sub_1001AF974(uint64_t a1, void *a2)
@@ -6459,55 +5782,60 @@ void sub_1001AF974(uint64_t a1, void *a2)
     v5 = 0;
   }
 
-  if ([(CPLCloudKitZoneIdentification *)CPLCloudKitLibraryShareZoneIdentification isSupportedZoneID:a2]|| [(CPLCloudKitZoneIdentification *)CPLCloudKitCollectionShareZoneIdentification isSupportedZoneID:a2])
+  v6 = [(CPLCloudKitZoneIdentification *)CPLCloudKitLibraryShareZoneIdentification isSupportedZoneID:a2];
+  if (v6 & 1) != 0 || (v6 = [(CPLCloudKitZoneIdentification *)CPLCloudKitCollectionShareZoneIdentification isSupportedZoneID:a2], (v6))
   {
     v5 |= 4uLL;
   }
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_100003C50();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100003C50(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = [a2 cpl_zoneName];
-      v8 = [CPLCloudKitScope descriptionForCloudKitScopeOptions:v5];
-      v11 = 138412546;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v8;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Found new or changed zone %@ (%@)", &v11, 0x16u);
+      v8 = [a2 cpl_zoneName];
+      v9 = [CPLCloudKitScope descriptionForCloudKitScopeOptions:v5];
+      v12 = 138412546;
+      v13 = v8;
+      v14 = 2112;
+      v15 = v9;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Found new or changed zone %@ (%@)", &v12, 0x16u);
     }
   }
 
-  v9 = [[CPLCloudKitScope alloc] initWithZoneID:a2 options:v5];
-  v10 = [[CPLCloudKitScopeUpdate alloc] initWithCloudKitScope:v9];
-  [*(*(*(a1 + 48) + 8) + 40) setObject:v10 forKeyedSubscript:v4];
+  v10 = [[CPLCloudKitScope alloc] initWithZoneID:a2 options:v5];
+  v11 = [[CPLCloudKitScopeUpdate alloc] initWithCloudKitScope:v10];
+  [*(*(*(a1 + 48) + 8) + 40) setObject:v11 forKeyedSubscript:v4];
 }
 
 id sub_1001AFB24(void *a1, id *a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_100003C50();
+    v4 = sub_100003C50(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [a1 cpl_zoneName];
-      sub_1000B17BC(&_mh_execute_header, v6, v7, "Ignoring new or changed %@", v8, v9, v10, v11, 2u);
+      LODWORD(v13) = 138412290;
+      HIDWORD(v13) = v5;
+      sub_1000B17BC(&_mh_execute_header, v6, v7, "Ignoring new or changed %@", v8, v9, v10, v11, v13, HIDWORD(v5));
     }
   }
 
   return [*a2 noteZoneIDChangeWasIgnored:a1];
 }
 
-void sub_1001AFC08(char a1, void *a2, uint64_t a3)
+void sub_1001AFC08(uint64_t a1, void *a2, uint64_t a3)
 {
   if ((a1 & 1) == 0)
   {
-    v5 = sub_100003C50();
+    v5 = sub_100003C50(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = [a2 cpl_zoneName];
-      sub_1000B17BC(&_mh_execute_header, v7, v8, "Found deleted zone %@", v9, v10, v11, v12, 2u);
+      LODWORD(v14) = 138412290;
+      HIDWORD(v14) = v6;
+      sub_1000B17BC(&_mh_execute_header, v7, v8, "Found deleted zone %@", v9, v10, v11, v12, v14, HIDWORD(v6));
     }
   }
 
@@ -6515,15 +5843,17 @@ void sub_1001AFC08(char a1, void *a2, uint64_t a3)
   [*(*(*(a3 + 48) + 8) + 40) addObject:v13];
 }
 
-id sub_1001AFCEC(char a1, void *a2, id *a3)
+id sub_1001AFCEC(uint64_t a1, void *a2, id *a3)
 {
   if ((a1 & 1) == 0)
   {
-    v5 = sub_100003C50();
+    v5 = sub_100003C50(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v6 = [a2 cpl_zoneName];
-      sub_1000B17BC(&_mh_execute_header, v7, v8, "Ignoring deleted %@", v9, v10, v11, v12, 2u);
+      LODWORD(v14) = 138412290;
+      HIDWORD(v14) = v6;
+      sub_1000B17BC(&_mh_execute_header, v7, v8, "Ignoring deleted %@", v9, v10, v11, v12, v14, HIDWORD(v6));
     }
   }
 
@@ -6546,16 +5876,14 @@ void sub_1001AFDB0(uint64_t a1)
       v4 = *(a1 + 32);
       v5 = *(v4 + 280);
       v6 = *(v4 + 288);
-      v8 = 138412802;
-      v9 = v5;
-      v10 = 2112;
-      v11 = v6;
-      v12 = 2112;
-      v13 = v2;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Failed to send feedback about move batch (%@ to %@) with error: %@", &v8, 0x20u);
+      v7 = 138412802;
+      v8 = v5;
+      v9 = 2112;
+      v10 = v6;
+      v11 = 2112;
+      v12 = v2;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Failed to send feedback about move batch (%@ to %@) with error: %@", &v7, 0x20u);
     }
-
-    v7 = *(a1 + 48);
   }
 
   (*(*(*(a1 + 32) + 272) + 16))();
@@ -6575,23 +5903,22 @@ void sub_1001AFF18(uint64_t a1)
     if (os_log_type_enabled(qword_1002C56C0, OS_LOG_TYPE_ERROR))
     {
       v4 = *(a1 + 48);
-      v6 = 138412546;
-      v7 = v4;
-      v8 = 2112;
-      v9 = v2;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Failed to request ramp information with operationID: %@ error: %@", &v6, 0x16u);
+      v5 = 138412546;
+      v6 = v4;
+      v7 = 2112;
+      v8 = v2;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Failed to request ramp information with operationID: %@ error: %@", &v5, 0x16u);
     }
   }
 
-  v5 = *(a1 + 57);
   (*(*(*(a1 + 32) + 272) + 16))();
 }
 
-uint64_t sub_1001B0060(char a1, uint64_t a2, uint64_t a3)
+uint64_t sub_1001B0060(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if ((a1 & 1) == 0)
   {
-    v5 = sub_100003C94();
+    v5 = sub_100003C94(a1);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v7 = 138412290;
@@ -6607,25 +5934,24 @@ void sub_1001B013C(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_10011B768();
+    v3 = sub_10011B768(a1);
     if (sub_100021E38(v3))
     {
-      v4 = *(*(a1 + 32) + 96);
       sub_1001394A4();
-      sub_100037514(&_mh_execute_header, v1, v5, "%@ attaching to %@", v15);
+      sub_100037514(&_mh_execute_header, v1, v4, "%@ attaching to %@", v14);
     }
   }
 
-  v6 = *(a1 + 32);
-  v7 = *(v6 + 96);
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 96);
   sub_1000033D8();
-  v9 = 3221225472;
-  v10 = sub_10011B7AC;
-  v11 = &unk_1002796F8;
-  v12 = v6;
-  v14 = *(a1 + 48);
-  v13 = *(a1 + 40);
-  [v7 attachObject:v6 withCompletionHandler:v8];
+  v8 = 3221225472;
+  v9 = sub_10011B7AC;
+  v10 = &unk_1002796F8;
+  v11 = v5;
+  v13 = *(a1 + 48);
+  v12 = *(a1 + 40);
+  [v6 attachObject:v5 withCompletionHandler:v7];
 }
 
 uint64_t sub_1001B025C(uint64_t a1, uint64_t a2)
@@ -6640,13 +5966,12 @@ uint64_t sub_1001B025C(uint64_t a1, uint64_t a2)
 
   sub_100139480([*(a1 + 40) countOfOriginalImages], *(a1 + 80));
   sub_100139480([*(a1 + 40) countOfOriginalVideos], *(a1 + 88));
-  sub_100139480([*(a1 + 40) countOfOriginalOthers], *(a1 + 96));
+  v7 = sub_100139480([*(a1 + 40) countOfOriginalOthers], *(a1 + 96));
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v7 = sub_10011B768();
-    if (sub_100021E20(v7))
+    v8 = sub_10011B768(v7);
+    if (sub_100021E20(v8))
     {
-      v8 = *(*(*(a1 + 56) + 8) + 40);
       sub_10000343C();
       sub_100139348();
       sub_10000FB94(v9, v10, v11, v12, v13);
@@ -6667,32 +5992,32 @@ uint64_t sub_1001B025C(uint64_t a1, uint64_t a2)
 
 void sub_1001B03D8(uint64_t a1, void *a2)
 {
-  v4 = a2;
+  v3 = a2;
+  v4 = v3;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_10011B768();
+    v5 = sub_10011B768(v3);
     if (sub_100021E38(v5))
     {
-      v6 = *(*(a1 + 32) + 96);
       sub_100003460();
       sub_100013984();
-      sub_100037514(v7, v8, v9, v10, v11);
+      sub_100037514(v6, v7, v8, v9, v10);
     }
   }
 }
 
 void sub_1001B049C(uint64_t a1, void *a2)
 {
-  v4 = a2;
+  v3 = a2;
+  v4 = v3;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_10011B768();
+    v5 = sub_10011B768(v3);
     if (sub_100021E38(v5))
     {
-      v6 = *(*(a1 + 32) + 96);
       sub_100003460();
       sub_100013984();
-      sub_100037514(v7, v8, v9, v10, v11);
+      sub_100037514(v6, v7, v8, v9, v10);
     }
   }
 }
@@ -6700,15 +6025,15 @@ void sub_1001B049C(uint64_t a1, void *a2)
 void sub_1001B0560(uint64_t a1, void *a2)
 {
   v4 = a2;
+  v5 = v4;
   if (v4 && (_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_10011B768();
-    if (sub_1000033C0(v5))
+    v6 = sub_10011B768(v4);
+    if (sub_1000033C0(v6))
     {
-      v6 = *(*(a1 + 32) + 96);
       sub_1001394A4();
       HIWORD(v21) = v7;
-      v22 = v4;
+      v22 = v5;
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "%@ failed to detach from %@: %@", buf, 0x20u);
     }
   }
@@ -6720,7 +6045,7 @@ void sub_1001B0560(uint64_t a1, void *a2)
   v15[3] = &unk_100272E20;
   v18 = *(a1 + 48);
   v16 = *(a1 + 40);
-  v17 = v4;
+  v17 = v5;
   v9 = v15;
   *buf = _NSConcreteStackBlock;
   v20 = 3221225472;
@@ -6729,7 +6054,7 @@ void sub_1001B0560(uint64_t a1, void *a2)
   v22 = &unk_100271E98;
   v23 = v11;
   v12 = v8;
-  v13 = v4;
+  v13 = v5;
   v14 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, buf);
   sub_1001393A4(v14);
 }
@@ -6737,44 +6062,45 @@ void sub_1001B0560(uint64_t a1, void *a2)
 void sub_1001B072C(uint64_t a1, void *a2)
 {
   v5 = a2;
+  v6 = v5;
   if (v5 && (_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_10011B768();
-    if (sub_1000033C0(v6))
+    v7 = sub_10011B768(v5);
+    if (sub_1000033C0(v7))
     {
-      v7 = *(a1 + 32);
-      v8 = *(v7 + 96);
+      v8 = *(a1 + 32);
+      v9 = *(v8 + 96);
       *buf = 138412802;
-      *&buf[4] = v7;
+      *&buf[4] = v8;
       *&buf[12] = 2112;
-      *&buf[14] = v8;
+      *&buf[14] = v9;
       *&buf[22] = 2112;
-      v28 = v5;
+      v29 = v6;
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "%@ failed to detach from %@: %@", buf, 0x20u);
     }
   }
 
-  v9 = *(*(a1 + 32) + 104);
+  v10 = *(*(a1 + 32) + 104);
   sub_100139384();
-  v25 = *(a1 + 40);
-  v10 = v3;
+  v26 = *(a1 + 40);
+  v11 = v3;
   *buf = _NSConcreteStackBlock;
   *&buf[8] = 3221225472;
   sub_1001392E0();
-  *&buf[16] = v11;
-  v28 = &unk_100271E98;
-  v29 = v12;
-  v13 = v9;
-  v14 = v5;
-  v22 = sub_1001393C0(v14, v15, v16, v17, v18, v19, v20, v21, v23, 3221225472, sub_10011C6D4, &unk_100272350, v5, v25, buf[0]);
-  sub_1001393A4(v22);
+  *&buf[16] = v12;
+  v29 = &unk_100271E98;
+  v30 = v13;
+  v14 = v10;
+  v15 = v6;
+  v23 = sub_1001393C0(v15, v16, v17, v18, v19, v20, v21, v22, v24, 3221225472, sub_10011C6D4, &unk_100272350, v6, v26);
+  sub_1001393A4(v23);
 }
 
 uint64_t sub_1001B08D0()
 {
   sub_1001393FC();
   sub_1001394D4(v2);
-  sub_1001394C8(*(v0 + 48));
+  sub_1001394C8();
   v4 = [v3 canActivateScope:? error:?];
   v5 = *(v0 + 40);
   if (v4)
@@ -6784,26 +6110,29 @@ uint64_t sub_1001B08D0()
     return [v5 activateScope:v6 error:v1];
   }
 
-  else if ([v5 valueForFlag:16 forScope:*(*(*(v0 + 48) + 8) + 40)])
-  {
-    return 0;
-  }
-
   else
   {
-    if ((_CPLSilentLogging & 1) == 0)
+    v7 = [v5 valueForFlag:16 forScope:*(*(*(v0 + 48) + 8) + 40)];
+    if (v7)
     {
-      v7 = sub_10011B768();
-      if (sub_100003448(v7))
-      {
-        v8 = *(*(*(v0 + 48) + 8) + 40);
-        sub_10000343C();
-        sub_100021D44();
-        _os_log_impl(v9, v10, v11, v12, v13, 0xCu);
-      }
+      return 0;
     }
 
-    return 1;
+    else
+    {
+      if ((_CPLSilentLogging & 1) == 0)
+      {
+        v8 = sub_10011B768(v7);
+        if (sub_100003448(v8))
+        {
+          sub_10000343C();
+          sub_100021D44();
+          _os_log_impl(v9, v10, v11, v12, v13, 0xCu);
+        }
+      }
+
+      return 1;
+    }
   }
 }
 
@@ -6812,14 +6141,13 @@ uint64_t sub_1001B09F8()
   sub_1001393FC();
   v3 = [sub_1001394D4(v2) scopeWithIdentifier:*(v0 + 40)];
   sub_100139408(v3, *(v0 + 56));
-  sub_1001394C8(*(v0 + 56));
-  if (v4)
+  sub_1001394C8();
+  if (v5)
   {
-    result = [*(v0 + 48) canActivateScope:v4 error:v1];
+    result = [*(v0 + 48) canActivateScope:v5 error:v1];
     if (result)
     {
-      v6 = *(v0 + 32);
-      sub_1001394C8(*(v0 + 56));
+      sub_1001394C8();
 
       return [v7 deactivateScope:? error:?];
     }
@@ -6829,13 +6157,12 @@ uint64_t sub_1001B09F8()
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v8 = sub_10011B768();
+      v8 = sub_10011B768(v4);
       if (sub_10000FABC(v8))
       {
-        v9 = *(v0 + 40);
         sub_10000343C();
         sub_100139324();
-        _os_log_impl(v10, v11, v12, v13, v14, v15);
+        _os_log_impl(v9, v10, v11, v12, v13, v14);
       }
     }
 
@@ -6845,29 +6172,21 @@ uint64_t sub_1001B09F8()
   return result;
 }
 
-uint64_t sub_1001B0B14(void *a1)
+uint64_t sub_1001B0B14(uint64_t a1)
 {
-  if (a1[4] && (_CPLSilentLogging & 1) == 0)
+  if (*(a1 + 32) && (_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_10011B768();
-    if (sub_100003448(v3))
+    v2 = sub_10011B768(a1);
+    if (sub_100003448(v2))
     {
-      v5 = a1[4];
-      v4 = a1[5];
       sub_100003460();
       sub_100021D44();
-      _os_log_impl(v6, v7, v8, v9, v10, 0x16u);
+      _os_log_impl(v3, v4, v5, v6, v7, 0x16u);
     }
-
-    v11 = a1[4];
   }
 
-  v12 = a1[9];
-  v13 = a1[6];
-  v14 = a1[7];
-  v15 = a1[8];
-  v16 = sub_1000119D0(a1[10]);
-  return v17(v16);
+  sub_1000119D0();
+  return v8();
 }
 
 void sub_1001B0BDC()
@@ -6876,28 +6195,29 @@ void sub_1001B0BDC()
   v2 = v1;
   v4 = v3;
   v5 = [sub_1001394D4(v3) scopeIdentifier];
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_10011B768();
-    if (sub_10000FBAC(v6))
+    v7 = sub_10011B768(v5);
+    if (sub_10000FBAC(v7))
     {
       sub_1000187DC();
       sub_100139440();
-      _os_log_impl(v7, v8, v9, v10, v11, 0xCu);
+      _os_log_impl(v8, v9, v10, v11, v12, 0xCu);
     }
   }
 
-  v12 = [*(v4 + 40) scopes];
-  v13 = [*(v4 + 32) defaultFlags];
-  [v12 shouldAutoactivateScopeWithIdentifier:v5 scopeType:{objc_msgSend(*(v4 + 32), "scopeType")}];
-  v14 = [v12 createScopeWithIdentifier:v5 scopeType:sub_1001393DC() flags:v13 transportScope:*(v4 + 48) error:v2];
-  if (v14)
+  v13 = [*(v4 + 40) scopes];
+  v14 = [*(v4 + 32) defaultFlags];
+  [v13 shouldAutoactivateScopeWithIdentifier:v6 scopeType:{objc_msgSend(*(v4 + 32), "scopeType")}];
+  v15 = [v13 createScopeWithIdentifier:v6 scopeType:sub_1001393DC() flags:v14 transportScope:*(v4 + 48) error:v2];
+  if (v15)
   {
-    v15 = v14;
-    if ([v12 setPullFromTransportExpirationInterval:v14 scope:v2 error:86400.0] && objc_msgSend(sub_100139470(), "storeScopeChange:forScope:error:"))
+    v16 = v15;
+    if ([v13 setPullFromTransportExpirationInterval:v15 scope:v2 error:86400.0] && objc_msgSend(sub_100139470(), "storeScopeChange:forScope:error:"))
     {
-      v16 = [v12 scopeChangeForScope:v15];
-      sub_100139408(v16, *(v4 + 56));
+      v17 = [v13 scopeChangeForScope:v16];
+      sub_100139408(v17, *(v4 + 56));
     }
   }
 
@@ -6912,46 +6232,42 @@ void sub_1001B0D5C(uint64_t a1)
 
   if (v5)
   {
-    v6 = [*(a1 + 32) transportScopeForScope:v5];
-    sub_100139408(v6, *(a1 + 88));
+    v7 = [*(a1 + 32) transportScopeForScope:v5];
+    sub_100139408(v7, *(a1 + 88));
   }
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v7 = sub_10011B768();
-    if (sub_100003424(v7))
+    v8 = sub_10011B768(v6);
+    if (sub_100003424(v8))
     {
-      v8 = *(a1 + 40);
+      v9 = *(a1 + 40);
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v8;
+      *(&buf + 4) = v9;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Trying to update share for an unknown scope %@ – will proceed anyway", &buf, 0xCu);
     }
   }
 
-  v9 = *(a1 + 40);
   v10 = *(*(a1 + 48) + 104);
   sub_100139384();
-  v12 = v11;
-  v26 = *(a1 + 88);
-  v19 = v12;
-  v20 = v5;
-  v21 = *(a1 + 56);
-  v22 = *(a1 + 64);
-  v23 = *(a1 + 32);
-  v25 = *(a1 + 80);
-  v27 = *(a1 + 96);
-  v24 = *(a1 + 72);
-  v13 = v1;
+  v18 = v11;
+  v19 = v5;
+  v20 = *(a1 + 56);
+  v21 = *(a1 + 64);
+  v22 = *(a1 + 32);
+  v24 = *(a1 + 80);
+  v23 = *(a1 + 72);
+  v12 = v1;
   *&buf = _NSConcreteStackBlock;
   *(&buf + 1) = 3221225472;
   sub_1001392E0();
-  v29 = v14;
-  v30 = &unk_100271E98;
-  v31 = v15;
-  v16 = v10;
-  v17 = v5;
-  v18 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &buf);
-  sub_1001393A4(v18);
+  v26 = v13;
+  v27 = &unk_100271E98;
+  v28 = v14;
+  v15 = v10;
+  v16 = v5;
+  v17 = dispatch_block_create(DISPATCH_BLOCK_ENFORCE_QOS_CLASS|DISPATCH_BLOCK_ASSIGN_CURRENT, &buf);
+  sub_1001393A4(v17);
 }
 
 void sub_1001B0F9C()
@@ -6960,24 +6276,23 @@ void sub_1001B0F9C()
   v2 = v1;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_10011B768();
+    v3 = sub_10011B768(v1);
     if (sub_100003424(v3))
     {
-      v4 = v2[4];
       sub_10000343C();
       sub_100013990();
-      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+      _os_log_impl(v4, v5, v6, v7, v8, 0xCu);
     }
   }
 
-  v10 = [v2[4] scopeIdentifier];
-  v11 = [v2[5] scopes];
+  v9 = [v2[4] scopeIdentifier];
+  v10 = [v2[5] scopes];
   [v2[4] defaultFlags];
   [v2[6] flags];
-  [v11 shouldAutoactivateScopeWithIdentifier:v10 scopeType:{objc_msgSend(v2[4], "scopeType")}];
+  [v10 shouldAutoactivateScopeWithIdentifier:v9 scopeType:{objc_msgSend(v2[4], "scopeType")}];
   sub_1001393DC();
-  v12 = [sub_100139424() createScopeWithIdentifier:? scopeType:? flags:? transportScope:? error:?];
-  if (v12)
+  v11 = [sub_100139424() createScopeWithIdentifier:? scopeType:? flags:? transportScope:? error:?];
+  if (v11)
   {
     [sub_100139470() storeScopeChange:? forScope:? error:?];
   }
@@ -6994,10 +6309,9 @@ void sub_1001B10DC()
 
   if (v4 && (_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_10011B768();
-    if (sub_1000033C0(v5))
+    v6 = sub_10011B768(v5);
+    if (sub_1000033C0(v6))
     {
-      v6 = *(v1 + 32);
       v7 = [v3 error];
       sub_100139338();
       sub_100021D74();
@@ -7018,24 +6332,23 @@ void sub_1001B11F0()
   v2 = v1;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_10011B768();
+    v3 = sub_10011B768(v1);
     if (sub_100003424(v3))
     {
-      v4 = v2[4];
       sub_10000343C();
       sub_100013990();
-      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+      _os_log_impl(v4, v5, v6, v7, v8, 0xCu);
     }
   }
 
-  v10 = [v2[4] scopeIdentifier];
-  v11 = [v2[5] scopes];
+  v9 = [v2[4] scopeIdentifier];
+  v10 = [v2[5] scopes];
   [v2[4] defaultFlags];
   [v2[6] flags];
-  [v11 shouldAutoactivateScopeWithIdentifier:v10 scopeType:{objc_msgSend(v2[4], "scopeType")}];
+  [v10 shouldAutoactivateScopeWithIdentifier:v9 scopeType:{objc_msgSend(v2[4], "scopeType")}];
   sub_1001393DC();
-  v12 = [sub_100139424() createScopeWithIdentifier:? scopeType:? flags:? transportScope:? error:?];
-  if (v12)
+  v11 = [sub_100139424() createScopeWithIdentifier:? scopeType:? flags:? transportScope:? error:?];
+  if (v11)
   {
     [sub_100139470() storeScopeChange:? forScope:? error:?];
   }
@@ -7045,20 +6358,19 @@ void sub_1001B11F0()
 
 void sub_1001B1A5C(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = [v3 error];
+  v2 = a2;
+  v3 = [v2 error];
 
-  if (v4 && (_CPLSilentLogging & 1) == 0)
+  if (v3 && (_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_10011B768();
+    v5 = sub_10011B768(v4);
     if (sub_100003448(v5))
     {
-      v6 = *(a1 + 32);
-      v7 = [v3 error];
+      v6 = [v2 error];
       sub_100021E14();
       sub_100139338();
       sub_100021D44();
-      _os_log_impl(v8, v9, v10, v11, v12, 0x16u);
+      _os_log_impl(v7, v8, v9, v10, v11, 0x16u);
     }
   }
 }
@@ -7070,15 +6382,15 @@ void sub_1001B1B40(uint64_t a1, void *a2)
 
   if (v4 && (_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_10011B768();
-    if (sub_100003448(v5))
+    v6 = sub_10011B768(v5);
+    if (sub_100003448(v6))
     {
-      v6 = [*(a1 + 32) componentsJoinedByString:{@", "}];
-      v7 = [v3 error];
+      v7 = [*(a1 + 32) componentsJoinedByString:{@", "}];
+      v8 = [v3 error];
       sub_10000FB34();
       sub_100139338();
       sub_100021D44();
-      _os_log_impl(v8, v9, v10, v11, v12, 0x16u);
+      _os_log_impl(v9, v10, v11, v12, v13, 0x16u);
     }
   }
 }
@@ -7090,9 +6402,9 @@ uint64_t sub_1001B2418(uint64_t a1, void *a2)
     case 0:
     case 1:
     case 3:
-      v25 = sub_100139460();
+      v29 = sub_100139460();
 
-      return [v25 _resetStore:? reason:? resetSelector:? error:?];
+      return [v29 _resetStore:? reason:? resetSelector:? error:?];
     case 2:
       if (![*(a1 + 32) _resetStore:*(a1 + 40) reason:*(a1 + 48) resetSelector:"resetCompleteSyncStateIncludingIDMappingWithCause:error:" error:a2])
       {
@@ -7102,19 +6414,19 @@ uint64_t sub_1001B2418(uint64_t a1, void *a2)
       v11 = [*(a1 + 40) scopes];
       v12 = [v11 enumeratorForScopesIncludeInactive:0];
 
-      v15 = sub_100139500(v13, v14);
-      if (!v15)
+      v17 = sub_100139500(v13, v14, v15, v16);
+      if (!v17)
       {
         goto LABEL_16;
       }
 
-      v16 = v15;
-      v17 = MEMORY[0];
+      v18 = v17;
+      v19 = MEMORY[0];
       break;
     case 4:
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v5 = sub_10011B768();
+        v5 = sub_10011B768(a1);
         if (sub_10000FBDC(v5))
         {
           sub_100139378();
@@ -7126,16 +6438,16 @@ uint64_t sub_1001B2418(uint64_t a1, void *a2)
     case 5:
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v27 = sub_10011B768();
-        if (sub_100003424(v27))
+        v31 = sub_10011B768(a1);
+        if (sub_100003424(v31))
         {
-          LOWORD(v33) = 0;
+          LOWORD(v37) = 0;
           sub_100013990();
-          _os_log_impl(v28, v29, v30, v31, v32, 2u);
+          _os_log_impl(v32, v33, v34, v35, v36, 2u);
         }
       }
 
-      return [*(a1 + 40) setShouldUpdateDisabledFeaturesWithError:{a2, v33}];
+      return [*(a1 + 40) setShouldUpdateDisabledFeaturesWithError:{a2, v37}];
     default:
       if (!a2)
       {
@@ -7149,27 +6461,27 @@ uint64_t sub_1001B2418(uint64_t a1, void *a2)
 
   while (1)
   {
-    for (i = 0; i != v16; i = i + 1)
+    for (i = 0; i != v18; i = i + 1)
     {
-      if (MEMORY[0] != v17)
+      if (MEMORY[0] != v19)
       {
         objc_enumerationMutation(v12);
       }
 
-      v19 = *(8 * i);
-      v20 = [*(a1 + 40) scopes];
-      v21 = [v19 scopeIdentifier];
-      v22 = [v20 resetStableRecordsForScopeWithIdentifier:v21 error:a2];
+      v21 = *(8 * i);
+      v22 = [*(a1 + 40) scopes];
+      v23 = [v21 scopeIdentifier];
+      v24 = [v22 resetStableRecordsForScopeWithIdentifier:v23 error:a2];
 
-      if (!v22)
+      if (!v24)
       {
         v10 = 0;
         goto LABEL_29;
       }
     }
 
-    v16 = sub_100139500(v23, v24);
-    if (!v16)
+    v18 = sub_100139500(v25, v26, v27, v28);
+    if (!v18)
     {
 LABEL_16:
       v10 = 1;
@@ -7192,13 +6504,13 @@ void sub_1001B27C8(id a1, CPLEngineStoreTransaction *a2)
 
     if ((v6 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
     {
-      v7 = sub_10011B768();
-      if (sub_10000FABC(v7))
+      v8 = sub_10011B768(v7);
+      if (sub_10000FABC(v8))
       {
-        v8 = [(CPLEngineStoreTransaction *)v2 error];
+        v9 = [(CPLEngineStoreTransaction *)v2 error];
         sub_10000AF90();
         sub_100139324();
-        _os_log_impl(v9, v10, v11, v12, v13, v14);
+        _os_log_impl(v10, v11, v12, v13, v14, v15);
       }
     }
   }
@@ -7207,21 +6519,21 @@ void sub_1001B27C8(id a1, CPLEngineStoreTransaction *a2)
 void sub_1001B28C0(uint64_t a1)
 {
   v2 = +[NSFileManager defaultManager];
-  sub_1001394C8(*(a1 + 32));
-  v8 = 0;
+  sub_1001394C8();
+  v9 = 0;
   v4 = [v3 removeItemAtURL:? error:?];
-  v5 = v8;
+  v5 = v9;
 
   if ((v4 & 1) == 0 && (_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_10011B768();
-    if (sub_100003424(v6))
+    v7 = sub_10011B768(v6);
+    if (sub_100003424(v7))
     {
-      v7 = [*(*(*(a1 + 32) + 8) + 40) path];
+      v8 = [*(*(*(a1 + 32) + 8) + 40) path];
       *buf = 138412546;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v5;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v5;
       _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Failed to remove temporary folder at %@: %@", buf, 0x16u);
     }
   }
@@ -7234,52 +6546,46 @@ void sub_1001B29E0(uint64_t a1)
     v3 = __CPLGenericOSLogDomain();
     if (sub_10000FAE0(v3))
     {
-      v4 = *(a1 + 32);
-      v5 = NSStringFromSelector(*(a1 + 40));
+      v4 = NSStringFromSelector(*(a1 + 40));
       sub_10000FB34();
       sub_100139338();
       sub_100080C88();
-      _os_log_impl(v6, v7, v8, v9, v10, 0x16u);
+      _os_log_impl(v5, v6, v7, v8, v9, 0x16u);
     }
   }
 }
 
-id sub_1001B2AB4(uint64_t *a1, uint64_t a2, void *a3)
+id sub_1001B2AB4(uint64_t a1, uint64_t a2, void *a3)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_10011B768();
-    if (sub_100021E20(v6))
+    v5 = sub_10011B768(a1);
+    if (sub_100021E20(v5))
     {
-      v7 = *(*a1 + 96);
       sub_10000343C();
       sub_100139348();
-      sub_10000FB94(v8, v9, v10, v11, v12);
+      sub_10000FB94(v6, v7, v8, v9, v10);
     }
-
-    a2 = *a1;
   }
 
-  v13 = *(a2 + 96);
   sub_100080C6C();
   a3[1] = 3221225472;
   a3[2] = sub_1001B049C;
   a3[3] = &unk_100272468;
-  a3[4] = v14;
-  return [v15 closeAndDeactivate:0 completionHandler:a3];
+  a3[4] = v11;
+  return [v12 closeAndDeactivate:0 completionHandler:a3];
 }
 
-void sub_1001B2BBC(char a1, uint64_t a2)
+void sub_1001B2BBC(uint64_t a1)
 {
   if ((a1 & 1) == 0)
   {
-    v3 = sub_10011B768();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v1 = sub_10011B768(a1);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
     {
-      v4 = *(*(a2 + 32) + 96);
       sub_100003460();
       sub_100139378();
-      sub_100037514(v5, v6, v7, v8, v9);
+      sub_100037514(v2, v3, v4, v5, v6);
     }
   }
 }
@@ -7287,38 +6593,36 @@ void sub_1001B2BBC(char a1, uint64_t a2)
 uint64_t sub_1001B2C6C()
 {
   sub_1001394BC();
-  if ((v3 & 1) == 0)
+  if ((v1 & 1) == 0)
   {
-    v4 = sub_10011B768();
-    if (sub_1000033C0(v4))
+    v2 = sub_10011B768(v1);
+    if (sub_1000033C0(v2))
     {
-      v5 = *(*(v1 + 32) + 96);
       sub_100003460();
       sub_100021D74();
-      _os_log_impl(v6, v7, v8, v9, v10, 0x16u);
+      _os_log_impl(v3, v4, v5, v6, v7, 0x16u);
     }
   }
 
-  v11 = sub_1000119D0(*(v1 + 48));
-  return v12(v11, v0, 0, 0, 0, 0);
+  sub_1000119D0();
+  return v8();
 }
 
-uint64_t sub_1001B2D3C(char a1, uint64_t a2)
+uint64_t sub_1001B2D3C(uint64_t a1)
 {
   if ((a1 & 1) == 0)
   {
-    v4 = sub_10011B768();
-    if (sub_100021E38(v4))
+    v2 = sub_10011B768(a1);
+    if (sub_100021E38(v2))
     {
-      v5 = *(*(a2 + 32) + 96);
       sub_10000343C();
       sub_100013984();
-      sub_10000FB94(v6, v7, v8, v9, v10);
+      sub_10000FB94(v3, v4, v5, v6, v7);
     }
   }
 
-  v11 = sub_1000119D0(*(a2 + 40));
-  return v12(v11);
+  sub_1000119D0();
+  return v8();
 }
 
 uint64_t sub_1001B2DE8()
@@ -7326,17 +6630,17 @@ uint64_t sub_1001B2DE8()
   sub_1001393FC();
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_10011B768();
-    if (sub_1000033C0(v3))
+    v2 = sub_10011B768(v1);
+    if (sub_1000033C0(v2))
     {
       sub_1000187DC();
       sub_100021D74();
-      _os_log_impl(v4, v5, v6, v7, v8, 0xCu);
+      _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
     }
   }
 
-  v9 = sub_1000119D0(*(v1 + 32));
-  return v10(v9, v0);
+  sub_1000119D0();
+  return v8();
 }
 
 void sub_1001B2EA0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
@@ -7389,7 +6693,6 @@ void sub_1001B2F78(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v31 = *(v25 + 64);
   v32 = *(v25 + 32);
   v33 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/DirectClientToEngine/CPLDirectLibraryManager.m"];
-  v34 = *(*(*v23 + 8) + 40);
   [v30 handleFailureInMethod:v31 object:v32 file:v33 lineNumber:770 description:@"Final scope should have a proper scope identifier for %@"];
 
   abort();
@@ -7417,7 +6720,6 @@ void sub_1001B3068(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v28 = v23[8];
   v29 = v23[4];
   v30 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/DirectClientToEngine/CPLDirectLibraryManager.m"];
-  v31 = v23[5];
   [v27 handleFailureInMethod:v28 object:v29 file:v30 lineNumber:777 description:@"Failed to properly get the final scope change for %@"];
 
   abort();
@@ -7445,7 +6747,6 @@ void sub_1001B3148(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v28 = v23[8];
   v29 = v23[5];
   v30 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/DirectClientToEngine/CPLDirectLibraryManager.m"];
-  v31 = v23[4];
   [v27 handleFailureInMethod:v28 object:v29 file:v30 lineNumber:875 description:@"Failed to properly get the final scope change for %@"];
 
   abort();
@@ -7455,18 +6756,17 @@ void sub_1001B3228(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v7 = sub_10011B768();
+    v7 = sub_10011B768(a1);
     if (sub_10000FBAC(v7))
     {
-      v8 = *(a1 + 32);
       sub_10000343C();
       sub_100139440();
-      _os_log_impl(v9, v10, v11, v12, v13, 0xCu);
+      _os_log_impl(v8, v9, v10, v11, v12, 0xCu);
     }
   }
 
-  v14 = *(a1 + 40);
-  v15 = [*(a1 + 48) writeTransactionBlocker];
+  v13 = *(a1 + 40);
+  v14 = [*(a1 + 48) writeTransactionBlocker];
   sub_100080C6C();
   *(a2 + 8) = 3221225472;
   *(a2 + 16) = sub_100123FE4;
@@ -7478,20 +6778,19 @@ void sub_1001B3228(uint64_t a1, uint64_t a2, uint64_t a3)
   *(a3 + 16) = sub_1001240A0;
   *(a3 + 24) = &unk_100279860;
   *(a3 + 32) = *(a1 + 64);
-  v16 = [v14 performWriteTransactionByPassBlocker:v15 withBlock:a2 completionHandler:a3];
+  v15 = [v13 performWriteTransactionByPassBlocker:v14 withBlock:a2 completionHandler:a3];
 }
 
-void sub_1001B33BC(uint64_t *a1)
+void sub_1001B33BC(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_10011B768();
-    if (sub_10000FAE0(v3))
+    v2 = sub_10011B768(a1);
+    if (sub_10000FAE0(v2))
     {
-      v4 = *a1;
       sub_10000343C();
       sub_100080C88();
-      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+      _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
     }
   }
 }
@@ -7500,13 +6799,12 @@ void sub_1001B3464(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_10011B768();
-    if (sub_10000FAE0(v3))
+    v2 = sub_10011B768(a1);
+    if (sub_10000FAE0(v2))
     {
-      v4 = *(*a1 + 40);
       sub_10000343C();
       sub_100080C88();
-      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+      _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
     }
   }
 }
@@ -7534,7 +6832,6 @@ void sub_1001B3510(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v31 = *(v25 + 80);
   v32 = *(v25 + 48);
   v33 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/DirectClientToEngine/CPLDirectLibraryManager.m"];
-  v34 = *v23;
   [v30 handleFailureInMethod:v31 object:v32 file:v33 lineNumber:1043 description:@"Unable to find scope %@ after refresh"];
 
   abort();
@@ -7563,7 +6860,6 @@ void sub_1001B35F0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v31 = *(v25 + 64);
   v32 = *(v25 + 32);
   v33 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/DirectClientToEngine/CPLDirectLibraryManager.m"];
-  v34 = *(*(*v23 + 8) + 40);
   [v30 handleFailureInMethod:v31 object:v32 file:v33 lineNumber:1051 description:@"Final scope should have a proper scope identifier for %@"];
 
   abort();
@@ -7591,7 +6887,6 @@ void sub_1001B36E0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
   v28 = v23[8];
   v29 = v23[4];
   v30 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/DirectClientToEngine/CPLDirectLibraryManager.m"];
-  v31 = *(*(v23[7] + 8) + 40);
   [v27 handleFailureInMethod:v28 object:v29 file:v30 lineNumber:1058 description:@"Failed to properly get the final scope change for %@"];
 
   abort();
@@ -7600,26 +6895,23 @@ void sub_1001B36E0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 void sub_1001B37D0()
 {
   sub_10002B0F4();
-  v2 = v1;
-  v4 = v3;
+  v3 = v2;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_10011B768();
-    if (sub_1000033C0(v5))
+    v4 = sub_10011B768(v1);
+    if (sub_1000033C0(v4))
     {
-      v6 = *(v4 + 32);
-      v7 = [v2 error];
+      v5 = [v3 error];
       sub_100139338();
       sub_100021D74();
-      _os_log_impl(v8, v9, v10, v11, v12, 0x16u);
+      _os_log_impl(v6, v7, v8, v9, v10, 0x16u);
     }
   }
 
-  v13 = *(v4 + 40);
-  [v2 error];
+  [v3 error];
   objc_claimAutoreleasedReturnValue();
-  v14 = sub_1001392F4();
-  v15(v14);
+  v11 = sub_1001392F4();
+  v12(v11);
 
   sub_100139520();
 }
@@ -7629,21 +6921,19 @@ void sub_1001B38B8()
   sub_1001393FC();
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_10011B768();
+    v3 = sub_10011B768(v2);
     if (sub_1000033C0(v3))
     {
-      v4 = *v0;
       sub_10000343C();
       sub_100021D74();
-      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+      _os_log_impl(v4, v5, v6, v7, v8, 0xCu);
     }
   }
 
-  v10 = *(v1 + 80);
   [CPLErrors invalidScopeErrorWithScopeIdentifier:*v0];
   objc_claimAutoreleasedReturnValue();
-  v11 = sub_1001392F4();
-  v12(v11);
+  v9 = sub_1001392F4();
+  v10(v9);
 }
 
 void sub_1001B3988()
@@ -7651,7 +6941,7 @@ void sub_1001B3988()
   sub_1001394BC();
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_10011B768();
+    v3 = sub_10011B768(v2);
     if (sub_1000033C0(v3))
     {
       sub_100021E14();
@@ -7660,24 +6950,22 @@ void sub_1001B3988()
     }
   }
 
-  v9 = *(v1 + 80);
   [CPLErrors invalidScopeErrorWithScopeIdentifier:*v0];
   objc_claimAutoreleasedReturnValue();
-  v10 = sub_1001392F4();
-  v11(v10);
+  v9 = sub_1001392F4();
+  v10(v9);
 }
 
 void sub_1001B3A58(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_10011B768();
-    if (sub_10000FAE0(v3))
+    v2 = sub_10011B768(a1);
+    if (sub_10000FAE0(v2))
     {
-      v4 = *(a1 + 32);
       sub_10000343C();
       sub_100080C88();
-      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+      _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
     }
   }
 }
@@ -7687,21 +6975,19 @@ void sub_1001B3B00()
   sub_1001393FC();
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_10011B768();
+    v3 = sub_10011B768(v2);
     if (sub_1000033C0(v3))
     {
-      v4 = *v0;
       sub_10000343C();
       sub_100021D74();
-      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+      _os_log_impl(v4, v5, v6, v7, v8, 0xCu);
     }
   }
 
-  v10 = *(v1 + 88);
   [CPLErrors invalidScopeErrorWithScopeIdentifier:*v0];
   objc_claimAutoreleasedReturnValue();
-  v11 = sub_1001392F4();
-  v12(v11);
+  v9 = sub_1001392F4();
+  v10(v9);
 }
 
 uint64_t sub_1001B3BD0()
@@ -7709,7 +6995,7 @@ uint64_t sub_1001B3BD0()
   sub_1001394BC();
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_10011B768();
+    v3 = sub_10011B768(v2);
     if (sub_1000033C0(v3))
     {
       sub_100021E14();
@@ -7718,23 +7004,22 @@ uint64_t sub_1001B3BD0()
     }
   }
 
-  v9 = *(v1 + 88);
   *v0 = [CPLErrors cplErrorWithCode:52 description:@"Permission denied: not an owner"];
-  v10 = sub_100139310();
-  return v11(v10);
+  v9 = sub_100139310();
+  return v10(v9);
 }
 
 void sub_1001B3CAC()
 {
   sub_10002B0F4();
-  v2 = v1;
-  v4 = v3;
-  if ((v5 & 1) == 0)
+  v3 = v2;
+  v5 = v4;
+  if ((v1 & 1) == 0)
   {
-    v6 = sub_10011B768();
+    v6 = sub_10011B768(v1);
     if (sub_100003424(v6))
     {
-      v7 = [v4 allObjects];
+      v7 = [v5 allObjects];
       v8 = [v7 componentsJoinedByString:{@", "}];
       sub_10000AF90();
       sub_100013990();
@@ -7742,10 +7027,10 @@ void sub_1001B3CAC()
     }
   }
 
-  v14 = [v4 allObjects];
-  [v2 addObjectsFromArray:v14];
+  v14 = [v5 allObjects];
+  [v3 addObjectsFromArray:v14];
 
-  [v4 removeAllObjects];
+  [v5 removeAllObjects];
   sub_100139520();
 }
 
@@ -7753,7 +7038,7 @@ void sub_1001B3DA0(void *a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_10011B768();
+    v3 = sub_10011B768(a1);
     if (sub_10000FAE0(v3))
     {
       v4 = [a1 allObjects];
@@ -7765,20 +7050,20 @@ void sub_1001B3DA0(void *a1)
   }
 }
 
-uint64_t sub_1001B3E74(uint64_t a1, uint64_t a2)
+uint64_t sub_1001B3E74(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_10011B768();
-    if (sub_100003424(v5))
+    v2 = sub_10011B768(a1);
+    if (sub_100003424(v2))
     {
       sub_100013990();
-      _os_log_impl(v6, v7, v8, v9, v10, 2u);
+      _os_log_impl(v3, v4, v5, v6, v7, 2u);
     }
   }
 
-  v11 = sub_1000119D0(*(a1 + 88));
-  return v12(v11, a2, 0);
+  sub_1000119D0();
+  return v9(v8);
 }
 
 void sub_1001B3F00()
@@ -7786,7 +7071,7 @@ void sub_1001B3F00()
   sub_1001394BC();
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_10011B768();
+    v3 = sub_10011B768(v2);
     if (sub_1000033C0(v3))
     {
       sub_100021E14();
@@ -7795,18 +7080,17 @@ void sub_1001B3F00()
     }
   }
 
-  v9 = *(v1 + 88);
   [CPLErrors invalidScopeErrorWithScopeIdentifier:*v0];
   objc_claimAutoreleasedReturnValue();
-  v10 = sub_1001392F4();
-  v11(v10);
+  v9 = sub_1001392F4();
+  v10(v9);
 }
 
 void sub_1001B3FD0(uint64_t a1, void *a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_10011B768();
+    v5 = sub_10011B768(a1);
     if (sub_10000FAE0(v5))
     {
       v6 = *(a1 + 32);
@@ -7820,39 +7104,37 @@ void sub_1001B3FD0(uint64_t a1, void *a2)
         [*(a1 + 40) componentsJoinedByString:{@", "}];
       }
       v7 = ;
-      v8 = *(a1 + 48);
-      v9 = [a2 componentsJoinedByString:{@", "}];
+      v8 = [a2 componentsJoinedByString:{@", "}];
       sub_10000FB34();
       sub_100080C88();
-      _os_log_impl(v10, v11, v12, v13, v14, 0x20u);
+      _os_log_impl(v9, v10, v11, v12, v13, 0x20u);
     }
   }
 }
 
-id sub_1001B40F0(uint64_t *a1, void *a2, uint64_t *a3)
+id sub_1001B40F0(uint64_t a1, void *a2, uint64_t *a3)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v7 = sub_10011B768();
-    if (sub_1000033C0(v7))
+    v6 = sub_10011B768(a1);
+    if (sub_1000033C0(v6))
     {
-      v8 = *a1;
       sub_10000343C();
       sub_100021D74();
-      _os_log_impl(v9, v10, v11, v12, v13, 0xCu);
+      _os_log_impl(v7, v8, v9, v10, v11, 0xCu);
     }
   }
 
-  v14 = +[CPLErrors unknownError];
-  *a3 = v14;
-  return [a2 setError:v14];
+  v12 = +[CPLErrors unknownError];
+  *a3 = v12;
+  return [a2 setError:v12];
 }
 
 id sub_1001B41C4(uint8_t *a1, uint64_t a2, uint64_t *a3, void *a4)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v9 = sub_10011B768();
+    v9 = sub_10011B768(a1);
     if (sub_10000FBAC(v9))
     {
       *a1 = 138543362;
@@ -7874,7 +7156,7 @@ id sub_1001B42E0(uint64_t a1, void *a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_10011B768();
+    v4 = sub_10011B768(a1);
     if (sub_100021E20(v4))
     {
       v5 = [a2 path];
@@ -7893,7 +7175,7 @@ id sub_1001B43B8(uint64_t a1, void *a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_10011B768();
+    v4 = sub_10011B768(a1);
     if (sub_100021E20(v4))
     {
       v5 = [a2 path];
@@ -7912,19 +7194,17 @@ uint64_t sub_1001B448C(uint64_t a1, uint64_t a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_10011B768();
-    if (sub_1000033C0(v5))
+    v4 = sub_10011B768(a1);
+    if (sub_1000033C0(v4))
     {
-      *(a1 + 72);
-      *(a1 + 72);
       sub_100021D74();
-      _os_log_impl(v6, v7, v8, v9, v10, 0x20u);
+      _os_log_impl(v5, v6, v7, v8, v9, 0x20u);
     }
   }
 
   [sub_100139450() notePruningRequestForResource:? realPrune:? successful:?];
-  v11 = sub_1000119D0(*(a1 + 48));
-  return v12(v11, a2, 50, @"missing fileURL");
+  sub_1000119D0();
+  return v11(v10, a2, 50, @"missing fileURL");
 }
 
 void sub_1001B45B8(uint64_t a1, uint64_t *a2)
@@ -7954,36 +7234,36 @@ void sub_1001B468C()
   sub_1001393FC();
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = sub_10011B768();
-    if (sub_1000033C0(v3))
+    v4 = sub_10011B768(v3);
+    if (sub_1000033C0(v4))
     {
-      LOWORD(v13) = 0;
+      LOWORD(v14) = 0;
       sub_100021D74();
-      _os_log_impl(v4, v5, v6, v7, v8, 2u);
+      _os_log_impl(v5, v6, v7, v8, v9, 2u);
     }
   }
 
-  v9 = *(*(*(v0 + 88) + 8) + 40);
-  v10 = *(v0 + 40);
-  v11 = [CPLErrors cplErrorWithCode:27 description:@"Store has been reset", v13];
-  *v1 = v11;
-  v12 = [CPLErrors unsafeResources:v10 withError:v11 realPrune:*(v0 + 96) resourceStorage:*(v0 + 48)];
-  [v9 addEntriesFromDictionary:v12];
+  v10 = *(*(*(v0 + 88) + 8) + 40);
+  v11 = *(v0 + 40);
+  v12 = [CPLErrors cplErrorWithCode:27 description:@"Store has been reset", v14];
+  *v1 = v12;
+  v13 = [CPLErrors unsafeResources:v11 withError:v12 realPrune:*(v0 + 96) resourceStorage:*(v0 + 48)];
+  [v10 addEntriesFromDictionary:v13];
 }
 
-uint64_t sub_1001B476C(uint64_t a1, uint64_t a2)
+uint64_t sub_1001B476C(uint64_t a1)
 {
   if (a1)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v4 = sub_10011B768();
-      if (sub_10000FABC(v4))
+      v2 = sub_10011B768(a1);
+      if (sub_10000FABC(v2))
       {
         sub_10000FB34();
         sub_100139324();
 LABEL_8:
-        _os_log_impl(v5, v6, v7, v8, v9, v10);
+        _os_log_impl(v3, v4, v5, v6, v7, v8);
         goto LABEL_9;
       }
 
@@ -7993,20 +7273,20 @@ LABEL_8:
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v11 = sub_10011B768();
-    if (sub_10000FABC(v11))
+    v9 = sub_10011B768(0);
+    if (sub_10000FABC(v9))
     {
       sub_100013984();
-      v7 = OS_LOG_TYPE_DEFAULT;
-      v10 = 2;
+      v5 = OS_LOG_TYPE_DEFAULT;
+      v8 = 2;
       goto LABEL_8;
     }
 
 LABEL_9:
   }
 
-  v12 = sub_1000119D0(*(a2 + 48));
-  return v13(v12, 0, 2);
+  sub_1000119D0();
+  return v11(v10);
 }
 
 void sub_1001B4864(uint64_t a1, uint64_t a2)
@@ -8015,7 +7295,7 @@ void sub_1001B4864(uint64_t a1, uint64_t a2)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v4 = sub_10011B768();
+      v4 = sub_10011B768(a1);
       if (sub_10000FABC(v4))
       {
         sub_10000FB34();
@@ -8031,7 +7311,7 @@ LABEL_8:
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v11 = sub_10011B768();
+    v11 = sub_10011B768(0);
     if (sub_10000FABC(v11))
     {
       LOWORD(v14) = 0;
@@ -8053,19 +7333,18 @@ uint64_t sub_1001B4978(uint64_t a1, uint64_t *a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_10011B768();
-    if (sub_1000033C0(v5))
+    v4 = sub_10011B768(a1);
+    if (sub_1000033C0(v4))
     {
-      LOWORD(v15) = 0;
+      LOWORD(v13) = 0;
       sub_100021D74();
-      _os_log_impl(v6, v7, v8, v9, v10, 2u);
+      _os_log_impl(v5, v6, v7, v8, v9, 2u);
     }
   }
 
-  v11 = *(a1 + 64);
   *a2 = +[CPLErrors notImplementedError];
-  v12 = sub_100139310();
-  return v13(v12);
+  v10 = sub_100139310();
+  return v11(v10);
 }
 
 void sub_1001B4A14(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
@@ -8099,7 +7378,7 @@ id sub_1001B4B0C(void *a1, void *a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = sub_10011B768();
+    v5 = sub_10011B768(a1);
     if (sub_100003424(v5))
     {
       LODWORD(v12) = 138412290;
@@ -8120,7 +7399,7 @@ void sub_1001B4BDC(id a1)
   byte_1002D2810 = has_internal_content;
   if (has_internal_content && (_CPLSilentLogging & 1) == 0)
   {
-    v2 = sub_100139904();
+    v2 = sub_100139904(has_internal_content);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       sub_10000F9B0(&_mh_execute_header, v3, v4, "Checking acknowledged batches in pull session", v5, v6, v7, v8, 0);
@@ -8133,40 +7412,41 @@ void sub_1001B4C5C(uint64_t a1, void *a2, uint64_t a3)
   v5 = a2;
   v6 = [*(a1 + 32) objectAtIndex:a3];
   v7 = objc_opt_class();
-  if (v7 == objc_opt_class())
+  v8 = objc_opt_class();
+  if (v7 == v8)
   {
-    v8 = objc_alloc_init(CPLDiffTracker);
-    if ([v5 cplProperties:0 areEqualToPropertiesOf:v6 diffTracker:v8 withEqualityBlock:0])
+    v9 = objc_alloc_init(CPLDiffTracker);
+    if ([v5 cplProperties:0 areEqualToPropertiesOf:v6 diffTracker:v9 withEqualityBlock:0])
     {
 LABEL_16:
 
       goto LABEL_17;
     }
 
-    v9 = [v8 differingProperties];
-    v10 = [v9 anyObject];
+    v10 = [v9 differingProperties];
+    v11 = [v10 anyObject];
 
-    if (v10)
+    if (v11)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v11 = sub_100139904();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        v13 = sub_100139904(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
         {
-          v12 = [v5 valueForKey:v10];
-          v13 = [v6 valueForKey:v10];
+          v14 = [v5 valueForKey:v11];
+          v15 = [v6 valueForKey:v11];
           sub_10013BE34();
-          v23 = v14;
-          v24 = v10;
-          v25 = v14;
-          v26 = v12;
-          v27 = v14;
-          v28 = v15;
-          v16 = "Expected record:\n%@\nvs. acknowledged record:\n%@\nDifferent on %@: %@ vs. %@";
-          v17 = v11;
-          v18 = 52;
+          v25 = v16;
+          v26 = v11;
+          v27 = v16;
+          v28 = v14;
+          v29 = v16;
+          v30 = v17;
+          v18 = "Expected record:\n%@\nvs. acknowledged record:\n%@\nDifferent on %@: %@ vs. %@";
+          v19 = v13;
+          v20 = 52;
 LABEL_13:
-          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, v16, &v19, v18);
+          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, v18, &v21, v20);
 
           goto LABEL_14;
         }
@@ -8177,18 +7457,18 @@ LABEL_13:
 
     else if ((_CPLSilentLogging & 1) == 0)
     {
-      v11 = sub_100139904();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = sub_100139904(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v12 = [v5 cplFullDescription];
-        v13 = [v6 cplFullDescription];
-        v19 = 138412546;
-        v20 = v12;
-        v21 = 2112;
-        v22 = v13;
-        v16 = "Expected record:\n%@\n====\nReceived:\n%@";
-        v17 = v11;
-        v18 = 22;
+        v14 = [v5 cplFullDescription];
+        v15 = [v6 cplFullDescription];
+        v21 = 138412546;
+        v22 = v14;
+        v23 = 2112;
+        v24 = v15;
+        v18 = "Expected record:\n%@\n====\nReceived:\n%@";
+        v19 = v13;
+        v20 = 22;
         goto LABEL_13;
       }
 
@@ -8200,11 +7480,11 @@ LABEL_14:
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v8 = sub_100139904();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_100139904(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10013BE34();
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Expected record:\n%@\nvs. acknowledged record:\n%@", &v19, 0x16u);
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Expected record:\n%@\nvs. acknowledged record:\n%@", &v21, 0x16u);
     }
 
     goto LABEL_16;
@@ -8218,165 +7498,165 @@ uint64_t sub_1001B4EE0(uint64_t a1, uint64_t a2)
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 113));
   [WeakRetained assertNoUnacknowledgedChanges];
 
-  v4 = *(a1 + 32);
-  v5 = *(v4 + 57);
-  if (v5)
+  v5 = *(a1 + 32);
+  v6 = *(v5 + 57);
+  if (v6)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v6 = sub_100139904();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = sub_100139904(v4);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = *(*(a1 + 32) + 57);
+        v8 = *(*(a1 + 32) + 57);
         *buf = 138412290;
-        v123 = v7;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Client did not acknowledge %@. We will send it back the next time", buf, 0xCu);
+        v128 = v8;
+        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Client did not acknowledge %@. We will send it back the next time", buf, 0xCu);
       }
 
-      v4 = *(a1 + 32);
-      v5 = *(v4 + 57);
+      v5 = *(a1 + 32);
+      v6 = *(v5 + 57);
     }
 
-    *(v4 + 57) = 0;
+    *(v5 + 57) = 0;
 
-    v8 = *(a1 + 32);
-    v9 = *(v8 + 65);
-    *(v8 + 65) = 0;
+    v9 = *(a1 + 32);
+    v10 = *(v9 + 65);
+    *(v9 + 65) = 0;
   }
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v10 = sub_100139904();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = sub_100139904(v4);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "Compacting pull queue", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEBUG, "Compacting pull queue", buf, 2u);
     }
   }
 
-  v11 = objc_loadWeakRetained((*(a1 + 32) + 129));
-  v12 = [v11 compactChangeBatchesWithError:a2];
+  v12 = objc_loadWeakRetained((*(a1 + 32) + 129));
+  v13 = [v12 compactChangeBatchesWithError:a2];
 
-  if (!v12)
+  if (!v13)
   {
     return 0;
   }
 
-  v13 = objc_loadWeakRetained((*(a1 + 32) + 129));
-  v14 = [v13 isEmpty];
+  v14 = objc_loadWeakRetained((*(a1 + 32) + 129));
+  v15 = [v14 isEmpty];
 
-  if (!v14)
+  if (!v15)
   {
     return 1;
   }
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v15 = sub_100139904();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = sub_100139904(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "No remaining changes in pull queue, comitting remaining records in cloud cache", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "No remaining changes in pull queue, comitting remaining records in cloud cache", buf, 2u);
     }
   }
 
-  v16 = objc_loadWeakRetained((*(a1 + 32) + 113));
-  v17 = [v16 transientPullRepository];
-
   v18 = objc_loadWeakRetained((*(a1 + 32) + 113));
-  v112 = [v18 cloudCache];
+  v19 = [v18 transientPullRepository];
 
-  v19 = objc_loadWeakRetained((*(a1 + 32) + 113));
-  v111 = [v19 pushRepository];
+  v20 = objc_loadWeakRetained((*(a1 + 32) + 113));
+  v117 = [v20 cloudCache];
 
-  v119 = 0u;
-  v120 = 0u;
-  v117 = 0u;
-  v118 = 0u;
-  v114 = 121;
-  v20 = objc_loadWeakRetained((*(a1 + 32) + 121));
-  v21 = [v20 enumeratorForScopesIncludeInactive:0];
+  v21 = objc_loadWeakRetained((*(a1 + 32) + 113));
+  v116 = [v21 pushRepository];
 
-  obj = v21;
-  v22 = [v21 countByEnumeratingWithState:&v117 objects:v121 count:16];
-  if (!v22)
+  v124 = 0u;
+  v125 = 0u;
+  v122 = 0u;
+  v123 = 0u;
+  v119 = 121;
+  v22 = objc_loadWeakRetained((*(a1 + 32) + 121));
+  v23 = [v22 enumeratorForScopesIncludeInactive:0];
+
+  obj = v23;
+  v24 = [v23 countByEnumeratingWithState:&v122 objects:v126 count:16];
+  if (!v24)
   {
-    v104 = 1;
+    v109 = 1;
     goto LABEL_51;
   }
 
-  v24 = v22;
-  v25 = *v118;
-  *&v23 = 138412290;
-  v106 = v23;
+  v26 = v24;
+  v27 = *v123;
+  *&v25 = 138412290;
+  v111 = v25;
   while (2)
   {
-    for (i = 0; i != v24; i = i + 1)
+    for (i = 0; i != v26; i = i + 1)
     {
-      if (*v118 != v25)
+      if (*v123 != v27)
       {
         objc_enumerationMutation(obj);
       }
 
-      v27 = *(*(&v117 + 1) + 8 * i);
-      v28 = [v27 scopeIdentifier];
-      v29 = [v17 hasOnlyMingledRecordsWithScopeIdentifier:v28];
-      if (!v29)
+      v29 = *(*(&v122 + 1) + 8 * i);
+      v30 = [v29 scopeIdentifier];
+      v31 = [v19 hasOnlyMingledRecordsWithScopeIdentifier:v30];
+      if (!v31)
       {
         goto LABEL_41;
       }
 
-      v37 = sub_10013BE18(v29, v30, v31, v32, v33, v34, v35, v36, v106, *(&v106 + 1), v109, v111, v112, obj, v114);
-      v38 = [v37 transientSyncAnchorForScope:v27];
+      v39 = sub_10013BE18(v31, v32, v33, v34, v35, v36, v37, v38, v111, *(&v111 + 1), v114, v116, v117, obj, v119);
+      v40 = [v39 transientSyncAnchorForScope:v29];
 
-      if (v38)
+      if (v40)
       {
-        v39 = [v111 hasChangesInScopeWithIdentifier:v28];
-        if (v39)
+        v41 = [v116 hasChangesInScopeWithIdentifier:v30];
+        if (v41)
         {
           if (_CPLSilentLogging)
           {
             goto LABEL_40;
           }
 
-          v47 = sub_100139904();
-          v48 = os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT);
-          if (v48)
+          v49 = sub_100139904(v41);
+          v50 = os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT);
+          if (v50)
           {
-            sub_10013BE00(v48, v49, v50, v51, v52, v53, v54, v55, v56);
-            v58 = v47;
-            v59 = "No more changes for %@, but there are still changes to push to the transport";
+            sub_10013BE00(v50, v51, v52, v53, v54, v55, v56, v57, v58, v59);
+            v61 = v49;
+            v62 = "No more changes for %@, but there are still changes to push to the transport";
             goto LABEL_32;
           }
 
           goto LABEL_33;
         }
 
-        v60 = sub_10013BE18(v39, v40, v41, v42, v43, v44, v45, v46, v106, *(&v106 + 1), v109, v111, v112, obj, v114);
-        v61 = [v60 doesScopeNeedToPullChangesFromTransport:v27];
+        v63 = sub_10013BE18(v41, v42, v43, v44, v45, v46, v47, v48, v111, *(&v111 + 1), v114, v116, v117, obj, v119);
+        v64 = [v63 doesScopeNeedToPullChangesFromTransport:v29];
 
-        if (!v61)
+        if (!v64)
         {
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v79 = sub_100139904();
-            v80 = os_log_type_enabled(v79, OS_LOG_TYPE_DEFAULT);
-            if (v80)
+            v83 = sub_100139904(v65);
+            v84 = os_log_type_enabled(v83, OS_LOG_TYPE_DEFAULT);
+            if (v84)
             {
-              sub_10013BE00(v80, v81, v82, v83, v84, v85, v86, v87, v88);
-              _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_DEFAULT, "No more changes for %@, nothing to push or pull from/to transport - committing transient sync anchor", v89, 0xCu);
+              sub_10013BE00(v84, v85, v86, v87, v88, v89, v90, v91, v92, v93);
+              _os_log_impl(&_mh_execute_header, v83, OS_LOG_TYPE_DEFAULT, "No more changes for %@, nothing to push or pull from/to transport - committing transient sync anchor", v94, 0xCu);
             }
           }
 
-          v90 = sub_10013BE18(v62, v63, v64, v65, v66, v67, v68, v69, v106, *(&v106 + 1), v109, v111, v112, obj, v114);
-          v91 = [v90 setSyncAnchor:v38 forScope:v27 error:a2];
+          v95 = sub_10013BE18(v65, v66, v67, v68, v69, v70, v71, v72, v111, *(&v111 + 1), v114, v116, v117, obj, v119);
+          v96 = [v95 setSyncAnchor:v40 forScope:v29 error:a2];
 
-          if (!v91 || (v100 = sub_10013BE18(v92, v93, v94, v95, v96, v97, v98, v99, v107, v108, v110, v111, v112, obj, v115), v101 = [v100 storeTransientSyncAnchor:0 forScope:v27 error:a2], v100, (v101 & 1) == 0))
+          if (!v96 || (v105 = sub_10013BE18(v97, v98, v99, v100, v101, v102, v103, v104, v112, v113, v115, v116, v117, obj, v120), v106 = [v105 storeTransientSyncAnchor:0 forScope:v29 error:a2], v105, (v106 & 1) == 0))
           {
 
 LABEL_49:
 LABEL_50:
-            v104 = 0;
+            v109 = 0;
             goto LABEL_51;
           }
 
@@ -8385,15 +7665,15 @@ LABEL_50:
 
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v47 = sub_100139904();
-          v70 = os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT);
-          if (v70)
+          v49 = sub_100139904(v65);
+          v73 = os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT);
+          if (v73)
           {
-            sub_10013BE00(v70, v71, v72, v73, v74, v75, v76, v77, v78);
-            v58 = v47;
-            v59 = "No more changes for %@, but there are still changes to pull from the transport";
+            sub_10013BE00(v73, v74, v75, v76, v77, v78, v79, v80, v81, v82);
+            v61 = v49;
+            v62 = "No more changes for %@, but there are still changes to pull from the transport";
 LABEL_32:
-            _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, v59, v57, 0xCu);
+            _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, v62, v60, 0xCu);
           }
 
 LABEL_33:
@@ -8401,25 +7681,25 @@ LABEL_33:
       }
 
 LABEL_40:
-      v102 = [v112 commitStagedChangesForScopeWithIdentifier:v28 error:a2];
+      v107 = [v117 commitStagedChangesForScopeWithIdentifier:v30 error:a2];
 
-      if ((v102 & 1) == 0)
+      if ((v107 & 1) == 0)
       {
         goto LABEL_49;
       }
 
 LABEL_41:
-      v103 = [v17 deleteMingledRecordsForScopeWithIdentifier:v28 error:a2];
+      v108 = [v19 deleteMingledRecordsForScopeWithIdentifier:v30 error:a2];
 
-      if (!v103)
+      if (!v108)
       {
         goto LABEL_50;
       }
     }
 
-    v24 = [obj countByEnumeratingWithState:&v117 objects:v121 count:16];
-    v104 = 1;
-    if (v24)
+    v26 = [obj countByEnumeratingWithState:&v122 objects:v126 count:16];
+    v109 = 1;
+    if (v26)
     {
       continue;
     }
@@ -8429,15 +7709,16 @@ LABEL_41:
 
 LABEL_51:
 
-  return v104;
+  return v109;
 }
 
-void sub_1001B5448()
+void sub_1001B5448(uint64_t a1)
 {
-  v0 = sub_100139904();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = sub_100139904(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    sub_10000F9B0(&_mh_execute_header, v1, v2, "Removing all push/pull gatekeepers", v3, v4, v5, v6, 0);
+    v8 = 0;
+    sub_10000F9B0(&_mh_execute_header, v2, v3, "Removing all push/pull gatekeepers", v4, v5, v6, v7, v8);
   }
 }
 
@@ -8445,7 +7726,7 @@ void sub_1001B54A0(void *a1, uint64_t a2, uint64_t a3)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = sub_100139904();
+    v6 = sub_100139904(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = *(*a1 + a2);
@@ -8464,7 +7745,7 @@ void sub_1001B559C(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   if (_CPLSilentLogging != 1)
   {
-    v6 = sub_100139904();
+    v6 = sub_100139904(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = *(*a2 + a3);
@@ -8483,11 +7764,11 @@ void sub_1001B559C(uint64_t a1, uint64_t *a2, uint64_t a3)
   abort();
 }
 
-void sub_1001B56A0(char a1, uint64_t a2)
+void sub_1001B56A0(uint64_t a1, uint64_t a2)
 {
   if ((a1 & 1) == 0)
   {
-    v3 = sub_100139904();
+    v3 = sub_100139904(a1);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10013BE4C(&_mh_execute_header, v4, v5, "We should not have a non-empty batch yet as we are trying to look for one", v6, v7, v8, v9, 0);
@@ -8501,4 +7782,4485 @@ void sub_1001B56A0(char a1, uint64_t a2)
   [v10 handleFailureInMethod:v11 object:v12 file:v13 lineNumber:238 description:@"We should not have a non-empty batch yet as we are trying to look for one"];
 
   abort();
+}
+
+id sub_1001B5758(uint64_t a1, uint64_t a2)
+{
+  if ((a1 & 1) == 0)
+  {
+    v3 = sub_100139904(a1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = 134217984;
+      v6 = 100;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Failed to get a non empty batch after getting %lu batches from the pull queue - will continue to look for one", &v5, 0xCu);
+    }
+  }
+
+  return [*(a2 + 32) getChangeBatchWithCompletionHandler:*(a2 + 40)];
+}
+
+void sub_1001B5820(void *a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v2 = sub_100139904(a1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    {
+      sub_10013BE4C(&_mh_execute_header, v3, v4, "Engine is returning a nil library version but no error. This is a bug", v5, v6, v7, v8, 0);
+    }
+  }
+
+  v9 = +[CPLErrors missingError];
+  [a1 setError:v9];
+}
+
+void sub_1001B58D8(const char *a1, uint64_t a2)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v4 = __CPLGenericOSLogDomain();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      v5 = NSStringFromSelector(a1);
+      *buf = 138412290;
+      v10 = v5;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "%@ called too many times", buf, 0xCu);
+    }
+  }
+
+  v6 = +[NSAssertionHandler currentHandler];
+  v7 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/DirectClientToEngine/CPLDirectChangeSession.m"];
+  v8 = NSStringFromSelector(a1);
+  [v6 handleFailureInMethod:a1 object:a2 file:v7 lineNumber:169 description:{@"%@ called too many times", v8}];
+
+  abort();
+}
+
+uint64_t sub_1001B59E8(uint64_t a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v2 = sub_10013D210(a1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    {
+      if (*(*(a1 + 32) + 49))
+      {
+        v3 = "some changes";
+      }
+
+      else
+      {
+        v3 = "no changes";
+      }
+
+      *buf = 136315138;
+      v30 = v3;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "Finalized push session and %s were pushed by the client", buf, 0xCu);
+    }
+  }
+
+  v4 = *(a1 + 32);
+  if (*(v4 + 49) == 1 && *(v4 + 50) == 1)
+  {
+    WeakRetained = objc_loadWeakRetained((v4 + 65));
+    v6 = [WeakRetained syncManager];
+    v7 = [v6 lastError];
+    v8 = [v7 isCPLErrorWithCode:30];
+
+    if (v8)
+    {
+      v9 = objc_loadWeakRetained((*(a1 + 32) + 73));
+      v10 = [v9 scopes];
+
+      v11 = objc_alloc_init(NSMutableArray);
+      v24 = 0u;
+      v25 = 0u;
+      v26 = 0u;
+      v27 = 0u;
+      v12 = *(*(a1 + 32) + 97);
+      v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      if (v13)
+      {
+        v14 = v13;
+        v15 = *v25;
+        do
+        {
+          for (i = 0; i != v14; i = i + 1)
+          {
+            if (*v25 != v15)
+            {
+              objc_enumerationMutation(v12);
+            }
+
+            v17 = *(*(&v24 + 1) + 8 * i);
+            v18 = [v10 scopeWithIdentifier:{v17, v24}];
+            if (v18 && [v10 valueForFlag:2 forScope:v18])
+            {
+              [v11 addObject:v17];
+            }
+          }
+
+          v14 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        }
+
+        while (v14);
+      }
+
+      v19 = [v11 count];
+      if (v19)
+      {
+        if ((_CPLSilentLogging & 1) == 0)
+        {
+          v20 = sub_10013D210(v19);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          {
+            v21 = [v11 componentsJoinedByString:{@", "}];
+            *buf = 138412290;
+            v30 = v21;
+            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Resetting scheduler back-off to try to move %@ under quota", buf, 0xCu);
+          }
+        }
+
+        v22 = objc_loadWeakRetained((*(a1 + 32) + 89));
+        [v22 resetBackoffInterval];
+      }
+    }
+  }
+
+  return 1;
+}
+
+void sub_1001B5D24(void *a1, void *a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v4 = sub_10013D210(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = 138412290;
+      v6 = a1;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Automatically dropping batch in read-only mode: %@", &v5, 0xCu);
+    }
+  }
+
+  *a2 = objc_alloc_init(CPLChangeBatch);
+}
+
+void sub_1001B5DF8(uint64_t a1, uint64_t *a2, uint64_t a3)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v6 = sub_10013D210(a1);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v7 = [*(*(*a3 + 8) + 40) incomingBatch];
+      *buf = 138412290;
+      v14 = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to create a diff from incoming batch:\n%@", buf, 0xCu);
+    }
+  }
+
+  v8 = +[NSAssertionHandler currentHandler];
+  v9 = *(a1 + 64);
+  v10 = *a2;
+  v11 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/DirectClientToEngine/CPLDirectPushChangeSession.m"];
+  v12 = [*(*(*a3 + 8) + 40) incomingBatch];
+  [v8 handleFailureInMethod:v9 object:v10 file:v11 lineNumber:195 description:{@"Failed to create a diff from incoming batch:\n%@", v12}];
+
+  abort();
+}
+
+id sub_1001B5F24(uint64_t a1, void *a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v4 = sub_10013D210(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      v6 = 138412290;
+      v7 = a1;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Client tried to push an invalid batch: %@", &v6, 0xCu);
+    }
+  }
+
+  return [a2 setError:a1];
+}
+
+void sub_1001B5FF0(void *a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v2 = sub_10013D210(a1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    {
+      *v4 = 0;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "Engine is returning a nil library version but no error. This is a bug", v4, 2u);
+    }
+  }
+
+  v3 = +[CPLErrors missingError];
+  [a1 setError:v3];
+}
+
+void sub_1001B6090(uint64_t a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v2 = sub_10013D210(a1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    {
+      WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 65));
+      v4 = [WeakRetained syncManager];
+      v7 = 138412290;
+      v8 = v4;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Cancelling upload for %@", &v7, 0xCu);
+    }
+  }
+
+  v5 = objc_loadWeakRetained((*(a1 + 32) + 65));
+  v6 = [v5 syncManager];
+  [v6 cancelCurrentSyncSession];
+}
+
+void sub_1001B6FF4(uint64_t a1, uint64_t a2)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v4 = sub_10013EE4C(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      v13 = 0;
+      sub_10000AF60(&_mh_execute_header, v5, v6, "invalid scope in scope storage: missing identifier", v7, v8, v9, v10, v13);
+    }
+  }
+
+  v11 = +[NSAssertionHandler currentHandler];
+  v12 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteScopeStorage.m"];
+  [v11 handleFailureInMethod:a1 object:a2 file:v12 lineNumber:62 description:@"invalid scope in scope storage: missing identifier"];
+
+  abort();
+}
+
+void sub_1001B70E0(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = +[NSAssertionHandler currentHandler];
+  v7 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteScopeStorage.m"];
+  v8 = [CPLScopeChange descriptionForScopeType:a1];
+  [v6 handleFailureInMethod:a2 object:a3 file:v7 lineNumber:320 description:{@"%@ should not be directly synchronized with client", v8}];
+
+  abort();
+}
+
+id sub_1001B7184(void *a1, _BYTE *a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v5 = sub_10013EE4C(a1);
+    if (sub_100003424(v5))
+    {
+      LOWORD(v12) = 0;
+      sub_100013990();
+      _os_log_impl(v6, v7, v8, v9, v10, 2u);
+    }
+  }
+
+  result = [a1 _createInitialPrimarySyncScope];
+  *a2 = result;
+  return result;
+}
+
+void sub_1001B7208(uint64_t a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v2 = sub_10013EE4C(a1);
+    if (sub_10000FAE0(v2))
+    {
+      sub_1000139A0();
+      sub_100080C88();
+      _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+    }
+  }
+}
+
+void sub_1001B72A8(void *a1, uint64_t a2)
+{
+  v4 = [a1 changes];
+  if (v4 <= 0)
+  {
+    if (_CPLSilentLogging)
+    {
+      return;
+    }
+
+    v12 = sub_10013EE4C(v4);
+    if (sub_10000FAE0(v12))
+    {
+      sub_100080C88();
+      _os_log_impl(v13, v14, v15, v16, v17, 2u);
+    }
+  }
+
+  else
+  {
+    if (_CPLSilentLogging)
+    {
+      return;
+    }
+
+    v5 = sub_10013EE4C(v4);
+    if (sub_10000FAE0(v5))
+    {
+      v6 = [CPLDateFormatter stringFromDate:a2];
+      sub_10000AF90();
+      sub_100080C88();
+      _os_log_impl(v7, v8, v9, v10, v11, 0xCu);
+    }
+  }
+}
+
+void sub_1001B73A8(uint64_t a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v2 = sub_10013EE4C(a1);
+    if (sub_10000FAE0(v2))
+    {
+      sub_100080C88();
+      _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+    }
+  }
+}
+
+void sub_1001B7458(uint64_t a1)
+{
+  v2 = sub_10013EE4C(a1);
+  if (sub_10000FAE0(v2))
+  {
+    sub_1000139A0();
+    sub_100080C88();
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+  }
+}
+
+void sub_1001B74EC(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v6 = sub_10013EE4C(a1);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      sub_10002B064(&_mh_execute_header, v7, v8, "Missing scope types in order of scope types for %@", v9, v10, v11, v12, v15, v16);
+    }
+  }
+
+  v13 = +[NSAssertionHandler currentHandler];
+  v14 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteScopeStorage.m"];
+  [v13 handleFailureInMethod:a1 object:a2 file:v14 lineNumber:785 description:{@"Missing scope types in order of scope types for %@", a3}];
+
+  abort();
+}
+
+void sub_1001B75DC(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_10013EE4C(a1);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  {
+    LODWORD(v11) = 138412546;
+    *(&v11 + 4) = a1;
+    sub_1000033B4();
+    *v12 = a2;
+    sub_1000187BC(&_mh_execute_header, v5, v6, "Failed to deserialize supervisor info for %@: %@", v7, v8, v9, v10, v11, DWORD2(v11), *&v12[2]);
+  }
+}
+
+void sub_1001B7684(void *a1)
+{
+  v3 = sub_10013EE4C(a1);
+  if (sub_10000FAE0(v3))
+  {
+    [a1 changes];
+    sub_10000AF90();
+    sub_100080C88();
+    _os_log_impl(v4, v5, v6, v7, v8, 0xCu);
+  }
+}
+
+void sub_1001B771C(void *a1, uint64_t a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v4 = sub_10013EE4C(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      v5 = 138412546;
+      v6 = a1;
+      sub_1000033B4();
+      v7 = a2;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Invalid stored scope change %@ for %@", &v5, 0x16u);
+    }
+  }
+}
+
+void sub_1001B77E8(void *a1)
+{
+  v3 = sub_10013EE4C(a1);
+  if (sub_10000FAE0(v3))
+  {
+    v4 = [a1 scopeIdentifier];
+    sub_10000AF90();
+    sub_100080C88();
+    _os_log_impl(v5, v6, v7, v8, v9, 0x20u);
+  }
+}
+
+void sub_1001B78B0(uint64_t a1, uint64_t a2)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v4 = sub_10013EE4C(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      v13 = 0;
+      sub_10000AF60(&_mh_execute_header, v5, v6, "Unable to determine transport group class", v7, v8, v9, v10, v13);
+    }
+  }
+
+  v11 = +[NSAssertionHandler currentHandler];
+  v12 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteScopeStorage.m"];
+  [v11 handleFailureInMethod:a1 object:a2 file:v12 lineNumber:1689 description:@"Unable to determine transport group class"];
+
+  abort();
+}
+
+void sub_1001B7974(void *a1)
+{
+  v1 = objc_begin_catch(a1);
+  v2 = v1;
+  if (_CPLSilentLogging != 1)
+  {
+    v3 = sub_10013EE4C(v1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    {
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "Stored transport group does not seem supported anymore (%@)", &v4, 0xCu);
+    }
+  }
+
+  objc_end_catch();
+}
+
+void sub_1001B7A44(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v6 = sub_10013EE4C(a1);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      sub_10002B064(&_mh_execute_header, v7, v8, "Can't serialize %@", v9, v10, v11, v12, v15, v16);
+    }
+  }
+
+  v13 = +[NSAssertionHandler currentHandler];
+  v14 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteScopeStorage.m"];
+  [v13 handleFailureInMethod:a1 object:a2 file:v14 lineNumber:1714 description:{@"Can't serialize %@", a3}];
+
+  abort();
+}
+
+void sub_1001B7B20(uint64_t a1)
+{
+  v1 = sub_10013EE4C(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  {
+    sub_1000139A0();
+    sub_1000033B4();
+    sub_1000187BC(&_mh_execute_header, v2, v3, "Can't save group %@: %@", v4, v5, v6, v7);
+  }
+}
+
+id sub_1001B7BB8(void *a1, uint64_t a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v5 = sub_10013EE4C(a1);
+    if (sub_100003424(v5))
+    {
+      LOWORD(v12) = 0;
+      sub_100013990();
+      _os_log_impl(v6, v7, v8, v9, v10, 2u);
+    }
+  }
+
+  return [a1 _markFirstSyncOfPrimaryAsSuccessfulWithScope:{a2, v12}];
+}
+
+id sub_1001B7C3C(void *a1, void *a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v5 = sub_10013EE4C(a1);
+    if (sub_100003424(v5))
+    {
+      v6 = [a1 scopeIdentifier];
+      sub_10000AF90();
+      sub_100013990();
+      _os_log_impl(v7, v8, v9, v10, v11, 0xCu);
+    }
+  }
+
+  return [a2 _markFirstSyncOfPrimaryAsSuccessfulWithScope:a1];
+}
+
+void sub_1001B7EE4(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v6 = __CPLGenericOSLogDomain();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v10 = a3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Can't get related scoped identifier from %@", buf, 0xCu);
+    }
+  }
+
+  v7 = +[NSAssertionHandler currentHandler];
+  v8 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLStoreMigrationAssistant_101386451.m"];
+  [v7 handleFailureInMethod:a1 object:a2 file:v8 lineNumber:172 description:{@"Can't get related scoped identifier from %@", a3}];
+
+  abort();
+}
+
+void sub_1001B7FD0(uint64_t a1)
+{
+  v1 = sub_10014BE6C(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  {
+    sub_10000FAAC();
+    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+  }
+}
+
+void sub_1001B806C(uint64_t a1)
+{
+  v1 = sub_10014BE6C(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  {
+    sub_100021CFC();
+    sub_10000FAAC();
+    _os_log_impl(v2, v3, v4, v5, v6, 0x16u);
+  }
+}
+
+void sub_1001B8128(uint64_t a1)
+{
+  v1 = sub_10014BE6C(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  {
+    sub_10000FAAC();
+    _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+  }
+}
+
+void sub_1001B8A38(uint64_t a1, _BYTE *a2)
+{
+  if ((a1 & 1) == 0)
+  {
+    v3 = sub_10014C718(a1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    {
+      v4 = [a2 abstractObject];
+      v5 = [v4 name];
+      v6 = 138412290;
+      v7 = v5;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEBUG, "Initializing %@", &v6, 0xCu);
+    }
+  }
+
+  a2[33] = 1;
+  a2[35] = 0;
+}
+
+void sub_1001B8EB8(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v5 = sub_10014C718(a1);
+    if (sub_10002B0A8(v5))
+    {
+      sub_10002B064(&_mh_execute_header, v6, v7, "Trying to create a global variable %@ in a table", v8, v9, v10, v11, v14, v15);
+    }
+  }
+
+  v12 = +[NSAssertionHandler currentHandler];
+  v13 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteStorage.m"];
+  [sub_10002B108() handleFailureInMethod:a3 object:? file:? lineNumber:? description:?];
+
+  abort();
+}
+
+void sub_1001B8F88(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v5 = sub_10014C718(a1);
+    if (sub_10002B0A8(v5))
+    {
+      sub_10002B064(&_mh_execute_header, v6, v7, "Trying to set a value for a global variable %@ in a table", v8, v9, v10, v11, v14, v15);
+    }
+  }
+
+  v12 = +[NSAssertionHandler currentHandler];
+  v13 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteStorage.m"];
+  [sub_10002B108() handleFailureInMethod:a3 object:? file:? lineNumber:? description:?];
+
+  abort();
+}
+
+void sub_1001B9058(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v5 = sub_10014C718(a1);
+    if (sub_10002B0A8(v5))
+    {
+      sub_10002B064(&_mh_execute_header, v6, v7, "Trying to get a value for a global variable %@ in a table", v8, v9, v10, v11, v14, v15);
+    }
+  }
+
+  v12 = +[NSAssertionHandler currentHandler];
+  v13 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteStorage.m"];
+  [sub_10002B108() handleFailureInMethod:a3 object:? file:? lineNumber:? description:?];
+
+  abort();
+}
+
+void sub_1001B9128(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v5 = sub_10014C718(a1);
+    if (sub_10002B0A8(v5))
+    {
+      sub_10002B064(&_mh_execute_header, v6, v7, "Trying to reset a value for a global variable %@ in a table", v8, v9, v10, v11, v14, v15);
+    }
+  }
+
+  v12 = +[NSAssertionHandler currentHandler];
+  v13 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteStorage.m"];
+  [sub_10002B108() handleFailureInMethod:a3 object:? file:? lineNumber:? description:?];
+
+  abort();
+}
+
+void sub_1001B91F8(uint64_t a1, uint64_t a2)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v5 = sub_10014C718(a1);
+    if (sub_1000033C0(v5))
+    {
+      sub_10000348C(&_mh_execute_header, v6, v7, "trying to recreate main table %@ while already creating the main table", v8, v9, v10, v11, v14, v15);
+    }
+  }
+
+  v12 = +[NSAssertionHandler currentHandler];
+  v13 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteStorage.m"];
+  [v12 handleFailureInMethod:a2 object:a1 file:v13 lineNumber:474 description:{@"trying to recreate main table %@ while already creating the main table", *(a1 + 16)}];
+
+  abort();
+}
+
+void sub_1001B92DC(uint64_t a1, uint64_t a2)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v5 = sub_10014C718(a1);
+    if (sub_1000033C0(v5))
+    {
+      v6 = objc_opt_class();
+      sub_10000348C(&_mh_execute_header, v7, v8, "Trying to recreate main table for %@ while it was just already created", v9, v10, v11, v12, v15, v16);
+    }
+  }
+
+  v13 = +[NSAssertionHandler currentHandler];
+  v14 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteStorage.m"];
+  [v13 handleFailureInMethod:a2 object:a1 file:v14 lineNumber:475 description:{@"Trying to recreate main table for %@ while it was just already created", objc_opt_class()}];
+
+  abort();
+}
+
+void sub_1001B9A4C(uint64_t a1, CFAbsoluteTime *a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v4 = sub_10014EDBC(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    {
+      LODWORD(v9) = 138412290;
+      *(&v9 + 4) = a1;
+      sub_100013984();
+      _os_log_impl(v5, v6, OS_LOG_TYPE_DEBUG, v7, v8, 0xCu);
+    }
+  }
+
+  +[CPLSyncIndicator showSyncIndicator];
+  *a2 = CFAbsoluteTimeGetCurrent();
+}
+
+id sub_1001B9B30(void *a1, uint64_t a2)
+{
+  *a1 = 0;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v4 = sub_10014EDBC(a1);
+    if (sub_10014FD8C(v4))
+    {
+      LODWORD(v11) = 138412290;
+      *(&v11 + 4) = a2;
+      sub_10014FD7C();
+      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+    }
+  }
+
+  return +[CPLSyncIndicator hideSyncIndicator];
+}
+
+id sub_1001B9BE4(void *a1, void *a2)
+{
+  *a1 = 0;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v4 = sub_10014EDBC(a1);
+    if (sub_10014FD8C(v4))
+    {
+      LODWORD(v11) = 138412290;
+      *(&v11 + 4) = *a2;
+      sub_10014FD7C();
+      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+    }
+  }
+
+  return +[CPLSyncIndicator hideSyncIndicator];
+}
+
+void sub_1001B9C9C(uint64_t a1, uint64_t *a2)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v4 = __CPLGenericOSLogDomain();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      v5 = NSStringFromSelector(*(a1 + 48));
+      *buf = 138412290;
+      v12 = v5;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "%@ called too many times", buf, 0xCu);
+    }
+  }
+
+  v6 = +[NSAssertionHandler currentHandler];
+  v7 = *(a1 + 48);
+  v8 = *a2;
+  v9 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/Base/CPLBaseSyncManager.m"];
+  v10 = NSStringFromSelector(*(a1 + 48));
+  [v6 handleFailureInMethod:v7 object:v8 file:v9 lineNumber:232 description:{@"%@ called too many times", v10}];
+
+  abort();
+}
+
+void sub_1001B9DB4(void **a1, void *a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v3 = sub_100002F50(a1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    {
+      LOWORD(v9) = 0;
+      sub_100013984();
+      _os_log_impl(v4, v5, OS_LOG_TYPE_ERROR, v6, v7, 2u);
+    }
+
+    a2 = *a1;
+  }
+
+  [a2 unpublish];
+  v8 = *a1;
+  *a1 = 0;
+}
+
+void sub_1001B9E58(uint64_t a1, _BYTE *a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v4 = sub_100002F50(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    {
+      if (*(a1 + 40))
+      {
+        v5 = " (foreground)";
+      }
+
+      else
+      {
+        v5 = "";
+      }
+
+      v7 = 136315138;
+      v8 = v5;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "Sync session did finish%s", &v7, 0xCu);
+    }
+  }
+
+  [a1 _stopShowingIndicator:@"sync session"];
+  [a1 endClientWork:@"sync session"];
+  *(a1 + 56) = 14;
+  [*(a1 + 48) unpublish];
+  v6 = *(a1 + 48);
+  *(a1 + 48) = 0;
+
+  *a2 = 0;
+}
+
+void sub_1001B9F8C(uint64_t a1, uint64_t a2)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v4 = __CPLGenericOSLogDomain();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "We should not have a progress here", v7, 2u);
+    }
+  }
+
+  v5 = +[NSAssertionHandler currentHandler];
+  v6 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/Base/CPLBaseSyncManager.m"];
+  [v5 handleFailureInMethod:a1 object:a2 file:v6 lineNumber:511 description:@"We should not have a progress here"];
+
+  abort();
+}
+
+id sub_1001BA14C(uint64_t a1, void *a2)
+{
+  v4 = a2;
+  v5 = [*(*(a1 + 32) + 32) executeRaw:@"CREATE TABLE IF NOT EXISTS globals (libraryVersion TEXT)"];
+  v6 = "PLPrequeliteResourceUploadQueue";
+  if ((v5 & 1) == 0)
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v31 = sub_100150214(v5);
+      if (sub_1000033C0(v31))
+      {
+        v32 = [*(*(a1 + 32) + 32) lastCPLError];
+        v33 = [v32 localizedDescription];
+        v48 = 138412290;
+        v49 = v33;
+        sub_10004DA10(&_mh_execute_header, v34, v35, "Unable to create database globals table: %@", &v48);
+      }
+    }
+
+    goto LABEL_36;
+  }
+
+  v5 = [v4 executeRaw:@"INSERT INTO globals values (NULL)"];
+  if (!v5)
+  {
+LABEL_36:
+    v11 = 0;
+    goto LABEL_37;
+  }
+
+  v7 = [*(a1 + 32) abstractObject];
+  v8 = [v7 engineLibrary];
+  v9 = [v8 libraryOptions];
+
+  v10 = [NSNumber numberWithUnsignedInteger:v9];
+  v11 = sub_100158D60(v10);
+
+  if (!v11)
+  {
+    goto LABEL_37;
+  }
+
+  v12 = [*(a1 + 32) abstractObject];
+  v13 = [v12 storages];
+
+  v46 = 0u;
+  v47 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  v14 = v13;
+  v15 = [v14 countByEnumeratingWithState:&v44 objects:v52 count:16];
+  if (v15)
+  {
+    v9 = v15;
+    v16 = *v45;
+    while (2)
+    {
+      for (i = 0; i != v9; i = i + 1)
+      {
+        if (*v45 != v16)
+        {
+          objc_enumerationMutation(v14);
+        }
+
+        v18 = *(*(&v44 + 1) + 8 * i);
+        if (([v18 shouldBeCreatedDynamically] & 1) == 0)
+        {
+          v19 = [v18 platformObject];
+          v20 = [v19 createStorage];
+          if ((v20 & 1) == 0)
+          {
+            if ((_CPLSilentLogging & 1) == 0)
+            {
+              v40 = sub_100150214(v20);
+              if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+              {
+                v41 = [*(*(a1 + 32) + 32) lastCPLError];
+                v42 = [v41 localizedDescription];
+                v48 = 138412546;
+                v49 = v18;
+                v50 = 2112;
+                v51 = v42;
+                sub_10003752C(&_mh_execute_header, v40, v43, "Unable to initialize %@: %@", &v48);
+              }
+            }
+
+            v11 = 0;
+            goto LABEL_47;
+          }
+        }
+      }
+
+      v9 = [v14 countByEnumeratingWithState:&v44 objects:v52 count:16];
+      if (v9)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v21 = *(a1 + 32);
+  v22 = [v21 createNewLibraryVersion];
+  v11 = [v21 storeLibraryVersion:v22 withError:0];
+
+  if (v11)
+  {
+    v5 = sub_100158D30(*(a1 + 32), 88);
+    v6 = "@CPLPrequeliteResourceUploadQueue" + 3;
+    if (v5)
+    {
+      v5 = sub_100158D30(*(a1 + 32), 96);
+      if (v5)
+      {
+        v23 = [*(a1 + 32) createNewClientCacheIdentifier];
+        v11 = sub_100158D60(v23);
+
+        if (!v11)
+        {
+          goto LABEL_37;
+        }
+
+        v5 = sub_100158D30(*(a1 + 32), 112);
+        if (v5)
+        {
+          v24 = +[NSDate date];
+          v11 = sub_100158D60(v24);
+
+          if (!v11)
+          {
+            goto LABEL_37;
+          }
+
+          v5 = sub_100158D30(*(a1 + 32), 128);
+          if (v5)
+          {
+            v5 = sub_100158D30(*(a1 + 32), 136);
+            if (v5)
+            {
+              v5 = [*(a1 + 32) addGlobalVariable:*(*(a1 + 32) + 184) defaultValue:&off_10028F0E8 error:0];
+              if (v5)
+              {
+                v5 = sub_100158D30(*(a1 + 32), 192);
+                if (v5)
+                {
+                  v5 = sub_100158D30(*(a1 + 32), 216);
+                  if (v5)
+                  {
+                    v5 = [*(a1 + 32) addGlobalVariable:*(*(a1 + 32) + 224) defaultValue:&off_10028F0E8 error:0];
+                    if (v5)
+                    {
+                      v25 = [*(a1 + 32) abstractObject];
+                      v26 = [v25 mainScopeIdentifier];
+
+                      if ((_CPLSilentLogging & 1) == 0)
+                      {
+                        v28 = sub_100150214(v27);
+                        if (sub_10000FBAC(v28))
+                        {
+                          v48 = 138412290;
+                          v49 = v26;
+                          sub_1000374A0(&_mh_execute_header, v25, v29, "Store is created with main scope identifier %@", &v48);
+                        }
+                      }
+
+                      v30 = [*(a1 + 32) addGlobalVariable:*(*(a1 + 32) + 232) defaultValue:v26 error:{0, v44}];
+
+                      if (v30)
+                      {
+                        v5 = [*(*(a1 + 32) + 32) setUserVersion:94];
+                        v11 = v5;
+                        goto LABEL_37;
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    goto LABEL_36;
+  }
+
+LABEL_47:
+  v6 = "@CPLPrequeliteResourceUploadQueue" + 3;
+LABEL_37:
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v36 = sub_100150214(v5);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+    {
+      v38 = *(a1 + 32);
+      v48 = *(v6 + 413);
+      v49 = v38;
+      sub_10000FB94(&_mh_execute_header, v36, v37, "End of %@ initialization", &v48);
+    }
+  }
+
+  return v11;
+}
+
+uint64_t sub_1001BACA0(uint64_t a1)
+{
+  v3 = [*(a1 + 32) _upgradeToVersion:*(a1 + 48)];
+  if (v3)
+  {
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v1 = *(a1 + 40);
+    v4 = [v1 countByEnumeratingWithState:&v50 objects:v58 count:16];
+    if (v4)
+    {
+      v5 = v4;
+      v6 = *v51;
+      while (2)
+      {
+        for (i = 0; i != v5; i = i + 1)
+        {
+          if (*v51 != v6)
+          {
+            objc_enumerationMutation(v1);
+          }
+
+          v8 = *(*(&v50 + 1) + 8 * i);
+          v9 = [v8 platformObject];
+          if ([v8 isAlive])
+          {
+            v10 = [v9 upgradeStorageToVersion:*(a1 + 48)];
+            if ((v10 & 1) == 0)
+            {
+              if ((_CPLSilentLogging & 1) == 0)
+              {
+                v24 = sub_100150214(v10);
+                if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+                {
+                  v25 = *(a1 + 48);
+                  v26 = [*(*(a1 + 32) + 32) lastCPLError];
+                  v27 = [v26 localizedDescription];
+                  sub_100158D4C();
+                  v57 = v25;
+                  sub_100158D98();
+                  _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "Unable to upgrade %@ to version %lld: %@", buf, 0x20u);
+                }
+              }
+
+              v28 = *(a1 + 32);
+              v29 = [v8 name];
+              v30 = *(a1 + 48);
+              v31 = [*(*(a1 + 32) + 32) lastCPLError];
+              v32 = [v31 localizedDescription];
+              [v28 recordUpgradeEvent:{@"Failed to upgrade %@ to %lld: %@", v29, v30, v32}];
+
+              goto LABEL_25;
+            }
+          }
+        }
+
+        v5 = [v1 countByEnumeratingWithState:&v50 objects:v58 count:16];
+        if (v5)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+    v11 = *(a1 + 32);
+    if (v11[39])
+    {
+      v1 = [v11[39] platformObject];
+      v12 = [v1 upgradeStorageToVersion:*(a1 + 48)];
+
+      if (!v12)
+      {
+        if ((_CPLSilentLogging & 1) == 0)
+        {
+          v35 = sub_100150214(v13);
+          if (sub_10000FBDC(v35))
+          {
+            v36 = *(a1 + 32);
+            v37 = *(v36 + 312);
+            v38 = *(a1 + 48);
+            v39 = [*(v36 + 32) lastCPLError];
+            v40 = [v39 localizedDescription];
+            *buf = 138412802;
+            v55 = v37;
+            v56 = 2048;
+            v57 = v38;
+            sub_100158D98();
+            sub_100158DCC();
+            _os_log_impl(v41, v42, v43, v44, v45, 0x20u);
+          }
+        }
+
+        v46 = *(a1 + 32);
+        v1 = [v46[39] name];
+        v47 = *(a1 + 48);
+        v48 = [*(*(a1 + 32) + 32) lastCPLError];
+        v49 = [v48 localizedDescription];
+        [v46 recordUpgradeEvent:{@"Failed to upgrade %@ to %lld: %@", v1, v47, v49}];
+
+        goto LABEL_26;
+      }
+
+      v11 = *(a1 + 32);
+    }
+
+    v14 = [v11 _postUpgradeToVersion:*(a1 + 48)];
+    if (v14)
+    {
+      return 1;
+    }
+
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v33 = sub_100150214(v14);
+      if (sub_10000FBDC(v33))
+      {
+        v34 = *(a1 + 48);
+        v18 = [*(*(a1 + 32) + 32) lastCPLError];
+        v9 = [v18 localizedDescription];
+        sub_100158D4C();
+        v57 = v34;
+        sub_100158D98();
+LABEL_19:
+        sub_100158DCC();
+        _os_log_impl(v19, v20, v21, v22, v23, 0x20u);
+
+LABEL_25:
+        goto LABEL_26;
+      }
+
+      goto LABEL_26;
+    }
+  }
+
+  else if ((_CPLSilentLogging & 1) == 0)
+  {
+    v16 = sub_100150214(v3);
+    if (sub_10000FBDC(v16))
+    {
+      v17 = *(a1 + 48);
+      v18 = [*(*(a1 + 32) + 32) lastCPLError];
+      v9 = [v18 localizedDescription];
+      sub_100158D4C();
+      v57 = v17;
+      sub_100158D98();
+      goto LABEL_19;
+    }
+
+LABEL_26:
+  }
+
+  return 0;
+}
+
+void sub_1001BB51C(uint64_t a1)
+{
+  *(*(a1 + 32) + 256) = 1;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v1 = sub_100150214(a1);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
+    {
+      sub_10014FD7C();
+      _os_log_impl(v2, v3, v4, v5, v6, 2u);
+    }
+  }
+}
+
+void sub_1001BB5A4(uint64_t a1)
+{
+  *(*(a1 + 32) + 256) = 0;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v1 = sub_100150214(a1);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
+    {
+      sub_10014FD7C();
+      _os_log_impl(v2, v3, v4, v5, v6, 2u);
+    }
+  }
+}
+
+void sub_1001BB75C(void *a1)
+{
+  v2 = a1[4];
+  if (*(v2 + 336))
+  {
+    v4 = *(v2 + 32);
+    if (!v4 || ([v4 incrementalVacuum:a1[6]] & 1) == 0)
+    {
+      *(*(a1[5] + 8) + 24) = 0;
+    }
+  }
+
+  else if ((_CPLSilentLogging & 1) == 0)
+  {
+    v5 = sub_100150214(a1);
+    if (sub_10000FAE0(v5))
+    {
+      sub_100080C88();
+      _os_log_impl(v6, v7, v8, v9, v10, 2u);
+    }
+  }
+}
+
+void sub_1001BB808(uint64_t a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v3 = sub_100150214(a1);
+    if (sub_10000FABC(v3))
+    {
+      v5 = *(a1 + 32);
+      v12 = 138412290;
+      v13 = v5;
+      sub_1000374A0(&_mh_execute_header, v1, v4, "Suspending queue for %@", &v12);
+    }
+  }
+
+  dispatch_suspend(*(*(a1 + 32) + 8));
+  dispatch_suspend(*(*(a1 + 32) + 16));
+  [*(a1 + 32) closeWithError:0];
+  sub_1000033D8();
+  v8 = 3221225472;
+  v9 = sub_100157F28;
+  v10 = &unk_100272000;
+  v6 = *(a1 + 40);
+  v11 = *(a1 + 48);
+  dispatch_sync(v6, block);
+}
+
+void sub_1001BB920(uint64_t a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v2 = sub_100150214(a1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    {
+      sub_100013984();
+      _os_log_impl(v3, v4, OS_LOG_TYPE_DEBUG, v5, v6, 2u);
+    }
+  }
+
+  dispatch_resume(*(a1 + 32));
+}
+
+void sub_1001BB9A0(uint64_t a1)
+{
+  v2 = [a1 abstractObject];
+  v3 = [v2 engineLibrary];
+  v4 = [v3 cloudLibraryStateStorageURL];
+
+  v5 = [v4 URLByAppendingPathComponent:@"store.cloudphotodb" isDirectory:0];
+  sub_100158DA8([v5 copy], 40);
+
+  v6 = CPLCopyDefaultSerialQueueAttributes();
+  v7 = dispatch_queue_create("com.apple.cplenginestore.sqlite", v6);
+  v8 = *(a1 + 8);
+  *(a1 + 8) = v7;
+
+  v9 = CPLCopyDefaultSerialQueueAttributes();
+  v10 = dispatch_queue_create_with_target_V2("com.apple.cplenginestore.sqlite.write", v9, *(a1 + 8));
+  sub_100158DA8(v10, 16);
+
+  *(a1 + 24) = 0;
+  v11 = CPLCopyDefaultSerialQueueAttributes();
+  v12 = dispatch_queue_create("com.apple.cplenginestore.sqlite.vacuum", v11);
+  sub_100158DA8(v12, 328);
+
+  sub_100158DA8(objc_alloc_init(NSMutableSet), 56);
+  sub_100158DA8(objc_alloc_init(NSObject), 64);
+  v13 = [CPLPrequeliteTable tableWithName:@"globals"];
+  sub_100158DA8(v13, 72);
+  v14 = +[CPLPrequeliteType stringType];
+  v15 = [sub_100158D18() variableWithName:? type:?];
+  sub_100158DA8(v15, 80);
+
+  v16 = [sub_100158D24() dataType];
+  v17 = [sub_100158D18() variableWithName:? type:?];
+  sub_100158DA8(v17, 88);
+
+  v18 = [sub_100158D24() dateType];
+  v19 = [sub_100158D18() variableWithName:? type:?];
+  sub_100158DA8(v19, 96);
+
+  v20 = [sub_100158D24() stringType];
+  v21 = [sub_100158D18() variableWithName:? type:?];
+  sub_100158DA8(v21, 104);
+
+  v22 = [sub_100158D24() stringType];
+  v23 = [sub_100158D18() variableWithName:? type:?];
+  sub_100158DA8(v23, 112);
+
+  v24 = [sub_100158D24() dateType];
+  v25 = [sub_100158D18() variableWithName:? type:?];
+  sub_100158DA8(v25, 120);
+
+  v26 = [sub_100158D24() dataType];
+  v27 = [sub_100158D18() variableWithName:? type:?];
+  v28 = *(a1 + 128);
+  *(a1 + 128) = v27;
+
+  v29 = [sub_100158D24() dataType];
+  v30 = [sub_100158D18() variableWithName:? type:?];
+  sub_100158DA8(v30, 136);
+
+  v31 = [sub_100158D24() integerType];
+  v32 = [sub_100158D18() variableWithName:? type:?];
+  sub_100158DA8(v32, 176);
+
+  v33 = [sub_100158D24() integerType];
+  v34 = [sub_100158D18() variableWithName:? type:?];
+  sub_100158DA8(v34, 184);
+
+  v35 = [sub_100158D24() dataType];
+  v36 = [sub_100158D18() variableWithName:? type:?];
+  sub_100158DA8(v36, 192);
+
+  v37 = [sub_100158D24() dataType];
+  v38 = [sub_100158D18() variableWithName:? type:?];
+  sub_100158DA8(v38, 216);
+
+  v39 = [sub_100158D24() integerType];
+  v40 = [sub_100158D18() variableWithName:? type:?];
+  sub_100158DA8(v40, 224);
+
+  v41 = [sub_100158D24() stringType];
+  v42 = [sub_100158D18() variableWithName:? type:?];
+  v43 = *(a1 + 232);
+  *(a1 + 232) = v42;
+
+  [*(a1 + 232) setShouldNotCacheValue:1];
+  [*(a1 + 128) setShouldNotCacheValue:1];
+  v44 = CPLCopyDefaultSerialQueueAttributes();
+  v45 = dispatch_queue_create("com.apple.cplenginestore.sqlite.clientsync", v44);
+  sub_100158DA8(v45, 248);
+
+  *(a1 + 292) = -1;
+  v46 = +[NSUserDefaults standardUserDefaults];
+  *(a1 + 353) = [v46 BOOLForKey:@"CPLShowStatsForAllTransactions"];
+
+  if (*(a1 + 353))
+  {
+    *(a1 + 352) = 1;
+  }
+
+  else
+  {
+    has_internal_content = os_variant_has_internal_content();
+    *(a1 + 352) = has_internal_content;
+    if ((has_internal_content & 1) == 0)
+    {
+      goto LABEL_13;
+    }
+  }
+
+  if (*(a1 + 353))
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v48 = sub_100150214(has_internal_content);
+      if (sub_10000FABC(v48))
+      {
+        v52 = 0;
+        v49 = "Will logs statistics for all transactions";
+        v50 = &v52;
+LABEL_11:
+        _os_log_impl(&_mh_execute_header, a1, OS_LOG_TYPE_DEFAULT, v49, v50, 2u);
+        goto LABEL_12;
+      }
+
+      goto LABEL_12;
+    }
+  }
+
+  else if ((_CPLSilentLogging & 1) == 0)
+  {
+    v51 = sub_100150214(has_internal_content);
+    if (sub_10000FABC(v51))
+    {
+      *buf = 0;
+      v49 = "Will try to catch long transactions";
+      v50 = buf;
+      goto LABEL_11;
+    }
+
+LABEL_12:
+  }
+
+LABEL_13:
+}
+
+void sub_1001BBF78(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  sub_100158DC0();
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v8 = sub_100150214(v7);
+    if (sub_10000FBAC(v8))
+    {
+      *buf = 134218242;
+      v13 = v3;
+      v14 = 2112;
+      v15 = v4;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Was requested to schedule a reset (option #%lu) after upgrade for reason '%@'", buf, 0x16u);
+    }
+  }
+
+  [a3 recordUpgradeEvent:{@"Reset option %ld requested. Reason: %@", v3, v4}];
+  if (*(a3 + 289) != 1)
+  {
+    *(a3 + 289) = 1;
+    *(a3 + 264) = v3;
+    v10 = [v4 copy];
+    v11 = *(a3 + 272);
+    *(a3 + 272) = v10;
+
+    return;
+  }
+
+  v9 = *(a3 + 264);
+  if (v9 == 3)
+  {
+    if (v3 == 3)
+    {
+      return;
+    }
+
+    goto LABEL_13;
+  }
+
+  if (v9 == 1)
+  {
+    if (v3 != 2)
+    {
+      return;
+    }
+
+    goto LABEL_13;
+  }
+
+  if (!v9 && (v3 - 1) <= 1)
+  {
+LABEL_13:
+    objc_storeStrong((a3 + 272), v4);
+    *(a3 + 264) = v3;
+  }
+}
+
+void sub_1001BC0F4(uint64_t a1, uint64_t a2, uint64_t a3, NSObject *a4)
+{
+  *a3 = 134218242;
+  *(a3 + 4) = a1;
+  *(a3 + 12) = 2080;
+  *(a3 + 14) = a2;
+  sub_10003752C(&_mh_execute_header, a4, a3, "Failed to setup SQL tracing on %p hook: %s", a3);
+}
+
+void sub_1001BC158(uint64_t a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v2 = sub_10015060C(a1);
+    if (sub_10000FAE0(v2))
+    {
+      sub_100080C88();
+      _os_log_impl(v3, v4, v5, v6, v7, 2u);
+    }
+  }
+}
+
+void sub_1001BC1C4(void *a1, uint8_t *buf, os_log_t log, double a4)
+{
+  *buf = 134218242;
+  *(buf + 4) = a4;
+  *(buf + 6) = 2114;
+  *(buf + 14) = a1;
+  _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_DEFAULT, "Transaction took %.3fs. Sorted statements:\n  %{public}@", buf, 0x16u);
+}
+
+void sub_1001BC228(uint64_t a1, double a2)
+{
+  *(a1 + 360) = a2;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v3 = sub_10015060C(a1);
+    if (sub_10000FAE0(v3))
+    {
+      sub_100080C88();
+      _os_log_impl(v4, v5, v6, v7, v8, 0xCu);
+    }
+  }
+}
+
+void sub_1001BC2E4(uint64_t a1, uint64_t a2)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v5 = sub_100150214(a1);
+    if (sub_1000033C0(v5))
+    {
+      v14 = 0;
+      sub_10000AF60(&_mh_execute_header, v6, v7, "Trying to schedule client cache drop twice", v8, v9, v10, v11, v14);
+    }
+  }
+
+  v12 = +[NSAssertionHandler currentHandler];
+  v13 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteStore.m"];
+  [v12 handleFailureInMethod:a1 object:a2 file:v13 lineNumber:627 description:@"Trying to schedule client cache drop twice"];
+
+  abort();
+}
+
+id sub_1001BC3A0(id *a1, uint64_t a2, void *a3)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v6 = sub_100150214(a1);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Dropping clientCache now", v8, 2u);
+    }
+
+    a3 = *(*a1 + a2);
+  }
+
+  result = [a3 execute:@"DROP TABLE clientCache"];
+  if (result)
+  {
+    return [*a1 startVacuumWithCompletionHandler:&stru_10027B4E0];
+  }
+
+  return result;
+}
+
+id sub_1001BC458(void *a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v3 = sub_100150214(a1);
+    if (sub_10000FABC(v3))
+    {
+      LOWORD(v9) = 0;
+      sub_100013984();
+      _os_log_impl(v4, v5, OS_LOG_TYPE_DEFAULT, v6, v7, 2u);
+    }
+  }
+
+  return [a1 _scheduleClientCacheDrop];
+}
+
+id sub_1001BC4D0(void *a1, void *a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v5 = __CPLGenericOSLogDomain();
+    if (sub_100003448(v5))
+    {
+      v6 = [a1 lastError];
+      sub_10000AF90();
+      sub_100021D44();
+      _os_log_impl(v7, v8, v9, v10, v11, 0xCu);
+    }
+  }
+
+  return [a2 triggerResetAfterUpgrade:0 withReason:@"failed to migrate to flat push pipeline"];
+}
+
+void sub_1001BC5A4(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100150214(a1);
+  if (sub_10000FBDC(v4))
+  {
+    v5 = [*(a2 + 32) lastCPLError];
+    v6 = [v5 localizedDescription];
+    sub_1000ACA54();
+    sub_10000FAAC();
+    _os_log_impl(v7, v8, v9, v10, v11, 0x16u);
+  }
+}
+
+void sub_1001BC66C(uint64_t a1)
+{
+  v2 = sub_100150214(a1);
+  if (sub_10000FAE0(v2))
+  {
+    sub_1000139A0();
+    sub_100080C88();
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+  }
+}
+
+void sub_1001BC6FC()
+{
+  sub_100158DC0();
+  v3 = sub_100150214(v2);
+  if (sub_10000FBDC(v3))
+  {
+    v4 = [v1 migrationDescription];
+    sub_10000AF90();
+    sub_10000FAAC();
+    _os_log_impl(v5, v6, v7, v8, v9, 0x16u);
+  }
+}
+
+void sub_1001BC7B4(uint8_t *a1, void *a2, void *a3)
+{
+  v7 = sub_100150214(a1);
+  if (sub_10000FAE0(v7))
+  {
+    v8 = [a2 migrationDescription];
+    *a1 = 138412290;
+    *a3 = v8;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Migration '%@' completed successfully", a1, 0xCu);
+  }
+}
+
+void sub_1001BC854(uint64_t a1)
+{
+  v2 = sub_100150214(a1);
+  if (sub_10000FBDC(v2))
+  {
+    sub_1000139A0();
+    sub_10000FAAC();
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+  }
+}
+
+void sub_1001BC8E4(uint64_t a1)
+{
+  v2 = sub_100150214(a1);
+  if (sub_10000FBDC(v2))
+  {
+    sub_1000139A0();
+    sub_10000FAAC();
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+  }
+}
+
+void sub_1001BC974(uint64_t a1, uint64_t a2, void *a3)
+{
+  sub_100158DC0();
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v8 = sub_100150214(v7);
+    if (sub_10002B0A8(v8))
+    {
+      v11 = 138412290;
+      v12 = v4;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "Trying to wipe database for reason '%@' but user asked to prevent wipes", &v11, 0xCu);
+    }
+  }
+
+  v9 = [CPLErrors preventWipeErrorWithReason:v4 preventedByUser:1];
+  [*(v3 + 32) setLastError:v9];
+  if (a3)
+  {
+    v10 = v9;
+    *a3 = v9;
+  }
+}
+
+id sub_1001BCA70(uint64_t a1, void *a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v4 = sub_100150214(a1);
+    if (sub_1000033C0(v4))
+    {
+      sub_1000139A0();
+      sub_10004DA10(&_mh_execute_header, v5, v6, "Database has been marked as corrupted - wiping everything - corruption info: %@", v9);
+    }
+  }
+
+  v7 = [sub_100158E24() _wipeReasonFromCorruptionInfo:?];
+  [sub_100158E24() _wipeWithReason:?];
+
+  return [a2 _deleteCorruptionInfo];
+}
+
+id sub_1001BCB3C(uint64_t a1, void *a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v4 = sub_100150214(a1);
+    if (sub_1000033C0(v4))
+    {
+      sub_1000139A0();
+      sub_10004DA10(&_mh_execute_header, v5, v6, "CPL has been requested to wipe database: %@", v8);
+    }
+  }
+
+  [sub_100158E24() _wipeWithReason:?];
+  return [a2 _deleteWipeReason];
+}
+
+void sub_1001BCBF4(uint64_t a1, uint64_t a2)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v5 = sub_100150214(a1);
+    if (sub_1000033C0(v5))
+    {
+      v14 = 0;
+      sub_10000AF60(&_mh_execute_header, v6, v7, "Trying to open the upgrade journal twice", v8, v9, v10, v11, v14);
+    }
+  }
+
+  v12 = +[NSAssertionHandler currentHandler];
+  v13 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteStore.m"];
+  [v12 handleFailureInMethod:a1 object:a2 file:v13 lineNumber:1058 description:@"Trying to open the upgrade journal twice"];
+
+  abort();
+}
+
+void sub_1001BCCB0(void *a1, uint64_t a2, uint64_t a3)
+{
+  sub_100158DDC(a1, a2, a3, 5.778e-34);
+  sub_10003752C(&_mh_execute_header, v6, v4, "Can't create store folder at %@: %@", v5);
+}
+
+void sub_1001BCD00(void *a1, uint64_t a2, NSObject *a3)
+{
+  *a2 = 138412290;
+  *(a2 + 4) = a1;
+  sub_10000FB94(&_mh_execute_header, a3, a3, "Created store folder at %@", a2);
+}
+
+void sub_1001BCD50(void *a1, uint64_t a2, uint64_t a3)
+{
+  sub_100158DDC(a1, a2, a3, 5.778e-34);
+  sub_10003752C(&_mh_execute_header, v6, v4, "Can't open store at %@: %@: error", v5);
+}
+
+void sub_1001BCDA0(uint64_t a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v2 = sub_100150214(a1);
+    if (sub_10000FBDC(v2))
+    {
+      sub_1000139A0();
+      sub_10000FAAC();
+      _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+    }
+  }
+}
+
+void sub_1001BCE44(uint64_t a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v2 = sub_100150214(a1);
+    if (sub_10000FAE0(v2))
+    {
+      sub_100080C88();
+      _os_log_impl(v3, v4, v5, v6, v7, 2u);
+    }
+  }
+}
+
+void sub_1001BCEB0(void *a1, uint64_t a2, NSObject *a3)
+{
+  *a2 = 138412290;
+  *(a2 + 4) = a1;
+  sub_1000374A0(&_mh_execute_header, a3, a3, "Previously disabled features: %@ - will request an update of disabled features", a2);
+}
+
+void sub_1001BCF00(uint64_t a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v2 = sub_100150214(a1);
+    if (sub_10000FBDC(v2))
+    {
+      sub_10000FAAC();
+      _os_log_impl(v3, v4, v5, v6, v7, 2u);
+    }
+  }
+}
+
+void sub_1001BCF6C(uint64_t a1)
+{
+  v2 = sub_100150214(a1);
+  if (sub_10000FBDC(v2))
+  {
+    sub_1000139A0();
+    sub_10000FAAC();
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+  }
+}
+
+id sub_1001BCFFC(uint64_t a1, id *a2)
+{
+  if ((a1 & 1) == 0)
+  {
+    v4 = sub_100150214(a1);
+    if (sub_10000FABC(v4))
+    {
+      v5 = [a2[4] userVersion];
+      [v5 longLongValue];
+      sub_10000AF90();
+      sub_100013984();
+      sub_1000374A0(v6, v7, v8, v9, v10);
+    }
+  }
+
+  return [a2 _scheduleClientCacheDropIfNecessary];
+}
+
+void sub_1001BD0BC(uint64_t a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v1 = sub_100150214(a1);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
+    {
+      sub_10014FD7C();
+      _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    }
+  }
+}
+
+void sub_1001BD170(void *a1, uint64_t a2, uint64_t a3)
+{
+  v4 = objc_begin_catch(a1);
+  v5 = *(*(a3 + 40) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
+
+  objc_end_catch();
+}
+
+void sub_1001BD1C0(uint64_t a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v2 = sub_100150214(a1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    {
+      LODWORD(v12) = 138412290;
+      *(&v12 + 4) = *(a1 + 40);
+      sub_100013984();
+      sub_10000FB94(v3, v4, v5, v6, v7);
+    }
+  }
+
+  v8 = *(a1 + 40);
+  v9 = +[CPLErrors libraryClosedError];
+  [v8 setError:v9];
+
+  v10 = *(a1 + 48);
+  v11 = [*(a1 + 40) error];
+  (*(v10 + 16))(v10, v11);
+}
+
+void sub_1001BD2D0(void *a1, uint64_t a2, uint64_t a3)
+{
+  v4 = objc_begin_catch(a1);
+  v5 = *(*(a3 + 48) + 8);
+  v6 = *(v5 + 40);
+  *(v5 + 40) = v4;
+
+  objc_end_catch();
+}
+
+void sub_1001BD320(uint64_t a1, uint64_t a2)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v5 = sub_100150214(a1);
+    if (sub_1000033C0(v5))
+    {
+      v14 = 0;
+      sub_10000AF60(&_mh_execute_header, v6, v7, "Unable to determine user identifier class", v8, v9, v10, v11, v14);
+    }
+  }
+
+  v12 = +[NSAssertionHandler currentHandler];
+  v13 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteStore.m"];
+  [v12 handleFailureInMethod:a1 object:a2 file:v13 lineNumber:1585 description:@"Unable to determine user identifier class"];
+
+  abort();
+}
+
+void sub_1001BD3DC(uint64_t a1, void *a2, void *a3)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v6 = sub_100150214(v5);
+    if (sub_100003448(v6))
+    {
+      sub_100021CFC();
+      sub_100021D44();
+      _os_log_impl(v7, v8, v9, v10, v11, 0x16u);
+    }
+  }
+
+  objc_end_catch();
+}
+
+void sub_1001BD49C(uint64_t *a1)
+{
+  v2 = +[NSUUID UUID];
+  v3 = [v2 UUIDString];
+
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v5 = sub_100150214(v4);
+    if (sub_1000033C0(v5))
+    {
+      sub_1000139A0();
+      sub_10004DA10(&_mh_execute_header, v6, v7, "Can't decode user identifier, will use a fake user identifier (%@) and we will reset everything", v8);
+    }
+  }
+
+  *a1 = v3;
+}
+
+void sub_1001BD63C()
+{
+  sub_100158DC0();
+  v2 = sub_100150214(v1);
+  if (sub_10000FBDC(v2))
+  {
+    sub_100021CFC();
+    sub_10000FAAC();
+    _os_log_impl(v3, v4, v5, v6, v7, 0x16u);
+  }
+}
+
+void sub_1001BD6D8(uint8_t *a1, uint64_t a2, void *a3, uint64_t a4, void *a5)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v11 = sub_100150214(a1);
+    if (sub_10000FBAC(v11))
+    {
+      *a1 = 138412290;
+      *a3 = a2;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Ignoring push/pull gatekeeper %@", a1, 0xCu);
+    }
+  }
+
+  *a5 = a4;
+}
+
+void sub_1001BD774(void *a1)
+{
+  v2 = objc_begin_catch(a1);
+  v3 = v2;
+  if (_CPLSilentLogging != 1)
+  {
+    v4 = sub_100150214(v2);
+    if (sub_100003448(v4))
+    {
+      sub_100021D44();
+      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+    }
+  }
+
+  objc_end_catch();
+}
+
+void sub_1001BD834(void *a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v3 = sub_100150214(a1);
+    if (sub_100003448(v3))
+    {
+      sub_100021D44();
+      _os_log_impl(v4, v5, v6, v7, v8, 2u);
+    }
+  }
+
+  *a1 = 0;
+}
+
+void sub_1001BDA44(uint64_t a1, uint64_t a2)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v5 = sub_100150214(a1);
+    if (sub_1000033C0(v5))
+    {
+      v14 = 0;
+      sub_10000AF60(&_mh_execute_header, v6, v7, "Trying to access client cache outside of authorized migration", v8, v9, v10, v11, v14);
+    }
+  }
+
+  v12 = +[NSAssertionHandler currentHandler];
+  v13 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteStore.m"];
+  [v12 handleFailureInMethod:a1 object:a2 file:v13 lineNumber:2086 description:@"Trying to access client cache outside of authorized migration"];
+
+  abort();
+}
+
+void sub_1001BDB00()
+{
+  sub_100158DC0();
+  v4 = sub_100150214(v3);
+  if (sub_10000FAE0(v4))
+  {
+    v5 = [NSByteCountFormatter stringFromByteCount:*v2 - v1 countStyle:0];
+    sub_10000AF90();
+    sub_100080C88();
+    _os_log_impl(v6, v7, v8, v9, v10, 0xCu);
+  }
+}
+
+id sub_1001BDBBC()
+{
+  sub_10002B0F4();
+  v14 = v1;
+  v15 = v3;
+  v5 = v4;
+  v7 = v6;
+  v8 = v2;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v9 = sub_100150214(v2);
+    if (sub_10000FBAC(v9))
+    {
+      v10 = [NSByteCountFormatter stringFromByteCount:v8 countStyle:0];
+      sub_10000AF90();
+      sub_1000374A0(&_mh_execute_header, v0, v11, "Starting vacuum for %@", &v13);
+    }
+  }
+
+  *(*v7 + v5) = 1;
+  return [*v7 _vacuum:v8 withInitialDatabaseSize:{objc_msgSend(*v7, "_sizeInBytes")}];
+}
+
+void sub_1001BDCB4(uint64_t a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v2 = sub_100150214(a1);
+    if (sub_10000FBDC(v2))
+    {
+      sub_10000FAAC();
+      _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+    }
+  }
+
+  exit(0);
+}
+
+void sub_1001BDE10(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_100150214(a1);
+  if (sub_10000FBDC(v4))
+  {
+    v5 = [*(a2 + 32) lastCPLError];
+    v6 = [v5 localizedDescription];
+    sub_1000ACA54();
+    sub_10000FAAC();
+    _os_log_impl(v7, v8, v9, v10, v11, 0x16u);
+  }
+}
+
+void sub_1001BDFA8(uint64_t a1, id *a2)
+{
+  v4 = sub_100150214(a1);
+  if (sub_10000FBDC(v4))
+  {
+    v5 = [*a2 lastCPLError];
+    v6 = [v5 localizedDescription];
+    sub_1000ACA54();
+    sub_10000FAAC();
+    _os_log_impl(v7, v8, v9, v10, v11, 0x16u);
+  }
+}
+
+void sub_1001BE068(uint64_t a1, uint64_t a2, void *a3)
+{
+  sub_100158DC0();
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v7 = sub_100150214(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    {
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEBUG, "Blocking write queue", v8, 2u);
+    }
+  }
+
+  dispatch_suspend(v4);
+  objc_storeStrong((v3 + 8), a3);
+}
+
+void sub_1001BE10C(uint64_t a1, uint64_t a2)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v4 = sub_10015912C(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "scope index has not been set", v7, 2u);
+    }
+  }
+
+  v5 = +[NSAssertionHandler currentHandler];
+  v6 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteOutgoingResources.m"];
+  [v5 handleFailureInMethod:a1 object:a2 file:v6 lineNumber:88 description:@"scope index has not been set"];
+
+  abort();
+}
+
+void sub_1001BE1F4(void *a1, _BYTE *a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v4 = sub_10015912C(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = [a1 mainTable];
+      *buf = 138412546;
+      v10 = v5;
+      v11 = 2048;
+      v12 = 39;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Upgrading %@ to version %llu: adding scopeIndex column", buf, 0x16u);
+    }
+  }
+
+  v6 = [a1 pqStore];
+  v7 = [v6 pqlConnection];
+
+  v8 = [a1 mainTable];
+  *a2 = [v7 cplExecute:{@"ALTER TABLE %@ ADD COLUMN scopeIndex INTEGER DEFAULT 1", v8}];
+}
+
+void sub_1001BE6B4(void *a1, _BYTE *a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v4 = sub_10015B0E8(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = [a1 mainTable];
+      sub_10015F5C8();
+      sub_100003528(&_mh_execute_header, v6, v7, "Upgrading %@ to version %llu: adding scopeIndex column", v8, v9, v10, v11, v15, v16);
+    }
+  }
+
+  v12 = [a1 pqStore];
+  v13 = [v12 pqlConnection];
+
+  v14 = [a1 mainTable];
+  *a2 = [v13 cplExecute:{@"ALTER TABLE %@ ADD COLUMN scopeIndex INTEGER DEFAULT 2", v14}];
+}
+
+void sub_1001BE7CC(void *a1, _BYTE *a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v4 = sub_10015B0E8(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = [a1 mainTable];
+      sub_10015F5C8();
+      sub_100003528(&_mh_execute_header, v6, v7, "Upgrading %@ to version %llu: adding otherScopeIndex and stagedOtherScopeIndex columns", v8, v9, v10, v11, v19, v20);
+    }
+  }
+
+  v12 = [a1 pqStore];
+  v13 = [v12 pqlConnection];
+
+  v14 = [a1 mainTable];
+  v15 = [v13 cplExecute:{@"ALTER TABLE %@ ADD COLUMN otherScopeIndex INTEGER DEFAULT 0", v14}];
+
+  if (!v15)
+  {
+    goto LABEL_9;
+  }
+
+  v16 = [a1 createIndexOnColumn:@"otherScopeIndex" error:0];
+  if (v16)
+  {
+    v17 = [a1 mainTable];
+    v18 = [v13 cplExecute:{@"ALTER TABLE %@ ADD COLUMN stagedOtherScopeIndex INTEGER DEFAULT 0", v17}];
+
+    if (v18)
+    {
+      LOBYTE(v16) = [a1 createIndexOnColumn:@"stagedOtherScopeIndex" error:0];
+      goto LABEL_10;
+    }
+
+LABEL_9:
+    LOBYTE(v16) = 0;
+  }
+
+LABEL_10:
+  *a2 = v16;
+}
+
+void sub_1001BE958(void *a1, unsigned __int8 *a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v4 = sub_10015B0E8(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = [a1 mainTable];
+      sub_10015F5C8();
+      sub_100003528(&_mh_execute_header, v6, v7, "Upgrading %@ to version %llu: adding confirmed column", v8, v9, v10, v11, v17, v18);
+    }
+  }
+
+  v12 = [a1 pqStore];
+  v13 = [v12 pqlConnection];
+
+  v14 = [a1 mainTable];
+  v15 = [v13 cplExecute:{@"ALTER TABLE %@ ADD COLUMN confirmed INTEGER DEFAULT 1", v14}];
+
+  if (v15)
+  {
+    v16 = [a1 createIndexOnColumn:@"confirmed" error:0];
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  *a2 = v16;
+}
+
+void sub_1001BEAB0()
+{
+  sub_10015F5DC();
+  v3 = sub_10015B0E8(v2);
+  if (sub_10000FBDC(v3))
+  {
+    v4 = [v1 lastCPLError];
+    sub_1000ACA54();
+    sub_10000FAAC();
+    _os_log_impl(v5, v6, v7, v8, v9, 0x16u);
+  }
+}
+
+void sub_1001BEC50()
+{
+  sub_10015F5DC();
+  v3 = sub_10015B0E8(v2);
+  if (sub_10000FBDC(v3))
+  {
+    v4 = [v1 lastCPLError];
+    sub_1000ACA54();
+    sub_10000FAAC();
+    _os_log_impl(v5, v6, v7, v8, v9, 0x16u);
+  }
+}
+
+void sub_1001BECFC()
+{
+  sub_10015F5DC();
+  v3 = sub_10015B0E8(v2);
+  if (sub_10000FBDC(v3))
+  {
+    v4 = [v1 lastCPLError];
+    sub_1000ACA54();
+    sub_10000FAAC();
+    _os_log_impl(v5, v6, v7, v8, v9, 0x16u);
+  }
+}
+
+void sub_1001BEE9C()
+{
+  sub_10015F5DC();
+  v3 = sub_10015B0E8(v2);
+  if (sub_10000FBDC(v3))
+  {
+    v4 = [v1 lastCPLError];
+    sub_1000ACA54();
+    sub_10000FAAC();
+    _os_log_impl(v5, v6, v7, v8, v9, 0x16u);
+  }
+}
+
+void sub_1001BEF48()
+{
+  sub_10015F5DC();
+  v3 = sub_10015B0E8(v2);
+  if (sub_10000FBDC(v3))
+  {
+    v4 = [v1 lastCPLError];
+    sub_1000ACA54();
+    sub_10000FAAC();
+    _os_log_impl(v5, v6, v7, v8, v9, 0x16u);
+  }
+}
+
+void sub_1001BEFF4(uint64_t a1)
+{
+  v2 = sub_10015B0E8(a1);
+  if (sub_10000FBDC(v2))
+  {
+    sub_10000FAAC();
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+  }
+}
+
+void sub_1001BF088()
+{
+  sub_10015F5DC();
+  v3 = sub_10015B0E8(v2);
+  if (sub_10000FBDC(v3))
+  {
+    v4 = [v1 lastCPLError];
+    sub_1000ACA54();
+    sub_10000FAAC();
+    _os_log_impl(v5, v6, v7, v8, v9, 0x16u);
+  }
+}
+
+void sub_1001BF504(void *a1)
+{
+  v3 = sub_10015B0E8(a1);
+  if (sub_10000FBDC(v3))
+  {
+    v4 = [a1 lastCPLError];
+    sub_10000AF90();
+    sub_10000FAAC();
+    _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+  }
+}
+
+void sub_1001BF5A8(void *a1)
+{
+  v3 = sub_10015B0E8(a1);
+  if (sub_10000FBDC(v3))
+  {
+    v4 = [a1 lastCPLError];
+    sub_10000AF90();
+    sub_10000FAAC();
+    _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+  }
+}
+
+void sub_1001BF64C(void *a1)
+{
+  v3 = sub_10015B0E8(a1);
+  if (sub_10000FBDC(v3))
+  {
+    v4 = [a1 lastCPLError];
+    sub_10000AF90();
+    sub_10000FAAC();
+    _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+  }
+}
+
+void sub_1001BF6F0(void *a1)
+{
+  v3 = sub_10015B0E8(a1);
+  if (sub_10000FBDC(v3))
+  {
+    v4 = [a1 lastCPLError];
+    sub_10000AF90();
+    sub_10000FAAC();
+    _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+  }
+}
+
+void sub_1001BF7A8(const char *a1, uint64_t a2)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v4 = __CPLGenericOSLogDomain();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      v5 = NSStringFromSelector(a1);
+      *buf = 138412290;
+      v10 = v5;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "%@ does not support type DATA", buf, 0xCu);
+    }
+  }
+
+  v6 = +[NSAssertionHandler currentHandler];
+  v7 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteUtilites.m"];
+  v8 = NSStringFromSelector(a1);
+  [v6 handleFailureInMethod:a1 object:a2 file:v7 lineNumber:118 description:{@"%@ does not support type DATA", v8}];
+
+  abort();
+}
+
+void sub_1001BF8B8(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v6 = __CPLGenericOSLogDomain();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v7 = objc_opt_class();
+      v8 = v7;
+      *buf = 138413058;
+      v14 = a3;
+      v15 = 2112;
+      v16 = v7;
+      v17 = 2112;
+      v18 = objc_opt_class();
+      v19 = 2112;
+      v20 = a1;
+      v9 = v18;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Invalid value for %@ (%@): %@ '%@'", buf, 0x2Au);
+    }
+  }
+
+  v10 = +[NSAssertionHandler currentHandler];
+  v11 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteUtilites.m"];
+  v12 = objc_opt_class();
+  [v10 handleFailureInMethod:a2 object:a3 file:v11 lineNumber:141 description:{@"Invalid value for %@ (%@): %@ '%@'", a3, v12, objc_opt_class(), a1}];
+
+  abort();
+}
+
+void sub_1001BFA0C(uint64_t a1, uint64_t a2)
+{
+  v4 = sub_1001635D8(a1);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    *v11 = 138412546;
+    *&v11[4] = a1;
+    *&v11[12] = 2112;
+    *&v11[14] = a2;
+    sub_10006D044(&_mh_execute_header, v5, v6, "Removing stale mapping of cloud identifier %@ to local identifier %@", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16]);
+  }
+}
+
+void sub_1001BFAB8(uint64_t a1, uint64_t a2, void *a3)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v6 = sub_1001635D8(a1);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v7 = 138412546;
+      v8 = a1;
+      v9 = 2112;
+      v10 = a2;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Mapping cloud identifier %@ to local identifier %@ is already known", &v7, 0x16u);
+    }
+  }
+}
+
+void sub_1001BFBA0(uint64_t a1, uint64_t a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v4 = sub_1001635D8(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = [CPLRecordChange descriptionForDirection:a2];
+      *v12 = 138412546;
+      *&v12[4] = a1;
+      *&v12[12] = 2112;
+      *&v12[14] = v5;
+      sub_10006D044(&_mh_execute_header, v6, v7, "Updated 'add event' for already existing mapping of %@ (direction %@)", v8, v9, v10, v11, *v12, *&v12[8], *&v12[16]);
+    }
+  }
+}
+
+void sub_1001BFDA0(uint64_t a1)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v2 = sub_1001645FC(a1);
+    if (sub_1000033C0(v2))
+    {
+      v11 = 0;
+      sub_10000AF60(&_mh_execute_header, v3, v4, "scope index should have already been set", v5, v6, v7, v8, v11);
+    }
+  }
+
+  v9 = +[NSAssertionHandler currentHandler];
+  v10 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteResourceDownloadQueue.m"];
+  [sub_1000034AC() handleFailureInMethod:? object:? file:? lineNumber:? description:?];
+
+  abort();
+}
+
+void sub_1001BFE6C(void *a1, _BYTE *a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v4 = sub_1001645FC(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = [a1 mainTable];
+      sub_10015F5C8();
+      sub_100003528(&_mh_execute_header, v6, v7, "Upgrading %@ to version %llu: adding intent column", v8, v9, v10, v11, v15, v16);
+    }
+  }
+
+  v12 = [a1 pqStore];
+  v13 = [v12 pqlConnection];
+
+  v14 = [a1 mainTable];
+  *a2 = [v13 cplExecute:{@"ALTER TABLE %@ ADD COLUMN intent INTEGER DEFAULT 1", v14}];
+}
+
+void sub_1001BFF84(_BYTE *a1, char *a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v4 = sub_1001645FC(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = [a1 mainTable];
+      sub_10015F5C8();
+      sub_100003528(&_mh_execute_header, v6, v7, "Upgrading %@ to version %llu: adding scopeIndex column", v8, v9, v10, v11, v17, v18);
+    }
+  }
+
+  v12 = [a1 pqStore];
+  v13 = [v12 pqlConnection];
+
+  v14 = [a1 mainTable];
+  v15 = [v13 cplExecute:{@"ALTER TABLE %@ ADD COLUMN scopeIndex INTEGER DEFAULT 1", v14}];
+
+  if (v15 && [a1 dropIndexWithName:@"resource" error:0] && (v16 = 1, objc_msgSend(a1, "createIndexWithName:withDefinition:unique:error:", @"resource", @"itemIdentifier, scopeIndex, resourceType", 1, 0)))
+  {
+    a1[52] = 1;
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  *a2 = v16;
+}
+
+void sub_1001C0100(uint64_t a1)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v2 = sub_1001645FC(a1);
+    if (sub_1000033C0(v2))
+    {
+      v11 = 0;
+      sub_10000AF60(&_mh_execute_header, v3, v4, "scope index should have been set here", v5, v6, v7, v8, v11);
+    }
+  }
+
+  v9 = +[NSAssertionHandler currentHandler];
+  v10 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteResourceDownloadQueue.m"];
+  [sub_1000034AC() handleFailureInMethod:? object:? file:? lineNumber:? description:?];
+
+  abort();
+}
+
+void sub_1001C01B8(uint64_t a1)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v2 = sub_1001645FC(a1);
+    if (sub_1000033C0(v2))
+    {
+      v11 = 0;
+      sub_10000AF60(&_mh_execute_header, v3, v4, "Scope index should be set here", v5, v6, v7, v8, v11);
+    }
+  }
+
+  v9 = +[NSAssertionHandler currentHandler];
+  v10 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteResourceDownloadQueue.m"];
+  [sub_1000034AC() handleFailureInMethod:? object:? file:? lineNumber:? description:?];
+
+  abort();
+}
+
+void sub_1001C0270(uint64_t a1)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v2 = sub_1001645FC(a1);
+    if (sub_1000033C0(v2))
+    {
+      v11 = 0;
+      sub_10000AF60(&_mh_execute_header, v3, v4, "scope index should be set here", v5, v6, v7, v8, v11);
+    }
+  }
+
+  v9 = +[NSAssertionHandler currentHandler];
+  v10 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteResourceDownloadQueue.m"];
+  [sub_1000034AC() handleFailureInMethod:? object:? file:? lineNumber:? description:?];
+
+  abort();
+}
+
+void sub_1001C0328(uint64_t a1)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v2 = sub_1001645FC(a1);
+    if (sub_1000033C0(v2))
+    {
+      v11 = 0;
+      sub_10000AF60(&_mh_execute_header, v3, v4, "Scope index should be set here", v5, v6, v7, v8, v11);
+    }
+  }
+
+  v9 = +[NSAssertionHandler currentHandler];
+  v10 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteResourceDownloadQueue.m"];
+  [sub_1000034AC() handleFailureInMethod:? object:? file:? lineNumber:? description:?];
+
+  abort();
+}
+
+void sub_1001C03E0(uint64_t a1)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v2 = sub_1001645FC(a1);
+    if (sub_1000033C0(v2))
+    {
+      v11 = 0;
+      sub_10000AF60(&_mh_execute_header, v3, v4, "Scope index should be set here", v5, v6, v7, v8, v11);
+    }
+  }
+
+  v9 = +[NSAssertionHandler currentHandler];
+  v10 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteResourceDownloadQueue.m"];
+  [sub_1000034AC() handleFailureInMethod:? object:? file:? lineNumber:? description:?];
+
+  abort();
+}
+
+void sub_1001C0498(uint64_t a1)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v2 = sub_1001645FC(a1);
+    if (sub_1000033C0(v2))
+    {
+      v11 = 0;
+      sub_10000AF60(&_mh_execute_header, v3, v4, "scope index should be set here", v5, v6, v7, v8, v11);
+    }
+  }
+
+  v9 = +[NSAssertionHandler currentHandler];
+  v10 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteResourceDownloadQueue.m"];
+  [sub_1000034AC() handleFailureInMethod:? object:? file:? lineNumber:? description:?];
+
+  abort();
+}
+
+BOOL sub_1001C0550(void *a1, uint64_t a2, uint64_t *a3)
+{
+  v6 = [a1 mergeRecordChangeWithNewRecordChange:a2 direction:2];
+  v7 = v6;
+  *a3 = v6;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v8 = sub_100167254(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    {
+      v10 = 138412802;
+      v11 = a2;
+      v12 = 2112;
+      v13 = a1;
+      v14 = 2112;
+      v15 = v7;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Merging %@ and %@: %@", &v10, 0x20u);
+    }
+  }
+
+  return v7 == 0;
+}
+
+void sub_1001C064C(uint64_t a1, void *a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v4 = sub_100167254(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v7 = a1;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Can't serialize %@", buf, 0xCu);
+    }
+  }
+
+  v5 = [[NSString alloc] initWithFormat:@"can't serialize %@", objc_opt_class()];
+  if (a2)
+  {
+    *a2 = [CPLErrors invalidCloudCacheErrorWithReason:v5];
+  }
+}
+
+void sub_1001C0774(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v6 = sub_100167254(a1);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      sub_10002B064(&_mh_execute_header, v7, v8, "Getting a remapped change from transient repository without an identifier: %@", v9, v10, v11, v12, v15, v16);
+    }
+  }
+
+  v13 = +[NSAssertionHandler currentHandler];
+  v14 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteTransientRepository.m"];
+  [v13 handleFailureInMethod:a1 object:a2 file:v14 lineNumber:419 description:{@"Getting a remapped change from transient repository without an identifier: %@", a3}];
+
+  abort();
+}
+
+void sub_1001C0850(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v6 = sub_100167254(a1);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      sub_10002B064(&_mh_execute_header, v7, v8, "Popping a remapped change from transient repository without an identifier: %@", v9, v10, v11, v12, v15, v16);
+    }
+  }
+
+  v13 = +[NSAssertionHandler currentHandler];
+  v14 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteTransientRepository.m"];
+  [v13 handleFailureInMethod:a1 object:a2 file:v14 lineNumber:439 description:{@"Popping a remapped change from transient repository without an identifier: %@", a3}];
+
+  abort();
+}
+
+void sub_1001C092C(uint64_t a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v1 = sub_100167254(a1);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+    {
+      sub_1000187A4();
+      sub_100080C88();
+      _os_log_impl(v2, v3, v4, v5, v6, 0x16u);
+    }
+  }
+}
+
+void sub_1001C09E0(uint64_t a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v1 = sub_100167254(a1);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+    {
+      sub_100080C88();
+      _os_log_impl(v2, v3, v4, v5, v6, 0xCu);
+    }
+  }
+}
+
+void sub_1001C0A8C(uint64_t a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v1 = sub_100167254(a1);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
+    {
+      sub_1000187A4();
+      sub_100080C88();
+      _os_log_impl(v2, v3, v4, v5, v6, 0x16u);
+    }
+  }
+}
+
+uint64_t sub_1001C1294(uint64_t result, unint64_t a2, uint64_t a3)
+{
+  if (result)
+  {
+    v5 = result;
+    result = sub_1001C1B3C(result, [result totalResourceSize] + a2, a3);
+    if (result)
+    {
+      if (+[CPLResource largeResourceSizeThreshold]< a2)
+      {
+
+        return sub_1001C1A00(v5, a2, a3);
+      }
+
+      else
+      {
+        return 1;
+      }
+    }
+  }
+
+  return result;
+}
+
+id sub_1001C1324(id result, uint64_t a2)
+{
+  if (result)
+  {
+    v2 = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [result totalOriginalResourceSize] + a2);
+    v3 = sub_10016AA88(44);
+
+    return v3;
+  }
+
+  return result;
+}
+
+uint64_t sub_1001C1394(uint64_t a1, unint64_t a2, uint64_t a3)
+{
+  if (!a1)
+  {
+    return 0;
+  }
+
+  v6 = [a1 totalResourceSize];
+  v7 = v6;
+  v8 = v6 - a2;
+  if (v6 < a2)
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v9 = sub_10016A144(v6);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      {
+        v22 = 134218240;
+        v23 = a2;
+        v24 = 2048;
+        v25 = v7;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Total resource size inconsistency (removing %llu from %llu)", &v22, 0x16u);
+      }
+    }
+
+    v8 = 0;
+  }
+
+  if (v7 >> 24 >= 0x19 && v8 >> 24 <= 0x18)
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v11 = sub_10016A144(v6);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      {
+        v12 = NSLocalizedFileSizeDescription();
+        v13 = NSLocalizedFileSizeDescription();
+        v22 = 138412546;
+        v23 = v12;
+        v24 = 2112;
+        v25 = v13;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Resource storage went under %@ (%@)", &v22, 0x16u);
+      }
+    }
+
+    v14 = [a1 abstractObject];
+    v15 = [v14 engineStore];
+    v16 = [v15 engineLibrary];
+    [v16 requestAttachedLibrary];
+  }
+
+  if (!sub_1001C1B3C(a1, v8, a3))
+  {
+    return 0;
+  }
+
+  if (+[CPLResource largeResourceSizeThreshold]>= a2)
+  {
+    return 1;
+  }
+
+  v17 = [a1 valueForVariable:*(a1 + 52)];
+  if (v17 && (+[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", a2), v18 = objc_claimAutoreleasedReturnValue(), v19 = [v17 compare:v18], v18, v19 != 1))
+  {
+    v20 = [a1 _refreshLargestResourceSizeWithError:a3];
+  }
+
+  else
+  {
+    v20 = 1;
+  }
+
+  return v20;
+}
+
+id sub_1001C1620(void *a1, unint64_t a2)
+{
+  if (!a1)
+  {
+    return 0;
+  }
+
+  v3 = [a1 totalOriginalResourceSize];
+  v4 = &v3[-a2];
+  if (v3 < a2)
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v5 = v3;
+      v6 = sub_10016A144(v3);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      {
+        v10 = 134218240;
+        v11 = a2;
+        v12 = 2048;
+        v13 = v5;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Total original resource size inconsistency (removing %llu from %llu)", &v10, 0x16u);
+      }
+    }
+
+    v4 = 0;
+  }
+
+  v7 = [NSNumber numberWithUnsignedLongLong:v4];
+  v8 = sub_10016AA88(44);
+
+  return v8;
+}
+
+uint64_t sub_1001C1A00(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (!a1)
+  {
+    return 0;
+  }
+
+  v6 = [a1 valueForVariable:*(a1 + 52)];
+  if (!v6 || (+[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", a2), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v6 compare:v7], v7, v8 == -1))
+  {
+    v9 = [NSNumber numberWithUnsignedLongLong:a2];
+    v10 = [a1 setValue:v9 forVariable:*(a1 + 52) error:a3];
+
+    if (!v10)
+    {
+      v14 = 0;
+      goto LABEL_8;
+    }
+
+    v11 = [a1 abstractObject];
+    v12 = [v11 engineStore];
+    v13 = [NSNumber numberWithUnsignedLongLong:a2];
+    [v12 predictSyncSessionValue:v13 ofType:CPLSyncSessionPredictionTypeLargestResourceSize];
+  }
+
+  v14 = 1;
+LABEL_8:
+
+  return v14;
+}
+
+uint64_t sub_1001C1B3C(uint64_t result, uint64_t a2, uint64_t a3)
+{
+  if (result)
+  {
+    v5 = result;
+    v6 = [NSNumber numberWithUnsignedLongLong:a2];
+    LODWORD(a3) = [v5 setValue:v6 forVariable:*(v5 + 36) error:a3];
+
+    if (a3)
+    {
+      v7 = [v5 abstractObject];
+      v8 = [v7 engineStore];
+      v9 = [NSNumber numberWithUnsignedLongLong:a2];
+      [v8 predictSyncSessionValue:v9 ofType:CPLSyncSessionPredictionTypeUploadResourceSize];
+
+      return 1;
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+void sub_1001C1C1C(void *a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v2 = sub_10016A144(a1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    {
+      *v4 = 0;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Upgrading store to version 20 and Resource Storage is not empty. We must trigger a reset sync", v4, 2u);
+    }
+  }
+
+  v3 = [a1 pqStore];
+  [v3 triggerResetAfterUpgrade:0 withReason:@"Upgrade to version 20"];
+}
+
+id sub_1001C1CD0(uint64_t a1, uint64_t a2)
+{
+  result = sub_1001C1B3C(a1, 0, a2);
+  if (result)
+  {
+    v5 = *(a1 + 44);
+
+    return [a1 setValue:&off_10028F148 forVariable:v5 error:a2];
+  }
+
+  return result;
+}
+
+void sub_1001C1D50(void *a1, _BYTE *a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v4 = sub_10016BF70(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = [a1 mainTable];
+      *buf = 138412546;
+      v10 = v5;
+      v11 = 2048;
+      v12 = 39;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Upgrading %@ to version %llu: adding scopeIndex column", buf, 0x16u);
+    }
+  }
+
+  v6 = [a1 pqStore];
+  v7 = [v6 pqlConnection];
+
+  v8 = [a1 mainTable];
+  *a2 = [v7 cplExecute:{@"ALTER TABLE %@ ADD COLUMN scopeIndex INTEGER DEFAULT 1", v8}];
+}
+
+void sub_1001C1E98(void *a1, uint64_t a2, uint64_t a3)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v7 = sub_10016BF70(a1);
+    if (sub_10000FBDC(v7))
+    {
+      v8 = [a1 abstractObject];
+      *v18 = 134218498;
+      *&v18[4] = a2;
+      *&v18[12] = 2048;
+      *&v18[14] = a3;
+      *&v18[22] = 2112;
+      sub_10016DC94(&_mh_execute_header, v9, v10, "Pull marker %lu should always be less than push marker %lu for %@", v11, v12, v13, v14, *v18, *&v18[8], *&v18[16], v8);
+    }
+  }
+
+  v15 = _CPLStoreFailure();
+  sub_1001C1F4C(v15, v16, v17);
+}
+
+void sub_1001C1F4C(uint64_t a1, void *a2, uint64_t *a3)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v6 = sub_10016BF70(a1);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v8 = 138412290;
+      v9 = a1;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Unable to serialize %@", &v8, 0xCu);
+    }
+  }
+
+  v7 = [a2 abstractObject];
+  *a3 = [CPLErrors unableToSerializeRecordError:a1 inStorage:v7];
+}
+
+void sub_1001C2044(uint64_t a1, uint64_t a2)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v4 = sub_10016BF70(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      v13 = 0;
+      sub_10000AF60(&_mh_execute_header, v5, v6, "scope index should be set here", v7, v8, v9, v10, v13);
+    }
+  }
+
+  v11 = +[NSAssertionHandler currentHandler];
+  v12 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteChangePipe.m"];
+  [v11 handleFailureInMethod:a1 object:a2 file:v12 lineNumber:241 description:@"scope index should be set here"];
+
+  abort();
+}
+
+void sub_1001C2108(void *a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v3 = sub_10016BF70(a1);
+    if (sub_10000FBDC(v3))
+    {
+      v4 = [a1 abstractObject];
+      sub_10016DCB4();
+      sub_10016DC94(&_mh_execute_header, v5, v6, "Inconsistency when popping one batch %@ (pull marker: %lu / push marker: %lu)", v7, v8, v9, v10);
+    }
+  }
+
+  v11 = _CPLStoreFailure();
+  sub_1001C21A8(v11, v12);
+}
+
+void sub_1001C21A8(uint64_t a1, uint64_t a2)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v4 = sub_10016BF70(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      v13 = 0;
+      sub_10000AF60(&_mh_execute_header, v5, v6, "scope index should be set here", v7, v8, v9, v10, v13);
+    }
+  }
+
+  v11 = +[NSAssertionHandler currentHandler];
+  v12 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteChangePipe.m"];
+  [v11 handleFailureInMethod:a1 object:a2 file:v12 lineNumber:281 description:@"scope index should be set here"];
+
+  abort();
+}
+
+uint64_t sub_1001C226C(void *a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v3 = sub_10016BF70(a1);
+    if (sub_10000FBDC(v3))
+    {
+      v4 = [a1 abstractObject];
+      sub_10016DCB4();
+      sub_10016DC94(&_mh_execute_header, v5, v6, "Inconsistency getting next batch %@ (pull marker: %lu / push marker: %lu)", v7, v8, v9, v10);
+    }
+  }
+
+  v11 = _CPLStoreFailure();
+  return sub_1001C230C(v11);
+}
+
+void sub_1001C230C(void *a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v3 = sub_10016BF70(a1);
+    if (sub_10000FBDC(v3))
+    {
+      v4 = [a1 abstractObject];
+      sub_10016DCB4();
+      sub_10016DC94(&_mh_execute_header, v5, v6, "Inconsistency when popping next batch from %@ (pull marker: %lu / push marker: %lu)", v7, v8, v9, v10);
+    }
+  }
+
+  v11 = _CPLStoreFailure();
+  sub_1001C23AC(v11, v12);
+}
+
+void sub_1001C23AC(uint64_t a1, uint64_t a2)
+{
+  v4 = __CPLGenericOSLogDomain();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 138412546;
+    v6 = a1;
+    v7 = 2112;
+    v8 = a2;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Failed to find resource %@ in cache: %@", &v5, 0x16u);
+  }
+}
+
+void sub_1001C2468(uint64_t a1, uint64_t a2, _BYTE *a3)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v6 = __CPLGenericOSLogDomain();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      v7 = 138412546;
+      v8 = a1;
+      v9 = 2048;
+      v10 = a2;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Failed to migrate %@ (alteration: %lu)", &v7, 0x16u);
+    }
+  }
+
+  *a3 = 1;
+}
+
+void sub_1001C2554()
+{
+  sub_10015F5DC();
+  v3 = sub_10016F3DC(v2);
+  if (sub_10000FBDC(v3))
+  {
+    v4 = [v1 lastCPLError];
+    sub_1000ACA54();
+    sub_10000FAAC();
+    _os_log_impl(v5, v6, v7, v8, v9, 0x16u);
+  }
+}
+
+void sub_1001C2600(uint64_t a1)
+{
+  v2 = sub_10016F3DC(a1);
+  if (sub_10000FBDC(v2))
+  {
+    sub_1000139A0();
+    sub_10000FAAC();
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+  }
+}
+
+void sub_1001C26A4()
+{
+  sub_10015F5DC();
+  v3 = sub_10016F3DC(v2);
+  if (sub_10000FBDC(v3))
+  {
+    v4 = [v1 lastCPLError];
+    sub_1000ACA54();
+    sub_10000FAAC();
+    _os_log_impl(v5, v6, v7, v8, v9, 0x16u);
+  }
+}
+
+void sub_1001C2750()
+{
+  sub_10015F5DC();
+  v3 = sub_10016F3DC(v2);
+  if (sub_10000FBDC(v3))
+  {
+    v4 = [v1 lastCPLError];
+    sub_1000ACA54();
+    sub_10000FAAC();
+    _os_log_impl(v5, v6, v7, v8, v9, 0x16u);
+  }
+}
+
+void sub_1001C27FC(uint64_t a1)
+{
+  v2 = sub_10016F3DC(a1);
+  if (sub_10000FBDC(v2))
+  {
+    sub_10000FAAC();
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+  }
+}
+
+void sub_1001C2894()
+{
+  sub_10015F5DC();
+  v3 = sub_10016F3DC(v2);
+  if (sub_10000FBDC(v3))
+  {
+    v4 = [v1 lastCPLError];
+    sub_1000ACA54();
+    sub_10000FAAC();
+    _os_log_impl(v5, v6, v7, v8, v9, 0x16u);
+  }
+}
+
+void sub_1001C2940(uint64_t a1)
+{
+  v2 = sub_10016F3DC(a1);
+  if (sub_10000FBDC(v2))
+  {
+    sub_1000139A0();
+    sub_10000FAAC();
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+  }
+}
+
+void sub_1001C29D0(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v6 = sub_100170EF4(a1);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v10 = a3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "%@ should have a scope index set here", buf, 0xCu);
+    }
+  }
+
+  v7 = +[NSAssertionHandler currentHandler];
+  v8 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequelitePendingRecordChecks.m"];
+  [v7 handleFailureInMethod:a1 object:a2 file:v8 lineNumber:60 description:{@"%@ should have a scope index set here", a3}];
+
+  abort();
+}
+
+void sub_1001C2AD0(uint64_t a1, uint64_t a2)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v4 = __CPLGenericOSLogDomain();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v9 = objc_opt_class();
+      v5 = v9;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "No platform object specified for %@", buf, 0xCu);
+    }
+  }
+
+  v6 = +[NSAssertionHandler currentHandler];
+  v7 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteClientCacheMigrator.m"];
+  [v6 handleFailureInMethod:a2 object:a1 file:v7 lineNumber:19 description:{@"No platform object specified for %@", objc_opt_class()}];
+
+  abort();
+}
+
+void sub_1001C2BD0(void *a1, unsigned __int8 *a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v4 = sub_1001718C0(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = [a1 mainTable];
+      *buf = 138412546;
+      v15 = v5;
+      v16 = 2048;
+      v17 = 89;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Upgrading %@ to version %llu: adding adjustmentFingerprint column, renaming date column, and dropping fileURL column", buf, 0x16u);
+    }
+  }
+
+  v6 = [a1 pqStore];
+  v7 = [v6 pqlConnection];
+
+  v8 = [a1 mainTable];
+  v9 = [v7 cplExecute:{@"ALTER TABLE %@ ADD COLUMN adjustmentFingerprint TEXT DEFAULT NULL", v8}];
+
+  if (v9 && ([a1 mainTable], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v7, "cplExecute:", @"ALTER TABLE %@ RENAME COLUMN date TO lastUpdatedDate", v10), v10, v11))
+  {
+    v12 = [a1 mainTable];
+    v13 = [v7 cplExecute:{@"ALTER TABLE %@ DROP COLUMN fileURL", v12}];
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  *a2 = v13;
+}
+
+void sub_1001C2D8C(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v6 = sub_1001718C0(a1);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v10 = a3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "Missing file storage identifier for %@", buf, 0xCu);
+    }
+  }
+
+  v7 = +[NSAssertionHandler currentHandler];
+  v8 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteRecordComputeStatePushQueue.m"];
+  [v7 handleFailureInMethod:a1 object:a2 file:v8 lineNumber:137 description:{@"Missing file storage identifier for %@", a3}];
+
+  abort();
+}
+
+id sub_1001C2E78(id a1, void *a2, uint64_t a3)
+{
+  v5 = a2;
+  if (a1)
+  {
+    v21.receiver = a1;
+    v21.super_class = CPLPrequelitePushedChange;
+    a1 = objc_msgSendSuper2(&v21, "init");
+    if (a1)
+    {
+      v6 = [v5 stringAtIndex:a3];
+      v7 = NSClassFromString(v6);
+      v8 = *(a1 + 3);
+      *(a1 + 3) = v7;
+
+      *(a1 + 4) = [v5 integerAtIndex:(a3 + 1)];
+      v9 = [v5 stringAtIndex:(a3 + 2)];
+      v10 = *(a1 + 5);
+      *(a1 + 5) = v9;
+
+      *(a1 + 6) = [v5 intAtIndex:(a3 + 3)];
+      v11 = [v5 stringAtIndex:(a3 + 4)];
+      v12 = *(a1 + 7);
+      *(a1 + 7) = v11;
+
+      v13 = [v5 stringAtIndex:(a3 + 5)];
+      v14 = *(a1 + 8);
+      *(a1 + 8) = v13;
+
+      *(a1 + 9) = [v5 longAtIndex:(a3 + 6)];
+      *(a1 + 8) = [v5 intAtIndex:(a3 + 7)] == 1;
+      v15 = [v5 stringAtIndex:(a3 + 8)];
+      v16 = [[CPLRecordPushContext alloc] initWithUploadIdentifier:v15 flags:objc_msgSend(v5 priority:{"integerAtIndex:", (a3 + 9)), objc_msgSend(v5, "unsignedIntegerAtIndex:", (a3 + 10))}];
+      v17 = *(a1 + 10);
+      *(a1 + 10) = v16;
+
+      *(a1 + 3) = [v5 intAtIndex:(a3 + 11)];
+      v18 = [v5 dataAtIndex:(a3 + 12)];
+      v19 = *(a1 + 2);
+      *(a1 + 2) = v18;
+    }
+  }
+
+  return a1;
+}
+
+void *sub_1001C3044(void *a1)
+{
+  if (a1)
+  {
+    v2 = a1;
+    v3 = a1[2];
+    if (!v3)
+    {
+      v4 = a1[11];
+      if (v4 && v2[6] != 1024)
+      {
+        v5 = [v4 copy];
+        [v5 clearIdentifiers];
+        [v5 prepareForStorage];
+        v6 = [CPLArchiver archivedDataWithRootObject:v5];
+        v7 = v2[2];
+        v2[2] = v6;
+
+        v3 = v2[2];
+      }
+
+      else
+      {
+        v3 = 0;
+      }
+    }
+
+    a1 = v3;
+    v1 = vars8;
+  }
+
+  return a1;
+}
+
+void sub_1001C30DC(uint64_t a1, void *a2)
+{
+  v4 = a2;
+  if (a1)
+  {
+    v12 = v4;
+    objc_storeStrong((a1 + 88), a2);
+    v5 = [v12 relatedIdentifier];
+    v6 = [v5 copy];
+    v7 = *(a1 + 56);
+    *(a1 + 56) = v6;
+
+    v8 = [v12 secondaryIdentifier];
+    v9 = [v8 copy];
+    v10 = *(a1 + 64);
+    *(a1 + 64) = v9;
+
+    *(a1 + 72) = [v12 dequeueOrder];
+    if ([v12 isDelete])
+    {
+      v11 = 1;
+    }
+
+    else
+    {
+      v11 = [v12 inTrash];
+    }
+
+    *(a1 + 8) = v11;
+    v4 = v12;
+  }
+}
+
+void sub_1001C31AC(uint64_t a1, void *a2)
+{
+  if (a1)
+  {
+    objc_storeStrong((a1 + 16), a2);
+  }
+}
+
+void sub_1001C31BC(uint64_t a1, void *a2)
+{
+  if (a1)
+  {
+    objc_storeStrong((a1 + 80), a2);
+  }
+}
+
+id sub_1001C3814(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  *(*(*(a1 + 32) + 8) + 24) = [v3 unsignedIntegerAtIndex:0];
+  v4 = sub_1001C2E78([CPLPrequelitePushedChange alloc], v3, 1);
+
+  if (v4)
+  {
+    v5 = v4;
+  }
+
+  else
+  {
+    v5 = +[NSNull null];
+  }
+
+  v6 = v5;
+
+  return v6;
+}
+
+void sub_1001C38A8(uint64_t a1)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v2 = sub_1001749DC(a1);
+    if (sub_1000033C0(v2))
+    {
+      *v5 = 0;
+      _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_ERROR, "Scope index should have been set here", v5, 2u);
+    }
+  }
+
+  v3 = +[NSAssertionHandler currentHandler];
+  v4 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequelitePushRepository.m"];
+  [sub_1000034AC() handleFailureInMethod:? object:? file:? lineNumber:? description:?];
+
+  abort();
+}
+
+void sub_1001C3970(void *a1, uint64_t a2, void *a3, void *a4)
+{
+  v8 = [a1 identifier];
+  v9 = [v8 copy];
+  v10 = *(a2 + 40);
+  *(a2 + 40) = v9;
+
+  *(a2 + 48) = [a3 changeType];
+  v11 = [a3 relatedIdentifier];
+  v12 = [v11 copy];
+  v13 = *(a2 + 56);
+  *(a2 + 56) = v12;
+
+  v14 = [a3 secondaryIdentifier];
+  v15 = [v14 copy];
+  v16 = *(a2 + 64);
+  *(a2 + 64) = v15;
+
+  *(a2 + 72) = [a3 dequeueOrder];
+  if ([a3 isDelete])
+  {
+    v17 = 1;
+  }
+
+  else
+  {
+    v17 = [a3 inTrash];
+  }
+
+  *(a2 + 8) = v17;
+  objc_storeStrong((a2 + 80), a4);
+  if ([a3 _shouldNotTrustCloudCache])
+  {
+    v18 = 2;
+  }
+
+  else
+  {
+    v18 = 0;
+  }
+
+  *(a2 + 12) = v18;
+  objc_storeStrong((a2 + 88), a3);
+}
+
+void sub_1001C3A94(void *a1, void *a2, uint64_t a3, void *a4)
+{
+  [a2 setScopeIndex:*a1];
+  if (*(a3 + 48) == 1024)
+  {
+    v6 = [*(a3 + 24) newDeleteChangeWithScopedIdentifier:a2];
+  }
+
+  else
+  {
+    v7 = *(a3 + 88);
+    if (v7)
+    {
+      v6 = [v7 copy];
+      [v6 setScopedIdentifier:a2];
+    }
+
+    else
+    {
+      v8 = *(a3 + 16);
+      if (v8)
+      {
+        v6 = [CPLArchiver unarchiveObjectWithData:v8 ofClass:objc_opt_class()];
+        [v6 setScopedIdentifier:a2];
+        [v6 setRelatedIdentifier:*(a3 + 56)];
+        [v6 setSecondaryIdentifier:*(a3 + 64)];
+        [v6 awakeFromStorage];
+      }
+
+      else
+      {
+        v6 = [*(a3 + 24) newChangeWithScopedIdentifier:a2 changeType:?];
+        [v6 setRelatedIdentifier:*(a3 + 56)];
+        [v6 setSecondaryIdentifier:*(a3 + 64)];
+      }
+    }
+  }
+
+  *a4 = v6;
+  [v6 _setPushContext:*(a3 + 80)];
+  if (*(a3 + 12) == 2)
+  {
+    [v6 _setShouldNotTrustCloudCache:1];
+  }
+}
+
+void sub_1001C3BD4(void *a1)
+{
+  v2 = sub_1001749DC(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = [a1 mainTable];
+    v4 = 138412546;
+    v5 = v3;
+    v6 = 2048;
+    v7 = 84;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Upgrading %@ to version %llu: adding indexes for local conflict resolution", &v4, 0x16u);
+  }
+}
+
+void sub_1001C3C9C()
+{
+  sub_1000587D4();
+  v17 = v0;
+  v18 = v2;
+  v4 = v3;
+  v5 = v1;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v6 = sub_1001749DC(v1);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = [v5 mainTable];
+      sub_10015F5C8();
+      v16 = 83;
+      sub_10017AA9C(&_mh_execute_header, v8, v9, "Upgrading %@ to version %llu: adding priority column", &v15);
+    }
+  }
+
+  v10 = [v5 pqStore];
+  v11 = [v10 pqlConnection];
+
+  v12 = [v5 mainTable];
+  v13 = [v11 cplExecute:{@"ALTER TABLE %@ ADD COLUMN priority INTEGER DEFAULT 0", v12}];
+
+  if (v13)
+  {
+    v14 = [v5 _createIndexesWithPriority:1];
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  *v4 = v14;
+}
+
+void sub_1001C3DD8()
+{
+  sub_1000587D4();
+  v17 = v0;
+  v18 = v2;
+  v4 = v3;
+  v5 = v1;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v6 = sub_1001749DC(v1);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = [v5 mainTable];
+      sub_10015F5C8();
+      v16 = 75;
+      sub_10017AA9C(&_mh_execute_header, v8, v9, "Upgrading %@ to version %llu: adding flags column", &v15);
+    }
+  }
+
+  v10 = [v5 pqStore];
+  v11 = [v10 pqlConnection];
+
+  v12 = [v5 mainTable];
+  v13 = [v11 cplExecute:{@"ALTER TABLE %@ ADD COLUMN flags INTEGER DEFAULT 0", v12}];
+
+  if (v13)
+  {
+    v14 = [v5 createIndexWithName:@"flags" withDefinition:@"scopeIndex unique:flags" error:{0, 0}];
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  *v4 = v14;
+}
+
+void sub_1001C3F28(void *a1, char *a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v4 = sub_1001749DC(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = [a1 mainTable];
+      v32 = 138412546;
+      v33 = v5;
+      v34 = 2048;
+      v35 = 63;
+      sub_10017AA9C(&_mh_execute_header, v6, v7, "Upgrading %@ to version %llu: adding serializedRecord column", &v32);
+    }
+  }
+
+  v8 = [a1 pqStore];
+  v9 = [v8 pqlConnection];
+
+  v10 = [a1 mainTable];
+  v11 = [v9 cplExecute:{@"ALTER TABLE %@ ADD COLUMN serializedRecord DATA DEFAULT NULL", v10}];
+
+  if (v11)
+  {
+    v12 = [a1 pqStore];
+    v13 = [v12 clientCache];
+    v14 = [v13 mainTable];
+
+    v15 = [a1 mainTable];
+    v16 = [v9 cplFetch:{@"SELECT %@.rowid, %@.changeType, %@.serializedRecord FROM %@, %@ WHERE %@.scopeIndex = %@.scopeIndex AND %@.identifier = %@.identifier AND (changeType != %ld AND changeType != %ld)", v15, v15, v14, v15, v14, v15, v14, v15, v14, 1024, 0}];
+    v31 = 0;
+    while ([v16 next])
+    {
+      while (1)
+      {
+        v17 = objc_autoreleasePoolPush();
+        v18 = [v16 integerAtIndex:0];
+        v19 = [v16 integerAtIndex:1];
+        v20 = [v16 cplChangeAtIndex:2];
+        if (v20)
+        {
+          break;
+        }
+
+        objc_autoreleasePoolPop(v17);
+        if (([v16 next] & 1) == 0)
+        {
+          goto LABEL_17;
+        }
+      }
+
+      v21 = v20;
+      v30 = a2;
+      v22 = [v20 copyChangeType:v19];
+      v23 = [CPLArchiver archivedDataWithRootObject:v22];
+      v24 = v23;
+      if (v23)
+      {
+        v25 = [v9 execute:{@"UPDATE %@ SET serializedRecord = %@ WHERE rowid = %ld", v15, v23, v18}];
+        v26 = v25;
+        v31 += v25;
+      }
+
+      else
+      {
+        v26 = 1;
+      }
+
+      objc_autoreleasePoolPop(v17);
+      a2 = v30;
+      if ((v26 & 1) == 0)
+      {
+        goto LABEL_21;
+      }
+    }
+
+LABEL_17:
+    if (![v9 execute:{@"UPDATE %@ SET serializedRecord = (SELECT serializedRecord FROM %@ WHERE scopeIndex = %@.scopeIndex AND identifier = %@.identifier) WHERE changeType = %ld", v15, v14, v15, v15, 0}])
+    {
+LABEL_21:
+      v27 = 0;
+      goto LABEL_22;
+    }
+
+    v28 = [v9 changes] + v31;
+    if (v28 >= 1)
+    {
+      v29 = [a1 pqStore];
+      [v29 recordUpgradeEvent:{@"Transferred %lld records from client cache to push repository", v28}];
+    }
+
+    v27 = 1;
+LABEL_22:
+  }
+
+  else
+  {
+    v27 = 0;
+  }
+
+  *a2 = v27;
+}
+
+void sub_1001C4240()
+{
+  v0 = +[NSAssertionHandler currentHandler];
+  v1 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequelitePushRepository.m"];
+  [sub_1000034AC() handleFailureInMethod:? object:? file:? lineNumber:? description:?];
+
+  abort();
+}
+
+void sub_1001C42B4()
+{
+  v0 = +[NSAssertionHandler currentHandler];
+  v1 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequelitePushRepository.m"];
+  [sub_1000034AC() handleFailureInMethod:? object:? file:? lineNumber:? description:?];
+
+  abort();
+}
+
+void sub_1001C4328()
+{
+  v0 = +[NSAssertionHandler currentHandler];
+  v1 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequelitePushRepository.m"];
+  [sub_1000034AC() handleFailureInMethod:? object:? file:? lineNumber:? description:?];
+
+  abort();
+}
+
+id sub_1001C4468(char a1, uint64_t a2, void *a3, void *a4)
+{
+  if (a1)
+  {
+    v29 = NSStringFromClass(0);
+    v7 = 0;
+    v6 = 0;
+    v24 = 0;
+    v25 = 0;
+    v26 = 0;
+    v27 = 0;
+    v22 = 0;
+    v8 = 0;
+  }
+
+  else
+  {
+    v29 = NSStringFromClass(*(a2 + 24));
+    v25 = *(a2 + 32);
+    v27 = *(a2 + 40);
+    v24 = *(a2 + 48);
+    v26 = *(a2 + 56);
+    v6 = *(a2 + 64);
+    v7 = *(a2 + 8);
+    v8 = *(a2 + 80);
+    v22 = *(a2 + 72);
+  }
+
+  v23 = v8;
+  v9 = [v23 uploadIdentifier];
+  if (a1)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v10 = *(a2 + 80);
+  }
+
+  v11 = v10;
+  v12 = [v11 flags];
+  if (a1)
+  {
+    v13 = 0;
+  }
+
+  else
+  {
+    v13 = *(a2 + 80);
+  }
+
+  v14 = v13;
+  v15 = [v14 priority];
+  if (a1)
+  {
+    v17 = sub_1001C3044(0);
+    v18 = 0;
+    v16 = 0;
+    v19 = 0;
+  }
+
+  else
+  {
+    v16 = *(a2 + 12);
+    v17 = sub_1001C3044(a2);
+    v18 = *(a2 + 32);
+    v19 = *(a2 + 40);
+  }
+
+  v20 = [a3 cplExecute:{@"UPDATE %@ SET class = %@, scopeIndex = %ld, identifier = %@, changeType = %i, relatedIdentifier = %@, secondaryIdentifier = %@, dequeueOrder = %ld, trashed = %i, uploadIdentifier = %@, flags = %ld, priority = %lu, trustLevel = %i, serializedRecord = %@ WHERE scopeIndex = %ld AND identifier = %@", a4, v29, v25, v27, v24, v26, v6, v22, v7, v9, v12, v15, v16, v17, v18, v19}];
+
+  return v20;
+}
+
+id sub_1001C47F0(void *a1)
+{
+  result = [0 uploadIdentifier];
+  *a1 = result;
+  return result;
+}
+
+void sub_1001C4A88(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19)
+{
+  sub_10002B0F4();
+  a18 = v20;
+  a19 = v22;
+  v23 = v21;
+  if (_CPLSilentLogging != 1)
+  {
+    v24 = sub_1001749DC(v21);
+    if (sub_1000033C0(v24))
+    {
+      v25 = [v23 abstractObject];
+      LODWORD(a11) = 138412290;
+      *(&a11 + 4) = v25;
+      sub_1000139CC(&_mh_execute_header, v19, v26, "%@ should not manage the extracted batch", &a11);
+    }
+  }
+
+  v27 = +[NSAssertionHandler currentHandler];
+  v28 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequelitePushRepository.m"];
+  v29 = [v23 abstractObject];
+  [sub_1000034AC() handleFailureInMethod:? object:? file:? lineNumber:? description:?];
+
+  abort();
+}
+
+void sub_1001C4B80(void *a1)
+{
+  v1 = objc_begin_catch(a1);
+  v2 = v1;
+  if (_CPLSilentLogging != 1)
+  {
+    v3 = sub_1001749DC(v1);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    {
+      v5 = 138412290;
+      v6 = v2;
+      sub_1000139CC(&_mh_execute_header, v3, v4, "Stored extracted batch does not seem supported anymore (%@)", &v5);
+    }
+  }
+
+  objc_end_catch();
+}
+
+void sub_1001C4C48(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v21 = sub_1001749DC(a1);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    {
+      *v30 = 0;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Failed to decode extracted batch", v30, 2u);
+    }
+  }
+
+  v22 = _CPLStoreFailure();
+  sub_1001C4CBC(v22, v23, v24, v25, v26, v27, v28, v29, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21);
+}
+
+void sub_1001C4CBC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21)
+{
+  sub_1000587D4();
+  a20 = v22;
+  a21 = v24;
+  v25 = v23;
+  if (_CPLSilentLogging != 1)
+  {
+    v26 = sub_1001749DC(v23);
+    if (sub_1000033C0(v26))
+    {
+      v27 = [v25 abstractObject];
+      LODWORD(a11) = 138412290;
+      *(&a11 + 4) = v27;
+      sub_1000139CC(&_mh_execute_header, v21, v28, "%@ should not manage the extracted batch", &a11);
+    }
+  }
+
+  v29 = +[NSAssertionHandler currentHandler];
+  v30 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequelitePushRepository.m"];
+  v31 = [v25 abstractObject];
+  [sub_1000034AC() handleFailureInMethod:? object:? file:? lineNumber:? description:?];
+
+  abort();
+}
+
+void sub_1001C4DC8(uint64_t a1, uint64_t a2, _BYTE *a3)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v6 = sub_1001749DC(a1);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = 134218242;
+      v8 = a2;
+      v9 = 2114;
+      v10 = a1;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Reset priority for %llu records in %{public}@", &v7, 0x16u);
+    }
+  }
+
+  *a3 = 1;
+}
+
+void sub_1001C52B0(uint8_t *a1, uint64_t a2, void *a3)
+{
+  v6 = sub_1001749DC(a1);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    *a1 = 138412290;
+    *a3 = a2;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%@ still has contributors to update", a1, 0xCu);
+  }
+}
+
+void sub_1001C5410(uint64_t a1)
+{
+  v2 = sub_1001749DC(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = 134217984;
+    v4 = a1;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Acknowledged %lu contributors updates", &v3, 0xCu);
+  }
+}
+
+void sub_1001C5650(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21)
+{
+  sub_1000587D4();
+  a20 = v22;
+  a21 = v24;
+  v26 = v25;
+  if (_CPLSilentLogging != 1)
+  {
+    v27 = sub_1001749DC(v23);
+    if (sub_1000033C0(v27))
+    {
+      v28 = objc_opt_class();
+      v29 = v28;
+      v30 = NSStringFromSelector(v26);
+      LODWORD(buf) = 138412546;
+      *(&buf + 4) = v28;
+      WORD6(buf) = 2112;
+      *(&buf + 14) = v30;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_ERROR, "Trying to call [%@ %@] too many times", &buf, 0x16u);
+    }
+  }
+
+  v31 = +[NSAssertionHandler currentHandler];
+  v32 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequelitePushRepository.m"];
+  objc_opt_class();
+  v33 = NSStringFromSelector(v26);
+  [sub_1000034AC() handleFailureInMethod:? object:? file:? lineNumber:? description:?];
+
+  abort();
+}
+
+id sub_1001C58A4(uint64_t a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v2 = sub_10017AAD4(a1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    {
+      *v4 = 0;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "Running on a undetermined OS build", v4, 2u);
+    }
+  }
+
+  return [*(a1 + 8) removeObjectForKey:@"lastSeenOSBuildVersion"];
+}
+
+id *sub_1001C5930(id *a1, void *a2, void *a3)
+{
+  v6 = a2;
+  v7 = a3;
+  if (a1)
+  {
+    v10.receiver = a1;
+    v10.super_class = CPLPrequeliteRemappedRecord;
+    v8 = objc_msgSendSuper2(&v10, "init");
+    a1 = v8;
+    if (v8)
+    {
+      objc_storeStrong(v8 + 1, a2);
+      objc_storeStrong(a1 + 2, a3);
+    }
+  }
+
+  return a1;
+}
+
+void sub_1001C59CC(void *a1, _BYTE *a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v4 = sub_10017BE9C(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Removing unused deleteDate column", v7, 2u);
+    }
+  }
+
+  v5 = [a1 pqStore];
+  v6 = [v5 pqlConnection];
+
+  *a2 = [v6 cplExecute:@"ALTER TABLE remappedDeletes DROP COLUMN deleteDate"];
+}
+
+void sub_1001C5AA0(uint64_t a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v2 = sub_10017BE9C(a1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    {
+      v3 = 138412290;
+      v4 = a1;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Removed %@ from remapped records", &v3, 0xCu);
+    }
+  }
+}
+
+void sub_1001C5CB0(void *a1, _BYTE *a2)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v4 = sub_10017DA04(a1);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = [a1 mainTable];
+      *buf = 138412546;
+      v20 = v5;
+      v21 = 2048;
+      v22 = 63;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Upgrading %@ to version %llu: adding class column", buf, 0x16u);
+    }
+  }
+
+  v6 = [a1 pqStore];
+  v7 = [v6 pqlConnection];
+
+  v8 = [a1 mainTable];
+  v9 = [v7 cplExecute:{@"ALTER TABLE %@ ADD COLUMN class TEXT DEFAULT NULL", v8}];
+
+  if (v9)
+  {
+    v10 = [a1 pqStore];
+    v11 = [v10 clientCache];
+    v12 = [v11 mainTable];
+
+    v13 = [a1 mainTable];
+    v14 = [v7 cplExecute:{@"UPDATE %@ SET class = (SELECT class FROM %@ WHERE identifier = %@.localIdentifier AND scopeIndex = %@.scopeIndex)", v13, v12, v13, v13}];
+    v15 = v14;
+    if (v14)
+    {
+      v16 = [v7 changes];
+      if (v16 >= 1)
+      {
+        v17 = v16;
+        v18 = [a1 pqStore];
+        [v18 recordUpgradeEvent:{@"Updated quarantined record classes from client cache for %lld records", v17}];
+      }
+    }
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  *a2 = v15;
+}
+
+void sub_1001C5EE0(uint64_t a1, uint64_t a2)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v4 = __CPLGenericOSLogDomain();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 134217984;
+      v8 = 0x404E000000000000;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_ERROR, "Expiration interval should be greater or equal to %f", buf, 0xCu);
+    }
+  }
+
+  v5 = +[NSAssertionHandler currentHandler];
+  v6 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/PrequeliteStore/CPLPrequeliteTodoVar.m"];
+  [v5 handleFailureInMethod:a1 object:a2 file:v6 lineNumber:53 description:{@"Expiration interval should be greater or equal to %f", 0x404E000000000000}];
+
+  abort();
+}
+
+void sub_1001C7A04(uint64_t a1, uint64_t a2)
+{
+  if (_CPLSilentLogging != 1)
+  {
+    v5 = sub_1001805BC(a1);
+    if (sub_1000033C0(v5))
+    {
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_ERROR, "Trying to store a file without an finger print", v8, 2u);
+    }
+  }
+
+  v6 = +[NSAssertionHandler currentHandler];
+  v7 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/Resources/CPLBucketFileStorage.m"];
+  [v6 handleFailureInMethod:a1 object:a2 file:v7 lineNumber:77 description:@"Trying to store a file without an finger print"];
+
+  abort();
+}
+
+void sub_1001C7AE4()
+{
+  sub_10015F5DC();
+  v3 = sub_1001805BC(v2);
+  if (sub_10000FAE0(v3))
+  {
+    v4 = [v1 lastPathComponent];
+    sub_1000ACA54();
+    sub_100181C30();
+    _os_log_impl(v5, v6, v7, v8, v9, v10);
+  }
+}
+
+void sub_1001C7B94()
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    sub_10015F5DC();
+    v3 = sub_1001805BC(v2);
+    if (sub_10000FAE0(v3))
+    {
+      v4 = [v1 lastPathComponent];
+      sub_1000ACA54();
+      sub_100181C30();
+      _os_log_impl(v5, v6, v7, v8, v9, v10);
+    }
+  }
+}
+
+void sub_1001C7C54()
+{
+  sub_10015F5DC();
+  v3 = sub_1001805BC(v2);
+  if (sub_10000FAE0(v3))
+  {
+    v4 = [v1 lastPathComponent];
+    sub_1000ACA54();
+    sub_100181C30();
+    _os_log_impl(v5, v6, v7, v8, v9, v10);
+  }
+}
+
+void sub_1001C7D04()
+{
+  sub_10015F5DC();
+  v3 = sub_1001805BC(v2);
+  if (sub_10000FAE0(v3))
+  {
+    v4 = [v1 lastPathComponent];
+    sub_1000ACA54();
+    sub_100181C30();
+    _os_log_impl(v5, v6, v7, v8, v9, v10);
+  }
+}
+
+void sub_1001C7F4C(uint64_t a1, void *a2, uint64_t a3)
+{
+  v4 = a2;
+  v5 = v4;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v6 = sub_1001821D8(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    {
+      v8 = 138412546;
+      v9 = v5;
+      v10 = 2112;
+      v11 = a3;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "%@ got test notification of external changes: %@", &v8, 0x16u);
+    }
+  }
+
+  v7 = [v5 abstractObject];
+  [v7 noteServerHasChanges];
+}
+
+void sub_1001C8038(uint64_t a1)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v2 = sub_1001821D8(a1);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+    {
+      v9 = 138412290;
+      v10 = a1;
+      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEBUG, "Initializing %@", &v9, 0xCu);
+    }
+  }
+
+  v3 = CPLCopyDefaultSerialQueueAttributes();
+  v4 = dispatch_queue_create("com.apple.cpl.scheduler", v3);
+  v5 = *(a1 + 8);
+  *(a1 + 8) = v4;
+
+  v6 = CPLCopyDefaultSerialQueueAttributes();
+  v7 = dispatch_queue_create("com.apple.cpl.scheduler.sequenceNumber", v6);
+  v8 = *(a1 + 24);
+  *(a1 + 24) = v7;
+}
+
+void sub_1001C8168(void **a1, uint64_t a2, void *a3)
+{
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v5 = sub_1001821D8(a1);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v6 = *(*a1 + a2);
+      v8 = 138412290;
+      v9 = v6;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Starting requested %@ after dropping persisted sync session", &v8, 0xCu);
+    }
+
+    a3 = *a1;
+  }
+
+  v7 = [a3 abstractObject];
+  [v7 startRequiredSyncSessionNow:*(*a1 + a2)];
+}
+
+void sub_1001C8254(void *a1, uint64_t a2)
+{
+  v4 = sub_1001821D8(a1);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = *(*a1 + a2);
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Delaying start of %@ while still looking for persisted sync session", &v6, 0xCu);
+  }
+}
+
+uint64_t dispatch thunk of Decoder.decodeSingularDoubleField(value:)()
+{
+  return dispatch thunk of Decoder.decodeSingularDoubleField(value:)();
+}
+
+{
+  return dispatch thunk of Decoder.decodeSingularDoubleField(value:)();
+}
+
+CLLocationCoordinate2D CLLocationCoordinate2DMake(CLLocationDegrees latitude, CLLocationDegrees longitude)
+{
+  v4 = _CLLocationCoordinate2DMake(latitude, longitude);
+  v3 = v4.longitude;
+  v2 = v4.latitude;
+  result.longitude = v3;
+  result.latitude = v2;
+  return result;
+}
+
+NSSize NSSizeFromString(NSString *aString)
+{
+  v3 = _NSSizeFromString(aString);
+  height = v3.height;
+  width = v3.width;
+  result.height = height;
+  result.width = width;
+  return result;
+}
+
+objc_method_description protocol_getMethodDescription(Protocol *p, SEL aSel, BOOL isRequiredMethod, BOOL isInstanceMethod)
+{
+  MethodDescription = _protocol_getMethodDescription(p, aSel, isRequiredMethod, isInstanceMethod);
+  types = MethodDescription.types;
+  name = MethodDescription.name;
+  result.types = types;
+  result.name = name;
+  return result;
 }

@@ -12,7 +12,7 @@
   dockWindowCopy = dockWindow;
   engineCopy = engine;
   configurationCopy = configuration;
-  v13 = sub_2482894C4(windowCopy, dockWindow, engineCopy);
+  v13 = sub_2482894C4(windowCopy, dockWindow, engineCopy, configurationCopy);
 
   return v13;
 }
@@ -36,7 +36,7 @@
 
   selfCopy = self;
   DBDockSlideAnimator.animate(duration:delay:completion:)(v11, v10, duration, delay);
-  sub_248167864(v11);
+  sub_248167864(v11, v10);
 }
 
 - (_TtC9DashBoard19DBDockSlideAnimator)init

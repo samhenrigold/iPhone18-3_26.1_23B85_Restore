@@ -264,7 +264,7 @@ LABEL_15:
 
 - (id)watchdogPolicyForProcess:(id)process eventContext:(id)context
 {
-  v56[2] = *MEMORY[0x1E69E9840];
+  v55[2] = *MEMORY[0x1E69E9840];
   processCopy = process;
   contextCopy = context;
   event = [contextCopy event];
@@ -280,18 +280,18 @@ LABEL_15:
     }
 
     applicationInfo = [processCopy applicationInfo];
-    v51 = 0;
-    v52 = &v51;
-    v53 = 0x2020000000;
-    v54 = 0xBFF0000000000000;
+    v50 = 0;
+    v51 = &v50;
+    v52 = 0x2020000000;
+    v53 = 0xBFF0000000000000;
     goto LABEL_8;
   }
 
   applicationInfo = [processCopy applicationInfo];
-  v51 = 0;
-  v52 = &v51;
-  v53 = 0x2020000000;
-  v54 = 0xBFF0000000000000;
+  v50 = 0;
+  v51 = &v50;
+  v52 = 0x2020000000;
+  v53 = 0xBFF0000000000000;
   if ((event - 2) < 2)
   {
     sceneSettings = [contextCopy sceneSettings];
@@ -302,7 +302,7 @@ LABEL_15:
 
     if ((isForeground | v20))
     {
-      v52[3] = 10.0;
+      v51[3] = 10.0;
     }
 
     else
@@ -312,7 +312,7 @@ LABEL_15:
 
       if ((allowCPUThrottling & 1) == 0)
       {
-        v52[3] = 30.0;
+        v51[3] = 30.0;
       }
 
       processInfo = [MEMORY[0x1E696AE30] processInfo];
@@ -324,22 +324,22 @@ LABEL_15:
         v28 = dbl_1A8A72058[thermalState - 1];
       }
 
-      v52[3] = v28 * v52[3];
+      v51[3] = v28 * v51[3];
     }
 
     v12 = -1.0;
     if (isForeground)
     {
       queue = self->_queue;
-      v45[0] = MEMORY[0x1E69E9820];
-      v45[1] = 3221225472;
-      v45[2] = __76__FBApplicationProcessWatchdogPolicy_watchdogPolicyForProcess_eventContext___block_invoke_2;
-      v45[3] = &unk_1E783BFC0;
-      v47 = &v51;
-      v45[4] = self;
+      v44[0] = MEMORY[0x1E69E9820];
+      v44[1] = 3221225472;
+      v44[2] = __76__FBApplicationProcessWatchdogPolicy_watchdogPolicyForProcess_eventContext___block_invoke_2;
+      v44[3] = &unk_1E783BFC0;
+      v46 = &v50;
+      v44[4] = self;
       applicationInfo = applicationInfo;
-      v46 = applicationInfo;
-      dispatch_sync(queue, v45);
+      v45 = applicationInfo;
+      dispatch_sync(queue, v44);
     }
 
     goto LABEL_28;
@@ -360,7 +360,7 @@ LABEL_15:
       v23 = 5.0;
     }
 
-    v52[3] = v23;
+    v51[3] = v23;
 
     v12 = -1.0;
 LABEL_28:
@@ -379,14 +379,14 @@ LABEL_8:
     {
       if (launchIntent == 2)
       {
-        v52[3] = 30.0;
+        v51[3] = 30.0;
         v12 = 10.0;
       }
     }
 
     else
     {
-      v52[3] = 20.0;
+      v51[3] = 20.0;
       if ((launchIntent - 3) <= 1)
       {
         v15 = self->_queue;
@@ -394,10 +394,10 @@ LABEL_8:
         block[1] = 3221225472;
         block[2] = __76__FBApplicationProcessWatchdogPolicy_watchdogPolicyForProcess_eventContext___block_invoke;
         block[3] = &unk_1E783BFC0;
-        v50 = &v51;
+        v49 = &v50;
         block[4] = self;
         applicationInfo = applicationInfo;
-        v49 = applicationInfo;
+        v48 = applicationInfo;
         dispatch_sync(v15, block);
       }
     }
@@ -413,10 +413,10 @@ LABEL_29:
   if (v32)
   {
     [v32 doubleValue];
-    v52[3] = v33 + v52[3];
+    v51[3] = v33 + v51[3];
   }
 
-  if (v52[3] <= 0.0)
+  if (v51[3] <= 0.0)
   {
     v16 = 0;
   }
@@ -425,13 +425,13 @@ LABEL_29:
   {
     v34 = MEMORY[0x1E699FBA8];
     FBSProcessResourceAllowanceMakeWithRealTimeInterval();
-    v35 = [v34 provisionWithAllowance:v44];
+    v35 = [v34 provisionWithAllowance:v43];
     v36 = v35;
     if (v12 <= 0.0)
     {
       v41 = MEMORY[0x1E699FBB8];
-      v55 = v35;
-      v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v55 count:1];
+      v54 = v35;
+      v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v54 count:1];
       v16 = [v41 policyWithProvisions:v38];
     }
 
@@ -439,19 +439,17 @@ LABEL_29:
     {
       v37 = MEMORY[0x1E699FBA8];
       FBSProcessResourceAllowanceMakeWithScheduledTimeInterval();
-      v38 = [v37 provisionWithAllowance:v44];
+      v38 = [v37 provisionWithAllowance:v43];
       v39 = MEMORY[0x1E699FBB8];
-      v56[0] = v36;
-      v56[1] = v38;
-      v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v56 count:2];
+      v55[0] = v36;
+      v55[1] = v38;
+      v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v55 count:2];
       v16 = [v39 policyWithProvisions:v40];
     }
   }
 
-  _Block_object_dispose(&v51, 8);
+  _Block_object_dispose(&v50, 8);
 LABEL_38:
-
-  v42 = *MEMORY[0x1E69E9840];
 
   return v16;
 }

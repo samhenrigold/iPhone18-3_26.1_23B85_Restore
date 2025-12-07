@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (unsigned)format_version;
 - (void)setCategories:(id)categories;
+- (void)setFormat_version:(unsigned __int16)format_version;
 - (void)setLocale:(id)locale;
 - (void)setMetadata:(id)metadata;
 @end
@@ -24,6 +25,12 @@
 - (void)setMetadata:(id)metadata
 {
   v4 = [metadata copy];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
+- (void)setFormat_version:(unsigned __int16)format_version
+{
+  v4 = [objc_alloc(MEMORY[0x1E696AD98]) initWithUnsignedShort:format_version];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 

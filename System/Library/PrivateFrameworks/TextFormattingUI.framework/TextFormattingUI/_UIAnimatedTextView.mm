@@ -22,7 +22,7 @@
   }
 
   v10 = v9;
-  sub_26D345E5C(0, &qword_2804FC3C8);
+  sub_26D345E5C(0, &qword_2804FC3C8, 0x277D75D18);
   v11 = v7;
   v7 = v10;
   LOBYTE(v10) = sub_26D3A1358();

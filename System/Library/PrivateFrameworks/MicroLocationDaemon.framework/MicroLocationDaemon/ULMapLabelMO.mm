@@ -69,42 +69,41 @@
 
 - (optional<ULMapLabelDO>)convertToDO
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   model = [(ULMapLabelMO *)self model];
   modelUUID = [model modelUUID];
   v6 = modelUUID;
   if (modelUUID)
   {
-    [modelUUID boostUUID];
+    objc_msgSend_boostUUID(modelUUID);
   }
 
   else
   {
-    v60[0] = 0;
-    v60[1] = 0;
-    v61 = 0;
+    v58 = 0uLL;
+    v59 = 0;
   }
 
-  if (v61)
+  if (v59)
   {
     label = [(ULMapLabelMO *)self label];
     v8 = label;
     if (label)
     {
-      [label convertToDO];
+      objc_msgSend_convertToDO(label);
     }
 
     else
     {
-      v58 = 0u;
-      v59 = 0u;
       v56 = 0u;
       v57 = 0u;
+      v54 = 0u;
       v55 = 0u;
-      memset(v54, 0, sizeof(v54));
+      v53 = 0u;
+      memset(v52, 0, sizeof(v52));
     }
 
-    if ((BYTE8(v59) & 1) == 0)
+    if ((BYTE8(v57) & 1) == 0)
     {
       if (onceToken_MicroLocation_Default != -1)
       {
@@ -124,8 +123,8 @@
       goto LABEL_53;
     }
 
-    LOBYTE(v41[0]) = 0;
-    v42 = 0;
+    LOBYTE(v40) = 0;
+    BYTE12(v40) = 0;
     v11 = [(ULMapLabelMO *)self x];
     if (v11)
     {
@@ -150,18 +149,17 @@ LABEL_18:
         v19 = v18;
         v20 = [(ULMapLabelMO *)self z];
         [v20 floatValue];
-        v41[0] = v16;
-        v41[1] = v19;
-        v41[2] = v21;
-        v42 = !v42;
+        *&v40 = __PAIR64__(v19, v16);
+        DWORD2(v40) = v21;
+        BYTE12(v40) = (BYTE12(v40) & 1) == 0;
 
         goto LABEL_18;
       }
     }
 
 LABEL_19:
-    LOBYTE(v39[0]) = 0;
-    v40 = 0;
+    LOBYTE(v38[0]) = 0;
+    v39 = 0;
     probabilityVector = [(ULMapLabelMO *)self probabilityVector];
     v23 = probabilityVector == 0;
 
@@ -170,8 +168,8 @@ LABEL_19:
       v24 = MEMORY[0x277CBEA60];
       probabilityVector2 = [(ULMapLabelMO *)self probabilityVector];
       v26 = [probabilityVector2 toNSArrayWithElementType:objc_opt_class()];
-      [v24 toFloatVector:v26];
-      std::optional<std::vector<float>>::operator=[abi:ne200100]<std::vector<float>,void>(v39, &buf);
+      objc_msgSend_toFloatVector_(v24);
+      std::optional<std::vector<float>>::operator=[abi:ne200100]<std::vector<float>,void>(v38, &buf);
       if (buf.n128_u64[0])
       {
         buf.n128_u64[1] = buf.n128_u64[0];
@@ -179,8 +177,8 @@ LABEL_19:
       }
     }
 
-    LOBYTE(v37[0]) = 0;
-    v38 = 0;
+    LOBYTE(v36[0]) = 0;
+    v37 = 0;
     imageIdentifiersVector = [(ULMapLabelMO *)self imageIdentifiersVector];
     v28 = imageIdentifiersVector == 0;
 
@@ -189,7 +187,7 @@ LABEL_19:
       imageIdentifiersVector2 = [(ULMapLabelMO *)self imageIdentifiersVector];
       v30 = [imageIdentifiersVector2 toNSArrayWithElementType:objc_opt_class()];
       ULDBUtils::boostUUIDsFromNSStringArray(v30, &buf);
-      std::optional<std::vector<float>>::operator=[abi:ne200100]<std::vector<float>,void>(v37, &buf);
+      std::optional<std::vector<float>>::operator=[abi:ne200100]<std::vector<float>,void>(v36, &buf);
       if (buf.n128_u64[0])
       {
         buf.n128_u64[1] = buf.n128_u64[0];
@@ -197,16 +195,16 @@ LABEL_19:
       }
     }
 
-    std::__optional_copy_base<std::vector<boost::uuids::uuid>,false>::__optional_copy_base[abi:ne200100](__p, v37);
+    std::__optional_copy_base<std::vector<boost::uuids::uuid>,false>::__optional_copy_base[abi:ne200100](__p, v36);
     [(ULMapLabelMO *)self timestamp];
-    v34 = v31;
-    if (BYTE8(v59) != 1 || (v61 & 1) == 0)
+    v33 = v31;
+    if (BYTE8(v57) != 1 || (v59 & 1) == 0)
     {
       std::__throw_bad_optional_access[abi:ne200100]();
     }
 
-    ULMapLabelDO::ULMapLabelDO(&buf, v41, v39, __p, &v34, v54, v60);
-    if (v36 == 1 && __p[0])
+    ULMapLabelDO::ULMapLabelDO(&buf, &v40, v38, __p, &v33, v52, &v58);
+    if (v35 == 1 && __p[0])
     {
       __p[1] = __p[0];
       operator delete(__p[0]);
@@ -214,72 +212,72 @@ LABEL_19:
 
     result = ULMapLabelDO::ULMapLabelDO(retstr, &buf);
     retstr[2].var0.var1.var2.var1 = 1;
-    if (v53 == 1)
+    if (v51 == 1)
     {
-      v52 = -1;
+      v50 = -1;
     }
 
-    if (v51 < 0)
+    if (v49 < 0)
     {
-      operator delete(v50);
+      operator delete(v48);
     }
 
-    if (v49 == 1)
+    if (v47 == 1)
     {
-      result = v47;
-      if (v47)
+      result = v45;
+      if (v45)
       {
-        v48 = v47;
-        operator delete(v47);
+        v46 = v45;
+        operator delete(v45);
       }
     }
 
-    if (v46 == 1)
+    if (v44 == 1)
     {
-      result = v44;
-      if (v44)
+      result = v42;
+      if (v42)
       {
-        v45 = v44;
-        operator delete(v44);
+        v43 = v42;
+        operator delete(v42);
       }
     }
 
-    if (v38 == 1)
+    if (v37 == 1)
     {
-      result = v37[0];
-      if (v37[0])
+      result = v36[0];
+      if (v36[0])
       {
-        v37[1] = v37[0];
-        operator delete(v37[0]);
+        v36[1] = v36[0];
+        operator delete(v36[0]);
       }
     }
 
-    if (v40 == 1)
+    if (v39 == 1)
     {
-      result = v39[0];
-      if (v39[0])
+      result = v38[0];
+      if (v38[0])
       {
-        v39[1] = v39[0];
-        operator delete(v39[0]);
+        v38[1] = v38[0];
+        operator delete(v38[0]);
       }
     }
 
 LABEL_53:
-    if (BYTE8(v59) == 1)
+    if (BYTE8(v57) == 1)
     {
 
-      if (BYTE8(v58) == 1)
+      if (BYTE8(v56) == 1)
       {
-        LODWORD(v58) = -1;
+        LODWORD(v56) = -1;
       }
 
-      if (SHIBYTE(v56) < 0)
+      if (SHIBYTE(v54) < 0)
       {
-        operator delete(*(&v55 + 1));
+        operator delete(*(&v53 + 1));
       }
     }
 
-    goto LABEL_58;
+    return result;
   }
 
   if (onceToken_MicroLocation_Default != -1)
@@ -297,8 +295,6 @@ LABEL_53:
 
   retstr->var0.var0 = 0;
   retstr[2].var0.var1.var2.var1 = 0;
-LABEL_58:
-  v33 = *MEMORY[0x277D85DE8];
   return result;
 }
 

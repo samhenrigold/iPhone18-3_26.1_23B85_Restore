@@ -18,19 +18,17 @@
 
 - (PGGraphAddressNodeCollection)preciseAddressNodes
 {
-  v12[2] = *MEMORY[0x277D85DE8];
+  v11[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D22C90];
   v4 = +[PGGraphHomeWorkNode addressOfHomeWork];
-  v12[0] = v4;
+  v11[0] = v4;
   v5 = +[PGGraphAddressNode preciseFilter];
   relation = [v5 relation];
-  v12[1] = relation;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
+  v11[1] = relation;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
   v8 = [v3 chain:v7];
 
   v9 = [(MANodeCollection *)PGGraphAddressNodeCollection nodesRelatedToNodes:self withRelation:v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

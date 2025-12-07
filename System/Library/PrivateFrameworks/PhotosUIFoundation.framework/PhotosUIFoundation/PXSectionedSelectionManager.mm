@@ -78,11 +78,11 @@
     [v5 enumerateDataSourceIdentifiers:v36];
     v34 = 0u;
     v35 = 0u;
-    [(PXSectionedSelectionManager *)self cursorIndexPath];
+    objc_msgSend_cursorIndexPath(self);
     v8 = [PXSelectionSnapshot alloc];
     dataSource2 = [(PXSectionedSelectionManager *)self dataSource];
-    [(PXSectionedSelectionManager *)self pendingIndexPath];
-    [(PXSectionedSelectionManager *)self pressedIndexPath];
+    objc_msgSend_pendingIndexPath(self);
+    objc_msgSend_pressedIndexPath(self);
     selectionLimitReached = [(PXSectionedSelectionManager *)self selectionLimitReached];
     emptySelectionAvoided = [(PXSectionedSelectionManager *)self emptySelectionAvoided];
     overallSelectionOrder = [(PXSectionedSelectionManager *)self overallSelectionOrder];
@@ -112,15 +112,15 @@
 
         if (v21)
         {
-          [(PXSelectionSnapshot *)v21 cursorIndexPath];
+          objc_msgSend_cursorIndexPath(v21);
           *buf = v30;
           v38 = v31;
           [(PXSectionedSelectionManager *)self _setCursorIndexPath:buf];
-          [(PXSelectionSnapshot *)v21 pendingIndexPath];
+          objc_msgSend_pendingIndexPath(v21);
           *buf = v28;
           v38 = v29;
           [(PXSectionedSelectionManager *)self _setPendingIndexPath:buf];
-          [(PXSelectionSnapshot *)v21 pressedIndexPath];
+          objc_msgSend_pressedIndexPath(v21);
         }
 
         else
@@ -279,7 +279,7 @@
 
 - (void)setPressedIndexPath:(PXSimpleIndexPath *)path
 {
-  [(PXSectionedSelectionManager *)self pressedIndexPath];
+  objc_msgSend_pressedIndexPath(self, a2);
   v6 = v8 == path->dataSourceIdentifier && *(&v8 + 1) == path->section && v9 == path->item;
   if (!v6 || *(&v9 + 1) != path->subitem)
   {
@@ -293,7 +293,7 @@
 
 - (void)setPendingIndexPath:(PXSimpleIndexPath *)path
 {
-  [(PXSectionedSelectionManager *)self pendingIndexPath];
+  objc_msgSend_pendingIndexPath(self, a2);
   v6 = v8 == path->dataSourceIdentifier && *(&v8 + 1) == path->section && v9 == path->item;
   if (!v6 || *(&v9 + 1) != path->subitem)
   {
@@ -307,7 +307,7 @@
 
 - (void)setCursorIndexPath:(PXSimpleIndexPath *)path
 {
-  [(PXSectionedSelectionManager *)self cursorIndexPath];
+  objc_msgSend_cursorIndexPath(self, a2);
   v6 = v8 == path->dataSourceIdentifier && *(&v8 + 1) == path->section && v9 == path->item;
   if (!v6 || *(&v9 + 1) != path->subitem)
   {
@@ -571,13 +571,22 @@ uint64_t __61__PXSectionedSelectionManager_setSelectedState_forIndexPath___block
   return v22 & 1;
 }
 
-uint64_t __58__PXSectionedSelectionManager_hasAnyChangesFromSelection___block_invoke(void *a1, __int128 *a2, _BYTE *a3)
+void *__58__PXSectionedSelectionManager_hasAnyChangesFromSelection___block_invoke(void *a1, const char *a2, _BYTE *a3)
 {
-  v13 = 0;
-  v11 = 0u;
-  v12 = 0u;
+  v11 = 0;
+  v9 = 0u;
+  v10 = 0u;
   v5 = a1[4];
-  if (v5 && (v6 = a2[1], v9 = *a2, v10 = v6, result = [v5 indexPathAfterApplyingChangesToIndexPath:&v9 hasIncrementalChanges:0 objectChanged:&v13], (v13 & 1) != 0) || (v8 = a1[5], v9 = v11, v10 = v12, result = objc_msgSend(v8, "containsIndexPath:", &v9), (result & 1) == 0))
+  if (v5)
+  {
+    objc_msgSend_indexPathAfterApplyingChangesToIndexPath_hasIncrementalChanges_objectChanged_(v5, *a2, *(a2 + 1), *(a2 + 2), *(a2 + 3));
+  }
+
+  v6 = a1[5];
+  v8[0] = v9;
+  v8[1] = v10;
+  result = [v6 containsIndexPath:v8];
+  if ((result & 1) == 0)
   {
     *(*(a1[6] + 8) + 24) = 1;
     *a3 = 1;
@@ -733,124 +742,120 @@ LABEL_6:
   historyCopy = history;
   dataSource = [(PXSectionedSelectionManager *)self dataSource];
   [(PXSectionedSelectionManager *)self _setDataSource:sourceCopy];
-  v38 = *PXSimpleIndexPathNull;
-  v39 = *&PXSimpleIndexPathNull[16];
-  v36 = *PXSimpleIndexPathNull;
-  v37 = *&PXSimpleIndexPathNull[16];
-  v34 = *PXSimpleIndexPathNull;
-  v35 = *&PXSimpleIndexPathNull[16];
+  v35 = *PXSimpleIndexPathNull;
+  v36 = *&PXSimpleIndexPathNull[16];
+  v33 = *PXSimpleIndexPathNull;
+  v34 = *&PXSimpleIndexPathNull[16];
+  v31 = *PXSimpleIndexPathNull;
+  v32 = *&PXSimpleIndexPathNull[16];
   if (historyCopy)
   {
-    identifier = [dataSource identifier];
-    v10 = [historyCopy changeDetailsFromDataSourceIdentifier:identifier toDataSourceIdentifier:{objc_msgSend(sourceCopy, "identifier")}];
+    v9 = [historyCopy changeDetailsFromDataSourceIdentifier:objc_msgSend(dataSource toDataSourceIdentifier:{"identifier"), objc_msgSend(sourceCopy, "identifier")}];
     selectedIndexPaths = [(PXSectionedSelectionManager *)self selectedIndexPaths];
-    v12 = [PXSectionedDataSourceChangeDetails indexPathSetAfterApplyingChanges:v10 toIndexPathSet:selectedIndexPaths hasIncrementalChanges:0];
-    v32 = 0u;
-    v33 = 0u;
+    v11 = [PXSectionedDataSourceChangeDetails indexPathSetAfterApplyingChanges:v9 toIndexPathSet:selectedIndexPaths hasIncrementalChanges:0];
+    v29 = 0u;
+    v30 = 0u;
     if (selectedIndexPaths)
     {
-      [selectedIndexPaths firstItemIndexPathForDataSourceIdentifier:identifier];
+      objc_msgSend_firstItemIndexPathForDataSourceIdentifier_(selectedIndexPaths);
     }
 
     snapshotValidator = [(PXSectionedSelectionManager *)self snapshotValidator];
-    v19 = sourceCopy;
+    v17 = sourceCopy;
     if ([snapshotValidator selectionManagerShouldAvoidEmptySelection:self])
     {
-      v14 = 0;
-      if (!v32 || v33 == 0x7FFFFFFFFFFFFFFFLL || *(&v33 + 1) != 0x7FFFFFFFFFFFFFFFLL)
+      v13 = 0;
+      if (!v29 || v30 == 0x7FFFFFFFFFFFFFFFLL || *(&v30 + 1) != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v15 = dataSource;
+        v14 = dataSource;
         goto LABEL_22;
       }
 
-      if (!v12 || ([v12 anyItemIndexPath], !v28))
+      if (!v11 || (objc_msgSend_anyItemIndexPath(v11), !v25))
       {
-        *&v28 = 0;
-        *(&v28 + 1) = &v28;
-        *&v29 = 0x4010000000;
-        *(&v29 + 1) = "";
-        v30 = *PXSimpleIndexPathNull;
-        v31 = *&PXSimpleIndexPathNull[16];
-        v25[0] = MEMORY[0x1E69E9820];
-        v25[1] = 3221225472;
-        v25[2] = __64__PXSectionedSelectionManager__setDataSource_withChangeHistory___block_invoke;
-        v25[3] = &unk_1E7BB5EE8;
-        v26 = v32;
-        v27 = v33;
-        v25[4] = &v28;
-        v23 = v32;
-        v24 = v33;
-        [dataSource enumerateItemIndexPathsStartingAtIndexPath:&v23 reverseDirection:1 usingBlock:v25];
-        v23 = 0u;
-        v24 = 0u;
+        *&v25 = 0;
+        *(&v25 + 1) = &v25;
+        *&v26 = 0x4010000000;
+        *(&v26 + 1) = "";
+        v27 = *PXSimpleIndexPathNull;
+        v28 = *&PXSimpleIndexPathNull[16];
+        v22[0] = MEMORY[0x1E69E9820];
+        v22[1] = 3221225472;
+        v22[2] = __64__PXSectionedSelectionManager__setDataSource_withChangeHistory___block_invoke;
+        v22[3] = &unk_1E7BB5EE8;
+        v23 = v29;
+        v24 = v30;
+        v22[4] = &v25;
+        v20 = v29;
+        v21 = v30;
+        [dataSource enumerateItemIndexPathsStartingAtIndexPath:&v20 reverseDirection:1 usingBlock:v22];
+        v20 = 0u;
+        v21 = 0u;
         if (sourceCopy)
         {
-          [sourceCopy firstItemIndexPath];
+          objc_msgSend_firstItemIndexPath(sourceCopy);
         }
 
-        v14 = 0;
-        if (*(*(&v28 + 1) + 32))
+        v13 = 0;
+        if (*(*(&v25 + 1) + 32))
         {
-          if (*(*(&v28 + 1) + 48) != 0x7FFFFFFFFFFFFFFFLL && *(*(&v28 + 1) + 56) == 0x7FFFFFFFFFFFFFFFLL)
+          if (*(*(&v25 + 1) + 48) != 0x7FFFFFFFFFFFFFFFLL && *(*(&v25 + 1) + 56) == 0x7FFFFFFFFFFFFFFFLL)
           {
-            v17 = *(*(&v28 + 1) + 48);
-            v20[0] = *(*(&v28 + 1) + 32);
-            v20[1] = v17;
-            [PXSectionedDataSourceChangeDetails indexPathAfterApplyingChanges:v10 toIndexPath:v20 hasIncrementalChanges:0 objectChanged:0];
-            v14 = 0;
-            v23 = v21;
-            v24 = v22;
-            if (v21)
+            objc_msgSend_indexPathAfterApplyingChanges_toIndexPath_hasIncrementalChanges_objectChanged_(PXSectionedDataSourceChangeDetails);
+            v13 = 0;
+            v20 = v18;
+            v21 = v19;
+            if (v18)
             {
-              if (v24 != 0x7FFFFFFFFFFFFFFFLL)
+              if (v21 != 0x7FFFFFFFFFFFFFFFLL)
               {
-                v14 = *(&v24 + 1) == 0x7FFFFFFFFFFFFFFFLL;
+                v13 = *(&v21 + 1) == 0x7FFFFFFFFFFFFFFFLL;
               }
             }
           }
         }
 
-        v21 = v23;
-        v22 = v24;
-        v18 = [PXIndexPathSet indexPathSetWithIndexPath:&v21];
-        v15 = dataSource;
+        v18 = v20;
+        v19 = v21;
+        v16 = [PXIndexPathSet indexPathSetWithIndexPath:&v18];
+        v14 = dataSource;
 
-        _Block_object_dispose(&v28, 8);
-        v12 = v18;
+        _Block_object_dispose(&v25, 8);
+        v11 = v16;
         goto LABEL_22;
       }
     }
 
-    v15 = dataSource;
-    v14 = 0;
+    v14 = dataSource;
+    v13 = 0;
 LABEL_22:
-    v16 = [v12 mutableCopy];
-    [(PXSectionedSelectionManager *)self cursorIndexPath];
-    [PXSectionedDataSourceChangeDetails indexPathAfterApplyingChanges:v10 toIndexPath:&v28 hasIncrementalChanges:0 objectChanged:0];
-    [(PXSectionedSelectionManager *)self pendingIndexPath];
-    [PXSectionedDataSourceChangeDetails indexPathAfterApplyingChanges:v10 toIndexPath:&v28 hasIncrementalChanges:0 objectChanged:0];
-    [(PXSectionedSelectionManager *)self pressedIndexPath];
-    [PXSectionedDataSourceChangeDetails indexPathAfterApplyingChanges:v10 toIndexPath:&v28 hasIncrementalChanges:0 objectChanged:0];
+    v15 = [v11 mutableCopy];
+    objc_msgSend_cursorIndexPath(self);
+    objc_msgSend_indexPathAfterApplyingChanges_toIndexPath_hasIncrementalChanges_objectChanged_(PXSectionedDataSourceChangeDetails);
+    objc_msgSend_pendingIndexPath(self);
+    objc_msgSend_indexPathAfterApplyingChanges_toIndexPath_hasIncrementalChanges_objectChanged_(PXSectionedDataSourceChangeDetails);
+    objc_msgSend_pressedIndexPath(self);
+    objc_msgSend_indexPathAfterApplyingChanges_toIndexPath_hasIncrementalChanges_objectChanged_(PXSectionedDataSourceChangeDetails);
 
-    dataSource = v15;
-    sourceCopy = v19;
+    dataSource = v14;
+    sourceCopy = v17;
     goto LABEL_23;
   }
 
-  v16 = +[(PXIndexPathSet *)PXMutableIndexPathSet];
-  v14 = 0;
+  v15 = +[(PXIndexPathSet *)PXMutableIndexPathSet];
+  v13 = 0;
 LABEL_23:
-  [(PXSectionedSelectionManager *)self _setEmptySelectionAvoided:v14];
-  [(PXSectionedSelectionManager *)self _setSelectedIndexPaths:v16];
-  v28 = v38;
-  v29 = v39;
-  [(PXSectionedSelectionManager *)self _setCursorIndexPath:&v28];
-  v28 = v36;
-  v29 = v37;
-  [(PXSectionedSelectionManager *)self _setPendingIndexPath:&v28];
-  v28 = v34;
-  v29 = v35;
-  [(PXSectionedSelectionManager *)self _setPressedIndexPath:&v28];
+  [(PXSectionedSelectionManager *)self _setEmptySelectionAvoided:v13];
+  [(PXSectionedSelectionManager *)self _setSelectedIndexPaths:v15];
+  v25 = v35;
+  v26 = v36;
+  [(PXSectionedSelectionManager *)self _setCursorIndexPath:&v25];
+  v25 = v33;
+  v26 = v34;
+  [(PXSectionedSelectionManager *)self _setPendingIndexPath:&v25];
+  v25 = v31;
+  v26 = v32;
+  [(PXSectionedSelectionManager *)self _setPressedIndexPath:&v25];
 }
 
 __n128 __64__PXSectionedSelectionManager__setDataSource_withChangeHistory___block_invoke(uint64_t a1, int64x2_t *a2, _BYTE *a3)

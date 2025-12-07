@@ -57,8 +57,9 @@
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_1003F1ED0(disappear);
+  sub_1003F1ED0(disappearCopy);
 }
 
 - (void)traitCollectionDidChange:(id)change

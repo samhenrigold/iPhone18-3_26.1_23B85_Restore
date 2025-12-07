@@ -78,7 +78,6 @@ uint64_t __45__AXPhoenixWakeGestureMonitor_sharedInstance__block_invoke()
 
   objc_storeStrong(&oslog, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopMonitoring
@@ -97,7 +96,6 @@ uint64_t __45__AXPhoenixWakeGestureMonitor_sharedInstance__block_invoke()
   }
 
   objc_storeStrong(oslog, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isDeviceHandheld
@@ -159,7 +157,6 @@ uint64_t __45__AXPhoenixWakeGestureMonitor_sharedInstance__block_invoke()
 
   v7 = v14;
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v7 & 1;
 }
 

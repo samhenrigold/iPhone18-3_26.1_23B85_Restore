@@ -22,7 +22,7 @@
 
 - (void)updateSeparatorInset
 {
-  CalInterfaceIsLeftToRight();
+  CalInterfaceIsLeftToRight(self, a2);
   [(EKUILocationSearchResultCell *)self safeAreaInsets];
   [(EKUILocationSearchResultCell *)self separatorInset];
 

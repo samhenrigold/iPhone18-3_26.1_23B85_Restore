@@ -17,19 +17,17 @@
   if (!__SystemSoundActivationCount_0)
   {
     inPropertyData = 0;
-    AudioServicesSetProperty(0x61637421u, 4u, &kSoundIDs_0, 4u, &inPropertyData);
-    v2 = TPDefaultLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v2 = AudioServicesSetProperty(0x61637421u, 4u, kSoundIDs_0, 4u, &inPropertyData);
+    v3 = TPDefaultLog(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
       v6 = inPropertyData;
-      _os_log_impl(&dword_1B4894000, v2, OS_LOG_TYPE_DEFAULT, "Called AudioServicesSetProperty() with kAudioServicesPropertyActivate and active=%d", buf, 8u);
+      _os_log_impl(&dword_1B4894000, v3, OS_LOG_TYPE_DEFAULT, "Called AudioServicesSetProperty() with kAudioServicesPropertyActivate and active=%d", buf, 8u);
     }
 
     __PendingDeactivate_0 = 0;
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (TPDialerSoundController)init
@@ -118,47 +116,13 @@
 {
   v15 = *MEMORY[0x1E69E9840];
   v5 = *(self + 16);
-  if (activated)
+  if (!activated)
   {
-    mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
-    if ([mEMORY[0x1E69DC668] isSuspended])
+    if ((*(self + 16) & 1) == 0)
     {
-
-      if ((v5 & 1) == 0)
-      {
-        goto LABEL_15;
-      }
-
-      goto LABEL_9;
+      return;
     }
 
-    mEMORY[0x1E69DC668]2 = [MEMORY[0x1E69DC668] sharedApplication];
-    v8 = [mEMORY[0x1E69DC668]2 isSuspendedEventsOnly] ^ v5;
-
-    if ((v8 & 1) == 0)
-    {
-LABEL_9:
-      v9 = __SystemSoundActivationCount_0++;
-      if (!v9 && (__PendingDeactivate_0 & 1) == 0)
-      {
-        inPropertyData = 1;
-        AudioServicesSetProperty(0x61637421u, 4u, kSoundIDs_0, 4u, &inPropertyData);
-        v10 = TPDefaultLog();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 67109120;
-          v14 = inPropertyData;
-          _os_log_impl(&dword_1B4894000, v10, OS_LOG_TYPE_DEFAULT, "Called AudioServicesSetProperty() with kAudioServicesPropertyActivate and active=%d", buf, 8u);
-        }
-      }
-
-LABEL_14:
-      *(self + 16) = *(self + 16) & 0xFE | activated;
-    }
-  }
-
-  else if (*(self + 16))
-  {
     if (!--__SystemSoundActivationCount_0)
     {
       [objc_opt_class() performSelector:sel__delayedDeactivate withObject:0 afterDelay:0.0];
@@ -168,8 +132,40 @@ LABEL_14:
     goto LABEL_14;
   }
 
-LABEL_15:
-  v11 = *MEMORY[0x1E69E9840];
+  mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
+  if (([mEMORY[0x1E69DC668] isSuspended] & 1) == 0)
+  {
+    mEMORY[0x1E69DC668]2 = [MEMORY[0x1E69DC668] sharedApplication];
+    v8 = [mEMORY[0x1E69DC668]2 isSuspendedEventsOnly] ^ v5;
+
+    if (v8)
+    {
+      return;
+    }
+
+    goto LABEL_9;
+  }
+
+  if (v5)
+  {
+LABEL_9:
+    v9 = __SystemSoundActivationCount_0++;
+    if (!v9 && (__PendingDeactivate_0 & 1) == 0)
+    {
+      inPropertyData = 1;
+      v10 = AudioServicesSetProperty(0x61637421u, 4u, kSoundIDs_0, 4u, &inPropertyData);
+      v11 = TPDefaultLog(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 67109120;
+        v14 = inPropertyData;
+        _os_log_impl(&dword_1B4894000, v11, OS_LOG_TYPE_DEFAULT, "Called AudioServicesSetProperty() with kAudioServicesPropertyActivate and active=%d", buf, 8u);
+      }
+    }
+
+LABEL_14:
+    *(self + 16) = *(self + 16) & 0xFE | activated;
+  }
 }
 
 - (void)_stopAllSoundsForcingCallbacks:(BOOL)callbacks

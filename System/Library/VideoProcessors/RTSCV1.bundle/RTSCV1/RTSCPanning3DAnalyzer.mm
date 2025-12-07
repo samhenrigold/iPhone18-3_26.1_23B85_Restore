@@ -1,6 +1,5 @@
 @interface RTSCPanning3DAnalyzer
 - (RTSCPanning3DAnalyzer)initWithTimeConstant:(float)constant initialVariance:;
-- (__n128)panningCovariance;
 - (void)reset;
 - (void)updateWithPose:(double)pose atTime:;
 @end
@@ -98,10 +97,10 @@
     v26 = sinf(v24) / v24;
   }
 
-  v27 = v26;
+  v27 = LODWORD(v26);
   v28 = vrecpe_f32(LODWORD(v26));
-  v29 = vmul_f32(v28, vrecps_f32(LODWORD(v27), v28));
-  LODWORD(v30) = vmul_f32(v29, vrecps_f32(LODWORD(v27), v29)).u32[0];
+  v29 = vmul_f32(v28, vrecps_f32(v27, v28));
+  LODWORD(v30) = vmul_f32(v29, vrecps_f32(v27, v29)).u32[0];
   if ((v18 * v24) != 0.0)
   {
     v70 = v30;
@@ -198,14 +197,6 @@
 
   while (!__CFADD__(v66++, 1));
   *(self + 144) = v59.i32[0];
-}
-
-- (__n128)panningCovariance
-{
-  result = *(self + 176);
-  v2 = *(self + 192);
-  v3 = *(self + 208);
-  return result;
 }
 
 @end

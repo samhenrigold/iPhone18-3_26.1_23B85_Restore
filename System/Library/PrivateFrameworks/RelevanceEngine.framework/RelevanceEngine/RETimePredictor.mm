@@ -7,17 +7,15 @@
 
 + (id)supportedFeatures
 {
-  v10[3] = *MEMORY[0x277D85DE8];
+  v9[3] = *MEMORY[0x277D85DE8];
   v2 = [REFeatureSet alloc];
   v3 = +[REFeature isWeekendFeature];
   v4 = +[REFeature dayOfWeekFeature];
-  v10[1] = v4;
+  v9[1] = v4;
   v5 = +[REFeature currentTimeFeature];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:3];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:3];
   v7 = [(REFeatureSet *)v2 initWithFeatures:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

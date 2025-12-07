@@ -219,7 +219,7 @@ LABEL_4:
     return 0;
   }
 
-  if ([equal metadata] != self->_metadata)
+  if (objc_msgSend_metadata(equal) != self->_metadata)
   {
     return 0;
   }

@@ -119,7 +119,7 @@ void __41__NLTagger_registerForAssetNotifications__block_invoke(uint64_t a1)
 
 + (void)didReceiveAssetsChangedNotification:(id)notification
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   v5 = objc_autoreleasePoolPush();
   v6 = NLGetLogCategory(self);
@@ -132,9 +132,9 @@ void __41__NLTagger_registerForAssetNotifications__block_invoke(uint64_t a1)
     name = [notificationCopy name];
     v11 = [v9 stringWithFormat:@"Observed notification: %@", name];
     *buf = 138543618;
-    v15 = v8;
-    v16 = 2114;
-    v17 = v11;
+    v14 = v8;
+    v15 = 2114;
+    v16 = v11;
     _os_log_impl(&dword_19D48F000, internal, OS_LOG_TYPE_DEFAULT, "%{public}@%{public}@", buf, 0x16u);
   }
 
@@ -142,8 +142,6 @@ void __41__NLTagger_registerForAssetNotifications__block_invoke(uint64_t a1)
   +[NLTaggerAssetRequest checkAssetRequests];
   defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
   [defaultCenter postNotificationName:@"NLAssetsHaveChanged" object:0];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (NLTagger)initWithTagSchemes:(NSArray *)tagSchemes
@@ -256,8 +254,7 @@ void __41__NLTagger_registerForAssetNotifications__block_invoke(uint64_t a1)
 - (void)setString:(NSString *)string
 {
   objc_storeStrong(&self->_string, string);
-  v6 = string;
-  tagger = self->_tagger;
+  v4 = string;
   NLTaggerSetString();
 }
 
@@ -266,46 +263,43 @@ void __41__NLTagger_registerForAssetNotifications__block_invoke(uint64_t a1)
   length = range.length;
   location = range.location;
   string = [(NLTagger *)self string];
-  v7 = [string length];
+  v6 = [string length];
 
-  if (location + length <= v7)
+  if (location + length <= v6)
   {
-    if (v7)
+    if (v6)
     {
-      tagger = self->_tagger;
       NLTaggerGetTokenAtIndex();
       if (length)
       {
-        v9 = self->_tagger;
         NLTaggerGetTokenAtIndex();
       }
     }
   }
 
-  v10 = 0;
-  v11 = 0;
-  result.length = v11;
-  result.location = v10;
+  v7 = 0;
+  v8 = 0;
+  result.length = v8;
+  result.location = v7;
   return result;
 }
 
 - (id)_customModelAtIndex:(unint64_t)index unit:(int64_t)unit modelDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  tagger = self->_tagger;
-  v8 = NLTaggerCopyTagAtIndex();
-  if (!v8)
+  v6 = NLTaggerCopyTagAtIndex();
+  if (!v6)
   {
-    v8 = @"und";
+    v6 = @"und";
   }
 
-  v9 = [dictionaryCopy objectForKey:v8];
-  if (!v9)
+  v7 = [dictionaryCopy objectForKey:v6];
+  if (!v7)
   {
-    v9 = [dictionaryCopy objectForKey:@"und"];
+    v7 = [dictionaryCopy objectForKey:@"und"];
   }
 
-  return v9;
+  return v7;
 }
 
 - (id)_customGazetteerAtIndex:(unint64_t)index unit:(int64_t)unit gazetteerDictionary:(id)dictionary
@@ -313,43 +307,42 @@ void __41__NLTagger_registerForAssetNotifications__block_invoke(uint64_t a1)
   dictionaryCopy = dictionary;
   if (unit)
   {
+    v7 = 0;
     v8 = 0;
-    v9 = 0;
   }
 
   else
   {
-    tagger = self->_tagger;
-    v9 = NLTaggerCopyTagAtIndex();
+    v8 = NLTaggerCopyTagAtIndex();
+    if (!v8)
+    {
+      v8 = @"und";
+    }
+
+    v9 = [dictionaryCopy objectForKey:v8];
     if (!v9)
     {
-      v9 = @"und";
+      v9 = [dictionaryCopy objectForKey:@"und"];
     }
 
-    v11 = [dictionaryCopy objectForKey:v9];
-    if (!v11)
-    {
-      v11 = [dictionaryCopy objectForKey:@"und"];
-    }
-
-    v8 = v11;
+    v7 = v9;
   }
 
-  return v8;
+  return v7;
 }
 
 - (id)_customTagDictionaryForSentence:(id)sentence options:(unint64_t)options model:(id)model gazetteer:(id)gazetteer
 {
   optionsCopy = options;
-  v56[2] = *MEMORY[0x1E69E9840];
+  v55[2] = *MEMORY[0x1E69E9840];
   sentenceCopy = sentence;
   modelCopy = model;
   gazetteerCopy = gazetteer;
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
   [MEMORY[0x1E695DF70] array];
-  v49 = v53 = sentenceCopy;
-  generateTokenSequence(sentenceCopy, 0, array, array2, v49);
+  v48 = v52 = sentenceCopy;
+  generateTokenSequence(sentenceCopy, 0, array, array2, v48);
   v12 = [array count];
   if (v12)
   {
@@ -375,22 +368,22 @@ void __41__NLTagger_registerForAssetNotifications__block_invoke(uint64_t a1)
       }
     }
 
-    v51 = v16;
-    v47 = array;
-    v48 = modelCopy;
+    v50 = v16;
+    v46 = array;
+    v47 = modelCopy;
     for (i = 0; i != v13; ++i)
     {
       v21 = MEMORY[0x1E696B098];
       v22 = [array2 objectAtIndex:i];
       unsignedIntegerValue = [v22 unsignedIntegerValue];
-      v24 = [v49 objectAtIndex:i];
+      v24 = [v48 objectAtIndex:i];
       v25 = [v21 valueWithRange:{unsignedIntegerValue, objc_msgSend(v24, "unsignedIntegerValue")}];
       [array3 addObject:v25];
     }
 
-    v52 = array3;
-    v45 = array2;
-    v26 = v51;
+    v51 = array3;
+    v44 = array2;
+    v26 = v50;
     if (!gazetteerCopy)
     {
       goto LABEL_21;
@@ -408,22 +401,22 @@ LABEL_13:
         --v28;
         if (v29 == -1)
         {
-          v26 = v51;
+          v26 = v50;
           goto LABEL_20;
         }
       }
 
-      v30 = [v52 objectAtIndex:v27];
+      v30 = [v51 objectAtIndex:v27];
       rangeValue = [v30 rangeValue];
       v33 = v32;
-      v34 = [v52 objectAtIndex:v27 + v29];
-      v59.location = [v34 rangeValue];
-      v59.length = v35;
-      v58.location = rangeValue;
-      v58.length = v33;
-      v36 = NSUnionRange(v58, v59);
+      v34 = [v51 objectAtIndex:v27 + v29];
+      v58.location = [v34 rangeValue];
+      v58.length = v35;
+      v57.location = rangeValue;
+      v57.length = v33;
+      v36 = NSUnionRange(v57, v58);
 
-      v37 = [v53 substringWithRange:{v36.location, v36.length}];
+      v37 = [v52 substringWithRange:{v36.location, v36.length}];
       v38 = [gazetteerCopy labelForString:v37];
       if (!v38)
       {
@@ -432,15 +425,15 @@ LABEL_13:
 
       v39 = v38;
       v40 = v27;
-      v26 = v51;
+      v26 = v50;
       if ((optionsCopy & 0x10) != 0)
       {
-        [v52 removeObjectsInRange:{v27, v29 + 1}];
         [v51 removeObjectsInRange:{v27, v29 + 1}];
+        [v50 removeObjectsInRange:{v27, v29 + 1}];
         v41 = [MEMORY[0x1E696B098] valueWithRange:{v36.location, v36.length}];
-        [v52 insertObject:v41 atIndex:v27];
+        [v51 insertObject:v41 atIndex:v27];
 
-        [v51 insertObject:v39 atIndex:v27];
+        [v50 insertObject:v39 atIndex:v27];
         v13 -= v29;
       }
 
@@ -448,7 +441,7 @@ LABEL_13:
       {
         do
         {
-          [v51 replaceObjectAtIndex:v40++ withObject:{v39, v45}];
+          [v50 replaceObjectAtIndex:v40++ withObject:{v39, v44}];
           --v28;
         }
 
@@ -459,15 +452,15 @@ LABEL_20:
       if (++v27 >= v13)
       {
 LABEL_21:
-        v55[0] = @"labels";
-        v55[1] = @"ranges";
-        v56[0] = v26;
-        v56[1] = v52;
-        v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v56 forKeys:v55 count:{2, v45}];
+        v54[0] = @"labels";
+        v54[1] = @"ranges";
+        v55[0] = v26;
+        v55[1] = v51;
+        v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v55 forKeys:v54 count:{2, v44}];
 
-        array = v47;
-        modelCopy = v48;
-        array2 = v46;
+        array = v46;
+        modelCopy = v47;
+        array2 = v45;
         goto LABEL_23;
       }
     }
@@ -477,8 +470,6 @@ LABEL_21:
 
   v42 = MEMORY[0x1E695E0F8];
 LABEL_23:
-
-  v43 = *MEMORY[0x1E69E9840];
 
   return v42;
 }
@@ -643,22 +634,22 @@ LABEL_34:
 - (id)_customHypothesisDictionaryForSentence:(id)sentence options:(unint64_t)options model:(id)model gazetteer:(id)gazetteer maximumCount:(unint64_t)count
 {
   optionsCopy = options;
-  v66[1] = *MEMORY[0x1E69E9840];
+  v65[1] = *MEMORY[0x1E69E9840];
   sentenceCopy = sentence;
   modelCopy = model;
   gazetteerCopy = gazetteer;
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
   [MEMORY[0x1E695DF70] array];
-  v57 = v60 = sentenceCopy;
-  generateTokenSequence(sentenceCopy, 0, array, array2, v57);
+  v56 = v59 = sentenceCopy;
+  generateTokenSequence(sentenceCopy, 0, array, array2, v56);
   v14 = [array count];
   if (v14)
   {
     v15 = v14;
     v16 = array;
     v17 = MEMORY[0x1E695DF70];
-    v53 = v16;
+    v52 = v16;
     v18 = [modelCopy predictedLabelHypothesesForTokens:? maximumCount:?];
     v19 = [v17 arrayWithArray:v18];
 
@@ -680,16 +671,16 @@ LABEL_34:
       }
     }
 
-    v59 = v19;
+    v58 = v19;
     v23 = 0;
     v24 = 0x1E696B000uLL;
-    v25 = v57;
+    v25 = v56;
     do
     {
       v26 = *(v24 + 152);
       v27 = [array2 objectAtIndex:v23];
       unsignedIntegerValue = [v27 unsignedIntegerValue];
-      v29 = [v57 objectAtIndex:v23];
+      v29 = [v56 objectAtIndex:v23];
       v30 = [v26 valueWithRange:{unsignedIntegerValue, objc_msgSend(v29, "unsignedIntegerValue")}];
       [array3 addObject:v30];
 
@@ -698,7 +689,7 @@ LABEL_34:
     }
 
     while (v15 != v23);
-    v31 = v59;
+    v31 = v58;
     v32 = array3;
     if (!gazetteerCopy || !count)
     {
@@ -706,8 +697,8 @@ LABEL_34:
     }
 
     v33 = 0;
-    v55 = array2;
-    v56 = modelCopy;
+    v54 = array2;
+    v55 = modelCopy;
     while (1)
     {
       v34 = 4;
@@ -719,9 +710,9 @@ LABEL_15:
         --v34;
         if (v35 == -1)
         {
-          array2 = v55;
-          modelCopy = v56;
-          v25 = v57;
+          array2 = v54;
+          modelCopy = v55;
+          v25 = v56;
           goto LABEL_22;
         }
       }
@@ -730,13 +721,13 @@ LABEL_15:
       rangeValue = [v36 rangeValue];
       v39 = v38;
       v40 = [v32 objectAtIndex:v33 + v35];
-      v69.location = [v40 rangeValue];
-      v69.length = v41;
-      v68.location = rangeValue;
-      v68.length = v39;
-      v42 = NSUnionRange(v68, v69);
+      v68.location = [v40 rangeValue];
+      v68.length = v41;
+      v67.location = rangeValue;
+      v67.length = v39;
+      v42 = NSUnionRange(v67, v68);
 
-      v43 = [v60 substringWithRange:{v42.location, v42.length}];
+      v43 = [v59 substringWithRange:{v42.location, v42.length}];
       v44 = [gazetteerCopy labelForString:v43];
       if (!v44)
       {
@@ -744,67 +735,65 @@ LABEL_15:
       }
 
       v45 = v44;
-      v65 = v44;
+      v64 = v44;
       v46 = [MEMORY[0x1E696AD98] numberWithDouble:1.0];
-      v66[0] = v46;
-      v58 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v66 forKeys:&v65 count:1];
+      v65[0] = v46;
+      v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v65 forKeys:&v64 count:1];
 
       v47 = v33;
-      v31 = v59;
+      v31 = v58;
       if ((optionsCopy & 0x10) != 0)
       {
         [array3 removeObjectsInRange:{v33, v35 + 1}];
-        [v59 removeObjectsInRange:{v33, v35 + 1}];
+        [v58 removeObjectsInRange:{v33, v35 + 1}];
         v49 = [MEMORY[0x1E696B098] valueWithRange:{v42.location, v42.length}];
         [array3 insertObject:v49 atIndex:v33];
 
-        v48 = v58;
-        [v59 insertObject:v58 atIndex:v33];
+        v48 = v57;
+        [v58 insertObject:v57 atIndex:v33];
         v15 -= v35;
-        v25 = v57;
+        v25 = v56;
       }
 
       else
       {
         do
         {
-          [v59 replaceObjectAtIndex:v47++ withObject:v58];
+          [v58 replaceObjectAtIndex:v47++ withObject:v57];
           --v34;
         }
 
         while (v34);
-        v25 = v57;
-        v48 = v58;
+        v25 = v56;
+        v48 = v57;
       }
 
-      array2 = v55;
-      modelCopy = v56;
+      array2 = v54;
+      modelCopy = v55;
       v32 = array3;
 LABEL_22:
       if (++v33 >= v15)
       {
 LABEL_23:
-        v63[0] = @"hypotheses";
-        v63[1] = @"ranges";
-        v64[0] = v31;
-        v64[1] = v32;
-        v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v64 forKeys:v63 count:2];
+        v62[0] = @"hypotheses";
+        v62[1] = @"ranges";
+        v63[0] = v31;
+        v63[1] = v32;
+        v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v63 forKeys:v62 count:2];
 
-        array = v53;
+        array = v52;
         goto LABEL_25;
       }
     }
 
-    v31 = v59;
+    v31 = v58;
     v32 = array3;
     goto LABEL_15;
   }
 
   v50 = MEMORY[0x1E695E0F8];
-  v25 = v57;
+  v25 = v56;
 LABEL_25:
-
-  v51 = *MEMORY[0x1E69E9840];
 
   return v50;
 }
@@ -928,17 +917,16 @@ LABEL_16:
       if (unit == NLTokenUnitDocument)
       {
         v19 = [(NLTagger *)self tagAtIndex:0 unit:3 scheme:v15 tokenRange:0];
-        v25 = 0;
-        v13[2](v13, v19, 0, v16, &v25);
+        v24 = 0;
+        v13[2](v13, v19, 0, v16, &v24);
       }
 
       else
       {
-        tagger = self->_tagger;
-        v23 = v15;
-        v24 = v13;
-        v21 = v18;
-        v22 = v17;
+        v22 = v15;
+        v23 = v13;
+        v20 = v18;
+        v21 = v17;
         NLTaggerEnumerateTokens();
 
         v19 = v17;
@@ -952,51 +940,47 @@ LABEL_16:
   }
 }
 
-void __64__NLTagger_enumerateTagsInRange_unit_scheme_options_usingBlock___block_invoke(uint64_t a1, uint64_t *a2)
+void __64__NLTagger_enumerateTagsInRange_unit_scheme_options_usingBlock___block_invoke(uint64_t a1, void *a2)
 {
   v4 = objc_autoreleasePoolPush();
-  v5 = *a2;
-  v6 = a2[1];
-  v7 = *(a1 + 32);
-  if (!v7 || ([*(a1 + 40) _customTagAtIndex:v5 unit:*(a1 + 72) scheme:*(a1 + 48) options:*(a1 + 80) modelDictionary:v7 gazetteerDictionary:*(a1 + 56)], (v8 = objc_claimAutoreleasedReturnValue()) == 0))
+  v5 = *(a1 + 32);
+  if (!v5 || ([*(a1 + 40) _customTagAtIndex:*a2 unit:*(a1 + 72) scheme:*(a1 + 48) options:*(a1 + 80) modelDictionary:v5 gazetteerDictionary:*(a1 + 56)], (v6 = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v9 = *(a1 + 48);
-    v10 = *(*(a1 + 40) + 24);
-    v11 = NLTaggerCopyTagForCurrentToken();
-    v8 = tagForNLTag(v11);
+    v7 = NLTaggerCopyTagForCurrentToken();
+    v6 = tagForNLTag(v7);
   }
 
   if (*(a1 + 48) == @"Sentiment")
   {
-    v12 = v8;
-    [(__CFString *)v12 doubleValue];
-    if (v13 <= 1.0)
+    v8 = v6;
+    [(__CFString *)v8 doubleValue];
+    if (v9 <= 1.0)
     {
-      if (v13 >= -1.0)
+      if (v9 >= -1.0)
       {
-        v8 = v12;
-        if (v13 != 0.0)
+        v6 = v8;
+        if (v9 != 0.0)
         {
 LABEL_12:
 
           goto LABEL_13;
         }
 
-        v14 = _NLTagZero;
+        v10 = _NLTagZero;
       }
 
       else
       {
-        v14 = _NLTagNegativeOne;
+        v10 = _NLTagNegativeOne;
       }
     }
 
     else
     {
-      v14 = _NLTagPositiveOne;
+      v10 = _NLTagPositiveOne;
     }
 
-    v8 = *v14;
+    v6 = *v10;
 
     goto LABEL_12;
   }
@@ -1013,7 +997,7 @@ LABEL_13:
   v11 = [(NSString *)self->_string length];
   if (v11 <= characterIndex)
   {
-    v19 = 0;
+    v18 = 0;
     v13 = v10;
   }
 
@@ -1028,9 +1012,8 @@ LABEL_13:
       v15 = [(NSMutableDictionary *)self->_customGazetteerDictionaries objectForKey:v13];
       if (!v14 || ([(NLTagger *)self _customTagAtIndex:characterIndex unit:unit scheme:v13 options:0 modelDictionary:v14 gazetteerDictionary:v15], (v16 = objc_claimAutoreleasedReturnValue()) == 0))
       {
-        tagger = self->_tagger;
-        v18 = NLTaggerCopyTagAtIndex();
-        v16 = tagForNLTag(v18);
+        v17 = NLTaggerCopyTagAtIndex();
+        v16 = tagForNLTag(v17);
       }
 
       if (tokenRange)
@@ -1043,22 +1026,21 @@ LABEL_13:
 
         else
         {
-          v20 = self->_tagger;
           NLTaggerGetTokenAtIndex();
           *tokenRange = 0uLL;
         }
       }
 
-      v19 = v16;
+      v18 = v16;
     }
 
     else
     {
-      v19 = 0;
+      v18 = 0;
     }
   }
 
-  return v19;
+  return v18;
 }
 
 - (NSArray)tagsInRange:(NSRange)range unit:(NLTokenUnit)unit scheme:(NLTagScheme)scheme options:(NLTaggerOptions)options tokenRanges:(NSArray *)tokenRanges
@@ -1123,13 +1105,13 @@ void __56__NLTagger_tagsInRange_unit_scheme_options_tokenRanges___block_invoke(u
 
 - (NSDictionary)tagHypothesesAtIndex:(NSUInteger)characterIndex unit:(NLTokenUnit)unit scheme:(NLTagScheme)scheme maximumCount:(NSUInteger)maximumCount tokenRange:(NSRangePointer)tokenRange
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   string = self->_string;
   v13 = scheme;
   v14 = [(NSString *)string length];
   if (v14 <= characterIndex)
   {
-    v34 = MEMORY[0x1E695E0F8];
+    v33 = MEMORY[0x1E695E0F8];
     v16 = v13;
   }
 
@@ -1140,7 +1122,7 @@ void __56__NLTagger_tagsInRange_unit_scheme_options_tokenRanges___block_invoke(u
 
     if (!v16)
     {
-      v34 = MEMORY[0x1E695E0F8];
+      v33 = MEMORY[0x1E695E0F8];
       goto LABEL_30;
     }
 
@@ -1150,69 +1132,68 @@ void __56__NLTagger_tagsInRange_unit_scheme_options_tokenRanges___block_invoke(u
     if (!v17 || ([(NLTagger *)self _customHypothesesAtIndex:characterIndex unit:unit scheme:v16 maximumCount:maximumCount options:0 modelDictionary:v17 gazetteerDictionary:v18], (dictionary = objc_claimAutoreleasedReturnValue()) == 0))
     {
       dictionary = [MEMORY[0x1E695DF90] dictionary];
-      tagger = self->_tagger;
-      v43 = v19;
-      v44 = NLTaggerCopyHypothesesAtIndex();
-      if (v44)
+      v40 = v19;
+      v41 = NLTaggerCopyHypothesesAtIndex();
+      if (v41)
       {
-        v38 = maximumCount;
-        v39 = v15;
-        v40 = v17;
-        v41 = unit;
-        v42 = tokenRange;
-        v47 = 0u;
-        v48 = 0u;
+        v35 = maximumCount;
+        v36 = v15;
+        v37 = v17;
+        v38 = unit;
+        v39 = tokenRange;
+        v44 = 0u;
         v45 = 0u;
-        v46 = 0u;
-        v22 = v44;
-        v23 = [v22 countByEnumeratingWithState:&v45 objects:v49 count:16];
-        if (v23)
+        v42 = 0u;
+        v43 = 0u;
+        v21 = v41;
+        v22 = [v21 countByEnumeratingWithState:&v42 objects:v46 count:16];
+        if (v22)
         {
-          v24 = v23;
-          v25 = *v46;
+          v23 = v22;
+          v24 = *v43;
           do
           {
-            for (i = 0; i != v24; ++i)
+            for (i = 0; i != v23; ++i)
             {
-              if (*v46 != v25)
+              if (*v43 != v24)
               {
-                objc_enumerationMutation(v22);
+                objc_enumerationMutation(v21);
               }
 
-              v27 = *(*(&v45 + 1) + 8 * i);
-              v28 = [v22 objectForKey:v27];
-              [v28 doubleValue];
-              if (v29 > 0.0)
+              v26 = *(*(&v42 + 1) + 8 * i);
+              v27 = [v21 objectForKey:v26];
+              [v27 doubleValue];
+              if (v28 > 0.0)
               {
-                v30 = tagForNLTag(v27);
-                [dictionary setObject:v28 forKey:v30];
+                v29 = tagForNLTag(v26);
+                [dictionary setObject:v27 forKey:v29];
               }
             }
 
-            v24 = [v22 countByEnumeratingWithState:&v45 objects:v49 count:16];
+            v23 = [v21 countByEnumeratingWithState:&v42 objects:v46 count:16];
           }
 
-          while (v24);
+          while (v23);
         }
 
-        unit = v41;
-        tokenRange = v42;
-        v15 = v39;
-        v17 = v40;
-        v19 = v43;
-        maximumCount = v38;
+        unit = v38;
+        tokenRange = v39;
+        v15 = v36;
+        v17 = v37;
+        v19 = v40;
+        maximumCount = v35;
       }
 
-      v31 = [dictionary count];
-      if (maximumCount && !v31)
+      v30 = [dictionary count];
+      if (maximumCount && !v30)
       {
-        v32 = [(NLTagger *)self tagAtIndex:characterIndex unit:unit scheme:v16 tokenRange:tokenRange];
-        if (v32)
+        v31 = [(NLTagger *)self tagAtIndex:characterIndex unit:unit scheme:v16 tokenRange:tokenRange];
+        if (v31)
         {
-          v33 = [MEMORY[0x1E696AD98] numberWithDouble:1.0];
-          [dictionary setObject:v33 forKey:v32];
+          v32 = [MEMORY[0x1E696AD98] numberWithDouble:1.0];
+          [dictionary setObject:v32 forKey:v31];
 
-          v19 = v43;
+          v19 = v40;
         }
       }
     }
@@ -1227,39 +1208,36 @@ void __56__NLTagger_tagsInRange_unit_scheme_options_tokenRanges___block_invoke(u
 
       else
       {
-        v35 = self->_tagger;
         NLTaggerGetTokenAtIndex();
         *tokenRange = 0uLL;
       }
     }
 
-    v34 = dictionary;
+    v33 = dictionary;
   }
 
 LABEL_30:
-  v36 = *MEMORY[0x1E69E9840];
 
-  return v34;
+  return v33;
 }
 
 - (NSRange)tokenRangeAtIndex:(NSUInteger)characterIndex unit:(NLTokenUnit)unit
 {
   if ([(NSString *)self->_string length]<= characterIndex)
   {
-    v7 = 0;
-    v6 = 0x7FFFFFFFFFFFFFFFLL;
+    v5 = 0;
+    v4 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    tagger = self->_tagger;
     NLTaggerGetTokenAtIndex();
-    v6 = 0;
-    v7 = 0;
+    v4 = 0;
+    v5 = 0;
   }
 
-  result.length = v7;
-  result.location = v6;
+  result.length = v5;
+  result.location = v4;
   return result;
 }
 
@@ -1267,38 +1245,36 @@ LABEL_30:
 {
   length = range.length;
   location = range.location;
-  v7 = [(NSString *)self->_string length];
-  if (v7 <= location)
+  v6 = [(NSString *)self->_string length];
+  if (v6 <= location)
   {
-    v10 = 0x7FFFFFFFFFFFFFFFLL;
+    v8 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
   else
   {
-    if (location + length <= v7)
+    if (location + length <= v6)
     {
-      v8 = length;
+      v7 = length;
     }
 
     else
     {
-      v8 = v7 - location;
+      v7 = v6 - location;
     }
 
-    tagger = self->_tagger;
     NLTaggerGetTokenAtIndex();
-    v10 = 0;
-    if (v8)
+    v8 = 0;
+    if (v7)
     {
-      v11 = self->_tagger;
       NLTaggerGetTokenAtIndex();
     }
   }
 
-  v12 = v10;
-  v13 = 0;
-  result.length = v13;
-  result.location = v12;
+  v9 = v8;
+  v10 = 0;
+  result.length = v10;
+  result.location = v9;
   return result;
 }
 
@@ -1306,17 +1282,16 @@ LABEL_30:
 {
   if ([(NSString *)self->_string length])
   {
-    tagger = self->_tagger;
-    v4 = NLTaggerCopyTagAtIndex();
-    v5 = tagForNLTag(v4);
+    v2 = NLTaggerCopyTagAtIndex();
+    v3 = tagForNLTag(v2);
   }
 
   else
   {
-    v5 = 0;
+    v3 = 0;
   }
 
-  return v5;
+  return v3;
 }
 
 - (id)dominantScript
@@ -1324,11 +1299,10 @@ LABEL_30:
   v3 = @"Zyyy";
   if ([(NSString *)self->_string length])
   {
-    tagger = self->_tagger;
-    v5 = NLTaggerCopyTagAtIndex();
-    v6 = tagForNLTag(v5);
+    v4 = NLTaggerCopyTagAtIndex();
+    v5 = tagForNLTag(v4);
 
-    v3 = v6;
+    v3 = v5;
   }
 
   return v3;
@@ -1336,40 +1310,36 @@ LABEL_30:
 
 + (id)dominantScriptForString:(id)string
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v4 = [NLTagger alloc];
-  v10[0] = @"Script";
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
+  v9[0] = @"Script";
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
   v6 = [(NLTagger *)v4 initWithTagSchemes:v5];
 
   [(NLTagger *)v6 setString:stringCopy];
   dominantScript = [(NLTagger *)v6 dominantScript];
   [(NLTagger *)v6 setString:0];
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return dominantScript;
 }
 
 - (void)setLanguage:(NLLanguage)language range:(NSRange)range
 {
-  v5 = language;
-  v9 = v5;
-  if (v5)
+  v4 = language;
+  v6 = v4;
+  if (v4)
   {
-    v6 = CFLocaleCreate(0, v5);
-    tagger = self->_tagger;
+    v5 = CFLocaleCreate(0, v4);
     NLTaggerSetLocaleForRange();
-    if (v6)
+    if (v5)
     {
-      CFRelease(v6);
+      CFRelease(v5);
     }
   }
 
   else
   {
-    v8 = self->_tagger;
     NLTaggerSetLocaleForRange();
   }
 }
@@ -1509,9 +1479,9 @@ LABEL_15:
 
 - (void)setModels:(NSArray *)models forTagScheme:(NLTagScheme)tagScheme
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v6 = models;
-  v25 = tagScheme;
+  v24 = tagScheme;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if (!self->_customModels)
   {
@@ -1541,26 +1511,26 @@ LABEL_15:
     self->_sequenceCaches = v14;
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v16 = v6;
-  v17 = [(NSArray *)v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v17 = [(NSArray *)v16 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v27;
+    v19 = *v26;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v27 != v19)
+        if (*v26 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v26 + 1) + 8 * i);
+        v21 = *(*(&v25 + 1) + 8 * i);
         configuration = [v21 configuration];
         language = [configuration language];
 
@@ -1572,18 +1542,16 @@ LABEL_15:
         [dictionary setObject:v21 forKey:language];
       }
 
-      v18 = [(NSArray *)v16 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v18 = [(NSArray *)v16 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v18);
   }
 
-  [(NSMutableDictionary *)self->_customModels setObject:v16 forKey:v25];
-  [(NSMutableDictionary *)self->_customModelDictionaries setObject:dictionary forKey:v25];
+  [(NSMutableDictionary *)self->_customModels setObject:v16 forKey:v24];
+  [(NSMutableDictionary *)self->_customModelDictionaries setObject:dictionary forKey:v24];
   [(NSMutableDictionary *)self->_classifierCaches removeAllObjects];
   [(NSMutableDictionary *)self->_sequenceCaches removeAllObjects];
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)modelsForTagScheme:(NLTagScheme)tagScheme
@@ -1599,31 +1567,31 @@ LABEL_15:
 
 - (void)setGazetteers:(NSArray *)gazetteers forTagScheme:(NLTagScheme)tagScheme
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v6 = gazetteers;
-  v22 = tagScheme;
+  v20 = tagScheme;
   Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x1E695E9C0]);
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v21 = 0u;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
   v9 = v6;
-  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [(NSArray *)v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v24;
+    v12 = *v22;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v24 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v23 + 1) + 8 * i);
+        v14 = *(*(&v21 + 1) + 8 * i);
         language = [v14 language];
         if (!language)
         {
@@ -1634,7 +1602,7 @@ LABEL_15:
         [v14 _addImplementationToArray:Mutable];
       }
 
-      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [(NSArray *)v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v11);
@@ -1654,13 +1622,10 @@ LABEL_15:
     self->_customGazetteerDictionaries = v18;
   }
 
-  [(NSMutableDictionary *)self->_customGazetteers setObject:v9 forKey:v22];
-  [(NSMutableDictionary *)self->_customGazetteerDictionaries setObject:dictionary forKey:v22];
-  tagger = self->_tagger;
+  [(NSMutableDictionary *)self->_customGazetteers setObject:v9 forKey:v20];
+  [(NSMutableDictionary *)self->_customGazetteerDictionaries setObject:dictionary forKey:v20];
   NLTaggerSetGazetteers();
   CFRelease(Mutable);
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)gazetteersForTagScheme:(NLTagScheme)tagScheme
@@ -1676,7 +1641,7 @@ LABEL_15:
 
 + (void)requestAssetsForLanguage:(id)language assetIdentifier:(id)identifier tagScheme:(id)scheme completionHandler:(id)handler
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   languageCopy = language;
   identifierCopy = identifier;
   schemeCopy = scheme;
@@ -1690,9 +1655,9 @@ LABEL_15:
     v17 = NLGetLogIdentifier(self);
     identifierCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"Requested assets for '%@', language: '%@', identifier: '%@'", schemeCopy, languageCopy, identifierCopy];
     *buf = 138543618;
-    v44 = v17;
-    v45 = 2114;
-    v46 = identifierCopy;
+    v43 = v17;
+    v44 = 2114;
+    v45 = identifierCopy;
     _os_log_impl(&dword_19D48F000, internal, OS_LOG_TYPE_DEFAULT, "%{public}@%{public}@", buf, 0x16u);
   }
 
@@ -1714,9 +1679,9 @@ LABEL_15:
         v25 = NLGetLogIdentifier(self);
         identifierCopy2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Assets for '%@', language: '%@', identifier: '%@' are available", schemeCopy, languageCopy, identifierCopy];
         *buf = 138543618;
-        v44 = v25;
-        v45 = 2114;
-        v46 = identifierCopy2;
+        v43 = v25;
+        v44 = 2114;
+        v45 = identifierCopy2;
         _os_log_impl(&dword_19D48F000, internal2, OS_LOG_TYPE_DEFAULT, "%{public}@%{public}@", buf, 0x16u);
       }
 
@@ -1731,9 +1696,9 @@ LABEL_15:
         v35 = NLGetLogIdentifier(self);
         identifierCopy3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Placing request with asset download service for '%@', language: '%@', identifier: '%@'", schemeCopy, languageCopy, identifierCopy];
         *buf = 138543618;
-        v44 = v35;
-        v45 = 2114;
-        v46 = identifierCopy3;
+        v43 = v35;
+        v44 = 2114;
+        v45 = identifierCopy3;
         _os_log_impl(&dword_19D48F000, internal2, OS_LOG_TYPE_DEFAULT, "%{public}@%{public}@", buf, 0x16u);
       }
 
@@ -1744,21 +1709,21 @@ LABEL_15:
       }
 
       v37 = objc_alloc_init(_TILinguisticAssetDownloadClient);
-      v39[0] = MEMORY[0x1E69E9820];
-      v39[1] = 3221225472;
-      v39[2] = __81__NLTagger_requestAssetsForLanguage_assetIdentifier_tagScheme_completionHandler___block_invoke;
-      v39[3] = &unk_1E7629440;
-      v40 = v19;
-      [v37 requestLinguisticAssetsForLanguage:languageCopy completion:v39];
+      v38[0] = MEMORY[0x1E69E9820];
+      v38[1] = 3221225472;
+      v38[2] = __81__NLTagger_requestAssetsForLanguage_assetIdentifier_tagScheme_completionHandler___block_invoke;
+      v38[3] = &unk_1E7629440;
+      v39 = v19;
+      [v37 requestLinguisticAssetsForLanguage:languageCopy completion:v38];
     }
   }
 
   else
   {
     v27 = MEMORY[0x1E696ABC0];
-    v41 = *MEMORY[0x1E696A578];
-    v42 = @"Failed to create asset request";
-    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+    v40 = *MEMORY[0x1E696A578];
+    v41 = @"Failed to create asset request";
+    v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
     v29 = [v27 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:7 userInfo:v28];
 
     v30 = objc_autoreleasePoolPush();
@@ -1770,22 +1735,20 @@ LABEL_15:
       v33 = NLGetLogIdentifier(self);
       v34 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Error requesting assets: %@", v29];
       *buf = 138543618;
-      v44 = v33;
-      v45 = 2114;
-      v46 = v34;
+      v43 = v33;
+      v44 = 2114;
+      v45 = v34;
       _os_log_impl(&dword_19D48F000, internal3, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v30);
     handlerCopy[2](handlerCopy, 2, v29);
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 void __81__NLTagger_requestAssetsForLanguage_assetIdentifier_tagScheme_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v72 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if ([*(a1 + 32) isFulfilled])
   {
@@ -1814,9 +1777,9 @@ LABEL_7:
     v13 = [*(a1 + 32) assetIdentifier];
     v14 = [v10 stringWithFormat:@"Assets for '%@', language: '%@', identifier: '%@' are available", v11, v12, v13];
     *buf = 138543618;
-    v69 = v9;
-    v70 = 2114;
-    v71 = v14;
+    v68 = v9;
+    v69 = 2114;
+    v70 = v14;
 LABEL_4:
     _os_log_impl(&dword_19D48F000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@%{public}@", buf, 0x16u);
 
@@ -1825,22 +1788,22 @@ LABEL_4:
 
   if (v5)
   {
-    v19 = objc_autoreleasePoolPush();
-    v20 = NLGetLogCategory(0);
-    v21 = [v20 internal];
+    v18 = objc_autoreleasePoolPush();
+    v19 = NLGetLogCategory(0);
+    v20 = [v19 internal];
 
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      v22 = NLGetLogIdentifier(0);
-      v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Download request error: %@", v5];
+      v21 = NLGetLogIdentifier(0);
+      v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Download request error: %@", v5];
       *buf = 138543618;
-      v69 = v22;
-      v70 = 2114;
-      v71 = v23;
-      _os_log_impl(&dword_19D48F000, v21, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", buf, 0x16u);
+      v68 = v21;
+      v69 = 2114;
+      v70 = v22;
+      _os_log_impl(&dword_19D48F000, v20, OS_LOG_TYPE_ERROR, "%{public}@%{public}@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v19);
+    objc_autoreleasePoolPop(v18);
   }
 
   if (a2 < 0)
@@ -1852,85 +1815,85 @@ LABEL_4:
         goto LABEL_8;
       }
 
-      v26 = objc_autoreleasePoolPush();
-      v27 = NLGetLogCategory(0);
-      v28 = [v27 internal];
+      v25 = objc_autoreleasePoolPush();
+      v26 = NLGetLogCategory(0);
+      v27 = [v26 internal];
 
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = NLGetLogIdentifier(0);
-        v30 = MEMORY[0x1E696AEC0];
-        v31 = [*(a1 + 32) tagScheme];
-        v32 = [*(a1 + 32) language];
-        v33 = [*(a1 + 32) assetIdentifier];
-        v34 = [v30 stringWithFormat:@"Assets for '%@', language: '%@', identifier: '%@' failed to download: %@", v31, v32, v33, v5];
+        v28 = NLGetLogIdentifier(0);
+        v29 = MEMORY[0x1E696AEC0];
+        v30 = [*(a1 + 32) tagScheme];
+        v31 = [*(a1 + 32) language];
+        v32 = [*(a1 + 32) assetIdentifier];
+        v33 = [v29 stringWithFormat:@"Assets for '%@', language: '%@', identifier: '%@' failed to download: %@", v30, v31, v32, v5];
         *buf = 138543618;
-        v69 = v29;
-        v70 = 2114;
-        v71 = v34;
-        _os_log_impl(&dword_19D48F000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@%{public}@", buf, 0x16u);
+        v68 = v28;
+        v69 = 2114;
+        v70 = v33;
+        _os_log_impl(&dword_19D48F000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@%{public}@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v26);
+      objc_autoreleasePoolPop(v25);
       v15 = *(a1 + 32);
       v16 = 2;
       v17 = v5;
       goto LABEL_7;
     }
 
-    v53 = objc_autoreleasePoolPush();
-    v54 = NLGetLogCategory(0);
-    v55 = [v54 internal];
+    v52 = objc_autoreleasePoolPush();
+    v53 = NLGetLogCategory(0);
+    v54 = [v53 internal];
 
-    if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
     {
-      v56 = NLGetLogIdentifier(0);
-      v57 = MEMORY[0x1E696AEC0];
-      v58 = [*(a1 + 32) tagScheme];
-      v59 = [*(a1 + 32) language];
-      v60 = [*(a1 + 32) assetIdentifier];
-      v61 = [v57 stringWithFormat:@"Assets for '%@', language: '%@', identifier: '%@' failed to download: asset download service is unavailble", v58, v59, v60];
+      v55 = NLGetLogIdentifier(0);
+      v56 = MEMORY[0x1E696AEC0];
+      v57 = [*(a1 + 32) tagScheme];
+      v58 = [*(a1 + 32) language];
+      v59 = [*(a1 + 32) assetIdentifier];
+      v60 = [v56 stringWithFormat:@"Assets for '%@', language: '%@', identifier: '%@' failed to download: asset download service is unavailble", v57, v58, v59];
       *buf = 138543618;
-      v69 = v56;
-      v70 = 2114;
-      v71 = v61;
-      _os_log_impl(&dword_19D48F000, v55, OS_LOG_TYPE_DEFAULT, "%{public}@%{public}@", buf, 0x16u);
+      v68 = v55;
+      v69 = 2114;
+      v70 = v60;
+      _os_log_impl(&dword_19D48F000, v54, OS_LOG_TYPE_DEFAULT, "%{public}@%{public}@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v53);
-    v62 = *(a1 + 32);
-    v63 = MEMORY[0x1E696ABC0];
-    v66 = *MEMORY[0x1E696A578];
-    v67 = @"Asset download service is unavailable";
-    v64 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v67 forKeys:&v66 count:1];
-    v65 = [v63 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:7 userInfo:v64];
-    [v62 completeWithResult:2 error:v65];
+    objc_autoreleasePoolPop(v52);
+    v61 = *(a1 + 32);
+    v62 = MEMORY[0x1E696ABC0];
+    v65 = *MEMORY[0x1E696A578];
+    v66 = @"Asset download service is unavailable";
+    v63 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+    v64 = [v62 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:7 userInfo:v63];
+    [v61 completeWithResult:2 error:v64];
   }
 
   else
   {
     if (!a2)
     {
-      v35 = objc_autoreleasePoolPush();
-      v36 = NLGetLogCategory(0);
-      v37 = [v36 internal];
+      v34 = objc_autoreleasePoolPush();
+      v35 = NLGetLogCategory(0);
+      v36 = [v35 internal];
 
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
       {
-        v38 = NLGetLogIdentifier(0);
-        v39 = MEMORY[0x1E696AEC0];
-        v40 = [*(a1 + 32) tagScheme];
-        v41 = [*(a1 + 32) language];
-        v42 = [*(a1 + 32) assetIdentifier];
-        v43 = [v39 stringWithFormat:@"Assets for '%@', language: '%@', identifier: '%@' are not available", v40, v41, v42];
+        v37 = NLGetLogIdentifier(0);
+        v38 = MEMORY[0x1E696AEC0];
+        v39 = [*(a1 + 32) tagScheme];
+        v40 = [*(a1 + 32) language];
+        v41 = [*(a1 + 32) assetIdentifier];
+        v42 = [v38 stringWithFormat:@"Assets for '%@', language: '%@', identifier: '%@' are not available", v39, v40, v41];
         *buf = 138543618;
-        v69 = v38;
-        v70 = 2114;
-        v71 = v43;
-        _os_log_impl(&dword_19D48F000, v37, OS_LOG_TYPE_DEFAULT, "%{public}@%{public}@", buf, 0x16u);
+        v68 = v37;
+        v69 = 2114;
+        v70 = v42;
+        _os_log_impl(&dword_19D48F000, v36, OS_LOG_TYPE_DEFAULT, "%{public}@%{public}@", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v35);
+      objc_autoreleasePoolPop(v34);
       v15 = *(a1 + 32);
       v16 = 1;
       goto LABEL_6;
@@ -1944,8 +1907,8 @@ LABEL_4:
       }
 
       v6 = objc_autoreleasePoolPush();
-      v24 = NLGetLogCategory(0);
-      v8 = [v24 internal];
+      v23 = NLGetLogCategory(0);
+      v8 = [v23 internal];
 
       if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
@@ -1953,45 +1916,43 @@ LABEL_4:
       }
 
       v9 = NLGetLogIdentifier(0);
-      v25 = MEMORY[0x1E696AEC0];
+      v24 = MEMORY[0x1E696AEC0];
       v11 = [*(a1 + 32) tagScheme];
       v12 = [*(a1 + 32) language];
       v13 = [*(a1 + 32) assetIdentifier];
-      v14 = [v25 stringWithFormat:@"Assets for '%@', language: '%@', identifier: '%@' are available", v11, v12, v13];
+      v14 = [v24 stringWithFormat:@"Assets for '%@', language: '%@', identifier: '%@' are available", v11, v12, v13];
       *buf = 138543618;
-      v69 = v9;
-      v70 = 2114;
-      v71 = v14;
+      v68 = v9;
+      v69 = 2114;
+      v70 = v14;
       goto LABEL_4;
     }
 
-    v44 = objc_autoreleasePoolPush();
-    v45 = NLGetLogCategory(0);
-    v46 = [v45 internal];
+    v43 = objc_autoreleasePoolPush();
+    v44 = NLGetLogCategory(0);
+    v45 = [v44 internal];
 
-    if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
     {
-      v47 = NLGetLogIdentifier(0);
-      v48 = MEMORY[0x1E696AEC0];
-      v49 = [*(a1 + 32) tagScheme];
-      v50 = [*(a1 + 32) language];
-      v51 = [*(a1 + 32) assetIdentifier];
-      v52 = [v48 stringWithFormat:@"Assets for '%@', language: '%@', identifier: '%@' are downloading", v49, v50, v51];
+      v46 = NLGetLogIdentifier(0);
+      v47 = MEMORY[0x1E696AEC0];
+      v48 = [*(a1 + 32) tagScheme];
+      v49 = [*(a1 + 32) language];
+      v50 = [*(a1 + 32) assetIdentifier];
+      v51 = [v47 stringWithFormat:@"Assets for '%@', language: '%@', identifier: '%@' are downloading", v48, v49, v50];
       *buf = 138543618;
-      v69 = v47;
-      v70 = 2114;
-      v71 = v52;
-      _os_log_impl(&dword_19D48F000, v46, OS_LOG_TYPE_DEFAULT, "%{public}@%{public}@", buf, 0x16u);
+      v68 = v46;
+      v69 = 2114;
+      v70 = v51;
+      _os_log_impl(&dword_19D48F000, v45, OS_LOG_TYPE_DEFAULT, "%{public}@%{public}@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v44);
+    objc_autoreleasePoolPop(v43);
     [*(a1 + 32) waitForFulfillment];
     +[NLTaggerAssetRequest startTimer];
   }
 
 LABEL_8:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 @end

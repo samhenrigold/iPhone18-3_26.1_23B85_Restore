@@ -116,7 +116,7 @@
 
 - (id)nextFilePath
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   path = [(HUComfortSound *)self path];
 
   if (!path)
@@ -137,8 +137,8 @@
 
     if (v8)
     {
-      v20[0] = path2;
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
+      v19[0] = path2;
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
       v10 = 0;
 LABEL_16:
       v14 = [HUComfortSoundsShuffler shufflerWithArray:v9];
@@ -150,9 +150,9 @@ LABEL_16:
     }
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    v19 = 0;
-    v12 = [defaultManager contentsOfDirectoryAtURL:path2 includingPropertiesForKeys:0 options:0 error:&v19];
-    v10 = v19;
+    v18 = 0;
+    v12 = [defaultManager contentsOfDirectoryAtURL:path2 includingPropertiesForKeys:0 options:0 error:&v18];
+    v10 = v18;
 
     if (v10)
     {
@@ -177,7 +177,6 @@ LABEL_15:
 
 LABEL_17:
   nextObject = [(HUComfortSoundsShuffler *)fileShuffler nextObject];
-  v17 = *MEMORY[0x1E69E9840];
 
   return nextObject;
 }
@@ -242,10 +241,9 @@ uint64_t __30__HUComfortSound_nextFilePath__block_invoke(uint64_t a1, void *a2)
 
 - (void)nextFilePath
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0_0(&dword_1DA5E2000, v0, v1, "Error loading assets %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  _os_log_fault_impl(&dword_1DA5E2000, v0, OS_LOG_TYPE_FAULT, "Comfort sound path is nil %@", v1, 0xCu);
 }
 
 @end

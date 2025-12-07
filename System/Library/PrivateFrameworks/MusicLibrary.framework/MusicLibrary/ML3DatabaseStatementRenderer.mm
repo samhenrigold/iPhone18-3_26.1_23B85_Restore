@@ -30,11 +30,13 @@
   return v2;
 }
 
-uint64_t __47__ML3DatabaseStatementRenderer_defaultRenderer__block_invoke()
+uint64_t __47__ML3DatabaseStatementRenderer_defaultRenderer__block_invoke(uint64_t a1)
 {
-  defaultRenderer_defaultRenderer = objc_alloc_init(objc_opt_class());
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = defaultRenderer_defaultRenderer;
+  defaultRenderer_defaultRenderer = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 - (id)statementWithPrefix:(id)prefix inParameterCount:(unint64_t)count valueCount:(unint64_t)valueCount

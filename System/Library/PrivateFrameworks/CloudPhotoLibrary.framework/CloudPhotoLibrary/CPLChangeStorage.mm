@@ -11,11 +11,10 @@
 
 - (BOOL)hasChangesWithRelatedScopedIdentifier:(id)identifier class:(Class)class
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = [(CPLChangeStorage *)self changesWithRelatedScopedIdentifier:identifier class:class, 0, 0, 0, 0, 0, 0, 0, 0];
-  v5 = [v4 countByEnumeratingWithState:&v8 objects:v9 count:16] != 0;
+  v5 = [v4 countByEnumeratingWithState:&v7 objects:v8 count:16] != 0;
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

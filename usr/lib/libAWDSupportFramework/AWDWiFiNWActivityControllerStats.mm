@@ -236,7 +236,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v48 = *MEMORY[0x29EDCA608];
+  v47 = *MEMORY[0x29EDCA608];
   dictionary = [MEMORY[0x29EDB8E00] dictionary];
   has = self->_has;
   if ((has & 0x100) != 0)
@@ -387,29 +387,29 @@ LABEL_29:
   if ([(NSMutableArray *)self->_txmpduWMEs count])
   {
     v13 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_txmpduWMEs, "count")}];
+    v40 = 0u;
     v41 = 0u;
     v42 = 0u;
     v43 = 0u;
-    v44 = 0u;
     txmpduWMEs = self->_txmpduWMEs;
-    v15 = [(NSMutableArray *)txmpduWMEs countByEnumeratingWithState:&v41 objects:v47 count:16];
+    v15 = [(NSMutableArray *)txmpduWMEs countByEnumeratingWithState:&v40 objects:v46 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v42;
+      v17 = *v41;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v42 != v17)
+          if (*v41 != v17)
           {
             objc_enumerationMutation(txmpduWMEs);
           }
 
-          [v13 addObject:{objc_msgSend(*(*(&v41 + 1) + 8 * i), "dictionaryRepresentation")}];
+          [v13 addObject:{objc_msgSend(*(*(&v40 + 1) + 8 * i), "dictionaryRepresentation")}];
         }
 
-        v16 = [(NSMutableArray *)txmpduWMEs countByEnumeratingWithState:&v41 objects:v47 count:16];
+        v16 = [(NSMutableArray *)txmpduWMEs countByEnumeratingWithState:&v40 objects:v46 count:16];
       }
 
       while (v16);
@@ -421,29 +421,29 @@ LABEL_29:
   if ([(NSMutableArray *)self->_rxmpduWMEs count])
   {
     v19 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_rxmpduWMEs, "count")}];
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
     rxmpduWMEs = self->_rxmpduWMEs;
-    v21 = [(NSMutableArray *)rxmpduWMEs countByEnumeratingWithState:&v37 objects:v46 count:16];
+    v21 = [(NSMutableArray *)rxmpduWMEs countByEnumeratingWithState:&v36 objects:v45 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v38;
+      v23 = *v37;
       do
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v38 != v23)
+          if (*v37 != v23)
           {
             objc_enumerationMutation(rxmpduWMEs);
           }
 
-          [v19 addObject:{objc_msgSend(*(*(&v37 + 1) + 8 * j), "dictionaryRepresentation")}];
+          [v19 addObject:{objc_msgSend(*(*(&v36 + 1) + 8 * j), "dictionaryRepresentation")}];
         }
 
-        v22 = [(NSMutableArray *)rxmpduWMEs countByEnumeratingWithState:&v37 objects:v46 count:16];
+        v22 = [(NSMutableArray *)rxmpduWMEs countByEnumeratingWithState:&v36 objects:v45 count:16];
       }
 
       while (v22);
@@ -455,29 +455,29 @@ LABEL_29:
   if ([(NSMutableArray *)self->_rxmdpuLosts count])
   {
     v25 = [objc_alloc(MEMORY[0x29EDB8DE8]) initWithCapacity:{-[NSMutableArray count](self->_rxmdpuLosts, "count")}];
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
     rxmdpuLosts = self->_rxmdpuLosts;
-    v27 = [(NSMutableArray *)rxmdpuLosts countByEnumeratingWithState:&v33 objects:v45 count:16];
+    v27 = [(NSMutableArray *)rxmdpuLosts countByEnumeratingWithState:&v32 objects:v44 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v34;
+      v29 = *v33;
       do
       {
         for (k = 0; k != v28; ++k)
         {
-          if (*v34 != v29)
+          if (*v33 != v29)
           {
             objc_enumerationMutation(rxmdpuLosts);
           }
 
-          [v25 addObject:{objc_msgSend(*(*(&v33 + 1) + 8 * k), "dictionaryRepresentation")}];
+          [v25 addObject:{objc_msgSend(*(*(&v32 + 1) + 8 * k), "dictionaryRepresentation")}];
         }
 
-        v28 = [(NSMutableArray *)rxmdpuLosts countByEnumeratingWithState:&v33 objects:v45 count:16];
+        v28 = [(NSMutableArray *)rxmdpuLosts countByEnumeratingWithState:&v32 objects:v44 count:16];
       }
 
       while (v28);
@@ -486,24 +486,21 @@ LABEL_29:
     [dictionary setObject:v25 forKey:@"rxmdpuLost"];
   }
 
-  v31 = *MEMORY[0x29EDCA608];
   return dictionary;
 }
 
 - (void)writeTo:(id)to
 {
-  v52 = *MEMORY[0x29EDCA608];
+  v37 = *MEMORY[0x29EDCA608];
   has = self->_has;
   if ((has & 0x100) != 0)
   {
-    controllerResets = self->_controllerResets;
     PBDataWriterWriteUint32Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    backoffStuck = self->_backoffStuck;
     PBDataWriterWriteUint32Field();
   }
 
@@ -532,17 +529,15 @@ LABEL_29:
     PBDataWriterWriteSubmessage();
   }
 
-  v7 = self->_has;
-  if ((v7 & 0x20) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x20) != 0)
   {
-    channelsVisited0 = self->_channelsVisited0;
     PBDataWriterWriteUint32Field();
-    v7 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v7 & 0x40) != 0)
+  if ((v5 & 0x40) != 0)
   {
-    channelsVisited1 = self->_channelsVisited1;
     PBDataWriterWriteUint32Field();
   }
 
@@ -551,16 +546,15 @@ LABEL_29:
     PBDataWriterWriteSubmessage();
   }
 
-  v10 = self->_has;
-  if ((v10 & 8) != 0)
+  v6 = self->_has;
+  if ((v6 & 8) != 0)
   {
-    channel = self->_channel;
     PBDataWriterWriteUint32Field();
-    v10 = self->_has;
-    if ((v10 & 0x10) == 0)
+    v6 = self->_has;
+    if ((v6 & 0x10) == 0)
     {
 LABEL_23:
-      if ((v10 & 4) == 0)
+      if ((v6 & 4) == 0)
       {
         goto LABEL_24;
       }
@@ -569,18 +563,17 @@ LABEL_23:
     }
   }
 
-  else if ((v10 & 0x10) == 0)
+  else if ((v6 & 0x10) == 0)
   {
     goto LABEL_23;
   }
 
-  channelBandwidth = self->_channelBandwidth;
   PBDataWriterWriteUint32Field();
-  v10 = self->_has;
-  if ((v10 & 4) == 0)
+  v6 = self->_has;
+  if ((v6 & 4) == 0)
   {
 LABEL_24:
-    if ((v10 & 1) == 0)
+    if ((v6 & 1) == 0)
     {
       goto LABEL_25;
     }
@@ -589,13 +582,12 @@ LABEL_24:
   }
 
 LABEL_53:
-  ccCaptureDriverLogs = self->_ccCaptureDriverLogs;
   PBDataWriterWriteUint32Field();
-  v10 = self->_has;
-  if ((v10 & 1) == 0)
+  v6 = self->_has;
+  if ((v6 & 1) == 0)
   {
 LABEL_25:
-    if ((v10 & 0x80) == 0)
+    if ((v6 & 0x80) == 0)
     {
       goto LABEL_26;
     }
@@ -604,13 +596,12 @@ LABEL_25:
   }
 
 LABEL_54:
-  commandsIssued = self->_commandsIssued;
   PBDataWriterWriteUint64Field();
-  v10 = self->_has;
-  if ((v10 & 0x80) == 0)
+  v6 = self->_has;
+  if ((v6 & 0x80) == 0)
   {
 LABEL_26:
-    if ((v10 & 0x200) == 0)
+    if ((v6 & 0x200) == 0)
     {
       goto LABEL_27;
     }
@@ -619,13 +610,12 @@ LABEL_26:
   }
 
 LABEL_55:
-  commanderHalted = self->_commanderHalted;
   PBDataWriterWriteUint32Field();
-  v10 = self->_has;
-  if ((v10 & 0x200) == 0)
+  v6 = self->_has;
+  if ((v6 & 0x200) == 0)
   {
 LABEL_27:
-    if ((v10 & 0x400) == 0)
+    if ((v6 & 0x400) == 0)
     {
       goto LABEL_29;
     }
@@ -634,104 +624,97 @@ LABEL_27:
   }
 
 LABEL_56:
-  iorSuccess = self->_iorSuccess;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x400) != 0)
   {
 LABEL_28:
-    iorWA = self->_iorWA;
     PBDataWriterWriteUint32Field();
   }
 
 LABEL_29:
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
+  v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   txmpduWMEs = self->_txmpduWMEs;
-  v13 = [(NSMutableArray *)txmpduWMEs countByEnumeratingWithState:&v45 objects:v51 count:16];
-  if (v13)
+  v8 = [(NSMutableArray *)txmpduWMEs countByEnumeratingWithState:&v30 objects:v36 count:16];
+  if (v8)
   {
-    v14 = v13;
-    v15 = *v46;
+    v9 = v8;
+    v10 = *v31;
     do
     {
-      for (i = 0; i != v14; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v46 != v15)
+        if (*v31 != v10)
         {
           objc_enumerationMutation(txmpduWMEs);
         }
 
-        v17 = *(*(&v45 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v14 = [(NSMutableArray *)txmpduWMEs countByEnumeratingWithState:&v45 objects:v51 count:16];
+      v9 = [(NSMutableArray *)txmpduWMEs countByEnumeratingWithState:&v30 objects:v36 count:16];
+    }
+
+    while (v9);
+  }
+
+  v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  rxmpduWMEs = self->_rxmpduWMEs;
+  v13 = [(NSMutableArray *)rxmpduWMEs countByEnumeratingWithState:&v26 objects:v35 count:16];
+  if (v13)
+  {
+    v14 = v13;
+    v15 = *v27;
+    do
+    {
+      for (j = 0; j != v14; ++j)
+      {
+        if (*v27 != v15)
+        {
+          objc_enumerationMutation(rxmpduWMEs);
+        }
+
+        PBDataWriterWriteSubmessage();
+      }
+
+      v14 = [(NSMutableArray *)rxmpduWMEs countByEnumeratingWithState:&v26 objects:v35 count:16];
     }
 
     while (v14);
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  rxmpduWMEs = self->_rxmpduWMEs;
-  v19 = [(NSMutableArray *)rxmpduWMEs countByEnumeratingWithState:&v41 objects:v50 count:16];
-  if (v19)
-  {
-    v20 = v19;
-    v21 = *v42;
-    do
-    {
-      for (j = 0; j != v20; ++j)
-      {
-        if (*v42 != v21)
-        {
-          objc_enumerationMutation(rxmpduWMEs);
-        }
-
-        v23 = *(*(&v41 + 1) + 8 * j);
-        PBDataWriterWriteSubmessage();
-      }
-
-      v20 = [(NSMutableArray *)rxmpduWMEs countByEnumeratingWithState:&v41 objects:v50 count:16];
-    }
-
-    while (v20);
-  }
-
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
-  v38 = 0u;
+  v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   rxmdpuLosts = self->_rxmdpuLosts;
-  v25 = [(NSMutableArray *)rxmdpuLosts countByEnumeratingWithState:&v37 objects:v49 count:16];
-  if (v25)
+  v18 = [(NSMutableArray *)rxmdpuLosts countByEnumeratingWithState:&v22 objects:v34 count:16];
+  if (v18)
   {
-    v26 = v25;
-    v27 = *v38;
+    v19 = v18;
+    v20 = *v23;
     do
     {
-      for (k = 0; k != v26; ++k)
+      for (k = 0; k != v19; ++k)
       {
-        if (*v38 != v27)
+        if (*v23 != v20)
         {
           objc_enumerationMutation(rxmdpuLosts);
         }
 
-        v29 = *(*(&v37 + 1) + 8 * k);
         PBDataWriterWriteSubmessage();
       }
 
-      v26 = [(NSMutableArray *)rxmdpuLosts countByEnumeratingWithState:&v37 objects:v49 count:16];
+      v19 = [(NSMutableArray *)rxmdpuLosts countByEnumeratingWithState:&v22 objects:v34 count:16];
     }
 
-    while (v26);
+    while (v19);
   }
-
-  v30 = *MEMORY[0x29EDCA608];
 }
 
 - (void)copyTo:(id)to
@@ -932,7 +915,7 @@ LABEL_29:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v45 = *MEMORY[0x29EDCA608];
+  v44 = *MEMORY[0x29EDCA608];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = v5;
   has = self->_has;
@@ -1064,94 +1047,93 @@ LABEL_16:
   }
 
 LABEL_17:
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   txmpduWMEs = self->_txmpduWMEs;
-  v11 = [(NSMutableArray *)txmpduWMEs countByEnumeratingWithState:&v38 objects:v44 count:16];
+  v11 = [(NSMutableArray *)txmpduWMEs countByEnumeratingWithState:&v37 objects:v43 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v39;
+    v13 = *v38;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v39 != v13)
+        if (*v38 != v13)
         {
           objc_enumerationMutation(txmpduWMEs);
         }
 
-        v15 = [*(*(&v38 + 1) + 8 * i) copyWithZone:zone];
+        v15 = [*(*(&v37 + 1) + 8 * i) copyWithZone:zone];
         [v6 addTxmpduWME:v15];
       }
 
-      v12 = [(NSMutableArray *)txmpduWMEs countByEnumeratingWithState:&v38 objects:v44 count:16];
+      v12 = [(NSMutableArray *)txmpduWMEs countByEnumeratingWithState:&v37 objects:v43 count:16];
     }
 
     while (v12);
   }
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   rxmpduWMEs = self->_rxmpduWMEs;
-  v17 = [(NSMutableArray *)rxmpduWMEs countByEnumeratingWithState:&v34 objects:v43 count:16];
+  v17 = [(NSMutableArray *)rxmpduWMEs countByEnumeratingWithState:&v33 objects:v42 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v35;
+    v19 = *v34;
     do
     {
       for (j = 0; j != v18; ++j)
       {
-        if (*v35 != v19)
+        if (*v34 != v19)
         {
           objc_enumerationMutation(rxmpduWMEs);
         }
 
-        v21 = [*(*(&v34 + 1) + 8 * j) copyWithZone:zone];
+        v21 = [*(*(&v33 + 1) + 8 * j) copyWithZone:zone];
         [v6 addRxmpduWME:v21];
       }
 
-      v18 = [(NSMutableArray *)rxmpduWMEs countByEnumeratingWithState:&v34 objects:v43 count:16];
+      v18 = [(NSMutableArray *)rxmpduWMEs countByEnumeratingWithState:&v33 objects:v42 count:16];
     }
 
     while (v18);
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   rxmdpuLosts = self->_rxmdpuLosts;
-  v23 = [(NSMutableArray *)rxmdpuLosts countByEnumeratingWithState:&v30 objects:v42 count:16];
+  v23 = [(NSMutableArray *)rxmdpuLosts countByEnumeratingWithState:&v29 objects:v41 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v31;
+    v25 = *v30;
     do
     {
       for (k = 0; k != v24; ++k)
       {
-        if (*v31 != v25)
+        if (*v30 != v25)
         {
           objc_enumerationMutation(rxmdpuLosts);
         }
 
-        v27 = [*(*(&v30 + 1) + 8 * k) copyWithZone:zone];
+        v27 = [*(*(&v29 + 1) + 8 * k) copyWithZone:zone];
         [v6 addRxmdpuLost:v27];
       }
 
-      v24 = [(NSMutableArray *)rxmdpuLosts countByEnumeratingWithState:&v30 objects:v42 count:16];
+      v24 = [(NSMutableArray *)rxmdpuLosts countByEnumeratingWithState:&v29 objects:v41 count:16];
     }
 
     while (v24);
   }
 
-  v28 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
@@ -1521,7 +1503,7 @@ LABEL_26:
 
 - (void)mergeFrom:(id)from
 {
-  v51 = *MEMORY[0x29EDCA608];
+  v50 = *MEMORY[0x29EDCA608];
   v5 = *(from + 68);
   if ((v5 & 0x100) != 0)
   {
@@ -1733,91 +1715,89 @@ LABEL_46:
   }
 
 LABEL_47:
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v20 = *(from + 16);
-  v21 = [v20 countByEnumeratingWithState:&v44 objects:v50 count:16];
+  v21 = [v20 countByEnumeratingWithState:&v43 objects:v49 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v45;
+    v23 = *v44;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v45 != v23)
+        if (*v44 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        [(AWDWiFiNWActivityControllerStats *)self addTxmpduWME:*(*(&v44 + 1) + 8 * i)];
+        [(AWDWiFiNWActivityControllerStats *)self addTxmpduWME:*(*(&v43 + 1) + 8 * i)];
       }
 
-      v22 = [v20 countByEnumeratingWithState:&v44 objects:v50 count:16];
+      v22 = [v20 countByEnumeratingWithState:&v43 objects:v49 count:16];
     }
 
     while (v22);
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
   v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
   v25 = *(from + 14);
-  v26 = [v25 countByEnumeratingWithState:&v40 objects:v49 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v39 objects:v48 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v41;
+    v28 = *v40;
     do
     {
       for (j = 0; j != v27; ++j)
       {
-        if (*v41 != v28)
+        if (*v40 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        [(AWDWiFiNWActivityControllerStats *)self addRxmpduWME:*(*(&v40 + 1) + 8 * j)];
+        [(AWDWiFiNWActivityControllerStats *)self addRxmpduWME:*(*(&v39 + 1) + 8 * j)];
       }
 
-      v27 = [v25 countByEnumeratingWithState:&v40 objects:v49 count:16];
+      v27 = [v25 countByEnumeratingWithState:&v39 objects:v48 count:16];
     }
 
     while (v27);
   }
 
-  v38 = 0u;
-  v39 = 0u;
-  v36 = 0u;
   v37 = 0u;
+  v38 = 0u;
+  v35 = 0u;
+  v36 = 0u;
   v30 = *(from + 13);
-  v31 = [v30 countByEnumeratingWithState:&v36 objects:v48 count:16];
+  v31 = [v30 countByEnumeratingWithState:&v35 objects:v47 count:16];
   if (v31)
   {
     v32 = v31;
-    v33 = *v37;
+    v33 = *v36;
     do
     {
       for (k = 0; k != v32; ++k)
       {
-        if (*v37 != v33)
+        if (*v36 != v33)
         {
           objc_enumerationMutation(v30);
         }
 
-        [(AWDWiFiNWActivityControllerStats *)self addRxmdpuLost:*(*(&v36 + 1) + 8 * k)];
+        [(AWDWiFiNWActivityControllerStats *)self addRxmdpuLost:*(*(&v35 + 1) + 8 * k)];
       }
 
-      v32 = [v30 countByEnumeratingWithState:&v36 objects:v48 count:16];
+      v32 = [v30 countByEnumeratingWithState:&v35 objects:v47 count:16];
     }
 
     while (v32);
   }
-
-  v35 = *MEMORY[0x29EDCA608];
 }
 
 @end

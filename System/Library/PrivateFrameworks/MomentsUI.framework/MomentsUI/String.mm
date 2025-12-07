@@ -9,7 +9,7 @@
   result = *self;
   if (!result)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySSSaySiGGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySSSaySiGGMd, &_sSDySSSaySiGGMR);
     a2();
     result = swift_getWitnessTable();
     atomic_store(result, self);

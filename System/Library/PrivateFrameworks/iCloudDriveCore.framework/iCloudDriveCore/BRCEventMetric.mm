@@ -59,7 +59,7 @@
 
 - (void)associateWithCompletedOperation:(id)operation
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   if (self->_isCKMetric)
   {
@@ -78,17 +78,15 @@
     v9 = brc_default_log();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v11 = 138412802;
-      v12 = objc_opt_class();
-      v13 = 2112;
+      v10 = 138412802;
+      v11 = objc_opt_class();
+      v12 = 2112;
       selfCopy = self;
-      v15 = 2112;
-      v16 = v8;
-      _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] associated %@ to event metric %@%@", &v11, 0x20u);
+      v14 = 2112;
+      v15 = v8;
+      _os_log_debug_impl(&dword_223E7A000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] associated %@ to event metric %@%@", &v10, 0x20u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

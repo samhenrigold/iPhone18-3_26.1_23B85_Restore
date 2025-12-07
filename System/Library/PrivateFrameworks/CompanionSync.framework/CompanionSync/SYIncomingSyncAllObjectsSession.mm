@@ -67,17 +67,17 @@ void __54__SYIncomingSyncAllObjectsSession__continueProcessing__block_invoke(uin
 
   v3 = [*(a1 + 32) delegate];
   v4 = *(a1 + 32);
-  v5 = *(a1 + 40);
-  v6 = MEMORY[0x1E69E9820];
-  v7 = 3221225472;
-  v8 = __54__SYIncomingSyncAllObjectsSession__continueProcessing__block_invoke_3;
-  v9 = &unk_1E86C9E68;
-  v10 = v4;
+  v5 = MEMORY[0x1E69E9820];
+  v6 = 3221225472;
+  v7 = __54__SYIncomingSyncAllObjectsSession__continueProcessing__block_invoke_3;
+  v8 = &unk_1E86C9E68;
+  v9 = v4;
   [v3 syncSession:? applyChanges:? completion:?];
 }
 
-void __54__SYIncomingSyncAllObjectsSession__continueProcessing__block_invoke_3(uint64_t a1, char a2, void *a3)
+void __54__SYIncomingSyncAllObjectsSession__continueProcessing__block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v5 = a3;
   state.opaque[0] = 0;
   state.opaque[1] = 0;
@@ -92,7 +92,7 @@ void __54__SYIncomingSyncAllObjectsSession__continueProcessing__block_invoke_3(u
   v7 = qword_1EDE73420;
   if (os_log_type_enabled(qword_1EDE73420, OS_LOG_TYPE_DEBUG))
   {
-    __54__SYIncomingSyncAllObjectsSession__continueProcessing__block_invoke_3_cold_2(a2, v7);
+    __54__SYIncomingSyncAllObjectsSession__continueProcessing__block_invoke_3_cold_2(v3, v7);
   }
 
   v8 = [*(a1 + 32) queue];
@@ -100,7 +100,7 @@ void __54__SYIncomingSyncAllObjectsSession__continueProcessing__block_invoke_3(u
   block[1] = 3221225472;
   block[2] = __54__SYIncomingSyncAllObjectsSession__continueProcessing__block_invoke_6;
   block[3] = &unk_1E86C9E40;
-  v14 = a2;
+  v14 = v3;
   v9 = *(a1 + 32);
   v12 = v5;
   v13 = v9;
@@ -112,7 +112,7 @@ void __54__SYIncomingSyncAllObjectsSession__continueProcessing__block_invoke_3(u
 
 uint64_t __54__SYIncomingSyncAllObjectsSession__continueProcessing__block_invoke_6(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   if ((*(a1 + 48) & 1) == 0)
   {
     if (_sync_log_facilities_pred != -1)
@@ -126,9 +126,9 @@ uint64_t __54__SYIncomingSyncAllObjectsSession__continueProcessing__block_invoke
       v14 = *(a1 + 32);
       v15 = v13;
       v16 = _SYObfuscate(v14);
-      v21 = 138543362;
-      v22 = v16;
-      _os_log_impl(&dword_1DF835000, v15, OS_LOG_TYPE_DEFAULT, "Client failed to process incoming SyncAllObjects, returning error: %{public}@", &v21, 0xCu);
+      v19 = 138543362;
+      v20 = v16;
+      _os_log_impl(&dword_1DF835000, v15, OS_LOG_TYPE_DEFAULT, "Client failed to process incoming SyncAllObjects, returning error: %{public}@", &v19, 0xCu);
     }
 
     [*(a1 + 40) setError:*(a1 + 32)];
@@ -149,9 +149,9 @@ uint64_t __54__SYIncomingSyncAllObjectsSession__continueProcessing__block_invoke
       v4 = v2;
       v5 = [v3 error];
       v6 = _SYObfuscate(v5);
-      v21 = 138543362;
-      v22 = v6;
-      _os_log_impl(&dword_1DF835000, v4, OS_LOG_TYPE_DEFAULT, "Error occurred while waiting for SyncAllObjects ingestion, will set error state: %{public}@", &v21, 0xCu);
+      v19 = 138543362;
+      v20 = v6;
+      _os_log_impl(&dword_1DF835000, v4, OS_LOG_TYPE_DEFAULT, "Error occurred while waiting for SyncAllObjects ingestion, will set error state: %{public}@", &v19, 0xCu);
     }
 
     v7 = [*(a1 + 40) error];
@@ -165,10 +165,7 @@ uint64_t __54__SYIncomingSyncAllObjectsSession__continueProcessing__block_invoke
       {
         v11 = *(a1 + 40);
         v12 = 3;
-LABEL_16:
-        result = [v11 setState:v12];
-        v18 = *MEMORY[0x1E69E9840];
-        return result;
+        return [v11 setState:v12];
       }
     }
 
@@ -179,28 +176,26 @@ LABEL_16:
 LABEL_15:
     v11 = *(a1 + 40);
     v12 = 5;
-    goto LABEL_16;
+    return [v11 setState:v12];
   }
 
-  v19 = *(a1 + 40);
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *(a1 + 40);
 
-  return [v19 setState:9];
+  return [v18 setState:9];
 }
 
 void __54__SYIncomingSyncAllObjectsSession__continueProcessing__block_invoke_3_cold_2(char a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = "NO";
   if (a1)
   {
     v2 = "YES";
   }
 
-  v4 = 136315138;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1DF835000, a2, OS_LOG_TYPE_DEBUG, "Delegate callout complete: -syncSession:applyChanges:completion:, v1 allObjects, success = %s", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 136315138;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1DF835000, a2, OS_LOG_TYPE_DEBUG, "Delegate callout complete: -syncSession:applyChanges:completion:, v1 allObjects, success = %s", &v3, 0xCu);
 }
 
 @end

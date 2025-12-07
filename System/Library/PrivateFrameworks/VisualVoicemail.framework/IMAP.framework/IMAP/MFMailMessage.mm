@@ -1,6 +1,7 @@
 @interface MFMailMessage
 + (id)externalDataTypeIdentifiers;
 + (id)forwardedMessagePrefixWithSpacer:(BOOL)spacer;
++ (unsigned)displayablePriorityForPriority:(int)priority;
 + (unsigned)validatePriority:(int)priority;
 - (BOOL)shouldSetSummary;
 - (MFMailboxUid)mailbox;
@@ -112,6 +113,30 @@
   else
   {
     return 3;
+  }
+}
+
++ (unsigned)displayablePriorityForPriority:(int)priority
+{
+  v3 = [self validatePriority:*&priority];
+  if (v3 == 4)
+  {
+    v4 = 5;
+  }
+
+  else
+  {
+    v4 = v3;
+  }
+
+  if (v3 == 2)
+  {
+    return 1;
+  }
+
+  else
+  {
+    return v4;
   }
 }
 
@@ -450,8 +475,8 @@ LABEL_3:
 
 - (id)bestAlternativePart:(BOOL *)part
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v34 = 0;
+  v35 = *MEMORY[0x277D85DE8];
+  v33 = 0;
   v5 = [(MFMailMessage *)self messageBodyIfAvailableUpdatingFlags:0];
   v6 = v5;
   if (v5)
@@ -465,7 +490,7 @@ LABEL_3:
     {
       if (!v11)
       {
-        v12 = [v9 contentToOffset:1 resultOffset:&v34 downloadIfNecessary:0 asHTML:1 isComplete:part];
+        v12 = [v9 contentToOffset:1 resultOffset:&v33 downloadIfNecessary:0 asHTML:1 isComplete:part];
 
         v13 = v9;
         v10 = v13;
@@ -492,27 +517,27 @@ LABEL_3:
     v8 = 0;
   }
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v15 = v8;
-  v16 = [v15 countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v16)
   {
     v17 = v16;
     v18 = 0;
-    v19 = *v31;
+    v19 = *v30;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v31 != v19)
+        if (*v30 != v19)
         {
           objc_enumerationMutation(v15);
         }
 
-        v21 = *(*(&v30 + 1) + 8 * i);
+        v21 = *(*(&v29 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -545,7 +570,7 @@ LABEL_3:
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v17);
@@ -555,8 +580,6 @@ LABEL_3:
   {
     v18 = 0;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

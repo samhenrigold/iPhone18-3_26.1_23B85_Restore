@@ -22,8 +22,8 @@
   mainVKMapView = [(MapsAppTest *)self mainVKMapView];
   [mainVKMapView setMapType:3];
   [mainVKMapView enableTestStatistics];
-  options = [(MapsAppTest *)self options];
-  _mapstest_flyoverTourId = [options _mapstest_flyoverTourId];
+  v4 = objc_msgSend_options(self);
+  _mapstest_flyoverTourId = [v4 _mapstest_flyoverTourId];
 
   [(MapsAppTest *)self startedTest];
   mainMKMapView = [(MapsAppTest *)self mainMKMapView];

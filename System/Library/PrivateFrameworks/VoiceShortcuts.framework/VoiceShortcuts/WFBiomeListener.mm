@@ -3,6 +3,7 @@
 - (BOOL)isTransactionEventDuplicate:(id)duplicate forTrigger:(id)trigger withSeenTransactionIdentifiers:(id)identifiers;
 - (WFBiomeListener)initWithEventQueue:(id)queue;
 - (void)fireTriggerWithIdentifier:(id)identifier force:(BOOL)force eventInfo:(id)info completion:(id)completion;
+- (void)queue_fireTriggerWithIdentifier:(id)identifier force:(BOOL)force eventInfo:(id)info completion:(id)completion;
 - (void)queue_handleEvent:(id)event forTrigger:(id)trigger;
 - (void)queue_unregisterConfiguredTriggerWithIdentifier:(id)identifier;
 - (void)registerConfiguredTrigger:(id)trigger completion:(id)completion;
@@ -13,7 +14,7 @@
 
 - (BOOL)isTransactionEventDuplicate:(id)duplicate forTrigger:(id)trigger withSeenTransactionIdentifiers:(id)identifiers
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   duplicateCopy = duplicate;
   triggerCopy = trigger;
   identifiersCopy = identifiers;
@@ -44,11 +45,11 @@
         identifier2 = getWFTriggersLogObject();
         if (os_log_type_enabled(identifier2, OS_LOG_TYPE_DEFAULT))
         {
-          v21 = 136315394;
-          v22 = "[WFBiomeListener isTransactionEventDuplicate:forTrigger:withSeenTransactionIdentifiers:]";
-          v23 = 2112;
-          v24 = v11;
-          _os_log_impl(&dword_23103C000, identifier2, OS_LOG_TYPE_DEFAULT, "%s Ignoring duplicate transaction identifier %@", &v21, 0x16u);
+          v20 = 136315394;
+          v21 = "[WFBiomeListener isTransactionEventDuplicate:forTrigger:withSeenTransactionIdentifiers:]";
+          v22 = 2112;
+          v23 = v11;
+          _os_log_impl(&dword_23103C000, identifier2, OS_LOG_TYPE_DEFAULT, "%s Ignoring duplicate transaction identifier %@", &v20, 0x16u);
         }
       }
 
@@ -72,13 +73,12 @@
     LOBYTE(v16) = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (void)queue_handleEvent:(id)event forTrigger:(id)trigger
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   triggerCopy = trigger;
   queue = [(WFBiomeListener *)self queue];
@@ -96,13 +96,13 @@
   {
     identifier = [triggerCopy identifier];
     *buf = 136315906;
-    v24 = "[WFBiomeListener queue_handleEvent:forTrigger:]";
-    v25 = 2112;
-    v26 = trigger;
-    v27 = 2114;
-    v28 = identifier;
-    v29 = 2112;
-    v30 = eventCopy;
+    v23 = "[WFBiomeListener queue_handleEvent:forTrigger:]";
+    v24 = 2112;
+    v25 = trigger;
+    v26 = 2114;
+    v27 = identifier;
+    v28 = 2112;
+    v29 = eventCopy;
     _os_log_impl(&dword_23103C000, v11, OS_LOG_TYPE_DEFAULT, "%s 🤖 Handling event for trigger with identifier (%@, %{public}@) and event: %@", buf, 0x2Au);
   }
 
@@ -112,44 +112,42 @@
   if (!v14)
   {
     identifier2 = [triggerCopy identifier];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __48__WFBiomeListener_queue_handleEvent_forTrigger___block_invoke;
-    v18[3] = &unk_278900058;
-    v19 = trigger;
-    v20 = triggerCopy;
-    v21 = eventCopy;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __48__WFBiomeListener_queue_handleEvent_forTrigger___block_invoke;
+    v17[3] = &unk_278900058;
+    v18 = trigger;
+    v19 = triggerCopy;
+    v20 = eventCopy;
     selfCopy = self;
-    [v19 shouldFireInResponseToEvent:v21 triggerIdentifier:identifier2 completion:v18];
+    [v18 shouldFireInResponseToEvent:v20 triggerIdentifier:identifier2 completion:v17];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __48__WFBiomeListener_queue_handleEvent_forTrigger___block_invoke(uint64_t a1, int a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = getWFTriggersLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v15 = "[WFBiomeListener queue_handleEvent:forTrigger:]_block_invoke";
-    v16 = 1024;
-    LODWORD(v17) = a2;
+    v14 = "[WFBiomeListener queue_handleEvent:forTrigger:]_block_invoke";
+    v15 = 1024;
+    LODWORD(v16) = a2;
     _os_log_impl(&dword_23103C000, v4, OS_LOG_TYPE_DEFAULT, "%s 🤖 Should the trigger fire in response to this event? %d", buf, 0x12u);
   }
 
   if (a2)
   {
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __48__WFBiomeListener_queue_handleEvent_forTrigger___block_invoke_213;
-    v12[3] = &unk_278900030;
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __48__WFBiomeListener_queue_handleEvent_forTrigger___block_invoke_213;
+    v11[3] = &unk_278900030;
     v5 = *(a1 + 48);
-    v12[4] = *(a1 + 56);
+    v11[4] = *(a1 + 56);
     v6 = *(a1 + 32);
-    v13 = *(a1 + 40);
-    [v6 eventInfoForEvent:v5 completion:v12];
+    v12 = *(a1 + 40);
+    [v6 eventInfoForEvent:v5 completion:v11];
   }
 
   else
@@ -161,18 +159,16 @@ void __48__WFBiomeListener_queue_handleEvent_forTrigger___block_invoke(uint64_t 
       v9 = [*(a1 + 40) identifier];
       v10 = *(a1 + 48);
       *buf = 136315906;
-      v15 = "[WFBiomeListener queue_handleEvent:forTrigger:]_block_invoke";
-      v16 = 2112;
-      v17 = v8;
-      v18 = 2114;
-      v19 = v9;
-      v20 = 2112;
-      v21 = v10;
+      v14 = "[WFBiomeListener queue_handleEvent:forTrigger:]_block_invoke";
+      v15 = 2112;
+      v16 = v8;
+      v17 = 2114;
+      v18 = v9;
+      v19 = 2112;
+      v20 = v10;
       _os_log_impl(&dword_23103C000, v7, OS_LOG_TYPE_DEFAULT, "%s 🤖 Trigger (%@, %{public}@) should NOT fire in response to event: %@, dropping", buf, 0x2Au);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __48__WFBiomeListener_queue_handleEvent_forTrigger___block_invoke_213(uint64_t a1, void *a2)
@@ -211,22 +207,56 @@ void __48__WFBiomeListener_queue_handleEvent_forTrigger___block_invoke_2(uint64_
 
 void __48__WFBiomeListener_queue_handleEvent_forTrigger___block_invoke_3(uint64_t a1, char a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ((a2 & 1) == 0)
   {
     v5 = getWFTriggersLogObject();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315394;
-      v8 = "[WFBiomeListener queue_handleEvent:forTrigger:]_block_invoke_3";
-      v9 = 2114;
-      v10 = v4;
-      _os_log_impl(&dword_23103C000, v5, OS_LOG_TYPE_ERROR, "%s Failed to fire trigger: %{public}@", &v7, 0x16u);
+      v6 = 136315394;
+      v7 = "[WFBiomeListener queue_handleEvent:forTrigger:]_block_invoke_3";
+      v8 = 2114;
+      v9 = v4;
+      _os_log_impl(&dword_23103C000, v5, OS_LOG_TYPE_ERROR, "%s Failed to fire trigger: %{public}@", &v6, 0x16u);
+    }
+  }
+}
+
+- (void)queue_fireTriggerWithIdentifier:(id)identifier force:(BOOL)force eventInfo:(id)info completion:(id)completion
+{
+  forceCopy = force;
+  completionCopy = completion;
+  infoCopy = info;
+  identifierCopy = identifier;
+  queue = [(WFBiomeListener *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  if (identifierCopy)
+  {
+    if (completionCopy)
+    {
+      goto LABEL_3;
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
+  else
+  {
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"WFBiomeListener.m" lineNumber:165 description:{@"Invalid parameter not satisfying: %@", @"identifier"}];
+
+    if (completionCopy)
+    {
+      goto LABEL_3;
+    }
+  }
+
+  currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler2 handleFailureInMethod:a2 object:self file:@"WFBiomeListener.m" lineNumber:166 description:{@"Invalid parameter not satisfying: %@", @"completionHandler"}];
+
+LABEL_3:
+  eventQueue = [(WFBiomeListener *)self eventQueue];
+  [eventQueue enqueueTriggerWithIdentifier:identifierCopy eventInfo:infoCopy force:forceCopy completion:completionCopy];
 }
 
 - (void)fireTriggerWithIdentifier:(id)identifier force:(BOOL)force eventInfo:(id)info completion:(id)completion
@@ -252,7 +282,7 @@ void __48__WFBiomeListener_queue_handleEvent_forTrigger___block_invoke_3(uint64_
 
 - (void)queue_unregisterConfiguredTriggerWithIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   queue = [(WFBiomeListener *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -260,11 +290,11 @@ void __48__WFBiomeListener_queue_handleEvent_forTrigger___block_invoke_3(uint64_
   v6 = getWFTriggersLogObject();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 136315394;
-    v18 = "[WFBiomeListener queue_unregisterConfiguredTriggerWithIdentifier:]";
-    v19 = 2114;
-    v20 = identifierCopy;
-    _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_DEFAULT, "%s [Biome] Unregistering trigger with identifier: %{public}@", &v17, 0x16u);
+    v16 = 136315394;
+    v17 = "[WFBiomeListener queue_unregisterConfiguredTriggerWithIdentifier:]";
+    v18 = 2114;
+    v19 = identifierCopy;
+    _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_DEFAULT, "%s [Biome] Unregistering trigger with identifier: %{public}@", &v16, 0x16u);
   }
 
   triggerIDToSinks = [(WFBiomeListener *)self triggerIDToSinks];
@@ -278,11 +308,11 @@ void __48__WFBiomeListener_queue_handleEvent_forTrigger___block_invoke_3(uint64_
     remoteTriggerIDToSinks3 = getWFTriggersLogObject();
     if (os_log_type_enabled(remoteTriggerIDToSinks3, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 136315394;
-      v18 = "[WFBiomeListener queue_unregisterConfiguredTriggerWithIdentifier:]";
-      v19 = 2114;
-      v20 = identifierCopy;
-      _os_log_impl(&dword_23103C000, remoteTriggerIDToSinks3, OS_LOG_TYPE_DEFAULT, "%s [Biome] No sink associated with identifier: %{public}@, nothing to unregister", &v17, 0x16u);
+      v16 = 136315394;
+      v17 = "[WFBiomeListener queue_unregisterConfiguredTriggerWithIdentifier:]";
+      v18 = 2114;
+      v19 = identifierCopy;
+      _os_log_impl(&dword_23103C000, remoteTriggerIDToSinks3, OS_LOG_TYPE_DEFAULT, "%s [Biome] No sink associated with identifier: %{public}@, nothing to unregister", &v16, 0x16u);
     }
 
     goto LABEL_12;
@@ -311,8 +341,6 @@ void __48__WFBiomeListener_queue_handleEvent_forTrigger___block_invoke_3(uint64_
     [remoteTriggerIDToSinks3 removeObjectForKey:identifierCopy];
 LABEL_12:
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterConfiguredTriggerWithIdentifier:(id)identifier
@@ -348,15 +376,15 @@ LABEL_12:
 
 void __56__WFBiomeListener_registerConfiguredTrigger_completion___block_invoke(uint64_t a1)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v2 = getWFTriggersLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 136315394;
-    v61 = "[WFBiomeListener registerConfiguredTrigger:completion:]_block_invoke";
-    v62 = 2112;
-    v63 = v3;
+    v58 = "[WFBiomeListener registerConfiguredTrigger:completion:]_block_invoke";
+    v59 = 2112;
+    v60 = v3;
     _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_DEFAULT, "%s 🤖 [Biome] Registering configured trigger: %@", buf, 0x16u);
   }
 
@@ -381,26 +409,26 @@ LABEL_11:
         v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"com.apple.siriactionsd.%@", v4];
         v13 = objc_alloc(MEMORY[0x277CF1918]);
         v14 = [*(a1 + 40) queue];
-        v49 = v12;
+        v46 = v12;
         v15 = [v13 initWithIdentifier:v12 targetQueue:v14];
 
-        v48 = v15;
+        v45 = v15;
         v16 = [v5 publisherWithScheduler:v15];
-        v58[0] = MEMORY[0x277D85DD0];
-        v58[1] = 3221225472;
-        v58[2] = __56__WFBiomeListener_registerConfiguredTrigger_completion___block_invoke_175;
-        v58[3] = &unk_2788FFF48;
-        v59 = v5;
         v55[0] = MEMORY[0x277D85DD0];
         v55[1] = 3221225472;
-        v55[2] = __56__WFBiomeListener_registerConfiguredTrigger_completion___block_invoke_177;
-        v55[3] = &unk_2788FFF70;
-        v17 = v59;
-        v56 = v17;
-        v46 = *(a1 + 32);
-        v18 = v46.i64[0];
-        v57 = vextq_s8(v46, v46, 8uLL);
-        v19 = [v16 sinkWithCompletion:v58 receiveInput:v55];
+        v55[2] = __56__WFBiomeListener_registerConfiguredTrigger_completion___block_invoke_175;
+        v55[3] = &unk_2788FFF48;
+        v56 = v5;
+        v52[0] = MEMORY[0x277D85DD0];
+        v52[1] = 3221225472;
+        v52[2] = __56__WFBiomeListener_registerConfiguredTrigger_completion___block_invoke_177;
+        v52[3] = &unk_2788FFF70;
+        v17 = v56;
+        v53 = v17;
+        v43 = *(a1 + 32);
+        v18 = v43.i64[0];
+        v54 = vextq_s8(v43, v43, 8uLL);
+        v19 = [v16 sinkWithCompletion:v55 receiveInput:v52];
 
         if (v19)
         {
@@ -418,20 +446,20 @@ LABEL_11:
           v24 = [v22 initWithIdentifier:v21 targetQueue:v23];
 
           v25 = [v17 remotePublisherWithScheduler:v24];
-          v53[0] = MEMORY[0x277D85DD0];
-          v53[1] = 3221225472;
-          v53[2] = __56__WFBiomeListener_registerConfiguredTrigger_completion___block_invoke_185;
-          v53[3] = &unk_2788FFF48;
-          v54 = v17;
           v50[0] = MEMORY[0x277D85DD0];
           v50[1] = 3221225472;
-          v50[2] = __56__WFBiomeListener_registerConfiguredTrigger_completion___block_invoke_186;
-          v50[3] = &unk_2788FFF70;
-          v51 = v54;
-          v47 = *(a1 + 32);
-          v26 = v47.i64[0];
-          v52 = vextq_s8(v47, v47, 8uLL);
-          v27 = [v25 sinkWithCompletion:v53 receiveInput:v50];
+          v50[2] = __56__WFBiomeListener_registerConfiguredTrigger_completion___block_invoke_185;
+          v50[3] = &unk_2788FFF48;
+          v51 = v17;
+          v47[0] = MEMORY[0x277D85DD0];
+          v47[1] = 3221225472;
+          v47[2] = __56__WFBiomeListener_registerConfiguredTrigger_completion___block_invoke_186;
+          v47[3] = &unk_2788FFF70;
+          v48 = v51;
+          v44 = *(a1 + 32);
+          v26 = v44.i64[0];
+          v49 = vextq_s8(v44, v44, 8uLL);
+          v27 = [v25 sinkWithCompletion:v50 receiveInput:v47];
 
           if (v27)
           {
@@ -441,39 +469,38 @@ LABEL_11:
 
           else
           {
-            v36 = v21;
-            v37 = getWFTriggersLogObject();
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
+            v35 = v21;
+            v36 = getWFTriggersLogObject();
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
             {
-              v38 = [*(a1 + 32) trigger];
-              v39 = objc_opt_class();
-              v40 = NSStringFromClass(v39);
+              v37 = [*(a1 + 32) trigger];
+              v38 = objc_opt_class();
+              v39 = NSStringFromClass(v38);
               *buf = 136315394;
-              v61 = "[WFBiomeListener registerConfiguredTrigger:completion:]_block_invoke_2";
-              v62 = 2114;
-              v63 = v40;
-              _os_log_impl(&dword_23103C000, v37, OS_LOG_TYPE_FAULT, "%s Could not register trigger of type %{public}@ due to missing remote sink", buf, 0x16u);
+              v58 = "[WFBiomeListener registerConfiguredTrigger:completion:]_block_invoke_2";
+              v59 = 2114;
+              v60 = v39;
+              _os_log_impl(&dword_23103C000, v36, OS_LOG_TYPE_FAULT, "%s Could not register trigger of type %{public}@ due to missing remote sink", buf, 0x16u);
             }
 
-            v41 = *(a1 + 40);
-            v42 = *(a1 + 48);
+            v40 = *(a1 + 48);
             v28 = [objc_opt_class() registrationError];
-            (*(v42 + 16))(v42, 0, v28);
-            v21 = v36;
+            (*(v40 + 16))(v40, 0, v28);
+            v21 = v35;
           }
 
           if (v27)
           {
 LABEL_22:
-            v43 = getWFTriggersLogObject();
-            if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+            v41 = getWFTriggersLogObject();
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
             {
-              v44 = *(a1 + 32);
+              v42 = *(a1 + 32);
               *buf = 136315394;
-              v61 = "[WFBiomeListener registerConfiguredTrigger:completion:]_block_invoke";
-              v62 = 2112;
-              v63 = v44;
-              _os_log_impl(&dword_23103C000, v43, OS_LOG_TYPE_DEFAULT, "%s 🤖 [Biome] Registered configured trigger: %@", buf, 0x16u);
+              v58 = "[WFBiomeListener registerConfiguredTrigger:completion:]_block_invoke";
+              v59 = 2112;
+              v60 = v42;
+              _os_log_impl(&dword_23103C000, v41, OS_LOG_TYPE_DEFAULT, "%s 🤖 [Biome] Registered configured trigger: %@", buf, 0x16u);
             }
 
             (*(*(a1 + 48) + 16))();
@@ -489,16 +516,15 @@ LABEL_22:
             v31 = objc_opt_class();
             v32 = NSStringFromClass(v31);
             *buf = 136315394;
-            v61 = "[WFBiomeListener registerConfiguredTrigger:completion:]_block_invoke_2";
-            v62 = 2114;
-            v63 = v32;
+            v58 = "[WFBiomeListener registerConfiguredTrigger:completion:]_block_invoke_2";
+            v59 = 2114;
+            v60 = v32;
             _os_log_impl(&dword_23103C000, v29, OS_LOG_TYPE_FAULT, "%s Could not register trigger of type %{public}@ due to missing sink", buf, 0x16u);
           }
 
-          v33 = *(a1 + 40);
-          v34 = *(a1 + 48);
-          v35 = [objc_opt_class() registrationError];
-          (*(v34 + 16))(v34, 0, v35);
+          v33 = *(a1 + 48);
+          v34 = [objc_opt_class() registrationError];
+          (*(v33 + 16))(v33, 0, v34);
         }
 
         goto LABEL_26;
@@ -514,50 +540,46 @@ LABEL_22:
   {
     v9 = *(a1 + 32);
     *buf = 136315394;
-    v61 = "[WFBiomeListener registerConfiguredTrigger:completion:]_block_invoke";
-    v62 = 2112;
-    v63 = v9;
+    v58 = "[WFBiomeListener registerConfiguredTrigger:completion:]_block_invoke";
+    v59 = 2112;
+    v60 = v9;
     _os_log_impl(&dword_23103C000, v8, OS_LOG_TYPE_DEFAULT, "%s 🤖 [Biome] Configured trigger %@ is not enabled", buf, 0x16u);
   }
 
   [*(a1 + 40) queue_unregisterConfiguredTriggerWithIdentifier:v4];
   (*(*(a1 + 48) + 16))();
 LABEL_26:
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 void __56__WFBiomeListener_registerConfiguredTrigger_completion___block_invoke_175(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = getWFTriggersLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v5 = 136315394;
-    v6 = "[WFBiomeListener registerConfiguredTrigger:completion:]_block_invoke";
-    v7 = 2112;
-    v8 = v3;
-    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_DEFAULT, "%s 🤖 [Biome] Event cancelled %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[WFBiomeListener registerConfiguredTrigger:completion:]_block_invoke";
+    v6 = 2112;
+    v7 = v3;
+    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_DEFAULT, "%s 🤖 [Biome] Event cancelled %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __56__WFBiomeListener_registerConfiguredTrigger_completion___block_invoke_177(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = getWFTriggersLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     *buf = 136315650;
-    v14 = "[WFBiomeListener registerConfiguredTrigger:completion:]_block_invoke";
-    v15 = 2112;
-    v16 = v3;
-    v17 = 2112;
-    v18 = v5;
+    v13 = "[WFBiomeListener registerConfiguredTrigger:completion:]_block_invoke";
+    v14 = 2112;
+    v15 = v3;
+    v16 = 2112;
+    v17 = v5;
     _os_log_impl(&dword_23103C000, v4, OS_LOG_TYPE_DEFAULT, "%s 🤖 [Biome] Received input %@ from trigger %@", buf, 0x20u);
   }
 
@@ -568,45 +590,41 @@ void __56__WFBiomeListener_registerConfiguredTrigger_completion___block_invoke_1
   block[3] = &unk_2789000F8;
   v7 = *(a1 + 48);
   block[4] = *(a1 + 40);
-  v11 = v3;
-  v12 = v7;
+  v10 = v3;
+  v11 = v7;
   v8 = v3;
   dispatch_async(v6, block);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __56__WFBiomeListener_registerConfiguredTrigger_completion___block_invoke_185(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = getWFTriggersLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v5 = 136315394;
-    v6 = "[WFBiomeListener registerConfiguredTrigger:completion:]_block_invoke";
-    v7 = 2112;
-    v8 = v3;
-    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_DEFAULT, "%s Event cancelled %@ remote", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[WFBiomeListener registerConfiguredTrigger:completion:]_block_invoke";
+    v6 = 2112;
+    v7 = v3;
+    _os_log_impl(&dword_23103C000, v2, OS_LOG_TYPE_DEFAULT, "%s Event cancelled %@ remote", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __56__WFBiomeListener_registerConfiguredTrigger_completion___block_invoke_186(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = getWFTriggersLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = *(a1 + 32);
     *buf = 136315650;
-    v14 = "[WFBiomeListener registerConfiguredTrigger:completion:]_block_invoke";
-    v15 = 2112;
-    v16 = v3;
-    v17 = 2112;
-    v18 = v5;
+    v13 = "[WFBiomeListener registerConfiguredTrigger:completion:]_block_invoke";
+    v14 = 2112;
+    v15 = v3;
+    v16 = 2112;
+    v17 = v5;
     _os_log_impl(&dword_23103C000, v4, OS_LOG_TYPE_DEFAULT, "%s Received input %@ from trigger %@", buf, 0x20u);
   }
 
@@ -617,12 +635,10 @@ void __56__WFBiomeListener_registerConfiguredTrigger_completion___block_invoke_1
   block[3] = &unk_2789000F8;
   v7 = *(a1 + 48);
   block[4] = *(a1 + 40);
-  v11 = v3;
-  v12 = v7;
+  v10 = v3;
+  v11 = v7;
   v8 = v3;
   dispatch_async(v6, block);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (WFBiomeListener)initWithEventQueue:(id)queue
@@ -660,19 +676,17 @@ void __56__WFBiomeListener_registerConfiguredTrigger_completion___block_invoke_1
 
 + (id)registrationError
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277CBEB38]);
   v3 = *MEMORY[0x277CCA450];
-  v9[0] = *MEMORY[0x277CCA470];
-  v9[1] = v3;
-  v10[0] = @"Automation could not be registered";
-  v10[1] = @"The associated automation could not be registered due to an underlying error.";
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v8[0] = *MEMORY[0x277CCA470];
+  v8[1] = v3;
+  v9[0] = @"Automation could not be registered";
+  v9[1] = @"The associated automation could not be registered due to an underlying error.";
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
   v5 = [v2 initWithDictionary:v4];
 
   v6 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D7D008] code:1002 userInfo:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

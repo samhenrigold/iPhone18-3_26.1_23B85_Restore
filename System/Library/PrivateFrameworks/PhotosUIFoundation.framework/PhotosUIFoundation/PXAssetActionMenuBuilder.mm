@@ -356,32 +356,32 @@ void __93__PXAssetActionMenuBuilder__actionTypesGroupedBySectionForActionManager
   array = [v10 array];
   v13 = [self _actionTypesGroupedBySectionForActionManager:managerCopy excludedActionTypes:typesCopy];
 
-  v25 = MEMORY[0x1E69E9820];
-  v26 = 3221225472;
-  v27 = __87__PXAssetActionMenuBuilder_pxMenuElementsForActionManager_excludedActionTypes_handler___block_invoke;
-  v28 = &unk_1E7BB6300;
+  v27 = MEMORY[0x1E69E9820];
+  v28 = 3221225472;
+  v29 = __87__PXAssetActionMenuBuilder_pxMenuElementsForActionManager_excludedActionTypes_handler___block_invoke;
+  v30 = &unk_1E7BB6300;
   v14 = array;
-  v29 = v14;
+  v31 = v14;
   v15 = managerCopy;
-  v30 = v15;
+  v32 = v15;
   v16 = handlerCopy;
-  v32 = v16;
+  v34 = v16;
   v17 = v13;
-  v31 = v17;
-  [v17 enumerateObjectsUsingBlock:&v25];
-  if (PXCanShowInternalUI())
+  v33 = v17;
+  v18 = [v17 enumerateObjectsUsingBlock:&v27];
+  if (PXCanShowInternalUI(v18, v19))
   {
-    v18 = objc_opt_new();
-    [v14 addObject:{v18, v25, v26, v27, v28, v29, v30}];
+    v20 = objc_opt_new();
+    [v14 addObject:{v20, v27, v28, v29, v30, v31, v32}];
 
-    v19 = [self _internalActionTypesForActionManager:v15];
-    v20 = [v15 actionItemsForActionTypes:v19 handler:v16];
-    v21 = [PXActionMenu menuWithTitle:@" Internal" childElements:v20];
-    [v14 addObject:v21];
+    v21 = [self _internalActionTypesForActionManager:v15];
+    v22 = [v15 actionItemsForActionTypes:v21 handler:v16];
+    v23 = [PXActionMenu menuWithTitle:@" Internal" childElements:v22];
+    [v14 addObject:v23];
   }
 
-  v22 = v31;
-  v23 = v14;
+  v24 = v33;
+  v25 = v14;
 
   return v14;
 }

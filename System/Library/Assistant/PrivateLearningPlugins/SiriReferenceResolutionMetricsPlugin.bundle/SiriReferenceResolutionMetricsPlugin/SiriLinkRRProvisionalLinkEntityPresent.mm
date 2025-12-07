@@ -264,7 +264,6 @@ LABEL_13:
 
   if (sourceBundleId)
   {
-    sourceBundleId = self->_sourceBundleId;
     PBDataWriterWriteStringField();
   }
 
@@ -272,25 +271,22 @@ LABEL_13:
 
   if (linkEntityType)
   {
-    linkEntityType = self->_linkEntityType;
     PBDataWriterWriteStringField();
   }
 
   has = self->_has;
-  v9 = toCopy;
+  v7 = toCopy;
   if (has)
   {
-    executionStage = self->_executionStage;
     PBDataWriterWriteInt32Field();
-    v9 = toCopy;
+    v7 = toCopy;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    entityPresent = self->_entityPresent;
     PBDataWriterWriteBOOLField();
-    v9 = toCopy;
+    v7 = toCopy;
   }
 }
 

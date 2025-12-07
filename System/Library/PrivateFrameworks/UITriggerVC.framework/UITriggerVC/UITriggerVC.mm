@@ -432,7 +432,7 @@ LABEL_46:
 LABEL_37:
           v19 = 0;
           v20 = 0;
-          if (!PBReaderPlaceMark() || !CSLUIPBPropertyValueReadFrom(v14, a2))
+          if (!PBReaderPlaceMark() || !CSLUIPBPropertyValueReadFrom(&v14->super.super.isa, a2))
           {
             goto LABEL_46;
           }

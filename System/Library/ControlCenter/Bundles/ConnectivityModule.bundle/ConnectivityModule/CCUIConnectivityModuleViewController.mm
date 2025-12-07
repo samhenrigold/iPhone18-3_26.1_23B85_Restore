@@ -12,6 +12,7 @@
 - (void)_initializeExpandedView;
 - (void)_layoutExpandedView;
 - (void)_refreshMenuAffordanceVisibilityForExpandedButtonViewController:(id)controller;
+- (void)_updateButtonContentMode:(BOOL)mode;
 - (void)_updateContentRenderingModeForAllViewControllers;
 - (void)_updateTelephonyState;
 - (void)contentModuleDetailClickPresentationInteractionController:(id)controller requestsAuthenticationForPresentationWithCompletionHandler:(id)handler;
@@ -22,9 +23,12 @@
 - (void)setContentMetrics:(id)metrics;
 - (void)setContentRenderingMode:(unint64_t)mode;
 - (void)setGridSizeClass:(int64_t)class;
+- (void)setResizing:(BOOL)resizing;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 - (void)viewWillLayoutSubviews;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
+- (void)willTransitionToExpandedContentMode:(BOOL)mode;
 @end
 
 @implementation CCUIConnectivityModuleViewController
@@ -87,6 +91,21 @@
   objc_msgSend_setExpandedContainerView_(self, v28, v27);
   objc_msgSend__initializeButtons(self, v29, v30);
   objc_msgSend__updateTelephonyState(self, v31, v32);
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v17.receiver = self;
+  v17.super_class = CCUIConnectivityModuleViewController;
+  [(CCUIConnectivityModuleViewController *)&v17 viewWillAppear:appear];
+  objc_msgSend__initializeCollapsedView(self, v4, v5);
+  if (objc_msgSend__isCurrentGridSizeClassImplicitlyExpanded(self, v6, v7))
+  {
+    objc_msgSend__initializeExpandedView(self, v8, v9);
+    v12 = objc_msgSend_view(self, v10, v11);
+    v15 = objc_msgSend_expandedContainerView(self, v13, v14);
+    objc_msgSend_addSubview_(v12, v16, v15);
+  }
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -336,101 +355,117 @@ LABEL_33:
 
 - (void)setContentMetrics:(id)metrics
 {
-  v42 = *MEMORY[0x29EDCA608];
+  v40 = *MEMORY[0x29EDCA608];
   metricsCopy = metrics;
-  contentMetrics = self->_contentMetrics;
   if ((BSEqualObjects() & 1) == 0)
   {
     objc_storeStrong(&self->_contentMetrics, metrics);
-    objc_msgSend_loadViewIfNeeded(self, v7, v8);
+    objc_msgSend_loadViewIfNeeded(self, v6, v7);
     selfCopy = self;
-    v11 = objc_msgSend_orderedButtonViewControllers(self, v9, v10);
+    v10 = objc_msgSend_orderedButtonViewControllers(self, v8, v9);
+    v35 = 0u;
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
-    v40 = 0u;
-    v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v12, &v37, v41, 16);
-    if (v13)
+    v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v35, v39, 16);
+    if (v12)
     {
-      v16 = v13;
-      v17 = *v38;
+      v15 = v12;
+      v16 = *v36;
       do
       {
-        for (i = 0; i != v16; ++i)
+        for (i = 0; i != v15; ++i)
         {
-          if (*v38 != v17)
+          if (*v36 != v16)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v10);
           }
 
-          v19 = *(*(&v37 + 1) + 8 * i);
-          if (objc_msgSend_conformsToProtocol_(v19, v14, &unk_2A23F5B50))
+          v18 = *(*(&v35 + 1) + 8 * i);
+          if (objc_msgSend_conformsToProtocol_(v18, v13, &unk_2A23F5B50))
           {
-            v20 = objc_opt_class();
-            v21 = v19;
-            if (v20)
+            v19 = objc_opt_class();
+            v20 = v18;
+            if (v19)
             {
               if (objc_opt_isKindOfClass())
               {
-                v22 = v21;
+                v21 = v20;
               }
 
               else
               {
-                v22 = 0;
+                v21 = 0;
               }
             }
 
             else
             {
-              v22 = 0;
+              v21 = 0;
             }
 
-            v26 = v22;
+            v25 = v21;
 
-            objc_msgSend_setContentMetrics_(v26, v27, metricsCopy);
+            objc_msgSend_setContentMetrics_(v25, v26, metricsCopy);
           }
 
           else
           {
-            v23 = objc_opt_class();
-            v24 = v19;
-            if (v23)
+            v22 = objc_opt_class();
+            v23 = v18;
+            if (v22)
             {
               if (objc_opt_isKindOfClass())
               {
-                v25 = v24;
+                v24 = v23;
               }
 
               else
               {
-                v25 = 0;
+                v24 = 0;
               }
             }
 
             else
             {
-              v25 = 0;
+              v24 = 0;
             }
 
-            v28 = v25;
+            v27 = v24;
 
-            v26 = objc_msgSend_templateView(v28, v29, v30);
-            objc_msgSend_setContentMetrics_(v26, v31, metricsCopy);
+            v25 = objc_msgSend_templateView(v27, v28, v29);
+            objc_msgSend_setContentMetrics_(v25, v30, metricsCopy);
           }
         }
 
-        v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v11, v14, &v37, v41, 16);
+        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v35, v39, 16);
       }
 
-      while (v16);
+      while (v15);
     }
 
-    v32 = objc_msgSend_view(selfCopy, v14, v15);
-    objc_msgSend_setNeedsLayout(v32, v33, v34);
+    v31 = objc_msgSend_view(selfCopy, v13, v14);
+    objc_msgSend_setNeedsLayout(v31, v32, v33);
   }
+}
 
-  v35 = *MEMORY[0x29EDCA608];
+- (void)willTransitionToExpandedContentMode:(BOOL)mode
+{
+  modeCopy = mode;
+  objc_msgSend_setTransitioning_(self, a2, 1);
+  v7 = objc_msgSend_view(self, v5, v6);
+  v10 = objc_msgSend_expandedContainerView(self, v8, v9);
+  objc_msgSend_addSubview_(v7, v11, v10);
+  v20[0] = MEMORY[0x29EDCA5F8];
+  v20[1] = 3221225472;
+  v20[2] = sub_29C964740;
+  v20[3] = &unk_29F337330;
+  v20[4] = self;
+  objc_msgSend_performWithoutAnimation_(MEMORY[0x29EDC7DA0], v12, v20);
+  v15 = objc_msgSend_contentModuleContext(self, v13, v14);
+  objc_msgSend_invalidateContainerViewsForPlatterTreatment(v15, v16, v17);
+  objc_msgSend_setExpandedFromTransition_(self, v18, modeCopy);
+  objc_msgSend__updateButtonContentMode_(self, v19, modeCopy);
 }
 
 - (void)didTransitionToExpandedContentMode:(BOOL)mode
@@ -445,7 +480,7 @@ LABEL_33:
 
 - (NSArray)containerViewsForPlatterTreatment
 {
-  v15[1] = *MEMORY[0x29EDCA608];
+  v14[1] = *MEMORY[0x29EDCA608];
   isExpanded = objc_msgSend__isExpanded(self, a2, v2);
   isTransitioning = objc_msgSend_isTransitioning(self, v5, v6);
   if ((isExpanded & 1) != 0 || isTransitioning)
@@ -456,11 +491,9 @@ LABEL_33:
   else
   {
     v10 = objc_msgSend_collapsedContainerView(self, v8, v9);
-    v15[0] = v10;
-    v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v11, v15, 1);
+    v14[0] = v10;
+    v12 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v11, v14, 1);
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 
   return v12;
 }
@@ -487,6 +520,19 @@ LABEL_33:
 
     v8 = objc_msgSend_contentModuleContext(self, v6, v7);
     objc_msgSend_invalidateContainerViewsForPlatterTreatment(v8, v9, v10);
+  }
+}
+
+- (void)setResizing:(BOOL)resizing
+{
+  if (self->_resizing != resizing)
+  {
+    self->_resizing = resizing;
+    v4 = objc_msgSend_view(self, a2, resizing);
+    objc_msgSend_setClipsToBounds_(v4, v5, self->_resizing);
+
+    v10 = objc_msgSend_contentModuleContext(self, v6, v7);
+    objc_msgSend_invalidateContainerViewsForPlatterTreatment(v10, v8, v9);
   }
 }
 
@@ -934,30 +980,118 @@ LABEL_37:
   }
 }
 
+- (void)_updateButtonContentMode:(BOOL)mode
+{
+  modeCopy = mode;
+  v41[3] = *MEMORY[0x29EDCA608];
+  if (objc_msgSend_isButtonContentModeExpanded(self, a2, mode) != mode)
+  {
+    objc_msgSend_setButtonContentModeExpanded_(self, v5, modeCopy);
+    isWifiOnlySKU = objc_msgSend_isWifiOnlySKU(self, v6, v7);
+    v11 = objc_msgSend_wifiModuleViewController(self, v9, v10);
+    v14 = v11;
+    if (isWifiOnlySKU)
+    {
+      v40[0] = v11;
+      v15 = objc_msgSend_bluetoothModuleViewController(self, v12, v13);
+      v40[1] = v15;
+      v17 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v16, v40, 2);
+    }
+
+    else
+    {
+      v41[0] = v11;
+      v15 = objc_msgSend_bluetoothModuleViewController(self, v12, v13);
+      v41[1] = v15;
+      v20 = objc_msgSend_cellularDataModuleViewController(self, v18, v19);
+      v41[2] = v20;
+      v17 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x29EDB8D80], v21, v41, 3);
+    }
+
+    v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v22 = v17;
+    v24 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v23, &v35, v39, 16);
+    if (v24)
+    {
+      v25 = v24;
+      v26 = *v36;
+      do
+      {
+        v27 = 0;
+        do
+        {
+          if (*v36 != v26)
+          {
+            objc_enumerationMutation(v22);
+          }
+
+          v28 = *(*(&v35 + 1) + 8 * v27);
+          v29 = objc_opt_class();
+          v30 = v28;
+          if (v29)
+          {
+            if (objc_opt_isKindOfClass())
+            {
+              v31 = v30;
+            }
+
+            else
+            {
+              v31 = 0;
+            }
+          }
+
+          else
+          {
+            v31 = 0;
+          }
+
+          v32 = v31;
+
+          if (v32)
+          {
+            objc_msgSend_containerWillTransitionToExpandedContentMode_(v32, v33, modeCopy, v35);
+          }
+
+          ++v27;
+        }
+
+        while (v25 != v27);
+        v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(v22, v34, &v35, v39, 16);
+      }
+
+      while (v25);
+    }
+  }
+}
+
 - (void)_updateContentRenderingModeForAllViewControllers
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v4 = objc_msgSend_contentRenderingMode(self, a2, v2);
   v7 = objc_msgSend_orderedButtonViewControllers(self, v5, v6);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v21, v25, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v20, v24, 16);
   if (v9)
   {
     v11 = v9;
-    v12 = *v22;
+    v12 = *v21;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(v7);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * i);
+        v14 = *(*(&v20 + 1) + 8 * i);
         if (objc_msgSend_conformsToProtocol_(v14, v10, &unk_2A23F5B50))
         {
           v15 = objc_opt_class();
@@ -986,13 +1120,11 @@ LABEL_37:
         }
       }
 
-      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v21, v25, 16);
+      v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v20, v24, 16);
     }
 
     while (v11);
   }
-
-  v20 = *MEMORY[0x29EDCA608];
 }
 
 - (void)_refreshMenuAffordanceVisibilityForExpandedButtonViewController:(id)controller
@@ -1152,28 +1284,28 @@ LABEL_15:
 - (void)_addViewControllers:(id)controllers withSuperview:(id)superview forwardingAppearanceMethods:(BOOL)methods
 {
   methodsCopy = methods;
-  v30 = *MEMORY[0x29EDCA608];
+  v29 = *MEMORY[0x29EDCA608];
   controllersCopy = controllers;
   superviewCopy = superview;
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(controllersCopy, v10, &v25, v29, 16);
+  v11 = objc_msgSend_countByEnumeratingWithState_objects_count_(controllersCopy, v10, &v24, v28, 16);
   if (v11)
   {
     v13 = v11;
-    v14 = *v26;
+    v14 = *v25;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v26 != v14)
+        if (*v25 != v14)
         {
           objc_enumerationMutation(controllersCopy);
         }
 
-        v16 = *(*(&v25 + 1) + 8 * i);
+        v16 = *(*(&v24 + 1) + 8 * i);
         if (objc_msgSend_conformsToProtocol_(v16, v12, &unk_2A23F5B50))
         {
           objc_msgSend_loadViewIfNeeded(v16, v17, v18);
@@ -1187,7 +1319,7 @@ LABEL_15:
         }
       }
 
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(controllersCopy, v12, &v25, v29, 16);
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(controllersCopy, v12, &v24, v28, 16);
     }
 
     while (v13);
@@ -1198,8 +1330,6 @@ LABEL_15:
     objc_msgSend_ccui_safelyBeginAppearanceTransitionForChildViewControllers_animated_(self, v12, 1, 0);
     objc_msgSend_ccui_safelyEndAppearanceTransitionForChildViewControllers(self, v22, v23);
   }
-
-  v24 = *MEMORY[0x29EDCA608];
 }
 
 - (BOOL)_isCurrentGridSizeClassImplicitlyExpanded
@@ -1230,29 +1360,29 @@ LABEL_15:
 
 - (id)presentedViewControllerForContentModuleDetailClickPresentationInteractionController:(id)controller
 {
-  v41 = *MEMORY[0x29EDCA608];
+  v40 = *MEMORY[0x29EDCA608];
   self->_presentingMenuViewController = 1;
   v4 = objc_msgSend_viewForInteraction(controller, a2, controller);
   objc_msgSend_orderedExpandedButtonViewControllers(self, v5, v6);
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
-  v7 = v39 = 0u;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v36, v40, 16);
+  v7 = v38 = 0u;
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v35, v39, 16);
   if (v10)
   {
-    v11 = *v37;
+    v11 = *v36;
     while (2)
     {
       for (i = 0; i != v10; i = (i + 1))
       {
-        if (*v37 != v11)
+        if (*v36 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v36 + 1) + 8 * i);
-        if (objc_msgSend_conformsToProtocol_(v13, v9, &unk_2A23F5B50, v36))
+        v13 = *(*(&v35 + 1) + 8 * i);
+        if (objc_msgSend_conformsToProtocol_(v13, v9, &unk_2A23F5B50, v35))
         {
           v14 = v13;
           v17 = objc_msgSend_templateViewForExpandedConnectivityModule(v14, v15, v16);
@@ -1266,7 +1396,7 @@ LABEL_15:
         }
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v9, &v36, v40, 16);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v9, &v35, v39, 16);
       if (v10)
       {
         continue;
@@ -1296,8 +1426,6 @@ LABEL_13:
     v26 = 0;
   }
 
-  v34 = *MEMORY[0x29EDCA608];
-
   return v26;
 }
 
@@ -1318,29 +1446,29 @@ LABEL_13:
 
 - (BOOL)performPrimaryActionForControlTemplateView:(id)view
 {
-  v27 = *MEMORY[0x29EDCA608];
+  v26 = *MEMORY[0x29EDCA608];
   viewCopy = view;
   objc_msgSend_clickPresentationInteractionManagers(self, v5, v6);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v7 = v25 = 0u;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v22, v26, 16);
+  v7 = v24 = 0u;
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v21, v25, 16);
   if (v9)
   {
     v12 = v9;
-    v13 = *v23;
+    v13 = *v22;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v23 != v13)
+        if (*v22 != v13)
         {
           objc_enumerationMutation(v7);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * i);
-        v16 = objc_msgSend_viewForInteraction(v15, v10, v11, v22);
+        v15 = *(*(&v21 + 1) + 8 * i);
+        v16 = objc_msgSend_viewForInteraction(v15, v10, v11, v21);
         v19 = v16;
         if (v16 == viewCopy)
         {
@@ -1350,7 +1478,7 @@ LABEL_13:
         }
       }
 
-      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v22, v26, 16);
+      v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v10, &v21, v25, 16);
       if (v12)
       {
         continue;
@@ -1362,7 +1490,6 @@ LABEL_13:
 
 LABEL_11:
 
-  v20 = *MEMORY[0x29EDCA608];
   return 1;
 }
 

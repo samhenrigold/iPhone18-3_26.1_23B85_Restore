@@ -40,7 +40,7 @@
 
 - (BOOL)_refreshDownloadWithTransactionID:(id)d accountID:(id)iD bagKey:(id)key error:(id *)error
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   dCopy = d;
   iDCopy = iD;
   keyCopy = key;
@@ -89,19 +89,18 @@
     {
       v23 = objc_opt_class();
       accountID = self->_accountID;
-      v38 = 138412802;
-      v39 = v23;
-      v40 = 2112;
-      v41 = accountID;
-      v42 = 2112;
-      v43 = dCopy;
+      v37 = 138412802;
+      v38 = v23;
+      v39 = 2112;
+      v40 = accountID;
+      v41 = 2112;
+      v42 = dCopy;
       v25 = v23;
-      LODWORD(v36) = 32;
-      v26 = _os_log_send_and_compose_impl();
+      v26 = _os_log_send_and_compose_impl(v22, 0, 0, 0, &dword_1D48BA000, oSLogObject, 1, "%@: Refreshing download: %@ / %@", &v37, 32);
 
       if (v26)
       {
-        v27 = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:{4, &v38, v36}];
+        v27 = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:4];
         free(v26);
         SSFileLog(v18, @"%@", v28, v29, v30, v31, v32, v33, v27);
       }

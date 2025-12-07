@@ -14,21 +14,19 @@
 
 - (id)readSuggestionsFromCache
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = __atxlog_handle_blending();
+  v11 = *MEMORY[0x1E69E9840];
+  v3 = __atxlog_handle_blending(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     clientModelId = self->_clientModelId;
-    v10 = 138412290;
-    v11 = clientModelId;
-    _os_log_impl(&dword_1DEFC4000, v3, OS_LOG_TYPE_DEFAULT, "Blending: Retrieving suggestions for client model: %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = clientModelId;
+    _os_log_impl(&dword_1DEFC4000, v3, OS_LOG_TYPE_DEFAULT, "Blending: Retrieving suggestions for client model: %@", &v9, 0xCu);
   }
 
   v5 = objc_opt_class();
   readOnlyFileHandleForSuggestionsCache = [(ATXClientModelCacheFileHandler *)self readOnlyFileHandleForSuggestionsCache];
   v7 = [v5 readSuggestionsFromCacheFromReadOnlyFileHandle:readOnlyFileHandleForSuggestionsCache];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -75,7 +73,7 @@
 
   if (v5)
   {
-    v8 = __atxlog_handle_blending();
+    v8 = __atxlog_handle_blending(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -97,7 +95,7 @@ LABEL_9:
 
   if (code != 2)
   {
-    v8 = __atxlog_handle_blending();
+    v8 = __atxlog_handle_blending(v15);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
@@ -113,7 +111,6 @@ LABEL_9:
 LABEL_10:
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -144,15 +141,15 @@ LABEL_10:
 
   if (encodeAsProto)
   {
-    v6 = encodeAsProto;
+    v7 = encodeAsProto;
   }
 
   else
   {
-    v7 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_blending(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(ATXClientModelCacheFileHandler *)self serializeSuggestionsData:v7];
+      [(ATXClientModelCacheFileHandler *)self serializeSuggestionsData:v8];
     }
   }
 
@@ -163,16 +160,16 @@ LABEL_10:
 {
   fileCopy = file;
   cacheFilePath = [(ATXClientModelCacheFileHandler *)self cacheFilePath];
-  v10 = 0;
-  v6 = [fileCopy writeToFile:cacheFilePath options:1073741825 error:&v10];
+  v11 = 0;
+  v6 = [fileCopy writeToFile:cacheFilePath options:1073741825 error:&v11];
 
-  v7 = v10;
+  v7 = v11;
   if ((v6 & 1) == 0)
   {
-    v8 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v9 = __atxlog_handle_blending(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      [(ATXClientModelCacheFileHandler *)self writeSerializedDataToCacheFile:v7, v8];
+      [(ATXClientModelCacheFileHandler *)self writeSerializedDataToCacheFile:v7, v9];
     }
   }
 
@@ -181,21 +178,25 @@ LABEL_10:
 
 + (id)unarchiveCacheFileFromReadOnlyFileHandle:(id)handle
 {
-  v9 = 0;
-  v3 = [handle readDataToEndOfFileAndReturnError:&v9];
-  v4 = v9;
+  v10 = 0;
+  v3 = [handle readDataToEndOfFileAndReturnError:&v10];
+  v4 = v10;
   v5 = v4;
   if (v3)
   {
     v6 = v3;
   }
 
-  else if ([v4 code] != 260)
+  else
   {
-    v7 = __atxlog_handle_blending();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    code = [v4 code];
+    if (code != 260)
     {
-      [(ATXClientModelCacheFileHandler *)v5 unarchiveCacheFileFromReadOnlyFileHandle:v7];
+      v8 = __atxlog_handle_blending(code);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        [(ATXClientModelCacheFileHandler *)v5 unarchiveCacheFileFromReadOnlyFileHandle:v8];
+      }
     }
   }
 
@@ -214,93 +215,88 @@ LABEL_10:
       v5 = objc_autoreleasePoolPush();
       v6 = [[ATXClientModelCacheUpdate alloc] initWithProtoData:v4];
       objc_autoreleasePoolPop(v5);
-      v7 = __atxlog_handle_blending();
-      v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+      v8 = __atxlog_handle_blending(v7);
+      v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
       if (v6)
       {
-        if (v8)
+        if (v9)
         {
           suggestions = [(ATXClientModelCacheUpdate *)v6 suggestions];
           v13 = 134217984;
           v14 = [suggestions count];
-          _os_log_impl(&dword_1DEFC4000, v7, OS_LOG_TYPE_DEFAULT, "Blending: Deserialized to get %lu suggestions.", &v13, 0xCu);
+          _os_log_impl(&dword_1DEFC4000, v8, OS_LOG_TYPE_DEFAULT, "Blending: Deserialized to get %lu suggestions.", &v13, 0xCu);
         }
 
         v6 = v6;
-        v10 = v6;
+        v11 = v6;
       }
 
       else
       {
-        if (v8)
+        if (v9)
         {
           LOWORD(v13) = 0;
-          _os_log_impl(&dword_1DEFC4000, v7, OS_LOG_TYPE_DEFAULT, "Blending: Unable to deserialize data retrieved from the cache file.", &v13, 2u);
+          _os_log_impl(&dword_1DEFC4000, v8, OS_LOG_TYPE_DEFAULT, "Blending: Unable to deserialize data retrieved from the cache file.", &v13, 2u);
         }
 
-        v10 = 0;
+        v11 = 0;
       }
     }
 
     else
     {
-      v6 = __atxlog_handle_blending();
+      v6 = __atxlog_handle_blending(0);
       if (os_log_type_enabled(&v6->super, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(v13) = 0;
         _os_log_impl(&dword_1DEFC4000, &v6->super, OS_LOG_TYPE_DEFAULT, "Blending: Unable to unarchive cache file.", &v13, 2u);
       }
 
-      v10 = 0;
+      v11 = 0;
     }
   }
 
   else
   {
-    v4 = __atxlog_handle_blending();
+    v4 = __atxlog_handle_blending(0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v13) = 0;
       _os_log_impl(&dword_1DEFC4000, v4, OS_LOG_TYPE_DEFAULT, "Blending: Unable to acquire readonly handle to cache file. Not reading suggestions from cache.", &v13, 2u);
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-
-  return v10;
+  return v11;
 }
 
 - (void)serializeSuggestionsData:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 16);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_ERROR, "Blending: <<%@>> Unable to serialize proactive suggestion data.", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_ERROR, "Blending: <<%@>> Unable to serialize proactive suggestion data.", &v3, 0xCu);
 }
 
 - (void)writeSerializedDataToCacheFile:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 16);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_fault_impl(&dword_1DEFC4000, log, OS_LOG_TYPE_FAULT, "Blending: <<%@>> Could not write client model cache update data for client model. Error: %@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_fault_impl(&dword_1DEFC4000, log, OS_LOG_TYPE_FAULT, "Blending: <<%@>> Could not write client model cache update data for client model. Error: %@", &v4, 0x16u);
 }
 
 + (void)unarchiveCacheFileFromReadOnlyFileHandle:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_ERROR, "Blending: Error reading the read only handle: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DEFC4000, a2, OS_LOG_TYPE_ERROR, "Blending: Error reading the read only handle: %@", &v2, 0xCu);
 }
 
 @end

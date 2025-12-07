@@ -39,28 +39,27 @@
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   getLogger = [(ConvertToESIMSpecifierCache *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     flow = self->_flow;
     *buf = 138412290;
-    v9 = flow;
+    v8 = flow;
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "ODC complete releasing SS flow: %@", buf, 0xCu);
   }
 
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter removeObserver:self];
 
-  v7.receiver = self;
-  v7.super_class = ConvertToESIMSpecifierCache;
-  [(ConvertToESIMSpecifierCache *)&v7 dealloc];
-  v6 = *MEMORY[0x277D85DE8];
+  v6.receiver = self;
+  v6.super_class = ConvertToESIMSpecifierCache;
+  [(ConvertToESIMSpecifierCache *)&v6 dealloc];
 }
 
 - (void)simSetupFlowCompleted:(unint64_t)completed
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   getLogger = [(ConvertToESIMSpecifierCache *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
@@ -74,13 +73,12 @@
   block[1] = 3221225472;
   block[2] = __53__ConvertToESIMSpecifierCache_simSetupFlowCompleted___block_invoke;
   block[3] = &unk_279BA9FE0;
-  objc_copyWeak(v8, buf);
-  v8[1] = completed;
+  objc_copyWeak(v7, buf);
+  v7[1] = completed;
   block[4] = self;
   dispatch_async(MEMORY[0x277D85CD0], block);
-  objc_destroyWeak(v8);
+  objc_destroyWeak(v7);
   objc_destroyWeak(buf);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __53__ConvertToESIMSpecifierCache_simSetupFlowCompleted___block_invoke(uint64_t a1)

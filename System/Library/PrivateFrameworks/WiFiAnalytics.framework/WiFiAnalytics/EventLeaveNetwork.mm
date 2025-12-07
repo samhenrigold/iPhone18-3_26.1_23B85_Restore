@@ -6,7 +6,7 @@
 
 + (BOOL)processRecord:(id)record bssid:(id)bssid ssid:(id)ssid withPersistentContainer:(id)container andRunPostprocessing:(id)postprocessing
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   bssidCopy = bssid;
   ssidCopy = ssid;
@@ -18,9 +18,9 @@
     if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
     {
       *buf = 136446466;
-      v36 = "+[EventLeaveNetwork processRecord:bssid:ssid:withPersistentContainer:andRunPostprocessing:]";
-      v37 = 1024;
-      v38 = 31;
+      v35 = "+[EventLeaveNetwork processRecord:bssid:ssid:withPersistentContainer:andRunPostprocessing:]";
+      v36 = 1024;
+      v37 = 31;
       _os_log_impl(&dword_1C8460000, v30, OS_LOG_TYPE_FAULT, "%{public}s::%d:no leaveRecord", buf, 0x12u);
     }
 
@@ -51,32 +51,32 @@
   {
     date2 = [recordCopy date];
     [v16 bssid];
-    v33 = bssidCopy;
-    v22 = v34 = containerCopy;
+    v32 = bssidCopy;
+    v22 = v33 = containerCopy;
     network2 = [v16 network];
     [network2 ssid];
     v24 = postprocessingCopy;
     v26 = v25 = ssidCopy;
     v27 = [recordCopy lan];
     *buf = 136447490;
-    v36 = "+[EventLeaveNetwork processRecord:bssid:ssid:withPersistentContainer:andRunPostprocessing:]";
-    v37 = 1024;
-    v38 = 41;
-    v39 = 2112;
-    v40 = date2;
-    v41 = 2112;
-    v42 = v22;
-    v43 = 2112;
-    v44 = v26;
-    v45 = 2112;
-    v46 = v27;
+    v35 = "+[EventLeaveNetwork processRecord:bssid:ssid:withPersistentContainer:andRunPostprocessing:]";
+    v36 = 1024;
+    v37 = 41;
+    v38 = 2112;
+    v39 = date2;
+    v40 = 2112;
+    v41 = v22;
+    v42 = 2112;
+    v43 = v26;
+    v44 = 2112;
+    v45 = v27;
     _os_log_impl(&dword_1C8460000, v20, OS_LOG_TYPE_DEBUG, "%{public}s::%d:Added Leave at [%@] to [%@][%@][%@]", buf, 0x3Au);
 
     ssidCopy = v25;
     postprocessingCopy = v24;
 
-    bssidCopy = v33;
-    containerCopy = v34;
+    bssidCopy = v32;
+    containerCopy = v33;
   }
 
   date3 = [recordCopy date];
@@ -89,9 +89,9 @@
     if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136446466;
-      v36 = "+[EventLeaveNetwork processRecord:bssid:ssid:withPersistentContainer:andRunPostprocessing:]";
-      v37 = 1024;
-      v38 = 48;
+      v35 = "+[EventLeaveNetwork processRecord:bssid:ssid:withPersistentContainer:andRunPostprocessing:]";
+      v36 = 1024;
+      v37 = 48;
     }
 
 LABEL_8:
@@ -99,7 +99,6 @@ LABEL_8:
 
 LABEL_9:
 
-  v31 = *MEMORY[0x1E69E9840];
   return v29;
 }
 

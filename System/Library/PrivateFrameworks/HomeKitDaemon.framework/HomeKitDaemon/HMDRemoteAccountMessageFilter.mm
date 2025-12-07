@@ -20,7 +20,7 @@
 
 - (BOOL)acceptMessage:(id)message target:(id)target errorReason:(id *)reason
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   targetCopy = target;
   v10 = messageCopy;
@@ -61,9 +61,9 @@ LABEL_16:
   {
     v21 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v87 = v21;
-    v88 = 2112;
-    v89 = v12;
+    v86 = v21;
+    v87 = 2112;
+    v88 = v12;
     _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_DEBUG, "%{public}@Message is targeting target: %@", buf, 0x16u);
   }
 
@@ -81,9 +81,9 @@ LABEL_16:
     {
       v28 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v87 = v28;
-      v88 = 2112;
-      v89 = v12;
+      v86 = v28;
+      v87 = 2112;
+      v88 = v12;
       _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_DEBUG, "%{public}@Message is allowed: %@", buf, 0x16u);
     }
 
@@ -91,37 +91,37 @@ LABEL_16:
     goto LABEL_14;
   }
 
-  v32 = v12;
-  destination = [v32 destination];
+  v31 = v12;
+  destination = [v31 destination];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v34 = destination;
+    v33 = destination;
   }
 
   else
   {
-    v34 = 0;
+    v33 = 0;
   }
 
-  v35 = v34;
+  v34 = v33;
 
-  device = [v35 device];
+  device = [v34 device];
   account = [device account];
 
   if (!account)
   {
-    if (![v32 isSecureRemote])
+    if (![v31 isSecureRemote])
     {
-      v45 = 0;
+      v44 = 0;
       goto LABEL_52;
     }
 
-    v84 = v35;
-    remoteSenderContext = [v32 remoteSenderContext];
+    v83 = v34;
+    remoteSenderContext = [v31 remoteSenderContext];
     mergeID = [remoteSenderContext mergeID];
 
-    v82 = mergeID;
+    v81 = mergeID;
     if (mergeID)
     {
       appleAccountManager = [(HMDRemoteAccountMessageFilter *)selfCopy appleAccountManager];
@@ -139,162 +139,162 @@ LABEL_16:
 
       else
       {
-        v52 = objc_autoreleasePoolPush();
-        v53 = selfCopy;
-        v54 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+        v51 = objc_autoreleasePoolPush();
+        v52 = selfCopy;
+        v53 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v55 = v79 = v52;
+          v54 = v78 = v51;
           *buf = 138543618;
-          v87 = v55;
-          v88 = 2112;
-          v89 = account2;
-          _os_log_impl(&dword_229538000, v54, OS_LOG_TYPE_ERROR, "%{public}@MergeID is not set for the current account: %@", buf, 0x16u);
+          v86 = v54;
+          v87 = 2112;
+          v88 = account2;
+          _os_log_impl(&dword_229538000, v53, OS_LOG_TYPE_ERROR, "%{public}@MergeID is not set for the current account: %@", buf, 0x16u);
 
-          v52 = v79;
+          v51 = v78;
         }
 
-        objc_autoreleasePoolPop(v52);
+        objc_autoreleasePoolPop(v51);
       }
     }
 
     systemKeychainStore = [(HMDRemoteAccountMessageFilter *)selfCopy systemKeychainStore];
-    v85 = 0;
-    v57 = [systemKeychainStore getLocalPairingIdentity:&v85];
-    v58 = v85;
+    v84 = 0;
+    v56 = [systemKeychainStore getLocalPairingIdentity:&v84];
+    v57 = v84;
 
-    if (!v57)
+    if (!v56)
     {
-      v59 = objc_autoreleasePoolPush();
-      v60 = selfCopy;
-      v61 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+      v58 = objc_autoreleasePoolPush();
+      v59 = selfCopy;
+      v60 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v62 = v80 = v59;
+        v61 = v79 = v58;
         *buf = 138543618;
-        v87 = v62;
-        v88 = 2112;
-        v89 = v58;
-        _os_log_impl(&dword_229538000, v61, OS_LOG_TYPE_ERROR, "%{public}@Failed to retrieve local pairing identity with error: %@", buf, 0x16u);
+        v86 = v61;
+        v87 = 2112;
+        v88 = v57;
+        _os_log_impl(&dword_229538000, v60, OS_LOG_TYPE_ERROR, "%{public}@Failed to retrieve local pairing identity with error: %@", buf, 0x16u);
 
-        v59 = v80;
+        v58 = v79;
       }
 
-      objc_autoreleasePoolPop(v59);
+      objc_autoreleasePoolPop(v58);
     }
 
-    remoteSenderContext2 = [v32 remoteSenderContext];
+    remoteSenderContext2 = [v31 remoteSenderContext];
     pairingIdentityIdentifier = [remoteSenderContext2 pairingIdentityIdentifier];
 
-    if (!pairingIdentityIdentifier || ([v57 identifier], v65 = objc_claimAutoreleasedReturnValue(), v66 = objc_msgSend(pairingIdentityIdentifier, "isEqualToString:", v65), v65, !v66))
+    if (!pairingIdentityIdentifier || ([v56 identifier], v64 = objc_claimAutoreleasedReturnValue(), v65 = objc_msgSend(pairingIdentityIdentifier, "isEqualToString:", v64), v64, !v65))
     {
-      v81 = v58;
-      v67 = objc_autoreleasePoolPush();
-      v68 = selfCopy;
-      v69 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+      v80 = v57;
+      v66 = objc_autoreleasePoolPush();
+      v67 = selfCopy;
+      v68 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
       {
         HMFGetLogIdentifier();
-        v70 = v78 = v67;
+        v69 = v77 = v66;
         *buf = 138543618;
-        v87 = v70;
-        v88 = 2112;
-        v89 = v32;
-        _os_log_impl(&dword_229538000, v69, OS_LOG_TYPE_ERROR, "%{public}@Failed to determine if the message was sent from the current account: %@", buf, 0x16u);
+        v86 = v69;
+        v87 = 2112;
+        v88 = v31;
+        _os_log_impl(&dword_229538000, v68, OS_LOG_TYPE_ERROR, "%{public}@Failed to determine if the message was sent from the current account: %@", buf, 0x16u);
 
-        v67 = v78;
+        v66 = v77;
       }
 
-      objc_autoreleasePoolPop(v67);
-      v45 = 0;
+      objc_autoreleasePoolPop(v66);
+      v44 = 0;
       goto LABEL_51;
     }
 
 LABEL_47:
-    v45 = 1;
+    v44 = 1;
 LABEL_51:
     account = 0;
-    v35 = v84;
+    v34 = v83;
     goto LABEL_52;
   }
 
-  v83 = v35;
-  v38 = account;
+  v82 = v34;
+  v37 = account;
   isCurrentAccount = [account isCurrentAccount];
-  v40 = objc_autoreleasePoolPush();
-  v41 = selfCopy;
-  v42 = HMFGetOSLogHandle();
-  v43 = v42;
+  v39 = objc_autoreleasePoolPush();
+  v40 = selfCopy;
+  v41 = HMFGetOSLogHandle();
+  v42 = v41;
   if (isCurrentAccount)
   {
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
     {
-      v44 = HMFGetLogIdentifier();
+      v43 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v87 = v44;
-      v88 = 2112;
-      v89 = v32;
-      _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_DEBUG, "%{public}@Authenticated message sent from current account: %@", buf, 0x16u);
+      v86 = v43;
+      v87 = 2112;
+      v88 = v31;
+      _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_DEBUG, "%{public}@Authenticated message sent from current account: %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v40);
-    v45 = 1;
+    objc_autoreleasePoolPop(v39);
+    v44 = 1;
   }
 
   else
   {
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
-      v51 = HMFGetLogIdentifier();
+      v50 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v87 = v51;
-      v88 = 2112;
-      v89 = v32;
-      _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_ERROR, "%{public}@Authenticated message not sent from current account: %@", buf, 0x16u);
+      v86 = v50;
+      v87 = 2112;
+      v88 = v31;
+      _os_log_impl(&dword_229538000, v42, OS_LOG_TYPE_ERROR, "%{public}@Authenticated message not sent from current account: %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v40);
-    v45 = 0;
+    objc_autoreleasePoolPop(v39);
+    v44 = 0;
   }
 
-  v35 = v83;
-  account = v38;
+  v34 = v82;
+  account = v37;
 LABEL_52:
 
-  v71 = objc_autoreleasePoolPush();
-  v72 = selfCopy;
-  v73 = HMFGetOSLogHandle();
-  v74 = v73;
-  if (v45)
+  v70 = objc_autoreleasePoolPush();
+  v71 = selfCopy;
+  v72 = HMFGetOSLogHandle();
+  v73 = v72;
+  if (v44)
   {
-    if (os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
     {
-      v75 = HMFGetLogIdentifier();
-      shortDescription = [v32 shortDescription];
+      v74 = HMFGetLogIdentifier();
+      shortDescription = [v31 shortDescription];
       *buf = 138543618;
-      v87 = v75;
-      v88 = 2112;
-      v89 = shortDescription;
-      _os_log_impl(&dword_229538000, v74, OS_LOG_TYPE_DEBUG, "%{public}@Authenticated sender of message: %@", buf, 0x16u);
+      v86 = v74;
+      v87 = 2112;
+      v88 = shortDescription;
+      _os_log_impl(&dword_229538000, v73, OS_LOG_TYPE_DEBUG, "%{public}@Authenticated sender of message: %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v71);
+    objc_autoreleasePoolPop(v70);
     goto LABEL_16;
   }
 
-  if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
   {
-    v77 = HMFGetLogIdentifier();
+    v76 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v87 = v77;
-    v88 = 2112;
-    v89 = v32;
-    _os_log_impl(&dword_229538000, v74, OS_LOG_TYPE_ERROR, "%{public}@Failed to authenticate sender of message: %@", buf, 0x16u);
+    v86 = v76;
+    v87 = 2112;
+    v88 = v31;
+    _os_log_impl(&dword_229538000, v73, OS_LOG_TYPE_ERROR, "%{public}@Failed to authenticate sender of message: %@", buf, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v71);
+  objc_autoreleasePoolPop(v70);
   if (reason)
   {
     [MEMORY[0x277CCA9B8] hmErrorWithCode:17];
@@ -308,7 +308,6 @@ LABEL_52:
 
 LABEL_17:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
@@ -327,7 +326,7 @@ LABEL_17:
     objc_storeStrong(&v15->_target, target);
     if (messagesCopy)
     {
-      v17 = [messagesCopy copy];
+      v17 = objc_msgSend_copy(messagesCopy);
     }
 
     else
@@ -386,10 +385,9 @@ LABEL_17:
 
 void __44__HMDRemoteAccountMessageFilter_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v19_131775;
-  logCategory__hmf_once_v19_131775 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v19_131775;
+  logCategory__hmf_once_v19_131775 = v0;
 }
 
 @end

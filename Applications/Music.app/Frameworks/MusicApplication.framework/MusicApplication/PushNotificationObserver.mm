@@ -18,28 +18,28 @@
 
 - (void)connection:(id)connection didReceiveMessageForTopic:(id)topic userInfo:(id)info
 {
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_E0E340);
-  __chkstk_darwin(v8 - 8);
-  v10 = &v16 - v9;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_E0E340, &qword_B18550);
+  __chkstk_darwin();
+  v9 = &v15 - v8;
   if (topic)
   {
     topic = sub_AB92A0();
-    v12 = v11;
+    v11 = v10;
     if (info)
     {
 LABEL_3:
-      v13 = sub_AB8FF0();
-      v14 = sub_AB9990();
-      (*(*(v14 - 8) + 56))(v10, 1, 1, v14);
-      v15 = swift_allocObject();
-      v15[2] = 0;
-      v15[3] = 0;
-      v15[4] = self;
-      v15[5] = topic;
-      v15[6] = v12;
-      v15[7] = v13;
+      v12 = sub_AB8FF0();
+      v13 = sub_AB9990();
+      (*(*(v13 - 8) + 56))(v9, 1, 1, v13);
+      v14 = swift_allocObject();
+      v14[2] = 0;
+      v14[3] = 0;
+      v14[4] = self;
+      v14[5] = topic;
+      v14[6] = v11;
+      v14[7] = v12;
 
-      sub_5E89D8(0, 0, v10, &unk_B20E90, v15);
+      sub_5E89D8(0, 0, v9, &unk_B20E90, v14);
 
       return;
     }
@@ -47,7 +47,7 @@ LABEL_3:
 
   else
   {
-    v12 = 0;
+    v11 = 0;
     if (info)
     {
       goto LABEL_3;

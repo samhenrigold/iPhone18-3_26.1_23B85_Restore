@@ -20,7 +20,7 @@
 
 - (id)_br_getAllAppleAccountsWithError:()BRAdditions
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = [self accountTypeWithAccountTypeIdentifier:*MEMORY[0x1E69597F8]];
   v6 = [self accountsWithAccountType:v5];
   if (!v6)
@@ -32,21 +32,21 @@
       v9 = brc_default_log(0, 0);
       if (os_log_type_enabled(v9, 0x90u))
       {
-        v13 = "(passed to caller)";
-        v14 = 136315906;
-        v15 = "[ACAccountStore(BRAdditions) _br_getAllAppleAccountsWithError:]";
-        v16 = 2080;
+        v12 = "(passed to caller)";
+        v13 = 136315906;
+        v14 = "[ACAccountStore(BRAdditions) _br_getAllAppleAccountsWithError:]";
+        v15 = 2080;
         if (!a3)
         {
-          v13 = "(ignored by caller)";
+          v12 = "(ignored by caller)";
         }
 
-        v17 = v13;
-        v18 = 2112;
-        v19 = v7;
-        v20 = 2112;
-        v21 = v8;
-        _os_log_error_impl(&dword_1AE2A9000, v9, 0x90u, "[ERROR] %s: %s error: %@%@", &v14, 0x2Au);
+        v16 = v12;
+        v17 = 2112;
+        v18 = v7;
+        v19 = 2112;
+        v20 = v8;
+        _os_log_error_impl(&dword_1AE2A9000, v9, 0x90u, "[ERROR] %s: %s error: %@%@", &v13, 0x2Au);
       }
     }
 
@@ -56,8 +56,6 @@
       *a3 = v7;
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -85,7 +83,7 @@
 
 - (id)br_accountForPersona:()BRAdditions
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if (br_accountForPersona__onceToken != -1)
   {
@@ -116,31 +114,31 @@
     goto LABEL_15;
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   br_allEligibleAppleAccounts = [self br_allEligibleAppleAccounts];
-  v10 = [br_allEligibleAppleAccounts countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v10 = [br_allEligibleAppleAccounts countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v10)
   {
-    v11 = *v25;
+    v11 = *v24;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v25 != v11)
+        if (*v24 != v11)
         {
           objc_enumerationMutation(br_allEligibleAppleAccounts);
         }
 
-        v13 = *(*(&v24 + 1) + 8 * i);
+        v13 = *(*(&v23 + 1) + 8 * i);
         v14 = _accountForPersona;
         br_personaIdentifier = [v13 br_personaIdentifier];
         [v14 setObject:v13 forKeyedSubscript:br_personaIdentifier];
       }
 
-      v10 = [br_allEligibleAppleAccounts countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v10 = [br_allEligibleAppleAccounts countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v10);
@@ -157,22 +155,21 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v21 = brc_bread_crumbs("[ACAccountStore(BRAdditions) br_accountForPersona:]", 111);
-  v22 = brc_default_log(1, 0);
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v20 = brc_bread_crumbs("[ACAccountStore(BRAdditions) br_accountForPersona:]", 111);
+  v21 = brc_default_log(1, 0);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v29 = br_personaID;
-    v30 = 2112;
-    v31 = v21;
-    _os_log_impl(&dword_1AE2A9000, v22, OS_LOG_TYPE_DEFAULT, "[WARNING] couldn't find account for persona %@%@", buf, 0x16u);
+    v28 = br_personaID;
+    v29 = 2112;
+    v30 = v20;
+    _os_log_impl(&dword_1AE2A9000, v21, OS_LOG_TYPE_DEFAULT, "[WARNING] couldn't find account for persona %@%@", buf, 0x16u);
   }
 
   v18 = 0;
 LABEL_18:
 
   objc_sync_exit(obj);
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

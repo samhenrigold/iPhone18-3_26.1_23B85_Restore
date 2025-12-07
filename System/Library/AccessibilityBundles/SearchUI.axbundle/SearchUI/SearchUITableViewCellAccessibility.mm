@@ -167,20 +167,19 @@ uint64_t __77__SearchUITableViewCellAccessibility__accessibilityRetrieveTableVie
   v4 = MEMORY[0x29ED341C0]();
 
   v5 = [(SearchUITableViewCellAccessibility *)self safeValueForKey:@"rowModel"];
-  v6 = *MEMORY[0x29EDBB1F8];
-  v7 = [MEMORY[0x29EDB8D80] arrayWithObjects:{*MEMORY[0x29EDBB1E0], *MEMORY[0x29EDBB1F8], *MEMORY[0x29EDBB1D8], *MEMORY[0x29EDBB1F0], *MEMORY[0x29EDBB200], *MEMORY[0x29EDBB1E8], 0}];
+  v6 = [MEMORY[0x29EDB8D80] arrayWithObjects:{*MEMORY[0x29EDBB1E0], *MEMORY[0x29EDBB1F8], *MEMORY[0x29EDBB1D8], *MEMORY[0x29EDBB1F0], *MEMORY[0x29EDBB200], *MEMORY[0x29EDBB1E8], 0}];
   NSClassFromString(&cfstr_Searchuidetail_1.isa);
   if (objc_opt_isKindOfClass())
   {
-    v8 = [v5 safeValueForKey:@"identifyingResult"];
-    v9 = [v8 safeStringForKey:@"contentType"];
+    v7 = [v5 safeValueForKey:@"identifyingResult"];
+    v8 = [v7 safeStringForKey:@"contentType"];
 
-    if ([v7 containsObject:v9])
+    if ([v6 containsObject:v8])
     {
-      v12 = accessibilityLocalizedString(@"siri.shortcut");
-      v10 = __UIAXStringForVariables();
+      v11 = accessibilityLocalizedString(@"siri.shortcut");
+      v9 = __UIAXStringForVariables();
 
-      v4 = v10;
+      v4 = v9;
     }
   }
 
@@ -384,36 +383,34 @@ uint64_t __76__SearchUITableViewCellAccessibility__accessibilitySupplementaryFoo
 
 - (BOOL)_accessibilityContainsCombinedView
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v14 = *MEMORY[0x29EDCA608];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  accessibilityElements = [(SearchUITableViewCellAccessibility *)self accessibilityElements];
-  v3 = [accessibilityElements countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v2 = [(SearchUITableViewCellAccessibility *)self accessibilityElements:0];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v10 != v5)
         {
-          objc_enumerationMutation(accessibilityElements);
+          objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
         NSClassFromString(&cfstr_Searchuicombin_2.isa);
         if (objc_opt_isKindOfClass())
         {
-          v8 = 1;
+          v7 = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [accessibilityElements countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -423,11 +420,10 @@ uint64_t __76__SearchUITableViewCellAccessibility__accessibilitySupplementaryFoo
     }
   }
 
-  v8 = 0;
+  v7 = 0;
 LABEL_11:
 
-  v9 = *MEMORY[0x29EDCA608];
-  return v8;
+  return v7;
 }
 
 @end

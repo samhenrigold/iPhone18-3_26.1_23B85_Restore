@@ -20,7 +20,7 @@
   {
 LABEL_15:
     swift_unknownObjectRetain(to);
-    v5 = [(atomic_ullong *)self count];
+    v5 = [self count];
   }
 
   else

@@ -8,7 +8,7 @@
 
 - (void)isUnsecuringSiriActionAllowedWithCompletion:(id)completion
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if (self)
   {
@@ -22,7 +22,7 @@
       {
         v8 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v21 = v8;
+        v20 = v8;
         _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_ERROR, "%{public}@Denying Siri access due to running tvOS-only code path on other platform", buf, 0xCu);
       }
 
@@ -49,9 +49,9 @@
           v16 = HMFGetLogIdentifier();
           v17 = HMStringFromHomeLocation();
           *buf = 138543618;
-          v21 = v16;
-          v22 = 2112;
-          v23 = v17;
+          v20 = v16;
+          v21 = 2112;
+          v22 = v17;
           _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Siri access is not allowed for request because current device is not at or near home (%@)", buf, 0x16u);
         }
       }
@@ -65,7 +65,7 @@
         {
           v14 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v21 = v14;
+          v20 = v14;
           _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Siri access is not allowed for request because current device has no paired watch", buf, 0xCu);
         }
       }
@@ -76,7 +76,6 @@
 
   completionCopy[2](completionCopy, 0);
 LABEL_17:
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDSiriSecureAccessoryAccessController)initWithDataSource:(id)source watchAuthDataSource:(id)dataSource

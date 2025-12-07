@@ -22,6 +22,7 @@
 - (void)_openHomeApp;
 - (void)_prepareTransitionSubviews;
 - (void)_setUpSmartGridContent;
+- (void)_showLockSecurityView:(BOOL)view;
 - (void)_tearDownSmartGridContent;
 - (void)dealloc;
 - (void)didTransitionToExpandedContentMode:(BOOL)mode;
@@ -30,14 +31,20 @@
 - (void)gridSizeMayHaveChanged;
 - (void)loadView;
 - (void)propertyAnimatorDidStartAnimating:(id)animating;
+- (void)quickControlsPresentationDidUpdate:(BOOL)update;
 - (void)remoteDashboard:(id)dashboard viewServiceDidTerminateWithError:(id)error;
 - (void)requestAuthenticationIfLockedWithCompletionHandler:(id)handler;
 - (void)requestDismissal;
 - (void)setURLHandler:(id)handler;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 - (void)willDismissAccessoryControlsViewController:(id)controller;
 - (void)willPresentAccessoryControlsViewController:(id)controller;
+- (void)willTransitionToExpandedContentMode:(BOOL)mode;
 @end
 
 @implementation HUCCSmartGridContentViewController
@@ -64,7 +71,7 @@
 
 - (void)loadView
 {
-  v51 = *MEMORY[0x29EDCA608];
+  v50 = *MEMORY[0x29EDCA608];
   v3 = objc_alloc_init(HUCCSmartContainerView);
   objc_msgSend_setView_(self, v4, v3);
 
@@ -97,42 +104,191 @@
   {
     v44 = objc_opt_class();
     v45 = NSStringFromClass(v44);
-    v47 = 138412546;
-    v48 = v45;
-    v49 = 2080;
-    v50 = "[HUCCSmartGridContentViewController loadView]";
-    _os_log_impl(&dword_29C992000, v43, OS_LOG_TYPE_DEFAULT, "%@:%s", &v47, 0x16u);
+    v46 = 138412546;
+    v47 = v45;
+    v48 = 2080;
+    v49 = "[HUCCSmartGridContentViewController loadView]";
+    _os_log_impl(&dword_29C992000, v43, OS_LOG_TYPE_DEFAULT, "%@:%s", &v46, 0x16u);
   }
-
-  v46 = *MEMORY[0x29EDCA608];
 }
 
 - (void)viewDidLoad
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   v3 = HFLogForCategory();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = objc_opt_class();
     v5 = NSStringFromClass(v4);
     *buf = 138412546;
-    v17 = v5;
-    v18 = 2080;
-    v19 = "[HUCCSmartGridContentViewController viewDidLoad]";
+    v16 = v5;
+    v17 = 2080;
+    v18 = "[HUCCSmartGridContentViewController viewDidLoad]";
     _os_log_impl(&dword_29C992000, v3, OS_LOG_TYPE_DEFAULT, "%@:%s", buf, 0x16u);
   }
 
-  v15.receiver = self;
-  v15.super_class = HUCCSmartGridContentViewController;
-  [(HUCCSmartGridContentViewController *)&v15 viewDidLoad];
+  v14.receiver = self;
+  v14.super_class = HUCCSmartGridContentViewController;
+  [(HUCCSmartGridContentViewController *)&v14 viewDidLoad];
   v6 = objc_alloc_init(MEMORY[0x29EDC7B78]);
   v9 = objc_msgSend_largeTitleTextAttributes(v6, v7, v8);
   objc_msgSend_setTransitionLargeTitleTextAttributes_(self, v10, v9);
 
   MGGetFloat32Answer();
   objc_msgSend_setTransitionDeviceCornerRadius_(self, v12, v13, v11);
+}
 
-  v14 = *MEMORY[0x29EDCA608];
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v33 = *MEMORY[0x29EDCA608];
+  v5 = HFLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    *buf = 138412546;
+    v30 = v7;
+    v31 = 2080;
+    v32 = "[HUCCSmartGridContentViewController viewWillAppear:]";
+    _os_log_impl(&dword_29C992000, v5, OS_LOG_TYPE_DEFAULT, "%@:%s", buf, 0x16u);
+  }
+
+  v10 = objc_msgSend_delegate(self, v8, v9);
+  objc_msgSend_smartGridContentViewController_viewWillAppear_(v10, v11, self, appearCopy);
+
+  v28.receiver = self;
+  v28.super_class = HUCCSmartGridContentViewController;
+  [(HUCCSmartGridContentViewController *)&v28 viewWillAppear:appearCopy];
+  v14 = objc_msgSend_view(self, v12, v13);
+  v17 = objc_msgSend_frame(v14, v15, v16);
+  v21 = HUCCSizeSubclassForModuleViewWidth(v20, v17, v18, v19);
+
+  v24 = objc_msgSend_smartGridViewController(self, v22, v23);
+  objc_msgSend_setSizeSubclass_(v24, v25, v21);
+
+  objc_msgSend__setUpSmartGridContent(self, v26, v27);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v21 = *MEMORY[0x29EDCA608];
+  v14.receiver = self;
+  v14.super_class = HUCCSmartGridContentViewController;
+  [(HUCCSmartGridContentViewController *)&v14 viewDidAppear:appear];
+  v4 = HFLogForCategory();
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v9 = objc_msgSend_view(self, v7, v8);
+    v12 = objc_msgSend_window(v9, v10, v11);
+    v13 = @"yes";
+    if (!v12)
+    {
+      v13 = @"no";
+    }
+
+    *buf = 138412802;
+    v16 = v6;
+    v17 = 2080;
+    v18 = "[HUCCSmartGridContentViewController viewDidAppear:]";
+    v19 = 2112;
+    v20 = v13;
+    _os_log_impl(&dword_29C992000, v4, OS_LOG_TYPE_DEFAULT, "%@:%s — has window: %@", buf, 0x20u);
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v27 = *MEMORY[0x29EDCA608];
+  v5 = HFLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    *buf = 138412546;
+    v24 = v7;
+    v25 = 2080;
+    v26 = "[HUCCSmartGridContentViewController viewWillDisappear:]";
+    _os_log_impl(&dword_29C992000, v5, OS_LOG_TYPE_DEFAULT, "%@:%s", buf, 0x16u);
+  }
+
+  v10 = objc_msgSend_accessoryControlsViewController(self, v8, v9);
+
+  if (v10)
+  {
+    v11 = HFLogForCategory();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      v12 = objc_opt_class();
+      v13 = NSStringFromClass(v12);
+      v16 = objc_msgSend_accessoryControlsViewController(self, v14, v15);
+      *buf = 138412546;
+      v24 = v13;
+      v25 = 2112;
+      v26 = v16;
+      _os_log_impl(&dword_29C992000, v11, OS_LOG_TYPE_DEFAULT, "%@ was asked to dismiss while accessory controls were still presented: %@", buf, 0x16u);
+    }
+
+    v19 = objc_msgSend_accessoryControlsViewController(self, v17, v18);
+    objc_msgSend_dismissAccessoryControlsAnimated_completion_(v19, v20, disappearCopy, 0);
+
+    objc_msgSend_setAccessoryControlsViewController_(self, v21, 0);
+  }
+
+  v22.receiver = self;
+  v22.super_class = HUCCSmartGridContentViewController;
+  [(HUCCSmartGridContentViewController *)&v22 viewWillDisappear:disappearCopy];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v34 = *MEMORY[0x29EDCA608];
+  v5 = HFLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    *buf = 138412546;
+    v31 = v7;
+    v32 = 2080;
+    v33 = "[HUCCSmartGridContentViewController viewDidDisappear:]";
+    _os_log_impl(&dword_29C992000, v5, OS_LOG_TYPE_DEFAULT, "%@:%s", buf, 0x16u);
+  }
+
+  objc_msgSend__tearDownSmartGridContent(self, v8, v9);
+  v12 = objc_msgSend_accessoryControlsViewController(self, v10, v11);
+
+  if (v12)
+  {
+    v14 = HFLogForCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = objc_opt_class();
+      v16 = NSStringFromClass(v15);
+      v19 = objc_msgSend_accessoryControlsViewController(self, v17, v18);
+      *buf = 138412546;
+      v31 = v16;
+      v32 = 2112;
+      v33 = v19;
+      _os_log_impl(&dword_29C992000, v14, OS_LOG_TYPE_DEFAULT, "%@ disappeared while accessory controls were still presented: %@", buf, 0x16u);
+    }
+
+    v22 = objc_msgSend_accessoryControlsViewController(self, v20, v21);
+    objc_msgSend_dismissAccessoryControlsAnimated_completion_(v22, v23, 0, 0);
+
+    objc_msgSend_setAccessoryControlsViewController_(self, v24, 0);
+  }
+
+  objc_msgSend_setExpandedContentMode_(self, v13, 0);
+  v29.receiver = self;
+  v29.super_class = HUCCSmartGridContentViewController;
+  [(HUCCSmartGridContentViewController *)&v29 viewDidDisappear:disappearCopy];
+  v27 = objc_msgSend_delegate(self, v25, v26);
+  objc_msgSend_smartGridContentViewController_viewDidDisappear_(v27, v28, self, disappearCopy);
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -164,14 +320,14 @@
 
 - (CCUIModuleLayoutSize)moduleLayoutSizeForOrientation:(int64_t)orientation
 {
-  v26 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   v6 = HFLogForCategory();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = HUCCStringForOrientation(orientation);
-    v20 = 138412290;
-    v21 = v7;
-    _os_log_impl(&dword_29C992000, v6, OS_LOG_TYPE_DEFAULT, "Computing module layout size for orientiation: %@", &v20, 0xCu);
+    v19 = 138412290;
+    v20 = v7;
+    _os_log_impl(&dword_29C992000, v6, OS_LOG_TYPE_DEFAULT, "Computing module layout size for orientiation: %@", &v19, 0xCu);
   }
 
   v10 = objc_msgSend_smartGridViewController(self, v8, v9);
@@ -182,20 +338,19 @@
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     v16 = NSStringFromSelector(a2);
-    v20 = 138412802;
-    v21 = v16;
-    v22 = 2048;
-    v23 = v12;
-    v24 = 2048;
-    v25 = v14;
-    _os_log_impl(&dword_29C992000, v15, OS_LOG_TYPE_DEFAULT, "%@ - height: %ld, width: %ld", &v20, 0x20u);
+    v19 = 138412802;
+    v20 = v16;
+    v21 = 2048;
+    v22 = v12;
+    v23 = 2048;
+    v24 = v14;
+    _os_log_impl(&dword_29C992000, v15, OS_LOG_TYPE_DEFAULT, "%@ - height: %ld, width: %ld", &v19, 0x20u);
   }
 
-  v17 = *MEMORY[0x29EDCA608];
-  v18 = v14;
-  v19 = v12;
-  result.var1 = v19;
-  result.var0 = v18;
+  v17 = v14;
+  v18 = v12;
+  result.var1 = v18;
+  result.var0 = v17;
   return result;
 }
 
@@ -326,6 +481,133 @@ LABEL_10:
   }
 
   return v4;
+}
+
+- (void)willTransitionToExpandedContentMode:(BOOL)mode
+{
+  modeCopy = mode;
+  objc_msgSend_setIsExpanded_(self, a2, mode);
+  v7 = modeCopy && objc_msgSend_expandedContentMode(self, v5, v6) != 1;
+  v8 = objc_msgSend_delegate(self, v5, v6);
+  v11 = objc_msgSend_contentModuleContext(v8, v9, v10);
+  objc_msgSend_setHomeGestureDismissalAllowed_(v11, v12, v7);
+
+  if (objc_msgSend_expandedContentMode(self, v13, v14) != 1 && UIAccessibilityIsReduceMotionEnabled())
+  {
+    isExpanded = objc_msgSend_isExpanded(self, v15, v16);
+    v20 = objc_msgSend_view(self, v18, v19);
+    v23 = objc_msgSend_compressedView(v20, v21, v22);
+    objc_msgSend_setHidden_(v23, v24, isExpanded);
+
+    v27 = objc_msgSend_isExpanded(self, v25, v26);
+    v30 = objc_msgSend_smartGridViewController(self, v28, v29);
+    v33 = objc_msgSend_homeCell(v30, v31, v32);
+    objc_msgSend_setHidden_(v33, v34, v27);
+
+    LODWORD(v27) = objc_msgSend_isExpanded(self, v35, v36);
+    v39 = objc_msgSend_view(self, v37, v38);
+    v42 = objc_msgSend_animationView(v39, v40, v41);
+    objc_msgSend_setHidden_(v42, v43, v27 ^ 1);
+
+    LODWORD(v27) = objc_msgSend_isExpanded(self, v44, v45);
+    v48 = objc_msgSend_view(self, v46, v47);
+    v51 = objc_msgSend_expandedView(v48, v49, v50);
+    objc_msgSend_setHidden_(v51, v52, v27 ^ 1);
+
+    v55 = objc_msgSend_dashboardContainerViewController(self, v53, v54);
+    objc_msgSend_expandedContentFrame(v55, v56, v57);
+    v59 = v58;
+    v61 = v60;
+    v63 = v62;
+    v65 = v64;
+    v68 = objc_msgSend_view(self, v66, v67);
+    v71 = objc_msgSend_expandedView(v68, v69, v70);
+    objc_msgSend_setFrame_(v71, v72, v73, v59, v61, v63, v65);
+
+    if (objc_msgSend_isAnIPad(MEMORY[0x29EDC53F0], v74, v75))
+    {
+      CCUIExpandedModuleContinuousCornerRadius();
+    }
+
+    else
+    {
+      objc_msgSend_transitionDeviceCornerRadius(self, v76, v77);
+    }
+
+    v81 = v80;
+    v82 = objc_msgSend_view(self, v78, v79);
+    v85 = objc_msgSend_expandedView(v82, v83, v84);
+    objc_msgSend__setContinuousCornerRadius_(v85, v86, v87, v81);
+
+    v90 = objc_msgSend_view(self, v88, v89);
+    v93 = objc_msgSend_expandedView(v90, v91, v92);
+    objc_msgSend_frame(v93, v94, v95);
+    v97 = v96;
+    v99 = v98;
+    v101 = v100;
+    v103 = v102;
+    v106 = objc_msgSend_view(self, v104, v105);
+    v109 = objc_msgSend_animationView(v106, v107, v108);
+    objc_msgSend_setFrame_(v109, v110, v111, v97, v99, v101, v103);
+
+    v114 = objc_msgSend_view(self, v112, v113);
+    v117 = objc_msgSend_expandedView(v114, v115, v116);
+    objc_msgSend__continuousCornerRadius(v117, v118, v119);
+    v121 = v120;
+    v124 = objc_msgSend_view(self, v122, v123);
+    v127 = objc_msgSend_animationView(v124, v125, v126);
+    objc_msgSend__setContinuousCornerRadius_(v127, v128, v129, v121);
+
+    if (objc_msgSend_isExpanded(self, v130, v131))
+    {
+      v134 = 0.0;
+    }
+
+    else
+    {
+      v134 = 1.0;
+    }
+
+    v135 = objc_msgSend_view(self, v132, v133);
+    v138 = objc_msgSend_compressedView(v135, v136, v137);
+    objc_msgSend_setAlpha_(v138, v139, v140, v134);
+
+    if (objc_msgSend_isExpanded(self, v141, v142))
+    {
+      v145 = 1.0;
+    }
+
+    else
+    {
+      v145 = 0.0;
+    }
+
+    v146 = objc_msgSend_view(self, v143, v144);
+    v149 = objc_msgSend_animationView(v146, v147, v148);
+    objc_msgSend_setAlpha_(v149, v150, v151, v145);
+
+    if (objc_msgSend_isExpanded(self, v152, v153))
+    {
+      v156 = 1.0;
+    }
+
+    else
+    {
+      v156 = 0.0;
+    }
+
+    v157 = objc_msgSend_view(self, v154, v155);
+    v160 = objc_msgSend_expandedView(v157, v158, v159);
+    objc_msgSend_setAlpha_(v160, v161, v162, v156);
+
+    v165 = objc_msgSend_dashboardContainerViewController(self, v163, v164);
+    v168 = objc_msgSend_isExpanded(self, v166, v167);
+    objc_msgSend_willBeginTransition_forCompactModule_(v165, v169, v168, 0);
+
+    v176 = objc_msgSend_dashboardContainerViewController(self, v170, v171);
+    v174 = objc_msgSend_isExpanded(self, v172, v173);
+    objc_msgSend_willFinishTransition_forCompactModule_(v176, v175, v174, 0);
+  }
 }
 
 - (void)didTransitionToExpandedContentMode:(BOOL)mode
@@ -926,7 +1208,7 @@ LABEL_10:
 
 - (void)displayHome:(id)home
 {
-  v45 = *MEMORY[0x29EDCA608];
+  v44 = *MEMORY[0x29EDCA608];
   homeCopy = home;
   shouldDisplayHomeControlService = objc_msgSend__shouldDisplayHomeControlService(self, v5, v6);
   v8 = HFLogForCategory();
@@ -937,13 +1219,13 @@ LABEL_10:
     {
       v10 = objc_opt_class();
       v11 = NSStringFromClass(v10);
-      v39 = 138412802;
-      v40 = v11;
-      v41 = 2080;
-      v42 = "[HUCCSmartGridContentViewController displayHome:]";
-      v43 = 2112;
-      v44 = homeCopy;
-      _os_log_impl(&dword_29C992000, v8, OS_LOG_TYPE_DEFAULT, "%@:%s displaying Home Control Service for %@", &v39, 0x20u);
+      v38 = 138412802;
+      v39 = v11;
+      v40 = 2080;
+      v41 = "[HUCCSmartGridContentViewController displayHome:]";
+      v42 = 2112;
+      v43 = homeCopy;
+      _os_log_impl(&dword_29C992000, v8, OS_LOG_TYPE_DEFAULT, "%@:%s displaying Home Control Service for %@", &v38, 0x20u);
     }
 
     objc_msgSend_setExpandedContentMode_(self, v12, 2);
@@ -964,19 +1246,17 @@ LABEL_10:
     {
       v34 = objc_opt_class();
       v35 = NSStringFromClass(v34);
-      v39 = 138412802;
-      v40 = v35;
-      v41 = 2080;
-      v42 = "[HUCCSmartGridContentViewController displayHome:]";
-      v43 = 2112;
-      v44 = homeCopy;
-      _os_log_impl(&dword_29C992000, v8, OS_LOG_TYPE_DEFAULT, "%@:%s Opening Home app for %@", &v39, 0x20u);
+      v38 = 138412802;
+      v39 = v35;
+      v40 = 2080;
+      v41 = "[HUCCSmartGridContentViewController displayHome:]";
+      v42 = 2112;
+      v43 = homeCopy;
+      _os_log_impl(&dword_29C992000, v8, OS_LOG_TYPE_DEFAULT, "%@:%s Opening Home app for %@", &v38, 0x20u);
     }
 
     objc_msgSend__openHomeApp(self, v36, v37);
   }
-
-  v38 = *MEMORY[0x29EDCA608];
 }
 
 - (void)gridSizeMayHaveChanged
@@ -995,27 +1275,6 @@ LABEL_10:
 
 - (void)willPresentAccessoryControlsViewController:(id)controller
 {
-  v19 = *MEMORY[0x29EDCA608];
-  controllerCopy = controller;
-  v5 = HFLogForCategory();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-  {
-    v17 = 138412290;
-    v18 = controllerCopy;
-    _os_log_impl(&dword_29C992000, v5, OS_LOG_TYPE_DEFAULT, "Accessory controls will present: %@", &v17, 0xCu);
-  }
-
-  objc_msgSend_setExpandedContentMode_(self, v6, 1);
-  objc_msgSend_setAccessoryControlsViewController_(self, v7, controllerCopy);
-  v10 = objc_msgSend_delegate(self, v8, v9);
-  v13 = objc_msgSend_contentModuleContext(v10, v11, v12);
-  objc_msgSend_requestExpandModule(v13, v14, v15);
-
-  v16 = *MEMORY[0x29EDCA608];
-}
-
-- (void)willDismissAccessoryControlsViewController:(id)controller
-{
   v18 = *MEMORY[0x29EDCA608];
   controllerCopy = controller;
   v5 = HFLogForCategory();
@@ -1023,15 +1282,32 @@ LABEL_10:
   {
     v16 = 138412290;
     v17 = controllerCopy;
-    _os_log_impl(&dword_29C992000, v5, OS_LOG_TYPE_DEFAULT, "Accessory controls will dismiss: %@", &v16, 0xCu);
+    _os_log_impl(&dword_29C992000, v5, OS_LOG_TYPE_DEFAULT, "Accessory controls will present: %@", &v16, 0xCu);
+  }
+
+  objc_msgSend_setExpandedContentMode_(self, v6, 1);
+  objc_msgSend_setAccessoryControlsViewController_(self, v7, controllerCopy);
+  v10 = objc_msgSend_delegate(self, v8, v9);
+  v13 = objc_msgSend_contentModuleContext(v10, v11, v12);
+  objc_msgSend_requestExpandModule(v13, v14, v15);
+}
+
+- (void)willDismissAccessoryControlsViewController:(id)controller
+{
+  v17 = *MEMORY[0x29EDCA608];
+  controllerCopy = controller;
+  v5 = HFLogForCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v15 = 138412290;
+    v16 = controllerCopy;
+    _os_log_impl(&dword_29C992000, v5, OS_LOG_TYPE_DEFAULT, "Accessory controls will dismiss: %@", &v15, 0xCu);
   }
 
   objc_msgSend_setAccessoryControlsViewController_(self, v6, 0);
   v9 = objc_msgSend_delegate(self, v7, v8);
   v12 = objc_msgSend_contentModuleContext(v9, v10, v11);
   objc_msgSend_dismissModule(v12, v13, v14);
-
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 - (void)remoteDashboard:(id)dashboard viewServiceDidTerminateWithError:(id)error
@@ -1079,6 +1355,14 @@ LABEL_10:
   v8 = objc_msgSend_delegate(self, a2, v2);
   v5 = objc_msgSend_contentModuleContext(v8, v3, v4);
   objc_msgSend_dismissModule(v5, v6, v7);
+}
+
+- (void)quickControlsPresentationDidUpdate:(BOOL)update
+{
+  updateCopy = update;
+  v8 = objc_msgSend_delegate(self, a2, update);
+  v6 = objc_msgSend_contentModuleContext(v8, v4, v5);
+  objc_msgSend_setHomeGestureDismissalAllowed_(v6, v7, !updateCopy);
 }
 
 - (void)_setUpSmartGridContent
@@ -1207,6 +1491,37 @@ LABEL_10:
   dispatch_async(MEMORY[0x29EDCA578], v2);
   objc_destroyWeak(&v3);
   objc_destroyWeak(&location);
+}
+
+- (void)_showLockSecurityView:(BOOL)view
+{
+  viewCopy = view;
+  v5 = objc_msgSend_view(self, a2, view);
+  isShowingLockSecurity = objc_msgSend_isShowingLockSecurity(v5, v6, v7);
+
+  if (viewCopy)
+  {
+    if (isShowingLockSecurity)
+    {
+      return;
+    }
+
+    v20 = objc_msgSend_view(self, v9, v10);
+    v13 = objc_msgSend_smartGridViewController(self, v11, v12);
+    v16 = objc_msgSend_mosaicLayout(v13, v14, v15);
+    objc_msgSend_showLockSecurityWithFrameDelegate_(v20, v17, v16);
+  }
+
+  else
+  {
+    if (!isShowingLockSecurity)
+    {
+      return;
+    }
+
+    v20 = objc_msgSend_view(self, v9, v10);
+    objc_msgSend_hideLockSecurity(v20, v18, v19);
+  }
 }
 
 - (HUCCSmartGridContentViewControllerDelegate)delegate

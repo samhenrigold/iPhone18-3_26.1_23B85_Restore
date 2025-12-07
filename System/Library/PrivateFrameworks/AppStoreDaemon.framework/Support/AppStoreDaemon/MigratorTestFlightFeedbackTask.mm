@@ -30,7 +30,7 @@
   }
 
   v3 = [[KeepAlive alloc] initWithName:@"com.apple.migrator.TestFlightFeedback"];
-  v4 = sub_1002404C0();
+  v4 = sub_1002404C0(TestFlightFeedbackManager);
   sub_100243B04(v4);
 }
 

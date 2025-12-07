@@ -5,8 +5,8 @@
 - (CGSize)inReactionColorSize;
 - (PTEffectRenderRequest)init;
 - (float)remappedAperture;
-- (uint64_t)reactionsCombinedCropRect;
 - (void)dealloc;
+- (void)reactionsCombinedCropRect;
 - (void)setBilbyFloatingMode:(BOOL)mode;
 - (void)setDetectedObjects:(__CFDictionary *)objects;
 - (void)setRelightStrengthStudioLight:(float)light;
@@ -150,7 +150,7 @@
   return result;
 }
 
-- (uint64_t)reactionsCombinedCropRect
+- (void)reactionsCombinedCropRect
 {
   [self outColorROI];
   v3.f64[1] = v2;

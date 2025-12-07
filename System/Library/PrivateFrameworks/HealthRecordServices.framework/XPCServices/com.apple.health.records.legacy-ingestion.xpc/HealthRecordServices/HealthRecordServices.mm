@@ -46,10 +46,11 @@ void sub_100003404(id a1)
   [qword_10001EF80 setTimeZone:v3];
 }
 
-void sub_1000035B8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000035B8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void sub_100003A8C(uint64_t a1)
@@ -228,10 +229,11 @@ void sub_100008184(id a1, HDFHIRCredentialResult *a2, HKFHIRRequestTaskEndStates
   [(HDFHIRCredentialResult *)v3 didRefreshCredential:v4];
 }
 
-void sub_100008510(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100008510(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_100008814(uint64_t a1, void *a2, void *a3, void *a4)
@@ -249,17 +251,16 @@ void sub_100008814(uint64_t a1, void *a2, void *a3, void *a4)
   v12 = HKLogHealthRecords;
   if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = *(a1 + 40);
-    v14 = v12;
-    v15 = objc_opt_class();
-    v16 = v15;
-    v17 = [v11 debugDescription];
-    v18 = HKSensitiveLogItem();
-    v19 = 138543618;
-    v20 = v15;
-    v21 = 2114;
-    v22 = v18;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ completed refresh token task with %{public}@", &v19, 0x16u);
+    v13 = v12;
+    v14 = objc_opt_class();
+    v15 = v14;
+    v16 = [v11 debugDescription];
+    v17 = HKSensitiveLogItem();
+    v18 = 138543618;
+    v19 = v14;
+    v20 = 2114;
+    v21 = v17;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ completed refresh token task with %{public}@", &v18, 0x16u);
   }
 
   (*(*(a1 + 48) + 16))();
@@ -356,41 +357,40 @@ void sub_100009B5C(uint64_t a1, void *a2, void *a3, void *a4)
     v15 = v14;
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v33 = *(a1 + 32);
-      v46 = objc_opt_class();
+      v44 = objc_opt_class();
       log = [*(a1 + 40) HTTPMethod];
-      v42 = [*(a1 + 40) URL];
-      v40 = [v42 absoluteString];
-      v34 = HKSensitiveLogItem();
+      v40 = [*(a1 + 40) URL];
+      v38 = [v40 absoluteString];
+      v32 = HKSensitiveLogItem();
       if (v9)
       {
-        v35 = "error";
+        v33 = "error";
       }
 
       else
       {
-        v35 = "response";
+        v33 = "response";
       }
 
-      v36 = v9;
+      v34 = v9;
       if (!v9)
       {
-        v37 = v34;
-        v36 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v13 statusCode]);
-        v34 = v37;
+        v35 = v32;
+        v34 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [v13 statusCode]);
+        v32 = v35;
       }
 
       *buf = 138544386;
-      v48 = v46;
-      v49 = 2114;
-      v50 = log;
-      v51 = 2112;
-      v52 = v34;
-      v53 = 2080;
-      v54 = v35;
-      v55 = 2114;
-      v56 = v36;
-      v38 = v34;
+      v46 = v44;
+      v47 = 2114;
+      v48 = log;
+      v49 = 2112;
+      v50 = v32;
+      v51 = 2080;
+      v52 = v33;
+      v53 = 2114;
+      v54 = v34;
+      v36 = v32;
       _os_log_debug_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "%{public}@ completed for %{public}@ %@ with %s: %{public}@", buf, 0x34u);
       if (!v9)
       {
@@ -413,28 +413,27 @@ void sub_100009B5C(uint64_t a1, void *a2, void *a3, void *a4)
       v22 = HKLogHealthRecords;
       if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
       {
-        v23 = *(a1 + 32);
         loga = v22;
-        v24 = objc_opt_class();
-        v25 = *(a1 + 40);
-        v45 = v24;
-        v41 = [v25 URL];
-        v39 = [v41 absoluteString];
-        v26 = HKSensitiveLogItem();
-        v27 = [v21 hrs_safelyLoggableDescription];
+        v23 = objc_opt_class();
+        v24 = *(a1 + 40);
+        v43 = v23;
+        v39 = [v24 URL];
+        v37 = [v39 absoluteString];
+        v25 = HKSensitiveLogItem();
+        v26 = [v21 hrs_safelyLoggableDescription];
         *buf = 138543874;
-        v48 = v24;
+        v46 = v23;
+        v47 = 2112;
+        v48 = v25;
         v49 = 2112;
         v50 = v26;
-        v51 = 2112;
-        v52 = v27;
         _os_log_error_impl(&_mh_execute_header, loga, OS_LOG_TYPE_ERROR, "%{public}@ response for request %@: %@", buf, 0x20u);
       }
 
       goto LABEL_12;
     }
 
-    v31 = *(a1 + 32);
+    v30 = *(a1 + 32);
     if (v7)
     {
       [*(a1 + 32) _handleResponse:v13 data:v7 endState:v19];
@@ -442,8 +441,8 @@ void sub_100009B5C(uint64_t a1, void *a2, void *a3, void *a4)
 
     else
     {
-      v32 = +[NSData data];
-      [v31 _handleResponse:v13 data:v32 endState:v19];
+      v31 = +[NSData data];
+      [v30 _handleResponse:v13 data:v31 endState:v19];
     }
 
     v21 = 0;
@@ -455,10 +454,10 @@ void sub_100009B5C(uint64_t a1, void *a2, void *a3, void *a4)
     if (v21)
     {
 LABEL_12:
-      v28 = [v21 hk_OAuth2_errorCode];
-      v29 = *(a1 + 32);
-      v30 = [v19 asErrorEndStateWithErrorCode:v28];
-      [v29 _handleError:v21 endState:v30];
+      v27 = [v21 hk_OAuth2_errorCode];
+      v28 = *(a1 + 32);
+      v29 = [v19 asErrorEndStateWithErrorCode:v27];
+      [v28 _handleError:v21 endState:v29];
     }
   }
 
@@ -484,7 +483,7 @@ void sub_10000A4C0(uint64_t a1)
   objc_storeStrong((v2 + 32), *(a1 + 40));
 }
 
-uint64_t sub_10000A574()
+uint64_t sub_10000A574(uint64_t a1)
 {
 
   return NSRequestConcreteImplementation();
@@ -500,14 +499,18 @@ void sub_10000B480(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 logDescription];
-  sub_1000035B8(&_mh_execute_header, v5, v6, "%{public}@ starting to download", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  sub_1000035B8(&_mh_execute_header, v5, v6, "%{public}@ starting to download", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void sub_10000B518(void *a1, void *a2)
 {
   v3 = a1;
   v4 = [a2 logDescription];
-  sub_1000035B8(&_mh_execute_header, v5, v6, "%{public}@ finished downloading", v7, v8, v9, v10, 2u);
+  LODWORD(v11) = 138543362;
+  *(&v11 + 4) = v4;
+  sub_1000035B8(&_mh_execute_header, v5, v6, "%{public}@ finished downloading", v7, v8, v9, v10, v11, DWORD2(v11));
 }
 
 void sub_10000B5B0()
@@ -660,7 +663,7 @@ void sub_10000BEE0(void *a1, void *a2)
   v3 = a1;
   v4 = [a2 logPrefix];
   sub_1000084F8();
-  sub_100008510(&_mh_execute_header, v5, v6, "%{public}@ failed to instantiate download operation. Error: %{public}@", v7, v8, v9, v10, v11);
+  sub_100008510(&_mh_execute_header, v5, v6, "%{public}@ failed to instantiate download operation. Error: %{public}@", v7, v8, v9, v10);
 }
 
 void sub_10000BF80(void *a1, void *a2)
@@ -668,7 +671,7 @@ void sub_10000BF80(void *a1, void *a2)
   v3 = a1;
   v4 = [a2 logPrefix];
   sub_1000084F8();
-  sub_100008510(&_mh_execute_header, v5, v6, "%{public}@ failed to init FHIR specification: %{public}@", v7, v8, v9, v10, v11);
+  sub_100008510(&_mh_execute_header, v5, v6, "%{public}@ failed to init FHIR specification: %{public}@", v7, v8, v9, v10);
 }
 
 void sub_10000C020(uint64_t a1, uint64_t a2)

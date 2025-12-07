@@ -18,7 +18,7 @@
 
 - (void)webContainerView:(id)view didClickLinkWithURL:(id)l
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9DBA0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9DBA0, &unk_21BA92240);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v14 - v8;
   if (l)
@@ -38,7 +38,7 @@
   selfCopy = self;
   sub_21B9EB290(v9);
 
-  sub_21B9ABAAC(v9, &qword_27CD9DBA0);
+  sub_21B9ABAAC(v9, &qword_27CD9DBA0, &unk_21BA92240);
 }
 
 - (_TtCV8RemoteUI15MultiChoiceTray17HTMLHeaderElement)initWithAttributes:(id)attributes parent:(id)parent

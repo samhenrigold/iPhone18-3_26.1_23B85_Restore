@@ -544,22 +544,22 @@ LABEL_12:
 
   if (v17)
   {
-    v18 = *(v17 + 24);
-    if (v18)
+    children = v17->children;
+    if (children)
     {
-      if (*(v18 + 8) == 3)
+      if (children->type == XML_TEXT_NODE)
       {
-        v17 = *(v17 + 24);
+        v17 = v17->children;
       }
 
       else
       {
         [TCMessageException raise:OABadFormat];
-        v17 = v18;
+        v17 = children;
       }
     }
 
-    if (*(v17 + 80))
+    if (v17->content)
     {
       v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:?];
       tableStyleCache = [stateCopy tableStyleCache];

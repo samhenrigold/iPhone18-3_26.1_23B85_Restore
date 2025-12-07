@@ -11,23 +11,23 @@
 {
   tableCopy = table;
   minionCopy = minion;
-  v23.receiver = self;
-  v23.super_class = TSTPivotCellSetter;
-  v11 = [(TSTPivotCellSetter *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = TSTPivotCellSetter;
+  v11 = [(TSTPivotCellSetter *)&v22 init];
   v12 = v11;
   if (v11)
   {
     objc_storeStrong(&v11->_pivotTable, table);
     objc_storeStrong(&v12->_minion, minion);
     v12->_preservingStyles = styles;
-    v17 = objc_msgSend_newCell(tableCopy, v13, v14, v15, v16);
+    v16 = objc_msgSend_newCell(tableCopy, v13, v14, v15);
     cell = v12->_cell;
-    v12->_cell = v17;
+    v12->_cell = v16;
 
-    v19 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, -4);
-    v20 = dispatch_queue_create("com.apple.Numbers.TST.PivotCellSetter", v19);
+    v18 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, -4);
+    v19 = dispatch_queue_create("com.apple.Numbers.TST.PivotCellSetter", v18);
     workerQueue = v12->_workerQueue;
-    v12->_workerQueue = v20;
+    v12->_workerQueue = v19;
   }
 
   return v12;

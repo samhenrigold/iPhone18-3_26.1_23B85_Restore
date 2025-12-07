@@ -79,7 +79,7 @@ LABEL_17:
         }
 
         identifier2 = [peripheralCopy identifier];
-        LogPrintF(ucat, "[CUBLEConnection peripheral:didOpenL2CAPChannel:error:]", 0x3Cu, "### DidOpenL2CAPChannel wrong peer: peer %@ (not %@), channel %@, error %{error}\n", v28, v29, v30, v31, identifier2);
+        LogPrintF(ucat, "[CUBLEConnection peripheral:didOpenL2CAPChannel:error:]", 60, "### DidOpenL2CAPChannel wrong peer: peer %@ (not %@), channel %@, error %{error}\n", v28, v29, v30, v31, identifier2);
         goto LABEL_37;
       }
 
@@ -97,7 +97,7 @@ LABEL_17:
       if (v25->var0 != -1)
       {
 LABEL_13:
-        LogPrintF(v25, "[CUBLEConnection peripheral:didOpenL2CAPChannel:error:]", 0x1Eu, "DidOpenL2CAPChannel %@, error %{error}\n", v21, v22, v23, v24, channelCopy);
+        LogPrintF(v25, "[CUBLEConnection peripheral:didOpenL2CAPChannel:error:]", 30, "DidOpenL2CAPChannel %@, error %{error}\n", v21, v22, v23, v24, channelCopy);
         goto LABEL_22;
       }
 
@@ -140,7 +140,7 @@ LABEL_22:
           v41 = [identifier2 PSM];
           peer = [identifier2 peer];
           identifier3 = [peer identifier];
-          LogPrintF(v40, "[CUBLEConnection peripheral:didOpenL2CAPChannel:error:]", 0x1Eu, "Connection started PSM 0x%04X, peer %@\n", v43, v44, v45, v46, v41);
+          LogPrintF(v40, "[CUBLEConnection peripheral:didOpenL2CAPChannel:error:]", 30, "Connection started PSM 0x%04X, peer %@\n", v43, v44, v45, v46, v41);
         }
 
 LABEL_36:
@@ -162,7 +162,7 @@ LABEL_36:
         }
 
         v54 = [identifier2 PSM];
-        LogPrintF(v48, "[CUBLEConnection peripheral:didOpenL2CAPChannel:error:]", 0x3Cu, "### DidOpenL2CAPChannel wrong PSM: 0x%04X (not 0x%04X)\n", v49, v50, v51, v52, v54);
+        LogPrintF(v48, "[CUBLEConnection peripheral:didOpenL2CAPChannel:error:]", 60, "### DidOpenL2CAPChannel wrong PSM: 0x%04X (not 0x%04X)\n", v49, v50, v51, v52, v54);
       }
     }
 
@@ -192,7 +192,7 @@ LABEL_37:
   {
     v14 = self->_ucat;
 LABEL_5:
-    LogPrintF(v14, "[CUBLEConnection peripheral:didOpenL2CAPChannel:error:]", 0x3Cu, "### DidOpenL2CAPChannel already open: channel %@, error %{error}\n", v10, v11, v12, v13, channelCopy);
+    LogPrintF(v14, "[CUBLEConnection peripheral:didOpenL2CAPChannel:error:]", 60, "### DidOpenL2CAPChannel already open: channel %@, error %{error}\n", v10, v11, v12, v13, channelCopy);
   }
 
 LABEL_38:
@@ -260,7 +260,7 @@ LABEL_15:
     }
 
     identifier2 = [v21 identifier];
-    LogPrintF(ucat, "[CUBLEConnection centralManager:didFailToConnectPeripheral:error:]", 0x5Au, "### DidFailToConnectPeripheral %@, error %{error}\n", v23, v24, v25, v26, identifier2);
+    LogPrintF(ucat, "[CUBLEConnection centralManager:didFailToConnectPeripheral:error:]", 90, "### DidFailToConnectPeripheral %@, error %{error}\n", v23, v24, v25, v26, identifier2);
 
     goto LABEL_15;
   }
@@ -282,7 +282,7 @@ LABEL_11:
     v27 = self->_ucat;
 LABEL_13:
     identifier3 = [peripheralCopy identifier];
-    LogPrintF(v27, "[CUBLEConnection centralManager:didFailToConnectPeripheral:error:]", 0x3Cu, "### DidFailToConnectPeripheral wrong peripheral: %@ (not %@), error %{error}\n", v29, v30, v31, v32, identifier3);
+    LogPrintF(v27, "[CUBLEConnection centralManager:didFailToConnectPeripheral:error:]", 60, "### DidFailToConnectPeripheral wrong peripheral: %@ (not %@), error %{error}\n", v29, v30, v31, v32, identifier3);
   }
 
 LABEL_19:
@@ -363,7 +363,7 @@ LABEL_27:
           }
 
           identifier2 = [peripheralCopy identifier];
-          LogPrintF(v27, "[CUBLEConnection centralManager:didConnectPeripheral:]", 0x1Eu, "Setting connection latency %@, %s (BT %d)\n", v29, v30, v31, v32, identifier2);
+          LogPrintF(v27, "[CUBLEConnection centralManager:didConnectPeripheral:]", 30, "Setting connection latency %@, %s (BT %d)\n", v29, v30, v31, v32, identifier2);
         }
 
 LABEL_26:
@@ -375,7 +375,7 @@ LABEL_26:
     }
 
     identifier3 = [peripheralCopy identifier];
-    LogPrintF(ucat, "[CUBLEConnection centralManager:didConnectPeripheral:]", 0x1Eu, "DidConnectPeripheral %@\n", v15, v16, v17, v18, identifier3);
+    LogPrintF(ucat, "[CUBLEConnection centralManager:didConnectPeripheral:]", 30, "DidConnectPeripheral %@\n", v15, v16, v17, v18, identifier3);
 
     goto LABEL_15;
   }
@@ -397,7 +397,7 @@ LABEL_11:
     v19 = self->_ucat;
 LABEL_13:
     identifier4 = [peripheralCopy identifier];
-    LogPrintF(v19, "[CUBLEConnection centralManager:didConnectPeripheral:]", 0x3Cu, "### DidConnectPeripheral wrong peripheral: %@ (not %@)\n", v21, v22, v23, v24, identifier4);
+    LogPrintF(v19, "[CUBLEConnection centralManager:didConnectPeripheral:]", 60, "### DidConnectPeripheral wrong peripheral: %@ (not %@)\n", v21, v22, v23, v24, identifier4);
   }
 
 LABEL_28:
@@ -436,7 +436,7 @@ LABEL_28:
       v12 = off_1E73A3018[state];
     }
 
-    LogPrintF(ucat, "[CUBLEConnection centralManagerDidUpdateState:]", 0x1Eu, "Bluetooth state changed: %s\n", v6, v7, v8, v9, v12);
+    LogPrintF(ucat, "[CUBLEConnection centralManagerDidUpdateState:]", 30, "Bluetooth state changed: %s\n", v6, v7, v8, v9, v12);
   }
 
 LABEL_10:
@@ -484,7 +484,7 @@ LABEL_19:
     if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF(ucat, "[CUBLEConnection _completeWriteRequest:error:]", 0xAu, "Write completed: %{error}\n", v6, v7, v8, v9, errorCopy);
+      LogPrintF(ucat, "[CUBLEConnection _completeWriteRequest:error:]", 10, "Write completed: %{error}\n", v6, v7, v8, v9, errorCopy);
       goto LABEL_5;
     }
 
@@ -519,7 +519,7 @@ LABEL_5:
       if (ucat->var0 != -1)
       {
 LABEL_5:
-        LogPrintF(ucat, "[CUBLEConnection _abortWritesWithError:]", 0x1Eu, "Abort writes: %{error}\n", v4, v5, v6, v7, errorCopy);
+        LogPrintF(ucat, "[CUBLEConnection _abortWritesWithError:]", 30, "Abort writes: %{error}\n", v4, v5, v6, v7, errorCopy);
         goto LABEL_7;
       }
 
@@ -693,7 +693,7 @@ LABEL_14:
       v32 = *(requestCopy + 70);
     }
 
-    LogPrintF(ucat, "[CUBLEConnection _prepareWriteRequest:error:]", 0xAu, "Write prepared (%d iov, %zu total)\n", v28, v29, v30, v31, v32);
+    LogPrintF(ucat, "[CUBLEConnection _prepareWriteRequest:error:]", 10, "Write prepared (%d iov, %zu total)\n", v28, v29, v30, v31, v32);
 LABEL_27:
     v17 = 1;
     goto LABEL_28;
@@ -764,7 +764,7 @@ LABEL_28:
       {
         ucat = self->_ucat;
 LABEL_5:
-        LogPrintF(ucat, "[CUBLEConnection _processWrites]", 0x14u, "Write socket %d, pre-ion %d, post-ion %d, %#m\n", v7, v8, v9, v10, self->_socketFD);
+        LogPrintF(ucat, "[CUBLEConnection _processWrites]", 20, "Write socket %d, pre-ion %d, post-ion %d, %#m\n", v7, v8, v9, v10, self->_socketFD);
       }
     }
 
@@ -807,7 +807,7 @@ LABEL_37:
       {
         v20 = self->_ucat;
 LABEL_14:
-        LogPrintF(v20, "[CUBLEConnection _processWrites]", 0x14u, "Shutdown socket %d\n", v16, v17, v18, v19, self->_socketFD);
+        LogPrintF(v20, "[CUBLEConnection _processWrites]", 20, "Shutdown socket %d\n", v16, v17, v18, v19, self->_socketFD);
       }
     }
 
@@ -900,7 +900,7 @@ void __36__CUBLEConnection_writeWithRequest___block_invoke(uint64_t a1, uint64_t
 
   else
   {
-    [*(v9 + 104) addObject:*(a1 + 40)];
+    [*(v9 + 104) addObject:{*(a1 + 40), a4, a5, a6, a7, a8}];
     v11 = *(a1 + 32);
     if ((v11[18] & 0x80000000) == 0)
     {
@@ -922,7 +922,7 @@ void __36__CUBLEConnection_writeWithRequest___block_invoke(uint64_t a1, uint64_t
     {
 LABEL_3:
       v9 = [v8 length];
-      LogPrintF(ucat, "[CUBLEConnection _completeReadRequest:error:]", 0xAu, "Read completed: %zu byte(s), %{error}\n", v10, v11, v12, v13, v9);
+      LogPrintF(ucat, "[CUBLEConnection _completeReadRequest:error:]", 10, "Read completed: %zu byte(s), %{error}\n", v10, v11, v12, v13, v9);
       goto LABEL_5;
     }
 
@@ -1018,7 +1018,7 @@ LABEL_12:
       if (ucat->var0 != -1)
       {
 LABEL_5:
-        LogPrintF(ucat, "[CUBLEConnection _abortReadsWithError:]", 0x1Eu, "Abort reads: %{error}\n", v4, v5, v6, v7, errorCopy);
+        LogPrintF(ucat, "[CUBLEConnection _abortReadsWithError:]", 30, "Abort reads: %{error}\n", v4, v5, v6, v7, errorCopy);
         goto LABEL_7;
       }
 
@@ -1148,7 +1148,7 @@ LABEL_7:
 LABEL_10:
       minLength = [v15 minLength];
       [requestCopy maxLength];
-      LogPrintF(ucat, "[CUBLEConnection _prepareReadRequest:]", 0xAu, "Read prepared (%zu min, %zu max)\n", v17, v18, v19, v20, minLength);
+      LogPrintF(ucat, "[CUBLEConnection _prepareReadRequest:]", 10, "Read prepared (%zu min, %zu max)\n", v17, v18, v19, v20, minLength);
       goto LABEL_12;
     }
 
@@ -1239,7 +1239,7 @@ LABEL_7:
       socketFD = self->_socketFD;
       [(CUReadRequest *)obj minLength];
       [(CUReadRequest *)obj maxLength];
-      LogPrintF(ucat, "[CUBLEConnection _processReads:]", 0x14u, "Read socket %d, %zu min, %zu max, %zu offset, %zu nread, %#m\n", v17, v18, v19, v20, socketFD);
+      LogPrintF(ucat, "[CUBLEConnection _processReads:]", 20, "Read socket %d, %zu min, %zu max, %zu offset, %zu nread, %#m\n", v17, v18, v19, v20, socketFD);
     }
 
 LABEL_9:
@@ -1321,7 +1321,7 @@ void __35__CUBLEConnection_readWithRequest___block_invoke(uint64_t a1, uint64_t 
 
   else
   {
-    [*(v9 + 64) addObject:*(a1 + 40)];
+    [*(v9 + 64) addObject:{*(a1 + 40), a4, a5, a6, a7, a8}];
     v11 = *(a1 + 32);
     if ((v11[18] & 0x80000000) == 0)
     {
@@ -1410,7 +1410,7 @@ void __35__CUBLEConnection_readWithRequest___block_invoke(uint64_t a1, uint64_t 
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUBLEConnection _runConnectStart]", 0x1Eu, "Connecting to %@, %##@\n", v21, v22, v23, v24, v3);
+    LogPrintF(ucat, "[CUBLEConnection _runConnectStart]", 30, "Connecting to %@, %##@\n", v21, v22, v23, v24, v3);
 LABEL_13:
     [(CBCentralManager *)self->_centralManager connectPeripheral:firstObject options:v14];
     goto LABEL_14;
@@ -1535,7 +1535,7 @@ LABEL_32:
           v11 = off_1E73A2B60[state];
         }
 
-        LogPrintF(ucat, "[CUBLEConnection _run]", 0x1Eu, "State: %s -> %s\n", v2, v3, v4, v5, v11);
+        LogPrintF(ucat, "[CUBLEConnection _run]", 30, "State: %s -> %s\n", v2, v3, v4, v5, v11);
       }
     }
   }
@@ -1551,7 +1551,7 @@ LABEL_32:
     if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF(ucat, "[CUBLEConnection _reportError:]", 0x5Au, "Error: %{error}\n", v4, v5, v6, v7, v9);
+      LogPrintF(ucat, "[CUBLEConnection _reportError:]", 90, "Error: %{error}\n", v4, v5, v6, v7, v9);
       goto LABEL_5;
     }
 
@@ -1771,7 +1771,7 @@ LABEL_10:
     goto LABEL_9;
   }
 
-  v10 = objc_alloc(getCBCentralManagerClass[0]());
+  v10 = objc_alloc(getCBCentralManagerClass());
   dispatchQueue = self->_dispatchQueue;
   v12 = getCBManagerNeedsRestrictedStateOperation();
   v22 = v12;
@@ -1836,7 +1836,7 @@ LABEL_10:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUBLEConnection _invalidated]", 0x1Eu, "Invalidated\n", v8, v9, v10, v11, v14);
+      LogPrintF(ucat, "[CUBLEConnection _invalidated]", 30, "Invalidated\n", v8, v9, v10, v11, v14);
     }
   }
 }
@@ -1863,7 +1863,7 @@ LABEL_10:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUBLEConnection _invalidate]", 0x1Eu, "Invalidating\n", v2, v3, v4, v5, v6);
+    LogPrintF(ucat, "[CUBLEConnection _invalidate]", 30, "Invalidating\n", v2, v3, v4, v5, v6);
   }
 
 LABEL_6:
@@ -1963,7 +1963,7 @@ LABEL_9:
           if (v26->var0 != -1)
           {
 LABEL_15:
-            LogPrintF(v26, "[CUBLEConnection activateDirectAndReturnError:]", 0x5Au, "### Activate failed: %{error}\n", v19, v20, v21, v22, writeRequests);
+            LogPrintF(v26, "[CUBLEConnection activateDirectAndReturnError:]", 90, "### Activate failed: %{error}\n", v19, v20, v21, v22, writeRequests);
             goto LABEL_23;
           }
 
@@ -1996,7 +1996,7 @@ LABEL_27:
     v12 = [(CBL2CAPChannel *)l2capChannel PSM];
     peer = [(CBL2CAPChannel *)self->_l2capChannel peer];
     identifier = [peer identifier];
-    LogPrintF(ucat, "[CUBLEConnection activateDirectAndReturnError:]", 0x1Eu, "Activate incoming PSM 0x%04X, peer %@\n", v14, v15, v16, v17, v12);
+    LogPrintF(ucat, "[CUBLEConnection activateDirectAndReturnError:]", 30, "Activate incoming PSM 0x%04X, peer %@\n", v14, v15, v16, v17, v12);
 
     goto LABEL_9;
   }
@@ -2006,7 +2006,7 @@ LABEL_27:
     if (var0 != -1)
     {
 LABEL_7:
-      LogPrintF(ucat, "[CUBLEConnection activateDirectAndReturnError:]", 0x1Eu, "Activate outgoing PSM 0x%04X, peer %@\n", v3, v4, v5, v6, self->_destinationPSM);
+      LogPrintF(ucat, "[CUBLEConnection activateDirectAndReturnError:]", 30, "Activate outgoing PSM 0x%04X, peer %@\n", v3, v4, v5, v6, self->_destinationPSM);
       goto LABEL_17;
     }
 
@@ -2045,7 +2045,7 @@ LABEL_26:
       v36 = self->_ucat;
     }
 
-    LogPrintF(v36, "[CUBLEConnection activateDirectAndReturnError:]", 0x5Au, "### Activate failed: %{error}\n", v28, v29, v30, v31, writeRequests);
+    LogPrintF(v36, "[CUBLEConnection activateDirectAndReturnError:]", 90, "### Activate failed: %{error}\n", v28, v29, v30, v31, writeRequests);
     goto LABEL_26;
   }
 

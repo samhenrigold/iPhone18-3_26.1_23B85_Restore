@@ -500,39 +500,38 @@
   v4 = qword_1025D4538;
   if (os_log_type_enabled(qword_1025D4538, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138477827;
+    v11 = 138477827;
     nameCopy = name;
-    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "[CloudKit] Setting userRecordIDName to %{private}@", &v7, 0xCu);
+    _os_log_impl(dword_100000000, v4, OS_LOG_TYPE_DEFAULT, "[CloudKit] Setting userRecordIDName to %{private}@", &v11, 0xCu);
   }
 
-  if (sub_10000A100(121, 2))
+  v5 = sub_10000A100(121, 2);
+  if (v5)
   {
     sub_1018A5DD4();
   }
 
-  v5 = sub_1000206B4();
-  sub_1002DC480(v5, @"kColdStorageCloudKitUserID", [name UTF8String]);
-  v6 = *sub_1000206B4();
-  (*(v6 + 944))();
+  v7 = sub_1000206B4(v5, v6);
+  v8 = sub_1002DC480(v7, @"kColdStorageCloudKitUserID", [name UTF8String]);
+  v10 = *sub_1000206B4(v8, v9);
+  (*(v10 + 944))();
 }
 
 - (id)getUserRecordIDName
 {
-  __p = 0;
-  v9 = 0;
-  v10 = 0;
-  v2 = sub_1000206B4();
+  memset(&__p, 0, sizeof(__p));
+  v2 = sub_1000206B4(self, a2);
   sub_100005050(v2, @"kColdStorageCloudKitUserID", &__p);
-  v3 = HIBYTE(v10);
-  if (v10 < 0)
+  size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    v3 = v9;
+    size = __p.__r_.__value_.__l.__size_;
   }
 
-  if (!v3)
+  if (!size)
   {
     v6 = 0;
-    if ((v10 & 0x8000000000000000) == 0)
+    if ((*(&__p.__r_.__value_.__s + 23) & 0x80) == 0)
     {
       return v6;
     }
@@ -541,21 +540,21 @@
   }
 
   v4 = [NSString alloc];
-  if (v10 >= 0)
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
   }
 
   else
   {
-    p_p = __p;
+    p_p = __p.__r_.__value_.__r.__words[0];
   }
 
   v6 = [v4 initWithUTF8String:p_p];
-  if (v10 < 0)
+  if ((*(&__p.__r_.__value_.__s + 23) & 0x80) != 0)
   {
 LABEL_8:
-    operator delete(__p);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   return v6;
@@ -711,7 +710,7 @@ LABEL_8:
     v16 = 0u;
     v17 = 0u;
     v18 = 0u;
-    v9 = [(NSArray *)pendingRecordZoneChanges countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(pendingRecordZoneChanges);
     if (v9)
     {
       v10 = v9;
@@ -732,7 +731,7 @@ LABEL_8:
           }
         }
 
-        v10 = [(NSArray *)pendingRecordZoneChanges countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(pendingRecordZoneChanges);
       }
 
       while (v10);

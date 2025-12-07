@@ -3,6 +3,7 @@
 + (id)donatorWithItemType:(int64_t)type originAppId:(id)id deviceId:(id)deviceId userId:(id)userId error:(id *)error;
 + (id)donatorWithItemType:(int64_t)type originAppId:(id)id error:(id *)error;
 + (id)donatorWithItemType:(int64_t)type originAppId:(id)id userId:(id)userId error:(id *)error;
++ (id)donatorWithServiceProvider:(id)provider isExternalClient:(BOOL)client cascadeItemType:(unsigned __int16)type originAppId:(id)id userId:(id)userId error:(id *)error;
 + (void)initialize;
 - (KVDonator)init;
 - (KVDonator)initWithCascadeItemType:(unsigned __int16)type originAppId:(id)id userId:(id)userId serviceProvider:(id)provider isExternalClient:(BOOL)client;
@@ -14,19 +15,19 @@
 
 - (id)_descriptorsForItemType:(int64_t)type error:(id *)error
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CBEBF8];
   if (type <= 0x12 && ((1 << type) & 0x44102) != 0)
   {
     originAppId = self->_originAppId;
-    v18 = 0;
-    v9 = objc_msgSend_sourceIdentifierWithValue_error_(MEMORY[0x277CF9500], a2, originAppId, &v18, v4, v5);
-    v10 = v18;
+    v17 = 0;
+    v9 = objc_msgSend_sourceIdentifierWithValue_error_(MEMORY[0x277CF9500], a2, originAppId, &v17, v4, v5);
+    v10 = v17;
     v14 = v10;
     if (v9)
     {
-      v19[0] = v9;
-      v6 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v11, v19, 1, v12, v13);
+      v18[0] = v9;
+      v6 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v11, v18, 1, v12, v13);
     }
 
     else
@@ -42,15 +43,13 @@
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (void)_donateWithOptions:(unsigned __int16)options version:(unint64_t)version validity:(id)validity usingStream:(id)stream
 {
   optionsCopy = options;
-  v60[1] = *MEMORY[0x277D85DE8];
+  v59[1] = *MEMORY[0x277D85DE8];
   validityCopy = validity;
   streamCopy = stream;
   if (streamCopy)
@@ -59,7 +58,7 @@
     if (self->_isExternalClient && (v20 = objc_opt_class(), (objc_msgSend__isXPCDonationEnabledForItemType_(v20, v21, v19, v22, v23, v24) & 1) == 0))
     {
       v36 = MEMORY[0x277CCA9B8];
-      v59 = *MEMORY[0x277CCA450];
+      v58 = *MEMORY[0x277CCA450];
       v37 = MEMORY[0x277CCACA8];
       if (v19 - 1 >= 0x1A)
       {
@@ -73,17 +72,17 @@
 
       v39 = objc_msgSend_stringWithCString_encoding_(MEMORY[0x277CCACA8], v16, off_279803A58[v38], 4, v17, v18);
       v44 = objc_msgSend_stringWithFormat_(v37, v40, @"KVItemType: %@ not enabled for this device platform", v41, v42, v43, v39);
-      v60[0] = v44;
-      v47 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v45, v60, &v59, 1, v46);
+      v59[0] = v44;
+      v47 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v45, v59, &v58, 1, v46);
       v28 = objc_msgSend_errorWithDomain_code_userInfo_(v36, v48, @"com.apple.koa.donate", 8, v47, v49);
 
       v50 = qword_28106B3C0;
       if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v56 = "[KVDonator _donateWithOptions:version:validity:usingStream:]";
-        v57 = 2112;
-        v58 = v28;
+        v55 = "[KVDonator _donateWithOptions:version:validity:usingStream:]";
+        v56 = 2112;
+        v57 = v28;
         _os_log_error_impl(&dword_2559A5000, v50, OS_LOG_TYPE_ERROR, "%s Rejecting donation: %@", buf, 0x16u);
       }
 
@@ -99,24 +98,24 @@
         if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v56 = "[KVDonator _donateWithOptions:version:validity:usingStream:]";
-          v57 = 2112;
-          v58 = userId;
+          v55 = "[KVDonator _donateWithOptions:version:validity:usingStream:]";
+          v56 = 2112;
+          v57 = userId;
           _os_log_error_impl(&dword_2559A5000, v26, OS_LOG_TYPE_ERROR, "%s Ignoring userId: %@", buf, 0x16u);
         }
       }
 
-      v54 = 0;
-      v27 = objc_msgSend__descriptorsForItemType_error_(self, v16, v19, &v54, v17, v18);
-      v28 = v54;
+      v53 = 0;
+      v27 = objc_msgSend__descriptorsForItemType_error_(self, v16, v19, &v53, v17, v18);
+      v28 = v53;
       if (v27)
       {
-        v52[0] = MEMORY[0x277D85DD0];
-        v52[1] = 3221225472;
-        v52[2] = sub_2559AA3D4;
-        v52[3] = &unk_2798038E8;
-        v53 = streamCopy;
-        v31 = MEMORY[0x259C45590](v52);
+        v51[0] = MEMORY[0x277D85DD0];
+        v51[1] = 3221225472;
+        v51[2] = sub_2559AA3D4;
+        v51[3] = &unk_2798038E8;
+        v52 = streamCopy;
+        v31 = MEMORY[0x259C45590](v51);
         serviceProvider = self->_serviceProvider;
         cascadeItemType = self->_cascadeItemType;
         if (optionsCopy)
@@ -149,9 +148,9 @@
         if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v56 = "[KVDonator _donateWithOptions:version:validity:usingStream:]";
-          v57 = 2112;
-          v58 = v28;
+          v55 = "[KVDonator _donateWithOptions:version:validity:usingStream:]";
+          v56 = 2112;
+          v57 = v28;
           _os_log_error_impl(&dword_2559A5000, v35, OS_LOG_TYPE_ERROR, "%s Failed to resolve descriptors: %@", buf, 0x16u);
         }
 
@@ -166,12 +165,10 @@
     if (os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v56 = "[KVDonator _donateWithOptions:version:validity:usingStream:]";
+      v55 = "[KVDonator _donateWithOptions:version:validity:usingStream:]";
       _os_log_error_impl(&dword_2559A5000, v34, OS_LOG_TYPE_ERROR, "%s streamBlock parameter is nil.", buf, 0xCu);
     }
   }
-
-  v51 = *MEMORY[0x277D85DE8];
 }
 
 - (KVDonator)initWithCascadeItemType:(unsigned __int16)type originAppId:(id)id userId:(id)userId serviceProvider:(id)provider isExternalClient:(BOOL)client
@@ -203,7 +200,7 @@
 
 + (BOOL)_isXPCDonationEnabledForItemType:(int64_t)type
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   LOBYTE(v7) = 0;
   switch(type)
   {
@@ -225,24 +222,21 @@
     case 24:
     case 25:
     case 26:
-      goto LABEL_2;
+      return v7;
     case 5:
     case 16:
       if (objc_msgSend_isSiriUODSupported(KVAssistantServicesBridge, a2, type, v3, v4, v5))
       {
         LOBYTE(v7) = 1;
-LABEL_2:
-        v8 = *MEMORY[0x277D85DE8];
       }
 
       else
       {
-        v14 = *MEMORY[0x277D85DE8];
 
-        LOBYTE(v7) = MEMORY[0x2821F9670](KVAssistantServicesBridge, sel_isASRSupported, v10, v11, v12, v13);
+        LOBYTE(v7) = MEMORY[0x2821F9670](KVAssistantServicesBridge, sel_isASRSupported, v8, v9, v10, v11);
       }
 
-      return v7;
+      break;
     case 8:
     case 9:
     case 17:
@@ -250,33 +244,47 @@ LABEL_2:
     case 19:
     case 22:
     case 23:
-      v9 = *MEMORY[0x277D85DE8];
 
       LOBYTE(v7) = objc_msgSend_isSiriUODSupported(KVAssistantServicesBridge, a2, type, v3, v4, v5);
-      return v7;
+      break;
     default:
-      v15 = qword_28106B3C0;
+      v12 = qword_28106B3C0;
       v7 = os_log_type_enabled(qword_28106B3C0, OS_LOG_TYPE_ERROR);
       if (v7)
       {
-        v16 = v15;
-        v22 = KVItemTypeDescription(type, v17, v18, v19, v20, v21);
-        v24 = 136315394;
-        v25 = "+[KVDonator _isXPCDonationEnabledForItemType:]";
-        v26 = 2112;
-        v27 = v22;
-        _os_log_error_impl(&dword_2559A5000, v16, OS_LOG_TYPE_ERROR, "%s Unexpected itemType: %@", &v24, 0x16u);
+        v13 = v12;
+        v19 = KVItemTypeDescription(type, v14, v15, v16, v17, v18);
+        v21 = 136315394;
+        v22 = "+[KVDonator _isXPCDonationEnabledForItemType:]";
+        v23 = 2112;
+        v24 = v19;
+        _os_log_error_impl(&dword_2559A5000, v13, OS_LOG_TYPE_ERROR, "%s Unexpected itemType: %@", &v21, 0x16u);
 
         LOBYTE(v7) = 0;
       }
 
-      goto LABEL_2;
+      break;
   }
+
+  return v7;
+}
+
++ (id)donatorWithServiceProvider:(id)provider isExternalClient:(BOOL)client cascadeItemType:(unsigned __int16)type originAppId:(id)id userId:(id)userId error:(id *)error
+{
+  typeCopy = type;
+  clientCopy = client;
+  userIdCopy = userId;
+  idCopy = id;
+  providerCopy = provider;
+  v15 = objc_alloc(objc_opt_class());
+  isExternalClient = objc_msgSend_initWithCascadeItemType_originAppId_userId_serviceProvider_isExternalClient_(v15, v16, typeCopy, idCopy, userIdCopy, providerCopy, clientCopy);
+
+  return isExternalClient;
 }
 
 + (id)donatorWithItemType:(int64_t)type originAppId:(id)id deviceId:(id)deviceId userId:(id)userId error:(id *)error
 {
-  v51[1] = *MEMORY[0x277D85DE8];
+  v50[1] = *MEMORY[0x277D85DE8];
   idCopy = id;
   userIdCopy = userId;
   v18 = objc_msgSend_copy(deviceId, v13, v14, v15, v16, v17);
@@ -284,8 +292,8 @@ LABEL_2:
   {
     v36 = MEMORY[0x277CCA9B8];
     v37 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v24, @"Invalid deviceId: %@", v26, v27, v28, v18, *MEMORY[0x277CCA450]);
-    v51[0] = v37;
-    v40 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v38, v51, &v50, 1, v39);
+    v50[0] = v37;
+    v40 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v38, v50, &v49, 1, v39);
     v43 = objc_msgSend_errorWithDomain_code_userInfo_(v36, v41, @"com.apple.koa.donate", 4, v40, v42);
     if (error && v43)
     {
@@ -326,7 +334,6 @@ LABEL_10:
   }
 
 LABEL_16:
-  v48 = *MEMORY[0x277D85DE8];
 
   return v35;
 }

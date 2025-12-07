@@ -7,6 +7,7 @@
 - (id)tsp_dataWithDecryptionKey:(id)key;
 - (id)tsp_dataWithEncryptionKey:(id)key;
 - (id)tsp_dispatchDataWithApplier:(id)applier;
+- (id)tsu_compressWithAlgorithm:(int)algorithm operation:(int)operation;
 - (id)tsu_encodeToHexidecimalString;
 - (id)tsu_md5Hash;
 - (void)tsp_splitDataWithMaxSize:(unint64_t)size subdataHandlerBlock:(id)block;
@@ -434,6 +435,46 @@ LABEL_23:
   }
 
   return v5;
+}
+
+- (id)tsu_compressWithAlgorithm:(int)algorithm operation:(int)operation
+{
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 1;
+  v9 = _NSConcreteStackBlock;
+  v10 = 3221225472;
+  v11 = sub_1000AF344;
+  v12 = &unk_1001CEE00;
+  v14 = &v15;
+  v5 = [[TSUStreamDataCompression alloc] initWithAlgorithm:*&algorithm operation:*&operation];
+  v13 = v5;
+  [(NSData *)self enumerateByteRangesUsingBlock:&v9];
+  if (v16[3])
+  {
+    v6 = [(TSUStreamCompression *)v5 didFinishProcessing:v9];
+    *(v16 + 24) = v6;
+    if (v6)
+    {
+      outputData = [(TSUStreamDataCompression *)v5 outputData];
+    }
+
+    else
+    {
+      outputData = 0;
+    }
+  }
+
+  else
+  {
+    outputData = 0;
+    *(v16 + 24) = 0;
+  }
+
+  _Block_object_dispose(&v15, 8);
+
+  return outputData;
 }
 
 @end

@@ -191,7 +191,7 @@ uint64_t __71__PLCPUEnergyIssueDetectorService_buildCallBack_withGroup_withHandl
 
 - (void)checkCpuUsage:(id)usage withNewCoaltionArray:(id)array
 {
-  v104 = *MEMORY[0x277D85DE8];
+  v103 = *MEMORY[0x277D85DE8];
   usageCopy = usage;
   arrayCopy = array;
   if (self->_detectionStartTime)
@@ -212,14 +212,14 @@ uint64_t __71__PLCPUEnergyIssueDetectorService_buildCallBack_withGroup_withHandl
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v11 = objc_opt_class();
-    v100[0] = MEMORY[0x277D85DD0];
-    v100[1] = 3221225472;
-    v100[2] = __70__PLCPUEnergyIssueDetectorService_checkCpuUsage_withNewCoaltionArray___block_invoke;
-    v100[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v100[4] = v11;
+    v99[0] = MEMORY[0x277D85DD0];
+    v99[1] = 3221225472;
+    v99[2] = __70__PLCPUEnergyIssueDetectorService_checkCpuUsage_withNewCoaltionArray___block_invoke;
+    v99[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v99[4] = v11;
     if (qword_2811F6110 != -1)
     {
-      dispatch_once(&qword_2811F6110, v100);
+      dispatch_once(&qword_2811F6110, v99);
     }
 
     if (_MergedGlobals_1_44 == 1)
@@ -236,7 +236,7 @@ uint64_t __71__PLCPUEnergyIssueDetectorService_buildCallBack_withGroup_withHandl
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v103 = v13;
+        v102 = v13;
         _os_log_debug_impl(&dword_21A4C6000, v18, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
@@ -247,29 +247,29 @@ uint64_t __71__PLCPUEnergyIssueDetectorService_buildCallBack_withGroup_withHandl
 
   if (!-[PLCPUEnergyIssueDetectorService pluggedInBetweenCoalitionSBC](self, "pluggedInBetweenCoalitionSBC") && [arrayCopy count])
   {
-    v87 = arrayCopy;
-    v88 = usageCopy;
-    v98 = 0u;
-    v99 = 0u;
-    v96 = 0u;
+    v86 = arrayCopy;
+    v87 = usageCopy;
     v97 = 0u;
+    v98 = 0u;
+    v95 = 0u;
+    v96 = 0u;
     obj = arrayCopy;
-    v19 = [obj countByEnumeratingWithState:&v96 objects:v101 count:16];
+    v19 = [obj countByEnumeratingWithState:&v95 objects:v100 count:16];
     if (v19)
     {
       v20 = v19;
-      v91 = *v97;
+      v90 = *v96;
       do
       {
         v21 = 0;
         do
         {
-          if (*v97 != v91)
+          if (*v96 != v90)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v96 + 1) + 8 * v21);
+          v22 = *(*(&v95 + 1) + 8 * v21);
           if ([*(v10 + 384) debugEnabled])
           {
             v23 = objc_opt_class();
@@ -300,7 +300,7 @@ uint64_t __71__PLCPUEnergyIssueDetectorService_buildCallBack_withGroup_withHandl
               if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v103 = v27;
+                v102 = v27;
                 _os_log_debug_impl(&dword_21A4C6000, v32, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
 
@@ -312,14 +312,14 @@ uint64_t __71__PLCPUEnergyIssueDetectorService_buildCallBack_withGroup_withHandl
           if ([*(v10 + 384) debugEnabled])
           {
             v34 = objc_opt_class();
-            v94[0] = MEMORY[0x277D85DD0];
-            v94[1] = 3221225472;
-            v94[2] = __70__PLCPUEnergyIssueDetectorService_checkCpuUsage_withNewCoaltionArray___block_invoke_80;
-            v94[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-            v94[4] = v34;
+            v93[0] = MEMORY[0x277D85DD0];
+            v93[1] = 3221225472;
+            v93[2] = __70__PLCPUEnergyIssueDetectorService_checkCpuUsage_withNewCoaltionArray___block_invoke_80;
+            v93[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+            v93[4] = v34;
             if (qword_2811F6120 != -1)
             {
-              dispatch_once(&qword_2811F6120, v94);
+              dispatch_once(&qword_2811F6120, v93);
             }
 
             if (byte_2811F610A == 1)
@@ -339,7 +339,7 @@ uint64_t __71__PLCPUEnergyIssueDetectorService_buildCallBack_withGroup_withHandl
               if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v103 = v38;
+                v102 = v38;
                 _os_log_debug_impl(&dword_21A4C6000, v43, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
 
@@ -357,19 +357,19 @@ uint64_t __71__PLCPUEnergyIssueDetectorService_buildCallBack_withGroup_withHandl
               if ([*(v10 + 384) debugEnabled])
               {
                 v46 = objc_opt_class();
-                v93[0] = MEMORY[0x277D85DD0];
-                v93[1] = 3221225472;
-                v93[2] = __70__PLCPUEnergyIssueDetectorService_checkCpuUsage_withNewCoaltionArray___block_invoke_86;
-                v93[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-                v93[4] = v46;
+                v92[0] = MEMORY[0x277D85DD0];
+                v92[1] = 3221225472;
+                v92[2] = __70__PLCPUEnergyIssueDetectorService_checkCpuUsage_withNewCoaltionArray___block_invoke_86;
+                v92[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+                v92[4] = v46;
                 if (qword_2811F6128 != -1)
                 {
-                  dispatch_once(&qword_2811F6128, v93);
+                  dispatch_once(&qword_2811F6128, v92);
                 }
 
                 if (byte_2811F610B == 1)
                 {
-                  v89 = v20;
+                  v88 = v20;
                   v47 = MEMORY[0x277CCACA8];
                   v48 = [(NSMutableDictionary *)self->_cpuUsage objectForKeyedSubscript:v33];
                   [v48 doubleValue];
@@ -388,12 +388,12 @@ uint64_t __71__PLCPUEnergyIssueDetectorService_buildCallBack_withGroup_withHandl
                   if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
                   {
                     *buf = 138412290;
-                    v103 = v53;
+                    v102 = v53;
                     _os_log_debug_impl(&dword_21A4C6000, v58, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
                   }
 
                   v10 = 0x277D3F000;
-                  v20 = v89;
+                  v20 = v88;
                 }
               }
 
@@ -441,14 +441,14 @@ uint64_t __71__PLCPUEnergyIssueDetectorService_buildCallBack_withGroup_withHandl
                 if ([*(v10 + 384) debugEnabled])
                 {
                   v73 = objc_opt_class();
-                  v92[0] = MEMORY[0x277D85DD0];
-                  v92[1] = 3221225472;
-                  v92[2] = __70__PLCPUEnergyIssueDetectorService_checkCpuUsage_withNewCoaltionArray___block_invoke_93;
-                  v92[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-                  v92[4] = v73;
+                  v91[0] = MEMORY[0x277D85DD0];
+                  v91[1] = 3221225472;
+                  v91[2] = __70__PLCPUEnergyIssueDetectorService_checkCpuUsage_withNewCoaltionArray___block_invoke_93;
+                  v91[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+                  v91[4] = v73;
                   if (qword_2811F6130 != -1)
                   {
-                    dispatch_once(&qword_2811F6130, v92);
+                    dispatch_once(&qword_2811F6130, v91);
                   }
 
                   if (byte_2811F610C == 1)
@@ -471,7 +471,7 @@ uint64_t __71__PLCPUEnergyIssueDetectorService_buildCallBack_withGroup_withHandl
                     if (os_log_type_enabled(v85, OS_LOG_TYPE_DEBUG))
                     {
                       *buf = 138412290;
-                      v103 = v80;
+                      v102 = v80;
                       _os_log_debug_impl(&dword_21A4C6000, v85, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
                     }
 
@@ -489,50 +489,48 @@ uint64_t __71__PLCPUEnergyIssueDetectorService_buildCallBack_withGroup_withHandl
         }
 
         while (v20 != v21);
-        v20 = [obj countByEnumeratingWithState:&v96 objects:v101 count:16];
+        v20 = [obj countByEnumeratingWithState:&v95 objects:v100 count:16];
       }
 
       while (v20);
     }
 
-    arrayCopy = v87;
-    usageCopy = v88;
+    arrayCopy = v86;
+    usageCopy = v87;
   }
 
   [(PLCPUEnergyIssueDetectorService *)self setPluggedInBetweenCoalitionSBC:[(PLCPUEnergyIssueDetectorService *)self deviceIsPluggedIn]];
-
-  v86 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __70__PLCPUEnergyIssueDetectorService_checkCpuUsage_withNewCoaltionArray___block_invoke(uint64_t a1)
+void *__70__PLCPUEnergyIssueDetectorService_checkCpuUsage_withNewCoaltionArray___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_1_44 = result;
   return result;
 }
 
-uint64_t __70__PLCPUEnergyIssueDetectorService_checkCpuUsage_withNewCoaltionArray___block_invoke_68(uint64_t a1)
+void *__70__PLCPUEnergyIssueDetectorService_checkCpuUsage_withNewCoaltionArray___block_invoke_68(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F6109 = result;
   return result;
 }
 
-uint64_t __70__PLCPUEnergyIssueDetectorService_checkCpuUsage_withNewCoaltionArray___block_invoke_80(uint64_t a1)
+void *__70__PLCPUEnergyIssueDetectorService_checkCpuUsage_withNewCoaltionArray___block_invoke_80(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F610A = result;
   return result;
 }
 
-uint64_t __70__PLCPUEnergyIssueDetectorService_checkCpuUsage_withNewCoaltionArray___block_invoke_86(uint64_t a1)
+void *__70__PLCPUEnergyIssueDetectorService_checkCpuUsage_withNewCoaltionArray___block_invoke_86(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F610B = result;
   return result;
 }
 
-uint64_t __70__PLCPUEnergyIssueDetectorService_checkCpuUsage_withNewCoaltionArray___block_invoke_93(uint64_t a1)
+void *__70__PLCPUEnergyIssueDetectorService_checkCpuUsage_withNewCoaltionArray___block_invoke_93(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F610C = result;
@@ -551,22 +549,22 @@ uint64_t __70__PLCPUEnergyIssueDetectorService_checkCpuUsage_withNewCoaltionArra
 
 - (int)matchingPidWithProcessName:(id)name withBundleID:(id)d
 {
-  v4 = MEMORY[0x28223BE20](self, a2);
+  v4 = MEMORY[0x28223BE20](self);
   v6 = v5;
   v7 = v4;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v9 = v8;
   v10 = v6;
   context = objc_autoreleasePoolPush();
-  [v7 listAllRunningPidsWithBuffer:v31 withSizeOfBuffer:1024];
+  [v7 listAllRunningPidsWithBuffer:v30 withSizeOfBuffer:1024];
   v11 = proc_listpids(1u, 0, 0, 0);
   v12 = 0;
   if (v11 >= 4)
   {
     v13 = 0;
     v14 = v11 >> 2;
-    v15 = v31;
-    v26 = v14;
+    v15 = v30;
+    v25 = v14;
     while (1)
     {
       if (v9)
@@ -598,11 +596,11 @@ uint64_t __70__PLCPUEnergyIssueDetectorService_checkCpuUsage_withNewCoaltionArra
             if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v30 = v18;
+              v29 = v18;
               _os_log_debug_impl(&dword_21A4C6000, v23, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
 
-            v14 = v26;
+            v14 = v25;
           }
         }
 
@@ -641,11 +639,10 @@ LABEL_19:
 
   objc_autoreleasePoolPop(context);
 
-  v24 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
-uint64_t __75__PLCPUEnergyIssueDetectorService_matchingPidWithProcessName_withBundleID___block_invoke(uint64_t a1)
+void *__75__PLCPUEnergyIssueDetectorService_matchingPidWithProcessName_withBundleID___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F610D = result;
@@ -672,26 +669,25 @@ uint64_t __75__PLCPUEnergyIssueDetectorService_matchingPidWithProcessName_withBu
 
 void __86__PLCPUEnergyIssueDetectorService_sendEnergyIssueSignatureNotification_withThreshold___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v3 = a2;
-  v4 = [v3 objectForKeyedSubscript:*MEMORY[0x277D6B1A0]];
-  v5 = [v4 BOOLValue];
+  v22 = *MEMORY[0x277D85DE8];
+  v2 = a2;
+  v3 = [v2 objectForKeyedSubscript:*MEMORY[0x277D6B1A0]];
+  v4 = [v3 BOOLValue];
 
-  if (v5)
+  if (v4)
   {
-    v6 = [v3 objectForKeyedSubscript:*MEMORY[0x277D6B190]];
+    v5 = [v2 objectForKeyedSubscript:*MEMORY[0x277D6B190]];
     if (![MEMORY[0x277D3F180] debugEnabled])
     {
       goto LABEL_16;
     }
 
-    v7 = *(a1 + 32);
-    v8 = objc_opt_class();
+    v6 = objc_opt_class();
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __86__PLCPUEnergyIssueDetectorService_sendEnergyIssueSignatureNotification_withThreshold___block_invoke_2;
     block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    block[4] = v8;
+    block[4] = v6;
     if (qword_2811F6140 != -1)
     {
       dispatch_once(&qword_2811F6140, block);
@@ -702,19 +698,19 @@ void __86__PLCPUEnergyIssueDetectorService_sendEnergyIssueSignatureNotification_
       goto LABEL_16;
     }
 
-    v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"SDRDiagnosticReporter response = %@, sessionID = %@", v3, v6];
-    v10 = MEMORY[0x277D3F178];
-    v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLCPUEnergyIssueDetectorService.m"];
-    v12 = [v11 lastPathComponent];
-    v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLCPUEnergyIssueDetectorService sendEnergyIssueSignatureNotification:withThreshold:]_block_invoke"];
-    [v10 logMessage:v9 fromFile:v12 fromFunction:v13 fromLineNumber:358];
+    v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"SDRDiagnosticReporter response = %@, sessionID = %@", v2, v5];
+    v8 = MEMORY[0x277D3F178];
+    v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLCPUEnergyIssueDetectorService.m"];
+    v10 = [v9 lastPathComponent];
+    v11 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLCPUEnergyIssueDetectorService sendEnergyIssueSignatureNotification:withThreshold:]_block_invoke"];
+    [v8 logMessage:v7 fromFile:v10 fromFunction:v11 fromLineNumber:358];
 
-    v14 = PLLogCommon();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v12 = PLLogCommon();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v25 = v9;
-      _os_log_debug_impl(&dword_21A4C6000, v14, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+      v21 = v7;
+      _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
 
 LABEL_15:
@@ -725,33 +721,32 @@ LABEL_16:
 
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v15 = *(a1 + 32);
-    v16 = objc_opt_class();
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __86__PLCPUEnergyIssueDetectorService_sendEnergyIssueSignatureNotification_withThreshold___block_invoke_124;
-    v22[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v22[4] = v16;
+    v13 = objc_opt_class();
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __86__PLCPUEnergyIssueDetectorService_sendEnergyIssueSignatureNotification_withThreshold___block_invoke_124;
+    v18[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v18[4] = v13;
     if (qword_2811F6148 != -1)
     {
-      dispatch_once(&qword_2811F6148, v22);
+      dispatch_once(&qword_2811F6148, v18);
     }
 
     if (byte_2811F610F == 1)
     {
-      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"SDRDiagnosticReporter dampened"];
-      v17 = MEMORY[0x277D3F178];
-      v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLCPUEnergyIssueDetectorService.m"];
-      v19 = [v18 lastPathComponent];
-      v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLCPUEnergyIssueDetectorService sendEnergyIssueSignatureNotification:withThreshold:]_block_invoke_2"];
-      [v17 logMessage:v6 fromFile:v19 fromFunction:v20 fromLineNumber:361];
+      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"SDRDiagnosticReporter dampened"];
+      v14 = MEMORY[0x277D3F178];
+      v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Services/PLCPUEnergyIssueDetectorService.m"];
+      v16 = [v15 lastPathComponent];
+      v17 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLCPUEnergyIssueDetectorService sendEnergyIssueSignatureNotification:withThreshold:]_block_invoke_2"];
+      [v14 logMessage:v5 fromFile:v16 fromFunction:v17 fromLineNumber:361];
 
-      v9 = PLLogCommon();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v7 = PLLogCommon();
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v25 = v6;
-        _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v21 = v5;
+        _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
       goto LABEL_15;
@@ -759,18 +754,16 @@ LABEL_16:
   }
 
 LABEL_17:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __86__PLCPUEnergyIssueDetectorService_sendEnergyIssueSignatureNotification_withThreshold___block_invoke_2(uint64_t a1)
+void *__86__PLCPUEnergyIssueDetectorService_sendEnergyIssueSignatureNotification_withThreshold___block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F610E = result;
   return result;
 }
 
-uint64_t __86__PLCPUEnergyIssueDetectorService_sendEnergyIssueSignatureNotification_withThreshold___block_invoke_124(uint64_t a1)
+void *__86__PLCPUEnergyIssueDetectorService_sendEnergyIssueSignatureNotification_withThreshold___block_invoke_124(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F610F = result;
@@ -822,13 +815,11 @@ uint64_t __86__PLCPUEnergyIssueDetectorService_sendEnergyIssueSignatureNotificat
 
 uint64_t __61__PLCPUEnergyIssueDetectorService_customLongTermCPUThreshold__block_invoke()
 {
-  v0 = *MEMORY[0x277CBF040];
-  v1 = *MEMORY[0x277CBF030];
   [MEMORY[0x277D3F258] containerPath];
-  v2 = _CFPreferencesCopyValueWithContainer();
-  qword_2811F6158 = v2;
+  v0 = _CFPreferencesCopyValueWithContainer();
+  qword_2811F6158 = v0;
 
-  return MEMORY[0x2821F96F8](v2);
+  return MEMORY[0x2821F96F8](v0);
 }
 
 @end

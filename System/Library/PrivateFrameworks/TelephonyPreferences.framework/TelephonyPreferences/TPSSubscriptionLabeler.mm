@@ -150,40 +150,38 @@ void __91__TPSSubscriptionLabeler_localizedStringDictionaryForLanguageIdentifier
 
 + (id)localizedLabelsForLabels:(id)labels languageStringOverrides:(id)overrides
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   labelsCopy = labels;
   overridesCopy = overrides;
   v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(labelsCopy, "count")}];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v9 = labelsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [self localizedLabelForLabel:*(*(&v17 + 1) + 8 * i) longForm:1 languageStringOverrides:{overridesCopy, v17}];
+        v14 = [self localizedLabelForLabel:*(*(&v16 + 1) + 8 * i) longForm:1 languageStringOverrides:{overridesCopy, v16}];
         [v8 addObject:v14];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v11);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -321,7 +319,7 @@ uint64_t __88__TPSSubscriptionLabeler_cachedLocalizedLabelsForUnlocalizedLabels_
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 - (void)_validateLabelsForInstalledUnlocalizedLabels:(id)labels languageIdentifiers:(id)identifiers
@@ -379,42 +377,40 @@ uint64_t __88__TPSSubscriptionLabeler_cachedLocalizedLabelsForUnlocalizedLabels_
 
 + (id)localizedBadgeLabelsForUnlocalizedLabels:(id)labels languageStringOverrides:(id)overrides
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   labelsCopy = labels;
   overridesCopy = overrides;
   v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(labelsCopy, "count")}];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v9 = labelsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [objc_opt_class() localizedLabelForLabel:*(*(&v18 + 1) + 8 * i) longForm:0 languageStringOverrides:{overridesCopy, v18}];
+        v14 = [objc_opt_class() localizedLabelForLabel:*(*(&v17 + 1) + 8 * i) longForm:0 languageStringOverrides:{overridesCopy, v17}];
         [v8 addObject:v14];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
 
   v15 = [self displayShortLabelStringsForLongFormShortLabels:v8];
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }
@@ -547,7 +543,7 @@ void __67__TPSSubscriptionLabeler_stringsByAbbreviatingToPrefixesOfStrings___blo
 
 + (id)stringsByClippingStrings:(id)strings toWidthOfString:(id)string
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   stringsCopy = strings;
   stringCopy = string;
   v8 = stringsCopy;
@@ -557,66 +553,64 @@ void __67__TPSSubscriptionLabeler_stringsByAbbreviatingToPrefixesOfStrings___blo
     fontAttributeDictionary = [self fontAttributeDictionary];
     [self widthOfString:stringCopy attributes:fontAttributeDictionary];
     v12 = v11;
-    v33 = 0;
-    v34 = &v33;
-    v35 = 0x2020000000;
-    v36 = 0;
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __67__TPSSubscriptionLabeler_stringsByClippingStrings_toWidthOfString___block_invoke;
-    v28[3] = &unk_2782E4088;
+    v32 = 0;
+    v33 = &v32;
+    v34 = 0x2020000000;
+    v35 = 0;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __67__TPSSubscriptionLabeler_stringsByClippingStrings_toWidthOfString___block_invoke;
+    v27[3] = &unk_2782E4088;
     selfCopy = self;
     v13 = fontAttributeDictionary;
-    v32 = v12;
-    v29 = v13;
-    v30 = &v33;
-    [v8 enumerateObjectsUsingBlock:v28];
+    v31 = v12;
+    v28 = v13;
+    v29 = &v32;
+    [v8 enumerateObjectsUsingBlock:v27];
     v9 = v8;
-    if (*(v34 + 24) == 1)
+    if (*(v33 + 24) == 1)
     {
       v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v8, "count")}];
-      v26 = 0u;
-      v27 = 0u;
-      v24 = 0u;
       v25 = 0u;
+      v26 = 0u;
+      v23 = 0u;
+      v24 = 0u;
       v14 = v8;
-      v15 = [v14 countByEnumeratingWithState:&v24 objects:v37 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v23 objects:v36 count:16];
       if (v15)
       {
-        v16 = *v25;
+        v16 = *v24;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v25 != v16)
+            if (*v24 != v16)
             {
               objc_enumerationMutation(v14);
             }
 
-            v18 = *(*(&v24 + 1) + 8 * i);
-            v19 = [v18 rangeOfComposedCharacterSequenceAtIndex:{0, v24}];
+            v18 = *(*(&v23 + 1) + 8 * i);
+            v19 = [v18 rangeOfComposedCharacterSequenceAtIndex:{0, v23}];
             v21 = [v18 substringToIndex:v19 + v20];
             [v9 addObject:v21];
           }
 
-          v15 = [v14 countByEnumeratingWithState:&v24 objects:v37 count:16];
+          v15 = [v14 countByEnumeratingWithState:&v23 objects:v36 count:16];
         }
 
         while (v15);
       }
     }
 
-    _Block_object_dispose(&v33, 8);
+    _Block_object_dispose(&v32, 8);
   }
 
   CTFontRemoveFromCaches();
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
-uint64_t __67__TPSSubscriptionLabeler_stringsByClippingStrings_toWidthOfString___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__67__TPSSubscriptionLabeler_stringsByClippingStrings_toWidthOfString___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 48) widthOfString:a2 attributes:*(a1 + 32)];
   if (v7 > *(a1 + 56))
@@ -630,7 +624,7 @@ uint64_t __67__TPSSubscriptionLabeler_stringsByClippingStrings_toWidthOfString__
 
 + (id)fontAttributeDictionary
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = CTFontDescriptorCreateForUIType();
   v3 = v2;
   if (v2)
@@ -639,9 +633,9 @@ uint64_t __67__TPSSubscriptionLabeler_stringsByClippingStrings_toWidthOfString__
     CFRelease(v3);
     if (v4)
     {
-      v7 = *MEMORY[0x277CC4838];
-      v8[0] = v4;
-      v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+      v6 = *MEMORY[0x277CC4838];
+      v7[0] = v4;
+      v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
     }
 
     else
@@ -649,8 +643,6 @@ uint64_t __67__TPSSubscriptionLabeler_stringsByClippingStrings_toWidthOfString__
       v3 = 0;
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -686,33 +678,33 @@ uint64_t __67__TPSSubscriptionLabeler_stringsByClippingStrings_toWidthOfString__
 
 + (id)stringsByNumericallyDisambiguatingStrings:(id)strings
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   stringsCopy = strings;
   decimalDigitCharacterSet = [MEMORY[0x277CCA900] decimalDigitCharacterSet];
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(stringsCopy, "count")}];
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   obj = stringsCopy;
-  v5 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v5 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v5)
   {
-    v6 = *v34;
+    v6 = *v33;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v34 != v6)
+        if (*v33 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = [*(*(&v33 + 1) + 8 * i) mutableCopy];
+        v8 = [*(*(&v32 + 1) + 8 * i) mutableCopy];
         [v4 addObject:v8];
       }
 
-      v5 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v5 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v5);
@@ -720,54 +712,52 @@ uint64_t __67__TPSSubscriptionLabeler_stringsByClippingStrings_toWidthOfString__
 
   v9 = [self _groupStringsByCollationEquivalency:v4];
   [v9 allKeys];
+  v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
-  v10 = v30 = 0u;
-  v11 = [v10 countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v28 = 0u;
+  v10 = v29 = 0u;
+  v11 = [v10 countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v11)
   {
-    v12 = *v30;
+    v12 = *v29;
     do
     {
       for (j = 0; j != v11; ++j)
       {
-        if (*v30 != v12)
+        if (*v29 != v12)
         {
           objc_enumerationMutation(v10);
         }
 
-        v14 = [v9 objectForKey:*(*(&v29 + 1) + 8 * j)];
+        v14 = [v9 objectForKey:*(*(&v28 + 1) + 8 * j)];
         if ([v14 count] >= 2)
         {
-          v27[0] = 0;
-          v27[1] = v27;
-          v27[2] = 0x2020000000;
-          v28 = 1;
+          v26[0] = 0;
+          v26[1] = v26;
+          v26[2] = 0x2020000000;
+          v27 = 1;
           firstObject = [v14 firstObject];
           v16 = [firstObject rangeOfCharacterFromSet:decimalDigitCharacterSet options:12] != 0x7FFFFFFFFFFFFFFFLL;
 
-          v22[0] = MEMORY[0x277D85DD0];
-          v22[1] = 3221225472;
-          v22[2] = __68__TPSSubscriptionLabeler_stringsByNumericallyDisambiguatingStrings___block_invoke;
-          v22[3] = &unk_2782E40B0;
-          v26 = v16;
-          v24 = v27;
+          v21[0] = MEMORY[0x277D85DD0];
+          v21[1] = 3221225472;
+          v21[2] = __68__TPSSubscriptionLabeler_stringsByNumericallyDisambiguatingStrings___block_invoke;
+          v21[3] = &unk_2782E40B0;
+          v25 = v16;
+          v23 = v26;
           selfCopy = self;
-          v23 = v9;
-          [v14 enumerateObjectsUsingBlock:v22];
+          v22 = v9;
+          [v14 enumerateObjectsUsingBlock:v21];
 
-          _Block_object_dispose(v27, 8);
+          _Block_object_dispose(v26, 8);
         }
       }
 
-      v11 = [v10 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v11 = [v10 countByEnumeratingWithState:&v28 objects:v36 count:16];
     }
 
     while (v11);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -801,35 +791,35 @@ void __68__TPSSubscriptionLabeler_stringsByNumericallyDisambiguatingStrings___bl
 
 + (BOOL)_dictionary:(id)_dictionary containsCollationEquivalentKey:(id)key
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   _dictionaryCopy = _dictionary;
   keyCopy = key;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v7 = _dictionaryCopy;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
-    v9 = *v14;
+    v9 = *v13;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        if (![*(*(&v13 + 1) + 8 * i) compare:keyCopy options:{385, v13}])
+        if (![*(*(&v12 + 1) + 8 * i) compare:keyCopy options:{385, v12}])
         {
           LOBYTE(v8) = 1;
           goto LABEL_11;
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v8)
       {
         continue;
@@ -841,7 +831,6 @@ void __68__TPSSubscriptionLabeler_stringsByNumericallyDisambiguatingStrings___bl
 
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -904,15 +893,14 @@ LABEL_6:
 
 + (id)standardLabelIdentifiers
 {
-  v5[6] = *MEMORY[0x277D85DE8];
-  v5[0] = @"_$<SUBSCRIPTION_LABEL_PRIMARY>$_";
-  v5[1] = @"_$<SUBSCRIPTION_LABEL_SECONDARY>$_";
-  v5[2] = @"_$<SUBSCRIPTION_LABEL_PERSONAL>$_";
-  v5[3] = @"_$<SUBSCRIPTION_LABEL_BUSINESS>$_";
-  v5[4] = @"_$<SUBSCRIPTION_LABEL_TRAVEL>$_";
-  v5[5] = @"_$<SUBSCRIPTION_LABEL_DATA>$_";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:6];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[6] = *MEMORY[0x277D85DE8];
+  v4[0] = @"_$<SUBSCRIPTION_LABEL_PRIMARY>$_";
+  v4[1] = @"_$<SUBSCRIPTION_LABEL_SECONDARY>$_";
+  v4[2] = @"_$<SUBSCRIPTION_LABEL_PERSONAL>$_";
+  v4[3] = @"_$<SUBSCRIPTION_LABEL_BUSINESS>$_";
+  v4[4] = @"_$<SUBSCRIPTION_LABEL_TRAVEL>$_";
+  v4[5] = @"_$<SUBSCRIPTION_LABEL_DATA>$_";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:6];
 
   return v2;
 }
@@ -952,21 +940,20 @@ id __61__TPSSubscriptionLabeler_isString_exclusivelyInCharacterSet___block_invok
 {
   if (a2)
   {
-    v3 = *(a1 + 32);
-    v4 = [MEMORY[0x277CCABB0] numberWithChar:uset_containsAllCodePoints()];
+    v3 = [MEMORY[0x277CCABB0] numberWithChar:uset_containsAllCodePoints()];
   }
 
   else
   {
-    v4 = MEMORY[0x277CBEC38];
+    v3 = MEMORY[0x277CBEC38];
   }
 
-  return v4;
+  return v3;
 }
 
 + (id)_resultWithAllCharacters:(id)characters string:(id)string
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   charactersCopy = characters;
   stringCopy = string;
   v7 = [(__CFString *)stringCopy length];
@@ -980,10 +967,10 @@ id __61__TPSSubscriptionLabeler_isString_exclusivelyInCharacterSet___block_invok
   {
     if (v7 <= 0xFE)
     {
-      [(__CFString *)stringCopy getCharacters:v18 range:0, v7];
-      v18[v7] = 0;
+      [(__CFString *)stringCopy getCharacters:v17 range:0, v7];
+      v17[v7] = 0;
       v10 = charactersCopy[2];
-      v9 = v18;
+      v9 = v17;
       goto LABEL_6;
     }
 
@@ -1014,8 +1001,6 @@ LABEL_6:
 LABEL_10:
   v15 = v10(v11, v9, v12);
 LABEL_11:
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

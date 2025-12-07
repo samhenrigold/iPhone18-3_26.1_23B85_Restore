@@ -90,30 +90,28 @@ void __37__EKPersistentCalendarItem_relations__block_invoke()
 
 void __54__EKPersistentCalendarItem_propertiesToUnloadOnCommit__block_invoke(uint64_t a1)
 {
-  v12[7] = *MEMORY[0x1E69E9840];
-  v11.receiver = *(a1 + 32);
-  v11.super_class = &OBJC_METACLASS___EKPersistentCalendarItem;
-  v1 = objc_msgSendSuper2(&v11, sel_propertiesToUnloadOnCommit);
+  v11[7] = *MEMORY[0x1E69E9840];
+  v10.receiver = *(a1 + 32);
+  v10.super_class = &OBJC_METACLASS___EKPersistentCalendarItem;
+  v1 = objc_msgSendSuper2(&v10, sel_propertiesToUnloadOnCommit);
   v2 = propertiesToUnloadOnCommit_propertiesToUnloadOnCommit_2;
   propertiesToUnloadOnCommit_propertiesToUnloadOnCommit_2 = v1;
 
   v3 = propertiesToUnloadOnCommit_propertiesToUnloadOnCommit_2;
   v4 = *MEMORY[0x1E69925E0];
-  v12[0] = *MEMORY[0x1E69925F0];
-  v12[1] = v4;
+  v11[0] = *MEMORY[0x1E69925F0];
+  v11[1] = v4;
   v5 = *MEMORY[0x1E69925F8];
-  v12[2] = *MEMORY[0x1E69925E8];
-  v12[3] = v5;
+  v11[2] = *MEMORY[0x1E69925E8];
+  v11[3] = v5;
   v6 = *MEMORY[0x1E69926E8];
-  v12[4] = *MEMORY[0x1E6992658];
-  v12[5] = v6;
-  v12[6] = *MEMORY[0x1E6992950];
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:7];
+  v11[4] = *MEMORY[0x1E6992658];
+  v11[5] = v6;
+  v11[6] = *MEMORY[0x1E6992950];
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:7];
   v8 = [v3 arrayByAddingObjectsFromArray:v7];
   v9 = propertiesToUnloadOnCommit_propertiesToUnloadOnCommit_2;
   propertiesToUnloadOnCommit_propertiesToUnloadOnCommit_2 = v8;
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

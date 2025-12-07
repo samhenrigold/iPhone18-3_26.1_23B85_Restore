@@ -43,15 +43,15 @@ void std::__shared_weak_count::__release_shared[abi:ne200100](std::__shared_weak
   }
 }
 
-void std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](std::regex_traits<char> *a1, const char *a2, int a3)
+void std::basic_regex<char,std::regex_traits<char>>::basic_regex[abi:ne200100](std::regex_traits<char> *a1, char *a2, int a3)
 {
-  v5 = std::regex_traits<char>::regex_traits(a1);
-  LODWORD(v5[1].__loc_.__locale_) = a3;
-  *(&v5[1].__loc_.__locale_ + 4) = 0u;
-  *(&v5[1].__col_ + 4) = 0u;
-  HIDWORD(v5[2].__ct_) = 0;
-  strlen(a2);
-  std::basic_regex<char,std::regex_traits<char>>::__parse<char const*>();
+  v6 = std::regex_traits<char>::regex_traits(a1);
+  LODWORD(v6[1].__loc_.__locale_) = a3;
+  *(&v6[1].__loc_.__locale_ + 4) = 0u;
+  *(&v6[1].__col_ + 4) = 0u;
+  HIDWORD(v6[2].__ct_) = 0;
+  v7 = strlen(a2);
+  std::basic_regex<char,std::regex_traits<char>>::__parse<char const*>(a1, a2, &a2[v7]);
 }
 
 void sub_25BA17998(_Unwind_Exception *a1)
@@ -166,7 +166,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_basic_r
   return v3;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   end = a1->__end_;
   v7 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(a1, a2, a3);
@@ -180,7 +180,7 @@ LABEL_8:
   while (v8 != a3 && *v8 == 124)
   {
     v9 = a1->__end_;
-    v10 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(a1, (v8 + 1), a3);
+    v10 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(a1, v8 + 1, a3);
     if (v10 == v8 + 1)
     {
       goto LABEL_8;
@@ -253,7 +253,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_grep<ch
   return v8;
 }
 
-std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_egrep<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *__s, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_egrep<char const*>(std::basic_regex<char> *a1, unsigned __int8 *__s, unsigned __int8 *a3)
 {
   end = a1->__end_;
   v7 = memchr(__s, 10, a3 - __s);
@@ -275,7 +275,7 @@ std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_
   std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(a1, __s, v8);
   if (v8 != a3)
   {
-    v8 = (v8 + 1);
+    ++v8;
   }
 
   while (v8 != a3)
@@ -306,7 +306,7 @@ std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_
 
     else
     {
-      v8 = (&v10->__traits_.__loc_.__locale_ + 1);
+      v8 = v10 + 1;
     }
   }
 
@@ -1111,38 +1111,37 @@ void std::__lookahead<char,std::regex_traits<char>>::~__lookahead(std::locale *a
 
 void std::__lookahead<char,std::regex_traits<char>>::__exec(uint64_t a1, uint64_t a2)
 {
+  v19 = 0;
   v20 = 0;
   v21 = 0;
-  v22 = 0;
-  memset(&v23, 0, 17);
+  memset(&v22, 0, 17);
+  v23 = 0;
   v24 = 0;
-  v25 = 0;
   memset(&__p, 0, sizeof(__p));
   v4 = (*(a1 + 44) + 1);
   v5 = *(a2 + 16);
-  v19.first = *(a2 + 24);
-  v19.second = v19.first;
-  v19.matched = 0;
-  std::vector<std::sub_match<char const*>>::assign(&__p, v4, &v19);
+  v18.first = *(a2 + 24);
+  v18.second = v18.first;
+  v18.matched = 0;
+  std::vector<std::sub_match<char const*>>::assign(&__p, v4, &v18);
+  v19 = v5;
   v20 = v5;
-  v21 = v5;
-  v22 = 0;
-  v23 = v19;
-  v25 = v5;
-  v24 = 1;
-  v6 = *(a2 + 88) & 0xFFF;
-  v7 = *(a2 + 16);
-  if (v7 == *(a2 + 8))
+  v21 = 0;
+  v22 = v18;
+  v24 = v5;
+  v23 = 1;
+  v6 = *(a2 + 16);
+  if (v6 == *(a2 + 8))
   {
-    v8 = *(a2 + 92);
+    v7 = *(a2 + 92);
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  if (*(a1 + 84) == std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1 + 16, v7, *(a2 + 24), &__p, *(a2 + 88) & 0xFBF | 0x40u, v8))
+  if (*(a1 + 84) == std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1 + 16, v6, *(a2 + 24), &__p, *(a2 + 88) & 0xFBF | 0x40u, v7))
   {
     *a2 = -993;
     *(a2 + 80) = 0;
@@ -1153,8 +1152,8 @@ void std::__lookahead<char,std::regex_traits<char>>::__exec(uint64_t a1, uint64_
   *a2 = -994;
   *(a2 + 80) = *(a1 + 8);
   begin = __p.__begin_;
-  v10 = 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3);
-  if (v10 < 2)
+  v9 = 0xAAAAAAAAAAAAAAABLL * ((__p.__end_ - __p.__begin_) >> 3);
+  if (v9 < 2)
   {
 LABEL_10:
     if (!begin)
@@ -1165,21 +1164,21 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v11 = *(a1 + 80);
-  v12 = *(a2 + 32);
-  v13 = 2;
-  v14 = 1;
+  v10 = *(a1 + 80);
+  v11 = *(a2 + 32);
+  v12 = 2;
+  v13 = 1;
   do
   {
-    v15 = &begin[v14];
-    v16 = v12 + 24 * v11;
-    *v16 = v15->std::pair<const char *, const char *>;
-    *(v16 + 16) = v15->matched;
-    v14 = v13;
-    ++v11;
+    v14 = &begin[v13];
+    v15 = v11 + 24 * v10;
+    *v15 = v14->std::pair<const char *, const char *>;
+    *(v15 + 16) = v14->matched;
+    v13 = v12;
+    ++v10;
   }
 
-  while (v10 > v13++);
+  while (v9 > v12++);
 LABEL_11:
   __p.__end_ = begin;
   operator delete(begin);
@@ -1483,7 +1482,7 @@ void std::vector<std::sub_match<char const*>>::assign(std::vector<std::csub_matc
   }
 }
 
-void std::vector<std::sub_match<char const*>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::sub_match<char const*>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -1524,10 +1523,10 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x277D82778], MEMORY[0x277D82620]);
 }
 
-uint64_t std::vector<std::__state<char>>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
+uint64_t std::vector<std::__state<char>>::push_back[abi:ne200100](unint64_t *a1, uint64_t a2)
 {
-  v3 = *(a1 + 8);
-  if (v3 >= *(a1 + 16))
+  v3 = a1[1];
+  if (v3 >= a1[2])
   {
     result = std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<char>>(a1, a2);
   }
@@ -1559,7 +1558,7 @@ uint64_t std::vector<std::__state<char>>::push_back[abi:ne200100](uint64_t a1, u
     result = v3 + 96;
   }
 
-  *(a1 + 8) = result;
+  a1[1] = result;
   return result;
 }
 
@@ -1629,21 +1628,21 @@ void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)16
   __cxa_throw(exception, MEMORY[0x277D82700], MEMORY[0x277D82628]);
 }
 
-uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<char>>(uint64_t a1, uint64_t a2)
+uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<char>>(unint64_t *a1, uint64_t a2)
 {
-  v2 = 0xAAAAAAAAAAAAAAABLL * ((*(a1 + 8) - *a1) >> 5);
+  v2 = 0xAAAAAAAAAAAAAAABLL * ((a1[1] - *a1) >> 5);
   v3 = v2 + 1;
   if (v2 + 1 > 0x2AAAAAAAAAAAAAALL)
   {
     std::vector<std::sub_match<char const*>>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x5555555555555556 * ((*(a1 + 16) - *a1) >> 5) > v3)
+  if (0x5555555555555556 * ((a1[2] - *a1) >> 5) > v3)
   {
-    v3 = 0x5555555555555556 * ((*(a1 + 16) - *a1) >> 5);
+    v3 = 0x5555555555555556 * ((a1[2] - *a1) >> 5);
   }
 
-  if (0xAAAAAAAAAAAAAAABLL * ((*(a1 + 16) - *a1) >> 5) >= 0x155555555555555)
+  if (0xAAAAAAAAAAAAAAABLL * ((a1[2] - *a1) >> 5) >= 0x155555555555555)
   {
     v6 = 0x2AAAAAAAAAAAAAALL;
   }
@@ -1686,14 +1685,14 @@ uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<
   *(v7 + 85) = *(a2 + 85);
   *(v7 + 80) = v9;
   *&v18 = 96 * v2 + 96;
-  v10 = *(a1 + 8);
+  v10 = a1[1];
   v11 = 96 * v2 + *a1 - v10;
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::__state<char>>,std::__state<char>*>(a1, *a1, v10, v11);
   v12 = *a1;
   *a1 = v11;
-  v13 = *(a1 + 16);
+  v13 = a1[2];
   v15 = v18;
-  *(a1 + 8) = v18;
+  *(a1 + 1) = v18;
   *&v18 = v12;
   *(&v18 + 1) = v13;
   v16 = v12;
@@ -1702,9 +1701,9 @@ uint64_t std::vector<std::__state<char>>::__emplace_back_slow_path<std::__state<
   return v15;
 }
 
-void sub_25BA1A4B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25BA1A4B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<std::__state<char>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -1727,29 +1726,29 @@ void std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::_
     v6 = a2;
     do
     {
-      v7 = *(v6 + 1);
+      v7 = *(v6 + 16);
       *a4 = *v6;
       *(a4 + 16) = v7;
       *(a4 + 40) = 0;
       *(a4 + 48) = 0;
       *(a4 + 32) = 0;
-      *(a4 + 32) = *(v6 + 2);
-      *(a4 + 48) = v6[6];
-      v6[4] = 0;
-      v6[5] = 0;
-      v6[6] = 0;
+      *(a4 + 32) = *(v6 + 32);
+      *(a4 + 48) = *(v6 + 48);
+      *(v6 + 32) = 0;
+      *(v6 + 40) = 0;
+      *(v6 + 48) = 0;
       *(a4 + 56) = 0;
       *(a4 + 64) = 0;
       *(a4 + 72) = 0;
-      *(a4 + 56) = *(v6 + 7);
-      *(a4 + 72) = v6[9];
-      v6[7] = 0;
-      v6[8] = 0;
-      v6[9] = 0;
-      v8 = v6[10];
+      *(a4 + 56) = *(v6 + 56);
+      *(a4 + 72) = *(v6 + 72);
+      *(v6 + 56) = 0;
+      *(v6 + 64) = 0;
+      *(v6 + 72) = 0;
+      v8 = *(v6 + 80);
       *(a4 + 85) = *(v6 + 85);
       *(a4 + 80) = v8;
-      v6 += 12;
+      v6 += 96;
       a4 += 96;
     }
 
@@ -1968,7 +1967,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<unsigned lo
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::vector<std::sub_match<char const*>>::__init_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::sub_match<char const*>>::__init_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -1990,7 +1989,7 @@ void sub_25BA1A9C8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::pair<unsigned long,char const*>>::__init_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t *result, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -2012,7 +2011,7 @@ void sub_25BA1AA3C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::pair<unsigned long,char const*>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 60))
   {
@@ -2911,7 +2910,6 @@ uint64_t std::__back_ref_icase<char,std::regex_traits<char>>::__exec(uint64_t re
     if (*(a2 + 24) - v5 >= v4)
     {
       v7 = result;
-      v8 = *(v3 + 8) != *v3;
       if (v4 < 1)
       {
 LABEL_10:
@@ -2921,17 +2919,17 @@ LABEL_10:
         goto LABEL_4;
       }
 
-      v9 = 0;
+      v8 = 0;
       while (1)
       {
-        v10 = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*v3 + v9));
-        result = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*(a2 + 16) + v9));
-        if (v10 != result)
+        v9 = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*v3 + v8));
+        result = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*(a2 + 16) + v8));
+        if (v9 != result)
         {
           break;
         }
 
-        if (v4 == ++v9)
+        if (v4 == ++v8)
         {
           v5 = *(a2 + 16);
           goto LABEL_10;
@@ -3196,7 +3194,7 @@ void std::__bracket_expression<char,std::regex_traits<char>>::__exec(const std::
     v73 = (this->__traits_.__ct_->do_tolower)(this->__traits_.__ct_, v6);
   }
 
-  std::regex_traits<char>::__lookup_collatename<char *>(&this->__traits_, &v72, &v74, &__p);
+  std::regex_traits<char>::__lookup_collatename<char *>(&this->__traits_, &v72, &__p, &v74);
   if ((v71 & 0x80000000) == 0)
   {
     if (v71)
@@ -3257,7 +3255,7 @@ LABEL_24:
     {
       v13 = 0;
       v14 = 0;
-      while (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v12[v13].first.__r_.__value_.__r.__words, &__p) > 0 || std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, &this->__ranges_.__begin_[v13].second.__r_.__value_.__l.__data_) >= 1)
+      while (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v12[v13], &__p) > 0 || std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, &this->__ranges_.__begin_[v13].second) >= 1)
       {
         ++v14;
         v12 = this->__ranges_.__begin_;
@@ -3513,7 +3511,7 @@ LABEL_87:
   {
     v47 = 0;
     v48 = 0;
-    while (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v33[v47].first.__r_.__value_.__r.__words, &__p) > 0 || std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, &this->__ranges_.__begin_[v47].second.__r_.__value_.__l.__data_) >= 1)
+    while (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v33[v47], &__p) > 0 || std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__p, &this->__ranges_.__begin_[v47].second) >= 1)
     {
       ++v48;
       v33 = this->__ranges_.__begin_;
@@ -3821,7 +3819,7 @@ void sub_25BA1D104(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(void *a1, void **a2)
+uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t ***a1, char *a2)
 {
   v2 = *(a1 + 23);
   v3 = a1[1];
@@ -3831,7 +3829,7 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
     v2 = v3;
   }
 
-  v4 = *(a2 + 23);
+  v4 = a2[23];
   if (v4 >= 0)
   {
     v5 = a2;
@@ -3844,23 +3842,23 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
 
   if (v4 >= 0)
   {
-    v6 = *(a2 + 23);
+    v6 = a2[23];
   }
 
   else
   {
-    v6 = a2[1];
+    v6 = *(a2 + 1);
   }
 
   return std::operator<=>[abi:ne200100]<char,std::char_traits<char>>(a1, v2, v5, v6);
 }
 
-void std::regex_traits<char>::__lookup_collatename<char *>(uint64_t a1@<X0>, _BYTE *a2@<X1>, _BYTE *a3@<X2>, uint64_t a4@<X8>)
+void std::regex_traits<char>::__lookup_collatename<char *>(uint64_t a1@<X0>, _BYTE *a2@<X1>, uint64_t a3@<X8>, _BYTE *a4@<X2>)
 {
-  std::string::__init_with_size[abi:ne200100]<char *,char *>(&__s, a2, a3, a3 - a2);
-  *a4 = 0;
-  *(a4 + 8) = 0;
-  *(a4 + 16) = 0;
+  std::string::__init_with_size[abi:ne200100]<char *,char *>(&__s, a2, a4, a4 - a2);
+  *a3 = 0;
+  *(a3 + 8) = 0;
+  *(a3 + 16) = 0;
   if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
   {
     if (!__s.__r_.__value_.__l.__size_)
@@ -3882,13 +3880,13 @@ void std::regex_traits<char>::__lookup_collatename<char *>(uint64_t a1@<X0>, _BY
   }
 
   std::__get_collation_name(&v11, p_s);
-  *a4 = *&v11.__r_.__value_.__l.__data_;
+  *a3 = *&v11.__r_.__value_.__l.__data_;
   v7 = v11.__r_.__value_.__r.__words[2];
-  *(a4 + 16) = *(&v11.__r_.__value_.__l + 2);
+  *(a3 + 16) = *(&v11.__r_.__value_.__l + 2);
   v8 = HIBYTE(v7);
   if ((v8 & 0x80u) != 0)
   {
-    v8 = *(a4 + 8);
+    v8 = *(a3 + 8);
   }
 
   if (v8)
@@ -3910,35 +3908,35 @@ void std::regex_traits<char>::__lookup_collatename<char *>(uint64_t a1@<X0>, _BY
   }
 
   (*(**(a1 + 16) + 32))(&v11);
-  if (*(a4 + 23) < 0)
+  if (*(a3 + 23) < 0)
   {
-    operator delete(*a4);
+    operator delete(*a3);
   }
 
-  *a4 = v11;
-  if ((*(a4 + 23) & 0x80000000) == 0)
+  *a3 = v11;
+  if ((*(a3 + 23) & 0x80000000) == 0)
   {
-    v9 = *(a4 + 23);
+    v9 = *(a3 + 23);
     if (v9 != 12 && v9 != 1)
     {
-      *a4 = 0;
-      *(a4 + 23) = 0;
+      *a3 = 0;
+      *(a3 + 23) = 0;
       goto LABEL_9;
     }
 
     goto LABEL_23;
   }
 
-  v10 = *(a4 + 8);
+  v10 = *(a3 + 8);
   if (v10 == 1 || v10 == 12)
   {
 LABEL_23:
-    std::string::operator=(a4, &__s);
+    std::string::operator=(a3, &__s);
     goto LABEL_9;
   }
 
-  **a4 = 0;
-  *(a4 + 8) = 0;
+  **a3 = 0;
+  *(a3 + 8) = 0;
 LABEL_9:
   if (SHIBYTE(__s.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -3961,7 +3959,7 @@ void sub_25BA1D2D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::__init_with_size[abi:ne200100]<char *,char *>(_BYTE *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
+void *std::string::__init_with_size[abi:ne200100]<char *,char *>(void *__dst, _BYTE *__src, _BYTE *a3, unint64_t a4)
 {
   if (a4 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -3974,14 +3972,14 @@ _BYTE *std::string::__init_with_size[abi:ne200100]<char *,char *>(_BYTE *__dst, 
     operator new();
   }
 
-  __dst[23] = a4;
+  *(__dst + 23) = a4;
   v5 = a3 - __src;
   if (a3 != __src)
   {
     __dst = memmove(__dst, __src, v5);
   }
 
-  v4[v5] = 0;
+  *(v4 + v5) = 0;
   return __dst;
 }
 
@@ -4095,7 +4093,7 @@ void sub_25BA1D520(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<char>::push_back[abi:ne200100](uint64_t a1, _BYTE *a2)
+void std::vector<char>::push_back[abi:ne200100](uint64_t a1, char *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -4267,7 +4265,7 @@ LABEL_28:
         {
           v20 = v30;
 LABEL_46:
-          std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](v6, *v20, *(v20 + 1));
+          std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](v6, *v20, v20[1]);
           goto LABEL_47;
         }
 
@@ -5199,11 +5197,11 @@ LABEL_74:
   }
 }
 
-void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, unsigned __int8 a2, uint64_t a3)
+void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a1 + 169) == 1)
   {
-    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24), a2);
     v11 = v5 | ((*(**(a1 + 24) + 40))(*(a1 + 24), a3) << 8);
     v6 = a1 + 112;
     v7 = &v11;
@@ -5729,14 +5727,12 @@ void std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](ui
     v6 = *a2;
     *(v4 + 16) = *(a2 + 2);
     *v4 = v6;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v7 = *(a2 + 24);
     *(v4 + 40) = *(a2 + 5);
     *(v4 + 24) = v7;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
     v8 = v4 + 48;
   }
@@ -6195,7 +6191,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_nondupl
     v8 = v6[1];
     if (v8 == 40)
     {
-      v9 = v6 + 2;
+      v9 = (v6 + 2);
       std::basic_regex<char,std::regex_traits<char>>::__push_begin_marked_subexpression(a1);
       marked_count = a1->__marked_count_;
       do
@@ -6428,7 +6424,7 @@ BOOL std::basic_regex<char,std::regex_traits<char>>::__test_back_ref(std::basic_
   return 1;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_branch<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   v6 = std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_expression<char const*>(a1, a2, a3);
   if (v6 == a2)
@@ -6446,7 +6442,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_bra
   return v7;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_expression<char const*>(std::basic_regex<char> *a1, std::basic_regex<char> *a2, std::basic_regex<char> *a3)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_expression<char const*>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
 {
   end = a1->__end_;
   marked_count = a1->__marked_count_;
@@ -6464,7 +6460,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_exp
         std::basic_regex<char,std::regex_traits<char>>::__push_begin_marked_subexpression(a1);
         v11 = a1->__marked_count_;
         ++a1->__open_count_;
-        v12 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(a1, v9 + 1, a3);
+        v12 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(a1, (v9 + 1), a3);
         if (v12 == a3 || (v9 = v12, *v12 != 41))
         {
           std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)6>();
@@ -6509,7 +6505,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_one_cha
     return v6;
   }
 
-  if (a2 != a3 && *v7 == 46)
+  if (a2 != a3 && LOBYTE(v7->__traits_.__loc_.__locale_) == 46)
   {
     operator new();
   }
@@ -6562,7 +6558,7 @@ LABEL_8:
   return v3;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_QUOTED_CHAR_ERE<char const*>(uint64_t a1, std::basic_regex<char> *this, std::basic_regex<char> *a3)
+std::basic_regex<char> *std::basic_regex<char,std::regex_traits<char>>::__parse_QUOTED_CHAR_ERE<char const*>(uint64_t a1, std::basic_regex<char> *this, std::basic_regex<char> *a3)
 {
   v3 = this;
   if (this == a3)
@@ -6581,7 +6577,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_QUOTED_
   if (!v6 || (v5 - 123) < 3)
   {
     std::basic_regex<char,std::regex_traits<char>>::__push_char(a1, v5);
-    return v3 + 2;
+    return (v3 + 2);
   }
 
   if ((*(a1 + 24) & 0x1F0) != 0x40)
@@ -6593,13 +6589,13 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_QUOTED_
       v9 = 0;
     }
 
-    return v3 + v9;
+    return (v3 + v9);
   }
 
   return std::basic_regex<char,std::regex_traits<char>>::__parse_awk_escape<char const*>(a1, v4, a3, 0);
 }
 
-uint64_t std::regex_match[abi:ne200100]<std::__wrap_iter<char const*>,std::allocator<std::sub_match<std::__wrap_iter<char const*>>>,char,std::regex_traits<char>>(char *__f, char *__l, uint64_t a3, uint64_t a4, int a5)
+uint64_t std::regex_match[abi:ne200100]<std::__wrap_iter<char const*>,std::allocator<std::sub_match<std::__wrap_iter<char const*>>>,char,std::regex_traits<char>>(char *__f, char *__l, uint64_t a3, uint64_t a4, unsigned int a5)
 {
   v5 = a5;
   memset(&__p.__prefix_, 0, 17);
@@ -6607,7 +6603,7 @@ uint64_t std::regex_match[abi:ne200100]<std::__wrap_iter<char const*>,std::alloc
   __p.__ready_ = 0;
   __p.__position_start_ = 0;
   memset(&__p, 0, 41);
-  v9 = std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(a4, __f, __l, &__p, a5 | 0x1040u);
+  v9 = std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(a4, __f, __l, &__p, a5 | 0x1040);
   std::match_results<std::__wrap_iter<char const*>>::__assign[abi:ne200100]<char const*,std::allocator<std::sub_match<char const*>>>(a3, __f, __l, &__p, (v5 & 0x800) != 0);
   if (__p.__matches_.__begin_)
   {
@@ -6640,7 +6636,7 @@ void sub_25BA2075C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(uint64_t a1, char *__f, char *__l, std::match_results<const char *> *this, int a5)
+uint64_t std::basic_regex<char,std::regex_traits<char>>::__search<std::allocator<std::sub_match<char const*>>>(uint64_t a1, char *__f, char *__l, std::match_results<const char *> *this, unsigned int a5)
 {
   if ((a5 & 0x80) != 0)
   {
@@ -6684,7 +6680,7 @@ LABEL_19:
       do
       {
         std::vector<std::sub_match<char const*>>::assign(&this->__matches_, 0xAAAAAAAAAAAAAAABLL * ((this->__matches_.__end_ - this->__matches_.__begin_) >> 3), &this->__unmatched_);
-        v13 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v11, __l, this, v9 | 0x80u, 0);
+        v13 = std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v11, __l, this, v9 | 0x80, 0);
         begin = this->__matches_.__begin_;
         end = this->__matches_.__end_;
         if (v13)
@@ -6700,7 +6696,7 @@ LABEL_19:
 
     v12 = &this->__unmatched_;
     std::vector<std::sub_match<char const*>>::assign(&this->__matches_, 0xAAAAAAAAAAAAAAABLL * ((this->__matches_.__end_ - this->__matches_.__begin_) >> 3), &this->__unmatched_);
-    if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v11, __l, this, v9 | 0x80u, 0))
+    if (std::basic_regex<char,std::regex_traits<char>>::__match_at_start<std::allocator<std::sub_match<char const*>>>(a1, v11, __l, this, v9 | 0x80, 0))
     {
       begin = this->__matches_.__begin_;
       end = this->__matches_.__end_;
@@ -7093,6 +7089,13 @@ LABEL_71:
   return v49;
 }
 
+void sub_25BA20FE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+{
+  va_start(va, a24);
+  std::deque<std::__state<char>>::~deque[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
 uint64_t std::basic_regex<char,std::regex_traits<char>>::__match_at_start_posix_subs<std::allocator<std::sub_match<char const*>>>(uint64_t a1, const char *a2, const char *a3, uint64_t *a4, int a5, char a6)
 {
   v52 = 0;
@@ -7333,50 +7336,49 @@ void sub_25BA214B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-__n128 std::deque<std::__state<char>>::push_back(uint64_t a1, uint64_t a2)
+__n128 std::deque<std::__state<char>>::push_back(unint64_t *a1, uint64_t a2)
 {
-  v4 = *(a1 + 8);
-  v5 = *(a1 + 16);
-  v6 = *(a1 + 8);
-  v7 = 42 * ((v5 - v6) >> 3) - 1;
-  if (v5 == v6)
+  v4 = a1[2];
+  v5 = a1[1];
+  v6 = 42 * ((v4 - v5) >> 3) - 1;
+  if (v4 == v5)
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  v8 = *(a1 + 40) + *(a1 + 32);
-  if (v7 == v8)
+  v7 = a1[5] + a1[4];
+  if (v6 == v7)
   {
     std::deque<std::__state<char>>::__add_back_capacity(a1);
-    v6 = *(a1 + 8);
-    v8 = *(a1 + 40) + *(a1 + 32);
+    v5 = a1[1];
+    v7 = a1[5] + a1[4];
   }
 
-  v9 = *(v6 + 8 * (v8 / 0x2A)) + 96 * (v8 % 0x2A);
-  v10 = *(a2 + 16);
-  *v9 = *a2;
-  *(v9 + 16) = v10;
-  *(v9 + 40) = 0;
-  *(v9 + 48) = 0;
-  *(v9 + 32) = 0;
-  *(v9 + 32) = *(a2 + 32);
-  *(v9 + 48) = *(a2 + 48);
+  v8 = *(v5 + 8 * (v7 / 0x2A)) + 96 * (v7 % 0x2A);
+  v9 = *(a2 + 16);
+  *v8 = *a2;
+  *(v8 + 16) = v9;
+  *(v8 + 40) = 0;
+  *(v8 + 48) = 0;
+  *(v8 + 32) = 0;
+  *(v8 + 32) = *(a2 + 32);
+  *(v8 + 48) = *(a2 + 48);
   *(a2 + 32) = 0;
   *(a2 + 40) = 0;
   *(a2 + 48) = 0;
-  *(v9 + 56) = 0;
-  *(v9 + 64) = 0;
-  *(v9 + 72) = 0;
+  *(v8 + 56) = 0;
+  *(v8 + 64) = 0;
+  *(v8 + 72) = 0;
   result = *(a2 + 56);
-  *(v9 + 56) = result;
-  *(v9 + 72) = *(a2 + 72);
+  *(v8 + 56) = result;
+  *(v8 + 72) = *(a2 + 72);
   *(a2 + 56) = 0;
   *(a2 + 64) = 0;
   *(a2 + 72) = 0;
-  v12 = *(a2 + 80);
-  *(v9 + 85) = *(a2 + 85);
-  *(v9 + 80) = v12;
-  ++*(a1 + 40);
+  v11 = *(a2 + 80);
+  *(v8 + 85) = *(a2 + 85);
+  *(v8 + 80) = v11;
+  ++a1[5];
   return result;
 }
 
@@ -7438,19 +7440,19 @@ int64x2_t std::deque<std::__state<char>>::push_front(int64x2_t *a1, uint64_t a2)
   return result;
 }
 
-void *std::deque<std::__state<char>>::__add_back_capacity(void *a1)
+void std::deque<std::__state<char>>::__add_back_capacity(unint64_t *a1)
 {
   v1 = a1[4];
   v2 = v1 >= 0x2A;
   v3 = v1 - 42;
   if (!v2)
   {
-    v6 = a1[2];
-    v7 = a1[3];
-    v8 = v7 - *a1;
-    if (v6 - a1[1] < v8)
+    v5 = a1[2];
+    v6 = a1[3];
+    v7 = v6 - *a1;
+    if (v5 - a1[1] < v7)
     {
-      if (v7 != v6)
+      if (v6 != v5)
       {
         operator new();
       }
@@ -7458,25 +7460,25 @@ void *std::deque<std::__state<char>>::__add_back_capacity(void *a1)
       operator new();
     }
 
-    if (v7 == *a1)
+    if (v6 == *a1)
     {
-      v9 = 1;
+      v8 = 1;
     }
 
     else
     {
-      v9 = v8 >> 2;
+      v8 = v7 >> 2;
     }
 
-    v11 = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(a1, v9);
+    v10 = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(a1, v8);
   }
 
   a1[4] = v3;
   v4 = a1[1];
-  *&v10 = *v4;
-  a1[1] = v4 + 1;
-  return std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, &v10);
+  *&v9 = *v4;
+  a1[1] = (v4 + 1);
+  std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(a1, &v9);
 }
 
 void sub_25BA2191C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -7490,27 +7492,26 @@ void sub_25BA2191C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(void *result, void *a2)
+void std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_back<std::__state<char> *&>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(result, v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(a1, v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -7519,28 +7520,26 @@ void *std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char>
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(const void **result, void *a2)
+void std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -7553,52 +7552,50 @@ const void **std::__split_buffer<std::__state<char> *,std::allocator<std::__stat
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(result, v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(a1, v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
-void *std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *> &>::emplace_back<std::__state<char> *>(void *result, void *a2)
+void std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *> &>::emplace_back<std::__state<char> *>(unint64_t *a1, void *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result] >> 2;
+        v11 = &v4[-*a1] >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 3) + 1) / -2;
@@ -7607,28 +7604,26 @@ void *std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char>
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-8 * v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[8 * v7];
-    v3[2] = &v9[v10];
+    a1[1] = &v5[8 * v7];
+    a1[2] = &v9[v10];
   }
 
   *v4 = *a2;
-  v3[2] += 8;
-  return result;
+  a1[2] += 8;
 }
 
-const void **std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *> &>::emplace_front<std::__state<char> *&>(const void **result, void *a2)
+void std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *> &>::emplace_front<std::__state<char> *&>(const void **a1, void *a2)
 {
-  v3 = result;
-  v4 = result[1];
-  if (v4 == *result)
+  v4 = a1[1];
+  if (v4 == *a1)
   {
-    v6 = result[2];
-    v7 = result[3];
+    v6 = a1[2];
+    v7 = a1[3];
     if (v6 >= v7)
     {
       if (v7 == v4)
@@ -7641,29 +7636,28 @@ const void **std::__split_buffer<std::__state<char> *,std::allocator<std::__stat
         v9 = (v7 - v4) >> 2;
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(result[4], v9);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(a1[4], v9);
     }
 
     v8 = (((v7 - v6) >> 3) + 1) / 2;
     v5 = &v4[8 * v8];
     if (v6 != v4)
     {
-      result = memmove(&v4[8 * v8], v4, v6 - v4);
-      v6 = v3[2];
+      memmove(&v4[8 * v8], v4, v6 - v4);
+      v6 = a1[2];
     }
 
-    v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    a1[1] = v5;
+    a1[2] = &v6[8 * v8];
   }
 
   else
   {
-    v5 = result[1];
+    v5 = a1[1];
   }
 
   *(v5 - 1) = *a2;
-  v3[1] = v3[1] - 8;
-  return result;
+  a1[1] = a1[1] - 8;
 }
 
 void std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(uint64_t a1, unint64_t a2)
@@ -7715,10 +7709,10 @@ uint64_t std::deque<std::__state<char>>::__maybe_remove_back_spare[abi:ne200100]
   return v7 ^ 1u;
 }
 
-const void **std::deque<std::__state<char>>::__add_front_capacity(uint64_t a1)
+void std::deque<std::__state<char>>::__add_front_capacity(const void **a1)
 {
-  v1 = *(a1 + 8);
-  v2 = *(a1 + 16);
+  v1 = a1[1];
+  v2 = a1[2];
   v3 = v2 - v1;
   if (v2 == v1)
   {
@@ -7730,15 +7724,15 @@ const void **std::deque<std::__state<char>>::__add_front_capacity(uint64_t a1)
     v4 = 42 * ((v2 - v1) >> 3) - 1;
   }
 
-  v5 = *(a1 + 32);
-  if ((v4 - (*(a1 + 40) + v5)) < 0x2A)
+  v5 = a1[4];
+  if ((v4 - (a1[5] + v5)) < 0x2A)
   {
-    v7 = *(a1 + 24);
-    v8 = *a1;
-    v9 = &v7[-*a1];
-    if (v3 < v9)
+    v6 = a1[3];
+    v7 = *a1;
+    v8 = v6 - *a1;
+    if (v3 < v8)
     {
-      if (v1 != v8)
+      if (v1 != v7)
       {
         operator new();
       }
@@ -7746,24 +7740,24 @@ const void **std::deque<std::__state<char>>::__add_front_capacity(uint64_t a1)
       operator new();
     }
 
-    if (v7 == v8)
+    if (v6 == v7)
     {
-      v10 = 1;
+      v9 = 1;
     }
 
     else
     {
-      v10 = v9 >> 2;
+      v9 = v8 >> 2;
     }
 
-    v11[4] = a1;
-    std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(a1, v10);
+    v10[4] = a1;
+    std::__allocate_at_least[abi:ne200100]<std::allocator<std::__state<char> *>>(a1, v9);
   }
 
-  *(a1 + 32) = v5 + 42;
-  v11[0] = *(v2 - 1);
-  *(a1 + 16) = v2 - 8;
-  return std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(a1, v11);
+  a1[4] = (v5 + 42);
+  v10[0] = *(v2 - 8);
+  a1[2] = (v2 - 8);
+  std::__split_buffer<std::__state<char> *,std::allocator<std::__state<char> *>>::emplace_front<std::__state<char> *>(a1, v10);
 }
 
 void sub_25BA22054(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, uint64_t a12)
@@ -7874,7 +7868,7 @@ uint64_t std::__split_buffer<std::__state<char> *,std::allocator<std::__state<ch
   return a1;
 }
 
-_BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(void *a1, uint64_t a2, __int128 *a3, unint64_t a4)
+char *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100]<std::sub_match<char const*>*,std::sub_match<char const*>*>(uint64_t *a1, __int128 *a2, __int128 *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -7923,7 +7917,7 @@ _BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100
     {
       *result = *v5;
       result[16] = *(v5 + 16);
-      v5 += 24;
+      v5 = (v5 + 24);
       result += 24;
     }
 
@@ -7939,7 +7933,7 @@ _BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100
       {
         *result = *v5;
         result[16] = *(v5 + 16);
-        v5 += 24;
+        v5 = (v5 + 24);
         result += 24;
       }
 
@@ -7973,7 +7967,7 @@ _BYTE *std::vector<std::sub_match<char const*>>::__assign_with_size[abi:ne200100
   return result;
 }
 
-char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(char **a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
+char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:ne200100]<std::pair<unsigned long,char const*>*,std::pair<unsigned long,char const*>*>(uint64_t *a1, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   v5 = a2;
   v7 = a1[2];
@@ -8058,7 +8052,8 @@ char *std::vector<std::pair<unsigned long,char const*>>::__assign_with_size[abi:
       v15 = v11;
       do
       {
-        v16 = *v12++;
+        v16 = *v12;
+        v12 += 2;
         *v11 = v16;
         v11 += 16;
         v15 += 16;
@@ -8249,9 +8244,9 @@ void sub_25BA22808(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *AlgosScoreStreamCSVFrameRow::GetDescription@<X0>(AlgosScoreStreamCSVFrameRow *this@<X0>, _BYTE *a2@<X8>)
+uint64_t *AlgosScoreStreamCSVFrameRow::GetDescription@<X0>(uint64_t *__return_ptr a1@<X8>, AlgosScoreStreamCSVFrameRow *this@<X0>)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = this;
   if (*(this + 23) < 0)
   {
@@ -8265,12 +8260,10 @@ _BYTE *AlgosScoreStreamCSVFrameRow::GetDescription@<X0>(AlgosScoreStreamCSVFrame
   }
 
   snprintf(__str, 0x100uLL, "%s: %1.2f: duration: %1.2f, deltaT: %1.2f, weight: %1.2f, quality: %1.2f, wifi: %s, failed: %d", v3, *(this + 5), *(this + 4), *(this + 3), *(this + 6), *(this + 7), v4, *(this + 17));
-  result = std::string::basic_string[abi:ne200100]<0>(a2, __str);
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::string::basic_string[abi:ne200100]<0>(a1, __str);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -8284,28 +8277,26 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
-_BYTE *AlgosScoreStreamCSVFrameRow::GetHeaderDescription@<X0>(_BYTE *a1@<X8>)
+void *AlgosScoreStreamCSVFrameRow::GetHeaderDescription@<X0>(void *a1@<X8>)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  snprintf(__str, 0x100uLL, "     %-10s %-10s %-10s %-10s %-7s %-7s %-10s %-10s", "deltaT", "event", "duration", "quality", "wifi", "failed", "rel_time", "weight");
-  result = std::string::basic_string[abi:ne200100]<0>(a1, __str);
   v4 = *MEMORY[0x277D85DE8];
-  return result;
+  snprintf(__str, 0x100uLL, "     %-10s %-10s %-10s %-10s %-7s %-7s %-10s %-10s", "deltaT", "event", "duration", "quality", "wifi", "failed", "rel_time", "weight");
+  return std::string::basic_string[abi:ne200100]<0>(a1, __str);
 }
 
-_BYTE *AlgosScoreStreamCSVFrameRow::GetRawDescription@<X0>(AlgosScoreStreamCSVFrameRow *this@<X0>, _BYTE *a2@<X8>)
+void *AlgosScoreStreamCSVFrameRow::GetRawDescription@<X0>(AlgosScoreStreamCSVFrameRow *this@<X0>, void *a2@<X8>)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = this;
   if (*(this + 23) < 0)
   {
@@ -8328,12 +8319,8 @@ _BYTE *AlgosScoreStreamCSVFrameRow::GetRawDescription@<X0>(AlgosScoreStreamCSVFr
     v4 = "True";
   }
 
-  v6 = *(this + 4);
-  v7 = *(this + 5);
-  snprintf(__str, 0x100uLL, "%-10.3f %-10s %-10.3f %-10.3f %-7s %-7s %-10.3f %-10.3f", *(this + 3), v3, v6, *(this + 7), v5, v4, v7, *(this + 6));
-  result = std::string::basic_string[abi:ne200100]<0>(a2, __str);
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  snprintf(__str, 0x100uLL, "%-10.3f %-10s %-10.3f %-10.3f %-7s %-7s %-10.3f %-10.3f", *(this + 3), v3, *(this + 4), *(this + 7), v5, v4, *(this + 5), *(this + 6));
+  return std::string::basic_string[abi:ne200100]<0>(a2, __str);
 }
 
 void AlgosScoreStreamCSVFrame::DebugPrint(AlgosScoreStreamCSVFrame *this, int a2)
@@ -8447,16 +8434,18 @@ uint64_t ___ZN24AlgosScoreStreamCSVFrame10DebugPrintEi_block_invoke_2(uint64_t a
   return fputs(v2, v1);
 }
 
-void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
-void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void send_connection_report(uint64_t a1, uint64_t a2, void *a3)
@@ -8470,8 +8459,8 @@ void send_connection_report(uint64_t a1, uint64_t a2, void *a3)
     if (!a1)
     {
 LABEL_10:
-      v10 = nws_log_obj();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v13 = nws_log_obj(v8, v9);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         send_connection_report_cold_4();
       }
@@ -8482,8 +8471,8 @@ LABEL_10:
 
   else
   {
-    v8 = +[NWSClientConnection shared];
-    [v8 activateConnectionOn:v5];
+    v10 = +[NWSClientConnection shared];
+    [v10 activateConnectionOn:v5];
 
     if (!a1)
     {
@@ -8496,26 +8485,26 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v9 = [objc_alloc(MEMORY[0x277CD91C0]) initWithTCPReport:a1 length:a2 clientIdentifier:&stru_286D2DF20 sourceIdentifier:&stru_286D2DF20];
-  v10 = v9;
-  if (v9)
+  v11 = [objc_alloc(MEMORY[0x277CD91C0]) initWithTCPReport:a1 length:a2 clientIdentifier:&stru_286D2DF20 sourceIdentifier:&stru_286D2DF20];
+  v13 = v11;
+  if (v11)
   {
-    v11 = [v9 dictionaryReport];
-    if (v11)
+    v15 = [v11 dictionaryReport];
+    if (v15)
     {
-      v12 = +[NWSClientConnection shared];
-      v13 = [v12 connection];
-      v14 = [v13 remoteObjectProxyWithErrorHandler:&__block_literal_global];
+      v16 = +[NWSClientConnection shared];
+      v17 = [v16 connection];
+      v18 = [v17 remoteObjectProxyWithErrorHandler:&__block_literal_global];
 
-      if (v14)
+      if (v18)
       {
-        [v14 sendConnectionReportWithReport:v11];
+        [v18 sendConnectionReportWithReport:v15];
       }
 
       else
       {
-        v15 = nws_log_obj();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v21 = nws_log_obj(v19, v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           send_connection_report_cold_1();
         }
@@ -8524,8 +8513,8 @@ LABEL_10:
 
     else
     {
-      v14 = nws_log_obj();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v18 = nws_log_obj(0, v14);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         send_connection_report_cold_2();
       }
@@ -8534,8 +8523,8 @@ LABEL_10:
 
   else
   {
-    v11 = nws_log_obj();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v15 = nws_log_obj(0, v12);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       send_connection_report_cold_3();
     }
@@ -8547,18 +8536,18 @@ LABEL_21:
 void __send_connection_report_block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = nws_log_obj();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = nws_log_obj(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __45__NWSMetricReporter_sendHTTPMetrics_onQueue___block_invoke_cold_1(v2);
   }
 
-  v4 = +[NWSClientConnection shared];
-  v5 = [v4 connection];
-  [v5 invalidate];
+  v5 = +[NWSClientConnection shared];
+  v6 = [v5 connection];
+  [v6 invalidate];
 
-  v6 = +[NWSClientConnection shared];
-  [v6 setConnection:0];
+  v7 = +[NWSClientConnection shared];
+  [v7 setConnection:0];
 }
 
 void send_http_metrics(void *a1, void *a2, void *a3)
@@ -8575,28 +8564,29 @@ void send_http_metrics(void *a1, void *a2, void *a3)
     [v10 activateConnectionOn:v7];
   }
 
-  if (![v5 count] || (v11 = objc_msgSend(v5, "count"), v11 != xpc_array_get_count(v6)))
+  count = [v5 count];
+  if (!count || (v13 = [v5 count], count = xpc_array_get_count(v6), v13 != count))
   {
-    v12 = nws_log_obj();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = nws_log_obj(count, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       send_http_metrics_cold_1();
     }
   }
 
-  v13 = +[NWSClientConnection shared];
-  v14 = [v13 connection];
-  v15 = [v14 remoteObjectProxyWithErrorHandler:&__block_literal_global_4];
+  v15 = +[NWSClientConnection shared];
+  v16 = [v15 connection];
+  v17 = [v16 remoteObjectProxyWithErrorHandler:&__block_literal_global_4];
 
-  if (v15)
+  if (v17)
   {
-    [v15 sendHTTPMetricsWithMetrics:v5 activities:v6];
+    [v17 sendHTTPMetricsWithMetrics:v5 activities:v6];
   }
 
   else
   {
-    v16 = nws_log_obj();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v20 = nws_log_obj(v18, v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       send_connection_report_cold_1();
     }
@@ -8606,18 +8596,18 @@ void send_http_metrics(void *a1, void *a2, void *a3)
 void __send_http_metrics_block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = nws_log_obj();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = nws_log_obj(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __45__NWSMetricReporter_sendHTTPMetrics_onQueue___block_invoke_cold_1(v2);
   }
 
-  v4 = +[NWSClientConnection shared];
-  v5 = [v4 connection];
-  [v5 invalidate];
+  v5 = +[NWSClientConnection shared];
+  v6 = [v5 connection];
+  [v6 invalidate];
 
-  v6 = +[NWSClientConnection shared];
-  [v6 setConnection:0];
+  v7 = +[NWSClientConnection shared];
+  [v7 setConnection:0];
 }
 
 void sub_25BA2424C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, void *__p, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, void *a60, uint64_t a61)
@@ -8640,16 +8630,16 @@ void sub_25BA2424C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<AlgosScoreConnectionFrameRow>::__emplace_back_slow_path<AlgosScoreConnectionFrameRow>(uint64_t a1, const AlgosScoreConnectionFrameRow *a2)
+const AlgosScoreConnectionFrameRow *std::vector<AlgosScoreConnectionFrameRow>::__emplace_back_slow_path<AlgosScoreConnectionFrameRow>(const AlgosScoreConnectionFrameRow **a1, const AlgosScoreConnectionFrameRow *a2)
 {
-  v2 = (*(a1 + 8) - *a1) >> 6;
+  v2 = (a1[1] - *a1) >> 6;
   v3 = v2 + 1;
   if ((v2 + 1) >> 58)
   {
     std::vector<std::sub_match<char const*>>::__throw_length_error[abi:ne200100]();
   }
 
-  v6 = *(a1 + 16) - *a1;
+  v6 = a1[2] - *a1;
   if (v6 >> 5 > v3)
   {
     v3 = v6 >> 5;
@@ -8677,7 +8667,7 @@ uint64_t std::vector<AlgosScoreConnectionFrameRow>::__emplace_back_slow_path<Alg
   AlgosScoreConnectionFrameRow::AlgosScoreConnectionFrameRow((v2 << 6), a2);
   v12 = (v2 << 6) + 64;
   std::vector<AlgosScoreConnectionFrameRow>::__swap_out_circular_buffer(a1, &__p);
-  v8 = *(a1 + 8);
+  v8 = a1[1];
   if (v12 != v11)
   {
     v12 += (v11 - v12 + 63) & 0xFFFFFFFFFFFFFFC0;
@@ -8813,25 +8803,25 @@ void sub_25BA25B2C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   if (a2 == 1)
   {
     v44 = objc_begin_catch(exception_object);
-    v45 = nws_algos_log_obj();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+    v46 = nws_algos_log_obj(v44, v45);
+    if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
     {
-      v46 = [v44 description];
-      v47 = v46;
-      v48 = [v46 cStringUsingEncoding:4];
+      v47 = [v44 description];
+      v48 = v47;
+      v49 = [v47 cStringUsingEncoding:4];
       LODWORD(__p) = 136315138;
-      *(&__p + 4) = v48;
-      _os_log_error_impl(&dword_25BA15000, v45, OS_LOG_TYPE_ERROR, "Exception parsing FaceTime results %s", &__p, 0xCu);
+      *(&__p + 4) = v49;
+      _os_log_error_impl(&dword_25BA15000, v46, OS_LOG_TYPE_ERROR, "Exception parsing FaceTime results %s", &__p, 0xCu);
     }
 
-    v49 = v44;
+    v50 = v44;
     objc_exception_throw(v44);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<AlgosScoreStreamCSVFrameRow>::push_back[abi:ne200100](uint64_t a1, const AlgosScoreStreamCSVFrameRow *a2)
+uint64_t std::vector<AlgosScoreStreamCSVFrameRow>::push_back[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   v3 = *(a1 + 8);
   if (v3 >= *(a1 + 16))
@@ -8850,21 +8840,21 @@ uint64_t std::vector<AlgosScoreStreamCSVFrameRow>::push_back[abi:ne200100](uint6
   return result;
 }
 
-uint64_t std::vector<AlgosScoreStreamCSVFrameRow>::__emplace_back_slow_path<AlgosScoreStreamCSVFrameRow>(uint64_t a1, const AlgosScoreStreamCSVFrameRow *a2)
+uint64_t std::vector<AlgosScoreStreamCSVFrameRow>::__emplace_back_slow_path<AlgosScoreStreamCSVFrameRow>(AlgosScoreStreamCSVFrameRow **a1, uint64_t a2)
 {
-  v2 = 0x8E38E38E38E38E39 * ((*(a1 + 8) - *a1) >> 3);
+  v2 = 0x8E38E38E38E38E39 * ((a1[1] - *a1) >> 3);
   v3 = v2 + 1;
   if (v2 + 1 > 0x38E38E38E38E38ELL)
   {
     std::vector<std::sub_match<char const*>>::__throw_length_error[abi:ne200100]();
   }
 
-  if (0x1C71C71C71C71C72 * ((*(a1 + 16) - *a1) >> 3) > v3)
+  if (0x1C71C71C71C71C72 * ((a1[2] - *a1) >> 3) > v3)
   {
-    v3 = 0x1C71C71C71C71C72 * ((*(a1 + 16) - *a1) >> 3);
+    v3 = 0x1C71C71C71C71C72 * ((a1[2] - *a1) >> 3);
   }
 
-  if (0x8E38E38E38E38E39 * ((*(a1 + 16) - *a1) >> 3) >= 0x1C71C71C71C71C7)
+  if (0x8E38E38E38E38E39 * ((a1[2] - *a1) >> 3) >= 0x1C71C71C71C71C7)
   {
     v6 = 0x38E38E38E38E38ELL;
   }
@@ -8884,14 +8874,14 @@ uint64_t std::vector<AlgosScoreStreamCSVFrameRow>::__emplace_back_slow_path<Algo
   v14 = 72 * v2;
   AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow((72 * v2), a2);
   v15 = 72 * v2 + 72;
-  v7 = *(a1 + 8);
-  v8 = (72 * v2 + *a1 - v7);
+  v7 = a1[1];
+  v8 = (*a1 + 72 * v2 - v7);
   std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<AlgosScoreStreamCSVFrameRow>,AlgosScoreStreamCSVFrameRow*>(a1, *a1, v7, v8);
   v9 = *a1;
   *a1 = v8;
-  v10 = *(a1 + 16);
+  v10 = a1[2];
   v12 = v15;
-  *(a1 + 8) = v15;
+  *(a1 + 1) = v15;
   *&v15 = v9;
   *(&v15 + 1) = v10;
   v13 = v9;
@@ -8900,9 +8890,9 @@ uint64_t std::vector<AlgosScoreStreamCSVFrameRow>::__emplace_back_slow_path<Algo
   return v12;
 }
 
-void sub_25BA260D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_25BA260D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<AlgosScoreStreamCSVFrameRow>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -8917,7 +8907,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<AlgosScoreStreamCSVFr
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<AlgosScoreStreamCSVFrameRow>,AlgosScoreStreamCSVFrameRow*>(uint64_t a1, const AlgosScoreStreamCSVFrameRow *a2, const AlgosScoreStreamCSVFrameRow *a3, AlgosScoreStreamCSVFrameRow *a4)
+uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<AlgosScoreStreamCSVFrameRow>,AlgosScoreStreamCSVFrameRow*>(uint64_t a1, uint64_t a2, uint64_t a3, AlgosScoreStreamCSVFrameRow *a4)
 {
   v10 = a4;
   v11 = a4;
@@ -8937,7 +8927,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<Al
     do
     {
       AlgosScoreStreamCSVFrameRow::AlgosScoreStreamCSVFrameRow(a4, v6);
-      v6 = (v6 + 72);
+      v6 += 72;
       a4 = (v11 + 72);
       v11 = (v11 + 72);
     }
@@ -8951,7 +8941,7 @@ uint64_t std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<Al
         operator delete(*v5);
       }
 
-      v5 = (v5 + 72);
+      v5 += 72;
     }
   }
 
@@ -9016,7 +9006,7 @@ void std::__split_buffer<AlgosScoreStreamCSVFrameRow>::__destruct_at_end[abi:ne2
   }
 }
 
-uint64_t AlgosScoreStreamFrameRow::AlgosScoreStreamFrameRow(uint64_t a1, int a2, uint64_t a3, double a4, double a5, double a6, double a7)
+uint64_t AlgosScoreStreamFrameRow::AlgosScoreStreamFrameRow(uint64_t a1, int a2, void *a3, double a4, double a5, double a6, double a7)
 {
   *(a1 + 48) = 0;
   *(a1 + 40) = a1 + 48;
@@ -9026,9 +9016,9 @@ uint64_t AlgosScoreStreamFrameRow::AlgosScoreStreamFrameRow(uint64_t a1, int a2,
   *(a1 + 16) = a5;
   *(a1 + 24) = a6;
   *(a1 + 32) = a7;
-  if (a1 + 40 != a3)
+  if ((a1 + 40) != a3)
   {
-    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<std::string,std::string>,std::__tree_node<std::__value_type<std::string,std::string>,void *> *,long>>((a1 + 40), *a3, (a3 + 8));
+    std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__assign_multi<std::__tree_const_iterator<std::__value_type<std::string,std::string>,std::__tree_node<std::__value_type<std::string,std::string>,void *> *,long>>((a1 + 40), *a3, a3 + 1);
   }
 
   return a1;
@@ -9086,9 +9076,9 @@ BOOL AlgosScoreStreamFrameRow::SetCSVRow(uint64_t a1, const std::string *a2)
   *(a1 + 16) = std::stod(v30 + 2, 0);
   *(a1 + 24) = std::stod(v30 + 3, 0);
   *(a1 + 32) = std::stod(v30 + 4, 0);
-  if (*(v30 + 143) < 0)
+  if (v30[143] < 0)
   {
-    std::string::__init_copy_ctor_external(&__str, v30[15], v30[16]);
+    std::string::__init_copy_ctor_external(&__str, *(v30 + 15), *(v30 + 16));
   }
 
   else
@@ -9203,9 +9193,9 @@ LABEL_42:
     }
 
     std::string::basic_string(&v23, &v33, v16 + 1, v11 - 2, &v22);
-    std::string::basic_string(&v22, &v33, 0, v16, &v39);
-    v39 = &v22;
-    v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(a1 + 40, &v22.__r_.__value_.__l.__data_);
+    std::string::basic_string(&v22, &v33, 0, v16, v39);
+    v39[0] = &v22;
+    v17 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>((a1 + 40), &v22, &std::piecewise_construct, v39);
     v18 = v17;
     if (*(v17 + 79) < 0)
     {
@@ -9270,7 +9260,7 @@ LABEL_47:
   return v8;
 }
 
-void sub_25BA26A60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, int a59, __int16 a60, char a61, char a62, char a63)
+void sub_25BA26A60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, char *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, int a59, __int16 a60, char a61, char a62, char a63)
 {
   if (a15 < 0)
   {
@@ -9290,12 +9280,12 @@ void sub_25BA26A60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
   a22 = &a63;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&a22);
-  if (a71 < 0)
+  if (a66 < 0)
   {
-    operator delete(a66);
+    operator delete(a65);
   }
 
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a72);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a67);
   _Unwind_Resume(a1);
 }
 
@@ -9329,7 +9319,7 @@ uint64_t AlgosScoreStreamFrameRow::operator=(uint64_t a1, uint64_t a2)
 
 void AlgosScoreStreamFrameRow::GetParamString(AlgosScoreStreamFrameRow *this@<X0>, uint64_t a2@<X8>)
 {
-  v25[2] = *MEMORY[0x277D85DE8];
+  v24[2] = *MEMORY[0x277D85DE8];
   *a2 = 0;
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
@@ -9339,16 +9329,16 @@ void AlgosScoreStreamFrameRow::GetParamString(AlgosScoreStreamFrameRow *this@<X0
   {
     do
     {
-      std::pair<std::string const,std::string>::pair[abi:ne200100](&v22, v3 + 2);
-      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, &v22.__r_.__value_.__l.__data_, &v19);
-      v5 = std::string::append(&v19, ":", 1uLL);
+      std::pair<std::string const,std::string>::pair[abi:ne200100](&v21, v3 + 2);
+      std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a2, &v21.__r_.__value_.__l.__data_, &v18);
+      v5 = std::string::append(&v18, ":", 1uLL);
       v6 = *&v5->__r_.__value_.__l.__data_;
-      v20.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
-      *&v20.__r_.__value_.__l.__data_ = v6;
+      v19.__r_.__value_.__r.__words[2] = v5->__r_.__value_.__r.__words[2];
+      *&v19.__r_.__value_.__l.__data_ = v6;
       v5->__r_.__value_.__l.__size_ = 0;
       v5->__r_.__value_.__r.__words[2] = 0;
       v5->__r_.__value_.__r.__words[0] = 0;
-      if ((v24 & 0x80u) == 0)
+      if ((v23 & 0x80u) == 0)
       {
         v7 = __p;
       }
@@ -9358,9 +9348,9 @@ void AlgosScoreStreamFrameRow::GetParamString(AlgosScoreStreamFrameRow *this@<X0
         v7 = __p[0];
       }
 
-      if ((v24 & 0x80u) == 0)
+      if ((v23 & 0x80u) == 0)
       {
-        v8 = v24;
+        v8 = v23;
       }
 
       else
@@ -9368,17 +9358,17 @@ void AlgosScoreStreamFrameRow::GetParamString(AlgosScoreStreamFrameRow *this@<X0
         v8 = __p[1];
       }
 
-      v9 = std::string::append(&v20, v7, v8);
+      v9 = std::string::append(&v19, v7, v8);
       v10 = *&v9->__r_.__value_.__l.__data_;
-      v21.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
-      *&v21.__r_.__value_.__l.__data_ = v10;
+      v20.__r_.__value_.__r.__words[2] = v9->__r_.__value_.__r.__words[2];
+      *&v20.__r_.__value_.__l.__data_ = v10;
       v9->__r_.__value_.__l.__size_ = 0;
       v9->__r_.__value_.__r.__words[2] = 0;
       v9->__r_.__value_.__r.__words[0] = 0;
-      v11 = std::string::append(&v21, " ", 1uLL);
+      v11 = std::string::append(&v20, " ", 1uLL);
       v12 = v11->__r_.__value_.__r.__words[0];
-      v25[0] = v11->__r_.__value_.__l.__size_;
-      *(v25 + 7) = *(&v11->__r_.__value_.__r.__words[1] + 7);
+      v24[0] = v11->__r_.__value_.__l.__size_;
+      *(v24 + 7) = *(&v11->__r_.__value_.__r.__words[1] + 7);
       v13 = HIBYTE(v11->__r_.__value_.__r.__words[2]);
       v11->__r_.__value_.__l.__size_ = 0;
       v11->__r_.__value_.__r.__words[2] = 0;
@@ -9388,16 +9378,11 @@ void AlgosScoreStreamFrameRow::GetParamString(AlgosScoreStreamFrameRow *this@<X0
         operator delete(*a2);
       }
 
-      v14 = v25[0];
+      v14 = v24[0];
       *a2 = v12;
       *(a2 + 8) = v14;
-      *(a2 + 15) = *(v25 + 7);
+      *(a2 + 15) = *(v24 + 7);
       *(a2 + 23) = v13;
-      if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
-      {
-        operator delete(v21.__r_.__value_.__l.__data_);
-      }
-
       if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(v20.__r_.__value_.__l.__data_);
@@ -9408,14 +9393,19 @@ void AlgosScoreStreamFrameRow::GetParamString(AlgosScoreStreamFrameRow *this@<X0
         operator delete(v19.__r_.__value_.__l.__data_);
       }
 
-      if (v24 < 0)
+      if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(v18.__r_.__value_.__l.__data_);
+      }
+
+      if (v23 < 0)
       {
         operator delete(__p[0]);
       }
 
-      if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v22.__r_.__value_.__l.__data_);
+        operator delete(v21.__r_.__value_.__l.__data_);
       }
 
       v15 = *(v3 + 1);
@@ -9447,8 +9437,6 @@ void AlgosScoreStreamFrameRow::GetParamString(AlgosScoreStreamFrameRow *this@<X0
 
     while (v16 != v4);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25BA26DA8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, char a29)
@@ -9473,7 +9461,7 @@ __n128 std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<c
   return result;
 }
 
-uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
+char *std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>@<X0>(const void **a1@<X0>, const void **a2@<X1>, uint64_t a3@<X8>)
 {
   if (*(a1 + 23) >= 0)
   {
@@ -9496,7 +9484,7 @@ uint64_t std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator
   }
 
   result = std::string::basic_string[abi:ne200100](a3, v6 + v5);
-  if (*(result + 23) >= 0)
+  if (result[23] >= 0)
   {
     v8 = result;
   }
@@ -9564,41 +9552,41 @@ void sub_25BA26FA0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void AlgosScoreStreamFrameRow::GetCSVRow(AlgosScoreStreamFrameRow *this@<X0>, int a2@<W1>, _BYTE *a3@<X8>)
+void AlgosScoreStreamFrameRow::GetCSVRow(AlgosScoreStreamFrameRow *this@<X0>, int a2@<W1>, void *a3@<X8>)
 {
-  v23 = *MEMORY[0x277D85DE8];
-  std::string::basic_string[abi:ne200100]<0>(&v21, "%s,%.17g,%.17g,%.17g,%.17g,%s");
+  v22 = *MEMORY[0x277D85DE8];
+  std::string::basic_string[abi:ne200100]<0>(&v20, "%s,%.17g,%.17g,%.17g,%.17g,%s");
   if (a2)
   {
-    v6 = std::string::append(&v21, "\n", 1uLL);
-    std::string::operator=(&v21, v6);
+    v6 = std::string::append(&v20, "\n", 1uLL);
+    std::string::operator=(&v20, v6);
   }
 
-  if ((v21.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v20.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v7 = &v21;
+    v7 = &v20;
   }
 
   else
   {
-    v7 = v21.__r_.__value_.__r.__words[0];
+    v7 = v20.__r_.__value_.__r.__words[0];
   }
 
-  AlgosScoreStreamFrameRow::StringForEvent(*this, v19);
-  v8 = v20;
-  v9 = v19[0];
+  AlgosScoreStreamFrameRow::StringForEvent(*this, v18);
+  v8 = v19;
+  v9 = v18[0];
   v10 = *(this + 1);
   v11 = *(this + 2);
   v12 = *(this + 3);
   v13 = *(this + 4);
   AlgosScoreStreamFrameRow::GetParamString(this, __p);
-  v14 = v19;
+  v14 = v18;
   if (v8 < 0)
   {
     v14 = v9;
   }
 
-  if (v18 >= 0)
+  if (v17 >= 0)
   {
     v15 = __p;
   }
@@ -9609,23 +9597,21 @@ void AlgosScoreStreamFrameRow::GetCSVRow(AlgosScoreStreamFrameRow *this@<X0>, in
   }
 
   snprintf(__str, 0x400uLL, v7, v14, v10, v11, v12, v13, v15);
-  if (v18 < 0)
+  if (v17 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (v20 < 0)
+  if (v19 < 0)
   {
-    operator delete(v19[0]);
+    operator delete(v18[0]);
   }
 
   std::string::basic_string[abi:ne200100]<0>(a3, __str);
-  if (SHIBYTE(v21.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v21.__r_.__value_.__l.__data_);
+    operator delete(v20.__r_.__value_.__l.__data_);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void sub_25BA2712C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, int a20, __int16 a21, char a22, char a23, void *a24, uint64_t a25, int a26, __int16 a27, char a28, char a29)
@@ -9643,7 +9629,7 @@ void sub_25BA2712C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *AlgosScoreStreamFrameRow::StringForEvent@<X0>(unsigned int a1@<W0>, _BYTE *a2@<X8>)
+void *AlgosScoreStreamFrameRow::StringForEvent@<X0>(unsigned int a1@<W0>, void *a2@<X8>)
 {
   if (a1 >= 6)
   {
@@ -9658,8 +9644,9 @@ _BYTE *AlgosScoreStreamFrameRow::StringForEvent@<X0>(unsigned int a1@<W0>, _BYTE
   return std::string::basic_string[abi:ne200100]<0>(a2, v2);
 }
 
-uint64_t *std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](uint64_t *a1, const std::string *a2, int a3)
+uint64_t *std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::basic_stringstream[abi:ne200100](uint64_t *a1, const std::string *a2, uint64_t a3)
 {
+  v3 = a3;
   a1[22] = 0;
   v6 = MEMORY[0x277D82890] + 104;
   a1[16] = MEMORY[0x277D82890] + 104;
@@ -9687,7 +9674,7 @@ uint64_t *std::basic_stringstream<char,std::char_traits<char>,std::allocator<cha
   *a1 = v13;
   a1[16] = v6;
   a1[2] = v8;
-  std::stringbuf::basic_stringbuf[abi:ne200100]((a1 + 3), a2, a3);
+  std::stringbuf::basic_stringbuf[abi:ne200100]((a1 + 3), a2, v3);
   return a1;
 }
 
@@ -9781,7 +9768,7 @@ void sub_25BA275B4(void *a1)
   __cxa_rethrow();
 }
 
-uint64_t AlgosScoreStreamFrameRow::EventForString(void **a1)
+uint64_t AlgosScoreStreamFrameRow::EventForString(char *a1)
 {
   {
     AlgosScoreStreamFrameRow::EventForString();
@@ -9793,7 +9780,7 @@ uint64_t AlgosScoreStreamFrameRow::EventForString(void **a1)
     {
       std::string::basic_string[abi:ne200100]<0>(&__p, AlgosScoreStreamFrameRow::event_strings[i]);
       v7.__r_.__value_.__r.__words[0] = &__p;
-      *(std::__tree<std::__value_type<std::string,NWSAlgosEventTypes>,std::__map_value_compare<std::string,std::__value_type<std::string,NWSAlgosEventTypes>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NWSAlgosEventTypes>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&AlgosScoreStreamFrameRow::EventForString(std::string &)::event_map, &__p.__r_.__value_.__l.__data_) + 56) = i;
+      *(std::__tree<std::__value_type<std::string,NWSAlgosEventTypes>,std::__map_value_compare<std::string,std::__value_type<std::string,NWSAlgosEventTypes>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,NWSAlgosEventTypes>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&AlgosScoreStreamFrameRow::EventForString(std::string &)::event_map, &__p, &std::piecewise_construct, &v7) + 56) = i;
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);

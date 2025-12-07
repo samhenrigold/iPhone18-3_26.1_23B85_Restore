@@ -8,17 +8,17 @@
 + (id)fetchAdditionChangeSetRequest
 {
   objc_opt_self();
-  v0 = [objc_alloc(MEMORY[0x1E695D5E0]) initWithEntityName:@"AdditionChangeSet"];
+  v1 = [objc_alloc(MEMORY[0x1E695D5E0]) initWithEntityName:@"AdditionChangeSet"];
 
-  return v0;
+  return v1;
 }
 
 + (id)fetchDeletionChangeSetRequest
 {
   objc_opt_self();
-  v0 = [objc_alloc(MEMORY[0x1E695D5E0]) initWithEntityName:@"DeletionChangeSet"];
+  v1 = [objc_alloc(MEMORY[0x1E695D5E0]) initWithEntityName:@"DeletionChangeSet"];
 
-  return v0;
+  return v1;
 }
 
 @end

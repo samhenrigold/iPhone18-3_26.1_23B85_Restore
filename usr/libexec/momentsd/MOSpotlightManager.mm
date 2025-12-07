@@ -322,22 +322,20 @@ LABEL_9:
   dispatch_group_leave(*(a1 + 48));
 }
 
-void __90__MOSpotlightManager__fetchInviteEventsBetweenStartDate_endDate_withStoredEvents_handler___block_invoke_144(void *a1)
+void __90__MOSpotlightManager__fetchInviteEventsBetweenStartDate_endDate_withStoredEvents_handler___block_invoke_144(uint64_t a1)
 {
-  v2 = a1[5];
+  v2 = *(a1 + 40);
   if (v2)
   {
-    v3 = *(*(a1[6] + 8) + 40);
-    v4 = *(*(a1[7] + 8) + 40);
-    v5 = *(v2 + 16);
+    v3 = *(v2 + 16);
 
-    v5();
+    v3();
   }
 
   else
   {
-    v6 = _mo_log_facility_get_os_log(&MOLogFacilitySpotlight);
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v4 = _mo_log_facility_get_os_log(&MOLogFacilitySpotlight);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __90__MOSpotlightManager__fetchInviteEventsBetweenStartDate_endDate_withStoredEvents_handler___block_invoke_144_cold_1(a1);
     }
@@ -475,7 +473,7 @@ void __53__MOSpotlightManager__rehydrateInviteEvents_handler___block_invoke(uint
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v75 = [v5 count];
+    v73 = [v5 count];
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "spotlight invite rehydration fetch result count %lu for com.apple.rsvp", buf, 0xCu);
   }
 
@@ -483,7 +481,7 @@ void __53__MOSpotlightManager__rehydrateInviteEvents_handler___block_invoke(uint
   {
     if ([v5 count])
     {
-      v58 = v6;
+      v56 = v6;
       v25 = _mo_log_facility_get_os_log(&MOLogFacilitySpotlight);
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
@@ -492,26 +490,26 @@ void __53__MOSpotlightManager__rehydrateInviteEvents_handler___block_invoke(uint
 
       v33 = objc_opt_new();
       v34 = objc_opt_new();
+      v62 = 0u;
+      v63 = 0u;
       v64 = 0u;
       v65 = 0u;
-      v66 = 0u;
-      v67 = 0u;
       v35 = *(a1 + 48);
-      v36 = [v35 countByEnumeratingWithState:&v64 objects:v79 count:16];
+      v36 = [v35 countByEnumeratingWithState:&v62 objects:v77 count:16];
       if (v36)
       {
         v37 = v36;
-        v38 = *v65;
+        v38 = *v63;
         do
         {
           for (i = 0; i != v37; i = i + 1)
           {
-            if (*v65 != v38)
+            if (*v63 != v38)
             {
               objc_enumerationMutation(v35);
             }
 
-            v40 = *(*(&v64 + 1) + 8 * i);
+            v40 = *(*(&v62 + 1) + 8 * i);
             v41 = [v40 startDate];
             [v33 setObject:v40 forKey:v41];
 
@@ -519,33 +517,33 @@ void __53__MOSpotlightManager__rehydrateInviteEvents_handler___block_invoke(uint
             [v34 addObject:v42];
           }
 
-          v37 = [v35 countByEnumeratingWithState:&v64 objects:v79 count:16];
+          v37 = [v35 countByEnumeratingWithState:&v62 objects:v77 count:16];
         }
 
         while (v37);
       }
 
-      v62 = 0u;
-      v63 = 0u;
       v60 = 0u;
       v61 = 0u;
-      v59 = v5;
+      v58 = 0u;
+      v59 = 0u;
+      v57 = v5;
       v43 = v5;
-      v44 = [v43 countByEnumeratingWithState:&v60 objects:v78 count:16];
+      v44 = [v43 countByEnumeratingWithState:&v58 objects:v76 count:16];
       if (v44)
       {
         v45 = v44;
-        v46 = *v61;
+        v46 = *v59;
         do
         {
           for (j = 0; j != v45; j = j + 1)
           {
-            if (*v61 != v46)
+            if (*v59 != v46)
             {
               objc_enumerationMutation(v43);
             }
 
-            v48 = *(*(&v60 + 1) + 8 * j);
+            v48 = *(*(&v58 + 1) + 8 * j);
             v49 = [v48 startDate];
             v50 = [v34 containsObject:v49];
 
@@ -560,9 +558,9 @@ void __53__MOSpotlightManager__rehydrateInviteEvents_handler___block_invoke(uint
               {
                 v54 = NSStringFromSelector(*(a1 + 88));
                 *buf = 138412546;
-                v75 = v54;
-                v76 = 2112;
-                v77 = v52;
+                v73 = v54;
+                v74 = 2112;
+                v75 = v52;
                 _os_log_debug_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEBUG, "%@, spotlight invite rehydration found matching event, rehydrated event, %@", buf, 0x16u);
               }
 
@@ -570,31 +568,26 @@ void __53__MOSpotlightManager__rehydrateInviteEvents_handler___block_invoke(uint
             }
           }
 
-          v45 = [v43 countByEnumeratingWithState:&v60 objects:v78 count:16];
+          v45 = [v43 countByEnumeratingWithState:&v58 objects:v76 count:16];
         }
 
         while (v45);
       }
 
-      v6 = v58;
-      v5 = v59;
+      v6 = v56;
+      v5 = v57;
     }
 
     if (*(a1 + 56))
     {
-      if ([*(*(*(a1 + 80) + 8) + 40) count])
-      {
-        v55 = *(*(*(a1 + 80) + 8) + 40);
-      }
-
-      v56 = *(*(*(a1 + 64) + 8) + 40);
+      [*(*(*(a1 + 80) + 8) + 40) count];
       (*(*(a1 + 56) + 16))();
     }
 
     else
     {
-      v57 = _mo_log_facility_get_os_log(&MOLogFacilitySpotlight);
-      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+      v55 = _mo_log_facility_get_os_log(&MOLogFacilitySpotlight);
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
       {
         __53__MOSpotlightManager__rehydrateInviteEvents_handler___block_invoke_cold_3(a1);
       }
@@ -613,18 +606,18 @@ void __53__MOSpotlightManager__rehydrateInviteEvents_handler___block_invoke(uint
     v20 = *(*(*(a1 + 72) + 8) + 40);
     v21 = [*(a1 + 40) startDate];
     v22 = [*(a1 + 40) endDate];
-    v68[0] = _NSConcreteStackBlock;
-    v68[1] = 3221225472;
-    v68[2] = __53__MOSpotlightManager__rehydrateInviteEvents_handler___block_invoke_145;
-    v68[3] = &unk_10033F5F8;
-    v72 = *(a1 + 64);
+    v66[0] = _NSConcreteStackBlock;
+    v66[1] = 3221225472;
+    v66[2] = __53__MOSpotlightManager__rehydrateInviteEvents_handler___block_invoke_145;
+    v66[3] = &unk_10033F5F8;
+    v70 = *(a1 + 64);
     v23 = *(a1 + 48);
     v24 = *(a1 + 32);
-    v69 = v23;
-    v70 = v24;
-    v73 = *(a1 + 80);
-    v71 = *(a1 + 56);
-    [v19 fetchEventEntityPropertiesWithSpotlightIdentifiers:v20 startDateFetch:v21 endDateFetch:v22 bundleIdentifier:@"com.apple.rsvp.liveon" completion:v68];
+    v67 = v23;
+    v68 = v24;
+    v71 = *(a1 + 80);
+    v69 = *(a1 + 56);
+    [v19 fetchEventEntityPropertiesWithSpotlightIdentifiers:v20 startDateFetch:v21 endDateFetch:v22 bundleIdentifier:@"com.apple.rsvp.liveon" completion:v66];
   }
 }
 
@@ -650,13 +643,13 @@ void __53__MOSpotlightManager__rehydrateInviteEvents_handler___block_invoke_145(
   else if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v55 = [v5 count];
+    v53 = [v5 count];
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "spotlight invite rehydration fetch result count %lu for com.apple.rsvp.liveon", buf, 0xCu);
   }
 
   if ([v5 count])
   {
-    v44 = v6;
+    v42 = v6;
     v11 = _mo_log_facility_get_os_log(&MOLogFacilitySpotlight);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
@@ -665,26 +658,26 @@ void __53__MOSpotlightManager__rehydrateInviteEvents_handler___block_invoke_145(
 
     v19 = objc_opt_new();
     v20 = objc_opt_new();
+    v48 = 0u;
+    v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
-    v53 = 0u;
     v21 = *(a1 + 32);
-    v22 = [v21 countByEnumeratingWithState:&v50 objects:v59 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v48 objects:v57 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v51;
+      v24 = *v49;
       do
       {
         for (i = 0; i != v23; i = i + 1)
         {
-          if (*v51 != v24)
+          if (*v49 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          v26 = *(*(&v50 + 1) + 8 * i);
+          v26 = *(*(&v48 + 1) + 8 * i);
           v27 = [v26 startDate];
           [v19 setObject:v26 forKey:v27];
 
@@ -692,33 +685,33 @@ void __53__MOSpotlightManager__rehydrateInviteEvents_handler___block_invoke_145(
           [v20 addObject:v28];
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v50 objects:v59 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v48 objects:v57 count:16];
       }
 
       while (v23);
     }
 
-    v48 = 0u;
-    v49 = 0u;
     v46 = 0u;
     v47 = 0u;
-    v45 = v5;
+    v44 = 0u;
+    v45 = 0u;
+    v43 = v5;
     v29 = v5;
-    v30 = [v29 countByEnumeratingWithState:&v46 objects:v58 count:16];
+    v30 = [v29 countByEnumeratingWithState:&v44 objects:v56 count:16];
     if (v30)
     {
       v31 = v30;
-      v32 = *v47;
+      v32 = *v45;
       do
       {
         for (j = 0; j != v31; j = j + 1)
         {
-          if (*v47 != v32)
+          if (*v45 != v32)
           {
             objc_enumerationMutation(v29);
           }
 
-          v34 = *(*(&v46 + 1) + 8 * j);
+          v34 = *(*(&v44 + 1) + 8 * j);
           v35 = [v34 startDate];
           v36 = [v20 containsObject:v35];
 
@@ -733,9 +726,9 @@ void __53__MOSpotlightManager__rehydrateInviteEvents_handler___block_invoke_145(
             {
               v40 = NSStringFromSelector(*(a1 + 72));
               *buf = 138412546;
-              v55 = v40;
-              v56 = 2112;
-              v57 = v38;
+              v53 = v40;
+              v54 = 2112;
+              v55 = v38;
               _os_log_debug_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEBUG, "%@, spotlight invite rehydration found matching event, rehydrated event, %@", buf, 0x16u);
             }
 
@@ -743,31 +736,26 @@ void __53__MOSpotlightManager__rehydrateInviteEvents_handler___block_invoke_145(
           }
         }
 
-        v31 = [v29 countByEnumeratingWithState:&v46 objects:v58 count:16];
+        v31 = [v29 countByEnumeratingWithState:&v44 objects:v56 count:16];
       }
 
       while (v31);
     }
 
-    v6 = v44;
-    v5 = v45;
+    v6 = v42;
+    v5 = v43;
   }
 
   if (*(a1 + 48))
   {
-    if ([*(*(*(a1 + 64) + 8) + 40) count])
-    {
-      v41 = *(*(*(a1 + 64) + 8) + 40);
-    }
-
-    v42 = *(*(*(a1 + 56) + 8) + 40);
+    [*(*(*(a1 + 64) + 8) + 40) count];
     (*(*(a1 + 48) + 16))();
   }
 
   else
   {
-    v43 = _mo_log_facility_get_os_log(&MOLogFacilitySpotlight);
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+    v41 = _mo_log_facility_get_os_log(&MOLogFacilitySpotlight);
+    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
       __53__MOSpotlightManager__rehydrateInviteEvents_handler___block_invoke_145_cold_3(a1);
     }
@@ -1200,13 +1188,12 @@ LABEL_22:
 
 void __90__MOSpotlightManager__fetchInviteEventsBetweenStartDate_endDate_withStoredEvents_handler___block_invoke_144_cold_1(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = NSStringFromSelector(*(a1 + 64));
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = NSStringFromSelector(*(a1 + 64));
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_1_8();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
 - (void)_rehydrateInviteEvents:(void *)a3 handler:(os_log_t)log .cold.1(void *a1, uint8_t *buf, void *a3, os_log_t log)
@@ -1218,24 +1205,22 @@ void __90__MOSpotlightManager__fetchInviteEventsBetweenStartDate_endDate_withSto
 
 void __53__MOSpotlightManager__rehydrateInviteEvents_handler___block_invoke_cold_3(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = NSStringFromSelector(*(a1 + 88));
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = NSStringFromSelector(*(a1 + 88));
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_1_8();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
 void __53__MOSpotlightManager__rehydrateInviteEvents_handler___block_invoke_145_cold_3(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = NSStringFromSelector(*(a1 + 72));
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = NSStringFromSelector(*(a1 + 72));
   OUTLINED_FUNCTION_6_0();
   OUTLINED_FUNCTION_1_8();
-  _os_log_error_impl(v6, v7, v8, v9, v10, 0x16u);
+  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
 }
 
 - (void)_createResultsWithStoredEvents:(const char *)a1 withEventEntityinvites:.cold.1(const char *a1)

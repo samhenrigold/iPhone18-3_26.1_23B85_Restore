@@ -122,7 +122,7 @@
         [(PXCMMContext *)v29 setPosterMediaProvider:v34];
         if (dataSource)
         {
-          [dataSource firstItemIndexPath];
+          objc_msgSend_firstItemIndexPath(dataSource);
         }
 
         else
@@ -136,7 +136,7 @@
 
         if (dataSource)
         {
-          [dataSource lastItemIndexPath];
+          objc_msgSend_lastItemIndexPath(dataSource);
         }
 
         else

@@ -37,7 +37,7 @@
 
 - (void)handleContentSizeCategoryDidChange:(id)change
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12NotificationVSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation12NotificationVSgMd, &_s10Foundation12NotificationVSgMR);
   MEMORY[0x1EEE9AC00](v5 - 8);
   v7 = &v11 - v6;
   if (change)

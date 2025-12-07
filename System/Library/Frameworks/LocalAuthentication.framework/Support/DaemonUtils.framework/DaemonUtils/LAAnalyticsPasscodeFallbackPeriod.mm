@@ -58,19 +58,8 @@ uint64_t __62__LAAnalyticsPasscodeFallbackPeriod_activePersistentInstances__bloc
 {
   requestCopy = request;
   policies = [(LAAnalyticsPasscodeFallbackPeriod *)self policies];
-  if (!policies)
+  if (!policies || (v8 = policies, -[LAAnalyticsPasscodeFallbackPeriod policies](self, "policies"), v9 = objc_claimAutoreleasedReturnValue(), [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(requestCopy, "policy")}], v10 = objc_claimAutoreleasedReturnValue(), v11 = objc_msgSend(v9, "containsObject:", v10), v10, v9, v8, v11))
   {
-    goto LABEL_12;
-  }
-
-  v8 = policies;
-  policies2 = [(LAAnalyticsPasscodeFallbackPeriod *)self policies];
-  v10 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(requestCopy, "policy")}];
-  v11 = [policies2 containsObject:v10];
-
-  if (v11)
-  {
-LABEL_12:
     if (!self->_passcodePresentedTime)
     {
       if (attempts < 1)
@@ -85,7 +74,7 @@ LABEL_12:
 
     ++self->_passcodeCount;
     self->_biometryAttempts += attempts;
-    v14 = LA_LOG();
+    v14 = LA_LOG(policies);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       [LAAnalyticsPasscodeFallbackPeriod passcodePresentedWithEvaluationRequest:v14 biometryAttempts:?];
@@ -99,29 +88,18 @@ LABEL_9:
 {
   requestCopy = request;
   policies = [(LAAnalyticsPasscodeFallbackPeriod *)self policies];
-  if (!policies)
+  if (!policies || (v6 = policies, -[LAAnalyticsPasscodeFallbackPeriod policies](self, "policies"), v7 = objc_claimAutoreleasedReturnValue(), [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(requestCopy, "policy")}], v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "containsObject:", v8), v8, v7, v6, v9))
   {
-    goto LABEL_10;
-  }
-
-  v6 = policies;
-  policies2 = [(LAAnalyticsPasscodeFallbackPeriod *)self policies];
-  v8 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(requestCopy, "policy")}];
-  v9 = [policies2 containsObject:v8];
-
-  if (v9)
-  {
-LABEL_10:
     if (self->_passcodePresentedTime)
     {
       v10 = [MEMORY[0x277CBEAA8] now];
       biometrySuccessTime = self->_biometrySuccessTime;
       self->_biometrySuccessTime = v10;
 
-      v12 = LA_LOG();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v13 = LA_LOG(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        [(LAAnalyticsPasscodeFallbackPeriod *)self biometrySucceededWithEvaluationRequest:v12];
+        [(LAAnalyticsPasscodeFallbackPeriod *)self biometrySucceededWithEvaluationRequest:v13];
       }
 
       [(LAAnalytics *)self collectIfNeeded];
@@ -191,22 +169,20 @@ LABEL_10:
 
 - (id)buildPayload
 {
-  v11[4] = *MEMORY[0x277D85DE8];
-  v10[0] = @"policyGroupName";
+  v10[4] = *MEMORY[0x277D85DE8];
+  v9[0] = @"policyGroupName";
   policyGroupName = [(LAAnalyticsPasscodeFallbackPeriod *)self policyGroupName];
-  v11[0] = policyGroupName;
-  v10[1] = @"passcodeCount";
+  v10[0] = policyGroupName;
+  v9[1] = @"passcodeCount";
   v4 = [MEMORY[0x277CCABB0] numberWithInteger:{-[LAAnalyticsPasscodeFallbackPeriod passcodeCount](self, "passcodeCount")}];
-  v11[1] = v4;
-  v10[2] = @"biometryAttempts";
+  v10[1] = v4;
+  v9[2] = @"biometryAttempts";
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:{-[LAAnalyticsPasscodeFallbackPeriod biometryAttempts](self, "biometryAttempts")}];
-  v11[2] = v5;
-  v10[3] = @"timeInterval";
+  v10[2] = v5;
+  v9[3] = @"timeInterval";
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:{-[LAAnalyticsPasscodeFallbackPeriod timeInterval](self, "timeInterval")}];
-  v11[3] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:4];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10[3] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:4];
 
   return v7;
 }
@@ -239,69 +215,66 @@ LABEL_10:
   return v3;
 }
 
-uint64_t __63__LAAnalyticsPasscodeFallbackPeriod__persistedInstancesStorage__block_invoke()
+void *__63__LAAnalyticsPasscodeFallbackPeriod__persistedInstancesStorage__block_invoke()
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v0 = objc_opt_new();
   v1 = _persistedInstancesStorage_storage;
   _persistedInstancesStorage_storage = v0;
 
-  v10 = 0u;
-  v11 = 0u;
-  v8 = 0u;
   v9 = 0u;
-  result = [&unk_284B71E40 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
+  result = [&unk_284B71E40 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (result)
   {
     v3 = result;
-    v4 = *v9;
+    v4 = *v8;
     do
     {
       v5 = 0;
       do
       {
-        if (*v9 != v4)
+        if (*v8 != v4)
         {
           objc_enumerationMutation(&unk_284B71E40);
         }
 
-        v6 = -[LAAnalyticsPasscodeFallbackPeriod initWithPolicyGroup:]([LAAnalyticsPasscodeFallbackPeriod alloc], "initWithPolicyGroup:", [*(*(&v8 + 1) + 8 * v5) integerValue]);
+        v6 = -[LAAnalyticsPasscodeFallbackPeriod initWithPolicyGroup:]([LAAnalyticsPasscodeFallbackPeriod alloc], "initWithPolicyGroup:", [*(*(&v7 + 1) + 8 * v5) integerValue]);
         if ([(LAAnalyticsPasscodeFallbackPeriod *)v6 shouldCollect])
         {
           [(LAAnalytics *)v6 persistInStorage:_persistedInstancesStorage_storage];
         }
 
-        ++v5;
+        v5 = v5 + 1;
       }
 
       while (v3 != v5);
-      result = [&unk_284B71E40 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      result = [&unk_284B71E40 countByEnumeratingWithState:&v7 objects:v11 count:16];
       v3 = result;
     }
 
     while (result);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)passcodePresentedWithEvaluationRequest:(uint64_t)a1 biometryAttempts:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_238B7F000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ was updated after passcode presentation", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_238B7F000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ was updated after passcode presentation", &v2, 0xCu);
 }
 
 - (void)biometrySucceededWithEvaluationRequest:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_debug_impl(&dword_238B7F000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ was updated after biometry success", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_debug_impl(&dword_238B7F000, a2, OS_LOG_TYPE_DEBUG, "%{public}@ was updated after biometry success", &v2, 0xCu);
 }
 
 @end

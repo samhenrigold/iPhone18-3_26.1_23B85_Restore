@@ -1090,9 +1090,9 @@ LABEL_15:
 {
   obj = style;
   WeakRetained = objc_loadWeakRetained(&self->_visualStyle);
-  v5 = [WeakRetained isEqual:obj];
+  isEqual = objc_msgSend_isEqual_(WeakRetained);
 
-  if ((v5 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     objc_storeWeak(&self->_visualStyle, obj);
     [(_UIAlertControllerActionView *)self _updateStyle];

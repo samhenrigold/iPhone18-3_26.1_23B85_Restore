@@ -3,6 +3,10 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)frequencyRangeAsString:(int)string;
+- (id)rxPanelUsedAsString:(int)string;
+- (id)snrRsUsedAsString:(int)string;
+- (id)txChannelTypeAsString:(int)string;
 - (int)StringAsFrequencyRange:(id)range;
 - (int)StringAsRxPanelUsed:(id)used;
 - (int)StringAsSnrRsUsed:(id)used;
@@ -108,6 +112,26 @@
   self->_has = (*&self->_has & 0xFFFFFFFFFFFFFFF7 | v3);
 }
 
+- (id)frequencyRangeAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"FR1";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"FR2";
+  }
+
+  else
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsFrequencyRange:(id)range
 {
   rangeCopy = range;
@@ -172,6 +196,29 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFFFFEFFFFFFLL | v3);
+}
+
+- (id)txChannelTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"PUCCH";
+    }
+
+    else
+    {
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"PUSCH";
+  }
+
+  return v4;
 }
 
 - (int)StringAsTxChannelType:(id)type
@@ -467,6 +514,21 @@
   self->_has = (*&self->_has & 0xFFFFFFFFFFBFFFFFLL | v3);
 }
 
+- (id)snrRsUsedAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_1003179C0 + string);
+  }
+
+  return v4;
+}
+
 - (int)StringAsSnrRsUsed:(id)used
 {
   usedCopy = used;
@@ -515,6 +577,29 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFFFFFFEFFFFLL | v3);
+}
+
+- (id)rxPanelUsedAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"RX_PANEL_FR2";
+    }
+
+    else
+    {
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"RX_PANEL_FR1";
+  }
+
+  return v4;
 }
 
 - (int)StringAsRxPanelUsed:(id)used
@@ -1195,7 +1280,6 @@ LABEL_36:
   has = self->_has;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x800000) == 0)
@@ -1215,7 +1299,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 2) == 0)
@@ -1230,7 +1313,6 @@ LABEL_4:
   }
 
 LABEL_45:
-  band = self->_band;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 8) == 0)
@@ -1245,7 +1327,6 @@ LABEL_5:
   }
 
 LABEL_46:
-  frequencyRange = self->_frequencyRange;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x20000) == 0)
@@ -1260,7 +1341,6 @@ LABEL_6:
   }
 
 LABEL_47:
-  scs = self->_scs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -1275,7 +1355,6 @@ LABEL_7:
   }
 
 LABEL_48:
-  connectionType = self->_connectionType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000000) == 0)
@@ -1290,7 +1369,6 @@ LABEL_8:
   }
 
 LABEL_49:
-  txChannelType = self->_txChannelType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x80) == 0)
@@ -1305,7 +1383,6 @@ LABEL_9:
   }
 
 LABEL_50:
-  pcMax = self->_pcMax;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x20) == 0)
@@ -1320,7 +1397,6 @@ LABEL_10:
   }
 
 LABEL_51:
-  mtpl = self->_mtpl;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x8000000) == 0)
@@ -1335,7 +1411,6 @@ LABEL_11:
   }
 
 LABEL_52:
-  txPower = self->_txPower;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 0x2000000) == 0)
@@ -1350,7 +1425,6 @@ LABEL_12:
   }
 
 LABEL_53:
-  txPort0 = self->_txPort0;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x4000000) == 0)
@@ -1365,7 +1439,6 @@ LABEL_13:
   }
 
 LABEL_54:
-  txPort1 = self->_txPort1;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x200000000) == 0)
@@ -1380,7 +1453,6 @@ LABEL_14:
   }
 
 LABEL_55:
-  isVoiceCall = self->_isVoiceCall;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x400000000) == 0)
@@ -1395,7 +1467,6 @@ LABEL_15:
   }
 
 LABEL_56:
-  isVoiceCallEnd = self->_isVoiceCallEnd;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x20000000) == 0)
@@ -1410,7 +1481,6 @@ LABEL_16:
   }
 
 LABEL_57:
-  isRx0Used = self->_isRx0Used;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x40000000) == 0)
@@ -1425,7 +1495,6 @@ LABEL_17:
   }
 
 LABEL_58:
-  isRx1Used = self->_isRx1Used;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x80000000) == 0)
@@ -1440,7 +1509,6 @@ LABEL_18:
   }
 
 LABEL_59:
-  isRx2Used = self->_isRx2Used;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x100000000) == 0)
@@ -1455,7 +1523,6 @@ LABEL_19:
   }
 
 LABEL_60:
-  isRx3Used = self->_isRx3Used;
   PBDataWriterWriteBOOLField();
   has = self->_has;
   if ((*&has & 0x100) == 0)
@@ -1470,7 +1537,6 @@ LABEL_20:
   }
 
 LABEL_61:
-  rsrp0 = self->_rsrp0;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 0x200) == 0)
@@ -1485,7 +1551,6 @@ LABEL_21:
   }
 
 LABEL_62:
-  rsrp1 = self->_rsrp1;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -1500,7 +1565,6 @@ LABEL_22:
   }
 
 LABEL_63:
-  rsrp2 = self->_rsrp2;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 0x800) == 0)
@@ -1515,7 +1579,6 @@ LABEL_23:
   }
 
 LABEL_64:
-  rsrp3 = self->_rsrp3;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1530,7 +1593,6 @@ LABEL_24:
   }
 
 LABEL_65:
-  rsrq0 = self->_rsrq0;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -1545,7 +1607,6 @@ LABEL_25:
   }
 
 LABEL_66:
-  rsrq1 = self->_rsrq1;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 0x4000) == 0)
@@ -1560,7 +1621,6 @@ LABEL_26:
   }
 
 LABEL_67:
-  rsrq2 = self->_rsrq2;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 0x8000) == 0)
@@ -1575,7 +1635,6 @@ LABEL_27:
   }
 
 LABEL_68:
-  rsrq3 = self->_rsrq3;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 0x40000) == 0)
@@ -1590,7 +1649,6 @@ LABEL_28:
   }
 
 LABEL_69:
-  sinr0 = self->_sinr0;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 0x80000) == 0)
@@ -1605,7 +1663,6 @@ LABEL_29:
   }
 
 LABEL_70:
-  sinr1 = self->_sinr1;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 0x100000) == 0)
@@ -1620,7 +1677,6 @@ LABEL_30:
   }
 
 LABEL_71:
-  sinr2 = self->_sinr2;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 0x200000) == 0)
@@ -1635,7 +1691,6 @@ LABEL_31:
   }
 
 LABEL_72:
-  sinr3 = self->_sinr3;
   PBDataWriterWriteSint32Field();
   has = self->_has;
   if ((*&has & 0x400000) == 0)
@@ -1650,7 +1705,6 @@ LABEL_32:
   }
 
 LABEL_73:
-  snrRsUsed = self->_snrRsUsed;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x10000) == 0)
@@ -1665,7 +1719,6 @@ LABEL_33:
   }
 
 LABEL_74:
-  rxPanelUsed = self->_rxPanelUsed;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -1680,12 +1733,10 @@ LABEL_34:
   }
 
 LABEL_75:
-  numSubs = self->_numSubs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_35:
-    isDataPreferred = self->_isDataPreferred;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1697,7 +1748,6 @@ LABEL_36:
 
   if ((*(&self->_has + 3) & 0x10) != 0)
   {
-    isApAwake = self->_isApAwake;
     PBDataWriterWriteBOOLField();
   }
 }
@@ -2907,7 +2957,6 @@ LABEL_36:
       goto LABEL_196;
     }
 
-    v7 = *(equalCopy + 141);
     if (self->_isVoiceCall)
     {
       if ((*(equalCopy + 141) & 1) == 0)
@@ -2934,7 +2983,6 @@ LABEL_36:
       goto LABEL_196;
     }
 
-    v8 = *(equalCopy + 142);
     if (self->_isVoiceCallEnd)
     {
       if ((*(equalCopy + 142) & 1) == 0)
@@ -2961,7 +3009,6 @@ LABEL_36:
       goto LABEL_196;
     }
 
-    v9 = *(equalCopy + 137);
     if (self->_isRx0Used)
     {
       if ((*(equalCopy + 137) & 1) == 0)
@@ -2988,7 +3035,6 @@ LABEL_36:
       goto LABEL_196;
     }
 
-    v10 = *(equalCopy + 138);
     if (self->_isRx1Used)
     {
       if ((*(equalCopy + 138) & 1) == 0)
@@ -3015,7 +3061,6 @@ LABEL_36:
       goto LABEL_196;
     }
 
-    v11 = *(equalCopy + 139);
     if (self->_isRx2Used)
     {
       if ((*(equalCopy + 139) & 1) == 0)
@@ -3042,7 +3087,6 @@ LABEL_36:
       goto LABEL_196;
     }
 
-    v12 = *(equalCopy + 140);
     if (self->_isRx3Used)
     {
       if ((*(equalCopy + 140) & 1) == 0)
@@ -3298,19 +3342,19 @@ LABEL_36:
         goto LABEL_196;
       }
 
-      v14 = 1;
+      v8 = 1;
       goto LABEL_197;
     }
 
 LABEL_196:
-    v14 = 0;
+    v8 = 0;
     goto LABEL_197;
   }
 
-  v14 = (*(equalCopy + 18) & 0x10000000) == 0;
+  v8 = (*(equalCopy + 18) & 0x10000000) == 0;
 LABEL_197:
 
-  return v14;
+  return v8;
 }
 
 - (unint64_t)hash

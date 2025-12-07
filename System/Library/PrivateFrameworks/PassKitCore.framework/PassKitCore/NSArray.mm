@@ -23,10 +23,10 @@ uint64_t __58__NSArray_PKArrayAdditions__pk_containsObjectPassingTest___block_in
 
 void __68__NSArray_PKError__pk_FilteredBillingErrorsForContactFields_errors___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 domain];
-  if (![v4 isEqualToString:@"PKPaymentErrorDomain"])
+  if (!objc_msgSend_isEqualToString_(v4))
   {
 LABEL_15:
 
@@ -37,48 +37,47 @@ LABEL_15:
 
   if (v5 == 2)
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
-    v16 = a1;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v15 = a1;
     v4 = *(a1 + 32);
-    v6 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v18;
+      v8 = *v17;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v4);
           }
 
-          v10 = *(*(&v17 + 1) + 8 * i);
-          v11 = [v3 userInfo];
-          v12 = [v11 objectForKey:@"PKPaymentErrorContactField"];
-          if ([v12 isEqualToString:v10])
+          v10 = [v3 userInfo];
+          v11 = [v10 objectForKey:@"PKPaymentErrorContactField"];
+          if (objc_msgSend_isEqualToString_(v11))
           {
 
 LABEL_14:
-            [*(v16 + 40) addObject:v3];
+            [*(v15 + 40) addObject:v3];
             goto LABEL_15;
           }
 
-          v13 = [v3 userInfo];
-          v14 = [v13 objectForKey:@"PKPaymentErrorPostalAddress"];
-          v15 = [v14 isEqualToString:v10];
+          v12 = [v3 userInfo];
+          v13 = [v12 objectForKey:@"PKPaymentErrorPostalAddress"];
+          isEqualToString = objc_msgSend_isEqualToString_(v13);
 
-          if (v15)
+          if (isEqualToString)
           {
             goto LABEL_14;
           }
         }
 
-        v7 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v7)
         {
           continue;
@@ -99,12 +98,12 @@ void __90__NSArray_PKError__pk_FilteredShippingErrorsForContactFields_errors_con
   v40 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 domain];
-  v5 = [v4 isEqualToString:@"PKPaymentErrorDomain"];
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-  if (!v5)
+  if (!isEqualToString)
   {
     v12 = [v3 domain];
-    v13 = [v12 isEqualToString:@"PKDisbursementErrorDomain"];
+    v13 = objc_msgSend_isEqualToString_(v12);
 
     if (!v13 || [v3 code] != 2)
     {
@@ -138,7 +137,7 @@ LABEL_19:
           objc_enumerationMutation(v15);
         }
 
-        if ([v7 isEqualToString:{*(*(&v25 + 1) + 8 * v19), v25}])
+        if (objc_msgSend_isEqualToString_(v7, v25))
         {
           goto LABEL_38;
         }
@@ -191,7 +190,7 @@ LABEL_31:
           objc_enumerationMutation(v15);
         }
 
-        if ([v7 isEqualToString:*(*(&v29 + 1) + 8 * v24)])
+        if (objc_msgSend_isEqualToString_(v7))
         {
           break;
         }
@@ -242,7 +241,7 @@ LABEL_6:
         objc_enumerationMutation(v7);
       }
 
-      if ([*(*(&v33 + 1) + 8 * v11) isEqualToString:@"post"])
+      if (objc_msgSend_isEqualToString_(*(*(&v33 + 1) + 8 * v11)))
       {
         break;
       }
@@ -271,9 +270,9 @@ void __42__NSArray_PKError__pk_FilteredCardErrors___block_invoke(uint64_t a1, vo
 {
   v5 = a2;
   v3 = [v5 domain];
-  v4 = [v3 isEqualToString:@"PKPaymentErrorDomain"];
+  isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-  if (v4 && [v5 code] == -1001)
+  if (isEqualToString && [v5 code] == -1001)
   {
     [*(a1 + 32) addObject:v5];
   }

@@ -1,60 +1,3 @@
-void sub_299138244(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  marisa::scoped_array<marisa::scoped_array<marisa::Key>>::~scoped_array(va);
-  _Unwind_Resume(a1);
-}
-
-int64x2_t marisa::Keyset::push_back(marisa::Keyset *this, const char *a2, size_t __sz, float a4)
-{
-  v6 = a2;
-  if (!a2 && __sz)
-  {
-    exception = __cxa_allocate_exception(0x20uLL);
-    *exception = &unk_2A1F35070;
-    exception[1] = "/Library/Caches/com.apple.xbs/Sources/Marisa/lib/marisa/keyset.cc";
-    exception[2] = 0x20000003DLL;
-    v16 = "/Library/Caches/com.apple.xbs/Sources/Marisa/lib/marisa/keyset.cc:61: MARISA_NULL_ERROR: (ptr == NULL) && (length != 0)";
-    goto LABEL_10;
-  }
-
-  if (HIDWORD(__sz))
-  {
-    exception = __cxa_allocate_exception(0x20uLL);
-    *exception = &unk_2A1F35070;
-    exception[1] = "/Library/Caches/com.apple.xbs/Sources/Marisa/lib/marisa/keyset.cc";
-    exception[2] = 0x70000003ELL;
-    v16 = "/Library/Caches/com.apple.xbs/Sources/Marisa/lib/marisa/keyset.cc:62: MARISA_SIZE_ERROR: length > MARISA_UINT32_MAX";
-LABEL_10:
-    exception[3] = v16;
-  }
-
-  v8 = marisa::Keyset::reserve(this, __sz);
-  if (__sz)
-  {
-    v9 = v8;
-    v10 = __sz;
-    do
-    {
-      v11 = *v6++;
-      *v9++ = v11;
-      --v10;
-    }
-
-    while (v10);
-  }
-
-  v12 = *(*(this + 6) + ((*(this + 11) >> 5) & 0x7FFFFFFFFFFFFF8)) + 16 * *(this + 11);
-  *v12 = v8;
-  *(v12 + 8) = __sz;
-  *(v12 + 12) = a4;
-  v13.i64[0] = vdupq_n_s64(1uLL).u64[0];
-  v13.i64[1] = __sz;
-  result = vaddq_s64(*(this + 88), v13);
-  *(this + 88) = result;
-  return result;
-}
-
 void *marisa::Keyset::append_extra_block(marisa::Keyset *this, size_t __sz)
 {
   v4 = *(this + 4);
@@ -150,9 +93,9 @@ void *marisa::Keyset::append_extra_block(marisa::Keyset *this, size_t __sz)
   return result;
 }
 
-void sub_2991385A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2991385A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   marisa::scoped_array<marisa::scoped_array<char>>::~scoped_array(va);
   _Unwind_Resume(a1);
 }
@@ -254,9 +197,9 @@ uint64_t *marisa::Keyset::append_base_block(uint64_t *this)
   return this;
 }
 
-void sub_2991387A8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2991387A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   marisa::scoped_array<marisa::scoped_array<char>>::~scoped_array(va);
   _Unwind_Resume(a1);
 }
@@ -381,14 +324,14 @@ marisa::grimoire::trie::LoudsTrie **marisa::Trie::map(marisa::grimoire::trie::Lo
   return marisa::scoped_ptr<marisa::grimoire::trie::LoudsTrie>::~scoped_ptr(&v13);
 }
 
-void sub_299138B60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_299138B60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   marisa::scoped_ptr<marisa::grimoire::trie::LoudsTrie>::~scoped_ptr(va);
   _Unwind_Resume(a1);
 }
 
-marisa::grimoire::trie::LoudsTrie *marisa::Trie::lookup(marisa::grimoire::trie::LoudsTrie **this, marisa::Agent *a2)
+marisa::grimoire::trie::LoudsTrie *marisa::Trie::lookup(marisa::grimoire::trie::LoudsTrie **this, marisa::Agent *a2, uint64_t a3, unint64_t a4)
 {
   result = *this;
   if (result)
@@ -399,7 +342,7 @@ marisa::grimoire::trie::LoudsTrie *marisa::Trie::lookup(marisa::grimoire::trie::
       result = *this;
     }
 
-    return marisa::grimoire::trie::LoudsTrie::lookup(result, a2);
+    return marisa::grimoire::trie::LoudsTrie::lookup(result, a2, a3, a4);
   }
 
   return result;
@@ -449,7 +392,7 @@ void MeCab::ContextID::add(MeCab::ContextID *this, char *a2, char *a3)
   v6 = 0;
   v5[0] = 0;
   v9 = 1;
-  std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::pair<std::string,int>>(this, __p);
+  std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::pair<std::string,int>>(this, __p, __p);
   if (SHIBYTE(v8) < 0)
   {
     operator delete(__p[0]);
@@ -467,7 +410,7 @@ void MeCab::ContextID::add(MeCab::ContextID *this, char *a2, char *a3)
   v6 = 0;
   v5[0] = 0;
   v9 = 1;
-  std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::pair<std::string,int>>(this + 24, __p);
+  std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::pair<std::string,int>>(this + 24, __p, __p);
   if (SHIBYTE(v8) < 0)
   {
     operator delete(__p[0]);
@@ -494,7 +437,7 @@ void sub_299138E18(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-_BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:ne200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -508,21 +451,21 @@ _BYTE *std::string::basic_string[abi:ne200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
 uint64_t save(const char *a1, void *a2)
 {
-  v31[19] = *MEMORY[0x29EDCA608];
-  std::ofstream::basic_ofstream(&v29);
-  if ((v30[*(v29 - 24) + 24] & 5) != 0)
+  v30[19] = *MEMORY[0x29EDCA608];
+  std::ofstream::basic_ofstream(&v28, a1, 16);
+  if ((v29[*(v28 - 24) + 24] & 5) != 0)
   {
     v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/context_id.cpp", 64);
     v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "(", 1);
@@ -533,7 +476,7 @@ uint64_t save(const char *a1, void *a2)
     v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "permission denied: ", 19);
     v11 = strlen(a1);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, a1, v11);
-    MeCab::die::~die(&v28);
+    MeCab::die::~die(&v27);
   }
 
   v14 = *a2;
@@ -544,7 +487,7 @@ uint64_t save(const char *a1, void *a2)
     v15 = MEMORY[0x29EDC93D0];
     do
     {
-      v16 = MEMORY[0x29C29A250](&v29, *(v13 + 14));
+      v16 = MEMORY[0x29C29A250](&v28, *(v13 + 14));
       v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, " ", 1);
       v18 = *(v13 + 55);
       if (v18 >= 0)
@@ -569,9 +512,9 @@ uint64_t save(const char *a1, void *a2)
 
       v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, v19, v20);
       std::ios_base::getloc((v21 + *(*v21 - 24)));
-      v22 = std::locale::use_facet(&v28, v15);
+      v22 = std::locale::use_facet(&v27, v15);
       (v22->__vftable[2].~facet_0)(v22, 10);
-      std::locale::~locale(&v28);
+      std::locale::~locale(&v27);
       std::ostream::put();
       std::ostream::flush();
       v23 = v13[1];
@@ -604,20 +547,18 @@ uint64_t save(const char *a1, void *a2)
     while (v24 != v12);
   }
 
-  v29 = *MEMORY[0x29EDC9520];
-  *&v30[*(v29 - 24) - 8] = *(MEMORY[0x29EDC9520] + 24);
-  MEMORY[0x29C29A160](v30);
+  v28 = *MEMORY[0x29EDC9520];
+  *&v29[*(v28 - 24) - 8] = *(MEMORY[0x29EDC9520] + 24);
+  MEMORY[0x29C29A160](v29);
   std::ostream::~ostream();
-  result = MEMORY[0x29C29A320](v31);
-  v27 = *MEMORY[0x29EDCA608];
-  return result;
+  return MEMORY[0x29C29A320](v30);
 }
 
-uint64_t open_map(const char *a1, uint64_t a2, uint64_t a3)
+uint64_t open_map(const char *a1, void *a2, uint64_t a3)
 {
-  v48[19] = *MEMORY[0x29EDCA608];
-  std::ifstream::basic_ifstream(v46);
-  if ((v47[*(v46[0] - 24) + 16] & 5) != 0)
+  v47[19] = *MEMORY[0x29EDCA608];
+  std::ifstream::basic_ifstream(v45, a1, 8);
+  if ((v46[*(v45[0] - 24) + 16] & 5) != 0)
   {
     v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/context_id.cpp", 64);
     v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "(", 1);
@@ -631,43 +572,43 @@ uint64_t open_map(const char *a1, uint64_t a2, uint64_t a3)
     MeCab::die::~die(&__p);
   }
 
-  std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::destroy(a2, *(a2 + 8));
-  *a2 = a2 + 8;
-  *(a2 + 16) = 0;
-  *(a2 + 8) = 0;
-  v44 = 0;
+  std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::destroy(a2, a2[1]);
+  *a2 = a2 + 1;
+  a2[2] = 0;
+  a2[1] = 0;
+  v43 = 0;
   __s = 0;
+  v40 = 0;
   v41 = 0;
   v42 = 0;
-  v43 = 0;
   v14 = MEMORY[0x29EDC93D0];
   v15 = MEMORY[0x29EDC93C0];
   while (1)
   {
-    std::ios_base::getloc((v46 + *(v46[0] - 24)));
+    std::ios_base::getloc((v45 + *(v45[0] - 24)));
     v16 = std::locale::use_facet(&__p, v14);
     v17 = (v16->__vftable[2].~facet_0)(v16, 10);
     std::locale::~locale(&__p);
-    v18 = std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v46, &v41, v17);
+    v18 = std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v45, &v40, v17);
     if ((*(v18 + *(*v18 - 24) + 32) & 5) != 0)
     {
       break;
     }
 
-    if (v43 >= 0)
+    if (v42 >= 0)
     {
-      v19 = &v41;
+      v19 = &v40;
     }
 
     else
     {
-      v19 = v41;
+      v19 = v40;
     }
 
     v20 = strlen(v19);
     v21 = 0;
     v22 = &v19[v20];
-    v23 = &v44;
+    v23 = &v43;
     while (v21 <= 1)
     {
       v24 = v22;
@@ -709,24 +650,24 @@ uint64_t open_map(const char *a1, uint64_t a2, uint64_t a3)
           v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, "2 == tokenize2(const_cast<char *>(line.c_str()),  \\t, col, 2)", 63);
           v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, "] ", 2);
           v32 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, "format error: ", 14);
-          if (v43 >= 0)
+          if (v42 >= 0)
           {
-            v33 = &v41;
+            v33 = &v40;
           }
 
           else
           {
-            v33 = v41;
+            v33 = v40;
           }
 
-          if (v43 >= 0)
+          if (v42 >= 0)
           {
-            v34 = HIBYTE(v43);
+            v34 = HIBYTE(v42);
           }
 
           else
           {
-            v34 = v42;
+            v34 = v41;
           }
 
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, v33, v34);
@@ -737,48 +678,46 @@ uint64_t open_map(const char *a1, uint64_t a2, uint64_t a3)
       }
     }
 
-    std::string::basic_string[abi:ne200100]<0>(&v40, __s);
+    std::string::basic_string[abi:ne200100]<0>(&v39, __s);
     if (a3)
     {
-      MeCab::Iconv::convert(a3, &v40);
+      MeCab::Iconv::convert(a3, &v39);
     }
 
-    v35 = atoi(v44);
-    if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+    v35 = atoi(v43);
+    if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
     {
-      std::string::__init_copy_ctor_external(&__p, v40.__r_.__value_.__l.__data_, v40.__r_.__value_.__l.__size_);
+      std::string::__init_copy_ctor_external(&__p, v39.__r_.__value_.__l.__data_, v39.__r_.__value_.__l.__size_);
     }
 
     else
     {
-      __p = v40;
+      __p = v39;
     }
 
-    v39 = v35;
-    std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::pair<std::string,int>>(a2, &__p.__r_.__value_.__l.__data_);
+    v38 = v35;
+    std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::pair<std::string,int>>(a2, &__p, &__p);
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
     {
       operator delete(__p.__r_.__value_.__l.__data_);
     }
 
-    if (SHIBYTE(v40.__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v39.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v40.__r_.__value_.__l.__data_);
+      operator delete(v39.__r_.__value_.__l.__data_);
     }
   }
 
-  if (SHIBYTE(v43) < 0)
+  if (SHIBYTE(v42) < 0)
   {
-    operator delete(v41);
+    operator delete(v40);
   }
 
-  v46[0] = *MEMORY[0x29EDC9518];
-  *(v46 + *(v46[0] - 24)) = *(MEMORY[0x29EDC9518] + 24);
-  MEMORY[0x29C29A160](v47);
+  v45[0] = *MEMORY[0x29EDC9518];
+  *(v45 + *(v45[0] - 24)) = *(MEMORY[0x29EDC9518] + 24);
+  MEMORY[0x29C29A160](v46);
   std::istream::~istream();
-  result = MEMORY[0x29C29A320](v48);
-  v37 = *MEMORY[0x29EDCA608];
-  return result;
+  return MEMORY[0x29C29A320](v47);
 }
 
 void build(void *a1, uint64_t a2)
@@ -832,7 +771,7 @@ void build(void *a1, uint64_t a2)
   }
 
   v9 = 0;
-  std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::pair<std::string,int>>(a1, &__p.__r_.__value_.__l.__data_);
+  std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::pair<std::string,int>>(a1, &__p, &__p);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
@@ -991,22 +930,22 @@ std::string *__cdecl std::string::__assign_external(std::string *this, const std
   return std::string::__assign_external(this, __s, v4);
 }
 
-uint64_t *std::ofstream::basic_ofstream(uint64_t *a1)
+uint64_t *std::ofstream::basic_ofstream(uint64_t *a1, uint64_t a2, int a3)
 {
   a1[58] = 0;
-  v2 = MEMORY[0x29EDC9560] + 64;
+  v4 = MEMORY[0x29EDC9560] + 64;
   a1[52] = MEMORY[0x29EDC9560] + 64;
-  v3 = *(MEMORY[0x29EDC9520] + 16);
-  v4 = *(MEMORY[0x29EDC9520] + 8);
-  *a1 = v4;
-  *(a1 + *(v4 - 24)) = v3;
-  v5 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v5, a1 + 1);
-  v6 = MEMORY[0x29EDC9560] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
+  v5 = *(MEMORY[0x29EDC9520] + 16);
+  v6 = *(MEMORY[0x29EDC9520] + 8);
   *a1 = v6;
-  a1[52] = v2;
+  *(a1 + *(v6 - 24)) = v5;
+  v7 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v7, a1 + 1);
+  v8 = MEMORY[0x29EDC9560] + 24;
+  v7[1].__vftable = 0;
+  v7[1].__fmtflags_ = -1;
+  *a1 = v8;
+  a1[52] = v4;
   MEMORY[0x29C29A150](a1 + 1);
   if (!std::filebuf::open())
   {
@@ -1029,16 +968,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x29EDC93D0]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -1061,9 +1000,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_299139F54(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_299139F54(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x29C29A220](&a10);
+  MEMORY[0x29C29A220](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -1163,23 +1102,23 @@ uint64_t std::ofstream::~ofstream(uint64_t *a1, uint64_t *a2)
   return std::ostream::~ostream();
 }
 
-uint64_t *std::ifstream::basic_ifstream(uint64_t *a1)
+uint64_t *std::ifstream::basic_ifstream(uint64_t *a1, uint64_t a2, int a3)
 {
   a1[59] = 0;
-  v2 = MEMORY[0x29EDC9558] + 64;
+  v4 = MEMORY[0x29EDC9558] + 64;
   a1[53] = MEMORY[0x29EDC9558] + 64;
-  v3 = *(MEMORY[0x29EDC9518] + 16);
-  v4 = *(MEMORY[0x29EDC9518] + 8);
-  *a1 = v4;
-  *(a1 + *(v4 - 24)) = v3;
-  a1[1] = 0;
-  v5 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v5, a1 + 2);
-  v6 = MEMORY[0x29EDC9558] + 24;
-  v5[1].__vftable = 0;
-  v5[1].__fmtflags_ = -1;
+  v5 = *(MEMORY[0x29EDC9518] + 16);
+  v6 = *(MEMORY[0x29EDC9518] + 8);
   *a1 = v6;
-  a1[53] = v2;
+  *(a1 + *(v6 - 24)) = v5;
+  a1[1] = 0;
+  v7 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v7, a1 + 2);
+  v8 = MEMORY[0x29EDC9558] + 24;
+  v7[1].__vftable = 0;
+  v7[1].__fmtflags_ = -1;
+  *a1 = v8;
+  a1[53] = v4;
   MEMORY[0x29C29A150](a1 + 2);
   if (!std::filebuf::open())
   {
@@ -1333,18 +1272,18 @@ void std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::pair<std::string,int>>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::pair<std::string,int>>(uint64_t a1, uint64_t ***a2, uint64_t a3)
 {
-  v2 = *std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
-void *std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__find_equal<std::string>(uint64_t a1, void *a2, void **a3)
+uint64_t *std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__find_equal<std::string>(uint64_t a1, char **a2, uint64_t ***a3)
 {
   v5 = (a1 + 8);
   v4 = *(a1 + 8);
@@ -1355,7 +1294,7 @@ void *std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<st
       while (1)
       {
         v7 = v4;
-        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, (v4 + 32)) & 0x80) == 0)
+        if ((std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(a3, v4 + 32) & 0x80) == 0)
         {
           break;
         }
@@ -1373,8 +1312,8 @@ void *std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<st
         break;
       }
 
-      v5 = v7 + 1;
-      v4 = v7[1];
+      v5 = v7 + 8;
+      v4 = *(v7 + 1);
     }
 
     while (v4);
@@ -1390,7 +1329,7 @@ LABEL_9:
   return v5;
 }
 
-uint64_t *std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -1408,7 +1347,7 @@ uint64_t *std::__tree<std::__value_type<std::string,int>,std::__map_value_compar
   return result;
 }
 
-uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(void *a1, void **a2)
+uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(uint64_t ***a1, char *a2)
 {
   v2 = *(a1 + 23);
   v3 = a1[1];
@@ -1418,7 +1357,7 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
     v2 = v3;
   }
 
-  v4 = *(a2 + 23);
+  v4 = a2[23];
   if (v4 >= 0)
   {
     v5 = a2;
@@ -1431,12 +1370,12 @@ uint64_t std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocat
 
   if (v4 >= 0)
   {
-    v6 = *(a2 + 23);
+    v6 = a2[23];
   }
 
   else
   {
-    v6 = a2[1];
+    v6 = *(a2 + 1);
   }
 
   return std::operator<=>[abi:ne200100]<char,std::char_traits<char>>(a1, v2, v5, v6);
@@ -1487,12 +1426,12 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -1506,22 +1445,22 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -1555,13 +1494,13 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 
@@ -1603,7 +1542,7 @@ uint64_t *std::__tree_balance_after_insert[abi:ne200100]<std::__tree_node_base<v
   return result;
 }
 
-uint64_t std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::find<std::string>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::find<std::string>(uint64_t a1, char *a2)
 {
   v2 = a1 + 8;
   v3 = *(a1 + 8);
@@ -1644,50 +1583,50 @@ uint64_t mecab_dict_gen(MeCab::DictionaryGenerator *a1, char **a2)
 uint64_t MeCab::DictionaryGenerator::run(MeCab::DictionaryGenerator *this, char **a2, char **a3)
 {
   v4 = this;
-  v106 = *MEMORY[0x29EDCA608];
-  MeCab::Param::Param(v99);
-  if (MeCab::Param::open(v99, v4, a2, &MeCab::DictionaryGenerator::run(int,char **)::long_options))
+  v105 = *MEMORY[0x29EDCA608];
+  MeCab::Param::Param(v98);
+  if (MeCab::Param::open(v98, v4, a2, &MeCab::DictionaryGenerator::run(int,char **)::long_options))
   {
-    if (MeCab::Param::help_version(v99))
+    if (MeCab::Param::help_version(v98))
     {
-      v94[0] = 0;
-      v93 = v94;
-      v95[1] = 0;
-      v95[0] = 0;
+      v93[0] = 0;
+      v92 = v93;
       v94[1] = 0;
-      v94[2] = v95;
+      v94[0] = 0;
+      v93[1] = 0;
+      v93[2] = v94;
+      v95 = 0u;
       v96 = 0u;
       v97 = 0u;
-      v98 = 0u;
-      MeCab::FeatureIndex::FeatureIndex(&v89);
-      v89.__locale_ = &unk_2A1F352E8;
-      MeCab::Mmap<char>::Mmap(&v90);
-      v92 = 0;
-      *v91 = 0u;
-      v88[1] = 0;
-      v88[0] = 0;
-      *v82 = 0u;
+      MeCab::FeatureIndex::FeatureIndex(&v88);
+      v88.__locale_ = &unk_2A1F352E8;
+      MeCab::Mmap<char>::Mmap(&v89);
+      v91 = 0;
+      *v90 = 0u;
+      v87[1] = 0;
+      v87[0] = 0;
+      *v81 = 0u;
+      v82 = 0u;
       v83 = 0u;
       v84 = 0u;
-      v85 = 0u;
-      v86 = 0;
-      v87 = v88;
-      MeCab::Param::get<std::string>(v99, "dicdir", &v81);
-      MeCab::Param::get<std::string>(v99, "outdir", &v80);
-      MeCab::Param::get<std::string>(v99, "model", &v79);
+      v85 = 0;
+      v86 = v87;
+      MeCab::Param::get<std::string>(v98, "dicdir", &v80);
+      MeCab::Param::get<std::string>(v98, "outdir", &v79);
+      MeCab::Param::get<std::string>(v98, "model", &v78);
       std::string::basic_string[abi:ne200100]<0>(&__str, "dicrc");
-      MeCab::create_filename(&v81, &__str, v75);
-      if ((v75[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      MeCab::create_filename(&v80, &__str, v74);
+      if ((v74[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v5 = v75;
+        v5 = v74;
       }
 
       else
       {
-        v5 = v75[0].__r_.__value_.__r.__words[0];
+        v5 = v74[0].__r_.__value_.__r.__words[0];
       }
 
-      if (!MeCab::Param::load(v99, v5))
+      if (!MeCab::Param::load(v98, v5))
       {
         v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary_generator.cpp", 74);
         v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "(", 1);
@@ -1696,8 +1635,8 @@ uint64_t MeCab::DictionaryGenerator::run(MeCab::DictionaryGenerator *this, char 
         v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "param.load(DCONF(DICRC))", 24);
         v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "] ", 2);
         v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, "no such file or directory: ", 27);
-        std::string::basic_string[abi:ne200100]<0>(&v101, "dicrc");
-        MeCab::create_filename(&v81, &v101, &__p);
+        std::string::basic_string[abi:ne200100]<0>(&v100, "dicrc");
+        MeCab::create_filename(&v80, &v100, &__p);
         if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
           p_p = &__p;
@@ -1715,17 +1654,17 @@ uint64_t MeCab::DictionaryGenerator::run(MeCab::DictionaryGenerator *this, char 
           operator delete(__p.__r_.__value_.__l.__data_);
         }
 
-        if (v102 < 0)
+        if (v101 < 0)
         {
-          operator delete(v101);
+          operator delete(v100);
         }
 
-        MeCab::die::~die(&v104);
+        MeCab::die::~die(&v103);
       }
 
-      if (SHIBYTE(v75[0].__r_.__value_.__r.__words[2]) < 0)
+      if (SHIBYTE(v74[0].__r_.__value_.__r.__words[2]) < 0)
       {
-        operator delete(v75[0].__r_.__value_.__l.__data_);
+        operator delete(v74[0].__r_.__value_.__l.__data_);
       }
 
       if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -1733,10 +1672,10 @@ uint64_t MeCab::DictionaryGenerator::run(MeCab::DictionaryGenerator *this, char 
         operator delete(__str.__r_.__value_.__l.__data_);
       }
 
-      memset(&v78, 0, sizeof(v78));
-      MeCab::Dictionary::Dictionary(v75);
+      memset(&v77, 0, sizeof(v77));
+      MeCab::Dictionary::Dictionary(v74);
       std::string::basic_string[abi:ne200100]<0>(&__p, "sys.dic");
-      MeCab::create_filename(&v81, &__p, &__str);
+      MeCab::create_filename(&v80, &__p, &__str);
       if ((__str.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
         p_str = &__str;
@@ -1747,7 +1686,7 @@ uint64_t MeCab::DictionaryGenerator::run(MeCab::DictionaryGenerator *this, char 
         p_str = __str.__r_.__value_.__r.__words[0];
       }
 
-      if ((MeCab::Dictionary::open(v75, p_str, "r") & 1) == 0)
+      if ((MeCab::Dictionary::open(v74, p_str, "r") & 1) == 0)
       {
         v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary_generator.cpp", 74);
         v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, "(", 1);
@@ -1755,7 +1694,7 @@ uint64_t MeCab::DictionaryGenerator::run(MeCab::DictionaryGenerator *this, char 
         v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, ") [", 3);
         v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, "dic.open(DCONF(SYS_DIC_FILE), r)", 34);
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, "] ", 2);
-        MeCab::die::~die(&v101);
+        MeCab::die::~die(&v100);
       }
 
       if (SHIBYTE(__str.__r_.__value_.__r.__words[2]) < 0)
@@ -1768,11 +1707,11 @@ uint64_t MeCab::DictionaryGenerator::run(MeCab::DictionaryGenerator *this, char 
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      std::string::__assign_external(&v78, __s);
-      size = HIBYTE(v78.__r_.__value_.__r.__words[2]);
-      if ((v78.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      std::string::__assign_external(&v77, __s);
+      size = HIBYTE(v77.__r_.__value_.__r.__words[2]);
+      if ((v77.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        size = v78.__r_.__value_.__l.__size_;
+        size = v77.__r_.__value_.__l.__size_;
       }
 
       if (!size)
@@ -1786,9 +1725,9 @@ uint64_t MeCab::DictionaryGenerator::run(MeCab::DictionaryGenerator *this, char 
         MeCab::die::~die(&__str);
       }
 
-      MeCab::Dictionary::~Dictionary(v75);
-      MeCab::CharProperty::CharProperty(v75);
-      if (!MeCab::CharProperty::open(v75, v99))
+      MeCab::Dictionary::~Dictionary(v74);
+      MeCab::CharProperty::CharProperty(v74);
+      if (!MeCab::CharProperty::open(v74, v98))
       {
         v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary_generator.cpp", 74);
         v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, "(", 1);
@@ -1799,58 +1738,58 @@ uint64_t MeCab::DictionaryGenerator::run(MeCab::DictionaryGenerator *this, char 
         MeCab::die::~die(&__str);
       }
 
-      if ((v78.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v77.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v33 = &v78;
+        v33 = &v77;
       }
 
       else
       {
-        v33 = v78.__r_.__value_.__r.__words[0];
+        v33 = v77.__r_.__value_.__r.__words[0];
       }
 
-      v77 = MeCab::decode_charset(v33, v27);
-      MeCab::Param::get<std::string>(v99, "bos-feature", &v74);
-      MeCab::Param::get<int>(v99, "cost-factor");
-      memset(v73, 0, sizeof(v73));
-      if ((v81.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v34 = &v81;
-      }
-
-      else
-      {
-        v34 = v81.__r_.__value_.__r.__words[0];
-      }
-
-      MeCab::enum_csv_dictionaries(v34, v73);
-      if ((v81.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        v35 = HIBYTE(v81.__r_.__value_.__r.__words[2]);
-      }
-
-      else
-      {
-        v35 = v81.__r_.__value_.__l.__size_;
-      }
-
-      v36 = HIBYTE(v80.__r_.__value_.__r.__words[2]);
-      v37 = HIBYTE(v80.__r_.__value_.__r.__words[2]);
-      v38 = v80.__r_.__value_.__l.__size_;
+      v76 = MeCab::decode_charset(v33, v27);
+      MeCab::Param::get<std::string>(v98, "bos-feature", &v73);
+      MeCab::Param::get<int>(v98, "cost-factor");
+      memset(v72, 0, sizeof(v72));
       if ((v80.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v39 = HIBYTE(v80.__r_.__value_.__r.__words[2]);
+        v34 = &v80;
       }
 
       else
       {
-        v39 = v80.__r_.__value_.__l.__size_;
+        v34 = v80.__r_.__value_.__r.__words[0];
+      }
+
+      MeCab::enum_csv_dictionaries(v34, v72);
+      if ((v80.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v35 = HIBYTE(v80.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        v35 = v80.__r_.__value_.__l.__size_;
+      }
+
+      v36 = HIBYTE(v79.__r_.__value_.__r.__words[2]);
+      v37 = HIBYTE(v79.__r_.__value_.__r.__words[2]);
+      v38 = v79.__r_.__value_.__l.__size_;
+      if ((v79.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        v39 = HIBYTE(v79.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        v39 = v79.__r_.__value_.__l.__size_;
       }
 
       if (v35 == v39)
       {
-        v40 = (v81.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v81 : v81.__r_.__value_.__r.__words[0];
-        v41 = (v80.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v80 : v80.__r_.__value_.__r.__words[0];
+        v40 = (v80.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v80 : v80.__r_.__value_.__r.__words[0];
+        v41 = (v79.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v79 : v79.__r_.__value_.__r.__words[0];
         if (!memcmp(v40, v41, v35))
         {
           v42 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary_generator.cpp", 74);
@@ -1886,10 +1825,10 @@ uint64_t MeCab::DictionaryGenerator::run(MeCab::DictionaryGenerator *this, char 
         MeCab::die::~die(&__str);
       }
 
-      v55 = HIBYTE(v79.__r_.__value_.__r.__words[2]);
-      if ((v79.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      v55 = HIBYTE(v78.__r_.__value_.__r.__words[2]);
+      if ((v78.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        v55 = v79.__r_.__value_.__l.__size_;
+        v55 = v78.__r_.__value_.__l.__size_;
       }
 
       if (!v55)
@@ -1904,7 +1843,7 @@ uint64_t MeCab::DictionaryGenerator::run(MeCab::DictionaryGenerator *this, char 
         MeCab::die::~die(&__str);
       }
 
-      MeCab::DecoderFeatureIndex::open(&v89, v99);
+      MeCab::DecoderFeatureIndex::open(&v88, v98);
     }
 
     v70 = 0;
@@ -1912,26 +1851,26 @@ uint64_t MeCab::DictionaryGenerator::run(MeCab::DictionaryGenerator *this, char 
 
   else
   {
-    v62 = MeCab::whatlog::str(&v100);
-    std::string::basic_string[abi:ne200100]<0>(v75, v62);
-    if ((v75[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v62 = MeCab::whatlog::str(&v99);
+    std::string::basic_string[abi:ne200100]<0>(v74, v62);
+    if ((v74[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v63 = v75;
+      v63 = v74;
     }
 
     else
     {
-      v63 = v75[0].__r_.__value_.__r.__words[0];
+      v63 = v74[0].__r_.__value_.__r.__words[0];
     }
 
-    if ((v75[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v74[0].__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v64 = HIBYTE(v75[0].__r_.__value_.__r.__words[2]);
+      v64 = HIBYTE(v74[0].__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      v64 = v75[0].__r_.__value_.__l.__size_;
+      v64 = v74[0].__r_.__value_.__l.__size_;
     }
 
     v65 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C8], v63, v64);
@@ -1939,21 +1878,20 @@ uint64_t MeCab::DictionaryGenerator::run(MeCab::DictionaryGenerator *this, char 
     v67 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v66, "MeCab: Yet Another Part-of-Speech and Morphological Analyzer\n\nCopyright(C) 2001-2012 Taku Kudo \nCopyright(C) 2004-2008 Nippon Telegraph and Telephone Corporation\n", 162);
     v68 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v67, "\ntry '--help' for more information.", 35);
     std::ios_base::getloc((v68 + *(*v68 - 24)));
-    v69 = std::locale::use_facet(&v89, MEMORY[0x29EDC93D0]);
+    v69 = std::locale::use_facet(&v88, MEMORY[0x29EDC93D0]);
     (v69->__vftable[2].~facet_0)(v69, 10);
-    std::locale::~locale(&v89);
+    std::locale::~locale(&v88);
     std::ostream::put();
     std::ostream::flush();
-    if (SHIBYTE(v75[0].__r_.__value_.__r.__words[2]) < 0)
+    if (SHIBYTE(v74[0].__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v75[0].__r_.__value_.__l.__data_);
+      operator delete(v74[0].__r_.__value_.__l.__data_);
     }
 
     v70 = 0xFFFFFFFFLL;
   }
 
-  MeCab::Param::~Param(v99);
-  v71 = *MEMORY[0x29EDCA608];
+  MeCab::Param::~Param(v98);
   return v70;
 }
 
@@ -1981,39 +1919,38 @@ void sub_29913CA88()
 
   if (SLOBYTE(STACK[0x8EF]) < 0)
   {
-    v0 = STACK[0x8D8];
     JUMPOUT(0x29913CAB0);
   }
 
   JUMPOUT(0x29913CAB4);
 }
 
-void sub_29913CAD0(void *a1, uint64_t a2, int a3, __int16 a4, char a5, char a6, void *__p, uint64_t a8, int a9, __int16 a10, char a11, char a12, ...)
+void sub_29913CAD0(void *a1, uint64_t a2, int a3, __int16 a4, char a5, char a6, void *__p, uint64_t a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *__pa, uint64_t a16, int a17, __int16 a18, char a19, char a20, ...)
 {
-  va_start(va1, a12);
-  va_start(va, a12);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void *);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
+  va_start(va1, a20);
+  va_start(va, a20);
+  v21 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void *);
+  v26 = va_arg(va1, void);
+  v27 = va_arg(va1, void);
   std::ofstream::~ofstream(&STACK[0xA30]);
-  if (a12 < 0)
+  if (a20 < 0)
   {
-    operator delete(__p);
+    operator delete(__pa);
   }
 
-  if (a6 < 0)
+  if (a14 < 0)
   {
-    operator delete(a1);
+    operator delete(a9);
   }
 
   STACK[0x968] = va;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&STACK[0x968]);
-  if (SHIBYTE(v19) < 0)
+  if (SHIBYTE(v27) < 0)
   {
-    operator delete(v17);
+    operator delete(v25);
   }
 
   MeCab::CharProperty::~CharProperty(va1);
@@ -2041,7 +1978,7 @@ void sub_29913CAD0(void *a1, uint64_t a2, int a3, __int16 a4, char a5, char a6, 
   MeCab::DecoderFeatureIndex::~DecoderFeatureIndex(&STACK[0x400]);
   MeCab::ContextID::~ContextID(&STACK[0x6D8]);
   MeCab::Param::~Param(&STACK[0x738]);
-  _Unwind_Resume(v12);
+  _Unwind_Resume(v20);
 }
 
 double MeCab::Param::get<std::string>@<D0>(uint64_t a1@<X0>, char *a2@<X1>, std::string *a3@<X8>)
@@ -2158,14 +2095,14 @@ uint64_t MeCab::Param::get<int>(uint64_t a1, char *a2)
   return v11;
 }
 
-void sub_29913CFD0(_Unwind_Exception *a1, void *__p, uint64_t a3, int a4, __int16 a5, char a6, char a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+void sub_29913CFD0(_Unwind_Exception *a1, void *__p, uint64_t a3, int a4, __int16 a5, char a6, char a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, ...)
 {
-  va_start(va, a30);
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a12, MEMORY[0x29EDC9528]);
+  va_start(va, a34);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a19, MEMORY[0x29EDC9528]);
   MEMORY[0x29C29A320](va);
-  if (a7 < 0)
+  if (SHIBYTE(a11) < 0)
   {
-    operator delete(__p);
+    operator delete(a9);
   }
 
   _Unwind_Resume(a1);
@@ -2174,7 +2111,7 @@ void sub_29913CFD0(_Unwind_Exception *a1, void *__p, uint64_t a3, int a4, __int1
 void MeCab::DictionaryGenerator::gencid(MeCab::DictionaryGenerator *this, const char *a2, MeCab::DictionaryRewriter *a3, MeCab::ContextID *a4)
 {
   v15[72] = *MEMORY[0x29EDCA608];
-  std::ifstream::basic_ifstream(v15);
+  std::ifstream::basic_ifstream(v15, this, 8);
   if ((*(&v15[4] + *(v15[0] - 24)) & 5) != 0)
   {
     v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary_generator.cpp", 74);
@@ -2193,10 +2130,10 @@ void MeCab::DictionaryGenerator::gencid(MeCab::DictionaryGenerator *this, const 
   operator new[]();
 }
 
-void MeCab::DictionaryGenerator::gendic(MeCab::DictionaryGenerator *this, const char *a2, const char *a3, const MeCab::CharProperty *a4, MeCab::DictionaryRewriter *a5, const MeCab::ContextID *a6, MeCab::DecoderFeatureIndex *a7, BOOL a8, int a9)
+void MeCab::DictionaryGenerator::gendic(MeCab::DictionaryGenerator *this, const char *a2, MeCab::CharProperty *a3, const MeCab::CharProperty *a4, MeCab::DictionaryRewriter *a5, const MeCab::ContextID *a6, MeCab::DecoderFeatureIndex *a7, int a8, int a9)
 {
   v38[72] = *MEMORY[0x29EDCA608];
-  std::ifstream::basic_ifstream(v38);
+  std::ifstream::basic_ifstream(v38, this, 8);
   if ((*(&v38[4] + *(v38[0] - 24)) & 5) != 0)
   {
     v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary_generator.cpp", 74);
@@ -2211,7 +2148,7 @@ void MeCab::DictionaryGenerator::gendic(MeCab::DictionaryGenerator *this, const 
     MeCab::die::~die(v37);
   }
 
-  std::ofstream::basic_ofstream(v37);
+  std::ofstream::basic_ofstream(v37, a2, 16);
   if ((*(&v37[4] + *(v37[0] - 24)) & 5) != 0)
   {
     v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary_generator.cpp", 74);
@@ -2249,7 +2186,7 @@ void sub_29913E4C0(_Unwind_Exception *a1)
 
 uint64_t MeCab::copy(MeCab *this, const char *a2, const char *a3)
 {
-  v38[19] = *MEMORY[0x29EDCA608];
+  v37[19] = *MEMORY[0x29EDCA608];
   v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C8], "copying ", 8);
   v6 = strlen(this);
   v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, this, v6);
@@ -2257,13 +2194,13 @@ uint64_t MeCab::copy(MeCab *this, const char *a2, const char *a3)
   v9 = strlen(a2);
   v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, a2, v9);
   std::ios_base::getloc((v10 + *(*v10 - 24)));
-  v11 = std::locale::use_facet(&v34, MEMORY[0x29EDC93D0]);
+  v11 = std::locale::use_facet(&v33, MEMORY[0x29EDC93D0]);
   (v11->__vftable[2].~facet_0)(v11, 10);
-  std::locale::~locale(&v34);
+  std::locale::~locale(&v33);
   std::ostream::put();
   std::ostream::flush();
-  MeCab::Mmap<char>::Mmap(v32);
-  if ((MeCab::Mmap<char>::open(v32, this, "r") & 1) == 0)
+  MeCab::Mmap<char>::Mmap(v31);
+  if ((MeCab::Mmap<char>::open(v31, this, "r") & 1) == 0)
   {
     v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary_generator.cpp", 74);
     v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "(", 1);
@@ -2271,39 +2208,39 @@ uint64_t MeCab::copy(MeCab *this, const char *a2, const char *a3)
     v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, ") [", 3);
     v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, "mmap.open(src)", 14);
     v17 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, "] ", 2);
-    v18 = MeCab::whatlog::str(&v33);
-    std::string::basic_string[abi:ne200100]<0>(&v34, v18);
-    if ((v36 & 0x80u) == 0)
+    v18 = MeCab::whatlog::str(&v32);
+    std::string::basic_string[abi:ne200100]<0>(&v33, v18);
+    if ((v35 & 0x80u) == 0)
     {
-      locale = &v34;
+      locale = &v33;
     }
 
     else
     {
-      locale = v34.__locale_;
+      locale = v33.__locale_;
     }
 
-    if ((v36 & 0x80u) == 0)
-    {
-      v20 = v36;
-    }
-
-    else
+    if ((v35 & 0x80u) == 0)
     {
       v20 = v35;
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, locale, v20);
-    if (v36 < 0)
+    else
     {
-      operator delete(v34.__locale_);
+      v20 = v34;
     }
 
-    MeCab::die::~die(&v31);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, locale, v20);
+    if (v35 < 0)
+    {
+      operator delete(v33.__locale_);
+    }
+
+    MeCab::die::~die(&v30);
   }
 
-  std::ofstream::basic_ofstream(&v34);
-  if ((v37[*(v34.__locale_ - 3)] & 5) != 0)
+  std::ofstream::basic_ofstream(&v33, a2, 20);
+  if ((v36[*(v33.__locale_ - 3)] & 5) != 0)
   {
     v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary_generator.cpp", 74);
     v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, "(", 1);
@@ -2314,23 +2251,21 @@ uint64_t MeCab::copy(MeCab *this, const char *a2, const char *a3)
     v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, "permission denied: ", 19);
     v28 = strlen(a2);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, a2, v28);
-    MeCab::die::~die(&v31);
+    MeCab::die::~die(&v30);
   }
 
   std::ostream::write();
   if (!std::filebuf::close())
   {
-    std::ios_base::clear((&v34 + *(v34.__locale_ - 3)), *&v37[*(v34.__locale_ - 3)] | 4);
+    std::ios_base::clear((&v33 + *(v33.__locale_ - 3)), *&v36[*(v33.__locale_ - 3)] | 4);
   }
 
-  v34.__locale_ = *MEMORY[0x29EDC9520];
-  *(&v34 + *(v34.__locale_ - 3)) = *(MEMORY[0x29EDC9520] + 24);
-  MEMORY[0x29C29A160](&v35);
+  v33.__locale_ = *MEMORY[0x29EDC9520];
+  *(&v33 + *(v33.__locale_ - 3)) = *(MEMORY[0x29EDC9520] + 24);
+  MEMORY[0x29C29A160](&v34);
   std::ostream::~ostream();
-  MEMORY[0x29C29A320](v38);
-  result = MeCab::Mmap<char>::~Mmap(v32);
-  v30 = *MEMORY[0x29EDCA608];
-  return result;
+  MEMORY[0x29C29A320](v37);
+  return MeCab::Mmap<char>::~Mmap(v31);
 }
 
 void sub_29913E9D4(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, __int16 a10, char a11, char a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, std::locale a56, uint64_t a57, int a58, __int16 a59, char a60, char a61)
@@ -2346,9 +2281,9 @@ void sub_29913E9D4(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
 void MeCab::DictionaryRewriter::~DictionaryRewriter(char **this)
 {
   std::__tree<std::__value_type<std::string,MeCab::FeatureSet>,std::__map_value_compare<std::string,std::__value_type<std::string,MeCab::FeatureSet>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MeCab::FeatureSet>>>::destroy((this + 9), this[10]);
-  v2 = this + 6;
+  v2 = (this + 6);
   std::vector<MeCab::RewritePattern>::__destroy_vector::operator()[abi:ne200100](&v2);
-  v2 = this + 3;
+  v2 = (this + 3);
   std::vector<MeCab::RewritePattern>::__destroy_vector::operator()[abi:ne200100](&v2);
   v2 = this;
   std::vector<MeCab::RewritePattern>::__destroy_vector::operator()[abi:ne200100](&v2);
@@ -2373,26 +2308,26 @@ MeCab::Param *MeCab::Param::Param(MeCab::Param *this)
   return this;
 }
 
-void sub_29913EB50(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_29913EB50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (*(v3 + 127) < 0)
+  va_start(va, a3);
+  if (*(v4 + 127) < 0)
   {
-    operator delete(*(v3 + 104));
+    operator delete(*(v4 + 104));
   }
 
-  if (*(v3 + 103) < 0)
+  if (*(v4 + 103) < 0)
   {
-    operator delete(*(v3 + 80));
+    operator delete(*(v4 + 80));
   }
 
-  if (*(v3 + 79) < 0)
+  if (*(v4 + 79) < 0)
   {
-    operator delete(*(v3 + 56));
+    operator delete(*(v4 + 56));
   }
 
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](va);
-  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v2, *v4);
+  std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::destroy(v3, *v5);
   _Unwind_Resume(a1);
 }
 
@@ -2647,16 +2582,13 @@ uint64_t std::stringbuf::view[abi:ne200100](uint64_t a1)
 
   else if ((v1 & 8) != 0)
   {
-    v2 = *(a1 + 16);
-    v4 = *(a1 + 32);
+    return *(a1 + 16);
   }
 
   else
   {
     return 0;
   }
-
-  return v2;
 }
 
 double MeCab::FeatureIndex::FeatureIndex(MeCab::FeatureIndex *this)
@@ -3364,7 +3296,7 @@ void std::__tree<std::__value_type<std::string,MeCab::FeatureSet>,std::__map_val
   }
 }
 
-void std::vector<MeCab::RewritePattern>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<MeCab::RewritePattern>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v2 = *a1;
   if (*v2)
@@ -3397,7 +3329,7 @@ void std::vector<MeCab::RewritePattern>::__base_destruct_at_end[abi:ne200100](ui
   *(a1 + 8) = a2;
 }
 
-void MeCab::DecoderFeatureIndex::~DecoderFeatureIndex(void **this)
+void MeCab::DecoderFeatureIndex::~DecoderFeatureIndex(char **this)
 {
   *this = &unk_2A1F352E8;
   if (*(this + 711) < 0)
@@ -3451,11 +3383,11 @@ void MeCab::ContextID::~ContextID(MeCab::ContextID *this)
   std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::destroy(this, *(this + 1));
 }
 
-void sub_299140BC8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void sub_299140BC8(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   if (a11)
   {
-    MEMORY[0x29C29A350](a11, v11);
+    MEMORY[0x29C29A350](a11, v11, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -3900,11 +3832,11 @@ LABEL_41:
   return 1;
 }
 
-void sub_2991415D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
+void sub_2991415D8(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24)
 {
   if (a20)
   {
-    MEMORY[0x29C29A350](a20, 0x1000C8077774924);
+    MEMORY[0x29C29A350](a20, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -3912,9 +3844,9 @@ void sub_2991415D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t MeCab::DictionaryRewriter::open(MeCab::DictionaryRewriter *this, const char *a2, MeCab::Iconv *a3)
 {
-  v43[19] = *MEMORY[0x29EDCA608];
-  std::ifstream::basic_ifstream(v41);
-  if ((v42[*(v41[0] - 24) + 16] & 5) != 0)
+  v42[19] = *MEMORY[0x29EDCA608];
+  std::ifstream::basic_ifstream(v40, a2, 8);
+  if ((v41[*(v40[0] - 24) + 16] & 5) != 0)
   {
     v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/dictionary_rewriter.cpp", 73);
     v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "(", 1);
@@ -3937,11 +3869,11 @@ LABEL_4:
   v18 = v15;
   while (1)
   {
-    std::ios_base::getloc((v41 + *(v41[0] - 24)));
-    v19 = std::locale::use_facet(&v40, v16);
+    std::ios_base::getloc((v40 + *(v40[0] - 24)));
+    v19 = std::locale::use_facet(&v39, v16);
     v20 = (v19->__vftable[2].~facet_0)(v19, 10);
-    std::locale::~locale(&v40);
-    v21 = std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v41, &__p, v20);
+    std::locale::~locale(&v39);
+    v21 = std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v40, &__p, v20);
     if ((*(v21 + *(*v21 - 24) + 32) & 5) != 0)
     {
       break;
@@ -4000,7 +3932,7 @@ LABEL_49:
               v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, "append_to != 0", 14);
               v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, "] ", 2);
               std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v35, "no sections found", 17);
-              MeCab::die::~die(&v40);
+              MeCab::die::~die(&v39);
             }
 
             if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
@@ -4068,12 +4000,11 @@ LABEL_36:
     operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  v41[0] = *MEMORY[0x29EDC9518];
-  *(v41 + *(v41[0] - 24)) = *(MEMORY[0x29EDC9518] + 24);
-  MEMORY[0x29C29A160](v42);
+  v40[0] = *MEMORY[0x29EDC9518];
+  *(v40 + *(v40[0] - 24)) = *(MEMORY[0x29EDC9518] + 24);
+  MEMORY[0x29C29A160](v41);
   std::istream::~istream();
-  MEMORY[0x29C29A320](v43);
-  v37 = *MEMORY[0x29EDCA608];
+  MEMORY[0x29C29A320](v42);
   return 1;
 }
 
@@ -4088,7 +4019,7 @@ void sub_299141BB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void anonymous namespace::append_rewrite_rule(void *a1, const char *a2)
+void anonymous namespace::append_rewrite_rule(uint64_t *a1, const char *a2)
 {
   memset(v17, 0, sizeof(v17));
   v4 = MeCab::tokenize2<std::back_insert_iterator<std::vector<char *>>>(a2, " \t", v17, 3uLL);
@@ -4143,11 +4074,11 @@ void sub_299141DC4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_299142204(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
+void sub_299142204(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   if (a20)
   {
-    MEMORY[0x29C29A350](a20, v20);
+    MEMORY[0x29C29A350](a20, v20, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4165,41 +4096,42 @@ void *MeCab::scoped_fixed_array<char *,8192>::~scoped_fixed_array(void *a1)
   return a1;
 }
 
-uint64_t MeCab::DictionaryRewriter::rewrite2(uint64_t a1, void **a2, std::string *a3, std::string *a4, std::string *a5)
+uint64_t MeCab::DictionaryRewriter::rewrite2(uint64_t *a1, char *a2, std::string *a3, std::string *a4, std::string *a5)
 {
-  v9 = std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::find<std::string>(a1 + 72, a2);
-  if (a1 + 80 == v9)
+  v10 = std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::find<std::string>((a1 + 9), a2);
+  if (a1 + 10 == v10)
   {
-    MeCab::DictionaryRewriter::rewrite();
+    MeCab::DictionaryRewriter::rewrite(a1, a2, a3, a4, a5);
   }
 
-  v10 = v9;
-  std::string::operator=(a3, (v9 + 56));
-  std::string::operator=(a4, (v10 + 80));
-  std::string::operator=(a5, (v10 + 104));
+  v11 = v10;
+  std::string::operator=(a3, (v10 + 56));
+  std::string::operator=(a4, (v11 + 80));
+  std::string::operator=(a5, (v11 + 104));
   return 1;
 }
 
-void sub_299142430(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21)
+void sub_299142430(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
+  va_start(va, a20);
   std::pair<std::string,MeCab::FeatureSet>::~pair(&a9);
-  MeCab::FeatureSet::~FeatureSet(&a21);
+  MeCab::FeatureSet::~FeatureSet(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t MeCab::POSIDGenerator::open(MeCab::POSIDGenerator *this, const char *a2, MeCab::Iconv *a3, unint64_t *a4)
 {
-  v47[19] = *MEMORY[0x29EDCA608];
-  std::ifstream::basic_ifstream(v45);
-  if ((v46[*(v45[0] - 24) + 16] & 5) != 0)
+  v46[19] = *MEMORY[0x29EDCA608];
+  std::ifstream::basic_ifstream(v44, a2, 8);
+  if ((v45[*(v44[0] - 24) + 16] & 5) != 0)
   {
     v6 = strlen(a2);
     v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], a2, v6);
     v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, " is not found. minimum setting is used", 38);
     std::ios_base::getloc((v8 + *(*v8 - 24)));
-    v9 = std::locale::use_facet(&v43, MEMORY[0x29EDC93D0]);
+    v9 = std::locale::use_facet(&v42, MEMORY[0x29EDC93D0]);
     (v9->__vftable[2].~facet_0)(v9, 10);
-    std::locale::~locale(&v43);
+    std::locale::~locale(&v42);
     std::ostream::put();
     std::ostream::flush();
     std::vector<MeCab::RewritePattern>::resize(this, 1uLL);
@@ -4207,31 +4139,31 @@ uint64_t MeCab::POSIDGenerator::open(MeCab::POSIDGenerator *this, const char *a2
   }
 
   v10 = MEMORY[0x29EDC93C0];
-  memset(&v43, 0, sizeof(v43));
+  memset(&v42, 0, sizeof(v42));
   __p = 0;
+  v40 = 0;
   v41 = 0;
-  v42 = 0;
-  std::ios_base::getloc((v45 + *(v45[0] - 24)));
-  v11 = std::locale::use_facet(&v44, MEMORY[0x29EDC93D0]);
+  std::ios_base::getloc((v44 + *(v44[0] - 24)));
+  v11 = std::locale::use_facet(&v43, MEMORY[0x29EDC93D0]);
   v12 = (v11->__vftable[2].~facet_0)(v11, 10);
-  std::locale::~locale(&v44);
-  v13 = std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v45, &v43, v12);
+  std::locale::~locale(&v43);
+  v13 = std::getline[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v44, &v42, v12);
   if ((*(v13 + *(*v13 - 24) + 32) & 5) == 0)
   {
-    v41 = __p;
+    v40 = __p;
     if (a3)
     {
-      MeCab::Iconv::convert(a3, &v43);
+      MeCab::Iconv::convert(a3, &v42);
     }
 
-    if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v14 = &v43;
+      v14 = &v42;
     }
 
     else
     {
-      v14 = v43.__r_.__value_.__r.__words[0];
+      v14 = v42.__r_.__value_.__r.__words[0];
     }
 
     if (MeCab::tokenize2<std::back_insert_iterator<std::vector<char *>>>(v14, " \t", &__p, 2uLL) != 2)
@@ -4243,28 +4175,28 @@ uint64_t MeCab::POSIDGenerator::open(MeCab::POSIDGenerator *this, const char *a2
       v19 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, "n == 2", 6);
       v20 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v19, "] ", 2);
       v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v20, "format error: ", 14);
-      if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v22 = &v43;
+        v22 = &v42;
       }
 
       else
       {
-        v22 = v43.__r_.__value_.__r.__words[0];
+        v22 = v42.__r_.__value_.__r.__words[0];
       }
 
-      if ((v43.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      if ((v42.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        size = HIBYTE(v43.__r_.__value_.__r.__words[2]);
+        size = HIBYTE(v42.__r_.__value_.__r.__words[2]);
       }
 
       else
       {
-        size = v43.__r_.__value_.__l.__size_;
+        size = v42.__r_.__value_.__l.__size_;
       }
 
       std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, v22, size);
-      MeCab::die::~die(&v44);
+      MeCab::die::~die(&v43);
     }
 
     v24 = *(__p + 1);
@@ -4285,7 +4217,7 @@ uint64_t MeCab::POSIDGenerator::open(MeCab::POSIDGenerator *this, const char *a2
           v33 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, "not a number: ", 14);
           v34 = strlen(*(__p + 1));
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, *(__p + 1), v34);
-          MeCab::die::~die(&v44);
+          MeCab::die::~die(&v43);
         }
 
         v35 = *v26++;
@@ -4306,28 +4238,27 @@ uint64_t MeCab::POSIDGenerator::open(MeCab::POSIDGenerator *this, const char *a2
 
   if (__p)
   {
-    v41 = __p;
+    v40 = __p;
     operator delete(__p);
   }
 
-  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v42.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v43.__r_.__value_.__l.__data_);
+    operator delete(v42.__r_.__value_.__l.__data_);
   }
 
-  v45[0] = *MEMORY[0x29EDC9518];
-  *(v45 + *(v45[0] - 24)) = *(MEMORY[0x29EDC9518] + 24);
-  MEMORY[0x29C29A160](v46);
+  v44[0] = *MEMORY[0x29EDC9518];
+  *(v44 + *(v44[0] - 24)) = *(MEMORY[0x29EDC9518] + 24);
+  MEMORY[0x29C29A160](v45);
   std::istream::~istream();
-  MEMORY[0x29C29A320](v47);
-  v36 = *MEMORY[0x29EDCA608];
+  MEMORY[0x29C29A320](v46);
   return 1;
 }
 
-void std::vector<MeCab::RewritePattern>::resize(uint64_t a1, unint64_t a2)
+void std::vector<MeCab::RewritePattern>::resize(uint64_t *a1, unint64_t a2)
 {
   v3 = *a1;
-  v4 = *(a1 + 8);
+  v4 = a1[1];
   v5 = 0xAAAAAAAAAAAAAAABLL * ((v4 - *a1) >> 4);
   v6 = a2 - v5;
   if (a2 <= v5)
@@ -4342,7 +4273,7 @@ void std::vector<MeCab::RewritePattern>::resize(uint64_t a1, unint64_t a2)
 
   else
   {
-    v7 = *(a1 + 16);
+    v7 = a1[2];
     if (0xAAAAAAAAAAAAAAABLL * ((v7 - v4) >> 4) < v6)
     {
       if (a2 <= 0x555555555555555)
@@ -4375,12 +4306,12 @@ void std::vector<MeCab::RewritePattern>::resize(uint64_t a1, unint64_t a2)
       std::vector<MeCab::RewritePattern>::__throw_length_error[abi:ne200100]();
     }
 
-    bzero(*(a1 + 8), 48 * ((48 * v6 - 48) / 0x30) + 48);
-    *(a1 + 8) = v4 + 48 * ((48 * v6 - 48) / 0x30) + 48;
+    bzero(a1[1], 48 * ((48 * v6 - 48) / 0x30) + 48);
+    a1[1] = v4 + 48 * ((48 * v6 - 48) / 0x30) + 48;
   }
 }
 
-unint64_t MeCab::tokenize2<std::back_insert_iterator<std::vector<char *>>>(const char *a1, const char *a2, uint64_t a3, unint64_t a4)
+unint64_t MeCab::tokenize2<std::back_insert_iterator<std::vector<char *>>>(const char *a1, const char *a2, const void **a3, unint64_t a4)
 {
   v7 = a1;
   v8 = strlen(a1);
@@ -4425,8 +4356,8 @@ LABEL_11:
     *v13 = 0;
     if (*v7)
     {
-      v17 = *(a3 + 8);
-      v16 = *(a3 + 16);
+      v17 = a3[1];
+      v16 = a3[2];
       if (v17 >= v16)
       {
         v19 = (v17 - *a3) >> 3;
@@ -4459,14 +4390,14 @@ LABEL_11:
 
         v23 = (8 * v19);
         *v23 = v7;
-        v18 = 8 * v19 + 8;
-        v24 = *(a3 + 8) - *a3;
+        v18 = (8 * v19 + 8);
+        v24 = a3[1] - *a3;
         v25 = v23 - v24;
         memcpy(v23 - v24, *a3, v24);
         v26 = *a3;
         *a3 = v25;
-        *(a3 + 8) = v18;
-        *(a3 + 16) = 0;
+        a3[1] = v18;
+        a3[2] = 0;
         if (v26)
         {
           operator delete(v26);
@@ -4476,10 +4407,10 @@ LABEL_11:
       else
       {
         *v17 = v7;
-        v18 = (v17 + 1);
+        v18 = v17 + 8;
       }
 
-      *(a3 + 8) = v18;
+      a3[1] = v18;
       ++v11;
     }
 
@@ -4495,7 +4426,7 @@ LABEL_11:
   return v11;
 }
 
-void sub_299143148(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
+void sub_299143148(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20)
 {
   if (a15 < 0)
   {
@@ -4504,12 +4435,12 @@ void sub_299143148(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
   if (a17)
   {
-    MEMORY[0x29C29A350](a17, 0x10C80436913F5);
+    MEMORY[0x29C29A350](a17, 0x10C80436913F5, a3, a4, a5, a6, a7, a8);
   }
 
   if (a20)
   {
-    MEMORY[0x29C29A350](a20, v20);
+    MEMORY[0x29C29A350](a20, v20, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -4694,34 +4625,35 @@ void std::__split_buffer<std::string>::__destruct_at_end[abi:ne200100](uint64_t 
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::string,MeCab::FeatureSet>,std::__map_value_compare<std::string,std::__value_type<std::string,MeCab::FeatureSet>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MeCab::FeatureSet>>>::__emplace_unique_key_args<std::string,std::pair<std::string,MeCab::FeatureSet>>(uint64_t a1, void **a2)
+uint64_t std::__tree<std::__value_type<std::string,MeCab::FeatureSet>,std::__map_value_compare<std::string,std::__value_type<std::string,MeCab::FeatureSet>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,MeCab::FeatureSet>>>::__emplace_unique_key_args<std::string,std::pair<std::string,MeCab::FeatureSet>>(uint64_t **a1, uint64_t ***a2, uint64_t a3)
 {
-  v2 = *std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__find_equal<std::string>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__find_equal<std::string>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
-uint64_t anonymous namespace::__btrie_insert_fat(uint64_t result, int a2, unsigned __int8 *a3, int a4, unsigned int a5)
+uint64_t anonymous namespace::__btrie_insert_fat(uint64_t result, int a2, unsigned __int8 *a3, int a4, int a5)
 {
   v6 = *(result + 56);
   v7 = 4 * (a2 & 0x3FFFFFFF);
   v8 = (v6 + v7);
   if (!a4)
   {
-LABEL_19:
+LABEL_20:
     *v8 = a5;
     return result;
   }
 
   v9 = a4;
+  v10 = a3;
   v11 = result;
   while (1)
   {
-    v12 = *a3;
+    v12 = *v10;
     v13 = v8 + 1;
     v14 = v8[v12 + 1];
     v15 = v8[v12 + 1] & 3;
@@ -4733,12 +4665,17 @@ LABEL_19:
         return result;
       }
 
-      ++a3;
-      LODWORD(v18) = v9 - 1;
-      goto LABEL_18;
+      ++v10;
+      LODWORD(v19) = v9 - 1;
+      goto LABEL_19;
     }
 
-    if (!v15)
+    if (v15)
+    {
+      v18 = 0x100000000;
+    }
+
+    else
     {
       if (*(v11 + 80) != *(v11 + 72))
       {
@@ -4755,53 +4692,54 @@ LABEL_19:
         v17 = (v16 >> 2) | 0x100000000;
       }
 
+      v18 = v17 & 0x100000000;
       v13[v12] = HIDWORD(v17) | (4 * v17);
       result = v17;
     }
 
-    v19 = (*(v11 + 120) + 4 * (result & 0x3FFFFFFF));
-    v18 = (v9 - 1);
+    v20 = (*(v11 + 120) + 4 * (result & 0x3FFFFFFF));
+    v19 = (v9 - 1);
     if (v9 == 1)
     {
-      v19[1] = a5;
-      v23 = 4;
-      goto LABEL_22;
+      v20[1] = a5;
+      v24 = 4;
+      goto LABEL_23;
     }
 
-    v20 = *v19;
-    if (!v20)
+    v21 = *v20;
+    if (!v21)
     {
-      *v19 = 4;
-      v20 = 4;
+      *v20 = 4;
+      v21 = 4;
     }
 
-    ++a3;
-    v21 = (v9 + 4);
-    v22 = v20 + 4;
-    if (v22 + v21 < *(v11 + 200))
+    ++v10;
+    v22 = (v9 + 4);
+    v23 = v21 + 4;
+    if (v23 + v22 < *(v11 + 200))
     {
       break;
     }
 
     v6 = *(v11 + 56);
     *(v6 + v7 + 4 * v12 + 4) = HIDWORD(result) | (4 * result);
-LABEL_18:
+LABEL_19:
     v7 = 4 * (result & 0x3FFFFFFF);
     v8 = (v6 + v7);
-    v9 = v18;
-    if (!v18)
+    v9 = v19;
+    if (!v19)
     {
-      goto LABEL_19;
+      goto LABEL_20;
     }
   }
 
-  *(v19 + v22) = v18;
-  v24 = v19 + v22 + 1;
-  result = memcpy(v24, a3, v18);
-  *&v24[v18] = a5;
-  v23 = *v19 + v21;
-LABEL_22:
-  *v19 = v23;
+  *(v20 + v23) = v19;
+  v25 = v20 + v23 + 1;
+  result = memcpy(v25, v10, v19);
+  *&v25[v19] = a5;
+  v24 = *v20 + v22;
+LABEL_23:
+  *v20 = v24;
   return result;
 }
 
@@ -4941,7 +4879,7 @@ uint64_t btrie_build(uint64_t a1, uint64_t a2, unsigned __int8 **a3, uint64_t *a
   return v5;
 }
 
-uint64_t anonymous namespace::__btrie_storage_alloc_aligned(unint64_t *a1, uint64_t a2, uint64_t a3)
+unint64_t anonymous namespace::__btrie_storage_alloc_aligned(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   v4 = *a1;
   v5 = (a3 + a1[1] - 1) & -a3;
@@ -4995,50 +4933,49 @@ LABEL_11:
   return -1;
 }
 
-uint64_t anonymous namespace::__btrie_burst_flat(uint64_t a1)
+uint64_t anonymous namespace::__btrie_burst_flat(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
-  v18[1] = *MEMORY[0x29EDCA608];
-  v2 = *(a1 + 200);
-  v3 = MEMORY[0x2A1C7C4A8]();
-  v5 = (v18 - ((v4 + 19) & 0x1FFFFFFF0));
-  v7 = 4 * (v6 & 0x3FFFFFFF);
-  v8 = (*(v3 + 120) + v7);
-  v9 = *v8;
-  *v5 = v9;
-  memcpy(v5 + 1, v8 + 1, v9);
-  if (*(a1 + 80) == v7)
+  v19[1] = *MEMORY[0x29EDCA608];
+  v4 = MEMORY[0x2A1C7C4A8](a1, a2, a3);
+  v6 = (v19 - ((v5 + 19) & 0x1FFFFFFF0));
+  v8 = 4 * (v7 & 0x3FFFFFFF);
+  v9 = (*(v4 + 120) + v8);
+  v10 = *v9;
+  *v6 = v10;
+  memcpy(v6 + 1, v9 + 1, v10);
+  if (a1[10] == v8)
   {
-    bzero(v8, *(a1 + 72) - v7);
-    *(a1 + 72) = *(a1 + 80);
+    bzero(v9, a1[9] - v8);
+    a1[9] = a1[10];
   }
 
-  if (v10 == -1)
+  if (v11 == -1)
   {
-    v11 = 0;
+    v12 = 0;
   }
 
   else
   {
-    v11 = (v10 >> 2) | 0x300000000;
+    v12 = (v11 >> 2) | 0x300000000;
   }
 
-  *(*(a1 + 56) + 4 * (v11 & 0x3FFFFFFF)) = v5[1];
-  if (v9 >= 5)
+  *(a1[7] + 4 * (v12 & 0x3FFFFFFF)) = v6[1];
+  if (v10 >= 5)
   {
-    v12 = v5 + v9;
-    v13 = (v5 + 2);
+    v13 = (v6 + v10);
+    v14 = (v6 + 2);
     do
     {
-      v14 = &v13[*v13 + 1];
-      v15 = *v14;
-      v13 = v14 + 4;
+      v16 = *v14;
+      v15 = v14 + 1;
+      v17 = &v15[v16];
+      v14 = (v17 + 1);
     }
 
-    while (v14 < v12);
+    while (v17 < v13);
   }
 
-  v16 = *MEMORY[0x29EDCA608];
-  return v11;
+  return v12;
 }
 
 unint64_t anonymous namespace::__btrie_build_compact_trie(uint64_t a1, unint64_t a2, unint64_t *a3, int a4)
@@ -5127,34 +5064,35 @@ unint64_t anonymous namespace::__btrie_build_compact_trie(uint64_t a1, unint64_t
   return v4 | (v5 << 32);
 }
 
-uint64_t mecab_system_eval(int a1, char **a2)
+uint64_t mecab_system_eval(uint64_t a1, char **a2)
 {
-  v85 = *MEMORY[0x29EDCA608];
-  MEMORY[0x29C29A2E0](&v63);
-  MeCab::Param::Param(v73);
-  MeCab::Param::open(v73, a1, a2, &MeCab::Eval::eval(int,char **)::long_options);
-  if ((MeCab::Param::open(v73, a1, a2, &MeCab::Eval::eval(int,char **)::long_options) & 1) == 0)
+  v3 = a1;
+  v84 = *MEMORY[0x29EDCA608];
+  MEMORY[0x29C29A2E0](&v62);
+  MeCab::Param::Param(v72);
+  MeCab::Param::open(v72, v3, a2, &MeCab::Eval::eval(int,char **)::long_options);
+  if ((MeCab::Param::open(v72, v3, a2, &MeCab::Eval::eval(int,char **)::long_options) & 1) == 0)
   {
-    v10 = MeCab::whatlog::str(&v78);
-    std::string::basic_string[abi:ne200100]<0>(&v81, v10);
-    if ((v83 & 0x80u) == 0)
+    v10 = MeCab::whatlog::str(&v77);
+    std::string::basic_string[abi:ne200100]<0>(&v80, v10);
+    if ((v82 & 0x80u) == 0)
     {
-      locale = &v81;
+      locale = &v80;
     }
 
     else
     {
-      locale = v81.__locale_;
+      locale = v80.__locale_;
     }
 
-    if ((v83 & 0x80u) == 0)
-    {
-      v12 = v83;
-    }
-
-    else
+    if ((v82 & 0x80u) == 0)
     {
       v12 = v82;
+    }
+
+    else
+    {
+      v12 = v81;
     }
 
     v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C8], locale, v12);
@@ -5162,61 +5100,61 @@ uint64_t mecab_system_eval(int a1, char **a2)
     v15 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, "MeCab: Yet Another Part-of-Speech and Morphological Analyzer\n\nCopyright(C) 2001-2012 Taku Kudo \nCopyright(C) 2004-2008 Nippon Telegraph and Telephone Corporation\n", 162);
     v16 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v15, "\ntry '--help' for more information.", 35);
     std::ios_base::getloc((v16 + *(*v16 - 24)));
-    v17 = std::locale::use_facet(&v80, MEMORY[0x29EDC93D0]);
+    v17 = std::locale::use_facet(&v79, MEMORY[0x29EDC93D0]);
     (v17->__vftable[2].~facet_0)(v17, 10);
-    std::locale::~locale(&v80);
+    std::locale::~locale(&v79);
     std::ostream::put();
     std::ostream::flush();
-    if (v83 < 0)
+    if (v82 < 0)
     {
-      operator delete(v81.__locale_);
+      operator delete(v80.__locale_);
     }
 
     goto LABEL_58;
   }
 
-  if (MeCab::Param::help_version(v73))
+  if (MeCab::Param::help_version(v72))
   {
-    if (0xAAAAAAAAAAAAAAABLL * ((v75 - v74) >> 3) > 1)
+    if (0xAAAAAAAAAAAAAAABLL * ((v74 - v73) >> 3) > 1)
     {
-      MeCab::Param::get<std::string>(v73, "output", &v72);
-      size = HIBYTE(v72.__r_.__value_.__r.__words[2]);
-      v20 = HIBYTE(v72.__r_.__value_.__r.__words[2]);
-      if ((v72.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+      MeCab::Param::get<std::string>(v72, "output", &v71);
+      size = HIBYTE(v71.__r_.__value_.__r.__words[2]);
+      v20 = HIBYTE(v71.__r_.__value_.__r.__words[2]);
+      if ((v71.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
       {
-        size = v72.__r_.__value_.__l.__size_;
+        size = v71.__r_.__value_.__l.__size_;
       }
 
       if (!size)
       {
-        if (SHIBYTE(v72.__r_.__value_.__r.__words[2]) < 0)
+        if (SHIBYTE(v71.__r_.__value_.__r.__words[2]) < 0)
         {
-          v72.__r_.__value_.__l.__size_ = 1;
-          v21 = v72.__r_.__value_.__r.__words[0];
+          v71.__r_.__value_.__l.__size_ = 1;
+          v21 = v71.__r_.__value_.__r.__words[0];
         }
 
         else
         {
-          *(&v72.__r_.__value_.__s + 23) = 1;
-          v21 = &v72;
+          *(&v71.__r_.__value_.__s + 23) = 1;
+          v21 = &v71;
         }
 
         LOWORD(v21->__r_.__value_.__l.__data_) = 45;
-        v20 = HIBYTE(v72.__r_.__value_.__r.__words[2]);
+        v20 = HIBYTE(v71.__r_.__value_.__r.__words[2]);
       }
 
       if (v20 >= 0)
       {
-        v22 = &v72;
+        v22 = &v71;
       }
 
       else
       {
-        v22 = v72.__r_.__value_.__r.__words[0];
+        v22 = v71.__r_.__value_.__r.__words[0];
       }
 
-      MeCab::ostream_wrapper::ostream_wrapper(&v70, v22);
-      if ((*(v71 + *(*v71 - 24) + 32) & 5) != 0)
+      MeCab::ostream_wrapper::ostream_wrapper(&v69, v22);
+      if ((*(v70 + *(*v70 - 24) + 32) & 5) != 0)
       {
         v23 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/eval.cpp", 58);
         v24 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v23, "(", 1);
@@ -5225,68 +5163,70 @@ uint64_t mecab_system_eval(int a1, char **a2)
         v27 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, "*ofs", 4);
         v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v27, "] ", 2);
         v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, "no such file or directory: ", 27);
-        if ((v72.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v71.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v30 = &v72;
+          v30 = &v71;
         }
 
         else
         {
-          v30 = v72.__r_.__value_.__r.__words[0];
+          v30 = v71.__r_.__value_.__r.__words[0];
         }
 
-        if ((v72.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v71.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v31 = HIBYTE(v72.__r_.__value_.__r.__words[2]);
+          v31 = HIBYTE(v71.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v31 = v72.__r_.__value_.__l.__size_;
+          v31 = v71.__r_.__value_.__l.__size_;
         }
 
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v29, v30, v31);
-        MeCab::die::~die(&v81);
+        MeCab::die::~die(&v80);
       }
 
-      v32 = v74;
-      if (*(v74 + 23) < 0)
+      v32 = v73;
+      if (*(v73 + 23) < 0)
       {
-        std::string::__init_copy_ctor_external(&v69, *v74, *(v74 + 1));
-        v32 = v74;
+        std::string::__init_copy_ctor_external(&v68, *v73, *(v73 + 1));
+        v32 = v73;
       }
 
       else
       {
-        v33 = *v74;
-        v69.__r_.__value_.__r.__words[2] = *(v74 + 2);
-        *&v69.__r_.__value_.__l.__data_ = v33;
+        v33 = *v73;
+        v68.__r_.__value_.__r.__words[2] = *(v73 + 2);
+        *&v68.__r_.__value_.__l.__data_ = v33;
       }
 
       if (*(v32 + 47) < 0)
       {
-        std::string::__init_copy_ctor_external(&v68, *(v32 + 3), *(v32 + 4));
+        std::string::__init_copy_ctor_external(&v67, *(v32 + 3), *(v32 + 4));
       }
 
       else
       {
-        v68 = *(v32 + 1);
+        v67 = *(v32 + 1);
       }
 
-      MeCab::Param::get<std::string>(v73, "level", &__p);
-      if (*(v74 + 23) < 0)
+      MeCab::Param::get<std::string>(v72, "level", &__p);
+      v34 = v73;
+      if (*(v73 + 23) < 0)
       {
-        v34 = *v74;
+        v34 = *v73;
       }
 
-      std::ifstream::basic_ifstream(&v81);
-      if (*(v74 + 47) < 0)
+      std::ifstream::basic_ifstream(&v80, v34, 8);
+      v35 = v73 + 3;
+      if (*(v73 + 47) < 0)
       {
-        v35 = *(v74 + 3);
+        v35 = *v35;
       }
 
-      std::ifstream::basic_ifstream(&v80);
-      if ((v84[*(v81.__locale_ - 3)] & 5) != 0)
+      std::ifstream::basic_ifstream(&v79, v35, 8);
+      if ((v83[*(v80.__locale_ - 3)] & 5) != 0)
       {
         v36 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/eval.cpp", 58);
         v37 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v36, "(", 1);
@@ -5295,18 +5235,18 @@ uint64_t mecab_system_eval(int a1, char **a2)
         v40 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, "ifs1", 4);
         v41 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v40, "] ", 2);
         v42 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v41, "no such file or directory: ", 27);
-        v43 = v74;
-        if (*(v74 + 23) < 0)
+        v43 = v73;
+        if (*(v73 + 23) < 0)
         {
-          v43 = *v74;
+          v43 = *v73;
         }
 
         v44 = strlen(v43);
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v42, v43, v44);
-        MeCab::die::~die(&v79);
+        MeCab::die::~die(&v78);
       }
 
-      if ((*(&v80 + *(v80.__locale_ - 3) + 32) & 5) != 0)
+      if ((*(&v79 + *(v79.__locale_ - 3) + 32) & 5) != 0)
       {
         v45 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/eval.cpp", 58);
         v46 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v45, "(", 1);
@@ -5315,15 +5255,15 @@ uint64_t mecab_system_eval(int a1, char **a2)
         v49 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v48, "ifs2", 4);
         v50 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v49, "] ", 2);
         v51 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v50, "no such file or directory: ", 27);
-        v52 = v74;
-        if (*(v74 + 23) < 0)
+        v52 = v73;
+        if (*(v73 + 23) < 0)
         {
-          v52 = *v74;
+          v52 = *v73;
         }
 
         v53 = strlen(v52);
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v51, v52, v53);
-        MeCab::die::~die(&v79);
+        MeCab::die::~die(&v78);
       }
 
       v54 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
@@ -5341,34 +5281,34 @@ uint64_t mecab_system_eval(int a1, char **a2)
         v59 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v58, "!level_str.empty()", 18);
         v60 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v59, "] ", 2);
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v60, "level_str is NULL", 17);
-        MeCab::die::~die(&v79);
+        MeCab::die::~die(&v78);
       }
 
       __src = 0;
+      v64 = 0;
       v65 = 0;
-      v66 = 0;
-      v79.__locale_ = &unk_2A1F35AF8;
+      v78.__locale_ = &unk_2A1F35AF8;
       operator new[]();
     }
 
     v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C8], "Usage: ", 7);
-    if (v77 >= 0)
+    if (v76 >= 0)
     {
-      v5 = &v76;
+      v5 = &v75;
     }
 
     else
     {
-      v5 = v76;
+      v5 = v75;
     }
 
     v6 = strlen(v5);
     v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, v5, v6);
     v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, " output answer", 14);
     std::ios_base::getloc((v8 + *(*v8 - 24)));
-    v9 = std::locale::use_facet(&v81, MEMORY[0x29EDC93D0]);
+    v9 = std::locale::use_facet(&v80, MEMORY[0x29EDC93D0]);
     (v9->__vftable[2].~facet_0)(v9, 10);
-    std::locale::~locale(&v81);
+    std::locale::~locale(&v80);
     std::ostream::put();
     std::ostream::flush();
 LABEL_58:
@@ -5378,9 +5318,8 @@ LABEL_58:
 
   v18 = 0;
 LABEL_59:
-  MeCab::Param::~Param(v73);
-  std::ios_base::Init::~Init(&v63);
-  v61 = *MEMORY[0x29EDCA608];
+  MeCab::Param::~Param(v72);
+  std::ios_base::Init::~Init(&v62);
   return v18;
 }
 
@@ -5407,39 +5346,40 @@ void sub_299144F1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t mecab_test_gen(int a1, char **a2)
+uint64_t mecab_test_gen(uint64_t a1, char **a2)
 {
-  v52 = *MEMORY[0x29EDCA608];
-  MEMORY[0x29C29A2E0](&v39);
-  MeCab::Param::Param(v47);
-  MeCab::Param::open(v47, a1, a2, &MeCab::TestSentenceGenerator::run(int,char **)::long_options);
-  if (MeCab::Param::open(v47, a1, a2, &MeCab::TestSentenceGenerator::run(int,char **)::long_options))
+  v3 = a1;
+  v51 = *MEMORY[0x29EDCA608];
+  MEMORY[0x29C29A2E0](&v38);
+  MeCab::Param::Param(v46);
+  MeCab::Param::open(v46, v3, a2, &MeCab::TestSentenceGenerator::run(int,char **)::long_options);
+  if (MeCab::Param::open(v46, v3, a2, &MeCab::TestSentenceGenerator::run(int,char **)::long_options))
   {
-    if (MeCab::Param::help_version(v47))
+    if (MeCab::Param::help_version(v46))
     {
-      v44.__locale_ = 0;
+      v43.__locale_ = 0;
+      v44 = 0;
       v45 = 0;
-      v46 = 0;
-      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v44, v48, v49, 0xAAAAAAAAAAAAAAABLL * ((v49 - v48) >> 3));
-      if (v44.__locale_ == v45)
+      std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(&v43, v47, v48, 0xAAAAAAAAAAAAAAABLL * ((v48 - v47) >> 3));
+      if (v43.__locale_ == v44)
       {
         std::string::basic_string[abi:ne200100]<0>(__p, "-");
-        v4 = v45;
-        if (v45 >= v46)
+        v4 = v44;
+        if (v44 >= v45)
         {
-          v15 = 0xAAAAAAAAAAAAAAABLL * ((v45 - v44.__locale_) >> 3);
+          v15 = 0xAAAAAAAAAAAAAAABLL * ((v44 - v43.__locale_) >> 3);
           v16 = v15 + 1;
           if (v15 + 1 > 0xAAAAAAAAAAAAAAALL)
           {
             std::vector<MeCab::RewritePattern>::__throw_length_error[abi:ne200100]();
           }
 
-          if (0x5555555555555556 * ((v46 - v44.__locale_) >> 3) > v16)
+          if (0x5555555555555556 * ((v45 - v43.__locale_) >> 3) > v16)
           {
-            v16 = 0x5555555555555556 * ((v46 - v44.__locale_) >> 3);
+            v16 = 0x5555555555555556 * ((v45 - v43.__locale_) >> 3);
           }
 
-          if (0xAAAAAAAAAAAAAAABLL * ((v46 - v44.__locale_) >> 3) >= 0x555555555555555)
+          if (0xAAAAAAAAAAAAAAABLL * ((v45 - v43.__locale_) >> 3) >= 0x555555555555555)
           {
             v17 = 0xAAAAAAAAAAAAAAALL;
           }
@@ -5449,34 +5389,34 @@ uint64_t mecab_test_gen(int a1, char **a2)
             v17 = v16;
           }
 
-          v51.__end_cap_.__value_ = &v44;
+          v50.__end_cap_.__value_ = &v43;
           if (v17)
           {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(&v44, v17);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<std::string>>(&v43, v17);
           }
 
-          v18 = 8 * ((v45 - v44.__locale_) >> 3);
+          v18 = 8 * ((v44 - v43.__locale_) >> 3);
           v19 = *__p;
-          *(v18 + 16) = v43;
+          *(v18 + 16) = v42;
           *v18 = v19;
           __p[1] = 0;
-          v43 = 0;
+          v42 = 0;
           __p[0] = 0;
           v20 = 24 * v15 + 24;
-          v21 = (24 * v15 - (v45 - v44.__locale_));
-          memcpy((v18 - (v45 - v44.__locale_)), v44.__locale_, v45 - v44.__locale_);
-          locale = v44.__locale_;
-          v23 = v46;
-          v44.__locale_ = v21;
-          v45 = v20;
-          v46 = 0;
-          v51.__end_ = locale;
-          v51.__end_cap_.__value_ = v23;
-          v51.__first_ = locale;
-          v51.__begin_ = locale;
-          std::__split_buffer<std::string>::~__split_buffer(&v51);
-          v45 = v20;
-          if (SHIBYTE(v43) < 0)
+          v21 = (24 * v15 - (v44 - v43.__locale_));
+          memcpy((v18 - (v44 - v43.__locale_)), v43.__locale_, v44 - v43.__locale_);
+          locale = v43.__locale_;
+          v23 = v45;
+          v43.__locale_ = v21;
+          v44 = v20;
+          v45 = 0;
+          v50.__end_ = locale;
+          v50.__end_cap_.__value_ = v23;
+          v50.__first_ = locale;
+          v50.__begin_ = locale;
+          std::__split_buffer<std::string>::~__split_buffer(&v50);
+          v44 = v20;
+          if (SHIBYTE(v42) < 0)
           {
             operator delete(__p[0]);
           }
@@ -5485,50 +5425,50 @@ uint64_t mecab_test_gen(int a1, char **a2)
         else
         {
           v5 = *__p;
-          *(v45 + 2) = v43;
+          *(v44 + 2) = v42;
           *v4 = v5;
-          v45 = (v4 + 24);
+          v44 = (v4 + 24);
         }
       }
 
-      MeCab::Param::get<std::string>(v47, "output", &v51);
-      end_high = HIBYTE(v51.__end_);
-      v25 = HIBYTE(v51.__end_);
-      if (SHIBYTE(v51.__end_) < 0)
+      MeCab::Param::get<std::string>(v46, "output", &v50);
+      end_high = HIBYTE(v50.__end_);
+      v25 = HIBYTE(v50.__end_);
+      if (SHIBYTE(v50.__end_) < 0)
       {
-        end_high = v51.__begin_;
+        end_high = v50.__begin_;
       }
 
       if (!end_high)
       {
-        if (SHIBYTE(v51.__end_) < 0)
+        if (SHIBYTE(v50.__end_) < 0)
         {
-          v51.__begin_ = 1;
-          first = v51.__first_;
+          v50.__begin_ = 1;
+          first = v50.__first_;
         }
 
         else
         {
-          HIBYTE(v51.__end_) = 1;
-          first = &v51;
+          HIBYTE(v50.__end_) = 1;
+          first = &v50;
         }
 
         *first = 45;
-        v25 = HIBYTE(v51.__end_);
+        v25 = HIBYTE(v50.__end_);
       }
 
       if (v25 >= 0)
       {
-        v27 = &v51;
+        v27 = &v50;
       }
 
       else
       {
-        v27 = v51.__first_;
+        v27 = v50.__first_;
       }
 
-      MeCab::ostream_wrapper::ostream_wrapper(&v40, v27);
-      if ((*(v41 + *(*v41 - 24) + 32) & 5) != 0)
+      MeCab::ostream_wrapper::ostream_wrapper(&v39, v27);
+      if ((*(v40 + *(*v40 - 24) + 32) & 5) != 0)
       {
         v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/eval.cpp", 58);
         v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, "(", 1);
@@ -5537,24 +5477,24 @@ uint64_t mecab_test_gen(int a1, char **a2)
         v32 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, "*ofs", 4);
         v33 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, "] ", 2);
         v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, "permission denied: ", 19);
-        if (SHIBYTE(v51.__end_) >= 0)
+        if (SHIBYTE(v50.__end_) >= 0)
         {
-          v35 = &v51;
+          v35 = &v50;
         }
 
         else
         {
-          v35 = v51.__first_;
+          v35 = v50.__first_;
         }
 
-        if (SHIBYTE(v51.__end_) >= 0)
+        if (SHIBYTE(v50.__end_) >= 0)
         {
-          begin = HIBYTE(v51.__end_);
+          begin = HIBYTE(v50.__end_);
         }
 
         else
         {
-          begin = v51.__begin_;
+          begin = v50.__begin_;
         }
 
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, v35, begin);
@@ -5570,26 +5510,26 @@ uint64_t mecab_test_gen(int a1, char **a2)
 
   else
   {
-    v6 = MeCab::whatlog::str(&v50);
-    std::string::basic_string[abi:ne200100]<0>(&v51, v6);
-    if (SHIBYTE(v51.__end_) >= 0)
+    v6 = MeCab::whatlog::str(&v49);
+    std::string::basic_string[abi:ne200100]<0>(&v50, v6);
+    if (SHIBYTE(v50.__end_) >= 0)
     {
-      v7 = &v51;
+      v7 = &v50;
     }
 
     else
     {
-      v7 = v51.__first_;
+      v7 = v50.__first_;
     }
 
-    if (SHIBYTE(v51.__end_) >= 0)
+    if (SHIBYTE(v50.__end_) >= 0)
     {
-      v8 = HIBYTE(v51.__end_);
+      v8 = HIBYTE(v50.__end_);
     }
 
     else
     {
-      v8 = v51.__begin_;
+      v8 = v50.__begin_;
     }
 
     v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C8], v7, v8);
@@ -5597,22 +5537,21 @@ uint64_t mecab_test_gen(int a1, char **a2)
     v11 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, "MeCab: Yet Another Part-of-Speech and Morphological Analyzer\n\nCopyright(C) 2001-2012 Taku Kudo \nCopyright(C) 2004-2008 Nippon Telegraph and Telephone Corporation\n", 162);
     v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v11, "\ntry '--help' for more information.", 35);
     std::ios_base::getloc((v12 + *(*v12 - 24)));
-    v13 = std::locale::use_facet(&v44, MEMORY[0x29EDC93D0]);
+    v13 = std::locale::use_facet(&v43, MEMORY[0x29EDC93D0]);
     (v13->__vftable[2].~facet_0)(v13, 10);
-    std::locale::~locale(&v44);
+    std::locale::~locale(&v43);
     std::ostream::put();
     std::ostream::flush();
-    if (SHIBYTE(v51.__end_) < 0)
+    if (SHIBYTE(v50.__end_) < 0)
     {
-      operator delete(v51.__first_);
+      operator delete(v50.__first_);
     }
 
     v14 = 0xFFFFFFFFLL;
   }
 
-  MeCab::Param::~Param(v47);
-  std::ios_base::Init::~Init(&v39);
-  v37 = *MEMORY[0x29EDCA608];
+  MeCab::Param::~Param(v46);
+  std::ios_base::Init::~Init(&v38);
   return v14;
 }
 
@@ -5630,24 +5569,21 @@ void sub_299145AE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t MeCab::Eval::read(void *a1)
+uint64_t MeCab::Eval::read(void *a1, std::string::size_type *a2, uint64_t *a3)
 {
-  v3 = *MEMORY[0x29EDCA608];
   if ((*(a1 + *(*a1 - 24) + 32) & 5) == 0)
   {
     operator new[]();
   }
 
-  result = 0;
-  v2 = *MEMORY[0x29EDCA608];
-  return result;
+  return 0;
 }
 
-void sub_2991463E0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, std::locale a24, uint64_t a25, int a26, __int16 a27, char a28, char a29)
+void sub_2991463E0(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, std::locale a24, uint64_t a25, int a26, __int16 a27, char a28, char a29)
 {
   if (a21)
   {
-    MEMORY[0x29C29A350](a21, 0x1000C8077774924);
+    MEMORY[0x29C29A350](a21, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -5674,16 +5610,16 @@ void MeCab::ostream_wrapper::~ostream_wrapper(MeCab::ostream_wrapper *this)
   JUMPOUT(0x29C29A380);
 }
 
-void *MeCab::ostream_wrapper::ostream_wrapper(void *this, const char *a2)
+MeCab::ostream_wrapper *MeCab::ostream_wrapper::ostream_wrapper(MeCab::ostream_wrapper *this, const char *a2)
 {
   *this = &unk_2A1F35378;
-  this[1] = 0;
+  *(this + 1) = 0;
   if (*a2 != 45 || a2[1])
   {
     operator new();
   }
 
-  this[1] = MEMORY[0x29EDC93C8];
+  *(this + 1) = MEMORY[0x29EDC93C8];
   return this;
 }
 
@@ -5836,7 +5772,7 @@ std::__split_buffer<std::string>::pointer std::vector<std::string>::__emplace_ba
   return v11;
 }
 
-uint64_t std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::string>::__init_with_size[abi:ne200100]<std::string*,std::string*>(uint64_t *result, int a2, int a3, unint64_t a4)
 {
   if (a4)
   {
@@ -5853,7 +5789,7 @@ void sub_299146A44(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::string>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -5946,7 +5882,7 @@ uint64_t std::__split_buffer<std::vector<std::string>>::~__split_buffer(uint64_t
   return a1;
 }
 
-void std::vector<std::vector<std::string>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::vector<std::string>>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -5993,16 +5929,16 @@ void MeCab::istream_wrapper::~istream_wrapper(MeCab::istream_wrapper *this)
   JUMPOUT(0x29C29A380);
 }
 
-void *MeCab::istream_wrapper::istream_wrapper(void *this, const char *a2)
+MeCab::istream_wrapper *MeCab::istream_wrapper::istream_wrapper(MeCab::istream_wrapper *this, const char *a2)
 {
   *this = &unk_2A1F35398;
-  this[1] = 0;
+  *(this + 1) = 0;
   if (*a2 != 45 || a2[1])
   {
     operator new();
   }
 
-  this[1] = MEMORY[0x29EDC93B8];
+  *(this + 1) = MEMORY[0x29EDC93B8];
   return this;
 }
 
@@ -6025,7 +5961,7 @@ unsigned __int16 *Thai::seekToSyllableEnd(unsigned __int16 *a1, unint64_t a2)
 
         if (v8)
         {
-          v15 = Thai::isEndingChar(*v2) == 0;
+          v15 = !Thai::isEndingChar(*v2);
           result = v2 + 1;
           if (!v15 && result < a2)
           {
@@ -6111,7 +6047,7 @@ LABEL_43:
   return v2;
 }
 
-uint64_t Thai::isEndingChar(int a1)
+BOOL Thai::isEndingChar(int a1)
 {
   if ((a1 - 3597) < 0xF)
   {
@@ -6210,62 +6146,72 @@ char *MeCab::FeatureIndex::getIndex(MeCab::FeatureIndex *this, char **a2, char *
 
 void MeCab::FeatureIndex::openTemplate(MeCab::FeatureIndex *this, const MeCab::Param *a2)
 {
-  v15 = *MEMORY[0x29EDCA608];
-  MeCab::Param::get<std::string>(a2, "dicdir", v14);
+  v16 = *MEMORY[0x29EDCA608];
+  MeCab::Param::get<std::string>(a2, "dicdir", v15);
   std::string::basic_string[abi:ne200100]<0>(__p, "feature.def");
-  MeCab::create_filename(v14, __p, &v11);
-  if (v13 < 0)
+  MeCab::create_filename(v15, __p, &v12);
+  if (v14 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (SHIBYTE(v14[0].__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v15[0].__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v14[0].__r_.__value_.__l.__data_);
+    operator delete(v15[0].__r_.__value_.__l.__data_);
   }
 
-  std::ifstream::basic_ifstream(v14);
-  if ((v14[1].__r_.__value_.__s.__data_[*(v14[0].__r_.__value_.__r.__words[0] - 24) + 8] & 5) != 0)
+  if ((v12.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v2 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/feature_index.cpp", 67);
-    v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v2, "(", 1);
-    v4 = MEMORY[0x29C29A250](v3, 85);
-    v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, ") [", 3);
-    v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, "ifs", 3);
-    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "] ", 2);
-    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "no such file or directory: ", 27);
-    if ((v11.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    v2 = &v12;
+  }
+
+  else
+  {
+    v2 = v12.__r_.__value_.__r.__words[0];
+  }
+
+  std::ifstream::basic_ifstream(v15, v2, 8);
+  if ((v15[1].__r_.__value_.__s.__data_[*(v15[0].__r_.__value_.__r.__words[0] - 24) + 8] & 5) != 0)
+  {
+    v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/feature_index.cpp", 67);
+    v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, "(", 1);
+    v5 = MEMORY[0x29C29A250](v4, 85);
+    v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, ") [", 3);
+    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "ifs", 3);
+    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "] ", 2);
+    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "no such file or directory: ", 27);
+    if ((v12.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v9 = &v11;
+      v10 = &v12;
     }
 
     else
     {
-      v9 = v11.__r_.__value_.__r.__words[0];
+      v10 = v12.__r_.__value_.__r.__words[0];
     }
 
-    if ((v11.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    if ((v12.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      size = HIBYTE(v11.__r_.__value_.__r.__words[2]);
+      size = HIBYTE(v12.__r_.__value_.__r.__words[2]);
     }
 
     else
     {
-      size = v11.__r_.__value_.__l.__size_;
+      size = v12.__r_.__value_.__l.__size_;
     }
 
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, v9, size);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, v10, size);
     MeCab::die::~die(__p);
   }
 
   operator new[]();
 }
 
-void sub_299147984(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, std::locale a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *__p, uint64_t a32, int a33, __int16 a34, char a35, char a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, int a47, __int16 a48, char a49, char a50)
+void sub_299147984(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, std::locale a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *__p, uint64_t a32, int a33, __int16 a34, char a35, char a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, uint64_t a44, uint64_t a45, uint64_t a46, int a47, __int16 a48, char a49, char a50)
 {
   if (a29)
   {
-    MEMORY[0x29C29A350](a29, 0x1000C8077774924);
+    MEMORY[0x29C29A350](a29, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   std::ifstream::~ifstream(&a45);
@@ -6549,7 +6495,7 @@ void MeCab::DecoderFeatureIndex::openTextModel(MeCab::DecoderFeatureIndex *this,
     p_p = __p.__r_.__value_.__r.__words[0];
   }
 
-  MeCab::FeatureIndex::convert(a2, p_p);
+  MeCab::FeatureIndex::convert(a2, p_p, (this + 688));
 }
 
 void sub_2991481BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -6562,28 +6508,28 @@ void sub_2991481BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MeCab::FeatureIndex::convert(uint64_t a1, const char *a2)
+void MeCab::FeatureIndex::convert(uint64_t a1, const char *a2, std::string *a3)
 {
-  v12[72] = *MEMORY[0x29EDCA608];
-  std::ifstream::basic_ifstream(v12);
-  if ((*(&v12[4] + *(v12[0] - 24)) & 5) != 0)
+  v13[72] = *MEMORY[0x29EDCA608];
+  std::ifstream::basic_ifstream(v13, a2, 8);
+  if ((*(&v13[4] + *(v13[0] - 24)) & 5) != 0)
   {
-    v3 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/feature_index.cpp", 67);
-    v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, "(", 1);
-    v5 = MEMORY[0x29C29A250](v4, 537);
-    v6 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v5, ") [", 3);
-    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "ifs", 3);
-    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "] ", 2);
-    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "no such file or directory: ", 27);
-    v10 = strlen(a2);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, a2, v10);
-    MeCab::die::~die(v11);
+    v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/feature_index.cpp", 67);
+    v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "(", 1);
+    v6 = MEMORY[0x29C29A250](v5, 537);
+    v7 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, ") [", 3);
+    v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, "ifs", 3);
+    v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "] ", 2);
+    v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "no such file or directory: ", 27);
+    v11 = strlen(a2);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, a2, v11);
+    MeCab::die::~die(v12);
   }
 
   operator new[]();
 }
 
-void sub_299148DE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, char a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, std::locale a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49)
+void sub_299148DE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22, void *a23, uint64_t a24, int a25, __int16 a26, char a27, char a28, void *a29, uint64_t a30, int a31, __int16 a32, char a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, std::locale a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49)
 {
   MeCab::Iconv::~Iconv(&a15);
   if (a22 < 0)
@@ -6672,12 +6618,12 @@ void *MeCab::DecoderFeatureIndex::close(MeCab::DecoderFeatureIndex *this)
 double MeCab::FeatureIndex::calcCost(uint64_t a1, double *a2, double result)
 {
   v3 = *a2;
-  if (*(*a2 + 32) || *(*&v3 + 87) == 3)
+  if (*(*a2 + 32) || *(v3 + 87) == 3)
   {
     v4 = *(a2 + 2);
     if (*(v4 + 40) || *(v4 + 87) == 2)
     {
-      result = *(*&v3 + 112);
+      result = *(v3 + 112);
       a2[4] = result;
       v5 = *(a2 + 5);
       v6 = *v5;
@@ -6711,11 +6657,6 @@ uint64_t MeCab::ChunkFreeList<char>::alloc(void *a1, unint64_t a2)
   if (!v6)
   {
 LABEL_6:
-    if (a1[6] > a2)
-    {
-      v11 = a1[6];
-    }
-
     operator new[]();
   }
 
@@ -6740,18 +6681,18 @@ LABEL_6:
   return result;
 }
 
-void MeCab::DecoderFeatureIndex::buildFeature(uint64_t a1, void *a2)
+void MeCab::DecoderFeatureIndex::buildFeature(uint64_t a1, uint64_t *a2)
 {
   a2[4] = 0;
   *(*a2 + 112) = 0;
+  memset(&v29, 0, sizeof(v29));
   memset(&v28, 0, sizeof(v28));
   memset(&v27, 0, sizeof(v27));
   memset(&v26, 0, sizeof(v26));
   memset(&v25, 0, sizeof(v25));
   memset(&v24, 0, sizeof(v24));
-  memset(&v23, 0, sizeof(v23));
   std::string::basic_string[abi:ne200100]<0>(__p, *(a2[2] + 64));
-  if ((MeCab::DictionaryRewriter::rewrite2(a1 + 192, __p, &v28, &v27, &v26) & 1) == 0)
+  if ((MeCab::DictionaryRewriter::rewrite2((a1 + 192), __p, &v29, &v28, &v27) & 1) == 0)
   {
     v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/feature_index.cpp", 67);
     v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "(", 1);
@@ -6762,16 +6703,16 @@ void MeCab::DecoderFeatureIndex::buildFeature(uint64_t a1, void *a2)
     v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, " cannot rewrite pattern: ", 25);
     v11 = strlen(*(a2[2] + 64));
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, *(a2[2] + 64), v11);
-    MeCab::die::~die(&v20);
+    MeCab::die::~die(&v21);
   }
 
-  if (v22 < 0)
+  if (v23 < 0)
   {
     operator delete(__p[0]);
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, *(*a2 + 64));
-  if ((MeCab::DictionaryRewriter::rewrite2(a1 + 192, __p, &v25, &v24, &v23) & 1) == 0)
+  if ((MeCab::DictionaryRewriter::rewrite2((a1 + 192), __p, &v26, &v25, &v24) & 1) == 0)
   {
     v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/feature_index.cpp", 67);
     v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "(", 1);
@@ -6782,15 +6723,25 @@ void MeCab::DecoderFeatureIndex::buildFeature(uint64_t a1, void *a2)
     v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, " cannot rewrite pattern: ", 25);
     v19 = strlen(*(*a2 + 64));
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, *(*a2 + 64), v19);
-    MeCab::die::~die(&v20);
+    MeCab::die::~die(&v21);
   }
 
-  if (v22 < 0)
+  if (v23 < 0)
   {
     operator delete(__p[0]);
   }
 
-  MeCab::FeatureIndex::buildUnigramFeature();
+  if ((v26.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  {
+    v20 = &v26;
+  }
+
+  else
+  {
+    v20 = v26.__r_.__value_.__r.__words[0];
+  }
+
+  MeCab::FeatureIndex::buildUnigramFeature(a1, a2, v20);
 }
 
 void sub_299149548(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, __int16 a10, char a11, char a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *a19, uint64_t a20, int a21, __int16 a22, char a23, char a24, void *a25, uint64_t a26, int a27, __int16 a28, char a29, char a30, void *a31, uint64_t a32, int a33, __int16 a34, char a35, char a36, void *a37, uint64_t a38, int a39, __int16 a40, char a41, char a42)
@@ -6833,60 +6784,60 @@ void sub_299149548(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_299149BB4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
+void sub_299149BB4(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   if (a21)
   {
-    MEMORY[0x29C29A350](a21, 0x10C80436913F5);
+    MEMORY[0x29C29A350](a21, 0x10C80436913F5, a3, a4, a5, a6, a7, a8);
   }
 
   if (a24)
   {
-    MEMORY[0x29C29A350](a24, 0x1000C8077774924);
+    MEMORY[0x29C29A350](a24, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-void sub_29914A380(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30)
+void sub_29914A380(_Unwind_Exception *exception_object, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30)
 {
   if (a24)
   {
-    MEMORY[0x29C29A350](a24, 0x10C80436913F5);
+    MEMORY[0x29C29A350](a24, 0x10C80436913F5, a3, a4, a5, a6, a7, a8);
   }
 
   if (a27)
   {
-    MEMORY[0x29C29A350](a27, 0x10C80436913F5);
+    MEMORY[0x29C29A350](a27, 0x10C80436913F5, a3, a4, a5, a6, a7, a8);
   }
 
   if (a30)
   {
-    MEMORY[0x29C29A350](a30, 0x1000C8077774924);
+    MEMORY[0x29C29A350](a30, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   *(v30 - 112) = a14;
   v32 = *(v30 - 104);
   if (v32)
   {
-    MEMORY[0x29C29A350](v32, 0x1000C8077774924);
+    MEMORY[0x29C29A350](v32, 0x1000C8077774924, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t MeCab::EncoderFeatureIndex::buildFeature(uint64_t a1, void *a2)
+uint64_t MeCab::EncoderFeatureIndex::buildFeature(uint64_t a1, uint64_t *a2)
 {
   a2[4] = 0;
   *(*a2 + 112) = 0;
+  memset(&v51, 0, sizeof(v51));
+  memset(&v50, 0, sizeof(v50));
+  memset(&v49, 0, sizeof(v49));
   memset(&v48, 0, sizeof(v48));
   memset(&v47, 0, sizeof(v47));
   memset(&v46, 0, sizeof(v46));
-  memset(&v45, 0, sizeof(v45));
-  memset(&v44, 0, sizeof(v44));
-  memset(&v43, 0, sizeof(v43));
   std::string::basic_string[abi:ne200100]<0>(__p, *(a2[2] + 64));
-  if ((MeCab::DictionaryRewriter::rewrite2(a1 + 192, __p, &v48, &v47, &v46) & 1) == 0)
+  if ((MeCab::DictionaryRewriter::rewrite2((a1 + 192), __p, &v51, &v50, &v49) & 1) == 0)
   {
     v4 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/feature_index.cpp", 67);
     v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, "(", 1);
@@ -6897,16 +6848,16 @@ uint64_t MeCab::EncoderFeatureIndex::buildFeature(uint64_t a1, void *a2)
     v10 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, " cannot rewrite pattern: ", 25);
     v11 = strlen(*(a2[2] + 64));
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v10, *(a2[2] + 64), v11);
-    MeCab::die::~die(&v49);
+    MeCab::die::~die(&v52);
   }
 
-  if (v42 < 0)
+  if (v45 < 0)
   {
     operator delete(__p[0]);
   }
 
   std::string::basic_string[abi:ne200100]<0>(__p, *(*a2 + 64));
-  if ((MeCab::DictionaryRewriter::rewrite2(a1 + 192, __p, &v45, &v44, &v43) & 1) == 0)
+  if ((MeCab::DictionaryRewriter::rewrite2((a1 + 192), __p, &v48, &v47, &v46) & 1) == 0)
   {
     v12 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/feature_index.cpp", 67);
     v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, "(", 1);
@@ -6917,23 +6868,23 @@ uint64_t MeCab::EncoderFeatureIndex::buildFeature(uint64_t a1, void *a2)
     v18 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, " cannot rewrite pattern: ", 25);
     v19 = strlen(*(*a2 + 64));
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v18, *(*a2 + 64), v19);
-    MeCab::die::~die(&v49);
+    MeCab::die::~die(&v52);
   }
 
-  if (v42 < 0)
+  if (v45 < 0)
   {
     operator delete(__p[0]);
   }
 
   *(a1 + 296) = 0;
-  if ((v45.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v20 = &v45;
+    v20 = &v48;
   }
 
   else
   {
-    v20 = v45.__r_.__value_.__r.__words[0];
+    v20 = v48.__r_.__value_.__r.__words[0];
   }
 
   MeCab::StringBuffer::write((a1 + 288), v20);
@@ -6967,44 +6918,54 @@ uint64_t MeCab::EncoderFeatureIndex::buildFeature(uint64_t a1, void *a2)
   v23 = std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::find<std::string>(a1 + 368, __p);
   if (a1 + 376 == v23)
   {
-    MeCab::FeatureIndex::buildUnigramFeature();
+    if ((v48.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v24 = &v48;
+    }
+
+    else
+    {
+      v24 = v48.__r_.__value_.__r.__words[0];
+    }
+
+    MeCab::FeatureIndex::buildUnigramFeature(a1, a2, v24);
   }
 
   *(*a2 + 128) = *(v23 + 56);
   ++*(v23 + 64);
-  if (v42 < 0)
+  if (v45 < 0)
   {
     operator delete(__p[0]);
   }
 
   *(a1 + 296) = 0;
-  if ((v46.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v49.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v24 = &v46;
+    v25 = &v49;
   }
 
   else
   {
-    v24 = v46.__r_.__value_.__r.__words[0];
+    v25 = v49.__r_.__value_.__r.__words[0];
   }
 
-  MeCab::StringBuffer::write((a1 + 288), v24);
+  MeCab::StringBuffer::write((a1 + 288), v25);
   if (MeCab::StringBuffer::reserve((a1 + 288), 1))
   {
     *(*(a1 + 312) + (*(a1 + 296))++) = 32;
   }
 
-  if ((v44.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v25 = &v44;
+    v26 = &v47;
   }
 
   else
   {
-    v25 = v44.__r_.__value_.__r.__words[0];
+    v26 = v47.__r_.__value_.__r.__words[0];
   }
 
-  MeCab::StringBuffer::write((a1 + 288), v25);
+  MeCab::StringBuffer::write((a1 + 288), v26);
   if (MeCab::StringBuffer::reserve((a1 + 288), 1))
   {
     *(*(a1 + 312) + (*(a1 + 296))++) = 0;
@@ -7012,65 +6973,70 @@ uint64_t MeCab::EncoderFeatureIndex::buildFeature(uint64_t a1, void *a2)
 
   if (*(a1 + 321))
   {
-    v26 = 0;
+    v27 = 0;
   }
 
   else
   {
-    v26 = *(a1 + 312);
+    v27 = *(a1 + 312);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(__p, v26);
-  v27 = std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::find<std::string>(a1 + 368, __p);
-  if (a1 + 376 == v27)
+  std::string::basic_string[abi:ne200100]<0>(__p, v27);
+  v28 = std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::find<std::string>(a1 + 368, __p);
+  if (a1 + 376 == v28)
   {
-    MeCab::FeatureIndex::buildBigramFeature();
+    if ((v49.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v29 = &v49;
+    }
+
+    else
+    {
+      v29 = v49.__r_.__value_.__r.__words[0];
+    }
+
+    if ((v47.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    {
+      v30 = &v47;
+    }
+
+    else
+    {
+      v30 = v47.__r_.__value_.__r.__words[0];
+    }
+
+    MeCab::FeatureIndex::buildBigramFeature(a1, a2, v29, v30);
   }
 
-  a2[5] = *(v27 + 56);
-  ++*(v27 + 64);
-  if (v42 < 0)
+  a2[5] = *(v28 + 56);
+  ++*(v28 + 64);
+  if (v45 < 0)
   {
     operator delete(__p[0]);
   }
 
   if (!a2[5])
   {
-    v28 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/feature_index.cpp", 67);
-    v29 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v28, "(", 1);
-    v30 = MEMORY[0x29C29A250](v29, 322);
-    v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, ") [", 3);
-    v32 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, "path->fvector", 13);
-    v33 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v32, "] ", 2);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, " fvector is NULL", 16);
+    v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/feature_index.cpp", 67);
+    v32 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v31, "(", 1);
+    v33 = MEMORY[0x29C29A250](v32, 322);
+    v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v33, ") [", 3);
+    v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, "path->fvector", 13);
+    v36 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v35, "] ", 2);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v36, " fvector is NULL", 16);
     MeCab::die::~die(__p);
   }
 
   if (!*(*a2 + 128))
   {
-    v34 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/feature_index.cpp", 67);
-    v35 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v34, "(", 1);
-    v36 = MEMORY[0x29C29A250](v35, 323);
-    v37 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v36, ") [", 3);
-    v38 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v37, "path->rnode->fvector", 20);
-    v39 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v38, "] ", 2);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, "fevector is NULL", 16);
+    v37 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/feature_index.cpp", 67);
+    v38 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v37, "(", 1);
+    v39 = MEMORY[0x29C29A250](v38, 323);
+    v40 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v39, ") [", 3);
+    v41 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v40, "path->rnode->fvector", 20);
+    v42 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v41, "] ", 2);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v42, "fevector is NULL", 16);
     MeCab::die::~die(__p);
-  }
-
-  if (SHIBYTE(v43.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v43.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v44.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v44.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v45.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v45.__r_.__value_.__l.__data_);
   }
 
   if (SHIBYTE(v46.__r_.__value_.__r.__words[2]) < 0)
@@ -7086,6 +7052,21 @@ uint64_t MeCab::EncoderFeatureIndex::buildFeature(uint64_t a1, void *a2)
   if (SHIBYTE(v48.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(v48.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v49.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v49.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v50.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v50.__r_.__value_.__l.__data_);
+  }
+
+  if (SHIBYTE(v51.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v51.__r_.__value_.__l.__data_);
   }
 
   return 1;
@@ -7134,7 +7115,7 @@ void sub_29914AB30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 MeCab::StringBuffer *MeCab::StringBuffer::operator<<(MeCab::StringBuffer *a1, unint64_t a2)
 {
-  *&v10[63] = *MEMORY[0x29EDCA608];
+  *&v9[63] = *MEMORY[0x29EDCA608];
   p_s = &__s;
   if (a2)
   {
@@ -7150,7 +7131,7 @@ MeCab::StringBuffer *MeCab::StringBuffer::operator<<(MeCab::StringBuffer *a1, un
 
   else
   {
-    p_s = v10;
+    p_s = v9;
     __s = 48;
   }
 
@@ -7158,7 +7139,7 @@ MeCab::StringBuffer *MeCab::StringBuffer::operator<<(MeCab::StringBuffer *a1, un
   v4 = p_s - 1;
   if (v4 > &__s)
   {
-    v5 = v10;
+    v5 = v9;
     do
     {
       v6 = *(v5 - 1);
@@ -7170,12 +7151,10 @@ MeCab::StringBuffer *MeCab::StringBuffer::operator<<(MeCab::StringBuffer *a1, un
     while (!v3);
   }
 
-  result = MeCab::StringBuffer::write(a1, &__s);
-  v8 = *MEMORY[0x29EDCA608];
-  return result;
+  return MeCab::StringBuffer::write(a1, &__s);
 }
 
-void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
+void std::vector<int>::push_back[abi:ne200100](const void **a1, int *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -7224,7 +7203,7 @@ void std::vector<int>::push_back[abi:ne200100](const void **a1, _DWORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 4;
   }
 
   a1[1] = v6;
@@ -7240,11 +7219,6 @@ uint64_t MeCab::ChunkFreeList<int>::alloc(void *a1, unint64_t a2)
   if (!v6)
   {
 LABEL_6:
-    if (a1[6] > a2)
-    {
-      v11 = a1[6];
-    }
-
     operator new[]();
   }
 
@@ -7348,14 +7322,14 @@ unint64_t MeCab::DecoderFeatureIndex::id(MeCab::DecoderFeatureIndex *this, char 
 uint64_t MeCab::EncoderFeatureIndex::id(MeCab::EncoderFeatureIndex *this, char *a2)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, a2);
-  v4 = (this + 352);
+  v4 = this + 352;
   v5 = *(this + 44);
   if (!v5)
   {
     goto LABEL_8;
   }
 
-  v6 = (this + 352);
+  v6 = this + 352;
   do
   {
     v7 = std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(v5 + 4, __p);
@@ -7364,14 +7338,14 @@ uint64_t MeCab::EncoderFeatureIndex::id(MeCab::EncoderFeatureIndex *this, char *
       v6 = v5;
     }
 
-    v5 = *&v5[(v7 >> 4) & 8];
+    v5 = *(v5 + ((v7 >> 4) & 8));
   }
 
   while (v5);
-  if (v6 == v4 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__p, v6 + 4) & 0x80) != 0)
+  if (v6 == v4 || (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(__p, v6 + 32) & 0x80) != 0)
   {
 LABEL_8:
-    v6 = (this + 352);
+    v6 = this + 352;
   }
 
   if (SHIBYTE(v13) < 0)
@@ -7392,7 +7366,7 @@ LABEL_8:
   v10[1] = 0;
   v11 = 0;
   v14 = v9;
-  std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::pair<std::string,int>>(this + 344, __p);
+  std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::__emplace_unique_key_args<std::string,std::pair<std::string,int>>(this + 344, __p, __p);
   if (SHIBYTE(v13) < 0)
   {
     operator delete(__p[0]);
@@ -7423,7 +7397,7 @@ void sub_29914B288(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MeCab::EncoderFeatureIndex::shrink(void *a1, unint64_t a2, void **a3)
+void MeCab::EncoderFeatureIndex::shrink(void *a1, unint64_t a2, uint64_t *a3)
 {
   if (a2 < 2)
   {
@@ -7431,8 +7405,8 @@ void MeCab::EncoderFeatureIndex::shrink(void *a1, unint64_t a2, void **a3)
   }
 
   __p = 0;
+  v92 = 0;
   v93 = 0;
-  v94 = 0;
   v4 = a1[41];
   if (v4)
   {
@@ -7482,11 +7456,11 @@ void MeCab::EncoderFeatureIndex::shrink(void *a1, unint64_t a2, void **a3)
         do
         {
           v12 = v5[2];
-          v55 = *v12 == v5;
+          v54 = *v12 == v5;
           v5 = v12;
         }
 
-        while (!v55);
+        while (!v54);
       }
 
       v5 = v12;
@@ -7496,11 +7470,11 @@ void MeCab::EncoderFeatureIndex::shrink(void *a1, unint64_t a2, void **a3)
   }
 
   a1[41] = 0;
-  v91[0] = 0;
-  v91[1] = 0;
-  v90 = v91;
-  v13 = v93;
-  if (v93)
+  v90[0] = 0;
+  v90[1] = 0;
+  v89 = v90;
+  v13 = v92;
+  if (v92)
   {
     v14 = 0;
     do
@@ -7508,8 +7482,8 @@ void MeCab::EncoderFeatureIndex::shrink(void *a1, unint64_t a2, void **a3)
       if (*(8 * v14) >= a2)
       {
         ++a1[41];
-        v15 = v91[0];
-        if (!v91[0])
+        v15 = v90[0];
+        if (!v90[0])
         {
 LABEL_24:
           operator new();
@@ -7553,19 +7527,19 @@ LABEL_24:
   }
 
   v18 = a1[43];
-  v19 = (a1 + 44);
-  if (v18 == (a1 + 44))
+  v19 = a1 + 44;
+  if (v18 == a1 + 44)
   {
     goto LABEL_126;
   }
 
   do
   {
-    v20 = v91[0];
-    if (v91[0])
+    v20 = v90[0];
+    if (v90[0])
     {
       v21 = *(v18 + 14);
-      v22 = v91;
+      v22 = v90;
       do
       {
         if (*(v20 + 7) >= v21)
@@ -7577,10 +7551,10 @@ LABEL_24:
       }
 
       while (v20);
-      if (v22 != v91 && v21 >= *(v22 + 7))
+      if (v22 != v90 && v21 >= *(v22 + 7))
       {
         *(v18 + 14) = *(v22 + 8);
-        v35 = *(v18 + 1);
+        v35 = v18[1];
         if (v35)
         {
           do
@@ -7596,19 +7570,19 @@ LABEL_24:
         {
           do
           {
-            v26 = *(v18 + 2);
-            v55 = *v26 == v18;
+            v26 = v18[2];
+            v54 = *v26 == v18;
             v18 = v26;
           }
 
-          while (!v55);
+          while (!v54);
         }
 
         goto LABEL_125;
       }
     }
 
-    v23 = *(v18 + 1);
+    v23 = v18[1];
     v24 = v23;
     v25 = v18;
     if (v23)
@@ -7626,12 +7600,12 @@ LABEL_24:
     {
       do
       {
-        v26 = *(v25 + 2);
-        v55 = *v26 == v25;
+        v26 = v25[2];
+        v54 = *v26 == v25;
         v25 = v26;
       }
 
-      while (!v55);
+      while (!v54);
     }
 
     v27 = v18;
@@ -7650,12 +7624,12 @@ LABEL_24:
     {
       do
       {
-        v28 = *(v27 + 2);
-        v55 = *v28 == v27;
+        v28 = v27[2];
+        v54 = *v28 == v27;
         v27 = v28;
       }
 
-      while (!v55);
+      while (!v54);
     }
 
     if (a1[43] == v18)
@@ -7669,13 +7643,13 @@ LABEL_24:
     v31 = v18;
     if (*v18)
     {
-      v32 = *(v18 + 1);
+      v32 = v18[1];
       if (!v32)
       {
         v31 = v18;
 LABEL_58:
         v34 = 0;
-        v33 = *(v31 + 2);
+        v33 = v31[2];
         *(v30 + 16) = v33;
         goto LABEL_59;
       }
@@ -7689,13 +7663,13 @@ LABEL_58:
       while (v32);
     }
 
-    v30 = *(v31 + 1);
+    v30 = v31[1];
     if (v30)
     {
       goto LABEL_58;
     }
 
-    v33 = *(v31 + 2);
+    v33 = v31[2];
     v34 = 1;
 LABEL_59:
     v36 = *v33;
@@ -7719,23 +7693,23 @@ LABEL_59:
       v33[1] = v30;
     }
 
-    v37 = v31[24];
+    v37 = *(v31 + 24);
     if (v31 != v18)
     {
-      v38 = *(v18 + 2);
-      *(v31 + 2) = v38;
+      v38 = v18[2];
+      v31[2] = v38;
       v38[*v38 != v18] = v31;
       v40 = *v18;
-      v39 = *(v18 + 1);
+      v39 = v18[1];
       *(v40 + 16) = v31;
       *v31 = v40;
-      *(v31 + 1) = v39;
+      v31[1] = v39;
       if (v39)
       {
         *(v39 + 16) = v31;
       }
 
-      v31[24] = v18[24];
+      *(v31 + 24) = *(v18 + 24);
       if (v29 == v18)
       {
         v29 = v31;
@@ -7755,31 +7729,30 @@ LABEL_59:
 
     while (1)
     {
-      v41 = *(v36 + 2);
+      v41 = v36[2];
       v42 = *v41;
-      v43 = v36[24];
       if (*v41 == v36)
       {
         break;
       }
 
-      if ((v36[24] & 1) == 0)
+      if ((v36[3] & 1) == 0)
       {
-        v36[24] = 1;
+        *(v36 + 24) = 1;
         *(v41 + 24) = 0;
-        v44 = v41[1];
-        v45 = *v44;
-        v41[1] = *v44;
-        if (v45)
+        v43 = v41[1];
+        v44 = *v43;
+        v41[1] = *v43;
+        if (v44)
         {
-          *(v45 + 16) = v41;
+          *(v44 + 16) = v41;
         }
 
-        v46 = v41[2];
-        v44[2] = v46;
-        v46[*v46 != v41] = v44;
-        *v44 = v41;
-        v41[2] = v44;
+        v45 = v41[2];
+        v43[2] = v45;
+        v45[*v45 != v41] = v43;
+        *v43 = v41;
+        v41[2] = v43;
         if (v29 == *v36)
         {
           v29 = v36;
@@ -7788,163 +7761,163 @@ LABEL_59:
         v36 = *(*v36 + 8);
       }
 
-      v47 = *v36;
-      if (*v36 && v47[24] != 1)
+      v46 = *v36;
+      if (*v36 && *(v46 + 24) != 1)
       {
-        v48 = *(v36 + 1);
-        if (v48 && (v48[24] & 1) == 0)
+        v47 = v36[1];
+        if (v47 && (v47[3] & 1) == 0)
         {
 LABEL_108:
-          v47 = v36;
+          v46 = v36;
         }
 
         else
         {
-          v47[24] = 1;
-          v36[24] = 0;
-          v56 = *(v47 + 1);
-          *v36 = v56;
-          if (v56)
+          *(v46 + 24) = 1;
+          *(v36 + 24) = 0;
+          v55 = v46[1];
+          *v36 = v55;
+          if (v55)
           {
-            *(v56 + 16) = v36;
+            *(v55 + 16) = v36;
           }
 
-          v57 = *(v36 + 2);
-          *(v47 + 2) = v57;
-          v57[*v57 != v36] = v47;
-          *(v47 + 1) = v36;
-          *(v36 + 2) = v47;
-          v48 = v36;
+          v56 = v36[2];
+          v46[2] = v56;
+          v56[*v56 != v36] = v46;
+          v46[1] = v36;
+          v36[2] = v46;
+          v47 = v36;
         }
 
-        v58 = *(v47 + 2);
-        v47[24] = *(v58 + 24);
-        *(v58 + 24) = 1;
-        v48[24] = 1;
-        v59 = *(v58 + 8);
-        v60 = *v59;
-        *(v58 + 8) = *v59;
-        if (v60)
+        v57 = v46[2];
+        *(v46 + 24) = *(v57 + 24);
+        *(v57 + 24) = 1;
+        *(v47 + 24) = 1;
+        v58 = *(v57 + 8);
+        v59 = *v58;
+        *(v57 + 8) = *v58;
+        if (v59)
         {
-          *(v60 + 16) = v58;
+          *(v59 + 16) = v57;
         }
 
-        v61 = *(v58 + 16);
-        v59[2] = v61;
-        v61[*v61 != v58] = v59;
-        *v59 = v58;
+        v60 = *(v57 + 16);
+        v58[2] = v60;
+        v60[*v60 != v57] = v58;
+        *v58 = v57;
         goto LABEL_121;
       }
 
-      v48 = *(v36 + 1);
-      if (v48 && v48[24] != 1)
+      v47 = v36[1];
+      if (v47 && *(v47 + 24) != 1)
       {
         goto LABEL_108;
       }
 
-      v36[24] = 0;
-      v49 = *(v36 + 2);
-      if (v49 == v29 || (v49[24] & 1) == 0)
+      *(v36 + 24) = 0;
+      v48 = v36[2];
+      if (v48 == v29 || (v48[3] & 1) == 0)
       {
         goto LABEL_102;
       }
 
 LABEL_100:
-      v36 = *(*(v49 + 2) + 8 * (**(v49 + 2) == v49));
+      v36 = *(v48[2] + 8 * (*v48[2] == v48));
     }
 
-    if ((v36[24] & 1) == 0)
+    if ((v36[3] & 1) == 0)
     {
-      v36[24] = 1;
+      *(v36 + 24) = 1;
       *(v41 + 24) = 0;
-      v50 = *(v42 + 1);
-      *v41 = v50;
-      if (v50)
+      v49 = v42[1];
+      *v41 = v49;
+      if (v49)
       {
-        *(v50 + 16) = v41;
+        *(v49 + 16) = v41;
       }
 
-      v51 = v41[2];
-      *(v42 + 2) = v51;
-      v51[*v51 != v41] = v42;
-      *(v42 + 1) = v41;
+      v50 = v41[2];
+      v42[2] = v50;
+      v50[*v50 != v41] = v42;
+      v42[1] = v41;
       v41[2] = v42;
-      v52 = *(v36 + 1);
-      if (v29 == v52)
+      v51 = v36[1];
+      if (v29 == v51)
       {
         v29 = v36;
       }
 
-      v36 = *v52;
+      v36 = *v51;
     }
 
-    v53 = *v36;
-    if (*v36 && v53[24] != 1)
+    v52 = *v36;
+    if (*v36 && *(v52 + 24) != 1)
     {
       goto LABEL_117;
     }
 
-    v54 = *(v36 + 1);
-    if (!v54 || *(v54 + 24) == 1)
+    v53 = v36[1];
+    if (!v53 || *(v53 + 24) == 1)
     {
-      v36[24] = 0;
-      v49 = *(v36 + 2);
-      v55 = v49[24] != 1 || v49 == v29;
-      if (v55)
+      *(v36 + 24) = 0;
+      v48 = v36[2];
+      v54 = *(v48 + 24) != 1 || v48 == v29;
+      if (v54)
       {
 LABEL_102:
-        v49[24] = 1;
+        *(v48 + 24) = 1;
         goto LABEL_122;
       }
 
       goto LABEL_100;
     }
 
-    if (v53 && (v53[24] & 1) == 0)
+    if (v52 && (v52[3] & 1) == 0)
     {
 LABEL_117:
-      v54 = v36;
+      v53 = v36;
       goto LABEL_118;
     }
 
-    *(v54 + 24) = 1;
-    v36[24] = 0;
-    v62 = *v54;
-    *(v36 + 1) = *v54;
-    if (v62)
+    *(v53 + 24) = 1;
+    *(v36 + 24) = 0;
+    v61 = *v53;
+    v36[1] = *v53;
+    if (v61)
     {
-      *(v62 + 16) = v36;
+      *(v61 + 16) = v36;
     }
 
-    v63 = *(v36 + 2);
-    v54[2] = v63;
-    v63[*v63 != v36] = v54;
-    *v54 = v36;
-    *(v36 + 2) = v54;
-    v53 = v36;
+    v62 = v36[2];
+    v53[2] = v62;
+    v62[*v62 != v36] = v53;
+    *v53 = v36;
+    v36[2] = v53;
+    v52 = v36;
 LABEL_118:
-    v58 = v54[2];
-    *(v54 + 24) = *(v58 + 24);
-    *(v58 + 24) = 1;
-    v53[24] = 1;
-    v59 = *v58;
-    v64 = *(*v58 + 8);
-    *v58 = v64;
-    if (v64)
+    v57 = v53[2];
+    *(v53 + 24) = *(v57 + 24);
+    *(v57 + 24) = 1;
+    *(v52 + 24) = 1;
+    v58 = *v57;
+    v63 = *(*v57 + 8);
+    *v57 = v63;
+    if (v63)
     {
-      *(v64 + 16) = v58;
+      *(v63 + 16) = v57;
     }
 
-    v65 = *(v58 + 16);
-    v59[2] = v65;
-    v65[*v65 != v58] = v59;
-    v59[1] = v58;
+    v64 = *(v57 + 16);
+    v58[2] = v64;
+    v64[*v64 != v57] = v58;
+    v58[1] = v57;
 LABEL_121:
-    *(v58 + 16) = v59;
+    *(v57 + 16) = v58;
 LABEL_122:
-    if (v18[55] < 0)
+    if (*(v18 + 55) < 0)
     {
-      operator delete(*(v18 + 4));
+      operator delete(v18[4]);
     }
 
     operator delete(v18);
@@ -7954,142 +7927,142 @@ LABEL_125:
 
   while (v26 != v19);
 LABEL_126:
-  v66 = a1[46];
-  if (v66 != v6)
+  v65 = a1[46];
+  if (v65 != v6)
   {
-    v67 = v91[0];
+    v66 = v90[0];
     do
     {
-      v68 = v66[7];
-      v69 = *v68;
-      v70 = v68;
-      while (v69 != -1)
+      v67 = v65[7];
+      v68 = *v67;
+      v69 = v67;
+      while (v68 != -1)
       {
-        if (v67)
+        if (v66)
         {
-          v71 = v91;
-          v72 = v67;
+          v70 = v90;
+          v71 = v66;
           do
           {
-            if (*(v72 + 7) >= v69)
+            if (*(v71 + 7) >= v68)
             {
-              v71 = v72;
+              v70 = v71;
             }
 
-            v72 = v72[*(v72 + 7) < v69];
+            v71 = v71[*(v71 + 7) < v68];
           }
 
-          while (v72);
-          if (v71 != v91 && v69 >= *(v71 + 7))
+          while (v71);
+          if (v70 != v90 && v68 >= *(v70 + 7))
           {
-            *v68++ = *(v71 + 8);
+            *v67++ = *(v70 + 8);
           }
         }
 
-        v73 = v70[1];
-        ++v70;
-        v69 = v73;
+        v72 = v69[1];
+        ++v69;
+        v68 = v72;
       }
 
-      *v68 = -1;
-      v74 = v66[1];
-      if (v74)
+      *v67 = -1;
+      v73 = v65[1];
+      if (v73)
       {
         do
         {
-          v75 = v74;
-          v74 = *v74;
+          v74 = v73;
+          v73 = *v73;
         }
 
-        while (v74);
+        while (v73);
       }
 
       else
       {
         do
         {
-          v75 = v66[2];
-          v55 = *v75 == v66;
-          v66 = v75;
+          v74 = v65[2];
+          v54 = *v74 == v65;
+          v65 = v74;
         }
 
-        while (!v55);
+        while (!v54);
       }
 
-      v66 = v75;
+      v65 = v74;
     }
 
-    while (v75 != v6);
+    while (v74 != v6);
   }
 
-  v76 = a1[41];
-  v88 = 0;
-  v89 = 0;
+  v75 = a1[41];
   v87 = 0;
-  if (v76)
+  v88 = 0;
+  v86 = 0;
+  if (v75)
   {
-    std::vector<double>::__vallocate[abi:ne200100](&v87, v76);
+    std::vector<double>::__vallocate[abi:ne200100](&v86, v75);
   }
 
-  v77 = 0;
-  v78 = *a3;
-  v79 = a3[1];
-  v80 = v79 - *a3;
-  if (v79 != *a3)
+  v76 = 0;
+  v77 = *a3;
+  v78 = a3[1];
+  v79 = v78 - *a3;
+  if (v78 != *a3)
   {
-    v81 = 0;
-    v82 = v80 >> 3;
-    v83 = v91[0];
-    if (v82 <= 1)
+    v80 = 0;
+    v81 = v79 >> 3;
+    v82 = v90[0];
+    if (v81 <= 1)
     {
-      v82 = 1;
+      v81 = 1;
     }
 
     do
     {
-      if (v83)
+      if (v82)
       {
-        v84 = v91;
-        v85 = v83;
+        v83 = v90;
+        v84 = v82;
         do
         {
-          if (*(v85 + 7) >= v81)
+          if (*(v84 + 7) >= v80)
           {
-            v84 = v85;
+            v83 = v84;
           }
 
-          v85 = v85[*(v85 + 7) < v81];
+          v84 = v84[*(v84 + 7) < v80];
         }
 
-        while (v85);
-        if (v84 != v91 && *(v84 + 7) <= v81)
+        while (v84);
+        if (v83 != v90 && *(v83 + 7) <= v80)
         {
-          *(8 * *(v84 + 8)) = v78[v81];
+          *(8 * *(v83 + 8)) = *(v77 + 8 * v80);
         }
       }
 
-      ++v81;
+      ++v80;
     }
 
-    while (v81 != v82);
+    while (v80 != v81);
   }
 
-  if (&v87 != a3)
+  if (&v86 != a3)
   {
     std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(a3, 0, 0, 0);
-    v77 = v87;
+    v76 = v86;
   }
 
-  if (v77)
+  if (v76)
   {
-    v88 = v77;
-    operator delete(v77);
+    v87 = v76;
+    operator delete(v76);
   }
 
-  std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,std::less<int>,true>,std::allocator<std::__value_type<int,int>>>::destroy(v91[0]);
+  std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,std::less<int>,true>,std::allocator<std::__value_type<int,int>>>::destroy(v90[0]);
   if (__p)
   {
-    v93 = __p;
+    v92 = __p;
     operator delete(__p);
   }
 }
@@ -8112,11 +8085,9 @@ void sub_29914BB10(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void MeCab::FeatureIndex::compile(MeCab::FeatureIndex *this, const MeCab::Param *a2, const char *a3, const char *a4)
 {
-  v7 = *MEMORY[0x29EDCA608];
-  __p = 0;
-  v5 = 0;
-  v6 = 0;
-  MeCab::FeatureIndex::convert(this, a2);
+  v5 = *MEMORY[0x29EDCA608];
+  memset(&__p, 0, sizeof(__p));
+  MeCab::FeatureIndex::convert(this, a2, &__p);
 }
 
 void sub_29914BD78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, __int16 a10, char a11, char a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19)
@@ -8130,26 +8101,25 @@ void sub_29914BD78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t MeCab::EncoderFeatureIndex::reopen(uint64_t a1)
+uint64_t MeCab::EncoderFeatureIndex::reopen(uint64_t a1, uint64_t a2, const char *a3, double **a4, uint64_t a5)
 {
-  v5[19] = *MEMORY[0x29EDCA608];
+  v9[19] = *MEMORY[0x29EDCA608];
   (*(*a1 + 16))(a1);
-  std::ifstream::basic_ifstream(v3);
-  if ((*&v4[*(v3[0] - 24) + 16] & 5) == 0)
+  std::ifstream::basic_ifstream(v7, a2, 8);
+  if ((*&v8[*(v7[0] - 24) + 16] & 5) == 0)
   {
     operator new[]();
   }
 
-  v3[0] = *MEMORY[0x29EDC9518];
-  *(v3 + *(v3[0] - 24)) = *(MEMORY[0x29EDC9518] + 24);
-  MEMORY[0x29C29A160](v4);
+  v7[0] = *MEMORY[0x29EDC9518];
+  *(v7 + *(v7[0] - 24)) = *(MEMORY[0x29EDC9518] + 24);
+  MEMORY[0x29C29A160](v8);
   std::istream::~istream();
-  MEMORY[0x29C29A320](v5);
-  v1 = *MEMORY[0x29EDCA608];
+  MEMORY[0x29C29A320](v9);
   return 0;
 }
 
-void sub_29914C930(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::locale a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, char a26, uint64_t a27, void *__p, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46)
+void sub_29914C930(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, std::locale a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, uint64_t a19, void *a20, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, uint64_t a27, void *__p, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46)
 {
   MeCab::Iconv::~Iconv(&a26);
   if (a33 < 0)
@@ -8170,8 +8140,8 @@ void sub_29914C930(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void MeCab::Param::set<std::string>(uint64_t a1, char *a2, uint64_t a3, char a4)
 {
   v17[2] = *MEMORY[0x29EDCA608];
-  std::string::basic_string[abi:ne200100]<0>(v14, a2);
-  if ((a4 & 1) != 0 || a1 + 16 == std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::find<std::string>(a1 + 8, v14))
+  std::string::basic_string[abi:ne200100]<0>(v13, a2);
+  if ((a4 & 1) != 0 || a1 + 16 == std::__tree<std::__value_type<std::string,int>,std::__map_value_compare<std::string,std::__value_type<std::string,int>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,int>>>::find<std::string>(a1 + 8, v13))
   {
     if (*(a3 + 23) < 0)
     {
@@ -8188,17 +8158,17 @@ void MeCab::Param::set<std::string>(uint64_t a1, char *a2, uint64_t a3, char a4)
     *(v17 + 7) = *(&__p.__r_.__value_.__r.__words[1] + 7);
     v8 = HIBYTE(__p.__r_.__value_.__r.__words[2]);
     memset(&__p, 0, sizeof(__p));
-    v16 = v14;
-    v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(a1 + 8, v14);
+    v16 = v13;
+    v9 = std::__tree<std::__value_type<std::string,std::string>,std::__map_value_compare<std::string,std::__value_type<std::string,std::string>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::string>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>((a1 + 8), v13, &std::piecewise_construct, &v16, &v15);
     v10 = v9;
     if (*(v9 + 79) < 0)
     {
-      operator delete(*(v9 + 56));
+      operator delete(v9[7]);
     }
 
     v11 = v17[0];
-    *(v10 + 56) = v7;
-    *(v10 + 64) = v11;
+    v10[7] = v7;
+    v10[8] = v11;
     *(v10 + 71) = *(v17 + 7);
     *(v10 + 79) = v8;
     if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -8207,12 +8177,10 @@ void MeCab::Param::set<std::string>(uint64_t a1, char *a2, uint64_t a3, char a4)
     }
   }
 
-  if (v15 < 0)
+  if (v14 < 0)
   {
-    operator delete(v14[0]);
+    operator delete(v13[0]);
   }
-
-  v12 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29914CB9C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -8227,7 +8195,7 @@ void sub_29914CB9C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 BOOL MeCab::EncoderFeatureIndex::save(MeCab::EncoderFeatureIndex *this, const char *a2, const char *a3)
 {
-  v35[19] = *MEMORY[0x29EDCA608];
+  v34[19] = *MEMORY[0x29EDCA608];
   if (!a3)
   {
     v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(MEMORY[0x29EDC93C0], "/Library/Caches/com.apple.xbs/Sources/Mecabra/src/feature_index.cpp", 67);
@@ -8236,7 +8204,7 @@ BOOL MeCab::EncoderFeatureIndex::save(MeCab::EncoderFeatureIndex *this, const ch
     v8 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v7, ") [", 3);
     v9 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v8, "header", 6);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, "] ", 2);
-    MeCab::die::~die(&v33);
+    MeCab::die::~die(&v32);
   }
 
   if (!*(this + 42))
@@ -8247,23 +8215,23 @@ BOOL MeCab::EncoderFeatureIndex::save(MeCab::EncoderFeatureIndex *this, const ch
     v13 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v12, ") [", 3);
     v14 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v13, "alpha_", 6);
     std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v14, "] ", 2);
-    MeCab::die::~die(&v33);
+    MeCab::die::~die(&v32);
   }
 
-  std::ofstream::basic_ofstream(&v33);
-  v15 = v33;
-  v16 = &v34[*(v33 - 24) - 8];
+  std::ofstream::basic_ofstream(&v32, a2, 16);
+  v15 = v32;
+  v16 = &v33[*(v32 - 24) - 8];
   v17 = *(v16 + 8) & 5;
   if (!v17)
   {
     *(v16 + 2) = *(v16 + 2) & 0xFFFFFEFB | 4;
-    *&v34[*(v15 - 24) + 8] = 16;
+    *&v33[*(v15 - 24) + 8] = 16;
     v18 = strlen(a3);
-    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v33, a3, v18);
-    std::ios_base::getloc(&v34[*(v33 - 24) - 8]);
-    v19 = std::locale::use_facet(&v32, MEMORY[0x29EDC93D0]);
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v32, a3, v18);
+    std::ios_base::getloc(&v33[*(v32 - 24) - 8]);
+    v19 = std::locale::use_facet(&v31, MEMORY[0x29EDC93D0]);
     (v19->__vftable[2].~facet_0)(v19, 10);
-    std::locale::~locale(&v32);
+    std::locale::~locale(&v31);
     std::ostream::put();
     std::ostream::flush();
     v20 = *(this + 43);
@@ -8271,9 +8239,9 @@ BOOL MeCab::EncoderFeatureIndex::save(MeCab::EncoderFeatureIndex *this, const ch
     {
       do
       {
-        v21 = MEMORY[0x29C29A240](&v33, *(*(this + 42) + 8 * *(v20 + 14)));
-        LOBYTE(v32.__locale_) = 9;
-        v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, &v32, 1);
+        v21 = MEMORY[0x29C29A240](&v32, *(*(this + 42) + 8 * *(v20 + 14)));
+        LOBYTE(v31.__locale_) = 9;
+        v22 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, &v31, 1);
         v23 = *(v20 + 55);
         if (v23 >= 0)
         {
@@ -8296,8 +8264,8 @@ BOOL MeCab::EncoderFeatureIndex::save(MeCab::EncoderFeatureIndex *this, const ch
         }
 
         v26 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v22, v24, v25);
-        LOBYTE(v32.__locale_) = 10;
-        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, &v32, 1);
+        LOBYTE(v31.__locale_) = 10;
+        std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, &v31, 1);
         v27 = *(v20 + 1);
         if (v27)
         {
@@ -8329,12 +8297,11 @@ BOOL MeCab::EncoderFeatureIndex::save(MeCab::EncoderFeatureIndex *this, const ch
     }
   }
 
-  v33 = *MEMORY[0x29EDC9520];
-  *&v34[*(v33 - 24) - 8] = *(MEMORY[0x29EDC9520] + 24);
-  MEMORY[0x29C29A160](v34);
+  v32 = *MEMORY[0x29EDC9520];
+  *&v33[*(v32 - 24) - 8] = *(MEMORY[0x29EDC9520] + 24);
+  MEMORY[0x29C29A160](v33);
   std::ostream::~ostream();
-  MEMORY[0x29C29A320](v35);
-  v30 = *MEMORY[0x29EDCA608];
+  MEMORY[0x29C29A320](v34);
   return v17 == 0;
 }
 
@@ -8381,7 +8348,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<char const*>>(uint64_
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void std::vector<double>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<double>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -8391,7 +8358,7 @@ void std::vector<double>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
   std::vector<MeCab::RewritePattern>::__throw_length_error[abi:ne200100]();
 }
 
-void *std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -8466,7 +8433,7 @@ void *std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(v
   return result;
 }
 
-uint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned long long,double> *,false>(uint64_t result, unint64_t a2, uint64_t a3, char a4)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned long long,double> *,false>(uint64_t result, double *a2, uint64_t a3, char a4)
 {
   v7 = result;
 LABEL_2:
@@ -8480,10 +8447,10 @@ LABEL_2:
       switch(v9)
       {
         case 3:
-          v145 = *(v8 + 16);
+          v145 = *(v8 + 2);
           v146 = *v8;
-          v147 = *(v8 + 24);
-          v148 = *(v8 + 8);
+          v147 = v8[3];
+          v148 = v8[1];
           if (v145 == *v8)
           {
             v149 = v147 < v148;
@@ -8494,8 +8461,8 @@ LABEL_2:
             v149 = v145 < *v8;
           }
 
-          v150 = *(a2 - 16);
-          v151 = *(a2 - 8);
+          v150 = *(a2 - 2);
+          v151 = *(a2 - 1);
           v152 = v151 < v147;
           if (v150 != v145)
           {
@@ -8509,58 +8476,58 @@ LABEL_2:
               return result;
             }
 
-            *(v8 + 16) = v150;
-            *(a2 - 16) = v145;
-            *(v8 + 24) = v151;
-            *(a2 - 8) = v147;
-            v131 = *(v8 + 16);
+            *(v8 + 2) = v150;
+            *(a2 - 2) = v145;
+            v8[3] = v151;
+            *(a2 - 1) = v147;
+            v131 = *(v8 + 2);
             v139 = *v8;
-            v133 = *(v8 + 24);
+            v133 = v8[3];
             goto LABEL_278;
           }
 
           if (v152)
           {
             *v8 = v150;
-            *(a2 - 16) = v146;
-            *(v8 + 8) = v151;
+            *(a2 - 2) = v146;
+            v8[1] = v151;
           }
 
           else
           {
             *v8 = v145;
-            *(v8 + 16) = v146;
-            *(v8 + 8) = v147;
-            *(v8 + 24) = v148;
-            v217 = *(a2 - 16);
-            v218 = *(a2 - 8);
-            v219 = v218 < v148;
-            if (v217 != v146)
+            v8[2] = v146;
+            v8[1] = v147;
+            v8[3] = v148;
+            v216 = *(a2 - 2);
+            v217 = *(a2 - 1);
+            v218 = v217 < v148;
+            if (v216 != *&v146)
             {
-              v219 = v217 < v146;
+              v218 = v216 < *&v146;
             }
 
-            if (!v219)
+            if (!v218)
             {
               return result;
             }
 
-            *(v8 + 16) = v217;
-            *(a2 - 16) = v146;
-            *(v8 + 24) = v218;
+            *(v8 + 2) = v216;
+            *(a2 - 2) = v146;
+            v8[3] = v217;
           }
 
-          *(a2 - 8) = v148;
+          *(a2 - 1) = v148;
           return result;
         case 4:
 
-          return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned long long,double> *,0>(v8, (v8 + 16), (v8 + 32), (a2 - 16));
+          return std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned long long,double> *,0>(v8, v8 + 2, v8 + 4, a2 - 2);
         case 5:
-          result = std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned long long,double> *,0>(v8, (v8 + 16), (v8 + 32), (v8 + 48));
-          v126 = *(a2 - 16);
-          v127 = *(v8 + 48);
-          v128 = *(a2 - 8);
-          v129 = *(v8 + 56);
+          result = std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned long long,double> *,0>(v8, v8 + 2, v8 + 4, v8 + 6);
+          v126 = *(a2 - 2);
+          v127 = *(v8 + 6);
+          v128 = *(a2 - 1);
+          v129 = v8[7];
           v130 = v128 < v129;
           if (v126 != v127)
           {
@@ -8572,14 +8539,14 @@ LABEL_2:
             return result;
           }
 
-          *(v8 + 48) = v126;
-          *(a2 - 16) = v127;
-          *(v8 + 56) = v128;
-          *(a2 - 8) = v129;
-          v131 = *(v8 + 48);
-          v132 = *(v8 + 32);
-          v133 = *(v8 + 56);
-          v134 = *(v8 + 40);
+          *(v8 + 6) = v126;
+          *(a2 - 2) = v127;
+          v8[7] = v128;
+          *(a2 - 1) = v129;
+          v131 = *(v8 + 6);
+          v132 = *(v8 + 4);
+          v133 = v8[7];
+          v134 = v8[5];
           v135 = v133 < v134;
           if (v131 != v132)
           {
@@ -8591,12 +8558,12 @@ LABEL_2:
             return result;
           }
 
-          *(v8 + 32) = v131;
-          *(v8 + 48) = v132;
-          *(v8 + 40) = v133;
-          *(v8 + 56) = v134;
-          v136 = *(v8 + 16);
-          v137 = *(v8 + 24);
+          *(v8 + 4) = v131;
+          *(v8 + 6) = v132;
+          v8[5] = v133;
+          v8[7] = v134;
+          v136 = *(v8 + 2);
+          v137 = v8[3];
           v138 = v133 < v137;
           if (v131 != v136)
           {
@@ -8608,25 +8575,25 @@ LABEL_2:
             return result;
           }
 
-          *(v8 + 16) = v131;
-          *(v8 + 32) = v136;
-          *(v8 + 24) = v133;
-          *(v8 + 40) = v137;
+          *(v8 + 2) = v131;
+          *(v8 + 4) = v136;
+          v8[3] = v133;
+          v8[5] = v137;
           v139 = *v8;
 LABEL_278:
-          v205 = *(v8 + 8);
-          v206 = v133 < v205;
-          if (v131 != v139)
+          v204 = v8[1];
+          v205 = v133 < v204;
+          if (v131 != *&v139)
           {
-            v206 = v131 < v139;
+            v205 = v131 < *&v139;
           }
 
-          if (v206)
+          if (v205)
           {
             *v8 = v131;
-            *(v8 + 16) = v139;
-            *(v8 + 8) = v133;
-            *(v8 + 24) = v205;
+            v8[2] = v139;
+            v8[1] = v133;
+            v8[3] = v204;
           }
 
           return result;
@@ -8642,12 +8609,12 @@ LABEL_278:
 
       if (v9 == 2)
       {
-        v140 = *(a2 - 16);
+        v140 = *(a2 - 2);
         v141 = *v8;
-        v142 = *(a2 - 8);
-        v143 = *(v8 + 8);
+        v142 = *(a2 - 1);
+        v143 = v8[1];
         v144 = v142 < v143;
-        if (v140 != v141)
+        if (v140 != *&v141)
         {
           v144 = v140 < *v8;
         }
@@ -8655,9 +8622,9 @@ LABEL_278:
         if (v144)
         {
           *v8 = v140;
-          *(a2 - 16) = v141;
-          *(v8 + 8) = v142;
-          *(a2 - 8) = v143;
+          *(a2 - 2) = v141;
+          v8[1] = v142;
+          *(a2 - 1) = v143;
         }
 
         return result;
@@ -8684,7 +8651,7 @@ LABEL_278:
         if (v167 >= v168)
         {
           v170 = (2 * v168) | 1;
-          v171 = v8 + 16 * v170;
+          v171 = &v8[2 * v170];
           if (2 * v169 + 2 >= v9)
           {
             v172 = *v171;
@@ -8692,8 +8659,8 @@ LABEL_278:
 
           else
           {
-            v172 = *(v171 + 16);
-            v173 = *(v171 + 8) < *(v171 + 24);
+            v172 = *(v171 + 2);
+            v173 = v171[1] < v171[3];
             result = *v171 < v172;
             if (*v171 != v172)
             {
@@ -8702,7 +8669,7 @@ LABEL_278:
 
             if (v173)
             {
-              v171 += 16;
+              v171 += 2;
             }
 
             else
@@ -8716,10 +8683,10 @@ LABEL_278:
             }
           }
 
-          v174 = v8 + 16 * v169;
+          v174 = &v8[2 * v169];
           v175 = *v174;
-          v176 = *(v171 + 8);
-          v177 = *(v174 + 8);
+          v176 = v171[1];
+          v177 = v174[1];
           v178 = v176 < v177;
           if (v172 != *v174)
           {
@@ -8731,7 +8698,7 @@ LABEL_278:
             do
             {
               *v174 = v172;
-              *(v174 + 8) = v176;
+              v174[1] = v176;
               v174 = v171;
               if (v167 < v170)
               {
@@ -8739,7 +8706,7 @@ LABEL_278:
               }
 
               v179 = (2 * v170) | 1;
-              v171 = v8 + 16 * v179;
+              v171 = &v8[2 * v179];
               v170 = 2 * v170 + 2;
               if (v170 >= v9)
               {
@@ -8749,9 +8716,9 @@ LABEL_278:
 
               else
               {
-                v172 = *(v171 + 16);
+                v172 = *(v171 + 2);
                 result = *v171;
-                v180 = *(v171 + 8) < *(v171 + 24);
+                v180 = v171[1] < v171[3];
                 if (*v171 != v172)
                 {
                   v180 = *v171 < v172;
@@ -8759,7 +8726,7 @@ LABEL_278:
 
                 if (v180)
                 {
-                  v171 += 16;
+                  v171 += 2;
                 }
 
                 else
@@ -8773,7 +8740,7 @@ LABEL_278:
                 }
               }
 
-              v176 = *(v171 + 8);
+              v176 = v171[1];
               v181 = v176 < v177;
               if (v172 != v175)
               {
@@ -8783,7 +8750,7 @@ LABEL_278:
 
             while (!v181);
             *v174 = v175;
-            *(v174 + 8) = v177;
+            v174[1] = v177;
           }
         }
 
@@ -8795,7 +8762,7 @@ LABEL_278:
       {
         v182 = 0;
         v183 = *v8;
-        v184 = *(v8 + 8);
+        v184 = v8[1];
         v185 = v8;
         do
         {
@@ -8811,12 +8778,11 @@ LABEL_278:
 
           else
           {
-            v191 = v186[4];
-            v189 = (v186 + 4);
+            v191 = *(v186 + 4);
+            v189 = v186 + 4;
             v190 = v191;
             v192 = *(v189 - 2);
-            v193 = *(v189 - 1) < v189[1];
-            v194 = v192 < v191;
+            v193 = v192 < v191;
             if (v192 == v191)
             {
               result = *(v189 - 1) < v189[1];
@@ -8824,7 +8790,7 @@ LABEL_278:
 
             else
             {
-              result = v194;
+              result = v193;
             }
 
             if (result)
@@ -8849,62 +8815,62 @@ LABEL_278:
         }
 
         while (v182 <= ((v9 - 2) >> 1));
-        if (v187 != (a2 - 16))
+        if (v187 != a2 - 2)
         {
-          *v187 = *(a2 - 16);
-          v187[1] = *(a2 - 8);
-          *(a2 - 16) = v183;
-          *(a2 - 8) = v184;
-          v195 = (v187 - v8 + 16) >> 4;
-          v196 = v195 < 2;
-          v197 = v195 - 2;
-          if (!v196)
+          *v187 = *(a2 - 2);
+          v187[1] = *(a2 - 1);
+          *(a2 - 2) = v183;
+          *(a2 - 1) = v184;
+          v194 = (v187 - v8 + 16) >> 4;
+          v195 = v194 < 2;
+          v196 = v194 - 2;
+          if (!v195)
           {
-            v198 = v197 >> 1;
-            v199 = v8 + 16 * v198;
-            v200 = *v199;
-            v201 = *v187;
-            v202 = *(v199 + 8);
-            v184 = *(v187 + 1);
-            v203 = v202 < v184;
-            if (*v199 != *v187)
+            v197 = v196 >> 1;
+            v198 = &v8[2 * v197];
+            v199 = *v198;
+            v200 = *v187;
+            v201 = v198[1];
+            v184 = v187[1];
+            v202 = v201 < v184;
+            if (*v198 != *v187)
             {
-              v203 = *v199 < *v187;
+              v202 = *v198 < *v187;
             }
 
-            if (v203)
+            if (v202)
             {
               do
               {
-                *v187 = v200;
-                *(v187 + 1) = v202;
-                v187 = v199;
-                if (!v198)
+                *v187 = v199;
+                v187[1] = v201;
+                v187 = v198;
+                if (!v197)
                 {
                   break;
                 }
 
-                v198 = (v198 - 1) >> 1;
-                v199 = v8 + 16 * v198;
-                v200 = *v199;
-                v202 = *(v199 + 8);
-                v204 = v202 < v184;
-                if (*v199 != v201)
+                v197 = (v197 - 1) >> 1;
+                v198 = &v8[2 * v197];
+                v199 = *v198;
+                v201 = v198[1];
+                v203 = v201 < v184;
+                if (*v198 != v200)
                 {
-                  v204 = *v199 < v201;
+                  v203 = *v198 < v200;
                 }
               }
 
-              while (v204);
-              *v187 = v201;
+              while (v203);
+              *v187 = v200;
 LABEL_272:
-              *(v187 + 1) = v184;
+              v187[1] = v184;
             }
           }
 
-          a2 -= 16;
-          v196 = v9-- <= 2;
-          if (v196)
+          a2 -= 2;
+          v195 = v9-- <= 2;
+          if (v195)
           {
             return result;
           }
@@ -8919,15 +8885,15 @@ LABEL_272:
       goto LABEL_272;
     }
 
-    v10 = v8 + 16 * (v9 >> 1);
-    v11 = *(a2 - 16);
-    v12 = *(a2 - 8);
+    v10 = &v8[2 * (v9 >> 1)];
+    v11 = *(a2 - 2);
+    v12 = *(a2 - 1);
     if (v9 >= 0x81)
     {
       v13 = *v10;
       v14 = *v8;
-      v15 = *(v10 + 8);
-      v16 = *(v8 + 8);
+      v15 = v10[1];
+      v16 = v8[1];
       v17 = *v10 < *v8;
       if (*v10 == *v8)
       {
@@ -8935,9 +8901,9 @@ LABEL_272:
       }
 
       v18 = v12 < v15;
-      if (v11 != v13)
+      if (v11 != *&v13)
       {
-        v18 = v11 < v13;
+        v18 = v11 < *&v13;
       }
 
       if (v17)
@@ -8945,42 +8911,42 @@ LABEL_272:
         if (v18)
         {
           *v8 = v11;
-          *(a2 - 16) = v14;
-          *(v8 + 8) = v12;
+          *(a2 - 2) = v14;
+          v8[1] = v12;
           goto LABEL_41;
         }
 
         *v8 = v13;
         *v10 = v14;
-        *(v8 + 8) = v15;
-        *(v10 + 8) = v16;
-        v33 = *(a2 - 16);
-        v34 = *(a2 - 8);
+        v8[1] = v15;
+        v10[1] = v16;
+        v33 = *(a2 - 2);
+        v34 = *(a2 - 1);
         v35 = v34 < v16;
-        if (v33 != v14)
+        if (v33 != *&v14)
         {
-          v35 = v33 < v14;
+          v35 = v33 < *&v14;
         }
 
         if (v35)
         {
           *v10 = v33;
-          *(a2 - 16) = v14;
-          *(v10 + 8) = v34;
+          *(a2 - 2) = v14;
+          v10[1] = v34;
 LABEL_41:
-          *(a2 - 8) = v16;
+          *(a2 - 1) = v16;
         }
       }
 
       else if (v18)
       {
         *v10 = v11;
-        *(a2 - 16) = v13;
-        *(v10 + 8) = v12;
-        *(a2 - 8) = v15;
+        *(a2 - 2) = v13;
+        v10[1] = v12;
+        *(a2 - 1) = v15;
         v25 = *v8;
-        v26 = *(v10 + 8);
-        v27 = *(v8 + 8);
+        v26 = v10[1];
+        v27 = v8[1];
         v28 = v26 < v27;
         if (*v10 != *v8)
         {
@@ -8991,16 +8957,16 @@ LABEL_41:
         {
           *v8 = *v10;
           *v10 = v25;
-          *(v8 + 8) = v26;
-          *(v10 + 8) = v27;
+          v8[1] = v26;
+          v10[1] = v27;
         }
       }
 
-      v36 = v10 - 16;
-      v37 = *(v10 - 16);
-      v38 = *(v8 + 16);
-      v39 = *(v10 - 8);
-      v40 = *(v8 + 24);
+      v36 = v10 - 2;
+      v37 = *(v10 - 2);
+      v38 = *(v8 + 2);
+      v39 = *(v10 - 1);
+      v40 = v8[3];
       if (v37 == v38)
       {
         v41 = v39 < v40;
@@ -9011,8 +8977,8 @@ LABEL_41:
         v41 = v37 < v38;
       }
 
-      v42 = *(a2 - 32);
-      v43 = *(a2 - 24);
+      v42 = *(a2 - 4);
+      v43 = *(a2 - 3);
       v44 = v43 < v39;
       if (v42 != v37)
       {
@@ -9023,18 +8989,18 @@ LABEL_41:
       {
         if (v44)
         {
-          *(v8 + 16) = v42;
-          *(a2 - 32) = v38;
-          *(v8 + 24) = v43;
+          *(v8 + 2) = v42;
+          *(a2 - 4) = v38;
+          v8[3] = v43;
           goto LABEL_64;
         }
 
-        *(v8 + 16) = v37;
+        *(v8 + 2) = v37;
         *v36 = v38;
-        *(v8 + 24) = v39;
-        *(v10 - 8) = v40;
-        v52 = *(a2 - 32);
-        v53 = *(a2 - 24);
+        v8[3] = v39;
+        *(v10 - 1) = v40;
+        v52 = *(a2 - 4);
+        v53 = *(a2 - 3);
         v54 = v53 < v40;
         if (v52 != v38)
         {
@@ -9044,22 +9010,22 @@ LABEL_41:
         if (v54)
         {
           *v36 = v52;
-          *(a2 - 32) = v38;
-          *(v10 - 8) = v53;
+          *(a2 - 4) = v38;
+          *(v10 - 1) = v53;
 LABEL_64:
-          *(a2 - 24) = v40;
+          *(a2 - 3) = v40;
         }
       }
 
       else if (v44)
       {
         *v36 = v42;
-        *(a2 - 32) = v37;
-        *(v10 - 8) = v43;
-        *(a2 - 24) = v39;
-        v45 = *(v8 + 16);
-        v46 = *(v10 - 8);
-        v47 = *(v8 + 24);
+        *(a2 - 4) = v37;
+        *(v10 - 1) = v43;
+        *(a2 - 3) = v39;
+        v45 = *(v8 + 2);
+        v46 = *(v10 - 1);
+        v47 = v8[3];
         v48 = v46 < v47;
         if (*v36 != v45)
         {
@@ -9068,18 +9034,18 @@ LABEL_64:
 
         if (v48)
         {
-          *(v8 + 16) = *v36;
+          v8[2] = *v36;
           *v36 = v45;
-          *(v8 + 24) = v46;
-          *(v10 - 8) = v47;
+          v8[3] = v46;
+          *(v10 - 1) = v47;
         }
       }
 
-      v55 = v10 + 16;
-      v56 = *(v10 + 16);
-      v57 = *(v8 + 32);
-      v58 = *(v10 + 24);
-      v59 = *(v8 + 40);
+      v55 = v10 + 2;
+      v56 = *(v10 + 2);
+      v57 = *(v8 + 4);
+      v58 = v10[3];
+      v59 = v8[5];
       if (v56 == v57)
       {
         v60 = v58 < v59;
@@ -9090,8 +9056,8 @@ LABEL_64:
         v60 = v56 < v57;
       }
 
-      v61 = *(a2 - 48);
-      v62 = *(a2 - 40);
+      v61 = *(a2 - 6);
+      v62 = *(a2 - 5);
       v63 = v62 < v58;
       if (v61 != v56)
       {
@@ -9102,18 +9068,18 @@ LABEL_64:
       {
         if (v63)
         {
-          *(v8 + 32) = v61;
-          *(a2 - 48) = v57;
-          *(v8 + 40) = v62;
+          *(v8 + 4) = v61;
+          *(a2 - 6) = v57;
+          v8[5] = v62;
           goto LABEL_82;
         }
 
-        *(v8 + 32) = v56;
+        *(v8 + 4) = v56;
         *v55 = v57;
-        *(v8 + 40) = v58;
-        *(v10 + 24) = v59;
-        v68 = *(a2 - 48);
-        v69 = *(a2 - 40);
+        v8[5] = v58;
+        v10[3] = v59;
+        v68 = *(a2 - 6);
+        v69 = *(a2 - 5);
         v70 = v69 < v59;
         if (v68 != v57)
         {
@@ -9123,22 +9089,22 @@ LABEL_64:
         if (v70)
         {
           *v55 = v68;
-          *(a2 - 48) = v57;
-          *(v10 + 24) = v69;
+          *(a2 - 6) = v57;
+          v10[3] = v69;
 LABEL_82:
-          *(a2 - 40) = v59;
+          *(a2 - 5) = v59;
         }
       }
 
       else if (v63)
       {
         *v55 = v61;
-        *(a2 - 48) = v56;
-        *(v10 + 24) = v62;
-        *(a2 - 40) = v58;
-        v64 = *(v8 + 32);
-        v65 = *(v10 + 24);
-        v66 = *(v8 + 40);
+        *(a2 - 6) = v56;
+        v10[3] = v62;
+        *(a2 - 5) = v58;
+        v64 = *(v8 + 4);
+        v65 = v10[3];
+        v66 = v8[5];
         v67 = v65 < v66;
         if (*v55 != v64)
         {
@@ -9147,17 +9113,17 @@ LABEL_82:
 
         if (v67)
         {
-          *(v8 + 32) = *v55;
+          v8[4] = *v55;
           *v55 = v64;
-          *(v8 + 40) = v65;
-          *(v10 + 24) = v66;
+          v8[5] = v65;
+          v10[3] = v66;
         }
       }
 
       v71 = *v10;
       v72 = *v36;
-      v73 = *(v10 + 8);
-      v74 = *(v10 - 8);
+      v73 = v10[1];
+      v74 = *(v10 - 1);
       if (*v10 == *v36)
       {
         v75 = v73 < v74;
@@ -9169,11 +9135,11 @@ LABEL_82:
       }
 
       v76 = *v55;
-      v77 = *(v10 + 24);
+      v77 = v10[3];
       v78 = v77 < v73;
-      if (*v55 != v71)
+      if (*v55 != *&v71)
       {
-        v78 = *v55 < v71;
+        v78 = *v55 < *&v71;
       }
 
       if (v75)
@@ -9182,14 +9148,14 @@ LABEL_82:
         {
           *v36 = v71;
           *v10 = v72;
-          v79 = v76 < v72;
-          if (v76 == v72)
+          v79 = *&v76 < *&v72;
+          if (*&v76 == *&v72)
           {
             v79 = v77 < v74;
           }
 
-          *(v10 - 8) = v73;
-          *(v10 + 8) = v74;
+          *(v10 - 1) = v73;
+          v10[1] = v74;
           v36 = v10;
           v73 = v77;
           v71 = v76;
@@ -9201,9 +9167,9 @@ LABEL_100:
             v81 = *v8;
             *v8 = v71;
             *v10 = v81;
-            v82 = *(v8 + 8);
-            *(v8 + 8) = v73;
-            *(v10 + 8) = v82;
+            v82 = *(v8 + 1);
+            v8[1] = v73;
+            *(v10 + 1) = v82;
             goto LABEL_101;
           }
         }
@@ -9218,16 +9184,16 @@ LABEL_100:
 
         *v10 = v76;
         *v55 = v71;
-        *(v10 + 8) = v77;
-        *(v10 + 24) = v73;
-        if (v76 == v72)
+        v10[1] = v77;
+        v10[3] = v73;
+        if (*&v76 == *&v72)
         {
           v80 = v77 < v74;
         }
 
         else
         {
-          v80 = v76 < v72;
+          v80 = *&v76 < *&v72;
         }
 
         v55 = v10;
@@ -9243,15 +9209,15 @@ LABEL_100:
 
       *v36 = v76;
       *v55 = v72;
-      *(v36 + 8) = v77;
-      *(v55 + 8) = v74;
+      v36[1] = v77;
+      v55[1] = v74;
       goto LABEL_100;
     }
 
     v19 = *v8;
     v20 = *v10;
-    v21 = *(v8 + 8);
-    v22 = *(v10 + 8);
+    v21 = v8[1];
+    v22 = v10[1];
     v23 = *v8 < *v10;
     if (*v8 == *v10)
     {
@@ -9259,9 +9225,9 @@ LABEL_100:
     }
 
     v24 = v12 < v21;
-    if (v11 != v19)
+    if (v11 != *&v19)
     {
-      v24 = v11 < v19;
+      v24 = v11 < *&v19;
     }
 
     if (v23)
@@ -9269,30 +9235,30 @@ LABEL_100:
       if (v24)
       {
         *v10 = v11;
-        *(a2 - 16) = v20;
-        *(v10 + 8) = v12;
+        *(a2 - 2) = v20;
+        v10[1] = v12;
 LABEL_59:
-        *(a2 - 8) = v22;
+        *(a2 - 1) = v22;
         goto LABEL_101;
       }
 
       *v10 = v19;
       *v8 = v20;
-      *(v10 + 8) = v21;
-      *(v8 + 8) = v22;
-      v49 = *(a2 - 16);
-      v50 = *(a2 - 8);
+      v10[1] = v21;
+      v8[1] = v22;
+      v49 = *(a2 - 2);
+      v50 = *(a2 - 1);
       v51 = v50 < v22;
-      if (v49 != v20)
+      if (v49 != *&v20)
       {
-        v51 = v49 < v20;
+        v51 = v49 < *&v20;
       }
 
       if (v51)
       {
         *v8 = v49;
-        *(a2 - 16) = v20;
-        *(v8 + 8) = v50;
+        *(a2 - 2) = v20;
+        v8[1] = v50;
         goto LABEL_59;
       }
     }
@@ -9300,12 +9266,12 @@ LABEL_59:
     else if (v24)
     {
       *v8 = v11;
-      *(a2 - 16) = v19;
-      *(v8 + 8) = v12;
-      *(a2 - 8) = v21;
+      *(a2 - 2) = v19;
+      v8[1] = v12;
+      *(a2 - 1) = v21;
       v29 = *v10;
-      v30 = *(v8 + 8);
-      v31 = *(v10 + 8);
+      v30 = v8[1];
+      v31 = v10[1];
       v32 = v30 < v31;
       if (*v8 != *v10)
       {
@@ -9316,8 +9282,8 @@ LABEL_59:
       {
         *v10 = *v8;
         *v8 = v29;
-        *(v10 + 8) = v30;
-        *(v8 + 8) = v31;
+        v10[1] = v30;
+        v8[1] = v31;
       }
     }
 
@@ -9326,17 +9292,17 @@ LABEL_101:
     v83 = *v8;
     if (a4)
     {
-      v84 = *(v8 + 8);
+      v84 = v8[1];
       goto LABEL_106;
     }
 
-    v85 = *(v8 - 16);
-    v84 = *(v8 + 8);
-    v154 = v85 == v83;
-    v86 = v85 < v83;
+    v85 = *(v8 - 2);
+    v84 = v8[1];
+    v154 = v85 == *&v83;
+    v86 = v85 < *&v83;
     if (v154)
     {
-      v86 = *(v8 - 8) < v84;
+      v86 = *(v8 - 1) < v84;
     }
 
     if (v86)
@@ -9345,20 +9311,20 @@ LABEL_106:
       v87 = 0;
       do
       {
-        v88 = *(v8 + v87 + 16);
-        v89 = *(v8 + v87 + 24) < v84;
-        if (v88 != v83)
+        v88 = v8[v87 + 2];
+        v89 = v8[v87 + 3] < v84;
+        if (*&v88 != *&v83)
         {
-          v89 = v88 < v83;
+          v89 = *&v88 < *&v83;
         }
 
-        v87 += 16;
+        v87 += 2;
       }
 
       while (v89);
-      v90 = v8 + v87;
+      v90 = &v8[v87];
       v91 = a2;
-      if (v87 == 16)
+      if (v87 == 2)
       {
         v91 = a2;
         do
@@ -9368,12 +9334,12 @@ LABEL_106:
             break;
           }
 
-          v94 = *(v91 - 16);
-          v91 -= 16;
-          v95 = v94 < v83;
-          if (v94 == v83)
+          v94 = *(v91 - 2);
+          v91 -= 2;
+          v95 = v94 < *&v83;
+          if (v94 == *&v83)
           {
-            v95 = *(v91 + 8) < v84;
+            v95 = v91[1] < v84;
           }
         }
 
@@ -9384,12 +9350,12 @@ LABEL_106:
       {
         do
         {
-          v92 = *(v91 - 16);
-          v91 -= 16;
-          v93 = v92 < v83;
-          if (v92 == v83)
+          v92 = *(v91 - 2);
+          v91 -= 2;
+          v93 = v92 < *&v83;
+          if (v92 == *&v83)
           {
-            v93 = *(v91 + 8) < v84;
+            v93 = v91[1] < v84;
           }
         }
 
@@ -9410,17 +9376,17 @@ LABEL_106:
         {
           *v8 = v96;
           *v97 = v88;
-          v98 = *(v8 + 8);
-          *(v8 + 8) = v97[1];
+          v98 = *(v8 + 1);
+          v8[1] = v97[1];
           *(v97 + 1) = v98;
           do
           {
-            v99 = *(v8 + 16);
-            v8 += 16;
+            v99 = v8[2];
+            v8 += 2;
             v88 = v99;
-            v100 = *(v8 + 8) < v84;
-            v101 = v99 < v83;
-            if (v99 != v83)
+            v100 = v8[1] < v84;
+            v101 = *&v99 < *&v83;
+            if (*&v99 != *&v83)
             {
               v100 = v101;
             }
@@ -9433,8 +9399,8 @@ LABEL_106:
             v97 -= 2;
             v96 = v102;
             v103 = v97[1] < v84;
-            v104 = v102 < v83;
-            if (v102 != v83)
+            v104 = v102 < *&v83;
+            if (v102 != *&v83)
             {
               v103 = v104;
             }
@@ -9446,24 +9412,24 @@ LABEL_106:
         while (v8 < v97);
       }
 
-      if (v8 - 16 != v7)
+      if (v8 - 2 != v7)
       {
-        *v7 = *(v8 - 16);
-        *(v7 + 8) = *(v8 - 8);
+        *v7 = *(v8 - 2);
+        *(v7 + 8) = *(v8 - 1);
       }
 
-      *(v8 - 16) = v83;
-      *(v8 - 8) = v84;
+      *(v8 - 2) = v83;
+      *(v8 - 1) = v84;
       if (v90 < v91)
       {
         goto LABEL_137;
       }
 
-      v105 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned long long,double> *>(v7, v8 - 16);
+      v105 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned long long,double> *>(v7, v8 - 2);
       result = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned long long,double> *>(v8, a2);
       if (result)
       {
-        a2 = v8 - 16;
+        a2 = v8 - 2;
         if (v105)
         {
           return result;
@@ -9475,31 +9441,31 @@ LABEL_106:
       if (!v105)
       {
 LABEL_137:
-        result = std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned long long,double> *,false>(v7, v8 - 16, a3, a4 & 1);
+        result = std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned long long,double> *,false>(v7, (v8 - 2), a3, a4 & 1);
         a4 = 0;
       }
     }
 
     else
     {
-      v106 = *(a2 - 16);
-      v154 = v83 == v106;
-      v107 = v83 < v106;
+      v106 = *(a2 - 2);
+      v154 = *&v83 == v106;
+      v107 = *&v83 < v106;
       if (v154)
       {
-        v107 = v84 < *(a2 - 8);
+        v107 = v84 < *(a2 - 1);
       }
 
       if (v107)
       {
         do
         {
-          v108 = *(v8 + 16);
-          v8 += 16;
-          v109 = v83 < v108;
-          if (v83 == v108)
+          v108 = *(v8 + 2);
+          v8 += 2;
+          v109 = *&v83 < v108;
+          if (*&v83 == v108)
           {
-            v109 = v84 < *(v8 + 8);
+            v109 = v84 < v8[1];
           }
         }
 
@@ -9508,7 +9474,7 @@ LABEL_137:
 
       else
       {
-        v110 = (v8 + 16);
+        v110 = v8 + 2;
         do
         {
           v8 = v110;
@@ -9518,15 +9484,15 @@ LABEL_137:
           }
 
           v111 = *v110;
-          v112 = v84 < *(v8 + 8);
-          v154 = v83 == v111;
-          v113 = v83 < v111;
+          v112 = v84 < v8[1];
+          v154 = *&v83 == v111;
+          v113 = *&v83 < v111;
           if (!v154)
           {
             v112 = v113;
           }
 
-          v110 = (v8 + 16);
+          v110 = v8 + 2;
         }
 
         while (!v112);
@@ -9538,12 +9504,12 @@ LABEL_137:
         v114 = a2;
         do
         {
-          v115 = *(v114 - 16);
-          v114 -= 16;
-          v116 = v83 < v115;
-          if (v83 == v115)
+          v115 = *(v114 - 2);
+          v114 -= 2;
+          v116 = *&v83 < v115;
+          if (*&v83 == v115)
           {
-            v116 = v84 < *(v114 + 8);
+            v116 = v84 < v114[1];
           }
         }
 
@@ -9558,17 +9524,17 @@ LABEL_137:
         {
           *v8 = v118;
           *v114 = v117;
-          v119 = *(v8 + 8);
-          *(v8 + 8) = *(v114 + 8);
-          *(v114 + 8) = v119;
+          v119 = *(v8 + 1);
+          v8[1] = v114[1];
+          *(v114 + 1) = v119;
           do
           {
-            v120 = *(v8 + 16);
-            v8 += 16;
+            v120 = v8[2];
+            v8 += 2;
             v117 = v120;
-            v121 = v84 < *(v8 + 8);
-            v122 = v83 < v120;
-            if (v83 != v120)
+            v121 = v84 < v8[1];
+            v122 = *&v83 < *&v120;
+            if (*&v83 != *&v120)
             {
               v121 = v122;
             }
@@ -9577,12 +9543,12 @@ LABEL_137:
           while (!v121);
           do
           {
-            v123 = *(v114 - 16);
-            v114 -= 16;
+            v123 = *(v114 - 2);
+            v114 -= 2;
             v118 = v123;
-            v124 = v84 < *(v114 + 8);
-            v125 = v83 < v123;
-            if (v83 != v123)
+            v124 = v84 < v114[1];
+            v125 = *&v83 < v123;
+            if (*&v83 != v123)
             {
               v124 = v125;
             }
@@ -9594,19 +9560,19 @@ LABEL_137:
         while (v8 < v114);
       }
 
-      if (v8 - 16 != v7)
+      if (v8 - 2 != v7)
       {
-        *v7 = *(v8 - 16);
-        *(v7 + 8) = *(v8 - 8);
+        *v7 = *(v8 - 2);
+        *(v7 + 8) = *(v8 - 1);
       }
 
       a4 = 0;
-      *(v8 - 16) = v83;
-      *(v8 - 8) = v84;
+      *(v8 - 2) = v83;
+      *(v8 - 1) = v84;
     }
   }
 
-  v153 = v8 + 16;
+  v153 = v8 + 2;
   v154 = v8 == a2 || v153 == a2;
   v155 = v154;
   if (a4)
@@ -9617,10 +9583,10 @@ LABEL_137:
       v157 = v8;
       do
       {
-        v158 = *(v157 + 16);
+        v158 = *(v157 + 2);
         v159 = *v157;
-        v160 = *(v157 + 24);
-        v161 = *(v157 + 8);
+        v160 = v157[3];
+        v161 = v157[1];
         v157 = v153;
         v162 = v160 < v161;
         if (v158 != v159)
@@ -9634,15 +9600,15 @@ LABEL_137:
           while (1)
           {
             v164 = v8 + v163;
-            *(v164 + 16) = v159;
-            *(v164 + 24) = *(v8 + v163 + 8);
+            *(v164 + 2) = v159;
+            *(v164 + 3) = *(v8 + v163 + 8);
             if (!v163)
             {
               break;
             }
 
-            v159 = *(v164 - 16);
-            v165 = v160 < *(v164 - 8);
+            v159 = *(v164 - 2);
+            v165 = v160 < *(v164 - 1);
             if (v158 != v159)
             {
               v165 = v158 < v159;
@@ -9662,69 +9628,69 @@ LABEL_215:
           *(v166 + 8) = v160;
         }
 
-        v153 = v157 + 16;
+        v153 = v157 + 2;
         v156 += 16;
       }
 
-      while (v157 + 16 != a2);
+      while (v157 + 2 != a2);
     }
   }
 
   else if ((v155 & 1) == 0)
   {
-    v207 = (v8 + 24);
+    v206 = v8 + 3;
     do
     {
-      v208 = *(v7 + 16);
-      v209 = *v7;
-      v210 = *(v7 + 24);
-      v211 = *(v7 + 8);
+      v207 = *(v7 + 16);
+      v208 = *v7;
+      v209 = *(v7 + 24);
+      v210 = *(v7 + 8);
       v7 = v153;
-      v212 = v210 < v211;
-      if (v208 != v209)
+      v211 = v209 < v210;
+      if (v207 != *&v208)
       {
-        v212 = v208 < v209;
+        v211 = v207 < *&v208;
       }
 
-      if (v212)
+      if (v211)
       {
-        v213 = v207;
+        v212 = v206;
         do
         {
-          v214 = v213;
-          *(v213 - 1) = v209;
-          v215 = *(v213 - 2);
-          v213 -= 2;
-          *v214 = v215;
-          v209 = *(v214 - 5);
-          v216 = v210 < *(v214 - 4);
-          if (v208 != v209)
+          v213 = v212;
+          *(v212 - 1) = v208;
+          v214 = *(v212 - 2);
+          v212 -= 2;
+          *v213 = v214;
+          v208 = *(v213 - 5);
+          v215 = v209 < *(v213 - 4);
+          if (v207 != *&v208)
           {
-            v216 = v208 < v209;
+            v215 = v207 < *&v208;
           }
         }
 
-        while (v216);
-        *(v213 - 1) = v208;
-        *v213 = v210;
+        while (v215);
+        *(v212 - 1) = v207;
+        *v212 = v209;
       }
 
-      v153 = v7 + 16;
-      v207 += 2;
+      v153 = (v7 + 16);
+      v206 += 2;
     }
 
-    while (v7 + 16 != a2);
+    while ((v7 + 16) != a2);
   }
 
   return result;
 }
 
-unint64_t *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned long long,double> *,0>(unint64_t *result, unint64_t *a2, double *a3, double *a4)
+double *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned long long,double> *,0>(double *result, double *a2, double *a3, double *a4)
 {
   v4 = *a2;
   v5 = *result;
-  v6 = *(a2 + 1);
-  v7 = *(result + 1);
+  v6 = a2[1];
+  v7 = result[1];
   if (*a2 == *result)
   {
     v8 = v6 < v7;
@@ -9749,31 +9715,31 @@ unint64_t *std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,vo
     {
       *result = v9;
       *a3 = v5;
-      *(result + 1) = v10;
+      result[1] = v10;
 LABEL_18:
       v6 = v7;
-      v4 = v5;
+      v4 = *&v5;
       a3[1] = v7;
       goto LABEL_20;
     }
 
     *result = v4;
     *a2 = v5;
-    *(result + 1) = v6;
-    *(a2 + 1) = v7;
+    result[1] = v6;
+    a2[1] = v7;
     v4 = *a3;
     v6 = a3[1];
     v16 = v6 < v7;
-    if (*a3 != v5)
+    if (*a3 != *&v5)
     {
-      v16 = *a3 < v5;
+      v16 = *a3 < *&v5;
     }
 
     if (v16)
     {
       *a2 = v4;
       *a3 = v5;
-      *(a2 + 1) = v6;
+      a2[1] = v6;
       goto LABEL_18;
     }
   }
@@ -9782,11 +9748,11 @@ LABEL_18:
   {
     *a2 = v9;
     *a3 = v4;
-    *(a2 + 1) = v10;
+    a2[1] = v10;
     a3[1] = v6;
     v12 = *result;
-    v13 = *(a2 + 1);
-    v14 = *(result + 1);
+    v13 = a2[1];
+    v14 = result[1];
     v15 = v13 < v14;
     if (*a2 != *result)
     {
@@ -9797,8 +9763,8 @@ LABEL_18:
     {
       *result = *a2;
       *a2 = v12;
-      *(result + 1) = v13;
-      *(a2 + 1) = v14;
+      result[1] = v13;
+      a2[1] = v14;
       v4 = *a3;
       v6 = a3[1];
     }
@@ -9826,7 +9792,7 @@ LABEL_20:
     a4[1] = v6;
     v19 = *a2;
     v20 = a3[1];
-    v21 = *(a2 + 1);
+    v21 = a2[1];
     v22 = v20 < v21;
     if (*a3 != *a2)
     {
@@ -9837,11 +9803,11 @@ LABEL_20:
     {
       *a2 = *a3;
       *a3 = v19;
-      *(a2 + 1) = v20;
+      a2[1] = v20;
       a3[1] = v21;
       v23 = *result;
-      v24 = *(a2 + 1);
-      v25 = *(result + 1);
+      v24 = a2[1];
+      v25 = result[1];
       v26 = v24 < v25;
       if (*a2 != *result)
       {
@@ -9852,8 +9818,8 @@ LABEL_20:
       {
         *result = *a2;
         *a2 = v23;
-        *(result + 1) = v24;
-        *(a2 + 1) = v25;
+        result[1] = v24;
+        a2[1] = v25;
       }
     }
   }
@@ -9861,7 +9827,7 @@ LABEL_20:
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned long long,double> *>(uint64_t a1, uint64_t a2)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned long long,double> *>(double *a1, double *a2)
 {
   v4 = (a2 - a1) >> 4;
   if (v4 <= 2)
@@ -9870,10 +9836,10 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
     {
       if (v4 == 2)
       {
-        v5 = *(a2 - 16);
+        v5 = *(a2 - 2);
         v6 = *a1;
-        v7 = *(a2 - 8);
-        v8 = *(a1 + 8);
+        v7 = *(a2 - 1);
+        v8 = a1[1];
         v9 = v7 < v8;
         if (v5 != *a1)
         {
@@ -9883,11 +9849,11 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
         if (v9)
         {
           *a1 = v5;
-          *(a2 - 16) = v6;
-          *(a1 + 8) = v7;
+          *(a2 - 2) = v6;
+          a1[1] = v7;
 LABEL_69:
           result = 1;
-          *(a2 - 8) = v8;
+          *(a2 - 1) = v8;
           return result;
         }
 
@@ -9903,10 +9869,10 @@ LABEL_69:
   switch(v4)
   {
     case 3:
-      v27 = *(a1 + 16);
+      v27 = *(a1 + 2);
       v28 = *a1;
-      v29 = *(a1 + 24);
-      v8 = *(a1 + 8);
+      v29 = a1[3];
+      v8 = a1[1];
       if (v27 == *a1)
       {
         v30 = v29 < v8;
@@ -9917,8 +9883,8 @@ LABEL_69:
         v30 = v27 < *a1;
       }
 
-      v31 = *(a2 - 16);
-      v32 = *(a2 - 8);
+      v31 = *(a2 - 2);
+      v32 = *(a2 - 1);
       v33 = v32 < v29;
       if (v31 != v27)
       {
@@ -9930,17 +9896,17 @@ LABEL_69:
         if (v33)
         {
           *a1 = v31;
-          *(a2 - 16) = v28;
-          *(a1 + 8) = v32;
+          *(a2 - 2) = v28;
+          a1[1] = v32;
           goto LABEL_69;
         }
 
         *a1 = v27;
-        *(a1 + 16) = v28;
-        *(a1 + 8) = v29;
-        *(a1 + 24) = v8;
-        v64 = *(a2 - 16);
-        v65 = *(a2 - 8);
+        *(a1 + 2) = v28;
+        a1[1] = v29;
+        a1[3] = v8;
+        v64 = *(a2 - 2);
+        v65 = *(a2 - 1);
         v66 = v65 < v8;
         if (v64 != v28)
         {
@@ -9949,23 +9915,23 @@ LABEL_69:
 
         if (v66)
         {
-          *(a1 + 16) = v64;
-          *(a2 - 16) = v28;
-          *(a1 + 24) = v65;
+          *(a1 + 2) = v64;
+          *(a2 - 2) = v28;
+          a1[3] = v65;
           goto LABEL_69;
         }
       }
 
       else if (v33)
       {
-        *(a1 + 16) = v31;
-        *(a2 - 16) = v27;
-        *(a1 + 24) = v32;
-        *(a2 - 8) = v29;
-        v47 = *(a1 + 16);
+        *(a1 + 2) = v31;
+        *(a2 - 2) = v27;
+        a1[3] = v32;
+        *(a2 - 1) = v29;
+        v47 = *(a1 + 2);
         v48 = *a1;
-        v49 = *(a1 + 24);
-        v50 = *(a1 + 8);
+        v49 = a1[3];
+        v50 = a1[1];
         v51 = v49 < v50;
         if (v47 != *a1)
         {
@@ -9975,24 +9941,24 @@ LABEL_69:
         if (v51)
         {
           *a1 = v47;
-          *(a1 + 16) = v48;
-          *(a1 + 8) = v49;
+          *(a1 + 2) = v48;
+          a1[1] = v49;
           result = 1;
-          *(a1 + 24) = v50;
+          a1[3] = v50;
           return result;
         }
       }
 
       return 1;
     case 4:
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned long long,double> *,0>(a1, (a1 + 16), (a1 + 32), (a2 - 16));
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned long long,double> *,0>(a1, a1 + 2, a1 + 4, a2 - 2);
       return 1;
     case 5:
-      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned long long,double> *,0>(a1, (a1 + 16), (a1 + 32), (a1 + 48));
-      v10 = *(a2 - 16);
-      v11 = *(a1 + 48);
-      v12 = *(a2 - 8);
-      v13 = *(a1 + 56);
+      std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::pair<unsigned long long,double> *,0>(a1, a1 + 2, a1 + 4, a1 + 6);
+      v10 = *(a2 - 2);
+      v11 = *(a1 + 6);
+      v12 = *(a2 - 1);
+      v13 = a1[7];
       v14 = v12 < v13;
       if (v10 != v11)
       {
@@ -10001,14 +9967,14 @@ LABEL_69:
 
       if (v14)
       {
-        *(a1 + 48) = v10;
-        *(a2 - 16) = v11;
-        *(a1 + 56) = v12;
-        *(a2 - 8) = v13;
-        v15 = *(a1 + 48);
-        v16 = *(a1 + 32);
-        v17 = *(a1 + 56);
-        v18 = *(a1 + 40);
+        *(a1 + 6) = v10;
+        *(a2 - 2) = v11;
+        a1[7] = v12;
+        *(a2 - 1) = v13;
+        v15 = *(a1 + 6);
+        v16 = *(a1 + 4);
+        v17 = a1[7];
+        v18 = a1[5];
         v19 = v17 < v18;
         if (v15 != v16)
         {
@@ -10017,12 +9983,12 @@ LABEL_69:
 
         if (v19)
         {
-          *(a1 + 32) = v15;
-          *(a1 + 48) = v16;
-          *(a1 + 40) = v17;
-          *(a1 + 56) = v18;
-          v20 = *(a1 + 16);
-          v21 = *(a1 + 24);
+          *(a1 + 4) = v15;
+          *(a1 + 6) = v16;
+          a1[5] = v17;
+          a1[7] = v18;
+          v20 = *(a1 + 2);
+          v21 = a1[3];
           v22 = v17 < v21;
           if (v15 != v20)
           {
@@ -10031,12 +9997,12 @@ LABEL_69:
 
           if (v22)
           {
-            *(a1 + 16) = v15;
-            *(a1 + 32) = v20;
-            *(a1 + 24) = v17;
-            *(a1 + 40) = v21;
+            *(a1 + 2) = v15;
+            *(a1 + 4) = v20;
+            a1[3] = v17;
+            a1[5] = v21;
             v23 = *a1;
-            v24 = *(a1 + 8);
+            v24 = a1[1];
             v25 = v17 < v24;
             if (v15 != *a1)
             {
@@ -10046,10 +10012,10 @@ LABEL_69:
             if (v25)
             {
               *a1 = v15;
-              *(a1 + 16) = v23;
-              *(a1 + 8) = v17;
+              a1[2] = v23;
+              a1[1] = v17;
               result = 1;
-              *(a1 + 24) = v24;
+              a1[3] = v24;
               return result;
             }
           }
@@ -10060,17 +10026,17 @@ LABEL_69:
   }
 
 LABEL_32:
-  v34 = a1 + 32;
-  v35 = *(a1 + 32);
-  v36 = (a1 + 16);
-  v37 = *(a1 + 16);
+  v34 = a1 + 4;
+  v35 = *(a1 + 4);
+  v36 = a1 + 2;
+  v37 = *(a1 + 2);
   v38 = *a1;
-  v39 = (a1 + 24);
-  v40 = *(a1 + 24);
-  v41 = (a1 + 8);
-  v42 = *(a1 + 8);
+  v39 = a1 + 3;
+  v40 = a1[3];
+  v41 = a1 + 1;
+  v42 = a1[1];
   v43 = v37 < *a1;
-  v44 = *(a1 + 40);
+  v44 = a1[5];
   if (v37 == *a1)
   {
     v43 = v40 < v42;
@@ -10087,8 +10053,8 @@ LABEL_32:
     if (v45)
     {
       v46 = a1;
-      v36 = (a1 + 32);
-      v39 = (a1 + 40);
+      v36 = a1 + 4;
+      v39 = a1 + 5;
 LABEL_49:
       *v46 = v35;
       *v36 = v38;
@@ -10098,23 +10064,23 @@ LABEL_49:
     }
 
     *a1 = v37;
-    *(a1 + 16) = v38;
-    if (v35 == v38)
+    a1[2] = v38;
+    if (v35 == *&v38)
     {
       v67 = v44 < v42;
     }
 
     else
     {
-      v67 = v35 < v38;
+      v67 = v35 < *&v38;
     }
 
-    v46 = (a1 + 16);
-    *(a1 + 8) = v40;
-    *(a1 + 24) = v42;
-    v36 = (a1 + 32);
-    v41 = (a1 + 24);
-    v39 = (a1 + 40);
+    v46 = a1 + 2;
+    a1[1] = v40;
+    a1[3] = v42;
+    v36 = a1 + 4;
+    v41 = a1 + 3;
+    v39 = a1 + 5;
     if (v67)
     {
       goto LABEL_49;
@@ -10126,11 +10092,11 @@ LABEL_49:
     *v36 = v35;
     *v34 = v37;
     *v39 = v44;
-    *(a1 + 40) = v40;
+    a1[5] = v40;
     v52 = v44 < v42;
-    if (v35 != v38)
+    if (v35 != *&v38)
     {
-      v52 = v35 < v38;
+      v52 = v35 < *&v38;
     }
 
     v46 = a1;
@@ -10141,8 +10107,8 @@ LABEL_49:
   }
 
 LABEL_50:
-  v53 = a1 + 48;
-  if (a1 + 48 == a2)
+  v53 = a1 + 6;
+  if (a1 + 6 == a2)
   {
     return 1;
   }
@@ -10153,8 +10119,8 @@ LABEL_50:
   {
     v56 = *v53;
     v57 = *v34;
-    v58 = *(v53 + 8);
-    v59 = v58 < *(v34 + 8);
+    v58 = v53[1];
+    v59 = v58 < v34[1];
     if (*v53 != v57)
     {
       v59 = *v53 < v57;
@@ -10166,15 +10132,15 @@ LABEL_50:
       while (1)
       {
         v61 = a1 + v60;
-        *(v61 + 48) = v57;
-        *(v61 + 56) = *(a1 + v60 + 40);
+        *(v61 + 6) = v57;
+        *(v61 + 7) = *(a1 + v60 + 40);
         if (v60 == -32)
         {
           break;
         }
 
-        v57 = *(v61 + 16);
-        v62 = v58 < *(v61 + 24);
+        v57 = *(v61 + 2);
+        v62 = v58 < *(v61 + 3);
         if (v56 != v57)
         {
           v62 = v56 < v57;
@@ -10183,7 +10149,7 @@ LABEL_50:
         v60 -= 16;
         if (!v62)
         {
-          v63 = a1 + v60 + 48;
+          v63 = (a1 + v60 + 48);
           goto LABEL_62;
         }
       }
@@ -10191,16 +10157,16 @@ LABEL_50:
       v63 = a1;
 LABEL_62:
       *v63 = v56;
-      *(v63 + 8) = v58;
+      v63[1] = v58;
       if (++v55 == 8)
       {
-        return v53 + 16 == a2;
+        return v53 + 2 == a2;
       }
     }
 
     v34 = v53;
     v54 += 16;
-    v53 += 16;
+    v53 += 2;
     if (v53 == a2)
     {
       return 1;

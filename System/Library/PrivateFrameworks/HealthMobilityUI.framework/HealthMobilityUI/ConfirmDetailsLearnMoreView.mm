@@ -29,14 +29,14 @@
   [v3 removeGestureRecognizer_];
 
   v5.receiver = selfCopy;
-  v5.super_class = type metadata accessor for ConfirmDetailsLearnMoreView();
+  v5.super_class = type metadata accessor for ConfirmDetailsLearnMoreView(0);
   [(ConfirmDetailsLearnMoreView *)&v5 dealloc];
 }
 
 - (void)tintColorDidChange
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for ConfirmDetailsLearnMoreView();
+  v5.super_class = type metadata accessor for ConfirmDetailsLearnMoreView(0);
   v2 = v5.receiver;
   [(ConfirmDetailsLearnMoreView *)&v5 tintColorDidChange];
   v3 = sub_2519A6A10();

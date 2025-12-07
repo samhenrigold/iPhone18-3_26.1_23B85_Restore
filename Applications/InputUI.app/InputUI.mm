@@ -1,6 +1,6 @@
-void sub_100001688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100001688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -54,16 +54,16 @@ void sub_100002318(id a1)
   _objc_release_x1();
 }
 
-id sub_10000235C()
+id sub_10000235C(uint64_t a1)
 {
   if (qword_10002B800 != -1)
   {
     sub_10000C3E8();
   }
 
-  v1 = qword_10002B7F8;
+  v2 = qword_10002B7F8;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000023A0(id a1)
@@ -100,7 +100,6 @@ Class sub_100003230(uint64_t a1)
 
 uint64_t sub_100003280(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10002B810 = result;
   return result;
@@ -131,15 +130,16 @@ __CFString *sub_1000038A4(void *a1)
   return v2;
 }
 
-void sub_100003FE8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100003FE8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x20u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x20u);
 }
 
-void sub_100004904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100004904(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -173,7 +173,7 @@ uint64_t sub_1000059CC(uint64_t result, uint64_t a2)
 
 void sub_1000059E4(id a1, IUISessionChangeResponse *a2)
 {
-  v2 = sub_10000235C();
+  v2 = sub_10000235C(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = 136315138;
@@ -184,7 +184,7 @@ void sub_1000059E4(id a1, IUISessionChangeResponse *a2)
 
 void sub_100005A8C(uint64_t a1)
 {
-  v2 = sub_10000235C();
+  v2 = sub_10000235C(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) sessionChange];
@@ -385,7 +385,7 @@ id sub_1000070AC(uint64_t a1)
   v2 = sub_100001928();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    sub_10000CE84(a1);
+    sub_10000CE84();
   }
 
   return [*(a1 + 48) _endSession:*(a1 + 32) options:*(a1 + 56) completion:*(a1 + 64)];
@@ -440,7 +440,7 @@ void sub_1000075A4(uint64_t a1)
   v2 = sub_100001928();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    sub_10000CEEC(a1);
+    sub_10000CEEC();
   }
 
   v3 = (a1 + 48);
@@ -499,7 +499,7 @@ void sub_100007954(uint64_t a1)
   v2 = sub_100001928();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    sub_10000D000(a1);
+    sub_10000D000();
   }
 
   v3 = [*(a1 + 48) autofillUIServiceDelegate];
@@ -554,7 +554,7 @@ void sub_100007CFC(uint64_t a1)
   v2 = sub_100001928();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    sub_10000D114(a1);
+    sub_10000D114();
   }
 
   v3 = [*(a1 + 48) autofillUIServiceDelegate];
@@ -689,7 +689,7 @@ void sub_100008524(uint64_t a1)
   v2 = sub_100001928();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    sub_10000D2D4(a1);
+    sub_10000D2D4();
   }
 
   v3 = (a1 + 48);
@@ -1028,11 +1028,12 @@ void sub_1000098F4(uint64_t a1)
 
 void sub_100009BCC(id a1)
 {
-  byte_10002B830 = +[UIKeyboard usingEndInputSessionCompletion];
-  v1 = sub_10000235C();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
+  v1 = +[UIKeyboard usingEndInputSessionCompletion];
+  byte_10002B830 = v1;
+  v2 = sub_10000235C(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    sub_10000D494(v1, v2, v3, v4, v5, v6, v7, v8);
+    sub_10000D494(v2, v3, v4, v5, v6, v7, v8, v9);
   }
 }
 
@@ -1051,77 +1052,73 @@ Class sub_100009C24(uint64_t a1)
 
 uint64_t sub_100009D24(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10002B848 = result;
   return result;
 }
 
-void sub_100009DC8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100009DC8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_100009DE8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100009DE8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-uint64_t sub_100009E1C@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+void sub_10000A9AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
 {
-  *(v2 - 8) = a2;
-  v3 = *(result + 32);
-  v4 = *(result + 40);
-  return result;
+  va_start(va, a50);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
-id sub_10000A9D0()
+id sub_10000A9D0(uint64_t a1)
 {
   if (qword_10002B858 != -1)
   {
     sub_10000D57C();
   }
 
-  v1 = qword_10002B850;
+  v2 = qword_10002B850;
 
-  return v1;
+  return v2;
 }
 
 __n128 sub_10000AA14(uint64_t a1)
 {
-  v2 = *(a1 + 48);
-  v3 = *(a1 + 40);
   BKSHIDServicesGetCALayerTransform();
-  v4 = *(*(a1 + 32) + 8);
-  result = v9;
-  v4[2] = v6;
-  v4[3] = v7;
-  v4[6] = v10;
-  v4[7] = v11;
-  v4[8] = v12;
-  v4[9] = v13;
-  v4[4] = v8;
-  v4[5] = v9;
+  v2 = *(*(a1 + 32) + 8);
+  result = v7;
+  v2[2] = v4;
+  v2[3] = v5;
+  v2[6] = v8;
+  v2[7] = v9;
+  v2[8] = v10;
+  v2[9] = v11;
+  v2[4] = v6;
+  v2[5] = v7;
   return result;
 }
 
 __n128 sub_10000AA74(uint64_t a1)
 {
-  v2 = *(a1 + 48);
-  v3 = *(a1 + 40);
   BKSHIDServicesGetCALayerTransform();
-  v4 = *(*(a1 + 32) + 8);
-  result = v9;
-  v4[2] = v6;
-  v4[3] = v7;
-  v4[6] = v10;
-  v4[7] = v11;
-  v4[8] = v12;
-  v4[9] = v13;
-  v4[4] = v8;
-  v4[5] = v9;
+  v2 = *(*(a1 + 32) + 8);
+  result = v7;
+  v2[2] = v4;
+  v2[3] = v5;
+  v2[6] = v8;
+  v2[7] = v9;
+  v2[8] = v10;
+  v2[9] = v11;
+  v2[4] = v6;
+  v2[5] = v7;
   return result;
 }
 
@@ -1130,48 +1127,48 @@ void sub_10000AAD4(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
-    y = CGPointZero.y;
-    v4 = *(*(a1 + 32) + 8);
-    v5 = v4[7];
-    *&v19.m31 = v4[6];
-    *&v19.m33 = v5;
-    v6 = v4[9];
-    *&v19.m41 = v4[8];
-    *&v19.m43 = v6;
-    v7 = v4[3];
-    *&v19.m11 = v4[2];
-    *&v19.m13 = v7;
-    v8 = v4[5];
-    *&v19.m21 = v4[4];
-    *&v19.m23 = v8;
+    v3 = *(*(a1 + 32) + 8);
+    v4 = v3[7];
+    *&v18.m31 = v3[6];
+    *&v18.m33 = v4;
+    v5 = v3[9];
+    *&v18.m41 = v3[8];
+    *&v18.m43 = v5;
+    v6 = v3[3];
+    *&v18.m11 = v3[2];
+    *&v18.m13 = v6;
+    v7 = v3[5];
+    *&v18.m21 = v3[4];
+    *&v18.m23 = v7;
     CA_CGPointApplyTransform();
-    v9 = *(*(a1 + 40) + 8);
-    v10 = v9[7];
-    *&v18.m31 = v9[6];
-    *&v18.m33 = v10;
-    v11 = v9[9];
-    *&v18.m41 = v9[8];
-    *&v18.m43 = v11;
-    v12 = v9[3];
-    *&v18.m11 = v9[2];
-    *&v18.m13 = v12;
-    v13 = v9[5];
-    *&v18.m21 = v9[4];
-    *&v18.m23 = v13;
-    CATransform3DInvert(&v19, &v18);
+    v8 = *(*(a1 + 40) + 8);
+    v9 = v8[7];
+    *&v17.m31 = v8[6];
+    *&v17.m33 = v9;
+    v10 = v8[9];
+    *&v17.m41 = v8[8];
+    *&v17.m43 = v10;
+    v11 = v8[3];
+    *&v17.m11 = v8[2];
+    *&v17.m13 = v11;
+    v12 = v8[5];
+    *&v17.m21 = v8[4];
+    *&v17.m23 = v12;
+    CATransform3DInvert(&v18, &v17);
     CA_CGPointApplyTransform();
-    v15 = v14;
-    v17 = v16;
+    v14 = v13;
+    v16 = v15;
     [WeakRetained frame];
-    [WeakRetained setFrame:{v17, v15}];
+    [WeakRetained setFrame:{v16, v14}];
   }
 }
 
-void sub_10000AE90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_10000AE90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a17, 8);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1296,8 +1293,9 @@ void sub_10000C4BC()
   objc_claimAutoreleasedReturnValue();
   v2 = [sub_100004014() sourceSession];
   v3 = [v2 uuid];
+  v10 = 136315650;
   sub_100003FCC();
-  sub_100003FE8(&_mh_execute_header, v4, v5, "%s  sessionChange's endSessionID: %@ does not match lastInputSource sourceSession ID: %@", v6, v7, v8, v9, 2u);
+  sub_100003FE8(&_mh_execute_header, v4, v5, "%s  sessionChange's endSessionID: %@ does not match lastInputSource sourceSession ID: %@", v6, v7, v8, v9, v10);
 }
 
 void sub_10000C574(os_log_t log)
@@ -1321,8 +1319,9 @@ void sub_10000C69C()
   objc_claimAutoreleasedReturnValue();
   v2 = [sub_100004014() sessionChangeContext];
   v3 = [v2 sessionChange];
+  v10 = 136315650;
   sub_100003FCC();
-  sub_100003FE8(&_mh_execute_header, v4, v5, "%s  Called before handling outgoing input source (newDelegate: %@, sessionChange: %@)", v6, v7, v8, v9, 2u);
+  sub_100003FE8(&_mh_execute_header, v4, v5, "%s  Called before handling outgoing input source (newDelegate: %@, sessionChange: %@)", v6, v7, v8, v9, v10);
 }
 
 void sub_10000C754()
@@ -1344,8 +1343,9 @@ void sub_10000C814()
   objc_claimAutoreleasedReturnValue();
   v2 = [sub_100004014() sourceSession];
   v3 = [v2 uuid];
+  v10 = 136315650;
   sub_100003FCC();
-  sub_100003FE8(&_mh_execute_header, v4, v5, "%s  sessionChange's beginSessionID (%@) does not match inputSource sourceSession ID (%@)", v6, v7, v8, v9, 2u);
+  sub_100003FE8(&_mh_execute_header, v4, v5, "%s  sessionChange's beginSessionID (%@) does not match inputSource sourceSession ID (%@)", v6, v7, v8, v9, v10);
 }
 
 void sub_10000C8CC(os_log_t log)
@@ -1362,8 +1362,9 @@ void sub_10000C950()
   objc_claimAutoreleasedReturnValue();
   v2 = [sub_100004014() sessionChangeContext];
   v3 = [v2 sessionChange];
+  v10 = 136315650;
   sub_100003FCC();
-  sub_100003FE8(&_mh_execute_header, v4, v5, "%s  Called again after handling incoming input source (newDelegate: %@, sessionChange: %@)", v6, v7, v8, v9, 2u);
+  sub_100003FE8(&_mh_execute_header, v4, v5, "%s  Called again after handling incoming input source (newDelegate: %@, sessionChange: %@)", v6, v7, v8, v9, v10);
 }
 
 void sub_10000CA08(void *a1, NSObject *a2)
@@ -1402,8 +1403,9 @@ void sub_10000CBE4(os_log_t log)
 void sub_10000CC68(void *a1)
 {
   v1 = [a1 sessionChange];
+  v8 = 136315394;
   sub_100009E28();
-  sub_100009DC8(&_mh_execute_header, v2, v3, "%s  Session change does nothing (sessionChange=%@)", v4, v5, v6, v7, 2u);
+  sub_100009DC8(&_mh_execute_header, v2, v3, "%s  Session change does nothing (sessionChange=%@)", v4, v5, v6, v7, v8);
 }
 
 void sub_10000CCF8(void *a1, uint64_t a2, uint8_t *buf, os_log_t log)
@@ -1433,18 +1435,18 @@ void sub_10000CDDC()
   _os_log_error_impl(&_mh_execute_header, v0, OS_LOG_TYPE_ERROR, "%s  inputSource is not becoming first responder and lastInputSource is not resigning (sessionChange: %@)", v1, 0x16u);
 }
 
-void sub_10000CE84(uint64_t a1)
+void sub_10000CE84()
 {
-  sub_100009E1C(a1, __stack_chk_guard);
+  sub_100009E1C(__stack_chk_guard);
   sub_100009DB0();
-  sub_100009DE8(&_mh_execute_header, v1, v2, "(MAIN) did end session %@, service: %@", v3, v4, v5, v6, v7);
+  sub_100009DE8(&_mh_execute_header, v0, v1, "(MAIN) did end session %@, service: %@", v2, v3, v4, v5);
 }
 
-void sub_10000CEEC(uint64_t a1)
+void sub_10000CEEC()
 {
-  sub_100009E1C(a1, __stack_chk_guard);
+  sub_100009E1C(__stack_chk_guard);
   sub_100009DB0();
-  sub_100009DE8(&_mh_execute_header, v1, v2, "(MAIN) did change document for session %@, service: %@", v3, v4, v5, v6, v7);
+  sub_100009DE8(&_mh_execute_header, v0, v1, "(MAIN) did change document for session %@, service: %@", v2, v3, v4, v5);
 }
 
 void sub_10000CF54()
@@ -1455,14 +1457,14 @@ void sub_10000CF54()
   v2 = [sub_100009E10() currentSession];
   v3 = [v2 uuid];
   sub_100009D98();
-  sub_100009DC8(&_mh_execute_header, v4, v5, "Ignoring inputSessionDocumentDidChange received for sessionID=%@ while current sessionID=%@", v6, v7, v8, v9, v10);
+  sub_100009DC8(&_mh_execute_header, v4, v5, "Ignoring inputSessionDocumentDidChange received for sessionID=%@ while current sessionID=%@", v6, v7, v8, v9);
 }
 
-void sub_10000D000(uint64_t a1)
+void sub_10000D000()
 {
-  sub_100009E1C(a1, __stack_chk_guard);
+  sub_100009E1C(__stack_chk_guard);
   sub_100009DB0();
-  sub_100009DE8(&_mh_execute_header, v1, v2, "(MAIN) did change document traits for session %@, service: %@", v3, v4, v5, v6, v7);
+  sub_100009DE8(&_mh_execute_header, v0, v1, "(MAIN) did change document traits for session %@, service: %@", v2, v3, v4, v5);
 }
 
 void sub_10000D068()
@@ -1473,14 +1475,14 @@ void sub_10000D068()
   v2 = [sub_100009E10() currentSession];
   v3 = [v2 uuid];
   sub_100009D98();
-  sub_100009DC8(&_mh_execute_header, v4, v5, "Ignoring documentTraitsDidChange received for sessionID=%@ while current sessionID=%@", v6, v7, v8, v9, v10);
+  sub_100009DC8(&_mh_execute_header, v4, v5, "Ignoring documentTraitsDidChange received for sessionID=%@ while current sessionID=%@", v6, v7, v8, v9);
 }
 
-void sub_10000D114(uint64_t a1)
+void sub_10000D114()
 {
-  sub_100009E1C(a1, __stack_chk_guard);
+  sub_100009E1C(__stack_chk_guard);
   sub_100009DB0();
-  sub_100009DE8(&_mh_execute_header, v1, v2, "(MAIN) did change document state for session %@, service: %@", v3, v4, v5, v6, v7);
+  sub_100009DE8(&_mh_execute_header, v0, v1, "(MAIN) did change document state for session %@, service: %@", v2, v3, v4, v5);
 }
 
 void sub_10000D17C()
@@ -1491,7 +1493,7 @@ void sub_10000D17C()
   v2 = [sub_100009E10() currentSession];
   v3 = [v2 uuid];
   sub_100009D98();
-  sub_100009DC8(&_mh_execute_header, v4, v5, "Ignoring documentStateDidChange received for sessionID=%@ while current sessionID=%@", v6, v7, v8, v9, v10);
+  sub_100009DC8(&_mh_execute_header, v4, v5, "Ignoring documentStateDidChange received for sessionID=%@ while current sessionID=%@", v6, v7, v8, v9);
 }
 
 void sub_10000D228()
@@ -1502,14 +1504,14 @@ void sub_10000D228()
   v2 = [sub_100009E10() currentSession];
   v3 = [v2 uuid];
   sub_100009D98();
-  sub_100009DC8(&_mh_execute_header, v4, v5, "Ignoring textSuggestionsChanged received for sessionID=%@ while current sessionID=%@", v6, v7, v8, v9, v10);
+  sub_100009DC8(&_mh_execute_header, v4, v5, "Ignoring textSuggestionsChanged received for sessionID=%@ while current sessionID=%@", v6, v7, v8, v9);
 }
 
-void sub_10000D2D4(uint64_t a1)
+void sub_10000D2D4()
 {
-  sub_100009E1C(a1, __stack_chk_guard);
+  sub_100009E1C(__stack_chk_guard);
   sub_100009DB0();
-  sub_100009DE8(&_mh_execute_header, v1, v2, "(MAIN) did receive input operation from session %@, service: %@", v3, v4, v5, v6, v7);
+  sub_100009DE8(&_mh_execute_header, v0, v1, "(MAIN) did receive input operation from session %@, service: %@", v2, v3, v4, v5);
 }
 
 void sub_10000D33C()
@@ -1520,7 +1522,7 @@ void sub_10000D33C()
   v2 = [sub_100009E10() currentSession];
   v3 = [v2 uuid];
   sub_100009D98();
-  sub_100009DC8(&_mh_execute_header, v4, v5, "Ignoring performInputOperation received for sessionID=%@ while current sessionID=%@", v6, v7, v8, v9, v10);
+  sub_100009DC8(&_mh_execute_header, v4, v5, "Ignoring performInputOperation received for sessionID=%@ while current sessionID=%@", v6, v7, v8, v9);
 }
 
 void sub_10000D3E8()
@@ -1531,7 +1533,26 @@ void sub_10000D3E8()
   v2 = [sub_100009E10() currentSession];
   v3 = [v2 uuid];
   sub_100009D98();
-  sub_100009DC8(&_mh_execute_header, v4, v5, "Ignoring performInputOperation received with keyboardInput for sessionID=%@ while current sessionID=%@", v6, v7, v8, v9, v10);
+  sub_100009DC8(&_mh_execute_header, v4, v5, "Ignoring performInputOperation received with keyboardInput for sessionID=%@ while current sessionID=%@", v6, v7, v8, v9);
+}
+
+void sub_10000D494(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  if (byte_10002B830)
+  {
+    v8 = "enabled";
+  }
+
+  else
+  {
+    v8 = "disabled";
+  }
+
+  *v9 = 136315394;
+  *&v9[4] = "_usingEndInputSessionCompletion_block_invoke";
+  *&v9[12] = 2080;
+  *&v9[14] = v8;
+  sub_100009DE8(&_mh_execute_header, a1, a3, "%s  endInputSession completion is %s", a5, a6, a7, a8, *v9, *&v9[8], *&v9[16]);
 }
 
 NSRange NSUnionRange(NSRange range1, NSRange range2)

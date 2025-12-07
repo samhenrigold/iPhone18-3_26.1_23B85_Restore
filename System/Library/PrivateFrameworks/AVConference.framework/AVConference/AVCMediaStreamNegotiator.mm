@@ -2280,7 +2280,7 @@ LABEL_5:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_4_8();
-  OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v1, v2, " [%s] %s:%d %s.", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v1, v2, " [%s] %s:%d %s.", v3, v4, v5, v6);
 }
 
 - (void)initWithMode:options:error:.cold.2()
@@ -2320,7 +2320,7 @@ LABEL_5:
       OUTLINED_FUNCTION_1_1();
       OUTLINED_FUNCTION_7();
       OUTLINED_FUNCTION_4_8();
-      OUTLINED_FUNCTION_13_17(&dword_1DB56E000, v7, v8, " [%s] %s:%d %s.", v9, v10, v11, v12, v13);
+      OUTLINED_FUNCTION_13_17(&dword_1DB56E000, v7, v8, " [%s] %s:%d %s.", v9, v10, v11, v12);
     }
   }
 
@@ -2353,7 +2353,7 @@ LABEL_5:
       OUTLINED_FUNCTION_1_1();
       OUTLINED_FUNCTION_7();
       OUTLINED_FUNCTION_4_8();
-      OUTLINED_FUNCTION_13_17(&dword_1DB56E000, v7, v8, " [%s] %s:%d %s.", v9, v10, v11, v12, v13);
+      OUTLINED_FUNCTION_13_17(&dword_1DB56E000, v7, v8, " [%s] %s:%d %s.", v9, v10, v11, v12);
     }
   }
 
@@ -2423,7 +2423,7 @@ LABEL_5:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_4_8();
-  OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v1, v2, " [%s] %s:%d %s.", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v1, v2, " [%s] %s:%d %s.", v3, v4, v5, v6);
 }
 
 - (void)initWithOffer:options:error:.cold.2()
@@ -2444,7 +2444,7 @@ LABEL_5:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_4_8();
-  OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v1, v2, " [%s] %s:%d %s.", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v1, v2, " [%s] %s:%d %s.", v3, v4, v5, v6);
 }
 
 - (void)initWithOffer:options:error:.cold.4()
@@ -2500,7 +2500,7 @@ LABEL_5:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_4_8();
-  OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v1, v2, " [%s] %s:%d %s.", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v1, v2, " [%s] %s:%d %s.", v3, v4, v5, v6);
 }
 
 - (void)initWithOffer:options:error:.cold.7()
@@ -2540,7 +2540,7 @@ LABEL_5:
       OUTLINED_FUNCTION_1_1();
       OUTLINED_FUNCTION_7();
       OUTLINED_FUNCTION_4_8();
-      OUTLINED_FUNCTION_13_17(&dword_1DB56E000, v7, v8, " [%s] %s:%d %s.", v9, v10, v11, v12, v13);
+      OUTLINED_FUNCTION_13_17(&dword_1DB56E000, v7, v8, " [%s] %s:%d %s.", v9, v10, v11, v12);
     }
   }
 
@@ -2573,7 +2573,7 @@ LABEL_5:
       OUTLINED_FUNCTION_1_1();
       OUTLINED_FUNCTION_7();
       OUTLINED_FUNCTION_4_8();
-      OUTLINED_FUNCTION_13_17(&dword_1DB56E000, v7, v8, " [%s] %s:%d %s.", v9, v10, v11, v12, v13);
+      OUTLINED_FUNCTION_13_17(&dword_1DB56E000, v7, v8, " [%s] %s:%d %s.", v9, v10, v11, v12);
     }
   }
 
@@ -2606,7 +2606,7 @@ LABEL_5:
       OUTLINED_FUNCTION_1_1();
       OUTLINED_FUNCTION_7();
       OUTLINED_FUNCTION_4_8();
-      OUTLINED_FUNCTION_13_17(&dword_1DB56E000, v7, v8, " [%s] %s:%d %s.", v9, v10, v11, v12, v13);
+      OUTLINED_FUNCTION_13_17(&dword_1DB56E000, v7, v8, " [%s] %s:%d %s.", v9, v10, v11, v12);
     }
   }
 
@@ -2638,7 +2638,7 @@ LABEL_5:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_4_8();
-  OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v1, v2, " [%s] %s:%d %s.", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v1, v2, " [%s] %s:%d %s.", v3, v4, v5, v6);
 }
 
 - (void)setAnswer:withError:.cold.2()
@@ -2677,7 +2677,7 @@ LABEL_5:
       OUTLINED_FUNCTION_1_1();
       OUTLINED_FUNCTION_7();
       OUTLINED_FUNCTION_4_8();
-      OUTLINED_FUNCTION_13_17(&dword_1DB56E000, v6, v7, " [%s] %s:%d %s.", v8, v9, v10, v11, v12);
+      OUTLINED_FUNCTION_13_17(&dword_1DB56E000, v6, v7, " [%s] %s:%d %s.", v8, v9, v10, v11);
     }
   }
 
@@ -2691,7 +2691,7 @@ LABEL_5:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_4_8();
-  OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v0, v1, " [%s] %s:%d %s.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v0, v1, " [%s] %s:%d %s.", v2, v3, v4, v5);
 }
 
 - (void)setAnswer:withError:.cold.5()
@@ -2712,7 +2712,7 @@ LABEL_5:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_4_8();
-  OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v0, v1, " [%s] %s:%d %s.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v0, v1, " [%s] %s:%d %s.", v2, v3, v4, v5);
 }
 
 - (void)setupVideoStreamConfiguration:errorReason:.cold.2()
@@ -2733,7 +2733,7 @@ LABEL_5:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_4_8();
-  OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v0, v1, " [%s] %s:%d %s.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v0, v1, " [%s] %s:%d %s.", v2, v3, v4, v5);
 }
 
 - (void)setupVideoStreamConfiguration:errorReason:.cold.4()
@@ -2754,7 +2754,7 @@ LABEL_5:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_4_8();
-  OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v0, v1, " [%s] %s:%d %s.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v0, v1, " [%s] %s:%d %s.", v2, v3, v4, v5);
 }
 
 - (void)setupVideoStreamConfiguration:errorReason:.cold.6()
@@ -2775,7 +2775,7 @@ LABEL_5:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_4_8();
-  OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v0, v1, " [%s] %s:%d %s.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v0, v1, " [%s] %s:%d %s.", v2, v3, v4, v5);
 }
 
 - (void)setupVideoStreamConfiguration:errorReason:.cold.8()
@@ -2796,7 +2796,7 @@ LABEL_5:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_4_8();
-  OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v0, v1, " [%s] %s:%d %s.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v0, v1, " [%s] %s:%d %s.", v2, v3, v4, v5);
 }
 
 - (void)setupVideoStreamConfiguration:errorReason:.cold.10()
@@ -2835,7 +2835,7 @@ LABEL_5:
       OUTLINED_FUNCTION_2_5();
       OUTLINED_FUNCTION_7();
       OUTLINED_FUNCTION_4_8();
-      OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v6, v7, " [%s] %s:%d %s.", v8, v9, v10, v11, v12);
+      OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v6, v7, " [%s] %s:%d %s.", v8, v9, v10, v11);
     }
   }
 }
@@ -2878,7 +2878,7 @@ LABEL_5:
       OUTLINED_FUNCTION_2_5();
       OUTLINED_FUNCTION_7();
       OUTLINED_FUNCTION_4_8();
-      OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v7, v8, " [%s] %s:%d %s.", v9, v10, v11, v12, v13);
+      OUTLINED_FUNCTION_10_21(&dword_1DB56E000, v7, v8, " [%s] %s:%d %s.", v9, v10, v11, v12);
     }
   }
 }
@@ -2973,7 +2973,7 @@ LABEL_7:
   OUTLINED_FUNCTION_1_1();
   OUTLINED_FUNCTION_7();
   OUTLINED_FUNCTION_4_8();
-  OUTLINED_FUNCTION_13_17(&dword_1DB56E000, v7, v8, " [%s] %s:%d %s.", v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_13_17(&dword_1DB56E000, v7, v8, " [%s] %s:%d %s.", v9, v10, v11, v12);
   if (!a1)
   {
     return;

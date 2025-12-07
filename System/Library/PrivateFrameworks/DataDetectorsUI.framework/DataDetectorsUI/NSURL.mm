@@ -9,7 +9,7 @@
 - (uint64_t)dd_isApplePodcasts;
 - (uint64_t)dd_isAppleStore;
 - (uint64_t)dd_isAppleTV;
-- (uint64_t)dd_isMaps:(char *)maps isDirections:;
+- (uint64_t)dd_isMaps:(unsigned __int8 *)maps isDirections:;
 - (void)dd_isAppleApps;
 @end
 
@@ -18,7 +18,7 @@
 - (__CFString)dd_phoneNumberFromTelSchemeAndExtractBody:(__CFString *)body serviceID:(uint64_t)d suggestions:
 {
   selfCopy = self;
-  v140[1] = *MEMORY[0x277D85DE8];
+  v117[1] = *MEMORY[0x277D85DE8];
   if (!self)
   {
     goto LABEL_116;
@@ -56,12 +56,12 @@ LABEL_45:
   v10 = [lowercaseString isEqualToString:@"sms"];
   v11 = [lowercaseString isEqualToString:@"messages"];
   v12 = [lowercaseString isEqualToString:@"sip"];
-  HIDWORD(v124) = v10;
+  HIDWORD(v100) = v10;
   v13 = v10 | v11;
   bodyCopy = body;
   if ((v10 | v11))
   {
-    LODWORD(v116) = v10 | v11;
+    LODWORD(v93) = v10 | v11;
     v14 = @";";
     v15 = [resourceSpecifier rangeOfString:@"?"];
     v16 = [resourceSpecifier rangeOfString:@"&"];
@@ -95,8 +95,8 @@ LABEL_45:
     if ([v20 count])
     {
       firstObject = [v20 firstObject];
-      v140[0] = firstObject;
-      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v140 count:1];
+      v117[0] = firstObject;
+      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:v117 count:1];
 
       if ([v20 count] < 2)
       {
@@ -105,32 +105,32 @@ LABEL_45:
 
       else
       {
-        HIDWORD(v116) = v12;
-        v117 = lowercaseString;
-        v119 = resourceSpecifier;
+        HIDWORD(v93) = v12;
+        v94 = lowercaseString;
+        v96 = resourceSpecifier;
         v23 = [v20 subarrayWithRange:{1, objc_msgSend(v20, "count") - 1}];
         v24 = [v23 componentsJoinedByString:v14];
 
         v25 = [v24 componentsSeparatedByString:@"&"];
         v33 = v25;
-        v121 = v22;
-        v114 = v24;
-        v115 = v20;
-        if ((a2 || body || d) && (v137 = 0u, v138 = 0u, v135 = 0u, v136 = 0u, (v34 = OUTLINED_FUNCTION_4_2(v25, v26, v27, v28, v29, v30, v31, v32, v112, v113, v24, v20, v116, lowercaseString, resourceSpecifier, v22, body, v124, d, a2, v131, *(&v131 + 1), v132, *(&v132 + 1), v133, *(&v133 + 1), v134, *(&v134 + 1), 0)) != 0))
+        v97 = v22;
+        v91 = v24;
+        v92 = v20;
+        if ((a2 || body || d) && (v114 = 0u, v115 = 0u, v112 = 0u, v113 = 0u, (v34 = OUTLINED_FUNCTION_4_2(v25, v26, v27, v28, v29, v30, v31, v32, v87, v89, v24, v20, v93, lowercaseString, resourceSpecifier, v22, body, v100, d, a2, v108, *(&v108 + 1), v109, *(&v109 + 1), v110, *(&v110 + 1), v111, *(&v111 + 1))) != 0))
         {
           v35 = v34;
           v36 = 0;
-          v37 = *v136;
+          v37 = *v113;
           do
           {
             for (i = 0; i != v35; ++i)
             {
-              if (*v136 != v37)
+              if (*v113 != v37)
               {
                 objc_enumerationMutation(v33);
               }
 
-              v39 = *(*(&v135 + 1) + 8 * i);
+              v39 = *(*(&v112 + 1) + 8 * i);
               v40 = [v39 componentsSeparatedByString:@"="];
               if ([v40 count] >= 2)
               {
@@ -138,16 +138,16 @@ LABEL_45:
                 lowercaseString2 = [firstObject2 lowercaseString];
 
                 v43 = [v39 substringFromIndex:{objc_msgSend(lowercaseString2, "length") + 1}];
-                if (v129 && [lowercaseString2 isEqualToString:@"body"])
+                if (v106 && [lowercaseString2 isEqualToString:@"body"])
                 {
-                  *v129 = [v43 stringByRemovingPercentEncoding];
+                  *v106 = [v43 stringByRemovingPercentEncoding];
                 }
 
                 else if ([lowercaseString2 isEqualToString:@"service_id"])
                 {
                   stringByRemovingPercentEncoding = [v43 stringByRemovingPercentEncoding];
 
-                  if ((v124 & 0x100000000) != 0 || dd_handleIsChatBot(stringByRemovingPercentEncoding))
+                  if ((v101 & 0x100000000) != 0 || dd_handleIsChatBot(stringByRemovingPercentEncoding))
                   {
                     if (bodyCopy)
                     {
@@ -165,15 +165,15 @@ LABEL_45:
                   }
                 }
 
-                else if (v126 && [lowercaseString2 isEqualToString:@"suggestions"])
+                else if (v103 && [lowercaseString2 isEqualToString:@"suggestions"])
                 {
                   v46 = v43;
-                  *v126 = v43;
+                  *v103 = v43;
                 }
               }
             }
 
-            v35 = OUTLINED_FUNCTION_4_2(v47, v48, v49, v50, v51, v52, v53, v54, v112, v113, v114, v115, v116, v117, v119, v121, bodyCopy, v124, v126, v129, v131, *(&v131 + 1), v132, *(&v132 + 1), v133, *(&v133 + 1), v134, *(&v134 + 1), v135);
+            v35 = OUTLINED_FUNCTION_4_2(v47, v48, v49, v50, v51, v52, v53, v54, v88, v90, v91, v92, v93, v94, v96, v97, bodyCopy, v101, v103, v106, v108, *(&v108 + 1), v109, *(&v109 + 1), v110, *(&v110 + 1), v111, *(&v111 + 1));
           }
 
           while (v35);
@@ -184,13 +184,13 @@ LABEL_45:
           v36 = 0;
         }
 
-        v22 = [v121 arrayByAddingObjectsFromArray:v33];
+        v22 = [v97 arrayByAddingObjectsFromArray:v33];
 
-        lowercaseString = v117;
-        resourceSpecifier = v119;
+        lowercaseString = v94;
+        resourceSpecifier = v96;
         body = bodyCopy;
-        v12 = HIDWORD(v116);
-        v20 = v115;
+        v12 = HIDWORD(v93);
+        v20 = v92;
       }
     }
 
@@ -200,7 +200,7 @@ LABEL_45:
       v22 = 0;
     }
 
-    v13 = v116;
+    v13 = v93;
   }
 
   else
@@ -221,59 +221,56 @@ LABEL_45:
   firstObject4 = [v22 firstObject];
   stringByRemovingPercentEncoding2 = [firstObject4 stringByRemovingPercentEncoding];
 
-  v130 = v36;
+  v107 = v36;
   if ((v13 & 1) == 0)
   {
-    v106 = [(__CFString *)stringByRemovingPercentEncoding2 stringByReplacingOccurrencesOfString:@":" withString:@""];;
+    firstObject5 = [(__CFString *)stringByRemovingPercentEncoding2 stringByReplacingOccurrencesOfString:@":" withString:@""];;
     goto LABEL_58;
   }
 
-  v106 = stringByRemovingPercentEncoding2;
+  firstObject5 = stringByRemovingPercentEncoding2;
   if ([(__CFString *)stringByRemovingPercentEncoding2 isEqualToString:@"/open"])
   {
-    v106 = @"open";
+    firstObject5 = @"open";
 LABEL_58:
   }
 
-  v133 = 0u;
-  v134 = 0u;
-  v131 = 0u;
-  v132 = 0u;
-  v122 = v22;
+  v110 = 0u;
+  v111 = 0u;
+  v108 = 0u;
+  v109 = 0u;
+  v98 = v22;
   v60 = v22;
-  v61 = [v60 countByEnumeratingWithState:&v131 objects:v139 count:16];
+  v61 = [v60 countByEnumeratingWithState:&v108 objects:v116 count:16];
   if (!v61)
   {
     goto LABEL_103;
   }
 
-  v69 = v61;
-  v127 = v106;
-  HIDWORD(v116) = v12;
-  v118 = lowercaseString;
-  v120 = resourceSpecifier;
-  v70 = 0;
-  v71 = 1;
-  v72 = *v132;
+  v62 = v61;
+  v104 = firstObject5;
+  v95 = lowercaseString;
+  v63 = 0;
+  v64 = 1;
   while (1)
   {
-    OUTLINED_FUNCTION_1_2(v61, v62, v63, v64, v65, v66, v67, v68, v112, v113, v114, v115, v116, v118, v120, v122, bodyCopy, v124, v127, v130, v131, *(&v131 + 1), v132);
-    if (!v81)
+    OUTLINED_FUNCTION_1_2();
+    if (!v65)
     {
       objc_enumerationMutation(v60);
     }
 
-    if ((v71 & 1) == 0)
+    if ((v64 & 1) == 0)
     {
-      v82 = **(&v131 + 1);
-      v83 = [**(&v131 + 1) componentsSeparatedByString:@"="];
-      v84 = v83;
-      if ((v70 & 1) != 0 && [v83 count] == 1)
+      v66 = **(&v108 + 1);
+      v67 = [**(&v108 + 1) componentsSeparatedByString:@"="];
+      v68 = v67;
+      if ((v63 & 1) != 0 && [v67 count] == 1)
       {
-        if ([v82 length])
+        if ([v66 length])
         {
-          v85 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"1234567890#*"];
-          invertedSet = [v85 invertedSet];
+          v69 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"1234567890#*"];
+          invertedSet = [v69 invertedSet];
 
           if ([OUTLINED_FUNCTION_2_2() rangeOfCharacterFromSet:?] == 0x7FFFFFFFFFFFFFFFLL)
           {
@@ -284,15 +281,15 @@ LABEL_73:
         }
       }
 
-      else if ([v84 count] == 2)
+      else if ([v68 count] == 2)
       {
-        invertedSet = [v84 objectAtIndexedSubscript:0];
+        invertedSet = [v68 objectAtIndexedSubscript:0];
         if ([invertedSet isEqualToString:@"ext"])
         {
-          v87 = [OUTLINED_FUNCTION_3_2() objectAtIndexedSubscript:?];
-          v88 = [v87 length];
+          v71 = [OUTLINED_FUNCTION_3_2() objectAtIndexedSubscript:?];
+          v72 = [v71 length];
 
-          if (v88)
+          if (v72)
           {
             goto LABEL_101;
           }
@@ -306,56 +303,53 @@ LABEL_73:
 LABEL_74:
     }
 
-    if (v69 >= 2)
+    if (v62 >= 2)
     {
       break;
     }
 
 LABEL_99:
-    v70 = v71;
-    v61 = [v60 countByEnumeratingWithState:&v131 objects:v139 count:16];
-    v69 = v61;
-    v71 = 0;
-    if (!v61)
+    v63 = v64;
+    v62 = [v60 countByEnumeratingWithState:&v108 objects:v116 count:16];
+    v64 = 0;
+    if (!v62)
     {
-      lowercaseString = v118;
-      resourceSpecifier = v120;
-      v22 = v122;
+      lowercaseString = v95;
+      v22 = v98;
       body = bodyCopy;
-      v12 = HIDWORD(v116);
-      v106 = v127;
+      firstObject5 = v104;
       goto LABEL_103;
     }
   }
 
-  OUTLINED_FUNCTION_1_2(v73, v74, v75, v76, v77, v78, v79, v80, v112, v113, v114, v115, v116, v118, v120, v122, bodyCopy, v124, v127, v130, v131, *(&v131 + 1), v132);
-  if (!v81)
+  OUTLINED_FUNCTION_1_2();
+  if (!v65)
   {
     objc_enumerationMutation(v60);
   }
 
-  v82 = *(*(&v131 + 1) + 8);
-  v89 = [v82 componentsSeparatedByString:@"="];
-  v84 = v89;
-  if ((v71 & 1) == 0 || [v89 count] != 1)
+  v66 = *(*(&v108 + 1) + 8);
+  v73 = [v66 componentsSeparatedByString:@"="];
+  v68 = v73;
+  if ((v64 & 1) == 0 || [v73 count] != 1)
   {
-    if ([v84 count] == 2)
+    if ([v68 count] == 2)
     {
-      invertedSet = [v84 objectAtIndexedSubscript:0];
+      invertedSet = [v68 objectAtIndexedSubscript:0];
       if ([invertedSet isEqualToString:@"ext"])
       {
-        v91 = [OUTLINED_FUNCTION_3_2() objectAtIndexedSubscript:?];
-        v92 = [v91 length];
+        v75 = [OUTLINED_FUNCTION_3_2() objectAtIndexedSubscript:?];
+        v76 = [v75 length];
 
-        if (v92)
+        if (v76)
         {
 LABEL_101:
-          v105 = MEMORY[0x277CCACA8];
+          v81 = MEMORY[0x277CCACA8];
           invertedSet = [OUTLINED_FUNCTION_3_2() objectAtIndexedSubscript:?];
           stringByRemovingPercentEncoding3 = [invertedSet stringByRemovingPercentEncoding];
-          v106 = [v105 stringWithFormat:@"%@%@", v127, stringByRemovingPercentEncoding3];;
+          firstObject5 = [v81 stringWithFormat:@"%@%@", v104, stringByRemovingPercentEncoding3];;
 
-          v107 = stringByRemovingPercentEncoding3;
+          v83 = stringByRemovingPercentEncoding3;
           goto LABEL_102;
         }
 
@@ -367,26 +361,26 @@ LABEL_101:
 
 LABEL_88:
 
-    if (v69 != 2)
+    if (v62 != 2)
     {
-      for (j = 2; j != v69; ++j)
+      for (j = 2; j != v62; ++j)
       {
-        OUTLINED_FUNCTION_1_2(v93, v94, v95, v96, v97, v98, v99, v100, v112, v113, v114, v115, v116, v118, v120, v122, bodyCopy, v124, v127, v130, v131, *(&v131 + 1), v132);
-        if (!v81)
+        OUTLINED_FUNCTION_1_2();
+        if (!v65)
         {
           objc_enumerationMutation(v60);
         }
 
-        v84 = [*(*(&v131 + 1) + 8 * j) componentsSeparatedByString:@"="];
-        if ([v84 count] == 2)
+        v68 = [*(*(&v108 + 1) + 8 * j) componentsSeparatedByString:@"="];
+        if ([v68 count] == 2)
         {
-          v102 = [v84 objectAtIndexedSubscript:0];
-          if ([v102 isEqualToString:@"ext"])
+          v78 = [v68 objectAtIndexedSubscript:0];
+          if ([v78 isEqualToString:@"ext"])
           {
-            v103 = [OUTLINED_FUNCTION_3_2() objectAtIndexedSubscript:?];
-            v104 = [v103 length];
+            v79 = [OUTLINED_FUNCTION_3_2() objectAtIndexedSubscript:?];
+            v80 = [v79 length];
 
-            if (v104)
+            if (v80)
             {
               goto LABEL_101;
             }
@@ -399,17 +393,17 @@ LABEL_88:
       }
     }
 
-    v71 = 0;
+    v64 = 0;
     goto LABEL_99;
   }
 
-  if (![v82 length])
+  if (![v66 length])
   {
     goto LABEL_88;
   }
 
-  v90 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"1234567890#*"];
-  invertedSet = [v90 invertedSet];
+  v74 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"1234567890#*"];
+  invertedSet = [v74 invertedSet];
 
   if ([OUTLINED_FUNCTION_2_2() rangeOfCharacterFromSet:?] != 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -419,41 +413,39 @@ LABEL_87:
   }
 
 LABEL_119:
-  v107 = v127;
-  v106 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", v127, v82];;
+  v83 = v104;
+  firstObject5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@%@", v104, v66];;
 LABEL_102:
-  lowercaseString = v118;
-  resourceSpecifier = v120;
-  v22 = v122;
+  lowercaseString = v95;
+  v22 = v98;
   body = bodyCopy;
-  v12 = HIDWORD(v116);
 
 LABEL_103:
-  if (dd_handleIsChatBot(v106))
+  if (dd_handleIsChatBot(firstObject5))
   {
     if (body && !*body)
     {
-      v108 = v106;
-      *body = v106;
+      v84 = firstObject5;
+      *body = firstObject5;
     }
 
-    v36 = v106;
+    v36 = firstObject5;
 
-    v109 = [(__CFString *)v36 componentsSeparatedByString:@"@"];
+    v85 = [(__CFString *)v36 componentsSeparatedByString:@"@"];
 
-    v106 = [v109 firstObject];
+    firstObject5 = [v85 firstObject];
 
     if (!v12)
     {
 LABEL_111:
-      selfCopy = v106;
+      selfCopy = firstObject5;
       goto LABEL_113;
     }
   }
 
   else
   {
-    v36 = v130;
+    v36 = v107;
     if (!v12)
     {
       goto LABEL_111;
@@ -472,12 +464,11 @@ LABEL_114:
 LABEL_115:
 
 LABEL_116:
-  v110 = *MEMORY[0x277D85DE8];
 
   return selfCopy;
 }
 
-- (uint64_t)dd_isMaps:(char *)maps isDirections:
+- (uint64_t)dd_isMaps:(unsigned __int8 *)maps isDirections:
 {
   if (!self)
   {

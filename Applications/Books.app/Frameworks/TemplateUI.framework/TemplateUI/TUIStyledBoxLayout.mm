@@ -30,13 +30,13 @@
 
 - ($E297CC25127479E857BE23A4F8632EA4)computeIntrinsicWidth
 {
-  v4 = [(TUILayout *)self box];
+  v4 = objc_msgSend_box(self, a3);
   [v4 insets];
   v6 = v5;
   v8 = v7;
 
-  contentChild = [(TUIStyledBoxLayout *)self contentChild];
-  validatedIntrinsicWidthConsideringSpecified = [contentChild validatedIntrinsicWidthConsideringSpecified];
+  v9 = objc_msgSend_contentChild(self);
+  validatedIntrinsicWidthConsideringSpecified = [v9 validatedIntrinsicWidthConsideringSpecified];
   v12 = v11;
 
   return TUILengthWithDelta(validatedIntrinsicWidthConsideringSpecified, v12, v6 + v8);
@@ -44,13 +44,13 @@
 
 - ($E297CC25127479E857BE23A4F8632EA4)computeIntrinsicHeight
 {
-  v4 = [(TUILayout *)self box];
+  v4 = objc_msgSend_box(self, a3);
   [v4 insets];
   v6 = v5;
   v8 = v7;
 
-  contentChild = [(TUIStyledBoxLayout *)self contentChild];
-  validatedIntrinsicHeightConsideringSpecified = [contentChild validatedIntrinsicHeightConsideringSpecified];
+  v9 = objc_msgSend_contentChild(self);
+  validatedIntrinsicHeightConsideringSpecified = [v9 validatedIntrinsicHeightConsideringSpecified];
   v12 = v11;
 
   return TUILengthWithDelta(validatedIntrinsicHeightConsideringSpecified, v12, v6 + v8);
@@ -58,12 +58,12 @@
 
 - (double)computedHeightAbovePivot
 {
-  v3 = [(TUILayout *)self box];
+  v3 = objc_msgSend_box(self, a2);
   [v3 insets];
   v5 = v4;
 
-  contentChild = [(TUIStyledBoxLayout *)self contentChild];
-  [contentChild computedHeightAbovePivot];
+  v6 = objc_msgSend_contentChild(self);
+  [v6 computedHeightAbovePivot];
   v8 = v5 + v7;
 
   return v8;
@@ -71,28 +71,28 @@
 
 - (void)computeLayout
 {
-  v19 = [(TUILayout *)self box];
+  v19 = objc_msgSend_box(self, a2);
   [v19 insets];
   v4 = v3;
   v6 = v5;
   v8 = v7;
   v10 = v9;
 
-  contentChild = [(TUIStyledBoxLayout *)self contentChild];
+  v20 = objc_msgSend_contentChild(self);
   [(TUILayout *)self flexedWidth];
   [(TUILayout *)self flexedWidth];
-  [contentChild setFlexedWidth:v11 - v6 - v10];
+  [v20 setFlexedWidth:v11 - v6 - v10];
   [(TUILayout *)self flexedHeight];
   [(TUILayout *)self flexedHeight];
-  [contentChild setFlexedHeight:v12 - v4 - v8];
+  [v20 setFlexedHeight:v12 - v4 - v8];
   [(TUILayout *)self computeWidth];
-  [contentChild setContainingWidth:v13 - v6 - v10];
+  [v20 setContainingWidth:v13 - v6 - v10];
   [(TUILayout *)self containingHeight];
   [(TUILayout *)self containingHeight];
-  [contentChild setContainingHeight:v14 - v4 - v8];
-  [contentChild validateLayout];
-  [contentChild setComputedOrigin:{v6, v4}];
-  [contentChild computedTransformedSize];
+  [v20 setContainingHeight:v14 - v4 - v8];
+  objc_msgSend_validateLayout(v20);
+  [v20 setComputedOrigin:{v6, v4}];
+  objc_msgSend_computedTransformedSize(v20);
   v16 = v6 + v10 + v15;
   v18 = v4 + v8 + v17;
   [(TUILayout *)self setComputedNaturalSize:v16, v18];
@@ -107,8 +107,8 @@
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  children = [(TUILayout *)self children];
-  v6 = [children countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = objc_msgSend_children(self, a2, 0);
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = *v17;
@@ -118,11 +118,11 @@
       {
         if (*v17 != v7)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v5);
         }
 
         v9 = *(*(&v16 + 1) + 8 * i);
-        v10 = [v9 box];
+        v10 = objc_msgSend_box(v9);
         v11 = [v10 role] == 0;
 
         if (!v11)
@@ -145,11 +145,11 @@
           }
 
           [v9 setFlexedHeight:v15];
-          [v9 validateLayout];
+          objc_msgSend_validateLayout(v9);
         }
       }
 
-      v6 = [children countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
@@ -158,10 +158,10 @@
 
 - ($E297CC25127479E857BE23A4F8632EA4)computedContentWidth
 {
-  contentChild = [(TUIStyledBoxLayout *)self contentChild];
-  computedWidth = [contentChild computedWidth];
+  v4 = objc_msgSend_contentChild(self, a3);
+  computedWidth = [v4 computedWidth];
   v7 = v6;
-  v8 = [(TUILayout *)self box];
+  v8 = objc_msgSend_box(self);
   [v8 insets];
   v10 = v9;
   v12 = v11;
@@ -172,10 +172,10 @@
 
 - ($E297CC25127479E857BE23A4F8632EA4)computedContentHeight
 {
-  contentChild = [(TUIStyledBoxLayout *)self contentChild];
-  computedHeight = [contentChild computedHeight];
+  v4 = objc_msgSend_contentChild(self, a3);
+  computedHeight = [v4 computedHeight];
   v7 = v6;
-  v8 = [(TUILayout *)self box];
+  v8 = objc_msgSend_box(self);
   [v8 insets];
   v10 = v9;
   v12 = v11;
@@ -196,12 +196,12 @@
 
 - (void)_updateSpecifiedWidth
 {
-  contentChild = [(TUIStyledBoxLayout *)self contentChild];
-  v3 = [(TUILayout *)self box];
+  v9 = objc_msgSend_contentChild(self, a2);
+  v3 = objc_msgSend_box(self);
   [v3 width];
   if ((v4 & 0x6000000000000) == 0x2000000000000)
   {
-    [contentChild specifiedWidth];
+    objc_msgSend_specifiedWidth(v9);
     v6 = HIWORD(v5) & 7;
     v8 = v6 == 4 || v6 == 1;
   }
@@ -216,7 +216,7 @@
 
 - (BOOL)_needsRenderModel
 {
-  v3 = [(TUILayout *)self box];
+  v3 = objc_msgSend_box(self, a2);
   backgroundColor = [v3 backgroundColor];
   if (backgroundColor)
   {
@@ -225,7 +225,7 @@
 
   else
   {
-    v6 = [(TUILayout *)self box];
+    v6 = objc_msgSend_box(self);
     shadowColor = [v6 shadowColor];
     if (shadowColor)
     {
@@ -234,7 +234,7 @@
 
     else
     {
-      v8 = [(TUILayout *)self box];
+      v8 = objc_msgSend_box(self);
       borderColor = [v8 borderColor];
       if (borderColor)
       {
@@ -243,7 +243,7 @@
 
       else
       {
-        v10 = [(TUILayout *)self box];
+        v10 = objc_msgSend_box(self);
         if ([v10 clipsToBounds])
         {
           v5 = 1;
@@ -251,7 +251,7 @@
 
         else
         {
-          v11 = [(TUILayout *)self box];
+          v11 = objc_msgSend_box(self);
           blendMode = [v11 blendMode];
           v5 = blendMode != 0;
         }
@@ -265,7 +265,7 @@
 - (BOOL)_needsSubviewsRenderModelWithContext:(id)context
 {
   contextCopy = context;
-  v5 = [(TUILayout *)self box];
+  v5 = objc_msgSend_box(self);
   if ([v5 clipsToBounds])
   {
     v6 = 1;
@@ -273,7 +273,7 @@
 
   else
   {
-    v7 = [(TUILayout *)self box];
+    v7 = objc_msgSend_box(self);
     blendMode = [v7 blendMode];
     if (blendMode)
     {
@@ -304,7 +304,7 @@
     v14 = [[TUIRenderModelLayer alloc] initWithSubmodels:0 config:v13 erasableInsets:UIEdgeInsetsZero.top, UIEdgeInsetsZero.left, UIEdgeInsetsZero.bottom, UIEdgeInsetsZero.right];
     [(TUILayout *)self renderModelSizeWithContext:contextCopy];
     [(TUIRenderModelLayer *)v14 setSize:?];
-    v15 = [(TUILayout *)self box];
+    v15 = objc_msgSend_box(self);
     identifier = [v15 identifier];
     v17 = [identifier tui_identifierByAppendingString:@"background"];
     [(TUIRenderModelLayer *)v14 setIdentifier:v17];
@@ -356,7 +356,7 @@
       currentLiveTransform = [contextCopy currentLiveTransform];
       [(TUIRenderModelTransform *)v41 setLiveTransform:currentLiveTransform];
 
-      v43 = [(TUILayout *)self box];
+      v43 = objc_msgSend_box(self);
       [v43 renderOutsets];
       [(TUIRenderModelTransform *)v41 setOutsets:?];
 
@@ -408,7 +408,7 @@
       v12 = [[TUIRenderModelLayer alloc] initWithSubmodels:v15 config:v18 erasableInsets:UIEdgeInsetsZero.top, UIEdgeInsetsZero.left, UIEdgeInsetsZero.bottom, UIEdgeInsetsZero.right];
       [(TUILayout *)self renderModelSizeWithContext:contextCopy];
       [(TUIRenderModelLayer *)v12 setSize:?];
-      v19 = [(TUILayout *)self box];
+      v19 = objc_msgSend_box(self);
       identifier = [v19 identifier];
       [(TUIRenderModelLayer *)v12 setIdentifier:identifier];
 
@@ -429,7 +429,7 @@ LABEL_8:
   v8 = [_TUIStyledBoxStyler alloc];
   [contextCopy contentsScale];
   v9 = [(_TUIStyledBoxStyler *)v8 initWithLayout:self contentsScale:?];
-  v10 = [(TUILayout *)self box];
+  v10 = objc_msgSend_box(self);
   identifier2 = [v10 identifier];
   v12 = [TUIContainerView renderModelWithSubviewsModel:v7 style:v9 identifier:identifier2];
 
@@ -443,7 +443,7 @@ LABEL_9:
 
 - (CGRect)computedErasableBounds
 {
-  v3 = [(TUILayout *)self box];
+  v3 = objc_msgSend_box(self, a2);
   if ([v3 clipsToBounds])
   {
     [(TUILayout *)self computedErasableBoundsPrimitive];
@@ -461,17 +461,17 @@ LABEL_9:
   width = v6;
   height = v7;
 
-  v12 = [(TUILayout *)self box];
+  v12 = objc_msgSend_box(self);
   [v12 shadowOpacity];
   v14 = v13;
 
   if (v14 != 0.0)
   {
-    v15 = [(TUILayout *)self box];
+    v15 = objc_msgSend_box(self);
     [v15 shadowRadius];
     v17 = v16;
 
-    v18 = [(TUILayout *)self box];
+    v18 = objc_msgSend_box(self);
     [v18 shadowOffset];
     v20 = v19;
     v22 = v21;
@@ -513,8 +513,8 @@ LABEL_9:
     v16 = 0u;
     v13 = 0u;
     v14 = 0u;
-    children = [(TUILayout *)self children];
-    v5 = [children countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v4 = objc_msgSend_children(self, 0);
+    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v5)
     {
       v6 = *v14;
@@ -524,11 +524,11 @@ LABEL_9:
         {
           if (*v14 != v6)
           {
-            objc_enumerationMutation(children);
+            objc_enumerationMutation(v4);
           }
 
           v8 = *(*(&v13 + 1) + 8 * i);
-          v9 = [v8 box];
+          v9 = objc_msgSend_box(v8);
           v10 = [v9 role] == 0;
 
           if (v10)
@@ -538,7 +538,7 @@ LABEL_9:
           }
         }
 
-        v5 = [children countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v5)
         {
           continue;
@@ -571,7 +571,7 @@ LABEL_12:
   layoutAncestor = [layoutCopy layoutAncestor];
   if (layoutAncestor == self)
   {
-    v9 = [layoutCopy box];
+    v9 = objc_msgSend_box(layoutCopy);
     if ([v9 role])
     {
       v8 = 0;
@@ -594,39 +594,39 @@ LABEL_12:
 
 - (id)effectiveGuideTop
 {
-  contentChild = [(TUIStyledBoxLayout *)self contentChild];
-  effectiveGuideTop = [contentChild effectiveGuideTop];
+  v2 = objc_msgSend_contentChild(self, a2);
+  effectiveGuideTop = [v2 effectiveGuideTop];
 
   return effectiveGuideTop;
 }
 
 - (id)effectiveGuideBottom
 {
-  contentChild = [(TUIStyledBoxLayout *)self contentChild];
-  effectiveGuideBottom = [contentChild effectiveGuideBottom];
+  v2 = objc_msgSend_contentChild(self, a2);
+  effectiveGuideBottom = [v2 effectiveGuideBottom];
 
   return effectiveGuideBottom;
 }
 
 - (id)effectiveGuideLeading
 {
-  contentChild = [(TUIStyledBoxLayout *)self contentChild];
-  effectiveGuideLeading = [contentChild effectiveGuideLeading];
+  v2 = objc_msgSend_contentChild(self, a2);
+  effectiveGuideLeading = [v2 effectiveGuideLeading];
 
   return effectiveGuideLeading;
 }
 
 - (id)effectiveGuideTrailing
 {
-  contentChild = [(TUIStyledBoxLayout *)self contentChild];
-  effectiveGuideTrailing = [contentChild effectiveGuideTrailing];
+  v2 = objc_msgSend_contentChild(self, a2);
+  effectiveGuideTrailing = [v2 effectiveGuideTrailing];
 
   return effectiveGuideTrailing;
 }
 
 - (BOOL)groupedContainingIsGrouped
 {
-  v2 = [(TUILayout *)self box];
+  v2 = objc_msgSend_box(self, a2);
   grouped = [v2 grouped];
 
   return grouped;
@@ -634,11 +634,11 @@ LABEL_12:
 
 - (id)groupedContainingLayouts
 {
-  contentChild = [(TUIStyledBoxLayout *)self contentChild];
-  v3 = contentChild;
-  if (contentChild)
+  v2 = objc_msgSend_contentChild(self, a2);
+  v3 = v2;
+  if (v2)
   {
-    v6 = contentChild;
+    v6 = v2;
     v4 = [NSArray arrayWithObjects:&v6 count:1];
   }
 
@@ -661,7 +661,7 @@ LABEL_12:
 
 - (UIEdgeInsets)groupedContainingInsets
 {
-  v2 = [(TUILayout *)self box];
+  v2 = objc_msgSend_box(self, a2);
   [v2 insets];
   v4 = v3;
   v6 = v5;

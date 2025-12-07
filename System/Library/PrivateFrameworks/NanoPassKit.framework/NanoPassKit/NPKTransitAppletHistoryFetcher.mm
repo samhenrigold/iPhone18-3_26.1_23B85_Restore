@@ -44,38 +44,36 @@
 
 void __48__NPKTransitAppletHistoryFetcher_setAIDToFetch___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   objc_storeStrong((*(a1 + 32) + 16), *(a1 + 40));
-  v2 = pk_Payment_log();
-  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
-
-  if (v3)
-  {
-    v4 = pk_Payment_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-    {
-      v5 = *(a1 + 40);
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_25B300000, v4, OS_LOG_TYPE_DEFAULT, "Notice: History fetcher set AID to %@", &v7, 0xCu);
-    }
-  }
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)requestTransitHistoryFetch
-{
-  v3 = pk_Payment_log();
+  v3 = pk_Payment_log(v2);
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
   if (v4)
   {
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = *(a1 + 40);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: History fetcher set AID to %@", &v8, 0xCu);
+    }
+  }
+}
+
+- (void)requestTransitHistoryFetch
+{
+  v3 = pk_Payment_log(self);
+  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+
+  if (v4)
+  {
+    v6 = pk_Payment_log(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: History fetcher received fetch request", buf, 2u);
+      _os_log_impl(&dword_25B300000, v6, OS_LOG_TYPE_DEFAULT, "Notice: History fetcher received fetch request", buf, 2u);
     }
   }
 
@@ -94,32 +92,32 @@ void __60__NPKTransitAppletHistoryFetcher_requestTransitHistoryFetch__block_invo
 
   if (v2)
   {
-    v3 = pk_Payment_log();
-    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+    v4 = pk_Payment_log(v3);
+    v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-    if (!v4)
+    if (!v5)
     {
       return;
     }
 
-    v5 = pk_Payment_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_Payment_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_25B300000, v5, OS_LOG_TYPE_DEFAULT, "Notice: History fetcher already has an outstanding session handle; not creating a new session.", v7, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_25B300000, v7, OS_LOG_TYPE_DEFAULT, "Notice: History fetcher already has an outstanding session handle; not creating a new session.", v9, 2u);
     }
   }
 
   else
   {
-    v5 = [PKGetClassNFHardwareManager() sharedHardwareManager];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __60__NPKTransitAppletHistoryFetcher_requestTransitHistoryFetch__block_invoke_2;
-    v8[3] = &unk_279946D48;
-    v8[4] = *(a1 + 32);
-    v6 = [v5 startSecureElementManagerSession:v8];
-    [*(a1 + 32) setPendingSessionHandle:v6];
+    v7 = [PKGetClassNFHardwareManager() sharedHardwareManager];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __60__NPKTransitAppletHistoryFetcher_requestTransitHistoryFetch__block_invoke_2;
+    v10[3] = &unk_279946D48;
+    v10[4] = *(a1 + 32);
+    v8 = [v7 startSecureElementManagerSession:v10];
+    [*(a1 + 32) setPendingSessionHandle:v8];
   }
 }
 
@@ -163,69 +161,69 @@ uint64_t __60__NPKTransitAppletHistoryFetcher_requestTransitHistoryFetch__block_
 
 - (void)_handleActiveSecureElementManagerSession:(id)session
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   internalQueue = [(NPKTransitAppletHistoryFetcher *)self internalQueue];
   dispatch_assert_queue_V2(internalQueue);
 
-  v6 = pk_Payment_log();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
+  v7 = pk_Payment_log(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
 
-  if (v7)
+  if (v8)
   {
-    v8 = pk_Payment_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = pk_Payment_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       aidToFetch = self->_aidToFetch;
       *buf = 138412546;
-      v36 = aidToFetch;
-      v37 = 2112;
-      v38 = sessionCopy;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_DEFAULT, "Notice: History fetcher (AID %@) got secure element manager session: %@", buf, 0x16u);
+      v41 = aidToFetch;
+      v42 = 2112;
+      v43 = sessionCopy;
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_DEFAULT, "Notice: History fetcher (AID %@) got secure element manager session: %@", buf, 0x16u);
     }
   }
 
-  v10 = self->_aidToFetch;
-  v11 = [(NSString *)sessionCopy appletWithIdentifier:v10];
-  v12 = v11;
-  if (v11)
+  v12 = self->_aidToFetch;
+  v13 = [(NSString *)sessionCopy appletWithIdentifier:v12];
+  v14 = v13;
+  if (v13)
   {
-    if ([v11 isTypeF] && objc_msgSend(v12, "supportedTypeFSystem") == 1)
+    if ([v13 isTypeF] && objc_msgSend(v14, "supportedTypeFSystem") == 1)
     {
-      v34 = 0;
-      v13 = &v34;
-      v14 = [(NSString *)sessionCopy felicaAppletState:v12 error:&v34];
-      v15 = 0x277D37ED8;
+      v39 = 0;
+      v15 = &v39;
+      v16 = [(NSString *)sessionCopy felicaAppletState:v14 error:&v39];
+      v17 = 0x277D37ED8;
     }
 
     else
     {
-      v33 = 0;
-      v13 = &v33;
-      v14 = [(NSString *)sessionCopy transitAppletState:v12 error:&v33];
-      v15 = 0x277D38300;
+      v38 = 0;
+      v15 = &v38;
+      v16 = [(NSString *)sessionCopy transitAppletState:v14 error:&v38];
+      v17 = 0x277D38300;
     }
 
-    v16 = *v13;
-    v17 = [objc_alloc(*v15) initWithDictionary:v14 source:1];
+    v18 = *v15;
+    v19 = [objc_alloc(*v17) initWithDictionary:v16 source:1];
 
-    if (v16)
+    if (v18)
     {
-      v18 = pk_General_log();
-      v19 = os_log_type_enabled(v18, OS_LOG_TYPE_ERROR);
+      v21 = pk_General_log(v20);
+      v22 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
 
-      if (v19)
+      if (v22)
       {
-        v20 = pk_General_log();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        v24 = pk_General_log(v23);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412802;
-          v36 = v12;
-          v37 = 2112;
-          v38 = v10;
-          v39 = 2112;
-          v40 = v16;
-          _os_log_impl(&dword_25B300000, v20, OS_LOG_TYPE_ERROR, "Error: Fail to creat Transit Applet history with Applet:%@ AID:%@ with error:%@", buf, 0x20u);
+          v41 = v14;
+          v42 = 2112;
+          v43 = v12;
+          v44 = 2112;
+          v45 = v18;
+          _os_log_impl(&dword_25B300000, v24, OS_LOG_TYPE_ERROR, "Error: Fail to creat Transit Applet history with Applet:%@ AID:%@ with error:%@", buf, 0x20u);
         }
       }
     }
@@ -235,40 +233,40 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  v21 = pk_General_log();
-  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+  v25 = pk_General_log(0);
+  v26 = os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT);
 
-  if (v22)
+  if (v26)
   {
-    v16 = pk_General_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v18 = pk_General_log(v27);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v36 = v10;
-      v37 = 2112;
-      v38 = sessionCopy;
-      _os_log_impl(&dword_25B300000, v16, OS_LOG_TYPE_DEFAULT, "Notice: Could not fetch Applet with ID:%@ from session:%@", buf, 0x16u);
+      v41 = v12;
+      v42 = 2112;
+      v43 = sessionCopy;
+      _os_log_impl(&dword_25B300000, v18, OS_LOG_TYPE_DEFAULT, "Notice: Could not fetch Applet with ID:%@ from session:%@", buf, 0x16u);
     }
 
-    v17 = 0;
+    v19 = 0;
     goto LABEL_19;
   }
 
-  v17 = 0;
+  v19 = 0;
 LABEL_20:
-  v23 = pk_Payment_log();
-  v24 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
+  v28 = pk_Payment_log(v27);
+  v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
 
-  if (v24)
+  if (v29)
   {
-    v25 = pk_Payment_log();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v31 = pk_Payment_log(v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v36 = v17;
-      v37 = 2112;
-      v38 = v12;
-      _os_log_impl(&dword_25B300000, v25, OS_LOG_TYPE_DEFAULT, "Notice: History fetcher got applet history: %@ for applet: %@", buf, 0x16u);
+      v41 = v19;
+      v42 = 2112;
+      v43 = v14;
+      _os_log_impl(&dword_25B300000, v31, OS_LOG_TYPE_DEFAULT, "Notice: History fetcher got applet history: %@ for applet: %@", buf, 0x16u);
     }
   }
 
@@ -278,13 +276,11 @@ LABEL_20:
   block[2] = __75__NPKTransitAppletHistoryFetcher__handleActiveSecureElementManagerSession___block_invoke;
   block[3] = &unk_279945880;
   block[4] = self;
-  v31 = v17;
-  v32 = v10;
-  v27 = v10;
-  v28 = v17;
+  v36 = v19;
+  v37 = v12;
+  v33 = v12;
+  v34 = v19;
   dispatch_async(callbackQueue, block);
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __75__NPKTransitAppletHistoryFetcher__handleActiveSecureElementManagerSession___block_invoke(uint64_t a1)
@@ -295,26 +291,24 @@ void __75__NPKTransitAppletHistoryFetcher__handleActiveSecureElementManagerSessi
 
 - (void)_handleSecureElementSessionFailureWithError:(id)error
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   internalQueue = [(NPKTransitAppletHistoryFetcher *)self internalQueue];
   dispatch_assert_queue_V2(internalQueue);
 
-  v6 = pk_Payment_log();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
+  v7 = pk_Payment_log(v6);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
 
-  if (v7)
+  if (v8)
   {
-    v8 = pk_Payment_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = pk_Payment_log(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = errorCopy;
-      _os_log_impl(&dword_25B300000, v8, OS_LOG_TYPE_ERROR, "Error: History fetcher failed to start secure element manager session: %@", &v10, 0xCu);
+      v11 = 138412290;
+      v12 = errorCopy;
+      _os_log_impl(&dword_25B300000, v10, OS_LOG_TYPE_ERROR, "Error: History fetcher failed to start secure element manager session: %@", &v11, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (NPKTransitAppletHistoryFetcherDelegate)delegate

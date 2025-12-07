@@ -80,12 +80,12 @@
   volumeCopy = volume;
   v4 = MBUsedDiskSpaceForVolume();
   v5 = [NSURL fileURLWithPath:volumeCopy];
-  v34[0] = NSURLVolumeAvailableCapacityKey;
-  v34[1] = NSURLVolumeAvailableCapacityForImportantUsageKey;
-  v6 = [NSArray arrayWithObjects:v34 count:2];
-  v27 = 0;
-  v7 = [v5 resourceValuesForKeys:v6 error:&v27];
-  v8 = v27;
+  v32[0] = NSURLVolumeAvailableCapacityKey;
+  v32[1] = NSURLVolumeAvailableCapacityForImportantUsageKey;
+  v6 = [NSArray arrayWithObjects:v32 count:2];
+  v25 = 0;
+  v7 = [v5 resourceValuesForKeys:v6 error:&v25];
+  v8 = v25;
 
   if (v7)
   {
@@ -105,22 +105,20 @@
           v17 = log = v16;
           v18 = [NSNumber numberWithUnsignedLongLong:v12];
           *buf = 138543874;
-          v29 = volumeCopy;
+          v27 = volumeCopy;
+          v28 = 2114;
+          v29 = v17;
           v30 = 2114;
-          v31 = v17;
-          v32 = 2114;
-          v33 = v18;
+          v31 = v18;
           _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Somehow reclaimable space is bigger than used space for %{public}@: %{public}@, %{public}@", buf, 0x20u);
 
           v16 = log;
           v19 = [NSNumber numberWithUnsignedLongLong:v4];
-          [NSNumber numberWithUnsignedLongLong:v12];
-          v25 = v24 = v19;
-          v23 = volumeCopy;
-          _MBLog();
+          v20 = [NSNumber numberWithUnsignedLongLong:v12];
+          _MBLog(@"E ", "Somehow reclaimable space is bigger than used space for %{public}@: %{public}@, %{public}@", volumeCopy, v19, v20);
         }
 
-        v20 = v4;
+        v21 = v4;
         goto LABEL_12;
       }
     }
@@ -130,18 +128,18 @@
       v12 = 0;
     }
 
-    v20 = v4 - v12;
+    v21 = v4 - v12;
 LABEL_12:
-    v14 = [NSNumber numberWithUnsignedLongLong:v20, v23, v24, v25];
-    v21 = MBGetDefaultLog();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v14 = [NSNumber numberWithUnsignedLongLong:v21];
+    v22 = MBGetDefaultLog();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v29 = volumeCopy;
-      v30 = 2114;
-      v31 = v14;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Used Capacity on %{public}@: %{public}@", buf, 0x16u);
-      _MBLog();
+      v27 = volumeCopy;
+      v28 = 2114;
+      v29 = v14;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Used Capacity on %{public}@: %{public}@", buf, 0x16u);
+      _MBLog(@"Df", "Used Capacity on %{public}@: %{public}@", volumeCopy, v14);
     }
 
     goto LABEL_15;
@@ -151,11 +149,11 @@ LABEL_12:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v29 = v5;
-    v30 = 2112;
-    v31 = v8;
+    v27 = v5;
+    v28 = 2112;
+    v29 = v8;
     _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to get resource values for %@: %@", buf, 0x16u);
-    _MBLog();
+    _MBLog(@"E ", "Failed to get resource values for %@: %@", v5, v8);
   }
 
   v14 = [NSNumber numberWithUnsignedLongLong:v4];

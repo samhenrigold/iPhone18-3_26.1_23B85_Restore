@@ -35,7 +35,7 @@
 
 void __85__HMDMatterAccessoryDiagnosticsManager_handleDiagnosticsTransferWithOptions_message___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) matterDevice];
   if (v2)
   {
@@ -49,9 +49,9 @@ void __85__HMDMatterAccessoryDiagnosticsManager_handleDiagnosticsTransferWithOpt
       {
         v7 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v30 = v7;
-        v31 = 2112;
-        v32 = &unk_283E723B0;
+        v29 = v7;
+        v30 = 2112;
+        v31 = &unk_283E723B0;
         _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Invalid matter log type. Using type %@", buf, 0x16u);
       }
 
@@ -81,25 +81,25 @@ void __85__HMDMatterAccessoryDiagnosticsManager_handleDiagnosticsTransferWithOpt
       v21 = [*(a1 + 48) matterLogType];
       v22 = [MEMORY[0x277CCABB0] numberWithDouble:v11];
       *buf = 138543874;
-      v30 = v20;
-      v31 = 2112;
-      v32 = v21;
-      v33 = 2112;
-      v34 = v22;
+      v29 = v20;
+      v30 = 2112;
+      v31 = v21;
+      v32 = 2112;
+      v33 = v22;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Downloading matter log type: %@ for %@s", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v17);
     v23 = [v3 integerValue];
     v24 = [*(a1 + 32) workQueue];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __85__HMDMatterAccessoryDiagnosticsManager_handleDiagnosticsTransferWithOptions_message___block_invoke_25;
-    v27[3] = &unk_2786750F8;
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __85__HMDMatterAccessoryDiagnosticsManager_handleDiagnosticsTransferWithOptions_message___block_invoke_25;
+    v26[3] = &unk_2786750F8;
     v25 = *(a1 + 40);
-    v27[4] = *(a1 + 32);
-    v28 = v25;
-    [v2 downloadLogOfType:v23 timeout:v24 queue:v27 completion:v11];
+    v26[4] = *(a1 + 32);
+    v27 = v25;
+    [v2 downloadLogOfType:v23 timeout:v24 queue:v26 completion:v11];
   }
 
   else
@@ -111,7 +111,7 @@ void __85__HMDMatterAccessoryDiagnosticsManager_handleDiagnosticsTransferWithOpt
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v30 = v15;
+      v29 = v15;
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Lost reference to the matter device", buf, 0xCu);
     }
 
@@ -120,13 +120,11 @@ void __85__HMDMatterAccessoryDiagnosticsManager_handleDiagnosticsTransferWithOpt
     v3 = [MEMORY[0x277CCA9B8] hmErrorWithCode:21];
     [v16 respondWithError:v3];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __85__HMDMatterAccessoryDiagnosticsManager_handleDiagnosticsTransferWithOptions_message___block_invoke_25(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -136,11 +134,11 @@ void __85__HMDMatterAccessoryDiagnosticsManager_handleDiagnosticsTransferWithOpt
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v21 = v10;
-    v22 = 2112;
-    v23 = v5;
-    v24 = 2112;
-    v25 = v6;
+    v20 = v10;
+    v21 = 2112;
+    v22 = v5;
+    v23 = 2112;
+    v24 = v6;
     _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Did download to URL: %@. Error: %@", buf, 0x20u);
   }
 
@@ -148,16 +146,16 @@ void __85__HMDMatterAccessoryDiagnosticsManager_handleDiagnosticsTransferWithOpt
   if (v5)
   {
     v11 = *(a1 + 32);
-    v17 = v6;
-    v12 = [v11 _diagnosticsMetadataFromFile:v5 outError:&v17];
-    v13 = v17;
+    v16 = v6;
+    v12 = [v11 _diagnosticsMetadataFromFile:v5 outError:&v16];
+    v13 = v16;
 
     if (v12)
     {
-      v18 = *MEMORY[0x277CCEA28];
+      v17 = *MEMORY[0x277CCEA28];
       v14 = encodeRootObject();
-      v19 = v14;
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+      v18 = v14;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
     }
 
     else
@@ -173,13 +171,11 @@ void __85__HMDMatterAccessoryDiagnosticsManager_handleDiagnosticsTransferWithOpt
   }
 
   [*(a1 + 40) respondWithPayload:v15 error:v13];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_diagnosticsMetadataFromFile:(id)file outError:(id *)error
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   v7 = MEMORY[0x277CBEBC0];
   v8 = HMDCreateHomeKitDaemonCacheDirectory();
@@ -188,17 +184,17 @@ void __85__HMDMatterAccessoryDiagnosticsManager_handleDiagnosticsTransferWithOpt
   v10 = [v9 URLByAppendingPathComponent:@"MatterDiagnostics"];
 
   fileManager = [(HMDMatterAccessoryDiagnosticsManager *)self fileManager];
-  v36 = 0;
-  LOBYTE(v9) = [fileManager createDirectoryAtURL:v10 withIntermediateDirectories:1 attributes:0 error:&v36];
-  v12 = v36;
+  v35 = 0;
+  LOBYTE(v9) = [fileManager createDirectoryAtURL:v10 withIntermediateDirectories:1 attributes:0 error:&v35];
+  v12 = v35;
   if (v9)
   {
     lastPathComponent = [fileCopy lastPathComponent];
     v14 = [v10 URLByAppendingPathComponent:lastPathComponent];
 
-    v35 = v12;
-    v15 = [fileManager copyItemAtURL:fileCopy toURL:v14 error:&v35];
-    v16 = v35;
+    v34 = v12;
+    v15 = [fileManager copyItemAtURL:fileCopy toURL:v14 error:&v34];
+    v16 = v34;
 
     v17 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -211,9 +207,9 @@ void __85__HMDMatterAccessoryDiagnosticsManager_handleDiagnosticsTransferWithOpt
         v21 = HMFGetLogIdentifier();
         path = [v14 path];
         *buf = 138543618;
-        v38 = v21;
-        v39 = 2112;
-        v40 = path;
+        v37 = v21;
+        v38 = 2112;
+        v39 = path;
         _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Creating diagnostic metadata from path: %@", buf, 0x16u);
       }
 
@@ -229,11 +225,11 @@ void __85__HMDMatterAccessoryDiagnosticsManager_handleDiagnosticsTransferWithOpt
       {
         v31 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v38 = v31;
-        v39 = 2112;
-        v40 = v14;
-        v41 = 2112;
-        v42 = v16;
+        v37 = v31;
+        v38 = 2112;
+        v39 = v14;
+        v40 = 2112;
+        v41 = v16;
         _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to copy file to path: %@ error: %@", buf, 0x20u);
       }
 
@@ -261,11 +257,11 @@ void __85__HMDMatterAccessoryDiagnosticsManager_handleDiagnosticsTransferWithOpt
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v38 = v29;
-      v39 = 2112;
-      v40 = v10;
-      v41 = 2112;
-      v42 = v12;
+      v37 = v29;
+      v38 = 2112;
+      v39 = v10;
+      v40 = 2112;
+      v41 = v12;
       _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to create directory at path: %@ error: %@", buf, 0x20u);
     }
 
@@ -285,8 +281,6 @@ void __85__HMDMatterAccessoryDiagnosticsManager_handleDiagnosticsTransferWithOpt
     v16 = v12;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
-
   return v25;
 }
 
@@ -301,9 +295,9 @@ void __85__HMDMatterAccessoryDiagnosticsManager_handleDiagnosticsTransferWithOpt
   dispatch_async(workQueue, block);
 }
 
-uint64_t __48__HMDMatterAccessoryDiagnosticsManager_shutDown__block_invoke(uint64_t a1)
+void *__48__HMDMatterAccessoryDiagnosticsManager_shutDown__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   result = [*(a1 + 32) isStarted];
   if (result)
   {
@@ -313,17 +307,16 @@ uint64_t __48__HMDMatterAccessoryDiagnosticsManager_shutDown__block_invoke(uint6
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = HMFGetLogIdentifier();
-      v8 = 138543362;
-      v9 = v6;
-      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = v6;
+      _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Stopping", &v7, 0xCu);
     }
 
     objc_autoreleasePoolPop(v3);
     [*(a1 + 32) setStarted:0];
-    result = [*(a1 + 32) notifyClientsOfSupportedDiagnostics:0];
+    return [*(a1 + 32) notifyClientsOfSupportedDiagnostics:0];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -340,7 +333,7 @@ uint64_t __48__HMDMatterAccessoryDiagnosticsManager_shutDown__block_invoke(uint6
 
 void __45__HMDMatterAccessoryDiagnosticsManager_start__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (([*(a1 + 32) isStarted] & 1) == 0)
   {
     v2 = objc_autoreleasePoolPush();
@@ -349,9 +342,9 @@ void __45__HMDMatterAccessoryDiagnosticsManager_start__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v5 = HMFGetLogIdentifier();
-      v9 = 138543362;
-      v10 = v5;
-      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Starting", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v5;
+      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Starting", &v8, 0xCu);
     }
 
     objc_autoreleasePoolPop(v2);
@@ -360,8 +353,6 @@ void __45__HMDMatterAccessoryDiagnosticsManager_start__block_invoke(uint64_t a1)
     v7 = [v6 supportedDiagnostics];
     [v6 notifyClientsOfSupportedDiagnostics:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDMatterAccessoryDiagnosticsManager)initWithAccessory:(id)accessory

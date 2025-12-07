@@ -7,13 +7,14 @@
 
 + (id)fallbackLanguageFor:(id)for
 {
-  sub_1B1C2CB58();
+  v3 = sub_1B1C2CB58();
+  v5 = v4;
   swift_getObjCClassMetadata();
-  static Languages.fallbackLanguage(for:)();
+  static Languages.fallbackLanguage(for:)(v3, v5);
 
-  v3 = sub_1B1C2CB28();
+  v6 = sub_1B1C2CB28();
 
-  return v3;
+  return v6;
 }
 
 + (NSSet)availableLanguages

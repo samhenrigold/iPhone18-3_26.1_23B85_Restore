@@ -23,21 +23,25 @@
 + (id)getSessionIDWithPhoneNumber:(id)number sessionStartTime:(int64_t)time
 {
   timeCopy = time;
-  v5 = [MEMORY[0x1E695DF88] dataWithCapacity:{objc_msgSend(number, "length") + 8}];
-  [v5 appendData:{objc_msgSend(number, "dataUsingEncoding:", 4)}];
-  [v5 appendBytes:&timeCopy length:8];
-  return v5;
+  v5 = MEMORY[0x1E695DF88];
+  v6 = objc_msgSend_length(number, a2, number, time);
+  v9 = objc_msgSend_dataWithCapacity_(v5, v7, v6 + 8, v8);
+  v12 = objc_msgSend_dataUsingEncoding_(number, v10, 4, v11);
+  objc_msgSend_appendData_(v9, v13, v12, v14);
+  objc_msgSend_appendBytes_length_(v9, v15, &timeCopy, 8);
+  return v9;
 }
 
 + (__SecCertificate)copyCertFromBase64String:(id)string
 {
-  v3 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64EncodedString:string options:0];
-  v4 = v3;
-  if (v3 && [(__CFData *)v3 length])
+  v4 = objc_alloc(MEMORY[0x1E695DEF0]);
+  v6 = objc_msgSend_initWithBase64EncodedString_options_(v4, v5, string, 0);
+  v10 = v6;
+  if (v6 && objc_msgSend_length(v6, v7, v8, v9))
   {
-    v5 = SecCertificateCreateWithData(0, v4);
+    v11 = SecCertificateCreateWithData(0, v10);
 
-    return v5;
+    return v11;
   }
 
   else
@@ -54,10 +58,9 @@
   {
     v13 = *MEMORY[0x1E697B230];
     infoCopy = info;
-    [MEMORY[0x1E695DF20] dictionaryWithObjects:&infoCopy forKeys:&v13 count:1];
-    v5 = *MEMORY[0x1E697B138];
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, &infoCopy, &v13, 1);
     DecryptedDataWithParameters = SecKeyCreateDecryptedDataWithParameters();
-    v7 = DecryptedDataWithParameters;
+    v6 = DecryptedDataWithParameters;
   }
 
   else
@@ -67,836 +70,12 @@
       dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
     }
 
-    v8 = qword_1EAFE4718;
+    v7 = qword_1EAFE4718;
     if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446210;
       v16 = "+[CLEEDCryptoUtilities getECIESDecryptedData:key:sharedInfo:]";
-      _os_log_impl(&dword_19B873000, v8, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,one or more input parameters is nil,early return", buf, 0xCu);
-    }
-
-    v9 = sub_19B87DD40();
-    if ((*(v9 + 160) & 0x80000000) == 0 || (*(v9 + 164) & 0x80000000) == 0 || (*(v9 + 168) & 0x80000000) == 0 || *(v9 + 152))
-    {
-      bzero(buf, 0x65CuLL);
-      if (qword_1EAFE46E0 != -1)
-      {
-        dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-      }
-
-      v10 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getECIESDecryptedData:key:sharedInfo:]", "CoreLocation: %s\n", v10);
-      if (v10 != buf)
-      {
-        free(v10);
-      }
-    }
-
-    DecryptedDataWithParameters = 0;
-  }
-
-  v11 = *MEMORY[0x1E69E9840];
-  return DecryptedDataWithParameters;
-}
-
-+ (__SecKey)copyPublicKeyFromPrivateKey:(__SecKey *)key
-{
-  v14 = *MEMORY[0x1E69E9840];
-  if (!key)
-  {
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v8 = qword_1EAFE4718;
-    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446210;
-      v13 = "+[CLEEDCryptoUtilities copyPublicKeyFromPrivateKey:]";
-      _os_log_impl(&dword_19B873000, v8, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil privateKey,early return", buf, 0xCu);
-    }
-
-    v9 = sub_19B87DD40();
-    if ((*(v9 + 160) & 0x80000000) != 0 && (*(v9 + 164) & 0x80000000) != 0 && (*(v9 + 168) & 0x80000000) != 0 && !*(v9 + 152))
-    {
-      goto LABEL_26;
-    }
-
-    bzero(buf, 0x65CuLL);
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v10 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities copyPublicKeyFromPrivateKey:]", "CoreLocation: %s\n", v10);
-    if (v10 == buf)
-    {
-      goto LABEL_26;
-    }
-
-    v7 = v10;
-    goto LABEL_25;
-  }
-
-  result = SecKeyCopyPublicKey(key);
-  if (!result)
-  {
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v4 = qword_1EAFE4718;
-    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446210;
-      v13 = "+[CLEEDCryptoUtilities copyPublicKeyFromPrivateKey:]";
-      _os_log_impl(&dword_19B873000, v4, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,failed to copy public key from private key\n", buf, 0xCu);
-    }
-
-    v5 = sub_19B87DD40();
-    if ((*(v5 + 160) & 0x80000000) != 0 && (*(v5 + 164) & 0x80000000) != 0 && (*(v5 + 168) & 0x80000000) != 0 && !*(v5 + 152))
-    {
-      goto LABEL_26;
-    }
-
-    bzero(buf, 0x65CuLL);
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v6 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities copyPublicKeyFromPrivateKey:]", "CoreLocation: %s\n", v6);
-    if (v6 == buf)
-    {
-      goto LABEL_26;
-    }
-
-    v7 = v6;
-LABEL_25:
-    free(v7);
-LABEL_26:
-    result = 0;
-  }
-
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-+ (id)createKeyExternalRepresentation:(__SecKey *)representation
-{
-  v35 = *MEMORY[0x1E69E9840];
-  if (!representation)
-  {
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v14 = qword_1EAFE4718;
-    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446210;
-      v28 = "+[CLEEDCryptoUtilities createKeyExternalRepresentation:]";
-      _os_log_impl(&dword_19B873000, v14, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil key,early return", buf, 0xCu);
-    }
-
-    v15 = sub_19B87DD40();
-    if ((*(v15 + 160) & 0x80000000) != 0 && (*(v15 + 164) & 0x80000000) != 0 && (*(v15 + 168) & 0x80000000) != 0 && !*(v15 + 152))
-    {
-      goto LABEL_26;
-    }
-
-    bzero(buf, 0x65CuLL);
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v19 = 136446210;
-    v20 = "+[CLEEDCryptoUtilities createKeyExternalRepresentation:]";
-    v16 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities createKeyExternalRepresentation:]", "CoreLocation: %s\n", v16);
-    if (v16 == buf)
-    {
-      goto LABEL_26;
-    }
-
-    v13 = v16;
-    goto LABEL_25;
-  }
-
-  error = 0;
-  result = SecKeyCopyExternalRepresentation(representation, &error);
-  if (error)
-  {
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v4 = qword_1EAFE4718;
-    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
-    {
-      code = [(__CFError *)error code];
-      v6 = [-[__CFError domain](error "domain")];
-      v7 = [-[__CFError localizedDescription](error "localizedDescription")];
-      *buf = 136446978;
-      v28 = "+[CLEEDCryptoUtilities createKeyExternalRepresentation:]";
-      v29 = 1024;
-      v30 = code;
-      v31 = 2080;
-      v32 = v6;
-      v33 = 2080;
-      v34 = v7;
-      _os_log_impl(&dword_19B873000, v4, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,failed to produce external representation for key,error code,%d,domain,%s,reason,%s\n", buf, 0x26u);
-    }
-
-    v8 = sub_19B87DD40();
-    if ((*(v8 + 160) & 0x80000000) != 0 && (*(v8 + 164) & 0x80000000) != 0 && (*(v8 + 168) & 0x80000000) != 0 && !*(v8 + 152))
-    {
-      goto LABEL_26;
-    }
-
-    bzero(buf, 0x65CuLL);
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    code2 = [(__CFError *)error code];
-    v10 = [-[__CFError domain](error "domain")];
-    v11 = [-[__CFError localizedDescription](error "localizedDescription")];
-    v19 = 136446978;
-    v20 = "+[CLEEDCryptoUtilities createKeyExternalRepresentation:]";
-    v21 = 1024;
-    v22 = code2;
-    v23 = 2080;
-    v24 = v10;
-    v25 = 2080;
-    v26 = v11;
-    v12 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities createKeyExternalRepresentation:]", "CoreLocation: %s\n", v12);
-    if (v12 == buf)
-    {
-      goto LABEL_26;
-    }
-
-    v13 = v12;
-LABEL_25:
-    free(v13);
-LABEL_26:
-    result = 0;
-  }
-
-  v17 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-+ (id)getKeyExternalRepresentation:(__SecKey *)representation
-{
-  v18 = *MEMORY[0x1E69E9840];
-  if (!representation)
-  {
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v8 = qword_1EAFE4718;
-    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446210;
-      v17 = "+[CLEEDCryptoUtilities getKeyExternalRepresentation:]";
-      _os_log_impl(&dword_19B873000, v8, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil key,early return", buf, 0xCu);
-    }
-
-    v9 = sub_19B87DD40();
-    if ((*(v9 + 160) & 0x80000000) != 0 && (*(v9 + 164) & 0x80000000) != 0 && (*(v9 + 168) & 0x80000000) != 0 && !*(v9 + 152))
-    {
-      goto LABEL_27;
-    }
-
-    bzero(buf, 0x65CuLL);
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v10 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getKeyExternalRepresentation:]", "CoreLocation: %s\n", v10);
-    if (v10 == buf)
-    {
-      goto LABEL_27;
-    }
-
-    v11 = v10;
-    goto LABEL_26;
-  }
-
-  v3 = [CLEEDCryptoUtilities createKeyExternalRepresentation:?];
-  if (v3)
-  {
-    v4 = v3;
-    v5 = [v3 base64EncodedStringWithOptions:0];
-
-    v6 = *MEMORY[0x1E69E9840];
-    return v5;
-  }
-
-  if (qword_1EAFE46E0 != -1)
-  {
-    dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-  }
-
-  v12 = qword_1EAFE4718;
-  if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
-  {
-    *buf = 136446210;
-    v17 = "+[CLEEDCryptoUtilities getKeyExternalRepresentation:]";
-    _os_log_impl(&dword_19B873000, v12, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil extRep,early return", buf, 0xCu);
-  }
-
-  v13 = sub_19B87DD40();
-  if ((*(v13 + 160) & 0x80000000) == 0 || (*(v13 + 164) & 0x80000000) == 0 || (*(v13 + 168) & 0x80000000) == 0 || *(v13 + 152))
-  {
-    bzero(buf, 0x65CuLL);
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v14 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getKeyExternalRepresentation:]", "CoreLocation: %s\n", v14);
-    if (v14 != buf)
-    {
-      v11 = v14;
-LABEL_26:
-      free(v11);
-    }
-  }
-
-LABEL_27:
-  v15 = *MEMORY[0x1E69E9840];
-  return 0;
-}
-
-+ (__SecKey)createKeyFromExternalRepresentationData:(id)data keyClass:(id)class
-{
-  v40 = *MEMORY[0x1E69E9840];
-  if (!data || !class)
-  {
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v17 = qword_1EAFE4718;
-    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446210;
-      v33 = "+[CLEEDCryptoUtilities createKeyFromExternalRepresentationData:keyClass:]";
-      _os_log_impl(&dword_19B873000, v17, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,one or more input parameters is nil,early return", buf, 0xCu);
-    }
-
-    v18 = sub_19B87DD40();
-    if ((*(v18 + 160) & 0x80000000) != 0 && (*(v18 + 164) & 0x80000000) != 0 && (*(v18 + 168) & 0x80000000) != 0 && !*(v18 + 152))
-    {
-      goto LABEL_27;
-    }
-
-    bzero(buf, 0x65CuLL);
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v22 = 136446210;
-    v23 = "+[CLEEDCryptoUtilities createKeyFromExternalRepresentationData:keyClass:]";
-    v19 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities createKeyFromExternalRepresentationData:keyClass:]", "CoreLocation: %s\n", v19);
-    if (v19 == buf)
-    {
-      goto LABEL_27;
-    }
-
-    v16 = v19;
-    goto LABEL_26;
-  }
-
-  v4 = *MEMORY[0x1E697AD78];
-  v5 = *MEMORY[0x1E697AD30];
-  v30[0] = *MEMORY[0x1E697AD68];
-  v30[1] = v5;
-  v31[0] = v4;
-  v31[1] = class;
-  error = 0;
-  result = SecKeyCreateWithData(data, [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:2], &error);
-  if (error)
-  {
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v7 = qword_1EAFE4718;
-    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
-    {
-      code = [(__CFError *)error code];
-      v9 = [-[__CFError domain](error "domain")];
-      v10 = [-[__CFError localizedDescription](error "localizedDescription")];
-      *buf = 136446978;
-      v33 = "+[CLEEDCryptoUtilities createKeyFromExternalRepresentationData:keyClass:]";
-      v34 = 1024;
-      v35 = code;
-      v36 = 2080;
-      v37 = v9;
-      v38 = 2080;
-      v39 = v10;
-      _os_log_impl(&dword_19B873000, v7, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,failed to create key from external representation,error code,%d,domain,%s,reason,%s\n", buf, 0x26u);
-    }
-
-    v11 = sub_19B87DD40();
-    if ((*(v11 + 160) & 0x80000000) != 0 && (*(v11 + 164) & 0x80000000) != 0 && (*(v11 + 168) & 0x80000000) != 0 && !*(v11 + 152))
-    {
-      goto LABEL_27;
-    }
-
-    bzero(buf, 0x65CuLL);
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    code2 = [(__CFError *)error code];
-    v13 = [-[__CFError domain](error "domain")];
-    v14 = [-[__CFError localizedDescription](error "localizedDescription")];
-    v22 = 136446978;
-    v23 = "+[CLEEDCryptoUtilities createKeyFromExternalRepresentationData:keyClass:]";
-    v24 = 1024;
-    v25 = code2;
-    v26 = 2080;
-    v27 = v13;
-    v28 = 2080;
-    v29 = v14;
-    v15 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities createKeyFromExternalRepresentationData:keyClass:]", "CoreLocation: %s\n", v15);
-    if (v15 == buf)
-    {
-      goto LABEL_27;
-    }
-
-    v16 = v15;
-LABEL_26:
-    free(v16);
-LABEL_27:
-    result = 0;
-  }
-
-  v20 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-+ (__SecKey)createKeyFromExternalRepresentationString:(id)string keyClass:(id)class
-{
-  v18 = *MEMORY[0x1E69E9840];
-  if (!string || !class)
-  {
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v11 = qword_1EAFE4718;
-    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446210;
-      v17 = "+[CLEEDCryptoUtilities createKeyFromExternalRepresentationString:keyClass:]";
-      _os_log_impl(&dword_19B873000, v11, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,one or more input parameters is nil,early return", buf, 0xCu);
-    }
-
-    v12 = sub_19B87DD40();
-    if ((*(v12 + 160) & 0x80000000) != 0 && (*(v12 + 164) & 0x80000000) != 0 && (*(v12 + 168) & 0x80000000) != 0 && !*(v12 + 152))
-    {
-      goto LABEL_27;
-    }
-
-    bzero(buf, 0x65CuLL);
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v13 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities createKeyFromExternalRepresentationString:keyClass:]", "CoreLocation: %s\n", v13);
-    if (v13 == buf)
-    {
-      goto LABEL_27;
-    }
-
-    v10 = v13;
-    goto LABEL_26;
-  }
-
-  v5 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64EncodedString:string options:0];
-  v6 = [CLEEDCryptoUtilities createKeyFromExternalRepresentationData:v5 keyClass:class];
-
-  if (!v6)
-  {
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v7 = qword_1EAFE4718;
-    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446210;
-      v17 = "+[CLEEDCryptoUtilities createKeyFromExternalRepresentationString:keyClass:]";
-      _os_log_impl(&dword_19B873000, v7, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil key,early return", buf, 0xCu);
-    }
-
-    v8 = sub_19B87DD40();
-    if ((*(v8 + 160) & 0x80000000) != 0 && (*(v8 + 164) & 0x80000000) != 0 && (*(v8 + 168) & 0x80000000) != 0 && !*(v8 + 152))
-    {
-      goto LABEL_27;
-    }
-
-    bzero(buf, 0x65CuLL);
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v9 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities createKeyFromExternalRepresentationString:keyClass:]", "CoreLocation: %s\n", v9);
-    if (v9 == buf)
-    {
-      goto LABEL_27;
-    }
-
-    v10 = v9;
-LABEL_26:
-    free(v10);
-LABEL_27:
-    v6 = 0;
-  }
-
-  v14 = *MEMORY[0x1E69E9840];
-  return v6;
-}
-
-+ (id)copyAdrPublicKeyData:(id)data
-{
-  v26 = *MEMORY[0x1E69E9840];
-  if (!data)
-  {
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v11 = qword_1EAFE4718;
-    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446210;
-      v25 = "+[CLEEDCryptoUtilities copyAdrPublicKeyData:]";
-      _os_log_impl(&dword_19B873000, v11, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil adrCert,early return", buf, 0xCu);
-    }
-
-    v12 = sub_19B87DD40();
-    if ((*(v12 + 160) & 0x80000000) != 0 && (*(v12 + 164) & 0x80000000) != 0 && (*(v12 + 168) & 0x80000000) != 0 && !*(v12 + 152))
-    {
-      goto LABEL_51;
-    }
-
-    bzero(buf, 0x65CuLL);
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v22 = 136446210;
-    v23 = "+[CLEEDCryptoUtilities copyAdrPublicKeyData:]";
-LABEL_37:
-    v15 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities copyAdrPublicKeyData:]", "CoreLocation: %s\n", v15);
-    if (v15 != buf)
-    {
-      free(v15);
-    }
-
-    goto LABEL_51;
-  }
-
-  v3 = [CLEEDCryptoUtilities copyCertFromBase64String:?];
-  if (!v3)
-  {
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v13 = qword_1EAFE4718;
-    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446210;
-      v25 = "+[CLEEDCryptoUtilities copyAdrPublicKeyData:]";
-      _os_log_impl(&dword_19B873000, v13, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil cert obtained from copyCertFromBase64String,early return", buf, 0xCu);
-    }
-
-    v14 = sub_19B87DD40();
-    if ((*(v14 + 160) & 0x80000000) != 0 && (*(v14 + 164) & 0x80000000) != 0 && (*(v14 + 168) & 0x80000000) != 0 && !*(v14 + 152))
-    {
-      goto LABEL_51;
-    }
-
-    bzero(buf, 0x65CuLL);
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v22 = 136446210;
-    v23 = "+[CLEEDCryptoUtilities copyAdrPublicKeyData:]";
-    goto LABEL_37;
-  }
-
-  v4 = v3;
-  v5 = SecCertificateCopyKey(v3);
-  if (!v5)
-  {
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v16 = qword_1EAFE4718;
-    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446210;
-      v25 = "+[CLEEDCryptoUtilities copyAdrPublicKeyData:]";
-      _os_log_impl(&dword_19B873000, v16, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil publicKey obtained from SecCertificateCopyKey,early return", buf, 0xCu);
-    }
-
-    v17 = sub_19B87DD40();
-    if ((*(v17 + 160) & 0x80000000) == 0 || (*(v17 + 164) & 0x80000000) == 0 || (*(v17 + 168) & 0x80000000) == 0 || *(v17 + 152))
-    {
-      bzero(buf, 0x65CuLL);
-      if (qword_1EAFE46E0 != -1)
-      {
-        dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-      }
-
-      v22 = 136446210;
-      v23 = "+[CLEEDCryptoUtilities copyAdrPublicKeyData:]";
-      v18 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities copyAdrPublicKeyData:]", "CoreLocation: %s\n", v18);
-      if (v18 != buf)
-      {
-        free(v18);
-      }
-    }
-
-    CFRelease(v4);
-LABEL_51:
-    v7 = 0;
-    goto LABEL_52;
-  }
-
-  v6 = v5;
-  error = 0;
-  v7 = SecKeyCopyExternalRepresentation(v5, &error);
-  if (!v7)
-  {
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v8 = qword_1EAFE4718;
-    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446210;
-      v25 = "+[CLEEDCryptoUtilities copyAdrPublicKeyData:]";
-      _os_log_impl(&dword_19B873000, v8, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil adrPublicKeyData obtained from SecKeyCopyExternalRepresentation,early return", buf, 0xCu);
-    }
-
-    v9 = sub_19B87DD40();
-    if ((*(v9 + 160) & 0x80000000) == 0 || (*(v9 + 164) & 0x80000000) == 0 || (*(v9 + 168) & 0x80000000) == 0 || *(v9 + 152))
-    {
-      bzero(buf, 0x65CuLL);
-      if (qword_1EAFE46E0 != -1)
-      {
-        dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-      }
-
-      v22 = 136446210;
-      v23 = "+[CLEEDCryptoUtilities copyAdrPublicKeyData:]";
-      v10 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities copyAdrPublicKeyData:]", "CoreLocation: %s\n", v10);
-      if (v10 != buf)
-      {
-        free(v10);
-      }
-    }
-  }
-
-  CFRelease(v4);
-  CFRelease(v6);
-LABEL_52:
-  v19 = *MEMORY[0x1E69E9840];
-  return v7;
-}
-
-+ (id)getRandomBytes:(int)bytes
-{
-  v19 = *MEMORY[0x1E69E9840];
-  bytesCopy = bytes;
-  v5 = [MEMORY[0x1E695DF88] dataWithLength:bytes];
-  v6 = SecRandomCopyBytes(*MEMORY[0x1E697B308], bytesCopy, [v5 mutableBytes]);
-  if (v6)
-  {
-    v7 = v6;
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v8 = qword_1EAFE4718;
-    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446722;
-      v14 = "+[CLEEDCryptoUtilities getRandomBytes:]";
-      v15 = 1024;
-      bytesCopy2 = bytes;
-      v17 = 1024;
-      v18 = v7;
-      _os_log_impl(&dword_19B873000, v8, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,failed to create %d random bytes with error code %d\n", buf, 0x18u);
-    }
-
-    v9 = sub_19B87DD40();
-    if ((*(v9 + 160) & 0x80000000) == 0 || (*(v9 + 164) & 0x80000000) == 0 || (*(v9 + 168) & 0x80000000) == 0 || *(v9 + 152))
-    {
-      bzero(buf, 0x65CuLL);
-      if (qword_1EAFE46E0 != -1)
-      {
-        dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-      }
-
-      v10 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getRandomBytes:]", "CoreLocation: %s\n", v10);
-      if (v10 != buf)
-      {
-        free(v10);
-      }
-    }
-
-    v5 = 0;
-  }
-
-  v11 = *MEMORY[0x1E69E9840];
-  return v5;
-}
-
-+ (__SecKey)createRandomP256PrivateKey
-{
-  v33[2] = *MEMORY[0x1E69E9840];
-  v2 = *MEMORY[0x1E697AD78];
-  v3 = *MEMORY[0x1E697AD50];
-  v32[0] = *MEMORY[0x1E697AD68];
-  v32[1] = v3;
-  v33[0] = v2;
-  v33[1] = &unk_1F0E8CD48;
-  error = 0;
-  result = SecKeyCreateRandomKey([MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:2], &error);
-  if (error)
-  {
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v5 = qword_1EAFE4718;
-    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
-    {
-      code = [(__CFError *)error code];
-      v7 = [-[__CFError domain](error "domain")];
-      v8 = [-[__CFError localizedDescription](error "localizedDescription")];
-      *buf = 136446978;
-      v25 = "+[CLEEDCryptoUtilities createRandomP256PrivateKey]";
-      v26 = 2048;
-      v27 = code;
-      v28 = 2080;
-      v29 = v7;
-      v30 = 2080;
-      v31 = v8;
-      _os_log_impl(&dword_19B873000, v5, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,failed to create random P-256 private key,error code,%ld,domain,%s,reason,%s\n", buf, 0x2Au);
-    }
-
-    v9 = sub_19B87DD40();
-    if ((*(v9 + 160) & 0x80000000) == 0 || (*(v9 + 164) & 0x80000000) == 0 || (*(v9 + 168) & 0x80000000) == 0 || *(v9 + 152))
-    {
-      bzero(buf, 0x65CuLL);
-      if (qword_1EAFE46E0 != -1)
-      {
-        dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-      }
-
-      code2 = [(__CFError *)error code];
-      v11 = [-[__CFError domain](error "domain")];
-      v12 = [-[__CFError localizedDescription](error "localizedDescription")];
-      v16 = 136446978;
-      v17 = "+[CLEEDCryptoUtilities createRandomP256PrivateKey]";
-      v18 = 2048;
-      v19 = code2;
-      v20 = 2080;
-      v21 = v11;
-      v22 = 2080;
-      v23 = v12;
-      v13 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities createRandomP256PrivateKey]", "CoreLocation: %s\n", v13);
-      if (v13 != buf)
-      {
-        free(v13);
-      }
-    }
-
-    result = 0;
-  }
-
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-+ (id)getKeyFingerprintWithKeyData:(id)data
-{
-  v13 = *MEMORY[0x1E69E9840];
-  if (data)
-  {
-    v4 = [MEMORY[0x1E695DF88] dataWithLength:32];
-    CC_SHA256([data bytes], objc_msgSend(data, "length"), objc_msgSend(v4, "mutableBytes"));
-    v5 = *MEMORY[0x1E69E9840];
-
-    return [v4 subdataWithRange:{0, 2}];
-  }
-
-  else
-  {
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v7 = qword_1EAFE4718;
-    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446210;
-      v12 = "+[CLEEDCryptoUtilities getKeyFingerprintWithKeyData:]";
-      _os_log_impl(&dword_19B873000, v7, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil keyData,early return", buf, 0xCu);
+      _os_log_impl(&dword_19B873000, v7, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,one or more input parameters is nil,early return", buf, 0xCu);
     }
 
     v8 = sub_19B87DD40();
@@ -908,41 +87,44 @@ LABEL_52:
         dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
       }
 
-      v9 = _os_log_send_and_compose_impl();
-      sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getKeyFingerprintWithKeyData:]", "CoreLocation: %s\n", v9);
+      v11 = 136446210;
+      v12 = "+[CLEEDCryptoUtilities getECIESDecryptedData:key:sharedInfo:]";
+      v9 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,one or more input parameters is nil,early return", &v11, 12);
+      sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getECIESDecryptedData:key:sharedInfo:]", "CoreLocation: %s\n", v9);
       if (v9 != buf)
       {
         free(v9);
       }
     }
 
-    v10 = *MEMORY[0x1E69E9840];
     return 0;
   }
+
+  return DecryptedDataWithParameters;
 }
 
-+ (id)getKeyFingerprint:(__SecKey *)fingerprint
++ (__SecKey)copyPublicKeyFromPrivateKey:(__SecKey *)key
 {
-  v17 = *MEMORY[0x1E69E9840];
-  if (!fingerprint)
+  v15 = *MEMORY[0x1E69E9840];
+  if (!key)
   {
     if (qword_1EAFE46E0 != -1)
     {
       dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
     }
 
-    v6 = qword_1EAFE4718;
+    v8 = qword_1EAFE4718;
     if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446210;
-      v16 = "+[CLEEDCryptoUtilities getKeyFingerprint:]";
-      _os_log_impl(&dword_19B873000, v6, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil key,early return", buf, 0xCu);
+      v14 = "+[CLEEDCryptoUtilities copyPublicKeyFromPrivateKey:]";
+      _os_log_impl(&dword_19B873000, v8, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil privateKey,early return", buf, 0xCu);
     }
 
-    v7 = sub_19B87DD40();
-    if ((*(v7 + 160) & 0x80000000) != 0 && (*(v7 + 164) & 0x80000000) != 0 && (*(v7 + 168) & 0x80000000) != 0 && !*(v7 + 152))
+    v9 = sub_19B87DD40();
+    if ((*(v9 + 160) & 0x80000000) != 0 && (*(v9 + 164) & 0x80000000) != 0 && (*(v9 + 168) & 0x80000000) != 0 && !*(v9 + 152))
     {
-      goto LABEL_29;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -951,19 +133,176 @@ LABEL_52:
       dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
     }
 
-    v8 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getKeyFingerprint:]", "CoreLocation: %s\n", v8);
-    if (v8 == buf)
+    v11 = 136446210;
+    v12 = "+[CLEEDCryptoUtilities copyPublicKeyFromPrivateKey:]";
+    v10 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,nil privateKey,early return", &v11, 12);
+    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities copyPublicKeyFromPrivateKey:]", "CoreLocation: %s\n", v10);
+    if (v10 == buf)
     {
-      goto LABEL_29;
+      return 0;
     }
 
-    v9 = v8;
-    goto LABEL_28;
+    v7 = v10;
+    goto LABEL_25;
   }
 
-  v3 = [CLEEDCryptoUtilities createKeyExternalRepresentation:?];
-  if (!v3)
+  result = SecKeyCopyPublicKey(key);
+  if (result)
+  {
+    return result;
+  }
+
+  if (qword_1EAFE46E0 != -1)
+  {
+    dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+  }
+
+  v4 = qword_1EAFE4718;
+  if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136446210;
+    v14 = "+[CLEEDCryptoUtilities copyPublicKeyFromPrivateKey:]";
+    _os_log_impl(&dword_19B873000, v4, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,failed to copy public key from private key\n", buf, 0xCu);
+  }
+
+  v5 = sub_19B87DD40();
+  if ((*(v5 + 160) & 0x80000000) == 0 || (*(v5 + 164) & 0x80000000) == 0 || (*(v5 + 168) & 0x80000000) == 0 || *(v5 + 152))
+  {
+    bzero(buf, 0x65CuLL);
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v11 = 136446210;
+    v12 = "+[CLEEDCryptoUtilities copyPublicKeyFromPrivateKey:]";
+    v6 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,failed to copy public key from private key\n", &v11, 12);
+    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities copyPublicKeyFromPrivateKey:]", "CoreLocation: %s\n", v6);
+    if (v6 != buf)
+    {
+      v7 = v6;
+LABEL_25:
+      free(v7);
+    }
+  }
+
+  return 0;
+}
+
++ (id)createKeyExternalRepresentation:(__SecKey *)representation
+{
+  v69 = *MEMORY[0x1E69E9840];
+  if (!representation)
+  {
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v49 = qword_1EAFE4718;
+    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446210;
+      v62 = "+[CLEEDCryptoUtilities createKeyExternalRepresentation:]";
+      _os_log_impl(&dword_19B873000, v49, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil key,early return", buf, 0xCu);
+    }
+
+    v50 = sub_19B87DD40();
+    if ((*(v50 + 160) & 0x80000000) != 0 && (*(v50 + 164) & 0x80000000) != 0 && (*(v50 + 168) & 0x80000000) != 0 && !*(v50 + 152))
+    {
+      return 0;
+    }
+
+    bzero(buf, 0x65CuLL);
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v53 = 136446210;
+    v54 = "+[CLEEDCryptoUtilities createKeyExternalRepresentation:]";
+    v51 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,nil key,early return", &v53, 12);
+    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities createKeyExternalRepresentation:]", "CoreLocation: %s\n", v51);
+    if (v51 == buf)
+    {
+      return 0;
+    }
+
+    v48 = v51;
+    goto LABEL_25;
+  }
+
+  error = 0;
+  result = SecKeyCopyExternalRepresentation(representation, &error);
+  if (!error)
+  {
+    return result;
+  }
+
+  if (qword_1EAFE46E0 != -1)
+  {
+    dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+  }
+
+  v4 = qword_1EAFE4718;
+  if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
+  {
+    v8 = objc_msgSend_code(error, v5, v6, v7);
+    v12 = objc_msgSend_domain(error, v9, v10, v11);
+    v16 = objc_msgSend_UTF8String(v12, v13, v14, v15);
+    v20 = objc_msgSend_localizedDescription(error, v17, v18, v19);
+    v24 = objc_msgSend_UTF8String(v20, v21, v22, v23);
+    *buf = 136446978;
+    v62 = "+[CLEEDCryptoUtilities createKeyExternalRepresentation:]";
+    v63 = 1024;
+    v64 = v8;
+    v65 = 2080;
+    v66 = v16;
+    v67 = 2080;
+    v68 = v24;
+    _os_log_impl(&dword_19B873000, v4, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,failed to produce external representation for key,error code,%d,domain,%s,reason,%s\n", buf, 0x26u);
+  }
+
+  v25 = sub_19B87DD40();
+  if ((*(v25 + 160) & 0x80000000) == 0 || (*(v25 + 164) & 0x80000000) == 0 || (*(v25 + 168) & 0x80000000) == 0 || *(v25 + 152))
+  {
+    bzero(buf, 0x65CuLL);
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v29 = qword_1EAFE4718;
+    v30 = objc_msgSend_code(error, v26, v27, v28);
+    v34 = objc_msgSend_domain(error, v31, v32, v33);
+    v38 = objc_msgSend_UTF8String(v34, v35, v36, v37);
+    v42 = objc_msgSend_localizedDescription(error, v39, v40, v41);
+    v46 = objc_msgSend_UTF8String(v42, v43, v44, v45);
+    v53 = 136446978;
+    v54 = "+[CLEEDCryptoUtilities createKeyExternalRepresentation:]";
+    v55 = 1024;
+    v56 = v30;
+    v57 = 2080;
+    v58 = v38;
+    v59 = 2080;
+    v60 = v46;
+    v47 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v29, 16, "#EED2FWK,%{public}s,failed to produce external representation for key,error code,%d,domain,%s,reason,%s\n", &v53, 38);
+    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities createKeyExternalRepresentation:]", "CoreLocation: %s\n", v47);
+    if (v47 != buf)
+    {
+      v48 = v47;
+LABEL_25:
+      free(v48);
+    }
+  }
+
+  return 0;
+}
+
++ (id)getKeyExternalRepresentation:(__SecKey *)representation
+{
+  v21 = *MEMORY[0x1E69E9840];
+  if (!representation)
   {
     if (qword_1EAFE46E0 != -1)
     {
@@ -974,14 +313,14 @@ LABEL_52:
     if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446210;
-      v16 = "+[CLEEDCryptoUtilities getKeyFingerprint:]";
-      _os_log_impl(&dword_19B873000, v10, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil keyData,early return", buf, 0xCu);
+      v20 = "+[CLEEDCryptoUtilities getKeyExternalRepresentation:]";
+      _os_log_impl(&dword_19B873000, v10, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil key,early return", buf, 0xCu);
     }
 
     v11 = sub_19B87DD40();
     if ((*(v11 + 160) & 0x80000000) != 0 && (*(v11 + 164) & 0x80000000) != 0 && (*(v11 + 168) & 0x80000000) != 0 && !*(v11 + 152))
     {
-      goto LABEL_29;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -990,49 +329,87 @@ LABEL_52:
       dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
     }
 
-    v12 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getKeyFingerprint:]", "CoreLocation: %s\n", v12);
+    v17 = 136446210;
+    v18 = "+[CLEEDCryptoUtilities getKeyExternalRepresentation:]";
+    v12 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,nil key,early return", &v17, 12);
+    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getKeyExternalRepresentation:]", "CoreLocation: %s\n", v12);
     if (v12 == buf)
     {
-      goto LABEL_29;
+      return 0;
     }
 
-    v9 = v12;
-LABEL_28:
-    free(v9);
-LABEL_29:
-    v13 = *MEMORY[0x1E69E9840];
-    return 0;
+    v13 = v12;
+    goto LABEL_26;
   }
 
-  v4 = v3;
-  v5 = *MEMORY[0x1E69E9840];
+  KeyExternalRepresentation = objc_msgSend_createKeyExternalRepresentation_(CLEEDCryptoUtilities, a2, representation, v3);
+  if (KeyExternalRepresentation)
+  {
+    v7 = KeyExternalRepresentation;
+    v8 = objc_msgSend_base64EncodedStringWithOptions_(KeyExternalRepresentation, v5, 0, v6);
 
-  return MEMORY[0x1EEE66B58](CLEEDCryptoUtilities, sel_getKeyFingerprintWithKeyData_);
+    return v8;
+  }
+
+  if (qword_1EAFE46E0 != -1)
+  {
+    dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+  }
+
+  v14 = qword_1EAFE4718;
+  if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 136446210;
+    v20 = "+[CLEEDCryptoUtilities getKeyExternalRepresentation:]";
+    _os_log_impl(&dword_19B873000, v14, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil extRep,early return", buf, 0xCu);
+  }
+
+  v15 = sub_19B87DD40();
+  if ((*(v15 + 160) & 0x80000000) == 0 || (*(v15 + 164) & 0x80000000) == 0 || (*(v15 + 168) & 0x80000000) == 0 || *(v15 + 152))
+  {
+    bzero(buf, 0x65CuLL);
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v17 = 136446210;
+    v18 = "+[CLEEDCryptoUtilities getKeyExternalRepresentation:]";
+    v16 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,nil extRep,early return", &v17, 12);
+    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getKeyExternalRepresentation:]", "CoreLocation: %s\n", v16);
+    if (v16 != buf)
+    {
+      v13 = v16;
+LABEL_26:
+      free(v13);
+    }
+  }
+
+  return 0;
 }
 
-+ (id)getDerivedKeyWithLength:(int)length secretData:(id)data additionalInfo:(id)info
++ (__SecKey)createKeyFromExternalRepresentationData:(id)data keyClass:(id)class
 {
-  v27 = *MEMORY[0x1E69E9840];
-  if (!data || !info)
+  v76 = *MEMORY[0x1E69E9840];
+  if (!data || !class)
   {
     if (qword_1EAFE46E0 != -1)
     {
       dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
     }
 
-    v12 = qword_1EAFE4718;
+    v54 = qword_1EAFE4718;
     if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446210;
-      v24 = "+[CLEEDCryptoUtilities getDerivedKeyWithLength:secretData:additionalInfo:]";
-      _os_log_impl(&dword_19B873000, v12, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,one or more input parameters is nil,early return", buf, 0xCu);
+      v69 = "+[CLEEDCryptoUtilities createKeyFromExternalRepresentationData:keyClass:]";
+      _os_log_impl(&dword_19B873000, v54, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,one or more input parameters is nil,early return", buf, 0xCu);
     }
 
-    v13 = sub_19B87DD40();
-    if ((*(v13 + 160) & 0x80000000) != 0 && (*(v13 + 164) & 0x80000000) != 0 && (*(v13 + 168) & 0x80000000) != 0 && !*(v13 + 152))
+    v55 = sub_19B87DD40();
+    if ((*(v55 + 160) & 0x80000000) != 0 && (*(v55 + 164) & 0x80000000) != 0 && (*(v55 + 168) & 0x80000000) != 0 && !*(v55 + 152))
     {
-      goto LABEL_36;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -1041,116 +418,97 @@ LABEL_29:
       dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
     }
 
-    v14 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getDerivedKeyWithLength:secretData:additionalInfo:]", "CoreLocation: %s\n", v14);
-    if (v14 == buf)
+    v58 = 136446210;
+    v59 = "+[CLEEDCryptoUtilities createKeyFromExternalRepresentationData:keyClass:]";
+    v56 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,one or more input parameters is nil,early return", &v58, 12);
+    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities createKeyFromExternalRepresentationData:keyClass:]", "CoreLocation: %s\n", v56);
+    if (v56 == buf)
     {
-      goto LABEL_36;
+      return 0;
     }
 
-    v15 = v14;
-    goto LABEL_35;
+    v53 = v56;
+    goto LABEL_26;
   }
 
-  [info bytes];
-  [info length];
-  AnsiX963 = CCKDFParametersCreateAnsiX963();
-  if (AnsiX963)
+  v5 = *MEMORY[0x1E697AD78];
+  v6 = *MEMORY[0x1E697AD30];
+  v66[0] = *MEMORY[0x1E697AD68];
+  v66[1] = v6;
+  v67[0] = v5;
+  v67[1] = class;
+  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v67, v66, 2);
+  error = 0;
+  result = SecKeyCreateWithData(data, v7, &error);
+  if (!error)
   {
-    v9 = AnsiX963;
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
+    return result;
+  }
 
-    v10 = qword_1EAFE4718;
-    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446466;
-      v24 = "+[CLEEDCryptoUtilities getDerivedKeyWithLength:secretData:additionalInfo:]";
-      v25 = 1024;
-      v26 = v9;
-      _os_log_impl(&dword_19B873000, v10, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,failed to create ANSI X9.63 KDF params,result,%d\n", buf, 0x12u);
-    }
-
-    v11 = sub_19B87DD40();
-    if ((*(v11 + 160) & 0x80000000) != 0 && (*(v11 + 164) & 0x80000000) != 0 && (*(v11 + 168) & 0x80000000) != 0 && !*(v11 + 152))
-    {
-      goto LABEL_36;
-    }
-
-    bzero(buf, 0x65CuLL);
-    if (qword_1EAFE46E0 == -1)
-    {
-      goto LABEL_33;
-    }
-
-LABEL_44:
+  if (qword_1EAFE46E0 != -1)
+  {
     dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-LABEL_33:
-    v20 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getDerivedKeyWithLength:secretData:additionalInfo:]", "CoreLocation: %s\n", v20);
-    if (v20 == buf)
-    {
-LABEL_36:
-      v16 = 0;
-      goto LABEL_37;
-    }
-
-    v15 = v20;
-LABEL_35:
-    free(v15);
-    goto LABEL_36;
   }
 
-  v16 = [MEMORY[0x1E695DF88] dataWithLength:length];
-  [data bytes];
-  [data length];
-  [v16 mutableBytes];
-  [v16 length];
-  v17 = CCDeriveKey();
-  CCKDFParametersDestroy();
-  if (v17)
+  v9 = qword_1EAFE4718;
+  if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
   {
+    v13 = objc_msgSend_code(error, v10, v11, v12);
+    v17 = objc_msgSend_domain(error, v14, v15, v16);
+    v21 = objc_msgSend_UTF8String(v17, v18, v19, v20);
+    v25 = objc_msgSend_localizedDescription(error, v22, v23, v24);
+    v29 = objc_msgSend_UTF8String(v25, v26, v27, v28);
+    *buf = 136446978;
+    v69 = "+[CLEEDCryptoUtilities createKeyFromExternalRepresentationData:keyClass:]";
+    v70 = 1024;
+    v71 = v13;
+    v72 = 2080;
+    v73 = v21;
+    v74 = 2080;
+    v75 = v29;
+    _os_log_impl(&dword_19B873000, v9, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,failed to create key from external representation,error code,%d,domain,%s,reason,%s\n", buf, 0x26u);
+  }
+
+  v30 = sub_19B87DD40();
+  if ((*(v30 + 160) & 0x80000000) == 0 || (*(v30 + 164) & 0x80000000) == 0 || (*(v30 + 168) & 0x80000000) == 0 || *(v30 + 152))
+  {
+    bzero(buf, 0x65CuLL);
     if (qword_1EAFE46E0 != -1)
     {
       dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
     }
 
-    v18 = qword_1EAFE4718;
-    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
+    v34 = qword_1EAFE4718;
+    v35 = objc_msgSend_code(error, v31, v32, v33);
+    v39 = objc_msgSend_domain(error, v36, v37, v38);
+    v43 = objc_msgSend_UTF8String(v39, v40, v41, v42);
+    v47 = objc_msgSend_localizedDescription(error, v44, v45, v46);
+    v51 = objc_msgSend_UTF8String(v47, v48, v49, v50);
+    v58 = 136446978;
+    v59 = "+[CLEEDCryptoUtilities createKeyFromExternalRepresentationData:keyClass:]";
+    v60 = 1024;
+    v61 = v35;
+    v62 = 2080;
+    v63 = v43;
+    v64 = 2080;
+    v65 = v51;
+    v52 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v34, 16, "#EED2FWK,%{public}s,failed to create key from external representation,error code,%d,domain,%s,reason,%s\n", &v58, 38);
+    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities createKeyFromExternalRepresentationData:keyClass:]", "CoreLocation: %s\n", v52);
+    if (v52 != buf)
     {
-      *buf = 136446466;
-      v24 = "+[CLEEDCryptoUtilities getDerivedKeyWithLength:secretData:additionalInfo:]";
-      v25 = 1024;
-      v26 = v17;
-      _os_log_impl(&dword_19B873000, v18, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,failed to derive key,result,%d\n", buf, 0x12u);
+      v53 = v52;
+LABEL_26:
+      free(v53);
     }
-
-    v19 = sub_19B87DD40();
-    if ((*(v19 + 160) & 0x80000000) != 0 && (*(v19 + 164) & 0x80000000) != 0 && (*(v19 + 168) & 0x80000000) != 0 && !*(v19 + 152))
-    {
-      goto LABEL_36;
-    }
-
-    bzero(buf, 0x65CuLL);
-    if (qword_1EAFE46E0 == -1)
-    {
-      goto LABEL_33;
-    }
-
-    goto LABEL_44;
   }
 
-LABEL_37:
-  v21 = *MEMORY[0x1E69E9840];
-  return v16;
+  return 0;
 }
 
-+ (id)getGMACWithAuthData:(id)data key:(id)key iv:(id)iv
++ (__SecKey)createKeyFromExternalRepresentationString:(id)string keyClass:(id)class
 {
-  v24 = *MEMORY[0x1E69E9840];
-  if (!data || !key || !iv)
+  v23 = *MEMORY[0x1E69E9840];
+  if (!string || !class)
   {
     if (qword_1EAFE46E0 != -1)
     {
@@ -1161,14 +519,14 @@ LABEL_37:
     if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446210;
-      v21 = "+[CLEEDCryptoUtilities getGMACWithAuthData:key:iv:]";
+      v22 = "+[CLEEDCryptoUtilities createKeyFromExternalRepresentationString:keyClass:]";
       _os_log_impl(&dword_19B873000, v15, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,one or more input parameters is nil,early return", buf, 0xCu);
     }
 
     v16 = sub_19B87DD40();
     if ((*(v16 + 160) & 0x80000000) != 0 && (*(v16 + 164) & 0x80000000) != 0 && (*(v16 + 168) & 0x80000000) != 0 && !*(v16 + 152))
     {
-      goto LABEL_28;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -1177,30 +535,25 @@ LABEL_37:
       dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
     }
 
-    v17 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getGMACWithAuthData:key:iv:]", "CoreLocation: %s\n", v17);
+    v19 = 136446210;
+    v20 = "+[CLEEDCryptoUtilities createKeyFromExternalRepresentationString:keyClass:]";
+    v17 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,one or more input parameters is nil,early return", &v19, 12);
+    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities createKeyFromExternalRepresentationString:keyClass:]", "CoreLocation: %s\n", v17);
     if (v17 == buf)
     {
-      goto LABEL_28;
+      return 0;
     }
 
     v14 = v17;
-    goto LABEL_27;
+    goto LABEL_26;
   }
 
-  v8 = [MEMORY[0x1E695DF88] dataWithLength:16];
-  [key bytes];
-  [key length];
-  [iv bytes];
-  [iv length];
-  [data bytes];
-  [data length];
-  [v8 mutableBytes];
-  [v8 length];
-  v9 = CCCryptorGCMOneshotEncrypt();
-  if (v9)
+  v6 = objc_alloc(MEMORY[0x1E695DEF0]);
+  v8 = objc_msgSend_initWithBase64EncodedString_options_(v6, v7, string, 0);
+  KeyFromExternalRepresentationData_keyClass = objc_msgSend_createKeyFromExternalRepresentationData_keyClass_(CLEEDCryptoUtilities, v9, v8, class);
+
+  if (!KeyFromExternalRepresentationData_keyClass)
   {
-    v10 = v9;
     if (qword_1EAFE46E0 != -1)
     {
       dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
@@ -1209,17 +562,15 @@ LABEL_37:
     v11 = qword_1EAFE4718;
     if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
     {
-      *buf = 136446466;
-      v21 = "+[CLEEDCryptoUtilities getGMACWithAuthData:key:iv:]";
-      v22 = 1024;
-      v23 = v10;
-      _os_log_impl(&dword_19B873000, v11, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,failed to compute GMAC,error,%d\n", buf, 0x12u);
+      *buf = 136446210;
+      v22 = "+[CLEEDCryptoUtilities createKeyFromExternalRepresentationString:keyClass:]";
+      _os_log_impl(&dword_19B873000, v11, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil key,early return", buf, 0xCu);
     }
 
     v12 = sub_19B87DD40();
     if ((*(v12 + 160) & 0x80000000) != 0 && (*(v12 + 164) & 0x80000000) != 0 && (*(v12 + 168) & 0x80000000) != 0 && !*(v12 + 152))
     {
-      goto LABEL_28;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -1228,128 +579,28 @@ LABEL_37:
       dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
     }
 
-    v13 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getGMACWithAuthData:key:iv:]", "CoreLocation: %s\n", v13);
+    v19 = 136446210;
+    v20 = "+[CLEEDCryptoUtilities createKeyFromExternalRepresentationString:keyClass:]";
+    v13 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,nil key,early return", &v19, 12);
+    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities createKeyFromExternalRepresentationString:keyClass:]", "CoreLocation: %s\n", v13);
     if (v13 == buf)
     {
-      goto LABEL_28;
+      return 0;
     }
 
     v14 = v13;
-LABEL_27:
+LABEL_26:
     free(v14);
-LABEL_28:
-    v8 = 0;
+    return 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
-  return v8;
+  return KeyFromExternalRepresentationData_keyClass;
 }
 
-+ (id)getAESGCMDecryptedData:(id)data key:(id)key iv:(id)iv authTag:(id)tag
-{
-  v26 = *MEMORY[0x1E69E9840];
-  if (!data || !key || !iv || !tag)
-  {
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v17 = qword_1EAFE4718;
-    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446210;
-      v23 = "+[CLEEDCryptoUtilities getAESGCMDecryptedData:key:iv:authTag:]";
-      _os_log_impl(&dword_19B873000, v17, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,one or more input parameters is nil,early return", buf, 0xCu);
-    }
-
-    v18 = sub_19B87DD40();
-    if ((*(v18 + 160) & 0x80000000) != 0 && (*(v18 + 164) & 0x80000000) != 0 && (*(v18 + 168) & 0x80000000) != 0 && !*(v18 + 152))
-    {
-      goto LABEL_29;
-    }
-
-    bzero(buf, 0x65CuLL);
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v19 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getAESGCMDecryptedData:key:iv:authTag:]", "CoreLocation: %s\n", v19);
-    if (v19 == buf)
-    {
-      goto LABEL_29;
-    }
-
-    v16 = v19;
-    goto LABEL_28;
-  }
-
-  v10 = [MEMORY[0x1E695DF88] dataWithLength:{objc_msgSend(data, "length")}];
-  [key bytes];
-  [key length];
-  [iv bytes];
-  [iv length];
-  [data bytes];
-  [data length];
-  [v10 mutableBytes];
-  [tag bytes];
-  [tag length];
-  v11 = CCCryptorGCMOneshotDecrypt();
-  if (v11)
-  {
-    v12 = v11;
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v13 = qword_1EAFE4718;
-    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136446466;
-      v23 = "+[CLEEDCryptoUtilities getAESGCMDecryptedData:key:iv:authTag:]";
-      v24 = 1024;
-      v25 = v12;
-      _os_log_impl(&dword_19B873000, v13, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,failed to decrypt data,error,%d\n", buf, 0x12u);
-    }
-
-    v14 = sub_19B87DD40();
-    if ((*(v14 + 160) & 0x80000000) != 0 && (*(v14 + 164) & 0x80000000) != 0 && (*(v14 + 168) & 0x80000000) != 0 && !*(v14 + 152))
-    {
-      goto LABEL_29;
-    }
-
-    bzero(buf, 0x65CuLL);
-    if (qword_1EAFE46E0 != -1)
-    {
-      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
-    }
-
-    v15 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getAESGCMDecryptedData:key:iv:authTag:]", "CoreLocation: %s\n", v15);
-    if (v15 == buf)
-    {
-      goto LABEL_29;
-    }
-
-    v16 = v15;
-LABEL_28:
-    free(v16);
-LABEL_29:
-    v10 = 0;
-  }
-
-  v20 = *MEMORY[0x1E69E9840];
-  return v10;
-}
-
-+ (id)getECIESEncryptedData:(id)data key:(__SecKey *)key sharedInfo:(id)info prependKeyFingerprint:(BOOL)fingerprint
++ (id)copyAdrPublicKeyData:(id)data
 {
   v27 = *MEMORY[0x1E69E9840];
-  if (!data || !key || !info)
+  if (!data)
   {
     if (qword_1EAFE46E0 != -1)
     {
@@ -1360,14 +611,14 @@ LABEL_29:
     if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446210;
-      v26 = "+[CLEEDCryptoUtilities getECIESEncryptedData:key:sharedInfo:prependKeyFingerprint:]";
-      _os_log_impl(&dword_19B873000, v12, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,one or more input parameters is nil,early return", buf, 0xCu);
+      v26 = "+[CLEEDCryptoUtilities copyAdrPublicKeyData:]";
+      _os_log_impl(&dword_19B873000, v12, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil adrCert,early return", buf, 0xCu);
     }
 
     v13 = sub_19B87DD40();
     if ((*(v13 + 160) & 0x80000000) != 0 && (*(v13 + 164) & 0x80000000) != 0 && (*(v13 + 168) & 0x80000000) != 0 && !*(v13 + 152))
     {
-      goto LABEL_18;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -1376,58 +627,40 @@ LABEL_29:
       dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
     }
 
-    v14 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getECIESEncryptedData:key:sharedInfo:prependKeyFingerprint:]", "CoreLocation: %s\n", v14);
-    if (v14 == buf)
+    v23 = 136446210;
+    v24 = "+[CLEEDCryptoUtilities copyAdrPublicKeyData:]";
+    v14 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,nil adrCert,early return", &v23, 12);
+LABEL_37:
+    v17 = v14;
+    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities copyAdrPublicKeyData:]", "CoreLocation: %s\n", v14);
+    if (v17 != buf)
     {
-      goto LABEL_18;
+      free(v17);
     }
 
-    v11 = v14;
-LABEL_17:
-    free(v11);
-LABEL_18:
-    EncryptedDataWithParameters = 0;
-    goto LABEL_19;
+    return 0;
   }
 
-  fingerprintCopy = fingerprint;
-  v23 = *MEMORY[0x1E697B230];
-  infoCopy = info;
-  [MEMORY[0x1E695DF20] dictionaryWithObjects:&infoCopy forKeys:&v23 count:1];
-  v8 = *MEMORY[0x1E697B138];
-  EncryptedDataWithParameters = SecKeyCreateEncryptedDataWithParameters();
-  v10 = EncryptedDataWithParameters;
-  if (fingerprintCopy)
+  v4 = objc_msgSend_copyCertFromBase64String_(CLEEDCryptoUtilities, a2, data, v3);
+  if (!v4)
   {
-    v17 = [CLEEDCryptoUtilities getKeyFingerprint:key];
-    if (v17)
-    {
-      v18 = v17;
-      v19 = [MEMORY[0x1E695DF88] dataWithCapacity:{objc_msgSend(EncryptedDataWithParameters, "length") + 2}];
-      [v19 appendData:v18];
-      [v19 appendData:EncryptedDataWithParameters];
-      EncryptedDataWithParameters = v19;
-      goto LABEL_19;
-    }
-
     if (qword_1EAFE46E0 != -1)
     {
       dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
     }
 
-    v20 = qword_1EAFE4718;
+    v15 = qword_1EAFE4718;
     if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446210;
-      v26 = "+[CLEEDCryptoUtilities getECIESEncryptedData:key:sharedInfo:prependKeyFingerprint:]";
-      _os_log_impl(&dword_19B873000, v20, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil keyFingerprint,early return", buf, 0xCu);
+      v26 = "+[CLEEDCryptoUtilities copyAdrPublicKeyData:]";
+      _os_log_impl(&dword_19B873000, v15, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil cert obtained from copyCertFromBase64String,early return", buf, 0xCu);
     }
 
-    v21 = sub_19B87DD40();
-    if ((*(v21 + 160) & 0x80000000) != 0 && (*(v21 + 164) & 0x80000000) != 0 && (*(v21 + 168) & 0x80000000) != 0 && !*(v21 + 152))
+    v16 = sub_19B87DD40();
+    if ((*(v16 + 160) & 0x80000000) != 0 && (*(v16 + 164) & 0x80000000) != 0 && (*(v16 + 168) & 0x80000000) != 0 && !*(v16 + 152))
     {
-      goto LABEL_18;
+      return 0;
     }
 
     bzero(buf, 0x65CuLL);
@@ -1436,19 +669,826 @@ LABEL_18:
       dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
     }
 
-    v22 = _os_log_send_and_compose_impl();
-    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getECIESEncryptedData:key:sharedInfo:prependKeyFingerprint:]", "CoreLocation: %s\n", v22);
-    if (v22 == buf)
+    v23 = 136446210;
+    v24 = "+[CLEEDCryptoUtilities copyAdrPublicKeyData:]";
+    v14 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,nil cert obtained from copyCertFromBase64String,early return", &v23, 12);
+    goto LABEL_37;
+  }
+
+  v5 = v4;
+  v6 = SecCertificateCopyKey(v4);
+  if (!v6)
+  {
+    if (qword_1EAFE46E0 != -1)
     {
-      goto LABEL_18;
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
     }
 
-    v11 = v22;
+    v18 = qword_1EAFE4718;
+    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446210;
+      v26 = "+[CLEEDCryptoUtilities copyAdrPublicKeyData:]";
+      _os_log_impl(&dword_19B873000, v18, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil publicKey obtained from SecCertificateCopyKey,early return", buf, 0xCu);
+    }
+
+    v19 = sub_19B87DD40();
+    if ((*(v19 + 160) & 0x80000000) == 0 || (*(v19 + 164) & 0x80000000) == 0 || (*(v19 + 168) & 0x80000000) == 0 || *(v19 + 152))
+    {
+      bzero(buf, 0x65CuLL);
+      if (qword_1EAFE46E0 != -1)
+      {
+        dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+      }
+
+      v23 = 136446210;
+      v24 = "+[CLEEDCryptoUtilities copyAdrPublicKeyData:]";
+      v20 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,nil publicKey obtained from SecCertificateCopyKey,early return", &v23, 12);
+      sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities copyAdrPublicKeyData:]", "CoreLocation: %s\n", v20);
+      if (v20 != buf)
+      {
+        free(v20);
+      }
+    }
+
+    CFRelease(v5);
+    return 0;
+  }
+
+  v7 = v6;
+  error = 0;
+  v8 = SecKeyCopyExternalRepresentation(v6, &error);
+  if (!v8)
+  {
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v9 = qword_1EAFE4718;
+    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446210;
+      v26 = "+[CLEEDCryptoUtilities copyAdrPublicKeyData:]";
+      _os_log_impl(&dword_19B873000, v9, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil adrPublicKeyData obtained from SecKeyCopyExternalRepresentation,early return", buf, 0xCu);
+    }
+
+    v10 = sub_19B87DD40();
+    if ((*(v10 + 160) & 0x80000000) == 0 || (*(v10 + 164) & 0x80000000) == 0 || (*(v10 + 168) & 0x80000000) == 0 || *(v10 + 152))
+    {
+      bzero(buf, 0x65CuLL);
+      if (qword_1EAFE46E0 != -1)
+      {
+        dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+      }
+
+      v23 = 136446210;
+      v24 = "+[CLEEDCryptoUtilities copyAdrPublicKeyData:]";
+      v11 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,nil adrPublicKeyData obtained from SecKeyCopyExternalRepresentation,early return", &v23, 12);
+      sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities copyAdrPublicKeyData:]", "CoreLocation: %s\n", v11);
+      if (v11 != buf)
+      {
+        free(v11);
+      }
+    }
+  }
+
+  CFRelease(v5);
+  CFRelease(v7);
+  return v8;
+}
+
++ (id)getRandomBytes:(int)bytes
+{
+  v30 = *MEMORY[0x1E69E9840];
+  bytesCopy = bytes;
+  v6 = objc_msgSend_dataWithLength_(MEMORY[0x1E695DF88], a2, bytes, v3);
+  v7 = *MEMORY[0x1E697B308];
+  v11 = objc_msgSend_mutableBytes(v6, v8, v9, v10);
+  v12 = SecRandomCopyBytes(v7, bytesCopy, v11);
+  if (v12)
+  {
+    v13 = v12;
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v14 = qword_1EAFE4718;
+    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446722;
+      v25 = "+[CLEEDCryptoUtilities getRandomBytes:]";
+      v26 = 1024;
+      bytesCopy2 = bytes;
+      v28 = 1024;
+      v29 = v13;
+      _os_log_impl(&dword_19B873000, v14, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,failed to create %d random bytes with error code %d\n", buf, 0x18u);
+    }
+
+    v15 = sub_19B87DD40();
+    if ((*(v15 + 160) & 0x80000000) == 0 || (*(v15 + 164) & 0x80000000) == 0 || (*(v15 + 168) & 0x80000000) == 0 || *(v15 + 152))
+    {
+      bzero(buf, 0x65CuLL);
+      if (qword_1EAFE46E0 != -1)
+      {
+        dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+      }
+
+      v18 = 136446722;
+      v19 = "+[CLEEDCryptoUtilities getRandomBytes:]";
+      v20 = 1024;
+      bytesCopy3 = bytes;
+      v22 = 1024;
+      v23 = v13;
+      v16 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,failed to create %d random bytes with error code %d\n", &v18, 24);
+      sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getRandomBytes:]", "CoreLocation: %s\n", v16);
+      if (v16 != buf)
+      {
+        free(v16);
+      }
+    }
+
+    return 0;
+  }
+
+  return v6;
+}
+
++ (__SecKey)createRandomP256PrivateKey
+{
+  v68[2] = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E697AD78];
+  v3 = *MEMORY[0x1E697AD50];
+  v67[0] = *MEMORY[0x1E697AD68];
+  v67[1] = v3;
+  v68[0] = v2;
+  v68[1] = &unk_1F0E8CD48;
+  v4 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v68, v67, 2);
+  error = 0;
+  result = SecKeyCreateRandomKey(v4, &error);
+  if (error)
+  {
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v6 = qword_1EAFE4718;
+    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
+    {
+      v10 = objc_msgSend_code(error, v7, v8, v9);
+      v14 = objc_msgSend_domain(error, v11, v12, v13);
+      v18 = objc_msgSend_UTF8String(v14, v15, v16, v17);
+      v22 = objc_msgSend_localizedDescription(error, v19, v20, v21);
+      v26 = objc_msgSend_UTF8String(v22, v23, v24, v25);
+      *buf = 136446978;
+      v60 = "+[CLEEDCryptoUtilities createRandomP256PrivateKey]";
+      v61 = 2048;
+      v62 = v10;
+      v63 = 2080;
+      v64 = v18;
+      v65 = 2080;
+      v66 = v26;
+      _os_log_impl(&dword_19B873000, v6, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,failed to create random P-256 private key,error code,%ld,domain,%s,reason,%s\n", buf, 0x2Au);
+    }
+
+    v27 = sub_19B87DD40();
+    if ((*(v27 + 160) & 0x80000000) == 0 || (*(v27 + 164) & 0x80000000) == 0 || (*(v27 + 168) & 0x80000000) == 0 || *(v27 + 152))
+    {
+      bzero(buf, 0x65CuLL);
+      if (qword_1EAFE46E0 != -1)
+      {
+        dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+      }
+
+      v31 = qword_1EAFE4718;
+      v32 = objc_msgSend_code(error, v28, v29, v30);
+      v36 = objc_msgSend_domain(error, v33, v34, v35);
+      v40 = objc_msgSend_UTF8String(v36, v37, v38, v39);
+      v44 = objc_msgSend_localizedDescription(error, v41, v42, v43);
+      v48 = objc_msgSend_UTF8String(v44, v45, v46, v47);
+      v51 = 136446978;
+      v52 = "+[CLEEDCryptoUtilities createRandomP256PrivateKey]";
+      v53 = 2048;
+      v54 = v32;
+      v55 = 2080;
+      v56 = v40;
+      v57 = 2080;
+      v58 = v48;
+      v49 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, v31, 16, "#EED2FWK,%{public}s,failed to create random P-256 private key,error code,%ld,domain,%s,reason,%s\n", &v51, 42);
+      sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities createRandomP256PrivateKey]", "CoreLocation: %s\n", v49);
+      if (v49 != buf)
+      {
+        free(v49);
+      }
+    }
+
+    return 0;
+  }
+
+  return result;
+}
+
++ (id)getKeyFingerprintWithKeyData:(id)data
+{
+  v26 = *MEMORY[0x1E69E9840];
+  if (data)
+  {
+    dataCopy = data;
+    v5 = objc_msgSend_dataWithLength_(MEMORY[0x1E695DF88], a2, 32, v3);
+    v9 = objc_msgSend_bytes(dataCopy, v6, v7, v8);
+    LODWORD(dataCopy) = objc_msgSend_length(dataCopy, v10, v11, v12);
+    v16 = objc_msgSend_mutableBytes(v5, v13, v14, v15);
+    CC_SHA256(v9, dataCopy, v16);
+
+    return objc_msgSend_subdataWithRange_(v5, v17, 0, 2);
+  }
+
+  else
+  {
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v19 = qword_1EAFE4718;
+    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446210;
+      v25 = "+[CLEEDCryptoUtilities getKeyFingerprintWithKeyData:]";
+      _os_log_impl(&dword_19B873000, v19, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil keyData,early return", buf, 0xCu);
+    }
+
+    v20 = sub_19B87DD40();
+    if ((*(v20 + 160) & 0x80000000) == 0 || (*(v20 + 164) & 0x80000000) == 0 || (*(v20 + 168) & 0x80000000) == 0 || *(v20 + 152))
+    {
+      bzero(buf, 0x65CuLL);
+      if (qword_1EAFE46E0 != -1)
+      {
+        dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+      }
+
+      v22 = 136446210;
+      v23 = "+[CLEEDCryptoUtilities getKeyFingerprintWithKeyData:]";
+      v21 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,nil keyData,early return", &v22, 12);
+      sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getKeyFingerprintWithKeyData:]", "CoreLocation: %s\n", v21);
+      if (v21 != buf)
+      {
+        free(v21);
+      }
+    }
+
+    return 0;
+  }
+}
+
++ (id)getKeyFingerprint:(__SecKey *)fingerprint
+{
+  v20 = *MEMORY[0x1E69E9840];
+  if (!fingerprint)
+  {
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v8 = qword_1EAFE4718;
+    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446210;
+      v19 = "+[CLEEDCryptoUtilities getKeyFingerprint:]";
+      _os_log_impl(&dword_19B873000, v8, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil key,early return", buf, 0xCu);
+    }
+
+    v9 = sub_19B87DD40();
+    if ((*(v9 + 160) & 0x80000000) != 0 && (*(v9 + 164) & 0x80000000) != 0 && (*(v9 + 168) & 0x80000000) != 0 && !*(v9 + 152))
+    {
+      return 0;
+    }
+
+    bzero(buf, 0x65CuLL);
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v16 = 136446210;
+    v17 = "+[CLEEDCryptoUtilities getKeyFingerprint:]";
+    v10 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,nil key,early return", &v16, 12);
+    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getKeyFingerprint:]", "CoreLocation: %s\n", v10);
+    if (v10 == buf)
+    {
+      return 0;
+    }
+
+    v11 = v10;
+    goto LABEL_28;
+  }
+
+  KeyExternalRepresentation = objc_msgSend_createKeyExternalRepresentation_(CLEEDCryptoUtilities, a2, fingerprint, v3);
+  if (!KeyExternalRepresentation)
+  {
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v12 = qword_1EAFE4718;
+    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446210;
+      v19 = "+[CLEEDCryptoUtilities getKeyFingerprint:]";
+      _os_log_impl(&dword_19B873000, v12, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil keyData,early return", buf, 0xCu);
+    }
+
+    v13 = sub_19B87DD40();
+    if ((*(v13 + 160) & 0x80000000) != 0 && (*(v13 + 164) & 0x80000000) != 0 && (*(v13 + 168) & 0x80000000) != 0 && !*(v13 + 152))
+    {
+      return 0;
+    }
+
+    bzero(buf, 0x65CuLL);
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v16 = 136446210;
+    v17 = "+[CLEEDCryptoUtilities getKeyFingerprint:]";
+    v14 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,nil keyData,early return", &v16, 12);
+    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getKeyFingerprint:]", "CoreLocation: %s\n", v14);
+    if (v14 == buf)
+    {
+      return 0;
+    }
+
+    v11 = v14;
+LABEL_28:
+    free(v11);
+    return 0;
+  }
+
+  v5 = KeyExternalRepresentation;
+  v6 = KeyExternalRepresentation;
+
+  return MEMORY[0x1EEE66B58](CLEEDCryptoUtilities, sel_getKeyFingerprintWithKeyData_, v5, v7);
+}
+
++ (id)getDerivedKeyWithLength:(int)length secretData:(id)data additionalInfo:(id)info
+{
+  v48 = *MEMORY[0x1E69E9840];
+  if (!data || !info)
+  {
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v18 = qword_1EAFE4718;
+    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446210;
+      v45 = "+[CLEEDCryptoUtilities getDerivedKeyWithLength:secretData:additionalInfo:]";
+      _os_log_impl(&dword_19B873000, v18, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,one or more input parameters is nil,early return", buf, 0xCu);
+    }
+
+    v19 = sub_19B87DD40();
+    if ((*(v19 + 160) & 0x80000000) != 0 && (*(v19 + 164) & 0x80000000) != 0 && (*(v19 + 168) & 0x80000000) != 0 && !*(v19 + 152))
+    {
+      return 0;
+    }
+
+    bzero(buf, 0x65CuLL);
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v40 = 136446210;
+    v41 = "+[CLEEDCryptoUtilities getDerivedKeyWithLength:secretData:additionalInfo:]";
+    v20 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,one or more input parameters is nil,early return", &v40, 12);
+    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getDerivedKeyWithLength:secretData:additionalInfo:]", "CoreLocation: %s\n", v20);
+    if (v20 == buf)
+    {
+      return 0;
+    }
+
+    v21 = v20;
+    goto LABEL_38;
+  }
+
+  objc_msgSend_bytes(info, a2, *&length, data);
+  objc_msgSend_length(info, v8, v9, v10);
+  AnsiX963 = CCKDFParametersCreateAnsiX963();
+  if (AnsiX963)
+  {
+    v14 = AnsiX963;
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v15 = qword_1EAFE4718;
+    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446466;
+      v45 = "+[CLEEDCryptoUtilities getDerivedKeyWithLength:secretData:additionalInfo:]";
+      v46 = 1024;
+      v47 = v14;
+      _os_log_impl(&dword_19B873000, v15, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,failed to create ANSI X9.63 KDF params,result,%d\n", buf, 0x12u);
+    }
+
+    v16 = sub_19B87DD40();
+    if ((*(v16 + 160) & 0x80000000) != 0 && (*(v16 + 164) & 0x80000000) != 0 && (*(v16 + 168) & 0x80000000) != 0 && !*(v16 + 152))
+    {
+      return 0;
+    }
+
+    bzero(buf, 0x65CuLL);
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v40 = 136446466;
+    v41 = "+[CLEEDCryptoUtilities getDerivedKeyWithLength:secretData:additionalInfo:]";
+    v42 = 1024;
+    v43 = v14;
+    v17 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,failed to create ANSI X9.63 KDF params,result,%d\n", &v40, 18);
+    goto LABEL_36;
+  }
+
+  v22 = objc_msgSend_dataWithLength_(MEMORY[0x1E695DF88], v12, length, v13);
+  objc_msgSend_bytes(data, v23, v24, v25);
+  objc_msgSend_length(data, v26, v27, v28);
+  objc_msgSend_mutableBytes(v22, v29, v30, v31);
+  objc_msgSend_length(v22, v32, v33, v34);
+  v35 = CCDeriveKey();
+  CCKDFParametersDestroy();
+  if (v35)
+  {
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v36 = qword_1EAFE4718;
+    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446466;
+      v45 = "+[CLEEDCryptoUtilities getDerivedKeyWithLength:secretData:additionalInfo:]";
+      v46 = 1024;
+      v47 = v35;
+      _os_log_impl(&dword_19B873000, v36, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,failed to derive key,result,%d\n", buf, 0x12u);
+    }
+
+    v37 = sub_19B87DD40();
+    if ((*(v37 + 160) & 0x80000000) != 0 && (*(v37 + 164) & 0x80000000) != 0 && (*(v37 + 168) & 0x80000000) != 0 && !*(v37 + 152))
+    {
+      return 0;
+    }
+
+    bzero(buf, 0x65CuLL);
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v40 = 136446466;
+    v41 = "+[CLEEDCryptoUtilities getDerivedKeyWithLength:secretData:additionalInfo:]";
+    v42 = 1024;
+    v43 = v35;
+    v17 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,failed to derive key,result,%d\n", &v40, 18);
+LABEL_36:
+    v38 = v17;
+    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getDerivedKeyWithLength:secretData:additionalInfo:]", "CoreLocation: %s\n", v17);
+    if (v38 == buf)
+    {
+      return 0;
+    }
+
+    v21 = v38;
+LABEL_38:
+    free(v21);
+    return 0;
+  }
+
+  return v22;
+}
+
++ (id)getGMACWithAuthData:(id)data key:(id)key iv:(id)iv
+{
+  v51 = *MEMORY[0x1E69E9840];
+  if (!data || !key || !iv)
+  {
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v39 = qword_1EAFE4718;
+    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446210;
+      v48 = "+[CLEEDCryptoUtilities getGMACWithAuthData:key:iv:]";
+      _os_log_impl(&dword_19B873000, v39, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,one or more input parameters is nil,early return", buf, 0xCu);
+    }
+
+    v40 = sub_19B87DD40();
+    if ((*(v40 + 160) & 0x80000000) != 0 && (*(v40 + 164) & 0x80000000) != 0 && (*(v40 + 168) & 0x80000000) != 0 && !*(v40 + 152))
+    {
+      return 0;
+    }
+
+    bzero(buf, 0x65CuLL);
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v43 = 136446210;
+    v44 = "+[CLEEDCryptoUtilities getGMACWithAuthData:key:iv:]";
+    v41 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,one or more input parameters is nil,early return", &v43, 12);
+    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getGMACWithAuthData:key:iv:]", "CoreLocation: %s\n", v41);
+    if (v41 == buf)
+    {
+      return 0;
+    }
+
+    v38 = v41;
+    goto LABEL_27;
+  }
+
+  v8 = objc_msgSend_dataWithLength_(MEMORY[0x1E695DF88], a2, 16, key);
+  objc_msgSend_bytes(key, v9, v10, v11);
+  objc_msgSend_length(key, v12, v13, v14);
+  objc_msgSend_bytes(iv, v15, v16, v17);
+  objc_msgSend_length(iv, v18, v19, v20);
+  objc_msgSend_bytes(data, v21, v22, v23);
+  objc_msgSend_length(data, v24, v25, v26);
+  objc_msgSend_mutableBytes(v8, v27, v28, v29);
+  objc_msgSend_length(v8, v30, v31, v32);
+  v33 = CCCryptorGCMOneshotEncrypt();
+  if (v33)
+  {
+    v34 = v33;
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v35 = qword_1EAFE4718;
+    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446466;
+      v48 = "+[CLEEDCryptoUtilities getGMACWithAuthData:key:iv:]";
+      v49 = 1024;
+      v50 = v34;
+      _os_log_impl(&dword_19B873000, v35, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,failed to compute GMAC,error,%d\n", buf, 0x12u);
+    }
+
+    v36 = sub_19B87DD40();
+    if ((*(v36 + 160) & 0x80000000) != 0 && (*(v36 + 164) & 0x80000000) != 0 && (*(v36 + 168) & 0x80000000) != 0 && !*(v36 + 152))
+    {
+      return 0;
+    }
+
+    bzero(buf, 0x65CuLL);
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v43 = 136446466;
+    v44 = "+[CLEEDCryptoUtilities getGMACWithAuthData:key:iv:]";
+    v45 = 1024;
+    v46 = v34;
+    v37 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,failed to compute GMAC,error,%d\n", &v43, 18);
+    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getGMACWithAuthData:key:iv:]", "CoreLocation: %s\n", v37);
+    if (v37 == buf)
+    {
+      return 0;
+    }
+
+    v38 = v37;
+LABEL_27:
+    free(v38);
+    return 0;
+  }
+
+  return v8;
+}
+
++ (id)getAESGCMDecryptedData:(id)data key:(id)key iv:(id)iv authTag:(id)tag
+{
+  v60 = *MEMORY[0x1E69E9840];
+  if (!data || !key || !iv || !tag)
+  {
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v48 = qword_1EAFE4718;
+    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446210;
+      v57 = "+[CLEEDCryptoUtilities getAESGCMDecryptedData:key:iv:authTag:]";
+      _os_log_impl(&dword_19B873000, v48, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,one or more input parameters is nil,early return", buf, 0xCu);
+    }
+
+    v49 = sub_19B87DD40();
+    if ((*(v49 + 160) & 0x80000000) != 0 && (*(v49 + 164) & 0x80000000) != 0 && (*(v49 + 168) & 0x80000000) != 0 && !*(v49 + 152))
+    {
+      return 0;
+    }
+
+    bzero(buf, 0x65CuLL);
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v52 = 136446210;
+    v53 = "+[CLEEDCryptoUtilities getAESGCMDecryptedData:key:iv:authTag:]";
+    v50 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,one or more input parameters is nil,early return", &v52, 12);
+    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getAESGCMDecryptedData:key:iv:authTag:]", "CoreLocation: %s\n", v50);
+    if (v50 == buf)
+    {
+      return 0;
+    }
+
+    v47 = v50;
+    goto LABEL_28;
+  }
+
+  v10 = MEMORY[0x1E695DF88];
+  v11 = objc_msgSend_length(data, a2, data, key);
+  v14 = objc_msgSend_dataWithLength_(v10, v12, v11, v13);
+  objc_msgSend_bytes(key, v15, v16, v17);
+  objc_msgSend_length(key, v18, v19, v20);
+  objc_msgSend_bytes(iv, v21, v22, v23);
+  objc_msgSend_length(iv, v24, v25, v26);
+  objc_msgSend_bytes(data, v27, v28, v29);
+  objc_msgSend_length(data, v30, v31, v32);
+  objc_msgSend_mutableBytes(v14, v33, v34, v35);
+  objc_msgSend_bytes(tag, v36, v37, v38);
+  objc_msgSend_length(tag, v39, v40, v41);
+  v42 = CCCryptorGCMOneshotDecrypt();
+  if (v42)
+  {
+    v43 = v42;
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v44 = qword_1EAFE4718;
+    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446466;
+      v57 = "+[CLEEDCryptoUtilities getAESGCMDecryptedData:key:iv:authTag:]";
+      v58 = 1024;
+      v59 = v43;
+      _os_log_impl(&dword_19B873000, v44, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,failed to decrypt data,error,%d\n", buf, 0x12u);
+    }
+
+    v45 = sub_19B87DD40();
+    if ((*(v45 + 160) & 0x80000000) != 0 && (*(v45 + 164) & 0x80000000) != 0 && (*(v45 + 168) & 0x80000000) != 0 && !*(v45 + 152))
+    {
+      return 0;
+    }
+
+    bzero(buf, 0x65CuLL);
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v52 = 136446466;
+    v53 = "+[CLEEDCryptoUtilities getAESGCMDecryptedData:key:iv:authTag:]";
+    v54 = 1024;
+    v55 = v43;
+    v46 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,failed to decrypt data,error,%d\n", &v52, 18);
+    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getAESGCMDecryptedData:key:iv:authTag:]", "CoreLocation: %s\n", v46);
+    if (v46 == buf)
+    {
+      return 0;
+    }
+
+    v47 = v46;
+LABEL_28:
+    free(v47);
+    return 0;
+  }
+
+  return v14;
+}
+
++ (id)getECIESEncryptedData:(id)data key:(__SecKey *)key sharedInfo:(id)info prependKeyFingerprint:(BOOL)fingerprint
+{
+  v40 = *MEMORY[0x1E69E9840];
+  if (!data || !key || !info)
+  {
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v13 = qword_1EAFE4718;
+    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446210;
+      v39 = "+[CLEEDCryptoUtilities getECIESEncryptedData:key:sharedInfo:prependKeyFingerprint:]";
+      _os_log_impl(&dword_19B873000, v13, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,one or more input parameters is nil,early return", buf, 0xCu);
+    }
+
+    v14 = sub_19B87DD40();
+    if ((*(v14 + 160) & 0x80000000) != 0 && (*(v14 + 164) & 0x80000000) != 0 && (*(v14 + 168) & 0x80000000) != 0 && !*(v14 + 152))
+    {
+      return 0;
+    }
+
+    bzero(buf, 0x65CuLL);
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v34 = 136446210;
+    v35 = "+[CLEEDCryptoUtilities getECIESEncryptedData:key:sharedInfo:prependKeyFingerprint:]";
+    v15 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,one or more input parameters is nil,early return", &v34, 12);
+    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getECIESEncryptedData:key:sharedInfo:prependKeyFingerprint:]", "CoreLocation: %s\n", v15);
+    if (v15 == buf)
+    {
+      return 0;
+    }
+
+    v12 = v15;
+LABEL_17:
+    free(v12);
+    return 0;
+  }
+
+  fingerprintCopy = fingerprint;
+  v36 = *MEMORY[0x1E697B230];
+  infoCopy = info;
+  objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, &infoCopy, &v36, 1);
+  EncryptedDataWithParameters = SecKeyCreateEncryptedDataWithParameters();
+  v9 = EncryptedDataWithParameters;
+  if (fingerprintCopy)
+  {
+    KeyFingerprint = objc_msgSend_getKeyFingerprint_(CLEEDCryptoUtilities, v10, key, v11);
+    if (KeyFingerprint)
+    {
+      v21 = KeyFingerprint;
+      v22 = MEMORY[0x1E695DF88];
+      v23 = objc_msgSend_length(EncryptedDataWithParameters, v18, v19, v20);
+      v26 = objc_msgSend_dataWithCapacity_(v22, v24, v23 + 2, v25);
+      objc_msgSend_appendData_(v26, v27, v21, v28);
+      objc_msgSend_appendData_(v26, v29, EncryptedDataWithParameters, v30);
+      return v26;
+    }
+
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v31 = qword_1EAFE4718;
+    if (os_log_type_enabled(qword_1EAFE4718, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136446210;
+      v39 = "+[CLEEDCryptoUtilities getECIESEncryptedData:key:sharedInfo:prependKeyFingerprint:]";
+      _os_log_impl(&dword_19B873000, v31, OS_LOG_TYPE_ERROR, "#EED2FWK,%{public}s,nil keyFingerprint,early return", buf, 0xCu);
+    }
+
+    v32 = sub_19B87DD40();
+    if ((*(v32 + 160) & 0x80000000) != 0 && (*(v32 + 164) & 0x80000000) != 0 && (*(v32 + 168) & 0x80000000) != 0 && !*(v32 + 152))
+    {
+      return 0;
+    }
+
+    bzero(buf, 0x65CuLL);
+    if (qword_1EAFE46E0 != -1)
+    {
+      dispatch_once(&qword_1EAFE46E0, &unk_1F0E6D4E0);
+    }
+
+    v34 = 136446210;
+    v35 = "+[CLEEDCryptoUtilities getECIESEncryptedData:key:sharedInfo:prependKeyFingerprint:]";
+    v33 = _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B873000, qword_1EAFE4718, 16, "#EED2FWK,%{public}s,nil keyFingerprint,early return", &v34, 12);
+    sub_19B885924("Generic", 1, 0, 0, "+[CLEEDCryptoUtilities getECIESEncryptedData:key:sharedInfo:prependKeyFingerprint:]", "CoreLocation: %s\n", v33);
+    if (v33 == buf)
+    {
+      return 0;
+    }
+
+    v12 = v33;
     goto LABEL_17;
   }
 
-LABEL_19:
-  v15 = *MEMORY[0x1E69E9840];
   return EncryptedDataWithParameters;
 }
 

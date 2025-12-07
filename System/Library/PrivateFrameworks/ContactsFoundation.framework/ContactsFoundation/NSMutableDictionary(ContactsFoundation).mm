@@ -10,10 +10,10 @@
 {
   if (a3)
   {
-    return [self setObject:? forKey:?];
+    return [result setObject:? forKey:?];
   }
 
-  return self;
+  return result;
 }
 
 - (uint64_t)_cn_setObject:()ContactsFoundation orPlaceholder:forKey:

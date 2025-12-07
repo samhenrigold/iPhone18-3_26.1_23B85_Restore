@@ -1,118 +1,4 @@
-char *std::deque<SLToken *>::__move_backward_and_check(uint64_t a1, char *a2, char *a3, char *a4, char *a5, char *a6, char *a7, unint64_t *a8)
-{
-  if (a5 != a3)
-  {
-    v27[13] = v8;
-    v27[14] = v9;
-    v10 = a4;
-    v11 = (&a5[-*a4] >> 3) + ((a4 - a2) << 6) - (&a3[-*a2] >> 3);
-    if (v11 >= 1)
-    {
-      while (1)
-      {
-        v13 = *v10;
-        if (a5 == *v10)
-        {
-          v14 = *(v10 - 1);
-          v10 -= 8;
-          v13 = v14;
-          a5 = v14 + 4096;
-        }
-
-        v15 = (a5 - 8);
-        v16 = (a5 - v13) >> 3;
-        if (v16 >= v11)
-        {
-          v17 = v11;
-        }
-
-        else
-        {
-          v17 = (a5 - v13) >> 3;
-        }
-
-        if (v16 <= v11)
-        {
-          v18 = v13;
-        }
-
-        else
-        {
-          v18 = &a5[-8 * v11];
-        }
-
-        v19 = *a8;
-        v20 = *a8 >= a5 || v18 > v19;
-        if (v20)
-        {
-          goto LABEL_23;
-        }
-
-        if (v15 == a7)
-        {
-          break;
-        }
-
-        v21 = ~((v15 - v13) >> 3) + ((a6 - v10) << 6) + (&a7[-*a6] >> 3);
-        if (v21)
-        {
-          goto LABEL_19;
-        }
-
-LABEL_22:
-        *a8 = v19;
-LABEL_23:
-        std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200100]<SLToken **,std::__deque_iterator<SLToken *,SLToken **,SLToken *&,SLToken ***,long,512l>,0>(v18, a5, a6, a7, v27);
-        if (v17 != 1)
-        {
-          v23 = ((v15 - *v10) >> 3) - v17;
-          if (v23 > 0x7FFFFFFFFFFFFFFELL)
-          {
-            v25 = 510 - v23;
-            v10 -= 8 * (v25 >> 9);
-            v15 = *v10 + 8 * (~v25 & 0x1FF);
-          }
-
-          else
-          {
-            v24 = v23 + 1;
-            v10 += 8 * (v24 >> 9);
-            v15 = *v10 + 8 * (v24 & 0x1FF);
-          }
-        }
-
-        a6 = v27[1];
-        a7 = v27[2];
-        a5 = v15;
-        v20 = v11 <= v17;
-        v11 -= v17;
-        if (v20)
-        {
-          return a6;
-        }
-      }
-
-      v21 = -1;
-LABEL_19:
-      v22 = v21 + ((v19 - v13) >> 3);
-      if (v22 < 1)
-      {
-        v19 = *&v10[-8 * ((511 - v22) >> 9)] + 8 * (~(511 - v22) & 0x1FF);
-      }
-
-      else
-      {
-        v19 = *&v10[(v22 >> 6) & 0x3FFFFFFFFFFFFF8] + 8 * (v22 & 0x1FF);
-      }
-
-      goto LABEL_22;
-    }
-  }
-
-  return a6;
-}
-
-uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
+uint64_t std::string::basic_string[abi:ne200100](uint64_t a1, unint64_t a2)
 {
   if (a2 >= 0x7FFFFFFFFFFFFFF8)
   {
@@ -124,11 +10,11 @@ uint64_t std::string::basic_string[abi:ne200100](uint64_t result, unint64_t a2)
     operator new();
   }
 
-  *(result + 8) = 0;
-  *(result + 16) = 0;
-  *result = 0;
-  *(result + 23) = a2;
-  return result;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = 0;
+  *(a1 + 23) = a2;
+  return a1;
 }
 
 void std::__throw_out_of_range[abi:ne200100](const char *a1)
@@ -145,7 +31,7 @@ std::logic_error *std::out_of_range::out_of_range[abi:ne200100](std::logic_error
   return result;
 }
 
-char *std::vector<unsigned short>::__insert_with_size[abi:ne200100]<unsigned short *,unsigned short *>(uint64_t a1, char *__dst, char *__src, char *a4, uint64_t a5)
+char *std::vector<unsigned short>::__insert_with_size[abi:ne200100]<unsigned short *,unsigned short *>(void *a1, char *__dst, char *__src, char *a4, uint64_t a5)
 {
   v5 = __dst;
   if (a5 < 1)
@@ -154,8 +40,8 @@ char *std::vector<unsigned short>::__insert_with_size[abi:ne200100]<unsigned sho
   }
 
   v7 = __src;
-  v10 = *(a1 + 8);
-  v9 = *(a1 + 16);
+  v10 = a1[1];
+  v9 = a1[2];
   if (a5 > (v9 - v10) >> 1)
   {
     v11 = *a1;
@@ -197,23 +83,24 @@ char *std::vector<unsigned short>::__insert_with_size[abi:ne200100]<unsigned sho
     v35 = (2 * v16);
     do
     {
-      v36 = *v7++;
+      v36 = *v7;
+      v7 += 2;
       *v35++ = v36;
       v34 -= 2;
     }
 
     while (v34);
-    memcpy((v33 + 2 * a5), v5, *(a1 + 8) - v5);
+    memcpy((v33 + 2 * a5), v5, a1[1] - v5);
     v37 = *a1;
-    v38 = v33 + 2 * a5 + *(a1 + 8) - v5;
-    *(a1 + 8) = v5;
+    v38 = v33 + 2 * a5 + a1[1] - v5;
+    a1[1] = v5;
     v39 = v5 - v37;
     v40 = (v33 - (v5 - v37));
     memcpy(v40, v37, v39);
     v41 = *a1;
     *a1 = v40;
-    *(a1 + 8) = v38;
-    *(a1 + 16) = 0;
+    a1[1] = v38;
+    a1[2] = 0;
     if (v41)
     {
       operator delete(v41);
@@ -228,14 +115,14 @@ char *std::vector<unsigned short>::__insert_with_size[abi:ne200100]<unsigned sho
   {
     v29 = &__dst[2 * a5];
     v30 = (v10 - 2 * a5);
-    v31 = *(a1 + 8);
+    v31 = a1[1];
     while (v30 < v10)
     {
       v32 = *v30++;
       *v31++ = v32;
     }
 
-    *(a1 + 8) = v31;
+    a1[1] = v31;
     if (v10 != v29)
     {
       memmove(&__dst[2 * a5], __dst, v10 - v29);
@@ -250,11 +137,11 @@ char *std::vector<unsigned short>::__insert_with_size[abi:ne200100]<unsigned sho
   v20 = a4 - &__src[v17];
   if (a4 != &__src[v17])
   {
-    memmove(*(a1 + 8), &__src[v17], a4 - &__src[v17]);
+    memmove(a1[1], &__src[v17], a4 - &__src[v17]);
   }
 
   v21 = (v10 + v20);
-  *(a1 + 8) = v10 + v20;
+  a1[1] = v10 + v20;
   if (v18 >= 1)
   {
     v22 = &v5[2 * a5];
@@ -274,7 +161,7 @@ char *std::vector<unsigned short>::__insert_with_size[abi:ne200100]<unsigned sho
       v23 = v24 - v7;
     }
 
-    *(a1 + 8) = v23;
+    a1[1] = v23;
     if (v21 != v22)
     {
       memmove(&v5[2 * a5], v5, v21 - v22);
@@ -346,7 +233,8 @@ char *std::vector<unsigned short>::__insert_with_size[abi:ne200100]<unsigned sho
     v36 = v33;
     do
     {
-      v37 = *v7++;
+      v37 = *v7;
+      v7 += 2;
       *v36++ = v37;
       v35 -= 2;
     }
@@ -502,27 +390,26 @@ void std::vector<unsigned short>::__append(uint64_t a1, unint64_t a2)
   }
 }
 
-void *std::__split_buffer<unsigned short>::emplace_back<unsigned short>(void *result, _WORD *a2)
+void std::__split_buffer<unsigned short>::emplace_back<unsigned short>(unint64_t *a1, _WORD *a2)
 {
-  v3 = result;
-  v4 = result[2];
-  if (v4 == result[3])
+  v4 = a1[2];
+  if (v4 == a1[3])
   {
-    v5 = result[1];
-    v6 = &v5[-*result];
-    if (v5 <= *result)
+    v5 = a1[1];
+    v6 = &v5[-*a1];
+    if (v5 <= *a1)
     {
-      if (v4 == *result)
+      if (v4 == *a1)
       {
         v11 = 1;
       }
 
       else
       {
-        v11 = &v4[-*result];
+        v11 = &v4[-*a1];
       }
 
-      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short>>(result[4], v11);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short>>(a1[4], v11);
     }
 
     v7 = ((v6 >> 1) + 1) / -2;
@@ -531,30 +418,29 @@ void *std::__split_buffer<unsigned short>::emplace_back<unsigned short>(void *re
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-v8], v5, v4 - v5);
-      v5 = v3[1];
+      memmove(&v5[-v8], v5, v4 - v5);
+      v5 = a1[1];
     }
 
     v4 = &v9[v10];
-    v3[1] = &v5[2 * v7];
+    a1[1] = &v5[2 * v7];
   }
 
   *v4 = *a2;
-  v3[2] = v4 + 2;
-  return result;
+  a1[2] = (v4 + 2);
 }
 
-void *std::vector<unsigned char>::vector[abi:ne200100](void *result, uint64_t a2)
+uint64_t *std::vector<unsigned char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<unsigned char>::__vallocate[abi:ne200100](result, a2);
+    std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_26B2FA980(_Unwind_Exception *exception_object)
@@ -749,7 +635,7 @@ uint64_t SLPronouncerEng::Month(SLPronouncerEng *this, uint64_t a2)
   }
 }
 
-uint64_t SLPronouncerEng::MakePluralUnit(SLPronouncerEng *this, SLToken *a2, char **a3)
+uint64_t SLPronouncerEng::MakePluralUnit(SLPronouncerEng *this, char **a2, char **a3)
 {
   v34[0] = 0;
   SLToken::SelectHomographs(a2, 1, v34);
@@ -760,14 +646,14 @@ uint64_t SLPronouncerEng::MakePluralUnit(SLPronouncerEng *this, SLToken *a2, cha
     SLToken::SelectHomographs(a3, 1, v34);
   }
 
-  v5 = *(a2 + 10);
-  v6 = (a2 + 80);
-  if (*(a2 + 11) != v5)
+  v5 = a2[10];
+  v6 = a2 + 10;
+  if (a2[11] != v5)
   {
     v7 = 0;
     do
     {
-      v8 = *(v5 + 8 * v7);
+      v8 = *&v5[8 * v7];
       *v8 = 1;
       v9 = (v8 + 1);
       if (!SLWordTagSet::find(v9, 86))
@@ -782,10 +668,10 @@ uint64_t SLPronouncerEng::MakePluralUnit(SLPronouncerEng *this, SLToken *a2, cha
       }
 
       ++v7;
-      v5 = *(a2 + 10);
+      v5 = a2[10];
     }
 
-    while (v7 < (*(a2 + 11) - v5) >> 3);
+    while (v7 < (a2[11] - v5) >> 3);
   }
 
   v12 = a3[11];
@@ -793,7 +679,7 @@ uint64_t SLPronouncerEng::MakePluralUnit(SLPronouncerEng *this, SLToken *a2, cha
   {
     do
     {
-      v13 = *(v12 - 8);
+      v13 = *(v12 - 1);
       *v13 = 64;
       v14 = v13 + 1;
       if (!SLWordTagSet::find((v13 + 1), 86))
@@ -807,11 +693,11 @@ uint64_t SLPronouncerEng::MakePluralUnit(SLPronouncerEng *this, SLToken *a2, cha
         }
       }
 
-      v18 = *(a2 + 11);
-      v17 = *(a2 + 12);
+      v18 = a2[11];
+      v17 = a2[12];
       if (v18 >= v17)
       {
-        v20 = (v18 - *v6) >> 3;
+        v20 = &v18[-*v6] >> 3;
         if ((v20 + 1) >> 61)
         {
           std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
@@ -836,19 +722,19 @@ uint64_t SLPronouncerEng::MakePluralUnit(SLPronouncerEng *this, SLToken *a2, cha
 
         if (v23)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<SLHomograph *>>(a2 + 80, v23);
+          std::__allocate_at_least[abi:ne200100]<std::allocator<SLHomograph *>>((a2 + 10), v23);
         }
 
         *(8 * v20) = v13;
         v19 = 8 * v20 + 8;
-        v24 = *(a2 + 10);
-        v25 = *(a2 + 11) - v24;
+        v24 = a2[10];
+        v25 = a2[11] - v24;
         v26 = (8 * v20 - v25);
         memcpy(v26, v24, v25);
-        v27 = *(a2 + 10);
-        *(a2 + 10) = v26;
-        *(a2 + 11) = v19;
-        *(a2 + 12) = 0;
+        v27 = a2[10];
+        a2[10] = v26;
+        a2[11] = v19;
+        a2[12] = 0;
         if (v27)
         {
           operator delete(v27);
@@ -858,21 +744,21 @@ uint64_t SLPronouncerEng::MakePluralUnit(SLPronouncerEng *this, SLToken *a2, cha
       else
       {
         *v18 = v13;
-        v19 = (v18 + 1);
+        v19 = (v18 + 8);
       }
 
-      *(a2 + 11) = v19;
+      a2[11] = v19;
       v28 = a3[10];
-      v12 = (a3[11] - 8);
+      v12 = a3[11] - 8;
       a3[11] = v12;
     }
 
     while (v12 != v28);
   }
 
-  v29 = *(a2 + 7);
-  v31 = *(a2 + 8);
-  v30 = a2 + 56;
+  v29 = a2[7];
+  v31 = a2[8];
+  v30 = a2 + 7;
   v32 = a3[7];
   if (memcmp(v29, v32, v31 - v29))
   {
@@ -1024,7 +910,7 @@ uint64_t SLPostLexerEng::SingleLetterWordAsPrefix(SLPostLexerEng *this, unsigned
   }
 }
 
-const void **SLPostLexerEng::HandlePunct(SLPostLexerEng *this, SLToken *a2)
+void SLPostLexerEng::HandlePunct(SLPostLexerEng *this, SLToken *a2)
 {
   v3 = a2 + 56;
   v4 = **(a2 + 7);
@@ -1034,7 +920,7 @@ const void **SLPostLexerEng::HandlePunct(SLPostLexerEng *this, SLToken *a2)
     {
       if (v4 == 63)
       {
-        v22 = 71;
+        v21 = 71;
         v5 = 7;
         goto LABEL_45;
       }
@@ -1074,7 +960,7 @@ const void **SLPostLexerEng::HandlePunct(SLPostLexerEng *this, SLToken *a2)
 
     if (v4 == 46)
     {
-      v22 = 70;
+      v21 = 70;
       v5 = 6;
       goto LABEL_45;
     }
@@ -1111,10 +997,10 @@ LABEL_9:
       {
         v6 = 1;
 LABEL_31:
-        v9 = SLLexerBuffer::operator[](this + 12, 0);
-        if (v9)
+        v8 = SLLexerBuffer::operator[](this + 12, 0);
+        if (v8)
         {
-          *(v9 + 1) = v6;
+          *(v8 + 1) = v6;
         }
 
         goto LABEL_33;
@@ -1127,77 +1013,77 @@ LABEL_31:
       }
 
 LABEL_39:
-      v22 = 69;
+      v21 = 69;
       v5 = 5;
       goto LABEL_45;
     }
 
-    v10 = SLLexerBuffer::operator[](this + 12, 0);
-    if (v10 && *v10 == 1 && (*(a2 + 16) & 1) == 0)
+    v9 = SLLexerBuffer::operator[](this + 12, 0);
+    if (v9 && *v9 == 1 && (*(a2 + 16) & 1) == 0)
     {
-      *(v10 + 4) |= 0x80u;
+      *(v9 + 4) |= 0x80u;
     }
 
 LABEL_44:
-    v22 = 68;
+    v21 = 68;
     v5 = 4;
 LABEL_45:
-    v11 = *(a2 + 7);
-    v12 = *(a2 + 8);
-    *(v11 + 1) = 32;
-    v13 = *(a2 + 9);
-    if (v12 >= v13)
+    v10 = *(a2 + 7);
+    v11 = *(a2 + 8);
+    *(v10 + 1) = 32;
+    v12 = *(a2 + 9);
+    if (v11 >= v12)
     {
-      v15 = v12 - v11;
-      v16 = (v12 - v11) >> 1;
-      if (v16 <= -2)
+      v14 = v11 - v10;
+      v15 = (v11 - v10) >> 1;
+      if (v15 <= -2)
       {
         std::vector<unsigned char>::__throw_length_error[abi:ne200100]();
       }
 
-      v17 = v13 - v11;
-      if (v17 <= v16 + 1)
+      v16 = v12 - v10;
+      if (v16 <= v15 + 1)
       {
-        v18 = v16 + 1;
+        v17 = v15 + 1;
       }
 
       else
       {
-        v18 = v17;
+        v17 = v16;
       }
 
-      v19 = v17 >= 0x7FFFFFFFFFFFFFFELL;
-      v20 = 0x7FFFFFFFFFFFFFFFLL;
-      if (!v19)
+      v18 = v16 >= 0x7FFFFFFFFFFFFFFELL;
+      v19 = 0x7FFFFFFFFFFFFFFFLL;
+      if (!v18)
       {
-        v20 = v18;
+        v19 = v17;
       }
 
+      if (v19)
+      {
+        std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short>>(v3, v19);
+      }
+
+      *(2 * v15) = 0;
+      v13 = 2 * v15 + 2;
+      memcpy(0, v10, v14);
+      v20 = *(a2 + 7);
+      *(a2 + 7) = 0;
+      *(a2 + 8) = v13;
+      *(a2 + 9) = 0;
       if (v20)
       {
-        std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short>>(v3, v20);
-      }
-
-      *(2 * v16) = 0;
-      v14 = 2 * v16 + 2;
-      memcpy(0, v11, v15);
-      v21 = *(a2 + 7);
-      *(a2 + 7) = 0;
-      *(a2 + 8) = v14;
-      *(a2 + 9) = 0;
-      if (v21)
-      {
-        operator delete(v21);
+        operator delete(v20);
       }
     }
 
     else
     {
-      *v12 = 0;
-      v14 = (v12 + 2);
+      *v11 = 0;
+      v13 = (v11 + 2);
     }
 
-    *(a2 + 8) = v14;
+    *(a2 + 8) = v13;
     *(a2 + 1) = v5;
     operator new();
   }
@@ -1210,14 +1096,14 @@ LABEL_45:
 
   if (v4 == 33)
   {
-    v22 = 72;
+    v21 = 72;
     v5 = 8;
     goto LABEL_45;
   }
 
 LABEL_27:
 
-  return SLPostLexerImpl::HandlePunct(this, a2);
+  SLPostLexerImpl::HandlePunct(this, a2);
 }
 
 char *SLPostLexerEng::AppendMorph(SLPostLexerEng *this, SLToken *a2, char *a3, char *a4)
@@ -1231,7 +1117,7 @@ char *SLPostLexerEng::AppendMorph(SLPostLexerEng *this, SLToken *a2, char *a3, c
   return SLPostLexerImpl::AppendMorph(this, a2, a3, a4);
 }
 
-uint64_t SLPostLexerEng::PeriodIsEndOfSentence(uint64_t a1, unsigned __int16 *a2, uint64_t a3, SLToken *this, uint64_t a5)
+uint64_t SLPostLexerEng::PeriodIsEndOfSentence(unsigned __int16 **a1, unsigned __int16 *a2, uint64_t a3, SLToken *this, uint64_t a5)
 {
   v10 = *(a2 + 23);
   if (v10 < 0)
@@ -1261,7 +1147,7 @@ uint64_t SLPostLexerEng::PeriodIsEndOfSentence(uint64_t a1, unsigned __int16 *a2
     {
       if (*a5 == 1 && (*(a5 + 17) & 0x10) == 0)
       {
-        SLDissecter::DissectNumber(*(a1 + 184), a5, 0, ((*(a5 + 64) - *(a5 + 56)) >> 1) - 1, &__p);
+        SLDissecter::DissectNumber(a1[23], a5, 0, ((*(a5 + 64) - *(a5 + 56)) >> 1) - 1, &__p);
         if (!v29 && !v30 && !__p.__r_.__value_.__l.__size_)
         {
           return 0;
@@ -1332,7 +1218,7 @@ LABEL_16:
         return 0;
       }
 
-      v21 = *(a1 + 192);
+      v21 = a1[24];
       goto LABEL_47;
     }
 
@@ -1346,7 +1232,7 @@ LABEL_16:
     {
       if ((v15 & 1) == 0)
       {
-        v21 = *(a1 + 192);
+        v21 = a1[24];
         v22 = a2;
         goto LABEL_48;
       }
@@ -1367,7 +1253,7 @@ LABEL_16:
     return 0;
   }
 
-  v21 = *(a1 + 192);
+  v21 = a1[24];
   v22 = a2;
   if (v19 < 0)
   {
@@ -1758,7 +1644,7 @@ uint64_t SLPostLexerEng::FindElapsed(uint64_t a1, uint64_t *a2, uint64_t *a3)
   return 1;
 }
 
-BOOL SLPostLexerEng::ElapsedSequence(SLPostLexerEng *this, uint64_t a2, uint64_t a3)
+uint64_t SLPostLexerEng::ElapsedSequence(SLPostLexerEng *this, uint64_t a2, uint64_t a3)
 {
   if ((&sElapsedSym)[2 * a3 + 1] == (&sElapsedSym)[2 * a2 + 1] + 1)
   {
@@ -1802,7 +1688,7 @@ void SLPostLexerEng::ElapsedSymbol(uint64_t a1, uint64_t *a2, uint64_t a3, char 
 
 uint64_t SLPostLexerEng::HandleUnknownChar(SLPostLexerEng *this, SLToken *a2, SLTokenList *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   SLToken::SetType(a2, 0);
   result = SLPostLexerImpl::HandleTokenInDictionary(this, a2);
   if ((result & 1) == 0)
@@ -1821,25 +1707,24 @@ uint64_t SLPostLexerEng::HandleUnknownChar(SLPostLexerEng *this, SLToken *a2, SL
       v10 = (v8 & 0x7FFFFFF0) == 0xFE00 || (v8 & 0x7FFFFFFE) == 65532;
       if (!v10 && v9 != 0)
       {
-        if ((v12 = u_charName(v8, U_CHAR_NAME_ALIAS, v17, 128, &pErrorCode), pErrorCode <= U_ZERO_ERROR) && v12 || (pErrorCode = U_ZERO_ERROR, v12 = u_charName(v8, U_EXTENDED_CHAR_NAME, v17, 128, &pErrorCode), pErrorCode <= U_ZERO_ERROR) && v12)
+        if ((v12 = u_charName(v8, U_CHAR_NAME_ALIAS, v16, 128, &pErrorCode), pErrorCode <= U_ZERO_ERROR) && v12 || (pErrorCode = U_ZERO_ERROR, v12 = u_charName(v8, U_EXTENDED_CHAR_NAME, v16, 128, &pErrorCode), pErrorCode <= U_ZERO_ERROR) && v12)
         {
-          if (v17[0] != 60)
+          if (v16[0] != 60)
           {
-            v16 = 8232;
-            strcpy(&v17[v12], ")");
-            v14[0] = &v16;
-            v14[1] = 0x4100000001;
-            (*(**(this + 22) + 232))(*(this + 22), v14, a3, *(a2 + 4), *(a2 + 5));
+            v15 = 8232;
+            strcpy(&v16[v12], ")");
+            v13[0] = &v15;
+            v13[1] = 0x4100000001;
+            (*(**(this + 22) + 232))(*(this + 22), v13, a3, *(a2 + 4), *(a2 + 5));
           }
         }
       }
     }
 
     SLToken::~SLToken(a2);
-    result = MEMORY[0x26D6753C0]();
+    return MEMORY[0x26D6753C0]();
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1978,33 +1863,27 @@ void SLTuplesEng::SLTuplesEng(SLTuplesEng *this, SLLexer *a2)
   v2[1] = &unk_287BD4FC8;
 }
 
-uint64_t (***SLTuplesEng::HandleGlobalFlags(SLTuplesEng *this, unint64_t *a2, char a3))(void)
+_BYTE *SLTuplesEng::HandleGlobalFlags(SLTuplesEng *this, unint64_t *a2, char a3)
 {
   result = SLLexerBuffer::operator[](this + 1, *a2 - 1);
-  if (result)
-  {
-    *result;
-  }
-
   if ((a3 & 4) != 0)
   {
-    ToBIToken();
+    ToBIToken(6, 0);
   }
 
   if ((a3 & 8) != 0)
   {
-    ToBIToken();
+    ToBIToken(2, 0);
   }
 
   return result;
 }
 
-void SLTuplesEng::HandleElementFlags(SLTuplesEng *this, unint64_t *a2, unint64_t *a3, SLToken *a4, char a5)
+void SLTuplesEng::HandleElementFlags(uint64_t this, unint64_t *a2, unint64_t *a3, SLToken *a4, char a5)
 {
   if ((a5 & 8) != 0)
   {
-    v5 = *a2;
-    ToBIToken();
+    ToBIToken(7, 0);
   }
 }
 
@@ -2169,9 +2048,9 @@ uint64_t SLStemTrackerImpl::SeenRecently(SLStemTrackerImpl *this, const char *a2
   return v8;
 }
 
-void sub_26B2FD5A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26B2FD5A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   SLWordBuilder::~SLWordBuilder(va);
   _Unwind_Resume(a1);
 }
@@ -2252,10 +2131,9 @@ LABEL_17:
   {
 LABEL_22:
     v18 = *(v12 + 1);
-    v19 = *(v12 + 2);
-    v20 = *v12;
-    *(v20 + 1) = v18;
-    *v18 = v20;
+    v19 = *v12;
+    *(v19 + 1) = v18;
+    *v18 = v19;
     --*(this + 10);
     operator delete(v12);
     operator new();
@@ -2336,7 +2214,7 @@ uint64_t non-virtual thunk toSLStemTrackerImpl::Lookup(SLStemTrackerImpl *this, 
 
 void *SLStemTrackerImpl::NextToken(SLStemTrackerImpl *this)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = (***(this + 27))(*(this + 27));
   v3 = v2;
   if (v2)
@@ -2375,21 +2253,20 @@ void *SLStemTrackerImpl::NextToken(SLStemTrackerImpl *this)
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
-void *std::vector<SLStemTrackerImpl::Stem>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<SLStemTrackerImpl::Stem>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<SLStemTrackerImpl::Stem>::__vallocate[abi:ne200100](result, a2);
+    std::vector<SLStemTrackerImpl::Stem>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_26B2FDC04(_Unwind_Exception *exception_object)
@@ -2404,7 +2281,7 @@ void sub_26B2FDC04(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<SLStemTrackerImpl::Stem>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<SLStemTrackerImpl::Stem>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x333333333333334)
   {
@@ -3498,7 +3375,7 @@ void SLAgglomerate::SLAgglomerate(SLAgglomerate *this, SLDictionary *a2)
   *(this + 1) = a2;
 }
 
-uint64_t SLAgglomerate::Lookup(SLAgglomerate *this, const char *a2, unint64_t a3, unint64_t a4, BOOL a5, SLTokenList *a6)
+uint64_t SLAgglomerate::Lookup(SLDictionary **this, const char *a2, unint64_t a3, unint64_t a4, BOOL a5, SLTokenList *a6)
 {
   if (a4 < 2)
   {
@@ -3519,7 +3396,7 @@ uint64_t SLAgglomerate::Lookup(SLAgglomerate *this, const char *a2, unint64_t a3
   return result;
 }
 
-uint64_t SLAgglomerate::LookupWords(SLAgglomerate *this, const char *a2, unint64_t a3, uint64_t a4, BOOL a5, SLTokenList *a6)
+uint64_t SLAgglomerate::LookupWords(SLDictionary **this, const char *a2, unint64_t a3, unint64_t a4, BOOL a5, SLTokenList *a6)
 {
   if (a3 >= 4 && 32 * a4 >= a3)
   {
@@ -3529,26 +3406,26 @@ uint64_t SLAgglomerate::LookupWords(SLAgglomerate *this, const char *a2, unint64
   return 0;
 }
 
-void sub_26B2FF2E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_26B2FF2E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
+  va_start(va1, a11);
+  va_start(va, a11);
   v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
   v15 = va_arg(va1, void);
   v16 = va_arg(va1, void);
   v17 = va_arg(va1, void);
-  (*(*v6 + 16))(v6);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  (*(*v11 + 16))(v11, a2, a3, a4, a5, a6);
   SLTokenBuilder::~SLTokenBuilder(va);
   SLTokenBuilder::~SLTokenBuilder(va1);
   _Unwind_Resume(a1);
 }
 
-BOOL SLAgglomerateEng::VetWord(SLAgglomerateEng *this, SLToken *a2)
+uint64_t SLAgglomerateEng::VetWord(SLAgglomerateEng *this, SLToken *a2)
 {
   v2 = *(a2 + 10);
   if (*(a2 + 11) == v2)
@@ -4137,7 +4014,7 @@ void sub_26B2FFE3C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void SLPhonTranslatorImpl::Map(SLPhonTranslatorImpl *this, uint64_t a2, const void *a3, unint64_t a4, void *a5)
+void SLPhonTranslatorImpl::Map(SLPhonTranslatorImpl *this, uint64_t a2, const void *a3, uint64_t a4, void *a5)
 {
   __p[0] = 0;
   __p[1] = 0;
@@ -4355,7 +4232,7 @@ LABEL_9:
   }
 }
 
-float PushMapHypothesis(void *a1, __int128 *a2, uint64_t a3, _BYTE *a4)
+float PushMapHypothesis(void *a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   v6 = a1[1] - *a1;
   if (v6)
@@ -4377,13 +4254,13 @@ float PushMapHypothesis(void *a1, __int128 *a2, uint64_t a3, _BYTE *a4)
     }
 
     result = *v8;
-    if (*v8 < *(a2 + 8))
+    if (*v8 < *(a2 + 32))
     {
-      v11 = *(a2 + 2);
-      v10 = *(a2 + 3);
+      v11 = *(a2 + 16);
+      v10 = *(a2 + 24);
       *(v8 - 2) = v11;
       memcpy(*(v8 - 1), v10, v11);
-      result = *(a2 + 8);
+      result = *(a2 + 32);
       *v8 = result;
     }
   }
@@ -4393,9 +4270,6 @@ float PushMapHypothesis(void *a1, __int128 *a2, uint64_t a3, _BYTE *a4)
 LABEL_7:
     if ((*a4 & 1) == 0)
     {
-      v12 = *a2;
-      v13 = a2[1];
-      v14 = a2[2];
       operator new[]();
     }
 
@@ -4520,9 +4394,10 @@ LABEL_2:
       {
 LABEL_116:
         v33 = this;
+        v34 = 32;
 LABEL_117:
 
-        SLLexerInstance::CreateToken(v33);
+        SLLexerInstance::CreateToken(v33, v34, 0);
       }
 
       v28 = v2[2];
@@ -4556,11 +4431,11 @@ LABEL_109:
 
       if ((v3 >> 10) >= 0x37u)
       {
-        v35 = v2[1];
-        v34 = v2 + 1;
-        *(this + 3) = v34;
-        v18 = v34;
-        if ((SLChar::sLexFold[v35 & 0x3F | (SLChar::sUniMap[v35 >> 6] << 6)] + v35) >> 10 != 55)
+        v36 = v2[1];
+        v35 = v2 + 1;
+        *(this + 3) = v35;
+        v18 = v35;
+        if ((SLChar::sLexFold[v36 & 0x3F | (SLChar::sUniMap[v36 >> 6] << 6)] + v36) >> 10 != 55)
         {
           goto LABEL_111;
         }
@@ -4602,34 +4477,34 @@ LABEL_109:
                 if (v16 == 56385)
                 {
                   v25 = v2 + 2;
-                  v43 = v2[2];
+                  v44 = v2[2];
                   *(this + 3) = v2 + 2;
                   *(this + 6) = v2 + 2;
-                  if ((SLChar::sLexFold[v43 & 0x3F | (SLChar::sUniMap[v43 >> 6] << 6)] + v43) != 8205)
+                  if ((SLChar::sLexFold[v44 & 0x3F | (SLChar::sUniMap[v44 >> 6] << 6)] + v44) != 8205)
                   {
                     goto LABEL_116;
                   }
 
-                  v44 = v2[3];
+                  v45 = v2[3];
                   *(this + 3) = v2 + 3;
-                  if ((SLChar::sLexFold[v44 & 0x3F | (SLChar::sUniMap[v44 >> 6] << 6)] + v44) != 55357)
+                  if ((SLChar::sLexFold[v45 & 0x3F | (SLChar::sUniMap[v45 >> 6] << 6)] + v45) != 55357)
                   {
                     goto LABEL_91;
                   }
 
-                  v46 = v2[4];
-                  v45 = v2 + 4;
-                  *(this + 3) = v45;
-                  v47 = SLChar::sLexFold[v46 & 0x3F | (SLChar::sUniMap[v46 >> 6] << 6)] + v46;
-                  v48 = 56808;
+                  v47 = v2[4];
+                  v46 = v2 + 4;
+                  *(this + 3) = v46;
+                  v48 = SLChar::sLexFold[v47 & 0x3F | (SLChar::sUniMap[v47 >> 6] << 6)] + v47;
+                  v49 = 56808;
 LABEL_158:
-                  v49 = v48 == v47;
+                  v50 = v49 == v48;
                   goto LABEL_159;
                 }
 
-                v38 = 56388;
+                v39 = 56388;
 LABEL_189:
-                if (v38 > v16)
+                if (v39 > v16)
                 {
                   goto LABEL_190;
                 }
@@ -4643,7 +4518,7 @@ LABEL_115:
 
               if (v16 <= 0xDC65u)
               {
-                v38 = 56401;
+                v39 = 56401;
                 goto LABEL_189;
               }
 
@@ -4653,28 +4528,28 @@ LABEL_115:
               }
 
               v25 = v2 + 2;
-              v50 = v2[2];
+              v51 = v2[2];
               *(this + 3) = v2 + 2;
               *(this + 6) = v2 + 2;
-              v51 = SLChar::sLexFold[v50 & 0x3F | (SLChar::sUniMap[v50 >> 6] << 6)] + v50;
+              v52 = SLChar::sLexFold[v51 & 0x3F | (SLChar::sUniMap[v51 >> 6] << 6)] + v51;
               if (v16 == 56425)
               {
-                v52 = v51;
-                if (v51 == 8205)
+                v53 = v52;
+                if (v52 == 8205)
                 {
-                  v53 = v2[3];
+                  v54 = v2[3];
                   *(this + 3) = v2 + 3;
-                  v54 = (SLChar::sLexFold[v53 & 0x3F | (SLChar::sUniMap[v53 >> 6] << 6)] + v53);
-                  if (v54 != 10084)
+                  v55 = (SLChar::sLexFold[v54 & 0x3F | (SLChar::sUniMap[v54 >> 6] << 6)] + v54);
+                  if (v55 != 10084)
                   {
-                    if (v54 != 55357)
+                    if (v55 != 55357)
                     {
                       goto LABEL_91;
                     }
 
-                    v55 = v2[4];
+                    v56 = v2[4];
                     *(this + 3) = v2 + 4;
-                    if ((SLChar::sLexFold[v55 & 0x3F | (SLChar::sUniMap[v55 >> 6] << 6)] + v55) != 56425)
+                    if ((SLChar::sLexFold[v56 & 0x3F | (SLChar::sUniMap[v56 >> 6] << 6)] + v56) != 56425)
                     {
                       goto LABEL_91;
                     }
@@ -4688,107 +4563,107 @@ LABEL_115:
 
               else
               {
-                v52 = v51;
-                if (v51 == 8205)
+                v53 = v52;
+                if (v52 == 8205)
                 {
-                  v64 = v2[3];
+                  v65 = v2[3];
                   *(this + 3) = v2 + 3;
-                  v65 = (SLChar::sLexFold[v64 & 0x3F | (SLChar::sUniMap[v64 >> 6] << 6)] + v64);
-                  if (v65 != 10084)
+                  v66 = (SLChar::sLexFold[v65 & 0x3F | (SLChar::sUniMap[v65 >> 6] << 6)] + v65);
+                  if (v66 != 10084)
                   {
-                    if (v65 != 55357)
+                    if (v66 != 55357)
                     {
                       goto LABEL_91;
                     }
 
-                    v66 = v2[4];
+                    v67 = v2[4];
                     *(this + 3) = v2 + 4;
-                    v67 = v66 + 9110 + SLChar::sLexFold[v66 & 0x3F | (SLChar::sUniMap[v66 >> 6] << 6)];
-                    if (v67 != 65534 && v67 != 0xFFFF)
+                    v68 = v67 + 9110 + SLChar::sLexFold[v67 & 0x3F | (SLChar::sUniMap[v67 >> 6] << 6)];
+                    if (v68 != 65534 && v68 != 0xFFFF)
                     {
                       goto LABEL_91;
                     }
 
 LABEL_198:
-                    v68 = v2[5];
+                    v69 = v2[5];
                     *(this + 3) = v2 + 5;
-                    if ((SLChar::sLexFold[v68 & 0x3F | (SLChar::sUniMap[v68 >> 6] << 6)] + v68) != 8205)
+                    if ((SLChar::sLexFold[v69 & 0x3F | (SLChar::sUniMap[v69 >> 6] << 6)] + v69) != 8205)
                     {
                       goto LABEL_91;
                     }
 
-                    v69 = v2[6];
+                    v70 = v2[6];
                     *(this + 3) = v2 + 6;
-                    if ((SLChar::sLexFold[v69 & 0x3F | (SLChar::sUniMap[v69 >> 6] << 6)] + v69) != 55357)
+                    if ((SLChar::sLexFold[v70 & 0x3F | (SLChar::sUniMap[v70 >> 6] << 6)] + v70) != 55357)
                     {
                       goto LABEL_91;
                     }
 
-                    v70 = v2[7];
+                    v71 = v2[7];
                     *(this + 3) = v2 + 7;
-                    v71 = SLChar::sLexFold[v70 & 0x3F | (SLChar::sUniMap[v70 >> 6] << 6)] + v70;
-                    if (v71 < 0xDC66u)
+                    v72 = SLChar::sLexFold[v71 & 0x3F | (SLChar::sUniMap[v71 >> 6] << 6)] + v71;
+                    if (v72 < 0xDC66u)
                     {
                       goto LABEL_91;
                     }
 
-                    if (v71 == 56422)
+                    if (v72 == 56422)
                     {
                       v25 = v2 + 8;
-                      v72 = v2[8];
+                      v73 = v2[8];
                       *(this + 3) = v2 + 8;
                       *(this + 6) = v2 + 8;
-                      if ((SLChar::sLexFold[v72 & 0x3F | (SLChar::sUniMap[v72 >> 6] << 6)] + v72) != 8205)
+                      if ((SLChar::sLexFold[v73 & 0x3F | (SLChar::sUniMap[v73 >> 6] << 6)] + v73) != 8205)
                       {
                         goto LABEL_116;
                       }
 
-                      v73 = v2[9];
+                      v74 = v2[9];
                       *(this + 3) = v2 + 9;
-                      if ((SLChar::sLexFold[v73 & 0x3F | (SLChar::sUniMap[v73 >> 6] << 6)] + v73) != 55357)
+                      if ((SLChar::sLexFold[v74 & 0x3F | (SLChar::sUniMap[v74 >> 6] << 6)] + v74) != 55357)
                       {
                         goto LABEL_91;
                       }
 
-                      v74 = v2[10];
-                      v45 = v2 + 10;
-                      *(this + 3) = v45;
-                      v47 = SLChar::sLexFold[v74 & 0x3F | (SLChar::sUniMap[v74 >> 6] << 6)] + v74;
-                      v48 = 56422;
+                      v75 = v2[10];
+                      v46 = v2 + 10;
+                      *(this + 3) = v46;
+                      v48 = SLChar::sLexFold[v75 & 0x3F | (SLChar::sUniMap[v75 >> 6] << 6)] + v75;
+                      v49 = 56422;
                       goto LABEL_158;
                     }
 
-                    if (v71 >= 0xDC68u)
+                    if (v72 >= 0xDC68u)
                     {
                       goto LABEL_91;
                     }
 
                     v25 = v2 + 8;
-                    v85 = v2[8];
+                    v86 = v2[8];
                     *(this + 3) = v2 + 8;
                     *(this + 6) = v2 + 8;
-                    if ((SLChar::sLexFold[v85 & 0x3F | (SLChar::sUniMap[v85 >> 6] << 6)] + v85) != 8205)
+                    if ((SLChar::sLexFold[v86 & 0x3F | (SLChar::sUniMap[v86 >> 6] << 6)] + v86) != 8205)
                     {
                       goto LABEL_116;
                     }
 
-                    v86 = v2[9];
+                    v87 = v2[9];
                     *(this + 3) = v2 + 9;
-                    if ((SLChar::sLexFold[v86 & 0x3F | (SLChar::sUniMap[v86 >> 6] << 6)] + v86) != 55357)
+                    if ((SLChar::sLexFold[v87 & 0x3F | (SLChar::sUniMap[v87 >> 6] << 6)] + v87) != 55357)
                     {
                       goto LABEL_91;
                     }
 
-                    v87 = v2[10];
-                    v45 = v2 + 10;
-                    *(this + 3) = v45;
-                    v83 = (SLChar::sLexFold[v87 & 0x3F | (SLChar::sUniMap[v87 >> 6] << 6)] + v87) & 0xFFFE;
-                    v84 = 28211;
+                    v88 = v2[10];
+                    v46 = v2 + 10;
+                    *(this + 3) = v46;
+                    v84 = (SLChar::sLexFold[v88 & 0x3F | (SLChar::sUniMap[v88 >> 6] << 6)] + v88) & 0xFFFE;
+                    v85 = 28211;
 LABEL_218:
-                    v49 = v84 == v83 >> 1;
+                    v50 = v85 == v84 >> 1;
 LABEL_159:
-                    v18 = v45;
-                    if (v49)
+                    v18 = v46;
+                    if (v50)
                     {
                       goto LABEL_114;
                     }
@@ -4797,84 +4672,84 @@ LABEL_159:
                   }
 
 LABEL_205:
-                  v75 = v2[4];
+                  v76 = v2[4];
                   *(this + 3) = v2 + 4;
-                  if ((SLChar::sLexFold[v75 & 0x3F | (SLChar::sUniMap[v75 >> 6] << 6)] + v75) != 65039)
+                  if ((SLChar::sLexFold[v76 & 0x3F | (SLChar::sUniMap[v76 >> 6] << 6)] + v76) != 65039)
                   {
                     goto LABEL_91;
                   }
 
-                  v76 = v2[5];
+                  v77 = v2[5];
                   *(this + 3) = v2 + 5;
-                  if ((SLChar::sLexFold[v76 & 0x3F | (SLChar::sUniMap[v76 >> 6] << 6)] + v76) != 8205)
+                  if ((SLChar::sLexFold[v77 & 0x3F | (SLChar::sUniMap[v77 >> 6] << 6)] + v77) != 8205)
                   {
                     goto LABEL_91;
                   }
 
-                  v77 = v2[6];
+                  v78 = v2[6];
                   *(this + 3) = v2 + 6;
-                  if ((SLChar::sLexFold[v77 & 0x3F | (SLChar::sUniMap[v77 >> 6] << 6)] + v77) != 55357)
+                  if ((SLChar::sLexFold[v78 & 0x3F | (SLChar::sUniMap[v78 >> 6] << 6)] + v78) != 55357)
                   {
                     goto LABEL_91;
                   }
 
                   v18 = v2 + 7;
-                  v78 = v2[7];
+                  v79 = v2[7];
                   *(this + 3) = v2 + 7;
-                  v79 = SLChar::sLexFold[v78 & 0x3F | (SLChar::sUniMap[v78 >> 6] << 6)] + v78;
-                  if (v79 < 0xDC68u)
+                  v80 = SLChar::sLexFold[v79 & 0x3F | (SLChar::sUniMap[v79 >> 6] << 6)] + v79;
+                  if (v80 < 0xDC68u)
                   {
                     goto LABEL_91;
                   }
 
-                  if (v79 < 0xDC6Au)
+                  if (v80 < 0xDC6Au)
                   {
                     goto LABEL_114;
                   }
 
-                  if (v79 != 56459)
+                  if (v80 != 56459)
                   {
                     goto LABEL_91;
                   }
 
-                  v80 = v2[8];
+                  v81 = v2[8];
                   *(this + 3) = v2 + 8;
-                  if ((SLChar::sLexFold[v80 & 0x3F | (SLChar::sUniMap[v80 >> 6] << 6)] + v80) != 8205)
+                  if ((SLChar::sLexFold[v81 & 0x3F | (SLChar::sUniMap[v81 >> 6] << 6)] + v81) != 8205)
                   {
                     goto LABEL_91;
                   }
 
-                  v81 = v2[9];
+                  v82 = v2[9];
                   *(this + 3) = v2 + 9;
-                  if ((SLChar::sLexFold[v81 & 0x3F | (SLChar::sUniMap[v81 >> 6] << 6)] + v81) != 55357)
+                  if ((SLChar::sLexFold[v82 & 0x3F | (SLChar::sUniMap[v82 >> 6] << 6)] + v82) != 55357)
                   {
                     goto LABEL_91;
                   }
 
-                  v82 = v2[10];
-                  v45 = v2 + 10;
-                  *(this + 3) = v45;
-                  v83 = (SLChar::sLexFold[v82 & 0x3F | (SLChar::sUniMap[v82 >> 6] << 6)] + v82) & 0xFFFE;
-                  v84 = 28212;
+                  v83 = v2[10];
+                  v46 = v2 + 10;
+                  *(this + 3) = v46;
+                  v84 = (SLChar::sLexFold[v83 & 0x3F | (SLChar::sUniMap[v83 >> 6] << 6)] + v83) & 0xFFFE;
+                  v85 = 28212;
                   goto LABEL_218;
                 }
               }
 
-              if (v52 != 55356)
+              if (v53 != 55356)
               {
                 goto LABEL_116;
               }
 
 LABEL_191:
-              v63 = v2[3];
+              v64 = v2[3];
               v2 += 3;
-              v27 = v63;
+              v27 = v64;
               goto LABEL_90;
             }
 
             if (v16 <= 0xDC7Bu)
             {
-              v36 = v16 == 56430;
+              v37 = v16 == 56430;
               if (v16 > 0xDC6Eu)
               {
                 if (v16 == 56431)
@@ -4882,7 +4757,7 @@ LABEL_191:
                   goto LABEL_98;
                 }
 
-                v38 = 56441;
+                v39 = 56441;
                 goto LABEL_189;
               }
 
@@ -4891,7 +4766,7 @@ LABEL_191:
 
             if (v16 <= 0xDC80u)
             {
-              v37 = 56444;
+              v38 = 56444;
               goto LABEL_163;
             }
 
@@ -4902,10 +4777,10 @@ LABEL_191:
 
 LABEL_190:
             v25 = v2 + 2;
-            v62 = v2[2];
+            v63 = v2[2];
             *(this + 3) = v2 + 2;
             *(this + 6) = v2 + 2;
-            if ((SLChar::sLexFold[v62 & 0x3F | (SLChar::sUniMap[v62 >> 6] << 6)] + v62) != 55356)
+            if ((SLChar::sLexFold[v63 & 0x3F | (SLChar::sUniMap[v63 >> 6] << 6)] + v63) != 55356)
             {
               goto LABEL_116;
             }
@@ -4917,17 +4792,17 @@ LABEL_190:
           {
             if ((v16 >> 4) <= 0xDD8u)
             {
-              v36 = v16 == 56490;
+              v37 = v16 == 56490;
               if (v16 <= 0xDCAAu)
               {
                 goto LABEL_164;
               }
 
-              v37 = 56693;
+              v38 = 56693;
 LABEL_163:
-              v36 = v37 == v16;
+              v37 = v38 == v16;
 LABEL_164:
-              if (!v36)
+              if (!v37)
               {
                 goto LABEL_98;
               }
@@ -4937,7 +4812,7 @@ LABEL_164:
 
             if (v16 <= 0xDD94u)
             {
-              v37 = 56720;
+              v38 = 56720;
               goto LABEL_163;
             }
 
@@ -4946,9 +4821,9 @@ LABEL_164:
               goto LABEL_190;
             }
 
-            v42 = 56901;
+            v43 = 56901;
 LABEL_176:
-            if (v42 > v16)
+            if (v43 > v16)
             {
               goto LABEL_98;
             }
@@ -4960,51 +4835,51 @@ LABEL_176:
           {
             if ((v16 >> 4) > 0xDE4u)
             {
-              v37 = 56995;
+              v38 = 56995;
               goto LABEL_163;
             }
 
-            v42 = 56907;
+            v43 = 56907;
             goto LABEL_176;
           }
 
           if ((v16 >> 6) <= 0x37Au)
           {
-            v38 = 57015;
+            v39 = 57015;
             goto LABEL_189;
           }
 
           if (v16 == 57024)
           {
             v25 = v2 + 2;
-            v56 = v2[2];
+            v57 = v2[2];
             *(this + 3) = v2 + 2;
             *(this + 6) = v2 + 2;
-            if ((SLChar::sLexFold[v56 & 0x3F | (SLChar::sUniMap[v56 >> 6] << 6)] + v56) != 55356)
+            if ((SLChar::sLexFold[v57 & 0x3F | (SLChar::sUniMap[v57 >> 6] << 6)] + v57) != 55356)
             {
               goto LABEL_116;
             }
 
-            v57 = v2[3];
+            v58 = v2[3];
             *(this + 3) = v2 + 3;
-            if ((v57 + SLChar::sLexFold[v57 & 0x3F | (SLChar::sUniMap[v57 >> 6] << 6)] + 0x2000) >= 0xFFFBu)
+            if ((v58 + SLChar::sLexFold[v58 & 0x3F | (SLChar::sUniMap[v58 >> 6] << 6)] + 0x2000) >= 0xFFFBu)
             {
-              v58 = v2[4];
+              v59 = v2[4];
               *(this + 3) = v2 + 4;
-              if ((SLChar::sLexFold[v58 & 0x3F | (SLChar::sUniMap[v58 >> 6] << 6)] + v58) == 55358)
+              if ((SLChar::sLexFold[v59 & 0x3F | (SLChar::sUniMap[v59 >> 6] << 6)] + v59) == 55358)
               {
-                v59 = v2[5];
+                v60 = v2[5];
                 *(this + 3) = v2 + 5;
-                if ((SLChar::sLexFold[v59 & 0x3F | (SLChar::sUniMap[v59 >> 6] << 6)] + v59) == 56600)
+                if ((SLChar::sLexFold[v60 & 0x3F | (SLChar::sUniMap[v60 >> 6] << 6)] + v60) == 56600)
                 {
-                  v60 = v2[6];
+                  v61 = v2[6];
                   *(this + 3) = v2 + 6;
-                  if ((SLChar::sLexFold[v60 & 0x3F | (SLChar::sUniMap[v60 >> 6] << 6)] + v60) == 55356)
+                  if ((SLChar::sLexFold[v61 & 0x3F | (SLChar::sUniMap[v61 >> 6] << 6)] + v61) == 55356)
                   {
-                    v61 = v2[7];
+                    v62 = v2[7];
                     v2 += 7;
                     *(this + 3) = v2;
-                    if ((v61 + SLChar::sLexFold[v61 & 0x3F | (SLChar::sUniMap[v61 >> 6] << 6)] + 0x2000) >= 0xFFFBu)
+                    if ((v62 + SLChar::sLexFold[v62 & 0x3F | (SLChar::sUniMap[v62 >> 6] << 6)] + 0x2000) >= 0xFFFBu)
                     {
                       goto LABEL_109;
                     }
@@ -5034,19 +4909,19 @@ LABEL_176:
             if ((v16 >> 9) < 0x6Fu)
             {
               v25 = v2 + 2;
-              v39 = v2[2];
+              v40 = v2[2];
               *(this + 3) = v2 + 2;
               *(this + 6) = v2 + 2;
-              if ((SLChar::sLexFold[v39 & 0x3F | (SLChar::sUniMap[v39 >> 6] << 6)] + v39) != 55356)
+              if ((SLChar::sLexFold[v40 & 0x3F | (SLChar::sUniMap[v40 >> 6] << 6)] + v40) != 55356)
               {
                 goto LABEL_116;
               }
 
-              v41 = v2[3];
-              v40 = v2 + 3;
-              *(this + 3) = v40;
-              v18 = v40;
-              if ((v41 + 8730 + SLChar::sLexFold[v41 & 0x3F | (SLChar::sUniMap[v41 >> 6] << 6)]) < 0x1Au)
+              v42 = v2[3];
+              v41 = v2 + 3;
+              *(this + 3) = v41;
+              v18 = v41;
+              if ((v42 + 8730 + SLChar::sLexFold[v42 & 0x3F | (SLChar::sUniMap[v42 >> 6] << 6)]) < 0x1Au)
               {
                 goto LABEL_114;
               }
@@ -5054,7 +4929,7 @@ LABEL_176:
               goto LABEL_91;
             }
 
-            v37 = 57221;
+            v38 = 57221;
             goto LABEL_163;
           }
 
@@ -5235,6 +5110,7 @@ LABEL_75:
           *(this + 3) = v11;
 LABEL_111:
           v33 = this;
+          v34 = 11;
           goto LABEL_117;
         }
 
@@ -5284,7 +5160,7 @@ LABEL_114:
             goto LABEL_219;
           }
 
-          v89 = v20 == 176;
+          v90 = v20 == 176;
           goto LABEL_237;
         }
 
@@ -5307,10 +5183,10 @@ LABEL_221:
 
       if (v20 > 0xC6u)
       {
-        v89 = v20 == 224;
+        v90 = v20 == 224;
         if (v20 > 0xE0u)
         {
-          v89 = v20 == 230;
+          v90 = v20 == 230;
         }
       }
 
@@ -5321,11 +5197,11 @@ LABEL_221:
           goto LABEL_219;
         }
 
-        v89 = v20 == 198;
+        v90 = v20 == 198;
       }
 
 LABEL_237:
-      if (!v89)
+      if (!v90)
       {
         goto LABEL_111;
       }
@@ -6341,35 +6217,49 @@ LABEL_174:
 
 uint64_t SLLexerImpl::SimpleCommand(unsigned __int16 **this, unsigned int a2, unsigned int a3)
 {
-  v5 = 0;
-  v6 = a2;
+  v6 = 0;
+  v7 = a2;
   if (a3 < 2)
   {
-    if (!SLLexerImpl::ScanWhole(this, &v5, a3 == 1))
+    v4 = a2;
+    if (!SLLexerImpl::ScanWhole(this, &v6, a3 == 1))
     {
       return 0;
     }
 
-LABEL_5:
-    SLLexerInstance::CreateCommandToken(this);
+LABEL_6:
+    SLLexerInstance::CreateCommandToken(this, v4, v6);
   }
 
-  if (SLLexerImpl::ScanFixed(this, &v5, &v6, a3 == 2))
+  if (SLLexerImpl::ScanFixed(this, &v6, &v7, a3 == 2))
   {
-    goto LABEL_5;
+    v4 = v7;
+    goto LABEL_6;
   }
 
   return 0;
 }
 
-uint64_t SLLexerImpl::ToBICommand(SLLexerImpl *this)
+uint64_t SLLexerImpl::ToBICommand(SLLexerImpl *this, int a2)
 {
-  v3 = 0;
+  v6 = 0;
   SLLexerImpl::SkipSpaces(this);
-  if ((**(this + 3) + SLChar::sLexFold[**(this + 3) & 0x3F | (SLChar::sUniMap[**(this + 3) >> 6] << 6)] - 48) > 9u || SLLexerImpl::ScanFixed(this, &v3, 0, 0))
+  v4 = 0;
+  if ((**(this + 3) + SLChar::sLexFold[**(this + 3) & 0x3F | (SLChar::sUniMap[**(this + 3) >> 6] << 6)] - 48) > 9u)
   {
+LABEL_4:
+    if (v4 >= 0xFFFFFF)
+    {
+      v4 = 0xFFFFFF;
+    }
 
-    SLLexerInstance::CreateCommandToken(this);
+    SLLexerInstance::CreateCommandToken(this, 1953456745, v4 | (a2 << 24));
+  }
+
+  if (SLLexerImpl::ScanFixed(this, &v6, 0, 0))
+  {
+    v4 = v6;
+    goto LABEL_4;
   }
 
   return 0;
@@ -6741,22 +6631,22 @@ LABEL_446:
                   if (v142 == 8239)
                   {
 LABEL_458:
-                    v297 = 0;
-                    v143 = SLLexerImpl::SpaceDelimitedToken(this, (*(this + 8) + 10), v140, &v297);
+                    v300 = 0;
+                    v143 = SLLexerImpl::SpaceDelimitedToken(this, (*(this + 8) + 10), v140, &v300);
                     v144 = 0;
                     *(this + 8) = v143;
                     *(this + 52) = *v143;
-                    v145 = v297;
-                    if (v297 >= 2)
+                    v145 = v300;
+                    if (v300 >= 2)
                     {
                       v144 = v143[1];
                     }
 
                     *(this + 53) = v144;
-                    v146 = SLLexerImpl::SpaceDelimitedToken(this, &v143[v145 + 1], *(this + 3), &v297);
+                    v146 = SLLexerImpl::SpaceDelimitedToken(this, &v143[v145 + 1], *(this + 3), &v300);
                     *(this + 8) = v146;
                     *(this + 54) = *v146;
-                    if (v297 < 2)
+                    if (v300 < 2)
                     {
                       v147 = 0;
                     }
@@ -7623,32 +7513,32 @@ LABEL_714:
 
                   if (v15 > 0x20u)
                   {
-                    v248 = (SLChar::sLexFold[*v13 & 0x3F | (SLChar::sUniMap[*v13 >> 6] << 6)] + *v13) == 80;
+                    v249 = (SLChar::sLexFold[*v13 & 0x3F | (SLChar::sUniMap[*v13 >> 6] << 6)] + *v13) == 80;
                     if ((SLChar::sLexFold[*v13 & 0x3F | (SLChar::sUniMap[*v13 >> 6] << 6)] + *v13) <= 0x50u)
                     {
 LABEL_733:
-                      if (!v248)
+                      if (!v249)
                       {
                         goto LABEL_816;
                       }
 
-                      v251 = v13[1];
+                      v252 = v13[1];
                       *(this + 3) = v13 + 1;
-                      if (((SLChar::sLexFold[v251 & 0x3F | (SLChar::sUniMap[v251 >> 6] << 6)] + v251) & 0xFFDF) != 0x48)
+                      if (((SLChar::sLexFold[v252 & 0x3F | (SLChar::sUniMap[v252 >> 6] << 6)] + v252) & 0xFFDF) != 0x48)
                       {
                         goto LABEL_816;
                       }
 
-                      v252 = v13[2];
+                      v253 = v13[2];
                       *(this + 3) = v13 + 2;
-                      if (((SLChar::sLexFold[v252 & 0x3F | (SLChar::sUniMap[v252 >> 6] << 6)] + v252) & 0xFFDF) != 0x4F)
+                      if (((SLChar::sLexFold[v253 & 0x3F | (SLChar::sUniMap[v253 >> 6] << 6)] + v253) & 0xFFDF) != 0x4F)
                       {
                         goto LABEL_816;
                       }
 
-                      v253 = v13[3];
+                      v254 = v13[3];
                       *(this + 3) = v13 + 3;
-                      if (((SLChar::sLexFold[v253 & 0x3F | (SLChar::sUniMap[v253 >> 6] << 6)] + v253) & 0xFFDF) != 0x4E)
+                      if (((SLChar::sLexFold[v254 & 0x3F | (SLChar::sUniMap[v254 >> 6] << 6)] + v254) & 0xFFDF) != 0x4E)
                       {
                         goto LABEL_816;
                       }
@@ -7666,23 +7556,23 @@ LABEL_733:
                     if ((SLChar::sLexFold[*v13 & 0x3F | (SLChar::sUniMap[*v13 >> 6] << 6)] + *v13) != 84)
                     {
 LABEL_741:
-                      v254 = v13[1];
+                      v255 = v13[1];
                       *(this + 3) = v13 + 1;
-                      if (((SLChar::sLexFold[v254 & 0x3F | (SLChar::sUniMap[v254 >> 6] << 6)] + v254) & 0xFFDF) != 0x4F)
+                      if (((SLChar::sLexFold[v255 & 0x3F | (SLChar::sUniMap[v255 >> 6] << 6)] + v255) & 0xFFDF) != 0x4F)
                       {
                         goto LABEL_816;
                       }
 
-                      v255 = v13[2];
+                      v256 = v13[2];
                       *(this + 3) = v13 + 2;
-                      if (((SLChar::sLexFold[v255 & 0x3F | (SLChar::sUniMap[v255 >> 6] << 6)] + v255) & 0xFFDF) != 0x4E)
+                      if (((SLChar::sLexFold[v256 & 0x3F | (SLChar::sUniMap[v256 >> 6] << 6)] + v256) & 0xFFDF) != 0x4E)
                       {
                         goto LABEL_816;
                       }
 
-                      v256 = v13[3];
+                      v257 = v13[3];
                       *(this + 3) = v13 + 3;
-                      if (((SLChar::sLexFold[v256 & 0x3F | (SLChar::sUniMap[v256 >> 6] << 6)] + v256) & 0xFFDF) != 0x47)
+                      if (((SLChar::sLexFold[v257 & 0x3F | (SLChar::sUniMap[v257 >> 6] << 6)] + v257) & 0xFFDF) != 0x47)
                       {
                         goto LABEL_816;
                       }
@@ -7693,29 +7583,29 @@ LABEL_741:
                     }
 
 LABEL_728:
-                    v249 = v13[1];
+                    v250 = v13[1];
                     *(this + 3) = v13 + 1;
-                    v250 = SLChar::sLexFold[v249 & 0x3F | (SLChar::sUniMap[v249 >> 6] << 6)] + v249;
-                    if (v250 > 0x55u)
+                    v251 = SLChar::sLexFold[v250 & 0x3F | (SLChar::sUniMap[v250 >> 6] << 6)] + v250;
+                    if (v251 > 0x55u)
                     {
-                      if (v250 > 0x65u)
+                      if (v251 > 0x65u)
                       {
-                        if (v250 != 117)
+                        if (v251 != 117)
                         {
                           goto LABEL_816;
                         }
 
 LABEL_751:
-                        v259 = v13[2];
+                        v260 = v13[2];
                         *(this + 3) = v13 + 2;
-                        if (((SLChar::sLexFold[v259 & 0x3F | (SLChar::sUniMap[v259 >> 6] << 6)] + v259) & 0xFFDF) != 0x4E)
+                        if (((SLChar::sLexFold[v260 & 0x3F | (SLChar::sUniMap[v260 >> 6] << 6)] + v260) & 0xFFDF) != 0x4E)
                         {
                           goto LABEL_816;
                         }
 
-                        v260 = v13[3];
+                        v261 = v13[3];
                         *(this + 3) = v13 + 3;
-                        if (((SLChar::sLexFold[v260 & 0x3F | (SLChar::sUniMap[v260 >> 6] << 6)] + v260) & 0xFFDF) != 0x45)
+                        if (((SLChar::sLexFold[v261 & 0x3F | (SLChar::sUniMap[v261 >> 6] << 6)] + v261) & 0xFFDF) != 0x45)
                         {
                           goto LABEL_816;
                         }
@@ -7725,15 +7615,15 @@ LABEL_751:
                         goto LABEL_831;
                       }
 
-                      if (v250 != 101)
+                      if (v251 != 101)
                       {
                         goto LABEL_816;
                       }
                     }
 
-                    else if (v250 != 69)
+                    else if (v251 != 69)
                     {
-                      if (v250 != 85)
+                      if (v251 != 85)
                       {
                         goto LABEL_816;
                       }
@@ -7741,16 +7631,16 @@ LABEL_751:
                       goto LABEL_751;
                     }
 
-                    v257 = v13[2];
+                    v258 = v13[2];
                     *(this + 3) = v13 + 2;
-                    if (((SLChar::sLexFold[v257 & 0x3F | (SLChar::sUniMap[v257 >> 6] << 6)] + v257) & 0xFFDF) != 0x58)
+                    if (((SLChar::sLexFold[v258 & 0x3F | (SLChar::sUniMap[v258 >> 6] << 6)] + v258) & 0xFFDF) != 0x58)
                     {
                       goto LABEL_816;
                     }
 
-                    v258 = v13[3];
+                    v259 = v13[3];
                     *(this + 3) = v13 + 3;
-                    if (((SLChar::sLexFold[v258 & 0x3F | (SLChar::sUniMap[v258 >> 6] << 6)] + v258) & 0xFFDF) != 0x54)
+                    if (((SLChar::sLexFold[v259 & 0x3F | (SLChar::sUniMap[v259 >> 6] << 6)] + v259) & 0xFFDF) != 0x54)
                     {
                       goto LABEL_816;
                     }
@@ -7760,17 +7650,17 @@ LABEL_751:
                     goto LABEL_831;
                   }
 
-                  v247 = (SLChar::sLexFold[*v13 & 0x3F | (SLChar::sUniMap[*v13 >> 6] << 6)] + *v13);
-                  if (v247 != 9)
+                  v248 = (SLChar::sLexFold[*v13 & 0x3F | (SLChar::sUniMap[*v13 >> 6] << 6)] + *v13);
+                  if (v248 != 9)
                   {
-                    v16 = v247 == 32;
+                    v16 = v248 == 32;
                     goto LABEL_723;
                   }
                 }
 
                 if (v15 <= 0x74u)
                 {
-                  v248 = (SLChar::sLexFold[*v13 & 0x3F | (SLChar::sUniMap[*v13 >> 6] << 6)] + *v13) == 112;
+                  v249 = (SLChar::sLexFold[*v13 & 0x3F | (SLChar::sUniMap[*v13 >> 6] << 6)] + *v13) == 112;
                   if ((SLChar::sLexFold[*v13 & 0x3F | (SLChar::sUniMap[*v13 >> 6] << 6)] + *v13) <= 0x70u)
                   {
                     goto LABEL_733;
@@ -8075,40 +7965,40 @@ LABEL_690:
                 }
 
                 v53 = SLChar::sLexFold[*v51 & 0x3F | (SLChar::sUniMap[*v51 >> 6] << 6)] + *v51;
-                v238 = v53;
+                v239 = v53;
                 if (v53 > 0x4Eu)
                 {
                   break;
                 }
 
-                v239 = (SLChar::sLexFold[*v51 & 0x3F | (SLChar::sUniMap[*v51 >> 6] << 6)] + *v51);
-                if (v238 > 0x20)
+                v240 = (SLChar::sLexFold[*v51 & 0x3F | (SLChar::sUniMap[*v51 >> 6] << 6)] + *v51);
+                if (v239 > 0x20)
                 {
-                  if (v239 != 76)
+                  if (v240 != 76)
                   {
-                    if (v239 != 78)
+                    if (v240 != 78)
                     {
                       goto LABEL_816;
                     }
 
 LABEL_706:
-                    v241 = v51[1];
+                    v242 = v51[1];
                     *(this + 3) = v51 + 1;
-                    if (((SLChar::sLexFold[v241 & 0x3F | (SLChar::sUniMap[v241 >> 6] << 6)] + v241) & 0xFFDF) != 0x4F)
+                    if (((SLChar::sLexFold[v242 & 0x3F | (SLChar::sUniMap[v242 >> 6] << 6)] + v242) & 0xFFDF) != 0x4F)
                     {
                       goto LABEL_816;
                     }
 
-                    v242 = v51[2];
+                    v243 = v51[2];
                     *(this + 3) = v51 + 2;
-                    if (((SLChar::sLexFold[v242 & 0x3F | (SLChar::sUniMap[v242 >> 6] << 6)] + v242) & 0xFFDF) != 0x52)
+                    if (((SLChar::sLexFold[v243 & 0x3F | (SLChar::sUniMap[v243 >> 6] << 6)] + v243) & 0xFFDF) != 0x52)
                     {
                       goto LABEL_816;
                     }
 
-                    v243 = v51[3];
+                    v244 = v51[3];
                     *(this + 3) = v51 + 3;
-                    if (((SLChar::sLexFold[v243 & 0x3F | (SLChar::sUniMap[v243 >> 6] << 6)] + v243) & 0xFFDF) != 0x4D)
+                    if (((SLChar::sLexFold[v244 & 0x3F | (SLChar::sUniMap[v244 >> 6] << 6)] + v244) & 0xFFDF) != 0x4D)
                     {
                       goto LABEL_816;
                     }
@@ -8121,19 +8011,19 @@ LABEL_706:
                   goto LABEL_710;
                 }
 
-                if (v239 != 9)
+                if (v240 != 9)
                 {
-                  v54 = v239 == 32;
+                  v54 = v240 == 32;
                   goto LABEL_699;
                 }
               }
 
               if (v53 <= 0x6Eu)
               {
-                v240 = (SLChar::sLexFold[*v51 & 0x3F | (SLChar::sUniMap[*v51 >> 6] << 6)] + *v51);
-                if (v240 != 108)
+                v241 = (SLChar::sLexFold[*v51 & 0x3F | (SLChar::sUniMap[*v51 >> 6] << 6)] + *v51);
+                if (v241 != 108)
                 {
-                  if (v240 != 110)
+                  if (v241 != 110)
                   {
                     goto LABEL_816;
                   }
@@ -8142,23 +8032,23 @@ LABEL_706:
                 }
 
 LABEL_710:
-                v244 = v51[1];
+                v245 = v51[1];
                 *(this + 3) = v51 + 1;
-                if (((SLChar::sLexFold[v244 & 0x3F | (SLChar::sUniMap[v244 >> 6] << 6)] + v244) & 0xFFDF) != 0x54)
+                if (((SLChar::sLexFold[v245 & 0x3F | (SLChar::sUniMap[v245 >> 6] << 6)] + v245) & 0xFFDF) != 0x54)
                 {
                   goto LABEL_816;
                 }
 
-                v245 = v51[2];
+                v246 = v51[2];
                 *(this + 3) = v51 + 2;
-                if (((SLChar::sLexFold[v245 & 0x3F | (SLChar::sUniMap[v245 >> 6] << 6)] + v245) & 0xFFDF) != 0x52)
+                if (((SLChar::sLexFold[v246 & 0x3F | (SLChar::sUniMap[v246 >> 6] << 6)] + v246) & 0xFFDF) != 0x52)
                 {
                   goto LABEL_816;
                 }
 
-                v246 = v51[3];
+                v247 = v51[3];
                 *(this + 3) = v51 + 3;
-                if (((SLChar::sLexFold[v246 & 0x3F | (SLChar::sUniMap[v246 >> 6] << 6)] + v246) & 0xFFDF) != 0x4C)
+                if (((SLChar::sLexFold[v247 & 0x3F | (SLChar::sUniMap[v247 >> 6] << 6)] + v247) & 0xFFDF) != 0x4C)
                 {
                   goto LABEL_816;
                 }
@@ -8280,7 +8170,7 @@ LABEL_754:
                   }
 
                   v100 = SLChar::sLexFold[*v98 & 0x3F | (SLChar::sUniMap[*v98 >> 6] << 6)] + *v98;
-                  v261 = v100;
+                  v262 = v100;
                   if (v100 <= 0x57u)
                   {
                     break;
@@ -8288,27 +8178,27 @@ LABEL_754:
 
                   if (v100 <= 0x76u)
                   {
-                    v264 = (SLChar::sLexFold[*v98 & 0x3F | (SLChar::sUniMap[*v98 >> 6] << 6)] + *v98);
-                    v263 = v264 == 110;
-                    if (v264 <= 0x6E)
+                    v265 = (SLChar::sLexFold[*v98 & 0x3F | (SLChar::sUniMap[*v98 >> 6] << 6)] + *v98);
+                    v264 = v265 == 110;
+                    if (v265 <= 0x6E)
                     {
                       goto LABEL_771;
                     }
 
-                    if (v264 != 116)
+                    if (v265 != 116)
                     {
                       goto LABEL_816;
                     }
 
 LABEL_784:
-                    v270 = v98[1];
+                    v271 = v98[1];
                     *(this + 3) = v98 + 1;
-                    v271 = SLChar::sLexFold[v270 & 0x3F | (SLChar::sUniMap[v270 >> 6] << 6)] + v270;
-                    if (v271 > 0x53u)
+                    v272 = SLChar::sLexFold[v271 & 0x3F | (SLChar::sUniMap[v271 >> 6] << 6)] + v271;
+                    if (v272 > 0x53u)
                     {
-                      if (v271 > 0x65u)
+                      if (v272 > 0x65u)
                       {
-                        if (v271 != 115)
+                        if (v272 != 115)
                         {
                           goto LABEL_816;
                         }
@@ -8316,56 +8206,60 @@ LABEL_784:
                         goto LABEL_803;
                       }
 
-                      if (v271 != 101)
+                      if (v272 != 101)
                       {
                         goto LABEL_816;
                       }
                     }
 
-                    else if (v271 != 69)
+                    else if (v272 != 69)
                     {
-                      if (v271 != 83)
+                      if (v272 != 83)
                       {
                         goto LABEL_816;
                       }
 
 LABEL_803:
-                      v278 = v98[2];
+                      v279 = v98[2];
                       *(this + 3) = v98 + 2;
-                      if (((SLChar::sLexFold[v278 & 0x3F | (SLChar::sUniMap[v278 >> 6] << 6)] + v278) & 0xFFDF) != 0x4B)
+                      if (((SLChar::sLexFold[v279 & 0x3F | (SLChar::sUniMap[v279 >> 6] << 6)] + v279) & 0xFFDF) != 0x4B)
                       {
                         goto LABEL_816;
                       }
 
-                      v279 = v98[3];
+                      v280 = v98[3];
                       *(this + 3) = v98 + 3;
-                      if (((SLChar::sLexFold[v279 & 0x3F | (SLChar::sUniMap[v279 >> 6] << 6)] + v279) & 0xFFDF) != 0x50)
+                      if (((SLChar::sLexFold[v280 & 0x3F | (SLChar::sUniMap[v280 >> 6] << 6)] + v280) & 0xFFDF) != 0x50)
                       {
                         goto LABEL_816;
                       }
 
                       *(this + 3) = v98 + 4;
-                      v294 = this;
+                      v295 = this;
+                      v296 = 1668577396;
+                      v297 = 1414744912;
 LABEL_839:
-                      SLLexerInstance::CreateCommandToken(v294);
+                      SLLexerInstance::CreateCommandToken(v295, v296, v297);
                     }
 
-                    v274 = v98[2];
+                    v275 = v98[2];
                     *(this + 3) = v98 + 2;
-                    if (((SLChar::sLexFold[v274 & 0x3F | (SLChar::sUniMap[v274 >> 6] << 6)] + v274) & 0xFFDF) != 0x58)
+                    if (((SLChar::sLexFold[v275 & 0x3F | (SLChar::sUniMap[v275 >> 6] << 6)] + v275) & 0xFFDF) != 0x58)
                     {
                       goto LABEL_816;
                     }
 
-                    v275 = v98[3];
+                    v276 = v98[3];
                     *(this + 3) = v98 + 3;
-                    if (((SLChar::sLexFold[v275 & 0x3F | (SLChar::sUniMap[v275 >> 6] << 6)] + v275) & 0xFFDF) != 0x54)
+                    if (((SLChar::sLexFold[v276 & 0x3F | (SLChar::sUniMap[v276 >> 6] << 6)] + v276) & 0xFFDF) != 0x54)
                     {
                       goto LABEL_816;
                     }
 
                     *(this + 3) = v98 + 4;
-                    v294 = this;
+                    v295 = this;
+                    v296 = 1668577396;
+                    v297 = 1413830740;
                     goto LABEL_839;
                   }
 
@@ -8385,106 +8279,110 @@ LABEL_839:
                   }
                 }
 
-                v262 = (SLChar::sLexFold[*v98 & 0x3F | (SLChar::sUniMap[*v98 >> 6] << 6)] + *v98);
-                if (v261 > 0x4D)
+                v263 = (SLChar::sLexFold[*v98 & 0x3F | (SLChar::sUniMap[*v98 >> 6] << 6)] + *v98);
+                if (v262 > 0x4D)
                 {
                   break;
                 }
 
-                v101 = v262 == 9;
-                if (v262 > 9)
+                v101 = v263 == 9;
+                if (v263 > 9)
                 {
-                  v101 = v262 == 32;
+                  v101 = v263 == 32;
                 }
               }
 
-              if (v262 <= 0x53)
+              if (v263 <= 0x53)
               {
-                v263 = v262 == 78;
+                v264 = v263 == 78;
 LABEL_771:
-                if (!v263)
+                if (!v264)
                 {
                   goto LABEL_816;
                 }
 
-                v265 = v98[1];
+                v266 = v98[1];
                 *(this + 3) = v98 + 1;
-                if (((SLChar::sLexFold[v265 & 0x3F | (SLChar::sUniMap[v265 >> 6] << 6)] + v265) & 0xFFDF) != 0x4F)
+                if (((SLChar::sLexFold[v266 & 0x3F | (SLChar::sUniMap[v266 >> 6] << 6)] + v266) & 0xFFDF) != 0x4F)
                 {
                   goto LABEL_816;
                 }
 
-                v266 = v98[2];
+                v267 = v98[2];
                 *(this + 3) = v98 + 2;
-                if (((SLChar::sLexFold[v266 & 0x3F | (SLChar::sUniMap[v266 >> 6] << 6)] + v266) & 0xFFDF) != 0x52)
+                if (((SLChar::sLexFold[v267 & 0x3F | (SLChar::sUniMap[v267 >> 6] << 6)] + v267) & 0xFFDF) != 0x52)
                 {
                   goto LABEL_816;
                 }
 
-                v267 = v98[3];
+                v268 = v98[3];
                 *(this + 3) = v98 + 3;
-                if (((SLChar::sLexFold[v267 & 0x3F | (SLChar::sUniMap[v267 >> 6] << 6)] + v267) & 0xFFDF) != 0x4D)
+                if (((SLChar::sLexFold[v268 & 0x3F | (SLChar::sUniMap[v268 >> 6] << 6)] + v268) & 0xFFDF) != 0x4D)
                 {
                   goto LABEL_816;
                 }
 
                 *(this + 3) = v98 + 4;
-                v294 = this;
+                v295 = this;
+                v296 = 1668577396;
+                v297 = 1313821261;
                 goto LABEL_839;
               }
 
-              if (v262 == 84)
+              if (v263 == 84)
               {
                 goto LABEL_784;
               }
 
-              if (v262 != 87)
+              if (v263 != 87)
               {
                 goto LABEL_816;
               }
 
 LABEL_779:
-              v268 = v98[1];
+              v269 = v98[1];
               *(this + 3) = v98 + 1;
-              v269 = SLChar::sLexFold[v268 & 0x3F | (SLChar::sUniMap[v268 >> 6] << 6)] + v268;
-              if (v269 > 0x53u)
+              v270 = SLChar::sLexFold[v269 & 0x3F | (SLChar::sUniMap[v269 >> 6] << 6)] + v269;
+              if (v270 > 0x53u)
               {
-                if (v269 > 0x6Fu)
+                if (v270 > 0x6Fu)
                 {
-                  if (v269 != 115)
+                  if (v270 != 115)
                   {
                     goto LABEL_816;
                   }
 
 LABEL_799:
-                  v276 = v98[2];
+                  v277 = v98[2];
                   *(this + 3) = v98 + 2;
-                  if (((SLChar::sLexFold[v276 & 0x3F | (SLChar::sUniMap[v276 >> 6] << 6)] + v276) & 0xFFDF) != 0x4B)
+                  if (((SLChar::sLexFold[v277 & 0x3F | (SLChar::sUniMap[v277 >> 6] << 6)] + v277) & 0xFFDF) != 0x4B)
                   {
                     goto LABEL_816;
                   }
 
-                  v277 = v98[3];
+                  v278 = v98[3];
                   *(this + 3) = v98 + 3;
-                  if (((SLChar::sLexFold[v277 & 0x3F | (SLChar::sUniMap[v277 >> 6] << 6)] + v277) & 0xFFDF) != 0x50)
+                  if (((SLChar::sLexFold[v278 & 0x3F | (SLChar::sUniMap[v278 >> 6] << 6)] + v278) & 0xFFDF) != 0x50)
                   {
                     goto LABEL_816;
                   }
 
                   *(this + 3) = v98 + 4;
-                  v294 = this;
+                  v295 = this;
+                  v296 = 1668577396;
+                  v297 = 1465076560;
                   goto LABEL_839;
                 }
 
-                if (v269 != 111)
+                if (v270 != 111)
                 {
                   goto LABEL_816;
                 }
               }
 
-              else if (v269 != 79)
+              else if (v270 != 79)
               {
-                if (v269 != 83)
+                if (v270 != 83)
                 {
                   goto LABEL_816;
                 }
@@ -8492,22 +8390,24 @@ LABEL_799:
                 goto LABEL_799;
               }
 
-              v272 = v98[2];
+              v273 = v98[2];
               *(this + 3) = v98 + 2;
-              if (((SLChar::sLexFold[v272 & 0x3F | (SLChar::sUniMap[v272 >> 6] << 6)] + v272) & 0xFFDF) != 0x52)
+              if (((SLChar::sLexFold[v273 & 0x3F | (SLChar::sUniMap[v273 >> 6] << 6)] + v273) & 0xFFDF) != 0x52)
               {
                 goto LABEL_816;
               }
 
-              v273 = v98[3];
+              v274 = v98[3];
               *(this + 3) = v98 + 3;
-              if (((SLChar::sLexFold[v273 & 0x3F | (SLChar::sUniMap[v273 >> 6] << 6)] + v273) & 0xFFDF) != 0x44)
+              if (((SLChar::sLexFold[v274 & 0x3F | (SLChar::sUniMap[v274 >> 6] << 6)] + v274) & 0xFFDF) != 0x44)
               {
                 goto LABEL_816;
               }
 
               *(this + 3) = v98 + 4;
-              v294 = this;
+              v295 = this;
+              v296 = 1668577396;
+              v297 = 1464816196;
               goto LABEL_839;
             }
           }
@@ -8576,18 +8476,18 @@ LABEL_806:
                   }
 
                   v74 = SLChar::sLexFold[*v72 & 0x3F | (SLChar::sUniMap[*v72 >> 6] << 6)] + *v72;
-                  v280 = v74;
+                  v281 = v74;
                   if (v74 > 0x4Eu)
                   {
                     break;
                   }
 
-                  v281 = (SLChar::sLexFold[*v72 & 0x3F | (SLChar::sUniMap[*v72 >> 6] << 6)] + *v72);
-                  if (v280 > 0x20)
+                  v282 = (SLChar::sLexFold[*v72 & 0x3F | (SLChar::sUniMap[*v72 >> 6] << 6)] + *v72);
+                  if (v281 > 0x20)
                   {
-                    if (v281 != 76)
+                    if (v282 != 76)
                     {
-                      if (v281 == 78)
+                      if (v282 == 78)
                       {
                         goto LABEL_823;
                       }
@@ -8596,23 +8496,23 @@ LABEL_806:
                     }
 
 LABEL_827:
-                    v286 = v72[1];
+                    v287 = v72[1];
                     *(this + 3) = v72 + 1;
-                    if (((SLChar::sLexFold[v286 & 0x3F | (SLChar::sUniMap[v286 >> 6] << 6)] + v286) & 0xFFDF) != 0x54)
+                    if (((SLChar::sLexFold[v287 & 0x3F | (SLChar::sUniMap[v287 >> 6] << 6)] + v287) & 0xFFDF) != 0x54)
                     {
                       goto LABEL_816;
                     }
 
-                    v287 = v72[2];
+                    v288 = v72[2];
                     *(this + 3) = v72 + 2;
-                    if (((SLChar::sLexFold[v287 & 0x3F | (SLChar::sUniMap[v287 >> 6] << 6)] + v287) & 0xFFDF) != 0x52)
+                    if (((SLChar::sLexFold[v288 & 0x3F | (SLChar::sUniMap[v288 >> 6] << 6)] + v288) & 0xFFDF) != 0x52)
                     {
                       goto LABEL_816;
                     }
 
-                    v288 = v72[3];
+                    v289 = v72[3];
                     *(this + 3) = v72 + 3;
-                    if (((SLChar::sLexFold[v288 & 0x3F | (SLChar::sUniMap[v288 >> 6] << 6)] + v288) & 0xFFDF) != 0x4C)
+                    if (((SLChar::sLexFold[v289 & 0x3F | (SLChar::sUniMap[v289 >> 6] << 6)] + v289) & 0xFFDF) != 0x4C)
                     {
                       goto LABEL_816;
                     }
@@ -8624,9 +8524,9 @@ LABEL_831:
                     goto LABEL_832;
                   }
 
-                  if (v281 != 9)
+                  if (v282 != 9)
                   {
-                    v75 = v281 == 32;
+                    v75 = v282 == 32;
                     goto LABEL_815;
                   }
                 }
@@ -8644,29 +8544,29 @@ LABEL_814:
                 }
               }
 
-              v282 = (SLChar::sLexFold[*v72 & 0x3F | (SLChar::sUniMap[*v72 >> 6] << 6)] + *v72);
-              if (v282 == 108)
+              v283 = (SLChar::sLexFold[*v72 & 0x3F | (SLChar::sUniMap[*v72 >> 6] << 6)] + *v72);
+              if (v283 == 108)
               {
                 goto LABEL_827;
               }
 
-              if (v282 != 110)
+              if (v283 != 110)
               {
                 goto LABEL_816;
               }
 
 LABEL_823:
-              v283 = v72[1];
+              v284 = v72[1];
               *(this + 3) = v72 + 1;
-              if (((SLChar::sLexFold[v283 & 0x3F | (SLChar::sUniMap[v283 >> 6] << 6)] + v283) & 0xFFDF) == 0x4F)
+              if (((SLChar::sLexFold[v284 & 0x3F | (SLChar::sUniMap[v284 >> 6] << 6)] + v284) & 0xFFDF) == 0x4F)
               {
-                v284 = v72[2];
+                v285 = v72[2];
                 *(this + 3) = v72 + 2;
-                if (((SLChar::sLexFold[v284 & 0x3F | (SLChar::sUniMap[v284 >> 6] << 6)] + v284) & 0xFFDF) == 0x52)
+                if (((SLChar::sLexFold[v285 & 0x3F | (SLChar::sUniMap[v285 >> 6] << 6)] + v285) & 0xFFDF) == 0x52)
                 {
-                  v285 = v72[3];
+                  v286 = v72[3];
                   *(this + 3) = v72 + 3;
-                  if (((SLChar::sLexFold[v285 & 0x3F | (SLChar::sUniMap[v285 >> 6] << 6)] + v285) & 0xFFDF) == 0x4D)
+                  if (((SLChar::sLexFold[v286 & 0x3F | (SLChar::sUniMap[v286 >> 6] << 6)] + v286) & 0xFFDF) == 0x4D)
                   {
                     *(this + 3) = v72 + 4;
                     v207 = *(this + 24) & 0xFFFFFFEF;
@@ -8881,19 +8781,35 @@ LABEL_491:
                   }
 
                   while (v165++ < 3);
-                  v295 = 0;
-                  v296 = 0;
-                  if (SLLexerImpl::ScanFixed(this, &v296, 0, 0) && SLLexerImpl::ScanWhole(this, &v295, 0))
+                  v298 = 0;
+                  v299 = 0;
+                  if (SLLexerImpl::ScanFixed(this, &v299, 0, 0) && SLLexerImpl::ScanWhole(this, &v298, 0))
                   {
                     v167 = v164 | 0x20202020;
-                    if ((v164 | 0x20202020) == 0x666F7263 || v167 == 1870030194 || v167 == 1986360431)
+                    if ((v164 | 0x20202020) == 0x666F7263)
                     {
-                      v294 = this;
-                      goto LABEL_839;
+                      v296 = 1835429746;
                     }
 
-                    *(this + 3) = v134;
-                    goto LABEL_817;
+                    else if (v167 == 1870030194)
+                    {
+                      v296 = 1836021362;
+                    }
+
+                    else
+                    {
+                      if (v167 != 1986360431)
+                      {
+                        *(this + 3) = v134;
+                        goto LABEL_817;
+                      }
+
+                      v296 = 1836475764;
+                    }
+
+                    v297 = v298 | v299 & 0x7FFF0000 | ((v299 != 0) << 31);
+                    v295 = this;
+                    goto LABEL_839;
                   }
 
                   v148 = *(this + 3);
@@ -9089,23 +9005,23 @@ LABEL_621:
                         }
 
 LABEL_642:
-                        v219 = v181[1];
+                        v220 = v181[1];
                         *(this + 3) = v181 + 1;
-                        if (((SLChar::sLexFold[v219 & 0x3F | (SLChar::sUniMap[v219 >> 6] << 6)] + v219) & 0xFFDF) != 0x4F)
+                        if (((SLChar::sLexFold[v220 & 0x3F | (SLChar::sUniMap[v220 >> 6] << 6)] + v220) & 0xFFDF) != 0x4F)
                         {
                           goto LABEL_816;
                         }
 
-                        v220 = v181[2];
+                        v221 = v181[2];
                         *(this + 3) = v181 + 2;
-                        if (((SLChar::sLexFold[v220 & 0x3F | (SLChar::sUniMap[v220 >> 6] << 6)] + v220) & 0xFFDF) != 0x52)
+                        if (((SLChar::sLexFold[v221 & 0x3F | (SLChar::sUniMap[v221 >> 6] << 6)] + v221) & 0xFFDF) != 0x52)
                         {
                           goto LABEL_816;
                         }
 
-                        v221 = v181[3];
+                        v222 = v181[3];
                         *(this + 3) = v181 + 3;
-                        if (((SLChar::sLexFold[v221 & 0x3F | (SLChar::sUniMap[v221 >> 6] << 6)] + v221) & 0xFFDF) != 0x4D)
+                        if (((SLChar::sLexFold[v222 & 0x3F | (SLChar::sUniMap[v222 >> 6] << 6)] + v222) & 0xFFDF) != 0x4D)
                         {
                           goto LABEL_816;
                         }
@@ -9239,6 +9155,7 @@ LABEL_555:
 
                               *(this + 3) = v191 + 1;
                               v213 = this;
+                              v214 = 4;
                               goto LABEL_688;
                             }
 
@@ -9274,67 +9191,71 @@ LABEL_605:
                             }
 
 LABEL_648:
-                            v222 = v191[1];
+                            v223 = v191[1];
                             *(this + 3) = v191 + 1;
-                            v223 = (SLChar::sLexFold[v222 & 0x3F | (SLChar::sUniMap[v222 >> 6] << 6)] + v222);
-                            if (v223 > 0x2A)
+                            v224 = (SLChar::sLexFold[v223 & 0x3F | (SLChar::sUniMap[v223 >> 6] << 6)] + v223);
+                            if (v224 > 0x2A)
                             {
-                              if (v223 == 43)
+                              if (v224 == 43)
                               {
-                                v232 = v191[2];
+                                v233 = v191[2];
                                 *(this + 3) = v191 + 2;
-                                if (((SLChar::sLexFold[v232 & 0x3F | (SLChar::sUniMap[v232 >> 6] << 6)] + v232) & 0xFFDF) != 0x48)
+                                if (((SLChar::sLexFold[v233 & 0x3F | (SLChar::sUniMap[v233 >> 6] << 6)] + v233) & 0xFFDF) != 0x48)
                                 {
                                   goto LABEL_816;
                                 }
 
-                                v233 = v191[3];
+                                v234 = v191[3];
                                 *(this + 3) = v191 + 3;
-                                if ((SLChar::sLexFold[v233 & 0x3F | (SLChar::sUniMap[v233 >> 6] << 6)] + v233) != 42)
+                                if ((SLChar::sLexFold[v234 & 0x3F | (SLChar::sUniMap[v234 >> 6] << 6)] + v234) != 42)
                                 {
                                   goto LABEL_816;
                                 }
 
                                 *(this + 3) = v191 + 4;
                                 v213 = this;
+                                v214 = 8;
                               }
 
                               else
                               {
-                                if (v223 != 45)
+                                if (v224 != 45)
                                 {
                                   goto LABEL_816;
                                 }
 
                                 *(this + 3) = v191 + 2;
                                 v213 = this;
+                                v214 = 1;
                               }
                             }
 
-                            else if (v223 == 37)
+                            else if (v224 == 37)
                             {
                               *(this + 3) = v191 + 2;
                               v213 = this;
+                              v214 = 5;
                             }
 
                             else
                             {
-                              if (v223 != 42)
+                              if (v224 != 42)
                               {
                                 goto LABEL_816;
                               }
 
-                              v224 = v191[2];
+                              v225 = v191[2];
                               *(this + 3) = v191 + 2;
                               *(this + 6) = v191 + 2;
-                              if ((SLChar::sLexFold[v224 & 0x3F | (SLChar::sUniMap[v224 >> 6] << 6)] + v224) == 43)
+                              if ((SLChar::sLexFold[v225 & 0x3F | (SLChar::sUniMap[v225 >> 6] << 6)] + v225) == 43)
                               {
-                                v225 = v191[3];
+                                v226 = v191[3];
                                 *(this + 3) = v191 + 3;
-                                if (((SLChar::sLexFold[v225 & 0x3F | (SLChar::sUniMap[v225 >> 6] << 6)] + v225) & 0xFFDF) == 0x48)
+                                if (((SLChar::sLexFold[v226 & 0x3F | (SLChar::sUniMap[v226 >> 6] << 6)] + v226) & 0xFFDF) == 0x48)
                                 {
                                   *(this + 3) = v191 + 4;
                                   v213 = this;
+                                  v214 = 9;
                                   goto LABEL_688;
                                 }
 
@@ -9342,17 +9263,18 @@ LABEL_648:
                               }
 
                               v213 = this;
+                              v214 = 7;
                             }
 
 LABEL_688:
-                            v129 = SLLexerImpl::ToBICommand(v213);
+                            v129 = SLLexerImpl::ToBICommand(v213, v214);
                             if (v129)
                             {
 LABEL_840:
-                              v291 = v129;
+                              v292 = v129;
                               SLLexerImpl::SkipToNextCommand(this, 0);
                               *(this + 9) = this + 80;
-                              return v291;
+                              return v292;
                             }
 
 LABEL_817:
@@ -9372,80 +9294,85 @@ LABEL_817:
                           }
 
 LABEL_655:
-                          v226 = v191[1];
+                          v227 = v191[1];
                           *(this + 3) = v191 + 1;
-                          v227 = (SLChar::sLexFold[v226 & 0x3F | (SLChar::sUniMap[v226 >> 6] << 6)] + v226);
-                          if (v227 > 0x2A)
+                          v228 = (SLChar::sLexFold[v227 & 0x3F | (SLChar::sUniMap[v227 >> 6] << 6)] + v227);
+                          if (v228 > 0x2A)
                           {
-                            if (v227 == 43)
+                            if (v228 == 43)
                             {
-                              v234 = v191[2];
+                              v235 = v191[2];
                               *(this + 3) = v191 + 2;
-                              v235 = SLChar::sLexFold[v234 & 0x3F | (SLChar::sUniMap[v234 >> 6] << 6)] + v234;
-                              if (v235 > 0x4Bu)
+                              v236 = SLChar::sLexFold[v235 & 0x3F | (SLChar::sUniMap[v235 >> 6] << 6)] + v235;
+                              if (v236 > 0x4Bu)
                               {
-                                if ((v235 & 0xFFDF) != 0x4C)
+                                if ((v236 & 0xFFDF) != 0x4C)
+                                {
+                                  goto LABEL_816;
+                                }
+
+                                v238 = v191[3];
+                                *(this + 3) = v191 + 3;
+                                if ((SLChar::sLexFold[v238 & 0x3F | (SLChar::sUniMap[v238 >> 6] << 6)] + v238) != 42)
+                                {
+                                  goto LABEL_816;
+                                }
+
+                                *(this + 3) = v191 + 4;
+                                v213 = this;
+                                v214 = 11;
+                              }
+
+                              else
+                              {
+                                if (v236 != 33)
                                 {
                                   goto LABEL_816;
                                 }
 
                                 v237 = v191[3];
                                 *(this + 3) = v191 + 3;
-                                if ((SLChar::sLexFold[v237 & 0x3F | (SLChar::sUniMap[v237 >> 6] << 6)] + v237) != 42)
+                                if (((SLChar::sLexFold[v237 & 0x3F | (SLChar::sUniMap[v237 >> 6] << 6)] + v237) & 0xFFDF) != 0x48)
                                 {
                                   goto LABEL_816;
                                 }
 
                                 *(this + 3) = v191 + 4;
                                 v213 = this;
-                              }
-
-                              else
-                              {
-                                if (v235 != 33)
-                                {
-                                  goto LABEL_816;
-                                }
-
-                                v236 = v191[3];
-                                *(this + 3) = v191 + 3;
-                                if (((SLChar::sLexFold[v236 & 0x3F | (SLChar::sUniMap[v236 >> 6] << 6)] + v236) & 0xFFDF) != 0x48)
-                                {
-                                  goto LABEL_816;
-                                }
-
-                                *(this + 3) = v191 + 4;
-                                v213 = this;
+                                v214 = 12;
                               }
                             }
 
                             else
                             {
-                              if (v227 != 45)
+                              if (v228 != 45)
                               {
                                 goto LABEL_816;
                               }
 
                               *(this + 3) = v191 + 2;
                               v213 = this;
+                              v214 = 3;
                             }
                           }
 
-                          else if (v227 == 37)
+                          else if (v228 == 37)
                           {
                             *(this + 3) = v191 + 2;
                             v213 = this;
+                            v214 = 6;
                           }
 
                           else
                           {
-                            if (v227 != 42)
+                            if (v228 != 42)
                             {
                               goto LABEL_816;
                             }
 
                             *(this + 3) = v191 + 2;
                             v213 = this;
+                            v214 = 10;
                           }
 
                           goto LABEL_688;
@@ -9495,29 +9422,29 @@ LABEL_655:
                             }
 
 LABEL_634:
-                            v214 = v186[1];
+                            v215 = v186[1];
                             *(this + 3) = v186 + 1;
-                            v215 = SLChar::sLexFold[v214 & 0x3F | (SLChar::sUniMap[v214 >> 6] << 6)] + v214;
-                            if (v215 > 0x4Fu)
+                            v216 = SLChar::sLexFold[v215 & 0x3F | (SLChar::sUniMap[v215 >> 6] << 6)] + v215;
+                            if (v216 > 0x4Fu)
                             {
-                              if (v215 > 0x6Du)
+                              if (v216 > 0x6Du)
                               {
-                                if (v215 != 111)
+                                if (v216 != 111)
                                 {
                                   goto LABEL_816;
                                 }
 
 LABEL_665:
-                                v230 = v186[2];
+                                v231 = v186[2];
                                 *(this + 3) = v186 + 2;
-                                if (((SLChar::sLexFold[v230 & 0x3F | (SLChar::sUniMap[v230 >> 6] << 6)] + v230) & 0xFFDF) != 0x52)
+                                if (((SLChar::sLexFold[v231 & 0x3F | (SLChar::sUniMap[v231 >> 6] << 6)] + v231) & 0xFFDF) != 0x52)
                                 {
                                   goto LABEL_816;
                                 }
 
-                                v231 = v186[3];
+                                v232 = v186[3];
                                 *(this + 3) = v186 + 3;
-                                if (((SLChar::sLexFold[v231 & 0x3F | (SLChar::sUniMap[v231 >> 6] << 6)] + v231) & 0xFFDF) != 0x4D)
+                                if (((SLChar::sLexFold[v232 & 0x3F | (SLChar::sUniMap[v232 >> 6] << 6)] + v232) & 0xFFDF) != 0x4D)
                                 {
                                   goto LABEL_816;
                                 }
@@ -9527,15 +9454,15 @@ LABEL_665:
                                 goto LABEL_831;
                               }
 
-                              if (v215 != 109)
+                              if (v216 != 109)
                               {
                                 goto LABEL_816;
                               }
                             }
 
-                            else if (v215 != 77)
+                            else if (v216 != 77)
                             {
-                              if (v215 != 79)
+                              if (v216 != 79)
                               {
                                 goto LABEL_816;
                               }
@@ -9543,16 +9470,16 @@ LABEL_665:
                               goto LABEL_665;
                             }
 
-                            v228 = v186[2];
+                            v229 = v186[2];
                             *(this + 3) = v186 + 2;
-                            if (((SLChar::sLexFold[v228 & 0x3F | (SLChar::sUniMap[v228 >> 6] << 6)] + v228) & 0xFFDF) != 0x42)
+                            if (((SLChar::sLexFold[v229 & 0x3F | (SLChar::sUniMap[v229 >> 6] << 6)] + v229) & 0xFFDF) != 0x42)
                             {
                               goto LABEL_816;
                             }
 
-                            v229 = v186[3];
+                            v230 = v186[3];
                             *(this + 3) = v186 + 3;
-                            if (((SLChar::sLexFold[v229 & 0x3F | (SLChar::sUniMap[v229 >> 6] << 6)] + v229) & 0xFFDF) != 0x52)
+                            if (((SLChar::sLexFold[v230 & 0x3F | (SLChar::sUniMap[v230 >> 6] << 6)] + v230) & 0xFFDF) != 0x52)
                             {
                               goto LABEL_816;
                             }
@@ -9751,23 +9678,23 @@ LABEL_581:
                       }
 
 LABEL_638:
-                      v216 = v173[1];
+                      v217 = v173[1];
                       *(this + 3) = v173 + 1;
-                      if (((SLChar::sLexFold[v216 & 0x3F | (SLChar::sUniMap[v216 >> 6] << 6)] + v216) & 0xFFDF) != 0x4F)
+                      if (((SLChar::sLexFold[v217 & 0x3F | (SLChar::sUniMap[v217 >> 6] << 6)] + v217) & 0xFFDF) != 0x4F)
                       {
                         goto LABEL_816;
                       }
 
-                      v217 = v173[2];
+                      v218 = v173[2];
                       *(this + 3) = v173 + 2;
-                      if (((SLChar::sLexFold[v217 & 0x3F | (SLChar::sUniMap[v217 >> 6] << 6)] + v217) & 0xFFDF) != 0x52)
+                      if (((SLChar::sLexFold[v218 & 0x3F | (SLChar::sUniMap[v218 >> 6] << 6)] + v218) & 0xFFDF) != 0x52)
                       {
                         goto LABEL_816;
                       }
 
-                      v218 = v173[3];
+                      v219 = v173[3];
                       *(this + 3) = v173 + 3;
-                      if (((SLChar::sLexFold[v218 & 0x3F | (SLChar::sUniMap[v218 >> 6] << 6)] + v218) & 0xFFDF) != 0x4D)
+                      if (((SLChar::sLexFold[v219 & 0x3F | (SLChar::sUniMap[v219 >> 6] << 6)] + v219) & 0xFFDF) != 0x4D)
                       {
                         goto LABEL_816;
                       }
@@ -9873,21 +9800,21 @@ LABEL_834:
   v3 += v2;
 LABEL_835:
   *(this + 3) = v3;
-  v289 = *(this + 24);
-  v290 = *(this + 25);
-  *(this + 23) = v289;
-  if ((v290 ^ v289) >= 0x10)
+  v290 = *(this + 24);
+  v291 = *(this + 25);
+  *(this + 23) = v290;
+  if ((v291 ^ v290) >= 0x10)
   {
     SLLexerImpl::CreateBehaviorToken(this);
   }
 
-  v291 = 0;
-  v292 = *(this + 13);
+  v292 = 0;
+  v293 = *(this + 13);
   *(this + 9) = this + 80;
-  *(this + 10) = v292;
+  *(this + 10) = v293;
   *(this + 8) = v3;
   SLLexerInstance::Refill(this);
-  return v291;
+  return v292;
 }
 
 uint64_t SLLexerImpl::SkipToNextCommand(SLLexerImpl *this, char a2)
@@ -9947,7 +9874,7 @@ LABEL_17:
   return 1;
 }
 
-uint64_t SLLexerImpl::NextPhonemeToken(SLLexerImpl *this)
+SLToken *SLLexerImpl::NextPhonemeToken(SLLexerImpl *this)
 {
   for (*(this + 8) = *(this + 3); ; *(this + 8) = v9)
   {
@@ -10052,14 +9979,17 @@ LABEL_69:
               goto LABEL_69;
             }
 
-            goto LABEL_125;
+            goto LABEL_126;
           }
 
 LABEL_122:
           *(this + 3) = v2 + 1;
           v20 = this;
+          v21 = 4;
 LABEL_123:
-          SLLexerInstance::CreateToken(v20);
+          v22 = 0;
+LABEL_124:
+          SLLexerInstance::CreateToken(v20, v21, v22);
         }
 
         if (v6 <= 0x9F)
@@ -10072,7 +10002,9 @@ LABEL_123:
 LABEL_121:
           *(this + 3) = v2 + 1;
           v20 = this;
-          goto LABEL_123;
+          v21 = 5;
+          v22 = 4;
+          goto LABEL_124;
         }
 
         if (v3 != 160)
@@ -10137,10 +10069,12 @@ LABEL_110:
               goto LABEL_69;
             }
 
-LABEL_125:
+LABEL_126:
             *(this + 3) = v2 + 1;
             v20 = this;
-            goto LABEL_123;
+            v21 = 5;
+            v22 = 2;
+            goto LABEL_124;
           }
         }
 
@@ -10161,7 +10095,7 @@ LABEL_125:
               goto LABEL_121;
             }
 
-            goto LABEL_125;
+            goto LABEL_126;
           }
 
           goto LABEL_122;
@@ -10300,7 +10234,7 @@ LABEL_93:
             {
               if (v17 == 13)
               {
-                goto LABEL_128;
+                goto LABEL_129;
               }
 
 LABEL_106:
@@ -10316,7 +10250,7 @@ LABEL_106:
 
             if (v17 == 10)
             {
-              goto LABEL_138;
+              goto LABEL_139;
             }
           }
         }
@@ -10326,7 +10260,7 @@ LABEL_106:
       {
         if (v11 == 13)
         {
-          goto LABEL_128;
+          goto LABEL_129;
         }
       }
 
@@ -10341,31 +10275,31 @@ LABEL_106:
         *(this + 3) = v2 + 2;
         while (1)
         {
-          v23 = SLChar::sLexFold[*v9 & 0x3F | (SLChar::sUniMap[*v9 >> 6] << 6)] + *v9;
-          v24 = v23;
-          if (v23 > 0x1Fu)
+          v25 = SLChar::sLexFold[*v9 & 0x3F | (SLChar::sUniMap[*v9 >> 6] << 6)] + *v9;
+          v26 = v25;
+          if (v25 > 0x1Fu)
           {
             break;
           }
 
           do
           {
-            if (v24 <= 0xA)
+            if (v26 <= 0xA)
             {
-              if (v23 >= 9u)
+              if (v25 >= 9u)
               {
-                goto LABEL_138;
+                goto LABEL_139;
               }
 
-              goto LABEL_126;
+              goto LABEL_127;
             }
 
-            if (v23 != 13)
+            if (v25 != 13)
             {
-              goto LABEL_126;
+              goto LABEL_127;
             }
 
-LABEL_128:
+LABEL_129:
             *(this + 3) = ++v9;
             if (*(this + 5) == v9)
             {
@@ -10373,22 +10307,22 @@ LABEL_128:
               v9 = *(this + 3);
             }
 
-            v23 = SLChar::sLexFold[*v9 & 0x3F | (SLChar::sUniMap[*v9 >> 6] << 6)] + *v9;
-            v24 = v23;
+            v25 = SLChar::sLexFold[*v9 & 0x3F | (SLChar::sUniMap[*v9 >> 6] << 6)] + *v9;
+            v26 = v25;
           }
 
-          while (v23 <= 0x1Fu);
-          if (v23 > 0xA0u)
+          while (v25 <= 0x1Fu);
+          if (v25 > 0xA0u)
           {
-            goto LABEL_137;
+            goto LABEL_138;
           }
 
-          if ((v23 | 0x80) != 0xA0)
+          if ((v25 | 0x80) != 0xA0)
           {
-            goto LABEL_126;
+            goto LABEL_127;
           }
 
-LABEL_138:
+LABEL_139:
           *(this + 3) = ++v9;
           if (*(this + 5) == v9)
           {
@@ -10397,24 +10331,25 @@ LABEL_138:
           }
         }
 
-        if (v23 > 0xA0u)
+        if (v25 > 0xA0u)
         {
-LABEL_137:
-          if (v23 != 8239)
+LABEL_138:
+          if (v25 != 8239)
           {
-            goto LABEL_126;
+            goto LABEL_127;
           }
 
-          goto LABEL_138;
+          goto LABEL_139;
         }
 
-        if ((v23 & 0x7F) == 0x20)
+        if ((v25 & 0x7F) == 0x20)
         {
-          goto LABEL_138;
+          goto LABEL_139;
         }
 
-LABEL_126:
+LABEL_127:
         v20 = this;
+        v21 = 6;
         goto LABEL_123;
       }
     }
@@ -10443,6 +10378,7 @@ LABEL_116:
 LABEL_117:
     *(this + 3) = v2 + 1;
     v20 = this;
+    v21 = 13;
     goto LABEL_123;
   }
 
@@ -10452,9 +10388,9 @@ LABEL_117:
   }
 
   *(this + 3) = v2 + 1;
-  v22 = *(this + 23);
-  *(this + 24) = v22;
-  *(this + 25) = v22;
+  v24 = *(this + 23);
+  *(this + 24) = v24;
+  *(this + 25) = v24;
   *(this + 23) = 1;
   *(this + 13) = *(this + 10);
   return 0;
@@ -10956,7 +10892,7 @@ SLLexerInstance *SLLexerImpl::ScanIdent(SLLexerImpl *this, char *a2, uint64_t a3
   return SLLexerImpl::SkipSpaces(this);
 }
 
-uint64_t SLLexerImpl::NextTuneToken(SLLexerImpl *this)
+SLToken *SLLexerImpl::NextTuneToken(SLLexerImpl *this)
 {
   v40 = *MEMORY[0x277D85DE8];
   v39 = 0;
@@ -10980,8 +10916,8 @@ uint64_t SLLexerImpl::NextTuneToken(SLLexerImpl *this)
 
       if (*(this + 120) == 86)
       {
-        SLLexerImpl::ScanFloat(this);
-        SLLexerInstance::CreateCommandToken(this);
+        v33 = SLLexerImpl::ScanFloat(this);
+        SLLexerInstance::CreateCommandToken(this, 1651666535, (v33 * 100.0));
       }
 
       while (1)
@@ -11017,7 +10953,7 @@ LABEL_10:
             {
 LABEL_47:
               *(this + 3) = v8 + 1;
-              SLLexerInstance::CreateCommandToken(this);
+              SLLexerInstance::CreateCommandToken(this, 1952869496, 1);
             }
           }
 
@@ -11180,8 +11116,8 @@ LABEL_79:
             {
 LABEL_53:
               *(this + 3) = v8 + 1;
-              SLLexerImpl::ScanFloat(this);
-              SLLexerInstance::CreateCommandToken(this);
+              v35 = SLLexerImpl::ScanFloat(this);
+              SLLexerInstance::CreateCommandToken(this, 1651668069, (v35 * 100.0));
             }
           }
 
@@ -11226,8 +11162,8 @@ LABEL_53:
 LABEL_29:
           *(this + 3) = v8 + 1;
           *(this + 120) = 86;
-          SLLexerImpl::ScanFloat(this);
-          SLLexerInstance::CreateCommandToken(this);
+          v34 = SLLexerImpl::ScanFloat(this);
+          SLLexerInstance::CreateCommandToken(this, 1650879602, (v34 * 100.0));
         }
 
         goto LABEL_79;
@@ -11257,8 +11193,6 @@ LABEL_110:
       goto LABEL_10;
     }
 
-    v37 = *(this + 4);
-    v36 = *(this + 4);
     if ((*(this + 5) - v4) > 2)
     {
       v24 = *(this + 3);
@@ -11303,12 +11237,12 @@ LABEL_104:
       if (v26 == 16)
       {
         *(this + 3) = v24 + 1;
-        v35 = *(this + 23);
-        *(this + 24) = v35;
-        *(this + 25) = v35;
+        v37 = *(this + 23);
+        *(this + 24) = v37;
+        *(this + 25) = v37;
         *(this + 23) = 1;
         *(this + 13) = *(this + 10);
-        goto LABEL_128;
+        return 0;
       }
     }
 
@@ -11318,7 +11252,7 @@ LABEL_104:
       {
         *(this + 23) &= 0xFFFFFFF0;
         *(this + 3) = v24;
-        goto LABEL_128;
+        return 0;
       }
 
       if (v26 >= 9u)
@@ -11418,8 +11352,6 @@ LABEL_127:
   }
 
   SLLexerImpl::Error(this);
-LABEL_128:
-  v33 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -11459,7 +11391,7 @@ uint64_t std::vector<SLPhonTune>::push_back[abi:ne200100](uint64_t *a1, uint64_t
   return result;
 }
 
-void *std::vector<unsigned short>::__assign_with_size[abi:ne200100]<unsigned short *,unsigned short *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<unsigned short>::__assign_with_size[abi:ne200100]<unsigned short *,unsigned short *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -11599,9 +11531,9 @@ uint64_t std::vector<SLPhonTune>::__emplace_back_slow_path<SLPhonTune>(uint64_t 
   return v14;
 }
 
-void sub_26B33A748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_26B33A748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<SLPhonTune>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -11752,7 +11684,7 @@ uint64_t SLLexerImpl::ScanInt(unsigned __int16 **this)
   return v2;
 }
 
-uint64_t SLLexerImpl::NextSongToken(SLLexerImpl *this)
+void *SLLexerImpl::NextSongToken(SLLexerImpl *this)
 {
   v2 = *(this + 3);
   *(this + 8) = v2;
@@ -12134,7 +12066,7 @@ LABEL_168:
           if (v43 != 230)
           {
 LABEL_241:
-            SLLexerInstance::CreateToken(this);
+            SLLexerInstance::CreateToken(this, 0, 0);
           }
         }
 

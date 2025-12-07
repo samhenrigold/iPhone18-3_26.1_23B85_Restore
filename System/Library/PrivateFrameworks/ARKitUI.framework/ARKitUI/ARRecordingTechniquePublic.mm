@@ -45,21 +45,20 @@ void __72__ARRecordingTechniquePublic_ARKitAdditions___saveVideoInPhotosLibrary_
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v7 = WeakRetained;
+    v6 = WeakRetained;
     v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Saved video to file at %@, but not in the photo library because the permission has not been granted.", *(a1 + 32)];
     v4 = [MEMORY[0x277CBEB38] dictionary];
     [v4 setObject:v3 forKeyedSubscript:*MEMORY[0x277CCA450]];
-    v5 = *MEMORY[0x277CE5168];
-    v6 = ARErrorWithCodeAndUserInfo();
-    [v7 _fail:v6];
+    v5 = ARErrorWithCodeAndUserInfo();
+    [v6 _fail:v5];
 
-    WeakRetained = v7;
+    WeakRetained = v6;
   }
 }
 
 void __70__ARRecordingTechniquePublic_ARKitAdditions__copyVideoToPhotoLibrary___block_invoke_2(uint64_t a1, int a2, void *a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -71,19 +70,18 @@ void __70__ARRecordingTechniquePublic_ARKitAdditions__copyVideoToPhotoLibrary___
     v6 = _ARLogTechnique_logObj;
     if (os_log_type_enabled(_ARLogTechnique_logObj, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
-      v8 = v6;
-      v9 = objc_opt_class();
-      v10 = NSStringFromClass(v9);
-      v11 = *(a1 + 32);
-      v12 = *(a1 + 40);
+      v7 = v6;
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
+      v10 = *(a1 + 32);
+      v11 = *(a1 + 40);
       *buf = 138543874;
-      v22 = v10;
-      v23 = 2048;
-      v24 = v11;
-      v25 = 2112;
-      v26 = v12;
-      _os_log_impl(&dword_23D3AE000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Saved video to file at %@ and to the photo library.", buf, 0x20u);
+      v19 = v9;
+      v20 = 2048;
+      v21 = v10;
+      v22 = 2112;
+      v23 = v11;
+      _os_log_impl(&dword_23D3AE000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ <%p>: Saved video to file at %@ and to the photo library.", buf, 0x20u);
     }
 
     [*(a1 + 32) _finish:0];
@@ -91,20 +89,17 @@ void __70__ARRecordingTechniquePublic_ARKitAdditions__copyVideoToPhotoLibrary___
 
   else
   {
-    v19[0] = *MEMORY[0x277CCA450];
-    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"Saved video to file at %@, but not in the photo library because of an error.", *(a1 + 40)];
-    v19[1] = *MEMORY[0x277CCA7E8];
-    v20[0] = v13;
-    v20[1] = v5;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+    v16[0] = *MEMORY[0x277CCA450];
+    v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"Saved video to file at %@, but not in the photo library because of an error.", *(a1 + 40)];
+    v16[1] = *MEMORY[0x277CCA7E8];
+    v17[0] = v12;
+    v17[1] = v5;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
 
-    v15 = *(a1 + 32);
-    v16 = *MEMORY[0x277CE5168];
-    v17 = ARErrorWithCodeAndUserInfo();
-    [v15 _fail:v17];
+    v14 = *(a1 + 32);
+    v15 = ARErrorWithCodeAndUserInfo();
+    [v14 _fail:v15];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

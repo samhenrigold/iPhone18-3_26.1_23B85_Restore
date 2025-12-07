@@ -11,27 +11,27 @@
 
 - (void)dealloc
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v3 = [&unk_2870180A8 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [&unk_2870180A8 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     do
     {
       v6 = 0;
       do
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(&unk_2870180A8);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * v6);
+        v7 = *(*(&v10 + 1) + 8 * v6);
         filepath = [(PPSRequestDispatcher *)self filepath];
         +[PPSDataIngesterRegistry releaseDataIngesterForFilepath:requestType:](PPSDataIngesterRegistry, "releaseDataIngesterForFilepath:requestType:", filepath, [v7 intValue]);
 
@@ -39,45 +39,45 @@
       }
 
       while (v4 != v6);
-      v4 = [&unk_2870180A8 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [&unk_2870180A8 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
   }
 
-  v10.receiver = self;
-  v10.super_class = PPSRequestDispatcher;
-  [(PPSRequestDispatcher *)&v10 dealloc];
-  v9 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = PPSRequestDispatcher;
+  [(PPSRequestDispatcher *)&v9 dealloc];
 }
 
 - (PPSRequestDispatcher)initWithFilepath:(id)filepath
 {
   filepathCopy = filepath;
-  v11.receiver = self;
-  v11.super_class = PPSRequestDispatcher;
-  v5 = [(PPSRequestDispatcher *)&v11 init];
+  v12.receiver = self;
+  v12.super_class = PPSRequestDispatcher;
+  v5 = [(PPSRequestDispatcher *)&v12 init];
   if (v5)
   {
-    if ([PPSEntitlementChecker checkForEntitlement:@"com.apple.PerfPowerServices.data-read"])
+    v6 = [PPSEntitlementChecker checkForEntitlement:@"com.apple.PerfPowerServices.data-read"];
+    if (v6)
     {
-      v6 = [filepathCopy copy];
+      v7 = [filepathCopy copy];
     }
 
     else
     {
-      v7 = PPSReaderLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = PPSReaderLog(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        *v10 = 0;
-        _os_log_impl(&dword_25E225000, v7, OS_LOG_TYPE_DEFAULT, "[dispatcher] Invalid filepath for on-device reading. Overwriting...", v10, 2u);
+        *v11 = 0;
+        _os_log_impl(&dword_25E225000, v8, OS_LOG_TYPE_DEFAULT, "[dispatcher] Invalid filepath for on-device reading. Overwriting...", v11, 2u);
       }
 
-      v6 = 0;
+      v7 = 0;
     }
 
     filepath = v5->_filepath;
-    v5->_filepath = v6;
+    v5->_filepath = v7;
   }
 
   return v5;
@@ -161,7 +161,7 @@ LABEL_9:
 
 - (id)dataForRequest:(id)request withError:(id *)error
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   subsystem = [requestCopy subsystem];
   category = [requestCopy category];
@@ -175,7 +175,7 @@ LABEL_6:
 
   if (v9 == 1)
   {
-    v10 = PPSReaderLog();
+    v10 = PPSReaderLog(1);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [PPSRequestDispatcher dataForRequest:v10 withError:?];
@@ -187,9 +187,9 @@ LABEL_6:
   if (error)
   {
     v11 = MEMORY[0x277CCA9B8];
-    v15 = *MEMORY[0x277CCA450];
-    v16[0] = @"No available reader backend.";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v14 = *MEMORY[0x277CCA450];
+    v15[0] = @"No available reader backend.";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     *error = [v11 errorWithDomain:@"com.apple.PerfPowerServicesReader.request" code:0 userInfo:v12];
 
     error = 0;
@@ -197,14 +197,12 @@ LABEL_6:
 
 LABEL_9:
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return error;
 }
 
 - (id)_executeRequest:(id)request withError:(id *)error
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v7 = MEMORY[0x277CCACA8];
   subsystem = [requestCopy subsystem];
@@ -228,10 +226,10 @@ LABEL_9:
   category2 = [requestCopy category];
   filepath2 = [(PPSRequestDispatcher *)self filepath];
 
-  v51 = filepath2;
+  v53 = filepath2;
   selfCopy = self;
-  v53 = category2;
-  v54 = subsystem2;
+  v55 = category2;
+  v56 = subsystem2;
   if (filepath2)
   {
     filepath3 = [(PPSRequestDispatcher *)self filepath];
@@ -248,80 +246,80 @@ LABEL_9:
   if (!metrics || (v21 = metrics, [requestCopy metrics], v22 = objc_claimAutoreleasedReturnValue(), v23 = objc_msgSend(v22, "count"), v22, v21, !v23))
   {
     errorCopy = error;
-    v49 = v12;
-    v50 = requestCopy;
-    v24 = objc_opt_new();
-    v56 = 0u;
-    v57 = 0u;
+    v51 = v12;
+    v52 = requestCopy;
+    v25 = objc_opt_new();
     v58 = 0u;
     v59 = 0u;
-    v25 = v19;
-    v26 = [v25 countByEnumeratingWithState:&v56 objects:v60 count:16];
-    if (v26)
+    v60 = 0u;
+    v61 = 0u;
+    v26 = v19;
+    v27 = [v26 countByEnumeratingWithState:&v58 objects:v62 count:16];
+    if (v27)
     {
-      v27 = v26;
-      v28 = *v57;
+      v28 = v27;
+      v29 = *v59;
       do
       {
-        for (i = 0; i != v27; ++i)
+        for (i = 0; i != v28; ++i)
         {
-          if (*v57 != v28)
+          if (*v59 != v29)
           {
-            objc_enumerationMutation(v25);
+            objc_enumerationMutation(v26);
           }
 
-          v30 = [PPSDataIngesterCommonUtilities columnNamesForFilepath:filepath3 dataSource:*(*(&v56 + 1) + 8 * i)];
-          v31 = [v30 mutableCopy];
+          v31 = [PPSDataIngesterCommonUtilities columnNamesForFilepath:filepath3 dataSource:*(*(&v58 + 1) + 8 * i)];
+          v32 = [v31 mutableCopy];
 
-          [v31 removeObject:@"ID"];
-          [v31 removeObject:@"FK_ID"];
-          [v24 addObjectsFromArray:v31];
+          [v32 removeObject:@"ID"];
+          [v32 removeObject:@"FK_ID"];
+          [v25 addObjectsFromArray:v32];
         }
 
-        v27 = [v25 countByEnumeratingWithState:&v56 objects:v60 count:16];
+        v28 = [v26 countByEnumeratingWithState:&v58 objects:v62 count:16];
       }
 
-      while (v27);
+      while (v28);
     }
 
-    v32 = [MEMORY[0x277CBEB98] setWithArray:v24];
-    requestCopy = v50;
-    [v50 setMetrics:v32];
+    v33 = [MEMORY[0x277CBEB98] setWithArray:v25];
+    requestCopy = v52;
+    [v52 setMetrics:v33];
 
-    v12 = v49;
+    v12 = v51;
     error = errorCopy;
   }
 
-  v33 = PPSReaderLog();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
-  {
-    [PPSRequestDispatcher _executeRequest:v19 withError:v33];
-  }
-
-  v34 = PPSReaderLog();
+  v34 = PPSReaderLog(v24);
   if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
   {
-    [PPSRequestDispatcher _executeRequest:filepath3 withError:v34];
+    [PPSRequestDispatcher _executeRequest:v19 withError:v34];
   }
 
-  v35 = PPSReaderLog();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
+  v36 = PPSReaderLog(v35);
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
   {
-    [PPSRequestDispatcher _executeRequest:requestCopy withError:v35];
+    [PPSRequestDispatcher _executeRequest:filepath3 withError:v36];
+  }
+
+  v38 = PPSReaderLog(v37);
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+  {
+    [PPSRequestDispatcher _executeRequest:requestCopy withError:v38];
   }
 
   if (v19 && filepath3)
   {
-    v36 = +[PPSPerformanceProfiler sharedInstance];
-    [v36 endProfilingForPhase:v10];
+    v39 = +[PPSPerformanceProfiler sharedInstance];
+    [v39 endProfilingForPhase:v10];
 
-    v37 = +[PPSDataIngesterRegistry dataIngesterForFilepath:requestType:](PPSDataIngesterRegistry, "dataIngesterForFilepath:requestType:", filepath3, [requestCopy requestType]);
-    v38 = v37;
-    if (v37)
+    v40 = +[PPSDataIngesterRegistry dataIngesterForFilepath:requestType:](PPSDataIngesterRegistry, "dataIngesterForFilepath:requestType:", filepath3, [requestCopy requestType]);
+    v41 = v40;
+    if (v40)
     {
-      [v37 setShouldUseCache:v51 != 0];
-      [v38 setDispatcher:selfCopy];
-      v18 = [v38 parseDataForRequest:requestCopy outError:error];
+      [v40 setShouldUseCache:v53 != 0];
+      [v41 setDispatcher:selfCopy];
+      v18 = [v41 parseDataForRequest:requestCopy outError:error];
 LABEL_32:
 
       goto LABEL_33;
@@ -329,11 +327,11 @@ LABEL_32:
 
     if (error)
     {
-      v42 = MEMORY[0x277CCA9B8];
-      v43 = MEMORY[0x277CBEAC0];
-      v44 = [MEMORY[0x277CCACA8] stringWithFormat:@"Request type isn't supported."];
-      v45 = [v43 dictionaryWithObject:v44 forKey:*MEMORY[0x277CCA450]];
-      *error = [v42 errorWithDomain:@"com.apple.PerfPowerServicesReader.request" code:2 userInfo:v45];
+      v45 = MEMORY[0x277CCA9B8];
+      v46 = MEMORY[0x277CBEAC0];
+      v47 = [MEMORY[0x277CCACA8] stringWithFormat:@"Request type isn't supported."];
+      v48 = [v46 dictionaryWithObject:v47 forKey:*MEMORY[0x277CCA450]];
+      *error = [v45 errorWithDomain:@"com.apple.PerfPowerServicesReader.request" code:2 userInfo:v48];
     }
 
 LABEL_31:
@@ -343,11 +341,11 @@ LABEL_31:
 
   if (error)
   {
-    v39 = MEMORY[0x277CCA9B8];
-    v40 = MEMORY[0x277CBEAC0];
-    v38 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid data source."];
-    v41 = [v40 dictionaryWithObject:v38 forKey:*MEMORY[0x277CCA450]];
-    *error = [v39 errorWithDomain:@"com.apple.PerfPowerServicesReader.request" code:5 userInfo:v41];
+    v42 = MEMORY[0x277CCA9B8];
+    v43 = MEMORY[0x277CBEAC0];
+    v41 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid data source."];
+    v44 = [v43 dictionaryWithObject:v41 forKey:*MEMORY[0x277CCA450]];
+    *error = [v42 errorWithDomain:@"com.apple.PerfPowerServicesReader.request" code:5 userInfo:v44];
 
     goto LABEL_31;
   }
@@ -356,7 +354,6 @@ LABEL_31:
 LABEL_33:
 
 LABEL_34:
-  v46 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -389,31 +386,27 @@ LABEL_34:
 
 - (void)_executeRequest:(uint64_t)a1 withError:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_25E225000, a2, OS_LOG_TYPE_DEBUG, "Requested data source: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_25E225000, a2, OS_LOG_TYPE_DEBUG, "Requested data source: %@", &v2, 0xCu);
 }
 
 - (void)_executeRequest:(uint64_t)a1 withError:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_25E225000, a2, OS_LOG_TYPE_DEBUG, "Requested data path: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_25E225000, a2, OS_LOG_TYPE_DEBUG, "Requested data path: %@", &v2, 0xCu);
 }
 
 - (void)_executeRequest:(void *)a1 withError:(NSObject *)a2 .cold.3(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 metrics];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_debug_impl(&dword_25E225000, a2, OS_LOG_TYPE_DEBUG, "SELECT metrics: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_debug_impl(&dword_25E225000, a2, OS_LOG_TYPE_DEBUG, "SELECT metrics: %@", &v4, 0xCu);
 }
 
 @end

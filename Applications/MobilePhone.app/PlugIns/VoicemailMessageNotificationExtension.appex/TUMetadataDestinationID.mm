@@ -8,18 +8,18 @@
 + (id)metadataDestinationIDWithVoicemailMessage:(id)message
 {
   swift_getObjCClassMetadata();
-  swift_getKeyPath();
-  swift_getKeyPath();
-  swift_unknownObjectRetain();
-  v3 = sub_100049818();
+  KeyPath = swift_getKeyPath();
+  v4 = swift_getKeyPath();
+  v5 = swift_unknownObjectRetain();
+  v6 = sub_100049818(v5, KeyPath, v4);
   swift_unknownObjectRelease();
 
-  return v3;
+  return v6;
 }
 
 + (id)metadataDestinationIDsForVMVoicemails:(id)voicemails
 {
-  sub_100017538(&qword_10009A700);
+  sub_100017538(&qword_10009A700, &qword_10007AC40);
   v3 = sub_1000608CC();
   swift_getObjCClassMetadata();
   sub_100049A80(v3);

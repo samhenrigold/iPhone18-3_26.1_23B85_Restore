@@ -7,43 +7,42 @@
 
 - (_CNDonationAgentXPCMethodScope)init
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CFBE90]);
   objc_initWeak(&location, v3);
   v4 = +[CNDonationAgentXPCAdapter newXPCConnection];
   v5 = MEMORY[0x277CFBEF0];
-  v22[0] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
+  v21[0] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
   remoteObjectInterface = [v4 remoteObjectInterface];
   [v5 addAllowedClasses:v6 toInterface:remoteObjectInterface forSelector:sel_meCardDonations_ argumentIndex:0 ofReply:1];
 
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __38___CNDonationAgentXPCMethodScope_init__block_invoke;
-  v19[3] = &unk_278569E10;
-  objc_copyWeak(&v20, &location);
-  [v4 setInterruptionHandler:v19];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __38___CNDonationAgentXPCMethodScope_init__block_invoke_2;
-  v17[3] = &unk_278569E10;
-  objc_copyWeak(&v18, &location);
-  [v4 setInvalidationHandler:v17];
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __38___CNDonationAgentXPCMethodScope_init__block_invoke;
+  v18[3] = &unk_278569E10;
+  objc_copyWeak(&v19, &location);
+  [v4 setInterruptionHandler:v18];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __38___CNDonationAgentXPCMethodScope_init__block_invoke_2;
+  v16[3] = &unk_278569E10;
+  objc_copyWeak(&v17, &location);
+  [v4 setInvalidationHandler:v16];
   [v4 resume];
-  v12 = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = __38___CNDonationAgentXPCMethodScope_init__block_invoke_3;
-  v15 = &unk_278569E38;
-  objc_copyWeak(&v16, &location);
-  v8 = [v4 remoteObjectProxyWithErrorHandler:&v12];
-  v9 = [(_CNDonationAgentXPCMethodScope *)self initWithConnection:v4 promise:v3 proxy:v8, v12, v13, v14, v15];
+  v11 = MEMORY[0x277D85DD0];
+  v12 = 3221225472;
+  v13 = __38___CNDonationAgentXPCMethodScope_init__block_invoke_3;
+  v14 = &unk_278569E38;
+  objc_copyWeak(&v15, &location);
+  v8 = [v4 remoteObjectProxyWithErrorHandler:&v11];
+  v9 = [(_CNDonationAgentXPCMethodScope *)self initWithConnection:v4 promise:v3 proxy:v8, v11, v12, v13, v14];
 
-  objc_destroyWeak(&v16);
-  objc_destroyWeak(&v18);
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v19);
 
   objc_destroyWeak(&location);
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

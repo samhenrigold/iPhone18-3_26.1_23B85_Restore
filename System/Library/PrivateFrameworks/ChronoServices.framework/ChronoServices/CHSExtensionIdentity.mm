@@ -51,7 +51,7 @@
   CHSExtensionIdentity.token.getter(&v5);
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAEED8F0, &unk_195FACA00);
-  sub_195EB5F38(&qword_1EAEEC498, &qword_1EAEED8F0, &unk_195FACA00);
+  sub_195EB5F38(&qword_1EAEEC498, &qword_1EAEED8F0, &unk_195FACA00, MEMORY[0x1E69E6310]);
   sub_195FA0828();
   swift_bridgeObjectRelease_n();
 
@@ -69,15 +69,14 @@
   *v4 = 0;
   v4[1] = 0xE000000000000000;
   swift_beginAccess();
-  v5 = v3[1];
   *v3 = xmmword_195FADCD0;
 
-  v6 = (&self->super.isa + OBJC_IVAR___CHSExtensionIdentity_deviceIdentifier);
-  *v6 = 0;
-  v6[1] = 0;
-  v8.receiver = self;
-  v8.super_class = CHSExtensionIdentity;
-  return [(CHSExtensionIdentity *)&v8 init];
+  v5 = (&self->super.isa + OBJC_IVAR___CHSExtensionIdentity_deviceIdentifier);
+  *v5 = 0;
+  v5[1] = 0;
+  v7.receiver = self;
+  v7.super_class = CHSExtensionIdentity;
+  return [(CHSExtensionIdentity *)&v7 init];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -104,52 +103,47 @@
 
 - (NSString)extensionBundleIdentifier
 {
-  v2 = (self + OBJC_IVAR___CHSExtensionIdentity_extensionBundleIdentifier);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_195FA0888();
+  v2 = sub_195FA0888();
 
-  return v5;
+  return v2;
 }
 
 - (NSString)containerBundleIdentifier
 {
-  v2 = (self + OBJC_IVAR___CHSExtensionIdentity_containerBundleIdentifier);
+  v2 = self + OBJC_IVAR___CHSExtensionIdentity_containerBundleIdentifier;
   swift_beginAccess();
-  if (v2[1])
+  if (*(v2 + 1))
   {
-    v3 = *v2;
 
-    v4 = sub_195FA0888();
+    v3 = sub_195FA0888();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (NSString)deviceIdentifier
 {
-  v2 = (self + OBJC_IVAR___CHSExtensionIdentity_deviceIdentifier);
+  v2 = self + OBJC_IVAR___CHSExtensionIdentity_deviceIdentifier;
   swift_beginAccess();
-  if (v2[1])
+  if (*(v2 + 1))
   {
-    v3 = *v2;
 
-    v4 = sub_195FA0888();
+    v3 = sub_195FA0888();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (CHSExtensionIdentity)initWithExtensionBundleIdentifier:(id)identifier containerBundleIdentifier:(id)bundleIdentifier deviceIdentifier:(id)deviceIdentifier

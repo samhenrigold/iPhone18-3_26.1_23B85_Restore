@@ -112,7 +112,6 @@ LABEL_6:
     }
   }
 
-  v7 = *(equalCopy + 44);
   if (*&self->_has)
   {
     if ((*(equalCopy + 44) & 1) == 0)
@@ -120,7 +119,6 @@ LABEL_6:
       goto LABEL_26;
     }
 
-    v11 = *(equalCopy + 40);
     if (self->_requiredRuntimeConfirmation)
     {
       if ((*(equalCopy + 40) & 1) == 0)
@@ -144,7 +142,6 @@ LABEL_6:
   {
     if ((*(equalCopy + 44) & 2) != 0)
     {
-      v12 = *(equalCopy + 41);
       if (self->_showsNotification)
       {
         if (*(equalCopy + 41))
@@ -160,7 +157,7 @@ LABEL_6:
     }
 
 LABEL_26:
-    v10 = 0;
+    v9 = 0;
     goto LABEL_27;
   }
 
@@ -179,17 +176,17 @@ LABEL_10:
   bundleIdentifier = self->_bundleIdentifier;
   if (bundleIdentifier | *(equalCopy + 2))
   {
-    v10 = [(NSString *)bundleIdentifier isEqual:?];
+    v9 = [(NSString *)bundleIdentifier isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
 LABEL_27:
 
-  return v10;
+  return v9;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -274,45 +271,43 @@ LABEL_27:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_key)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_triggerType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    requiredRuntimeConfirmation = self->_requiredRuntimeConfirmation;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    showsNotification = self->_showsNotification;
     PBDataWriterWriteBOOLField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_actionIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_bundleIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

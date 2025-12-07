@@ -267,4 +267,10 @@ LABEL_8:
   objc_storeStrong(&self->_retainSelf, self);
 }
 
+- (void)initWithURLs:(uint64_t)a3 completionBlock:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUITemplateLoader initWithURLs:completionBlock:]";
+}
+
 @end

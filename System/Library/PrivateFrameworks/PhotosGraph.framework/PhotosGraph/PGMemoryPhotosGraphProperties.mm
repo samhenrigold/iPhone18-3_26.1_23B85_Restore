@@ -31,36 +31,36 @@
 
 - (id)infoForChapterTitles
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   chapterTitles = [(PGEnrichedMemoryProtocol *)self->_enrichedMemory chapterTitles];
 
   if (chapterTitles)
   {
     v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v12 = 0u;
     v13 = 0u;
     v14 = 0u;
     v15 = 0u;
-    v16 = 0u;
     chapterTitles2 = [(PGEnrichedMemoryProtocol *)self->_enrichedMemory chapterTitles];
-    v6 = [chapterTitles2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v6 = [chapterTitles2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v14;
+      v8 = *v13;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v14 != v8)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(chapterTitles2);
           }
 
-          dictionaryRepresentation = [*(*(&v13 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v12 + 1) + 8 * i) dictionaryRepresentation];
           [v4 addObject:dictionaryRepresentation];
         }
 
-        v7 = [chapterTitles2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v7 = [chapterTitles2 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v7);
@@ -72,14 +72,12 @@
     v4 = MEMORY[0x277CBEBF8];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (id)infoForGraphCollection
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   if ([(PGEnrichedMemoryProtocol *)self->_enrichedMemory memoryCategory]== 16)
   {
     v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -102,8 +100,8 @@
     allObjects = [meaningLabels allObjects];
     [v3 setObject:allObjects forKeyedSubscript:@"meaningLabels"];
 
-    v17[0] = v3;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+    v16[0] = v3;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
   }
 
   else
@@ -111,14 +109,12 @@
     v14 = MEMORY[0x277CBEBF8];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (id)infoForBackingMoments
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   if ([(PGMemoryPhotosGraphProperties *)self sourceType]== 1)
   {
     memoryMomentNodes = [(PGEnrichedMemoryProtocol *)self->_enrichedMemory memoryMomentNodes];
@@ -155,8 +151,8 @@
 
     [v5 setObject:v15 forKeyedSubscript:@"keywords"];
 
-    v19[0] = v5;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v18[0] = v5;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
   }
 
   else
@@ -164,47 +160,43 @@
     v16 = MEMORY[0x277CBEBF8];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (id)encodedFeatures
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   memoryFeatureNodes = [(PGEnrichedMemoryProtocol *)self->_enrichedMemory memoryFeatureNodes];
   allFeatures = [memoryFeatureNodes allFeatures];
 
-  v6 = [allFeatures countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [allFeatures countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(allFeatures);
         }
 
-        encodedFeature = [*(*(&v13 + 1) + 8 * i) encodedFeature];
+        encodedFeature = [*(*(&v12 + 1) + 8 * i) encodedFeature];
         [v3 addObject:encodedFeature];
       }
 
-      v7 = [allFeatures countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [allFeatures countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -272,33 +264,33 @@ uint64_t __44__PGMemoryPhotosGraphProperties_isTriggered__block_invoke(uint64_t 
 
 - (id)featureVectorV2
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   personLocalIdentifiers = [(PGMemoryPhotosGraphProperties *)self personLocalIdentifiers];
   if ([personLocalIdentifiers count])
   {
     v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    v17 = personLocalIdentifiers;
+    v16 = personLocalIdentifiers;
     obj = personLocalIdentifiers;
-    v5 = [obj countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v5 = [obj countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v20;
+      v7 = *v19;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v20 != v7)
+          if (*v19 != v7)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v19 + 1) + 8 * i);
-          v10 = [MEMORY[0x277CD98F0] personUniversalIdentifierForPersonLocalIdentifier:v9 photoLibrary:{self->_photoLibrary, v17}];
+          v9 = *(*(&v18 + 1) + 8 * i);
+          v10 = [MEMORY[0x277CD98F0] personUniversalIdentifierForPersonLocalIdentifier:v9 photoLibrary:{self->_photoLibrary, v16}];
           v11 = v10;
           if (v10)
           {
@@ -312,20 +304,20 @@ uint64_t __44__PGMemoryPhotosGraphProperties_isTriggered__block_invoke(uint64_t 
 
           v13 = v12;
 
-          v23[0] = @"People";
-          v23[1] = v13;
-          v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+          v22[0] = @"People";
+          v22[1] = v13;
+          v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
 
           [v4 addObject:v14];
         }
 
-        v6 = [obj countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v6 = [obj countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
       while (v6);
     }
 
-    personLocalIdentifiers = v17;
+    personLocalIdentifiers = v16;
   }
 
   else
@@ -333,30 +325,26 @@ uint64_t __44__PGMemoryPhotosGraphProperties_isTriggered__block_invoke(uint64_t 
     v4 = MEMORY[0x277CBEBF8];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (id)featureVectorV1
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   personLocalIdentifiers = [(PGMemoryPhotosGraphProperties *)self personLocalIdentifiers];
   if ([personLocalIdentifiers count])
   {
-    v8 = @"people";
+    v7 = @"people";
     allObjects = [personLocalIdentifiers allObjects];
     v4 = [allObjects sortedArrayUsingSelector:sel_compare_];
-    v9[0] = v4;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v8[0] = v4;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   }
 
   else
   {
     v5 = MEMORY[0x277CBEC10];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -402,8 +390,8 @@ void __50__PGMemoryPhotosGraphProperties_triggerTypesArray__block_invoke(uint64_
 
 - (id)infoDictionary
 {
-  v47[20] = *MEMORY[0x277D85DE8];
-  v46[0] = @"sourceType";
+  v46[20] = *MEMORY[0x277D85DE8];
+  v45[0] = @"sourceType";
   sourceType = [(PGMemoryPhotosGraphProperties *)self sourceType];
   if (sourceType > 4)
   {
@@ -415,39 +403,39 @@ void __50__PGMemoryPhotosGraphProperties_triggerTypesArray__block_invoke(uint64_
     v4 = off_278886E70[sourceType];
   }
 
-  v45 = v4;
-  v47[0] = v45;
-  v46[1] = @"sourceTypeEnum";
-  v44 = [MEMORY[0x277CCABB0] numberWithInteger:{-[PGMemoryPhotosGraphProperties sourceType](self, "sourceType")}];
-  v47[1] = v44;
-  v46[2] = @"creationDate";
+  v44 = v4;
+  v46[0] = v44;
+  v45[1] = @"sourceTypeEnum";
+  v43 = [MEMORY[0x277CCABB0] numberWithInteger:{-[PGMemoryPhotosGraphProperties sourceType](self, "sourceType")}];
+  v46[1] = v43;
+  v45[2] = @"creationDate";
   creationDate = [(PGEnrichedMemoryProtocol *)self->_enrichedMemory creationDate];
-  v47[2] = creationDate;
-  v46[3] = @"assetCount";
-  v42 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[PGEnrichedMemoryProtocol numberOfRelevantAssets](self->_enrichedMemory, "numberOfRelevantAssets")}];
-  v47[3] = v42;
-  v46[4] = @"repCount";
+  v46[2] = creationDate;
+  v45[3] = @"assetCount";
+  v41 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[PGEnrichedMemoryProtocol numberOfRelevantAssets](self->_enrichedMemory, "numberOfRelevantAssets")}];
+  v46[3] = v41;
+  v45[4] = @"repCount";
   v5 = MEMORY[0x277CCABB0];
   representativeAssetUUIDs = [(PGEnrichedMemoryProtocol *)self->_enrichedMemory representativeAssetUUIDs];
-  v40 = [v5 numberWithUnsignedInteger:{objc_msgSend(representativeAssetUUIDs, "count")}];
-  v47[4] = v40;
-  v46[5] = @"relevantAssetCount";
-  v39 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[PGEnrichedMemoryProtocol numberOfRelevantAssets](self->_enrichedMemory, "numberOfRelevantAssets")}];
-  v47[5] = v39;
-  v46[6] = @"curatedCount";
+  v39 = [v5 numberWithUnsignedInteger:{objc_msgSend(representativeAssetUUIDs, "count")}];
+  v46[4] = v39;
+  v45[5] = @"relevantAssetCount";
+  v38 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[PGEnrichedMemoryProtocol numberOfRelevantAssets](self->_enrichedMemory, "numberOfRelevantAssets")}];
+  v46[5] = v38;
+  v45[6] = @"curatedCount";
   v6 = MEMORY[0x277CCABB0];
   curatedAssetUUIDs = [(PGEnrichedMemoryProtocol *)self->_enrichedMemory curatedAssetUUIDs];
-  v37 = [v6 numberWithUnsignedInteger:{objc_msgSend(curatedAssetUUIDs, "count")}];
-  v47[6] = v37;
-  v46[7] = @"extendedCuratedCount";
+  v36 = [v6 numberWithUnsignedInteger:{objc_msgSend(curatedAssetUUIDs, "count")}];
+  v46[6] = v36;
+  v45[7] = @"extendedCuratedCount";
   v7 = MEMORY[0x277CCABB0];
   extendedCuratedAssetUUIDs = [(PGEnrichedMemoryProtocol *)self->_enrichedMemory extendedCuratedAssetUUIDs];
-  v35 = [v7 numberWithUnsignedInteger:{objc_msgSend(extendedCuratedAssetUUIDs, "count")}];
-  v47[7] = v35;
-  v46[8] = @"keyAssetUUID";
+  v34 = [v7 numberWithUnsignedInteger:{objc_msgSend(extendedCuratedAssetUUIDs, "count")}];
+  v46[7] = v34;
+  v45[8] = @"keyAssetUUID";
   keyAssetUUID = [(PGEnrichedMemoryProtocol *)self->_enrichedMemory keyAssetUUID];
-  v47[8] = keyAssetUUID;
-  v46[9] = @"notificationQuality";
+  v46[8] = keyAssetUUID;
+  v45[9] = @"notificationQuality";
   notificationLevel = [(PGEnrichedMemoryProtocol *)self->_enrichedMemory notificationLevel];
   if ((notificationLevel - 1) > 3)
   {
@@ -459,9 +447,9 @@ void __50__PGMemoryPhotosGraphProperties_triggerTypesArray__block_invoke(uint64_
     v9 = off_278886E50[notificationLevel - 1];
   }
 
-  v33 = v9;
-  v47[9] = v33;
-  v46[10] = @"isTriggered";
+  v32 = v9;
+  v46[9] = v32;
+  v45[10] = @"isTriggered";
   isTriggered = [(PGMemoryPhotosGraphProperties *)self isTriggered];
   v11 = @"NO";
   if (isTriggered)
@@ -469,26 +457,26 @@ void __50__PGMemoryPhotosGraphProperties_triggerTypesArray__block_invoke(uint64_
     v11 = @"YES";
   }
 
-  v47[10] = v11;
-  v46[11] = @"numberOfMoments";
-  v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[PGMemoryPhotosGraphProperties numberOfMoments](self, "numberOfMoments")}];
-  v47[11] = v32;
-  v46[12] = @"numberOfCollections";
+  v46[10] = v11;
+  v45[11] = @"numberOfMoments";
   v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[PGMemoryPhotosGraphProperties numberOfMoments](self, "numberOfMoments")}];
-  v47[12] = v31;
-  v46[13] = @"suggestedMood";
+  v46[11] = v31;
+  v45[12] = @"numberOfCollections";
+  v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[PGMemoryPhotosGraphProperties numberOfMoments](self, "numberOfMoments")}];
+  v46[12] = v30;
+  v45[13] = @"suggestedMood";
   [(PGEnrichedMemoryProtocol *)self->_enrichedMemory suggestedMood];
-  v30 = PHStringForMemoryMood();
-  v47[13] = v30;
-  v46[14] = @"forbiddenMoods";
-  [(PGEnrichedMemoryProtocol *)self->_enrichedMemory forbiddenMoods];
   v29 = PHStringForMemoryMood();
-  v47[14] = v29;
-  v46[15] = @"recommendedMoods";
+  v46[13] = v29;
+  v45[14] = @"forbiddenMoods";
+  [(PGEnrichedMemoryProtocol *)self->_enrichedMemory forbiddenMoods];
+  v28 = PHStringForMemoryMood();
+  v46[14] = v28;
+  v45[15] = @"recommendedMoods";
   [(PGEnrichedMemoryProtocol *)self->_enrichedMemory recommendedMoods];
   v12 = PHStringForMemoryMood();
-  v47[15] = v12;
-  v46[16] = @"moodWeights";
+  v46[15] = v12;
+  v45[16] = @"moodWeights";
   positiveMoodVector = [(PGEnrichedMemoryProtocol *)self->_enrichedMemory positiveMoodVector];
   v14 = [positiveMoodVector description];
   v15 = v14;
@@ -498,8 +486,8 @@ void __50__PGMemoryPhotosGraphProperties_triggerTypesArray__block_invoke(uint64_
     v16 = v14;
   }
 
-  v47[16] = v16;
-  v46[17] = @"moodKeywords";
+  v46[16] = v16;
+  v45[17] = @"moodKeywords";
   legacyMoodKeywords = [(PGEnrichedMemoryProtocol *)self->_enrichedMemory legacyMoodKeywords];
   v18 = legacyMoodKeywords;
   v19 = MEMORY[0x277CBEBF8];
@@ -508,81 +496,79 @@ void __50__PGMemoryPhotosGraphProperties_triggerTypesArray__block_invoke(uint64_
     v19 = legacyMoodKeywords;
   }
 
-  v47[17] = v19;
-  v46[18] = @"osInfo";
+  v46[17] = v19;
+  v45[18] = @"osInfo";
   processInfo = [MEMORY[0x277CCAC38] processInfo];
   operatingSystemVersionString = [processInfo operatingSystemVersionString];
-  v47[18] = operatingSystemVersionString;
-  v46[19] = @"meaningLabels";
+  v46[18] = operatingSystemVersionString;
+  v45[19] = @"meaningLabels";
   memoryMomentNodes = [(PGEnrichedMemoryProtocol *)self->_enrichedMemory memoryMomentNodes];
   meaningNodes = [memoryMomentNodes meaningNodes];
   meaningLabels = [meaningNodes meaningLabels];
   allObjects = [meaningLabels allObjects];
-  v47[19] = allObjects;
-  v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:20];
+  v46[19] = allObjects;
+  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:20];
 
-  v26 = *MEMORY[0x277D85DE8];
-
-  return v28;
+  return v27;
 }
 
 - (id)dictionary
 {
-  v44[15] = *MEMORY[0x277D85DE8];
-  v43[0] = @"graphMemoryIdentifier";
+  v43[15] = *MEMORY[0x277D85DE8];
+  v42[0] = @"graphMemoryIdentifier";
   uniqueMemoryIdentifier = [(PGEnrichedMemoryProtocol *)self->_enrichedMemory uniqueMemoryIdentifier];
-  v41 = uniqueMemoryIdentifier;
+  v40 = uniqueMemoryIdentifier;
   v4 = &stru_2843F5C58;
   if (uniqueMemoryIdentifier)
   {
     v4 = uniqueMemoryIdentifier;
   }
 
-  v44[0] = v4;
-  v43[1] = @"memoryCategorySubcategory";
-  v40 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[PGEnrichedMemoryProtocol memoryCategorySubcategory](self->_enrichedMemory, "memoryCategorySubcategory")}];
-  v44[1] = v40;
-  v43[2] = @"triggerTypes";
+  v43[0] = v4;
+  v42[1] = @"memoryCategorySubcategory";
+  v39 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[PGEnrichedMemoryProtocol memoryCategorySubcategory](self->_enrichedMemory, "memoryCategorySubcategory")}];
+  v43[1] = v39;
+  v42[2] = @"triggerTypes";
   triggerTypesArray = [(PGMemoryPhotosGraphProperties *)self triggerTypesArray];
-  v44[2] = triggerTypesArray;
-  v43[3] = @"encodedFeatures";
+  v43[2] = triggerTypesArray;
+  v42[3] = @"encodedFeatures";
   encodedFeatures = [(PGMemoryPhotosGraphProperties *)self encodedFeatures];
-  v44[3] = encodedFeatures;
-  v43[4] = @"featureVector_v2";
+  v43[3] = encodedFeatures;
+  v42[4] = @"featureVector_v2";
   featureVectorV2 = [(PGMemoryPhotosGraphProperties *)self featureVectorV2];
-  v44[4] = featureVectorV2;
-  v43[5] = @"featureVector";
+  v43[4] = featureVectorV2;
+  v42[5] = @"featureVector";
   featureVectorV1 = [(PGMemoryPhotosGraphProperties *)self featureVectorV1];
-  v44[5] = featureVectorV1;
-  v43[6] = @"titleCategory";
-  v35 = [MEMORY[0x277CCABB0] numberWithInteger:{-[PGMemoryPhotosGraphProperties phTitleCategory](self, "phTitleCategory")}];
-  v44[6] = v35;
-  v43[7] = @"notificationQuality";
+  v43[5] = featureVectorV1;
+  v42[6] = @"titleCategory";
+  v34 = [MEMORY[0x277CCABB0] numberWithInteger:{-[PGMemoryPhotosGraphProperties phTitleCategory](self, "phTitleCategory")}];
+  v43[6] = v34;
+  v42[7] = @"notificationQuality";
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:{-[PGEnrichedMemoryProtocol notificationLevel](self->_enrichedMemory, "notificationLevel")}];
-  v44[7] = v5;
-  v43[8] = @"blacklistableFeatures";
+  v43[7] = v5;
+  v42[8] = @"blacklistableFeatures";
   encodedBlockableFeatures = [(PGMemoryPhotosGraphProperties *)self encodedBlockableFeatures];
-  v44[8] = encodedBlockableFeatures;
-  v43[9] = @"backingMoments";
+  v43[8] = encodedBlockableFeatures;
+  v42[9] = @"backingMoments";
   infoForBackingMoments = [(PGMemoryPhotosGraphProperties *)self infoForBackingMoments];
-  v44[9] = infoForBackingMoments;
-  v43[10] = @"collectionsInfo";
+  v43[9] = infoForBackingMoments;
+  v42[10] = @"collectionsInfo";
   infoForGraphCollection = [(PGMemoryPhotosGraphProperties *)self infoForGraphCollection];
-  v44[10] = infoForGraphCollection;
-  v43[11] = @"info";
+  v43[10] = infoForGraphCollection;
+  v42[11] = @"info";
   infoDictionary = [(PGMemoryPhotosGraphProperties *)self infoDictionary];
-  v44[11] = infoDictionary;
-  v43[12] = @"chapterTitles";
+  v43[11] = infoDictionary;
+  v42[12] = @"chapterTitles";
   infoForChapterTitles = [(PGMemoryPhotosGraphProperties *)self infoForChapterTitles];
-  v44[12] = infoForChapterTitles;
-  v43[13] = @"generatedWithFallbackRequirements";
+  v43[12] = infoForChapterTitles;
+  v42[13] = @"generatedWithFallbackRequirements";
   v11 = [MEMORY[0x277CCABB0] numberWithBool:{-[PGEnrichedMemoryProtocol generatedWithFallbackRequirements](self->_enrichedMemory, "generatedWithFallbackRequirements")}];
-  v44[13] = v11;
-  v43[14] = @"storyTitleCategory";
+  v43[13] = v11;
+  v42[14] = @"storyTitleCategory";
   storyTitleCategory = [(PGMemoryPhotosGraphProperties *)self storyTitleCategory];
-  v44[14] = storyTitleCategory;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:15];
-  v42 = [v13 mutableCopy];
+  v43[14] = storyTitleCategory;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v43 forKeys:v42 count:15];
+  v41 = [v13 mutableCopy];
 
   if ([(PGEnrichedMemoryProtocol *)self->_enrichedMemory memoryCategory]== 27)
   {
@@ -635,7 +621,7 @@ LABEL_11:
 
       if (originalColorGradeCategory)
       {
-        [v42 setObject:originalColorGradeCategory forKeyedSubscript:@"storyColorGradeCategory"];
+        [v41 setObject:originalColorGradeCategory forKeyedSubscript:@"storyColorGradeCategory"];
       }
     }
 
@@ -644,13 +630,11 @@ LABEL_11:
 
     if (v32)
     {
-      [v42 setObject:v32 forKeyedSubscript:@"storyRecipeData"];
+      [v41 setObject:v32 forKeyedSubscript:@"storyRecipeData"];
     }
   }
 
-  v33 = *MEMORY[0x277D85DE8];
-
-  return v42;
+  return v41;
 }
 
 - (PGMemoryPhotosGraphProperties)initWithEnrichedMemory:(id)memory neighborScoreComputer:(id)computer isAppleMusicSubscriber:(BOOL)subscriber photoLibrary:(id)library loggingConnection:(id)connection
@@ -678,44 +662,44 @@ LABEL_11:
 - (id)_recipeFromEnrichedMemory:(id)memory subscriberCatalog:(id)catalog applyColorGrading:(BOOL)grading loggingConnection:(id)connection
 {
   gradingCopy = grading;
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   memoryCopy = memory;
   catalogCopy = catalog;
   connectionCopy = connection;
-  v74 = memoryCopy;
+  v73 = memoryCopy;
   flexMusicCuration = [memoryCopy flexMusicCuration];
   bestSongSuggestions = [flexMusicCuration bestSongSuggestions];
   firstObject = [bestSongSuggestions firstObject];
 
-  v73 = [firstObject uid];
+  v72 = [firstObject uid];
   log = connectionCopy;
-  v70 = firstObject;
-  if ([v73 length])
+  v69 = firstObject;
+  if ([v72 length])
   {
-    v66 = catalogCopy;
+    v65 = catalogCopy;
     v13 = firstObject;
-    v68 = connectionCopy;
+    v67 = connectionCopy;
     v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v74 = 0u;
     v75 = 0u;
     v76 = 0u;
     v77 = 0u;
-    v78 = 0u;
     tagIDs = [v13 tagIDs];
-    v16 = [tagIDs countByEnumeratingWithState:&v75 objects:buf count:16];
+    v16 = [tagIDs countByEnumeratingWithState:&v74 objects:buf count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v76;
+      v18 = *v75;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v76 != v18)
+          if (*v75 != v18)
           {
             objc_enumerationMutation(tagIDs);
           }
 
-          v20 = [*(*(&v75 + 1) + 8 * i) componentsSeparatedByString:@"_"];
+          v20 = [*(*(&v74 + 1) + 8 * i) componentsSeparatedByString:@"_"];
           if ([v20 count] == 2)
           {
             v21 = [v20 objectAtIndexedSubscript:0];
@@ -724,7 +708,7 @@ LABEL_11:
           }
         }
 
-        v17 = [tagIDs countByEnumeratingWithState:&v75 objects:buf count:16];
+        v17 = [tagIDs countByEnumeratingWithState:&v74 objects:buf count:16];
       }
 
       while (v17);
@@ -738,25 +722,25 @@ LABEL_11:
       [v24 doubleValue];
       [v23 doubleValue];
       v26 = PFStoryColorGradeCategoryFromValenceArousal();
-      catalogCopy = v66;
+      catalogCopy = v65;
       v27 = 0x277D3B000;
-      v28 = v68;
+      v28 = v67;
     }
 
     else
     {
-      v30 = v68;
+      v30 = v67;
       v31 = [v14 objectForKeyedSubscript:@"Mood"];
       v27 = 0x277D3B000uLL;
       if (!PHMemoryMoodForString() && os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v80 = v31;
+        v79 = v31;
         _os_log_error_impl(&dword_22F0FC000, v30, OS_LOG_TYPE_ERROR, "[PGMemoryPhotosGraphProperties] unsupported Flex Mood tag '%@'", buf, 0xCu);
       }
 
-      catalogCopy = v66;
-      v28 = v68;
+      catalogCopy = v65;
+      v28 = v67;
       v26 = PFStoryColorGradeCategoryNamed();
     }
 
@@ -766,7 +750,7 @@ LABEL_11:
     if ((!arousal || !valence) && os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v80 = v73;
+      v79 = v72;
       _os_log_error_impl(&dword_22F0FC000, v28, OS_LOG_TYPE_ERROR, "[PGMemoryPhotosGraphProperties] Failed to assign proper color grade category for key flex song (%@) because arousal OR valence information was not available.", buf, 0xCu);
     }
 
@@ -774,7 +758,7 @@ LABEL_11:
     v36 = *MEMORY[0x277D3B5D8];
     songName = [v13 songName];
     artistName = [v13 artistName];
-    v29 = [v35 createAssetWithCategory:1 subcategory:1 catalog:v36 songID:v73 title:songName subtitle:artistName colorGradeCategory:v26];
+    v29 = [v35 createAssetWithCategory:1 subcategory:1 catalog:v36 songID:v72 title:songName subtitle:artistName colorGradeCategory:v26];
 
     connectionCopy = log;
   }
@@ -785,9 +769,9 @@ LABEL_11:
     v27 = 0x277D3B000;
   }
 
-  musicCuration = [v74 musicCuration];
+  musicCuration = [v73 musicCuration];
   keySongAdamID = [musicCuration keySongAdamID];
-  v69 = keySongAdamID;
+  v68 = keySongAdamID;
   if ([keySongAdamID length])
   {
     keySongArousal = [musicCuration keySongArousal];
@@ -808,7 +792,7 @@ LABEL_11:
       if (v47)
       {
         *buf = 138412290;
-        v80 = keySongAdamID;
+        v79 = keySongAdamID;
         _os_log_error_impl(&dword_22F0FC000, log, OS_LOG_TYPE_ERROR, "[PGMemoryPhotosGraphProperties] Failed to assign color grade category for key apple music song (%@) because arousal and valence information was not available.", buf, 0xCu);
       }
 
@@ -820,8 +804,8 @@ LABEL_11:
     keySongTitle = [musicCuration keySongTitle];
     keySongArtist = [musicCuration keySongArtist];
     v52 = v49;
-    keySongAdamID = v69;
-    v46 = [v48 createAssetWithCategory:1 subcategory:1 catalog:v52 songID:v69 title:keySongTitle subtitle:keySongArtist colorGradeCategory:v45];
+    keySongAdamID = v68;
+    v46 = [v48 createAssetWithCategory:1 subcategory:1 catalog:v52 songID:v68 title:keySongTitle subtitle:keySongArtist colorGradeCategory:v45];
 
     catalogCopy = v44;
     connectionCopy = log;
@@ -875,7 +859,7 @@ LABEL_46:
       colorGradeCategory = colorGradeCategory2;
     }
 
-    keySongAdamID = v69;
+    keySongAdamID = v68;
     goto LABEL_46;
   }
 
@@ -887,8 +871,6 @@ LABEL_46:
 
   v53 = 0;
 LABEL_47:
-
-  v64 = *MEMORY[0x277D85DE8];
 
   return v53;
 }

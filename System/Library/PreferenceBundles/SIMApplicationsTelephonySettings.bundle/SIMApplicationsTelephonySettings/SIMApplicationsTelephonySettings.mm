@@ -1,4 +1,4 @@
-uint64_t TPSSIMApplicationsLog()
+uint64_t TPSSIMApplicationsLog(uint64_t a1, uint64_t a2)
 {
   if (qword_86D8 != -1)
   {

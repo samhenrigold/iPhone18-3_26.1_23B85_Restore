@@ -86,7 +86,7 @@
 
 uint64_t __87__HMDHAPAccessoryPrimaryResidentOperationTask__processLocalRequests_responseWaitGroup___block_invoke(uint64_t a1, void *a2)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) context];
   v5 = [v4 requestMessage];
@@ -94,35 +94,35 @@ uint64_t __87__HMDHAPAccessoryPrimaryResidentOperationTask__processLocalRequests
   v6 = [v3 accessory];
   if ([v5 isRemote] && objc_msgSend(v6, "hasBTLELink") && (objc_msgSend(v6, "hasIPLink") & 1) == 0)
   {
-    v10 = [v5 dictionaryForKey:*MEMORY[0x277CCE7A8]];
-    v11 = [v6 uuid];
-    v12 = [v11 UUIDString];
-    v13 = [v10 objectForKeyedSubscript:v12];
-    v14 = [v13 objectForKeyedSubscript:@"kAccessoryLinkQuality"];
+    v9 = [v5 dictionaryForKey:*MEMORY[0x277CCE7A8]];
+    v10 = [v6 uuid];
+    v11 = [v10 UUIDString];
+    v12 = [v9 objectForKeyedSubscript:v11];
+    v13 = [v12 objectForKeyedSubscript:@"kAccessoryLinkQuality"];
 
-    v15 = [v6 uuid];
-    v16 = [v15 UUIDString];
-    v17 = [v10 objectForKeyedSubscript:v16];
-    v18 = [v17 objectForKeyedSubscript:@"kAccessoryLastSeen"];
+    v14 = [v6 uuid];
+    v15 = [v14 UUIDString];
+    v16 = [v9 objectForKeyedSubscript:v15];
+    v17 = [v16 objectForKeyedSubscript:@"kAccessoryLastSeen"];
 
     v7 = 0;
-    if (v14 && v18)
+    if (v13 && v17)
     {
-      v37 = 0;
-      v19 = [v6 home];
-      v36 = 5;
-      v20 = [v6 identifier];
-      v35 = 0;
-      v33 = v19;
-      [v19 retrieveStateForTrackedAccessory:v20 stateNumber:0 isReachable:&v37 linkQuality:&v36 lastSeen:&v35];
-      v34 = v35;
+      v36 = 0;
+      v18 = [v6 home];
+      v35 = 5;
+      v19 = [v6 identifier];
+      v34 = 0;
+      v32 = v18;
+      [v18 retrieveStateForTrackedAccessory:v19 stateNumber:0 isReachable:&v36 linkQuality:&v35 lastSeen:&v34];
+      v33 = v34;
 
-      v21 = [MEMORY[0x277D0F8D0] sharedPreferences];
-      v22 = [v21 preferenceForKey:@"BTLEAccessoryLossDetectionTimeInSec"];
-      v23 = [v22 numberValue];
-      v24 = [v23 unsignedIntegerValue];
+      v20 = [MEMORY[0x277D0F8D0] sharedPreferences];
+      v21 = [v20 preferenceForKey:@"BTLEAccessoryLossDetectionTimeInSec"];
+      v22 = [v21 numberValue];
+      v23 = [v22 unsignedIntegerValue];
 
-      if ((v37 & 1) != 0 || (v25 = [v14 integerValue], v25 >= v36) || objc_msgSend(v18, "unsignedIntegerValue") >= v24)
+      if ((v36 & 1) != 0 || (v24 = [v13 integerValue], v24 >= v35) || objc_msgSend(v17, "unsignedIntegerValue") >= v23)
       {
 
         v7 = 0;
@@ -130,36 +130,36 @@ uint64_t __87__HMDHAPAccessoryPrimaryResidentOperationTask__processLocalRequests
 
       else
       {
-        v26 = objc_autoreleasePoolPush();
-        v27 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+        v25 = objc_autoreleasePoolPush();
+        v26 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
         {
-          v28 = HMFGetLogIdentifier();
-          [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v36];
-          v29 = v32 = v26;
-          v30 = [v5 shortDescription];
+          v27 = HMFGetLogIdentifier();
+          [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v35];
+          v28 = v31 = v25;
+          v29 = [v5 shortDescription];
           *buf = 138544898;
-          v39 = v28;
-          v40 = 2112;
-          v41 = v3;
-          v42 = 2112;
-          v43 = v14;
-          v44 = 2112;
-          v45 = v18;
-          v46 = 2112;
-          v47 = v29;
-          v48 = 2112;
-          v49 = v34;
-          v50 = 2112;
-          v51 = v30;
-          _os_log_impl(&dword_229538000, v27, OS_LOG_TYPE_INFO, "%{public}@Skipping characteristic request: %@, accessory has a better link quality: %@(%@s) / %@(%@s) to the device originating message: %@", buf, 0x48u);
+          v38 = v27;
+          v39 = 2112;
+          v40 = v3;
+          v41 = 2112;
+          v42 = v13;
+          v43 = 2112;
+          v44 = v17;
+          v45 = 2112;
+          v46 = v28;
+          v47 = 2112;
+          v48 = v33;
+          v49 = 2112;
+          v50 = v29;
+          _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Skipping characteristic request: %@, accessory has a better link quality: %@(%@s) / %@(%@s) to the device originating message: %@", buf, 0x48u);
 
-          v26 = v32;
+          v25 = v31;
         }
 
-        objc_autoreleasePoolPop(v26);
-        v31 = [v6 workQueue];
-        [v33 retrieveHAPAccessoryForHMDAccessory:v6 linkType:2 forceRetrieve:0 queue:v31 completion:0];
+        objc_autoreleasePoolPop(v25);
+        v30 = [v6 workQueue];
+        [v32 retrieveHAPAccessoryForHMDAccessory:v6 linkType:2 forceRetrieve:0 queue:v30 completion:0];
 
         v7 = 1;
       }
@@ -171,13 +171,12 @@ uint64_t __87__HMDHAPAccessoryPrimaryResidentOperationTask__processLocalRequests
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 void __87__HMDHAPAccessoryPrimaryResidentOperationTask__processLocalRequests_responseWaitGroup___block_invoke_427(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = WeakRetained;
@@ -223,16 +222,14 @@ void __87__HMDHAPAccessoryPrimaryResidentOperationTask__processLocalRequests_res
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v13 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v13;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Lost self reference for local task completion handler", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v13;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Lost self reference for local task completion handler", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
     dispatch_group_leave(*(a1 + 32));
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)execute

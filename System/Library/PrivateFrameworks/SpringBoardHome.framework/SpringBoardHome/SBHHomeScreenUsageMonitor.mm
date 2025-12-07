@@ -61,7 +61,7 @@
 
 - (void)noteIconManagerContentOccludedChanged
 {
-  v3 = SBLogHomeScreenUsageMonitor();
+  v3 = SBLogHomeScreenUsageMonitor(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -111,105 +111,106 @@
 
 - (void)notifyForEveryHomeScreenWidgetVisibility
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   isContentVisible = [(SBHHomeScreenUsageMonitor *)self isContentVisible];
-  v4 = SBLogHomeScreenUsageMonitor();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
+  v4 = isContentVisible;
+  v5 = SBLogHomeScreenUsageMonitor(isContentVisible);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    if (isContentVisible)
+    if (v4)
     {
-      v5 = @"visible";
+      v6 = @"visible";
     }
 
     else
     {
-      v5 = @"gone";
+      v6 = @"gone";
     }
 
-    v6 = [(NSMutableSet *)self->_visibleHomeScreenWidgetIcons count];
+    v7 = [(NSMutableSet *)self->_visibleHomeScreenWidgetIcons count];
     *buf = 138543618;
-    v31 = v5;
-    v32 = 2048;
-    v33 = v6;
-    _os_log_impl(&dword_1BEB18000, v4, OS_LOG_TYPE_INFO, "notifying that all home screen widgets are %{public}@: (%lu widgets)", buf, 0x16u);
+    v32 = v6;
+    v33 = 2048;
+    v34 = v7;
+    _os_log_impl(&dword_1BEB18000, v5, OS_LOG_TYPE_INFO, "notifying that all home screen widgets are %{public}@: (%lu widgets)", buf, 0x16u);
   }
 
-  v26 = 0u;
   v27 = 0u;
-  v24 = 0u;
+  v28 = 0u;
   v25 = 0u;
+  v26 = 0u;
   obj = self->_visibleHomeScreenWidgetIcons;
-  v18 = [(NSMutableSet *)obj countByEnumeratingWithState:&v24 objects:v29 count:16];
-  if (v18)
+  v19 = [(NSMutableSet *)obj countByEnumeratingWithState:&v25 objects:v30 count:16];
+  if (v19)
   {
-    v17 = *v25;
+    v18 = *v26;
     do
     {
-      v7 = 0;
+      v8 = 0;
       do
       {
-        if (*v25 != v17)
+        if (*v26 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = v7;
-        v8 = *(*(&v24 + 1) + 8 * v7);
-        activeDataSource = [v8 activeDataSource];
-        v20 = 0u;
+        v20 = v8;
+        v9 = *(*(&v25 + 1) + 8 * v8);
+        activeDataSource = [v9 activeDataSource];
         v21 = 0u;
         v22 = 0u;
         v23 = 0u;
-        v10 = self->_observers;
-        v11 = [(NSHashTable *)v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
-        if (v11)
+        v24 = 0u;
+        v11 = self->_observers;
+        v12 = [(NSHashTable *)v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
+        if (v12)
         {
-          v12 = v11;
-          v13 = *v21;
+          v13 = v12;
+          v14 = *v22;
           do
           {
-            for (i = 0; i != v12; ++i)
+            for (i = 0; i != v13; ++i)
             {
-              if (*v21 != v13)
+              if (*v22 != v14)
               {
-                objc_enumerationMutation(v10);
+                objc_enumerationMutation(v11);
               }
 
-              v15 = *(*(&v20 + 1) + 8 * i);
+              v16 = *(*(&v21 + 1) + 8 * i);
               if (objc_opt_respondsToSelector())
               {
-                if (isContentVisible)
+                if (v4)
                 {
-                  [v15 homeScreenUsageAggregator:self didNoteDataSourceDidAppear:activeDataSource forWidgetIcon:v8];
+                  [v16 homeScreenUsageAggregator:self didNoteDataSourceDidAppear:activeDataSource forWidgetIcon:v9];
                 }
 
                 else
                 {
-                  [v15 homeScreenUsageAggregator:self didNoteDataSourceDidDisappear:activeDataSource forWidgetIcon:v8];
+                  [v16 homeScreenUsageAggregator:self didNoteDataSourceDidDisappear:activeDataSource forWidgetIcon:v9];
                 }
               }
             }
 
-            v12 = [(NSHashTable *)v10 countByEnumeratingWithState:&v20 objects:v28 count:16];
+            v13 = [(NSHashTable *)v11 countByEnumeratingWithState:&v21 objects:v29 count:16];
           }
 
-          while (v12);
+          while (v13);
         }
 
-        v7 = v19 + 1;
+        v8 = v20 + 1;
       }
 
-      while (v19 + 1 != v18);
-      v18 = [(NSMutableSet *)obj countByEnumeratingWithState:&v24 objects:v29 count:16];
+      while (v20 + 1 != v19);
+      v19 = [(NSMutableSet *)obj countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
-    while (v18);
+    while (v19);
   }
 }
 
 - (void)noteIconManagerRootFolderControllerViewDidDisappear
 {
-  v3 = SBLogHomeScreenUsageMonitor();
+  v3 = SBLogHomeScreenUsageMonitor(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -221,7 +222,7 @@
 
 - (void)noteIconManagerRootFolderControllerViewWillAppear
 {
-  v3 = SBLogHomeScreenUsageMonitor();
+  v3 = SBLogHomeScreenUsageMonitor(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -277,7 +278,7 @@
 
 - (void)noteIconManagerOverlayTodayViewDidDisappear
 {
-  v3 = SBLogHomeScreenUsageMonitor();
+  v3 = SBLogHomeScreenUsageMonitor(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -290,7 +291,7 @@
 
 - (void)noteIconManagerCoverSheetTodayViewDidAppear
 {
-  v3 = SBLogHomeScreenUsageMonitor();
+  v3 = SBLogHomeScreenUsageMonitor(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -302,7 +303,7 @@
 
 - (void)noteLayoutChanged
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   iconManager = [(SBHHomeScreenUsageMonitor *)self iconManager];
   isEditing = [iconManager isEditing];
 
@@ -314,43 +315,43 @@
 
   else
   {
-    v5 = SBLogHomeScreenUsageMonitor();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = SBLogHomeScreenUsageMonitor(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BEB18000, v5, OS_LOG_TYPE_INFO, "notifying for home screen layout change", buf, 2u);
+      _os_log_impl(&dword_1BEB18000, v6, OS_LOG_TYPE_INFO, "notifying for home screen layout change", buf, 2u);
     }
 
-    v14 = 0u;
     v15 = 0u;
-    v12 = 0u;
+    v16 = 0u;
     v13 = 0u;
-    v6 = self->_observers;
-    v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
-    if (v7)
+    v14 = 0u;
+    v7 = self->_observers;
+    v8 = [(NSHashTable *)v7 countByEnumeratingWithState:&v13 objects:v18 count:16];
+    if (v8)
     {
-      v8 = v7;
-      v9 = *v13;
+      v9 = v8;
+      v10 = *v14;
       do
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v9; ++i)
         {
-          if (*v13 != v9)
+          if (*v14 != v10)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v12 + 1) + 8 * i);
+          v12 = *(*(&v13 + 1) + 8 * i);
           if (objc_opt_respondsToSelector())
           {
-            [v11 homeScreenUsageAggregatorDidNoteHomeScreenLayoutChanged:{self, v12}];
+            [v12 homeScreenUsageAggregatorDidNoteHomeScreenLayoutChanged:{self, v13}];
           }
         }
 
-        v8 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
+        v9 = [(NSHashTable *)v7 countByEnumeratingWithState:&v13 objects:v18 count:16];
       }
 
-      while (v8);
+      while (v9);
     }
   }
 }
@@ -369,8 +370,7 @@
   v58[4] = self;
   v41 = v6;
   v59 = v41;
-  [currentIconListModel enumerateIconsUsingBlock:v58];
-  v7 = SBLogHomeScreenUsageMonitor();
+  v7 = SBLogHomeScreenUsageMonitor([currentIconListModel enumerateIconsUsingBlock:v58]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     visibleHomeScreenWidgetIcons = self->_visibleHomeScreenWidgetIcons;
@@ -585,7 +585,7 @@
 {
   v35 = *MEMORY[0x1E69E9840];
   modelCopy = model;
-  v6 = SBLogHomeScreenUsageMonitor();
+  v6 = SBLogHomeScreenUsageMonitor(modelCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -677,7 +677,7 @@
 {
   v10 = *MEMORY[0x1E69E9840];
   folderCopy = folder;
-  v6 = SBLogHomeScreenUsageMonitor();
+  v6 = SBLogHomeScreenUsageMonitor(folderCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v8 = 138412290;
@@ -706,7 +706,7 @@
 {
   v10 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
-  v6 = SBLogHomeScreenUsageMonitor();
+  v6 = SBLogHomeScreenUsageMonitor(controllerCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v8 = 138412290;
@@ -732,7 +732,7 @@
 - (void)setHomeScreenDisappearanceReasons:(unint64_t)reasons
 {
   v9 = *MEMORY[0x1E69E9840];
-  v5 = SBLogHomeScreenUsageMonitor();
+  v5 = SBLogHomeScreenUsageMonitor(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v7 = 134217984;
@@ -754,7 +754,7 @@
 - (void)noteIconManagerListLayoutProviderChanged
 {
   v16 = *MEMORY[0x1E69E9840];
-  v3 = SBLogHomeScreenUsageMonitor();
+  v3 = SBLogHomeScreenUsageMonitor(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -800,7 +800,7 @@
 
 - (void)noteIconManagerCoverSheetTodayViewDidDisappear
 {
-  v3 = SBLogHomeScreenUsageMonitor();
+  v3 = SBLogHomeScreenUsageMonitor(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -812,7 +812,7 @@
 
 - (void)noteIconManagerOverlayTodayViewDidAppear
 {
-  v3 = SBLogHomeScreenUsageMonitor();
+  v3 = SBLogHomeScreenUsageMonitor(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;
@@ -827,7 +827,7 @@
 {
   v20 = *MEMORY[0x1E69E9840];
   iconsCopy = icons;
-  v7 = SBLogHomeScreenUsageMonitor();
+  v7 = SBLogHomeScreenUsageMonitor(iconsCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -874,7 +874,7 @@
 - (void)noteWidgetDiscoverabilityStarted
 {
   v16 = *MEMORY[0x1E69E9840];
-  v3 = SBLogHomeScreenUsageMonitor();
+  v3 = SBLogHomeScreenUsageMonitor(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -922,7 +922,7 @@
 {
   v18 = *MEMORY[0x1E69E9840];
   suggestionCopy = suggestion;
-  v5 = SBLogHomeScreenUsageMonitor();
+  v5 = SBLogHomeScreenUsageMonitor(suggestionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -970,7 +970,7 @@
 {
   v18 = *MEMORY[0x1E69E9840];
   suggestionCopy = suggestion;
-  v5 = SBLogHomeScreenUsageMonitor();
+  v5 = SBLogHomeScreenUsageMonitor(suggestionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -1017,7 +1017,7 @@
 - (void)noteWidgetDiscoverabilityDidEnterEditingMode
 {
   v16 = *MEMORY[0x1E69E9840];
-  v3 = SBLogHomeScreenUsageMonitor();
+  v3 = SBLogHomeScreenUsageMonitor(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -1064,7 +1064,7 @@
 - (void)noteAddWidgetSheetWillPresent
 {
   v16 = *MEMORY[0x1E69E9840];
-  v3 = SBLogHomeScreenUsageMonitor();
+  v3 = SBLogHomeScreenUsageMonitor(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -1111,7 +1111,7 @@
 - (void)noteIconStylePickerDidDismiss
 {
   v16 = *MEMORY[0x1E69E9840];
-  v3 = SBLogHomeScreenUsageMonitor();
+  v3 = SBLogHomeScreenUsageMonitor(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -1157,7 +1157,7 @@
 
 - (void)iconManagerDidChangeIconModel:(id)model
 {
-  v4 = SBLogHomeScreenUsageMonitor();
+  v4 = SBLogHomeScreenUsageMonitor(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;
@@ -1169,7 +1169,7 @@
 
 - (void)iconManagerDidChangeRootViewController:(id)controller
 {
-  v4 = SBLogHomeScreenUsageMonitor();
+  v4 = SBLogHomeScreenUsageMonitor(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *v5 = 0;
@@ -1181,7 +1181,7 @@
 
 - (void)iconManagerEditingDidChange:(id)change
 {
-  v4 = SBLogHomeScreenUsageMonitor();
+  v4 = SBLogHomeScreenUsageMonitor(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *v6 = 0;
@@ -1209,7 +1209,7 @@
 - (void)iconModelDidLayOut:(id)out
 {
   outCopy = out;
-  v5 = SBLogHomeScreenUsageMonitor();
+  v5 = SBLogHomeScreenUsageMonitor(outCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *v8 = 0;
@@ -1224,18 +1224,19 @@
 
 - (void)rootFolderControllerCurrentPageIndexDidChange:(id)change
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   object = [change object];
   isScrolling = [(SBFolderController *)self->_rootFolderController isScrolling];
-  v6 = SBLogHomeScreenUsageMonitor();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v6 = isScrolling;
+  v7 = SBLogHomeScreenUsageMonitor(isScrolling);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v7[0] = 67109120;
-    v7[1] = isScrolling;
-    _os_log_impl(&dword_1BEB18000, v6, OS_LOG_TYPE_INFO, "root folder controller current page index did change (scrolling: %{BOOL}u)", v7, 8u);
+    v8[0] = 67109120;
+    v8[1] = v6;
+    _os_log_impl(&dword_1BEB18000, v7, OS_LOG_TYPE_INFO, "root folder controller current page index did change (scrolling: %{BOOL}u)", v8, 8u);
   }
 
-  if (isScrolling)
+  if (v6)
   {
     [(SBHHomeScreenUsageMonitor *)self setCurrentPageIndexDidChangeWhileScrolling:1];
   }
@@ -1257,7 +1258,7 @@
 - (void)rootFolderControllerDidEndScrolling:(id)scrolling
 {
   scrollingCopy = scrolling;
-  v5 = SBLogHomeScreenUsageMonitor();
+  v5 = SBLogHomeScreenUsageMonitor(scrollingCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *v7 = 0;
@@ -1414,7 +1415,7 @@
 
 - (void)noteWidgetIconAdded:(id)added
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   addedCopy = added;
   [addedCopy addObserver:self];
   activeDataSource = [addedCopy activeDataSource];
@@ -1424,56 +1425,56 @@
 
   if (v7)
   {
-    [(NSMutableSet *)self->_visibleHomeScreenWidgetIcons addObject:addedCopy];
+    v8 = [(NSMutableSet *)self->_visibleHomeScreenWidgetIcons addObject:addedCopy];
   }
 
-  v8 = SBLogHomeScreenUsageMonitor();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v9 = SBLogHomeScreenUsageMonitor(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138412802;
-    v22 = addedCopy;
-    v23 = 1024;
-    v24 = v7;
-    v25 = 1024;
-    v26 = isContentVisible;
-    _os_log_impl(&dword_1BEB18000, v8, OS_LOG_TYPE_INFO, "notifying for added widget icon %@ (icon visible: %{BOOL}u, content visible: %{BOOL}u)", buf, 0x18u);
+    v23 = addedCopy;
+    v24 = 1024;
+    v25 = v7;
+    v26 = 1024;
+    v27 = isContentVisible;
+    _os_log_impl(&dword_1BEB18000, v9, OS_LOG_TYPE_INFO, "notifying for added widget icon %@ (icon visible: %{BOOL}u, content visible: %{BOOL}u)", buf, 0x18u);
   }
 
-  v18 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
-  v9 = self->_observers;
-  v10 = [(NSHashTable *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
-  if (v10)
+  v18 = 0u;
+  v10 = self->_observers;
+  v11 = [(NSHashTable *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v11)
   {
-    v11 = v10;
-    v12 = *v17;
+    v12 = v11;
+    v13 = *v18;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v12; ++i)
       {
-        if (*v17 != v12)
+        if (*v18 != v13)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v10);
         }
 
-        v14 = *(*(&v16 + 1) + 8 * i);
+        v15 = *(*(&v17 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
-          [v14 homeScreenUsageAggregator:self didNoteWidgetIconAdded:addedCopy];
+          [v15 homeScreenUsageAggregator:self didNoteWidgetIconAdded:addedCopy];
         }
 
         if (isContentVisible & v7) != 0 && (objc_opt_respondsToSelector())
         {
-          [v14 homeScreenUsageAggregator:self didNoteDataSourceDidAppear:activeDataSource forWidgetIcon:addedCopy];
+          [v15 homeScreenUsageAggregator:self didNoteDataSourceDidAppear:activeDataSource forWidgetIcon:addedCopy];
         }
       }
 
-      v11 = [(NSHashTable *)v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v12 = [(NSHashTable *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
-    while (v11);
+    while (v12);
   }
 }
 
@@ -1485,8 +1486,7 @@
   activeDataSource = [removedCopy activeDataSource];
   isContentVisible = [(SBHHomeScreenUsageMonitor *)self isContentVisible];
   v6 = [(NSMutableSet *)self->_visibleHomeScreenWidgetIcons containsObject:removedCopy];
-  [(NSMutableSet *)self->_visibleHomeScreenWidgetIcons removeObject:removedCopy];
-  v7 = SBLogHomeScreenUsageMonitor();
+  v7 = SBLogHomeScreenUsageMonitor([(NSMutableSet *)self->_visibleHomeScreenWidgetIcons removeObject:removedCopy]);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 138412802;
@@ -1538,15 +1538,15 @@
 
 - (void)noteWidgetIconStack:(id)stack changedActiveWidget:(id)widget
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   stackCopy = stack;
   widgetCopy = widget;
   activeDataSource = [stackCopy activeDataSource];
   isContentVisible = [(SBHHomeScreenUsageMonitor *)self isContentVisible];
-  v28 = stackCopy;
+  v29 = stackCopy;
   v8 = isContentVisible & [(NSMutableSet *)self->_visibleHomeScreenWidgetIcons containsObject:stackCopy];
   WeakRetained = objc_loadWeakRetained(&self->_iconManager);
-  v24 = WeakRetained;
+  v25 = WeakRetained;
   if ([WeakRetained isOverlayCoverSheetTodayViewVisible])
   {
     isOverlayTodayViewVisible = 1;
@@ -1559,70 +1559,70 @@
 
   rootFolder = [(SBHHomeScreenUsageMonitor *)self rootFolder];
   todayList = [rootFolder todayList];
-  v13 = [todayList directlyContainsIcon:v28];
+  v13 = [todayList directlyContainsIcon:v29];
 
   v14 = v8 | isOverlayTodayViewVisible & v13;
-  v15 = SBLogHomeScreenUsageMonitor();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = SBLogHomeScreenUsageMonitor(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = [(NSHashTable *)self->_observers count];
+    v17 = [(NSHashTable *)self->_observers count];
     *buf = 138413314;
-    v35 = v28;
-    v36 = 1024;
-    v37 = v8 | isOverlayTodayViewVisible & v13;
-    v38 = 1024;
-    v39 = isContentVisible;
-    v40 = 1024;
-    v41 = isOverlayTodayViewVisible;
-    v42 = 2048;
-    v43 = v16;
-    _os_log_impl(&dword_1BEB18000, v15, OS_LOG_TYPE_DEFAULT, "notifying for widget icon active data source change %@ (icon visible: %{BOOL}u, content visible: %{BOOL}u, today view visible: %{BOOL}u, number of observers: %ld)", buf, 0x28u);
+    v36 = v29;
+    v37 = 1024;
+    v38 = v8 | isOverlayTodayViewVisible & v13;
+    v39 = 1024;
+    v40 = isContentVisible;
+    v41 = 1024;
+    v42 = isOverlayTodayViewVisible;
+    v43 = 2048;
+    v44 = v17;
+    _os_log_impl(&dword_1BEB18000, v16, OS_LOG_TYPE_DEFAULT, "notifying for widget icon active data source change %@ (icon visible: %{BOOL}u, content visible: %{BOOL}u, today view visible: %{BOOL}u, number of observers: %ld)", buf, 0x28u);
   }
 
-  v31 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
+  v31 = 0u;
   selfCopy = self;
-  v18 = self->_observers;
-  v19 = [(NSHashTable *)v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
-  if (v19)
+  v19 = self->_observers;
+  v20 = [(NSHashTable *)v19 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  if (v20)
   {
-    v20 = v19;
-    v21 = *v30;
+    v21 = v20;
+    v22 = *v31;
     do
     {
-      for (i = 0; i != v20; ++i)
+      for (i = 0; i != v21; ++i)
       {
-        if (*v30 != v21)
+        if (*v31 != v22)
         {
-          objc_enumerationMutation(v18);
+          objc_enumerationMutation(v19);
         }
 
-        v23 = *(*(&v29 + 1) + 8 * i);
+        v24 = *(*(&v30 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
-          [v23 homeScreenUsageAggregator:selfCopy didNoteWidgetIconStackChangedActiveWidget:v28];
+          [v24 homeScreenUsageAggregator:selfCopy didNoteWidgetIconStackChangedActiveWidget:v29];
         }
 
         if (v14)
         {
           if (widgetCopy && (objc_opt_respondsToSelector() & 1) != 0)
           {
-            [v23 homeScreenUsageAggregator:selfCopy didNoteDataSourceDidDisappear:widgetCopy forWidgetIcon:v28];
+            [v24 homeScreenUsageAggregator:selfCopy didNoteDataSourceDidDisappear:widgetCopy forWidgetIcon:v29];
           }
 
           if (activeDataSource && (objc_opt_respondsToSelector() & 1) != 0)
           {
-            [v23 homeScreenUsageAggregator:selfCopy didNoteDataSourceDidAppear:activeDataSource forWidgetIcon:v28];
+            [v24 homeScreenUsageAggregator:selfCopy didNoteDataSourceDidAppear:activeDataSource forWidgetIcon:v29];
           }
         }
       }
 
-      v20 = [(NSHashTable *)v18 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v21 = [(NSHashTable *)v19 countByEnumeratingWithState:&v30 objects:v34 count:16];
     }
 
-    while (v20);
+    while (v21);
   }
 }
 
@@ -1821,7 +1821,7 @@ void __53__SBHHomeScreenUsageMonitor_updateVisibleWidgetIcons__block_invoke(uint
   v9 = sel_homeScreenUsageAggregator_didNoteDataSourceDidAppear_forWidgetIcon_;
   rootFolder = [(SBHHomeScreenUsageMonitor *)self rootFolder];
   todayList = [rootFolder todayList];
-  v12 = SBLogHomeScreenUsageMonitor();
+  v12 = SBLogHomeScreenUsageMonitor(todayList);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     if (v8)

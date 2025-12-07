@@ -7,7 +7,7 @@
 
 + (_TtC22localspeechrecognition32GeneralASRAssetDelegateInterface)sharedInstance
 {
-  v2 = sub_100002AC0(&qword_10006DD88, &qword_100071680);
+  v2 = sub_100002AC0(&qword_10006DD88, &qword_100071680, sub_1000054E0);
 
   return v2;
 }

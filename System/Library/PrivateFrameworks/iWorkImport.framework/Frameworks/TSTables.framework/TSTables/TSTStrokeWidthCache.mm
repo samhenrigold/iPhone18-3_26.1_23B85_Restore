@@ -37,7 +37,7 @@
 - (void)setCount:(unsigned int)count
 {
   pthread_rwlock_wrlock(&self->_rwlock);
-  sub_221280CE8(&self->_indexToCacheEntriesMap.__begin_, count);
+  sub_221280CE8(&self->_indexToCacheEntriesMap, count);
 
   pthread_rwlock_unlock(&self->_rwlock);
 }
@@ -163,158 +163,158 @@
   begin = self->_indexToCacheEntriesMap.__begin_;
   if (index < ((self->_indexToCacheEntriesMap.__end_ - begin) >> 5))
   {
-    v46 = 0;
+    v45 = 0;
     v8 = 0uLL;
+    v43 = 0u;
     v44 = 0u;
-    v45 = 0u;
     if (strokes)
     {
-      objc_msgSend_stackReferences(strokes, a2, *&index, strokes, minorStrokes);
+      objc_msgSend_stackReferences(strokes, a2, *&index, strokes);
       v8 = 0uLL;
     }
 
-    v43 = 0;
+    v42 = 0;
+    v40 = v8;
     v41 = v8;
-    v42 = v8;
     if (minorStrokes)
     {
-      objc_msgSend_stackReferences(minorStrokes, a2, *&index, strokes, minorStrokes);
+      objc_msgSend_stackReferences(minorStrokes, a2, *&index, strokes);
     }
 
+    v37 = 0;
     v38 = 0;
     v39 = 0;
-    v40 = 0;
-    if (v44)
+    if (v43)
     {
-      v9 = &v44;
+      v9 = &v43;
     }
 
     else
     {
-      v9 = &v41;
+      v9 = &v40;
     }
 
-    sub_221281314(&v38, v9);
+    sub_221281314(&v37, v9);
+    if (*(&v43 + 1) && *(&v40 + 1))
+    {
+      v11 = [TSTStrokeOrderedLayer alloc];
+      v13 = objc_msgSend_initWithContext_majorStrokeLayer_minorStrokeLayer_(v11, v12, 0, *(&v43 + 1), *(&v40 + 1));
+      v28 = v13;
+      sub_221281314(&v37, &v28);
+      v14 = v13;
+    }
+
+    else if (*(&v43 + 1) | *(&v40 + 1))
+    {
+      if (*(&v43 + 1))
+      {
+        v15 = &v43 + 8;
+      }
+
+      else
+      {
+        v15 = &v40 + 8;
+      }
+
+      v14 = 0;
+      sub_221281314(&v37, v15);
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+
+    if (v41)
+    {
+      sub_221281314(&v37, &v41);
+    }
+
+    if (v44)
+    {
+      sub_221281314(&v37, &v44);
+    }
+
     if (*(&v44 + 1) && *(&v41 + 1))
     {
-      v12 = [TSTStrokeOrderedLayer alloc];
-      v14 = objc_msgSend_initWithContext_majorStrokeLayer_minorStrokeLayer_(v12, v13, 0, *(&v44 + 1), *(&v41 + 1));
-      v29 = v14;
-      sub_221281314(&v38, &v29);
-      v15 = v14;
+      v16 = [TSTStrokeOrderedLayer alloc];
+      v18 = objc_msgSend_initWithContext_majorStrokeLayer_minorStrokeLayer_(v16, v17, 0, *(&v44 + 1), *(&v41 + 1));
+      v28 = v18;
+      sub_221281314(&v37, &v28);
+      v19 = v18;
     }
 
     else if (*(&v44 + 1) | *(&v41 + 1))
     {
       if (*(&v44 + 1))
       {
-        v16 = &v44 + 8;
+        v20 = &v44 + 8;
       }
 
       else
       {
-        v16 = &v41 + 8;
+        v20 = &v41 + 8;
       }
 
-      v15 = 0;
-      sub_221281314(&v38, v16);
+      v19 = 0;
+      sub_221281314(&v37, v20);
     }
 
     else
     {
-      v15 = 0;
+      v19 = 0;
     }
 
     if (v42)
     {
-      sub_221281314(&v38, &v42);
+      sub_221281314(&v37, &v42);
     }
 
     if (v45)
     {
-      sub_221281314(&v38, &v45);
+      sub_221281314(&v37, &v45);
     }
 
-    if (*(&v45 + 1) && *(&v42 + 1))
-    {
-      v17 = [TSTStrokeOrderedLayer alloc];
-      v19 = objc_msgSend_initWithContext_majorStrokeLayer_minorStrokeLayer_(v17, v18, 0, *(&v45 + 1), *(&v42 + 1));
-      v29 = v19;
-      sub_221281314(&v38, &v29);
-      v20 = v19;
-    }
-
-    else if (*(&v45 + 1) | *(&v42 + 1))
-    {
-      if (*(&v45 + 1))
-      {
-        v21 = &v45 + 8;
-      }
-
-      else
-      {
-        v21 = &v42 + 8;
-      }
-
-      v20 = 0;
-      sub_221281314(&v38, v21);
-    }
-
-    else
-    {
-      v20 = 0;
-    }
-
-    if (v43)
-    {
-      sub_221281314(&v38, &v43);
-    }
-
-    if (v46)
-    {
-      sub_221281314(&v38, &v46);
-    }
-
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x4812000000;
-    v32 = sub_2212813E8;
-    v33 = sub_22128140C;
-    v34 = &unk_22188E88F;
-    v36 = 0;
-    v37 = 0;
-    __p = 0;
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x2020000000;
     v28 = 0;
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = sub_221281424;
-    v24[3] = &unk_2784623B8;
-    v24[4] = &v29;
-    v24[5] = &v25;
-    objc_msgSend_enumerateWidthsInLayers_usingBlock_(TSTStrokeLayerMergedStack, v10, &v38, v24, v11);
-    v22 = (begin + 32 * indexCopy);
-    *v22 = v26[3];
-    v23 = v22 + 1;
-    if (v23 != v30 + 6)
+    v29 = &v28;
+    v30 = 0x4812000000;
+    v31 = sub_2212813E8;
+    v32 = sub_22128140C;
+    v33 = &unk_22188E88F;
+    v35 = 0;
+    v36 = 0;
+    __p = 0;
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x2020000000;
+    v27 = 0;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = sub_221281424;
+    v23[3] = &unk_2784623B8;
+    v23[4] = &v28;
+    v23[5] = &v24;
+    objc_msgSend_enumerateWidthsInLayers_usingBlock_(TSTStrokeLayerMergedStack, v10, &v37, v23);
+    v21 = (begin + 32 * indexCopy);
+    *v21 = v25[3];
+    v22 = v21 + 1;
+    if (v22 != v29 + 6)
     {
-      sub_2212819E0(v23, v30[6], v30[7], 0xAAAAAAAAAAAAAAABLL * ((v30[7] - v30[6]) >> 3));
+      sub_2212819E0(v22, v29[6], v29[7], 0xAAAAAAAAAAAAAAABLL * ((v29[7] - v29[6]) >> 3));
     }
 
-    _Block_object_dispose(&v25, 8);
-    _Block_object_dispose(&v29, 8);
+    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v28, 8);
     if (__p)
     {
-      v36 = __p;
+      v35 = __p;
       operator delete(__p);
     }
 
-    if (v38)
+    if (v37)
     {
-      v39 = v38;
-      operator delete(v38);
+      v38 = v37;
+      operator delete(v37);
     }
   }
 }

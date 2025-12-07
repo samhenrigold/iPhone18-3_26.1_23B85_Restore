@@ -47,9 +47,9 @@ void _GLOBAL__sub_I_TIKeyboardInputManager_th_24Key_mm()
 
 uint64_t KB::CandidateFilter_th::num_words_overlapping_input(KB::CandidateFilter_th *this, const KB::Candidate *a2, const KB::Candidate *a3)
 {
-  v10[4] = *MEMORY[0x29EDCA608];
-  KB::Candidate::capitalized_string(v10, a3);
-  KB::String::String(v9);
+  v9[4] = *MEMORY[0x29EDCA608];
+  KB::Candidate::capitalized_string(v9, a3);
+  KB::String::String(v8);
   v4 = 0;
   do
   {
@@ -59,54 +59,52 @@ uint64_t KB::CandidateFilter_th::num_words_overlapping_input(KB::CandidateFilter
       break;
     }
 
-    KB::String::append(v9, (*(a2 + 1) + 240 * v4));
+    KB::String::append(v8, (*(a2 + 1) + 240 * v4));
     v6 = KB::String::starts_with();
     v4 = v5 + 1;
   }
 
   while ((v6 & 1) != 0);
+  KB::String::~String(v8);
   KB::String::~String(v9);
-  KB::String::~String(v10);
-  v7 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
 void KB::CandidateFilter_th::remove_duplicate_candidate_with_the_same_surface_form(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v20[4] = *MEMORY[0x29EDCA608];
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x4002000000;
-  v15 = __Block_byref_object_copy_;
+  v19[4] = *MEMORY[0x29EDCA608];
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x4002000000;
+  v14 = __Block_byref_object_copy_;
+  v17 = 0;
   v18 = 0;
-  v19 = 0;
-  v16 = __Block_byref_object_dispose_;
-  v17 = &v18;
-  std::__tree<KB::String>::destroy(&v17, 0);
+  v15 = __Block_byref_object_dispose_;
+  v16 = &v17;
+  std::__tree<KB::String>::destroy(&v16, 0);
+  v17 = 0;
   v18 = 0;
-  v19 = 0;
-  v17 = &v18;
+  v16 = &v17;
   if (*a2 != *(a2 + 8))
   {
-    v6 = v13;
-    KB::Candidate::capitalized_string(v20, *a2);
-    std::__tree<KB::String>::__emplace_unique_key_args<KB::String,KB::String>((v6 + 5), v20);
-    KB::String::~String(v20);
+    v6 = v12;
+    KB::Candidate::capitalized_string(v19, *a2);
+    std::__tree<KB::String>::__emplace_unique_key_args<KB::String,KB::String>((v6 + 5), v19, v19);
+    KB::String::~String(v19);
     v8 = *a2;
     v7 = *(a2 + 8);
-    v11[0] = MEMORY[0x29EDCA5F8];
-    v11[1] = 0x40000000;
-    v11[2] = ___ZNK2KB18CandidateFilter_th53remove_duplicate_candidate_with_the_same_surface_formERNSt3__16vectorINS_9CandidateENS1_9allocatorIS3_EEEERKS3_P10__CFString_block_invoke;
-    v11[3] = &unk_29F37C300;
-    v11[4] = &v12;
-    v11[5] = a4;
-    v9 = std::remove_if[abi:nn200100]<std::__wrap_iter<KB::Candidate *>,BOOL({block_pointer})(KB::Candidate const&)>(v8 + 125, v7, v11);
+    v10[0] = MEMORY[0x29EDCA5F8];
+    v10[1] = 0x40000000;
+    v10[2] = ___ZNK2KB18CandidateFilter_th53remove_duplicate_candidate_with_the_same_surface_formERNSt3__16vectorINS_9CandidateENS1_9allocatorIS3_EEEERKS3_P10__CFString_block_invoke;
+    v10[3] = &unk_29F37C300;
+    v10[4] = &v11;
+    v10[5] = a4;
+    v9 = std::remove_if[abi:nn200100]<std::__wrap_iter<KB::Candidate *>,BOOL({block_pointer})(KB::Candidate const&)>(v8 + 125, v7, v10);
     std::vector<KB::Candidate>::erase(a2, v9, *(a2 + 8));
   }
 
-  _Block_object_dispose(&v12, 8);
-  std::__tree<KB::String>::destroy(&v17, v18);
-  v10 = *MEMORY[0x29EDCA608];
+  _Block_object_dispose(&v11, 8);
+  std::__tree<KB::String>::destroy(&v16, v17);
 }
 
 void *__Block_byref_object_copy_(void *result, void *a2)
@@ -168,29 +166,29 @@ uint64_t *std::remove_if[abi:nn200100]<std::__wrap_iter<KB::Candidate *>,BOOL({b
 
 BOOL ___ZNK2KB18CandidateFilter_th53remove_duplicate_candidate_with_the_same_surface_formERNSt3__16vectorINS_9CandidateENS1_9allocatorIS3_EEEERKS3_P10__CFString_block_invoke(uint64_t a1, KB::Candidate *this)
 {
-  v16[2] = *MEMORY[0x29EDCA608];
+  v15[2] = *MEMORY[0x29EDCA608];
   v4 = *(*(a1 + 32) + 8);
-  KB::Candidate::capitalized_string(&v14, this);
-  v5 = std::__tree<KB::String>::find<KB::String>(v4 + 40, &v14);
+  KB::Candidate::capitalized_string(&v13, this);
+  v5 = std::__tree<KB::String>::find<KB::String>(v4 + 40, &v13);
   v6 = *(*(a1 + 32) + 8) + 48;
-  KB::String::~String(&v14);
+  KB::String::~String(&v13);
   v7 = *(*(a1 + 32) + 8);
-  KB::Candidate::capitalized_string(&v14, this);
-  std::__tree<KB::String>::__emplace_unique_key_args<KB::String,KB::String>(v7 + 40, &v14);
-  KB::String::~String(&v14);
+  KB::Candidate::capitalized_string(&v13, this);
+  std::__tree<KB::String>::__emplace_unique_key_args<KB::String,KB::String>(v7 + 40, &v13, &v13);
+  KB::String::~String(&v13);
   if (v6 != v5)
   {
     v8 = *(a1 + 40);
     if (v8)
     {
-      KB::Candidate::capitalized_string(&v14, this);
-      v10 = v15;
-      if (!v15)
+      KB::Candidate::capitalized_string(&v13, this);
+      v10 = v14;
+      if (!v14)
       {
-        v10 = v16;
+        v10 = v15;
       }
 
-      if (v14)
+      if (v13)
       {
         v11 = v10;
       }
@@ -201,13 +199,11 @@ BOOL ___ZNK2KB18CandidateFilter_th53remove_duplicate_candidate_with_the_same_sur
       }
 
       KB::append_format(v8, "[%s] removed by %s\n", v9, v11, "remove_duplicate_candidate_with_the_same_surface_form");
-      KB::String::~String(&v14);
+      KB::String::~String(&v13);
     }
   }
 
-  result = v6 != v5;
-  v13 = *MEMORY[0x29EDCA608];
-  return result;
+  return v6 != v5;
 }
 
 uint64_t *std::vector<KB::Candidate>::erase(uint64_t a1, uint64_t *a2, __int128 *a3)
@@ -242,7 +238,7 @@ uint64_t *std::vector<KB::Candidate>::erase(uint64_t a1, uint64_t *a2, __int128 
   return a2;
 }
 
-uint64_t *KB::CandidateFilter_th::remove_low_word_score_candidate(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t *KB::CandidateFilter_th::remove_low_word_score_candidate(uint64_t *result, __int128 **a2, uint64_t a3, uint64_t a4)
 {
   v5 = *a2;
   if (v5 != *(&v5 + 1))
@@ -257,58 +253,52 @@ uint64_t *KB::CandidateFilter_th::remove_low_word_score_candidate(uint64_t *resu
     v9 = v6;
     v8[6] = a4;
     v7 = std::remove_if[abi:nn200100]<std::__wrap_iter<KB::Candidate *>,BOOL({block_pointer})(KB::Candidate const&)>((v5 + 1000), *(&v5 + 1), v8);
-    return std::vector<KB::Candidate>::erase(a2, v7, *(a2 + 8));
+    return std::vector<KB::Candidate>::erase(a2, v7, a2[1]);
   }
 
   return result;
 }
 
-uint64_t ___ZNK2KB18CandidateFilter_th31remove_low_word_score_candidateERNSt3__16vectorINS_9CandidateENS1_9allocatorIS3_EEEERKS3_P10__CFString_block_invoke(uint64_t a1, float *a2)
+uint64_t ___ZNK2KB18CandidateFilter_th31remove_low_word_score_candidateERNSt3__16vectorINS_9CandidateENS1_9allocatorIS3_EEEERKS3_P10__CFString_block_invoke(uint64_t a1, const KB::Candidate *a2)
 {
-  v13[2] = *MEMORY[0x29EDCA608];
+  v12[2] = *MEMORY[0x29EDCA608];
   v4 = *a2;
-  if ((v4 - KB::CandidateFilter_th::num_words_overlapping_input(a1, a2, *(a1 + 40))) <= 2 && (*(a1 + 56) - a2[188]) <= 8.0)
+  if ((v4 - KB::CandidateFilter_th::num_words_overlapping_input(a1, a2, *(a1 + 40))) <= 2 && (*(a1 + 56) - *(a2 + 188)) <= 8.0)
   {
-    result = 0;
+    return 0;
   }
 
-  else
+  v5 = *(a1 + 48);
+  if (v5)
   {
-    v5 = *(a1 + 48);
-    if (v5)
+    KB::Candidate::capitalized_string(&v10, a2);
+    v7 = v11;
+    if (!v11)
     {
-      KB::Candidate::capitalized_string(&v11, a2);
       v7 = v12;
-      if (!v12)
-      {
-        v7 = v13;
-      }
-
-      if (v11)
-      {
-        v8 = v7;
-      }
-
-      else
-      {
-        v8 = "";
-      }
-
-      KB::append_format(v5, "[%s] removed by %s\n", v6, v8, "remove_low_word_score_candidate");
-      KB::String::~String(&v11);
     }
 
-    result = 1;
+    if (v10)
+    {
+      v8 = v7;
+    }
+
+    else
+    {
+      v8 = "";
+    }
+
+    KB::append_format(v5, "[%s] removed by %s\n", v6, v8, "remove_low_word_score_candidate");
+    KB::String::~String(&v10);
   }
 
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
+  return 1;
 }
 
-void KB::CandidateFilter_th::remove_candidate_having_more_words(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void KB::CandidateFilter_th::remove_candidate_having_more_words(uint64_t a1, __int128 *a2, uint64_t a3, uint64_t a4)
 {
   v5 = *a2;
-  v6 = *(a2 + 8);
+  v6 = *(a2 + 1);
   if (v5 != v6)
   {
     v7 = *v5;
@@ -319,13 +309,13 @@ void KB::CandidateFilter_th::remove_candidate_having_more_words(uint64_t a1, uin
     v10 = v7;
     v9[4] = a4;
     v8 = std::remove_if[abi:nn200100]<std::__wrap_iter<KB::Candidate *>,BOOL({block_pointer})(KB::Candidate const&)>((v5 + 1000), v6, v9);
-    std::vector<KB::Candidate>::erase(a2, v8, *(a2 + 8));
+    std::vector<KB::Candidate>::erase(a2, v8, *(a2 + 1));
   }
 }
 
 BOOL ___ZNK2KB18CandidateFilter_th34remove_candidate_having_more_wordsERNSt3__16vectorINS_9CandidateENS1_9allocatorIS3_EEEERKS3_P10__CFString_block_invoke(uint64_t a1, KB::Candidate *this)
 {
-  v12[2] = *MEMORY[0x29EDCA608];
+  v11[2] = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 40);
   v3 = *this;
   if (*this > v2)
@@ -333,14 +323,14 @@ BOOL ___ZNK2KB18CandidateFilter_th34remove_candidate_having_more_wordsERNSt3__16
     v4 = *(a1 + 32);
     if (v4)
     {
-      KB::Candidate::capitalized_string(&v10, this);
-      v6 = v11;
-      if (!v11)
+      KB::Candidate::capitalized_string(&v9, this);
+      v6 = v10;
+      if (!v10)
       {
-        v6 = v12;
+        v6 = v11;
       }
 
-      if (v10)
+      if (v9)
       {
         v7 = v6;
       }
@@ -351,16 +341,14 @@ BOOL ___ZNK2KB18CandidateFilter_th34remove_candidate_having_more_wordsERNSt3__16
       }
 
       KB::append_format(v4, "[%s] removed by %s\n", v5, v7, "remove_candidate_having_more_words");
-      KB::String::~String(&v10);
+      KB::String::~String(&v9);
     }
   }
 
-  result = v3 > v2;
-  v9 = *MEMORY[0x29EDCA608];
-  return result;
+  return v3 > v2;
 }
 
-void KB::CandidateFilter_th::filter_candidates(uint64_t *a1, uint64_t a2, uint64_t a3, KB::CandidateFilterResources *this)
+void KB::CandidateFilter_th::filter_candidates(uint64_t *a1, __int128 **a2, uint64_t a3, KB::CandidateFilterResources *this)
 {
   v8 = KB::CandidateFilterResources::debug_stream(this);
   KB::CandidateFilter_th::remove_duplicate_candidate_with_the_same_surface_form(v8, a2, v9, v8);
@@ -424,8 +412,7 @@ uint64_t *KB::Candidate::operator=(uint64_t *a1, __int128 *a2)
 uint64_t KB::LanguageModelContext::operator=(uint64_t a1, __int128 *a2)
 {
   v4 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
+  *a2 = 0uLL;
   v5 = *(a1 + 8);
   *a1 = v4;
   if (v5)
@@ -600,15 +587,15 @@ void std::__tree<KB::String>::destroy(uint64_t a1, void *a2)
   }
 }
 
-uint64_t std::__tree<KB::String>::__emplace_unique_key_args<KB::String,KB::String>(uint64_t a1, uint64_t a2)
+uint64_t std::__tree<KB::String>::__emplace_unique_key_args<KB::String,KB::String>(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *std::__tree<KB::String>::__find_equal<KB::String>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<KB::String>::__find_equal<KB::String>(a1, &v5, a2);
+  if (!v3)
   {
     operator new();
   }
 
-  return v2;
+  return v3;
 }
 
 void *std::__tree<KB::String>::__find_equal<KB::String>(uint64_t a1, void *a2, uint64_t a3)
@@ -669,7 +656,7 @@ LABEL_15:
   return v5;
 }
 
-uint64_t *std::__tree<KB::String>::__insert_node_at(uint64_t **a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
+uint64_t *std::__tree<KB::String>::__insert_node_at(uint64_t ***a1, uint64_t a2, uint64_t **a3, uint64_t *a4)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -695,12 +682,12 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
     do
     {
       v2 = a2[2];
-      if (v2[3])
+      if (*(v2 + 24))
       {
         break;
       }
 
-      v3 = v2[2];
+      v3 = *(v2 + 16);
       v4 = *v3;
       if (*v3 == v2)
       {
@@ -714,22 +701,22 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
 
           else
           {
-            v11 = v2[1];
+            v11 = *(v2 + 8);
             v12 = *v11;
-            v2[1] = *v11;
+            *(v2 + 8) = *v11;
             v13 = v2;
             if (v12)
             {
-              v12[2] = v2;
-              v3 = v2[2];
+              *(v12 + 16) = v2;
+              v3 = *(v2 + 16);
               v13 = *v3;
             }
 
-            v11[2] = v3;
+            *(v11 + 16) = v3;
             v3[v13 != v2] = v11;
             *v11 = v2;
-            v2[2] = v11;
-            v3 = v11[2];
+            *(v2 + 16) = v11;
+            v3 = *(v11 + 16);
             v4 = *v3;
           }
 
@@ -763,13 +750,13 @@ uint64_t *std::__tree_balance_after_insert[abi:nn200100]<std::__tree_node_base<v
             if (v14)
             {
               *(v14 + 16) = v2;
-              v3 = v2[2];
+              v3 = *(v2 + 16);
             }
 
             v10[2] = v3;
             v3[*v3 != v2] = v10;
             v10[1] = v2;
-            v2[2] = v10;
+            *(v2 + 16) = v10;
             v3 = v10[2];
           }
 

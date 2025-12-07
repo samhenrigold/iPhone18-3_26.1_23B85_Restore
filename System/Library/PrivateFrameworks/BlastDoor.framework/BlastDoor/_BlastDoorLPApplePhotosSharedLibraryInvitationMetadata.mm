@@ -9,11 +9,11 @@
 
 - (_BlastDoorLPApplePhotosSharedLibraryInvitationMetadata)initWithCoder:(id)coder
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v13.receiver = self;
-  v13.super_class = _BlastDoorLPApplePhotosSharedLibraryInvitationMetadata;
-  v5 = [(_BlastDoorLPApplePhotosSharedLibraryInvitationMetadata *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = _BlastDoorLPApplePhotosSharedLibraryInvitationMetadata;
+  v5 = [(_BlastDoorLPApplePhotosSharedLibraryInvitationMetadata *)&v12 init];
   if (v5)
   {
     v6 = decodeStringForKey(coderCopy, @"message");
@@ -27,7 +27,6 @@
     v10 = v5;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -58,11 +57,11 @@
 
 - (BOOL)isEqual:(id)equal
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   equalCopy = equal;
-  v11.receiver = self;
-  v11.super_class = _BlastDoorLPApplePhotosSharedLibraryInvitationMetadata;
-  if ([(_BlastDoorLPApplePhotosSharedLibraryInvitationMetadata *)&v11 isEqual:equalCopy])
+  v10.receiver = self;
+  v10.super_class = _BlastDoorLPApplePhotosSharedLibraryInvitationMetadata;
+  if ([(_BlastDoorLPApplePhotosSharedLibraryInvitationMetadata *)&v10 isEqual:equalCopy])
   {
     v5 = 1;
   }
@@ -100,7 +99,6 @@
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -26,7 +26,7 @@
 
 - (void)_handleConfigRetailDemoModeMessage:(id)message
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v5 = [messageCopy BOOLForKey:@"kFinalizeRetailDemoSetupKey"];
   v6 = objc_autoreleasePoolPush();
@@ -36,11 +36,11 @@
   {
     v9 = HMFGetLogIdentifier();
     v10 = HMFBooleanToString();
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v10;
-    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling config retail demo mode message with finalizeDemoSetup=%@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = v10;
+    _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling config retail demo mode message with finalizeDemoSetup=%@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -53,13 +53,11 @@
   {
     [(HMDRetailDemoModeRequestHandler *)selfCopy _handleConfigRetailDemoModeMessageForPrepare:messageCopy];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleConfigRetailDemoModeMessageForFinalize:(id)finalize
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   finalizeCopy = finalize;
   workQueue = [(HMDRetailDemoModeRequestHandler *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -68,14 +66,14 @@
   homeManager = [(HMDRetailDemoModeRequestHandler *)self homeManager];
   if (homeManager)
   {
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __81__HMDRetailDemoModeRequestHandler__handleConfigRetailDemoModeMessageForFinalize___block_invoke;
-    v14[3] = &unk_279730C20;
-    v15 = finalizeCopy;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __81__HMDRetailDemoModeRequestHandler__handleConfigRetailDemoModeMessageForFinalize___block_invoke;
+    v13[3] = &unk_279730C20;
+    v14 = finalizeCopy;
     selfCopy = self;
-    [homeManager finalizeRetailDemoModeWithAllowEditing:v6 completionHandler:v14];
-    v8 = v15;
+    [homeManager finalizeRetailDemoModeWithAllowEditing:v6 completionHandler:v13];
+    v8 = v14;
   }
 
   else
@@ -87,7 +85,7 @@
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v18 = v12;
+      v17 = v12;
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_ERROR, "%{public}@Cannot handle message because home manager is nil", buf, 0xCu);
     }
 
@@ -95,21 +93,19 @@
     v8 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
     [finalizeCopy respondWithError:v8];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __81__HMDRetailDemoModeRequestHandler__handleConfigRetailDemoModeMessageForFinalize___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   if (a2)
   {
-    v10 = @"kEncryptedHomeDataBlobKey";
-    v11[0] = a2;
+    v9 = @"kEncryptedHomeDataBlobKey";
+    v10[0] = a2;
     v5 = MEMORY[0x277CBEAC0];
     v6 = a2;
-    v7 = [v5 dictionaryWithObjects:v11 forKeys:&v10 count:1];
+    v7 = [v5 dictionaryWithObjects:v10 forKeys:&v9 count:1];
     [v3 respondWithPayload:v7];
 
     v8 = [*(a1 + 40) relaunchHandler];
@@ -122,13 +118,11 @@ void __81__HMDRetailDemoModeRequestHandler__handleConfigRetailDemoModeMessageFor
     [*(a1 + 32) respondWithError:a3];
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleConfigRetailDemoModeMessageForPrepare:(id)prepare
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   prepareCopy = prepare;
   workQueue = [(HMDRetailDemoModeRequestHandler *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -142,14 +136,14 @@ void __81__HMDRetailDemoModeRequestHandler__handleConfigRetailDemoModeMessageFor
     homeManager = [(HMDRetailDemoModeRequestHandler *)self homeManager];
     if (homeManager)
     {
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __80__HMDRetailDemoModeRequestHandler__handleConfigRetailDemoModeMessageForPrepare___block_invoke;
-      v22[3] = &unk_2797358C8;
-      v23 = prepareCopy;
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __80__HMDRetailDemoModeRequestHandler__handleConfigRetailDemoModeMessageForPrepare___block_invoke;
+      v21[3] = &unk_2797358C8;
+      v22 = prepareCopy;
       selfCopy = self;
-      [homeManager configureRetailDemoModeWithKeyPair:v6 controllerName:v7 demoAccessories:v9 completionHandler:v22];
-      v11 = v23;
+      [homeManager configureRetailDemoModeWithKeyPair:v6 controllerName:v7 demoAccessories:v9 completionHandler:v21];
+      v11 = v22;
     }
 
     else
@@ -161,7 +155,7 @@ void __81__HMDRetailDemoModeRequestHandler__handleConfigRetailDemoModeMessageFor
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v26 = v19;
+        v25 = v19;
         _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@Cannot handle message because home manager is nil", buf, 0xCu);
       }
 
@@ -179,32 +173,30 @@ void __81__HMDRetailDemoModeRequestHandler__handleConfigRetailDemoModeMessageFor
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v15 = v21 = v12;
+      v15 = v20 = v12;
       *buf = 138544898;
-      v26 = v15;
-      v27 = 2112;
-      v28 = @"kControllerKeyPairKey";
-      v29 = 2112;
-      v30 = v6;
-      v31 = 2112;
-      v32 = @"kControllerPairingNameKey";
-      v33 = 2112;
-      v34 = v7;
-      v35 = 2112;
-      v36 = @"kAccessoriesDataBlobKey";
-      v37 = 2112;
-      v38 = v9;
+      v25 = v15;
+      v26 = 2112;
+      v27 = @"kControllerKeyPairKey";
+      v28 = 2112;
+      v29 = v6;
+      v30 = 2112;
+      v31 = @"kControllerPairingNameKey";
+      v32 = 2112;
+      v33 = v7;
+      v34 = 2112;
+      v35 = @"kAccessoriesDataBlobKey";
+      v36 = 2112;
+      v37 = v9;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Cannot handle message because one or more arguments are nil: %@=%@, %@=%@, %@=%@", buf, 0x48u);
 
-      v12 = v21;
+      v12 = v20;
     }
 
     objc_autoreleasePoolPop(v12);
     homeManager = [MEMORY[0x277CCA9B8] hmErrorWithCode:20];
     [prepareCopy respondWithError:homeManager];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __80__HMDRetailDemoModeRequestHandler__handleConfigRetailDemoModeMessageForPrepare___block_invoke(uint64_t a1, uint64_t a2)
@@ -226,14 +218,12 @@ void __80__HMDRetailDemoModeRequestHandler__handleConfigRetailDemoModeMessageFor
 
 - (void)configure
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   messageDispatcher = [(HMDRetailDemoModeRequestHandler *)self messageDispatcher];
   v4 = [HMDXPCMessagePolicy policyWithEntitlements:5];
-  v7[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v6[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   [messageDispatcher registerForMessage:@"HomeUtilConfigRetailDemoModeMessage" receiver:self policies:v5 selector:sel__handleConfigRetailDemoModeMessage_];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDRetailDemoModeRequestHandler)initWithHomeManager:(id)manager messageDispatcher:(id)dispatcher relaunchHandler:(id)handler

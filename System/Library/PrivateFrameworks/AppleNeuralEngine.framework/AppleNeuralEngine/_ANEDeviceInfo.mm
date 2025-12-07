@@ -327,14 +327,13 @@ LABEL_8:
 
 + (unsigned)numANEs
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (!+[_ANEDeviceInfo hasANE])
   {
     v8 = NSStringFromSelector(a2);
     NSLog(&cfstr_AnedeviceinfoN_2.isa, v8);
 
-    result = 0;
-    goto LABEL_31;
+    return 0;
   }
 
   valuePtr = 1;
@@ -420,8 +419,7 @@ LABEL_16:
       }
 
       CFRelease(MutableCopy);
-      result = valuePtr;
-      goto LABEL_31;
+      return valuePtr;
     }
   }
 
@@ -430,19 +428,15 @@ LABEL_16:
   {
     v22 = NSStringFromSelector(a2);
     *buf = 138412290;
-    v26 = v22;
+    v25 = v22;
     _os_log_impl(&dword_1AD246000, v21, OS_LOG_TYPE_INFO, "%@: [_ANEDeviceInfo numANEs] Properties not found, default to 1 ANE", buf, 0xCu);
   }
 
-  result = 1;
-LABEL_31:
-  v23 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 + (unsigned)numANECores
 {
-  v9 = *MEMORY[0x1E69E9840];
   v3 = +[_ANEDeviceInfo aneSubType];
   v4 = +[_ANEDeviceInfo numANEs];
   if ([v3 isEqual:@"h11"] & 1) != 0 || (objc_msgSend(v3, "isEqual:", @"h12"))
@@ -466,8 +460,8 @@ LABEL_31:
         goto LABEL_4;
       }
 
-      v8 = +[_ANELog framework];
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v7 = +[_ANELog framework];
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         NSStringFromSelector(a2);
         objc_claimAutoreleasedReturnValue();
@@ -480,15 +474,14 @@ LABEL_31:
 
 LABEL_4:
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5 * v4;
 }
 
 + (void)aneSubType
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3(&dword_1AD246000, a2, a3, "anesubtype %d", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 67109120;
+  HIDWORD(v8) = self;
+  OUTLINED_FUNCTION_3(&dword_1AD246000, a2, a3, "anesubtype %d", a5, a6, a7, a8, v8);
 }
 
 + (void)numANEs

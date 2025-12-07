@@ -39,9 +39,11 @@
 
 uint64_t __37__ICURLBagProvider_sharedBagProvider__block_invoke()
 {
-  sharedBagProvider_sSharedBagProvider = objc_alloc_init(ICURLBagProvider);
+  v0 = objc_alloc_init(ICURLBagProvider);
+  v1 = sharedBagProvider_sSharedBagProvider;
+  sharedBagProvider_sSharedBagProvider = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (ICURLBagProvider)init

@@ -11,18 +11,20 @@
   height = subviews.height;
   width = subviews.width;
   selfCopy = self;
-  sub_1E417907C(only, width, height);
+  v8.n128_f64[0] = width;
+  v9.n128_f64[0] = height;
+  sub_1E417907C(only, v8, v9);
 
-  v8 = OUTLINED_FUNCTION_17_4();
-  result.height = v9;
-  result.width = v8;
+  v10 = OUTLINED_FUNCTION_17_4();
+  result.height = v11;
+  result.width = v10;
   return result;
 }
 
 - (void)vui_prepareForReuse
 {
   selfCopy = self;
-  sub_1E41791C0();
+  sub_1E41791C0(selfCopy);
 }
 
 - (void)rentalExpirationLabelNeedsRelayout:(id)relayout

@@ -1,10 +1,10 @@
 @interface UIWindow(PSAdditions)
-- (uint64_t)uv_createSnapshotImageFromIOSurface;
+- (void)uv_createSnapshotImageFromIOSurface;
 @end
 
 @implementation UIWindow(PSAdditions)
 
-- (uint64_t)uv_createSnapshotImageFromIOSurface
+- (void)uv_createSnapshotImageFromIOSurface
 {
   result = [self createIOSurface];
   if (result)

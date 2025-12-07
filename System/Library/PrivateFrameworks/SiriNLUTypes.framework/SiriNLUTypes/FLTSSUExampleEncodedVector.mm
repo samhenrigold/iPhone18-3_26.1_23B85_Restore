@@ -41,7 +41,7 @@ apple::aiml::flatbuffers2::DetachedBuffer *__42__FLTSSUExampleEncodedVector_flat
 
 - (Offset<SSUExampleEncodedVector>)addObjectToBuffer:(void *)buffer
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   data = [(FLTSSUExampleEncodedVector *)self data];
   v6 = [data count];
   if (v6)
@@ -54,17 +54,12 @@ apple::aiml::flatbuffers2::DetachedBuffer *__42__FLTSSUExampleEncodedVector_flat
     std::vector<std::unique_ptr<siricommon::StringValue>>::__throw_length_error[abi:ne200100]();
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
-  v18 = 0u;
+  memset(v15, 0, sizeof(v15));
   data2 = [(FLTSSUExampleEncodedVector *)self data];
   bufferCopy = buffer;
-  if ([data2 countByEnumeratingWithState:&v17 objects:v21 count:16])
+  if ([data2 countByEnumeratingWithState:v15 objects:v16 count:16])
   {
-    *v18;
-    *v18;
-    [**(&v17 + 1) floatValue];
+    [**(&v15[0] + 1) floatValue];
     std::__allocate_at_least[abi:ne200100]<std::allocator<float>>(1uLL);
   }
 
@@ -81,9 +76,7 @@ apple::aiml::flatbuffers2::DetachedBuffer *__42__FLTSSUExampleEncodedVector_flat
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned int>(bufferCopy, 4, v12, 0);
   }
 
-  v13.var0 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(bufferCopy, v11 - v10 + v9);
-  v14 = *MEMORY[0x1E69E9840];
-  return v13;
+  return apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(bufferCopy, v11 - v10 + v9);
 }
 
 - (void)data_enumerateObjectsUsingBlock:(id)block

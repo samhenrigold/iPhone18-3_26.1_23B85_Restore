@@ -1,7 +1,6 @@
 @interface OUKeyframeExtended
 - (OUKeyframeExtended)initWithDictionary:(id)dictionary withGroupId:(unsigned int)id;
 - (OUKeyframeExtended)initWithKeyframe:(id)keyframe voxelize:(BOOL)voxelize resample:(BOOL)resample outlierRemove:(BOOL)remove;
-- (__n128)cameraPose;
 - (__n128)setCameraPose:(__n128)pose;
 - (id).cxx_construct;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -1011,7 +1010,7 @@
           v70 = v25;
           if (!std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::find<unsigned long long>(&v71, &v70))
           {
-            std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(&v71, &v70);
+            std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::__emplace_unique_key_args<unsigned long long,unsigned long long const&>(&v71, &v70, &v70);
             std::vector<unsigned long>::push_back[abi:ne200100](&v65, v21);
           }
 
@@ -1162,15 +1161,6 @@
   }
 
   return v11;
-}
-
-- (__n128)cameraPose
-{
-  result = *(self + 160);
-  v2 = *(self + 176);
-  v3 = *(self + 192);
-  v4 = *(self + 208);
-  return result;
 }
 
 - (__n128)setCameraPose:(__n128)pose

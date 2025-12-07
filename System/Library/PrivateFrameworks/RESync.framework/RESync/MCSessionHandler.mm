@@ -17,11 +17,11 @@
 
 - (MCSessionHandler)initWithSession:(id)session protocolLayer:(MultipeerProtocolLayer *)layer
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
-  v22.receiver = self;
-  v22.super_class = MCSessionHandler;
-  v7 = [(MCSessionHandler *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = MCSessionHandler;
+  v7 = [(MCSessionHandler *)&v21 init];
   [(MCSessionHandler *)v7 setSession:sessionCopy];
   [(MCSessionHandler *)v7 setProtocolLayer:layer];
   [(MCSessionHandler *)v7 setListener:layer->var3];
@@ -33,27 +33,27 @@
 
   [sessionCopy setPrivateDelegate:v7];
   [sessionCopy addObserver:v7 forKeyPath:@"privateDelegate" options:1 context:0];
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   connectedPeers = [sessionCopy connectedPeers];
-  v11 = [connectedPeers countByEnumeratingWithState:&v18 objects:v23 count:16];
+  v11 = [connectedPeers countByEnumeratingWithState:&v17 objects:v22 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v19;
+    v13 = *v18;
     do
     {
       v14 = 0;
       do
       {
-        if (*v19 != v13)
+        if (*v18 != v13)
         {
           objc_enumerationMutation(connectedPeers);
         }
 
-        if (v17)
+        if (v16)
         {
         }
 
@@ -61,13 +61,12 @@
       }
 
       while (v12 != v14);
-      v12 = [connectedPeers countByEnumeratingWithState:&v18 objects:v23 count:16];
+      v12 = [connectedPeers countByEnumeratingWithState:&v17 objects:v22 count:16];
     }
 
     while (v12);
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -97,7 +96,7 @@
 
 - (void)session:(id)session didReceiveData:(id)data fromPeer:(id)peer propagate:(BOOL *)propagate
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   dataCopy = data;
   peerCopy = peer;
@@ -175,36 +174,33 @@
 
       if (v19)
       {
-        v28 = *(v25 + 1776);
         if ((v20 & 0x100) != 0)
         {
           if ((*(v25 + 1776) & 1) == 0)
           {
-            [REMultipeerHelper makeAddressFromPeerID:peerCopy];
-            protocolLayer = self->_protocolLayer;
-            v39 = *m_data;
-            v40 = (*self->_listener->var0)();
+            objc_msgSend_makeAddressFromPeerID_(REMultipeerHelper);
+            v35 = (*self->_listener->var0)();
             *(*m_data + 1776) = 1;
-            v41 = *re::networkLogObjects(v40);
-            if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+            v36 = *re::networkLogObjects(v35);
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
             {
-              v42 = v41;
-              if (v60[0])
+              v37 = v36;
+              if (v54[0])
               {
-                v43 = *(&v60[0] + 1);
+                v38 = *(&v54[0] + 1);
               }
 
               else
               {
-                v43 = v60 + 1;
+                v38 = v54 + 1;
               }
 
-              *v54 = 136315138;
-              v55 = v43;
-              _os_log_impl(&dword_26168F000, v42, OS_LOG_TYPE_DEFAULT, "MPC: Received data from a legacy client address=%s", v54, 0xCu);
+              *v48 = 136315138;
+              v49 = v38;
+              _os_log_impl(&dword_26168F000, v37, OS_LOG_TYPE_DEFAULT, "MPC: Received data from a legacy client address=%s", v48, 0xCu);
             }
 
-            if (*buf && (v60[0] & 1) != 0)
+            if (*buf && (v54[0] & 1) != 0)
             {
               (*(**buf + 40))();
             }
@@ -217,11 +213,9 @@
         {
           if ((*(v25 + 1776) & 1) == 0)
           {
-            [REMultipeerHelper makeAddressFromPeerID:peerCopy];
-            v29 = self->_protocolLayer;
-            v30 = *m_data;
+            objc_msgSend_makeAddressFromPeerID_(REMultipeerHelper);
             (*self->_listener->var0)();
-            if (*buf && (v60[0] & 1) != 0)
+            if (*buf && (v54[0] & 1) != 0)
             {
               (*(**buf + 40))();
             }
@@ -233,33 +227,33 @@
           {
             [dataCopy bytes];
             [dataCopy length];
-            qmemcpy(v60 + 1, "com.apple.rekit.hello.ack", 25);
-            v31 = sessionCopy;
-            LOBYTE(v60[0]) = -2;
-            v32 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:buf length:34 freeWhenDone:0];
-            v58 = *(v25 + 1768);
-            v33 = MEMORY[0x277CBEA60];
-            v34 = v58;
-            v35 = [v33 arrayWithObjects:&v58 count:1];
-            v53 = 0;
-            LOBYTE(v33) = [v31 sendData:v32 toPeers:v35 withMode:0 error:&v53];
+            qmemcpy(v54 + 1, "com.apple.rekit.hello.ack", 25);
+            v28 = sessionCopy;
+            LOBYTE(v54[0]) = -2;
+            v29 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:buf length:34 freeWhenDone:0];
+            v52 = *(v25 + 1768);
+            v30 = MEMORY[0x277CBEA60];
+            v31 = v52;
+            v32 = [v30 arrayWithObjects:&v52 count:1];
+            v47 = 0;
+            LOBYTE(v30) = [v28 sendData:v29 toPeers:v32 withMode:0 error:&v47];
 
-            v52 = v53;
-            if ((v33 & 1) == 0)
+            v46 = v47;
+            if ((v30 & 1) == 0)
             {
-              v37 = *re::networkLogObjects(v36);
-              if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+              v34 = *re::networkLogObjects(v33);
+              if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
               {
-                v47 = v37;
-                v48 = [v52 description];
-                uTF8String = [v48 UTF8String];
-                v50 = [v52 description];
-                uTF8String2 = [v50 UTF8String];
-                *v54 = 136315394;
-                v55 = uTF8String;
-                v56 = 2080;
-                v57 = uTF8String2;
-                _os_log_error_impl(&dword_26168F000, v47, OS_LOG_TYPE_ERROR, "MPC: Error sending handshake ack: %s, reason: %s", v54, 0x16u);
+                v41 = v34;
+                v42 = [v46 description];
+                uTF8String = [v42 UTF8String];
+                v44 = [v46 description];
+                uTF8String2 = [v44 UTF8String];
+                *v48 = 136315394;
+                v49 = uTF8String;
+                v50 = 2080;
+                v51 = uTF8String2;
+                _os_log_error_impl(&dword_26168F000, v41, OS_LOG_TYPE_ERROR, "MPC: Error sending handshake ack: %s, reason: %s", v48, 0x16u);
               }
             }
           }
@@ -289,8 +283,6 @@ LABEL_46:
     nextDelegate2 = [(MCSessionHandler *)self nextDelegate];
     [nextDelegate2 session:sessionCopy didReceiveData:dataCopy fromPeer:peerCopy propagate:propagate];
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)session:(id)session peer:(id)peer didChangeState:(int64_t)state propagate:(BOOL *)propagate
@@ -335,7 +327,7 @@ LABEL_46:
 
       if (*(*m_data + 1776) == 1)
       {
-        [REMultipeerHelper makeAddressFromPeerID:peerCopy];
+        objc_msgSend_makeAddressFromPeerID_(REMultipeerHelper);
         (*(self->_listener->var0 + 1))(self->_listener, self->_protocolLayer, *m_data, &v19);
         if (v19)
         {

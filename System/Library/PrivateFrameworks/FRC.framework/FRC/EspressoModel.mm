@@ -155,18 +155,12 @@ LABEL_13:
 
 - (BOOL)buildModelWithConfiguration:(const char *)configuration
 {
-  if (configuration)
+  if (configuration && espresso_network_select_configuration())
   {
-    plan = self->_net.plan;
-    v5 = *&self->_net.network_index;
-    if (espresso_network_select_configuration())
-    {
-      NSLog(&cfstr_ErrorInvalidCo.isa);
-      return 0;
-    }
+    NSLog(&cfstr_ErrorInvalidCo.isa);
+    return 0;
   }
 
-  v6 = self->_plan;
   if (espresso_plan_build())
   {
     NSLog(&cfstr_PlanBuildFaile.isa);
@@ -180,35 +174,34 @@ LABEL_13:
 {
   modelCopy = model;
   fromCopy = from;
-  v8 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v9 = [v8 pathForResource:modelCopy ofType:0 inDirectory:fromCopy];
-  if (v9)
+  v7 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v8 = [v7 pathForResource:modelCopy ofType:0 inDirectory:fromCopy];
+  if (v8)
   {
-    v10 = v9;
-    v11 = v8;
+    v9 = v8;
+    v10 = v7;
   }
 
   else
   {
-    v11 = getInternalBundle(v8);
+    v10 = getInternalBundle(v7);
 
-    v12 = [v11 pathForResource:modelCopy ofType:0 inDirectory:fromCopy];
-    if (!v12)
+    v11 = [v10 pathForResource:modelCopy ofType:0 inDirectory:fromCopy];
+    if (!v11)
     {
-      v15 = -1;
+      v13 = -1;
       goto LABEL_6;
     }
 
-    v10 = v12;
+    v9 = v11;
   }
 
-  plan = self->_plan;
-  v14 = v10;
-  [v10 cStringUsingEncoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
-  v15 = espresso_plan_add_network();
+  v12 = v9;
+  [v9 cStringUsingEncoding:{objc_msgSend(MEMORY[0x277CCACA8], "defaultCStringEncoding")}];
+  v13 = espresso_plan_add_network();
 
 LABEL_6:
-  return v15;
+  return v13;
 }
 
 - (void)dealloc
@@ -242,7 +235,6 @@ LABEL_6:
     return 1;
   }
 
-  plan = self->_plan;
   if (espresso_plan_build_clean())
   {
     NSLog(&cfstr_FailedToCleanP.isa);

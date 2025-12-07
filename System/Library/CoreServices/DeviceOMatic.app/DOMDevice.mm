@@ -2,6 +2,7 @@
 - (BOOL)compositeDeviceIsConfigured;
 - (BOOL)isCompositeDevice;
 - (BOOL)shouldMatchDevice;
+- (DOMDevice)initWithIOService:(unsigned int)service notificationPort:(IONotificationPort *)port;
 - (id)description;
 - (void)dealloc;
 - (void)evaluateScore:(id)score fromDomPersonality:(id)personality withIORegEntryID:(unint64_t)d;
@@ -10,6 +11,276 @@
 @end
 
 @implementation DOMDevice
+
+- (DOMDevice)initWithIOService:(unsigned int)service notificationPort:(IONotificationPort *)port
+{
+  v5 = *&service;
+  v46.receiver = self;
+  v46.super_class = DOMDevice;
+  v6 = [(DOMDevice *)&v46 init];
+  v7 = v6;
+  if (!v6)
+  {
+    return v7;
+  }
+
+  *(v6 + 4) = v5;
+  *(v6 + 4) = 0;
+  *(v6 + 13) = 0;
+  v8 = *(v6 + 11);
+  *(v6 + 11) = 0;
+
+  dialogBodyKey = v7->_dialogBodyKey;
+  v7->_dialogBodyKey = 0;
+
+  *&v7->_tbtAccessoryWithIncompatibleCable = 0;
+  if (IOServiceAddInterestNotification(port, v5, "IOGeneralInterest", j__objc_msgSend_handleIONotification_arg_, v7, &v7->_io_notification) && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    sub_1000086C0();
+  }
+
+  if (IORegistryEntryGetRegistryEntryID(v5, &v7->_IORegEntryID) && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    sub_100008748();
+  }
+
+  v10 = [NSString stringWithFormat:@"com.apple.deviceomatic.transaction.%x", v5];
+  [v10 UTF8String];
+  v11 = os_transaction_create();
+  domDeviceTransaction = v7->_domDeviceTransaction;
+  v7->_domDeviceTransaction = v11;
+
+  if (IOServiceWaitQuiet(v5, 0) && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+  {
+    sub_1000087F8();
+  }
+
+  v13 = dispatch_queue_create("DOMDevice queue", 0);
+  queue = v7->_queue;
+  v7->_queue = v13;
+
+  [(DOMDevice *)v7 updateDeviceProperties];
+  memset(name, 0, sizeof(name));
+  if (IORegistryEntryGetName(v5, name) || !name[0])
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      sub_100008888();
+    }
+  }
+
+  else
+  {
+    v15 = [NSString stringWithUTF8String:name];
+    v16 = v7->_name;
+    v7->_name = v15;
+  }
+
+  valuePtr = -1;
+  CFProperty = IORegistryEntryCreateCFProperty(v5, @"bDeviceClass", kCFAllocatorDefault, 0);
+  if (CFProperty)
+  {
+    v18 = CFProperty;
+    v19 = CFGetTypeID(CFProperty);
+    if (v19 == CFNumberGetTypeID())
+    {
+      CFNumberGetValue(v18, kCFNumberIntType, &valuePtr);
+      v20 = valuePtr == 9;
+    }
+
+    else
+    {
+      v20 = 0;
+    }
+
+    CFRelease(v18);
+  }
+
+  else
+  {
+    sub_100008918(&entryID);
+    v20 = entryID;
+  }
+
+  v7->_isHub = v20;
+  iterator = 0;
+  entryID = 0;
+  IORegistryEntryGetRegistryEntryID(v5, &entryID);
+  if (IORegistryEntryCreateIterator(v5, "IOService", 3u, &iterator))
+  {
+    sub_100008984(&valuePtr);
+    v35 = valuePtr;
+    goto LABEL_39;
+  }
+
+  v21 = IOIteratorNext(iterator);
+  if (!v21)
+  {
+    v35 = 0;
+    goto LABEL_39;
+  }
+
+  v22 = v21;
+  v45 = v5;
+  v23 = @"bDeviceClass";
+  while (1)
+  {
+    v24 = IOObjectCopyClass(v22);
+    properties = 0;
+    if (([(__CFString *)v24 isEqualToString:@"IOUSBDevice"]& 1) == 0)
+    {
+      break;
+    }
+
+LABEL_35:
+
+    v22 = IOIteratorNext(iterator);
+    if (!v22)
+    {
+      v35 = 0;
+      goto LABEL_37;
+    }
+  }
+
+  if (IORegistryEntryCreateCFProperties(v22, &properties, kCFAllocatorDefault, 0))
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+    {
+      v25 = __error();
+      v26 = strerror(*v25);
+      valuePtr = 136315138;
+      v52 = v26;
+      _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "IORegistryEntryCreateCFProperties failed: %s", &valuePtr, 0xCu);
+    }
+
+    goto LABEL_35;
+  }
+
+  v27 = properties;
+  v28 = [(__CFDictionary *)properties valueForKey:v23];
+  if (!v28)
+  {
+    goto LABEL_34;
+  }
+
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
+    {
+      v32 = objc_opt_class();
+      v44 = v32;
+      v33 = objc_opt_class();
+      valuePtr = 138412546;
+      v52 = v32;
+      v53 = 2112;
+      v54 = v33;
+      v34 = v33;
+      _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "got object class %@, expected %@", &valuePtr, 0x16u);
+    }
+
+    goto LABEL_34;
+  }
+
+  [NSNumber numberWithInt:9];
+  v30 = v29 = v23;
+  v31 = [v28 isEqual:v30];
+
+  v23 = v29;
+  if (!v31)
+  {
+LABEL_34:
+    IOObjectRelease(v22);
+
+    goto LABEL_35;
+  }
+
+  IOObjectRelease(v22);
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    LOWORD(valuePtr) = 0;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "We are hanging off a hub, bub.", &valuePtr, 2u);
+  }
+
+  v35 = 1;
+LABEL_37:
+  LODWORD(v5) = v45;
+LABEL_39:
+  IOObjectRelease(iterator);
+  v7->_isAttachedToHub = v35;
+  entryID = 0;
+  if (IORegistryEntryCreateCFProperties(v5, &entryID, kCFAllocatorDefault, 0))
+  {
+    v36 = 0;
+    goto LABEL_58;
+  }
+
+  v36 = entryID;
+  if (entryID)
+  {
+    v37 = [(__CFDictionary *)entryID objectForKey:@"UsbBillboardPreferredMode"];
+    if (v37)
+    {
+      objc_opt_class();
+      if (objc_opt_isKindOfClass())
+      {
+        if ([v37 isEqualToString:@"Thunderbolt"])
+        {
+          v7->_isThunderboltDevice = 1;
+        }
+      }
+    }
+
+    if (IOObjectConformsTo(v5, "IOUSBHostDevice") == 1)
+    {
+      v38 = [(__CFDictionary *)v36 objectForKey:@"kUSBFailedRequestedPower"];
+      if (v38)
+      {
+
+        goto LABEL_51;
+      }
+    }
+
+    if (IOObjectConformsTo(v5, "AppleUSBHostBillboardDevice") == 1)
+    {
+      v39 = [(__CFDictionary *)v36 objectForKey:@"UsbBillboardAltModePowerFailed"];
+
+      if (v39)
+      {
+LABEL_51:
+        p_powerHog = &v7->_powerHog;
+        goto LABEL_56;
+      }
+    }
+
+    if (IOObjectConformsTo(v5, "AppleUSBHostBillboardDevice") == 1)
+    {
+      v41 = [(__CFDictionary *)v36 objectForKey:@"UsbBillboardAltModeFailed"];
+
+      if (v41)
+      {
+        p_powerHog = &v7->_tbtAccessoryWithIncompatiblePort;
+        if (!v7->_isAttachedToHub)
+        {
+          p_powerHog = &v7->_tbtAccessoryWithIncompatibleCable;
+        }
+
+LABEL_56:
+        *p_powerHog = 1;
+      }
+    }
+  }
+
+LABEL_58:
+  if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    valuePtr = 138412290;
+    v52 = v7;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "initialized %@", &valuePtr, 0xCu);
+  }
+
+  return v7;
+}
 
 - (void)dealloc
 {
@@ -49,7 +320,7 @@
   properties = 0;
   if (IORegistryEntryCreateCFProperties([(DOMDevice *)self io_service], &properties, kCFAllocatorDefault, 0) && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
   {
-    sub_100008A34(self);
+    sub_100008A34();
   }
 
   v3 = properties;

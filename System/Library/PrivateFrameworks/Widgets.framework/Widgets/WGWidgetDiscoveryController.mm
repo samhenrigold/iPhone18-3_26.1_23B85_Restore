@@ -115,33 +115,34 @@
 
 - (WGWidgetDiscoveryController)init
 {
-  v12.receiver = self;
-  v12.super_class = WGWidgetDiscoveryController;
-  v2 = [(WGWidgetDiscoveryController *)&v12 init];
+  v14.receiver = self;
+  v14.super_class = WGWidgetDiscoveryController;
+  v2 = [(WGWidgetDiscoveryController *)&v14 init];
+  v4 = v2;
   if (v2)
   {
-    WGRegisterWidgetsLogging();
-    v3 = objc_alloc_init(MEMORY[0x277CBEB58]);
-    defaultEnabledIDs = v2->_defaultEnabledIDs;
-    v2->_defaultEnabledIDs = v3;
+    WGRegisterWidgetsLogging(v2, v3);
+    v5 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    defaultEnabledIDs = v4->_defaultEnabledIDs;
+    v4->_defaultEnabledIDs = v5;
 
-    v5 = [[WGWidgetPersistentStateController alloc] initWithDiscoveryController:v2];
-    persistentStateController = v2->_persistentStateController;
-    v2->_persistentStateController = v5;
+    v7 = [[WGWidgetPersistentStateController alloc] initWithDiscoveryController:v4];
+    persistentStateController = v4->_persistentStateController;
+    v4->_persistentStateController = v7;
 
-    v7 = [[WGWidgetStatsController alloc] initWithDiscoveryController:v2];
-    statsController = v2->_statsController;
-    v2->_statsController = v7;
+    v9 = [[WGWidgetStatsController alloc] initWithDiscoveryController:v4];
+    statsController = v4->_statsController;
+    v4->_statsController = v9;
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    [defaultCenter addObserver:v2 selector:sel__widgetViewControllerRequestsAdd_ name:@"WGWidgetViewControllerAddRequestNotification" object:0];
-    [defaultCenter addObserver:v2 selector:sel__widgetViewControllerDidRemoveSnapshot_ name:@"WGWidgetViewControllerDidRemoveSnapshotNotification" object:0];
-    [defaultCenter addObserver:v2 selector:sel__widgetListEditViewControllerWillDisappear_ name:@"WGWidgetListEditViewControllerWillDisappear" object:0];
+    [defaultCenter addObserver:v4 selector:sel__widgetViewControllerRequestsAdd_ name:@"WGWidgetViewControllerAddRequestNotification" object:0];
+    [defaultCenter addObserver:v4 selector:sel__widgetViewControllerDidRemoveSnapshot_ name:@"WGWidgetViewControllerDidRemoveSnapshotNotification" object:0];
+    [defaultCenter addObserver:v4 selector:sel__widgetListEditViewControllerWillDisappear_ name:@"WGWidgetListEditViewControllerWillDisappear" object:0];
     defaultCenter2 = [MEMORY[0x277CCA9A0] defaultCenter];
-    [defaultCenter2 addObserver:v2 selector:sel__applicationIconChanged_ name:@"com.apple.LaunchServices.applicationIconChanged" object:0];
+    [defaultCenter2 addObserver:v4 selector:sel__applicationIconChanged_ name:@"com.apple.LaunchServices.applicationIconChanged" object:0];
   }
 
-  return v2;
+  return v4;
 }
 
 - (unint64_t)visibleWidgetsCount
@@ -1021,12 +1022,14 @@ void __68__WGWidgetDiscoveryController__beginObservingDataSourcesIfNecessary__bl
 - (void)beginDiscovery
 {
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  if (objc_opt_respondsToSelector())
+  v3 = objc_opt_respondsToSelector();
+  if (v3)
   {
-    self->_shouldPurgeNonCAMLSnapshots = [WeakRetained didPurgeNonCAMLSnapshotsForWidgetDiscoveryController:self] ^ 1;
+    v3 = [WeakRetained didPurgeNonCAMLSnapshotsForWidgetDiscoveryController:self];
+    self->_shouldPurgeNonCAMLSnapshots = v3 ^ 1;
   }
 
-  if (_WGSupportsASTC() && (objc_opt_respondsToSelector() & 1) != 0)
+  if (_WGSupportsASTC(v3, v4) && (objc_opt_respondsToSelector() & 1) != 0)
   {
     self->_shouldPurgeNonASTCSnapshots = [WeakRetained didPurgeNonASTCSnapshotsForWidgetDiscoveryController:self] ^ 1;
   }
@@ -2767,7 +2770,7 @@ LABEL_11:
   v3 = a1;
   v4 = [a2 dataSourceIdentifier];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_27425E000, v5, v6, "Unknown data source (%{public}@) called observer", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_2(&dword_27425E000, v5, v6, "Unknown data source (%{public}@) called observer", v7, v8, v9, v10);
 }
 
 - (void)widgetDataSource:(void *)a1 removeDatum:(void *)a2 .cold.1(void *a1, void *a2)
@@ -2775,7 +2778,14 @@ LABEL_11:
   v3 = a1;
   v4 = [a2 dataSourceIdentifier];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_27425E000, v5, v6, "Unknown data source (%@{public}) called observer", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_2(&dword_27425E000, v5, v6, "Unknown data source (%@{public}) called observer", v7, v8, v9, v10);
+}
+
+- (void)widgetListEditViewController:(uint64_t)a3 displayNameForItemWithIdentifier:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = @"[itemID length]";
+  OUTLINED_FUNCTION_0_0(&dword_27425E000, a1, a3, "Invalid parameter not satisfying: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

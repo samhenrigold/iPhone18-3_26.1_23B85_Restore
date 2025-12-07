@@ -18,8 +18,7 @@
 {
   v2 = sub_1BF1794AC();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x1EEE9AC00](v2);
+  MEMORY[0x1EEE9AC00](v2, v4);
   v6 = &v9 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   BackgroundFetchJournalEntry.date.getter(v6);
   v7 = sub_1BF1793FC();
@@ -31,8 +30,7 @@
 - (TSBackgroundFetchJournalEntry)initWithReason:(id)reason date:(id)date
 {
   v4 = sub_1BF1794AC();
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4 - 8);
+  MEMORY[0x1EEE9AC00](v4 - 8, v5);
   sub_1BF17A0AC();
   sub_1BF17945C();
   return BackgroundFetchJournalEntry.init(reason:date:)();

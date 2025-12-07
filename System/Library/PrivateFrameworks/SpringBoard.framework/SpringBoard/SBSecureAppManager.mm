@@ -244,9 +244,9 @@ void __36__SBSecureAppManager_sharedInstance__block_invoke()
   if (observerCopy)
   {
     v6 = observerCopy;
-    v5 = [(NSHashTable *)self->_observers containsObject:observerCopy];
+    v5 = objc_msgSend_containsObject_(self->_observers, observerCopy, observerCopy);
     observerCopy = v6;
-    if (!v5)
+    if ((v5 & 1) == 0)
     {
       [(NSHashTable *)self->_observers addObject:v6];
       observerCopy = v6;
@@ -260,7 +260,7 @@ void __36__SBSecureAppManager_sharedInstance__block_invoke()
   if (observerCopy)
   {
     v6 = observerCopy;
-    v5 = [(NSHashTable *)self->_observers containsObject:observerCopy];
+    v5 = objc_msgSend_containsObject_(self->_observers, observerCopy, observerCopy);
     observerCopy = v6;
     if (v5)
     {
@@ -270,7 +270,7 @@ void __36__SBSecureAppManager_sharedInstance__block_invoke()
   }
 }
 
-uint64_t __34__SBSecureAppManager_hasSecureApp__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__34__SBSecureAppManager_hasSecureApp__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 isValid];
   if (result)
@@ -299,7 +299,7 @@ uint64_t __34__SBSecureAppManager_hasSecureApp__block_invoke(uint64_t a1, void *
   return v3;
 }
 
-uint64_t __41__SBSecureAppManager_hasSecureAppOfType___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__41__SBSecureAppManager_hasSecureAppOfType___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 isValid];
   if (result)
@@ -589,7 +589,7 @@ void __42__SBSecureAppManager__addSecureAppAction___block_invoke_2(uint64_t a1)
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:*(a1 + 72)];
   v5 = [v3 objectForKey:v4];
 
-  if ([v5 containsObject:WeakRetained])
+  if (objc_msgSend_containsObject_(v5))
   {
     v6 = objc_loadWeakRetained((a1 + 64));
     v7 = [v6 observers];

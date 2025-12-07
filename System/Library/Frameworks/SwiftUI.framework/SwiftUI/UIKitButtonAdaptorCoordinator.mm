@@ -11,12 +11,13 @@
   v3 = *(&self->super.super.isa + OBJC_IVAR____TtC7SwiftUI29UIKitButtonAdaptorCoordinator_action);
   if (v3)
   {
+    v4 = *&self->action[OBJC_IVAR____TtC7SwiftUI29UIKitButtonAdaptorCoordinator_action];
     MEMORY[0x1EEE9AC00](self);
-    v5 = v4;
-    outlined copy of AppIntentExecutor?(v3);
+    v6 = v5;
+    outlined copy of AppIntentExecutor?(v3, v4);
     static Update.dispatchImmediately<A>(reason:_:)();
 
-    outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v3);
+    outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v3, v4);
   }
 }
 

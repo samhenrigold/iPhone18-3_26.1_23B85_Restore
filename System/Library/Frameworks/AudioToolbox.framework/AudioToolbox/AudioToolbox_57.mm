@@ -6039,7 +6039,7 @@ LABEL_20:
   return v7 || v9;
 }
 
-uint64_t AUAudioMix::GetChannelLayoutTags@<X0>(uint64_t this@<X0>, int a2@<W1>, int a3@<W2>, void *a4@<X8>)
+uint64_t *AUAudioMix::GetChannelLayoutTags@<X0>(uint64_t *this@<X0>, int a2@<W1>, int a3@<W2>, uint64_t *a4@<X8>)
 {
   if (a3)
   {
@@ -6063,10 +6063,10 @@ LABEL_2:
     a4[2] = 0;
     *a4 = 0;
     v5 = &v7;
-    return std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(a4, v5, (v4 + 1), 1uLL);
+    return std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(a4, v5, v4 + 1, 1uLL);
   }
 
-  if ((*(this + 640) & 1) == 0)
+  if ((this[80] & 1) == 0)
   {
     v6 = 0;
     v4 = &v6;
@@ -6074,14 +6074,14 @@ LABEL_2:
     a4[2] = 0;
     *a4 = 0;
     v5 = &v6;
-    return std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(a4, v5, (v4 + 1), 1uLL);
+    return std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(a4, v5, v4 + 1, 1uLL);
   }
 
   *a4 = 0;
   a4[1] = 0;
   a4[2] = 0;
 
-  return std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(a4, &kSpatializationLayoutTags, &kDefaultChannelInfo, 8uLL);
+  return std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(a4, kSpatializationLayoutTags, &kDefaultChannelInfo, 8uLL);
 }
 
 BOOL AUAudioMix::ValidFormat(AUAudioMix *this, int a2, int a3, const AudioStreamBasicDescription *a4)

@@ -29,18 +29,20 @@ BOOL sub_100000BA8(mach_port_t *a1)
   return bootstrap_look_up(v2, "com.apple.IOUPSPlugInServer", &special_port[1]) == 0;
 }
 
-uint64_t sub_100000C50(mach_port_t a1, int a2, CFTypeRef object)
+uint64_t sub_100000C50(uint64_t a1, uint64_t a2, CFTypeRef object)
 {
+  v3 = a1;
   result = 3758097090;
-  if (a1 && object)
+  if (v3 && object)
   {
+    v5 = a2;
     v6 = IOCFSerialize(object, 0);
     if (v6)
     {
       v7 = v6;
       BytePtr = CFDataGetBytePtr(v6);
       Length = CFDataGetLength(v7);
-      v10 = sub_100004D94(a1, a2, BytePtr, Length);
+      v10 = sub_100004D94(v3, v5, BytePtr, Length);
       CFRelease(v7);
       return v10;
     }
@@ -54,7 +56,7 @@ uint64_t sub_100000C50(mach_port_t a1, int a2, CFTypeRef object)
   return result;
 }
 
-uint64_t sub_100000CE4(mach_port_t a1, int a2, CFTypeRef *a3)
+uint64_t sub_100000CE4(mach_port_t a1, uint64_t a2, CFTypeRef *a3)
 {
   buffer = 0;
   v3 = 3758097090;
@@ -76,7 +78,7 @@ uint64_t sub_100000CE4(mach_port_t a1, int a2, CFTypeRef *a3)
   return v3;
 }
 
-uint64_t sub_100000D74(mach_port_t a1, int a2, CFTypeRef *a3)
+uint64_t sub_100000D74(mach_port_t a1, uint64_t a2, CFTypeRef *a3)
 {
   buffer = 0;
   v3 = 3758097090;
@@ -288,35 +290,33 @@ void sub_10000141C(void *a1, char a2)
   v3 = a1;
   if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [v3 count])
   {
-    v47 = a2;
+    v43 = a2;
     if ([v3 count])
     {
       v5 = 0;
       v6 = &selRef_BOOLValue;
-      v7 = &IOAccessoryManagerGetServiceWithPrimaryPort_ptr;
       *&v4 = 67109376;
-      v46 = v4;
-      v48 = v3;
+      v42 = v4;
+      v44 = v3;
       while (1)
       {
-        v8 = [v3 objectAtIndex:{v5, v46}];
-        v9 = v6[10];
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v7 = [v3 objectAtIndex:{v5, v42}];
+        v8 = v6[10];
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
         {
           *buf = 134218242;
-          *v60 = v5;
-          *&v60[8] = 2112;
-          v61 = v8;
-          _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "SMCAccessory[%zu]: %@\n", buf, 0x16u);
+          *v56 = v5;
+          *&v56[8] = 2112;
+          v57 = v7;
+          _os_log_debug_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "SMCAccessory[%zu]: %@\n", buf, 0x16u);
         }
 
-        v10 = v8;
-        if (!v10)
+        v9 = v7;
+        if (!v9)
         {
           goto LABEL_71;
         }
 
-        v11 = v7[138];
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -324,13 +324,13 @@ void sub_10000141C(void *a1, char a2)
         }
 
         valuePtr = 0;
-        v57 = 0;
-        v58 = 0;
-        v12 = v10;
-        v13 = [v12 objectForKey:@"VID"];
-        v14 = [v12 objectForKey:@"PID"];
-        v15 = [v12 objectForKey:@"CurrentCapacity"];
-        v16 = [v12 objectForKey:@"MaxCapacity"];
+        v53 = 0;
+        v54 = 0;
+        v10 = v9;
+        v11 = [v10 objectForKey:@"VID"];
+        v12 = [v10 objectForKey:@"PID"];
+        v13 = [v10 objectForKey:@"CurrentCapacity"];
+        v14 = [v10 objectForKey:@"MaxCapacity"];
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -350,8 +350,7 @@ void sub_10000141C(void *a1, char a2)
         }
 
 LABEL_70:
-        v3 = v48;
-        v7 = &IOAccessoryManagerGetServiceWithPrimaryPort_ptr;
+        v3 = v44;
 LABEL_71:
 
         if (++v5 >= [v3 count])
@@ -360,71 +359,71 @@ LABEL_71:
         }
       }
 
-      v52 = v13;
-      v54 = [v13 unsignedIntValue];
-      v51 = v14;
-      v53 = [v14 unsignedIntValue];
-      v50 = v15;
-      v17 = [v15 unsignedIntValue];
-      v49 = v16;
-      v18 = [v16 unsignedIntValue];
-      v19 = [v12 objectForKey:@"IsCharging"];
-      v20 = [v12 objectForKey:@"ExternalConnected"];
-      v21 = v6[10];
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v48 = v11;
+      v50 = [v11 unsignedIntValue];
+      v47 = v12;
+      v49 = [v12 unsignedIntValue];
+      v46 = v13;
+      v15 = [v13 unsignedIntValue];
+      v45 = v14;
+      v16 = [v14 unsignedIntValue];
+      v17 = [v10 objectForKey:@"IsCharging"];
+      v18 = [v10 objectForKey:@"ExternalConnected"];
+      v19 = v6[10];
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109888;
-        v23 = v17;
-        *v60 = v54;
-        v22 = v18;
-        *&v60[4] = 1024;
-        *&v60[6] = v53;
-        LOWORD(v61) = 1024;
-        *(&v61 + 2) = v17;
-        HIWORD(v61) = 1024;
-        v62 = v18;
-        _os_log_debug_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "vid:%d, pid:%d, soc:%d/%d\n", buf, 0x1Au);
+        v21 = v15;
+        *v56 = v50;
+        v20 = v16;
+        *&v56[4] = 1024;
+        *&v56[6] = v49;
+        LOWORD(v57) = 1024;
+        *(&v57 + 2) = v15;
+        HIWORD(v57) = 1024;
+        v58 = v16;
+        _os_log_debug_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEBUG, "vid:%d, pid:%d, soc:%d/%d\n", buf, 0x1Au);
       }
 
       else
       {
-        v22 = v18;
-        v23 = v17;
+        v20 = v16;
+        v21 = v15;
       }
 
-      if (v22 >= v23)
+      if (v20 >= v21)
       {
-        v18 = v17;
+        v16 = v15;
       }
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v24 = [v20 BOOLValue];
+        v22 = [v18 BOOLValue];
       }
 
       else
       {
-        v24 = 0;
+        v22 = 0;
       }
 
       v6 = &selRef_BOOLValue;
-      LOBYTE(v58) = v24;
+      LOBYTE(v54) = v22;
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v25 = [v19 BOOLValue];
+        v23 = [v17 BOOLValue];
       }
 
       else
       {
-        v25 = 0;
+        v23 = 0;
       }
 
-      BYTE1(v58) = v25;
-      valuePtr = __PAIR64__(v22, v18);
-      LODWORD(v57) = v54;
-      HIDWORD(v57) = v53;
+      BYTE1(v54) = v23;
+      valuePtr = __PAIR64__(v20, v16);
+      LODWORD(v53) = v50;
+      HIDWORD(v53) = v49;
 
       Mutable = CFDictionaryCreateMutable(kCFAllocatorDefault, 5, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
       if (!Mutable)
@@ -432,26 +431,26 @@ LABEL_71:
         goto LABEL_70;
       }
 
-      v27 = Mutable;
-      v28 = qword_10000C050;
+      v25 = Mutable;
+      v26 = qword_10000C050;
       if (os_log_type_enabled(qword_10000C050, OS_LOG_TYPE_DEBUG))
       {
-        *buf = v46;
-        *v60 = v18;
-        *&v60[4] = 1024;
-        *&v60[6] = v22;
-        _os_log_debug_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEBUG, "ProcessSmcAccessory: soc:%d/%d\n", buf, 0xEu);
+        *buf = v42;
+        *v56 = v16;
+        *&v56[4] = 1024;
+        *&v56[6] = v20;
+        _os_log_debug_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "ProcessSmcAccessory: soc:%d/%d\n", buf, 0xEu);
       }
 
-      v29 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &v57);
-      v30 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &v57 + 4);
-      v31 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr);
-      v32 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr + 4);
-      v33 = v32;
-      if (!v29 || !v30 || !v31 || !v32)
+      v27 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &v53);
+      v28 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &v53 + 4);
+      v29 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr);
+      v30 = CFNumberCreate(kCFAllocatorDefault, kCFNumberIntType, &valuePtr + 4);
+      v31 = v30;
+      if (!v27 || !v28 || !v29 || !v30)
       {
-        v34 = 0;
-        if (!v29)
+        v32 = 0;
+        if (!v27)
         {
           goto LABEL_62;
         }
@@ -459,84 +458,77 @@ LABEL_71:
         goto LABEL_61;
       }
 
-      v34 = CFSetCreateMutable(kCFAllocatorDefault, 1, &kCFTypeSetCallBacks);
-      if (!v34)
+      v32 = CFSetCreateMutable(kCFAllocatorDefault, 1, &kCFTypeSetCallBacks);
+      if (!v32)
       {
 LABEL_61:
-        CFRelease(v29);
+        CFRelease(v27);
 LABEL_62:
-        if (v30)
+        if (v28)
         {
-          CFRelease(v30);
+          CFRelease(v28);
         }
 
+        if (v29)
+        {
+          CFRelease(v29);
+        }
+
+        v6 = &selRef_BOOLValue;
         if (v31)
         {
           CFRelease(v31);
         }
 
-        v6 = &selRef_BOOLValue;
-        if (v33)
+        CFRelease(v25);
+        if (v32)
         {
-          CFRelease(v33);
-        }
-
-        CFRelease(v27);
-        if (v34)
-        {
-          CFRelease(v34);
+          CFRelease(v32);
         }
 
         goto LABEL_70;
       }
 
-      if (BYTE1(v58))
+      if (BYTE1(v54))
       {
-        v35 = kCFBooleanTrue;
+        v33 = kCFBooleanTrue;
       }
 
       else
       {
-        v35 = kCFBooleanFalse;
+        v33 = kCFBooleanFalse;
       }
 
-      CFDictionarySetValue(v27, @"Show Charging UI", v35);
+      CFDictionarySetValue(v25, @"Show Charging UI", v33);
       if ((byte_10000C048 & 2) != 0)
       {
 LABEL_46:
-        v55 = v31;
-        v38 = v30;
-        v39 = v29;
-        if (v58)
+        v51 = v29;
+        v36 = v28;
+        v37 = v27;
+        if (v54)
         {
-          v40 = @"AC Power";
+          v38 = @"AC Power";
         }
 
         else
         {
-          v40 = @"Battery Power";
+          v38 = @"Battery Power";
         }
 
-        CFDictionarySetValue(v27, @"Power Source State", v40);
-        v41 = qword_10000C090;
+        CFDictionarySetValue(v25, @"Power Source State", v38);
+        v39 = qword_10000C090;
         if (qword_10000C090)
         {
           *(qword_10000C090 + 56) = 3;
-          v41[28] = 1;
-          Value = CFDictionaryGetValue(*(v41 + 4), @"Power Source State");
-          if (sub_10000355C(v41, *(v41 + 4), v27, v34))
+          v39[28] = 1;
+          Value = CFDictionaryGetValue(*(v39 + 4), @"Power Source State");
+          if (sub_10000355C(v39, *(v39 + 4), v25, v32) || IOPSSetPowerSourceDetails())
           {
             goto LABEL_60;
           }
 
-          v43 = *v41;
-          v44 = *(v41 + 4);
-          if (IOPSSetPowerSourceDetails())
-          {
-            goto LABEL_60;
-          }
-
-          if (Value && CFEqual(Value, v40) && (v47 & 1) == 0)
+          if (Value && CFEqual(Value, v38) && (v43 & 1) == 0)
           {
             goto LABEL_59;
           }
@@ -544,72 +536,72 @@ LABEL_46:
 
         else
         {
-          v41 = sub_100003458();
-          *(v41 + 14) = 3;
-          v41[28] = 1;
-          if (sub_100003BE0(v41, v27, v34))
+          v39 = sub_100003458();
+          *(v39 + 14) = 3;
+          v39[28] = 1;
+          if (sub_100003BE0(v39, v25, v32))
           {
 LABEL_60:
-            v29 = v39;
-            v30 = v38;
-            v31 = v55;
+            v27 = v37;
+            v28 = v36;
+            v29 = v51;
             goto LABEL_61;
           }
 
-          v41[60] = sub_100001E28(v41);
-          v41[61] = sub_100001F00(v41);
+          v39[60] = sub_100001E28(v39);
+          v39[61] = sub_100001F00(v39);
         }
 
-        sub_100003D10(v41, v40);
+        sub_100003D10(v39, v38);
 LABEL_59:
-        qword_10000C090 = v41;
+        qword_10000C090 = v39;
         byte_10000C048 |= 1u;
         goto LABEL_60;
       }
 
-      CFDictionarySetValue(v27, @"Is Present", kCFBooleanTrue);
-      if (BYTE1(v58))
+      CFDictionarySetValue(v25, @"Is Present", kCFBooleanTrue);
+      if (BYTE1(v54))
       {
-        v36 = kCFBooleanTrue;
+        v34 = kCFBooleanTrue;
       }
 
       else
       {
-        v36 = kCFBooleanFalse;
+        v34 = kCFBooleanFalse;
       }
 
-      CFDictionarySetValue(v27, @"Is Charging", v36);
-      CFDictionarySetValue(v27, @"Vendor ID", v29);
-      CFDictionarySetValue(v27, @"Product ID", v30);
-      CFDictionarySetValue(v27, @"Max Capacity", v33);
-      CFDictionarySetValue(v27, @"Current Capacity", v31);
-      CFDictionarySetValue(v27, @"Transport Type", @"Inductive In-Band");
-      if (v57 == 1452)
+      CFDictionarySetValue(v25, @"Is Charging", v34);
+      CFDictionarySetValue(v25, @"Vendor ID", v27);
+      CFDictionarySetValue(v25, @"Product ID", v28);
+      CFDictionarySetValue(v25, @"Max Capacity", v31);
+      CFDictionarySetValue(v25, @"Current Capacity", v29);
+      CFDictionarySetValue(v25, @"Transport Type", @"Inductive In-Band");
+      if (v53 == 1452)
       {
-        if (HIDWORD(v57) == 5017)
+        if (HIDWORD(v53) == 5017)
         {
-          v37 = @"MagSafe Battery Pack";
+          v35 = @"MagSafe Battery Pack";
           goto LABEL_44;
         }
 
-        if (HIDWORD(v57) == 5026)
+        if (HIDWORD(v53) == 5026)
         {
-          v37 = @"iPhone Air MagSafe Battery";
+          v35 = @"iPhone Air MagSafe Battery";
 LABEL_44:
-          CFDictionarySetValue(v27, @"Name", v37);
+          CFDictionarySetValue(v25, @"Name", v35);
         }
       }
 
-      CFSetAddValue(v34, @"Current Capacity");
+      CFSetAddValue(v32, @"Current Capacity");
       goto LABEL_46;
     }
   }
 
   else
   {
-    v45 = (byte_10000C048 & 0x7E) == 0;
+    v41 = (byte_10000C048 & 0x7E) == 0;
     byte_10000C048 &= 0x7Eu;
-    if (v45)
+    if (v41)
     {
       sub_1000046A8(qword_10000C090);
       qword_10000C090 = 0;
@@ -751,7 +743,7 @@ BOOL sub_100001E28(uint64_t a1)
     result = os_log_type_enabled(qword_10000C050, OS_LOG_TYPE_ERROR);
     if (result)
     {
-      sub_1000057C4(a1, a1 == 0);
+      sub_1000057C4();
       return 0;
     }
   }
@@ -788,7 +780,7 @@ BOOL sub_100001F00(uint64_t a1)
     result = os_log_type_enabled(qword_10000C050, OS_LOG_TYPE_ERROR);
     if (result)
     {
-      sub_10000583C(a1, a1 == 0);
+      sub_10000583C();
       return 0;
     }
   }
@@ -1050,7 +1042,7 @@ const __CFNumber *sub_1000024F0(const __CFNumber *result, io_registry_entry_t en
   return result;
 }
 
-void sub_100002758(uint64_t a1, uint64_t a2, int a3)
+void sub_100002758(uint64_t result, uint64_t a2, int a3)
 {
   if (a3 == -469794795)
   {
@@ -1062,7 +1054,7 @@ void sub_100002758(uint64_t a1, uint64_t a2, int a3)
       }
     }
 
-    else if (sub_100002194(a1, @"Set Current Limit", 0) && os_log_type_enabled(qword_10000C050, OS_LOG_TYPE_ERROR))
+    else if (sub_100002194(result, @"Set Current Limit", 0) && os_log_type_enabled(qword_10000C050, OS_LOG_TYPE_ERROR))
     {
       sub_100005AF0();
     }
@@ -1248,13 +1240,13 @@ uint64_t sub_100002B74(uint64_t a1, unsigned __int16 a2, vm_address_t *a3, size_
 
 void sub_100002C8C(int a1, io_iterator_t iterator)
 {
-  v72 = 0;
-  v73 = 0;
   v70 = 0;
   v71 = 0;
+  v68 = 0;
+  v69 = 0;
   theInterface = 0;
   cf = 0;
-  v67 = 0;
+  v65 = 0;
   theScore = 0;
   v3 = IOIteratorNext(iterator);
   if (v3)
@@ -1288,14 +1280,14 @@ LABEL_70:
     QueryInterface = (*theInterface)->QueryInterface;
     v14 = CFUUIDGetConstantUUIDWithBytes(0, 0xE6u, 0xEu, 7u, 0x99u, 0x9Au, 0xA6u, 0x49u, 0xDFu, 0xB5u, 0x5Bu, 0xA5u, 0xC9u, 0x4Bu, 0xA0u, 0x7Au, 0x4Au);
     v15 = CFUUIDGetUUIDBytes(v14);
-    if ((QueryInterface)(v12, *&v15.byte0, *&v15.byte8, &v67))
+    if ((QueryInterface)(v12, *&v15.byte0, *&v15.byte8, &v65))
     {
       v16 = 1;
     }
 
     else
     {
-      v16 = v67 == 0;
+      v16 = v65 == 0;
     }
 
     if (v16)
@@ -1305,7 +1297,7 @@ LABEL_70:
       v19 = (*theInterface)->QueryInterface;
       v20 = CFUUIDGetConstantUUIDWithBytes(0, 0x63u, 0xF8u, 0xBFu, 0xC4u, 0x26u, 0xA0u, 0x11u, 0xD8u, 0x88u, 0xB4u, 0, 0xAu, 0x95u, 0x8Au, 0x2Cu, 0x78u);
       v21 = CFUUIDGetUUIDBytes(v20);
-      v22 = (v19)(v17, *&v21.byte0, *&v21.byte8, &v67);
+      v22 = (v19)(v17, *&v21.byte0, *&v21.byte8, &v65);
       byte7 = v18;
       v8 = v11;
       if (v22)
@@ -1316,7 +1308,7 @@ LABEL_70:
 
     else
     {
-      if ((*(*v67 + 72))())
+      if ((*(*v65 + 72))())
       {
         v24 = 1;
       }
@@ -1346,9 +1338,9 @@ LABEL_70:
           {
             v32 = v6;
             v33 = [v27 objectAtIndex:i];
-            v65 = v6;
-            sub_1000033E8(v33, &v65, &v70);
-            v6 = v65;
+            v63 = v6;
+            sub_1000033E8(v33, &v63, &v68);
+            v6 = v63;
           }
 
           byte7 = v30;
@@ -1357,15 +1349,15 @@ LABEL_70:
 
       else
       {
-        v64 = v6;
-        sub_1000033E8(cf, &v64, &v70);
+        v62 = v6;
+        sub_1000033E8(cf, &v62, &v68);
         v27 = v6;
-        v6 = v64;
+        v6 = v62;
       }
 
-      v34 = v70;
+      v34 = v68;
       v8 = v11;
-      if (v70)
+      if (v68)
       {
         Current = CFRunLoopGetCurrent();
         CFRunLoopAddSource(Current, v34, kCFRunLoopDefaultMode);
@@ -1378,25 +1370,25 @@ LABEL_70:
       }
     }
 
-    if (!v67 || (*(*v67 + 32))(v67, &v73))
+    if (!v65 || (*(*v65 + 32))(v65, &v71))
     {
 LABEL_29:
       if (!v5)
       {
 LABEL_30:
-        if (v67)
+        if (v65)
         {
-          (*(*v67 + 24))(v67);
-          v67 = 0;
+          (*(*v65 + 24))(v65);
+          v65 = 0;
         }
 
-        v37 = v70;
-        if (v70)
+        v37 = v68;
+        if (v68)
         {
           v38 = CFRunLoopGetCurrent();
           CFRunLoopRemoveSource(v38, v37, kCFRunLoopDefaultMode);
           CFRelease(v37);
-          v70 = 0;
+          v68 = 0;
         }
 
         if (v6)
@@ -1414,20 +1406,20 @@ LABEL_30:
 LABEL_68:
       sub_1000046A8(v5);
       v5 = 0;
-      v67 = 0;
+      v65 = 0;
 LABEL_69:
       ((*theInterface)->Release)(theInterface);
       goto LABEL_70;
     }
 
-    Value = CFDictionaryGetValue(v73, @"Transport Type");
+    Value = CFDictionaryGetValue(v71, @"Transport Type");
     v41 = CFStringGetTypeID();
     if (Value && CFGetTypeID(Value) == v41 && CFEqual(Value, @"Inductive In-Band"))
     {
       v42 = qword_10000C050;
       if (os_log_type_enabled(qword_10000C050, OS_LOG_TYPE_DEBUG))
       {
-        sub_100005B24(&v62, v63, v42);
+        sub_100005B24(&v60, v61, v42);
       }
 
       v5 = qword_10000C090;
@@ -1454,43 +1446,41 @@ LABEL_69:
     v5 = v45;
     v44 = 0;
 LABEL_47:
-    *(v5 + 2) = v67;
-    *(v5 + 5) = v70;
-    objc_storeStrong(v5 + 6, v6);
+    *(v5 + 16) = v65;
+    *(v5 + 40) = v68;
+    objc_storeStrong((v5 + 48), v6);
     *(v5 + 28) = 1;
-    v46 = sub_100001C94(v4, v73);
-    v5[14] = v46;
-    if (!v46 || (*(*v67 + 40))(v67, &v71))
+    v46 = sub_100001C94(v4, v71);
+    *(v5 + 56) = v46;
+    if (!v46 || (*(*v65 + 40))(v65, &v69))
     {
       goto LABEL_64;
     }
 
     if (v44)
     {
-      if (sub_10000355C(v5, *(v5 + 4), v73, v71))
+      if (sub_10000355C(v5, *(v5 + 32), v71, v69))
       {
         goto LABEL_64;
       }
 
-      v47 = *v5;
-      v48 = *(v5 + 4);
-      v49 = IOPSSetPowerSourceDetails();
+      v47 = IOPSSetPowerSourceDetails();
     }
 
     else
     {
-      v49 = sub_100003BE0(v5, v73, v71);
+      v47 = sub_100003BE0(v5, v71, v69);
     }
 
-    v50 = v49;
+    v48 = v47;
     *(v5 + 60) = sub_100001E28(v5);
     *(v5 + 61) = sub_100001F00(v5);
-    if (v50)
+    if (v48)
     {
       goto LABEL_64;
     }
 
-    if (v5[14] == 3)
+    if (*(v5 + 56) == 3)
     {
       if ((v44 & 1) == 0)
       {
@@ -1498,44 +1488,44 @@ LABEL_47:
         sub_100003D10(v5, @"Battery Power");
       }
 
-      v51 = sub_1000012F4();
-      if (v51)
+      v49 = sub_1000012F4();
+      if (v49)
       {
-        IOServiceAddInterestNotification(qword_10000C058, v51, "IOGeneralInterest", sub_1000024F0, v5, v5 + 20);
+        IOServiceAddInterestNotification(qword_10000C058, v49, "IOGeneralInterest", sub_1000024F0, v5, (v5 + 80));
       }
 
-      v52 = sub_100002294(v5);
-      if (v52)
+      v50 = sub_100002294(v5);
+      if (v50)
       {
-        v53 = v52;
-        v54 = qword_10000C050;
+        v51 = v50;
+        v52 = qword_10000C050;
         if (os_log_type_enabled(qword_10000C050, OS_LOG_TYPE_ERROR))
         {
-          v59 = v5[6];
+          v57 = *(v5 + 24);
           *buf = 67109376;
-          v75 = v59;
-          v76 = 1024;
-          v77 = v53;
-          _os_log_error_impl(&_mh_execute_header, v54, OS_LOG_TYPE_ERROR, "failed to send address to power source %d (ret=0x%X)\n", buf, 0xEu);
+          v73 = v57;
+          v74 = 1024;
+          v75 = v51;
+          _os_log_error_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "failed to send address to power source %d (ret=0x%X)\n", buf, 0xEu);
         }
       }
     }
 
-    if ((*(*v67 + 48))(v67, &v72))
+    if ((*(*v65 + 48))(v65, &v70))
     {
 LABEL_64:
       if (byte_10000C048)
       {
-        v55 = v43;
+        v53 = v43;
       }
 
       else
       {
-        v55 = 0;
+        v53 = 0;
       }
 
       v8 = v11;
-      if (v55)
+      if (v53)
       {
         goto LABEL_69;
       }
@@ -1543,18 +1533,18 @@ LABEL_64:
       goto LABEL_68;
     }
 
-    sub_10000434C(v5, v72);
-    (*(*v67 + 56))(v67, sub_1000045AC, 0, v5);
-    v56 = IOServiceAddInterestNotification(qword_10000C058, v4, "IOGeneralInterest", sub_1000045B8, v5, v5 + 2);
-    v57 = v43 ^ 1;
-    if (v56)
+    sub_10000434C(v5, v70);
+    (*(*v65 + 56))(v65, sub_1000045AC, 0, v5);
+    v54 = IOServiceAddInterestNotification(qword_10000C058, v4, "IOGeneralInterest", sub_1000045B8, v5, (v5 + 8));
+    v55 = v43 ^ 1;
+    if (v54)
     {
-      v57 = 1;
+      v55 = 1;
     }
 
-    if (v57)
+    if (v55)
     {
-      if (v56)
+      if (v54)
       {
         goto LABEL_64;
       }
@@ -1562,10 +1552,10 @@ LABEL_64:
 
     else
     {
-      v58 = qword_10000C050;
+      v56 = qword_10000C050;
       if (os_log_type_enabled(qword_10000C050, OS_LOG_TYPE_DEBUG))
       {
-        sub_100005B64(&v60, v61, v58);
+        sub_100005B64(&v58, v59, v56);
       }
 
       qword_10000C090 = v5;
@@ -1686,7 +1676,7 @@ uint64_t sub_10000355C(uint64_t a1, const __CFDictionary *a2, CFDictionaryRef th
     v9 = @"Generic UPS";
   }
 
-  if (sub_10000476C() && sub_10000483C())
+  if (sub_10000476C(0) && sub_10000483C())
   {
     if (os_log_type_enabled(qword_10000C050, OS_LOG_TYPE_DEBUG))
     {
@@ -1939,7 +1929,6 @@ uint64_t sub_100003BE0(uint64_t a1, const __CFDictionary *a2, const __CFSet *a3)
 
     else
     {
-      v10 = *a1;
       v3 = IOPSSetPowerSourceDetails();
       if (v3)
       {
@@ -2251,8 +2240,6 @@ void sub_10000434C(uint64_t a1, CFDictionaryRef theDict)
 
           free(v9);
           free(v10);
-          v18 = *a1;
-          v19 = *(a1 + 32);
           if (IOPSSetPowerSourceDetails())
           {
             if (os_log_type_enabled(qword_10000C050, OS_LOG_TYPE_ERROR))
@@ -2268,32 +2255,32 @@ void sub_10000434C(uint64_t a1, CFDictionaryRef theDict)
   }
 }
 
-void sub_1000045B8(uint64_t a1, uint64_t a2, int a3)
+void sub_1000045B8(uint64_t result, uint64_t a2, int a3)
 {
-  if (a1 && a3 == -536870896)
+  if (result && a3 == -536870896)
   {
-    v4 = *(a1 + 32);
+    v4 = *(result + 32);
     if (v4 && (Value = CFDictionaryGetValue(v4, @"Transport Type"), TypeID = CFStringGetTypeID(), Value) && CFGetTypeID(Value) == TypeID && CFEqual(Value, @"Inductive In-Band"))
     {
       v7 = (byte_10000C048 & 0x7D) == 0;
       byte_10000C048 &= 0x7Du;
       if (v7)
       {
-        sub_1000046A8(a1);
+        sub_1000046A8(result);
         qword_10000C090 = 0;
       }
 
       else
       {
 
-        sub_100004AE0(a1);
+        sub_100004AE0(result);
       }
     }
 
     else
     {
 
-      sub_1000046A8(a1);
+      sub_1000046A8(result);
     }
   }
 }
@@ -2336,7 +2323,7 @@ void sub_1000046A8(uint64_t a1)
   }
 }
 
-uint64_t sub_10000476C()
+uint64_t sub_10000476C(uint64_t a1)
 {
   if (!qword_10000C098)
   {
@@ -2368,16 +2355,15 @@ uint64_t sub_10000483C()
   return v0;
 }
 
-void sub_1000048EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000048EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t sub_100004904(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_10000C098 = result;
   return result;
@@ -2385,14 +2371,20 @@ uint64_t sub_100004904(uint64_t a1)
 
 void *sub_100004978(uint64_t a1)
 {
-  v4 = 0;
-  v2 = sub_10000476C();
+  v5 = 0;
+  v2 = sub_10000476C(&v5);
   if (!v2)
   {
-    sub_100005EF0(&v4);
+    sub_100005EF0(&v5);
   }
 
-  result = dlsym(v2, "ACCConnectionInfoCopyLocalizedAccessoryNameCF");
+  v3 = v2;
+  if (v5)
+  {
+    free(v5);
+  }
+
+  result = dlsym(v3, "ACCConnectionInfoCopyLocalizedAccessoryNameCF");
   *(*(*(a1 + 32) + 8) + 24) = result;
   qword_10000C0A0 = *(*(*(a1 + 32) + 8) + 24);
   return result;
@@ -2493,10 +2485,11 @@ uint64_t sub_100004AE0(uint64_t a1)
   return result;
 }
 
-void sub_100004BA8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100004BA8(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_100004BF4(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -2506,10 +2499,11 @@ void sub_100004BF4(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_100004C14(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100004C14(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 uint64_t sub_100004C34(_DWORD *a1, uint64_t a2)
@@ -3003,33 +2997,12 @@ const __CFNumber *sub_100005598(const __CFNumber *result)
   return result;
 }
 
-void sub_1000057C4(uint64_t a1, char a2)
-{
-  if ((a2 & 1) == 0)
-  {
-    v2 = *(a1 + 32);
-  }
-
-  sub_100004BDC();
-  sub_100004BF4(&_mh_execute_header, v3, v4, "IsCurrentLimitControlRequired: invalid UPS struct upsData=%p, storeDict%p\n", v5, v6);
-}
-
-void sub_10000583C(uint64_t a1, char a2)
-{
-  if ((a2 & 1) == 0)
-  {
-    v2 = *(a1 + 32);
-  }
-
-  sub_100004BDC();
-  sub_100004BF4(&_mh_execute_header, v3, v4, "AreAverageChargeCurrentUpdatesRequired: invalid UPS struct upsData=%p, storeDict%p\n", v5, v6);
-}
-
 void sub_1000058B4(void *a1, mach_error_t a2)
 {
   v3 = a1;
-  mach_error_string(a2);
-  sub_100004C14(&_mh_execute_header, v4, v5, "could not open IOAccessoryManager service: %s\n", v6, v7, v8, v9, 2u);
+  LODWORD(v10) = 136315138;
+  *(&v10 + 4) = mach_error_string(a2);
+  sub_100004C14(&_mh_execute_header, v4, v5, "could not open IOAccessoryManager service: %s\n", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 void sub_1000059BC(uint64_t a1, unsigned __int8 *a2, os_log_t log)

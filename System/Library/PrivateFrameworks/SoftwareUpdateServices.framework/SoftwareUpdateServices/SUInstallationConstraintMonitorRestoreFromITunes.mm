@@ -69,7 +69,6 @@
 
 - (unint64_t)unsatisfiedConstraints
 {
-  queue = self->super._queue;
   BSDispatchQueueAssert();
   if (!self->_queue_isRestoring)
   {
@@ -81,7 +80,6 @@
 
 - (void)_queue_beganRestoring
 {
-  queue = self->super._queue;
   BSDispatchQueueAssert();
 
   [(SUInstallationConstraintMonitorRestoreFromITunes *)self _queue_setRestoring:1];
@@ -89,7 +87,6 @@
 
 - (void)_queue_endedRestoring
 {
-  queue = self->super._queue;
   BSDispatchQueueAssert();
 
   [(SUInstallationConstraintMonitorRestoreFromITunes *)self _queue_setRestoring:0];
@@ -98,13 +95,11 @@
 - (void)_queue_setRestoring:(BOOL)restoring
 {
   restoringCopy = restoring;
-  queue = self->super._queue;
-  BSDispatchQueueAssert();
+  v5 = BSDispatchQueueAssert();
   if (self->_queue_isRestoring != restoringCopy)
   {
     self->_queue_isRestoring = restoringCopy;
-    v6 = SULogInstallConstraints();
-    self->_queue_isRestoring;
+    v6 = SULogInstallConstraints(v5);
     SULogInfoForSubsystem(v6, @"%@ - iTunes restore constraint changed (satisfied? %@)", v7, v8, v9, v10, v11, v12, self);
 
     delegate = [(SUInstallationConstraintMonitorBase *)self delegate];

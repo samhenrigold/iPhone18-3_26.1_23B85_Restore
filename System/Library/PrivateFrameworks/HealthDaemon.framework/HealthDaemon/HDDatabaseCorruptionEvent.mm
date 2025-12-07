@@ -19,15 +19,15 @@
   v19 = [(HDDatabaseCorruptionEvent *)&v27 init];
   if (v19)
   {
-    v20 = [errorCopy copy];
+    v20 = objc_msgSend_copy(errorCopy);
     error = v19->_error;
     v19->_error = v20;
 
-    v22 = [dateCopy copy];
+    v22 = objc_msgSend_copy(dateCopy);
     date = v19->_date;
     v19->_date = v22;
 
-    v24 = [identifierCopy copy];
+    v24 = objc_msgSend_copy(identifierCopy);
     profileIdentifier = v19->_profileIdentifier;
     v19->_profileIdentifier = v24;
 

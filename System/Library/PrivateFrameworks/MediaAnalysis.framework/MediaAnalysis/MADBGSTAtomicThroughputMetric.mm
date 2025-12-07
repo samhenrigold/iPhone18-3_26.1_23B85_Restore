@@ -10,19 +10,19 @@
 {
   categoryCopy = category;
   systemTaskCopy = systemTask;
-  v18.receiver = self;
-  v18.super_class = MADBGSTAtomicThroughputMetric;
-  v12 = [(MADBGSTThroughputMetric *)&v18 initWithTask:task subCategory:categoryCopy keys:0 BGSystemTask:systemTaskCopy];
+  v19.receiver = self;
+  v19.super_class = MADBGSTAtomicThroughputMetric;
+  v12 = [(MADBGSTThroughputMetric *)&v19 initWithTask:task subCategory:categoryCopy keys:0 BGSystemTask:systemTaskCopy];
   v13 = v12;
   if (v12)
   {
     [(MADBGSTThroughputMetric *)v12 setTaskID:task];
     [(MADBGSTThroughputMetric *)v13 setSystemTask:systemTaskCopy];
-    v14 = MADTaskIdentifierForBackgroundTask(task);
-    categoryCopy = [NSString stringWithFormat:@"%@.%@", v14, categoryCopy];
+    v15 = MADTaskIdentifierForBackgroundTask(task, v14);
+    categoryCopy = [NSString stringWithFormat:@"%@.%@", v15, categoryCopy];
 
-    v16 = throughputMetricForTask(categoryCopy);
-    [(MADBGSTThroughputMetric *)v13 setMetric:v16];
+    v17 = throughputMetricForTask(categoryCopy);
+    [(MADBGSTThroughputMetric *)v13 setMetric:v17];
   }
 
   return v13;

@@ -70,14 +70,12 @@
     __assert_rtn("[WOHealthBridgeKeyedString writeTo:]", "WOHealthBridgeKeyedString.m", 83, "nil != self->_key");
   }
 
-  key = selfCopy->_key;
   PBDataWriterWriteStringField();
   if (!selfCopy->_string)
   {
     __assert_rtn("[WOHealthBridgeKeyedString writeTo:]", "WOHealthBridgeKeyedString.m", 88, "nil != self->_string");
   }
 
-  string = selfCopy->_string;
   PBDataWriterWriteStringField();
   objc_storeStrong(location, 0);
 }

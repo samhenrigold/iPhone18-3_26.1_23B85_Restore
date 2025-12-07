@@ -190,7 +190,7 @@ LABEL_16:
 
 + (id)_quantitySamplesEnforcingDurationWithType:(id)type quantity:(id)quantity startDate:(id)date endDate:(id)endDate device:(id)device metadata:(id)metadata
 {
-  v61 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   quantityCopy = quantity;
   dateCopy = date;
@@ -201,11 +201,11 @@ LABEL_16:
   v21 = v20;
   if ([typeCopy isMaximumDurationRestricted])
   {
-    [typeCopy maximumAllowedDuration];
-    if (v21 > v22)
+    maximumAllowedDuration = [typeCopy maximumAllowedDuration];
+    if (v21 > v24)
     {
-      _HKInitializeLogging();
-      v23 = HKLogDefault;
+      _HKInitializeLogging(maximumAllowedDuration, v23);
+      v25 = HKLogDefault;
       if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412802;
@@ -213,8 +213,8 @@ LABEL_16:
         *&buf[12] = 2112;
         *&buf[14] = dateCopy;
         *&buf[22] = 2112;
-        v58 = endDateCopy;
-        _os_log_fault_impl(&dword_19197B000, v23, OS_LOG_TYPE_FAULT, "Data duration is longer than allowed for type %@, start date %@, end date %@", buf, 0x20u);
+        v61 = endDateCopy;
+        _os_log_fault_impl(&dword_19197B000, v25, OS_LOG_TYPE_FAULT, "Data duration is longer than allowed for type %@, start date %@, end date %@", buf, 0x20u);
       }
 
       aggregationStyle = [typeCopy aggregationStyle];
@@ -222,7 +222,7 @@ LABEL_16:
       {
         if (aggregationStyle)
         {
-          v25 = 0;
+          v27 = 0;
         }
 
         else
@@ -232,22 +232,22 @@ LABEL_16:
           *&buf[8] = buf;
           *&buf[16] = 0x2020000000;
           [quantityCopy doubleValueForUnit:_unit];
-          v58 = v31;
-          v32 = *(*&buf[8] + 24) / v21;
+          v61 = v35;
+          v36 = *(*&buf[8] + 24) / v21;
           aBlock[0] = MEMORY[0x1E69E9820];
           aBlock[1] = 3221225472;
           aBlock[2] = __105__HKQuantitySample__quantitySamplesEnforcingDurationWithType_quantity_startDate_endDate_device_metadata___block_invoke;
           aBlock[3] = &unk_1E73816F8;
-          v53 = buf;
-          v54 = v32;
-          v48 = endDateCopy;
-          v49 = _unit;
+          v56 = buf;
+          v57 = v36;
+          v51 = endDateCopy;
+          v52 = _unit;
           selfCopy = self;
-          v50 = typeCopy;
-          v51 = deviceCopy;
-          v52 = metadataCopy;
-          v33 = _unit;
-          v25 = _Block_copy(aBlock);
+          v53 = typeCopy;
+          v54 = deviceCopy;
+          v55 = metadataCopy;
+          v37 = _unit;
+          v27 = _Block_copy(aBlock);
 
           _Block_object_dispose(buf, 8);
         }
@@ -255,57 +255,55 @@ LABEL_16:
 
       else
       {
-        v38 = MEMORY[0x1E69E9820];
-        v39 = 3221225472;
-        v40 = __105__HKQuantitySample__quantitySamplesEnforcingDurationWithType_quantity_startDate_endDate_device_metadata___block_invoke_2;
-        v41 = &unk_1E7381720;
+        v41 = MEMORY[0x1E69E9820];
+        v42 = 3221225472;
+        v43 = __105__HKQuantitySample__quantitySamplesEnforcingDurationWithType_quantity_startDate_endDate_device_metadata___block_invoke_2;
+        v44 = &unk_1E7381720;
         selfCopy2 = self;
-        v42 = typeCopy;
-        v43 = quantityCopy;
-        v44 = deviceCopy;
-        v45 = metadataCopy;
-        v25 = _Block_copy(&v38);
+        v45 = typeCopy;
+        v46 = quantityCopy;
+        v47 = deviceCopy;
+        v48 = metadataCopy;
+        v27 = _Block_copy(&v41);
       }
 
-      v29 = [self _enumerateValidIntervalsWithStartDate:dateCopy endDate:endDateCopy sampleType:typeCopy block:{v25, v38, v39, v40, v41}];
+      v33 = [self _enumerateValidIntervalsWithStartDate:dateCopy endDate:endDateCopy sampleType:typeCopy block:{v27, v41, v42, v43, v44}];
       goto LABEL_17;
     }
   }
 
-  if (![typeCopy isMinimumDurationRestricted] || (objc_msgSend(typeCopy, "minimumAllowedDuration"), v21 >= v26))
+  if (![typeCopy isMinimumDurationRestricted] || (v28 = objc_msgSend(typeCopy, "minimumAllowedDuration"), v21 >= v30))
   {
-    v25 = [self quantitySampleWithType:typeCopy quantity:quantityCopy startDate:dateCopy endDate:endDateCopy device:deviceCopy metadata:metadataCopy];
-    v56 = v25;
-    v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v56 count:1];
+    v27 = [self quantitySampleWithType:typeCopy quantity:quantityCopy startDate:dateCopy endDate:endDateCopy device:deviceCopy metadata:metadataCopy];
+    v59 = v27;
+    v33 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v59 count:1];
 LABEL_17:
-    v28 = v29;
+    v32 = v33;
 
     goto LABEL_18;
   }
 
-  _HKInitializeLogging();
-  v27 = HKLogDefault;
+  _HKInitializeLogging(v28, v29);
+  v31 = HKLogDefault;
   if (os_log_type_enabled(HKLogDefault, OS_LOG_TYPE_FAULT))
   {
-    v36 = v27;
+    v39 = v31;
     [typeCopy minimumAllowedDuration];
     *buf = 138413058;
     *&buf[4] = typeCopy;
     *&buf[12] = 2112;
     *&buf[14] = dateCopy;
     *&buf[22] = 2112;
-    v58 = endDateCopy;
-    v59 = 2048;
-    v60 = v37;
-    _os_log_fault_impl(&dword_19197B000, v36, OS_LOG_TYPE_FAULT, "Not creating any samples because data duration is shorter than allowed for type %@, start date %@, end date %@. Minimum allowed duration for this type is %f", buf, 0x2Au);
+    v61 = endDateCopy;
+    v62 = 2048;
+    v63 = v40;
+    _os_log_fault_impl(&dword_19197B000, v39, OS_LOG_TYPE_FAULT, "Not creating any samples because data duration is shorter than allowed for type %@, start date %@, end date %@. Minimum allowed duration for this type is %f", buf, 0x2Au);
   }
 
-  v28 = MEMORY[0x1E695E0F0];
+  v32 = MEMORY[0x1E695E0F0];
 LABEL_18:
 
-  v34 = *MEMORY[0x1E69E9840];
-
-  return v28;
+  return v32;
 }
 
 id __105__HKQuantitySample__quantitySamplesEnforcingDurationWithType_quantity_startDate_endDate_device_metadata___block_invoke(uint64_t a1, void *a2, void *a3)

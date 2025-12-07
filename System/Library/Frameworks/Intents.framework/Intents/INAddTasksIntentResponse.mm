@@ -22,8 +22,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v15[3] = *MEMORY[0x1E69E9840];
-  v14[0] = @"code";
+  v14[3] = *MEMORY[0x1E69E9840];
+  v13[0] = @"code";
   code = [(INAddTasksIntentResponse *)self code];
   v4 = code;
   if (code < (INAddTasksIntentResponseCodeFailure|INAddTasksIntentResponseCodeInProgress))
@@ -38,8 +38,8 @@
     v6 = 0;
   }
 
-  v15[0] = null;
-  v14[1] = @"modifiedTaskList";
+  v14[0] = null;
+  v13[1] = @"modifiedTaskList";
   modifiedTaskList = [(INAddTasksIntentResponse *)self modifiedTaskList];
   null2 = modifiedTaskList;
   if (!modifiedTaskList)
@@ -47,8 +47,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[1] = null2;
-  v14[2] = @"addedTasks";
+  v14[1] = null2;
+  v13[2] = @"addedTasks";
   addedTasks = [(INAddTasksIntentResponse *)self addedTasks];
   null3 = addedTasks;
   if (!addedTasks)
@@ -56,8 +56,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v15[2] = null3;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
+  v14[2] = null3;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:3];
   if (!addedTasks)
   {
   }
@@ -69,8 +69,6 @@
   if (v4 >= 6)
   {
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -279,7 +277,7 @@ void __40__INAddTasksIntentResponse_setWarnings___block_invoke(uint64_t a1, uint
 
 - (INAddTasksIntentResponse)initWithCode:(INAddTasksIntentResponseCode)code userActivity:(NSUserActivity *)userActivity
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v6 = userActivity;
   v7 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
@@ -297,21 +295,20 @@ void __40__INAddTasksIntentResponse_setWarnings___block_invoke(uint64_t a1, uint
 
     v10 = v9;
     *buf = 136315906;
-    v16 = "[INAddTasksIntentResponse initWithCode:userActivity:]";
-    v17 = 2048;
-    v18 = code;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = v6;
+    v15 = "[INAddTasksIntentResponse initWithCode:userActivity:]";
+    v16 = 2048;
+    v17 = code;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = v6;
     _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s code = %zd (%@), userActivity = %@", buf, 0x2Au);
   }
 
-  v14.receiver = self;
-  v14.super_class = INAddTasksIntentResponse;
-  v11 = [(INIntentResponse *)&v14 _initWithCode:code userActivity:v6];
+  v13.receiver = self;
+  v13.super_class = INAddTasksIntentResponse;
+  v11 = [(INIntentResponse *)&v13 _initWithCode:code userActivity:v6];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

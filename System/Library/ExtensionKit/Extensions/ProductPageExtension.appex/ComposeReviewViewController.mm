@@ -8,7 +8,7 @@
 
 - (_TtC20ProductPageExtension27ComposeReviewViewController)initWithCompositionURL:(id)l
 {
-  v4 = sub_10000A5D4(&unk_1009435D0);
+  v4 = sub_10000A5D4(&unk_1009435D0, &qword_100785850);
   __chkstk_darwin(v4 - 8);
   v6 = &v10 - v5;
   if (l)

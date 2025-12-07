@@ -120,11 +120,11 @@ LABEL_14:
 
 - (RFTextProperty)initWithProtobuf:(id)protobuf
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   protobufCopy = protobuf;
-  v21.receiver = self;
-  v21.super_class = RFTextProperty;
-  v5 = [(RFTextProperty *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = RFTextProperty;
+  v5 = [(RFTextProperty *)&v20 init];
   if (v5)
   {
     text_elements = [protobufCopy text_elements];
@@ -138,33 +138,33 @@ LABEL_14:
       v7 = 0;
     }
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     text_elements2 = [protobufCopy text_elements];
-    v9 = [text_elements2 countByEnumeratingWithState:&v17 objects:v22 count:16];
+    v9 = [text_elements2 countByEnumeratingWithState:&v16 objects:v21 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v18;
+      v11 = *v17;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v18 != v11)
+          if (*v17 != v11)
           {
             objc_enumerationMutation(text_elements2);
           }
 
-          v13 = [[RFTextElement alloc] initWithProtobuf:*(*(&v17 + 1) + 8 * i)];
+          v13 = [[RFTextElement alloc] initWithProtobuf:*(*(&v16 + 1) + 8 * i)];
           if (v13)
           {
             [v7 addObject:v13];
           }
         }
 
-        v10 = [text_elements2 countByEnumeratingWithState:&v17 objects:v22 count:16];
+        v10 = [text_elements2 countByEnumeratingWithState:&v16 objects:v21 count:16];
       }
 
       while (v10);
@@ -179,7 +179,6 @@ LABEL_14:
     v14 = v5;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

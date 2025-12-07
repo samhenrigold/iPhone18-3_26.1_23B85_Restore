@@ -4,6 +4,7 @@
 + (void)updateCacheFromSFCGImageData:(id)data cacheKey:(id)key contactIDs:(id)ds;
 - (CGImage)CGImageWithCacheKey:(id)key contactIDs:(id)ds type:(id)type;
 - (CGImage)CGImgForActionPlatterWithTitle:(id)title tintColor:(id)color;
+- (CGImage)CGImgForNameLabelWithString:(id)string textColor:(id)color maxNumberOfLines:(unint64_t)lines isAirDrop:(BOOL)drop ignoreNameWrapping:(BOOL)wrapping processOppositeColor:(BOOL)oppositeColor;
 - (CGImage)CGImgForNearbyBadgeWithCount:(int64_t)count;
 - (SDXPCHelperConnection)initWithQueue:(id)queue serviceName:(id)name;
 - (id)CGImgDataForActivityMoreListEntryForActivityTitle:(id)title labelColor:(id)color processOppositeColor:(BOOL)oppositeColor activityCategory:(int64_t)category;
@@ -16,9 +17,11 @@
 - (id)keyDerivedFromRelevantTraitCollectionProperties;
 - (id)keyDerivedFromRelevantTraitCollectionPropertiesWithOppositeUserInterfaceStyle;
 - (id)loadBatchImageCacheData:(id)data cacheKey:(id)key mapCacheHitImage:(id)image runProxy:(id)proxy type:(id)type;
+- (id)monogramImageDataForContact:(id)contact style:(int64_t)style diameter:(double)diameter monogramsAsFlatImages:(BOOL)images isContactImage:(BOOL *)image;
 - (id)monogramImagesForMultipleContacts:(id)contacts style:(int64_t)style diameter:(double)diameter monogramsAsFlatImages:(BOOL)images;
 - (id)perspectiveDataForActionPlatterWithTitle:(id)title tintColor:(id)color;
 - (id)perspectiveDataForActivityMoreListEntryForActivityTitle:(id)title labelColor:(id)color activityCategory:(int64_t)category;
+- (id)perspectiveDataForNameLabelWithString:(id)string textColor:(id)color maxNumberOfLines:(unint64_t)lines isAirDrop:(BOOL)drop ignoreNameWrapping:(BOOL)wrapping;
 - (id)perspectiveDataForNearbyBadgeWithCount:(int64_t)count;
 - (id)perspectiveDataForUIActivityTitle:(id)title textColor:(id)color;
 - (id)urlToCGImgDataForCallHandoffIconWithAppIconImageData:(id)data contact:(id)contact;
@@ -184,6 +187,104 @@
   [(SDXPCHelperConnection *)v2 activate];
 
   return v2;
+}
+
+- (id)monogramImageDataForContact:(id)contact style:(int64_t)style diameter:(double)diameter monogramsAsFlatImages:(BOOL)images isContactImage:(BOOL *)image
+{
+  imagesCopy = images;
+  contactCopy = contact;
+  v11 = sharingXPCHelperLog();
+  v12 = v11;
+  intervalID = self->_intervalID;
+  if (intervalID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+  {
+    LODWORD(buf) = 134217984;
+    *(&buf + 4) = intervalID;
+    _os_signpost_emit_with_name_impl(&_mh_execute_header, v12, OS_SIGNPOST_INTERVAL_BEGIN, intervalID, "monogramImageDataForContact", "%llu", &buf, 0xCu);
+  }
+
+  v14 = contactCopy;
+  if (!contactCopy)
+  {
+    v15 = sharingXPCHelperLog();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(buf) = 0;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "monogramImageDataForContact called with nil contact, will use fallback.", &buf, 2u);
+    }
+
+    v14 = 0;
+  }
+
+  identifier = [v14 identifier];
+  v17 = identifier;
+  v18 = @"FALLBACK";
+  if (identifier)
+  {
+    v18 = identifier;
+  }
+
+  v19 = v18;
+
+  v20 = [NSString stringWithUTF8String:"[SDXPCHelperConnection monogramImageDataForContact:style:diameter:monogramsAsFlatImages:isContactImage:]"];
+  v49[0] = v20;
+  v49[1] = v19;
+  v21 = [NSNumber numberWithInteger:style];
+  v49[2] = v21;
+  v22 = [NSNumber numberWithDouble:floor(diameter)];
+  v49[3] = v22;
+  v23 = [NSNumber numberWithBool:imagesCopy];
+  v49[4] = v23;
+  v24 = [NSArray arrayWithObjects:v49 count:5];
+
+  v25 = [v24 componentsJoinedByString:{@", "}];
+  v48 = v19;
+  v26 = [NSArray arrayWithObjects:&v48 count:1];
+  v27 = [(SDXPCHelperConnection *)self CGImageWithCacheKey:v25 contactIDs:v26 type:@"contact"];
+
+  if (v27)
+  {
+    v28 = SFDataFromCGImage();
+  }
+
+  else
+  {
+    [(SDXPCHelperConnection *)self _updateShareSheetHostConfiguration];
+    *&buf = 0;
+    *(&buf + 1) = &buf;
+    v44 = 0x3032000000;
+    v45 = sub_100215B68;
+    v46 = sub_100215B78;
+    v47 = 0;
+    v29 = [(NSXPCConnection *)self->_connectionToService synchronousRemoteObjectProxyWithErrorHandler:&stru_1008D4560];
+    v39[0] = _NSConcreteStackBlock;
+    v39[1] = 3221225472;
+    v39[2] = sub_100215BD4;
+    v39[3] = &unk_1008D4588;
+    v39[4] = &buf;
+    v39[5] = v37;
+    [v29 monogramImageDataForContactSync:contactCopy style:style diameter:imagesCopy monogramsAsFlatImages:v39 replyHandler:diameter];
+
+    v30 = *(*(&buf + 1) + 40);
+    v42 = v19;
+    v31 = [NSArray arrayWithObjects:&v42 count:1];
+    [SDXPCHelperConnection updateCacheFromSFCGImageData:v30 cacheKey:v25 contactIDs:v31];
+
+    v32 = sharingXPCHelperLog();
+    v33 = v32;
+    v34 = self->_intervalID;
+    if (v34 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
+    {
+      *v40 = 134217984;
+      v41 = v34;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v33, OS_SIGNPOST_INTERVAL_END, v34, "monogramImageDataForContact", "%llu", v40, 0xCu);
+    }
+
+    v28 = *(*(&buf + 1) + 40);
+    _Block_object_dispose(&buf, 8);
+  }
+
+  return v28;
 }
 
 - (id)copyConversationIdentityImageIconDataForImage:(id)image forConversationIdentifier:(id)identifier style:(int64_t)style diameter:(double)diameter monogramsAsFlatImages:(BOOL)images isContactImage:(BOOL *)contactImage
@@ -798,6 +899,139 @@ LABEL_17:
   }
 }
 
+- (CGImage)CGImgForNameLabelWithString:(id)string textColor:(id)color maxNumberOfLines:(unint64_t)lines isAirDrop:(BOOL)drop ignoreNameWrapping:(BOOL)wrapping processOppositeColor:(BOOL)oppositeColor
+{
+  oppositeColorCopy = oppositeColor;
+  wrappingCopy = wrapping;
+  dropCopy = drop;
+  stringCopy = string;
+  colorCopy = color;
+  v15 = stringCopy;
+  if (v15)
+  {
+    v16 = sharingXPCHelperLog();
+    v17 = v16;
+    intervalID = self->_intervalID;
+    if (intervalID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+    {
+      LODWORD(buf) = 134217984;
+      *(&buf + 4) = intervalID;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v17, OS_SIGNPOST_INTERVAL_BEGIN, intervalID, "CGImgForNameLabelWithStringDaemon", "%llu", &buf, 0xCu);
+    }
+
+    if (oppositeColorCopy)
+    {
+      [(SDXPCHelperConnection *)self keyDerivedFromRelevantTraitCollectionProperties];
+    }
+
+    else
+    {
+      [(SDXPCHelperConnection *)self keyDerivedFromRelevantTraitCollectionPropertiesWithOppositeUserInterfaceStyle];
+    }
+    v19 = ;
+    v21 = [NSString stringWithUTF8String:"[SDXPCHelperConnection CGImgForNameLabelWithString:textColor:maxNumberOfLines:isAirDrop:ignoreNameWrapping:processOppositeColor:]"];
+    v22 = [SDXPCHelperConnection identifierForColor:colorCopy];
+    v23 = [v21 stringByAppendingFormat:@", %@, %@, %lu, %i, %i, %@, ", v15, v22, lines, dropCopy, wrappingCopy, v19];
+
+    v24 = [(SDXPCHelperConnection *)self CGImageWithCacheKey:v23 contactIDs:&__NSArray0__struct type:@"nameLabel"];
+    if (v24)
+    {
+      v25 = sharingXPCHelperLog();
+      v26 = v25;
+      v27 = self->_intervalID;
+      if (v27 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+      {
+        LODWORD(buf) = 134217984;
+        *(&buf + 4) = v27;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v26, OS_SIGNPOST_INTERVAL_END, v27, "CGImgForNameLabelWithStringDaemon", "%llu", &buf, 0xCu);
+      }
+
+      if (oppositeColorCopy)
+      {
+        v20 = v24;
+      }
+
+      else
+      {
+        v20 = 0;
+      }
+    }
+
+    else
+    {
+      [(SDXPCHelperConnection *)self _updateShareSheetHostConfiguration];
+      *&buf = 0;
+      *(&buf + 1) = &buf;
+      v48 = 0x3032000000;
+      v49 = sub_100215B68;
+      v50 = sub_100215B78;
+      v51 = 0;
+      v28 = [(NSXPCConnection *)self->_connectionToService synchronousRemoteObjectProxyWithErrorHandler:&stru_1008D48A8];
+      v44[0] = _NSConcreteStackBlock;
+      v44[1] = 3221225472;
+      v44[2] = sub_100218DEC;
+      v44[3] = &unk_1008D48D0;
+      v44[4] = &buf;
+      [v28 CGImgDataForNameLabelWithString:v15 textColor:colorCopy maxNumberOfLines:lines isAirDrop:dropCopy ignoreNameWrapping:wrappingCopy replyHandler:v44];
+
+      [SDXPCHelperConnection updateCacheFromSFCGImageData:*(*(&buf + 1) + 40) cacheKey:v23 contactIDs:&__NSArray0__struct];
+      if (oppositeColorCopy)
+      {
+        selfCopy = self;
+        queuedBlocks = [(SDXPCHelperConnection *)selfCopy queuedBlocks];
+        v38[0] = _NSConcreteStackBlock;
+        v38[1] = 3221225472;
+        v38[2] = sub_100218DFC;
+        v38[3] = &unk_1008D48F8;
+        v38[4] = selfCopy;
+        v39 = colorCopy;
+        v40 = v15;
+        linesCopy = lines;
+        v42 = dropCopy;
+        v43 = wrappingCopy;
+        v31 = objc_retainBlock(v38);
+        [queuedBlocks addObject:v31];
+      }
+
+      v32 = sharingXPCHelperLog();
+      v33 = v32;
+      v34 = self->_intervalID;
+      if (v34 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
+      {
+        *v45 = 134217984;
+        v46 = v34;
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v33, OS_SIGNPOST_INTERVAL_END, v34, "CGImgForNameLabelWithString", "%llu", v45, 0xCu);
+      }
+
+      if (*(*(&buf + 1) + 40))
+      {
+        v35 = SFCreateCGImageFromData();
+        v20 = CFAutorelease(v35);
+      }
+
+      else
+      {
+        v20 = 0;
+      }
+
+      _Block_object_dispose(&buf, 8);
+    }
+  }
+
+  else
+  {
+    v19 = daemon_log();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+    {
+      sub_10021B350();
+    }
+
+    v20 = 0;
+  }
+
+  return v20;
+}
+
 - (id)CGImgDataForActivityMoreListEntryForActivityTitle:(id)title labelColor:(id)color processOppositeColor:(BOOL)oppositeColor activityCategory:(int64_t)category
 {
   oppositeColorCopy = oppositeColor;
@@ -1232,6 +1466,33 @@ LABEL_17:
   _Block_object_dispose(&v12, 8);
 
   return v9;
+}
+
+- (id)perspectiveDataForNameLabelWithString:(id)string textColor:(id)color maxNumberOfLines:(unint64_t)lines isAirDrop:(BOOL)drop ignoreNameWrapping:(BOOL)wrapping
+{
+  wrappingCopy = wrapping;
+  dropCopy = drop;
+  stringCopy = string;
+  colorCopy = color;
+  [(SDXPCHelperConnection *)self _updateShareSheetHostConfiguration];
+  v18 = 0;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = sub_100215B68;
+  v22 = sub_100215B78;
+  v23 = 0;
+  v14 = [(NSXPCConnection *)self->_connectionToService synchronousRemoteObjectProxyWithErrorHandler:&stru_1008D49C0];
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_10021A46C;
+  v17[3] = &unk_1008D49A0;
+  v17[4] = &v18;
+  [v14 perspectiveDataForNameLabelWithString:stringCopy textColor:colorCopy maxNumberOfLines:lines isAirDrop:dropCopy ignoreNameWrapping:wrappingCopy replyHandler:v17];
+
+  v15 = v19[5];
+  _Block_object_dispose(&v18, 8);
+
+  return v15;
 }
 
 - (id)perspectiveDataForActionPlatterWithTitle:(id)title tintColor:(id)color

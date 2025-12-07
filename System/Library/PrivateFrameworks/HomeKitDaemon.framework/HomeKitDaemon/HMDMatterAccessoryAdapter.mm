@@ -128,13 +128,14 @@
 
 - (id)endpointsConformingToDeviceTypeID:(unsigned int)d
 {
+  v3 = *&d;
   selfCopy = self;
-  sub_2295FB338();
+  sub_2295FB338(v3);
 
   sub_229562F68(0, &qword_281401770, 0x277CCABB0);
-  v4 = sub_22A4DD81C();
+  v5 = sub_22A4DD81C();
 
-  return v4;
+  return v5;
 }
 
 - (BOOL)isEndpointConformingToDeviceTypeID:(unsigned int)d endpointID:(id)iD
@@ -186,7 +187,7 @@
 - (void)convertMatterAccessoryToNativeMatter:(BOOL)matter
 {
   selfCopy = self;
-  sub_2296FC900();
+  sub_2296FC900(matter);
 }
 
 - (void)runTransactions:(id)transactions completion:(id)completion
@@ -216,11 +217,11 @@
   v12[2] = sub_2296FB024;
   v12[3] = &block_descriptor_37;
   v11 = _Block_copy(v12);
-  sub_2295A1C30(v6);
+  sub_2295A1C30(v6, v7);
 
   [v9 getResultWithCompletion_];
 
-  sub_2295571A0(v6);
+  sub_2295571A0(v6, v7);
   _Block_release(v11);
 }
 
@@ -274,22 +275,21 @@
 - (void)handleRawMatterEventDictionary:(id)dictionary flow:(id)flow
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D87D8F0, &qword_22A578D70);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x28223BE20](v6 - 8);
-  v9 = &v15 - v8;
+  v8 = &v14 - v7;
   __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27D87C3B0, &unk_22A576E90);
-  v10 = sub_22A4DD49C();
-  v11 = sub_22A4DD9DC();
-  (*(*(v11 - 8) + 56))(v9, 1, 1, v11);
-  v12 = swift_allocObject();
-  v12[2] = 0;
-  v12[3] = 0;
-  v12[4] = self;
-  v12[5] = v10;
-  v12[6] = flow;
+  v9 = sub_22A4DD49C();
+  v10 = sub_22A4DD9DC();
+  (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+  v11 = swift_allocObject();
+  v11[2] = 0;
+  v11[3] = 0;
+  v11[4] = self;
+  v11[5] = v9;
+  v11[6] = flow;
   flowCopy = flow;
   selfCopy = self;
-  sub_22957F3C0(0, 0, v9, &unk_22A580930, v12);
+  sub_22957F3C0(0, 0, v8, &unk_22A580930, v11);
 }
 
 - (id)fetchRvcCleaningPayloadForEndpointID:(id)d
@@ -305,14 +305,13 @@
 {
   v4 = sub_22A4DB21C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22A4DB1DC();
   selfCopy = self;
-  sub_229700C10(v8);
+  sub_229700C10(v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)handleEventReport:(id)report dictionary:(id)dictionary flow:(id)flow hapAccessory:(id)accessory
@@ -485,10 +484,9 @@ LABEL_5:
 
 void __40__HMDMatterAccessoryAdapter_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v92;
-  logCategory__hmf_once_v92 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v92;
+  logCategory__hmf_once_v92 = v0;
 }
 
 - (HMDMatterAccessoryProtocol)accessory
@@ -619,7 +617,7 @@ void __40__HMDMatterAccessoryAdapter_logCategory__block_invoke()
 
 - (void)updateNotificationsWithEndpoints:(id)endpoints
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   endpointsCopy = endpoints;
   accessory = [(HMDMatterAccessoryAdapter *)self accessory];
   v6 = accessory;
@@ -629,14 +627,14 @@ void __40__HMDMatterAccessoryAdapter_logCategory__block_invoke()
     if (home)
     {
       bulletinBoardNotificationByEndpoint = [(HMDMatterAccessoryAdapter *)self bulletinBoardNotificationByEndpoint];
-      v39[0] = MEMORY[0x277D85DD0];
-      v39[1] = 3221225472;
-      v39[2] = __62__HMDMatterAccessoryAdapter_updateNotificationsWithEndpoints___block_invoke;
-      v39[3] = &unk_2786799E0;
-      v34 = endpointsCopy;
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = __62__HMDMatterAccessoryAdapter_updateNotificationsWithEndpoints___block_invoke;
+      v38[3] = &unk_2786799E0;
+      v33 = endpointsCopy;
       v9 = endpointsCopy;
-      v40 = v9;
-      v10 = [bulletinBoardNotificationByEndpoint na_filter:v39];
+      v39 = v9;
+      v10 = [bulletinBoardNotificationByEndpoint na_filter:v38];
       dictionary = [v10 mutableCopy];
 
       if (!dictionary)
@@ -644,18 +642,18 @@ void __40__HMDMatterAccessoryAdapter_logCategory__block_invoke()
         dictionary = [MEMORY[0x277CBEB38] dictionary];
       }
 
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __62__HMDMatterAccessoryAdapter_updateNotificationsWithEndpoints___block_invoke_2;
-      v35[3] = &unk_278679A08;
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __62__HMDMatterAccessoryAdapter_updateNotificationsWithEndpoints___block_invoke_2;
+      v34[3] = &unk_278679A08;
       v12 = dictionary;
-      v36 = v12;
-      v33 = home;
+      v35 = v12;
+      v32 = home;
       v13 = home;
-      v37 = v13;
+      v36 = v13;
       v14 = v6;
-      v38 = v14;
-      [v9 na_each:v35];
+      v37 = v14;
+      [v9 na_each:v34];
       v15 = objc_autoreleasePoolPush();
       selfCopy = self;
       v17 = HMFGetOSLogHandle();
@@ -664,16 +662,16 @@ void __40__HMDMatterAccessoryAdapter_logCategory__block_invoke()
         v18 = HMFGetLogIdentifier();
         bulletinBoardNotificationByEndpoint2 = [(HMDMatterAccessoryAdapter *)selfCopy bulletinBoardNotificationByEndpoint];
         *buf = 138543874;
-        v42 = v18;
-        v43 = 2112;
-        v44 = bulletinBoardNotificationByEndpoint2;
-        v45 = 2112;
-        v46 = v12;
+        v41 = v18;
+        v42 = 2112;
+        v43 = bulletinBoardNotificationByEndpoint2;
+        v44 = 2112;
+        v45 = v12;
         _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_DEBUG, "%{public}@Setting bulletinBoardNotificationByEndpoint from %@ to %@", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v15);
-      v20 = [v12 copy];
+      v20 = objc_msgSend_copy(v12);
       [(HMDMatterAccessoryAdapter *)selfCopy setBulletinBoardNotificationByEndpoint:v20];
 
       homeManager = [v13 homeManager];
@@ -683,8 +681,8 @@ void __40__HMDMatterAccessoryAdapter_logCategory__block_invoke()
       accessoryBulletinNotificationManager = [v13 accessoryBulletinNotificationManager];
       [accessoryBulletinNotificationManager updateEndpointRegistrationsForAccessory:v14 endpoints:v9];
 
-      home = v33;
-      endpointsCopy = v34;
+      home = v32;
+      endpointsCopy = v33;
     }
 
     else
@@ -696,9 +694,9 @@ void __40__HMDMatterAccessoryAdapter_logCategory__block_invoke()
       {
         v31 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v42 = v31;
-        v43 = 2112;
-        v44 = selfCopy2;
+        v41 = v31;
+        v42 = 2112;
+        v43 = selfCopy2;
         _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@Error updating endpoint set for accessory=%@, nil home", buf, 0x16u);
       }
 
@@ -715,14 +713,12 @@ void __40__HMDMatterAccessoryAdapter_logCategory__block_invoke()
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v42 = v27;
+      v41 = v27;
       _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_ERROR, "%{public}@Error updating endpoint set, nil accessory", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v24);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 void __62__HMDMatterAccessoryAdapter_updateNotificationsWithEndpoints___block_invoke_2(uint64_t a1, void *a2)
@@ -740,7 +736,7 @@ void __62__HMDMatterAccessoryAdapter_updateNotificationsWithEndpoints___block_in
 
 - (void)updateRvcRoomProgressWithValue:(id)value endpointID:(id)d
 {
-  v48[1] = *MEMORY[0x277D85DE8];
+  v47[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   dCopy = d;
   if (valueCopy)
@@ -776,15 +772,15 @@ void __62__HMDMatterAccessoryAdapter_updateNotificationsWithEndpoints___block_in
           v17 = [rvcCleaningPayload2 mutableCopy];
 
           [v17 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:@"HMDRVCAllServiceAreasCleanedMessageKey"];
-          v18 = [v17 copy];
+          v18 = objc_msgSend_copy(v17);
           [(HMDMatterAccessoryAdapter *)self setRvcCleaningPayload:v18];
         }
 
         else
         {
-          v47 = @"HMDRVCAllServiceAreasCleanedMessageKey";
-          v48[0] = MEMORY[0x277CBEC38];
-          v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:&v47 count:1];
+          v46 = @"HMDRVCAllServiceAreasCleanedMessageKey";
+          v47[0] = MEMORY[0x277CBEC38];
+          v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:&v46 count:1];
           [(HMDMatterAccessoryAdapter *)self setRvcCleaningPayload:v37];
         }
       }
@@ -792,12 +788,12 @@ void __62__HMDMatterAccessoryAdapter_updateNotificationsWithEndpoints___block_in
       else
       {
         rvcAreas2 = [(HMDMatterAccessoryAdapter *)self rvcAreas];
-        v39[0] = MEMORY[0x277D85DD0];
-        v39[1] = 3221225472;
-        v39[2] = __71__HMDMatterAccessoryAdapter_updateRvcRoomProgressWithValue_endpointID___block_invoke_394;
-        v39[3] = &unk_2786799B8;
-        v40 = v11;
-        v28 = [rvcAreas2 na_map:v39];
+        v38[0] = MEMORY[0x277D85DD0];
+        v38[1] = 3221225472;
+        v38[2] = __71__HMDMatterAccessoryAdapter_updateRvcRoomProgressWithValue_endpointID___block_invoke_394;
+        v38[3] = &unk_2786799B8;
+        v39 = v11;
+        v28 = [rvcAreas2 na_map:v38];
 
         v29 = objc_autoreleasePoolPush();
         selfCopy = self;
@@ -806,9 +802,9 @@ void __62__HMDMatterAccessoryAdapter_updateNotificationsWithEndpoints___block_in
         {
           v32 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v44 = v32;
-          v45 = 2112;
-          v46 = v28;
+          v43 = v32;
+          v44 = 2112;
+          v45 = v28;
           _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@Updating roomNames=%@", buf, 0x16u);
         }
 
@@ -821,15 +817,15 @@ void __62__HMDMatterAccessoryAdapter_updateNotificationsWithEndpoints___block_in
           v35 = [rvcCleaningPayload4 mutableCopy];
 
           [v35 setObject:v28 forKeyedSubscript:@"HMDRVCCompletedServiceAreasMessageKey"];
-          v36 = [v35 copy];
+          v36 = objc_msgSend_copy(v35);
           [(HMDMatterAccessoryAdapter *)selfCopy setRvcCleaningPayload:v36];
         }
 
         else
         {
-          v41 = @"HMDRVCCompletedServiceAreasMessageKey";
-          v42 = v28;
-          v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
+          v40 = @"HMDRVCCompletedServiceAreasMessageKey";
+          v41 = v28;
+          v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
           [(HMDMatterAccessoryAdapter *)selfCopy setRvcCleaningPayload:v35];
         }
       }
@@ -844,7 +840,7 @@ void __62__HMDMatterAccessoryAdapter_updateNotificationsWithEndpoints___block_in
       {
         v26 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v44 = v26;
+        v43 = v26;
         _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@completedAreaIDs is empty", buf, 0xCu);
       }
 
@@ -861,14 +857,12 @@ void __62__HMDMatterAccessoryAdapter_updateNotificationsWithEndpoints___block_in
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v44 = v22;
+      v43 = v22;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Progress payload is nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v19);
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 id __71__HMDMatterAccessoryAdapter_updateRvcRoomProgressWithValue_endpointID___block_invoke_394(uint64_t a1, void *a2)
@@ -947,7 +941,7 @@ id __71__HMDMatterAccessoryAdapter_updateRvcRoomProgressWithValue_endpointID___b
 
 - (void)_handleAttributeChangedNotification:(id)notification
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   workQueue = [(HMDMatterAccessoryAdapter *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -959,7 +953,7 @@ id __71__HMDMatterAccessoryAdapter_updateRvcRoomProgressWithValue_endpointID___b
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v39 = v9;
+    v38 = v9;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Handling attribute changed notification", buf, 0xCu);
   }
 
@@ -989,39 +983,39 @@ id __71__HMDMatterAccessoryAdapter_updateRvcRoomProgressWithValue_endpointID___b
     {
       v19 = [v15 valueForKey:@"HMDMatterAttributeChangedNotificationDecodedValueKey"];
       v20 = [MEMORY[0x277CBEB58] set];
-      v36[0] = MEMORY[0x277D85DD0];
-      v36[1] = 3221225472;
-      v36[2] = __65__HMDMatterAccessoryAdapter__handleAttributeChangedNotification___block_invoke;
-      v36[3] = &unk_2786845E8;
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = __65__HMDMatterAccessoryAdapter__handleAttributeChangedNotification___block_invoke;
+      v35[3] = &unk_2786845E8;
       v21 = v20;
-      v37 = v21;
-      [v19 na_each:v36];
-      v35 = [v21 copy];
-      if (![v35 hmf_isEmpty] || objc_msgSend(v19, "hmf_isEmpty"))
+      v36 = v21;
+      [v19 na_each:v35];
+      v34 = objc_msgSend_copy(v21);
+      if (![v34 hmf_isEmpty] || objc_msgSend(v19, "hmf_isEmpty"))
       {
-        v33 = v21;
-        v34 = v19;
+        v32 = v21;
+        v33 = v19;
         context = objc_autoreleasePoolPush();
         v22 = selfCopy;
         v23 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          v31 = HMFGetLogIdentifier();
+          v30 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v39 = v31;
-          v40 = 2112;
-          v41 = v35;
+          v38 = v30;
+          v39 = 2112;
+          v40 = v34;
           _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Updating endpoints=%@", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(context);
-        [(HMDMatterAccessoryAdapter *)v22 updateNotificationsWithEndpoints:v35];
-        v21 = v33;
-        v19 = v34;
+        [(HMDMatterAccessoryAdapter *)v22 updateNotificationsWithEndpoints:v34];
+        v21 = v32;
+        v19 = v33;
       }
     }
 
-    if (-[HMDMatterAccessoryAdapter supportsRVC](selfCopy, "supportsRVC", v31) && [v17 isEqual:&unk_283E72D40] && ((objc_msgSend(v18, "isEqual:", &unk_283E72CC8) & 1) != 0 || (objc_msgSend(v18, "isEqual:", &unk_283E72CB0) & 1) != 0 || objc_msgSend(v18, "isEqual:", &unk_283E72D58)))
+    if (-[HMDMatterAccessoryAdapter supportsRVC](selfCopy, "supportsRVC", v30) && [v17 isEqual:&unk_283E72D40] && ((objc_msgSend(v18, "isEqual:", &unk_283E72CC8) & 1) != 0 || (objc_msgSend(v18, "isEqual:", &unk_283E72CB0) & 1) != 0 || objc_msgSend(v18, "isEqual:", &unk_283E72D58)))
     {
       fetchRVCConfig = [(HMDMatterAccessoryAdapter *)selfCopy fetchRVCConfig];
     }
@@ -1042,16 +1036,14 @@ id __71__HMDMatterAccessoryAdapter_updateRvcRoomProgressWithValue_endpointID___b
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v39 = v29;
-      v40 = 2112;
-      v41 = notificationCopy;
+      v38 = v29;
+      v39 = 2112;
+      v40 = notificationCopy;
       _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Received HMDMatterAttributeChangedNotification with undefined payload: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v26);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __65__HMDMatterAccessoryAdapter__handleAttributeChangedNotification___block_invoke(uint64_t a1, void *a2)
@@ -1069,7 +1061,7 @@ void __65__HMDMatterAccessoryAdapter__handleAttributeChangedNotification___block
 
 - (void)createNotifications
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   accessory = [(HMDMatterAccessoryAdapter *)self accessory];
   v4 = accessory;
   if (accessory)
@@ -1080,12 +1072,12 @@ void __65__HMDMatterAccessoryAdapter__handleAttributeChangedNotification___block
       if ([v4 isNativeMatter])
       {
         v6 = [MEMORY[0x277CD51C0] attributePathWithEndpointID:&unk_283E72C80 clusterID:&unk_283E72C98 attributeID:&unk_283E72C68];
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __48__HMDMatterAccessoryAdapter_createNotifications__block_invoke_375;
-        v26[3] = &unk_278689230;
-        v26[4] = self;
-        [(HMDMatterAccessoryAdapter *)self readAttribute:v6 params:0 completion:v26];
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __48__HMDMatterAccessoryAdapter_createNotifications__block_invoke_375;
+        v25[3] = &unk_278689230;
+        v25[4] = self;
+        [(HMDMatterAccessoryAdapter *)self readAttribute:v6 params:0 completion:v25];
 LABEL_5:
 
 LABEL_21:
@@ -1115,12 +1107,12 @@ LABEL_21:
         {
           matterNodeID = [v21 matterNodeID];
           integerValue = [matterNodeID integerValue];
-          v27[0] = MEMORY[0x277D85DD0];
-          v27[1] = 3221225472;
-          v27[2] = __48__HMDMatterAccessoryAdapter_createNotifications__block_invoke;
-          v27[3] = &unk_2786899A0;
-          v27[4] = self;
-          [home readAttributeWithNodeId:integerValue endpointId:&unk_283E72C80 clusterId:&unk_283E72C98 attributeId:&unk_283E72C68 params:0 completion:v27];
+          v26[0] = MEMORY[0x277D85DD0];
+          v26[1] = 3221225472;
+          v26[2] = __48__HMDMatterAccessoryAdapter_createNotifications__block_invoke;
+          v26[3] = &unk_2786899A0;
+          v26[4] = self;
+          [home readAttributeWithNodeId:integerValue endpointId:&unk_283E72C80 clusterId:&unk_283E72C98 attributeId:&unk_283E72C68 params:0 completion:v26];
         }
 
         goto LABEL_5;
@@ -1133,7 +1125,7 @@ LABEL_21:
       {
         v14 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v29 = v14;
+        v28 = v14;
         v15 = "%{public}@Not creating BulletinBoardNotifications because this accessory is not a Native Matter accessory";
         v16 = v13;
         v17 = OS_LOG_TYPE_INFO;
@@ -1151,9 +1143,9 @@ LABEL_21:
       {
         v14 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v29 = v14;
-        v30 = 2112;
-        v31 = selfCopy2;
+        v28 = v14;
+        v29 = 2112;
+        v30 = selfCopy2;
         v15 = "%{public}@Error creating BulletinBoardNotifications for accessory=%@, home is nil";
         v16 = v13;
         v17 = OS_LOG_TYPE_ERROR;
@@ -1174,19 +1166,17 @@ LABEL_19:
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v29 = v10;
+    v28 = v10;
     _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Error creating BulletinBoardNotifications, cannot read partslist without accessory", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v7);
 LABEL_22:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HMDMatterAccessoryAdapter_createNotifications__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1199,11 +1189,11 @@ void __48__HMDMatterAccessoryAdapter_createNotifications__block_invoke(uint64_t 
       v10 = HMFGetLogIdentifier();
       v11 = *(a1 + 32);
       *buf = 138543874;
-      v43 = v10;
-      v44 = 2112;
-      v45 = v11;
-      v46 = 2112;
-      v47 = v6;
+      v42 = v10;
+      v43 = 2112;
+      v44 = v11;
+      v45 = 2112;
+      v46 = v6;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Error reading PartsList on accessory=%@ error=%@", buf, 0x20u);
     }
 
@@ -1260,7 +1250,7 @@ void __48__HMDMatterAccessoryAdapter_createNotifications__block_invoke(uint64_t 
 
         v25 = v24;
 
-        v41 = v25;
+        v40 = v25;
         v26 = [v25 na_map:&__block_literal_global_373];
         v27 = v26;
         v28 = MEMORY[0x277CBEBF8];
@@ -1278,9 +1268,9 @@ void __48__HMDMatterAccessoryAdapter_createNotifications__block_invoke(uint64_t 
         {
           v33 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v43 = v33;
-          v44 = 2112;
-          v45 = v29;
+          v42 = v33;
+          v43 = 2112;
+          v44 = v29;
           _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_INFO, "%{public}@Creating notifications for endpoints=%@", buf, 0x16u);
         }
 
@@ -1299,7 +1289,7 @@ void __48__HMDMatterAccessoryAdapter_createNotifications__block_invoke(uint64_t 
         {
           v39 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v43 = v39;
+          v42 = v39;
           _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_ERROR, "%{public}@Accessory Missing data key", buf, 0xCu);
         }
 
@@ -1316,20 +1306,18 @@ void __48__HMDMatterAccessoryAdapter_createNotifications__block_invoke(uint64_t 
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v43 = v18;
+        v42 = v18;
         _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Accessory returned no data for reading PartsList", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v15);
     }
   }
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void __48__HMDMatterAccessoryAdapter_createNotifications__block_invoke_375(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1341,13 +1329,13 @@ void __48__HMDMatterAccessoryAdapter_createNotifications__block_invoke_375(uint6
     {
       v10 = HMFGetLogIdentifier();
       v11 = *(a1 + 32);
-      v24 = 138543874;
-      v25 = v10;
-      v26 = 2112;
-      v27 = v11;
-      v28 = 2112;
-      v29 = v6;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Error reading PartsList on accessory=%@ error=%@", &v24, 0x20u);
+      v23 = 138543874;
+      v24 = v10;
+      v25 = 2112;
+      v26 = v11;
+      v27 = 2112;
+      v28 = v6;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Error reading PartsList on accessory=%@ error=%@", &v23, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
@@ -1372,11 +1360,11 @@ void __48__HMDMatterAccessoryAdapter_createNotifications__block_invoke_375(uint6
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       v20 = HMFGetLogIdentifier();
-      v24 = 138543618;
-      v25 = v20;
-      v26 = 2112;
-      v27 = v16;
-      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Creating notifications for endpoints=%@", &v24, 0x16u);
+      v23 = 138543618;
+      v24 = v20;
+      v25 = 2112;
+      v26 = v16;
+      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Creating notifications for endpoints=%@", &v23, 0x16u);
     }
 
     objc_autoreleasePoolPop(v17);
@@ -1384,8 +1372,6 @@ void __48__HMDMatterAccessoryAdapter_createNotifications__block_invoke_375(uint6
     v22 = [MEMORY[0x277CBEB98] setWithArray:v16];
     [v21 updateNotificationsWithEndpoints:v22];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 id __48__HMDMatterAccessoryAdapter_createNotifications__block_invoke_2(uint64_t a1, void *a2)
@@ -1420,7 +1406,7 @@ id __48__HMDMatterAccessoryAdapter_createNotifications__block_invoke_371(uint64_
 
 void __48__HMDMatterAccessoryAdapter_handleNotification___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) name];
   if ([v2 isEqualToString:@"HMDMatterAttributeChangedNotification"])
   {
@@ -1464,23 +1450,21 @@ void __48__HMDMatterAccessoryAdapter_handleNotification___block_invoke(uint64_t 
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         v14 = HMFGetLogIdentifier();
-        v16 = 138543618;
-        v17 = v14;
-        v18 = 2112;
-        v19 = v8;
-        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring resident update for other home: %@", &v16, 0x16u);
+        v15 = 138543618;
+        v16 = v14;
+        v17 = 2112;
+        v18 = v8;
+        _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring resident update for other home: %@", &v15, 0x16u);
       }
 
       objc_autoreleasePoolPop(v11);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addMatterPathModel:(id)model message:(id)message
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   messageCopy = message;
   uuid = [modelCopy uuid];
@@ -1494,11 +1478,11 @@ void __48__HMDMatterAccessoryAdapter_handleNotification___block_invoke(uint64_t 
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = HMFGetLogIdentifier();
-      v26 = 138543618;
-      v27 = v13;
-      v28 = 2112;
-      v29 = v9;
-      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Can't add an existing matter path: %@.", &v26, 0x16u);
+      v25 = 138543618;
+      v26 = v13;
+      v27 = 2112;
+      v28 = v9;
+      _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_ERROR, "%{public}@Can't add an existing matter path: %@.", &v25, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
@@ -1518,11 +1502,11 @@ void __48__HMDMatterAccessoryAdapter_handleNotification___block_invoke(uint64_t 
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       v20 = HMFGetLogIdentifier();
-      v26 = 138543618;
-      v27 = v20;
-      v28 = 2112;
-      v29 = v9;
-      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_DEBUG, "%{public}@Adding new matter path: %@.", &v26, 0x16u);
+      v25 = 138543618;
+      v26 = v20;
+      v27 = 2112;
+      v28 = v9;
+      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_DEBUG, "%{public}@Adding new matter path: %@.", &v25, 0x16u);
     }
 
     objc_autoreleasePoolPop(v17);
@@ -1544,13 +1528,11 @@ void __48__HMDMatterAccessoryAdapter_handleNotification___block_invoke(uint64_t 
 
     [messageCopy respondWithSuccess];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeMatterPathModel:(id)model message:(id)message
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   messageCopy = message;
   uuid = [modelCopy uuid];
@@ -1574,18 +1556,18 @@ void __48__HMDMatterAccessoryAdapter_handleNotification___block_invoke(uint64_t 
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      v37 = 0;
+      v36 = 0;
       actionSets = [home actionSets];
-      v28 = MEMORY[0x277D85DD0];
-      v29 = 3221225472;
-      v30 = __59__HMDMatterAccessoryAdapter_removeMatterPathModel_message___block_invoke;
-      v31 = &unk_278679990;
-      v32 = v9;
-      v35 = buf;
-      v33 = messageCopy;
+      v27 = MEMORY[0x277D85DD0];
+      v28 = 3221225472;
+      v29 = __59__HMDMatterAccessoryAdapter_removeMatterPathModel_message___block_invoke;
+      v30 = &unk_278679990;
+      v31 = v9;
+      v34 = buf;
+      v32 = messageCopy;
       v19 = v17;
-      v34 = v19;
-      [actionSets hmf_enumerateWithAutoreleasePoolUsingBlock:&v28];
+      v33 = v19;
+      [actionSets hmf_enumerateWithAutoreleasePoolUsingBlock:&v27];
 
       if (*(*&buf[8] + 24) == 1)
       {
@@ -1624,8 +1606,6 @@ void __48__HMDMatterAccessoryAdapter_handleNotification___block_invoke(uint64_t 
     v26 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     [messageCopy respondWithError:v26];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HMDMatterAccessoryAdapter_removeMatterPathModel_message___block_invoke(uint64_t a1, void *a2)
@@ -1705,7 +1685,7 @@ void __59__HMDMatterAccessoryAdapter_removeMatterPathModel_message___block_invok
 
 void __55__HMDMatterAccessoryAdapter__runAccessoryTransactions___block_invoke(id *a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = a1[4];
@@ -1714,24 +1694,22 @@ void __55__HMDMatterAccessoryAdapter__runAccessoryTransactions___block_invoke(id
   {
     v7 = HMFGetLogIdentifier();
     v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(a1[5], "count")}];
-    v10 = 138543874;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Ran %@ transactions with error: %@", &v10, 0x20u);
+    v9 = 138543874;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Ran %@ transactions with error: %@", &v9, 0x20u);
   }
 
   objc_autoreleasePoolPop(v4);
   [a1[6] fulfillWithNoValue];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_removeMatterPaths:(id)paths
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   if (pathsCopy)
   {
@@ -1753,11 +1731,11 @@ void __55__HMDMatterAccessoryAdapter__runAccessoryTransactions___block_invoke(id
       v9 = HMFGetLogIdentifier();
       v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "count")}];
       *buf = 138543874;
-      v22 = v9;
-      v23 = 2112;
-      v24 = v10;
-      v25 = 2112;
-      v26 = v5;
+      v21 = v9;
+      v22 = 2112;
+      v23 = v10;
+      v24 = 2112;
+      v25 = v5;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Removing %@ matter paths %@", buf, 0x20u);
     }
 
@@ -1766,13 +1744,13 @@ void __55__HMDMatterAccessoryAdapter__runAccessoryTransactions___block_invoke(id
     uuid = [accessory uuid];
 
     allObjects = [v5 allObjects];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __48__HMDMatterAccessoryAdapter__removeMatterPaths___block_invoke;
-    v19[3] = &unk_27867A628;
-    v20 = uuid;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __48__HMDMatterAccessoryAdapter__removeMatterPaths___block_invoke;
+    v18[3] = &unk_27867A628;
+    v19 = uuid;
     v14 = uuid;
-    v15 = [allObjects na_map:v19];
+    v15 = [allObjects na_map:v18];
 
     futureWithNoValue = [(HMDMatterAccessoryAdapter *)selfCopy _runAccessoryTransactions:v15];
   }
@@ -1781,8 +1759,6 @@ void __55__HMDMatterAccessoryAdapter__runAccessoryTransactions___block_invoke(id
   {
     futureWithNoValue = [MEMORY[0x277D0F7C0] futureWithNoValue];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return futureWithNoValue;
 }
@@ -1801,7 +1777,7 @@ id __48__HMDMatterAccessoryAdapter__removeMatterPaths___block_invoke(uint64_t a1
 
 - (id)_addMatterPaths:(id)paths
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   pathsCopy = paths;
   if (pathsCopy)
   {
@@ -1823,11 +1799,11 @@ id __48__HMDMatterAccessoryAdapter__removeMatterPaths___block_invoke(uint64_t a1
       v9 = HMFGetLogIdentifier();
       v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "count")}];
       *buf = 138543874;
-      v22 = v9;
-      v23 = 2112;
-      v24 = v10;
-      v25 = 2112;
-      v26 = v5;
+      v21 = v9;
+      v22 = 2112;
+      v23 = v10;
+      v24 = 2112;
+      v25 = v5;
       _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Adding %@ matter paths %@", buf, 0x20u);
     }
 
@@ -1836,13 +1812,13 @@ id __48__HMDMatterAccessoryAdapter__removeMatterPaths___block_invoke(uint64_t a1
     uuid = [accessory uuid];
 
     allObjects = [v5 allObjects];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __45__HMDMatterAccessoryAdapter__addMatterPaths___block_invoke;
-    v19[3] = &unk_27867A628;
-    v20 = uuid;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __45__HMDMatterAccessoryAdapter__addMatterPaths___block_invoke;
+    v18[3] = &unk_27867A628;
+    v19 = uuid;
     v14 = uuid;
-    v15 = [allObjects na_map:v19];
+    v15 = [allObjects na_map:v18];
 
     futureWithNoValue = [(HMDMatterAccessoryAdapter *)selfCopy _runAccessoryTransactions:v15];
   }
@@ -1851,8 +1827,6 @@ id __48__HMDMatterAccessoryAdapter__removeMatterPaths___block_invoke(uint64_t a1
   {
     futureWithNoValue = [MEMORY[0x277D0F7C0] futureWithNoValue];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return futureWithNoValue;
 }
@@ -2010,7 +1984,7 @@ BOOL __43__HMDMatterAccessoryAdapter_attributePaths__block_invoke(uint64_t a1, v
 - (NSArray)matterPaths
 {
   os_unfair_lock_lock_with_options();
-  v3 = [(NSMutableArray *)self->_hmdMatterPaths copy];
+  v3 = objc_msgSend_copy(self->_hmdMatterPaths);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -2132,7 +2106,7 @@ void *__46__HMDMatterAccessoryAdapter_mtrAttributePaths__block_invoke(uint64_t a
 - (NSArray)mtrPaths
 {
   os_unfair_lock_lock_with_options();
-  v3 = [(NSArray *)self->_mtrPaths copy];
+  v3 = objc_msgSend_copy(self->_mtrPaths);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -2140,7 +2114,7 @@ void *__46__HMDMatterAccessoryAdapter_mtrAttributePaths__block_invoke(uint64_t a
 
 - (void)invokeCommands:(id)commands completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   commandsCopy = commands;
   completionCopy = completion;
   matterDevice = [(HMDMatterAccessoryAdapter *)self matterDevice];
@@ -2160,22 +2134,20 @@ void *__46__HMDMatterAccessoryAdapter_mtrAttributePaths__block_invoke(uint64_t a
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = HMFGetLogIdentifier();
-      v16 = 138543362;
-      v17 = v14;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@No matter device to invoke bulk commands", &v16, 0xCu);
+      v15 = 138543362;
+      v16 = v14;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_ERROR, "%{public}@No matter device to invoke bulk commands", &v15, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
     matterDevice2 = [MEMORY[0x277CCA9B8] hmErrorWithCode:4];
     completionCopy[2](completionCopy, 0, matterDevice2);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invokeCommand:(id)command fields:(id)fields expectedValues:(id)values source:(unint64_t)source completion:(id)completion
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   commandCopy = command;
   fieldsCopy = fields;
   valuesCopy = values;
@@ -2201,9 +2173,9 @@ void *__46__HMDMatterAccessoryAdapter_mtrAttributePaths__block_invoke(uint64_t a
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v24;
-      v29 = 2112;
-      v30 = commandCopy;
+      v27 = v24;
+      v28 = 2112;
+      v29 = commandCopy;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@No matter device to invoke command to path: %@", buf, 0x16u);
     }
 
@@ -2211,13 +2183,11 @@ void *__46__HMDMatterAccessoryAdapter_mtrAttributePaths__block_invoke(uint64_t a
     v25 = [MEMORY[0x277CCA9B8] hmErrorWithCode:4];
     completionCopy[2](completionCopy, 0, v25);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)writeAttribute:(id)attribute value:(id)value timedWriteTimeout:(id)timeout completion:(id)completion
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   attributeCopy = attribute;
   valueCopy = value;
   timeoutCopy = timeout;
@@ -2238,13 +2208,13 @@ void *__46__HMDMatterAccessoryAdapter_mtrAttributePaths__block_invoke(uint64_t a
     if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
     {
       v22 = HMFGetLogIdentifier();
-      v29 = 138543874;
-      v30 = v22;
-      v31 = 2112;
-      v32 = valueCopy;
-      v33 = 2112;
-      v34 = attributeCopy;
-      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Did write value: %@ to path: %@", &v29, 0x20u);
+      v28 = 138543874;
+      v29 = v22;
+      v30 = 2112;
+      v31 = valueCopy;
+      v32 = 2112;
+      v33 = attributeCopy;
+      _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Did write value: %@ to path: %@", &v28, 0x20u);
     }
 
     objc_autoreleasePoolPop(v19);
@@ -2259,24 +2229,22 @@ void *__46__HMDMatterAccessoryAdapter_mtrAttributePaths__block_invoke(uint64_t a
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       v26 = HMFGetLogIdentifier();
-      v29 = 138543618;
-      v30 = v26;
-      v31 = 2112;
-      v32 = attributeCopy;
-      _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@No matter device to write to path: %@", &v29, 0x16u);
+      v28 = 138543618;
+      v29 = v26;
+      v30 = 2112;
+      v31 = attributeCopy;
+      _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@No matter device to write to path: %@", &v28, 0x16u);
     }
 
     objc_autoreleasePoolPop(v23);
     v27 = [MEMORY[0x277CCA9B8] hmErrorWithCode:4];
     (*(completionCopy + 2))(completionCopy, 0, v27);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readAttribute:(id)attribute params:(id)params completion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   attributeCopy = attribute;
   paramsCopy = params;
   completionCopy = completion;
@@ -2296,13 +2264,13 @@ void *__46__HMDMatterAccessoryAdapter_mtrAttributePaths__block_invoke(uint64_t a
     if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
       v20 = HMFGetLogIdentifier();
-      v27 = 138543874;
-      v28 = v20;
-      v29 = 2112;
-      v30 = v16;
-      v31 = 2112;
-      v32 = attributeCopy;
-      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Did read %@ from path: %@", &v27, 0x20u);
+      v26 = 138543874;
+      v27 = v20;
+      v28 = 2112;
+      v29 = v16;
+      v30 = 2112;
+      v31 = attributeCopy;
+      _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Did read %@ from path: %@", &v26, 0x20u);
     }
 
     objc_autoreleasePoolPop(v17);
@@ -2328,19 +2296,17 @@ void *__46__HMDMatterAccessoryAdapter_mtrAttributePaths__block_invoke(uint64_t a
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       v24 = HMFGetLogIdentifier();
-      v27 = 138543618;
-      v28 = v24;
-      v29 = 2112;
-      v30 = attributeCopy;
-      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@No matter device to read from path: %@", &v27, 0x16u);
+      v26 = 138543618;
+      v27 = v24;
+      v28 = 2112;
+      v29 = attributeCopy;
+      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@No matter device to read from path: %@", &v26, 0x16u);
     }
 
     objc_autoreleasePoolPop(v21);
     v16 = [MEMORY[0x277CCA9B8] hmErrorWithCode:4];
     (completionCopy)[2](completionCopy, 0, v16);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)reportFromAttributePathRead:(id)read retryTimeout:(double)timeout
@@ -2371,18 +2337,18 @@ void *__46__HMDMatterAccessoryAdapter_mtrAttributePaths__block_invoke(uint64_t a
 
 uint64_t __70__HMDMatterAccessoryAdapter_reportFromAttributePathRead_retryTimeout___block_invoke(uint64_t a1, void *a2)
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v21[0] = *MEMORY[0x277CD50B8];
+  v20[0] = *MEMORY[0x277CD50B8];
   v4 = [*(a1 + 32) attributePath];
-  v21[1] = *MEMORY[0x277CD50D8];
-  v22[0] = v4;
-  v22[1] = v3;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
+  v20[1] = *MEMORY[0x277CD50D8];
+  v21[0] = v4;
+  v21[1] = v3;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
 
-  v14 = 0;
-  [objc_alloc(MEMORY[0x277CD51C8]) initWithResponseValue:v5 error:&v14];
-  v6 = v14;
+  v13 = 0;
+  [objc_alloc(MEMORY[0x277CD51C8]) initWithResponseValue:v5 error:&v13];
+  v6 = v13;
   if (v6)
   {
     v7 = objc_autoreleasePoolPush();
@@ -2393,18 +2359,17 @@ uint64_t __70__HMDMatterAccessoryAdapter_reportFromAttributePathRead_retryTimeou
       v10 = HMFGetLogIdentifier();
       v11 = [*(a1 + 32) attributePath];
       *buf = 138543874;
-      v16 = v10;
-      v17 = 2112;
-      v18 = v11;
-      v19 = 2112;
-      v20 = v6;
+      v15 = v10;
+      v16 = 2112;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v6;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Error creating MTRAttributeReport for path=%@. error=%@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v7);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -2515,7 +2480,7 @@ uint64_t __64__HMDMatterAccessoryAdapter_readFromAttributePath_retryTimeout___bl
 
 - (id)_readFromAttributePath:(id)path retryTimeout:(double)timeout
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   if (!pathCopy)
   {
@@ -2547,24 +2512,24 @@ uint64_t __64__HMDMatterAccessoryAdapter_readFromAttributePath_retryTimeout___bl
         v17 = HMFGetLogIdentifier();
         v18 = [MEMORY[0x277CCABB0] numberWithDouble:timeout];
         *buf = 138543874;
-        v30 = v17;
-        v31 = 2112;
-        v32 = v7;
-        v33 = 2112;
-        v34 = v18;
+        v29 = v17;
+        v30 = 2112;
+        v31 = v7;
+        v32 = 2112;
+        v33 = v18;
         _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Attempting to retry read from %@ after %@s", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v14);
       v19 = [MEMORY[0x277D0F7C0] futureWithDelay:timeout];
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __65__HMDMatterAccessoryAdapter__readFromAttributePath_retryTimeout___block_invoke;
-      v25[3] = &unk_27867C6C8;
-      v26 = matterDevice;
-      v27 = v7;
-      v28 = selfCopy;
-      v20 = [v19 then:v25];
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __65__HMDMatterAccessoryAdapter__readFromAttributePath_retryTimeout___block_invoke;
+      v24[3] = &unk_27867C6C8;
+      v25 = matterDevice;
+      v26 = v7;
+      v27 = selfCopy;
+      v20 = [v19 then:v24];
     }
   }
 
@@ -2575,14 +2540,12 @@ uint64_t __64__HMDMatterAccessoryAdapter_readFromAttributePath_retryTimeout___bl
     v20 = [v21 futureWithError:v22];
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 uint64_t __65__HMDMatterAccessoryAdapter__readFromAttributePath_retryTimeout___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = [*(a1 + 40) endpointID];
@@ -2597,13 +2560,13 @@ uint64_t __65__HMDMatterAccessoryAdapter__readFromAttributePath_retryTimeout___b
   {
     v12 = HMFGetLogIdentifier();
     v13 = *(a1 + 40);
-    v17 = 138543874;
-    v18 = v12;
-    v19 = 2112;
-    v20 = v13;
-    v21 = 2112;
-    v22 = v8;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Retried and receive response for path: %@ with result: %@", &v17, 0x20u);
+    v16 = 138543874;
+    v17 = v12;
+    v18 = 2112;
+    v19 = v13;
+    v20 = 2112;
+    v21 = v8;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Retried and receive response for path: %@ with result: %@", &v16, 0x20u);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -2615,7 +2578,6 @@ uint64_t __65__HMDMatterAccessoryAdapter__readFromAttributePath_retryTimeout___b
 
   v14;
 
-  v15 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -2651,40 +2613,39 @@ uint64_t __65__HMDMatterAccessoryAdapter__readFromAttributePath_retryTimeout___b
 
 uint64_t __65__HMDMatterAccessoryAdapter__fetchEventPathsForCluster_endpoint___block_invoke(id *a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 hmf_arrayForKey:*MEMORY[0x277CD51A0]];
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __65__HMDMatterAccessoryAdapter__fetchEventPathsForCluster_endpoint___block_invoke_2;
-  v18 = &unk_278679828;
-  v19 = a1[4];
-  v20 = a1[5];
-  v5 = [v4 na_map:&v15];
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __65__HMDMatterAccessoryAdapter__fetchEventPathsForCluster_endpoint___block_invoke_2;
+  v17 = &unk_278679828;
+  v18 = a1[4];
+  v19 = a1[5];
+  v5 = [v4 na_map:&v14];
   v6 = objc_autoreleasePoolPush();
   v7 = a1[6];
   v8 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     v9 = HMFGetLogIdentifier();
-    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "count", v15, v16, v17, v18, v19)}];
+    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "count", v14, v15, v16, v17, v18)}];
     v11 = a1[4];
     v12 = a1[5];
     *buf = 138544386;
-    v22 = v9;
-    v23 = 2112;
-    v24 = v10;
-    v25 = 2112;
-    v26 = v11;
-    v27 = 2112;
-    v28 = v12;
-    v29 = 2112;
-    v30 = v5;
+    v21 = v9;
+    v22 = 2112;
+    v23 = v10;
+    v24 = 2112;
+    v25 = v11;
+    v26 = 2112;
+    v27 = v12;
+    v28 = 2112;
+    v29 = v5;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Read %@ matter event paths for EP(%@)/CL(%@): %@", buf, 0x34u);
   }
 
   objc_autoreleasePoolPop(v6);
-  v13 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -2738,40 +2699,39 @@ id __65__HMDMatterAccessoryAdapter__fetchEventPathsForCluster_endpoint___block_i
 
 uint64_t __67__HMDMatterAccessoryAdapter__fetchCommandPathsForCluster_endpoint___block_invoke(id *a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 hmf_arrayForKey:*MEMORY[0x277CD51A0]];
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __67__HMDMatterAccessoryAdapter__fetchCommandPathsForCluster_endpoint___block_invoke_2;
-  v18 = &unk_278679828;
-  v19 = a1[4];
-  v20 = a1[5];
-  v5 = [v4 na_map:&v15];
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __67__HMDMatterAccessoryAdapter__fetchCommandPathsForCluster_endpoint___block_invoke_2;
+  v17 = &unk_278679828;
+  v18 = a1[4];
+  v19 = a1[5];
+  v5 = [v4 na_map:&v14];
   v6 = objc_autoreleasePoolPush();
   v7 = a1[6];
   v8 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     v9 = HMFGetLogIdentifier();
-    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "count", v15, v16, v17, v18, v19)}];
+    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "count", v14, v15, v16, v17, v18)}];
     v11 = a1[4];
     v12 = a1[5];
     *buf = 138544386;
-    v22 = v9;
-    v23 = 2112;
-    v24 = v10;
-    v25 = 2112;
-    v26 = v11;
-    v27 = 2112;
-    v28 = v12;
-    v29 = 2112;
-    v30 = v5;
+    v21 = v9;
+    v22 = 2112;
+    v23 = v10;
+    v24 = 2112;
+    v25 = v11;
+    v26 = 2112;
+    v27 = v12;
+    v28 = 2112;
+    v29 = v5;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Read %@ matter command paths for EP(%@)/CL(%@): %@", buf, 0x34u);
   }
 
   objc_autoreleasePoolPop(v6);
-  v13 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -2825,40 +2785,39 @@ id __67__HMDMatterAccessoryAdapter__fetchCommandPathsForCluster_endpoint___block
 
 uint64_t __69__HMDMatterAccessoryAdapter__fetchAttributePathsForCluster_endpoint___block_invoke(id *a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 hmf_arrayForKey:*MEMORY[0x277CD51A0]];
-  v15 = MEMORY[0x277D85DD0];
-  v16 = 3221225472;
-  v17 = __69__HMDMatterAccessoryAdapter__fetchAttributePathsForCluster_endpoint___block_invoke_2;
-  v18 = &unk_278679828;
-  v19 = a1[4];
-  v20 = a1[5];
-  v5 = [v4 na_map:&v15];
+  v14 = MEMORY[0x277D85DD0];
+  v15 = 3221225472;
+  v16 = __69__HMDMatterAccessoryAdapter__fetchAttributePathsForCluster_endpoint___block_invoke_2;
+  v17 = &unk_278679828;
+  v18 = a1[4];
+  v19 = a1[5];
+  v5 = [v4 na_map:&v14];
   v6 = objc_autoreleasePoolPush();
   v7 = a1[6];
   v8 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     v9 = HMFGetLogIdentifier();
-    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "count", v15, v16, v17, v18, v19)}];
+    v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v5, "count", v14, v15, v16, v17, v18)}];
     v11 = a1[4];
     v12 = a1[5];
     *buf = 138544386;
-    v22 = v9;
-    v23 = 2112;
-    v24 = v10;
-    v25 = 2112;
-    v26 = v11;
-    v27 = 2112;
-    v28 = v12;
-    v29 = 2112;
-    v30 = v5;
+    v21 = v9;
+    v22 = 2112;
+    v23 = v10;
+    v24 = 2112;
+    v25 = v11;
+    v26 = 2112;
+    v27 = v12;
+    v28 = 2112;
+    v29 = v5;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_DEBUG, "%{public}@Read %@ matter attribute paths for EP(%@)/CL(%@): %@", buf, 0x34u);
   }
 
   objc_autoreleasePoolPop(v6);
-  v13 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -2882,7 +2841,7 @@ id __69__HMDMatterAccessoryAdapter__fetchAttributePathsForCluster_endpoint___blo
 
 - (id)_fetchMatterPathsForCluster:(id)cluster endpoint:(id)endpoint
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   clusterCopy = cluster;
   endpointCopy = endpoint;
   if (!clusterCopy || (v8 = endpointCopy) == 0)
@@ -2901,7 +2860,7 @@ id __69__HMDMatterAccessoryAdapter__fetchAttributePathsForCluster_endpoint___blo
     *&buf[12] = 2112;
     *&buf[14] = v8;
     *&buf[22] = 2112;
-    v24 = clusterCopy;
+    v23 = clusterCopy;
     _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Read matter paths from EP(%@)/CL(%@)", buf, 0x20u);
   }
 
@@ -2909,24 +2868,23 @@ id __69__HMDMatterAccessoryAdapter__fetchAttributePathsForCluster_endpoint___blo
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v24 = __Block_byref_object_copy__126661;
-  v25 = __Block_byref_object_dispose__126662;
+  v23 = __Block_byref_object_copy__126661;
+  v24 = __Block_byref_object_dispose__126662;
   array = [MEMORY[0x277CBEB18] array];
   v13 = [(HMDMatterAccessoryAdapter *)selfCopy _fetchAttributePathsForCluster:clusterCopy endpoint:v8];
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v19[2] = __66__HMDMatterAccessoryAdapter__fetchMatterPathsForCluster_endpoint___block_invoke;
-  v19[3] = &unk_278679878;
-  v22 = buf;
-  v19[4] = selfCopy;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __66__HMDMatterAccessoryAdapter__fetchMatterPathsForCluster_endpoint___block_invoke;
+  v18[3] = &unk_278679878;
+  v21 = buf;
+  v18[4] = selfCopy;
   v14 = clusterCopy;
-  v20 = v14;
+  v19 = v14;
   v15 = v8;
-  v21 = v15;
-  v16 = [v13 then:v19];
+  v20 = v15;
+  v16 = [v13 then:v18];
 
   _Block_object_dispose(buf, 8);
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -2965,7 +2923,7 @@ uint64_t __66__HMDMatterAccessoryAdapter__fetchMatterPathsForCluster_endpoint___
 
 - (id)_fetchMatterPathsForEndpoint:(id)endpoint
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   endpointCopy = endpoint;
   if (!endpointCopy)
   {
@@ -2980,9 +2938,9 @@ uint64_t __66__HMDMatterAccessoryAdapter__fetchMatterPathsForCluster_endpoint___
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v19 = v9;
-    v20 = 2112;
-    v21 = v5;
+    v18 = v9;
+    v19 = 2112;
+    v20 = v5;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Fetching matter paths from EP(%@)", buf, 0x16u);
   }
 
@@ -2990,16 +2948,14 @@ uint64_t __66__HMDMatterAccessoryAdapter__fetchMatterPathsForCluster_endpoint___
   v10 = [HMDMatterPath PathWithAttributeID:&unk_283E72CC8 endpointID:v5 clusterID:&unk_283E72C98 accessory:0];
   [(HMDMatterAccessoryAdapter *)selfCopy retryFetchTimeout];
   v11 = [(HMDMatterAccessoryAdapter *)selfCopy readFromAttributePath:v10 retryTimeout:?];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __58__HMDMatterAccessoryAdapter__fetchMatterPathsForEndpoint___block_invoke;
-  v16[3] = &unk_278687110;
-  v16[4] = selfCopy;
-  v17 = v5;
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __58__HMDMatterAccessoryAdapter__fetchMatterPathsForEndpoint___block_invoke;
+  v15[3] = &unk_278687110;
+  v15[4] = selfCopy;
+  v16 = v5;
   v12 = v5;
-  v13 = [v11 then:v16];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = [v11 then:v15];
 
   return v13;
 }
@@ -3089,7 +3045,7 @@ uint64_t __58__HMDMatterAccessoryAdapter__fetchMatterPathsForEndpoint___block_in
 
 id __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -3098,9 +3054,9 @@ id __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_invoke(
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v20 = v7;
-    v21 = 2112;
-    v22 = v3;
+    v19 = v7;
+    v20 = 2112;
+    v21 = v3;
     _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Fetching deviceType from EP(%@)", buf, 0x16u);
   }
 
@@ -3109,29 +3065,27 @@ id __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_invoke(
   v9 = *(a1 + 32);
   [v9 retryFetchTimeout];
   v10 = [v9 _readFromAttributePath:v8 retryTimeout:?];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_invoke_303;
-  v17[3] = &unk_278687110;
-  v17[4] = *(a1 + 32);
-  v18 = v3;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_invoke_309;
-  v15[3] = &unk_2786882F0;
-  v15[4] = *(a1 + 32);
-  v16 = v18;
-  v11 = v18;
-  v12 = [v10 then:v17 orRecover:v15];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_invoke_303;
+  v16[3] = &unk_278687110;
+  v16[4] = *(a1 + 32);
+  v17 = v3;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_invoke_309;
+  v14[3] = &unk_2786882F0;
+  v14[4] = *(a1 + 32);
+  v15 = v17;
+  v11 = v17;
+  v12 = [v10 then:v16 orRecover:v14];
 
   return v12;
 }
 
 uint64_t __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_invoke_311(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if ([v3 hmf_isEmpty])
   {
@@ -3142,7 +3096,7 @@ uint64_t __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_i
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v23 = v7;
+      v22 = v7;
       _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to read deviceTypes from endpoints, empty results", buf, 0xCu);
     }
 
@@ -3150,14 +3104,14 @@ uint64_t __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_i
   }
 
   v8 = [MEMORY[0x277CBEB38] dictionary];
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_invoke_313;
-  v19 = &unk_278679800;
-  v20 = *(a1 + 32);
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_invoke_313;
+  v18 = &unk_278679800;
+  v19 = *(a1 + 32);
   v9 = v8;
-  v21 = v9;
-  [v3 na_each:&v16];
+  v20 = v9;
+  [v3 na_each:&v15];
   v10 = objc_autoreleasePoolPush();
   v11 = *(a1 + 32);
   v12 = HMFGetOSLogHandle();
@@ -3165,23 +3119,22 @@ uint64_t __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_i
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v23 = v13;
-    v24 = 2112;
-    v25 = v9;
+    v22 = v13;
+    v23 = 2112;
+    v24 = v9;
     _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Did fetch device types: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v10);
   [*(a1 + 32) createNotifications];
-  [v9 copy];
+  objc_msgSend_copy(v9);
 
-  v14 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 void __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_invoke_313(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -3198,15 +3151,15 @@ void __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_invok
 
   if ([v5 count])
   {
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_invoke_314;
-    v13[3] = &unk_2786797D8;
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_invoke_314;
+    v12[3] = &unk_2786797D8;
     v6 = *(a1 + 40);
     v7 = *(a1 + 32);
-    v14 = v6;
-    v15 = v7;
-    [v5 na_each:v13];
+    v13 = v6;
+    v14 = v7;
+    [v5 na_each:v12];
   }
 
   else
@@ -3218,19 +3171,17 @@ void __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_invok
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v17 = v11;
+      v16 = v11;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@No device types fetched for this endpoint.", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_invoke_314(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [*(a1 + 32) setObject:v6 forKeyedSubscript:v5];
@@ -3240,22 +3191,21 @@ void __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_invok
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v12 = 138543874;
-    v13 = v10;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v5;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Saved deviceTypes=%@ for endpointID=%@", &v12, 0x20u);
+    v11 = 138543874;
+    v12 = v10;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v5;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Saved deviceTypes=%@ for endpointID=%@", &v11, 0x20u);
   }
 
   objc_autoreleasePoolPop(v7);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_invoke_303(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 objectForKeyedSubscript:*MEMORY[0x277CD51A0]];
   objc_opt_class();
@@ -3281,11 +3231,11 @@ uint64_t __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_i
       v10 = HMFGetLogIdentifier();
       v11 = *(a1 + 40);
       *buf = 138543874;
-      v24 = v10;
-      v25 = 2112;
-      v26 = v11;
-      v27 = 2112;
-      v28 = v3;
+      v23 = v10;
+      v24 = 2112;
+      v25 = v11;
+      v26 = 2112;
+      v27 = v3;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to read deviceTypes from EP(%@), result=%@", buf, 0x20u);
     }
 
@@ -3303,11 +3253,11 @@ uint64_t __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_i
       v16 = HMFGetLogIdentifier();
       v17 = *(a1 + 40);
       *buf = 138543874;
-      v24 = v16;
-      v25 = 2112;
-      v26 = v17;
-      v27 = 2112;
-      v28 = v12;
+      v23 = v16;
+      v24 = 2112;
+      v25 = v17;
+      v26 = 2112;
+      v27 = v12;
       _os_log_impl(&dword_229538000, v15, OS_LOG_TYPE_INFO, "%{public}@Read deviceTypes from EP(%@): %@", buf, 0x20u);
     }
 
@@ -3322,19 +3272,18 @@ uint64_t __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_i
       v18 = MEMORY[0x277CBEBF8];
     }
 
-    v21 = *(a1 + 40);
-    v22 = v18;
-    [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    v20 = *(a1 + 40);
+    v21 = v18;
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
     objc_claimAutoreleasedReturnValue();
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_invoke_309(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -3343,17 +3292,16 @@ uint64_t __59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_i
   {
     v7 = HMFGetLogIdentifier();
     v8 = *(a1 + 40);
-    v11 = 138543874;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to read deviceTypes from EP(%@), error=%@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to read deviceTypes from EP(%@), error=%@", &v10, 0x20u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v9 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -3429,7 +3377,7 @@ void *__59__HMDMatterAccessoryAdapter__fetchDeviceTypesForEndpoints___block_invo
 
 uint64_t __46__HMDMatterAccessoryAdapter__fetchMatterPaths__block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 hmf_arrayForKey:*MEMORY[0x277CD51A0]];
   v5 = [v4 na_map:&__block_literal_global_126684];
@@ -3445,21 +3393,21 @@ uint64_t __46__HMDMatterAccessoryAdapter__fetchMatterPaths__block_invoke(uint64_
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v20 = v10;
-      v21 = 2112;
-      v22 = v6;
+      v19 = v10;
+      v20 = 2112;
+      v21 = v6;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Fetched endpoints=%@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
     v11 = [*(a1 + 32) _fetchDeviceTypesForEndpoints:v6];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __46__HMDMatterAccessoryAdapter__fetchMatterPaths__block_invoke_288;
-    v17[3] = &unk_278687110;
-    v17[4] = *(a1 + 32);
-    v18 = v6;
-    v12 = [v11 then:v17];
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __46__HMDMatterAccessoryAdapter__fetchMatterPaths__block_invoke_288;
+    v16[3] = &unk_278687110;
+    v16[4] = *(a1 + 32);
+    v17 = v6;
+    v12 = [v11 then:v16];
     if (!v12)
     {
       _HMFPreconditionFailure();
@@ -3474,7 +3422,6 @@ uint64_t __46__HMDMatterAccessoryAdapter__fetchMatterPaths__block_invoke(uint64_
     v14 = 1;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -3580,7 +3527,7 @@ id __46__HMDMatterAccessoryAdapter__fetchMatterPaths__block_invoke_2(uint64_t a1
 
 uint64_t __47__HMDMatterAccessoryAdapter_fetchConfiguration__block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) matterDevice];
   if (!v2)
   {
@@ -3591,7 +3538,7 @@ uint64_t __47__HMDMatterAccessoryAdapter_fetchConfiguration__block_invoke(uint64
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v27 = v12;
+      v26 = v12;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Nil MTRDevice found", buf, 0xCu);
     }
 
@@ -3610,9 +3557,9 @@ uint64_t __47__HMDMatterAccessoryAdapter_fetchConfiguration__block_invoke(uint64
     {
       v6 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v6;
-      v28 = 2112;
-      v29 = v2;
+      v26 = v6;
+      v27 = 2112;
+      v28 = v2;
       _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Fetch configuration is in progress for device: %@", buf, 0x16u);
     }
 
@@ -3645,20 +3592,20 @@ LABEL_9:
   {
     v19 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v27 = v19;
-    v28 = 2112;
-    v29 = v2;
+    v26 = v19;
+    v27 = 2112;
+    v28 = v2;
     _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Fetch configuration from device: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v16);
   v14 = [*(a1 + 32) _fetchMatterPaths];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __47__HMDMatterAccessoryAdapter_fetchConfiguration__block_invoke_271;
-  v25[3] = &unk_2786868A0;
-  v25[4] = *(a1 + 32);
-  v20 = [v14 then:v25];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __47__HMDMatterAccessoryAdapter_fetchConfiguration__block_invoke_271;
+  v24[3] = &unk_2786868A0;
+  v24[4] = *(a1 + 32);
+  v20 = [v14 then:v24];
   if (!v20)
   {
     _HMFPreconditionFailure();
@@ -3669,13 +3616,12 @@ LABEL_9:
   v22 = 3;
 LABEL_17:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 uint64_t __47__HMDMatterAccessoryAdapter_fetchConfiguration__block_invoke_271(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -3695,11 +3641,11 @@ uint64_t __47__HMDMatterAccessoryAdapter_fetchConfiguration__block_invoke_271(ui
     v8 = HMFGetLogIdentifier();
     v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v4, "count")}];
     *buf = 138543874;
-    v21 = v8;
-    v22 = 2112;
-    v23 = v9;
-    v24 = 2112;
-    v25 = v4;
+    v20 = v8;
+    v21 = 2112;
+    v22 = v9;
+    v23 = 2112;
+    v24 = v4;
     _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEBUG, "%{public}@Fetch configuration completed with %@ matter paths: %@", buf, 0x20u);
   }
 
@@ -3707,14 +3653,14 @@ uint64_t __47__HMDMatterAccessoryAdapter_fetchConfiguration__block_invoke_271(ui
   v10 = *(a1 + 32);
   v11 = [v4 allObjects];
   v12 = [v10 _processAccessoryConfigurationWithPaths:v11];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __47__HMDMatterAccessoryAdapter_fetchConfiguration__block_invoke_274;
-  v18[3] = &unk_2786882A0;
-  v18[4] = *(a1 + 32);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __47__HMDMatterAccessoryAdapter_fetchConfiguration__block_invoke_274;
+  v17[3] = &unk_2786882A0;
+  v17[4] = *(a1 + 32);
   v13 = v4;
-  v19 = v13;
-  v14 = [v12 then:v18];
+  v18 = v13;
+  v14 = [v12 then:v17];
   if (!v14)
   {
     _HMFPreconditionFailure();
@@ -3722,7 +3668,6 @@ uint64_t __47__HMDMatterAccessoryAdapter_fetchConfiguration__block_invoke_271(ui
 
   v15 = v14;
 
-  v16 = *MEMORY[0x277D85DE8];
   return 3;
 }
 
@@ -3760,7 +3705,7 @@ uint64_t __47__HMDMatterAccessoryAdapter_fetchConfiguration__block_invoke_274(ui
 
 uint64_t __47__HMDMatterAccessoryAdapter_fetchConfiguration__block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -3768,9 +3713,9 @@ uint64_t __47__HMDMatterAccessoryAdapter_fetchConfiguration__block_invoke_2(uint
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v10 = 138543362;
-    v11 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Fetch configuration completed", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Fetch configuration completed", &v9, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -3778,7 +3723,6 @@ uint64_t __47__HMDMatterAccessoryAdapter_fetchConfiguration__block_invoke_2(uint
   [*(a1 + 40) allObjects];
   objc_claimAutoreleasedReturnValue();
 
-  v8 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -4007,8 +3951,8 @@ uint64_t __47__HMDMatterAccessoryAdapter_fetchConfiguration__block_invoke_2(uint
 
 void __77__HMDMatterAccessoryAdapter_RVC__executeCascadeDonationsForServiceAreaItems___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v50 = *MEMORY[0x277D85DE8];
-  v36 = a2;
+  v49 = *MEMORY[0x277D85DE8];
+  v35 = a2;
   v5 = a3;
   if (v5)
   {
@@ -4020,43 +3964,43 @@ void __77__HMDMatterAccessoryAdapter_RVC__executeCascadeDonationsForServiceAreaI
     {
       v10 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v44 = v10;
-      v45 = 2112;
-      v46 = v6;
+      v43 = v10;
+      v44 = 2112;
+      v45 = v6;
       _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Donation rejected: %@ ", buf, 0x16u);
     }
   }
 
   else
   {
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     obj = *(a1 + 40);
-    v11 = [obj countByEnumeratingWithState:&v39 objects:v49 count:16];
+    v11 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
     if (v11)
     {
       v13 = v11;
       v6 = 0;
-      v14 = *v40;
+      v14 = *v39;
       *&v12 = 138543618;
-      v34 = v12;
+      v33 = v12;
       while (2)
       {
         v15 = 0;
         v16 = v6;
         do
         {
-          if (*v40 != v14)
+          if (*v39 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v39 + 1) + 8 * v15);
-          v38 = v16;
-          v18 = [v36 registerItem:v17 error:{&v38, v34}];
-          v6 = v38;
+          v17 = *(*(&v38 + 1) + 8 * v15);
+          v37 = v16;
+          v18 = [v35 registerItem:v17 error:{&v37, v33}];
+          v6 = v37;
 
           v19 = objc_autoreleasePoolPush();
           v20 = *(a1 + 32);
@@ -4068,11 +4012,11 @@ void __77__HMDMatterAccessoryAdapter_RVC__executeCascadeDonationsForServiceAreaI
             {
               v24 = HMFGetLogIdentifier();
               *buf = 138543874;
-              v44 = v24;
-              v45 = 2112;
-              v46 = v17;
-              v47 = 2112;
-              v48 = v6;
+              v43 = v24;
+              v44 = 2112;
+              v45 = v17;
+              v46 = 2112;
+              v47 = v6;
               _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Failed to register item: %@ error: %@", buf, 0x20u);
             }
 
@@ -4083,10 +4027,10 @@ void __77__HMDMatterAccessoryAdapter_RVC__executeCascadeDonationsForServiceAreaI
           if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
           {
             v23 = HMFGetLogIdentifier();
-            *buf = v34;
-            v44 = v23;
-            v45 = 2112;
-            v46 = v17;
+            *buf = v33;
+            v43 = v23;
+            v44 = 2112;
+            v45 = v17;
             _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Successfully registered item for Cascade donation. item=%@", buf, 0x16u);
           }
 
@@ -4096,7 +4040,7 @@ void __77__HMDMatterAccessoryAdapter_RVC__executeCascadeDonationsForServiceAreaI
         }
 
         while (v13 != v15);
-        v13 = [obj countByEnumeratingWithState:&v39 objects:v49 count:16];
+        v13 = [obj countByEnumeratingWithState:&v38 objects:v48 count:16];
         if (v13)
         {
           continue;
@@ -4111,50 +4055,48 @@ void __77__HMDMatterAccessoryAdapter_RVC__executeCascadeDonationsForServiceAreaI
       v6 = 0;
     }
 
-    v26 = v6;
+    v25 = v6;
 
-    v37 = v6;
-    v27 = [v36 finish:&v37];
-    v6 = v37;
+    v36 = v6;
+    v26 = [v35 finish:&v36];
+    v6 = v36;
 
     v7 = objc_autoreleasePoolPush();
-    v28 = *(a1 + 32);
-    v29 = HMFGetOSLogHandle();
-    v30 = v29;
-    if (v27)
+    v27 = *(a1 + 32);
+    v28 = HMFGetOSLogHandle();
+    v29 = v28;
+    if (v26)
     {
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
-        v31 = HMFGetLogIdentifier();
-        v32 = [*(a1 + 40) count];
+        v30 = HMFGetLogIdentifier();
+        v31 = [*(a1 + 40) count];
         *buf = 138543618;
-        v44 = v31;
-        v45 = 2048;
-        v46 = v32;
-        _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_INFO, "%{public}@Finished donating %lu item(s)", buf, 0x16u);
+        v43 = v30;
+        v44 = 2048;
+        v45 = v31;
+        _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_INFO, "%{public}@Finished donating %lu item(s)", buf, 0x16u);
       }
     }
 
-    else if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      v33 = HMFGetLogIdentifier();
+      v32 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v44 = v33;
-      v45 = 2112;
-      v46 = v6;
-      _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@Failed to finish donation: %@", buf, 0x16u);
+      v43 = v32;
+      v44 = 2112;
+      v45 = v6;
+      _os_log_impl(&dword_229538000, v29, OS_LOG_TYPE_ERROR, "%{public}@Failed to finish donation: %@", buf, 0x16u);
     }
   }
 
   objc_autoreleasePoolPop(v7);
 LABEL_20:
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitServiceAreaChangesToCascadeFromMessage:(id)message
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   accessory = [(HMDMatterAccessoryAdapter *)self accessory];
   home = [accessory home];
@@ -4169,9 +4111,9 @@ LABEL_20:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v11;
-      v30 = 2112;
-      v31 = messageCopy;
+      v28 = v11;
+      v29 = 2112;
+      v30 = messageCopy;
       _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Not submitting RVC service area changes to cascade from message because this is the primary resident. message=%@", buf, 0x16u);
     }
 
@@ -4182,40 +4124,38 @@ LABEL_20:
   {
     v12 = [messageCopy arrayForKey:@"HMDRVCServiceAreaMessageMapsKey"];
     v13 = [messageCopy arrayForKey:@"HMDRVCServiceAreaMessageAreasKey"];
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __79__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascadeFromMessage___block_invoke;
-    v26[3] = &unk_278679CF8;
-    v26[4] = self;
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __79__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascadeFromMessage___block_invoke;
+    v25[3] = &unk_278679CF8;
+    v25[4] = self;
     v14 = messageCopy;
-    v27 = v14;
-    v15 = [v12 na_map:v26];
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __79__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascadeFromMessage___block_invoke_115;
-    v24[3] = &unk_278679D20;
-    v24[4] = self;
-    v25 = v14;
-    v16 = [v13 na_map:v24];
+    v26 = v14;
+    v15 = [v12 na_map:v25];
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __79__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascadeFromMessage___block_invoke_115;
+    v23[3] = &unk_278679D20;
+    v23[4] = self;
+    v24 = v14;
+    v16 = [v13 na_map:v23];
     workQueue = [(HMDMatterAccessoryAdapter *)self workQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __79__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascadeFromMessage___block_invoke_120;
     block[3] = &unk_27868A010;
     block[4] = self;
-    v22 = v15;
-    v23 = v16;
+    v21 = v15;
+    v22 = v16;
     v18 = v16;
     v19 = v15;
     dispatch_async(workQueue, block);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 id __79__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascadeFromMessage___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -4248,25 +4188,23 @@ id __79__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascadeFromMes
     {
       v12 = HMFGetLogIdentifier();
       v13 = *(a1 + 40);
-      v16 = 138543618;
-      v17 = v12;
-      v18 = 2112;
-      v19 = v13;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Error for cascade map creation from message=%@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v12;
+      v17 = 2112;
+      v18 = v13;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Error for cascade map creation from message=%@", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
     v8 = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 id __79__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascadeFromMessage___block_invoke_115(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -4305,40 +4243,36 @@ id __79__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascadeFromMes
     {
       v15 = HMFGetLogIdentifier();
       v16 = *(a1 + 40);
-      v19 = 138543618;
-      v20 = v15;
-      v21 = 2112;
-      v22 = v16;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Error for cascade area creation from message=%@", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v15;
+      v20 = 2112;
+      v21 = v16;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Error for cascade area creation from message=%@", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v12);
     v11 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)messagePayloadForServiceAreas
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   rvcMaps = [(HMDMatterAccessoryAdapter *)self rvcMaps];
   v4 = [rvcMaps na_map:&__block_literal_global_109];
 
   rvcAreas = [(HMDMatterAccessoryAdapter *)self rvcAreas];
   v6 = [rvcAreas na_map:&__block_literal_global_112_128089];
 
-  v12[0] = @"HMDRVCServiceAreaMessageMapsKey";
-  v7 = [v4 copy];
-  v12[1] = @"HMDRVCServiceAreaMessageAreasKey";
-  v13[0] = v7;
-  v8 = [v6 copy];
-  v13[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-
-  v10 = *MEMORY[0x277D85DE8];
+  v11[0] = @"HMDRVCServiceAreaMessageMapsKey";
+  v7 = objc_msgSend_copy(v4);
+  v11[1] = @"HMDRVCServiceAreaMessageAreasKey";
+  v12[0] = v7;
+  v8 = objc_msgSend_copy(v6);
+  v12[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
   return v9;
 }
@@ -4369,18 +4303,16 @@ id __63__HMDMatterAccessoryAdapter_RVC__messagePayloadForServiceAreas__block_inv
 
 id __63__HMDMatterAccessoryAdapter_RVC__messagePayloadForServiceAreas__block_invoke(uint64_t a1, void *a2)
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = [v2 mapID];
   v4 = [v2 name];
 
-  v8[0] = @"HMDRVCServiceAreaMessageMapIDKey";
-  v8[1] = @"HMDRVCServiceAreaMessageMapNameKey";
-  v9[0] = v3;
-  v9[1] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v7[0] = @"HMDRVCServiceAreaMessageMapIDKey";
+  v7[1] = @"HMDRVCServiceAreaMessageMapNameKey";
+  v8[0] = v3;
+  v8[1] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
@@ -4405,7 +4337,7 @@ id __63__HMDMatterAccessoryAdapter_RVC__messagePayloadForServiceAreas__block_inv
 
 void __72__HMDMatterAccessoryAdapter_RVC___forwardServiceAreaChangesToAllDevices__block_invoke(uint64_t a1, void *a2)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 accountHandle];
   if (v4)
@@ -4423,22 +4355,22 @@ void __72__HMDMatterAccessoryAdapter_RVC___forwardServiceAreaChangesToAllDevices
       v12 = HMFGetLogIdentifier();
       v13 = [*(a1 + 40) messageTargetUUID];
       [v3 account];
-      v14 = v24 = v9;
+      v14 = v23 = v9;
       [v14 identifier];
-      v15 = v25 = v7;
+      v15 = v24 = v7;
       v16 = *(a1 + 48);
       *buf = 138544130;
-      v27 = v12;
-      v28 = 2112;
-      v29 = v13;
-      v30 = 2112;
-      v31 = v15;
-      v32 = 2112;
-      v33 = v16;
+      v26 = v12;
+      v27 = 2112;
+      v28 = v13;
+      v29 = 2112;
+      v30 = v15;
+      v31 = 2112;
+      v32 = v16;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Sending HMDRVCServiceAreaMessage to target=%@ for account=%@ with payload=%@", buf, 0x2Au);
 
-      v7 = v25;
-      v9 = v24;
+      v7 = v24;
+      v9 = v23;
     }
 
     objc_autoreleasePoolPop(v9);
@@ -4456,16 +4388,14 @@ void __72__HMDMatterAccessoryAdapter_RVC___forwardServiceAreaChangesToAllDevices
       v21 = HMFGetLogIdentifier();
       v22 = [v3 shortDescription];
       *buf = 138543618;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v22;
+      v26 = v21;
+      v27 = 2112;
+      v28 = v22;
       _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Cannot send RVC service area message because no account handle was found for user: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v18);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)submitServiceAreaChangesToCascade
@@ -4504,19 +4434,19 @@ void __72__HMDMatterAccessoryAdapter_RVC___forwardServiceAreaChangesToAllDevices
   v12 = v8;
   [rvcAreas na_each:&v14];
 
-  v13 = [v11 copy];
+  v13 = objc_msgSend_copy(v11, v14, v15, v16, v17, selfCopy);
   [(HMDMatterAccessoryAdapter *)self executeCascadeDonationsForServiceAreaItems:v13];
 }
 
 void __67__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascade__block_invoke(id *a1, void *a2)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 mapID];
   v5 = [v3 name];
-  v43 = 0;
-  v6 = [objc_alloc(MEMORY[0x277D21018]) initWithName:v5 mapIdentifier:v4 error:&v43];
-  v7 = v43;
+  v42 = 0;
+  v6 = [objc_alloc(MEMORY[0x277D21018]) initWithName:v5 mapIdentifier:v4 error:&v42];
+  v7 = v42;
   if (v7)
   {
     v8 = v7;
@@ -4527,13 +4457,13 @@ void __67__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascade__blo
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138544130;
-      v45 = v12;
-      v46 = 2112;
-      v47 = v4;
-      v48 = 2112;
-      v49 = v5;
-      v50 = 2112;
-      v51 = v8;
+      v44 = v12;
+      v45 = 2112;
+      v46 = v4;
+      v47 = 2112;
+      v48 = v5;
+      v49 = 2112;
+      v50 = v8;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Error for cascade map creation with mapID=%@ mapName=%@ error=%@", buf, 0x2Au);
     }
 
@@ -4544,9 +4474,9 @@ void __67__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascade__blo
   {
     v13 = objc_alloc(MEMORY[0x277D21010]);
     v14 = [a1[5] matterNodeID];
-    v42 = 0;
-    v15 = [v13 initWithMatterDeviceIdentifier:v14 serviceArea:v6 serviceAreaType:2 error:&v42];
-    v8 = v42;
+    v41 = 0;
+    v15 = [v13 initWithMatterDeviceIdentifier:v14 serviceArea:v6 serviceAreaType:2 error:&v41];
+    v8 = v41;
 
     if (v8)
     {
@@ -4557,13 +4487,13 @@ void __67__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascade__blo
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138544130;
-        v45 = v19;
-        v46 = 2112;
-        v47 = v4;
-        v48 = 2112;
-        v49 = v5;
-        v50 = 2112;
-        v51 = v8;
+        v44 = v19;
+        v45 = 2112;
+        v46 = v4;
+        v47 = 2112;
+        v48 = v5;
+        v49 = 2112;
+        v50 = v8;
         _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Error for cascade homeServiceAreaContent creation with mapID=%@ mapName=%@ error=%@", buf, 0x2Au);
       }
 
@@ -4577,67 +4507,67 @@ void __67__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascade__blo
       v22 = [v20 uuidForName:v21 nameID:v4];
       v23 = [v22 UUIDString];
 
-      v41 = 0;
-      v24 = [objc_alloc(MEMORY[0x277D21020]) initWithSourceItemIdentifier:v23 error:&v41];
-      v25 = v41;
+      v40 = 0;
+      v24 = [objc_alloc(MEMORY[0x277D21020]) initWithSourceItemIdentifier:v23 error:&v40];
+      v25 = v40;
       if (v25)
       {
         v8 = v25;
-        v38 = v24;
+        v37 = v24;
         v26 = objc_autoreleasePoolPush();
         v27 = a1[4];
         v28 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v29 = v36 = v23;
+          v29 = v35 = v23;
           *buf = 138544130;
-          v45 = v29;
-          v46 = 2112;
-          v47 = v4;
-          v48 = 2112;
-          v49 = v5;
-          v50 = 2112;
-          v51 = v8;
+          v44 = v29;
+          v45 = 2112;
+          v46 = v4;
+          v47 = 2112;
+          v48 = v5;
+          v49 = 2112;
+          v50 = v8;
           _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_ERROR, "%{public}@Error for cascade homeServiceAreaMetaContent creation with mapID=%@ mapName=%@ error=%@", buf, 0x2Au);
 
-          v23 = v36;
+          v23 = v35;
         }
 
         objc_autoreleasePoolPop(v26);
-        v24 = v38;
+        v24 = v37;
       }
 
       else
       {
-        v40 = 0;
-        v30 = [objc_alloc(MEMORY[0x277CF94C8]) initWithContent:v15 metaContent:v24 error:&v40];
-        v8 = v40;
+        v39 = 0;
+        v30 = [objc_alloc(MEMORY[0x277CF94C8]) initWithContent:v15 metaContent:v24 error:&v39];
+        v8 = v39;
         if (v8)
         {
-          v39 = v24;
+          v38 = v24;
           context = objc_autoreleasePoolPush();
           v31 = a1[4];
           v32 = HMFGetOSLogHandle();
           if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
           {
             HMFGetLogIdentifier();
-            v33 = v37 = v23;
+            v33 = v36 = v23;
             *buf = 138544130;
-            v45 = v33;
-            v46 = 2112;
-            v47 = v4;
-            v48 = 2112;
-            v49 = v5;
-            v50 = 2112;
-            v51 = v8;
+            v44 = v33;
+            v45 = 2112;
+            v46 = v4;
+            v47 = 2112;
+            v48 = v5;
+            v49 = 2112;
+            v50 = v8;
             _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Error for cascade item instance creation with mapID=%@ mapName=%@ error=%@", buf, 0x2Au);
 
-            v23 = v37;
+            v23 = v36;
           }
 
           objc_autoreleasePoolPop(context);
-          v24 = v39;
+          v24 = v38;
         }
 
         else
@@ -4647,22 +4577,20 @@ void __67__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascade__blo
       }
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascade__block_invoke_101(id *a1, void *a2)
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 areaID];
   v5 = [v3 mapID];
   v6 = [v3 areaInfo];
-  v49 = [v6 locationInfo];
-  v7 = [v49 locationName];
-  v53 = 0;
-  v8 = [objc_alloc(MEMORY[0x277D21008]) initWithName:v7 areaIdentifier:v4 associatedMapIdentifier:v5 error:&v53];
-  v9 = v53;
+  v48 = [v6 locationInfo];
+  v7 = [v48 locationName];
+  v52 = 0;
+  v8 = [objc_alloc(MEMORY[0x277D21008]) initWithName:v7 areaIdentifier:v4 associatedMapIdentifier:v5 error:&v52];
+  v9 = v52;
   if (v9)
   {
     v10 = v9;
@@ -4673,20 +4601,20 @@ void __67__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascade__blo
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       HMFGetLogIdentifier();
-      v15 = v47 = v6;
+      v15 = v46 = v6;
       *buf = 138544386;
-      v55 = v15;
-      v56 = 2112;
-      v57 = v4;
-      v58 = 2112;
-      v59 = v7;
-      v60 = 2112;
-      v61 = v5;
-      v62 = 2112;
-      v63 = v10;
+      v54 = v15;
+      v55 = 2112;
+      v56 = v4;
+      v57 = 2112;
+      v58 = v7;
+      v59 = 2112;
+      v60 = v5;
+      v61 = 2112;
+      v62 = v10;
       _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Error for cascade area creation with areaID=%@ areaName=%@ mapName=%@ error=%@", buf, 0x34u);
 
-      v6 = v47;
+      v6 = v46;
     }
 
     objc_autoreleasePoolPop(v12);
@@ -4695,16 +4623,16 @@ void __67__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascade__blo
 
   else
   {
-    v48 = v6;
+    v47 = v6;
     v16 = objc_alloc(MEMORY[0x277D21010]);
     v17 = [a1[5] matterNodeID];
-    v52 = 0;
-    v18 = [v16 initWithMatterDeviceIdentifier:v17 serviceArea:v8 serviceAreaType:1 error:&v52];
-    v10 = v52;
+    v51 = 0;
+    v18 = [v16 initWithMatterDeviceIdentifier:v17 serviceArea:v8 serviceAreaType:1 error:&v51];
+    v10 = v51;
 
     if (v10)
     {
-      v44 = v8;
+      v43 = v8;
       v19 = objc_autoreleasePoolPush();
       v20 = a1[4];
       v21 = HMFGetOSLogHandle();
@@ -4712,21 +4640,21 @@ void __67__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascade__blo
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138544386;
-        v55 = v22;
-        v56 = 2112;
-        v57 = v4;
-        v58 = 2112;
-        v59 = v7;
-        v60 = 2112;
-        v61 = v5;
-        v62 = 2112;
-        v63 = v10;
+        v54 = v22;
+        v55 = 2112;
+        v56 = v4;
+        v57 = 2112;
+        v58 = v7;
+        v59 = 2112;
+        v60 = v5;
+        v61 = 2112;
+        v62 = v10;
         _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Error for cascade home service area content creation with areaID=%@ areaName=%@ mapName=%@ error=%@", buf, 0x34u);
       }
 
       objc_autoreleasePoolPop(v19);
-      v8 = v44;
-      v6 = v48;
+      v8 = v43;
+      v6 = v47;
     }
 
     else
@@ -4736,15 +4664,15 @@ void __67__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascade__blo
       v25 = [v23 uuidForName:v24 nameID:v4];
       v26 = [v25 UUIDString];
 
-      v51 = 0;
-      v43 = v26;
-      v27 = [objc_alloc(MEMORY[0x277D21020]) initWithSourceItemIdentifier:v26 error:&v51];
-      v28 = v51;
+      v50 = 0;
+      v42 = v26;
+      v27 = [objc_alloc(MEMORY[0x277D21020]) initWithSourceItemIdentifier:v26 error:&v50];
+      v28 = v50;
       if (v28)
       {
         v10 = v28;
-        v41 = v27;
-        v45 = v8;
+        v40 = v27;
+        v44 = v8;
         v29 = objc_autoreleasePoolPush();
         v30 = a1[4];
         v31 = HMFGetOSLogHandle();
@@ -4752,35 +4680,35 @@ void __67__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascade__blo
         {
           v32 = HMFGetLogIdentifier();
           *buf = 138544386;
-          v55 = v32;
-          v56 = 2112;
-          v57 = v4;
-          v58 = 2112;
-          v59 = v7;
-          v60 = 2112;
-          v61 = v5;
-          v62 = 2112;
-          v63 = v10;
+          v54 = v32;
+          v55 = 2112;
+          v56 = v4;
+          v57 = 2112;
+          v58 = v7;
+          v59 = 2112;
+          v60 = v5;
+          v61 = 2112;
+          v62 = v10;
           _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_ERROR, "%{public}@Error for cascade home service area meta content creation with areaID=%@ areaName=%@ mapName=%@ error=%@", buf, 0x34u);
         }
 
         objc_autoreleasePoolPop(v29);
-        v8 = v45;
-        v6 = v48;
-        v27 = v41;
+        v8 = v44;
+        v6 = v47;
+        v27 = v40;
       }
 
       else
       {
-        v50 = 0;
-        v46 = v18;
-        v33 = [objc_alloc(MEMORY[0x277CF94C8]) initWithContent:v18 metaContent:v27 error:&v50];
-        v10 = v50;
-        v6 = v48;
+        v49 = 0;
+        v45 = v18;
+        v33 = [objc_alloc(MEMORY[0x277CF94C8]) initWithContent:v18 metaContent:v27 error:&v49];
+        v10 = v49;
+        v6 = v47;
         if (v10)
         {
-          v40 = v33;
-          v42 = v27;
+          v39 = v33;
+          v41 = v27;
           v34 = v8;
           v35 = objc_autoreleasePoolPush();
           v36 = a1[4];
@@ -4789,24 +4717,24 @@ void __67__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascade__blo
           {
             v38 = HMFGetLogIdentifier();
             *buf = 138544386;
-            v55 = v38;
-            v56 = 2112;
-            v57 = v4;
-            v58 = 2112;
-            v59 = v7;
-            v60 = 2112;
-            v61 = v5;
-            v62 = 2112;
-            v63 = v10;
+            v54 = v38;
+            v55 = 2112;
+            v56 = v4;
+            v57 = 2112;
+            v58 = v7;
+            v59 = 2112;
+            v60 = v5;
+            v61 = 2112;
+            v62 = v10;
             _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_ERROR, "%{public}@Error for cascade item instance creation with areaID=%@ areaName=%@ mapName=%@ error=%@", buf, 0x34u);
 
-            v6 = v48;
+            v6 = v47;
           }
 
           objc_autoreleasePoolPop(v35);
           v8 = v34;
-          v33 = v40;
-          v27 = v42;
+          v33 = v39;
+          v27 = v41;
         }
 
         else
@@ -4814,12 +4742,10 @@ void __67__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascade__blo
           [a1[6] addObject:v33];
         }
 
-        v18 = v46;
+        v18 = v45;
       }
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)rvcProgressSupportedForEndpoint:(id)endpoint
@@ -4836,7 +4762,7 @@ void __67__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascade__blo
 
 - (void)_updateFeatureMaps:(id)maps
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   mapsCopy = maps;
   os_unfair_lock_lock_with_options();
   objc_storeStrong(&self->_rvcServiceAreaFeatureMapByEndpoint, maps);
@@ -4848,15 +4774,14 @@ void __67__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascade__blo
   {
     v9 = HMFGetLogIdentifier();
     rvcServiceAreaFeatureMapByEndpoint = [(HMDMatterAccessoryAdapter *)selfCopy rvcServiceAreaFeatureMapByEndpoint];
-    v12 = 138543618;
-    v13 = v9;
-    v14 = 2112;
-    v15 = rvcServiceAreaFeatureMapByEndpoint;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Did update RVC FeatureMaps: %@", &v12, 0x16u);
+    v11 = 138543618;
+    v12 = v9;
+    v13 = 2112;
+    v14 = rvcServiceAreaFeatureMapByEndpoint;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Did update RVC FeatureMaps: %@", &v11, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_fetchRVCServiceAreaFeatureMapFromEndpoint:(id)endpoint
@@ -4893,18 +4818,18 @@ void __67__HMDMatterAccessoryAdapter_RVC__submitServiceAreaChangesToCascade__blo
 
 uint64_t __77__HMDMatterAccessoryAdapter_RVC___fetchRVCServiceAreaFeatureMapFromEndpoint___block_invoke(uint64_t a1, void *a2)
 {
-  v31[2] = *MEMORY[0x277D85DE8];
+  v30[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v30[0] = *MEMORY[0x277CD50B8];
+  v29[0] = *MEMORY[0x277CD50B8];
   v4 = [*(a1 + 32) attributePath];
-  v30[1] = *MEMORY[0x277CD50D8];
-  v31[0] = v4;
-  v31[1] = v3;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
+  v29[1] = *MEMORY[0x277CD50D8];
+  v30[0] = v4;
+  v30[1] = v3;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:2];
 
-  v23 = 0;
-  v6 = [objc_alloc(MEMORY[0x277CD51C8]) initWithResponseValue:v5 error:&v23];
-  v7 = v23;
+  v22 = 0;
+  v6 = [objc_alloc(MEMORY[0x277CD51C8]) initWithResponseValue:v5 error:&v22];
+  v7 = v22;
   v8 = objc_autoreleasePoolPush();
   v9 = *(a1 + 40);
   v10 = HMFGetOSLogHandle();
@@ -4913,11 +4838,11 @@ uint64_t __77__HMDMatterAccessoryAdapter_RVC___fetchRVCServiceAreaFeatureMapFrom
     v11 = HMFGetLogIdentifier();
     v12 = [v6 value];
     *buf = 138543874;
-    v25 = v11;
-    v26 = 2112;
-    v27 = v12;
-    v28 = 2112;
-    v29 = v7;
+    v24 = v11;
+    v25 = 2112;
+    v26 = v12;
+    v27 = 2112;
+    v28 = v7;
     _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Attribute report %@. Parse error: %@", buf, 0x20u);
   }
 
@@ -4944,16 +4869,15 @@ uint64_t __77__HMDMatterAccessoryAdapter_RVC___fetchRVCServiceAreaFeatureMapFrom
     v19 = HMFGetLogIdentifier();
     v20 = *(a1 + 48);
     *buf = 138543874;
-    v25 = v19;
-    v26 = 2112;
-    v27 = v20;
-    v28 = 2112;
-    v29 = v15;
+    v24 = v19;
+    v25 = 2112;
+    v26 = v20;
+    v27 = 2112;
+    v28 = v15;
     _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_INFO, "%{public}@Did read service area feature map for endpoint %@ = %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v16);
-  v21 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -5022,7 +4946,7 @@ uint64_t __77__HMDMatterAccessoryAdapter_RVC___fetchRVCServiceAreaFeatureMapFrom
 
 uint64_t __70__HMDMatterAccessoryAdapter_RVC___fetchRVCSupportedAreasFromEndpoint___block_invoke(uint64_t a1, void *a2)
 {
-  v32[2] = *MEMORY[0x277D85DE8];
+  v31[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -5031,23 +4955,23 @@ uint64_t __70__HMDMatterAccessoryAdapter_RVC___fetchRVCSupportedAreasFromEndpoin
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v26 = v7;
-    v27 = 2112;
-    v28 = v3;
+    v25 = v7;
+    v26 = 2112;
+    v27 = v3;
     _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Did read supported areas %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v31[0] = *MEMORY[0x277CD50B8];
+  v30[0] = *MEMORY[0x277CD50B8];
   v8 = [*(a1 + 40) attributePath];
-  v31[1] = *MEMORY[0x277CD50D8];
-  v32[0] = v8;
-  v32[1] = v3;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
+  v30[1] = *MEMORY[0x277CD50D8];
+  v31[0] = v8;
+  v31[1] = v3;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
 
-  v24 = 0;
-  v10 = [objc_alloc(MEMORY[0x277CD51C8]) initWithResponseValue:v9 error:&v24];
-  v11 = v24;
+  v23 = 0;
+  v10 = [objc_alloc(MEMORY[0x277CD51C8]) initWithResponseValue:v9 error:&v23];
+  v11 = v23;
   v12 = objc_autoreleasePoolPush();
   v13 = *(a1 + 32);
   v14 = HMFGetOSLogHandle();
@@ -5056,11 +4980,11 @@ uint64_t __70__HMDMatterAccessoryAdapter_RVC___fetchRVCSupportedAreasFromEndpoin
     v15 = HMFGetLogIdentifier();
     v16 = [v10 value];
     *buf = 138543874;
-    v26 = v15;
-    v27 = 2112;
-    v28 = v16;
-    v29 = 2112;
-    v30 = v11;
+    v25 = v15;
+    v26 = 2112;
+    v27 = v16;
+    v28 = 2112;
+    v29 = v11;
     _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Attribute report %@. Parse error: %@", buf, 0x20u);
   }
 
@@ -5087,7 +5011,6 @@ uint64_t __70__HMDMatterAccessoryAdapter_RVC___fetchRVCSupportedAreasFromEndpoin
 
   v21 = v20;
 
-  v22 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -5121,7 +5044,7 @@ uint64_t __70__HMDMatterAccessoryAdapter_RVC___fetchRVCSupportedAreasFromEndpoin
 
 uint64_t __69__HMDMatterAccessoryAdapter_RVC___fetchRVCSupportedMapsFromEndpoint___block_invoke(uint64_t a1, void *a2)
 {
-  v32[2] = *MEMORY[0x277D85DE8];
+  v31[2] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -5130,23 +5053,23 @@ uint64_t __69__HMDMatterAccessoryAdapter_RVC___fetchRVCSupportedMapsFromEndpoint
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v26 = v7;
-    v27 = 2112;
-    v28 = v3;
+    v25 = v7;
+    v26 = 2112;
+    v27 = v3;
     _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Did read supported maps %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v31[0] = *MEMORY[0x277CD50B8];
+  v30[0] = *MEMORY[0x277CD50B8];
   v8 = [*(a1 + 40) attributePath];
-  v31[1] = *MEMORY[0x277CD50D8];
-  v32[0] = v8;
-  v32[1] = v3;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
+  v30[1] = *MEMORY[0x277CD50D8];
+  v31[0] = v8;
+  v31[1] = v3;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
 
-  v24 = 0;
-  v10 = [objc_alloc(MEMORY[0x277CD51C8]) initWithResponseValue:v9 error:&v24];
-  v11 = v24;
+  v23 = 0;
+  v10 = [objc_alloc(MEMORY[0x277CD51C8]) initWithResponseValue:v9 error:&v23];
+  v11 = v23;
   v12 = objc_autoreleasePoolPush();
   v13 = *(a1 + 32);
   v14 = HMFGetOSLogHandle();
@@ -5155,11 +5078,11 @@ uint64_t __69__HMDMatterAccessoryAdapter_RVC___fetchRVCSupportedMapsFromEndpoint
     v15 = HMFGetLogIdentifier();
     v16 = [v10 value];
     *buf = 138543874;
-    v26 = v15;
-    v27 = 2112;
-    v28 = v16;
-    v29 = 2112;
-    v30 = v11;
+    v25 = v15;
+    v26 = 2112;
+    v27 = v16;
+    v28 = 2112;
+    v29 = v11;
     _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Attribute report %@. Parse error: %@", buf, 0x20u);
   }
 
@@ -5186,42 +5109,41 @@ uint64_t __69__HMDMatterAccessoryAdapter_RVC___fetchRVCSupportedMapsFromEndpoint
 
   v21 = v20;
 
-  v22 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (void)_updateRVCMaps:(id)maps areas:(id)areas
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   mapsCopy = maps;
   areasCopy = areas;
   accessory = [(HMDMatterAccessoryAdapter *)self accessory];
   home = [accessory home];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __55__HMDMatterAccessoryAdapter_RVC___updateRVCMaps_areas___block_invoke;
-  v37[3] = &unk_278679C18;
-  v37[4] = self;
-  v32 = areasCopy;
-  v38 = v32;
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __55__HMDMatterAccessoryAdapter_RVC___updateRVCMaps_areas___block_invoke;
+  v36[3] = &unk_278679C18;
+  v36[4] = self;
+  v31 = areasCopy;
+  v37 = v31;
   v10 = array2;
-  v39 = v10;
+  v38 = v10;
   v11 = array;
-  v40 = v11;
-  [mapsCopy na_each:v37];
+  v39 = v11;
+  [mapsCopy na_each:v36];
   os_unfair_lock_lock_with_options();
   v12 = ![v10 isEqual:self->_rvcRooms] || (objc_msgSend(v11, "isEqual:", self->_rvcZones) & 1) == 0;
-  v33 = [(NSArray *)self->_rvcRooms copy];
-  v13 = [(NSArray *)self->_rvcZones copy];
+  v32 = objc_msgSend_copy(self->_rvcRooms);
+  v13 = objc_msgSend_copy(self->_rvcZones);
   objc_storeStrong(&self->_rvcAreas, areas);
   objc_storeStrong(&self->_rvcMaps, maps);
-  v14 = [v10 copy];
+  v14 = objc_msgSend_copy(v10);
   rvcRooms = self->_rvcRooms;
   self->_rvcRooms = v14;
 
-  v16 = [v11 copy];
+  v16 = objc_msgSend_copy(v11);
   rvcZones = self->_rvcZones;
   self->_rvcZones = v16;
 
@@ -5235,11 +5157,11 @@ uint64_t __69__HMDMatterAccessoryAdapter_RVC___fetchRVCSupportedMapsFromEndpoint
     rvcRooms = [(HMDMatterAccessoryAdapter *)selfCopy rvcRooms];
     rvcZones = [(HMDMatterAccessoryAdapter *)selfCopy rvcZones];
     *buf = 138543874;
-    v42 = v21;
-    v43 = 2112;
-    v44 = rvcRooms;
-    v45 = 2112;
-    v46 = rvcZones;
+    v41 = v21;
+    v42 = 2112;
+    v43 = rvcRooms;
+    v44 = 2112;
+    v45 = rvcZones;
     _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Did update RVC Rooms: %@ and Zones %@", buf, 0x20u);
   }
 
@@ -5253,7 +5175,7 @@ uint64_t __69__HMDMatterAccessoryAdapter_RVC___fetchRVCSupportedMapsFromEndpoint
     {
       v27 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v42 = v27;
+      v41 = v27;
       _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Updating generation counter to kick off HMDAssistantGather sync", buf, 0xCu);
     }
 
@@ -5264,11 +5186,9 @@ uint64_t __69__HMDMatterAccessoryAdapter_RVC___fetchRVCSupportedMapsFromEndpoint
 
     [(HMDMatterAccessoryAdapter *)v25 submitServiceAreaChangesToCascade];
     dictionary = [MEMORY[0x277CBEB38] dictionary];
-    [dictionary setObject:v33 forKeyedSubscript:@"HMDOldRVCRoomsKey"];
+    [dictionary setObject:v32 forKeyedSubscript:@"HMDOldRVCRoomsKey"];
     [dictionary setObject:v13 forKeyedSubscript:@"HMDOldRVCZonesKey"];
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __55__HMDMatterAccessoryAdapter_RVC___updateRVCMaps_areas___block_invoke(uint64_t a1, void *a2)
@@ -5312,7 +5232,7 @@ uint64_t __55__HMDMatterAccessoryAdapter_RVC___updateRVCMaps_areas___block_invok
 
 - (id)_fetchRVCConfigForEndpoint:(id)endpoint rvcMaps:(id)maps rvcAreas:(id)areas featureMaps:(id)featureMaps
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   endpointCopy = endpoint;
   mapsCopy = maps;
   areasCopy = areas;
@@ -5324,53 +5244,51 @@ uint64_t __55__HMDMatterAccessoryAdapter_RVC___updateRVCMaps_areas___block_invok
   {
     v17 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v41 = v17;
-    v42 = 2112;
-    v43 = endpointCopy;
+    v40 = v17;
+    v41 = 2112;
+    v42 = endpointCopy;
     _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Fetching RVC config for endpoint: %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v14);
   v18 = [(HMDMatterAccessoryAdapter *)selfCopy _fetchRVCSupportedMapsFromEndpoint:endpointCopy];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = __90__HMDMatterAccessoryAdapter_RVC___fetchRVCConfigForEndpoint_rvcMaps_rvcAreas_featureMaps___block_invoke;
-  v35[3] = &unk_278679B58;
-  v35[4] = selfCopy;
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __90__HMDMatterAccessoryAdapter_RVC___fetchRVCConfigForEndpoint_rvcMaps_rvcAreas_featureMaps___block_invoke;
+  v34[3] = &unk_278679B58;
+  v34[4] = selfCopy;
   v19 = endpointCopy;
-  v36 = v19;
-  v37 = mapsCopy;
-  v38 = areasCopy;
+  v35 = v19;
+  v36 = mapsCopy;
+  v37 = areasCopy;
   v20 = areasCopy;
   v21 = mapsCopy;
-  v22 = [v18 then:v35];
+  v22 = [v18 then:v34];
 
   v23 = [(HMDMatterAccessoryAdapter *)selfCopy _fetchRVCServiceAreaFeatureMapFromEndpoint:v19];
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __90__HMDMatterAccessoryAdapter_RVC___fetchRVCConfigForEndpoint_rvcMaps_rvcAreas_featureMaps___block_invoke_68;
-  v32[3] = &unk_278679B80;
-  v32[4] = selfCopy;
-  v33 = v19;
-  v34 = featureMapsCopy;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __90__HMDMatterAccessoryAdapter_RVC___fetchRVCConfigForEndpoint_rvcMaps_rvcAreas_featureMaps___block_invoke_68;
+  v31[3] = &unk_278679B80;
+  v31[4] = selfCopy;
+  v32 = v19;
+  v33 = featureMapsCopy;
   v24 = featureMapsCopy;
   v25 = v19;
-  v26 = [v23 then:v32];
+  v26 = [v23 then:v31];
 
-  v39[0] = v22;
-  v39[1] = v26;
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
+  v38[0] = v22;
+  v38[1] = v26;
+  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:2];
   v28 = [MEMORY[0x277D0F7C0] allSettled:v27];
   v29 = [v28 then:&__block_literal_global_73_128128];
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v29;
 }
 
 uint64_t __90__HMDMatterAccessoryAdapter_RVC___fetchRVCConfigForEndpoint_rvcMaps_rvcAreas_featureMaps___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -5380,11 +5298,11 @@ uint64_t __90__HMDMatterAccessoryAdapter_RVC___fetchRVCConfigForEndpoint_rvcMaps
     v7 = HMFGetLogIdentifier();
     v8 = *(a1 + 40);
     *buf = 138543874;
-    v19 = v7;
-    v20 = 2112;
-    v21 = v8;
-    v22 = 2112;
-    v23 = v3;
+    v18 = v7;
+    v19 = 2112;
+    v20 = v8;
+    v21 = 2112;
+    v22 = v3;
     _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Fetched RVC endpoint: %@ supported maps: %@", buf, 0x20u);
   }
 
@@ -5395,15 +5313,15 @@ uint64_t __90__HMDMatterAccessoryAdapter_RVC___fetchRVCConfigForEndpoint_rvcMaps
   }
 
   v9 = [*(a1 + 32) _fetchRVCSupportedAreasFromEndpoint:*(a1 + 40)];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __90__HMDMatterAccessoryAdapter_RVC___fetchRVCConfigForEndpoint_rvcMaps_rvcAreas_featureMaps___block_invoke_66;
-  v15[3] = &unk_278679B30;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __90__HMDMatterAccessoryAdapter_RVC___fetchRVCConfigForEndpoint_rvcMaps_rvcAreas_featureMaps___block_invoke_66;
+  v14[3] = &unk_278679B30;
   v10 = *(a1 + 40);
-  v15[4] = *(a1 + 32);
-  v16 = v10;
-  v17 = *(a1 + 56);
-  v11 = [v9 then:v15];
+  v14[4] = *(a1 + 32);
+  v15 = v10;
+  v16 = *(a1 + 56);
+  v11 = [v9 then:v14];
   if (!v11)
   {
     _HMFPreconditionFailure();
@@ -5411,13 +5329,12 @@ uint64_t __90__HMDMatterAccessoryAdapter_RVC___fetchRVCConfigForEndpoint_rvcMaps
 
   v12 = v11;
 
-  v13 = *MEMORY[0x277D85DE8];
   return 3;
 }
 
 uint64_t __90__HMDMatterAccessoryAdapter_RVC___fetchRVCConfigForEndpoint_rvcMaps_rvcAreas_featureMaps___block_invoke_68(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -5426,13 +5343,13 @@ uint64_t __90__HMDMatterAccessoryAdapter_RVC___fetchRVCConfigForEndpoint_rvcMaps
   {
     v7 = HMFGetLogIdentifier();
     v8 = *(a1 + 40);
-    v11 = 138543874;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Fetched RVC endpoint: %@ serviceAreaFeatureMap: %@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Fetched RVC endpoint: %@ serviceAreaFeatureMap: %@", &v10, 0x20u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -5441,13 +5358,12 @@ uint64_t __90__HMDMatterAccessoryAdapter_RVC___fetchRVCConfigForEndpoint_rvcMaps
     [*(a1 + 48) setObject:v3 forKey:*(a1 + 40)];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 uint64_t __90__HMDMatterAccessoryAdapter_RVC___fetchRVCConfigForEndpoint_rvcMaps_rvcAreas_featureMaps___block_invoke_66(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -5456,13 +5372,13 @@ uint64_t __90__HMDMatterAccessoryAdapter_RVC___fetchRVCConfigForEndpoint_rvcMaps
   {
     v7 = HMFGetLogIdentifier();
     v8 = *(a1 + 40);
-    v11 = 138543874;
-    v12 = v7;
-    v13 = 2112;
-    v14 = v8;
-    v15 = 2112;
-    v16 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Fetched RVC endpoint: %@ supported areas: %@", &v11, 0x20u);
+    v10 = 138543874;
+    v11 = v7;
+    v12 = 2112;
+    v13 = v8;
+    v14 = 2112;
+    v15 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Fetched RVC endpoint: %@ supported areas: %@", &v10, 0x20u);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -5471,13 +5387,12 @@ uint64_t __90__HMDMatterAccessoryAdapter_RVC___fetchRVCConfigForEndpoint_rvcMaps
     [*(a1 + 48) addObjectsFromArray:v3];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (id)fetchRVCConfig
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
@@ -5498,31 +5413,31 @@ uint64_t __90__HMDMatterAccessoryAdapter_RVC___fetchRVCConfigForEndpoint_rvcMaps
   v11 = [v6 setWithArray:v10];
 
   allObjects = [v11 allObjects];
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __48__HMDMatterAccessoryAdapter_RVC__fetchRVCConfig__block_invoke_60;
-  v29[3] = &unk_278679B08;
-  v29[4] = self;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __48__HMDMatterAccessoryAdapter_RVC__fetchRVCConfig__block_invoke_60;
+  v28[3] = &unk_278679B08;
+  v28[4] = self;
   v13 = array;
-  v30 = v13;
+  v29 = v13;
   v14 = array2;
-  v31 = v14;
+  v30 = v14;
   v15 = dictionary;
-  v32 = v15;
-  v16 = [allObjects na_map:v29];
+  v31 = v15;
+  v16 = [allObjects na_map:v28];
 
   if ([v16 count])
   {
     v17 = [MEMORY[0x277D0F7C0] allSettled:v16];
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __48__HMDMatterAccessoryAdapter_RVC__fetchRVCConfig__block_invoke_64;
-    v25[3] = &unk_2786868C8;
-    v25[4] = self;
-    v26 = v13;
-    v27 = v14;
-    v28 = v15;
-    futureWithNoValue = [v17 then:v25];
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __48__HMDMatterAccessoryAdapter_RVC__fetchRVCConfig__block_invoke_64;
+    v24[3] = &unk_2786868C8;
+    v24[4] = self;
+    v25 = v13;
+    v26 = v14;
+    v27 = v15;
+    futureWithNoValue = [v17 then:v24];
   }
 
   else
@@ -5534,15 +5449,13 @@ uint64_t __90__HMDMatterAccessoryAdapter_RVC___fetchRVCConfigForEndpoint_rvcMaps
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v34 = v22;
+      v33 = v22;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_DEBUG, "%{public}@No endpoints to fetch RVC config", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v19);
     futureWithNoValue = [MEMORY[0x277D0F7C0] futureWithNoValue];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return futureWithNoValue;
 }
@@ -5588,7 +5501,7 @@ uint64_t __48__HMDMatterAccessoryAdapter_RVC__fetchRVCConfig__block_invoke_2(uin
   else
   {
     v4 = _HMFPreconditionFailure();
-    return __48__HMDMatterAccessoryAdapter_RVC__fetchRVCConfig__block_invoke(v4);
+    return __48__HMDMatterAccessoryAdapter_RVC__fetchRVCConfig__block_invoke(v4, v5);
   }
 }
 

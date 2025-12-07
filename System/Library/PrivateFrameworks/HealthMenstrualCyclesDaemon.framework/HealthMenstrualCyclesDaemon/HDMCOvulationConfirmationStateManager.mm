@@ -48,14 +48,14 @@
 
 - (id)eventsToScheduleForAnalysis:(id)analysis settingsManager:(id)manager scheduler:(id)scheduler error:(id *)error
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   analysisCopy = analysis;
   managerCopy = manager;
   schedulerCopy = scheduler;
   keyValueDomain = self->_keyValueDomain;
-  v67 = 0;
-  v14 = [(HDKeyValueDomain *)keyValueDomain hdmc_menstrualCyclesOvulationConfirmationNotificationGetStateWithError:&v67];
-  v15 = v67;
+  v66 = 0;
+  v14 = [(HDKeyValueDomain *)keyValueDomain hdmc_menstrualCyclesOvulationConfirmationNotificationGetStateWithError:&v66];
+  v15 = v66;
   v16 = v15;
   if (!v14)
   {
@@ -86,17 +86,17 @@ LABEL_33:
     goto LABEL_33;
   }
 
-  v64 = schedulerCopy;
+  v63 = schedulerCopy;
   date = [MEMORY[0x277CBEAA8] date];
   hk_gregorianCalendar = [MEMORY[0x277CBEA80] hk_gregorianCalendar];
   v19 = [date hk_morningIndexWithCalendar:hk_gregorianCalendar];
 
   calendarCache = self->_calendarCache;
-  v66 = v16;
-  v21 = [(HDMCOvulationConfirmationStateManager *)self _daysWithWristTemperatureSamplesInDayIndexRange:v19 - 45 calendarCache:45 error:calendarCache, &v66];
-  v22 = v66;
+  v65 = v16;
+  v21 = [(HDMCOvulationConfirmationStateManager *)self _daysWithWristTemperatureSamplesInDayIndexRange:v19 - 45 calendarCache:45 error:calendarCache, &v65];
+  v22 = v65;
 
-  v63 = v21;
+  v62 = v21;
   if (!v21)
   {
     v24 = v22;
@@ -132,14 +132,14 @@ LABEL_37:
 
   scheduledNotificationFireDayIndex = [v24 scheduledNotificationFireDayIndex];
 
-  v62 = managerCopy;
+  v61 = managerCopy;
   if (scheduledNotificationFireDayIndex)
   {
-    v60 = analysisCopy;
+    v59 = analysisCopy;
     scheduledNotificationFireDayIndex2 = [v24 scheduledNotificationFireDayIndex];
     v27 = [managerCopy hdmc_dateComponentsForFertileWindowNotificationOnDayIndex:{objc_msgSend(scheduledNotificationFireDayIndex2, "integerValue")}];
 
-    v28 = [v64 eventWithIdentifier:*MEMORY[0x277D118E8] dueDateComponents:v27 eventOptions:0];
+    v28 = [v63 eventWithIdentifier:*MEMORY[0x277D118E8] dueDateComponents:v27 eventOptions:0];
     currentDueDate = [v28 currentDueDate];
     v30 = [currentDueDate hk_isAfterDate:date];
 
@@ -156,21 +156,21 @@ LABEL_37:
       {
         v37 = v36;
         v38 = objc_opt_class();
-        v57 = v38;
+        v56 = v38;
         v39 = HKSensitiveLogItem();
         *buf = 138543618;
-        v70 = v38;
-        v71 = 2114;
-        v72 = v39;
+        v69 = v38;
+        v70 = 2114;
+        v71 = v39;
         _os_log_impl(&dword_2293D1000, v37, OS_LOG_TYPE_DEFAULT, "[%{public}@] Skipping scheduling past due event %{public}@", buf, 0x16u);
       }
 
       error = 0;
     }
 
-    managerCopy = v62;
+    managerCopy = v61;
 
-    analysisCopy = v60;
+    analysisCopy = v59;
   }
 
   else
@@ -178,18 +178,18 @@ LABEL_37:
     error = 0;
   }
 
-  if (![v24 isEqual:{v14, v57}])
+  if (![v24 isEqual:{v14, v56}])
   {
     v46 = self->_keyValueDomain;
-    v65 = v22;
-    v47 = [(HDKeyValueDomain *)v46 hdmc_menstrualCyclesOvulationConfirmationNotificationSetValuesWithState:v24 error:&v65];
-    v45 = v65;
+    v64 = v22;
+    v47 = [(HDKeyValueDomain *)v46 hdmc_menstrualCyclesOvulationConfirmationNotificationSetValuesWithState:v24 error:&v64];
+    v45 = v64;
 
     if (!v47)
     {
       v53 = v45;
       v45 = v53;
-      managerCopy = v62;
+      managerCopy = v61;
       if (v53)
       {
         if (errorCopy3)
@@ -214,23 +214,23 @@ LABEL_37:
     {
       v49 = v48;
       v50 = objc_opt_class();
-      v59 = v50;
+      v58 = v50;
       HKSensitiveLogItem();
-      v51 = v61 = analysisCopy;
+      v51 = v60 = analysisCopy;
       v52 = HKSensitiveLogItem();
       *buf = 138543874;
-      v70 = v50;
-      v71 = 2114;
-      v72 = v51;
-      v73 = 2114;
-      v74 = v52;
+      v69 = v50;
+      v70 = 2114;
+      v71 = v51;
+      v72 = 2114;
+      v73 = v52;
       _os_log_impl(&dword_2293D1000, v49, OS_LOG_TYPE_DEFAULT, "[%{public}@] Successfully transitioned old state: %{public}@ -> new state: %{public}@", buf, 0x20u);
 
-      analysisCopy = v61;
+      analysisCopy = v60;
     }
 
     [(HDMCOvulationConfirmationStateManager *)self _triggerImmediateSyncWithReason:@"OvulationConfirmationNotificationSetValuesWithState - State Change"];
-    managerCopy = v62;
+    managerCopy = v61;
     if (error)
     {
       goto LABEL_22;
@@ -250,12 +250,12 @@ LABEL_27:
     v43 = v42;
     v44 = HKSensitiveLogItem();
     *buf = 138543618;
-    v70 = v42;
-    v71 = 2114;
-    v72 = v44;
+    v69 = v42;
+    v70 = 2114;
+    v71 = v44;
     _os_log_impl(&dword_2293D1000, v41, OS_LOG_TYPE_DEFAULT, "[%{public}@] State unchanged: %{public}@", buf, 0x16u);
 
-    managerCopy = v62;
+    managerCopy = v61;
   }
 
   v45 = v22;
@@ -269,10 +269,8 @@ LABEL_22:
   v33 = [MEMORY[0x277CBEA60] arrayWithObjects:&errorCopy4 count:1];
 LABEL_40:
 
-  schedulerCopy = v64;
+  schedulerCopy = v63;
 LABEL_41:
-
-  v55 = *MEMORY[0x277D85DE8];
 
   return v33;
 }
@@ -567,13 +565,10 @@ LABEL_28:
 - (void)_queue_clearStateIfNecessary
 {
   OUTLINED_FUNCTION_2();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = OUTLINED_FUNCTION_3();
   v4 = OUTLINED_FUNCTION_0(v3);
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error reading wrist temp input settings: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error reading wrist temp input settings: %{public}@", v7, v8, v9, v10);
 }
 
 - (id)_daysWithWristTemperatureSamplesInDayIndexRange:(id)range calendarCache:(id)cache error:(id *)error
@@ -660,7 +655,7 @@ void __109__HDMCOvulationConfirmationStateManager__daysWithWristTemperatureSampl
 
 void __73__HDMCOvulationConfirmationStateManager__triggerImmediateSyncWithReason___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   _HKInitializeLogging();
   v6 = *MEMORY[0x277CCC2E8];
@@ -669,16 +664,15 @@ void __73__HDMCOvulationConfirmationStateManager__triggerImmediateSyncWithReason
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = v6;
-      v10 = objc_opt_class();
-      v11 = *(a1 + 40);
-      v14 = 138543618;
+      v8 = v6;
+      v9 = objc_opt_class();
+      v10 = *(a1 + 40);
+      v12 = 138543618;
+      v13 = v9;
+      v14 = 2114;
       v15 = v10;
-      v16 = 2114;
-      v17 = v11;
-      v12 = v10;
-      _os_log_impl(&dword_2293D1000, v9, OS_LOG_TYPE_DEFAULT, "[%{public}@] Cloud sync request completed for %{public}@", &v14, 0x16u);
+      v11 = v9;
+      _os_log_impl(&dword_2293D1000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Cloud sync request completed for %{public}@", &v12, 0x16u);
     }
   }
 
@@ -686,8 +680,6 @@ void __73__HDMCOvulationConfirmationStateManager__triggerImmediateSyncWithReason
   {
     __73__HDMCOvulationConfirmationStateManager__triggerImmediateSyncWithReason___block_invoke_cold_1(a1, v6, v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)settingsManagerDidUpdateNotificationSettings:(id)settings
@@ -706,46 +698,37 @@ void __73__HDMCOvulationConfirmationStateManager__triggerImmediateSyncWithReason
 
 - (void)scheduledNotificationFertileWindowEndDayIndexWithEvent:(void *)a3 error:.cold.1(void *a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
   v4 = a1;
   v5 = objc_opt_class();
   v6 = NSStringFromHDMCOvulationConfirmationNotificationState(2);
   v7 = NSStringFromHDMCOvulationConfirmationNotificationState([a3 stateType]);
   OUTLINED_FUNCTION_2_3();
-  OUTLINED_FUNCTION_3_0(&dword_2293D1000, v8, v9, "[%{public}@] Expected ovulation confirmation state:%{public}@ but received: %{public}@", v10, v11, v12, v13, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_0(&dword_2293D1000, v8, v9, "[%{public}@] Expected ovulation confirmation state:%{public}@ but received: %{public}@", v10, v11, v12, v13);
 }
 
 - (void)transitionToFiredNotificationStateWithRequest:settingsManager:error:.cold.1()
 {
   OUTLINED_FUNCTION_2();
-  v13 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = OUTLINED_FUNCTION_3();
   v4 = OUTLINED_FUNCTION_0(v3);
-  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving fired state from scheduled state: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2293D1000, v5, v6, "[%{public}@] Error retrieving fired state from scheduled state: %{public}@", v7, v8, v9, v10);
 }
 
 void __73__HDMCOvulationConfirmationStateManager__triggerImmediateSyncWithReason___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 32);
-  v6 = a2;
-  v7 = objc_opt_class();
-  v8 = *(a1 + 40);
-  v11 = 138543874;
+  v15 = *MEMORY[0x277D85DE8];
+  v5 = a2;
+  v6 = objc_opt_class();
+  v7 = *(a1 + 40);
+  v9 = 138543874;
+  v10 = v6;
+  v11 = 2114;
   v12 = v7;
   v13 = 2114;
-  v14 = v8;
-  v15 = 2114;
-  v16 = a3;
-  v9 = v7;
-  _os_log_error_impl(&dword_2293D1000, v6, OS_LOG_TYPE_ERROR, "[%{public}@] Cloud sync request for %{public}@ failed: %{public}@", &v11, 0x20u);
-
-  v10 = *MEMORY[0x277D85DE8];
+  v14 = a3;
+  v8 = v6;
+  _os_log_error_impl(&dword_2293D1000, v5, OS_LOG_TYPE_ERROR, "[%{public}@] Cloud sync request for %{public}@ failed: %{public}@", &v9, 0x20u);
 }
 
 @end

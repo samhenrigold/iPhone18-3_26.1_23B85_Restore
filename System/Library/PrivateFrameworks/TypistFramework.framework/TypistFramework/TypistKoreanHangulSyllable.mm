@@ -1,4 +1,5 @@
 @interface TypistKoreanHangulSyllable
++ (id)decomposeSyllableForScribble:(unsigned __int16)scribble;
 - (BOOL)_hasConsonantVariants:(id)variants;
 - (TypistKoreanHangulSyllable)initWithSyllable:(unsigned __int16)syllable;
 - (int)_determineSyllableStructure:(unint64_t)structure vowelPositionType:(int)type;
@@ -74,6 +75,44 @@
   }
 
   return v11 & 1;
+}
+
++ (id)decomposeSyllableForScribble:(unsigned __int16)scribble
+{
+  scribbleCopy = scribble;
+  v5 = objc_opt_new();
+  if ([self isKoreanSyllable:scribbleCopy])
+  {
+    v6 = scribbleCopy - 44032;
+    v7 = (scribbleCopy - 44032) / 588;
+    v8 = v7;
+    v9 = (((18725 * (v6 - 588 * v7)) >> 19) + ((18725 * (v6 - 588 * v7)) >> 31));
+    v10 = v6 % 28;
+    v11 = +[TypistKoreanHangulJamo leadingConsonants];
+    v12 = [v11 objectAtIndexedSubscript:v8];
+
+    v13 = +[TypistKoreanHangulJamo vowels];
+    v14 = [v13 objectAtIndexedSubscript:v9];
+
+    v15 = +[TypistKoreanHangulJamo trailingConsonants];
+    v16 = [v15 objectAtIndexedSubscript:v10];
+
+    [v5 appendString:v12];
+    [v5 appendString:v14];
+    if (v16)
+    {
+      [v5 appendString:v16];
+    }
+
+    v17 = v5;
+  }
+
+  else
+  {
+    v17 = 0;
+  }
+
+  return v17;
 }
 
 - (int)_determineSyllableStructure:(unint64_t)structure vowelPositionType:(int)type

@@ -21,21 +21,22 @@
 
 - (void)contextMenuInteraction:(id)interaction willEndForConfiguration:(id)configuration animator:(id)animator
 {
-  v13.receiver = self;
-  v13.super_class = type metadata accessor for MoreOptionsButton();
+  v14.receiver = self;
+  v14.super_class = type metadata accessor for MoreOptionsButton();
   interactionCopy = interaction;
   configurationCopy = configuration;
-  v10 = v13.receiver;
+  v10 = v14.receiver;
   swift_unknownObjectRetain();
-  [(MoreOptionsButton *)&v13 contextMenuInteraction:interactionCopy willEndForConfiguration:configurationCopy animator:animator];
+  [(MoreOptionsButton *)&v14 contextMenuInteraction:interactionCopy willEndForConfiguration:configurationCopy animator:animator];
   v11 = *&v10[OBJC_IVAR____TtC9SeymourUI17MoreOptionsButton_onMenuDismissed];
   if (v11)
   {
+    v12 = *&v10[OBJC_IVAR____TtC9SeymourUI17MoreOptionsButton_onMenuDismissed + 8];
 
-    v11(v12);
+    v11(v13);
 
     swift_unknownObjectRelease();
-    sub_20B583ECC(v11);
+    sub_20B583ECC(v11, v12);
   }
 
   else

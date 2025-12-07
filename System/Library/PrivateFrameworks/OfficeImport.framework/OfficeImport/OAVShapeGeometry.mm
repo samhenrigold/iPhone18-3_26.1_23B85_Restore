@@ -49,12 +49,12 @@
   geometryCopy = geometry;
   v7 = 0x8000000080000000;
   v20 = 0x8000000080000000;
-  limo = [managerCopy limo];
-  v9 = limo;
-  if (limo)
+  v8 = objc_msgSend_limo(managerCopy);
+  v9 = v8;
+  if (v8)
   {
     v18 = managerCopy;
-    v10 = [limo componentsSeparatedByString:{@", "}];
+    v10 = [v8 componentsSeparatedByString:{@", "}];
     v11 = 0;
     v12 = &v20;
     v13 = 1;

@@ -8,48 +8,48 @@
 
 - (WLKCanonicalContainerResponse)initWithDictionary:(id)dictionary
 {
-  v64[1] = *MEMORY[0x277D85DE8];
+  v63[1] = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v62.receiver = self;
-  v62.super_class = WLKCanonicalContainerResponse;
-  v6 = [(WLKCanonicalContainerResponse *)&v62 init];
+  v61.receiver = self;
+  v61.super_class = WLKCanonicalContainerResponse;
+  v6 = [(WLKCanonicalContainerResponse *)&v61 init];
   v7 = v6;
   if (v6)
   {
     objc_storeStrong(&v6->_dictionary, dictionary);
-    v49 = dictionaryCopy;
+    v48 = dictionaryCopy;
     v8 = [dictionaryCopy wlk_dictionaryForKey:@"data"];
     v9 = [v8 wlk_dictionaryForKey:@"content"];
     v10 = [v8 wlk_dictionaryForKey:@"channels"];
     v11 = [v8 wlk_dictionaryForKey:@"contentPersonalizedInfo"];
     v12 = [v8 wlk_arrayForKey:@"howToWatch"];
     v13 = [v8 wlk_dictionaryForKey:@"smartEpisode"];
-    v43 = [v8 wlk_dictionaryForKey:@"playables"];
-    v42 = [v8 wlk_arrayForKey:@"smartEpisodePlayables"];
+    v42 = [v8 wlk_dictionaryForKey:@"playables"];
+    v41 = [v8 wlk_arrayForKey:@"smartEpisodePlayables"];
     v14 = [v8 wlk_dictionaryForKey:@"seasons"];
     v15 = [v13 wlk_stringForKey:@"seasonId"];
-    v41 = [v14 wlk_dictionaryForKey:v15];
+    v40 = [v14 wlk_dictionaryForKey:v15];
 
     v16 = [v8 wlk_dictionaryForKey:@"seasons"];
     v7->_watchListable = [v11 wlk_BOOLForKey:@"isAddToUpNextEnabled" defaultValue:0];
-    v46 = v11;
+    v45 = v11;
     v7->_watchListed = [v11 wlk_BOOLForKey:@"inUpNext" defaultValue:0];
-    v47 = v10;
+    v46 = v10;
     v17 = [WLKCanonicalContainerResponse parseChannelsFromPayload:v10];
     v18 = [v9 wlk_stringForKey:@"id"];
     canonicalID = v7->_canonicalID;
     v7->_canonicalID = v18;
 
-    v48 = v9;
+    v47 = v9;
     v20 = [v9 wlk_stringForKey:@"type"];
     v7->_contentType = [WLKBasicContentMetadata contentTypeForString:v20];
 
-    v45 = v17;
+    v44 = v17;
     if (v17)
     {
-      v63 = @"WLKModelContextKeyChannels";
-      v64[0] = v17;
-      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v64 forKeys:&v63 count:1];
+      v62 = @"WLKModelContextKeyChannels";
+      v63[0] = v17;
+      v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:&v62 count:1];
     }
 
     else
@@ -64,37 +64,37 @@
     block[2] = __52__WLKCanonicalContainerResponse_initWithDictionary___block_invoke;
     block[3] = &unk_279E5FB58;
     v24 = v7;
-    v58 = v24;
+    v57 = v24;
     v25 = v12;
-    v59 = v25;
+    v58 = v25;
     v26 = v21;
-    v60 = v26;
-    v40 = v16;
-    v61 = v40;
+    v59 = v26;
+    v39 = v16;
+    v60 = v39;
     dispatch_group_async(v22, v23, block);
 
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = __52__WLKCanonicalContainerResponse_initWithDictionary___block_invoke_2;
-    v50[3] = &unk_279E5FB80;
+    v49[0] = MEMORY[0x277D85DD0];
+    v49[1] = 3221225472;
+    v49[2] = __52__WLKCanonicalContainerResponse_initWithDictionary___block_invoke_2;
+    v49[3] = &unk_279E5FB80;
     v27 = v24;
-    v51 = v27;
-    v39 = v13;
-    v52 = v39;
+    v50 = v27;
+    v38 = v13;
+    v51 = v38;
     v28 = v26;
-    v53 = v28;
-    v29 = v43;
-    v54 = v29;
-    v30 = v42;
-    v55 = v30;
-    v31 = v41;
-    v56 = v31;
-    dispatch_group_async(v22, v23, v50);
+    v52 = v28;
+    v29 = v42;
+    v53 = v29;
+    v30 = v41;
+    v54 = v30;
+    v31 = v40;
+    v55 = v31;
+    dispatch_group_async(v22, v23, v49);
 
     dispatch_group_wait(v22, 0xFFFFFFFFFFFFFFFFLL);
     if (v25 && [v25 count])
     {
-      v44 = v28;
+      v43 = v28;
       firstObject = [v25 firstObject];
       v33 = [firstObject wlk_arrayForKey:@"seasons"];
       v34 = v33;
@@ -105,13 +105,12 @@
         v27->_defaultSeason = firstObject2;
       }
 
-      v28 = v44;
+      v28 = v43;
     }
 
-    dictionaryCopy = v49;
+    dictionaryCopy = v48;
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -122,7 +121,7 @@ uint64_t __52__WLKCanonicalContainerResponse_initWithDictionary___block_invoke(v
   v4 = *(v3 + 56);
   *(v3 + 56) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 uint64_t __52__WLKCanonicalContainerResponse_initWithDictionary___block_invoke_2(void *a1)
@@ -132,7 +131,7 @@ uint64_t __52__WLKCanonicalContainerResponse_initWithDictionary___block_invoke_2
   v4 = *(v3 + 40);
   *(v3 + 40) = v2;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v2, v4);
 }
 
 + (id)parseChannelsFromPayload:(id)payload

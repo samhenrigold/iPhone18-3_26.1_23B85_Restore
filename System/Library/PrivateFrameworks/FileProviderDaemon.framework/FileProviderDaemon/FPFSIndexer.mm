@@ -7,10 +7,37 @@
 - (void)indexOneBatchWithCompletionHandler:(id)handler;
 - (void)pauseIndexingWithCompletionHandler:(id)handler;
 - (void)resumeIndexingWithCompletionHandler:(id)handler;
+- (void)setIndexingEnabled:(BOOL)enabled completionHandler:(id)handler;
 - (void)signalNeedsReindexFromScratchWithDropReason:(unint64_t)reason completionHandler:(id)handler;
 @end
 
 @implementation FPFSIndexer
+
+- (void)setIndexingEnabled:(BOOL)enabled completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  v6 = _Block_copy(handler);
+  v7 = swift_allocObject();
+  *(v7 + 16) = v6;
+  v8 = swift_allocObject();
+  v8[2] = self;
+  v8[3] = sub_1CF067718;
+  v8[4] = v7;
+  aBlock[4] = sub_1CF75BC5C;
+  aBlock[5] = v8;
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 1107296256;
+  aBlock[2] = sub_1CF00A468;
+  aBlock[3] = &block_descriptor_341;
+  v9 = _Block_copy(aBlock);
+  selfCopy = self;
+
+  v11.receiver = selfCopy;
+  v11.super_class = type metadata accessor for FPFSIndexer(0);
+  [(FPDDomainIndexer *)&v11 setIndexingEnabled:enabledCopy completionHandler:v9];
+
+  _Block_release(v9);
+}
 
 - (void)signalNeedsReindexFromScratchWithDropReason:(unint64_t)reason completionHandler:(id)handler
 {
@@ -34,10 +61,13 @@
 
 - (void)dumpStateTo:(id)to withName:(id)name
 {
-  _sSo28NSFileProviderItemIdentifiera04FileB6DaemonE15parseableStringSSvg_0();
+  v6 = _sSo28NSFileProviderItemIdentifiera04FileB6DaemonE15parseableStringSSvg_0();
+  v8 = v7;
   toCopy = to;
   selfCopy = self;
-  sub_1CF74C2D0(toCopy);
+  sub_1CF74C2D0(toCopy, v6);
+
+  v8, v11, v12, v13, v14, v15, v16, v17;
 }
 
 - (void)dumpStateTo:(id)to

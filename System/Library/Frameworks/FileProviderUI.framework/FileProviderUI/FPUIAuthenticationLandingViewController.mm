@@ -14,6 +14,7 @@
 - (void)removeServerWithRepresentation:(id)representation;
 - (void)setInitialConnectionURL:(id)l;
 - (void)setupTableViewSections;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -37,21 +38,27 @@
 
 - (void)viewDidLoad
 {
-  v9[1] = *MEMORY[0x277D85DE8];
-  v8.receiver = self;
-  v8.super_class = FPUIAuthenticationLandingViewController;
-  [(FPUIAuthenticationTableViewController *)&v8 viewDidLoad];
+  v8[1] = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = FPUIAuthenticationLandingViewController;
+  [(FPUIAuthenticationTableViewController *)&v7 viewDidLoad];
   [(FPUIAuthenticationLandingViewController *)self _disectURLToComponents:self->_initialURL];
   absoluteString = [(NSURL *)self->_sanitizedURL absoluteString];
   [(UITextField *)self->_serverInputTextField setText:absoluteString];
 
   [(FPUIAuthenticationLandingViewController *)self _updateNextStep];
   v4 = objc_opt_self();
-  v9[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+  v8[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   v6 = [(FPUIAuthenticationLandingViewController *)self registerForTraitChanges:v5 withHandler:&__block_literal_global_4];
+}
 
-  v7 = *MEMORY[0x277D85DE8];
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = FPUIAuthenticationLandingViewController;
+  [(FPUIAuthenticationLandingViewController *)&v4 viewDidAppear:appear];
+  [(UITextField *)self->_serverInputTextField becomeFirstResponder];
 }
 
 - (id)defaultRightBarButtonItem
@@ -64,29 +71,29 @@
 
 - (void)setupTableViewSections
 {
-  v32[3] = *MEMORY[0x277D85DE8];
+  v31[3] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4 = objc_opt_new();
   [v4 setCellReuseIdentifier:@"ServerAddressCellReuseIdentifier"];
   [v4 setCellClass:objc_opt_class()];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __65__FPUIAuthenticationLandingViewController_setupTableViewSections__block_invoke;
-  v28[3] = &unk_278A51590;
-  v28[4] = self;
-  [v4 setCellCustomizationHandler:v28];
   v27[0] = MEMORY[0x277D85DD0];
   v27[1] = 3221225472;
-  v27[2] = __65__FPUIAuthenticationLandingViewController_setupTableViewSections__block_invoke_2;
-  v27[3] = &unk_278A51520;
+  v27[2] = __65__FPUIAuthenticationLandingViewController_setupTableViewSections__block_invoke;
+  v27[3] = &unk_278A51590;
   v27[4] = self;
-  [v4 setSelectionHandler:v27];
+  [v4 setCellCustomizationHandler:v27];
+  v26[0] = MEMORY[0x277D85DD0];
+  v26[1] = 3221225472;
+  v26[2] = __65__FPUIAuthenticationLandingViewController_setupTableViewSections__block_invoke_2;
+  v26[3] = &unk_278A51520;
+  v26[4] = self;
+  [v4 setSelectionHandler:v26];
   v5 = objc_opt_new();
   recentServersSection = self->_recentServersSection;
   self->_recentServersSection = v5;
 
   [(FPUIAuthenticationSectionDescriptor *)self->_recentServersSection setHeaderHeight:*MEMORY[0x277D76F30]];
-  v14 = FPUILoc(@"RECENT_SERVERS", v7, v8, v9, v10, v11, v12, v13, v26[0]);
+  v14 = FPUILoc(@"RECENT_SERVERS", v7, v8, v9, v10, v11, v12, v13, v25[0]);
   [(FPUIAuthenticationSectionDescriptor *)self->_recentServersSection setHeaderTitle:v14];
 
   [(FPUIAuthenticationSectionDescriptor *)self->_recentServersSection setActive:0];
@@ -103,32 +110,30 @@
   [(FPUIAuthenticationSectionDescriptor *)self->_recentServersExtraTopPaddingSection setHeaderTitle:&stru_284B1A950];
   [(FPUIAuthenticationSectionDescriptor *)self->_recentServersExtraTopPaddingSection setActive:0];
   v20 = self->_recentServersExtraTopPaddingSection;
-  v32[0] = v3;
-  v32[1] = v20;
-  v32[2] = self->_recentServersSection;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:3];
+  v31[0] = v3;
+  v31[1] = v20;
+  v31[2] = self->_recentServersSection;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:3];
   [(FPUIAuthenticationTableViewController *)self setSectionDescriptors:v21];
 
-  v29 = v4;
-  v30[0] = &unk_284B1D650;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
-  v31[0] = v22;
-  v31[1] = v15;
-  v30[1] = &unk_284B1D668;
-  v30[2] = &unk_284B1D680;
-  v31[2] = self->_recentServersRowDescriptors;
-  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:3];
+  v28 = v4;
+  v29[0] = &unk_284B1D650;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+  v30[0] = v22;
+  v30[1] = v15;
+  v29[1] = &unk_284B1D668;
+  v29[2] = &unk_284B1D680;
+  v30[2] = self->_recentServersRowDescriptors;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:3];
   [(FPUIAuthenticationTableViewController *)self setRowDescriptors:v23];
 
   authenticationDelegate = [(FPUIAuthenticationTableViewController *)self authenticationDelegate];
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __65__FPUIAuthenticationLandingViewController_setupTableViewSections__block_invoke_42;
-  v26[3] = &unk_278A515B8;
-  v26[4] = self;
-  [authenticationDelegate recentServerRepresentationsWithCompletionHandler:v26];
-
-  v25 = *MEMORY[0x277D85DE8];
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __65__FPUIAuthenticationLandingViewController_setupTableViewSections__block_invoke_42;
+  v25[3] = &unk_278A515B8;
+  v25[4] = self;
+  [authenticationDelegate recentServerRepresentationsWithCompletionHandler:v25];
 }
 
 void __65__FPUIAuthenticationLandingViewController_setupTableViewSections__block_invoke(uint64_t a1, void *a2)
@@ -188,65 +193,64 @@ uint64_t __65__FPUIAuthenticationLandingViewController_setupTableViewSections__b
 
 - (void)_showRecentServersSectionWithRecentServers:(id)servers rowAnimation:(int64_t)animation
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   serversCopy = servers;
   [(NSMutableArray *)self->_recentServersRowDescriptors removeAllObjects];
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   obj = serversCopy;
-  v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v6)
   {
-    v7 = *v20;
+    v7 = *v19;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v20 != v7)
+        if (*v19 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v18 + 1) + 8 * i);
         v10 = objc_opt_new();
         objc_initWeak(&location, self);
-        v16[0] = MEMORY[0x277D85DD0];
-        v16[1] = 3221225472;
-        v16[2] = __99__FPUIAuthenticationLandingViewController__showRecentServersSectionWithRecentServers_rowAnimation___block_invoke;
-        v16[3] = &unk_278A515E0;
-        v16[4] = v9;
-        objc_copyWeak(&v17, &location);
-        [v10 setCellCustomizationHandler:v16];
         v15[0] = MEMORY[0x277D85DD0];
         v15[1] = 3221225472;
-        v15[2] = __99__FPUIAuthenticationLandingViewController__showRecentServersSectionWithRecentServers_rowAnimation___block_invoke_2;
-        v15[3] = &unk_278A51608;
+        v15[2] = __99__FPUIAuthenticationLandingViewController__showRecentServersSectionWithRecentServers_rowAnimation___block_invoke;
+        v15[3] = &unk_278A515E0;
         v15[4] = v9;
-        v15[5] = self;
-        [v10 setAccessoryButtonTapHandler:v15];
+        objc_copyWeak(&v16, &location);
+        [v10 setCellCustomizationHandler:v15];
         v14[0] = MEMORY[0x277D85DD0];
         v14[1] = 3221225472;
-        v14[2] = __99__FPUIAuthenticationLandingViewController__showRecentServersSectionWithRecentServers_rowAnimation___block_invoke_3;
+        v14[2] = __99__FPUIAuthenticationLandingViewController__showRecentServersSectionWithRecentServers_rowAnimation___block_invoke_2;
         v14[3] = &unk_278A51608;
-        v14[4] = self;
-        v14[5] = v9;
-        [v10 setSelectionHandler:v14];
+        v14[4] = v9;
+        v14[5] = self;
+        [v10 setAccessoryButtonTapHandler:v14];
+        v13[0] = MEMORY[0x277D85DD0];
+        v13[1] = 3221225472;
+        v13[2] = __99__FPUIAuthenticationLandingViewController__showRecentServersSectionWithRecentServers_rowAnimation___block_invoke_3;
+        v13[3] = &unk_278A51608;
+        v13[4] = self;
+        v13[5] = v9;
+        [v10 setSelectionHandler:v13];
         [v10 setCellSelectionStyle:2];
         [(NSMutableArray *)self->_recentServersRowDescriptors addObject:v10];
-        objc_destroyWeak(&v17);
+        objc_destroyWeak(&v16);
         objc_destroyWeak(&location);
       }
 
-      v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v6 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v6);
   }
 
   [(FPUIAuthenticationLandingViewController *)self _updateRecentServerSectionVisibilityWithRowAnimation:animation forceReload:1];
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __99__FPUIAuthenticationLandingViewController__showRecentServersSectionWithRecentServers_rowAnimation___block_invoke(uint64_t a1, void *a2)
@@ -434,31 +438,31 @@ void __99__FPUIAuthenticationLandingViewController__showRecentServersSectionWith
 
 - (void)removeServerWithRepresentation:(id)representation
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   v5 = [MEMORY[0x277CBEB18] arrayWithCapacity:{-[NSArray count](self->_recentServers, "count") - 1}];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v18 = 1128;
+  v17 = 1128;
   selfCopy = self;
   v6 = self->_recentServers;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
+        v11 = *(*(&v19 + 1) + 8 * i);
         identifier = [v11 identifier];
         identifier2 = [representationCopy identifier];
         v14 = [identifier isEqualToString:identifier2];
@@ -469,18 +473,17 @@ void __99__FPUIAuthenticationLandingViewController__showRecentServersSectionWith
         }
       }
 
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
   }
 
-  v15 = *(&selfCopy->super.super.super.super.super.isa + v18);
-  *(&selfCopy->super.super.super.super.super.isa + v18) = v5;
+  v15 = *(&selfCopy->super.super.super.super.super.isa + v17);
+  *(&selfCopy->super.super.super.super.super.isa + v17) = v5;
   v16 = v5;
 
-  [(FPUIAuthenticationLandingViewController *)selfCopy _showRecentServersSectionWithRecentServers:*(&selfCopy->super.super.super.super.super.isa + v18) rowAnimation:5];
-  v17 = *MEMORY[0x277D85DE8];
+  [(FPUIAuthenticationLandingViewController *)selfCopy _showRecentServersSectionWithRecentServers:*(&selfCopy->super.super.super.super.super.isa + v17) rowAnimation:5];
 }
 
 - (void)_connect:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)

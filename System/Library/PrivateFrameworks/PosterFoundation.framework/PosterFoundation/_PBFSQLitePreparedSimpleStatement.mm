@@ -137,7 +137,7 @@ LABEL_11:
 
 - (uint64_t)_bindKey:(void *)key value:
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
   keyCopy = key;
   if (self)
@@ -146,48 +146,48 @@ LABEL_11:
     if (v7)
     {
       v8 = v7;
-      objc_opt_class();
-      if (OUTLINED_FUNCTION_7_1())
+      v9 = objc_opt_class();
+      if (OUTLINED_FUNCTION_7_1(v9))
       {
-        v9 = sqlite3_bind_null(*(self + 24), v8);
+        v10 = sqlite3_bind_null(*(self + 24), v8);
 LABEL_8:
-        self = v9;
+        self = v10;
         goto LABEL_14;
       }
 
-      objc_opt_class();
-      if (OUTLINED_FUNCTION_7_1())
+      v11 = objc_opt_class();
+      if (OUTLINED_FUNCTION_7_1(v11))
       {
-        v9 = sqlite3_bind_text(*(self + 24), v8, [keyCopy UTF8String], -1, 0xFFFFFFFFFFFFFFFFLL);
+        v10 = sqlite3_bind_text(*(self + 24), v8, [keyCopy UTF8String], -1, 0xFFFFFFFFFFFFFFFFLL);
         goto LABEL_8;
       }
 
-      objc_opt_class();
-      if (OUTLINED_FUNCTION_7_1())
+      v12 = objc_opt_class();
+      if (OUTLINED_FUNCTION_7_1(v12))
       {
-        v9 = [(_PBFSQLitePreparedSimpleStatement *)self _bindParameterIndex:v8 numberValue:keyCopy];
+        v10 = [(_PBFSQLitePreparedSimpleStatement *)self _bindParameterIndex:v8 numberValue:keyCopy];
         goto LABEL_8;
       }
 
-      objc_opt_class();
-      if (OUTLINED_FUNCTION_7_1())
+      v13 = objc_opt_class();
+      if (OUTLINED_FUNCTION_7_1(v13))
       {
-        v9 = [(_PBFSQLitePreparedSimpleStatement *)self _bindParameterIndex:v8 dataValue:keyCopy];
+        v10 = [(_PBFSQLitePreparedSimpleStatement *)self _bindParameterIndex:v8 dataValue:keyCopy];
         goto LABEL_8;
       }
 
-      v10 = *(self + 16);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v14 = *(self + 16);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v13 = v10;
-        v15 = 136315650;
-        v16 = "[_PBFSQLitePreparedSimpleStatement _bindKey:value:]";
-        v17 = 2112;
-        v18 = keyCopy;
-        v19 = 2112;
-        v20 = objc_opt_class();
-        v14 = v20;
-        _os_log_error_impl(&dword_1C269D000, v13, OS_LOG_TYPE_ERROR, "%s: unexpected object %@ of class %@", &v15, 0x20u);
+        v16 = v14;
+        v18 = 136315650;
+        v19 = "[_PBFSQLitePreparedSimpleStatement _bindKey:value:]";
+        v20 = 2112;
+        v21 = keyCopy;
+        v22 = 2112;
+        v23 = objc_opt_class();
+        v17 = v23;
+        _os_log_error_impl(&dword_1C269D000, v16, OS_LOG_TYPE_ERROR, "%s: unexpected object %@ of class %@", &v18, 0x20u);
       }
 
       self = 20;
@@ -201,7 +201,6 @@ LABEL_8:
 
 LABEL_14:
 
-  v11 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -248,7 +247,7 @@ LABEL_14:
 
 - (uint64_t)_bindParameterIndex:(void *)index numberValue:
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   indexCopy = index;
   v6 = indexCopy;
   if (!self)
@@ -264,9 +263,9 @@ LABEL_14:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
 LABEL_13:
-      v16[0] = 136315650;
+      v15[0] = 136315650;
       OUTLINED_FUNCTION_0_8();
-      _os_log_error_impl(&dword_1C269D000, v11, OS_LOG_TYPE_ERROR, "%s: unexpected value type '%{public}s' for object %@", v16, 0x20u);
+      _os_log_error_impl(&dword_1C269D000, v11, OS_LOG_TYPE_ERROR, "%s: unexpected value type '%{public}s' for object %@", v15, 0x20u);
     }
 
 LABEL_8:
@@ -291,9 +290,9 @@ LABEL_12:
   {
     if (((1 << v8) & 0x1400000000) != 0)
     {
-      v14 = *(self + 24);
+      v13 = *(self + 24);
       [v6 doubleValue];
-      v9 = sqlite3_bind_double(v14, a2, v15);
+      v9 = sqlite3_bind_double(v13, a2, v14);
       goto LABEL_6;
     }
 
@@ -305,7 +304,6 @@ LABEL_6:
   v10 = v9;
 LABEL_9:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

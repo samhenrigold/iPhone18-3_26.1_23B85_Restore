@@ -5,9 +5,21 @@
 - (id)_init;
 - (int64_t)valueTypeForProperty:(id)property;
 - (unsigned)elementCodeForProperty:(id)property;
+- (void)mapProperty:(id)property toCode:(unsigned int)code valueType:(int64_t)type;
 @end
 
 @implementation ICDAAPPropertyInfo
+
+- (void)mapProperty:(id)property toCode:(unsigned int)code valueType:(int64_t)type
+{
+  v6 = *&code;
+  propertyCopy = property;
+  v9 = [NSNumber numberWithUnsignedInt:v6];
+  [(NSMutableDictionary *)self->_codeMap setObject:v9 forKeyedSubscript:propertyCopy];
+
+  v10 = [NSNumber numberWithInteger:type];
+  [(NSMutableDictionary *)self->_valueTypeMap setObject:v10 forKeyedSubscript:propertyCopy];
+}
 
 - (id)_init
 {

@@ -17,7 +17,7 @@
 - (void)layoutSubviews
 {
   v5.receiver = self;
-  v5.super_class = type metadata accessor for CRLSEAudioPreviewView();
+  v5.super_class = type metadata accessor for CRLSEAudioPreviewView(0);
   v2 = v5.receiver;
   [(CRLSEAudioPreviewView *)&v5 layoutSubviews];
   v3 = *&v2[OBJC_IVAR____TtC24FreeformSharingExtension21CRLSEAudioPreviewView_gradientBackground];

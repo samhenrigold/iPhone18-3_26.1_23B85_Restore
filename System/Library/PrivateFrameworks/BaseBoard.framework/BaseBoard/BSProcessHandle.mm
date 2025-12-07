@@ -118,9 +118,9 @@ void __29__BSProcessHandle_initialize__block_invoke(uint64_t a1, void *a2)
     taskNameRight = v4->_taskNameRight;
     v4->_taskNameRight = v5;
 
-    auditToken = [(BSMachPortTaskNameRight *)v4->_taskNameRight auditToken];
+    v7 = objc_msgSend_auditToken(v4->_taskNameRight);
     auditToken = v4->_auditToken;
-    v4->_auditToken = auditToken;
+    v4->_auditToken = v7;
 
     mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
     bundleIdentifier = [mainBundle bundleIdentifier];
@@ -432,7 +432,7 @@ LABEL_6:
 
 + (id)processHandleForPID:(int)d
 {
-  v3 = [(BSProcessHandle *)[self alloc] _initWithPID:d bundleID:0];
+  v3 = [(BSProcessHandle *)[self alloc] _initWithPID:0 bundleID:?];
 
   return v3;
 }
@@ -449,9 +449,9 @@ LABEL_6:
       v8 = *(v6 + 5);
       *(v6 + 5) = v7;
 
-      auditToken = [*(v6 + 5) auditToken];
+      v9 = objc_msgSend_auditToken(*(v6 + 5));
       v10 = *(v6 + 3);
-      *(v6 + 3) = auditToken;
+      *(v6 + 3) = v9;
 
       v11 = dCopy;
       if (!dCopy)
@@ -533,9 +533,9 @@ LABEL_6:
       v10 = *(v8 + 5);
       *(v8 + 5) = v9;
 
-      auditToken = [*(v8 + 5) auditToken];
+      v11 = objc_msgSend_auditToken(*(v8 + 5));
       v12 = *(v8 + 3);
-      *(v8 + 3) = auditToken;
+      *(v8 + 3) = v11;
 
       v13 = rightCopy;
       if (!rightCopy)
@@ -563,8 +563,9 @@ LABEL_6:
 
 + (id)processHandleForPID:(int)d bundleID:(id)iD
 {
+  v4 = *&d;
   iDCopy = iD;
-  v7 = [(BSProcessHandle *)[self alloc] _initWithPID:d bundleID:iDCopy];
+  v7 = [(BSProcessHandle *)[self alloc] _initWithPID:v4 bundleID:iDCopy];
 
   return v7;
 }
@@ -616,10 +617,10 @@ LABEL_6:
   {
     neededCopy = needed;
     objc_sync_enter(neededCopy);
-    if (a2 && !*(neededCopy + 2) && (*(neededCopy + 8) & 1) == 0)
+    if (a2 && !neededCopy[2] && (neededCopy[1] & 1) == 0)
     {
       *(neededCopy + 8) = 1;
-      v4 = *(neededCopy + 3);
+      v4 = neededCopy[3];
       if (v4)
       {
         [(BSAuditToken *)v4 _bundleIDGeneratingIfNeeded:?];
@@ -630,11 +631,11 @@ LABEL_6:
         BSBundleIDForPID(*(neededCopy + 3));
       }
       v5 = ;
-      v6 = *(neededCopy + 2);
-      *(neededCopy + 2) = v5;
+      v6 = neededCopy[2];
+      neededCopy[2] = v5;
     }
 
-    v7 = *(neededCopy + 2);
+    v7 = neededCopy[2];
     objc_sync_exit(neededCopy);
   }
 

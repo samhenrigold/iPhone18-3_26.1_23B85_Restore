@@ -108,26 +108,25 @@
   dispatch_sync(accessQueue, v4);
 }
 
-uint64_t __61__AMMotionDetectionTriggerManager_setMotionDetectionEnabled___block_invoke(uint64_t result)
+void *__61__AMMotionDetectionTriggerManager_setMotionDetectionEnabled___block_invoke(void *result)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  if (*(*(result + 32) + 56) != *(result + 40))
+  v5 = *MEMORY[0x277D85DE8];
+  if (*(result[4] + 56) != *(result + 40))
   {
     v1 = result;
-    v2 = AMLogMotion();
+    v2 = AMLogMotion(result);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(v1 + 40);
-      v5[0] = 67109120;
-      v5[1] = v3;
-      _os_log_impl(&dword_23EE48000, v2, OS_LOG_TYPE_DEFAULT, "Ambient motion detection enabled : %{BOOL}d", v5, 8u);
+      v4[0] = 67109120;
+      v4[1] = v3;
+      _os_log_impl(&dword_23EE48000, v2, OS_LOG_TYPE_DEFAULT, "Ambient motion detection enabled : %{BOOL}d", v4, 8u);
     }
 
-    *(*(v1 + 32) + 56) = *(v1 + 40);
-    result = [*(v1 + 32) _setMotionDetectionMonitoringEnabled:?];
+    *(v1[4] + 56) = *(v1 + 40);
+    return [v1[4] _setMotionDetectionMonitoringEnabled:?];
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -202,28 +201,28 @@ void __53__AMMotionDetectionTriggerManager_addObserver_queue___block_invoke(void
 
 void __50__AMMotionDetectionTriggerManager_removeObserver___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v2 = *(*(a1 + 32) + 64);
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
     v5 = 0;
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         v9 = [v8 observer];
         v10 = *(a1 + 40);
 
@@ -238,7 +237,7 @@ void __50__AMMotionDetectionTriggerManager_removeObserver___block_invoke(uint64_
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
@@ -259,8 +258,6 @@ void __50__AMMotionDetectionTriggerManager_removeObserver___block_invoke(uint64_
       *(v11 + 64) = 0;
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)settings:(id)settings changedValueForKey:(id)key
@@ -359,24 +356,22 @@ double __54__AMMotionDetectionTriggerManager_setWatchdogTimeout___block_invoke(u
   v9 = [(AMMotionDetectionTriggerManager *)self _computeThresholdMaskFromMotionData:sampleCopy filtered:0];
 
   v10 = [(AMMotionDetectionTriggerManager *)self _computeThresholdMaskFromMotionData:dataSampleCopy filtered:1];
-  v11 = v10 | v9;
-  if (v11 != self->_triggerState)
+  v12 = v10 | v9;
+  if (v12 != self->_triggerState)
   {
-    self->_triggerState = v11;
-    v12 = AMLogMotion();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    self->_triggerState = v12;
+    v13 = AMLogMotion(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       v14[0] = 67109376;
-      v14[1] = v11 != 0;
+      v14[1] = v12 != 0;
       v15 = 2048;
-      v16 = v11;
-      _os_log_impl(&dword_23EE48000, v12, OS_LOG_TYPE_DEFAULT, "Ambient motion detect : %{BOOL}d : 0x%04llx", v14, 0x12u);
+      v16 = v12;
+      _os_log_impl(&dword_23EE48000, v13, OS_LOG_TYPE_DEFAULT, "Ambient motion detect : %{BOOL}d : 0x%04llx", v14, 0x12u);
     }
 
     [(AMMotionDetectionTriggerManager *)self _accessQueue_updatePublishedTriggers];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setEnabledTriggers:(unint64_t)triggers
@@ -421,79 +416,77 @@ double __54__AMMotionDetectionTriggerManager_setWatchdogTimeout___block_invoke(u
 
 - (void)_notifyObserversUpdateMotionDetectionTriggerState:(unint64_t)state
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_accessQueue);
   v5 = [(NSMutableArray *)self->_observerContexts copy];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v20 + 1) + 8 * i);
+        v10 = *(*(&v19 + 1) + 8 * i);
         observer = [v10 observer];
         queue = [v10 queue];
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __85__AMMotionDetectionTriggerManager__notifyObserversUpdateMotionDetectionTriggerState___block_invoke;
         block[3] = &unk_278C737C8;
-        v17 = observer;
+        v16 = observer;
         selfCopy = self;
         stateCopy = state;
         v13 = observer;
         dispatch_async(queue, block);
       }
 
-      v7 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v7 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)_computeThresholdMaskFromMotionData:(id)data filtered:(BOOL)filtered
 {
   filteredCopy = filtered;
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v29 = 0x3E4CCCCD3DCCCCCDLL;
-  v30 = xmmword_23EE4FC50;
-  v31 = 0;
-  v32 = 0x3E99999A3E19999ALL;
-  v33 = vdupq_n_s64(4uLL);
-  v34 = 0;
-  v35 = 0x3F19999A3F000000;
-  v36 = xmmword_23EE4FC60;
-  v37 = 0;
-  v38 = 0x3E4CCCCD3DCCCCCDLL;
-  v39 = xmmword_23EE4FC70;
-  v40 = 1;
-  v41 = 0x3E99999A3E19999ALL;
-  v42 = xmmword_23EE4FC80;
-  v43 = 1;
-  v44 = 0x3F19999A3F000000;
-  v45 = xmmword_23EE4FC90;
-  v46 = 1;
+  v28 = 0x3E4CCCCD3DCCCCCDLL;
+  v29 = xmmword_23EE4FC50;
+  v30 = 0;
+  v31 = 0x3E99999A3E19999ALL;
+  v32 = vdupq_n_s64(4uLL);
+  v33 = 0;
+  v34 = 0x3F19999A3F000000;
+  v35 = xmmword_23EE4FC60;
+  v36 = 0;
+  v37 = 0x3E4CCCCD3DCCCCCDLL;
+  v38 = xmmword_23EE4FC70;
+  v39 = 1;
+  v40 = 0x3E99999A3E19999ALL;
+  v41 = xmmword_23EE4FC80;
+  v42 = 1;
+  v43 = 0x3F19999A3F000000;
+  v44 = xmmword_23EE4FC90;
+  v45 = 1;
   v6 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:0 ascending:0 selector:sel_compare_];
-  v27 = dataCopy;
+  v26 = dataCopy;
   data = [dataCopy data];
-  v28 = v6;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+  v27 = v6;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
   v9 = [data sortedArrayUsingDescriptors:v8];
 
   v10 = [v9 objectAtIndexedSubscript:0];
@@ -503,7 +496,7 @@ double __54__AMMotionDetectionTriggerManager_setWatchdogTimeout___block_invoke(u
   v13 = 0;
   for (i = 0; i != 6; ++i)
   {
-    v15 = (&v29 + 4 * i);
+    v15 = (&v28 + 4 * i);
     if (*(v15 + 24) == filteredCopy)
     {
       v16 = *(v15 + 1);
@@ -556,7 +549,6 @@ double __54__AMMotionDetectionTriggerManager_setWatchdogTimeout___block_invoke(u
     }
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -691,10 +683,10 @@ double __54__AMMotionDetectionTriggerManager_setWatchdogTimeout___block_invoke(u
 
   if (v7 == 16)
   {
-    v10 = AMLogMotion();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = AMLogMotion(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      [(AMMotionDetectionTriggerManager *)sampleCopy _handleMotionDataSample:v10];
+      [(AMMotionDetectionTriggerManager *)sampleCopy _handleMotionDataSample:v11];
     }
 
     [(AMMotionDetectionTriggerManager *)self _updateFilteredMotionDensity:sampleCopy];
@@ -722,21 +714,19 @@ double __54__AMMotionDetectionTriggerManager_setWatchdogTimeout___block_invoke(u
   if (self->_triggerState != enabledTriggers)
   {
     self->_triggerState = enabledTriggers;
-    v6 = AMLogMotion();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = AMLogMotion(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8[0] = 67109376;
       v8[1] = enabledTriggers != 0;
       v9 = 2048;
       v10 = enabledTriggers;
-      _os_log_impl(&dword_23EE48000, v6, OS_LOG_TYPE_DEFAULT, "Ambient motion detect : %{BOOL}d : 0x%04llx", v8, 0x12u);
+      _os_log_impl(&dword_23EE48000, v7, OS_LOG_TYPE_DEFAULT, "Ambient motion detect : %{BOOL}d : 0x%04llx", v8, 0x12u);
     }
 
     [(AMMotionDetectionTriggerManager *)self _accessQueue_updatePublishedTriggers];
     [(AMMotionDetectionTriggerManager *)self _updateWatchdogTimer];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setMotionDetectionMonitoringEnabled:(BOOL)enabled
@@ -772,26 +762,26 @@ double __54__AMMotionDetectionTriggerManager_setWatchdogTimeout___block_invoke(u
     objc_initWeak(&location, self);
     accessQueue = self->_accessQueue;
     v12 = self->_awClient;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __72__AMMotionDetectionTriggerManager__setMotionDetectionMonitoringEnabled___block_invoke;
-    v18[3] = &unk_278C737F0;
-    objc_copyWeak(&v19, &location);
-    [(AWAttentionAwarenessClient *)v12 setEventHandlerWithQueue:accessQueue block:v18];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __72__AMMotionDetectionTriggerManager__setMotionDetectionMonitoringEnabled___block_invoke;
+    v19[3] = &unk_278C737F0;
+    objc_copyWeak(&v20, &location);
+    [(AWAttentionAwarenessClient *)v12 setEventHandlerWithQueue:accessQueue block:v19];
     v14 = self->_awClient;
-    v17 = 0;
-    [(AWAttentionAwarenessClient *)v14 resumeWithError:&v17];
-    v9 = v17;
-    objc_destroyWeak(&v19);
+    v18 = 0;
+    [(AWAttentionAwarenessClient *)v14 resumeWithError:&v18];
+    v9 = v18;
+    objc_destroyWeak(&v20);
     objc_destroyWeak(&location);
   }
 
   else
   {
     v8 = self->_awClient;
-    v16 = 0;
-    [(AWAttentionAwarenessClient *)v8 invalidateWithError:&v16];
-    v9 = v16;
+    v17 = 0;
+    [(AWAttentionAwarenessClient *)v8 invalidateWithError:&v17];
+    v9 = v17;
     v10 = self->_awClient;
     self->_awClient = 0;
 
@@ -802,10 +792,10 @@ double __54__AMMotionDetectionTriggerManager_setWatchdogTimeout___block_invoke(u
 
   if (v9)
   {
-    v15 = AMLogMotion();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = AMLogMotion(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [(AMMotionDetectionTriggerManager *)enabledCopy _setMotionDetectionMonitoringEnabled:v9, v15];
+      [(AMMotionDetectionTriggerManager *)enabledCopy _setMotionDetectionMonitoringEnabled:v9, v16];
     }
   }
 }
@@ -881,26 +871,26 @@ void __55__AMMotionDetectionTriggerManager__updateWatchdogTimer__block_invoke_2(
   {
     v3 = MEMORY[0x277CBEBB8];
     v4 = *(v1 + 104);
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __55__AMMotionDetectionTriggerManager__updateWatchdogTimer__block_invoke_3;
-    v9[3] = &unk_278C73840;
-    objc_copyWeak(&v10, (a1 + 40));
-    v5 = [v3 scheduledTimerWithTimeInterval:0 repeats:v9 block:v4];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __55__AMMotionDetectionTriggerManager__updateWatchdogTimer__block_invoke_3;
+    v10[3] = &unk_278C73840;
+    objc_copyWeak(&v11, (a1 + 40));
+    v5 = [v3 scheduledTimerWithTimeInterval:0 repeats:v10 block:v4];
     v6 = *(a1 + 32);
     v7 = *(v6 + 112);
     *(v6 + 112) = v5;
 
     if (!*(*(a1 + 32) + 112))
     {
-      v8 = AMLogMotion();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = AMLogMotion(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        __55__AMMotionDetectionTriggerManager__updateWatchdogTimer__block_invoke_2_cold_1(v8);
+        __55__AMMotionDetectionTriggerManager__updateWatchdogTimer__block_invoke_2_cold_1(v9);
       }
     }
 
-    objc_destroyWeak(&v10);
+    objc_destroyWeak(&v11);
   }
 }
 
@@ -920,52 +910,48 @@ void __55__AMMotionDetectionTriggerManager__updateWatchdogTimer__block_invoke_3(
   }
 }
 
-uint64_t __55__AMMotionDetectionTriggerManager__updateWatchdogTimer__block_invoke_4(uint64_t result)
+void *__55__AMMotionDetectionTriggerManager__updateWatchdogTimer__block_invoke_4(void *result)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v1 = *(result + 32);
+  v8 = *MEMORY[0x277D85DE8];
+  v1 = result[4];
   if (*(v1 + 72))
   {
     v2 = result;
     *(v1 + 72) = 0;
-    v3 = AMLogMotion();
+    v3 = AMLogMotion(result);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(*(v2 + 32) + 72);
-      v6[0] = 67109376;
-      v6[1] = v4 != 0;
-      v7 = 2048;
-      v8 = v4;
-      _os_log_impl(&dword_23EE48000, v3, OS_LOG_TYPE_DEFAULT, "Ambient motion detect (watchdog) : %{BOOL}d : 0x%04llx", v6, 0x12u);
+      v4 = *(v2[4] + 72);
+      v5[0] = 67109376;
+      v5[1] = v4 != 0;
+      v6 = 2048;
+      v7 = v4;
+      _os_log_impl(&dword_23EE48000, v3, OS_LOG_TYPE_DEFAULT, "Ambient motion detect (watchdog) : %{BOOL}d : 0x%04llx", v5, 0x12u);
     }
 
-    result = [*(v2 + 32) _accessQueue_updatePublishedTriggers];
+    return [v2[4] _accessQueue_updatePublishedTriggers];
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)_handleMotionDataSample:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_23EE48000, a2, OS_LOG_TYPE_DEBUG, "Handling motion data sample: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_23EE48000, a2, OS_LOG_TYPE_DEBUG, "Handling motion data sample: %@", &v2, 0xCu);
 }
 
 - (void)_setMotionDetectionMonitoringEnabled:(NSObject *)a3 .cold.1(char a1, void *a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = [a2 localizedDescription];
-  v7[0] = 67109378;
-  v7[1] = a1 & 1;
-  v8 = 2112;
-  v9 = v5;
-  _os_log_error_impl(&dword_23EE48000, a3, OS_LOG_TYPE_ERROR, "Ambient motion detection monitoring: %{BOOL}d failed : %@", v7, 0x12u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = 67109378;
+  v6[1] = a1 & 1;
+  v7 = 2112;
+  v8 = v5;
+  _os_log_error_impl(&dword_23EE48000, a3, OS_LOG_TYPE_ERROR, "Ambient motion detection monitoring: %{BOOL}d failed : %@", v6, 0x12u);
 }
 
 @end

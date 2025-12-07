@@ -41,14 +41,13 @@
 
 + (void)entitlementValueForKey:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = *a2;
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = v2;
-  _os_log_error_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Unable to get entitlement '%@': %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = v2;
+  _os_log_error_impl(&dword_191750000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "Unable to get entitlement '%@': %@", &v3, 0x16u);
 }
 
 @end

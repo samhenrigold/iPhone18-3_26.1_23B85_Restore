@@ -31,7 +31,7 @@
 
 - (void)generateKeybagRequestForDSID:(unint64_t)d completionHandler:(id)handler
 {
-  v7 = sub_100085D40(&qword_10059C3E0);
+  v7 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -57,7 +57,7 @@
 
 - (void)generateSubscriptionRequestForDSID:(unint64_t)d completionHandler:(id)handler
 {
-  v7 = sub_100085D40(&qword_10059C3E0);
+  v7 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v7 - 8);
   v9 = &v16 - v8;
   v10 = _Block_copy(handler);
@@ -83,7 +83,7 @@
 
 - (void)importKeybag:(NSData *)keybag completionHandler:(id)handler
 {
-  v7 = sub_100085D40(&qword_10059C3E0);
+  v7 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -110,7 +110,7 @@
 
 - (void)importSubscriptionKeybag:(NSData *)keybag completionHandler:(id)handler
 {
-  v7 = sub_100085D40(&qword_10059C3E0);
+  v7 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);

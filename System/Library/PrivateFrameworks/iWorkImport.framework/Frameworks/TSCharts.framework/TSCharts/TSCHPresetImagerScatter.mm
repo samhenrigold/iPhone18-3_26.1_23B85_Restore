@@ -27,7 +27,7 @@
 {
   height = size.height;
   width = size.width;
-  v135[12] = *MEMORY[0x277D85DE8];
+  v131[12] = *MEMORY[0x277D85DE8];
   v12 = objc_msgSend_seriesStyles(preset, a2, size.width, size.height, scale);
   v17 = objc_msgSend_objectAtIndexedSubscript_(v12, v13, v14, v15, v16, 0);
   if (objc_msgSend_count(v12, v18, v19, v20, v21) <= 1)
@@ -48,30 +48,30 @@
   v38 = v37;
   v40 = v39;
   v42 = v41;
-  v135[0] = sub_27628CEA8(26.0, 24.0, v33);
-  v135[1] = v43;
-  v135[2] = sub_27628CEA8(34.0, 44.0, v33);
-  v135[3] = v44;
-  v135[4] = sub_27628CEA8(67.0, 60.0, v33);
-  v135[5] = v45;
-  v135[6] = sub_27628CEA8(95.0, 75.0, v33);
-  v135[7] = v46;
-  v135[8] = sub_27628CEA8(106.0, 70.0, v33);
-  v135[9] = v47;
-  v135[10] = sub_27628CEA8(115.0, 80.0, v33);
-  v135[11] = v48;
-  v134[0] = sub_27628CEA8(19.0, 17.0, v33);
-  v134[1] = v49;
-  v134[2] = sub_27628CEA8(37.0, 36.0, v33);
-  v134[3] = v50;
-  v134[4] = sub_27628CEA8(45.0, 64.0, v33);
-  v134[5] = v51;
-  v134[6] = sub_27628CEA8(56.0, 78.0, v33);
-  v134[7] = v52;
-  v134[8] = sub_27628CEA8(87.0, 66.0, v33);
-  v134[9] = v53;
-  v134[10] = sub_27628CEA8(109.0, 83.0, v33);
-  v134[11] = v54;
+  v131[0] = sub_27628CEA8(26.0, 24.0, v33);
+  v131[1] = v43;
+  v131[2] = sub_27628CEA8(34.0, 44.0, v33);
+  v131[3] = v44;
+  v131[4] = sub_27628CEA8(67.0, 60.0, v33);
+  v131[5] = v45;
+  v131[6] = sub_27628CEA8(95.0, 75.0, v33);
+  v131[7] = v46;
+  v131[8] = sub_27628CEA8(106.0, 70.0, v33);
+  v131[9] = v47;
+  v131[10] = sub_27628CEA8(115.0, 80.0, v33);
+  v131[11] = v48;
+  v130[0] = sub_27628CEA8(19.0, 17.0, v33);
+  v130[1] = v49;
+  v130[2] = sub_27628CEA8(37.0, 36.0, v33);
+  v130[3] = v50;
+  v130[4] = sub_27628CEA8(45.0, 64.0, v33);
+  v130[5] = v51;
+  v130[6] = sub_27628CEA8(56.0, 78.0, v33);
+  v130[7] = v52;
+  v130[8] = sub_27628CEA8(87.0, 66.0, v33);
+  v130[9] = v53;
+  v130[10] = sub_27628CEA8(109.0, 83.0, v33);
+  v130[11] = v54;
   if (v33 >= v35)
   {
     v55 = v35;
@@ -100,97 +100,97 @@
   CGContextSetLineCap(context, kCGLineCapSquare);
   CGContextSetLineJoin(context, kCGLineJoinMiter);
   CGContextSetLineWidth(context, 1.0);
+  v132.origin.x = v36;
+  v132.origin.y = v38;
+  v132.size.width = v40;
+  v132.size.height = v42;
+  MinX = CGRectGetMinX(v132);
+  v133.origin.x = v36;
+  v133.origin.y = v38;
+  v133.size.width = v40;
+  v133.size.height = v42;
+  points.x = MinX;
+  points.y = CGRectGetMinY(v133);
+  v134.origin.x = v36;
+  v134.origin.y = v38;
+  v134.size.width = v40;
+  v134.size.height = v42;
+  MaxX = CGRectGetMaxX(v134);
+  v135.origin.x = v36;
+  v135.origin.y = v38;
+  v135.size.width = v40;
+  v135.size.height = v42;
+  v127[0] = MaxX;
+  v127[1] = CGRectGetMinY(v135);
   v136.origin.x = v36;
   v136.origin.y = v38;
   v136.size.width = v40;
   v136.size.height = v42;
-  MinX = CGRectGetMinX(v136);
+  v68 = CGRectGetMinX(v136);
   v137.origin.x = v36;
   v137.origin.y = v38;
   v137.size.width = v40;
   v137.size.height = v42;
-  points.x = MinX;
-  points.y = CGRectGetMinY(v137);
+  v128[0] = v68;
+  v128[1] = CGRectGetMinY(v137);
   v138.origin.x = v36;
   v138.origin.y = v38;
   v138.size.width = v40;
   v138.size.height = v42;
-  MaxX = CGRectGetMaxX(v138);
+  v69 = CGRectGetMinX(v138);
   v139.origin.x = v36;
   v139.origin.y = v38;
   v139.size.width = v40;
   v139.size.height = v42;
-  v131[0] = MaxX;
-  v131[1] = CGRectGetMinY(v139);
-  v140.origin.x = v36;
-  v140.origin.y = v38;
-  v140.size.width = v40;
-  v140.size.height = v42;
-  v68 = CGRectGetMinX(v140);
-  v141.origin.x = v36;
-  v141.origin.y = v38;
-  v141.size.width = v40;
-  v141.size.height = v42;
-  v132[0] = v68;
-  v132[1] = CGRectGetMinY(v141);
-  v142.origin.x = v36;
-  v142.origin.y = v38;
-  v142.size.width = v40;
-  v142.size.height = v42;
-  v69 = CGRectGetMinX(v142);
-  v143.origin.x = v36;
-  v143.origin.y = v38;
-  v143.size.width = v40;
-  v143.size.height = v42;
-  v133[0] = v69;
-  v133[1] = CGRectGetMaxY(v143);
-  sub_27628C654(context, &points.x, v131, 2, 1.0);
-  sub_27628C654(context, v132, v133, 2, 1.0);
+  v129[0] = v69;
+  v129[1] = CGRectGetMaxY(v139);
+  sub_27628C654(context, &points.x, v127, 2, 1.0);
+  sub_27628C654(context, v128, v129, 2, 1.0);
   CGContextStrokeLineSegments(context, &points, 4uLL);
   CGContextRestoreGState(context);
 
   CGContextSaveGState(context);
   v74 = objc_msgSend_p_strokeFromStyle_specific_default_(self, v70, v71, v72, v73, v17, 1538, 0);
-  v79 = objc_msgSend_color(v74, v75, v76, v77, v78);
-  v84 = objc_msgSend_CGColor(v79, v80, v81, v82, v83);
-  CGContextSetFillColorWithColor(context, v84);
+  v78 = objc_msgSend_color(v74, v75, v76, v77);
+  v83 = objc_msgSend_CGColor(v78, v79, v80, v81, v82);
+  CGContextSetFillColorWithColor(context, v83);
 
-  v89 = objc_msgSend_color(v74, v85, v86, v87, v88);
-  v94 = objc_msgSend_CGColor(v89, v90, v91, v92, v93);
-  CGContextSetStrokeColorWithColor(context, v94);
+  v87 = objc_msgSend_color(v74, v84, v85, v86);
+  v92 = objc_msgSend_CGColor(v87, v88, v89, v90, v91);
+  CGContextSetStrokeColorWithColor(context, v92);
 
   for (i = 0; i != 12; i += 2)
   {
-    sub_27628CB34(context, *&v135[i] - v57, *&v135[i + 1] - v57, v57 + v57, v57 + v57, 0.0);
-    if (v98 < v99)
+    sub_27628CB34(context, *&v131[i] - v57, *&v131[i + 1] - v57, v57 + v57, v57 + v57, 0.0);
+    if (v96 < v97)
     {
-      v98 = v99;
+      v96 = v97;
     }
 
-    sub_27631AEFC(context, v96, v97, v98, v98);
+    sub_27631AEFC(context, v94, v95, v96, v96);
   }
 
   CGContextRestoreGState(context);
 
   CGContextSaveGState(context);
-  v104 = objc_msgSend_p_strokeFromStyle_specific_default_(self, v100, v101, v102, v103, v31, 1538, 0);
-  v109 = objc_msgSend_color(v104, v105, v106, v107, v108);
-  v114 = objc_msgSend_CGColor(v109, v110, v111, v112, v113);
-  CGContextSetFillColorWithColor(context, v114);
+  v102 = objc_msgSend_p_strokeFromStyle_specific_default_(self, v98, v99, v100, v101, v31, 1538, 0);
+  v106 = objc_msgSend_color(v102, v103, v104, v105);
+  v111 = objc_msgSend_CGColor(v106, v107, v108, v109, v110);
+  CGContextSetFillColorWithColor(context, v111);
 
-  v119 = objc_msgSend_color(v104, v115, v116, v117, v118);
-  v124 = objc_msgSend_CGColor(v119, v120, v121, v122, v123);
-  CGContextSetStrokeColorWithColor(context, v124);
+  v115 = objc_msgSend_color(v102, v112, v113, v114);
+  v120 = objc_msgSend_CGColor(v115, v116, v117, v118, v119);
+  CGContextSetStrokeColorWithColor(context, v120);
 
   for (j = 0; j != 12; j += 2)
   {
-    sub_27628CB34(context, *&v134[j] - v57, *&v134[j + 1] - v57, v57 + v57, v57 + v57, 0.0);
-    if (v128 < v129)
+    sub_27628CB34(context, *&v130[j] - v57, *&v130[j + 1] - v57, v57 + v57, v57 + v57, 0.0);
+    if (v124 < v125)
     {
-      v128 = v129;
+      v124 = v125;
     }
 
-    sub_27631AEFC(context, v126, v127, v128, v128);
+    sub_27631AEFC(context, v122, v123, v124, v124);
   }
 
   CGContextRestoreGState(context);

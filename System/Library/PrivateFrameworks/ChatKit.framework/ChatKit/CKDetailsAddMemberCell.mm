@@ -30,7 +30,7 @@
     [addLabel setNumberOfLines:0];
 
     addLabel2 = [(CKDetailsAddMemberCell *)v4 addLabel];
-    v9 = CKFrameworkBundle();
+    v9 = CKFrameworkBundle(addLabel2);
     v10 = [v9 localizedStringForKey:@"ADD_CONTACT" value:&stru_1F04268F8 table:@"ChatKit"];
     [addLabel2 setText:v10];
 

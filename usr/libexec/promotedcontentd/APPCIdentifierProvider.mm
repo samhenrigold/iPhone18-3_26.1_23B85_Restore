@@ -30,14 +30,15 @@
 
 - (id)getIdentifiersWithType:(int64_t)type source:(int64_t)source processId:(id)id
 {
-  sub_100398F58();
+  v8 = sub_100398F58();
+  v10 = v9;
   selfCopy = self;
-  PCIdentifierProvider.getIdentifiers(type:source:processId:)(type);
+  PCIdentifierProvider.getIdentifiers(type:source:processId:)(type, source, v8, v10);
 
   type metadata accessor for PCRotatingIdentifier();
-  v8.super.isa = sub_100399178().super.isa;
+  v12.super.isa = sub_100399178().super.isa;
 
-  return v8.super.isa;
+  return v12.super.isa;
 }
 
 - (APPCIdentifierProvider)init

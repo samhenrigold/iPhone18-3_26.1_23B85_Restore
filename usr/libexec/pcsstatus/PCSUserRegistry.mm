@@ -1785,7 +1785,7 @@ LABEL_8:
 {
   escrowCopy = escrow;
   +[NSMutableArray array];
-  v23 = v22 = self;
+  v22 = v21 = self;
   oslog = [(PCSUserRegistry *)self oslog];
   if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEFAULT))
   {
@@ -1793,65 +1793,64 @@ LABEL_8:
     _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_DEFAULT, "Converting CKRecords to PCSKeybagKeys", buf, 2u);
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   obj = escrowCopy;
-  v6 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
+  v6 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v26;
+    v8 = *v25;
     v9 = &PCSAccountDisableWalrus_ptr;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v26 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v25 + 1) + 8 * i);
+        v11 = *(*(&v24 + 1) + 8 * i);
         v12 = [v11 objectForKeyedSubscript:@"keyStatus"];
         v13 = v12;
         if (!v12 || ([v12 longValue] & 1) == 0)
         {
           v14 = [v11 objectForKeyedSubscript:@"escrow"];
-          v15 = v9[233];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v16 = v9;
-            v17 = objc_alloc_init(PCSKeybagKey);
-            v18 = [v14 copy];
-            [v17 setData:v18];
+            v15 = v9;
+            v16 = objc_alloc_init(PCSKeybagKey);
+            v17 = [v14 copy];
+            [v16 setData:v17];
 
-            [v17 setFlags:{objc_msgSend(v13, "longValue")}];
-            [v23 addObject:v17];
+            [v16 setFlags:{objc_msgSend(v13, "longValue")}];
+            [v22 addObject:v16];
 
-            v9 = v16;
+            v9 = v15;
           }
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v7 = [obj countByEnumeratingWithState:&v24 objects:v30 count:16];
     }
 
     while (v7);
   }
 
-  oslog2 = [(PCSUserRegistry *)v22 oslog];
+  oslog2 = [(PCSUserRegistry *)v21 oslog];
   if (os_log_type_enabled(oslog2, OS_LOG_TYPE_DEFAULT))
   {
-    v20 = [v23 count];
+    v19 = [v22 count];
     *buf = 134217984;
-    v30 = v20;
+    v29 = v19;
     _os_log_impl(&_mh_execute_header, oslog2, OS_LOG_TYPE_DEFAULT, "Converted %lu CKRecords to PCSKeybagKeys", buf, 0xCu);
   }
 
-  return v23;
+  return v22;
 }
 
 - (id)loadMobileBackupKeysFromDB

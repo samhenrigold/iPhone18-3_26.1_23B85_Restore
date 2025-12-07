@@ -34,30 +34,30 @@
   v9 = v8;
   v39 = [(TUIMediaBackdropLayout *)self _newImageResourcesWithContext:contextCopy];
   v10 = [v39 url];
-  v11 = [(TUILayout *)self box];
+  v11 = objc_msgSend_box(self);
   v36 = TUIResourceLoadForURL(v10, [v11 load]);
 
   v34 = [TUIImageLayerConfig alloc];
   [contextCopy contentsScale];
   v13 = v12;
 
-  v38 = [(TUILayout *)self box];
+  v38 = objc_msgSend_box(self);
   [v38 cornerRadius];
   v15 = v14;
-  v37 = [(TUILayout *)self box];
+  v37 = objc_msgSend_box(self);
   fallbackColor = [v37 fallbackColor];
-  v35 = [(TUILayout *)self box];
+  v35 = objc_msgSend_box(self);
   contentsGravity = [v35 contentsGravity];
-  v16 = [(TUILayout *)self box];
+  v16 = objc_msgSend_box(self);
   crossfadesContents = [v16 crossfadesContents];
-  v18 = [(TUILayout *)self box];
+  v18 = objc_msgSend_box(self);
   [v18 opacity];
   v20 = v19;
-  v21 = [(TUILayout *)self box];
+  v21 = objc_msgSend_box(self);
   LOBYTE(v10) = [v21 continuousCorners];
-  v22 = [(TUILayout *)self box];
+  v22 = objc_msgSend_box(self);
   shouldRasterize = [v22 shouldRasterize];
-  v24 = [(TUILayout *)self box];
+  v24 = objc_msgSend_box(self);
   blendMode = [v24 blendMode];
   BYTE1(v31) = shouldRasterize;
   LOBYTE(v31) = v10;
@@ -65,7 +65,7 @@
 
   v27 = [[TUIRenderModelLayer alloc] initWithSubmodels:0 config:v26 erasableInsets:UIEdgeInsetsZero.top, UIEdgeInsetsZero.left, UIEdgeInsetsZero.bottom, UIEdgeInsetsZero.right];
   [(TUIRenderModelLayer *)v27 setSize:v7, v9];
-  v28 = [(TUILayout *)self box];
+  v28 = objc_msgSend_box(self);
   identifier = [v28 identifier];
   [(TUIRenderModelLayer *)v27 setIdentifier:identifier];
 
@@ -84,15 +84,15 @@
   manager = [controller manager];
   imageResourceCache = [manager imageResourceCache];
 
-  v14 = [(TUILayout *)self box];
+  v14 = objc_msgSend_box(self);
   urlString = [v14 urlString];
 
-  v16 = [(TUILayout *)self box];
+  v16 = objc_msgSend_box(self);
   controller2 = v16;
   if (urlString)
   {
     urlString2 = [v16 urlString];
-    resourceKind2 = [(TUILayout *)self box];
+    resourceKind2 = objc_msgSend_box(self);
     baseURL = [resourceKind2 baseURL];
     v21 = [imageResourceCache imageResourceForTemplatedURL:urlString2 baseURL:baseURL naturalSize:v6 contentsScale:{v8, v10}];
   }
@@ -109,11 +109,11 @@ LABEL_7:
     }
 
     controller2 = [(TUILayout *)self controller];
-    urlString2 = [(TUILayout *)self box];
+    urlString2 = objc_msgSend_box(self);
     resourceKind2 = [urlString2 resourceKind];
-    baseURL = [(TUILayout *)self box];
+    baseURL = objc_msgSend_box(self);
     resourceInstance = [baseURL resourceInstance];
-    v23 = [(TUILayout *)self box];
+    v23 = objc_msgSend_box(self);
     resourceOptions = [v23 resourceOptions];
     v21 = [controller2 imageResourceForKind:resourceKind2 naturalSize:resourceInstance contentsScale:resourceOptions instance:v6 options:{v8, v10}];
   }

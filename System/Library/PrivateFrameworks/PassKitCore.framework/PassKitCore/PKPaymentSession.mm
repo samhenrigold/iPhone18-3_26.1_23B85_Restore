@@ -334,7 +334,7 @@ void __79__PKPaymentSession_forceContactlessInterfaceSessionWithCompletion_targe
       if (v15)
       {
         objc_storeStrong(v15 + 3, v8);
-        v16[32] = v12;
+        *(v16 + 32) = v12;
       }
 
       else
@@ -672,7 +672,7 @@ void __72__PKPaymentSession_startApplePayTrustSessionWithCompletion_targetQueue_
 
               else if (applicationIdentifier2)
               {
-                v21 |= [applicationIdentifier2 isEqualToString:v25];
+                v21 |= objc_msgSend_isEqualToString_(applicationIdentifier2);
               }
             }
 
@@ -737,7 +737,7 @@ void __72__PKPaymentSession_startApplePayTrustSessionWithCompletion_targetQueue_
               }
             }
 
-            v30 = [objc_alloc(getSTSCredentialClass[0]()) initWithType:v26 identifier:v25 subIdentifier:v12];
+            v30 = [objc_alloc(getSTSCredentialClass()) initWithType:v26 identifier:v25 subIdentifier:v12];
             v31 = *passCopy;
             *passCopy = v30;
 

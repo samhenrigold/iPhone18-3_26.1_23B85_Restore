@@ -1,8 +1,8 @@
-id sub_1720()
+id sub_1720(uint64_t a1, uint64_t a2)
 {
-  v2.receiver = v0;
-  v2.super_class = swift_getObjectType();
-  return objc_msgSendSuper2(&v2, "dealloc");
+  v4.receiver = v2;
+  v4.super_class = swift_getObjectType();
+  return objc_msgSendSuper2(&v4, "dealloc");
 }
 
 id sub_177C()
@@ -21,12 +21,12 @@ void *sub_17D0@<X0>(void *result@<X0>, uint64_t a2@<X8>)
   return result;
 }
 
-void sub_183C(uint64_t a1, unint64_t *a2)
+void sub_183C(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
@@ -35,105 +35,101 @@ void sub_183C(uint64_t a1, unint64_t *a2)
 
 uint64_t sub_18BC@<X0>(uint64_t a1@<X8>)
 {
-  v28 = a1;
-  v27 = sub_5A3C(&qword_10778, &qword_96B0);
-  v24 = *(v27 - 8);
-  v1 = v24;
-  v2 = *(v24 + 64);
-  __chkstk_darwin(v27);
-  v26 = ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v30 = (&v21 - v26);
+  v27 = a1;
+  v26 = sub_5A3C(&qword_10778, &qword_96B0);
+  v23 = *(v26 - 8);
+  v1 = v23;
+  v2 = *(v23 + 64);
+  __chkstk_darwin(v26);
+  v25 = ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v29 = (&v20 - v25);
   sub_5A84();
   sub_873C();
-  v25 = sub_5A3C(&qword_10788, &qword_96B8);
-  v29 = *(v25 - 8);
-  v3 = v29[8];
-  __chkstk_darwin(v25);
-  v22 = "49C6FE399TCCHelper";
+  v24 = sub_5A3C(&qword_10788, &qword_96B8);
+  v28 = *(v24 - 8);
+  v3 = v28[8];
+  __chkstk_darwin(v24);
+  v21 = "49C6FE399TCCHelper";
   sub_84EC();
   type metadata accessor for NFCTCCSettingsList(0);
-  sub_6CDC(&qword_10790, type metadata accessor for NFCTCCSettingsList);
-  sub_5B30(&qword_10798);
-  sub_5B30(&qword_107A0);
-  sub_5B30(&qword_107A8);
-  v23 = &v21 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_6CDC(&qword_10790, type metadata accessor for NFCTCCSettingsList, &unk_97B0);
+  sub_5B30(&qword_10798, &protocol conformance descriptor for ASApplicationRecord_V1);
+  sub_5B30(&qword_107A0, &protocol conformance descriptor for ASApplicationRecord_V1);
+  sub_5B30(&qword_107A8, &protocol conformance descriptor for ASApplicationRecord_V1);
+  v22 = &v20 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   v4 = sub_874C();
   __chkstk_darwin(v4);
-  v5 = v27;
-  v6 = (&v21 - v26);
-  v22 = *(v1 + 16);
-  v7 = (v22)(&v21 - v26, v30, v27);
+  v5 = v26;
+  v6 = (&v20 - v25);
+  v21 = *(v1 + 16);
+  v7 = (v21)(&v20 - v25, v29, v26);
   __chkstk_darwin(v7);
-  v8 = &v21 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v26 = v29[2];
-  v9 = v25;
-  (v26)(v8, v8, v25);
+  v8 = &v20 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = v28[2];
+  v9 = v24;
+  (v25)(v8, v8, v24);
   v10 = sub_5A3C(&qword_107B0, &unk_96C0);
   v11 = v10 - 8;
-  v12 = *(*(v10 - 8) + 64);
   __chkstk_darwin(v10);
-  v14 = &v21 - v13;
-  v15 = sub_7CEC(&qword_107B8, &qword_10778, &qword_96B0);
-  (v22)(v14, v6, v5);
-  v35 = v14;
-  v16 = sub_7CEC(&qword_107C0, &qword_10788, &qword_96B8);
-  v17 = &v14[*(v11 + 56)];
-  (v26)(v17, v8, v9);
-  v36 = v17;
-  v33 = v5;
-  v34 = v9;
+  v13 = &v20 - v12;
+  v14 = sub_7CEC(&qword_107B8, &qword_10778, &qword_96B0, &protocol conformance descriptor for SettingsPane<A>);
+  (v21)(v13, v6, v5);
+  v34 = v13;
+  v15 = sub_7CEC(&qword_107C0, &qword_10788, &qword_96B8, &protocol conformance descriptor for SettingsPane<A>);
+  v16 = &v13[*(v11 + 56)];
+  (v25)(v16, v8, v9);
+  v35 = v16;
+  v32 = v5;
+  v33 = v9;
+  v30 = v14;
   v31 = v15;
-  v32 = v16;
   sub_872C();
-  v18 = v29[1];
-  v18(v23, v9);
-  v19 = *(v24 + 8);
-  v19(v30, v5);
-  v18(v8, v9);
-  return (v19)(v6, v5);
+  v17 = v28[1];
+  v17(v22, v9);
+  v18 = *(v23 + 8);
+  v18(v29, v5);
+  v17(v8, v9);
+  return (v18)(v6, v5);
 }
 
-uint64_t sub_1D48@<X0>(void *a1@<X8>)
+void *sub_1D48@<X0>(void *a1@<X8>)
 {
-  v2 = type metadata accessor for NFCTCCPrivacyAllAppsListModel(0);
-  v3 = *(v2 + 48);
-  v4 = *(v2 + 52);
+  type metadata accessor for NFCTCCPrivacyAllAppsListModel(0);
   swift_allocObject();
   sub_4CEC();
   result = sub_868C();
-  *a1 = v6;
-  a1[1] = v7;
+  *a1 = v3;
+  a1[1] = v4;
   return result;
 }
 
-void sub_1DB4(uint64_t *a1@<X8>)
+void sub_1DB4(void *a1@<X8>)
 {
   v2 = sub_84DC();
 
   sub_1DF0(v2, v3, a1);
 }
 
-void sub_1DF0(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X8>)
+void sub_1DF0(uint64_t a1@<X0>, unint64_t a2@<X1>, void *a3@<X8>)
 {
   v6 = type metadata accessor for NFCTCCSettingsList(0);
   v7 = a3 + v6[8];
   sub_868C();
-  *v7 = v20;
-  *(v7 + 1) = v21;
+  *v7 = v19;
+  *(v7 + 1) = v20;
   *a3 = a1;
   a3[1] = a2;
-  v8 = v6[5];
-  v9 = objc_allocWithZone(LSApplicationRecord);
+  v8 = objc_allocWithZone(LSApplicationRecord);
   swift_bridgeObjectRetain_n();
-  v10 = sub_5C38(a1, a2, 1);
-  if (v10)
+  v9 = sub_5C38(a1, a2, 1);
+  if (v9)
   {
-    v11 = v10;
+    v10 = v9;
 
     sub_848C();
     isa = sub_881C().super.isa;
 
-    v13 = [v11 localizedNameWithPreferredLocalizations:isa];
+    v12 = [v10 localizedNameWithPreferredLocalizations:isa];
 
     sub_87EC();
     sub_846C();
@@ -144,32 +140,32 @@ void sub_1DF0(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X8>)
     sub_846C();
   }
 
-  v14 = kTCCServiceContactlessAccess;
+  v13 = kTCCServiceContactlessAccess;
   if (kTCCServiceContactlessAccess)
   {
-    sub_64D0(a1, a2);
+    sub_64D0(a1, a2, kTCCServiceContactlessAccess);
 
-    v15 = a3 + v6[6];
+    v14 = a3 + v6[6];
     sub_868C();
-    *v15 = v20;
-    *(v15 + 1) = v21;
-    v16 = a3 + v6[9];
+    *v14 = v19;
+    *(v14 + 1) = v20;
+    v15 = a3 + v6[9];
     sub_868C();
-    *v16 = v20;
-    *(v16 + 1) = v21;
-    v17 = kTCCServiceContactlessAccessPayments;
+    *v15 = v19;
+    *(v15 + 1) = v20;
+    v16 = kTCCServiceContactlessAccessPayments;
     if (kTCCServiceContactlessAccessPayments)
     {
-      sub_64D0(a1, a2);
+      sub_64D0(a1, a2, kTCCServiceContactlessAccessPayments);
 
-      v18 = a3 + v6[7];
+      v17 = a3 + v6[7];
       sub_868C();
-      *v18 = v20;
-      *(v18 + 1) = v21;
-      v19 = a3 + v6[10];
+      *v17 = v19;
+      *(v17 + 1) = v20;
+      v18 = a3 + v6[10];
       sub_868C();
-      *v19 = v20;
-      *(v19 + 1) = v21;
+      *v18 = v19;
+      *(v18 + 1) = v20;
       return;
     }
   }
@@ -184,58 +180,56 @@ void sub_1DF0(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t *a3@<X8>)
 
 uint64_t sub_2098@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
 {
-  v31 = a3;
+  v29 = a3;
   v5 = sub_5A3C(&qword_10908, &qword_9850);
-  v32 = *(v5 - 8);
-  v33 = v5;
-  v6 = *(v32 + 64);
+  v30 = *(v5 - 8);
+  v31 = v5;
   __chkstk_darwin(v5);
-  v8 = &v28 - v7;
-  v9 = sub_5A3C(&qword_10910, &qword_9858);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  __chkstk_darwin(v9);
-  v13 = &v28 - v12;
-  v34 = a1;
-  v35 = a2;
+  v7 = &v26 - v6;
+  v8 = sub_5A3C(&qword_10910, &qword_9858);
+  v9 = *(v8 - 8);
+  __chkstk_darwin(v8);
+  v11 = &v26 - v10;
+  v32 = a1;
+  v33 = a2;
   sub_5A3C(&qword_10918, &qword_9860);
   sub_715C();
   sub_85DC();
-  v14 = sub_879C();
-  v15 = type metadata accessor for NFCTCCSettingsList(0);
-  v16 = sub_7CEC(&qword_10978, &qword_10910, &qword_9858);
-  v17 = sub_6CDC(&qword_10980, &type metadata accessor for SESContactlessTCCContext.NFCTCCRow);
-  v18 = sub_6CDC(&qword_10790, type metadata accessor for NFCTCCSettingsList);
-  v29 = v15;
-  v30 = v8;
+  v12 = sub_879C();
+  v13 = type metadata accessor for NFCTCCSettingsList(0);
+  v14 = sub_7CEC(&qword_10978, &qword_10910, &qword_9858, &protocol conformance descriptor for List<A, B>);
+  v15 = sub_6CDC(&qword_10980, &type metadata accessor for SESContactlessTCCContext.NFCTCCRow, &protocol conformance descriptor for SESContactlessTCCContext.NFCTCCRow);
+  v16 = sub_6CDC(&qword_10790, type metadata accessor for NFCTCCSettingsList, &unk_97B0);
+  v27 = v13;
+  v28 = v7;
   sub_865C();
-  (*(v10 + 8))(v13, v9);
+  (*(v9 + 8))(v11, v8);
   sub_85AC();
   if (qword_10510 != -1)
   {
     swift_once();
   }
 
-  v19 = qword_10B30;
-  v20 = sub_85EC();
+  v17 = qword_10B30;
+  v18 = sub_85EC();
+  v20 = v19;
   v22 = v21;
-  v24 = v23;
-  v36 = v9;
+  v34 = v8;
+  v35 = v12;
+  v36 = v27;
   v37 = v14;
-  v38 = v29;
+  v38 = v15;
   v39 = v16;
-  v40 = v17;
-  v41 = v18;
   swift_getOpaqueTypeConformance2();
-  v25 = v30;
-  v26 = v33;
+  v23 = v28;
+  v24 = v31;
   sub_864C();
-  sub_73A0(v20, v22, v24 & 1);
+  sub_73A0(v18, v20, v22 & 1);
 
-  return (*(v32 + 8))(v25, v26);
+  return (*(v30 + 8))(v23, v24);
 }
 
-uint64_t sub_246C()
+uint64_t sub_246C(uint64_t a1, uint64_t a2)
 {
   sub_85AC();
   if (qword_10510 != -1)
@@ -243,22 +237,20 @@ uint64_t sub_246C()
     swift_once();
   }
 
-  v0 = qword_10B30;
+  v2 = qword_10B30;
   sub_85EC();
   sub_5A3C(&qword_10930, &qword_9868);
   sub_71E8();
   return sub_870C();
 }
 
-uint64_t sub_25B0()
+uint64_t sub_25B0(uint64_t a1, uint64_t a2)
 {
   sub_5A3C(&qword_10988, &qword_9890);
   sub_869C();
   swift_getKeyPath();
-  sub_6CDC(&qword_10838, type metadata accessor for NFCTCCPrivacyAllAppsListModel);
+  sub_6CDC(&qword_10838, type metadata accessor for NFCTCCPrivacyAllAppsListModel, &unk_9624);
   sub_84AC();
-
-  v0 = *(v2 + 24);
 
   swift_getKeyPath();
   sub_5A3C(&qword_10990, &qword_98C8);
@@ -271,136 +263,124 @@ uint64_t sub_25B0()
 uint64_t sub_2720()
 {
   swift_getKeyPath();
-  sub_6CDC(&qword_10838, type metadata accessor for NFCTCCPrivacyAllAppsListModel);
+  sub_6CDC(&qword_10838, type metadata accessor for NFCTCCPrivacyAllAppsListModel, &unk_9624);
   sub_84AC();
-
-  v1 = *(v0 + 24);
 }
 
 uint64_t sub_27C4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v4 = sub_5A3C(&qword_109A0, &qword_98D0);
-  v5 = *(*(v4 - 8) + 64);
   __chkstk_darwin(v4 - 8);
-  v7 = v61 - v6;
-  v8 = sub_876C();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  __chkstk_darwin(v8);
-  v12 = (v61 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v6 = v50 - v5;
+  v7 = sub_876C();
+  v8 = *(v7 - 8);
+  __chkstk_darwin(v7);
+  v10 = (v50 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
   sub_878C();
-  v13 = (*(v9 + 88))(v12, v8);
-  if (v13 == enum case for SESContactlessTCCContext.NFCTCCRow.RowStyle.listView(_:))
+  v11 = (*(v8 + 88))(v10, v7);
+  if (v11 == enum case for SESContactlessTCCContext.NFCTCCRow.RowStyle.listView(_:))
   {
-    (*(v9 + 96))(v12, v8);
-    v64 = a2;
-    v14 = *v12;
-    v15 = v12[1];
-    v16 = sub_5A3C(&qword_10970, &qword_9888);
-    v63 = v61;
-    v17 = *(v16 - 8);
-    v18 = *(v17 + 64);
-    __chkstk_darwin(v16);
-    v20 = v61 - v19;
-    v21 = sub_879C();
-    v22 = *(v21 - 8);
-    (*(v22 + 16))(v7, a1, v21);
-    v23 = (*(v22 + 56))(v7, 0, 1, v21);
-    __chkstk_darwin(v23);
-    v61[-4] = v14;
-    v61[-3] = v15;
-    v61[-2] = a1;
+    (*(v8 + 96))(v10, v7);
+    v53 = a2;
+    v12 = *v10;
+    v13 = v10[1];
+    v14 = sub_5A3C(&qword_10970, &qword_9888);
+    v52 = v50;
+    v15 = *(v14 - 8);
+    __chkstk_darwin(v14);
+    v17 = v50 - v16;
+    v18 = sub_879C();
+    v19 = *(v18 - 8);
+    (*(v19 + 16))(v6, a1, v18);
+    v20 = (*(v19 + 56))(v6, 0, 1, v18);
+    __chkstk_darwin(v20);
+    v50[-4] = v12;
+    v50[-3] = v13;
+    v50[-2] = a1;
     sub_5A3C(&qword_109B0, &qword_98E0);
     sub_7454();
-    sub_6CDC(&qword_10980, &type metadata accessor for SESContactlessTCCContext.NFCTCCRow);
+    sub_6CDC(&qword_10980, &type metadata accessor for SESContactlessTCCContext.NFCTCCRow, &protocol conformance descriptor for SESContactlessTCCContext.NFCTCCRow);
     sub_854C();
 
-    v24 = sub_5A3C(&qword_10950, &qword_9878);
-    v62 = v61;
-    v25 = (*(*(v24 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+    v21 = sub_5A3C(&qword_10950, &qword_9878);
+    v51 = v50;
+    __chkstk_darwin(v21);
+    v23 = v50 - v22;
+    v24 = sub_5A3C(&qword_109D0, &qword_98F0);
     __chkstk_darwin(v24);
-    v27 = v61 - v26;
-    v28 = sub_5A3C(&qword_109D0, &qword_98F0);
-    v29 = (*(*(v28 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-    __chkstk_darwin(v28);
-    (*(v17 + 16))(v61 - v30, v20, v16);
+    (*(v15 + 16))(v50 - v25, v17, v14);
     swift_storeEnumTagMultiPayload();
     sub_5A3C(&qword_10960, &qword_9880);
-    sub_7CEC(&qword_10958, &qword_10960, &qword_9880);
-    sub_7CEC(&qword_10968, &qword_10970, &qword_9888);
+    sub_7CEC(&qword_10958, &qword_10960, &qword_9880, &protocol conformance descriptor for Toggle<A>);
+    sub_7CEC(&qword_10968, &qword_10970, &qword_9888, &protocol conformance descriptor for NavigationLink<A, B>);
     sub_85CC();
-    v31 = sub_5A3C(&qword_109A8, &qword_98D8);
-    v32 = (*(*(v31 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-    __chkstk_darwin(v31);
-    sub_74F4(v27, v61 - v33);
+    v26 = sub_5A3C(&qword_109A8, &qword_98D8);
+    __chkstk_darwin(v26);
+    sub_74F4(v23, v50 - v27);
     swift_storeEnumTagMultiPayload();
     sub_72E0();
     sub_85CC();
-    sub_7564(v27);
-    return (*(v17 + 8))(v20, v16);
+    sub_7564(v23);
+    return (*(v15 + 8))(v17, v14);
   }
 
-  else if (v13 == enum case for SESContactlessTCCContext.NFCTCCRow.RowStyle.toggle(_:))
+  else if (v11 == enum case for SESContactlessTCCContext.NFCTCCRow.RowStyle.toggle(_:))
   {
-    v64 = a2;
-    v62 = sub_5A3C(&qword_10960, &qword_9880);
-    v63 = v61;
-    v35 = *(v62 - 1);
-    v36 = *(v35 + 64);
-    __chkstk_darwin(v62);
-    v38 = v61 - v37;
+    v53 = a2;
+    v51 = sub_5A3C(&qword_10960, &qword_9880);
+    v52 = v50;
+    v29 = *(v51 - 1);
+    __chkstk_darwin(v51);
+    v31 = v50 - v30;
     result = sub_877C();
-    v40 = kTCCServiceContactlessAccess;
+    v33 = kTCCServiceContactlessAccess;
     if (kTCCServiceContactlessAccess)
     {
-      v41 = result;
-      v42 = v39;
-      v43 = swift_allocObject();
-      v43[2] = 0;
-      v43[3] = 0;
-      v43[4] = v41;
-      v43[5] = v42;
-      v43[6] = v40;
-      v44 = swift_allocObject();
-      v44[2] = 0;
-      v44[3] = 0;
-      v44[4] = v41;
-      v44[5] = v42;
-      v44[6] = v40;
+      v34 = result;
+      v35 = v32;
+      v36 = swift_allocObject();
+      v36[2] = 0;
+      v36[3] = 0;
+      v36[4] = v34;
+      v36[5] = v35;
+      v36[6] = v33;
+      v37 = swift_allocObject();
+      v37[2] = 0;
+      v37[3] = 0;
+      v37[4] = v34;
+      v37[5] = v35;
+      v37[6] = v33;
 
-      v45 = v40;
-      v46 = sub_86EC();
-      __chkstk_darwin(v46);
-      v61[-2] = a1;
+      v38 = v33;
+      v39 = sub_86EC();
+      __chkstk_darwin(v39);
+      v50[-2] = a1;
       sub_5A3C(&qword_109C8, &qword_98E8);
-      sub_7CEC(&qword_109C0, &qword_109C8, &qword_98E8);
-      v47 = v38;
+      sub_7CEC(&qword_109C0, &qword_109C8, &qword_98E8, &protocol conformance descriptor for Label<A, B>);
+      v40 = v31;
       sub_86DC();
-      v61[0] = sub_5A3C(&qword_10950, &qword_9878);
-      v61[1] = v61;
-      v48 = (*(*(v61[0] - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-      __chkstk_darwin(v61[0]);
-      v50 = v61 - v49;
-      v51 = sub_5A3C(&qword_109D0, &qword_98F0);
-      v52 = (*(*(v51 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-      __chkstk_darwin(v51);
-      v54 = v38;
-      v55 = v62;
-      (*(v35 + 16))(v61 - v53, v54, v62);
+      v50[0] = sub_5A3C(&qword_10950, &qword_9878);
+      v50[1] = v50;
+      __chkstk_darwin(v50[0]);
+      v42 = v50 - v41;
+      v43 = sub_5A3C(&qword_109D0, &qword_98F0);
+      __chkstk_darwin(v43);
+      v45 = v31;
+      v46 = v51;
+      (*(v29 + 16))(v50 - v44, v45, v51);
       swift_storeEnumTagMultiPayload();
       sub_5A3C(&qword_10970, &qword_9888);
-      sub_7CEC(&qword_10958, &qword_10960, &qword_9880);
-      sub_7CEC(&qword_10968, &qword_10970, &qword_9888);
+      sub_7CEC(&qword_10958, &qword_10960, &qword_9880, &protocol conformance descriptor for Toggle<A>);
+      sub_7CEC(&qword_10968, &qword_10970, &qword_9888, &protocol conformance descriptor for NavigationLink<A, B>);
       sub_85CC();
-      v56 = sub_5A3C(&qword_109A8, &qword_98D8);
-      v57 = (*(*(v56 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-      __chkstk_darwin(v56);
-      sub_74F4(v50, v61 - v58);
+      v47 = sub_5A3C(&qword_109A8, &qword_98D8);
+      __chkstk_darwin(v47);
+      sub_74F4(v42, v50 - v48);
       swift_storeEnumTagMultiPayload();
       sub_72E0();
       sub_85CC();
-      sub_7564(v50);
-      return (*(v35 + 8))(v47, v55);
+      sub_7564(v42);
+      return (*(v29 + 8))(v40, v46);
     }
 
     else
@@ -411,69 +391,66 @@ uint64_t sub_27C4@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 
   else
   {
-    v59 = sub_5A3C(&qword_109A8, &qword_98D8);
-    v60 = (*(*(v59 - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-    __chkstk_darwin(v59);
+    v49 = sub_5A3C(&qword_109A8, &qword_98D8);
+    __chkstk_darwin(v49);
     swift_storeEnumTagMultiPayload();
     sub_5A3C(&qword_10950, &qword_9878);
     sub_72E0();
     sub_85CC();
-    return (*(v9 + 8))(v12, v8);
+    return (*(v8 + 8))(v10, v7);
   }
 
   return result;
 }
 
-uint64_t sub_3210()
+uint64_t sub_3210(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   sub_5A3C(&qword_109C8, &qword_98E8);
-  sub_7CEC(&qword_109C0, &qword_109C8, &qword_98E8);
+  sub_7CEC(&qword_109C0, &qword_109C8, &qword_98E8, &protocol conformance descriptor for Label<A, B>);
   return sub_853C();
 }
 
-uint64_t sub_32D4@<X0>(uint64_t a1@<X8>)
+uint64_t sub_32D4@<X0>(uint64_t a3@<X8>)
 {
-  v2 = sub_859C();
-  v3 = *(*(v2 - 8) + 64);
-  __chkstk_darwin(v2 - 8);
+  v4 = sub_859C();
+  __chkstk_darwin(v4 - 8);
   sub_858C();
   sub_857C();
   sub_856C();
   sub_857C();
   sub_85BC();
   result = sub_85EC();
-  *a1 = result;
-  *(a1 + 8) = v5;
-  *(a1 + 16) = v6 & 1;
-  *(a1 + 24) = v7;
+  *a3 = result;
+  *(a3 + 8) = v6;
+  *(a3 + 16) = v7 & 1;
+  *(a3 + 24) = v8;
   return result;
 }
 
-uint64_t sub_33C8()
+uint64_t sub_33C8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   sub_5A3C(&qword_109D8, &qword_98F8);
-  sub_7CEC(&qword_109E0, &qword_109D8, &qword_98F8);
+  sub_7CEC(&qword_109E0, &qword_109D8, &qword_98F8, &protocol conformance descriptor for AsyncIconImage<A>);
   return sub_867C();
 }
 
 uint64_t sub_347C@<X0>(uint64_t a1@<X8>)
 {
   v2 = sub_847C();
-  v3 = *(*(v2 - 8) + 64);
   __chkstk_darwin(v2 - 8);
-  v4 = sub_877C();
-  v6 = v5;
-  v7 = objc_allocWithZone(LSApplicationRecord);
+  v3 = sub_877C();
+  v5 = v4;
+  v6 = objc_allocWithZone(LSApplicationRecord);
 
-  v8 = sub_5C38(v4, v6, 1);
-  if (v8)
+  v7 = sub_5C38(v3, v5, 1);
+  if (v7)
   {
-    v9 = v8;
+    v8 = v7;
 
     sub_848C();
     isa = sub_881C().super.isa;
 
-    v11 = [v9 localizedNameWithPreferredLocalizations:isa];
+    v10 = [v8 localizedNameWithPreferredLocalizations:isa];
 
     sub_87EC();
     sub_846C();
@@ -486,46 +463,44 @@ uint64_t sub_347C@<X0>(uint64_t a1@<X8>)
 
   result = sub_85FC();
   *a1 = result;
-  *(a1 + 8) = v13;
-  *(a1 + 16) = v14 & 1;
-  *(a1 + 24) = v15;
+  *(a1 + 8) = v12;
+  *(a1 + 16) = v13 & 1;
+  *(a1 + 24) = v14;
   return result;
 }
 
-uint64_t sub_35E8()
+uint64_t sub_35E8(uint64_t a1)
 {
   sub_877C();
-  v0 = objc_allocWithZone(ISIcon);
-  v1 = sub_87DC();
+  v1 = objc_allocWithZone(ISIcon);
+  v2 = sub_87DC();
 
-  [v0 initWithBundleIdentifier:v1];
+  [v1 initWithBundleIdentifier:v2];
 
-  v2 = [objc_opt_self() imageDescriptorNamed:kISImageDescriptorTableUIName];
+  v3 = [objc_opt_self() imageDescriptorNamed:kISImageDescriptorTableUIName];
   return sub_84FC();
 }
 
-void sub_36A4(uint64_t *a1@<X8>)
+void sub_36A4(void *a2@<X8>)
 {
-  v2 = sub_877C();
+  v3 = sub_877C();
 
-  sub_1DF0(v2, v3, a1);
+  sub_1DF0(v3, v4, a2);
 }
 
 uint64_t sub_36E8@<X0>(uint64_t a1@<X8>)
 {
-  v20[1] = a1;
+  v18[1] = a1;
   v2 = sub_5A3C(&qword_109F8, &qword_9908);
-  v21 = *(v2 - 8);
-  v22 = v2;
-  v3 = *(v21 + 64);
+  v19 = *(v2 - 8);
+  v20 = v2;
   __chkstk_darwin(v2);
-  v5 = v20 - v4;
-  v6 = sub_5A3C(&qword_10A00, &qword_9910);
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6);
-  v10 = v20 - v9;
-  v23 = v1;
+  v4 = v18 - v3;
+  v5 = sub_5A3C(&qword_10A00, &qword_9910);
+  v6 = *(v5 - 8);
+  __chkstk_darwin(v5);
+  v8 = v18 - v7;
+  v21 = v1;
   sub_5A3C(&qword_10A08, &qword_9918);
   sub_7A28();
   sub_85DC();
@@ -535,31 +510,30 @@ uint64_t sub_36E8@<X0>(uint64_t a1@<X8>)
     swift_once();
   }
 
-  v11 = qword_10B30;
-  v12 = sub_85EC();
+  v9 = qword_10B30;
+  v10 = sub_85EC();
+  v12 = v11;
   v14 = v13;
-  v16 = v15;
-  v17 = sub_7CEC(&qword_10A28, &qword_10A00, &qword_9910);
+  v15 = sub_7CEC(&qword_10A28, &qword_10A00, &qword_9910, &protocol conformance descriptor for List<A, B>);
   sub_864C();
-  sub_73A0(v12, v14, v16 & 1);
+  sub_73A0(v10, v12, v14 & 1);
 
-  (*(v7 + 8))(v10, v6);
-  v24 = v6;
-  v25 = v17;
+  (*(v6 + 8))(v8, v5);
+  v22 = v5;
+  v23 = v15;
   swift_getOpaqueTypeConformance2();
-  v18 = v22;
+  v16 = v20;
   sub_865C();
-  return (*(v21 + 8))(v5, v18);
+  return (*(v19 + 8))(v4, v16);
 }
 
-uint64_t sub_3A38()
+uint64_t sub_3A38(uint64_t a1)
 {
-  v0 = sub_859C();
-  v1 = *(*(v0 - 8) + 64);
-  __chkstk_darwin(v0 - 8);
+  v1 = sub_859C();
+  __chkstk_darwin(v1 - 8);
   sub_858C();
   sub_857C();
-  v2 = *(type metadata accessor for NFCTCCSettingsList(0) + 20);
+  type metadata accessor for NFCTCCSettingsList(0);
   sub_855C();
   sub_857C();
   sub_85BC();
@@ -568,158 +542,153 @@ uint64_t sub_3A38()
     swift_once();
   }
 
-  v3 = qword_10B30;
+  v2 = qword_10B30;
   sub_85EC();
   sub_5A3C(&qword_10A20, &qword_9920);
-  sub_7CEC(&qword_10A18, &qword_10A20, &qword_9920);
+  sub_7CEC(&qword_10A18, &qword_10A20, &qword_9920, &protocol conformance descriptor for TupleView<A>);
   return sub_870C();
 }
 
-uint64_t sub_3C2C@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_3C2C@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
 {
-  v73 = a2;
+  v68 = a2;
   v3 = type metadata accessor for NFCTCCSettingsList(0);
-  v71 = *(v3 - 1);
-  v4 = *(v71 + 64);
+  v66 = *(v3 - 1);
+  v4 = *(v66 + 64);
   __chkstk_darwin(v3);
-  v5 = &v62 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &v57 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = sub_5A3C(&qword_10A38, &qword_9928);
-  v74 = *(*(v6 - 8) + 64);
+  v69 = *(*(v6 - 8) + 64);
   __chkstk_darwin(v6 - 8);
-  v8 = &v62 - v7;
+  v8 = &v57 - v7;
   v9 = a1 + v3[9];
   v10 = *v9;
-  v11 = *(v9 + 8);
-  LOBYTE(v75) = v10;
-  v76 = v11;
+  v11 = *(v9 + 1);
+  LOBYTE(v70) = v10;
+  v71 = v11;
   sub_5A3C(&qword_10A40, &qword_9930);
   sub_869C();
-  v12 = v77;
+  v12 = v72;
   v13 = sub_5A3C(&qword_10A48, &qword_9938);
   v14 = v13;
   v15 = *(v13 - 8);
   v16 = v15;
-  v72 = v8;
-  v68 = v4;
-  v69 = v5;
+  v67 = v8;
+  v63 = v4;
+  v64 = v5;
   if (v12 == 1)
   {
-    v67 = &v62;
-    v17 = *(v15 + 64);
+    v62 = &v57;
     __chkstk_darwin(v13);
-    v64 = &v62 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v63 = sub_5A3C(&qword_10A58, &qword_9948);
-    v66 = &v62;
-    v65 = *(v63 - 8);
-    v19 = *(v65 + 8);
-    __chkstk_darwin(v63);
-    v21 = &v62 - v20;
-    v22 = a1 + v3[6];
-    v70 = a1;
-    v24 = *(v22 + 8);
-    v77 = *v22;
-    v23 = v77;
-    v78 = v24;
+    v59 = &v57 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v58 = sub_5A3C(&qword_10A58, &qword_9948);
+    v61 = &v57;
+    v60 = *(v58 - 8);
+    __chkstk_darwin(v58);
+    v19 = &v57 - v18;
+    v20 = a1 + v3[6];
+    v65 = a1;
+    v22 = *(v20 + 1);
+    LOBYTE(v72) = *v20;
+    v21 = v72;
+    v73 = v22;
     sub_86BC();
     sub_86DC();
-    LOBYTE(v75) = v23;
-    v76 = v24;
+    LOBYTE(v70) = v21;
+    v71 = v22;
     sub_869C();
-    LOBYTE(v75) = v77;
-    sub_7C08(v70, v5);
-    v25 = (*(v71 + 80) + 16) & ~*(v71 + 80);
-    v26 = swift_allocObject();
-    sub_7C70(v5, v26 + v25);
-    sub_7CEC(&unk_10A60, &qword_10A58, &qword_9948);
-    v28 = v63;
-    v27 = v64;
+    LOBYTE(v70) = v72;
+    sub_7C08(v65, v5);
+    v23 = (*(v66 + 80) + 16) & ~*(v66 + 80);
+    v24 = swift_allocObject();
+    sub_7C70(v5, v24 + v23);
+    sub_7CEC(&unk_10A60, &qword_10A58, &qword_9948, &protocol conformance descriptor for Toggle<A>);
+    v26 = v58;
+    v25 = v59;
     sub_866C();
-    a1 = v70;
+    a1 = v65;
 
-    v29 = v21;
-    v8 = v72;
-    (*(v65 + 1))(v29, v28);
-    (*(v16 + 32))(v8, v27, v14);
-    v30 = (*(v16 + 56))(v8, 0, 1, v14);
+    v27 = v19;
+    v8 = v67;
+    v60[1](v27, v26);
+    (*(v16 + 32))(v8, v25, v14);
+    v28 = (*(v16 + 56))(v8, 0, 1, v14);
   }
 
   else
   {
-    v30 = (*(v15 + 56))(v8, 1, 1, v13);
+    v28 = (*(v15 + 56))(v8, 1, 1, v13);
   }
 
-  __chkstk_darwin(v30);
-  v32 = &v62 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v33 = a1 + v3[10];
-  v34 = *v33;
-  v35 = *(v33 + 8);
-  LOBYTE(v75) = v34;
-  v76 = v35;
+  __chkstk_darwin(v28);
+  v30 = &v57 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v31 = a1 + v3[10];
+  v32 = *v31;
+  v33 = *(v31 + 1);
+  LOBYTE(v70) = v32;
+  v71 = v33;
   sub_869C();
-  v36 = v77;
-  v37 = sub_5A3C(&qword_10A48, &qword_9938);
-  v38 = v37;
-  v39 = *(v37 - 8);
-  v40 = v39;
-  if (v36 == 1)
+  v34 = v72;
+  v35 = sub_5A3C(&qword_10A48, &qword_9938);
+  v36 = v35;
+  v37 = *(v35 - 8);
+  if (v34 == 1)
   {
-    v70 = &v62;
-    v41 = *(v39 + 64);
-    __chkstk_darwin(v37);
-    v65 = &v62 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v64 = sub_5A3C(&qword_10A58, &qword_9948);
-    v67 = &v62;
-    v66 = *(v64 - 1);
-    v43 = v66[8];
-    __chkstk_darwin(v64);
-    v45 = &v62 - v44;
-    v46 = a1 + v3[7];
-    v48 = *(v46 + 8);
-    v77 = *v46;
-    v47 = v77;
-    v78 = v48;
+    v65 = &v57;
+    __chkstk_darwin(v35);
+    v60 = (&v57 - ((v38 + 15) & 0xFFFFFFFFFFFFFFF0));
+    v59 = sub_5A3C(&qword_10A58, &qword_9948);
+    v62 = &v57;
+    v61 = *(v59 - 1);
+    __chkstk_darwin(v59);
+    v40 = &v57 - v39;
+    v41 = a1 + v3[7];
+    v43 = *(v41 + 1);
+    LOBYTE(v72) = *v41;
+    v42 = v72;
+    v73 = v43;
     sub_86BC();
     sub_86DC();
-    LOBYTE(v75) = v47;
-    v76 = v48;
+    LOBYTE(v70) = v42;
+    v71 = v43;
     sub_869C();
-    LOBYTE(v75) = v77;
-    v49 = a1;
-    v50 = v69;
-    sub_7C08(v49, v69);
-    v51 = (*(v71 + 80) + 16) & ~*(v71 + 80);
-    v52 = swift_allocObject();
-    sub_7C70(v50, v52 + v51);
-    sub_7CEC(&unk_10A60, &qword_10A58, &qword_9948);
-    v54 = v64;
-    v53 = v65;
+    LOBYTE(v70) = v72;
+    v44 = a1;
+    v45 = v64;
+    sub_7C08(v44, v64);
+    v46 = (*(v66 + 80) + 16) & ~*(v66 + 80);
+    v47 = swift_allocObject();
+    sub_7C70(v45, v47 + v46);
+    sub_7CEC(&unk_10A60, &qword_10A58, &qword_9948, &protocol conformance descriptor for Toggle<A>);
+    v49 = v59;
+    v48 = v60;
     sub_866C();
 
-    (v66[1])(v45, v54);
-    v8 = v72;
-    (*(v40 + 32))(v32, v53, v38);
-    v55 = (*(v40 + 56))(v32, 0, 1, v38);
+    (v61[1])(v40, v49);
+    v8 = v67;
+    (*(v37 + 32))(v30, v48, v36);
+    v50 = (*(v37 + 56))(v30, 0, 1, v36);
   }
 
   else
   {
-    v55 = (*(v39 + 56))(v32, 1, 1, v37);
+    v50 = (*(*(v35 - 8) + 56))(v30, 1, 1, v35);
   }
 
-  v56 = v74;
-  __chkstk_darwin(v55);
-  v57 = &v62 - ((v56 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v58 = sub_7B30(v8, v57);
-  __chkstk_darwin(v58);
-  sub_7B30(v32, v57);
-  v59 = v73;
-  sub_7B30(v57, v73);
-  v60 = sub_5A3C(&qword_10A50, &qword_9940);
-  sub_7B30(v57, v59 + *(v60 + 48));
-  sub_7BA0(v32);
+  v51 = v69;
+  __chkstk_darwin(v50);
+  v52 = &v57 - ((v51 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v53 = sub_7B30(v8, v52);
+  __chkstk_darwin(v53);
+  sub_7B30(v30, v52);
+  v54 = v68;
+  sub_7B30(v52, v68);
+  v55 = sub_5A3C(&qword_10A50, &qword_9940);
+  sub_7B30(v52, v54 + *(v55 + 48));
+  sub_7BA0(v30);
   sub_7BA0(v8);
-  sub_7BA0(v57);
-  return sub_7BA0(v57);
+  sub_7BA0(v52);
+  return sub_7BA0(v52);
 }
 
 uint64_t sub_446C@<X0>(uint64_t a1@<X8>)
@@ -746,12 +715,20 @@ void sub_4554(uint64_t *a1)
   {
     v3 = *a1;
     v2 = a1[1];
-    v4 = a1 + *(type metadata accessor for NFCTCCSettingsList(0) + 24);
-    v5 = *v4;
-    v6 = *(v4 + 1);
+    type metadata accessor for NFCTCCSettingsList(0);
     sub_5A3C(&qword_10A40, &qword_9930);
     sub_869C();
-    sub_76B4(v3, v2, v1);
+    if (v5)
+    {
+      v4 = 2;
+    }
+
+    else
+    {
+      v4 = 0;
+    }
+
+    sub_76B4(v3, v2, v1, v4);
   }
 
   else
@@ -779,17 +756,15 @@ uint64_t sub_4600@<X0>(uint64_t a1@<X8>)
 
 void sub_46E8(uint64_t *a1)
 {
-  v2 = a1 + *(type metadata accessor for NFCTCCSettingsList(0) + 28);
-  v3 = *v2;
-  v4 = *(v2 + 1);
+  type metadata accessor for NFCTCCSettingsList(0);
   sub_5A3C(&qword_10A40, &qword_9930);
   sub_869C();
-  v5 = kTCCServiceContactlessAccessPayments;
-  if (v10 != 1)
+  v2 = kTCCServiceContactlessAccessPayments;
+  if (v7 != 1)
   {
     if (kTCCServiceContactlessAccessPayments)
     {
-      sub_76B4(*a1, a1[1], kTCCServiceContactlessAccessPayments);
+      sub_76B4(*a1, a1[1], kTCCServiceContactlessAccessPayments, 0);
 
       return;
     }
@@ -805,53 +780,49 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v8 = a1;
-  v6 = *a1;
-  v7 = v8[1];
+  v5 = a1;
+  v3 = *a1;
+  v4 = v5[1];
   sub_869C();
-  if (v10)
+  if (v7)
   {
-    v9 = 2;
+    v6 = 2;
   }
 
   else
   {
-    v9 = 0;
+    v6 = 0;
   }
 
-  sub_7F00(v6, v7, v5, v9);
+  sub_7F00(v3, v4, v2, v6);
 
   sub_86AC();
 }
 
-uint64_t sub_4814@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X8>)
+uint64_t sub_4814@<X0>(uint64_t a3@<X8>)
 {
-  v7 = *a1;
-  v8 = a1[1];
   sub_7AD4();
 
   result = sub_860C();
-  *a2 = result;
-  *(a2 + 8) = v4;
-  *(a2 + 16) = v5 & 1;
-  *(a2 + 24) = v6;
+  *a3 = result;
+  *(a3 + 8) = v5;
+  *(a3 + 16) = v6 & 1;
+  *(a3 + 24) = v7;
   return result;
 }
 
 uint64_t sub_48D0()
 {
   swift_getKeyPath();
-  sub_6CDC(&qword_10838, type metadata accessor for NFCTCCPrivacyAllAppsListModel);
+  sub_6CDC(&qword_10838, type metadata accessor for NFCTCCPrivacyAllAppsListModel, &unk_9624);
   sub_84AC();
-
-  v1 = *(v0 + 16);
 }
 
 uint64_t sub_4974@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v3 = *a1;
   swift_getKeyPath();
-  sub_6CDC(&qword_10838, type metadata accessor for NFCTCCPrivacyAllAppsListModel);
+  sub_6CDC(&qword_10838, type metadata accessor for NFCTCCPrivacyAllAppsListModel, &unk_9624);
   sub_84AC();
 
   *a2 = *(v3 + 16);
@@ -859,10 +830,8 @@ uint64_t sub_4974@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 
 uint64_t sub_4A20(uint64_t *a1, uint64_t *a2)
 {
-  v2 = *a1;
-  v3 = *a2;
   swift_getKeyPath();
-  sub_6CDC(&qword_10838, type metadata accessor for NFCTCCPrivacyAllAppsListModel);
+  sub_6CDC(&qword_10838, type metadata accessor for NFCTCCPrivacyAllAppsListModel, &unk_9624);
   sub_849C();
 }
 
@@ -870,7 +839,7 @@ uint64_t sub_4AEC@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 {
   v3 = *a1;
   swift_getKeyPath();
-  sub_6CDC(&qword_10838, type metadata accessor for NFCTCCPrivacyAllAppsListModel);
+  sub_6CDC(&qword_10838, type metadata accessor for NFCTCCPrivacyAllAppsListModel, &unk_9624);
   sub_84AC();
 
   *a2 = *(v3 + 24);
@@ -878,13 +847,11 @@ uint64_t sub_4AEC@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 
 uint64_t sub_4B98(uint64_t a1)
 {
-  v3 = *(v1 + 24);
 
-  v5 = sub_62BC(v4, a1);
+  v4 = sub_62BC(v3, a1);
 
-  if (v5)
+  if (v4)
   {
-    v6 = *(v1 + 24);
     *(v1 + 24) = a1;
   }
 
@@ -892,7 +859,7 @@ uint64_t sub_4B98(uint64_t a1)
   {
     KeyPath = swift_getKeyPath();
     __chkstk_darwin(KeyPath);
-    sub_6CDC(&qword_10838, type metadata accessor for NFCTCCPrivacyAllAppsListModel);
+    sub_6CDC(&qword_10838, type metadata accessor for NFCTCCPrivacyAllAppsListModel, &unk_9624);
     sub_849C();
   }
 }
@@ -904,50 +871,46 @@ uint64_t sub_4CEC()
   sub_84BC();
   swift_allocObject();
   swift_weakInit();
-  v1 = sub_87AC();
-  v2 = *(v1 + 48);
-  v3 = *(v1 + 52);
+  sub_87AC();
   swift_allocObject();
   sub_87BC();
   KeyPath = swift_getKeyPath();
   __chkstk_darwin(KeyPath);
-  sub_6CDC(&qword_10838, type metadata accessor for NFCTCCPrivacyAllAppsListModel);
+  sub_6CDC(&qword_10838, type metadata accessor for NFCTCCPrivacyAllAppsListModel, &unk_9624);
   sub_849C();
 
   swift_getKeyPath();
-  sub_6CDC(&qword_10838, type metadata accessor for NFCTCCPrivacyAllAppsListModel);
+  sub_6CDC(&qword_10838, type metadata accessor for NFCTCCPrivacyAllAppsListModel, &unk_9624);
   sub_84AC();
 
   if (*(v0 + 16))
   {
-    v5 = *(v0 + 16);
 
-    v6 = sub_875C();
+    v2 = sub_875C();
   }
 
   else
   {
-    v6 = &_swiftEmptyArrayStorage;
+    v2 = &_swiftEmptyArrayStorage;
   }
 
-  sub_4B98(v6);
+  sub_4B98(v2);
   return v0;
 }
 
-uint64_t sub_5084()
+uint64_t sub_5084(uint64_t a1)
 {
   swift_beginAccess();
   result = swift_weakLoadStrong();
   if (result)
   {
-    v1 = result;
+    v2 = result;
     swift_getKeyPath();
-    sub_6CDC(&qword_10838, type metadata accessor for NFCTCCPrivacyAllAppsListModel);
+    sub_6CDC(&qword_10838, type metadata accessor for NFCTCCPrivacyAllAppsListModel, &unk_9624);
     sub_84AC();
 
-    if (*(v1 + 16))
+    if (*(v2 + 16))
     {
-      v2 = *(v1 + 16);
 
       v3 = sub_875C();
     }
@@ -965,25 +928,21 @@ uint64_t sub_5084()
 
 uint64_t sub_5184()
 {
-  v1 = *(v0 + 2);
 
-  v2 = *(v0 + 3);
+  v1 = OBJC_IVAR____TtC14NFCTCCSettings29NFCTCCPrivacyAllAppsListModel___observationRegistrar;
+  v2 = sub_84CC();
+  (*(*(v2 - 8) + 8))(v0 + v1, v2);
+  v3 = *(*v0 + 48);
+  v4 = *(*v0 + 52);
 
-  v3 = OBJC_IVAR____TtC14NFCTCCSettings29NFCTCCPrivacyAllAppsListModel___observationRegistrar;
-  v4 = sub_84CC();
-  (*(*(v4 - 8) + 8))(&v0[v3], v4);
-  v5 = *(*v0 + 48);
-  v6 = *(*v0 + 52);
-
-  return _swift_deallocClassInstance(v0, v5, v6);
+  return _swift_deallocClassInstance(v0, v3, v4);
 }
 
-uint64_t sub_5258()
+uint64_t sub_5258(uint64_t a1)
 {
   result = sub_84CC();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v2 = *(result - 8) + 64;
     result = swift_updateClassMetadata2();
     if (!result)
     {
@@ -1027,7 +986,7 @@ void sub_5300(void *a1, void *a2, uint64_t a3, unint64_t a4)
       *(v13 + 14) = sub_5D14(a3, a4, &v21);
       *(v13 + 22) = 2112;
       type metadata accessor for CFError(0);
-      sub_6CDC(&qword_109E8, type metadata accessor for CFError);
+      sub_6CDC(&qword_109E8, type metadata accessor for CFError, &protocol conformance descriptor for CFErrorRef);
       swift_allocError();
       *v17 = v10;
       v18 = v10;
@@ -1049,11 +1008,10 @@ void sub_5300(void *a1, void *a2, uint64_t a3, unint64_t a4)
 
 void sub_558C(uint64_t a1, void *a2)
 {
-  v4 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
 
-  v5 = a2;
-  v4(a2);
+  v4 = a2;
+  v3(a2);
 }
 
 void sub_55F8(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1115,12 +1073,11 @@ void sub_55F8(uint64_t a1, uint64_t a2, uint64_t a3)
 
 uint64_t sub_5840(uint64_t a1, uint64_t a2, void *a3)
 {
-  v6 = *(a1 + 32);
-  v5 = *(a1 + 40);
+  v5 = *(a1 + 32);
 
   swift_unknownObjectRetain();
-  v7 = a3;
-  v6(a2, a3);
+  v6 = a3;
+  v5(a2, a3);
 
   return swift_unknownObjectRelease();
 }
@@ -1170,7 +1127,6 @@ uint64_t sub_5A3C(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -1190,7 +1146,7 @@ unint64_t sub_5A84()
   return result;
 }
 
-uint64_t sub_5AF8(uint64_t a1, uint64_t *a2)
+uint64_t sub_5AF8(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -1201,7 +1157,7 @@ uint64_t sub_5AF8(uint64_t a1, uint64_t *a2)
   return result;
 }
 
-uint64_t sub_5B30(unint64_t *a1)
+uint64_t sub_5B30(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -1219,7 +1175,6 @@ uint64_t sub_5B74(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -1258,7 +1213,7 @@ id sub_5C38(uint64_t a1, uint64_t a2, char a3)
   return v6;
 }
 
-uint64_t sub_5D14(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_5D14(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_5DE0(v11, 0, 0, 1, a1, a2);
@@ -1358,11 +1313,9 @@ LABEL_8:
 
 char *sub_5EEC(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_5F38(a1, a2);
+  v3 = sub_5F38(a1, a2);
   sub_6068(&off_C888);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_5F38(uint64_t a1, unint64_t a2)
@@ -1462,7 +1415,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -1476,15 +1428,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_61C8(result, v12, 1, v3);
+  result = sub_61C8(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -1499,15 +1451,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -1516,12 +1468,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -1633,73 +1585,71 @@ uint64_t sub_62BC(uint64_t a1, uint64_t a2)
 {
   v4 = sub_879C();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = (__chkstk_darwin)();
-  v9 = &v25 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v7);
-  v11 = &v25 - v10;
-  v12 = *(a1 + 16);
-  if (v12 != *(a2 + 16))
+  v6 = __chkstk_darwin(v4);
+  v8 = &v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v6);
+  v10 = &v24 - v9;
+  v11 = *(a1 + 16);
+  if (v11 != *(a2 + 16))
   {
-    v22 = 0;
-    return v22 & 1;
+    v21 = 0;
+    return v21 & 1;
   }
 
-  if (!v12 || a1 == a2)
+  if (!v11 || a1 == a2)
   {
-    v22 = 1;
-    return v22 & 1;
+    v21 = 1;
+    return v21 & 1;
   }
 
-  v13 = (*(v5 + 80) + 32) & ~*(v5 + 80);
-  v14 = a1 + v13;
-  v15 = a2 + v13;
-  v17 = *(v5 + 16);
-  v16 = v5 + 16;
-  v18 = (v16 - 8);
-  v25 = *(v16 + 56);
-  v26 = v17;
+  v12 = (*(v5 + 80) + 32) & ~*(v5 + 80);
+  v13 = a1 + v12;
+  v14 = a2 + v12;
+  v16 = *(v5 + 16);
+  v15 = v5 + 16;
+  v17 = (v15 - 8);
+  v24 = *(v15 + 56);
+  v25 = v16;
   while (1)
   {
-    v19 = v26;
-    result = (v26)(v11, v14, v4);
-    if (!v12)
+    v18 = v25;
+    result = (v25)(v10, v13, v4);
+    if (!v11)
     {
       break;
     }
 
-    v21 = v16;
-    v19(v9, v15, v4);
-    sub_6CDC(&qword_10840, &type metadata accessor for SESContactlessTCCContext.NFCTCCRow);
-    v22 = sub_87CC();
-    v23 = *v18;
-    (*v18)(v9, v4);
-    v23(v11, v4);
-    if (v22)
+    v20 = v15;
+    v18(v8, v14, v4);
+    sub_6CDC(&qword_10840, &type metadata accessor for SESContactlessTCCContext.NFCTCCRow, &protocol conformance descriptor for SESContactlessTCCContext.NFCTCCRow);
+    v21 = sub_87CC();
+    v22 = *v17;
+    (*v17)(v8, v4);
+    v22(v10, v4);
+    if (v21)
     {
-      v15 += v25;
-      v14 += v25;
-      v24 = v12-- == 1;
-      v16 = v21;
-      if (!v24)
+      v14 += v24;
+      v13 += v24;
+      v23 = v11-- == 1;
+      v15 = v20;
+      if (!v23)
       {
         continue;
       }
     }
 
-    return v22 & 1;
+    return v21 & 1;
   }
 
   __break(1u);
   return result;
 }
 
-uint64_t sub_64D0(uint64_t a1, unint64_t a2)
+uint64_t sub_64D0(uint64_t a1, unint64_t a2, uint64_t a3)
 {
-  v4 = sub_871C();
-  v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  __chkstk_darwin(v4);
+  v5 = sub_871C();
+  v6 = *(v5 - 8);
+  __chkstk_darwin(v5);
   v8 = &v31 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   result = tcc_message_options_create();
   if (!result)
@@ -1708,9 +1658,9 @@ uint64_t sub_64D0(uint64_t a1, unint64_t a2)
   }
 
   sub_6A78();
-  (*(v5 + 104))(v8, enum case for DispatchQoS.QoSClass.default(_:), v4);
+  (*(v6 + 104))(v8, enum case for DispatchQoS.QoSClass.default(_:), v5);
   v10 = sub_884C();
-  (*(v5 + 8))(v8, v4);
+  (*(v6 + 8))(v8, v5);
   v11 = tcc_server_create();
 
   if (!v11)
@@ -1856,9 +1806,7 @@ unint64_t sub_6A78()
 
 uint64_t sub_6AD4()
 {
-  v1 = *(v0 + 16);
 
-  v2 = *(v0 + 24);
   swift_unknownObjectRelease();
 
   return _swift_deallocObject(v0, 32, 7);
@@ -1881,15 +1829,17 @@ uint64_t sub_6B34(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_6B6C(uint64_t *a1)
+uint64_t sub_6B6C(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_6BB8(uint64_t a1, uint64_t a2)
@@ -1902,14 +1852,11 @@ uint64_t sub_6BB8(uint64_t a1, uint64_t a2)
 
 uint64_t *sub_6C18(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -1922,7 +1869,7 @@ uint64_t sub_6C7C()
   return _swift_deallocObject(v0, 24, 7);
 }
 
-uint64_t sub_6CDC(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t sub_6CDC(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1935,26 +1882,14 @@ uint64_t sub_6CDC(unint64_t *a1, void (*a2)(uint64_t))
   return result;
 }
 
-uint64_t sub_6D28(uint64_t *a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-
-  return sub_4B98(v4);
-}
-
 uint64_t sub_6D54()
 {
-  v1 = *(v0 + 16);
-  v2 = *(v1 + 24);
-  *(v1 + 24) = *(v0 + 24);
+  *(*(v0 + 16) + 24) = *(v0 + 24);
 }
 
 uint64_t sub_6D90()
 {
-  v1 = *(v0 + 16);
-  v2 = *(v1 + 16);
-  *(v1 + 16) = *(v0 + 24);
+  *(*(v0 + 16) + 16) = *(v0 + 24);
 }
 
 uint64_t sub_6DE0(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -2000,13 +1935,13 @@ uint64_t sub_6EA0(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-void sub_6F44()
+void sub_6F44(uint64_t a1)
 {
   sub_847C();
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
     sub_6FE4();
-    if (v1 <= 0x3F)
+    if (v2 <= 0x3F)
     {
       swift_cvw_initStructMetadataWithLayoutString();
     }
@@ -2089,13 +2024,6 @@ LABEL_8:
   return result;
 }
 
-uint64_t sub_7154()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return sub_246C();
-}
-
 unint64_t sub_715C()
 {
   result = qword_10920;
@@ -2144,8 +2072,8 @@ unint64_t sub_72E0()
   if (!qword_10948)
   {
     sub_5B74(&qword_10950, &qword_9878);
-    sub_7CEC(&qword_10958, &qword_10960, &qword_9880);
-    sub_7CEC(&qword_10968, &qword_10970, &qword_9888);
+    sub_7CEC(&qword_10958, &qword_10960, &qword_9880, &protocol conformance descriptor for Toggle<A>);
+    sub_7CEC(&qword_10968, &qword_10970, &qword_9888, &protocol conformance descriptor for NavigationLink<A, B>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10948);
   }
@@ -2164,18 +2092,11 @@ uint64_t sub_73A0(uint64_t a1, uint64_t a2, char a3)
   }
 }
 
-uint64_t sub_73B0()
-{
-  v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
-  return sub_25B0();
-}
-
-uint64_t sub_73B8@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_73B8@<X0>(uint64_t *a2@<X8>)
 {
   result = sub_877C();
-  *a1 = result;
-  a1[1] = v3;
+  *a2 = result;
+  a2[1] = v4;
   return result;
 }
 
@@ -2192,21 +2113,13 @@ unint64_t sub_73E4()
   return result;
 }
 
-uint64_t sub_7448()
-{
-  v1 = v0[2];
-  v2 = v0[3];
-  v3 = v0[4];
-  return sub_3210();
-}
-
 unint64_t sub_7454()
 {
   result = qword_109B8;
   if (!qword_109B8)
   {
     sub_5B74(&qword_109B0, &qword_98E0);
-    sub_7CEC(&qword_109C0, &qword_109C8, &qword_98E8);
+    sub_7CEC(&qword_109C0, &qword_109C8, &qword_98E8, &protocol conformance descriptor for Label<A, B>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_109B8);
   }
@@ -2230,35 +2143,46 @@ uint64_t sub_7564(uint64_t a1)
 
 uint64_t sub_75D0@<X0>(BOOL *a1@<X8>)
 {
-  v3 = v1[6];
-  result = sub_64D0(v1[4], v1[5]);
+  result = sub_64D0(*(v1 + 32), *(v1 + 40), *(v1 + 48));
   *a1 = result == 2;
   return result;
 }
 
 uint64_t sub_7608()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 40);
 
   return _swift_deallocObject(v0, 56, 7);
 }
 
-uint64_t sub_76B4(uint64_t a1, uint64_t a2, void *a3)
+uint64_t sub_7650(_BYTE *a1)
 {
-  v6 = sub_871C();
-  v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  __chkstk_darwin(v6);
+  if (*a1)
+  {
+    v2 = 2;
+  }
+
+  else
+  {
+    v2 = 0;
+  }
+
+  return sub_76B4(*(v1 + 32), *(v1 + 40), *(v1 + 48), v2);
+}
+
+uint64_t sub_76B4(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
+{
+  v7 = sub_871C();
+  v8 = *(v7 - 8);
+  __chkstk_darwin(v7);
   v10 = aBlock - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   result = tcc_message_options_create();
   if (result)
   {
     sub_6A78();
-    (*(v7 + 104))(v10, enum case for DispatchQoS.QoSClass.default(_:), v6);
+    (*(v8 + 104))(v10, enum case for DispatchQoS.QoSClass.default(_:), v7);
     v12 = sub_884C();
-    (*(v7 + 8))(v10, v6);
+    (*(v8 + 8))(v10, v7);
     v13 = tcc_server_create();
 
     if (v13)
@@ -2305,16 +2229,8 @@ uint64_t sub_76B4(uint64_t a1, uint64_t a2, void *a3)
 
 uint64_t sub_7950()
 {
-  v1 = *(v0 + 32);
 
   return _swift_deallocObject(v0, 40, 7);
-}
-
-uint64_t sub_799C@<X0>(uint64_t a1@<X8>)
-{
-  v2 = *(v1 + 16);
-  v3 = *(v1 + 24);
-  return sub_32D4(a1);
 }
 
 unint64_t sub_7A28()
@@ -2323,7 +2239,7 @@ unint64_t sub_7A28()
   if (!qword_10A10)
   {
     sub_5B74(&qword_10A08, &qword_9918);
-    sub_7CEC(&qword_10A18, &qword_10A20, &qword_9920);
+    sub_7CEC(&qword_10A18, &qword_10A20, &qword_9920, &protocol conformance descriptor for TupleView<A>);
     result = swift_getWitnessTable();
     atomic_store(result, &qword_10A10);
   }
@@ -2371,7 +2287,7 @@ uint64_t sub_7C70(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_7CEC(unint64_t *a1, uint64_t *a2, uint64_t *a3)
+uint64_t sub_7CEC(unint64_t *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   result = *a1;
   if (!result)
@@ -2390,20 +2306,10 @@ uint64_t sub_7D34()
   v2 = *(*v1 + 80);
   v3 = (v2 + 16) & ~v2;
   v4 = *(*v1 + 64);
-  v5 = *(v0 + v3 + 8);
 
-  v6 = v1[7];
-  v7 = sub_847C();
-  (*(*(v7 - 8) + 8))(v0 + v3 + v6, v7);
-  v8 = *(v0 + v3 + v1[8] + 8);
-
-  v9 = *(v0 + v3 + v1[9] + 8);
-
-  v10 = *(v0 + v3 + v1[10] + 8);
-
-  v11 = *(v0 + v3 + v1[11] + 8);
-
-  v12 = *(v0 + v3 + v1[12] + 8);
+  v5 = v1[7];
+  v6 = sub_847C();
+  (*(*(v6 - 8) + 8))(v0 + v3 + v5, v6);
 
   return _swift_deallocObject(v0, v3 + v4, v2 | 7);
 }
@@ -2420,38 +2326,37 @@ uint64_t sub_7F00(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v6 = sub_871C();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   __chkstk_darwin(v6);
-  v10 = v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = swift_allocObject();
-  *(v11 + 16) = 1;
+  v9 = v17 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = swift_allocObject();
+  *(v10 + 16) = 1;
   if (tcc_message_options_create())
   {
-    v18[0] = a4;
-    v18[1] = a1;
+    v17[0] = a4;
+    v17[1] = a1;
     sub_6A78();
-    (*(v7 + 104))(v10, enum case for DispatchQoS.QoSClass.default(_:), v6);
-    v12 = sub_884C();
-    (*(v7 + 8))(v10, v6);
-    v13 = tcc_server_create();
+    (*(v7 + 104))(v9, enum case for DispatchQoS.QoSClass.default(_:), v6);
+    v11 = sub_884C();
+    (*(v7 + 8))(v9, v6);
+    v12 = tcc_server_create();
 
-    if (v13)
+    if (v12)
     {
       if (tcc_service_singleton_for_CF_name())
       {
         sub_87FC();
-        v14 = tcc_identity_create();
+        v13 = tcc_identity_create();
 
-        if (v14)
+        if (v13)
         {
           tcc_message_options_set_reply_handler_policy();
           aBlock[4] = sub_81F0;
-          aBlock[5] = v11;
+          aBlock[5] = v10;
           aBlock[0] = _NSConcreteStackBlock;
           aBlock[1] = 1107296256;
           aBlock[2] = sub_5840;
           aBlock[3] = &unk_CB88;
-          v15 = _Block_copy(aBlock);
+          v14 = _Block_copy(aBlock);
           swift_unknownObjectRetain();
 
           tcc_server_message_prompt_authorization_value();
@@ -2459,7 +2364,7 @@ uint64_t sub_7F00(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
           swift_unknownObjectRelease();
           swift_unknownObjectRelease();
           swift_unknownObjectRelease();
-          _Block_release(v15);
+          _Block_release(v14);
           swift_unknownObjectRelease();
           swift_beginAccess();
           goto LABEL_11;
@@ -2475,9 +2380,9 @@ uint64_t sub_7F00(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
   }
 
 LABEL_11:
-  v16 = *(v11 + 16);
+  v15 = *(v10 + 16);
 
-  return v16;
+  return v15;
 }
 
 uint64_t sub_81F8()
@@ -2486,9 +2391,9 @@ uint64_t sub_81F8()
   sub_5B74(&qword_10910, &qword_9858);
   sub_879C();
   type metadata accessor for NFCTCCSettingsList(255);
-  sub_7CEC(&qword_10978, &qword_10910, &qword_9858);
-  sub_6CDC(&qword_10980, &type metadata accessor for SESContactlessTCCContext.NFCTCCRow);
-  sub_6CDC(&qword_10790, type metadata accessor for NFCTCCSettingsList);
+  sub_7CEC(&qword_10978, &qword_10910, &qword_9858, &protocol conformance descriptor for List<A, B>);
+  sub_6CDC(&qword_10980, &type metadata accessor for SESContactlessTCCContext.NFCTCCRow, &protocol conformance descriptor for SESContactlessTCCContext.NFCTCCRow);
+  sub_6CDC(&qword_10790, type metadata accessor for NFCTCCSettingsList, &unk_97B0);
   swift_getOpaqueTypeConformance2();
   return swift_getOpaqueTypeConformance2();
 }
@@ -2497,7 +2402,7 @@ uint64_t sub_8340()
 {
   sub_5B74(&qword_109F8, &qword_9908);
   sub_5B74(&qword_10A00, &qword_9910);
-  sub_7CEC(&qword_10A28, &qword_10A00, &qword_9910);
+  sub_7CEC(&qword_10A28, &qword_10A00, &qword_9910, &protocol conformance descriptor for List<A, B>);
   swift_getOpaqueTypeConformance2();
   return swift_getOpaqueTypeConformance2();
 }

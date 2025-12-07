@@ -22,19 +22,19 @@
 
 uint64_t __31__SFPowerSourceMonitor__update__block_invoke_4(uint64_t a1)
 {
-  v2 = **(*(a1 + 32) + 8);
-  if (v2 <= 10)
+  v2 = *(*(a1 + 32) + 8);
+  if (*v2 <= 10)
   {
-    if (v2 != -1)
+    if (*v2 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(v2, "[SFPowerSourceMonitor _update]_block_invoke_4", 10, "Power notification: AnyPowerSource\n");
       goto LABEL_5;
     }
 
     if (_LogCategory_Initialize())
     {
-      v5 = *(*(a1 + 32) + 8);
+      v2 = *(*(a1 + 32) + 8);
       goto LABEL_3;
     }
   }
@@ -50,10 +50,10 @@ LABEL_5:
 {
   if (self->_skipCoalescing)
   {
-    var0 = self->_ucat->var0;
-    if (var0 <= 10)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 10)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -63,7 +63,7 @@ LABEL_5:
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[SFPowerSourceMonitor _triggerUpdatePowerSources]", 10, "Coalescing skipped\n");
     }
 
 LABEL_14:
@@ -82,22 +82,22 @@ LABEL_14:
     [(CUCoalescer *)self->_updateCoalescer setMaxDelay:0.05];
     [(CUCoalescer *)self->_updateCoalescer setMinDelay:0.03];
     objc_initWeak(&location, self);
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __50__SFPowerSourceMonitor__triggerUpdatePowerSources__block_invoke;
-    v11[3] = &unk_1E788B4D0;
-    objc_copyWeak(&v12, &location);
-    [(CUCoalescer *)self->_updateCoalescer setActionHandler:v11];
-    objc_destroyWeak(&v12);
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = __50__SFPowerSourceMonitor__triggerUpdatePowerSources__block_invoke;
+    v9[3] = &unk_1E788B4D0;
+    objc_copyWeak(&v10, &location);
+    [(CUCoalescer *)self->_updateCoalescer setActionHandler:v9];
+    objc_destroyWeak(&v10);
     objc_destroyWeak(&location);
   }
 
   location = 0;
-  v9 = 0;
+  v7 = 0;
   cf = 0;
-  if ([(SFPowerSourceMonitor *)self powerSourcesListWithOutInfo:&location outSources:&cf outSourcesCount:&v9])
+  if ([(SFPowerSourceMonitor *)self powerSourcesListWithOutInfo:&location outSources:&cf outSourcesCount:&v7])
   {
-    if (v9 == self->_previousSourcesCount)
+    if (v7 == self->_previousSourcesCount)
     {
       [(SFPowerSourceMonitor *)self _updatePowerSourcesWithInfo:location sources:cf sourcesCount:?];
 LABEL_19:
@@ -115,20 +115,20 @@ LABEL_19:
       return;
     }
 
-    v6 = self->_ucat->var0;
-    if (v6 <= 10)
+    v6 = self->_ucat;
+    if (v6->var0 <= 10)
     {
-      if (v6 == -1)
+      if (v6->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
           goto LABEL_18;
         }
 
-        v8 = self->_ucat;
+        v6 = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(v6, "[SFPowerSourceMonitor _triggerUpdatePowerSources]", 10, "queue up update power sources");
     }
 
 LABEL_18:
@@ -139,26 +139,39 @@ LABEL_18:
 
 - (SFPowerSourceMonitor)init
 {
-  v8.receiver = self;
-  v8.super_class = SFPowerSourceMonitor;
-  v2 = [(SFPowerSourceMonitor *)&v8 init];
+  v11.receiver = self;
+  v11.super_class = SFPowerSourceMonitor;
+  v2 = [(SFPowerSourceMonitor *)&v11 init];
+  v3 = v2;
   if (v2)
   {
-    ASPrintF();
-    v2->_ucat = LogCategoryCreateEx();
-    v2->_changeFlags = 5;
-    v3 = SFMainQueue(0);
-    dispatchQueue = v2->_dispatchQueue;
-    v2->_dispatchQueue = v3;
+    v10 = 0;
+    v9 = 0;
+    ASPrintF(&v9, "SFPowerSourceMonitor-%{ptr}", v2);
+    v3->_ucat = LogCategoryCreateEx();
+    if (v10)
+    {
+      v3->_ucat = LogCategoryCreateEx();
+    }
 
-    *&v2->_psNotifyTokenAccessoryAttach = -1;
-    *&v2->_psNotifyTokenAccessoryTimeRemaining = -1;
-    v5 = objc_opt_new();
-    powerSources = v2->_powerSources;
-    v2->_powerSources = v5;
+    if (v9)
+    {
+      free(v9);
+    }
+
+    v3->_changeFlags = 5;
+    v4 = SFMainQueue();
+    dispatchQueue = v3->_dispatchQueue;
+    v3->_dispatchQueue = v4;
+
+    *&v3->_psNotifyTokenAccessoryAttach = -1;
+    *&v3->_psNotifyTokenAccessoryTimeRemaining = -1;
+    v6 = objc_opt_new();
+    powerSources = v3->_powerSources;
+    v3->_powerSources = v6;
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)dealloc
@@ -254,14 +267,14 @@ LABEL_18:
   objc_sync_exit(selfCopy);
 }
 
-uint64_t __39__SFPowerSourceMonitor_setChangeFlags___block_invoke(uint64_t result)
+void *__39__SFPowerSourceMonitor_setChangeFlags___block_invoke(void *result)
 {
-  v1 = *(result + 40);
-  v2 = *(result + 32);
+  v1 = *(result + 10);
+  v2 = *(result + 4);
   if (v1 != *(v2 + 76))
   {
     *(v2 + 76) = v1;
-    return [*(result + 32) _update];
+    return [*(result + 4) _update];
   }
 
   return result;
@@ -289,13 +302,13 @@ uint64_t __39__SFPowerSourceMonitor_setChangeFlags___block_invoke(uint64_t resul
 uint64_t __47__SFPowerSourceMonitor_activateWithCompletion___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v3 = *v2[1];
-  if (v3 <= 30)
+  v3 = v2[1];
+  if (*v3 <= 30)
   {
-    if (v3 != -1)
+    if (*v3 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(v3, "[SFPowerSourceMonitor activateWithCompletion:]_block_invoke", 30, "Activate\n");
       v2 = *(a1 + 32);
       goto LABEL_5;
     }
@@ -304,7 +317,7 @@ LABEL_3:
     v2 = *(a1 + 32);
     if (v4)
     {
-      v8 = v2[1];
+      v3 = v2[1];
       goto LABEL_3;
     }
   }
@@ -336,32 +349,31 @@ LABEL_5:
 uint64_t __34__SFPowerSourceMonitor_invalidate__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v3 = **(v2 + 8);
-  if (v3 <= 30)
+  v3 = v2[1];
+  if (*v3 <= 30)
   {
-    if (v3 != -1)
+    if (*v3 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(v3, "[SFPowerSourceMonitor invalidate]_block_invoke", 30, "Invalidate\n");
       v2 = *(a1 + 32);
       goto LABEL_5;
     }
 
-    v4 = *(v2 + 8);
-    v5 = _LogCategory_Initialize();
+    v4 = _LogCategory_Initialize();
     v2 = *(a1 + 32);
-    if (v5)
+    if (v4)
     {
-      v8 = *(v2 + 8);
+      v3 = v2[1];
       goto LABEL_3;
     }
   }
 
 LABEL_5:
-  v6 = *(v2 + 88);
-  if (v6)
+  v5 = v2[11];
+  if (v5)
   {
-    (*(v6 + 16))(*(v2 + 88));
+    (*(v5 + 16))(v2[11]);
     v2 = *(a1 + 32);
   }
 
@@ -417,19 +429,19 @@ LABEL_5:
 
 uint64_t __31__SFPowerSourceMonitor__update__block_invoke(uint64_t a1)
 {
-  v2 = **(*(a1 + 32) + 8);
-  if (v2 <= 10)
+  v2 = *(*(a1 + 32) + 8);
+  if (*v2 <= 10)
   {
-    if (v2 != -1)
+    if (*v2 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(v2, "[SFPowerSourceMonitor _update]_block_invoke", 10, "Power notification: AccessoryAttach\n");
       goto LABEL_5;
     }
 
     if (_LogCategory_Initialize())
     {
-      v5 = *(*(a1 + 32) + 8);
+      v2 = *(*(a1 + 32) + 8);
       goto LABEL_3;
     }
   }
@@ -443,19 +455,19 @@ LABEL_5:
 
 uint64_t __31__SFPowerSourceMonitor__update__block_invoke_2(uint64_t a1)
 {
-  v2 = **(*(a1 + 32) + 8);
-  if (v2 <= 10)
+  v2 = *(*(a1 + 32) + 8);
+  if (*v2 <= 10)
   {
-    if (v2 != -1)
+    if (*v2 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(v2, "[SFPowerSourceMonitor _update]_block_invoke_2", 10, "Power notification: AccessoryPowerSource\n");
       goto LABEL_5;
     }
 
     if (_LogCategory_Initialize())
     {
-      v5 = *(*(a1 + 32) + 8);
+      v2 = *(*(a1 + 32) + 8);
       goto LABEL_3;
     }
   }
@@ -469,19 +481,19 @@ LABEL_5:
 
 uint64_t __31__SFPowerSourceMonitor__update__block_invoke_3(uint64_t a1)
 {
-  v2 = **(*(a1 + 32) + 8);
-  if (v2 <= 10)
+  v2 = *(*(a1 + 32) + 8);
+  if (*v2 <= 10)
   {
-    if (v2 != -1)
+    if (*v2 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(v2, "[SFPowerSourceMonitor _update]_block_invoke_3", 10, "Power notification: AccessoryTimeRemaining\n");
       goto LABEL_5;
     }
 
     if (_LogCategory_Initialize())
     {
-      v5 = *(*(a1 + 32) + 8);
+      v2 = *(*(a1 + 32) + 8);
       goto LABEL_3;
     }
   }
@@ -497,33 +509,32 @@ LABEL_5:
 {
   cf = 0;
   v9 = IOPSCopyPowerSourcesByTypePrecise();
-  if (v9)
+  if (!v9)
   {
-    v10 = v9;
-    var0 = self->_ucat->var0;
-    if (var0 <= 90)
-    {
-      if (var0 == -1)
-      {
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_7;
-        }
-
-        ucat = self->_ucat;
-      }
-
-      v21 = v10;
-      LogPrintF();
-    }
-
-LABEL_7:
-    v12 = IOPSCopyPowerSourcesByType();
-    cf = v12;
+    v12 = 0;
     goto LABEL_8;
   }
 
-  v12 = 0;
+  v10 = v9;
+  ucat = self->_ucat;
+  if (ucat->var0 <= 90)
+  {
+    if (ucat->var0 == -1)
+    {
+      if (!_LogCategory_Initialize())
+      {
+        goto LABEL_7;
+      }
+
+      ucat = self->_ucat;
+    }
+
+    LogPrintF(ucat, "[SFPowerSourceMonitor powerSourcesListWithOutInfo:outSources:outSourcesCount:]", 90, "### IOPSCopyPowerSourcesByTypePrecise unsuccessfull, error: %d, falling abck to imprecise battery level\n", v10);
+  }
+
+LABEL_7:
+  v12 = IOPSCopyPowerSourcesByType();
+  cf = v12;
 LABEL_8:
   if (v12)
   {
@@ -538,33 +549,38 @@ LABEL_11:
       v15 = 1;
       goto LABEL_12;
     }
+
+    NSErrorWithOSStatusF(4294960587, "### IOPSCopyPowerSourcesList failed");
   }
 
-  v14 = NSErrorWithOSStatusF();
+  else
+  {
+    NSErrorWithOSStatusF(4294960587, "### IOPSCopyPowerSourcesByType failed");
+  }
+  v14 = ;
   if (!v14)
   {
     goto LABEL_11;
   }
 
-  v17 = self->_ucat->var0;
-  if (v17 <= 60)
+  v17 = self->_ucat;
+  if (v17->var0 <= 60)
   {
-    if (v17 == -1)
+    if (v17->var0 == -1)
     {
-      v18 = self->_ucat;
       if (!_LogCategory_Initialize())
       {
-        goto LABEL_18;
+        goto LABEL_20;
       }
 
-      v20 = self->_ucat;
+      v17 = self->_ucat;
     }
 
     localizedDescription = [v14 localizedDescription];
-    LogPrintF();
+    LogPrintF(v17, "[SFPowerSourceMonitor powerSourcesListWithOutInfo:outSources:outSourcesCount:]", 60, "%@", localizedDescription);
   }
 
-LABEL_18:
+LABEL_20:
   if (cf)
   {
     CFRelease(cf);
@@ -605,56 +621,52 @@ void __50__SFPowerSourceMonitor__triggerUpdatePowerSources__block_invoke(uint64_
 
 - (void)_updatePowerSourcesWithInfo:(void *)info sources:(__CFArray *)sources sourcesCount:(int64_t)count
 {
-  v86 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   powerSourcesUpdateIndex = self->_powerSourcesUpdateIndex + 1;
   self->_powerSourcesUpdateIndex = powerSourcesUpdateIndex;
-  var0 = self->_ucat->var0;
-  if (var0 > 10)
+  ucat = self->_ucat;
+  if (ucat->var0 > 10)
   {
     goto LABEL_5;
   }
 
-  if (var0 == -1)
+  if (ucat->var0 == -1)
   {
-    ucat = self->_ucat;
     if (!_LogCategory_Initialize())
     {
       goto LABEL_5;
     }
 
-    v57 = self->_ucat;
+    ucat = self->_ucat;
     powerSourcesUpdateIndex = self->_powerSourcesUpdateIndex;
   }
 
-  countCopy = count;
-  v62 = [(NSMutableDictionary *)self->_powerSources count];
-  v58 = powerSourcesUpdateIndex;
-  LogPrintF();
+  LogPrintF(ucat, "[SFPowerSourceMonitor _updatePowerSourcesWithInfo:sources:sourcesCount:]", 10, "#%u Updating with sourcesCount %d vs currently tracked powerSources count %d", powerSourcesUpdateIndex, count, [(NSMutableDictionary *)self->_powerSources count]);
 LABEL_5:
   self->_previousSourcesCount = count;
   powerSources = self->_powerSources;
-  v82[0] = MEMORY[0x1E69E9820];
-  v82[1] = 3221225472;
-  v82[2] = __73__SFPowerSourceMonitor__updatePowerSourcesWithInfo_sources_sourcesCount___block_invoke;
-  v82[3] = &unk_1E788D998;
+  v65[0] = MEMORY[0x1E69E9820];
+  v65[1] = 3221225472;
+  v65[2] = __73__SFPowerSourceMonitor__updatePowerSourcesWithInfo_sources_sourcesCount___block_invoke;
+  v65[3] = &unk_1E788D998;
   selfCopy = self;
-  v82[4] = self;
-  [(NSMutableDictionary *)powerSources enumerateKeysAndObjectsUsingBlock:v82, v58, countCopy, v62];
-  v66 = IOPSCopyExternalPowerAdapterDetails();
+  v65[4] = self;
+  [(NSMutableDictionary *)powerSources enumerateKeysAndObjectsUsingBlock:v65];
+  v49 = IOPSCopyExternalPowerAdapterDetails();
   if (count >= 1)
   {
-    v13 = 0;
+    v12 = 0;
     while (1)
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(sources, v13);
-      v15 = IOPSGetPowerSourceDescription(info, ValueAtIndex);
-      v16 = self->_ucat->var0;
-      if (v16 > 10)
+      ValueAtIndex = CFArrayGetValueAtIndex(sources, v12);
+      v14 = IOPSGetPowerSourceDescription(info, ValueAtIndex);
+      v15 = self->_ucat;
+      if (v15->var0 > 10)
       {
         goto LABEL_11;
       }
 
-      if (v16 != -1)
+      if (v15->var0 != -1)
       {
         goto LABEL_9;
       }
@@ -665,41 +677,39 @@ LABEL_5:
       }
 
 LABEL_11:
-      if (v15)
+      if (v14)
       {
-        v17 = [v15 objectForKeyedSubscript:@"Power Source ID"];
-        if (v17)
+        v16 = [v14 objectForKeyedSubscript:@"Power Source ID"];
+        if (v16)
         {
-          v18 = [(NSMutableDictionary *)self->_powerSources objectForKeyedSubscript:v17];
-          if (v18)
+          v17 = [(NSMutableDictionary *)self->_powerSources objectForKeyedSubscript:v16];
+          if (v17)
           {
-            v19 = v18;
-            [(SFPowerSourceMonitor *)self _updatePowerSource:v18 desc:v15 adapterDesc:v66];
+            v18 = v17;
+            [(SFPowerSourceMonitor *)self _updatePowerSource:v17 desc:v14 adapterDesc:v49];
           }
 
           else
           {
-            [(SFPowerSourceMonitor *)self _foundPowerSource:v17 desc:v15 adapterDesc:v66];
+            [(SFPowerSourceMonitor *)self _foundPowerSource:v16 desc:v14 adapterDesc:v49];
           }
 
           goto LABEL_25;
         }
 
-        v21 = self->_ucat->var0;
-        if (v21 <= 60)
+        v20 = self->_ucat;
+        if (v20->var0 <= 60)
         {
-          if (v21 != -1)
+          if (v20->var0 != -1)
           {
             goto LABEL_20;
           }
 
           if (_LogCategory_Initialize())
           {
-            v24 = self->_ucat;
+            v20 = self->_ucat;
 LABEL_20:
-            v59 = self->_powerSourcesUpdateIndex;
-            v61 = v15;
-            LogPrintF();
+            LogPrintF(v20, "[SFPowerSourceMonitor _updatePowerSourcesWithInfo:sources:sourcesCount:]", 60, "#%u ### No sourceID for power source %##@\n", self->_powerSourcesUpdateIndex, v14);
           }
         }
 
@@ -708,286 +718,267 @@ LABEL_25:
         goto LABEL_26;
       }
 
-      v20 = self->_ucat->var0;
-      if (v20 <= 60)
+      v19 = self->_ucat;
+      if (v19->var0 <= 60)
       {
-        if (v20 == -1)
+        if (v19->var0 == -1)
         {
           if (!_LogCategory_Initialize())
           {
             goto LABEL_26;
           }
 
-          v22 = self->_ucat;
+          v19 = self->_ucat;
         }
 
-        v59 = self->_powerSourcesUpdateIndex;
-        v61 = v13;
-        LogPrintF();
+        LogPrintF(v19, "[SFPowerSourceMonitor _updatePowerSourcesWithInfo:sources:sourcesCount:]", 60, "#%u ### IOPSGetPowerSourceDescription %ld failed\n", self->_powerSourcesUpdateIndex, v12);
       }
 
 LABEL_26:
 
-      if (count == ++v13)
+      if (count == ++v12)
       {
         goto LABEL_30;
       }
     }
 
-    v23 = self->_ucat;
+    v15 = self->_ucat;
 LABEL_9:
-    v59 = self->_powerSourcesUpdateIndex;
-    v61 = v15;
-    LogPrintF();
+    LogPrintF(v15, "[SFPowerSourceMonitor _updatePowerSourcesWithInfo:sources:sourcesCount:]", 10, "#%u In powersource description %##@", self->_powerSourcesUpdateIndex, v14);
     goto LABEL_11;
   }
 
 LABEL_30:
-  v25 = objc_opt_new();
-  v78 = 0u;
-  v79 = 0u;
-  v80 = 0u;
-  v81 = 0u;
+  v21 = objc_opt_new();
+  v61 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   selfCopy2 = self;
   obj = [(NSMutableDictionary *)self->_powerSources allValues];
-  v71 = [obj countByEnumeratingWithState:&v78 objects:v85 count:16];
-  if (!v71)
+  v54 = [obj countByEnumeratingWithState:&v61 objects:v68 count:16];
+  if (!v54)
   {
     goto LABEL_82;
   }
 
-  v70 = *v79;
-  v68 = v25;
+  v53 = *v62;
+  v51 = v21;
   do
   {
-    v27 = 0;
+    v23 = 0;
     do
     {
-      if (*v79 != v70)
+      if (*v62 != v53)
       {
         objc_enumerationMutation(obj);
       }
 
-      v28 = *(*(&v78 + 1) + 8 * v27);
-      groupID = [v28 groupID];
+      v24 = *(*(&v61 + 1) + 8 * v23);
+      groupID = [v24 groupID];
       if ([groupID length])
       {
-        if ([v25 containsObject:groupID])
+        if ([v21 containsObject:groupID])
         {
-          v30 = selfCopy2->_ucat->var0;
-          if (v30 <= 10)
+          v26 = selfCopy2->_ucat;
+          if (v26->var0 <= 10)
           {
-            if (v30 == -1)
+            if (v26->var0 == -1)
             {
               if (!_LogCategory_Initialize())
               {
                 goto LABEL_75;
               }
 
-              v54 = selfCopy2->_ucat;
+              v26 = selfCopy2->_ucat;
             }
 
-            v59 = selfCopy2->_powerSourcesUpdateIndex;
-            v61 = v28;
-            LogPrintF();
+            LogPrintF(v26, "[SFPowerSourceMonitor _updatePowerSourcesWithInfo:sources:sourcesCount:]", 10, "#%u Skipping powersource as its group has already been processed %@", selfCopy2->_powerSourcesUpdateIndex, v24);
           }
 
 LABEL_75:
-          v37 = 0;
+          v33 = 0;
           goto LABEL_76;
         }
 
         allValues = [(NSMutableDictionary *)selfCopy2->_powerSources allValues];
-        v33 = [MEMORY[0x1E696AE18] predicateWithFormat:@"groupID == %@", groupID];
-        v31 = [allValues filteredArrayUsingPredicate:v33];
+        v29 = [MEMORY[0x1E696AE18] predicateWithFormat:@"groupID == %@", groupID];
+        v27 = [allValues filteredArrayUsingPredicate:v29];
 
-        [v25 addObject:groupID];
+        [v21 addObject:groupID];
       }
 
       else
       {
-        v84 = v28;
-        v31 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v84 count:1];
+        v67 = v24;
+        v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v67 count:1];
       }
 
-      v34 = selfCopy2->_ucat->var0;
-      if (v34 <= 10)
+      v30 = selfCopy2->_ucat;
+      if (v30->var0 <= 10)
       {
-        if (v34 != -1)
+        if (v30->var0 != -1)
         {
           goto LABEL_44;
         }
 
-        v36 = selfCopy2->_ucat;
         if (_LogCategory_Initialize())
         {
-          v52 = selfCopy2->_ucat;
+          v30 = selfCopy2->_ucat;
 LABEL_44:
-          v35 = selfCopy2->_powerSourcesUpdateIndex;
-          accessoryCategory = [v28 accessoryCategory];
-          v64 = [v31 count];
-          v59 = v35;
-          v61 = groupID;
-          LogPrintF();
+          v31 = selfCopy2->_powerSourcesUpdateIndex;
+          accessoryCategory = [v24 accessoryCategory];
+          LogPrintF(v30, "-[SFPowerSourceMonitor _updatePowerSourcesWithInfo:sources:sourcesCount:]", 10, "#%u Processing group with ID %@, type %@, %d entries", v31, groupID, accessoryCategory, [v27 count]);
         }
       }
 
-      v72 = groupID;
-      v73 = v27;
-      v76 = 0u;
-      v77 = 0u;
-      v74 = 0u;
-      v75 = 0u;
-      v37 = v31;
-      v38 = [v37 countByEnumeratingWithState:&v74 objects:v83 count:16];
-      if (v38)
+      v55 = groupID;
+      v56 = v23;
+      v59 = 0u;
+      v60 = 0u;
+      v57 = 0u;
+      v58 = 0u;
+      v33 = v27;
+      v34 = [v33 countByEnumeratingWithState:&v57 objects:v66 count:16];
+      if (v34)
       {
-        v39 = v38;
-        LODWORD(v40) = 0;
-        v41 = *v75;
-        v42 = 1;
-        v43 = 1;
+        v35 = v34;
+        LODWORD(v36) = 0;
+        v37 = *v58;
+        v38 = 1;
+        v39 = 1;
         do
         {
-          for (i = 0; i != v39; ++i)
+          for (i = 0; i != v35; ++i)
           {
-            if (*v75 != v41)
+            if (*v58 != v37)
             {
-              objc_enumerationMutation(v37);
+              objc_enumerationMutation(v33);
             }
 
-            v45 = *(*(&v74 + 1) + 8 * i);
-            v46 = [v45 present] ^ 1;
-            added = [v45 added];
-            v43 &= v46;
-            v42 &= added;
-            v48 = [v45 changes] | v40;
-            if ((v46 | added))
+            v41 = *(*(&v57 + 1) + 8 * i);
+            v42 = [v41 present] ^ 1;
+            added = [v41 added];
+            v39 &= v42;
+            v38 &= added;
+            v44 = [v41 changes] | v36;
+            if ((v42 | added))
             {
-              v40 = v48 | 0x200;
+              v36 = v44 | 0x200;
             }
 
             else
             {
-              v40 = v48;
+              v36 = v44;
             }
           }
 
-          v39 = [v37 countByEnumeratingWithState:&v74 objects:v83 count:16];
+          v35 = [v33 countByEnumeratingWithState:&v57 objects:v66 count:16];
         }
 
-        while (v39);
+        while (v35);
       }
 
       else
       {
-        v40 = 0;
-        v42 = 1;
-        v43 = 1;
+        v36 = 0;
+        v38 = 1;
+        v39 = 1;
       }
 
       selfCopy2 = selfCopy;
-      v49 = selfCopy->_ucat->var0;
-      if (v49 > 10)
+      p_var0 = &selfCopy->_ucat->var0;
+      if (*p_var0 > 10)
       {
         goto LABEL_67;
       }
 
-      if (v49 != -1)
+      if (*p_var0 != -1)
       {
         goto LABEL_60;
       }
 
       if (_LogCategory_Initialize())
       {
-        v53 = selfCopy->_ucat;
+        p_var0 = &selfCopy->_ucat->var0;
 LABEL_60:
-        v50 = "no";
-        if (v43)
+        v46 = "no";
+        if (v39)
         {
-          v51 = "yes";
+          v47 = "yes";
         }
 
         else
         {
-          v51 = "no";
+          v47 = "no";
         }
 
-        if (v42)
+        if (v38)
         {
-          v50 = "yes";
+          v46 = "yes";
         }
 
-        v64 = v40;
-        v65 = &unk_1A998F040;
-        v61 = v51;
-        accessoryCategory = v50;
-        v59 = selfCopy->_powerSourcesUpdateIndex;
-        LogPrintF();
+        LogPrintF(p_var0, "[SFPowerSourceMonitor _updatePowerSourcesWithInfo:sources:sourcesCount:]", 10, "#%u Group changes; allLost:%s, allAdded:%s, changes:%#{flags}", selfCopy->_powerSourcesUpdateIndex, v47, v46, v36, &unk_1A998F040);
       }
 
 LABEL_67:
-      if (v43)
+      if (v39)
       {
-        [(SFPowerSourceMonitor *)selfCopy _handlePowerSourcesLost:v37];
+        [(SFPowerSourceMonitor *)selfCopy _handlePowerSourcesLost:v33];
       }
 
-      else if (v42)
+      else if (v38)
       {
-        [(SFPowerSourceMonitor *)selfCopy _handlePowerSourcesFound:v37];
+        [(SFPowerSourceMonitor *)selfCopy _handlePowerSourcesFound:v33];
       }
 
-      else if (v40)
+      else if (v36)
       {
-        [(SFPowerSourceMonitor *)selfCopy _handlePowerSourcesChanged:v37 changes:v40];
+        [(SFPowerSourceMonitor *)selfCopy _handlePowerSourcesChanged:v33 changes:v36];
       }
 
-      v25 = v68;
-      groupID = v72;
-      v27 = v73;
+      v21 = v51;
+      groupID = v55;
+      v23 = v56;
 LABEL_76:
 
-      ++v27;
+      ++v23;
     }
 
-    while (v27 != v71);
-    v55 = [obj countByEnumeratingWithState:&v78 objects:v85 count:16];
-    v71 = v55;
+    while (v23 != v54);
+    v48 = [obj countByEnumeratingWithState:&v61 objects:v68 count:16];
+    v54 = v48;
   }
 
-  while (v55);
+  while (v48);
 LABEL_82:
-
-  v56 = *MEMORY[0x1E69E9840];
 }
 
 void __73__SFPowerSourceMonitor__updatePowerSourcesWithInfo_sources_sourcesCount___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v11 = a2;
+  v8 = a2;
   v5 = a3;
   v6 = *(a1 + 32);
-  v7 = **(v6 + 8);
-  if (v7 <= 10)
+  v7 = *(v6 + 8);
+  if (*v7 <= 10)
   {
-    if (v7 != -1)
+    if (*v7 != -1)
     {
 LABEL_3:
-      v9 = *(v6 + 32);
-      v10 = v5;
-      LogPrintF();
+      LogPrintF(v7, "[SFPowerSourceMonitor _updatePowerSourcesWithInfo:sources:sourcesCount:]_block_invoke", 10, "#%u Tracked powersource %@", *(v6 + 32), v5);
       goto LABEL_5;
     }
 
     if (_LogCategory_Initialize())
     {
       v6 = *(a1 + 32);
-      v8 = *(v6 + 8);
+      v7 = *(v6 + 8);
       goto LABEL_3;
     }
   }
 
 LABEL_5:
-  [v5 setAdded:{0, v9, v10}];
+  [v5 setAdded:0];
   [v5 setPresent:0];
   [v5 setChanges:0];
 }
@@ -1051,13 +1042,13 @@ LABEL_12:
 
 LABEL_13:
   [(NSMutableDictionary *)self->_powerSources setObject:v10 forKeyedSubscript:sourceCopy];
-  var0 = self->_ucat->var0;
-  if (var0 > 10)
+  ucat = self->_ucat;
+  if (ucat->var0 > 10)
   {
     goto LABEL_17;
   }
 
-  if (var0 != -1)
+  if (ucat->var0 != -1)
   {
     goto LABEL_15;
   }
@@ -1066,8 +1057,7 @@ LABEL_13:
   {
     ucat = self->_ucat;
 LABEL_15:
-    powerSourcesUpdateIndex = self->_powerSourcesUpdateIndex;
-    LogPrintF();
+    LogPrintF(ucat, "[SFPowerSourceMonitor _foundPowerSource:desc:adapterDesc:]", 10, "#%u Found powersource %@", self->_powerSourcesUpdateIndex, v10);
   }
 
 LABEL_17:
@@ -1078,11 +1068,11 @@ LABEL_17:
   sourceCopy = source;
   adapterDescCopy = adapterDesc;
   v9 = [sourceCopy updateWithPowerSourceDescription:desc];
-  var0 = self->_ucat->var0;
-  if (var0 <= 10)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 10)
   {
     v11 = sourceCopy;
-    if (var0 == -1)
+    if (ucat->var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
@@ -1093,11 +1083,7 @@ LABEL_17:
       v11 = sourceCopy;
     }
 
-    v18 = v9;
-    v19 = &unk_1A998F040;
-    powerSourcesUpdateIndex = self->_powerSourcesUpdateIndex;
-    v17 = v11;
-    LogPrintF();
+    LogPrintF(ucat, "[SFPowerSourceMonitor _updatePowerSource:desc:adapterDesc:]", 10, "#%u Updated powersource %@ with changes %#{flags}", self->_powerSourcesUpdateIndex, v11, v9, &unk_1A998F040);
   }
 
 LABEL_5:
@@ -1112,21 +1098,20 @@ LABEL_5:
 - (void)_handlePowerSourcesFound:(id)found
 {
   foundCopy = found;
-  var0 = self->_ucat->var0;
-  v10 = foundCopy;
-  if (var0 <= 10)
+  ucat = self->_ucat;
+  v8 = foundCopy;
+  if (ucat->var0 <= 10)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_3:
-      powerSourcesUpdateIndex = self->_powerSourcesUpdateIndex;
-      LogPrintF();
-      foundCopy = v10;
+      LogPrintF(ucat, "[SFPowerSourceMonitor _handlePowerSourcesFound:]", 10, "#%u handle found: %##@", self->_powerSourcesUpdateIndex, foundCopy);
+      foundCopy = v8;
       goto LABEL_5;
     }
 
     v6 = _LogCategory_Initialize();
-    foundCopy = v10;
+    foundCopy = v8;
     if (v6)
     {
       ucat = self->_ucat;
@@ -1138,22 +1123,22 @@ LABEL_5:
   powerSourcesFoundHandler = self->_powerSourcesFoundHandler;
   if (powerSourcesFoundHandler)
   {
-    (powerSourcesFoundHandler)[2](powerSourcesFoundHandler, v10);
-    foundCopy = v10;
+    (powerSourcesFoundHandler)[2](powerSourcesFoundHandler, v8);
+    foundCopy = v8;
   }
 }
 
 - (void)_handlePowerSourcesChanged:(id)changed changes:(unsigned int)changes
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
-  var0 = self->_ucat->var0;
-  if (var0 > 10)
+  ucat = self->_ucat;
+  if (ucat->var0 > 10)
   {
     goto LABEL_5;
   }
 
-  if (var0 == -1)
+  if (ucat->var0 == -1)
   {
     if (!_LogCategory_Initialize())
     {
@@ -1163,58 +1148,54 @@ LABEL_5:
     ucat = self->_ucat;
   }
 
-  powerSourcesUpdateIndex = self->_powerSourcesUpdateIndex;
-  v23 = changedCopy;
-  LogPrintF();
+  LogPrintF(ucat, "[SFPowerSourceMonitor _handlePowerSourcesChanged:changes:]", 10, "#%u handle changed: %##@", self->_powerSourcesUpdateIndex, changedCopy);
 LABEL_5:
   v7 = [changedCopy mutableCopy];
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v8 = changedCopy;
-  v9 = [v8 countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (!v9)
   {
     goto LABEL_20;
   }
 
   v10 = v9;
-  v11 = *v27;
+  v11 = *v20;
   do
   {
     v12 = 0;
     do
     {
-      if (*v27 != v11)
+      if (*v20 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v26 + 1) + 8 * v12);
+      v13 = *(*(&v19 + 1) + 8 * v12);
       if (([v13 present] & 1) == 0)
       {
-        v14 = self->_ucat->var0;
-        if (v14 <= 10)
+        v14 = self->_ucat;
+        if (v14->var0 <= 10)
         {
-          if (v14 != -1)
+          if (v14->var0 != -1)
           {
             goto LABEL_13;
           }
 
           if (_LogCategory_Initialize())
           {
-            v16 = self->_ucat;
+            v14 = self->_ucat;
 LABEL_13:
-            v22 = self->_powerSourcesUpdateIndex;
-            v24 = v13;
-            LogPrintF();
+            LogPrintF(v14, "[SFPowerSourceMonitor _handlePowerSourcesChanged:changes:]", 10, "#%u removing changed: %@", self->_powerSourcesUpdateIndex, v13);
           }
         }
 
-        [v7 removeObject:{v13, v22, v24}];
-        v30 = v13;
-        v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
+        [v7 removeObject:v13];
+        v23 = v13;
+        v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
         [(SFPowerSourceMonitor *)self _removePowerSources:v15];
       }
 
@@ -1222,11 +1203,11 @@ LABEL_13:
     }
 
     while (v10 != v12);
-    v17 = [v8 countByEnumeratingWithState:&v26 objects:v31 count:16];
-    v10 = v17;
+    v16 = [v8 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v10 = v16;
   }
 
-  while (v17);
+  while (v16);
 LABEL_20:
 
   powerSourcesChangedHandler = self->_powerSourcesChangedHandler;
@@ -1234,29 +1215,25 @@ LABEL_20:
   {
     powerSourcesChangedHandler[2](powerSourcesChangedHandler, v7);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handlePowerSourcesLost:(id)lost
 {
   lostCopy = lost;
-  var0 = self->_ucat->var0;
-  v11 = lostCopy;
-  if (var0 <= 10)
+  ucat = self->_ucat;
+  v8 = lostCopy;
+  if (ucat->var0 <= 10)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_3:
-      powerSourcesUpdateIndex = self->_powerSourcesUpdateIndex;
-      v10 = lostCopy;
-      LogPrintF();
-      lostCopy = v11;
+      LogPrintF(ucat, "[SFPowerSourceMonitor _handlePowerSourcesLost:]", 10, "#%u handle lost: %##@", self->_powerSourcesUpdateIndex, lostCopy);
+      lostCopy = v8;
       goto LABEL_5;
     }
 
     v6 = _LogCategory_Initialize();
-    lostCopy = v11;
+    lostCopy = v8;
     if (v6)
     {
       ucat = self->_ucat;
@@ -1265,51 +1242,49 @@ LABEL_3:
   }
 
 LABEL_5:
-  [(SFPowerSourceMonitor *)self _removePowerSources:lostCopy, powerSourcesUpdateIndex, v10];
+  [(SFPowerSourceMonitor *)self _removePowerSources:lostCopy];
   powerSourcesLostHandler = self->_powerSourcesLostHandler;
   if (powerSourcesLostHandler)
   {
-    powerSourcesLostHandler[2](powerSourcesLostHandler, v11);
+    powerSourcesLostHandler[2](powerSourcesLostHandler, v8);
   }
 }
 
 - (void)_removePowerSources:(id)sources
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   sourcesCopy = sources;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v5 = [sourcesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [sourcesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(sourcesCopy);
         }
 
-        v9 = [(NSMutableDictionary *)self->_powerSources allKeysForObject:*(*(&v11 + 1) + 8 * v8)];
+        v9 = [(NSMutableDictionary *)self->_powerSources allKeysForObject:*(*(&v10 + 1) + 8 * v8)];
         [(NSMutableDictionary *)self->_powerSources removeObjectsForKeys:v9];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [sourcesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [sourcesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -33,19 +33,19 @@
 
 - (FCManagedResourceConfiguration)initWithResourceID:(id)d refreshRate:(int64_t)rate
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (!dCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "resourceID"];
+    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "resourceID"];
     *buf = 136315906;
-    v16 = "[FCManagedResourceConfiguration initWithResourceID:refreshRate:]";
-    v17 = 2080;
-    v18 = "FCManagedResourceConfiguration.m";
-    v19 = 1024;
-    v20 = 20;
-    v21 = 2114;
-    v22 = v12;
+    v15 = "[FCManagedResourceConfiguration initWithResourceID:refreshRate:]";
+    v16 = 2080;
+    v17 = "FCManagedResourceConfiguration.m";
+    v18 = 1024;
+    v19 = 20;
+    v20 = 2114;
+    v21 = v11;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if ((rate & 0x8000000000000000) == 0)
@@ -61,22 +61,22 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "refreshRate >= 0"];
+    v12 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "refreshRate >= 0"];
     *buf = 136315906;
-    v16 = "[FCManagedResourceConfiguration initWithResourceID:refreshRate:]";
-    v17 = 2080;
-    v18 = "FCManagedResourceConfiguration.m";
-    v19 = 1024;
-    v20 = 21;
-    v21 = 2114;
-    v22 = v13;
+    v15 = "[FCManagedResourceConfiguration initWithResourceID:refreshRate:]";
+    v16 = 2080;
+    v17 = "FCManagedResourceConfiguration.m";
+    v18 = 1024;
+    v19 = 21;
+    v20 = 2114;
+    v21 = v12;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v14.receiver = self;
-  v14.super_class = FCManagedResourceConfiguration;
-  v7 = [(FCManagedResourceConfiguration *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = FCManagedResourceConfiguration;
+  v7 = [(FCManagedResourceConfiguration *)&v13 init];
   if (v7)
   {
     v8 = [dCopy copy];
@@ -86,7 +86,6 @@ LABEL_6:
     v7->_refreshRate = rate;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

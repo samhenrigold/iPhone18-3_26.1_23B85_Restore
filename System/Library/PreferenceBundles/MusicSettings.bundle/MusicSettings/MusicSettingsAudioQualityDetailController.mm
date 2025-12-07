@@ -8,9 +8,47 @@
 - (void)shouldSelectHighQualityDownload:(id)download completion:(id)completion;
 - (void)shouldSelectLosslessCellular:(id)cellular completion:(id)completion;
 - (void)shouldSelectLosslessDownload:(id)download completion:(id)completion;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation MusicSettingsAudioQualityDetailController
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v26.receiver = self;
+  v26.super_class = MusicSettingsAudioQualityDetailController;
+  [(MusicSettingsAudioQualityDetailController *)&v26 viewDidAppear:appear];
+  v25 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Apps/com.apple.Music/com.apple.Music:AudioQualityLowData"];
+  v4 = [_NSLocalizedStringResource alloc];
+  v5 = +[NSLocale currentLocale];
+  v6 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v6 bundleURL];
+  v24 = [v4 initWithKey:@"APPS" table:@"MusicSettings" locale:v5 bundleURL:bundleURL];
+
+  v8 = [_NSLocalizedStringResource alloc];
+  v9 = +[NSLocale currentLocale];
+  v10 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL2 = [v10 bundleURL];
+  v12 = [v8 initWithKey:@"MUSIC" table:@"MusicSettings" locale:v9 bundleURL:bundleURL2];
+
+  v13 = [_NSLocalizedStringResource alloc];
+  v14 = +[NSLocale currentLocale];
+  v15 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL3 = [v15 bundleURL];
+  v17 = [v13 initWithKey:@"AUDIO_QUALITY" table:@"MusicSettings" locale:v14 bundleURL:bundleURL3];
+
+  v18 = [_NSLocalizedStringResource alloc];
+  v19 = +[NSLocale currentLocale];
+  v20 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL4 = [v20 bundleURL];
+  v22 = [v18 initWithKey:@"CELLULAR_STREAMING" table:@"MusicSettings" locale:v19 bundleURL:bundleURL4];
+
+  v27[0] = v24;
+  v27[1] = v12;
+  v27[2] = v17;
+  v23 = [NSArray arrayWithObjects:v27 count:3];
+  [(MusicSettingsAudioQualityDetailController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.Music" title:v22 localizedNavigationComponents:v23 deepLink:v25];
+}
 
 - (void)shouldSelectLosslessCellular:(id)cellular completion:(id)completion
 {

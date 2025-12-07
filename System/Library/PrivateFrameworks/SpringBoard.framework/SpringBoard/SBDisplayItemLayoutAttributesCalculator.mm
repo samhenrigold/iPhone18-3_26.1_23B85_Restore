@@ -13,10 +13,10 @@
 - (CGSize)sizeForSlideOverConfiguration:(SBDisplayItemSlideOverConfiguration *)configuration windowingConfiguration:(id)windowingConfiguration;
 - (SBDisplayItemLayoutAttributesProviding)preferredDisplayItemLayoutAttributesProvider;
 - (SBDisplayItemSlideOverConfiguration)updatedSlideOverConfigurationForItemWithSize:(SEL)size center:(CGSize)center slideOverConfiguration:(CGPoint)configuration windowingConfiguration:(SBDisplayItemSlideOverConfiguration *)windowingConfiguration;
-- (double)_frameForLayoutRole:(CGFloat)role inAppLayout:(CGFloat)layout layoutAttributesMap:(CGFloat)map containerBounds:(double)bounds containerOrientation:(double)orientation windowingConfiguration:(uint64_t)configuration floatingDockHeight:(uint64_t)height screenScale:(void *)self0 isChamoisWindowingUIEnabled:(void *)self1 prefersStripHidden:(uint64_t)self2 prefersDockHidden:(void *)self3 leftStatusBarPartIntersectionRegion:(int)self4 rightStatusBarPartIntersectionRegion:(__int16)self5 skipAutoLayout:(uint64_t)self6;
+- (double)_frameForLayoutRole:(double)role inAppLayout:(double)layout layoutAttributesMap:(double)map containerBounds:(double)bounds containerOrientation:(double)orientation windowingConfiguration:(uint64_t)configuration floatingDockHeight:(uint64_t)height screenScale:(void *)self0 isChamoisWindowingUIEnabled:(void *)self1 prefersStripHidden:(uint64_t)self2 prefersDockHidden:(void *)self3 leftStatusBarPartIntersectionRegion:(int)self4 rightStatusBarPartIntersectionRegion:(__int16)self5 skipAutoLayout:(uint64_t)self6;
 - (double)frameForLayoutRole:(double)role inAppLayout:(double)layout containerBounds:(double)bounds containerOrientation:(double)orientation floatingDockHeight:(double)height screenScale:(uint64_t)scale isChamoisWindowingUIEnabled:(uint64_t)enabled isEmbeddedDisplay:(void *)self0 prefersStripHidden:(uint64_t)self1 prefersDockHidden:(uint64_t)self2 leftStatusBarPartIntersectionRegion:(uint64_t)self3 rightStatusBarPartIntersectionRegion:(uint64_t)self4;
-- (id)_appLayoutByPerformingAutoLayoutIfNeededInAppLayout:(double)layout previousAppLayout:(CGFloat)appLayout usingNewLayoutAttributes:(CGFloat)attributes options:(CGFloat)options containerOrientation:(CGFloat)orientation windowingConfiguration:(uint64_t)configuration floatingDockHeight:(void *)height screenScale:(void *)self0 bounds:(void *)self1 prefersStripHidden:(uint64_t)self2 prefersDockHidden:(uint64_t)self3 source:(void *)self4 leftStatusBarPartIntersectionRegion:(__int16)self5 rightStatusBarPartIntersectionRegion:(unint64_t)self6 itemsNeedingPositionSnapping:(uint64_t)self7 itemsNeedingSizeSnapping:(uint64_t)self8;
 - (id)_appLayoutByPerformingAutoLayoutIfNeededInAppLayout:(double)layout previousAppLayout:(double)appLayout layoutAttributes:(double)attributes options:(double)options containerOrientation:(double)orientation windowingConfiguration:(uint64_t)configuration floatingDockHeight:(void *)height screenScale:(void *)self0 bounds:(void *)self1 prefersStripHidden:(uint64_t)self2 prefersDockHidden:(uint64_t)self3 source:(void *)self4 leftStatusBarPartIntersectionRegion:(__int16)self5 rightStatusBarPartIntersectionRegion:(uint64_t)self6 itemsNeedingPositionSnapping:(uint64_t)self7 itemsNeedingSizeSnapping:(uint64_t)self8;
+- (id)_appLayoutByPerformingAutoLayoutIfNeededInAppLayout:(double)layout previousAppLayout:(double)appLayout usingNewLayoutAttributes:(double)attributes options:(double)options containerOrientation:(double)orientation windowingConfiguration:(uint64_t)configuration floatingDockHeight:(void *)height screenScale:(void *)self0 bounds:(void *)self1 prefersStripHidden:(uint64_t)self2 prefersDockHidden:(uint64_t)self3 source:(void *)self4 leftStatusBarPartIntersectionRegion:(__int16)self5 rightStatusBarPartIntersectionRegion:(unint64_t)self6 itemsNeedingPositionSnapping:(uint64_t)self7 itemsNeedingSizeSnapping:(uint64_t)self8;
 - (id)_applicationForDisplayItem:(id)item;
 - (id)_centerWindowSheetMetricsCache;
 - (id)_chamoisLayoutGridCache;
@@ -240,7 +240,7 @@
   return v42;
 }
 
-- (double)_frameForLayoutRole:(CGFloat)role inAppLayout:(CGFloat)layout layoutAttributesMap:(CGFloat)map containerBounds:(double)bounds containerOrientation:(double)orientation windowingConfiguration:(uint64_t)configuration floatingDockHeight:(uint64_t)height screenScale:(void *)self0 isChamoisWindowingUIEnabled:(void *)self1 prefersStripHidden:(uint64_t)self2 prefersDockHidden:(void *)self3 leftStatusBarPartIntersectionRegion:(int)self4 rightStatusBarPartIntersectionRegion:(__int16)self5 skipAutoLayout:(uint64_t)self6
+- (double)_frameForLayoutRole:(double)role inAppLayout:(double)layout layoutAttributesMap:(double)map containerBounds:(double)bounds containerOrientation:(double)orientation windowingConfiguration:(uint64_t)configuration floatingDockHeight:(uint64_t)height screenScale:(void *)self0 isChamoisWindowingUIEnabled:(void *)self1 prefersStripHidden:(uint64_t)self2 prefersDockHidden:(void *)self3 leftStatusBarPartIntersectionRegion:(int)self4 rightStatusBarPartIntersectionRegion:(__int16)self5 skipAutoLayout:(uint64_t)self6
 {
   scaleCopy = scale;
   enabledCopy = enabled;
@@ -838,7 +838,7 @@ LABEL_20:
   return result;
 }
 
-uint64_t __120__SBDisplayItemLayoutAttributesCalculator_frameForFloatingAppLayoutInInterfaceOrientation_floatingConfiguration_bounds___block_invoke()
+void *__120__SBDisplayItemLayoutAttributesCalculator_frameForFloatingAppLayoutInInterfaceOrientation_floatingConfiguration_bounds___block_invoke()
 {
   result = [MEMORY[0x277D75A78] heightForStyle:0 orientation:1];
   frameForFloatingAppLayoutInInterfaceOrientation_floatingConfiguration_bounds____viewMargin = v1;
@@ -1277,9 +1277,9 @@ uint64_t __120__SBDisplayItemLayoutAttributesCalculator_frameForFloatingAppLayou
   return v41;
 }
 
-- (id)_appLayoutByPerformingAutoLayoutIfNeededInAppLayout:(double)layout previousAppLayout:(CGFloat)appLayout usingNewLayoutAttributes:(CGFloat)attributes options:(CGFloat)options containerOrientation:(CGFloat)orientation windowingConfiguration:(uint64_t)configuration floatingDockHeight:(void *)height screenScale:(void *)self0 bounds:(void *)self1 prefersStripHidden:(uint64_t)self2 prefersDockHidden:(uint64_t)self3 source:(void *)self4 leftStatusBarPartIntersectionRegion:(__int16)self5 rightStatusBarPartIntersectionRegion:(unint64_t)self6 itemsNeedingPositionSnapping:(uint64_t)self7 itemsNeedingSizeSnapping:(uint64_t)self8
+- (id)_appLayoutByPerformingAutoLayoutIfNeededInAppLayout:(double)layout previousAppLayout:(double)appLayout usingNewLayoutAttributes:(double)attributes options:(double)options containerOrientation:(double)orientation windowingConfiguration:(uint64_t)configuration floatingDockHeight:(void *)height screenScale:(void *)self0 bounds:(void *)self1 prefersStripHidden:(uint64_t)self2 prefersDockHidden:(uint64_t)self3 source:(void *)self4 leftStatusBarPartIntersectionRegion:(__int16)self5 rightStatusBarPartIntersectionRegion:(unint64_t)self6 itemsNeedingPositionSnapping:(uint64_t)self7 itemsNeedingSizeSnapping:(uint64_t)self8
 {
-  v250 = *MEMORY[0x277D85DE8];
+  v248 = *MEMORY[0x277D85DE8];
   heightCopy = height;
   scaleCopy = scale;
   boundsCopy = bounds;
@@ -1318,9 +1318,9 @@ LABEL_103:
       goto LABEL_104;
     }
 
-    v186 = v45;
-    v190 = v39;
-    v210 = sourceCopy;
+    v184 = v45;
+    v188 = v39;
+    v208 = sourceCopy;
     if (intersectionRegion > 0x37)
     {
       goto LABEL_20;
@@ -1344,19 +1344,19 @@ LABEL_103:
 
     v88 = v47 == v50;
     v44 = v49;
-    sourceCopy = v210;
+    sourceCopy = v208;
     if (!v88)
     {
       goto LABEL_20;
     }
 
     allItems3 = [heightCopy allItems];
-    v245[0] = MEMORY[0x277D85DD0];
-    v245[1] = 3221225472;
-    v245[2] = __399__SBDisplayItemLayoutAttributesCalculator__appLayoutByPerformingAutoLayoutIfNeededInAppLayout_previousAppLayout_usingNewLayoutAttributes_options_containerOrientation_windowingConfiguration_floatingDockHeight_screenScale_bounds_prefersStripHidden_prefersDockHidden_source_leftStatusBarPartIntersectionRegion_rightStatusBarPartIntersectionRegion_itemsNeedingPositionSnapping_itemsNeedingSizeSnapping___block_invoke;
-    v245[3] = &unk_2783A8C90;
-    v246 = scaleCopy;
-    v52 = [allItems3 bs_firstObjectPassingTest:v245];
+    v243[0] = MEMORY[0x277D85DD0];
+    v243[1] = 3221225472;
+    v243[2] = __399__SBDisplayItemLayoutAttributesCalculator__appLayoutByPerformingAutoLayoutIfNeededInAppLayout_previousAppLayout_usingNewLayoutAttributes_options_containerOrientation_windowingConfiguration_floatingDockHeight_screenScale_bounds_prefersStripHidden_prefersDockHidden_source_leftStatusBarPartIntersectionRegion_rightStatusBarPartIntersectionRegion_itemsNeedingPositionSnapping_itemsNeedingSizeSnapping___block_invoke;
+    v243[3] = &unk_2783A8C90;
+    v244 = scaleCopy;
+    v52 = [allItems3 bs_firstObjectPassingTest:v243];
 
     if (v52)
     {
@@ -1366,17 +1366,17 @@ LABEL_103:
         v54 = v53;
         supportsCenterWindow = [v53 supportsCenterWindow];
 
-        sourceCopy = v210;
+        sourceCopy = v208;
         if (supportsCenterWindow)
         {
           _chamoisLayoutGridCache = [self _chamoisLayoutGridCache];
           v57 = [SBDisplayItemGridLayoutRestrictionInfo layoutRestrictionInfoWithLayoutRestrictions:0 restrictedSize:-1.0, -1.0];
-          [_chamoisLayoutGridCache maxGridSizeForBounds:dockHidden contentOrientation:v57 layoutRestrictionInfo:v210 screenScale:appLayout windowingConfiguration:{attributes, options, orientation, layout}];
+          [_chamoisLayoutGridCache maxGridSizeForBounds:dockHidden contentOrientation:v57 layoutRestrictionInfo:v208 screenScale:appLayout windowingConfiguration:{attributes, options, orientation, layout}];
           v59 = v58;
-          v204 = v60;
+          v202 = v60;
 
-          v61 = v210;
-          [v210 stageOcclusionDodgingPeekLength];
+          v61 = v208;
+          [v208 stageOcclusionDodgingPeekLength];
           obj = v59 - v62;
           goto LABEL_21;
         }
@@ -1388,25 +1388,25 @@ LABEL_20:
         allItems4 = [heightCopy allItems];
         v68 = [allItems4 count];
         v69 = [SBDisplayItemGridLayoutRestrictionInfo layoutRestrictionInfoWithLayoutRestrictions:0 restrictedSize:-1.0, -1.0];
-        [_chamoisLayoutGridCache2 nearestGridSizeForProposedSize:v68 countOnStage:dockHidden inBounds:v69 contentOrientation:v210 layoutRestrictionInfo:v66 screenScale:orientation windowingConfiguration:{appLayout, attributes, options, orientation, layout}];
+        [_chamoisLayoutGridCache2 nearestGridSizeForProposedSize:v68 countOnStage:dockHidden inBounds:v69 contentOrientation:v208 layoutRestrictionInfo:v66 screenScale:orientation windowingConfiguration:{appLayout, attributes, options, orientation, layout}];
         obj = v70;
-        v204 = v71;
+        v202 = v71;
 
-        v61 = v210;
+        v61 = v208;
 LABEL_21:
         [v61 defaultWindowSize];
         [v61 screenEdgePadding];
-        v203 = v72;
+        v201 = v72;
         allItems5 = [heightCopy allItems];
         v74 = [allItems5 count];
 
-        v191 = v38;
-        v192 = heightCopy;
+        v189 = v38;
+        v190 = heightCopy;
         attributesCopy = attributes;
         optionsCopy = options;
         appLayoutCopy = appLayout;
-        v187 = v44;
-        v188 = scaleCopy;
+        v185 = v44;
+        v186 = scaleCopy;
         if (v74 < 2)
         {
           allItems6 = [heightCopy allItems];
@@ -1416,41 +1416,41 @@ LABEL_21:
           {
 LABEL_74:
             v127 = objc_alloc_init(MEMORY[0x277CBEB18]);
-            v227[0] = MEMORY[0x277D85DD0];
-            v227[1] = 3221225472;
-            v227[2] = __399__SBDisplayItemLayoutAttributesCalculator__appLayoutByPerformingAutoLayoutIfNeededInAppLayout_previousAppLayout_usingNewLayoutAttributes_options_containerOrientation_windowingConfiguration_floatingDockHeight_screenScale_bounds_prefersStripHidden_prefersDockHidden_source_leftStatusBarPartIntersectionRegion_rightStatusBarPartIntersectionRegion_itemsNeedingPositionSnapping_itemsNeedingSizeSnapping___block_invoke_2;
-            v227[3] = &unk_2783AE1C8;
+            v225[0] = MEMORY[0x277D85DD0];
+            v225[1] = 3221225472;
+            v225[2] = __399__SBDisplayItemLayoutAttributesCalculator__appLayoutByPerformingAutoLayoutIfNeededInAppLayout_previousAppLayout_usingNewLayoutAttributes_options_containerOrientation_windowingConfiguration_floatingDockHeight_screenScale_bounds_prefersStripHidden_prefersDockHidden_source_leftStatusBarPartIntersectionRegion_rightStatusBarPartIntersectionRegion_itemsNeedingPositionSnapping_itemsNeedingSizeSnapping___block_invoke_2;
+            v225[3] = &unk_2783AE1C8;
             v128 = v127;
-            v228 = v128;
-            [heightCopy enumerate:v227];
+            v226 = v128;
+            [heightCopy enumerate:v225];
             v129 = SBDisplayItemDescendingZOrderComparator(boundsCopy);
-            v199 = v128;
+            v197 = v128;
             v130 = [v128 sortedArrayUsingComparator:v129];
 
-            v205 = objc_alloc_init(MEMORY[0x277CBEB18]);
+            v203 = objc_alloc_init(MEMORY[0x277CBEB18]);
+            v221 = 0u;
+            v222 = 0u;
             v223 = 0u;
             v224 = 0u;
-            v225 = 0u;
-            v226 = 0u;
             obja = v130;
-            v131 = [obja countByEnumeratingWithState:&v223 objects:v248 count:16];
+            v131 = [obja countByEnumeratingWithState:&v221 objects:v246 count:16];
             if (v131)
             {
               v132 = v131;
-              v133 = *v224;
+              v133 = *v222;
               do
               {
                 for (i = 0; i != v132; ++i)
                 {
-                  if (*v224 != v133)
+                  if (*v222 != v133)
                   {
                     objc_enumerationMutation(obja);
                   }
 
-                  v135 = *(*(&v223 + 1) + 8 * i);
-                  LOBYTE(v185) = 1;
+                  v135 = *(*(&v221 + 1) + 8 * i);
+                  LOBYTE(v183) = 1;
                   LOWORD(v182) = region;
-                  [self _frameForLayoutRole:objc_msgSend(heightCopy inAppLayout:"layoutRoleForItem:" layoutAttributesMap:v135) containerBounds:heightCopy containerOrientation:boundsCopy windowingConfiguration:dockHidden floatingDockHeight:v210 screenScale:1 isChamoisWindowingUIEnabled:appLayout prefersStripHidden:attributes prefersDockHidden:options leftStatusBarPartIntersectionRegion:orientation rightStatusBarPartIntersectionRegion:a2 skipAutoLayout:{layout, v182, snapping, sizeSnapping, a19, a20, a21, a22, a23, a24, v185}];
+                  [self _frameForLayoutRole:objc_msgSend(heightCopy inAppLayout:"layoutRoleForItem:" layoutAttributesMap:v135) containerBounds:heightCopy containerOrientation:boundsCopy windowingConfiguration:dockHidden floatingDockHeight:v208 screenScale:1 isChamoisWindowingUIEnabled:appLayout prefersStripHidden:attributes prefersDockHidden:options leftStatusBarPartIntersectionRegion:orientation rightStatusBarPartIntersectionRegion:a2 skipAutoLayout:{layout, v182, snapping, sizeSnapping, a19, a20, a21, a22, a23, a24, v183}];
                   v137 = v136;
                   v139 = v138;
                   v140 = [boundsCopy objectForKey:v135];
@@ -1460,11 +1460,11 @@ LABEL_74:
                   [(SBFlexibleWindowingAutoLayoutItem *)v141 setPosition:?];
                   [(SBFlexibleWindowingAutoLayoutItem *)v141 setPositionIsSystemManaged:[(SBDisplayItemLayoutAttributes *)v140 isPositionSystemManaged]];
                   [(SBDisplayItemLayoutAttributes *)v140 slideOverConfiguration];
-                  [(SBFlexibleWindowingAutoLayoutItem *)v141 setInSlideOver:SBDisplayItemSlideOverConfigurationIsValid(&v237)];
-                  [v205 addObject:v141];
+                  [(SBFlexibleWindowingAutoLayoutItem *)v141 setInSlideOver:SBDisplayItemSlideOverConfigurationIsValid(&v235)];
+                  [v203 addObject:v141];
                 }
 
-                v132 = [obja countByEnumeratingWithState:&v223 objects:v248 count:16];
+                v132 = [obja countByEnumeratingWithState:&v221 objects:v246 count:16];
               }
 
               while (v132);
@@ -1473,50 +1473,50 @@ LABEL_74:
             v142 = [SBContinuousExposeAutoLayoutConfiguration alloc];
             appLayoutCopy2 = appLayout;
             orientationCopy3 = orientation;
-            v145 = [(SBContinuousExposeAutoLayoutConfiguration *)v142 initWithContainerBounds:v210 screenScale:appLayoutCopy2 dockHeightWithBottomEdgePadding:attributes leftStatusBarPartIntersectionRegion:options rightStatusBarPartIntersectionRegion:orientation windowingConfiguration:layout, a2, snapping, sizeSnapping, a19, a20, a21, a22, a23, a24];
-            v146 = [[SBFlexibleWindowingAutoLayoutSpace alloc] initWithItems:v205];
+            v145 = [(SBContinuousExposeAutoLayoutConfiguration *)v142 initWithContainerBounds:v208 screenScale:appLayoutCopy2 dockHeightWithBottomEdgePadding:attributes leftStatusBarPartIntersectionRegion:options rightStatusBarPartIntersectionRegion:orientation windowingConfiguration:layout, a2, snapping, sizeSnapping, a19, a20, a21, a22, a23, a24];
+            v146 = [[SBFlexibleWindowingAutoLayoutSpace alloc] initWithItems:v203];
             _flexibleAutoLayoutController = [self _flexibleAutoLayoutController];
-            v207 = v145;
-            v148 = [_flexibleAutoLayoutController spaceByPerformingFlexibleAutoLayoutWithSpace:v146 configuration:v145 options:hiddenCopy itemsNeedingPositionSnapping:v191 itemsNeedingSizeSnapping:v190];
+            v205 = v145;
+            v148 = [_flexibleAutoLayoutController spaceByPerformingFlexibleAutoLayoutWithSpace:v146 configuration:v145 options:hiddenCopy itemsNeedingPositionSnapping:v189 itemsNeedingSizeSnapping:v188];
 
             v149 = objc_alloc_init(MEMORY[0x277CBEB38]);
+            v217 = 0u;
+            v218 = 0u;
             v219 = 0u;
             v220 = 0u;
-            v221 = 0u;
-            v222 = 0u;
-            v206 = v148;
+            v204 = v148;
             autoLayoutItems = [v148 autoLayoutItems];
-            v150 = [autoLayoutItems countByEnumeratingWithState:&v219 objects:v247 count:16];
+            v150 = [autoLayoutItems countByEnumeratingWithState:&v217 objects:v245 count:16];
             if (v150)
             {
               v151 = v150;
-              v152 = *v220;
+              v152 = *v218;
               do
               {
                 for (j = 0; j != v151; ++j)
                 {
-                  if (*v220 != v152)
+                  if (*v218 != v152)
                   {
                     objc_enumerationMutation(autoLayoutItems);
                   }
 
-                  v154 = *(*(&v219 + 1) + 8 * j);
+                  v154 = *(*(&v217 + 1) + 8 * j);
                   displayItem = [v154 displayItem];
                   positionIsSystemManaged = [v154 positionIsSystemManaged];
                   [v154 position];
                   v158 = v157;
                   v160 = v159;
                   [v154 size];
-                  v212 = v161;
-                  v214 = v162;
+                  v210 = v161;
+                  v212 = v162;
                   if (([v154 isFullyOccluded] & 1) == 0)
                   {
                     [v154 isOverlapped];
                   }
 
-                  orientationCopy3 = [(SBDisplayItemLayoutAttributes *)v158 normalizedPointForPoint:v160 inBounds:appLayoutCopy, attributesCopy, optionsCopy, orientationCopy3];
+                  orientationCopy3 = [SBDisplayItemLayoutAttributes normalizedPointForPoint:v158 inBounds:v160, appLayoutCopy, attributesCopy, optionsCopy, orientationCopy3];
                   v165 = v164;
-                  orientationCopy32 = [(SBDisplayItemLayoutAttributes *)1.79769313e308 normalizedPointForPoint:appLayoutCopy inBounds:attributesCopy, optionsCopy, orientationCopy3];
+                  orientationCopy32 = [SBDisplayItemLayoutAttributes normalizedPointForPoint:1.79769313e308 inBounds:appLayoutCopy, attributesCopy, optionsCopy, orientationCopy3];
                   v168 = v167;
                   v169 = [boundsCopy objectForKey:displayItem];
                   v170 = [SBDisplayItemLayoutAttributes attributesByModifyingOcclusionState:v169];
@@ -1525,15 +1525,15 @@ LABEL_74:
 
                   v1652 = [(SBDisplayItemLayoutAttributes *)v168 attributesByModifyingPositionIsSystemManaged:positionIsSystemManaged];
 
-                  *&v231 = 0;
-                  v229 = 0u;
-                  v230 = 0u;
+                  *&v229 = 0;
+                  v227 = 0u;
+                  v228 = 0u;
                   [(SBDisplayItemLayoutAttributes *)v1652 slideOverConfiguration];
-                  v237 = v229;
-                  v238 = v230;
-                  *&v239 = v231;
-                  IsValid = SBDisplayItemSlideOverConfigurationIsValid(&v237);
-                  if ([(SBHomeScreenConfigurationServer *)v1652 connections]|| ([(SBDisplayItemLayoutAttributes *)v1652 tileConfiguration], ((SBDisplayItemTileConfigurationIsValid(&v237) | IsValid) & 1) != 0))
+                  v235 = v227;
+                  v236 = v228;
+                  *&v237 = v229;
+                  IsValid = SBDisplayItemSlideOverConfigurationIsValid(&v235);
+                  if ([(SBHomeScreenConfigurationServer *)v1652 connections]|| ([(SBDisplayItemLayoutAttributes *)v1652 tileConfiguration], ((SBDisplayItemTileConfigurationIsValid(&v235) | IsValid) & 1) != 0))
                   {
                     orientationCopy3 = orientation;
                     if ([(SBHomeScreenConfigurationServer *)v1652 connections]== 1)
@@ -1546,12 +1546,12 @@ LABEL_92:
                       goto LABEL_97;
                     }
 
-                    if (IsValid && (BYTE1(v231) & 1) == 0)
+                    if (IsValid && (BYTE1(v229) & 1) == 0)
                     {
-                      v233 = v229;
-                      v234 = v230;
-                      *&v235 = v231;
-                      [self updatedSlideOverConfigurationForItemWithSize:&v233 center:v210 slideOverConfiguration:v212 windowingConfiguration:{v214, v158, v160}];
+                      v231 = v227;
+                      v232 = v228;
+                      *&v233 = v229;
+                      objc_msgSend_updatedSlideOverConfigurationForItemWithSize_center_slideOverConfiguration_windowingConfiguration_(self, v210, v212, v158, v160);
                       v165 = [SBDisplayItemLayoutAttributes attributesByModifyingSlideOverConfiguration:v1652];
                       goto LABEL_92;
                     }
@@ -1559,35 +1559,34 @@ LABEL_92:
 
                   else
                   {
-                    v240 = 0;
-                    v238 = 0u;
-                    v239 = 0u;
+                    v238 = 0;
+                    v236 = 0u;
                     v237 = 0u;
+                    v235 = 0u;
                     [(SBDisplayItemLayoutAttributes *)v1652 attributedSize];
-                    v184 = v203;
                     orientationCopy3 = orientation;
-                    SBDisplayItemAttributedSizeInfer(&v233, v212, v214, appLayoutCopy, attributesCopy, optionsCopy, orientation);
-                    v240 = v236;
+                    SBDisplayItemAttributedSizeInfer(&v231, v210, v212, appLayoutCopy, attributesCopy, optionsCopy, orientation, v201);
                     v238 = v234;
-                    v239 = v235;
+                    v236 = v232;
                     v237 = v233;
+                    v235 = v231;
                     v176 = [SBDisplayItemLayoutAttributes attributesByModifyingAttributedSize:v1652];
 
                     v1652 = [(SBDisplayItemLayoutAttributes *)v176 attributesByModifyingNormalizedCenter:orientationCopy3, v165];
                   }
 
 LABEL_97:
-                  [v149 setObject:v1652 forKey:{displayItem, v184}];
+                  [v149 setObject:v1652 forKey:displayItem];
                 }
 
-                v151 = [autoLayoutItems countByEnumeratingWithState:&v219 objects:v247 count:16];
+                v151 = [autoLayoutItems countByEnumeratingWithState:&v217 objects:v245 count:16];
               }
 
               while (v151);
             }
 
-            heightCopy = v192;
-            v177 = v192;
+            heightCopy = v190;
+            v177 = v190;
             _displayItemLayoutAttributesProvider = [self _displayItemLayoutAttributesProvider];
             preferredDisplayOrdinal = [v177 preferredDisplayOrdinal];
             if ((dockHidden - 1) < 2)
@@ -1602,15 +1601,15 @@ LABEL_97:
 
             [_displayItemLayoutAttributesProvider updateLayoutAttributesMap:v149 forAppLayout:v177 displayOrdinal:preferredDisplayOrdinal orientation:v180];
 
-            [v177 setCachedLastFlexibleWindowingAutoLayoutSpace:v206];
-            v44 = v187;
-            [v177 setCachedLastOverlappingModelKey:v187];
+            [v177 setCachedLastFlexibleWindowingAutoLayoutSpace:v204];
+            v44 = v185;
+            [v177 setCachedLastOverlappingModelKey:v185];
 
-            scaleCopy = v188;
-            sourceCopy = v210;
-            v39 = v190;
-            v38 = v191;
-            v45 = v186;
+            scaleCopy = v186;
+            sourceCopy = v208;
+            v39 = v188;
+            v38 = v189;
+            v45 = v184;
             goto LABEL_103;
           }
 
@@ -1621,20 +1620,20 @@ LABEL_97:
           if ((v121 != *MEMORY[0x277CBF3A8] || v120 != *(MEMORY[0x277CBF3A8] + 8)) && ![(SBHomeScreenConfigurationServer *)v119 connections])
           {
             [(SBDisplayItemLayoutAttributes *)v119 slideOverConfiguration];
-            if ((SBDisplayItemSlideOverConfigurationIsValid(&v237) & 1) == 0)
+            if ((SBDisplayItemSlideOverConfigurationIsValid(&v235) & 1) == 0)
             {
-              v240 = 0;
-              v238 = 0u;
-              v239 = 0u;
+              v238 = 0;
+              v236 = 0u;
               v237 = 0u;
-              SBDisplayItemAttributedSizeInfer(&v237, v121, v122, appLayout, attributes, options, orientation);
+              v235 = 0u;
+              SBDisplayItemAttributedSizeInfer(&v235, v121, v122, appLayout, attributes, options, orientation, v201);
+              v231 = v235;
+              v232 = v236;
               v233 = v237;
               v234 = v238;
-              v235 = v239;
-              v236 = v240;
               v123 = [SBDisplayItemLayoutAttributes attributesByModifyingAttributedSize:v119];
 
-              SBDisplayItemAttributedSizeUnspecified(&v233);
+              SBDisplayItemAttributedSizeUnspecified(&v231);
               v119 = [SBDisplayItemLayoutAttributes attributesByModifyingAttributedUserSizeBeforeOverlapping:v123];
 
               _displayItemLayoutAttributesProvider2 = [self _displayItemLayoutAttributesProvider];
@@ -1656,16 +1655,16 @@ LABEL_97:
 
         else
         {
-          v243 = 0u;
-          v244 = 0u;
           v241 = 0u;
           v242 = 0u;
+          v239 = 0u;
+          v240 = 0u;
           allItems7 = [heightCopy allItems];
-          v76 = [allItems7 countByEnumeratingWithState:&v241 objects:v249 count:16];
+          v76 = [allItems7 countByEnumeratingWithState:&v239 objects:v247 count:16];
           if (v76)
           {
             v77 = v76;
-            v78 = *v242;
+            v78 = *v240;
             v79 = *MEMORY[0x277CBF3A8];
             v80 = *(MEMORY[0x277CBF3A8] + 8);
             if ((dockHidden - 1) < 2)
@@ -1678,25 +1677,25 @@ LABEL_97:
               v81 = 2 * ((dockHidden - 3) < 2);
             }
 
-            v193 = v81;
+            v191 = v81;
             selfCopy3 = self;
-            v200 = a2;
-            v196 = *v242;
-            v197 = allItems7;
-            v194 = *(MEMORY[0x277CBF3A8] + 8);
-            v195 = *MEMORY[0x277CBF3A8];
+            v198 = a2;
+            v194 = *v240;
+            v195 = allItems7;
+            v192 = *(MEMORY[0x277CBF3A8] + 8);
+            v193 = *MEMORY[0x277CBF3A8];
             do
             {
               v83 = 0;
-              v198 = v77;
+              v196 = v77;
               do
               {
-                if (*v242 != v78)
+                if (*v240 != v78)
                 {
                   objc_enumerationMutation(allItems7);
                 }
 
-                v84 = *(*(&v241 + 1) + 8 * v83);
+                v84 = *(*(&v239 + 1) + 8 * v83);
                 v85 = [heightCopy layoutRoleForItem:v84];
                 if (SBLayoutRoleIsValidForSplitView(v85))
                 {
@@ -1705,41 +1704,41 @@ LABEL_97:
                   if (v88)
                   {
                     v89 = [selfCopy3 layoutRestrictionInfoForItem:v84];
-                    v90 = v204;
+                    v90 = v202;
                     v91 = obj;
                     if ([v89 layoutRestrictions])
                     {
                       _chamoisLayoutGridCache3 = [selfCopy3 _chamoisLayoutGridCache];
                       allItems8 = [heightCopy allItems];
-                      [_chamoisLayoutGridCache3 nearestGridSizeForProposedSize:objc_msgSend(allItems8 countOnStage:"count") inBounds:dockHidden contentOrientation:v89 layoutRestrictionInfo:v210 screenScale:obj windowingConfiguration:{v204, appLayout, attributes, options, orientation, layout}];
+                      [_chamoisLayoutGridCache3 nearestGridSizeForProposedSize:objc_msgSend(allItems8 countOnStage:"count") inBounds:dockHidden contentOrientation:v89 layoutRestrictionInfo:v208 screenScale:obj windowingConfiguration:{v202, appLayout, attributes, options, orientation, layout}];
                       v91 = v94;
                       v90 = v95;
 
-                      heightCopy = v192;
+                      heightCopy = v190;
                       if (v91 >= options || v90 >= orientation)
                       {
                         _chamoisLayoutGridCache4 = [selfCopy3 _chamoisLayoutGridCache];
-                        [v210 maximumWindowWidthForOverlapping];
+                        [v208 maximumWindowWidthForOverlapping];
                         v99 = v98;
-                        allItems9 = [v192 allItems];
-                        [_chamoisLayoutGridCache4 nearestGridSizeForProposedSize:objc_msgSend(allItems9 countOnStage:"count") inBounds:dockHidden contentOrientation:v89 layoutRestrictionInfo:v210 screenScale:v99 windowingConfiguration:{orientation, appLayout, attributes, options, orientation, layout}];
+                        allItems9 = [v190 allItems];
+                        [_chamoisLayoutGridCache4 nearestGridSizeForProposedSize:objc_msgSend(allItems9 countOnStage:"count") inBounds:dockHidden contentOrientation:v89 layoutRestrictionInfo:v208 screenScale:v99 windowingConfiguration:{orientation, appLayout, attributes, options, orientation, layout}];
                         v91 = v101;
                         v90 = v102;
 
-                        heightCopy = v192;
+                        heightCopy = v190;
                       }
                     }
 
-                    [selfCopy3 sizeForLayoutAttributes:v86 windowingConfiguration:v210];
+                    [selfCopy3 sizeForLayoutAttributes:v86 windowingConfiguration:v208];
                     if (v103 <= 0.0 || (v105 = v104, v104 <= 0.0))
                     {
-                      LOBYTE(v185) = 1;
+                      LOBYTE(v183) = 1;
                       LOWORD(v182) = region;
                       selfCopy3 = self;
                       optionsCopy2 = options;
                       optionsCopy4 = options;
                       orientationCopy5 = orientation;
-                      [self _frameForLayoutRole:v85 inAppLayout:heightCopy layoutAttributesMap:boundsCopy containerBounds:dockHidden containerOrientation:v210 windowingConfiguration:1 floatingDockHeight:appLayout screenScale:attributes isChamoisWindowingUIEnabled:optionsCopy2 prefersStripHidden:orientation prefersDockHidden:v200 leftStatusBarPartIntersectionRegion:layout rightStatusBarPartIntersectionRegion:v182 skipAutoLayout:{snapping, sizeSnapping, a19, a20, a21, a22, a23, a24, v185}];
+                      [self _frameForLayoutRole:v85 inAppLayout:heightCopy layoutAttributesMap:boundsCopy containerBounds:dockHidden containerOrientation:v208 windowingConfiguration:1 floatingDockHeight:appLayout screenScale:attributes isChamoisWindowingUIEnabled:optionsCopy2 prefersStripHidden:orientation prefersDockHidden:v198 leftStatusBarPartIntersectionRegion:layout rightStatusBarPartIntersectionRegion:v182 skipAutoLayout:{snapping, sizeSnapping, a19, a20, a21, a22, a23, a24, v183}];
                       v106 = v110;
                       v105 = v111;
                     }
@@ -1752,23 +1751,22 @@ LABEL_97:
                       selfCopy3 = self;
                     }
 
-                    v77 = v198;
-                    v240 = 0;
-                    v238 = 0u;
-                    v239 = 0u;
+                    v77 = v196;
+                    v238 = 0;
+                    v236 = 0u;
                     v237 = 0u;
-                    v183 = v203;
-                    SBDisplayItemAttributedSizeInfer(&v237, v106, v105, appLayout, attributes, optionsCopy4, orientationCopy5);
+                    v235 = 0u;
+                    SBDisplayItemAttributedSizeInfer(&v235, v106, v105, appLayout, attributes, optionsCopy4, orientationCopy5, v201);
+                    v231 = v235;
+                    v232 = v236;
                     v233 = v237;
                     v234 = v238;
-                    v235 = v239;
-                    v236 = v240;
                     v112 = [SBDisplayItemLayoutAttributes attributesByModifyingAttributedUserSizeBeforeOverlapping:v86];
 
                     if ((BSFloatGreaterThanFloat() & 1) != 0 || BSFloatGreaterThanFloat())
                     {
-                      a2 = v200;
-                      if ([v210 isFlexibleWindowingEnabled])
+                      a2 = v198;
+                      if ([v208 isFlexibleWindowingEnabled])
                       {
                         attributes = attributesCopy;
                         options = optionsCopy;
@@ -1787,9 +1785,9 @@ LABEL_97:
                           v113 = v91;
                         }
 
-                        v236 = 0;
-                        v234 = 0u;
-                        v235 = 0u;
+                        v234 = 0;
+                        v232 = 0u;
+                        v233 = 0u;
                         if (v90 >= v105)
                         {
                           v114 = v105;
@@ -1800,16 +1798,15 @@ LABEL_97:
                           v114 = v90;
                         }
 
-                        v233 = 0uLL;
-                        v183 = v203;
+                        v231 = 0uLL;
                         appLayout = appLayoutCopy;
                         attributes = attributesCopy;
                         options = optionsCopy;
-                        SBDisplayItemAttributedSizeInfer(&v233, v113, v114, appLayoutCopy, attributesCopy, optionsCopy, orientation);
+                        SBDisplayItemAttributedSizeInfer(&v231, v113, v114, appLayoutCopy, attributesCopy, optionsCopy, orientation, v201);
+                        v227 = v231;
+                        v228 = v232;
                         v229 = v233;
                         v230 = v234;
-                        v231 = v235;
-                        v232 = v236;
                         v115 = [SBDisplayItemLayoutAttributes attributesByModifyingAttributedSize:v112];
 
                         v112 = v115;
@@ -1821,17 +1818,17 @@ LABEL_97:
                       attributes = attributesCopy;
                       options = optionsCopy;
                       appLayout = appLayoutCopy;
-                      a2 = v200;
+                      a2 = v198;
                     }
 
                     _displayItemLayoutAttributesProvider3 = [selfCopy3 _displayItemLayoutAttributesProvider];
-                    [_displayItemLayoutAttributesProvider3 updateLayoutAttributes:v112 ofDisplayItem:v84 displayOrdinal:objc_msgSend(heightCopy orientation:{"preferredDisplayOrdinal"), v193}];
+                    [_displayItemLayoutAttributesProvider3 updateLayoutAttributes:v112 ofDisplayItem:v84 displayOrdinal:objc_msgSend(heightCopy orientation:{"preferredDisplayOrdinal"), v191}];
 
                     v86 = v112;
-                    v78 = v196;
-                    allItems7 = v197;
-                    v80 = v194;
-                    v79 = v195;
+                    v78 = v194;
+                    allItems7 = v195;
+                    v80 = v192;
+                    v79 = v193;
                   }
                 }
 
@@ -1839,7 +1836,7 @@ LABEL_97:
               }
 
               while (v77 != v83);
-              v77 = [allItems7 countByEnumeratingWithState:&v241 objects:v249 count:16];
+              v77 = [allItems7 countByEnumeratingWithState:&v239 objects:v247 count:16];
             }
 
             while (v77);
@@ -1850,7 +1847,7 @@ LABEL_97:
       }
     }
 
-    sourceCopy = v210;
+    sourceCopy = v208;
     goto LABEL_20;
   }
 

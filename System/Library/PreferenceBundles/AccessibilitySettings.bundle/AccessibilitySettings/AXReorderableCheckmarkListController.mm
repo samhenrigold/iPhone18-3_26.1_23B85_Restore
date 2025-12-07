@@ -10,6 +10,7 @@
 - (id)tableView:(id)view targetIndexPathForMoveFromRowAtIndexPath:(id)path toProposedIndexPath:(id)indexPath;
 - (id)titleForItem:(id)item;
 - (void)_updateCell:(id)cell forIndexPath:(id)path;
+- (void)clearItemCache;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view moveRowAtIndexPath:(id)path toIndexPath:(id)indexPath;
 - (void)updateCellForItemAtIndex:(unint64_t)index;
@@ -62,6 +63,13 @@
   }
 
   return v4;
+}
+
+- (void)clearItemCache
+{
+  allItems = self->_allItems;
+  self->_allItems = 0;
+  _objc_release_x1(self, allItems);
 }
 
 - (id)allItems

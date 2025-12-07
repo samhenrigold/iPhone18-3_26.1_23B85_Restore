@@ -1,8 +1,14 @@
 @interface CellularLteOtaMsg
 - (BOOL)isEqual:(id)equal;
+- (id)channelTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)dlCcchMsgAsString:(int)string;
+- (id)dlDcchMsgAsString:(int)string;
+- (id)mcchMsgAsString:(int)string;
+- (id)ulCcchMsgAsString:(int)string;
+- (id)ulDcchMsgAsString:(int)string;
 - (int)StringAsChannelType:(id)type;
 - (int)StringAsDlCcchMsg:(id)msg;
 - (int)StringAsDlDcchMsg:(id)msg;
@@ -115,6 +121,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFFB | v3);
+}
+
+- (id)channelTypeAsString:(int)string
+{
+  if ((string - 8) >= 8)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100319018[string - 8];
+  }
+
+  return v4;
 }
 
 - (int)StringAsChannelType:(id)type
@@ -361,6 +382,29 @@
   self->_has = (*&self->_has & 0xFFFFFDFF | v3);
 }
 
+- (id)mcchMsgAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"lte_rrc_MBMSCountingRequest_r10";
+    }
+
+    else
+    {
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"lte_rrc_MBSFNAreaConfiguration_r9";
+  }
+
+  return v4;
+}
+
 - (int)StringAsMcchMsg:(id)msg
 {
   msgCopy = msg;
@@ -405,6 +449,29 @@
   self->_has = (*&self->_has & 0xFFFBFFFF | v3);
 }
 
+- (id)ulCcchMsgAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"lte_rrc_rrcConnectionRequest";
+    }
+
+    else
+    {
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"lte_rrc_rrcConnectionReestablishmentRequest";
+  }
+
+  return v4;
+}
+
 - (int)StringAsUlCcchMsg:(id)msg
 {
   msgCopy = msg;
@@ -447,6 +514,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFF7FFFF | v3);
+}
+
+- (id)ulDcchMsgAsString:(int)string
+{
+  if (string >= 0x13)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100319058[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsUlDcchMsg:(id)msg
@@ -583,6 +665,21 @@
   self->_has = (*&self->_has & 0xFFFFFFEF | v3);
 }
 
+- (id)dlCcchMsgAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1003190F0[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsDlCcchMsg:(id)msg
 {
   msgCopy = msg;
@@ -640,6 +737,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFFFFDF | v3);
+}
+
+- (id)dlDcchMsgAsString:(int)string
+{
+  if (string >= 0xB)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_100319110[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsDlDcchMsg:(id)msg
@@ -1156,7 +1268,6 @@ LABEL_27:
   has = self->_has;
   if (*&has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((*&has & 0x10000) == 0)
@@ -1176,7 +1287,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x1000) == 0)
@@ -1191,7 +1301,6 @@ LABEL_4:
   }
 
 LABEL_32:
-  phyCellId = self->_phyCellId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x40) == 0)
@@ -1206,7 +1315,6 @@ LABEL_5:
   }
 
 LABEL_33:
-  freq = self->_freq;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 0x2000) == 0)
@@ -1221,7 +1329,6 @@ LABEL_6:
   }
 
 LABEL_34:
-  rbId = self->_rbId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((*&has & 4) == 0)
@@ -1236,7 +1343,6 @@ LABEL_7:
   }
 
 LABEL_35:
-  channelType = self->_channelType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x400) == 0)
@@ -1251,12 +1357,10 @@ LABEL_8:
   }
 
 LABEL_36:
-  msgType = self->_msgType;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x100) != 0)
   {
 LABEL_9:
-    length = self->_length;
     PBDataWriterWriteUint32Field();
   }
 
@@ -1266,16 +1370,15 @@ LABEL_10:
     PBDataWriterWriteDataField();
   }
 
-  v6 = self->_has;
-  if ((*&v6 & 8) != 0)
+  v5 = self->_has;
+  if ((*&v5 & 8) != 0)
   {
-    dlBw = self->_dlBw;
     PBDataWriterWriteUint32Field();
-    v6 = self->_has;
-    if ((*&v6 & 2) == 0)
+    v5 = self->_has;
+    if ((*&v5 & 2) == 0)
     {
 LABEL_14:
-      if ((*&v6 & 0x80) == 0)
+      if ((*&v5 & 0x80) == 0)
       {
         goto LABEL_15;
       }
@@ -1284,18 +1387,17 @@ LABEL_14:
     }
   }
 
-  else if ((*&v6 & 2) == 0)
+  else if ((*&v5 & 2) == 0)
   {
     goto LABEL_14;
   }
 
-  cellId = self->_cellId;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x80) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x80) == 0)
   {
 LABEL_15:
-    if ((*&v6 & 0x20000) == 0)
+    if ((*&v5 & 0x20000) == 0)
     {
       goto LABEL_16;
     }
@@ -1304,13 +1406,12 @@ LABEL_15:
   }
 
 LABEL_40:
-  freqBandInd = self->_freqBandInd;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x20000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x20000) == 0)
   {
 LABEL_16:
-    if ((*&v6 & 0x4000) == 0)
+    if ((*&v5 & 0x4000) == 0)
     {
       goto LABEL_17;
     }
@@ -1319,13 +1420,12 @@ LABEL_16:
   }
 
 LABEL_41:
-  trackingAreaCode = self->_trackingAreaCode;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x4000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x4000) == 0)
   {
 LABEL_17:
-    if ((*&v6 & 0x8000) == 0)
+    if ((*&v5 & 0x8000) == 0)
     {
       goto LABEL_18;
     }
@@ -1334,13 +1434,12 @@ LABEL_17:
   }
 
 LABEL_42:
-  selPlmnMcc = self->_selPlmnMcc;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x8000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x8000) == 0)
   {
 LABEL_18:
-    if ((*&v6 & 0x800) == 0)
+    if ((*&v5 & 0x800) == 0)
     {
       goto LABEL_19;
     }
@@ -1349,13 +1448,12 @@ LABEL_18:
   }
 
 LABEL_43:
-  selPlmnMnc = self->_selPlmnMnc;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x800) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x800) == 0)
   {
 LABEL_19:
-    if ((*&v6 & 0x200000) == 0)
+    if ((*&v5 & 0x200000) == 0)
     {
       goto LABEL_20;
     }
@@ -1364,13 +1462,12 @@ LABEL_19:
   }
 
 LABEL_44:
-  numMncDigits = self->_numMncDigits;
   PBDataWriterWriteUint32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x200000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x200000) == 0)
   {
 LABEL_20:
-    if ((*&v6 & 0x100000) == 0)
+    if ((*&v5 & 0x100000) == 0)
     {
       goto LABEL_21;
     }
@@ -1379,13 +1476,12 @@ LABEL_20:
   }
 
 LABEL_45:
-  upperLayerIndication = self->_upperLayerIndication;
   PBDataWriterWriteBOOLField();
-  v6 = self->_has;
-  if ((*&v6 & 0x100000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x100000) == 0)
   {
 LABEL_21:
-    if ((*&v6 & 0x200) == 0)
+    if ((*&v5 & 0x200) == 0)
     {
       goto LABEL_22;
     }
@@ -1394,13 +1490,12 @@ LABEL_21:
   }
 
 LABEL_46:
-  scgEverConfigured = self->_scgEverConfigured;
   PBDataWriterWriteBOOLField();
-  v6 = self->_has;
-  if ((*&v6 & 0x200) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x200) == 0)
   {
 LABEL_22:
-    if ((*&v6 & 0x40000) == 0)
+    if ((*&v5 & 0x40000) == 0)
     {
       goto LABEL_23;
     }
@@ -1409,13 +1504,12 @@ LABEL_22:
   }
 
 LABEL_47:
-  mcchMsg = self->_mcchMsg;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x40000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x40000) == 0)
   {
 LABEL_23:
-    if ((*&v6 & 0x80000) == 0)
+    if ((*&v5 & 0x80000) == 0)
     {
       goto LABEL_24;
     }
@@ -1424,13 +1518,12 @@ LABEL_23:
   }
 
 LABEL_48:
-  ulCcchMsg = self->_ulCcchMsg;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x80000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x80000) == 0)
   {
 LABEL_24:
-    if ((*&v6 & 0x10) == 0)
+    if ((*&v5 & 0x10) == 0)
     {
       goto LABEL_25;
     }
@@ -1439,13 +1532,12 @@ LABEL_24:
   }
 
 LABEL_49:
-  ulDcchMsg = self->_ulDcchMsg;
   PBDataWriterWriteInt32Field();
-  v6 = self->_has;
-  if ((*&v6 & 0x10) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x10) == 0)
   {
 LABEL_25:
-    if ((*&v6 & 0x20) == 0)
+    if ((*&v5 & 0x20) == 0)
     {
       goto LABEL_27;
     }
@@ -1454,12 +1546,10 @@ LABEL_25:
   }
 
 LABEL_50:
-  dlCcchMsg = self->_dlCcchMsg;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_26:
-    dlDcchMsg = self->_dlDcchMsg;
     PBDataWriterWriteInt32Field();
   }
 
@@ -2324,7 +2414,6 @@ LABEL_24:
       goto LABEL_121;
     }
 
-    v9 = *(equalCopy + 101);
     if (self->_upperLayerIndication)
     {
       if ((*(equalCopy + 101) & 1) == 0)
@@ -2352,7 +2441,7 @@ LABEL_24:
     }
 
 LABEL_121:
-    v11 = 0;
+    v9 = 0;
     goto LABEL_122;
   }
 
@@ -2361,7 +2450,6 @@ LABEL_121:
     goto LABEL_121;
   }
 
-  v10 = *(equalCopy + 100);
   if (self->_scgEverConfigured)
   {
     if ((*(equalCopy + 100) & 1) == 0)
@@ -2435,17 +2523,17 @@ LABEL_90:
       goto LABEL_121;
     }
 
-    v11 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v11 = (*(equalCopy + 26) & 0x20) == 0;
+    v9 = (*(equalCopy + 26) & 0x20) == 0;
   }
 
 LABEL_122:
 
-  return v11;
+  return v9;
 }
 
 - (unint64_t)hash

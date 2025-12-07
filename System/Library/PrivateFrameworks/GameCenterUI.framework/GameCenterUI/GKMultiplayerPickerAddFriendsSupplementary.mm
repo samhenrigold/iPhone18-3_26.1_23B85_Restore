@@ -65,12 +65,13 @@
 
 + (double)preferredHeightFitting:(CGSize)fitting inTraitEnvironment:(id)environment
 {
+  height = fitting.height;
   width = fitting.width;
   swift_unknownObjectRetain();
-  static GKMultiplayerPickerAddFriendsSupplementary.preferredHeight(fitting:in:)(environment, width);
-  v7 = v6;
+  static GKMultiplayerPickerAddFriendsSupplementary.preferredHeight(fitting:in:)(environment, width, height);
+  v8 = v7;
   swift_unknownObjectRelease();
-  return v7;
+  return v8;
 }
 
 @end

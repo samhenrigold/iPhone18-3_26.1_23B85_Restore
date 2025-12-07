@@ -3,6 +3,7 @@
 - (NSArray)unsavedSectionIDsOrdering;
 - (REMMemberships)unsavedMembershipsOfRemindersInSections;
 - (REMTemplateSectionContextChangeItem)initWithTemplateChangeItem:(id)item;
+- (void)setShouldUpdateSectionsOrdering:(BOOL)ordering;
 - (void)setUnsavedMembershipsOfRemindersInSections:(id)sections;
 - (void)setUnsavedSectionIDsOrdering:(id)ordering;
 - (void)undeleteSectionWithID:(id)d;
@@ -36,6 +37,13 @@
   shouldUpdateSectionsOrdering = [templateChangeItem shouldUpdateSectionsOrdering];
 
   return shouldUpdateSectionsOrdering;
+}
+
+- (void)setShouldUpdateSectionsOrdering:(BOOL)ordering
+{
+  orderingCopy = ordering;
+  templateChangeItem = [(REMTemplateSectionContextChangeItem *)self templateChangeItem];
+  [templateChangeItem setShouldUpdateSectionsOrdering:orderingCopy];
 }
 
 - (NSArray)unsavedSectionIDsOrdering

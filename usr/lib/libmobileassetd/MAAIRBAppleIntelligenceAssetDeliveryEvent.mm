@@ -10,7 +10,7 @@
   errorsCopy = errors;
   if (errors)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_518428);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_518428, &qword_33CA90);
     errorsCopy = sub_303AC8();
   }
 

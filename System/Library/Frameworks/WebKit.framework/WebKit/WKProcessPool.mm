@@ -91,10 +91,10 @@
   v3 = objc_opt_class();
   if ((WebCoreObjCScheduleDeallocateOnMainRunLoop(v3, self) & 1) == 0)
   {
-    WebKit::WebProcessPool::~WebProcessPool(&self->_processPool);
-    v4.receiver = self;
-    v4.super_class = WKProcessPool;
-    [(WKProcessPool *)&v4 dealloc];
+    WebKit::WebProcessPool::~WebProcessPool(&self->_processPool, v4);
+    v5.receiver = self;
+    v5.super_class = WKProcessPool;
+    [(WKProcessPool *)&v5 dealloc];
   }
 }
 
@@ -842,7 +842,7 @@ LABEL_21:
     v5 = 0;
   }
 
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v3);
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v3, a2);
   return v5;
 }
 
@@ -865,7 +865,7 @@ LABEL_21:
       WebKit::WebProcessProxy::requestTermination(v4, 2);
     }
 
-    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v5);
+    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v5, a2);
   }
 
   return v3 != 0;
@@ -897,7 +897,7 @@ LABEL_21:
       break;
     }
 
-    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v8);
+    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v8, a2);
     ++v5;
     v6 -= 8;
     if (!v6)
@@ -907,7 +907,7 @@ LABEL_21:
   }
 
   v10 = *(v7 + 381) == 1 && *(v7 + 168) == 0;
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v8);
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v8, a2);
   return v10;
 }
 
@@ -926,7 +926,7 @@ LABEL_21:
     v5 = *v3++;
     atomic_fetch_add((v5 + 16), 1u);
     v6 = *(v5 + 811);
-    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v5 + 16));
+    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v5 + 16), a2);
     if (v6)
     {
       break;
@@ -961,7 +961,7 @@ LABEL_21:
       v3 += *(v6 + 811) ^ 1;
     }
 
-    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v7);
+    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v7, a2);
     ++v4;
     v5 -= 8;
   }
@@ -975,7 +975,7 @@ LABEL_21:
   v2 = *&self->_anon_38[36];
   if (WebKit::WebProcessPool::s_useSeparateServiceWorkerProcess == 1)
   {
-    v2 -= WebKit::WebProcessPool::serviceWorkerProxiesCount(&self->_processPool);
+    v2 -= WebKit::WebProcessPool::serviceWorkerProxiesCount(&self->_processPool, a2);
   }
 
   return v2;
@@ -997,15 +997,15 @@ LABEL_21:
 
 - (void)_isJITDisabledInAllRemoteWorkerProcesses:(id)processes
 {
-  v4 = _Block_copy(processes);
-  v5 = WTF::fastMalloc(0x10);
+  v3 = _Block_copy(processes);
+  v5 = WTF::fastMalloc(v4, 0x10);
   *v5 = &unk_1F10F87B0;
-  v5[1] = v4;
-  v6 = v5;
-  WebKit::WebProcessPool::isJITDisabledInAllRemoteWorkerProcesses(&self->_processPool, &v6);
-  if (v6)
+  v5[1] = v3;
+  v7 = v5;
+  WebKit::WebProcessPool::isJITDisabledInAllRemoteWorkerProcesses(&v7, v6);
+  if (v7)
   {
-    (*(*v6 + 8))(v6);
+    (*(*v7 + 8))(v7);
   }
 
   _Block_release(0);
@@ -1049,7 +1049,7 @@ LABEL_6:
 
   atomic_fetch_add((v2 + 16), 1u);
   v3 = *(v2 + 470);
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v2 + 16));
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v2 + 16), a2);
   return v3 & 1;
 }
 
@@ -1075,7 +1075,7 @@ LABEL_6:
 
   atomic_fetch_add((v2 + 16), 1u);
   v3 = *(v2 + 471);
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v2 + 16));
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref((v2 + 16), a2);
   return v3 & 1;
 }
 
@@ -1100,17 +1100,18 @@ LABEL_6:
 
 - (void)_getActivePagesOriginsInWebProcessForTesting:(int)testing completionHandler:(id)handler
 {
+  v4 = *&testing;
   v6 = _Block_copy(handler);
-  v7 = WTF::fastMalloc(0x10);
-  *v7 = &unk_1F10F87D8;
-  v7[1] = v6;
-  v9 = v7;
-  WebKit::WebProcessPool::activePagesOriginsInWebProcessForTesting(&self->_processPool, testing, &v9);
-  v8 = v9;
-  v9 = 0;
-  if (v8)
+  v8 = WTF::fastMalloc(v7, 0x10);
+  *v8 = &unk_1F10F87D8;
+  v8[1] = v6;
+  v10 = v8;
+  WebKit::WebProcessPool::activePagesOriginsInWebProcessForTesting(&self->_processPool, v4, &v10);
+  v9 = v10;
+  v10 = 0;
+  if (v9)
   {
-    (*(*v8 + 8))(v8);
+    (*(*v9 + 8))(v9);
   }
 
   _Block_release(0);
@@ -1146,50 +1147,50 @@ LABEL_6:
 
 - (void)_seedResourceLoadStatisticsForTestingWithFirstParty:(id)party thirdParty:(id)thirdParty shouldScheduleNotification:(BOOL)notification completionHandler:(id)handler
 {
-  MEMORY[0x19EB01DE0](v20, party);
+  MEMORY[0x19EB01DE0](v22, party);
+  WebCore::RegistrableDomain::RegistrableDomain(&v23, v22);
+  MEMORY[0x19EB01DE0](v20, thirdParty);
   WebCore::RegistrableDomain::RegistrableDomain(&v21, v20);
-  MEMORY[0x19EB01DE0](v18, thirdParty);
-  WebCore::RegistrableDomain::RegistrableDomain(&v19, v18);
   v10 = _Block_copy(handler);
-  v11 = WTF::fastMalloc(0x10);
-  *v11 = &unk_1F10F8800;
-  v11[1] = v10;
-  v17 = v11;
-  WebKit::WebProcessPool::seedResourceLoadStatisticsForTesting(&self->_processPool, &v21, &v19, notification, &v17);
-  if (v17)
+  v12 = WTF::fastMalloc(v11, 0x10);
+  *v12 = &unk_1F10F8800;
+  v12[1] = v10;
+  v19 = v12;
+  WebKit::WebProcessPool::seedResourceLoadStatisticsForTesting(&self->_processPool, &v23, &v21, notification, &v19, v13);
+  if (v19)
   {
-    (*(*v17 + 8))(v17);
+    (*(*v19 + 8))(v19);
   }
 
   _Block_release(0);
-  v13 = v19;
-  v19 = 0;
-  if (v13 && atomic_fetch_add_explicit(v13, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v13, v12);
-  }
-
-  v14 = v18[0];
-  v18[0] = 0;
-  if (v14 && atomic_fetch_add_explicit(v14, 0xFFFFFFFE, memory_order_relaxed) == 2)
-  {
-    WTF::StringImpl::destroy(v14, v12);
-  }
-
   v15 = v21;
   v21 = 0;
   if (v15 && atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    WTF::StringImpl::destroy(v15, v12);
+    WTF::StringImpl::destroy(v15, v14);
   }
 
   v16 = v20[0];
   v20[0] = 0;
-  if (v16)
+  if (v16 && atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
   {
-    if (atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
+    WTF::StringImpl::destroy(v16, v14);
+  }
+
+  v17 = v23;
+  v23 = 0;
+  if (v17 && atomic_fetch_add_explicit(v17, 0xFFFFFFFE, memory_order_relaxed) == 2)
+  {
+    WTF::StringImpl::destroy(v17, v14);
+  }
+
+  v18 = v22[0];
+  v22[0] = 0;
+  if (v18)
+  {
+    if (atomic_fetch_add_explicit(v18, 0xFFFFFFFE, memory_order_relaxed) == 2)
     {
-      WTF::StringImpl::destroy(v16, v12);
+      WTF::StringImpl::destroy(v18, v14);
     }
   }
 }
@@ -1197,7 +1198,7 @@ LABEL_6:
 - (unint64_t)_numberOfConnectedGamepadsForTesting
 {
   {
-    WebKit::UIGamepadProvider::UIGamepadProvider(&WebKit::UIGamepadProvider::singleton(void)::sharedProvider);
+    WebKit::UIGamepadProvider::UIGamepadProvider(WebKit::UIGamepadProvider::singleton(void)::sharedProvider);
   }
 
   return dword_1EB01E3BC;
@@ -1234,39 +1235,39 @@ LABEL_6:
 
   v4 = (v3 + 16);
   atomic_fetch_add((v3 + 16), 1u);
-  WebKit::AuxiliaryProcessProxy::taskInfo(v3, v9);
-  if ((v10 & 1) == 0)
+  WebKit::AuxiliaryProcessProxy::taskInfo(v3, v11);
+  if ((v12 & 1) == 0)
   {
-    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v4);
+    WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v4, v5);
     return 0;
   }
 
-  v5 = [_WKProcessInfo alloc];
-  v2 = v10;
-  if ((v10 & 1) == 0)
+  v6 = [_WKProcessInfo alloc];
+  v2 = v12;
+  if ((v12 & 1) == 0)
   {
     __break(1u);
 LABEL_12:
-    v6 = 0;
+    v7 = 0;
     WebKit::singleton(void)::singleton = 0;
     *(v2 + 1816) = 1;
-    return v6;
+    return v7;
   }
 
-  v6 = [(_WKProcessInfo *)v5 initWithTaskInfo:v9];
-  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v4);
-  if (v6)
+  v7 = [(_WKProcessInfo *)v6 initWithTaskInfo:v11];
+  WTF::ThreadSafeRefCounted<WebKit::AuxiliaryProcessProxy,(WTF::DestructionThread)2>::deref(v4, v8);
+  if (v7)
   {
-    v7 = v6;
+    v9 = v7;
   }
 
-  return v6;
+  return v7;
 }
 
 + (id)_networkingProcessInfo
 {
   v2 = objc_opt_new();
-  WebKit::NetworkProcessProxy::allNetworkProcesses(v3, &v12);
+  WebKit::NetworkProcessProxy::allNetworkProcesses(&v12, v3);
   if (v13)
   {
     v5 = v12;
@@ -1309,7 +1310,7 @@ LABEL_12:
   if (v15)
   {
     v4 = v14;
-    v5 = v14 + 8 * v15;
+    v5 = &v14[v15];
     do
     {
       v6 = *(*v4 + 84);

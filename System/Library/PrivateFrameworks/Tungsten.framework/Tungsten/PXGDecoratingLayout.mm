@@ -1433,9 +1433,9 @@ LABEL_78:
 {
   v22 = *MEMORY[0x277D85DE8];
   decorationsCopy = decorations;
-  indexSet = [MEMORY[0x277CCAB58] indexSet];
+  v5 = objc_msgSend_indexSet(MEMORY[0x277CCAB58]);
   pendingActiveDecorationSpriteIndexes = self->_pendingActiveDecorationSpriteIndexes;
-  self->_pendingActiveDecorationSpriteIndexes = indexSet;
+  self->_pendingActiveDecorationSpriteIndexes = v5;
 
   v19 = 0u;
   v20 = 0u;

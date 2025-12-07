@@ -80,36 +80,36 @@
 
 - (BOOL)matchesFetchResponse:(id)response
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (!self->_expectedFetchResult)
   {
     if (!self->_fetchItem || ([(_MFIMAPFetchUnit *)self _setupExpectedFetchResult], !self->_expectedFetchResult))
     {
       LOBYTE(v6) = 0;
-      goto LABEL_24;
+      return v6;
     }
   }
 
   fetchResults = [response fetchResults];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v6 = [fetchResults countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [fetchResults countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
 LABEL_4:
     v9 = 0;
     while (1)
     {
-      if (*v17 != v8)
+      if (*v16 != v8)
       {
         objc_enumerationMutation(fetchResults);
       }
 
-      v10 = *(*(&v16 + 1) + 8 * v9);
+      v10 = *(*(&v15 + 1) + 8 * v9);
       type = [v10 type];
       if ((type - 4) < 2)
       {
@@ -132,14 +132,14 @@ LABEL_4:
 LABEL_17:
       if (v7 == ++v9)
       {
-        v6 = [fetchResults countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v6 = [fetchResults countByEnumeratingWithState:&v15 objects:v19 count:16];
         v7 = v6;
         if (v6)
         {
           goto LABEL_4;
         }
 
-        goto LABEL_24;
+        return v6;
       }
     }
 
@@ -149,39 +149,41 @@ LABEL_17:
     {
 LABEL_20:
       LOBYTE(v6) = 1;
-      goto LABEL_24;
+      return v6;
     }
 
     goto LABEL_17;
   }
 
-LABEL_24:
-  v14 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
 - (id)copyFailedFetchResponse
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  if (self->_uid && (self->_expectedFetchResult || ([(_MFIMAPFetchUnit *)self _setupExpectedFetchResult], self->_expectedFetchResult)))
+  v6[2] = *MEMORY[0x277D85DE8];
+  if (!self->_uid)
   {
-    v3 = objc_alloc_init(MFIMAPResponse);
-    [(MFIMAPResponse *)v3 setResponseType:17];
-    [(MFIMAPResponse *)v3 setNumber:0];
-    v7[0] = [[MFIMAPFetchResult alloc] initWithType:8];
-    [v7[0] setUid:self->_uid];
-    v7[1] = self->_expectedFetchResult;
-    v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:v7 count:2];
-
-    [(MFIMAPResponse *)v3 setFetchResults:v4];
+    return 0;
   }
 
-  else
+  if (!self->_expectedFetchResult)
   {
-    v3 = 0;
+    [(_MFIMAPFetchUnit *)self _setupExpectedFetchResult];
+    if (!self->_expectedFetchResult)
+    {
+      return 0;
+    }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = objc_alloc_init(MFIMAPResponse);
+  [(MFIMAPResponse *)v3 setResponseType:17];
+  [(MFIMAPResponse *)v3 setNumber:0];
+  v6[0] = [[MFIMAPFetchResult alloc] initWithType:8];
+  [v6[0] setUid:self->_uid];
+  v6[1] = self->_expectedFetchResult;
+  v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:v6 count:2];
+
+  [(MFIMAPResponse *)v3 setFetchResults:v4];
   return v3;
 }
 

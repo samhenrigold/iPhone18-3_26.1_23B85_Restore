@@ -109,18 +109,15 @@ LABEL_3:
   wakeupCallback = self->_wakeupCallback;
   self->_wakeupCallback = v9;
 
-  eventSystemClient = self->_eventSystemClient;
-  hidEventQ = self->_hidEventQ;
   IOHIDEventSystemClientScheduleWithDispatchQueue();
-  v13 = self->_eventSystemClient;
   IOHIDEventSystemClientRegisterEventCallback();
   v5 = [NSString stringWithFormat:@"Wakeup event is registered!"];
   logger = [(MDRBaseObject *)self logger];
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138543362;
-    v16 = v5;
-    _os_log_impl(&_mh_execute_header, logger, OS_LOG_TYPE_DEFAULT, "%{public}@", &v15, 0xCu);
+    v12 = 138543362;
+    v13 = v5;
+    _os_log_impl(&_mh_execute_header, logger, OS_LOG_TYPE_DEFAULT, "%{public}@", &v12, 0xCu);
   }
 
   v7 = 1;
@@ -133,9 +130,7 @@ LABEL_9:
 {
   if (self->_eventSystemClient)
   {
-    hidEventQ = self->_hidEventQ;
     IOHIDEventSystemClientUnscheduleFromDispatchQueue();
-    eventSystemClient = self->_eventSystemClient;
     IOHIDEventSystemClientUnregisterEventCallback();
     self->_eventSystemClient = 0;
   }
@@ -143,13 +138,13 @@ LABEL_9:
   wakeupCallback = self->_wakeupCallback;
   self->_wakeupCallback = 0;
 
-  v6 = [NSString stringWithFormat:@"Wakeup event is unregistered"];
+  v4 = [NSString stringWithFormat:@"Wakeup event is unregistered"];
   logger = [(MDRBaseObject *)self logger];
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138543362;
-    v9 = v6;
-    _os_log_impl(&_mh_execute_header, logger, OS_LOG_TYPE_DEFAULT, "%{public}@", &v8, 0xCu);
+    v6 = 138543362;
+    v7 = v4;
+    _os_log_impl(&_mh_execute_header, logger, OS_LOG_TYPE_DEFAULT, "%{public}@", &v6, 0xCu);
   }
 }
 
@@ -193,18 +188,15 @@ LABEL_3:
   paringKeyCombo = self->_paringKeyCombo;
   self->_paringKeyCombo = 0;
 
-  eventSystemClient = self->_eventSystemClient;
-  hidEventQ = self->_hidEventQ;
   IOHIDEventSystemClientScheduleWithDispatchQueue();
-  v14 = self->_eventSystemClient;
   IOHIDEventSystemClientRegisterEventCallback();
   v5 = [NSString stringWithFormat:@"Paring event is registered!"];
   logger = [(MDRBaseObject *)self logger];
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 138543362;
-    v17 = v5;
-    _os_log_impl(&_mh_execute_header, logger, OS_LOG_TYPE_DEFAULT, "%{public}@", &v16, 0xCu);
+    v13 = 138543362;
+    v14 = v5;
+    _os_log_impl(&_mh_execute_header, logger, OS_LOG_TYPE_DEFAULT, "%{public}@", &v13, 0xCu);
   }
 
   v7 = 1;
@@ -217,9 +209,7 @@ LABEL_9:
 {
   if (self->_eventSystemClient)
   {
-    hidEventQ = self->_hidEventQ;
     IOHIDEventSystemClientUnscheduleFromDispatchQueue();
-    eventSystemClient = self->_eventSystemClient;
     IOHIDEventSystemClientUnregisterEventCallback();
     self->_eventSystemClient = 0;
   }
@@ -230,13 +220,13 @@ LABEL_9:
   paringKeyCombo = self->_paringKeyCombo;
   self->_paringKeyCombo = 0;
 
-  v7 = [NSString stringWithFormat:@"Paring event is unregistered"];
+  v5 = [NSString stringWithFormat:@"Paring event is unregistered"];
   logger = [(MDRBaseObject *)self logger];
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543362;
-    v10 = v7;
-    _os_log_impl(&_mh_execute_header, logger, OS_LOG_TYPE_DEFAULT, "%{public}@", &v9, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&_mh_execute_header, logger, OS_LOG_TYPE_DEFAULT, "%{public}@", &v7, 0xCu);
   }
 }
 

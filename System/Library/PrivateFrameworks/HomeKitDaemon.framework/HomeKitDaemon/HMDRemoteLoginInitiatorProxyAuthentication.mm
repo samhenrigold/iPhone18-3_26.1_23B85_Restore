@@ -11,7 +11,7 @@
 
 - (void)_authenticate
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   v3 = [HMDRemoteLoginProxyAuthenticationRequest alloc];
   sessionID = [(HMDRemoteLoginAuthentication *)self sessionID];
   v5 = [(HMRemoteLoginMessage *)v3 initWithSessionID:sessionID];
@@ -43,13 +43,13 @@
     passwordToken = [(HMDRemoteLoginProxyAuthenticationRequest *)v5 passwordToken];
     altDSID = [(HMDRemoteLoginProxyAuthenticationRequest *)v5 altDSID];
     *buf = 138544130;
-    v34 = v17;
-    v35 = 2112;
-    v36 = username;
-    v37 = 2112;
-    v38 = passwordToken;
-    v39 = 2112;
-    v40 = altDSID;
+    v33 = v17;
+    v34 = 2112;
+    v35 = username;
+    v36 = 2112;
+    v37 = passwordToken;
+    v38 = 2112;
+    v39 = altDSID;
     _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Received username %@, pet %@, alt-dsid %@", buf, 0x2Au);
   }
 
@@ -64,9 +64,9 @@
     [rawPassword length];
     v26 = HMFBooleanToString();
     *buf = 138543618;
-    v34 = v24;
-    v35 = 2112;
-    v36 = v26;
+    v33 = v24;
+    v34 = 2112;
+    v35 = v26;
     _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Received password: %@", buf, 0x16u);
   }
 
@@ -75,17 +75,15 @@
   remoteMessageSender = [(HMDRemoteLoginAuthentication *)v22 remoteMessageSender];
   messageName = [(HMDRemoteLoginProxyAuthenticationRequest *)v5 messageName];
   messagePayload = [(HMDRemoteLoginProxyAuthenticationRequest *)v5 messagePayload];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __59__HMDRemoteLoginInitiatorProxyAuthentication__authenticate__block_invoke;
-  v31[3] = &unk_278687FB0;
-  objc_copyWeak(&v32, buf);
-  [remoteMessageSender sendRemoteMessageWithName:messageName payload:messagePayload responseHandler:v31];
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __59__HMDRemoteLoginInitiatorProxyAuthentication__authenticate__block_invoke;
+  v30[3] = &unk_278687FB0;
+  objc_copyWeak(&v31, buf);
+  [remoteMessageSender sendRemoteMessageWithName:messageName payload:messagePayload responseHandler:v30];
 
-  objc_destroyWeak(&v32);
+  objc_destroyWeak(&v31);
   objc_destroyWeak(buf);
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __59__HMDRemoteLoginInitiatorProxyAuthentication__authenticate__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -118,7 +116,7 @@ void __59__HMDRemoteLoginInitiatorProxyAuthentication__authenticate__block_invok
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -126,17 +124,16 @@ void __59__HMDRemoteLoginInitiatorProxyAuthentication__authenticate__block_invok
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v10 = v6;
-    v11 = 2112;
-    v12 = selfCopy;
+    v9 = v6;
+    v10 = 2112;
+    v11 = selfCopy;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Dealloc %@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
-  v8.receiver = selfCopy;
-  v8.super_class = HMDRemoteLoginInitiatorProxyAuthentication;
-  [(HMDRemoteLoginInitiatorProxyAuthentication *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = selfCopy;
+  v7.super_class = HMDRemoteLoginInitiatorProxyAuthentication;
+  [(HMDRemoteLoginInitiatorProxyAuthentication *)&v7 dealloc];
 }
 
 - (HMDRemoteLoginInitiatorProxyAuthentication)initWithSessionID:(id)d remoteDevice:(id)device workQueue:(id)queue remoteMessageSender:(id)sender delegate:(id)delegate authResults:(id)results
@@ -168,10 +165,9 @@ void __59__HMDRemoteLoginInitiatorProxyAuthentication__authenticate__block_invok
 
 void __57__HMDRemoteLoginInitiatorProxyAuthentication_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2;
-  logCategory__hmf_once_v2 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2;
+  logCategory__hmf_once_v2 = v0;
 }
 
 @end

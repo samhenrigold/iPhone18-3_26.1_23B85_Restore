@@ -1,3 +1,26 @@
+uint64_t apple::vision::libraries::facecore::FaceCoreAPI::Impl::initializeDetectionProcessingChainsIfNeeded(uint64_t this)
+{
+  if (!*(this + 40))
+  {
+    operator new();
+  }
+
+  return this;
+}
+
+uint64_t *std::vector<int>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<unsigned int>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
+}
+
 void sub_23B12C944(_Unwind_Exception *exception_object)
 {
   v3 = *v1;
@@ -57,14 +80,14 @@ apple::vision::libraries::facecore::processing::tracking::KeypointTrackerManager
   return result;
 }
 
-void apple::vision::libraries::facecore::FaceCoreAPI::Impl::detectFacesAllCardinalDirections(apple::vision::libraries::facecore::FaceCoreContext **this@<X0>, image *a2@<X1>, void *a3@<X8>)
+void apple::vision::libraries::facecore::FaceCoreAPI::Impl::detectFacesAllCardinalDirections(uint64_t *__return_ptr a1@<X8>, apple::vision::libraries::facecore::FaceCoreContext **this@<X0>, image *a3@<X1>)
 {
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v14 = 0uLL;
   v15 = 0;
-  apple::vision::libraries::facecore::FaceCoreAPI::Impl::detectFacesOneDirection(this, a2, &v12);
+  apple::vision::libraries::facecore::FaceCoreAPI::Impl::detectFacesOneDirection(&v12, this, a3);
   std::vector<apple::vision::libraries::facecore::Face>::__vdeallocate(&v14);
   v14 = v12;
   v15 = v13;
@@ -72,7 +95,7 @@ void apple::vision::libraries::facecore::FaceCoreAPI::Impl::detectFacesAllCardin
   v13 = 0;
   v12 = 0uLL;
   std::vector<apple::vision::libraries::facecore::Face>::__destroy_vector::operator()[abi:ne200100](&v16);
-  std::vector<apple::vision::libraries::facecore::Face>::__insert_with_size[abi:ne200100]<std::__wrap_iter<apple::vision::libraries::facecore::Face*>,std::__wrap_iter<apple::vision::libraries::facecore::Face*>>(a3, a3[1], v14, *(&v14 + 1), 0x8E38E38E38E38E39 * ((*(&v14 + 1) - v14) >> 4));
+  std::vector<apple::vision::libraries::facecore::Face>::__insert_with_size[abi:ne200100]<std::__wrap_iter<apple::vision::libraries::facecore::Face*>,std::__wrap_iter<apple::vision::libraries::facecore::Face*>>(a1, a1[1], v14, *(&v14 + 1), 0x8E38E38E38E38E39 * ((*(&v14 + 1) - v14) >> 4));
   v6 = *this;
   v7 = *(*this + 4);
   v8 = *(*this + 20);
@@ -84,7 +107,7 @@ void apple::vision::libraries::facecore::FaceCoreAPI::Impl::detectFacesAllCardin
   }
 
   *(v6 + 4) = v9;
-  apple::vision::libraries::facecore::FaceCoreAPI::Impl::detectFacesOneDirection(this, a2, &v12);
+  apple::vision::libraries::facecore::FaceCoreAPI::Impl::detectFacesOneDirection(&v12, this, a3);
   std::vector<apple::vision::libraries::facecore::Face>::__vdeallocate(&v14);
   v14 = v12;
   v15 = v13;
@@ -92,7 +115,7 @@ void apple::vision::libraries::facecore::FaceCoreAPI::Impl::detectFacesAllCardin
   v13 = 0;
   v12 = 0uLL;
   std::vector<apple::vision::libraries::facecore::Face>::__destroy_vector::operator()[abi:ne200100](&v16);
-  apple::vision::libraries::facecore::utils::OverlappingUtils::appendUniqueFaces(&v14, a3, 0.300000012);
+  apple::vision::libraries::facecore::utils::OverlappingUtils::appendUniqueFaces(&v14, a1, 0.300000012);
   v10 = *this;
   v11 = v7 % 360;
   if ((v7 % 360) > 0xFFFFFE97)
@@ -114,25 +137,25 @@ void sub_23B12CC80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-apple::vision::libraries::facecore::Face *apple::vision::libraries::facecore::FaceCoreAPI::Impl::detectFacesOneDirection@<X0>(apple::vision::libraries::facecore::FaceCoreContext **this@<X0>, image *a2@<X1>, void *a3@<X8>)
+apple::vision::libraries::facecore::Face *apple::vision::libraries::facecore::FaceCoreAPI::Impl::detectFacesOneDirection@<X0>(uint64_t *__return_ptr a1@<X8>, apple::vision::libraries::facecore::FaceCoreContext **this@<X0>, image *a3@<X1>)
 {
   apple::vision::libraries::facecore::FaceCoreAPI::Impl::initializeDetectionProcessingChainsIfNeeded(this);
   apple::vision::libraries::facecore::FaceCoreContext::setUpForProcessing(*this);
-  if (a2->var1 >= 25 && a2->var2 >= 25)
+  if (a3->var1 >= 25 && a3->var2 >= 25)
   {
     v7 = *this;
-    *(v7 + 6) = *a2;
-    *(v7 + 7) = *a2;
+    *(v7 + 6) = *a3;
+    *(v7 + 7) = *a3;
     (*(*this[4] + 8))(this[4], *this);
     apple::vision::libraries::facecore::FaceCoreContext::cleanUpTemporaryData(*this);
   }
 
   v8 = *this;
 
-  return apple::vision::libraries::facecore::FaceCoreContext::getConvertedDetectedFaces(v8, a3);
+  return apple::vision::libraries::facecore::FaceCoreContext::getConvertedDetectedFaces(v8, a1);
 }
 
-apple::vision::libraries::facecore::Face *std::vector<apple::vision::libraries::facecore::Face>::__insert_with_size[abi:ne200100]<std::__wrap_iter<apple::vision::libraries::facecore::Face*>,std::__wrap_iter<apple::vision::libraries::facecore::Face*>>(void *a1, uint64_t a2, const apple::vision::libraries::facecore::Face *a3, apple::vision::libraries::facecore::Face *a4, uint64_t a5)
+apple::vision::libraries::facecore::Face *std::vector<apple::vision::libraries::facecore::Face>::__insert_with_size[abi:ne200100]<std::__wrap_iter<apple::vision::libraries::facecore::Face*>,std::__wrap_iter<apple::vision::libraries::facecore::Face*>>(void *a1, apple::vision::libraries::facecore::Face *a2, const apple::vision::libraries::facecore::Face *a3, apple::vision::libraries::facecore::Face *a4, uint64_t a5)
 {
   v5 = a2;
   if (a5 >= 1)
@@ -352,7 +375,7 @@ uint64_t std::__move_backward_impl<std::_ClassicAlgPolicy>::operator()[abi:ne200
   return a3;
 }
 
-void std::vector<apple::vision::libraries::facecore::Face>::__vdeallocate(void **a1)
+void std::vector<apple::vision::libraries::facecore::Face>::__vdeallocate(char **a1)
 {
   v1 = *a1;
   if (*a1)
@@ -389,7 +412,7 @@ void sub_23B12D49C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-apple::vision::libraries::facecore::FaceCoreContext **std::unique_ptr<apple::vision::libraries::facecore::FaceCoreContext>::~unique_ptr[abi:ne200100](apple::vision::libraries::facecore::FaceCoreContext **a1)
+void ***std::unique_ptr<apple::vision::libraries::facecore::FaceCoreContext>::~unique_ptr[abi:ne200100](void ***a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -448,17 +471,17 @@ apple::vision::libraries::facecore::processing::processingchains::DetailsExtract
   return result;
 }
 
-void apple::vision::libraries::facecore::mod::facerecognition::LocalGradientFeature::LocalGradientFeature(void *a1, uint64_t *a2, uint64_t *a3)
+void apple::vision::libraries::facecore::mod::facerecognition::LocalGradientFeature::LocalGradientFeature(void *a1, const void **a2, const void **a3)
 {
   *a1 = &unk_284DF3D58;
   a1[2] = 0;
   a1[3] = 0;
   a1[4] = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 2), *a2, a2[1], (a2[1] - *a2) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 2, *a2, a2[1], (a2[1] - *a2) >> 2);
   a1[5] = 0;
   a1[6] = 0;
   a1[7] = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((a1 + 5), *a3, a3[1], (a3[1] - *a3) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(a1 + 5, *a3, a3[1], (a3[1] - *a3) >> 2);
   a1[8] = 0;
   operator new();
 }
@@ -535,7 +558,7 @@ apple::vision::libraries::facecore::mod::facerecognition::FeatureProcessing *app
   return result;
 }
 
-void apple::vision::libraries::facecore::mod::facerecognition::LocalGradientFeature::extractFaceprintPart(apple::vision::libraries::facecore::mod::facerecognition::LocalGradientFeature *this@<X0>, unsigned __int8 *a2@<X1>, apple::vision::libraries::facecore::FaceCoreContext *a3@<X4>, int a4@<W2>, int a5@<W3>, uint64_t a6@<X8>, float a7@<S0>)
+void apple::vision::libraries::facecore::mod::facerecognition::LocalGradientFeature::extractFaceprintPart(apple::vision::libraries::facecore::mod::facerecognition::LocalGradientFeature *this@<X0>, unsigned __int8 *a2@<X1>, apple::vision::libraries::facecore::FaceCoreContext *a3@<X4>, int a4@<W2>, unsigned int a5@<W3>, uint64_t a6@<X8>, float a7@<S0>)
 {
   v9 = *(this + 6) - *(this + 5);
   v10 = v9 >> 2;
@@ -618,7 +641,7 @@ void apple::vision::libraries::facecore::mod::facerecognition::LocalGradientFeat
   v27 = *(this + 8);
   if (v27)
   {
-    apple::vision::libraries::facecore::mod::facerecognition::FeatureProcessing::transformF(v27, this + 70216, 72, 128, 1, a6, v26);
+    apple::vision::libraries::facecore::mod::facerecognition::FeatureProcessing::transformF(v27, this + 70216, 0x48u, 0x80u, 1, a6, v26);
   }
 
   else
@@ -651,7 +674,7 @@ void sub_23B1A5664(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -783,14 +806,14 @@ void apple::vision::libraries::facecore::processing::tracking::KeypointTracker::
 void apple::vision::libraries::facecore::processing::tracking::KeypointTracker::track(int32x2_t *this, const image *a2, int32x2_t *a3)
 {
   this[27].i32[0] = 1;
-  memset(v21, 0, 32);
-  apple::vision::libraries::facecore::processing::tracking::keypointtracker::datastructures::KCropImage::generateCropFromPreviousCrop(v21, this + 1, a2, 0x28u);
-  apple::vision::libraries::facecore::processing::tracking::KeypointTracker::initializeFrameDataAtIndex(this, 1, a2, v21);
+  memset(v20, 0, 32);
+  apple::vision::libraries::facecore::processing::tracking::keypointtracker::datastructures::KCropImage::generateCropFromPreviousCrop(v20, this + 1, a2, 0x28u);
+  apple::vision::libraries::facecore::processing::tracking::KeypointTracker::initializeFrameDataAtIndex(this, 1, a2, v20);
   apple::vision::libraries::facecore::processing::tracking::keypointtracker::MatchingModule::MatchingModule(v18, &this[52], &this[184], &this[36], &this[44]);
   *__p = 0u;
   v17 = 0u;
   apple::vision::libraries::facecore::processing::tracking::keypointtracker::MatchingModule::matchElements(v18);
-  if (v20 && (apple::vision::libraries::facecore::processing::tracking::keypointtracker::ransac(&v19, __p), apple::vision::libraries::facecore::processing::tracking::keypointtracker::datastructures::KRigidTransformation::isRigid(&this[316])))
+  if (v19[6] && (apple::vision::libraries::facecore::processing::tracking::keypointtracker::ransac(v19, __p, &this[316]), apple::vision::libraries::facecore::processing::tracking::keypointtracker::datastructures::KRigidTransformation::isRigid(&this[316])))
   {
     apple::vision::libraries::facecore::processing::tracking::keypointtracker::datastructures::KCropImage::takeOwnershipToCropBuffer(&this[36], &this[44]);
     apple::vision::libraries::facecore::processing::tracking::keypointtracker::datastructures::KPointDescriptorArray::swap(&this[52], &this[184]);
@@ -833,11 +856,12 @@ void apple::vision::libraries::facecore::processing::tracking::KeypointTracker::
   }
 
   apple::vision::libraries::facecore::processing::tracking::keypointtracker::MatchingModule::~MatchingModule(v18);
-  apple::vision::libraries::facecore::processing::tracking::keypointtracker::datastructures::KCropImage::~KCropImage(v21);
+  apple::vision::libraries::facecore::processing::tracking::keypointtracker::datastructures::KCropImage::~KCropImage(v20);
 }
 
-void sub_23B1D07DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_23B1D07DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *__p, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   apple::vision::libraries::facecore::processing::tracking::keypointtracker::datastructures::KCropImage::~KCropImage(&a17);
   if (__p)
   {
@@ -845,8 +869,8 @@ void sub_23B1D07DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(__p);
   }
 
-  apple::vision::libraries::facecore::processing::tracking::keypointtracker::MatchingModule::~MatchingModule(&a29);
-  apple::vision::libraries::facecore::processing::tracking::keypointtracker::datastructures::KCropImage::~KCropImage((v29 - 112));
+  apple::vision::libraries::facecore::processing::tracking::keypointtracker::MatchingModule::~MatchingModule(va);
+  apple::vision::libraries::facecore::processing::tracking::keypointtracker::datastructures::KCropImage::~KCropImage((v28 - 112));
   _Unwind_Resume(a1);
 }
 
@@ -1071,20 +1095,20 @@ void apple::vision::libraries::facecore::mod::keypoints::EyesAndMouth::~EyesAndM
   }
 }
 
-void sub_23B22432C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_23B22432C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va1, a12);
-  va_start(va, a12);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a19);
+  va_start(va, a19);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void apple::vision::libraries::facecore::processing::extraction::FaceprintExtractor::~FaceprintExtractor(apple::vision::libraries::facecore::mod::facerecognition::FeatureCombination **this)
+void apple::vision::libraries::facecore::processing::extraction::FaceprintExtractor::~FaceprintExtractor(dispatch_object_t **this)
 {
   v1 = *this;
   if (v1)
@@ -1120,28 +1144,28 @@ void apple::vision::libraries::facecore::processing::extraction::FaceprintExtrac
   *(a7 + 48) = 0x4018000000000000;
 }
 
-void sub_23B2245AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23B2245AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   apple::vision::libraries::facecore::Face::~Face(va);
-  apple::vision::libraries::facecore::processing::extraction::Faceprint::~Faceprint(v2);
+  apple::vision::libraries::facecore::processing::extraction::Faceprint::~Faceprint(v3);
   _Unwind_Resume(a1);
 }
 
-void apple::vision::libraries::facecore::processing::extraction::FaceprintExtractor::GetShapeVertices(apple::vision::libraries::facecore::mod::facerecognition::FeatureCombination **this@<X0>, void *a2@<X8>)
+void apple::vision::libraries::facecore::processing::extraction::FaceprintExtractor::GetShapeVertices(const void **__return_ptr a1@<X8>, apple::vision::libraries::facecore::mod::facerecognition::FeatureCombination **this@<X0>)
 {
   AamObject = apple::vision::libraries::facecore::mod::facerecognition::FeatureCombination::getAamObject(*this);
   if (AamObject)
   {
 
-    apple::vision::libraries::facecore::mod::aam::AamFeature::GetShapeVertices(AamObject, a2);
+    apple::vision::libraries::facecore::mod::aam::AamFeature::GetShapeVertices(AamObject, a1);
   }
 
   else
   {
-    *a2 = 0;
-    a2[1] = 0;
-    a2[2] = 0;
+    *a1 = 0;
+    a1[1] = 0;
+    a1[2] = 0;
   }
 }
 

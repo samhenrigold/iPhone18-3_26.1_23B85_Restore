@@ -94,9 +94,9 @@
 
 - (id)viewControllerForPiP
 {
-  v0 = MultiwayViewController.pipViewController.getter();
+  MultiwayViewController.pipViewController.getter(self);
 
-  return v0;
+  return v1;
 }
 
 - (void)testing_didFinishLocalPreviewRotationAnimation
@@ -119,13 +119,14 @@
 
 - (void)setIsInCallEndedBlockAndReportFlow:(BOOL)flow
 {
+  flowCopy = flow;
   selfCopy = self;
-  MultiwayViewController.isInCallEndedBlockAndReportFlow.setter(flow);
+  MultiwayViewController.isInCallEndedBlockAndReportFlow.setter(flowCopy);
 }
 
 - (CNKBannerPresentationManager)bannerPresentationManager
 {
-  v2 = MultiwayViewController.bannerPresentationManagerBox.getter();
+  v2 = MultiwayViewController.bannerPresentationManagerBox.getter(self);
 
   return v2;
 }
@@ -139,8 +140,9 @@
 
 - (void)setDidExpandIncomingCallBanner:(BOOL)banner
 {
+  bannerCopy = banner;
   selfCopy = self;
-  MultiwayViewController.didExpandIncomingCallBanner.setter(banner);
+  MultiwayViewController.didExpandIncomingCallBanner.setter(bannerCopy);
 }
 
 - (NSTimer)inCallControlsDismissTimer
@@ -189,7 +191,7 @@
 - (void)setIsOnScreen:(BOOL)screen
 {
   selfCopy = self;
-  MultiwayViewController.isOnScreen.setter();
+  MultiwayViewController.isOnScreen.setter(screen);
 }
 
 - (void)setHasParticipantVideo:(BOOL)video
@@ -229,7 +231,7 @@
 - (BOOL)isShownAboveCoverSheet
 {
   selfCopy = self;
-  v3 = MultiwayViewController.isShownAboveCoverSheet.getter();
+  v3 = MultiwayViewController.isShownAboveCoverSheet.getter(selfCopy);
 
   return v3 & 1;
 }
@@ -262,9 +264,9 @@
 
 - (UIView)localParticipantView
 {
-  v2 = MultiwayViewController.localParticipantView.getter();
+  v8 = MultiwayViewController.localParticipantView.getter(self, a2, v2, v3, v4, v5, v6, v7);
 
-  return v2;
+  return v8;
 }
 
 - (_TtC15ConversationKit33VideoReactionPickerViewController)reactionsViewController
@@ -285,7 +287,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  MultiwayViewController.delegate.setter();
+  MultiwayViewController.delegate.setter(delegate);
 }
 
 - (CNKFaceTimeMultiwayViewControllerIOSDelegate)iOSDelegate
@@ -299,7 +301,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  MultiwayViewController.iOSDelegate.setter();
+  MultiwayViewController.iOSDelegate.setter(delegate);
 }
 
 - (CGSize)preferredPIPContentAspectRatio
@@ -516,7 +518,7 @@
 - (void)toggleReactionsView
 {
   selfCopy = self;
-  MultiwayViewController.toggleReactionsView()();
+  MultiwayViewController.toggleReactionsView()(selfCopy);
 }
 
 - (void)didTapOneToOneShutterButton
@@ -528,9 +530,9 @@
 - (BOOL)isPresentingEffectsBrowser
 {
   selfCopy = self;
-  v3 = MultiwayViewController.isPresentingEffectsBrowser.getter();
+  v10 = MultiwayViewController.isPresentingEffectsBrowser.getter(selfCopy, v3, v4, v5, v6, v7, v8, v9);
 
-  return v3;
+  return v10;
 }
 
 - (void)resetEffectsState
@@ -583,7 +585,7 @@
 {
   controllerCopy = controller;
   selfCopy = self;
-  MultiwayViewController.cameraViewController(_:presentationRectWasPinchedWith:scale:velocity:)(scale);
+  MultiwayViewController.cameraViewController(_:presentationRectWasPinchedWith:scale:velocity:)(selfCopy, scale);
 }
 
 - (void)cameraViewController:(id)controller didChangeEffectsState:(int64_t)state
@@ -607,15 +609,21 @@
   v9 = _Block_copy(completion);
   if (v9)
   {
-    *(swift_allocObject() + 16) = v9;
+    v10 = swift_allocObject();
+    *(v10 + 16) = v9;
     v9 = thunk for @escaping @callee_unowned @convention(block) () -> ()partial apply;
+  }
+
+  else
+  {
+    v10 = 0;
   }
 
   controllerCopy = controller;
   viewControllerCopy = viewController;
   selfCopy = self;
   MultiwayViewController.effectBrowserViewController(_:presentExpandedAppViewController:animated:completion:)();
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v9);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v9, v10);
 }
 
 - (void)effectBrowserViewController:(id)controller dismissExpandedAppViewController:(id)viewController animated:(BOOL)animated completion:(id)completion
@@ -623,15 +631,21 @@
   v9 = _Block_copy(completion);
   if (v9)
   {
-    *(swift_allocObject() + 16) = v9;
+    v10 = swift_allocObject();
+    *(v10 + 16) = v9;
     v9 = _sIeyB_Ieg_TRTA_0;
+  }
+
+  else
+  {
+    v10 = 0;
   }
 
   controllerCopy = controller;
   viewControllerCopy = viewController;
   selfCopy = self;
   MultiwayViewController.effectBrowserViewController(_:dismissExpandedAppViewController:animated:completion:)();
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v9);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v9, v10);
 }
 
 - (CGSize)expandedAppViewControllerSizeForEffectBrowserViewController:(id)controller
@@ -756,18 +770,21 @@
   v4 = _Block_copy(completion);
   if (v4)
   {
-    *(swift_allocObject() + 16) = v4;
-    v5 = _s10ObjectiveC8ObjCBoolVIeyBy_SbIegy_TRTA_0;
+    v5 = v4;
+    v6 = swift_allocObject();
+    *(v6 + 16) = v5;
+    v7 = _s10ObjectiveC8ObjCBoolVIeyBy_SbIegy_TRTA_0;
   }
 
   else
   {
-    v5 = 0;
+    v7 = 0;
+    v6 = 0;
   }
 
   selfCopy = self;
   MultiwayViewController.cancelVideoRecording(completion:)();
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(v5);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(v7, v6);
 }
 
 @end

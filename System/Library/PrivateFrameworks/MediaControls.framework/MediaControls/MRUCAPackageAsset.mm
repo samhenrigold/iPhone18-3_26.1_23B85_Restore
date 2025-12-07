@@ -247,7 +247,7 @@
 
       if (v5)
       {
-        [(MRUCAPackageAsset *)v5 permanentTransform];
+        objc_msgSend_permanentTransform(v5);
       }
 
       else

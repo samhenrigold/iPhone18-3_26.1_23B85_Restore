@@ -35,14 +35,14 @@
 
 - (AVAssetResourceLoadingRequest)initWithResourceLoader:(id)loader URL:(id)l httpRequestHeaders:(id)headers requestOffset:(id)offset requestLength:(id)length allowedContentTypes:(id)types figCryptor:(OpaqueFigCPECryptor *)cryptor cryptorKeyRequestID:(unint64_t)self0
 {
-  v32.receiver = self;
-  v32.super_class = AVAssetResourceLoadingRequest;
-  v16 = [(AVAssetResourceLoadingRequest *)&v32 init];
+  v34.receiver = self;
+  v34.super_class = AVAssetResourceLoadingRequest;
+  v16 = [(AVAssetResourceLoadingRequest *)&v34 init];
   if (v16)
   {
     v17 = objc_alloc_init(AVAssetResourceLoadingRequestInternal);
     v16->_loadingRequest = v17;
-    if (v17 && (CFRetain(v17), v16->_loadingRequest->weakReference = -[AVWeakReference initWithReferencedObject:]([AVWeakReference alloc], "initWithReferencedObject:", v16), v16->_loadingRequest->weakReferenceToResourceLoader = -[AVWeakReference initWithReferencedObject:]([AVWeakReference alloc], "initWithReferencedObject:", loader), v16->_loadingRequest->URLRequest = [objc_alloc(MEMORY[0x1E695AC18]) initWithURL:l], v16->_loadingRequest->ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avfoundation.avassetresourceloadingrequest.ivars"), v16->_loadingRequest->dataCachingQueue = av_readwrite_dispatch_queue_create("com.apple.avfoundation.avassetresourceloadingrequest.dataCaching"), loadingRequest = v16->_loadingRequest, loadingRequest->weakReference) && l && loadingRequest->weakReferenceToResourceLoader && loadingRequest->URLRequest && loadingRequest->ivarAccessQueue && loadingRequest->dataCachingQueue)
+    if (v17 && (CFRetain(v17), v16->_loadingRequest->weakReference = -[AVWeakReference initWithReferencedObject:]([AVWeakReference alloc], "initWithReferencedObject:", v16), v16->_loadingRequest->weakReferenceToResourceLoader = -[AVWeakReference initWithReferencedObject:]([AVWeakReference alloc], "initWithReferencedObject:", loader), v16->_loadingRequest->URLRequest = [objc_alloc(MEMORY[0x1E695AC18]) initWithURL:l], v16->_loadingRequest->ivarAccessQueue = av_readwrite_dispatch_queue_create("com.apple.avfoundation.avassetresourceloadingrequest.ivars", v18), v16->_loadingRequest->dataCachingQueue = av_readwrite_dispatch_queue_create("com.apple.avfoundation.avassetresourceloadingrequest.dataCaching", v19), loadingRequest = v16->_loadingRequest, loadingRequest->weakReference) && l && loadingRequest->weakReferenceToResourceLoader && loadingRequest->URLRequest && loadingRequest->ivarAccessQueue && loadingRequest->dataCachingQueue)
     {
       v16->_loadingRequest->cachedContentInformation = [loader cachedContentInformationForURL:l];
       if (headers)
@@ -55,38 +55,38 @@
         [(AVAssetResourceLoadingRequest *)v16 _setContentInformationRequest:[[AVAssetResourceLoadingContentInformationRequest alloc] initWithLoadingRequest:v16 allowedContentTypes:types]];
       }
 
-      v19 = 0;
-      v20 = 1;
-      v21 = 0x7FFFFFFFFFFFFFFFLL;
+      v21 = 0;
+      v22 = 1;
+      v23 = 0x7FFFFFFFFFFFFFFFLL;
       longLongValue = 0;
       if (offset && length)
       {
-        v23 = [-[NSDictionary objectForKey:](v16->_loadingRequest->cachedContentInformation objectForKey:{@"Content-Length", "longLongValue"}];
+        v25 = [-[NSDictionary objectForKey:](v16->_loadingRequest->cachedContentInformation objectForKey:{@"Content-Length", "longLongValue"}];
         longLongValue = [offset longLongValue];
         longLongValue2 = [length longLongValue];
-        v21 = longLongValue2;
-        v19 = 0;
-        v25 = longLongValue2 + longLongValue;
-        v26 = v23 <= 0 || v25 < v23;
-        v20 = !v26;
+        v23 = longLongValue2;
+        v21 = 0;
+        v27 = longLongValue2 + longLongValue;
+        v28 = v25 <= 0 || v27 < v25;
+        v22 = !v28;
         if (longLongValue2 >= 1 && (longLongValue & 0x8000000000000000) == 0)
         {
-          v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"bytes=%lld-%lld", longLongValue, v25 - 1];
+          v21 = [MEMORY[0x1E696AEC0] stringWithFormat:@"bytes=%lld-%lld", longLongValue, v27 - 1];
         }
       }
 
-      [(NSMutableURLRequest *)v16->_loadingRequest->URLRequest setValue:v19 forHTTPHeaderField:@"Range"];
+      [(NSMutableURLRequest *)v16->_loadingRequest->URLRequest setValue:v21 forHTTPHeaderField:@"Range"];
       if (cryptor)
       {
-        v27 = CFRetain(cryptor);
+        v29 = CFRetain(cryptor);
       }
 
       else
       {
-        v27 = 0;
+        v29 = 0;
       }
 
-      v16->_loadingRequest->figCryptor = v27;
+      v16->_loadingRequest->figCryptor = v29;
       v16->_loadingRequest->cryptorKeyRequestID = d;
       _customURLHandler = [loader _customURLHandler];
       if (_customURLHandler)
@@ -102,8 +102,8 @@
       }
 
       v16->_loadingRequest->customURLLoader = _customURLLoader;
-      v31 = [[AVAssetResourceLoadingDataRequest alloc] initWithLoadingRequest:v16 requestedOffset:longLongValue requestedLength:v21 requestsAllDataToEndOfResource:v20 canSupplyIncrementalDataImmediately:v16->_loadingRequest->figCryptor == 0];
-      [(AVAssetResourceLoadingRequest *)v16 _setDataRequest:v31];
+      v33 = [[AVAssetResourceLoadingDataRequest alloc] initWithLoadingRequest:v16 requestedOffset:longLongValue requestedLength:v23 requestsAllDataToEndOfResource:v22 canSupplyIncrementalDataImmediately:v16->_loadingRequest->figCryptor == 0];
+      [(AVAssetResourceLoadingRequest *)v16 _setDataRequest:v33];
 
       v16->_loadingRequest->responseInfoSentOnceToken = objc_alloc_init(AVDispatchOnce);
     }
@@ -252,7 +252,7 @@
   return v3;
 }
 
-uint64_t __41__AVAssetResourceLoadingRequest_response__block_invoke(uint64_t a1)
+void *__41__AVAssetResourceLoadingRequest_response__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 80) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -365,7 +365,7 @@ uint64_t __53__AVAssetResourceLoadingRequest__appendToCachedData___block_invoke(
   return v3;
 }
 
-uint64_t __41__AVAssetResourceLoadingRequest_redirect__block_invoke(uint64_t a1)
+void *__41__AVAssetResourceLoadingRequest_redirect__block_invoke(uint64_t a1)
 {
   result = [*(*(*(a1 + 32) + 8) + 88) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -519,7 +519,7 @@ uint64_t __41__AVAssetResourceLoadingRequest_redirect__block_invoke(uint64_t a1)
   v13 = *(*(CMBaseObjectGetVTable() + 16) + 48);
   if (!v13)
   {
-    v14 = -12782;
+    v14 = 4294954514;
 LABEL_9:
     [(AVAssetResourceLoadingRequest *)self _sendFinishLoadingToCustomURLHandlerWithError:AVLocalizedErrorWithUnderlyingOSStatus(v14, 0)];
     if (!_copyContentKeySessionCustomURLHandler)
@@ -549,6 +549,7 @@ LABEL_5:
 - (void)finishLoading
 {
   v2 = 0;
+  v16 = *MEMORY[0x1E69E9840];
   atomic_compare_exchange_strong(&self->_loadingRequest->finished, &v2, 1u);
   if (v2)
   {
@@ -704,7 +705,7 @@ LABEL_8:
     {
 LABEL_20:
       figCryptor = 0;
-      v32 = -12782;
+      v32 = 4294954514;
 LABEL_21:
       error = errorCopy;
       goto LABEL_22;
@@ -760,7 +761,7 @@ LABEL_21:
   else
   {
     figCryptor = 0;
-    v32 = -12782;
+    v32 = 4294954514;
   }
 
 LABEL_22:
@@ -785,7 +786,7 @@ void __111__AVAssetResourceLoadingRequest_keyRequestDataUsingCryptorForApp_conte
 
   else
   {
-    v6 = -12782;
+    v6 = 4294954514;
   }
 
   v7 = *(*(*(a1 + 40) + 8) + 152);
@@ -968,7 +969,7 @@ LABEL_16:
     else
     {
 LABEL_9:
-      v13 = -12782;
+      v13 = 4294954514;
     }
   }
 

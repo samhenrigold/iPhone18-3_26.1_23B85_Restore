@@ -76,7 +76,7 @@
 {
   swift_unknownObjectRetain();
   _objc_retain(self);
-  QuickReplyView.delegate.setter();
+  QuickReplyView.delegate.setter(delegate);
   _objc_release(self);
 }
 
@@ -269,7 +269,7 @@
   _objc_retain(v4);
   _objc_retain(self);
   static Notification._unconditionallyBridgeFromObjectiveC(_:)();
-  sub_1003F6CE8();
+  sub_1003F6CE8(v9);
   (*(v7 + 8))(v9, v10);
   _objc_release(changeCopy);
   _objc_release(selfCopy);

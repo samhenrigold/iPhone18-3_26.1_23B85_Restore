@@ -69,8 +69,9 @@
   if (self->_unitTesting != testing)
   {
     self->_unitTesting = testing;
+    translationService = self->_translationService;
     self->_translationService = 0;
-    _objc_release_x1();
+    _objc_release_x1(self, translationService);
   }
 }
 

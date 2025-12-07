@@ -28,44 +28,44 @@
 
 - (id)_reportForFlag:(unint64_t)flag lane:(unint64_t)lane reason:(int64_t)reason
 {
-  v9 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, @"f%lul%lur%lu", flag, lane, reason);
-  v12 = objc_msgSend_reportSetHashMap(self, v10, v11);
-  v14 = objc_msgSend_objectForKeyedSubscript_(v12, v13, v9);
+  v9 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], a2, @"f%lul%lur%lu", lane, flag, lane, reason);
+  v13 = objc_msgSend_reportSetHashMap(self, v10, v11, v12);
+  v16 = objc_msgSend_objectForKeyedSubscript_(v13, v14, v9, v15);
 
-  if (!v14)
+  if (!v16)
   {
-    v15 = objc_alloc(MEMORY[0x1E69A81D0]);
-    v14 = objc_msgSend_initWithTaskFlag_lane_reason_(v15, v16, flag, lane, reason);
-    v19 = objc_msgSend_reportSetHashMap(self, v17, v18);
-    objc_msgSend_setObject_forKeyedSubscript_(v19, v20, v14, v9);
+    v17 = objc_alloc(MEMORY[0x1E69A81D0]);
+    v16 = objc_msgSend_initWithTaskFlag_lane_reason_(v17, v18, flag, lane, reason);
+    v22 = objc_msgSend_reportSetHashMap(self, v19, v20, v21);
+    objc_msgSend_setObject_forKeyedSubscript_(v22, v23, v16, v9);
 
-    v23 = objc_msgSend_reportSet(self, v21, v22);
-    objc_msgSend_addObject_(v23, v24, v14);
+    v27 = objc_msgSend_reportSet(self, v24, v25, v26);
+    objc_msgSend_addObject_(v27, v28, v16, v29);
   }
 
-  v25 = v14;
+  v30 = v16;
 
-  return v25;
+  return v30;
 }
 
 - (void)recordFlag:(unint64_t)flag lane:(unint64_t)lane reason:(int64_t)reason count:(int64_t)count
 {
-  v8 = objc_msgSend__reportForFlag_lane_reason_(self, a2, flag, lane, reason);
-  objc_msgSend_incrementCount_(v8, v7, count);
+  v9 = objc_msgSend__reportForFlag_lane_reason_(self, a2, flag, lane, reason);
+  objc_msgSend_incrementCount_(v9, v7, count, v8);
 }
 
 - (id)reset
 {
-  v4 = objc_msgSend_reportSetHashMap(self, a2, v2);
-  objc_msgSend_removeAllObjects(v4, v5, v6);
+  v5 = objc_msgSend_reportSetHashMap(self, a2, v2, v3);
+  objc_msgSend_removeAllObjects(v5, v6, v7, v8);
 
-  v9 = objc_msgSend_reportSet(self, v7, v8);
-  v12 = objc_msgSend_copy(v9, v10, v11);
+  v12 = objc_msgSend_reportSet(self, v9, v10, v11);
+  v16 = objc_msgSend_copy(v12, v13, v14, v15);
 
-  v15 = objc_msgSend_reportSet(self, v13, v14);
-  objc_msgSend_removeAllObjects(v15, v16, v17);
+  v20 = objc_msgSend_reportSet(self, v17, v18, v19);
+  objc_msgSend_removeAllObjects(v20, v21, v22, v23);
 
-  return v12;
+  return v16;
 }
 
 @end

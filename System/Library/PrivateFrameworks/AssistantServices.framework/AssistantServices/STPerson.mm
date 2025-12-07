@@ -8,17 +8,17 @@
 
 - (STPerson)initWithCoder:(id)coder
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v15.receiver = self;
-  v15.super_class = STPerson;
-  v5 = [(STSiriModelObject *)&v15 initWithCoder:coderCopy];
+  v14.receiver = self;
+  v14.super_class = STPerson;
+  v5 = [(STSiriModelObject *)&v14 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
-    v16[0] = objc_opt_class();
-    v16[1] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+    v15[0] = objc_opt_class();
+    v15[1] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"_contactHandles"];
     contactHandles = v5->_contactHandles;
@@ -29,7 +29,6 @@
     v5->_fullName = v11;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

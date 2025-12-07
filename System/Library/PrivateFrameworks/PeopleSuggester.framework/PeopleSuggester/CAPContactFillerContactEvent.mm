@@ -3,6 +3,11 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)timeSinceLastContactViaIncomingCallAsString:(int)string;
+- (id)timeSinceLastContactViaIncomingTextAsString:(int)string;
+- (id)timeSinceLastContactViaOutgoingCallAsString:(int)string;
+- (id)timeSinceLastContactViaOutgoingTextAsString:(int)string;
+- (id)timeSinceLastContactViaShareAsString:(int)string;
 - (int)StringAsTimeSinceLastContactViaIncomingCall:(id)call;
 - (int)StringAsTimeSinceLastContactViaIncomingText:(id)text;
 - (int)StringAsTimeSinceLastContactViaOutgoingCall:(id)call;
@@ -46,6 +51,21 @@
 @end
 
 @implementation CAPContactFillerContactEvent
+
+- (id)timeSinceLastContactViaShareAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7C269F8[string];
+  }
+
+  return v4;
+}
 
 - (int)StringAsTimeSinceLastContactViaShare:(id)share
 {
@@ -118,6 +138,21 @@
   return v4;
 }
 
+- (id)timeSinceLastContactViaIncomingTextAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7C269F8[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsTimeSinceLastContactViaIncomingText:(id)text
 {
   textCopy = text;
@@ -184,6 +219,21 @@
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)timeSinceLastContactViaOutgoingTextAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7C269F8[string];
   }
 
   return v4;
@@ -288,6 +338,21 @@
   self->_has = (*&self->_has & 0xEFFFFFFF | v3);
 }
 
+- (id)timeSinceLastContactViaIncomingCallAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7C269F8[string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsTimeSinceLastContactViaIncomingCall:(id)call
 {
   callCopy = call;
@@ -385,6 +450,21 @@
   }
 
   self->_has = (*&self->_has & 0xDFFFFFFF | v3);
+}
+
+- (id)timeSinceLastContactViaOutgoingCallAsString:(int)string
+{
+  if (string >= 0xC)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7C269F8[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsTimeSinceLastContactViaOutgoingCall:(id)call
@@ -1406,42 +1486,33 @@ LABEL_49:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  timeSinceLastContactViaShare = self->_timeSinceLastContactViaShare;
   PBDataWriterWriteInt32Field();
-  timeSinceLastContactViaIncomingText = self->_timeSinceLastContactViaIncomingText;
   PBDataWriterWriteInt32Field();
-  timeSinceLastContactViaOutgoingText = self->_timeSinceLastContactViaOutgoingText;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((*&has & 0x10000000) != 0)
   {
-    timeSinceLastContactViaIncomingCall = self->_timeSinceLastContactViaIncomingCall;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((*&has & 0x20000000) != 0)
   {
-    timeSinceLastContactViaOutgoingCall = self->_timeSinceLastContactViaOutgoingCall;
     PBDataWriterWriteInt32Field();
   }
 
-  normalizedShareFrequency = self->_normalizedShareFrequency;
   PBDataWriterWriteUint32Field();
-  normalizedIncomingTextFrequency = self->_normalizedIncomingTextFrequency;
   PBDataWriterWriteUint32Field();
-  normalizedOutgoingTextFrequency = self->_normalizedOutgoingTextFrequency;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x2000000) != 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x2000000) != 0)
   {
-    normalizedIncomingCallFrequency = self->_normalizedIncomingCallFrequency;
     PBDataWriterWriteUint32Field();
-    v13 = self->_has;
-    if ((*&v13 & 0x4000000) == 0)
+    v5 = self->_has;
+    if ((*&v5 & 0x4000000) == 0)
     {
 LABEL_7:
-      if ((*&v13 & 0x8000000) == 0)
+      if ((*&v5 & 0x8000000) == 0)
       {
         goto LABEL_8;
       }
@@ -1450,18 +1521,17 @@ LABEL_7:
     }
   }
 
-  else if ((*&v13 & 0x4000000) == 0)
+  else if ((*&v5 & 0x4000000) == 0)
   {
     goto LABEL_7;
   }
 
-  normalizedOutgoingCallFrequency = self->_normalizedOutgoingCallFrequency;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x8000000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x8000000) == 0)
   {
 LABEL_8:
-    if ((*&v13 & 0x20) == 0)
+    if ((*&v5 & 0x20) == 0)
     {
       goto LABEL_9;
     }
@@ -1470,13 +1540,12 @@ LABEL_8:
   }
 
 LABEL_39:
-  numberOfBehavioralRulesAdvocating = self->_numberOfBehavioralRulesAdvocating;
   PBDataWriterWriteUint32Field();
-  v13 = self->_has;
-  if ((*&v13 & 0x20) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x20) == 0)
   {
 LABEL_9:
-    if ((*&v13 & 1) == 0)
+    if ((*&v5 & 1) == 0)
     {
       goto LABEL_10;
     }
@@ -1485,13 +1554,12 @@ LABEL_9:
   }
 
 LABEL_40:
-  averageBehavioralRuleSupport = self->_averageBehavioralRuleSupport;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((*&v13 & 1) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 1) == 0)
   {
 LABEL_10:
-    if ((*&v13 & 4) == 0)
+    if ((*&v5 & 4) == 0)
     {
       goto LABEL_11;
     }
@@ -1500,13 +1568,12 @@ LABEL_10:
   }
 
 LABEL_41:
-  averageBehavioralRuleConfidence = self->_averageBehavioralRuleConfidence;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((*&v13 & 4) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 4) == 0)
   {
 LABEL_11:
-    if ((*&v13 & 2) == 0)
+    if ((*&v5 & 2) == 0)
     {
       goto LABEL_12;
     }
@@ -1515,13 +1582,12 @@ LABEL_11:
   }
 
 LABEL_42:
-  averageBehavioralRuleLift = self->_averageBehavioralRuleLift;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((*&v13 & 2) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 2) == 0)
   {
 LABEL_12:
-    if ((*&v13 & 0x10) == 0)
+    if ((*&v5 & 0x10) == 0)
     {
       goto LABEL_13;
     }
@@ -1530,13 +1596,12 @@ LABEL_12:
   }
 
 LABEL_43:
-  averageBehavioralRuleConviction = self->_averageBehavioralRuleConviction;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((*&v13 & 0x10) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x10) == 0)
   {
 LABEL_13:
-    if ((*&v13 & 8) == 0)
+    if ((*&v5 & 8) == 0)
     {
       goto LABEL_14;
     }
@@ -1545,13 +1610,12 @@ LABEL_13:
   }
 
 LABEL_44:
-  averageBehavioralRulePowerFactor = self->_averageBehavioralRulePowerFactor;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((*&v13 & 8) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 8) == 0)
   {
 LABEL_14:
-    if ((*&v13 & 0x40000) == 0)
+    if ((*&v5 & 0x40000) == 0)
     {
       goto LABEL_15;
     }
@@ -1560,13 +1624,12 @@ LABEL_14:
   }
 
 LABEL_45:
-  averageBehavioralRuleMLScore = self->_averageBehavioralRuleMLScore;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((*&v13 & 0x40000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x40000) == 0)
   {
 LABEL_15:
-    if ((*&v13 & 0x2000) == 0)
+    if ((*&v5 & 0x2000) == 0)
     {
       goto LABEL_16;
     }
@@ -1575,13 +1638,12 @@ LABEL_15:
   }
 
 LABEL_46:
-  minimumBehavioralRuleSupport = self->_minimumBehavioralRuleSupport;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((*&v13 & 0x2000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x2000) == 0)
   {
 LABEL_16:
-    if ((*&v13 & 0x8000) == 0)
+    if ((*&v5 & 0x8000) == 0)
     {
       goto LABEL_17;
     }
@@ -1590,13 +1652,12 @@ LABEL_16:
   }
 
 LABEL_47:
-  minimumBehavioralRuleConfidence = self->_minimumBehavioralRuleConfidence;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((*&v13 & 0x8000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x8000) == 0)
   {
 LABEL_17:
-    if ((*&v13 & 0x4000) == 0)
+    if ((*&v5 & 0x4000) == 0)
     {
       goto LABEL_18;
     }
@@ -1605,13 +1666,12 @@ LABEL_17:
   }
 
 LABEL_48:
-  minimumBehavioralRuleLift = self->_minimumBehavioralRuleLift;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((*&v13 & 0x4000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x4000) == 0)
   {
 LABEL_18:
-    if ((*&v13 & 0x20000) == 0)
+    if ((*&v5 & 0x20000) == 0)
     {
       goto LABEL_19;
     }
@@ -1620,13 +1680,12 @@ LABEL_18:
   }
 
 LABEL_49:
-  minimumBehavioralRuleConviction = self->_minimumBehavioralRuleConviction;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((*&v13 & 0x20000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x20000) == 0)
   {
 LABEL_19:
-    if ((*&v13 & 0x10000) == 0)
+    if ((*&v5 & 0x10000) == 0)
     {
       goto LABEL_20;
     }
@@ -1635,13 +1694,12 @@ LABEL_19:
   }
 
 LABEL_50:
-  minimumBehavioralRulePowerFactor = self->_minimumBehavioralRulePowerFactor;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((*&v13 & 0x10000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x10000) == 0)
   {
 LABEL_20:
-    if ((*&v13 & 0x1000) == 0)
+    if ((*&v5 & 0x1000) == 0)
     {
       goto LABEL_21;
     }
@@ -1650,13 +1708,12 @@ LABEL_20:
   }
 
 LABEL_51:
-  minimumBehavioralRuleMLScore = self->_minimumBehavioralRuleMLScore;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((*&v13 & 0x1000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x1000) == 0)
   {
 LABEL_21:
-    if ((*&v13 & 0x80) == 0)
+    if ((*&v5 & 0x80) == 0)
     {
       goto LABEL_22;
     }
@@ -1665,13 +1722,12 @@ LABEL_21:
   }
 
 LABEL_52:
-  maximumBehavioralRuleSupport = self->_maximumBehavioralRuleSupport;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((*&v13 & 0x80) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x80) == 0)
   {
 LABEL_22:
-    if ((*&v13 & 0x200) == 0)
+    if ((*&v5 & 0x200) == 0)
     {
       goto LABEL_23;
     }
@@ -1680,13 +1736,12 @@ LABEL_22:
   }
 
 LABEL_53:
-  maximumBehavioralRuleConfidence = self->_maximumBehavioralRuleConfidence;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((*&v13 & 0x200) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x200) == 0)
   {
 LABEL_23:
-    if ((*&v13 & 0x100) == 0)
+    if ((*&v5 & 0x100) == 0)
     {
       goto LABEL_24;
     }
@@ -1695,13 +1750,12 @@ LABEL_23:
   }
 
 LABEL_54:
-  maximumBehavioralRuleLift = self->_maximumBehavioralRuleLift;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((*&v13 & 0x100) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x100) == 0)
   {
 LABEL_24:
-    if ((*&v13 & 0x800) == 0)
+    if ((*&v5 & 0x800) == 0)
     {
       goto LABEL_25;
     }
@@ -1710,13 +1764,12 @@ LABEL_24:
   }
 
 LABEL_55:
-  maximumBehavioralRuleConviction = self->_maximumBehavioralRuleConviction;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((*&v13 & 0x800) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x800) == 0)
   {
 LABEL_25:
-    if ((*&v13 & 0x400) == 0)
+    if ((*&v5 & 0x400) == 0)
     {
       goto LABEL_26;
     }
@@ -1725,13 +1778,12 @@ LABEL_25:
   }
 
 LABEL_56:
-  maximumBehavioralRulePowerFactor = self->_maximumBehavioralRulePowerFactor;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((*&v13 & 0x400) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x400) == 0)
   {
 LABEL_26:
-    if ((*&v13 & 0x1000000) == 0)
+    if ((*&v5 & 0x1000000) == 0)
     {
       goto LABEL_27;
     }
@@ -1740,13 +1792,12 @@ LABEL_26:
   }
 
 LABEL_57:
-  maximumBehavioralRuleMLScore = self->_maximumBehavioralRuleMLScore;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((*&v13 & 0x1000000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x1000000) == 0)
   {
 LABEL_27:
-    if ((*&v13 & 0x80000) == 0)
+    if ((*&v5 & 0x80000) == 0)
     {
       goto LABEL_28;
     }
@@ -1755,13 +1806,12 @@ LABEL_27:
   }
 
 LABEL_58:
-  stdevBehavioralRuleSupport = self->_stdevBehavioralRuleSupport;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((*&v13 & 0x80000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x80000) == 0)
   {
 LABEL_28:
-    if ((*&v13 & 0x200000) == 0)
+    if ((*&v5 & 0x200000) == 0)
     {
       goto LABEL_29;
     }
@@ -1770,13 +1820,12 @@ LABEL_28:
   }
 
 LABEL_59:
-  stdevBehavioralRuleConfidence = self->_stdevBehavioralRuleConfidence;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((*&v13 & 0x200000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x200000) == 0)
   {
 LABEL_29:
-    if ((*&v13 & 0x100000) == 0)
+    if ((*&v5 & 0x100000) == 0)
     {
       goto LABEL_30;
     }
@@ -1785,13 +1834,12 @@ LABEL_29:
   }
 
 LABEL_60:
-  stdevBehavioralRuleLift = self->_stdevBehavioralRuleLift;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((*&v13 & 0x100000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x100000) == 0)
   {
 LABEL_30:
-    if ((*&v13 & 0x800000) == 0)
+    if ((*&v5 & 0x800000) == 0)
     {
       goto LABEL_31;
     }
@@ -1800,13 +1848,12 @@ LABEL_30:
   }
 
 LABEL_61:
-  stdevBehavioralRuleConviction = self->_stdevBehavioralRuleConviction;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((*&v13 & 0x800000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x800000) == 0)
   {
 LABEL_31:
-    if ((*&v13 & 0x400000) == 0)
+    if ((*&v5 & 0x400000) == 0)
     {
       goto LABEL_32;
     }
@@ -1815,13 +1862,12 @@ LABEL_31:
   }
 
 LABEL_62:
-  stdevBehavioralRulePowerFactor = self->_stdevBehavioralRulePowerFactor;
   PBDataWriterWriteDoubleField();
-  v13 = self->_has;
-  if ((*&v13 & 0x400000) == 0)
+  v5 = self->_has;
+  if ((*&v5 & 0x400000) == 0)
   {
 LABEL_32:
-    if ((*&v13 & 0x40) == 0)
+    if ((*&v5 & 0x40) == 0)
     {
       goto LABEL_34;
     }
@@ -1830,17 +1876,14 @@ LABEL_32:
   }
 
 LABEL_63:
-  stdevBehavioralRuleMLScore = self->_stdevBehavioralRuleMLScore;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_33:
-    interactionModelScore = self->_interactionModelScore;
     PBDataWriterWriteDoubleField();
   }
 
 LABEL_34:
-  wasShareRecipient = self->_wasShareRecipient;
   PBDataWriterWriteBOOLField();
 }
 

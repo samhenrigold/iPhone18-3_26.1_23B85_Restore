@@ -1,8 +1,10 @@
 @interface VCPBChange
 - (BOOL)isEqual:(id)equal;
+- (id)changeTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)messageTypeAsString:(int)string;
 - (int)StringAsChangeType:(id)type;
 - (int)StringAsMessageType:(id)type;
 - (unint64_t)hash;
@@ -93,9 +95,7 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  messageType = self->_messageType;
   PBDataWriterWriteInt32Field();
-  changeType = self->_changeType;
   PBDataWriterWriteInt32Field();
   if (!self->_uniqueID)
   {
@@ -193,6 +193,21 @@
   return v4;
 }
 
+- (id)changeTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2788FEB58[string - 1];
+  }
+
+  return v4;
+}
+
 - (int)StringAsMessageType:(id)type
 {
   typeCopy = type;
@@ -214,6 +229,21 @@
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)messageTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2788FEB40[string - 1];
   }
 
   return v4;

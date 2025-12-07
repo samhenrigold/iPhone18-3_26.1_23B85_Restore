@@ -7,7 +7,7 @@
 
 - (void)trackEventWithScalar:(unint64_t)scalar model:(SGMSelfIdModelType_)model result:(SGMTypeSafeBool_)result supervision:(SGMSelfIdSupervisionType_)supervision extractionModelVersion:(unint64_t)version
 {
-  v26[4] = *MEMORY[0x1E69E9840];
+  v25[4] = *MEMORY[0x1E69E9840];
   if (model.var0 >= 4)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -62,23 +62,21 @@ LABEL_8:
   }
 
   tracker = self->_tracker;
-  v26[0] = v13;
-  v26[1] = v14;
-  v26[2] = v19;
+  v25[0] = v13;
+  v25[1] = v14;
+  v25[2] = v19;
   v23 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:version];
-  v26[3] = v23;
-  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:4];
+  v25[3] = v23;
+  v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:4];
   [(PETScalarEventTracker *)tracker trackEventWithPropertyValues:v24 value:scalar];
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (SGMSelfIdModelScore)init
 {
-  v14[4] = *MEMORY[0x1E69E9840];
-  v13.receiver = self;
-  v13.super_class = SGMSelfIdModelScore;
-  v2 = [(SGMSelfIdModelScore *)&v13 init];
+  v13[4] = *MEMORY[0x1E69E9840];
+  v12.receiver = self;
+  v12.super_class = SGMSelfIdModelScore;
+  v2 = [(SGMSelfIdModelScore *)&v12 init];
   if (v2)
   {
     v3 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"Model"];
@@ -86,17 +84,16 @@ LABEL_8:
     v5 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"Supervision"];
     v6 = [MEMORY[0x1E69C5B40] propertyWithName:@"ExtractionModelVersion" range:0 clampValues:{1000, 1}];
     v7 = objc_alloc(MEMORY[0x1E69C5B58]);
-    v14[0] = v3;
-    v14[1] = v4;
-    v14[2] = v5;
-    v14[3] = v6;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:4];
+    v13[0] = v3;
+    v13[1] = v4;
+    v13[2] = v5;
+    v13[3] = v6;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:4];
     v9 = [v7 initWithFeatureId:@"Found" event:@"SelfIdModelScore" registerProperties:v8 propertySubsets:MEMORY[0x1E695E0F0]];
     tracker = v2->_tracker;
     v2->_tracker = v9;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

@@ -1,6 +1,6 @@
-void sub_29C83E270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29C83E270(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9,12 +9,11 @@ void sub_29C83E4A8(uint64_t a1)
 {
   responseFlags = 0;
   CFUserNotificationReceiveResponse(*(*(*(a1 + 40) + 8) + 24), 0.0, &responseFlags);
-  v2 = *(*(*(a1 + 40) + 8) + 24);
   (*(*(a1 + 32) + 16))();
-  v3 = *(*(*(a1 + 40) + 8) + 24);
-  if (v3)
+  v2 = *(*(*(a1 + 40) + 8) + 24);
+  if (v2)
   {
-    CFRelease(v3);
+    CFRelease(v2);
   }
 }
 
@@ -23,7 +22,7 @@ uint64_t sub_29C83E978(uint64_t a1, uint64_t a2, uint64_t a3)
   v4 = *(a1 + 40);
   if (!a2 || a3)
   {
-    return (*(v4 + 16))(v4, 0);
+    return (*(v4 + 16))(v4, 0, a3);
   }
 
   else
@@ -34,34 +33,30 @@ uint64_t sub_29C83E978(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void sub_29C83E9A4(uint64_t a1, uint64_t a2)
 {
-  v13[1] = *MEMORY[0x29EDCA608];
+  v9[1] = *MEMORY[0x29EDCA608];
   if (a2)
   {
     v3 = MEMORY[0x29EDB9FA0];
     v4 = *MEMORY[0x29EDB8300];
-    v12 = *MEMORY[0x29EDB9ED8];
-    v13[0] = @"The account could not be verified because it does not have the necessary credentials.";
-    v5 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v8 = *MEMORY[0x29EDB9ED8];
+    v9[0] = @"The account could not be verified because it does not have the necessary credentials.";
+    v5 = [MEMORY[0x29EDB8DC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     v6 = [v3 errorWithDomain:v4 code:3 userInfo:v5];
 
     (*(*(a1 + 40) + 16))();
-    v7 = *MEMORY[0x29EDCA608];
   }
 
   else
   {
-    v9 = *(a1 + 32);
-    v8 = *(a1 + 40);
-    v10 = *(*(a1 + 40) + 16);
-    v11 = *MEMORY[0x29EDCA608];
+    v7 = *(*(a1 + 40) + 16);
 
-    v10();
+    v7();
   }
 }
 
 void sub_29C83EE98(uint64_t a1, uint64_t a2, void *a3)
 {
-  v33 = *MEMORY[0x29EDCA608];
+  v32 = *MEMORY[0x29EDCA608];
   v5 = a3;
   if (a2 == 3)
   {
@@ -79,22 +74,22 @@ void sub_29C83EE98(uint64_t a1, uint64_t a2, void *a3)
   {
     v8 = (a1 + 32);
     v9 = [*(a1 + 32) isAuthenticated];
-    v26[0] = MEMORY[0x29EDCA5F8];
-    v26[1] = 3221225472;
-    v26[2] = sub_29C83F1C0;
-    v26[3] = &unk_29F328CB8;
+    v25[0] = MEMORY[0x29EDCA5F8];
+    v25[1] = 3221225472;
+    v25[2] = sub_29C83F1C0;
+    v25[3] = &unk_29F328CB8;
     *&v10 = *(a1 + 40);
     *(&v10 + 1) = *(a1 + 48);
-    v21 = v10;
+    v20 = v10;
     v11 = *(a1 + 32);
     v12 = *(a1 + 56);
     *&v13 = v11;
     *(&v13 + 1) = v12;
-    v27 = v21;
-    v28 = v13;
-    v30 = v9;
-    v29 = *(a1 + 64);
-    v14 = MEMORY[0x29ED45DB0](v26);
+    v26 = v20;
+    v27 = v13;
+    v29 = v9;
+    v28 = *(a1 + 64);
+    v14 = MEMORY[0x29ED45DB0](v25);
     if (a2 == 2)
     {
       v15 = _ACDLogSystem();
@@ -113,21 +108,21 @@ void sub_29C83EE98(uint64_t a1, uint64_t a2, void *a3)
         {
           v17 = *v8;
           *buf = 138412290;
-          v32 = v17;
+          v31 = v17;
           _os_log_impl(&dword_29C83D000, v16, OS_LOG_TYPE_DEFAULT, "Yahoo! plugin marking account %@ as un-authenticated", buf, 0xCu);
         }
 
         [*(a1 + 32) setAuthenticated:0];
         v18 = *(a1 + 56);
         v19 = *(a1 + 32);
-        v22[0] = MEMORY[0x29EDCA5F8];
-        v22[1] = 3221225472;
-        v22[2] = sub_29C83F26C;
-        v22[3] = &unk_29F328CE0;
-        v25 = *(a1 + 72);
-        v23 = v14;
-        v24 = *(a1 + 64);
-        [v18 saveAccount:v19 withHandler:v22];
+        v21[0] = MEMORY[0x29EDCA5F8];
+        v21[1] = 3221225472;
+        v21[2] = sub_29C83F26C;
+        v21[3] = &unk_29F328CE0;
+        v24 = *(a1 + 72);
+        v22 = v14;
+        v23 = *(a1 + 64);
+        [v18 saveAccount:v19 withHandler:v21];
 
         goto LABEL_18;
       }
@@ -150,8 +145,6 @@ LABEL_18:
 LABEL_7:
   v6();
 LABEL_19:
-
-  v20 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C83F1C0(uint64_t a1)
@@ -177,9 +170,9 @@ uint64_t sub_29C83F26C(uint64_t a1)
   }
 }
 
-void sub_29C83F4B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_29C83F4B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -193,7 +186,7 @@ uint64_t sub_29C83F4E0(uint64_t result, uint64_t a2)
 
 void sub_29C83F4F8(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   v7 = a4;
   v8 = MEMORY[0x29EDBBD88];
   v9 = a3;
@@ -203,11 +196,11 @@ void sub_29C83F4F8(uint64_t a1, void *a2, void *a3, void *a4)
   v12 = _ACDLogSystem();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 134218242;
-    v19 = [v11 statusCode];
-    v20 = 2114;
-    v21 = v7;
-    _os_log_impl(&dword_29C83D000, v12, OS_LOG_TYPE_DEFAULT, "Yahoo! legacy token exchange got status %ld error %{public}@", &v18, 0x16u);
+    v17 = 134218242;
+    v18 = [v11 statusCode];
+    v19 = 2114;
+    v20 = v7;
+    _os_log_impl(&dword_29C83D000, v12, OS_LOG_TYPE_DEFAULT, "Yahoo! legacy token exchange got status %ld error %{public}@", &v17, 0x16u);
   }
 
   v13 = [v11 error];
@@ -228,13 +221,11 @@ LABEL_7:
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v17 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C83F9B4(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v48 = *MEMORY[0x29EDCA608];
+  v47 = *MEMORY[0x29EDCA608];
   v7 = a4;
   v8 = MEMORY[0x29EDBBDB0];
   v9 = a3;
@@ -259,13 +250,13 @@ void sub_29C83F9B4(uint64_t a1, void *a2, void *a3, void *a4)
         v16 = [v11 errorMessage];
         v17 = [v11 data];
         *buf = 134218754;
-        v41 = v15;
-        v42 = 2114;
-        v43 = v7;
-        v44 = 2114;
-        v45 = v16;
-        v46 = 2112;
-        v47 = v17;
+        v40 = v15;
+        v41 = 2114;
+        v42 = v7;
+        v43 = 2114;
+        v44 = v16;
+        v45 = 2112;
+        v46 = v17;
         _os_log_impl(&dword_29C83D000, v14, OS_LOG_TYPE_DEFAULT, "Yahoo! token refresh did succeed with status %ld error %{public}@ errorMessage %{public}@ response data %@", buf, 0x2Au);
       }
 
@@ -312,9 +303,9 @@ LABEL_21:
       if ([v34 isEqualToString:*MEMORY[0x29EDB9F08]])
       {
         v35 = [v11 error];
-        v37 = [v35 code];
+        v36 = [v35 code];
 
-        if (v37 != -1009)
+        if (v36 != -1009)
         {
 LABEL_30:
           v32 = _ACDLogSystem();
@@ -360,36 +351,34 @@ LABEL_32:
 
   v26 = *(a1 + 40);
   v25 = *(a1 + 48);
-  v38[0] = MEMORY[0x29EDCA5F8];
-  v38[1] = 3221225472;
-  v38[2] = sub_29C83FE94;
-  v38[3] = &unk_29F328D58;
-  v39 = *(a1 + 56);
-  [v25 saveAccount:v26 withHandler:v38];
+  v37[0] = MEMORY[0x29EDCA5F8];
+  v37[1] = 3221225472;
+  v37[2] = sub_29C83FE94;
+  v37[3] = &unk_29F328D58;
+  v38 = *(a1 + 56);
+  [v25 saveAccount:v26 withHandler:v37];
 
 LABEL_33:
-  v36 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C83FE94(uint64_t a1, uint64_t a2, void *a3)
 {
-  v9 = *MEMORY[0x29EDCA608];
+  v8 = *MEMORY[0x29EDCA608];
   v4 = a3;
   v5 = _ACDLogSystem();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
-    v8 = v4;
-    _os_log_impl(&dword_29C83D000, v5, OS_LOG_TYPE_DEFAULT, "did clear Yahoo! credential.oauthRefreshToken with error %{public}@", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v4;
+    _os_log_impl(&dword_29C83D000, v5, OS_LOG_TYPE_DEFAULT, "did clear Yahoo! credential.oauthRefreshToken with error %{public}@", &v6, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C840108(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v29 = *MEMORY[0x29EDCA608];
+  v28 = *MEMORY[0x29EDCA608];
   v7 = a4;
   v8 = MEMORY[0x29EDBBD98];
   v9 = a3;
@@ -399,11 +388,11 @@ void sub_29C840108(uint64_t a1, void *a2, void *a3, void *a4)
   v12 = _ACDLogSystem();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v25 = 134218242;
-    v26 = [v11 statusCode];
-    v27 = 2114;
-    v28 = v7;
-    _os_log_impl(&dword_29C83D000, v12, OS_LOG_TYPE_DEFAULT, "Yahoo! legacy token exchange got status %ld error %{public}@", &v25, 0x16u);
+    v24 = 134218242;
+    v25 = [v11 statusCode];
+    v26 = 2114;
+    v27 = v7;
+    _os_log_impl(&dword_29C83D000, v12, OS_LOG_TYPE_DEFAULT, "Yahoo! legacy token exchange got status %ld error %{public}@", &v24, 0x16u);
   }
 
   v13 = [v11 error];
@@ -450,8 +439,6 @@ LABEL_13:
 
   (*(*(a1 + 32) + 16))();
 LABEL_14:
-
-  v24 = *MEMORY[0x29EDCA608];
 }
 
 void sub_29C840650(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -512,28 +499,28 @@ void sub_29C840650(uint64_t a1, uint64_t a2, uint64_t a3)
 
 Class sub_29C840864(uint64_t a1)
 {
-  v7 = *MEMORY[0x29EDCA608];
-  v4[0] = 0;
+  v6 = *MEMORY[0x29EDCA608];
+  v3[0] = 0;
   if (!qword_2A1794F08)
   {
-    v4[1] = MEMORY[0x29EDCA5F8];
-    v4[2] = 3221225472;
-    v4[3] = sub_29C840990;
-    v4[4] = &unk_29F328E58;
-    v4[5] = v4;
-    v5 = xmmword_29F328E40;
-    v6 = 0;
+    v3[1] = MEMORY[0x29EDCA5F8];
+    v3[2] = 3221225472;
+    v3[3] = sub_29C840990;
+    v3[4] = &unk_29F328E58;
+    v3[5] = v3;
+    v4 = xmmword_29F328E40;
+    v5 = 0;
     qword_2A1794F08 = _sl_dlopen();
   }
 
   if (!qword_2A1794F08)
   {
-    sub_29C840F24(v4);
+    sub_29C840F24(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("MFAccountLoader");
@@ -544,101 +531,85 @@ Class sub_29C840864(uint64_t a1)
   }
 
   qword_2A1794F00 = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 uint64_t sub_29C840990(uint64_t a1)
 {
-  v4 = *MEMORY[0x29EDCA608];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_2A1794F08 = result;
-  v3 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-void sub_29C840A30(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_29C840A30(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x2Au);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x2Au);
 }
 
 void sub_29C840A60(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_29C83D000, a2, OS_LOG_TYPE_DEBUG, "%@ is a non-entitled client. No Yahoo! credential for you.", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_29C83D000, a2, OS_LOG_TYPE_DEBUG, "%@ is a non-entitled client. No Yahoo! credential for you.", &v2, 0xCu);
 }
 
 void sub_29C840AD8(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x29EDCA608];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_29C83D000, a2, OS_LOG_TYPE_DEBUG, "%@ is entitled for all-account access. Returning Yahoo! credentials.", &v3, 0xCu);
-  v2 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_29C83D000, a2, OS_LOG_TYPE_DEBUG, "%@ is entitled for all-account access. Returning Yahoo! credentials.", &v2, 0xCu);
 }
 
 void sub_29C840B94(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_29C83D000, a2, OS_LOG_TYPE_ERROR, "Yahoo plugin: Unable to renew %@ because the keychain was locked.", &v4, 0xCu);
-  v3 = *MEMORY[0x29EDCA608];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_29C83D000, a2, OS_LOG_TYPE_ERROR, "Yahoo plugin: Unable to renew %@ because the keychain was locked.", &v3, 0xCu);
 }
 
 void sub_29C840C10(uint64_t *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   v2 = *a1;
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_error_impl(&dword_29C83D000, a2, OS_LOG_TYPE_ERROR, "Yahoo plugin: Unable to renew %@ because of a network issue.", &v4, 0xCu);
-  v3 = *MEMORY[0x29EDCA608];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_error_impl(&dword_29C83D000, a2, OS_LOG_TYPE_ERROR, "Yahoo plugin: Unable to renew %@ because of a network issue.", &v3, 0xCu);
 }
 
 void sub_29C840C8C()
 {
   sub_29C840A50();
-  v12 = *MEMORY[0x29EDCA608];
   [v1 statusCode];
   v2 = [v0 errorMessage];
   v3 = [v0 data];
   sub_29C840A04();
-  sub_29C840A30(&dword_29C83D000, v4, v5, "Yahoo! token refresh did fail with network issue; status %ld error %{public}@ errorMessage %{public}@ response data %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x29EDCA608];
+  sub_29C840A30(&dword_29C83D000, v4, v5, "Yahoo! token refresh did fail with network issue; status %ld error %{public}@ errorMessage %{public}@ response data %@", v6, v7, v8, v9);
 }
 
 void sub_29C840D40()
 {
   sub_29C840A50();
-  v12 = *MEMORY[0x29EDCA608];
   [v1 statusCode];
   v2 = [v0 errorMessage];
   v3 = [v0 data];
   sub_29C840A04();
-  sub_29C840A30(&dword_29C83D000, v4, v5, "Yahoo! token refresh did fail with unknown issue; status %ld error %{public}@ errorMessage %{public}@ response data %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x29EDCA608];
+  sub_29C840A30(&dword_29C83D000, v4, v5, "Yahoo! token refresh did fail with unknown issue; status %ld error %{public}@ errorMessage %{public}@ response data %@", v6, v7, v8, v9);
 }
 
 void sub_29C840DF4()
 {
   sub_29C840A50();
-  v12 = *MEMORY[0x29EDCA608];
   [v1 statusCode];
   v2 = [v0 errorMessage];
   v3 = [v0 data];
   sub_29C840A04();
-  sub_29C840A30(&dword_29C83D000, v4, v5, "Yahoo! token refresh did fail with auth problem; status %ld error %{public}@ errorMessage %{public}@ response data %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x29EDCA608];
+  sub_29C840A30(&dword_29C83D000, v4, v5, "Yahoo! token refresh did fail with auth problem; status %ld error %{public}@ errorMessage %{public}@ response data %@", v6, v7, v8, v9);
 }
 
 void sub_29C840EA8()

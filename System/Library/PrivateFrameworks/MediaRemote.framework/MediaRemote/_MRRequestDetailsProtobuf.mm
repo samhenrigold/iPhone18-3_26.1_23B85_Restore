@@ -168,31 +168,30 @@ LABEL_12:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_initiator)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_requestID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_reason)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    qos = self->_qos;
     PBDataWriterWriteUint32Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 1) == 0)
     {
@@ -211,9 +210,8 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  startDate = self->_startDate;
   PBDataWriterWriteUint64Field();
-  toCopy = v10;
+  toCopy = v6;
   has = self->_has;
   if ((has & 8) == 0)
   {
@@ -227,34 +225,32 @@ LABEL_10:
   }
 
 LABEL_23:
-  userInitiated = self->_userInitiated;
   PBDataWriterWriteBOOLField();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_11:
-    initiatorWasInferred = self->_initiatorWasInferred;
     PBDataWriterWriteBOOLField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_12:
   if (self->_originatingBundleID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_operationID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_surface)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -460,7 +456,6 @@ LABEL_6:
     }
   }
 
-  v8 = *(equalCopy + 76);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 76) & 2) == 0 || self->_qos != *(equalCopy + 10))
@@ -494,7 +489,6 @@ LABEL_6:
       goto LABEL_39;
     }
 
-    v13 = *(equalCopy + 73);
     if (self->_userInitiated)
     {
       if ((*(equalCopy + 73) & 1) == 0)
@@ -522,7 +516,7 @@ LABEL_6:
     }
 
 LABEL_39:
-    v12 = 0;
+    v11 = 0;
     goto LABEL_40;
   }
 
@@ -531,7 +525,6 @@ LABEL_39:
     goto LABEL_39;
   }
 
-  v14 = *(equalCopy + 72);
   if (self->_initiatorWasInferred)
   {
     if ((*(equalCopy + 72) & 1) == 0)
@@ -564,17 +557,17 @@ LABEL_22:
   surface = self->_surface;
   if (surface | *(equalCopy + 8))
   {
-    v12 = [(NSString *)surface isEqual:?];
+    v11 = [(NSString *)surface isEqual:?];
   }
 
   else
   {
-    v12 = 1;
+    v11 = 1;
   }
 
 LABEL_40:
 
-  return v12;
+  return v11;
 }
 
 - (unint64_t)hash

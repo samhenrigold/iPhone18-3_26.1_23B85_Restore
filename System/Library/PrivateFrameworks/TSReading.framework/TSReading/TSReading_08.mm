@@ -1,4 +1,50 @@
-uint64_t Path::DoLeftJoin(Shape *this, int a2, unsigned int *a3, unsigned int *a4, float a5, float a6, float a7, float a8, float a9, float a10, float a11, float a12)
+uint64_t Path::RecRound(Path *this, Shape *a2, int a3, int a4, float a5, float a6, float a7, float a8, float a9, float a10, float a11)
+{
+  if (a4 >= 1)
+  {
+    v19 = a4 + 1;
+    v26 = a9;
+    v27 = a10;
+    while (1)
+    {
+      v20 = ((a7 - a5) * (a10 - a6)) - ((a8 - a6) * (a9 - a5));
+      v21 = -v20;
+      if (v20 >= 0.0)
+      {
+        v21 = ((a7 - a5) * (a10 - a6)) - ((a8 - a6) * (a9 - a5));
+      }
+
+      if (v21 < a11)
+      {
+        break;
+      }
+
+      v22 = ((a7 + a9) + (a5 * 2.0)) * 0.25;
+      v23 = ((a8 + a10) + (a6 * 2.0)) * 0.25;
+      v24 = Shape::AddPoint(this, v22, v23);
+      Path::RecRound(this, a2, v24, v19 - 2, (a5 + a7) * 0.5, (a6 + a8) * 0.5, a7, a8, v22, v23, a11);
+      a9 = v26;
+      a10 = v27;
+      a5 = (a5 + v26) * 0.5;
+      --v19;
+      a6 = (a6 + v27) * 0.5;
+      a8 = v23;
+      a7 = v22;
+      a2 = v24;
+      if (v19 <= 1)
+      {
+        goto LABEL_9;
+      }
+    }
+  }
+
+  LODWORD(v24) = a2;
+LABEL_9:
+
+  return Shape::AddEdge(this, v24, a3);
+}
+
+uint64_t Path::DoLeftJoin(Shape *this, int a2, int *a3, int *a4, float a5, float a6, float a7, float a8, float a9, float a10, float a11, float a12)
 {
   v19 = -a8;
   v20 = (a8 * a11) - (a9 * a10);
@@ -143,7 +189,7 @@ LABEL_18:
   return Path::RecRound(v67, v39, v65, 8, v68, v69, v70, v71, v75, v76, v66);
 }
 
-uint64_t Path::DoRightJoin(Shape *this, int a2, unsigned int *a3, unsigned int *a4, float a5, float a6, float a7, float a8, float a9, float a10, float a11, float a12)
+uint64_t Path::DoRightJoin(Shape *this, int a2, int *a3, int *a4, float a5, float a6, float a7, float a8, float a9, float a10, float a11, float a12)
 {
   v20 = (a8 * a11) - (a9 * a10);
   if (fabsf(v20) < 0.0001)
@@ -284,156 +330,157 @@ LABEL_15:
   return Path::RecRound(v62, v63, v26, 8, v64, v65, v66, v67, v71, v72, v61);
 }
 
-uint64_t Path::Stroke(uint64_t result, uint64_t a2)
+uint64_t Path::Stroke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, float a6, float a7)
 {
   if (a2)
   {
-    v2 = *(result + 36);
-    if (v2 >= 2)
+    v7 = *(result + 36);
+    if (v7 >= 2)
     {
-      v3 = *(result + 48);
-      v4 = 1;
+      v8 = *(result + 48);
+      v9 = 1;
       if (*(result + 33) == 1)
       {
         if (*(result + 32))
         {
-          v5 = v3 + 6;
-          v6 = v2 - 1;
+          v10 = v8 + 6;
+          v11 = v7 - 1;
           do
           {
-            v7 = *v5;
-            v5 += 6;
-            if ((v7 | 2) != 2)
+            v12 = *v10;
+            v10 += 6;
+            if ((v12 | 2) != 2)
             {
               goto LABEL_9;
             }
 
-            ++v4;
-            --v6;
+            ++v9;
+            --v11;
           }
 
-          while (v6);
-          v4 = *(result + 36);
+          while (v11);
+          v9 = *(result + 36);
 LABEL_9:
-          v8 = *(result + 48);
+          v13 = *(result + 48);
         }
 
         else
         {
-          v12 = v3 + 5;
-          v13 = v2 - 1;
+          v17 = v8 + 5;
+          v18 = v7 - 1;
           do
           {
-            v14 = *v12;
-            v12 += 5;
-            if ((v14 | 2) != 2)
+            v19 = *v17;
+            v17 += 5;
+            if ((v19 | 2) != 2)
             {
               goto LABEL_20;
             }
 
-            ++v4;
-            --v13;
+            ++v9;
+            --v18;
           }
 
-          while (v13);
-          v4 = *(result + 36);
+          while (v18);
+          v9 = *(result + 36);
 LABEL_20:
-          v8 = *(result + 48);
+          v13 = *(result + 48);
         }
       }
 
       else if (*(result + 32))
       {
-        v9 = v3 + 4;
-        v10 = v2 - 1;
+        v14 = v8 + 4;
+        v15 = v7 - 1;
         do
         {
-          v11 = *v9;
-          v9 += 4;
-          if ((v11 | 2) != 2)
+          v16 = *v14;
+          v14 += 4;
+          if ((v16 | 2) != 2)
           {
             goto LABEL_15;
           }
 
-          ++v4;
-          --v10;
+          ++v9;
+          --v15;
         }
 
-        while (v10);
-        v4 = *(result + 36);
+        while (v15);
+        v9 = *(result + 36);
 LABEL_15:
-        v8 = *(result + 48);
+        v13 = *(result + 48);
       }
 
       else
       {
-        v15 = v3 + 3;
-        v16 = v2 - 1;
+        v20 = v8 + 3;
+        v21 = v7 - 1;
         do
         {
-          v17 = *v15;
-          v15 += 3;
-          if ((v17 | 2) != 2)
+          v22 = *v20;
+          v20 += 3;
+          if ((v22 | 2) != 2)
           {
             goto LABEL_25;
           }
 
-          ++v4;
-          --v16;
+          ++v9;
+          --v21;
         }
 
-        while (v16);
-        v4 = *(result + 36);
+        while (v21);
+        v9 = *(result + 36);
 LABEL_25:
-        v8 = *(result + 48);
+        v13 = *(result + 48);
       }
 
-      *(result + 48) = v8;
-      *(result + 36) = v4;
-      Path::DoStroke();
+      *(result + 48) = v13;
+      *(result + 36) = v9;
+      Path::DoStroke(result, a6, a2, a3, a4, a5);
     }
   }
 
   return result;
 }
 
-void Path::DoButt(uint64_t a1, int a2)
+void Path::DoButt(float a1, float a2, float a3, float a4, float a5, uint64_t a6, int a7)
 {
-  if (a2)
+  if (a7)
   {
     operator new();
   }
 }
 
-void Path::Stroke(uint64_t a1, void **this, int a3, int a4, int a5, int a6, uint64_t a7, char a8, float a9, float a10)
+void Path::Stroke(uint64_t result, void **this, int a3, int a4, uint64_t a5, int a6, uint64_t a7, char a8, float a9, float a10)
 {
+  v11 = a5;
   if (a6 <= 0)
   {
 
-    Path::Stroke(a1, this, a3, a4, a5, a8, a9, a10);
+    Path::Stroke(result, this, a3, a4, a5, a8, a9, a10);
   }
 
   else if (this)
   {
     if ((a8 & 1) == 0)
     {
-      Shape::Reset(this, 3 * *(a1 + 36));
+      Shape::Reset(this, 3 * *(result + 36));
     }
 
-    if (*(a1 + 36) >= 2)
+    if (*(result + 36) >= 2)
     {
       Shape::MakeBackData(this, 0);
-      v19 = *(a1 + 48);
-      v20 = *(a1 + 36);
+      v19 = *(result + 48);
+      v20 = *(result + 36);
       if (v20 >= 1)
       {
         v21 = 0;
         do
         {
           v22 = v21 + 1;
-          if (*(a1 + 33) == 1)
+          if (*(result + 33) == 1)
           {
-            if (*(a1 + 32))
+            if (*(result + 32))
             {
               if (v22 < v20)
               {
@@ -490,7 +537,7 @@ void Path::Stroke(uint64_t a1, void **this, int a3, int a4, int a5, int a6, uint
 
           else
           {
-            if (*(a1 + 32))
+            if (*(result + 32))
             {
               if (v22 < v20)
               {
@@ -545,22 +592,22 @@ void Path::Stroke(uint64_t a1, void **this, int a3, int a4, int a5, int a6, uint
 
           v30 = v19 + v21 * v26;
 LABEL_36:
-          *(a1 + 48) = v30;
-          *(a1 + 36) = v22 - v21;
-          Path::DoStroke(a1, this, a3, a4, a5, a6, a7, 0, a9, a10);
+          *(result + 48) = v30;
+          *(result + 36) = v22 - v21;
+          Path::DoStroke(result, this, a3, a4, v11, a6, a7, 0, a9, a10);
           v21 = v22;
         }
 
         while (v22 < v20);
       }
 
-      *(a1 + 48) = v19;
-      *(a1 + 36) = v20;
+      *(result + 48) = v19;
+      *(result + 36) = v20;
     }
   }
 }
 
-uint64_t Path::DoStroke(uint64_t result, Shape *this, int a3, int a4, int a5, int a6, uint64_t a7, int a8, float a9, float a10)
+Shape *Path::DoStroke(Shape *result, Shape *this, int a3, int a4, int a5, int a6, uint64_t a7, int a8, float a9, float a10)
 {
   if (!this)
   {
@@ -568,14 +615,14 @@ uint64_t Path::DoStroke(uint64_t result, Shape *this, int a3, int a4, int a5, in
   }
 
   v10 = result;
-  v11 = *(result + 36);
+  v11 = *(result + 9);
   if (v11 < 2)
   {
     return result;
   }
 
   v131 = 0;
-  v19 = *(result + 48);
+  v19 = *(result + 6);
   v20 = 1.0;
   if (*(result + 32) == 1)
   {
@@ -783,7 +830,7 @@ LABEL_61:
           v61 = v110;
           v62 = LODWORD(v49);
           v63 = v41 + 1;
-          v64 = *(v10 + 48);
+          v64 = *(v10 + 6);
           v65 = 12 * (v41 + 1);
           if (*(v10 + 32))
           {
@@ -1053,7 +1100,7 @@ LABEL_87:
   return result;
 }
 
-uint64_t Path::DashTo(uint64_t result, float *a2, float *a3, int *a4, float *a5, char *a6, unsigned int *a7, unsigned int *a8, int a9, uint64_t a10)
+Shape *Path::DashTo(Shape *result, float *a2, float *a3, int *a4, float *a5, char *a6, int *a7, int *a8, int a9, uint64_t a10)
 {
   v39 = result;
   v10 = *a3;
@@ -1175,13 +1222,13 @@ LABEL_26:
   return result;
 }
 
-double TSDMetalEdgeDistanceFieldTextureAdjustmentMix()
+double TSDMetalEdgeDistanceFieldTextureAdjustmentMix(uint64_t a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8)
 {
   TSUMix();
-  v1 = v0;
+  v9 = v8;
   TSUMix();
   TSUMix();
-  return v1;
+  return v9;
 }
 
 BOOL TSDMetalEdgeDistanceFieldBufferPixelIsInsideTexture(double a1, double a2, double a3, double a4)
@@ -1382,7 +1429,7 @@ LABEL_25:
 uint64_t TSDMetalEdgeDistanceFieldBufferNeighborPixelsClosestToZero(uint64_t a1, int64_t a2, _OWORD *a3, double a4, double a5, double a6, double a7)
 {
   v14 = 0;
-  v27[23] = *MEMORY[0x277D85DE8];
+  __base[24] = *MEMORY[0x277D85DE8];
   v15 = &unk_26CA65B08;
   v16 = 8;
   do
@@ -1393,7 +1440,7 @@ uint64_t TSDMetalEdgeDistanceFieldBufferNeighborPixelsClosestToZero(uint64_t a1,
       v19 = v18 >= 0.0 && v17 < a6;
       if (v19 && v18 < a7)
       {
-        v21 = &__base[24 * v14++];
+        v21 = &__base[3 * v14++];
         *v21 = *(a1 + 4 * (v17 + a6 * v18));
         v21[1] = v17;
         v21[2] = v18;
@@ -1420,7 +1467,7 @@ uint64_t TSDMetalEdgeDistanceFieldBufferNeighborPixelsClosestToZero(uint64_t a1,
     qsort_b(__base, v14, 0x18uLL, &__block_literal_global_35);
     if (a3)
     {
-      v23 = v27;
+      v23 = &__base[1];
       do
       {
         v24 = *v23;
@@ -1840,126 +1887,126 @@ void Shape::MakeVoronoiData(Shape *this, int a2)
   }
 }
 
-void **Shape::Copy(Shape *this, Shape *a2)
+void **Shape::Copy(Shape *this, Shape *a2, int a3)
 {
   if (a2)
   {
-    v4 = *(this + 13);
-    if ((v4 & 4) != 0)
+    v5 = *(this + 13);
+    if ((v5 & 4) != 0)
     {
-      v4 &= ~4u;
-      *(this + 13) = v4;
-      v5 = *(this + 11);
-      if (v5)
-      {
-        free(v5);
-        *(this + 11) = 0;
-        v4 = *(this + 13);
-      }
-    }
-
-    if ((v4 & 8) != 0)
-    {
-      v4 &= ~8u;
-      *(this + 13) = v4;
-      v6 = *(this + 7);
+      v5 &= ~4u;
+      *(this + 13) = v5;
+      v6 = *(this + 11);
       if (v6)
       {
         free(v6);
-        *(this + 7) = 0;
-        v4 = *(this + 13);
+        *(this + 11) = 0;
+        v5 = *(this + 13);
       }
     }
 
-    if ((v4 & 0x10) != 0)
+    if ((v5 & 8) != 0)
     {
-      v4 &= ~0x10u;
-      *(this + 13) = v4;
-      v7 = *(this + 8);
+      v5 &= ~8u;
+      *(this + 13) = v5;
+      v7 = *(this + 7);
       if (v7)
       {
         free(v7);
-        *(this + 8) = 0;
-        v4 = *(this + 13);
+        *(this + 7) = 0;
+        v5 = *(this + 13);
       }
     }
 
-    if ((v4 & 0x20) != 0)
+    if ((v5 & 0x10) != 0)
     {
-      v4 &= ~0x20u;
-      *(this + 13) = v4;
-      v8 = *(this + 9);
+      v5 &= ~0x10u;
+      *(this + 13) = v5;
+      v8 = *(this + 8);
       if (v8)
       {
         free(v8);
-        *(this + 9) = 0;
-        v4 = *(this + 13);
+        *(this + 8) = 0;
+        v5 = *(this + 13);
       }
     }
 
-    if ((v4 & 0x80) != 0)
+    if ((v5 & 0x20) != 0)
     {
-      v4 &= ~0x80u;
-      *(this + 13) = v4;
-      v9 = *(this + 10);
+      v5 &= ~0x20u;
+      *(this + 13) = v5;
+      v9 = *(this + 9);
       if (v9)
       {
         free(v9);
-        *(this + 10) = 0;
-        v4 = *(this + 13);
+        *(this + 9) = 0;
+        v5 = *(this + 13);
       }
     }
 
-    if ((v4 & 0x100) != 0)
+    if ((v5 & 0x80) != 0)
     {
-      v4 &= ~0x100u;
-      *(this + 13) = v4;
-      v10 = *(this + 16);
+      v5 &= ~0x80u;
+      *(this + 13) = v5;
+      v10 = *(this + 10);
       if (v10)
       {
         free(v10);
-        *(this + 16) = 0;
-        v4 = *(this + 13);
+        *(this + 10) = 0;
+        v5 = *(this + 13);
       }
     }
 
-    if ((v4 & 0x200) != 0)
+    if ((v5 & 0x100) != 0)
     {
-      v4 &= ~0x200u;
-      *(this + 13) = v4;
-      v11 = *(this + 12);
+      v5 &= ~0x100u;
+      *(this + 13) = v5;
+      v11 = *(this + 16);
       if (v11)
       {
         free(v11);
-        *(this + 12) = 0;
-        v4 = *(this + 13);
+        *(this + 16) = 0;
+        v5 = *(this + 13);
       }
     }
 
-    if ((v4 & 0x40) != 0)
+    if ((v5 & 0x200) != 0)
+    {
+      v5 &= ~0x200u;
+      *(this + 13) = v5;
+      v12 = *(this + 12);
+      if (v12)
+      {
+        free(v12);
+        *(this + 12) = 0;
+        v5 = *(this + 13);
+      }
+    }
+
+    if ((v5 & 0x40) != 0)
     {
       SweepTree::DestroyList(this + 21);
       SweepEvent::DestroyQueue(this + 24);
-      v12 = *(this + 13);
-      if ((v12 & 0x40) != 0)
+      v13 = *(this + 13);
+      if ((v13 & 0x40) != 0)
       {
-        *(this + 13) = v12 & 0xFFFFFFBF;
+        *(this + 13) = v13 & 0xFFFFFFBF;
       }
     }
 
     Shape::Reset(this, *(a2 + 4));
-    v13 = *(a2 + 4);
-    *(this + 4) = v13;
+    v14 = *(a2 + 4);
+    *(this + 4) = v14;
     *(this + 8) = *(a2 + 8);
-    v14 = *(a2 + 13) & 3;
+    v15 = *(a2 + 13) & 3;
     *(this + 12) = *(a2 + 12);
-    *(this + 13) = v14;
-    memcpy(*(this + 3), *(a2 + 3), 28 * v13);
-    v15 = *(this + 5);
-    v16 = *(a2 + 5);
-    v17 = 32 * *(this + 8);
+    *(this + 13) = v15;
+    memcpy(*(this + 3), *(a2 + 3), 28 * v14);
+    v16 = *(this + 5);
+    v17 = *(a2 + 5);
+    v18 = 32 * *(this + 8);
 
-    return memcpy(v15, v16, v17);
+    return memcpy(v16, v17, v18);
   }
 
   else
@@ -3156,10 +3203,10 @@ LABEL_37:
   return this;
 }
 
-uint64_t Shape::AddEdge(Shape *this, unsigned int a2, unsigned int a3)
+uint64_t Shape::AddEdge(Shape *this, int a2, int a3)
 {
   v3 = 0xFFFFFFFFLL;
-  if (a2 == a3 || ((a3 | a2) & 0x80000000) != 0)
+  if (a2 == a3 || (a3 | a2) < 0)
   {
     return v3;
   }
@@ -3318,20 +3365,20 @@ LABEL_16:
   return v3;
 }
 
-uint64_t Shape::ConnectStart(uint64_t this, int a2, int a3)
+void *Shape::ConnectStart(void *this, int a2, int a3)
 {
   v5 = this;
-  v6 = *(this + 40);
+  v6 = this[5];
   v7 = a3;
   if ((*(v6 + 32 * a3 + 8) & 0x80000000) == 0)
   {
     this = Shape::DisconnectStart(this, a3);
-    v6 = *(v5 + 40);
+    v6 = v5[5];
   }
 
   v8 = (v6 + 32 * v7);
   v8[2] = a2;
-  v9 = *(v5 + 24);
+  v9 = v5[3];
   v10 = v9 + 28 * a2;
   v13 = *(v10 + 20);
   v11 = (v10 + 20);
@@ -3373,20 +3420,20 @@ LABEL_9:
   return this;
 }
 
-uint64_t Shape::ConnectEnd(uint64_t this, int a2, int a3)
+void *Shape::ConnectEnd(void *this, int a2, int a3)
 {
   v5 = this;
-  v6 = *(this + 40);
+  v6 = this[5];
   v7 = a3;
   if ((*(v6 + 32 * a3 + 12) & 0x80000000) == 0)
   {
     this = Shape::DisconnectEnd(this, a3);
-    v6 = *(v5 + 40);
+    v6 = v5[5];
   }
 
   v8 = (v6 + 32 * v7);
   v8[3] = a2;
-  v9 = *(v5 + 24);
+  v9 = v5[3];
   v10 = v9 + 28 * a2;
   v13 = *(v10 + 20);
   v11 = (v10 + 20);
@@ -6054,7 +6101,7 @@ LABEL_25:
   Shape::MakeSweepDestData(this, 0);
 }
 
-uint64_t Shape::AddContour(Shape *this, Path *a2, int a3, Path **a4, signed int a5)
+uint64_t Shape::AddContour(Shape *this, Path *a2, int a3, Path **a4, unsigned int a5)
 {
   v5 = a5;
   v10 = (*(this + 3) + 28 * *(*(this + 5) + 32 * a5 + 8));
@@ -7074,7 +7121,7 @@ LABEL_14:
     for (i = 0; i < *(this + 8); ++i)
     {
       v26 = this[9] + 32 * i;
-      v28 = *(v26 + 16);
+      v28 = *(v26 + 4);
       v27 = (v26 + 16);
       v29 = v28 & 1;
       if (v28 >= 0)
@@ -7461,8 +7508,8 @@ uint64_t Shape::ConvertToShape(void **a1, uint64_t a2, int a3, char a4)
   Shape::ResetSweep(a2);
   if (!Shape::GetFlag(v7, 64))
   {
-    SweepTree::CreateList(v7 + 168, *(a2 + 32));
-    SweepEvent::CreateQueue(v7 + 192, *(a2 + 32));
+    SweepTree::CreateList((v7 + 21), *(a2 + 32));
+    SweepEvent::CreateQueue((v7 + 24), *(a2 + 32));
     Shape::SetFlag(v7, 64, 1);
   }
 
@@ -7540,23 +7587,23 @@ uint64_t Shape::ConvertToShape(void **a1, uint64_t a2, int a3, char a4)
   Shape::SortPointsRounded(a2);
   v29 = 0;
   v249 = 0;
-  *(v7 + 136) = 0;
-  v242 = (v7 + 136);
-  *(v7 + 144) = 0;
+  v7[17] = 0;
+  v242 = v7 + 17;
+  v7[18] = 0;
   v30 = *(*(a2 + 88) + 40) + -1.0;
   v256[0] = -1;
-  *(v7 + 152) = 0;
+  v7[19] = 0;
   v255 = 0;
-  v250 = v7 + 152;
-  *(v7 + 160) = 0;
+  v250 = v7 + 19;
+  v7[20] = 0;
   v246 = a2;
-  while (v29 < *(a2 + 16) || *(v250 + 40) >= 1)
+  while (v29 < *(a2 + 16) || *(v250 + 10) >= 1)
   {
     v253 = 0;
     v254 = 0;
     v251 = 0;
     v252 = 0;
-    v31 = SweepEvent::PeekInQueue(&v252, &v251, &v254 + 1, &v254, &v253 + 1, &v253, v250 + 40);
+    v31 = SweepEvent::PeekInQueue(&v252, &v251, &v254 + 1, &v254, &v253 + 1, &v253, (v250 + 5));
     v32 = *(a2 + 88);
     if (!v31)
     {
@@ -7567,7 +7614,7 @@ uint64_t Shape::ConvertToShape(void **a1, uint64_t a2, int a3, char a4)
     if (*(v33 + 8) > 0 || (v34 = *(v33 + 40), v34 > *&v254))
     {
 LABEL_23:
-      SweepEvent::ExtractFromQueue(&v252, &v251, &v254 + 1, &v254, &v253 + 1, &v253, v250 + 40);
+      SweepEvent::ExtractFromQueue(&v252, &v251, &v254 + 1, &v254, &v253 + 1, &v253, (v250 + 5));
       a2 = 0;
       v35 = *(&v254 + 1);
       LODWORD(v36) = v254;
@@ -7609,7 +7656,7 @@ LABEL_28:
     v42 = ldexpf(roundf(v41), -5);
     v43 = Shape::AddPoint(v7, v40, v42);
     v44 = v43;
-    v45 = *(v7 + 88) + 48 * v43;
+    v45 = v7[11] + 48 * v43;
     *(v45 + 36) = v40;
     *(v45 + 40) = v42;
     if (v42 <= v30)
@@ -7628,7 +7675,7 @@ LABEL_28:
       if (v249 < v46)
       {
         v49 = v249;
-        v50 = (*(v7 + 88) + 48 * v249 + 32);
+        v50 = (v7[11] + 48 * v249 + 32);
         v51 = v46 - v249;
         do
         {
@@ -7651,13 +7698,13 @@ LABEL_28:
       v54 = v255;
       if (v255)
       {
-        v55 = *(v7 + 88);
+        v55 = v7[11];
         v56 = v256;
         do
         {
           v57 = *(v54 + 8) + 56 * *v56;
-          v58 = *(v55 + 48 * *(v57 + 28) + 4);
-          *(v57 + 24) = *(v55 + 48 * *(v57 + 24) + 4);
+          v58 = v55[12 * *(v57 + 28) + 1];
+          *(v57 + 24) = v55[12 * *(v57 + 24) + 1];
           *(v57 + 28) = v58;
           v56 = (v57 + 40);
           v54 = *(v57 + 32);
@@ -7669,12 +7716,12 @@ LABEL_28:
       v59 = *v242;
       if (v59 >= 1)
       {
-        v60 = *(v7 + 88);
-        v61 = (*(v7 + 144) + 8);
+        v60 = v7[11];
+        v61 = (v7[18] + 8);
         while (1)
         {
           v62 = *(v61 - 2);
-          v63 = *(v60 + 48 * *(v61 - 1) + 4);
+          v63 = v60[12 * *(v61 - 1) + 1];
           *(v61 - 1) = v63;
           if (v62 == 1)
           {
@@ -7722,24 +7769,24 @@ LABEL_46:
       v68 = v48;
       if (v48 < v44)
       {
-        v69 = *(v7 + 24);
-        v70 = (v69 + 28 * v44);
-        v71 = (v69 + 28 * v48);
+        v69 = v7[3];
+        v70 = &v69[28 * v44];
+        v71 = &v69[28 * v48];
         v72 = *v70;
         *(v71 + 12) = *(v70 + 12);
         *v71 = v72;
-        v73 = *(v7 + 88);
-        v74 = (v73 + 48 * v44);
-        v75 = (v73 + 48 * v48);
+        v73 = v7[11];
+        v74 = &v73[48 * v44];
+        v75 = &v73[48 * v48];
         v76 = *v74;
-        v77 = v74[2];
-        v75[1] = v74[1];
-        v75[2] = v77;
+        v77 = *(v74 + 2);
+        *(v75 + 1) = *(v74 + 1);
+        *(v75 + 2) = v77;
         *v75 = v76;
       }
 
-      *(v7 + 16) = v48 + 1;
-      *(v7 + 136) = 0;
+      *(v7 + 4) = v48 + 1;
+      *(v7 + 34) = 0;
       v256[0] = -1;
       v255 = 0;
       v249 = v48;
@@ -7748,8 +7795,8 @@ LABEL_46:
       {
 LABEL_83:
         v95 = v68;
-        SweepTree::RemoveEvent(v252, (v250 + 40), 1);
-        SweepTree::RemoveEvent(v251, (v250 + 40), 0);
+        SweepTree::RemoveEvent(v252, v250 + 10, 1);
+        SweepTree::RemoveEvent(v251, v250 + 10, 0);
         Shape::AddChgt(v7, v95, v249, &v255, v256, 2, *(v252 + 8), *(v252 + 18), *(v251 + 8), *(v251 + 18));
         SweepTree::SwapWithRight(v252);
         Shape::TesteIntersection(v7, v252, 1, 0, v96, v97, v98, v99, v100);
@@ -7879,7 +7926,7 @@ LABEL_105:
                   v243 = -1;
                 }
 
-                SweepTree::Remove(v114, v250 + 16, (v250 + 40), 1);
+                SweepTree::Remove(v114, (v250 + 2), v250 + 10, 1);
                 v68 = v247;
                 v94 = v244;
                 if (v116)
@@ -7943,20 +7990,20 @@ LABEL_105:
       {
 LABEL_131:
         v142 = v68;
-        v129 = SweepTree::AddInList(a2, v81, 1, v68, (v250 + 16));
+        v129 = SweepTree::AddInList(a2, v81, 1, v68, v250 + 4);
         *(*(a2 + 64) + 56 * v81) = v129;
-        SweepTree::Insert(v129, v250 + 16, (v250 + 40), v7, v142, 1, 1);
+        SweepTree::Insert(v129, (v250 + 2), v250 + 10, v7, v142, 1, 1);
         v148 = *v129;
         if (*v129)
         {
-          v149 = *(v7 + 88) + 48 * v142;
+          v149 = v7[11] + 48 * v142;
           *(v149 + 24) = *(v148 + 64);
           *(v149 + 32) = *(v148 + 72);
         }
 
         else
         {
-          *(*(v7 + 88) + 48 * v142 + 32) = -1;
+          *(v7[11] + 12 * v142 + 8) = -1;
         }
 
         Shape::TesteIntersection(v7, v129, 0, 0, v143, v144, v145, v146, v147);
@@ -8018,7 +8065,7 @@ LABEL_128:
     v131 = v68;
     Shape::AddChgt(v7, v68, v249, &v255, v256, 1, *(v129 + 64), *(v129 + 72), 0, -1);
     *(*(a2 + 64) + v128) = 0;
-    SweepTree::RemoveEvents(v129, (v250 + 40));
+    SweepTree::RemoveEvents(v129, v250 + 10);
     SweepTree::ConvertTo(v129, a2, v81, 1, v131);
     *(*(a2 + 64) + 56 * v81) = v129;
     Shape::TesteIntersection(v7, v129, 0, 0, v132, v133, v134, v135, v136);
@@ -8055,17 +8102,17 @@ LABEL_137:
           else if (v29 == v160 && v160 < v161 && v155 != v81)
           {
 LABEL_155:
-            v165 = SweepTree::AddInList(a2, v155, 1, v156, (v250 + 16));
+            v165 = SweepTree::AddInList(a2, v155, 1, v156, v250 + 4);
             *(*(a2 + 64) + 56 * v158) = v165;
-            SweepTree::InsertAt(v165, v250 + 16, (v250 + 40), v7, v129, v29, 1, 1);
+            SweepTree::InsertAt(v165, (v250 + 2), v250 + 10, v7, v129, v29, 1, 1);
             if (v130)
             {
               v171 = *v165;
-              v172 = *(v7 + 88);
+              v172 = v7[11];
               if (*v165)
               {
                 v173 = v247;
-                *(v172 + 48 * v247 + 24) = *(v171 + 64);
+                v172[6 * v247 + 3] = *(v171 + 64);
                 v174 = *(v171 + 72);
               }
 
@@ -8075,7 +8122,7 @@ LABEL_155:
                 v173 = v247;
               }
 
-              *(v172 + 48 * v173 + 32) = v174;
+              LODWORD(v172[6 * v173 + 4]) = v174;
             }
 
             Shape::TesteIntersection(v7, v165, 0, 0, v166, v167, v168, v169, v170);
@@ -8120,12 +8167,12 @@ LABEL_85:
     v29 = v248;
   }
 
-  v182 = Shape::AssemblePoints(v7, v249, *(v7 + 16));
+  v182 = Shape::AssemblePoints(v7, v249, *(v7 + 4));
   v184 = v182;
   if (v249 < v182)
   {
     v185 = v249;
-    v186 = (*(v7 + 88) + 48 * v249 + 32);
+    v186 = (v7[11] + 48 * v249 + 32);
     v187 = v182 - v249;
     do
     {
@@ -8148,13 +8195,13 @@ LABEL_85:
   v190 = v255;
   if (v255)
   {
-    v191 = *(v7 + 88);
+    v191 = v7[11];
     v192 = v256;
     do
     {
       v193 = *(v190 + 8) + 56 * *v192;
-      v194 = *(v191 + 48 * *(v193 + 28) + 4);
-      *(v193 + 24) = *(v191 + 48 * *(v193 + 24) + 4);
+      v194 = v191[12 * *(v193 + 28) + 1];
+      *(v193 + 24) = v191[12 * *(v193 + 24) + 1];
       *(v193 + 28) = v194;
       v192 = (v193 + 40);
       v190 = *(v193 + 32);
@@ -8166,12 +8213,12 @@ LABEL_85:
   v195 = *v242;
   if (v195 >= 1)
   {
-    v196 = *(v7 + 88);
-    v197 = (*(v7 + 144) + 8);
+    v196 = v7[11];
+    v197 = (v7[18] + 8);
     while (1)
     {
       v198 = *(v197 - 2);
-      v199 = *(v196 + 48 * *(v197 - 1) + 4);
+      v199 = v196[12 * *(v197 - 1) + 1];
       *(v197 - 1) = v199;
       if (v198 == 1)
       {
@@ -8216,8 +8263,8 @@ LABEL_184:
 LABEL_186:
   Shape::CheckAdjacencies(v7, v182, v249, v183);
   Shape::CheckEdges(v7, v184, v249, a2, 0, 0);
-  *(v7 + 16) = v184;
-  v204 = *(v7 + 144);
+  *(v7 + 4) = v184;
+  v204 = v7[18];
   if (v204)
   {
     free(v204);
@@ -8225,19 +8272,19 @@ LABEL_186:
 
   *v242 = 0;
   v242[1] = 0;
-  v205 = *(v7 + 160);
+  v205 = v7[20];
   if (v205)
   {
     free(v205);
   }
 
   *v250 = 0;
-  *(v250 + 8) = 0;
+  v250[1] = 0;
   Shape::AssembleAretes(v7);
-  v206 = *(v7 + 16);
+  v206 = *(v7 + 4);
   if (v206 >= 1)
   {
-    v207 = (*(v7 + 24) + 12);
+    v207 = v7[3] + 12;
     do
     {
       v207[3] = *v207 + *(v207 - 1);
@@ -8252,7 +8299,7 @@ LABEL_186:
   Shape::GetWindings(v7, v208, v209, v210, 0);
   if (v240 == 2)
   {
-    v226 = *(v7 + 32);
+    v226 = *(v7 + 8);
     if (v241)
     {
       if (v226 < 1)
@@ -8263,11 +8310,11 @@ LABEL_186:
       v227 = 0;
       while (1)
       {
-        v228 = *(v7 + 72) + 32 * v227;
+        v228 = v7[9] + 32 * v227;
         v229 = *(v228 + 20);
         if ((*(v228 + 16) & 0x80000000) != 0)
         {
-          v230 = *(v7 + 56);
+          v230 = v7[7];
           if ((v229 & 0x80000000) == 0)
           {
             goto LABEL_242;
@@ -8279,19 +8326,19 @@ LABEL_186:
           if (v229 < 0)
           {
             Shape::Inverse(v7, v227);
-            v230 = *(v7 + 56);
+            v230 = v7[7];
 LABEL_242:
-            *(v230 + (v227 << 6)) = 1;
+            v230[16 * v227] = 1;
             goto LABEL_243;
           }
 
-          v230 = *(v7 + 56);
+          v230 = v7[7];
         }
 
-        *(v230 + (v227 << 6)) = 0;
+        v230[16 * v227] = 0;
         Shape::SubEdge(v7, v227--);
 LABEL_243:
-        if (++v227 >= *(v7 + 32))
+        if (++v227 >= *(v7 + 8))
         {
           goto LABEL_270;
         }
@@ -8306,35 +8353,35 @@ LABEL_243:
     v236 = 0;
     while (1)
     {
-      v237 = *(v7 + 72) + 32 * v236;
+      v237 = v7[9] + 32 * v236;
       v238 = *(v237 + 20);
       if (*(v237 + 16) < 1)
       {
         if (v238 <= 0)
         {
-          v239 = *(v7 + 56);
+          v239 = v7[7];
 LABEL_268:
-          *(v239 + (v236 << 6)) = 0;
+          v239[16 * v236] = 0;
           Shape::SubEdge(v7, v236--);
           goto LABEL_269;
         }
 
         Shape::Inverse(v7, v236);
-        v239 = *(v7 + 56);
+        v239 = v7[7];
       }
 
       else
       {
-        v239 = *(v7 + 56);
+        v239 = v7[7];
         if (v238 > 0)
         {
           goto LABEL_268;
         }
       }
 
-      *(v239 + (v236 << 6)) = 1;
+      v239[16 * v236] = 1;
 LABEL_269:
-      if (++v236 >= *(v7 + 32))
+      if (++v236 >= *(v7 + 8))
       {
         goto LABEL_270;
       }
@@ -8343,12 +8390,12 @@ LABEL_269:
 
   if (v240 != 1)
   {
-    if (!v240 && *(v7 + 32) >= 1)
+    if (!v240 && *(v7 + 8) >= 1)
     {
       v211 = 0;
       while (1)
       {
-        v212 = *(v7 + 72) + 32 * v211;
+        v212 = v7[9] + 32 * v211;
         v214 = *(v212 + 16);
         v213 = (v212 + 16);
         v215 = v214 & 1;
@@ -8401,7 +8448,7 @@ LABEL_206:
         if (v216)
         {
 LABEL_207:
-          v219 = *(v7 + 56);
+          v219 = v7[7];
           if (v218)
           {
             goto LABEL_215;
@@ -8413,19 +8460,19 @@ LABEL_207:
 LABEL_211:
         if (!v218)
         {
-          v219 = *(v7 + 56);
+          v219 = v7[7];
 LABEL_215:
-          *(v219 + (v211 << 6)) = 0;
+          v219[16 * v211] = 0;
           Shape::SubEdge(v7, v211--);
           goto LABEL_216;
         }
 
         Shape::Inverse(v7, v211);
-        v219 = *(v7 + 56);
+        v219 = v7[7];
 LABEL_213:
-        *(v219 + (v211 << 6)) = 1;
+        v219[16 * v211] = 1;
 LABEL_216:
-        if (++v211 >= *(v7 + 32))
+        if (++v211 >= *(v7 + 8))
         {
           goto LABEL_270;
         }
@@ -8435,7 +8482,7 @@ LABEL_216:
     goto LABEL_270;
   }
 
-  v220 = *(v7 + 32);
+  v220 = *(v7 + 8);
   if ((v241 & 1) == 0)
   {
     if (v220 < 1)
@@ -8446,7 +8493,7 @@ LABEL_216:
     v231 = 0;
     while (1)
     {
-      v232 = *(v7 + 72) + 32 * v231;
+      v232 = v7[9] + 32 * v231;
       v233 = *(v232 + 16);
       if (v233 >= 1)
       {
@@ -8462,18 +8509,18 @@ LABEL_216:
       if (v234 >= 1 || v234 < 0)
       {
         Shape::Inverse(v7, v231);
-        v235 = *(v7 + 56);
+        v235 = v7[7];
 LABEL_254:
-        *(v235 + (v231 << 6)) = 1;
+        v235[16 * v231] = 1;
         goto LABEL_255;
       }
 
-      v235 = *(v7 + 56);
+      v235 = v7[7];
 LABEL_250:
-      *(v235 + (v231 << 6)) = 0;
+      v235[16 * v231] = 0;
       Shape::SubEdge(v7, v231--);
 LABEL_255:
-      if (++v231 >= *(v7 + 32))
+      if (++v231 >= *(v7 + 8))
       {
         goto LABEL_270;
       }
@@ -8481,7 +8528,7 @@ LABEL_255:
 
     v234 = *(v232 + 20);
 LABEL_249:
-    v235 = *(v7 + 56);
+    v235 = v7[7];
     if (!v234)
     {
       goto LABEL_254;
@@ -8495,7 +8542,7 @@ LABEL_249:
     v221 = 0;
     while (1)
     {
-      v222 = *(v7 + 72) + 32 * v221;
+      v222 = v7[9] + 32 * v221;
       v223 = *(v222 + 16);
       if (v223 < 0)
       {
@@ -8511,18 +8558,18 @@ LABEL_249:
       if (v224 < 0 || v224)
       {
         Shape::Inverse(v7, v221);
-        v225 = *(v7 + 56);
+        v225 = v7[7];
 LABEL_229:
-        *(v225 + (v221 << 6)) = 1;
+        v225[16 * v221] = 1;
         goto LABEL_230;
       }
 
-      v225 = *(v7 + 56);
+      v225 = v7[7];
 LABEL_228:
-      *(v225 + (v221 << 6)) = 0;
+      v225[16 * v221] = 0;
       Shape::SubEdge(v7, v221--);
 LABEL_230:
-      if (++v221 >= *(v7 + 32))
+      if (++v221 >= *(v7 + 8))
       {
         goto LABEL_270;
       }
@@ -8530,7 +8577,7 @@ LABEL_230:
 
     v224 = *(v222 + 20);
 LABEL_227:
-    v225 = *(v7 + 56);
+    v225 = v7[7];
     if (!v224)
     {
       goto LABEL_229;
@@ -8542,8 +8589,8 @@ LABEL_227:
 LABEL_270:
   if (Shape::GetFlag(v7, 64))
   {
-    SweepTree::DestroyList((v250 + 16));
-    SweepEvent::DestroyQueue((v250 + 40));
+    SweepTree::DestroyList(v250 + 2);
+    SweepEvent::DestroyQueue(v250 + 5);
     Shape::SetFlag(v7, 64, 0);
   }
 
@@ -8555,13 +8602,13 @@ LABEL_270:
   if (Shape::Eulerian(v7, 1))
   {
     result = 0;
-    *(v7 + 48) = 1;
+    *(v7 + 12) = 1;
   }
 
   else
   {
-    *(v7 + 32) = 0;
-    *(v7 + 16) = 0;
+    *(v7 + 8) = 0;
+    *(v7 + 4) = 0;
     return 4;
   }
 
@@ -9171,13 +9218,15 @@ LABEL_81:
   return this;
 }
 
-void Shape::CheckEdges(uint64_t a1, signed int a2, int a3, uint64_t a4, Shape *a5, uint64_t a6)
+void Shape::CheckEdges(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, Shape *a5, uint64_t a6)
 {
-  v6 = *(a1 + 136);
+  v6 = *(result + 136);
   if (v6 >= 1)
   {
     v7 = a6;
-    v12 = (*(a1 + 144) + 8);
+    v9 = a3;
+    v10 = a2;
+    v12 = (*(result + 144) + 8);
     do
     {
       if (!*(v12 - 2))
@@ -9193,21 +9242,21 @@ void Shape::CheckEdges(uint64_t a1, signed int a2, int a3, uint64_t a4, Shape *a
     v13 = 0;
     do
     {
-      v14 = *(a1 + 144);
+      v14 = *(result + 144);
       v15 = v14 + 72 * v13;
       v16 = *(v15 + 8);
       if (v16)
       {
-        Shape::Avance(a1, a2, a3, v16, *(v15 + 16), a6, a5, v7);
-        v14 = *(a1 + 144);
+        Shape::Avance(result, v10, v9, v16, *(v15 + 16), a6, a5, v7);
+        v14 = *(result + 144);
       }
 
       v17 = v14 + 72 * v13;
       v18 = *(v17 + 24);
       if (v18)
       {
-        Shape::Avance(a1, a2, a3, v18, *(v17 + 32), a6, a5, v7);
-        v14 = *(a1 + 144);
+        Shape::Avance(result, v10, v9, v18, *(v17 + 32), a6, a5, v7);
+        v14 = *(result + 144);
       }
 
       v19 = v14 + 72 * v13;
@@ -9215,12 +9264,12 @@ void Shape::CheckEdges(uint64_t a1, signed int a2, int a3, uint64_t a4, Shape *a
       if (v20)
       {
         v21 = *(v19 + 48);
-        if (*(*(v20 + 8) + 56 * v21 + 24) >= a3)
+        if (*(*(v20 + 8) + 56 * v21 + 24) >= v9)
         {
           v22 = v21;
           do
           {
-            Shape::Avance(a1, a2, a3, v20, v21, a6, a5, v7);
+            Shape::Avance(result, v10, v9, v20, v21, a6, a5, v7);
             v23 = *(*(v20 + 8) + 56 * v22);
             if (!v23)
             {
@@ -9238,8 +9287,8 @@ void Shape::CheckEdges(uint64_t a1, signed int a2, int a3, uint64_t a4, Shape *a
             v22 = v21;
           }
 
-          while (*(*(v20 + 8) + 56 * v21 + 24) >= a3);
-          v14 = *(a1 + 144);
+          while (*(*(v20 + 8) + 56 * v21 + 24) >= v9);
+          v14 = *(result + 144);
         }
       }
 
@@ -9248,12 +9297,12 @@ void Shape::CheckEdges(uint64_t a1, signed int a2, int a3, uint64_t a4, Shape *a
       if (v26)
       {
         v27 = *(v25 + 64);
-        if (*(*(v26 + 8) + 56 * v27 + 28) >= a3)
+        if (*(*(v26 + 8) + 56 * v27 + 28) >= v9)
         {
           v28 = v27;
           do
           {
-            Shape::Avance(a1, a2, a3, v26, v27, a6, a5, v7);
+            Shape::Avance(result, v10, v9, v26, v27, a6, a5, v7);
             v29 = *(*(v26 + 8) + 56 * v28);
             if (!v29)
             {
@@ -9271,14 +9320,14 @@ void Shape::CheckEdges(uint64_t a1, signed int a2, int a3, uint64_t a4, Shape *a
             v28 = v27;
           }
 
-          while (*(*(v26 + 8) + 56 * v27 + 28) >= a3);
+          while (*(*(v26 + 8) + 56 * v27 + 28) >= v9);
         }
       }
 
       ++v13;
     }
 
-    while (v13 < *(a1 + 136));
+    while (v13 < *(result + 136));
   }
 }
 
@@ -9304,9 +9353,9 @@ void *Shape::AddChgt(Shape *this, int a2, int a3, Shape **a4, int *a5, int a6, S
   v22 = &result[9 * v18];
   *v22 = a6;
   *(v22 + 1) = a2;
-  *(v22 + 1) = a7;
+  v22[1] = a7;
   *(v22 + 4) = a8;
-  *(v22 + 3) = a9;
+  v22[3] = a9;
   *(v22 + 8) = a10;
   if (a7)
   {
@@ -9438,7 +9487,7 @@ LABEL_32:
   return result;
 }
 
-uint64_t Shape::TesteIntersection(uint64_t this, SweepTree *a2, int a3, char a4, double a5, double a6, double a7, int32x4_t a8, int32x4_t a9)
+Shape *Shape::TesteIntersection(Shape *this, SweepTree **a2, int a3, char a4, double a5, double a6, double a7, int32x4_t a8, int32x4_t a9)
 {
   v10 = this;
   if (a3)
@@ -9465,7 +9514,7 @@ uint64_t Shape::TesteIntersection(uint64_t this, SweepTree *a2, int a3, char a4,
 
   else
   {
-    v19 = *(a2 + 1);
+    v19 = a2[1];
     if (v19)
     {
       v20 = 0;

@@ -53,13 +53,13 @@
   forCopy = for;
   selfCopy = self;
   sub_2439F6940(forCopy, v6, v7);
-  sub_2439F5390(v6);
+  sub_2439F5390(v6, v7);
 }
 
 - (void)fetchServerRecommendationsFor:(id)for shouldIgnoreCache:(BOOL)cache completion:(id)completion
 {
-  v9 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ED97BE0, &qword_243A0FC10) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ED97BE0, &qword_243A0FC10);
+  MEMORY[0x28223BE20](v9 - 8);
   v11 = &v18 - v10;
   v12 = _Block_copy(completion);
   if (v12)
@@ -91,8 +91,8 @@
 
 - (void)fetchServerRecommendationsAsyncFor:(ACAccount *)for shouldIgnoreCache:(BOOL)cache completionHandler:(id)handler
 {
-  v9 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ED97BE0, &qword_243A0FC10) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ED97BE0, &qword_243A0FC10);
+  MEMORY[0x28223BE20](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
   v13 = swift_allocObject();
@@ -119,8 +119,8 @@
 
 - (void)fetchRulesetsFor:(id)for shouldIgnoreCache:(BOOL)cache completion:(id)completion
 {
-  v9 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ED97BE0, &qword_243A0FC10) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ED97BE0, &qword_243A0FC10);
+  MEMORY[0x28223BE20](v9 - 8);
   v11 = &v18 - v10;
   v12 = _Block_copy(completion);
   if (v12)
@@ -152,8 +152,8 @@
 
 - (void)fetchRulesFor:(ACAccount *)for shouldIgnoreCache:(BOOL)cache completionHandler:(id)handler
 {
-  v9 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ED97BE0, &qword_243A0FC10) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ED97BE0, &qword_243A0FC10);
+  MEMORY[0x28223BE20](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
   v13 = swift_allocObject();
@@ -180,8 +180,8 @@
 
 - (void)fetchRulesetsAsyncFor:(ACAccount *)for shouldIgnoreCache:(BOOL)cache completionHandler:(id)handler
 {
-  v9 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ED97BE0, &qword_243A0FC10) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ED97BE0, &qword_243A0FC10);
+  MEMORY[0x28223BE20](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
   v13 = swift_allocObject();
@@ -208,8 +208,8 @@
 
 - (void)fetchCompletedRecommendationsFor:(id)for shouldIgnoreCache:(BOOL)cache completion:(id)completion
 {
-  v9 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ED97BE0, &qword_243A0FC10) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ED97BE0, &qword_243A0FC10);
+  MEMORY[0x28223BE20](v9 - 8);
   v11 = &v18 - v10;
   v12 = _Block_copy(completion);
   if (v12)
@@ -241,8 +241,8 @@
 
 - (void)fetchCompletedRecommendationsFor:(ACAccount *)for shouldIgnoreCache:(BOOL)cache completionHandler:(id)handler
 {
-  v9 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ED97BE0, &qword_243A0FC10) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ED97BE0, &qword_243A0FC10);
+  MEMORY[0x28223BE20](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
   v13 = swift_allocObject();
@@ -269,8 +269,8 @@
 
 - (void)fetchClientRecommendationsFor:(id)for shouldIgnoreCache:(BOOL)cache completion:(id)completion
 {
-  v9 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ED97BE0, &qword_243A0FC10) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ED97BE0, &qword_243A0FC10);
+  MEMORY[0x28223BE20](v9 - 8);
   v11 = &v18 - v10;
   v12 = _Block_copy(completion);
   if (v12)
@@ -302,8 +302,8 @@
 
 - (void)fetchClientRecommendationsAsyncFor:(ACAccount *)for shouldIgnoreCache:(BOOL)cache completionHandler:(id)handler
 {
-  v9 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ED97BE0, &qword_243A0FC10) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ED97BE0, &qword_243A0FC10);
+  MEMORY[0x28223BE20](v9 - 8);
   v11 = &v19 - v10;
   v12 = _Block_copy(handler);
   v13 = swift_allocObject();

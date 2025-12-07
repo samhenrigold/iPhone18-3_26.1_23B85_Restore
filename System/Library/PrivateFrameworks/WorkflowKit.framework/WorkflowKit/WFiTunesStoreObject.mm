@@ -40,28 +40,26 @@ id __53__WFiTunesStoreObject_descriptionTextJSONTransformer__block_invoke(uint64
 
 + (id)JSONKeyPathsByPropertyKey
 {
-  v9[6] = *MEMORY[0x1E69E9840];
-  v7.receiver = self;
-  v7.super_class = &OBJC_METACLASS___WFiTunesStoreObject;
-  v2 = objc_msgSendSuper2(&v7, sel_JSONKeyPathsByPropertyKey);
+  v8[6] = *MEMORY[0x1E69E9840];
+  v6.receiver = self;
+  v6.super_class = &OBJC_METACLASS___WFiTunesStoreObject;
+  v2 = objc_msgSendSuper2(&v6, sel_JSONKeyPathsByPropertyKey);
   v3 = [v2 mutableCopy];
 
-  v8[0] = @"currencyCode";
-  v8[1] = @"artistID";
-  v9[0] = @"currency";
-  v9[1] = @"artistId";
+  v7[0] = @"currencyCode";
+  v7[1] = @"artistID";
+  v8[0] = @"currency";
+  v8[1] = @"artistId";
+  v7[2] = @"artistName";
+  v7[3] = @"kind";
   v8[2] = @"artistName";
   v8[3] = @"kind";
-  v9[2] = @"artistName";
-  v9[3] = @"kind";
+  v7[4] = @"releaseDate";
+  v7[5] = @"descriptionText";
   v8[4] = @"releaseDate";
-  v8[5] = @"descriptionText";
-  v9[4] = @"releaseDate";
-  v9[5] = &unk_1F4A9B5D8;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:6];
+  v8[5] = &unk_1F4A9B5D8;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:6];
   [v3 addEntriesFromDictionary:v4];
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

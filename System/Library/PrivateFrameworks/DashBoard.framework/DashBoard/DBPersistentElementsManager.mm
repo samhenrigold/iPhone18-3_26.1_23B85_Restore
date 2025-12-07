@@ -36,7 +36,7 @@
 
 - (void)clearPersistentElements
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE923D8);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE923D8, &unk_24839F830);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v8 - v4;
   v6 = sub_248381500();
@@ -44,12 +44,12 @@
   selfCopy = self;
   sub_2482BF01C(v5);
 
-  sub_24822D578(v5, &qword_27EE923D8);
+  sub_24822D578(v5, &qword_27EE923D8, &unk_24839F830);
 }
 
 - (void)updateWithPersistentElements:(id)elements
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE923D8);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE923D8, &unk_24839F830);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = sub_248381500();
@@ -64,7 +64,7 @@
   (*(v9 + 56))(v7, 0, 1, v8);
   sub_2482BF01C(v7);
 
-  sub_24822D578(v7, &qword_27EE923D8);
+  sub_24822D578(v7, &qword_27EE923D8, &unk_24839F830);
   (*(v9 + 8))(v11, v8);
 }
 
@@ -86,14 +86,14 @@
 
 - (void)addObserver:(id)observer for:(int64_t)for
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE923E8);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE923E8, &qword_24839F840);
   MEMORY[0x28223BE20](v6 - 8);
   v8 = &v11 - v7;
   swift_unknownObjectRetain_n();
   selfCopy = self;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE923F0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE923F0, &qword_24839F848);
   sub_248382610();
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE923F8);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE923F8, &qword_24839F850);
   (*(*(v10 - 8) + 56))(v8, 0, 1, v10);
   swift_beginAccess();
   sub_2482C0E00(v8, for);
@@ -108,7 +108,7 @@
 
 - (void)removeObserverFor:(int64_t)for
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE923E8);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27EE923E8, &qword_24839F840);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v9 - v6;
   swift_beginAccess();
@@ -116,7 +116,7 @@
   sub_2482C13D0(for, v7);
   swift_endAccess();
 
-  sub_24822D578(v7, &qword_27EE923E8);
+  sub_24822D578(v7, &qword_27EE923E8, &qword_24839F840);
 }
 
 - (id)observerFor:(int64_t)for

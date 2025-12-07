@@ -722,7 +722,7 @@ LABEL_31:
 - (void)URLSession:(id)session taskIsWaitingForConnectivity:(id)connectivity
 {
   connectivityCopy = connectivity;
-  v5 = sub_100010694();
+  v5 = sub_100010694(connectivityCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138543362;

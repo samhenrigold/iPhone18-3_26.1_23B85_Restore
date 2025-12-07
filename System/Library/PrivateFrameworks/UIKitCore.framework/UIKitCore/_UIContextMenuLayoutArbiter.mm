@@ -330,7 +330,7 @@ LABEL_20:
         {
           if (v52)
           {
-            [v52 anchor];
+            objc_msgSend_anchor(v52);
             v53 = v56;
           }
 
@@ -406,7 +406,7 @@ LABEL_20:
     v9 = currentInput;
     if (currentInput)
     {
-      [currentInput preferredAnchor];
+      objc_msgSend_preferredAnchor(currentInput);
     }
 
     else
@@ -551,7 +551,7 @@ LABEL_20:
   v112 = v100;
   _validatedItemLayout(v104, &v105, inputCopy, @"Menu");
   [v77 setMenu:v104];
-  [(_UIContextMenuLayoutArbiter *)self menuAnchor];
+  objc_msgSend_menuAnchor(self);
   v105 = v101;
   v106 = v102;
   v107 = v103;
@@ -803,14 +803,14 @@ LABEL_20:
   v19 = viewFrame->size.height;
   v235 = viewFrame->size.width;
   currentLayout = [(_UIContextMenuLayoutArbiter *)selfCopy currentLayout];
-  [(_UIContextMenuLayoutArbiter *)selfCopy menuAnchor];
-  v21 = v250;
-  [(_UIContextMenuLayoutArbiter *)selfCopy menuAnchor];
+  objc_msgSend_menuAnchor(selfCopy);
+  v21 = v250[0];
+  objc_msgSend_menuAnchor(selfCopy);
   v22 = v249;
   if (v249 == 0x7FFFFFFFFFFFFFFFLL)
   {
     *buf = 0;
-    v22 = [(_UIContextMenuLayoutArbiter *)selfCopy _automaticAlignmentAndOffset:buf forAttachment:v250 sourcePoint:point.x, point.y];
+    v22 = [(_UIContextMenuLayoutArbiter *)selfCopy _automaticAlignmentAndOffset:buf forAttachment:v250[0] sourcePoint:point.x, point.y];
     selfCopy->_menuAnchor.alignment = v22;
     selfCopy->_menuAnchor.alignmentOffset = *buf;
   }
@@ -1119,7 +1119,7 @@ LABEL_43:
     v101 = containerView3;
     if (containerView3)
     {
-      [containerView3 _safeAreaCornerInsets];
+      objc_msgSend__safeAreaCornerInsets(containerView3);
     }
 
     else
@@ -1287,9 +1287,9 @@ LABEL_43:
     }
   }
 
-  [(_UIContextMenuLayoutArbiter *)selfCopy menuAnchor];
+  objc_msgSend_menuAnchor(selfCopy);
   v226 = v244;
-  [(_UIContextMenuLayoutArbiter *)selfCopy menuAnchor];
+  objc_msgSend_menuAnchor(selfCopy);
   currentInput2 = [(_UIContextMenuLayoutArbiter *)selfCopy currentInput];
   [currentInput2 additionalAlignmentOffset];
   v140 = v139;
@@ -1635,8 +1635,8 @@ LABEL_106:
   [currentInput preferredMenuSize];
   v13 = v12;
 
-  [(_UIContextMenuLayoutArbiter *)self menuAnchor];
-  if (fabs(v13) >= 2.22044605e-16 && (v72 == 8 || v72 == 2))
+  objc_msgSend_menuAnchor(self);
+  if (fabs(v13) >= 2.22044605e-16 && (v72[0] == 8 || v72[0] == 2))
   {
     [(_UIContextMenuLayoutArbiter *)self contentSpacing];
     v10 = v7 - (v13 + v15);
@@ -1829,7 +1829,7 @@ LABEL_106:
   v47.size.width = v7;
   v47.size.height = v6;
   v13 = CGRectGetWidth(v47);
-  [(_UIContextMenuLayoutArbiter *)self menuAnchor];
+  objc_msgSend_menuAnchor(self);
   if ([(_UIContextMenuLayoutArbiter *)self currentLayout]== 1)
   {
     if (v46 != 4 && v46 != 1)
@@ -1918,7 +1918,7 @@ LABEL_18:
     v35 = v12;
   }
 
-  if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_ContextMenuScrollTruncationDetentsEnabled, @"ContextMenuScrollTruncationDetentsEnabled") & 1) == 0)
+  if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_ContextMenuScrollTruncationDetentsEnabled, @"ContextMenuScrollTruncationDetentsEnabled"))
   {
     if (byte_1EA95E0E4)
     {
@@ -1985,7 +1985,7 @@ LABEL_18:
     v14 = v15 > CGRectGetWidth(v60);
   }
 
-  [(_UIContextMenuLayoutArbiter *)self menuAnchor];
+  objc_msgSend_menuAnchor(self, *&v54);
   v17 = v56 - 1;
   v18 = 0.5;
   v19 = 0.5;
@@ -2150,7 +2150,7 @@ LABEL_18:
         {
           if (layoutCopy)
           {
-            [layoutCopy menu];
+            objc_msgSend_menu(layoutCopy);
             goto LABEL_16;
           }
 
@@ -2169,7 +2169,7 @@ LABEL_15:
         {
           if (layoutCopy)
           {
-            [layoutCopy preview];
+            objc_msgSend_preview(layoutCopy);
 LABEL_16:
             v19 = _UIContextMenuItemFrameFromLayout(&v83);
             v20 = v33;
@@ -2244,7 +2244,7 @@ LABEL_22:
         }
 
 LABEL_18:
-        [v9 anchor];
+        objc_msgSend_anchor(v9);
         v36 = *&v83.origin.x - 1;
         v37 = 0.5;
         v38 = 0.5;
@@ -2354,7 +2354,7 @@ LABEL_23:
   width = i.size.width;
   y = i.origin.y;
   x = i.origin.x;
-  if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_ClickUIDebugEnabled, @"ClickUIDebugEnabled") & 1) == 0 && byte_1EA95E0FC)
+  if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_ClickUIDebugEnabled, @"ClickUIDebugEnabled") && byte_1EA95E0FC)
   {
     if (!_MergedGlobals_1135)
     {
@@ -2383,7 +2383,7 @@ LABEL_23:
       v15 = qword_1ED49E548;
       qword_1ED49E548 = v14;
 
-      v16 = +[UIColor blackColor];
+      v16 = objc_msgSend_blackColor(UIColor);
       [qword_1ED49E548 setBackgroundColor:v16];
 
       v13 = qword_1ED49E548;
@@ -2422,7 +2422,7 @@ LABEL_23:
     v32 = target;
     if (target)
     {
-      [target transform];
+      objc_msgSend_transform(target);
     }
 
     else

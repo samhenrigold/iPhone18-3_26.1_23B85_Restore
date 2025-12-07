@@ -49,8 +49,8 @@
   if (_rb_contents)
   {
     v6 = _rb_contents;
-    RB::DisplayList::Builder::Builder(v16);
-    RB::DisplayList::Builder::draw(v16, v6, v18, 1.0, &self->_predicate, 0);
+    RB::DisplayList::Builder::Builder(&v16);
+    RB::DisplayList::Builder::draw(&v16, v6, v18, 1.0, &self->_predicate, 0);
     if (*(v17 + 336) || *(v17 + 352))
     {
       v15 = 0;
@@ -60,7 +60,7 @@
       }
 
       v7 = [RBMovedDisplayListContents alloc];
-      RB::DisplayList::Builder::move_contents(v16, v8, &v14);
+      RB::DisplayList::Builder::move_contents(&v14, &v16, v8);
       v9 = v15;
       v15 = 0;
       v13 = v9;
@@ -73,7 +73,7 @@
       v10 = +[RBEmptyDisplayListContents shared];
     }
 
-    RB::DisplayList::Builder::~Builder(v16);
+    RB::DisplayList::Builder::~Builder(&v16);
     return v10;
   }
 

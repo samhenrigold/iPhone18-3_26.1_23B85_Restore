@@ -188,9 +188,9 @@ LABEL_12:
 
 - (void)setAdditionalReadAccessAllowedURLs:(id)ls
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
+  v26 = 0;
   v27 = 0;
-  v28 = 0;
   v5 = [ls count];
   if (v5)
   {
@@ -200,76 +200,75 @@ LABEL_12:
       return;
     }
 
-    LODWORD(v28) = v5;
-    v27 = WTF::fastMalloc((8 * v5));
+    LODWORD(v27) = v5;
+    v26 = WTF::fastMalloc(0, (8 * v5));
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
-  v6 = [ls countByEnumeratingWithState:&v23 objects:v29 count:16];
-  if (v6)
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v7 = [ls countByEnumeratingWithState:&v22 objects:v28 count:16];
+  if (v7)
   {
-    v7 = *v24;
-    v8 = *MEMORY[0x1E695D940];
+    v8 = *v23;
+    v9 = *MEMORY[0x1E695D940];
     do
     {
-      v9 = 0;
+      v10 = 0;
       do
       {
-        if (*v24 != v7)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(ls);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * v9);
-        if (([v10 isFileURL] & 1) == 0)
+        v11 = *(*(&v22 + 1) + 8 * v10);
+        if (([v11 isFileURL] & 1) == 0)
         {
-          [MEMORY[0x1E695DF30] raise:v8 format:{@"%@ is not a file URL", v10}];
+          [MEMORY[0x1E695DF30] raise:v9 format:{@"%@ is not a file URL", v11}];
         }
 
-        fileSystemRepresentation = [v10 fileSystemRepresentation];
-        WTF::String::fromUTF8(&v22, fileSystemRepresentation, v12);
-        LODWORD(v14) = HIDWORD(v28);
-        if (HIDWORD(v28) == v28)
+        WTF::String::fromUTF8([v11 fileSystemRepresentation]);
+        LODWORD(v13) = HIDWORD(v27);
+        if (HIDWORD(v27) == v27)
         {
-          v17 = WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v27, HIDWORD(v28) + 1, &v22);
-          v14 = HIDWORD(v28);
-          v18 = v27;
-          v19 = *v17;
-          *v17 = 0;
-          *(v18 + 8 * v14) = v19;
+          v16 = WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::expandCapacity<(WTF::FailureAction)0>(&v26, HIDWORD(v27) + 1, &v21);
+          v13 = HIDWORD(v27);
+          v17 = v26;
+          v18 = *v16;
+          *v16 = 0;
+          v17[v13] = v18;
         }
 
         else
         {
-          v15 = v22;
-          v22 = 0;
-          *(v27 + 8 * HIDWORD(v28)) = v15;
+          v14 = v21;
+          v21 = 0;
+          v26[HIDWORD(v27)] = v14;
         }
 
-        HIDWORD(v28) = v14 + 1;
-        v16 = v22;
-        v22 = 0;
-        if (v16 && atomic_fetch_add_explicit(v16, 0xFFFFFFFE, memory_order_relaxed) == 2)
+        HIDWORD(v27) = v13 + 1;
+        v15 = v21;
+        v21 = 0;
+        if (v15 && atomic_fetch_add_explicit(v15, 0xFFFFFFFE, memory_order_relaxed) == 2)
         {
-          WTF::StringImpl::destroy(v16, v13);
+          WTF::StringImpl::destroy(v15, v12);
         }
 
-        ++v9;
+        ++v10;
       }
 
-      while (v6 != v9);
-      v20 = [ls countByEnumeratingWithState:&v23 objects:v29 count:16];
-      v6 = v20;
+      while (v7 != v10);
+      v19 = [ls countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v7 = v19;
     }
 
-    while (v20);
+    while (v19);
   }
 
-  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(&self->_anon_38[8], &v27);
-  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v27, v21);
+  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::operator=(&self->_anon_38[8], &v26, v6);
+  WTF::Vector<WTF::String,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v26, v20);
 }
 
 - (NSArray)cachePartitionedURLSchemes

@@ -53,7 +53,7 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  if (!MapsSuggestionsEntriesAreBothOfType(12, withEntryCopy, entryCopy))
+  if (!MapsSuggestionsEntriesAreBothOfType(0xC, withEntryCopy, entryCopy))
   {
 LABEL_11:
     v8 = 0;

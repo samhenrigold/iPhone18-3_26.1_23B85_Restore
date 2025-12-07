@@ -9,10 +9,10 @@
 + (void)applyEntries:(id)entries withProfile:(id)profile
 {
   _HKInitializeLogging();
-  v4 = HKLogDatabase;
+  v5 = HKLogDatabase;
   if (os_log_type_enabled(HKLogDatabase, OS_LOG_TYPE_ERROR))
   {
-    sub_9DDE0(v4);
+    sub_9DDE0(v5, self);
   }
 }
 

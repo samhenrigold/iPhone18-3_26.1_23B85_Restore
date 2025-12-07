@@ -7,12 +7,10 @@
 
 - (NSString)identifier
 {
-  v2 = *(self + OBJC_IVAR___AAViewingSession_identifier);
-  v3 = *(self + OBJC_IVAR___AAViewingSession_identifier + 8);
 
-  v4 = sub_1B6AB92B0();
+  v2 = sub_1B6AB92B0();
 
-  return v4;
+  return v2;
 }
 
 - (AAViewingSession)init

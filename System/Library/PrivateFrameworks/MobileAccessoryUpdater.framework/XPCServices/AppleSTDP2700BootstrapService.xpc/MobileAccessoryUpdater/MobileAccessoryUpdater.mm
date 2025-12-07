@@ -52,7 +52,7 @@ uint64_t DPFUSessionSetProgressCallback(uint64_t result, uint64_t a2, uint64_t a
   return result;
 }
 
-uint64_t __DPFUSessionWrite(uint64_t a1, char a2, uint64_t a3, unsigned int a4)
+uint64_t __DPFUSessionWrite(uint64_t a1, int a2, uint64_t a3, unsigned int a4)
 {
   if (!a4)
   {
@@ -71,31 +71,31 @@ uint64_t __DPFUSessionWrite(uint64_t a1, char a2, uint64_t a3, unsigned int a4)
       v8 = a4 - i;
     }
 
-    v9 = *(a1 + 16);
-    v10 = IODPDeviceWriteDPCD();
-    v11 = v10;
-    if (v10 && (*(a1 + 48) & 0x80000000) == 0)
+    v9 = IODPDeviceWriteDPCD();
+    v10 = v9;
+    if (v9 && (*(a1 + 48) & 0x80000000) == 0)
     {
-      mach_error_string(v10);
-      __DPFULog(0, "Error writing to device address 0x%08x offset 0x%08x: %s (0x%08x)", v12, v13, v14, v15, v16, v17, a2);
+      v11 = mach_error_string(v9);
+      __DPFULog(0, "Error writing to device address 0x%08x offset 0x%08x: %s (0x%08x)", a2, i, v11, v10);
     }
   }
 
-  return v11;
+  return v10;
 }
 
-void __DPFULog(int a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void __DPFULog(int a1, const char *a2, ...)
 {
+  va_start(va, a2);
   if (isatty(2))
   {
     fputs("dpfu: ", __stderrp);
-    vfprintf(__stderrp, a2, &a9);
+    vfprintf(__stderrp, a2, va);
     fputc(10, __stderrp);
   }
 
   else
   {
-    vsyslog(a1, a2, &a9);
+    vsyslog(a1, a2, va);
   }
 }
 
@@ -157,12 +157,12 @@ uint64_t dpfuUpdateDeviceWithContentsOfFile(const char *a1, unsigned int a2, uin
     updated = DPFUSessionEnterUpdateMode(v13);
     if (updated)
     {
-      v26 = updated;
+      v15 = updated;
     }
 
     else
     {
-      v26 = DPFUSessionInstallFilePayload(v13, a1, a3, v21, v22, v23, v24, v25);
+      v15 = DPFUSessionInstallFilePayload(v13, a1, a3);
       if (a4 && (*(v13 + 54) & 1) == 0)
       {
         dpfuUpdateDeviceWithContentsOfFile_cold_1(v13);
@@ -174,51 +174,51 @@ uint64_t dpfuUpdateDeviceWithContentsOfFile(const char *a1, unsigned int a2, uin
 
   else
   {
-    v26 = 3758097136;
+    v15 = 3758097136;
     if ((MEMORY[0x30] & 0x80000000) == 0)
     {
-      __DPFULog(0, "Can't create device update session", v14, v15, v16, v17, v18, v19, v28);
+      __DPFULog(0, "Can't create device update session");
     }
   }
 
-  return v26;
+  return v15;
 }
 
-void __DPFUSessionUpdateProgress(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void __DPFUSessionUpdateProgress(uint64_t a1, uint64_t a2, int a3)
 {
   if ((a2 & 0x3FF) == 0 || a3)
   {
     if (*(a1 + 48) >= 5)
     {
-      __DPFULog(5, "  %u bytes written", a3, a4, a5, a6, a7, a8, a2);
+      __DPFULog(5, "  %u bytes written", a2);
     }
 
-    v10 = *(a1 + 32);
-    if (v10)
+    v5 = *(a1 + 32);
+    if (v5)
     {
-      v11 = *(a1 + 40);
+      v6 = *(a1 + 40);
 
-      v10(a2, v11);
+      v5(a2, v6);
     }
   }
 }
 
-uint64_t __DPFUSessionRequestMode(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t __DPFUSessionRequestMode(uint64_t a1, int a2)
 {
-  v11 = a2 | 0x80;
+  v5 = a2 | 0x80;
   if (*(a1 + 48) >= 7)
   {
     if (a2 > 119)
     {
       if (a2 == 120)
       {
-        v9 = "Eight-Byte Update Mode";
+        v3 = "Eight-Byte Update Mode";
         goto LABEL_12;
       }
 
       if (a2 == 127)
       {
-        v9 = "32-KByte Update Mode";
+        v3 = "32-KByte Update Mode";
         goto LABEL_12;
       }
     }
@@ -227,24 +227,24 @@ uint64_t __DPFUSessionRequestMode(uint64_t a1, int a2, uint64_t a3, uint64_t a4,
     {
       if (!a2)
       {
-        v9 = "Normal Mode";
+        v3 = "Normal Mode";
         goto LABEL_12;
       }
 
       if (a2 == 113)
       {
-        v9 = "Single-Byte Update Mode";
+        v3 = "Single-Byte Update Mode";
 LABEL_12:
-        __DPFULog(7, "Requesting Device Mode: %s (0x%02x)", a3, a4, a5, a6, a7, a8, v9);
-        return __DPFUSessionWrite(a1, 13, &v11, 1u);
+        __DPFULog(7, "Requesting Device Mode: %s (0x%02x)", v3, a2 | 0x80);
+        return __DPFUSessionWrite(a1, 1293, &v5, 1u);
       }
     }
 
-    v9 = "Unknown Mode";
+    v3 = "Unknown Mode";
     goto LABEL_12;
   }
 
-  return __DPFUSessionWrite(a1, 13, &v11, 1u);
+  return __DPFUSessionWrite(a1, 1293, &v5, 1u);
 }
 
 const char *DPFUGetDeviceStatusString(int a1)
@@ -316,39 +316,38 @@ void __DPFUSessionFinalize(uint64_t a1)
   }
 }
 
-uint64_t __DPFUSessionRead(uint64_t a1)
+uint64_t __DPFUSessionRead(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *(a1 + 16);
   DPCD = IODPDeviceReadDPCD();
-  v4 = DPCD;
+  v5 = DPCD;
   if (DPCD && (*(a1 + 48) & 0x80000000) == 0)
   {
-    v5 = mach_error_string(DPCD);
-    __DPFULog(0, "Error reading from device: %s (0x%08x)", v6, v7, v8, v9, v10, v11, v5);
+    v6 = mach_error_string(DPCD);
+    __DPFULog(0, "Error reading from device: %s (0x%08x)", v6, v5);
   }
 
-  return v4;
+  return v5;
 }
 
-uint64_t __DPFUSessionSendHostCommand(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t __DPFUSessionSendHostCommand(uint64_t a1, int a2)
 {
-  v11 = a2 | 0x80;
+  v5 = a2 | 0x80;
   if (*(a1 + 48) >= 7)
   {
     if ((a2 - 1) > 5)
     {
-      v9 = "Unknown";
+      v3 = "Unknown";
     }
 
     else
     {
-      v9 = (&off_100004200)[a2 - 1];
+      v3 = (&off_100004200)[a2 - 1];
     }
 
-    __DPFULog(7, "Sending Host Command: %s (0x%02x)", a3, a4, a5, a6, a7, a8, v9);
+    __DPFULog(7, "Sending Host Command: %s (0x%02x)", v3, a2 | 0x80);
   }
 
-  return __DPFUSessionWrite(a1, 14, &v11, 1u);
+  return __DPFUSessionWrite(a1, 1294, &v5, 1u);
 }
 
 uint64_t OUTLINED_FUNCTION_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, int a12, __int16 a13, char a14, char a15)
@@ -359,12 +358,11 @@ uint64_t OUTLINED_FUNCTION_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 double DPFUSessionGetDeviceInfo(uint64_t a1, uint64_t a2)
 {
-  v3 = *(a1 + 16);
   if (!IODPDeviceReadDPCD())
   {
-    result = v5;
-    *a2 = v5;
-    *(a2 + 8) = v6;
+    result = v4;
+    *a2 = v4;
+    *(a2 + 8) = v5;
   }
 
   return result;
@@ -378,42 +376,41 @@ uint64_t DPFUSessionEnterUpdateMode(uint64_t a1)
     result = __DPFUDeviceSetProperty(*(a1 + 16));
     if (!result)
     {
-      result = __DPFUSessionWrite(a1, 0, &kAppleOUI, 3u);
+      result = __DPFUSessionWrite(a1, 768, &kAppleOUI, 3u);
       if (!result)
       {
         result = __DPFUSessionGetMode(a1, (a1 + 52));
         if (!result)
         {
           OUTLINED_FUNCTION_3();
-          if (v9 == v10)
+          if (v3 == v4)
           {
-            v11 = *(a1 + 52);
+            v5 = *(a1 + 52);
             if (*(a1 + 52))
             {
-              switch(v11)
+              switch(v5)
               {
                 case '\x7F':
-                  v12 = "32-KByte Update Mode";
+                  v6 = "32-KByte Update Mode";
                   break;
                 case 'x':
-                  v12 = "Eight-Byte Update Mode";
+                  v6 = "Eight-Byte Update Mode";
                   break;
                 case 'q':
-                  v12 = "Single-Byte Update Mode";
+                  v6 = "Single-Byte Update Mode";
                   break;
                 default:
-                  v12 = "Unknown Mode";
+                  v6 = "Unknown Mode";
                   break;
               }
             }
 
             else
             {
-              v12 = "Normal Mode";
+              v6 = "Normal Mode";
             }
 
-            v13 = *(a1 + 52);
-            __DPFULog(6, "Initial Device Mode: %s (0x%02x)", v3, v4, v5, v6, v7, v8, v12);
+            __DPFULog(6, "Initial Device Mode: %s (0x%02x)", v6, v5);
           }
 
           return 0;
@@ -441,95 +438,127 @@ uint64_t __DPFUDeviceSetProperty(uint64_t a1)
   return _IOAVDeviceSetProperty();
 }
 
-uint64_t __DPFUSessionGetMode(uint64_t a1, _BYTE *a2)
+uint64_t __DPFUSessionGetMode(uint64_t a1, unsigned __int8 *a2)
 {
+  v8 = 0;
   if (!a2)
   {
     return 3758097090;
   }
 
-  result = __DPFUSessionRead(a1);
+  result = __DPFUSessionRead(a1, 1293, &v8);
   if (!result)
   {
     if (*(a1 + 48) >= 7)
     {
-      __DPFULog(7, "Current Device Mode: %s%s (0x%02x)", v5, v6, v7, v8, v9, v10, "");
+      v5 = "Requesting ";
+      if ((v8 & 0x80u) == 0)
+      {
+        v5 = "";
+      }
+
+      v6 = v8 & 0x7F;
+      if ((v8 & 0x7F) != 0)
+      {
+        switch(v6)
+        {
+          case '\x7F':
+            v7 = "32-KByte Update Mode";
+            break;
+          case 'x':
+            v7 = "Eight-Byte Update Mode";
+            break;
+          case 'q':
+            v7 = "Single-Byte Update Mode";
+            break;
+          default:
+            v7 = "Unknown Mode";
+            break;
+        }
+      }
+
+      else
+      {
+        v7 = "Normal Mode";
+      }
+
+      __DPFULog(7, "Current Device Mode: %s%s (0x%02x)", v5, v7, v8);
     }
 
     result = 0;
-    *a2 = 0;
+    *a2 = v8;
   }
 
   return result;
 }
 
-uint64_t DPFUSessionInstallFilePayload(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t DPFUSessionInstallFilePayload(uint64_t a1, const char *a2, uint64_t a3)
 {
-  v8 = a3;
-  v11 = *(a1 + 24);
+  v3 = a3;
+  v6 = *(a1 + 24);
   if ((*(a1 + 48) & 0x80000000) == 0)
   {
-    __DPFULog(0, "DPFUSessionInstallFilePayload( %s)", a3, a4, a5, a6, a7, a8, a2);
+    __DPFULog(0, "DPFUSessionInstallFilePayload( %s)", a2);
   }
 
-  v12 = 3758097136;
-  v13 = malloc_type_calloc(1uLL, *(v11 + 8), 0xD951F906uLL);
-  if (!v13)
+  v7 = 3758097136;
+  v8 = malloc_type_calloc(1uLL, *(v6 + 8), 0xD951F906uLL);
+  if (!v8)
   {
     return 3758097085;
   }
 
-  v14 = v13;
+  v9 = v8;
   OUTLINED_FUNCTION_2();
-  if (v21 == v22)
+  if (v10 == v11)
   {
-    __DPFULog(5, "Opening package file: %s", v15, v16, v17, v18, v19, v20, a2);
+    __DPFULog(5, "Opening package file: %s", a2);
   }
 
-  v23 = fopen(a2, "rb");
-  v30 = *(a1 + 48);
-  if (!v23)
+  v12 = fopen(a2, "rb");
+  v13 = *(a1 + 48);
+  if (!v12)
   {
-    if (v30 >= 5)
+    if (v13 >= 5)
     {
-      __DPFULog(5, "  Error opening file: %s", v24, v25, v26, v27, v28, v29, a2);
+      __DPFULog(5, "  Error opening file: %s", a2);
     }
 
     goto LABEL_27;
   }
 
-  v31 = v23;
-  if (v30 >= 5)
+  v14 = v12;
+  if (v13 >= 5)
   {
-    __DPFULog(5, "  Successfully opened %s", v24, v25, v26, v27, v28, v29, a2);
+    __DPFULog(5, "  Successfully opened %s", a2);
   }
 
-  v32 = __DPFUSessionPrepareForDownload(a1);
-  if (v32)
+  v15 = __DPFUSessionPrepareForDownload(a1);
+  if (v15)
   {
 LABEL_31:
-    v12 = v32;
+    v7 = v15;
     goto LABEL_25;
   }
 
   OUTLINED_FUNCTION_2();
-  if (v21 == v22)
+  if (v10 == v11)
   {
-    __DPFULog(5, "Writing Data from File...", v39, v40, v41, v42, v43, v44, v67);
+    __DPFULog(5, "Writing Data from File...");
   }
 
-  v51 = 0;
-  if (feof(v31))
+  v16 = 0;
+  if (feof(v14))
   {
 LABEL_22:
-    v32 = __DPFUSessionFinishDownload(a1, v51, v45, v46, v47, v48, v49, v50);
-    if (!v32)
+    v15 = __DPFUSessionFinishDownload(a1, v16);
+    if (!v15)
     {
-      v32 = __DPFUSessionInstallUpdate(a1, v65, v33, v34, v35, v36, v37, v38);
-      if (!v32)
+      v15 = __DPFUSessionInstallUpdate(a1);
+      if (!v15)
       {
-        v12 = __DPFUSessionFinishUpdate(a1, v8);
-        if (v12)
+        v7 = __DPFUSessionFinishUpdate(a1, v3);
+        if (v7)
         {
           goto LABEL_25;
         }
@@ -543,226 +572,223 @@ LABEL_22:
 
   while (1)
   {
-    v52 = fread(v14, 1uLL, *(v11 + 8), v31);
-    if (v52 != *(v11 + 8) && !feof(v31) && *(a1 + 48) >= 7)
+    v17 = fread(v9, 1uLL, *(v6 + 8), v14);
+    if (v17 != *(v6 + 8) && !feof(v14) && *(a1 + 48) >= 7)
     {
-      __DPFULog(7, "Warning: attempted to read %u bytes, fread returned %lu", v53, v54, v55, v56, v57, v58, *(v11 + 8));
+      __DPFULog(7, "Warning: attempted to read %u bytes, fread returned %lu", *(v6 + 8), v17);
     }
 
-    if (!v52)
+    if (!v17)
     {
       goto LABEL_18;
     }
 
-    v59 = __DPFUSessionDownloadData(a1, v14, v52);
-    if (v59)
+    v18 = __DPFUSessionDownloadData(a1, v9, v17);
+    if (v18)
     {
       break;
     }
 
-    v51 = (v51 + v52);
-    __DPFUSessionUpdateProgress(a1, v51, 0, v60, v61, v62, v63, v64);
+    v16 = (v16 + v17);
+    __DPFUSessionUpdateProgress(a1, v16, 0);
 LABEL_18:
-    if (feof(v31))
+    if (feof(v14))
     {
       goto LABEL_22;
     }
   }
 
-  v12 = v59;
+  v7 = v18;
   OUTLINED_FUNCTION_2();
-  if (v21 == v22)
+  if (v10 == v11)
   {
-    __DPFULog(5, "  Error writing data after %u successful bytes", v33, v34, v35, v36, v37, v38, v51);
+    __DPFULog(5, "  Error writing data after %u successful bytes", v16);
   }
 
 LABEL_25:
-  __DPFUSessionRequestMode(a1, 0, v33, v34, v35, v36, v37, v38);
+  __DPFUSessionRequestMode(a1, 0);
 LABEL_26:
-  fclose(v31);
+  fclose(v14);
 LABEL_27:
-  free(v14);
-  return v12;
+  free(v9);
+  return v7;
 }
 
 uint64_t __DPFUSessionPrepareForDownload(uint64_t a1)
 {
   v2 = *(a1 + 24);
-  v91 = 0;
-  Status = __DPFUSessionGetStatus(a1, &v91);
+  v48 = 0;
+  Status = __DPFUSessionGetStatus(a1, &v48);
   if (Status)
   {
     return Status;
   }
 
-  v10 = v91;
+  v10 = v48;
   if (*(a1 + 48) >= 6)
   {
-    v11 = DPFUGetDeviceStatusString(v91);
-    v84 = v10;
-    __DPFULog(6, "Initial Device Status: %s (0x%02x)", v12, v13, v14, v15, v16, v17, v11);
+    v11 = DPFUGetDeviceStatusString(v48);
+    __DPFULog(6, "Initial Device Status: %s (0x%02x)", v11, v10);
   }
 
-  v18 = *(a1 + 52);
-  v19 = *v2;
-  if (v18 != v19 || v10 != 2)
+  v12 = *(a1 + 52);
+  v13 = *v2;
+  if (v12 != v13 || v10 != 2)
   {
-    v90 = 0;
+    v47 = 0;
     OUTLINED_FUNCTION_0();
-    if (v28 == v29)
+    if (v16 == v17)
     {
-      if (v21)
+      if (v15)
       {
-        switch(v21)
+        switch(v15)
         {
           case '\x7F':
-            v30 = "32-KByte Update Mode";
+            v18 = "32-KByte Update Mode";
             break;
           case 'x':
-            v30 = "Eight-Byte Update Mode";
+            v18 = "Eight-Byte Update Mode";
             break;
           case 'q':
-            v30 = "Single-Byte Update Mode";
+            v18 = "Single-Byte Update Mode";
             break;
           default:
-            v30 = "Unknown Mode";
+            v18 = "Unknown Mode";
             break;
         }
       }
 
       else
       {
-        v30 = "Normal Mode";
+        v18 = "Normal Mode";
       }
 
-      __DPFULog(5, "Requesting %s...", v22, v23, v24, v25, v26, v27, v30);
-      v21 = *v2;
+      __DPFULog(5, "Requesting %s...", v18);
+      v15 = *v2;
     }
 
-    Status = __DPFUSessionRequestMode(a1, v21, v22, v23, v24, v25, v26, v27);
+    Status = __DPFUSessionRequestMode(a1, v15);
     if (!Status)
     {
       while (1)
       {
-        Status = __DPFUSessionGetMode(a1, &v90);
+        Status = __DPFUSessionGetMode(a1, &v47);
         if (Status)
         {
           break;
         }
 
         usleep(0x3E8u);
-        if ((v90 & 0x80) == 0)
+        if ((v47 & 0x80) == 0)
         {
           OUTLINED_FUNCTION_3();
-          if (v28 == v29)
+          if (v16 == v17)
           {
-            if (v31)
+            if (v19)
             {
-              switch(v31)
+              switch(v19)
               {
                 case '\x7F':
-                  v32 = "32-KByte Update Mode";
+                  v20 = "32-KByte Update Mode";
                   break;
                 case 'x':
-                  v32 = "Eight-Byte Update Mode";
+                  v20 = "Eight-Byte Update Mode";
                   break;
                 case 'q':
-                  v32 = "Single-Byte Update Mode";
+                  v20 = "Single-Byte Update Mode";
                   break;
                 default:
-                  v32 = "Unknown Mode";
+                  v20 = "Unknown Mode";
                   break;
               }
             }
 
             else
             {
-              v32 = "Normal Mode";
+              v20 = "Normal Mode";
             }
 
-            v84 = v31;
-            __DPFULog(6, "  New Mode: %s (0x%02x)", v4, v5, v6, v7, v8, v9, v32);
-            LODWORD(v31) = v90;
+            __DPFULog(6, "  New Mode: %s (0x%02x)", v20, v19);
+            v19 = v47;
           }
 
-          v33 = v31;
-          if (!v31)
+          v21 = v19;
+          if (!v19)
           {
             OUTLINED_FUNCTION_0();
-            if (v28 == v29)
+            if (v16 == v17)
             {
-              v40 = *v2;
+              v22 = *v2;
               if (*v2)
               {
-                switch(v40)
+                switch(v22)
                 {
                   case '\x7F':
-                    v41 = "32-KByte Update Mode";
+                    v23 = "32-KByte Update Mode";
                     break;
                   case 'x':
-                    v41 = "Eight-Byte Update Mode";
+                    v23 = "Eight-Byte Update Mode";
                     break;
                   case 'q':
-                    v41 = "Single-Byte Update Mode";
+                    v23 = "Single-Byte Update Mode";
                     break;
                   default:
-                    v41 = "Unknown Mode";
+                    v23 = "Unknown Mode";
                     break;
                 }
               }
 
               else
               {
-                v41 = "Normal Mode";
+                v23 = "Normal Mode";
               }
 
-              __DPFULog(5, "Requesting %s Again...", v34, v35, v36, v37, v38, v39, v41);
+              __DPFULog(5, "Requesting %s Again...", v23);
             }
 
-            Status = __DPFUSessionRequestMode(a1, *v2, v34, v35, v36, v37, v38, v39);
+            Status = __DPFUSessionRequestMode(a1, *v2);
             if (!Status)
             {
               while (1)
               {
-                Status = __DPFUSessionGetMode(a1, &v90);
+                Status = __DPFUSessionGetMode(a1, &v47);
                 if (Status)
                 {
                   break;
                 }
 
                 Status = usleep(0x3E8u);
-                v33 = v90;
-                if ((v90 & 0x80) == 0)
+                v21 = v47;
+                if ((v47 & 0x80) == 0)
                 {
                   if (*(a1 + 48) >= 6)
                   {
-                    if (v90)
+                    if (v47)
                     {
-                      switch(v90)
+                      switch(v47)
                       {
                         case '\x7F':
-                          v43 = "32-KByte Update Mode";
+                          v25 = "32-KByte Update Mode";
                           break;
                         case 'x':
-                          v43 = "Eight-Byte Update Mode";
+                          v25 = "Eight-Byte Update Mode";
                           break;
                         case 'q':
-                          v43 = "Single-Byte Update Mode";
+                          v25 = "Single-Byte Update Mode";
                           break;
                         default:
-                          v43 = "Unknown Mode";
+                          v25 = "Unknown Mode";
                           break;
                       }
                     }
 
                     else
                     {
-                      v43 = "Normal Mode";
+                      v25 = "Normal Mode";
                     }
 
-                    v84 = v90;
-                    __DPFULog(6, "  New Mode: %s (0x%02x)", v4, v5, v6, v7, v8, v9, v43);
-                    v33 = v90;
+                    __DPFULog(6, "  New Mode: %s (0x%02x)", v25, v47);
+                    v21 = v47;
                   }
 
                   goto LABEL_65;
@@ -774,43 +800,43 @@ uint64_t __DPFUSessionPrepareForDownload(uint64_t a1)
           }
 
 LABEL_65:
-          if (v33 == *v2)
+          if (v21 == *v2)
           {
             goto LABEL_66;
           }
 
-          v52 = 3758097112;
+          v28 = 3758097112;
           OUTLINED_FUNCTION_0();
-          if (v28 == v29)
+          if (v16 == v17)
           {
-            if (v79)
+            if (v37)
             {
-              switch(v79)
+              switch(v37)
               {
                 case '\x7F':
-                  v80 = "32-KByte Update Mode";
+                  v38 = "32-KByte Update Mode";
                   break;
                 case 'x':
-                  v80 = "Eight-Byte Update Mode";
+                  v38 = "Eight-Byte Update Mode";
                   break;
                 case 'q':
-                  v80 = "Single-Byte Update Mode";
+                  v38 = "Single-Byte Update Mode";
                   break;
                 default:
-                  v80 = "Unknown Mode";
+                  v38 = "Unknown Mode";
                   break;
               }
             }
 
             else
             {
-              v80 = "Normal Mode";
+              v38 = "Normal Mode";
             }
 
-            __DPFULog(5, "Unable to Enter %s...", v73, v74, v75, v76, v77, v78, v80);
+            __DPFULog(5, "Unable to Enter %s...", v38);
           }
 
-          return v52;
+          return v28;
         }
       }
     }
@@ -822,81 +848,80 @@ LABEL_65:
   {
     if (*(a1 + 52))
     {
-      switch(v18)
+      switch(v12)
       {
         case '\x7F':
-          v42 = "32-KByte Update Mode";
+          v24 = "32-KByte Update Mode";
           break;
         case 'x':
-          v42 = "Eight-Byte Update Mode";
+          v24 = "Eight-Byte Update Mode";
           break;
         case 'q':
-          v42 = "Single-Byte Update Mode";
+          v24 = "Single-Byte Update Mode";
           break;
         default:
-          v42 = "Unknown Mode";
+          v24 = "Unknown Mode";
           break;
       }
     }
 
     else
     {
-      v42 = "Normal Mode";
+      v24 = "Normal Mode";
     }
 
-    __DPFULog(6, "Device already in %s", v4, v5, v6, v7, v8, v9, v42);
+    __DPFULog(6, "Device already in %s", v24);
   }
 
 LABEL_66:
-  Status = OUTLINED_FUNCTION_4(Status, v19, v4, v5, v6, v7, v8, v9, v81, v84, v86, *v88, *&v88[4], v90, v91);
+  Status = OUTLINED_FUNCTION_4(Status, v13, v4, v5, v6, v7, v8, v9, v39, v41, v43, *v45, *&v45[4], v47, v48);
   if (Status)
   {
     return Status;
   }
 
   OUTLINED_FUNCTION_3();
-  if (v28 == v29)
+  if (v16 == v17)
   {
-    v44 = v91;
-    v45 = DPFUGetDeviceStatusString(v91);
-    v85 = v44;
-    __DPFULog(6, "  Current Status in this Mode: %s (0x%02x)", v46, v47, v48, v49, v50, v51, v45);
+    v26 = v48;
+    v27 = DPFUGetDeviceStatusString(v48);
+    __DPFULog(6, "  Current Status in this Mode: %s (0x%02x)", v27, v26);
   }
 
-  v52 = 3758097112;
-  if (v91 == 2)
+  v28 = 3758097112;
+  if (v48 == 2)
   {
     OUTLINED_FUNCTION_0();
-    if (v28 == v29)
+    if (v16 == v17)
     {
-      __DPFULog(5, "Commanding Download...", v53, v54, v55, v56, v57, v58, v82);
+      __DPFULog(5, "Commanding Download...");
     }
 
-    Status = __DPFUSessionSendHostCommand(a1, 1, v53, v54, v55, v56, v57, v58);
+    Status = __DPFUSessionSendHostCommand(a1, 1);
     if (!Status)
     {
-      Status = OUTLINED_FUNCTION_4(Status, v59, v60, v61, v62, v63, v64, v65, v82, v85, v87, *v89, *&v89[4], v90, v91);
+      Status = OUTLINED_FUNCTION_4(Status, v29, v30, v31, v32, v33, v34, v35, v40, v42, v44, *v46, *&v46[4], v47, v48);
       if (!Status)
       {
-        if (v91 == 2)
+        if (v48 == 2)
         {
           OUTLINED_FUNCTION_0();
-          if (v28 == v29)
+          if (v16 == v17)
           {
-            __DPFULog(5, "  Download Ready", v66, v67, v68, v69, v70, v71, v83);
+            __DPFULog(5, "  Download Ready");
           }
 
           return 0;
         }
 
-        return v52;
+        return v28;
       }
     }
 
     return Status;
   }
 
-  return v52;
+  return v28;
 }
 
 uint64_t __DPFUSessionDownloadData(uint64_t a1, uint64_t a2, unsigned int a3)
@@ -909,11 +934,11 @@ uint64_t __DPFUSessionDownloadData(uint64_t a1, uint64_t a2, unsigned int a3)
   result = __DPFUSessionWrite(a1, *(*(a1 + 24) + 4), a2, a3);
   if (!result)
   {
-    result = __DPFUSessionSendHostCommand(a1, 2, v5, v6, v7, v8, v9, v10);
+    result = __DPFUSessionSendHostCommand(a1, 2);
     if (!result)
     {
-      v11 = OUTLINED_FUNCTION_1();
-      result = __DPFUSessionPollStatus(v11, v12, v13, 0xAu);
+      v5 = OUTLINED_FUNCTION_1();
+      result = __DPFUSessionPollStatus(v5, v6, v7, 0xAu);
       if (!result)
       {
         return 3758097084;
@@ -924,27 +949,27 @@ uint64_t __DPFUSessionDownloadData(uint64_t a1, uint64_t a2, unsigned int a3)
   return result;
 }
 
-uint64_t __DPFUSessionFinishDownload(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t __DPFUSessionFinishDownload(uint64_t a1, uint64_t a2)
 {
-  v8 = a2;
-  v27 = 0;
-  __DPFUSessionUpdateProgress(a1, a2, 1, a4, a5, a6, a7, a8);
-  result = __DPFUSessionGetStatus(a1, &v27);
+  v2 = a2;
+  v9 = 0;
+  __DPFUSessionUpdateProgress(a1, a2, 1);
+  result = __DPFUSessionGetStatus(a1, &v9);
   if (!result)
   {
-    v11 = v27;
+    v5 = v9;
     if (*(a1 + 48) >= 6)
     {
-      v12 = DPFUGetDeviceStatusString(v27);
-      __DPFULog(6, "Final Status: %s (0x%02x)", v13, v14, v15, v16, v17, v18, v12);
+      v6 = DPFUGetDeviceStatusString(v9);
+      __DPFULog(6, "Final Status: %s (0x%02x)", v6, v5);
     }
 
-    if (v11 == 3)
+    if (v5 == 3)
     {
       OUTLINED_FUNCTION_2();
-      if (v25 == v26)
+      if (v7 == v8)
       {
-        __DPFULog(5, "Successfully wrote %u total bytes", v19, v20, v21, v22, v23, v24, v8);
+        __DPFULog(5, "Successfully wrote %u total bytes", v2);
       }
 
       return 0;
@@ -959,24 +984,24 @@ uint64_t __DPFUSessionFinishDownload(uint64_t a1, uint64_t a2, uint64_t a3, uint
   return result;
 }
 
-uint64_t __DPFUSessionInstallUpdate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t __DPFUSessionInstallUpdate(uint64_t a1)
 {
   if (*(a1 + 48) >= 5)
   {
-    __DPFULog(5, "Commanding Validate...", a3, a4, a5, a6, a7, a8, v15);
+    __DPFULog(5, "Commanding Validate...");
   }
 
-  v9 = __DPFUSessionSendHostCommand(a1, 4, a3, a4, a5, a6, a7, a8);
-  if (v9)
+  v2 = __DPFUSessionSendHostCommand(a1, 4);
+  if (v2)
   {
-    return v9;
+    return v2;
   }
 
-  v10 = OUTLINED_FUNCTION_1();
-  v9 = __DPFUSessionPollStatus(v10, v11, v12, 0x186A0u);
-  if (v9)
+  v3 = OUTLINED_FUNCTION_1();
+  v2 = __DPFUSessionPollStatus(v3, v4, v5, 0x186A0u);
+  if (v2)
   {
-    return v9;
+    return v2;
   }
 
   else
@@ -987,19 +1012,19 @@ uint64_t __DPFUSessionInstallUpdate(uint64_t a1, uint64_t a2, uint64_t a3, uint6
 
 uint64_t __DPFUSessionFinishUpdate(uint64_t a1, int a2)
 {
-  v29 = 0;
+  v10 = 0;
   if (*(a1 + 53) != 1)
   {
     return __DPFUDeviceSetProperty(*(a1 + 16));
   }
 
   OUTLINED_FUNCTION_0();
-  if (v19 == v20)
+  if (v7 == v8)
   {
-    __DPFULog(5, "Commanding Restart...", v4, v5, v6, v7, v8, v9, v28);
+    __DPFULog(5, "Commanding Restart...");
   }
 
-  result = __DPFUSessionSendHostCommand(a1, 6, v4, v5, v6, v7, v8, v9);
+  result = __DPFUSessionSendHostCommand(a1, 6);
   if (!result)
   {
     if (*(a1 + 54))
@@ -1011,83 +1036,83 @@ uint64_t __DPFUSessionFinishUpdate(uint64_t a1, int a2)
     {
       while (1)
       {
-        result = __DPFUSessionGetMode(a1, &v29);
+        result = __DPFUSessionGetMode(a1, &v10);
         if (result)
         {
           break;
         }
 
         OUTLINED_FUNCTION_3();
-        if (v19 == v20)
+        if (v7 == v8)
         {
-          if (v29)
+          if (v10)
           {
-            if (v29 == 113)
+            if (v10 == 113)
             {
-              v17 = "Single-Byte Update Mode";
+              v5 = "Single-Byte Update Mode";
             }
 
             else
             {
-              v17 = "Unknown Mode";
+              v5 = "Unknown Mode";
             }
 
-            if (v29 == 120)
+            if (v10 == 120)
             {
-              v17 = "Eight-Byte Update Mode";
+              v5 = "Eight-Byte Update Mode";
             }
 
-            if (v29 == 127)
+            if (v10 == 127)
             {
-              v17 = "32-KByte Update Mode";
+              v5 = "32-KByte Update Mode";
             }
           }
 
           else
           {
-            v17 = "Normal Mode";
+            v5 = "Normal Mode";
           }
 
-          __DPFULog(6, "Device Mode: %s (0x%02x)", v11, v12, v13, v14, v15, v16, v17);
+          __DPFULog(6, "Device Mode: %s (0x%02x)", v5, v10);
         }
 
-        v18 = v29;
-        if (v29)
+        v6 = v10;
+        if (v10)
         {
           usleep(0x3E8u);
-          v18 = v29;
+          v6 = v10;
         }
 
-        if (v18 == a2)
+        if (v6 == a2)
         {
           OUTLINED_FUNCTION_0();
-          if (v19 == v20)
+          if (v7 == v8)
           {
             if (a2)
             {
               switch(a2)
               {
                 case '\x7F':
-                  v27 = "32-KByte Update Mode";
+                  v9 = "32-KByte Update Mode";
                   break;
                 case 'x':
-                  v27 = "Eight-Byte Update Mode";
+                  v9 = "Eight-Byte Update Mode";
                   break;
                 case 'q':
-                  v27 = "Single-Byte Update Mode";
+                  v9 = "Single-Byte Update Mode";
                   break;
                 default:
-                  v27 = "Unknown Mode";
+                  v9 = "Unknown Mode";
                   break;
               }
             }
 
             else
             {
-              v27 = "Normal Mode";
+              v9 = "Normal Mode";
             }
 
-            __DPFULog(5, "  Restarted in mode: %s (0x%02x)", v21, v22, v23, v24, v25, v26, v27);
+            __DPFULog(5, "  Restarted in mode: %s (0x%02x)", v9, a2);
           }
 
           return __DPFUDeviceSetProperty(*(a1 + 16));
@@ -1109,81 +1134,102 @@ uint64_t DPFUSessionInstallMemoryPayload(uint64_t a1, uint64_t a2, unint64_t a3,
   }
 
   OUTLINED_FUNCTION_0();
-  if (v22 == v23)
+  if (v10 == v11)
   {
-    __DPFULog(5, "Writing Data from Memory...", v16, v17, v18, v19, v20, v21, v36);
+    __DPFULog(5, "Writing Data from Memory...");
   }
 
   if (a3)
   {
-    v24 = 0;
-    v25 = 0;
+    v12 = 0;
+    v13 = 0;
     while (1)
     {
-      v26 = a3 - v24 >= *(v8 + 8) ? *(v8 + 8) : a3 - v24;
-      v27 = __DPFUSessionDownloadData(a1, a2 + v24, v26);
-      if (v27)
+      v14 = a3 - v12 >= *(v8 + 8) ? *(v8 + 8) : a3 - v12;
+      v15 = __DPFUSessionDownloadData(a1, a2 + v12, v14);
+      if (v15)
       {
         break;
       }
 
-      __DPFUSessionUpdateProgress(a1, v26 + v25, 0, v28, v29, v30, v31, v32);
-      v25 += v26;
-      v24 = v25;
-      if (v25 >= a3)
+      __DPFUSessionUpdateProgress(a1, v14 + v13, 0);
+      v13 += v14;
+      v12 = v13;
+      if (v13 >= a3)
       {
         goto LABEL_11;
       }
     }
 
-    v34 = v27;
+    v16 = v15;
     OUTLINED_FUNCTION_0();
-    if (v22 == v23)
+    if (v10 == v11)
     {
-      __DPFULog(5, "  Error writing data after %u successful bytes", v10, v11, v12, v13, v14, v15, v25);
+      __DPFULog(5, "  Error writing data after %u successful bytes", v13);
     }
 
     goto LABEL_14;
   }
 
-  v24 = 0;
+  v12 = 0;
 LABEL_11:
-  v9 = __DPFUSessionFinishDownload(a1, v24, v16, v17, v18, v19, v20, v21);
-  if (v9 || (v9 = __DPFUSessionInstallUpdate(a1, v33, v10, v11, v12, v13, v14, v15), v9))
+  v9 = __DPFUSessionFinishDownload(a1, v12);
+  if (v9 || (v9 = __DPFUSessionInstallUpdate(a1), v9))
   {
 LABEL_19:
-    v34 = v9;
+    v16 = v9;
     goto LABEL_14;
   }
 
-  v34 = __DPFUSessionFinishUpdate(a1, a4);
-  if (v34)
+  v16 = __DPFUSessionFinishUpdate(a1, a4);
+  if (v16)
   {
 LABEL_14:
-    __DPFUSessionRequestMode(a1, 0, v10, v11, v12, v13, v14, v15);
+    __DPFUSessionRequestMode(a1, 0);
   }
 
-  return v34;
+  return v16;
 }
 
-uint64_t __DPFUSessionGetStatus(uint64_t a1, _BYTE *a2)
+uint64_t __DPFUSessionGetStatus(uint64_t a1, char *a2)
 {
   deadline = 0;
+  v8 = 0;
   result = __DPFUClockIntervalToDeadline(&deadline);
   if (!result)
   {
-    result = __DPFUSessionRead(a1);
+    result = __DPFUSessionRead(a1, 1294, &v8);
     if (!result)
     {
-      mach_wait_until(deadline);
-      result = __DPFUClockIntervalToDeadline(&deadline);
-      if (!result)
+      v5 = v8;
+      while (1)
       {
-        result = __DPFUSessionRead(a1);
-        if (!result)
+        v6 = v5;
+        mach_wait_until(deadline);
+        result = __DPFUClockIntervalToDeadline(&deadline);
+        if (result)
+        {
+          break;
+        }
+
+        result = __DPFUSessionRead(a1, 1294, &v8);
+        if (result)
+        {
+          break;
+        }
+
+        v5 = v8;
+        if (v8 == v6)
         {
           result = 0;
-          *a2 = 0;
+          v7 = v6;
+          if (v6 < 0)
+          {
+            v7 = -1;
+          }
+
+          *a2 = v7;
+          return result;
         }
       }
     }
@@ -1199,20 +1245,20 @@ uint64_t __DPFUSessionPollStatus(uint64_t a1, _BYTE *a2, useconds_t a3, useconds
     return 3758097090;
   }
 
-  v18 = 0;
-  for (result = __DPFUSessionGetStatus(a1, &v18); !result; result = __DPFUSessionGetStatus(a1, &v18))
+  v12 = 0;
+  for (result = __DPFUSessionGetStatus(a1, &v12); !result; result = __DPFUSessionGetStatus(a1, &v12))
   {
-    v9 = v18;
+    v9 = v12;
     if (*(a1 + 48) >= 6)
     {
-      v10 = DPFUGetDeviceStatusString(v18);
-      __DPFULog(6, "  Device Status: %s (0x%02x)", v11, v12, v13, v14, v15, v16, v10);
+      v10 = DPFUGetDeviceStatusString(v12);
+      __DPFULog(6, "  Device Status: %s (0x%02x)", v10, v9);
     }
 
-    v17 = a4;
-    if (v9 == 1 || a3 && (v17 = a3, v9 == 255))
+    v11 = a4;
+    if (v9 == 1 || a3 && (v11 = a3, v9 == 255))
     {
-      usleep(v17);
+      usleep(v11);
     }
 
     else if (v9 != 255)

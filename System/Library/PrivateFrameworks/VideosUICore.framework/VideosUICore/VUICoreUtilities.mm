@@ -763,20 +763,24 @@ uint64_t __39__VUICoreUtilities__vuiCoreResourceMap__block_invoke()
     v12 = [v13 vuiImageNamed:bundleCopy inBundle:mainBundle];
   }
 
-  v15 = [self URLForResource:bundleCopy];
-  v16 = v15;
-  if (v15 && [v15 isFileURL])
+  isFileURL = [self URLForResource:bundleCopy];
+  v16 = isFileURL;
+  if (isFileURL)
   {
-    v17 = MEMORY[0x277D755B8];
-    path = [v16 path];
-    v19 = [v17 imageWithContentsOfFile:path];
+    isFileURL = [isFileURL isFileURL];
+    if (isFileURL)
+    {
+      v17 = MEMORY[0x277D755B8];
+      path = [v16 path];
+      v19 = [v17 imageWithContentsOfFile:path];
 
-    v12 = v19;
+      v12 = v19;
+    }
   }
 
   if (!v12)
   {
-    v20 = VUICDefaultLogObject();
+    v20 = VUICDefaultLogObject(isFileURL);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [(VUICoreUtilities *)bundleCopy _getImageFromURLorBundle:v20];

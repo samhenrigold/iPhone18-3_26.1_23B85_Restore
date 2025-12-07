@@ -352,7 +352,7 @@ LABEL_8:
   typeCopy = type;
   v7 = objc_alloc_init(_PKStrokeConcrete);
   v17 = 0u;
-  [self _contextForStroke:v7 weight:typeCopy type:{weight, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}];
+  objc_msgSend__contextForStroke_weight_type_(self, weight, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
   v8 = [v17 ink];
   behavior = [v8 behavior];
   [(PKInkBehavior *)behavior radiusForPoint:&v16 context:?];
@@ -370,7 +370,7 @@ LABEL_8:
   typeCopy = type;
   v7 = objc_alloc_init(_PKStrokeConcrete);
   v13 = 0u;
-  [self _contextForStroke:v7 weight:typeCopy type:{weight, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}];
+  objc_msgSend__contextForStroke_weight_type_(self, weight, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
   v8 = [v13 ink];
   behavior = [v8 behavior];
   v10 = [(PKInkBehavior *)behavior edgeWidthForPoint:&v12 context:?];

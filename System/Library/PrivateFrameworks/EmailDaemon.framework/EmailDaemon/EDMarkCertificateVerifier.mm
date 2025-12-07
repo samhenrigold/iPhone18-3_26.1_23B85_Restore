@@ -18,7 +18,7 @@ void ___ef_log_EDMarkCertificateVerifier_block_invoke()
 
 - (uint64_t)_verifyIndicatorData:(void *)data withMarkCertificateData:(void *)certificateData forBaseMessage:
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v7 = a2;
   dataCopy = data;
   certificateDataCopy = certificateData;
@@ -33,7 +33,7 @@ void ___ef_log_EDMarkCertificateVerifier_block_invoke()
   v12 = dateReceived;
   if (!v10 || !dateReceived)
   {
-    v17 = _ef_log_EDMarkCertificateVerifier();
+    v17 = _ef_log_EDMarkCertificateVerifier(dateReceived);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       [EDMarkCertificateVerifier _verifyIndicatorData:v10 != 0 withMarkCertificateData:v17 forBaseMessage:?];
@@ -44,164 +44,167 @@ void ___ef_log_EDMarkCertificateVerifier_block_invoke()
   }
 
   domain = [v10 domain];
-  v49 = 0;
-  v14 = [(EDMarkCertificateVerifier *)self _verifyIndicatorData:v7 withMarkCertificateData:dataCopy domain:domain date:v12 error:&v49];
-  v15 = v49;
+  v52 = 0;
+  v14 = [(EDMarkCertificateVerifier *)self _verifyIndicatorData:v7 withMarkCertificateData:dataCopy domain:domain date:v12 error:&v52];
+  v15 = v52;
   v16 = v15;
   if (!v14)
   {
-    if (-[__CFError code](v15, "code") != -67602 || (-[__CFError domain](v16, "domain"), v19 = objc_claimAutoreleasedReturnValue(), v44 = *MEMORY[0x1E696A768], v20 = [v19 isEqualToString:?], v19, (v20 & 1) == 0))
+    code = [(__CFError *)v15 code];
+    if (code != -67602 || (-[__CFError domain](v16, "domain"), v20 = objc_claimAutoreleasedReturnValue(), v47 = *MEMORY[0x1E696A768], v21 = [v20 isEqualToString:?], v20, (v21 & 1) == 0))
     {
-      v25 = _ef_log_EDMarkCertificateVerifier();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v26 = _ef_log_EDMarkCertificateVerifier(code);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
       {
         [(__CFError *)v16 ef_publicDescription];
         objc_claimAutoreleasedReturnValue();
         [EDMarkCertificateVerifier _verifyIndicatorData:withMarkCertificateData:forBaseMessage:];
       }
 
-      v50 = 0;
+      v53 = 0;
       goto LABEL_40;
     }
 
     highLevelDomain = [v10 highLevelDomain];
-    v42 = [highLevelDomain isEqualToString:domain];
-    if (v42)
+    v45 = [highLevelDomain isEqualToString:domain];
+    if (v45)
     {
-      v21 = v16;
+      v22 = v16;
     }
 
     else
     {
-      v48 = v16;
-      v26 = [(EDMarkCertificateVerifier *)self _verifyIndicatorData:v7 withMarkCertificateData:dataCopy domain:highLevelDomain date:v12 error:&v48];
-      v21 = v48;
+      v51 = v16;
+      v27 = [(EDMarkCertificateVerifier *)self _verifyIndicatorData:v7 withMarkCertificateData:dataCopy domain:highLevelDomain date:v12 error:&v51];
+      v22 = v51;
 
-      if (v26)
+      if (v27)
       {
-        v50 = 1;
+        v53 = 1;
 LABEL_39:
 
-        v16 = v21;
+        v16 = v22;
         goto LABEL_40;
       }
 
-      if (-[__CFError code](v21, "code") != -67602 || (-[__CFError domain](v21, "domain"), v27 = objc_claimAutoreleasedReturnValue(), v28 = [v27 isEqualToString:v44], v27, (v28 & 1) == 0))
+      code2 = [(__CFError *)v22 code];
+      if (code2 != -67602 || (-[__CFError domain](v22, "domain"), v29 = objc_claimAutoreleasedReturnValue(), v30 = [v29 isEqualToString:v47], v29, (v30 & 1) == 0))
       {
-        v29 = _ef_log_EDMarkCertificateVerifier();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+        v31 = _ef_log_EDMarkCertificateVerifier(code2);
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
         {
-          [(__CFError *)v21 ef_publicDescription];
+          [(__CFError *)v22 ef_publicDescription];
           objc_claimAutoreleasedReturnValue();
           [EDMarkCertificateVerifier _verifyIndicatorData:withMarkCertificateData:forBaseMessage:];
         }
 
-        v50 = 0;
+        v53 = 0;
         goto LABEL_39;
       }
     }
 
-    v22 = [(EDMarkCertificateVerifier *)self _bimiSelectorFromMessage:certificateDataCopy];
-    v40 = v22;
-    if (!v22)
+    v23 = [(EDMarkCertificateVerifier *)self _bimiSelectorFromMessage:certificateDataCopy];
+    v43 = v23;
+    if (!v23)
     {
       goto LABEL_31;
     }
 
-    v41 = [v22 mutableCopy];
-    [v41 appendString:@"._bimi."];
-    [v41 appendString:domain];
-    v47 = v21;
-    v23 = [(EDMarkCertificateVerifier *)self _verifyIndicatorData:v7 withMarkCertificateData:dataCopy domain:v41 date:v12 error:&v47];
-    v24 = v47;
+    v44 = [v23 mutableCopy];
+    [v44 appendString:@"._bimi."];
+    [v44 appendString:domain];
+    v50 = v22;
+    v24 = [(EDMarkCertificateVerifier *)self _verifyIndicatorData:v7 withMarkCertificateData:dataCopy domain:v44 date:v12 error:&v50];
+    v25 = v50;
 
-    if (v23)
+    if (v24)
     {
-      v50 = 1;
+      v53 = 1;
 LABEL_37:
 
 LABEL_38:
-      v21 = v24;
+      v22 = v25;
       goto LABEL_39;
     }
 
-    if (-[__CFError code](v24, "code") != -67602 || (-[__CFError domain](v24, "domain"), v30 = objc_claimAutoreleasedReturnValue(), v31 = [v30 isEqualToString:v44], v30, (v31 & 1) == 0))
+    code3 = [(__CFError *)v25 code];
+    if (code3 != -67602 || (-[__CFError domain](v25, "domain"), v33 = objc_claimAutoreleasedReturnValue(), v34 = [v33 isEqualToString:v47], v33, (v34 & 1) == 0))
     {
-      v33 = _ef_log_EDMarkCertificateVerifier();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v36 = _ef_log_EDMarkCertificateVerifier(code3);
+      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
       {
-        [(__CFError *)v24 ef_publicDescription];
+        [(__CFError *)v25 ef_publicDescription];
         objc_claimAutoreleasedReturnValue();
         [EDMarkCertificateVerifier _verifyIndicatorData:withMarkCertificateData:forBaseMessage:];
       }
 
-      v50 = 0;
+      v53 = 0;
       goto LABEL_37;
     }
 
-    if (v42)
+    if (v45)
     {
-      v21 = v24;
+      v22 = v25;
 LABEL_30:
 
 LABEL_31:
-      v32 = _ef_log_EDMarkCertificateVerifier();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v35 = _ef_log_EDMarkCertificateVerifier(v23);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
-        [(__CFError *)v21 ef_publicDescription];
+        [(__CFError *)v22 ef_publicDescription];
         objc_claimAutoreleasedReturnValue();
         [EDMarkCertificateVerifier _verifyIndicatorData:withMarkCertificateData:forBaseMessage:];
       }
 
-      v50 = 0;
-      v24 = v21;
+      v53 = 0;
+      v25 = v22;
       goto LABEL_38;
     }
 
-    v36 = [v40 mutableCopy];
-    [v36 appendString:@"._bimi."];
-    [v36 appendString:highLevelDomain];
-    v46 = v24;
-    v37 = [(EDMarkCertificateVerifier *)self _verifyIndicatorData:v7 withMarkCertificateData:dataCopy domain:v36 date:v12 error:&v46];
-    v21 = v46;
+    v38 = [v43 mutableCopy];
+    [v38 appendString:@"._bimi."];
+    [v38 appendString:highLevelDomain];
+    v49 = v25;
+    v39 = [(EDMarkCertificateVerifier *)self _verifyIndicatorData:v7 withMarkCertificateData:dataCopy domain:v38 date:v12 error:&v49];
+    v22 = v49;
 
-    if (!v37)
+    if (!v39)
     {
-      if ([(__CFError *)v21 code]== -67602)
+      code4 = [(__CFError *)v22 code];
+      if (code4 == -67602)
       {
-        domain2 = [(__CFError *)v21 domain];
-        v38 = [domain2 isEqualToString:v44];
+        domain2 = [(__CFError *)v22 domain];
+        v41 = [domain2 isEqualToString:v47];
 
-        if (v38)
+        if (v41)
         {
 
           goto LABEL_30;
         }
       }
 
-      v39 = _ef_log_EDMarkCertificateVerifier();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      v42 = _ef_log_EDMarkCertificateVerifier(code4);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
-        [(__CFError *)v21 ef_publicDescription];
+        [(__CFError *)v22 ef_publicDescription];
         objc_claimAutoreleasedReturnValue();
         [EDMarkCertificateVerifier _verifyIndicatorData:withMarkCertificateData:forBaseMessage:];
       }
     }
 
-    v50 = v37;
+    v53 = v39;
 
-    v24 = v21;
+    v25 = v22;
     goto LABEL_37;
   }
 
-  v50 = 1;
+  v53 = 1;
 LABEL_40:
 
-  v18 = v50;
+  v18 = v53;
 LABEL_41:
 
 LABEL_42:
-  v34 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -248,7 +251,7 @@ LABEL_42:
   domainCopy = domain;
   if (!self)
   {
-    v22 = 0;
+    v24 = 0;
     goto LABEL_23;
   }
 
@@ -259,10 +262,11 @@ LABEL_42:
     VerifiedMark = SecPolicyCreateVerifiedMark();
     if (VerifiedMark)
     {
-      if (SecTrustCreateWithCertificates(v15, VerifiedMark, &trust))
+      v17 = SecTrustCreateWithCertificates(v15, VerifiedMark, &trust);
+      if (v17)
       {
-        v17 = _ef_log_EDMarkCertificateVerifier();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v18 = _ef_log_EDMarkCertificateVerifier(v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           [EDMarkCertificateVerifier _verifyIndicatorData:withMarkCertificateData:domain:date:error:];
         }
@@ -270,11 +274,11 @@ LABEL_42:
 
       else
       {
-        if (!domainCopy || !SecTrustSetVerifyDate(trust, domainCopy))
+        if (!domainCopy || (v22 = SecTrustSetVerifyDate(trust, domainCopy), !v22))
         {
           error = 0;
-          v19 = SecTrustEvaluateWithError(trust, &error);
-          v18 = error;
+          v20 = SecTrustEvaluateWithError(trust, &error);
+          v19 = error;
 LABEL_18:
 
           CFRelease(VerifiedMark);
@@ -286,20 +290,20 @@ LABEL_18:
           goto LABEL_20;
         }
 
-        v17 = _ef_log_EDMarkCertificateVerifier();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v18 = _ef_log_EDMarkCertificateVerifier(v22);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
           [EDMarkCertificateVerifier _verifyIndicatorData:withMarkCertificateData:domain:date:error:];
         }
       }
 
-      v18 = 0;
       v19 = 0;
+      v20 = 0;
       goto LABEL_18;
     }
 
-    v20 = _ef_log_EDMarkCertificateVerifier();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = _ef_log_EDMarkCertificateVerifier(0);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [EDMarkCertificateVerifier _verifyIndicatorData:withMarkCertificateData:domain:date:error:];
     }
@@ -307,61 +311,61 @@ LABEL_18:
 
   else
   {
-    v20 = _ef_log_EDMarkCertificateVerifier();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v21 = _ef_log_EDMarkCertificateVerifier(0);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [EDMarkCertificateVerifier _verifyIndicatorData:withMarkCertificateData:domain:date:error:];
     }
   }
 
-  v18 = 0;
   v19 = 0;
+  v20 = 0;
 LABEL_20:
   if (date)
   {
-    v21 = v18;
-    *date = v18;
+    v23 = v19;
+    *date = v19;
   }
 
-  v26 = v19;
+  v28 = v20;
 
-  v22 = v26;
+  v24 = v28;
 LABEL_23:
 
-  return v22;
+  return v24;
 }
 
 - (id)_bimiSelectorFromMessage:(uint64_t)message
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v16 = v3;
+  v15 = v3;
   if (message)
   {
     v4 = MEMORY[0x1E699B290];
     headers = [v3 headers];
     v6 = [v4 authenticationResultsForHeaders:headers];
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
-      v9 = *v18;
+      v9 = *v17;
       v10 = *MEMORY[0x1E699B058];
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [*(*(&v17 + 1) + 8 * v11) firstStatementForMethod:@"bimi"];
+        v12 = [*(*(&v16 + 1) + 8 * v11) firstStatementForMethod:@"bimi"];
         v13 = [v12 valueForPropertyType:v10 property:@"selector"];
 
         if (v13)
@@ -371,7 +375,7 @@ LABEL_4:
 
         if (v8 == ++v11)
         {
-          v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
           if (v8)
           {
             goto LABEL_4;
@@ -393,8 +397,6 @@ LABEL_10:
   {
     v13 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -456,15 +458,14 @@ LABEL_10:
 
 id __58__EDMarkCertificateVerifier__certificateChainFromPEMData___block_invoke()
 {
-  v0 = *MEMORY[0x1E695E480];
-  v1 = SecCertificateCreateWithPEM();
+  v0 = SecCertificateCreateWithPEM();
 
-  return v1;
+  return v0;
 }
 
 - (void)_verifyIndicatorData:(char)a1 withMarkCertificateData:(char)a2 forBaseMessage:(NSObject *)a3 .cold.1(char a1, char a2, NSObject *a3)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = @"without sender and date";
   if (a1)
   {
@@ -476,10 +477,9 @@ id __58__EDMarkCertificateVerifier__certificateChainFromPEMData___block_invoke()
     v3 = @"without date";
   }
 
-  v5 = 138543362;
-  v6 = v3;
-  OUTLINED_FUNCTION_7(&dword_1C61EF000, a2, a3, "Could not verify indicator for message %{public}@", &v5);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543362;
+  v5 = v3;
+  OUTLINED_FUNCTION_7(&dword_1C61EF000, a2, a3, "Could not verify indicator for message %{public}@", &v4);
 }
 
 - (void)_verifyIndicatorData:withMarkCertificateData:forBaseMessage:.cold.2()

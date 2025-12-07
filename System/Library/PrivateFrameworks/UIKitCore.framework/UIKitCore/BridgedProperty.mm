@@ -83,7 +83,7 @@
   v8 = *&self->property[OBJC_IVAR____TtC5UIKit15BridgedProperty_property];
   ObjectType = swift_getObjectType();
   sub_18922BE00(v10, targetCopy, ObjectType, v8);
-  sub_188A3F5FC(v10, &qword_1EA934050);
+  sub_188A3F5FC(v10, &qword_1EA934050, qword_18A64CA10);
 }
 
 - (id)velocityTarget:(BOOL)target

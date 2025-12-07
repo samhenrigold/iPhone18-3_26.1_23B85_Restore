@@ -13,7 +13,6 @@
     return 0;
   }
 
-  v30 = compressionCopy;
   v9 = [objc_alloc(MEMORY[0x277D02668]) initWithCanvasSize:0 sliceCount:0 layout:{-[TDRadiosityImageRenditionSpec width](self, "width"), -[TDRadiosityImageRenditionSpec height](self, "height")}];
   v10 = [objc_msgSend(-[TDRadiosityImageRenditionSpec keySpec](self "keySpec")];
   [v9 setTargetPlatform:{objc_msgSend(document, "targetPlatform")}];
@@ -72,61 +71,65 @@
   [v14 setSourceAlphaInfo:v15];
   bitmapContext = [v14 bitmapContext];
   [-[TDRadiosityImageRenditionSpec flattenedImage](self "flattenedImage")];
-  Data = CGBitmapContextGetData(bitmapContext);
-  BytesPerRow = CGBitmapContextGetBytesPerRow(bitmapContext);
+  CGBitmapContextGetData(bitmapContext);
+  CGBitmapContextGetBytesPerRow(bitmapContext);
   BitsPerPixel = CGBitmapContextGetBitsPerPixel(bitmapContext);
-  Width = CGBitmapContextGetWidth(bitmapContext);
-  Height = CGBitmapContextGetHeight(bitmapContext);
-  v40[0] = 1;
-  v22 = *MEMORY[0x277CBF3A8];
-  v38 = 0u;
-  v39 = v22;
-  *v37 = 0u;
-  [MEMORY[0x277D026B8] _doRadiosityBlurOnPixelBuffer:Data bytesPerRow:BytesPerRow bitsPerPixel:BitsPerPixel width:Width height:Height scaleFactor:objc_msgSend(-[TDRadiosityImageRenditionSpec keySpec](self usesGaussianBlur:"keySpec") adjustedSize:{"scaleFactor"), v40, &v39}];
-  if (v40[0] == 1)
+  CGBitmapContextGetWidth(bitmapContext);
+  CGBitmapContextGetHeight(bitmapContext);
+  v37[0] = 1;
+  v18 = *MEMORY[0x277CBF3A8];
+  v35 = 0u;
+  v36 = v18;
+  *v34 = 0u;
+  documentCopy = document;
+  v19 = MEMORY[0x277D026B8];
+  [-[TDRadiosityImageRenditionSpec keySpec](self "keySpec")];
+  objc_msgSend__doRadiosityBlurOnPixelBuffer_bytesPerRow_bitsPerPixel_width_height_scaleFactor_usesGaussianBlur_adjustedSize_(v19, v37, &v36);
+  if (v37[0] == 1)
   {
     [v9 addBitmap:v14];
-    v23 = [v9 CSIRepresentationWithCompression:v30];
+    v20 = [v9 CSIRepresentationWithCompression:compressionCopy];
   }
 
   else
   {
-    v36 = 0;
-    v31[0] = 8;
-    v31[1] = BitsPerPixel;
+    v33 = 0;
+    v28[0] = 8;
+    v28[1] = BitsPerPixel;
     ColorSpace = CGBitmapContextGetColorSpace(bitmapContext);
-    v33 = 8194;
-    v35 = 0;
-    v34 = 0;
-    v24 = MEMORY[0x24C1B1FF0](v37, v31, 0, 0, 0, 0);
-    v25 = objc_alloc(MEMORY[0x277D02660]);
-    v26 = [v25 initWithPixelWidth:v39.width pixelHeight:v39.height];
-    [v26 setTargetPlatform:{objc_msgSend(document, "targetPlatform")}];
-    [v26 setPixelFormat:objc_msgSend(v9, "pixelFormat")];
+    v30 = 8194;
+    v32 = 0;
+    v31 = 0;
+    v21 = MEMORY[0x24C1B1FF0](v34, v28, 0, 0, 0, 0);
+    v22 = objc_alloc(MEMORY[0x277D02660]);
+    v23 = [v22 initWithPixelWidth:v36.width pixelHeight:v36.height];
+    [v23 setTargetPlatform:{objc_msgSend(documentCopy, "targetPlatform")}];
+    [v23 setPixelFormat:objc_msgSend(v9, "pixelFormat")];
     if ([(TDRadiosityImageRenditionSpec *)self opaque])
     {
-      v27 = 6;
+      v24 = 6;
     }
 
     else
     {
-      v27 = 2;
+      v24 = 2;
     }
 
-    [v26 setSourceAlphaInfo:v27];
-    bitmapContext2 = [v26 bitmapContext];
-    v41.size = v39;
-    v41.origin.x = 0.0;
-    v41.origin.y = 0.0;
-    CGContextDrawImage(bitmapContext2, v41, v24);
-    [v9 addBitmap:v26];
-    v23 = [v9 CSIRepresentationWithCompression:v30];
-    CGImageRelease(v24);
+    [v23 setSourceAlphaInfo:v24];
+    bitmapContext2 = [v23 bitmapContext];
+    v38.size.width = v36.width;
+    v38.size.height = v36.height;
+    v38.origin.x = 0.0;
+    v38.origin.y = 0.0;
+    CGContextDrawImage(bitmapContext2, v38, v21);
+    [v9 addBitmap:v23];
+    v20 = [v9 CSIRepresentationWithCompression:compressionCopy];
+    CGImageRelease(v21);
 
-    free(v37[0]);
+    free(v34[0]);
   }
 
-  return v23;
+  return v20;
 }
 
 @end

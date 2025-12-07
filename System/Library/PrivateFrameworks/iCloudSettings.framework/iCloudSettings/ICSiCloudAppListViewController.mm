@@ -7,7 +7,9 @@
 - (void)accountDidChangeFromAccount:(id)account toAccount:(id)toAccount;
 - (void)cleanupDataclassSpecifiers;
 - (void)dealloc;
+- (void)reloadSpecifiersForProvider:(id)provider oldSpecifiers:(id)specifiers animated:(BOOL)animated;
 - (void)setAccountManager:(id)manager;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -22,8 +24,8 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = LogSubsystem();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = LogSubsystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -31,10 +33,25 @@
     _os_log_impl(&dword_275819000, v3, OS_LOG_TYPE_DEFAULT, "ICSiCloudAppListViewController dealloc %@", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = ICSiCloudAppListViewController;
-  [(ICSDataclassViewController *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = ICSiCloudAppListViewController;
+  [(ICSDataclassViewController *)&v4 dealloc];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v10[2] = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = ICSiCloudAppListViewController;
+  [(ACUIDataclassConfigurationViewController *)&v9 viewDidAppear:appear];
+  v4 = [objc_alloc(MEMORY[0x277CBEBC0]) initWithString:@"settings-navigation://com.apple.Settings.AppleAccount/ICLOUD_SERVICE/com.apple.Dataclass"];
+  v5 = +[ICSDeviceExpertManager savedToiCloudTitle];
+  v6 = +[ICSDeviceExpertManager appleAccountTitle];
+  v10[0] = v6;
+  v7 = +[ICSDeviceExpertManager iCloudTitle];
+  v10[1] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  [(ICSiCloudAppListViewController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.application-icon.icloud" title:v5 localizedNavigationComponents:v8 deepLink:v4];
 }
 
 - (void)viewDidLoad
@@ -48,12 +65,12 @@
   [(ICSiCloudAppListViewController *)self setTitle:v4];
 }
 
-void __45__ICSiCloudAppListViewController_viewDidLoad__block_invoke()
+void __45__ICSiCloudAppListViewController_viewDidLoad__block_invoke(uint64_t a1)
 {
-  v0 = LogSubsystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
+  v1 = LogSubsystem(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    __45__ICSiCloudAppListViewController_viewDidLoad__block_invoke_cold_1(v0);
+    __45__ICSiCloudAppListViewController_viewDidLoad__block_invoke_cold_1(v1);
   }
 }
 
@@ -96,7 +113,7 @@ LABEL_5:
   v3 = *MEMORY[0x277D3FC48];
   if (!*(&self->super.super.super.super.super.super.super.super.isa + v3))
   {
-    v4 = LogSubsystem();
+    v4 = LogSubsystem(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -112,54 +129,54 @@ LABEL_5:
     *(&self->super.super.super.super.super.super.super.super.isa + v3) = v7;
   }
 
-  if ([(ICSiCloudAppListViewController *)self _shouldDisableiCloudUI])
+  _shouldDisableiCloudUI = [(ICSiCloudAppListViewController *)self _shouldDisableiCloudUI];
+  if (_shouldDisableiCloudUI)
   {
     v23 = 0u;
     v24 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v9 = *(&self->super.super.super.super.super.super.super.super.isa + v3);
-    v10 = [v9 countByEnumeratingWithState:&v21 objects:v27 count:16];
-    if (v10)
+    v10 = *(&self->super.super.super.super.super.super.super.super.isa + v3);
+    v11 = [v10 countByEnumeratingWithState:&v21 objects:v27 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v22;
-      v13 = *MEMORY[0x277D3FF38];
-      v14 = MEMORY[0x277CBEC28];
+      v12 = v11;
+      v13 = *v22;
+      v14 = *MEMORY[0x277D3FF38];
+      v15 = MEMORY[0x277CBEC28];
       do
       {
-        v15 = 0;
+        v16 = 0;
         do
         {
-          if (*v22 != v12)
+          if (*v22 != v13)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v10);
           }
 
-          [*(*(&v21 + 1) + 8 * v15++) setObject:v14 forKeyedSubscript:{v13, v21}];
+          [*(*(&v21 + 1) + 8 * v16++) setObject:v15 forKeyedSubscript:{v14, v21}];
         }
 
-        while (v11 != v15);
-        v11 = [v9 countByEnumeratingWithState:&v21 objects:v27 count:16];
+        while (v12 != v16);
+        v12 = [v10 countByEnumeratingWithState:&v21 objects:v27 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
   }
 
-  v16 = LogSubsystem();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v17 = LogSubsystem(_shouldDisableiCloudUI);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = *(&self->super.super.super.super.super.super.super.super.isa + v3);
+    v18 = *(&self->super.super.super.super.super.super.super.super.isa + v3);
     *buf = 138412290;
-    v26 = v17;
-    _os_log_impl(&dword_275819000, v16, OS_LOG_TYPE_DEFAULT, "ICSiCloudAppListViewController specifiers: returning %@", buf, 0xCu);
+    v26 = v18;
+    _os_log_impl(&dword_275819000, v17, OS_LOG_TYPE_DEFAULT, "ICSiCloudAppListViewController specifiers: returning %@", buf, 0xCu);
   }
 
-  v18 = *(&self->super.super.super.super.super.super.super.super.isa + v3);
-  v19 = *MEMORY[0x277D85DE8];
+  v19 = *(&self->super.super.super.super.super.super.super.super.isa + v3);
 
-  return v18;
+  return v19;
 }
 
 - (void)cleanupDataclassSpecifiers
@@ -194,6 +211,13 @@ LABEL_5:
   }
 
   return appSpecifiers;
+}
+
+- (void)reloadSpecifiersForProvider:(id)provider oldSpecifiers:(id)specifiers animated:(BOOL)animated
+{
+  [(ICSiCloudAppListViewController *)self cleanupDataclassSpecifiers:provider];
+
+  [(ICSiCloudAppListViewController *)self reloadSpecifiers];
 }
 
 - (BOOL)_shouldDisableiCloudUI
@@ -245,9 +269,9 @@ LABEL_5:
 {
   accountCopy = account;
   toAccountCopy = toAccount;
-  v27.receiver = self;
-  v27.super_class = ICSiCloudAppListViewController;
-  [(ICSDataclassViewController *)&v27 accountDidChangeFromAccount:accountCopy toAccount:toAccountCopy];
+  v28.receiver = self;
+  v28.super_class = ICSiCloudAppListViewController;
+  [(ICSDataclassViewController *)&v28 accountDidChangeFromAccount:accountCopy toAccount:toAccountCopy];
   provisionedDataclasses = [accountCopy provisionedDataclasses];
   provisionedDataclasses2 = [toAccountCopy provisionedDataclasses];
   v10 = [provisionedDataclasses isEqual:provisionedDataclasses2];
@@ -267,33 +291,33 @@ LABEL_5:
 
   if ((v14 & 1) == 0)
   {
-    v15 = LogSubsystem();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = LogSubsystem(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      *v26 = 0;
-      _os_log_impl(&dword_275819000, v15, OS_LOG_TYPE_DEFAULT, "Account enabled dataclasses changed. Will reload specifiers.", v26, 2u);
+      *v27 = 0;
+      _os_log_impl(&dword_275819000, v16, OS_LOG_TYPE_DEFAULT, "Account enabled dataclasses changed. Will reload specifiers.", v27, 2u);
     }
 
     if (toAccountCopy)
     {
-      v16 = *MEMORY[0x277CB89C8];
-      v17 = [accountCopy isEnabledForDataclass:*MEMORY[0x277CB89C8]];
-      if (v17 != [toAccountCopy isEnabledForDataclass:v16])
+      v17 = *MEMORY[0x277CB89C8];
+      v18 = [accountCopy isEnabledForDataclass:*MEMORY[0x277CB89C8]];
+      if (v18 != [toAccountCopy isEnabledForDataclass:v17])
       {
         dataClassSpecifierProvider2 = [(ICSiCloudAppListViewController *)self dataClassSpecifierProvider];
         ubiquitySpecifierProvider = [dataClassSpecifierProvider2 ubiquitySpecifierProvider];
         ubiquityAccessManager = [ubiquitySpecifierProvider ubiquityAccessManager];
-        [ubiquityAccessManager setAppAccessGranted:objc_msgSend(toAccountCopy forBundleID:{"isEnabledForDataclass:", v16), @"com.apple.mobilemail"}];
+        [ubiquityAccessManager setAppAccessGranted:objc_msgSend(toAccountCopy forBundleID:{"isEnabledForDataclass:", v17), @"com.apple.mobilemail"}];
       }
 
-      v21 = *MEMORY[0x277CB8928];
-      v22 = [accountCopy isEnabledForDataclass:*MEMORY[0x277CB8928]];
-      if (v22 != [toAccountCopy isEnabledForDataclass:v21])
+      v22 = *MEMORY[0x277CB8928];
+      v23 = [accountCopy isEnabledForDataclass:*MEMORY[0x277CB8928]];
+      if (v23 != [toAccountCopy isEnabledForDataclass:v22])
       {
         dataClassSpecifierProvider3 = [(ICSiCloudAppListViewController *)self dataClassSpecifierProvider];
         ubiquitySpecifierProvider2 = [dataClassSpecifierProvider3 ubiquitySpecifierProvider];
         ubiquityAccessManager2 = [ubiquitySpecifierProvider2 ubiquityAccessManager];
-        [ubiquityAccessManager2 setAppAccessGranted:objc_msgSend(toAccountCopy forBundleID:{"isEnabledForDataclass:", v21), @"com.apple.mobilesafari"}];
+        [ubiquityAccessManager2 setAppAccessGranted:objc_msgSend(toAccountCopy forBundleID:{"isEnabledForDataclass:", v22), @"com.apple.mobilesafari"}];
       }
     }
   }

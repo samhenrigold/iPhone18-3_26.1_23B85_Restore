@@ -1,7 +1,10 @@
 @interface TUConversationActivitySession
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToConversationActivitySession:(id)session;
+- (TUConversationActivitySession)initWithActivity:(id)activity locallyInitiated:(BOOL)initiated timestamp:(id)timestamp isFirstJoin:(BOOL)join;
+- (TUConversationActivitySession)initWithActivity:(id)activity state:(unint64_t)state endpoint:(id)endpoint locallyInitiated:(BOOL)initiated timestamp:(id)timestamp isFirstJoin:(BOOL)join;
 - (TUConversationActivitySession)initWithActivity:(id)activity state:(unint64_t)state uuid:(id)uuid endpoint:(id)endpoint locallyInitiated:(BOOL)initiated timestamp:(id)timestamp isFirstJoin:(BOOL)join activeRemoteParticipants:(id)self0 isLocalParticipantActive:(BOOL)self1 applicationState:(unint64_t)self2;
+- (TUConversationActivitySession)initWithActivity:(id)activity uuid:(id)uuid locallyInitiated:(BOOL)initiated timestamp:(id)timestamp isFirstJoin:(BOOL)join;
 - (TUConversationActivitySession)initWithCoder:(id)coder;
 - (TUConversationActivitySession)initWithTUConversationActivitySession:(id)session;
 - (id)copyWithZone:(_NSZone *)zone;
@@ -129,6 +132,50 @@
   return v5;
 }
 
+- (TUConversationActivitySession)initWithActivity:(id)activity state:(unint64_t)state endpoint:(id)endpoint locallyInitiated:(BOOL)initiated timestamp:(id)timestamp isFirstJoin:(BOOL)join
+{
+  initiatedCopy = initiated;
+  v14 = MEMORY[0x1E696AFB0];
+  timestampCopy = timestamp;
+  endpointCopy = endpoint;
+  activityCopy = activity;
+  v18 = objc_alloc_init(v14);
+  v19 = [MEMORY[0x1E695DFD8] set];
+  LOBYTE(v23) = 0;
+  LOBYTE(v22) = join;
+  v20 = [(TUConversationActivitySession *)self initWithActivity:activityCopy state:state uuid:v18 endpoint:endpointCopy locallyInitiated:initiatedCopy timestamp:timestampCopy isFirstJoin:v22 activeRemoteParticipants:v19 isLocalParticipantActive:v23 applicationState:1];
+
+  return v20;
+}
+
+- (TUConversationActivitySession)initWithActivity:(id)activity uuid:(id)uuid locallyInitiated:(BOOL)initiated timestamp:(id)timestamp isFirstJoin:(BOOL)join
+{
+  initiatedCopy = initiated;
+  v12 = MEMORY[0x1E695DFD8];
+  timestampCopy = timestamp;
+  uuidCopy = uuid;
+  activityCopy = activity;
+  v16 = [v12 set];
+  LOBYTE(v20) = 0;
+  LOBYTE(v19) = join;
+  v17 = [(TUConversationActivitySession *)self initWithActivity:activityCopy state:0 uuid:uuidCopy endpoint:0 locallyInitiated:initiatedCopy timestamp:timestampCopy isFirstJoin:v19 activeRemoteParticipants:v16 isLocalParticipantActive:v20 applicationState:1];
+
+  return v17;
+}
+
+- (TUConversationActivitySession)initWithActivity:(id)activity locallyInitiated:(BOOL)initiated timestamp:(id)timestamp isFirstJoin:(BOOL)join
+{
+  joinCopy = join;
+  initiatedCopy = initiated;
+  v10 = MEMORY[0x1E696AFB0];
+  timestampCopy = timestamp;
+  activityCopy = activity;
+  v13 = objc_alloc_init(v10);
+  v14 = [(TUConversationActivitySession *)self initWithActivity:activityCopy uuid:v13 locallyInitiated:initiatedCopy timestamp:timestampCopy isFirstJoin:joinCopy];
+
+  return v14;
+}
+
 - (id)description
 {
   v3 = [MEMORY[0x1E696AD60] stringWithFormat:@"<%@ %p", objc_opt_class(), self];
@@ -237,14 +284,13 @@
 
 - (void)setPersistentSceneIdentifier:(id)identifier
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v4 = MEMORY[0x1E695DEC8];
   identifierCopy2 = identifier;
   v6 = [v4 arrayWithObjects:&identifierCopy count:1];
 
-  [(TUConversationActivitySession *)self setPersistentSceneIdentifiers:v6, identifierCopy, v9];
-  v7 = *MEMORY[0x1E69E9840];
+  [(TUConversationActivitySession *)self setPersistentSceneIdentifiers:v6, identifierCopy, v8];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -719,10 +765,10 @@
   activity = [(TUConversationActivitySession *)self activity];
   representativeBundleIdentifier = [activity representativeBundleIdentifier];
 
-  if (representativeBundleIdentifier && [representativeBundleIdentifier length])
+  if (representativeBundleIdentifier && (v10 = [representativeBundleIdentifier length]) != 0)
   {
-    v10 = TUDefaultLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = TUDefaultLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       activity2 = [(TUConversationActivitySession *)self activity];
       activityIdentifier = [activity2 activityIdentifier];
@@ -732,66 +778,66 @@
       selfCopy = self;
       v38 = 2112;
       v39 = activityIdentifier;
-      _os_log_impl(&dword_1956FD000, v10, OS_LOG_TYPE_DEFAULT, "Manually launching Expanse app with bundleIdentifier: %@ for activity session: %@ with activity identifier: %@", buf, 0x20u);
+      _os_log_impl(&dword_1956FD000, v11, OS_LOG_TYPE_DEFAULT, "Manually launching Expanse app with bundleIdentifier: %@ for activity session: %@ with activity identifier: %@", buf, 0x20u);
     }
 
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
     aBlock[2] = __75__TUConversationActivitySession_launchApplicationWithForcedURL_completion___block_invoke;
     aBlock[3] = &unk_1E7427D30;
-    v13 = representativeBundleIdentifier;
-    v32 = v13;
+    v14 = representativeBundleIdentifier;
+    v32 = v14;
     v33 = completionCopy;
-    v14 = _Block_copy(aBlock);
-    v15 = objc_alloc_init(MEMORY[0x1E69636B8]);
-    v16 = TUUnlockDeviceWithPromptFrontBoardOptionsDictionary(lCopy != 0);
-    [v15 setFrontBoardOptions:v16];
+    v15 = _Block_copy(aBlock);
+    v16 = objc_alloc_init(MEMORY[0x1E69636B8]);
+    v17 = TUUnlockDeviceWithPromptFrontBoardOptionsDictionary(lCopy != 0);
+    [v16 setFrontBoardOptions:v17];
 
-    v17 = CUTWeakLinkClass();
-    v18 = v17;
+    v18 = CUTWeakLinkClass();
+    v19 = v18;
     if (lCopy)
     {
-      defaultWorkspace = [v17 defaultWorkspace];
+      defaultWorkspace = [v18 defaultWorkspace];
       v29[0] = MEMORY[0x1E69E9820];
       v29[1] = 3221225472;
       v29[2] = __75__TUConversationActivitySession_launchApplicationWithForcedURL_completion___block_invoke_138;
       v29[3] = &unk_1E7426178;
-      v30 = v14;
-      [defaultWorkspace openURL:lCopy configuration:v15 completionHandler:v29];
+      v30 = v15;
+      [defaultWorkspace openURL:lCopy configuration:v16 completionHandler:v29];
 
-      v20 = v30;
+      v21 = v30;
     }
 
     else
     {
       v28 = 0;
-      v22 = [objc_alloc(CUTWeakLinkClass()) initWithBundleIdentifier:v13 allowPlaceholder:0 error:&v28];
-      v23 = v28;
-      v20 = v23;
-      if (!v22 || v23)
+      v23 = [objc_alloc(CUTWeakLinkClass()) initWithBundleIdentifier:v14 allowPlaceholder:0 error:&v28];
+      v24 = v28;
+      v21 = v24;
+      if (!v23 || v24)
       {
-        (*(v14 + 2))(v14, 0, 0, v23);
+        (*(v15 + 2))(v15, 0, 0, v24);
       }
 
       else
       {
-        defaultWorkspace2 = [v18 defaultWorkspace];
+        defaultWorkspace2 = [v19 defaultWorkspace];
         v26[0] = MEMORY[0x1E69E9820];
         v26[1] = 3221225472;
         v26[2] = __75__TUConversationActivitySession_launchApplicationWithForcedURL_completion___block_invoke_2;
         v26[3] = &unk_1E7424A38;
-        v27 = v14;
-        [defaultWorkspace2 openApplicationWithBundleIdentifier:v13 configuration:v15 completionHandler:v26];
+        v27 = v15;
+        [defaultWorkspace2 openApplicationWithBundleIdentifier:v14 configuration:v16 completionHandler:v26];
       }
     }
   }
 
   else
   {
-    v21 = TUDefaultLog();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = TUDefaultLog(v10);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [(TUConversationActivitySession *)self launchApplicationWithForcedURL:representativeBundleIdentifier completion:v21];
+      [(TUConversationActivitySession *)self launchApplicationWithForcedURL:representativeBundleIdentifier completion:v22];
     }
 
     if (completionCopy)
@@ -799,26 +845,24 @@
       (*(completionCopy + 2))(completionCopy, 0, 0);
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void __75__TUConversationActivitySession_launchApplicationWithForcedURL_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v7 = a4;
   v8 = v7;
   if ((a3 & 1) == 0)
   {
-    v9 = TUDefaultLog();
+    v9 = TUDefaultLog(v7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1 + 32);
-      v13 = 138412546;
-      v14 = v10;
-      v15 = 2114;
-      v16 = v8;
-      _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "Application for activity session is not installed with bundleIdentifier: %@; error: %{public}@", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v10;
+      v14 = 2114;
+      v15 = v8;
+      _os_log_impl(&dword_1956FD000, v9, OS_LOG_TYPE_DEFAULT, "Application for activity session is not installed with bundleIdentifier: %@; error: %{public}@", &v12, 0x16u);
     }
 
     goto LABEL_8;
@@ -826,7 +870,7 @@ void __75__TUConversationActivitySession_launchApplicationWithForcedURL_completi
 
   if (v7 || (a2 & 1) == 0)
   {
-    v9 = TUDefaultLog();
+    v9 = TUDefaultLog(v7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       __75__TUConversationActivitySession_launchApplicationWithForcedURL_completion___block_invoke_cold_1(a1, v8, v9);
@@ -840,8 +884,6 @@ LABEL_8:
   {
     (*(v11 + 16))(v11, a2, a3);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)publicCopy
@@ -859,22 +901,20 @@ LABEL_8:
 
 - (void)launchApplicationWithForcedURL:(NSObject *)a3 completion:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = a1;
-  *&v4[12] = 2112;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1_0(&dword_1956FD000, a2, a3, "Failed to launch activity session: %@ with bundle identifier: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138412546;
+  *&v3[4] = a1;
+  *&v3[12] = 2112;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1_0(&dword_1956FD000, a2, a3, "Failed to launch activity session: %@ with bundle identifier: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 void __75__TUConversationActivitySession_launchApplicationWithForcedURL_completion___block_invoke_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 138412546;
-  *&v4[4] = *(a1 + 32);
-  *&v4[12] = 2114;
-  *&v4[14] = a2;
-  OUTLINED_FUNCTION_1_0(&dword_1956FD000, a2, a3, "Failed to open activity session with bundleIdentifier: %@; error: %{public}@", *v4, *&v4[8], *&v4[16], *MEMORY[0x1E69E9840]);
-  v3 = *MEMORY[0x1E69E9840];
+  *v3 = 138412546;
+  *&v3[4] = *(a1 + 32);
+  *&v3[12] = 2114;
+  *&v3[14] = a2;
+  OUTLINED_FUNCTION_1_0(&dword_1956FD000, a2, a3, "Failed to open activity session with bundleIdentifier: %@; error: %{public}@", *v3, *&v3[8], *&v3[16], *MEMORY[0x1E69E9840]);
 }
 
 @end

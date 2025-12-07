@@ -1,4 +1,5 @@
 @interface MSUiBootHeaderV2
+- (BOOL)loadHeaderAtOffset:(unsigned int)offset;
 - (MSUiBootHeaderV2)initWithIOServiceWriter:(id)writer;
 - (id)_hashData:(id)data withMethod:(id)method;
 - (id)_hashDataWithNativeHashMethod:(id)method;
@@ -48,6 +49,29 @@
   v9 = v4;
   v7 = *self->_headerReserved;
   return [NSData dataWithBytes:v6 length:64];
+}
+
+- (BOOL)loadHeaderAtOffset:(unsigned int)offset
+{
+  v3 = *&offset;
+  memset(v10, 0, sizeof(v10));
+  v8 = 0u;
+  v9 = 0u;
+  v5 = [(IOServiceWriter *)[(MSUiBootHeader *)self serviceWriter] readDataAtOffset:*&offset ofLength:64];
+  v6 = [v5 length];
+  if (v6)
+  {
+    [v5 getBytes:&v8 length:64];
+    [(MSUiBootHeaderV2 *)self setHeaderVersion:DWORD1(v8)];
+    [(MSUiBootHeader *)self setHeaderGeneration:DWORD2(v8)];
+    [(MSUiBootHeader *)self setImageAddress:HIDWORD(v8)];
+    [(MSUiBootHeaderV2 *)self setHeaderSignature:v8];
+    [(MSUiBootHeaderV2 *)self setHeaderHash:v10];
+    [(MSUiBootHeaderV2 *)self setHeaderReserved:&v9];
+    [(MSUiBootHeader *)self setStartLocation:v3];
+  }
+
+  return v6 != 0;
 }
 
 - (void)setAsFirstGeneration

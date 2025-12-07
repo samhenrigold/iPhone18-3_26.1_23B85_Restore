@@ -266,38 +266,38 @@ LABEL_6:
   }
 }
 
-void __78__SBDashBoardEmergencyDialerViewController__activateEmergencyDialerController__block_invoke(uint64_t a1)
+void __78__SBDashBoardEmergencyDialerViewController__activateEmergencyDialerController__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v2 = SBLogDashBoard();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v19 = *MEMORY[0x277D85DE8];
+  v3 = SBLogDashBoard();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = NSStringFromBOOL();
+    v4 = NSStringFromBOOL();
     *buf = 138543362;
-    v17 = v3;
-    _os_log_impl(&dword_21ED4E000, v2, OS_LOG_TYPE_DEFAULT, "Emergency dialer controller activation complete; success = %{public}@.", buf, 0xCu);
+    v18 = v4;
+    _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_DEFAULT, "Emergency dialer controller activation complete; success = %{public}@.", buf, 0xCu);
   }
 
-  v4 = [*(*(a1 + 32) + 1096) viewController];
-  if (v4)
+  v5 = [*(*(a1 + 32) + 1096) viewController];
+  if (v5)
   {
-    v5 = MEMORY[0x277CF0B70];
-    v6 = [MEMORY[0x277CD9EF8] functionWithName:*MEMORY[0x277CDA7B8]];
-    v7 = [v5 settingsWithDuration:v6 timingFunction:0.4];
+    v6 = MEMORY[0x277CF0B70];
+    v7 = [MEMORY[0x277CD9EF8] functionWithName:*MEMORY[0x277CDA7B8]];
+    v8 = [v6 settingsWithDuration:v7 timingFunction:0.4];
 
-    v8 = [v4 view];
-    [v8 setAlpha:0.0];
-    v9 = *(a1 + 32);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __78__SBDashBoardEmergencyDialerViewController__activateEmergencyDialerController__block_invoke_23;
-    v12[3] = &unk_2783B08F8;
-    v13 = v8;
+    v9 = [v5 view];
+    [v9 setAlpha:0.0];
+    v10 = *(a1 + 32);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __78__SBDashBoardEmergencyDialerViewController__activateEmergencyDialerController__block_invoke_23;
+    v13[3] = &unk_2783B08F8;
     v14 = v9;
-    v15 = v7;
-    v10 = v7;
+    v15 = v10;
+    v16 = v8;
     v11 = v8;
-    [v9 bs_addChildViewController:v4 animated:1 transitionBlock:v12];
+    v12 = v9;
+    [v10 bs_addChildViewController:v5 animated:1 transitionBlock:v13];
     [*(a1 + 32) _updateEmergencyCallMode:0];
   }
 

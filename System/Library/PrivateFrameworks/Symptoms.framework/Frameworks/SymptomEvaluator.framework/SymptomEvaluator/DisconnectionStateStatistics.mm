@@ -158,34 +158,34 @@
 
 - (void)calculateAverageLength
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if ([(NSMutableArray *)self->_networkStateRecords count])
   {
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
     v3 = self->_networkStateRecords;
-    v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v10;
+      v6 = *v9;
       do
       {
         v7 = 0;
         do
         {
-          if (*v10 != v6)
+          if (*v9 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          self->_averageDisconnectionLength += [*(*(&v9 + 1) + 8 * v7++) stateLength];
+          self->_averageDisconnectionLength += [*(*(&v8 + 1) + 8 * v7++) stateLength];
         }
 
         while (v5 != v7);
-        v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
       }
 
       while (v5);
@@ -193,8 +193,6 @@
 
     self->_averageDisconnectionLength /= [(NSMutableArray *)self->_networkStateRecords count];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

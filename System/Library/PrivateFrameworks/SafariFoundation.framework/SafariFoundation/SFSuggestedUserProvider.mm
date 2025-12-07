@@ -317,7 +317,7 @@ uint64_t __128__SFSuggestedUserProvider_suggestedUsersPrioritizingExistingUsersF
 
 - (void)_getSuggestedUsersFromSavedAccounts:(id)accounts suggestedEmails:(id *)emails suggestedNonEmails:(id *)nonEmails
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   accountsCopy = accounts;
   v6 = [MEMORY[0x277CBEB58] set];
   v7 = [MEMORY[0x277CBEB58] set];
@@ -327,31 +327,31 @@ uint64_t __128__SFSuggestedUserProvider_suggestedUsersPrioritizingExistingUsersF
   aBlock[1] = 3221225472;
   aBlock[2] = __98__SFSuggestedUserProvider__getSuggestedUsersFromSavedAccounts_suggestedEmails_suggestedNonEmails___block_invoke;
   aBlock[3] = &unk_279B622A8;
-  v24 = dictionary;
-  v32 = v24;
-  v23 = dictionary2;
-  v33 = v23;
+  v23 = dictionary;
+  v31 = v23;
+  v22 = dictionary2;
+  v32 = v22;
   v10 = _Block_copy(aBlock);
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   v11 = accountsCopy;
-  v12 = [v11 countByEnumeratingWithState:&v27 objects:v34 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v26 objects:v33 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v28;
+    v14 = *v27;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v28 != v14)
+        if (*v27 != v14)
         {
           objc_enumerationMutation(v11);
         }
 
-        v16 = *(*(&v27 + 1) + 8 * i);
+        v16 = *(*(&v26 + 1) + 8 * i);
         user = [v16 user];
         if ([user length] && (objc_msgSend(v16, "userIsNeverSaveMarker") & 1) == 0)
         {
@@ -372,19 +372,17 @@ uint64_t __128__SFSuggestedUserProvider_suggestedUsersPrioritizingExistingUsersF
         }
       }
 
-      v13 = [v11 countByEnumeratingWithState:&v27 objects:v34 count:16];
+      v13 = [v11 countByEnumeratingWithState:&v26 objects:v33 count:16];
     }
 
     while (v13);
   }
 
-  allValues = [v24 allValues];
+  allValues = [v23 allValues];
   *emails = [allValues sortedArrayUsingSelector:sel_compare_];
 
-  allValues2 = [v23 allValues];
+  allValues2 = [v22 allValues];
   *nonEmails = [allValues2 sortedArrayUsingSelector:sel_compare_];
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __98__SFSuggestedUserProvider__getSuggestedUsersFromSavedAccounts_suggestedEmails_suggestedNonEmails___block_invoke(uint64_t a1, uint64_t a2, void *a3)

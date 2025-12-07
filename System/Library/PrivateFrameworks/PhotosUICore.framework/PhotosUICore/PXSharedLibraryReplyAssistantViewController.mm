@@ -161,7 +161,7 @@ void __74__PXSharedLibraryReplyAssistantViewController_Internal__declineInvitati
     v7[3] = &unk_1E7749C60;
     v7[4] = self;
     v7[5] = owner;
-    PXSharedLibraryRequestInvitationImageForOwner(owner, traitCollection, v7);
+    PXSharedLibraryRequestInvitationImageForOwner(owner, traitCollection, v7, 84.0, 84.0);
   }
 }
 

@@ -30,10 +30,11 @@
   v6 = (self + OBJC_IVAR___SiriSharedUIAssistantSuggestionView_pressDownHandler);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_21E3F1EB0(v7);
+  sub_21E3F1EB0(v7, v8);
 }
 
 - (void)setPressUpHandler:(id)handler
@@ -54,10 +55,11 @@
   v6 = (self + OBJC_IVAR___SiriSharedUIAssistantSuggestionView_pressUpHandler);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_21E3F1EB0(v7);
+  sub_21E3F1EB0(v7, v8);
 }
 
 - (void)setPressDownHandlerWithData:(id)data
@@ -78,10 +80,11 @@
   v6 = (self + OBJC_IVAR___SiriSharedUIAssistantSuggestionView_pressDownHandlerWithData);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_21E3F1EB0(v7);
+  sub_21E3F1EB0(v7, v8);
 }
 
 - (void)setPressUpHandlerWithData:(id)data
@@ -102,10 +105,11 @@
   v6 = (self + OBJC_IVAR___SiriSharedUIAssistantSuggestionView_pressUpHandlerWithData);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_21E3F1EB0(v7);
+  sub_21E3F1EB0(v7, v8);
 }
 
 - (void)setSuggestionFocused:(BOOL)focused
@@ -118,7 +122,7 @@
 {
   v3 = *(self + OBJC_IVAR___SiriSharedUIAssistantSuggestionView_suggestionsModel);
   swift_getKeyPath();
-  sub_21E48C4FC(&qword_27CEC4A30, type metadata accessor for SiriSharedUISuggestionsViewModel);
+  sub_21E48C4FC(&qword_27CEC4A30, type metadata accessor for SiriSharedUISuggestionsViewModel, &unk_21E4E5200);
   selfCopy = self;
 
   sub_21E4DB718();
@@ -147,7 +151,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_21E48AF4C();
+  sub_21E48AF4C(selfCopy);
 }
 
 - (SiriSharedUIAssistantSuggestionView)initWithFrame:(CGRect)frame

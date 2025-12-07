@@ -52,7 +52,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1001935A4();
+  sub_1001935A4(delegate);
 }
 
 - (TUCall)tuCall
@@ -238,7 +238,7 @@
 {
   neededCopy = needed;
   selfCopy = self;
-  sub_10019ECEC();
+  sub_10019ECEC(neededCopy);
 }
 
 - (void)handleRTTVideoStreamingButtonTapped

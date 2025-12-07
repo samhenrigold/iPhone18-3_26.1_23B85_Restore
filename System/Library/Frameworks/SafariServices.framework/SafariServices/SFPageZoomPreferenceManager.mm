@@ -12,13 +12,13 @@ void __45___SFPageZoomPreferenceManager_sharedManager__block_invoke()
   sharedManager_sharedManager = v1;
 }
 
-uint64_t __82___SFPageZoomPreferenceManager_setValue_ofPreference_forDomain_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
+uint64_t (**__82___SFPageZoomPreferenceManager_setValue_ofPreference_forDomain_completionHandler___block_invoke(uint64_t a1, uint64_t a2))(void *, void)
 {
   v2 = a2;
   result = *(a1 + 32);
   if (result)
   {
-    result = (*(result + 16))(result, a2);
+    result = result[2](result, a2);
   }
 
   if (v2)
@@ -31,13 +31,13 @@ uint64_t __82___SFPageZoomPreferenceManager_setValue_ofPreference_forDomain_comp
   return result;
 }
 
-uint64_t __79___SFPageZoomPreferenceManager_setDefaultValue_ofPreference_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
+uint64_t (**__79___SFPageZoomPreferenceManager_setDefaultValue_ofPreference_completionHandler___block_invoke(uint64_t a1, uint64_t a2))(void *, void)
 {
   v2 = a2;
   result = *(a1 + 32);
   if (result)
   {
-    result = (*(result + 16))(result, a2);
+    result = result[2](result, a2);
   }
 
   if (v2)
@@ -50,13 +50,13 @@ uint64_t __79___SFPageZoomPreferenceManager_setDefaultValue_ofPreference_complet
   return result;
 }
 
-uint64_t __98___SFPageZoomPreferenceManager_removePreferenceValuesForDomains_fromPreference_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
+uint64_t (**__98___SFPageZoomPreferenceManager_removePreferenceValuesForDomains_fromPreference_completionHandler___block_invoke(uint64_t a1, uint64_t a2))(void *, void)
 {
   v2 = a2;
   result = *(a1 + 32);
   if (result)
   {
-    result = (*(result + 16))(result, a2);
+    result = result[2](result, a2);
   }
 
   if (v2)

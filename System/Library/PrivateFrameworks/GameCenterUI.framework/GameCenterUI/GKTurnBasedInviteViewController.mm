@@ -347,23 +347,23 @@ void __51__GKTurnBasedInviteViewController_finishWithError___block_invoke(uint64
   [turnBasedService createTurnBasedGameForMatchRequest:internal2 individualMessages:inviteMessageDictionary handler:v32];
 }
 
-void __84__GKTurnBasedInviteViewController_createGameWithPlayersToInvite_forSharing_handler___block_invoke(uint64_t a1)
+void __84__GKTurnBasedInviteViewController_createGameWithPlayersToInvite_forSharing_handler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (!*MEMORY[0x277D0C2A0])
   {
-    v2 = GKOSLoggers();
+    v3 = GKOSLoggers();
   }
 
-  v3 = *MEMORY[0x277D0C2B0];
+  v4 = *MEMORY[0x277D0C2B0];
   if (os_log_type_enabled(*MEMORY[0x277D0C2B0], OS_LOG_TYPE_INFO))
   {
-    v4 = *(a1 + 32);
-    v5 = v3;
-    v6 = [v4 matchRequest];
-    v7 = 138412290;
-    v8 = v6;
-    _os_log_impl(&dword_24DE53000, v5, OS_LOG_TYPE_INFO, "TBGame - createGameWithPlayersToInvite, self.matchRequest = %@", &v7, 0xCu);
+    v5 = *(a1 + 32);
+    v6 = v4;
+    v7 = [v5 matchRequest];
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_24DE53000, v6, OS_LOG_TYPE_INFO, "TBGame - createGameWithPlayersToInvite, self.matchRequest = %@", &v8, 0xCu);
   }
 }
 

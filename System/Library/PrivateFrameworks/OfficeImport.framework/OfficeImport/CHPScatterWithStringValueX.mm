@@ -37,13 +37,13 @@
     {
       for (i = 1; i <= v8; ++i)
       {
-        CsData::CsData(&v13);
-        v12 = i - 1;
-        EDValue::makeWithNumber(v10, i, &v11);
-        EDValue::operator=(&v13, &v11);
-        EDValue::~EDValue(&v11);
-        [dataValues2 addDataPoint:&v12];
-        EDValue::~EDValue(&v13);
+        CsData::CsData(&v12);
+        v11 = i - 1;
+        EDValue::makeWithNumber(&v10.type, i);
+        EDValue::operator=(&v12, &v10);
+        EDValue::~EDValue(&v10);
+        [dataValues2 addDataPoint:&v11];
+        EDValue::~EDValue(&v12);
       }
     }
 

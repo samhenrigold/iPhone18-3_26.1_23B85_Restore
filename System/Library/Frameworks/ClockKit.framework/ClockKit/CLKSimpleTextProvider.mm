@@ -57,7 +57,7 @@
 
 - (id)_sessionAttributedTextForIndex:(unint64_t)index withStyle:(id)style
 {
-  v80[2] = *MEMORY[0x277D85DE8];
+  v84[2] = *MEMORY[0x277D85DE8];
   styleCopy = style;
   if (index)
   {
@@ -78,35 +78,37 @@
   v8 = *(&self->super.super.isa + *v7);
 LABEL_7:
   v9 = v8;
-  if ([styleCopy uppercase] && !-[CLKTextProvider ignoreUppercaseStyle](self, "ignoreUppercaseStyle"))
+  uppercase = [styleCopy uppercase];
+  if (uppercase && (uppercase = [(CLKTextProvider *)self ignoreUppercaseStyle], (uppercase & 1) == 0))
   {
-    v10 = ![(CLKSimpleTextProvider *)self useLowercaseSmallCaps];
+    uppercase = [(CLKSimpleTextProvider *)self useLowercaseSmallCaps];
+    v12 = uppercase ^ 1;
   }
 
   else
   {
-    v10 = 0;
+    v12 = 0;
   }
 
-  v11 = self->_useAllSmallCaps && CLKSmallCapsAllowed() && !self->_useNoContentDashFormatting;
-  v12 = self->_useLowercaseSmallCaps && CLKSmallCapsAllowed() && !self->_useNoContentDashFormatting;
-  if ((v10 | v11))
+  v13 = self->_useAllSmallCaps && (uppercase = CLKSmallCapsAllowed(uppercase, v11), uppercase) && !self->_useNoContentDashFormatting;
+  v14 = self->_useLowercaseSmallCaps && CLKSmallCapsAllowed(uppercase, v11) && !self->_useNoContentDashFormatting;
+  if ((v12 | v13))
   {
     currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
-    v14 = [v9 uppercaseStringWithLocale:currentLocale];
+    v16 = [v9 uppercaseStringWithLocale:currentLocale];
 
-    v9 = v14;
+    v9 = v16;
   }
 
   if (!v9)
   {
-    v19 = 0;
+    v21 = 0;
     goto LABEL_51;
   }
 
   font = [styleCopy font];
-  v16 = font;
-  if (v11)
+  v18 = font;
+  if (v13)
   {
     smallCapsBaseFont = [styleCopy smallCapsBaseFont];
     cLKFontWithLocalizedSmallCaps = [smallCapsBaseFont CLKFontWithLocalizedSmallCaps];
@@ -114,10 +116,10 @@ LABEL_7:
 
   else
   {
-    if (!v12)
+    if (!v14)
     {
-      v25 = 0;
-      v20 = font;
+      v29 = 0;
+      v22 = font;
       goto LABEL_38;
     }
 
@@ -125,149 +127,149 @@ LABEL_7:
     cLKFontWithLocalizedSmallCaps = [smallCapsBaseFont CLKFontWithLocalizedLowerCaseSmallCaps];
   }
 
-  v20 = cLKFontWithLocalizedSmallCaps;
+  v22 = cLKFontWithLocalizedSmallCaps;
 
-  if (CLKUsesFauxSmallCaps())
+  if (CLKUsesFauxSmallCaps(v23, v24))
   {
     smallCapsBaseFont2 = [styleCopy smallCapsBaseFont];
     font2 = [styleCopy font];
-    v23 = [smallCapsBaseFont2 isEqual:font2];
+    v27 = [smallCapsBaseFont2 isEqual:font2];
 
-    if (v23)
+    if (v27)
     {
-      [v20 pointSize];
-      [v20 fontWithSize:v24 + -2.5];
+      [v22 pointSize];
+      [v22 fontWithSize:v28 + -2.5];
     }
 
     else
     {
       [styleCopy smallCapsBaseFont];
     }
-    v26 = ;
-    v27 = *MEMORY[0x277D740A8];
-    v80[0] = v26;
-    v28 = *MEMORY[0x277CC4830];
-    v79[0] = v27;
-    v79[1] = v28;
-    v77 = *MEMORY[0x277CC4828];
-    v78 = v26;
-    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
-    v80[1] = v29;
-    v30 = MEMORY[0x277CBEAC0];
-    v31 = v80;
-    v32 = v79;
+    v30 = ;
+    v31 = *MEMORY[0x277D740A8];
+    v84[0] = v30;
+    v32 = *MEMORY[0x277CC4830];
+    v83[0] = v31;
+    v83[1] = v32;
+    v81 = *MEMORY[0x277CC4828];
+    v82 = v30;
+    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v82 forKeys:&v81 count:1];
+    v84[1] = v33;
+    v34 = MEMORY[0x277CBEAC0];
+    v35 = v84;
+    v36 = v83;
     goto LABEL_36;
   }
 
-  if (!v11 && !v12)
+  if (!v13 && !v14)
   {
-    v25 = 0;
+    v29 = 0;
     goto LABEL_38;
   }
 
-  if (CTFontGetSymbolicTraits(v20))
+  if (CTFontGetSymbolicTraits(v22))
   {
-    [v20 pointSize];
-    v26 = [v20 fontWithSize:v64 * 0.75];
-    v65 = *MEMORY[0x277D740A8];
-    v76[0] = v26;
-    v66 = *MEMORY[0x277CC4830];
-    v75[0] = v65;
-    v75[1] = v66;
-    v73 = *MEMORY[0x277CC4828];
-    v74 = v26;
-    v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
-    v76[1] = v29;
-    v30 = MEMORY[0x277CBEAC0];
-    v31 = v76;
-    v32 = v75;
+    [v22 pointSize];
+    v30 = [v22 fontWithSize:v68 * 0.75];
+    v69 = *MEMORY[0x277D740A8];
+    v80[0] = v30;
+    v70 = *MEMORY[0x277CC4830];
+    v79[0] = v69;
+    v79[1] = v70;
+    v77 = *MEMORY[0x277CC4828];
+    v78 = v30;
+    v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
+    v80[1] = v33;
+    v34 = MEMORY[0x277CBEAC0];
+    v35 = v80;
+    v36 = v79;
 LABEL_36:
-    v25 = [v30 dictionaryWithObjects:v31 forKeys:v32 count:2];
+    v29 = [v34 dictionaryWithObjects:v35 forKeys:v36 count:2];
 
     goto LABEL_38;
   }
 
-  v71 = *MEMORY[0x277D740A8];
-  v72 = v20;
-  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v72 forKeys:&v71 count:1];
+  v75 = *MEMORY[0x277D740A8];
+  v76 = v22;
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
 LABEL_38:
   fontFeatures = [(CLKTextProvider *)self fontFeatures];
 
   if (fontFeatures)
   {
     fontFeatures2 = [(CLKTextProvider *)self fontFeatures];
-    v35 = [v20 CLKFontByApplyingFeatureSettings:fontFeatures2];
+    v39 = [v22 CLKFontByApplyingFeatureSettings:fontFeatures2];
 
-    if (v25)
+    if (v29)
     {
-      v36 = [v25 mutableCopy];
-      v37 = *MEMORY[0x277D740A8];
-      v38 = [v36 objectForKeyedSubscript:*MEMORY[0x277D740A8]];
+      v40 = [v29 mutableCopy];
+      v41 = *MEMORY[0x277D740A8];
+      v42 = [v40 objectForKeyedSubscript:*MEMORY[0x277D740A8]];
       fontFeatures3 = [(CLKTextProvider *)self fontFeatures];
-      [v38 CLKFontByApplyingFeatureSettings:fontFeatures3];
-      v40 = styleCopy;
-      v42 = v41 = v9;
-      [v36 setObject:v42 forKeyedSubscript:v37];
+      [v42 CLKFontByApplyingFeatureSettings:fontFeatures3];
+      v44 = styleCopy;
+      v46 = v45 = v9;
+      [v40 setObject:v46 forKeyedSubscript:v41];
 
-      v9 = v41;
-      styleCopy = v40;
+      v9 = v45;
+      styleCopy = v44;
 
-      v25 = v36;
+      v29 = v40;
     }
   }
 
   else
   {
-    v35 = v20;
+    v39 = v22;
   }
 
   if (self->_useNoContentDashFormatting)
   {
-    fontDescriptor = [v35 fontDescriptor];
-    v43 = _AlternatePunctuationAttributes();
-    v67 = [fontDescriptor fontDescriptorByAddingAttributes:v43];
+    fontDescriptor = [v39 fontDescriptor];
+    v47 = _AlternatePunctuationAttributes(fontDescriptor);
+    v71 = [fontDescriptor fontDescriptorByAddingAttributes:v47];
 
-    v44 = [MEMORY[0x277D74300] fontWithDescriptor:v67 size:0.0];
-    v45 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v9];
-    v46 = styleCopy;
-    v47 = v9;
-    v48 = [v9 length];
-    v49 = 305.0 / CTFontGetUnitsPerEm(v35);
-    [v35 pointSize];
-    v51 = v25;
-    v52 = v35;
-    v53 = *MEMORY[0x277D740D0];
-    v54 = [MEMORY[0x277CCABB0] numberWithDouble:v50 * v49];
-    v55 = v53;
-    v35 = v52;
-    v25 = v51;
-    [v45 addAttribute:v55 value:v54 range:{0, v48}];
+    v48 = [MEMORY[0x277D74300] fontWithDescriptor:v71 size:0.0];
+    v49 = [objc_alloc(MEMORY[0x277CCAB48]) initWithString:v9];
+    v50 = styleCopy;
+    v51 = v9;
+    v52 = [v9 length];
+    v53 = 305.0 / CTFontGetUnitsPerEm(v39);
+    [v39 pointSize];
+    v55 = v29;
+    v56 = v39;
+    v57 = *MEMORY[0x277D740D0];
+    v58 = [MEMORY[0x277CCABB0] numberWithDouble:v54 * v53];
+    v59 = v57;
+    v39 = v56;
+    v29 = v55;
+    [v49 addAttribute:v59 value:v58 range:{0, v52}];
 
-    v56 = v48;
-    v9 = v47;
-    styleCopy = v46;
-    [v45 addAttribute:*MEMORY[0x277D740A8] value:v44 range:{0, v56}];
+    v60 = v52;
+    v9 = v51;
+    styleCopy = v50;
+    [v49 addAttribute:*MEMORY[0x277D740A8] value:v48 range:{0, v60}];
   }
 
   else
   {
-    v57 = objc_alloc(MEMORY[0x277CCA898]);
-    v58 = v57;
-    if (v25)
+    v61 = objc_alloc(MEMORY[0x277CCA898]);
+    v62 = v61;
+    if (v29)
     {
-      v45 = [v57 initWithString:v9 attributes:v25];
+      v49 = [v61 initWithString:v9 attributes:v29];
     }
 
     else
     {
-      v69 = *MEMORY[0x277D740A8];
-      v70 = v35;
-      v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v70 forKeys:&v69 count:1];
-      v45 = [v58 initWithString:v9 attributes:v59];
+      v73 = *MEMORY[0x277D740A8];
+      v74 = v39;
+      v63 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
+      v49 = [v62 initWithString:v9 attributes:v63];
     }
   }
 
-  v19 = [v45 _attributedStringWithOtherAttributesFromStyle:{styleCopy, v67}];
+  v21 = [v49 _attributedStringWithOtherAttributesFromStyle:{styleCopy, v71}];
 
   if ([styleCopy shouldEmbedTintColors])
   {
@@ -276,15 +278,15 @@ LABEL_38:
     if (tintColor)
     {
       tintColor2 = [(CLKTextProvider *)self tintColor];
-      v62 = [v19 _attributedStringWithForegroundColor:tintColor2];
+      v66 = [v21 _attributedStringWithForegroundColor:tintColor2];
 
-      v19 = v62;
+      v21 = v66;
     }
   }
 
 LABEL_51:
 
-  return v19;
+  return v21;
 }
 
 - (BOOL)_validate

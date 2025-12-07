@@ -104,7 +104,7 @@
     v7 = _auxiliaryConnection;
     if (_auxiliaryConnection)
     {
-      [_auxiliaryConnection auditToken];
+      objc_msgSend_auditToken(_auxiliaryConnection);
       v8 = SecTaskCreateWithAuditToken(0, &token);
       if (v8)
       {
@@ -588,7 +588,7 @@ void __80__PKIssuerProvisioningExtensionConsumerContext_remotePassEntriesWithCom
       v20 = _auxiliaryConnection;
       if (_auxiliaryConnection)
       {
-        [_auxiliaryConnection auditToken];
+        objc_msgSend_auditToken(_auxiliaryConnection);
       }
 
       else

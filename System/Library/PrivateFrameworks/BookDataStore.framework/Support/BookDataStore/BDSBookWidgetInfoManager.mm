@@ -117,7 +117,7 @@
 {
   infoCopy = info;
   completionCopy = completion;
-  v8 = sub_10000DE28();
+  v8 = sub_10000DE28(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [infoCopy valueForKey:@"assetID"];
@@ -140,7 +140,7 @@
 {
   onlyCopy = only;
   completionCopy = completion;
-  v8 = sub_10000DE28();
+  v8 = sub_10000DE28(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [onlyCopy valueForKey:@"assetID"];
@@ -179,28 +179,28 @@
 {
   dataCopy = data;
   handlerCopy = handler;
-  v34 = +[NSMutableArray array];
-  v32 = +[NSMutableArray array];
+  v35 = +[NSMutableArray array];
   v33 = +[NSMutableArray array];
-  v50 = 0u;
+  v34 = +[NSMutableArray array];
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
+  v50 = 0u;
   v6 = dataCopy;
-  v7 = [v6 countByEnumeratingWithState:&v48 objects:v56 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v49 objects:v57 count:16];
   if (v7)
   {
-    v8 = *v49;
+    v8 = *v50;
     do
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v49 != v8)
+        if (*v50 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v48 + 1) + 8 * i);
+        v10 = *(*(&v49 + 1) + 8 * i);
         assetID = [v10 assetID];
         if (assetID)
         {
@@ -215,7 +215,7 @@
 
             if (!v18)
             {
-              [v33 addObject:assetID];
+              [v34 addObject:assetID];
             }
           }
 
@@ -226,7 +226,7 @@
 
             if (v15)
             {
-              [v34 addObject:assetID];
+              [v35 addObject:assetID];
               goto LABEL_19;
             }
 
@@ -235,7 +235,7 @@
 
             if (v20)
             {
-              [v32 addObject:assetID];
+              [v33 addObject:assetID];
               goto LABEL_19;
             }
 
@@ -250,7 +250,7 @@
                 goto LABEL_19;
               }
 
-              cloudAssetType4 = sub_10000DE28();
+              cloudAssetType4 = sub_10000DE28(v24);
               if (os_log_type_enabled(cloudAssetType4, OS_LOG_TYPE_DEFAULT))
               {
                 cloudAssetType6 = [v10 cloudAssetType];
@@ -268,7 +268,7 @@
 LABEL_19:
       }
 
-      v7 = [v6 countByEnumeratingWithState:&v48 objects:v56 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v49 objects:v57 count:16];
     }
 
     while (v7);
@@ -277,48 +277,48 @@ LABEL_19:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v53 = sub_10006C248;
-  v54 = sub_10006C258;
-  v55 = +[NSMutableDictionary dictionary];
-  v26 = dispatch_group_create();
-  if ([v34 count] || objc_msgSend(v32, "count"))
+  v54 = sub_10006C248;
+  v55 = sub_10006C258;
+  v56 = +[NSMutableDictionary dictionary];
+  v27 = dispatch_group_create();
+  if ([v35 count] || objc_msgSend(v33, "count"))
   {
-    dispatch_group_enter(v26);
-    v43[0] = _NSConcreteStackBlock;
-    v43[1] = 3221225472;
-    v43[2] = sub_10006C260;
-    v43[3] = &unk_100241B80;
-    v47 = buf;
-    v44 = v32;
-    v45 = v34;
-    v46 = v26;
-    [(BDSBookWidgetInfoManager *)self fetchBookAssets:v45 audiobookAssets:v44 completionHandler:v43];
+    dispatch_group_enter(v27);
+    v44[0] = _NSConcreteStackBlock;
+    v44[1] = 3221225472;
+    v44[2] = sub_10006C260;
+    v44[3] = &unk_100241B80;
+    v48 = buf;
+    v45 = v33;
+    v46 = v35;
+    v47 = v27;
+    [(BDSBookWidgetInfoManager *)self fetchBookAssets:v46 audiobookAssets:v45 completionHandler:v44];
   }
 
-  if ([v33 count])
+  if ([v34 count])
   {
-    dispatch_group_enter(v26);
-    v39[0] = _NSConcreteStackBlock;
-    v39[1] = 3221225472;
-    v39[2] = sub_10006C2EC;
-    v39[3] = &unk_100241BA8;
-    v42 = buf;
-    v40 = v33;
-    v41 = v26;
-    [(BDSBookWidgetInfoManager *)self fetchAdamIDs:v40 completionHandler:v39];
+    dispatch_group_enter(v27);
+    v40[0] = _NSConcreteStackBlock;
+    v40[1] = 3221225472;
+    v40[2] = sub_10006C2EC;
+    v40[3] = &unk_100241BA8;
+    v43 = buf;
+    v41 = v34;
+    v42 = v27;
+    [(BDSBookWidgetInfoManager *)self fetchAdamIDs:v41 completionHandler:v40];
   }
 
-  v27 = dispatch_get_global_queue(2, 0);
+  v28 = dispatch_get_global_queue(2, 0);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10006C378;
   block[3] = &unk_100241BD0;
-  v38 = buf;
-  v36 = v6;
-  v37 = handlerCopy;
-  v28 = handlerCopy;
-  v29 = v6;
-  dispatch_group_notify(v26, v27, block);
+  v39 = buf;
+  v37 = v6;
+  v38 = handlerCopy;
+  v29 = handlerCopy;
+  v30 = v6;
+  dispatch_group_notify(v27, v28, block);
 
   _Block_object_dispose(buf, 8);
 }
@@ -477,7 +477,7 @@ LABEL_19:
   }
 
   v15 = [v6 count];
-  v16 = sub_10000DE28();
+  v16 = sub_10000DE28(v15);
   v17 = os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT);
   if (v15)
   {
@@ -522,59 +522,57 @@ LABEL_19:
 - (void)fetchAdamIDs:(NSArray *)ds completionHandler:(id)handler
 {
   v7 = sub_100084528(&unk_100270A00, &qword_1001F3120);
-  v8 = *(*(v7 - 8) + 64);
   __chkstk_darwin(v7 - 8);
-  v10 = &v18 - v9;
-  v11 = _Block_copy(handler);
-  v12 = swift_allocObject();
-  v12[2] = ds;
-  v12[3] = v11;
-  v12[4] = self;
-  v13 = sub_1001C6348();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v9 = &v17 - v8;
+  v10 = _Block_copy(handler);
+  v11 = swift_allocObject();
+  v11[2] = ds;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = sub_1001C6348();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_1001F15E0;
+  v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_1001F15E0;
-  v14[5] = v12;
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_1001F15E8;
-  v15[5] = v14;
+  v14[4] = &unk_1001F15E8;
+  v14[5] = v13;
   dsCopy = ds;
   selfCopy = self;
-  sub_100118770(0, 0, v10, &unk_1001F15F0, v15);
+  sub_100118770(0, 0, v9, &unk_1001F15F0, v14);
 }
 
 - (void)fetchBookAssets:(NSArray *)assets audiobookAssets:(NSArray *)audiobookAssets completionHandler:(id)handler
 {
   v9 = sub_100084528(&unk_100270A00, &qword_1001F3120);
-  v10 = *(*(v9 - 8) + 64);
   __chkstk_darwin(v9 - 8);
-  v12 = &v21 - v11;
-  v13 = _Block_copy(handler);
-  v14 = swift_allocObject();
-  v14[2] = assets;
-  v14[3] = audiobookAssets;
-  v14[4] = v13;
-  v14[5] = self;
-  v15 = sub_1001C6348();
-  (*(*(v15 - 8) + 56))(v12, 1, 1, v15);
+  v11 = &v20 - v10;
+  v12 = _Block_copy(handler);
+  v13 = swift_allocObject();
+  v13[2] = assets;
+  v13[3] = audiobookAssets;
+  v13[4] = v12;
+  v13[5] = self;
+  v14 = sub_1001C6348();
+  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+  v15 = swift_allocObject();
+  v15[2] = 0;
+  v15[3] = 0;
+  v15[4] = &unk_1001F15C8;
+  v15[5] = v13;
   v16 = swift_allocObject();
   v16[2] = 0;
   v16[3] = 0;
-  v16[4] = &unk_1001F15C8;
-  v16[5] = v14;
-  v17 = swift_allocObject();
-  v17[2] = 0;
-  v17[3] = 0;
-  v17[4] = &unk_1001F0DB0;
-  v17[5] = v16;
+  v16[4] = &unk_1001F0DB0;
+  v16[5] = v15;
   assetsCopy = assets;
   audiobookAssetsCopy = audiobookAssets;
   selfCopy = self;
-  sub_100118770(0, 0, v12, &unk_1001F33E0, v17);
+  sub_100118770(0, 0, v11, &unk_1001F33E0, v16);
 }
 
 @end

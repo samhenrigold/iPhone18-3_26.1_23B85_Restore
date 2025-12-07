@@ -43,23 +43,22 @@
 
 + (id)defaultConfiguration
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(REInteractionDescriptor);
   [(REInteractionDescriptor *)v2 setName:@"tap"];
   v3 = NSStringFromSelector(sel_sectionDescriptors);
-  v13[0] = v3;
+  v12[0] = v3;
   v4 = MEMORY[0x277CBEB18];
   v5 = [RESectionDescriptor defaultSectionDescriptorForIdentifier:@"defaultSectionIdentifier"];
   v6 = [v4 arrayWithObject:v5];
-  v14[0] = v6;
+  v13[0] = v6;
   v7 = NSStringFromSelector(sel_interactionDescriptors);
-  v13[1] = v7;
+  v12[1] = v7;
   v8 = [MEMORY[0x277CBEB18] arrayWithObject:v2];
-  v14[1] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[1] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   v10 = [[RERelevanceEngineConfiguration alloc] initWithDictionary:v9];
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -568,15 +567,15 @@ void __67__RERelevanceEngineConfiguration_disableAutomaticContentManagement__blo
 
 void __83__RERelevanceEngineConfiguration_REUpNextConfiguration__defaultUpNextConfiguration__block_invoke()
 {
-  v379[1] = *MEMORY[0x277D85DE8];
+  v378[1] = *MEMORY[0x277D85DE8];
   v0 = NSHomeDirectory();
   v1 = [v0 stringByAppendingPathComponent:@"Library/RelevanceEngine/Model"];
 
   v2 = [MEMORY[0x277CCAA00] defaultManager];
   [v2 createDirectoryAtPath:v1 withIntermediateDirectories:1 attributes:0 error:0];
 
-  v238 = v1;
-  v230 = [v1 stringByAppendingPathComponent:@"model.mdl"];
+  v237 = v1;
+  v229 = [v1 stringByAppendingPathComponent:@"model.mdl"];
   v3 = [MEMORY[0x277CBEB18] array];
   v4 = [RESectionDescriptor defaultUpNextSectionDescriptorForIdentifier:@"allDaySectionIdentifier"];
   [v3 addObject:v4];
@@ -588,7 +587,7 @@ void __83__RERelevanceEngineConfiguration_REUpNextConfiguration__defaultUpNextCo
   [v3 addObject:v6];
 
   v7 = [RESectionDescriptor defaultUpNextSectionDescriptorForIdentifier:@"upcomingSectionIdentifier"];
-  v232 = v3;
+  v231 = v3;
   [v3 addObject:v7];
 
   v8 = [MEMORY[0x277CBEB18] array];
@@ -596,7 +595,7 @@ void __83__RERelevanceEngineConfiguration_REUpNextConfiguration__defaultUpNextCo
   [(REInteractionDescriptor *)v9 setName:@"tap"];
   LODWORD(v10) = 4.0;
   [(REInteractionDescriptor *)v9 setWeight:v10];
-  v237 = v9;
+  v236 = v9;
   [v8 addObject:v9];
   v11 = objc_alloc_init(REInteractionDescriptor);
   [(REInteractionDescriptor *)v11 setName:@"app-action"];
@@ -606,7 +605,7 @@ void __83__RERelevanceEngineConfiguration_REUpNextConfiguration__defaultUpNextCo
   v13 = +[REFeature dataSourceFeature];
   [(REInteractionDescriptor *)v11 setIdentificationFeature:v13];
 
-  v236 = v11;
+  v235 = v11;
   [v8 addObject:v11];
   v14 = objc_alloc_init(REInteractionDescriptor);
   [(REInteractionDescriptor *)v14 setName:@"action"];
@@ -616,30 +615,30 @@ void __83__RERelevanceEngineConfiguration_REUpNextConfiguration__defaultUpNextCo
   v16 = +[REFeature dataSourceFeature];
   [(REInteractionDescriptor *)v14 setIdentificationFeature:v16];
 
-  v233 = v8;
-  v235 = v14;
+  v232 = v8;
+  v234 = v14;
   [v8 addObject:v14];
   v17 = +[REFeatureTransformer hashTransform];
   v18 = +[REFeature dataSourceFeature];
-  v379[0] = v18;
-  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v379 count:1];
+  v378[0] = v18;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v378 count:1];
   v20 = [REFeature transformedFeatureWithTransformer:v17 features:v19];
 
   v21 = [REFeatureTransformer maskTransformWithWidth:9];
-  v378 = v20;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v378 count:1];
-  v305 = [REFeature transformedFeatureWithTransformer:v21 features:v22];
+  v377 = v20;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v377 count:1];
+  v304 = [REFeature transformedFeatureWithTransformer:v21 features:v22];
 
   v23 = [REFeatureTransformer maskTransformWithWidth:9];
   v24 = +[REFeature itemIdentifierFeature];
-  v377 = v24;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v377 count:1];
+  v376 = v24;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v376 count:1];
   v26 = [REFeature transformedFeatureWithTransformer:v23 features:v25];
 
-  v376[0] = v305;
-  v376[1] = v26;
-  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v376 count:2];
-  v304 = [REFeature crossedFeatureWithFeatures:v27];
+  v375[0] = v304;
+  v375[1] = v26;
+  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v375 count:2];
+  v303 = [REFeature crossedFeatureWithFeatures:v27];
 
   v28 = [REFeatureValue featureValueWithDouble:0.0];
   v29 = [REFeatureValue featureValueWithDouble:1.0];
@@ -650,519 +649,518 @@ void __83__RERelevanceEngineConfiguration_REUpNextConfiguration__defaultUpNextCo
   v33 = [REFeatureTransformer bucketTransformerWithCount:25 minValue:v31 maxValue:v32];
 
   v34 = +[REFeature dateFeature];
-  v375 = v34;
-  v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v375 count:1];
-  v234 = v33;
-  v302 = [REFeature transformedFeatureWithTransformer:v33 features:v35];
+  v374 = v34;
+  v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v374 count:1];
+  v233 = v33;
+  v301 = [REFeature transformedFeatureWithTransformer:v33 features:v35];
 
   v36 = +[REFeature locationFeature];
-  v374 = v36;
-  v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v374 count:1];
-  v301 = [REFeature transformedFeatureWithTransformer:v30 features:v37];
+  v373 = v36;
+  v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v373 count:1];
+  v300 = [REFeature transformedFeatureWithTransformer:v30 features:v37];
 
   v38 = +[REFeature geofenceFeature];
-  v373 = v38;
-  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v373 count:1];
-  v300 = [REFeature transformedFeatureWithTransformer:v30 features:v39];
+  v372 = v38;
+  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v372 count:1];
+  v299 = [REFeature transformedFeatureWithTransformer:v30 features:v39];
 
   v40 = +[REFeature priorityFeature];
-  v372 = v40;
-  v41 = [MEMORY[0x277CBEA60] arrayWithObjects:&v372 count:1];
-  v303 = v30;
-  v299 = [REFeature transformedFeatureWithTransformer:v30 features:v41];
+  v371 = v40;
+  v41 = [MEMORY[0x277CBEA60] arrayWithObjects:&v371 count:1];
+  v302 = v30;
+  v298 = [REFeature transformedFeatureWithTransformer:v30 features:v41];
 
   v42 = +[REFeatureTransformer hashTransform];
   v43 = +[REFeature locationOfInterestFeature];
-  v371 = v43;
-  v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v371 count:1];
+  v370 = v43;
+  v44 = [MEMORY[0x277CBEA60] arrayWithObjects:&v370 count:1];
   v45 = [REFeature transformedFeatureWithTransformer:v42 features:v44];
 
   v46 = [REFeatureTransformer maskTransformWithWidth:9];
-  v231 = v45;
-  v370 = v45;
-  v47 = [MEMORY[0x277CBEA60] arrayWithObjects:&v370 count:1];
-  v298 = [REFeature transformedFeatureWithTransformer:v46 features:v47];
+  v230 = v45;
+  v369 = v45;
+  v47 = [MEMORY[0x277CBEA60] arrayWithObjects:&v369 count:1];
+  v297 = [REFeature transformedFeatureWithTransformer:v46 features:v47];
 
   v48 = [REFeatureTransformer maskTransformWithWidth:5];
   v49 = +[REFeature knownLocationOfInterestFeature];
-  v369 = v49;
-  v50 = [MEMORY[0x277CBEA60] arrayWithObjects:&v369 count:1];
-  v297 = [REFeature transformedFeatureWithTransformer:v48 features:v50];
+  v368 = v49;
+  v50 = [MEMORY[0x277CBEA60] arrayWithObjects:&v368 count:1];
+  v296 = [REFeature transformedFeatureWithTransformer:v48 features:v50];
 
   v51 = +[REFeature appUsageFeature];
-  v368 = v51;
-  v52 = [MEMORY[0x277CBEA60] arrayWithObjects:&v368 count:1];
-  v296 = [REFeature transformedFeatureWithTransformer:v30 features:v52];
+  v367 = v51;
+  v52 = [MEMORY[0x277CBEA60] arrayWithObjects:&v367 count:1];
+  v295 = [REFeature transformedFeatureWithTransformer:v30 features:v52];
 
   v53 = [REFeatureValue featureValueWithDouble:0.0];
   v54 = [REFeatureValue featureValueWithDouble:1.0];
   v55 = [REFeatureTransformer bucketTransformerWithCount:24 minValue:v53 maxValue:v54];
   v56 = +[REFeature currentTimeFeature];
-  v367 = v56;
-  v57 = [MEMORY[0x277CBEA60] arrayWithObjects:&v367 count:1];
-  v295 = [REFeature transformedFeatureWithTransformer:v55 features:v57];
+  v366 = v56;
+  v57 = [MEMORY[0x277CBEA60] arrayWithObjects:&v366 count:1];
+  v294 = [REFeature transformedFeatureWithTransformer:v55 features:v57];
 
   v58 = [REFeatureValue featureValueWithDouble:0.0];
   v59 = [REFeatureValue featureValueWithDouble:1.0];
   v60 = [REFeatureTransformer bucketTransformerWithCount:8 minValue:v58 maxValue:v59];
   v61 = +[REFeature currentTimeFeature];
-  v366 = v61;
-  v62 = [MEMORY[0x277CBEA60] arrayWithObjects:&v366 count:1];
-  v294 = [REFeature transformedFeatureWithTransformer:v60 features:v62];
+  v365 = v61;
+  v62 = [MEMORY[0x277CBEA60] arrayWithObjects:&v365 count:1];
+  v293 = [REFeature transformedFeatureWithTransformer:v60 features:v62];
 
   v63 = [REFeatureValue featureValueWithDouble:0.0];
   v64 = [REFeatureValue featureValueWithDouble:1.0];
   v65 = [REFeatureTransformer bucketTransformerWithCount:2 minValue:v63 maxValue:v64];
   v66 = +[REFeature currentTimeFeature];
-  v365 = v66;
-  v67 = [MEMORY[0x277CBEA60] arrayWithObjects:&v365 count:1];
-  v293 = [REFeature transformedFeatureWithTransformer:v65 features:v67];
+  v364 = v66;
+  v67 = [MEMORY[0x277CBEA60] arrayWithObjects:&v364 count:1];
+  v292 = [REFeature transformedFeatureWithTransformer:v65 features:v67];
 
   v68 = [REFeatureTransformer maskTransformWithWidth:3];
   v69 = +[REFeature dayOfWeekFeature];
-  v364 = v69;
-  v70 = [MEMORY[0x277CBEA60] arrayWithObjects:&v364 count:1];
-  v292 = [REFeature transformedFeatureWithTransformer:v68 features:v70];
+  v363 = v69;
+  v70 = [MEMORY[0x277CBEA60] arrayWithObjects:&v363 count:1];
+  v291 = [REFeature transformedFeatureWithTransformer:v68 features:v70];
 
   v71 = [REFeatureTransformer maskTransformWithWidth:1];
   v72 = +[REFeature isWeekendFeature];
-  v363 = v72;
-  v73 = [MEMORY[0x277CBEA60] arrayWithObjects:&v363 count:1];
-  v291 = [REFeature transformedFeatureWithTransformer:v71 features:v73];
+  v362 = v72;
+  v73 = [MEMORY[0x277CBEA60] arrayWithObjects:&v362 count:1];
+  v290 = [REFeature transformedFeatureWithTransformer:v71 features:v73];
 
-  v362[0] = v305;
-  v362[1] = v302;
-  v74 = [MEMORY[0x277CBEA60] arrayWithObjects:v362 count:2];
-  v290 = [REFeature crossedFeatureWithFeatures:v74];
-
-  v361[0] = v305;
+  v361[0] = v304;
   v361[1] = v301;
-  v75 = [MEMORY[0x277CBEA60] arrayWithObjects:v361 count:2];
-  v289 = [REFeature crossedFeatureWithFeatures:v75];
+  v74 = [MEMORY[0x277CBEA60] arrayWithObjects:v361 count:2];
+  v289 = [REFeature crossedFeatureWithFeatures:v74];
 
-  v360[0] = v305;
+  v360[0] = v304;
   v360[1] = v300;
-  v76 = [MEMORY[0x277CBEA60] arrayWithObjects:v360 count:2];
-  v288 = [REFeature crossedFeatureWithFeatures:v76];
+  v75 = [MEMORY[0x277CBEA60] arrayWithObjects:v360 count:2];
+  v288 = [REFeature crossedFeatureWithFeatures:v75];
 
-  v359[0] = v305;
+  v359[0] = v304;
   v359[1] = v299;
-  v77 = [MEMORY[0x277CBEA60] arrayWithObjects:v359 count:2];
-  v287 = [REFeature crossedFeatureWithFeatures:v77];
+  v76 = [MEMORY[0x277CBEA60] arrayWithObjects:v359 count:2];
+  v287 = [REFeature crossedFeatureWithFeatures:v76];
 
   v358[0] = v304;
-  v358[1] = v302;
-  v78 = [MEMORY[0x277CBEA60] arrayWithObjects:v358 count:2];
-  v286 = [REFeature crossedFeatureWithFeatures:v78];
+  v358[1] = v298;
+  v77 = [MEMORY[0x277CBEA60] arrayWithObjects:v358 count:2];
+  v286 = [REFeature crossedFeatureWithFeatures:v77];
 
-  v357[0] = v304;
+  v357[0] = v303;
   v357[1] = v301;
-  v79 = [MEMORY[0x277CBEA60] arrayWithObjects:v357 count:2];
-  v285 = [REFeature crossedFeatureWithFeatures:v79];
+  v78 = [MEMORY[0x277CBEA60] arrayWithObjects:v357 count:2];
+  v285 = [REFeature crossedFeatureWithFeatures:v78];
 
-  v356[0] = v304;
+  v356[0] = v303;
   v356[1] = v300;
-  v80 = [MEMORY[0x277CBEA60] arrayWithObjects:v356 count:2];
-  v284 = [REFeature crossedFeatureWithFeatures:v80];
+  v79 = [MEMORY[0x277CBEA60] arrayWithObjects:v356 count:2];
+  v284 = [REFeature crossedFeatureWithFeatures:v79];
 
-  v355[0] = v304;
+  v355[0] = v303;
   v355[1] = v299;
-  v81 = [MEMORY[0x277CBEA60] arrayWithObjects:v355 count:2];
-  v283 = [REFeature crossedFeatureWithFeatures:v81];
+  v80 = [MEMORY[0x277CBEA60] arrayWithObjects:v355 count:2];
+  v283 = [REFeature crossedFeatureWithFeatures:v80];
 
-  v354[0] = v305;
-  v354[1] = v296;
-  v82 = [MEMORY[0x277CBEA60] arrayWithObjects:v354 count:2];
-  v282 = [REFeature crossedFeatureWithFeatures:v82];
+  v354[0] = v303;
+  v354[1] = v298;
+  v81 = [MEMORY[0x277CBEA60] arrayWithObjects:v354 count:2];
+  v282 = [REFeature crossedFeatureWithFeatures:v81];
 
-  v353[0] = v305;
+  v353[0] = v304;
   v353[1] = v295;
-  v83 = [MEMORY[0x277CBEA60] arrayWithObjects:v353 count:2];
-  v281 = [REFeature crossedFeatureWithFeatures:v83];
+  v82 = [MEMORY[0x277CBEA60] arrayWithObjects:v353 count:2];
+  v281 = [REFeature crossedFeatureWithFeatures:v82];
 
-  v352[0] = v305;
+  v352[0] = v304;
   v352[1] = v294;
-  v84 = [MEMORY[0x277CBEA60] arrayWithObjects:v352 count:2];
-  v280 = [REFeature crossedFeatureWithFeatures:v84];
+  v83 = [MEMORY[0x277CBEA60] arrayWithObjects:v352 count:2];
+  v280 = [REFeature crossedFeatureWithFeatures:v83];
 
-  v351[0] = v305;
+  v351[0] = v304;
   v351[1] = v293;
-  v85 = [MEMORY[0x277CBEA60] arrayWithObjects:v351 count:2];
-  v279 = [REFeature crossedFeatureWithFeatures:v85];
+  v84 = [MEMORY[0x277CBEA60] arrayWithObjects:v351 count:2];
+  v279 = [REFeature crossedFeatureWithFeatures:v84];
 
-  v350[0] = v305;
+  v350[0] = v304;
   v350[1] = v292;
-  v86 = [MEMORY[0x277CBEA60] arrayWithObjects:v350 count:2];
-  v278 = [REFeature crossedFeatureWithFeatures:v86];
+  v85 = [MEMORY[0x277CBEA60] arrayWithObjects:v350 count:2];
+  v278 = [REFeature crossedFeatureWithFeatures:v85];
 
-  v349[0] = v305;
+  v349[0] = v304;
   v349[1] = v291;
-  v87 = [MEMORY[0x277CBEA60] arrayWithObjects:v349 count:2];
-  v277 = [REFeature crossedFeatureWithFeatures:v87];
+  v86 = [MEMORY[0x277CBEA60] arrayWithObjects:v349 count:2];
+  v277 = [REFeature crossedFeatureWithFeatures:v86];
 
   v348[0] = v304;
-  v348[1] = v295;
-  v88 = [MEMORY[0x277CBEA60] arrayWithObjects:v348 count:2];
-  v276 = [REFeature crossedFeatureWithFeatures:v88];
+  v348[1] = v290;
+  v87 = [MEMORY[0x277CBEA60] arrayWithObjects:v348 count:2];
+  v276 = [REFeature crossedFeatureWithFeatures:v87];
 
-  v347[0] = v304;
+  v347[0] = v303;
   v347[1] = v294;
-  v89 = [MEMORY[0x277CBEA60] arrayWithObjects:v347 count:2];
-  v275 = [REFeature crossedFeatureWithFeatures:v89];
+  v88 = [MEMORY[0x277CBEA60] arrayWithObjects:v347 count:2];
+  v275 = [REFeature crossedFeatureWithFeatures:v88];
 
-  v346[0] = v304;
+  v346[0] = v303;
   v346[1] = v293;
-  v90 = [MEMORY[0x277CBEA60] arrayWithObjects:v346 count:2];
-  v274 = [REFeature crossedFeatureWithFeatures:v90];
+  v89 = [MEMORY[0x277CBEA60] arrayWithObjects:v346 count:2];
+  v274 = [REFeature crossedFeatureWithFeatures:v89];
 
-  v345[0] = v304;
+  v345[0] = v303;
   v345[1] = v292;
-  v91 = [MEMORY[0x277CBEA60] arrayWithObjects:v345 count:2];
-  v273 = [REFeature crossedFeatureWithFeatures:v91];
+  v90 = [MEMORY[0x277CBEA60] arrayWithObjects:v345 count:2];
+  v273 = [REFeature crossedFeatureWithFeatures:v90];
 
-  v344[0] = v304;
+  v344[0] = v303;
   v344[1] = v291;
-  v92 = [MEMORY[0x277CBEA60] arrayWithObjects:v344 count:2];
-  v272 = [REFeature crossedFeatureWithFeatures:v92];
+  v91 = [MEMORY[0x277CBEA60] arrayWithObjects:v344 count:2];
+  v272 = [REFeature crossedFeatureWithFeatures:v91];
 
-  v343[0] = v305;
-  v343[1] = v298;
-  v93 = [MEMORY[0x277CBEA60] arrayWithObjects:v343 count:2];
-  v271 = [REFeature crossedFeatureWithFeatures:v93];
+  v343[0] = v303;
+  v343[1] = v290;
+  v92 = [MEMORY[0x277CBEA60] arrayWithObjects:v343 count:2];
+  v271 = [REFeature crossedFeatureWithFeatures:v92];
 
-  v342[0] = v305;
+  v342[0] = v304;
   v342[1] = v297;
-  v94 = [MEMORY[0x277CBEA60] arrayWithObjects:v342 count:2];
-  v270 = [REFeature crossedFeatureWithFeatures:v94];
+  v93 = [MEMORY[0x277CBEA60] arrayWithObjects:v342 count:2];
+  v270 = [REFeature crossedFeatureWithFeatures:v93];
 
   v341[0] = v304;
-  v341[1] = v298;
-  v95 = [MEMORY[0x277CBEA60] arrayWithObjects:v341 count:2];
-  v269 = [REFeature crossedFeatureWithFeatures:v95];
+  v341[1] = v296;
+  v94 = [MEMORY[0x277CBEA60] arrayWithObjects:v341 count:2];
+  v269 = [REFeature crossedFeatureWithFeatures:v94];
 
-  v340[0] = v304;
+  v340[0] = v303;
   v340[1] = v297;
-  v96 = [MEMORY[0x277CBEA60] arrayWithObjects:v340 count:2];
-  v268 = [REFeature crossedFeatureWithFeatures:v96];
+  v95 = [MEMORY[0x277CBEA60] arrayWithObjects:v340 count:2];
+  v268 = [REFeature crossedFeatureWithFeatures:v95];
+
+  v339[0] = v303;
+  v339[1] = v296;
+  v96 = [MEMORY[0x277CBEA60] arrayWithObjects:v339 count:2];
+  v267 = [REFeature crossedFeatureWithFeatures:v96];
 
   v97 = +[REFeature recentSiriActionFeature];
-  v339 = v97;
-  v98 = [MEMORY[0x277CBEA60] arrayWithObjects:&v339 count:1];
-  v267 = [REFeature transformedFeatureWithTransformer:v303 features:v98];
+  v338 = v97;
+  v98 = [MEMORY[0x277CBEA60] arrayWithObjects:&v338 count:1];
+  v266 = [REFeature transformedFeatureWithTransformer:v302 features:v98];
 
   v99 = [REFeatureValue featureValueWithDouble:0.5];
   v100 = [REFeatureTransformer binaryTransformerWithThreshold:v99];
   v101 = +[REFeature siriActionDailyAveragePerformedCountFeature];
-  v338 = v101;
-  v102 = [MEMORY[0x277CBEA60] arrayWithObjects:&v338 count:1];
-  v266 = [REFeature transformedFeatureWithTransformer:v100 features:v102];
+  v337 = v101;
+  v102 = [MEMORY[0x277CBEA60] arrayWithObjects:&v337 count:1];
+  v265 = [REFeature transformedFeatureWithTransformer:v100 features:v102];
 
   v103 = [REFeatureTransformer customCategoricalTransformerWithName:@"multipleBy7" block:&__block_literal_global_43_1];
   v104 = +[REFeature siriActionDailyAveragePerformedCountFeature];
-  v337 = v104;
-  v105 = [MEMORY[0x277CBEA60] arrayWithObjects:&v337 count:1];
+  v336 = v104;
+  v105 = [MEMORY[0x277CBEA60] arrayWithObjects:&v336 count:1];
   v106 = [REFeature transformedFeatureWithTransformer:v103 features:v105];
 
   v107 = [REFeatureTransformer maskTransformWithWidth:5];
-  v336 = v106;
-  v108 = [MEMORY[0x277CBEA60] arrayWithObjects:&v336 count:1];
-  v265 = [REFeature transformedFeatureWithTransformer:v107 features:v108];
+  v335 = v106;
+  v108 = [MEMORY[0x277CBEA60] arrayWithObjects:&v335 count:1];
+  v264 = [REFeature transformedFeatureWithTransformer:v107 features:v108];
 
-  v335[0] = v265;
-  v335[1] = v305;
-  v109 = [MEMORY[0x277CBEA60] arrayWithObjects:v335 count:2];
-  v264 = [REFeature crossedFeatureWithFeatures:v109];
+  v334[0] = v264;
+  v334[1] = v304;
+  v109 = [MEMORY[0x277CBEA60] arrayWithObjects:v334 count:2];
+  v263 = [REFeature crossedFeatureWithFeatures:v109];
 
   v110 = [REFeatureTransformer bucketTransformerWithBitWidth:3];
   v111 = +[REFeature siriActionPerformedCountFeature];
-  v334 = v111;
-  v112 = [MEMORY[0x277CBEA60] arrayWithObjects:&v334 count:1];
-  v263 = [REFeature transformedFeatureWithTransformer:v110 features:v112];
+  v333 = v111;
+  v112 = [MEMORY[0x277CBEA60] arrayWithObjects:&v333 count:1];
+  v262 = [REFeature transformedFeatureWithTransformer:v110 features:v112];
 
-  v333[0] = v263;
-  v333[1] = v305;
-  v113 = [MEMORY[0x277CBEA60] arrayWithObjects:v333 count:2];
-  v262 = [REFeature crossedFeatureWithFeatures:v113];
+  v332[0] = v262;
+  v332[1] = v304;
+  v113 = [MEMORY[0x277CBEA60] arrayWithObjects:v332 count:2];
+  v261 = [REFeature crossedFeatureWithFeatures:v113];
 
   v114 = [REFeatureTransformer customCategoricalTransformerWithName:@"moreThanDailyAverage" featureCount:2 transformation:&__block_literal_global_49];
   v115 = +[REFeature siriActionPerformedCountFeature];
-  v332[0] = v115;
+  v331[0] = v115;
   v116 = +[REFeature siriActionDailyAveragePerformedCountFeature];
-  v332[1] = v116;
-  v117 = [MEMORY[0x277CBEA60] arrayWithObjects:v332 count:2];
+  v331[1] = v116;
+  v117 = [MEMORY[0x277CBEA60] arrayWithObjects:v331 count:2];
   v118 = [REFeature transformedFeatureWithTransformer:v114 features:v117];
 
   v119 = [REFeatureTransformer maskTransformWithWidth:1];
-  v261 = [v118 featureByUsingTransformer:v119];
+  v260 = [v118 featureByUsingTransformer:v119];
 
-  v331[0] = v261;
-  v331[1] = v305;
-  v120 = [MEMORY[0x277CBEA60] arrayWithObjects:v331 count:2];
-  v260 = [REFeature crossedFeatureWithFeatures:v120];
+  v330[0] = v260;
+  v330[1] = v304;
+  v120 = [MEMORY[0x277CBEA60] arrayWithObjects:v330 count:2];
+  v259 = [REFeature crossedFeatureWithFeatures:v120];
 
-  v259 = +[REFeature currentlyPlayingFromAppFeature];
-  v330[0] = v259;
-  v330[1] = v305;
-  v121 = [MEMORY[0x277CBEA60] arrayWithObjects:v330 count:2];
-  v258 = [REFeature crossedFeatureWithFeatures:v121];
+  v258 = +[REFeature currentlyPlayingFromAppFeature];
+  v329[0] = v258;
+  v329[1] = v304;
+  v121 = [MEMORY[0x277CBEA60] arrayWithObjects:v329 count:2];
+  v257 = [REFeature crossedFeatureWithFeatures:v121];
 
-  v257 = +[REFeature activeWorkoutFeature];
-  v329[0] = v257;
-  v329[1] = v305;
-  v122 = [MEMORY[0x277CBEA60] arrayWithObjects:v329 count:2];
-  v256 = [REFeature crossedFeatureWithFeatures:v122];
+  v256 = +[REFeature activeWorkoutFeature];
+  v328[0] = v256;
+  v328[1] = v304;
+  v122 = [MEMORY[0x277CBEA60] arrayWithObjects:v328 count:2];
+  v255 = [REFeature crossedFeatureWithFeatures:v122];
 
   v123 = [REFeatureValue featureValueWithDouble:0.0];
   v124 = [REFeatureValue featureValueWithDouble:3.0];
   v125 = [REFeatureTransformer bucketTransformerWithCount:18 minValue:v123 maxValue:v124];
 
   v126 = +[REFeature activeEnergyCompletionFeature];
-  v255 = [v126 featureByUsingTransformer:v125];
+  v254 = [v126 featureByUsingTransformer:v125];
 
   v127 = +[REFeature exerciseTimeCompletionFeature];
-  v254 = [v127 featureByUsingTransformer:v125];
+  v253 = [v127 featureByUsingTransformer:v125];
 
   v128 = +[REFeature standHourCompletionFeature];
-  v229 = v125;
-  v253 = [v128 featureByUsingTransformer:v125];
+  v228 = v125;
+  v252 = [v128 featureByUsingTransformer:v125];
 
-  v328[0] = v255;
-  v328[1] = v305;
-  v129 = [MEMORY[0x277CBEA60] arrayWithObjects:v328 count:2];
-  v252 = [REFeature crossedFeatureWithFeatures:v129];
+  v327[0] = v254;
+  v327[1] = v304;
+  v129 = [MEMORY[0x277CBEA60] arrayWithObjects:v327 count:2];
+  v251 = [REFeature crossedFeatureWithFeatures:v129];
 
   v130 = [REFeatureTransformer customCategoricalTransformerWithName:@"ringClosed" featureCount:1 transformation:&__block_literal_global_54];
   v131 = +[REFeature activeEnergyCompletionFeature];
   v132 = [v131 featureByUsingTransformer:v130];
   v133 = [REFeatureTransformer maskTransformWithWidth:1];
-  v251 = [v132 featureByUsingTransformer:v133];
+  v250 = [v132 featureByUsingTransformer:v133];
 
   v134 = +[REFeature exerciseTimeCompletionFeature];
   v135 = [v134 featureByUsingTransformer:v130];
   v136 = [REFeatureTransformer maskTransformWithWidth:1];
-  v250 = [v135 featureByUsingTransformer:v136];
+  v249 = [v135 featureByUsingTransformer:v136];
 
   v137 = +[REFeature standHourCompletionFeature];
-  v228 = v130;
+  v227 = v130;
   v138 = [v137 featureByUsingTransformer:v130];
   v139 = [REFeatureTransformer maskTransformWithWidth:1];
-  v249 = [v138 featureByUsingTransformer:v139];
+  v248 = [v138 featureByUsingTransformer:v139];
 
-  v327[0] = v251;
-  v327[1] = v305;
-  v140 = [MEMORY[0x277CBEA60] arrayWithObjects:v327 count:2];
-  v248 = [REFeature crossedFeatureWithFeatures:v140];
+  v326[0] = v250;
+  v326[1] = v304;
+  v140 = [MEMORY[0x277CBEA60] arrayWithObjects:v326 count:2];
+  v247 = [REFeature crossedFeatureWithFeatures:v140];
 
   v141 = [REFeatureTransformer customCategoricalTransformerWithName:@"allRingsClosed" featureCount:3 transformation:&__block_literal_global_59_0];
   v142 = +[REFeature activeEnergyCompletionFeature];
-  v326[0] = v142;
+  v325[0] = v142;
   v143 = +[REFeature exerciseTimeCompletionFeature];
-  v326[1] = v143;
+  v325[1] = v143;
   v144 = +[REFeature standHourCompletionFeature];
-  v326[2] = v144;
-  v145 = [MEMORY[0x277CBEA60] arrayWithObjects:v326 count:3];
+  v325[2] = v144;
+  v145 = [MEMORY[0x277CBEA60] arrayWithObjects:v325 count:3];
   v146 = [REFeature transformedFeatureWithTransformer:v141 features:v145];
 
   v147 = [REFeatureTransformer maskTransformWithWidth:1];
-  v247 = [v146 featureByUsingTransformer:v147];
+  v246 = [v146 featureByUsingTransformer:v147];
 
-  v325[0] = v247;
-  v325[1] = v305;
-  v148 = [MEMORY[0x277CBEA60] arrayWithObjects:v325 count:2];
-  v246 = [REFeature crossedFeatureWithFeatures:v148];
+  v324[0] = v246;
+  v324[1] = v304;
+  v148 = [MEMORY[0x277CBEA60] arrayWithObjects:v324 count:2];
+  v245 = [REFeature crossedFeatureWithFeatures:v148];
 
   v149 = [REFeatureTransformer customCategoricalTransformerWithName:@"multipleBy7" block:&__block_literal_global_61];
   v150 = +[REFeature dailyAverageWorkoutCountFeature];
-  v324 = v150;
-  v151 = [MEMORY[0x277CBEA60] arrayWithObjects:&v324 count:1];
+  v323 = v150;
+  v151 = [MEMORY[0x277CBEA60] arrayWithObjects:&v323 count:1];
   v152 = [REFeature transformedFeatureWithTransformer:v149 features:v151];
 
   v153 = [REFeatureTransformer maskTransformWithWidth:3];
-  v323 = v152;
-  v154 = [MEMORY[0x277CBEA60] arrayWithObjects:&v323 count:1];
-  v245 = [REFeature transformedFeatureWithTransformer:v153 features:v154];
+  v322 = v152;
+  v154 = [MEMORY[0x277CBEA60] arrayWithObjects:&v322 count:1];
+  v244 = [REFeature transformedFeatureWithTransformer:v153 features:v154];
 
-  v322[0] = v245;
-  v322[1] = v305;
-  v155 = [MEMORY[0x277CBEA60] arrayWithObjects:v322 count:2];
-  v244 = [REFeature crossedFeatureWithFeatures:v155];
+  v321[0] = v244;
+  v321[1] = v304;
+  v155 = [MEMORY[0x277CBEA60] arrayWithObjects:v321 count:2];
+  v243 = [REFeature crossedFeatureWithFeatures:v155];
 
   v156 = [REFeatureTransformer bucketTransformerWithBitWidth:3];
   v157 = +[REFeature performedWorkoutCountFeature];
-  v321 = v157;
-  v158 = [MEMORY[0x277CBEA60] arrayWithObjects:&v321 count:1];
+  v320 = v157;
+  v158 = [MEMORY[0x277CBEA60] arrayWithObjects:&v320 count:1];
   v159 = [REFeature transformedFeatureWithTransformer:v156 features:v158];
 
-  v320[0] = v159;
-  v320[1] = v305;
-  v160 = [MEMORY[0x277CBEA60] arrayWithObjects:v320 count:2];
-  v243 = [REFeature crossedFeatureWithFeatures:v160];
+  v319[0] = v159;
+  v319[1] = v304;
+  v160 = [MEMORY[0x277CBEA60] arrayWithObjects:v319 count:2];
+  v242 = [REFeature crossedFeatureWithFeatures:v160];
 
   v161 = [REFeatureValue featureValueWithDouble:0.0];
   v162 = [REFeatureValue featureValueWithDouble:1.0];
   v163 = [REFeatureTransformer bucketTransformerWithCount:15 minValue:v161 maxValue:v162];
 
   v164 = +[REFeature sentimentAnalysisFeature];
-  v319 = v164;
-  v165 = [MEMORY[0x277CBEA60] arrayWithObjects:&v319 count:1];
+  v318 = v164;
+  v165 = [MEMORY[0x277CBEA60] arrayWithObjects:&v318 count:1];
   v166 = [REFeature transformedFeatureWithTransformer:v163 features:v165];
 
   v167 = +[REFeature negativeSentimentAnalysisFeature];
-  v318 = v167;
-  v168 = [MEMORY[0x277CBEA60] arrayWithObjects:&v318 count:1];
+  v317 = v167;
+  v168 = [MEMORY[0x277CBEA60] arrayWithObjects:&v317 count:1];
   v169 = [REFeature transformedFeatureWithTransformer:v163 features:v168];
 
   v170 = +[REFeature sentimentAnalysisCertaintyFeature];
-  v317 = v170;
-  v171 = [MEMORY[0x277CBEA60] arrayWithObjects:&v317 count:1];
-  v226 = v163;
+  v316 = v170;
+  v171 = [MEMORY[0x277CBEA60] arrayWithObjects:&v316 count:1];
+  v225 = v163;
   v172 = [REFeature transformedFeatureWithTransformer:v163 features:v171];
 
   v173 = +[REFeature coreBehaviorTimePredictionFeature];
-  v242 = [v173 featureByUsingTransformer:v303];
+  v241 = [v173 featureByUsingTransformer:v302];
 
   v174 = +[REFeature coreBehaviorTimeCoarsePredictionFeature];
-  v241 = [v174 featureByUsingTransformer:v303];
+  v240 = [v174 featureByUsingTransformer:v302];
 
   v175 = +[REFeature coreBehaviorDayPredictionFeature];
-  v240 = [v175 featureByUsingTransformer:v303];
+  v239 = [v175 featureByUsingTransformer:v302];
 
   v176 = +[REFeature coreBehaviorDayCoarsePredictionFeature];
-  v239 = [v176 featureByUsingTransformer:v303];
+  v238 = [v176 featureByUsingTransformer:v302];
 
   v177 = +[REFeature coreBehaviorLocationPredictionFeature];
-  v178 = [v177 featureByUsingTransformer:v303];
+  v178 = [v177 featureByUsingTransformer:v302];
 
   v179 = +[REFeature coreBehaviorLocationCoarsePredictionFeature];
-  v180 = [v179 featureByUsingTransformer:v303];
+  v180 = [v179 featureByUsingTransformer:v302];
 
-  v217 = [REFeatureSet alloc];
-  v316[0] = v305;
-  v316[1] = v304;
-  v316[2] = v302;
-  v316[3] = v301;
-  v316[4] = v300;
-  v316[5] = v299;
-  v316[6] = v298;
-  v316[7] = v297;
-  v316[8] = v290;
-  v316[9] = v289;
-  v316[10] = v288;
-  v316[11] = v287;
-  v316[12] = v286;
-  v316[13] = v285;
-  v316[14] = v284;
-  v316[15] = v283;
-  v220 = +[REFeature interactionFeature];
-  v316[16] = v220;
-  v219 = +[REFeature noContentFeature];
-  v316[17] = v219;
-  v218 = +[REFeature conditionalFeature];
-  v316[18] = v218;
-  v316[19] = v295;
-  v316[20] = v294;
-  v316[21] = v293;
-  v316[22] = v292;
-  v316[23] = v291;
-  v316[24] = v281;
-  v316[25] = v280;
-  v316[26] = v279;
-  v316[27] = v278;
-  v316[28] = v277;
-  v316[29] = v276;
-  v316[30] = v275;
-  v316[31] = v274;
-  v316[32] = v273;
-  v316[33] = v272;
-  v316[34] = v271;
-  v316[35] = v270;
-  v316[36] = v269;
-  v316[37] = v268;
-  v316[38] = v296;
-  v316[39] = v282;
-  v216 = +[REFeature siriDomainFeature];
-  v316[40] = v216;
-  v215 = +[REFeature dailyRoutineFeature];
-  v316[41] = v215;
-  v214 = +[REFeature isInDailyRoutineFeature];
-  v316[42] = v214;
-  v213 = +[REFeature sessionFeature];
-  v316[43] = v213;
-  v316[44] = v267;
-  v316[45] = v266;
-  v316[46] = v265;
-  v316[47] = v263;
-  v316[48] = v261;
-  v316[49] = v264;
-  v316[50] = v262;
-  v316[51] = v260;
-  v224 = v169;
-  v225 = v166;
-  v316[52] = v166;
-  v316[53] = v169;
-  v223 = v172;
-  v316[54] = v172;
-  v212 = +[REFeature isSiriActionFeature];
-  v316[55] = v212;
-  v211 = +[REFeature isDeveloperDonationFeature];
-  v316[56] = v211;
-  v210 = +[REFeature nowPlayingStateFeature];
-  v316[57] = v210;
-  v316[58] = v259;
-  v316[59] = v258;
-  v316[60] = v257;
-  v316[61] = v256;
-  v209 = +[REFeature workoutStateFeature];
-  v316[62] = v209;
-  v316[63] = v245;
-  v316[64] = v244;
-  v227 = v159;
-  v316[65] = v159;
-  v316[66] = v243;
+  v216 = [REFeatureSet alloc];
+  v315[0] = v304;
+  v315[1] = v303;
+  v315[2] = v301;
+  v315[3] = v300;
+  v315[4] = v299;
+  v315[5] = v298;
+  v315[6] = v297;
+  v315[7] = v296;
+  v315[8] = v289;
+  v315[9] = v288;
+  v315[10] = v287;
+  v315[11] = v286;
+  v315[12] = v285;
+  v315[13] = v284;
+  v315[14] = v283;
+  v315[15] = v282;
+  v219 = +[REFeature interactionFeature];
+  v315[16] = v219;
+  v218 = +[REFeature noContentFeature];
+  v315[17] = v218;
+  v217 = +[REFeature conditionalFeature];
+  v315[18] = v217;
+  v315[19] = v294;
+  v315[20] = v293;
+  v315[21] = v292;
+  v315[22] = v291;
+  v315[23] = v290;
+  v315[24] = v280;
+  v315[25] = v279;
+  v315[26] = v278;
+  v315[27] = v277;
+  v315[28] = v276;
+  v315[29] = v275;
+  v315[30] = v274;
+  v315[31] = v273;
+  v315[32] = v272;
+  v315[33] = v271;
+  v315[34] = v270;
+  v315[35] = v269;
+  v315[36] = v268;
+  v315[37] = v267;
+  v315[38] = v295;
+  v315[39] = v281;
+  v215 = +[REFeature siriDomainFeature];
+  v315[40] = v215;
+  v214 = +[REFeature dailyRoutineFeature];
+  v315[41] = v214;
+  v213 = +[REFeature isInDailyRoutineFeature];
+  v315[42] = v213;
+  v212 = +[REFeature sessionFeature];
+  v315[43] = v212;
+  v315[44] = v266;
+  v315[45] = v265;
+  v315[46] = v264;
+  v315[47] = v262;
+  v315[48] = v260;
+  v315[49] = v263;
+  v315[50] = v261;
+  v315[51] = v259;
+  v223 = v169;
+  v224 = v166;
+  v315[52] = v166;
+  v315[53] = v169;
+  v222 = v172;
+  v315[54] = v172;
+  v211 = +[REFeature isSiriActionFeature];
+  v315[55] = v211;
+  v210 = +[REFeature isDeveloperDonationFeature];
+  v315[56] = v210;
+  v209 = +[REFeature nowPlayingStateFeature];
+  v315[57] = v209;
+  v315[58] = v258;
+  v315[59] = v257;
+  v315[60] = v256;
+  v315[61] = v255;
+  v208 = +[REFeature workoutStateFeature];
+  v315[62] = v208;
+  v315[63] = v244;
+  v315[64] = v243;
+  v226 = v159;
+  v315[65] = v159;
+  v315[66] = v242;
   v181 = +[REFeature deviceMotionFeature];
-  v316[67] = v181;
+  v315[67] = v181;
   v182 = +[REFeature motionFeature];
-  v316[68] = v182;
+  v315[68] = v182;
   v183 = +[REFeature isConnectedToCarFeature];
-  v316[69] = v183;
+  v315[69] = v183;
   v184 = +[REFeature isConnectedToBluetoothSpeakerFeature];
-  v316[70] = v184;
-  v316[71] = v255;
-  v316[72] = v254;
-  v316[73] = v253;
-  v316[74] = v252;
-  v316[75] = v251;
-  v316[76] = v250;
-  v316[77] = v249;
-  v316[78] = v248;
-  v316[79] = v247;
-  v316[80] = v246;
-  v316[81] = v242;
-  v316[82] = v241;
-  v316[83] = v240;
-  v316[84] = v239;
-  v221 = v180;
-  v222 = v178;
-  v316[85] = v178;
-  v316[86] = v180;
+  v315[70] = v184;
+  v315[71] = v254;
+  v315[72] = v253;
+  v315[73] = v252;
+  v315[74] = v251;
+  v315[75] = v250;
+  v315[76] = v249;
+  v315[77] = v248;
+  v315[78] = v247;
+  v315[79] = v246;
+  v315[80] = v245;
+  v315[81] = v241;
+  v315[82] = v240;
+  v315[83] = v239;
+  v315[84] = v238;
+  v220 = v180;
+  v221 = v178;
+  v315[85] = v178;
+  v315[86] = v180;
   v185 = +[REFeature coreBehaviorShortcutTypeFeature];
-  v316[87] = v185;
+  v315[87] = v185;
   v186 = +[REFeature coreBehaviorEventIdentifierHashFeature];
-  v316[88] = v186;
+  v315[88] = v186;
   v187 = +[REFeature coreBehaviorAppIdentifierHashFeature];
-  v316[89] = v187;
-  v188 = [MEMORY[0x277CBEA60] arrayWithObjects:v316 count:90];
-  v189 = [(REFeatureSet *)v217 initWithFeatures:v188];
+  v315[89] = v187;
+  v188 = [MEMORY[0x277CBEA60] arrayWithObjects:v315 count:90];
+  v189 = [(REFeatureSet *)v216 initWithFeatures:v188];
 
   v190 = objc_opt_new();
-  v191 = [MEMORY[0x277CBEBC0] URLWithString:v230];
+  v191 = [MEMORY[0x277CBEBC0] URLWithString:v229];
   [v190 setModelFileURL:v191];
 
   [v190 setPrimaryFeatures:v189];
   [v190 setModelVersion:9];
   [v190 setAllowsDiagnosticExtension:1];
-  [v190 setAllowsRemoteTraining:1];
-  v192 = REBundle();
+  v192 = REBundle([v190 setAllowsRemoteTraining:1]);
   v193 = [v192 pathForResource:@"upnext_model" ofType:@"mdl"];
 
   if (v193)
@@ -1172,57 +1170,57 @@ void __83__RERelevanceEngineConfiguration_REUpNextConfiguration__defaultUpNextCo
   }
 
   [v190 setWantsBackup:1];
-  v312 = 0u;
-  v313 = 0u;
-  v310 = 0u;
   v311 = 0u;
-  v195 = v232;
-  v196 = [v195 countByEnumeratingWithState:&v310 objects:v315 count:16];
+  v312 = 0u;
+  v309 = 0u;
+  v310 = 0u;
+  v195 = v231;
+  v196 = [v195 countByEnumeratingWithState:&v309 objects:v314 count:16];
   if (v196)
   {
     v197 = v196;
-    v198 = *v311;
+    v198 = *v310;
     do
     {
       for (i = 0; i != v197; ++i)
       {
-        if (*v311 != v198)
+        if (*v310 != v198)
         {
           objc_enumerationMutation(v195);
         }
 
-        [v190 addSectionWithDescriptor:*(*(&v310 + 1) + 8 * i)];
+        [v190 addSectionWithDescriptor:*(*(&v309 + 1) + 8 * i)];
       }
 
-      v197 = [v195 countByEnumeratingWithState:&v310 objects:v315 count:16];
+      v197 = [v195 countByEnumeratingWithState:&v309 objects:v314 count:16];
     }
 
     while (v197);
   }
 
-  v308 = 0u;
-  v309 = 0u;
-  v306 = 0u;
   v307 = 0u;
-  v200 = v233;
-  v201 = [v200 countByEnumeratingWithState:&v306 objects:v314 count:16];
+  v308 = 0u;
+  v305 = 0u;
+  v306 = 0u;
+  v200 = v232;
+  v201 = [v200 countByEnumeratingWithState:&v305 objects:v313 count:16];
   if (v201)
   {
     v202 = v201;
-    v203 = *v307;
+    v203 = *v306;
     do
     {
       for (j = 0; j != v202; ++j)
       {
-        if (*v307 != v203)
+        if (*v306 != v203)
         {
           objc_enumerationMutation(v200);
         }
 
-        [v190 addInteractionWithDescriptor:*(*(&v306 + 1) + 8 * j)];
+        [v190 addInteractionWithDescriptor:*(*(&v305 + 1) + 8 * j)];
       }
 
-      v202 = [v200 countByEnumeratingWithState:&v306 objects:v314 count:16];
+      v202 = [v200 countByEnumeratingWithState:&v305 objects:v313 count:16];
     }
 
     while (v202);
@@ -1234,8 +1232,6 @@ void __83__RERelevanceEngineConfiguration_REUpNextConfiguration__defaultUpNextCo
   v206 = [v190 copy];
   v207 = defaultUpNextConfiguration_defaultConfiguration;
   defaultUpNextConfiguration_defaultConfiguration = v206;
-
-  v208 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __83__RERelevanceEngineConfiguration_REUpNextConfiguration__defaultUpNextConfiguration__block_invoke_3(uint64_t a1, void *a2)
@@ -1306,38 +1302,38 @@ BOOL __83__RERelevanceEngineConfiguration_REUpNextConfiguration__defaultUpNextCo
       sectionDescriptors2 = [v3 sectionDescriptors];
       v9 = [sectionDescriptors2 objectAtIndexedSubscript:v7];
 
-      v10 = RESampleFeature();
-      v11 = [RECondition conditionHasValueForFeature:v10];
+      v11 = RESampleFeature(v10);
+      v12 = [RECondition conditionHasValueForFeature:v11];
 
-      v12 = [RERankingRule alloc];
-      v13 = RESampleFeature();
-      v14 = RESampleFeature();
-      v15 = [REComparisonCondition conditionForLeftFeature:v13 relation:-2 rightFeature:v14];
-      v16 = [(RERankingRule *)v12 initWithLeftCondition:v11 rightCondition:v11 comparisonCondition:v15 order:1];
+      v13 = [RERankingRule alloc];
+      v14 = RESampleFeature(v13);
+      v15 = RESampleFeature(v14);
+      v16 = [REComparisonCondition conditionForLeftFeature:v14 relation:-2 rightFeature:v15];
+      v17 = [(RERankingRule *)v13 initWithLeftCondition:v12 rightCondition:v12 comparisonCondition:v16 order:1];
 
-      v17 = [REFilteringRule alloc];
-      v18 = +[RECondition trueCondition];
-      v19 = [(REFilteringRule *)v17 initWithCondition:v18 type:1];
+      v18 = [REFilteringRule alloc];
+      v19 = +[RECondition trueCondition];
+      v20 = [(REFilteringRule *)v18 initWithCondition:v19 type:1];
 
-      v20 = MEMORY[0x277CBEB98];
-      v39[0] = v16;
-      v39[1] = v19;
-      v21 = [*(v6 + 2656) arrayWithObjects:v39 count:2];
-      v22 = [v20 setWithArray:v21];
-      [v9 setRules:v22];
+      v21 = MEMORY[0x277CBEB98];
+      v39[0] = v17;
+      v39[1] = v20;
+      v22 = [*(v6 + 2656) arrayWithObjects:v39 count:2];
+      v23 = [v21 setWithArray:v22];
+      [v9 setRules:v23];
 
       historicSectionDescriptor = [v9 historicSectionDescriptor];
       if (historicSectionDescriptor)
       {
-        v24 = MEMORY[0x277CBEB98];
-        v38[0] = v16;
-        v38[1] = v19;
+        v25 = MEMORY[0x277CBEB98];
+        v38[0] = v17;
+        v38[1] = v20;
         [*(v6 + 2656) arrayWithObjects:v38 count:2];
-        v26 = v25 = v6;
-        v27 = [v24 setWithArray:v26];
-        [historicSectionDescriptor setRules:v27];
+        v27 = v26 = v6;
+        v28 = [v25 setWithArray:v27];
+        [historicSectionDescriptor setRules:v28];
 
-        v6 = v25;
+        v6 = v26;
         [v9 setHistoricSectionDescriptor:historicSectionDescriptor];
       }
 
@@ -1355,19 +1351,18 @@ BOOL __83__RERelevanceEngineConfiguration_REUpNextConfiguration__defaultUpNextCo
   [v3 setAllowsUpdatingModelFile:0];
   [v3 setIgnoreDeviceLockState:1];
   [v3 setTrainingBehavior:0];
-  v28 = [REFeatureSet alloc];
-  v29 = RESampleFeature();
-  v37[0] = v29;
-  v30 = +[REFeature noContentFeature];
-  v37[1] = v30;
-  v31 = [*(v6 + 2656) arrayWithObjects:v37 count:2];
-  v32 = [(REFeatureSet *)v28 initWithFeatures:v31];
-  [v3 setPrimaryFeatures:v32];
+  v29 = [REFeatureSet alloc];
+  v30 = RESampleFeature(v29);
+  v37[0] = v30;
+  v31 = +[REFeature noContentFeature];
+  v37[1] = v31;
+  v32 = [*(v6 + 2656) arrayWithObjects:v37 count:2];
+  v33 = [(REFeatureSet *)v29 initWithFeatures:v32];
+  [v3 setPrimaryFeatures:v33];
 
-  v33 = [v3 copy];
-  v34 = *MEMORY[0x277D85DE8];
+  v34 = [v3 copy];
 
-  return v33;
+  return v34;
 }
 
 @end

@@ -35,6 +35,7 @@
 - (void)_noteComplicationVisibilityChanged;
 - (void)_performWristRaiseAnimation;
 - (void)_prepareForEditing;
+- (void)_prepareForStatusChange:(BOOL)change;
 - (void)_prepareWristRaiseAnimation;
 - (void)_removeTimeViews;
 - (void)_setNumerals:(unint64_t)numerals;
@@ -331,6 +332,28 @@
   v2.receiver = self;
   v2.super_class = NTKExtraLargeFaceView;
   [(NTKExtraLargeFaceView *)&v2 _applyDataMode];
+}
+
+- (void)_prepareForStatusChange:(BOOL)change
+{
+  changeCopy = change;
+  viewsOffsetForStatusBar = self->_viewsOffsetForStatusBar;
+  self->_viewsOffsetForStatusBar = change;
+  v8[0] = _NSConcreteStackBlock;
+  v8[1] = 3221225472;
+  v8[2] = sub_35C8;
+  v8[3] = &unk_10450;
+  v8[4] = self;
+  v6 = objc_retainBlock(v8);
+  if (viewsOffsetForStatusBar == changeCopy || (v7 = [(NTKExtraLargeFaceView *)self dataMode], [(NTKExtraLargeTimeView *)self->_largeTimeLabel setStatusBarVisible:changeCopy animated:v7 == &dword_0 + 1], v7 != &dword_0 + 1))
+  {
+    (v6[2])(v6);
+  }
+
+  else
+  {
+    [UIView animateWithDuration:v6 animations:0.3];
+  }
 }
 
 - (void)_prepareWristRaiseAnimation

@@ -11,6 +11,8 @@
 - (id)messagePayloadForStartRecordingSessionWithTriggerType:(unint64_t)type;
 - (unsigned)_closeEventReasonForRecordingSessionError:(id)error;
 - (void)_clipManagerDidStartUpCloudZone;
+- (void)_closeCurrentSessionsWithReason:(unsigned __int16)reason;
+- (void)_closeCurrentSessionsWithReason:(unsigned __int16)reason error:(id)error;
 - (void)_configureRecordingSession:(id)session withTrigger:(unint64_t)trigger;
 - (void)_coordinateRecordingSessionForTrigger:(unint64_t)trigger;
 - (void)_forwardRecordingSessionForTrigger:(unint64_t)trigger withLoadBalancerDecision:(id)decision deviceFilter:(id)filter sessionCoordinationLogEvent:(id)event retryAttemptNumber:(int64_t)number;
@@ -27,6 +29,7 @@
 - (void)_submitLoadBalancingEventWithDecision:(id)decision numberOfRetries:(unint64_t)retries;
 - (void)_submitRecordingSessionLogEventWithError:(id)error;
 - (void)assignAccessoryConnectionInfoUsingMessagePayload:(id)payload;
+- (void)bulkSendSessionReader:(id)reader didFinishWithReason:(unsigned __int16)reason;
 - (void)bulkSendSessionReader:(id)reader didReadFragment:(id)fragment;
 - (void)clipManagerDidStartUpCloudZone:(id)zone;
 - (void)clipManagerDidStop:(id)stop;
@@ -34,6 +37,7 @@
 - (void)handleCameraSettingsDidChangeNotification:(id)notification;
 - (void)handleStartRecordingSessionRequest:(id)request;
 - (void)handleStopRecordingSessionRequest:(id)request;
+- (void)notificationTrigger:(id)trigger didObserveTriggerType:(unint64_t)type changeToActive:(BOOL)active;
 - (void)recordingSettingsControlDidConfigure:(id)configure;
 - (void)residentMeshDidUpdate:(id)update activeRecordingSessionCameraUUIDs:(id)ds;
 - (void)session:(id)session didEndWithError:(id)error;
@@ -87,7 +91,7 @@
 
 void __71__HMDCameraRecordingManager_handleCameraSettingsDidChangeNotification___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) didShutDown])
   {
     v2 = objc_autoreleasePoolPush();
@@ -96,9 +100,9 @@ void __71__HMDCameraRecordingManager_handleCameraSettingsDidChangeNotification__
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v5 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v5;
-      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Ignoring handleCameraSettingsDidChangeNotification: because recording manager was shut down", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v5;
+      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Ignoring handleCameraSettingsDidChangeNotification: because recording manager was shut down", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v2);
@@ -121,9 +125,9 @@ void __71__HMDCameraRecordingManager_handleCameraSettingsDidChangeNotification__
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           v11 = HMFGetLogIdentifier();
-          v18 = 138543362;
-          v19 = v11;
-          _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Motion is active and settings changed to allow recording, attempting to coordinate a recording session", &v18, 0xCu);
+          v17 = 138543362;
+          v18 = v11;
+          _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_INFO, "%{public}@Motion is active and settings changed to allow recording, attempting to coordinate a recording session", &v17, 0xCu);
         }
 
         objc_autoreleasePoolPop(v8);
@@ -140,24 +144,22 @@ void __71__HMDCameraRecordingManager_handleCameraSettingsDidChangeNotification__
       {
         v15 = HMFGetLogIdentifier();
         v16 = HMCameraAccessModeAsString();
-        v18 = 138543618;
-        v19 = v15;
-        v20 = 2112;
-        v21 = v16;
-        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Closing current session because current access mode is: %@", &v18, 0x16u);
+        v17 = 138543618;
+        v18 = v15;
+        v19 = 2112;
+        v20 = v16;
+        _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Closing current session because current access mode is: %@", &v17, 0x16u);
       }
 
       objc_autoreleasePoolPop(v12);
       [*(a1 + 32) _closeCurrentSessionsWithReason:3];
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)session:(id)session didEndWithError:(id)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   errorCopy = error;
   workQueue = [(HMDCameraRecordingManager *)self workQueue];
@@ -171,9 +173,9 @@ void __71__HMDCameraRecordingManager_handleCameraSettingsDidChangeNotification__
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       v12 = HMFGetLogIdentifier();
-      v23 = 138543362;
-      v24 = v12;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Ignoring closeSession:withError: delegate callback because recording manager was shut down", &v23, 0xCu);
+      v22 = 138543362;
+      v23 = v12;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Ignoring closeSession:withError: delegate callback because recording manager was shut down", &v22, 0xCu);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -192,11 +194,11 @@ void __71__HMDCameraRecordingManager_handleCameraSettingsDidChangeNotification__
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         v18 = HMFGetLogIdentifier();
-        v23 = 138543618;
-        v24 = v18;
-        v25 = 1024;
-        v26 = v14;
-        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Closing current session with reason: %d", &v23, 0x12u);
+        v22 = 138543618;
+        v23 = v18;
+        v24 = 1024;
+        v25 = v14;
+        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Closing current session with reason: %d", &v22, 0x12u);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -210,8 +212,6 @@ void __71__HMDCameraRecordingManager_handleCameraSettingsDidChangeNotification__
     cameraUUID = [(HMDCameraRecordingManager *)self cameraUUID];
     [cameraLoadBalancer recordingDidEndForCameraWithUUID:cameraUUID];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logIdentifier
@@ -220,6 +220,15 @@ void __71__HMDCameraRecordingManager_handleCameraSettingsDidChangeNotification__
   logIdentifier = [camera logIdentifier];
 
   return logIdentifier;
+}
+
+- (void)bulkSendSessionReader:(id)reader didFinishWithReason:(unsigned __int16)reason
+{
+  reasonCopy = reason;
+  workQueue = [(HMDCameraRecordingManager *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  [(HMDCameraRecordingManager *)self _closeCurrentSessionsWithReason:reasonCopy];
 }
 
 - (void)bulkSendSessionReader:(id)reader didReadFragment:(id)fragment
@@ -237,7 +246,7 @@ void __71__HMDCameraRecordingManager_handleCameraSettingsDidChangeNotification__
 
 - (void)_resetCurrentRecordingSession:(id)session
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   workQueue = [(HMDCameraRecordingManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -267,46 +276,46 @@ LABEL_7:
 
         if (v10)
         {
-          v18 = objc_autoreleasePoolPush();
+          v17 = objc_autoreleasePoolPush();
           selfCopy = self;
-          v20 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+          v19 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
           {
-            v21 = HMFGetLogIdentifier();
+            v20 = HMFGetLogIdentifier();
             [(HMDCameraRecordingManager *)selfCopy isMotionActive];
-            v22 = HMFBooleanToString();
+            v21 = HMFBooleanToString();
             *buf = 138544130;
-            v32 = v21;
-            v33 = 2112;
-            v34 = identifier;
-            v35 = 2112;
-            v36 = v22;
-            v37 = 2112;
-            v38 = sessionCopy;
-            _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_INFO, "%{public}@Retrying session with identifier: %@ because motion active: %@, error: %@", buf, 0x2Au);
+            v31 = v20;
+            v32 = 2112;
+            v33 = identifier;
+            v34 = 2112;
+            v35 = v21;
+            v36 = 2112;
+            v37 = sessionCopy;
+            _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Retrying session with identifier: %@ because motion active: %@, error: %@", buf, 0x2Au);
           }
 
-          objc_autoreleasePoolPop(v18);
+          objc_autoreleasePoolPop(v17);
           sessionRetryContext = [(HMDCameraRecordingManager *)selfCopy sessionRetryContext];
 
           if (!sessionRetryContext)
           {
-            v24 = objc_autoreleasePoolPush();
-            v25 = selfCopy;
-            v26 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+            v23 = objc_autoreleasePoolPush();
+            v24 = selfCopy;
+            v25 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
             {
-              v27 = HMFGetLogIdentifier();
+              v26 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v32 = v27;
-              _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Creating session retry context", buf, 0xCu);
+              v31 = v26;
+              _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Creating session retry context", buf, 0xCu);
             }
 
-            objc_autoreleasePoolPop(v24);
-            dependencyFactory = [(HMDCameraRecordingManager *)v25 dependencyFactory];
-            workQueue2 = [(HMDCameraRecordingManager *)v25 workQueue];
-            v30 = [dependencyFactory createRecordingSessionRetryContextWithWorkQueue:workQueue2];
-            [(HMDCameraRecordingManager *)v25 setSessionRetryContext:v30];
+            objc_autoreleasePoolPop(v23);
+            dependencyFactory = [(HMDCameraRecordingManager *)v24 dependencyFactory];
+            workQueue2 = [(HMDCameraRecordingManager *)v24 workQueue];
+            v29 = [dependencyFactory createRecordingSessionRetryContextWithWorkQueue:workQueue2];
+            [(HMDCameraRecordingManager *)v24 setSessionRetryContext:v29];
           }
 
           [(HMDCameraRecordingManager *)selfCopy _startSessionRetryTimer];
@@ -324,13 +333,13 @@ LABEL_8:
         [(HMDCameraRecordingManager *)selfCopy2 isMotionActive];
         v16 = HMFBooleanToString();
         *buf = 138544130;
-        v32 = v15;
-        v33 = 2112;
-        v34 = identifier;
-        v35 = 2112;
-        v36 = v16;
-        v37 = 2112;
-        v38 = sessionCopy;
+        v31 = v15;
+        v32 = 2112;
+        v33 = identifier;
+        v34 = 2112;
+        v35 = v16;
+        v36 = 2112;
+        v37 = sessionCopy;
         _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Not retrying session with identifier: %@ because motion active: %@, error: %@", buf, 0x2Au);
       }
 
@@ -346,13 +355,11 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startSessionRetryTimer
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraRecordingManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -376,11 +383,11 @@ LABEL_12:
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     v12 = HMFGetLogIdentifier();
-    v20 = 138543618;
-    v21 = v12;
-    v22 = 2048;
-    v23 = v7;
-    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Starting session retry timer with interval: %f", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = v12;
+    v21 = 2048;
+    v22 = v7;
+    _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Starting session retry timer with interval: %f", &v19, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
@@ -397,13 +404,11 @@ LABEL_12:
 
   sessionRetryTimer4 = [(HMDCameraRecordingManager *)selfCopy sessionRetryTimer];
   [sessionRetryTimer4 resume];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetRetryContextWithReason:(id)reason
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   workQueue = [(HMDCameraRecordingManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -418,19 +423,63 @@ LABEL_12:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2112;
-      v15 = reasonCopy;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Resetting session retry context with reason: %@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v10;
+      v13 = 2112;
+      v14 = reasonCopy;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Resetting session retry context with reason: %@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
     [(HMDCameraRecordingManager *)selfCopy setSessionRetryTimer:0];
     [(HMDCameraRecordingManager *)selfCopy setSessionRetryContext:0];
   }
+}
 
-  v11 = *MEMORY[0x277D85DE8];
+- (void)_closeCurrentSessionsWithReason:(unsigned __int16)reason error:(id)error
+{
+  reasonCopy = reason;
+  errorCopy = error;
+  workQueue = [(HMDCameraRecordingManager *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  currentBulkSendSessionReader = [(HMDCameraRecordingManager *)self currentBulkSendSessionReader];
+  [(HMDCameraRecordingManager *)self setCurrentBulkSendSessionReader:0];
+  [currentBulkSendSessionReader stopWithReason:reasonCopy];
+  bulkSendSessionInitiator = [(HMDCameraRecordingManager *)self bulkSendSessionInitiator];
+  [bulkSendSessionInitiator stop];
+
+  if (!reasonCopy)
+  {
+    selfCopy2 = self;
+    v9 = 0;
+    goto LABEL_5;
+  }
+
+  if (errorCopy)
+  {
+    v9 = errorCopy;
+    selfCopy2 = self;
+LABEL_5:
+    [(HMDCameraRecordingManager *)selfCopy2 _submitRecordingSessionLogEventWithError:v9];
+    goto LABEL_7;
+  }
+
+  errorCopy = [MEMORY[0x277CCA9B8] hmErrorWithCode:52];
+  v11 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HMDCameraRecordingBulkSessionCloseReason" code:reasonCopy userInfo:0];
+  [(HMDCameraRecordingManager *)self _submitRecordingSessionLogEventWithError:v11];
+
+LABEL_7:
+  [(HMDCameraRecordingManager *)self _resetCurrentRecordingSession:errorCopy];
+}
+
+- (void)_closeCurrentSessionsWithReason:(unsigned __int16)reason
+{
+  reasonCopy = reason;
+  workQueue = [(HMDCameraRecordingManager *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  [(HMDCameraRecordingManager *)self _closeCurrentSessionsWithReason:reasonCopy error:0];
 }
 
 - (unsigned)_closeEventReasonForRecordingSessionError:(id)error
@@ -462,7 +511,7 @@ LABEL_12:
 
 - (void)timerDidFire:(id)fire
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   fireCopy = fire;
   workQueue = [(HMDCameraRecordingManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -480,17 +529,15 @@ LABEL_12:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         v10 = HMFGetLogIdentifier();
-        v12 = 138543362;
-        v13 = v10;
-        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Starting recording session after session retry timer has expired", &v12, 0xCu);
+        v11 = 138543362;
+        v12 = v10;
+        _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Starting recording session after session retry timer has expired", &v11, 0xCu);
       }
 
       objc_autoreleasePoolPop(v7);
       [(HMDCameraRecordingManager *)selfCopy _prepareRecordingSessionForTrigger:0 reason:@"Retry timer expired"];
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startReadingFromBulkSendSession:(id)session
@@ -533,7 +580,7 @@ LABEL_12:
 
 - (void)_startRecordingSessionForTrigger:(unint64_t)trigger reason:(id)reason generalConfiguration:(id)configuration completionCallback:(id)callback
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   configurationCopy = configuration;
   callbackCopy = callback;
@@ -547,9 +594,9 @@ LABEL_12:
   {
     v17 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v55 = v17;
-    v56 = 2112;
-    v57 = reasonCopy;
+    v54 = v17;
+    v55 = 2112;
+    v56 = reasonCopy;
     _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_INFO, "%{public}@Starting recording session with reason: %@", buf, 0x16u);
   }
 
@@ -567,9 +614,9 @@ LABEL_12:
       sessionRetryTimer2 = [(HMDCameraRecordingManager *)v20 sessionRetryTimer];
       [sessionRetryTimer2 timeInterval];
       *buf = 138543618;
-      v55 = v22;
-      v56 = 2048;
-      v57 = v24;
+      v54 = v22;
+      v55 = 2048;
+      v56 = v24;
       _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Waiting for retry timer with duration: %f to expire", buf, 0x16u);
     }
 
@@ -591,7 +638,7 @@ LABEL_12:
     {
       v38 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v55 = v38;
+      v54 = v38;
       _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_ERROR, "%{public}@Unable to start recording session, no backing store available", buf, 0xCu);
     }
 
@@ -612,7 +659,7 @@ LABEL_12:
     {
       v32 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v55 = v32;
+      v54 = v32;
       _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_INFO, "%{public}@A bulk send session is already opened", buf, 0xCu);
     }
 
@@ -629,53 +676,52 @@ LABEL_15:
   bulkSendSessionInitiator = [(HMDCameraRecordingManager *)selfCopy bulkSendSessionInitiator];
   isSessionOpenInProgress = [bulkSendSessionInitiator isSessionOpenInProgress];
 
-  v43 = objc_autoreleasePoolPush();
-  v44 = selfCopy;
-  v45 = HMFGetOSLogHandle();
-  v46 = os_log_type_enabled(v45, OS_LOG_TYPE_INFO);
+  v42 = objc_autoreleasePoolPush();
+  v43 = selfCopy;
+  v44 = HMFGetOSLogHandle();
+  v45 = os_log_type_enabled(v44, OS_LOG_TYPE_INFO);
   if (isSessionOpenInProgress)
   {
-    if (v46)
+    if (v45)
     {
-      v47 = HMFGetLogIdentifier();
+      v46 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v55 = v47;
-      _os_log_impl(&dword_229538000, v45, OS_LOG_TYPE_INFO, "%{public}@A bulk send session open is already in progress", buf, 0xCu);
+      v54 = v46;
+      _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_INFO, "%{public}@A bulk send session open is already in progress", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v43);
+    objc_autoreleasePoolPop(v42);
     v33 = MEMORY[0x277CCA9B8];
     v34 = 3304;
     goto LABEL_15;
   }
 
-  if (v46)
+  if (v45)
   {
-    v48 = HMFGetLogIdentifier();
+    v47 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v55 = v48;
-    _os_log_impl(&dword_229538000, v45, OS_LOG_TYPE_INFO, "%{public}@Opening new bulk send session", buf, 0xCu);
+    v54 = v47;
+    _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_INFO, "%{public}@Opening new bulk send session", buf, 0xCu);
   }
 
-  objc_autoreleasePoolPop(v43);
-  bulkSendSessionInitiator2 = [(HMDCameraRecordingManager *)v44 bulkSendSessionInitiator];
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __109__HMDCameraRecordingManager__startRecordingSessionForTrigger_reason_generalConfiguration_completionCallback___block_invoke;
-  v50[3] = &unk_27866DF38;
-  v50[4] = v44;
-  v52 = callbackCopy;
-  v51 = configurationCopy;
+  objc_autoreleasePoolPop(v42);
+  bulkSendSessionInitiator2 = [(HMDCameraRecordingManager *)v43 bulkSendSessionInitiator];
+  v49[0] = MEMORY[0x277D85DD0];
+  v49[1] = 3221225472;
+  v49[2] = __109__HMDCameraRecordingManager__startRecordingSessionForTrigger_reason_generalConfiguration_completionCallback___block_invoke;
+  v49[3] = &unk_27866DF38;
+  v49[4] = v43;
+  v51 = callbackCopy;
+  v50 = configurationCopy;
   triggerCopy = trigger;
-  [bulkSendSessionInitiator2 openNewSessionWithCallback:v50];
+  [bulkSendSessionInitiator2 openNewSessionWithCallback:v49];
 
 LABEL_16:
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 void __109__HMDCameraRecordingManager__startRecordingSessionForTrigger_reason_generalConfiguration_completionCallback___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) workQueue];
@@ -691,11 +737,11 @@ void __109__HMDCameraRecordingManager__startRecordingSessionForTrigger_reason_ge
     {
       v12 = HMFGetLogIdentifier();
       v13 = [v5 session];
-      v28 = 138543618;
-      v29 = v12;
-      v30 = 2112;
-      v31 = v13;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Opened bulk send session: %@", &v28, 0x16u);
+      v27 = 138543618;
+      v28 = v12;
+      v29 = 2112;
+      v30 = v13;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Opened bulk send session: %@", &v27, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -708,11 +754,11 @@ void __109__HMDCameraRecordingManager__startRecordingSessionForTrigger_reason_ge
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         v18 = HMFGetLogIdentifier();
-        v28 = 138543618;
-        v29 = v18;
-        v30 = 2112;
-        v31 = v14;
-        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Created recording session: %@", &v28, 0x16u);
+        v27 = 138543618;
+        v28 = v18;
+        v29 = 2112;
+        v30 = v14;
+        _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_INFO, "%{public}@Created recording session: %@", &v27, 0x16u);
       }
 
       objc_autoreleasePoolPop(v15);
@@ -745,23 +791,21 @@ void __109__HMDCameraRecordingManager__startRecordingSessionForTrigger_reason_ge
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v24 = HMFGetLogIdentifier();
-      v28 = 138543618;
-      v29 = v24;
-      v30 = 2112;
-      v31 = v6;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to open bulk send session: %@", &v28, 0x16u);
+      v27 = 138543618;
+      v28 = v24;
+      v29 = 2112;
+      v30 = v6;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_ERROR, "%{public}@Failed to open bulk send session: %@", &v27, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
     (*(*(a1 + 48) + 16))();
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_prepareRecordingSessionForTrigger:(unint64_t)trigger reason:(id)reason completionCallback:(id)callback
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   callbackCopy = callback;
   v10 = objc_autoreleasePoolPush();
@@ -771,9 +815,9 @@ void __109__HMDCameraRecordingManager__startRecordingSessionForTrigger_reason_ge
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v35 = v13;
-    v36 = 2112;
-    v37 = reasonCopy;
+    v34 = v13;
+    v35 = 2112;
+    v36 = reasonCopy;
     _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Configuring recording session with reason: %@", buf, 0x16u);
   }
 
@@ -799,23 +843,21 @@ void __109__HMDCameraRecordingManager__startRecordingSessionForTrigger_reason_ge
   aBlock[2] = __90__HMDCameraRecordingManager__prepareRecordingSessionForTrigger_reason_completionCallback___block_invoke;
   aBlock[3] = &unk_278689A68;
   aBlock[4] = selfCopy;
-  v33 = callbackCopy;
+  v32 = callbackCopy;
   v22 = callbackCopy;
   v23 = _Block_copy(aBlock);
   recordingSettingsControl = [(HMDCameraRecordingManager *)selfCopy recordingSettingsControl];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __90__HMDCameraRecordingManager__prepareRecordingSessionForTrigger_reason_completionCallback___block_invoke_2;
-  v28[3] = &unk_27866DF10;
-  v30 = v23;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __90__HMDCameraRecordingManager__prepareRecordingSessionForTrigger_reason_completionCallback___block_invoke_2;
+  v27[3] = &unk_27866DF10;
+  v29 = v23;
   triggerCopy = trigger;
-  v28[4] = selfCopy;
-  v29 = reasonCopy;
+  v27[4] = selfCopy;
+  v28 = reasonCopy;
   v25 = reasonCopy;
   v26 = v23;
-  [recordingSettingsControl configureCameraRecordingSettingsWithCompletion:v28];
-
-  v27 = *MEMORY[0x277D85DE8];
+  [recordingSettingsControl configureCameraRecordingSettingsWithCompletion:v27];
 }
 
 void __90__HMDCameraRecordingManager__prepareRecordingSessionForTrigger_reason_completionCallback___block_invoke(uint64_t a1, void *a2)
@@ -832,7 +874,7 @@ void __90__HMDCameraRecordingManager__prepareRecordingSessionForTrigger_reason_c
 
 void __90__HMDCameraRecordingManager__prepareRecordingSessionForTrigger_reason_completionCallback___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -848,18 +890,16 @@ void __90__HMDCameraRecordingManager__prepareRecordingSessionForTrigger_reason_c
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2112;
-      v15 = v6;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to configure camera recording settings: %@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v10;
+      v13 = 2112;
+      v14 = v6;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to configure camera recording settings: %@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v7);
     (*(*(a1 + 48) + 16))();
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_prepareRecordingSessionForTrigger:(unint64_t)trigger reason:(id)reason
@@ -873,7 +913,7 @@ void __90__HMDCameraRecordingManager__prepareRecordingSessionForTrigger_reason_c
 
 - (void)_submitRecordingSessionLogEventWithError:(id)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   recordingSessionLogEvent = [(HMDCameraRecordingManager *)self recordingSessionLogEvent];
   if (recordingSessionLogEvent)
@@ -892,20 +932,18 @@ void __90__HMDCameraRecordingManager__prepareRecordingSessionForTrigger_reason_c
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@There is no recording session log event to submit.", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@There is no recording session log event to submit.", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleStopRecordingSessionRequest:(id)request
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   workQueue = [(HMDCameraRecordingManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -917,11 +955,11 @@ void __90__HMDCameraRecordingManager__prepareRecordingSessionForTrigger_reason_c
   {
     v9 = HMFGetLogIdentifier();
     shortDescription = [requestCopy shortDescription];
-    v18 = 138543618;
-    v19 = v9;
-    v20 = 2112;
-    v21 = shortDescription;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Received message to stop recording session: %@", &v18, 0x16u);
+    v17 = 138543618;
+    v18 = v9;
+    v19 = 2112;
+    v20 = shortDescription;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Received message to stop recording session: %@", &v17, 0x16u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -941,22 +979,20 @@ void __90__HMDCameraRecordingManager__prepareRecordingSessionForTrigger_reason_c
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
       v15 = HMFGetLogIdentifier();
-      v18 = 138543362;
-      v19 = v15;
-      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Session not in progress", &v18, 0xCu);
+      v17 = 138543362;
+      v18 = v15;
+      _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_INFO, "%{public}@Session not in progress", &v17, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
     v16 = [MEMORY[0x277CCA9B8] hmfErrorWithCode:5];
     [requestCopy respondWithError:v16];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleStartRecordingSessionRequest:(id)request
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   workQueue = [(HMDCameraRecordingManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -969,9 +1005,9 @@ void __90__HMDCameraRecordingManager__prepareRecordingSessionForTrigger_reason_c
     v9 = HMFGetLogIdentifier();
     shortDescription = [requestCopy shortDescription];
     *buf = 138543618;
-    v25 = v9;
-    v26 = 2112;
-    v27 = shortDescription;
+    v24 = v9;
+    v25 = 2112;
+    v26 = shortDescription;
     _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Received message to handle recording session: %@", buf, 0x16u);
   }
 
@@ -986,13 +1022,13 @@ void __90__HMDCameraRecordingManager__prepareRecordingSessionForTrigger_reason_c
   {
     [(HMDCameraRecordingManager *)selfCopy _resetRetryContextWithReason:@"Received recording session trigger from primary resident"];
     integerValue = [v13 integerValue];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __64__HMDCameraRecordingManager_handleStartRecordingSessionRequest___block_invoke;
-    v22[3] = &unk_27868A250;
-    v23 = requestCopy;
-    [(HMDCameraRecordingManager *)selfCopy _prepareRecordingSessionForTrigger:integerValue reason:@"request from primary resident" completionCallback:v22];
-    v15 = v23;
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __64__HMDCameraRecordingManager_handleStartRecordingSessionRequest___block_invoke;
+    v21[3] = &unk_27868A250;
+    v22 = requestCopy;
+    [(HMDCameraRecordingManager *)selfCopy _prepareRecordingSessionForTrigger:integerValue reason:@"request from primary resident" completionCallback:v21];
+    v15 = v22;
   }
 
   else
@@ -1005,9 +1041,9 @@ void __90__HMDCameraRecordingManager__prepareRecordingSessionForTrigger_reason_c
       v19 = HMFGetLogIdentifier();
       messagePayload3 = [requestCopy messagePayload];
       *buf = 138543618;
-      v25 = v19;
-      v26 = 2112;
-      v27 = messagePayload3;
+      v24 = v19;
+      v25 = 2112;
+      v26 = messagePayload3;
       _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_ERROR, "%{public}@Could not find trigger in message payload: %@", buf, 0x16u);
     }
 
@@ -1015,8 +1051,6 @@ void __90__HMDCameraRecordingManager__prepareRecordingSessionForTrigger_reason_c
     v15 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     [requestCopy respondWithError:v15];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HMDCameraRecordingManager_handleStartRecordingSessionRequest___block_invoke(uint64_t a1, void *a2)
@@ -1029,7 +1063,7 @@ void __64__HMDCameraRecordingManager_handleStartRecordingSessionRequest___block_
 
 - (void)assignAccessoryConnectionInfoUsingMessagePayload:(id)payload
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   v5 = [payloadCopy hmf_dictionaryForKey:@"HMDCameraRecordingAccessorySocketInfo"];
   if (v5)
@@ -1047,9 +1081,9 @@ void __64__HMDCameraRecordingManager_handleStartRecordingSessionRequest___block_
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           v12 = HMFGetLogIdentifier();
-          v24 = 138543362;
-          v25 = v12;
-          _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Assigning connection info to accessory", &v24, 0xCu);
+          v23 = 138543362;
+          v24 = v12;
+          _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Assigning connection info to accessory", &v23, 0xCu);
         }
 
         objc_autoreleasePoolPop(v8);
@@ -1062,9 +1096,9 @@ void __64__HMDCameraRecordingManager_handleStartRecordingSessionRequest___block_
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           v22 = HMFGetLogIdentifier();
-          v24 = 138543362;
-          v25 = v22;
-          _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@No bonjour device info received for start recording session request", &v24, 0xCu);
+          v23 = 138543362;
+          v24 = v22;
+          _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@No bonjour device info received for start recording session request", &v23, 0xCu);
         }
 
         objc_autoreleasePoolPop(v8);
@@ -1079,11 +1113,11 @@ void __64__HMDCameraRecordingManager_handleStartRecordingSessionRequest___block_
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         v21 = HMFGetLogIdentifier();
-        v24 = 138543618;
-        v25 = v21;
-        v26 = 2112;
-        v27 = v5;
-        _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to create HAPSocketInfo for start recording request with dictionary: %@", &v24, 0x16u);
+        v23 = 138543618;
+        v24 = v21;
+        v25 = 2112;
+        v26 = v5;
+        _os_log_impl(&dword_229538000, v20, OS_LOG_TYPE_ERROR, "%{public}@Failed to create HAPSocketInfo for start recording request with dictionary: %@", &v23, 0x16u);
       }
 
       objc_autoreleasePoolPop(v18);
@@ -1098,15 +1132,13 @@ void __64__HMDCameraRecordingManager_handleStartRecordingSessionRequest___block_
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       v17 = HMFGetLogIdentifier();
-      v24 = 138543362;
-      v25 = v17;
-      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEBUG, "%{public}@No socket info received for start recording session request", &v24, 0xCu);
+      v23 = 138543362;
+      v24 = v17;
+      _os_log_impl(&dword_229538000, v16, OS_LOG_TYPE_DEBUG, "%{public}@No socket info received for start recording session request", &v23, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureRecordingSession:(id)session withTrigger:(unint64_t)trigger
@@ -1152,7 +1184,7 @@ LABEL_7:
 
 - (id)_createRecordingSessionWithGeneralConfiguration:(id)configuration
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   workQueue = [(HMDCameraRecordingManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -1169,7 +1201,7 @@ LABEL_7:
     firstObject = [mediaContainerConfigurations firstObject];
     parameters = [firstObject parameters];
     [parameters fragmentLength];
-    v14 = v36 = home;
+    v14 = v35 = home;
     [v14 doubleValue];
     v16 = v15 / 1000.0;
 
@@ -1182,15 +1214,15 @@ LABEL_7:
     workQueue2 = [(HMDCameraRecordingManager *)self workQueue];
     uniqueIdentifier = [camera uniqueIdentifier];
     [uniqueIdentifier UUIDString];
-    v24 = v35 = configurationCopy;
+    v24 = v34 = configurationCopy;
     v25 = [dependencyFactory createTimelineManagerWithWorkQueue:workQueue2 fragmentDuration:v20 fragmentCreationReferenceDate:v24 logIdentifier:v16];
 
-    home = v36;
+    home = v35;
     dependencyFactory2 = [(HMDCameraRecordingManager *)self dependencyFactory];
     workQueue3 = [(HMDCameraRecordingManager *)self workQueue];
-    v28 = [dependencyFactory2 createRecordingSessionWithWorkQueue:workQueue3 camera:camera hapAccessory:hapAccessory home:v36 localZone:localZone configuredFragmentDuration:v25 timelineManager:v16];
+    v28 = [dependencyFactory2 createRecordingSessionWithWorkQueue:workQueue3 camera:camera hapAccessory:hapAccessory home:v35 localZone:localZone configuredFragmentDuration:v25 timelineManager:v16];
 
-    configurationCopy = v35;
+    configurationCopy = v34;
   }
 
   else
@@ -1202,23 +1234,21 @@ LABEL_7:
     {
       v32 = HMFGetLogIdentifier();
       *buf = 138544386;
-      v38 = v32;
-      v39 = 2112;
-      v40 = camera;
-      v41 = 2112;
-      v42 = hapAccessory;
-      v43 = 2112;
-      v44 = home;
-      v45 = 2112;
-      v46 = localZone;
+      v37 = v32;
+      v38 = 2112;
+      v39 = camera;
+      v40 = 2112;
+      v41 = hapAccessory;
+      v42 = 2112;
+      v43 = home;
+      v44 = 2112;
+      v45 = localZone;
       _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_ERROR, "%{public}@Cannot start recording session because camera=%@ accessory=%@ home=%@ localZone=%@", buf, 0x34u);
     }
 
     objc_autoreleasePoolPop(v29);
     v28 = 0;
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v28;
 }
@@ -1276,7 +1306,7 @@ LABEL_7:
 
 - (void)_forwardRecordingSessionForTrigger:(unint64_t)trigger withLoadBalancerDecision:(id)decision deviceFilter:(id)filter sessionCoordinationLogEvent:(id)event retryAttemptNumber:(int64_t)number
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   decisionCopy = decision;
   filterCopy = filter;
   eventCopy = event;
@@ -1302,7 +1332,7 @@ LABEL_7:
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v53 = v20;
+      v52 = v20;
       _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@We are the best device for recording session, starting locally", buf, 0xCu);
     }
 
@@ -1320,14 +1350,14 @@ LABEL_7:
 
   else
   {
-    v39 = filterCopy;
+    v38 = filterCopy;
     [eventCopy setUsingRemoteDeviceAnalysisNode:1];
     v24 = [HMDRemoteDeviceMessageDestination alloc];
     messageTargetUUID = [(HMDCameraRecordingManager *)self messageTargetUUID];
     logEventSubmitter = [(HMDRemoteDeviceMessageDestination *)v24 initWithTarget:messageTargetUUID device:device];
 
-    v38 = [(HMDCameraRecordingManager *)self messagePayloadForStartRecordingSessionWithTriggerType:trigger];
-    v40 = [[HMDRemoteMessage alloc] initWithName:@"kStartRecordingSessionRequestKey" qualityOfService:25 destination:logEventSubmitter payload:v38 type:0 timeout:1 secure:120.0];
+    v37 = [(HMDCameraRecordingManager *)self messagePayloadForStartRecordingSessionWithTriggerType:trigger];
+    v39 = [[HMDRemoteMessage alloc] initWithName:@"kStartRecordingSessionRequestKey" qualityOfService:25 destination:logEventSubmitter payload:v37 type:0 timeout:1 secure:120.0];
     v26 = objc_autoreleasePoolPush();
     selfCopy2 = self;
     v28 = HMFGetOSLogHandle();
@@ -1335,17 +1365,17 @@ LABEL_7:
     {
       v29 = HMFGetLogIdentifier();
       [device shortDescription];
-      v30 = v37 = decisionCopy;
-      shortDescription = [(HMFObject *)v40 shortDescription];
+      v30 = v36 = decisionCopy;
+      shortDescription = [(HMFObject *)v39 shortDescription];
       *buf = 138543874;
-      v53 = v29;
-      v54 = 2114;
-      v55 = v30;
-      v56 = 2114;
-      v57 = shortDescription;
+      v52 = v29;
+      v53 = 2114;
+      v54 = v30;
+      v55 = 2114;
+      v56 = shortDescription;
       _os_log_impl(&dword_229538000, v28, OS_LOG_TYPE_INFO, "%{public}@Forwarding recording session to %{public}@ via message: %{public}@", buf, 0x20u);
 
-      decisionCopy = v37;
+      decisionCopy = v36;
     }
 
     objc_autoreleasePoolPop(v26);
@@ -1354,29 +1384,27 @@ LABEL_7:
     v34 = [dependencyFactory createLoadBalancingAttemptWithLocalResponseTimeout:logIdentifier logIdentifier:2.0];
 
     msgDispatcher = [(HMDCameraRecordingManager *)selfCopy2 msgDispatcher];
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __149__HMDCameraRecordingManager__forwardRecordingSessionForTrigger_withLoadBalancerDecision_deviceFilter_sessionCoordinationLogEvent_retryAttemptNumber___block_invoke;
-    v44[3] = &unk_27866DEE8;
-    v44[4] = selfCopy2;
-    v45 = decisionCopy;
-    v46 = device;
-    v47 = eventCopy;
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __149__HMDCameraRecordingManager__forwardRecordingSessionForTrigger_withLoadBalancerDecision_deviceFilter_sessionCoordinationLogEvent_retryAttemptNumber___block_invoke;
+    v43[3] = &unk_27866DEE8;
+    v43[4] = selfCopy2;
+    v44 = decisionCopy;
+    v45 = device;
+    v46 = eventCopy;
     numberCopy = number;
     v23 = residentDevice;
-    v48 = residentDevice;
-    filterCopy = v39;
-    v49 = v39;
-    v51 = triggerCopy;
-    [v34 startWithMessage:v40 messageDispatcher:msgDispatcher completion:v44];
+    v47 = residentDevice;
+    filterCopy = v38;
+    v48 = v38;
+    v50 = triggerCopy;
+    [v34 startWithMessage:v39 messageDispatcher:msgDispatcher completion:v43];
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __149__HMDCameraRecordingManager__forwardRecordingSessionForTrigger_withLoadBalancerDecision_deviceFilter_sessionCoordinationLogEvent_retryAttemptNumber___block_invoke(uint64_t a1, void *a2)
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) cameraLoadBalancer];
   [v4 handleProcessedDecision:*(a1 + 40)];
@@ -1393,11 +1421,11 @@ void __149__HMDCameraRecordingManager__forwardRecordingSessionForTrigger_withLoa
         v8 = HMFGetLogIdentifier();
         v9 = [*(a1 + 48) shortDescription];
         *buf = 138543874;
-        v76 = v8;
-        v77 = 2114;
-        v78 = v9;
-        v79 = 2112;
-        v80 = v3;
+        v75 = v8;
+        v76 = 2114;
+        v77 = v9;
+        v78 = 2112;
+        v79 = v3;
         v10 = "%{public}@Received error that a session is already in progress on device %{public}@: %@";
 LABEL_11:
         _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, v10, buf, 0x20u);
@@ -1418,11 +1446,11 @@ LABEL_11:
         v8 = HMFGetLogIdentifier();
         v9 = [*(a1 + 48) shortDescription];
         *buf = 138543874;
-        v76 = v8;
-        v77 = 2114;
-        v78 = v9;
-        v79 = 2112;
-        v80 = v3;
+        v75 = v8;
+        v76 = 2114;
+        v77 = v9;
+        v78 = 2112;
+        v79 = v3;
         v10 = "%{public}@Received error that accessory is already in a recording session from device %{public}@: %@";
         goto LABEL_11;
       }
@@ -1437,29 +1465,29 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    v20 = [v3 code];
-    v21 = objc_autoreleasePoolPush();
-    v22 = *(a1 + 32);
-    v23 = HMFGetOSLogHandle();
-    v24 = v23;
-    if (v20 == 21)
+    v19 = [v3 code];
+    v20 = objc_autoreleasePoolPush();
+    v21 = *(a1 + 32);
+    v22 = HMFGetOSLogHandle();
+    v23 = v22;
+    if (v19 == 21)
     {
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
       {
-        v25 = HMFGetLogIdentifier();
-        v26 = [*(a1 + 48) shortDescription];
+        v24 = HMFGetLogIdentifier();
+        v25 = [*(a1 + 48) shortDescription];
         *buf = 138543874;
-        v76 = v25;
-        v77 = 2114;
-        v78 = v26;
-        v79 = 2112;
-        v80 = v3;
-        _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_INFO, "%{public}@Received error that accessory is not configured from device %{public}@: %@", buf, 0x20u);
+        v75 = v24;
+        v76 = 2114;
+        v77 = v25;
+        v78 = 2112;
+        v79 = v3;
+        _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_INFO, "%{public}@Received error that accessory is not configured from device %{public}@: %@", buf, 0x20u);
       }
 
-      objc_autoreleasePoolPop(v21);
-      v27 = [*(a1 + 32) logEventSubmitter];
-      [v27 submitLogEvent:*(a1 + 56) error:v3];
+      objc_autoreleasePoolPop(v20);
+      v26 = [*(a1 + 32) logEventSubmitter];
+      [v26 submitLogEvent:*(a1 + 56) error:v3];
 
       v18 = [*(a1 + 32) workQueue];
       block[0] = MEMORY[0x277D85DD0];
@@ -1471,47 +1499,47 @@ LABEL_13:
       goto LABEL_13;
     }
 
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v28 = HMFGetLogIdentifier();
-      v29 = [*(a1 + 48) shortDescription];
+      v27 = HMFGetLogIdentifier();
+      v28 = [*(a1 + 48) shortDescription];
       *buf = 138543874;
-      v76 = v28;
-      v77 = 2114;
-      v78 = v29;
-      v79 = 2112;
-      v80 = v3;
-      _os_log_impl(&dword_229538000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to forward recording session to device %{public}@: %@", buf, 0x20u);
+      v75 = v27;
+      v76 = 2114;
+      v77 = v28;
+      v78 = 2112;
+      v79 = v3;
+      _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Failed to forward recording session to device %{public}@: %@", buf, 0x20u);
     }
 
-    objc_autoreleasePoolPop(v21);
-    v30 = [*(a1 + 32) logEventSubmitter];
-    [v30 submitLogEvent:*(a1 + 56) error:v3];
+    objc_autoreleasePoolPop(v20);
+    v29 = [*(a1 + 32) logEventSubmitter];
+    [v29 submitLogEvent:*(a1 + 56) error:v3];
 
-    v31 = [*(a1 + 32) cameraLoadBalancer];
-    [v31 handleRecordingSessionForwardingFailureForDecision:*(a1 + 40)];
+    v30 = [*(a1 + 32) cameraLoadBalancer];
+    [v30 handleRecordingSessionForwardingFailureForDecision:*(a1 + 40)];
 
-    v32 = [HMDCameraRecordingSessionCoordinationLogEvent alloc];
+    v31 = [HMDCameraRecordingSessionCoordinationLogEvent alloc];
     [*(a1 + 56) startTime];
-    v18 = [(HMMLogEvent *)v32 initWithStartTime:?];
-    v33 = [*(a1 + 32) camera];
-    if (!v33)
+    v18 = [(HMMLogEvent *)v31 initWithStartTime:?];
+    v32 = [*(a1 + 32) camera];
+    if (!v32)
     {
-      v45 = objc_autoreleasePoolPush();
-      v46 = *(a1 + 32);
-      v47 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+      v44 = objc_autoreleasePoolPush();
+      v45 = *(a1 + 32);
+      v46 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
-        v48 = HMFGetLogIdentifier();
+        v47 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v76 = v48;
-        _os_log_impl(&dword_229538000, v47, OS_LOG_TYPE_ERROR, "%{public}@Camera reference is nil", buf, 0xCu);
+        v75 = v47;
+        _os_log_impl(&dword_229538000, v46, OS_LOG_TYPE_ERROR, "%{public}@Camera reference is nil", buf, 0xCu);
       }
 
-      objc_autoreleasePoolPop(v45);
-      v49 = [*(a1 + 32) logEventSubmitter];
-      v50 = [MEMORY[0x277CCA9B8] hmErrorWithCode:20];
-      [v49 submitLogEvent:v18 error:v50];
+      objc_autoreleasePoolPop(v44);
+      v48 = [*(a1 + 32) logEventSubmitter];
+      v49 = [MEMORY[0x277CCA9B8] hmErrorWithCode:20];
+      [v48 submitLogEvent:v18 error:v49];
 
       goto LABEL_36;
     }
@@ -1520,95 +1548,95 @@ LABEL_13:
     aBlock[1] = 3221225472;
     aBlock[2] = __149__HMDCameraRecordingManager__forwardRecordingSessionForTrigger_withLoadBalancerDecision_deviceFilter_sessionCoordinationLogEvent_retryAttemptNumber___block_invoke_82;
     aBlock[3] = &unk_27866DE98;
-    v72 = *(a1 + 64);
-    v73 = *(a1 + 72);
-    v34 = _Block_copy(aBlock);
-    v35 = [*(a1 + 32) cameraLoadBalancer];
-    v36 = [v35 makeLoadBalancingDecisionForCamera:v33 deviceFilter:v34];
+    v71 = *(a1 + 64);
+    v72 = *(a1 + 72);
+    v33 = _Block_copy(aBlock);
+    v34 = [*(a1 + 32) cameraLoadBalancer];
+    v35 = [v34 makeLoadBalancingDecisionForCamera:v32 deviceFilter:v33];
 
     if (*(a1 + 80) < 3)
     {
-      v51 = [v36 analysisNode];
+      v50 = [v35 analysisNode];
 
-      if (v51)
+      if (v50)
       {
-        v52 = [*(a1 + 32) workQueue];
-        v65[0] = MEMORY[0x277D85DD0];
-        v65[1] = 3221225472;
-        v65[2] = __149__HMDCameraRecordingManager__forwardRecordingSessionForTrigger_withLoadBalancerDecision_deviceFilter_sessionCoordinationLogEvent_retryAttemptNumber___block_invoke_83;
-        v65[3] = &unk_27866DEC0;
-        v53 = *(a1 + 88);
-        v65[4] = *(a1 + 32);
-        v69 = v53;
-        v66 = v36;
-        v68 = v34;
-        v54 = v18;
-        v55 = *(a1 + 80);
-        v67 = v54;
-        v70 = v55;
-        dispatch_async(v52, v65);
+        v51 = [*(a1 + 32) workQueue];
+        v64[0] = MEMORY[0x277D85DD0];
+        v64[1] = 3221225472;
+        v64[2] = __149__HMDCameraRecordingManager__forwardRecordingSessionForTrigger_withLoadBalancerDecision_deviceFilter_sessionCoordinationLogEvent_retryAttemptNumber___block_invoke_83;
+        v64[3] = &unk_27866DEC0;
+        v52 = *(a1 + 88);
+        v64[4] = *(a1 + 32);
+        v68 = v52;
+        v65 = v35;
+        v67 = v33;
+        v53 = v18;
+        v54 = *(a1 + 80);
+        v66 = v53;
+        v69 = v54;
+        dispatch_async(v51, v64);
 
 LABEL_35:
-        v49 = v72;
+        v48 = v71;
 LABEL_36:
 
         goto LABEL_13;
       }
 
-      v64 = v36;
-      v56 = objc_autoreleasePoolPush();
-      v57 = *(a1 + 32);
-      v58 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
+      v63 = v35;
+      v55 = objc_autoreleasePoolPush();
+      v56 = *(a1 + 32);
+      v57 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
       {
-        v59 = HMFGetLogIdentifier();
+        v58 = HMFGetLogIdentifier();
         [*(a1 + 32) accessory];
-        v60 = v63 = v18;
+        v59 = v62 = v18;
         *buf = 138543618;
-        v76 = v59;
-        v77 = 2112;
-        v78 = v60;
-        _os_log_impl(&dword_229538000, v58, OS_LOG_TYPE_ERROR, "%{public}@Exhausted devices, failed to start recording session for accessory %@", buf, 0x16u);
-
-        v18 = v63;
-      }
-
-      objc_autoreleasePoolPop(v56);
-      v42 = [*(a1 + 32) logEventSubmitter];
-      v43 = MEMORY[0x277CCA9B8];
-      v44 = 3301;
-    }
-
-    else
-    {
-      v64 = v36;
-      v37 = objc_autoreleasePoolPush();
-      v38 = *(a1 + 32);
-      v39 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
-      {
-        HMFGetLogIdentifier();
-        v40 = v62 = v18;
-        v41 = [*(a1 + 32) accessory];
-        *buf = 138543618;
-        v76 = v40;
-        v77 = 2112;
-        v78 = v41;
-        _os_log_impl(&dword_229538000, v39, OS_LOG_TYPE_ERROR, "%{public}@Reached retry limit, failed to start recording session for accessory %@", buf, 0x16u);
+        v75 = v58;
+        v76 = 2112;
+        v77 = v59;
+        _os_log_impl(&dword_229538000, v57, OS_LOG_TYPE_ERROR, "%{public}@Exhausted devices, failed to start recording session for accessory %@", buf, 0x16u);
 
         v18 = v62;
       }
 
-      objc_autoreleasePoolPop(v37);
-      v42 = [*(a1 + 32) logEventSubmitter];
-      v43 = MEMORY[0x277CCA9B8];
-      v44 = 3300;
+      objc_autoreleasePoolPop(v55);
+      v41 = [*(a1 + 32) logEventSubmitter];
+      v42 = MEMORY[0x277CCA9B8];
+      v43 = 3301;
     }
 
-    v61 = [v43 hmInternalErrorWithCode:v44];
-    [v42 submitLogEvent:v18 error:v61];
+    else
+    {
+      v63 = v35;
+      v36 = objc_autoreleasePoolPush();
+      v37 = *(a1 + 32);
+      v38 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+      {
+        HMFGetLogIdentifier();
+        v39 = v61 = v18;
+        v40 = [*(a1 + 32) accessory];
+        *buf = 138543618;
+        v75 = v39;
+        v76 = 2112;
+        v77 = v40;
+        _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_ERROR, "%{public}@Reached retry limit, failed to start recording session for accessory %@", buf, 0x16u);
 
-    v36 = v64;
+        v18 = v61;
+      }
+
+      objc_autoreleasePoolPop(v36);
+      v41 = [*(a1 + 32) logEventSubmitter];
+      v42 = MEMORY[0x277CCA9B8];
+      v43 = 3300;
+    }
+
+    v60 = [v42 hmInternalErrorWithCode:v43];
+    [v41 submitLogEvent:v18 error:v60];
+
+    v35 = v63;
     goto LABEL_35;
   }
 
@@ -1620,9 +1648,9 @@ LABEL_36:
     v14 = HMFGetLogIdentifier();
     v15 = [*(a1 + 48) shortDescription];
     *buf = 138543618;
-    v76 = v14;
-    v77 = 2114;
-    v78 = v15;
+    v75 = v14;
+    v76 = 2114;
+    v77 = v15;
     _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Successfully forwarded recording session to %{public}@", buf, 0x16u);
   }
 
@@ -1635,8 +1663,6 @@ LABEL_36:
 
   [*(a1 + 32) _submitLoadBalancingEventWithDecision:*(a1 + 40) numberOfRetries:*(a1 + 80)];
 LABEL_14:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __149__HMDCameraRecordingManager__forwardRecordingSessionForTrigger_withLoadBalancerDecision_deviceFilter_sessionCoordinationLogEvent_retryAttemptNumber___block_invoke_81(uint64_t a1)
@@ -1663,7 +1689,7 @@ uint64_t __149__HMDCameraRecordingManager__forwardRecordingSessionForTrigger_wit
 
 - (id)messagePayloadForStartRecordingSessionWithTriggerType:(unint64_t)type
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:type];
   [v5 setObject:v6 forKeyedSubscript:@"notificationTriggerType"];
@@ -1679,11 +1705,11 @@ uint64_t __149__HMDCameraRecordingManager__forwardRecordingSessionForTrigger_wit
     {
       v12 = HMFGetLogIdentifier();
       dictionaryRepresentation = [socketInfo dictionaryRepresentation];
-      v23 = 138543618;
-      v24 = v12;
-      v25 = 2112;
-      v26 = dictionaryRepresentation;
-      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Adding socket info to outgoing start recording message payload: %@", &v23, 0x16u);
+      v22 = 138543618;
+      v23 = v12;
+      v24 = 2112;
+      v25 = dictionaryRepresentation;
+      _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Adding socket info to outgoing start recording message payload: %@", &v22, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
@@ -1700,27 +1726,25 @@ uint64_t __149__HMDCameraRecordingManager__forwardRecordingSessionForTrigger_wit
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       v19 = HMFGetLogIdentifier();
-      v23 = 138543618;
-      v24 = v19;
-      v25 = 2112;
-      v26 = bonjourDeviceInfo;
-      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Adding bonjour device info to outgoing start recording message: %@", &v23, 0x16u);
+      v22 = 138543618;
+      v23 = v19;
+      v24 = 2112;
+      v25 = bonjourDeviceInfo;
+      _os_log_impl(&dword_229538000, v18, OS_LOG_TYPE_DEBUG, "%{public}@Adding bonjour device info to outgoing start recording message: %@", &v22, 0x16u);
     }
 
     objc_autoreleasePoolPop(v16);
     [v5 setObject:bonjourDeviceInfo forKeyedSubscript:@"HMDCameraRecordingAccessoryBonjourDeviceInfo"];
   }
 
-  v20 = [v5 copy];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = objc_msgSend_copy(v5);
 
   return v20;
 }
 
 - (void)_loadBalanceRecordingSessionForTrigger:(unint64_t)trigger
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v5 = objc_alloc_init(HMDCameraRecordingSessionCoordinationLogEvent);
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
@@ -1739,9 +1763,9 @@ uint64_t __149__HMDCameraRecordingManager__forwardRecordingSessionForTrigger_wit
       v24 = HMFGetLogIdentifier();
       cameraUUID = [(HMDCameraRecordingManager *)selfCopy cameraUUID];
       *buf = 138543618;
-      v56 = v24;
-      v57 = 2112;
-      v58 = cameraUUID;
+      v55 = v24;
+      v56 = 2112;
+      v57 = cameraUUID;
       _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Camera object with UUID:%@ is nil", buf, 0x16u);
     }
 
@@ -1768,7 +1792,7 @@ uint64_t __149__HMDCameraRecordingManager__forwardRecordingSessionForTrigger_wit
       {
         v38 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v56 = v38;
+        v55 = v38;
         _os_log_impl(&dword_229538000, v37, OS_LOG_TYPE_INFO, "%{public}@Handoff condition not met, ignoring trigger", buf, 0xCu);
       }
 
@@ -1795,21 +1819,21 @@ LABEL_19:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       HMFGetLogIdentifier();
-      v14 = v48 = v5;
+      v14 = v47 = v5;
       [logEventSubmitter deviceWithSessionToHandOff];
-      v15 = v47 = v6;
+      v15 = v46 = v6;
       identifier = [v15 identifier];
       deviceUUID = [logEventSubmitter deviceUUID];
       *buf = 138543874;
-      v56 = v14;
-      v57 = 2112;
-      v58 = identifier;
-      v59 = 2112;
-      v60 = deviceUUID;
+      v55 = v14;
+      v56 = 2112;
+      v57 = identifier;
+      v58 = 2112;
+      v59 = deviceUUID;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Handing off recording session from resident device: %@ to: %@", buf, 0x20u);
 
-      v6 = v47;
-      v5 = v48;
+      v6 = v46;
+      v5 = v47;
     }
 
     objc_autoreleasePoolPop(v12);
@@ -1825,17 +1849,17 @@ LABEL_19:
 
       v32 = [HMDRemoteMessage alloc];
       v33 = [(HMDRemoteMessage *)v32 initWithName:@"kStopRecordingSessionRequestKey" qualityOfService:-1 destination:v31 payload:MEMORY[0x277CBEC10] type:0 timeout:1 secure:120.0];
-      v49[0] = MEMORY[0x277D85DD0];
-      v49[1] = 3221225472;
-      v49[2] = __68__HMDCameraRecordingManager__loadBalanceRecordingSessionForTrigger___block_invoke_67;
-      v49[3] = &unk_27866F070;
-      v49[4] = self;
+      v48[0] = MEMORY[0x277D85DD0];
+      v48[1] = 3221225472;
+      v48[2] = __68__HMDCameraRecordingManager__loadBalanceRecordingSessionForTrigger___block_invoke_67;
+      v48[3] = &unk_27866F070;
+      v48[4] = self;
       triggerCopy = trigger;
       logEventSubmitter = logEventSubmitter;
-      v50 = logEventSubmitter;
-      v52 = v6;
-      v51 = v5;
-      [(HMDRemoteMessage *)v33 setResponseHandler:v49];
+      v49 = logEventSubmitter;
+      v51 = v6;
+      v50 = v5;
+      [(HMDRemoteMessage *)v33 setResponseHandler:v48];
       msgDispatcher = [(HMDCameraRecordingManager *)self msgDispatcher];
       [msgDispatcher sendMessage:v33];
 
@@ -1861,30 +1885,28 @@ LABEL_14:
     goto LABEL_20;
   }
 
-  v42 = objc_autoreleasePoolPush();
+  v41 = objc_autoreleasePoolPush();
   selfCopy3 = self;
-  v44 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+  v43 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
   {
-    v45 = HMFGetLogIdentifier();
+    v44 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v56 = v45;
-    _os_log_impl(&dword_229538000, v44, OS_LOG_TYPE_INFO, "%{public}@No device found for recording session, optimistically trying self", buf, 0xCu);
+    v55 = v44;
+    _os_log_impl(&dword_229538000, v43, OS_LOG_TYPE_INFO, "%{public}@No device found for recording session, optimistically trying self", buf, 0xCu);
   }
 
-  objc_autoreleasePoolPop(v42);
+  objc_autoreleasePoolPop(v41);
   logEventSubmitter3 = [(HMDCameraRecordingManager *)selfCopy3 logEventSubmitter];
   [logEventSubmitter3 submitLogEvent:v5];
 
   [(HMDCameraRecordingManager *)selfCopy3 _prepareRecordingSessionForTrigger:trigger reason:@"primary resident picked itself"];
 LABEL_20:
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __68__HMDCameraRecordingManager__loadBalanceRecordingSessionForTrigger___block_invoke(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) camera];
   v5 = [v4 currentSettings];
@@ -1956,11 +1978,11 @@ uint64_t __68__HMDCameraRecordingManager__loadBalanceRecordingSessionForTrigger_
     v26 = HMFGetLogIdentifier();
     v27 = [v3 device];
     v28 = [v27 shortDescription];
-    v32 = 138543618;
-    v33 = v26;
-    v34 = 2112;
-    v35 = v28;
-    _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Excluding current device from camera recording load balancing because it is the primary resident: %@", &v32, 0x16u);
+    v31 = 138543618;
+    v32 = v26;
+    v33 = 2112;
+    v34 = v28;
+    _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Excluding current device from camera recording load balancing because it is the primary resident: %@", &v31, 0x16u);
   }
 
   objc_autoreleasePoolPop(v23);
@@ -1968,13 +1990,12 @@ LABEL_18:
   v29 = 0;
 LABEL_20:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
 void __68__HMDCameraRecordingManager__loadBalanceRecordingSessionForTrigger___block_invoke_67(uint64_t a1, void *a2, void *a3)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -1987,9 +2008,9 @@ void __68__HMDCameraRecordingManager__loadBalanceRecordingSessionForTrigger___bl
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v27 = v11;
-      v28 = 2112;
-      v29 = v5;
+      v26 = v11;
+      v27 = 2112;
+      v28 = v5;
       v12 = "%{public}@Recording session stop failed with error: %@, forwarding new session anyway";
       v13 = v10;
       v14 = OS_LOG_TYPE_DEFAULT;
@@ -2003,7 +2024,7 @@ LABEL_6:
   {
     v11 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v27 = v11;
+    v26 = v11;
     v12 = "%{public}@Successfully stopped recording session for handoff, forwarding new session";
     v13 = v10;
     v14 = OS_LOG_TYPE_INFO;
@@ -2017,22 +2038,20 @@ LABEL_6:
   block[1] = 3221225472;
   block[2] = __68__HMDCameraRecordingManager__loadBalanceRecordingSessionForTrigger___block_invoke_68;
   block[3] = &unk_278683AD8;
-  v25 = *(a1 + 64);
-  v21 = *(a1 + 32);
-  v17 = *(&v21 + 1);
+  v24 = *(a1 + 64);
+  v20 = *(a1 + 32);
+  v17 = *(&v20 + 1);
   v18 = *(a1 + 56);
   *&v19 = *(a1 + 48);
   *(&v19 + 1) = v18;
-  v23 = v21;
-  v24 = v19;
+  v22 = v20;
+  v23 = v19;
   dispatch_async(v16, block);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_coordinateRecordingSessionForTrigger:(unint64_t)trigger
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraRecordingManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -2051,7 +2070,7 @@ LABEL_6:
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v40 = v22;
+        v39 = v22;
         _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_ERROR, "%{public}@Cannot coordinate recording session because accessory reference is nil", buf, 0xCu);
       }
 
@@ -2080,26 +2099,26 @@ LABEL_6:
 
           else
           {
-            v33 = objc_autoreleasePoolPush();
+            v32 = objc_autoreleasePoolPush();
             selfCopy2 = self;
-            v35 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+            v34 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
             {
-              v36 = HMFGetLogIdentifier();
+              v35 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v40 = v36;
-              _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_INFO, "%{public}@Synchronizing settings with camera because settings have recording enabled, but camera is not configured for recording", buf, 0xCu);
+              v39 = v35;
+              _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_INFO, "%{public}@Synchronizing settings with camera because settings have recording enabled, but camera is not configured for recording", buf, 0xCu);
             }
 
-            objc_autoreleasePoolPop(v33);
+            objc_autoreleasePoolPop(v32);
             cameraProfileSettingsManager = [v9 cameraProfileSettingsManager];
-            v38[0] = MEMORY[0x277D85DD0];
-            v38[1] = 3221225472;
-            v38[2] = __67__HMDCameraRecordingManager__coordinateRecordingSessionForTrigger___block_invoke;
-            v38[3] = &unk_27868A188;
-            v38[4] = selfCopy2;
-            v38[5] = trigger;
-            [cameraProfileSettingsManager synchronizeSettingsToCameraWithCompletion:v38];
+            v37[0] = MEMORY[0x277D85DD0];
+            v37[1] = 3221225472;
+            v37[2] = __67__HMDCameraRecordingManager__coordinateRecordingSessionForTrigger___block_invoke;
+            v37[3] = &unk_27868A188;
+            v37[4] = selfCopy2;
+            v37[5] = trigger;
+            [cameraProfileSettingsManager synchronizeSettingsToCameraWithCompletion:v37];
           }
 
           goto LABEL_20;
@@ -2110,12 +2129,12 @@ LABEL_6:
         v25 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
         {
-          v31 = HMFGetLogIdentifier();
-          v32 = HMCameraAccessModeAsString();
+          v30 = HMFGetLogIdentifier();
+          v31 = HMCameraAccessModeAsString();
           *buf = 138543618;
-          v40 = v31;
-          v41 = 2112;
-          v42 = v32;
+          v39 = v30;
+          v40 = 2112;
+          v41 = v31;
           _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_INFO, "%{public}@Current access mode does not allow recording: %@", buf, 0x16u);
         }
 
@@ -2138,7 +2157,7 @@ LABEL_21:
 
       v26 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v40 = v26;
+      v39 = v26;
       v27 = "%{public}@Current device is not the primary resident, not coordinating recording session";
       v28 = v25;
       v29 = OS_LOG_TYPE_INFO;
@@ -2156,7 +2175,7 @@ LABEL_21:
 
       v26 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v40 = v26;
+      v39 = v26;
       v27 = "%{public}@Cannot coordinate recording session because home reference is nil";
       v28 = v25;
       v29 = OS_LOG_TYPE_ERROR;
@@ -2174,19 +2193,17 @@ LABEL_21:
   {
     v18 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v40 = v18;
+    v39 = v18;
     _os_log_impl(&dword_229538000, v17, OS_LOG_TYPE_ERROR, "%{public}@Cannot coordinate recording session because camera reference is nil", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v15);
 LABEL_22:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HMDCameraRecordingManager__coordinateRecordingSessionForTrigger___block_invoke(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2197,9 +2214,9 @@ void __67__HMDCameraRecordingManager__coordinateRecordingSessionForTrigger___blo
     {
       v7 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v3;
+      v12 = v7;
+      v13 = 2112;
+      v14 = v3;
       _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to synchronize settings with camera while coordinating recording session: %@", buf, 0x16u);
     }
 
@@ -2209,42 +2226,38 @@ void __67__HMDCameraRecordingManager__coordinateRecordingSessionForTrigger___blo
   else
   {
     v8 = [*(a1 + 32) workQueue];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __67__HMDCameraRecordingManager__coordinateRecordingSessionForTrigger___block_invoke_60;
-    v11[3] = &unk_27868A0D0;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __67__HMDCameraRecordingManager__coordinateRecordingSessionForTrigger___block_invoke_60;
+    v10[3] = &unk_27868A0D0;
     v9 = *(a1 + 40);
-    v11[4] = *(a1 + 32);
-    v11[5] = v9;
-    dispatch_async(v8, v11);
+    v10[4] = *(a1 + 32);
+    v10[5] = v9;
+    dispatch_async(v8, v10);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __67__HMDCameraRecordingManager__coordinateRecordingSessionForTrigger___block_invoke_60(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Successfully synchronized settings with camera while coordinating recording session", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Successfully synchronized settings with camera while coordinating recording session", &v7, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _loadBalanceRecordingSessionForTrigger:*(a1 + 40)];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _loadBalanceRecordingSessionForTrigger:*(a1 + 40)];
 }
 
 - (void)_clipManagerDidStartUpCloudZone
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraRecordingManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -2256,9 +2269,9 @@ uint64_t __67__HMDCameraRecordingManager__coordinateRecordingSessionForTrigger__
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v7;
-      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Ignoring clipManagerDidStartUpCloudZone because recording manager was shut down", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v7;
+      _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Ignoring clipManagerDidStartUpCloudZone because recording manager was shut down", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -2279,22 +2292,20 @@ uint64_t __67__HMDCameraRecordingManager__coordinateRecordingSessionForTrigger__
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         v13 = HMFGetLogIdentifier();
-        v15 = 138543362;
-        v16 = v13;
-        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Clip manager started up cloud zone and motion is active, attempting to coordinate a recording session", &v15, 0xCu);
+        v14 = 138543362;
+        v15 = v13;
+        _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Clip manager started up cloud zone and motion is active, attempting to coordinate a recording session", &v14, 0xCu);
       }
 
       objc_autoreleasePoolPop(v10);
       [(HMDCameraRecordingManager *)selfCopy2 _coordinateRecordingSessionForTrigger:0];
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_shutDown
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if ([(HMDCameraRecordingManager *)self didShutDown])
   {
     _HMFPreconditionFailure();
@@ -2309,9 +2320,9 @@ uint64_t __67__HMDCameraRecordingManager__coordinateRecordingSessionForTrigger__
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v7;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Shutting down", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v7;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Shutting down", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
@@ -2323,13 +2334,11 @@ uint64_t __67__HMDCameraRecordingManager__coordinateRecordingSessionForTrigger__
   [(HMDCameraRecordingManager *)selfCopy _closeCurrentSessionsWithReason:3];
   residentMesh = [(HMDCameraRecordingManager *)selfCopy residentMesh];
   [residentMesh removeObserver:selfCopy];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_start
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   workQueue = [(HMDCameraRecordingManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
 
@@ -2345,7 +2354,7 @@ uint64_t __67__HMDCameraRecordingManager__coordinateRecordingSessionForTrigger__
   {
     v7 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v39 = v7;
+    v38 = v7;
     _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Starting camera recording manager", buf, 0xCu);
   }
 
@@ -2361,12 +2370,12 @@ uint64_t __67__HMDCameraRecordingManager__coordinateRecordingSessionForTrigger__
 
     residentDeviceManager = [home residentDeviceManager];
     [residentDeviceManager addDataSource:selfCopy];
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __35__HMDCameraRecordingManager__start__block_invoke;
-    v35[3] = &unk_27868A250;
-    v35[4] = selfCopy;
-    [residentDeviceManager confirmWithCompletionHandler:v35];
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __35__HMDCameraRecordingManager__start__block_invoke;
+    v34[3] = &unk_27868A250;
+    v34[4] = selfCopy;
+    [residentDeviceManager confirmWithCompletionHandler:v34];
     recordingSettingsControl = [(HMDCameraRecordingManager *)selfCopy recordingSettingsControl];
     [recordingSettingsControl setDelegate:selfCopy];
 
@@ -2388,18 +2397,18 @@ uint64_t __67__HMDCameraRecordingManager__coordinateRecordingSessionForTrigger__
     v19 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:0 remoteAccessRequired:1];
     v20 = +[(HMDRemoteMessagePolicy *)HMDMutableRemoteMessagePolicy];
     [v20 setRoles:{objc_msgSend(v20, "roles") | 4}];
-    v21 = [v20 copy];
+    v21 = objc_msgSend_copy(v20);
     camera = [(HMDCameraRecordingManager *)selfCopy camera];
     msgDispatcher = [(HMDCameraRecordingManager *)selfCopy msgDispatcher];
-    v37[0] = v19;
-    v37[1] = v21;
-    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+    v36[0] = v19;
+    v36[1] = v21;
+    v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
     [msgDispatcher registerForMessage:@"kStartRecordingSessionRequestKey" receiver:selfCopy policies:v24 selector:sel_handleStartRecordingSessionRequest_];
 
     msgDispatcher2 = [(HMDCameraRecordingManager *)selfCopy msgDispatcher];
-    v36[0] = v19;
-    v36[1] = v21;
-    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
+    v35[0] = v19;
+    v35[1] = v21;
+    v26 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
     [msgDispatcher2 registerForMessage:@"kStopRecordingSessionRequestKey" receiver:selfCopy policies:v26 selector:sel_handleStopRecordingSessionRequest_];
 
     notificationCenter = [(HMDCameraRecordingManager *)selfCopy notificationCenter];
@@ -2424,19 +2433,17 @@ uint64_t __67__HMDCameraRecordingManager__coordinateRecordingSessionForTrigger__
     {
       v33 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v39 = v33;
+      v38 = v33;
       _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_INFO, "%{public}@Not starting camera recording manager because home reference is nil", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v30);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __35__HMDCameraRecordingManager__start__block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -2447,24 +2454,24 @@ void __35__HMDCameraRecordingManager__start__block_invoke(uint64_t a1, void *a2)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v14 = 138543618;
-      v15 = v8;
-      v16 = 2112;
-      v17 = v3;
+      v13 = 138543618;
+      v14 = v8;
+      v15 = 2112;
+      v16 = v3;
       v9 = "%{public}@Failed to confirm primary resident with error: %@";
       v10 = v7;
       v11 = OS_LOG_TYPE_ERROR;
       v12 = 22;
 LABEL_6:
-      _os_log_impl(&dword_229538000, v10, v11, v9, &v14, v12);
+      _os_log_impl(&dword_229538000, v10, v11, v9, &v13, v12);
     }
   }
 
   else if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v14 = 138543362;
-    v15 = v8;
+    v13 = 138543362;
+    v14 = v8;
     v9 = "%{public}@Successfully confirmed primary resident";
     v10 = v7;
     v11 = OS_LOG_TYPE_INFO;
@@ -2473,12 +2480,11 @@ LABEL_6:
   }
 
   objc_autoreleasePoolPop(v4);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)recordingSettingsControlDidConfigure:(id)configure
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   configureCopy = configure;
   workQueue = [(HMDCameraRecordingManager *)self workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -2489,9 +2495,9 @@ LABEL_6:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = HMFGetLogIdentifier();
-    v22 = 138543362;
-    v23 = v9;
-    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Recording settings control did configure", &v22, 0xCu);
+    v21 = 138543362;
+    v22 = v9;
+    _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_INFO, "%{public}@Recording settings control did configure", &v21, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -2505,9 +2511,9 @@ LABEL_6:
     if (v14)
     {
       v15 = HMFGetLogIdentifier();
-      v22 = 138543362;
-      v23 = v15;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Ignoring recordingSettingsControlDidConfigure: because recording manager was shut down", &v22, 0xCu);
+      v21 = 138543362;
+      v22 = v15;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Ignoring recordingSettingsControlDidConfigure: because recording manager was shut down", &v21, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -2518,9 +2524,9 @@ LABEL_6:
     if (v14)
     {
       v16 = HMFGetLogIdentifier();
-      v22 = 138543362;
-      v23 = v16;
-      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Closing current session if one exists because recording settings have been configured", &v22, 0xCu);
+      v21 = 138543362;
+      v22 = v16;
+      _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Closing current session if one exists because recording settings have been configured", &v21, 0xCu);
     }
 
     objc_autoreleasePoolPop(v11);
@@ -2533,17 +2539,15 @@ LABEL_6:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         v20 = HMFGetLogIdentifier();
-        v22 = 138543362;
-        v23 = v20;
-        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Motion is active and camera did configure successfully, attempting to coordinate a recording session", &v22, 0xCu);
+        v21 = 138543362;
+        v22 = v20;
+        _os_log_impl(&dword_229538000, v19, OS_LOG_TYPE_INFO, "%{public}@Motion is active and camera did configure successfully, attempting to coordinate a recording session", &v21, 0xCu);
       }
 
       objc_autoreleasePoolPop(v17);
       [(HMDCameraRecordingManager *)v18 _coordinateRecordingSessionForTrigger:0];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clipManagerDidStop:(id)stop
@@ -2559,7 +2563,7 @@ LABEL_6:
 
 void __48__HMDCameraRecordingManager_clipManagerDidStop___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) didShutDown])
   {
     v2 = objc_autoreleasePoolPush();
@@ -2568,9 +2572,9 @@ void __48__HMDCameraRecordingManager_clipManagerDidStop___block_invoke(uint64_t 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       v5 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v5;
-      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Ignoring clipManagerDidStop: because recording manager was shut down", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v5;
+      _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Ignoring clipManagerDidStop: because recording manager was shut down", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v2);
@@ -2588,16 +2592,14 @@ void __48__HMDCameraRecordingManager_clipManagerDidStop___block_invoke(uint64_t 
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = HMFGetLogIdentifier();
-      v13 = 138543362;
-      v14 = v11;
-      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Closing current session because clip manager became unavailable", &v13, 0xCu);
+      v12 = 138543362;
+      v13 = v11;
+      _os_log_impl(&dword_229538000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@Closing current session because clip manager became unavailable", &v12, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     [*(a1 + 32) _closeCurrentSessionsWithReason:3];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clipManagerDidStartUpCloudZone:(id)zone
@@ -2609,6 +2611,106 @@ void __48__HMDCameraRecordingManager_clipManagerDidStop___block_invoke(uint64_t 
   block[3] = &unk_27868A728;
   block[4] = self;
   dispatch_async(workQueue, block);
+}
+
+- (void)notificationTrigger:(id)trigger didObserveTriggerType:(unint64_t)type changeToActive:(BOOL)active
+{
+  activeCopy = active;
+  v32 = *MEMORY[0x277D85DE8];
+  triggerCopy = trigger;
+  workQueue = [(HMDCameraRecordingManager *)self workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  if (![(HMDCameraRecordingManager *)self didShutDown])
+  {
+    date = [MEMORY[0x277CBEAA8] date];
+    if (type == 2)
+    {
+      v20 = objc_autoreleasePoolPush();
+      selfCopy = self;
+      v22 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+      {
+        v23 = HMFGetLogIdentifier();
+        v28 = 138543618;
+        v29 = v23;
+        v30 = 2048;
+        typeCopy = 2;
+        _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_INFO, "%{public}@Received unexpected notification trigger: %lu", &v28, 0x16u);
+      }
+
+      objc_autoreleasePoolPop(v20);
+      if (!activeCopy)
+      {
+        goto LABEL_19;
+      }
+    }
+
+    else if (type == 1)
+    {
+      if (!activeCopy)
+      {
+LABEL_19:
+
+        goto LABEL_20;
+      }
+
+      currentRecordingSession = [(HMDCameraRecordingManager *)self currentRecordingSession];
+      timelineManager = [currentRecordingSession timelineManager];
+      [timelineManager handleDoorbellDidActivateAtDate:date];
+    }
+
+    else
+    {
+      if (!type)
+      {
+        [(HMDCameraRecordingManager *)self setMotionActive:activeCopy];
+        currentRecordingSession2 = [(HMDCameraRecordingManager *)self currentRecordingSession];
+        timelineManager2 = [currentRecordingSession2 timelineManager];
+        [timelineManager2 handleMotionActive:activeCopy didChangeAtDate:date];
+
+        currentRecordingSession3 = [(HMDCameraRecordingManager *)self currentRecordingSession];
+        [currentRecordingSession3 handleMotionActive:activeCopy];
+      }
+
+      if (!activeCopy)
+      {
+        goto LABEL_19;
+      }
+    }
+
+    [(HMDCameraRecordingManager *)self _resetRetryContextWithReason:@"Received recording session trigger from accessory"];
+    v24 = objc_autoreleasePoolPush();
+    selfCopy2 = self;
+    v26 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+    {
+      v27 = HMFGetLogIdentifier();
+      v28 = 138543618;
+      v29 = v27;
+      v30 = 2048;
+      typeCopy = type;
+      _os_log_impl(&dword_229538000, v26, OS_LOG_TYPE_INFO, "%{public}@Coordinating recording session for active trigger of type %lu", &v28, 0x16u);
+    }
+
+    objc_autoreleasePoolPop(v24);
+    [(HMDCameraRecordingManager *)selfCopy2 _coordinateRecordingSessionForTrigger:type];
+    goto LABEL_19;
+  }
+
+  v10 = objc_autoreleasePoolPush();
+  selfCopy3 = self;
+  v12 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  {
+    v13 = HMFGetLogIdentifier();
+    v28 = 138543362;
+    v29 = v13;
+    _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Ignoring notificationTrigger:didObserveTriggerType:changeToActive: because recording manager was shut down", &v28, 0xCu);
+  }
+
+  objc_autoreleasePoolPop(v10);
+LABEL_20:
 }
 
 - (void)residentMeshDidUpdate:(id)update activeRecordingSessionCameraUUIDs:(id)ds
@@ -2631,24 +2733,22 @@ void __48__HMDCameraRecordingManager_clipManagerDidStop___block_invoke(uint64_t 
 
 uint64_t __85__HMDCameraRecordingManager_residentMeshDidUpdate_activeRecordingSessionCameraUUIDs___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     v5 = HMFGetLogIdentifier();
-    v8 = 138543618;
-    v9 = v5;
-    v10 = 2048;
-    v11 = 2;
-    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Coordinating recording session for active trigger of type %lu", &v8, 0x16u);
+    v7 = 138543618;
+    v8 = v5;
+    v9 = 2048;
+    v10 = 2;
+    _os_log_impl(&dword_229538000, v4, OS_LOG_TYPE_INFO, "%{public}@Coordinating recording session for active trigger of type %lu", &v7, 0x16u);
   }
 
   objc_autoreleasePoolPop(v2);
-  result = [*(a1 + 32) _coordinateRecordingSessionForTrigger:2];
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _coordinateRecordingSessionForTrigger:2];
 }
 
 - (void)shutDown
@@ -2680,14 +2780,14 @@ uint64_t __85__HMDCameraRecordingManager_residentMeshDidUpdate_activeRecordingSe
   stateDump = [currentRecordingSession stateDump];
   [dictionary setObject:stateDump forKeyedSubscript:@"Recording Session"];
 
-  v6 = [dictionary copy];
+  v6 = objc_msgSend_copy(dictionary);
 
   return v6;
 }
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
@@ -2695,18 +2795,17 @@ uint64_t __85__HMDCameraRecordingManager_residentMeshDidUpdate_activeRecordingSe
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v10 = v6;
-    v11 = 2048;
-    v12 = selfCopy;
+    v9 = v6;
+    v10 = 2048;
+    v11 = selfCopy;
     _os_log_impl(&dword_229538000, v5, OS_LOG_TYPE_INFO, "%{public}@Camera recording manager: %p destroyed", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v3);
   [(HMDCameraRecordingLoadBalancer *)selfCopy->_cameraLoadBalancer removeDataForCameraWithUUID:selfCopy->_cameraUUID];
-  v8.receiver = selfCopy;
-  v8.super_class = HMDCameraRecordingManager;
-  [(HMDCameraRecordingManager *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = selfCopy;
+  v7.super_class = HMDCameraRecordingManager;
+  [(HMDCameraRecordingManager *)&v7 dealloc];
 }
 
 - (HMDCameraRecordingManager)initWithCamera:(id)camera recordingManagementService:(id)service workQueue:(id)queue dependencyFactory:(id)factory notificationCenter:(id)center
@@ -2810,10 +2909,9 @@ uint64_t __85__HMDCameraRecordingManager_residentMeshDidUpdate_activeRecordingSe
 
 void __40__HMDCameraRecordingManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v73;
-  logCategory__hmf_once_v73 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v73;
+  logCategory__hmf_once_v73 = v0;
 }
 
 @end

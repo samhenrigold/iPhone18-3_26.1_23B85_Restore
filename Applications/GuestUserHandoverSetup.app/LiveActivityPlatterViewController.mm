@@ -10,7 +10,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100006804();
+  sub_100006804(selfCopy);
 }
 
 - (void)tapGestureDetectedWithSender:(id)sender

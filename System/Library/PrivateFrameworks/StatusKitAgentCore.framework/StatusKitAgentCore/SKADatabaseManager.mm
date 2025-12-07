@@ -32,7 +32,9 @@
 - (SKADatabaseManagingDelegate)delegate;
 - (id)_existingChannelCheckpointForChannelIdentifier:(id)identifier databaseContext:(id)context;
 - (id)_existingChannelsForChannelIdentifier:(id)identifier databaseContext:(id)context;
+- (id)_existingChannelsForChannelIdentifier:(id)identifier isPersonal:(BOOL)personal databaseContext:(id)context;
 - (id)_existingChannelsForDatabaseChannel:(id)channel databaseContext:(id)context;
+- (id)_existingChannelsForPresenceIdentifier:(id)identifier isPersonal:(BOOL)personal databaseContext:(id)context;
 - (id)_existingDecommissionedChannelsWithDatabaseContext:(id)context;
 - (id)_existingInvitedUsersForDatabaseInvitedUser:(id)user databaseChannel:(id)channel databaseContext:(id)context;
 - (id)_existingInvitedUsersForInvitedHandle:(id)handle channel:(id)channel databaseContext:(id)context;
@@ -42,6 +44,7 @@
 - (id)_existingPersonalChannelForDatabaseChannel:(id)channel databaseContext:(id)context;
 - (id)_existingPersonalChannelForStatusTypeIdentifier:(id)identifier databaseContext:(id)context;
 - (id)_existingPersonalChannelsForStatusTypeIdentifier:(id)identifier databaseContext:(id)context;
+- (id)_existingPresenceAssertionForPresenceIdentifier:(id)identifier isPersonal:(BOOL)personal databaseContext:(id)context;
 - (id)_existingPresenceSubscriptionForChannelIdentifier:(id)identifier databaseContext:(id)context;
 - (id)_existingPresentDeviceForChannel:(id)channel deviceIdentifier:(id)identifier databaseContext:(id)context;
 - (id)_existingPresentDevicesForChannel:(id)channel databaseContext:(id)context;
@@ -53,6 +56,7 @@
 - (id)_existingSubscriptionAssertionForSubscriptionIdentifier:(id)identifier applicationIdentifier:(id)applicationIdentifier databaseContext:(id)context;
 - (id)_existingSubscriptionAssertionsForStatusTypeIdentifier:(id)identifier applicationIdentifier:(id)applicationIdentifier databaseContext:(id)context;
 - (id)_existingTransientSubscriptionHistoryForChannelIdentifier:(id)identifier databaseContext:(id)context;
+- (id)_existingTransientSubscriptionHistoryWithLimit:(int64_t)limit orderedByLastSubscriptionDateAscending:(BOOL)ascending databaseContext:(id)context;
 - (id)allExistingChannelsForHandle:(id)handle presenceIdentifier:(id)identifier databaseContext:(id)context;
 - (id)allExistingChannelsForHandle:(id)handle statusTypeIdentifier:(id)identifier databaseContext:(id)context;
 - (id)allExistingChannelsForPresenceIdentifier:(id)identifier isPersonal:(BOOL)personal databaseContext:(id)context;
@@ -167,54 +171,52 @@
 
 void __85__SKADatabaseManager_existingPersonalChannelForStatusTypeIdentifier_databaseContext___block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _existingPersonalChannelForStatusTypeIdentifier:*(a1 + 40) databaseContext:*(a1 + 48)];
   if (v2)
   {
     v3 = [SKADatabaseChannel alloc];
-    v9[0] = v2;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v2;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
     v5 = [(SKADatabaseChannel *)v3 initWithCoreDataChannels:v4];
     v6 = *(*(a1 + 56) + 8);
     v7 = *(v6 + 40);
     *(v6 + 40) = v5;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_existingPersonalChannelForStatusTypeIdentifier:(id)identifier databaseContext:(id)context
 {
-  v34[5] = *MEMORY[0x277D85DE8];
+  v33[5] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   contextCopy = context;
   v6 = +[Channel fetchRequest];
   v7 = MEMORY[0x277CCA920];
-  v27 = identifierCopy;
+  v26 = identifierCopy;
   v8 = [Channel predicateForStatusTypeIdentifier:identifierCopy];
-  v34[0] = v8;
+  v33[0] = v8;
   v9 = [Channel predicateForPersonal:1];
-  v34[1] = v9;
+  v33[1] = v9;
   v10 = [Channel predicateForDecommissioned:0];
-  v34[2] = v10;
+  v33[2] = v10;
   v11 = +[Channel predicateForChannelTypeStatus];
-  v34[3] = v11;
+  v33[3] = v11;
   v12 = +[Channel predicateForCreationDateNotNil];
-  v34[4] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:5];
+  v33[4] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:5];
   v14 = [v7 andPredicateWithSubpredicates:v13];
   [v6 setPredicate:v14];
 
   v15 = [Channel sortDescriptorForCreationDateAscending:1];
-  v33 = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
+  v32 = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
   [v6 setSortDescriptors:v16];
 
   [v6 setFetchLimit:1];
-  v28 = 0;
-  v17 = [contextCopy executeFetchRequest:v6 error:&v28];
+  v27 = 0;
+  v17 = [contextCopy executeFetchRequest:v6 error:&v27];
 
-  v18 = v28;
+  v18 = v27;
   if (v18)
   {
     firstObject = +[SKADatabaseManager logger];
@@ -224,21 +226,21 @@ void __85__SKADatabaseManager_existingPersonalChannelForStatusTypeIdentifier_dat
     }
 
     v20 = 0;
-    v21 = v27;
+    v21 = v26;
   }
 
   else
   {
     firstObject = [v17 firstObject];
     v22 = +[SKADatabaseManager logger];
-    v21 = v27;
+    v21 = v26;
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [firstObject identifier];
       *buf = 138412546;
-      v30 = v27;
-      v31 = 2112;
-      v32 = identifier;
+      v29 = v26;
+      v30 = 2112;
+      v31 = identifier;
       _os_log_impl(&dword_220099000, v22, OS_LOG_TYPE_DEFAULT, "Fetch request for personal status channel type %@ completed with result: %@", buf, 0x16u);
     }
 
@@ -254,28 +256,26 @@ void __85__SKADatabaseManager_existingPersonalChannelForStatusTypeIdentifier_dat
     }
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v20;
 }
 
 - (id)_existingDecommissionedChannelsWithDatabaseContext:(id)context
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v4 = +[Channel fetchRequest];
   v5 = [Channel predicateForDecommissioned:1];
   [v4 setPredicate:v5];
 
   v6 = [Channel sortDescriptorForCreationDateAscending:0];
-  v19[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v18[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
   [v4 setSortDescriptors:v7];
 
-  v16 = 0;
-  v8 = [contextCopy executeFetchRequest:v4 error:&v16];
+  v15 = 0;
+  v8 = [contextCopy executeFetchRequest:v4 error:&v15];
 
-  v9 = v16;
+  v9 = v15;
   v10 = +[SKADatabaseManager logger];
   v11 = v10;
   if (v9)
@@ -294,7 +294,7 @@ LABEL_5:
   {
     v13 = [v8 count];
     *buf = 134217984;
-    v18 = v13;
+    v17 = v13;
     _os_log_impl(&dword_220099000, v11, OS_LOG_TYPE_DEFAULT, "Fetch request for decommissioned personal channels completed with %ld results", buf, 0xCu);
   }
 
@@ -306,42 +306,40 @@ LABEL_5:
   v12 = v8;
 LABEL_10:
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 - (id)_existingPersonalChannelsForStatusTypeIdentifier:(id)identifier databaseContext:(id)context
 {
-  v34[5] = *MEMORY[0x277D85DE8];
+  v33[5] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   contextCopy = context;
   v6 = +[Channel fetchRequest];
   v7 = MEMORY[0x277CCA920];
-  v27 = identifierCopy;
+  v26 = identifierCopy;
   v8 = [Channel predicateForStatusTypeIdentifier:identifierCopy];
-  v34[0] = v8;
+  v33[0] = v8;
   v9 = [Channel predicateForPersonal:1];
-  v34[1] = v9;
+  v33[1] = v9;
   v10 = [Channel predicateForDecommissioned:0];
-  v34[2] = v10;
+  v33[2] = v10;
   v11 = +[Channel predicateForChannelTypeStatus];
-  v34[3] = v11;
+  v33[3] = v11;
   v12 = +[Channel predicateForCreationDateNotNil];
-  v34[4] = v12;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:5];
+  v33[4] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:5];
   v14 = [v7 andPredicateWithSubpredicates:v13];
   [v6 setPredicate:v14];
 
   v15 = [Channel sortDescriptorForCreationDateAscending:1];
-  v33 = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v33 count:1];
+  v32 = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v32 count:1];
   [v6 setSortDescriptors:v16];
 
-  v28 = 0;
-  v17 = [contextCopy executeFetchRequest:v6 error:&v28];
+  v27 = 0;
+  v17 = [contextCopy executeFetchRequest:v6 error:&v27];
 
-  v18 = v28;
+  v18 = v27;
   if (v18)
   {
     firstObject = +[SKADatabaseManager logger];
@@ -351,21 +349,21 @@ LABEL_10:
     }
 
     v20 = 0;
-    v21 = v27;
+    v21 = v26;
   }
 
   else
   {
     firstObject = [v17 firstObject];
     v22 = +[SKADatabaseManager logger];
-    v21 = v27;
+    v21 = v26;
     if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [firstObject identifier];
       *buf = 138412546;
-      v30 = v27;
-      v31 = 2112;
-      v32 = identifier;
+      v29 = v26;
+      v30 = 2112;
+      v31 = identifier;
       _os_log_impl(&dword_220099000, v22, OS_LOG_TYPE_DEFAULT, "Fetch request for personal status channel type %@ completed with result: %@", buf, 0x16u);
     }
 
@@ -379,8 +377,6 @@ LABEL_10:
       v20 = 0;
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -551,23 +547,84 @@ void __86__SKADatabaseManager_existingChannelForPresenceIdentifier_isPersonal_da
   return firstObject;
 }
 
+- (id)_existingChannelsForChannelIdentifier:(id)identifier isPersonal:(BOOL)personal databaseContext:(id)context
+{
+  personalCopy = personal;
+  v23[2] = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  contextCopy = context;
+  v9 = +[Channel fetchRequest];
+  v10 = MEMORY[0x277CCA920];
+  v11 = [Channel predicateForChannelIdentifier:identifierCopy];
+  v23[0] = v11;
+  v12 = [Channel predicateForPersonal:personalCopy];
+  v23[1] = v12;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+  v14 = [v10 andPredicateWithSubpredicates:v13];
+  [v9 setPredicate:v14];
+
+  v20 = 0;
+  v15 = [contextCopy executeFetchRequest:v9 error:&v20];
+
+  v16 = v20;
+  if (v16)
+  {
+    v17 = +[SKADatabaseManager logger];
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    {
+      [SKADatabaseManager _existingChannelsForChannelIdentifier:isPersonal:databaseContext:];
+    }
+  }
+
+  if (v15)
+  {
+    if ([v15 count])
+    {
+      goto LABEL_13;
+    }
+
+    v18 = +[SKADatabaseManager logger];
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v22 = identifierCopy;
+      _os_log_impl(&dword_220099000, v18, OS_LOG_TYPE_DEFAULT, "Fetch request for channel by identifier %@ found no match.", buf, 0xCu);
+    }
+  }
+
+  else
+  {
+    v18 = +[SKADatabaseManager logger];
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      [SKADatabaseManager _existingChannelsForChannelIdentifier:isPersonal:databaseContext:];
+    }
+
+    v15 = MEMORY[0x277CBEBF8];
+  }
+
+LABEL_13:
+
+  return v15;
+}
+
 - (id)_existingChannelsForChannelIdentifier:(id)identifier databaseContext:(id)context
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   contextCopy = context;
   v7 = +[Channel fetchRequest];
   v8 = MEMORY[0x277CCA920];
   v9 = [Channel predicateForChannelIdentifier:identifierCopy];
-  v21[0] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+  v20[0] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
   v11 = [v8 andPredicateWithSubpredicates:v10];
   [v7 setPredicate:v11];
 
-  v18 = 0;
-  v12 = [contextCopy executeFetchRequest:v7 error:&v18];
+  v17 = 0;
+  v12 = [contextCopy executeFetchRequest:v7 error:&v17];
 
-  v13 = v18;
+  v13 = v17;
   if (v13)
   {
     v14 = +[SKADatabaseManager logger];
@@ -588,7 +645,7 @@ void __86__SKADatabaseManager_existingChannelForPresenceIdentifier_isPersonal_da
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = identifierCopy;
+      v19 = identifierCopy;
       _os_log_impl(&dword_220099000, v15, OS_LOG_TYPE_DEFAULT, "Fetch request for channel by identifier %@ found no match.", buf, 0xCu);
     }
   }
@@ -605,9 +662,120 @@ void __86__SKADatabaseManager_existingChannelForPresenceIdentifier_isPersonal_da
   }
 
 LABEL_13:
-  v16 = *MEMORY[0x277D85DE8];
 
   return v12;
+}
+
+- (id)_existingChannelsForPresenceIdentifier:(id)identifier isPersonal:(BOOL)personal databaseContext:(id)context
+{
+  personalCopy = personal;
+  v45[5] = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  contextCopy = context;
+  v8 = +[Channel fetchRequest];
+  v9 = MEMORY[0x277CCA920];
+  v10 = [Channel predicateForPresenceIdentifier:identifierCopy];
+  v45[0] = v10;
+  v11 = [Channel predicateForDecommissioned:0];
+  v45[1] = v11;
+  v12 = +[Channel predicateForChannelTypePresence];
+  v45[2] = v12;
+  v13 = [Channel predicateForPersonal:personalCopy];
+  v45[3] = v13;
+  v14 = +[Channel predicateForCreationDateNotNil];
+  v45[4] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:5];
+  v16 = [v9 andPredicateWithSubpredicates:v15];
+  [v8 setPredicate:v16];
+
+  v17 = v8;
+  v18 = [Channel sortDescriptorForCreationDateAscending:0];
+  v44 = v18;
+  v19 = identifierCopy;
+  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
+  [v17 setSortDescriptors:v20];
+
+  [v17 setFetchLimit:10];
+  v21 = +[SKADatabaseManager logger];
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v35 = identifierCopy;
+    _os_log_impl(&dword_220099000, v21, OS_LOG_TYPE_DEFAULT, "Beginning fetch request for channels with presence identifier: %@", buf, 0xCu);
+  }
+
+  v33 = 0;
+  v22 = [contextCopy executeFetchRequest:v17 error:&v33];
+
+  v23 = v33;
+  if (v23)
+  {
+    v24 = +[SKADatabaseManager logger];
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    {
+      [SKADatabaseManager _existingChannelsForPresenceIdentifier:isPersonal:databaseContext:];
+    }
+  }
+
+  if (v22)
+  {
+    if ([v22 count])
+    {
+      firstObject = [v22 firstObject];
+      v26 = +[SKADatabaseManager logger];
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      {
+        v27 = [v22 count];
+        if ([v22 count] == 10)
+        {
+          v28 = @"YES";
+        }
+
+        else
+        {
+          v28 = @"NO";
+        }
+
+        identifier = [firstObject identifier];
+        dateChannelCreated = [firstObject dateChannelCreated];
+        *buf = 138413314;
+        v35 = v19;
+        v36 = 2048;
+        v37 = v27;
+        v38 = 2112;
+        v39 = v28;
+        v40 = 2112;
+        v41 = identifier;
+        v42 = 2112;
+        v43 = dateChannelCreated;
+        _os_log_impl(&dword_220099000, v26, OS_LOG_TYPE_DEFAULT, "Fetch request for channels by presence identifier %@ completed with %ld result(s) (limited = %@). Representative channel is %@, created at: %@", buf, 0x34u);
+      }
+    }
+
+    else
+    {
+      firstObject = +[SKADatabaseManager logger];
+      if (os_log_type_enabled(firstObject, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v35 = v19;
+        _os_log_impl(&dword_220099000, firstObject, OS_LOG_TYPE_DEFAULT, "Fetch request for channels by presence identifier %@ found no match.", buf, 0xCu);
+      }
+    }
+  }
+
+  else
+  {
+    firstObject = +[SKADatabaseManager logger];
+    if (os_log_type_enabled(firstObject, OS_LOG_TYPE_ERROR))
+    {
+      [SKADatabaseManager _existingChannelsForPresenceIdentifier:isPersonal:databaseContext:];
+    }
+
+    v22 = MEMORY[0x277CBEBF8];
+  }
+
+  return v22;
 }
 
 - (id)existingChannelForHandle:(id)handle statusTypeIdentifier:(id)identifier databaseContext:(id)context
@@ -643,7 +811,7 @@ LABEL_13:
 
 void __84__SKADatabaseManager_existingChannelForHandle_statusTypeIdentifier_databaseContext___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _existingReceivedInvitationsForHandle:*(a1 + 40) statusTypeIdentifier:*(a1 + 48) databaseContext:*(a1 + 56)];
   v3 = [v2 firstObject];
   v4 = v3;
@@ -654,13 +822,13 @@ void __84__SKADatabaseManager_existingChannelForHandle_statusTypeIdentifier_data
     v7 = +[SKADatabaseManager logger];
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412802;
-      v19 = v5;
-      v20 = 2112;
-      v21 = v6;
-      v22 = 2048;
-      v23 = [v2 count];
-      _os_log_impl(&dword_220099000, v7, OS_LOG_TYPE_DEFAULT, "Preferring invitation %@ from %@ among %ld result(s)", &v18, 0x20u);
+      v17 = 138412802;
+      v18 = v5;
+      v19 = 2112;
+      v20 = v6;
+      v21 = 2048;
+      v22 = [v2 count];
+      _os_log_impl(&dword_220099000, v7, OS_LOG_TYPE_DEFAULT, "Preferring invitation %@ from %@ among %ld result(s)", &v17, 0x20u);
     }
 
     v8 = [v4 channel];
@@ -673,11 +841,11 @@ void __84__SKADatabaseManager_existingChannelForHandle_statusTypeIdentifier_data
     {
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v18 = 138412546;
-        v19 = v5;
-        v20 = 2112;
-        v21 = v9;
-        _os_log_impl(&dword_220099000, v12, OS_LOG_TYPE_DEFAULT, "Invitation %@ corresponds to channelIdentifier: %@", &v18, 0x16u);
+        v17 = 138412546;
+        v18 = v5;
+        v19 = 2112;
+        v20 = v9;
+        _os_log_impl(&dword_220099000, v12, OS_LOG_TYPE_DEFAULT, "Invitation %@ corresponds to channelIdentifier: %@", &v17, 0x16u);
       }
 
       v12 = [*(a1 + 32) _existingChannelsForChannelIdentifier:v9 databaseContext:*(a1 + 56)];
@@ -712,15 +880,13 @@ void __84__SKADatabaseManager_existingChannelForHandle_statusTypeIdentifier_data
   {
     v6 = [*(a1 + 40) handleString];
     v16 = *(a1 + 48);
-    v18 = 138412546;
-    v19 = v6;
-    v20 = 2112;
-    v21 = v16;
-    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "No received invitation found matching handle %@ statusTypeIdentifier: %@", &v18, 0x16u);
+    v17 = 138412546;
+    v18 = v6;
+    v19 = 2112;
+    v20 = v16;
+    _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "No received invitation found matching handle %@ statusTypeIdentifier: %@", &v17, 0x16u);
 LABEL_17:
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)allExistingChannelsForHandle:(id)handle presenceIdentifier:(id)identifier databaseContext:(id)context
@@ -756,30 +922,30 @@ LABEL_17:
 
 void __86__SKADatabaseManager_allExistingChannelsForHandle_presenceIdentifier_databaseContext___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _existingReceivedInvitationsForHandle:*(a1 + 40) presenceIdentifier:*(a1 + 48) databaseContext:*(a1 + 56)];
   v3 = objc_alloc_init(MEMORY[0x277CBEB40]);
   context = objc_autoreleasePoolPush();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v28 objects:v37 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v27 objects:v36 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v29;
+    v7 = *v28;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v29 != v7)
+        if (*v28 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v28 + 1) + 8 * i);
+        v9 = *(*(&v27 + 1) + 8 * i);
         v10 = [v9 channel];
         v11 = [v10 identifier];
 
@@ -796,40 +962,40 @@ void __86__SKADatabaseManager_allExistingChannelsForHandle_presenceIdentifier_da
           {
             v13 = *(a1 + 40);
             *buf = 138412546;
-            v34 = v9;
-            v35 = 2112;
-            v36 = v13;
+            v33 = v9;
+            v34 = 2112;
+            v35 = v13;
             _os_log_error_impl(&dword_220099000, v12, OS_LOG_TYPE_ERROR, "Invitation does not correspond to any channel. ReceivedInvitation: %@ handle: %@", buf, 0x16u);
           }
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v28 objects:v37 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v27 objects:v36 count:16];
     }
 
     while (v6);
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v14 = v3;
-  v15 = [v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v25;
+    v17 = *v24;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v25 != v17)
+        if (*v24 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v24 + 1) + 8 * j);
+        v19 = *(*(&v23 + 1) + 8 * j);
         v20 = [*(a1 + 32) _existingChannelsForChannelIdentifier:v19 databaseContext:*(a1 + 56)];
         if ([v20 count])
         {
@@ -843,20 +1009,19 @@ void __86__SKADatabaseManager_allExistingChannelsForHandle_presenceIdentifier_da
           if (os_log_type_enabled(&v21->super, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v34 = v19;
+            v33 = v19;
             _os_log_error_impl(&dword_220099000, &v21->super, OS_LOG_TYPE_ERROR, "Channel not found for channel identifier: %@", buf, 0xCu);
           }
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v16);
   }
 
   objc_autoreleasePoolPop(context);
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (id)allExistingChannelsForHandle:(id)handle statusTypeIdentifier:(id)identifier databaseContext:(id)context
@@ -892,30 +1057,30 @@ void __86__SKADatabaseManager_allExistingChannelsForHandle_presenceIdentifier_da
 
 void __88__SKADatabaseManager_allExistingChannelsForHandle_statusTypeIdentifier_databaseContext___block_invoke(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _existingReceivedInvitationsForHandle:*(a1 + 40) statusTypeIdentifier:*(a1 + 48) databaseContext:*(a1 + 56)];
   v3 = objc_alloc_init(MEMORY[0x277CBEB40]);
   context = objc_autoreleasePoolPush();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v28 objects:v37 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v27 objects:v36 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v29;
+    v7 = *v28;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v29 != v7)
+        if (*v28 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v28 + 1) + 8 * i);
+        v9 = *(*(&v27 + 1) + 8 * i);
         v10 = [v9 channel];
         v11 = [v10 identifier];
 
@@ -932,40 +1097,40 @@ void __88__SKADatabaseManager_allExistingChannelsForHandle_statusTypeIdentifier_
           {
             v13 = *(a1 + 40);
             *buf = 138412546;
-            v34 = v9;
-            v35 = 2112;
-            v36 = v13;
+            v33 = v9;
+            v34 = 2112;
+            v35 = v13;
             _os_log_error_impl(&dword_220099000, v12, OS_LOG_TYPE_ERROR, "Invitation does not correspond to any channel. ReceivedInvitation: %@ handle: %@", buf, 0x16u);
           }
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v28 objects:v37 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v27 objects:v36 count:16];
     }
 
     while (v6);
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v14 = v3;
-  v15 = [v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v25;
+    v17 = *v24;
     do
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v25 != v17)
+        if (*v24 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = *(*(&v24 + 1) + 8 * j);
+        v19 = *(*(&v23 + 1) + 8 * j);
         v20 = [*(a1 + 32) _existingChannelsForChannelIdentifier:v19 databaseContext:*(a1 + 56)];
         if ([v20 count])
         {
@@ -979,143 +1144,141 @@ void __88__SKADatabaseManager_allExistingChannelsForHandle_statusTypeIdentifier_
           if (os_log_type_enabled(&v21->super, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v34 = v19;
+            v33 = v19;
             _os_log_error_impl(&dword_220099000, &v21->super, OS_LOG_TYPE_ERROR, "Channel not found for channel identifier: %@", buf, 0xCu);
           }
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v16);
   }
 
   objc_autoreleasePoolPop(context);
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logMostDuplicatedChannelFromDatabaseContext:(id)context
 {
-  v32[2] = *MEMORY[0x277D85DE8];
+  v31[2] = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy_;
-  v29 = __Block_byref_object_dispose_;
-  v30 = &unk_2833EBA50;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy_;
-  v23 = __Block_byref_object_dispose_;
   v24 = 0;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy_;
-  v17 = __Block_byref_object_dispose_;
+  v25 = &v24;
+  v26 = 0x3032000000;
+  v27 = __Block_byref_object_copy_;
+  v28 = __Block_byref_object_dispose_;
+  v29 = &unk_2833EBA50;
   v18 = 0;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __66__SKADatabaseManager_logMostDuplicatedChannelFromDatabaseContext___block_invoke;
-  v8[3] = &unk_27843E418;
+  v19 = &v18;
+  v20 = 0x3032000000;
+  v21 = __Block_byref_object_copy_;
+  v22 = __Block_byref_object_dispose_;
+  v23 = 0;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x3032000000;
+  v15 = __Block_byref_object_copy_;
+  v16 = __Block_byref_object_dispose_;
+  v17 = 0;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __66__SKADatabaseManager_logMostDuplicatedChannelFromDatabaseContext___block_invoke;
+  v7[3] = &unk_27843E418;
   v4 = contextCopy;
-  v9 = v4;
-  v10 = &v25;
-  v11 = &v19;
-  v12 = &v13;
-  [v4 performBlockAndWait:v8];
-  if (v20[5] && v14[5] && [v26[5] integerValue])
+  v8 = v4;
+  v9 = &v24;
+  v10 = &v18;
+  v11 = &v12;
+  [v4 performBlockAndWait:v7];
+  if (v19[5] && v13[5] && [v25[5] integerValue])
   {
-    v31[0] = &unk_2833EBA68;
-    clientIDFromPresenceIdentifier = [v20[5] clientIDFromPresenceIdentifier];
-    v31[1] = &unk_2833EBA80;
-    v32[0] = clientIDFromPresenceIdentifier;
-    v32[1] = v26[5];
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
+    v30[0] = &unk_2833EBA68;
+    clientIDFromPresenceIdentifier = [v19[5] clientIDFromPresenceIdentifier];
+    v30[1] = &unk_2833EBA80;
+    v31[0] = clientIDFromPresenceIdentifier;
+    v31[1] = v25[5];
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:2];
     [SKACALogger logEvent:3 withMetadata:v6];
   }
 
-  _Block_object_dispose(&v13, 8);
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v12, 8);
+  _Block_object_dispose(&v18, 8);
 
-  _Block_object_dispose(&v25, 8);
-  v7 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v24, 8);
 }
 
 void __66__SKADatabaseManager_logMostDuplicatedChannelFromDatabaseContext___block_invoke(void *a1)
 {
-  v49[1] = *MEMORY[0x277D85DE8];
+  v48[1] = *MEMORY[0x277D85DE8];
   v2 = +[Channel fetchRequest];
   v3 = objc_alloc_init(MEMORY[0x277CBE410]);
   [v3 setName:@"count"];
   v4 = MEMORY[0x277CCA9C0];
   v5 = +[Channel identifierKeyPath];
   v6 = [v4 expressionForKeyPath:v5];
-  v49[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v49 count:1];
+  v48[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:1];
   v8 = [v4 expressionForFunction:@"count:" arguments:v7];
   [v3 setExpression:v8];
 
   [v3 setExpressionResultType:200];
   v9 = +[Channel identifierKeyPath];
-  v48[0] = v9;
+  v47[0] = v9;
   v10 = +[Channel presenceIdentifierKeyPath];
-  v48[1] = v10;
-  v48[2] = v3;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:3];
+  v47[1] = v10;
+  v47[2] = v3;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:3];
   [v2 setPropertiesToFetch:v11];
 
   v12 = +[Channel identifierKeyPath];
-  v47[0] = v12;
+  v46[0] = v12;
   v13 = +[Channel presenceIdentifierKeyPath];
-  v47[1] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
+  v46[1] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:2];
   [v2 setPropertiesToGroupBy:v14];
 
   [v2 setResultType:2];
   v15 = a1[4];
-  v43 = 0;
-  v16 = [v15 executeFetchRequest:v2 error:&v43];
-  v17 = v43;
+  v42 = 0;
+  v16 = [v15 executeFetchRequest:v2 error:&v42];
+  v17 = v42;
   if (v17)
   {
     v18 = +[SKADatabaseManager logger];
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v46 = v17;
+      v45 = v17;
       _os_log_impl(&dword_220099000, v18, OS_LOG_TYPE_DEFAULT, "Error fetching grouped data: %@", buf, 0xCu);
     }
   }
 
   else
   {
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     v18 = v16;
-    v19 = [v18 countByEnumeratingWithState:&v39 objects:v44 count:16];
+    v19 = [v18 countByEnumeratingWithState:&v38 objects:v43 count:16];
     if (v19)
     {
       v20 = v19;
-      v36 = v16;
-      v37 = v3;
-      v38 = v2;
-      v21 = *v40;
+      v35 = v16;
+      v36 = v3;
+      v37 = v2;
+      v21 = *v39;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v40 != v21)
+          if (*v39 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v39 + 1) + 8 * i);
+          v23 = *(*(&v38 + 1) + 8 * i);
           v24 = objc_autoreleasePoolPush();
           v25 = [v23 objectForKey:@"count"];
           v26 = [v25 integerValue];
@@ -1138,18 +1301,16 @@ void __66__SKADatabaseManager_logMostDuplicatedChannelFromDatabaseContext___bloc
           objc_autoreleasePoolPop(v24);
         }
 
-        v20 = [v18 countByEnumeratingWithState:&v39 objects:v44 count:16];
+        v20 = [v18 countByEnumeratingWithState:&v38 objects:v43 count:16];
       }
 
       while (v20);
-      v3 = v37;
-      v2 = v38;
+      v3 = v36;
+      v2 = v37;
       v17 = 0;
-      v16 = v36;
+      v16 = v35;
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (id)allExistingChannelsForStatusTypeIdentifier:(id)identifier includingPersonalChannel:(BOOL)channel databaseContext:(id)context
@@ -1182,7 +1343,7 @@ void __66__SKADatabaseManager_logMostDuplicatedChannelFromDatabaseContext___bloc
 
 void __106__SKADatabaseManager_allExistingChannelsForStatusTypeIdentifier_includingPersonalChannel_databaseContext___block_invoke(uint64_t a1)
 {
-  v59[3] = *MEMORY[0x277D85DE8];
+  v58[3] = *MEMORY[0x277D85DE8];
   v2 = +[Channel fetchRequest];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v4 = (a1 + 32);
@@ -1195,7 +1356,7 @@ void __106__SKADatabaseManager_allExistingChannelsForStatusTypeIdentifier_includ
     [v3 addObject:v6];
   }
 
-  v43 = v3;
+  v42 = v3;
   if ([v3 count] <= 1)
   {
     [v3 firstObject];
@@ -1205,15 +1366,15 @@ void __106__SKADatabaseManager_allExistingChannelsForStatusTypeIdentifier_includ
   {
     [MEMORY[0x277CCA920] andPredicateWithSubpredicates:v3];
   }
-  v42 = ;
+  v41 = ;
   [v2 setPredicate:?];
   v7 = [Channel sortDescriptorForStatusTypeIdentifierOrderedAscending:1];
-  v59[0] = v7;
+  v58[0] = v7;
   v8 = [Channel sortDescriptorForPersonalOrderedAscending:0];
-  v59[1] = v8;
+  v58[1] = v8;
   v9 = [Channel sortDescriptorForChannelIdentifierOrderedAscending:1];
-  v59[2] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v59 count:3];
+  v58[2] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:3];
   [v2 setSortDescriptors:v10];
 
   v11 = +[SKADatabaseManager logger];
@@ -1221,25 +1382,25 @@ void __106__SKADatabaseManager_allExistingChannelsForStatusTypeIdentifier_includ
   {
     v12 = *v4;
     *buf = 138412290;
-    v56 = v12;
+    v55 = v12;
     _os_log_impl(&dword_220099000, v11, OS_LOG_TYPE_DEFAULT, "Beginning fetch request for channel by status type identifier %@", buf, 0xCu);
   }
 
   v13 = *(a1 + 40);
-  v52 = 0;
-  v14 = [v13 executeFetchRequest:v2 error:&v52];
-  v15 = v52;
+  v51 = 0;
+  v14 = [v13 executeFetchRequest:v2 error:&v51];
+  v15 = v51;
   if (v15)
   {
     v16 = +[SKADatabaseManager logger];
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      __106__SKADatabaseManager_allExistingChannelsForStatusTypeIdentifier_includingPersonalChannel_databaseContext___block_invoke_cold_1((a1 + 32));
+      __106__SKADatabaseManager_allExistingChannelsForStatusTypeIdentifier_includingPersonalChannel_databaseContext___block_invoke_cold_1();
     }
 
 LABEL_11:
-    v18 = v42;
-    v17 = v43;
+    v18 = v41;
+    v17 = v42;
     goto LABEL_34;
   }
 
@@ -1250,50 +1411,50 @@ LABEL_11:
   {
     if (v20)
     {
-      v38 = *v4;
+      v37 = *v4;
       *buf = 138412290;
-      v56 = v38;
+      v55 = v37;
       _os_log_impl(&dword_220099000, v16, OS_LOG_TYPE_DEFAULT, "Fetch request for channel by status type identifier %@ found no match.", buf, 0xCu);
     }
 
     goto LABEL_11;
   }
 
-  v41 = v2;
+  v40 = v2;
   if (v20)
   {
     v21 = *v4;
     v22 = [v14 count];
     *buf = 138412546;
-    v56 = v21;
-    v57 = 2048;
-    v58 = v22;
+    v55 = v21;
+    v56 = 2048;
+    v57 = v22;
     _os_log_impl(&dword_220099000, v16, OS_LOG_TYPE_DEFAULT, "Fetch request for channel by status type identifier %@ completed with %ld result(s)", buf, 0x16u);
   }
 
   v16 = objc_alloc_init(MEMORY[0x277CBEB38]);
   context = objc_autoreleasePoolPush();
+  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v51 = 0u;
-  v40 = v14;
+  v39 = v14;
   v23 = v14;
-  v24 = [v23 countByEnumeratingWithState:&v48 objects:v54 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v47 objects:v53 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v49;
+    v26 = *v48;
     do
     {
       for (i = 0; i != v25; ++i)
       {
-        if (*v49 != v26)
+        if (*v48 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v28 = *(*(&v48 + 1) + 8 * i);
+        v28 = *(*(&v47 + 1) + 8 * i);
         v29 = [v28 identifier];
         if ([v29 length])
         {
@@ -1308,50 +1469,48 @@ LABEL_11:
         }
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v48 objects:v54 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v47 objects:v53 count:16];
     }
 
     while (v25);
   }
 
   objc_autoreleasePoolPop(context);
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v31 = [v16 allValues];
-  v32 = [v31 countByEnumeratingWithState:&v44 objects:v53 count:16];
-  v2 = v41;
+  v32 = [v31 countByEnumeratingWithState:&v43 objects:v52 count:16];
+  v2 = v40;
   v15 = 0;
   if (v32)
   {
     v33 = v32;
-    v34 = *v45;
+    v34 = *v44;
     do
     {
       for (j = 0; j != v33; ++j)
       {
-        if (*v45 != v34)
+        if (*v44 != v34)
         {
           objc_enumerationMutation(v31);
         }
 
-        v36 = [[SKADatabaseChannel alloc] initWithCoreDataChannels:*(*(&v44 + 1) + 8 * j)];
+        v36 = [[SKADatabaseChannel alloc] initWithCoreDataChannels:*(*(&v43 + 1) + 8 * j)];
         [*(*(*(a1 + 48) + 8) + 40) addObject:v36];
       }
 
-      v33 = [v31 countByEnumeratingWithState:&v44 objects:v53 count:16];
+      v33 = [v31 countByEnumeratingWithState:&v43 objects:v52 count:16];
     }
 
     while (v33);
   }
 
-  v18 = v42;
-  v17 = v43;
-  v14 = v40;
+  v18 = v41;
+  v17 = v42;
+  v14 = v39;
 LABEL_34:
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (id)allExistingChannelsForPresenceIdentifier:(id)identifier isPersonal:(BOOL)personal databaseContext:(id)context
@@ -1384,48 +1543,48 @@ LABEL_34:
 
 void __90__SKADatabaseManager_allExistingChannelsForPresenceIdentifier_isPersonal_databaseContext___block_invoke(uint64_t a1)
 {
-  v58[5] = *MEMORY[0x277D85DE8];
+  v57[5] = *MEMORY[0x277D85DE8];
   v2 = +[Channel fetchRequest];
   v3 = MEMORY[0x277CCA920];
   v4 = [Channel predicateForPresenceIdentifier:*(a1 + 32)];
-  v58[0] = v4;
+  v57[0] = v4;
   v5 = [Channel predicateForDecommissioned:0];
-  v58[1] = v5;
+  v57[1] = v5;
   v6 = +[Channel predicateForChannelTypePresence];
-  v58[2] = v6;
-  v41 = (a1 + 32);
+  v57[2] = v6;
+  v40 = (a1 + 32);
   v7 = [Channel predicateForPersonal:*(a1 + 56)];
-  v58[3] = v7;
+  v57[3] = v7;
   v8 = +[Channel predicateForCreationDateNotNil];
-  v58[4] = v8;
-  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:5];
+  v57[4] = v8;
+  v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:5];
   v10 = [v3 andPredicateWithSubpredicates:v9];
   [v2 setPredicate:v10];
 
   v11 = [Channel sortDescriptorForCreationDateAscending:0];
-  v57 = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
+  v56 = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
   [v2 setSortDescriptors:v12];
 
   v13 = +[SKADatabaseManager logger];
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = *v41;
+    v14 = *v40;
     *buf = 138412290;
-    v54 = v14;
+    v53 = v14;
     _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Beginning fetch request for channel by presence identifier %@", buf, 0xCu);
   }
 
   v15 = *(a1 + 40);
-  v50 = 0;
-  v16 = [v15 executeFetchRequest:v2 error:&v50];
-  v17 = v50;
+  v49 = 0;
+  v16 = [v15 executeFetchRequest:v2 error:&v49];
+  v17 = v49;
   if (v17)
   {
     v18 = +[SKADatabaseManager logger];
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      __90__SKADatabaseManager_allExistingChannelsForPresenceIdentifier_isPersonal_databaseContext___block_invoke_cold_1(v41);
+      __90__SKADatabaseManager_allExistingChannelsForPresenceIdentifier_isPersonal_databaseContext___block_invoke_cold_1();
     }
   }
 
@@ -1436,40 +1595,40 @@ void __90__SKADatabaseManager_allExistingChannelsForPresenceIdentifier_isPersona
     v20 = os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT);
     if (v19)
     {
-      v40 = v2;
+      v39 = v2;
       if (v20)
       {
-        v21 = *v41;
+        v21 = *v40;
         v22 = [v16 count];
         *buf = 138412546;
-        v54 = v21;
-        v55 = 2048;
-        v56 = v22;
+        v53 = v21;
+        v54 = 2048;
+        v55 = v22;
         _os_log_impl(&dword_220099000, v18, OS_LOG_TYPE_DEFAULT, "Fetch request for channel by presence identifier %@ completed with %ld result(s)", buf, 0x16u);
       }
 
       v18 = objc_alloc_init(MEMORY[0x277CBEB38]);
       context = objc_autoreleasePoolPush();
+      v45 = 0u;
       v46 = 0u;
       v47 = 0u;
       v48 = 0u;
-      v49 = 0u;
       v23 = v16;
-      v24 = [v23 countByEnumeratingWithState:&v46 objects:v52 count:16];
+      v24 = [v23 countByEnumeratingWithState:&v45 objects:v51 count:16];
       if (v24)
       {
         v25 = v24;
-        v26 = *v47;
+        v26 = *v46;
         do
         {
           for (i = 0; i != v25; ++i)
           {
-            if (*v47 != v26)
+            if (*v46 != v26)
             {
               objc_enumerationMutation(v23);
             }
 
-            v28 = *(*(&v46 + 1) + 8 * i);
+            v28 = *(*(&v45 + 1) + 8 * i);
             v29 = [v28 identifier];
             if ([v29 length])
             {
@@ -1484,56 +1643,54 @@ void __90__SKADatabaseManager_allExistingChannelsForPresenceIdentifier_isPersona
             }
           }
 
-          v25 = [v23 countByEnumeratingWithState:&v46 objects:v52 count:16];
+          v25 = [v23 countByEnumeratingWithState:&v45 objects:v51 count:16];
         }
 
         while (v25);
       }
 
       objc_autoreleasePoolPop(context);
-      v44 = 0u;
-      v45 = 0u;
-      v42 = 0u;
       v43 = 0u;
+      v44 = 0u;
+      v41 = 0u;
+      v42 = 0u;
       v31 = [v18 allValues];
-      v32 = [v31 countByEnumeratingWithState:&v42 objects:v51 count:16];
+      v32 = [v31 countByEnumeratingWithState:&v41 objects:v50 count:16];
       if (v32)
       {
         v33 = v32;
-        v34 = *v43;
+        v34 = *v42;
         do
         {
           for (j = 0; j != v33; ++j)
           {
-            if (*v43 != v34)
+            if (*v42 != v34)
             {
               objc_enumerationMutation(v31);
             }
 
-            v36 = [[SKADatabaseChannel alloc] initWithCoreDataChannels:*(*(&v42 + 1) + 8 * j)];
+            v36 = [[SKADatabaseChannel alloc] initWithCoreDataChannels:*(*(&v41 + 1) + 8 * j)];
             [*(*(*(a1 + 48) + 8) + 40) addObject:v36];
           }
 
-          v33 = [v31 countByEnumeratingWithState:&v42 objects:v51 count:16];
+          v33 = [v31 countByEnumeratingWithState:&v41 objects:v50 count:16];
         }
 
         while (v33);
       }
 
-      v2 = v40;
+      v2 = v39;
       v17 = 0;
     }
 
     else if (v20)
     {
-      v37 = *v41;
+      v37 = *v40;
       *buf = 138412290;
-      v54 = v37;
+      v53 = v37;
       _os_log_impl(&dword_220099000, v18, OS_LOG_TYPE_DEFAULT, "Fetch request for channel by presence identifier %@ found no match.", buf, 0xCu);
     }
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createPersonalChannelForStatusTypeIdentifier:(id)identifier channelIdentifier:(id)channelIdentifier channelToken:(id)token databaseContext:(id)context
@@ -1573,7 +1730,7 @@ void __90__SKADatabaseManager_allExistingChannelsForPresenceIdentifier_isPersona
 
 void __114__SKADatabaseManager_createPersonalChannelForStatusTypeIdentifier_channelIdentifier_channelToken_databaseContext___block_invoke(void *a1)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v2 = [[Channel alloc] initWithContext:a1[4]];
   [(Channel *)v2 setStatusType:a1[5]];
   [(Channel *)v2 setChannelType:0];
@@ -1584,9 +1741,9 @@ void __114__SKADatabaseManager_createPersonalChannelForStatusTypeIdentifier_chan
   v3 = [MEMORY[0x277CBEAA8] now];
   [(Channel *)v2 setDateChannelCreated:v3];
   v4 = a1[4];
-  v13 = 0;
-  [v4 save:&v13];
-  v5 = v13;
+  v12 = 0;
+  [v4 save:&v12];
+  v5 = v12;
   if (v5)
   {
     v6 = +[SKADatabaseManager logger];
@@ -1597,14 +1754,12 @@ void __114__SKADatabaseManager_createPersonalChannelForStatusTypeIdentifier_chan
   }
 
   v7 = [SKADatabaseChannel alloc];
-  v14[0] = v2;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = v2;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   v9 = [(SKADatabaseChannel *)v7 initWithCoreDataChannels:v8];
   v10 = *(a1[8] + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v9;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createPresenceChannelForPresenceIdentifier:(id)identifier channelIdentifier:(id)channelIdentifier channelToken:(id)token peerKey:(id)key serverKey:(id)serverKey membershipKey:(id)membershipKey creationDate:(id)date options:(id)self0 databaseContext:(id)self1
@@ -1659,7 +1814,7 @@ void __114__SKADatabaseManager_createPersonalChannelForStatusTypeIdentifier_chan
 
 void __165__SKADatabaseManager_createPresenceChannelForPresenceIdentifier_channelIdentifier_channelToken_peerKey_serverKey_membershipKey_creationDate_options_databaseContext___block_invoke(uint64_t a1)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v2 = [[Channel alloc] initWithContext:*(a1 + 32)];
   [(Channel *)v2 setPresenceIdentifier:*(a1 + 40)];
   [(Channel *)v2 setChannelType:1];
@@ -1675,9 +1830,9 @@ void __165__SKADatabaseManager_createPresenceChannelForPresenceIdentifier_channe
   [(Channel *)v2 setServiceIdentifier:v3];
 
   v4 = *(a1 + 32);
-  v13 = 0;
-  [v4 save:&v13];
-  v5 = v13;
+  v12 = 0;
+  [v4 save:&v12];
+  v5 = v12;
   if (v5)
   {
     v6 = +[SKADatabaseManager logger];
@@ -1688,14 +1843,12 @@ void __165__SKADatabaseManager_createPresenceChannelForPresenceIdentifier_channe
   }
 
   v7 = [SKADatabaseChannel alloc];
-  v14[0] = v2;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = v2;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   v9 = [(SKADatabaseChannel *)v7 initWithCoreDataChannels:v8];
   v10 = *(*(a1 + 104) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v9;
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createChannelForStatusTypeIdentifier:(id)identifier channelIdentifier:(id)channelIdentifier databaseContext:(id)context
@@ -1732,7 +1885,7 @@ void __165__SKADatabaseManager_createPresenceChannelForPresenceIdentifier_channe
 
 void __93__SKADatabaseManager_createChannelForStatusTypeIdentifier_channelIdentifier_databaseContext___block_invoke(void *a1)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v2 = [[Channel alloc] initWithContext:a1[4]];
   [(Channel *)v2 setStatusType:a1[5]];
   [(Channel *)v2 setChannelType:0];
@@ -1740,9 +1893,9 @@ void __93__SKADatabaseManager_createChannelForStatusTypeIdentifier_channelIdenti
   [(Channel *)v2 setDecomissioned:0];
   [(Channel *)v2 setIdentifier:a1[6]];
   v3 = a1[4];
-  v12 = 0;
-  [v3 save:&v12];
-  v4 = v12;
+  v11 = 0;
+  [v3 save:&v11];
+  v4 = v11;
   if (v4)
   {
     v5 = +[SKADatabaseManager logger];
@@ -1753,14 +1906,12 @@ void __93__SKADatabaseManager_createChannelForStatusTypeIdentifier_channelIdenti
   }
 
   v6 = [SKADatabaseChannel alloc];
-  v13[0] = v2;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = v2;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v8 = [(SKADatabaseChannel *)v6 initWithCoreDataChannels:v7];
   v9 = *(a1[7] + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v8;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)updatePersonalChannel:(id)channel withCurrentOutgoingRatchetState:(id)state databaseContext:(id)context
@@ -1796,13 +1947,13 @@ void __93__SKADatabaseManager_createChannelForStatusTypeIdentifier_channelIdenti
 
 void __92__SKADatabaseManager_updatePersonalChannel_withCurrentOutgoingRatchetState_databaseContext___block_invoke(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _existingPersonalChannelForDatabaseChannel:*(a1 + 40) databaseContext:*(a1 + 48)];
   [v2 setCurrentOutgoingRatchetState:*(a1 + 56)];
   v3 = *(a1 + 48);
-  v12 = 0;
-  [v3 save:&v12];
-  v4 = v12;
+  v11 = 0;
+  [v3 save:&v11];
+  v4 = v11;
   if (v4)
   {
     v5 = +[SKADatabaseManager logger];
@@ -1813,14 +1964,12 @@ void __92__SKADatabaseManager_updatePersonalChannel_withCurrentOutgoingRatchetSt
   }
 
   v6 = [SKADatabaseChannel alloc];
-  v13[0] = v2;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+  v12[0] = v2;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
   v8 = [(SKADatabaseChannel *)v6 initWithCoreDataChannels:v7];
   v9 = *(*(a1 + 64) + 8);
   v10 = *(v9 + 40);
   *(v9 + 40) = v8;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)decommissionAllPersonalChannelsWithStatusTypeIdentifier:(id)identifier databaseContext:(id)context
@@ -1850,41 +1999,41 @@ void __92__SKADatabaseManager_updatePersonalChannel_withCurrentOutgoingRatchetSt
 
 void __94__SKADatabaseManager_decommissionAllPersonalChannelsWithStatusTypeIdentifier_databaseContext___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _existingPersonalChannelsForStatusTypeIdentifier:*(a1 + 40) databaseContext:*(a1 + 48)];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       v6 = 0;
       do
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v12 + 1) + 8 * v6++) setDecomissioned:1];
+        [*(*(&v11 + 1) + 8 * v6++) setDecomissioned:1];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
 
   v7 = *(a1 + 48);
-  v11 = 0;
-  [v7 save:&v11];
-  v8 = v11;
+  v10 = 0;
+  [v7 save:&v10];
+  v8 = v10;
   if (v8)
   {
     v9 = +[SKADatabaseManager logger];
@@ -1895,8 +2044,6 @@ void __94__SKADatabaseManager_decommissionAllPersonalChannelsWithStatusTypeIdent
 
     *(*(*(a1 + 56) + 8) + 24) = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)decommissionAllOldChannelsWithPresenceIdentifier:(id)identifier isPersonal:(BOOL)personal databaseContext:(id)context
@@ -1927,7 +2074,7 @@ void __94__SKADatabaseManager_decommissionAllPersonalChannelsWithStatusTypeIdent
 
 void __98__SKADatabaseManager_decommissionAllOldChannelsWithPresenceIdentifier_isPersonal_databaseContext___block_invoke(uint64_t a1)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) existingChannelForPresenceIdentifier:*(a1 + 40) isPersonal:*(a1 + 64) databaseContext:*(a1 + 48)];
   v3 = +[SKADatabaseManager logger];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -1935,53 +2082,53 @@ void __98__SKADatabaseManager_decommissionAllOldChannelsWithPresenceIdentifier_i
     v4 = [v2 identifier];
     v5 = *(a1 + 40);
     *buf = 138412546;
-    v43 = v4;
-    v44 = 2112;
-    v45 = v5;
+    v42 = v4;
+    v43 = 2112;
+    v44 = v5;
     _os_log_impl(&dword_220099000, v3, OS_LOG_TYPE_DEFAULT, "Decommissioning all old channels besides representative channel (%@) for presence identifier %@", buf, 0x16u);
   }
 
   v6 = +[Channel fetchRequest];
   v7 = MEMORY[0x277CCA920];
   v8 = [Channel predicateForPresenceIdentifier:*(a1 + 40)];
-  v41[0] = v8;
+  v40[0] = v8;
   v9 = [Channel predicateForDecommissioned:0];
-  v41[1] = v9;
+  v40[1] = v9;
   v10 = +[Channel predicateForChannelTypePresence];
-  v41[2] = v10;
+  v40[2] = v10;
   v11 = [Channel predicateForPersonal:*(a1 + 64)];
-  v41[3] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v41 count:4];
+  v40[3] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:4];
   v13 = [v7 andPredicateWithSubpredicates:v12];
   [v6 setPredicate:v13];
 
   [v6 setFetchLimit:10];
-  v32 = v6;
-  v33 = a1;
+  v31 = v6;
+  v32 = a1;
   v14 = *(a1 + 48);
-  v39 = 0;
-  v15 = [v14 executeFetchRequest:v6 error:&v39];
-  v31 = v39;
+  v38 = 0;
+  v15 = [v14 executeFetchRequest:v6 error:&v38];
+  v30 = v38;
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   v16 = v15;
-  v17 = [v16 countByEnumeratingWithState:&v35 objects:v40 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v34 objects:v39 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v36;
+    v19 = *v35;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v36 != v19)
+        if (*v35 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v35 + 1) + 8 * i);
+        v21 = *(*(&v34 + 1) + 8 * i);
         v22 = [v21 identifier];
         v23 = [v2 identifier];
         v24 = [v22 isEqualToString:v23];
@@ -1993,7 +2140,7 @@ void __98__SKADatabaseManager_decommissionAllOldChannelsWithPresenceIdentifier_i
           {
             v26 = [v21 identifier];
             *buf = 138412290;
-            v43 = v26;
+            v42 = v26;
             _os_log_impl(&dword_220099000, v25, OS_LOG_TYPE_DEFAULT, "Decommissioning channel: %@", buf, 0xCu);
           }
 
@@ -2001,16 +2148,16 @@ void __98__SKADatabaseManager_decommissionAllOldChannelsWithPresenceIdentifier_i
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v35 objects:v40 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v34 objects:v39 count:16];
     }
 
     while (v18);
   }
 
-  v27 = *(v33 + 48);
-  v34 = 0;
-  [v27 save:&v34];
-  v28 = v34;
+  v27 = *(v32 + 48);
+  v33 = 0;
+  [v27 save:&v33];
+  v28 = v33;
   if (v28)
   {
     v29 = +[SKADatabaseManager logger];
@@ -2019,10 +2166,8 @@ void __98__SKADatabaseManager_decommissionAllOldChannelsWithPresenceIdentifier_i
       __94__SKADatabaseManager_decommissionAllPersonalChannelsWithStatusTypeIdentifier_databaseContext___block_invoke_cold_1();
     }
 
-    *(*(*(v33 + 56) + 8) + 24) = 0;
+    *(*(*(v32 + 56) + 8) + 24) = 0;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)decommissionChannelWithIdentifier:(id)identifier databaseContext:(id)context
@@ -2052,41 +2197,41 @@ void __98__SKADatabaseManager_decommissionAllOldChannelsWithPresenceIdentifier_i
 
 void __72__SKADatabaseManager_decommissionChannelWithIdentifier_databaseContext___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _existingChannelsForChannelIdentifier:*(a1 + 40) databaseContext:*(a1 + 48)];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     do
     {
       v6 = 0;
       do
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v12 + 1) + 8 * v6++) setDecomissioned:1];
+        [*(*(&v11 + 1) + 8 * v6++) setDecomissioned:1];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
   }
 
   v7 = *(a1 + 48);
-  v11 = 0;
-  [v7 save:&v11];
-  v8 = v11;
+  v10 = 0;
+  [v7 save:&v10];
+  v8 = v10;
   if (v8)
   {
     v9 = +[SKADatabaseManager logger];
@@ -2097,8 +2242,6 @@ void __72__SKADatabaseManager_decommissionChannelWithIdentifier_databaseContext_
 
     *(*(*(a1 + 56) + 8) + 24) = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createGeneratedEncryptionKeyWithOriginalOutgoingRatchetState:(id)state personalChannel:(id)channel databaseContext:(id)context
@@ -2185,66 +2328,63 @@ void __115__SKADatabaseManager_createGeneratedEncryptionKeyWithOriginalOutgoingR
 
 void __80__SKADatabaseManager_generatedEncryptionKeysForPersonalChannel_databaseContext___block_invoke(uint64_t a1)
 {
-  v25[1] = *MEMORY[0x277D85DE8];
-  v2 = (a1 + 40);
-  v3 = [*(a1 + 32) _existingPersonalChannelForDatabaseChannel:*(a1 + 40) databaseContext:*(a1 + 48)];
-  v4 = v3;
-  if (v3)
+  v23[1] = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) _existingPersonalChannelForDatabaseChannel:*(a1 + 40) databaseContext:*(a1 + 48)];
+  v3 = v2;
+  if (v2)
   {
-    v5 = [v3 generatedEncryptionKeys];
-    v6 = MEMORY[0x277CCAC98];
-    v7 = +[GeneratedEncryptionKey dateGeneratedKeyPath];
-    v8 = [v6 sortDescriptorWithKey:v7 ascending:0];
+    v4 = [v2 generatedEncryptionKeys];
+    v5 = MEMORY[0x277CCAC98];
+    v6 = +[GeneratedEncryptionKey dateGeneratedKeyPath];
+    v7 = [v5 sortDescriptorWithKey:v6 ascending:0];
 
-    v25[0] = v8;
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
-    v10 = [v5 sortedArrayUsingDescriptors:v9];
+    v23[0] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+    v9 = [v4 sortedArrayUsingDescriptors:v8];
 
-    v22 = 0u;
-    v23 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v11 = v10;
-    v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
-    if (v12)
+    v18 = 0u;
+    v19 = 0u;
+    v10 = v9;
+    v11 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    if (v11)
     {
-      v13 = v12;
-      v14 = *v21;
+      v12 = v11;
+      v13 = *v19;
       do
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v21 != v14)
+          if (*v19 != v13)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v10);
           }
 
-          v16 = *(*(&v20 + 1) + 8 * i);
-          v17 = [SKAGeneratedEncryptionKey alloc];
-          v18 = [(SKAGeneratedEncryptionKey *)v17 initWithCoreDataGeneratedEncryptionKey:v16, v20];
-          if (v18)
+          v15 = *(*(&v18 + 1) + 8 * i);
+          v16 = [SKAGeneratedEncryptionKey alloc];
+          v17 = [(SKAGeneratedEncryptionKey *)v16 initWithCoreDataGeneratedEncryptionKey:v15, v18];
+          if (v17)
           {
-            [*(a1 + 56) addObject:v18];
+            [*(a1 + 56) addObject:v17];
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
-      while (v13);
+      while (v12);
     }
   }
 
   else
   {
-    v5 = +[SKADatabaseManager logger];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = +[SKADatabaseManager logger];
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      __80__SKADatabaseManager_generatedEncryptionKeysForPersonalChannel_databaseContext___block_invoke_cold_1(v2);
+      __80__SKADatabaseManager_generatedEncryptionKeysForPersonalChannel_databaseContext___block_invoke_cold_1();
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)allPersistentSubscriptionAssertionChannelIdentifiersWithDatabaseContext:(id)context
@@ -2267,7 +2407,7 @@ void __80__SKADatabaseManager_generatedEncryptionKeysForPersonalChannel_database
 
 void __94__SKADatabaseManager_allPersistentSubscriptionAssertionChannelIdentifiersWithDatabaseContext___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = +[SubscriptionAssertion fetchRequest];
   v3 = +[SKADatabaseManager logger];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -2277,9 +2417,9 @@ void __94__SKADatabaseManager_allPersistentSubscriptionAssertionChannelIdentifie
   }
 
   v4 = *(a1 + 32);
-  v21 = 0;
-  v5 = [v4 executeFetchRequest:v2 error:&v21];
-  v6 = v21;
+  v20 = 0;
+  v5 = [v4 executeFetchRequest:v2 error:&v20];
+  v6 = v20;
   v7 = +[SKADatabaseManager logger];
   v8 = v7;
   if (v6)
@@ -2296,26 +2436,26 @@ void __94__SKADatabaseManager_allPersistentSubscriptionAssertionChannelIdentifie
     _os_log_impl(&dword_220099000, v8, OS_LOG_TYPE_DEFAULT, "Fetch request for active subscription assertions completed", buf, 2u);
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v9 = v5;
-  v10 = [v9 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v18;
+    v12 = *v17;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v18 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v17 + 1) + 8 * i);
+        v14 = *(*(&v16 + 1) + 8 * i);
         v15 = [v14 channelIdentifier];
         [*(a1 + 32) refreshObject:v14 mergeChanges:0];
         if ([v15 length])
@@ -2324,18 +2464,16 @@ void __94__SKADatabaseManager_allPersistentSubscriptionAssertionChannelIdentifie
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v11);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_existingSubscriptionAssertionForSubscriptionIdentifier:(id)identifier applicationIdentifier:(id)applicationIdentifier databaseContext:(id)context
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   applicationIdentifierCopy = applicationIdentifier;
   identifierCopy = identifier;
@@ -2343,19 +2481,19 @@ void __94__SKADatabaseManager_allPersistentSubscriptionAssertionChannelIdentifie
   v11 = MEMORY[0x277CCA920];
   v12 = [SubscriptionAssertion predicateForChannelIdentifier:identifierCopy];
 
-  v23[0] = v12;
+  v22[0] = v12;
   v13 = [SubscriptionAssertion predicateForApplicationIdentifier:applicationIdentifierCopy];
 
-  v23[1] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+  v22[1] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
   v15 = [v11 andPredicateWithSubpredicates:v14];
   [v10 setPredicate:v15];
 
   [v10 setFetchLimit:1];
-  v22 = 0;
-  v16 = [contextCopy executeFetchRequest:v10 error:&v22];
+  v21 = 0;
+  v16 = [contextCopy executeFetchRequest:v10 error:&v21];
 
-  v17 = v22;
+  v17 = v21;
   if (v17)
   {
     v18 = +[SKADatabaseManager logger];
@@ -2366,8 +2504,6 @@ void __94__SKADatabaseManager_allPersistentSubscriptionAssertionChannelIdentifie
   }
 
   firstObject = [v16 firstObject];
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return firstObject;
 }
@@ -2451,32 +2587,32 @@ void __115__SKADatabaseManager_existingSubscriptionAssertionForSubscriptionIdent
 
 void __114__SKADatabaseManager_existingSubscriptionAssertionsForStatusTypeIdentifier_applicationIdentifier_databaseContext___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _existingSubscriptionAssertionsForStatusTypeIdentifier:*(a1 + 40) applicationIdentifier:*(a1 + 48) databaseContext:*(a1 + 56)];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       v8 = 0;
       do
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * v8);
+        v9 = *(*(&v15 + 1) + 8 * v8);
         v10 = [SKADatabaseSubscriptionAssertion alloc];
-        v11 = [(SKADatabaseSubscriptionAssertion *)v10 initWithCoreDataSubscriptionAssertion:v9, v16];
+        v11 = [(SKADatabaseSubscriptionAssertion *)v10 initWithCoreDataSubscriptionAssertion:v9, v15];
         [*(a1 + 56) refreshObject:v9 mergeChanges:0];
         [v3 addObject:v11];
 
@@ -2484,7 +2620,7 @@ void __114__SKADatabaseManager_existingSubscriptionAssertionsForStatusTypeIdenti
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
@@ -2494,13 +2630,11 @@ void __114__SKADatabaseManager_existingSubscriptionAssertionsForStatusTypeIdenti
   v13 = *(*(a1 + 64) + 8);
   v14 = *(v13 + 40);
   *(v13 + 40) = v12;
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_existingSubscriptionAssertionsForStatusTypeIdentifier:(id)identifier applicationIdentifier:(id)applicationIdentifier databaseContext:(id)context
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   applicationIdentifierCopy = applicationIdentifier;
   identifierCopy = identifier;
@@ -2508,19 +2642,19 @@ void __114__SKADatabaseManager_existingSubscriptionAssertionsForStatusTypeIdenti
   v11 = MEMORY[0x277CCA920];
   v12 = [SubscriptionAssertion predicateForStatusTypeIdentifier:identifierCopy];
 
-  v22[0] = v12;
+  v21[0] = v12;
   v13 = [SubscriptionAssertion predicateForApplicationIdentifier:applicationIdentifierCopy];
 
-  v22[1] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v21[1] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
   v15 = [v11 andPredicateWithSubpredicates:v14];
   [v10 setPredicate:v15];
 
   [v10 setFetchLimit:1];
-  v21 = 0;
-  v16 = [contextCopy executeFetchRequest:v10 error:&v21];
+  v20 = 0;
+  v16 = [contextCopy executeFetchRequest:v10 error:&v20];
 
-  v17 = v21;
+  v17 = v20;
   if (v17)
   {
     v18 = +[SKADatabaseManager logger];
@@ -2529,8 +2663,6 @@ void __114__SKADatabaseManager_existingSubscriptionAssertionsForStatusTypeIdenti
       __94__SKADatabaseManager_allPersistentSubscriptionAssertionChannelIdentifiersWithDatabaseContext___block_invoke_cold_1();
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -2653,23 +2785,23 @@ void __114__SKADatabaseManager_deleteSubscriptionAssertionWithSubscriptionIdenti
 
 - (id)_existingTransientSubscriptionHistoryForChannelIdentifier:(id)identifier databaseContext:(id)context
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   identifierCopy = identifier;
   v7 = +[TransientSubscriptionHistory fetchRequest];
   v8 = MEMORY[0x277CCA920];
   v9 = [TransientSubscriptionHistory predicateForChannelIdentifier:identifierCopy];
 
-  v19[0] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+  v18[0] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
   v11 = [v8 andPredicateWithSubpredicates:v10];
   [v7 setPredicate:v11];
 
   [v7 setFetchLimit:1];
-  v18 = 0;
-  v12 = [contextCopy executeFetchRequest:v7 error:&v18];
+  v17 = 0;
+  v12 = [contextCopy executeFetchRequest:v7 error:&v17];
 
-  v13 = v18;
+  v13 = v17;
   if (v13)
   {
     v14 = +[SKADatabaseManager logger];
@@ -2681,9 +2813,35 @@ void __114__SKADatabaseManager_deleteSubscriptionAssertionWithSubscriptionIdenti
 
   firstObject = [v12 firstObject];
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return firstObject;
+}
+
+- (id)_existingTransientSubscriptionHistoryWithLimit:(int64_t)limit orderedByLastSubscriptionDateAscending:(BOOL)ascending databaseContext:(id)context
+{
+  ascendingCopy = ascending;
+  v16[1] = *MEMORY[0x277D85DE8];
+  contextCopy = context;
+  v8 = +[TransientSubscriptionHistory fetchRequest];
+  v9 = [TransientSubscriptionHistory sortDescriptorForLastSubscriptionDateAscending:ascendingCopy];
+  v16[0] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  [v8 setSortDescriptors:v10];
+
+  [v8 setFetchLimit:limit];
+  v15 = 0;
+  v11 = [contextCopy executeFetchRequest:v8 error:&v15];
+
+  v12 = v15;
+  if (v12)
+  {
+    v13 = +[SKADatabaseManager logger];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      [SKADatabaseManager _existingTransientSubscriptionHistoryWithLimit:orderedByLastSubscriptionDateAscending:databaseContext:];
+    }
+  }
+
+  return v11;
 }
 
 - (id)createOrUpdateTransientSubscriptionHistoryForChannelIdentifier:(id)identifier lastSubscriptionDate:(id)date databaseContext:(id)context
@@ -2809,32 +2967,32 @@ void __122__SKADatabaseManager_createOrUpdateTransientSubscriptionHistoryForChan
 
 void __92__SKADatabaseManager_existingRecentTransientSubscriptionHistoriesWithLimit_databaseContext___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _existingTransientSubscriptionHistoryWithLimit:*(a1 + 56) orderedByLastSubscriptionDateAscending:0 databaseContext:*(a1 + 40)];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       v8 = 0;
       do
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * v8);
+        v9 = *(*(&v15 + 1) + 8 * v8);
         v10 = [SKADatabaseTransientSubscriptionHistory alloc];
-        v11 = [(SKADatabaseTransientSubscriptionHistory *)v10 initWithCoreDataTransientSubscriptionHistory:v9, v16];
+        v11 = [(SKADatabaseTransientSubscriptionHistory *)v10 initWithCoreDataTransientSubscriptionHistory:v9, v15];
         [*(a1 + 40) refreshObject:v9 mergeChanges:0];
         [v3 addObject:v11];
 
@@ -2842,7 +3000,7 @@ void __92__SKADatabaseManager_existingRecentTransientSubscriptionHistoriesWithLi
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
@@ -2852,8 +3010,6 @@ void __92__SKADatabaseManager_existingRecentTransientSubscriptionHistoriesWithLi
   v13 = *(*(a1 + 48) + 8);
   v14 = *(v13 + 40);
   *(v13 + 40) = v12;
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createInvitedUserWithHandle:(id)handle senderHandle:(id)senderHandle invitationPayload:(id)payload channel:(id)channel databaseContext:(id)context
@@ -2960,7 +3116,7 @@ void __105__SKADatabaseManager_createInvitedUserWithHandle_senderHandle_invitati
 
 void __76__SKADatabaseManager_copyInvitedUsersFromChannel_toChannel_databaseContext___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _existingPersonalChannelForDatabaseChannel:*(a1 + 40) databaseContext:*(a1 + 48)];
   v3 = [*(a1 + 32) _existingPersonalChannelForDatabaseChannel:*(a1 + 56) databaseContext:*(a1 + 48)];
   v4 = v3;
@@ -2981,27 +3137,27 @@ void __76__SKADatabaseManager_copyInvitedUsersFromChannel_toChannel_databaseCont
 
   else
   {
-    v25 = v2;
+    v24 = v2;
     v9 = [v2 invitedUsers];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v28;
+      v12 = *v27;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v28 != v12)
+          if (*v27 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v27 + 1) + 8 * i);
+          v14 = *(*(&v26 + 1) + 8 * i);
           v15 = [[InvitedUser alloc] initWithContext:*(a1 + 48)];
           v16 = [v14 invitedHandle];
           [(InvitedUser *)v15 setInvitedHandle:v16];
@@ -3018,16 +3174,16 @@ void __76__SKADatabaseManager_copyInvitedUsersFromChannel_toChannel_databaseCont
           [v4 addInvitedUsersObject:v15];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v11);
     }
 
     v20 = *(a1 + 48);
-    v26 = 0;
-    [v20 save:&v26];
-    v21 = v26;
+    v25 = 0;
+    [v20 save:&v25];
+    v21 = v25;
     if (v21)
     {
       v22 = +[SKADatabaseManager logger];
@@ -3044,11 +3200,9 @@ void __76__SKADatabaseManager_copyInvitedUsersFromChannel_toChannel_databaseCont
       v23 = 1;
     }
 
-    v2 = v25;
+    v2 = v24;
     *(*(*(a1 + 64) + 8) + 24) = v23;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (id)updateInvitationPayload:(id)payload onExistingInvitedUser:(id)user channel:(id)channel databaseContext:(id)context
@@ -3087,70 +3241,69 @@ void __76__SKADatabaseManager_copyInvitedUsersFromChannel_toChannel_databaseCont
 
 void __92__SKADatabaseManager_updateInvitationPayload_onExistingInvitedUser_channel_databaseContext___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v2 = (a1 + 40);
-  v3 = [*(a1 + 32) _existingInvitedUsersForDatabaseInvitedUser:*(a1 + 40) databaseChannel:*(a1 + 48) databaseContext:*(a1 + 56)];
-  if ([v3 count])
+  v24 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) _existingInvitedUsersForDatabaseInvitedUser:*(a1 + 40) databaseChannel:*(a1 + 48) databaseContext:*(a1 + 56)];
+  if ([v2 count])
   {
-    if ([v3 count] >= 2)
+    if ([v2 count] >= 2)
     {
-      v4 = +[SKADatabaseManager logger];
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      v3 = +[SKADatabaseManager logger];
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
-        __92__SKADatabaseManager_updateInvitationPayload_onExistingInvitedUser_channel_databaseContext___block_invoke_cold_1(v3, v2);
+        __92__SKADatabaseManager_updateInvitationPayload_onExistingInvitedUser_channel_databaseContext___block_invoke_cold_1(v2);
       }
     }
 
-    v23 = 0u;
-    v24 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
-    if (v6)
+    v19 = 0u;
+    v20 = 0u;
+    v4 = v2;
+    v5 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    if (v5)
     {
-      v7 = v6;
-      v8 = *v22;
+      v6 = v5;
+      v7 = *v20;
       do
       {
-        v9 = 0;
+        v8 = 0;
         do
         {
-          if (*v22 != v8)
+          if (*v20 != v7)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v4);
           }
 
-          v10 = *(*(&v21 + 1) + 8 * v9);
-          v11 = [*(a1 + 64) payloadData];
-          [v10 setInvitationPayload:v11];
+          v9 = *(*(&v19 + 1) + 8 * v8);
+          v10 = [*(a1 + 64) payloadData];
+          [v9 setInvitationPayload:v10];
 
-          v12 = [*(a1 + 64) dateCreated];
-          [v10 setDateInvitationPayloadCreated:v12];
+          v11 = [*(a1 + 64) dateCreated];
+          [v9 setDateInvitationPayloadCreated:v11];
 
-          v13 = [[SKADatabaseInvitedUser alloc] initWithCoreDataInvitedUser:v10];
-          v14 = *(*(a1 + 72) + 8);
-          v15 = *(v14 + 40);
-          *(v14 + 40) = v13;
+          v12 = [[SKADatabaseInvitedUser alloc] initWithCoreDataInvitedUser:v9];
+          v13 = *(*(a1 + 72) + 8);
+          v14 = *(v13 + 40);
+          *(v13 + 40) = v12;
 
-          ++v9;
+          ++v8;
         }
 
-        while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        while (v6 != v8);
+        v6 = [v4 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
-      while (v7);
+      while (v6);
     }
 
-    v16 = *(a1 + 56);
-    v20 = 0;
-    [v16 save:&v20];
-    v17 = v20;
-    if (v17)
+    v15 = *(a1 + 56);
+    v18 = 0;
+    [v15 save:&v18];
+    v16 = v18;
+    if (v16)
     {
-      v18 = +[SKADatabaseManager logger];
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v17 = +[SKADatabaseManager logger];
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         __92__SKADatabaseManager_updateInvitationPayload_onExistingInvitedUser_channel_databaseContext___block_invoke_cold_2();
       }
@@ -3159,14 +3312,12 @@ void __92__SKADatabaseManager_updateInvitationPayload_onExistingInvitedUser_chan
 
   else
   {
-    v17 = +[SKADatabaseManager logger];
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v16 = +[SKADatabaseManager logger];
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      __92__SKADatabaseManager_updateInvitationPayload_onExistingInvitedUser_channel_databaseContext___block_invoke_cold_3(v2);
+      __92__SKADatabaseManager_updateInvitationPayload_onExistingInvitedUser_channel_databaseContext___block_invoke_cold_3();
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)existingInvitedUsersForInvitedHandle:(id)handle onChannel:(id)channel databaseContext:(id)context
@@ -3202,35 +3353,35 @@ void __92__SKADatabaseManager_updateInvitationPayload_onExistingInvitedUser_chan
 
 void __85__SKADatabaseManager_existingInvitedUsersForInvitedHandle_onChannel_databaseContext___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _existingPersonalChannelForDatabaseChannel:*(a1 + 40) databaseContext:*(a1 + 48)];
   if (v2)
   {
     v3 = [*(a1 + 32) _existingInvitedUsersForInvitedHandle:*(a1 + 56) channel:v2 databaseContext:*(a1 + 48)];
     v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v5 = v3;
-    v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v18;
+      v8 = *v17;
       do
       {
         v9 = 0;
         do
         {
-          if (*v18 != v8)
+          if (*v17 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v17 + 1) + 8 * v9);
+          v10 = *(*(&v16 + 1) + 8 * v9);
           v11 = [SKADatabaseInvitedUser alloc];
-          v12 = [(SKADatabaseInvitedUser *)v11 initWithCoreDataInvitedUser:v10, v17];
+          v12 = [(SKADatabaseInvitedUser *)v11 initWithCoreDataInvitedUser:v10, v16];
           [*(a1 + 48) refreshObject:v10 mergeChanges:0];
           if (v12)
           {
@@ -3241,7 +3392,7 @@ void __85__SKADatabaseManager_existingInvitedUsersForInvitedHandle_onChannel_dat
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
       }
 
       while (v7);
@@ -3252,8 +3403,6 @@ void __85__SKADatabaseManager_existingInvitedUsersForInvitedHandle_onChannel_dat
     v15 = *(v14 + 40);
     *(v14 + 40) = v13;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)existingInvitedUsersForPersonalChannel:(id)channel databaseContext:(id)context
@@ -3286,64 +3435,61 @@ void __85__SKADatabaseManager_existingInvitedUsersForInvitedHandle_onChannel_dat
 
 void __77__SKADatabaseManager_existingInvitedUsersForPersonalChannel_databaseContext___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
-  v2 = (a1 + 40);
-  v3 = [*(a1 + 32) _existingPersonalChannelForDatabaseChannel:*(a1 + 40) databaseContext:*(a1 + 48)];
-  if (v3)
+  v19 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) _existingPersonalChannelForDatabaseChannel:*(a1 + 40) databaseContext:*(a1 + 48)];
+  if (v2)
   {
-    v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v5 = [v3 invitedUsers];
+    v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v4 = [v2 invitedUsers];
+    v14 = 0u;
+    v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
-    v19 = 0u;
-    v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
-    if (v6)
+    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    if (v5)
     {
-      v7 = v6;
-      v8 = *v17;
+      v6 = v5;
+      v7 = *v15;
       do
       {
-        for (i = 0; i != v7; ++i)
+        for (i = 0; i != v6; ++i)
         {
-          if (*v17 != v8)
+          if (*v15 != v7)
           {
-            objc_enumerationMutation(v5);
+            objc_enumerationMutation(v4);
           }
 
-          v10 = *(*(&v16 + 1) + 8 * i);
-          v11 = [[SKADatabaseInvitedUser alloc] initWithCoreDataInvitedUser:v10];
-          [*(a1 + 48) refreshObject:v10 mergeChanges:0];
-          [v4 addObject:v11];
+          v9 = *(*(&v14 + 1) + 8 * i);
+          v10 = [[SKADatabaseInvitedUser alloc] initWithCoreDataInvitedUser:v9];
+          [*(a1 + 48) refreshObject:v9 mergeChanges:0];
+          [v3 addObject:v10];
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
-      while (v7);
+      while (v6);
     }
 
-    v12 = [v4 copy];
-    v13 = *(*(a1 + 56) + 8);
-    v14 = *(v13 + 40);
-    *(v13 + 40) = v12;
+    v11 = [v3 copy];
+    v12 = *(*(a1 + 56) + 8);
+    v13 = *(v12 + 40);
+    *(v12 + 40) = v11;
   }
 
   else
   {
-    v4 = +[SKADatabaseManager logger];
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v3 = +[SKADatabaseManager logger];
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      __77__SKADatabaseManager_existingInvitedUsersForPersonalChannel_databaseContext___block_invoke_cold_1(v2);
+      __77__SKADatabaseManager_existingInvitedUsersForPersonalChannel_databaseContext___block_invoke_cold_1();
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_existingInvitedUsersForDatabaseInvitedUser:(id)user databaseChannel:(id)channel databaseContext:(id)context
 {
-  v29[3] = *MEMORY[0x277D85DE8];
+  v28[3] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   userCopy = user;
   v10 = [(SKADatabaseManager *)self _existingPersonalChannelForDatabaseChannel:channel databaseContext:contextCopy];
@@ -3353,19 +3499,19 @@ void __77__SKADatabaseManager_existingInvitedUsersForPersonalChannel_databaseCon
   v13 = +[InvitedUser fetchRequest];
   v14 = MEMORY[0x277CCA920];
   v15 = [InvitedUser predicateForInvitedHandle:invitedHandle];
-  v29[0] = v15;
+  v28[0] = v15;
   v16 = [InvitedUser predicateForSenderHandle:senderHandle];
-  v29[1] = v16;
+  v28[1] = v16;
   v17 = [InvitedUser predicateForChannel:v10];
-  v29[2] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:3];
+  v28[2] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:3];
   v19 = [v14 andPredicateWithSubpredicates:v18];
   [v13 setPredicate:v19];
 
-  v26 = 0;
-  v20 = [contextCopy executeFetchRequest:v13 error:&v26];
+  v25 = 0;
+  v20 = [contextCopy executeFetchRequest:v13 error:&v25];
 
-  v21 = v26;
+  v21 = v25;
   v22 = +[SKADatabaseManager logger];
   v23 = v22;
   if (v21)
@@ -3379,18 +3525,16 @@ void __77__SKADatabaseManager_existingInvitedUsersForPersonalChannel_databaseCon
   else if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v28 = v20;
+    v27 = v20;
     _os_log_impl(&dword_220099000, v23, OS_LOG_TYPE_DEFAULT, "Fetch request for invited user executed with results: %@", buf, 0xCu);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
 
 - (id)_existingInvitedUsersForInvitedHandle:(id)handle channel:(id)channel databaseContext:(id)context
 {
-  v26[2] = *MEMORY[0x277D85DE8];
+  v25[2] = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   channelCopy = channel;
   contextCopy = context;
@@ -3400,16 +3544,16 @@ void __77__SKADatabaseManager_existingInvitedUsersForPersonalChannel_databaseCon
     v11 = +[InvitedUser fetchRequest];
     v12 = MEMORY[0x277CCA920];
     v13 = [InvitedUser predicateForInvitedHandle:normalizedHandleString];
-    v26[0] = v13;
+    v25[0] = v13;
     v14 = [InvitedUser predicateForChannel:channelCopy];
-    v26[1] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
+    v25[1] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:2];
     v16 = [v12 andPredicateWithSubpredicates:v15];
     [v11 setPredicate:v16];
 
-    v23 = 0;
-    v17 = [contextCopy executeFetchRequest:v11 error:&v23];
-    v18 = v23;
+    v22 = 0;
+    v17 = [contextCopy executeFetchRequest:v11 error:&v22];
+    v18 = v22;
     v19 = +[SKADatabaseManager logger];
     v20 = v19;
     if (v18)
@@ -3423,7 +3567,7 @@ void __77__SKADatabaseManager_existingInvitedUsersForPersonalChannel_databaseCon
     else if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v25 = v17;
+      v24 = v17;
       _os_log_impl(&dword_220099000, v20, OS_LOG_TYPE_DEFAULT, "Fetch request for invited user executed with results: %@", buf, 0xCu);
     }
   }
@@ -3438,8 +3582,6 @@ void __77__SKADatabaseManager_existingInvitedUsersForPersonalChannel_databaseCon
 
     v17 = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -3474,85 +3616,84 @@ void __77__SKADatabaseManager_existingInvitedUsersForPersonalChannel_databaseCon
 
 void __81__SKADatabaseManager_deleteInvitedUserForHandle_personalChannel_databaseContext___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v2 = (a1 + 40);
-  v3 = [*(a1 + 32) _existingPersonalChannelForDatabaseChannel:*(a1 + 40) databaseContext:*(a1 + 48)];
-  if (v3)
+  v28 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) _existingPersonalChannelForDatabaseChannel:*(a1 + 40) databaseContext:*(a1 + 48)];
+  if (v2)
   {
-    v4 = [*(a1 + 32) _existingInvitedUsersForInvitedHandle:*(a1 + 56) channel:v3 databaseContext:*(a1 + 48)];
-    if ([v4 count])
+    v3 = [*(a1 + 32) _existingInvitedUsersForInvitedHandle:*(a1 + 56) channel:v2 databaseContext:*(a1 + 48)];
+    if ([v3 count])
     {
-      v20 = v4;
-      v21 = v3;
-      v25 = 0u;
-      v26 = 0u;
+      v18 = v3;
+      v19 = v2;
       v23 = 0u;
       v24 = 0u;
-      v5 = v4;
-      v6 = [v5 countByEnumeratingWithState:&v23 objects:v29 count:16];
-      if (v6)
+      v21 = 0u;
+      v22 = 0u;
+      v4 = v3;
+      v5 = [v4 countByEnumeratingWithState:&v21 objects:v27 count:16];
+      if (v5)
       {
-        v7 = v6;
-        v8 = *v24;
+        v6 = v5;
+        v7 = *v22;
         do
         {
-          for (i = 0; i != v7; ++i)
+          for (i = 0; i != v6; ++i)
           {
-            if (*v24 != v8)
+            if (*v22 != v7)
             {
-              objc_enumerationMutation(v5);
+              objc_enumerationMutation(v4);
             }
 
-            v10 = *(*(&v23 + 1) + 8 * i);
-            v11 = [SKADatabaseManager logger:v20];
-            if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+            v9 = *(*(&v21 + 1) + 8 * i);
+            v10 = [SKADatabaseManager logger:v18];
+            if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
             {
-              v12 = *(a1 + 56);
+              v11 = *(a1 + 56);
               *buf = 138412290;
-              v28 = v12;
-              _os_log_impl(&dword_220099000, v11, OS_LOG_TYPE_DEFAULT, "Deleting existing invited user with handle: %@", buf, 0xCu);
+              v26 = v11;
+              _os_log_impl(&dword_220099000, v10, OS_LOG_TYPE_DEFAULT, "Deleting existing invited user with handle: %@", buf, 0xCu);
             }
 
-            [*(a1 + 48) deleteObject:v10];
+            [*(a1 + 48) deleteObject:v9];
           }
 
-          v7 = [v5 countByEnumeratingWithState:&v23 objects:v29 count:16];
+          v6 = [v4 countByEnumeratingWithState:&v21 objects:v27 count:16];
         }
 
-        while (v7);
+        while (v6);
       }
 
-      v13 = *(a1 + 48);
-      v22 = 0;
-      [v13 save:&v22];
-      v14 = v22;
-      if (v14)
+      v12 = *(a1 + 48);
+      v20 = 0;
+      [v12 save:&v20];
+      v13 = v20;
+      if (v13)
       {
-        v15 = +[SKADatabaseManager logger];
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        v14 = +[SKADatabaseManager logger];
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           __81__SKADatabaseManager_deleteInvitedUserForHandle_personalChannel_databaseContext___block_invoke_cold_1();
         }
 
-        v16 = 0;
+        v15 = 0;
       }
 
       else
       {
-        v16 = 1;
+        v15 = 1;
       }
 
-      v4 = v20;
-      v3 = v21;
-      *(*(*(a1 + 64) + 8) + 24) = v16;
+      v3 = v18;
+      v2 = v19;
+      *(*(*(a1 + 64) + 8) + 24) = v15;
     }
 
     else
     {
-      v18 = +[SKADatabaseManager logger];
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v17 = +[SKADatabaseManager logger];
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        __81__SKADatabaseManager_deleteInvitedUserForHandle_personalChannel_databaseContext___block_invoke_cold_2((a1 + 56));
+        __81__SKADatabaseManager_deleteInvitedUserForHandle_personalChannel_databaseContext___block_invoke_cold_2();
       }
 
       *(*(*(a1 + 64) + 8) + 24) = 0;
@@ -3561,16 +3702,14 @@ void __81__SKADatabaseManager_deleteInvitedUserForHandle_personalChannel_databas
 
   else
   {
-    v17 = +[SKADatabaseManager logger];
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v16 = +[SKADatabaseManager logger];
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      __81__SKADatabaseManager_deleteInvitedUserForHandle_personalChannel_databaseContext___block_invoke_cold_3(v2);
+      __81__SKADatabaseManager_deleteInvitedUserForHandle_personalChannel_databaseContext___block_invoke_cold_3();
     }
 
     *(*(*(a1 + 64) + 8) + 24) = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)deleteInvitedUserForHandle:(id)handle presenceChannel:(id)channel databaseContext:(id)context
@@ -3603,88 +3742,87 @@ void __81__SKADatabaseManager_deleteInvitedUserForHandle_personalChannel_databas
 
 void __81__SKADatabaseManager_deleteInvitedUserForHandle_presenceChannel_databaseContext___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
-  v2 = (a1 + 40);
-  v3 = [*(a1 + 32) _existingChannelsForDatabaseChannel:*(a1 + 40) databaseContext:*(a1 + 48)];
-  if ([v3 count])
+  v29 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) _existingChannelsForDatabaseChannel:*(a1 + 40) databaseContext:*(a1 + 48)];
+  if ([v2 count])
   {
-    v4 = [v3 firstObject];
-    v5 = [*(a1 + 32) _existingInvitedUsersForInvitedHandle:*(a1 + 56) channel:v4 databaseContext:*(a1 + 48)];
-    if ([v5 count])
+    v3 = [v2 firstObject];
+    v4 = [*(a1 + 32) _existingInvitedUsersForInvitedHandle:*(a1 + 56) channel:v3 databaseContext:*(a1 + 48)];
+    if ([v4 count])
     {
-      v22 = v3;
-      v26 = 0u;
-      v27 = 0u;
+      v20 = v2;
       v24 = 0u;
       v25 = 0u;
-      v21 = v5;
-      v6 = v5;
-      v7 = [v6 countByEnumeratingWithState:&v24 objects:v30 count:16];
-      if (v7)
+      v22 = 0u;
+      v23 = 0u;
+      v19 = v4;
+      v5 = v4;
+      v6 = [v5 countByEnumeratingWithState:&v22 objects:v28 count:16];
+      if (v6)
       {
-        v8 = v7;
-        v9 = *v25;
+        v7 = v6;
+        v8 = *v23;
         do
         {
-          for (i = 0; i != v8; ++i)
+          for (i = 0; i != v7; ++i)
           {
-            if (*v25 != v9)
+            if (*v23 != v8)
             {
-              objc_enumerationMutation(v6);
+              objc_enumerationMutation(v5);
             }
 
-            v11 = *(*(&v24 + 1) + 8 * i);
-            v12 = +[SKADatabaseManager logger];
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+            v10 = *(*(&v22 + 1) + 8 * i);
+            v11 = +[SKADatabaseManager logger];
+            if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
             {
-              v13 = *(a1 + 56);
+              v12 = *(a1 + 56);
               *buf = 138412290;
-              v29 = v13;
-              _os_log_impl(&dword_220099000, v12, OS_LOG_TYPE_DEFAULT, "Deleting existing invited user with handle: %@", buf, 0xCu);
+              v27 = v12;
+              _os_log_impl(&dword_220099000, v11, OS_LOG_TYPE_DEFAULT, "Deleting existing invited user with handle: %@", buf, 0xCu);
             }
 
-            [*(a1 + 48) deleteObject:v11];
+            [*(a1 + 48) deleteObject:v10];
           }
 
-          v8 = [v6 countByEnumeratingWithState:&v24 objects:v30 count:16];
+          v7 = [v5 countByEnumeratingWithState:&v22 objects:v28 count:16];
         }
 
-        while (v8);
+        while (v7);
       }
 
-      v14 = *(a1 + 48);
-      v23 = 0;
-      [v14 save:&v23];
-      v15 = v23;
-      if (v15)
+      v13 = *(a1 + 48);
+      v21 = 0;
+      [v13 save:&v21];
+      v14 = v21;
+      if (v14)
       {
-        v16 = +[SKADatabaseManager logger];
-        v5 = v21;
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v15 = +[SKADatabaseManager logger];
+        v4 = v19;
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           __81__SKADatabaseManager_deleteInvitedUserForHandle_personalChannel_databaseContext___block_invoke_cold_1();
         }
 
-        v17 = 0;
-        v3 = v22;
+        v16 = 0;
+        v2 = v20;
       }
 
       else
       {
-        v17 = 1;
-        v3 = v22;
-        v5 = v21;
+        v16 = 1;
+        v2 = v20;
+        v4 = v19;
       }
 
-      *(*(*(a1 + 64) + 8) + 24) = v17;
+      *(*(*(a1 + 64) + 8) + 24) = v16;
     }
 
     else
     {
-      v19 = +[SKADatabaseManager logger];
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v18 = +[SKADatabaseManager logger];
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        __81__SKADatabaseManager_deleteInvitedUserForHandle_personalChannel_databaseContext___block_invoke_cold_2((a1 + 56));
+        __81__SKADatabaseManager_deleteInvitedUserForHandle_personalChannel_databaseContext___block_invoke_cold_2();
       }
 
       *(*(*(a1 + 64) + 8) + 24) = 0;
@@ -3693,16 +3831,14 @@ void __81__SKADatabaseManager_deleteInvitedUserForHandle_presenceChannel_databas
 
   else
   {
-    v18 = +[SKADatabaseManager logger];
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v17 = +[SKADatabaseManager logger];
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      __81__SKADatabaseManager_deleteInvitedUserForHandle_personalChannel_databaseContext___block_invoke_cold_3(v2);
+      __81__SKADatabaseManager_deleteInvitedUserForHandle_personalChannel_databaseContext___block_invoke_cold_3();
     }
 
     *(*(*(a1 + 64) + 8) + 24) = 0;
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)deleteAllInvitedUsersForPersonalChannel:(id)channel databaseContext:(id)context
@@ -3732,83 +3868,82 @@ void __81__SKADatabaseManager_deleteInvitedUserForHandle_presenceChannel_databas
 
 void __78__SKADatabaseManager_deleteAllInvitedUsersForPersonalChannel_databaseContext___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
-  v2 = (a1 + 40);
-  v3 = [*(a1 + 32) _existingPersonalChannelForDatabaseChannel:*(a1 + 40) databaseContext:*(a1 + 48)];
-  v4 = v3;
-  if (v3)
+  v30 = *MEMORY[0x277D85DE8];
+  v2 = [*(a1 + 32) _existingPersonalChannelForDatabaseChannel:*(a1 + 40) databaseContext:*(a1 + 48)];
+  v3 = v2;
+  if (v2)
   {
-    v5 = [v3 invitedUsers];
-    v6 = [v5 count];
-    v7 = +[SKADatabaseManager logger];
-    v8 = v7;
-    if (v6)
+    v4 = [v2 invitedUsers];
+    v5 = [v4 count];
+    v6 = +[SKADatabaseManager logger];
+    v7 = v6;
+    if (v5)
     {
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v9 = [v5 count];
-        v10 = [v4 identifier];
+        v8 = [v4 count];
+        v9 = [v3 identifier];
         *buf = 134218242;
+        v27 = v8;
+        v28 = 2112;
         v29 = v9;
-        v30 = 2112;
-        v31 = v10;
-        _os_log_impl(&dword_220099000, v8, OS_LOG_TYPE_DEFAULT, "Deleting all %ld existing invited users for channel %@", buf, 0x16u);
+        _os_log_impl(&dword_220099000, v7, OS_LOG_TYPE_DEFAULT, "Deleting all %ld existing invited users for channel %@", buf, 0x16u);
       }
 
-      v25 = 0u;
-      v26 = 0u;
       v23 = 0u;
       v24 = 0u;
-      v11 = v5;
-      v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
-      if (v12)
+      v21 = 0u;
+      v22 = 0u;
+      v10 = v4;
+      v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      if (v11)
       {
-        v13 = v12;
-        v14 = *v24;
+        v12 = v11;
+        v13 = *v22;
         do
         {
-          for (i = 0; i != v13; ++i)
+          for (i = 0; i != v12; ++i)
           {
-            if (*v24 != v14)
+            if (*v22 != v13)
             {
-              objc_enumerationMutation(v11);
+              objc_enumerationMutation(v10);
             }
 
-            [*(a1 + 48) deleteObject:*(*(&v23 + 1) + 8 * i)];
+            [*(a1 + 48) deleteObject:*(*(&v21 + 1) + 8 * i)];
           }
 
-          v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
         }
 
-        while (v13);
+        while (v12);
       }
 
-      v16 = *(a1 + 48);
-      v22 = 0;
-      [v16 save:&v22];
-      v17 = v22;
-      if (v17)
+      v15 = *(a1 + 48);
+      v20 = 0;
+      [v15 save:&v20];
+      v16 = v20;
+      if (v16)
       {
-        v18 = +[SKADatabaseManager logger];
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        v17 = +[SKADatabaseManager logger];
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           __78__SKADatabaseManager_deleteAllInvitedUsersForPersonalChannel_databaseContext___block_invoke_cold_1();
         }
 
-        v19 = 0;
+        v18 = 0;
       }
 
       else
       {
-        v19 = 1;
+        v18 = 1;
       }
 
-      *(*(*(a1 + 56) + 8) + 24) = v19;
+      *(*(*(a1 + 56) + 8) + 24) = v18;
     }
 
     else
     {
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         __78__SKADatabaseManager_deleteAllInvitedUsersForPersonalChannel_databaseContext___block_invoke_cold_2();
       }
@@ -3819,16 +3954,14 @@ void __78__SKADatabaseManager_deleteAllInvitedUsersForPersonalChannel_databaseCo
 
   else
   {
-    v20 = +[SKADatabaseManager logger];
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v19 = +[SKADatabaseManager logger];
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      __81__SKADatabaseManager_deleteInvitedUserForHandle_personalChannel_databaseContext___block_invoke_cold_3(v2);
+      __81__SKADatabaseManager_deleteInvitedUserForHandle_personalChannel_databaseContext___block_invoke_cold_3();
     }
 
     *(*(*(a1 + 56) + 8) + 24) = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createStatusWithUniqueIdentifier:(id)identifier dateCreated:(id)created datePublished:(id)published dateReceived:(id)received dateExpired:(id)expired rawData:(id)data channelIdentifier:(id)channelIdentifier databaseContext:(id)self0
@@ -3934,15 +4067,15 @@ void __148__SKADatabaseManager_createStatusWithUniqueIdentifier_dateCreated_date
 
 void __63__SKADatabaseManager_existingStatusForChannel_databaseContext___block_invoke(uint64_t a1)
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   v2 = +[Status fetchRequest];
   v3 = [*(a1 + 32) identifier];
   v4 = [Status predicateForChannelIdentifier:v3];
   [v2 setPredicate:v4];
 
   v5 = [Status sortDescriptorForDateCreatedAscending:0];
-  v24[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
+  v23[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
   [v2 setSortDescriptors:v6];
 
   [v2 setFetchLimit:1];
@@ -3954,9 +4087,9 @@ void __63__SKADatabaseManager_existingStatusForChannel_databaseContext___block_i
   }
 
   v8 = *(a1 + 40);
-  v21 = 0;
-  v9 = [v8 executeFetchRequest:v2 error:&v21];
-  v10 = v21;
+  v20 = 0;
+  v9 = [v8 executeFetchRequest:v2 error:&v20];
+  v10 = v20;
   if (v10)
   {
     v11 = +[SKADatabaseManager logger];
@@ -3991,7 +4124,7 @@ LABEL_6:
   {
     v16 = [v9 count];
     *buf = 134217984;
-    v23 = v16;
+    v22 = v16;
     _os_log_impl(&dword_220099000, v11, OS_LOG_TYPE_DEFAULT, "Fetch request for status by channel completed with %ld result(s)", buf, 0xCu);
   }
 
@@ -4002,7 +4135,6 @@ LABEL_6:
   *(v18 + 40) = v17;
 
 LABEL_11:
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)existingStatusForUniqueIdentifier:(id)identifier databaseContext:(id)context
@@ -4034,7 +4166,7 @@ LABEL_11:
 
 void __72__SKADatabaseManager_existingStatusForUniqueIdentifier_databaseContext___block_invoke(void *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = +[Status fetchRequest];
   v3 = [Status predicateForStatusUniqueIdentifier:a1[4]];
   [v2 setPredicate:v3];
@@ -4048,9 +4180,9 @@ void __72__SKADatabaseManager_existingStatusForUniqueIdentifier_databaseContext_
   }
 
   v5 = a1[5];
-  v18 = 0;
-  v6 = [v5 executeFetchRequest:v2 error:&v18];
-  v7 = v18;
+  v17 = 0;
+  v6 = [v5 executeFetchRequest:v2 error:&v17];
+  v7 = v17;
   if (v7)
   {
     v8 = +[SKADatabaseManager logger];
@@ -4085,7 +4217,7 @@ LABEL_6:
   {
     v13 = [v6 count];
     *buf = 134217984;
-    v20 = v13;
+    v19 = v13;
     _os_log_impl(&dword_220099000, v8, OS_LOG_TYPE_DEFAULT, "Fetch request for status by unique id completed with %ld result(s)", buf, 0xCu);
   }
 
@@ -4096,7 +4228,6 @@ LABEL_6:
   *(v15 + 40) = v14;
 
 LABEL_11:
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)currentCheckpointForChannel:(id)channel databaseContext:(id)context
@@ -4126,7 +4257,7 @@ LABEL_11:
 
 void __66__SKADatabaseManager_currentCheckpointForChannel_databaseContext___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) identifier];
   v4 = [v2 _existingChannelCheckpointForChannelIdentifier:v3 databaseContext:*(a1 + 48)];
@@ -4139,11 +4270,11 @@ void __66__SKADatabaseManager_currentCheckpointForChannel_databaseContext___bloc
     {
       v7 = [v4 checkpoint];
       v8 = [*(a1 + 40) identifier];
-      v11 = 134218242;
-      v12 = v7;
-      v13 = 2112;
-      v14 = v8;
-      _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Found existing checkpoint %lld for channel %@", &v11, 0x16u);
+      v10 = 134218242;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v8;
+      _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "Found existing checkpoint %lld for channel %@", &v10, 0x16u);
     }
 
     *(*(*(a1 + 56) + 8) + 24) = [v4 checkpoint];
@@ -4154,13 +4285,11 @@ void __66__SKADatabaseManager_currentCheckpointForChannel_databaseContext___bloc
     if (v6)
     {
       v9 = [*(a1 + 40) identifier];
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "No existing checkpoint for channel: %@. Creating a new checkpoint", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&dword_220099000, v5, OS_LOG_TYPE_DEFAULT, "No existing checkpoint for channel: %@. Creating a new checkpoint", &v10, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)setCurrentCheckpointForChannel:(id)channel checkpoint:(unint64_t)checkpoint databaseContext:(id)context
@@ -4191,7 +4320,7 @@ void __66__SKADatabaseManager_currentCheckpointForChannel_databaseContext___bloc
 
 void __80__SKADatabaseManager_setCurrentCheckpointForChannel_checkpoint_databaseContext___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = [*(a1 + 40) identifier];
   v4 = [v2 _existingChannelCheckpointForChannelIdentifier:v3 databaseContext:*(a1 + 48)];
@@ -4200,9 +4329,9 @@ void __80__SKADatabaseManager_setCurrentCheckpointForChannel_checkpoint_database
   {
     [(ChannelCheckpoint *)v4 setCheckpoint:*(a1 + 64)];
     v5 = *(a1 + 48);
-    v18 = 0;
-    [v5 save:&v18];
-    v6 = v18;
+    v17 = 0;
+    [v5 save:&v17];
+    v6 = v17;
     v7 = +[SKADatabaseManager logger];
     v8 = v7;
     if (v6)
@@ -4219,7 +4348,7 @@ void __80__SKADatabaseManager_setCurrentCheckpointForChannel_checkpoint_database
       {
         v15 = [*(a1 + 40) identifier];
         *buf = 138412290;
-        v20 = v15;
+        v19 = v15;
         _os_log_impl(&dword_220099000, v8, OS_LOG_TYPE_DEFAULT, "Updated checkpoint for channel: %@", buf, 0xCu);
       }
 
@@ -4234,7 +4363,7 @@ void __80__SKADatabaseManager_setCurrentCheckpointForChannel_checkpoint_database
     {
       v10 = [*(a1 + 40) identifier];
       *buf = 138412290;
-      v20 = v10;
+      v19 = v10;
       _os_log_impl(&dword_220099000, v9, OS_LOG_TYPE_DEFAULT, "No existing checkpoint for channel: %@. Creating a new checkpoint", buf, 0xCu);
     }
 
@@ -4244,9 +4373,9 @@ void __80__SKADatabaseManager_setCurrentCheckpointForChannel_checkpoint_database
 
     [(ChannelCheckpoint *)v4 setCheckpoint:*(a1 + 64)];
     v12 = *(a1 + 48);
-    v17 = 0;
-    [v12 save:&v17];
-    v6 = v17;
+    v16 = 0;
+    [v12 save:&v16];
+    v6 = v16;
     if (v6)
     {
       v13 = +[SKADatabaseManager logger];
@@ -4265,8 +4394,6 @@ void __80__SKADatabaseManager_setCurrentCheckpointForChannel_checkpoint_database
 
     *(*(*(a1 + 56) + 8) + 24) = v14;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_existingChannelCheckpointForChannelIdentifier:(id)identifier databaseContext:(id)context
@@ -4327,41 +4454,39 @@ void __80__SKADatabaseManager_setCurrentCheckpointForChannel_checkpoint_database
 
 void __63__SKADatabaseManager_presentDevicesForChannel_databaseContext___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _existingPresentDevicesForChannel:*(a1 + 40) databaseContext:*(a1 + 48)];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [objc_alloc(MEMORY[0x277D68118]) initWithCoreDataPresentDevice:*(*(&v9 + 1) + 8 * v6)];
+        v7 = [objc_alloc(MEMORY[0x277D68118]) initWithCoreDataPresentDevice:*(*(&v8 + 1) + 8 * v6)];
         [*(*(*(a1 + 56) + 8) + 40) addObject:v7];
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)createOrUpdatePresentDevice:(id)device channel:(id)channel databaseContext:(id)context
@@ -4466,13 +4591,13 @@ void __74__SKADatabaseManager_createOrUpdatePresentDevice_channel_databaseContex
 
 void __84__SKADatabaseManager_cleanUpPresentDevicesWithoutActiveChannelsWithDatabaseContext___block_invoke(uint64_t a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v2 = +[PresentDevice fetchRequest];
   [v2 setFetchLimit:50];
   v3 = *(a1 + 32);
-  v37 = 0;
-  v4 = [v3 executeFetchRequest:v2 error:&v37];
-  v5 = v37;
+  v36 = 0;
+  v4 = [v3 executeFetchRequest:v2 error:&v36];
+  v5 = v36;
   if (v5)
   {
     v6 = v5;
@@ -4485,46 +4610,46 @@ void __84__SKADatabaseManager_cleanUpPresentDevicesWithoutActiveChannelsWithData
 
   else
   {
-    v25 = v4;
-    v26 = v2;
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
+    v24 = v4;
+    v25 = v2;
     v34 = 0u;
+    v35 = 0u;
+    v32 = 0u;
+    v33 = 0u;
     obj = v4;
-    v29 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
+    v28 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
     v6 = 0;
-    if (v29)
+    if (v28)
     {
-      v28 = *v34;
+      v27 = *v33;
       do
       {
-        for (i = 0; i != v29; ++i)
+        for (i = 0; i != v28; ++i)
         {
           v9 = v6;
-          if (*v34 != v28)
+          if (*v33 != v27)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v33 + 1) + 8 * i);
+          v10 = *(*(&v32 + 1) + 8 * i);
           context = objc_autoreleasePoolPush();
           v11 = +[Channel fetchRequest];
           v12 = MEMORY[0x277CCA920];
           v13 = [v10 channelID];
           v14 = [Channel predicateForChannelIdentifier:v13];
-          v40[0] = v14;
+          v39[0] = v14;
           v15 = [Channel predicateForDecommissioned:0];
-          v40[1] = v15;
-          v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:2];
+          v39[1] = v15;
+          v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:2];
           v17 = [v12 andPredicateWithSubpredicates:v16];
           [v11 setPredicate:v17];
 
           [v11 setFetchLimit:1];
           v18 = *(a1 + 32);
-          v32 = v9;
-          v19 = [v18 executeFetchRequest:v11 error:&v32];
-          v6 = v32;
+          v31 = v9;
+          v19 = [v18 executeFetchRequest:v11 error:&v31];
+          v6 = v31;
 
           if (v6)
           {
@@ -4532,7 +4657,7 @@ void __84__SKADatabaseManager_cleanUpPresentDevicesWithoutActiveChannelsWithData
             if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v39 = v6;
+              v38 = v6;
               _os_log_error_impl(&dword_220099000, v20, OS_LOG_TYPE_ERROR, "Error executing fetch for subscription validation. Error: %@", buf, 0xCu);
             }
           }
@@ -4543,7 +4668,7 @@ void __84__SKADatabaseManager_cleanUpPresentDevicesWithoutActiveChannelsWithData
             if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v39 = v10;
+              v38 = v10;
               _os_log_impl(&dword_220099000, v21, OS_LOG_TYPE_DEFAULT, "Deleting present device: %@", buf, 0xCu);
             }
 
@@ -4553,36 +4678,34 @@ void __84__SKADatabaseManager_cleanUpPresentDevicesWithoutActiveChannelsWithData
           objc_autoreleasePoolPop(context);
         }
 
-        v29 = [obj countByEnumeratingWithState:&v33 objects:v41 count:16];
+        v28 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
       }
 
-      while (v29);
+      while (v28);
     }
 
     v22 = *(a1 + 32);
-    v31 = 0;
-    [v22 save:&v31];
-    v7 = v31;
+    v30 = 0;
+    [v22 save:&v30];
+    v7 = v30;
     if (v7)
     {
       v23 = +[SKADatabaseManager logger];
-      v4 = v25;
+      v4 = v24;
       if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         __84__SKADatabaseManager_cleanUpPresentDevicesWithoutActiveChannelsWithDatabaseContext___block_invoke_cold_2();
       }
 
-      v2 = v26;
+      v2 = v25;
     }
 
     else
     {
-      v4 = v25;
-      v2 = v26;
+      v4 = v24;
+      v2 = v25;
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)clearPresentDevicesForChannel:(id)channel databaseContext:(id)context
@@ -4612,44 +4735,44 @@ void __84__SKADatabaseManager_cleanUpPresentDevicesWithoutActiveChannelsWithData
 
 void __68__SKADatabaseManager_clearPresentDevicesForChannel_databaseContext___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _existingPresentDevicesForChannel:*(a1 + 40) databaseContext:*(a1 + 48)];
   if ([v2 count])
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v3 = v2;
-    v4 = [v3 countByEnumeratingWithState:&v16 objects:v22 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v15 objects:v21 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v17;
+      v6 = *v16;
       do
       {
         v7 = 0;
         do
         {
-          if (*v17 != v6)
+          if (*v16 != v6)
           {
             objc_enumerationMutation(v3);
           }
 
-          [*(a1 + 48) deleteObject:*(*(&v16 + 1) + 8 * v7++)];
+          [*(a1 + 48) deleteObject:*(*(&v15 + 1) + 8 * v7++)];
         }
 
         while (v5 != v7);
-        v5 = [v3 countByEnumeratingWithState:&v16 objects:v22 count:16];
+        v5 = [v3 countByEnumeratingWithState:&v15 objects:v21 count:16];
       }
 
       while (v5);
     }
 
     v8 = *(a1 + 48);
-    v15 = 0;
-    [v8 save:&v15];
-    v9 = v15;
+    v14 = 0;
+    [v8 save:&v14];
+    v9 = v14;
     v10 = +[SKADatabaseManager logger];
     v11 = v10;
     if (v9)
@@ -4679,14 +4802,12 @@ void __68__SKADatabaseManager_clearPresentDevicesForChannel_databaseContext___bl
     {
       v13 = [*(a1 + 40) identifier];
       *buf = 138412290;
-      v21 = v13;
+      v20 = v13;
       _os_log_impl(&dword_220099000, v12, OS_LOG_TYPE_DEFAULT, "Could not find existing present devices on channel identifier %@", buf, 0xCu);
     }
 
     *(*(*(a1 + 56) + 8) + 24) = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)deletePresentDevice:(id)device channel:(id)channel databaseContext:(id)context
@@ -4719,7 +4840,7 @@ void __68__SKADatabaseManager_clearPresentDevicesForChannel_databaseContext___bl
 
 void __66__SKADatabaseManager_deletePresentDevice_channel_databaseContext___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = (a1 + 40);
   v4 = [*(a1 + 40) identifier];
@@ -4730,9 +4851,9 @@ void __66__SKADatabaseManager_deletePresentDevice_channel_databaseContext___bloc
   {
     [*(a1 + 56) deleteObject:v6];
     v7 = *(a1 + 56);
-    v14 = 0;
-    [v7 save:&v14];
-    v8 = v14;
+    v13 = 0;
+    [v7 save:&v13];
+    v8 = v13;
     v9 = +[SKADatabaseManager logger];
     v10 = v9;
     if (v8)
@@ -4749,7 +4870,7 @@ void __66__SKADatabaseManager_deletePresentDevice_channel_databaseContext___bloc
       {
         v12 = *(a1 + 48);
         *buf = 138412290;
-        v16 = v12;
+        v15 = v12;
         _os_log_impl(&dword_220099000, v10, OS_LOG_TYPE_DEFAULT, "Deleted existing present device: %@", buf, 0xCu);
       }
 
@@ -4767,8 +4888,6 @@ void __66__SKADatabaseManager_deletePresentDevice_channel_databaseContext___bloc
 
     *(*(*(a1 + 64) + 8) + 24) = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_existingPresentDeviceForChannel:(id)channel deviceIdentifier:(id)identifier databaseContext:(id)context
@@ -4858,6 +4977,34 @@ void __88__SKADatabaseManager__existingPresentDeviceForChannel_deviceIdentifier_
   }
 
   return v10;
+}
+
+- (id)_existingPresenceAssertionForPresenceIdentifier:(id)identifier isPersonal:(BOOL)personal databaseContext:(id)context
+{
+  personalCopy = personal;
+  contextCopy = context;
+  identifierCopy = identifier;
+  v9 = +[PresenceAssertion fetchRequest];
+  v10 = [PresenceAssertion predicateForPresenceIdentifier:identifierCopy isPersonal:personalCopy];
+
+  [v9 setPredicate:v10];
+  [v9 setFetchLimit:1];
+  v16 = 0;
+  v11 = [contextCopy executeFetchRequest:v9 error:&v16];
+
+  v12 = v16;
+  if (v12)
+  {
+    v13 = +[SKADatabaseManager logger];
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      [SKADatabaseManager _existingPresenceAssertionForPresenceIdentifier:isPersonal:databaseContext:];
+    }
+  }
+
+  firstObject = [v11 firstObject];
+
+  return firstObject;
 }
 
 - (id)existingPresenceAssertionForPresenceIdentifier:(id)identifier isPersonal:(BOOL)personal databaseContext:(id)context
@@ -4992,7 +5139,7 @@ void __71__SKADatabaseManager_activePresenceAssertionsExistWithDatabaseContext__
 
 void __132__SKADatabaseManager_createOrUpdatePresenceAssertionForPresenceIdentifier_presenceOptions_assertionOptions_payload_databaseContext___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _existingPresenceAssertionForPresenceIdentifier:*(a1 + 40) isPersonal:objc_msgSend(*(a1 + 48) databaseContext:{"isPersonal"), *(a1 + 56)}];
   v3 = +[SKADatabaseManager logger];
   v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
@@ -5001,7 +5148,7 @@ void __132__SKADatabaseManager_createOrUpdatePresenceAssertionForPresenceIdentif
     if (v4)
     {
       *buf = 138412290;
-      v24 = v2;
+      v23 = v2;
       _os_log_impl(&dword_220099000, v3, OS_LOG_TYPE_DEFAULT, "Found existing presence assertion, updating: %@", buf, 0xCu);
     }
   }
@@ -5044,9 +5191,9 @@ void __132__SKADatabaseManager_createOrUpdatePresenceAssertionForPresenceIdentif
   [v14 setClientSpecifiedURI:v13];
 
   v15 = *(a1 + 56);
-  v22 = 0;
-  [v15 save:&v22];
-  v16 = v22;
+  v21 = 0;
+  [v15 save:&v21];
+  v16 = v21;
   if (v16)
   {
     v17 = +[SKADatabaseManager logger];
@@ -5060,8 +5207,6 @@ void __132__SKADatabaseManager_createOrUpdatePresenceAssertionForPresenceIdentif
   v19 = *(*(a1 + 80) + 8);
   v20 = *(v19 + 40);
   *(v19 + 40) = v18;
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)deletePresenceAssertionForPresenceIdentifier:(id)identifier isPersonal:(BOOL)personal databaseContext:(id)context
@@ -5092,7 +5237,7 @@ void __132__SKADatabaseManager_createOrUpdatePresenceAssertionForPresenceIdentif
 
 void __94__SKADatabaseManager_deletePresenceAssertionForPresenceIdentifier_isPersonal_databaseContext___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 40);
   v3 = [*(a1 + 32) _existingPresenceAssertionForPresenceIdentifier:*(a1 + 40) isPersonal:*(a1 + 64) databaseContext:*(a1 + 48)];
   if (v3)
@@ -5102,21 +5247,21 @@ void __94__SKADatabaseManager_deletePresenceAssertionForPresenceIdentifier_isPer
     {
       v5 = *v2;
       *buf = 138412290;
-      v13 = v5;
+      v12 = v5;
       _os_log_impl(&dword_220099000, v4, OS_LOG_TYPE_DEFAULT, "Deleting existing presence assertion with presence identifier: %@", buf, 0xCu);
     }
 
     [*(a1 + 48) deleteObject:v3];
     v6 = *(a1 + 48);
-    v11 = 0;
-    [v6 save:&v11];
-    v7 = v11;
+    v10 = 0;
+    [v6 save:&v10];
+    v7 = v10;
     if (v7)
     {
       v8 = +[SKADatabaseManager logger];
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        __94__SKADatabaseManager_deletePresenceAssertionForPresenceIdentifier_isPersonal_databaseContext___block_invoke_cold_1(v2);
+        __94__SKADatabaseManager_deletePresenceAssertionForPresenceIdentifier_isPersonal_databaseContext___block_invoke_cold_1();
       }
 
       v9 = 0;
@@ -5129,8 +5274,6 @@ void __94__SKADatabaseManager_deletePresenceAssertionForPresenceIdentifier_isPer
 
     *(*(*(a1 + 56) + 8) + 24) = v9;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)deleteAllPresenceAssertionsWithDatabaseContext:(id)context
@@ -5159,12 +5302,12 @@ void __94__SKADatabaseManager_deletePresenceAssertionForPresenceIdentifier_isPer
 
 void __69__SKADatabaseManager_deleteAllPresenceAssertionsWithDatabaseContext___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v26 = 0;
-  v4 = [v2 executeFetchRequest:v3 error:&v26];
-  v5 = v26;
+  v25 = 0;
+  v4 = [v2 executeFetchRequest:v3 error:&v25];
+  v5 = v25;
   if (v5)
   {
     v6 = +[SKADatabaseManager logger];
@@ -5180,50 +5323,50 @@ LABEL_20:
 
   if ([v4 count])
   {
-    v19 = 0;
-    v20 = v4;
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
+    v18 = 0;
+    v19 = v4;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v7 = v4;
-    v8 = [v7 countByEnumeratingWithState:&v22 objects:v29 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v21 objects:v28 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v23;
+      v10 = *v22;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * i);
-          v13 = [SKADatabaseManager logger:v19];
+          v12 = *(*(&v21 + 1) + 8 * i);
+          v13 = [SKADatabaseManager logger:v18];
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             v14 = [v12 presenceIdentifier];
             *buf = 138412290;
-            v28 = v14;
+            v27 = v14;
             _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Deleting existing presence assertion with presence identifier: %@", buf, 0xCu);
           }
 
           [*(a1 + 32) deleteObject:v12];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v22 objects:v29 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v21 objects:v28 count:16];
       }
 
       while (v9);
     }
 
     v15 = *(a1 + 32);
-    v21 = 0;
-    [v15 save:&v21];
-    v6 = v21;
+    v20 = 0;
+    [v15 save:&v20];
+    v6 = v20;
     if (v6)
     {
       v16 = +[SKADatabaseManager logger];
@@ -5240,15 +5383,13 @@ LABEL_20:
       v17 = 1;
     }
 
-    v5 = v19;
-    v4 = v20;
+    v5 = v18;
+    v4 = v19;
     *(*(*(a1 + 48) + 8) + 24) = v17;
     goto LABEL_20;
   }
 
 LABEL_21:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)allExistingPresenceSubscriptionsForDatabaseContext:(id)context
@@ -5277,34 +5418,34 @@ LABEL_21:
 
 void __73__SKADatabaseManager_allExistingPresenceSubscriptionsForDatabaseContext___block_invoke(uint64_t a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = +[PresenceSubscription fetchRequest];
   v3 = *(a1 + 32);
-  v25 = 0;
-  v19 = v2;
+  v24 = 0;
+  v18 = v2;
   v4 = [v3 executeFetchRequest:? error:?];
-  v18 = v25;
+  v17 = v24;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   obj = v4;
-  v5 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v5 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     do
     {
       v8 = 0;
       do
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v21 + 1) + 8 * v8);
+        v9 = *(*(&v20 + 1) + 8 * v8);
         v10 = *(*(*(a1 + 40) + 8) + 40);
         v11 = [SKAPresenceSubscriptionAssertion alloc];
         v12 = [v9 channelIdentifier];
@@ -5318,13 +5459,11 @@ void __73__SKADatabaseManager_allExistingPresenceSubscriptionsForDatabaseContext
       }
 
       while (v6 != v8);
-      v6 = [obj countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v6 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v6);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)activePresenceSubscriptionForChannelIdentifier:(id)identifier databaseContext:(id)context
@@ -5466,7 +5605,7 @@ void __88__SKADatabaseManager__existingPresenceSubscriptionForChannelIdentifier_
 
 void __112__SKADatabaseManager_createOrUpdatePresenceSubscriptionForChannelIdentifier_presenceIdentifier_databaseContext___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _existingPresenceSubscriptionForChannelIdentifier:*(a1 + 40) databaseContext:*(a1 + 48)];
   if (!v2)
   {
@@ -5475,7 +5614,7 @@ void __112__SKADatabaseManager_createOrUpdatePresenceSubscriptionForChannelIdent
     {
       v4 = *(a1 + 56);
       *buf = 138412290;
-      v13 = v4;
+      v12 = v4;
       _os_log_impl(&dword_220099000, v3, OS_LOG_TYPE_DEFAULT, "Could not find existing presence subscription for presence identifier: %@, persisting new subscription", buf, 0xCu);
     }
 
@@ -5485,9 +5624,9 @@ void __112__SKADatabaseManager_createOrUpdatePresenceSubscriptionForChannelIdent
   [(PresenceSubscription *)v2 setPresenceIdentifier:*(a1 + 56)];
   [(PresenceSubscription *)v2 setChannelIdentifier:*(a1 + 40)];
   v5 = *(a1 + 48);
-  v11 = 0;
-  [v5 save:&v11];
-  v6 = v11;
+  v10 = 0;
+  [v5 save:&v10];
+  v6 = v10;
   if (v6)
   {
     v7 = +[SKADatabaseManager logger];
@@ -5504,8 +5643,6 @@ void __112__SKADatabaseManager_createOrUpdatePresenceSubscriptionForChannelIdent
     v7 = *(v9 + 40);
     *(v9 + 40) = v8;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deletePresenceSubscriptionsForChannelIdentifier:(id)identifier databaseContext:(id)context
@@ -5525,49 +5662,49 @@ void __112__SKADatabaseManager_createOrUpdatePresenceSubscriptionForChannelIdent
 
 void __86__SKADatabaseManager_deletePresenceSubscriptionsForChannelIdentifier_databaseContext___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = +[PresenceSubscription fetchRequest];
   v3 = [PresenceSubscription predicateForChannelIdentifier:*(a1 + 32)];
   [v2 setPredicate:v3];
 
   v4 = *(a1 + 40);
-  v21 = 0;
-  v5 = [v4 executeFetchRequest:v2 error:&v21];
-  v6 = v21;
+  v20 = 0;
+  v5 = [v4 executeFetchRequest:v2 error:&v20];
+  v6 = v20;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       v11 = 0;
       do
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(a1 + 40) deleteObject:*(*(&v17 + 1) + 8 * v11++)];
+        [*(a1 + 40) deleteObject:*(*(&v16 + 1) + 8 * v11++)];
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v9);
   }
 
   v12 = *(a1 + 40);
-  v16 = 0;
-  [v12 save:&v16];
-  v13 = v16;
+  v15 = 0;
+  [v12 save:&v15];
+  v13 = v15;
   if (v13)
   {
     v14 = +[SKADatabaseManager logger];
@@ -5576,8 +5713,6 @@ void __86__SKADatabaseManager_deletePresenceSubscriptionsForChannelIdentifier_da
       __86__SKADatabaseManager_deletePresenceSubscriptionsForChannelIdentifier_databaseContext___block_invoke_cold_1();
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deletePresenceSubscriptionsForPresenceIdentifier:(id)identifier databaseContext:(id)context
@@ -5597,49 +5732,49 @@ void __86__SKADatabaseManager_deletePresenceSubscriptionsForChannelIdentifier_da
 
 void __87__SKADatabaseManager_deletePresenceSubscriptionsForPresenceIdentifier_databaseContext___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = +[PresenceSubscription fetchRequest];
   v3 = [PresenceSubscription predicateForPresenceIdentifier:*(a1 + 32)];
   [v2 setPredicate:v3];
 
   v4 = *(a1 + 40);
-  v21 = 0;
-  v5 = [v4 executeFetchRequest:v2 error:&v21];
-  v6 = v21;
+  v20 = 0;
+  v5 = [v4 executeFetchRequest:v2 error:&v20];
+  v6 = v20;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       v11 = 0;
       do
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(a1 + 40) deleteObject:*(*(&v17 + 1) + 8 * v11++)];
+        [*(a1 + 40) deleteObject:*(*(&v16 + 1) + 8 * v11++)];
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v22 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v21 count:16];
     }
 
     while (v9);
   }
 
   v12 = *(a1 + 40);
-  v16 = 0;
-  [v12 save:&v16];
-  v13 = v16;
+  v15 = 0;
+  [v12 save:&v15];
+  v13 = v15;
   if (v13)
   {
     v14 = +[SKADatabaseManager logger];
@@ -5648,8 +5783,6 @@ void __87__SKADatabaseManager_deletePresenceSubscriptionsForPresenceIdentifier_d
       __86__SKADatabaseManager_deletePresenceSubscriptionsForChannelIdentifier_databaseContext___block_invoke_cold_1();
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)deleteAllPresenceSubscriptionsWithDatabaseContext:(id)context
@@ -5675,12 +5808,12 @@ void __87__SKADatabaseManager_deletePresenceSubscriptionsForPresenceIdentifier_d
 
 void __72__SKADatabaseManager_deleteAllPresenceSubscriptionsWithDatabaseContext___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = +[PresenceSubscription fetchRequest];
   v3 = *(a1 + 32);
-  v26 = 0;
-  v4 = [v3 executeFetchRequest:v2 error:&v26];
-  v5 = v26;
+  v25 = 0;
+  v4 = [v3 executeFetchRequest:v2 error:&v25];
+  v5 = v25;
   if (v5)
   {
     v6 = +[SKADatabaseManager logger];
@@ -5696,50 +5829,50 @@ LABEL_20:
 
   if ([v4 count])
   {
-    v20 = v2;
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
+    v19 = v2;
     v23 = 0u;
-    v19 = v4;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
+    v18 = v4;
     v7 = v4;
-    v8 = [v7 countByEnumeratingWithState:&v22 objects:v29 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v21 objects:v28 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v23;
+      v10 = *v22;
       do
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v23 != v10)
+          if (*v22 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * i);
+          v12 = *(*(&v21 + 1) + 8 * i);
           v13 = +[SKADatabaseManager logger];
           if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             v14 = [v12 presenceIdentifier];
             *buf = 138412290;
-            v28 = v14;
+            v27 = v14;
             _os_log_impl(&dword_220099000, v13, OS_LOG_TYPE_DEFAULT, "Deleting existing presence subscription with presence identifier: %@", buf, 0xCu);
           }
 
           [*(a1 + 32) deleteObject:v12];
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v22 objects:v29 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v21 objects:v28 count:16];
       }
 
       while (v9);
     }
 
     v15 = *(a1 + 32);
-    v21 = 0;
-    [v15 save:&v21];
-    v6 = v21;
+    v20 = 0;
+    [v15 save:&v20];
+    v6 = v20;
     if (v6)
     {
       v16 = +[SKADatabaseManager logger];
@@ -5756,15 +5889,13 @@ LABEL_20:
       v17 = 1;
     }
 
-    v2 = v20;
+    v2 = v19;
     *(*(*(a1 + 40) + 8) + 24) = v17;
-    v4 = v19;
+    v4 = v18;
     goto LABEL_20;
   }
 
 LABEL_21:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deleteAllPresenceSubscriptionsAndAssertionsIfNecessary
@@ -5807,14 +5938,14 @@ LABEL_21:
 
 void __114__SKADatabaseManager_cleanupOldStatusUpdatesForChannelIdentifier_excludingStatusUniqueIdentifier_databaseContext___block_invoke(uint64_t a1)
 {
-  v44[1] = *MEMORY[0x277D85DE8];
+  v43[1] = *MEMORY[0x277D85DE8];
   v2 = +[Status fetchRequest];
   v3 = [Status predicateForChannelIdentifier:*(a1 + 32)];
   [v2 setPredicate:v3];
 
   v4 = [Status sortDescriptorForDateCreatedAscending:0];
-  v44[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:1];
+  v43[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:1];
   [v2 setSortDescriptors:v5];
 
   [v2 setFetchLimit:20];
@@ -5823,14 +5954,14 @@ void __114__SKADatabaseManager_cleanupOldStatusUpdatesForChannelIdentifier_exclu
   {
     v7 = *(a1 + 32);
     *buf = 138412290;
-    v43 = v7;
+    v42 = v7;
     _os_log_impl(&dword_220099000, v6, OS_LOG_TYPE_DEFAULT, "Beginning database cleanup of statuses on channel identifier: %@", buf, 0xCu);
   }
 
   v8 = *(a1 + 40);
-  v40 = 0;
-  v9 = [v8 executeFetchRequest:v2 error:&v40];
-  v10 = v40;
+  v39 = 0;
+  v9 = [v8 executeFetchRequest:v2 error:&v39];
+  v10 = v39;
   if (v10)
   {
     v11 = +[SKADatabaseManager logger];
@@ -5842,51 +5973,51 @@ void __114__SKADatabaseManager_cleanupOldStatusUpdatesForChannelIdentifier_exclu
     goto LABEL_6;
   }
 
-  v13 = [v9 count];
+  v12 = [v9 count];
   v11 = +[SKADatabaseManager logger];
-  v14 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-  if (v13)
+  v13 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
+  if (v12)
   {
-    v34 = v2;
-    if (v14)
+    v33 = v2;
+    if (v13)
     {
-      v15 = [v9 count];
+      v14 = [v9 count];
       *buf = 134217984;
-      v43 = v15;
+      v42 = v14;
       _os_log_impl(&dword_220099000, v11, OS_LOG_TYPE_DEFAULT, "Fetch request for status cleanup completed with %ld result(s)", buf, 0xCu);
     }
 
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
-    v33 = v9;
-    v16 = v9;
-    v17 = [v16 countByEnumeratingWithState:&v36 objects:v41 count:16];
-    if (v17)
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v32 = v9;
+    v15 = v9;
+    v16 = [v15 countByEnumeratingWithState:&v35 objects:v40 count:16];
+    if (v16)
     {
-      v18 = v17;
-      v19 = *v37;
-      v20 = 1;
+      v17 = v16;
+      v18 = *v36;
+      v19 = 1;
       do
       {
-        for (i = 0; i != v18; ++i)
+        for (i = 0; i != v17; ++i)
         {
-          if (*v37 != v19)
+          if (*v36 != v18)
           {
-            objc_enumerationMutation(v16);
+            objc_enumerationMutation(v15);
           }
 
-          v22 = *(*(&v36 + 1) + 8 * i);
-          if (v20)
+          v21 = *(*(&v35 + 1) + 8 * i);
+          if (v19)
           {
-            v23 = +[SKADatabaseManager logger];
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+            v22 = +[SKADatabaseManager logger];
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
             {
-              v24 = [v22 uniqueIdentifier];
+              v23 = [v21 uniqueIdentifier];
               *buf = 138412290;
-              v43 = v24;
-              _os_log_impl(&dword_220099000, v23, OS_LOG_TYPE_DEFAULT, "Keeping status %@ because it is our most recent status", buf, 0xCu);
+              v42 = v23;
+              _os_log_impl(&dword_220099000, v22, OS_LOG_TYPE_DEFAULT, "Keeping status %@ because it is our most recent status", buf, 0xCu);
             }
 
 LABEL_21:
@@ -5894,79 +6025,77 @@ LABEL_21:
             goto LABEL_25;
           }
 
-          v25 = *(a1 + 48);
-          v26 = [*(*(&v36 + 1) + 8 * i) uniqueIdentifier];
-          v27 = [v25 isEqualToString:v26];
+          v24 = *(a1 + 48);
+          v25 = [*(*(&v35 + 1) + 8 * i) uniqueIdentifier];
+          v26 = [v24 isEqualToString:v25];
 
-          v23 = +[SKADatabaseManager logger];
-          v28 = os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT);
-          if (v27)
+          v22 = +[SKADatabaseManager logger];
+          v27 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+          if (v26)
           {
-            if (v28)
+            if (v27)
             {
-              v29 = [v22 uniqueIdentifier];
+              v28 = [v21 uniqueIdentifier];
               *buf = 138412290;
-              v43 = v29;
-              _os_log_impl(&dword_220099000, v23, OS_LOG_TYPE_DEFAULT, "Keeping status %@ because it is excluded from this cleanup request", buf, 0xCu);
+              v42 = v28;
+              _os_log_impl(&dword_220099000, v22, OS_LOG_TYPE_DEFAULT, "Keeping status %@ because it is excluded from this cleanup request", buf, 0xCu);
             }
 
             goto LABEL_21;
           }
 
-          if (v28)
+          if (v27)
           {
-            v30 = [v22 uniqueIdentifier];
+            v29 = [v21 uniqueIdentifier];
             *buf = 138412290;
-            v43 = v30;
-            _os_log_impl(&dword_220099000, v23, OS_LOG_TYPE_DEFAULT, "Deleting status %@ as it is no longer the most recent", buf, 0xCu);
+            v42 = v29;
+            _os_log_impl(&dword_220099000, v22, OS_LOG_TYPE_DEFAULT, "Deleting status %@ as it is no longer the most recent", buf, 0xCu);
           }
 
-          [*(a1 + 40) deleteObject:v22];
+          [*(a1 + 40) deleteObject:v21];
 LABEL_25:
-          v20 = 0;
+          v19 = 0;
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v36 objects:v41 count:16];
-        v20 = 0;
+        v17 = [v15 countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v19 = 0;
       }
 
-      while (v18);
+      while (v17);
     }
 
-    v31 = *(a1 + 40);
-    v35 = 0;
-    [v31 save:&v35];
-    v11 = v35;
+    v30 = *(a1 + 40);
+    v34 = 0;
+    [v30 save:&v34];
+    v11 = v34;
     if (v11)
     {
-      v32 = +[SKADatabaseManager logger];
-      v2 = v34;
+      v31 = +[SKADatabaseManager logger];
+      v2 = v33;
       v10 = 0;
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         __114__SKADatabaseManager_cleanupOldStatusUpdatesForChannelIdentifier_excludingStatusUniqueIdentifier_databaseContext___block_invoke_cold_2();
       }
 
-      v9 = v33;
+      v9 = v32;
     }
 
     else
     {
-      v9 = v33;
-      v2 = v34;
+      v9 = v32;
+      v2 = v33;
       v10 = 0;
     }
   }
 
-  else if (v14)
+  else if (v13)
   {
     *buf = 0;
     _os_log_impl(&dword_220099000, v11, OS_LOG_TYPE_DEFAULT, "Fetch request for cleanup of statuses found no matches.", buf, 2u);
   }
 
 LABEL_6:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_existingPendingPublishRequestForUniqueIdentifier:(id)identifier databaseContext:(id)context
@@ -6176,28 +6305,28 @@ void __91__SKADatabaseManager_existingPendingPublishRequestForUniqueIdentifier_w
 
 void __96__SKADatabaseManager_existingPendingPublishRequestsForStatusTypeIdentifier_withDatabaseContext___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _existingPendingPublishRequestsForStatusTypeIdentifier:*(a1 + 40) databaseContext:*(a1 + 48)];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
+        v7 = *(*(&v9 + 1) + 8 * v6);
         v8 = [[SKADatabasePendingPublishRequest alloc] initWithCoreDataPendingPublishRequest:v7];
         [*(a1 + 48) refreshObject:v7 mergeChanges:0];
         [*(*(*(a1 + 56) + 8) + 40) addObject:v8];
@@ -6206,13 +6335,11 @@ void __96__SKADatabaseManager_existingPendingPublishRequestsForStatusTypeIdentif
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)existingPendingPublishRequestsWithDatabaseContext:(id)context
@@ -6242,28 +6369,28 @@ void __96__SKADatabaseManager_existingPendingPublishRequestsForStatusTypeIdentif
 
 void __72__SKADatabaseManager_existingPendingPublishRequestsWithDatabaseContext___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) _existingPendingPublishRequestsWithDatabaseContext:*(a1 + 40)];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
+        v7 = *(*(&v9 + 1) + 8 * v6);
         v8 = [[SKADatabasePendingPublishRequest alloc] initWithCoreDataPendingPublishRequest:v7];
         [*(a1 + 40) refreshObject:v7 mergeChanges:0];
         [*(*(*(a1 + 48) + 8) + 40) addObject:v8];
@@ -6272,13 +6399,11 @@ void __72__SKADatabaseManager_existingPendingPublishRequestsWithDatabaseContext_
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)deletePendingPublishRequestWithWithUniqueIdentifier:(id)identifier databaseContext:(id)context
@@ -6308,16 +6433,16 @@ void __72__SKADatabaseManager_existingPendingPublishRequestsWithDatabaseContext_
 
 void __90__SKADatabaseManager_deletePendingPublishRequestWithWithUniqueIdentifier_databaseContext___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 40);
   v3 = [*(a1 + 32) _existingPendingPublishRequestForUniqueIdentifier:*(a1 + 40) databaseContext:*(a1 + 48)];
   if (v3)
   {
     [*(a1 + 48) deleteObject:v3];
     v4 = *(a1 + 48);
-    v11 = 0;
-    [v4 save:&v11];
-    v5 = v11;
+    v10 = 0;
+    [v4 save:&v10];
+    v5 = v10;
     v6 = +[SKADatabaseManager logger];
     v7 = v6;
     if (v5)
@@ -6334,7 +6459,7 @@ void __90__SKADatabaseManager_deletePendingPublishRequestWithWithUniqueIdentifie
       {
         v9 = *v2;
         *buf = 138412290;
-        v13 = v9;
+        v12 = v9;
         _os_log_impl(&dword_220099000, v7, OS_LOG_TYPE_DEFAULT, "Deleted existing pending publish request with identifier: %@", buf, 0xCu);
       }
 
@@ -6347,13 +6472,11 @@ void __90__SKADatabaseManager_deletePendingPublishRequestWithWithUniqueIdentifie
     v8 = +[SKADatabaseManager logger];
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __90__SKADatabaseManager_deletePendingPublishRequestWithWithUniqueIdentifier_databaseContext___block_invoke_cold_2(v2);
+      __90__SKADatabaseManager_deletePendingPublishRequestWithWithUniqueIdentifier_databaseContext___block_invoke_cold_2();
     }
 
     *(*(*(a1 + 56) + 8) + 24) = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)incrementPendingPublishRequestRetryCountWithUniqueIdentifier:(id)identifier databaseContext:(id)context
@@ -6383,7 +6506,7 @@ void __90__SKADatabaseManager_deletePendingPublishRequestWithWithUniqueIdentifie
 
 void __99__SKADatabaseManager_incrementPendingPublishRequestRetryCountWithUniqueIdentifier_databaseContext___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 40);
   v3 = [*(a1 + 32) _existingPendingPublishRequestForUniqueIdentifier:*(a1 + 40) databaseContext:*(a1 + 48)];
   v4 = v3;
@@ -6391,9 +6514,9 @@ void __99__SKADatabaseManager_incrementPendingPublishRequestRetryCountWithUnique
   {
     [v3 setRetryCount:{objc_msgSend(v3, "retryCount") + 1}];
     v5 = *(a1 + 48);
-    v12 = 0;
-    [v5 save:&v12];
-    v6 = v12;
+    v11 = 0;
+    [v5 save:&v11];
+    v6 = v11;
     v7 = +[SKADatabaseManager logger];
     v8 = v7;
     if (v6)
@@ -6410,7 +6533,7 @@ void __99__SKADatabaseManager_incrementPendingPublishRequestRetryCountWithUnique
       {
         v10 = *v2;
         *buf = 138412290;
-        v14 = v10;
+        v13 = v10;
         _os_log_impl(&dword_220099000, v8, OS_LOG_TYPE_DEFAULT, "Incremented pending publish request rc with identifier: %@", buf, 0xCu);
       }
 
@@ -6423,13 +6546,11 @@ void __99__SKADatabaseManager_incrementPendingPublishRequestRetryCountWithUnique
     v9 = +[SKADatabaseManager logger];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __90__SKADatabaseManager_deletePendingPublishRequestWithWithUniqueIdentifier_databaseContext___block_invoke_cold_2(v2);
+      __90__SKADatabaseManager_deletePendingPublishRequestWithWithUniqueIdentifier_databaseContext___block_invoke_cold_2();
     }
 
     *(*(*(a1 + 56) + 8) + 24) = 0;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createRemovedUserWithHandle:(id)handle dateRemoved:(id)removed statusTypeIdentifier:(id)identifier databaseContext:(id)context
@@ -6566,45 +6687,45 @@ void __93__SKADatabaseManager_existingRemovedUserWithHandle_statusTypeIdentifier
 
 void __87__SKADatabaseManager_deleteRemovedUserWithHandle_statusTypeIdentifier_databaseContext___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 40);
   v3 = [*(a1 + 32) _existingRemovedUsersForHandle:*(a1 + 40) statusTypeIdentifier:*(a1 + 48) databaseContext:*(a1 + 56)];
   if ([v3 count])
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v4 = v3;
-    v5 = [v4 countByEnumeratingWithState:&v17 objects:v23 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v16 objects:v22 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v18;
+      v7 = *v17;
       do
       {
         v8 = 0;
         do
         {
-          if (*v18 != v7)
+          if (*v17 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          [*(a1 + 56) deleteObject:*(*(&v17 + 1) + 8 * v8++)];
+          [*(a1 + 56) deleteObject:*(*(&v16 + 1) + 8 * v8++)];
         }
 
         while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v17 objects:v23 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v16 objects:v22 count:16];
       }
 
       while (v6);
     }
 
     v9 = *(a1 + 56);
-    v16 = 0;
-    [v9 save:&v16];
-    v10 = v16;
+    v15 = 0;
+    [v9 save:&v15];
+    v10 = v15;
     v11 = +[SKADatabaseManager logger];
     v12 = v11;
     if (v10)
@@ -6621,7 +6742,7 @@ void __87__SKADatabaseManager_deleteRemovedUserWithHandle_statusTypeIdentifier_d
       {
         v14 = *v2;
         *buf = 138412290;
-        v22 = v14;
+        v21 = v14;
         _os_log_impl(&dword_220099000, v12, OS_LOG_TYPE_DEFAULT, "Deleted existing removed user with handle: %@", buf, 0xCu);
       }
 
@@ -6634,18 +6755,16 @@ void __87__SKADatabaseManager_deleteRemovedUserWithHandle_statusTypeIdentifier_d
     v13 = +[SKADatabaseManager logger];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __87__SKADatabaseManager_deleteRemovedUserWithHandle_statusTypeIdentifier_databaseContext___block_invoke_cold_2(v2);
+      __87__SKADatabaseManager_deleteRemovedUserWithHandle_statusTypeIdentifier_databaseContext___block_invoke_cold_2();
     }
 
     *(*(*(a1 + 64) + 8) + 24) = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_existingRemovedUsersForHandle:(id)handle statusTypeIdentifier:(id)identifier databaseContext:(id)context
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   identifierCopy = identifier;
   handleCopy = handle;
@@ -6653,19 +6772,19 @@ void __87__SKADatabaseManager_deleteRemovedUserWithHandle_statusTypeIdentifier_d
   v11 = MEMORY[0x277CCA920];
   v12 = [RemovedUser predicateForHandle:handleCopy];
 
-  v22[0] = v12;
+  v21[0] = v12;
   v13 = [RemovedUser predicateForStatusTypeIdentifier:identifierCopy];
 
-  v22[1] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v21[1] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
   v15 = [v11 andPredicateWithSubpredicates:v14];
   [v10 setPredicate:v15];
 
   [v10 setFetchLimit:1];
-  v21 = 0;
-  v16 = [contextCopy executeFetchRequest:v10 error:&v21];
+  v20 = 0;
+  v16 = [contextCopy executeFetchRequest:v10 error:&v20];
 
-  v17 = v21;
+  v17 = v20;
   if (v17)
   {
     v18 = +[SKADatabaseManager logger];
@@ -6674,8 +6793,6 @@ void __87__SKADatabaseManager_deleteRemovedUserWithHandle_statusTypeIdentifier_d
       [SKADatabaseManager _existingRemovedUsersForHandle:statusTypeIdentifier:databaseContext:];
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -6814,45 +6931,45 @@ void __91__SKADatabaseManager_existingRemovedUserWithHandle_presenceIdentifier_w
 
 void __85__SKADatabaseManager_deleteRemovedUserWithHandle_presenceIdentifier_databaseContext___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 40);
   v3 = [*(a1 + 32) _existingRemovedUsersForHandle:*(a1 + 40) presenceIdentifier:*(a1 + 48) databaseContext:*(a1 + 56)];
   if ([v3 count])
   {
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v4 = v3;
-    v5 = [v4 countByEnumeratingWithState:&v17 objects:v23 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v16 objects:v22 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v18;
+      v7 = *v17;
       do
       {
         v8 = 0;
         do
         {
-          if (*v18 != v7)
+          if (*v17 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          [*(a1 + 56) deleteObject:*(*(&v17 + 1) + 8 * v8++)];
+          [*(a1 + 56) deleteObject:*(*(&v16 + 1) + 8 * v8++)];
         }
 
         while (v6 != v8);
-        v6 = [v4 countByEnumeratingWithState:&v17 objects:v23 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v16 objects:v22 count:16];
       }
 
       while (v6);
     }
 
     v9 = *(a1 + 56);
-    v16 = 0;
-    [v9 save:&v16];
-    v10 = v16;
+    v15 = 0;
+    [v9 save:&v15];
+    v10 = v15;
     v11 = +[SKADatabaseManager logger];
     v12 = v11;
     if (v10)
@@ -6869,7 +6986,7 @@ void __85__SKADatabaseManager_deleteRemovedUserWithHandle_presenceIdentifier_dat
       {
         v14 = *v2;
         *buf = 138412290;
-        v22 = v14;
+        v21 = v14;
         _os_log_impl(&dword_220099000, v12, OS_LOG_TYPE_DEFAULT, "Deleted existing removed user with handle: %@", buf, 0xCu);
       }
 
@@ -6882,18 +6999,16 @@ void __85__SKADatabaseManager_deleteRemovedUserWithHandle_presenceIdentifier_dat
     v13 = +[SKADatabaseManager logger];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      __87__SKADatabaseManager_deleteRemovedUserWithHandle_statusTypeIdentifier_databaseContext___block_invoke_cold_2(v2);
+      __87__SKADatabaseManager_deleteRemovedUserWithHandle_statusTypeIdentifier_databaseContext___block_invoke_cold_2();
     }
 
     *(*(*(a1 + 64) + 8) + 24) = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_existingRemovedUsersForHandle:(id)handle presenceIdentifier:(id)identifier databaseContext:(id)context
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   identifierCopy = identifier;
   handleCopy = handle;
@@ -6901,19 +7016,19 @@ void __85__SKADatabaseManager_deleteRemovedUserWithHandle_presenceIdentifier_dat
   v11 = MEMORY[0x277CCA920];
   v12 = [RemovedUser predicateForHandle:handleCopy];
 
-  v22[0] = v12;
+  v21[0] = v12;
   v13 = [RemovedUser predicateForPresenceIdentifier:identifierCopy];
 
-  v22[1] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+  v21[1] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
   v15 = [v11 andPredicateWithSubpredicates:v14];
   [v10 setPredicate:v15];
 
   [v10 setFetchLimit:1];
-  v21 = 0;
-  v16 = [contextCopy executeFetchRequest:v10 error:&v21];
+  v20 = 0;
+  v16 = [contextCopy executeFetchRequest:v10 error:&v20];
 
-  v17 = v21;
+  v17 = v20;
   if (v17)
   {
     v18 = +[SKADatabaseManager logger];
@@ -6923,30 +7038,28 @@ void __85__SKADatabaseManager_deleteRemovedUserWithHandle_presenceIdentifier_dat
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v16;
 }
 
 - (id)_existingReceivedInvitationsForHandle:(id)handle presenceIdentifier:(id)identifier databaseContext:(id)context
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   identifierCopy = identifier;
   contextCopy = context;
   v10 = +[ReceivedInvitation fetchRequest];
   v11 = MEMORY[0x277CCA920];
   v12 = [ReceivedInvitation predicateForSenderHandle:handleCopy];
-  v37[0] = v12;
+  v36[0] = v12;
   v13 = [ReceivedInvitation predicateForPresenceIdentifier:identifierCopy];
-  v37[1] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+  v36[1] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
   v15 = [v11 andPredicateWithSubpredicates:v14];
   [v10 setPredicate:v15];
 
   v16 = [ReceivedInvitation sortDescriptorForDateInvitationCreatedOrderedAscending:0];
-  v36 = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+  v35 = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
   [v10 setSortDescriptors:v17];
 
   [v10 setFetchLimit:50];
@@ -6955,16 +7068,16 @@ void __85__SKADatabaseManager_deleteRemovedUserWithHandle_presenceIdentifier_dat
   {
     handleString = [handleCopy handleString];
     *buf = 138412546;
-    v33 = handleString;
-    v34 = 2112;
-    v35 = identifierCopy;
+    v32 = handleString;
+    v33 = 2112;
+    v34 = identifierCopy;
     _os_log_impl(&dword_220099000, v18, OS_LOG_TYPE_DEFAULT, "Beginning fetch request for ReceivedInvitation from handle %@ presenceIdentifier: %@", buf, 0x16u);
   }
 
-  v31 = 0;
-  v20 = [contextCopy executeFetchRequest:v10 error:&v31];
+  v30 = 0;
+  v20 = [contextCopy executeFetchRequest:v10 error:&v30];
 
-  v21 = v31;
+  v21 = v30;
   if (v21)
   {
     v22 = +[SKADatabaseManager logger];
@@ -6988,7 +7101,7 @@ void __85__SKADatabaseManager_deleteRemovedUserWithHandle_presenceIdentifier_dat
 
       v25 = [v20 count];
       *buf = 134217984;
-      v33 = v25;
+      v32 = v25;
       v26 = "Fetch request for ReceivedInvitation by handle completed with %ld result(s)";
       v27 = v22;
       v28 = 12;
@@ -7011,31 +7124,29 @@ void __85__SKADatabaseManager_deleteRemovedUserWithHandle_presenceIdentifier_dat
   }
 
 LABEL_12:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
 
 - (id)_existingReceivedInvitationsForHandle:(id)handle statusTypeIdentifier:(id)identifier databaseContext:(id)context
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v36[2] = *MEMORY[0x277D85DE8];
   handleCopy = handle;
   identifierCopy = identifier;
   contextCopy = context;
   v10 = +[ReceivedInvitation fetchRequest];
   v11 = MEMORY[0x277CCA920];
   v12 = [ReceivedInvitation predicateForSenderHandle:handleCopy];
-  v37[0] = v12;
+  v36[0] = v12;
   v13 = [ReceivedInvitation predicateForStatusTypeIdentifier:identifierCopy];
-  v37[1] = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:2];
+  v36[1] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
   v15 = [v11 andPredicateWithSubpredicates:v14];
   [v10 setPredicate:v15];
 
   v16 = [ReceivedInvitation sortDescriptorForDateInvitationCreatedOrderedAscending:0];
-  v36 = v16;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
+  v35 = v16;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
   [v10 setSortDescriptors:v17];
 
   [v10 setFetchLimit:50];
@@ -7044,16 +7155,16 @@ LABEL_12:
   {
     handleString = [handleCopy handleString];
     *buf = 138412546;
-    v33 = handleString;
-    v34 = 2112;
-    v35 = identifierCopy;
+    v32 = handleString;
+    v33 = 2112;
+    v34 = identifierCopy;
     _os_log_impl(&dword_220099000, v18, OS_LOG_TYPE_DEFAULT, "Beginning fetch request for ReceivedInvitation from handle %@ statusTypeIdentifier: %@", buf, 0x16u);
   }
 
-  v31 = 0;
-  v20 = [contextCopy executeFetchRequest:v10 error:&v31];
+  v30 = 0;
+  v20 = [contextCopy executeFetchRequest:v10 error:&v30];
 
-  v21 = v31;
+  v21 = v30;
   if (v21)
   {
     v22 = +[SKADatabaseManager logger];
@@ -7077,7 +7188,7 @@ LABEL_12:
 
       v25 = [v20 count];
       *buf = 134217984;
-      v33 = v25;
+      v32 = v25;
       v26 = "Fetch request for ReceivedInvitation by handle completed with %ld result(s)";
       v27 = v22;
       v28 = 12;
@@ -7100,8 +7211,6 @@ LABEL_12:
   }
 
 LABEL_12:
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -7216,59 +7325,59 @@ void __232__SKADatabaseManager_createReceivedInvitationForChannel_senderHandle_i
 - (id)_existingReceivedInvitationsForChannelIdentifier:(id)identifier sortedByDateReceived:(BOOL)received databaseContect:(id)contect
 {
   receivedCopy = received;
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   contectCopy = contect;
   v9 = [(SKADatabaseManager *)self _existingChannelsForChannelIdentifier:identifierCopy databaseContext:?];
   if ([v9 count])
   {
-    v29 = receivedCopy;
-    v31 = identifierCopy;
+    v28 = receivedCopy;
+    v30 = identifierCopy;
     v10 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v36 = 0u;
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
-    v40 = 0u;
-    v30 = v9;
+    v29 = v9;
     v11 = v9;
-    v12 = [v11 countByEnumeratingWithState:&v37 objects:v43 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v36 objects:v42 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v38;
+      v14 = *v37;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v38 != v14)
+          if (*v37 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v37 + 1) + 8 * i);
+          v16 = *(*(&v36 + 1) + 8 * i);
           receivedInvitations = [v16 receivedInvitations];
+          v32 = 0u;
           v33 = 0u;
           v34 = 0u;
           v35 = 0u;
-          v36 = 0u;
-          v18 = [receivedInvitations countByEnumeratingWithState:&v33 objects:v42 count:16];
+          v18 = [receivedInvitations countByEnumeratingWithState:&v32 objects:v41 count:16];
           if (v18)
           {
             v19 = v18;
-            v20 = *v34;
+            v20 = *v33;
             do
             {
               for (j = 0; j != v19; ++j)
               {
-                if (*v34 != v20)
+                if (*v33 != v20)
                 {
                   objc_enumerationMutation(receivedInvitations);
                 }
 
-                [v10 addObject:*(*(&v33 + 1) + 8 * j)];
+                [v10 addObject:*(*(&v32 + 1) + 8 * j)];
               }
 
-              v19 = [receivedInvitations countByEnumeratingWithState:&v33 objects:v42 count:16];
+              v19 = [receivedInvitations countByEnumeratingWithState:&v32 objects:v41 count:16];
             }
 
             while (v19);
@@ -7277,20 +7386,20 @@ void __232__SKADatabaseManager_createReceivedInvitationForChannel_senderHandle_i
           [contectCopy refreshObject:v16 mergeChanges:0];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v37 objects:v43 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v36 objects:v42 count:16];
       }
 
       while (v13);
     }
 
-    if (v29)
+    if (v28)
     {
       v22 = MEMORY[0x277CCAC98];
       v23 = +[ReceivedInvitation dateInvitationCreatedKeyPath];
       v24 = [v22 sortDescriptorWithKey:v23 ascending:0];
 
-      v41 = v24;
-      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
+      v40 = v24;
+      v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v40 count:1];
       v26 = [v10 sortedArrayUsingDescriptors:v25];
     }
 
@@ -7299,8 +7408,8 @@ void __232__SKADatabaseManager_createReceivedInvitationForChannel_senderHandle_i
       v26 = [v10 copy];
     }
 
-    v9 = v30;
-    identifierCopy = v31;
+    v9 = v29;
+    identifierCopy = v30;
   }
 
   else
@@ -7313,8 +7422,6 @@ void __232__SKADatabaseManager_createReceivedInvitationForChannel_senderHandle_i
 
     v26 = MEMORY[0x277CBEBF8];
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -7343,29 +7450,29 @@ void __232__SKADatabaseManager_createReceivedInvitationForChannel_senderHandle_i
 
 void __68__SKADatabaseManager_receivedInvitationsForChannel_databaseContext___block_invoke(id *a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = [a1[4] identifier];
   v3 = [a1[5] _existingReceivedInvitationsForChannelIdentifier:v2 sortedByDateReceived:1 databaseContect:a1[6]];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * v7);
+        v8 = *(*(&v10 + 1) + 8 * v7);
         v9 = [[SKADatabaseReceivedInvitation alloc] initWithCoreDataReceivedInvitation:v8];
         [a1[6] refreshObject:v8 mergeChanges:0];
         if (v9)
@@ -7377,13 +7484,11 @@ void __68__SKADatabaseManager_receivedInvitationsForChannel_databaseContext___bl
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)receivedInvitationsForPresenceIdentifier:(id)identifier isPersonal:(BOOL)personal databaseContext:(id)context
@@ -7411,48 +7516,48 @@ void __68__SKADatabaseManager_receivedInvitationsForChannel_databaseContext___bl
 
 void __90__SKADatabaseManager_receivedInvitationsForPresenceIdentifier_isPersonal_databaseContext___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) _existingChannelsForPresenceIdentifier:*(a1 + 40) isPersonal:*(a1 + 64) databaseContext:*(a1 + 48)];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  obj = v22 = 0u;
-  v14 = [obj countByEnumeratingWithState:&v19 objects:v24 count:16];
-  if (v14)
+  obj = v21 = 0u;
+  v13 = [obj countByEnumeratingWithState:&v18 objects:v23 count:16];
+  if (v13)
   {
-    v13 = *v20;
+    v12 = *v19;
     do
     {
       v2 = 0;
       do
       {
-        if (*v20 != v13)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v3 = [*(*(&v19 + 1) + 8 * v2) identifier];
+        v3 = [*(*(&v18 + 1) + 8 * v2) identifier];
         v4 = [*(a1 + 32) _existingReceivedInvitationsForChannelIdentifier:v3 sortedByDateReceived:1 databaseContect:*(a1 + 48)];
+        v14 = 0u;
         v15 = 0u;
         v16 = 0u;
         v17 = 0u;
-        v18 = 0u;
-        v5 = [v4 countByEnumeratingWithState:&v15 objects:v23 count:16];
+        v5 = [v4 countByEnumeratingWithState:&v14 objects:v22 count:16];
         if (v5)
         {
           v6 = v5;
-          v7 = *v16;
+          v7 = *v15;
           do
           {
             v8 = 0;
             do
             {
-              if (*v16 != v7)
+              if (*v15 != v7)
               {
                 objc_enumerationMutation(v4);
               }
 
-              v9 = *(*(&v15 + 1) + 8 * v8);
+              v9 = *(*(&v14 + 1) + 8 * v8);
               v10 = [[SKADatabaseReceivedInvitation alloc] initWithCoreDataReceivedInvitation:v9];
               [*(a1 + 48) refreshObject:v9 mergeChanges:0];
               if (v10)
@@ -7464,7 +7569,7 @@ void __90__SKADatabaseManager_receivedInvitationsForPresenceIdentifier_isPersona
             }
 
             while (v6 != v8);
-            v6 = [v4 countByEnumeratingWithState:&v15 objects:v23 count:16];
+            v6 = [v4 countByEnumeratingWithState:&v14 objects:v22 count:16];
           }
 
           while (v6);
@@ -7473,14 +7578,12 @@ void __90__SKADatabaseManager_receivedInvitationsForPresenceIdentifier_isPersona
         ++v2;
       }
 
-      while (v2 != v14);
-      v14 = [obj countByEnumeratingWithState:&v19 objects:v24 count:16];
+      while (v2 != v13);
+      v13 = [obj countByEnumeratingWithState:&v18 objects:v23 count:16];
     }
 
-    while (v14);
+    while (v13);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanupOldReceivedInvitationsForChannelIdentifier:(id)identifier excludingInvitation:(id)invitation databaseContext:(id)context
@@ -7531,7 +7634,7 @@ void __108__SKADatabaseManager_cleanupOldReceivedInvitationsForChannelIdentifier
 
 void __108__SKADatabaseManager_cleanupOldReceivedInvitationsForChannelIdentifier_excludingInvitation_databaseContext___block_invoke_2(id *a1, void *a2, unint64_t a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [v5 senderHandle];
   if (a3 >= 5)
@@ -7565,9 +7668,9 @@ void __108__SKADatabaseManager_cleanupOldReceivedInvitationsForChannelIdentifier
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         v15 = [v5 invitationIdentifier];
-        v17 = 138412290;
-        v18 = v15;
-        _os_log_impl(&dword_220099000, v14, OS_LOG_TYPE_DEFAULT, "Deleting invitation %@ as it is no longer the most recent", &v17, 0xCu);
+        v16 = 138412290;
+        v17 = v15;
+        _os_log_impl(&dword_220099000, v14, OS_LOG_TYPE_DEFAULT, "Deleting invitation %@ as it is no longer the most recent", &v16, 0xCu);
       }
 
       [a1[6] deleteObject:v5];
@@ -7579,8 +7682,6 @@ LABEL_12:
   {
     [a1[5] addObject:v6];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanupDecommissionedChannelsWithDatabaseContext:(id)context
@@ -7636,7 +7737,7 @@ void __71__SKADatabaseManager_cleanupDecommissionedChannelsWithDatabaseContext__
 
 void __71__SKADatabaseManager_cleanupDecommissionedChannelsWithDatabaseContext___block_invoke_2(uint64_t a1, void *a2, unint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = +[SKADatabaseManager logger];
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
@@ -7645,9 +7746,9 @@ void __71__SKADatabaseManager_cleanupDecommissionedChannelsWithDatabaseContext__
     if (v7)
     {
       v9 = [v5 identifier];
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_220099000, v6, OS_LOG_TYPE_DEFAULT, "Not deleting channel %@ as it is in our most recent decommissioned channels", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&dword_220099000, v6, OS_LOG_TYPE_DEFAULT, "Not deleting channel %@ as it is in our most recent decommissioned channels", &v10, 0xCu);
     }
   }
 
@@ -7656,15 +7757,13 @@ void __71__SKADatabaseManager_cleanupDecommissionedChannelsWithDatabaseContext__
     if (v7)
     {
       v8 = [v5 identifier];
-      v11 = 138412290;
-      v12 = v8;
-      _os_log_impl(&dword_220099000, v6, OS_LOG_TYPE_DEFAULT, "Deleting channel %@ as it is decommissioned and not recent", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v8;
+      _os_log_impl(&dword_220099000, v6, OS_LOG_TYPE_DEFAULT, "Deleting channel %@ as it is decommissioned and not recent", &v10, 0xCu);
     }
 
     [*(a1 + 32) deleteObject:v5];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cleanupOldChannelsForHandle:(id)handle statusTypeIdentifier:(id)identifier databaseContext:(id)context
@@ -7733,7 +7832,7 @@ void __71__SKADatabaseManager_cleanupDecommissionedChannelsWithDatabaseContext__
 
 void __71__SKADatabaseManager_allPublishedLocalStatusesInDatabaseContext_error___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = +[PublishedLocalStatus fetchRequest];
   v3 = +[SKADatabaseManager logger];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
@@ -7743,10 +7842,10 @@ void __71__SKADatabaseManager_allPublishedLocalStatusesInDatabaseContext_error__
   }
 
   v4 = *(a1 + 32);
-  v23 = 0;
-  v5 = [v4 executeFetchRequest:v2 error:&v23];
-  v6 = v23;
-  v7 = v23;
+  v22 = 0;
+  v5 = [v4 executeFetchRequest:v2 error:&v22];
+  v6 = v22;
+  v7 = v22;
   v8 = +[SKADatabaseManager logger];
   v9 = v8;
   if (v7)
@@ -7770,39 +7869,37 @@ void __71__SKADatabaseManager_allPublishedLocalStatusesInDatabaseContext_error__
       _os_log_impl(&dword_220099000, v9, OS_LOG_TYPE_DEFAULT, "Fetch request for all published local statuses completed", buf, 2u);
     }
 
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     v11 = v5;
-    v12 = [v11 countByEnumeratingWithState:&v19 objects:v25 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v18 objects:v24 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v20;
+      v14 = *v19;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v20 != v14)
+          if (*v19 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v19 + 1) + 8 * i);
-          [*(a1 + 32) refreshObject:v16 mergeChanges:{0, v19}];
+          v16 = *(*(&v18 + 1) + 8 * i);
+          [*(a1 + 32) refreshObject:v16 mergeChanges:{0, v18}];
           v17 = [[SKADatabasePublishedLocalStatus alloc] initWithCoreDataPublishedLocalStatus:v16];
           [*(*(*(a1 + 48) + 8) + 40) addObject:v17];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v19 objects:v25 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v18 objects:v24 count:16];
       }
 
       while (v13);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)createOrUpdatePublishedLocalStatuses:(id)statuses databaseContext:(id)context error:(id *)error
@@ -7844,32 +7941,32 @@ void __71__SKADatabaseManager_allPublishedLocalStatusesInDatabaseContext_error__
 
 void __81__SKADatabaseManager_createOrUpdatePublishedLocalStatuses_databaseContext_error___block_invoke(uint64_t a1)
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v61 = 0u;
   v62 = 0u;
   v63 = 0u;
   v64 = 0u;
-  v65 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v62 objects:v70 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v61 objects:v69 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v63;
+    v6 = *v62;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v63 != v6)
+        if (*v62 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v62 + 1) + 8 * i) identifier];
+        v8 = [*(*(&v61 + 1) + 8 * i) identifier];
         [v2 addObject:v8];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v62 objects:v70 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v61 objects:v69 count:16];
     }
 
     while (v5);
@@ -7880,68 +7977,68 @@ void __81__SKADatabaseManager_createOrUpdatePublishedLocalStatuses_databaseConte
   [v9 setPredicate:v10];
 
   v11 = *(a1 + 40);
-  v61 = 0;
-  v12 = [v11 executeFetchRequest:v9 error:&v61];
-  v13 = v61;
-  v14 = v61;
+  v60 = 0;
+  v12 = [v11 executeFetchRequest:v9 error:&v60];
+  v13 = v60;
+  v14 = v60;
   v15 = v14;
   if (v12)
   {
-    v48 = v14;
-    v50 = v9;
+    v47 = v14;
+    v49 = v9;
     v16 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v56 = 0u;
     v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
-    v49 = v12;
+    v48 = v12;
     v17 = v12;
-    v18 = [v17 countByEnumeratingWithState:&v57 objects:v69 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v56 objects:v68 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v58;
+      v20 = *v57;
       do
       {
         for (j = 0; j != v19; ++j)
         {
-          if (*v58 != v20)
+          if (*v57 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = *(*(&v57 + 1) + 8 * j);
+          v22 = *(*(&v56 + 1) + 8 * j);
           v23 = [v22 identifier];
           [v16 setObject:v22 forKeyedSubscript:v23];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v57 objects:v69 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v56 objects:v68 count:16];
       }
 
       while (v19);
     }
 
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
     v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
     v24 = *(a1 + 32);
-    v25 = [v24 countByEnumeratingWithState:&v53 objects:v68 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v52 objects:v67 count:16];
     if (v25)
     {
       v26 = v25;
-      v51 = a1;
-      v27 = *v54;
+      v50 = a1;
+      v27 = *v53;
       do
       {
         for (k = 0; k != v26; ++k)
         {
-          if (*v54 != v27)
+          if (*v53 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          v29 = *(*(&v53 + 1) + 8 * k);
+          v29 = *(*(&v52 + 1) + 8 * k);
           v30 = [v29 identifier];
           v31 = [v16 objectForKeyedSubscript:v30];
 
@@ -7952,7 +8049,7 @@ void __81__SKADatabaseManager_createOrUpdatePublishedLocalStatuses_databaseConte
 
           else
           {
-            v32 = [[PublishedLocalStatus alloc] initWithContext:*(v51 + 40)];
+            v32 = [[PublishedLocalStatus alloc] initWithContext:*(v50 + 40)];
           }
 
           v33 = v32;
@@ -7977,56 +8074,56 @@ void __81__SKADatabaseManager_createOrUpdatePublishedLocalStatuses_databaseConte
           -[PublishedLocalStatus setTargetDevicesFlags:](v33, "setTargetDevicesFlags:", [v29 targetDevicesFlags]);
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v53 objects:v68 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v52 objects:v67 count:16];
       }
 
       while (v26);
 
-      v40 = *(v51 + 40);
-      v52 = 0;
-      v41 = [v40 save:&v52];
-      v42 = v52;
-      v43 = v52;
+      v40 = *(v50 + 40);
+      v51 = 0;
+      v41 = [v40 save:&v51];
+      v42 = v51;
+      v43 = v51;
       v44 = +[SKADatabaseManager logger];
       v45 = v44;
       if (v41)
       {
-        v12 = v49;
+        v12 = v48;
         if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
         {
-          v46 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(v51 + 32), "count")}];
+          v46 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(v50 + 32), "count")}];
           *buf = 138412290;
-          v67 = v46;
+          v66 = v46;
           _os_log_impl(&dword_220099000, v45, OS_LOG_TYPE_DEFAULT, "createOrUpdatePublishedLocalStatuses saved {statuses.count: %@}", buf, 0xCu);
         }
 
-        *(*(*(v51 + 48) + 8) + 24) = 1;
+        *(*(*(v50 + 48) + 8) + 24) = 1;
       }
 
       else
       {
-        v12 = v49;
+        v12 = v48;
         if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
           __81__SKADatabaseManager_createOrUpdatePublishedLocalStatuses_databaseContext_error___block_invoke_cold_1();
         }
 
-        *(*(*(v51 + 48) + 8) + 24) = 0;
-        objc_storeStrong((*(*(v51 + 56) + 8) + 40), v42);
+        *(*(*(v50 + 48) + 8) + 24) = 0;
+        objc_storeStrong((*(*(v50 + 56) + 8) + 40), v42);
       }
 
-      v9 = v50;
+      v9 = v49;
     }
 
     else
     {
 
       *(*(*(a1 + 48) + 8) + 24) = 1;
-      v12 = v49;
-      v9 = v50;
+      v12 = v48;
+      v9 = v49;
     }
 
-    v15 = v48;
+    v15 = v47;
   }
 
   else
@@ -8039,8 +8136,6 @@ void __81__SKADatabaseManager_createOrUpdatePublishedLocalStatuses_databaseConte
       __81__SKADatabaseManager_createOrUpdatePublishedLocalStatuses_databaseContext_error___block_invoke_cold_2();
     }
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 - (id)allPublishedLocalStatusDevicesInDatabaseContext:(id)context error:(id *)error
@@ -8086,13 +8181,13 @@ void __81__SKADatabaseManager_createOrUpdatePublishedLocalStatuses_databaseConte
 
 void __76__SKADatabaseManager_allPublishedLocalStatusDevicesInDatabaseContext_error___block_invoke(void *a1)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = +[PublishedLocalStatusDevice fetchRequest];
   v3 = a1[4];
-  v24 = 0;
-  v4 = [v3 executeFetchRequest:v2 error:&v24];
-  v5 = v24;
-  v6 = v24;
+  v23 = 0;
+  v4 = [v3 executeFetchRequest:v2 error:&v23];
+  v5 = v23;
+  v6 = v23;
   v7 = +[SKADatabaseManager logger];
   v8 = v7;
   if (v6)
@@ -8114,47 +8209,45 @@ void __76__SKADatabaseManager_allPublishedLocalStatusDevicesInDatabaseContext_er
     {
       v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v4, "count")}];
       *buf = 138412290;
-      v27 = v11;
+      v26 = v11;
       _os_log_impl(&dword_220099000, v8, OS_LOG_TYPE_DEFAULT, "allPublishedLocalStatusDevicesInDatabaseContext fetch success {devices.count: %@}", buf, 0xCu);
     }
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v10 = v4;
-    v12 = [v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v12 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v21;
+      v14 = *v20;
       do
       {
         v15 = 0;
         do
         {
-          if (*v21 != v14)
+          if (*v20 != v14)
           {
             objc_enumerationMutation(v10);
           }
 
-          v16 = *(*(&v20 + 1) + 8 * v15);
+          v16 = *(*(&v19 + 1) + 8 * v15);
           v17 = [SKADatabasePublishedLocalStatusDevice alloc];
-          v18 = [(SKADatabasePublishedLocalStatusDevice *)v17 initWithCoreDataPublishedLocalStatusDevice:v16, v20];
+          v18 = [(SKADatabasePublishedLocalStatusDevice *)v17 initWithCoreDataPublishedLocalStatusDevice:v16, v19];
           [*(*(a1[6] + 8) + 40) addObject:v18];
 
           ++v15;
         }
 
         while (v13 != v15);
-        v13 = [v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v13 = [v10 countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v13);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)createOrUpdatePublishedLocalStatusDevices:(id)devices databaseContext:(id)context error:(id *)error
@@ -8196,32 +8289,32 @@ void __76__SKADatabaseManager_allPublishedLocalStatusDevicesInDatabaseContext_er
 
 void __86__SKADatabaseManager_createOrUpdatePublishedLocalStatusDevices_databaseContext_error___block_invoke(uint64_t a1)
 {
-  v147 = *MEMORY[0x277D85DE8];
+  v146 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v132 = 0u;
   v133 = 0u;
   v134 = 0u;
   v135 = 0u;
-  v136 = 0u;
   v3 = *(a1 + 32);
-  v4 = [v3 countByEnumeratingWithState:&v133 objects:v146 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v132 objects:v145 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v134;
+    v6 = *v133;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v134 != v6)
+        if (*v133 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = [*(*(&v133 + 1) + 8 * i) idsIdentifier];
+        v8 = [*(*(&v132 + 1) + 8 * i) idsIdentifier];
         [v2 addObject:v8];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v133 objects:v146 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v132 objects:v145 count:16];
     }
 
     while (v5);
@@ -8232,82 +8325,82 @@ void __86__SKADatabaseManager_createOrUpdatePublishedLocalStatusDevices_database
   [v9 setPredicate:v10];
 
   v11 = *(a1 + 40);
-  v132 = 0;
-  v88 = v9;
-  v12 = [v11 executeFetchRequest:v9 error:&v132];
-  v13 = v132;
-  v87 = v132;
+  v131 = 0;
+  v87 = v9;
+  v12 = [v11 executeFetchRequest:v9 error:&v131];
+  v13 = v131;
+  v86 = v131;
   if (v12)
   {
     v14 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v127 = 0u;
     v128 = 0u;
     v129 = 0u;
     v130 = 0u;
-    v131 = 0u;
-    v86 = v12;
+    v85 = v12;
     v15 = v12;
-    v16 = [v15 countByEnumeratingWithState:&v128 objects:v145 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v127 objects:v144 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v129;
+      v18 = *v128;
       do
       {
         for (j = 0; j != v17; ++j)
         {
-          if (*v129 != v18)
+          if (*v128 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v128 + 1) + 8 * j);
+          v20 = *(*(&v127 + 1) + 8 * j);
           v21 = [v20 idsIdentifier];
           [v14 setObject:v20 forKeyedSubscript:v21];
         }
 
-        v17 = [v15 countByEnumeratingWithState:&v128 objects:v145 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v127 objects:v144 count:16];
       }
 
       while (v17);
     }
 
-    v126 = 0u;
-    v127 = 0u;
-    v124 = 0u;
     v125 = 0u;
+    v126 = 0u;
+    v123 = 0u;
+    v124 = 0u;
     v22 = *(a1 + 32);
-    v94 = [v22 countByEnumeratingWithState:&v124 objects:v144 count:16];
-    if (!v94)
+    v93 = [v22 countByEnumeratingWithState:&v123 objects:v143 count:16];
+    if (!v93)
     {
 
       *(*(*(a1 + 48) + 8) + 24) = 1;
 LABEL_83:
-      v9 = v88;
-      v12 = v86;
+      v9 = v87;
+      v12 = v85;
       goto LABEL_84;
     }
 
-    v92 = *v125;
-    v93 = v22;
-    v90 = a1;
-    v91 = v2;
-    v89 = v14;
+    v91 = *v124;
+    v92 = v22;
+    v89 = a1;
+    v90 = v2;
+    v88 = v14;
     while (2)
     {
       v23 = 0;
       do
       {
-        if (*v125 != v92)
+        if (*v124 != v91)
         {
           objc_enumerationMutation(v22);
         }
 
-        v97 = v23;
-        v101 = *(*(&v124 + 1) + 8 * v23);
-        v24 = [v101 idsIdentifier];
+        v96 = v23;
+        v100 = *(*(&v123 + 1) + 8 * v23);
+        v24 = [v100 idsIdentifier];
         v25 = [v14 objectForKeyedSubscript:v24];
 
-        v100 = v25;
+        v99 = v25;
         if (v25)
         {
           v26 = v25;
@@ -8319,65 +8412,65 @@ LABEL_83:
         }
 
         v27 = v26;
-        v28 = [v101 idsIdentifier];
+        v28 = [v100 idsIdentifier];
         [(PublishedLocalStatusDevice *)v27 setIdsIdentifier:v28];
 
-        v99 = v27;
-        -[PublishedLocalStatusDevice setSource:](v27, "setSource:", [v101 discoverySource]);
+        v98 = v27;
+        -[PublishedLocalStatusDevice setSource:](v27, "setSource:", [v100 discoverySource]);
         v29 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v119 = 0u;
         v120 = 0u;
         v121 = 0u;
         v122 = 0u;
-        v123 = 0u;
-        v30 = [v101 pendingStatuses];
-        v31 = [v30 countByEnumeratingWithState:&v120 objects:v143 count:16];
+        v30 = [v100 pendingStatuses];
+        v31 = [v30 countByEnumeratingWithState:&v119 objects:v142 count:16];
         if (v31)
         {
           v32 = v31;
-          v33 = *v121;
+          v33 = *v120;
           do
           {
             for (k = 0; k != v32; ++k)
             {
-              if (*v121 != v33)
+              if (*v120 != v33)
               {
                 objc_enumerationMutation(v30);
               }
 
-              v35 = [*(*(&v120 + 1) + 8 * k) identifier];
+              v35 = [*(*(&v119 + 1) + 8 * k) identifier];
               [v29 addObject:v35];
             }
 
-            v32 = [v30 countByEnumeratingWithState:&v120 objects:v143 count:16];
+            v32 = [v30 countByEnumeratingWithState:&v119 objects:v142 count:16];
           }
 
           while (v32);
         }
 
-        v118 = 0u;
-        v119 = 0u;
-        v116 = 0u;
         v117 = 0u;
-        v36 = [v101 deliveredStatuses];
-        v37 = [v36 countByEnumeratingWithState:&v116 objects:v142 count:16];
+        v118 = 0u;
+        v115 = 0u;
+        v116 = 0u;
+        v36 = [v100 deliveredStatuses];
+        v37 = [v36 countByEnumeratingWithState:&v115 objects:v141 count:16];
         if (v37)
         {
           v38 = v37;
-          v39 = *v117;
+          v39 = *v116;
           do
           {
             for (m = 0; m != v38; ++m)
             {
-              if (*v117 != v39)
+              if (*v116 != v39)
               {
                 objc_enumerationMutation(v36);
               }
 
-              v41 = [*(*(&v116 + 1) + 8 * m) identifier];
+              v41 = [*(*(&v115 + 1) + 8 * m) identifier];
               [v29 addObject:v41];
             }
 
-            v38 = [v36 countByEnumeratingWithState:&v116 objects:v142 count:16];
+            v38 = [v36 countByEnumeratingWithState:&v115 objects:v141 count:16];
           }
 
           while (v38);
@@ -8388,65 +8481,65 @@ LABEL_83:
         [v42 setPredicate:v43];
 
         v44 = *(a1 + 40);
-        v115 = 0;
-        v45 = [v44 executeFetchRequest:v42 error:&v115];
-        v98 = v115;
+        v114 = 0;
+        v45 = [v44 executeFetchRequest:v42 error:&v114];
+        v97 = v114;
         if (v45)
         {
-          v96 = v42;
+          v95 = v42;
           v46 = objc_alloc_init(MEMORY[0x277CBEB38]);
+          v110 = 0u;
           v111 = 0u;
           v112 = 0u;
           v113 = 0u;
-          v114 = 0u;
-          v95 = v45;
+          v94 = v45;
           v47 = v45;
-          v48 = [v47 countByEnumeratingWithState:&v111 objects:v141 count:16];
+          v48 = [v47 countByEnumeratingWithState:&v110 objects:v140 count:16];
           if (v48)
           {
             v49 = v48;
-            v50 = *v112;
+            v50 = *v111;
             do
             {
               for (n = 0; n != v49; ++n)
               {
-                if (*v112 != v50)
+                if (*v111 != v50)
                 {
                   objc_enumerationMutation(v47);
                 }
 
-                v52 = *(*(&v111 + 1) + 8 * n);
+                v52 = *(*(&v110 + 1) + 8 * n);
                 v53 = [v52 identifier];
                 [v46 setObject:v52 forKeyedSubscript:v53];
               }
 
-              v49 = [v47 countByEnumeratingWithState:&v111 objects:v141 count:16];
+              v49 = [v47 countByEnumeratingWithState:&v110 objects:v140 count:16];
             }
 
             while (v49);
           }
 
           v54 = objc_alloc_init(MEMORY[0x277CBEB58]);
+          v106 = 0u;
           v107 = 0u;
           v108 = 0u;
           v109 = 0u;
-          v110 = 0u;
-          v55 = [v101 pendingStatuses];
-          v56 = [v55 countByEnumeratingWithState:&v107 objects:v140 count:16];
+          v55 = [v100 pendingStatuses];
+          v56 = [v55 countByEnumeratingWithState:&v106 objects:v139 count:16];
           if (v56)
           {
             v57 = v56;
-            v58 = *v108;
+            v58 = *v107;
             do
             {
               for (ii = 0; ii != v57; ++ii)
               {
-                if (*v108 != v58)
+                if (*v107 != v58)
                 {
                   objc_enumerationMutation(v55);
                 }
 
-                v60 = [*(*(&v107 + 1) + 8 * ii) identifier];
+                v60 = [*(*(&v106 + 1) + 8 * ii) identifier];
                 v61 = [v46 objectForKeyedSubscript:v60];
 
                 if (v61)
@@ -8455,33 +8548,33 @@ LABEL_83:
                 }
               }
 
-              v57 = [v55 countByEnumeratingWithState:&v107 objects:v140 count:16];
+              v57 = [v55 countByEnumeratingWithState:&v106 objects:v139 count:16];
             }
 
             while (v57);
           }
 
           v62 = objc_alloc_init(MEMORY[0x277CBEB58]);
+          v102 = 0u;
           v103 = 0u;
           v104 = 0u;
           v105 = 0u;
-          v106 = 0u;
-          v63 = [v101 deliveredStatuses];
-          v64 = [v63 countByEnumeratingWithState:&v103 objects:v139 count:16];
+          v63 = [v100 deliveredStatuses];
+          v64 = [v63 countByEnumeratingWithState:&v102 objects:v138 count:16];
           if (v64)
           {
             v65 = v64;
-            v66 = *v104;
+            v66 = *v103;
             do
             {
               for (jj = 0; jj != v65; ++jj)
               {
-                if (*v104 != v66)
+                if (*v103 != v66)
                 {
                   objc_enumerationMutation(v63);
                 }
 
-                v68 = [*(*(&v103 + 1) + 8 * jj) identifier];
+                v68 = [*(*(&v102 + 1) + 8 * jj) identifier];
                 v69 = [v46 objectForKeyedSubscript:v68];
 
                 if (v69)
@@ -8490,7 +8583,7 @@ LABEL_83:
                 }
               }
 
-              v65 = [v63 countByEnumeratingWithState:&v103 objects:v139 count:16];
+              v65 = [v63 countByEnumeratingWithState:&v102 objects:v138 count:16];
             }
 
             while (v65);
@@ -8500,49 +8593,49 @@ LABEL_83:
           if (os_log_type_enabled(v70, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v138 = v54;
+            v137 = v54;
             _os_log_impl(&dword_220099000, v70, OS_LOG_TYPE_DEFAULT, "createOrUpdatePublishedLocalStatusDevices setting devices. {pendingStatuses: %@}", buf, 0xCu);
           }
 
           v71 = +[SKADatabaseManager logger];
-          v14 = v89;
-          v22 = v93;
-          v72 = v99;
-          v45 = v95;
+          v14 = v88;
+          v22 = v92;
+          v72 = v98;
+          v45 = v94;
           if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v138 = v54;
+            v137 = v54;
             _os_log_impl(&dword_220099000, v71, OS_LOG_TYPE_DEFAULT, "createOrUpdatePublishedLocalStatusDevices setting devices. {deliveredStatuses: %@}", buf, 0xCu);
           }
 
-          [(PublishedLocalStatusDevice *)v99 setPendingStatuses:v54];
-          [(PublishedLocalStatusDevice *)v99 setDeliveredStatuses:v62];
+          [(PublishedLocalStatusDevice *)v98 setPendingStatuses:v54];
+          [(PublishedLocalStatusDevice *)v98 setDeliveredStatuses:v62];
 
-          a1 = v90;
-          v2 = v91;
-          v42 = v96;
-          v73 = v98;
+          a1 = v89;
+          v2 = v90;
+          v42 = v95;
+          v73 = v97;
         }
 
         else
         {
           v74 = +[SKADatabaseManager logger];
-          v73 = v98;
-          v72 = v99;
+          v73 = v97;
+          v72 = v98;
           if (os_log_type_enabled(v74, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v138 = v98;
+            v137 = v97;
             _os_log_error_impl(&dword_220099000, v74, OS_LOG_TYPE_ERROR, "createOrUpdatePublishedLocalStatusDevices failed to fetch PublishedLocalStatusDevice {error: %@}", buf, 0xCu);
           }
 
           *(*(*(a1 + 48) + 8) + 24) = 0;
           v75 = *(*(a1 + 56) + 8);
-          v76 = v98;
+          v76 = v97;
           v46 = *(v75 + 40);
           *(v75 + 40) = v76;
-          v22 = v93;
+          v22 = v92;
         }
 
         if (!v45)
@@ -8551,12 +8644,12 @@ LABEL_83:
           goto LABEL_83;
         }
 
-        v23 = v97 + 1;
+        v23 = v96 + 1;
       }
 
-      while (v97 + 1 != v94);
-      v94 = [v22 countByEnumeratingWithState:&v124 objects:v144 count:16];
-      if (v94)
+      while (v96 + 1 != v93);
+      v93 = [v22 countByEnumeratingWithState:&v123 objects:v143 count:16];
+      if (v93)
       {
         continue;
       }
@@ -8565,10 +8658,10 @@ LABEL_83:
     }
 
     v77 = *(a1 + 40);
-    v102 = 0;
-    v78 = [v77 save:&v102];
-    v79 = v102;
-    v80 = v102;
+    v101 = 0;
+    v78 = [v77 save:&v101];
+    v79 = v101;
+    v80 = v101;
     v81 = +[SKADatabaseManager logger];
     v82 = v81;
     if (v78)
@@ -8577,7 +8670,7 @@ LABEL_83:
       {
         v83 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "count")}];
         *buf = 138412290;
-        v138 = v83;
+        v137 = v83;
         _os_log_impl(&dword_220099000, v82, OS_LOG_TYPE_DEFAULT, "createOrUpdatePublishedLocalStatusDevices saved {devices.count: %@}", buf, 0xCu);
       }
 
@@ -8595,7 +8688,7 @@ LABEL_83:
       objc_storeStrong((*(*(a1 + 56) + 8) + 40), v79);
     }
 
-    v12 = v86;
+    v12 = v85;
   }
 
   else
@@ -8605,18 +8698,16 @@ LABEL_83:
     v14 = +[SKADatabaseManager logger];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v84 = v87;
+      v84 = v86;
       __86__SKADatabaseManager_createOrUpdatePublishedLocalStatusDevices_databaseContext_error___block_invoke_cold_2();
       goto LABEL_85;
     }
   }
 
-  v9 = v88;
+  v9 = v87;
 LABEL_84:
-  v84 = v87;
+  v84 = v86;
 LABEL_85:
-
-  v85 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)deletePublishedLocalStatusDevices:(id)devices databaseContext:(id)context error:(id *)error
@@ -8658,52 +8749,52 @@ LABEL_85:
 
 void __78__SKADatabaseManager_deletePublishedLocalStatusDevices_databaseContext_error___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = +[PublishedLocalStatusDevice fetchRequest];
   v3 = [PublishedLocalStatusDevice predicateForPublishedLocalStatusDeviceIdentifiers:*(a1 + 32)];
   [v2 setPredicate:v3];
 
   v4 = *(a1 + 40);
-  v27 = 0;
-  v5 = [v4 executeFetchRequest:v2 error:&v27];
-  v6 = v27;
-  v7 = v27;
+  v26 = 0;
+  v5 = [v4 executeFetchRequest:v2 error:&v26];
+  v6 = v26;
+  v7 = v26;
   if (v5)
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:&v23 objects:v30 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v22 objects:v29 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v24;
+      v11 = *v23;
       do
       {
         v12 = 0;
         do
         {
-          if (*v24 != v11)
+          if (*v23 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          [*(a1 + 40) deleteObject:*(*(&v23 + 1) + 8 * v12++)];
+          [*(a1 + 40) deleteObject:*(*(&v22 + 1) + 8 * v12++)];
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v23 objects:v30 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v22 objects:v29 count:16];
       }
 
       while (v10);
 
       v13 = *(a1 + 40);
-      v22 = 0;
-      v14 = [v13 save:&v22];
-      v15 = v22;
-      v16 = v22;
+      v21 = 0;
+      v14 = [v13 save:&v21];
+      v15 = v21;
+      v16 = v21;
       v17 = +[SKADatabaseManager logger];
       v18 = v17;
       if (v14)
@@ -8712,7 +8803,7 @@ void __78__SKADatabaseManager_deletePublishedLocalStatusDevices_databaseContext_
         {
           v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(*(a1 + 32), "count")}];
           *buf = 138412290;
-          v29 = v19;
+          v28 = v19;
           _os_log_impl(&dword_220099000, v18, OS_LOG_TYPE_DEFAULT, "deletePublishedLocalStatusDevices saved {deviceIdentifiers.count: %@}", buf, 0xCu);
         }
 
@@ -8750,8 +8841,6 @@ void __78__SKADatabaseManager_deletePublishedLocalStatusDevices_databaseContext_
     objc_storeStrong((*(*(a1 + 56) + 8) + 40), v6);
     *(*(*(a1 + 48) + 8) + 24) = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)createOrUpdateOrDeleteSubscribedLocalStatus:(id)status databaseContext:(id)context error:(id *)error
@@ -8793,17 +8882,17 @@ void __78__SKADatabaseManager_deletePublishedLocalStatusDevices_databaseContext_
 
 void __88__SKADatabaseManager_createOrUpdateOrDeleteSubscribedLocalStatus_databaseContext_error___block_invoke(uint64_t a1)
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   v2 = +[SubscribedLocalStatus fetchRequest];
   v3 = [*(a1 + 32) identifier];
   v4 = [SubscribedLocalStatus predicateForSubscribedLocalStatusIdentifier:v3];
   [v2 setPredicate:v4];
 
   v5 = *(a1 + 40);
-  v48 = 0;
-  v6 = [v5 executeFetchRequest:v2 error:&v48];
-  v7 = v48;
-  v8 = v48;
+  v47 = 0;
+  v6 = [v5 executeFetchRequest:v2 error:&v47];
+  v7 = v47;
+  v8 = v47;
   if (!v6)
   {
     v23 = +[SKADatabaseManager logger];
@@ -8817,7 +8906,7 @@ void __88__SKADatabaseManager_createOrUpdateOrDeleteSubscribedLocalStatus_databa
     goto LABEL_33;
   }
 
-  v41 = v2;
+  v40 = v2;
   if (![v6 count])
   {
     v24 = [*(a1 + 32) payload];
@@ -8852,12 +8941,12 @@ void __88__SKADatabaseManager_createOrUpdateOrDeleteSubscribedLocalStatus_databa
     goto LABEL_23;
   }
 
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v9 = v6;
-  v10 = [v9 countByEnumeratingWithState:&v44 objects:v49 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v43 objects:v48 count:16];
   if (!v10)
   {
 
@@ -8865,18 +8954,18 @@ void __88__SKADatabaseManager_createOrUpdateOrDeleteSubscribedLocalStatus_databa
   }
 
   v11 = v10;
-  v40 = v8;
-  v12 = *v45;
+  v39 = v8;
+  v12 = *v44;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v45 != v12)
+      if (*v44 != v12)
       {
         objc_enumerationMutation(v9);
       }
 
-      v14 = *(*(&v44 + 1) + 8 * i);
+      v14 = *(*(&v43 + 1) + 8 * i);
       v15 = [*(a1 + 32) payload];
 
       if (v15)
@@ -8909,26 +8998,26 @@ void __88__SKADatabaseManager_createOrUpdateOrDeleteSubscribedLocalStatus_databa
       v19 = 1;
     }
 
-    v11 = [v9 countByEnumeratingWithState:&v44 objects:v49 count:16];
+    v11 = [v9 countByEnumeratingWithState:&v43 objects:v48 count:16];
   }
 
   while (v11);
 
-  v8 = v40;
+  v8 = v39;
   if (!v19)
   {
 LABEL_28:
     *(*(*(a1 + 48) + 8) + 24) = 1;
-    v2 = v41;
+    v2 = v40;
     goto LABEL_33;
   }
 
 LABEL_23:
   v33 = *(a1 + 40);
-  v43 = 0;
-  v34 = [v33 save:&v43];
-  v35 = v43;
-  v36 = v43;
+  v42 = 0;
+  v34 = [v33 save:&v42];
+  v35 = v42;
+  v36 = v42;
   v37 = +[SKADatabaseManager logger];
   v38 = v37;
   if (v34)
@@ -8953,11 +9042,10 @@ LABEL_23:
     objc_storeStrong((*(*(a1 + 56) + 8) + 40), v35);
   }
 
-  v2 = v41;
+  v2 = v40;
   [*(a1 + 40) reset];
 
 LABEL_33:
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (id)allSubscribedLocalStatusesInDatabaseContext:(id)context error:(id *)error
@@ -9003,52 +9091,52 @@ LABEL_33:
 
 void __72__SKADatabaseManager_allSubscribedLocalStatusesInDatabaseContext_error___block_invoke(void *a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = +[SubscribedLocalStatus fetchRequest];
   v3 = a1[4];
-  v24 = 0;
-  v4 = [v3 executeFetchRequest:v2 error:&v24];
-  v5 = v24;
-  v6 = v24;
+  v23 = 0;
+  v4 = [v3 executeFetchRequest:v2 error:&v23];
+  v5 = v23;
+  v6 = v23;
   v7 = v6;
   if (v4)
   {
-    v19 = v6;
+    v18 = v6;
     v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     v9 = v4;
-    v10 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v21;
+      v12 = *v20;
       do
       {
         v13 = 0;
         do
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = [[SKADatabaseSubscribedLocalStatus alloc] initWithCoreDataSubscribedLocalStatus:*(*(&v20 + 1) + 8 * v13)];
+          v14 = [[SKADatabaseSubscribedLocalStatus alloc] initWithCoreDataSubscribedLocalStatus:*(*(&v19 + 1) + 8 * v13)];
           [v8 addObject:v14];
 
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v11);
     }
 
-    v7 = v19;
+    v7 = v18;
   }
 
   else
@@ -9066,8 +9154,6 @@ void __72__SKADatabaseManager_allSubscribedLocalStatusesInDatabaseContext_error_
   v16 = *(a1[5] + 8);
   v17 = *(v16 + 40);
   *(v16 + 40) = v8;
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)saveContextIfNeeded:(id)needed
@@ -9152,22 +9238,6 @@ uint64_t __28__SKADatabaseManager_logger__block_invoke()
   return WeakRetained;
 }
 
-- (void)_existingPersonalChannelForStatusTypeIdentifier:databaseContext:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error fetching personal status channel. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_existingDecommissionedChannelsWithDatabaseContext:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error fetching decommissioned channel. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __83__SKADatabaseManager_deletePersonalChannelForStatusTypeIdentifier_databaseContext___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2();
@@ -9177,20 +9247,10 @@ void __83__SKADatabaseManager_deletePersonalChannelForStatusTypeIdentifier_datab
 
 - (void)_existingPersonalChannelForDatabaseChannel:(void *)a1 databaseContext:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [a1 identifier];
   OUTLINED_FUNCTION_1_0();
-  _os_log_fault_impl(&dword_220099000, a2, OS_LOG_TYPE_FAULT, "More than one personal channel exists for channel identifier: %@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_existingChannelsForChannelIdentifier:isPersonal:databaseContext:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error executing fetch for subscription validation. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(&dword_220099000, a2, OS_LOG_TYPE_FAULT, "More than one personal channel exists for channel identifier: %@", v4, 0xCu);
 }
 
 - (void)_existingChannelsForChannelIdentifier:isPersonal:databaseContext:.cold.2()
@@ -9200,127 +9260,34 @@ void __83__SKADatabaseManager_deletePersonalChannelForStatusTypeIdentifier_datab
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)_existingChannelsForChannelIdentifier:databaseContext:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Fetch request for channels by identifier %@ returned a nil result", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_existingChannelsForPresenceIdentifier:isPersonal:databaseContext:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_4(&dword_220099000, v0, v1, "Error executing fetch for channels by presence identifier %@. Error: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
-- (void)_existingChannelsForPresenceIdentifier:isPersonal:databaseContext:.cold.2()
+void __106__SKADatabaseManager_allExistingChannelsForStatusTypeIdentifier_includingPersonalChannel_databaseContext___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Fetch request for channels by presence identifier %@ returned a nil result", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __84__SKADatabaseManager_existingChannelForHandle_statusTypeIdentifier_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Could not find any channels associated with channel identifier: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __84__SKADatabaseManager_existingChannelForHandle_statusTypeIdentifier_databaseContext___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Invitation does not correspond to any channel. InvitationIdentifier: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __106__SKADatabaseManager_allExistingChannelsForStatusTypeIdentifier_includingPersonalChannel_databaseContext___block_invoke_cold_1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_4(&dword_220099000, v1, v2, "Error executing fetch for channel by status type identifier %@. Error: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_220099000, v0, v1, "Error executing fetch for channel by status type identifier %@. Error: %@");
 }
 
-void __90__SKADatabaseManager_allExistingChannelsForPresenceIdentifier_isPersonal_databaseContext___block_invoke_cold_1(uint64_t *a1)
+void __90__SKADatabaseManager_allExistingChannelsForPresenceIdentifier_isPersonal_databaseContext___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_4(&dword_220099000, v1, v2, "Error executing fetch for channel by presence identifier %@. Error: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_220099000, v0, v1, "Error executing fetch for channel by presence identifier %@. Error: %@");
 }
 
-void __114__SKADatabaseManager_createPersonalChannelForStatusTypeIdentifier_channelIdentifier_channelToken_databaseContext___block_invoke_cold_1()
+void __80__SKADatabaseManager_generatedEncryptionKeysForPersonalChannel_databaseContext___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for storing new personal channel. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __165__SKADatabaseManager_createPresenceChannelForPresenceIdentifier_channelIdentifier_channelToken_peerKey_serverKey_membershipKey_creationDate_options_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for storing new presence channel. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __93__SKADatabaseManager_createChannelForStatusTypeIdentifier_channelIdentifier_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for storing channel invitation. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __92__SKADatabaseManager_updatePersonalChannel_withCurrentOutgoingRatchetState_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for updated outgoing ratchet state. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __94__SKADatabaseManager_decommissionAllPersonalChannelsWithStatusTypeIdentifier_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for decommissioning. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __80__SKADatabaseManager_generatedEncryptionKeysForPersonalChannel_databaseContext___block_invoke_cold_1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v1, v2, "Could not find generated ratchet keys matching database channel. Channel: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __94__SKADatabaseManager_allPersistentSubscriptionAssertionChannelIdentifiersWithDatabaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error fetching subscription assertions. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __134__SKADatabaseManager_createSubscriptionAssertionForSubscriptionIdentifier_applicationIdentifier_statusTypeIdentifier_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for storing persistent subscription assertion. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Could not find generated ratchet keys matching database channel. Channel: %@", v2, v3, v4, v5);
 }
 
 void __114__SKADatabaseManager_deleteSubscriptionAssertionWithSubscriptionIdentifier_applicationIdentifier_databaseContext___block_invoke_cold_1()
@@ -9330,130 +9297,48 @@ void __114__SKADatabaseManager_deleteSubscriptionAssertionWithSubscriptionIdenti
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)_existingTransientSubscriptionHistoryForChannelIdentifier:databaseContext:.cold.1()
+void __92__SKADatabaseManager_updateInvitationPayload_onExistingInvitedUser_channel_databaseContext___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error fetching transientSubscriptionHistory. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_existingTransientSubscriptionHistoryWithLimit:orderedByLastSubscriptionDateAscending:databaseContext:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error fetching transientSubscriptionHistories. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __122__SKADatabaseManager_createOrUpdateTransientSubscriptionHistoryForChannelIdentifier_lastSubscriptionDate_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for storing transient subscription history. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __105__SKADatabaseManager_createInvitedUserWithHandle_senderHandle_invitationPayload_channel_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for storing invited user. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __76__SKADatabaseManager_copyInvitedUsersFromChannel_toChannel_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for copying invited users. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __92__SKADatabaseManager_updateInvitationPayload_onExistingInvitedUser_channel_databaseContext___block_invoke_cold_1(void *a1, uint64_t *a2)
-{
-  v10 = *MEMORY[0x277D85DE8];
   [a1 count];
-  v3 = *a2;
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_4_0();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-  v9 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
 }
 
-void __92__SKADatabaseManager_updateInvitationPayload_onExistingInvitedUser_channel_databaseContext___block_invoke_cold_2()
+void __92__SKADatabaseManager_updateInvitationPayload_onExistingInvitedUser_channel_databaseContext___block_invoke_cold_3()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for updating invitation payload on invited user. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __92__SKADatabaseManager_updateInvitationPayload_onExistingInvitedUser_channel_databaseContext___block_invoke_cold_3(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v1, v2, "Error finding core data invited user to update invitation. No match for SKADatabaseInvitedUser: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error finding core data invited user to update invitation. No match for SKADatabaseInvitedUser: %@", v2, v3, v4, v5);
 }
 
-void __77__SKADatabaseManager_existingInvitedUsersForPersonalChannel_databaseContext___block_invoke_cold_1(uint64_t *a1)
+void __77__SKADatabaseManager_existingInvitedUsersForPersonalChannel_databaseContext___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v1, v2, "Error finding core data channel matching SKADatabaseChannel: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_existingInvitedUsersForDatabaseInvitedUser:databaseChannel:databaseContext:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error fetching invited user. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error finding core data channel matching SKADatabaseChannel: %@", v2, v3, v4, v5);
 }
 
 - (void)_existingInvitedUsersForInvitedHandle:(void *)a1 channel:databaseContext:.cold.2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 handleString];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
-void __81__SKADatabaseManager_deleteInvitedUserForHandle_personalChannel_databaseContext___block_invoke_cold_1()
+void __81__SKADatabaseManager_deleteInvitedUserForHandle_personalChannel_databaseContext___block_invoke_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for deleting invited users by handle. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __81__SKADatabaseManager_deleteInvitedUserForHandle_personalChannel_databaseContext___block_invoke_cold_2(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v1, v2, "Could not find existing invited user matching handle: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Could not find existing invited user matching handle: %@", v2, v3, v4, v5);
 }
 
-void __81__SKADatabaseManager_deleteInvitedUserForHandle_personalChannel_databaseContext___block_invoke_cold_3(uint64_t *a1)
+void __81__SKADatabaseManager_deleteInvitedUserForHandle_personalChannel_databaseContext___block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v1, v2, "Could not find existing database channel matching channel %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __78__SKADatabaseManager_deleteAllInvitedUsersForPersonalChannel_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for deleting all invited users. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Could not find existing database channel matching channel %@", v2, v3, v4, v5);
 }
 
 void __78__SKADatabaseManager_deleteAllInvitedUsersForPersonalChannel_databaseContext___block_invoke_cold_2()
@@ -9463,95 +9348,12 @@ void __78__SKADatabaseManager_deleteAllInvitedUsersForPersonalChannel_databaseCo
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __148__SKADatabaseManager_createStatusWithUniqueIdentifier_dateCreated_datePublished_dateReceived_dateExpired_rawData_channelIdentifier_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for storing status. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __63__SKADatabaseManager_existingStatusForChannel_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error executing fetch for status by channel. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __72__SKADatabaseManager_existingStatusForUniqueIdentifier_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error executing fetch for status by unique id. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __80__SKADatabaseManager_setCurrentCheckpointForChannel_checkpoint_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for channel checkpoint. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __80__SKADatabaseManager_setCurrentCheckpointForChannel_checkpoint_databaseContext___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for storing checkpoint. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_existingChannelCheckpointForChannelIdentifier:databaseContext:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error fetching pending requests. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __74__SKADatabaseManager_createOrUpdatePresentDevice_channel_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for storing present device. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __84__SKADatabaseManager_cleanUpPresentDevicesWithoutActiveChannelsWithDatabaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error executing fetch for presentDevicesForChannel: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __84__SKADatabaseManager_cleanUpPresentDevicesWithoutActiveChannelsWithDatabaseContext___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for clearing present devices without active channels with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __68__SKADatabaseManager_clearPresentDevicesForChannel_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for deleting present device. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __66__SKADatabaseManager_deletePresentDevice_channel_databaseContext___block_invoke_cold_2(id *a1, id *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = [*a1 identifier];
-  v10 = [*a2 deviceIdentifier];
+  v9 = [*a2 deviceIdentifier];
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_existingPresentDeviceForChannel:deviceIdentifier:databaseContext:.cold.1()
@@ -9561,301 +9363,26 @@ void __66__SKADatabaseManager_deletePresentDevice_channel_databaseContext___bloc
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)_existingPresenceAssertionForPresenceIdentifier:isPersonal:databaseContext:.cold.1()
+void __94__SKADatabaseManager_deletePresenceAssertionForPresenceIdentifier_isPersonal_databaseContext___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error fetching presence assertion. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __71__SKADatabaseManager_activePresenceAssertionsExistWithDatabaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error fetching presence assertions. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __132__SKADatabaseManager_createOrUpdatePresenceAssertionForPresenceIdentifier_presenceOptions_assertionOptions_payload_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context while storing presence assertion. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __94__SKADatabaseManager_deletePresenceAssertionForPresenceIdentifier_isPersonal_databaseContext___block_invoke_cold_1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_4(&dword_220099000, v1, v2, "Error saving managed object context for deleting presence assertion by presence identifier %@. Error: %@");
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_220099000, v0, v1, "Error saving managed object context for deleting presence assertion by presence identifier %@. Error: %@");
 }
 
-void __69__SKADatabaseManager_deleteAllPresenceAssertionsWithDatabaseContext___block_invoke_cold_2()
+void __90__SKADatabaseManager_deletePendingPublishRequestWithWithUniqueIdentifier_databaseContext___block_invoke_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for deleting presence assertions. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __112__SKADatabaseManager_createOrUpdatePresenceSubscriptionForChannelIdentifier_presenceIdentifier_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for storing presence subscription. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __86__SKADatabaseManager_deletePresenceSubscriptionsForChannelIdentifier_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving deleted presence subscription error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __72__SKADatabaseManager_deleteAllPresenceSubscriptionsWithDatabaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error fetching presence subscription. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __72__SKADatabaseManager_deleteAllPresenceSubscriptionsWithDatabaseContext___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for deleting presence subscription. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __114__SKADatabaseManager_cleanupOldStatusUpdatesForChannelIdentifier_excludingStatusUniqueIdentifier_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error executing fetch for status cleanup. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __114__SKADatabaseManager_cleanupOldStatusUpdatesForChannelIdentifier_excludingStatusUniqueIdentifier_databaseContext___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for status cleanup. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_existingPendingPublishRequestForUniqueIdentifier:databaseContext:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error fetching pending requests. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __131__SKADatabaseManager_createPendingPublishRequestWithUniqueIdentifier_dateCreated_payloadData_statusTypeIdentifier_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for storing pending publish request. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __90__SKADatabaseManager_deletePendingPublishRequestWithWithUniqueIdentifier_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for deleting pending publish request. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __90__SKADatabaseManager_deletePendingPublishRequestWithWithUniqueIdentifier_databaseContext___block_invoke_cold_2(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v1, v2, "Could not find existing pending publish request with identifier: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Could not find existing pending publish request with identifier: %@", v2, v3, v4, v5);
 }
 
-void __99__SKADatabaseManager_incrementPendingPublishRequestRetryCountWithUniqueIdentifier_databaseContext___block_invoke_cold_1()
+void __87__SKADatabaseManager_deleteRemovedUserWithHandle_statusTypeIdentifier_databaseContext___block_invoke_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for incrementing pending publish request. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __99__SKADatabaseManager_createRemovedUserWithHandle_dateRemoved_statusTypeIdentifier_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for storing removed user. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __87__SKADatabaseManager_deleteRemovedUserWithHandle_statusTypeIdentifier_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for deleting removed user. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __87__SKADatabaseManager_deleteRemovedUserWithHandle_statusTypeIdentifier_databaseContext___block_invoke_cold_2(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_2_0(a1, *MEMORY[0x277D85DE8]);
+  OUTLINED_FUNCTION_2_0(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v1, v2, "Could not find existing removed user with handle: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_existingRemovedUsersForHandle:statusTypeIdentifier:databaseContext:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error fetching removed users. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_existingReceivedInvitationsForHandle:presenceIdentifier:databaseContext:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error executing fetch for ReceivedInvitation by handle. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __232__SKADatabaseManager_createReceivedInvitationForChannel_senderHandle_invitedHandle_invitationIdentifier_dateInvitationCreated_incomingRatchetState_presenceIdentifier_channelToken_serverKey_peerKey_invitationPayload_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Could not find core data channel to match channel identifier: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __232__SKADatabaseManager_createReceivedInvitationForChannel_senderHandle_invitedHandle_invitationIdentifier_dateInvitationCreated_incomingRatchetState_presenceIdentifier_channelToken_serverKey_peerKey_invitationPayload_databaseContext___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for storing received invitation. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_existingReceivedInvitationsForChannelIdentifier:sortedByDateReceived:databaseContect:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Could not find any existing channels matching channel identifier. Returning no received invitations. Channel identifier: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __108__SKADatabaseManager_cleanupOldReceivedInvitationsForChannelIdentifier_excludingInvitation_databaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for invitation cleanup. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __71__SKADatabaseManager_cleanupDecommissionedChannelsWithDatabaseContext___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error saving managed object context for decommissioned channel cleanup. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __71__SKADatabaseManager_allPublishedLocalStatusesInDatabaseContext_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Error fetching all published local statuses. Error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __81__SKADatabaseManager_createOrUpdatePublishedLocalStatuses_databaseContext_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "createOrUpdatePublishedLocalStatuses save failed {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __81__SKADatabaseManager_createOrUpdatePublishedLocalStatuses_databaseContext_error___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "createOrUpdatePublishedLocalStatuses failed to fetch local statuses {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __76__SKADatabaseManager_allPublishedLocalStatusDevicesInDatabaseContext_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "allPublishedLocalStatusDevicesInDatabaseContext failed to fetch PublishedLocalStatusDevice. {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __86__SKADatabaseManager_createOrUpdatePublishedLocalStatusDevices_databaseContext_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "createOrUpdatePublishedLocalStatusDevices save failed {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __86__SKADatabaseManager_createOrUpdatePublishedLocalStatusDevices_databaseContext_error___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "createOrUpdatePublishedLocalStatusDevices failed to fetch published local status devices {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __78__SKADatabaseManager_deletePublishedLocalStatusDevices_databaseContext_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "deletePublishedLocalStatusDevices save failed {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __78__SKADatabaseManager_deletePublishedLocalStatusDevices_databaseContext_error___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "deletePublishedLocalStatusDevices failed to PublishedLocalStatusDevice {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __88__SKADatabaseManager_createOrUpdateOrDeleteSubscribedLocalStatus_databaseContext_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "createOrUpdateOrDeleteSubscribedLocalStatus save failed {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __88__SKADatabaseManager_createOrUpdateOrDeleteSubscribedLocalStatus_databaseContext_error___block_invoke_cold_2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "createOrUpdateOrDeleteSubscribedLocalStatus failed to SubscribedLocalStatus {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __72__SKADatabaseManager_allSubscribedLocalStatusesInDatabaseContext_error___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "allSubscribedLocalStatusesInDatabaseContext failed to fetch SKADatabaseSubscribedLocalStatus. {error: %@}", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_220099000, v0, v1, "Could not find existing removed user with handle: %@", v2, v3, v4, v5);
 }
 
 @end

@@ -313,7 +313,7 @@ LABEL_23:
     v17 = self->_lastInteractionUpdate;
     if (v17)
     {
-      [(_UIFluidSliderInteractionUpdate *)v17 trackTransform];
+      objc_msgSend_trackTransform(v17);
     }
 
     else
@@ -1335,7 +1335,7 @@ LABEL_28:
     {
       [(CCUIBaseSliderView *)self _length];
       UIFloorToScale();
-      v4 = v9;
+      v4 = v10;
     }
   }
 
@@ -1353,20 +1353,20 @@ LABEL_28:
 
     else
     {
-      CCUIPortraitMainListGridGeometryInfo();
+      CCUIPortraitMainListGridGeometryInfo(0, v7);
     }
 
     UIRoundToScale();
-    v11 = v10;
+    v12 = v11;
     UIRoundToScale();
-    if (v12 <= v11)
+    if (v13 <= v12)
     {
-      v4 = v12;
+      v4 = v13;
     }
 
     else
     {
-      v4 = v11;
+      v4 = v12;
     }
   }
 

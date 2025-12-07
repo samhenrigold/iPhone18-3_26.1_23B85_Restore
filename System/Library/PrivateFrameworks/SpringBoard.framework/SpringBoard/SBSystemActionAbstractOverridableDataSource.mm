@@ -60,7 +60,7 @@
         if (v10)
         {
           v11 = v10;
-          v12 = SBLogSystemActionDataSource();
+          v12 = SBLogSystemActionDataSource(v10);
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543874;

@@ -1,4 +1,5 @@
 @interface RecentCallQuery
+- (RecentCallQuery)initWithParticipants:(id)participants destinationType:(int64_t)type callTypes:(unint64_t)types callCapability:(int64_t)capability preferredCallProvider:(int64_t)provider includeThirdPartyCalls:(BOOL)calls;
 - (id)callCapabilityPredicate;
 - (id)callRecordTypePredicates;
 - (id)participantsPredicatesWithContactsDataSource:(id)source contactIdentifierCache:(id)cache coreTelephonyDataSource:(id)dataSource;
@@ -7,6 +8,18 @@
 @end
 
 @implementation RecentCallQuery
+
+- (RecentCallQuery)initWithParticipants:(id)participants destinationType:(int64_t)type callTypes:(unint64_t)types callCapability:(int64_t)capability preferredCallProvider:(int64_t)provider includeThirdPartyCalls:(BOOL)calls
+{
+  callsCopy = calls;
+  [(RecentCallQuery *)self setParticipants:participants];
+  [(RecentCallQuery *)self setDestinationType:type];
+  [(RecentCallQuery *)self setCallTypes:types];
+  [(RecentCallQuery *)self setCallCapability:capability];
+  [(RecentCallQuery *)self setPreferredCallProvider:provider];
+  [(RecentCallQuery *)self setIncludeThirdPartyCalls:callsCopy];
+  return self;
+}
 
 - (id)predicateForRecentCallWithContactsDataSource:(id)source contactIdentifierCache:(id)cache coreTelephonyDataSource:(id)dataSource
 {
@@ -75,23 +88,24 @@ LABEL_11:
 
   if (![(RecentCallQuery *)self callTypes]&& [(RecentCallQuery *)self destinationType]== 4)
   {
-    v7 = IntentHandlerDefaultLog();
+    v7 = IntentHandlerDefaultLog(4);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Inferring outgoing callStatus requirement from the presence of redial destination type and unspecified recordTypeForRedialing.", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Inferring outgoing callStatus requirement from the presence of redial destination type and unspecified recordTypeForRedialing.", v12, 2u);
     }
 
     v8 = [CallHistoryDataSourcePredicate predicateForCallsThatWereOriginated:1];
     [v3 addObject:v8];
   }
 
-  if (([(RecentCallQuery *)self callTypes]& 0xF8) != 0)
+  callTypes = [(RecentCallQuery *)self callTypes];
+  if ((callTypes & 0xF8) != 0)
   {
-    v9 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = IntentHandlerDefaultLog(callTypes);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_10002FEA4(v9);
+      sub_10002FEA4(v10);
     }
   }
 
@@ -115,24 +129,25 @@ LABEL_11:
       goto LABEL_15;
     }
 
-    v6 = IntentHandlerDefaultLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = IntentHandlerDefaultLog(preferredCallProvider);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_10002FEE8(v6);
+      sub_10002FEE8(v7);
     }
 
     goto LABEL_11;
   }
 
   includeThirdPartyCalls = [(RecentCallQuery *)self includeThirdPartyCalls];
-  v6 = IntentHandlerDefaultLog();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  if (includeThirdPartyCalls)
+  v6 = includeThirdPartyCalls;
+  v7 = IntentHandlerDefaultLog(includeThirdPartyCalls);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  if (v6)
   {
-    if (v7)
+    if (v8)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "No preferredCallProvider specified and thirdParty redial is enabled, not filtering by provider", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "No preferredCallProvider specified and thirdParty redial is enabled, not filtering by provider", buf, 2u);
     }
 
 LABEL_11:
@@ -141,10 +156,10 @@ LABEL_11:
     goto LABEL_15;
   }
 
-  if (v7)
+  if (v8)
   {
-    *v9 = 0;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "No preferredCallProvider specified and thirdParty redial is not enabled. Filtering for 1P calls.", v9, 2u);
+    *v10 = 0;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "No preferredCallProvider specified and thirdParty redial is not enabled. Filtering for 1P calls.", v10, 2u);
   }
 
   v4 = +[CallHistoryDataSourcePredicate predicateForTelephonyOrFaceTimeCalls];
@@ -188,61 +203,62 @@ LABEL_15:
     participants2 = [(RecentCallQuery *)self participants];
     v14 = +[CallHistoryDataSourcePredicate predicateForCallsWithNumberOfRemoteParticipants:](CallHistoryDataSourcePredicate, "predicateForCallsWithNumberOfRemoteParticipants:", [participants2 count]);
 
-    v27 = v14;
+    v28 = v14;
     [v10 addObject:v14];
-    v33 = 0u;
     v34 = 0u;
-    v31 = 0u;
+    v35 = 0u;
     v32 = 0u;
+    v33 = 0u;
     obj = [(RecentCallQuery *)self participants];
-    v15 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+    v15 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v32;
+      v17 = *v33;
       do
       {
         for (i = 0; i != v16; i = i + 1)
         {
-          if (*v32 != v17)
+          if (*v33 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = [*(*(&v31 + 1) + 8 * i) tu_handlesMatchingPersonWithContactsDataSource:sourceCopy identifierToContactCache:cacheCopy];
+          v19 = [*(*(&v32 + 1) + 8 * i) tu_handlesMatchingPersonWithContactsDataSource:sourceCopy identifierToContactCache:cacheCopy];
           includeThirdPartyCalls = [(RecentCallQuery *)self includeThirdPartyCalls];
-          v21 = IntentHandlerDefaultLog();
-          v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
-          if (includeThirdPartyCalls)
+          v21 = includeThirdPartyCalls;
+          v22 = IntentHandlerDefaultLog(includeThirdPartyCalls);
+          v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+          if (v21)
           {
-            if (v22)
+            if (v23)
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "ThirdParty redial is enabled, using redial predicate that includes search for non-normalized handle values.", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "ThirdParty redial is enabled, using redial predicate that includes search for non-normalized handle values.", buf, 2u);
             }
 
             allRelevantISOCountryCodes = [dataSourceCopy allRelevantISOCountryCodes];
-            v24 = [CallHistoryDataSourcePredicate predicateForCallToCallBackWithAnyOfTheseRemoteParticipantHandles:v19 isoCountryCodes:allRelevantISOCountryCodes];
+            v25 = [CallHistoryDataSourcePredicate predicateForCallToCallBackWithAnyOfTheseRemoteParticipantHandles:v19 isoCountryCodes:allRelevantISOCountryCodes];
           }
 
           else
           {
-            if (v22)
+            if (v23)
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "ThirdParty redial is not enabled, using normal recent call predicate that includes search for non-normalized handle values.", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "ThirdParty redial is not enabled, using normal recent call predicate that includes search for non-normalized handle values.", buf, 2u);
             }
 
             allRelevantISOCountryCodes = [dataSourceCopy allRelevantISOCountryCodes];
-            v24 = [CallHistoryDataSourcePredicate predicateForCallsWithAnyOfTheseRemoteParticipantHandles:v19 isoCountryCodes:allRelevantISOCountryCodes];
+            v25 = [CallHistoryDataSourcePredicate predicateForCallsWithAnyOfTheseRemoteParticipantHandles:v19 isoCountryCodes:allRelevantISOCountryCodes];
           }
 
-          v25 = v24;
+          v26 = v25;
 
-          [v10 addObject:v25];
+          [v10 addObject:v26];
         }
 
-        v16 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v16 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v16);

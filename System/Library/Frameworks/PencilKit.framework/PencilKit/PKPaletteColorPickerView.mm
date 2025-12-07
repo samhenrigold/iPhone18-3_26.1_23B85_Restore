@@ -463,8 +463,7 @@ void __60__PKPaletteColorPickerView__swatchColorsForTraitCollection___block_invo
       [viewController dismissViewControllerAnimated:1 completion:0];
 
       v28 = +[PKStatisticsManager sharedStatisticsManager];
-      [(PKPaletteColorPickerView *)self analyticsColorChangeCount];
-      [PKStatisticsManager recordColorsChangedBeforeChosen:v28];
+      [(PKStatisticsManager *)v28 recordColorsChangedBeforeChosen:?];
 
       colorPickerController3 = +[PKStatisticsManager sharedStatisticsManager];
       [(PKStatisticsManager *)colorPickerController3 recordColorPanelInvoked:?];
@@ -1574,8 +1573,7 @@ LABEL_12:
     }
 
     v10 = +[PKStatisticsManager sharedStatisticsManager];
-    [(PKPaletteColorPickerView *)self analyticsColorChangeCount];
-    [PKStatisticsManager recordColorsChangedBeforeChosen:v10];
+    [(PKStatisticsManager *)v10 recordColorsChangedBeforeChosen:?];
 
     analyticsInitialColor = [(PKPaletteColorPickerView *)self analyticsInitialColor];
     colorPickerController4 = [(PKPaletteColorPickerView *)self colorPickerController];

@@ -90,27 +90,27 @@
 - (BOOL)_addZeroBytesForDisabledAndRestrictedDomainNames
 {
   v3 = [(NSSet *)self->_disabledDomains setByAddingObjectsFromSet:self->_restrictedDomains];
+  v21 = 0u;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v21 objects:v29 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = &_s10Foundation4DataV19_bridgeToObjectiveCSo6NSDataCyF_ptr;
-    v7 = *v24;
+    v7 = *v22;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v24 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v23 + 1) + 8 * i);
-        v10 = [(NSMutableDictionary *)self->_domainSizeByDomainName objectForKeyedSubscript:v9, v20, v21];
+        v9 = *(*(&v21 + 1) + 8 * i);
+        v10 = [(NSMutableDictionary *)self->_domainSizeByDomainName objectForKeyedSubscript:v9];
 
         if (!v10)
         {
@@ -121,9 +121,9 @@
               v11 = [v6[510] containerIDWithName:v9];
               appManager = self->_appManager;
               persona = [(_DomainSizer *)self persona];
-              v22 = 0;
-              v14 = [(MBAppManager *)appManager fetchAppWithIdentifier:v11 persona:persona error:&v22];
-              v15 = v22;
+              v20 = 0;
+              v14 = [(MBAppManager *)appManager fetchAppWithIdentifier:v11 persona:persona error:&v20];
+              v15 = v20;
 
               if (v14)
               {
@@ -131,10 +131,9 @@
                 if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138412290;
-                  v28 = v9;
+                  v26 = v9;
                   _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "=quota-calculation= Adding 0-byte quota usage for disabled app domain: %@", buf, 0xCu);
-                  v20 = v9;
-                  _MBLog();
+                  _MBLog(@"Df", "=quota-calculation= Adding 0-byte quota usage for disabled app domain: %@", v9);
                 }
 
                 [(_DomainSizer *)self _addCloudSize:0 localSize:0 forDomain:v9];
@@ -146,13 +145,11 @@
                 if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138412546;
-                  v28 = v9;
-                  v29 = 2112;
-                  v30 = v15;
+                  v26 = v9;
+                  v27 = 2112;
+                  v28 = v15;
                   _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "=quota-calculation= Failed to fetch fetch app for disabled domain %@: %@", buf, 0x16u);
-                  v20 = v9;
-                  v21 = v15;
-                  _MBLog();
+                  _MBLog(@"E ", "=quota-calculation= Failed to fetch fetch app for disabled domain %@: %@", v9, v15);
                 }
               }
 
@@ -166,10 +163,9 @@
             if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v28 = v9;
+              v26 = v9;
               _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "=quota-calculation= Adding 0-byte quota usage for disabled static domain: %@", buf, 0xCu);
-              v20 = v9;
-              _MBLog();
+              _MBLog(@"Df", "=quota-calculation= Adding 0-byte quota usage for disabled static domain: %@", v9);
             }
 
             [(_DomainSizer *)self _addCloudSize:0 localSize:0 forDomain:v9];
@@ -177,7 +173,7 @@
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v21 objects:v29 count:16];
     }
 
     while (v5);
@@ -222,7 +218,7 @@
               *buf = 138412290;
               v20 = v10;
               _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "=quota-calculation= Adding 0-byte quota usage for empty static domain: %@", buf, 0xCu);
-              _MBLog();
+              _MBLog(@"Df", "=quota-calculation= Adding 0-byte quota usage for empty static domain: %@", v10);
             }
 
             [(_DomainSizer *)self _addCloudSize:0 localSize:0 forDomain:v10];
@@ -268,66 +264,64 @@
           v35 = v10;
           _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "=quota-calculation= Adding BooksDomain size %@ to iBooksDomain (total: %@)", buf, 0x16u);
 
-          [(_DomainSizer *)self _sizeOfDomain:@"AppDomain-com.apple.iBooks"];
-          v24 = v23 = v8;
-          _MBLog();
+          v11 = [(_DomainSizer *)self _sizeOfDomain:@"AppDomain-com.apple.iBooks"];
+          _MBLog(@"Df", "=quota-calculation= Adding BooksDomain size %@ to iBooksDomain (total: %@)", v8, v11);
         }
       }
     }
 
-    v11 = self->_domainToSize;
-    if (!v11 || [(NSString *)v11 isEqualToString:@"HealthDomain"])
+    v12 = self->_domainToSize;
+    if (!v12 || [(NSString *)v12 isEqualToString:@"HealthDomain"])
     {
       v25 = v5;
       v28 = 0u;
       v29 = 0u;
       v26 = 0u;
       v27 = 0u;
-      v12 = MBGetHealthRelatedDomains();
-      v13 = [v12 countByEnumeratingWithState:&v26 objects:v31 count:16];
-      if (v13)
+      v13 = MBGetHealthRelatedDomains();
+      v14 = [v13 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      if (v14)
       {
-        v14 = v13;
-        v15 = *v27;
+        v15 = v14;
+        v16 = *v27;
         do
         {
-          for (i = 0; i != v14; i = i + 1)
+          for (i = 0; i != v15; i = i + 1)
           {
-            if (*v27 != v15)
+            if (*v27 != v16)
             {
-              objc_enumerationMutation(v12);
+              objc_enumerationMutation(v13);
             }
 
-            v17 = *(*(&v26 + 1) + 8 * i);
-            if (([v17 isEqualToString:{@"HealthDomain", v23, v24}] & 1) == 0)
+            v18 = *(*(&v26 + 1) + 8 * i);
+            if (([v18 isEqualToString:@"HealthDomain"] & 1) == 0)
             {
-              v18 = [(_DomainSizer *)self _sizeOfDomain:v17];
-              v19 = v18;
-              if (v18)
+              v19 = [(_DomainSizer *)self _sizeOfDomain:v18];
+              v20 = v19;
+              if (v19)
               {
-                -[_DomainSizer _addCloudSize:localSize:forDomain:](self, "_addCloudSize:localSize:forDomain:", [v18 cloudSize], objc_msgSend(v18, "localSize"), @"HealthDomain");
-                v20 = MBGetDefaultLog();
-                if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+                -[_DomainSizer _addCloudSize:localSize:forDomain:](self, "_addCloudSize:localSize:forDomain:", [v19 cloudSize], objc_msgSend(v19, "localSize"), @"HealthDomain");
+                v21 = MBGetDefaultLog();
+                if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
                 {
-                  v21 = [(_DomainSizer *)self _sizeOfDomain:@"HealthDomain"];
+                  v22 = [(_DomainSizer *)self _sizeOfDomain:@"HealthDomain"];
                   *buf = 138412546;
-                  v33 = v19;
+                  v33 = v20;
                   v34 = 2112;
-                  v35 = v21;
-                  _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "=quota-calculation= Adding health-related domain size %@ to HealthDomain (total: %@)", buf, 0x16u);
+                  v35 = v22;
+                  _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "=quota-calculation= Adding health-related domain size %@ to HealthDomain (total: %@)", buf, 0x16u);
 
-                  [(_DomainSizer *)self _sizeOfDomain:@"HealthDomain"];
-                  v24 = v23 = v19;
-                  _MBLog();
+                  v23 = [(_DomainSizer *)self _sizeOfDomain:@"HealthDomain"];
+                  _MBLog(@"Df", "=quota-calculation= Adding health-related domain size %@ to HealthDomain (total: %@)", v20, v23);
                 }
               }
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v26 objects:v31 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v26 objects:v31 count:16];
         }
 
-        while (v14);
+        while (v15);
       }
 
       LOBYTE(v5) = v25;
@@ -392,8 +386,7 @@
       *buf = 134217984;
       v47 = v16;
       _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "=quota-calculation= Fetched %llu domain quotas by domainHMAC", buf, 0xCu);
-      [v43 count];
-      _MBLog();
+      _MBLog(@"I ", "=quota-calculation= Fetched %llu domain quotas by domainHMAC", [v43 count]);
     }
 
     persona = [accountCopy persona];
@@ -454,7 +447,7 @@ LABEL_18:
         v48 = 2112;
         v49 = v14;
         _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "=quota-calculation= Failed to synchronize file lists when sizing domain %@: %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "=quota-calculation= Failed to synchronize file lists when sizing domain %@: %@", domainCopy, v14);
       }
 
       if (error)
@@ -479,7 +472,7 @@ LABEL_18:
       *buf = 138412290;
       v47 = v14;
       _os_log_impl(&_mh_execute_header, snapshotDatabaseDirectory, OS_LOG_TYPE_ERROR, "=quota-calculation= Failed to get domain quotas by domain hmac: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "=quota-calculation= Failed to get domain quotas by domain hmac: %@", v14);
     }
 
     v32 = 0;

@@ -11,7 +11,7 @@
 
 - (id)_getTokenByInvocationType:(id)type
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   if (!self->_shouldUseMultiPhrasesCheckerOutput)
   {
@@ -38,26 +38,26 @@ LABEL_9:
     v7 = [(NSDictionary *)self->_invocationToPhraseMap objectForKeyedSubscript:v5];
     if (v7)
     {
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       v8 = typeCopy;
-      v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v21;
+        v11 = *v20;
 LABEL_12:
         v12 = 0;
         while (1)
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          tokens = [*(*(&v20 + 1) + 8 * v12) tokens];
+          tokens = [*(*(&v19 + 1) + 8 * v12) tokens];
           lastObject = [tokens lastObject];
 
           tokenName = [lastObject tokenName];
@@ -70,7 +70,7 @@ LABEL_12:
 
           if (v10 == ++v12)
           {
-            v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
             if (v10)
             {
               goto LABEL_12;
@@ -95,7 +95,7 @@ LABEL_18:
       if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v26 = "[SLProgressiveCheckerAnalyzer _getTokenByInvocationType:]";
+        v25 = "[SLProgressiveCheckerAnalyzer _getTokenByInvocationType:]";
         _os_log_debug_impl(&dword_26754E000, v16, OS_LOG_TYPE_DEBUG, "%s No token found in multiPhrases checker output, Check if phrases are correctly defined in asset decoder config", buf, 0xCu);
       }
     }
@@ -107,7 +107,7 @@ LABEL_18:
   if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v26 = "[SLProgressiveCheckerAnalyzer _getTokenByInvocationType:]";
+    v25 = "[SLProgressiveCheckerAnalyzer _getTokenByInvocationType:]";
     _os_log_debug_impl(&dword_26754E000, v17, OS_LOG_TYPE_DEBUG, "%s context invocation type does not map to either of HS/JS/MAGUS", buf, 0xCu);
   }
 
@@ -117,14 +117,13 @@ LABEL_25:
 LABEL_26:
 
 LABEL_27:
-  v18 = *MEMORY[0x277D85DE8];
 
   return lastObject;
 }
 
 - (void)_endAudio
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (self->_checkerType == 2)
   {
     v3 = [(CSAudioCircularBuffer *)self->_circBuffer copybufferFrom:[(CSAudioCircularBuffer *)self->_circBuffer sampleCount]- self->_numSamplesAddedToBufferSinceLastFlush to:?];
@@ -143,29 +142,29 @@ LABEL_27:
 
       audioOption = [(SLProgressiveCheckerContext *)self->_context audioOption];
       activeRecognizers = self->_activeRecognizers;
-      v14[0] = MEMORY[0x277D85DD0];
-      v14[1] = 3221225472;
-      v14[2] = __41__SLProgressiveCheckerAnalyzer__endAudio__block_invoke;
-      v14[3] = &unk_279C0EB10;
-      v14[4] = self;
-      v16 = (audioOption & 2) != 0;
-      v15 = v3;
-      [(NSMutableArray *)activeRecognizers enumerateObjectsUsingBlock:v14];
+      v13[0] = MEMORY[0x277D85DD0];
+      v13[1] = 3221225472;
+      v13[2] = __41__SLProgressiveCheckerAnalyzer__endAudio__block_invoke;
+      v13[3] = &unk_279C0EB10;
+      v13[4] = self;
+      v15 = (audioOption & 2) != 0;
+      v14 = v3;
+      [(NSMutableArray *)activeRecognizers enumerateObjectsUsingBlock:v13];
     }
   }
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v18 = 0;
+  v17 = 0;
   v8 = self->_activeRecognizers;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __41__SLProgressiveCheckerAnalyzer__endAudio__block_invoke_2;
-  v13[3] = &unk_279C0EB38;
-  v13[4] = self;
-  v13[5] = buf;
-  [(NSMutableArray *)v8 enumerateObjectsUsingBlock:v13];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __41__SLProgressiveCheckerAnalyzer__endAudio__block_invoke_2;
+  v12[3] = &unk_279C0EB38;
+  v12[4] = self;
+  v12[5] = buf;
+  [(NSMutableArray *)v8 enumerateObjectsUsingBlock:v12];
   if (self->_delegate && (objc_opt_respondsToSelector() & 1) != 0)
   {
     v9 = [SLProgressiveCheckerResult alloc];
@@ -176,7 +175,6 @@ LABEL_27:
   }
 
   _Block_object_dispose(buf, 8);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 id __41__SLProgressiveCheckerAnalyzer__endAudio__block_invoke(uint64_t a1, void *a2)
@@ -197,7 +195,7 @@ id __41__SLProgressiveCheckerAnalyzer__endAudio__block_invoke(uint64_t a1, void 
 
 void __41__SLProgressiveCheckerAnalyzer__endAudio__block_invoke_2(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 resultsWithEndedAudio];
   v5 = [*(a1 + 32) _getTokenByInvocationType:v4];
@@ -232,9 +230,9 @@ LABEL_6:
   v12 = SLLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 136315138;
-    v20 = "[SLProgressiveCheckerAnalyzer _endAudio]_block_invoke_2";
-    _os_log_impl(&dword_26754E000, v12, OS_LOG_TYPE_DEFAULT, "%s All Checkers Finished, but with confidence of last audio chunk not updated", &v19, 0xCu);
+    v18 = 136315138;
+    v19 = "[SLProgressiveCheckerAnalyzer _endAudio]_block_invoke_2";
+    _os_log_impl(&dword_26754E000, v12, OS_LOG_TYPE_DEFAULT, "%s All Checkers Finished, but with confidence of last audio chunk not updated", &v18, 0xCu);
   }
 
 LABEL_8:
@@ -245,25 +243,23 @@ LABEL_8:
     v15 = v13;
     v16 = [v6 tokenName];
     v17 = *(*(a1 + 32) + 40);
-    v19 = 136315906;
-    v20 = "[SLProgressiveCheckerAnalyzer _endAudio]_block_invoke";
-    v21 = 2050;
-    v22 = v14;
-    v23 = 2114;
-    v24 = v16;
-    v25 = 2050;
-    v26 = v17;
-    _os_log_impl(&dword_26754E000, v15, OS_LOG_TYPE_DEFAULT, "%s All Checkers Finished, analyzed %{public}lu samples, token %{public}@, confidence %{public}f", &v19, 0x2Au);
+    v18 = 136315906;
+    v19 = "[SLProgressiveCheckerAnalyzer _endAudio]_block_invoke";
+    v20 = 2050;
+    v21 = v14;
+    v22 = 2114;
+    v23 = v16;
+    v24 = 2050;
+    v25 = v17;
+    _os_log_impl(&dword_26754E000, v15, OS_LOG_TYPE_DEFAULT, "%s All Checkers Finished, analyzed %{public}lu samples, token %{public}@, confidence %{public}f", &v18, 0x2Au);
   }
 
   [*(*(a1 + 32) + 8) removeObject:v3];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addAudio:(id)audio
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   audioCopy = audio;
   audioOption = [(SLProgressiveCheckerContext *)self->_context audioOption];
   v6 = [audioCopy length];
@@ -282,24 +278,24 @@ LABEL_8:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v29 = __Block_byref_object_copy__772;
-    *&v30 = __Block_byref_object_dispose__773;
-    *(&v30 + 1) = 0;
+    v28 = __Block_byref_object_copy__772;
+    *&v29 = __Block_byref_object_dispose__773;
+    *(&v29 + 1) = 0;
     activeRecognizers = self->_activeRecognizers;
-    v18 = MEMORY[0x277D85DD0];
-    v19 = 3221225472;
-    v20 = __42__SLProgressiveCheckerAnalyzer__addAudio___block_invoke;
-    v21 = &unk_279C0EAE8;
+    v17 = MEMORY[0x277D85DD0];
+    v18 = 3221225472;
+    v19 = __42__SLProgressiveCheckerAnalyzer__addAudio___block_invoke;
+    v20 = &unk_279C0EAE8;
     selfCopy = self;
-    v25 = v9;
-    v26 = v7 >> 1;
+    v24 = v9;
+    v25 = v7 >> 1;
     v13 = v13;
-    v23 = v13;
-    v24 = buf;
-    [(NSMutableArray *)activeRecognizers enumerateObjectsUsingBlock:&v18];
+    v22 = v13;
+    v23 = buf;
+    [(NSMutableArray *)activeRecognizers enumerateObjectsUsingBlock:&v17];
     if (*(*&buf[8] + 40))
     {
-      [(NSMutableArray *)self->_activeRecognizers removeObjectsAtIndexes:v18, v19, v20, v21, selfCopy];
+      [(NSMutableArray *)self->_activeRecognizers removeObjectsAtIndexes:v17, v18, v19, v20, selfCopy];
     }
 
     _Block_object_dispose(buf, 8);
@@ -316,12 +312,12 @@ LABEL_8:
     goto LABEL_11;
   }
 
-  v27 = 0;
-  v13 = [(CSAudioCircularBuffer *)self->_circBuffer copyBufferWithNumSamplesCopiedIn:&v27];
+  v26 = 0;
+  v13 = [(CSAudioCircularBuffer *)self->_circBuffer copyBufferWithNumSamplesCopiedIn:&v26];
 
-  v9 = v27;
-  v16 = SLLogContextFacilityCoreSpeech;
-  if (v27)
+  v9 = v26;
+  v15 = SLLogContextFacilityCoreSpeech;
+  if (v26)
   {
     if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
@@ -331,11 +327,11 @@ LABEL_8:
       *&buf[12] = 2048;
       *&buf[14] = v9;
       *&buf[22] = 2048;
-      v29 = numSamplesAddedToBufferSinceLastFlush;
-      LOWORD(v30) = 2048;
-      *(&v30 + 2) = v12;
-      _os_log_impl(&dword_26754E000, v16, OS_LOG_TYPE_DEFAULT, "%s Flushed %lu samples to checker, samples since last flush %lu, total samples in buffer %lu", buf, 0x2Au);
-      v9 = v27;
+      v28 = numSamplesAddedToBufferSinceLastFlush;
+      LOWORD(v29) = 2048;
+      *(&v29 + 2) = v12;
+      _os_log_impl(&dword_26754E000, v15, OS_LOG_TYPE_DEFAULT, "%s Flushed %lu samples to checker, samples since last flush %lu, total samples in buffer %lu", buf, 0x2Au);
+      v9 = v26;
     }
 
     self->_numSamplesAddedToBufferSinceLastFlush = 0;
@@ -346,17 +342,15 @@ LABEL_8:
   {
     *buf = 136315138;
     *&buf[4] = "[SLProgressiveCheckerAnalyzer _addAudio:]";
-    _os_log_error_impl(&dword_26754E000, v16, OS_LOG_TYPE_ERROR, "%s Unable to copy from circular buffer !", buf, 0xCu);
+    _os_log_error_impl(&dword_26754E000, v15, OS_LOG_TYPE_ERROR, "%s Unable to copy from circular buffer !", buf, 0xCu);
   }
 
 LABEL_11:
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __42__SLProgressiveCheckerAnalyzer__addAudio___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   *(*(a1 + 32) + 32) += *(a1 + 56);
@@ -383,11 +377,11 @@ void __42__SLProgressiveCheckerAnalyzer__addAudio___block_invoke(uint64_t a1, vo
     if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       v15 = *(*(a1 + 32) + 32);
-      v36 = 136315394;
-      v37 = "[SLProgressiveCheckerAnalyzer _addAudio:]_block_invoke";
-      v38 = 2050;
-      v39 = v15;
-      _os_log_impl(&dword_26754E000, v14, OS_LOG_TYPE_DEFAULT, "%s Calling endAudio after feeding %{public}lu samples to recognizer", &v36, 0x16u);
+      v35 = 136315394;
+      v36 = "[SLProgressiveCheckerAnalyzer _addAudio:]_block_invoke";
+      v37 = 2050;
+      v38 = v15;
+      _os_log_impl(&dword_26754E000, v14, OS_LOG_TYPE_DEFAULT, "%s Calling endAudio after feeding %{public}lu samples to recognizer", &v35, 0x16u);
     }
 
     v16 = [v6 resultsWithEndedAudio];
@@ -427,17 +421,17 @@ LABEL_13:
       v24 = v22;
       v25 = [v18 tokenName];
       v26 = *(*(a1 + 32) + 40);
-      v36 = 136316162;
-      v37 = "[SLProgressiveCheckerAnalyzer _addAudio:]_block_invoke";
-      v38 = 2048;
-      v39 = a3;
-      v40 = 2050;
-      v41 = v23;
-      v42 = 2114;
-      v43 = v25;
-      v44 = 2050;
-      v45 = v26;
-      _os_log_impl(&dword_26754E000, v24, OS_LOG_TYPE_DEFAULT, "%s Checker %lu fired, analyzed %{public}lu samples, token %{public}@,  confidence %{public}f", &v36, 0x34u);
+      v35 = 136316162;
+      v36 = "[SLProgressiveCheckerAnalyzer _addAudio:]_block_invoke";
+      v37 = 2048;
+      v38 = a3;
+      v39 = 2050;
+      v40 = v23;
+      v41 = 2114;
+      v42 = v25;
+      v43 = 2050;
+      v44 = v26;
+      _os_log_impl(&dword_26754E000, v24, OS_LOG_TYPE_DEFAULT, "%s Checker %lu fired, analyzed %{public}lu samples, token %{public}@,  confidence %{public}f", &v35, 0x34u);
     }
 
     if (*(*(a1 + 32) + 48) && (objc_opt_respondsToSelector() & 1) != 0)
@@ -459,8 +453,6 @@ LABEL_13:
       *(v33 + 40) = v32;
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startNewRequestWithContext:(id)context
@@ -521,32 +513,32 @@ void __60__SLProgressiveCheckerAnalyzer__startNewRequestWithContext___block_invo
 
 - (BOOL)_setUpAnalyzerWithConfig:(id)config error:(id *)error
 {
-  v78[1] = *MEMORY[0x277D85DE8];
+  v77[1] = *MEMORY[0x277D85DE8];
   configCopy = config;
   stringByDeletingLastPathComponent = [configCopy stringByDeletingLastPathComponent];
   v8 = [MEMORY[0x277D01778] decodeJsonFromFile:configCopy];
-  v63 = 0;
-  v64 = &v63;
-  v65 = 0x3032000000;
-  v66 = __Block_byref_object_copy__772;
-  v67 = __Block_byref_object_dispose__773;
-  v68 = 0;
+  v62 = 0;
+  v63 = &v62;
+  v64 = 0x3032000000;
+  v65 = __Block_byref_object_copy__772;
+  v66 = __Block_byref_object_dispose__773;
+  v67 = 0;
   if (!v8 || ([MEMORY[0x277D01778] getAftmCheckerConfigFromConfigDict:v8], v9 = objc_claimAutoreleasedReturnValue(), v10 = v9 == 0, v9, v10))
   {
     v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"Missing config for Progressive checker %@", v8];
     v12 = MEMORY[0x277CCA9B8];
-    v77 = @"reason";
-    v78[0] = v11;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v78 forKeys:&v77 count:1];
+    v76 = @"reason";
+    v77[0] = v11;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v77 forKeys:&v76 count:1];
     v14 = [v12 errorWithDomain:@"com.apple.sl" code:103 userInfo:v13];
-    v15 = v64[5];
-    v64[5] = v14;
+    v15 = v63[5];
+    v63[5] = v14;
 
     if (error)
     {
 LABEL_14:
       v28 = 0;
-      *error = v64[5];
+      *error = v63[5];
       goto LABEL_32;
     }
   }
@@ -561,7 +553,7 @@ LABEL_14:
     if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v70 = "[SLProgressiveCheckerAnalyzer _setUpAnalyzerWithConfig:error:]";
+      v69 = "[SLProgressiveCheckerAnalyzer _setUpAnalyzerWithConfig:error:]";
       _os_log_impl(&dword_26754E000, v17, OS_LOG_TYPE_INFO, "%s multi phreases output checker model is used", buf, 0xCu);
     }
 
@@ -592,12 +584,12 @@ LABEL_14:
     v11 = [MEMORY[0x277CCACA8] stringWithFormat:@"Missing keys hsInvocationToken/jsInvocationToken/magusInvocationToken in 'tokenToInvocationMap'  %@", self->_invocationToPhraseMap];
     self->_shouldUseMultiPhrasesCheckerOutput = 0;
     v24 = MEMORY[0x277CCA9B8];
-    v75 = @"reason";
-    v76 = v11;
-    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v76 forKeys:&v75 count:1];
+    v74 = @"reason";
+    v75 = v11;
+    v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v75 forKeys:&v74 count:1];
     v26 = [v24 errorWithDomain:@"com.apple.sl" code:103 userInfo:v25];
-    v27 = v64[5];
-    v64[5] = v26;
+    v27 = v63[5];
+    v63[5] = v26;
 
     if (error)
     {
@@ -647,11 +639,11 @@ LABEL_16:
     {
       numSamplesInStride = self->_numSamplesInStride;
       *buf = 136315650;
-      v70 = "[SLProgressiveCheckerAnalyzer _setUpAnalyzerWithConfig:error:]";
-      v71 = 2048;
-      v72 = (v38 * 16000.0);
-      v73 = 2048;
-      v74 = numSamplesInStride;
+      v69 = "[SLProgressiveCheckerAnalyzer _setUpAnalyzerWithConfig:error:]";
+      v70 = 2048;
+      v71 = (v38 * 16000.0);
+      v72 = 2048;
+      v73 = numSamplesInStride;
       _os_log_impl(&dword_26754E000, v48, OS_LOG_TYPE_DEFAULT, "%s Configured buffer size: %f samples, to be flushed after every %lu samples", buf, 0x20u);
     }
   }
@@ -665,12 +657,12 @@ LABEL_16:
 
   else
   {
-    v62[0] = MEMORY[0x277D85DD0];
-    v62[1] = 3221225472;
-    v62[2] = __63__SLProgressiveCheckerAnalyzer__setUpAnalyzerWithConfig_error___block_invoke;
-    v62[3] = &unk_279C0EA70;
-    v62[4] = self;
-    [v32 enumerateObjectsUsingBlock:v62];
+    v61[0] = MEMORY[0x277D85DD0];
+    v61[1] = 3221225472;
+    v61[2] = __63__SLProgressiveCheckerAnalyzer__setUpAnalyzerWithConfig_error___block_invoke;
+    v61[3] = &unk_279C0EA70;
+    v61[4] = self;
+    [v32 enumerateObjectsUsingBlock:v61];
   }
 
   if (v8)
@@ -683,15 +675,15 @@ LABEL_16:
     v52 = 0;
   }
 
-  v58[0] = MEMORY[0x277D85DD0];
-  v58[1] = 3221225472;
-  v58[2] = __63__SLProgressiveCheckerAnalyzer__setUpAnalyzerWithConfig_error___block_invoke_109;
-  v58[3] = &unk_279C0EA98;
+  v57[0] = MEMORY[0x277D85DD0];
+  v57[1] = 3221225472;
+  v57[2] = __63__SLProgressiveCheckerAnalyzer__setUpAnalyzerWithConfig_error___block_invoke_109;
+  v57[3] = &unk_279C0EA98;
   selfCopy = self;
-  v61 = &v63;
-  v59 = stringByDeletingLastPathComponent;
-  [v52 enumerateObjectsUsingBlock:v58];
-  v53 = v64[5];
+  v60 = &v62;
+  v58 = stringByDeletingLastPathComponent;
+  [v52 enumerateObjectsUsingBlock:v57];
+  v53 = v63[5];
   v28 = v53 == 0;
   if (v53)
   {
@@ -703,20 +695,19 @@ LABEL_16:
     v54 = SLLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
     {
-      [v64[5] localizedDescription];
+      [v63[5] localizedDescription];
       v55 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
       *buf = 136315394;
-      v70 = "[SLProgressiveCheckerAnalyzer _setUpAnalyzerWithConfig:error:]";
-      v71 = 2114;
-      v72 = v55;
+      v69 = "[SLProgressiveCheckerAnalyzer _setUpAnalyzerWithConfig:error:]";
+      v70 = 2114;
+      v71 = v55;
       _os_log_impl(&dword_26754E000, v54, OS_LOG_TYPE_DEFAULT, "%s Failed to initialize SLProgressiveCheckerAnalyzer with error %{public}@", buf, 0x16u);
     }
   }
 
 LABEL_32:
-  _Block_object_dispose(&v63, 8);
+  _Block_object_dispose(&v62, 8);
 
-  v56 = *MEMORY[0x277D85DE8];
   return v28;
 }
 
@@ -730,7 +721,7 @@ void __63__SLProgressiveCheckerAnalyzer__setUpAnalyzerWithConfig_error___block_i
 
 void __63__SLProgressiveCheckerAnalyzer__setUpAnalyzerWithConfig_error___block_invoke_109(uint64_t a1, void *a2, uint64_t a3)
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [*(a1 + 32) stringByAppendingPathComponent:v5];
   v7 = [objc_alloc(MEMORY[0x277D07280]) initWithConfiguration:v6];
@@ -744,11 +735,11 @@ void __63__SLProgressiveCheckerAnalyzer__setUpAnalyzerWithConfig_error___block_i
       v10 = v8;
       v11 = [v9 objectAtIndexedSubscript:a3];
       *buf = 136315650;
-      v20 = "[SLProgressiveCheckerAnalyzer _setUpAnalyzerWithConfig:error:]_block_invoke";
-      v21 = 2050;
-      v22 = [v11 unsignedIntegerValue];
-      v23 = 2114;
-      v24 = v5;
+      v19 = "[SLProgressiveCheckerAnalyzer _setUpAnalyzerWithConfig:error:]_block_invoke";
+      v20 = 2050;
+      v21 = [v11 unsignedIntegerValue];
+      v22 = 2114;
+      v23 = v5;
       _os_log_impl(&dword_26754E000, v10, OS_LOG_TYPE_INFO, "%s Added checker to analyze %{public}lu samples with config file %{public}@", buf, 0x20u);
     }
   }
@@ -757,26 +748,24 @@ void __63__SLProgressiveCheckerAnalyzer__setUpAnalyzerWithConfig_error___block_i
   {
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"EAR recognizer init failed for config: %@", v6];
     v13 = MEMORY[0x277CCA9B8];
-    v25 = @"reason";
-    v26[0] = v12;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = @"reason";
+    v25[0] = v12;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     v15 = [v13 errorWithDomain:@"com.apple.sl" code:104 userInfo:v14];
     v16 = *(*(a1 + 48) + 8);
     v17 = *(v16 + 40);
     *(v16 + 40) = v15;
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (SLProgressiveCheckerAnalyzer)initWithConfig:(id)config withDelegate:(id)delegate error:(id *)error
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   configCopy = config;
   delegateCopy = delegate;
-  v15.receiver = self;
-  v15.super_class = SLProgressiveCheckerAnalyzer;
-  v10 = [(SLProgressiveCheckerAnalyzer *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = SLProgressiveCheckerAnalyzer;
+  v10 = [(SLProgressiveCheckerAnalyzer *)&v14 init];
   if (v10)
   {
     if (SLLogInitIfNeeded_once != -1)
@@ -795,7 +784,7 @@ void __63__SLProgressiveCheckerAnalyzer__setUpAnalyzerWithConfig_error___block_i
     if (os_log_type_enabled(SLLogContextFacilityCoreSpeech, OS_LOG_TYPE_INFO))
     {
       *buf = 136315138;
-      v17 = "[SLProgressiveCheckerAnalyzer initWithConfig:withDelegate:error:]";
+      v16 = "[SLProgressiveCheckerAnalyzer initWithConfig:withDelegate:error:]";
       _os_log_impl(&dword_26754E000, v11, OS_LOG_TYPE_INFO, "%s Initialized Progressive Checkers !", buf, 0xCu);
     }
   }
@@ -803,7 +792,6 @@ void __63__SLProgressiveCheckerAnalyzer__setUpAnalyzerWithConfig_error___block_i
   v12 = v10;
 LABEL_9:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

@@ -46,6 +46,7 @@
 - (BOOL)setAllScopesHasChangesToPullFromTransportWithError:(id *)error;
 - (BOOL)setClassNameOfRecordsForInitialQuery:(id)query forScope:(id)scope error:(id *)error;
 - (BOOL)setDidDropSomeRecordsForScope:(id)scope error:(id *)error;
+- (BOOL)setHasFetchedInitialSyncAnchor:(BOOL)anchor forScope:(id)scope error:(id *)error;
 - (BOOL)setHasUpdatedScope:(id)scope fromTransportWithError:(id *)error;
 - (BOOL)setInitialDownloadDate:(id)date forScope:(id)scope error:(id *)error;
 - (BOOL)setInitialSyncAnchor:(id)anchor forScope:(id)scope error:(id *)error;
@@ -183,7 +184,7 @@
   v10 = &v9;
   v11 = 0x2020000000;
   v12 = 0;
-  v6 = sub_10013EF70();
+  v6 = sub_10013EF70(self);
   v8[0] = _NSConcreteStackBlock;
   v8[1] = 3221225472;
   v8[2] = sub_10013EFB4;
@@ -201,7 +202,7 @@
 + (id)_supportedScopeTypesWithOptions:(unint64_t)options
 {
   v4 = objc_alloc_init(NSMutableIndexSet);
-  v5 = sub_10013EF70();
+  v5 = sub_10013EF70(v4);
   v8[0] = _NSConcreteStackBlock;
   v8[1] = 3221225472;
   v8[2] = sub_10013F10C;
@@ -544,17 +545,17 @@ LABEL_10:
   {
     if (storageCopy)
     {
-      v43 = [storageCopy variableWithName:variableCopy type:typeCopy];
+      v44 = [storageCopy variableWithName:variableCopy type:typeCopy];
       [storageCopy valueForVariable:?];
     }
 
     else
     {
-      v43 = [CPLPrequeliteVariable variableWithName:variableCopy type:typeCopy];
+      v44 = [CPLPrequeliteVariable variableWithName:variableCopy type:typeCopy];
       [pqStore valueForGlobalVariable:?];
     }
     v21 = ;
-    v44 = v21;
+    v45 = v21;
     if (transformerCopy)
     {
       v22 = transformerCopy[2](transformerCopy, v21);
@@ -568,9 +569,9 @@ LABEL_10:
     v23 = v22;
     if (v22)
     {
-      v42 = storageCopy;
-      v40 = pqStore;
-      v41 = v17;
+      v43 = storageCopy;
+      v41 = pqStore;
+      v42 = v17;
       v24 = typeCopy;
       v25 = variableCopy;
       [(CPLPrequeliteStorage *)self mainTable];
@@ -581,102 +582,103 @@ LABEL_10:
 
       if (v30)
       {
+        changes = [v26 changes];
         typeCopy = v24;
         pqlConnection = v26;
-        if ([v26 changes] < 1)
+        if (changes < 1)
         {
           if ((_CPLSilentLogging & 1) == 0)
           {
-            v31 = sub_10013EE4C();
+            v32 = sub_10013EE4C(changes);
             variableCopy = v25;
-            pqStore = v40;
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+            pqStore = v41;
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
             {
-              variableName = [v43 variableName];
+              variableName = [v44 variableName];
               *buf = 138412546;
-              v46 = variableName;
-              v47 = 2112;
-              v48 = v44;
-              _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Discarded value of global %@ (%@) - no changes were applied", buf, 0x16u);
+              v47 = variableName;
+              v48 = 2112;
+              v49 = v45;
+              _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Discarded value of global %@ (%@) - no changes were applied", buf, 0x16u);
 
               pqlConnection = v26;
             }
 
-            v17 = v41;
+            v17 = v42;
             goto LABEL_31;
           }
         }
 
         else if ((_CPLSilentLogging & 1) == 0)
         {
-          v31 = sub_10013EE4C();
+          v32 = sub_10013EE4C(changes);
           variableCopy = v25;
-          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
           {
-            variableName2 = [v43 variableName];
+            variableName2 = [v44 variableName];
             variableName3 = [columnVariableCopy variableName];
             *buf = 138413058;
-            v46 = variableName2;
-            v47 = 2112;
-            v48 = v44;
-            v49 = 2112;
-            v50 = v23;
-            v51 = 2112;
-            v52 = variableName3;
-            _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Transferred value of global %@ (%@) to column %@ (%@) in scope storage", buf, 0x2Au);
+            v47 = variableName2;
+            v48 = 2112;
+            v49 = v45;
+            v50 = 2112;
+            v51 = v23;
+            v52 = 2112;
+            v53 = variableName3;
+            _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Transferred value of global %@ (%@) to column %@ (%@) in scope storage", buf, 0x2Au);
 
             typeCopy = v24;
             pqlConnection = v26;
           }
 
-          pqStore = v40;
-          v17 = v41;
+          pqStore = v41;
+          v17 = v42;
           goto LABEL_31;
         }
 
-        v37 = 1;
+        v38 = 1;
         variableCopy = v25;
-        v17 = v41;
-        pqStore = v40;
+        v17 = v42;
+        pqStore = v41;
       }
 
       else
       {
-        v37 = 0;
+        v38 = 0;
         variableCopy = v25;
         typeCopy = v24;
-        v17 = v41;
-        pqStore = v40;
+        v17 = v42;
+        pqStore = v41;
         pqlConnection = v26;
       }
 
-      storageCopy = v42;
+      storageCopy = v43;
 LABEL_34:
 
       goto LABEL_35;
     }
 
-    if (v44)
+    if (v45)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v31 = sub_10013EE4C();
-        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        v32 = sub_10013EE4C(0);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
-          [v43 variableName];
-          v42 = storageCopy;
-          v35 = v34 = pqlConnection;
+          [v44 variableName];
+          v43 = storageCopy;
+          v36 = v35 = pqlConnection;
           *buf = 138412546;
-          v46 = v35;
-          v47 = 2112;
-          v48 = v44;
-          v36 = "Discarded value of global %@ (%@)";
+          v47 = v36;
+          v48 = 2112;
+          v49 = v45;
+          v37 = "Discarded value of global %@ (%@)";
 LABEL_25:
-          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, v36, buf, 0x16u);
+          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, v37, buf, 0x16u);
 
-          pqlConnection = v34;
+          pqlConnection = v35;
 LABEL_31:
-          storageCopy = v42;
+          storageCopy = v43;
           goto LABEL_32;
         }
 
@@ -686,32 +688,32 @@ LABEL_31:
 
     else if ((_CPLSilentLogging & 1) == 0)
     {
-      v31 = sub_10013EE4C();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+      v32 = sub_10013EE4C(0);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
-        [v43 variableName];
-        v42 = storageCopy;
-        v35 = v34 = pqlConnection;
+        [v44 variableName];
+        v43 = storageCopy;
+        v36 = v35 = pqlConnection;
         *buf = 138412546;
-        v46 = v35;
-        v47 = 2112;
-        v48 = 0;
-        v36 = "No value for global %@ (%@)";
+        v47 = v36;
+        v48 = 2112;
+        v49 = 0;
+        v37 = "No value for global %@ (%@)";
         goto LABEL_25;
       }
 
 LABEL_32:
     }
 
-    v37 = 1;
+    v38 = 1;
     goto LABEL_34;
   }
 
-  v37 = 0;
+  v38 = 0;
 LABEL_35:
 
   objc_autoreleasePoolPop(v17);
-  return v37;
+  return v38;
 }
 
 - (BOOL)upgradeStorageToVersion:(int64_t)version
@@ -804,9 +806,9 @@ LABEL_35:
           return v4;
         }
 
-        v97 = *(&self->_updateTransportTodoVar + 4);
+        v100 = *(&self->_updateTransportTodoVar + 4);
 
-        return [(CPLPrequeliteStorage *)self addColumnVariableGroup:v97 error:0];
+        return [(CPLPrequeliteStorage *)self addColumnVariableGroup:v100 error:0];
       }
 
       if (version == 90)
@@ -835,9 +837,9 @@ LABEL_35:
       }
     }
 
-    v100 = *&self->super.CPLPlatformObject_opaque[v6];
+    v103 = *&self->super.CPLPlatformObject_opaque[v6];
 
-    return [(CPLPrequeliteStorage *)self addColumnVariable:v100 error:0];
+    return [(CPLPrequeliteStorage *)self addColumnVariable:v103 error:0];
   }
 
   if (version > 45)
@@ -863,13 +865,13 @@ LABEL_35:
 
         rewindSyncAnchorsVar = [*(&self->_transportScopeVar + 4) lastClearedPushVar];
 LABEL_111:
-        v90 = rewindSyncAnchorsVar;
-        v91 = [(CPLPrequeliteStorage *)self addColumnVariable:rewindSyncAnchorsVar error:0];
+        v92 = rewindSyncAnchorsVar;
+        v93 = [(CPLPrequeliteStorage *)self addColumnVariable:rewindSyncAnchorsVar error:0];
 
-        return v91;
+        return v93;
       }
 
-      if (!-[CPLPrequeliteStorage shouldUpgradeSchema](self, "shouldUpgradeSchema") || ([*(&self->_transportScopeVar + 4) hasFetchedInitialSyncAnchorVar], v92 = objc_claimAutoreleasedReturnValue(), v93 = -[CPLPrequeliteStorage addColumnVariable:error:](self, "addColumnVariable:error:", v92, 0), v92, v93))
+      if (!-[CPLPrequeliteStorage shouldUpgradeSchema](self, "shouldUpgradeSchema") || ([*(&self->_transportScopeVar + 4) hasFetchedInitialSyncAnchorVar], v94 = objc_claimAutoreleasedReturnValue(), v95 = -[CPLPrequeliteStorage addColumnVariable:error:](self, "addColumnVariable:error:", v94, 0), v94, v95))
       {
         pqStore = [(CPLPrequeliteStorage *)self pqStore];
         pqlConnection = [pqStore pqlConnection];
@@ -878,9 +880,13 @@ LABEL_111:
         hasFetchedInitialSyncAnchorVar = [*(&self->_transportScopeVar + 4) hasFetchedInitialSyncAnchorVar];
         v4 = [pqlConnection cplExecute:{@"UPDATE %@ SET %@ = %d", mainTable, hasFetchedInitialSyncAnchorVar, 1}];
 
-        if (v4 && [pqlConnection changes])
+        if (v4)
         {
-          sub_1001B7208();
+          changes = [pqlConnection changes];
+          if (changes)
+          {
+            sub_1001B7208(changes);
+          }
         }
 
         goto LABEL_158;
@@ -898,9 +904,9 @@ LABEL_117:
         return v4;
       }
 
-      v83 = *(&self->_nextIndexVar + 4);
+      v85 = *(&self->_nextIndexVar + 4);
 
-      return [(CPLPrequeliteStorage *)self createVariable:v83 defaultValue:0 error:0];
+      return [(CPLPrequeliteStorage *)self createVariable:v85 defaultValue:0 error:0];
     }
 
     if ([(CPLPrequeliteStorage *)self shouldUpgradeSchema])
@@ -911,35 +917,35 @@ LABEL_117:
       }
 
       scopeTypeVar = [*(&self->_modifiedVariables + 4) scopeTypeVar];
-      v99 = [(CPLPrequeliteStorage *)self addColumnVariable:scopeTypeVar error:0];
+      v102 = [(CPLPrequeliteStorage *)self addColumnVariable:scopeTypeVar error:0];
 
-      if (!v99)
+      if (!v102)
       {
         goto LABEL_141;
       }
 
       if ([(CPLPrequeliteStorage *)self addColumnVariableGroup:*(&self->_pullFromTransportTodoVar + 4) error:0])
       {
-        v99 = [(CPLPrequeliteStorage *)self addColumnVariableGroup:*(&self->_clientNeedsToPullTodoVar + 4) error:0];
+        v102 = [(CPLPrequeliteStorage *)self addColumnVariableGroup:*(&self->_clientNeedsToPullTodoVar + 4) error:0];
       }
 
       else
       {
 LABEL_140:
-        v99 = 0;
+        v102 = 0;
       }
     }
 
     else
     {
-      v99 = 1;
+      v102 = 1;
     }
 
 LABEL_141:
     pqStore2 = [(CPLPrequeliteStorage *)self pqStore];
     pqlConnection = [pqStore2 pqlConnection];
 
-    if (v99)
+    if (v102)
     {
       mainTable2 = [(CPLPrequeliteStorage *)self mainTable];
       setHasSomethingTodo = [*(&self->_supervisorInfoVar + 4) setHasSomethingTodo];
@@ -954,18 +960,18 @@ LABEL_158:
 
       mainTable3 = [(CPLPrequeliteStorage *)self mainTable];
       scopeTypeVar2 = [*(&self->_modifiedVariables + 4) scopeTypeVar];
-      v106 = [_CPLPrequeliteScopeIsEqual alloc];
+      v109 = [_CPLPrequeliteScopeIsEqual alloc];
       mainScopeIdentifier = [(CPLPrequeliteStorage *)self mainScopeIdentifier];
-      v108 = [(_CPLPrequeliteScopeIsEqual *)v106 initWithIdentifier:mainScopeIdentifier];
-      v109 = [pqlConnection cplExecute:{@"UPDATE %@ SET %@ = %ld WHERE %@", mainTable3, scopeTypeVar2, 1, v108}];
+      v111 = [(_CPLPrequeliteScopeIsEqual *)v109 initWithIdentifier:mainScopeIdentifier];
+      v112 = [pqlConnection cplExecute:{@"UPDATE %@ SET %@ = %ld WHERE %@", mainTable3, scopeTypeVar2, 1, v111}];
 
-      if (v109)
+      if (v112)
       {
         mainTable4 = [(CPLPrequeliteStorage *)self mainTable];
         setHasSomethingTodo2 = [*(&self->_pullFromTransportTodoVar + 4) setHasSomethingTodo];
-        v89 = [pqlConnection cplExecute:{@"UPDATE %@ SET %@ WHERE %@ & %ld = %ld", mainTable4, setHasSomethingTodo2, *(&self->_base + 4), 4, 4}];
+        v91 = [pqlConnection cplExecute:{@"UPDATE %@ SET %@ WHERE %@ & %ld = %ld", mainTable4, setHasSomethingTodo2, *(&self->_base + 4), 4, 4}];
 LABEL_145:
-        LOBYTE(v4) = v89;
+        LOBYTE(v4) = v91;
 LABEL_156:
 
         goto LABEL_157;
@@ -1115,20 +1121,20 @@ LABEL_156:
       sub_1001B72A8(mainTable4, initialSyncDate);
     }
 
-    v110 = +[CPLPrequeliteType stringType];
-    v111 = *(&self->_lastLibraryInfoUpdateVar + 4);
-    v124[0] = _NSConcreteStackBlock;
-    v124[1] = 3221225472;
-    v124[2] = sub_10014181C;
-    v124[3] = &unk_10027B1A8;
-    v125 = setHasSomethingTodo2;
-    LODWORD(v111) = [(CPLPrequeliteScopeStorage *)self _transferValueFromVariable:@"zoneName" type:v110 ofStorage:0 toColumnVariable:v111 transformer:v124];
+    v113 = +[CPLPrequeliteType stringType];
+    v114 = *(&self->_lastLibraryInfoUpdateVar + 4);
+    v127[0] = _NSConcreteStackBlock;
+    v127[1] = 3221225472;
+    v127[2] = sub_10014181C;
+    v127[3] = &unk_10027B1A8;
+    v128 = setHasSomethingTodo2;
+    LODWORD(v114) = [(CPLPrequeliteScopeStorage *)self _transferValueFromVariable:@"zoneName" type:v113 ofStorage:0 toColumnVariable:v114 transformer:v127];
 
-    if (v111)
+    if (v114)
     {
-      v112 = +[CPLPrequeliteType integerType];
+      v115 = +[CPLPrequeliteType integerType];
       featureVersionVar = [*(&self->_transportScopeVar + 4) featureVersionVar];
-      LOBYTE(v4) = [(CPLPrequeliteScopeStorage *)self _transferValueFromVariable:@"featureVersion" type:v112 ofStorage:0 toColumnVariable:featureVersionVar transformer:&stru_10027B1C8];
+      LOBYTE(v4) = [(CPLPrequeliteScopeStorage *)self _transferValueFromVariable:@"featureVersion" type:v115 ofStorage:0 toColumnVariable:featureVersionVar transformer:&stru_10027B1C8];
 
       goto LABEL_156;
     }
@@ -1145,8 +1151,8 @@ LABEL_155:
       return v4;
     }
 
-    v87 = +[CPLPrequeliteType integerType];
-    pqlConnection = [CPLPrequeliteVariable variableWithName:@"nextIndex" defaultValue:&off_10028EF20 type:v87];
+    v89 = +[CPLPrequeliteType integerType];
+    pqlConnection = [CPLPrequeliteVariable variableWithName:@"nextIndex" defaultValue:&off_10028EF20 type:v89];
 
     pqStore3 = [(CPLPrequeliteStorage *)self pqStore];
     mainTable4 = [pqStore3 valueForGlobalVariable:pqlConnection];
@@ -1160,7 +1166,7 @@ LABEL_157:
     }
 
     setHasSomethingTodo2 = [*(&self->_modifiedVariables + 4) scopeIdentifierVar];
-    v89 = [(CPLPrequeliteStorage *)self createIndexOnColumnVariable:setHasSomethingTodo2 error:0];
+    v91 = [(CPLPrequeliteStorage *)self createIndexOnColumnVariable:setHasSomethingTodo2 error:0];
     goto LABEL_145;
   }
 
@@ -1209,33 +1215,33 @@ LABEL_157:
   engineStore2 = [abstractObject2 engineStore];
   engineLibrary3 = [engineStore2 engineLibrary];
 
-  v117 = engineLibrary3;
+  v120 = engineLibrary3;
   transport = [engineLibrary3 transport];
-  v120 = 0u;
-  v121 = 0u;
-  v122 = 0u;
   v123 = 0u;
+  v124 = 0u;
+  v125 = 0u;
+  v126 = 0u;
   obj = [(CPLPrequeliteScopeStorage *)self enumeratorForScopesIncludeInactive:0];
-  v61 = [obj countByEnumeratingWithState:&v120 objects:v130 count:16];
+  v61 = [obj countByEnumeratingWithState:&v123 objects:v133 count:16];
   if (!v61)
   {
     goto LABEL_151;
   }
 
   v62 = v61;
-  v63 = *v121;
+  v63 = *v124;
   while (2)
   {
     v64 = 0;
-    v115 = v62;
+    v118 = v62;
     do
     {
-      if (*v121 != v63)
+      if (*v124 != v63)
       {
         objc_enumerationMutation(obj);
       }
 
-      v65 = *(*(&v120 + 1) + 8 * v64);
+      v65 = *(*(&v123 + 1) + 8 * v64);
       scopeIdentifier = [v65 scopeIdentifier];
       v67 = [(CPLPrequeliteScopeStorage *)self flagsForScope:v65];
       mainScopeIdentifier3 = [(CPLPrequeliteStorage *)self mainScopeIdentifier];
@@ -1243,48 +1249,49 @@ LABEL_157:
 
       if (!v69)
       {
-        exitDeleteTime = [(CPLPrequeliteScopeStorage *)self transportScopeForScope:v65];
-        if (exitDeleteTime)
+        v73 = [(CPLPrequeliteScopeStorage *)self transportScopeForScope:v65];
+        if (v73)
         {
-          [transport upgradeFlags:v67 fromTransportScope:exitDeleteTime];
+          [transport upgradeFlags:v67 fromTransportScope:v73];
         }
 
         goto LABEL_76;
       }
 
-      isExceedingQuota = [v117 isExceedingQuota];
-      iCloudLibraryHasBeenWiped = [v117 iCloudLibraryHasBeenWiped];
-      exitDeleteTime = [v117 exitDeleteTime];
+      isExceedingQuota = [v120 isExceedingQuota];
+      iCloudLibraryHasBeenWiped = [v120 iCloudLibraryHasBeenWiped];
+      exitDeleteTime = [v120 exitDeleteTime];
+      v73 = exitDeleteTime;
       if (iCloudLibraryHasBeenWiped)
       {
-        [v67 setValue:1 forFlag:4];
+        exitDeleteTime = [v67 setValue:1 forFlag:4];
       }
 
-      v73 = v63;
+      v74 = v63;
       if (isExceedingQuota)
       {
-        [v67 setValue:1 forFlag:2];
+        exitDeleteTime = [v67 setValue:1 forFlag:2];
       }
 
-      if (exitDeleteTime)
+      if (v73)
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v74 = sub_10013EE4C();
-          if (os_log_type_enabled(v74, OS_LOG_TYPE_DEFAULT))
+          v75 = sub_10013EE4C(exitDeleteTime);
+          if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
           {
             scopeIdentifier2 = [v65 scopeIdentifier];
-            v76 = [CPLDateFormatter stringFromDateAgo:exitDeleteTime now:0];
+            v77 = [CPLDateFormatter stringFromDateAgo:v73 now:0];
             *buf = 138412546;
-            v127 = scopeIdentifier2;
-            v128 = 2112;
-            v129 = v76;
-            _os_log_impl(&_mh_execute_header, v74, OS_LOG_TYPE_DEFAULT, "Setting delete date for %@ to %@", buf, 0x16u);
+            v130 = scopeIdentifier2;
+            v131 = 2112;
+            v132 = v77;
+            _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEFAULT, "Setting delete date for %@ to %@", buf, 0x16u);
           }
         }
 
         [v67 setValue:1 forFlag:8];
-        if (!-[CPLPrequeliteScopeStorage setDeleteDate:forScope:error:](self, "setDeleteDate:forScope:error:", exitDeleteTime, v65, 0) || ([exitDeleteTime dateByAddingTimeInterval:-2592000.0], v77 = objc_claimAutoreleasedReturnValue(), v78 = -[CPLPrequeliteScopeStorage setDisabledDate:forScope:error:](self, "setDisabledDate:forScope:error:", v77, v65, 0), v77, !v78))
+        if (!-[CPLPrequeliteScopeStorage setDeleteDate:forScope:error:](self, "setDeleteDate:forScope:error:", v73, v65, 0) || ([v73 dateByAddingTimeInterval:-2592000.0], v78 = objc_claimAutoreleasedReturnValue(), v79 = -[CPLPrequeliteScopeStorage setDisabledDate:forScope:error:](self, "setDisabledDate:forScope:error:", v78, v65, 0), v78, !v79))
         {
 
 LABEL_149:
@@ -1296,42 +1303,43 @@ LABEL_150:
 
       if (([v67 valueForFlag:12] & 1) == 0)
       {
-        v63 = v73;
-        v62 = v115;
+        v63 = v74;
+        v62 = v118;
 LABEL_76:
 
         goto LABEL_77;
       }
 
-      v79 = [(CPLPrequeliteScopeStorage *)self setDidDropSomeRecordsForScope:v65 error:0];
+      v80 = [(CPLPrequeliteScopeStorage *)self setDidDropSomeRecordsForScope:v65 error:0];
 
-      v63 = v73;
-      v62 = v115;
-      if ((v79 & 1) == 0)
+      v63 = v74;
+      v62 = v118;
+      if ((v80 & 1) == 0)
       {
         goto LABEL_149;
       }
 
 LABEL_77:
-      if ([v67 updatedFlagsMask])
+      updatedFlagsMask = [v67 updatedFlagsMask];
+      if (updatedFlagsMask)
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v80 = sub_10013EE4C();
-          if (os_log_type_enabled(v80, OS_LOG_TYPE_DEFAULT))
+          v82 = sub_10013EE4C(updatedFlagsMask);
+          if (os_log_type_enabled(v82, OS_LOG_TYPE_DEFAULT))
           {
             scopeIdentifier3 = [v65 scopeIdentifier];
             *buf = 138412546;
-            v127 = scopeIdentifier3;
-            v128 = 2112;
-            v129 = v67;
-            _os_log_impl(&_mh_execute_header, v80, OS_LOG_TYPE_DEFAULT, "Upgrading flags for %@ with %@", buf, 0x16u);
+            v130 = scopeIdentifier3;
+            v131 = 2112;
+            v132 = v67;
+            _os_log_impl(&_mh_execute_header, v82, OS_LOG_TYPE_DEFAULT, "Upgrading flags for %@ with %@", buf, 0x16u);
           }
         }
 
-        v82 = [(CPLPrequeliteScopeStorage *)self updateFlags:v67 forScope:v65 error:0];
+        v84 = [(CPLPrequeliteScopeStorage *)self updateFlags:v67 forScope:v65 error:0];
 
-        if (!v82)
+        if (!v84)
         {
           goto LABEL_150;
         }
@@ -1345,7 +1353,7 @@ LABEL_77:
     }
 
     while (v62 != v64);
-    v62 = [obj countByEnumeratingWithState:&v120 objects:v130 count:16];
+    v62 = [obj countByEnumeratingWithState:&v123 objects:v133 count:16];
     if (v62)
     {
       continue;
@@ -1452,6 +1460,7 @@ LABEL_151:
             *(v42 + 24) = v26;
             if ((v26 & 1) == 0)
             {
+              v21 = v25;
               pqlConnection2 = v23;
               goto LABEL_21;
             }
@@ -1477,7 +1486,7 @@ LABEL_21:
       v8 = v28;
       if (*(v42 + 24) == 1 && (_CPLSilentLogging & 1) == 0)
       {
-        sub_1001B7458();
+        sub_1001B7458(v21);
       }
     }
 
@@ -2217,52 +2226,54 @@ LABEL_21:
 
       if (v22)
       {
-        if ([pqlConnection changes] < 1 || (_CPLSilentLogging & 1) != 0)
+        changes = [pqlConnection changes];
+        if (changes < 1 || (_CPLSilentLogging & 1) != 0)
         {
           goto LABEL_16;
         }
 
-        v23 = sub_10013EE4C();
-        if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v24 = sub_10013EE4C(changes);
+        if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
 LABEL_15:
 
 LABEL_16:
-          v25 = 1;
+          v26 = 1;
 LABEL_20:
 
           goto LABEL_21;
         }
 
         *buf = 138412290;
-        v29 = scopeCopy;
-        v24 = "Enabled client sync for %@";
+        v31 = scopeCopy;
+        v25 = "Enabled client sync for %@";
 LABEL_14:
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, v24, buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, v25, buf, 0xCu);
         goto LABEL_15;
       }
     }
 
     else
     {
-      v26 = [pqlConnection cplExecute:{@"UPDATE %@ SET %@ = (%@ & %ld) WHERE %@", mainTable, v17, v17, -65537, v20}];
+      v27 = [pqlConnection cplExecute:{@"UPDATE %@ SET %@ = (%@ & %ld) WHERE %@", mainTable, v17, v17, -65537, v20}];
 
-      if (v26)
+      if (v27)
       {
-        if ([pqlConnection changes] < 1 || (_CPLSilentLogging & 1) != 0)
+        changes2 = [pqlConnection changes];
+        if (changes2 < 1 || (_CPLSilentLogging & 1) != 0)
         {
           goto LABEL_16;
         }
 
-        v23 = sub_10013EE4C();
-        if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v24 = sub_10013EE4C(changes2);
+        if (!os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_15;
         }
 
         *buf = 138412290;
-        v29 = scopeCopy;
-        v24 = "Disabled client sync for %@";
+        v31 = scopeCopy;
+        v25 = "Disabled client sync for %@";
         goto LABEL_14;
       }
     }
@@ -2270,21 +2281,21 @@ LABEL_14:
     if (error)
     {
       [pqlConnection lastError];
-      *error = v25 = 0;
+      *error = v26 = 0;
     }
 
     else
     {
-      v25 = 0;
+      v26 = 0;
     }
 
     goto LABEL_20;
   }
 
-  v25 = 0;
+  v26 = 0;
 LABEL_21:
 
-  return v25;
+  return v26;
 }
 
 - (int64_t)_bumpIndexWithError:(id *)error
@@ -2557,34 +2568,35 @@ LABEL_21:
 
     v7 = [NSKeyedUnarchiver cpl_safeUnarchiveObjectWithData:v6 classes:qword_1002D29B0];
     objc_opt_class();
-    if (objc_opt_isKindOfClass())
+    isKindOfClass = objc_opt_isKindOfClass();
+    if (isKindOfClass)
     {
-      v8 = v7;
+      v9 = v7;
     }
 
     else
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v9 = sub_10013EE4C();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v10 = sub_10013EE4C(isKindOfClass);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          v11 = 138412290;
-          v12 = scopeCopy;
-          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Rewind sync anchors for %@ is invalid", &v11, 0xCu);
+          v12 = 138412290;
+          v13 = scopeCopy;
+          _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Rewind sync anchors for %@ is invalid", &v12, 0xCu);
         }
       }
 
-      v8 = 0;
+      v9 = 0;
     }
   }
 
   else
   {
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (BOOL)storeRewindSyncAnchors:(id)anchors forScope:(id)scope error:(id *)error
@@ -2658,7 +2670,7 @@ LABEL_6:
     v7 = v9;
     if (!v6 && (_CPLSilentLogging & 1) == 0)
     {
-      sub_1001B75DC();
+      sub_1001B75DC(scopeCopy, v7);
     }
   }
 
@@ -2825,7 +2837,7 @@ LABEL_6:
         v15 = v13;
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v16 = sub_10013EE4C();
+          v16 = sub_10013EE4C(v13);
           if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
           {
             v19 = 138412546;
@@ -2983,8 +2995,8 @@ LABEL_10:
   *updated = 0;
   if (!infoCopy)
   {
-    v18 = 0;
-    LOBYTE(v19) = 1;
+    v19 = 0;
+    LOBYTE(v20) = 1;
     goto LABEL_27;
   }
 
@@ -3001,15 +3013,15 @@ LABEL_10:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v17 = sub_10013EE4C();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = sub_10013EE4C(0);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         scopeIdentifier = [scopeCopy scopeIdentifier];
         *buf = 138412546;
-        v33 = scopeIdentifier;
-        v34 = 2048;
-        v35 = v13;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Last supported feature version for %@ was %lu but no feature version history was found on server", buf, 0x16u);
+        v34 = scopeIdentifier;
+        v35 = 2048;
+        v36 = v13;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Last supported feature version for %@ was %lu but no feature version history was found on server", buf, 0x16u);
       }
 
       goto LABEL_12;
@@ -3018,30 +3030,31 @@ LABEL_10:
 LABEL_13:
 
 LABEL_14:
-    v18 = 0;
+    v19 = 0;
     goto LABEL_15;
   }
 
   currentFeatureVersion = [featureVersionHistory currentFeatureVersion];
+  v17 = currentFeatureVersion;
   if (currentFeatureVersion > v13)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v17 = sub_10013EE4C();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v18 = sub_10013EE4C(currentFeatureVersion);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         scopeIdentifier2 = [scopeCopy scopeIdentifier];
         *buf = 138413314;
-        v33 = scopeIdentifier2;
-        v34 = 2048;
-        v35 = v13;
-        v36 = 2048;
-        v37 = currentFeatureVersion;
-        v38 = 2048;
-        v39 = v13;
-        v40 = 2048;
-        v41 = currentFeatureVersion;
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Last supported feature version for %@ was %lu and current server version is %lu - will definitely have to catch up with changes from %lu to %lu", buf, 0x34u);
+        v34 = scopeIdentifier2;
+        v35 = 2048;
+        v36 = v13;
+        v37 = 2048;
+        v38 = v17;
+        v39 = 2048;
+        v40 = v13;
+        v41 = 2048;
+        v42 = v17;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Last supported feature version for %@ was %lu and current server version is %lu - will definitely have to catch up with changes from %lu to %lu", buf, 0x34u);
       }
 
 LABEL_12:
@@ -3057,61 +3070,61 @@ LABEL_12:
     sub_1001B77E8(scopeCopy);
   }
 
-  v31 = 0;
-  v28 = [(CPLPrequeliteScopeStorage *)self storeSupportedFeatureVersionInLastSync:__CPLSupportedFeatureVersion() forScope:scopeCopy error:&v31];
-  v18 = v31;
+  v32 = 0;
+  v29 = [(CPLPrequeliteScopeStorage *)self storeSupportedFeatureVersionInLastSync:__CPLSupportedFeatureVersion() forScope:scopeCopy error:&v32];
+  v19 = v32;
 
-  if (!v28)
+  if (!v29)
   {
-    LOBYTE(v19) = 0;
+    LOBYTE(v20) = 0;
     goto LABEL_24;
   }
 
 LABEL_15:
-  v21 = [NSKeyedArchiver cpl_archivedDataWithRootObject:infoCopy];
-  v22 = [(CPLPrequeliteScopeStorage *)self _valueForColumnVariable:*(&self->_deleteDateVar + 4) scope:scopeCopy];
-  v23 = v22;
-  if (v21 && v22)
+  v22 = [NSKeyedArchiver cpl_archivedDataWithRootObject:infoCopy];
+  v23 = [(CPLPrequeliteScopeStorage *)self _valueForColumnVariable:*(&self->_deleteDateVar + 4) scope:scopeCopy];
+  v24 = v23;
+  if (v22 && v23)
   {
-    if (([v21 isEqual:v22] & 1) == 0)
+    if (([v22 isEqual:v23] & 1) == 0)
     {
 LABEL_18:
-      v24 = *(&self->_deleteDateVar + 4);
-      v30 = v18;
-      v19 = [(CPLPrequeliteScopeStorage *)self _storeValue:v21 forColumnVariable:v24 scope:scopeCopy error:&v30];
-      v25 = v30;
+      v25 = *(&self->_deleteDateVar + 4);
+      v31 = v19;
+      v20 = [(CPLPrequeliteScopeStorage *)self _storeValue:v22 forColumnVariable:v25 scope:scopeCopy error:&v31];
+      v26 = v31;
 
-      if (v19)
+      if (v20)
       {
-        LOBYTE(v19) = 1;
+        LOBYTE(v20) = 1;
         *updated = 1;
       }
 
-      v18 = v25;
+      v19 = v26;
       goto LABEL_23;
     }
   }
 
-  else if (v21 | v22)
+  else if (v22 | v23)
   {
     goto LABEL_18;
   }
 
-  LOBYTE(v19) = 1;
+  LOBYTE(v20) = 1;
 LABEL_23:
 
 LABEL_24:
   objc_autoreleasePoolPop(v12);
-  if (error && !v19)
+  if (error && !v20)
   {
-    v26 = v18;
-    LOBYTE(v19) = 0;
-    *error = v18;
+    v27 = v19;
+    LOBYTE(v20) = 0;
+    *error = v19;
   }
 
 LABEL_27:
 
-  return v19;
+  return v20;
 }
 
 - (BOOL)storeScopeChange:(id)change forScope:(id)scope scopeChangeHasBeenUpdated:(BOOL *)updated error:(id *)error
@@ -3120,9 +3133,9 @@ LABEL_27:
   scopeCopy = scope;
   v12 = objc_autoreleasePoolPush();
   libraryInfo = [changeCopy libraryInfo];
-  v37 = 0;
-  v14 = [(CPLPrequeliteScopeStorage *)self _storeLibraryInfo:libraryInfo forScope:scopeCopy libraryInfoHasBeenUpdated:updated error:&v37];
-  v15 = v37;
+  v38 = 0;
+  v14 = [(CPLPrequeliteScopeStorage *)self _storeLibraryInfo:libraryInfo forScope:scopeCopy libraryInfoHasBeenUpdated:updated error:&v38];
+  v15 = v38;
 
   if (v14)
   {
@@ -3134,9 +3147,9 @@ LABEL_27:
       if (v16)
       {
         v24 = *(&self->_libraryInfoVar + 4);
-        v34 = v15;
-        LODWORD(self) = [(CPLPrequeliteScopeStorage *)self _storeValue:0 forColumnVariable:v24 scope:scopeCopy error:&v34];
-        v25 = v34;
+        v35 = v15;
+        LODWORD(self) = [(CPLPrequeliteScopeStorage *)self _storeValue:0 forColumnVariable:v24 scope:scopeCopy error:&v35];
+        v25 = v35;
 
         if (self)
         {
@@ -3163,19 +3176,19 @@ LABEL_27:
       if (([v16 isEqual:v17] & 1) == 0)
       {
 LABEL_6:
-        v33 = v12;
+        v34 = v12;
         v19 = v18;
         v20 = *(&self->_libraryInfoVar + 4);
-        v36 = v15;
-        v21 = [(CPLPrequeliteScopeStorage *)self _storeValue:v16 forColumnVariable:v20 scope:scopeCopy error:&v36];
-        v22 = v36;
+        v37 = v15;
+        v21 = [(CPLPrequeliteScopeStorage *)self _storeValue:v16 forColumnVariable:v20 scope:scopeCopy error:&v37];
+        v22 = v37;
 
         if (!v21)
         {
           LOBYTE(self) = 0;
           v23 = v22;
           v18 = v19;
-          v12 = v33;
+          v12 = v34;
 LABEL_28:
 
           v15 = v23;
@@ -3187,7 +3200,7 @@ LABEL_29:
         *updated = 1;
         v23 = v22;
         v18 = v19;
-        v12 = v33;
+        v12 = v34;
 LABEL_15:
         if (*updated && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
@@ -3198,23 +3211,23 @@ LABEL_15:
           {
             if ((_CPLSilentLogging & 1) == 0)
             {
-              v28 = sub_10013EE4C();
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+              v29 = sub_10013EE4C(v28);
+              if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
-                v39 = scopeCopy;
-                v40 = 2114;
-                v41 = scopeIdentifier;
-                _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Setting staged scope for %@ to %{public}@", buf, 0x16u);
+                v40 = scopeCopy;
+                v41 = 2114;
+                v42 = scopeIdentifier;
+                _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "Setting staged scope for %@ to %{public}@", buf, 0x16u);
               }
             }
 
-            v29 = *(&self->_uploadComputeStateTodoVar + 4);
-            v35 = v23;
-            LOBYTE(self) = [(CPLPrequeliteScopeStorage *)self _storeValue:scopeIdentifier forColumnVariable:v29 scope:scopeCopy error:&v35];
-            v30 = v35;
+            v30 = *(&self->_uploadComputeStateTodoVar + 4);
+            v36 = v23;
+            LOBYTE(self) = [(CPLPrequeliteScopeStorage *)self _storeValue:scopeIdentifier forColumnVariable:v30 scope:scopeCopy error:&v36];
+            v31 = v36;
 
-            v23 = v30;
+            v23 = v31;
           }
 
           else
@@ -3246,7 +3259,7 @@ LABEL_30:
   objc_autoreleasePoolPop(v12);
   if (error && (self & 1) == 0)
   {
-    v31 = v15;
+    v32 = v15;
     *error = v15;
   }
 
@@ -3316,7 +3329,7 @@ LABEL_30:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      sub_1001B7B20();
+      sub_1001B7B20(groupCopy);
     }
 
     if (error)
@@ -3541,13 +3554,13 @@ LABEL_19:
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v21 = sub_10013EE4C();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+          v22 = sub_10013EE4C(v21);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
           {
             scopeIdentifier2 = [scopeCopy scopeIdentifier];
-            v26 = 138412290;
-            v27 = scopeIdentifier2;
-            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Committing initial sync date for %@", &v26, 0xCu);
+            v27 = 138412290;
+            v28 = scopeIdentifier2;
+            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Committing initial sync date for %@", &v27, 0xCu);
           }
         }
 
@@ -3662,6 +3675,17 @@ LABEL_21:
 
   LOBYTE(anchorCopy) = [v7 BOOLValue];
   return anchorCopy;
+}
+
+- (BOOL)setHasFetchedInitialSyncAnchor:(BOOL)anchor forScope:(id)scope error:(id *)error
+{
+  anchorCopy = anchor;
+  scopeCopy = scope;
+  v9 = [NSNumber numberWithBool:anchorCopy];
+  hasFetchedInitialSyncAnchorVar = [*(&self->_transportScopeVar + 4) hasFetchedInitialSyncAnchorVar];
+  LOBYTE(error) = [(CPLPrequeliteScopeStorage *)self _storeValue:v9 forColumnVariable:hasFetchedInitialSyncAnchorVar scope:scopeCopy error:error];
+
+  return error;
 }
 
 - (BOOL)setInitialSyncAnchor:(id)anchor forScope:(id)scope error:(id *)error
@@ -3910,40 +3934,40 @@ LABEL_6:
 
 - (id)filterForIncludedScopeIdentifiers:(id)identifiers
 {
-  v13 = 0;
   v14 = 0;
+  v15 = 0;
   identifiersCopy = identifiers;
-  [(CPLPrequeliteScopeStorage *)self _getLocalIndexes:&v14 cloudIndexes:&v13 forScopeIdentifiers:identifiersCopy];
-  v5 = v14;
-  v6 = v13;
-  v7 = sub_100149304();
+  [(CPLPrequeliteScopeStorage *)self _getLocalIndexes:&v15 cloudIndexes:&v14 forScopeIdentifiers:identifiersCopy];
+  v5 = v15;
+  v6 = v14;
+  v7 = sub_100149304(v6);
   v8 = [PQLConnection cplInjectionFor:v7 isInIndexSet:v5];
 
-  v9 = sub_100149304();
-  v10 = [PQLConnection cplInjectionFor:v9 isInIndexSet:v6];
+  v10 = sub_100149304(v9);
+  v11 = [PQLConnection cplInjectionFor:v10 isInIndexSet:v6];
 
-  v11 = [[CPLPrequeliteScopeFilter alloc] initWithIncludedScopeIdentifiers:identifiersCopy localIndexesInjection:v8 localIndexes:v5 cloudIndexesInjection:v10 cloudIndexes:v6];
+  v12 = [[CPLPrequeliteScopeFilter alloc] initWithIncludedScopeIdentifiers:identifiersCopy localIndexesInjection:v8 localIndexes:v5 cloudIndexesInjection:v11 cloudIndexes:v6];
 
-  return v11;
+  return v12;
 }
 
 - (id)filterForExcludedScopeIdentifiers:(id)identifiers
 {
-  v13 = 0;
   v14 = 0;
+  v15 = 0;
   identifiersCopy = identifiers;
-  [(CPLPrequeliteScopeStorage *)self _getLocalIndexes:&v14 cloudIndexes:&v13 forScopeIdentifiers:identifiersCopy];
-  v5 = v14;
-  v6 = v13;
-  v7 = sub_100149304();
+  [(CPLPrequeliteScopeStorage *)self _getLocalIndexes:&v15 cloudIndexes:&v14 forScopeIdentifiers:identifiersCopy];
+  v5 = v15;
+  v6 = v14;
+  v7 = sub_100149304(v6);
   v8 = [PQLConnection cplInjectionFor:v7 isNotInIndexSet:v5];
 
-  v9 = sub_100149304();
-  v10 = [PQLConnection cplInjectionFor:v9 isInIndexSet:v6];
+  v10 = sub_100149304(v9);
+  v11 = [PQLConnection cplInjectionFor:v10 isInIndexSet:v6];
 
-  v11 = [[CPLPrequeliteScopeFilter alloc] initWithExcludedScopeIdentifiers:identifiersCopy localIndexesInjection:v8 localIndexes:v5 cloudIndexesInjection:v10 cloudIndexes:v6];
+  v12 = [[CPLPrequeliteScopeFilter alloc] initWithExcludedScopeIdentifiers:identifiersCopy localIndexesInjection:v8 localIndexes:v5 cloudIndexesInjection:v11 cloudIndexes:v6];
 
-  return v11;
+  return v12;
 }
 
 - (BOOL)storeActivationDate:(id)date forScope:(id)scope error:(id *)error
@@ -4077,19 +4101,19 @@ LABEL_12:
     v10 = 0;
   }
 
-  [(CPLPrequeliteScopeStorage *)self _minimalPullFromTranportExpirationInterval];
-  v12 = v11;
+  _minimalPullFromTranportExpirationInterval = [(CPLPrequeliteScopeStorage *)self _minimalPullFromTranportExpirationInterval];
+  v13 = v12;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v13 = sub_10013EE4C();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_10013EE4C(_minimalPullFromTranportExpirationInterval);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = [CPLEngineScopeFlagsUpdate descriptionForFlags:v10];
+      v15 = [CPLEngineScopeFlagsUpdate descriptionForFlags:v10];
       *buf = 138412546;
-      v42 = scopeCopy;
-      v43 = 2114;
-      v44 = v14;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Creating record for %@ with flags %{public}@", buf, 0x16u);
+      v43 = scopeCopy;
+      v44 = 2114;
+      v45 = v15;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Creating record for %@ with flags %{public}@", buf, 0x16u);
     }
   }
 
@@ -4097,61 +4121,61 @@ LABEL_12:
   mainTable = [(CPLPrequeliteStorage *)self mainTable];
   namesInjection = [*(&self->_modifiedVariables + 4) namesInjection];
   featureVersionVar = [*(&self->_transportScopeVar + 4) featureVersionVar];
-  v18 = *(&self->_base + 4);
+  v19 = *(&self->_base + 4);
   expirationIntervalVar = [*(&self->_pushToTransportTodoVar + 4) expirationIntervalVar];
   [*(&self->_modifiedVariables + 4) injectionForValues:scopeCopy];
-  v20 = v34 = scopeCopy;
+  v21 = v35 = scopeCopy;
   featureVersionVar2 = [*(&self->_transportScopeVar + 4) featureVersionVar];
   bindableValueForDefaultValue = [featureVersionVar2 bindableValueForDefaultValue];
-  v23 = [pqlConnection cplExecute:{@"INSERT INTO %@ (%@, %@, %@, %@) VALUES (%@, %@, %ld, %lu)", mainTable, namesInjection, featureVersionVar, v18, expirationIntervalVar, v20, bindableValueForDefaultValue, v10, v12}];
+  v24 = [pqlConnection cplExecute:{@"INSERT INTO %@ (%@, %@, %@, %@) VALUES (%@, %@, %ld, %lu)", mainTable, namesInjection, featureVersionVar, v19, expirationIntervalVar, v21, bindableValueForDefaultValue, v10, v13}];
 
-  if (v23)
+  if (v24)
   {
-    v24 = v34;
-    scopeIdentifier2 = [v34 scopeIdentifier];
-    v36 = 0u;
+    v25 = v35;
+    scopeIdentifier2 = [v35 scopeIdentifier];
     v37 = 0u;
     v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
     variables = [*(&self->_stagedScopeIdentifierVar + 4) variables];
-    v27 = [variables countByEnumeratingWithState:&v36 objects:v40 count:16];
-    if (v27)
+    v28 = [variables countByEnumeratingWithState:&v37 objects:v41 count:16];
+    if (v28)
     {
-      v28 = v27;
-      v29 = *v37;
+      v29 = v28;
+      v30 = *v38;
       do
       {
-        for (i = 0; i != v28; i = i + 1)
+        for (i = 0; i != v29; i = i + 1)
         {
-          if (*v37 != v29)
+          if (*v38 != v30)
           {
             objc_enumerationMutation(variables);
           }
 
-          v31 = *(*(&v36 + 1) + 8 * i);
-          if ([v31 hasCachedValueForIdentifier:scopeIdentifier2])
+          v32 = *(*(&v37 + 1) + 8 * i);
+          if ([v32 hasCachedValueForIdentifier:scopeIdentifier2])
           {
-            [v31 discardCachedValue];
+            [v32 discardCachedValue];
           }
         }
 
-        v28 = [variables countByEnumeratingWithState:&v36 objects:v40 count:16];
+        v29 = [variables countByEnumeratingWithState:&v37 objects:v41 count:16];
       }
 
-      while (v28);
+      while (v29);
     }
   }
 
   else
   {
-    v24 = v34;
+    v25 = v35;
     if (errorCopy)
     {
       *errorCopy = [pqlConnection lastError];
     }
   }
 
-  return v23;
+  return v24;
 }
 
 - (BOOL)forceIdentifyUknownScopesWithError:(id *)error
@@ -4163,17 +4187,17 @@ LABEL_12:
   mainTable = [(CPLPrequeliteStorage *)self mainTable];
   v8 = *(&self->_scopeChangeVar + 4);
   scopeTypeVar = [*(&self->_modifiedVariables + 4) scopeTypeVar];
-  v9 = [pqlConnection cplExecute:@"UPDATE %@ SET %@ = NULL WHERE %@ = %ld"];
+  v10 = [pqlConnection cplExecute:{@"UPDATE %@ SET %@ = NULL WHERE %@ = %ld", mainTable, v8, scopeTypeVar, 0}];
 
-  if (v9)
+  if (v10)
   {
-    [pqlConnection changes];
+    changes = [pqlConnection changes];
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v10 = sub_10013EE4C();
-      if (sub_100003424(v10))
+      v12 = sub_10013EE4C(changes);
+      if (sub_100003424(v12))
       {
-        sub_10014ADF8(&_mh_execute_header, v11, v12, "Will try to identify %lld yet unidentified scopes", v13, v14, v15, v16, mainTable, v8, scopeTypeVar, 0, 0);
+        sub_10014ADF8(&_mh_execute_header, v13, v14, "Will try to identify %lld yet unidentified scopes", v15, v16, v17, v18, v20, v21, v22, v23);
       }
     }
   }
@@ -4183,7 +4207,7 @@ LABEL_12:
     *error = [pqlConnection lastCPLError];
   }
 
-  return v9;
+  return v10;
 }
 
 - (BOOL)forcePushToTransportForActiveScopesWithError:(id *)error
@@ -4193,18 +4217,17 @@ LABEL_12:
 
   mainTable = [(CPLPrequeliteStorage *)self mainTable];
   setHasSomethingTodo = [*(&self->_supervisorInfoVar + 4) setHasSomethingTodo];
-  v18 = *(&self->_base + 4);
-  v9 = [pqlConnection cplExecute:@"UPDATE %@ SET %@ WHERE %@ & %ld = 0"];
+  v9 = [pqlConnection cplExecute:{@"UPDATE %@ SET %@ WHERE %@ & %ld = 0", mainTable, setHasSomethingTodo, *(&self->_base + 4), 16}];
 
   if (v9)
   {
-    [pqlConnection changes];
+    changes = [pqlConnection changes];
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v10 = sub_10013EE4C();
-      if (sub_100003424(v10))
+      v11 = sub_10013EE4C(changes);
+      if (sub_100003424(v11))
       {
-        sub_10014ADF8(&_mh_execute_header, v11, v12, "Marked %lld scopes as need to push to transport", v13, v14, v15, v16, mainTable, setHasSomethingTodo, v18, 16, 0);
+        sub_10014ADF8(&_mh_execute_header, v12, v13, "Marked %lld scopes as need to push to transport", v14, v15, v16, v17, v19, v20, v21, v22);
       }
     }
   }
@@ -4221,123 +4244,128 @@ LABEL_12:
 {
   anchorCopy = anchor;
   scopeCopy = scope;
+  v10 = scopeCopy;
   if (anchorCopy)
   {
     stagedSyncAnchorVar = [*(&self->_transportScopeVar + 4) stagedSyncAnchorVar];
-    v11 = [(CPLPrequeliteScopeStorage *)self _valueForColumnVariable:stagedSyncAnchorVar scope:scopeCopy];
+    v12 = [(CPLPrequeliteScopeStorage *)self _valueForColumnVariable:stagedSyncAnchorVar scope:v10];
 
-    if (!v11)
+    if (!v12)
     {
       syncAnchorVar = [*(&self->_transportScopeVar + 4) syncAnchorVar];
-      v13 = [(CPLPrequeliteScopeStorage *)self _valueForColumnVariable:syncAnchorVar scope:scopeCopy];
+      v14 = [(CPLPrequeliteScopeStorage *)self _valueForColumnVariable:syncAnchorVar scope:v10];
 
-      if (v13 && [anchorCopy isEqual:v13])
+      if (v14)
       {
-        if ((_CPLSilentLogging & 1) == 0)
+        v15 = [anchorCopy isEqual:v14];
+        if (v15)
         {
-          v14 = sub_10013EE4C();
-          if (sub_100003424(v14))
+          if ((_CPLSilentLogging & 1) == 0)
           {
-            scopeIdentifier = [scopeCopy scopeIdentifier];
-            sub_10000AF90();
-            sub_100013990();
-            _os_log_impl(v16, v17, v18, v19, v20, 0xCu);
+            v16 = sub_10013EE4C(v15);
+            if (sub_100003424(v16))
+            {
+              scopeIdentifier = [v10 scopeIdentifier];
+              sub_10000AF90();
+              sub_100013990();
+              _os_log_impl(v18, v19, v20, v21, v22, 0xCu);
+            }
           }
-        }
 
-        goto LABEL_25;
+          goto LABEL_25;
+        }
       }
     }
   }
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v21 = sub_10013EE4C();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v23 = sub_10013EE4C(scopeCopy);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       cplSyncAnchorDescription = [anchorCopy cplSyncAnchorDescription];
-      scopeIdentifier2 = [scopeCopy scopeIdentifier];
-      *v34 = 138412546;
-      *&v34[4] = cplSyncAnchorDescription;
+      scopeIdentifier2 = [v10 scopeIdentifier];
+      *v36 = 138412546;
+      *&v36[4] = cplSyncAnchorDescription;
       sub_1000033B4();
-      *&v34[14] = v24;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "Storing staged sync anchor %@ for %@", v34, 0x16u);
+      *&v36[14] = v26;
+      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEBUG, "Storing staged sync anchor %@ for %@", v36, 0x16u);
     }
   }
 
   stagedSyncAnchorVar2 = [*(&self->_transportScopeVar + 4) stagedSyncAnchorVar];
-  v26 = [(CPLPrequeliteScopeStorage *)self _storeValue:anchorCopy forColumnVariable:stagedSyncAnchorVar2 scope:scopeCopy error:error];
+  v28 = [(CPLPrequeliteScopeStorage *)self _storeValue:anchorCopy forColumnVariable:stagedSyncAnchorVar2 scope:v10 error:error];
 
-  if (v26)
+  if (v28)
   {
-    v27 = *(&self->_noteEndOfResetIfNecessary + 4);
+    v30 = *(&self->_noteEndOfResetIfNecessary + 4);
     if (anchorCopy)
     {
-      [v27 setValue:&__kCFBooleanTrue];
+      [v30 setValue:&__kCFBooleanTrue];
     }
 
     else
     {
-      [v27 discardCachedValue];
+      [v30 discardCachedValue];
     }
 
 LABEL_25:
-    v32 = 1;
+    v34 = 1;
     goto LABEL_26;
   }
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v28 = sub_10013EE4C();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v31 = sub_10013EE4C(v29);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       cplSyncAnchorDescription2 = [anchorCopy cplSyncAnchorDescription];
-      v30 = *error;
       sub_10000AF90();
-      *&v34[12] = 2112;
-      *&v34[14] = scopeCopy;
-      v35 = 2112;
-      v36 = v31;
-      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Unable to store sync anchor %@ for %@: %@", v34, 0x20u);
+      *&v36[12] = 2112;
+      *&v36[14] = v10;
+      v37 = 2112;
+      v38 = v33;
+      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_ERROR, "Unable to store sync anchor %@ for %@: %@", v36, 0x20u);
     }
   }
 
-  v32 = 0;
+  v34 = 0;
 LABEL_26:
 
-  return v32;
+  return v34;
 }
 
 - (BOOL)resetSyncAnchorForScope:(id)scope error:(id *)error
 {
   scopeCopy = scope;
+  v7 = scopeCopy;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = sub_10013EE4C();
+    v4 = sub_10013EE4C(scopeCopy);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       sub_1000139A0();
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "Resetting sync anchor for %@", v12, 0xCu);
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "Resetting sync anchor for %@", v13, 0xCu);
     }
   }
 
   stagedSyncAnchorVar = [*(&self->_transportScopeVar + 4) stagedSyncAnchorVar];
-  v8 = sub_10014ADD0(stagedSyncAnchorVar);
+  v9 = sub_10014ADD0(stagedSyncAnchorVar);
 
-  if (v8)
+  if (v9)
   {
     syncAnchorVar = [*(&self->_transportScopeVar + 4) syncAnchorVar];
-    v10 = sub_10014ADD0(syncAnchorVar);
+    v11 = sub_10014ADD0(syncAnchorVar);
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
   [*(&self->_noteEndOfResetIfNecessary + 4) discardCachedValue];
 
-  return v10;
+  return v11;
 }
 
 - (void)_markFirstSyncOfPrimaryAsSuccessfulWithScope:(id)scope
@@ -4358,11 +4386,11 @@ LABEL_21:
         goto LABEL_22;
       }
 
-      engineLibrary = sub_10013EE4C();
+      engineLibrary = sub_10013EE4C(0);
       if (os_log_type_enabled(engineLibrary, OS_LOG_TYPE_DEFAULT))
       {
-        *v18 = 0;
-        _os_log_impl(&_mh_execute_header, engineLibrary, OS_LOG_TYPE_DEFAULT, "Failed to set initial sync date for status (no initial sync date)", v18, 2u);
+        *v20 = 0;
+        _os_log_impl(&_mh_execute_header, engineLibrary, OS_LOG_TYPE_DEFAULT, "Failed to set initial sync date for status (no initial sync date)", v20, 2u);
       }
 
 LABEL_20:
@@ -4372,6 +4400,7 @@ LABEL_20:
 
     engineLibrary = [(CPLPrequeliteStorage *)self engineLibrary];
     initialSyncDate = [engineLibrary initialSyncDate];
+    v10 = initialSyncDate;
     if (initialSyncDate)
     {
       if (_CPLSilentLogging)
@@ -4381,7 +4410,7 @@ LABEL_19:
         goto LABEL_20;
       }
 
-      engineLibrary2 = sub_10013EE4C();
+      engineLibrary2 = sub_10013EE4C(initialSyncDate);
       if (os_log_type_enabled(engineLibrary2, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -4393,17 +4422,17 @@ LABEL_19:
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v16 = sub_10013EE4C();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+        v18 = sub_10013EE4C(0);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
-          *v20 = 0;
-          _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Updating initial sync date in global status now", v20, 2u);
+          *v22 = 0;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Updating initial sync date in global status now", v22, 2u);
         }
       }
 
       engineLibrary2 = [(CPLPrequeliteStorage *)self engineLibrary];
-      v17 = +[NSDate date];
-      [engineLibrary2 updateInitialSyncDate:v17];
+      v19 = +[NSDate date];
+      [engineLibrary2 updateInitialSyncDate:v19];
     }
 
     goto LABEL_19;
@@ -4411,11 +4440,11 @@ LABEL_19:
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v10 = sub_10013EE4C();
-    if (sub_100003424(v10))
+    v12 = sub_10013EE4C(v7);
+    if (sub_100003424(v12))
     {
       sub_100013990();
-      _os_log_impl(v11, v12, v13, v14, v15, 2u);
+      _os_log_impl(v13, v14, v15, v16, v17, 2u);
     }
 
     goto LABEL_21;
@@ -4442,7 +4471,7 @@ LABEL_22:
     if (changes >= 1 && (_CPLSilentLogging & 1) == 0)
     {
       v14 = changes;
-      v15 = sub_10013EE4C();
+      v15 = sub_10013EE4C(changes);
       if (sub_100003424(v15))
       {
         v16 = [CPLDateFormatter stringForTimeInterval:v8];

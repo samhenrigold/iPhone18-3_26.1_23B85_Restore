@@ -102,18 +102,18 @@
 - (BOOL)gestureRecognizerShouldBegin:(id)begin
 {
   view = [begin view];
-  if (_UIPreviewInteractionAllowedToBeginForView(view))
+  if (_UIPreviewInteractionAllowedToBeginForView(view, v4))
   {
     _viewControllerForAncestor = [view _viewControllerForAncestor];
-    v5 = _UIViewControllerIsChildOfTwoColumnSplitViewController(_viewControllerForAncestor) ^ 1;
+    v6 = _UIViewControllerIsChildOfTwoColumnSplitViewController(_viewControllerForAncestor) ^ 1;
   }
 
   else
   {
-    LOBYTE(v5) = 0;
+    LOBYTE(v6) = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)_handleGestureRecognizer:(id)recognizer

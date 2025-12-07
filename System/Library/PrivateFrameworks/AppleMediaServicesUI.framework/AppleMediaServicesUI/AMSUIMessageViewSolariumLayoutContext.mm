@@ -433,7 +433,7 @@ LABEL_42:
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v281 = *MEMORY[0x1E69E9840];
+  v280 = *MEMORY[0x1E69E9840];
   [(AMSUIMessageViewSolariumLayoutContext *)self calculateMainContentFrameRootFrame:?];
   if ([(AMSUIMessageViewSolariumLayoutContext *)self isDirty])
   {
@@ -442,12 +442,12 @@ LABEL_42:
 
   [(AMSUIMessageViewSolariumLayoutContext *)self maskViewFrame];
   [(AMSUIMessageViewSolariumLayoutContext *)self _effectiveTextViewFrame];
-  v247 = v8;
+  v246 = v8;
   v10 = v9;
   v11 = MEMORY[0x1E695F058];
   [(AMSUIMessageViewSolariumLayoutContext *)self debugButtonSize];
-  v255 = v13;
-  v256 = v12;
+  v254 = v13;
+  v255 = v12;
   messageView = [(AMSUIMessageViewSolariumLayoutContext *)self messageView];
   traitCollection = [messageView traitCollection];
   layoutDirection = [traitCollection layoutDirection];
@@ -459,16 +459,16 @@ LABEL_42:
 
   [(AMSUIMessageViewSolariumLayoutContext *)self footerLayoutMargins];
   v18 = v17;
-  v264 = v19;
+  v263 = v19;
   messageView3 = [(AMSUIMessageViewSolariumLayoutContext *)self messageView];
   textView = [messageView3 textView];
   [textView textContainerInset];
-  v244 = v23;
-  v245 = v22;
+  v243 = v23;
+  v244 = v22;
 
   [(AMSUIMessageViewSolariumLayoutContext *)self contentLayoutMargins];
   [(AMSUIMessageViewSolariumLayoutContext *)self leadingContentTextBaseline];
-  v253 = v24;
+  v252 = v24;
   [(AMSUIMessageViewSolariumLayoutContext *)self setTopButtonFrames:0];
   [(AMSUIMessageViewSolariumLayoutContext *)self setBottomButtonFrames:0];
   topAlignButtonCandidates = [(AMSUIMessageViewSolariumLayoutContext *)self topAlignButtonCandidates];
@@ -492,8 +492,8 @@ LABEL_42:
   messageView4 = [(AMSUIMessageViewSolariumLayoutContext *)self messageView];
   maskShapeView = [messageView4 maskShapeView];
 
-  v254 = v30;
-  v251 = v10;
+  v253 = v30;
+  v250 = v10;
   if (maskShapeView)
   {
     messageView5 = [(AMSUIMessageViewSolariumLayoutContext *)self messageView];
@@ -528,7 +528,7 @@ LABEL_10:
   v42 = v30;
 LABEL_12:
   v45 = *(v11 + 24);
-  v263 = v32;
+  v262 = v32;
   if (bottomAlignButtons)
   {
     [(AMSUIMessageViewSolariumLayoutContext *)self setIsTopAlignedTextButtonAllowed:0];
@@ -556,7 +556,7 @@ LABEL_12:
     [(AMSUIMessageViewSolariumLayoutContext *)self topAlignButtonLayoutFrame];
     if (v56 > 0.35)
     {
-      v58 = v57 - (v247 + v253);
+      v58 = v57 - (v246 + v252);
       [(AMSUIMessageViewSolariumLayoutContext *)self accessorySpacing];
       if (v58 >= v59)
       {
@@ -566,7 +566,7 @@ LABEL_12:
 
     [(AMSUIMessageViewSolariumLayoutContext *)self contentLayoutMargins];
     [(AMSUIMessageViewSolariumLayoutContext *)self leadingContentTextBaseline];
-    v253 = v60;
+    v252 = v60;
     topButtonFrames3 = [(AMSUIMessageViewSolariumLayoutContext *)self topButtonFrames];
     [(AMSUIMessageViewSolariumLayoutContext *)self calculateHorizontalButtonContainerFrame:topButtonFrames3 inParentFrame:x, y, width, height];
     [(AMSUIMessageViewSolariumLayoutContext *)self setTopAlignButtonLayoutFrame:?];
@@ -579,39 +579,39 @@ LABEL_12:
 
       v45 = v52;
       v18 = v51;
-      v32 = v263;
+      v32 = v262;
     }
 
     else
     {
-      v241 = topAlignButtonCandidates;
+      v240 = topAlignButtonCandidates;
       array = [MEMORY[0x1E695DF70] array];
       array2 = [MEMORY[0x1E695DF70] array];
+      v274 = 0u;
       v275 = 0u;
       v276 = 0u;
       v277 = 0u;
-      v278 = 0u;
       messageView7 = [(AMSUIMessageViewSolariumLayoutContext *)self messageView];
       buttons = [messageView7 buttons];
 
-      v68 = [buttons countByEnumeratingWithState:&v275 objects:v280 count:16];
+      v68 = [buttons countByEnumeratingWithState:&v274 objects:v279 count:16];
       v45 = v52;
       v18 = v51;
-      v32 = v263;
+      v32 = v262;
       if (v68)
       {
         v69 = v68;
-        v70 = *v276;
+        v70 = *v275;
         do
         {
           for (i = 0; i != v69; ++i)
           {
-            if (*v276 != v70)
+            if (*v275 != v70)
             {
               objc_enumerationMutation(buttons);
             }
 
-            v72 = *(*(&v275 + 1) + 8 * i);
+            v72 = *(*(&v274 + 1) + 8 * i);
             configuration = [v72 configuration];
             title = [configuration title];
 
@@ -628,7 +628,7 @@ LABEL_12:
             [v75 addObject:v72];
           }
 
-          v69 = [buttons countByEnumeratingWithState:&v275 objects:v280 count:16];
+          v69 = [buttons countByEnumeratingWithState:&v274 objects:v279 count:16];
         }
 
         while (v69);
@@ -649,10 +649,10 @@ LABEL_12:
       [(AMSUIMessageViewSolariumLayoutContext *)self setBottomButtonFrames:v80];
 
       bottomButtonFrames2 = [(AMSUIMessageViewSolariumLayoutContext *)self bottomButtonFrames];
-      v82 = [(AMSUIMessageViewSolariumLayoutContext *)self _calculateFooterButtonFrames:bottomButtonFrames2 inFrame:v18, v42, v263, v45];
+      v82 = [(AMSUIMessageViewSolariumLayoutContext *)self _calculateFooterButtonFrames:bottomButtonFrames2 inFrame:v18, v42, v262, v45];
       [(AMSUIMessageViewSolariumLayoutContext *)self setBottomButtonFrames:v82];
 
-      topAlignButtonCandidates = v241;
+      topAlignButtonCandidates = v240;
       bottomAlignButtons = 0;
     }
   }
@@ -667,7 +667,7 @@ LABEL_12:
     [(AMSUIMessageViewSolariumLayoutContext *)self totalFooterButtonHeight];
     v45 = v85;
     [(AMSUIMessageViewSolariumLayoutContext *)self contentSize];
-    v42 = v86 - v45 - v264;
+    v42 = v86 - v45 - v263;
     messageView8 = [(AMSUIMessageViewSolariumLayoutContext *)self messageView];
     maskShapeView5 = [messageView8 maskShapeView];
 
@@ -687,15 +687,15 @@ LABEL_12:
     }
 
     bottomButtonFrames4 = [(AMSUIMessageViewSolariumLayoutContext *)self bottomButtonFrames];
-    v274[0] = MEMORY[0x1E69E9820];
-    v274[1] = 3221225472;
-    v274[2] = __62__AMSUIMessageViewSolariumLayoutContext__updateWithRootFrame___block_invoke;
-    v274[3] = &__block_descriptor_64_e26___NSValue_16__0__NSValue_8l;
-    *&v274[4] = v18;
-    *&v274[5] = v42;
-    *&v274[6] = v32;
-    *&v274[7] = v45;
-    v96 = [bottomButtonFrames4 ams_mapWithTransform:v274];
+    v273[0] = MEMORY[0x1E69E9820];
+    v273[1] = 3221225472;
+    v273[2] = __62__AMSUIMessageViewSolariumLayoutContext__updateWithRootFrame___block_invoke;
+    v273[3] = &__block_descriptor_64_e26___NSValue_16__0__NSValue_8l;
+    *&v273[4] = v18;
+    *&v273[5] = v42;
+    *&v273[6] = v32;
+    *&v273[7] = v45;
+    v96 = [bottomButtonFrames4 ams_mapWithTransform:v273];
     [(AMSUIMessageViewSolariumLayoutContext *)self setBottomButtonFrames:v96];
 
     buttonFrames = [(AMSUIMessageViewSolariumLayoutContext *)self buttonFrames];
@@ -705,18 +705,18 @@ LABEL_12:
   }
 
   v100 = v42;
-  v265 = v45;
+  v264 = v45;
   topButtonFrames7 = [(AMSUIMessageViewSolariumLayoutContext *)self topButtonFrames];
 
   if (topButtonFrames7)
   {
     topButtonFrames8 = [(AMSUIMessageViewSolariumLayoutContext *)self topButtonFrames];
-    v273[0] = MEMORY[0x1E69E9820];
-    v273[1] = 3221225472;
-    v273[2] = __62__AMSUIMessageViewSolariumLayoutContext__updateWithRootFrame___block_invoke_2;
-    v273[3] = &unk_1E7F25200;
-    v273[4] = self;
-    v103 = [topButtonFrames8 ams_mapWithTransform:v273];
+    v272[0] = MEMORY[0x1E69E9820];
+    v272[1] = 3221225472;
+    v272[2] = __62__AMSUIMessageViewSolariumLayoutContext__updateWithRootFrame___block_invoke_2;
+    v272[3] = &unk_1E7F25200;
+    v272[4] = self;
+    v103 = [topButtonFrames8 ams_mapWithTransform:v272];
     [(AMSUIMessageViewSolariumLayoutContext *)self setTopButtonFrames:v103];
 
     buttonFrames2 = [(AMSUIMessageViewSolariumLayoutContext *)self buttonFrames];
@@ -733,85 +733,85 @@ LABEL_12:
   [(AMSUIMessageViewSolariumLayoutContext *)self textViewFrame];
   if (style != 6 || shouldUseStackedAXLayout)
   {
-    v259 = v18;
+    v258 = v18;
     v107 = v45;
     goto LABEL_40;
   }
 
-  v242 = x;
-  v243 = bottomAlignButtons;
-  v167 = *MEMORY[0x1E695F060];
-  v168 = *(MEMORY[0x1E695F060] + 8);
+  v241 = x;
+  v242 = bottomAlignButtons;
+  v166 = *MEMORY[0x1E695F060];
+  v167 = *(MEMORY[0x1E695F060] + 8);
   messageView11 = [(AMSUIMessageViewSolariumLayoutContext *)self messageView];
   textView2 = [messageView11 textView];
   hasText = [textView2 hasText];
 
   if (hasText)
   {
-    v172 = v251 + v168;
+    v171 = v250 + v167;
   }
 
   else
   {
-    v172 = v168;
+    v171 = v167;
   }
 
   if (hasText)
   {
-    v173 = v247 + v167;
+    v172 = v246 + v166;
   }
 
   else
   {
-    v173 = v167;
+    v172 = v166;
   }
 
   bottomButtonFrames6 = [(AMSUIMessageViewSolariumLayoutContext *)self bottomButtonFrames];
-  v175 = [bottomButtonFrames6 count];
+  v174 = [bottomButtonFrames6 count];
 
-  if (v175)
+  if (v174)
   {
-    v176 = topAlignButtonCandidates;
-    v271 = 0u;
-    v272 = 0u;
-    v269 = 0u;
+    v175 = topAlignButtonCandidates;
     v270 = 0u;
+    v271 = 0u;
+    v268 = 0u;
+    v269 = 0u;
     bottomButtonFrames7 = [(AMSUIMessageViewSolariumLayoutContext *)self bottomButtonFrames];
-    v178 = [bottomButtonFrames7 countByEnumeratingWithState:&v269 objects:v279 count:16];
-    if (v178)
+    v177 = [bottomButtonFrames7 countByEnumeratingWithState:&v268 objects:v278 count:16];
+    if (v177)
     {
-      v179 = v178;
-      v180 = *v270;
+      v178 = v177;
+      v179 = *v269;
       do
       {
-        for (j = 0; j != v179; ++j)
+        for (j = 0; j != v178; ++j)
         {
-          if (*v270 != v180)
+          if (*v269 != v179)
           {
             objc_enumerationMutation(bottomButtonFrames7);
           }
 
-          [*(*(&v269 + 1) + 8 * j) CGRectValue];
-          v184 = v183;
-          if (v173 < v182)
+          [*(*(&v268 + 1) + 8 * j) CGRectValue];
+          v183 = v182;
+          if (v172 < v181)
           {
-            v173 = v182;
+            v172 = v181;
           }
 
           [(AMSUIMessageViewSolariumLayoutContext *)self _footerButtonSpacing];
-          v172 = v172 + v185 + v184;
+          v171 = v171 + v184 + v183;
         }
 
-        v179 = [bottomButtonFrames7 countByEnumeratingWithState:&v269 objects:v279 count:16];
+        v178 = [bottomButtonFrames7 countByEnumeratingWithState:&v268 objects:v278 count:16];
       }
 
-      while (v179);
+      while (v178);
     }
 
-    topAlignButtonCandidates = v176;
+    topAlignButtonCandidates = v175;
   }
 
-  v186 = (height - v172) * 0.5;
+  v185 = (height - v171) * 0.5;
   messageView12 = [(AMSUIMessageViewSolariumLayoutContext *)self messageView];
   maskShapeView8 = [messageView12 maskShapeView];
 
@@ -835,7 +835,7 @@ LABEL_71:
       messageView15 = [(AMSUIMessageViewSolariumLayoutContext *)self messageView];
       maskShapeView11 = [messageView15 maskShapeView];
       [maskShapeView11 arrowHeight];
-      v186 = (height - v196 - v172) * 0.5;
+      v185 = (height - v195 - v171) * 0.5;
 
       messageView16 = [(AMSUIMessageViewSolariumLayoutContext *)self messageView];
       maskShapeView12 = [messageView16 maskShapeView];
@@ -846,20 +846,20 @@ LABEL_71:
         messageView17 = [(AMSUIMessageViewSolariumLayoutContext *)self messageView];
         maskShapeView13 = [messageView17 maskShapeView];
         [maskShapeView13 arrowHeight];
-        v186 = v186 + v202;
+        v185 = v185 + v201;
       }
     }
   }
 
-  v260 = v186;
-  v262 = height;
-  v248 = y;
-  v250 = width;
+  v259 = v185;
+  v261 = height;
+  v247 = y;
+  v249 = width;
   [(AMSUIMessageViewSolariumLayoutContext *)self textViewFrame];
-  v204 = v203;
-  v206 = v205;
+  v203 = v202;
+  v205 = v204;
   [(AMSUIMessageViewSolariumLayoutContext *)self _footerButtonSpacing];
-  v208 = v251 + v207;
+  v207 = v250 + v206;
   messageView18 = [(AMSUIMessageViewSolariumLayoutContext *)self messageView];
   textView3 = [messageView18 textView];
   if ([textView3 hasText])
@@ -870,64 +870,64 @@ LABEL_71:
   {
     messageView19 = [(AMSUIMessageViewSolariumLayoutContext *)self messageView];
     buttons2 = [messageView19 buttons];
-    v213 = [buttons2 count];
+    v212 = [buttons2 count];
 
-    if (v213)
+    if (v212)
     {
-      v208 = 0.0;
+      v207 = 0.0;
     }
   }
 
-  [AMSUICGRectHelper flattenRect:-v244 toParentFrame:-v245, v204, v206, v253, v260, v173, v172];
-  v252 = v214;
-  v246 = v215;
-  v217 = v216;
-  v219 = v218;
-  [AMSUICGRectHelper flattenRect:0.0 toParentFrame:v208, v263, v265, v253, v260, v173, v172];
-  v221 = v220;
-  v100 = v222;
-  v224 = v223;
-  v107 = v225;
-  [(AMSUIMessageViewSolariumLayoutContext *)self setTextViewFrame:v252, v246, v217, v219];
+  [AMSUICGRectHelper flattenRect:-v243 toParentFrame:-v244, v203, v205, v252, v259, v172, v171];
+  v251 = v213;
+  v245 = v214;
+  v216 = v215;
+  v218 = v217;
+  [AMSUICGRectHelper flattenRect:0.0 toParentFrame:v207, v262, v264, v252, v259, v172, v171];
+  v220 = v219;
+  v100 = v221;
+  v223 = v222;
+  v107 = v224;
+  [(AMSUIMessageViewSolariumLayoutContext *)self setTextViewFrame:v251, v245, v216, v218];
   bottomButtonFrames8 = [(AMSUIMessageViewSolariumLayoutContext *)self bottomButtonFrames];
-  v227 = [bottomButtonFrames8 count];
+  v226 = [bottomButtonFrames8 count];
 
-  bottomAlignButtons = v243;
-  v259 = v221;
-  v263 = v224;
-  if (v227)
+  bottomAlignButtons = v242;
+  v258 = v220;
+  v262 = v223;
+  if (v226)
   {
     bottomButtonFrames9 = [(AMSUIMessageViewSolariumLayoutContext *)self bottomButtonFrames];
-    v107 = [(AMSUIMessageViewSolariumLayoutContext *)self _calculateFooterButtonFrames:bottomButtonFrames9 inFrame:v221, v100, v224, v107];
+    v107 = [(AMSUIMessageViewSolariumLayoutContext *)self _calculateFooterButtonFrames:bottomButtonFrames9 inFrame:v220, v100, v223, v107];
     [(AMSUIMessageViewSolariumLayoutContext *)self setBottomButtonFrames:v107];
 
     bottomButtonFrames10 = [(AMSUIMessageViewSolariumLayoutContext *)self bottomButtonFrames];
-    v268[0] = MEMORY[0x1E69E9820];
-    v268[1] = 3221225472;
-    v268[2] = __62__AMSUIMessageViewSolariumLayoutContext__updateWithRootFrame___block_invoke_3;
-    v268[3] = &__block_descriptor_64_e26___NSValue_16__0__NSValue_8l;
-    *&v268[4] = v221;
-    *&v268[5] = v100;
-    *&v268[6] = v224;
-    *&v268[7] = v107;
-    v231 = [bottomButtonFrames10 ams_mapWithTransform:v268];
-    [(AMSUIMessageViewSolariumLayoutContext *)self setBottomButtonFrames:v231];
+    v267[0] = MEMORY[0x1E69E9820];
+    v267[1] = 3221225472;
+    v267[2] = __62__AMSUIMessageViewSolariumLayoutContext__updateWithRootFrame___block_invoke_3;
+    v267[3] = &__block_descriptor_64_e26___NSValue_16__0__NSValue_8l;
+    *&v267[4] = v220;
+    *&v267[5] = v100;
+    *&v267[6] = v223;
+    *&v267[7] = v107;
+    v230 = [bottomButtonFrames10 ams_mapWithTransform:v267];
+    [(AMSUIMessageViewSolariumLayoutContext *)self setBottomButtonFrames:v230];
 
     array4 = [MEMORY[0x1E695DEC8] array];
     [(AMSUIMessageViewSolariumLayoutContext *)self setButtonFrames:array4];
 
     bottomButtonFrames11 = [(AMSUIMessageViewSolariumLayoutContext *)self bottomButtonFrames];
 
-    height = v262;
-    y = v248;
-    width = v250;
-    x = v242;
+    height = v261;
+    y = v247;
+    width = v249;
+    x = v241;
     if (bottomButtonFrames11)
     {
       buttonFrames3 = [(AMSUIMessageViewSolariumLayoutContext *)self buttonFrames];
       bottomButtonFrames12 = [(AMSUIMessageViewSolariumLayoutContext *)self bottomButtonFrames];
-      v236 = [buttonFrames3 arrayByAddingObjectsFromArray:bottomButtonFrames12];
-      [(AMSUIMessageViewSolariumLayoutContext *)self setButtonFrames:v236];
+      v235 = [buttonFrames3 arrayByAddingObjectsFromArray:bottomButtonFrames12];
+      [(AMSUIMessageViewSolariumLayoutContext *)self setButtonFrames:v235];
     }
 
     topButtonFrames10 = [(AMSUIMessageViewSolariumLayoutContext *)self topButtonFrames];
@@ -936,17 +936,17 @@ LABEL_71:
     {
       buttonFrames4 = [(AMSUIMessageViewSolariumLayoutContext *)self buttonFrames];
       topButtonFrames11 = [(AMSUIMessageViewSolariumLayoutContext *)self topButtonFrames];
-      v240 = [buttonFrames4 arrayByAddingObjectsFromArray:topButtonFrames11];
-      [(AMSUIMessageViewSolariumLayoutContext *)self setButtonFrames:v240];
+      v239 = [buttonFrames4 arrayByAddingObjectsFromArray:topButtonFrames11];
+      [(AMSUIMessageViewSolariumLayoutContext *)self setButtonFrames:v239];
     }
   }
 
   else
   {
-    height = v262;
-    y = v248;
-    width = v250;
-    x = v242;
+    height = v261;
+    y = v247;
+    width = v249;
+    x = v241;
   }
 
 LABEL_40:
@@ -958,12 +958,12 @@ LABEL_40:
 
   else
   {
-    v261 = v100;
-    v266 = v107;
+    v260 = v100;
+    v265 = v107;
     v108 = *MEMORY[0x1E695F058];
     [(AMSUIMessageViewSolariumLayoutContext *)self setVerticalTextAlignmentInParentFrame:x, y, width, height];
     [(AMSUIMessageViewSolariumLayoutContext *)self mainContentFrame];
-    [AMSUICGRectHelper flattenRect:v108 toParentFrame:v254, v256, v255, v109, v110, v111, v112];
+    [AMSUICGRectHelper flattenRect:v108 toParentFrame:v253, v255, v254, v109, v110, v111, v112];
     v114 = v113;
     v116 = v115;
     v118 = v117 + -12.0;
@@ -988,12 +988,12 @@ LABEL_40:
       [(AMSUIMessageViewSolariumLayoutContext *)self setTextViewFrame:?];
       v145 = MEMORY[0x1E695DF70];
       buttonFrames5 = [(AMSUIMessageViewSolariumLayoutContext *)self buttonFrames];
-      v267[0] = MEMORY[0x1E69E9820];
-      v267[1] = 3221225472;
-      v267[2] = __62__AMSUIMessageViewSolariumLayoutContext__updateWithRootFrame___block_invoke_4;
-      v267[3] = &unk_1E7F25200;
-      v267[4] = self;
-      v147 = [buttonFrames5 ams_mapWithTransform:v267];
+      v266[0] = MEMORY[0x1E69E9820];
+      v266[1] = 3221225472;
+      v266[2] = __62__AMSUIMessageViewSolariumLayoutContext__updateWithRootFrame___block_invoke_4;
+      v266[3] = &unk_1E7F25200;
+      v266[4] = self;
+      v147 = [buttonFrames5 ams_mapWithTransform:v266];
       v148 = [v145 arrayWithArray:v147];
       [(AMSUIMessageViewSolariumLayoutContext *)self setButtonFrames:v148];
 
@@ -1013,25 +1013,19 @@ LABEL_40:
     v165 = v164;
 
     [(AMSUIMessageViewSolariumLayoutContext *)self setMaskViewFrame:v159, v161, v163, v165];
-    [(AMSUIMessageViewSolariumLayoutContext *)self setFooterContainerViewFrame:v259, v261, v263, v266];
+    [(AMSUIMessageViewSolariumLayoutContext *)self setFooterContainerViewFrame:v258, v260, v262, v265];
     [(AMSUIMessageViewSolariumLayoutContext *)self setDebugButtonFrame:v118, v120, v114, v116];
     [(AMSUIMessageViewSolariumLayoutContext *)self setIsDirty:0];
   }
-
-  v166 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __62__AMSUIMessageViewSolariumLayoutContext__updateWithRootFrame___block_invoke(void *a1, void *a2)
+uint64_t __62__AMSUIMessageViewSolariumLayoutContext__updateWithRootFrame___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = MEMORY[0x1E696B098];
+  v2 = MEMORY[0x1E696B098];
   [a2 CGRectValue];
-  v4 = a1[4];
-  v5 = a1[5];
-  v6 = a1[6];
-  v7 = a1[7];
   [AMSUICGRectHelper flattenRect:"flattenRect:toParentFrame:" toParentFrame:?];
 
-  return [v3 valueWithCGRect:?];
+  return [v2 valueWithCGRect:?];
 }
 
 uint64_t __62__AMSUIMessageViewSolariumLayoutContext__updateWithRootFrame___block_invoke_2(uint64_t a1, void *a2)
@@ -1048,17 +1042,13 @@ uint64_t __62__AMSUIMessageViewSolariumLayoutContext__updateWithRootFrame___bloc
   return [v3 valueWithCGRect:?];
 }
 
-uint64_t __62__AMSUIMessageViewSolariumLayoutContext__updateWithRootFrame___block_invoke_3(void *a1, void *a2)
+uint64_t __62__AMSUIMessageViewSolariumLayoutContext__updateWithRootFrame___block_invoke_3(uint64_t a1, void *a2)
 {
-  v3 = MEMORY[0x1E696B098];
+  v2 = MEMORY[0x1E696B098];
   [a2 CGRectValue];
-  v4 = a1[4];
-  v5 = a1[5];
-  v6 = a1[6];
-  v7 = a1[7];
   [AMSUICGRectHelper flattenRect:"flattenRect:toParentFrame:" toParentFrame:?];
 
-  return [v3 valueWithCGRect:?];
+  return [v2 valueWithCGRect:?];
 }
 
 uint64_t __62__AMSUIMessageViewSolariumLayoutContext__updateWithRootFrame___block_invoke_4(uint64_t a1, void *a2)
@@ -1117,32 +1107,32 @@ uint64_t __62__AMSUIMessageViewSolariumLayoutContext__updateWithRootFrame___bloc
 
 - (void)calculateButtonSizes
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   messageView = [(AMSUIMessageViewSolariumLayoutContext *)self messageView];
   buttons = [messageView buttons];
 
-  v6 = [buttons countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [buttons countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v21;
     v9 = *MEMORY[0x1E695F058];
     v10 = *(MEMORY[0x1E695F058] + 8);
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v21 != v8)
         {
           objc_enumerationMutation(buttons);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
+        v12 = *(*(&v20 + 1) + 8 * i);
         [v12 sizeThatFits:{400.0, 1.79769313e308}];
         v14 = v13;
         v16 = v15;
@@ -1169,14 +1159,13 @@ uint64_t __62__AMSUIMessageViewSolariumLayoutContext__updateWithRootFrame___bloc
         [array addObject:v19];
       }
 
-      v7 = [buttons countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [buttons countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v7);
   }
 
   [(AMSUIMessageViewSolariumLayoutContext *)self setButtonFrames:array];
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)calculateMainContentFrameRootFrame:(CGRect)frame
@@ -1276,7 +1265,7 @@ LABEL_19:
 {
   dirtyCopy = dirty;
   width = frame.size.width;
-  v51[1] = *MEMORY[0x1E69E9840];
+  v49[1] = *MEMORY[0x1E69E9840];
   v7 = [(AMSUIMessageViewSolariumLayoutContext *)self messageView:frame.origin.x];
   textView = [v7 textView];
   hasText = [textView hasText];
@@ -1306,8 +1295,8 @@ LABEL_19:
       if (textViewExclusionPath)
       {
         textViewExclusionPath2 = [(AMSUIMessageViewSolariumLayoutContext *)self textViewExclusionPath];
-        v51[0] = textViewExclusionPath2;
-        textView4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:1];
+        v49[0] = textViewExclusionPath2;
+        textView4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:1];
         messageView2 = [(AMSUIMessageViewSolariumLayoutContext *)self messageView];
         textView3 = [messageView2 textView];
         textContainer = [textView3 textContainer];
@@ -1325,8 +1314,8 @@ LABEL_19:
       messageView3 = [(AMSUIMessageViewSolariumLayoutContext *)self messageView];
       textView5 = [messageView3 textView];
       [textView5 sizeThatFits:{v13, v22}];
-      v37 = v36;
-      v39 = v38;
+      v36 = v35;
+      v38 = v37;
 
       messageView4 = [(AMSUIMessageViewSolariumLayoutContext *)self messageView];
       traitCollection = [messageView4 traitCollection];
@@ -1334,55 +1323,38 @@ LABEL_19:
 
       if (layoutDirection == 1)
       {
-        v43 = v13;
+        v42 = v13;
       }
 
       else
       {
-        v43 = v37;
+        v42 = v36;
       }
 
-      [(AMSUIMessageViewSolariumLayoutContext *)self setTextViewContentHuggingSize:v43, v39];
+      [(AMSUIMessageViewSolariumLayoutContext *)self setTextViewContentHuggingSize:v42, v38];
     }
 
     [(AMSUIMessageViewSolariumLayoutContext *)self textViewFrame];
-    v45 = v44;
-    v47 = v46;
+    v44 = v43;
+    v46 = v45;
     [(AMSUIMessageViewSolariumLayoutContext *)self textViewContentHuggingSize];
-    [(AMSUIMessageViewSolariumLayoutContext *)self setTextViewFrame:v45, v47, v48, v49];
-    v50 = *MEMORY[0x1E69E9840];
+    [(AMSUIMessageViewSolariumLayoutContext *)self setTextViewFrame:v44, v46, v47, v48];
   }
 
   else
   {
-    v29 = *MEMORY[0x1E69E9840];
-    v30 = *MEMORY[0x1E695F058];
-    v31 = *(MEMORY[0x1E695F058] + 8);
-    v32 = *(MEMORY[0x1E695F058] + 16);
-    v33 = *(MEMORY[0x1E695F058] + 24);
+    v29 = *MEMORY[0x1E695F058];
+    v30 = *(MEMORY[0x1E695F058] + 8);
+    v31 = *(MEMORY[0x1E695F058] + 16);
+    v32 = *(MEMORY[0x1E695F058] + 24);
 
-    [(AMSUIMessageViewSolariumLayoutContext *)self setTextViewFrame:v30, v31, v32, v33];
+    [(AMSUIMessageViewSolariumLayoutContext *)self setTextViewFrame:v29, v30, v31, v32];
   }
 }
 
 - (void)calculateTextViewExclusionFrame
 {
-  if ([(AMSUIMessageViewSolariumLayoutContext *)self _isVisionNative])
-  {
-    goto LABEL_8;
-  }
-
-  topButtonFrames = [(AMSUIMessageViewSolariumLayoutContext *)self topButtonFrames];
-  if (!topButtonFrames)
-  {
-    goto LABEL_8;
-  }
-
-  v4 = topButtonFrames;
-  topButtonFrames2 = [(AMSUIMessageViewSolariumLayoutContext *)self topButtonFrames];
-  v6 = [topButtonFrames2 count];
-
-  if (v6 && (![(AMSUIMessageViewSolariumLayoutContext *)self shouldUseStackedAXLayout]|| [(AMSUIMessageViewSolariumLayoutContext *)self isImageViewHidden]))
+  if (!-[AMSUIMessageViewSolariumLayoutContext _isVisionNative](self, "_isVisionNative") && (-[AMSUIMessageViewSolariumLayoutContext topButtonFrames](self, "topButtonFrames"), (v3 = objc_claimAutoreleasedReturnValue()) != 0) && (v4 = v3, -[AMSUIMessageViewSolariumLayoutContext topButtonFrames](self, "topButtonFrames"), v5 = objc_claimAutoreleasedReturnValue(), v6 = [v5 count], v5, v4, v6) && (!-[AMSUIMessageViewSolariumLayoutContext shouldUseStackedAXLayout](self, "shouldUseStackedAXLayout") || -[AMSUIMessageViewSolariumLayoutContext isImageViewHidden](self, "isImageViewHidden")))
   {
     messageView = [(AMSUIMessageViewSolariumLayoutContext *)self messageView];
     traitCollection = [messageView traitCollection];
@@ -1466,7 +1438,6 @@ LABEL_19:
 
   else
   {
-LABEL_8:
 
     [(AMSUIMessageViewSolariumLayoutContext *)self setTextViewExclusionPath:0];
   }
@@ -1645,11 +1616,9 @@ void __78__AMSUIMessageViewSolariumLayoutContext__calculateFooterButtonFrames_in
 void __78__AMSUIMessageViewSolariumLayoutContext__calculateFooterButtonFrames_inFrame___block_invoke_2(uint64_t a1, void *a2)
 {
   [a2 CGRectValue];
-  v4 = a1 + 32;
   v3 = *(a1 + 32);
-  v5 = *(*(*(v4 + 8) + 8) + 24);
-  v6 = [MEMORY[0x1E696B098] valueWithCGRect:?];
-  [v3 addObject:v6];
+  v4 = [MEMORY[0x1E696B098] valueWithCGRect:?];
+  [v3 addObject:v4];
 }
 
 double __78__AMSUIMessageViewSolariumLayoutContext__calculateFooterButtonFrames_inFrame___block_invoke_3(uint64_t a1, void *a2)
@@ -1676,32 +1645,32 @@ double __78__AMSUIMessageViewSolariumLayoutContext__calculateFooterButtonFrames_
 - (CGRect)calculateHorizontalButtonContainerFrame:(id)frame inParentFrame:(CGRect)parentFrame
 {
   width = parentFrame.size.width;
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   frameCopy = frame;
   v7 = ([frameCopy count] - 1);
   [(AMSUIMessageViewSolariumLayoutContext *)self _interitemSpacing];
   v9 = v8 * v7;
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   v10 = frameCopy;
-  v11 = [v10 countByEnumeratingWithState:&v41 objects:v45 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v42;
+    v13 = *v41;
     v14 = 0.0;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v42 != v13)
+        if (*v41 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        [*(*(&v41 + 1) + 8 * i) CGRectValue];
+        [*(*(&v40 + 1) + 8 * i) CGRectValue];
         v9 = v9 + v17;
         if (v16 >= v14)
         {
@@ -1709,7 +1678,7 @@ double __78__AMSUIMessageViewSolariumLayoutContext__calculateFooterButtonFrames_
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v40 objects:v44 count:16];
     }
 
     while (v12);
@@ -1769,15 +1738,14 @@ LABEL_20:
 
 LABEL_21:
 
-  v36 = *MEMORY[0x1E69E9840];
-  v37 = v24;
-  v38 = v19;
-  v39 = v9;
-  v40 = v14;
-  result.size.height = v40;
-  result.size.width = v39;
-  result.origin.y = v38;
-  result.origin.x = v37;
+  v36 = v24;
+  v37 = v19;
+  v38 = v9;
+  v39 = v14;
+  result.size.height = v39;
+  result.size.width = v38;
+  result.origin.y = v37;
+  result.origin.x = v36;
   return result;
 }
 
@@ -1858,30 +1826,30 @@ double __71__AMSUIMessageViewSolariumLayoutContext_layoutHorizontalButtonsFrames
 
 - (id)framesForButtons:(id)buttons
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   buttonsCopy = buttons;
   array = [MEMORY[0x1E695DF70] array];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v6 = buttonsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v19;
+    v9 = *v18;
     do
     {
       v10 = 0;
       do
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(AMSUIMessageViewSolariumLayoutContext *)self indexForButton:*(*(&v18 + 1) + 8 * v10), v18];
+        v11 = [(AMSUIMessageViewSolariumLayoutContext *)self indexForButton:*(*(&v17 + 1) + 8 * v10), v17];
         buttonFrames = [(AMSUIMessageViewSolariumLayoutContext *)self buttonFrames];
         v13 = [buttonFrames objectAtIndexedSubscript:v11];
         [array addObject:v13];
@@ -1890,7 +1858,7 @@ double __71__AMSUIMessageViewSolariumLayoutContext_layoutHorizontalButtonsFrames
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v8);
@@ -1908,39 +1876,38 @@ double __71__AMSUIMessageViewSolariumLayoutContext_layoutHorizontalButtonsFrames
 
   v15 = v14;
 
-  v16 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (id)topAlignButtonCandidates
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   if ([(AMSUIMessageViewSolariumLayoutContext *)self isBannerStyle])
   {
-    v30 = 0uLL;
-    v31 = 0uLL;
-    v28 = 0uLL;
     v29 = 0uLL;
+    v30 = 0uLL;
+    v27 = 0uLL;
+    v28 = 0uLL;
     messageView = [(AMSUIMessageViewSolariumLayoutContext *)self messageView];
     buttons = [messageView buttons];
 
-    v6 = [buttons countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v6 = [buttons countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v6)
     {
       v7 = v6;
       v8 = 0;
-      v9 = *v29;
+      v9 = *v28;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v29 != v9)
+          if (*v28 != v9)
           {
             objc_enumerationMutation(buttons);
           }
 
-          v11 = *(*(&v28 + 1) + 8 * i);
+          v11 = *(*(&v27 + 1) + 8 * i);
           configuration = [v11 configuration];
           title = [configuration title];
 
@@ -1964,7 +1931,7 @@ double __71__AMSUIMessageViewSolariumLayoutContext_layoutHorizontalButtonsFrames
           }
         }
 
-        v7 = [buttons countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v7 = [buttons countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v7);
@@ -1973,28 +1940,28 @@ double __71__AMSUIMessageViewSolariumLayoutContext_layoutHorizontalButtonsFrames
 
   else
   {
-    v26 = 0uLL;
-    v27 = 0uLL;
-    *(&v24 + 1) = 0;
     v25 = 0uLL;
+    v26 = 0uLL;
+    *(&v23 + 1) = 0;
+    v24 = 0uLL;
     messageView2 = [(AMSUIMessageViewSolariumLayoutContext *)self messageView];
     buttons = [messageView2 buttons];
 
-    v15 = [buttons countByEnumeratingWithState:&v24 objects:v32 count:16];
+    v15 = [buttons countByEnumeratingWithState:&v23 objects:v31 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v25;
+      v17 = *v24;
       while (2)
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v25 != v17)
+          if (*v24 != v17)
           {
             objc_enumerationMutation(buttons);
           }
 
-          v19 = *(*(&v24 + 1) + 8 * j);
+          v19 = *(*(&v23 + 1) + 8 * j);
           dialogAction = [v19 dialogAction];
           style = [dialogAction style];
 
@@ -2005,7 +1972,7 @@ double __71__AMSUIMessageViewSolariumLayoutContext_layoutHorizontalButtonsFrames
           }
         }
 
-        v16 = [buttons countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v16 = [buttons countByEnumeratingWithState:&v23 objects:v31 count:16];
         if (v16)
         {
           continue;
@@ -2018,41 +1985,39 @@ double __71__AMSUIMessageViewSolariumLayoutContext_layoutHorizontalButtonsFrames
 
 LABEL_25:
 
-  v22 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
 - (id)bottomAlignButtons
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   messageView = [(AMSUIMessageViewSolariumLayoutContext *)self messageView];
   buttons = [messageView buttons];
 
-  v6 = [buttons countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [buttons countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (!v6)
   {
     goto LABEL_14;
   }
 
   v7 = v6;
-  v8 = *v18;
+  v8 = *v17;
   do
   {
     v9 = 0;
     do
     {
-      if (*v18 != v8)
+      if (*v17 != v8)
       {
         objc_enumerationMutation(buttons);
       }
 
-      v10 = *(*(&v17 + 1) + 8 * v9);
+      v10 = *(*(&v16 + 1) + 8 * v9);
       if ([(AMSUIMessageViewSolariumLayoutContext *)self isBannerStyle])
       {
         configuration = [v10 configuration];
@@ -2078,7 +2043,7 @@ LABEL_9:
     }
 
     while (v7 != v9);
-    v13 = [buttons countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v13 = [buttons countByEnumeratingWithState:&v16 objects:v20 count:16];
     v7 = v13;
   }
 
@@ -2094,8 +2059,6 @@ LABEL_14:
   {
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -2855,37 +2818,37 @@ LABEL_10:
 - (double)_maxFooterButtonWidthInFrame:(CGRect)frame
 {
   width = frame.size.width;
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   if ([(AMSUIMessageViewSolariumLayoutContext *)self isBubbleTipStyle:frame.origin.x]&& [(AMSUIMessageViewSolariumLayoutContext *)self _isVisionNative])
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     buttonFrames = [(AMSUIMessageViewSolariumLayoutContext *)self buttonFrames];
-    v6 = [buttonFrames countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v6 = [buttonFrames countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v26;
+      v8 = *v25;
       v9 = 0.0;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v26 != v8)
+          if (*v25 != v8)
           {
             objc_enumerationMutation(buttonFrames);
           }
 
-          [*(*(&v25 + 1) + 8 * i) CGRectValue];
+          [*(*(&v24 + 1) + 8 * i) CGRectValue];
           if (v11 >= v9)
           {
             v9 = v11;
           }
         }
 
-        v7 = [buttonFrames countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v7 = [buttonFrames countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v7);
@@ -2918,7 +2881,7 @@ LABEL_17:
       v9 = v9 - v22;
 
 LABEL_19:
-      goto LABEL_20;
+      return v9;
     }
 
     messageView3 = [(AMSUIMessageViewSolariumLayoutContext *)self messageView];
@@ -2931,8 +2894,6 @@ LABEL_19:
     }
   }
 
-LABEL_20:
-  v23 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -2963,7 +2924,7 @@ LABEL_20:
 
 - (BOOL)_shouldTextViewTextFillUnderCloseButton
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (-[AMSUIMessageViewSolariumLayoutContext isBannerStyle](self, "isBannerStyle") || (-[AMSUIMessageViewSolariumLayoutContext messageView](self, "messageView"), v3 = objc_claimAutoreleasedReturnValue(), v4 = [v3 style], v3, v4 == 5))
   {
     LOBYTE(v5) = 0;
@@ -2972,35 +2933,35 @@ LABEL_20:
   else
   {
     messageView = [(AMSUIMessageViewSolariumLayoutContext *)self messageView];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     messageView2 = [(AMSUIMessageViewSolariumLayoutContext *)self messageView];
     buttons = [messageView2 buttons];
     reverseObjectEnumerator = [buttons reverseObjectEnumerator];
 
-    v5 = [reverseObjectEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v5 = [reverseObjectEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v5)
     {
-      v10 = *v15;
+      v10 = *v14;
       while (2)
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(reverseObjectEnumerator);
           }
 
-          if ([*(*(&v14 + 1) + 8 * i) isDefaultCloseButton])
+          if ([*(*(&v13 + 1) + 8 * i) isDefaultCloseButton])
           {
             LOBYTE(v5) = 1;
             goto LABEL_14;
           }
         }
 
-        v5 = [reverseObjectEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v5 = [reverseObjectEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
         if (v5)
         {
           continue;
@@ -3013,7 +2974,6 @@ LABEL_20:
 LABEL_14:
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -3189,7 +3149,7 @@ uint64_t __58__AMSUIMessageViewSolariumLayoutContext_numberOfTextLines__block_in
 
 - (double)totalFooterButtonHeight
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   bottomButtonFrames = [(AMSUIMessageViewSolariumLayoutContext *)self bottomButtonFrames];
   v4 = 0.0;
   if (bottomButtonFrames)
@@ -3204,31 +3164,31 @@ uint64_t __58__AMSUIMessageViewSolariumLayoutContext_numberOfTextLines__block_in
       {
         [(AMSUIMessageViewSolariumLayoutContext *)self _footerButtonInterSpacing];
         v9 = v8;
+        v28 = 0u;
         v29 = 0u;
         v30 = 0u;
         v31 = 0u;
-        v32 = 0u;
         bottomButtonFrames3 = [(AMSUIMessageViewSolariumLayoutContext *)self bottomButtonFrames];
-        v11 = [bottomButtonFrames3 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v11 = [bottomButtonFrames3 countByEnumeratingWithState:&v28 objects:v33 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v30;
+          v13 = *v29;
           v14 = 0.0;
           do
           {
             for (i = 0; i != v12; ++i)
             {
-              if (*v30 != v13)
+              if (*v29 != v13)
               {
                 objc_enumerationMutation(bottomButtonFrames3);
               }
 
-              [*(*(&v29 + 1) + 8 * i) CGRectValue];
+              [*(*(&v28 + 1) + 8 * i) CGRectValue];
               v14 = v14 + v9 + v16;
             }
 
-            v12 = [bottomButtonFrames3 countByEnumeratingWithState:&v29 objects:v34 count:16];
+            v12 = [bottomButtonFrames3 countByEnumeratingWithState:&v28 objects:v33 count:16];
           }
 
           while (v12);
@@ -3239,38 +3199,38 @@ uint64_t __58__AMSUIMessageViewSolariumLayoutContext_numberOfTextLines__block_in
           v14 = 0.0;
         }
 
-        v4 = v14 - v9;
+        return v14 - v9;
       }
 
       else
       {
-        v27 = 0u;
-        v28 = 0u;
-        v25 = 0u;
         v26 = 0u;
+        v27 = 0u;
+        v24 = 0u;
+        v25 = 0u;
         bottomButtonFrames4 = [(AMSUIMessageViewSolariumLayoutContext *)self bottomButtonFrames];
-        v18 = [bottomButtonFrames4 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v18 = [bottomButtonFrames4 countByEnumeratingWithState:&v24 objects:v32 count:16];
         if (v18)
         {
           v19 = v18;
-          v20 = *v26;
+          v20 = *v25;
           do
           {
             for (j = 0; j != v19; ++j)
             {
-              if (*v26 != v20)
+              if (*v25 != v20)
               {
                 objc_enumerationMutation(bottomButtonFrames4);
               }
 
-              [*(*(&v25 + 1) + 8 * j) CGRectValue];
+              [*(*(&v24 + 1) + 8 * j) CGRectValue];
               if (v4 < v22)
               {
                 v4 = v22;
               }
             }
 
-            v19 = [bottomButtonFrames4 countByEnumeratingWithState:&v25 objects:v33 count:16];
+            v19 = [bottomButtonFrames4 countByEnumeratingWithState:&v24 objects:v32 count:16];
           }
 
           while (v19);
@@ -3279,7 +3239,6 @@ uint64_t __58__AMSUIMessageViewSolariumLayoutContext_numberOfTextLines__block_in
     }
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

@@ -39,19 +39,19 @@
 
 - (void)_enumerateWithXPCConnection:(id)connection block:(id)block
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   blockCopy = block;
   identifier = [(_LSApplicationProxyForIdentifierQuery *)self identifier];
 
   if (identifier)
   {
-    v23 = 0;
+    v22 = 0;
+    v19 = 0;
     v20 = 0;
     v21 = 0;
-    v22 = 0;
     v9 = +[_LSDServiceDomain defaultServiceDomain];
-    v10 = LaunchServices::Database::Context::_get(&v20, v9, 0);
+    v10 = LaunchServices::Database::Context::_get(&v19, v9, 0);
 
     if (v10)
     {
@@ -63,7 +63,7 @@
     else
     {
       v15 = +[_LSDServiceDomain defaultServiceDomain];
-      v16 = LaunchServices::Database::Context::_get(&v20, v15, 0);
+      v16 = LaunchServices::Database::Context::_get(&v19, v15, 0);
 
       if (v16)
       {
@@ -72,36 +72,34 @@
 
       else
       {
-        identifier2 = v23;
+        identifier2 = v22;
       }
 
       (blockCopy)[2](blockCopy, 0, identifier2);
     }
 
-    if (v20 && v22 == 1)
+    if (v19 && v21 == 1)
     {
-      _LSContextDestroy(v20);
+      _LSContextDestroy(v19);
     }
 
-    v17 = v21;
+    v17 = v20;
+    v19 = 0;
     v20 = 0;
-    v21 = 0;
 
+    v21 = 0;
+    v18 = v22;
     v22 = 0;
-    v18 = v23;
-    v23 = 0;
   }
 
   else
   {
-    v24 = *MEMORY[0x1E696A278];
-    v25[0] = @"invalid input parameters";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v23 = *MEMORY[0x1E696A278];
+    v24[0] = @"invalid input parameters";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     v14 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], -50, v13, "[_LSApplicationProxyForIdentifierQuery _enumerateWithXPCConnection:block:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSBundleQuery.mm", 582);
     (blockCopy)[2](blockCopy, 0, v14);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_requiresDatabaseMappingEntitlement

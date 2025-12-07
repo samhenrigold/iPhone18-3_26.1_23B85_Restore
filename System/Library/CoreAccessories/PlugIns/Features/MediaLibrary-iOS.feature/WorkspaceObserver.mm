@@ -24,7 +24,6 @@
 - (void)applicationsWillInstall:(id)install
 {
   installCopy = install;
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
     [(LSApplicationWorkspaceObserverProtocol *)self->_delegate applicationsWillInstall:installCopy];
@@ -34,7 +33,6 @@
 - (void)applicationsDidInstall:(id)install
 {
   installCopy = install;
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
     [(LSApplicationWorkspaceObserverProtocol *)self->_delegate applicationsDidInstall:installCopy];
@@ -44,7 +42,6 @@
 - (void)applicationsWillUninstall:(id)uninstall
 {
   uninstallCopy = uninstall;
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
     [(LSApplicationWorkspaceObserverProtocol *)self->_delegate applicationsWillUninstall:uninstallCopy];
@@ -54,7 +51,6 @@
 - (void)applicationsDidUninstall:(id)uninstall
 {
   uninstallCopy = uninstall;
-  delegate = self->_delegate;
   if (objc_opt_respondsToSelector())
   {
     [(LSApplicationWorkspaceObserverProtocol *)self->_delegate applicationsDidUninstall:uninstallCopy];

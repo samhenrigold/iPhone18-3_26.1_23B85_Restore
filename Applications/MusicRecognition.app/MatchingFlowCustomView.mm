@@ -7,7 +7,7 @@
 
 - (void)appleMusicButtonAction
 {
-  v3 = sub_100002D44(&qword_100142818);
+  v3 = sub_100002D44(&qword_100142818, &qword_1000F5860);
   __chkstk_darwin(v3 - 8);
   v5 = &v10 - v4;
   v6 = type metadata accessor for TaskPriority();

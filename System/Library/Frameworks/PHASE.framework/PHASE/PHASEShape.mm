@@ -908,7 +908,7 @@ LABEL_11:
         *(v21 + 48) = 0;
         *(v21 + 56) = 0;
         *(v21 + 64) = 0;
-        std::vector<Phase::Geometry::EntityType>::__init_with_size[abi:ne200100]<Phase::Geometry::EntityType*,Phase::Geometry::EntityType*>(v21 + 48, __p, v37, (v37 - __p) >> 2);
+        std::vector<Phase::Geometry::EntityType>::__init_with_size[abi:ne200100]<Phase::Geometry::EntityType*,Phase::Geometry::EntityType*>((v21 + 48), __p, v37, (v37 - __p) >> 2);
         *(v21 + 72) = v39;
         v22 = self->_localizedGeometryPermutations.__begin_;
         v23 = self->_localizedGeometryPermutations.__end_;
@@ -971,7 +971,7 @@ LABEL_11:
         *(v15 + 6) = 0;
         *(v15 + 7) = 0;
         *(v15 + 8) = 0;
-        std::vector<Phase::Geometry::EntityType>::__init_with_size[abi:ne200100]<Phase::Geometry::EntityType*,Phase::Geometry::EntityType*>(v15 + 48, __p, v37, (v37 - __p) >> 2);
+        std::vector<Phase::Geometry::EntityType>::__init_with_size[abi:ne200100]<Phase::Geometry::EntityType*,Phase::Geometry::EntityType*>(v15 + 6, __p, v37, (v37 - __p) >> 2);
         *(v15 + 72) = v39;
         v16 = (v15 + 88);
         self->_localizedGeometryPermutations.__end_ = (v15 + 88);

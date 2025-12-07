@@ -11,19 +11,19 @@
 {
   dataCopy = data;
   v4 = [NTKImageSource alloc];
-  inited = objc_msgSend_initImageSourceWithData_(v4, v5, dataCopy, v6);
+  inited = objc_msgSend_initImageSourceWithData_(v4, v5, dataCopy);
 
-  if (objc_msgSend_CGImageSource(inited, v8, v9, v10))
+  if (objc_msgSend_CGImageSource(inited, v7, v8))
   {
-    v11 = inited;
+    v9 = inited;
   }
 
   else
   {
-    v11 = 0;
+    v9 = 0;
   }
 
-  return v11;
+  return v9;
 }
 
 - (void)dealloc
@@ -67,20 +67,20 @@
 
 - (CGImage)CreateCGImageWithSubsampleFactor:(int64_t)factor
 {
-  v11[2] = *MEMORY[0x277D85DE8];
+  v10[2] = *MEMORY[0x277D85DE8];
   if (!self->_imageSourceRef)
   {
     return 0;
   }
 
-  v10[0] = *MEMORY[0x277CD3650];
-  v5 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], a2, factor, v3);
-  v10[1] = *MEMORY[0x277CD3618];
-  v11[0] = v5;
-  v11[1] = MEMORY[0x277CBEC28];
-  v7 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v6, v11, v10, 2);
+  v9[0] = *MEMORY[0x277CD3650];
+  v4 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], a2, factor);
+  v9[1] = *MEMORY[0x277CD3618];
+  v10[0] = v4;
+  v10[1] = MEMORY[0x277CBEC28];
+  v6 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v5, v10, v9, 2);
 
-  ImageAtIndex = CGImageSourceCreateImageAtIndex(self->_imageSourceRef, 0, v7);
+  ImageAtIndex = CGImageSourceCreateImageAtIndex(self->_imageSourceRef, 0, v6);
   return ImageAtIndex;
 }
 

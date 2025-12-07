@@ -6,7 +6,7 @@
 
 + (NSArray)macBuddyNetworkProfileValidators
 {
-  v13[3] = *MEMORY[0x277D85DE8];
+  v12[3] = *MEMORY[0x277D85DE8];
   v2 = +[DMTCertificatePayload supportedPayloadTypes];
   v3 = [v2 mutableCopy];
 
@@ -23,12 +23,10 @@
   [v7 setAllowedPayloadTypes:v3];
   v8 = objc_opt_new();
   v9 = objc_opt_new();
-  v13[0] = v7;
-  v13[1] = v8;
-  v13[2] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:3];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v12[0] = v7;
+  v12[1] = v8;
+  v12[2] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
 
   return v10;
 }

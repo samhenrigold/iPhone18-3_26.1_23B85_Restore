@@ -646,7 +646,7 @@ LABEL_7:
 
 - (void)transmitEncodedVideoFrame:(opaqueCMSampleBuffer *)frame cameraStatusBits:(unsigned __int8)bits
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   if (!frame)
   {
     return;
@@ -674,7 +674,7 @@ LABEL_7:
             LOWORD(buf.flags) = 2080;
             *(&buf.flags + 2) = "[VCVideoStreamTransmitter transmitEncodedVideoFrame:cameraStatusBits:]";
             HIWORD(buf.epoch) = 1024;
-            v37 = 496;
+            v38 = 496;
             _os_log_impl(&dword_1DB56E000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d sendFrame: Error: Error getting data buffer", &buf, 0x1Cu);
           }
         }
@@ -701,13 +701,13 @@ LABEL_7:
     return;
   }
 
-  memset(&v33, 170, sizeof(v33));
-  CMSampleBufferGetPresentationTimeStamp(&v33, frame);
+  memset(&v34, 170, sizeof(v34));
+  CMSampleBufferGetPresentationTimeStamp(&v34, frame);
   p_latestSampleBufferTimestamp = &self->super._latestSampleBufferTimestamp;
   value = self->super._latestSampleBufferTimestamp.value;
   if (value)
   {
-    lhs = v33;
+    lhs = v34;
     *&rhs.value = *&p_latestSampleBufferTimestamp->value;
     rhs.epoch = self->super._latestSampleBufferTimestamp.epoch;
     CMTimeSubtract(&buf, &lhs, &rhs);
@@ -722,16 +722,16 @@ LABEL_7:
     epoch = self->super._latestSampleBufferTimestamp.epoch;
   }
 
-  memset(&v30, 170, sizeof(v30));
+  memset(&v31, 170, sizeof(v31));
   buf.value = value;
   *&buf.timescale = v15;
   buf.epoch = epoch;
-  CMTimeConvertScale(&v30, &buf, 90000, kCMTimeRoundingMethod_RoundHalfAwayFromZero);
-  self->super._timestamp += LODWORD(v30.value);
-  v17 = *&v33.value;
-  *&p_latestSampleBufferTimestamp->value = *&v33.value;
-  v18 = v33.epoch;
-  self->super._latestSampleBufferTimestamp.epoch = v33.epoch;
+  CMTimeConvertScale(&v31, &buf, 90000, kCMTimeRoundingMethod_RoundHalfAwayFromZero);
+  self->super._timestamp += LODWORD(v31.value);
+  v17 = *&v34.value;
+  *&p_latestSampleBufferTimestamp->value = *&v34.value;
+  v18 = v34.epoch;
+  self->super._latestSampleBufferTimestamp.epoch = v34.epoch;
   *&buf.value = v17;
   buf.epoch = v18;
   Seconds = CMTimeGetSeconds(&buf);
@@ -758,28 +758,28 @@ LABEL_26:
   p_dataPointerOut = &self->_buffer;
 LABEL_29:
   v24 = [(VCVideoStreamTransmitter *)self transmitEncodedVideoFrame:*p_dataPointerOut size:SampleSize timestamp:self->super._timestamp hostTime:bitsCopy cameraStatusBits:Seconds];
-  if (v24 < 0)
+  if ((v24 & 0x80000000) != 0)
   {
-    v27 = v24;
+    v28 = v24;
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
-      v28 = VRTraceErrorLogLevelToCSTR();
-      v29 = *MEMORY[0x1E6986650];
+      v29 = VRTraceErrorLogLevelToCSTR();
+      v30 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
       {
         LODWORD(buf.value) = 136316418;
-        *(&buf.value + 4) = v28;
+        *(&buf.value + 4) = v29;
         LOWORD(buf.flags) = 2080;
         *(&buf.flags + 2) = "[VCVideoStreamTransmitter transmitEncodedVideoFrame:cameraStatusBits:]";
         HIWORD(buf.epoch) = 1024;
-        v37 = 536;
-        v38 = 1024;
-        v39 = v27;
-        v40 = 1024;
-        v41 = v27;
-        v42 = 1024;
-        v43 = v12;
-        _os_log_error_impl(&dword_1DB56E000, v29, OS_LOG_TYPE_ERROR, " [%s] %s:%d sendFrame: transmitEncodedVideoFrame returned error %d (0x%08x). isKeyFrame=%d", &buf, 0x2Eu);
+        v38 = 536;
+        v39 = 1024;
+        v40 = v28;
+        v41 = 1024;
+        v42 = v28;
+        v43 = 1024;
+        v44 = v12;
+        _os_log_error_impl(&dword_1DB56E000, v30, OS_LOG_TYPE_ERROR, " [%s] %s:%d sendFrame: transmitEncodedVideoFrame returned error %d (0x%08x). isKeyFrame=%d", &buf, 0x2Eu);
       }
     }
   }
@@ -787,21 +787,21 @@ LABEL_29:
   else if (v12)
   {
     self->_lastKeyFrameSampleBufferSize = SampleSize;
-    [(VCVideoTransmitterBase *)self setLastKeyFrameSentTime:micro()];
+    [(VCVideoTransmitterBase *)self setLastKeyFrameSentTime:micro(v24, v25)];
     [(VCVideoStreamTransmitter *)self reportingVideoStreamEvent:228];
     if (VRTraceGetErrorLogLevelForModule() >= 6)
     {
-      v25 = VRTraceErrorLogLevelToCSTR();
-      v26 = *MEMORY[0x1E6986650];
+      v26 = VRTraceErrorLogLevelToCSTR();
+      v27 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         LODWORD(buf.value) = 136315650;
-        *(&buf.value + 4) = v25;
+        *(&buf.value + 4) = v26;
         LOWORD(buf.flags) = 2080;
         *(&buf.flags + 2) = "[VCVideoStreamTransmitter transmitEncodedVideoFrame:cameraStatusBits:]";
         HIWORD(buf.epoch) = 1024;
-        v37 = 542;
-        _os_log_impl(&dword_1DB56E000, v26, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d successfully sent key frame", &buf, 0x1Cu);
+        v38 = 542;
+        _os_log_impl(&dword_1DB56E000, v27, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d successfully sent key frame", &buf, 0x1Cu);
       }
     }
   }
@@ -811,7 +811,6 @@ LABEL_29:
 {
   bitsCopy = bits;
   v8 = *&timestamp;
-  sizeCopy = size;
   v24[3] = *MEMORY[0x1E69E9840];
   memset(v24, 170, 20);
   *&v13 = 0xAAAAAAAAAAAAAAAALL;
@@ -874,7 +873,7 @@ LABEL_29:
     }
 
     ptr = 0xAAAAAAAAAAAAAAAALL;
-    v18 = VTU_SplitVideoIntoPackets(v21, 123, frame, sizeCopy, &ptr, 0, 0, 1, 0, 0, temporaryMaximumBitrate, 0);
+    v18 = VTU_SplitVideoIntoPackets(v21, 123, frame, size, &ptr, 0, 0, 1, 0, 0, temporaryMaximumBitrate, 0);
     if (v18)
     {
       v17 = [(VCVideoStreamTransmitter *)self transmitFrameInGroups:ptr numOfPackets:v18 timestamp:v8 hostTime:bitsCopy cameraStatusBits:time];
@@ -905,12 +904,13 @@ LABEL_29:
 
 - (int)transmitFrameInGroups:(char *)groups numOfPackets:(int)packets timestamp:(unsigned int)timestamp hostTime:(double)time cameraStatusBits:(unsigned __int8)bits
 {
+  selfCopy = self;
   v38 = *MEMORY[0x1E69E9840];
   v23 = 0;
   if (packets < 1)
   {
     v13 = 0;
-    v16 = 0;
+    selfCopy2 = 0;
     v12 = 0;
   }
 
@@ -944,28 +944,34 @@ LABEL_29:
 
       packetsCopy -= v15;
       LOBYTE(v19) = bits;
-      v16 = [(VCVideoStreamTransmitter *)self transmitVideoPackets:&groups[v13] packetSizes:self->_packetSizes startPacket:v12 packetCount:v15 lastGroup:packetsCopy < 1 timestamp:timestamp hostTime:time cameraStatusBits:v19 bytesSent:&v23];
-      if (v16 < 0 && VRTraceGetErrorLogLevelForModule() >= 3)
+      self = [(VCVideoStreamTransmitter *)selfCopy transmitVideoPackets:&groups[v13] packetSizes:selfCopy->_packetSizes startPacket:v12 packetCount:v15 lastGroup:packetsCopy < 1 timestamp:timestamp hostTime:time cameraStatusBits:v19 bytesSent:&v23];
+      selfCopy2 = self;
+      if ((self & 0x80000000) != 0)
       {
-        v20 = VRTraceErrorLogLevelToCSTR();
-        v17 = *MEMORY[0x1E6986650];
-        if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
+        self = VRTraceGetErrorLogLevelForModule();
+        if (self >= 3)
         {
-          *buf = 136316674;
-          v25 = v20;
-          v26 = 2080;
-          v27 = "[VCVideoStreamTransmitter transmitFrameInGroups:numOfPackets:timestamp:hostTime:cameraStatusBits:]";
-          v28 = 1024;
-          v29 = 634;
-          v30 = 1024;
-          v31 = 634;
-          v32 = 2048;
-          v33 = v16;
-          v34 = 1024;
-          v35 = v11;
-          v36 = 1024;
-          v37 = v15;
-          _os_log_error_impl(&dword_1DB56E000, v17, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCVideoStreamTransmitter.m:%d: VideoTransmitter transmitGroup failed (%08lX) for group (%d) #packet (%d)", buf, 0x38u);
+          v20 = VRTraceErrorLogLevelToCSTR();
+          v17 = *MEMORY[0x1E6986650];
+          self = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR);
+          if (self)
+          {
+            *buf = 136316674;
+            v25 = v20;
+            v26 = 2080;
+            v27 = "[VCVideoStreamTransmitter transmitFrameInGroups:numOfPackets:timestamp:hostTime:cameraStatusBits:]";
+            v28 = 1024;
+            v29 = 634;
+            v30 = 1024;
+            v31 = 634;
+            v32 = 2048;
+            v33 = selfCopy2;
+            v34 = 1024;
+            v35 = v11;
+            v36 = 1024;
+            v37 = v15;
+            _os_log_error_impl(&dword_1DB56E000, v17, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/VCVideoStreamTransmitter.m:%d: VideoTransmitter transmitGroup failed (%08lX) for group (%d) #packet (%d)", buf, 0x38u);
+          }
         }
       }
 
@@ -977,14 +983,14 @@ LABEL_29:
     while (packetsCopy > 0);
   }
 
-  [(VCMediaStreamStats *)self->_stats recordDataWithSize:v13 atTime:micro()];
-  [(VCVideoStreamTransmitter *)self updateSendStatisticsWithTimestamp:timestamp frameSize:v13 packetsInFrame:v12];
-  return v16;
+  [(VCMediaStreamStats *)selfCopy->_stats recordDataWithSize:v13 atTime:micro(self, a2)];
+  [(VCVideoStreamTransmitter *)selfCopy updateSendStatisticsWithTimestamp:timestamp frameSize:v13 packetsInFrame:v12];
+  return selfCopy2;
 }
 
 - (int)transmitVideoPackets:(const char *)packets packetSizes:(int *)sizes startPacket:(int)packet packetCount:(int)count lastGroup:(int)group timestamp:(unsigned int)timestamp hostTime:(double)time cameraStatusBits:(unsigned __int8)self0 bytesSent:(int *)self1
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   *sent = 0;
   if (count < 1)
   {
@@ -993,24 +999,24 @@ LABEL_29:
 
   v13 = 0;
   v14 = -2147418092;
-  v24 = 4 * (count - 1);
-  v23 = 4 * count;
+  v28 = 4 * (count - 1);
+  v27 = 4 * count;
   v15 = &sizes[packet];
   while (1)
   {
     ControlInfo = 0;
     v17 = v15[v13 / 4];
-    v18 = group && v24 == v13;
+    v18 = group && v28 == v13;
     v19 = v18;
-    v29[0] = 0xAAAAAAAAAAAAAAAALL;
+    v33[0] = 0xAAAAAAAAAAAAAAAALL;
     if ((bits & 0x80) != 0 && self->_enableCVO && v19)
     {
-      VCCVOExtensionUtils_FillCVOExtension(bits, self->_cvoExtensionID, v29);
+      VCCVOExtensionUtils_FillCVOExtension(bits, self->_cvoExtensionID, v33);
       controlInfoGenerator = self->super._controlInfoGenerator;
       if (controlInfoGenerator)
       {
         ControlInfo = VCMediaControlInfoGeneratorCreateControlInfo(controlInfoGenerator);
-        VCMediaControlInfoSetInfo(ControlInfo, 9, v29, 8);
+        VCMediaControlInfoSetInfo(ControlInfo, 9, v33, 8);
       }
 
       else
@@ -1019,8 +1025,14 @@ LABEL_29:
       }
     }
 
-    v28 = 0;
-    v21 = RTPSendH264Packet(self->_videoRTP, 123, 1u, v19, timestamp, &packets[*sent], v17, &v28, time, 0, 0, v13 == 0, 0, bits, 0, 0, 0, self->_dwRefreshFrameCounter, ControlInfo, 0, 0, 0, 0);
+    v32 = 0;
+    LODWORD(v26) = self->_dwRefreshFrameCounter;
+    LODWORD(v25) = 0;
+    BYTE4(v24) = bits;
+    HIDWORD(v23) = v13 == 0;
+    LODWORD(v24) = 0;
+    LOBYTE(v23) = 0;
+    v21 = RTPSendH264Packet(self->_videoRTP, 123, 1u, v19, timestamp, &packets[*sent], v17, &v32, time, 0, v23, v24, 0, v25, 0, v26, ControlInfo, 0, 0, 0, 0);
     if (v21 == -2147418092)
     {
       break;
@@ -1028,7 +1040,7 @@ LABEL_29:
 
     *sent += v15[v13 / 4];
     v13 += 4;
-    if (v23 == v13)
+    if (v27 == v13)
     {
       return v21;
     }
@@ -1054,7 +1066,7 @@ LABEL_29:
   v17 = 0u;
   v16 = 0u;
   v15 = 0u;
-  v7 = micro();
+  v7 = micro(self, a2);
   totalBytesSent = self->_totalBytesSent;
   totalPacketsSent = self->_totalPacketsSent;
   statisticsCollector = self->_statisticsCollector;
@@ -1069,12 +1081,12 @@ LABEL_29:
 
 - (void)gatherRealtimeStats:(__CFDictionary *)stats
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v4 = selectDestinationForRTMetrics();
-  v5 = micro();
+  v6 = micro(v4, v5);
   if (self->_reportingIntervalStartTime == 0.0)
   {
-    self->_reportingIntervalStartTime = v5;
+    self->_reportingIntervalStartTime = v6;
   }
 
   if (self->_reportingLastUpdateTime > 0.0)
@@ -1082,90 +1094,90 @@ LABEL_29:
     [(VCMediaStreamStats *)self->_stats updateMinMaxSinceTime:?];
     if (VRTraceGetErrorLogLevelForModule() >= 6)
     {
-      v6 = VRTraceErrorLogLevelToCSTR();
-      v7 = *MEMORY[0x1E6986650];
+      v7 = VRTraceErrorLogLevelToCSTR();
+      v8 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         [(VCMediaStreamStats *)self->_stats framerate];
-        v9 = v8;
+        v10 = v9;
         bitrateKbps = [(VCMediaStreamStats *)self->_stats bitrateKbps];
         *buf = 136316162;
-        v28 = v6;
-        v29 = 2080;
-        v30 = "[VCVideoStreamTransmitter gatherRealtimeStats:]";
-        v31 = 1024;
-        v32 = 717;
-        v33 = 2048;
-        v34 = v9;
-        v35 = 1024;
-        v36 = bitrateKbps;
-        _os_log_impl(&dword_1DB56E000, v7, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d VideoStreamStats - Tx - framerate:%f, bitrate:%dkbps", buf, 0x2Cu);
+        v29 = v7;
+        v30 = 2080;
+        v31 = "[VCVideoStreamTransmitter gatherRealtimeStats:]";
+        v32 = 1024;
+        v33 = 717;
+        v34 = 2048;
+        v35 = v10;
+        v36 = 1024;
+        v37 = bitrateKbps;
+        _os_log_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d VideoStreamStats - Tx - framerate:%f, bitrate:%dkbps", buf, 0x2Cu);
       }
     }
   }
 
-  self->_reportingLastUpdateTime = v5;
+  self->_reportingLastUpdateTime = v6;
   if (v4)
   {
-    v11 = *MEMORY[0x1E695E480];
-    v12 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%u", [(VCMediaStreamStats *)self->_stats maxFrameDurationMillis]);
-    CFDictionaryAddValue(v4, @"VCVSTxMaxFrameDuration", v12);
-    CFRelease(v12);
-    [(VCMediaStreamStats *)self->_stats setMaxFrameDurationMillis:0];
-    v13 = CFStringCreateWithFormat(v11, 0, @"%u", [(VCMediaStreamStats *)self->_stats getBitrateKbpsSinceTime:self->_reportingIntervalStartTime]);
-    CFDictionaryAddValue(v4, @"VCVSTxAvgBitrate", v13);
+    v12 = *MEMORY[0x1E695E480];
+    v13 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, @"%u", [(VCMediaStreamStats *)self->_stats maxFrameDurationMillis]);
+    CFDictionaryAddValue(v4, @"VCVSTxMaxFrameDuration", v13);
     CFRelease(v13);
-    v14 = CFStringCreateWithFormat(v11, 0, @"%u", [(VCMediaStreamStats *)self->_stats maxBitrateKbps]);
-    CFDictionaryAddValue(v4, @"VCVSTxMaxBitrate", v14);
+    [(VCMediaStreamStats *)self->_stats setMaxFrameDurationMillis:0];
+    v14 = CFStringCreateWithFormat(v12, 0, @"%u", [(VCMediaStreamStats *)self->_stats getBitrateKbpsSinceTime:self->_reportingIntervalStartTime]);
+    CFDictionaryAddValue(v4, @"VCVSTxAvgBitrate", v14);
     CFRelease(v14);
-    [(VCMediaStreamStats *)self->_stats setMaxBitrateKbps:0];
-    v15 = CFStringCreateWithFormat(v11, 0, @"%u", [(VCMediaStreamStats *)self->_stats minBitrateKbps]);
-    CFDictionaryAddValue(v4, @"VCVSTxMinBitrate", v15);
+    v15 = CFStringCreateWithFormat(v12, 0, @"%u", [(VCMediaStreamStats *)self->_stats maxBitrateKbps]);
+    CFDictionaryAddValue(v4, @"VCVSTxMaxBitrate", v15);
     CFRelease(v15);
+    [(VCMediaStreamStats *)self->_stats setMaxBitrateKbps:0];
+    v16 = CFStringCreateWithFormat(v12, 0, @"%u", [(VCMediaStreamStats *)self->_stats minBitrateKbps]);
+    CFDictionaryAddValue(v4, @"VCVSTxMinBitrate", v16);
+    CFRelease(v16);
     [(VCMediaStreamStats *)self->_stats setMinBitrateKbps:0xFFFFFFFFLL];
     [(VCMediaStreamStats *)self->_stats getFramerateSinceTime:self->_reportingIntervalStartTime];
-    v17 = CFStringCreateWithFormat(v11, 0, @"%5.2f", v16);
-    CFDictionaryAddValue(v4, @"VCVSTxAvgFramerate", v17);
-    CFRelease(v17);
+    v18 = CFStringCreateWithFormat(v12, 0, @"%5.2f", v17);
+    CFDictionaryAddValue(v4, @"VCVSTxAvgFramerate", v18);
+    CFRelease(v18);
     [(VCMediaStreamStats *)self->_stats maxFramerate];
-    v19 = CFStringCreateWithFormat(v11, 0, @"%5.2f", v18);
-    CFDictionaryAddValue(v4, @"VCVSTxMaxFramerate", v19);
-    CFRelease(v19);
+    v20 = CFStringCreateWithFormat(v12, 0, @"%5.2f", v19);
+    CFDictionaryAddValue(v4, @"VCVSTxMaxFramerate", v20);
+    CFRelease(v20);
     [(VCMediaStreamStats *)self->_stats setMaxFramerate:0.0];
     [(VCMediaStreamStats *)self->_stats minFramerate];
-    v21 = CFStringCreateWithFormat(v11, 0, @"%5.2f", v20);
-    CFDictionaryAddValue(v4, @"VCVSTxMinFramerate", v21);
-    CFRelease(v21);
-    [(VCMediaStreamStats *)self->_stats setMinFramerate:1.79769313e308];
-    v22 = CFStringCreateWithFormat(v11, 0, @"%d", self->_totalKeyFramesSent);
-    CFDictionaryAddValue(v4, @"VCVSTxKeyFramesSent", v22);
+    v22 = CFStringCreateWithFormat(v12, 0, @"%5.2f", v21);
+    CFDictionaryAddValue(v4, @"VCVSTxMinFramerate", v22);
     CFRelease(v22);
-    self->_reportingIntervalStartTime = v5;
+    [(VCMediaStreamStats *)self->_stats setMinFramerate:1.79769313e308];
+    v23 = CFStringCreateWithFormat(v12, 0, @"%d", self->_totalKeyFramesSent);
+    CFDictionaryAddValue(v4, @"VCVSTxKeyFramesSent", v23);
+    CFRelease(v23);
+    self->_reportingIntervalStartTime = v6;
     if (VRTraceGetErrorLogLevelForModule() >= 8)
     {
-      v23 = VRTraceErrorLogLevelToCSTR();
-      v24 = *MEMORY[0x1E6986650];
+      v24 = VRTraceErrorLogLevelToCSTR();
       v25 = *MEMORY[0x1E6986650];
+      v26 = *MEMORY[0x1E6986650];
       if (*MEMORY[0x1E6986640] == 1)
       {
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
         {
-          v26 = [-[__CFDictionary description](v4 "description")];
+          v27 = [-[__CFDictionary description](v4 "description")];
           *buf = 136315906;
-          v28 = v23;
-          v29 = 2080;
-          v30 = "[VCVideoStreamTransmitter gatherRealtimeStats:]";
-          v31 = 1024;
-          v32 = 762;
-          v33 = 2080;
-          v34 = v26;
-          _os_log_impl(&dword_1DB56E000, v24, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Tx RTCReporting:%s", buf, 0x26u);
+          v29 = v24;
+          v30 = 2080;
+          v31 = "[VCVideoStreamTransmitter gatherRealtimeStats:]";
+          v32 = 1024;
+          v33 = 762;
+          v34 = 2080;
+          v35 = v27;
+          _os_log_impl(&dword_1DB56E000, v25, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Tx RTCReporting:%s", buf, 0x26u);
         }
       }
 
-      else if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+      else if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
       {
-        [(VCVideoStreamTransmitter *)v23 gatherRealtimeStats:v4];
+        [(VCVideoStreamTransmitter *)v24 gatherRealtimeStats:v4];
       }
     }
   }
@@ -1307,42 +1319,42 @@ void __55__VCVideoStreamTransmitter_setTemporaryMaximumBitrate___block_invoke_co
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Not implemented!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Not implemented!", v2, v3, v4, v5);
 }
 
 - (void)setMediaSuggestion:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Not implemented!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Not implemented!", v2, v3, v4, v5);
 }
 
 - (void)setEncodingMode:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Not implemented!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Not implemented!", v2, v3, v4, v5);
 }
 
 - (void)handleThermalLevelChange:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Not implemented!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Not implemented!", v2, v3, v4, v5);
 }
 
 - (void)updateWindowState:isLocal:windowRect:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Not implemented!", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Not implemented!", v2, v3, v4, v5);
 }
 
 - (void)encodeVideoFrame:.cold.1()
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to get image buffer", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to get image buffer", v2, v3, v4, v5);
 }
 
 - (void)transmitEncodedVideoFrame:cameraStatusBits:.cold.1()
@@ -1412,7 +1424,7 @@ void __55__VCVideoStreamTransmitter_setTemporaryMaximumBitrate___block_invoke_co
 {
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VTU_SplitVideoIntoPackets returned 0", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_2_1(&dword_1DB56E000, v0, v1, " [%s] %s:%d VTU_SplitVideoIntoPackets returned 0", v2, v3, v4, v5);
 }
 
 - (void)transmitEncodedVideoFrame:size:timestamp:hostTime:cameraStatusBits:.cold.2()

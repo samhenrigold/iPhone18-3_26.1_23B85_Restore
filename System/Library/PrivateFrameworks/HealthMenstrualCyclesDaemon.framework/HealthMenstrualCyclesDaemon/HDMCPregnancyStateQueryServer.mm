@@ -31,19 +31,18 @@
 {
   v10 = sub_22944F0B4();
   v11 = *(v10 - 8);
-  v12 = *(v11 + 64);
-  MEMORY[0x28223BE20]();
-  v14 = &v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v10);
+  v13 = &v18 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22944F094();
   swift_getObjCClassMetadata();
   configurationCopy = configuration;
   clientCopy = client;
   swift_unknownObjectRetain();
-  v17 = static HDMCPregnancyStateQueryServer.createTaskServer(with:configuration:client:delegate:)(v14, configuration, clientCopy, delegate);
-  (*(v11 + 8))(v14, v10);
+  v16 = static HDMCPregnancyStateQueryServer.createTaskServer(with:configuration:client:delegate:)(v13, configuration, clientCopy, delegate);
+  (*(v11 + 8))(v13, v10);
   swift_unknownObjectRelease();
 
-  return v17;
+  return v16;
 }
 
 - (NSSet)objectTypes
@@ -55,13 +54,12 @@
   *(inited + 32) = MEMORY[0x22AACB900](*MEMORY[0x277CCBA68]);
   sub_2293D3B3C(inited);
   swift_setDeallocating();
-  v3 = *(inited + 16);
   swift_arrayDestroy();
   sub_2293D30DC(0, &qword_2813DBEE0, 0x277CCD720);
   sub_2293D3E94();
-  v4 = sub_22944F9A4();
+  v3 = sub_22944F9A4();
 
-  return v4;
+  return v3;
 }
 
 - (void)_queue_start
@@ -74,13 +72,12 @@
 {
   updateCopy = update;
   selfCopy = self;
-  HDMCPregnancyStateQueryServer.pregnancyModelDidUpdate(_:)(updateCopy);
+  HDMCPregnancyStateQueryServer.pregnancyModelDidUpdate(_:)(updateCopy, selfCopy);
 }
 
 - (_TtC27HealthMenstrualCyclesDaemon29HDMCPregnancyStateQueryServer)initWithUUID:(id)d configuration:(id)configuration client:(id)client delegate:(id)delegate
 {
   v6 = sub_22944F0B4();
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x28223BE20](v6 - 8);
   sub_22944F094();
   result = sub_22944FD44();

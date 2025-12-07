@@ -40,20 +40,21 @@
 
 - (void)dealloc
 {
-  v4 = *MEMORY[0x1E69E9840];
-  if (self->_summerHandle != 0xFFFFFFFFLL)
+  v5 = *MEMORY[0x1E69E9840];
+  summerHandle = self->_summerHandle;
+  if (summerHandle != 0xFFFFFFFFLL)
   {
-    SummerCloseHandle();
+    SummerCloseHandle(summerHandle);
   }
 
-  v3.receiver = self;
-  v3.super_class = VCMediaStreamStats;
-  [(VCMediaStreamStats *)&v3 dealloc];
+  v4.receiver = self;
+  v4.super_class = VCMediaStreamStats;
+  [(VCMediaStreamStats *)&v4 dealloc];
 }
 
 - (void)recordDataWithSize:(double)size atTime:(double)time
 {
-  SummerAdd(size, time);
+  SummerAdd(self->_summerHandle, size, time);
   lastRecordingTime = self->_lastRecordingTime;
   if (lastRecordingTime != 0.0)
   {
@@ -69,7 +70,7 @@
 
 - (double)framerate
 {
-  v3 = micro() + -1.0;
+  v3 = micro(self, a2) + -1.0;
 
   [(VCMediaStreamStats *)self getFramerateSinceTime:v3];
   return result;
@@ -77,7 +78,7 @@
 
 - (unsigned)bitrateKbps
 {
-  v3 = micro() + -1.0;
+  v3 = micro(self, a2) + -1.0;
 
   return [(VCMediaStreamStats *)self getBitrateKbpsSinceTime:v3];
 }
@@ -112,7 +113,7 @@
   v7 = *MEMORY[0x1E69E9840];
   v6 = -1431655766;
   v5 = NAN;
-  v3 = SummerLengthPred(time, self->_summerHandle, SummerGreaterThan, &v5, &v6);
+  v3 = SummerLengthPred(self->_summerHandle, SummerGreaterThan, &v5, &v6, time);
   result = 0.0;
   if ((v3 & 0x80000000) == 0 && v5 > 0.0)
   {
@@ -128,7 +129,7 @@
   v5 = NAN;
   v6[0] = NAN;
   v3 = 0.0;
-  if ((SummerSumPred(time, 0.0, self->_summerHandle, SummerGreaterThan, SummerIdentity, &v5, v6) & 0x80000000) == 0 && v5 > 0.0)
+  if ((SummerSumPred(self->_summerHandle, SummerGreaterThan, SummerIdentity, &v5, v6, time, 0.0) & 0x80000000) == 0 && v5 > 0.0)
   {
     v3 = v6[0] * 8.0 / v5;
   }

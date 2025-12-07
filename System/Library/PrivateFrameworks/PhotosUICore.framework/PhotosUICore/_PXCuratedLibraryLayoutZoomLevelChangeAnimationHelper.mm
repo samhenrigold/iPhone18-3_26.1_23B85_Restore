@@ -145,7 +145,7 @@
     v49 = v42;
     v50 = v41;
     v47 = 0;
-    v46 = 0;
+    v46 = 0.0;
     PXGSectionedSpriteTagDecompose();
   }
 }
@@ -165,18 +165,18 @@
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v40 = objc_opt_class();
-    v39 = NSStringFromClass(v40);
+    v36 = objc_opt_class();
+    v35 = NSStringFromClass(v36);
     px_descriptionForAssertionMessage = [layoutCopy px_descriptionForAssertionMessage];
-    [currentHandler handleFailureInMethod:a2 object:self file:@"PXCuratedLibraryLayoutAnimationHelper.m" lineNumber:379 description:{@"%@ should be an instance inheriting from %@, but it is %@", @"rootLayout", v39, px_descriptionForAssertionMessage}];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"PXCuratedLibraryLayoutAnimationHelper.m" lineNumber:379 description:{@"%@ should be an instance inheriting from %@, but it is %@", @"rootLayout", v35, px_descriptionForAssertionMessage}];
   }
 
   else
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v38 = objc_opt_class();
-    v39 = NSStringFromClass(v38);
-    [currentHandler handleFailureInMethod:a2 object:self file:@"PXCuratedLibraryLayoutAnimationHelper.m" lineNumber:379 description:{@"%@ should be an instance inheriting from %@, but it is nil", @"rootLayout", v39}];
+    v34 = objc_opt_class();
+    v35 = NSStringFromClass(v34);
+    [currentHandler handleFailureInMethod:a2 object:self file:@"PXCuratedLibraryLayoutAnimationHelper.m" lineNumber:379 description:{@"%@ should be an instance inheriting from %@, but it is nil", @"rootLayout", v35}];
   }
 
 LABEL_3:
@@ -209,62 +209,62 @@ LABEL_3:
     sections2 = [(PXCuratedLibraryLayoutSnapshotGeometryDescriptor *)self->_toLayoutSnapshotGeometryDescriptor sections];
     anchorIndexBeforeChanges = [(PXVisualPositionsChangeDetails *)self->_visualPositionsChangeDetails anchorIndexBeforeChanges];
     anchorIndexAfterChanges = [(PXVisualPositionsChangeDetails *)self->_visualPositionsChangeDetails anchorIndexAfterChanges];
-    v42 = anchorIndexBeforeChanges;
-    v43 = animationCopy;
+    v38 = anchorIndexBeforeChanges;
+    v39 = animationCopy;
     if ([sections count])
     {
       v27 = self->_visualPositionsChangeDetails;
-      firstIndex = [sections firstIndex];
+      [sections firstIndex];
       if (v27)
       {
-        [(PXVisualPositionsChangeDetails *)v27 visualPositionAfterApplyingChangesToIndex:firstIndex];
-        v27 = v48;
+        objc_msgSend_visualPositionAfterApplyingChangesToIndex_(v27);
+        v27 = v44;
       }
 
-      v29 = self->_visualPositionsChangeDetails;
-      lastIndex = [sections lastIndex];
-      if (v29)
+      v28 = self->_visualPositionsChangeDetails;
+      [sections lastIndex];
+      if (v28)
       {
-        [(PXVisualPositionsChangeDetails *)v29 visualPositionAfterApplyingChangesToIndex:lastIndex];
-        v31 = v47;
+        objc_msgSend_visualPositionAfterApplyingChangesToIndex_(v28);
+        v29 = v43;
       }
 
       else
       {
-        v31 = 0;
+        v29 = 0;
       }
 
-      anchorIndexBeforeChanges = v42;
-      [(PXCuratedLibraryLayoutSnapshotGeometryDescriptor *)self->_toLayoutSnapshotGeometryDescriptor extrapolateSectionsBetween:v27 and:v31 withAnchorSection:anchorIndexAfterChanges];
-      animationCopy = v43;
+      anchorIndexBeforeChanges = v38;
+      [(PXCuratedLibraryLayoutSnapshotGeometryDescriptor *)self->_toLayoutSnapshotGeometryDescriptor extrapolateSectionsBetween:v27 and:v29 withAnchorSection:anchorIndexAfterChanges];
+      animationCopy = v39;
     }
 
     if ([sections2 count])
     {
-      v32 = self->_visualPositionsChangeDetails;
-      firstIndex2 = [sections2 firstIndex];
-      if (v32)
+      v30 = self->_visualPositionsChangeDetails;
+      [sections2 firstIndex];
+      if (v30)
       {
-        [(PXVisualPositionsChangeDetails *)v32 visualPositionAfterRevertingChangesFromIndex:firstIndex2];
-        v32 = v46;
+        objc_msgSend_visualPositionAfterRevertingChangesFromIndex_(v30);
+        v30 = v42;
       }
 
-      v34 = self->_visualPositionsChangeDetails;
-      lastIndex2 = [sections2 lastIndex];
-      if (v34)
+      v31 = self->_visualPositionsChangeDetails;
+      [sections2 lastIndex];
+      if (v31)
       {
-        [(PXVisualPositionsChangeDetails *)v34 visualPositionAfterRevertingChangesFromIndex:lastIndex2];
-        v36 = v45;
+        objc_msgSend_visualPositionAfterRevertingChangesFromIndex_(v31);
+        v32 = v41;
       }
 
       else
       {
-        v36 = 0;
+        v32 = 0;
       }
 
-      anchorIndexBeforeChanges = v42;
-      [(PXCuratedLibraryLayoutSnapshotGeometryDescriptor *)self->_fromLayoutSnapshotGeometryDescriptor extrapolateSectionsBetween:v32 and:v36 withAnchorSection:v42];
-      animationCopy = v43;
+      anchorIndexBeforeChanges = v38;
+      [(PXCuratedLibraryLayoutSnapshotGeometryDescriptor *)self->_fromLayoutSnapshotGeometryDescriptor extrapolateSectionsBetween:v30 and:v32 withAnchorSection:v38];
+      animationCopy = v39;
     }
 
     [(PXCuratedLibraryLayoutSnapshotGeometryDescriptor *)self->_fromLayoutSnapshotGeometryDescriptor compactifySectionsBeyondVisibleRectWithAnchorSection:anchorIndexBeforeChanges];

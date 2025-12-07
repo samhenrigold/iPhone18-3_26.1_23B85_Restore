@@ -47,8 +47,8 @@
 
 - (NSDate)expirationDate
 {
-  v3 = (*(*(sub_100012634(&qword_1000D1CF0, &qword_1000935C8) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  __chkstk_darwin();
+  v3 = sub_100012634(&qword_1000D1CF0, &qword_1000935C8);
+  __chkstk_darwin(v3 - 8);
   v5 = &v10 - v4;
   selfCopy = self;
   sub_10000C7D0(v5);

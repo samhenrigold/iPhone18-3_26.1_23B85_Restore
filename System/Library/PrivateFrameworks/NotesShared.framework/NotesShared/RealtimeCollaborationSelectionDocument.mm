@@ -29,25 +29,25 @@
 
 - (_TtC11NotesShared38RealtimeCollaborationSelectionDocument)initWithReplica:(id)replica
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA42360);
-  MEMORY[0x28223BE20](v4 - 8);
-  v6 = &v11 - v5;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA42360, &qword_2150C2988);
+  MEMORY[0x28223BE20](v4 - 8, v5);
+  v7 = &v12 - v6;
   if (replica)
   {
     sub_2150A39C0();
-    v7 = sub_2150A3A00();
-    v9 = 0;
-    v8 = (*(v7 - 8) + 56);
+    v8 = sub_2150A3A00();
+    v10 = 0;
+    v9 = (*(v8 - 8) + 56);
   }
 
   else
   {
-    v7 = sub_2150A3A00();
-    v8 = (*(v7 - 8) + 56);
-    v9 = 1;
+    v8 = sub_2150A3A00();
+    v9 = (*(v8 - 8) + 56);
+    v10 = 1;
   }
 
-  (*v8)(v6, v9, 1, v7);
+  (*v9)(v7, v10, 1, v8);
   result = _swift_stdlib_reportUnimplementedInitializer();
   __break(1u);
   return result;
@@ -55,34 +55,8 @@
 
 - (_TtC11NotesShared38RealtimeCollaborationSelectionDocument)initWithVersion:(id)version rootObject:(id)object replica:(id)replica
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA42360);
-  MEMORY[0x28223BE20](v6 - 8);
-  v8 = &v13 - v7;
-  if (replica)
-  {
-    sub_2150A39C0();
-    v9 = sub_2150A3A00();
-    v11 = 0;
-    v10 = (*(v9 - 8) + 56);
-  }
-
-  else
-  {
-    v9 = sub_2150A3A00();
-    v10 = (*(v9 - 8) + 56);
-    v11 = 1;
-  }
-
-  (*v10)(v8, v11, 1, v9);
-  result = _swift_stdlib_reportUnimplementedInitializer();
-  __break(1u);
-  return result;
-}
-
-- (_TtC11NotesShared38RealtimeCollaborationSelectionDocument)initWithVersion:(id)version startVersion:(id)startVersion rootObject:(id)object replica:(id)replica
-{
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA42360);
-  MEMORY[0x28223BE20](v7 - 8);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA42360, &qword_2150C2988);
+  MEMORY[0x28223BE20](v6 - 8, v7);
   v9 = &v14 - v8;
   if (replica)
   {
@@ -100,6 +74,32 @@
   }
 
   (*v11)(v9, v12, 1, v10);
+  result = _swift_stdlib_reportUnimplementedInitializer();
+  __break(1u);
+  return result;
+}
+
+- (_TtC11NotesShared38RealtimeCollaborationSelectionDocument)initWithVersion:(id)version startVersion:(id)startVersion rootObject:(id)object replica:(id)replica
+{
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA42360, &qword_2150C2988);
+  MEMORY[0x28223BE20](v7 - 8, v8);
+  v10 = &v15 - v9;
+  if (replica)
+  {
+    sub_2150A39C0();
+    v11 = sub_2150A3A00();
+    v13 = 0;
+    v12 = (*(v11 - 8) + 56);
+  }
+
+  else
+  {
+    v11 = sub_2150A3A00();
+    v12 = (*(v11 - 8) + 56);
+    v13 = 1;
+  }
+
+  (*v12)(v10, v13, 1, v11);
   result = _swift_stdlib_reportUnimplementedInitializer();
   __break(1u);
   return result;

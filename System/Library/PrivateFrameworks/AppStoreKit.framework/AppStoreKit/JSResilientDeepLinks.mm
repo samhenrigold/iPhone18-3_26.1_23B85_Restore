@@ -13,7 +13,8 @@
   v4 = sub_1E1AF5DFC();
   v6 = v5;
   selfCopy = self;
-  LOBYTE(v4) = sub_1E16D3BF4(v4, v6);
+  sub_1E16D3BF4(v4, v6);
+  LOBYTE(v4) = v8;
 
   return v4 & 1;
 }
@@ -22,9 +23,10 @@
 {
   selfCopy = self;
 
-  v4 = _s11AppStoreKit27ResilientDeepLinkControllerO03hasdE5Links3bagSbAA14ASKBagContractC_tFZ_0(v3);
+  _s11AppStoreKit27ResilientDeepLinkControllerO03hasdE5Links3bagSbAA14ASKBagContractC_tFZ_0(v3);
+  v5 = v4;
 
-  return v4 & 1;
+  return v5 & 1;
 }
 
 - (void)removeDeepLink:(id)link

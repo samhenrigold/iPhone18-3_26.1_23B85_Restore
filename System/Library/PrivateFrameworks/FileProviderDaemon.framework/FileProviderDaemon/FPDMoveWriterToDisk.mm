@@ -230,7 +230,7 @@ void __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption
 
 void __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_4(uint64_t a1, int a2, void *a3)
 {
-  v66 = *MEMORY[0x1E69E9840];
+  v65 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if ([*(a1 + 32) isProviderItem])
   {
@@ -250,31 +250,31 @@ LABEL_3:
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      *v65 = __Block_byref_object_copy__2;
-      *&v65[8] = __Block_byref_object_dispose__2;
-      *&v65[16] = 0;
-      v58[0] = 0;
-      v58[1] = v58;
-      v58[2] = 0x3032000000;
-      v58[3] = __Block_byref_object_copy__2;
-      v58[4] = __Block_byref_object_dispose__2;
-      v59 = 0;
+      *v64 = __Block_byref_object_copy__2;
+      *&v64[8] = __Block_byref_object_dispose__2;
+      *&v64[16] = 0;
+      v57[0] = 0;
+      v57[1] = v57;
+      v57[2] = 0x3032000000;
+      v57[3] = __Block_byref_object_copy__2;
+      v57[4] = __Block_byref_object_dispose__2;
+      v58 = 0;
       if (v11)
       {
         dispatch_group_enter(v12);
         v14 = [v11 defaultBackend];
         v15 = *(a1 + 88);
         v16 = +[FPDRequest requestForSelf];
-        v53[0] = MEMORY[0x1E69E9820];
-        v53[1] = 3221225472;
-        v53[2] = __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_9;
-        v53[3] = &unk_1E83BF078;
-        v53[4] = *(a1 + 40);
-        v54 = *(a1 + 88);
-        v55 = v13;
-        v56 = buf;
-        v57 = v58;
-        [v14 itemForURL:v15 options:0 request:v16 completionHandler:v53];
+        v52[0] = MEMORY[0x1E69E9820];
+        v52[1] = 3221225472;
+        v52[2] = __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_9;
+        v52[3] = &unk_1E83BF078;
+        v52[4] = *(a1 + 40);
+        v53 = *(a1 + 88);
+        v54 = v13;
+        v55 = buf;
+        v56 = v57;
+        [v14 itemForURL:v15 options:0 request:v16 completionHandler:v52];
       }
 
       v17 = objc_loadWeakRetained((*(a1 + 40) + 8));
@@ -283,16 +283,16 @@ LABEL_3:
       block[1] = 3221225472;
       block[2] = __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_12;
       block[3] = &unk_1E83BF0A0;
-      v51 = v58;
-      v52 = buf;
-      v50 = *(a1 + 120);
-      v49 = *(a1 + 88);
+      v50 = v57;
+      v51 = buf;
+      v49 = *(a1 + 120);
+      v48 = *(a1 + 88);
       dispatch_group_notify(v13, v18, block);
 
       [*(a1 + 88) fileSystemRepresentation];
       fpfs_open();
 
-      _Block_object_dispose(v58, 8);
+      _Block_object_dispose(v57, 8);
       _Block_object_dispose(buf, 8);
 
       goto LABEL_27;
@@ -313,26 +313,26 @@ LABEL_3:
     v19 = fp_current_or_default_log();
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v46 = *(a1 + 48);
-      v47 = *(a1 + 56);
-      v45 = objc_loadWeakRetained((*(a1 + 40) + 8));
-      v37 = [v45 info];
-      v38 = [v37 shouldBounce];
-      v39 = [*(a1 + 32) isProviderItem];
-      v40 = *(a1 + 64);
-      v41 = [v5 fp_prettyDescription];
+      v45 = *(a1 + 48);
+      v46 = *(a1 + 56);
+      v44 = objc_loadWeakRetained((*(a1 + 40) + 8));
+      v36 = [v44 info];
+      v37 = [v36 shouldBounce];
+      v38 = [*(a1 + 32) isProviderItem];
+      v39 = *(a1 + 64);
+      v40 = [v5 fp_prettyDescription];
       *buf = 138413570;
-      *&buf[4] = v46;
+      *&buf[4] = v45;
       *&buf[12] = 2112;
-      *&buf[14] = v47;
+      *&buf[14] = v46;
       *&buf[22] = 1024;
-      *v65 = v38;
-      *&v65[4] = 1024;
-      *&v65[6] = v39;
-      *&v65[10] = 2114;
-      *&v65[12] = v40;
-      *&v65[20] = 2112;
-      *&v65[22] = v41;
+      *v64 = v37;
+      *&v64[4] = 1024;
+      *&v64[6] = v38;
+      *&v64[10] = 2114;
+      *&v64[12] = v39;
+      *&v64[20] = 2112;
+      *&v64[22] = v40;
       _os_log_error_impl(&dword_1CEFC7000, v19, OS_LOG_TYPE_ERROR, "[ERROR] move-writer: collision when copying item at %@ to %@ (shouldBounce: %{BOOL}d, moveToProvider: %{BOOL}d, bounceNumber: %{public}@): %@", buf, 0x36u);
     }
 
@@ -365,13 +365,13 @@ LABEL_3:
       v27 = [v11 defaultBackend];
       v28 = *(a1 + 88);
       v29 = +[FPDRequest requestForSelf];
-      v61[0] = MEMORY[0x1E69E9820];
-      v61[1] = 3221225472;
-      v61[2] = __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_6;
-      v61[3] = &unk_1E83BF028;
-      v63 = *(a1 + 120);
-      v62 = v5;
-      [v27 itemForURL:v28 options:0 request:v29 completionHandler:v61];
+      v60[0] = MEMORY[0x1E69E9820];
+      v60[1] = 3221225472;
+      v60[2] = __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_6;
+      v60[3] = &unk_1E83BF028;
+      v62 = *(a1 + 120);
+      v61 = v5;
+      [v27 itemForURL:v28 options:0 request:v29 completionHandler:v60];
     }
 
     else
@@ -384,9 +384,9 @@ LABEL_3:
   {
     v30 = [MEMORY[0x1E696AC08] defaultManager];
     v31 = *(a1 + 88);
-    v60 = 0;
-    v32 = [v30 removeItemAtURL:v31 error:&v60];
-    v33 = v60;
+    v59 = 0;
+    v32 = [v30 removeItemAtURL:v31 error:&v59];
+    v33 = v59;
 
     if ((v32 & 1) == 0)
     {
@@ -400,15 +400,15 @@ LABEL_3:
     v35 = fp_current_or_default_log();
     if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
-      v42 = [*(a1 + 48) path];
-      v43 = [*(a1 + 88) path];
-      v44 = [v5 fp_prettyDescription];
+      v41 = [*(a1 + 48) path];
+      v42 = [*(a1 + 88) path];
+      v43 = [v5 fp_prettyDescription];
       *buf = 138412802;
-      *&buf[4] = v42;
+      *&buf[4] = v41;
       *&buf[12] = 2112;
-      *&buf[14] = v43;
+      *&buf[14] = v42;
       *&buf[22] = 2112;
-      *v65 = v44;
+      *v64 = v43;
       _os_log_error_impl(&dword_1CEFC7000, v35, OS_LOG_TYPE_ERROR, "[ERROR] couldn't copy item at %@ to %@: %@", buf, 0x20u);
     }
 
@@ -416,8 +416,6 @@ LABEL_3:
   }
 
 LABEL_27:
-
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 void __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_6(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -463,53 +461,52 @@ void __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption
   dispatch_async(v8, v11);
 }
 
-void __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_2_10(uint64_t a1)
+void __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_2_10(uint64_t a1, uint64_t a2)
 {
   v11 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
-    v2 = fp_current_or_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = fp_current_or_default_log();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_2_10_cold_1();
     }
   }
 
-  v3 = *(a1 + 48);
-  v4 = fp_current_or_default_log();
-  v5 = v4;
-  if (v3)
+  v4 = *(a1 + 48);
+  v5 = fp_current_or_default_log();
+  v6 = v5;
+  if (v4)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_2_10_cold_2();
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [*(a1 + 40) fp_shortDescription];
+    v7 = [*(a1 + 40) fp_shortDescription];
     v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] move-writer: couldn't have item for URL %@", &v9, 0xCu);
+    v10 = v7;
+    _os_log_impl(&dword_1CEFC7000, v6, OS_LOG_TYPE_DEFAULT, "[WARNING] move-writer: couldn't have item for URL %@", &v9, 0xCu);
   }
 
-  v7 = *(a1 + 56);
-  objc_sync_enter(v7);
+  v8 = *(a1 + 56);
+  objc_sync_enter(v8);
   objc_storeStrong((*(*(a1 + 64) + 8) + 40), *(a1 + 32));
   objc_storeStrong((*(*(a1 + 72) + 8) + 40), *(a1 + 48));
-  objc_sync_exit(v7);
+  objc_sync_exit(v8);
 
   dispatch_group_leave(*(a1 + 56));
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-void __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_12(void *a1)
+void __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_12(void *a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_12_cold_1(a1);
+    __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_12_cold_1();
   }
 
   if (*(*(a1[7] + 8) + 40))
@@ -519,7 +516,7 @@ void __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption
 
   else
   {
-    v3 = a1[5];
+    v4 = a1[5];
     if (*(*(a1[6] + 8) + 40))
     {
       [MEMORY[0x1E69672A8] locatorForItem:?];
@@ -529,8 +526,8 @@ void __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption
     {
       [MEMORY[0x1E69672A8] locatorForURL:a1[4]];
     }
-    v4 = ;
-    (*(v3 + 16))(v3, v4, 0);
+    v5 = ;
+    (*(v4 + 16))(v4, v5, 0);
   }
 }
 
@@ -657,7 +654,7 @@ void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption
 
 void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_19(uint64_t a1, void *a2, void *a3)
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = fp_current_or_default_log();
@@ -696,7 +693,7 @@ void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption
       v12 = v10;
     }
 
-    v54 = [v5 URLByAppendingPathComponent:v12];
+    v53 = [v5 URLByAppendingPathComponent:v12];
     WeakRetained = objc_loadWeakRetained((*(a1 + 56) + 8));
     v15 = [WeakRetained coordinator];
     [v15 startAccessingURLForAtomDuration:v5];
@@ -707,43 +704,43 @@ void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption
     aBlock[3] = &unk_1E83BF160;
     v16 = *(a1 + 64);
     aBlock[4] = *(a1 + 56);
-    v64 = v16;
-    v65 = *(a1 + 72);
+    v63 = v16;
+    v64 = *(a1 + 72);
     v17 = v10;
-    v66 = v17;
-    v68 = *(a1 + 88);
-    v67 = *(a1 + 80);
-    v53 = _Block_copy(aBlock);
+    v65 = v17;
+    v67 = *(a1 + 88);
+    v66 = *(a1 + 80);
+    v52 = _Block_copy(aBlock);
     v18 = fp_current_or_default_log();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      v35 = [*(a1 + 48) path];
-      [v54 path];
-      v36 = v50 = v17;
+      v34 = [*(a1 + 48) path];
+      [v53 path];
+      v35 = v49 = v17;
       [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 88)];
-      v52 = v12;
-      v38 = v37 = v9;
-      v39 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 96)];
+      v51 = v12;
+      v37 = v36 = v9;
+      v38 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 96)];
       *buf = 138413058;
-      v70 = v35;
-      v71 = 2112;
-      v72 = v36;
-      v73 = 2112;
-      v74 = v38;
-      v75 = 2112;
-      v76 = v39;
+      v69 = v34;
+      v70 = 2112;
+      v71 = v35;
+      v72 = 2112;
+      v73 = v37;
+      v74 = 2112;
+      v75 = v38;
       _os_log_debug_impl(&dword_1CEFC7000, v18, OS_LOG_TYPE_DEBUG, "[DEBUG] move-writer: checking target existence before coordination to move on disk %@ to %@.                        sourceMaterializeOption %@ targetMaterializeOption %@", buf, 0x2Au);
 
-      v9 = v37;
-      v12 = v52;
+      v9 = v36;
+      v12 = v51;
 
-      v17 = v50;
+      v17 = v49;
     }
 
-    v62 = 0;
-    v55 = v5;
-    v19 = [v5 fp_existingURLOfChildWithName:v12 isFolder:v11 notMatchingFileID:0 nextAvailableBounceNumber:&v62 forceFetchingBounceNumber:1];
-    v20 = v62;
+    v61 = 0;
+    v54 = v5;
+    v19 = [v5 fp_existingURLOfChildWithName:v12 isFolder:v11 notMatchingFileID:0 nextAvailableBounceNumber:&v61 forceFetchingBounceNumber:1];
+    v20 = v61;
     v21 = v20;
     if (v19)
     {
@@ -761,74 +758,72 @@ void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption
 
       v23 = *(a1 + 48);
       v24 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A250] code:516 userInfo:0];
-      v25 = v53;
-      (*(v53 + 2))(v53, v23, v19, v21, v24);
-      v26 = v54;
+      v25 = v52;
+      (*(v52 + 2))(v52, v23, v19, v21, v24);
+      v26 = v53;
     }
 
     else
     {
-      v49 = v17;
-      v51 = v12;
+      v48 = v17;
+      v50 = v12;
       v27 = v9;
       v28 = fp_current_or_default_log();
       if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
-        v40 = [*(a1 + 48) path];
-        v41 = [v54 path];
-        v42 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 88)];
-        v43 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 96)];
+        v39 = [*(a1 + 48) path];
+        v40 = [v53 path];
+        v41 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 88)];
+        v42 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:*(a1 + 96)];
         *buf = 138413058;
-        v70 = v40;
-        v71 = 2112;
-        v72 = v41;
-        v73 = 2112;
-        v74 = v42;
-        v75 = 2112;
-        v76 = v43;
+        v69 = v39;
+        v70 = 2112;
+        v71 = v40;
+        v72 = 2112;
+        v73 = v41;
+        v74 = 2112;
+        v75 = v42;
         _os_log_debug_impl(&dword_1CEFC7000, v28, OS_LOG_TYPE_DEBUG, "[DEBUG] move-writer: starting coordination to move on disk %@ to %@.                        sourceMaterializeOption %@ targetMaterializeOption %@", buf, 0x2Au);
       }
 
-      v48 = objc_loadWeakRetained((*(a1 + 56) + 8));
-      v29 = [v48 coordinator];
-      v45 = *(a1 + 88);
-      v46 = *(a1 + 96);
-      v44 = *(a1 + 48);
       v47 = objc_loadWeakRetained((*(a1 + 56) + 8));
-      v30 = [v47 operation];
+      v29 = [v47 coordinator];
+      v44 = *(a1 + 88);
+      v45 = *(a1 + 96);
+      v43 = *(a1 + 48);
+      v46 = objc_loadWeakRetained((*(a1 + 56) + 8));
+      v30 = [v46 operation];
       v31 = [v30 request];
-      v56[0] = MEMORY[0x1E69E9820];
-      v56[1] = 3221225472;
-      v56[2] = __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_25;
-      v56[3] = &unk_1E83BF188;
+      v55[0] = MEMORY[0x1E69E9820];
+      v55[1] = 3221225472;
+      v55[2] = __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_25;
+      v55[3] = &unk_1E83BF188;
       v32 = *(a1 + 80);
       v33 = *(a1 + 56);
-      v60 = v32;
-      v56[4] = v33;
-      v25 = v53;
-      v61 = v53;
+      v59 = v32;
+      v55[4] = v33;
+      v25 = v52;
+      v60 = v52;
       v9 = v27;
-      v57 = v27;
-      v26 = v54;
-      v58 = v54;
-      v59 = *(a1 + 64);
-      [v29 coordinateForMovingFromURL:v44 toURL:v58 toTargetFolderURL:v55 targetMaterializeOption:v46 sourceMaterializeOption:v45 request:v31 handler:v56];
+      v56 = v27;
+      v26 = v53;
+      v57 = v53;
+      v58 = *(a1 + 64);
+      [v29 coordinateForMovingFromURL:v43 toURL:v57 toTargetFolderURL:v54 targetMaterializeOption:v45 sourceMaterializeOption:v44 request:v31 handler:v55];
 
-      v24 = v60;
-      v17 = v49;
-      v12 = v51;
+      v24 = v59;
+      v17 = v48;
+      v12 = v50;
       v19 = 0;
     }
 
-    v5 = v55;
+    v5 = v54;
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_21(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v9 = a2;
   v10 = a3;
   v11 = a4;
@@ -837,22 +832,22 @@ void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption
   if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
-    v25 = [WeakRetained info];
-    v26 = [v25 shouldBounce];
-    v27 = [*(a1 + 40) isProviderItem];
-    v28 = [v12 fp_prettyDescription];
+    v24 = [WeakRetained info];
+    v25 = [v24 shouldBounce];
+    v26 = [*(a1 + 40) isProviderItem];
+    v27 = [v12 fp_prettyDescription];
     *buf = 138413570;
-    v35 = v9;
-    v36 = 2112;
-    v37 = v10;
-    v38 = 1024;
-    v39 = v26;
-    v40 = 2112;
-    v41 = v11;
-    v42 = 1024;
-    v43 = v27;
-    v44 = 2112;
-    v45 = v28;
+    v34 = v9;
+    v35 = 2112;
+    v36 = v10;
+    v37 = 1024;
+    v38 = v25;
+    v39 = 2112;
+    v40 = v11;
+    v41 = 1024;
+    v42 = v26;
+    v43 = 2112;
+    v44 = v27;
     _os_log_error_impl(&dword_1CEFC7000, v13, OS_LOG_TYPE_ERROR, "[ERROR] move-writer: collision when moving item at %@ to %@ (shouldBounce: %{BOOL}d, nextBounceNumber: %@, moveToProvider: %{BOOL}d): %@", buf, 0x36u);
   }
 
@@ -867,30 +862,28 @@ void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption
 
   else if ([*(a1 + 40) isProviderItem])
   {
-    v29 = [*(a1 + 40) asFPItem];
+    v28 = [*(a1 + 40) asFPItem];
     v17 = objc_loadWeakRetained((*(a1 + 32) + 8));
     v18 = [v17 operation];
     v19 = [v18 manager];
-    v20 = [v29 itemID];
+    v20 = [v28 itemID];
     v21 = [v19 domainFromItemID:v20 reason:0];
 
     v22 = [v21 defaultBackend];
     v23 = +[FPDRequest requestForSelf];
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_22;
-    v31[3] = &unk_1E83BF028;
-    v33 = *(a1 + 64);
-    v32 = v12;
-    [v22 itemForURL:v10 options:0 request:v23 completionHandler:v31];
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_22;
+    v30[3] = &unk_1E83BF028;
+    v32 = *(a1 + 64);
+    v31 = v12;
+    [v22 itemForURL:v10 options:0 request:v23 completionHandler:v30];
   }
 
   else
   {
     (*(*(a1 + 64) + 16))();
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_22(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -918,7 +911,7 @@ void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption
 
 void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_25(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v62 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   v9 = a2;
   v10 = a3;
   v11 = a4;
@@ -926,14 +919,14 @@ void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption
   v13 = fp_current_or_default_log();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v36 = [v9 path];
-    v37 = [v10 path];
+    v35 = [v9 path];
+    v36 = [v10 path];
     *buf = 138412802;
-    *&buf[4] = v36;
+    *&buf[4] = v35;
     *&buf[12] = 2112;
-    *&buf[14] = v37;
+    *&buf[14] = v36;
     *&buf[22] = 2112;
-    v59 = v11;
+    v58 = v11;
     _os_log_debug_impl(&dword_1CEFC7000, v13, OS_LOG_TYPE_DEBUG, "[DEBUG] move-writer: finished coordinateForMovingFromURL source %@ dest %@ destFolder %@", buf, 0x20u);
   }
 
@@ -941,9 +934,9 @@ void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption
   {
     fpfs_ignore_thread_skip_mtime_iopolicy();
     v14 = *(*(a1 + 32) + 16);
-    v57 = 0;
-    [v14 moveItemAtURL:v9 toURL:v10 error:&v57];
-    v15 = v57;
+    v56 = 0;
+    [v14 moveItemAtURL:v9 toURL:v10 error:&v56];
+    v15 = v56;
     fpfs_restore_thread_skip_mtime_iopolicy();
     if (!v15)
     {
@@ -952,24 +945,24 @@ void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v59 = __Block_byref_object_copy__2;
-      v60 = __Block_byref_object_dispose__2;
-      v61 = 0;
-      v55[0] = 0;
-      v55[1] = v55;
-      v55[2] = 0x3032000000;
-      v55[3] = __Block_byref_object_copy__2;
-      v55[4] = __Block_byref_object_dispose__2;
-      v56 = 0;
+      v58 = __Block_byref_object_copy__2;
+      v59 = __Block_byref_object_dispose__2;
+      v60 = 0;
+      v54[0] = 0;
+      v54[1] = v54;
+      v54[2] = 0x3032000000;
+      v54[3] = __Block_byref_object_copy__2;
+      v54[4] = __Block_byref_object_dispose__2;
+      v55 = 0;
       if ([*(a1 + 56) isProviderItem])
       {
-        v41 = [*(a1 + 56) asFPItem];
+        v40 = [*(a1 + 56) asFPItem];
         dispatch_group_enter(group);
         WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
         v24 = [WeakRetained operation];
         v25 = [v24 manager];
-        v26 = [v41 itemID];
-        v42 = [v25 domainFromItemID:v26 reason:0];
+        v26 = [v40 itemID];
+        v41 = [v25 domainFromItemID:v26 reason:0];
 
         v27 = fp_current_or_default_log();
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
@@ -977,23 +970,23 @@ void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption
           __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_25_cold_1();
         }
 
-        v28 = [v42 defaultBackend];
-        v40 = *(a1 + 48);
+        v28 = [v41 defaultBackend];
+        v39 = *(a1 + 48);
         v29 = objc_loadWeakRetained((*(a1 + 32) + 8));
         v30 = [v29 operation];
         v31 = [v30 request];
-        v50[0] = MEMORY[0x1E69E9820];
-        v50[1] = 3221225472;
-        v50[2] = __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_26;
-        v50[3] = &unk_1E83BF078;
-        v50[4] = *(a1 + 32);
-        v51 = *(a1 + 48);
-        v52 = group;
-        v53 = buf;
-        v54 = v55;
-        [v28 itemForURL:v40 options:0 request:v31 completionHandler:v50];
+        v49[0] = MEMORY[0x1E69E9820];
+        v49[1] = 3221225472;
+        v49[2] = __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_26;
+        v49[3] = &unk_1E83BF078;
+        v49[4] = *(a1 + 32);
+        v50 = *(a1 + 48);
+        v51 = group;
+        v52 = buf;
+        v53 = v54;
+        [v28 itemForURL:v39 options:0 request:v31 completionHandler:v49];
 
-        [v42 forceIngestionAtURL:*(a1 + 48)];
+        [v41 forceIngestionAtURL:*(a1 + 48)];
       }
 
       v32 = objc_loadWeakRetained((*(a1 + 32) + 8));
@@ -1002,13 +995,13 @@ void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption
       block[1] = 3221225472;
       block[2] = __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_27;
       block[3] = &unk_1E83BF0A0;
-      v48 = v55;
-      v49 = buf;
-      v47 = *(a1 + 64);
-      v46 = *(a1 + 48);
+      v47 = v54;
+      v48 = buf;
+      v46 = *(a1 + 64);
+      v45 = *(a1 + 48);
       dispatch_group_notify(group, v33, block);
 
-      _Block_object_dispose(v55, 8);
+      _Block_object_dispose(v54, 8);
       _Block_object_dispose(buf, 8);
 
       goto LABEL_21;
@@ -1050,14 +1043,14 @@ LABEL_21:
     if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
       groupa = [v9 path];
-      v38 = [v10 path];
-      v39 = [v15 fp_prettyDescription];
+      v37 = [v10 path];
+      v38 = [v15 fp_prettyDescription];
       *buf = 138412802;
       *&buf[4] = groupa;
       *&buf[12] = 2112;
-      *&buf[14] = v38;
+      *&buf[14] = v37;
       *&buf[22] = 2112;
-      v59 = v39;
+      v58 = v38;
       _os_log_error_impl(&dword_1CEFC7000, v34, OS_LOG_TYPE_ERROR, "[ERROR] move-writer: couldn't move item at %@ to %@: %@", buf, 0x20u);
     }
 
@@ -1067,8 +1060,6 @@ LABEL_21:
 
   (*(*(a1 + 64) + 16))();
 LABEL_22:
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_26(uint64_t a1, void *a2, void *a3)
@@ -1091,53 +1082,52 @@ void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption
   dispatch_async(v8, v11);
 }
 
-void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_2(uint64_t a1)
+void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v11 = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
-    v2 = fp_current_or_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = fp_current_or_default_log();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_2_10_cold_1();
     }
   }
 
-  v3 = *(a1 + 48);
-  v4 = fp_current_or_default_log();
-  v5 = v4;
-  if (v3)
+  v4 = *(a1 + 48);
+  v5 = fp_current_or_default_log();
+  v6 = v5;
+  if (v4)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
       __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_2_10_cold_2();
     }
   }
 
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [*(a1 + 40) fp_shortDescription];
+    v7 = [*(a1 + 40) fp_shortDescription];
     v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_1CEFC7000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] move-writer: couldn't have item for URL %@", &v9, 0xCu);
+    v10 = v7;
+    _os_log_impl(&dword_1CEFC7000, v6, OS_LOG_TYPE_DEFAULT, "[WARNING] move-writer: couldn't have item for URL %@", &v9, 0xCu);
   }
 
-  v7 = *(a1 + 56);
-  objc_sync_enter(v7);
+  v8 = *(a1 + 56);
+  objc_sync_enter(v8);
   objc_storeStrong((*(*(a1 + 64) + 8) + 40), *(a1 + 32));
   objc_storeStrong((*(*(a1 + 72) + 8) + 40), *(a1 + 48));
-  objc_sync_exit(v7);
+  objc_sync_exit(v8);
 
   dispatch_group_leave(*(a1 + 56));
-  v8 = *MEMORY[0x1E69E9840];
 }
 
-void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_27(void *a1)
+void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_27(void *a1, uint64_t a2)
 {
-  v2 = fp_current_or_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = fp_current_or_default_log();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_27_cold_1(a1);
+    __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_27_cold_1();
   }
 
   if (*(*(a1[7] + 8) + 40))
@@ -1147,7 +1137,7 @@ void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption
 
   else
   {
-    v3 = a1[5];
+    v4 = a1[5];
     if (*(*(a1[6] + 8) + 40))
     {
       [MEMORY[0x1E69672A8] locatorForItem:?];
@@ -1157,8 +1147,8 @@ void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption
     {
       [MEMORY[0x1E69672A8] locatorForURL:a1[4]];
     }
-    v4 = ;
-    (*(v3 + 16))(v3, v4, 0);
+    v5 = ;
+    (*(v4 + 16))(v4, v5, 0);
   }
 }
 
@@ -1437,17 +1427,16 @@ void __64__FPDMoveWriterToDisk_performCreateFolder_inside_as_completion___block_
   dispatch_async(v8, v12);
 }
 
-void __64__FPDMoveWriterToDisk_performCreateFolder_inside_as_completion___block_invoke_2_31(void *a1)
+void __64__FPDMoveWriterToDisk_performCreateFolder_inside_as_completion___block_invoke_2_31(void *a1, uint64_t a2)
 {
   if (a1[4])
   {
-    v2 = fp_current_or_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = fp_current_or_default_log();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_2_10_cold_1();
     }
 
-    v3 = a1[4];
     (*(a1[7] + 16))();
   }
 
@@ -1508,128 +1497,96 @@ void __64__FPDMoveWriterToDisk_performCreateFolder_inside_as_completion___block_
 
 - (void)_respectLastUsageDatePolicyForDestinationURL:withSource:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
-  _os_log_error_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_ERROR, "[ERROR] failed to preserve last used date: %@", v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1CEFC7000, v0, OS_LOG_TYPE_ERROR, "[ERROR] failed to preserve last used date: %@", v1, 0xCu);
 }
 
 void __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_4_cold_1(id *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [*a1 path];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_2_10_cold_1()
 {
   OUTLINED_FUNCTION_11();
-  v1 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_5_1(v2) fp_shortDescription];
-  v4 = [*v0 fp_prettyDescription];
+  v2 = [OUTLINED_FUNCTION_5_1(v1) fp_shortDescription];
+  v3 = [*v0 fp_prettyDescription];
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
 }
 
 void __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_2_10_cold_2()
 {
   OUTLINED_FUNCTION_11();
-  v1 = *MEMORY[0x1E69E9840];
-  v3 = [OUTLINED_FUNCTION_5_1(v2) fp_shortDescription];
-  v4 = *v0;
+  v1 = [OUTLINED_FUNCTION_5_1(v0) fp_shortDescription];
   OUTLINED_FUNCTION_3_2();
   OUTLINED_FUNCTION_4_1();
-  _os_log_debug_impl(v5, v6, v7, v8, v9, 0x16u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
-void __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_12_cold_1(uint64_t a1)
+void __120__FPDMoveWriterToDisk__performCopyOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_12_cold_1()
 {
-  OUTLINED_FUNCTION_9_0(a1, *MEMORY[0x1E69E9840]);
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v1, v2, "[DEBUG] move-writer: Finished copy with dest item %@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_9_0(*MEMORY[0x1E69E9840]);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v1, v2, "[DEBUG] move-writer: Finished copy with dest item %@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [a1 path];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_4_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_19_cold_1()
 {
   OUTLINED_FUNCTION_11();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [v0 path];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_4_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_25_cold_1()
+void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_27_cold_1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v0, v1, "[DEBUG] move-writer: starting ingestion of dest item %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-void __120__FPDMoveWriterToDisk__performMoveOfItem_to_as_sourceMaterializeOption_targetMaterializeOption_bounceNumber_completion___block_invoke_27_cold_1(uint64_t a1)
-{
-  OUTLINED_FUNCTION_9_0(a1, *MEMORY[0x1E69E9840]);
-  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v1, v2, "[DEBUG] move-writer: Finished move with dest item %@", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_9_0(*MEMORY[0x1E69E9840]);
+  LODWORD(v7) = 138412290;
+  *(&v7 + 4) = v0;
+  OUTLINED_FUNCTION_1_2(&dword_1CEFC7000, v1, v2, "[DEBUG] move-writer: Finished move with dest item %@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 void __64__FPDMoveWriterToDisk_performCreateFolder_inside_as_completion___block_invoke_cold_1(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = [a2 fp_prettyDescription];
   OUTLINED_FUNCTION_3_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __64__FPDMoveWriterToDisk_performCreateFolder_inside_as_completion___block_invoke_2_cold_1(id *a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [*a1 fp_shortDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __64__FPDMoveWriterToDisk_performCreateFolder_inside_as_completion___block_invoke_2_31_cold_3(uint64_t a1)
 {
-  v1 = *MEMORY[0x1E69E9840];
-  v2 = [OUTLINED_FUNCTION_5_1(a1) fp_shortDescription];
+  v1 = [OUTLINED_FUNCTION_5_1(a1) fp_shortDescription];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_4_1();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0xCu);
-
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 @end

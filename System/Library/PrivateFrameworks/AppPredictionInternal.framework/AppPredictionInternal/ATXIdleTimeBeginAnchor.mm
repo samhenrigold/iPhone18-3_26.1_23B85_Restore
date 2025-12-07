@@ -34,28 +34,27 @@
 
 BOOL __37__ATXIdleTimeBeginAnchor_filterBlock__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = a2;
+  v2 = a2;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = v3;
-    v5 = [v4 endTime];
-    v6 = [v4 startTime];
+    v3 = v2;
+    v4 = [v3 endTime];
+    v5 = [v3 startTime];
 
-    [v5 timeIntervalSinceDate:v6];
-    v8 = v7;
+    [v4 timeIntervalSinceDate:v5];
+    v7 = v6;
 
-    v9 = *(a1 + 32);
     [objc_opt_class() minimumSecondsForBeingIdle];
-    v11 = v8 >= v10;
+    v9 = v7 >= v8;
   }
 
   else
   {
-    v11 = 0;
+    v9 = 0;
   }
 
-  return v11;
+  return v9;
 }
 
 + (id)fetchAnchorOccurrencesBetweenStartDate:(id)date endDate:(id)endDate
@@ -93,10 +92,10 @@ uint64_t __73__ATXIdleTimeBeginAnchor_fetchAnchorOccurrencesBetweenStartDate_end
   v2 = [a2 endDate];
   v3 = [_ATXActionUtils localHourOfDayFromDate:v2];
 
-  v4 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v5 = __atxlog_handle_anchor(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    __73__ATXIdleTimeBeginAnchor_fetchAnchorOccurrencesBetweenStartDate_endDate___block_invoke_2_cold_1(v3, v4);
+    __73__ATXIdleTimeBeginAnchor_fetchAnchorOccurrencesBetweenStartDate_endDate___block_invoke_2_cold_1(v3, v5);
   }
 
   return 1;
@@ -119,7 +118,7 @@ uint64_t __73__ATXIdleTimeBeginAnchor_fetchAnchorOccurrencesBetweenStartDate_end
   v24 = *MEMORY[0x277D85DE8];
   observerCopy = observer;
   predictNextAnchorOccurrenceDate = [self predictNextAnchorOccurrenceDate];
-  v9 = __atxlog_handle_anchor();
+  v9 = __atxlog_handle_anchor(predictNextAnchorOccurrenceDate);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
@@ -148,37 +147,39 @@ uint64_t __73__ATXIdleTimeBeginAnchor_fetchAnchorOccurrencesBetweenStartDate_end
   selectorCopy = selector;
   v14 = observerCopy;
   xpc_activity_register("com.apple.duetexpertd.idle_time_begin_trigger", v13, v17);
-  v15 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = __atxlog_handle_anchor(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     selfCopy2 = self;
-    _os_log_impl(&dword_2263AA000, v15, OS_LOG_TYPE_DEFAULT, "Inference (%@): Done setting up XPC activity for IdleTimeBegin Anchor.", buf, 0xCu);
+    _os_log_impl(&dword_2263AA000, v16, OS_LOG_TYPE_DEFAULT, "Inference (%@): Done setting up XPC activity for IdleTimeBegin Anchor.", buf, 0xCu);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __113__ATXIdleTimeBeginAnchor_registerForNotificationsWithoutUsingContextStoreForObserver_enterSelector_exitSelector___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (xpc_activity_get_state(v3) == 2 && ([MEMORY[0x277D42598] isClassCLocked] & 1) == 0)
+  if (xpc_activity_get_state(v3) == 2)
   {
-    v4 = __atxlog_handle_anchor();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v4 = [MEMORY[0x277D42598] isClassCLocked];
+    if ((v4 & 1) == 0)
     {
-      *v7 = 0;
-      _os_log_impl(&dword_2263AA000, v4, OS_LOG_TYPE_DEFAULT, "Triggering IdleTimeBegin Anchor based on prescheduled XPC Activity.", v7, 2u);
-    }
+      v5 = __atxlog_handle_anchor(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      {
+        *v8 = 0;
+        _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "Triggering IdleTimeBegin Anchor based on prescheduled XPC Activity.", v8, 2u);
+      }
 
-    v5 = objc_autoreleasePoolPush();
-    v6 = *(a1 + 32);
-    if (v6)
-    {
-      ([v6 methodForSelector:*(a1 + 40)])(*(a1 + 32), *(a1 + 40));
-    }
+      v6 = objc_autoreleasePoolPush();
+      v7 = *(a1 + 32);
+      if (v7)
+      {
+        ([v7 methodForSelector:*(a1 + 40)])(*(a1 + 32), *(a1 + 40));
+      }
 
-    objc_autoreleasePoolPop(v5);
+      objc_autoreleasePoolPop(v6);
+    }
   }
 }
 
@@ -203,25 +204,23 @@ void __113__ATXIdleTimeBeginAnchor_registerForNotificationsWithoutUsingContextSt
   [v9 setHour:v10];
   [v9 setMinute:v13];
   v14 = [currentCalendar dateFromComponents:v9];
-  [v14 timeIntervalSinceNow];
-  if (v15 < -10.0)
+  timeIntervalSinceNow = [v14 timeIntervalSinceNow];
+  if (v16 < -10.0)
   {
-    v16 = [currentCalendar dateByAddingUnit:16 value:1 toDate:v14 options:0];
+    v17 = [currentCalendar dateByAddingUnit:16 value:1 toDate:v14 options:0];
 
-    v14 = v16;
+    v14 = v17;
   }
 
-  v17 = __atxlog_handle_anchor();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  v18 = __atxlog_handle_anchor(timeIntervalSinceNow);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
     v22 = v14;
     v23 = 2048;
     v24 = __x.i64[0];
-    _os_log_impl(&dword_2263AA000, v17, OS_LOG_TYPE_DEFAULT, "Prediction: %@ (%.3f)", buf, 0x16u);
+    _os_log_impl(&dword_2263AA000, v18, OS_LOG_TYPE_DEFAULT, "Prediction: %@ (%.3f)", buf, 0x16u);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -298,11 +297,10 @@ double __58__ATXIdleTimeBeginAnchor_weightedAverageOfHoursFromDates___block_invo
 
 void __73__ATXIdleTimeBeginAnchor_fetchAnchorOccurrencesBetweenStartDate_endDate___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "IdleTimeBegin Anchor occurred at local hour: %ld", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "IdleTimeBegin Anchor occurred at local hour: %ld", &v2, 0xCu);
 }
 
 @end

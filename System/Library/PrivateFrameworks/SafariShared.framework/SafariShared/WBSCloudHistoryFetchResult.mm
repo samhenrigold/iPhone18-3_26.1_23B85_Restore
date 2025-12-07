@@ -254,20 +254,21 @@
       }
     }
 
-    v13 = 0;
-    v8 = [MEMORY[0x1E696AE40] propertyListWithData:v4 options:0 format:0 error:&v13];
-    v9 = v13;
+    v15 = 0;
+    v8 = [MEMORY[0x1E696AE40] propertyListWithData:v4 options:0 format:0 error:&v15];
+    v9 = v15;
+    v11 = v9;
     if (v8)
     {
-      v10 = v8;
+      v12 = v8;
     }
 
     else
     {
-      v11 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v13 = WBS_LOG_CHANNEL_PREFIXCloudHistory(v9, v10);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        [(WBSCloudHistoryFetchResult *)v11 _dictionaryForRecordData:v9];
+        [(WBSCloudHistoryFetchResult *)v13 _dictionaryForRecordData:v11];
       }
     }
   }
@@ -282,7 +283,7 @@
 
 - (void)appendRecord:(id)record usingConfiguration:(id)configuration
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   recordCopy = record;
   configurationCopy = configuration;
   modificationDate = [recordCopy modificationDate];
@@ -304,32 +305,32 @@
     }
 
     v17 = [(WBSCloudHistoryFetchResult *)self _dictionaryForRecordData:v16];
-    v18 = v17;
+    v19 = v17;
     if (!v17)
     {
-      v24 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v25 = WBS_LOG_CHANNEL_PREFIXCloudHistory(0, v18);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
-        [WBSCloudHistoryFetchResult appendRecord:v24 usingConfiguration:?];
+        [WBSCloudHistoryFetchResult appendRecord:v25 usingConfiguration:?];
       }
 
       goto LABEL_45;
     }
 
-    v44 = v16;
-    v45 = v17;
-    v19 = [recordCopy safari_stringForKey:@"ProfileUUID"];
+    v47 = v16;
+    v48 = v17;
+    v20 = [recordCopy safari_stringForKey:@"ProfileUUID"];
     if ([recordType isEqualToString:@"Visits"] && integerValue >= 1 && integerValue <= 2)
     {
-      v43 = recordType;
-      v20 = @"ClientVersion";
-      v21 = [v45 safari_numberForKey:@"ClientVersion"];
-      unsignedIntegerValue = [v21 unsignedIntegerValue];
-      v42 = v11;
+      v46 = recordType;
+      v21 = @"ClientVersion";
+      v22 = [v48 safari_numberForKey:@"ClientVersion"];
+      unsignedIntegerValue = [v22 unsignedIntegerValue];
+      v45 = v11;
       if (unsignedIntegerValue)
       {
-        v20 = [v45 safari_numberForKey:@"ClientVersion"];
-        unsignedIntegerValue2 = [(__CFString *)v20 unsignedIntegerValue];
+        v21 = [v48 safari_numberForKey:@"ClientVersion"];
+        unsignedIntegerValue2 = [(__CFString *)v21 unsignedIntegerValue];
       }
 
       else
@@ -344,51 +345,51 @@
       {
       }
 
-      v25 = [v45 safari_arrayForKey:@"Visits"];
-      v52 = 0u;
-      v53 = 0u;
-      v54 = 0u;
+      v26 = [v48 safari_arrayForKey:@"Visits"];
       v55 = 0u;
-      v33 = [v25 countByEnumeratingWithState:&v52 objects:v57 count:16];
-      if (!v33)
+      v56 = 0u;
+      v57 = 0u;
+      v58 = 0u;
+      v35 = [v26 countByEnumeratingWithState:&v55 objects:v60 count:16];
+      if (!v35)
       {
         goto LABEL_42;
       }
 
-      v34 = v33;
-      v39 = modificationDate;
-      v40 = configurationCopy;
-      v41 = recordCopy;
-      v35 = *v53;
+      v36 = v35;
+      v42 = modificationDate;
+      v43 = configurationCopy;
+      v44 = recordCopy;
+      v37 = *v56;
       do
       {
-        for (i = 0; i != v34; ++i)
+        for (i = 0; i != v36; ++i)
         {
-          if (*v53 != v35)
+          if (*v56 != v37)
           {
-            objc_enumerationMutation(v25);
+            objc_enumerationMutation(v26);
           }
 
-          v37 = [[WBSCloudHistoryVisit alloc] initWithDictionary:*(*(&v52 + 1) + 8 * i)];
-          if (v37)
+          v40 = [[WBSCloudHistoryVisit alloc] initWithDictionary:*(*(&v55 + 1) + 8 * i)];
+          if (v40)
           {
-            [(WBSCloudHistoryFetchResult *)self _addCloudHistoryVisit:v37 profileServerIdentifier:v19];
+            [(WBSCloudHistoryFetchResult *)self _addCloudHistoryVisit:v40 profileServerIdentifier:v20];
           }
 
           else
           {
-            v38 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-            if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+            v41 = WBS_LOG_CHANNEL_PREFIXCloudHistory(0, v39);
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
             {
-              [(WBSCloudHistoryFetchResult *)&buf appendRecord:v51 usingConfiguration:v38];
+              [(WBSCloudHistoryFetchResult *)&buf appendRecord:v54 usingConfiguration:v41];
             }
           }
         }
 
-        v34 = [v25 countByEnumeratingWithState:&v52 objects:v57 count:16];
+        v36 = [v26 countByEnumeratingWithState:&v55 objects:v60 count:16];
       }
 
-      while (v34);
+      while (v36);
     }
 
     else
@@ -398,69 +399,69 @@
         goto LABEL_44;
       }
 
-      v43 = recordType;
-      v25 = [v45 safari_arrayForKey:@"Tombstones"];
-      v46 = 0u;
-      v47 = 0u;
-      v48 = 0u;
+      v46 = recordType;
+      v26 = [v48 safari_arrayForKey:@"Tombstones"];
       v49 = 0u;
-      v26 = [v25 countByEnumeratingWithState:&v46 objects:v56 count:16];
-      if (!v26)
+      v50 = 0u;
+      v51 = 0u;
+      v52 = 0u;
+      v27 = [v26 countByEnumeratingWithState:&v49 objects:v59 count:16];
+      if (!v27)
       {
 LABEL_43:
 
-        recordType = v43;
+        recordType = v46;
 LABEL_44:
 
-        v16 = v44;
-        v18 = v45;
+        v16 = v47;
+        v19 = v48;
 LABEL_45:
 
         goto LABEL_46;
       }
 
-      v27 = v26;
-      v41 = recordCopy;
-      v42 = v11;
-      v39 = modificationDate;
-      v40 = configurationCopy;
-      v28 = *v47;
+      v28 = v27;
+      v44 = recordCopy;
+      v45 = v11;
+      v42 = modificationDate;
+      v43 = configurationCopy;
+      v29 = *v50;
       do
       {
-        for (j = 0; j != v27; ++j)
+        for (j = 0; j != v28; ++j)
         {
-          if (*v47 != v28)
+          if (*v50 != v29)
           {
-            objc_enumerationMutation(v25);
+            objc_enumerationMutation(v26);
           }
 
-          v30 = [[WBSHistoryTombstone alloc] initWithDictionary:*(*(&v46 + 1) + 8 * j)];
-          if (v30)
+          v32 = [[WBSHistoryTombstone alloc] initWithDictionary:*(*(&v49 + 1) + 8 * j)];
+          if (v32)
           {
-            [(WBSCloudHistoryFetchResult *)self _addTombstone:v30 profileServerIdentifier:v19];
+            [(WBSCloudHistoryFetchResult *)self _addTombstone:v32 profileServerIdentifier:v20];
           }
 
           else
           {
-            v31 = WBS_LOG_CHANNEL_PREFIXCloudHistory();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+            v33 = WBS_LOG_CHANNEL_PREFIXCloudHistory(0, v31);
+            if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
             {
-              [(WBSCloudHistoryFetchResult *)&buf appendRecord:v51 usingConfiguration:v31];
+              [(WBSCloudHistoryFetchResult *)&buf appendRecord:v54 usingConfiguration:v33];
             }
           }
         }
 
-        v27 = [v25 countByEnumeratingWithState:&v46 objects:v56 count:16];
+        v28 = [v26 countByEnumeratingWithState:&v49 objects:v59 count:16];
       }
 
-      while (v27);
+      while (v28);
     }
 
-    configurationCopy = v40;
-    recordCopy = v41;
-    modificationDate = v39;
+    configurationCopy = v43;
+    recordCopy = v44;
+    modificationDate = v42;
 LABEL_42:
-    v11 = v42;
+    v11 = v45;
     goto LABEL_43;
   }
 

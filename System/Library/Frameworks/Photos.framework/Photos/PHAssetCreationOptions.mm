@@ -24,7 +24,7 @@
   metadataCopyOptions = [(PHAssetCreationOptions *)self metadataCopyOptions];
   [v4 setMetadataCopyOptions:metadataCopyOptions];
 
-  [(PHAssetCreationOptions *)self stillSourceTime];
+  objc_msgSend_stillSourceTime(self);
   v8 = v10;
   v9 = v11;
   [v4 setStillSourceTime:&v8];

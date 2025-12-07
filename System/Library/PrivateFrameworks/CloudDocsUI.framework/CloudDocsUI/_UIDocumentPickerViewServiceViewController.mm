@@ -64,13 +64,13 @@
 
 - (void)_setUploadURL:(id)l
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   lCopy = l;
-  v6 = cdui_default_log();
+  v6 = cdui_default_log(lCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v30 = lCopy;
+    v33 = lCopy;
     _os_log_impl(&dword_243823000, v6, OS_LOG_TYPE_INFO, "[INFO] received upload URL %@", buf, 0xCu);
   }
 
@@ -84,62 +84,63 @@
     if (uploadURL)
     {
       array = [MEMORY[0x277CBEB18] array];
-      v28 = 0;
-      v9 = [lCopy getPromisedItemResourceValue:&v28 forKey:*MEMORY[0x277CBE918] error:0];
-      v10 = v28;
+      v31 = 0;
+      v9 = [lCopy getPromisedItemResourceValue:&v31 forKey:*MEMORY[0x277CBE918] error:0];
+      v10 = v31;
+      v11 = v10;
       if (v9)
       {
         [array addObject:*MEMORY[0x277CC20C0]];
-        [array addObject:v10];
-        v27 = 0;
-        v11 = [lCopy getPromisedItemResourceValue:&v27 forKey:*MEMORY[0x277CBE890] error:0];
-        v12 = v27;
-        v13 = v12;
-        if (v11)
+        [array addObject:v11];
+        v30 = 0;
+        v12 = [lCopy getPromisedItemResourceValue:&v30 forKey:*MEMORY[0x277CBE890] error:0];
+        v13 = v30;
+        v14 = v13;
+        if (v12)
         {
-          bOOLValue = [v12 BOOLValue];
-          v15 = MEMORY[0x277CC2128];
+          bOOLValue = [v13 BOOLValue];
+          v16 = MEMORY[0x277CC2128];
           if (!bOOLValue)
           {
-            v15 = MEMORY[0x277CC2050];
+            v16 = MEMORY[0x277CC2050];
           }
 
-          [array addObject:*v15];
+          [array addObject:*v16];
         }
       }
 
       else
       {
-        v16 = cdui_default_log();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+        v17 = cdui_default_log(v10);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
         {
           [_UIDocumentPickerViewServiceViewController _setUploadURL:];
         }
 
         path = [(NSURL *)self->_uploadURL path];
         fileSystemRepresentation = [path fileSystemRepresentation];
-        v18 = sandbox_check();
+        v19 = sandbox_check();
 
-        if (v18)
+        if (v19)
         {
-          v19 = cdui_default_log();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+          v21 = cdui_default_log(v20);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
           {
             [_UIDocumentPickerViewServiceViewController _setUploadURL:];
           }
 
-          v13 = MEMORY[0x245D41990](self->_uploadURL);
-          v20 = cdui_default_log();
-          v21 = os_log_type_enabled(v20, OS_LOG_TYPE_FAULT);
-          if (v13)
+          v14 = MEMORY[0x245D41990](self->_uploadURL);
+          v22 = cdui_default_log(v14);
+          v23 = os_log_type_enabled(v22, OS_LOG_TYPE_FAULT);
+          if (v14)
           {
-            if (v21)
+            if (v23)
             {
               [_UIDocumentPickerViewServiceViewController _setUploadURL:];
             }
           }
 
-          else if (v21)
+          else if (v23)
           {
             [_UIDocumentPickerViewServiceViewController _setUploadURL:];
           }
@@ -149,19 +150,19 @@
         {
           defaultManager = [MEMORY[0x277CCAA00] defaultManager];
           path2 = [(NSURL *)self->_uploadURL path];
-          v24 = [defaultManager fileExistsAtPath:path2];
+          v26 = [defaultManager fileExistsAtPath:path2];
 
-          v13 = cdui_default_log();
-          v25 = os_log_type_enabled(v13, OS_LOG_TYPE_FAULT);
-          if (v24)
+          v14 = cdui_default_log(v27);
+          v28 = os_log_type_enabled(v14, OS_LOG_TYPE_FAULT);
+          if (v26)
           {
-            if (v25)
+            if (v28)
             {
               [_UIDocumentPickerViewServiceViewController _setUploadURL:];
             }
           }
 
-          else if (v25)
+          else if (v28)
           {
             [_UIDocumentPickerViewServiceViewController _setUploadURL:];
           }
@@ -187,7 +188,7 @@
   lCopy = l;
   identifierCopy = identifier;
   _hostApplicationBundleIdentifier = [(_UIDocumentPickerViewServiceViewController *)self _hostApplicationBundleIdentifier];
-  v9 = cdui_default_log();
+  v9 = cdui_default_log(_hostApplicationBundleIdentifier);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
@@ -265,9 +266,9 @@ LABEL_8:
 {
   lCopy = l;
   completionCopy = completion;
-  v73[0] = 0;
-  v7 = [lCopy getPromisedItemResourceValue:v73 forKey:*MEMORY[0x277CBE8D0] error:0];
-  v8 = v73[0];
+  v74[0] = 0;
+  v7 = [lCopy getPromisedItemResourceValue:v74 forKey:*MEMORY[0x277CBE8D0] error:0];
+  v8 = v74[0];
   if ((v7 & 1) == 0)
   {
     lastPathComponent = [lCopy lastPathComponent];
@@ -275,13 +276,14 @@ LABEL_8:
     v8 = lastPathComponent;
   }
 
-  v72 = 0;
+  v73 = 0;
   v10 = *MEMORY[0x277CBE838];
-  v71 = 0;
-  v11 = [lCopy getPromisedItemResourceValue:&v72 forKey:v10 error:&v71];
-  v12 = v72;
-  v43 = v71;
-  v44 = v12;
+  v72 = 0;
+  v11 = [lCopy getPromisedItemResourceValue:&v73 forKey:v10 error:&v72];
+  v12 = v73;
+  v13 = v72;
+  v44 = v13;
+  v45 = v12;
   if (v11)
   {
     unsignedIntegerValue = [v12 unsignedIntegerValue];
@@ -289,8 +291,8 @@ LABEL_8:
 
   else
   {
-    v14 = cdui_default_log();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v15 = cdui_default_log(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
     {
       [_UIDocumentPickerViewServiceViewController _waitForDownloadOfURL:completion:];
     }
@@ -298,89 +300,89 @@ LABEL_8:
     unsignedIntegerValue = 0;
   }
 
-  v15 = MEMORY[0x277CCACA8];
-  v16 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CloudDocsUI"];
-  v17 = [v16 localizedStringForKey:@"Downloading %@" value:@"Downloading a Copy of “%@”" table:@"Localizable"];
-  v18 = [v15 localizedStringWithFormat:v17, v8];
+  v16 = MEMORY[0x277CCACA8];
+  v17 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CloudDocsUI"];
+  v18 = [v17 localizedStringForKey:@"Downloading %@" value:@"Downloading a Copy of “%@”" table:@"Localizable"];
+  v19 = [v16 localizedStringWithFormat:v18, v8];
 
-  v42 = v18;
-  v19 = [MEMORY[0x277D75110] alertControllerWithTitle:v18 message:0 preferredStyle:1];
-  v69[0] = 0;
-  v69[1] = v69;
-  v69[2] = 0x3032000000;
-  v69[3] = __Block_byref_object_copy__3;
-  v69[4] = __Block_byref_object_dispose__3;
-  v70 = 0;
-  v63 = 0;
-  v64 = &v63;
-  v65 = 0x3032000000;
-  v66 = __Block_byref_object_copy__3;
-  v67 = __Block_byref_object_dispose__3;
-  v68 = 0;
-  v20 = objc_opt_new();
-  v62[0] = MEMORY[0x277D85DD0];
-  v62[1] = 3221225472;
-  v62[2] = __79___UIDocumentPickerViewServiceViewController__waitForDownloadOfURL_completion___block_invoke;
-  v62[3] = &unk_278DD6C00;
-  v62[4] = v69;
-  v62[5] = &v63;
-  v21 = MEMORY[0x245D41DF0](v62);
-  v22 = dispatch_get_global_queue(0, 0);
+  v43 = v19;
+  v20 = [MEMORY[0x277D75110] alertControllerWithTitle:v19 message:0 preferredStyle:1];
+  v70[0] = 0;
+  v70[1] = v70;
+  v70[2] = 0x3032000000;
+  v70[3] = __Block_byref_object_copy__3;
+  v70[4] = __Block_byref_object_dispose__3;
+  v71 = 0;
+  v64 = 0;
+  v65 = &v64;
+  v66 = 0x3032000000;
+  v67 = __Block_byref_object_copy__3;
+  v68 = __Block_byref_object_dispose__3;
+  v69 = 0;
+  v21 = objc_opt_new();
+  v63[0] = MEMORY[0x277D85DD0];
+  v63[1] = 3221225472;
+  v63[2] = __79___UIDocumentPickerViewServiceViewController__waitForDownloadOfURL_completion___block_invoke;
+  v63[3] = &unk_278DD6C00;
+  v63[4] = v70;
+  v63[5] = &v64;
+  v22 = MEMORY[0x245D41DF0](v63);
+  v23 = dispatch_get_global_queue(0, 0);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __79___UIDocumentPickerViewServiceViewController__waitForDownloadOfURL_completion___block_invoke_2;
   block[3] = &unk_278DD6CA0;
-  v23 = lCopy;
-  v58 = v23;
-  v24 = v21;
-  v60 = v24;
-  v25 = v19;
-  v59 = v25;
-  v26 = completionCopy;
-  v61 = v26;
-  dispatch_async(v22, block);
+  v24 = lCopy;
+  v59 = v24;
+  v25 = v22;
+  v61 = v25;
+  v26 = v20;
+  v60 = v26;
+  v27 = completionCopy;
+  v62 = v27;
+  dispatch_async(v23, block);
 
-  v27 = [MEMORY[0x277CCA8E8] stringFromByteCount:unsignedIntegerValue countStyle:0];
-  v28 = MEMORY[0x277CCAC48];
-  v50[0] = MEMORY[0x277D85DD0];
-  v50[1] = 3221225472;
-  v50[2] = __79___UIDocumentPickerViewServiceViewController__waitForDownloadOfURL_completion___block_invoke_6;
-  v50[3] = &unk_278DD6CF0;
-  v55 = v69;
-  v56 = unsignedIntegerValue;
-  v29 = v27;
-  v51 = v29;
-  v30 = v25;
+  v28 = [MEMORY[0x277CCA8E8] stringFromByteCount:unsignedIntegerValue countStyle:0];
+  v29 = MEMORY[0x277CCAC48];
+  v51[0] = MEMORY[0x277D85DD0];
+  v51[1] = 3221225472;
+  v51[2] = __79___UIDocumentPickerViewServiceViewController__waitForDownloadOfURL_completion___block_invoke_6;
+  v51[3] = &unk_278DD6CF0;
+  v56 = v70;
+  v57 = unsignedIntegerValue;
+  v30 = v28;
   v52 = v30;
-  v31 = v20;
+  v31 = v26;
   v53 = v31;
-  v32 = v24;
+  v32 = v21;
   v54 = v32;
-  v33 = [v28 _addSubscriberForFileURL:v23 withPublishingHandler:v50];
-  v34 = v64[5];
-  v64[5] = v33;
+  v33 = v25;
+  v55 = v33;
+  v34 = [v29 _addSubscriberForFileURL:v24 withPublishingHandler:v51];
+  v35 = v65[5];
+  v65[5] = v34;
 
-  [v31 addObject:v64[5]];
-  v35 = MEMORY[0x277D750F8];
-  v36 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CloudDocsUI"];
-  v37 = [v36 localizedStringForKey:@"Cancel" value:@"Cancel" table:@"Localizable"];
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = __79___UIDocumentPickerViewServiceViewController__waitForDownloadOfURL_completion___block_invoke_10;
-  v46[3] = &unk_278DD6D18;
-  v38 = v32;
-  v48 = v38;
-  v39 = v31;
-  v47 = v39;
-  v40 = v26;
-  v49 = v40;
-  v41 = [v35 actionWithTitle:v37 style:1 handler:v46];
-  [v30 addAction:v41];
+  [v32 addObject:v65[5]];
+  v36 = MEMORY[0x277D750F8];
+  v37 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CloudDocsUI"];
+  v38 = [v37 localizedStringForKey:@"Cancel" value:@"Cancel" table:@"Localizable"];
+  v47[0] = MEMORY[0x277D85DD0];
+  v47[1] = 3221225472;
+  v47[2] = __79___UIDocumentPickerViewServiceViewController__waitForDownloadOfURL_completion___block_invoke_10;
+  v47[3] = &unk_278DD6D18;
+  v39 = v33;
+  v49 = v39;
+  v40 = v32;
+  v48 = v40;
+  v41 = v27;
+  v50 = v41;
+  v42 = [v36 actionWithTitle:v38 style:1 handler:v47];
+  [v31 addAction:v42];
 
-  [(_UIDocumentPickerViewServiceViewController *)self presentViewController:v30 animated:1 completion:&__block_literal_global_122_0];
-  _Block_object_dispose(&v63, 8);
+  [(_UIDocumentPickerViewServiceViewController *)self presentViewController:v31 animated:1 completion:&__block_literal_global_122_0];
+  _Block_object_dispose(&v64, 8);
 
-  _Block_object_dispose(v69, 8);
+  _Block_object_dispose(v70, 8);
 }
 
 - (void)_documentPickerDidDismiss
@@ -455,7 +457,7 @@ LABEL_8:
   _hostApplicationBundleIdentifier = [(_UIDocumentPickerViewServiceViewController *)self _hostApplicationBundleIdentifier];
   [_UIDocumentPickerDescriptor setHostBundleID:_hostApplicationBundleIdentifier];
 
-  [(_UIDocumentPickerViewServiceViewController *)self _hostAuditToken];
+  objc_msgSend__hostAuditToken(self);
   [_UIDocumentPickerDescriptor setHostAuditToken:&v7];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter addObserver:self selector:sel__cloudEnabledStatusDidChange_ name:@"_UIDocumentPickerDescriptorCloudEnabledStatusDidChange" object:0];
@@ -702,14 +704,14 @@ LABEL_8:
   block[1] = 3221225472;
   block[2] = __95___UIDocumentPickerViewServiceViewController__presentError_forThirdPartyPickerWithDescription___block_invoke;
   block[3] = &unk_278DD64E0;
-  v12 = descriptionCopy;
+  v13 = descriptionCopy;
   v8 = errorCopy;
-  v13 = v8;
+  v14 = v8;
   selfCopy = self;
   v9 = descriptionCopy;
   dispatch_async(MEMORY[0x277D85CD0], block);
-  v10 = cdui_default_log();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+  v11 = cdui_default_log(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
   {
     [_UIDocumentPickerViewServiceViewController _presentError:forThirdPartyPickerWithDescription:];
   }
@@ -948,30 +950,31 @@ LABEL_8:
     goto LABEL_4;
   }
 
-  v11 = 0;
-  v5 = [lCopy br_URLByResolvingExternalDocumentReferenceWithError:&v11];
-  v6 = v11;
+  v12 = 0;
+  v5 = [lCopy br_URLByResolvingExternalDocumentReferenceWithError:&v12];
+  v6 = v12;
+  v7 = v6;
   if (v5)
   {
-    v7 = [self _logicalURLForPhysicalURL:v5];
+    v8 = [self _logicalURLForPhysicalURL:v5];
 
-    lCopy = v7;
+    lCopy = v8;
 LABEL_4:
     lCopy = lCopy;
-    v8 = lCopy;
+    v9 = lCopy;
     goto LABEL_5;
   }
 
-  v10 = cdui_default_log();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+  v11 = cdui_default_log(v6);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
   {
     +[_UIDocumentPickerViewServiceViewController _urlByResolvingExternalDocumentReferenceForURL:];
   }
 
-  v8 = 0;
+  v9 = 0;
 LABEL_5:
 
-  return v8;
+  return v9;
 }
 
 + (id)_logicalURLForPhysicalURL:(id)l
@@ -982,7 +985,7 @@ LABEL_5:
     v4 = _CFURLCopyLogicalURLOfPromiseAtURL();
     if (!v4)
     {
-      v5 = cdui_default_log();
+      v5 = cdui_default_log(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
         +[_UIDocumentPickerViewServiceViewController _logicalURLForPhysicalURL:];
@@ -1321,59 +1324,61 @@ LABEL_9:
 
 - (void)_warnSharingPreMove
 {
-  if ([(_UIDocumentPickerViewServiceViewController *)self _shouldWarnForSharing])
+  _shouldWarnForSharing = [(_UIDocumentPickerViewServiceViewController *)self _shouldWarnForSharing];
+  if (_shouldWarnForSharing)
   {
-    v3 = cdui_default_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    v4 = cdui_default_log(_shouldWarnForSharing);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_243823000, v3, OS_LOG_TYPE_INFO, "[INFO] we're in move mode and the file is shared", buf, 2u);
+      _os_log_impl(&dword_243823000, v4, OS_LOG_TYPE_INFO, "[INFO] we're in move mode and the file is shared", buf, 2u);
     }
 
     uploadURL = [(_UIDocumentPickerViewServiceViewController *)self uploadURL];
-    v17 = 0;
-    v5 = [uploadURL getPromisedItemResourceValue:&v17 forKey:*MEMORY[0x277CBE9D8] error:0];
-    v6 = v17;
+    v19 = 0;
+    v6 = [uploadURL getPromisedItemResourceValue:&v19 forKey:*MEMORY[0x277CBE9D8] error:0];
+    v7 = v19;
 
-    if (!v5)
+    if (!v6)
     {
       goto LABEL_11;
     }
 
-    v7 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CloudDocsUI"];
-    v8 = [v7 localizedStringForKey:@"Cancel" value:@"Cancel" table:@"Localizable"];
+    v8 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CloudDocsUI"];
+    v9 = [v8 localizedStringForKey:@"Cancel" value:@"Cancel" table:@"Localizable"];
 
-    if ([v6 isEqualToString:*MEMORY[0x277CBE9E8]])
+    v10 = [v7 isEqualToString:*MEMORY[0x277CBE9E8]];
+    if (v10)
     {
-      v9 = cdui_default_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      v11 = cdui_default_log(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_243823000, v9, OS_LOG_TYPE_INFO, "[INFO] presenting can't-move alert for participant", buf, 2u);
+        _os_log_impl(&dword_243823000, v11, OS_LOG_TYPE_INFO, "[INFO] presenting can't-move alert for participant", buf, 2u);
       }
 
-      v10 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CloudDocsUI"];
-      v11 = [v10 localizedStringForKey:@"You cannot move this document" value:@"You cannot move this document" table:@"Localizable"];
-
       v12 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CloudDocsUI"];
-      v13 = [v12 localizedStringForKey:@"This document has been shared to you. You cannot move it to a different location." value:@"This document has been shared to you. You cannot move it to a different location." table:@"Localizable"];
+      v13 = [v12 localizedStringForKey:@"You cannot move this document" value:@"You cannot move this document" table:@"Localizable"];
 
-      v14 = [MEMORY[0x277D75110] alertControllerWithTitle:v11 message:v13 preferredStyle:1];
-      v16[0] = MEMORY[0x277D85DD0];
-      v16[1] = 3221225472;
-      v16[2] = __65___UIDocumentPickerViewServiceViewController__warnSharingPreMove__block_invoke;
-      v16[3] = &unk_278DD6A08;
-      v16[4] = self;
-      v15 = [MEMORY[0x277D750F8] actionWithTitle:v8 style:1 handler:v16];
-      [v14 addAction:v15];
+      v14 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CloudDocsUI"];
+      v15 = [v14 localizedStringForKey:@"This document has been shared to you. You cannot move it to a different location." value:@"This document has been shared to you. You cannot move it to a different location." table:@"Localizable"];
 
-      if (!v14)
+      v16 = [MEMORY[0x277D75110] alertControllerWithTitle:v13 message:v15 preferredStyle:1];
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __65___UIDocumentPickerViewServiceViewController__warnSharingPreMove__block_invoke;
+      v18[3] = &unk_278DD6A08;
+      v18[4] = self;
+      v17 = [MEMORY[0x277D750F8] actionWithTitle:v9 style:1 handler:v18];
+      [v16 addAction:v17];
+
+      if (!v16)
       {
         goto LABEL_11;
       }
 
-      [(_UIDocumentPickerViewServiceViewController *)self presentViewController:v14 animated:1 completion:0];
-      v8 = v14;
+      [(_UIDocumentPickerViewServiceViewController *)self presentViewController:v16 animated:1 completion:0];
+      v9 = v16;
     }
 
 LABEL_11:
@@ -1382,75 +1387,77 @@ LABEL_11:
 
 - (void)_warnSharingForTarget:(id)target completion:(id)completion
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   targetCopy = target;
   completionCopy = completion;
-  if ([(_UIDocumentPickerViewServiceViewController *)self _shouldWarnForSharing])
+  _shouldWarnForSharing = [(_UIDocumentPickerViewServiceViewController *)self _shouldWarnForSharing];
+  if (_shouldWarnForSharing)
   {
-    v8 = cdui_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v9 = cdui_default_log(_shouldWarnForSharing);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_243823000, v8, OS_LOG_TYPE_INFO, "[INFO] We're in move mode and the file is shared", buf, 2u);
+      _os_log_impl(&dword_243823000, v9, OS_LOG_TYPE_INFO, "[INFO] We're in move mode and the file is shared", buf, 2u);
     }
 
     uploadURL = [(_UIDocumentPickerViewServiceViewController *)self uploadURL];
-    v34 = 0;
-    v10 = [uploadURL br_capabilityToMoveToURL:targetCopy error:&v34];
-    v11 = v34;
+    v38 = 0;
+    v11 = [uploadURL br_capabilityToMoveToURL:targetCopy error:&v38];
+    v12 = v38;
 
-    if ((v10 & 0x204) != 0)
+    if ((v11 & 0x204) != 0)
     {
       uploadURL2 = [(_UIDocumentPickerViewServiceViewController *)self uploadURL];
-      v33 = 0;
-      v13 = [uploadURL2 getPromisedItemResourceValue:&v33 forKey:*MEMORY[0x277CBE9D8] error:0];
-      v14 = v33;
+      v37 = 0;
+      v15 = [uploadURL2 getPromisedItemResourceValue:&v37 forKey:*MEMORY[0x277CBE9D8] error:0];
+      v16 = v37;
 
-      if (v13)
+      if (v15)
       {
-        v15 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CloudDocsUI"];
-        v16 = [v15 localizedStringForKey:@"Cancel" value:@"Cancel" table:@"Localizable"];
+        v17 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CloudDocsUI"];
+        v18 = [v17 localizedStringForKey:@"Cancel" value:@"Cancel" table:@"Localizable"];
 
-        if ([v14 isEqualToString:*MEMORY[0x277CBE9E0]])
+        v19 = [v16 isEqualToString:*MEMORY[0x277CBE9E0]];
+        if (v19)
         {
-          v29 = v16;
-          v17 = cdui_default_log();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+          v33 = v18;
+          v20 = cdui_default_log(v19);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_243823000, v17, OS_LOG_TYPE_INFO, "[INFO] presenting share-will-break alert for owner", buf, 2u);
+            _os_log_impl(&dword_243823000, v20, OS_LOG_TYPE_INFO, "[INFO] presenting share-will-break alert for owner", buf, 2u);
           }
 
-          v18 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CloudDocsUI"];
-          v28 = [v18 localizedStringForKey:@"Moving this document will unshare it" value:@"Moving this document will unshare it" table:@"Localizable"];
-
-          v19 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CloudDocsUI"];
-          v20 = [v19 localizedStringForKey:@"This document is shared. Moving it to a different location will stop sharing the document. You can share again from the new location." value:@"This document is shared. Moving it to a different location will stop sharing the document. You can share again from the new location." table:@"Localizable"];
-
           v21 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CloudDocsUI"];
-          v22 = [v21 localizedStringForKey:@"Move and stop sharing" value:@"Move and stop sharing" table:@"Localizable"];
+          v32 = [v21 localizedStringForKey:@"Moving this document will unshare it" value:@"Moving this document will unshare it" table:@"Localizable"];
 
-          v23 = [MEMORY[0x277D75110] alertControllerWithTitle:v28 message:v20 preferredStyle:1];
-          v24 = MEMORY[0x277D750F8];
-          v31[0] = MEMORY[0x277D85DD0];
-          v31[1] = 3221225472;
-          v31[2] = __79___UIDocumentPickerViewServiceViewController__warnSharingForTarget_completion___block_invoke;
-          v31[3] = &unk_278DD62C0;
-          v32 = completionCopy;
-          v25 = [v24 actionWithTitle:v22 style:2 handler:v31];
-          [v23 addAction:v25];
+          v22 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CloudDocsUI"];
+          v23 = [v22 localizedStringForKey:@"This document is shared. Moving it to a different location will stop sharing the document. You can share again from the new location." value:@"This document is shared. Moving it to a different location will stop sharing the document. You can share again from the new location." table:@"Localizable"];
 
-          v30[0] = MEMORY[0x277D85DD0];
-          v30[1] = 3221225472;
-          v30[2] = __79___UIDocumentPickerViewServiceViewController__warnSharingForTarget_completion___block_invoke_239;
-          v30[3] = &unk_278DD6A08;
-          v30[4] = self;
-          v26 = [MEMORY[0x277D750F8] actionWithTitle:v29 style:1 handler:v30];
-          [v23 addAction:v26];
+          v24 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.CloudDocsUI"];
+          v25 = [v24 localizedStringForKey:@"Move and stop sharing" value:@"Move and stop sharing" table:@"Localizable"];
 
-          if (v23)
+          v26 = [MEMORY[0x277D75110] alertControllerWithTitle:v32 message:v23 preferredStyle:1];
+          v27 = MEMORY[0x277D750F8];
+          v35[0] = MEMORY[0x277D85DD0];
+          v35[1] = 3221225472;
+          v35[2] = __79___UIDocumentPickerViewServiceViewController__warnSharingForTarget_completion___block_invoke;
+          v35[3] = &unk_278DD62C0;
+          v36 = completionCopy;
+          v28 = [v27 actionWithTitle:v25 style:2 handler:v35];
+          [v26 addAction:v28];
+
+          v34[0] = MEMORY[0x277D85DD0];
+          v34[1] = 3221225472;
+          v34[2] = __79___UIDocumentPickerViewServiceViewController__warnSharingForTarget_completion___block_invoke_239;
+          v34[3] = &unk_278DD6A08;
+          v34[4] = self;
+          v29 = [MEMORY[0x277D750F8] actionWithTitle:v33 style:1 handler:v34];
+          [v26 addAction:v29];
+
+          if (v26)
           {
-            [(_UIDocumentPickerViewServiceViewController *)self presentViewController:v23 animated:1 completion:0];
+            [(_UIDocumentPickerViewServiceViewController *)self presentViewController:v26 animated:1 completion:0];
 
 LABEL_21:
             goto LABEL_22;
@@ -1461,14 +1468,15 @@ LABEL_20:
           goto LABEL_21;
         }
 
-        if (([v14 isEqualToString:*MEMORY[0x277CBE9E8]]& 1) == 0)
+        v30 = [v16 isEqualToString:*MEMORY[0x277CBE9E8]];
+        if ((v30 & 1) == 0)
         {
-          v27 = cdui_default_log();
-          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+          v31 = cdui_default_log(v30);
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v36 = v14;
-            _os_log_impl(&dword_243823000, v27, OS_LOG_TYPE_DEFAULT, "[WARNING] Moving a file, but we're neither participant nor owner? (role is %@)", buf, 0xCu);
+            v40 = v16;
+            _os_log_impl(&dword_243823000, v31, OS_LOG_TYPE_DEFAULT, "[WARNING] Moving a file, but we're neither participant nor owner? (role is %@)", buf, 0xCu);
           }
         }
       }
@@ -1476,11 +1484,11 @@ LABEL_20:
 
     else
     {
-      v14 = cdui_default_log();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+      v16 = cdui_default_log(v13);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_243823000, v14, OS_LOG_TYPE_INFO, "[INFO] ...but we can move the file around between these locations", buf, 2u);
+        _os_log_impl(&dword_243823000, v16, OS_LOG_TYPE_INFO, "[INFO] ...but we can move the file around between these locations", buf, 2u);
       }
     }
 

@@ -125,22 +125,13 @@ LABEL_7:
 
 - (NSString)description
 {
-  subReaders = self->subReaders_;
-  if (!subReaders)
+  if (!self->subReaders_)
   {
     JreThrowNullPointerException();
   }
 
-  size = subReaders->super.size_;
-  if (size)
-  {
-    v5 = self->sumBPV_ / size;
-  }
-
-  v6 = [-[OrgApacheLuceneUtilPackedMonotonicBlockPackedReader getClass](self "getClass")];
-  valueCount = self->valueCount_;
-  v15 = (1 << self->blockShift_);
-  return JreStrcat("$$I$J$JC", v7, v8, v9, v10, v11, v12, v13, v6);
+  v2 = [-[OrgApacheLuceneUtilPackedMonotonicBlockPackedReader getClass](self "getClass")];
+  return JreStrcat("$$I$J$JC", v3, v4, v5, v6, v7, v8, v9, v2);
 }
 
 - (void)dealloc

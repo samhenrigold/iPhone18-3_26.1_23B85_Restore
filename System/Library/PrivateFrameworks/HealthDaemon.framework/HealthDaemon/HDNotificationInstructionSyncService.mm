@@ -5,6 +5,7 @@
 - (id)diagnosticDescription;
 - (id)initWithDaemon:(void *)daemon syncService:(void *)service analyticsEventManager:;
 - (void)service:(id)service didReceiveMessage:(id)message fromDevice:(id)device messageContext:(id)context;
+- (void)service:(id)service didSendWithSuccess:(BOOL)success identifier:(id)identifier error:(id)error;
 @end
 
 @implementation HDNotificationInstructionSyncService
@@ -102,7 +103,7 @@
 
 - (void)service:(id)service didReceiveMessage:(id)message fromDevice:(id)device messageContext:(id)context
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   contextCopy = context;
   deviceCopy = device;
@@ -144,31 +145,29 @@
     v24 = *MEMORY[0x277CCC300];
     if (os_log_type_enabled(*MEMORY[0x277CCC300], OS_LOG_TYPE_ERROR))
     {
-      v28 = v24;
-      v29 = objc_opt_class();
-      v30 = v29;
+      v27 = v24;
+      v28 = objc_opt_class();
+      v29 = v28;
       originalGUID2 = [contextCopy originalGUID];
       *buf = 138543874;
-      v36 = v29;
-      v37 = 2114;
-      v38 = messageCopy;
-      v39 = 2114;
-      v40 = originalGUID2;
-      _os_log_error_impl(&dword_228986000, v28, OS_LOG_TYPE_ERROR, "[%{public}@] Unable to instantiate HDNotificationInstructionMessage from dictionary: %{public}@, originalGUID: %{public}@", buf, 0x20u);
+      v35 = v28;
+      v36 = 2114;
+      v37 = messageCopy;
+      v38 = 2114;
+      v39 = originalGUID2;
+      _os_log_error_impl(&dword_228986000, v27, OS_LOG_TYPE_ERROR, "[%{public}@] Unable to instantiate HDNotificationInstructionMessage from dictionary: %{public}@, originalGUID: %{public}@", buf, 0x20u);
     }
   }
 
   observers = self->_observers;
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = __92__HDNotificationInstructionSyncService_service_didReceiveMessage_fromDevice_messageContext___block_invoke;
-  v32[3] = &unk_2786243D0;
-  v33 = v23;
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __92__HDNotificationInstructionSyncService_service_didReceiveMessage_fromDevice_messageContext___block_invoke;
+  v31[3] = &unk_2786243D0;
+  v32 = v23;
   selfCopy = self;
   v26 = v23;
-  [(HDNotificationInstructionSyncServiceObserver *)observers notifyObservers:v32];
-
-  v27 = *MEMORY[0x277D85DE8];
+  [(HDNotificationInstructionSyncServiceObserver *)observers notifyObservers:v31];
 }
 
 void __92__HDNotificationInstructionSyncService_service_didReceiveMessage_fromDevice_messageContext___block_invoke(uint64_t a1, void *a2)
@@ -186,46 +185,69 @@ void __92__HDNotificationInstructionSyncService_service_didReceiveMessage_fromDe
   }
 }
 
+- (void)service:(id)service didSendWithSuccess:(BOOL)success identifier:(id)identifier error:(id)error
+{
+  successCopy = success;
+  errorCopy = error;
+  identifierCopy = identifier;
+  os_unfair_lock_lock(&self->_lock);
+  v10 = [(NSMutableDictionary *)self->_lock_pendingMessages objectForKeyedSubscript:identifierCopy];
+  [(NSMutableDictionary *)self->_lock_pendingMessages removeObjectForKey:identifierCopy];
+
+  os_unfair_lock_unlock(&self->_lock);
+  if (v10)
+  {
+    analyticsEventSubmissionManager = self->_analyticsEventSubmissionManager;
+    v12 = [[HDNotificationInstructionSyncSendEvent alloc] initWithNotificationInstructionMessage:v10 sendError:errorCopy];
+    [(HKAnalyticsEventSubmissionManager *)analyticsEventSubmissionManager submitEvent:v12 error:0];
+  }
+
+  unitTest_didSendInstructionWithSuccess = self->_unitTest_didSendInstructionWithSuccess;
+  if (unitTest_didSendInstructionWithSuccess)
+  {
+    unitTest_didSendInstructionWithSuccess[2](unitTest_didSendInstructionWithSuccess, successCopy);
+  }
+}
+
 - (id)diagnosticDescription
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
-  v3 = [(NSMutableDictionary *)self->_lock_pendingMessages copy];
+  v3 = objc_msgSend_copy(self->_lock_pendingMessages);
   os_unfair_lock_unlock(&self->_lock);
   v4 = objc_alloc_init(MEMORY[0x277CCAB68]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         [v4 appendFormat:@"ID: %@\n", v10];
         v11 = [v5 objectForKeyedSubscript:v10];
         [v4 appendFormat:@"MSG: %@\n\n", v11];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
 
-  v12 = [v4 copy];
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = objc_msgSend_copy(v4);
 
   return v12;
 }

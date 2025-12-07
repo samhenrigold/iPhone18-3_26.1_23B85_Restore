@@ -45,7 +45,7 @@
     objc_storeStrong(&height->_spinner, v14);
     [v14 startAnimating];
     v20 = objc_alloc_init(UILabel);
-    v21 = AEBundle();
+    v21 = AEBundle(v20);
     v22 = [v21 localizedStringForKey:@"Loading…" value:&stru_1E7188 table:0];
     [v20 setText:v22];
 

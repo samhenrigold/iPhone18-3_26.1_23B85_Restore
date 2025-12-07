@@ -1,9 +1,8 @@
 @interface RTSCFaceDataCovarianceEstimator
 - (RTSCFaceDataCovarianceEstimator)initWithTimeConstant:(float)constant initialCovariance:;
-- (__n128)accelerationCovariance;
-- (__n128)measurementCovariance;
 - (void)dealloc;
 - (void)reset;
+- (void)updateCovarianceWithFaceBox:(double)box atTime:;
 @end
 
 @implementation RTSCFaceDataCovarianceEstimator
@@ -73,22 +72,70 @@
   [(RTSCFaceDataCovarianceEstimator *)&v4 dealloc];
 }
 
-- (__n128)measurementCovariance
+- (void)updateCovarianceWithFaceBox:(double)box atTime:
 {
-  result = *(self + 192);
-  v2 = *(self + 208);
-  v3 = *(self + 224);
-  v4 = *(self + 240);
-  return result;
-}
+  v4 = v3;
+  v32 = *&box;
+  [RTSCAutocovarianceDynamicsAnalyzer4DOF updateWithData:"updateWithData:atTime:" atTime:?];
+  prevTime = self->_prevTime;
+  if (prevTime <= 0.0)
+  {
+    LODWORD(v22) = 0;
+    *(&v22 + 1) = (vmuls_lane_f32(v32.f32[2], v32, 3) * 0.0001) + 0.0;
+    v23.i64[0] = 0;
+    v23.i32[2] = 0;
+    v24.i64[0] = 0;
+    v24.i32[3] = 0;
+    v24.f32[2] = *(&v22 + 1);
+    v23.f32[3] = *(&v22 + 1);
+    v25 = vaddq_f32(v22, *&self->_anon_c0[16]);
+    v26 = vaddq_f32(v24, *&self->_anon_c0[32]);
+    v27 = vaddq_f32(v23, *&self->_anon_c0[48]);
+    *self->_anon_c0 = vaddq_f32(HIDWORD(v22), *self->_anon_c0);
+    *&self->_anon_c0[16] = v25;
+    *&self->_anon_c0[32] = v26;
+    *&self->_anon_c0[48] = v27;
+    v28 = vaddq_f32(HIDWORD(v22), *&self[1].super.isa);
+    v29 = vaddq_f32(v22, *&self[1]._noiseAveragingTimescale);
+    v30 = vaddq_f32(v24, *self[1]._initialCovariance);
+    v31 = vaddq_f32(v23, *self[1]._anon_30);
+    *&self[1].super.isa = v28;
+    *&self[1]._noiseAveragingTimescale = v29;
+    *self[1]._initialCovariance = v30;
+    *self[1]._anon_30 = v31;
+  }
 
-- (__n128)accelerationCovariance
-{
-  result = *(self + 256);
-  v2 = *(self + 272);
-  v3 = *(self + 288);
-  v4 = *(self + 304);
-  return result;
+  else
+  {
+    v7 = v4 - prevTime;
+    v33 = self->_noiseAveragingTimescale / (self->_noiseAveragingTimescale + v7);
+    [(RTSCAutocovarianceDynamicsAnalyzer4DOF *)self->_faceDynamicsAnalyzer residualCovariance];
+    v12 = vaddq_f32(vmulq_n_f32(vaddq_f32(*self->_anon_30, v8), 1.0 - v33), vmulq_n_f32(*self->_anon_c0, v33));
+    v13 = vaddq_f32(vmulq_n_f32(vaddq_f32(v9, *&self->_anon_30[16]), 1.0 - v33), vmulq_n_f32(*&self->_anon_c0[16], v33));
+    v14 = vaddq_f32(vmulq_n_f32(vaddq_f32(v10, *&self->_anon_30[32]), 1.0 - v33), vmulq_n_f32(*&self->_anon_c0[32], v33));
+    v15 = vaddq_f32(vmulq_n_f32(vaddq_f32(v11, *&self->_anon_30[48]), 1.0 - v33), vmulq_n_f32(*&self->_anon_c0[48], v33));
+    *self->_anon_c0 = v12;
+    *&self->_anon_c0[16] = v13;
+    *&self->_anon_c0[32] = v14;
+    *&self->_anon_c0[48] = v15;
+    v12.f32[0] = self->_accelerationAveragingTimescale / (self->_accelerationAveragingTimescale + v7);
+    v34 = *v12.f32;
+    [(RTSCAutocovarianceDynamicsAnalyzer4DOF *)self->_faceDynamicsAnalyzer estimatedAcceleration];
+    v17 = &self[1];
+    v18 = vdupq_lane_s32(v34, 0);
+    v19 = -4;
+    do
+    {
+      v35 = v16;
+      v20 = vmlaq_n_f32(v17[-9], v16, *(&v35 & 0xFFFFFFFFFFFFFFF3 | (4 * ((v19 + 4) & 3))));
+      *v17 = vmlaq_f32(v20, vsubq_f32(*v17, v20), v18);
+      ++v17;
+    }
+
+    while (!__CFADD__(v19++, 1));
+  }
+
+  self->_prevTime = v4;
 }
 
 @end

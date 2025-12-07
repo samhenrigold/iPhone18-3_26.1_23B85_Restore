@@ -27,31 +27,31 @@
 
 - (void)forEachObserverWithProtocol:(id)protocol selector:(SEL)selector invoke:(id)invoke
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   protocolCopy = protocol;
   invokeCopy = invoke;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v10 = self->_observers;
-  v11 = [(NSHashTable *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v11 = [(NSHashTable *)v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v18;
+    v13 = *v17;
     do
     {
       v14 = 0;
       do
       {
-        if (*v18 != v13)
+        if (*v17 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v17 + 1) + 8 * v14);
-        if (!protocolCopy || [*(*(&v17 + 1) + 8 * v14) conformsToProtocol:{protocolCopy, v17}]) && (!selector || (objc_opt_respondsToSelector()))
+        v15 = *(*(&v16 + 1) + 8 * v14);
+        if (!protocolCopy || [*(*(&v16 + 1) + 8 * v14) conformsToProtocol:{protocolCopy, v16}]) && (!selector || (objc_opt_respondsToSelector()))
         {
           invokeCopy[2](invokeCopy, v15);
         }
@@ -60,13 +60,11 @@
       }
 
       while (v12 != v14);
-      v12 = [(NSHashTable *)v10 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v12 = [(NSHashTable *)v10 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v12);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)terminate

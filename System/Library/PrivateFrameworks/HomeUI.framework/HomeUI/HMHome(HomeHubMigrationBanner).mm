@@ -5,12 +5,12 @@
 - (id)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;
 - (id)hf_homeHubMigrationBannerTapActionFromViewController:()HomeHubMigrationBanner devices:;
 - (uint64_t)hf_isHomeHubMigrationBannerVisible;
-- (uint64_t)hf_shouldDisplaySignIntoAppleAccountForHH2Update;
+- (unint64_t)hf_shouldDisplaySignIntoAppleAccountForHH2Update;
 @end
 
 @implementation HMHome(HomeHubMigrationBanner)
 
-- (uint64_t)hf_shouldDisplaySignIntoAppleAccountForHH2Update
+- (unint64_t)hf_shouldDisplaySignIntoAppleAccountForHH2Update
 {
   mEMORY[0x277D146E8] = [MEMORY[0x277D146E8] sharedDispatcher];
   homeManager = [mEMORY[0x277D146E8] homeManager];

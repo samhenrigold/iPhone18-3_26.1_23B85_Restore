@@ -1,53 +1,3 @@
-const __CFDictionary *WiFiNetworkIsOWEOnly(const __CFDictionary *result)
-{
-  if (result)
-  {
-    return __WiFiNetworkIsOWEOnly(*(result + 2));
-  }
-
-  return result;
-}
-
-const __CFDictionary *__WiFiNetworkIsOWEOnly(const __CFDictionary *a1)
-{
-  result = CFDictionaryGetValue(a1, @"RSN_IE");
-  if (result)
-  {
-    result = __WiFiNetworkContainsAuthSelector(result, 18);
-    if (result)
-    {
-      Value = CFDictionaryGetValue(a1, @"SCAN_RESULT_OWE_MULTI_SSID");
-      if (_CFTypeGetIntValue(Value))
-      {
-        return 0;
-      }
-
-      else
-      {
-        v4 = CFDictionaryGetValue(a1, @"ALLOW_OWE_TSN");
-        return (_CFTypeGetIntValue(v4) == 0);
-      }
-    }
-  }
-
-  return result;
-}
-
-BOOL WiFiNetworkAllowsPasswordBasedEAPType(_BOOL8 result)
-{
-  if (result)
-  {
-    v1 = result;
-    result = WiFiNetworkIsEAP(result);
-    if (result)
-    {
-      return __WiFiNetworkIsEAPWithType(v1, 17) || __WiFiNetworkIsEAPWithType(v1, 21) || __WiFiNetworkIsEAPWithType(v1, 25) || __WiFiNetworkIsEAPWithType(v1, 26) || __WiFiNetworkIsEAPWithType(v1, 43) != 0;
-    }
-  }
-
-  return result;
-}
-
 void WiFiNetworkGetTimeToExpire(uint64_t a1)
 {
   if (WiFiNetworkGetExpireDate(a1) != 0.0)
@@ -418,7 +368,7 @@ uint64_t __WiFiCompareSSIDorBSSID(const void *a1, const void *a2)
   return v4;
 }
 
-uint64_t WiFiNetworkCompareNetworksForHS20Equivalency(uint64_t a1, uint64_t a2)
+uint64_t WiFiNetworkCompareNetworksForHS20Equivalency(uint64_t a1, _BOOL8 a2)
 {
   if (a1 && a2)
   {
@@ -431,7 +381,7 @@ uint64_t WiFiNetworkCompareNetworksForHS20Equivalency(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t __WiFiHS20NetworksHaveSameDomain(uint64_t a1, uint64_t a2)
+uint64_t __WiFiHS20NetworksHaveSameDomain(uint64_t a1, _BOOL8 a2)
 {
   if (!a1 || !a2 || !WiFiNetworkIsHotspot20(a1) || !WiFiNetworkIsHotspot20(a2))
   {
@@ -669,43 +619,39 @@ __CFString *WiFiNetworkCopyHashedWPAPassword(const void *a1, const __CFString *a
 
 uint64_t WiFiNetworkCopyPasswordWithTimeout(CFDictionaryRef *a1, BOOL *a2, double a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315394;
-    v13 = "WiFiNetworkCopyPasswordWithTimeout";
-    v14 = 2112;
+    v11 = 136315394;
+    v12 = "WiFiNetworkCopyPasswordWithTimeout";
+    v13 = 2112;
     AccountForNetwork = WiFiNetworkGetAccountForNetwork(a1);
-    _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Copy password for Network/account %@", &v12, 0x16u);
+    _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Copy password for Network/account %@", &v11, 0x16u);
   }
 
-  if (!a1 || !CFDictionaryContainsKey(a1[2], @"PayloadUUID"))
+  if (a1 && CFDictionaryContainsKey(a1[2], @"PayloadUUID"))
   {
-    goto LABEL_8;
-  }
+    v6 = WiFiNetworkGetAccountForNetwork(a1);
+    Unlock = WiFiNetworkIsAllowedBeforeFirstUnlock(a1);
+    result = WiFiSecurityCopyNonSyncablePasswordWithTimeout(v6, a2, Unlock, a3);
+    if (result)
+    {
+      return result;
+    }
 
-  v6 = WiFiNetworkGetAccountForNetwork(a1);
-  Unlock = WiFiNetworkIsAllowedBeforeFirstUnlock(a1);
-  result = WiFiSecurityCopyNonSyncablePasswordWithTimeout(v6, a2, Unlock, a3);
-  if (!result)
-  {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       v9 = WiFiNetworkGetAccountForNetwork(a1);
-      v12 = 136315394;
-      v13 = "WiFiNetworkCopyPasswordWithTimeout";
-      v14 = 2112;
+      v11 = 136315394;
+      v12 = "WiFiNetworkCopyPasswordWithTimeout";
+      v13 = 2112;
       AccountForNetwork = v9;
-      _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: No password is copied for profiled based network %@", &v12, 0x16u);
+      _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: No password is copied for profiled based network %@", &v11, 0x16u);
     }
-
-LABEL_8:
-    v10 = WiFiNetworkGetAccountForNetwork(a1);
-    result = WiFiSecurityCopyPasswordWithTimeout(v10, a2, a3);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  v10 = WiFiNetworkGetAccountForNetwork(a1);
+  return WiFiSecurityCopyPasswordWithTimeout(v10, a2, a3);
 }
 
 const void *WiFiNetworkIsAllowedBeforeFirstUnlock(uint64_t a1)
@@ -760,20 +706,18 @@ uint64_t WiFiNetworkCopyNonSyncablePasswordWithTimeout(const void *a1, BOOL *a2,
 
 BOOL WiFiNetworkSetPassword(const void *a1, const __CFString *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   AccountForNetwork = WiFiNetworkGetAccountForNetwork(a1);
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315394;
-    v7 = "WiFiNetworkSetPassword";
-    v8 = 2112;
-    v9 = AccountForNetwork;
-    _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Set password for Network/account %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "WiFiNetworkSetPassword";
+    v7 = 2112;
+    v8 = AccountForNetwork;
+    _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Set password for Network/account %@", &v5, 0x16u);
   }
 
-  result = WiFiSecuritySetPassword(AccountForNetwork, a2);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return WiFiSecuritySetPassword(AccountForNetwork, a2);
 }
 
 BOOL WiFiNetworkSetLegacyPassword(const void *a1, const __CFString *a2)
@@ -785,20 +729,18 @@ BOOL WiFiNetworkSetLegacyPassword(const void *a1, const __CFString *a2)
 
 uint64_t WiFiNetworkRemovePassword(const void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "WiFiNetworkRemovePassword";
-    v7 = 2112;
+    v4 = 136315394;
+    v5 = "WiFiNetworkRemovePassword";
+    v6 = 2112;
     AccountForNetwork = WiFiNetworkGetAccountForNetwork(a1);
-    _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Remove password for Network/account %@", &v5, 0x16u);
+    _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: Remove password for Network/account %@", &v4, 0x16u);
   }
 
   v2 = WiFiNetworkGetAccountForNetwork(a1);
-  result = WiFiSecurityRemovePassword(v2);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  return WiFiSecurityRemovePassword(v2);
 }
 
 uint64_t WiFiNetworkRemoveLegacyPassword(const void *a1)
@@ -808,7 +750,7 @@ uint64_t WiFiNetworkRemoveLegacyPassword(const void *a1)
   return WiFiSecurityRemoveLegacyPassword(AccountForNetwork);
 }
 
-CFStringRef WiFiNetworkIsPasswordAvailable(CFDictionaryRef *a1)
+uint64_t WiFiNetworkIsPasswordAvailable(CFDictionaryRef *a1)
 {
   result = WiFiNetworkCopyPassword(a1);
   if (result)
@@ -907,8 +849,9 @@ void WiFiNetworkSetDisabledUntilDate(uint64_t a1, const void *a2)
   }
 }
 
-void WiFiNetworkSetStateWithReason(CFMutableDictionaryRef *a1, int a2, const void *a3)
+void WiFiNetworkSetStateWithReason(CFMutableDictionaryRef *a1, uint64_t a2, const void *a3)
 {
+  v3 = a2;
   if (a1)
   {
     if (a3)
@@ -918,11 +861,11 @@ void WiFiNetworkSetStateWithReason(CFMutableDictionaryRef *a1, int a2, const voi
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          WiFiNetworkSetStateWithReason_cold_1(a1, a2, a3);
+          WiFiNetworkSetStateWithReason_cold_1(a1, v3, a3);
         }
 
         IsEnabled = WiFiNetworkIsEnabled(a1);
-        if (!a2 && IsEnabled)
+        if (!v3 && IsEnabled)
         {
           WiFiNetworkSetProperty(a1, @"networkDisabledReason", a3);
           v8 = *MEMORY[0x277CBECE8];
@@ -939,7 +882,7 @@ void WiFiNetworkSetStateWithReason(CFMutableDictionaryRef *a1, int a2, const voi
     }
   }
 
-  WiFiNetworkSetState(a1, a2);
+  WiFiNetworkSetState(a1, v3);
 }
 
 void WiFiNetworkSetAssociationDate(uint64_t a1, int a2, const void *a3)
@@ -963,7 +906,7 @@ void WiFiNetworkSetAssociationDate(uint64_t a1, int a2, const void *a3)
   WiFiNetworkSetProperty(a1, v7, a3);
 }
 
-unint64_t WiFiNetworkGetLastAssociationDate(uint64_t a1)
+const __CFDate *WiFiNetworkGetLastAssociationDate(uint64_t a1)
 {
   Property = WiFiNetworkGetProperty(a1, @"lastJoined");
   result = WiFiNetworkGetProperty(a1, @"lastAutoJoined");
@@ -1013,7 +956,7 @@ const void *WiFiNetworkGetAssociationDate(uint64_t a1, int a2)
   return WiFiNetworkGetProperty(a1, v2);
 }
 
-double WiFiNetworkGetTimeIntervalSinceLastAssociation(uint64_t a1)
+CFTimeInterval WiFiNetworkGetTimeIntervalSinceLastAssociation(uint64_t a1)
 {
   LastAssociationDate = WiFiNetworkGetLastAssociationDate(a1);
   Property = WiFiNetworkGetProperty(a1, @"prevJoined");
@@ -2016,7 +1959,7 @@ BOOL WiFiNetworkIsAPLeaky(uint64_t a1, const __CFString *a2)
   return v4;
 }
 
-uint64_t WiFiNetworkIsInSaveDataMode(uint64_t a1)
+BOOL WiFiNetworkIsInSaveDataMode(uint64_t a1)
 {
   valuePtr = 0;
   Property = WiFiNetworkGetProperty(a1, @"SaveDataMode");
@@ -2624,11 +2567,11 @@ void WiFiNetworkRemoveAutoJoinProperties(uint64_t a1)
 
 void *WiFiNetworkCreateCoreWiFiNetworkProfile(CFDictionaryRef *a1)
 {
-  v126 = *MEMORY[0x277D85DE8];
+  v125 = *MEMORY[0x277D85DE8];
   context = objc_autoreleasePoolPush();
   if (!a1 || !getCWFNetworkProfileClass())
   {
-    v94 = 0;
+    v93 = 0;
     goto LABEL_163;
   }
 
@@ -2638,7 +2581,7 @@ void *WiFiNetworkCreateCoreWiFiNetworkProfile(CFDictionaryRef *a1)
   [v2 setSupportedSecurityTypes:0];
   IsWAPI = WiFiNetworkIsWAPI(a1);
   v4 = MEMORY[0x277CBED28];
-  v94 = v2;
+  v93 = v2;
   if (!IsWAPI)
   {
     if (WiFiNetworkIsOWETransition(a1))
@@ -2659,8 +2602,8 @@ void *WiFiNetworkCreateCoreWiFiNetworkProfile(CFDictionaryRef *a1)
         [v2 setSupportedSecurityTypes:{objc_msgSend(v2, "supportedSecurityTypes") | 1}];
         if (WiFiNetworkIsEAP(a1))
         {
-          v86 = v2;
-          v87 = 5;
+          v85 = v2;
+          v86 = 5;
         }
 
         else
@@ -2671,34 +2614,34 @@ void *WiFiNetworkCreateCoreWiFiNetworkProfile(CFDictionaryRef *a1)
             goto LABEL_14;
           }
 
-          v89 = Property;
-          v90 = [Property intValue];
-          [v89 intValue];
-          v91 = [v89 intValue];
-          if (v90)
+          v88 = Property;
+          v89 = [Property intValue];
+          [v88 intValue];
+          v90 = [v88 intValue];
+          if (v89)
           {
-            if ((v91 & 4) == 0)
+            if ((v90 & 4) == 0)
             {
               goto LABEL_14;
             }
 
-            v86 = v94;
-            v87 = 3;
+            v85 = v93;
+            v86 = 3;
           }
 
           else
           {
-            if ((v91 & 4) == 0)
+            if ((v90 & 4) == 0)
             {
               goto LABEL_14;
             }
 
-            v86 = v94;
-            v87 = 4;
+            v85 = v93;
+            v86 = 4;
           }
         }
 
-        [v86 setWEPSubtype:v87];
+        [v85 setWEPSubtype:v86];
         goto LABEL_14;
       }
 
@@ -2737,26 +2680,26 @@ LABEL_14:
     v11 = [v10 objectForKey:@"IE_KEY_RSN_AUTHSELS"];
     if (([v11 containsObject:&unk_286BD2C30] & 1) != 0 || objc_msgSend(v11, "containsObject:", &unk_286BD2C48))
     {
-      [v94 setSupportedSecurityTypes:{objc_msgSend(v94, "supportedSecurityTypes") | 0x80}];
+      [v93 setSupportedSecurityTypes:{objc_msgSend(v93, "supportedSecurityTypes") | 0x80}];
     }
 
     if (([v11 containsObject:&unk_286BD2C60] & 1) != 0 || (objc_msgSend(v11, "containsObject:", &unk_286BD2C78) & 1) != 0 || (objc_msgSend(v11, "containsObject:", &unk_286BD2C90) & 1) != 0 || objc_msgSend(v11, "containsObject:", &unk_286BD2CA8))
     {
-      [v94 setSupportedSecurityTypes:{objc_msgSend(v94, "supportedSecurityTypes") | 0x20}];
+      [v93 setSupportedSecurityTypes:{objc_msgSend(v93, "supportedSecurityTypes") | 0x20}];
     }
 
     if (([v11 containsObject:&unk_286BD2CC0] & 1) != 0 || (objc_msgSend(v11, "containsObject:", &unk_286BD2CD8) & 1) != 0 || (objc_msgSend(v11, "containsObject:", &unk_286BD2CF0) & 1) != 0 || objc_msgSend(v11, "containsObject:", &unk_286BD2D08))
     {
-      [v94 setSupportedSecurityTypes:{objc_msgSend(v94, "supportedSecurityTypes") | 0x40}];
+      [v93 setSupportedSecurityTypes:{objc_msgSend(v93, "supportedSecurityTypes") | 0x40}];
       if (__WiFiNetworkSupportsWPA2(a1[2]))
       {
-        [v94 setSupportedSecurityTypes:{objc_msgSend(v94, "supportedSecurityTypes") | 0x10}];
+        [v93 setSupportedSecurityTypes:{objc_msgSend(v93, "supportedSecurityTypes") | 0x10}];
       }
     }
 
     if (([v11 containsObject:&unk_286BD2D20] & 1) != 0 || (objc_msgSend(v11, "containsObject:", &unk_286BD2D38) & 1) != 0 || objc_msgSend(v11, "containsObject:", &unk_286BD2D50))
     {
-      [v94 setSupportedSecurityTypes:{objc_msgSend(v94, "supportedSecurityTypes") | 0x10}];
+      [v93 setSupportedSecurityTypes:{objc_msgSend(v93, "supportedSecurityTypes") | 0x10}];
     }
   }
 
@@ -2766,18 +2709,18 @@ LABEL_14:
     v13 = [v12 objectForKey:@"IE_KEY_WPA_AUTHSELS"];
     if (([v13 containsObject:&unk_286BD2C60] & 1) != 0 || objc_msgSend(v13, "containsObject:", &unk_286BD2C78))
     {
-      [v94 setSupportedSecurityTypes:{objc_msgSend(v94, "supportedSecurityTypes") | 8}];
+      [v93 setSupportedSecurityTypes:{objc_msgSend(v93, "supportedSecurityTypes") | 8}];
     }
 
     if ([v13 containsObject:&unk_286BD2D20])
     {
-      [v94 setSupportedSecurityTypes:{objc_msgSend(v94, "supportedSecurityTypes") | 4}];
+      [v93 setSupportedSecurityTypes:{objc_msgSend(v93, "supportedSecurityTypes") | 4}];
     }
   }
 
-  if (![v94 supportedSecurityTypes])
+  if (![v93 supportedSecurityTypes])
   {
-    [v94 setSupportedSecurityTypes:512];
+    [v93 setSupportedSecurityTypes:512];
   }
 
   if (MEMORY[0x282215548])
@@ -2808,7 +2751,7 @@ LABEL_14:
       v15 = 0;
     }
 
-    [v94 setCaptiveProfile:v15];
+    [v93 setCaptiveProfile:v15];
   }
 
   if (WiFiNetworkGetDirectedState(a1))
@@ -2821,29 +2764,29 @@ LABEL_14:
     v16 = 2;
   }
 
-  [v94 setHiddenState:v16];
+  [v93 setHiddenState:v16];
   v17 = WiFiNetworkGetProperty(a1, @"WasHiddenBefore");
   if (v17)
   {
-    [v94 setWasHiddenBefore:v17];
+    [v93 setWasHiddenBefore:v17];
   }
 
   if (WiFiNetworkGetShareMode(a1) == 2)
   {
-    [v94 setPasswordSharingDisabled:1];
+    [v93 setPasswordSharingDisabled:1];
   }
 
   if (WiFiNetworkGetProperty(a1, @"PayloadUUID"))
   {
-    [v94 setPayloadUUID:{WiFiNetworkGetProperty(a1, @"PayloadUUID"}];
+    [v93 setPayloadUUID:{WiFiNetworkGetProperty(a1, @"PayloadUUID"}];
   }
 
   if (WiFiNetworkGetProperty(a1, @"PayloadIdentifier"))
   {
-    [v94 setPayloadIdentifier:{WiFiNetworkGetProperty(a1, @"PayloadIdentifier"}];
+    [v93 setPayloadIdentifier:{WiFiNetworkGetProperty(a1, @"PayloadIdentifier"}];
   }
 
-  [v94 setAutoJoinDisabled:!WiFiNetworkIsEnabled(a1)];
+  [v93 setAutoJoinDisabled:!WiFiNetworkIsEnabled(a1)];
   SaveDataMode = WiFiNetworkGetSaveDataMode(a1);
   if (SaveDataMode == 1)
   {
@@ -2855,10 +2798,10 @@ LABEL_14:
     v19 = 2 * (SaveDataMode == 2);
   }
 
-  [v94 setLowDataMode:v19];
-  [v94 setBundleID:{WiFiNetworkGetProperty(a1, @"BundleIdentifier"}];
-  [v94 setLastJoinedBySystemAt:{WiFiNetworkGetProperty(a1, @"lastAutoJoined"}];
-  [v94 setLastJoinedByUserAt:{WiFiNetworkGetProperty(a1, @"lastJoined"}];
+  [v93 setLowDataMode:v19];
+  [v93 setBundleID:{WiFiNetworkGetProperty(a1, @"BundleIdentifier"}];
+  [v93 setLastJoinedBySystemAt:{WiFiNetworkGetProperty(a1, @"lastAutoJoined"}];
+  [v93 setLastJoinedByUserAt:{WiFiNetworkGetProperty(a1, @"lastJoined"}];
   v20 = [WiFiNetworkGetProperty(a1 @"WiFiManagerKnownNetworksEventType")];
   v21 = [WiFiNetworkGetProperty(a1 @"WiFiNetworkAttributeSource")];
   v22 = [WiFiNetworkGetProperty(a1 @"NetworkOriginator")];
@@ -2875,7 +2818,7 @@ LABEL_14:
       goto LABEL_66;
     }
 
-    if ([v94 bundleID])
+    if ([v93 bundleID])
     {
       v24 = 14;
       goto LABEL_76;
@@ -2917,7 +2860,7 @@ LABEL_69:
       goto LABEL_76;
     }
 
-    if ([v94 payloadUUID])
+    if ([v93 payloadUUID])
     {
 LABEL_174:
       v24 = 9;
@@ -2993,72 +2936,72 @@ LABEL_174:
 LABEL_66:
   v24 = 15;
 LABEL_76:
-  [v94 setAddReason:v24];
-  [v94 setAddedAt:{WiFiNetworkGetProperty(a1, @"addedAt"}];
-  [v94 setUpdatedAt:{WiFiNetworkGetProperty(a1, @"lastUpdated"}];
-  [v94 setEAPProfile:{objc_msgSend(WiFiNetworkGetProperty(a1, @"EnterpriseProfile", "objectForKeyedSubscript:", @"EAPClientConfiguration"}];
-  [v94 setDomainName:{WiFiNetworkGetProperty(a1, @"DomainName"}];
-  [v94 setDisplayedOperatorName:{WiFiNetworkGetProperty(a1, @"DisplayedOperatorName"}];
-  [v94 setServiceProviderRoamingEnabled:{WiFiNetworkGetProperty(a1, @"SPRoaming"}];
-  [v94 setCellularNetworkInfo:{WiFiNetworkGetProperty(a1, @"MCCandMNC"}];
-  [v94 setNAIRealmNameList:{WiFiNetworkGetProperty(a1, @"NaiRealmName"}];
-  [v94 setRoamingConsortiumList:{WiFiNetworkGetProperty(a1, @"RoamingConsortiumOIs"}];
-  [v94 setUserPreferredNetworkNames:{WiFiNetworkGetProperty(a1, @"userPreferredNetworkNames"}];
-  [v94 setUserPreferredPasspointDomains:{WiFiNetworkGetProperty(a1, @"userPreferredPasspointDomains"}];
-  [v94 setNetworkGroupID:{WiFiNetworkGetProperty(a1, @"networkGroupID"}];
-  [v94 setNetworkGroupPriority:{objc_msgSend(WiFiNetworkGetProperty(a1, @"networkGroupPriority", "unsignedIntegerValue")}];
-  [v94 setLastDiscoveredAt:{WiFiNetworkGetProperty(a1, @"discoveredAt"}];
+  [v93 setAddReason:v24];
+  [v93 setAddedAt:{WiFiNetworkGetProperty(a1, @"addedAt"}];
+  [v93 setUpdatedAt:{WiFiNetworkGetProperty(a1, @"lastUpdated"}];
+  [v93 setEAPProfile:{objc_msgSend(WiFiNetworkGetProperty(a1, @"EnterpriseProfile", "objectForKeyedSubscript:", @"EAPClientConfiguration"}];
+  [v93 setDomainName:{WiFiNetworkGetProperty(a1, @"DomainName"}];
+  [v93 setDisplayedOperatorName:{WiFiNetworkGetProperty(a1, @"DisplayedOperatorName"}];
+  [v93 setServiceProviderRoamingEnabled:{WiFiNetworkGetProperty(a1, @"SPRoaming"}];
+  [v93 setCellularNetworkInfo:{WiFiNetworkGetProperty(a1, @"MCCandMNC"}];
+  [v93 setNAIRealmNameList:{WiFiNetworkGetProperty(a1, @"NaiRealmName"}];
+  [v93 setRoamingConsortiumList:{WiFiNetworkGetProperty(a1, @"RoamingConsortiumOIs"}];
+  [v93 setUserPreferredNetworkNames:{WiFiNetworkGetProperty(a1, @"userPreferredNetworkNames"}];
+  [v93 setUserPreferredPasspointDomains:{WiFiNetworkGetProperty(a1, @"userPreferredPasspointDomains"}];
+  [v93 setNetworkGroupID:{WiFiNetworkGetProperty(a1, @"networkGroupID"}];
+  [v93 setNetworkGroupPriority:{objc_msgSend(WiFiNetworkGetProperty(a1, @"networkGroupPriority", "unsignedIntegerValue")}];
+  [v93 setLastDiscoveredAt:{WiFiNetworkGetProperty(a1, @"discoveredAt"}];
   v25 = WiFiNetworkGetProperty(a1, @"TransitionDisabledFlags");
   if (v25)
   {
-    [v94 setTransitionDisabledFlags:{objc_msgSend(v25, "unsignedIntValue")}];
+    [v93 setTransitionDisabledFlags:{objc_msgSend(v25, "unsignedIntValue")}];
   }
 
   v26 = WiFiNetworkGetProperty(a1, @"Standalone");
   cf2 = *v4;
-  [v94 setStandalone6G:v26 == *v4];
+  [v93 setStandalone6G:v26 == *v4];
   v27 = WiFiNetworkGetProperty(a1, @"networkKnownBSSListKey");
   if (v27)
   {
     v28 = v27;
     if (CFArrayGetCount(v27))
     {
-      v110 = 0u;
-      v111 = 0u;
-      v108 = 0u;
       v109 = 0u;
+      v110 = 0u;
+      v107 = 0u;
+      v108 = 0u;
       obj = v28;
-      v98 = [(__CFArray *)v28 countByEnumeratingWithState:&v108 objects:v125 count:16];
-      if (v98)
+      v97 = [(__CFArray *)v28 countByEnumeratingWithState:&v107 objects:v124 count:16];
+      if (v97)
       {
-        v99 = 0;
-        v97 = *v109;
-        v96 = *MEMORY[0x277D02A80];
+        v98 = 0;
+        v96 = *v108;
+        v95 = *MEMORY[0x277D02A80];
         do
         {
-          for (i = 0; i != v98; ++i)
+          for (i = 0; i != v97; ++i)
           {
-            if (*v109 != v97)
+            if (*v108 != v96)
             {
               objc_enumerationMutation(obj);
             }
 
-            v30 = *(*(&v108 + 1) + 8 * i);
+            v30 = *(*(&v107 + 1) + 8 * i);
             valuePtr = 0.0;
             p_valuePtr = &valuePtr;
-            v119 = 0x3052000000;
-            v120 = __Block_byref_object_copy_;
+            v118 = 0x3052000000;
+            v119 = __Block_byref_object_copy_;
             v31 = getCWFBSSClass_softClass;
-            v121 = __Block_byref_object_dispose_;
-            v122 = getCWFBSSClass_softClass;
+            v120 = __Block_byref_object_dispose_;
+            v121 = getCWFBSSClass_softClass;
             if (!getCWFBSSClass_softClass)
             {
-              v112 = MEMORY[0x277D85DD0];
-              v113 = 3221225472;
-              v114 = __getCWFBSSClass_block_invoke;
-              v115 = &unk_27991A160;
-              v116 = &valuePtr;
-              __getCWFBSSClass_block_invoke(&v112);
+              v111 = MEMORY[0x277D85DD0];
+              v112 = 3221225472;
+              v113 = __getCWFBSSClass_block_invoke;
+              v114 = &unk_27991A160;
+              v115 = &valuePtr;
+              __getCWFBSSClass_block_invoke(&v111);
               v31 = *(p_valuePtr + 40);
             }
 
@@ -3098,19 +3041,19 @@ LABEL_76:
                     {
                       valuePtr = 0.0;
                       p_valuePtr = &valuePtr;
-                      v119 = 0x3052000000;
-                      v120 = __Block_byref_object_copy_;
+                      v118 = 0x3052000000;
+                      v119 = __Block_byref_object_copy_;
                       v42 = getCLLocationClass_softClass;
-                      v121 = __Block_byref_object_dispose_;
-                      v122 = getCLLocationClass_softClass;
+                      v120 = __Block_byref_object_dispose_;
+                      v121 = getCLLocationClass_softClass;
                       if (!getCLLocationClass_softClass)
                       {
-                        v112 = MEMORY[0x277D85DD0];
-                        v113 = 3221225472;
-                        v114 = __getCLLocationClass_block_invoke;
-                        v115 = &unk_27991A160;
-                        v116 = &valuePtr;
-                        __getCLLocationClass_block_invoke(&v112);
+                        v111 = MEMORY[0x277D85DD0];
+                        v112 = 3221225472;
+                        v113 = __getCLLocationClass_block_invoke;
+                        v114 = &unk_27991A160;
+                        v115 = &valuePtr;
+                        __getCLLocationClass_block_invoke(&v111);
                         v42 = *(p_valuePtr + 40);
                       }
 
@@ -3120,26 +3063,26 @@ LABEL_76:
                       v45 = v44;
                       [v38 doubleValue];
                       v47 = v46;
-                      v112 = 0;
-                      v113 = &v112;
-                      v114 = 0x2020000000;
+                      v111 = 0;
+                      v112 = &v111;
+                      v113 = 0x2020000000;
                       v48 = getCLLocationCoordinate2DMakeSymbolLoc_ptr;
-                      v115 = getCLLocationCoordinate2DMakeSymbolLoc_ptr;
+                      v114 = getCLLocationCoordinate2DMakeSymbolLoc_ptr;
                       if (!getCLLocationCoordinate2DMakeSymbolLoc_ptr)
                       {
                         valuePtr = MEMORY[0x277D85DD0];
                         p_valuePtr = 3221225472;
-                        v119 = __getCLLocationCoordinate2DMakeSymbolLoc_block_invoke;
-                        v120 = &unk_27991A160;
-                        v121 = &v112;
+                        v118 = __getCLLocationCoordinate2DMakeSymbolLoc_block_invoke;
+                        v119 = &unk_27991A160;
+                        v120 = &v111;
                         v49 = CoreLocationLibrary();
                         v50 = dlsym(v49, "CLLocationCoordinate2DMake");
-                        *(*(v121 + 1) + 24) = v50;
-                        getCLLocationCoordinate2DMakeSymbolLoc_ptr = *(*(v121 + 1) + 24);
-                        v48 = *(v113 + 24);
+                        *(*(v120 + 1) + 24) = v50;
+                        getCLLocationCoordinate2DMakeSymbolLoc_ptr = *(*(v120 + 1) + 24);
+                        v48 = *(v112 + 24);
                       }
 
-                      _Block_object_dispose(&v112, 8);
+                      _Block_object_dispose(&v111, 8);
                       if (!v48)
                       {
                         WiFiNetworkCreateCoreWiFiNetworkProfile_cold_1();
@@ -3188,28 +3131,28 @@ LABEL_76:
               [v32 setDHCPServerID:{objc_msgSend(v30, "objectForKeyedSubscript:", @"DHCPServerID"}];
               [v32 setDHCPv6ServerID:{objc_msgSend(v30, "objectForKeyedSubscript:", @"DHCPv6ServerID"}];
               v63 = [MEMORY[0x277CBEB38] dictionary];
-              v106 = 0u;
-              v107 = 0u;
-              v104 = 0u;
               v105 = 0u;
+              v106 = 0u;
+              v103 = 0u;
+              v104 = 0u;
               v64 = [MEMORY[0x277D02AF0] supportedOSSpecificKeys];
-              v65 = [v64 countByEnumeratingWithState:&v104 objects:v124 count:16];
+              v65 = [v64 countByEnumeratingWithState:&v103 objects:v123 count:16];
               if (v65)
               {
-                v66 = *v105;
+                v66 = *v104;
                 do
                 {
                   for (j = 0; j != v65; ++j)
                   {
-                    if (*v105 != v66)
+                    if (*v104 != v66)
                     {
                       objc_enumerationMutation(v64);
                     }
 
-                    [v63 setObject:WiFiNetworkGetProperty(a1 forKeyedSubscript:{*(*(&v104 + 1) + 8 * j)), *(*(&v104 + 1) + 8 * j)}];
+                    [v63 setObject:WiFiNetworkGetProperty(a1 forKeyedSubscript:{*(*(&v103 + 1) + 8 * j)), *(*(&v103 + 1) + 8 * j)}];
                   }
 
-                  v65 = [v64 countByEnumeratingWithState:&v104 objects:v124 count:16];
+                  v65 = [v64 countByEnumeratingWithState:&v103 objects:v123 count:16];
                 }
 
                 while (v65);
@@ -3226,35 +3169,35 @@ LABEL_76:
               }
 
               [v32 setOSSpecificAttributes:v68];
-              [v32 setCoreWiFiSpecificAttributes:{objc_msgSend(v30, "objectForKeyedSubscript:", v96)}];
-              v69 = v99;
-              if (!v99)
+              [v32 setCoreWiFiSpecificAttributes:{objc_msgSend(v30, "objectForKeyedSubscript:", v95)}];
+              v69 = v98;
+              if (!v98)
               {
                 v69 = [MEMORY[0x277CBEB58] set];
               }
 
-              v99 = v69;
+              v98 = v69;
               [v69 addObject:v32];
             }
           }
 
-          v98 = [(__CFArray *)obj countByEnumeratingWithState:&v108 objects:v125 count:16];
+          v97 = [(__CFArray *)obj countByEnumeratingWithState:&v107 objects:v124 count:16];
         }
 
-        while (v98);
+        while (v97);
       }
 
       else
       {
-        v99 = 0;
+        v98 = 0;
       }
 
-      [v94 setBSSList:v99];
+      [v93 setBSSList:v98];
     }
   }
 
-  [v94 setPrivacyProxyEnabled:WiFiNetworkGetPrivacyProxyEnabled(a1)];
-  [v94 setPrivacyProxyBlockedReason:{WiFiNetworkGetProperty(a1, @"PrivacyProxyBlockedReason"}];
+  [v93 setPrivacyProxyEnabled:WiFiNetworkGetPrivacyProxyEnabled(a1)];
+  [v93 setPrivacyProxyBlockedReason:{WiFiNetworkGetProperty(a1, @"PrivacyProxyBlockedReason"}];
   if (WiFiNetworkGetProperty(a1, @"WiFiNetworkAttributeIsMoving"))
   {
     v70 = WiFiNetworkGetProperty(a1, @"WiFiNetworkAttributeIsMoving");
@@ -3274,7 +3217,7 @@ LABEL_76:
     v71 = 0;
   }
 
-  [v94 setMovingAttribute:v71];
+  [v93 setMovingAttribute:v71];
   if (WiFiNetworkGetProperty(a1, @"WiFiNetworkAttributeIsPublic"))
   {
     v72 = WiFiNetworkGetProperty(a1, @"WiFiNetworkAttributeIsPublic");
@@ -3294,14 +3237,14 @@ LABEL_76:
     v73 = 0;
   }
 
-  [v94 setPublicAttribute:v73];
-  [v94 setCarplayUUID:{WiFiNetworkGetProperty(a1, @"CARPLAY_UUID"}];
-  [v94 setCarplayNetwork:WiFiNetworkIsCarPlay(a1) != 0];
-  [v94 setPersonalHotspot:WiFiNetworkIsApplePersonalHotspot(a1) != 0];
-  [v94 setNANServiceID:{WiFiNetworkGetProperty(a1, @"WiFiNetworkNANServiceID"}];
-  [v94 setPublicAirPlayNetwork:WiFiNetworkIsPublicAirPlayNetwork(a1) != 0];
-  [v94 setDNSHeuristicsFilteredNetwork:{WiFiNetworkGetProperty(a1, @"FilteredNetwork"}];
-  [v94 setDNSHeuristicsFailureStateInfo:{WiFiNetworkGetProperty(a1, @"DNSFailures"}];
+  [v93 setPublicAttribute:v73];
+  [v93 setCarplayUUID:{WiFiNetworkGetProperty(a1, @"CARPLAY_UUID"}];
+  [v93 setCarplayNetwork:WiFiNetworkIsCarPlay(a1) != 0];
+  [v93 setPersonalHotspot:WiFiNetworkIsApplePersonalHotspot(a1) != 0];
+  [v93 setNANServiceID:{WiFiNetworkGetProperty(a1, @"WiFiNetworkNANServiceID"}];
+  [v93 setPublicAirPlayNetwork:WiFiNetworkIsPublicAirPlayNetwork(a1) != 0];
+  [v93 setDNSHeuristicsFilteredNetwork:{WiFiNetworkGetProperty(a1, @"FilteredNetwork"}];
+  [v93 setDNSHeuristicsFailureStateInfo:{WiFiNetworkGetProperty(a1, @"DNSFailures"}];
   if (WiFiNetworkGetNetworkOfInterestWorkType(a1) == 1)
   {
     v74 = 1;
@@ -3312,7 +3255,7 @@ LABEL_76:
     v74 = 2 * (WiFiNetworkGetNetworkOfInterestWorkType(a1) == 2);
   }
 
-  [v94 setNetworkOfInterestWorkState:v74];
+  [v93 setNetworkOfInterestWorkState:v74];
   if (WiFiNetworkGetNetworkOfInterestHomeType(a1) == 1)
   {
     v75 = 1;
@@ -3333,7 +3276,7 @@ LABEL_76:
     v75 = 0;
   }
 
-  [v94 setNetworkOfInterestHomeState:v75];
+  [v93 setNetworkOfInterestHomeState:v75];
   v76 = WiFiNetworkGetProperty(a1, @"WiFiNetworkExpirationDate");
   if (v76)
   {
@@ -3342,34 +3285,34 @@ LABEL_76:
     v77 = CFDateCreate(*MEMORY[0x277CBECE8], valuePtr);
     if (v77)
     {
-      [v94 setExpirationDate:v77];
+      [v93 setExpirationDate:v77];
       CFRelease(v77);
     }
   }
 
   v78 = [MEMORY[0x277CBEB38] dictionary];
-  v102 = 0u;
-  v103 = 0u;
-  v100 = 0u;
   v101 = 0u;
+  v102 = 0u;
+  v99 = 0u;
+  v100 = 0u;
   v79 = [MEMORY[0x277D02B30] supportedOSSpecificKeys];
-  v80 = [v79 countByEnumeratingWithState:&v100 objects:v123 count:16];
+  v80 = [v79 countByEnumeratingWithState:&v99 objects:v122 count:16];
   if (v80)
   {
-    v81 = *v101;
+    v81 = *v100;
     do
     {
       for (k = 0; k != v80; ++k)
       {
-        if (*v101 != v81)
+        if (*v100 != v81)
         {
           objc_enumerationMutation(v79);
         }
 
-        [v78 setObject:WiFiNetworkGetProperty(a1 forKeyedSubscript:{*(*(&v100 + 1) + 8 * k)), *(*(&v100 + 1) + 8 * k)}];
+        [v78 setObject:WiFiNetworkGetProperty(a1 forKeyedSubscript:{*(*(&v99 + 1) + 8 * k)), *(*(&v99 + 1) + 8 * k)}];
       }
 
-      v80 = [v79 countByEnumeratingWithState:&v100 objects:v123 count:16];
+      v80 = [v79 countByEnumeratingWithState:&v99 objects:v122 count:16];
     }
 
     while (v80);
@@ -3385,13 +3328,13 @@ LABEL_76:
     v83 = 0;
   }
 
-  [v94 setOSSpecificAttributes:v83];
-  [v94 setCoreWiFiSpecificAttributes:{WiFiNetworkGetProperty(a1, *MEMORY[0x277D02A80])}];
+  [v93 setOSSpecificAttributes:v83];
+  [v93 setCoreWiFiSpecificAttributes:{WiFiNetworkGetProperty(a1, *MEMORY[0x277D02A80])}];
   if (WiFiNetworkIsAllowedBeforeFirstUnlock(a1))
   {
     if (CFDictionaryContainsKey(a1[2], @"PayloadUUID"))
     {
-      [v94 setAllowedBeforeFirstUnlock:1];
+      [v93 setAllowedBeforeFirstUnlock:1];
     }
 
     else
@@ -3402,8 +3345,14 @@ LABEL_76:
 
 LABEL_163:
   objc_autoreleasePoolPop(context);
-  v84 = *MEMORY[0x277D85DE8];
-  return v94;
+  return v93;
+}
+
+void sub_25A12980C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, ...)
+{
+  va_start(va, a52);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t getCWFNetworkProfileClass()
@@ -3430,9 +3379,9 @@ uint64_t getCWFNetworkProfileClass()
   return v0;
 }
 
-void sub_25A129910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25A129910(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3461,9 +3410,9 @@ uint64_t getCWFChannelClass()
   return v0;
 }
 
-void sub_25A1299FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25A1299FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3485,7 +3434,7 @@ const void *WiFiNetworkGetPrivacyProxyBlockedReason(uint64_t a1)
 
 uint64_t WiFiNetworkCreateCoreWiFiScanResult(uint64_t a1)
 {
-  v36[82] = *MEMORY[0x277D85DE8];
+  v35[82] = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   if (getCWFScanResultClass() && (CWFScanResultPropertyOSSpecificAttributesKey = getCWFScanResultPropertyOSSpecificAttributesKey(), a1) && CWFScanResultPropertyOSSpecificAttributesKey && (Copy = CFDictionaryCreateCopy(*MEMORY[0x277CBECE8], *(a1 + 16))) != 0)
   {
@@ -3499,32 +3448,32 @@ uint64_t WiFiNetworkCreateCoreWiFiScanResult(uint64_t a1)
     v7 = [(__CFDictionary *)v5 mutableCopy];
     [v7 setObject:v6 forKeyedSubscript:@"ANQP_PARSED"];
     v8 = [MEMORY[0x277CBEB38] dictionary];
+    v28 = 0u;
     v29 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v32 = 0u;
     v9 = [MEMORY[0x277D02B50] supportedOSSpecificKeys];
-    v10 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v30;
+      v12 = *v29;
       do
       {
         v13 = 0;
         do
         {
-          if (*v30 != v12)
+          if (*v29 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          [v8 setObject:WiFiNetworkGetProperty(a1 forKeyedSubscript:{*(*(&v29 + 1) + 8 * v13)), *(*(&v29 + 1) + 8 * v13)}];
+          [v8 setObject:WiFiNetworkGetProperty(a1 forKeyedSubscript:{*(*(&v28 + 1) + 8 * v13)), *(*(&v28 + 1) + 8 * v13)}];
           ++v13;
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
       }
 
       while (v11);
@@ -3541,121 +3490,121 @@ uint64_t WiFiNetworkCreateCoreWiFiScanResult(uint64_t a1)
     }
 
     [v7 setObject:v14 forKeyedSubscript:getCWFScanResultPropertyOSSpecificAttributesKey()];
-    v36[0] = @"IsWiFiNetworkShareble";
-    v36[1] = @"NetworkOriginator";
-    v36[2] = @"CaptiveBypass";
-    v36[3] = @"DiagnosticsBssEnv";
-    v36[4] = @"DisableWiFiAutoJoinUntilFirstUserJoin";
-    v36[5] = @"DisplayedOperatorName";
-    v36[6] = @"DomainName";
-    v36[7] = @"HS20GasResponse";
-    v36[8] = @"HS20HomeOperatorNetwork";
-    v36[9] = @"HS20ProvisionedNetwork";
-    v36[10] = @"HS2NetworkBadge";
-    v36[11] = @"HS20AccountName";
-    v36[12] = @"MCCandMNC";
-    v36[13] = @"NaiRealmName";
-    v36[14] = @"NetworkAtLocationOfInterestType";
-    v36[15] = @"WiFiNetworkAttributeHighPopularity";
-    v36[16] = @"WiFiNetworkAttributeHighQuality";
-    v36[17] = @"WiFiNetworkAttributeIsMoving";
-    v36[18] = @"WiFiNetworkAttributeIsPotentiallyCaptive";
-    v36[19] = @"WiFiNetworkAttributeIsPotentiallyMoving";
-    v36[20] = @"WiFiNetworkAttributeIsSuspicious";
-    v36[21] = @"WiFiNetworkAttributeIsTCPGood";
-    v36[22] = @"WiFiNetworkAttributeLowPopularity";
-    v36[23] = @"WiFiNetworkAttributeLowQuality";
-    v36[24] = @"WiFiNetworkAttributePopularityScore";
-    v36[25] = @"WiFiNetworkAttributeProminentDisplay";
-    v36[26] = @"WiFiNetworkAttributeQualityScore";
-    v36[27] = @"WiFiNetworkAttributeSource";
-    v36[28] = @"BundleIdentifier";
-    v36[29] = @"SIMIdentifiers";
-    v36[30] = @"WiFiNetworkDisabledUntilDate";
-    v36[31] = @"EnterpriseProfile";
-    v36[32] = @"WiFiNetworkExpirationDate";
-    v36[33] = @"NetworkForcedHomeFix";
-    v36[34] = @"kWiFiNetworkLastHomeForceFixDateKey";
-    v36[35] = @"NetworkOfInterestHomeState";
-    v36[36] = @"NetworkOfInterestWorkState";
-    v36[37] = @"WiFiNetworkPasswordModificationDate";
-    v36[38] = @"PayloadIdentifier";
-    v36[39] = @"CarrierPayloadIdentifierTelemetryApproved";
-    v36[40] = @"PayloadUUID";
-    v36[41] = @"SaveDataMode";
-    v36[42] = @"NetworkQualityResponsiveness";
-    v36[43] = @"NetworkQualityDate";
-    v36[44] = @"ShareableEAPConfig";
-    v36[45] = @"ShareableEAPTrustExceptions";
-    v36[46] = @"ShareableStatus";
-    v36[47] = @"ShareMode";
-    v36[48] = @"kWiFiNetworkSSIDHarvestStatusKey";
-    v36[49] = @"UserRole";
-    v36[50] = @"WalletIdentifier";
-    v36[51] = @"addedAt";
-    v36[52] = @"knownBSSUpdatedDate";
-    v36[53] = @"lastAutoJoined";
-    v36[54] = @"lastJoined";
-    v36[55] = @"lastRoamed";
-    v36[56] = @"lastUpdated";
-    v36[57] = @"WiFiManagerKnownNetworksEventType";
-    v36[58] = @"networkDisabledClientName";
-    v36[59] = @"networkDisabledReason";
-    v36[60] = @"networkDisabledTimestamp";
-    v36[61] = @"enabled";
-    v36[62] = @"networkKnownBSSListKey";
-    v36[63] = @"scanWasDirected";
-    v36[64] = @"prevJoined";
-    v36[65] = @"UserDirected";
-    v36[66] = @"WasHiddenBefore";
-    v36[67] = @"networkUsage";
-    v36[68] = @"RoamingConsortiumOIs";
-    v36[69] = @"SPRoaming";
-    v36[70] = @"PolicyUUID";
-    v36[71] = @"PrivacyProxyEnabled";
-    v36[72] = @"TransitionDisabledFlags";
-    v36[73] = @"Standalone";
-    v36[74] = @"PublicAirPlayNetwork";
-    v36[75] = @"PrivacyProxyBlockedReason";
-    v36[76] = @"FilteredNetwork";
-    v36[77] = @"DNSFailures";
-    v36[78] = @"lastTputMeasurementDate";
-    v36[79] = @"lastTputMeasurementResults";
-    v36[80] = @"WiFiNetworkTDOverrideCount";
-    v36[81] = @"WiFiNetworkTDOverrideTimestamp";
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:82];
+    v35[0] = @"IsWiFiNetworkShareble";
+    v35[1] = @"NetworkOriginator";
+    v35[2] = @"CaptiveBypass";
+    v35[3] = @"DiagnosticsBssEnv";
+    v35[4] = @"DisableWiFiAutoJoinUntilFirstUserJoin";
+    v35[5] = @"DisplayedOperatorName";
+    v35[6] = @"DomainName";
+    v35[7] = @"HS20GasResponse";
+    v35[8] = @"HS20HomeOperatorNetwork";
+    v35[9] = @"HS20ProvisionedNetwork";
+    v35[10] = @"HS2NetworkBadge";
+    v35[11] = @"HS20AccountName";
+    v35[12] = @"MCCandMNC";
+    v35[13] = @"NaiRealmName";
+    v35[14] = @"NetworkAtLocationOfInterestType";
+    v35[15] = @"WiFiNetworkAttributeHighPopularity";
+    v35[16] = @"WiFiNetworkAttributeHighQuality";
+    v35[17] = @"WiFiNetworkAttributeIsMoving";
+    v35[18] = @"WiFiNetworkAttributeIsPotentiallyCaptive";
+    v35[19] = @"WiFiNetworkAttributeIsPotentiallyMoving";
+    v35[20] = @"WiFiNetworkAttributeIsSuspicious";
+    v35[21] = @"WiFiNetworkAttributeIsTCPGood";
+    v35[22] = @"WiFiNetworkAttributeLowPopularity";
+    v35[23] = @"WiFiNetworkAttributeLowQuality";
+    v35[24] = @"WiFiNetworkAttributePopularityScore";
+    v35[25] = @"WiFiNetworkAttributeProminentDisplay";
+    v35[26] = @"WiFiNetworkAttributeQualityScore";
+    v35[27] = @"WiFiNetworkAttributeSource";
+    v35[28] = @"BundleIdentifier";
+    v35[29] = @"SIMIdentifiers";
+    v35[30] = @"WiFiNetworkDisabledUntilDate";
+    v35[31] = @"EnterpriseProfile";
+    v35[32] = @"WiFiNetworkExpirationDate";
+    v35[33] = @"NetworkForcedHomeFix";
+    v35[34] = @"kWiFiNetworkLastHomeForceFixDateKey";
+    v35[35] = @"NetworkOfInterestHomeState";
+    v35[36] = @"NetworkOfInterestWorkState";
+    v35[37] = @"WiFiNetworkPasswordModificationDate";
+    v35[38] = @"PayloadIdentifier";
+    v35[39] = @"CarrierPayloadIdentifierTelemetryApproved";
+    v35[40] = @"PayloadUUID";
+    v35[41] = @"SaveDataMode";
+    v35[42] = @"NetworkQualityResponsiveness";
+    v35[43] = @"NetworkQualityDate";
+    v35[44] = @"ShareableEAPConfig";
+    v35[45] = @"ShareableEAPTrustExceptions";
+    v35[46] = @"ShareableStatus";
+    v35[47] = @"ShareMode";
+    v35[48] = @"kWiFiNetworkSSIDHarvestStatusKey";
+    v35[49] = @"UserRole";
+    v35[50] = @"WalletIdentifier";
+    v35[51] = @"addedAt";
+    v35[52] = @"knownBSSUpdatedDate";
+    v35[53] = @"lastAutoJoined";
+    v35[54] = @"lastJoined";
+    v35[55] = @"lastRoamed";
+    v35[56] = @"lastUpdated";
+    v35[57] = @"WiFiManagerKnownNetworksEventType";
+    v35[58] = @"networkDisabledClientName";
+    v35[59] = @"networkDisabledReason";
+    v35[60] = @"networkDisabledTimestamp";
+    v35[61] = @"enabled";
+    v35[62] = @"networkKnownBSSListKey";
+    v35[63] = @"scanWasDirected";
+    v35[64] = @"prevJoined";
+    v35[65] = @"UserDirected";
+    v35[66] = @"WasHiddenBefore";
+    v35[67] = @"networkUsage";
+    v35[68] = @"RoamingConsortiumOIs";
+    v35[69] = @"SPRoaming";
+    v35[70] = @"PolicyUUID";
+    v35[71] = @"PrivacyProxyEnabled";
+    v35[72] = @"TransitionDisabledFlags";
+    v35[73] = @"Standalone";
+    v35[74] = @"PublicAirPlayNetwork";
+    v35[75] = @"PrivacyProxyBlockedReason";
+    v35[76] = @"FilteredNetwork";
+    v35[77] = @"DNSFailures";
+    v35[78] = @"lastTputMeasurementDate";
+    v35[79] = @"lastTputMeasurementResults";
+    v35[80] = @"WiFiNetworkTDOverrideCount";
+    v35[81] = @"WiFiNetworkTDOverrideTimestamp";
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:82];
     if (MEMORY[0x282215548])
     {
       v16 = *MEMORY[0x277CF7FC8];
-      v35[0] = *MEMORY[0x277CF7F28];
-      v35[1] = v16;
-      v15 = [v15 arrayByAddingObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v35, 2)}];
+      v34[0] = *MEMORY[0x277CF7F28];
+      v34[1] = v16;
+      v15 = [v15 arrayByAddingObjectsFromArray:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v34, 2)}];
     }
 
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    v17 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
+    v17 = [v15 countByEnumeratingWithState:&v24 objects:v32 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v26;
+      v19 = *v25;
       do
       {
         v20 = 0;
         do
         {
-          if (*v26 != v19)
+          if (*v25 != v19)
           {
             objc_enumerationMutation(v15);
           }
 
-          [v7 setObject:0 forKeyedSubscript:*(*(&v25 + 1) + 8 * v20++)];
+          [v7 setObject:0 forKeyedSubscript:*(*(&v24 + 1) + 8 * v20++)];
         }
 
         while (v18 != v20);
-        v18 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
+        v18 = [v15 countByEnumeratingWithState:&v24 objects:v32 count:16];
       }
 
       while (v18);
@@ -3669,10 +3618,9 @@ uint64_t WiFiNetworkCreateCoreWiFiScanResult(uint64_t a1)
   else
   {
     objc_autoreleasePoolPop(v2);
-    v21 = 0;
+    return 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v21;
 }
 
@@ -3700,9 +3648,9 @@ uint64_t getCWFScanResultClass()
   return v0;
 }
 
-void sub_25A12A2F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25A12A2F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3731,9 +3679,9 @@ uint64_t getCWFScanResultPropertyOSSpecificAttributesKey()
   return *v0;
 }
 
-void sub_25A12A3E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25A12A3E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3818,7 +3766,7 @@ uint64_t WiFiNetworkCreateFromCoreWiFiScanResult(void *a1)
   return 0;
 }
 
-uint64_t WiFiNetworkPrivateMacNetworkType(CFDictionaryRef *a1)
+BOOL WiFiNetworkPrivateMacNetworkType(CFDictionaryRef *a1)
 {
   CoreWiFiNetworkProfile = WiFiNetworkCreateCoreWiFiNetworkProfile(a1);
   CoreWiFiScanResult = WiFiNetworkCreateCoreWiFiScanResult(a1);
@@ -4515,7 +4463,7 @@ CFHashCode __WiFiNetworkHash(const void *a1)
   return CFHash(SSID);
 }
 
-CFStringRef __WiFiNetworkCopyDesc(void *cf)
+__CFString *__WiFiNetworkCopyDesc(void *cf)
 {
   v4 = 0;
   if (!cf)
@@ -4605,43 +4553,39 @@ Class __getCWFNetworkProfileClass_block_invoke(uint64_t a1)
 
 uint64_t CoreWiFiLibrary()
 {
-  v3[9] = *MEMORY[0x277D85DE8];
-  v3[0] = 0;
+  v2[9] = *MEMORY[0x277D85DE8];
+  v2[0] = 0;
   if (!CoreWiFiLibraryCore_frameworkLibrary)
   {
-    v3[1] = MEMORY[0x277D85DD0];
-    v3[2] = 3221225472;
-    v3[3] = __CoreWiFiLibraryCore_block_invoke;
-    v3[4] = &__block_descriptor_40_e5_v8__0l;
-    v3[5] = v3;
-    v3[7] = 0;
-    v3[8] = 0;
-    v3[6] = "/System/Library/PrivateFrameworks/CoreWiFi.framework/CoreWiFi";
+    v2[1] = MEMORY[0x277D85DD0];
+    v2[2] = 3221225472;
+    v2[3] = __CoreWiFiLibraryCore_block_invoke;
+    v2[4] = &__block_descriptor_40_e5_v8__0l;
+    v2[5] = v2;
+    v2[7] = 0;
+    v2[8] = 0;
+    v2[6] = "/System/Library/PrivateFrameworks/CoreWiFi.framework/CoreWiFi";
     CoreWiFiLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v0 = CoreWiFiLibraryCore_frameworkLibrary;
   if (!CoreWiFiLibraryCore_frameworkLibrary)
   {
-    CoreWiFiLibrary_cold_1(v3);
+    CoreWiFiLibrary_cold_1(v2);
   }
 
-  if (v3[0])
+  if (v2[0])
   {
-    free(v3[0]);
+    free(v2[0]);
   }
 
-  v1 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
 uint64_t __CoreWiFiLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreWiFiLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4689,43 +4633,39 @@ Class __getCLLocationClass_block_invoke(uint64_t a1)
 
 uint64_t CoreLocationLibrary()
 {
-  v3[9] = *MEMORY[0x277D85DE8];
-  v3[0] = 0;
+  v2[9] = *MEMORY[0x277D85DE8];
+  v2[0] = 0;
   if (!CoreLocationLibraryCore_frameworkLibrary)
   {
-    v3[1] = MEMORY[0x277D85DD0];
-    v3[2] = 3221225472;
-    v3[3] = __CoreLocationLibraryCore_block_invoke;
-    v3[4] = &__block_descriptor_40_e5_v8__0l;
-    v3[5] = v3;
-    v3[7] = 0;
-    v3[8] = 0;
-    v3[6] = "/System/Library/Frameworks/CoreLocation.framework/CoreLocation";
+    v2[1] = MEMORY[0x277D85DD0];
+    v2[2] = 3221225472;
+    v2[3] = __CoreLocationLibraryCore_block_invoke;
+    v2[4] = &__block_descriptor_40_e5_v8__0l;
+    v2[5] = v2;
+    v2[7] = 0;
+    v2[8] = 0;
+    v2[6] = "/System/Library/Frameworks/CoreLocation.framework/CoreLocation";
     CoreLocationLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v0 = CoreLocationLibraryCore_frameworkLibrary;
   if (!CoreLocationLibraryCore_frameworkLibrary)
   {
-    CoreLocationLibrary_cold_1(v3);
+    CoreLocationLibrary_cold_1(v2);
   }
 
-  if (v3[0])
+  if (v2[0])
   {
-    free(v3[0]);
+    free(v2[0]);
   }
 
-  v1 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
 uint64_t __CoreLocationLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreLocationLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4830,11 +4770,11 @@ uint64_t WiFiSecurityCopyPasswordWithTimeout(const void *a1, BOOL *a2, double a3
   return v11;
 }
 
-void sub_25A12C0E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25A12C0E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5510,11 +5450,11 @@ uint64_t WiFiSecurityCopyNonSyncablePasswordWithTimeout(const void *a1, BOOL *a2
   return v15;
 }
 
-void sub_25A12D2B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25A12D2B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5561,7 +5501,7 @@ intptr_t __WiFiSecurityCopyNonSyncablePasswordWithTimeout_block_invoke(uint64_t 
 
 void *WiFiSecurityCopySSIDHashForPasswordBackup(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   *&v3 = 0xAAAAAAAAAAAAAAAALL;
   *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
@@ -5577,7 +5517,6 @@ void *WiFiSecurityCopySSIDHashForPasswordBackup(void *a1)
   }
 
   objc_autoreleasePoolPop(v2);
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -5599,16 +5538,16 @@ void WiFiSecuritySavePasswordForPasswordBackup(uint64_t a1, uint64_t a2)
 
 void __WiFiSecuritySavePasswordForPasswordBackup_block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0;
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
   v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
   v4 = (a1 + 32);
   v3 = *(a1 + 32);
   if (!v3)
@@ -5650,10 +5589,10 @@ LABEL_22:
     v7 = *v4;
     *buf = 136315650;
     *&buf[4] = "WiFiSecuritySavePasswordForPasswordBackup_block_invoke";
-    v25 = 2112;
-    v26 = v7;
-    v27 = 2112;
-    v28 = v6;
+    v24 = 2112;
+    v25 = v7;
+    v26 = 2112;
+    v27 = v6;
     _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: ssid %@ (hash: %@)", buf, 0x20u);
   }
 
@@ -5664,22 +5603,22 @@ LABEL_22:
   [v9 setObject:@"AirPort" forKeyedSubscript:*MEMORY[0x277CDC120]];
   [v9 setObject:v8 forKeyedSubscript:*MEMORY[0x277CDC5E8]];
   [v9 setObject:*MEMORY[0x277CDBEE0] forKeyedSubscript:*MEMORY[0x277CDBED8]];
-  v10 = SecItemAdd(v9, v21 + 3);
+  v10 = SecItemAdd(v9, v20 + 3);
   v11 = v10;
-  *(v17 + 6) = v10;
+  *(v16 + 6) = v10;
   if (v10)
   {
     if (v10 == -25299)
     {
       v12 = *v4;
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __WiFiSecuritySavePasswordForPasswordBackup_block_invoke_31;
-      v15[3] = &unk_27991A1D0;
-      v15[4] = v9;
-      v15[5] = &v16;
-      v15[6] = &v20;
-      __WiFiSecurityRemovePasswordFromPasswordBackup(v12, v15);
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __WiFiSecuritySavePasswordForPasswordBackup_block_invoke_31;
+      v14[3] = &unk_27991A1D0;
+      v14[4] = v9;
+      v14[5] = &v15;
+      v14[6] = &v19;
+      __WiFiSecurityRemovePasswordFromPasswordBackup(v12, v14);
 
       goto LABEL_16;
     }
@@ -5688,10 +5627,10 @@ LABEL_22:
     {
       *buf = 136315650;
       *&buf[4] = "WiFiSecuritySavePasswordForPasswordBackup_block_invoke";
-      v25 = 2112;
-      v26 = v6;
-      v27 = 1024;
-      LODWORD(v28) = v11;
+      v24 = 2112;
+      v25 = v6;
+      v26 = 1024;
+      LODWORD(v27) = v11;
       _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: [%@] error result %d", buf, 0x1Cu);
     }
   }
@@ -5703,16 +5642,15 @@ LABEL_14:
     v13 = *v4;
     *buf = 136315394;
     *&buf[4] = "WiFiSecuritySavePasswordForPasswordBackup_block_invoke";
-    v25 = 2112;
-    v26 = v13;
+    v24 = 2112;
+    v25 = v13;
     _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: [%@] save attempt complete", buf, 0x16u);
   }
 
 LABEL_16:
-  _Block_object_dispose(&v16, 8);
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(&v19, 8);
   objc_autoreleasePoolPop(v2);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __WiFiSecurityRemovePasswordFromPasswordBackup(uint64_t a1, uint64_t a2)
@@ -5733,31 +5671,32 @@ void __WiFiSecurityRemovePasswordFromPasswordBackup(uint64_t a1, uint64_t a2)
 
 void __WiFiSecuritySavePasswordForPasswordBackup_block_invoke_31(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "WiFiSecuritySavePasswordForPasswordBackup_block_invoke";
-    _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: retrying add after removal", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "WiFiSecuritySavePasswordForPasswordBackup_block_invoke";
+    _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: retrying add after removal", &v3, 0xCu);
   }
 
   *(*(*(a1 + 40) + 8) + 24) = SecItemAdd(*(a1 + 32), (*(*(a1 + 48) + 8) + 24));
   v2 = *(*(*(a1 + 40) + 8) + 24);
-  if (v2 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  if (v2)
   {
-    v4 = 136315394;
-    v5 = "WiFiSecuritySavePasswordForPasswordBackup_block_invoke";
-    v6 = 1024;
-    v7 = v2;
-    _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: retry add error result %d", &v4, 0x12u);
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    {
+      v3 = 136315394;
+      v4 = "WiFiSecuritySavePasswordForPasswordBackup_block_invoke";
+      v5 = 1024;
+      v6 = v2;
+      _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: retry add error result %d", &v3, 0x12u);
+    }
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 void __WiFiSecurityCopyPasswordFromPasswordBackup_block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   result = 0;
   v3 = *(a1 + 32);
@@ -5788,10 +5727,10 @@ LABEL_18:
     v6 = *(a1 + 32);
     *buf = 136315650;
     *&buf[4] = "WiFiSecurityCopyPasswordFromPasswordBackup_block_invoke";
-    v12 = 2112;
-    v13 = v6;
-    v14 = 2112;
-    v15 = v5;
+    v11 = 2112;
+    v12 = v6;
+    v13 = 2112;
+    v14 = v5;
     _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s: ssid %@ (%@)", buf, 0x20u);
   }
 
@@ -5807,10 +5746,10 @@ LABEL_18:
     {
       *buf = 136315650;
       *&buf[4] = "WiFiSecurityCopyPasswordFromPasswordBackup_block_invoke";
-      v12 = 2112;
-      v13 = v5;
-      v14 = 1024;
-      LODWORD(v15) = v8;
+      v11 = 2112;
+      v12 = v5;
+      v13 = 1024;
+      LODWORD(v14) = v8;
       _os_log_impl(&dword_25A116000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%s:[%@] error result %d", buf, 0x1Cu);
     }
   }
@@ -5828,7 +5767,6 @@ LABEL_12:
   }
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 dispatch_queue_t __WiFiSecurityPasswordBackupQueue_block_invoke()
@@ -5839,10 +5777,11 @@ dispatch_queue_t __WiFiSecurityPasswordBackupQueue_block_invoke()
   return result;
 }
 
-void OUTLINED_FUNCTION_0_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, &a9, 0xCu);
+  _os_log_impl(a1, a2, OS_LOG_TYPE_DEFAULT, a4, va, 0xCu);
 }
 
 BOOL MobileWiFiContainsRadio()
@@ -5931,42 +5870,41 @@ uint64_t MobileWiFiContainsDriver()
   return result;
 }
 
-void sub_25A12E46C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25A12E46C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t SharingLibraryCore()
+uint64_t SharingLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x277D85DE8];
   if (!SharingLibraryCore_frameworkLibrary)
   {
     SharingLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = SharingLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  return SharingLibraryCore_frameworkLibrary;
 }
 
 uint64_t __SharingLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   SharingLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 Class __getSFPasswordSharingServiceClass_block_invoke(uint64_t a1)
 {
   v3 = 0;
-  if (!SharingLibraryCore())
+  if (!SharingLibraryCore(&v3))
   {
     __getSFPasswordSharingServiceClass_block_invoke_cold_2(&v3);
+  }
+
+  if (v3)
+  {
+    free(v3);
   }
 
   result = objc_getClass("SFPasswordSharingService");
@@ -5994,58 +5932,49 @@ uint64_t wifi_manager_client_server_routine(uint64_t a1)
   }
 }
 
-void _Xwifi_manager_client_dispatch_association_result(uint64_t a1, uint64_t a2)
+void _Xwifi_manager_client_dispatch_association_result(uint64_t result, uint64_t a2)
 {
-  if ((*a1 & 0x80000000) != 0 && *(a1 + 24) == 3 && *(a1 + 4) == 100)
+  if ((*result & 0x80000000) != 0 && *(result + 24) == 3 && *(result + 4) == 100)
   {
-    if (*(a1 + 39) == 1 && *(a1 + 55) == 1 && *(a1 + 71) == 1 && *(a1 + 40) == *(a1 + 84) && *(a1 + 56) == *(a1 + 88) && *(a1 + 72) == *(a1 + 92))
+    if (*(result + 39) == 1 && *(result + 55) == 1 && *(result + 71) == 1 && *(result + 40) == *(result + 84) && *(result + 56) == *(result + 88) && *(result + 72) == *(result + 92))
     {
-      v3 = *(a1 + 12);
-      v4 = *(a1 + 28);
-      v5 = *(a1 + 44);
-      v6 = *(a1 + 60);
-      v7 = *(a1 + 96);
       _wifi_manager_client_dispatch_association_result();
-      *(a2 + 32) = v8;
+      *(a2 + 32) = v3;
       return;
     }
 
-    v9 = -300;
+    v4 = -300;
   }
 
   else
   {
-    v9 = -304;
+    v4 = -304;
   }
 
-  *(a2 + 32) = v9;
+  *(a2 + 32) = v4;
   *(a2 + 24) = *MEMORY[0x277D85EF8];
 }
 
-void _Xwifi_manager_client_dispatch_stop_network_result(uint64_t a1, uint64_t a2)
+void _Xwifi_manager_client_dispatch_stop_network_result(uint64_t result, uint64_t a2)
 {
-  if ((*a1 & 0x80000000) != 0 && *(a1 + 24) == 2 && *(a1 + 4) == 80)
+  if ((*result & 0x80000000) != 0 && *(result + 24) == 2 && *(result + 4) == 80)
   {
-    if (*(a1 + 39) == 1 && *(a1 + 55) == 1 && *(a1 + 40) == *(a1 + 68) && *(a1 + 56) == *(a1 + 76))
+    if (*(result + 39) == 1 && *(result + 55) == 1 && *(result + 40) == *(result + 68) && *(result + 56) == *(result + 76))
     {
-      v3 = *(a1 + 12);
-      v4 = *(a1 + 28);
-      v5 = *(a1 + 72);
-      v6 = *(a1 + 44);
       _wifi_manager_client_dispatch_stop_network_result();
-      *(a2 + 32) = v7;
+      *(a2 + 32) = v3;
       return;
     }
 
-    v8 = -300;
+    v4 = -300;
   }
 
   else
   {
-    v8 = -304;
+    v4 = -304;
   }
 
-  *(a2 + 32) = v8;
+  *(a2 + 32) = v4;
   *(a2 + 24) = *MEMORY[0x277D85EF8];
 }
 
@@ -6066,57 +5995,49 @@ _DWORD *_Xwifi_manager_client_dispatch_wow_state_change(_DWORD *result, uint64_t
   return result;
 }
 
-void _Xwifi_manager_client_dispatch_gas_results(uint64_t a1, uint64_t a2)
+void _Xwifi_manager_client_dispatch_gas_results(uint64_t result, uint64_t a2)
 {
-  if ((*a1 & 0x80000000) != 0 && *(a1 + 24) == 2 && *(a1 + 4) == 80)
+  if ((*result & 0x80000000) != 0 && *(result + 24) == 2 && *(result + 4) == 80)
   {
-    if (*(a1 + 39) == 1 && *(a1 + 55) == 1 && *(a1 + 40) == *(a1 + 68) && *(a1 + 56) == *(a1 + 72))
+    if (*(result + 39) == 1 && *(result + 55) == 1 && *(result + 40) == *(result + 68) && *(result + 56) == *(result + 72))
     {
-      v3 = *(a1 + 12);
-      v4 = *(a1 + 28);
-      v5 = *(a1 + 44);
-      v6 = *(a1 + 76);
       _wifi_manager_client_dispatch_gas_results();
-      *(a2 + 32) = v7;
+      *(a2 + 32) = v3;
       return;
     }
 
-    v8 = -300;
+    v4 = -300;
   }
 
   else
   {
-    v8 = -304;
+    v4 = -304;
   }
 
-  *(a2 + 32) = v8;
+  *(a2 + 32) = v4;
   *(a2 + 24) = *MEMORY[0x277D85EF8];
 }
 
-void _Xwifi_manager_client_dispatch_ranging_result(uint64_t a1, uint64_t a2)
+void _Xwifi_manager_client_dispatch_ranging_result(uint64_t result, uint64_t a2)
 {
-  if ((*a1 & 0x80000000) != 0 && *(a1 + 24) == 2 && *(a1 + 4) == 80)
+  if ((*result & 0x80000000) != 0 && *(result + 24) == 2 && *(result + 4) == 80)
   {
-    if (*(a1 + 39) == 1 && *(a1 + 55) == 1 && *(a1 + 40) == *(a1 + 68) && *(a1 + 56) == *(a1 + 72))
+    if (*(result + 39) == 1 && *(result + 55) == 1 && *(result + 40) == *(result + 68) && *(result + 56) == *(result + 72))
     {
-      v3 = *(a1 + 12);
-      v4 = *(a1 + 28);
-      v5 = *(a1 + 44);
-      v6 = *(a1 + 76);
       _wifi_manager_client_dispatch_ranging_result();
-      *(a2 + 32) = v7;
+      *(a2 + 32) = v3;
       return;
     }
 
-    v8 = -300;
+    v4 = -300;
   }
 
   else
   {
-    v8 = -304;
+    v4 = -304;
   }
 
-  *(a2 + 32) = v8;
+  *(a2 + 32) = v4;
   *(a2 + 24) = *MEMORY[0x277D85EF8];
 }
 
@@ -6154,21 +6075,20 @@ uint64_t _Xwifi_manager_client_dispatch_auto_join_state_change(uint64_t result, 
   {
     if (*(result + 39) == 1 && *(result + 40) == *(result + 56))
     {
-      v3 = *(result + 28);
       result = _wifi_manager_client_dispatch_auto_join_state_change(*(result + 12), *(result + 52));
       *(a2 + 32) = result;
       return result;
     }
 
-    v4 = -300;
+    v3 = -300;
   }
 
   else
   {
-    v4 = -304;
+    v3 = -304;
   }
 
-  *(a2 + 32) = v4;
+  *(a2 + 32) = v3;
   *(a2 + 24) = *MEMORY[0x277D85EF8];
   return result;
 }
@@ -6179,21 +6099,20 @@ uint64_t _Xwifi_manager_client_dispatch_preferred_networks_change(uint64_t resul
   {
     if (*(result + 39) == 1 && *(result + 40) == *(result + 52))
     {
-      v3 = *(result + 28);
       result = _wifi_manager_client_dispatch_preferred_networks_change(*(result + 12));
       *(a2 + 32) = result;
       return result;
     }
 
-    v4 = -300;
+    v3 = -300;
   }
 
   else
   {
-    v4 = -304;
+    v3 = -304;
   }
 
-  *(a2 + 32) = v4;
+  *(a2 + 32) = v3;
   *(a2 + 24) = *MEMORY[0x277D85EF8];
   return result;
 }
@@ -6221,21 +6140,20 @@ uint64_t _Xwifi_manager_client_dispatch_ui_event(uint64_t result, uint64_t a2)
   {
     if (*(result + 39) == 1 && *(result + 40) == *(result + 52))
     {
-      v3 = *(result + 28);
       result = _wifi_manager_client_dispatch_ui_event(*(result + 12));
       *(a2 + 32) = result;
       return result;
     }
 
-    v4 = -300;
+    v3 = -300;
   }
 
   else
   {
-    v4 = -304;
+    v3 = -304;
   }
 
-  *(a2 + 32) = v4;
+  *(a2 + 32) = v3;
   *(a2 + 24) = *MEMORY[0x277D85EF8];
   return result;
 }
@@ -6354,11 +6272,11 @@ uint64_t wifi_manager_close(mach_port_t a1)
 
 uint64_t wifi_manager_copy_devices(int a1, void *a2, _DWORD *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v15[12] = v6;
-  *v15 = v6;
+  *&v14[12] = v6;
+  *v14 = v6;
   *&msg[20] = v6;
   *&msg[4] = -1431655766;
   special_reply_port = mig_get_special_reply_port();
@@ -6418,15 +6336,15 @@ uint64_t wifi_manager_copy_devices(int a1, void *a2, _DWORD *a3)
         }
 
         v10 = 4294966996;
-        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v15[3] == 1)
+        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v14[3] == 1)
         {
-          v11 = *&v15[4];
-          if (*&v15[4] == *&v15[16])
+          v11 = *&v14[4];
+          if (*&v14[4] == *&v14[16])
           {
             v10 = 0;
             *a2 = *&msg[28];
             *a3 = v11;
-            goto LABEL_26;
+            return v10;
           }
         }
       }
@@ -6438,25 +6356,23 @@ uint64_t wifi_manager_copy_devices(int a1, void *a2, _DWORD *a3)
 
 LABEL_25:
       mach_msg_destroy(msg);
-      goto LABEL_26;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_26:
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t wifi_manager_copy_networks(int a1, int a2, void *a3, _DWORD *a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   *&v7 = 0xAAAAAAAAAAAAAAAALL;
   *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
   *&msg[20] = v7;
-  *&v16[12] = v7;
-  *v16 = v7;
+  *&v15[12] = v7;
+  *v15 = v7;
   *&msg[4] = v7;
   *&msg[24] = *MEMORY[0x277D85EF8];
   *&msg[32] = a2;
@@ -6517,15 +6433,15 @@ uint64_t wifi_manager_copy_networks(int a1, int a2, void *a3, _DWORD *a4)
         }
 
         v11 = 4294966996;
-        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v16[3] == 1)
+        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v15[3] == 1)
         {
-          v12 = *&v16[4];
-          if (*&v16[4] == *&v16[16])
+          v12 = *&v15[4];
+          if (*&v15[4] == *&v15[16])
           {
             v11 = 0;
             *a3 = *&msg[28];
             *a4 = v12;
-            goto LABEL_26;
+            return v11;
           }
         }
       }
@@ -6537,18 +6453,16 @@ uint64_t wifi_manager_copy_networks(int a1, int a2, void *a3, _DWORD *a4)
 
 LABEL_25:
       mach_msg_destroy(msg);
-      goto LABEL_26;
+      return v11;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_26:
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
-uint64_t wifi_manager_copy_property(int a1, uint64_t a2, int a3, void *a4, _DWORD *a5)
+uint64_t wifi_manager_copy_property(int a1, uint64_t a2, int a3, uint64_t *a4, int *a5)
 {
   *&v8 = 0xAAAAAAAAAAAAAAAALL;
   *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
@@ -6649,17 +6563,17 @@ LABEL_24:
 
 uint64_t wifi_manager_set_property(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, int *a6)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v16 = 2;
-  v17 = a2;
-  v18 = 27918592;
-  v19 = a3;
-  v20 = a4;
-  v21 = 27918592;
-  v22 = a5;
-  v23 = *MEMORY[0x277D85EF8];
-  v24 = a3;
-  v25 = a5;
+  v25 = *MEMORY[0x277D85DE8];
+  v15 = 2;
+  v16 = a2;
+  v17 = 27918592;
+  v18 = a3;
+  v19 = a4;
+  v20 = 27918592;
+  v21 = a5;
+  v22 = *MEMORY[0x277D85EF8];
+  v23 = a3;
+  v24 = a5;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 0xAAAAAAAA80001513;
   msg.msgh_remote_port = a1;
@@ -6695,11 +6609,11 @@ uint64_t wifi_manager_set_property(mach_port_t a1, uint64_t a2, int a3, uint64_t
           {
             if (!msg.msgh_remote_port)
             {
-              v11 = HIDWORD(v17);
-              if (!HIDWORD(v17))
+              v11 = HIDWORD(v16);
+              if (!HIDWORD(v16))
               {
-                *a6 = v18;
-                goto LABEL_24;
+                *a6 = v17;
+                return v11;
               }
 
               goto LABEL_23;
@@ -6715,7 +6629,7 @@ uint64_t wifi_manager_set_property(mach_port_t a1, uint64_t a2, int a3, uint64_t
 
             else
             {
-              v12 = HIDWORD(v17) == 0;
+              v12 = HIDWORD(v16) == 0;
             }
 
             if (v12)
@@ -6725,7 +6639,7 @@ uint64_t wifi_manager_set_property(mach_port_t a1, uint64_t a2, int a3, uint64_t
 
             else
             {
-              v11 = HIDWORD(v17);
+              v11 = HIDWORD(v16);
             }
 
             goto LABEL_23;
@@ -6742,14 +6656,12 @@ uint64_t wifi_manager_set_property(mach_port_t a1, uint64_t a2, int a3, uint64_t
 
 LABEL_23:
       mach_msg_destroy(&msg);
-      goto LABEL_24;
+      return v11;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -6908,22 +6820,22 @@ uint64_t wifi_manager_set_network_state(int a1, uint64_t a2, int a3, int a4, int
 
 uint64_t wifi_manager_get_network_state(mach_port_t a1, uint64_t a2, int a3, int *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v14 = 1;
-  v15 = a2;
-  v16 = 27918592;
-  v17 = a3;
-  v18 = *MEMORY[0x277D85EF8];
-  v19 = a3;
+  v19 = *MEMORY[0x277D85DE8];
+  v13 = 1;
+  v14 = a2;
+  v15 = 27918592;
+  v16 = a3;
+  v17 = *MEMORY[0x277D85EF8];
+  v18 = a3;
   special_reply_port = mig_get_special_reply_port();
-  *&v13.msgh_bits = 0xAAAAAAAA80001513;
-  v13.msgh_remote_port = a1;
-  v13.msgh_local_port = special_reply_port;
-  *&v13.msgh_voucher_port = 0x1104800000000;
+  *&v12.msgh_bits = 0xAAAAAAAA80001513;
+  v12.msgh_remote_port = a1;
+  v12.msgh_local_port = special_reply_port;
+  *&v12.msgh_voucher_port = 0x1104800000000;
   if (MEMORY[0x28223BE58])
   {
-    voucher_mach_msg_set(&v13);
-    msgh_local_port = v13.msgh_local_port;
+    voucher_mach_msg_set(&v12);
+    msgh_local_port = v12.msgh_local_port;
   }
 
   else
@@ -6931,46 +6843,46 @@ uint64_t wifi_manager_get_network_state(mach_port_t a1, uint64_t a2, int a3, int
     msgh_local_port = special_reply_port;
   }
 
-  v8 = mach_msg(&v13, 3162115, 0x38u, 0x30u, msgh_local_port, 0, 0);
+  v8 = mach_msg(&v12, 3162115, 0x38u, 0x30u, msgh_local_port, 0, 0);
   v9 = v8;
   if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
     if (!v8)
     {
-      if (v13.msgh_id == 71)
+      if (v12.msgh_id == 71)
       {
         v9 = 4294966988;
       }
 
-      else if (v13.msgh_id == 69804)
+      else if (v12.msgh_id == 69804)
       {
-        if ((v13.msgh_bits & 0x80000000) == 0)
+        if ((v12.msgh_bits & 0x80000000) == 0)
         {
-          if (v13.msgh_size == 40)
+          if (v12.msgh_size == 40)
           {
-            if (!v13.msgh_remote_port)
+            if (!v12.msgh_remote_port)
             {
-              v9 = HIDWORD(v15);
-              if (!HIDWORD(v15))
+              v9 = HIDWORD(v14);
+              if (!HIDWORD(v14))
               {
-                *a4 = v16;
-                goto LABEL_24;
+                *a4 = v15;
+                return v9;
               }
 
               goto LABEL_23;
             }
           }
 
-          else if (v13.msgh_size == 36)
+          else if (v12.msgh_size == 36)
           {
-            if (v13.msgh_remote_port)
+            if (v12.msgh_remote_port)
             {
               v10 = 1;
             }
 
             else
             {
-              v10 = HIDWORD(v15) == 0;
+              v10 = HIDWORD(v14) == 0;
             }
 
             if (v10)
@@ -6980,7 +6892,7 @@ uint64_t wifi_manager_get_network_state(mach_port_t a1, uint64_t a2, int a3, int
 
             else
             {
-              v9 = HIDWORD(v15);
+              v9 = HIDWORD(v14);
             }
 
             goto LABEL_23;
@@ -6996,15 +6908,13 @@ uint64_t wifi_manager_get_network_state(mach_port_t a1, uint64_t a2, int a3, int
       }
 
 LABEL_23:
-      mach_msg_destroy(&v13);
-      goto LABEL_24;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -7412,22 +7322,22 @@ LABEL_23:
 
 uint64_t wifi_manager_set_mis_discovery_state(mach_port_t a1, int a2, int a3, int a4, int a5, uint64_t a6, int a7, uint64_t a8, int a9, int a10)
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v18 = 2;
-  v19 = a6;
-  v20 = 27918592;
-  v21 = a7;
-  v22 = a8;
-  v23 = 27918592;
-  v24 = a9;
-  v25 = *MEMORY[0x277D85EF8];
-  v26 = a2;
-  v27 = a3;
-  v28 = a4;
-  v29 = a5;
-  v30 = a7;
-  v31 = a9;
-  v32 = a10;
+  v32 = *MEMORY[0x277D85DE8];
+  v17 = 2;
+  v18 = a6;
+  v19 = 27918592;
+  v20 = a7;
+  v21 = a8;
+  v22 = 27918592;
+  v23 = a9;
+  v24 = *MEMORY[0x277D85EF8];
+  v25 = a2;
+  v26 = a3;
+  v27 = a4;
+  v28 = a5;
+  v29 = a7;
+  v30 = a9;
+  v31 = a10;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 0xAAAAAAAA80001513;
   msg.msgh_remote_port = a1;
@@ -7451,7 +7361,7 @@ uint64_t wifi_manager_set_mis_discovery_state(mach_port_t a1, int a2, int a3, in
     if (v13)
     {
       mig_dealloc_special_reply_port();
-      goto LABEL_18;
+      return v14;
     }
 
     if (msg.msgh_id == 71)
@@ -7464,10 +7374,10 @@ uint64_t wifi_manager_set_mis_discovery_state(mach_port_t a1, int a2, int a3, in
       v14 = 4294966996;
       if ((msg.msgh_bits & 0x80000000) == 0 && msg.msgh_size == 36 && !msg.msgh_remote_port)
       {
-        v14 = HIDWORD(v19);
-        if (!HIDWORD(v19))
+        v14 = HIDWORD(v18);
+        if (!HIDWORD(v18))
         {
-          goto LABEL_18;
+          return v14;
         }
       }
     }
@@ -7480,8 +7390,6 @@ uint64_t wifi_manager_set_mis_discovery_state(mach_port_t a1, int a2, int a3, in
     mach_msg_destroy(&msg);
   }
 
-LABEL_18:
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -8243,10 +8151,10 @@ uint64_t wifi_manager_set_nan_off_head_connection_expiry(mach_port_t a1, double 
 
 uint64_t wifi_manager_get_nan_off_head_connection_expiry(int a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v13 = v4;
+  v12 = v4;
   *&msg[20] = v4;
   *&msg[4] = -1431655766;
   special_reply_port = mig_get_special_reply_port();
@@ -8287,8 +8195,8 @@ uint64_t wifi_manager_get_nan_off_head_connection_expiry(int a1, void *a2)
               v8 = *&msg[32];
               if (!*&msg[32])
               {
-                *a2 = v13;
-                goto LABEL_24;
+                *a2 = v12;
+                return v8;
               }
 
               goto LABEL_23;
@@ -8331,14 +8239,12 @@ uint64_t wifi_manager_get_nan_off_head_connection_expiry(int a1, void *a2)
 
 LABEL_23:
       mach_msg_destroy(msg);
-      goto LABEL_24;
+      return v8;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v10 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -8574,11 +8480,11 @@ LABEL_23:
 
 uint64_t wifi_manager_copy_mis_stats(int a1, void *a2, _DWORD *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v15[12] = v6;
-  *v15 = v6;
+  *&v14[12] = v6;
+  *v14 = v6;
   *&msg[20] = v6;
   *&msg[4] = -1431655766;
   special_reply_port = mig_get_special_reply_port();
@@ -8638,15 +8544,15 @@ uint64_t wifi_manager_copy_mis_stats(int a1, void *a2, _DWORD *a3)
         }
 
         v10 = 4294966996;
-        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v15[3] == 1)
+        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v14[3] == 1)
         {
-          v11 = *&v15[4];
-          if (*&v15[4] == *&v15[16])
+          v11 = *&v14[4];
+          if (*&v14[4] == *&v14[16])
           {
             v10 = 0;
             *a2 = *&msg[28];
             *a3 = v11;
-            goto LABEL_26;
+            return v10;
           }
         }
       }
@@ -8658,14 +8564,12 @@ uint64_t wifi_manager_copy_mis_stats(int a1, void *a2, _DWORD *a3)
 
 LABEL_25:
       mach_msg_destroy(msg);
-      goto LABEL_26;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_26:
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -8831,11 +8735,11 @@ LABEL_23:
 
 uint64_t wifi_manager_copy_locale_stats(int a1, void *a2, _DWORD *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v15[12] = v6;
-  *v15 = v6;
+  *&v14[12] = v6;
+  *v14 = v6;
   *&msg[20] = v6;
   *&msg[4] = -1431655766;
   special_reply_port = mig_get_special_reply_port();
@@ -8895,15 +8799,15 @@ uint64_t wifi_manager_copy_locale_stats(int a1, void *a2, _DWORD *a3)
         }
 
         v10 = 4294966996;
-        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v15[3] == 1)
+        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v14[3] == 1)
         {
-          v11 = *&v15[4];
-          if (*&v15[4] == *&v15[16])
+          v11 = *&v14[4];
+          if (*&v14[4] == *&v14[16])
           {
             v10 = 0;
             *a2 = *&msg[28];
             *a3 = v11;
-            goto LABEL_26;
+            return v10;
           }
         }
       }
@@ -8915,35 +8819,33 @@ uint64_t wifi_manager_copy_locale_stats(int a1, void *a2, _DWORD *a3)
 
 LABEL_25:
       mach_msg_destroy(msg);
-      goto LABEL_26;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_26:
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t wifi_manager_mis_set_password(mach_port_t a1, uint64_t a2, int a3, int *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v14 = 1;
-  v15 = a2;
-  v16 = 27918592;
-  v17 = a3;
-  v18 = *MEMORY[0x277D85EF8];
-  v19 = a3;
+  v19 = *MEMORY[0x277D85DE8];
+  v13 = 1;
+  v14 = a2;
+  v15 = 27918592;
+  v16 = a3;
+  v17 = *MEMORY[0x277D85EF8];
+  v18 = a3;
   special_reply_port = mig_get_special_reply_port();
-  *&v13.msgh_bits = 0xAAAAAAAA80001513;
-  v13.msgh_remote_port = a1;
-  v13.msgh_local_port = special_reply_port;
-  *&v13.msgh_voucher_port = 0x1106A00000000;
+  *&v12.msgh_bits = 0xAAAAAAAA80001513;
+  v12.msgh_remote_port = a1;
+  v12.msgh_local_port = special_reply_port;
+  *&v12.msgh_voucher_port = 0x1106A00000000;
   if (MEMORY[0x28223BE58])
   {
-    voucher_mach_msg_set(&v13);
-    msgh_local_port = v13.msgh_local_port;
+    voucher_mach_msg_set(&v12);
+    msgh_local_port = v12.msgh_local_port;
   }
 
   else
@@ -8951,46 +8853,46 @@ uint64_t wifi_manager_mis_set_password(mach_port_t a1, uint64_t a2, int a3, int 
     msgh_local_port = special_reply_port;
   }
 
-  v8 = mach_msg(&v13, 3162115, 0x38u, 0x30u, msgh_local_port, 0, 0);
+  v8 = mach_msg(&v12, 3162115, 0x38u, 0x30u, msgh_local_port, 0, 0);
   v9 = v8;
   if ((v8 - 268435458) > 0xE || ((1 << (v8 - 2)) & 0x4003) == 0)
   {
     if (!v8)
     {
-      if (v13.msgh_id == 71)
+      if (v12.msgh_id == 71)
       {
         v9 = 4294966988;
       }
 
-      else if (v13.msgh_id == 69838)
+      else if (v12.msgh_id == 69838)
       {
-        if ((v13.msgh_bits & 0x80000000) == 0)
+        if ((v12.msgh_bits & 0x80000000) == 0)
         {
-          if (v13.msgh_size == 40)
+          if (v12.msgh_size == 40)
           {
-            if (!v13.msgh_remote_port)
+            if (!v12.msgh_remote_port)
             {
-              v9 = HIDWORD(v15);
-              if (!HIDWORD(v15))
+              v9 = HIDWORD(v14);
+              if (!HIDWORD(v14))
               {
-                *a4 = v16;
-                goto LABEL_24;
+                *a4 = v15;
+                return v9;
               }
 
               goto LABEL_23;
             }
           }
 
-          else if (v13.msgh_size == 36)
+          else if (v12.msgh_size == 36)
           {
-            if (v13.msgh_remote_port)
+            if (v12.msgh_remote_port)
             {
               v10 = 1;
             }
 
             else
             {
-              v10 = HIDWORD(v15) == 0;
+              v10 = HIDWORD(v14) == 0;
             }
 
             if (v10)
@@ -9000,7 +8902,7 @@ uint64_t wifi_manager_mis_set_password(mach_port_t a1, uint64_t a2, int a3, int 
 
             else
             {
-              v9 = HIDWORD(v15);
+              v9 = HIDWORD(v14);
             }
 
             goto LABEL_23;
@@ -9016,25 +8918,23 @@ uint64_t wifi_manager_mis_set_password(mach_port_t a1, uint64_t a2, int a3, int 
       }
 
 LABEL_23:
-      mach_msg_destroy(&v13);
-      goto LABEL_24;
+      mach_msg_destroy(&v12);
+      return v9;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 uint64_t wifi_manager_mis_copy_password(int a1, void *a2, _DWORD *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v15[12] = v6;
-  *v15 = v6;
+  *&v14[12] = v6;
+  *v14 = v6;
   *&msg[20] = v6;
   *&msg[4] = -1431655766;
   special_reply_port = mig_get_special_reply_port();
@@ -9094,15 +8994,15 @@ uint64_t wifi_manager_mis_copy_password(int a1, void *a2, _DWORD *a3)
         }
 
         v10 = 4294966996;
-        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v15[3] == 1)
+        if (*&msg[24] == 1 && *&msg[4] == 56 && !*&msg[8] && v14[3] == 1)
         {
-          v11 = *&v15[4];
-          if (*&v15[4] == *&v15[16])
+          v11 = *&v14[4];
+          if (*&v14[4] == *&v14[16])
           {
             v10 = 0;
             *a2 = *&msg[28];
             *a3 = v11;
-            goto LABEL_26;
+            return v10;
           }
         }
       }
@@ -9114,14 +9014,12 @@ uint64_t wifi_manager_mis_copy_password(int a1, void *a2, _DWORD *a3)
 
 LABEL_25:
       mach_msg_destroy(msg);
-      goto LABEL_26;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_26:
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -9153,14 +9051,14 @@ uint64_t wifi_device_set_property(int a1, uint64_t a2, int a3, uint64_t a4, int 
 
 uint64_t wifi_device_set_power(mach_port_t a1, uint64_t a2, int a3, int a4, int *a5)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v15 = 1;
-  v16 = a2;
-  v17 = 27918592;
-  v18 = a3;
-  v19 = *MEMORY[0x277D85EF8];
-  v20 = a3;
-  v21 = a4;
+  v21 = *MEMORY[0x277D85DE8];
+  v14 = 1;
+  v15 = a2;
+  v16 = 27918592;
+  v17 = a3;
+  v18 = *MEMORY[0x277D85EF8];
+  v19 = a3;
+  v20 = a4;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 0xAAAAAAAA80001513;
   msg.msgh_remote_port = a1;
@@ -9196,11 +9094,11 @@ uint64_t wifi_device_set_power(mach_port_t a1, uint64_t a2, int a3, int a4, int 
           {
             if (!msg.msgh_remote_port)
             {
-              v10 = HIDWORD(v16);
-              if (!HIDWORD(v16))
+              v10 = HIDWORD(v15);
+              if (!HIDWORD(v15))
               {
-                *a5 = v17;
-                goto LABEL_24;
+                *a5 = v16;
+                return v10;
               }
 
               goto LABEL_23;
@@ -9216,7 +9114,7 @@ uint64_t wifi_device_set_power(mach_port_t a1, uint64_t a2, int a3, int a4, int 
 
             else
             {
-              v11 = HIDWORD(v16) == 0;
+              v11 = HIDWORD(v15) == 0;
             }
 
             if (v11)
@@ -9226,7 +9124,7 @@ uint64_t wifi_device_set_power(mach_port_t a1, uint64_t a2, int a3, int a4, int 
 
             else
             {
-              v10 = HIDWORD(v16);
+              v10 = HIDWORD(v15);
             }
 
             goto LABEL_23;
@@ -9243,14 +9141,12 @@ uint64_t wifi_device_set_power(mach_port_t a1, uint64_t a2, int a3, int a4, int 
 
 LABEL_23:
       mach_msg_destroy(&msg);
-      goto LABEL_24;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -9293,17 +9189,17 @@ uint64_t wifi_device_disassociate_with_reason(int a1, uint64_t a2, int a3, int a
 
 uint64_t wifi_device_assoc_async(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, int *a6)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v16 = 2;
-  v17 = a2;
-  v18 = 27918592;
-  v19 = a3;
-  v20 = a4;
-  v21 = 27918592;
-  v22 = a5;
-  v23 = *MEMORY[0x277D85EF8];
-  v24 = a3;
-  v25 = a5;
+  v25 = *MEMORY[0x277D85DE8];
+  v15 = 2;
+  v16 = a2;
+  v17 = 27918592;
+  v18 = a3;
+  v19 = a4;
+  v20 = 27918592;
+  v21 = a5;
+  v22 = *MEMORY[0x277D85EF8];
+  v23 = a3;
+  v24 = a5;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 0xAAAAAAAA80001513;
   msg.msgh_remote_port = a1;
@@ -9339,11 +9235,11 @@ uint64_t wifi_device_assoc_async(mach_port_t a1, uint64_t a2, int a3, uint64_t a
           {
             if (!msg.msgh_remote_port)
             {
-              v11 = HIDWORD(v17);
-              if (!HIDWORD(v17))
+              v11 = HIDWORD(v16);
+              if (!HIDWORD(v16))
               {
-                *a6 = v18;
-                goto LABEL_24;
+                *a6 = v17;
+                return v11;
               }
 
               goto LABEL_23;
@@ -9359,7 +9255,7 @@ uint64_t wifi_device_assoc_async(mach_port_t a1, uint64_t a2, int a3, uint64_t a
 
             else
             {
-              v12 = HIDWORD(v17) == 0;
+              v12 = HIDWORD(v16) == 0;
             }
 
             if (v12)
@@ -9369,7 +9265,7 @@ uint64_t wifi_device_assoc_async(mach_port_t a1, uint64_t a2, int a3, uint64_t a
 
             else
             {
-              v11 = HIDWORD(v17);
+              v11 = HIDWORD(v16);
             }
 
             goto LABEL_23;
@@ -9386,31 +9282,29 @@ uint64_t wifi_device_assoc_async(mach_port_t a1, uint64_t a2, int a3, uint64_t a
 
 LABEL_23:
       mach_msg_destroy(&msg);
-      goto LABEL_24;
+      return v11;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t wifi_device_start_network(mach_port_t a1, uint64_t a2, int a3, int a4, uint64_t a5, int a6, int *a7)
 {
-  v28 = *MEMORY[0x277D85DE8];
-  v17 = 2;
-  v18 = a2;
-  v19 = 27918592;
-  v20 = a3;
-  v21 = a5;
-  v22 = 27918592;
-  v23 = a6;
-  v24 = *MEMORY[0x277D85EF8];
-  v25 = a3;
-  v26 = a4;
-  v27 = a6;
+  v27 = *MEMORY[0x277D85DE8];
+  v16 = 2;
+  v17 = a2;
+  v18 = 27918592;
+  v19 = a3;
+  v20 = a5;
+  v21 = 27918592;
+  v22 = a6;
+  v23 = *MEMORY[0x277D85EF8];
+  v24 = a3;
+  v25 = a4;
+  v26 = a6;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 0xAAAAAAAA80001513;
   msg.msgh_remote_port = a1;
@@ -9446,11 +9340,11 @@ uint64_t wifi_device_start_network(mach_port_t a1, uint64_t a2, int a3, int a4, 
           {
             if (!msg.msgh_remote_port)
             {
-              v12 = HIDWORD(v18);
-              if (!HIDWORD(v18))
+              v12 = HIDWORD(v17);
+              if (!HIDWORD(v17))
               {
-                *a7 = v19;
-                goto LABEL_24;
+                *a7 = v18;
+                return v12;
               }
 
               goto LABEL_23;
@@ -9466,7 +9360,7 @@ uint64_t wifi_device_start_network(mach_port_t a1, uint64_t a2, int a3, int a4, 
 
             else
             {
-              v13 = HIDWORD(v18) == 0;
+              v13 = HIDWORD(v17) == 0;
             }
 
             if (v13)
@@ -9476,7 +9370,7 @@ uint64_t wifi_device_start_network(mach_port_t a1, uint64_t a2, int a3, int a4, 
 
             else
             {
-              v12 = HIDWORD(v18);
+              v12 = HIDWORD(v17);
             }
 
             goto LABEL_23;
@@ -9493,30 +9387,28 @@ uint64_t wifi_device_start_network(mach_port_t a1, uint64_t a2, int a3, int a4, 
 
 LABEL_23:
       mach_msg_destroy(&msg);
-      goto LABEL_24;
+      return v12;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v14 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 uint64_t wifi_device_stop_network(mach_port_t a1, uint64_t a2, int a3, uint64_t a4, int a5, int *a6)
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v16 = 2;
-  v17 = a2;
-  v18 = 27918592;
-  v19 = a3;
-  v20 = a4;
-  v21 = 27918592;
-  v22 = a5;
-  v23 = *MEMORY[0x277D85EF8];
-  v24 = a3;
-  v25 = a5;
+  v25 = *MEMORY[0x277D85DE8];
+  v15 = 2;
+  v16 = a2;
+  v17 = 27918592;
+  v18 = a3;
+  v19 = a4;
+  v20 = 27918592;
+  v21 = a5;
+  v22 = *MEMORY[0x277D85EF8];
+  v23 = a3;
+  v24 = a5;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 0xAAAAAAAA80001513;
   msg.msgh_remote_port = a1;
@@ -9552,11 +9444,11 @@ uint64_t wifi_device_stop_network(mach_port_t a1, uint64_t a2, int a3, uint64_t 
           {
             if (!msg.msgh_remote_port)
             {
-              v11 = HIDWORD(v17);
-              if (!HIDWORD(v17))
+              v11 = HIDWORD(v16);
+              if (!HIDWORD(v16))
               {
-                *a6 = v18;
-                goto LABEL_24;
+                *a6 = v17;
+                return v11;
               }
 
               goto LABEL_23;
@@ -9572,7 +9464,7 @@ uint64_t wifi_device_stop_network(mach_port_t a1, uint64_t a2, int a3, uint64_t 
 
             else
             {
-              v12 = HIDWORD(v17) == 0;
+              v12 = HIDWORD(v16) == 0;
             }
 
             if (v12)
@@ -9582,7 +9474,7 @@ uint64_t wifi_device_stop_network(mach_port_t a1, uint64_t a2, int a3, uint64_t 
 
             else
             {
-              v11 = HIDWORD(v17);
+              v11 = HIDWORD(v16);
             }
 
             goto LABEL_23;
@@ -9599,18 +9491,16 @@ uint64_t wifi_device_stop_network(mach_port_t a1, uint64_t a2, int a3, uint64_t 
 
 LABEL_23:
       mach_msg_destroy(&msg);
-      goto LABEL_24;
+      return v11;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v13 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
-uint64_t wifi_device_copy_networks(mach_port_t a1, uint64_t a2, unsigned int a3, unsigned int a4, void *a5, unsigned int *a6, _DWORD *a7)
+uint64_t wifi_device_copy_networks(mach_port_t a1, uint64_t a2, unsigned int a3, unsigned int a4, uint64_t *a5, unsigned int *a6, _DWORD *a7)
 {
   *&v11 = 0xAAAAAAAAAAAAAAAALL;
   *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
@@ -9713,14 +9603,14 @@ LABEL_25:
 
 uint64_t wifi_device_set_wifi_direct_state(mach_port_t a1, uint64_t a2, int a3, int a4, int *a5)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v15 = 1;
-  v16 = a2;
-  v17 = 27918592;
-  v18 = a3;
-  v19 = *MEMORY[0x277D85EF8];
-  v20 = a3;
-  v21 = a4;
+  v21 = *MEMORY[0x277D85DE8];
+  v14 = 1;
+  v15 = a2;
+  v16 = 27918592;
+  v17 = a3;
+  v18 = *MEMORY[0x277D85EF8];
+  v19 = a3;
+  v20 = a4;
   special_reply_port = mig_get_special_reply_port();
   *&msg.msgh_bits = 0xAAAAAAAA80001513;
   msg.msgh_remote_port = a1;
@@ -9756,11 +9646,11 @@ uint64_t wifi_device_set_wifi_direct_state(mach_port_t a1, uint64_t a2, int a3, 
           {
             if (!msg.msgh_remote_port)
             {
-              v10 = HIDWORD(v16);
-              if (!HIDWORD(v16))
+              v10 = HIDWORD(v15);
+              if (!HIDWORD(v15))
               {
-                *a5 = v17;
-                goto LABEL_24;
+                *a5 = v16;
+                return v10;
               }
 
               goto LABEL_23;
@@ -9776,7 +9666,7 @@ uint64_t wifi_device_set_wifi_direct_state(mach_port_t a1, uint64_t a2, int a3, 
 
             else
             {
-              v11 = HIDWORD(v16) == 0;
+              v11 = HIDWORD(v15) == 0;
             }
 
             if (v11)
@@ -9786,7 +9676,7 @@ uint64_t wifi_device_set_wifi_direct_state(mach_port_t a1, uint64_t a2, int a3, 
 
             else
             {
-              v10 = HIDWORD(v16);
+              v10 = HIDWORD(v15);
             }
 
             goto LABEL_23;
@@ -9803,13 +9693,47 @@ uint64_t wifi_device_set_wifi_direct_state(mach_port_t a1, uint64_t a2, int a3, 
 
 LABEL_23:
       mach_msg_destroy(&msg);
-      goto LABEL_24;
+      return v10;
     }
 
     mig_dealloc_special_reply_port();
   }
 
-LABEL_24:
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
+}
+
+uint64_t wifi_manager_set_background_scan_networks(int a1, uint64_t a2, int a3)
+{
+  v5 = a2;
+  v6 = 27918592;
+  v7 = a3;
+  v8 = *MEMORY[0x277D85EF8];
+  v9 = a3;
+  *msg = 0xAAAAAAAA80000013;
+  *&msg[8] = a1;
+  *&msg[12] = xmmword_25A14BDD0;
+  if (MEMORY[0x28223BE58])
+  {
+    voucher_mach_msg_set(msg);
+  }
+
+  return mach_msg(msg, 2097153, 0x38u, 0, 0, 0, 0);
+}
+
+uint64_t wifi_manager_set_bgscan_cache_state(int a1, uint64_t a2, int a3)
+{
+  v5 = a2;
+  v6 = 27918592;
+  v7 = a3;
+  v8 = *MEMORY[0x277D85EF8];
+  v9 = a3;
+  *msg = 0xAAAAAAAA80000013;
+  *&msg[8] = a1;
+  *&msg[12] = xmmword_25A14BDE0;
+  if (MEMORY[0x28223BE58])
+  {
+    voucher_mach_msg_set(msg);
+  }
+
+  return mach_msg(msg, 2097153, 0x38u, 0, 0, 0, 0);
 }

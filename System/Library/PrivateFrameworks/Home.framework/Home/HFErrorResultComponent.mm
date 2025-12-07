@@ -478,31 +478,31 @@ LABEL_14:
 
 + (id)componentForWriteErrorForCharacteristics:(id)characteristics valueSource:(id)source
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   characteristicsCopy = characteristics;
   sourceCopy = source;
   if ((objc_opt_respondsToSelector() & 1) != 0 && !+[HFUtilities shouldSuppressAllErrorsForDemo])
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v8 = characteristicsCopy;
-    v7 = [v8 countByEnumeratingWithState:&v23 objects:v31 count:16];
+    v7 = [v8 countByEnumeratingWithState:&v22 objects:v30 count:16];
     if (v7)
     {
-      v9 = *v24;
+      v9 = *v23;
       while (2)
       {
         for (i = 0; i != v7; i = (i + 1))
         {
-          if (*v24 != v9)
+          if (*v23 != v9)
           {
             objc_enumerationMutation(v8);
           }
 
-          v11 = *(*(&v23 + 1) + 8 * i);
-          v12 = [sourceCopy cachedErrorForWriteToCharacteristic:{v11, v23}];
+          v11 = *(*(&v22 + 1) + 8 * i);
+          v12 = [sourceCopy cachedErrorForWriteToCharacteristic:{v11, v22}];
           if (v12)
           {
             v13 = v12;
@@ -510,9 +510,9 @@ LABEL_14:
             if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v28 = v13;
-              v29 = 2112;
-              v30 = v11;
+              v27 = v13;
+              v28 = 2112;
+              v29 = v11;
               _os_log_error_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_ERROR, "Displaying cached write error %@ for characteristic %@", buf, 0x16u);
             }
 
@@ -549,7 +549,7 @@ LABEL_14:
           }
         }
 
-        v7 = [v8 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v7 = [v8 countByEnumeratingWithState:&v22 objects:v30 count:16];
         if (v7)
         {
           continue;
@@ -566,8 +566,6 @@ LABEL_22:
   {
     v7 = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -606,7 +604,7 @@ LABEL_22:
 
 + (id)componentForSymptom:(id)symptom contextProvider:(id)provider
 {
-  v155 = *MEMORY[0x277D85DE8];
+  v154 = *MEMORY[0x277D85DE8];
   symptomCopy = symptom;
   providerCopy = provider;
   if (!symptomCopy)
@@ -670,11 +668,11 @@ LABEL_70:
           {
             v86 = MEMORY[0x277CCACA8];
             v40 = HFLocalizedWiFiString(@"HFSymptomLongDescriptionWifiUnsupportedNetwork");
-            v148 = 0;
+            v147 = 0;
             homeKitObjectName = [providerCopy homeKitObjectName];
             currentDeviceNetworkSSID2 = [providerCopy currentDeviceNetworkSSID];
-            v89 = [v86 stringWithValidatedFormat:v40 validFormatSpecifiers:@"%@ %@" error:&v148, homeKitObjectName, currentDeviceNetworkSSID2];
-            accessoryName = v148;
+            v89 = [v86 stringWithValidatedFormat:v40 validFormatSpecifiers:@"%@ %@" error:&v147, homeKitObjectName, currentDeviceNetworkSSID2];
+            accessoryName = v147;
             [(HFErrorResultComponent *)v11 setDetailedErrorDescription:v89];
             goto LABEL_116;
           }
@@ -682,10 +680,10 @@ LABEL_70:
 
         v112 = MEMORY[0x277CCACA8];
         v40 = HFLocalizedWiFiString(@"HFSymptomLongDescriptionWifiConnectionProblem");
-        v147 = 0;
+        v146 = 0;
         homeKitObjectName = [providerCopy homeKitObjectName];
-        currentDeviceNetworkSSID2 = [v112 stringWithValidatedFormat:v40 validFormatSpecifiers:@"%@" error:&v147, homeKitObjectName];
-        v98 = v147;
+        currentDeviceNetworkSSID2 = [v112 stringWithValidatedFormat:v40 validFormatSpecifiers:@"%@" error:&v146, homeKitObjectName];
+        v98 = v146;
 LABEL_94:
         accessoryName = v98;
         [(HFErrorResultComponent *)v11 setDetailedErrorDescription:currentDeviceNetworkSSID2];
@@ -716,10 +714,10 @@ LABEL_94:
       case 10:
         v97 = MEMORY[0x277CCACA8];
         v40 = HFLocalizedWiFiString(@"HFSymptomDetailedDescriptionStereoError");
-        v144 = 0;
+        v143 = 0;
         homeKitObjectName = [providerCopy homeKitObjectName];
-        currentDeviceNetworkSSID2 = [v97 stringWithValidatedFormat:v40 validFormatSpecifiers:@"%@" error:&v144, homeKitObjectName];
-        v98 = v144;
+        currentDeviceNetworkSSID2 = [v97 stringWithValidatedFormat:v40 validFormatSpecifiers:@"%@" error:&v143, homeKitObjectName];
+        v98 = v143;
         goto LABEL_94;
       case 11:
         currentDeviceNetworkSSID3 = [providerCopy currentDeviceNetworkSSID];
@@ -732,10 +730,10 @@ LABEL_94:
           if (accessoryNetworkSSID)
           {
             v42 = MEMORY[0x277CCACA8];
-            v146 = 0;
+            v145 = 0;
             accessoryNetworkSSID2 = [providerCopy accessoryNetworkSSID];
-            v44 = [v42 stringWithValidatedFormat:v40 validFormatSpecifiers:@"%@" error:&v146, accessoryNetworkSSID2];
-            v45 = v146;
+            v44 = [v42 stringWithValidatedFormat:v40 validFormatSpecifiers:@"%@" error:&v145, accessoryNetworkSSID2];
+            v45 = v145;
             [(HFErrorResultComponent *)v11 setDetailedErrorDescription:v44];
           }
 
@@ -879,9 +877,9 @@ LABEL_103:
         homeKitObjectName = currentDeviceNetworkSSID5;
 
         currentDeviceNetworkSSID2 = HFLocalizedWiFiString(@"HFSymptomLongDescriptionProblemNeedCaptiveLeaseRenewal");
-        v145 = 0;
-        v125 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:currentDeviceNetworkSSID2 validFormatSpecifiers:@"%@" error:&v145, homeKitObjectName];
-        accessoryName = v145;
+        v144 = 0;
+        v125 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:currentDeviceNetworkSSID2 validFormatSpecifiers:@"%@" error:&v144, homeKitObjectName];
+        accessoryName = v144;
         [(HFErrorResultComponent *)v11 setDetailedErrorDescription:v125];
 
         accessoryUUID3 = [providerCopy accessoryUUID];
@@ -1069,14 +1067,14 @@ LABEL_90:
     v111 = HFLogForCategory(0);
     if (os_log_type_enabled(v111, OS_LOG_TYPE_ERROR))
     {
-      v142 = NSStringFromSelector(a2);
+      v141 = NSStringFromSelector(a2);
       type2 = [symptomCopy type];
       *buf = 138412802;
       selfCopy = self;
-      v151 = 2112;
-      v152 = v142;
-      v153 = 2048;
-      v154 = type2;
+      v150 = 2112;
+      v151 = v141;
+      v152 = 2048;
+      v153 = type2;
       _os_log_error_impl(&dword_20D9BF000, v111, OS_LOG_TYPE_ERROR, "%@:%@ Unhandled symptom type: %ld", buf, 0x20u);
     }
 
@@ -1179,7 +1177,6 @@ LABEL_104:
 LABEL_136:
 
 LABEL_137:
-  v140 = *MEMORY[0x277D85DE8];
 
   return self;
 }
@@ -1263,7 +1260,7 @@ LABEL_18:
 
 - (void)_addAccountSymptomMessageForAccountName:(id)name symptom:(id)symptom
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   symptomCopy = symptom;
   v8 = [name length];
   type = [symptomCopy type];
@@ -1286,14 +1283,14 @@ LABEL_18:
       v12 = HFLogForCategory(0);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v18 = NSStringFromSelector(a2);
-        v19 = 138412802;
+        v17 = NSStringFromSelector(a2);
+        v18 = 138412802;
         selfCopy = self;
-        v21 = 2112;
-        v22 = v18;
-        v23 = 2048;
+        v20 = 2112;
+        v21 = v17;
+        v22 = 2048;
         type2 = [symptomCopy type];
-        _os_log_error_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_ERROR, "%@:%@ Unhandled symptom type: %ld", &v19, 0x20u);
+        _os_log_error_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_ERROR, "%@:%@ Unhandled symptom type: %ld", &v18, 0x20u);
       }
 
       if (v8)
@@ -1327,8 +1324,6 @@ LABEL_12:
 LABEL_17:
   v16 = _HFLocalizedStringWithDefaultValue(v13, v13, 1);
   [(HFErrorResultComponent *)self setErrorMessageButtonTitle:v16];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 + (id)noResponseErrorDescriptionString:(id)string

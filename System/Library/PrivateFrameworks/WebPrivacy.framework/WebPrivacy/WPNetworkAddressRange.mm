@@ -59,7 +59,7 @@
 
 - (id)description
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (self->_address.sin6_family == 2)
   {
     v3 = 2;
@@ -70,9 +70,8 @@
     v3 = 30;
   }
 
-  inet_ntop(v3, &self->_address.sin6_addr, v7, 0x2Eu);
-  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s/%zu %@ %@", v7, self->_netMaskLength, self->_owner, self->_host];
-  v5 = *MEMORY[0x277D85DE8];
+  inet_ntop(v3, &self->_address.sin6_addr, v6, 0x2Eu);
+  v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s/%zu %@ %@", v6, self->_netMaskLength, self->_owner, self->_host];
 
   return v4;
 }

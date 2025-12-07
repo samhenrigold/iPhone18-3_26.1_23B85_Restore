@@ -123,27 +123,25 @@ void __64__ATXMicroLocationVisitScheduler_subscribeWithCallback_onQueue___block_
   v3 = [*(a1 + 40) callbacks];
   [v3 setObject:v2 forKeyedSubscript:*(a1 + 48)];
 
-  v4 = __atxlog_handle_default();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = __atxlog_handle_default(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = [*(a1 + 48) UUIDString];
-    v6 = [*(a1 + 40) callbacks];
+    v6 = [*(a1 + 48) UUIDString];
+    v7 = [*(a1 + 40) callbacks];
     v10 = 138412546;
-    v11 = v5;
+    v11 = v6;
     v12 = 2048;
-    v13 = [v6 count];
-    _os_log_impl(&dword_226368000, v4, OS_LOG_TYPE_DEFAULT, "ATXMicroLocationVisitScheduler: Added callback with identifier %@. Total callbacks: %lu", &v10, 0x16u);
+    v13 = [v7 count];
+    _os_log_impl(&dword_226368000, v5, OS_LOG_TYPE_DEFAULT, "ATXMicroLocationVisitScheduler: Added callback with identifier %@. Total callbacks: %lu", &v10, 0x16u);
   }
 
-  v7 = [*(a1 + 40) callbacks];
-  v8 = [v7 count];
+  v8 = [*(a1 + 40) callbacks];
+  v9 = [v8 count];
 
-  if (v8 == 1)
+  if (v9 == 1)
   {
     [*(a1 + 40) _onStateQueue_setupSubscription];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unSubscribeWithToken:(id)token
@@ -173,28 +171,26 @@ void __55__ATXMicroLocationVisitScheduler_unSubscribeWithToken___block_invoke(ui
     v4 = [*(a1 + 32) callbacks];
     [v4 removeObjectForKey:*(a1 + 40)];
 
-    v5 = __atxlog_handle_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [*(a1 + 40) UUIDString];
-      v7 = [*(a1 + 32) callbacks];
+      v7 = [*(a1 + 40) UUIDString];
+      v8 = [*(a1 + 32) callbacks];
       v11 = 138412546;
-      v12 = v6;
+      v12 = v7;
       v13 = 2048;
-      v14 = [v7 count];
-      _os_log_impl(&dword_226368000, v5, OS_LOG_TYPE_DEFAULT, "ATXMicroLocationVisitScheduler: Removed callback %@. Remaining: %lu", &v11, 0x16u);
+      v14 = [v8 count];
+      _os_log_impl(&dword_226368000, v6, OS_LOG_TYPE_DEFAULT, "ATXMicroLocationVisitScheduler: Removed callback %@. Remaining: %lu", &v11, 0x16u);
     }
 
-    v8 = [*(a1 + 32) callbacks];
-    v9 = [v8 count];
+    v9 = [*(a1 + 32) callbacks];
+    v10 = [v9 count];
 
-    if (!v9)
+    if (!v10)
     {
       [*(a1 + 32) _onStateQueue_cancelSubscription];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAllSubscribers
@@ -213,11 +209,11 @@ uint64_t __54__ATXMicroLocationVisitScheduler_removeAllSubscribers__block_invoke
   v2 = [*(a1 + 32) callbacks];
   [v2 removeAllObjects];
 
-  v3 = __atxlog_handle_default();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  v4 = __atxlog_handle_default(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_226368000, v3, OS_LOG_TYPE_DEFAULT, "ATXMicroLocationVisitScheduler: Removed all callbacks", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_226368000, v4, OS_LOG_TYPE_DEFAULT, "ATXMicroLocationVisitScheduler: Removed all callbacks", v6, 2u);
   }
 
   return [*(a1 + 32) _onStateQueue_cancelSubscription];
@@ -286,46 +282,46 @@ void __54__ATXMicroLocationVisitScheduler_hasActiveSubscribers__block_invoke(uin
 
   if (!microLocationSink)
   {
-    v5 = __atxlog_handle_default();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = __atxlog_handle_default(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(buf[0]) = 0;
-      _os_log_impl(&dword_226368000, v5, OS_LOG_TYPE_DEFAULT, "ATXMicroLocationVisitScheduler: Setting up micro-location subscription", buf, 2u);
+      _os_log_impl(&dword_226368000, v6, OS_LOG_TYPE_DEFAULT, "ATXMicroLocationVisitScheduler: Setting up micro-location subscription", buf, 2u);
     }
 
-    v6 = [objc_alloc(MEMORY[0x277CF1918]) initWithIdentifier:@"ATXMicroLocationVisitScheduler.MicroLocationDonation" targetQueue:self->_biomeQueue];
+    v7 = [objc_alloc(MEMORY[0x277CF1918]) initWithIdentifier:@"ATXMicroLocationVisitScheduler.MicroLocationDonation" targetQueue:self->_biomeQueue];
     microLocationScheduler = self->_microLocationScheduler;
-    self->_microLocationScheduler = v6;
+    self->_microLocationScheduler = v7;
 
     objc_initWeak(buf, self);
-    v8 = BiomeLibrary();
-    location = [v8 Location];
+    v9 = BiomeLibrary();
+    location = [v9 Location];
     microLocationVisit = [location MicroLocationVisit];
     atx_DSLPublisher = [microLocationVisit atx_DSLPublisher];
-    v12 = [atx_DSLPublisher subscribeOn:self->_microLocationScheduler];
+    v13 = [atx_DSLPublisher subscribeOn:self->_microLocationScheduler];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __65__ATXMicroLocationVisitScheduler__onStateQueue_setupSubscription__block_invoke;
+    v21[3] = &unk_2785908F8;
+    objc_copyWeak(&v22, buf);
     v19[0] = MEMORY[0x277D85DD0];
     v19[1] = 3221225472;
-    v19[2] = __65__ATXMicroLocationVisitScheduler__onStateQueue_setupSubscription__block_invoke;
-    v19[3] = &unk_2785908F8;
+    v19[2] = __65__ATXMicroLocationVisitScheduler__onStateQueue_setupSubscription__block_invoke_2;
+    v19[3] = &unk_278590920;
     objc_copyWeak(&v20, buf);
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __65__ATXMicroLocationVisitScheduler__onStateQueue_setupSubscription__block_invoke_2;
-    v17[3] = &unk_278590920;
-    objc_copyWeak(&v18, buf);
-    v13 = [v12 sinkWithCompletion:v19 receiveInput:v17];
+    v14 = [v13 sinkWithCompletion:v21 receiveInput:v19];
     microLocationSink = self->_microLocationSink;
-    self->_microLocationSink = v13;
+    self->_microLocationSink = v14;
 
-    v15 = __atxlog_handle_default();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v17 = __atxlog_handle_default(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 0;
-      _os_log_impl(&dword_226368000, v15, OS_LOG_TYPE_DEFAULT, "ATXMicroLocationVisitScheduler: Successfully subscribed to micro-location events", v16, 2u);
+      *v18 = 0;
+      _os_log_impl(&dword_226368000, v17, OS_LOG_TYPE_DEFAULT, "ATXMicroLocationVisitScheduler: Successfully subscribed to micro-location events", v18, 2u);
     }
 
-    objc_destroyWeak(&v18);
     objc_destroyWeak(&v20);
+    objc_destroyWeak(&v22);
     objc_destroyWeak(buf);
   }
 }
@@ -366,8 +362,7 @@ void __65__ATXMicroLocationVisitScheduler__onStateQueue_setupSubscription__block
     [(ATXMicroLocationVisitScheduler *)self setMicroLocationSink:0];
   }
 
-  [(ATXMicroLocationVisitScheduler *)self setMicroLocationScheduler:0];
-  v6 = __atxlog_handle_default();
+  v6 = __atxlog_handle_default([(ATXMicroLocationVisitScheduler *)self setMicroLocationScheduler:0]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -379,7 +374,7 @@ void __65__ATXMicroLocationVisitScheduler__onStateQueue_setupSubscription__block
 {
   completionCopy = completion;
   state = [completionCopy state];
-  v5 = __atxlog_handle_default();
+  v5 = __atxlog_handle_default(state);
   v6 = v5;
   if (state)
   {
@@ -398,80 +393,76 @@ void __65__ATXMicroLocationVisitScheduler__onStateQueue_setupSubscription__block
 
 - (void)_handleMicroLocationEvent:(id)event
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   eventCopy = event;
-  v5 = __atxlog_handle_default();
+  v5 = __atxlog_handle_default(eventCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v12 = eventCopy;
+    v11 = eventCopy;
     _os_log_impl(&dword_226368000, v5, OS_LOG_TYPE_DEFAULT, "ATXMicroLocationVisitScheduler: Received new micro-location event: %@", buf, 0xCu);
   }
 
   stateQueue = [(ATXMicroLocationVisitScheduler *)self stateQueue];
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __60__ATXMicroLocationVisitScheduler__handleMicroLocationEvent___block_invoke;
-  v9[3] = &unk_278590880;
-  v9[4] = self;
-  v10 = eventCopy;
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __60__ATXMicroLocationVisitScheduler__handleMicroLocationEvent___block_invoke;
+  v8[3] = &unk_278590880;
+  v8[4] = self;
+  v9 = eventCopy;
   v7 = eventCopy;
-  dispatch_async(stateQueue, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  dispatch_async(stateQueue, v8);
 }
 
 void __60__ATXMicroLocationVisitScheduler__handleMicroLocationEvent___block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v2 = __atxlog_handle_default();
+  v21 = *MEMORY[0x277D85DE8];
+  v2 = __atxlog_handle_default(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) callbacks];
     *buf = 134217984;
-    v21 = [v3 count];
+    v20 = [v3 count];
     _os_log_impl(&dword_226368000, v2, OS_LOG_TYPE_DEFAULT, "ATXMicroLocationVisitScheduler: Notifying %lu callbacks", buf, 0xCu);
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v4 = [*(a1 + 32) callbacks];
   v5 = [v4 objectEnumerator];
 
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = [v10 queue];
-        v13[0] = MEMORY[0x277D85DD0];
-        v13[1] = 3221225472;
-        v13[2] = __60__ATXMicroLocationVisitScheduler__handleMicroLocationEvent___block_invoke_57;
-        v13[3] = &unk_278590880;
-        v13[4] = v10;
-        v14 = *(a1 + 40);
-        dispatch_async(v11, v13);
+        v12[0] = MEMORY[0x277D85DD0];
+        v12[1] = 3221225472;
+        v12[2] = __60__ATXMicroLocationVisitScheduler__handleMicroLocationEvent___block_invoke_57;
+        v12[3] = &unk_278590880;
+        v12[4] = v10;
+        v13 = *(a1 + 40);
+        dispatch_async(v11, v12);
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __60__ATXMicroLocationVisitScheduler__handleMicroLocationEvent___block_invoke_57(uint64_t a1)
@@ -491,13 +482,11 @@ void __60__ATXMicroLocationVisitScheduler__handleMicroLocationEvent___block_invo
 
 - (void)_handleCompletion:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 error];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "ATXMicroLocationVisitScheduler: Error listening to micro-location events: %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_226368000, a2, OS_LOG_TYPE_ERROR, "ATXMicroLocationVisitScheduler: Error listening to micro-location events: %@", &v4, 0xCu);
 }
 
 @end

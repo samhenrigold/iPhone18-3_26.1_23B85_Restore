@@ -13,43 +13,43 @@
 
 + (void)articleFromNotification:(id)notification completion:(id)completion
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   completionCopy = completion;
   request = [notificationCopy request];
   content = [request content];
   userInfo = [content userInfo];
 
-  v31 = userInfo;
-  v30 = [userInfo objectForKeyedSubscript:@"news"];
-  v34 = notificationCopy;
+  v30 = userInfo;
+  v29 = [userInfo objectForKeyedSubscript:@"news"];
+  v33 = notificationCopy;
   request2 = [notificationCopy request];
   content2 = [request2 content];
   attachments = [content2 attachments];
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v12 = attachments;
-  v13 = [v12 countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v13)
   {
     v14 = v13;
+    v34 = 0;
     v35 = 0;
-    v36 = 0;
     v15 = 0;
-    v16 = *v38;
+    v16 = *v37;
     while (1)
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v38 != v16)
+        if (*v37 != v16)
         {
           objc_enumerationMutation(v12);
         }
 
-        v18 = *(*(&v37 + 1) + 8 * i);
+        v18 = *(*(&v36 + 1) + 8 * i);
         identifier = [v18 identifier];
         v20 = [identifier isEqualToString:@"thumbnail-attachment"];
 
@@ -68,8 +68,8 @@
           if (v24)
           {
             v25 = [v18 URL];
-            v22 = v36;
-            v36 = v25;
+            v22 = v35;
+            v35 = v25;
           }
 
           else
@@ -83,13 +83,13 @@
             }
 
             v28 = [v18 URL];
-            v22 = v35;
-            v35 = v28;
+            v22 = v34;
+            v34 = v28;
           }
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v36 objects:v40 count:16];
       if (!v14)
       {
         goto LABEL_17;
@@ -97,13 +97,12 @@
     }
   }
 
+  v34 = 0;
   v35 = 0;
-  v36 = 0;
   v15 = 0;
 LABEL_17:
 
-  [self articleFromNotificationUserInfo:v30 thumbnailFileURL:v15 publisherLogoFileURL:v36 publisherLogoMaskFileURL:v35 completion:completionCopy];
-  v29 = *MEMORY[0x277D85DE8];
+  [self articleFromNotificationUserInfo:v29 thumbnailFileURL:v15 publisherLogoFileURL:v35 publisherLogoMaskFileURL:v34 completion:completionCopy];
 }
 
 + (void)articleFromNotificationUserInfo:(id)info thumbnailFileURL:(id)l publisherLogoFileURL:(id)rL publisherLogoMaskFileURL:(id)uRL completion:(id)completion
@@ -316,31 +315,31 @@ void __76__NSSArticleInternal__articleFromCoreSpotlightIdentifier_domain_complet
 
 void __76__NSSArticleInternal__articleFromCoreSpotlightIdentifier_domain_completion___block_invoke_31(uint64_t a1, void *a2)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (!*(*(*(a1 + 40) + 8) + 40) && [v3 count])
   {
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     v5 = v4;
-    v6 = [v5 countByEnumeratingWithState:&v38 objects:v42 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v37 objects:v41 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v39;
+      v8 = *v38;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v39 != v8)
+          if (*v38 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v38 + 1) + 8 * i);
+          v10 = *(*(&v37 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -356,7 +355,7 @@ void __76__NSSArticleInternal__articleFromCoreSpotlightIdentifier_domain_complet
               v16 = [v15 contentDescription];
 
               v17 = [v10 attributeSet];
-              v35 = [v17 contentCreationDate];
+              v34 = [v17 contentCreationDate];
 
               v18 = [v10 attributeSet];
               v19 = [v18 namedLocation];
@@ -365,8 +364,8 @@ void __76__NSSArticleInternal__articleFromCoreSpotlightIdentifier_domain_complet
               v21 = [v20 thumbnailURL];
 
               objc_opt_class();
-              v36 = v16;
-              v37 = v14;
+              v35 = v16;
+              v36 = v14;
               if (objc_opt_isKindOfClass())
               {
                 v22 = [MEMORY[0x277CBEBC0] URLWithString:v21];
@@ -391,7 +390,7 @@ void __76__NSSArticleInternal__articleFromCoreSpotlightIdentifier_domain_complet
                 v28 = [v29 imageWithContentsOfFile:v30];
               }
 
-              v31 = [objc_alloc(*(a1 + 48)) initWithThumbnailImage:v28 title:v37 shortExcerpt:v36 publishDate:v35 publisherName:v19 publisherLogoImage:0 publisherLogoMaskImage:0];
+              v31 = [objc_alloc(*(a1 + 48)) initWithThumbnailImage:v28 title:v36 shortExcerpt:v35 publishDate:v34 publisherName:v19 publisherLogoImage:0 publisherLogoMaskImage:0];
               v32 = *(*(a1 + 40) + 8);
               v33 = *(v32 + 40);
               *(v32 + 40) = v31;
@@ -401,7 +400,7 @@ void __76__NSSArticleInternal__articleFromCoreSpotlightIdentifier_domain_complet
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v38 objects:v42 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v37 objects:v41 count:16];
         if (v7)
         {
           continue;
@@ -413,8 +412,6 @@ void __76__NSSArticleInternal__articleFromCoreSpotlightIdentifier_domain_complet
 
 LABEL_19:
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __76__NSSArticleInternal__articleFromCoreSpotlightIdentifier_domain_completion___block_invoke_2_35(uint64_t a1)

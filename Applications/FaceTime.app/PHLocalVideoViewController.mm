@@ -78,14 +78,15 @@
     v7 = 0;
   }
 
-  if (v7 != [(PHLocalVideoViewController *)self cachedIsUsingIPadExternalCamera])
+  cachedIsUsingIPadExternalCamera = [(PHLocalVideoViewController *)self cachedIsUsingIPadExternalCamera];
+  if (v7 != cachedIsUsingIPadExternalCamera)
   {
-    v8 = sub_100003B9C();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100003B9C(cachedIsUsingIPadExternalCamera);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10[0] = 67109120;
-      v10[1] = v7;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Updated cachedIsUsingIPadExternalCamera to %d", v10, 8u);
+      v11[0] = 67109120;
+      v11[1] = v7;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Updated cachedIsUsingIPadExternalCamera to %d", v11, 8u);
     }
 
     [(PHLocalVideoViewController *)self setCachedIsUsingIPadExternalCamera:v7];
@@ -266,11 +267,11 @@
 
   else
   {
-    v7 = sub_100003B9C();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100003B9C(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[WARN] Not clearing the local front video layer because this isn't the current displayController's layer", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Not clearing the local front video layer because this isn't the current displayController's layer", buf, 2u);
     }
   }
 
@@ -286,11 +287,11 @@
 
     else
     {
-      v10 = sub_100003B9C();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_100003B9C(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        *v11 = 0;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[WARN] Not clearing the local back video layer because this isn't the current displayController's layer", v11, 2u);
+        *v13 = 0;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[WARN] Not clearing the local back video layer because this isn't the current displayController's layer", v13, 2u);
       }
     }
   }
@@ -420,8 +421,7 @@
 
 - (void)_applicationDidBecomeActive:(id)active
 {
-  [(PHLocalVideoViewController *)self _updateLocalVideoOrientationAnimated:0];
-  v4 = sub_100003B9C();
+  v4 = sub_100003B9C([(PHLocalVideoViewController *)self _updateLocalVideoOrientationAnimated:0]);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -444,44 +444,44 @@
   {
 
 LABEL_7:
-    v9 = sub_100003B9C();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100003B9C(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       name2 = [activeCopy name];
       LODWORD(buf) = 138412290;
       *(&buf + 4) = name2;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Stopping preview due to application notification %@", &buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Stopping preview due to application notification %@", &buf, 0xCu);
     }
 
     [(PHLocalVideoViewController *)self stopPreview];
     goto LABEL_10;
   }
 
-  v11 = 0;
-  v12 = &v11;
-  v13 = 0x2020000000;
-  v7 = off_100126998;
-  v14 = off_100126998;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v8 = off_100126998;
+  v15 = off_100126998;
   if (!off_100126998)
   {
     *&buf = _NSConcreteStackBlock;
     *(&buf + 1) = 3221225472;
-    v16 = sub_10002B420;
-    v17 = &unk_10010B2A0;
-    v18 = &v11;
+    v17 = sub_10002B420;
+    v18 = &unk_10010B2A0;
+    v19 = &v12;
     sub_10002B420(&buf);
-    v7 = v12[3];
+    v8 = v13[3];
   }
 
-  _Block_object_dispose(&v11, 8);
-  if (!v7)
+  _Block_object_dispose(&v12, 8);
+  if (!v8)
   {
     sub_1000C46F0();
   }
 
-  v8 = v7(0) == 0;
+  v9 = v8(0) == 0;
 
-  if (!v8)
+  if (!v9)
   {
     goto LABEL_7;
   }
@@ -576,7 +576,7 @@ LABEL_10:
 
 - (void)_previewMSROptimizationCompensationForOrientation:(int64_t)orientation withTransform:(CGAffineTransform *)transform withBounds:(CGRect *)bounds
 {
-  v8 = sub_100003B9C();
+  v8 = sub_100003B9C(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = NSStringFromCGRect(*bounds);
@@ -632,47 +632,48 @@ LABEL_10:
 - (void)_applyAutoRotationCorrectionForOrientation:(int64_t)orientation withTransitionCoordinator:(id)coordinator
 {
   v6 = [(PHLocalVideoViewController *)self supportsAutoRotation:orientation];
-  v7 = sub_100003B9C();
-  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
-  if (v6)
+  v7 = v6;
+  v8 = sub_100003B9C(v6);
+  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  if (v7)
   {
-    if (v8)
+    if (v9)
     {
       LODWORD(buf.a) = 134217984;
       *(&buf.a + 4) = orientation;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "PHLocalVideoViewController _applyAutoRotationCorrectionForOrientation %lu (supportsAutoRotation = YES)", &buf, 0xCu);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "PHLocalVideoViewController _applyAutoRotationCorrectionForOrientation %lu (supportsAutoRotation = YES)", &buf, 0xCu);
     }
 
     [(UIControl *)self->_videoGroupView bounds];
-    v11 = v9;
     v12 = v10;
-    v26 = v13;
-    *&v27 = v14;
-    *(&v27 + 1) = v9;
-    v28 = v10;
-    v15 = *&CGAffineTransformIdentity.c;
+    v13 = v11;
+    v27 = v14;
+    *&v28 = v15;
+    *(&v28 + 1) = v10;
+    v29 = v11;
+    v16 = *&CGAffineTransformIdentity.c;
     *&buf.a = *&CGAffineTransformIdentity.a;
-    *&buf.c = v15;
+    *&buf.c = v16;
     *&buf.tx = *&CGAffineTransformIdentity.tx;
     if (orientation > 2)
     {
       if (orientation == 4)
       {
-        v26 = 0;
-        *&v27 = 0;
-        *(&v27 + 1) = v10;
-        v28 = v9;
-        v16 = 1.57079633;
+        v27 = 0;
+        *&v28 = 0;
+        *(&v28 + 1) = v11;
+        v29 = v10;
+        v17 = 1.57079633;
         goto LABEL_17;
       }
 
       if (orientation == 3)
       {
-        v26 = 0;
-        *&v27 = 0;
-        *(&v27 + 1) = v10;
-        v28 = v9;
-        v16 = -1.57079633;
+        v27 = 0;
+        *&v28 = 0;
+        *(&v28 + 1) = v11;
+        v29 = v10;
+        v17 = -1.57079633;
         goto LABEL_17;
       }
     }
@@ -686,57 +687,57 @@ LABEL_10:
 
       if (orientation == 2)
       {
-        v16 = 3.14159203;
+        v17 = 3.14159203;
 LABEL_17:
-        CGAffineTransformMakeRotation(&buf, v16);
+        CGAffineTransformMakeRotation(&buf, v17);
         goto LABEL_20;
       }
     }
 
     localVideoView = [(PHLocalVideoViewController *)self localVideoView];
-    v18 = localVideoView;
+    v19 = localVideoView;
     if (localVideoView)
     {
-      [localVideoView transform];
+      objc_msgSend_transform(localVideoView);
     }
 
     else
     {
-      memset(&v25, 0, sizeof(v25));
+      memset(&v26, 0, sizeof(v26));
     }
 
-    buf = v25;
+    buf = v26;
 
 LABEL_20:
-    v19 = v11 * 0.5;
     v20 = v12 * 0.5;
+    v21 = v13 * 0.5;
     featureFlags = [(PHLocalVideoViewController *)self featureFlags];
     previewMSROptimizationEnabled = [featureFlags previewMSROptimizationEnabled];
 
     if (previewMSROptimizationEnabled)
     {
-      [(PHLocalVideoViewController *)self _previewMSROptimizationCompensationForOrientation:orientation withTransform:&buf withBounds:&v26];
+      [(PHLocalVideoViewController *)self _previewMSROptimizationCompensationForOrientation:orientation withTransform:&buf withBounds:&v27];
     }
 
     localVideoView2 = [(PHLocalVideoViewController *)self localVideoView];
-    v25 = buf;
-    [(PHLocalVideoViewController *)self _setNewRotationBoundsForView:localVideoView2 withCenter:&v25 landscapeBounds:v19 bounds:v20 transform:0.0, 0.0, v12, v11, v26, v27, *&v28];
+    v26 = buf;
+    [(PHLocalVideoViewController *)self _setNewRotationBoundsForView:localVideoView2 withCenter:&v26 landscapeBounds:v20 bounds:v21 transform:0.0, 0.0, v13, v12, v27, v28, *&v29];
 
     if ([(PHLocalVideoViewController *)self isFaceTimeLaunchPageEnabled])
     {
       backVideoView = [(PHLocalVideoViewController *)self backVideoView];
-      v25 = buf;
-      [(PHLocalVideoViewController *)self _setNewRotationBoundsForView:backVideoView withCenter:&v25 landscapeBounds:v19 bounds:v20 transform:0.0, 0.0, v12, v11, v26, v27, *&v28];
+      v26 = buf;
+      [(PHLocalVideoViewController *)self _setNewRotationBoundsForView:backVideoView withCenter:&v26 landscapeBounds:v20 bounds:v21 transform:0.0, 0.0, v13, v12, v27, v28, *&v29];
     }
 
     return;
   }
 
-  if (v8)
+  if (v9)
   {
     LODWORD(buf.a) = 134217984;
     *(&buf.a + 4) = orientation;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "PHLocalVideoViewController _applyAutoRotationCorrectionForOrientation %lu (supportsAutoRotation = NO)", &buf, 0xCu);
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "PHLocalVideoViewController _applyAutoRotationCorrectionForOrientation %lu (supportsAutoRotation = NO)", &buf, 0xCu);
   }
 }
 
@@ -838,7 +839,8 @@ LABEL_20:
 
 - (void)updateViewControllerForOrientation:(int64_t)orientation
 {
-  if ([(PHLocalVideoViewController *)self supportsAutoRotation])
+  supportsAutoRotation = [(PHLocalVideoViewController *)self supportsAutoRotation];
+  if (supportsAutoRotation)
   {
 
     [(PHLocalVideoViewController *)self _applyAutoRotationCorrectionForOrientation:orientation withTransitionCoordinator:0];
@@ -846,11 +848,11 @@ LABEL_20:
 
   else
   {
-    v5 = sub_100003B9C();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100003B9C(supportsAutoRotation);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "PHLocalVideoViewController.updateViewControllerForOrientation: Ignoring since supportsAutoRotation = NO", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "PHLocalVideoViewController.updateViewControllerForOrientation: Ignoring since supportsAutoRotation = NO", v9, 2u);
     }
 
     featureFlags = [(PHLocalVideoViewController *)self featureFlags];
@@ -909,13 +911,15 @@ LABEL_20:
 
 - (void)startPreview
 {
-  if (+[NSThread isMainThread])
+  v3 = +[NSThread isMainThread];
+  if (v3)
   {
     _scene = [(PHLocalVideoViewController *)self _scene];
-    v4 = _scene;
-    if (_scene && (![_scene activationState] || objc_msgSend(v4, "activationState") == 1))
+    v5 = _scene;
+    if (_scene && (![_scene activationState] || (_scene = objc_msgSend(v5, "activationState"), _scene == 1)))
     {
-      if ([(PHLocalVideoViewController *)self isReadyForPreview])
+      isReadyForPreview = [(PHLocalVideoViewController *)self isReadyForPreview];
+      if (isReadyForPreview)
       {
         featureFlags = [(PHLocalVideoViewController *)self featureFlags];
         previewMSROptimizationEnabled = [featureFlags previewMSROptimizationEnabled];
@@ -925,17 +929,18 @@ LABEL_20:
           [(PHLocalVideoViewController *)self associateLocalVideoLayers];
         }
 
-        v7 = +[TUCallCenter sharedInstance];
-        videoDeviceController = [v7 videoDeviceController];
+        v9 = +[TUCallCenter sharedInstance];
+        videoDeviceController = [v9 videoDeviceController];
 
         currentInputDevice = [videoDeviceController currentInputDevice];
-        if ([(PHLocalVideoViewController *)self shouldDeferStartCameraAction])
+        shouldDeferStartCameraAction = [(PHLocalVideoViewController *)self shouldDeferStartCameraAction];
+        if (shouldDeferStartCameraAction)
         {
-          v10 = sub_100003B9C();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+          v13 = sub_100003B9C(shouldDeferStartCameraAction);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Deferring start camera action until systemPreferredCamera is initialized", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Deferring start camera action until systemPreferredCamera is initialized", buf, 2u);
           }
 
           [(PHLocalVideoViewController *)self setDidDeferStartCameraAction:1];
@@ -943,49 +948,50 @@ LABEL_20:
 
         else
         {
-          if (![(PHLocalVideoViewController *)self isFaceTimeLaunchPageEnabled])
+          isFaceTimeLaunchPageEnabled = [(PHLocalVideoViewController *)self isFaceTimeLaunchPageEnabled];
+          if ((isFaceTimeLaunchPageEnabled & 1) == 0)
           {
             self->_isFirstLaunch = 1;
           }
 
-          if (!currentInputDevice || self->_isFirstLaunch && ![(PHLocalVideoViewController *)self deviceIsFrontFacingOrExternal:currentInputDevice])
+          if (!currentInputDevice || self->_isFirstLaunch && (isFaceTimeLaunchPageEnabled = [(PHLocalVideoViewController *)self deviceIsFrontFacingOrExternal:currentInputDevice], (isFaceTimeLaunchPageEnabled & 1) == 0))
           {
-            v13 = sub_100003B9C();
-            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+            v17 = sub_100003B9C(isFaceTimeLaunchPageEnabled);
+            if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Resetting camera on TUVideoDeviceController to be front-facing or external", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Resetting camera on TUVideoDeviceController to be front-facing or external", buf, 2u);
             }
 
-            v27 = 0u;
-            v28 = 0u;
-            v25 = 0u;
-            v26 = 0u;
+            v32 = 0u;
+            v33 = 0u;
+            v30 = 0u;
+            v31 = 0u;
             inputDevices = [videoDeviceController inputDevices];
-            v15 = [inputDevices countByEnumeratingWithState:&v25 objects:v31 count:16];
-            if (v15)
+            v19 = [inputDevices countByEnumeratingWithState:&v30 objects:v36 count:16];
+            if (v19)
             {
-              v16 = v15;
-              v17 = *v26;
+              v20 = v19;
+              v21 = *v31;
               while (2)
               {
-                for (i = 0; i != v16; i = i + 1)
+                for (i = 0; i != v20; i = i + 1)
                 {
-                  if (*v26 != v17)
+                  if (*v31 != v21)
                   {
                     objc_enumerationMutation(inputDevices);
                   }
 
-                  v19 = *(*(&v25 + 1) + 8 * i);
-                  if ([(PHLocalVideoViewController *)self deviceIsFrontFacingOrExternal:v19])
+                  v23 = *(*(&v30 + 1) + 8 * i);
+                  if ([(PHLocalVideoViewController *)self deviceIsFrontFacingOrExternal:v23])
                   {
-                    [videoDeviceController setCurrentInputDevice:v19];
+                    [videoDeviceController setCurrentInputDevice:v23];
                     goto LABEL_37;
                   }
                 }
 
-                v16 = [inputDevices countByEnumeratingWithState:&v25 objects:v31 count:16];
-                if (v16)
+                v20 = [inputDevices countByEnumeratingWithState:&v30 objects:v36 count:16];
+                if (v20)
                 {
                   continue;
                 }
@@ -996,17 +1002,18 @@ LABEL_20:
 
 LABEL_37:
 
-            if ([(PHLocalVideoViewController *)self isFaceTimeLaunchPageEnabled])
+            isFaceTimeLaunchPageEnabled = [(PHLocalVideoViewController *)self isFaceTimeLaunchPageEnabled];
+            if (isFaceTimeLaunchPageEnabled)
             {
               self->_isFirstLaunch = 0;
             }
           }
 
-          v20 = sub_100003B9C();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v24 = sub_100003B9C(isFaceTimeLaunchPageEnabled);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "PHLocalVideoViewController startPreview", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "PHLocalVideoViewController startPreview", buf, 2u);
           }
 
           disabledOverlayView = [(PHLocalVideoViewController *)self disabledOverlayView];
@@ -1028,11 +1035,11 @@ LABEL_37:
 
           else
           {
-            v24 = sub_100003B9C();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+            v29 = sub_100003B9C(v28);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "PHLocalVideoViewController was asked to start preview, but the current input device is nil", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "PHLocalVideoViewController was asked to start preview, but the current input device is nil", buf, 2u);
             }
           }
         }
@@ -1040,24 +1047,24 @@ LABEL_37:
         goto LABEL_49;
       }
 
-      videoDeviceController = sub_100003B9C();
+      videoDeviceController = sub_100003B9C(isReadyForPreview);
       if (os_log_type_enabled(videoDeviceController, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v12 = "PHLocalVideoViewController rejected a start preview request because the client has not indicated it is ready";
+        v15 = "PHLocalVideoViewController rejected a start preview request because the client has not indicated it is ready";
         goto LABEL_19;
       }
     }
 
     else
     {
-      videoDeviceController = sub_100003B9C();
+      videoDeviceController = sub_100003B9C(_scene);
       if (os_log_type_enabled(videoDeviceController, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v12 = "PHLocalVideoViewController rejected a start preview request because the scene is not in the foreground";
+        v15 = "PHLocalVideoViewController rejected a start preview request because the scene is not in the foreground";
 LABEL_19:
-        _os_log_impl(&_mh_execute_header, videoDeviceController, OS_LOG_TYPE_DEFAULT, v12, buf, 2u);
+        _os_log_impl(&_mh_execute_header, videoDeviceController, OS_LOG_TYPE_DEFAULT, v15, buf, 2u);
       }
     }
 
@@ -1066,10 +1073,10 @@ LABEL_49:
     return;
   }
 
-  v11 = sub_100003B9C();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v14 = sub_100003B9C(v3);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
-    sub_1000C4768(v11);
+    sub_1000C4768(v14);
   }
 
   block[0] = _NSConcreteStackBlock;
@@ -1149,7 +1156,7 @@ LABEL_49:
 
 - (void)stopPreview
 {
-  v2 = sub_100003B9C();
+  v2 = sub_100003B9C(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v5[0] = 67109120;
@@ -1212,7 +1219,7 @@ LABEL_9:
 
 - (void)_ensureLocalVideoWillBecomeVisible
 {
-  v3 = sub_100003B9C();
+  v3 = sub_100003B9C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v14 = 138412546;
@@ -1264,25 +1271,26 @@ LABEL_10:
 
 - (void)_avFirstPreviewFrameArrived:(id)arrived
 {
-  if ([(PHLocalVideoViewController *)self waitingForLocalVideoFirstFrame])
+  waitingForLocalVideoFirstFrame = [(PHLocalVideoViewController *)self waitingForLocalVideoFirstFrame];
+  if (waitingForLocalVideoFirstFrame)
   {
-    v4 = sub_100003B9C();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100003B9C(waitingForLocalVideoFirstFrame);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "First frame arrived: fading in local video", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "First frame arrived: fading in local video", buf, 2u);
     }
 
     [(PHLocalVideoViewController *)self setWaitingForLocalVideoFirstFrame:0];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:"_autoFadeInVideo" object:0];
-    [(PHLocalVideoViewController *)self _fadeInVideo];
+    waitingForLocalVideoFirstFrame = [(PHLocalVideoViewController *)self _fadeInVideo];
   }
 
-  v5 = sub_100003B9C();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100003B9C(waitingForLocalVideoFirstFrame);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    *v6 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "First local video frame arrived, updating the video layer in case the camera source changed", v6, 2u);
+    *v7 = 0;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "First local video frame arrived, updating the video layer in case the camera source changed", v7, 2u);
   }
 
   [(PHLocalVideoViewController *)self _applyAutoRotationCorrectionForCurrentOrientationWithTransitionCoordinator:0];
@@ -1295,7 +1303,7 @@ LABEL_10:
 
   if (v5 && [v5 code] == 32023)
   {
-    v6 = sub_100003B9C();
+    v6 = sub_100003B9C(32023);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *v14 = 0;
@@ -1324,7 +1332,7 @@ LABEL_10:
 
 - (void)_handleLocalCameraAvailableNotification:(id)notification
 {
-  v4 = sub_100003B9C();
+  v4 = sub_100003B9C(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -1344,7 +1352,7 @@ LABEL_10:
 
 - (void)_handleVideoPreviewDidStartNotification:(id)notification
 {
-  v4 = sub_100003B9C();
+  v4 = sub_100003B9C(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -1364,25 +1372,26 @@ LABEL_10:
 
 - (void)_handleSystemPreferredCameraChangedNotification:(id)notification
 {
-  v4 = sub_100003B9C();
+  v4 = sub_100003B9C(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "System preferred camera changed", buf, 2u);
   }
 
-  if ([(PHLocalVideoViewController *)self didDeferStartCameraAction])
+  didDeferStartCameraAction = [(PHLocalVideoViewController *)self didDeferStartCameraAction];
+  if (didDeferStartCameraAction)
   {
-    v5 = +[AVCaptureDevice systemPreferredCamera];
+    v6 = +[AVCaptureDevice systemPreferredCamera];
 
-    v6 = sub_100003B9C();
-    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-    if (v5)
+    v8 = sub_100003B9C(v7);
+    v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+    if (v6)
     {
-      if (v7)
+      if (v9)
       {
-        *v9 = 0;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Starting camera that was deferred due to systemPreferredCamera initialization", v9, 2u);
+        *v11 = 0;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Starting camera that was deferred due to systemPreferredCamera initialization", v11, 2u);
       }
 
       [(PHLocalVideoViewController *)self setDidDeferStartCameraAction:0];
@@ -1391,21 +1400,21 @@ LABEL_10:
 
     else
     {
-      if (v7)
+      if (v9)
       {
-        *v10 = 0;
-        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Ignoring change to systemPreferredCamera because it's nil", v10, 2u);
+        *v12 = 0;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Ignoring change to systemPreferredCamera because it's nil", v12, 2u);
       }
     }
   }
 
   else
   {
-    v8 = sub_100003B9C();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100003B9C(didDeferStartCameraAction);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Ignoring change to systemPreferredCamera because there's no pending start camera action", v11, 2u);
+      *v13 = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Ignoring change to systemPreferredCamera because there's no pending start camera action", v13, 2u);
     }
   }
 }
@@ -1417,7 +1426,7 @@ LABEL_10:
   if (cachedIsUsingIPadExternalCamera != isUsingIPadExternalCamera)
   {
     v6 = isUsingIPadExternalCamera;
-    v7 = sub_100003B9C();
+    v7 = sub_100003B9C(isUsingIPadExternalCamera);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v11[0] = 67109376;
@@ -1436,10 +1445,10 @@ LABEL_10:
       [backVideoView setAlpha:0.0];
     }
 
-    [(PHLocalVideoViewController *)self setWaitingForLocalVideoFirstFrame:1];
+    isUsingIPadExternalCamera = [(PHLocalVideoViewController *)self setWaitingForLocalVideoFirstFrame:1];
   }
 
-  v10 = sub_100003B9C();
+  v10 = sub_100003B9C(isUsingIPadExternalCamera);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(v11[0]) = 0;
@@ -1458,19 +1467,19 @@ LABEL_10:
 
   if (windowScene)
   {
-    v8 = objc_opt_new();
-    compose = [v8 compose];
+    v9 = objc_opt_new();
+    compose = [v9 compose];
 
     -[PHLocalVideoViewController _applyAutoRotationCorrectionForOrientation:withTransitionCoordinator:](self, "_applyAutoRotationCorrectionForOrientation:withTransitionCoordinator:", [compose makeInterfaceOrientationFrom:objc_msgSend(compose whenFailing:{"deviceOrientation"), objc_msgSend(windowScene, "interfaceOrientation")}], coordinatorCopy);
   }
 
   else
   {
-    v10 = sub_100003B9C();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100003B9C(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v11 = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring request to apply auto-rotation correction because there's no window scene to determine a valid fallback orientation", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[WARN] Ignoring request to apply auto-rotation correction because there's no window scene to determine a valid fallback orientation", v12, 2u);
     }
   }
 }

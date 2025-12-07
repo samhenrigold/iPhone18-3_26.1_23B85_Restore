@@ -12,7 +12,7 @@
 
 - (id)_analysisSummaryWithGraphOrScanner:(id)scanner
 {
-  v84 = *MEMORY[0x1E69E9840];
+  v83 = *MEMORY[0x1E69E9840];
   scannerCopy = scanner;
   v5 = objc_opt_new();
   v6 = objc_opt_new();
@@ -57,19 +57,19 @@
     }
   }
 
-  v78[0] = MEMORY[0x1E69E9820];
-  v78[1] = 3221225472;
-  v78[2] = __60__VMUDuplicatesAnalyzer__analysisSummaryWithGraphOrScanner___block_invoke;
-  v78[3] = &unk_1E827A9D8;
+  v77[0] = MEMORY[0x1E69E9820];
+  v77[1] = 3221225472;
+  v77[2] = __60__VMUDuplicatesAnalyzer__analysisSummaryWithGraphOrScanner___block_invoke;
+  v77[3] = &unk_1E827A9D8;
   v16 = scannerCopy;
-  v79 = v16;
+  v78 = v16;
   selfCopy = self;
   v17 = v6;
-  v81 = v17;
-  v63 = v16;
-  VMUEnumerateVMAnnotatedMallocObjectsWithBlock(v16, v78);
+  v80 = v17;
+  v62 = v16;
+  VMUEnumerateVMAnnotatedMallocObjectsWithBlock(v16, v77);
   v18 = self->super._debugTimer;
-  v64 = v5;
+  v63 = v5;
   if (v18)
   {
     signpostID4 = [(VMUDebugTimer *)v18 signpostID];
@@ -111,26 +111,26 @@
   }
 
   v27 = objc_opt_new();
+  v73 = 0u;
   v74 = 0u;
   v75 = 0u;
   v76 = 0u;
-  v77 = 0u;
   allKeys = [v17 allKeys];
-  v29 = [allKeys countByEnumeratingWithState:&v74 objects:v83 count:16];
+  v29 = [allKeys countByEnumeratingWithState:&v73 objects:v82 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v75;
+    v31 = *v74;
     do
     {
       for (i = 0; i != v30; ++i)
       {
-        if (*v75 != v31)
+        if (*v74 != v31)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v33 = *(*(&v74 + 1) + 8 * i);
+        v33 = *(*(&v73 + 1) + 8 * i);
         v34 = [v17 objectForKeyedSubscript:v33];
         if ([v34 count] >= 2)
         {
@@ -138,7 +138,7 @@
         }
       }
 
-      v30 = [allKeys countByEnumeratingWithState:&v74 objects:v83 count:16];
+      v30 = [allKeys countByEnumeratingWithState:&v73 objects:v82 count:16];
     }
 
     while (v30);
@@ -149,7 +149,7 @@
   {
     signpostID7 = [(VMUDebugTimer *)v35 signpostID];
     v35 = self->super._debugTimer;
-    v37 = v64;
+    v37 = v63;
     if (signpostID7)
     {
       logHandle5 = [(VMUDebugTimer *)v35 logHandle];
@@ -170,7 +170,7 @@
 
   else
   {
-    v37 = v64;
+    v37 = v63;
   }
 
   [(VMUDebugTimer *)v35 endEvent:"VMUDuplicatesAnalyzer"];
@@ -178,16 +178,16 @@
   if ([v41 count])
   {
     v42 = 0uLL;
-    v72 = 0u;
-    v73 = 0u;
     v71 = 0u;
-    *buf = 0u;
+    v72 = 0u;
     v70 = 0u;
+    *buf = 0u;
+    v69 = 0u;
     regionIdentifier = self->super._regionIdentifier;
     v44 = 0.0;
     if (regionIdentifier)
     {
-      [(VMUVMRegionIdentifier *)regionIdentifier summaryStatisticsOfAllZones];
+      objc_msgSend_summaryStatisticsOfAllZones(regionIdentifier);
       v45 = *buf;
       if (*buf)
       {
@@ -211,33 +211,33 @@
       v47 = 1;
     }
 
-    v67 = v42;
-    v68 = v42;
-    v65 = v42;
     v66 = v42;
+    v67 = v42;
+    v64 = v42;
+    v65 = v42;
     v50 = v41;
-    v51 = [v50 countByEnumeratingWithState:&v65 objects:v82 count:16];
+    v51 = [v50 countByEnumeratingWithState:&v64 objects:v81 count:16];
     if (v51)
     {
       v52 = v51;
       v53 = 0;
       v54 = 0;
-      v55 = *v66;
+      v55 = *v65;
       do
       {
         for (j = 0; j != v52; ++j)
         {
-          if (*v66 != v55)
+          if (*v65 != v55)
           {
             objc_enumerationMutation(v50);
           }
 
-          v57 = [v17 objectForKeyedSubscript:*(*(&v65 + 1) + 8 * j)];
+          v57 = [v17 objectForKeyedSubscript:*(*(&v64 + 1) + 8 * j)];
           v54 += [(NSMapTable *)v57 count];
           v53 += totalSizeOfRanges(v57);
         }
 
-        v52 = [v50 countByEnumeratingWithState:&v65 objects:v82 count:16];
+        v52 = [v50 countByEnumeratingWithState:&v64 objects:v81 count:16];
       }
 
       while (v52);
@@ -250,14 +250,14 @@
     }
 
     v58 = [[VMUAnalyzerSummaryField alloc] initWithKey:@"Duplicates total size" numericalValue:v53 objectValue:0 fieldType:2];
-    v37 = v64;
-    [v64 addObject:v58];
+    v37 = v63;
+    [v63 addObject:v58];
     if ((v47 & 1) == 0)
     {
       v59 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%2.1f", ((v53 / v44) * 100.0)];
       v60 = [[VMUAnalyzerSummaryField alloc] initWithKey:@"% of total allocations" numericalValue:0 objectValue:v59 fieldType:0];
 
-      [v64 addObject:v60];
+      [v63 addObject:v60];
       v58 = v60;
     }
 
@@ -271,8 +271,6 @@
   }
 
   [v37 addObject:v49];
-
-  v61 = *MEMORY[0x1E69E9840];
 
   return v37;
 }
@@ -323,12 +321,12 @@ void __60__VMUDuplicatesAnalyzer__analysisSummaryWithGraphOrScanner___block_invo
 
 - (BOOL)findStringDupsInGraph:(id)graph symbolicator:(_CSTypeRef)symbolicator stackLogReader:(id)reader fieldBlock:(id)block
 {
-  v120 = *MEMORY[0x1E69E9840];
+  v119 = *MEMORY[0x1E69E9840];
   graphCopy = graph;
   readerCopy = reader;
   blockCopy = block;
   v10 = objc_opt_new();
-  v80 = readerCopy;
+  v79 = readerCopy;
   if (readerCopy)
   {
     readerCopy = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:258 valueOptions:258];
@@ -350,145 +348,145 @@ void __60__VMUDuplicatesAnalyzer__analysisSummaryWithGraphOrScanner___block_invo
   }
 
   v14 = VMULiteZoneIndex(graphCopy);
-  v111[0] = MEMORY[0x1E69E9820];
-  v111[1] = 3221225472;
-  v111[2] = __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLogReader_fieldBlock___block_invoke;
-  v111[3] = &unk_1E827AA00;
-  v111[4] = self;
-  v112 = graphCopy;
-  v71 = v10;
-  v113 = v71;
-  v15 = v80;
-  v114 = v15;
-  v116 = v14;
+  v110[0] = MEMORY[0x1E69E9820];
+  v110[1] = 3221225472;
+  v110[2] = __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLogReader_fieldBlock___block_invoke;
+  v110[3] = &unk_1E827AA00;
+  v110[4] = self;
+  v111 = graphCopy;
+  v70 = v10;
+  v112 = v70;
+  v15 = v79;
+  v113 = v15;
+  v115 = v14;
   v16 = readerCopy;
-  v115 = v16;
-  v69 = v112;
-  VMUEnumerateVMAnnotatedMallocObjectsWithBlock(v112, v111);
+  v114 = v16;
+  v68 = v111;
+  VMUEnumerateVMAnnotatedMallocObjectsWithBlock(v111, v110);
   if (self->_minimumLabelCount > 1)
   {
-    v110[0] = MEMORY[0x1E69E9820];
-    v110[1] = 3221225472;
-    v110[2] = __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLogReader_fieldBlock___block_invoke_2;
-    v110[3] = &unk_1E827AA28;
-    v110[4] = self;
-    [v71 enumerateKeysAndObjectsUsingBlock:v110];
+    v109[0] = MEMORY[0x1E69E9820];
+    v109[1] = 3221225472;
+    v109[2] = __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLogReader_fieldBlock___block_invoke_2;
+    v109[3] = &unk_1E827AA28;
+    v109[4] = self;
+    [v70 enumerateKeysAndObjectsUsingBlock:v109];
   }
 
-  v106 = 0;
-  v107 = &v106;
-  v108 = 0x2020000000;
-  v109 = 0;
-  v105[0] = MEMORY[0x1E69E9820];
-  v105[1] = 3221225472;
-  v105[2] = __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLogReader_fieldBlock___block_invoke_3;
-  v105[3] = &unk_1E827AA50;
-  v105[4] = &v106;
-  [v71 enumerateKeysAndObjectsUsingBlock:v105];
-  v68 = *(v107 + 24);
-  if (v68)
+  v105 = 0;
+  v106 = &v105;
+  v107 = 0x2020000000;
+  v108 = 0;
+  v104[0] = MEMORY[0x1E69E9820];
+  v104[1] = 3221225472;
+  v104[2] = __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLogReader_fieldBlock___block_invoke_3;
+  v104[3] = &unk_1E827AA50;
+  v104[4] = &v105;
+  [v70 enumerateKeysAndObjectsUsingBlock:v104];
+  v67 = *(v106 + 24);
+  if (v67)
   {
-    allKeys = [v71 allKeys];
-    v103[0] = MEMORY[0x1E69E9820];
-    v103[1] = 3221225472;
-    v103[2] = __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLogReader_fieldBlock___block_invoke_4;
-    v103[3] = &unk_1E827AA78;
-    v74 = v71;
-    v104 = v74;
-    v18 = [allKeys sortedArrayUsingComparator:v103];
+    allKeys = [v70 allKeys];
+    v102[0] = MEMORY[0x1E69E9820];
+    v102[1] = 3221225472;
+    v102[2] = __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLogReader_fieldBlock___block_invoke_4;
+    v102[3] = &unk_1E827AA78;
+    v73 = v70;
+    v103 = v73;
+    v18 = [allKeys sortedArrayUsingComparator:v102];
 
-    if (v80 && (![v15 usesLiteMode] || (objc_msgSend(v15, "inspectingLiveProcess") & 1) == 0))
+    if (v79 && (![v15 usesLiteMode] || (objc_msgSend(v15, "inspectingLiveProcess") & 1) == 0))
     {
-      v101[0] = MEMORY[0x1E69E9820];
-      v101[1] = 3221225472;
-      v101[2] = __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLogReader_fieldBlock___block_invoke_5;
-      v101[3] = &unk_1E8278088;
-      v102 = v16;
-      [v15 enumerateMSLRecordsAndPayloads:v101];
+      v100[0] = MEMORY[0x1E69E9820];
+      v100[1] = 3221225472;
+      v100[2] = __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLogReader_fieldBlock___block_invoke_5;
+      v100[3] = &unk_1E8278088;
+      v101 = v16;
+      [v15 enumerateMSLRecordsAndPayloads:v100];
     }
 
-    v99 = 0u;
-    v100 = 0u;
-    v97 = 0u;
     v98 = 0u;
+    v99 = 0u;
+    v96 = 0u;
+    v97 = 0u;
     obj = v18;
-    v19 = [obj countByEnumeratingWithState:&v97 objects:v119 count:16];
+    v19 = [obj countByEnumeratingWithState:&v96 objects:v118 count:16];
     if (v19)
     {
       v20 = 0;
-      v72 = v19;
-      v73 = *v98;
+      v71 = v19;
+      v72 = *v97;
       do
       {
-        for (i = 0; i != v72; ++i)
+        for (i = 0; i != v71; ++i)
         {
-          if (*v98 != v73)
+          if (*v97 != v72)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v97 + 1) + 8 * i);
+          v21 = *(*(&v96 + 1) + 8 * i);
           v22 = [VMUAnalyzerSummaryField alloc];
           v23 = [(VMUAnalyzerSummaryField *)v22 initWithKey:kVMUAnalysisHeaderKey[0] numericalValue:0 objectValue:@"-----------------------------------------------------------------------" fieldType:0];
 
           blockCopy[2](blockCopy, v23);
           v24 = MEMORY[0x1E696AEC0];
           v25 = v21;
-          v75 = [v24 stringWithFormat:@"Zone %s\n", objc_msgSend(v21, "UTF8String")];
+          v74 = [v24 stringWithFormat:@"Zone %s\n", objc_msgSend(v21, "UTF8String")];
           v26 = [VMUAnalyzerSummaryField alloc];
-          v87 = [(VMUAnalyzerSummaryField *)v26 initWithKey:kVMUAnalysisHeaderKey[0] numericalValue:0 objectValue:v75 fieldType:0];
+          v86 = [(VMUAnalyzerSummaryField *)v26 initWithKey:kVMUAnalysisHeaderKey[0] numericalValue:0 objectValue:v74 fieldType:0];
 
-          blockCopy[2](blockCopy, v87);
-          v27 = [v74 objectForKeyedSubscript:v21];
+          blockCopy[2](blockCopy, v86);
+          v27 = [v73 objectForKeyedSubscript:v21];
           allKeys2 = [v27 allKeys];
-          v95[0] = MEMORY[0x1E69E9820];
-          v95[1] = 3221225472;
-          v95[2] = __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLogReader_fieldBlock___block_invoke_6;
-          v95[3] = &unk_1E827AA78;
-          v81 = v27;
-          v96 = v81;
-          v29 = [allKeys2 sortedArrayUsingComparator:v95];
+          v94[0] = MEMORY[0x1E69E9820];
+          v94[1] = 3221225472;
+          v94[2] = __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLogReader_fieldBlock___block_invoke_6;
+          v94[3] = &unk_1E827AA78;
+          v80 = v27;
+          v95 = v80;
+          v29 = [allKeys2 sortedArrayUsingComparator:v94];
 
-          if (!v80)
+          if (!v79)
           {
             v30 = [VMUAnalyzerSummaryField alloc];
             v31 = [(VMUAnalyzerSummaryField *)v30 initWithKey:kVMUAnalysisHeaderKey[0] numericalValue:0 objectValue:@"    COUNT     BYTES   AVERAGE   CONTENT" fieldType:0];
 
             blockCopy[2](blockCopy, v31);
             v32 = [VMUAnalyzerSummaryField alloc];
-            v87 = [(VMUAnalyzerSummaryField *)v32 initWithKey:kVMUAnalysisHeaderKey[0] numericalValue:0 objectValue:@"    =====     =====   =======   =======" fieldType:0];
+            v86 = [(VMUAnalyzerSummaryField *)v32 initWithKey:kVMUAnalysisHeaderKey[0] numericalValue:0 objectValue:@"    =====     =====   =======   =======" fieldType:0];
 
-            blockCopy[2](blockCopy, v87);
+            blockCopy[2](blockCopy, v86);
           }
 
-          v93 = 0u;
-          v94 = 0u;
-          v91 = 0u;
           v92 = 0u;
-          v77 = v29;
-          v33 = [v77 countByEnumeratingWithState:&v91 objects:v118 count:16];
+          v93 = 0u;
+          v90 = 0u;
+          v91 = 0u;
+          v76 = v29;
+          v33 = [v76 countByEnumeratingWithState:&v90 objects:v117 count:16];
           if (v33)
           {
-            v79 = *v92;
+            v78 = *v91;
             do
             {
-              v83 = v33;
-              for (j = 0; j != v83; ++j)
+              v82 = v33;
+              for (j = 0; j != v82; ++j)
               {
-                if (*v92 != v79)
+                if (*v91 != v78)
                 {
-                  objc_enumerationMutation(v77);
+                  objc_enumerationMutation(v76);
                 }
 
-                v35 = *(*(&v91 + 1) + 8 * j);
-                v36 = [v81 objectForKeyedSubscript:v35];
+                v35 = *(*(&v90 + 1) + 8 * j);
+                v36 = [v80 objectForKeyedSubscript:v35];
                 v37 = [(NSMapTable *)v36 count];
                 v38 = v36;
                 v39 = v37;
                 table = v38;
                 v40 = totalSizeOfRanges(v38);
                 *&v41 = v40 / v39;
-                if (v80)
+                if (v79)
                 {
                   if (v39 < 2)
                   {
@@ -504,7 +502,7 @@ void __60__VMUDuplicatesAnalyzer__analysisSummaryWithGraphOrScanner___block_invo
                   v44 = [(VMUAnalyzerSummaryField *)v43 initWithKey:kVMUAnalysisDataKey[0] numericalValue:0 objectValue:v42 fieldType:0];
 
                   blockCopy[2](blockCopy, v44);
-                  v87 = v44;
+                  v86 = v44;
 
                   context = objc_autoreleasePoolPush();
                   LODWORD(v44) = [v15 coldestFrameIsNotThreadId];
@@ -522,7 +520,7 @@ void __60__VMUDuplicatesAnalyzer__analysisSummaryWithGraphOrScanner___block_invo
                   v50 = [(VMUCallTreeRoot *)v48 initWithSymbolicator:symbolicator._opaque_1 sampler:symbolicator._opaque_2 options:0, v49];
                   [(VMUCallTreeRoot *)v50 setStackLogReader:v15];
                   v51 = objc_alloc_init(VMUBacktrace);
-                  v51->_callstack.frames = v117;
+                  v51->_callstack.frames = v116;
                   v51->_flavor = 32;
                   memset(&enumerator, 0, sizeof(enumerator));
                   NSEnumerateMapTable(&enumerator, table);
@@ -535,7 +533,7 @@ void __60__VMUDuplicatesAnalyzer__analysisSummaryWithGraphOrScanner___block_invo
                     v54 = NSMapGet(v16, key);
                     if (v53 != v54)
                     {
-                      v52 = [v15 getFramesForStackID:v54 stackFramesBuffer:v117];
+                      v52 = [v15 getFramesForStackID:v54 stackFramesBuffer:v116];
                       v53 = v54;
                     }
 
@@ -550,7 +548,7 @@ void __60__VMUDuplicatesAnalyzer__analysisSummaryWithGraphOrScanner___block_invo
                       else
                       {
                         v56 = v52 - 1;
-                        v55 = v117[v52 - 1];
+                        v55 = v116[v52 - 1];
                       }
 
                       v51->_callstack.context.thread = v55;
@@ -587,9 +585,9 @@ void __60__VMUDuplicatesAnalyzer__analysisSummaryWithGraphOrScanner___block_invo
 
                     blockCopy[2](blockCopy, v63);
                     v64 = [VMUAnalyzerSummaryField alloc];
-                    v87 = [(VMUAnalyzerSummaryField *)v64 initWithKey:kVMUAnalysisDataKey[0] numericalValue:0 objectValue:v59 fieldType:0];
+                    v86 = [(VMUAnalyzerSummaryField *)v64 initWithKey:kVMUAnalysisDataKey[0] numericalValue:0 objectValue:v59 fieldType:0];
 
-                    blockCopy[2](blockCopy, v87);
+                    blockCopy[2](blockCopy, v86);
                   }
 
                   objc_autoreleasePoolPop(context);
@@ -602,11 +600,11 @@ void __60__VMUDuplicatesAnalyzer__analysisSummaryWithGraphOrScanner___block_invo
                   v47 = [(VMUAnalyzerSummaryField *)v46 initWithKey:kVMUAnalysisDataKey[0] numericalValue:0 objectValue:v45 fieldType:0];
 
                   blockCopy[2](blockCopy, v47);
-                  v87 = v47;
+                  v86 = v47;
                 }
               }
 
-              v33 = [v77 countByEnumeratingWithState:&v91 objects:v118 count:16];
+              v33 = [v76 countByEnumeratingWithState:&v90 objects:v117 count:16];
             }
 
             while (v33);
@@ -618,17 +616,16 @@ void __60__VMUDuplicatesAnalyzer__analysisSummaryWithGraphOrScanner___block_invo
           blockCopy[2](blockCopy, v20);
         }
 
-        v72 = [obj countByEnumeratingWithState:&v97 objects:v119 count:16];
+        v71 = [obj countByEnumeratingWithState:&v96 objects:v118 count:16];
       }
 
-      while (v72);
+      while (v71);
     }
   }
 
-  _Block_object_dispose(&v106, 8);
+  _Block_object_dispose(&v105, 8);
 
-  v66 = *MEMORY[0x1E69E9840];
-  return v68;
+  return v67;
 }
 
 void __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLogReader_fieldBlock___block_invoke(uint64_t a1, uint64_t a2, void *a3, uint64_t a4)
@@ -707,28 +704,28 @@ void __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLogRead
 
 void __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLogReader_fieldBlock___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = [v4 allKeys];
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         v11 = [v4 objectForKeyedSubscript:v10];
         if ([v11 count] < *(*(a1 + 32) + 48))
         {
@@ -736,16 +733,14 @@ void __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLogRead
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLogReader_fieldBlock___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
+void *__86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLogReader_fieldBlock___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
   result = [a3 count];
   if (result)
@@ -787,18 +782,18 @@ uint64_t __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLog
   }
 }
 
-void __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLogReader_fieldBlock___block_invoke_5(uint64_t a1, int a2, void *key)
+void __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLogReader_fieldBlock___block_invoke_5(uint64_t a1, int a2, void *key, uint64_t a4, uint64_t a5)
 {
   if (a2 == 2 && NSMapGet(*(a1 + 32), key))
   {
     uniquing_table_index = msl_payload_get_uniquing_table_index();
-    v6 = *(a1 + 32);
+    v8 = *(a1 + 32);
 
-    NSMapInsert(v6, key, uniquing_table_index);
+    NSMapInsert(v8, key, uniquing_table_index);
   }
 }
 
-uint64_t __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLogReader_fieldBlock___block_invoke_6(uint64_t a1, void *a2, uint64_t a3)
+char *__86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLogReader_fieldBlock___block_invoke_6(uint64_t a1, void *a2, uint64_t a3)
 {
   v6 = [*(a1 + 32) objectForKeyedSubscript:a2];
   v7 = [*(a1 + 32) objectForKeyedSubscript:a3];
@@ -819,44 +814,44 @@ uint64_t __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLog
 
 - (BOOL)findStringDupsByStack:(id)stack stackLogReader:(id)reader fieldBlock:(id)block
 {
-  v137 = *MEMORY[0x1E69E9840];
+  v136 = *MEMORY[0x1E69E9840];
   stackCopy = stack;
   readerCopy = reader;
   blockCopy = block;
-  v85 = objc_opt_new();
+  v84 = objc_opt_new();
   v11 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:258 valueOptions:259];
   v12 = objc_opt_new();
   v13 = VMULiteZoneIndex(stackCopy);
-  v126[0] = MEMORY[0x1E69E9820];
-  v126[1] = 3221225472;
-  v126[2] = __73__VMUDuplicatesAnalyzer_findStringDupsByStack_stackLogReader_fieldBlock___block_invoke;
-  v126[3] = &unk_1E827AA00;
+  v125[0] = MEMORY[0x1E69E9820];
+  v125[1] = 3221225472;
+  v125[2] = __73__VMUDuplicatesAnalyzer_findStringDupsByStack_stackLogReader_fieldBlock___block_invoke;
+  v125[3] = &unk_1E827AA00;
   v14 = readerCopy;
-  v132 = v13;
-  v127 = v14;
+  v131 = v13;
+  v126 = v14;
   selfCopy = self;
   selfCopy2 = self;
-  v129 = stackCopy;
-  v82 = v12;
-  v130 = v82;
+  v128 = stackCopy;
+  v81 = v12;
+  v129 = v81;
   v15 = v11;
-  v131 = v15;
-  v83 = v129;
-  VMUEnumerateVMAnnotatedMallocObjectsWithBlock(v129, v126);
+  v130 = v15;
+  v82 = v128;
+  VMUEnumerateVMAnnotatedMallocObjectsWithBlock(v128, v125);
   if (v14 && (![v14 usesLiteMode] || (objc_msgSend(v14, "inspectingLiveProcess") & 1) == 0))
   {
-    v124[0] = MEMORY[0x1E69E9820];
-    v124[1] = 3221225472;
-    v124[2] = __73__VMUDuplicatesAnalyzer_findStringDupsByStack_stackLogReader_fieldBlock___block_invoke_2;
-    v124[3] = &unk_1E8278088;
-    v125 = v15;
-    [v14 enumerateMSLRecordsAndPayloads:v124];
+    v123[0] = MEMORY[0x1E69E9820];
+    v123[1] = 3221225472;
+    v123[2] = __73__VMUDuplicatesAnalyzer_findStringDupsByStack_stackLogReader_fieldBlock___block_invoke_2;
+    v123[3] = &unk_1E8278088;
+    v124 = v15;
+    [v14 enumerateMSLRecordsAndPayloads:v123];
   }
 
-  v90 = v14;
+  v89 = v14;
   v16 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:0 valueOptions:259];
   memset(&enumerator, 0, sizeof(enumerator));
-  v84 = v15;
+  v83 = v15;
   NSEnumerateMapTable(&enumerator, v15);
   value = 0;
   table = v16;
@@ -878,7 +873,7 @@ uint64_t __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLog
           v20->i64[0] = 0;
           v20->i64[1] = 0;
           v21 = [MEMORY[0x1E696AD18] mapTableWithKeyOptions:2 valueOptions:259];
-          [v85 addObject:v21];
+          [v84 addObject:v21];
           v20[1].i64[0] = v21;
           NSMapInsertKnownAbsent(table, [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:v18], v20);
         }
@@ -911,48 +906,48 @@ uint64_t __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLog
   NSEndMapTableEnumeration(&enumerator);
   if (selfCopy->_minimumLabelCount >= 2)
   {
-    v91 = objc_autoreleasePoolPush();
+    v90 = objc_autoreleasePoolPush();
+    v117 = 0u;
     v118 = 0u;
     v119 = 0u;
     v120 = 0u;
-    v121 = 0u;
     obj = NSAllMapTableKeys(v16);
-    v97 = [obj countByEnumeratingWithState:&v118 objects:v136 count:16];
-    if (v97)
+    v96 = [obj countByEnumeratingWithState:&v117 objects:v135 count:16];
+    if (v96)
     {
-      v95 = *v119;
+      v94 = *v118;
       do
       {
-        for (i = 0; i != v97; ++i)
+        for (i = 0; i != v96; ++i)
         {
-          if (*v119 != v95)
+          if (*v118 != v94)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v118 + 1) + 8 * i);
+          v27 = *(*(&v117 + 1) + 8 * i);
           contexta = objc_autoreleasePoolPush();
           v28 = [(NSMapTable *)v16 objectForKey:v27];
-          v116 = 0u;
-          v117 = 0u;
-          v114 = 0u;
           v115 = 0u;
+          v116 = 0u;
+          v113 = 0u;
+          v114 = 0u;
           v29 = NSAllMapTableKeys(*(v28 + 16));
-          v30 = [v29 countByEnumeratingWithState:&v114 objects:v135 count:16];
+          v30 = [v29 countByEnumeratingWithState:&v113 objects:v134 count:16];
           if (v30)
           {
             v31 = v30;
-            v32 = *v115;
+            v32 = *v114;
             do
             {
               for (j = 0; j != v31; ++j)
               {
-                if (*v115 != v32)
+                if (*v114 != v32)
                 {
                   objc_enumerationMutation(v29);
                 }
 
-                v34 = *(*(&v114 + 1) + 8 * j);
+                v34 = *(*(&v113 + 1) + 8 * j);
                 v35 = [*(v28 + 16) objectForKey:v34];
                 v36 = v35[1];
                 if (v36 < selfCopy->_minimumLabelCount)
@@ -964,7 +959,7 @@ uint64_t __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLog
                 }
               }
 
-              v31 = [v29 countByEnumeratingWithState:&v114 objects:v135 count:16];
+              v31 = [v29 countByEnumeratingWithState:&v113 objects:v134 count:16];
             }
 
             while (v31);
@@ -979,41 +974,41 @@ uint64_t __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLog
           objc_autoreleasePoolPop(contexta);
         }
 
-        v97 = [obj countByEnumeratingWithState:&v118 objects:v136 count:16];
+        v96 = [obj countByEnumeratingWithState:&v117 objects:v135 count:16];
       }
 
-      while (v97);
+      while (v96);
     }
 
-    objc_autoreleasePoolPop(v91);
+    objc_autoreleasePoolPop(v90);
   }
 
   v38 = [(NSMapTable *)v16 count];
-  v39 = v90;
-  v40 = v84;
+  v39 = v89;
+  v40 = v83;
   if (v38)
   {
     v41 = NSAllMapTableKeys(v16);
-    v112[0] = MEMORY[0x1E69E9820];
-    v112[1] = 3221225472;
-    v112[2] = __73__VMUDuplicatesAnalyzer_findStringDupsByStack_stackLogReader_fieldBlock___block_invoke_3;
-    v112[3] = &unk_1E8279EA0;
-    v89 = v16;
-    v113 = v89;
-    v42 = [v41 sortedArrayUsingComparator:v112];
+    v111[0] = MEMORY[0x1E69E9820];
+    v111[1] = 3221225472;
+    v111[2] = __73__VMUDuplicatesAnalyzer_findStringDupsByStack_stackLogReader_fieldBlock___block_invoke_3;
+    v111[3] = &unk_1E8279EA0;
+    v88 = v16;
+    v112 = v88;
+    v42 = [v41 sortedArrayUsingComparator:v111];
 
-    v110 = 0u;
-    v111 = 0u;
-    v108 = 0u;
     v109 = 0u;
-    v86 = v42;
-    v92 = [v86 countByEnumeratingWithState:&v108 objects:v134 count:16];
-    if (v92)
+    v110 = 0u;
+    v107 = 0u;
+    v108 = 0u;
+    v85 = v42;
+    v91 = [v85 countByEnumeratingWithState:&v107 objects:v133 count:16];
+    if (v91)
     {
-      v81 = v38;
+      v80 = v38;
       v43 = 0;
       v44 = (blockCopy + 2);
-      v88 = *v109;
+      v87 = *v108;
       v45 = 0x1E8277000uLL;
       contextb = blockCopy;
       do
@@ -1021,15 +1016,15 @@ uint64_t __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLog
         v46 = 0;
         do
         {
-          if (*v109 != v88)
+          if (*v108 != v87)
           {
-            objc_enumerationMutation(v86);
+            objc_enumerationMutation(v85);
           }
 
-          v98 = v46;
-          obja = *(*(&v108 + 1) + 8 * v46);
-          v96 = objc_autoreleasePoolPush();
-          v47 = [(NSMapTable *)v89 objectForKey:obja];
+          v97 = v46;
+          obja = *(*(&v107 + 1) + 8 * v46);
+          v95 = objc_autoreleasePoolPush();
+          v47 = [(NSMapTable *)v88 objectForKey:obja];
           v48 = objc_alloc(*(v45 + 320));
           v49 = [v48 initWithKey:kVMUAnalysisHeaderKey[0] numericalValue:0 objectValue:@"    COUNT     BYTES   AVERAGE   CONTENT" fieldType:0];
 
@@ -1054,35 +1049,35 @@ uint64_t __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLog
           v56 = v44;
           v57 = v45;
           v58 = NSAllMapTableKeys(*(v47 + 16));
-          v107[0] = MEMORY[0x1E69E9820];
-          v107[1] = 3221225472;
-          v107[2] = __73__VMUDuplicatesAnalyzer_findStringDupsByStack_stackLogReader_fieldBlock___block_invoke_4;
-          v107[3] = &__block_descriptor_40_e11_q24__0_8_16l;
-          v107[4] = v47;
-          v59 = [v58 sortedArrayUsingComparator:v107];
+          v106[0] = MEMORY[0x1E69E9820];
+          v106[1] = 3221225472;
+          v106[2] = __73__VMUDuplicatesAnalyzer_findStringDupsByStack_stackLogReader_fieldBlock___block_invoke_4;
+          v106[3] = &__block_descriptor_40_e11_q24__0_8_16l;
+          v106[4] = v47;
+          v59 = [v58 sortedArrayUsingComparator:v106];
 
-          v105 = 0u;
-          v106 = 0u;
-          v103 = 0u;
           v104 = 0u;
+          v105 = 0u;
+          v102 = 0u;
+          v103 = 0u;
           v60 = v59;
-          v61 = [v60 countByEnumeratingWithState:&v103 objects:v133 count:16];
+          v61 = [v60 countByEnumeratingWithState:&v102 objects:v132 count:16];
           if (v61)
           {
             v62 = v61;
-            v63 = *v104;
+            v63 = *v103;
             do
             {
               v64 = 0;
               v65 = v51;
               do
               {
-                if (*v104 != v63)
+                if (*v103 != v63)
                 {
                   objc_enumerationMutation(v60);
                 }
 
-                v66 = *(*(&v103 + 1) + 8 * v64);
+                v66 = *(*(&v102 + 1) + 8 * v64);
                 v67 = [*(v47 + 16) objectForKey:v66];
                 v68 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%9lu %9lu %9.1f   %@", v67[1], *v67, (*v67 / v67[1]), v66];
                 v69 = objc_alloc(*(v57 + 320));
@@ -1094,7 +1089,7 @@ uint64_t __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLog
               }
 
               while (v62 != v64);
-              v62 = [v60 countByEnumeratingWithState:&v103 objects:v133 count:16];
+              v62 = [v60 countByEnumeratingWithState:&v102 objects:v132 count:16];
             }
 
             while (v62);
@@ -1117,7 +1112,7 @@ uint64_t __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLog
             v73 = 0;
           }
 
-          v74 = [v90 symbolicatedBacktraceForStackID:unsignedLongLongValue options:v73];
+          v74 = [v89 symbolicatedBacktraceForStackID:unsignedLongLongValue options:v73];
           v75 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@", @"STACK: ", v74];
           v76 = objc_alloc(*(v45 + 320));
           v77 = [v76 initWithKey:kVMUAnalysisDataKey[0] numericalValue:0 objectValue:v75 fieldType:0];
@@ -1129,24 +1124,23 @@ uint64_t __86__VMUDuplicatesAnalyzer_findStringDupsInGraph_symbolicator_stackLog
           v44 = v56;
           contextb[2](contextb, v43);
 
-          objc_autoreleasePoolPop(v96);
-          v46 = v98 + 1;
+          objc_autoreleasePoolPop(v95);
+          v46 = v97 + 1;
         }
 
-        while ((v98 + 1) != v92);
-        v92 = [v86 countByEnumeratingWithState:&v108 objects:v134 count:16];
+        while ((v97 + 1) != v91);
+        v91 = [v85 countByEnumeratingWithState:&v107 objects:v133 count:16];
       }
 
-      while (v92);
+      while (v91);
 
-      v40 = v84;
+      v40 = v83;
       v16 = table;
-      v38 = v81;
-      v39 = v90;
+      v38 = v80;
+      v39 = v89;
     }
   }
 
-  v79 = *MEMORY[0x1E69E9840];
   return v38 != 0;
 }
 
@@ -1231,16 +1225,16 @@ void __73__VMUDuplicatesAnalyzer_findStringDupsByStack_stackLogReader_fieldBlock
   }
 }
 
-uint64_t __73__VMUDuplicatesAnalyzer_findStringDupsByStack_stackLogReader_fieldBlock___block_invoke_2(uint64_t result, int a2, void *key)
+NSMapTable **__73__VMUDuplicatesAnalyzer_findStringDupsByStack_stackLogReader_fieldBlock___block_invoke_2(NSMapTable **result, int a2, void *key, uint64_t a4, uint64_t a5)
 {
   if (a2 == 2)
   {
-    result = NSMapGet(*(result + 32), key);
+    result = NSMapGet(result[4], key);
     if (result)
     {
-      v3 = result;
+      v5 = result;
       result = msl_payload_get_uniquing_table_index();
-      *(v3 + 16) = result;
+      v5[2] = result;
     }
   }
 

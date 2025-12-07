@@ -46,13 +46,12 @@
 
 - (void)initWithIdentifier:(os_log_t)log .cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x29EDCA608];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_29BADF000, log, OS_LOG_TYPE_DEBUG, "Monitoring workspace: %@ %@", &v4, 0x16u);
-  v3 = *MEMORY[0x29EDCA608];
+  v7 = *MEMORY[0x29EDCA608];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_29BADF000, log, OS_LOG_TYPE_DEBUG, "Monitoring workspace: %@ %@", &v3, 0x16u);
 }
 
 @end

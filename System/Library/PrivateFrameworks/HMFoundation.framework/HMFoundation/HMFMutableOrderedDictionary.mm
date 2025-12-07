@@ -1,5 +1,6 @@
 @interface HMFMutableOrderedDictionary
 - (HMFMutableOrderedDictionary)initWithCapacity:(unint64_t)capacity;
+- (HMFMutableOrderedDictionary)initWithObjects:(id)objects forKeys:(id)keys copyObjects:(BOOL)copyObjects copyKeys:(BOOL)copyKeys;
 - (HMFMutableOrderedDictionary)initWithObjects:(id)objects orderedKeySet:(id)set;
 - (NSArray)allKeys;
 - (NSArray)allValues;
@@ -19,6 +20,44 @@
   v5.receiver = self;
   v5.super_class = HMFMutableOrderedDictionary;
   return [(HMFOrderedDictionary *)&v5 initWithObjects:objects orderedKeySet:set];
+}
+
+- (HMFMutableOrderedDictionary)initWithObjects:(id)objects forKeys:(id)keys copyObjects:(BOOL)copyObjects copyKeys:(BOOL)copyKeys
+{
+  copyKeysCopy = copyKeys;
+  copyObjectsCopy = copyObjects;
+  v10 = MEMORY[0x277CBEB18];
+  keysCopy = keys;
+  objectsCopy = objects;
+  v13 = [v10 alloc];
+  v14 = MEMORY[0x277CBEBF8];
+  if (objectsCopy)
+  {
+    v15 = objectsCopy;
+  }
+
+  else
+  {
+    v15 = MEMORY[0x277CBEBF8];
+  }
+
+  v16 = [v13 initWithArray:v15 copyItems:copyObjectsCopy];
+
+  v17 = objc_alloc(MEMORY[0x277CBEB40]);
+  if (keysCopy)
+  {
+    v18 = keysCopy;
+  }
+
+  else
+  {
+    v18 = v14;
+  }
+
+  v19 = [v17 initWithArray:v18 copyItems:copyKeysCopy];
+
+  v20 = [(HMFMutableOrderedDictionary *)self initWithObjects:v16 orderedKeySet:v19];
+  return v20;
 }
 
 - (HMFMutableOrderedDictionary)initWithCapacity:(unint64_t)capacity
@@ -95,33 +134,33 @@
 
 - (void)removeObjectsForKeys:(id)keys
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   keysCopy = keys;
   v5 = [keysCopy count];
   if (v5 >= 2)
   {
     firstObject = objc_alloc_init(MEMORY[0x277CCAB58]);
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v7 = keysCopy;
-    v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = *v14;
       do
       {
         v11 = 0;
         do
         {
-          if (*v15 != v10)
+          if (*v14 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = [(NSOrderedSet *)self->super._keys indexOfObject:*(*(&v14 + 1) + 8 * v11), v14];
+          v12 = [(NSOrderedSet *)self->super._keys indexOfObject:*(*(&v13 + 1) + 8 * v11), v13];
           if (v12 != 0x7FFFFFFFFFFFFFFFLL)
           {
             [firstObject addIndex:v12];
@@ -131,7 +170,7 @@
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v9);
@@ -148,8 +187,6 @@
     [(HMFMutableOrderedDictionary *)self removeObjectForKey:firstObject];
 LABEL_14:
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setOrderedDictionary:(id)dictionary

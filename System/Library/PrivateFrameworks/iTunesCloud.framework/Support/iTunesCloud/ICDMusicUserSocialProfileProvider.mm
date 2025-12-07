@@ -9,6 +9,7 @@
 - (void)_onQueue_setupRetrySourceForAttempt:(unsigned int)attempt;
 - (void)_onQueue_teardownRetrySource;
 - (void)_performMusicKitRequestWithURL:(id)l storeRequestContext:(id)context ignoreCache:(BOOL)cache completion:(id)completion;
+- (void)_performMusicUserProfileRequestWithUserProfileContext:(id)context ignoreCache:(BOOL)cache completion:(id)completion;
 - (void)environmentMonitorDidChangeNetworkReachability:(id)reachability;
 - (void)fetchMusicUserProfileWithStoreRequestContext:(id)context ignoreCache:(BOOL)cache completion:(id)completion;
 @end
@@ -160,6 +161,25 @@
   }
 
   return v8;
+}
+
+- (void)_performMusicUserProfileRequestWithUserProfileContext:(id)context ignoreCache:(BOOL)cache completion:(id)completion
+{
+  cacheCopy = cache;
+  contextCopy = context;
+  completionCopy = completion;
+  v10 = +[ICMusicUserProfile mediaAPIRequestURL];
+  storeRequestContext = [contextCopy storeRequestContext];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_1000EC730;
+  v14[3] = &unk_1001DDD20;
+  v14[4] = self;
+  v15 = contextCopy;
+  v16 = completionCopy;
+  v12 = completionCopy;
+  v13 = contextCopy;
+  [(ICDMusicUserSocialProfileProvider *)self _performMusicKitRequestWithURL:v10 storeRequestContext:storeRequestContext ignoreCache:cacheCopy completion:v14];
 }
 
 - (void)_clearCacheForContext:(id)context

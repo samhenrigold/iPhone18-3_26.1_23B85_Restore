@@ -21,7 +21,7 @@
   v12.receiver = self;
   v12.super_class = PXVideoContentProviderLoadingResult;
   v4 = [(PXVideoContentProviderLoadingResult *)&v12 description];
-  [(PXVideoContentProviderLoadingResult *)self timeRange];
+  objc_msgSend_timeRange(self);
   v5 = PXCMTimeRangeDescription(v11);
   playerItem = [(PXVideoContentProviderLoadingResult *)self playerItem];
   v7 = [(PXVideoContentProviderLoadingResult *)self url];

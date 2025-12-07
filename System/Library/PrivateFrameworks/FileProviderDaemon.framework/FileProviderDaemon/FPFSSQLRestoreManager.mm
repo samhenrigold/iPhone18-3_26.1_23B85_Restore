@@ -91,16 +91,14 @@ void __54__FPFSSQLRestoreManager_restoreWithCompletionHandler___block_invoke(uin
 uint64_t __54__FPFSSQLRestoreManager_restoreWithCompletionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   [*(a1 + 32) reportPurgencyRestoreCompletionTelemetryWithError:a2];
-  v3 = *(a1 + 56);
-  v4 = *(a1 + 40);
-  v5 = *(*(a1 + 48) + 16);
+  v3 = *(*(a1 + 48) + 16);
 
-  return v5();
+  return v3();
 }
 
 - (void)reportDatabaseRestoreCompletionTelemetryWithError:(id)error atStep:(id)step
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   stepCopy = step;
   if (errorCopy)
@@ -124,33 +122,31 @@ uint64_t __54__FPFSSQLRestoreManager_restoreWithCompletionHandler___block_invoke
   v12 = fp_current_or_default_log();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    v15 = @"nil";
+    v14 = @"nil";
     if (errorCopy)
     {
-      v15 = errorCopy;
+      v14 = errorCopy;
     }
 
     *buf = 138412546;
-    v20 = v15;
-    v21 = 2112;
-    v22 = stepCopy;
+    v19 = v14;
+    v20 = 2112;
+    v21 = stepCopy;
     _os_log_debug_impl(&dword_1CEFC7000, v12, OS_LOG_TYPE_DEBUG, "[DEBUG] reporting d2d database restore telemetry with error %@, step %@", buf, 0x16u);
   }
 
-  v16[0] = @"operationType";
-  v16[1] = @"reason";
-  v16[2] = @"operationSide";
-  v17 = v11;
-  v18 = vbslq_s8(vceqzq_s64(*&self->_backupBuild), vdupq_n_s64(@"na"), *&self->_backupBuild);
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:v16 count:3];
+  v15[0] = @"operationType";
+  v15[1] = @"reason";
+  v15[2] = @"operationSide";
+  v16 = v11;
+  v17 = vbslq_s8(vceqzq_s64(*&self->_backupBuild), vdupq_n_s64(@"na"), *&self->_backupBuild);
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v16 forKeys:v15 count:3];
   [(FPRTCReportingSession *)self->_rtcReportingDatabase postReportWithCategory:1 type:1 payload:v13 error:v9];
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportPurgencyRestoreCompletionTelemetryWithError:(id)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   v5 = errorCopy;
   if (errorCopy)
@@ -167,24 +163,22 @@ uint64_t __54__FPFSSQLRestoreManager_restoreWithCompletionHandler___block_invoke
   v8 = fp_current_or_default_log();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v11 = @"nil";
+    v10 = @"nil";
     if (v5)
     {
-      v11 = v5;
+      v10 = v5;
     }
 
     *buf = 138412290;
-    v15 = v11;
+    v14 = v10;
     _os_log_debug_impl(&dword_1CEFC7000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] reporting d2d purgency restore telemetry with error %@", buf, 0xCu);
   }
 
-  v12[0] = @"reason";
-  v12[1] = @"operationSide";
-  v13 = vbslq_s8(vceqzq_s64(*&self->_backupBuild), vdupq_n_s64(@"na"), *&self->_backupBuild);
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v13 forKeys:v12 count:2];
+  v11[0] = @"reason";
+  v11[1] = @"operationSide";
+  v12 = vbslq_s8(vceqzq_s64(*&self->_backupBuild), vdupq_n_s64(@"na"), *&self->_backupBuild);
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v12 forKeys:v11 count:2];
   [(FPRTCReportingSession *)self->_rtcReportingPurgency postReportWithCategory:1 type:1 payload:v9 error:v7];
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -32,7 +32,7 @@
   v9 = !v8;
   if (v8)
   {
-    v11 = sub_100004FC8();
+    v11 = sub_100004FC8(v7);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -59,47 +59,48 @@
   v8 = 0;
   if (dataCopy && keyDataCopy)
   {
-    v9 = sub_100004FC8();
+    v9 = sub_100004FC8(keyDataCopy);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       fm_hexString = [v7 fm_hexString];
       *buf = 138412546;
-      v21 = fm_hexString;
-      v22 = 2112;
-      v23 = dataCopy;
+      v22 = fm_hexString;
+      v23 = 2112;
+      v24 = dataCopy;
       _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "### privateKey = %@ cipherText = %@", buf, 0x16u);
     }
 
     v11 = [objc_opt_class() dataToKey:v7 isPublic:0];
-    v12 = sub_100004FC8();
+    v12 = sub_100004FC8(v11);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v21 = v11;
+      v22 = v11;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "### decoded privateKey = %@", buf, 0xCu);
     }
 
     error = 0;
-    v8 = SecKeyCreateDecryptedData(v11, kSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA256AESGCM, dataCopy, &error);
-    if (v8)
+    v13 = SecKeyCreateDecryptedData(v11, kSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA256AESGCM, dataCopy, &error);
+    v8 = v13;
+    if (v13)
     {
-      v13 = sub_100004FC8();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_100004FC8(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         bytes = [(__CFData *)v8 bytes];
         *buf = 136315138;
-        v21 = bytes;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "### decryption success with cipherText = %s", buf, 0xCu);
+        v22 = bytes;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "### decryption success with cipherText = %s", buf, 0xCu);
       }
 
-      v15 = v8;
+      v16 = v8;
     }
 
     else
     {
-      v16 = error;
-      v17 = sub_100004FC8();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v17 = error;
+      v18 = sub_100004FC8(0);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         sub_100015DEC();
       }
@@ -111,97 +112,101 @@
 
 + (void)testCrypto
 {
-  v29[0] = kSecAttrKeyType;
-  v29[1] = kSecAttrKeySizeInBits;
-  v30[0] = kSecAttrKeyTypeEC;
-  v30[1] = &off_100028CA8;
-  v3 = [NSDictionary dictionaryWithObjects:v30 forKeys:v29 count:2];
+  v34[0] = kSecAttrKeyType;
+  v34[1] = kSecAttrKeySizeInBits;
+  v35[0] = kSecAttrKeyTypeEC;
+  v35[1] = &off_100028CA8;
+  v3 = [NSDictionary dictionaryWithObjects:v35 forKeys:v34 count:2];
   error = 0;
   v4 = SecKeyCreateRandomKey(v3, &error);
-  v5 = sub_100004FC8();
+  v5 = sub_100004FC8(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v26 = error;
+    v31 = error;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "### key gen completed with %@", buf, 0xCu);
   }
 
   v6 = SecKeyCopyPublicKey(v4);
-  if (SecKeyIsAlgorithmSupported(v6, kSecKeyOperationTypeEncrypt, kSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA256AESGCM))
+  IsAlgorithmSupported = SecKeyIsAlgorithmSupported(v6, kSecKeyOperationTypeEncrypt, kSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA256AESGCM);
+  if (IsAlgorithmSupported)
   {
-    v7 = [NSData dataWithBytes:"This is a secret!\n" length:19];
-    v8 = [v7 length];
-    v9 = SecKeyGetBlockSize(v6) - 130;
-    v10 = sub_100004FC8();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v8 = [NSData dataWithBytes:"This is a secret!\n" length:19];
+    v9 = [v8 length];
+    BlockSize = SecKeyGetBlockSize(v6);
+    v11 = BlockSize - 130;
+    v12 = sub_100004FC8(BlockSize);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      BlockSize = SecKeyGetBlockSize(v6);
+      v13 = SecKeyGetBlockSize(v6);
       *buf = 134217984;
-      v26 = (BlockSize - 130);
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "### max message size %lu", buf, 0xCu);
+      v31 = (v13 - 130);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "### max message size %lu", buf, 0xCu);
     }
 
-    if (v8 >= v9)
+    if (v9 >= v11)
     {
-      v12 = sub_100004FC8();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v16 = sub_100004FC8(v14);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        sub_100015E60(v7);
+        sub_100015E60(v8);
       }
     }
 
     else
     {
-      v23 = 0;
-      v12 = SecKeyCreateEncryptedData(v6, kSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA256AESGCM, v7, &v23);
-      if (v12)
+      v28 = 0;
+      v15 = SecKeyCreateEncryptedData(v6, kSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA256AESGCM, v8, &v28);
+      v16 = v15;
+      if (v15)
       {
-        v13 = sub_100004FC8();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v17 = sub_100004FC8(v15);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
-          bytes = [v12 bytes];
+          bytes = [v16 bytes];
           *buf = 138412546;
-          v26 = v12;
-          v27 = 2080;
-          v28 = bytes;
-          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "### encryption success with cipherText = %@\n cipherString = %s", buf, 0x16u);
+          v31 = v16;
+          v32 = 2080;
+          v33 = bytes;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "### encryption success with cipherText = %@\n cipherString = %s", buf, 0x16u);
         }
 
-        v23 = 0;
-        v15 = SecKeyCreateDecryptedData(v4, kSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA256AESGCM, v12, &v23);
-        if (v15)
+        v28 = 0;
+        v19 = SecKeyCreateDecryptedData(v4, kSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA256AESGCM, v16, &v28);
+        v20 = v19;
+        if (v19)
         {
-          v16 = sub_100004FC8();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+          v21 = sub_100004FC8(v19);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
           {
-            bytes2 = [(__CFData *)v15 bytes];
+            bytes2 = [(__CFData *)v20 bytes];
             *buf = 136315138;
-            v26 = bytes2;
-            _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "### decryption success with cipherText = %s", buf, 0xCu);
+            v31 = bytes2;
+            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "### decryption success with cipherText = %s", buf, 0xCu);
           }
 
-          v18 = objc_opt_class();
-          v19 = [self keyToData:v6];
-          v20 = [self keyToData:v4];
-          [v18 testCrypto2:v19 privateKey:v20];
+          v23 = objc_opt_class();
+          v24 = [self keyToData:v6];
+          v25 = [self keyToData:v4];
+          [v23 testCrypto2:v24 privateKey:v25];
         }
 
         else
         {
-          v19 = v23;
-          v20 = sub_100004FC8();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+          v24 = v28;
+          v25 = sub_100004FC8(0);
+          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
           {
-            sub_100015EEC(v19);
+            sub_100015EEC(v24);
           }
         }
       }
 
       else
       {
-        v21 = v23;
-        v22 = sub_100004FC8();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v26 = v28;
+        v27 = sub_100004FC8(0);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
         {
           sub_100015F8C();
         }
@@ -211,8 +216,8 @@
 
   else
   {
-    v7 = sub_100004FC8();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_100004FC8(IsAlgorithmSupported);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_100016000();
     }
@@ -225,98 +230,102 @@
   keyCopy = key;
   v7 = [objc_opt_class() dataToKey:keyCopy isPublic:0];
   v8 = [objc_opt_class() dataToKey:crypto2Copy isPublic:1];
-  v9 = sub_100004FC8();
+  v9 = sub_100004FC8(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v27 = crypto2Copy;
-    v28 = 2112;
-    v29 = keyCopy;
+    v33 = crypto2Copy;
+    v34 = 2112;
+    v35 = keyCopy;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "### publicKeyData = %@ privateKeyData = %@", buf, 0x16u);
   }
 
-  v10 = sub_100004FC8();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = sub_100004FC8(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     bytes = [crypto2Copy bytes];
     bytes2 = [keyCopy bytes];
     *buf = 136315394;
-    v27 = bytes;
-    v28 = 2080;
-    v29 = bytes2;
-    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "### string publicKeyData = %s privateKeyData = %s", buf, 0x16u);
+    v33 = bytes;
+    v34 = 2080;
+    v35 = bytes2;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "### string publicKeyData = %s privateKeyData = %s", buf, 0x16u);
   }
 
-  if (SecKeyIsAlgorithmSupported(v8, kSecKeyOperationTypeEncrypt, kSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA256AESGCM))
+  IsAlgorithmSupported = SecKeyIsAlgorithmSupported(v8, kSecKeyOperationTypeEncrypt, kSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA256AESGCM);
+  if (IsAlgorithmSupported)
   {
-    v13 = [NSData dataWithBytes:"This is a secret!\n" length:19];
-    v14 = [v13 length];
-    v15 = SecKeyGetBlockSize(v8) - 130;
-    v16 = sub_100004FC8();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v15 = [NSData dataWithBytes:"This is a secret!\n" length:19];
+    v16 = [v15 length];
+    BlockSize = SecKeyGetBlockSize(v8);
+    v18 = BlockSize - 130;
+    v19 = sub_100004FC8(BlockSize);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
     {
-      BlockSize = SecKeyGetBlockSize(v8);
+      v20 = SecKeyGetBlockSize(v8);
       *buf = 134217984;
-      v27 = (BlockSize - 130);
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "### max message size %lu", buf, 0xCu);
+      v33 = (v20 - 130);
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "### max message size %lu", buf, 0xCu);
     }
 
-    if (v14 >= v15)
+    if (v16 >= v18)
     {
-      v18 = sub_100004FC8();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v23 = sub_100004FC8(v21);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        sub_100015E60(v13);
+        sub_100015E60(v15);
       }
     }
 
     else
     {
       error = 0;
-      v18 = SecKeyCreateEncryptedData(v8, kSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA256AESGCM, v13, &error);
-      if (v18)
+      v22 = SecKeyCreateEncryptedData(v8, kSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA256AESGCM, v15, &error);
+      v23 = v22;
+      if (v22)
       {
-        v19 = sub_100004FC8();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v24 = sub_100004FC8(v22);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          bytes3 = [v18 bytes];
+          bytes3 = [v23 bytes];
           *buf = 138412546;
-          v27 = v18;
-          v28 = 2080;
-          v29 = bytes3;
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "### encryption success with cipherText = %@\n cipherString = %s", buf, 0x16u);
+          v33 = v23;
+          v34 = 2080;
+          v35 = bytes3;
+          _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "### encryption success with cipherText = %@\n cipherString = %s", buf, 0x16u);
         }
 
         error = 0;
-        v21 = SecKeyCreateDecryptedData(v7, kSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA256AESGCM, v18, &error);
-        if (v21)
+        v26 = SecKeyCreateDecryptedData(v7, kSecKeyAlgorithmECIESEncryptionStandardVariableIVX963SHA256AESGCM, v23, &error);
+        v27 = v26;
+        if (v26)
         {
-          v22 = sub_100004FC8();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v28 = sub_100004FC8(v26);
+          if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
           {
-            bytes4 = [(__CFData *)v21 bytes];
+            bytes4 = [(__CFError *)v27 bytes];
             *buf = 136315138;
-            v27 = bytes4;
-            _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "### decryption success with cipherText = %s", buf, 0xCu);
+            v33 = bytes4;
+            _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "### decryption success with cipherText = %s", buf, 0xCu);
           }
         }
 
         else
         {
-          v22 = error;
-          v24 = sub_100004FC8();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          v28 = error;
+          v30 = sub_100004FC8(0);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
-            sub_100015EEC(v22);
+            sub_100015EEC(v28);
           }
         }
       }
 
       else
       {
-        v21 = error;
-        v22 = sub_100004FC8();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+        v27 = error;
+        v28 = sub_100004FC8(0);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           sub_100015F8C();
         }
@@ -326,8 +335,8 @@
 
   else
   {
-    v13 = sub_100004FC8();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = sub_100004FC8(IsAlgorithmSupported);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       sub_100016000();
     }
@@ -341,7 +350,7 @@
   if (!v3)
   {
     v4 = error;
-    v5 = sub_100004FC8();
+    v5 = sub_100004FC8(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -360,8 +369,8 @@
     return 0;
   }
 
-  v15[0] = kSecAttrKeyType;
-  v15[1] = kSecAttrKeyClass;
+  v16[0] = kSecAttrKeyType;
+  v16[1] = kSecAttrKeyClass;
   v4 = &kSecAttrKeyClassPublic;
   if (!public)
   {
@@ -369,24 +378,24 @@
   }
 
   v5 = *v4;
-  v16[0] = kSecAttrKeyTypeEC;
-  v16[1] = v5;
-  v15[2] = kSecAttrKeySizeInBits;
-  v16[2] = &off_100028CA8;
+  v17[0] = kSecAttrKeyTypeEC;
+  v17[1] = v5;
+  v16[2] = kSecAttrKeySizeInBits;
+  v17[2] = &off_100028CA8;
   keyCopy = key;
-  v7 = [NSDictionary dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v7 = [NSDictionary dictionaryWithObjects:v17 forKeys:v16 count:3];
   error = 0;
   v8 = SecKeyCreateWithData(keyCopy, v7, &error);
 
   if (!v8)
   {
-    v9 = error;
-    v10 = sub_100004FC8();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v10 = error;
+    v11 = sub_100004FC8(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v14 = v9;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "### error generating keys = %@", buf, 0xCu);
+      v15 = v10;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "### error generating keys = %@", buf, 0xCu);
     }
   }
 

@@ -1,4 +1,5 @@
 @interface MLCArithmeticLayer
++ (MLCArithmeticLayer)layerWithOperation:(MLCArithmeticOperation)operation;
 - (BOOL)compileForDevice:(id)device sourceTensors:(id)tensors resultTensor:(id)tensor;
 - (BOOL)isSupportedShapeForTensorSources:(id)sources;
 - (BOOL)skipGradientComputationForSourceTensor:(id)tensor resultTensor:(id)resultTensor;
@@ -15,36 +16,24 @@
 {
   tensorCopy = tensor;
   resultTensorCopy = resultTensor;
-  if ([(MLCArithmeticLayer *)self operation]&& [(MLCArithmeticLayer *)self operation]!= MLCArithmeticOperationSubtract)
+  if ((-[MLCArithmeticLayer operation](self, "operation") == MLCArithmeticOperationAdd || -[MLCArithmeticLayer operation](self, "operation") == MLCArithmeticOperationSubtract) && ([resultTensorCopy descriptor], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v7, "shape"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v8, "count"), objc_msgSend(tensorCopy, "descriptor"), v10 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "shape"), v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "count"), v11, v10, v8, v7, v9 == v12))
   {
-    goto LABEL_9;
-  }
-
-  descriptor = [resultTensorCopy descriptor];
-  shape = [descriptor shape];
-  v9 = [shape count];
-  descriptor2 = [tensorCopy descriptor];
-  shape2 = [descriptor2 shape];
-  v12 = [shape2 count];
-
-  if (v9 == v12)
-  {
-    descriptor3 = [resultTensorCopy descriptor];
-    shape3 = [descriptor3 shape];
-    v15 = [shape3 count];
+    descriptor = [resultTensorCopy descriptor];
+    shape = [descriptor shape];
+    v15 = [shape count];
 
     if (v15)
     {
       v16 = 0;
       do
       {
-        descriptor4 = [resultTensorCopy descriptor];
-        shape4 = [descriptor4 shape];
-        v19 = [shape4 objectAtIndexedSubscript:v16];
+        descriptor2 = [resultTensorCopy descriptor];
+        shape2 = [descriptor2 shape];
+        v19 = [shape2 objectAtIndexedSubscript:v16];
         unsignedIntegerValue = [v19 unsignedIntegerValue];
-        descriptor5 = [tensorCopy descriptor];
-        shape5 = [descriptor5 shape];
-        v23 = [shape5 objectAtIndexedSubscript:v16];
+        descriptor3 = [tensorCopy descriptor];
+        shape3 = [descriptor3 shape];
+        v23 = [shape3 objectAtIndexedSubscript:v16];
         unsignedIntegerValue2 = [v23 unsignedIntegerValue];
 
         v25 = unsignedIntegerValue == unsignedIntegerValue2;
@@ -54,9 +43,9 @@
         }
 
         ++v16;
-        descriptor6 = [resultTensorCopy descriptor];
-        shape6 = [descriptor6 shape];
-        v28 = [shape6 count];
+        descriptor4 = [resultTensorCopy descriptor];
+        shape4 = [descriptor4 shape];
+        v28 = [shape4 count];
       }
 
       while (v16 < v28);
@@ -70,11 +59,17 @@
 
   else
   {
-LABEL_9:
     v25 = 0;
   }
 
   return v25;
+}
+
++ (MLCArithmeticLayer)layerWithOperation:(MLCArithmeticOperation)operation
+{
+  v3 = [[self alloc] initWithArithmeticOperation:*&operation];
+
+  return v3;
 }
 
 - (MLCArithmeticLayer)initWithArithmeticOperation:(int)operation
@@ -98,7 +93,7 @@ LABEL_9:
 
 - (BOOL)compileForDevice:(id)device sourceTensors:(id)tensors resultTensor:(id)tensor
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   tensorsCopy = tensors;
   tensorCopy = tensor;
@@ -129,13 +124,13 @@ LABEL_9:
     {
       v19 = NSStringFromSelector(a2);
       *buf = 138413058;
-      v46 = v19;
-      v47 = 2048;
-      v48 = v13;
-      v49 = 1024;
-      v50 = dataType;
-      v51 = 2112;
-      v52 = deviceCopy;
+      v45 = v19;
+      v46 = 2048;
+      v47 = v13;
+      v48 = 1024;
+      v49 = dataType;
+      v50 = 2112;
+      v51 = deviceCopy;
       _os_log_error_impl(&dword_238C1D000, v18, OS_LOG_TYPE_ERROR, "%@: sourceTensor[%lu] uses unsupported data type = %d on a device = %@", buf, 0x26u);
     }
 
@@ -224,9 +219,9 @@ LABEL_15:
     computeEngine4 = [deviceCopy computeEngine];
     v20 = [computeEngine4 compileLayerDeviceOps:v18 sourceTensors:tensorsCopy resultTensor:tensorCopy];
 
-    v44.receiver = self;
-    v44.super_class = MLCArithmeticLayer;
-    [(MLCLayer *)&v44 bindDevice:deviceCopy deviceOps:v18];
+    v43.receiver = self;
+    v43.super_class = MLCArithmeticLayer;
+    [(MLCLayer *)&v43 bindDevice:deviceCopy deviceOps:v18];
     if ([tensorsCopy count] == 2)
     {
       v36 = [tensorsCopy objectAtIndexedSubscript:0];
@@ -254,7 +249,6 @@ LABEL_15:
   }
 
 LABEL_31:
-  v41 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -474,35 +468,26 @@ LABEL_11:
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.3(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.4(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

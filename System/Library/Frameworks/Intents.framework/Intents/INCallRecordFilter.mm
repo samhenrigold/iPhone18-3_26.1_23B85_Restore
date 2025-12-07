@@ -17,8 +17,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v12[4] = *MEMORY[0x1E69E9840];
-  v11[0] = @"participants";
+  v11[4] = *MEMORY[0x1E69E9840];
+  v10[0] = @"participants";
   participants = self->_participants;
   null = participants;
   if (!participants)
@@ -26,23 +26,21 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[0] = null;
-  v11[1] = @"callTypes";
+  v11[0] = null;
+  v10[1] = @"callTypes";
   v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_callTypes];
-  v12[1] = v5;
-  v11[2] = @"callCapability";
+  v11[1] = v5;
+  v10[2] = @"callCapability";
   v6 = [MEMORY[0x1E696AD98] numberWithInteger:self->_callCapability];
-  v12[2] = v6;
-  v11[3] = @"preferredCallProvider";
+  v11[2] = v6;
+  v10[3] = @"preferredCallProvider";
   v7 = [MEMORY[0x1E696AD98] numberWithInteger:self->_preferredCallProvider];
-  v12[3] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:4];
+  v11[3] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:4];
 
   if (!participants)
   {
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -120,12 +118,12 @@
 
 - (INCallRecordFilter)initWithCoder:(id)coder
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E695DFD8];
   coderCopy = coder;
-  v15[0] = objc_opt_class();
-  v15[1] = objc_opt_class();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+  v14[0] = objc_opt_class();
+  v14[1] = objc_opt_class();
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
   v7 = [v4 setWithArray:v6];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"participants"];
 
@@ -134,7 +132,6 @@
   v11 = [coderCopy decodeIntegerForKey:@"preferredCallProvider"];
 
   v12 = [(INCallRecordFilter *)self initWithParticipants:v8 callTypes:v9 callCapability:v10 preferredCallProvider:v11];
-  v13 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -270,73 +267,71 @@
 
 - (void)_intents_updateContainerWithCache:(id)cache
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   cacheCopy = cache;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   participants = [(INCallRecordFilter *)self participants];
-  v6 = [participants countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [participants countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(participants);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) _intents_updateContainerWithCache:cacheCopy];
+        [*(*(&v10 + 1) + 8 * v9++) _intents_updateContainerWithCache:cacheCopy];
       }
 
       while (v7 != v9);
-      v7 = [participants countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [participants countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_intents_cacheableObjects
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   participants = [(INCallRecordFilter *)self participants];
-  v5 = [participants countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [participants countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(participants);
         }
 
-        _intents_cacheableObjects = [*(*(&v14 + 1) + 8 * v8) _intents_cacheableObjects];
+        _intents_cacheableObjects = [*(*(&v13 + 1) + 8 * v8) _intents_cacheableObjects];
         [v3 unionSet:_intents_cacheableObjects];
 
         ++v8;
       }
 
       while (v6 != v8);
-      v6 = [participants countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [participants countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -354,7 +349,6 @@
 
   v11 = v10;
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

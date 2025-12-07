@@ -12,10 +12,10 @@
 
 - (ICNADebugEventProcessor)init
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v11.receiver = self;
-  v11.super_class = ICNADebugEventProcessor;
-  v2 = [(ICNADebugEventProcessor *)&v11 init];
+  v13 = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = ICNADebugEventProcessor;
+  v2 = [(ICNADebugEventProcessor *)&v10 init];
   if (v2)
   {
     v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
@@ -29,14 +29,13 @@
     {
       storagePath = [(ICNADebugEventProcessor *)v2 storagePath];
       *buf = 138412290;
-      v13 = storagePath;
+      v12 = storagePath;
       _os_log_impl(&dword_25C6BF000, v7, OS_LOG_TYPE_INFO, "ICNADebugEventProcessor file path: %@", buf, 0xCu);
     }
 
     [(ICNADebugEventProcessor *)v2 cleanupExistingFiles];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -74,7 +73,6 @@
 
 - (void)storeToLocalFile:(id)file
 {
-  v10 = *MEMORY[0x277D85DE8];
   fileCopy = file;
   aa_jsonData = [fileCopy aa_jsonData];
   storagePath = [(ICNADebugEventProcessor *)self storagePath];
@@ -85,8 +83,6 @@
     [v7 writeData:aa_jsonData];
     [v7 closeFile];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (NSDictionary)sessionDataPerSessionID
@@ -130,7 +126,7 @@ void __40__ICNADebugEventProcessor_storeSession___block_invoke(uint64_t a1)
 
 - (void)processEvent:(id)event
 {
-  v30[4] = *MEMORY[0x277D85DE8];
+  v29[4] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   json = [eventCopy json];
   v6 = [json toDataWithOptions:8 :0];
@@ -146,46 +142,45 @@ void __40__ICNADebugEventProcessor_storeSession___block_invoke(uint64_t a1)
     v8 = MEMORY[0x277CBEC10];
   }
 
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x3032000000;
-  v26 = __Block_byref_object_copy_;
-  v27 = __Block_byref_object_dispose_;
-  v28 = MEMORY[0x277CBEC10];
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy_;
+  v26 = __Block_byref_object_dispose_;
+  v27 = MEMORY[0x277CBEC10];
   v9 = [v8 objectForKeyedSubscript:@"eventData"];
   v10 = [v9 objectForKeyedSubscript:@"sessionID"];
 
   if (v10)
   {
     sessionsQueue = self->_sessionsQueue;
-    v16 = MEMORY[0x277D85DD0];
-    v17 = 3221225472;
-    v18 = __40__ICNADebugEventProcessor_processEvent___block_invoke;
-    v19 = &unk_2799AF078;
-    v22 = &v23;
+    v15 = MEMORY[0x277D85DD0];
+    v16 = 3221225472;
+    v17 = __40__ICNADebugEventProcessor_processEvent___block_invoke;
+    v18 = &unk_2799AF078;
+    v21 = &v22;
     selfCopy = self;
-    v21 = v10;
-    dispatch_sync(sessionsQueue, &v16);
+    v20 = v10;
+    dispatch_sync(sessionsQueue, &v15);
   }
 
   name = [eventCopy name];
   v13 = name;
   if (name)
   {
-    v29[0] = @"name";
-    v29[1] = @"type";
-    v30[0] = name;
-    v30[1] = @"event";
-    v29[2] = @"sessionData";
-    v29[3] = @"data";
-    v30[2] = v24[5];
-    v30[3] = v8;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:4];
+    v28[0] = @"name";
+    v28[1] = @"type";
+    v29[0] = name;
+    v29[1] = @"event";
+    v28[2] = @"sessionData";
+    v28[3] = @"data";
+    v29[2] = v23[5];
+    v29[3] = v8;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:4];
     [(ICNADebugEventProcessor *)self storeToLocalFile:v14];
   }
 
-  _Block_object_dispose(&v23, 8);
-  v15 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v22, 8);
 }
 
 void __40__ICNADebugEventProcessor_processEvent___block_invoke(uint64_t a1)

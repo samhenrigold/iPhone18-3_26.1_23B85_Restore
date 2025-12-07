@@ -102,7 +102,7 @@
 
 - (void)_handleLocationAuthorizationUpdatedNotification:(id)notification
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   notificationCopy = notification;
   context = [(HMEvent *)self context];
   if (context)
@@ -123,13 +123,13 @@
 
     isAuthorized = [v8 isAuthorized];
     queue = [context queue];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __67__HMLocationEvent__handleLocationAuthorizationUpdatedNotification___block_invoke;
-    v16[3] = &unk_1E7549C80;
-    v17 = isAuthorized;
-    v16[4] = self;
-    dispatch_async(queue, v16);
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __67__HMLocationEvent__handleLocationAuthorizationUpdatedNotification___block_invoke;
+    v15[3] = &unk_1E7549C80;
+    v16 = isAuthorized;
+    v15[4] = self;
+    dispatch_async(queue, v15);
   }
 
   else
@@ -141,16 +141,14 @@
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v19 = v14;
-      v20 = 2080;
-      v21 = "[HMLocationEvent _handleLocationAuthorizationUpdatedNotification:]";
+      v18 = v14;
+      v19 = 2080;
+      v20 = "[HMLocationEvent _handleLocationAuthorizationUpdatedNotification:]";
       _os_log_impl(&dword_19BB39000, v13, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v11);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __67__HMLocationEvent__handleLocationAuthorizationUpdatedNotification___block_invoke(uint64_t a1)
@@ -187,17 +185,17 @@ void __67__HMLocationEvent__handleLocationAuthorizationUpdatedNotification___blo
 
 - (void)_updateFromDictionary:(id)dictionary
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v14.receiver = self;
-  v14.super_class = HMLocationEvent;
-  [(HMEvent *)&v14 _updateFromDictionary:dictionaryCopy];
+  v13.receiver = self;
+  v13.super_class = HMLocationEvent;
+  [(HMEvent *)&v13 _updateFromDictionary:dictionaryCopy];
   v5 = [dictionaryCopy hmf_dataForKey:@"kLocationEventRegionKey"];
   if (v5)
   {
-    v13 = 0;
-    v6 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v13];
-    v7 = v13;
+    v12 = 0;
+    v6 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v5 error:&v12];
+    v7 = v12;
     if (v6)
     {
       [(HMLocationEvent *)self setRegion:v6];
@@ -212,17 +210,15 @@ void __67__HMLocationEvent__handleLocationAuthorizationUpdatedNotification___blo
       {
         v11 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v16 = v11;
-        v17 = 2112;
-        v18 = v7;
+        v15 = v11;
+        v16 = 2112;
+        v17 = v7;
         _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive region from encoded data: %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v8);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_serializeForAdd
@@ -243,7 +239,7 @@ void __67__HMLocationEvent__handleLocationAuthorizationUpdatedNotification___blo
 
 - (void)_retrieveLocationEvent
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   context = [(HMEvent *)self context];
   if (context)
   {
@@ -253,12 +249,12 @@ void __67__HMLocationEvent__handleLocationAuthorizationUpdatedNotification___blo
     v7 = [v5 initWithTarget:uuid];
     v8 = [v4 initWithName:@"kRetrieveLocationEventRequestKey" destination:v7 payload:0];
 
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __41__HMLocationEvent__retrieveLocationEvent__block_invoke;
-    v15[3] = &unk_1E754CD98;
-    v15[4] = self;
-    [v8 setResponseHandler:v15];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __41__HMLocationEvent__retrieveLocationEvent__block_invoke;
+    v14[3] = &unk_1E754CD98;
+    v14[4] = self;
+    [v8 setResponseHandler:v14];
     messageDispatcher = [context messageDispatcher];
     [messageDispatcher sendMessage:v8];
   }
@@ -272,16 +268,14 @@ void __67__HMLocationEvent__handleLocationAuthorizationUpdatedNotification___blo
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v17 = v13;
-      v18 = 2080;
-      v19 = "[HMLocationEvent _retrieveLocationEvent]";
+      v16 = v13;
+      v17 = 2080;
+      v18 = "[HMLocationEvent _retrieveLocationEvent]";
       _os_log_impl(&dword_19BB39000, v12, OS_LOG_TYPE_ERROR, "%{public}@Nil context - %s", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v10);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __41__HMLocationEvent__retrieveLocationEvent__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -299,29 +293,29 @@ void __41__HMLocationEvent__retrieveLocationEvent__block_invoke(uint64_t a1, uin
 
 - (void)updateRegion:(CLRegion *)region completionHandler:(void *)completion
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v6 = region;
   v7 = completion;
   context = [(HMEvent *)self context];
   if (!v7)
   {
-    v31 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMLocationEvent updateRegion:completionHandler:]", @"completion"];
-    v32 = objc_autoreleasePoolPush();
+    v30 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%s: %@ cannot be nil", "-[HMLocationEvent updateRegion:completionHandler:]", @"completion"];
+    v31 = objc_autoreleasePoolPush();
     selfCopy = self;
-    v34 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+    v33 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
-      v35 = HMFGetLogIdentifier();
+      v34 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v45 = v35;
-      v46 = 2112;
-      v47 = v31;
-      _os_log_impl(&dword_19BB39000, v34, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
+      v44 = v34;
+      v45 = 2112;
+      v46 = v30;
+      _os_log_impl(&dword_19BB39000, v33, OS_LOG_TYPE_ERROR, "%{public}@%@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v32);
-    v36 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v31 userInfo:0];
-    objc_exception_throw(v36);
+    objc_autoreleasePoolPop(v31);
+    v35 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:v30 userInfo:0];
+    objc_exception_throw(v35);
   }
 
   v9 = context;
@@ -329,13 +323,13 @@ void __41__HMLocationEvent__retrieveLocationEvent__block_invoke(uint64_t a1, uin
   {
     if ((HMIsValidRegion(v6) & 1) == 0)
     {
-      v37 = MEMORY[0x1E695DF30];
-      v38 = *MEMORY[0x1E695D940];
-      v39 = [MEMORY[0x1E696ABC0] hmStringFromErrorCode:3];
-      v40 = [v37 exceptionWithName:v38 reason:v39 userInfo:0];
-      v41 = v40;
+      v36 = MEMORY[0x1E695DF30];
+      v37 = *MEMORY[0x1E695D940];
+      v38 = [MEMORY[0x1E696ABC0] hmStringFromErrorCode:3];
+      v39 = [v36 exceptionWithName:v37 reason:v38 userInfo:0];
+      v40 = v39;
 
-      objc_exception_throw(v40);
+      objc_exception_throw(v39);
     }
 
     eventTrigger = [(HMEvent *)self eventTrigger];
@@ -362,9 +356,9 @@ LABEL_11:
       {
         v18 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v45 = v18;
-        v46 = 2112;
-        v47 = v6;
+        v44 = v18;
+        v45 = 2112;
+        v46 = v6;
         _os_log_impl(&dword_19BB39000, v17, OS_LOG_TYPE_INFO, "%{public}@Region is already %@", buf, 0x16u);
       }
 
@@ -378,9 +372,9 @@ LABEL_11:
     v26 = v25;
     if (v25)
     {
-      v42 = @"kLocationEventRegionKey";
-      v43 = v25;
-      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+      v41 = @"kLocationEventRegionKey";
+      v42 = v25;
+      v27 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
       [(HMEvent *)self _updateEventWithPayload:v27 completionHandler:v7];
     }
 
@@ -401,9 +395,9 @@ LABEL_11:
     {
       v24 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v45 = v24;
-      v46 = 2080;
-      v47 = "[HMLocationEvent updateRegion:completionHandler:]";
+      v44 = v24;
+      v45 = 2080;
+      v46 = "[HMLocationEvent updateRegion:completionHandler:]";
       _os_log_impl(&dword_19BB39000, v23, OS_LOG_TYPE_ERROR, "%{public}@Nil context, invoking completion - %s", buf, 0x16u);
     }
 
@@ -413,8 +407,6 @@ LABEL_11:
   }
 
 LABEL_19:
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setRegion:(id)region
@@ -510,26 +502,25 @@ LABEL_19:
 
 - (HMLocationEvent)initWithRegion:(CLRegion *)region
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v4 = region;
   if ((HMIsValidRegion(v4) & 1) == 0)
   {
-    v10 = MEMORY[0x1E695DF30];
-    v11 = *MEMORY[0x1E695D940];
-    v12 = [MEMORY[0x1E696ABC0] hmStringFromErrorCode:3];
-    v13 = [v10 exceptionWithName:v11 reason:v12 userInfo:0];
-    v14 = v13;
+    v9 = MEMORY[0x1E695DF30];
+    v10 = *MEMORY[0x1E695D940];
+    v11 = [MEMORY[0x1E696ABC0] hmStringFromErrorCode:3];
+    v12 = [v9 exceptionWithName:v10 reason:v11 userInfo:0];
+    v13 = v12;
 
-    objc_exception_throw(v13);
+    objc_exception_throw(v12);
   }
 
-  v15 = @"kEventUUIDKey";
+  v14 = @"kEventUUIDKey";
   uUID = [MEMORY[0x1E696AFB0] UUID];
-  v16[0] = uUID;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v15[0] = uUID;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   v7 = [(HMLocationEvent *)self initWithDict:v6 region:v4];
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

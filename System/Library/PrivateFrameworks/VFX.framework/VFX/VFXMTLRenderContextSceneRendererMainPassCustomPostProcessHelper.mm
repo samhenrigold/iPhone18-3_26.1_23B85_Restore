@@ -26,7 +26,7 @@
 {
   v11 = 0;
   memset(v10, 0, sizeof(v10));
-  v8 = sub_1AF218EA4(descriptor, a2, encoder, buffer, v10);
+  v8 = sub_1AF218EA4(descriptor, v10, a2, encoder);
   objc_msgSend__VFXWorldRendererMainPassCustomPostProcessSupportDrawSceneBackgroundUsingEncoder_commandBuffer_renderPassDesc_(self->_renderContext, v9, encoder, buffer, v10, v8);
 }
 

@@ -162,12 +162,12 @@ LABEL_14:
 
 - (id)descriptionDictionary
 {
-  v16[5] = *MEMORY[0x277D85DE8];
-  v15[0] = @"EventType";
+  v15[5] = *MEMORY[0x277D85DE8];
+  v14[0] = @"EventType";
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  v16[0] = v5;
-  v15[1] = @"SASafeLocationUpdateEventSafeLocation";
+  v15[0] = v5;
+  v14[1] = @"SASafeLocationUpdateEventSafeLocation";
   safeLocation = [(SASafeLocationUpdateEvent *)self safeLocation];
   if (safeLocation)
   {
@@ -180,24 +180,22 @@ LABEL_14:
     v7 = &stru_287709218;
   }
 
-  v16[1] = v7;
-  v15[2] = @"SASafeLocationUpdateEventType";
+  v15[1] = v7;
+  v14[2] = @"SASafeLocationUpdateEventType";
   v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[SASafeLocationUpdateEvent eventType](self, "eventType")}];
-  v16[2] = v8;
-  v15[3] = @"SASafeLocationUpdateEventLast";
+  v15[2] = v8;
+  v14[3] = @"SASafeLocationUpdateEventLast";
   v9 = [MEMORY[0x277CCABB0] numberWithBool:{-[SASafeLocationUpdateEvent lastEvent](self, "lastEvent")}];
-  v16[3] = v9;
-  v15[4] = @"SASafeLocationUpdateEventDate";
+  v15[3] = v9;
+  v14[4] = @"SASafeLocationUpdateEventDate";
   date = [(SASafeLocationUpdateEvent *)self date];
   getDateString = [date getDateString];
-  v16[4] = getDateString;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:5];
+  v15[4] = getDateString;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:5];
 
   if (safeLocation)
   {
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -205,15 +203,15 @@ LABEL_14:
 - (NSString)description
 {
   descriptionDictionary = [(SASafeLocationUpdateEvent *)self descriptionDictionary];
-  v9 = 0;
-  v3 = [MEMORY[0x277CCAAA0] JSONStringFromNSDictionary:descriptionDictionary error:&v9];
-  v4 = v9;
-  if (v4)
+  v10 = 0;
+  v4 = [MEMORY[0x277CCAAA0] JSONStringFromNSDictionary:descriptionDictionary error:&v10];
+  v5 = v10;
+  if (v5)
   {
-    v5 = TASALog;
+    v6 = TASALog;
     if (os_log_type_enabled(TASALog, OS_LOG_TYPE_ERROR))
     {
-      [(SASafeLocationUpdateEvent *)v5 description];
+      [(SASafeLocationUpdateEvent *)v6 description];
     }
 
     string = [MEMORY[0x277CCACA8] string];
@@ -221,24 +219,21 @@ LABEL_14:
 
   else
   {
-    string = v3;
+    string = v4;
   }
 
-  v7 = string;
+  v8 = string;
 
-  return v7;
+  return v8;
 }
 
 - (void)description
 {
-  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2656EA000, v4, v5, "%@ instance failed to create description:%@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2656EA000, v5, v6, "%@ instance failed to create description:%@", v7, v8, v9, v10);
 }
 
 @end

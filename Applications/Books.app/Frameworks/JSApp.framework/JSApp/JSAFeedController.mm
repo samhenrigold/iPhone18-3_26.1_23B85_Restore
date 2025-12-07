@@ -116,61 +116,61 @@
 - (void)requestEntriesWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = JSALog();
+  v5 = JSALog(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v30 = "[JSAFeedController requestEntriesWithCompletion:]";
-    v31 = 2048;
+    v32 = "[JSAFeedController requestEntriesWithCompletion:]";
+    v33 = 2048;
     selfCopy = self;
     _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "%{public}s %p: start", buf, 0x16u);
   }
 
-  v6 = JSASignpostFeedController();
-  v7 = os_signpost_id_generate(v6);
+  v7 = JSASignpostFeedController(v6);
+  v8 = os_signpost_id_generate(v7);
 
-  v8 = JSASignpostFeedController();
-  v9 = v8;
-  if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+  v10 = JSASignpostFeedController(v9);
+  v11 = v10;
+  if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_0, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "Request Entries", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_0, v11, OS_SIGNPOST_INTERVAL_BEGIN, v8, "Request Entries", "", buf, 2u);
   }
 
-  v26[0] = _NSConcreteStackBlock;
-  v26[1] = 3221225472;
-  v26[2] = sub_15574;
-  v26[3] = &unk_B2D08;
-  v28 = v7;
-  v10 = completionCopy;
-  v27 = v10;
-  v11 = objc_retainBlock(v26);
+  v28[0] = _NSConcreteStackBlock;
+  v28[1] = 3221225472;
+  v28[2] = sub_15574;
+  v28[3] = &unk_B2D08;
+  v30 = v8;
+  v12 = completionCopy;
+  v29 = v12;
+  v13 = objc_retainBlock(v28);
   objc_initWeak(buf, self);
-  v12 = self->_access;
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_15638;
-  v22[3] = &unk_B2D58;
-  v22[4] = self;
-  objc_copyWeak(&v25, buf);
-  v13 = v12;
-  v23 = v13;
-  v14 = v11;
-  v24 = v14;
-  v15 = objc_retainBlock(v22);
-  v16 = +[JSABridge sharedInstance];
-  v19[0] = _NSConcreteStackBlock;
-  v19[1] = 3221225472;
-  v19[2] = sub_1592C;
-  v19[3] = &unk_B2D80;
-  v19[4] = self;
-  v17 = v15;
-  v20 = v17;
-  v18 = v14;
-  v21 = v18;
-  [v16 enqueueBlock:v19 file:@"JSAFeedController.m" line:166];
+  v14 = self->_access;
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_15638;
+  v24[3] = &unk_B2D58;
+  v24[4] = self;
+  objc_copyWeak(&v27, buf);
+  v15 = v14;
+  v25 = v15;
+  v16 = v13;
+  v26 = v16;
+  v17 = objc_retainBlock(v24);
+  v18 = +[JSABridge sharedInstance];
+  v21[0] = _NSConcreteStackBlock;
+  v21[1] = 3221225472;
+  v21[2] = sub_1592C;
+  v21[3] = &unk_B2D80;
+  v21[4] = self;
+  v19 = v17;
+  v22 = v19;
+  v20 = v16;
+  v23 = v20;
+  [v18 enqueueBlock:v21 file:@"JSAFeedController.m" line:166];
 
-  objc_destroyWeak(&v25);
+  objc_destroyWeak(&v27);
   objc_destroyWeak(buf);
 }
 
@@ -226,7 +226,7 @@
 - (void)updateContentWithData:(id)data
 {
   dataCopy = data;
-  v5 = JSALog();
+  v5 = JSALog(dataCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
@@ -253,7 +253,7 @@
 - (void)viewStateDidUpdate:(id)update
 {
   updateCopy = update;
-  v5 = JSALog();
+  v5 = JSALog(updateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
@@ -281,7 +281,7 @@
 
 - (void)setFeedDataRequestPriority:(float)priority
 {
-  v5 = JSALog();
+  v5 = JSALog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
@@ -305,7 +305,7 @@
 - (void)pushViewController:(id)controller :(BOOL)a4
 {
   controllerCopy = controller;
-  v7 = JSALog();
+  v7 = JSALog(controllerCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
@@ -336,7 +336,7 @@
 - (void)replaceCurrentFeedViewController:(id)controller :(BOOL)a4
 {
   controllerCopy = controller;
-  v7 = JSALog();
+  v7 = JSALog(controllerCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
@@ -364,7 +364,7 @@
 {
   controllerCopy = controller;
   v9 = a5;
-  v10 = JSALog();
+  v10 = JSALog(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
@@ -394,7 +394,7 @@
 - (void)presentScreenshotViewController:(id)controller
 {
   controllerCopy = controller;
-  v5 = JSALog();
+  v5 = JSALog(controllerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
@@ -421,7 +421,7 @@
 - (void)slideInFeedViewController:(id)controller
 {
   controllerCopy = controller;
-  v5 = JSALog();
+  v5 = JSALog(controllerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [controllerCopy description];
@@ -449,7 +449,7 @@
 {
   popoverCopy = popover;
   v7 = a4;
-  v8 = JSALog();
+  v8 = JSALog(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = [popoverCopy description];
@@ -480,7 +480,7 @@
 {
   controllerCopy = controller;
   v6 = a4;
-  v7 = JSALog();
+  v7 = JSALog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
@@ -528,7 +528,7 @@
 {
   controllerCopy = controller;
   v6 = a4;
-  v7 = JSALog();
+  v7 = JSALog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
@@ -576,7 +576,7 @@
 {
   controllerCopy = controller;
   v6 = a4;
-  v7 = JSALog();
+  v7 = JSALog(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
@@ -626,7 +626,7 @@
   v15 = a5;
   v16 = a7;
   v17 = a8;
-  v18 = JSALog();
+  v18 = JSALog(v17);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     v19 = [NSNumber numberWithUnsignedInteger:a4];
@@ -684,7 +684,7 @@
   cardsCopy = cards;
   v13 = a6;
   v14 = a7;
-  v15 = JSALog();
+  v15 = JSALog(v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     v16 = [NSNumber numberWithUnsignedInteger:a4];
@@ -741,7 +741,7 @@
 {
   cardsCopy = cards;
   v7 = a4;
-  v8 = JSALog();
+  v8 = JSALog(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [cardsCopy count]);
@@ -789,7 +789,7 @@
 
 - (void)openAccountSummaryWindow
 {
-  v3 = JSALog();
+  v3 = JSALog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
@@ -831,7 +831,7 @@
 - (void)didLoadCardResource:(id)resource
 {
   resourceCopy = resource;
-  v5 = JSALog();
+  v5 = JSALog(resourceCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
@@ -877,7 +877,7 @@
 - (void)performRawActionModel:(id)model shouldReportFigaro:(BOOL)figaro
 {
   modelCopy = model;
-  v7 = JSALog();
+  v7 = JSALog(modelCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
@@ -924,7 +924,7 @@
 - (void)collectAndFlush:(BOOL)flush accumulatedImpressionsWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v7 = JSALog();
+  v7 = JSALog(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
@@ -939,34 +939,34 @@
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v21 = sub_199C0;
-  v22 = sub_199D0;
+  v22 = sub_199C0;
+  v23 = sub_199D0;
   dataSource = [(JSAFeedController *)self dataSource];
-  v23 = [dataSource newAnalyticsSessionExtendingAssertionForFeedController:self];
+  v24 = [dataSource newAnalyticsSessionExtendingAssertionForFeedController:self];
 
   if (!*(*&buf[8] + 40))
   {
-    v10 = JSALog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = JSALog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_82194();
     }
   }
 
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_199D8;
-  v13[3] = &unk_B2FD8;
-  objc_copyWeak(&v17, &location);
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_199D8;
+  v14[3] = &unk_B2FD8;
+  objc_copyWeak(&v18, &location);
   flushCopy = flush;
-  v14 = delegate;
-  v15 = completionCopy;
-  v16 = buf;
-  v11 = completionCopy;
-  v12 = delegate;
-  dispatch_async(&_dispatch_main_q, v13);
+  v15 = delegate;
+  v16 = completionCopy;
+  v17 = buf;
+  v12 = completionCopy;
+  v13 = delegate;
+  dispatch_async(&_dispatch_main_q, v14);
 
-  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v18);
   _Block_object_dispose(buf, 8);
 
   objc_destroyWeak(&location);
@@ -975,7 +975,7 @@
 - (void)collectVisibleImpressionsWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = JSALog();
+  v5 = JSALog(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
@@ -989,15 +989,15 @@
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v15 = sub_199C0;
-  v16 = sub_199D0;
+  v16 = sub_199C0;
+  v17 = sub_199D0;
   dataSource = [(JSAFeedController *)self dataSource];
-  v17 = [dataSource newAnalyticsSessionExtendingAssertionForFeedController:self];
+  v18 = [dataSource newAnalyticsSessionExtendingAssertionForFeedController:self];
 
   if (!*(*&buf[8] + 40))
   {
-    v7 = JSALog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = JSALog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_82208();
     }
@@ -1007,14 +1007,14 @@
   block[1] = 3221225472;
   block[2] = sub_19EC8;
   block[3] = &unk_B3000;
-  objc_copyWeak(&v12, &location);
+  objc_copyWeak(&v13, &location);
   block[4] = self;
-  v10 = completionCopy;
-  v11 = buf;
-  v8 = completionCopy;
+  v11 = completionCopy;
+  v12 = buf;
+  v9 = completionCopy;
   dispatch_async(&_dispatch_main_q, block);
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v13);
   _Block_object_dispose(buf, 8);
 
   objc_destroyWeak(&location);
@@ -1022,7 +1022,7 @@
 
 - (void)resetImpressions
 {
-  v3 = JSALog();
+  v3 = JSALog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
@@ -1064,7 +1064,7 @@
 - (void)collectStatsWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = JSALog();
+  v5 = JSALog(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
@@ -1078,15 +1078,15 @@
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v15 = sub_199C0;
-  v16 = sub_199D0;
+  v16 = sub_199C0;
+  v17 = sub_199D0;
   dataSource = [(JSAFeedController *)self dataSource];
-  v17 = [dataSource newAnalyticsSessionExtendingAssertionForFeedController:self];
+  v18 = [dataSource newAnalyticsSessionExtendingAssertionForFeedController:self];
 
   if (!*(*&buf[8] + 40))
   {
-    v7 = JSALog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = JSALog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_8227C();
     }
@@ -1096,14 +1096,14 @@
   block[1] = 3221225472;
   block[2] = sub_1A61C;
   block[3] = &unk_B3000;
-  objc_copyWeak(&v12, &location);
+  objc_copyWeak(&v13, &location);
   block[4] = self;
-  v10 = completionCopy;
-  v11 = buf;
-  v8 = completionCopy;
+  v11 = completionCopy;
+  v12 = buf;
+  v9 = completionCopy;
   dispatch_async(&_dispatch_main_q, block);
 
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v13);
   _Block_object_dispose(buf, 8);
 
   objc_destroyWeak(&location);
@@ -1111,7 +1111,7 @@
 
 - (void)dismissKeyboard
 {
-  v3 = JSALog();
+  v3 = JSALog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
@@ -1153,7 +1153,7 @@
 - (void)scrollToItem:(id)item :(BOOL)a4 :(BOOL)a5
 {
   itemCopy = item;
-  v9 = JSALog();
+  v9 = JSALog(itemCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
@@ -1201,7 +1201,7 @@
 - (void)requestToSetNavigationBarHidden:(BOOL)hidden :(BOOL)a4
 {
   hiddenCopy = hidden;
-  v7 = JSALog();
+  v7 = JSALog(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
@@ -1248,7 +1248,7 @@
 {
   imageCopy = image;
   v7 = a4;
-  v8 = JSALog();
+  v8 = JSALog(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
@@ -1294,7 +1294,7 @@
 - (void)addAlphaOverrideToItem:(id)item :(double)a4 :(BOOL)a5 :(double)a6
 {
   itemCopy = item;
-  v11 = JSALog();
+  v11 = JSALog(itemCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446978;
@@ -1345,7 +1345,7 @@
 - (void)removeAlphaOverrideFromItem:(id)item :(BOOL)a4 :(double)a5
 {
   itemCopy = item;
-  v9 = JSALog();
+  v9 = JSALog(itemCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
@@ -1392,7 +1392,7 @@
 
 - (void)showLoadingView
 {
-  v3 = JSALog();
+  v3 = JSALog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
@@ -1433,7 +1433,7 @@
 
 - (void)hideLoadingView
 {
-  v3 = JSALog();
+  v3 = JSALog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
@@ -1476,7 +1476,7 @@
 {
   observerCopy = observer;
   v7 = a4;
-  v8 = JSALog();
+  v8 = JSALog(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
@@ -1669,7 +1669,7 @@
 
 - (UIViewController)viewController
 {
-  v3 = JSALog();
+  v3 = JSALog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136446210;
@@ -1685,7 +1685,7 @@
 
 - (NSDictionary)metrics
 {
-  v3 = JSALog();
+  v3 = JSALog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136446210;
@@ -1701,7 +1701,7 @@
 
 - (BSUIDynamicValue)currentStackName
 {
-  v3 = JSALog();
+  v3 = JSALog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136446210;
@@ -1717,7 +1717,7 @@
 
 - (BOOL)hasPresentingFeed
 {
-  v3 = JSALog();
+  v3 = JSALog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136446466;
@@ -1735,7 +1735,7 @@
 
 - (id)analyticsTracker
 {
-  v3 = JSALog();
+  v3 = JSALog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136446466;
@@ -1754,29 +1754,30 @@
 - (void)setFeedBridged:(BOOL)bridged
 {
   bridgedCopy = bridged;
-  v5 = JSALog();
+  selfCopy = self;
+  v5 = JSALog(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
     v14 = "[JSAFeedController setFeedBridged:]";
     v15 = 2048;
-    selfCopy = self;
+    v16 = selfCopy;
     _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "%{public}s %p", buf, 0x16u);
   }
 
-  if (self->_feedBridged != bridgedCopy)
+  if (*(selfCopy + 18) != bridgedCopy)
   {
-    self->_feedBridged = bridgedCopy;
+    *(selfCopy + 18) = bridgedCopy;
     if (bridgedCopy)
     {
-      dispatch_activate(self->_access);
+      dispatch_activate(*(selfCopy + 80));
       v6 = +[JSABridge sharedInstance];
-      bridgeCompletion = [(JSAFeedController *)self bridgeCompletion];
-      feedBridged = [(JSAFeedController *)self feedBridged];
+      bridgeCompletion = [selfCopy bridgeCompletion];
+      feedBridged = [selfCopy feedBridged];
       if (feedBridged)
       {
-        self = [(JSAFeedController *)self feed];
-        isObject = [(JSAFeedController *)self isObject];
+        selfCopy = [selfCopy feed];
+        isObject = [selfCopy isObject];
       }
 
       else
@@ -1811,7 +1812,7 @@
 - (void)tearDownWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = JSALog();
+  v5 = JSALog(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
@@ -1888,7 +1889,7 @@
     v11 = BUDynamicCast();
     if (!v11)
     {
-      v12 = JSALog();
+      v12 = JSALog(0);
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         sub_823F8(controllerCopy, v12);

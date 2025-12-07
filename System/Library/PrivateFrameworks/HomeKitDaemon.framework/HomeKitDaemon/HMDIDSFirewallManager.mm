@@ -16,7 +16,7 @@
 
 - (void)handleDidRemoveUser
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   context = [(HMDIDSFirewallManager *)self context];
   workQueue = [context workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -27,21 +27,19 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling did remove user", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling did remove user", &v10, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
   userIDs = [(HMDIDSFirewallManager *)selfCopy userIDs];
   [(HMDIDSFirewallManager *)selfCopy replaceFireWallEntriesWithUserIDs:userIDs];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDidAddUserWithUserID:(id)d completion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   context = [(HMDIDSFirewallManager *)self context];
@@ -55,25 +53,23 @@
   {
     v13 = HMFGetLogIdentifier();
     *buf = 138543619;
-    v20 = v13;
-    v21 = 2117;
-    v22 = dCopy;
+    v19 = v13;
+    v20 = 2117;
+    v21 = dCopy;
     _os_log_impl(&dword_229538000, v12, OS_LOG_TYPE_INFO, "%{public}@Adding firewall entry for userID: %{sensitive}@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v10);
   context2 = [(HMDIDSFirewallManager *)selfCopy context];
-  v18 = dCopy;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+  v17 = dCopy;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
   v16 = [HMDIDSFirewallManager firewallEntriesForUserIDs:v15];
   [context2 addFirewallEntries:v16 completion:completionCopy];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDidAddUserWithUserID:(id)d
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   context = [(HMDIDSFirewallManager *)self context];
   workQueue = [context workQueue];
@@ -86,21 +82,42 @@
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543619;
-    v15 = v10;
-    v16 = 2117;
-    v17 = dCopy;
+    v14 = v10;
+    v15 = 2117;
+    v16 = dCopy;
     _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Handling did add user with userID: %{sensitive}@", buf, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
-  v13 = dCopy;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v13 count:1];
+  v12 = dCopy;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:1];
   [(HMDIDSFirewallManager *)selfCopy addFireWallEntryForUserIDs:v11];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleDidRemoveHome
+{
+  v12 = *MEMORY[0x277D85DE8];
+  context = [(HMDIDSFirewallManager *)self context];
+  workQueue = [context workQueue];
+  dispatch_assert_queue_V2(workQueue);
+
+  v5 = objc_autoreleasePoolPush();
+  selfCopy = self;
+  v7 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  {
+    v8 = HMFGetLogIdentifier();
+    v10 = 138543362;
+    v11 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling did remove home", &v10, 0xCu);
+  }
+
+  objc_autoreleasePoolPop(v5);
+  userIDs = [(HMDIDSFirewallManager *)selfCopy userIDs];
+  [(HMDIDSFirewallManager *)selfCopy replaceFireWallEntriesWithUserIDs:userIDs];
+}
+
+- (void)handleDidAddHome
 {
   v13 = *MEMORY[0x277D85DE8];
   context = [(HMDIDSFirewallManager *)self context];
@@ -115,32 +132,7 @@
     v8 = HMFGetLogIdentifier();
     v11 = 138543362;
     v12 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling did remove home", &v11, 0xCu);
-  }
-
-  objc_autoreleasePoolPop(v5);
-  userIDs = [(HMDIDSFirewallManager *)selfCopy userIDs];
-  [(HMDIDSFirewallManager *)selfCopy replaceFireWallEntriesWithUserIDs:userIDs];
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)handleDidAddHome
-{
-  v14 = *MEMORY[0x277D85DE8];
-  context = [(HMDIDSFirewallManager *)self context];
-  workQueue = [context workQueue];
-  dispatch_assert_queue_V2(workQueue);
-
-  v5 = objc_autoreleasePoolPush();
-  selfCopy = self;
-  v7 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
-  {
-    v8 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling did add home", &v12, 0xCu);
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling did add home", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -149,13 +141,11 @@
 
   userIDs = [(HMDIDSFirewallManager *)selfCopy userIDs];
   [(HMDIDSFirewallManager *)selfCopy replaceFireWallEntriesWithUserIDs:userIDs];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addFireWallEntryForUserIDs:(id)ds
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   context = [(HMDIDSFirewallManager *)self context];
   workQueue = [context workQueue];
@@ -167,24 +157,22 @@
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v14 = 138543619;
-    v15 = v10;
-    v16 = 2117;
-    v17 = dsCopy;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Adding firewall entries for userIDs: %{sensitive}@", &v14, 0x16u);
+    v13 = 138543619;
+    v14 = v10;
+    v15 = 2117;
+    v16 = dsCopy;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Adding firewall entries for userIDs: %{sensitive}@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
   context2 = [(HMDIDSFirewallManager *)selfCopy context];
   v12 = [HMDIDSFirewallManager firewallEntriesForUserIDs:dsCopy];
   [context2 addFirewallEntries:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)replaceFireWallEntriesWithUserIDs:(id)ds
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   context = [(HMDIDSFirewallManager *)self context];
   workQueue = [context workQueue];
@@ -196,24 +184,22 @@
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     v10 = HMFGetLogIdentifier();
-    v14 = 138543619;
-    v15 = v10;
-    v16 = 2117;
-    v17 = dsCopy;
-    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Replacing firewall entries with userIDs: %{sensitive}@", &v14, 0x16u);
+    v13 = 138543619;
+    v14 = v10;
+    v15 = 2117;
+    v16 = dsCopy;
+    _os_log_impl(&dword_229538000, v9, OS_LOG_TYPE_INFO, "%{public}@Replacing firewall entries with userIDs: %{sensitive}@", &v13, 0x16u);
   }
 
   objc_autoreleasePoolPop(v7);
   context2 = [(HMDIDSFirewallManager *)selfCopy context];
   v12 = [HMDIDSFirewallManager firewallEntriesForUserIDs:dsCopy];
   [context2 replaceFireWallEntries:v12];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   context = [(HMDIDSFirewallManager *)self context];
   workQueue = [context workQueue];
   dispatch_assert_queue_V2(workQueue);
@@ -224,9 +210,9 @@
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     v8 = HMFGetLogIdentifier();
-    v12 = 138543362;
-    v13 = v8;
-    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Starting HMDIDSFirewallManager", &v12, 0xCu);
+    v11 = 138543362;
+    v12 = v8;
+    _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Starting HMDIDSFirewallManager", &v11, 0xCu);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -235,8 +221,6 @@
 
   userIDs = [(HMDIDSFirewallManager *)selfCopy userIDs];
   [(HMDIDSFirewallManager *)selfCopy replaceFireWallEntriesWithUserIDs:userIDs];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)userIDs
@@ -300,10 +284,9 @@ id __32__HMDIDSFirewallManager_userIDs__block_invoke(uint64_t a1, void *a2)
 
 void __36__HMDIDSFirewallManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v22_157605;
-  logCategory__hmf_once_v22_157605 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v22_157605;
+  logCategory__hmf_once_v22_157605 = v0;
 }
 
 id __51__HMDIDSFirewallManager_firewallEntriesForUserIDs___block_invoke(uint64_t a1, uint64_t a2)

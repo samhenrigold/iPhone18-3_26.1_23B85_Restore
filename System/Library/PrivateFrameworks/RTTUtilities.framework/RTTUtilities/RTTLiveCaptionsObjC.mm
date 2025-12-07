@@ -23,44 +23,41 @@
 {
   v11 = sub_26177D490();
   v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
   MEMORY[0x28223BE20]();
-  v15 = &v25[-((v14 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v16 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FEB92C8, &qword_26177FCD8) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
+  v14 = &v22[-((v13 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27FEB92C8, &qword_26177FCD8);
   MEMORY[0x28223BE20]();
-  v18 = &v25[-v17];
-  v19 = _Block_copy(result);
+  v16 = &v22[-v15];
+  v17 = _Block_copy(result);
   if (locale)
   {
     sub_26177D480();
-    (*(v12 + 32))(v18, v15, v11);
-    (*(v12 + 56))(v18, 0, 1, v11);
+    (*(v12 + 32))(v16, v14, v11);
+    (*(v12 + 56))(v16, 0, 1, v11);
   }
 
   else
   {
-    (*(v12 + 56))(v18, 1, 1, v11);
+    (*(v12 + 56))(v16, 1, 1, v11);
   }
 
-  v20 = swift_allocObject();
-  *(v20 + 16) = v19;
-  v21 = *(&self->super.isa + OBJC_IVAR___RTTLiveCaptionsObjC_rootObject);
+  v18 = swift_allocObject();
+  *(v18 + 16) = v17;
   selfCopy = self;
   sub_26177D510();
-  v23 = swift_allocObject();
-  *(v23 + 16) = sub_26177C0CC;
-  *(v23 + 24) = v20;
+  v20 = swift_allocObject();
+  *(v20 + 16) = sub_26177C0CC;
+  *(v20 + 24) = v18;
 
   sub_26177D4D0();
 
-  sub_26177C0E0(v18);
+  sub_26177C0E0(v16);
 
   return 1;
 }
 
 - (BOOL)stop:(int64_t)stop error:(id *)error
 {
-  v4 = *(&self->super.isa + OBJC_IVAR___RTTLiveCaptionsObjC_rootObject);
   selfCopy = self;
   sub_26177D510();
   sub_26177D4C0();

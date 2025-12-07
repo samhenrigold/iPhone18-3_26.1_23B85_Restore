@@ -332,7 +332,31 @@ LABEL_18:
     cfa = 0;
     if ((list & 3) != 0)
     {
-      if (!BWCMSampleBufferCreateCopyWithNewPixelBuffer(cf, buffer, (self + 40), &cfa) && cfa)
+      CopyWithNewPixelBuffer = BWCMSampleBufferCreateCopyWithNewPixelBuffer(cf, buffer, (self + 40), &cfa);
+      if (CopyWithNewPixelBuffer)
+      {
+        v12 = CopyWithNewPixelBuffer;
+        fig_log_get_emitter();
+        OUTLINED_FUNCTION_2_33();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v12);
+LABEL_18:
+        if (!buffer)
+        {
+LABEL_9:
+          if (cfa)
+          {
+            CFRelease(cfa);
+          }
+
+          return;
+        }
+
+LABEL_8:
+        CFRelease(buffer);
+        goto LABEL_9;
+      }
+
+      if (cfa)
       {
 LABEL_5:
         if (pixelBuffer)
@@ -353,16 +377,16 @@ LABEL_5:
     {
       if (cf)
       {
-        v10 = CFRetain(cf);
+        v11 = CFRetain(cf);
       }
 
       else
       {
-        v10 = 0;
+        v11 = 0;
       }
 
-      cfa = v10;
-      if (v10)
+      cfa = v11;
+      if (v11)
       {
         goto LABEL_5;
       }
@@ -370,21 +394,8 @@ LABEL_5:
 
     fig_log_get_emitter();
     OUTLINED_FUNCTION_2_33();
-    FigDebugAssert3();
-    if (!buffer)
-    {
-LABEL_9:
-      if (cfa)
-      {
-        CFRelease(cfa);
-      }
-
-      return;
-    }
-
-LABEL_8:
-    CFRelease(buffer);
-    goto LABEL_9;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0);
+    goto LABEL_18;
   }
 }
 

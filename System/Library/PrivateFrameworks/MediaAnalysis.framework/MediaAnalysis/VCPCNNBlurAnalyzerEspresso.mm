@@ -198,7 +198,7 @@ VCPCNNModelEspresso *__42__VCPCNNBlurAnalyzerEspresso_sharedModel___block_invoke
     v14 = object2;
     if (object2)
     {
-      [object2 inputBlob];
+      objc_msgSend_inputBlob(object2);
       v15 = v27;
     }
 
@@ -211,7 +211,7 @@ VCPCNNModelEspresso *__42__VCPCNNBlurAnalyzerEspresso_sharedModel___block_invoke
     v17 = object3;
     if (object3)
     {
-      [object3 inputBlob];
+      objc_msgSend_inputBlob(object3);
       v18 = v26;
     }
 
@@ -224,7 +224,7 @@ VCPCNNModelEspresso *__42__VCPCNNBlurAnalyzerEspresso_sharedModel___block_invoke
     v20 = object4;
     if (object4)
     {
-      [object4 inputBlob];
+      objc_msgSend_inputBlob(object4);
       v21 = v25;
     }
 
@@ -268,7 +268,7 @@ VCPCNNModelEspresso *__42__VCPCNNBlurAnalyzerEspresso_sharedModel___block_invoke
   v10 = v9;
   if (v9)
   {
-    [v9 inputBlob];
+    objc_msgSend_inputBlob(v9);
     v11 = v17;
   }
 
@@ -284,7 +284,7 @@ VCPCNNModelEspresso *__42__VCPCNNBlurAnalyzerEspresso_sharedModel___block_invoke
   v13 = object;
   if (object)
   {
-    [object inputBlob];
+    objc_msgSend_inputBlob(object);
     v14 = v16;
   }
 
@@ -321,7 +321,7 @@ VCPCNNModelEspresso *__42__VCPCNNBlurAnalyzerEspresso_sharedModel___block_invoke
         v17 = object2;
         if (object2)
         {
-          [object2 outputBlob];
+          objc_msgSend_outputBlob(object2);
           v18 = v35;
         }
 
@@ -351,7 +351,7 @@ VCPCNNModelEspresso *__42__VCPCNNBlurAnalyzerEspresso_sharedModel___block_invoke
         v20 = object3;
         if (object3)
         {
-          [object3 outputBlob];
+          objc_msgSend_outputBlob(object3);
           v21 = v41;
         }
 
@@ -375,7 +375,7 @@ VCPCNNModelEspresso *__42__VCPCNNBlurAnalyzerEspresso_sharedModel___block_invoke
         v24 = object4;
         if (object4)
         {
-          [object4 outputBlob];
+          objc_msgSend_outputBlob(object4);
           v25 = DWORD2(v40);
         }
 
@@ -399,7 +399,7 @@ VCPCNNModelEspresso *__42__VCPCNNBlurAnalyzerEspresso_sharedModel___block_invoke
         v27 = object5;
         if (object5)
         {
-          [object5 outputBlob];
+          objc_msgSend_outputBlob(object5);
           v28 = v40;
         }
 
@@ -423,7 +423,7 @@ VCPCNNModelEspresso *__42__VCPCNNBlurAnalyzerEspresso_sharedModel___block_invoke
         v30 = object6;
         if (object6)
         {
-          [object6 outputBlob];
+          objc_msgSend_outputBlob(object6);
           v32 = v35;
         }
 

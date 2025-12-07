@@ -546,39 +546,38 @@ LABEL_6:
 
 - (void)invalidateAllTimelinesForReason:(id)reason
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   reasonCopy = reason;
   traitCollection = [(MRULockscreenViewController *)self traitCollection];
   mr_shouldDim = [traitCollection mr_shouldDim];
 
   if (mr_shouldDim)
   {
-    v7 = MCLogCategoryDefault();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = MCLogCategoryDefault(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = reasonCopy;
-      _os_log_impl(&dword_1A20FC000, v7, OS_LOG_TYPE_DEFAULT, "[AOD] Enqueueing timeline invalidation because %@", buf, 0xCu);
+      v12 = reasonCopy;
+      _os_log_impl(&dword_1A20FC000, v8, OS_LOG_TYPE_DEFAULT, "[AOD] Enqueueing timeline invalidation because %@", buf, 0xCu);
     }
 
     if (![(MRULockscreenViewController *)self pendingTimelineInvalidation])
     {
       [(MRULockscreenViewController *)self setPendingTimelineInvalidation:1];
-      v8 = dispatch_time(0, 500000000);
+      v9 = dispatch_time(0, 500000000);
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __63__MRULockscreenViewController_invalidateAllTimelinesForReason___block_invoke;
       block[3] = &unk_1E7663898;
       block[4] = self;
-      dispatch_after(v8, MEMORY[0x1E69E96A0], block);
+      dispatch_after(v9, MEMORY[0x1E69E96A0], block);
     }
   }
 }
 
 void __63__MRULockscreenViewController_invalidateAllTimelinesForReason___block_invoke(uint64_t a1)
 {
-  [*(a1 + 32) setPendingTimelineInvalidation:0];
-  v2 = MCLogCategoryDefault();
+  v2 = MCLogCategoryDefault([*(a1 + 32) setPendingTimelineInvalidation:0]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -806,7 +805,7 @@ void __51__MRULockscreenViewController_updateNowPlayingInfo__block_invoke(uint64
 
 - (void)updateVolumeControls
 {
-  v40[3] = *MEMORY[0x1E69E9840];
+  v41[3] = *MEMORY[0x1E69E9840];
   view = [(MRULockscreenViewController *)self view];
   volumeControlsView = [view volumeControlsView];
 
@@ -873,56 +872,60 @@ LABEL_6:
   volumeControlsView2 = [view2 volumeControlsView];
   [volumeControlsView2 setOnScreen:v18 & 1];
 
-  if ((v18 & 1) != 0 && (isOnCall & 1) == 0 && ([route isDeviceRoute] & 1) == 0 && (volumeControlCapabilities & 3) != 0)
+  if ((v18 & 1) != 0 && (isOnCall & 1) == 0)
   {
-    v24 = MCLogCategoryVolume();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    isDeviceRoute = [route isDeviceRoute];
+    if ((isDeviceRoute & 1) == 0 && (volumeControlCapabilities & 3) != 0)
     {
-      v31 = 138544642;
-      v32 = objc_opt_class();
-      v33 = 1024;
-      v34 = 1;
-      v35 = 1024;
-      v36 = 1;
-      v37 = 1024;
-      v38 = 0;
-      v39 = 1024;
-      LODWORD(v40[0]) = 1;
-      WORD2(v40[0]) = 2114;
-      *(v40 + 6) = route;
-      _os_log_impl(&dword_1A20FC000, v24, OS_LOG_TYPE_DEFAULT, "%{public}@ taking hardware assertion: on screen: %{BOOL}u | show: %{BOOL}u | call: %{BOOL}u | control: %{BOOL}u | route: %{public}@", &v31, 0x2Eu);
-    }
+      v25 = MCLogCategoryVolume(isDeviceRoute);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      {
+        v32 = 138544642;
+        v33 = objc_opt_class();
+        v34 = 1024;
+        v35 = 1;
+        v36 = 1024;
+        v37 = 1;
+        v38 = 1024;
+        v39 = 0;
+        v40 = 1024;
+        LODWORD(v41[0]) = 1;
+        WORD2(v41[0]) = 2114;
+        *(v41 + 6) = route;
+        _os_log_impl(&dword_1A20FC000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@ taking hardware assertion: on screen: %{BOOL}u | show: %{BOOL}u | call: %{BOOL}u | control: %{BOOL}u | route: %{public}@", &v32, 0x2Eu);
+      }
 
-    v25 = +[MRUHardwareVolumeController sharedInstance];
-    v26 = objc_opt_class();
-    v27 = NSStringFromClass(v26);
-    v28 = [v25 requestControlsForVolumeDataSource:dataSource reason:v27];
-    hardwareVolumeControlAssertion = self->_hardwareVolumeControlAssertion;
-    self->_hardwareVolumeControlAssertion = v28;
+      v26 = +[MRUHardwareVolumeController sharedInstance];
+      v27 = objc_opt_class();
+      v28 = NSStringFromClass(v27);
+      v29 = [v26 requestControlsForVolumeDataSource:dataSource reason:v28];
+      hardwareVolumeControlAssertion = self->_hardwareVolumeControlAssertion;
+      self->_hardwareVolumeControlAssertion = v29;
 
 LABEL_23:
-    goto LABEL_24;
+      goto LABEL_24;
+    }
   }
 
   if (self->_hardwareVolumeControlAssertion)
   {
-    v30 = MCLogCategoryVolume();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    v31 = MCLogCategoryVolume(isDeviceRoute);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
-      v31 = 138544386;
-      v32 = objc_opt_class();
-      v33 = 1024;
-      v34 = v18 & 1;
-      v35 = 1024;
-      v36 = alwaysShowVolumeControls;
-      v37 = 1024;
-      v38 = isOnCall;
-      v39 = 2114;
-      v40[0] = route;
-      _os_log_impl(&dword_1A20FC000, v30, OS_LOG_TYPE_DEFAULT, "%{public}@ removing hardware assertion: on screen: %{BOOL}u | show: %{BOOL}u | call: %{BOOL}u | route: %{public}@", &v31, 0x28u);
+      v32 = 138544386;
+      v33 = objc_opt_class();
+      v34 = 1024;
+      v35 = v18 & 1;
+      v36 = 1024;
+      v37 = alwaysShowVolumeControls;
+      v38 = 1024;
+      v39 = isOnCall;
+      v40 = 2114;
+      v41[0] = route;
+      _os_log_impl(&dword_1A20FC000, v31, OS_LOG_TYPE_DEFAULT, "%{public}@ removing hardware assertion: on screen: %{BOOL}u | show: %{BOOL}u | call: %{BOOL}u | route: %{public}@", &v32, 0x28u);
     }
 
-    v25 = self->_hardwareVolumeControlAssertion;
+    v26 = self->_hardwareVolumeControlAssertion;
     self->_hardwareVolumeControlAssertion = 0;
     goto LABEL_23;
   }
@@ -1118,7 +1121,7 @@ uint64_t __77__MRULockscreenViewController_updateLayoutDependantPropertiesWithCo
   v9 = [*(a1 + 32) view];
   [v9 setShowVolumeControlsView:v8];
 
-  if (*(a1 + 43) == 1 && *(a1 + 44) == 1)
+  if (__PAIR64__(*(a1 + 44), *(a1 + 43)) == 0x100000001)
   {
     [*(a1 + 32) createSuggestionsViewController];
   }
@@ -1138,7 +1141,7 @@ uint64_t __77__MRULockscreenViewController_updateLayoutDependantPropertiesWithCo
   return [v14 updatePreferredContentSize];
 }
 
-uint64_t __77__MRULockscreenViewController_updateLayoutDependantPropertiesWithCompletion___block_invoke_2(uint64_t a1, int a2)
+void *__77__MRULockscreenViewController_updateLayoutDependantPropertiesWithCompletion___block_invoke_2(uint64_t a1, int a2)
 {
   v4 = [*(a1 + 32) suggestionsViewController];
   [v4 endAppearanceTransition];
@@ -1164,7 +1167,7 @@ uint64_t __77__MRULockscreenViewController_updateLayoutDependantPropertiesWithCo
     result = *(a1 + 40);
     if (result)
     {
-      v9 = *(result + 16);
+      v9 = result[2];
 
       return v9();
     }
@@ -1203,35 +1206,35 @@ LABEL_6:
 
 - (void)updatePreferredContentSize
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
   [mainScreen bounds];
-  Width = CGRectGetWidth(v27);
+  Width = CGRectGetWidth(v28);
 
   view = [(MRULockscreenViewController *)self view];
   [view sizeThatFits:{Width, 1.79769313e308}];
   v7 = v6;
   v9 = v8;
 
-  v10 = MCLogCategoryDefault();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = MCLogCategoryDefault(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = objc_opt_class();
-    v25.width = v7;
-    v25.height = v9;
-    v12 = NSStringFromCGSize(v25);
+    v12 = objc_opt_class();
+    v26.width = v7;
+    v26.height = v9;
+    v13 = NSStringFromCGSize(v26);
     view2 = [(MRULockscreenViewController *)self view];
     [view2 frame];
-    v26.width = v14;
-    v26.height = v15;
-    v16 = NSStringFromCGSize(v26);
-    v18 = 138543874;
-    v19 = v11;
-    v20 = 2114;
-    v21 = v12;
-    v22 = 2114;
-    v23 = v16;
-    _os_log_impl(&dword_1A20FC000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ preferred content size: %{public}@ | current: %{public}@", &v18, 0x20u);
+    v27.width = v15;
+    v27.height = v16;
+    v17 = NSStringFromCGSize(v27);
+    v19 = 138543874;
+    v20 = v12;
+    v21 = 2114;
+    v22 = v13;
+    v23 = 2114;
+    v24 = v17;
+    _os_log_impl(&dword_1A20FC000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ preferred content size: %{public}@ | current: %{public}@", &v19, 0x20u);
   }
 
   delegate = [(MRULockscreenViewController *)self delegate];

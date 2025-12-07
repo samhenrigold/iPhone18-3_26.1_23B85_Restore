@@ -37,58 +37,58 @@
 - (id)_initWithDeliveryTimes:(id)times
 {
   timesCopy = times;
-  NCRegisterUserNotificationsUILogging();
-  v5 = NCUserNotificationsUIKitFrameworkBundle();
-  v6 = [v5 localizedStringForKey:@"NOTIFICATION_DIGEST_ONBOARDING_SCHEDULER_TITLE" value:&stru_282FE84F8 table:0];
-  v7 = NCUserNotificationsUIKitFrameworkBundle();
-  v8 = [v7 localizedStringForKey:@"NOTIFICATION_DIGEST_ONBOARDING_SCHEDULER_DESCRIPTION" value:&stru_282FE84F8 table:0];
-  v15.receiver = self;
-  v15.super_class = NCSchedulerViewController;
-  v9 = [(NCOnboardingViewController *)&v15 initWithTitle:v6 detailText:v8 contentLayout:3];
+  v5 = NCRegisterUserNotificationsUILogging();
+  v6 = NCUserNotificationsUIKitFrameworkBundle(v5);
+  v7 = [v6 localizedStringForKey:@"NOTIFICATION_DIGEST_ONBOARDING_SCHEDULER_TITLE" value:&stru_282FE84F8 table:0];
+  v8 = NCUserNotificationsUIKitFrameworkBundle(v7);
+  v9 = [v8 localizedStringForKey:@"NOTIFICATION_DIGEST_ONBOARDING_SCHEDULER_DESCRIPTION" value:&stru_282FE84F8 table:0];
+  v16.receiver = self;
+  v16.super_class = NCSchedulerViewController;
+  v10 = [(NCOnboardingViewController *)&v16 initWithTitle:v7 detailText:v9 contentLayout:3];
 
-  if (v9)
+  if (v10)
   {
     if (timesCopy)
     {
-      v10 = [timesCopy mutableCopy];
-      mutableDeliveryTimes = v9->_mutableDeliveryTimes;
-      v9->_mutableDeliveryTimes = v10;
+      v11 = [timesCopy mutableCopy];
+      mutableDeliveryTimes = v10->_mutableDeliveryTimes;
+      v10->_mutableDeliveryTimes = v11;
     }
 
     else
     {
-      v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v13 = v9->_mutableDeliveryTimes;
-      v9->_mutableDeliveryTimes = v12;
+      v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v14 = v10->_mutableDeliveryTimes;
+      v10->_mutableDeliveryTimes = v13;
 
-      [(NCSchedulerViewController *)v9 _insertNextTime];
-      [(NCSchedulerViewController *)v9 _insertNextTime];
+      [(NCSchedulerViewController *)v10 _insertNextTime];
+      [(NCSchedulerViewController *)v10 _insertNextTime];
     }
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)viewDidLoad
 {
-  v59.receiver = self;
-  v59.super_class = NCSchedulerViewController;
-  [(NCOnboardingViewController *)&v59 viewDidLoad];
-  v3 = NCUserNotificationsUIKitFrameworkBundle();
-  v4 = [v3 localizedStringForKey:@"NOTIFICATION_DIGEST_ONBOARDING_SCHEDULER_NEXT_BUTTON" value:&stru_282FE84F8 table:0];
-  [(NCOnboardingViewController *)self setNextButtonText:v4];
+  v60.receiver = self;
+  v60.super_class = NCSchedulerViewController;
+  viewDidLoad = [(NCOnboardingViewController *)&v60 viewDidLoad];
+  v4 = NCUserNotificationsUIKitFrameworkBundle(viewDidLoad);
+  v5 = [v4 localizedStringForKey:@"NOTIFICATION_DIGEST_ONBOARDING_SCHEDULER_NEXT_BUTTON" value:&stru_282FE84F8 table:0];
+  [(NCOnboardingViewController *)self setNextButtonText:v5];
 
-  v5 = objc_alloc(MEMORY[0x277D751E0]);
-  v6 = NCUserNotificationsUIKitFrameworkBundle();
-  v7 = [v6 localizedStringForKey:@"NOTIFICATION_DIGEST_ONBOARDING_SCHEDULER_CANCEL" value:&stru_282FE84F8 table:0];
-  v8 = [v5 initWithTitle:v7 style:0 target:self action:sel__cancelButtonPressed_];
+  v6 = objc_alloc(MEMORY[0x277D751E0]);
+  v7 = NCUserNotificationsUIKitFrameworkBundle(v6);
+  v8 = [v7 localizedStringForKey:@"NOTIFICATION_DIGEST_ONBOARDING_SCHEDULER_CANCEL" value:&stru_282FE84F8 table:0];
+  v9 = [v6 initWithTitle:v8 style:0 target:self action:sel__cancelButtonPressed_];
 
   navigationItem = [(OBBaseWelcomeController *)self navigationItem];
-  [navigationItem setRightBarButtonItem:v8];
+  [navigationItem setRightBarButtonItem:v9];
 
   navigationController = [(NCSchedulerViewController *)self navigationController];
   view = [navigationController view];
-  v12 = view;
+  v13 = view;
   if (view)
   {
     contentView = view;
@@ -99,39 +99,39 @@
     contentView = [(NCSchedulerViewController *)self contentView];
   }
 
-  v14 = contentView;
+  v15 = contentView;
 
-  [v14 frame];
-  v16 = v15 + -48.0;
+  [v15 frame];
+  v17 = v16 + -48.0;
   _addSummaryText = [(NCSchedulerViewController *)self _addSummaryText];
-  [NCSchedulerViewCell preferredHeightForText:_addSummaryText width:v16];
-  v19 = v18;
+  [NCSchedulerViewCell preferredHeightForText:_addSummaryText width:v17];
+  v20 = v19;
 
-  v20 = [(NCSchedulerViewController *)self _summaryTextForCount:12];
-  [NCSchedulerViewCell preferredHeightForText:v20 width:v16];
-  v22 = v21;
+  v21 = [(NCSchedulerViewController *)self _summaryTextForCount:12];
+  [NCSchedulerViewCell preferredHeightForText:v21 width:v17];
+  v23 = v22;
 
-  if (v19 >= v22)
+  if (v20 >= v23)
   {
-    v23 = v19;
+    v24 = v20;
   }
 
   else
   {
-    v23 = v22;
+    v24 = v23;
   }
 
-  self->_dynamicCellHeight = v23;
-  v24 = objc_alloc_init(MEMORY[0x277D752F0]);
-  [v24 setMinimumLineSpacing:0.0];
-  [v24 setItemSize:{v16, self->_dynamicCellHeight}];
-  [NCSchedulerViewHeader preferredHeightForWidth:v16];
-  self->_dynamicHeaderHeight = v25;
-  [v24 setHeaderReferenceSize:{v16, v25}];
-  v26 = objc_alloc(MEMORY[0x277D752A0]);
-  v27 = [v26 initWithFrame:v24 collectionViewLayout:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
+  self->_dynamicCellHeight = v24;
+  v25 = objc_alloc_init(MEMORY[0x277D752F0]);
+  [v25 setMinimumLineSpacing:0.0];
+  [v25 setItemSize:{v17, self->_dynamicCellHeight}];
+  [NCSchedulerViewHeader preferredHeightForWidth:v17];
+  self->_dynamicHeaderHeight = v26;
+  [v25 setHeaderReferenceSize:{v17, v26}];
+  v27 = objc_alloc(MEMORY[0x277D752A0]);
+  v28 = [v27 initWithFrame:v25 collectionViewLayout:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
   collectionView = self->_collectionView;
-  self->_collectionView = v27;
+  self->_collectionView = v28;
 
   [(UICollectionView *)self->_collectionView setTranslatesAutoresizingMaskIntoConstraints:0];
   [(UICollectionView *)self->_collectionView setContentInset:0.0, 24.0, 0.0, 24.0];
@@ -139,54 +139,54 @@
   [(UICollectionView *)self->_collectionView setDelegate:self];
   [(UICollectionView *)self->_collectionView setScrollEnabled:0];
   [(UICollectionView *)self->_collectionView setAutomaticallyAdjustsScrollIndicatorInsets:0];
-  v29 = self->_collectionView;
-  v30 = objc_opt_class();
-  v31 = *MEMORY[0x277D767D8];
-  v32 = +[NCSchedulerViewHeader reuseIdentifier];
-  [(UICollectionView *)v29 registerClass:v30 forSupplementaryViewOfKind:v31 withReuseIdentifier:v32];
+  v30 = self->_collectionView;
+  v31 = objc_opt_class();
+  v32 = *MEMORY[0x277D767D8];
+  v33 = +[NCSchedulerViewHeader reuseIdentifier];
+  [(UICollectionView *)v30 registerClass:v31 forSupplementaryViewOfKind:v32 withReuseIdentifier:v33];
 
-  v33 = self->_collectionView;
-  v34 = objc_opt_class();
-  v35 = +[NCSchedulerViewCell reuseIdentifier];
-  [(UICollectionView *)v33 registerClass:v34 forCellWithReuseIdentifier:v35];
+  v34 = self->_collectionView;
+  v35 = objc_opt_class();
+  v36 = +[NCSchedulerViewCell reuseIdentifier];
+  [(UICollectionView *)v34 registerClass:v35 forCellWithReuseIdentifier:v36];
 
   contentView2 = [(NCSchedulerViewController *)self contentView];
   [contentView2 addSubview:self->_collectionView];
 
-  v37 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v38 = objc_alloc_init(MEMORY[0x277CBEB18]);
   leadingAnchor = [(UICollectionView *)self->_collectionView leadingAnchor];
   contentView3 = [(NCSchedulerViewController *)self contentView];
   leadingAnchor2 = [contentView3 leadingAnchor];
-  v41 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  [v37 addObject:v41];
+  v42 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  [v38 addObject:v42];
 
   contentView4 = [(NCSchedulerViewController *)self contentView];
   trailingAnchor = [contentView4 trailingAnchor];
   trailingAnchor2 = [(UICollectionView *)self->_collectionView trailingAnchor];
-  v45 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-  [v37 addObject:v45];
+  v46 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
+  [v38 addObject:v46];
 
   topAnchor = [(UICollectionView *)self->_collectionView topAnchor];
   contentView5 = [(NCSchedulerViewController *)self contentView];
   topAnchor2 = [contentView5 topAnchor];
-  v49 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  [v37 addObject:v49];
+  v50 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  [v38 addObject:v50];
 
   contentView6 = [(NCSchedulerViewController *)self contentView];
   bottomAnchor = [contentView6 bottomAnchor];
   bottomAnchor2 = [(UICollectionView *)self->_collectionView bottomAnchor];
-  v53 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
-  [v37 addObject:v53];
+  v54 = [bottomAnchor constraintEqualToAnchor:bottomAnchor2];
+  [v38 addObject:v54];
 
   [(NCSchedulerViewController *)self _heightThatFitsCollectionView];
-  v55 = v54;
+  v56 = v55;
   heightAnchor = [(UICollectionView *)self->_collectionView heightAnchor];
-  v57 = [heightAnchor constraintEqualToConstant:v55];
+  v58 = [heightAnchor constraintEqualToConstant:v56];
   heightConstraint = self->_heightConstraint;
-  self->_heightConstraint = v57;
+  self->_heightConstraint = v58;
 
-  [v37 addObject:self->_heightConstraint];
-  [MEMORY[0x277CCAAD0] activateConstraints:v37];
+  [v38 addObject:self->_heightConstraint];
+  [MEMORY[0x277CCAAD0] activateConstraints:v38];
   [(UICollectionView *)self->_collectionView reloadData];
 }
 
@@ -692,7 +692,7 @@ void __49__NCSchedulerViewController__addItemAtIndexPath___block_invoke_3(uint64
   else
   {
     v3 = off_278371A20[count - 1];
-    v4 = NCUserNotificationsUIKitFrameworkBundle();
+    v4 = NCUserNotificationsUIKitFrameworkBundle(self);
     v5 = [v4 localizedStringForKey:v3 value:&stru_282FE84F8 table:0];
   }
 
@@ -701,7 +701,7 @@ void __49__NCSchedulerViewController__addItemAtIndexPath___block_invoke_3(uint64
 
 - (id)_addSummaryText
 {
-  v2 = NCUserNotificationsUIKitFrameworkBundle();
+  v2 = NCUserNotificationsUIKitFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"NOTIFICATION_DIGEST_SETTINGS_ADD_SUMMARY" value:&stru_282FE84F8 table:0];
 
   return v3;

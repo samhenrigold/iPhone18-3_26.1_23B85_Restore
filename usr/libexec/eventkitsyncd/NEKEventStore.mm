@@ -21,7 +21,12 @@
 - (id)freshEventStoreFor:(id)for;
 - (id)identifierInRowMappingForEventOrTask:(id)task;
 - (id)identifierInRowMappingForRecordIDRef:(id)ref;
+- (id)wrapperForCalEntity:(id)entity changeType:(int)type;
+- (id)wrapperForCalendar:(id)calendar nekChangeType:(int)type useAttributes:(BOOL)attributes;
+- (id)wrapperForCalendarItem:(id)item nekChangeType:(int)type;
+- (id)wrapperForSource:(id)source nekChangeType:(int)type;
 - (void)ICSWrappersForChangeSet:(id)set pipe:(id)pipe;
+- (void)_calendarWrappersForChangeSet:(id)set pipe:(id)pipe store:(id)store nekChangeType:(int)type;
 - (void)_commitPendingRecordMapChanges;
 - (void)_deleteAndLogEvent:(id)event identifier:(id)identifier store:(id)store;
 - (void)_deleteCalendarItemsInICSWrapperFromOldCalendar:(id)calendar store:(id)store;
@@ -46,7 +51,6 @@
 - (void)deleteItemWithIdentifier:(id)identifier store:(id)store;
 - (void)deletionWrappersForChangeSet:(id)set skipSourceDeletions:(BOOL)deletions pipe:(id)pipe;
 - (void)deletionWrappersForSourceAggregator:(id)aggregator pipe:(id)pipe;
-- (void)endMappingEntities;
 - (void)getDefaultTaskCalendar:(id *)calendar defaultEventCalendar:(id *)eventCalendar store:(id)store;
 - (void)handleCalendarEventWithUniqueIdentifierFromGizmo:(id)gizmo calendar:(id)calendar wrapper:(id)wrapper detachedEventMap:(id)map;
 - (void)handleCalendarTaskWithUniqueIdentifierFromGizmo:(id)gizmo calendar:(id)calendar wrapper:(id)wrapper;
@@ -423,17 +427,8 @@ LABEL_40:
 
 - (void)startMappingEntities
 {
-  v3 = +[NSMutableDictionary dictionary];
-  syncedEntityUniqueIdentifiers = self->_syncedEntityUniqueIdentifiers;
-  self->_syncedEntityUniqueIdentifiers = v3;
+  self->_syncedEntityUniqueIdentifiers = +[NSMutableDictionary dictionary];
 
-  _objc_release_x1();
-}
-
-- (void)endMappingEntities
-{
-  syncedEntityUniqueIdentifiers = self->_syncedEntityUniqueIdentifiers;
-  self->_syncedEntityUniqueIdentifiers = 0;
   _objc_release_x1();
 }
 
@@ -1631,21 +1626,12 @@ LABEL_22:
 
 LABEL_24:
   oldCalendarIdentifier = [sCopy oldCalendarIdentifier];
-  if (!oldCalendarIdentifier)
-  {
-    goto LABEL_29;
-  }
-
-  v44 = oldCalendarIdentifier;
-  calendarIdentifier = [sCopy calendarIdentifier];
-  identifier = [calendarIdentifier identifier];
-
-  if (identifier)
+  if (oldCalendarIdentifier && (v44 = oldCalendarIdentifier, [sCopy calendarIdentifier], v45 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v45, "identifier"), v46 = objc_claimAutoreleasedReturnValue(), v46, v45, v44, v46))
   {
     oldCalendarIdentifier2 = [sCopy oldCalendarIdentifier];
-    calendarIdentifier2 = [sCopy calendarIdentifier];
-    identifier2 = [calendarIdentifier2 identifier];
-    v50 = [oldCalendarIdentifier2 isEqualToString:identifier2];
+    calendarIdentifier = [sCopy calendarIdentifier];
+    identifier = [calendarIdentifier identifier];
+    v50 = [oldCalendarIdentifier2 isEqualToString:identifier];
 
     v51 = *(qword_1000D18A8 + 8);
     v52 = os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT);
@@ -1654,10 +1640,10 @@ LABEL_24:
       if (v52)
       {
         v53 = v51;
-        calendarIdentifier3 = [sCopy calendarIdentifier];
-        identifier3 = [calendarIdentifier3 identifier];
+        calendarIdentifier2 = [sCopy calendarIdentifier];
+        identifier2 = [calendarIdentifier2 identifier];
         *buf = 138543362;
-        v78 = identifier3;
+        v78 = identifier2;
         _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "Calendars match, so event didn't move: calendar id = %{public}@", buf, 0xCu);
       }
     }
@@ -1668,12 +1654,12 @@ LABEL_24:
       {
         v63 = v51;
         oldCalendarIdentifier3 = [sCopy oldCalendarIdentifier];
-        calendarIdentifier4 = [sCopy calendarIdentifier];
-        identifier4 = [calendarIdentifier4 identifier];
+        calendarIdentifier3 = [sCopy calendarIdentifier];
+        identifier3 = [calendarIdentifier3 identifier];
         *buf = 138543618;
         v78 = oldCalendarIdentifier3;
         v79 = 2114;
-        v80 = identifier4;
+        v80 = identifier3;
         _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "Calendars don't match, so deleting from old calendar: old calendar id = %{public}@, current calendar id = %{public}@", buf, 0x16u);
       }
 
@@ -1683,15 +1669,14 @@ LABEL_24:
 
   else
   {
-LABEL_29:
     v56 = *(qword_1000D18A8 + 8);
     if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
     {
       v57 = v56;
       title = [sCopy title];
       v59 = sub_10002CDF8(title);
-      calendarIdentifier5 = [sCopy calendarIdentifier];
-      [calendarIdentifier5 identifier];
+      calendarIdentifier4 = [sCopy calendarIdentifier];
+      [calendarIdentifier4 identifier];
       v62 = v61 = self;
       *buf = 138543618;
       v78 = v59;
@@ -1720,144 +1705,141 @@ LABEL_29:
   {
     v12 = 0;
     v13 = &qword_1000D18A8;
-    v14 = &MKBDeviceUnlockedSinceBoot_ptr;
-    v15 = &OBJC_IVAR___NDTLogFacility_os_log_facility;
-    v43 = v10;
+    v14 = &OBJC_IVAR___NDTLogFacility_os_log_facility;
+    v41 = v10;
     do
     {
-      v45 = objc_autoreleasePoolPush();
-      v16 = [batchWrappersCopy objectAtIndex:v12];
-      v46 = v12;
-      v17 = [v10 objectAtIndex:v12];
+      v43 = objc_autoreleasePoolPush();
+      v15 = [batchWrappersCopy objectAtIndex:v12];
+      v44 = v12;
+      v16 = [v10 objectAtIndex:v12];
+      v58 = 0u;
+      v59 = 0u;
       v60 = 0u;
       v61 = 0u;
-      v62 = 0u;
-      v63 = 0u;
-      obj = v17;
-      v18 = [obj countByEnumeratingWithState:&v60 objects:v69 count:16];
-      if (v18)
+      obj = v16;
+      v17 = [obj countByEnumeratingWithState:&v58 objects:v67 count:16];
+      if (v17)
       {
-        v19 = v18;
-        v20 = *v61;
-        v47 = *v61;
-        v53 = v16;
+        v18 = v17;
+        v19 = *v59;
+        v45 = *v59;
+        v51 = v15;
         do
         {
-          v21 = 0;
-          v48 = v19;
+          v20 = 0;
+          v46 = v18;
           do
           {
-            if (*v61 != v20)
+            if (*v59 != v19)
             {
               objc_enumerationMutation(obj);
             }
 
-            v22 = *(*(&v60 + 1) + 8 * v21);
+            v21 = *(*(&v58 + 1) + 8 * v20);
             context = objc_autoreleasePoolPush();
-            [(NEKEventStore *)self handleNewEntity:v22 withWrapper:v16 session:v11];
-            v23 = v14[268];
+            [(NEKEventStore *)self handleNewEntity:v21 withWrapper:v15 session:v11];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              v51 = v22;
-              if (([v51 hasRecurrenceRules] & 1) != 0 || objc_msgSend(v51, "isPhantom"))
+              v49 = v21;
+              if (([v49 hasRecurrenceRules] & 1) != 0 || objc_msgSend(v49, "isPhantom"))
               {
-                v50 = v21;
-                v24 = *(*v13 + *v15);
-                if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+                v48 = v20;
+                v22 = *(*v13 + *v14);
+                if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
                 {
-                  v25 = v24;
-                  eks_debugDesc = [v51 eks_debugDesc];
-                  uniqueId = [v51 uniqueId];
+                  v23 = v22;
+                  eks_debugDesc = [v49 eks_debugDesc];
+                  uniqueId = [v49 uniqueId];
                   *buf = 138543618;
-                  v66 = eks_debugDesc;
-                  v67 = 2114;
-                  v68 = uniqueId;
-                  _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "We have a recurring event %{public}@ and identifier %{public}@, checking to see if any detached events need attention", buf, 0x16u);
+                  v64 = eks_debugDesc;
+                  v65 = 2114;
+                  v66 = uniqueId;
+                  _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "We have a recurring event %{public}@ and identifier %{public}@, checking to see if any detached events need attention", buf, 0x16u);
                 }
 
-                detachedItems = [v51 detachedItems];
+                detachedItems = [v49 detachedItems];
+                v54 = 0u;
+                v55 = 0u;
                 v56 = 0u;
                 v57 = 0u;
-                v58 = 0u;
-                v59 = 0u;
-                v55 = detachedItems;
-                v29 = [detachedItems countByEnumeratingWithState:&v56 objects:v64 count:16];
-                if (v29)
+                v53 = detachedItems;
+                v27 = [detachedItems countByEnumeratingWithState:&v54 objects:v62 count:16];
+                if (v27)
                 {
-                  v30 = v29;
-                  v31 = *v57;
-                  v54 = *v57;
+                  v28 = v27;
+                  v29 = *v55;
+                  v52 = *v55;
                   do
                   {
-                    for (i = 0; i != v30; i = i + 1)
+                    for (i = 0; i != v28; i = i + 1)
                     {
-                      if (*v57 != v31)
+                      if (*v55 != v29)
                       {
-                        objc_enumerationMutation(v55);
+                        objc_enumerationMutation(v53);
                       }
 
-                      v33 = *(*(&v56 + 1) + 8 * i);
-                      v34 = *(*v13 + *v15);
-                      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+                      v31 = *(*(&v54 + 1) + 8 * i);
+                      v32 = *(*v13 + *v14);
+                      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
                       {
-                        v35 = v34;
-                        [v33 eks_debugDesc];
-                        v36 = v15;
-                        v37 = v11;
-                        v39 = v38 = self;
-                        [v33 uniqueId];
-                        v40 = v30;
-                        v42 = v41 = v13;
+                        v33 = v32;
+                        [v31 eks_debugDesc];
+                        v34 = v14;
+                        v35 = v11;
+                        v37 = v36 = self;
+                        [v31 uniqueId];
+                        v38 = v28;
+                        v40 = v39 = v13;
                         *buf = 138543618;
-                        v66 = v39;
-                        v67 = 2114;
-                        v68 = v42;
-                        _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "performUpdateWithICSWrappers: handling detached event %{public}@ identifier %{public}@", buf, 0x16u);
+                        v64 = v37;
+                        v65 = 2114;
+                        v66 = v40;
+                        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "performUpdateWithICSWrappers: handling detached event %{public}@ identifier %{public}@", buf, 0x16u);
 
-                        v13 = v41;
-                        v30 = v40;
+                        v13 = v39;
+                        v28 = v38;
 
-                        self = v38;
-                        v11 = v37;
-                        v15 = v36;
-                        v16 = v53;
-                        v31 = v54;
+                        self = v36;
+                        v11 = v35;
+                        v14 = v34;
+                        v15 = v51;
+                        v29 = v52;
                       }
 
-                      [(NEKEventStore *)self handleNewEntity:v33 withWrapper:v16 session:v11];
+                      [(NEKEventStore *)self handleNewEntity:v31 withWrapper:v15 session:v11];
                     }
 
-                    v30 = [v55 countByEnumeratingWithState:&v56 objects:v64 count:16];
+                    v28 = [v53 countByEnumeratingWithState:&v54 objects:v62 count:16];
                   }
 
-                  while (v30);
+                  while (v28);
                 }
 
-                v14 = &MKBDeviceUnlockedSinceBoot_ptr;
-                v20 = v47;
-                v19 = v48;
-                v21 = v50;
+                v19 = v45;
+                v18 = v46;
+                v20 = v48;
               }
             }
 
             objc_autoreleasePoolPop(context);
-            v21 = v21 + 1;
+            v20 = v20 + 1;
           }
 
-          while (v21 != v19);
-          v19 = [obj countByEnumeratingWithState:&v60 objects:v69 count:16];
+          while (v20 != v18);
+          v18 = [obj countByEnumeratingWithState:&v58 objects:v67 count:16];
         }
 
-        while (v19);
+        while (v18);
       }
 
-      objc_autoreleasePoolPop(v45);
-      v12 = v46 + 1;
-      v10 = v43;
+      objc_autoreleasePoolPop(v43);
+      v12 = v44 + 1;
+      v10 = v41;
     }
 
-    while (v46 + 1 < [v43 count]);
+    while (v44 + 1 < [v41 count]);
   }
 }
 
@@ -2889,6 +2871,49 @@ LABEL_23:
   [(NEKEventStore *)self _calendarWrappersForChangeSet:setCopy pipe:pipeCopy store:v10 nekChangeType:2];
 }
 
+- (void)_calendarWrappersForChangeSet:(id)set pipe:(id)pipe store:(id)store nekChangeType:(int)type
+{
+  v6 = *&type;
+  setCopy = set;
+  pipeCopy = pipe;
+  storeCopy = store;
+  v38 = 0;
+  v39 = &v38;
+  v40 = 0x2020000000;
+  v41 = 0;
+  v34 = 0;
+  v35 = &v34;
+  v36 = 0x2020000000;
+  v37 = 0;
+  v32 = 0;
+  v33 = 0;
+  [(NEKEventStore *)self getDefaultTaskCalendar:&v33 defaultEventCalendar:&v32 store:storeCopy];
+  v13 = v33;
+  v14 = v32;
+  v15 = objc_opt_class();
+  v20 = _NSConcreteStackBlock;
+  v21 = 3221225472;
+  v22 = sub_10001EC60;
+  v23 = &unk_1000B5188;
+  v16 = storeCopy;
+  v24 = v16;
+  selfCopy = self;
+  v31 = v6;
+  v17 = v13;
+  v26 = v17;
+  v29 = &v38;
+  v18 = v14;
+  v27 = v18;
+  v30 = &v34;
+  v19 = pipeCopy;
+  v28 = v19;
+  [setCopy enumerateForChangeType:v6 forEntitiesOfClass:v15 withBlock:&v20];
+  [(NEKEventStore *)self _sendDefaultCalendarsIfNeededInPipe:v19 setDefaultEventCalendar:*(v35 + 24) setDefaultTaskCalendar:*(v39 + 24) defaultEventCalendar:v18 defaultTaskCalendar:v17, v20, v21, v22, v23];
+
+  _Block_object_dispose(&v34, 8);
+  _Block_object_dispose(&v38, 8);
+}
+
 - (void)_sendDefaultCalendarsIfNeededInPipe:(id)pipe setDefaultEventCalendar:(BOOL)calendar setDefaultTaskCalendar:(BOOL)taskCalendar defaultEventCalendar:(id)eventCalendar defaultTaskCalendar:(id)defaultTaskCalendar
 {
   pipeCopy = pipe;
@@ -3131,6 +3156,102 @@ LABEL_20:
   }
 
 LABEL_14:
+}
+
+- (id)wrapperForCalEntity:(id)entity changeType:(int)type
+{
+  v4 = *&type;
+  entityCopy = entity;
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v7 = [(NEKEventStore *)self wrapperForSource:entityCopy nekChangeType:v4];
+    goto LABEL_7;
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v7 = [(NEKEventStore *)self wrapperForCalendar:entityCopy nekChangeType:v4];
+    goto LABEL_7;
+  }
+
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v7 = [(NEKEventStore *)self wrapperForCalendarItem:entityCopy nekChangeType:v4];
+LABEL_7:
+    v8 = v7;
+    if (v7)
+    {
+      [(NEKEventStore *)self updateRowMappingForEntity:entityCopy];
+    }
+
+    goto LABEL_9;
+  }
+
+  v10 = *(qword_1000D18A8 + 8);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  {
+    sub_1000709C0(v10);
+  }
+
+  v8 = 0;
+LABEL_9:
+
+  return v8;
+}
+
+- (id)wrapperForSource:(id)source nekChangeType:(int)type
+{
+  v4 = *&type;
+  sourceCopy = source;
+  if (sub_10000A2E8())
+  {
+    v6 = [[NEKSourceWrapper alloc] initWithChangeType:v4 source:sourceCopy];
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  return v6;
+}
+
+- (id)wrapperForCalendar:(id)calendar nekChangeType:(int)type useAttributes:(BOOL)attributes
+{
+  attributesCopy = attributes;
+  v6 = *&type;
+  calendarCopy = calendar;
+  if (sub_10000A3B8(calendarCopy))
+  {
+    v8 = [[NEKCalendarWrapper alloc] initWithChangeType:v6 calendarRef:calendarCopy useAttributes:attributesCopy];
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  return v8;
+}
+
+- (id)wrapperForCalendarItem:(id)item nekChangeType:(int)type
+{
+  v4 = *&type;
+  itemCopy = item;
+  if (sub_10000A528(itemCopy))
+  {
+    v7 = [NEKICSWrapper wrapperForChangeType:v4 calendarItem:itemCopy needsInvite:0 eventStore:self];
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  return v7;
 }
 
 - (id)_identifierInRowMapping:(id)mapping

@@ -17,10 +17,10 @@
 - (void)makeMLIROpWithBuilder:(void *)builder symbolTable:(void *)table inputValues:(void *)values opInitialization:(BOOL)initialization name:(id)name
 {
   nameCopy = name;
-  mpsFileLoc("[MPSGraphStridedSliceUpdateOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphTensorShapeOps.mm", v27);
+  mpsFileLoc(v28, "[MPSGraphStridedSliceUpdateOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphTensorShapeOps.mm");
   v11 = nameCopy;
   v33 = 260;
-  v32[0] = v27;
+  v32[0] = v28;
   StringAttr = mlir::Builder::getStringAttr(builder, v32);
   v13 = mlir::FileLineColLoc::get(StringAttr, 0x296u, 0);
   if (!v11)
@@ -35,54 +35,54 @@
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  v17 = v15;
+  v18 = v15;
   if (v15 >= 0x17)
   {
     operator new();
   }
 
-  HIBYTE(v31) = v15;
+  *(&__dst.__r_.__value_.__s + 23) = v15;
   if (v15)
   {
     memmove(&__dst, uTF8String, v15);
   }
 
-  *(&__dst + v17) = 0;
-  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, v16, &__p);
+  __dst.__r_.__value_.__s.__data_[v18] = 0;
+  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, &__p, v16, v17);
   p_p = __p.__r_.__value_.__r.__words[0];
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
   }
 
-  v19 = 1;
+  v20 = 1;
   HIBYTE(v33) = 1;
   if (p_p->__r_.__value_.__s.__data_[0])
   {
     v32[0] = p_p;
-    v19 = 3;
+    v20 = 3;
   }
 
-  LOBYTE(v33) = v19;
-  v20 = mlir::Builder::getStringAttr(builder, v32);
-  v21 = mlir::NameLoc::get(v20, v13);
+  LOBYTE(v33) = v20;
+  v21 = mlir::Builder::getStringAttr(builder, v32);
+  v22 = mlir::NameLoc::get(v21, v13);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v31) & 0x80000000) == 0)
+    if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
 LABEL_15:
 
-      if ((v28 & 0x80000000) == 0)
+      if ((v29 & 0x80000000) == 0)
       {
         goto LABEL_16;
       }
 
 LABEL_20:
-      operator delete(v27[0]);
-      v22 = *values;
-      v23 = *(values + 1) - *values;
-      if (!v23)
+      operator delete(v28[0]);
+      v23 = *values;
+      v24 = *(values + 1) - *values;
+      if (!v24)
       {
         goto LABEL_26;
       }
@@ -91,35 +91,35 @@ LABEL_20:
     }
   }
 
-  else if ((SHIBYTE(v31) & 0x80000000) == 0)
+  else if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_15;
   }
 
-  operator delete(__dst);
+  operator delete(__dst.__r_.__value_.__l.__data_);
 
-  if (v28 < 0)
+  if (v29 < 0)
   {
     goto LABEL_20;
   }
 
 LABEL_16:
-  v22 = *values;
-  v23 = *(values + 1) - *values;
-  if (!v23)
+  v23 = *values;
+  v24 = *(values + 1) - *values;
+  if (!v24)
   {
     goto LABEL_26;
   }
 
 LABEL_21:
-  if ((v23 >> 3) < 2 || v23 == 16 || v23 == 32 || (v23 >> 3) <= 3)
+  if ((v24 >> 3) < 2 || v24 == 16 || v24 == 32 || (v24 >> 3) <= 3)
   {
 LABEL_26:
     std::vector<mlir::Value>::__throw_out_of_range[abi:ne200100]();
   }
 
-  LOBYTE(__dst) = 0;
-  v32[0] = mlir::OpBuilder::create<mlir::mps::StridedSliceUpdateOp,mlir::Value &,mlir::Value &,mlir::Value &,mlir::Value &,mlir::Value &,unsigned int &,unsigned int &,unsigned int &,BOOL>(builder, v21, v22, v22 + 1, v22 + 2, v22 + 3, v22 + 4, &self->_begin_mask, &self->_end_mask, &self->_shrink_axis_mask, &__dst) - 16;
+  __dst.__r_.__value_.__s.__data_[0] = 0;
+  v32[0] = (mlir::OpBuilder::create<mlir::mps::StridedSliceUpdateOp,mlir::Value &,mlir::Value &,mlir::Value &,mlir::Value &,mlir::Value &,unsigned int &,unsigned int &,unsigned int &,BOOL>(builder, v22, v23, v23 + 1, v23 + 2, v23 + 3, v23 + 4, &self->_begin_mask, &self->_end_mask, &self->_shrink_axis_mask, &__dst) - 16);
   DefiningOp = mlir::Value::getDefiningOp(v32);
 
   return DefiningOp;

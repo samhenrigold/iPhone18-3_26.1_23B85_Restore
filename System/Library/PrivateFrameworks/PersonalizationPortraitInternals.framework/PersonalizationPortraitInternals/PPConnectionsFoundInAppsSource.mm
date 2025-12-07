@@ -9,7 +9,7 @@
 
 - (id)locationItemsWithCriteria:(id)criteria earliest:(id)earliest latest:(id)latest limit:(unint64_t)limit consumer:(unint64_t)consumer explanationSet:(id)set
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   criteriaCopy = criteria;
   earliestCopy = earliest;
   latestCopy = latest;
@@ -18,25 +18,25 @@
   {
     v16 = dispatch_semaphore_create(0);
     fiaURLService = self->_fiaURLService;
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __106__PPConnectionsFoundInAppsSource_locationItemsWithCriteria_earliest_latest_limit_consumer_explanationSet___block_invoke;
-    v25[3] = &unk_278973288;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __106__PPConnectionsFoundInAppsSource_locationItemsWithCriteria_earliest_latest_limit_consumer_explanationSet___block_invoke;
+    v24[3] = &unk_278973288;
     v18 = v16;
-    v26 = v18;
-    v27 = earliestCopy;
-    v28 = latestCopy;
-    v29 = criteriaCopy;
+    v25 = v18;
+    v26 = earliestCopy;
+    v27 = latestCopy;
+    v28 = criteriaCopy;
     v19 = v15;
-    v30 = v19;
-    [(SGSuggestionsServiceURLsProtocol *)fiaURLService recentURLsWithLimit:32 withCompletion:v25];
+    v29 = v19;
+    [(SGSuggestionsServiceURLsProtocol *)fiaURLService recentURLsWithLimit:32 withCompletion:v24];
     [MEMORY[0x277D425A0] waitForSemaphore:v18];
     v20 = pp_connections_log_handle();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       v21 = [v19 count];
       *buf = 134217984;
-      v32 = v21;
+      v31 = v21;
       _os_log_impl(&dword_23224A000, v20, OS_LOG_TYPE_DEFAULT, "PPConnectionsFoundInAppsSource found %tu urls", buf, 0xCu);
     }
 
@@ -48,42 +48,40 @@
     v22 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 void __106__PPConnectionsFoundInAppsSource_locationItemsWithCriteria_earliest_latest_limit_consumer_explanationSet___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
   {
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
     v55 = 0u;
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     v7 = v5;
-    v8 = [v7 countByEnumeratingWithState:&v54 objects:v59 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v53 objects:v58 count:16];
     if (v8)
     {
       v9 = v8;
-      v50 = v6;
-      v51 = v5;
-      v10 = *v55;
-      v53 = *v55;
+      v49 = v6;
+      v50 = v5;
+      v10 = *v54;
+      v52 = *v54;
       while (1)
       {
         v11 = 0;
         do
         {
-          if (*v55 != v10)
+          if (*v54 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v54 + 1) + 8 * v11);
+          v12 = *(*(&v53 + 1) + 8 * v11);
           v13 = objc_autoreleasePoolPush();
           if ([v12 flags])
           {
@@ -114,7 +112,7 @@ void __106__PPConnectionsFoundInAppsSource_locationItemsWithCriteria_earliest_la
 
               v19 = [v12 receivedAt];
               *buf = 138412290;
-              v61 = v19;
+              v60 = v19;
               v20 = v18;
               v21 = "PPConnectionsFoundInAppsSource: ignoring SGURL that is too old. Received at %@";
               goto LABEL_24;
@@ -136,7 +134,7 @@ void __106__PPConnectionsFoundInAppsSource_locationItemsWithCriteria_earliest_la
 
               v19 = [v12 receivedAt];
               *buf = 138412290;
-              v61 = v19;
+              v60 = v19;
               v20 = v18;
               v21 = "PPConnectionsFoundInAppsSource: ignoring SGURL that is too new. Received at %@";
 LABEL_24:
@@ -160,7 +158,7 @@ LABEL_24:
 
             v19 = [v12 bundleIdentifier];
             *buf = 138412290;
-            v61 = v19;
+            v60 = v19;
             v20 = v18;
             v21 = "PPConnectionsFoundInAppsSource: ignoring SGURL that is from the consumer (%@)";
             goto LABEL_24;
@@ -202,15 +200,15 @@ LABEL_26:
 
               v45 = objc_autoreleasePoolPush();
               v46 = [v12 receivedFromHandle];
-              v58 = v46;
-              v47 = [MEMORY[0x277CBEA60] arrayWithObjects:&v58 count:1];
+              v57 = v46;
+              v47 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
 
               objc_autoreleasePoolPop(v45);
               [v18 setContactHandles:v47];
             }
 
             [*(a1 + 64) addObject:v18];
-            v10 = v53;
+            v10 = v52;
             goto LABEL_30;
           }
 
@@ -219,19 +217,19 @@ LABEL_26:
           v30 = a1;
           v31 = v9;
           v33 = v32 = v7;
-          v52 = [v33 isEqualToString:@"maps.apple.com"];
+          v51 = [v33 isEqualToString:@"maps.apple.com"];
 
           v7 = v32;
           v9 = v31;
           a1 = v30;
 
-          if (v52)
+          if (v51)
           {
             goto LABEL_26;
           }
 
           v18 = pp_connections_log_handle();
-          v10 = v53;
+          v10 = v52;
           if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
           {
             *buf = 0;
@@ -248,12 +246,12 @@ LABEL_30:
         }
 
         while (v9 != v11);
-        v48 = [v7 countByEnumeratingWithState:&v54 objects:v59 count:16];
+        v48 = [v7 countByEnumeratingWithState:&v53 objects:v58 count:16];
         v9 = v48;
         if (!v48)
         {
-          v6 = v50;
-          v5 = v51;
+          v6 = v49;
+          v5 = v50;
           break;
         }
       }
@@ -266,13 +264,12 @@ LABEL_30:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v61 = v6;
+      v60 = v6;
       _os_log_error_impl(&dword_23224A000, v7, OS_LOG_TYPE_ERROR, "PPConnectionsFoundInAppsSource: recentURLsWithLimit error: %@", buf, 0xCu);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 - (PPConnectionsFoundInAppsSource)init

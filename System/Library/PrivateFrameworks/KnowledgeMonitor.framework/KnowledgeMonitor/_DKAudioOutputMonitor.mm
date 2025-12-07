@@ -1,6 +1,7 @@
 @interface _DKAudioOutputMonitor
 + (id)_BMEventWithState:(id)state type:(id)type name:(id)name identifier:(id)identifier routeChangeReason:(id)reason;
 + (id)_eventWithState:(id)state type:(id)type name:(id)name identifier:(id)identifier routeChangeReason:(id)reason;
++ (id)contextValueForAudioOutputConnectionStatus:(BOOL)status type:(id)type name:(id)name identifier:(id)identifier routeChangeReason:(id)reason;
 - (_DKAudioOutputMonitor)init;
 - (void)deactivate;
 - (void)dealloc;
@@ -34,7 +35,7 @@
 
 + (id)_eventWithState:(id)state type:(id)type name:(id)name identifier:(id)identifier routeChangeReason:(id)reason
 {
-  v31[4] = *MEMORY[0x277D85DE8];
+  v30[4] = *MEMORY[0x277D85DE8];
   typeCopy = type;
   nameCopy = name;
   identifierCopy = identifier;
@@ -47,18 +48,18 @@
   v15 = reasonCopy;
   stateCopy = state;
   portType = [MEMORY[0x277CFE180] portType];
-  v30[0] = portType;
-  v31[0] = typeCopy;
+  v29[0] = portType;
+  v30[0] = typeCopy;
   portName = [MEMORY[0x277CFE180] portName];
-  v30[1] = portName;
-  v31[1] = nameCopy;
+  v29[1] = portName;
+  v30[1] = nameCopy;
   identifier = [MEMORY[0x277CFE180] identifier];
-  v30[2] = identifier;
-  v31[2] = identifierCopy;
+  v29[2] = identifier;
+  v30[2] = identifierCopy;
   routeChangeReason = [MEMORY[0x277CFE180] routeChangeReason];
-  v30[3] = routeChangeReason;
-  v31[3] = v15;
-  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:4];
+  v29[3] = routeChangeReason;
+  v30[3] = v15;
+  v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:4];
 
   LOBYTE(portType) = [stateCopy BOOLValue];
   if (portType)
@@ -76,8 +77,6 @@
   date = [MEMORY[0x277CBEAA8] date];
   distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
   v27 = [v23 eventWithStream:audioOutputRoutStream startDate:date endDate:distantFuture value:v22 metadata:v21];
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
@@ -240,6 +239,71 @@
   }
 
   objc_autoreleasePoolPop(v6);
+}
+
++ (id)contextValueForAudioOutputConnectionStatus:(BOOL)status type:(id)type name:(id)name identifier:(id)identifier routeChangeReason:(id)reason
+{
+  statusCopy = status;
+  v28[5] = *MEMORY[0x277D85DE8];
+  reasonCopy = &unk_2838F79A8;
+  if (reason)
+  {
+    reasonCopy = reason;
+  }
+
+  v12 = reasonCopy;
+  identifierCopy = identifier;
+  nameCopy = name;
+  typeCopy = type;
+  audioOutputStatusKey = [MEMORY[0x277CFE338] audioOutputStatusKey];
+  v27[0] = audioOutputStatusKey;
+  v16 = [MEMORY[0x277CCABB0] numberWithBool:statusCopy];
+  v28[0] = v16;
+  audioPortTypeKey = [MEMORY[0x277CFE338] audioPortTypeKey];
+  v27[1] = audioPortTypeKey;
+  if (typeCopy)
+  {
+    v18 = typeCopy;
+  }
+
+  else
+  {
+    v18 = &stru_2838F0870;
+  }
+
+  v28[1] = v18;
+  audioPortNameKey = [MEMORY[0x277CFE338] audioPortNameKey];
+  v27[2] = audioPortNameKey;
+  if (nameCopy)
+  {
+    v20 = nameCopy;
+  }
+
+  else
+  {
+    v20 = &stru_2838F0870;
+  }
+
+  v28[2] = v20;
+  audioIdentifierKey = [MEMORY[0x277CFE338] audioIdentifierKey];
+  v27[3] = audioIdentifierKey;
+  if (identifierCopy)
+  {
+    v22 = identifierCopy;
+  }
+
+  else
+  {
+    v22 = &stru_2838F0870;
+  }
+
+  v28[3] = v22;
+  audioRouteChangeReasonKey = [MEMORY[0x277CFE338] audioRouteChangeReasonKey];
+  v27[4] = audioRouteChangeReasonKey;
+  v28[4] = v12;
+  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:5];
+
+  return v24;
 }
 
 @end

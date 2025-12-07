@@ -54,7 +54,6 @@
     v4 = 0;
     do
     {
-      v5 = p_counts->list[v4];
       PBDataWriterWriteInt32Field();
       ++v4;
     }

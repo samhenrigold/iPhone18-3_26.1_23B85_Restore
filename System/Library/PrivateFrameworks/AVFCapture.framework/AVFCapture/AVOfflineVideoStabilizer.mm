@@ -8,6 +8,7 @@
 - (opaqueCMSampleBuffer)_createSampleBufferWithPixelBuffer:(__CVBuffer *)buffer sampleTime:(id *)time futureMetadata:(id)metadata status:(int *)status;
 - (opaqueCMSampleBuffer)copyStabilizedSampleBuffer:(id *)buffer;
 - (uint64_t)_setupVISProcessor;
+- (unint64_t)_extendedRowsOfOutputBuffer;
 - (void)_teardownVISProcessor;
 - (void)dealloc;
 - (void)didCompleteProcessingOfBuffer:(opaqueCMSampleBuffer *)buffer withStatus:(int)status;
@@ -33,9 +34,9 @@
       {
         if (pool)
         {
-          v18.receiver = self;
-          v18.super_class = AVOfflineVideoStabilizer;
-          v11 = [(AVOfflineVideoStabilizer *)&v18 init];
+          v20.receiver = self;
+          v20.super_class = AVOfflineVideoStabilizer;
+          v11 = [(AVOfflineVideoStabilizer *)&v20 init];
           v12 = v11;
           if (v11)
           {
@@ -81,7 +82,7 @@
 
   v16 = [v14 exceptionWithName:v15 reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
 
-  if (AVCaptureShouldThrowForAPIViolations())
+  if (AVCaptureShouldThrowForAPIViolations(v17, v18))
   {
     objc_exception_throw(v16);
   }
@@ -330,35 +331,41 @@ LABEL_38:
   return firstObject2;
 }
 
+- (unint64_t)_extendedRowsOfOutputBuffer
+{
+  PixelBufferAttributes = CVPixelBufferPoolGetPixelBufferAttributes(self->_pixelBufferPool);
+  intValue = [objc_msgSend_objectForKeyedSubscript_(PixelBufferAttributes) intValue];
+  return ((intValue + 15) & 0xFFFFFFFFFFFFFFF0) - intValue;
+}
+
 - (int)_setupVISProcessor
 {
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   futureFrameMetadataDicts = self->_futureFrameMetadataDicts;
-  v4 = [(NSMutableArray *)futureFrameMetadataDicts countByEnumeratingWithState:&v34 objects:v33 count:16];
+  v4 = [(NSMutableArray *)futureFrameMetadataDicts countByEnumeratingWithState:&v33 objects:v32 count:16];
   if (v4)
   {
-    v5 = *v35;
-    v6 = *MEMORY[0x1E69914A8];
+    v5 = *v34;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v35 != v5)
+        if (*v34 != v5)
         {
           objc_enumerationMutation(futureFrameMetadataDicts);
         }
 
-        if ([*(*(&v34 + 1) + 8 * i) objectForKeyedSubscript:v6])
+        if (objc_msgSend_objectForKeyedSubscript_(*(*(&v33 + 1) + 8 * i)))
         {
           v4 = 1;
           goto LABEL_11;
         }
       }
 
-      v4 = [(NSMutableArray *)futureFrameMetadataDicts countByEnumeratingWithState:&v34 objects:v33 count:16];
+      v4 = [(NSMutableArray *)futureFrameMetadataDicts countByEnumeratingWithState:&v33 objects:v32 count:16];
       if (v4)
       {
         continue;
@@ -369,88 +376,88 @@ LABEL_38:
   }
 
 LABEL_11:
-  firstObject = [(NSMutableArray *)self->_futureFrameMetadataDicts firstObject];
-  v9 = [firstObject objectForKeyedSubscript:*MEMORY[0x1E69910A8]];
-  if (([v9 isEqualToString:*MEMORY[0x1E6990CA0]] & 1) == 0)
+  v7 = objc_msgSend_objectForKeyedSubscript_([(NSMutableArray *)self->_futureFrameMetadataDicts firstObject]);
+  if (([v7 isEqualToString:*MEMORY[0x1E6990CA0]] & 1) == 0)
   {
-    [v9 isEqualToString:*MEMORY[0x1E6990CA8]];
+    [v7 isEqualToString:*MEMORY[0x1E6990CA8]];
   }
 
-  v10 = [objc_msgSend(MEMORY[0x1E698F770] "sharedInstance")];
+  v8 = [objc_msgSend(MEMORY[0x1E698F770] "sharedInstance")];
+  if (!v8)
+  {
+    [(AVOfflineVideoStabilizer *)v26 _setupVISProcessor];
+    return v26[0];
+  }
+
+  v9 = v8;
+  v10 = [MEMORY[0x1E6991798] VISConfigurationForVersion:v8];
   if (!v10)
   {
-    [(AVOfflineVideoStabilizer *)v27 _setupVISProcessor];
-    return v27[0];
+    [(AVOfflineVideoStabilizer *)v26 _setupVISProcessor];
+    return v26[0];
   }
 
   v11 = v10;
-  v12 = [MEMORY[0x1E6991798] VISConfigurationForVersion:v10];
+  v12 = [MEMORY[0x1E6991798] VISProcessorForVersion:v9];
+  self->_visProcessor = v12;
   if (!v12)
   {
-    [(AVOfflineVideoStabilizer *)v27 _setupVISProcessor];
-    return v27[0];
+    [(AVOfflineVideoStabilizer *)v26 _setupVISProcessor];
+    return v26[0];
   }
 
-  v13 = v12;
-  v14 = [MEMORY[0x1E6991798] VISProcessorForVersion:v11];
-  self->_visProcessor = v14;
-  if (!v14)
-  {
-    [(AVOfflineVideoStabilizer *)v27 _setupVISProcessor];
-    return v27[0];
-  }
-
-  [(VISProcessor *)v14 setDelegate:self];
-  [v13 setExtendedOutputRowsToFill:{-[AVOfflineVideoStabilizer _extendedRowsOfOutputBuffer](self, "_extendedRowsOfOutputBuffer")}];
-  [v13 setInputPixelBufferAttributes:self->_cachedInputBufferAttributes];
-  [v13 setOutputPixelBufferAttributes:CVPixelBufferPoolGetPixelBufferAttributes(self->_pixelBufferPool)];
-  [v13 setTransformPlatform:0];
-  v31 = *MEMORY[0x1E6990E28];
-  v32 = &unk_1F1CE9F80;
-  [v13 setSensorIDDict:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v32, &v31, 1)}];
-  [v13 setSmoothingMethod:2];
-  [v13 setSphereCorrectionEnabled:v4];
-  [v13 setUseISPMotionData:1];
-  [v13 setCinematicLookAheadFrameCount:self->_metadataPrimingCount];
-  *&v15 = self->_lookAheadTime;
-  [v13 setCinematicLookAheadTime:v15];
-  [v13 setOutputPixelBufferPool:self->_pixelBufferPool];
-  [v13 setGpuPriority:0];
-  [v13 setMetalSubmissionAndCompletionQueuePriority:0];
-  [v13 setVideoStabilizationDisabled:!self->_stabilizationEnabled];
-  v29 = 0u;
-  v30 = 0u;
+  [(VISProcessor *)v12 setDelegate:self];
+  [v11 setExtendedOutputRowsToFill:{-[AVOfflineVideoStabilizer _extendedRowsOfOutputBuffer](self, "_extendedRowsOfOutputBuffer")}];
+  [v11 setInputPixelBufferAttributes:self->_cachedInputBufferAttributes];
+  [v11 setOutputPixelBufferAttributes:CVPixelBufferPoolGetPixelBufferAttributes(self->_pixelBufferPool)];
+  [v11 setTransformPlatform:0];
+  v30 = *MEMORY[0x1E6990E28];
+  v31 = &unk_1F1CE9F80;
+  [v11 setSensorIDDict:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v31, &v30, 1)}];
+  [v11 setSmoothingMethod:2];
+  [v11 setSphereCorrectionEnabled:v4];
+  [v11 setUseISPMotionData:1];
+  [v11 setCinematicLookAheadFrameCount:self->_metadataPrimingCount];
+  *&v13 = self->_lookAheadTime;
+  [v11 setCinematicLookAheadTime:v13];
+  [v11 setOutputPixelBufferPool:self->_pixelBufferPool];
+  [v11 setGpuPriority:0];
+  [v11 setMetalSubmissionAndCompletionQueuePriority:0];
+  [v11 setVideoStabilizationDisabled:!self->_stabilizationEnabled];
   v28 = 0u;
+  v29 = 0u;
+  v27 = 0u;
   FigCaptureGetDeviceToCameraTransform();
-  v16 = 0;
-  DWORD2(v28) = v17;
-  DWORD2(v29) = v18;
-  *&v28 = v19;
+  v14 = 0;
+  DWORD2(v27) = v15;
+  DWORD2(v28) = v16;
+  *&v27 = v17;
+  *&v28 = v18;
+  DWORD2(v29) = v19;
   *&v29 = v20;
-  DWORD2(v30) = v21;
-  *&v30 = v22;
-  v23 = v27;
+  v21 = v26;
   do
   {
     for (j = 0; j != 3; ++j)
     {
-      *&v23[2 * j] = *((&v28 + j) & 0xFFFFFFFFFFFFFFF3 | (4 * (v16 & 3)));
+      *&v21[2 * j] = *((&v27 + j) & 0xFFFFFFFFFFFFFFF3 | (4 * (v14 & 3)));
     }
 
-    ++v16;
-    v23 += 6;
+    ++v14;
+    v21 += 6;
   }
 
-  while (v16 != 3);
-  [v13 setCameraExtrinsicMatrix:{objc_msgSend(MEMORY[0x1E695DEF0], "dataWithBytes:length:", v27, 72)}];
-  [(VISProcessor *)self->_visProcessor setConfiguration:v13];
-  v25 = [(VISProcessor *)self->_visProcessor prepareToProcess:0];
-  if (v25)
+  while (v14 != 3);
+  [v11 setCameraExtrinsicMatrix:{objc_msgSend(MEMORY[0x1E695DEF0], "dataWithBytes:length:", v26, 72)}];
+  [(VISProcessor *)self->_visProcessor setConfiguration:v11];
+  v23 = [(VISProcessor *)self->_visProcessor prepareToProcess:0];
+  v24 = v23;
+  if (v23)
   {
-    [AVOfflineVideoStabilizer _setupVISProcessor];
+    [(AVOfflineVideoStabilizer *)v23 _setupVISProcessor];
   }
 
-  return v25;
+  return v24;
 }
 
 - (void)_teardownVISProcessor
@@ -492,41 +499,41 @@ LABEL_4:
     {
       if (!self->_requiredMetadataKeys)
       {
-        v8 = objc_alloc(MEMORY[0x1E695DFD8]);
-        self->_requiredMetadataKeys = [v8 initWithObjects:{*MEMORY[0x1E69910A8], *MEMORY[0x1E6990FA8], *MEMORY[0x1E69914A0], *MEMORY[0x1E6990FC8], *MEMORY[0x1E6991018], *MEMORY[0x1E6991498], *MEMORY[0x1E69914B8], *MEMORY[0x1E69914B0], 0}];
+        v9 = objc_alloc(MEMORY[0x1E695DFD8]);
+        self->_requiredMetadataKeys = [v9 initWithObjects:{*MEMORY[0x1E69910A8], *MEMORY[0x1E6990FA8], *MEMORY[0x1E69914A0], *MEMORY[0x1E6990FC8], *MEMORY[0x1E6991018], *MEMORY[0x1E6991498], *MEMORY[0x1E69914B8], *MEMORY[0x1E69914B0], 0}];
       }
 
       if (!self->_optionalMetadataKeys)
       {
-        v9 = objc_alloc(MEMORY[0x1E695DFD8]);
-        self->_optionalMetadataKeys = [v9 initWithObjects:{*MEMORY[0x1E69914C0], *MEMORY[0x1E69914A8], *MEMORY[0x1E6991050], *MEMORY[0x1E6991118], *MEMORY[0x1E6991150], 0}];
+        v10 = objc_alloc(MEMORY[0x1E695DFD8]);
+        self->_optionalMetadataKeys = [v10 initWithObjects:{*MEMORY[0x1E69914C0], *MEMORY[0x1E69914A8], *MEMORY[0x1E6991050], *MEMORY[0x1E6991118], *MEMORY[0x1E6991150], 0}];
       }
 
-      v10 = [MEMORY[0x1E695DFA8] setWithArray:{objc_msgSend(metadata, "allKeys")}];
-      [v10 minusSet:self->_requiredMetadataKeys];
-      [v10 minusSet:self->_optionalMetadataKeys];
-      [v10 count];
-      if ([v10 count] || (v11 = objc_msgSend(MEMORY[0x1E695DFA8], "setWithSet:", self->_requiredMetadataKeys), objc_msgSend(v11, "minusSet:", objc_msgSend(MEMORY[0x1E695DFD8], "setWithArray:", objc_msgSend(metadata, "allKeys"))), objc_msgSend(v11, "count"), (v12 = objc_msgSend(v11, "count")) != 0))
+      v11 = [MEMORY[0x1E695DFA8] setWithArray:{objc_msgSend(metadata, "allKeys")}];
+      [v11 minusSet:self->_requiredMetadataKeys];
+      [v11 minusSet:self->_optionalMetadataKeys];
+      [v11 count];
+      if ([v11 count] || (v12 = objc_msgSend(MEMORY[0x1E695DFA8], "setWithSet:", self->_requiredMetadataKeys), objc_msgSend(v12, "minusSet:", objc_msgSend(MEMORY[0x1E695DFD8], "setWithArray:", objc_msgSend(metadata, "allKeys"))), objc_msgSend(v12, "count"), (v13 = objc_msgSend(v12, "count")) != 0))
       {
         fig_log_get_emitter();
         OUTLINED_FUNCTION_0_2();
-        FigDebugAssert3();
-        LODWORD(v12) = -11822;
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
+        LODWORD(v13) = -11822;
       }
     }
 
     else
     {
       fig_log_get_emitter();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v5, v17, v19, v20, v21, v22, v23);
       fig_log_get_emitter();
-      LODWORD(v12) = FigSignalErrorAtGM();
+      LODWORD(v13) = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v15, v16, v18);
     }
   }
 
   else
   {
-    LODWORD(v12) = 0;
+    LODWORD(v13) = 0;
   }
 
   if (data)
@@ -534,7 +541,7 @@ LABEL_4:
     *data = metadata == 0;
   }
 
-  return v12;
+  return v13;
 }
 
 - (int)_validateSourcePixelBuffer:(__CVBuffer *)buffer withSampleTime:(id *)time metadata:(id)metadata isEndOfData:(BOOL *)data
@@ -549,17 +556,17 @@ LABEL_4:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0_2();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
 LABEL_13:
-    FigDebugAssert3();
     result = -11822;
     goto LABEL_7;
   }
 
   memset(&v13, 0, sizeof(v13));
-  v9 = [metadata objectForKeyedSubscript:@"CinematicFutureOutputFramePTSValue"];
+  v9 = objc_msgSend_objectForKeyedSubscript_(metadata, a2, @"CinematicFutureOutputFramePTSValue");
   if (v9)
   {
-    [v9 CMTimeValue];
+    objc_msgSend_CMTimeValue(v9);
   }
 
   else
@@ -574,6 +581,7 @@ LABEL_13:
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0_2();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     goto LABEL_13;
   }
 
@@ -682,18 +690,11 @@ LABEL_22:
   return sampleBufferOut;
 }
 
-- (uint64_t)_copyStabilizedSampleBuffer:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_2_1();
-  return FigDebugAssert3();
-}
-
 - (uint64_t)_setupVISProcessor
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1_3();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v3, v4, vars0);
   *self = result;
   return result;
 }

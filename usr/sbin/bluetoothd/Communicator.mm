@@ -63,7 +63,7 @@
   v44 = 0;
   v45 = 0;
   v46 = 0;
-  [(Communicator *)self calls];
+  objc_msgSend_calls(self);
   v41 = 0;
   v42 = 0;
   v43 = 0;
@@ -305,7 +305,7 @@ LABEL_51:
     }
   }
 
-  sub_1000DA9C4(v34);
+  sub_1000DA9C4(v34, &v41);
   [(Communicator *)self setCalls:v34];
   *buf = v34;
   sub_1000D6BD4(buf);
@@ -317,19 +317,20 @@ LABEL_51:
 
 - (Communicator)initWithDelegate:(Delegate *)delegate
 {
-  v27.receiver = self;
-  v27.super_class = Communicator;
-  v4 = [(Communicator *)&v27 init];
+  v32.receiver = self;
+  v32.super_class = Communicator;
+  v4 = [(Communicator *)&v32 init];
   v5 = v4;
   if (v4)
   {
     v4->_delegate = delegate;
-    if (NSClassFromString(@"TUCallCenter"))
+    v6 = NSClassFromString(@"TUCallCenter");
+    if (v6)
     {
-      v6 = *(sub_1000D999C() + 8);
-      v7 = [TUCallCenter callCenterWithQueue:v6];
+      v8 = *(sub_1000D999C(v6, v7) + 8);
+      v9 = [TUCallCenter callCenterWithQueue:v8];
       tuCallCenter = v5->_tuCallCenter;
-      v5->_tuCallCenter = v7;
+      v5->_tuCallCenter = v9;
 
       callServicesClientCapabilities = [(TUCallCenter *)v5->_tuCallCenter callServicesClientCapabilities];
       [callServicesClientCapabilities setWantsToScreenCalls:1];
@@ -337,50 +338,51 @@ LABEL_51:
       callServicesClientCapabilities2 = [(TUCallCenter *)v5->_tuCallCenter callServicesClientCapabilities];
       [callServicesClientCapabilities2 save];
 
-      v11 = +[NSNotificationCenter defaultCenter];
-      [v11 addObserver:v5 selector:"_handleTUCallCenterCallStatusChangedNotification:" name:TUCallCenterCallStatusChangedNotification object:0];
-
-      v12 = +[NSNotificationCenter defaultCenter];
-      [v12 addObserver:v5 selector:"_handleTUCallCenterCallStatusChangedNotification:" name:TUCallCenterVideoCallStatusChangedNotification object:0];
-
       v13 = +[NSNotificationCenter defaultCenter];
-      [v13 addObserver:v5 selector:"_handleTUCallCenterCallStatusChangedNotification:" name:TUCallCenterCallInvitationSentNotification object:0];
+      [v13 addObserver:v5 selector:"_handleTUCallCenterCallStatusChangedNotification:" name:TUCallCenterCallStatusChangedNotification object:0];
 
       v14 = +[NSNotificationCenter defaultCenter];
-      [v14 addObserver:v5 selector:"_handleTUCallCenterCallStatusChangedNotification:" name:TUCallCenterVideoCallInvitationSentNotification object:0];
+      [v14 addObserver:v5 selector:"_handleTUCallCenterCallStatusChangedNotification:" name:TUCallCenterVideoCallStatusChangedNotification object:0];
 
       v15 = +[NSNotificationCenter defaultCenter];
-      [v15 addObserver:v5 selector:"_handleTUCallCenterCallStatusChangedNotification:" name:TUCallCenterCallerIDChangedNotification object:0];
+      [v15 addObserver:v5 selector:"_handleTUCallCenterCallStatusChangedNotification:" name:TUCallCenterCallInvitationSentNotification object:0];
 
       v16 = +[NSNotificationCenter defaultCenter];
-      [v16 addObserver:v5 selector:"_handleTUCallCenterCallStatusChangedNotification:" name:TUCallCenterCallConnectedNotification object:0];
+      [v16 addObserver:v5 selector:"_handleTUCallCenterCallStatusChangedNotification:" name:TUCallCenterVideoCallInvitationSentNotification object:0];
 
       v17 = +[NSNotificationCenter defaultCenter];
-      [v17 addObserver:v5 selector:"_handleTUCallCenterCallStatusChangedNotification:" name:TUCallCenterCallContinuityStateChangedNotification object:0];
+      [v17 addObserver:v5 selector:"_handleTUCallCenterCallStatusChangedNotification:" name:TUCallCenterCallerIDChangedNotification object:0];
 
       v18 = +[NSNotificationCenter defaultCenter];
-      [v18 addObserver:v5 selector:"_handleTUCallCenterCallExpanseStatusChangedNotification:" name:TUCallMixesVoiceWithMediaChangedNotification object:0];
+      [v18 addObserver:v5 selector:"_handleTUCallCenterCallStatusChangedNotification:" name:TUCallCenterCallConnectedNotification object:0];
 
       v19 = +[NSNotificationCenter defaultCenter];
-      [v19 addObserver:v5 selector:"_handleTUCallCenterCallStatusChangedNotification:" name:TUCallCenterIsScreeningChangedNotification object:0];
+      [v19 addObserver:v5 selector:"_handleTUCallCenterCallStatusChangedNotification:" name:TUCallCenterCallContinuityStateChangedNotification object:0];
+
+      v20 = +[NSNotificationCenter defaultCenter];
+      [v20 addObserver:v5 selector:"_handleTUCallCenterCallExpanseStatusChangedNotification:" name:TUCallMixesVoiceWithMediaChangedNotification object:0];
+
+      v21 = +[NSNotificationCenter defaultCenter];
+      [v21 addObserver:v5 selector:"_handleTUCallCenterCallStatusChangedNotification:" name:TUCallCenterIsScreeningChangedNotification object:0];
 
       [(Communicator *)v5 _updateCalls];
     }
 
-    if (sub_1005FC9C4())
+    v22 = sub_1005FC9C4();
+    if (v22)
     {
-      v20 = *(sub_1000D999C() + 8);
+      v24 = *(sub_1000D999C(v22, v23) + 8);
       v5->_ctServerConnection = _CTServerConnectionCreateOnTargetQueue();
 
-      v21 = [CoreTelephonyClient alloc];
-      v22 = *(sub_1000D999C() + 8);
-      v23 = [v21 initWithQueue:v22];
+      v25 = [CoreTelephonyClient alloc];
+      v27 = *(sub_1000D999C(v25, v26) + 8);
+      v28 = [v25 initWithQueue:v27];
       ctClient = v5->_ctClient;
-      v5->_ctClient = v23;
+      v5->_ctClient = v28;
 
       [(CoreTelephonyClient *)v5->_ctClient setDelegate:v5];
       [(Communicator *)v5 ctServerConnection];
-      v26 = v5;
+      v31 = v5;
       _CTServerConnectionRegisterBlockForNotification();
     }
   }
@@ -853,15 +855,15 @@ LABEL_11:
   object = [notificationCopy object];
   v6 = [(Communicator *)self _identifierForCall:object];
 
-  v7 = *(sub_1000D999C() + 8);
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_100553680;
-  v9[3] = &unk_100AE0B60;
-  v9[4] = self;
+  v9 = *(sub_1000D999C(v7, v8) + 8);
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_100553680;
+  v11[3] = &unk_100AE0B60;
+  v11[4] = self;
+  v12 = v6;
   v10 = v6;
-  v8 = v6;
-  dispatch_async(v7, v9);
+  dispatch_async(v9, v11);
 }
 
 - (void)_handleTUCallCenterCallExpanseStatusChangedNotification:(id)notification
@@ -1562,7 +1564,7 @@ LABEL_12:
   v15 = 0;
   v16 = 0;
   v17 = 0;
-  [(Communicator *)self calls];
+  objc_msgSend_calls(self, a2);
   v18[0] = 0;
   v18[1] = 0;
   v3 = [[NSUUID alloc] initWithUUIDBytes:v18];
@@ -1601,7 +1603,7 @@ LABEL_12:
     }
 
     sub_1000D90A8(&v15, v13);
-    sub_1000DA9C4(v11);
+    sub_1000DA9C4(v11, &v15);
     [(Communicator *)self setCalls:v11];
     __str.__r_.__value_.__r.__words[0] = v11;
     sub_1000D6BD4(&__str);
@@ -1635,7 +1637,7 @@ LABEL_12:
   v8 = 0;
   v9 = 0;
   v10 = 0;
-  [(Communicator *)self calls];
+  objc_msgSend_calls(self, a2);
   v12[0] = 0;
   v12[1] = 0;
   v3 = [[NSUUID alloc] initWithUUIDBytes:v12];
@@ -1653,7 +1655,7 @@ LABEL_12:
   else
   {
     sub_1006EEEBC(&v8, v4);
-    sub_1000DA9C4(v7);
+    sub_1000DA9C4(v7, &v8);
     [(Communicator *)self setCalls:v7];
     v11 = v7;
     sub_1000D6BD4(&v11);
@@ -1667,7 +1669,7 @@ LABEL_12:
 
 - (int)getCurrentCalls:(void *)calls
 {
-  [(Communicator *)self calls];
+  objc_msgSend_calls(self, a2);
   if (&v5 != calls)
   {
     sub_1000D8984(calls, v5, v6, 0x4EC4EC4EC4EC4EC5 * ((v6 - v5) >> 3));
@@ -1683,7 +1685,7 @@ LABEL_12:
   v10 = 0;
   v11 = 0;
   v12 = 0;
-  [(Communicator *)self calls];
+  objc_msgSend_calls(self, a2);
   v7 = 0;
   v8 = 0;
   v9 = 0;
@@ -1733,7 +1735,7 @@ LABEL_12:
     [(Communicator *)self _updateCalls];
     *buf = 0;
     v18 = 0uLL;
-    [(Communicator *)self calls];
+    objc_msgSend_calls(self);
     v9 = sub_1000D8B24(buf, callCopy);
     if (v18 != v9)
     {
@@ -1745,7 +1747,7 @@ LABEL_12:
       }
 
       *(v9 + 15) = screeningCopy;
-      sub_1000DA9C4(v15);
+      sub_1000DA9C4(v15, buf);
       [(Communicator *)self setCalls:v15];
       *v16 = v15;
       sub_1000D6BD4(v16);
@@ -1778,7 +1780,7 @@ LABEL_11:
   v10 = 0;
   v11 = 0;
   v12 = 0;
-  [(Communicator *)self calls];
+  objc_msgSend_calls(self, a2);
   v7 = 0;
   v8 = 0;
   v9 = 0;

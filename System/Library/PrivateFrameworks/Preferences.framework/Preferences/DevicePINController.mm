@@ -306,7 +306,7 @@ void __41__DevicePINController_setPIN_completion___block_invoke(uint64_t a1)
 {
   v2 = [MEMORY[0x1E69ADFB8] sharedConnection];
   v3 = *(a1 + 80);
-  v4 = _PSLoggingFacility();
+  v4 = _PSLoggingFacility(v2);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (v3 == 1)
   {
@@ -1323,7 +1323,7 @@ LABEL_24:
 
 void __34__DevicePINController_pinEntered___block_invoke(uint64_t a1)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(v2 + 1064);
   if (v3 <= 1)
@@ -1347,26 +1347,26 @@ void __34__DevicePINController_pinEntered___block_invoke(uint64_t a1)
       goto LABEL_55;
     }
 
-    v16 = *(v2 + 1068);
-    if (v16 != 2)
+    v17 = *(v2 + 1068);
+    if (v17 != 2)
     {
-      if (v16 == 1)
+      if (v17 == 1)
       {
-        v17 = *(a1 + 40);
-        v53 = 0;
-        v18 = [v2 pinIsAcceptable:v17 outError:&v53];
-        v19 = v53;
-        v20 = *(a1 + 32);
-        if (v18)
+        v18 = *(a1 + 40);
+        v54 = 0;
+        v19 = [v2 pinIsAcceptable:v18 outError:&v54];
+        v20 = v54;
+        v21 = *(a1 + 32);
+        if (v19)
         {
-          [v20 setLastEntry:*(a1 + 40)];
+          [v21 setLastEntry:*(a1 + 40)];
           ++*(*(a1 + 32) + 1068);
           [*(a1 + 32) _slidePasscodeFieldLeft:1];
         }
 
         else
         {
-          [v20 _showUnacceptablePINError:v19 password:*(a1 + 40)];
+          [v21 _showUnacceptablePINError:v20 password:*(a1 + 40)];
         }
       }
 
@@ -1380,121 +1380,121 @@ void __34__DevicePINController_pinEntered___block_invoke(uint64_t a1)
       aBlock[1] = 3221225472;
       aBlock[2] = __34__DevicePINController_pinEntered___block_invoke_2;
       aBlock[3] = &unk_1E71DC2F8;
-      objc_copyWeak(&v52, &buf);
-      v51 = *(a1 + 40);
-      v27 = _Block_copy(aBlock);
+      objc_copyWeak(&v53, &buf);
+      v52 = *(a1 + 40);
+      v28 = _Block_copy(aBlock);
       if (([*(a1 + 32) isMemberOfClass:objc_opt_class()] & 1) != 0 || objc_msgSend(*(a1 + 32), "_asyncSetPinCompatible"))
       {
-        [*(a1 + 32) setPIN:*(a1 + 40) completion:v27];
+        [*(a1 + 32) setPIN:*(a1 + 40) completion:v28];
       }
 
       else
       {
         [*(a1 + 32) setPIN:*(a1 + 40)];
-        v27[2](v27, 1, 0);
+        v28[2](v28, 1, 0);
       }
 
-      objc_destroyWeak(&v52);
+      objc_destroyWeak(&v53);
       objc_destroyWeak(&buf);
       return;
     }
 
     [*(a1 + 32) setLastEntry:0];
-    v32 = *(a1 + 32);
-    v33 = 1;
+    v33 = *(a1 + 32);
+    v34 = 1;
     goto LABEL_50;
   }
 
   if (v3 == 2)
   {
-    v21 = *(v2 + 1068);
-    if (v21 == 3)
+    v22 = *(v2 + 1068);
+    if (v22 == 3)
     {
       if ([*(a1 + 40) isEqualToString:*(v2 + 1080)] && objc_msgSend(*(a1 + 32), "completedInputIsValid:", *(a1 + 40)))
       {
-        v34 = [MEMORY[0x1E696AC70] weakObjectsHashTable];
-        [v34 addObject:*(a1 + 32)];
-        v43 = MEMORY[0x1E69E9820];
-        v44 = 3221225472;
-        v45 = __34__DevicePINController_pinEntered___block_invoke_184;
-        v46 = &unk_1E71DC638;
-        v35 = v34;
-        v47 = v35;
-        v48 = *(a1 + 40);
-        v36 = _Block_copy(&v43);
-        v37 = [*(a1 + 32) isMemberOfClass:{objc_opt_class(), v43, v44, v45, v46}];
-        v38 = *(a1 + 32);
-        v39 = *(a1 + 40);
-        if (v37)
+        v35 = [MEMORY[0x1E696AC70] weakObjectsHashTable];
+        [v35 addObject:*(a1 + 32)];
+        v44 = MEMORY[0x1E69E9820];
+        v45 = 3221225472;
+        v46 = __34__DevicePINController_pinEntered___block_invoke_184;
+        v47 = &unk_1E71DC638;
+        v36 = v35;
+        v48 = v36;
+        v49 = *(a1 + 40);
+        v37 = _Block_copy(&v44);
+        v38 = [*(a1 + 32) isMemberOfClass:{objc_opt_class(), v44, v45, v46, v47}];
+        v39 = *(a1 + 32);
+        v40 = *(a1 + 40);
+        if (v38)
         {
-          [v38 setPIN:v39 completion:v36];
+          [v39 setPIN:v40 completion:v37];
         }
 
         else
         {
-          [v38 setPIN:v39];
-          v36[2](v36, 1, 0);
+          [v39 setPIN:v40];
+          v37[2](v37, 1, 0);
         }
 
         return;
       }
 
       [*(a1 + 32) setLastEntry:0];
-      v32 = *(a1 + 32);
-      v33 = 2;
+      v33 = *(a1 + 32);
+      v34 = 2;
 LABEL_50:
-      *(v32 + 1068) = v33;
+      *(v33 + 1068) = v34;
       [*(a1 + 32) _slidePasscodeFieldLeft:0];
-      v40 = *(a1 + 32);
+      v41 = *(a1 + 32);
 
-      [v40 _showPINConfirmationError];
+      [v41 _showPINConfirmationError];
       return;
     }
 
-    if (v21 == 2)
+    if (v22 == 2)
     {
-      v28 = *(a1 + 40);
-      v49 = 0;
-      v29 = [v2 pinIsAcceptable:v28 outError:&v49];
-      v30 = v49;
-      v31 = *(a1 + 32);
-      if (v29)
+      v29 = *(a1 + 40);
+      v50 = 0;
+      v30 = [v2 pinIsAcceptable:v29 outError:&v50];
+      v31 = v50;
+      v32 = *(a1 + 32);
+      if (v30)
       {
-        [v31 setLastEntry:*(a1 + 40)];
+        [v32 setLastEntry:*(a1 + 40)];
         ++*(*(a1 + 32) + 1068);
         [*(a1 + 32) _slidePasscodeFieldLeft:1];
       }
 
       else
       {
-        [v31 _showUnacceptablePINError:v30 password:*(a1 + 40)];
+        [v32 _showUnacceptablePINError:v31 password:*(a1 + 40)];
       }
 
       return;
     }
 
-    if (v21 != 1)
+    if (v22 != 1)
     {
       return;
     }
 
-    v22 = [v2 attemptValidationWithPIN:*(a1 + 40)];
-    v23 = *(a1 + 32);
-    if (!v22)
-    {
-      [v23 setLastEntry:0];
-LABEL_55:
-      v41 = *(a1 + 32);
-
-      [v41 _updateErrorTextAndFailureCount:1];
-      return;
-    }
-
-    ++v23[267];
-    [*(a1 + 32) setOldPassword:*(a1 + 40)];
+    v23 = [v2 attemptValidationWithPIN:*(a1 + 40)];
     v24 = *(a1 + 32);
+    if (!v23)
+    {
+      [v24 setLastEntry:0];
+LABEL_55:
+      v42 = *(a1 + 32);
 
-    [v24 _slidePasscodeFieldLeft:1];
+      [v42 _updateErrorTextAndFailureCount:1];
+      return;
+    }
+
+    ++v24[267];
+    [*(a1 + 32) setOldPassword:*(a1 + 40)];
+    v25 = *(a1 + 32);
+
+    [v25 _slidePasscodeFieldLeft:1];
   }
 
   else
@@ -1504,82 +1504,85 @@ LABEL_55:
       return;
     }
 
-    if ([v2 attemptValidationWithPIN:*(a1 + 40)] && objc_msgSend(*(a1 + 32), "completedInputIsValid:", *(a1 + 40)))
+    if ([v2 attemptValidationWithPIN:*(a1 + 40)])
     {
-      v6 = _PSLoggingFacility();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v6 = [*(a1 + 32) completedInputIsValid:*(a1 + 40)];
+      if (v6)
       {
-        LOWORD(buf) = 0;
-        _os_log_impl(&dword_18B008000, v6, OS_LOG_TYPE_DEFAULT, "Succeeded passcode entry", &buf, 2u);
-      }
-
-      [*(*(a1 + 32) + 1056) hideFailedAttempts];
-      [*(a1 + 32) setSuccess:1];
-      [*(a1 + 32) setOldPassword:*(a1 + 40)];
-      WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 1096));
-      if (WeakRetained)
-      {
-        v8 = objc_loadWeakRetained((*(a1 + 32) + 1096));
-        v9 = objc_opt_respondsToSelector();
-
-        if (v9)
+        v7 = _PSLoggingFacility(v6);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
-          v10 = objc_loadWeakRetained((*(a1 + 32) + 1096));
-          [v10 willAcceptEnteredPIN];
+          LOWORD(buf) = 0;
+          _os_log_impl(&dword_18B008000, v7, OS_LOG_TYPE_DEFAULT, "Succeeded passcode entry", &buf, 2u);
         }
-      }
 
-      [*(a1 + 32) performActionAfterPINEntry];
-      v11 = objc_loadWeakRetained((*(a1 + 32) + 1096));
-
-      if (!v11)
-      {
-        goto LABEL_62;
-      }
-
-      v12 = objc_loadWeakRetained((*(a1 + 32) + 1096));
-      v13 = objc_opt_respondsToSelector();
-
-      v14 = objc_loadWeakRetained((*(a1 + 32) + 1096));
-      v15 = v14;
-      if (v13)
-      {
-        [v14 didAcceptEnteredPIN:*(*(a1 + 32) + 1072)];
-      }
-
-      else
-      {
-        v42 = objc_opt_respondsToSelector();
-
-        if ((v42 & 1) == 0)
+        [*(*(a1 + 32) + 1056) hideFailedAttempts];
+        [*(a1 + 32) setSuccess:1];
+        [*(a1 + 32) setOldPassword:*(a1 + 40)];
+        WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 1096));
+        if (WeakRetained)
         {
-LABEL_62:
-          [*(a1 + 32) _dismiss];
-          return;
+          v9 = objc_loadWeakRetained((*(a1 + 32) + 1096));
+          v10 = objc_opt_respondsToSelector();
+
+          if (v10)
+          {
+            v11 = objc_loadWeakRetained((*(a1 + 32) + 1096));
+            [v11 willAcceptEnteredPIN];
+          }
         }
+
+        [*(a1 + 32) performActionAfterPINEntry];
+        v12 = objc_loadWeakRetained((*(a1 + 32) + 1096));
+
+        if (!v12)
+        {
+          goto LABEL_62;
+        }
+
+        v13 = objc_loadWeakRetained((*(a1 + 32) + 1096));
+        v14 = objc_opt_respondsToSelector();
 
         v15 = objc_loadWeakRetained((*(a1 + 32) + 1096));
-        [v15 didAcceptEnteredPIN];
-      }
+        v16 = v15;
+        if (v14)
+        {
+          [v15 didAcceptEnteredPIN:*(*(a1 + 32) + 1072)];
+        }
 
-      goto LABEL_62;
+        else
+        {
+          v43 = objc_opt_respondsToSelector();
+
+          if ((v43 & 1) == 0)
+          {
+LABEL_62:
+            [*(a1 + 32) _dismiss];
+            return;
+          }
+
+          v16 = objc_loadWeakRetained((*(a1 + 32) + 1096));
+          [v16 didAcceptEnteredPIN];
+        }
+
+        goto LABEL_62;
+      }
     }
 
-    [*(a1 + 32) _updateErrorTextAndFailureCount:1];
-    v25 = _PSLoggingFacility();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v26 = _PSLoggingFacility([*(a1 + 32) _updateErrorTextAndFailureCount:1]);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
     {
-      v26 = [*(a1 + 32) numberOfFailedAttempts];
+      v27 = [*(a1 + 32) numberOfFailedAttempts];
       LODWORD(buf) = 67109120;
-      HIDWORD(buf) = v26;
-      _os_log_impl(&dword_18B008000, v25, OS_LOG_TYPE_DEFAULT, "Failed passcode entry, attempts = %i", &buf, 8u);
+      HIDWORD(buf) = v27;
+      _os_log_impl(&dword_18B008000, v26, OS_LOG_TYPE_DEFAULT, "Failed passcode entry, attempts = %i", &buf, 8u);
     }
   }
 }
 
 void __34__DevicePINController_pinEntered___block_invoke_2(uint64_t a1, char a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v7 = WeakRetained;
@@ -1590,50 +1593,50 @@ void __34__DevicePINController_pinEntered___block_invoke_2(uint64_t a1, char a2,
     [v8 hideFailedAttempts];
 
     [v7 _dismiss];
-    [v7 performActionAfterPINSet];
+    v9 = [v7 performActionAfterPINSet];
     if (a2)
     {
-      v9 = [v7 pinDelegate];
-      v10 = objc_opt_respondsToSelector();
+      v10 = [v7 pinDelegate];
+      v11 = objc_opt_respondsToSelector();
 
-      v11 = [v7 pinDelegate];
-      v12 = v11;
-      if (v10)
+      v12 = [v7 pinDelegate];
+      v13 = v12;
+      if (v11)
       {
-        [v11 devicePINController:v7 didAcceptSetPIN:*(a1 + 32)];
+        [v12 devicePINController:v7 didAcceptSetPIN:*(a1 + 32)];
 
         goto LABEL_12;
       }
 
-      v17 = objc_opt_respondsToSelector();
+      v18 = objc_opt_respondsToSelector();
 
-      if ((v17 & 1) == 0)
+      if ((v18 & 1) == 0)
       {
         goto LABEL_12;
       }
 
-      v16 = [v7 pinDelegate];
-      [v16 didAcceptSetPIN];
+      v17 = [v7 pinDelegate];
+      [v17 didAcceptSetPIN];
 LABEL_11:
 
       goto LABEL_12;
     }
 
-    v13 = _PSLoggingFacility();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = _PSLoggingFacility(v9);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412290;
-      v19 = v5;
-      _os_log_impl(&dword_18B008000, v13, OS_LOG_TYPE_DEFAULT, "Failed to set passcode with error: %@", &v18, 0xCu);
+      v19 = 138412290;
+      v20 = v5;
+      _os_log_impl(&dword_18B008000, v14, OS_LOG_TYPE_DEFAULT, "Failed to set passcode with error: %@", &v19, 0xCu);
     }
 
-    v14 = [v7 pinDelegate];
-    v15 = objc_opt_respondsToSelector();
+    v15 = [v7 pinDelegate];
+    v16 = objc_opt_respondsToSelector();
 
-    if (v15)
+    if (v16)
     {
-      v16 = [v7 pinDelegate];
-      [v16 devicePINController:v7 didFailToSetPinWithError:v5];
+      v17 = [v7 pinDelegate];
+      [v17 devicePINController:v7 didFailToSetPinWithError:v5];
       goto LABEL_11;
     }
   }
@@ -1774,7 +1777,7 @@ void __49__DevicePINController__removePinWithOldPassword___block_invoke(uint64_t
   }
 }
 
-uint64_t __68__DevicePINController__preflightPasswordForWeakness_withCompletion___block_invoke_2(uint64_t a1, int a2)
+uint64_t (**__68__DevicePINController__preflightPasswordForWeakness_withCompletion___block_invoke_2(uint64_t a1, int a2))(void)
 {
   if (!a2)
   {
@@ -1784,7 +1787,7 @@ uint64_t __68__DevicePINController__preflightPasswordForWeakness_withCompletion_
   result = *(a1 + 40);
   if (result)
   {
-    return (*(result + 16))();
+    return result[2]();
   }
 
   return result;

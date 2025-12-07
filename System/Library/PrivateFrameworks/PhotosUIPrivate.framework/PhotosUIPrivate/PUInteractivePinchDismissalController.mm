@@ -17,9 +17,9 @@
   {
     tilingView = [(PUInteractiveDismissalController *)self tilingView];
     layout = [tilingView layout];
-    indexPath = [infoCopy indexPath];
+    v9 = objc_msgSend_indexPath(infoCopy);
     tileKind = [infoCopy tileKind];
-    v11 = [layout layoutInfoForTileWithIndexPath:indexPath kind:tileKind];
+    v11 = [layout layoutInfoForTileWithIndexPath:v9 kind:tileKind];
   }
 
   else
@@ -180,7 +180,7 @@ LABEL_8:
   }
 }
 
-uint64_t __71__PUInteractivePinchDismissalController__handlePinchGestureRecognizer___block_invoke(uint64_t a1)
+unint64_t __71__PUInteractivePinchDismissalController__handlePinchGestureRecognizer___block_invoke(uint64_t a1)
 {
   v4 = *(a1 + 32);
   if (v4)

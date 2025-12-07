@@ -20,38 +20,36 @@
     osTransaction = v4->_osTransaction;
     v4->_osTransaction = v5;
 
-    v7 = BDSCloudKitLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = BDSCloudKitLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
       nameCopy = name;
       v13 = 2048;
       v14 = v4;
-      _os_log_impl(&dword_1E45E0000, v7, OS_LOG_TYPE_DEFAULT, "[Transaction]: Created transaction %{public}s(%p)", buf, 0x16u);
+      _os_log_impl(&dword_1E45E0000, v8, OS_LOG_TYPE_DEFAULT, "[Transaction]: Created transaction %{public}s(%p)", buf, 0x16u);
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (void)transactionNeedsMoreTime
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (self->_osTransaction)
   {
     v3 = os_transaction_copy_description();
-    v4 = BDSCloudKitLog();
+    v4 = BDSCloudKitLog(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136446466;
+      v6 = 136446466;
       selfCopy2 = v3;
-      v10 = 2048;
+      v8 = 2048;
       selfCopy = self;
-      _os_log_impl(&dword_1E45E0000, v4, OS_LOG_TYPE_DEFAULT, "[Transaction]: Transaction needs more time %{public}s(%p)", &v8, 0x16u);
+      _os_log_impl(&dword_1E45E0000, v4, OS_LOG_TYPE_DEFAULT, "[Transaction]: Transaction needs more time %{public}s(%p)", &v6, 0x16u);
     }
 
-    osTransaction = self->_osTransaction;
     os_transaction_needs_more_time();
     if (v3)
     {
@@ -61,32 +59,30 @@
 
   else
   {
-    v6 = BDSCloudKitLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v5 = BDSCloudKitLog(0);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 134217984;
+      v6 = 134217984;
       selfCopy2 = self;
-      _os_log_impl(&dword_1E45E0000, v6, OS_LOG_TYPE_DEFAULT, "[Transaction]: transactionNeedsMoreTime was called but transaction was already nil.(%p)", &v8, 0xCu);
+      _os_log_impl(&dword_1E45E0000, v5, OS_LOG_TYPE_DEFAULT, "[Transaction]: transactionNeedsMoreTime was called but transaction was already nil.(%p)", &v6, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)endTransaction
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (self->_osTransaction)
   {
     v3 = os_transaction_copy_description();
-    v4 = BDSCloudKitLog();
+    v4 = BDSCloudKitLog(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136446466;
+      v9 = 136446466;
       selfCopy2 = v3;
-      v12 = 2048;
+      v11 = 2048;
       selfCopy = self;
-      _os_log_impl(&dword_1E45E0000, v4, OS_LOG_TYPE_DEFAULT, "[Transaction]: Ending transaction %{public}s(%p)", &v10, 0x16u);
+      _os_log_impl(&dword_1E45E0000, v4, OS_LOG_TYPE_DEFAULT, "[Transaction]: Ending transaction %{public}s(%p)", &v9, 0x16u);
     }
 
     delegate = [(BDSOSTransaction *)self delegate];
@@ -105,33 +101,31 @@
 
   else
   {
-    v7 = BDSCloudKitLog();
+    v7 = BDSCloudKitLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 134217984;
+      v9 = 134217984;
       selfCopy2 = self;
-      _os_log_impl(&dword_1E45E0000, v7, OS_LOG_TYPE_DEFAULT, "[Transaction]: EndTransaction was called but transaction was already nil.(%p)", &v10, 0xCu);
+      _os_log_impl(&dword_1E45E0000, v7, OS_LOG_TYPE_DEFAULT, "[Transaction]: EndTransaction was called but transaction was already nil.(%p)", &v9, 0xCu);
     }
   }
 
   osTransaction = self->_osTransaction;
   self->_osTransaction = 0;
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (self->_osTransaction)
   {
     v3 = os_transaction_copy_description();
-    v4 = BDSCloudKitLog();
+    v4 = BDSCloudKitLog(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v10 = v3;
-      v11 = 2048;
+      v9 = v3;
+      v10 = 2048;
       selfCopy = self;
       _os_log_impl(&dword_1E45E0000, v4, OS_LOG_TYPE_DEFAULT, "[Transaction]: Ending transaction %{public}s(%p)", buf, 0x16u);
     }
@@ -150,10 +144,9 @@
     }
   }
 
-  v8.receiver = self;
-  v8.super_class = BDSOSTransaction;
-  [(BDSOSTransaction *)&v8 dealloc];
-  v7 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = BDSOSTransaction;
+  [(BDSOSTransaction *)&v7 dealloc];
 }
 
 - (BDSOSTransactionDelegate)delegate

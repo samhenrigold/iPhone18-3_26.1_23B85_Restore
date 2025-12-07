@@ -1,6 +1,7 @@
 @interface PGHighlightTitleGenerator
 + (id)commonMeaningLabelForTitleUsingMomentNodes:(id)nodes;
 + (id)meaningLabelsSortedByPriority;
+- (PGHighlightTitleGenerator)initWithCollection:(id)collection curatedAssetCollection:(id)assetCollection keyAsset:(id)asset createVerboseTitle:(BOOL)title titleGenerationContext:(id)context;
 - (PGHighlightTitleGenerator)initWithCollection:(id)collection filteredMomentNodes:(id)nodes curatedAssetCollection:(id)assetCollection keyAsset:(id)asset createVerboseTitle:(BOOL)title titleGenerationContext:(id)context;
 - (PGTitleTuple)titleTuple;
 - (void)_generateTitleTuples;
@@ -142,6 +143,19 @@ LABEL_26:
   return v19;
 }
 
+- (PGHighlightTitleGenerator)initWithCollection:(id)collection curatedAssetCollection:(id)assetCollection keyAsset:(id)asset createVerboseTitle:(BOOL)title titleGenerationContext:(id)context
+{
+  titleCopy = title;
+  contextCopy = context;
+  assetCopy = asset;
+  assetCollectionCopy = assetCollection;
+  collectionCopy = collection;
+  eventEnrichmentMomentNodes = [collectionCopy eventEnrichmentMomentNodes];
+  v17 = [(PGHighlightTitleGenerator *)self initWithCollection:collectionCopy filteredMomentNodes:eventEnrichmentMomentNodes curatedAssetCollection:assetCollectionCopy keyAsset:assetCopy createVerboseTitle:titleCopy titleGenerationContext:contextCopy];
+
+  return v17;
+}
+
 + (id)meaningLabelsSortedByPriority
 {
   if (meaningLabelsSortedByPriority_onceToken != -1)
@@ -170,105 +184,105 @@ void __58__PGHighlightTitleGenerator_meaningLabelsSortedByPriority__block_invoke
 
 + (id)commonMeaningLabelForTitleUsingMomentNodes:(id)nodes
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v43 = 0u;
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v47 = 0u;
   obj = nodesCopy;
-  v30 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
+  v29 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
   selfCopy = self;
   v6 = 0;
-  if (v30)
+  if (v29)
   {
-    v29 = *v45;
+    v28 = *v44;
     do
     {
       v7 = 0;
       do
       {
-        v32 = v6;
-        if (*v45 != v29)
+        v31 = v6;
+        if (*v44 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v31 = v7;
-        v8 = *(*(&v44 + 1) + 8 * v7);
+        v30 = v7;
+        v8 = *(*(&v43 + 1) + 8 * v7);
         numberOfAssets = [v8 numberOfAssets];
         meaningLabels = [v8 meaningLabels];
+        v39 = 0u;
         v40 = 0u;
         v41 = 0u;
         v42 = 0u;
-        v43 = 0u;
-        v11 = [meaningLabels countByEnumeratingWithState:&v40 objects:v49 count:16];
+        v11 = [meaningLabels countByEnumeratingWithState:&v39 objects:v48 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v41;
+          v13 = *v40;
           do
           {
             for (i = 0; i != v12; ++i)
             {
-              if (*v41 != v13)
+              if (*v40 != v13)
               {
                 objc_enumerationMutation(meaningLabels);
               }
 
-              v15 = *(*(&v40 + 1) + 8 * i);
+              v15 = *(*(&v39 + 1) + 8 * i);
               v16 = [dictionary objectForKeyedSubscript:v15];
               v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v16, "unsignedIntegerValue") + numberOfAssets}];
               [dictionary setObject:v17 forKeyedSubscript:v15];
             }
 
-            v12 = [meaningLabels countByEnumeratingWithState:&v40 objects:v49 count:16];
+            v12 = [meaningLabels countByEnumeratingWithState:&v39 objects:v48 count:16];
           }
 
           while (v12);
         }
 
-        v6 = numberOfAssets + v32;
+        v6 = numberOfAssets + v31;
 
-        v7 = v31 + 1;
+        v7 = v30 + 1;
       }
 
-      while (v31 + 1 != v30);
-      v30 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
+      while (v30 + 1 != v29);
+      v29 = [obj countByEnumeratingWithState:&v43 objects:v49 count:16];
     }
 
-    while (v30);
+    while (v29);
   }
 
   v18 = [MEMORY[0x277CBEB58] set];
-  v37[0] = MEMORY[0x277D85DD0];
-  v37[1] = 3221225472;
-  v37[2] = __72__PGHighlightTitleGenerator_commonMeaningLabelForTitleUsingMomentNodes___block_invoke;
-  v37[3] = &unk_278881E88;
-  v39 = v6;
+  v36[0] = MEMORY[0x277D85DD0];
+  v36[1] = 3221225472;
+  v36[2] = __72__PGHighlightTitleGenerator_commonMeaningLabelForTitleUsingMomentNodes___block_invoke;
+  v36[3] = &unk_278881E88;
+  v38 = v6;
   v19 = v18;
-  v38 = v19;
-  [dictionary enumerateKeysAndObjectsUsingBlock:v37];
+  v37 = v19;
+  [dictionary enumerateKeysAndObjectsUsingBlock:v36];
   [objc_opt_class() meaningLabelsSortedByPriority];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v20 = v36 = 0u;
-  v21 = [v20 countByEnumeratingWithState:&v33 objects:v48 count:16];
+  v20 = v35 = 0u;
+  v21 = [v20 countByEnumeratingWithState:&v32 objects:v47 count:16];
   if (v21)
   {
-    v22 = *v34;
+    v22 = *v33;
     while (2)
     {
       for (j = 0; j != v21; j = j + 1)
       {
-        if (*v34 != v22)
+        if (*v33 != v22)
         {
           objc_enumerationMutation(v20);
         }
 
-        v24 = *(*(&v33 + 1) + 8 * j);
+        v24 = *(*(&v32 + 1) + 8 * j);
         if ([v19 containsObject:{v24, selfCopy}])
         {
           v21 = v24;
@@ -276,7 +290,7 @@ void __58__PGHighlightTitleGenerator_meaningLabelsSortedByPriority__block_invoke
         }
       }
 
-      v21 = [v20 countByEnumeratingWithState:&v33 objects:v48 count:16];
+      v21 = [v20 countByEnumeratingWithState:&v32 objects:v47 count:16];
       if (v21)
       {
         continue;
@@ -287,8 +301,6 @@ void __58__PGHighlightTitleGenerator_meaningLabelsSortedByPriority__block_invoke
   }
 
 LABEL_25:
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

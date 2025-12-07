@@ -308,7 +308,7 @@ void __52__PKSelectionView_generateStrokeImageForPasteAndDND__block_invoke(uint6
     drawing = [strokeSelection drawing];
     if (v17)
     {
-      [v17 transformFromViewToStrokeSpaceInDrawing:drawing];
+      objc_msgSend_transformFromViewToStrokeSpaceInDrawing_(v17);
     }
 
     else
@@ -408,7 +408,7 @@ void __52__PKSelectionView_generateStrokeImageForPasteAndDND__block_invoke(uint6
   drawing2 = [strokeSelection3 drawing];
   if (v37)
   {
-    [v37 transformFromViewToStrokeSpaceInDrawing:drawing2];
+    objc_msgSend_transformFromViewToStrokeSpaceInDrawing_(v37);
     v41 = v57.f64[1];
     v40 = v57.f64[0];
     v43 = v58.f64[1];
@@ -936,7 +936,7 @@ id __30__PKSelectionView_keyCommands__block_invoke(uint64_t a1, uint64_t a2, uin
   MidX = CGRectGetMidX(*&v4);
   MidY = CGRectGetMidY(*p_originalStrokeFrame);
   CGAffineTransformMakeTranslation(&t1, MidX, MidY);
-  [(PKSelectionView *)self selectionDrawingStrokeTransform];
+  objc_msgSend_selectionDrawingStrokeTransform(self);
   CGAffineTransformConcat(&v14, &t1, &v12);
   DKDTransformInTransformSpace(&v15, &v14, &v16);
   v15 = v16;
@@ -1064,7 +1064,7 @@ id __30__PKSelectionView_keyCommands__block_invoke(uint64_t a1, uint64_t a2, uin
         self->_currentScrollOffset.y = v30;
         if (_currentAttachment)
         {
-          [_currentAttachment drawingTransform];
+          objc_msgSend_drawingTransform(_currentAttachment);
         }
 
         else
@@ -1291,9 +1291,9 @@ uint64_t __55__PKSelectionView_performDidEndGestureWithTranslation___block_invok
   return [v7 _cleanupDragState];
 }
 
-uint64_t __55__PKSelectionView_performDidEndGestureWithTranslation___block_invoke_2(uint64_t result)
+void *__55__PKSelectionView_performDidEndGestureWithTranslation___block_invoke_2(void *result)
 {
-  if (*(*(result + 32) + 584))
+  if (*(result[4] + 584))
   {
     v1 = result;
     v2 = os_log_create("com.apple.pencilkit", "");
@@ -1303,7 +1303,7 @@ uint64_t __55__PKSelectionView_performDidEndGestureWithTranslation___block_invok
       _os_log_fault_impl(&dword_1C7CCA000, v2, OS_LOG_TYPE_FAULT, "Text attachment was not created at the bottom of the note in time for the selection drag to finish", v3, 2u);
     }
 
-    return [*(v1 + 32) _commitDragToAttachment];
+    return [v1[4] _commitDragToAttachment];
   }
 
   return result;

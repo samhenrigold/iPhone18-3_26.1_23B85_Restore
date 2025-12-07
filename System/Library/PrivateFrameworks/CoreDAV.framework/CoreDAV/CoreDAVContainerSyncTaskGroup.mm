@@ -106,7 +106,7 @@
 
 - (id)copyGetTaskWithURL:(id)l
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = +[CoreDAVLogging sharedLogging];
   WeakRetained = objc_loadWeakRetained(&self->super._accountInfoProvider);
   v6 = [v4 logHandleForAccountInfoProvider:WeakRetained];
@@ -116,20 +116,19 @@
     v7 = v6;
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138543362;
-      v12 = objc_opt_class();
-      v8 = v12;
-      _os_log_impl(&dword_2452FB000, v7, OS_LOG_TYPE_ERROR, "copyGetTaskWithURL: to be implemented by subclass %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = objc_opt_class();
+      v8 = v11;
+      _os_log_impl(&dword_2452FB000, v7, OS_LOG_TYPE_ERROR, "copyGetTaskWithURL: to be implemented by subclass %{public}@", &v10, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (id)copyMultiGetTaskWithURLs:(id)ls
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = +[CoreDAVLogging sharedLogging];
   WeakRetained = objc_loadWeakRetained(&self->super._accountInfoProvider);
   v6 = [v4 logHandleForAccountInfoProvider:WeakRetained];
@@ -139,20 +138,19 @@
     v7 = v6;
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138543362;
-      v12 = objc_opt_class();
-      v8 = v12;
-      _os_log_impl(&dword_2452FB000, v7, OS_LOG_TYPE_ERROR, "copyMultiGetTaskWithURLs: to be implemented by subclass %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = objc_opt_class();
+      v8 = v11;
+      _os_log_impl(&dword_2452FB000, v7, OS_LOG_TYPE_ERROR, "copyMultiGetTaskWithURLs: to be implemented by subclass %{public}@", &v10, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (id)dataContentType
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = +[CoreDAVLogging sharedLogging];
   WeakRetained = objc_loadWeakRetained(&self->super._accountInfoProvider);
   v5 = [v3 logHandleForAccountInfoProvider:WeakRetained];
@@ -162,20 +160,19 @@
     v6 = v5;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138543362;
-      v11 = objc_opt_class();
-      v7 = v11;
-      _os_log_impl(&dword_2452FB000, v6, OS_LOG_TYPE_ERROR, "dataContentType to be implemented by subclass %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = objc_opt_class();
+      v7 = v10;
+      _os_log_impl(&dword_2452FB000, v6, OS_LOG_TYPE_ERROR, "dataContentType to be implemented by subclass %{public}@", &v9, 0xCu);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (Class)bulkChangeTaskClass
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = +[CoreDAVLogging sharedLogging];
   WeakRetained = objc_loadWeakRetained(&self->super._accountInfoProvider);
   v5 = [v3 logHandleForAccountInfoProvider:WeakRetained];
@@ -185,20 +182,19 @@
     v6 = v5;
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138543362;
-      v11 = objc_opt_class();
-      v7 = v11;
-      _os_log_impl(&dword_2452FB000, v6, OS_LOG_TYPE_ERROR, "bulkChangeTaskClass to be implemented by subclass %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = objc_opt_class();
+      v7 = v10;
+      _os_log_impl(&dword_2452FB000, v6, OS_LOG_TYPE_ERROR, "bulkChangeTaskClass to be implemented by subclass %{public}@", &v9, 0xCu);
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
 - (void)taskGroupWillCancelWithError:(id)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = errorCopy;
   if (!errorCopy)
@@ -233,8 +229,8 @@ LABEL_7:
   {
     *buf = 138412546;
     selfCopy = self;
-    v18 = 2112;
-    v19 = v5;
+    v17 = 2112;
+    v18 = v5;
     _os_log_impl(&dword_2452FB000, v11, v8, "Task group %@ will cancel with error %@", buf, 0x16u);
   }
 
@@ -246,49 +242,46 @@ LABEL_7:
   selfCopy2 = self;
   delegate = [(CoreDAVTaskGroup *)selfCopy2 delegate];
   [delegate containerSyncTask:selfCopy2 completedWithNewCTag:0 newSyncToken:0 addedOrModified:0 removed:0 error:v5];
-  v15.receiver = selfCopy2;
-  v15.super_class = CoreDAVContainerSyncTaskGroup;
-  [(CoreDAVTaskGroup *)&v15 taskGroupWillCancelWithError:v5];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v14.receiver = selfCopy2;
+  v14.super_class = CoreDAVContainerSyncTaskGroup;
+  [(CoreDAVTaskGroup *)&v14 taskGroupWillCancelWithError:v5];
 }
 
 - (void)_tearDownAllUnsubmittedTasks
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"CoreDAVErrorDomain" code:1 userInfo:0];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v4 = self->_unsubmittedTasks;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v10 + 1) + 8 * v8++) finishEarlyWithError:{v3, v10}];
+        [*(*(&v9 + 1) + 8 * v8++) finishEarlyWithError:{v3, v9}];
       }
 
       while (v6 != v8);
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
 
   [(NSMutableArray *)self->_unsubmittedTasks removeAllObjects];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)bailWithError:(id)error
@@ -310,21 +303,20 @@ LABEL_7:
 
 - (unint64_t)_submitTasks
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   if (self->super._isCancelling)
   {
-    v2 = 0;
-    goto LABEL_32;
+    return 0;
   }
 
   v4 = 160;
   v5 = [(NSMutableArray *)self->_unsubmittedTasks copy];
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v40 objects:v54 count:16];
+  v6 = [obj countByEnumeratingWithState:&v39 objects:v53 count:16];
   v7 = 0x27EE11000uLL;
   if (!v6)
   {
@@ -334,23 +326,23 @@ LABEL_7:
 
   v8 = v6;
   v2 = 0;
-  v9 = *v41;
+  v9 = *v40;
   do
   {
     v10 = 0;
-    v38 = v8;
+    v37 = v8;
     do
     {
-      if (*v41 != v9)
+      if (*v40 != v9)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v40 + 1) + 8 * v10);
+      v11 = *(*(&v39 + 1) + 8 * v10);
       v12 = *(v7 + 3464);
       if (!*(&self->super.super.isa + v12))
       {
-        [(NSMutableSet *)self->super._outstandingTasks addObject:*(*(&v40 + 1) + 8 * v10)];
+        [(NSMutableSet *)self->super._outstandingTasks addObject:*(*(&v39 + 1) + 8 * v10)];
         [*(&self->super.super.isa + v4) removeObject:v11];
         WeakRetained = objc_loadWeakRetained(&self->super._taskManager);
         [v11 submitWithTaskManager:WeakRetained];
@@ -386,7 +378,7 @@ LABEL_13:
       if (v20 && os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v45 = v11;
+        v44 = v11;
         _os_log_impl(&dword_2452FB000, v20, OS_LOG_TYPE_ERROR, "Can't submit anything but CoreDAVTasks independently, %@", buf, 0xCu);
       }
 
@@ -394,13 +386,13 @@ LABEL_13:
       v4 = v16;
       v2 = v15;
       v9 = v14;
-      v8 = v38;
+      v8 = v37;
 LABEL_18:
       ++v10;
     }
 
     while (v8 != v10);
-    v8 = [obj countByEnumeratingWithState:&v40 objects:v54 count:16];
+    v8 = [obj countByEnumeratingWithState:&v39 objects:v53 count:16];
   }
 
   while (v8);
@@ -423,15 +415,15 @@ LABEL_22:
         v28 = [(NSMutableSet *)self->super._outstandingTasks count];
         v29 = [*(&self->super.super.isa + v4) count];
         *buf = 138544386;
-        v45 = v27;
-        v46 = 2048;
+        v44 = v27;
+        v45 = 2048;
         selfCopy2 = self;
-        v48 = 2048;
-        v49 = v2;
-        v50 = 2048;
-        v51 = v28;
-        v52 = 2048;
-        v53 = v29;
+        v47 = 2048;
+        v48 = v2;
+        v49 = 2048;
+        v50 = v28;
+        v51 = 2048;
+        v52 = v29;
         v30 = "<%{public}@: %p> Submitted %lu independent tasks, %lu active, %lu waiting.";
         v31 = v25;
         v32 = 52;
@@ -451,13 +443,13 @@ LABEL_22:
       v27 = NSStringFromClass(v34);
       v35 = [(NSMutableSet *)self->super._outstandingTasks count];
       *buf = 138544130;
-      v45 = v27;
-      v46 = 2048;
+      v44 = v27;
+      v45 = 2048;
       selfCopy2 = self;
-      v48 = 2048;
-      v49 = v2;
-      v50 = 2048;
-      v51 = v35;
+      v47 = 2048;
+      v48 = v2;
+      v49 = 2048;
+      v50 = v35;
       v30 = "<%{public}@: %p> Submitted %lu queued tasks, %lu total tasks queued.";
       v31 = v33;
       v32 = 42;
@@ -468,8 +460,6 @@ LABEL_29:
 LABEL_30:
   }
 
-LABEL_32:
-  v36 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -554,7 +544,7 @@ void __41__CoreDAVContainerSyncTaskGroup__getCTag__block_invoke(uint64_t a1)
   [currentHandler handleFailureInMethod:self object:a2 file:@"CoreDAVContainerSyncTaskGroup.m" lineNumber:443 description:{@"Couldn't create task of class %@, things will go poorly", a3}];
 }
 
-uint64_t __47__CoreDAVContainerSyncTaskGroup__sendNextBatch__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__47__CoreDAVContainerSyncTaskGroup__sendNextBatch__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 ignoresGuardianRestrictions];
   if (result)
@@ -628,7 +618,7 @@ uint64_t __47__CoreDAVContainerSyncTaskGroup__sendNextBatch__block_invoke(uint64
 
 void __52__CoreDAVContainerSyncTaskGroup__configureMultiGet___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -654,11 +644,11 @@ void __52__CoreDAVContainerSyncTaskGroup__configureMultiGet___block_invoke(uint6
             v10 = v9;
             if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
             {
-              v16 = 138412546;
-              v17 = v6;
-              v18 = 2048;
-              v19 = [v5 count];
-              _os_log_impl(&dword_2452FB000, v10, OS_LOG_TYPE_INFO, "%@ missed %lu items - resubmitting", &v16, 0x16u);
+              v15 = 138412546;
+              v16 = v6;
+              v17 = 2048;
+              v18 = [v5 count];
+              _os_log_impl(&dword_2452FB000, v10, OS_LOG_TYPE_INFO, "%@ missed %lu items - resubmitting", &v15, 0x16u);
             }
           }
         }
@@ -671,8 +661,6 @@ void __52__CoreDAVContainerSyncTaskGroup__configureMultiGet___block_invoke(uint6
     v14 = [v3 error];
     [v11 _getTask:v3 finishedWithParsedContents:v12 deletedItems:v13 error:v14];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteResourceURLs:(id)ls
@@ -783,7 +771,7 @@ LABEL_9:
 
 - (void)putTask:(id)task completedWithNewETag:(id)tag error:(id)error
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   tagCopy = tag;
   errorCopy = error;
@@ -919,13 +907,13 @@ LABEL_26:
 
       if (v30 && os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
-        v43 = 138412802;
-        v44 = taskCopy;
-        v45 = 2114;
-        v46 = tagCopy;
-        v47 = 2112;
-        v48 = errorCopy;
-        _os_log_impl(&dword_2452FB000, v30, OS_LOG_TYPE_DEFAULT, "putTask:%@ completedWithNewETag:%{public}@ error:%@ Ignoring", &v43, 0x20u);
+        v42 = 138412802;
+        v43 = taskCopy;
+        v44 = 2114;
+        v45 = tagCopy;
+        v46 = 2112;
+        v47 = errorCopy;
+        _os_log_impl(&dword_2452FB000, v30, OS_LOG_TYPE_DEFAULT, "putTask:%@ completedWithNewETag:%{public}@ error:%@ Ignoring", &v42, 0x20u);
       }
 
       errorCopy = 0;
@@ -963,26 +951,24 @@ LABEL_25:
     {
       outstandingTasks = self->super._outstandingTasks;
       unsubmittedTasks = self->_unsubmittedTasks;
-      v43 = 138412802;
-      v44 = taskCopy;
-      v45 = 2112;
-      v46 = outstandingTasks;
-      v47 = 2112;
-      v48 = unsubmittedTasks;
-      _os_log_impl(&dword_2452FB000, v18, OS_LOG_TYPE_DEFAULT, "Received callback for an unexpected task %@, outstandingTasks %@, unsubmittedTasks %@", &v43, 0x20u);
+      v42 = 138412802;
+      v43 = taskCopy;
+      v44 = 2112;
+      v45 = outstandingTasks;
+      v46 = 2112;
+      v47 = unsubmittedTasks;
+      _os_log_impl(&dword_2452FB000, v18, OS_LOG_TYPE_DEFAULT, "Received callback for an unexpected task %@, outstandingTasks %@, unsubmittedTasks %@", &v42, 0x20u);
     }
 
     goto LABEL_42;
   }
 
 LABEL_43:
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postTask:(id)task didFinishWithError:(id)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   errorCopy = error;
   if ([(NSMutableSet *)self->super._outstandingTasks containsObject:taskCopy])
@@ -1023,11 +1009,11 @@ LABEL_43:
 
           if (v23 && os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
-            v25 = 138412546;
-            v26 = taskCopy;
-            v27 = 2112;
-            v28 = errorCopy;
-            _os_log_impl(&dword_2452FB000, v23, OS_LOG_TYPE_ERROR, "postTask:%@ error:%@ Ignoring", &v25, 0x16u);
+            v24 = 138412546;
+            v25 = taskCopy;
+            v26 = 2112;
+            v27 = errorCopy;
+            _os_log_impl(&dword_2452FB000, v23, OS_LOG_TYPE_ERROR, "postTask:%@ error:%@ Ignoring", &v24, 0x16u);
           }
 
           goto LABEL_22;
@@ -1077,24 +1063,22 @@ LABEL_25:
     {
       outstandingTasks = self->super._outstandingTasks;
       unsubmittedTasks = self->_unsubmittedTasks;
-      v25 = 138412802;
-      v26 = taskCopy;
-      v27 = 2112;
-      v28 = outstandingTasks;
-      v29 = 2112;
-      v30 = unsubmittedTasks;
-      _os_log_impl(&dword_2452FB000, v15, OS_LOG_TYPE_DEFAULT, "Received callback for an unexpected task %@, outstandingTasks %@, unsubmittedTasks %@", &v25, 0x20u);
+      v24 = 138412802;
+      v25 = taskCopy;
+      v26 = 2112;
+      v27 = outstandingTasks;
+      v28 = 2112;
+      v29 = unsubmittedTasks;
+      _os_log_impl(&dword_2452FB000, v15, OS_LOG_TYPE_DEFAULT, "Received callback for an unexpected task %@, outstandingTasks %@, unsubmittedTasks %@", &v24, 0x20u);
     }
   }
 
 LABEL_26:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_syncReportTask:(id)task didFinishWithError:(id)error
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   errorCopy = error;
   if ([(NSMutableSet *)self->super._outstandingTasks containsObject:taskCopy])
@@ -1109,22 +1093,22 @@ LABEL_26:
         [(CoreDAVContainerSyncTaskGroup *)self _getCTag];
       }
 
-      else if ([taskCopy hadUnexpectedChangeOfSyncTokenWithZeroResponses] && (v14 = -[CoreDAVContainerSyncTaskGroup unexpectedEmptySyncReportResponseRetryAttemptCount](self, "unexpectedEmptySyncReportResponseRetryAttemptCount"), v14 < -[CoreDAVContainerSyncTaskGroup maxRetryOnUnexpectedSyncTokenChange](self, "maxRetryOnUnexpectedSyncTokenChange")))
+      else if ([taskCopy hadUnexpectedChangeOfSyncTokenWithZeroResponses] && (v13 = -[CoreDAVContainerSyncTaskGroup unexpectedEmptySyncReportResponseRetryAttemptCount](self, "unexpectedEmptySyncReportResponseRetryAttemptCount"), v13 < -[CoreDAVContainerSyncTaskGroup maxRetryOnUnexpectedSyncTokenChange](self, "maxRetryOnUnexpectedSyncTokenChange")))
       {
-        v15 = +[CoreDAVLogging sharedLogging];
+        v14 = +[CoreDAVLogging sharedLogging];
         WeakRetained = objc_loadWeakRetained(&self->super._accountInfoProvider);
-        v17 = [v15 logHandleForAccountInfoProvider:WeakRetained];
+        v16 = [v14 logHandleForAccountInfoProvider:WeakRetained];
 
-        if (v17 && os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+        if (v16 && os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
         {
           *buf = 0;
-          _os_log_impl(&dword_2452FB000, v17, OS_LOG_TYPE_INFO, "Retrying a sync-report after unexpectedly receiving a new sync token but no new content", buf, 2u);
+          _os_log_impl(&dword_2452FB000, v16, OS_LOG_TYPE_INFO, "Retrying a sync-report after unexpectedly receiving a new sync token but no new content", buf, 2u);
         }
 
         delegate = [(CoreDAVTaskGroup *)self delegate];
-        v19 = objc_opt_respondsToSelector();
+        v18 = objc_opt_respondsToSelector();
 
-        if (v19)
+        if (v18)
         {
           delegate2 = [(CoreDAVTaskGroup *)self delegate];
           [delegate2 logRetryAfterEmptyResponseContainerSyncTask:self retryCount:{-[CoreDAVContainerSyncTaskGroup unexpectedEmptySyncReportResponseRetryAttemptCount](self, "unexpectedEmptySyncReportResponseRetryAttemptCount")}];
@@ -1143,69 +1127,69 @@ LABEL_26:
       {
         if (!self->_urlToETag)
         {
-          v21 = objc_alloc_init(MEMORY[0x277CBEB38]);
+          v20 = objc_alloc_init(MEMORY[0x277CBEB38]);
           urlToETag = self->_urlToETag;
-          self->_urlToETag = v21;
+          self->_urlToETag = v20;
         }
 
         if ([taskCopy hadUnexpectedChangeOfSyncTokenWithZeroResponses])
         {
-          v23 = +[CoreDAVLogging sharedLogging];
-          v24 = objc_loadWeakRetained(&self->super._accountInfoProvider);
-          v25 = [v23 logHandleForAccountInfoProvider:v24];
+          v22 = +[CoreDAVLogging sharedLogging];
+          v23 = objc_loadWeakRetained(&self->super._accountInfoProvider);
+          v24 = [v22 logHandleForAccountInfoProvider:v23];
 
-          if (v25)
+          if (v24)
           {
-            v26 = v25;
-            if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+            v25 = v24;
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
             {
               nextSyncToken = [taskCopy nextSyncToken];
               *buf = 138543618;
-              v71 = nextSyncToken;
-              v72 = 2048;
+              v70 = nextSyncToken;
+              v71 = 2048;
               unexpectedEmptySyncReportResponseRetryAttemptCount = [(CoreDAVContainerSyncTaskGroup *)self unexpectedEmptySyncReportResponseRetryAttemptCount];
-              _os_log_impl(&dword_2452FB000, v26, OS_LOG_TYPE_ERROR, "Accepting a new sync token: %{public}@ despite zero responses, after retrying the original sync-report %lu additional times.", buf, 0x16u);
+              _os_log_impl(&dword_2452FB000, v25, OS_LOG_TYPE_ERROR, "Accepting a new sync token: %{public}@ despite zero responses, after retrying the original sync-report %lu additional times.", buf, 0x16u);
             }
           }
 
           delegate3 = [(CoreDAVTaskGroup *)self delegate];
-          v29 = objc_opt_respondsToSelector();
+          v28 = objc_opt_respondsToSelector();
 
-          if (v29)
+          if (v28)
           {
             delegate4 = [(CoreDAVTaskGroup *)self delegate];
             [delegate4 logGaveUpAcceptedEmptyResponseContainerSyncTask:self retryCount:{-[CoreDAVContainerSyncTaskGroup unexpectedEmptySyncReportResponseRetryAttemptCount](self, "unexpectedEmptySyncReportResponseRetryAttemptCount")}];
           }
         }
 
-        v63 = taskCopy;
-        v68 = 0u;
-        v69 = 0u;
-        v66 = 0u;
+        v62 = taskCopy;
         v67 = 0u;
+        v68 = 0u;
+        v65 = 0u;
+        v66 = 0u;
         multiStatus = [taskCopy multiStatus];
         responses = [multiStatus responses];
 
         obj = responses;
-        v33 = [responses countByEnumeratingWithState:&v66 objects:v76 count:16];
-        if (v33)
+        v32 = [responses countByEnumeratingWithState:&v65 objects:v75 count:16];
+        if (v32)
         {
-          v34 = v33;
-          v65 = *v67;
+          v33 = v32;
+          v64 = *v66;
           do
           {
-            for (i = 0; i != v34; ++i)
+            for (i = 0; i != v33; ++i)
             {
-              if (*v67 != v65)
+              if (*v66 != v64)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v36 = *(*(&v66 + 1) + 8 * i);
-              successfulPropertiesToValues = [v36 successfulPropertiesToValues];
-              v38 = [successfulPropertiesToValues CDVObjectForKeyWithNameSpace:@"DAV:" andName:@"getetag"];
-              payloadAsString = [v38 payloadAsString];
-              firstHref = [v36 firstHref];
+              v35 = *(*(&v65 + 1) + 8 * i);
+              successfulPropertiesToValues = [v35 successfulPropertiesToValues];
+              v37 = [successfulPropertiesToValues CDVObjectForKeyWithNameSpace:@"DAV:" andName:@"getetag"];
+              payloadAsString = [v37 payloadAsString];
+              firstHref = [v35 firstHref];
               payloadAsFullURL = [firstHref payloadAsFullURL];
 
               LODWORD(firstHref) = [(CoreDAVContainerSyncTaskGroup *)self shouldFetchResourceWithEtag:payloadAsString propertiesToValues:successfulPropertiesToValues];
@@ -1214,41 +1198,41 @@ LABEL_26:
               {
                 if (payloadAsString)
                 {
-                  v42 = payloadAsFullURL == 0;
+                  v41 = payloadAsFullURL == 0;
                 }
 
                 else
                 {
-                  v42 = 1;
+                  v41 = 1;
                 }
 
-                if (v42)
+                if (v41)
                 {
-                  status = [v36 status];
+                  status = [v35 status];
                   payloadAsString2 = [status payloadAsString];
-                  v45 = [payloadAsString2 CDVIsHTTPStatusLineWithStatusCode:404];
+                  v44 = [payloadAsString2 CDVIsHTTPStatusLineWithStatusCode:404];
 
-                  if ((v45 & 1) == 0)
+                  if ((v44 & 1) == 0)
                   {
-                    v46 = +[CoreDAVLogging sharedLogging];
-                    v47 = objc_loadWeakRetained(&self->super._accountInfoProvider);
-                    v48 = [v46 logHandleForAccountInfoProvider:v47];
+                    v45 = +[CoreDAVLogging sharedLogging];
+                    v46 = objc_loadWeakRetained(&self->super._accountInfoProvider);
+                    v47 = [v45 logHandleForAccountInfoProvider:v46];
 
-                    if (v48 && os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+                    if (v47 && os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
                     {
                       *buf = 138543618;
-                      v71 = payloadAsString;
-                      v72 = 2112;
+                      v70 = payloadAsString;
+                      v71 = 2112;
                       unexpectedEmptySyncReportResponseRetryAttemptCount = payloadAsFullURL;
-                      _os_log_impl(&dword_2452FB000, v48, OS_LOG_TYPE_DEFAULT, "Found an eTag without one or both of eTag (%{public}@) or url (%@). Dropping it on the floor", buf, 0x16u);
+                      _os_log_impl(&dword_2452FB000, v47, OS_LOG_TYPE_DEFAULT, "Found an eTag without one or both of eTag (%{public}@) or url (%@). Dropping it on the floor", buf, 0x16u);
                     }
                   }
                 }
 
                 else
                 {
-                  v49 = [payloadAsFullURL isEqual:self->_folderURL];
-                  if ((v49 & 1) == 0)
+                  v48 = [payloadAsFullURL isEqual:self->_folderURL];
+                  if ((v48 & 1) == 0)
                   {
                     [(NSMutableDictionary *)self->_urlToETag setObject:payloadAsString forKey:payloadAsFullURL];
                   }
@@ -1256,23 +1240,23 @@ LABEL_26:
               }
             }
 
-            v34 = [obj countByEnumeratingWithState:&v66 objects:v76 count:16];
+            v33 = [obj countByEnumeratingWithState:&v65 objects:v75 count:16];
           }
 
-          while (v34);
+          while (v33);
         }
 
-        taskCopy = v63;
-        notFoundHREFs = [v63 notFoundHREFs];
-        errorCopy = v62;
+        taskCopy = v62;
+        notFoundHREFs = [v62 notFoundHREFs];
+        errorCopy = v61;
         if ([notFoundHREFs count])
         {
           syncReportDeletedURLs = self->_syncReportDeletedURLs;
           if (!syncReportDeletedURLs)
           {
-            v52 = objc_alloc_init(MEMORY[0x277CBEB58]);
-            v53 = self->_syncReportDeletedURLs;
-            self->_syncReportDeletedURLs = v52;
+            v51 = objc_alloc_init(MEMORY[0x277CBEB58]);
+            v52 = self->_syncReportDeletedURLs;
+            self->_syncReportDeletedURLs = v51;
 
             syncReportDeletedURLs = self->_syncReportDeletedURLs;
           }
@@ -1280,28 +1264,28 @@ LABEL_26:
           [(NSMutableSet *)syncReportDeletedURLs unionSet:notFoundHREFs];
         }
 
-        moreToSync = [v63 moreToSync];
-        nextSyncToken2 = [v63 nextSyncToken];
-        v56 = nextSyncToken2;
+        moreToSync = [v62 moreToSync];
+        nextSyncToken2 = [v62 nextSyncToken];
+        v55 = nextSyncToken2;
         if (moreToSync)
         {
 
-          if (v56)
+          if (v55)
           {
-            nextSyncToken3 = [v63 nextSyncToken];
+            nextSyncToken3 = [v62 nextSyncToken];
             [(CoreDAVContainerSyncTaskGroup *)self setPreviousSyncToken:nextSyncToken3];
           }
 
           else
           {
-            v59 = +[CoreDAVLogging sharedLogging];
-            v60 = objc_loadWeakRetained(&self->super._accountInfoProvider);
-            v61 = [v59 logHandleForAccountInfoProvider:v60];
+            v58 = +[CoreDAVLogging sharedLogging];
+            v59 = objc_loadWeakRetained(&self->super._accountInfoProvider);
+            v60 = [v58 logHandleForAccountInfoProvider:v59];
 
-            if (v61 && os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
+            if (v60 && os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_2452FB000, v61, OS_LOG_TYPE_DEFAULT, "Was told to sync more items, but got no new sync token.  Starting from scatch", buf, 2u);
+              _os_log_impl(&dword_2452FB000, v60, OS_LOG_TYPE_DEFAULT, "Was told to sync more items, but got no new sync token.  Starting from scatch", buf, 2u);
             }
 
             [(CoreDAVContainerSyncTaskGroup *)self setPreviousSyncToken:0];
@@ -1335,21 +1319,19 @@ LABEL_26:
       outstandingTasks = self->super._outstandingTasks;
       unsubmittedTasks = self->_unsubmittedTasks;
       *buf = 138412802;
-      v71 = taskCopy;
-      v72 = 2112;
+      v70 = taskCopy;
+      v71 = 2112;
       unexpectedEmptySyncReportResponseRetryAttemptCount = outstandingTasks;
-      v74 = 2112;
-      v75 = unsubmittedTasks;
+      v73 = 2112;
+      v74 = unsubmittedTasks;
       _os_log_impl(&dword_2452FB000, v10, OS_LOG_TYPE_ERROR, "Received callback for an unexpected task %@, outstandingTasks %@, unsubmittedTasks %@", buf, 0x20u);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_bulkChangeTask:(id)task didFinishWithError:(id)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   errorCopy = error;
   if ([(NSMutableSet *)self->super._outstandingTasks containsObject:taskCopy])
@@ -1410,8 +1392,8 @@ LABEL_26:
 
             if (v25 && os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
             {
-              LOWORD(v28) = 0;
-              _os_log_impl(&dword_2452FB000, v25, OS_LOG_TYPE_INFO, "BulkChangeTask told that our ctag was out of date.  Bailing on the group", &v28, 2u);
+              LOWORD(v27) = 0;
+              _os_log_impl(&dword_2452FB000, v25, OS_LOG_TYPE_INFO, "BulkChangeTask told that our ctag was out of date.  Bailing on the group", &v27, 2u);
             }
           }
         }
@@ -1455,24 +1437,22 @@ LABEL_25:
     {
       outstandingTasks = self->super._outstandingTasks;
       unsubmittedTasks = self->_unsubmittedTasks;
-      v28 = 138412802;
-      v29 = taskCopy;
-      v30 = 2112;
-      v31 = outstandingTasks;
-      v32 = 2112;
-      v33 = unsubmittedTasks;
-      _os_log_impl(&dword_2452FB000, v15, OS_LOG_TYPE_ERROR, "Received callback for an unexpected task %@, outstandingTasks %@, unsubmittedTasks %@", &v28, 0x20u);
+      v27 = 138412802;
+      v28 = taskCopy;
+      v29 = 2112;
+      v30 = outstandingTasks;
+      v31 = 2112;
+      v32 = unsubmittedTasks;
+      _os_log_impl(&dword_2452FB000, v15, OS_LOG_TYPE_ERROR, "Received callback for an unexpected task %@, outstandingTasks %@, unsubmittedTasks %@", &v27, 0x20u);
     }
   }
 
 LABEL_29:
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (void)task:(id)task didFinishWithError:(id)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   errorCopy = error;
   objc_opt_class();
@@ -1505,20 +1485,18 @@ LABEL_29:
 
         if (v10 && os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
-          v12 = 138412290;
-          v13 = taskCopy;
-          _os_log_impl(&dword_2452FB000, v10, OS_LOG_TYPE_ERROR, "Got a task completion invocation for a task I don't grok, %@", &v12, 0xCu);
+          v11 = 138412290;
+          v12 = taskCopy;
+          _os_log_impl(&dword_2452FB000, v10, OS_LOG_TYPE_ERROR, "Got a task completion invocation for a task I don't grok, %@", &v11, 0xCu);
         }
       }
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)deleteTask:(id)task completedWithError:(id)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   errorCopy = error;
   if (![(NSMutableSet *)self->super._outstandingTasks containsObject:taskCopy])
@@ -1533,13 +1511,13 @@ LABEL_29:
       {
         outstandingTasks = self->super._outstandingTasks;
         unsubmittedTasks = self->_unsubmittedTasks;
-        v24 = 138412802;
-        v25 = taskCopy;
-        v26 = 2112;
-        v27 = outstandingTasks;
-        v28 = 2112;
-        v29 = unsubmittedTasks;
-        _os_log_impl(&dword_2452FB000, v15, OS_LOG_TYPE_ERROR, "Received callback for an unexpected task %@, outstandingTasks %@, unsubmittedTasks %@", &v24, 0x20u);
+        v23 = 138412802;
+        v24 = taskCopy;
+        v25 = 2112;
+        v26 = outstandingTasks;
+        v27 = 2112;
+        v28 = unsubmittedTasks;
+        _os_log_impl(&dword_2452FB000, v15, OS_LOG_TYPE_ERROR, "Received callback for an unexpected task %@, outstandingTasks %@, unsubmittedTasks %@", &v23, 0x20u);
       }
     }
 
@@ -1603,11 +1581,11 @@ LABEL_20:
 
     if (v22 && os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = 138412546;
-      v25 = taskCopy;
-      v26 = 2112;
-      v27 = errorCopy;
-      _os_log_impl(&dword_2452FB000, v22, OS_LOG_TYPE_DEFAULT, "deleteTask:%@ completedWithError:%@ Ignoring", &v24, 0x16u);
+      v23 = 138412546;
+      v24 = taskCopy;
+      v25 = 2112;
+      v26 = errorCopy;
+      _os_log_impl(&dword_2452FB000, v22, OS_LOG_TYPE_DEFAULT, "deleteTask:%@ completedWithError:%@ Ignoring", &v23, 0x16u);
     }
 
     errorCopy = 0;
@@ -1620,13 +1598,11 @@ LABEL_20:
   }
 
 LABEL_26:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)propFindTask:(id)task parsedResponses:(id)responses error:(id)error
 {
-  v102 = *MEMORY[0x277D85DE8];
+  v101 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   responsesCopy = responses;
   errorCopy = error;
@@ -1646,11 +1622,11 @@ LABEL_26:
         outstandingTasks = v31->super._outstandingTasks;
         unsubmittedTasks = v31->_unsubmittedTasks;
         *buf = 138412802;
-        v95 = taskCopy;
-        v96 = 2112;
+        v94 = taskCopy;
+        v95 = 2112;
         p_isa = &outstandingTasks->super.super.isa;
-        v98 = 2112;
-        v99 = unsubmittedTasks;
+        v97 = 2112;
+        v98 = unsubmittedTasks;
         _os_log_impl(&dword_2452FB000, v33, OS_LOG_TYPE_ERROR, "Received callback for an unexpected task %@, outstandingTasks %@, unsubmittedTasks %@", buf, 0x20u);
       }
 
@@ -1715,8 +1691,8 @@ LABEL_28:
       self->_urlToETag = v37;
     }
 
-    v77 = taskCopy;
-    v78 = errorCopy;
+    v76 = taskCopy;
+    v77 = errorCopy;
     if (!self->_localItemURLOrder)
     {
       v39 = objc_alloc_init(MEMORY[0x277CBEB18]);
@@ -1724,29 +1700,29 @@ LABEL_28:
       self->_localItemURLOrder = v39;
     }
 
-    v85 = 0u;
-    v86 = 0u;
-    v83 = 0u;
     v84 = 0u;
+    v85 = 0u;
+    v82 = 0u;
+    v83 = 0u;
     obj = responsesCopy;
-    v41 = [(CoreDAVContainerSyncTaskGroup *)obj countByEnumeratingWithState:&v83 objects:v100 count:16];
+    v41 = [(CoreDAVContainerSyncTaskGroup *)obj countByEnumeratingWithState:&v82 objects:v99 count:16];
     if (v41)
     {
       v42 = v41;
-      v43 = *v84;
+      v43 = *v83;
       selfCopy2 = self;
       do
       {
         v44 = 0;
-        v81 = v42;
+        v80 = v42;
         do
         {
-          if (*v84 != v43)
+          if (*v83 != v43)
           {
             objc_enumerationMutation(obj);
           }
 
-          v45 = *(*(&v83 + 1) + 8 * v44);
+          v45 = *(*(&v82 + 1) + 8 * v44);
           firstHref = [v45 firstHref];
           payloadAsFullURL = [firstHref payloadAsFullURL];
 
@@ -1781,8 +1757,8 @@ LABEL_28:
                 if (v54 && os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543618;
-                  v95 = payloadAsString;
-                  v96 = 2112;
+                  v94 = payloadAsString;
+                  v95 = 2112;
                   p_isa = payloadAsFullURL;
                   _os_log_impl(&dword_2452FB000, v54, OS_LOG_TYPE_DEFAULT, "Found an eTag without one or both of eTag (%{public}@) or url (%@). Dropping it on the floor", buf, 0x16u);
                 }
@@ -1791,14 +1767,14 @@ LABEL_28:
               }
             }
 
-            v42 = v81;
+            v42 = v80;
           }
 
           ++v44;
         }
 
         while (v42 != v44);
-        v42 = [(CoreDAVContainerSyncTaskGroup *)obj countByEnumeratingWithState:&v83 objects:v100 count:16];
+        v42 = [(CoreDAVContainerSyncTaskGroup *)obj countByEnumeratingWithState:&v82 objects:v99 count:16];
       }
 
       while (v42);
@@ -1814,9 +1790,9 @@ LABEL_28:
       [(CoreDAVContainerSyncTaskGroup *)self _getOrder];
     }
 
-    taskCopy = v77;
+    taskCopy = v76;
 LABEL_66:
-    errorCopy = v78;
+    errorCopy = v77;
     goto LABEL_81;
   }
 
@@ -1825,7 +1801,7 @@ LABEL_66:
     goto LABEL_81;
   }
 
-  v78 = errorCopy;
+  v77 = errorCopy;
   if (![(CoreDAVContainerSyncTaskGroup *)responsesCopy count])
   {
     v55 = +[CoreDAVLogging sharedLogging];
@@ -1835,7 +1811,7 @@ LABEL_66:
     if (v57 && os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v95 = responsesCopy;
+      v94 = responsesCopy;
       _os_log_impl(&dword_2452FB000, v57, OS_LOG_TYPE_DEFAULT, "We need exactly one ctag per container.  We got %@", buf, 0xCu);
     }
 
@@ -1846,14 +1822,14 @@ LABEL_66:
   }
 
   selfCopy3 = self;
-  v75 = responsesCopy;
-  v76 = taskCopy;
-  v92 = 0u;
-  v93 = 0u;
-  v90 = 0u;
+  v74 = responsesCopy;
+  v75 = taskCopy;
   v91 = 0u;
+  v92 = 0u;
+  v89 = 0u;
+  v90 = 0u;
   v16 = responsesCopy;
-  v17 = [(CoreDAVContainerSyncTaskGroup *)v16 countByEnumeratingWithState:&v90 objects:v101 count:16];
+  v17 = [(CoreDAVContainerSyncTaskGroup *)v16 countByEnumeratingWithState:&v89 objects:v100 count:16];
   if (!v17)
   {
     payloadAsString3 = 0;
@@ -1864,18 +1840,18 @@ LABEL_66:
   v18 = v17;
   payloadAsString3 = 0;
   payloadAsString2 = 0;
-  v21 = *v91;
+  v21 = *v90;
   do
   {
     v22 = 0;
     do
     {
-      if (*v91 != v21)
+      if (*v90 != v21)
       {
         objc_enumerationMutation(v16);
       }
 
-      successfulPropertiesToValues2 = [*(*(&v90 + 1) + 8 * v22) successfulPropertiesToValues];
+      successfulPropertiesToValues2 = [*(*(&v89 + 1) + 8 * v22) successfulPropertiesToValues];
       v24 = successfulPropertiesToValues2;
       if (payloadAsString2)
       {
@@ -1904,7 +1880,7 @@ LABEL_16:
     }
 
     while (v18 != v22);
-    v27 = [(CoreDAVContainerSyncTaskGroup *)v16 countByEnumeratingWithState:&v90 objects:v101 count:16];
+    v27 = [(CoreDAVContainerSyncTaskGroup *)v16 countByEnumeratingWithState:&v89 objects:v100 count:16];
     v18 = v27;
   }
 
@@ -1917,31 +1893,31 @@ LABEL_68:
     v65 = objc_loadWeakRetained(&selfCopy3->super._accountInfoProvider);
     v66 = [v64 logHandleForAccountInfoProvider:v65];
 
-    taskCopy = v76;
+    taskCopy = v75;
     if (v66 && os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v95 = selfCopy3;
+      v94 = selfCopy3;
       _os_log_impl(&dword_2452FB000, v66, OS_LOG_TYPE_DEBUG, "%@: _actionsOnly and actions are complete, so I'm outta here", buf, 0xCu);
     }
 
-    v88[0] = MEMORY[0x277D85DD0];
-    v88[1] = 3221225472;
-    v88[2] = __68__CoreDAVContainerSyncTaskGroup_propFindTask_parsedResponses_error___block_invoke;
-    v88[3] = &unk_278E30F90;
-    v88[4] = selfCopy3;
-    v89 = payloadAsString2;
-    [(CoreDAVTaskGroup *)selfCopy3 finishCoreDAVTaskGroupWithError:0 delegateCallbackBlock:v88];
+    v87[0] = MEMORY[0x277D85DD0];
+    v87[1] = 3221225472;
+    v87[2] = __68__CoreDAVContainerSyncTaskGroup_propFindTask_parsedResponses_error___block_invoke;
+    v87[3] = &unk_278E30F90;
+    v87[4] = selfCopy3;
+    v88 = payloadAsString2;
+    [(CoreDAVTaskGroup *)selfCopy3 finishCoreDAVTaskGroupWithError:0 delegateCallbackBlock:v87];
 
 LABEL_78:
-    responsesCopy = v75;
+    responsesCopy = v74;
 LABEL_79:
-    errorCopy = v78;
+    errorCopy = v77;
   }
 
   else
   {
-    taskCopy = v76;
+    taskCopy = v75;
     if (selfCopy3->_useSyncCollection)
     {
       if (payloadAsString2)
@@ -1960,51 +1936,50 @@ LABEL_79:
     }
 
     objc_storeStrong(&selfCopy3->_nextSyncToken, payloadAsString3);
-    responsesCopy = v75;
-    errorCopy = v78;
+    responsesCopy = v74;
+    errorCopy = v77;
     if (payloadAsString2)
     {
       if ([(__CFString *)payloadAsString2 isEqualToString:selfCopy3->_previousCTag])
       {
-        v69 = +[CoreDAVLogging sharedLogging];
-        v70 = objc_loadWeakRetained(&selfCopy3->super._accountInfoProvider);
-        v71 = [v69 logHandleForAccountInfoProvider:v70];
+        v68 = +[CoreDAVLogging sharedLogging];
+        v69 = objc_loadWeakRetained(&selfCopy3->super._accountInfoProvider);
+        v70 = [v68 logHandleForAccountInfoProvider:v69];
 
-        if (v71 && os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
+        if (v70 && os_log_type_enabled(v70, OS_LOG_TYPE_INFO))
         {
           previousCTag = selfCopy3->_previousCTag;
           *buf = 138412546;
-          v95 = selfCopy3;
-          v96 = 2114;
+          v94 = selfCopy3;
+          v95 = 2114;
           p_isa = previousCTag;
-          _os_log_impl(&dword_2452FB000, v71, OS_LOG_TYPE_INFO, "%@: Finishing container sync early, as our cTag of %{public}@ says we're up to date", buf, 0x16u);
+          _os_log_impl(&dword_2452FB000, v70, OS_LOG_TYPE_INFO, "%@: Finishing container sync early, as our cTag of %{public}@ says we're up to date", buf, 0x16u);
         }
 
-        v87[0] = MEMORY[0x277D85DD0];
-        v87[1] = 3221225472;
-        v87[2] = __68__CoreDAVContainerSyncTaskGroup_propFindTask_parsedResponses_error___block_invoke_97;
-        v87[3] = &unk_278E30F18;
-        v87[4] = selfCopy3;
-        [(CoreDAVTaskGroup *)selfCopy3 finishCoreDAVTaskGroupWithError:0 delegateCallbackBlock:v87];
+        v86[0] = MEMORY[0x277D85DD0];
+        v86[1] = 3221225472;
+        v86[2] = __68__CoreDAVContainerSyncTaskGroup_propFindTask_parsedResponses_error___block_invoke_97;
+        v86[3] = &unk_278E30F18;
+        v86[4] = selfCopy3;
+        [(CoreDAVTaskGroup *)selfCopy3 finishCoreDAVTaskGroupWithError:0 delegateCallbackBlock:v86];
         goto LABEL_79;
       }
 
-      v74 = selfCopy3;
-      v73 = payloadAsString2;
+      v73 = selfCopy3;
+      v72 = payloadAsString2;
     }
 
     else
     {
-      v73 = @"ServerDoesNotSupportCTags";
-      v74 = selfCopy3;
+      v72 = @"ServerDoesNotSupportCTags";
+      v73 = selfCopy3;
     }
 
-    [(CoreDAVContainerSyncTaskGroup *)v74 setNextCTag:v73];
+    [(CoreDAVContainerSyncTaskGroup *)v73 setNextCTag:v72];
     [(CoreDAVContainerSyncTaskGroup *)selfCopy3 _getETags];
   }
 
 LABEL_81:
-  v68 = *MEMORY[0x277D85DE8];
 }
 
 void __68__CoreDAVContainerSyncTaskGroup_propFindTask_parsedResponses_error___block_invoke(uint64_t a1)
@@ -2032,7 +2007,7 @@ void __68__CoreDAVContainerSyncTaskGroup_propFindTask_parsedResponses_error___bl
 
 - (void)getTask:(id)task data:(id)data error:(id)error
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   dataCopy = data;
   errorCopy = error;
@@ -2062,7 +2037,7 @@ LABEL_16:
 
     v17 = self->_phase;
     *buf = 67109120;
-    LODWORD(v43) = v17;
+    LODWORD(v42) = v17;
     v18 = "CoreDAVGetTask finished in unexpected phase %d";
     v19 = v16;
     v20 = 8;
@@ -2092,11 +2067,11 @@ LABEL_15:
     outstandingTasks = self->super._outstandingTasks;
     unsubmittedTasks = self->_unsubmittedTasks;
     *buf = 138412802;
-    v43 = taskCopy;
-    v44 = 2112;
-    v45 = outstandingTasks;
-    v46 = 2112;
-    v47 = unsubmittedTasks;
+    v42 = taskCopy;
+    v43 = 2112;
+    v44 = outstandingTasks;
+    v45 = 2112;
+    v46 = unsubmittedTasks;
     v18 = "Received callback for an unexpected task %@, outstandingTasks %@, unsubmittedTasks %@";
     v19 = v16;
     v20 = 32;
@@ -2111,68 +2086,66 @@ LABEL_15:
 
   else
   {
-    v37 = taskCopy;
+    v36 = taskCopy;
     if (!self->_localItemURLOrder)
     {
-      v25 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v24 = objc_alloc_init(MEMORY[0x277CBEB18]);
       localItemURLOrder = self->_localItemURLOrder;
-      self->_localItemURLOrder = v25;
+      self->_localItemURLOrder = v24;
     }
 
-    v36 = dataCopy;
-    v35 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:dataCopy encoding:4];
-    v27 = [v35 componentsSeparatedByString:{@", "}];
+    v35 = dataCopy;
+    v34 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:dataCopy encoding:4];
+    v26 = [v34 componentsSeparatedByString:{@", "}];
+    v37 = 0u;
     v38 = 0u;
     v39 = 0u;
     v40 = 0u;
-    v41 = 0u;
-    v28 = [v27 countByEnumeratingWithState:&v38 objects:v48 count:16];
-    if (v28)
+    v27 = [v26 countByEnumeratingWithState:&v37 objects:v47 count:16];
+    if (v27)
     {
-      v29 = v28;
-      v30 = *v39;
+      v28 = v27;
+      v29 = *v38;
       do
       {
-        for (i = 0; i != v29; ++i)
+        for (i = 0; i != v28; ++i)
         {
-          if (*v39 != v30)
+          if (*v38 != v29)
           {
-            objc_enumerationMutation(v27);
+            objc_enumerationMutation(v26);
           }
 
-          v32 = *(*(&v38 + 1) + 8 * i);
-          if (([v32 hasSuffix:@"xbel"] & 1) == 0)
+          v31 = *(*(&v37 + 1) + 8 * i);
+          if (([v31 hasSuffix:@"xbel"] & 1) == 0)
           {
-            cDVStringByAppendingSlashIfNeeded = [v32 CDVStringByAppendingSlashIfNeeded];
+            cDVStringByAppendingSlashIfNeeded = [v31 CDVStringByAppendingSlashIfNeeded];
 
-            v32 = cDVStringByAppendingSlashIfNeeded;
+            v31 = cDVStringByAppendingSlashIfNeeded;
           }
 
-          v34 = [(NSURL *)self->_folderURL CDVfixedURLByAppendingPathComponent:v32];
-          [(NSMutableArray *)self->_localItemURLOrder addObject:v34];
+          v33 = [(NSURL *)self->_folderURL CDVfixedURLByAppendingPathComponent:v31];
+          [(NSMutableArray *)self->_localItemURLOrder addObject:v33];
         }
 
-        v29 = [v27 countByEnumeratingWithState:&v38 objects:v48 count:16];
+        v28 = [v26 countByEnumeratingWithState:&v37 objects:v47 count:16];
       }
 
-      while (v29);
+      while (v28);
     }
 
     [(CoreDAVContainerSyncTaskGroup *)self _getDataPayloads];
 
-    dataCopy = v36;
-    taskCopy = v37;
+    dataCopy = v35;
+    taskCopy = v36;
     errorCopy = 0;
   }
 
 LABEL_17:
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getTask:(id)task finishedWithParsedContents:(id)contents deletedItems:(id)items error:(id)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   contentsCopy = contents;
   itemsCopy = items;
@@ -2194,10 +2167,10 @@ LABEL_17:
       unsubmittedTasks = self->_unsubmittedTasks;
       *buf = 138412802;
       selfCopy = taskCopy;
-      v28 = 2112;
-      v29 = outstandingTasks;
-      v30 = 2112;
-      v31 = unsubmittedTasks;
+      v27 = 2112;
+      v28 = outstandingTasks;
+      v29 = 2112;
+      v30 = unsubmittedTasks;
       _os_log_impl(&dword_2452FB000, v16, OS_LOG_TYPE_ERROR, "Received callback for an unexpected task %@, outstandingTasks %@, unsubmittedTasks %@", buf, 0x20u);
     }
 
@@ -2220,28 +2193,27 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  v20 = +[CoreDAVLogging sharedLogging];
-  v21 = objc_loadWeakRetained(&self->super._accountInfoProvider);
-  v22 = [v20 logHandleForAccountInfoProvider:v21];
+  v19 = +[CoreDAVLogging sharedLogging];
+  v20 = objc_loadWeakRetained(&self->super._accountInfoProvider);
+  v21 = [v19 logHandleForAccountInfoProvider:v20];
 
-  if (v22 && os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+  if (v21 && os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_2452FB000, v22, OS_LOG_TYPE_INFO, "CoreDAVContainerSyncTaskGroup %@ finished its get task with no more outstanding tasks", buf, 0xCu);
+    _os_log_impl(&dword_2452FB000, v21, OS_LOG_TYPE_INFO, "CoreDAVContainerSyncTaskGroup %@ finished its get task with no more outstanding tasks", buf, 0xCu);
   }
 
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __88__CoreDAVContainerSyncTaskGroup__getTask_finishedWithParsedContents_deletedItems_error___block_invoke;
-  v23[3] = &unk_278E30FB8;
-  v23[4] = self;
-  v24 = contentsCopy;
-  v25 = itemsCopy;
-  [(CoreDAVTaskGroup *)self finishCoreDAVTaskGroupWithError:0 delegateCallbackBlock:v23];
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __88__CoreDAVContainerSyncTaskGroup__getTask_finishedWithParsedContents_deletedItems_error___block_invoke;
+  v22[3] = &unk_278E30FB8;
+  v22[4] = self;
+  v23 = contentsCopy;
+  v24 = itemsCopy;
+  [(CoreDAVTaskGroup *)self finishCoreDAVTaskGroupWithError:0 delegateCallbackBlock:v22];
 
 LABEL_12:
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __88__CoreDAVContainerSyncTaskGroup__getTask_finishedWithParsedContents_deletedItems_error___block_invoke(uint64_t a1)
@@ -2252,7 +2224,7 @@ void __88__CoreDAVContainerSyncTaskGroup__getTask_finishedWithParsedContents_del
 
 - (void)propPatchTask:(id)task parsedResponses:(id)responses error:(id)error
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   responsesCopy = responses;
   errorCopy = error;
@@ -2303,17 +2275,15 @@ LABEL_11:
 
   if (v17 && os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
-    v19 = 138412546;
-    v20 = taskCopy;
-    v21 = 2112;
-    v22 = errorCopy;
-    _os_log_impl(&dword_2452FB000, v17, OS_LOG_TYPE_ERROR, "propPatchTask: %@ error: %@", &v19, 0x16u);
+    v18 = 138412546;
+    v19 = taskCopy;
+    v20 = 2112;
+    v21 = errorCopy;
+    _os_log_impl(&dword_2452FB000, v17, OS_LOG_TYPE_ERROR, "propPatchTask: %@ error: %@", &v18, 0x16u);
   }
 
   [(CoreDAVContainerSyncTaskGroup *)self bailWithError:errorCopy];
 LABEL_15:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 @end

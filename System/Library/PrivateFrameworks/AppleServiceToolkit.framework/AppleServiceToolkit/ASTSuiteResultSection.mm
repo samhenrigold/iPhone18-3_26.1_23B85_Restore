@@ -24,11 +24,11 @@
 
 - (ASTSuiteResultSection)initWithDictionary:(id)dictionary error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
-  v30.receiver = self;
-  v30.super_class = ASTSuiteResultSection;
-  v7 = [(ASTSuiteResultSection *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = ASTSuiteResultSection;
+  v7 = [(ASTSuiteResultSection *)&v29 init];
   if (!v7)
   {
 LABEL_19:
@@ -48,34 +48,34 @@ LABEL_19:
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v25 = dictionaryCopy;
+    v24 = dictionaryCopy;
     array = [MEMORY[0x277CBEB18] array];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v13 = v9;
-    v14 = [v13 countByEnumeratingWithState:&v26 objects:v31 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v25 objects:v30 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v27;
+      v16 = *v26;
       while (2)
       {
         v17 = 0;
         do
         {
-          if (*v27 != v16)
+          if (*v26 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = [[ASTSuiteResultTest alloc] initWithDictionary:*(*(&v26 + 1) + 8 * v17) error:error];
+          v18 = [[ASTSuiteResultTest alloc] initWithDictionary:*(*(&v25 + 1) + 8 * v17) error:error];
           if (!v18)
           {
 
             v11 = 0;
-            dictionaryCopy = v25;
+            dictionaryCopy = v24;
             goto LABEL_21;
           }
 
@@ -86,7 +86,7 @@ LABEL_19:
         }
 
         while (v15 != v17);
-        v15 = [v13 countByEnumeratingWithState:&v26 objects:v31 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v25 objects:v30 count:16];
         if (v15)
         {
           continue;
@@ -103,7 +103,7 @@ LABEL_19:
     tests = v7->_tests;
     v7->_tests = array;
 
-    dictionaryCopy = v25;
+    dictionaryCopy = v24;
     goto LABEL_19;
   }
 
@@ -121,7 +121,6 @@ LABEL_19:
   v11 = 0;
 LABEL_21:
 
-  v23 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

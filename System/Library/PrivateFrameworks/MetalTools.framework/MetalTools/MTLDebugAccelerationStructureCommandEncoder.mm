@@ -48,33 +48,18 @@
   }
 
   checkAccelerationStructureDescriptorWithRefitOptions(self->super.super.super._device, descriptor, 1, 3);
-  checkAccelerationStructure(self->super.super.super._device, structure, 0);
-  checkBuffer(self->super.super.super._device, buffer, offset, 0);
-  v13 = 0;
-  v14 = 0;
-  v15 = 0;
+  checkAccelerationStructure(self->super.super.super._device, structure, 0, @"Acceleration structure");
+  checkBuffer(self->super.super.super._device, buffer, offset, 0, @"Scratch buffer");
   device = [(MTLToolsObject *)self device];
   if (device)
   {
-    [(MTLDevice *)device accelerationStructureSizesWithDescriptor:descriptor];
+    objc_msgSend_accelerationStructureSizesWithDescriptor_(device);
   }
 
-  else
+  [structure size];
+  if (offset > [buffer length])
   {
-    v13 = 0;
-    v14 = 0;
-    v15 = 0;
-  }
-
-  if ([structure size] < v13)
-  {
-    [MTLDebugAccelerationStructureCommandEncoder buildAccelerationStructure:structure descriptor:&v13 scratchBuffer:? scratchBufferOffset:?];
-  }
-
-  v12 = v14 + offset;
-  if (v12 > [buffer length])
-  {
-    [MTLDebugAccelerationStructureCommandEncoder buildAccelerationStructure:buffer descriptor:&v14 scratchBuffer:? scratchBufferOffset:?];
+    [MTLDebugAccelerationStructureCommandEncoder buildAccelerationStructure:buffer descriptor:? scratchBuffer:? scratchBufferOffset:?];
   }
 
   [-[MTLToolsObject baseObject](self "baseObject")];
@@ -102,9 +87,9 @@ LABEL_28:
 
 LABEL_3:
   checkAccelerationStructureDescriptorWithRefitOptions(self->super.super.super._device, descriptor, 1, options);
-  checkAccelerationStructure(self->super.super.super._device, refit, 0);
-  checkAccelerationStructure(self->super.super.super._device, destination, 1);
-  checkBuffer(self->super.super.super._device, buffer, offset, 1);
+  checkAccelerationStructure(self->super.super.super._device, refit, 0, @"Source acceleration structure");
+  checkAccelerationStructure(self->super.super.super._device, destination, 1, @"Destination acceleration structure");
+  checkBuffer(self->super.super.super._device, buffer, offset, 1, @"Scratch buffer");
   v15 = objc_opt_class();
   if ([v15 isSubclassOfClass:objc_opt_class()] && objc_msgSend(objc_msgSend(descriptor, "geometryDescriptors"), "count"))
   {
@@ -141,7 +126,7 @@ LABEL_3:
         device = self->super.super.super._device;
         transformationMatrixBuffer = [v17 transformationMatrixBuffer];
         transformationMatrixBufferOffset = [v17 transformationMatrixBufferOffset];
-        checkBuffer(device, transformationMatrixBuffer, transformationMatrixBufferOffset, 1);
+        checkBuffer(device, transformationMatrixBuffer, transformationMatrixBufferOffset, 1, @"Transformation buffer");
         if (transformationMatrixBuffer)
         {
           if (transformationMatrixBufferOffset + 48 > [transformationMatrixBuffer length])
@@ -170,7 +155,7 @@ LABEL_3:
     device = [(MTLToolsObject *)self device];
     if (device)
     {
-      [(MTLDevice *)device accelerationStructureSizesWithDescriptor:descriptor];
+      objc_msgSend_accelerationStructureSizesWithDescriptor_(device);
       v27 = v32;
     }
 
@@ -220,8 +205,8 @@ LABEL_3:
     [MTLDebugAccelerationStructureCommandEncoder copyAccelerationStructure:toAccelerationStructure:];
   }
 
-  checkAccelerationStructure(self->super.super.super._device, structure, 0);
-  checkAccelerationStructure(self->super.super.super._device, accelerationStructure, 0);
+  checkAccelerationStructure(self->super.super.super._device, structure, 0, @"Source acceleration structure");
+  checkAccelerationStructure(self->super.super.super._device, accelerationStructure, 0, @"Destination acceleration structure");
   baseObject = [(MTLToolsObject *)self baseObject];
   baseObject2 = [structure baseObject];
   baseObject3 = [accelerationStructure baseObject];
@@ -236,8 +221,8 @@ LABEL_3:
     [MTLDebugAccelerationStructureCommandEncoder writeCompactedAccelerationStructureSize:toBuffer:offset:];
   }
 
-  checkAccelerationStructure(self->super.super.super._device, size, 0);
-  checkBuffer(self->super.super.super._device, buffer, offset, 0);
+  checkAccelerationStructure(self->super.super.super._device, size, 0, @"Acceleration structure");
+  checkBuffer(self->super.super.super._device, buffer, offset, 0, @"Size buffer");
   if (offset + 4 > [buffer length])
   {
     [MTLDebugAccelerationStructureCommandEncoder writeCompactedAccelerationStructureSize:buffer toBuffer:? offset:?];
@@ -262,8 +247,8 @@ LABEL_3:
     MTLReportFailure();
   }
 
-  checkAccelerationStructure(self->super.super.super._device, size, 0);
-  checkBuffer(self->super.super.super._device, buffer, offset, 0);
+  checkAccelerationStructure(self->super.super.super._device, size, 0, @"Acceleration structure");
+  checkBuffer(self->super.super.super._device, buffer, offset, 0, @"Size buffer");
   v11 = 8;
   if (type == 33)
   {
@@ -289,8 +274,8 @@ LABEL_3:
     [MTLDebugAccelerationStructureCommandEncoder copyAndCompactAccelerationStructure:toAccelerationStructure:];
   }
 
-  checkAccelerationStructure(self->super.super.super._device, structure, 0);
-  checkAccelerationStructure(self->super.super.super._device, accelerationStructure, 0);
+  checkAccelerationStructure(self->super.super.super._device, structure, 0, @"Source acceleration structure");
+  checkAccelerationStructure(self->super.super.super._device, accelerationStructure, 0, @"Destination acceleration structure");
   baseObject = [(MTLToolsObject *)self baseObject];
   baseObject2 = [structure baseObject];
   baseObject3 = [accelerationStructure baseObject];
@@ -305,8 +290,8 @@ LABEL_3:
     [MTLDebugAccelerationStructureCommandEncoder writeSerializedAccelerationStructureSize:toBuffer:sizeBufferOffset:];
   }
 
-  checkAccelerationStructure(self->super.super.super._device, size, 0);
-  checkBuffer(self->super.super.super._device, buffer, offset, 0);
+  checkAccelerationStructure(self->super.super.super._device, size, 0, @"Acceleration structure");
+  checkBuffer(self->super.super.super._device, buffer, offset, 0, @"Size buffer");
   if ([buffer length] <= 7)
   {
     [MTLDebugAccelerationStructureCommandEncoder writeSerializedAccelerationStructureSize:toBuffer:sizeBufferOffset:];
@@ -326,8 +311,8 @@ LABEL_3:
     [MTLDebugAccelerationStructureCommandEncoder writeDeserializedAccelerationStructureSize:serializedOffset:toBuffer:sizeBufferOffset:];
   }
 
-  checkBuffer(self->super.super.super._device, size, offset, 0);
-  checkBuffer(self->super.super.super._device, buffer, bufferOffset, 0);
+  checkBuffer(self->super.super.super._device, size, offset, 0, @"Serialized acceleration structure buffer");
+  checkBuffer(self->super.super.super._device, buffer, bufferOffset, 0, @"Size buffer");
   if ([buffer length] <= 7)
   {
     [MTLDebugAccelerationStructureCommandEncoder writeDeserializedAccelerationStructureSize:serializedOffset:toBuffer:sizeBufferOffset:];
@@ -347,8 +332,8 @@ LABEL_3:
     [MTLDebugAccelerationStructureCommandEncoder writeDeserializedPrimitiveAccelerationStructureSizes:serializedOffset:toBuffer:sizesBufferOffset:];
   }
 
-  checkBuffer(self->super.super.super._device, sizes, offset, 0);
-  checkBuffer(self->super.super.super._device, buffer, bufferOffset, 0);
+  checkBuffer(self->super.super.super._device, sizes, offset, 0, @"Serialized acceleration structure buffer");
+  checkBuffer(self->super.super.super._device, buffer, bufferOffset, 0, @"Size buffer");
   baseObject = [(MTLToolsObject *)self baseObject];
   baseObject2 = [sizes baseObject];
   baseObject3 = [buffer baseObject];
@@ -358,75 +343,30 @@ LABEL_3:
 
 - (void)serializePrimitiveAccelerationStructure:(id)structure toBuffer:(id)buffer serializedBufferOffset:(unint64_t)offset
 {
-  device = self->super.super.super._device;
   _MTLMessageContextBegin_();
   if (![(MTLDebugAccelerationStructureCommandEncoder *)self checkEncoderState:0])
   {
     _MTLMessageContextPush_();
   }
 
-  checkAccelerationStructure(self->super.super.super._device, structure, 0);
-  checkBuffer(self->super.super.super._device, buffer, offset, 0);
+  checkAccelerationStructure(self->super.super.super._device, structure, 0, @"Acceleration structure");
+  checkBuffer(self->super.super.super._device, buffer, offset, 0, @"Buffer");
   _MTLMessageContextEnd();
   [-[MTLToolsObject baseObject](self "baseObject")];
 }
 
 - (void)serializeInstanceAccelerationStructure:(id)structure primitiveAccelerationStructures:(id)structures toBuffer:(id)buffer serializedBufferOffset:(unint64_t)offset
 {
-  device = self->super.super.super._device;
   _MTLMessageContextBegin_();
   if (![(MTLDebugAccelerationStructureCommandEncoder *)self checkEncoderState])
   {
     _MTLMessageContextPush_();
   }
 
-  checkAccelerationStructure(self->super.super.super._device, structure, 0);
+  checkAccelerationStructure(self->super.super.super._device, structure, 0, @"Acceleration structure");
   offsetCopy = offset;
-  checkBuffer(self->super.super.super._device, buffer, offset, 0);
+  checkBuffer(self->super.super.super._device, buffer, offset, 0, @"Buffer");
   _MTLMessageContextEnd();
-  v12 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(structures, "count")}];
-  if ([structures count])
-  {
-    v13 = 0;
-    v14 = 1;
-    do
-    {
-      checkAccelerationStructure(self->super.super.super._device, [structures objectAtIndexedSubscript:v13], 0);
-      [v12 addObject:{objc_msgSend(objc_msgSend(structures, "objectAtIndexedSubscript:", v13), "baseObject")}];
-      v13 = v14;
-    }
-
-    while ([structures count] > v14++);
-  }
-
-  [-[MTLToolsObject baseObject](self "baseObject")];
-}
-
-- (void)deserializePrimitiveAccelerationStructure:(id)structure fromBuffer:(id)buffer serializedBufferOffset:(unint64_t)offset
-{
-  device = self->super.super.super._device;
-  _MTLMessageContextBegin_();
-  if (![(MTLDebugAccelerationStructureCommandEncoder *)self checkEncoderState:0])
-  {
-    _MTLMessageContextPush_();
-  }
-
-  checkAccelerationStructure(self->super.super.super._device, structure, 0);
-  checkBuffer(self->super.super.super._device, buffer, offset, 0);
-  _MTLMessageContextEnd();
-  [-[MTLToolsObject baseObject](self "baseObject")];
-}
-
-- (void)deserializeInstanceAccelerationStructure:(id)structure primitiveAccelerationStructures:(id)structures fromBuffer:(id)buffer serializedBufferOffset:(unint64_t)offset
-{
-  device = self->super.super.super._device;
-  _MTLMessageContextBegin_();
-  if (![(MTLDebugAccelerationStructureCommandEncoder *)self checkEncoderState])
-  {
-    _MTLMessageContextPush_();
-  }
-
-  checkAccelerationStructure(self->super.super.super._device, structure, 0);
   v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(structures, "count")}];
   if ([structures count])
   {
@@ -434,7 +374,7 @@ LABEL_3:
     v13 = 1;
     do
     {
-      checkAccelerationStructure(self->super.super.super._device, [structures objectAtIndexedSubscript:v12], 0);
+      checkAccelerationStructure(self->super.super.super._device, [structures objectAtIndexedSubscript:v12], 0, @"Primitive acceleration structure");
       [v11 addObject:{objc_msgSend(objc_msgSend(structures, "objectAtIndexedSubscript:", v12), "baseObject")}];
       v12 = v13;
     }
@@ -442,22 +382,62 @@ LABEL_3:
     while ([structures count] > v13++);
   }
 
-  checkBuffer(self->super.super.super._device, buffer, offset, 0);
-  _MTLMessageContextEnd();
   [-[MTLToolsObject baseObject](self "baseObject")];
 }
 
-- (void)deserializePrimitiveAccelerationStructure:(id)structure fromBuffer:(id)buffer serializedBufferOffset:(unint64_t)offset withDescriptor:(id)descriptor
+- (void)deserializePrimitiveAccelerationStructure:(id)structure fromBuffer:(id)buffer serializedBufferOffset:(unint64_t)offset
 {
-  device = self->super.super.super._device;
   _MTLMessageContextBegin_();
   if (![(MTLDebugAccelerationStructureCommandEncoder *)self checkEncoderState:0])
   {
     _MTLMessageContextPush_();
   }
 
-  checkAccelerationStructure(self->super.super.super._device, structure, 0);
-  checkBuffer(self->super.super.super._device, buffer, offset, 0);
+  checkAccelerationStructure(self->super.super.super._device, structure, 0, @"Acceleration structure");
+  checkBuffer(self->super.super.super._device, buffer, offset, 0, @"Buffer");
+  _MTLMessageContextEnd();
+  [-[MTLToolsObject baseObject](self "baseObject")];
+}
+
+- (void)deserializeInstanceAccelerationStructure:(id)structure primitiveAccelerationStructures:(id)structures fromBuffer:(id)buffer serializedBufferOffset:(unint64_t)offset
+{
+  _MTLMessageContextBegin_();
+  if (![(MTLDebugAccelerationStructureCommandEncoder *)self checkEncoderState])
+  {
+    _MTLMessageContextPush_();
+  }
+
+  checkAccelerationStructure(self->super.super.super._device, structure, 0, @"Acceleration structure");
+  v10 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(structures, "count")}];
+  if ([structures count])
+  {
+    v11 = 0;
+    v12 = 1;
+    do
+    {
+      checkAccelerationStructure(self->super.super.super._device, [structures objectAtIndexedSubscript:v11], 0, @"Primitive acceleration structure");
+      [v10 addObject:{objc_msgSend(objc_msgSend(structures, "objectAtIndexedSubscript:", v11), "baseObject")}];
+      v11 = v12;
+    }
+
+    while ([structures count] > v12++);
+  }
+
+  checkBuffer(self->super.super.super._device, buffer, offset, 0, @"Buffer");
+  _MTLMessageContextEnd();
+  [-[MTLToolsObject baseObject](self "baseObject")];
+}
+
+- (void)deserializePrimitiveAccelerationStructure:(id)structure fromBuffer:(id)buffer serializedBufferOffset:(unint64_t)offset withDescriptor:(id)descriptor
+{
+  _MTLMessageContextBegin_();
+  if (![(MTLDebugAccelerationStructureCommandEncoder *)self checkEncoderState:0])
+  {
+    _MTLMessageContextPush_();
+  }
+
+  checkAccelerationStructure(self->super.super.super._device, structure, 0, @"Acceleration structure");
+  checkBuffer(self->super.super.super._device, buffer, offset, 0, @"Buffer");
   _MTLMessageContextEnd();
   [-[MTLToolsObject baseObject](self "baseObject")];
 }
@@ -465,30 +445,29 @@ LABEL_3:
 - (void)deserializeInstanceAccelerationStructure:(id)structure primitiveAccelerationStructures:(id)structures fromBuffer:(id)buffer serializedBufferOffset:(unint64_t)offset withDescriptor:(id)descriptor
 {
   descriptorCopy = descriptor;
-  device = self->super.super.super._device;
   _MTLMessageContextBegin_();
   if (![(MTLDebugAccelerationStructureCommandEncoder *)self checkEncoderState])
   {
     _MTLMessageContextPush_();
   }
 
-  checkAccelerationStructure(self->super.super.super._device, structure, 0);
-  v12 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(structures, "count")}];
+  checkAccelerationStructure(self->super.super.super._device, structure, 0, @"Acceleration structure");
+  v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(structures, "count")}];
   if ([structures count])
   {
-    v13 = 0;
-    v14 = 1;
+    v12 = 0;
+    v13 = 1;
     do
     {
-      checkAccelerationStructure(self->super.super.super._device, [structures objectAtIndexedSubscript:{v13, descriptorCopy}], 0);
-      [v12 addObject:{objc_msgSend(objc_msgSend(structures, "objectAtIndexedSubscript:", v13), "baseObject")}];
-      v13 = v14;
+      checkAccelerationStructure(self->super.super.super._device, [structures objectAtIndexedSubscript:{v12, descriptorCopy}], 0, @"Primitive acceleration structure");
+      [v11 addObject:{objc_msgSend(objc_msgSend(structures, "objectAtIndexedSubscript:", v12), "baseObject")}];
+      v12 = v13;
     }
 
-    while ([structures count] > v14++);
+    while ([structures count] > v13++);
   }
 
-  checkBuffer(self->super.super.super._device, buffer, offset, 0);
+  checkBuffer(self->super.super.super._device, buffer, offset, 0, @"Buffer");
   _MTLMessageContextEnd();
   [-[MTLToolsObject baseObject](self "baseObject")];
 }
@@ -500,8 +479,8 @@ LABEL_3:
     [MTLDebugAccelerationStructureCommandEncoder serializeAccelerationStructure:toBuffer:serializedBufferOffset:];
   }
 
-  checkAccelerationStructure(self->super.super.super._device, structure, 0);
-  checkBuffer(self->super.super.super._device, buffer, offset, 0);
+  checkAccelerationStructure(self->super.super.super._device, structure, 0, @"Acceleration structure");
+  checkBuffer(self->super.super.super._device, buffer, offset, 0, @"Buffer");
   baseObject = [(MTLToolsObject *)self baseObject];
   baseObject2 = [structure baseObject];
   baseObject3 = [buffer baseObject];
@@ -516,8 +495,8 @@ LABEL_3:
     [MTLDebugAccelerationStructureCommandEncoder deserializeAccelerationStructure:fromBuffer:serializedBufferOffset:];
   }
 
-  checkAccelerationStructure(self->super.super.super._device, structure, 0);
-  checkBuffer(self->super.super.super._device, buffer, offset, 0);
+  checkAccelerationStructure(self->super.super.super._device, structure, 0, @"Acceleration structure");
+  checkBuffer(self->super.super.super._device, buffer, offset, 0, @"Buffer");
   baseObject = [(MTLToolsObject *)self baseObject];
   baseObject2 = [structure baseObject];
   baseObject3 = [buffer baseObject];
@@ -532,7 +511,7 @@ LABEL_3:
     [MTLDebugAccelerationStructureCommandEncoder deserializeAccelerationStructure:primitiveAccelerationStructures:fromBuffer:serializedBufferOffset:];
   }
 
-  checkAccelerationStructure(self->super.super.super._device, structure, 0);
+  checkAccelerationStructure(self->super.super.super._device, structure, 0, @"Acceleration structure");
   v10 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(structures, "count")}];
   if ([structures count])
   {
@@ -540,7 +519,7 @@ LABEL_3:
     v12 = 1;
     do
     {
-      checkAccelerationStructure(self->super.super.super._device, [structures objectAtIndexedSubscript:v11], 0);
+      checkAccelerationStructure(self->super.super.super._device, [structures objectAtIndexedSubscript:v11], 0, @"Primitive acceleration structure");
       [v10 addObject:{objc_msgSend(objc_msgSend(structures, "objectAtIndexedSubscript:", v11), "baseObject")}];
       v11 = v12;
     }
@@ -548,7 +527,7 @@ LABEL_3:
     while ([structures count] > v12++);
   }
 
-  checkBuffer(self->super.super.super._device, buffer, offset, 0);
+  checkBuffer(self->super.super.super._device, buffer, offset, 0, @"Buffer");
   baseObject = [(MTLToolsObject *)self baseObject];
   baseObject2 = [structure baseObject];
   baseObject3 = [buffer baseObject];
@@ -563,8 +542,8 @@ LABEL_3:
     [MTLDebugAccelerationStructureCommandEncoder writeGeometrySizeOfAccelerationStructure:toBuffer:sizeBufferOffset:];
   }
 
-  checkAccelerationStructure(self->super.super.super._device, structure, 0);
-  checkBuffer(self->super.super.super._device, buffer, offset, 0);
+  checkAccelerationStructure(self->super.super.super._device, structure, 0, @"Acceleration structure");
+  checkBuffer(self->super.super.super._device, buffer, offset, 0, @"Size buffer");
   baseObject = [(MTLToolsObject *)self baseObject];
   baseObject2 = [structure baseObject];
   baseObject3 = [buffer baseObject];
@@ -579,8 +558,8 @@ LABEL_3:
     [MTLDebugAccelerationStructureCommandEncoder writeGeometryOfAccelerationStructure:toBuffer:geometryBufferOffset:];
   }
 
-  checkAccelerationStructure(self->super.super.super._device, structure, 0);
-  checkBuffer(self->super.super.super._device, buffer, offset, 0);
+  checkAccelerationStructure(self->super.super.super._device, structure, 0, @"Acceleration structure");
+  checkBuffer(self->super.super.super._device, buffer, offset, 0, @"Geometry buffer");
   baseObject = [(MTLToolsObject *)self baseObject];
   baseObject2 = [structure baseObject];
   baseObject3 = [buffer baseObject];
@@ -595,7 +574,7 @@ LABEL_3:
     [MTLDebugAccelerationStructureCommandEncoder writeGenericBVHStructureSizesOfAccelerationStructure:into:];
   }
 
-  checkAccelerationStructure(self->super.super.super._device, structure, 0);
+  checkAccelerationStructure(self->super.super.super._device, structure, 0, @"Acceleration structure");
   baseObject = [(MTLToolsObject *)self baseObject];
   baseObject2 = [structure baseObject];
 
@@ -609,14 +588,14 @@ LABEL_3:
     [MTLDebugAccelerationStructureCommandEncoder writeGenericBVHStructureOfAccelerationStructure:into:];
   }
 
-  checkAccelerationStructure(self->super.super.super._device, structure, 0);
-  checkBuffer(self->super.super.super._device, [into headerBuffer], objc_msgSend(into, "headerBufferOffset"), 0);
-  checkBuffer(self->super.super.super._device, [into innerNodeBuffer], objc_msgSend(into, "innerNodeBufferOffset"), 1);
-  checkBuffer(self->super.super.super._device, [into leafNodeBuffer], objc_msgSend(into, "leafNodeBufferOffset"), 1);
-  checkBuffer(self->super.super.super._device, [into primitiveBuffer], objc_msgSend(into, "primitiveBufferOffset"), 1);
-  checkBuffer(self->super.super.super._device, [into geometryBuffer], objc_msgSend(into, "geometryBufferOffset"), 1);
-  checkBuffer(self->super.super.super._device, [into instanceTransformBuffer], objc_msgSend(into, "instanceTransformBufferOffset"), 1);
-  checkBuffer(self->super.super.super._device, [into controlPointBuffer], objc_msgSend(into, "controlPointBufferOffset"), 1);
+  checkAccelerationStructure(self->super.super.super._device, structure, 0, @"Acceleration structure");
+  checkBuffer(self->super.super.super._device, [into headerBuffer], objc_msgSend(into, "headerBufferOffset"), 0, @"Header buffer");
+  checkBuffer(self->super.super.super._device, [into innerNodeBuffer], objc_msgSend(into, "innerNodeBufferOffset"), 1, @"Inner node buffer");
+  checkBuffer(self->super.super.super._device, [into leafNodeBuffer], objc_msgSend(into, "leafNodeBufferOffset"), 1, @"Leaf node buffer");
+  checkBuffer(self->super.super.super._device, [into primitiveBuffer], objc_msgSend(into, "primitiveBufferOffset"), 1, @"Primitive buffer");
+  checkBuffer(self->super.super.super._device, [into geometryBuffer], objc_msgSend(into, "geometryBufferOffset"), 1, @"Geometry buffer");
+  checkBuffer(self->super.super.super._device, [into instanceTransformBuffer], objc_msgSend(into, "instanceTransformBufferOffset"), 1, @"Instance transform buffer");
+  checkBuffer(self->super.super.super._device, [into controlPointBuffer], objc_msgSend(into, "controlPointBufferOffset"), 1, @"Control Point buffer");
   v8.receiver = self;
   v8.super_class = MTLDebugAccelerationStructureCommandEncoder;
   return [(MTLToolsAccelerationStructureCommandEncoder *)&v8 writeGenericBVHStructureOfAccelerationStructure:structure into:into];
@@ -629,8 +608,8 @@ LABEL_3:
     [MTLDebugAccelerationStructureCommandEncoder writeGenericBVHStructureSizesOfAccelerationStructure:toBuffer:sizesBufferOffset:];
   }
 
-  checkAccelerationStructure(self->super.super.super._device, structure, 0);
-  checkBuffer(self->super.super.super._device, buffer, offset, 0);
+  checkAccelerationStructure(self->super.super.super._device, structure, 0, @"Acceleration structure");
+  checkBuffer(self->super.super.super._device, buffer, offset, 0, @"Sizes buffer");
   baseObject = [(MTLToolsObject *)self baseObject];
   baseObject2 = [structure baseObject];
   baseObject3 = [buffer baseObject];
@@ -645,14 +624,14 @@ LABEL_3:
     [MTLDebugAccelerationStructureCommandEncoder writeGenericBVHStructureOfAccelerationStructure:headerBuffer:headerBufferOffset:innerNodeBuffer:innerNodeBufferOffset:leafNodeBuffer:leafNodeBufferOffset:primitiveBuffer:primitiveBufferOffset:geometryBuffer:geometryOffset:instanceTransformBuffer:instanceTransformOffset:controlPointBuffer:controlPointBufferOffset:];
   }
 
-  checkAccelerationStructure(self->super.super.super._device, structure, 0);
-  checkBuffer(self->super.super.super._device, buffer, offset, 0);
-  checkBuffer(self->super.super.super._device, nodeBuffer, bufferOffset, 0);
-  checkBuffer(self->super.super.super._device, leafNodeBuffer, nodeBufferOffset, 0);
-  checkBuffer(self->super.super.super._device, primitiveBuffer, primitiveBufferOffset, 0);
-  checkBuffer(self->super.super.super._device, geometryBuffer, geometryOffset, 0);
-  checkBuffer(self->super.super.super._device, transformBuffer, transformOffset, 0);
-  checkBuffer(self->super.super.super._device, pointBuffer, pointBufferOffset, 0);
+  checkAccelerationStructure(self->super.super.super._device, structure, 0, @"Acceleration structure");
+  checkBuffer(self->super.super.super._device, buffer, offset, 0, @"Header buffer");
+  checkBuffer(self->super.super.super._device, nodeBuffer, bufferOffset, 0, @"Inner node buffer");
+  checkBuffer(self->super.super.super._device, leafNodeBuffer, nodeBufferOffset, 0, @"Leaf node buffer");
+  checkBuffer(self->super.super.super._device, primitiveBuffer, primitiveBufferOffset, 0, @"Primitive buffer");
+  checkBuffer(self->super.super.super._device, geometryBuffer, geometryOffset, 0, @"Geometry buffer");
+  checkBuffer(self->super.super.super._device, transformBuffer, transformOffset, 0, @"Instance transform buffer");
+  checkBuffer(self->super.super.super._device, pointBuffer, pointBufferOffset, 0, @"Control Point buffer");
   baseObject = [(MTLToolsObject *)self baseObject];
   baseObject2 = [structure baseObject];
   baseObject3 = [buffer baseObject];
@@ -673,8 +652,8 @@ LABEL_3:
     [MTLDebugAccelerationStructureCommandEncoder writeAccelerationStructureSerializationData:toBuffer:offset:];
   }
 
-  checkAccelerationStructure(self->super.super.super._device, data, 0);
-  checkBuffer(self->super.super.super._device, buffer, offset, 0);
+  checkAccelerationStructure(self->super.super.super._device, data, 0, @"Acceleration structure");
+  checkBuffer(self->super.super.super._device, buffer, offset, 0, @"Output buffer");
   if (offset + 24 > [buffer length])
   {
     [MTLDebugAccelerationStructureCommandEncoder writeAccelerationStructureSerializationData:buffer toBuffer:? offset:?];
@@ -699,8 +678,8 @@ LABEL_3:
     [MTLDebugAccelerationStructureCommandEncoder writeAccelerationStructureTraversalDepth:toBuffer:offset:];
   }
 
-  checkAccelerationStructure(self->super.super.super._device, depth, 0);
-  checkBuffer(self->super.super.super._device, buffer, offset, 0);
+  checkAccelerationStructure(self->super.super.super._device, depth, 0, @"Acceleration structure");
+  checkBuffer(self->super.super.super._device, buffer, offset, 0, @"Destination buffer");
   if ((offset & 3) != 0)
   {
     [MTLDebugAccelerationStructureCommandEncoder writeAccelerationStructureTraversalDepth:toBuffer:offset:];
@@ -723,27 +702,6 @@ LABEL_3:
   baseObject = [(MTLToolsObject *)self baseObject];
 
   [baseObject barrierAfterQueueStages:stages beforeStages:beforeStages];
-}
-
-- (uint64_t)buildAccelerationStructure:(void *)a1 descriptor:(uint64_t *)a2 scratchBuffer:scratchBufferOffset:.cold.2(void *a1, uint64_t *a2)
-{
-  [a1 size];
-  v4 = *a2;
-  return MTLReportFailure();
-}
-
-- (uint64_t)buildAccelerationStructure:(void *)a1 descriptor:(uint64_t *)a2 scratchBuffer:scratchBufferOffset:.cold.3(void *a1, uint64_t *a2)
-{
-  [a1 length];
-  v4 = *a2;
-  return MTLReportFailure();
-}
-
-- (uint64_t)validateRefit:(uint64_t)a1 descriptor:(void *)a2 destination:scratchBuffer:scratchBufferOffset:options:.cold.6(uint64_t a1, void *a2)
-{
-  [a2 length];
-  v4 = *(a1 + 16);
-  return MTLReportFailure();
 }
 
 @end

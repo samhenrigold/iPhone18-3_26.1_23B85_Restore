@@ -2,6 +2,7 @@
 - (BOOL)clearUnconsumedAndUnsavedChanges;
 - (CalDAVDBChangeTrackingHelper)initWithDatabase:(CalDatabase *)database clientIdentifier:(id)identifier;
 - (void)dealloc;
+- (void)saveChange:(int)change forEntityType:(int)type;
 @end
 
 @implementation CalDAVDBChangeTrackingHelper
@@ -30,25 +31,46 @@
   [(CalDAVDBChangeTrackingHelper *)&v3 dealloc];
 }
 
+- (void)saveChange:(int)change forEntityType:(int)type
+{
+  v4 = *&type;
+  v5 = *&change;
+  if (!self->_savedChanges)
+  {
+    v7 = objc_opt_new();
+    savedChanges = self->_savedChanges;
+    self->_savedChanges = v7;
+  }
+
+  v11 = [MEMORY[0x277CCABB0] numberWithInt:v4];
+  v9 = [(NSMutableDictionary *)self->_savedChanges objectForKeyedSubscript:?];
+  if (!v9)
+  {
+    v9 = objc_opt_new();
+    [(NSMutableDictionary *)self->_savedChanges setObject:v9 forKeyedSubscript:v11];
+  }
+
+  v10 = [MEMORY[0x277CCABB0] numberWithInt:v5];
+  [v9 addObject:v10];
+}
+
 - (BOOL)clearUnconsumedAndUnsavedChanges
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
-  v9 = 0;
-  database = self->_database;
-  clientIdentifier = self->_clientIdentifier;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
+  v7 = 0;
   CalDatabaseEnumerateUnconsumedObjectChangesForClient();
-  v4 = *(v7 + 24);
-  _Block_object_dispose(&v6, 8);
-  return v4;
+  v2 = *(v5 + 24);
+  _Block_object_dispose(&v4, 8);
+  return v2;
 }
 
 void __64__CalDAVDBChangeTrackingHelper_clearUnconsumedAndUnsavedChanges__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const __CFArray *a5, const __CFArray *a6)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v9 = *(*(a1 + 32) + 32);
-  v10 = [MEMORY[0x277CCABB0] numberWithInt:a2];
+  v10 = [MEMORY[0x277CCABB0] numberWithInt:{a2, a4}];
   v11 = [v9 objectForKeyedSubscript:v10];
 
   Count = CFArrayGetCount(a5);
@@ -82,17 +104,14 @@ void __64__CalDAVDBChangeTrackingHelper_clearUnconsumedAndUnsavedChanges__block_
         Name = CalEntityTypeGetName();
         v24 = *(*(a1 + 32) + 16);
         *buf = 134218498;
-        v30 = v20;
-        v31 = 2114;
-        v32 = Name;
-        v33 = 2114;
-        v34 = v24;
+        v26 = v20;
+        v27 = 2114;
+        v28 = Name;
+        v29 = 2114;
+        v30 = v24;
         _os_log_impl(&dword_2484B2000, v21, v22, "Clearing %li leftover changes of type %{public}@ for %{public}@.", buf, 0x20u);
       }
 
-      v25 = *(a1 + 32);
-      v26 = *(v25 + 8);
-      v27 = *(v25 + 16);
       CalDatabaseClearIndividualChangeRowIDsForClient();
       *(*(*(a1 + 40) + 8) + 24) = 1;
     }
@@ -102,8 +121,6 @@ void __64__CalDAVDBChangeTrackingHelper_clearUnconsumedAndUnsavedChanges__block_
       CFRelease(Mutable);
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 @end

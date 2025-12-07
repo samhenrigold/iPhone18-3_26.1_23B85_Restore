@@ -212,18 +212,27 @@
 {
   if ((self->_op | 2) == 3)
   {
+    height = rect.size.height;
+    width = rect.size.width;
+    y = rect.origin.y;
+    x = rect.origin.x;
     std::recursive_mutex::lock((self->_tracker.__ptr_ + 80));
-    ft::SiameseRpnSession::ComputeExemplarInputRect(self->_tracker.__ptr_ + 200);
+    ptr = self->_tracker.__ptr_;
+    v13.f64[0] = x;
+    v13.f64[1] = y;
+    v14 = width;
+    v15 = height;
+    ft::SiameseRpnSession::ComputeExemplarInputRect(ptr + 25, &v13);
   }
 
-  v4 = *MEMORY[0x277CBF398];
-  v5 = *(MEMORY[0x277CBF398] + 8);
-  v6 = *(MEMORY[0x277CBF398] + 16);
-  v7 = *(MEMORY[0x277CBF398] + 24);
-  result.size.height = v7;
-  result.size.width = v6;
-  result.origin.y = v5;
-  result.origin.x = v4;
+  v9 = *MEMORY[0x277CBF398];
+  v10 = *(MEMORY[0x277CBF398] + 8);
+  v11 = *(MEMORY[0x277CBF398] + 16);
+  v12 = *(MEMORY[0x277CBF398] + 24);
+  result.size.height = v12;
+  result.size.width = v11;
+  result.origin.y = v10;
+  result.origin.x = v9;
   return result;
 }
 
@@ -511,7 +520,7 @@
   {
     v7 = self->_tracker.__ptr_;
     AsEspressoBufferMap(__p, outputsCopy);
-    ft::SiameseRpnSession::PostProcessExemplarOutputs(v7 + 25, __p);
+    ft::SiameseRpnSession::PostProcessExemplarOutputs((v7 + 200), __p);
   }
 
   std::recursive_mutex::unlock((ptr + 80));

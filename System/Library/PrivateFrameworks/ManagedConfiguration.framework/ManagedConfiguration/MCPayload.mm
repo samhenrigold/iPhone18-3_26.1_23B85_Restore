@@ -21,6 +21,7 @@
 + (id)mdmAdoptablePayloads;
 + (id)missingFieldErrorWithField:(id)field underlyingError:(id)error;
 + (id)payloadFromDictionary:(id)dictionary isStub:(BOOL)stub profile:(id)profile outError:(id *)error;
++ (id)payloadsFromArray:(id)array isStub:(BOOL)stub profile:(id)profile outError:(id *)error;
 + (id)payloadsRequiringRatchetWithStolenDeviceProtection;
 + (id)remoteQueueableHomePodPayloadClasses;
 + (id)remoteQueueableWatchPayloadClasses;
@@ -160,7 +161,7 @@
 
 - (BOOL)isSupportedByWatchVersions:(id)versions
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   versionsCopy = versions;
   v4 = +[MCPayload _minimumWatchVersionRequirementsForPayloads];
   v5 = objc_opt_class();
@@ -169,25 +170,25 @@
 
   if (v7)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     v8 = versionsCopy;
-    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v9)
     {
-      v10 = *v16;
+      v10 = *v15;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          unsignedIntegerValue = [*(*(&v15 + 1) + 8 * i) unsignedIntegerValue];
+          unsignedIntegerValue = [*(*(&v14 + 1) + 8 * i) unsignedIntegerValue];
           if (unsignedIntegerValue >= [v7 unsignedIntegerValue])
           {
             LOBYTE(v9) = 1;
@@ -195,7 +196,7 @@
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v9)
         {
           continue;
@@ -213,7 +214,6 @@ LABEL_12:
     LOBYTE(v9) = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -229,106 +229,104 @@ LABEL_12:
   return v3;
 }
 
-void __71__MCPayload_RemoteDevices___minimumWatchVersionRequirementsForPayloads__block_invoke()
+void __71__MCPayload_RemoteDevices___minimumWatchVersionRequirementsForPayloads__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v50[23] = *MEMORY[0x1E69E9840];
-  v0 = objc_opt_class();
-  v48 = NSStringFromClass(v0);
-  v49[0] = v48;
-  v50[0] = &unk_1F1AA5698;
-  v1 = objc_opt_class();
-  v47 = NSStringFromClass(v1);
-  v49[1] = v47;
-  v50[1] = &unk_1F1AA56B0;
+  v51[23] = *MEMORY[0x1E69E9840];
   v2 = objc_opt_class();
-  v46 = NSStringFromClass(v2);
-  v49[2] = v46;
-  v50[2] = &unk_1F1AA56B0;
+  v49 = NSStringFromClass(v2);
+  v50[0] = v49;
+  v51[0] = &unk_1F1AA5698;
   v3 = objc_opt_class();
-  v45 = NSStringFromClass(v3);
-  v49[3] = v45;
-  v50[3] = &unk_1F1AA56B0;
+  v48 = NSStringFromClass(v3);
+  v50[1] = v48;
+  v51[1] = &unk_1F1AA56B0;
   v4 = objc_opt_class();
-  v44 = NSStringFromClass(v4);
-  v49[4] = v44;
-  v50[4] = &unk_1F1AA56B0;
+  v47 = NSStringFromClass(v4);
+  v50[2] = v47;
+  v51[2] = &unk_1F1AA56B0;
   v5 = objc_opt_class();
-  v43 = NSStringFromClass(v5);
-  v49[5] = v43;
-  v50[5] = &unk_1F1AA56B0;
+  v46 = NSStringFromClass(v5);
+  v50[3] = v46;
+  v51[3] = &unk_1F1AA56B0;
   v6 = objc_opt_class();
-  v42 = NSStringFromClass(v6);
-  v49[6] = v42;
-  v50[6] = &unk_1F1AA56B0;
+  v45 = NSStringFromClass(v6);
+  v50[4] = v45;
+  v51[4] = &unk_1F1AA56B0;
   v7 = objc_opt_class();
-  v41 = NSStringFromClass(v7);
-  v49[7] = v41;
-  v50[7] = &unk_1F1AA56C8;
+  v44 = NSStringFromClass(v7);
+  v50[5] = v44;
+  v51[5] = &unk_1F1AA56B0;
   v8 = objc_opt_class();
-  v40 = NSStringFromClass(v8);
-  v49[8] = v40;
-  v50[8] = &unk_1F1AA56C8;
+  v43 = NSStringFromClass(v8);
+  v50[6] = v43;
+  v51[6] = &unk_1F1AA56B0;
   v9 = objc_opt_class();
-  v39 = NSStringFromClass(v9);
-  v49[9] = v39;
-  v50[9] = &unk_1F1AA56C8;
+  v42 = NSStringFromClass(v9);
+  v50[7] = v42;
+  v51[7] = &unk_1F1AA56C8;
   v10 = objc_opt_class();
-  v38 = NSStringFromClass(v10);
-  v49[10] = v38;
-  v50[10] = &unk_1F1AA56E0;
+  v41 = NSStringFromClass(v10);
+  v50[8] = v41;
+  v51[8] = &unk_1F1AA56C8;
   v11 = objc_opt_class();
-  v37 = NSStringFromClass(v11);
-  v49[11] = v37;
-  v50[11] = &unk_1F1AA56F8;
+  v40 = NSStringFromClass(v11);
+  v50[9] = v40;
+  v51[9] = &unk_1F1AA56C8;
   v12 = objc_opt_class();
-  v36 = NSStringFromClass(v12);
-  v49[12] = v36;
-  v50[12] = &unk_1F1AA5710;
+  v39 = NSStringFromClass(v12);
+  v50[10] = v39;
+  v51[10] = &unk_1F1AA56E0;
   v13 = objc_opt_class();
-  v35 = NSStringFromClass(v13);
-  v49[13] = v35;
-  v50[13] = &unk_1F1AA5728;
+  v38 = NSStringFromClass(v13);
+  v50[11] = v38;
+  v51[11] = &unk_1F1AA56F8;
   v14 = objc_opt_class();
-  v15 = NSStringFromClass(v14);
-  v49[14] = v15;
-  v50[14] = &unk_1F1AA5728;
+  v37 = NSStringFromClass(v14);
+  v50[12] = v37;
+  v51[12] = &unk_1F1AA5710;
+  v15 = objc_opt_class();
+  v36 = NSStringFromClass(v15);
+  v50[13] = v36;
+  v51[13] = &unk_1F1AA5728;
   v16 = objc_opt_class();
   v17 = NSStringFromClass(v16);
-  v49[15] = v17;
-  v50[15] = &unk_1F1AA5740;
+  v50[14] = v17;
+  v51[14] = &unk_1F1AA5728;
   v18 = objc_opt_class();
   v19 = NSStringFromClass(v18);
-  v49[16] = v19;
-  v50[16] = &unk_1F1AA5740;
+  v50[15] = v19;
+  v51[15] = &unk_1F1AA5740;
   v20 = objc_opt_class();
   v21 = NSStringFromClass(v20);
-  v49[17] = v21;
-  v50[17] = &unk_1F1AA5740;
+  v50[16] = v21;
+  v51[16] = &unk_1F1AA5740;
   v22 = objc_opt_class();
   v23 = NSStringFromClass(v22);
-  v49[18] = v23;
-  v50[18] = &unk_1F1AA5740;
+  v50[17] = v23;
+  v51[17] = &unk_1F1AA5740;
   v24 = objc_opt_class();
   v25 = NSStringFromClass(v24);
-  v49[19] = v25;
-  v50[19] = &unk_1F1AA5740;
+  v50[18] = v25;
+  v51[18] = &unk_1F1AA5740;
   v26 = objc_opt_class();
   v27 = NSStringFromClass(v26);
-  v49[20] = v27;
-  v50[20] = &unk_1F1AA5740;
+  v50[19] = v27;
+  v51[19] = &unk_1F1AA5740;
   v28 = objc_opt_class();
   v29 = NSStringFromClass(v28);
-  v49[21] = v29;
-  v50[21] = &unk_1F1AA5740;
+  v50[20] = v29;
+  v51[20] = &unk_1F1AA5740;
   v30 = objc_opt_class();
   v31 = NSStringFromClass(v30);
-  v49[22] = v31;
-  v50[22] = &unk_1F1AA5740;
-  v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v50 forKeys:v49 count:23];
-  v33 = _minimumWatchVersionRequirementsForPayloads_supportedWatchPayloads;
-  _minimumWatchVersionRequirementsForPayloads_supportedWatchPayloads = v32;
-
-  v34 = *MEMORY[0x1E69E9840];
+  v50[21] = v31;
+  v51[21] = &unk_1F1AA5740;
+  v32 = objc_opt_class();
+  v33 = NSStringFromClass(v32);
+  v50[22] = v33;
+  v51[22] = &unk_1F1AA5740;
+  v34 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v51 forKeys:v50 count:23];
+  v35 = _minimumWatchVersionRequirementsForPayloads_supportedWatchPayloads;
+  _minimumWatchVersionRequirementsForPayloads_supportedWatchPayloads = v34;
 }
 
 + (id)localizedDescriptionForPayloadCount:(unint64_t)count
@@ -369,9 +367,7 @@ void __71__MCPayload_RemoteDevices___minimumWatchVersionRequirementsForPayloads_
 {
   if (self->_persistentResourceID != d)
   {
-    v5 = [d copy];
-    persistentResourceID = self->_persistentResourceID;
-    self->_persistentResourceID = v5;
+    self->_persistentResourceID = [d copy];
 
     MEMORY[0x1EEE66BB8]();
   }
@@ -379,7 +375,7 @@ void __71__MCPayload_RemoteDevices___minimumWatchVersionRequirementsForPayloads_
 
 - (NSString)friendlyName
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   displayName = [(MCPayload *)self displayName];
   v4 = [displayName length];
 
@@ -414,20 +410,18 @@ void __71__MCPayload_RemoteDevices___minimumWatchVersionRequirementsForPayloads_
         if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
         {
           v11 = v10;
-          v15 = 138543618;
-          v16 = objc_opt_class();
-          v17 = 2048;
+          v14 = 138543618;
+          v15 = objc_opt_class();
+          v16 = 2048;
           selfCopy = self;
-          v12 = v16;
-          _os_log_impl(&dword_1A795B000, v11, OS_LOG_TYPE_ERROR, "Payload %{public}@ %p has no friendly name.", &v15, 0x16u);
+          v12 = v15;
+          _os_log_impl(&dword_1A795B000, v11, OS_LOG_TYPE_ERROR, "Payload %{public}@ %p has no friendly name.", &v14, 0x16u);
         }
 
         displayName2 = @"Payload";
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return displayName2;
 }
@@ -542,41 +536,50 @@ void __71__MCPayload_RemoteDevices___minimumWatchVersionRequirementsForPayloads_
   return v3;
 }
 
-void __66__MCPayload_Private___platformSpecificConfigurationPayloadClasses__block_invoke()
+void __66__MCPayload_Private___platformSpecificConfigurationPayloadClasses__block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (MCGestaltIsAppleTV())
+  IsAppleTV = MCGestaltIsAppleTV(a1, a2);
+  if (IsAppleTV)
   {
-    v0 = +[MCPayload _installableTVConfigurationPayloadClasses];
-  }
-
-  else if (MCGestaltIsHomePod())
-  {
-    v0 = +[MCPayload installableHomePodConfigurationPayloadClasses];
-  }
-
-  else if (MCGestaltIsWatch())
-  {
-    v0 = +[MCPayload installableWatchConfigurationPayloadClasses];
+    v4 = +[MCPayload _installableTVConfigurationPayloadClasses];
   }
 
   else
   {
-    if (MCGestaltIsVisionDevice())
+    IsHomePod = MCGestaltIsHomePod(IsAppleTV, v3);
+    if (IsHomePod)
     {
-      +[MCPayload _installableVisionConfigurationPayloadClasses];
+      v4 = +[MCPayload installableHomePodConfigurationPayloadClasses];
     }
 
     else
     {
-      +[MCPayload _installablePhoneConfigurationPayloadClasses];
+      IsWatch = MCGestaltIsWatch(IsHomePod, v6);
+      if (IsWatch)
+      {
+        v4 = +[MCPayload installableWatchConfigurationPayloadClasses];
+      }
+
+      else
+      {
+        if (MCGestaltIsVisionDevice(IsWatch, v8))
+        {
+          +[MCPayload _installableVisionConfigurationPayloadClasses];
+        }
+
+        else
+        {
+          +[MCPayload _installablePhoneConfigurationPayloadClasses];
+        }
+        v4 = ;
+      }
     }
-    v0 = ;
   }
 
-  v3 = v0;
-  v1 = [v0 allObjects];
-  v2 = _platformSpecificConfigurationPayloadClasses_platformPayloads;
-  _platformSpecificConfigurationPayloadClasses_platformPayloads = v1;
+  v11 = v4;
+  v9 = [v4 allObjects];
+  v10 = _platformSpecificConfigurationPayloadClasses_platformPayloads;
+  _platformSpecificConfigurationPayloadClasses_platformPayloads = v9;
 }
 
 + (id)_allKnownPayloadClasses
@@ -700,8 +703,9 @@ void __45__MCPayload_Private___allKnownPayloadClasses__block_invoke()
 
 + (id)_installableVisionConfigurationPayloadClasses
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFA8];
+  v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
@@ -734,9 +738,8 @@ void __45__MCPayload_Private___allKnownPayloadClasses__block_invoke()
   v37 = objc_opt_class();
   v38 = objc_opt_class();
   v39 = objc_opt_class();
-  v40 = objc_opt_class();
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v8 count:33];
-  v4 = [v2 setWithArray:{v3, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39}];
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v7 count:33];
+  v4 = [v2 setWithArray:{v3, v7, v8, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38}];
 
   if ([MEMORY[0x1E69997F0] isVisionMDMEnabled])
   {
@@ -744,8 +747,6 @@ void __45__MCPayload_Private___allKnownPayloadClasses__block_invoke()
   }
 
   v5 = [v4 copy];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -762,23 +763,21 @@ void __45__MCPayload_Private___allKnownPayloadClasses__block_invoke()
   return v3;
 }
 
-void __37__MCPayload_Private__accountPayloads__block_invoke()
+void __37__MCPayload_Private__accountPayloads__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[8] = *MEMORY[0x1E69E9840];
-  v4[0] = objc_opt_class();
-  v4[1] = objc_opt_class();
-  v4[2] = objc_opt_class();
-  v4[3] = objc_opt_class();
-  v4[4] = objc_opt_class();
-  v4[5] = objc_opt_class();
-  v4[6] = objc_opt_class();
-  v4[7] = objc_opt_class();
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:8];
-  v1 = [MEMORY[0x1E695DFD8] setWithArray:v0];
-  v2 = accountPayloads_set;
-  accountPayloads_set = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[8] = *MEMORY[0x1E69E9840];
+  v5[0] = objc_opt_class();
+  v5[1] = objc_opt_class();
+  v5[2] = objc_opt_class();
+  v5[3] = objc_opt_class();
+  v5[4] = objc_opt_class();
+  v5[5] = objc_opt_class();
+  v5[6] = objc_opt_class();
+  v5[7] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:8];
+  v3 = [MEMORY[0x1E695DFD8] setWithArray:v2];
+  v4 = accountPayloads_set;
+  accountPayloads_set = v3;
 }
 
 + (id)payloadsRequiringRatchetWithStolenDeviceProtection
@@ -793,21 +792,19 @@ void __37__MCPayload_Private__accountPayloads__block_invoke()
   return v3;
 }
 
-void __72__MCPayload_Private__payloadsRequiringRatchetWithStolenDeviceProtection__block_invoke()
+void __72__MCPayload_Private__payloadsRequiringRatchetWithStolenDeviceProtection__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E695DFD8];
-  v5 = objc_opt_class();
+  v11 = *MEMORY[0x1E69E9840];
+  v2 = MEMORY[0x1E695DFD8];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v5 count:5];
-  v2 = [v0 setWithArray:{v1, v5, v6, v7, v8}];
-  v3 = payloadsRequiringRatchetWithStolenDeviceProtection_payloads;
-  payloadsRequiringRatchetWithStolenDeviceProtection_payloads = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
+  v10 = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v6 count:5];
+  v4 = [v2 setWithArray:{v3, v6, v7, v8, v9}];
+  v5 = payloadsRequiringRatchetWithStolenDeviceProtection_payloads;
+  payloadsRequiringRatchetWithStolenDeviceProtection_payloads = v4;
 }
 
 + (id)unavailablePayloadsInEphemeralMultiUser
@@ -867,17 +864,15 @@ void __61__MCPayload_Private__unavailablePayloadsInEphemeralMultiUser__block_inv
   return v3;
 }
 
-void __41__MCPayload_Private__hrnRequiredPayloads__block_invoke()
+void __41__MCPayload_Private__hrnRequiredPayloads__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E695DFD8];
-  v5[0] = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v2 = [v0 setWithArray:v1];
-  v3 = hrnRequiredPayloads_payloads;
-  hrnRequiredPayloads_payloads = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6[1] = *MEMORY[0x1E69E9840];
+  v2 = MEMORY[0x1E695DFD8];
+  v6[0] = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
+  v4 = [v2 setWithArray:v3];
+  v5 = hrnRequiredPayloads_payloads;
+  hrnRequiredPayloads_payloads = v4;
 }
 
 + (id)mdmAdoptablePayloads
@@ -892,23 +887,21 @@ void __41__MCPayload_Private__hrnRequiredPayloads__block_invoke()
   return v3;
 }
 
-void __42__MCPayload_Private__mdmAdoptablePayloads__block_invoke()
+void __42__MCPayload_Private__mdmAdoptablePayloads__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E695DFD8];
-  v5 = objc_opt_class();
+  v13 = *MEMORY[0x1E69E9840];
+  v2 = MEMORY[0x1E695DFD8];
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
   v11 = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v5 count:7];
-  v2 = [v0 setWithArray:{v1, v5, v6, v7, v8, v9, v10}];
-  v3 = mdmAdoptablePayloads_payloads;
-  mdmAdoptablePayloads_payloads = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
+  v12 = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v6 count:7];
+  v4 = [v2 setWithArray:{v3, v6, v7, v8, v9, v10, v11}];
+  v5 = mdmAdoptablePayloads_payloads;
+  mdmAdoptablePayloads_payloads = v4;
 }
 
 + (id)cellularRequiredPayloads
@@ -923,18 +916,16 @@ void __42__MCPayload_Private__mdmAdoptablePayloads__block_invoke()
   return v3;
 }
 
-void __46__MCPayload_Private__cellularRequiredPayloads__block_invoke()
+void __46__MCPayload_Private__cellularRequiredPayloads__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5[2] = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E695DFD8];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:2];
-  v2 = [v0 setWithArray:v1];
-  v3 = cellularRequiredPayloads_payloads;
-  cellularRequiredPayloads_payloads = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
+  v2 = MEMORY[0x1E695DFD8];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
+  v4 = [v2 setWithArray:v3];
+  v5 = cellularRequiredPayloads_payloads;
+  cellularRequiredPayloads_payloads = v4;
 }
 
 + (id)supervisedRequiredPayloads
@@ -949,26 +940,24 @@ void __46__MCPayload_Private__cellularRequiredPayloads__block_invoke()
   return v3;
 }
 
-void __48__MCPayload_Private__supervisedRequiredPayloads__block_invoke()
+void __48__MCPayload_Private__supervisedRequiredPayloads__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5[10] = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E695DFD8];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v5[4] = objc_opt_class();
-  v5[5] = objc_opt_class();
-  v5[6] = objc_opt_class();
-  v5[7] = objc_opt_class();
-  v5[8] = objc_opt_class();
-  v5[9] = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:10];
-  v2 = [v0 setWithArray:v1];
-  v3 = supervisedRequiredPayloads_supervisedOnlyPayloadClasses;
-  supervisedRequiredPayloads_supervisedOnlyPayloadClasses = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6[10] = *MEMORY[0x1E69E9840];
+  v2 = MEMORY[0x1E695DFD8];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v6[2] = objc_opt_class();
+  v6[3] = objc_opt_class();
+  v6[4] = objc_opt_class();
+  v6[5] = objc_opt_class();
+  v6[6] = objc_opt_class();
+  v6[7] = objc_opt_class();
+  v6[8] = objc_opt_class();
+  v6[9] = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:10];
+  v4 = [v2 setWithArray:v3];
+  v5 = supervisedRequiredPayloads_supervisedOnlyPayloadClasses;
+  supervisedRequiredPayloads_supervisedOnlyPayloadClasses = v4;
 }
 
 + (id)unavailableSystemPayloadsInEphemeralMultiUser
@@ -983,30 +972,28 @@ void __48__MCPayload_Private__supervisedRequiredPayloads__block_invoke()
   return v3;
 }
 
-void __67__MCPayload_Private__unavailableSystemPayloadsInEphemeralMultiUser__block_invoke()
+void __67__MCPayload_Private__unavailableSystemPayloadsInEphemeralMultiUser__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5[14] = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E695DFD8];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v5[4] = objc_opt_class();
-  v5[5] = objc_opt_class();
-  v5[6] = objc_opt_class();
-  v5[7] = objc_opt_class();
-  v5[8] = objc_opt_class();
-  v5[9] = objc_opt_class();
-  v5[10] = objc_opt_class();
-  v5[11] = objc_opt_class();
-  v5[12] = objc_opt_class();
-  v5[13] = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:14];
-  v2 = [v0 setWithArray:v1];
-  v3 = unavailableSystemPayloadsInEphemeralMultiUser_set;
-  unavailableSystemPayloadsInEphemeralMultiUser_set = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
+  v6[14] = *MEMORY[0x1E69E9840];
+  v2 = MEMORY[0x1E695DFD8];
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v6[2] = objc_opt_class();
+  v6[3] = objc_opt_class();
+  v6[4] = objc_opt_class();
+  v6[5] = objc_opt_class();
+  v6[6] = objc_opt_class();
+  v6[7] = objc_opt_class();
+  v6[8] = objc_opt_class();
+  v6[9] = objc_opt_class();
+  v6[10] = objc_opt_class();
+  v6[11] = objc_opt_class();
+  v6[12] = objc_opt_class();
+  v6[13] = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:14];
+  v4 = [v2 setWithArray:v3];
+  v5 = unavailableSystemPayloadsInEphemeralMultiUser_set;
+  unavailableSystemPayloadsInEphemeralMultiUser_set = v4;
 }
 
 + (id)unavailableUserPayloadsInEphemeralMultiUser
@@ -1021,70 +1008,10 @@ void __67__MCPayload_Private__unavailableSystemPayloadsInEphemeralMultiUser__blo
   return v3;
 }
 
-void __65__MCPayload_Private__unavailableUserPayloadsInEphemeralMultiUser__block_invoke()
+void __65__MCPayload_Private__unavailableUserPayloadsInEphemeralMultiUser__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5[36] = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E695DFD8];
-  v5[0] = objc_opt_class();
-  v5[1] = objc_opt_class();
-  v5[2] = objc_opt_class();
-  v5[3] = objc_opt_class();
-  v5[4] = objc_opt_class();
-  v5[5] = objc_opt_class();
-  v5[6] = objc_opt_class();
-  v5[7] = objc_opt_class();
-  v5[8] = objc_opt_class();
-  v5[9] = objc_opt_class();
-  v5[10] = objc_opt_class();
-  v5[11] = objc_opt_class();
-  v5[12] = objc_opt_class();
-  v5[13] = objc_opt_class();
-  v5[14] = objc_opt_class();
-  v5[15] = objc_opt_class();
-  v5[16] = objc_opt_class();
-  v5[17] = objc_opt_class();
-  v5[18] = objc_opt_class();
-  v5[19] = objc_opt_class();
-  v5[20] = objc_opt_class();
-  v5[21] = objc_opt_class();
-  v5[22] = objc_opt_class();
-  v5[23] = objc_opt_class();
-  v5[24] = objc_opt_class();
-  v5[25] = objc_opt_class();
-  v5[26] = objc_opt_class();
-  v5[27] = objc_opt_class();
-  v5[28] = objc_opt_class();
-  v5[29] = objc_opt_class();
-  v5[30] = objc_opt_class();
-  v5[31] = objc_opt_class();
-  v5[32] = objc_opt_class();
-  v5[33] = objc_opt_class();
-  v5[34] = objc_opt_class();
-  v5[35] = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:36];
-  v2 = [v0 setWithArray:v1];
-  v3 = unavailableUserPayloadsInEphemeralMultiUser_set;
-  unavailableUserPayloadsInEphemeralMultiUser_set = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-+ (id)availablePayloadsForUserEnrollment
-{
-  if (availablePayloadsForUserEnrollment_once != -1)
-  {
-    +[MCPayload(Private) availablePayloadsForUserEnrollment];
-  }
-
-  v3 = availablePayloadsForUserEnrollment_set;
-
-  return v3;
-}
-
-void __56__MCPayload_Private__availablePayloadsForUserEnrollment__block_invoke()
-{
-  v6[30] = *MEMORY[0x1E69E9840];
-  v0 = MEMORY[0x1E695DFA8];
+  v6[36] = *MEMORY[0x1E69E9840];
+  v2 = MEMORY[0x1E695DFD8];
   v6[0] = objc_opt_class();
   v6[1] = objc_opt_class();
   v6[2] = objc_opt_class();
@@ -1115,28 +1042,168 @@ void __56__MCPayload_Private__availablePayloadsForUserEnrollment__block_invoke()
   v6[27] = objc_opt_class();
   v6[28] = objc_opt_class();
   v6[29] = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:30];
-  v2 = [v0 setWithArray:v1];
+  v6[30] = objc_opt_class();
+  v6[31] = objc_opt_class();
+  v6[32] = objc_opt_class();
+  v6[33] = objc_opt_class();
+  v6[34] = objc_opt_class();
+  v6[35] = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:36];
+  v4 = [v2 setWithArray:v3];
+  v5 = unavailableUserPayloadsInEphemeralMultiUser_set;
+  unavailableUserPayloadsInEphemeralMultiUser_set = v4;
+}
+
++ (id)availablePayloadsForUserEnrollment
+{
+  if (availablePayloadsForUserEnrollment_once != -1)
+  {
+    +[MCPayload(Private) availablePayloadsForUserEnrollment];
+  }
+
+  v3 = availablePayloadsForUserEnrollment_set;
+
+  return v3;
+}
+
+void __56__MCPayload_Private__availablePayloadsForUserEnrollment__block_invoke(uint64_t a1, uint64_t a2)
+{
+  v7[30] = *MEMORY[0x1E69E9840];
+  v2 = MEMORY[0x1E695DFA8];
+  v7[0] = objc_opt_class();
+  v7[1] = objc_opt_class();
+  v7[2] = objc_opt_class();
+  v7[3] = objc_opt_class();
+  v7[4] = objc_opt_class();
+  v7[5] = objc_opt_class();
+  v7[6] = objc_opt_class();
+  v7[7] = objc_opt_class();
+  v7[8] = objc_opt_class();
+  v7[9] = objc_opt_class();
+  v7[10] = objc_opt_class();
+  v7[11] = objc_opt_class();
+  v7[12] = objc_opt_class();
+  v7[13] = objc_opt_class();
+  v7[14] = objc_opt_class();
+  v7[15] = objc_opt_class();
+  v7[16] = objc_opt_class();
+  v7[17] = objc_opt_class();
+  v7[18] = objc_opt_class();
+  v7[19] = objc_opt_class();
+  v7[20] = objc_opt_class();
+  v7[21] = objc_opt_class();
+  v7[22] = objc_opt_class();
+  v7[23] = objc_opt_class();
+  v7[24] = objc_opt_class();
+  v7[25] = objc_opt_class();
+  v7[26] = objc_opt_class();
+  v7[27] = objc_opt_class();
+  v7[28] = objc_opt_class();
+  v7[29] = objc_opt_class();
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:30];
+  v4 = [v2 setWithArray:v3];
 
   if (+[MCFeatureOverrides allowVPNInUserEnrollment])
   {
-    [v2 addObject:objc_opt_class()];
+    [v4 addObject:objc_opt_class()];
   }
 
-  v3 = [v2 copy];
-  v4 = availablePayloadsForUserEnrollment_set;
-  availablePayloadsForUserEnrollment_set = v3;
+  v5 = [v4 copy];
+  v6 = availablePayloadsForUserEnrollment_set;
+  availablePayloadsForUserEnrollment_set = v5;
+}
 
-  v5 = *MEMORY[0x1E69E9840];
++ (id)payloadsFromArray:(id)array isStub:(BOOL)stub profile:(id)profile outError:(id *)error
+{
+  stubCopy = stub;
+  v38 = *MEMORY[0x1E69E9840];
+  arrayCopy = array;
+  profileCopy = profile;
+  array = [MEMORY[0x1E695DF70] array];
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
+  v36 = 0u;
+  v9 = arrayCopy;
+  v10 = [v9 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v34;
+    while (2)
+    {
+      for (i = 0; i != v11; ++i)
+      {
+        if (*v34 != v12)
+        {
+          objc_enumerationMutation(v9);
+        }
+
+        v14 = *(*(&v33 + 1) + 8 * i);
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          v32 = 0;
+          v22 = [MCPayload payloadFromDictionary:v14 isStub:stubCopy profile:profileCopy outError:&v32];
+          v23 = v32;
+          if (v22)
+          {
+            [array addObject:v22];
+          }
+        }
+
+        else
+        {
+          v24 = MEMORY[0x1E696ABC0];
+          v22 = MCErrorArray(@"ERROR_PAYLOAD_MALFORMED", v15, v16, v17, v18, v19, v20, v21, 0);
+          v23 = [v24 MCErrorWithDomain:@"MCPayloadErrorDomain" code:2000 descriptionArray:v22 errorType:@"MCFatalError"];
+        }
+
+        if (v23)
+        {
+
+          if (error)
+          {
+            v27 = v23;
+            v26 = 0;
+            *error = v23;
+          }
+
+          else
+          {
+            v26 = 0;
+          }
+
+          v25 = array;
+          goto LABEL_18;
+        }
+      }
+
+      v11 = [v9 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      if (v11)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+  v25 = array;
+  v26 = array;
+  v23 = 0;
+LABEL_18:
+
+  return v26;
 }
 
 + (id)payloadFromDictionary:(id)dictionary isStub:(BOOL)stub profile:(id)profile outError:(id *)error
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v73 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
   v11 = [dictionaryCopy objectForKey:@"PayloadType"];
-  v56 = profileCopy;
+  v55 = profileCopy;
   if (stub)
   {
     v12 = 0;
@@ -1144,31 +1211,31 @@ void __56__MCPayload_Private__availablePayloadsForUserEnrollment__block_invoke()
 
   else
   {
-    v66 = 0u;
-    v67 = 0u;
-    v64 = 0u;
     v65 = 0u;
+    v66 = 0u;
+    v63 = 0u;
+    v64 = 0u;
     if (_removedPayloadClasses_onceToken != -1)
     {
       +[MCPayload(Private) payloadFromDictionary:isStub:profile:outError:];
     }
 
     v13 = _removedPayloadClasses_array;
-    v14 = [v13 countByEnumeratingWithState:&v64 objects:v73 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v63 objects:v72 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v65;
+      v16 = *v64;
 LABEL_7:
       v17 = 0;
       while (1)
       {
-        if (*v65 != v16)
+        if (*v64 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        typeStrings = [*(*(&v64 + 1) + 8 * v17) typeStrings];
+        typeStrings = [*(*(&v63 + 1) + 8 * v17) typeStrings];
         v19 = [typeStrings containsObject:v11];
 
         if (v19)
@@ -1178,7 +1245,7 @@ LABEL_7:
 
         if (v15 == ++v17)
         {
-          v15 = [v13 countByEnumeratingWithState:&v64 objects:v73 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v63 objects:v72 count:16];
           if (v15)
           {
             goto LABEL_7;
@@ -1192,17 +1259,17 @@ LABEL_7:
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138543362;
-        v69 = v11;
+        v68 = v11;
         _os_log_impl(&dword_1A795B000, v20, OS_LOG_TYPE_DEBUG, "Payload class for type “%{public}@” was deprecated on current platform. Converting to Unknown Payload.", buf, 0xCu);
       }
 
       v21 = [MCUnknownPayload alloc];
       v22 = [dictionaryCopy mutableCopy];
-      v63 = 0;
-      v23 = [(MCUnknownPayload *)v21 initWithDictionary:v22 profile:v56 outError:&v63];
-      v12 = v63;
+      v62 = 0;
+      v23 = [(MCUnknownPayload *)v21 initWithDictionary:v22 profile:v55 outError:&v62];
+      v12 = v62;
 
-      profileCopy = v56;
+      profileCopy = v55;
       if (!v23)
       {
         goto LABEL_23;
@@ -1219,7 +1286,7 @@ LABEL_7:
 LABEL_13:
 
     v12 = 0;
-    profileCopy = v56;
+    profileCopy = v55;
   }
 
 LABEL_23:
@@ -1236,28 +1303,28 @@ LABEL_23:
     _allKnownPayloadClasses = _platformSpecificConfigurationPayloadClasses;
   }
 
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   v33 = _allKnownPayloadClasses;
-  v34 = [v33 countByEnumeratingWithState:&v59 objects:v72 count:16];
+  v34 = [v33 countByEnumeratingWithState:&v58 objects:v71 count:16];
   if (v34)
   {
     v35 = v34;
-    v53 = v31;
-    v54 = dictionaryCopy;
-    v36 = *v60;
+    v52 = v31;
+    v53 = dictionaryCopy;
+    v36 = *v59;
 LABEL_28:
     v37 = 0;
     while (1)
     {
-      if (*v60 != v36)
+      if (*v59 != v36)
       {
         objc_enumerationMutation(v33);
       }
 
-      v38 = *(*(&v59 + 1) + 8 * v37);
+      v38 = *(*(&v58 + 1) + 8 * v37);
       typeStrings2 = [v38 typeStrings];
       v40 = [typeStrings2 containsObject:v11];
 
@@ -1268,37 +1335,37 @@ LABEL_28:
 
       if (v35 == ++v37)
       {
-        v35 = [v33 countByEnumeratingWithState:&v59 objects:v72 count:16];
+        v35 = [v33 countByEnumeratingWithState:&v58 objects:v71 count:16];
         if (v35)
         {
           goto LABEL_28;
         }
 
         v23 = 0;
-        dictionaryCopy = v54;
-        profileCopy = v56;
+        dictionaryCopy = v53;
+        profileCopy = v55;
         goto LABEL_42;
       }
     }
 
     v41 = [v38 alloc];
-    v42 = [v54 mutableCopy];
-    v58 = v12;
-    profileCopy = v56;
-    v23 = [v41 initWithDictionary:v42 profile:v56 outError:&v58];
-    v43 = v58;
+    v42 = [v53 mutableCopy];
+    v57 = v12;
+    profileCopy = v55;
+    v23 = [v41 initWithDictionary:v42 profile:v55 outError:&v57];
+    v43 = v57;
 
     if (!v29)
     {
       v12 = v43;
-      dictionaryCopy = v54;
+      dictionaryCopy = v53;
 LABEL_42:
-      v31 = v53;
+      v31 = v52;
       goto LABEL_43;
     }
 
-    v31 = v53;
-    if (([v53 containsObject:v38] & 1) == 0)
+    v31 = v52;
+    if (([v52 containsObject:v38] & 1) == 0)
     {
       v44 = _MCLogObjects;
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_ERROR))
@@ -1306,15 +1373,15 @@ LABEL_42:
         v45 = v44;
         v46 = NSStringFromClass(v38);
         *buf = 138543362;
-        v69 = v46;
+        v68 = v46;
         _os_log_impl(&dword_1A795B000, v45, OS_LOG_TYPE_ERROR, "Platform payload filter has been disabled. Allowing %{public}@ payload despite it being unsupported.", buf, 0xCu);
 
-        v31 = v53;
+        v31 = v52;
       }
     }
 
     v12 = v43;
-    dictionaryCopy = v54;
+    dictionaryCopy = v53;
   }
 
   else
@@ -1331,15 +1398,15 @@ LABEL_43:
     if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138543362;
-      v69 = v11;
+      v68 = v11;
       _os_log_impl(&dword_1A795B000, v48, OS_LOG_TYPE_DEBUG, "No payload class for type “%{public}@” on current platform. Converting to Unknown Payload.", buf, 0xCu);
     }
 
     v49 = [MCUnknownPayload alloc];
     v50 = [dictionaryCopy mutableCopy];
-    v57 = 0;
-    v23 = [(MCUnknownPayload *)v49 initWithDictionary:v50 profile:profileCopy outError:&v57];
-    v12 = v57;
+    v56 = 0;
+    v23 = [(MCUnknownPayload *)v49 initWithDictionary:v50 profile:profileCopy outError:&v56];
+    v12 = v56;
 
     v31 = v47;
   }
@@ -1364,16 +1431,14 @@ LABEL_18:
     v26 = v25;
     mCVerboseDescription = [v12 MCVerboseDescription];
     *buf = 138543618;
-    v69 = v11;
-    v70 = 2114;
-    v71 = mCVerboseDescription;
+    v68 = v11;
+    v69 = 2114;
+    v70 = mCVerboseDescription;
     _os_log_impl(&dword_1A795B000, v26, OS_LOG_TYPE_ERROR, "Cannot create profile of type “%{public}@”. Error: %{public}@", buf, 0x16u);
   }
 
   v28 = 0;
 LABEL_49:
-
-  v51 = *MEMORY[0x1E69E9840];
 
   return v28;
 }
@@ -1418,20 +1483,20 @@ LABEL_49:
 
 - (MCPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v67 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
-  v62.receiver = self;
-  v62.super_class = MCPayload;
-  v10 = [(MCPayload *)&v62 init];
+  v61.receiver = self;
+  v61.super_class = MCPayload;
+  v10 = [(MCPayload *)&v61 init];
   if (!v10)
   {
     goto LABEL_34;
   }
 
-  v61 = 0;
-  v11 = [MCProfile removeRequiredObjectInDictionary:dictionaryCopy key:@"PayloadVersion" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v61];
-  v12 = v61;
+  v60 = 0;
+  v11 = [MCProfile removeRequiredObjectInDictionary:dictionaryCopy key:@"PayloadVersion" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v60];
+  v12 = v60;
   if (!v12)
   {
     v10->_version = [v11 intValue];
@@ -1460,25 +1525,25 @@ LABEL_49:
     }
 
     objc_storeWeak(&v10->_profile, profileCopy);
-    v60 = 0;
-    v24 = [MCProfile removeRequiredNonZeroLengthStringInDictionary:dictionaryCopy key:@"PayloadType" errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v60];
-    mCCopyAsPrimaryError = v60;
+    v59 = 0;
+    v24 = [MCProfile removeRequiredNonZeroLengthStringInDictionary:dictionaryCopy key:@"PayloadType" errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v59];
+    mCCopyAsPrimaryError = v59;
     type = v10->_type;
     v10->_type = v24;
 
     if (!mCCopyAsPrimaryError)
     {
-      v59 = 0;
-      v26 = [MCProfile removeRequiredNonZeroLengthStringInDictionary:dictionaryCopy key:@"PayloadIdentifier" errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v59];
-      mCCopyAsPrimaryError = v59;
+      v58 = 0;
+      v26 = [MCProfile removeRequiredNonZeroLengthStringInDictionary:dictionaryCopy key:@"PayloadIdentifier" errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v58];
+      mCCopyAsPrimaryError = v58;
       identifier = v10->_identifier;
       v10->_identifier = v26;
 
       if (!mCCopyAsPrimaryError)
       {
-        v58 = 0;
-        v28 = [MCProfile removeRequiredNonZeroLengthStringInDictionary:dictionaryCopy key:@"PayloadUUID" errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v58];
-        mCCopyAsPrimaryError = v58;
+        v57 = 0;
+        v28 = [MCProfile removeRequiredNonZeroLengthStringInDictionary:dictionaryCopy key:@"PayloadUUID" errorDomain:@"MCPayloadErrorDomain" missingDataCode:2002 missingDataErrorString:@"ERROR_PAYLOAD_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v57];
+        mCCopyAsPrimaryError = v57;
         UUID = v10->_UUID;
         v10->_UUID = v28;
       }
@@ -1494,17 +1559,17 @@ LABEL_21:
         goto LABEL_28;
       }
 
-      v57 = 0;
-      v38 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"PayloadDisplayName" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v57];
-      mCCopyAsPrimaryError = v57;
+      v56 = 0;
+      v38 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"PayloadDisplayName" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v56];
+      mCCopyAsPrimaryError = v56;
       displayName = v10->_displayName;
       v10->_displayName = v38;
 
       if (!mCCopyAsPrimaryError)
       {
-        v56 = 0;
-        v40 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"PayloadOrganization" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v56];
-        mCCopyAsPrimaryError = v56;
+        v55 = 0;
+        v40 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"PayloadOrganization" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v55];
+        mCCopyAsPrimaryError = v55;
         organization = v10->_organization;
         v10->_organization = v40;
       }
@@ -1524,9 +1589,9 @@ LABEL_28:
         goto LABEL_29;
       }
 
-      v55 = 0;
-      v44 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"PersistentResourceID" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v55];
-      mCCopyAsPrimaryError = v55;
+      v54 = 0;
+      v44 = [MCProfile removeOptionalNonZeroLengthStringInDictionary:dictionaryCopy key:@"PersistentResourceID" errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v54];
+      mCCopyAsPrimaryError = v54;
       persistentResourceID = v10->_persistentResourceID;
       v10->_persistentResourceID = v44;
 LABEL_27:
@@ -1586,16 +1651,15 @@ LABEL_29:
     v51 = v50;
     mCVerboseDescription = [v46 MCVerboseDescription];
     *buf = 138543618;
-    v64 = v50;
-    v65 = 2114;
-    v66 = mCVerboseDescription;
+    v63 = v50;
+    v64 = 2114;
+    v65 = mCVerboseDescription;
     _os_log_impl(&dword_1A795B000, v49, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
   }
 
   v10 = 0;
 LABEL_34:
 
-  v53 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

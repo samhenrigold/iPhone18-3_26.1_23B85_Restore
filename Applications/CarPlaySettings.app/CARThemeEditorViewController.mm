@@ -42,7 +42,7 @@
 
 - (void)dismissHandler
 {
-  sub_1000317B8(0, &qword_1000FF690);
+  sub_1000317B8(0, &qword_1000FF690, OS_os_log_ptr);
   selfCopy = self;
   v3 = static OS_os_log.default.getter();
   static os_log_type_t.default.getter();
@@ -65,7 +65,7 @@
   v6 = swift_unknownObjectRelease();
   (*((swift_isaMask & selfCopy->super.super.super.isa) + 0x70))(v6);
 
-  sub_100038D70(&v7);
+  sub_100038D70(v7);
 }
 
 - (_TtC15CarPlaySettings28CARThemeEditorViewController)initWithNibName:(id)name bundle:(id)bundle

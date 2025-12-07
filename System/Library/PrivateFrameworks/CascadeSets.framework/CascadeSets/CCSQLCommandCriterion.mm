@@ -399,17 +399,16 @@
 
 + (CCSQLCommandCriterion)criterionWithColumnName:(id)name BETWEENLowerColumnValue:(id)value ANDUpperColumnValue:(id)columnValue
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   columnValueCopy = columnValue;
   valueCopy = value;
   nameCopy = name;
   v10 = [CCSQLCommandCriterion alloc];
-  v15[0] = valueCopy;
-  v15[1] = columnValueCopy;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+  v14[0] = valueCopy;
+  v14[1] = columnValueCopy;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
 
   v12 = [(CCSQLCommandCriterion *)v10 initWithColumnName:nameCopy columnValues:v11 sqlOperator:7];
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -432,14 +431,13 @@
 
 + (CCSQLCommandCriterion)criterionWithNOTSubCriteria:(id)criteria
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   criteriaCopy = criteria;
   v4 = [CCSQLCommandCriterion alloc];
-  v9[0] = criteriaCopy;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[0] = criteriaCopy;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
 
   v6 = [(CCSQLCommandCriterion *)v4 initWithSubCriteria:v5 sqlOperator:14];
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

@@ -10,6 +10,7 @@
 - (void)dismiss;
 - (void)startTimeoutTimerIfNecessary;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation STKBaseAlertViewController
@@ -241,6 +242,14 @@
   }
 }
 
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = STKBaseAlertViewController;
+  [(STKBaseAlertViewController *)&v4 viewWillDisappear:disappear];
+  [(STKBaseAlertViewController *)self clearTimeoutTimer];
+}
+
 - (void)configureWithContext:(id)context completion:(id)completion
 {
   completionCopy = completion;
@@ -340,9 +349,7 @@ LABEL_13:
 - (void)_restartTimeoutTimer:(float)timer
 {
   [(STKBaseAlertViewController *)self clearTimeoutTimer];
-  v5 = [NSTimer scheduledTimerWithTimeInterval:self target:"_displayDidTimeout" selector:0 userInfo:0 repeats:timer];
-  timeoutTimer = self->_timeoutTimer;
-  self->_timeoutTimer = v5;
+  self->_timeoutTimer = [NSTimer scheduledTimerWithTimeInterval:self target:"_displayDidTimeout" selector:0 userInfo:0 repeats:timer];
 
   _objc_release_x1();
 }

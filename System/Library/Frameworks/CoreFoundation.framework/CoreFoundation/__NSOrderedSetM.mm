@@ -35,7 +35,7 @@
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = atomic_load(&self->cow);
   if (v3)
   {
@@ -62,10 +62,9 @@
     __RELEASE_OBJECTS_IN_THE_ORDEREDSET__(self, 1);
   }
 
-  v8.receiver = self;
-  v8.super_class = __NSOrderedSetM;
-  [(__NSOrderedSetM *)&v8 dealloc];
-  v7 = *MEMORY[0x1E69E9840];
+  v7.receiver = self;
+  v7.super_class = __NSOrderedSetM;
+  [(__NSOrderedSetM *)&v7 dealloc];
 }
 
 - (id)copy
@@ -152,7 +151,7 @@
 
 - (unint64_t)indexOfObject:(id)object
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (__cf_tsanReadFunction)
   {
     __cf_tsanReadFunction(self, v3, __CFTSANTagMutableOrderedSet);
@@ -165,28 +164,27 @@
     set = p_storage->set;
     if (p_storage->set)
     {
+      v9 = 0u;
       v10 = 0u;
-      v11 = 0u;
-      CFBasicHashFindBucket(set, object, &v10);
-      if (*(&v11 + 1))
+      CFBasicHashFindBucket(set, object, &v9);
+      if (*(&v10 + 1))
       {
-        result = [(NSArray *)p_storage->array indexOfObjectIdenticalTo:v11];
+        return [(NSArray *)p_storage->array indexOfObjectIdenticalTo:v10];
       }
 
       else
       {
-        result = 0x7FFFFFFFFFFFFFFFLL;
+        return 0x7FFFFFFFFFFFFFFFLL;
       }
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (id)objectAtIndex:(unint64_t)index
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   if (__cf_tsanReadFunction)
   {
     __cf_tsanReadFunction(self, v3, __CFTSANTagMutableOrderedSet);
@@ -199,18 +197,18 @@
     if (Count)
     {
       v16 = Count;
-      v11 = _os_log_pack_size();
-      v13 = v21 - ((MEMORY[0x1EEE9AC00](v11, v17) + 15) & 0xFFFFFFFFFFFFFFF0);
-      v18 = _os_log_pack_fill();
-      v19 = __os_log_helper_1_2_3_8_32_8_0_8_0(v18, "_oset_objectAtIndex", index, --v16);
-      v15 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: index %lu beyond bounds [0 .. %lu]", v19, "_oset_objectAtIndex", index, v16);
+      v10 = _os_log_pack_size();
+      v13 = &v22 - ((MEMORY[0x1EEE9AC00](v10, v17, v18) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v19 = _os_log_pack_fill(v13, v10, 0, &dword_1830E6000, "*** %s: index %lu beyond bounds [0 .. %lu]", v22, v23, v24);
+      v20 = __os_log_helper_1_2_3_8_32_8_0_8_0(v19, "_oset_objectAtIndex", index, --v16);
+      v15 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: index %lu beyond bounds [0 .. %lu]", v20, "_oset_objectAtIndex", index, v16);
     }
 
     else
     {
-      v11 = _os_log_pack_size();
-      v13 = v21 - ((MEMORY[0x1EEE9AC00](v11, v12) + 15) & 0xFFFFFFFFFFFFFFF0);
-      v14 = _os_log_pack_fill();
+      v10 = _os_log_pack_size();
+      v13 = &v22 - ((MEMORY[0x1EEE9AC00](v10, v11, v12) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v14 = _os_log_pack_fill(v13, v10, 0, &dword_1830E6000, "*** %s: index %lu beyond bounds for empty ordered set", v22, v23);
       *v14 = 136315394;
       *(v14 + 4) = "_oset_objectAtIndex";
       *(v14 + 12) = 2048;
@@ -218,19 +216,18 @@
       v15 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: index %lu beyond bounds for empty ordered set", "_oset_objectAtIndex", index);
     }
 
-    v20 = [NSException exceptionWithName:@"NSRangeException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v15) osLogPack:0 size:v13, v11];
-    objc_exception_throw(v20);
+    v21 = [NSException exceptionWithName:@"NSRangeException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v15) osLogPack:0 size:v13, v10];
+    objc_exception_throw(v21);
   }
 
   v8 = p_storage[1];
-  v9 = *MEMORY[0x1E69E9840];
 
   return [v8 objectAtIndex:index];
 }
 
 - (void)insertObject:(id)object atIndex:(unint64_t)index
 {
-  v35[1] = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if (__cf_tsanWriteFunction)
   {
     __cf_tsanWriteFunction(self, v4, __CFTSANTagMutableOrderedSet);
@@ -256,14 +253,14 @@
 
   if (!object)
   {
-    v16 = _os_log_pack_size();
-    v18 = v35 - ((MEMORY[0x1EEE9AC00](v16, v17) + 15) & 0xFFFFFFFFFFFFFFF0);
-    v19 = _os_log_pack_fill();
-    *v19 = 136315138;
-    *(v19 + 4) = "[__NSOrderedSetM insertObject:atIndex:]";
-    v20 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: object cannot be nil", "[__NSOrderedSetM insertObject:atIndex:]");
-    v21 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v20) osLogPack:0 size:v18, v16];
-    objc_exception_throw(v21);
+    v14 = _os_log_pack_size();
+    v17 = &v36 - ((MEMORY[0x1EEE9AC00](v14, v15, v16) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v18 = _os_log_pack_fill(v17, v14, 0, &dword_1830E6000, "*** %s: object cannot be nil", v36);
+    *v18 = 136315138;
+    *(v18 + 4) = "[__NSOrderedSetM insertObject:atIndex:]";
+    v19 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: object cannot be nil", "[__NSOrderedSetM insertObject:atIndex:]");
+    v20 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v19) osLogPack:0 size:v17, v14];
+    objc_exception_throw(v20);
   }
 
   p_storage = &self->storage;
@@ -273,21 +270,21 @@
   {
     if (Count)
     {
-      v22 = _os_log_pack_size();
-      v30 = v35 - ((MEMORY[0x1EEE9AC00](v22, v29) + 15) & 0xFFFFFFFFFFFFFFF0);
-      v31 = _os_log_pack_fill();
-      v32 = v12 - 1;
-      v33 = __os_log_helper_1_2_3_8_32_8_0_8_0(v31, "[__NSOrderedSetM insertObject:atIndex:]", index, v32);
-      v34 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: index %lu beyond bounds [0 .. %lu]", v33, "[__NSOrderedSetM insertObject:atIndex:]", index, v32);
-      v27 = _CFAutoreleasePoolAddObject(0, v34);
-      v28 = v30;
+      v21 = _os_log_pack_size();
+      v31 = &v36 - ((MEMORY[0x1EEE9AC00](v21, v29, v30) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v32 = _os_log_pack_fill(v31, v21, 0, &dword_1830E6000, "*** %s: index %lu beyond bounds [0 .. %lu]", v36, v37, v38);
+      v33 = v12 - 1;
+      v34 = __os_log_helper_1_2_3_8_32_8_0_8_0(v32, "[__NSOrderedSetM insertObject:atIndex:]", index, v33);
+      v35 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: index %lu beyond bounds [0 .. %lu]", v34, "[__NSOrderedSetM insertObject:atIndex:]", index, v33);
+      v27 = _CFAutoreleasePoolAddObject(0, v35);
+      v28 = v31;
     }
 
     else
     {
-      v22 = _os_log_pack_size();
-      v24 = v35 - ((MEMORY[0x1EEE9AC00](v22, v23) + 15) & 0xFFFFFFFFFFFFFFF0);
-      v25 = _os_log_pack_fill();
+      v21 = _os_log_pack_size();
+      v24 = &v36 - ((MEMORY[0x1EEE9AC00](v21, v22, v23) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v25 = _os_log_pack_fill(v24, v21, 0, &dword_1830E6000, "*** %s: index %lu beyond bounds for empty ordered set", v36, v37);
       *v25 = 136315394;
       *(v25 + 4) = "[__NSOrderedSetM insertObject:atIndex:]";
       *(v25 + 12) = 2048;
@@ -297,26 +294,20 @@
       v28 = v24;
     }
 
-    objc_exception_throw([NSException exceptionWithName:@"NSRangeException" reason:v27 userInfo:0 osLogPack:v28 size:v22]);
+    objc_exception_throw([NSException exceptionWithName:@"NSRangeException" reason:v27 userInfo:0 osLogPack:v28 size:v21]);
   }
 
   if (CFBasicHashAddValue(*p_storage, object, object))
   {
     v13 = p_storage[1];
-    v14 = *MEMORY[0x1E69E9840];
 
     [v13 insertObject:object atIndex:index];
-  }
-
-  else
-  {
-    v15 = *MEMORY[0x1E69E9840];
   }
 }
 
 - (void)removeObjectAtIndex:(unint64_t)index
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (__cf_tsanWriteFunction)
   {
     __cf_tsanWriteFunction(self, v3, __CFTSANTagMutableOrderedSet);
@@ -347,18 +338,18 @@
     if (Count)
     {
       v17 = Count;
-      v12 = _os_log_pack_size();
-      v14 = v22 - ((MEMORY[0x1EEE9AC00](v12, v18) + 15) & 0xFFFFFFFFFFFFFFF0);
-      v19 = _os_log_pack_fill();
-      v20 = __os_log_helper_1_2_3_8_32_8_0_8_0(v19, "[__NSOrderedSetM removeObjectAtIndex:]", index, --v17);
-      v16 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: index %lu beyond bounds [0 .. %lu]", v20, "[__NSOrderedSetM removeObjectAtIndex:]", index, v17);
+      v11 = _os_log_pack_size();
+      v14 = &v23 - ((MEMORY[0x1EEE9AC00](v11, v18, v19) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v20 = _os_log_pack_fill(v14, v11, 0, &dword_1830E6000, "*** %s: index %lu beyond bounds [0 .. %lu]", v23, v24, v25);
+      v21 = __os_log_helper_1_2_3_8_32_8_0_8_0(v20, "[__NSOrderedSetM removeObjectAtIndex:]", index, --v17);
+      v16 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: index %lu beyond bounds [0 .. %lu]", v21, "[__NSOrderedSetM removeObjectAtIndex:]", index, v17);
     }
 
     else
     {
-      v12 = _os_log_pack_size();
-      v14 = v22 - ((MEMORY[0x1EEE9AC00](v12, v13) + 15) & 0xFFFFFFFFFFFFFFF0);
-      v15 = _os_log_pack_fill();
+      v11 = _os_log_pack_size();
+      v14 = &v23 - ((MEMORY[0x1EEE9AC00](v11, v12, v13) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v15 = _os_log_pack_fill(v14, v11, 0, &dword_1830E6000, "*** %s: index %lu beyond bounds for empty ordered set", v23, v24);
       *v15 = 136315394;
       *(v15 + 4) = "[__NSOrderedSetM removeObjectAtIndex:]";
       *(v15 + 12) = 2048;
@@ -366,20 +357,19 @@
       v16 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: index %lu beyond bounds for empty ordered set", "[__NSOrderedSetM removeObjectAtIndex:]", index);
     }
 
-    v21 = [NSException exceptionWithName:@"NSRangeException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v16) osLogPack:0 size:v14, v12];
-    objc_exception_throw(v21);
+    v22 = [NSException exceptionWithName:@"NSRangeException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v16) osLogPack:0 size:v14, v11];
+    objc_exception_throw(v22);
   }
 
   CFBasicHashRemoveValue(p_storage->set, [(NSArray *)p_storage->array objectAtIndex:index]);
   array = p_storage->array;
-  v11 = *MEMORY[0x1E69E9840];
 
   [(NSMutableArray *)array removeObjectAtIndex:index];
 }
 
 - (void)replaceObjectAtIndex:(unint64_t)index withObject:(id)object
 {
-  v36[4] = *MEMORY[0x1E69E9840];
+  v38[4] = *MEMORY[0x1E69E9840];
   if (__cf_tsanWriteFunction)
   {
     __cf_tsanWriteFunction(self, v4, __CFTSANTagMutableOrderedSet);
@@ -405,13 +395,13 @@
 
   if (!object)
   {
-    v16 = _os_log_pack_size();
-    v18 = &v36[-1] - ((MEMORY[0x1EEE9AC00](v16, v17) + 15) & 0xFFFFFFFFFFFFFFF0);
-    v19 = _os_log_pack_fill();
+    v15 = _os_log_pack_size();
+    v18 = &v38[-1] - ((MEMORY[0x1EEE9AC00](v15, v16, v17) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v19 = _os_log_pack_fill(v18, v15, 0, &dword_1830E6000, "*** %s: object cannot be nil", v37);
     *v19 = 136315138;
     *(v19 + 4) = "[__NSOrderedSetM replaceObjectAtIndex:withObject:]";
     v20 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: object cannot be nil", "[__NSOrderedSetM replaceObjectAtIndex:withObject:]");
-    v21 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v20) osLogPack:0 size:v18, v16];
+    v21 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v20) osLogPack:0 size:v18, v15];
     objc_exception_throw(v21);
   }
 
@@ -423,47 +413,45 @@
     if (Count)
     {
       v22 = _os_log_pack_size();
-      v30 = &v36[-1] - ((MEMORY[0x1EEE9AC00](v22, v29) + 15) & 0xFFFFFFFFFFFFFFF0);
-      v31 = _os_log_pack_fill();
-      v32 = v12 - 1;
-      v33 = __os_log_helper_1_2_3_8_32_8_0_8_0(v31, "[__NSOrderedSetM replaceObjectAtIndex:withObject:]", index, v32);
-      v34 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: index %lu beyond bounds [0 .. %lu]", v33, "[__NSOrderedSetM replaceObjectAtIndex:withObject:]", index, v32);
-      v27 = _CFAutoreleasePoolAddObject(0, v34);
-      v28 = v30;
+      v32 = &v38[-1] - ((MEMORY[0x1EEE9AC00](v22, v30, v31) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v33 = _os_log_pack_fill(v32, v22, 0, &dword_1830E6000, "*** %s: index %lu beyond bounds [0 .. %lu]", v37, v38[0], v38[1]);
+      v34 = v12 - 1;
+      v35 = __os_log_helper_1_2_3_8_32_8_0_8_0(v33, "[__NSOrderedSetM replaceObjectAtIndex:withObject:]", index, v34);
+      v36 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: index %lu beyond bounds [0 .. %lu]", v35, "[__NSOrderedSetM replaceObjectAtIndex:withObject:]", index, v34);
+      v28 = _CFAutoreleasePoolAddObject(0, v36);
+      v29 = v32;
     }
 
     else
     {
       v22 = _os_log_pack_size();
-      v24 = &v36[-1] - ((MEMORY[0x1EEE9AC00](v22, v23) + 15) & 0xFFFFFFFFFFFFFFF0);
-      v25 = _os_log_pack_fill();
-      *v25 = 136315394;
-      *(v25 + 4) = "[__NSOrderedSetM replaceObjectAtIndex:withObject:]";
-      *(v25 + 12) = 2048;
-      *(v25 + 14) = index;
-      v26 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: index %lu beyond bounds for empty ordered set", "[__NSOrderedSetM replaceObjectAtIndex:withObject:]", index);
-      v27 = _CFAutoreleasePoolAddObject(0, v26);
-      v28 = v24;
+      v25 = &v38[-1] - ((MEMORY[0x1EEE9AC00](v22, v23, v24) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v26 = _os_log_pack_fill(v25, v22, 0, &dword_1830E6000, "*** %s: index %lu beyond bounds for empty ordered set", v37, v38[0]);
+      *v26 = 136315394;
+      *(v26 + 4) = "[__NSOrderedSetM replaceObjectAtIndex:withObject:]";
+      *(v26 + 12) = 2048;
+      *(v26 + 14) = index;
+      v27 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: index %lu beyond bounds for empty ordered set", "[__NSOrderedSetM replaceObjectAtIndex:withObject:]", index);
+      v28 = _CFAutoreleasePoolAddObject(0, v27);
+      v29 = v25;
     }
 
-    objc_exception_throw([NSException exceptionWithName:@"NSRangeException" reason:v27 userInfo:0 osLogPack:v28 size:v22]);
+    objc_exception_throw([NSException exceptionWithName:@"NSRangeException" reason:v28 userInfo:0 osLogPack:v29 size:v22]);
   }
 
   v13 = [(NSArray *)p_storage->array objectAtIndex:index];
   v14 = v13;
-  if (v13 != object && [v13 isEqual:object] || (CFBasicHashFindBucket(p_storage->set, object, v36), !v36[3]))
+  if (v13 != object && [v13 isEqual:object] || (CFBasicHashFindBucket(p_storage->set, object, v38), !v38[3]))
   {
     CFBasicHashRemoveValue(p_storage->set, v14);
     CFBasicHashAddValue(p_storage->set, object, object);
     [(NSMutableArray *)p_storage->array replaceObjectAtIndex:index withObject:object];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)containsObject:(id)object
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (__cf_tsanReadFunction)
   {
     __cf_tsanReadFunction(self, v3, __CFTSANTagMutableOrderedSet);
@@ -475,20 +463,19 @@
     set = self->storage.set;
     if (set)
     {
+      v8 = 0u;
       v9 = 0u;
-      v10 = 0u;
-      CFBasicHashFindBucket(set, object, &v9);
-      result = *(&v10 + 1) != 0;
+      CFBasicHashFindBucket(set, object, &v8);
+      return *(&v9 + 1) != 0;
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (unint64_t)countForObject:(id)object
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (__cf_tsanReadFunction)
   {
     __cf_tsanReadFunction(self, v3, __CFTSANTagMutableOrderedSet);
@@ -500,14 +487,13 @@
     set = self->storage.set;
     if (set)
     {
+      v8 = 0u;
       v9 = 0u;
-      v10 = 0u;
-      CFBasicHashFindBucket(set, object, &v9);
-      result = *(&v10 + 1) != 0;
+      CFBasicHashFindBucket(set, object, &v8);
+      return *(&v9 + 1) != 0;
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -522,13 +508,13 @@
     }
 
 LABEL_7:
-    v10 = _os_log_pack_size();
-    v12 = v16 - ((MEMORY[0x1EEE9AC00](v10, v11) + 15) & 0xFFFFFFFFFFFFFFF0);
-    v13 = _os_log_pack_fill();
+    v9 = _os_log_pack_size();
+    v12 = v16 - ((MEMORY[0x1EEE9AC00](v9, v10, v11) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v13 = _os_log_pack_fill(v12, v9, 0, &dword_1830E6000, "*** %s: block cannot be nil", v16[0]);
     *v13 = 136315138;
     *(v13 + 4) = "_oset_enumerateObjectsWithOptionsUsingBlock";
     v14 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: block cannot be nil", "_oset_enumerateObjectsWithOptionsUsingBlock");
-    v15 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v14) osLogPack:0 size:v12, v10];
+    v15 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v14) osLogPack:0 size:v12, v9];
     objc_exception_throw(v15);
   }
 
@@ -540,7 +526,6 @@ LABEL_7:
 
 LABEL_3:
   array = self->storage.array;
-  v9 = *MEMORY[0x1E69E9840];
 
   [(NSArray *)array enumerateObjectsWithOptions:options usingBlock:block];
 }
@@ -549,7 +534,7 @@ LABEL_3:
 {
   length = range.length;
   location = range.location;
-  v32[1] = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   if (__cf_tsanReadFunction)
   {
     __cf_tsanReadFunction(self, v4, __CFTSANTagMutableOrderedSet);
@@ -561,32 +546,32 @@ LABEL_3:
   {
     if (Count)
     {
-      v27 = Count;
+      v29 = Count;
       v18 = _os_log_pack_size();
-      v20 = v32 - ((MEMORY[0x1EEE9AC00](v18, v28) + 15) & 0xFFFFFFFFFFFFFFF0);
-      v29 = _os_log_pack_fill();
-      v30 = __os_log_helper_1_2_4_8_32_8_0_8_0_8_0(v29, "_oset_getObjectsRange", location, length, --v27);
-      v23 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: range {%lu, %lu} extends beyond bounds [0 .. %lu]", v30, "_oset_getObjectsRange", location, length, v27);
+      v21 = &v35 - ((MEMORY[0x1EEE9AC00](v18, v30, v31) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v32 = _os_log_pack_fill(v21, v18, 0, &dword_1830E6000, "*** %s: range {%lu, %lu} extends beyond bounds [0 .. %lu]", v35, v36, v37, v38);
+      v33 = __os_log_helper_1_2_4_8_32_8_0_8_0_8_0(v32, "_oset_getObjectsRange", location, length, --v29);
+      v24 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: range {%lu, %lu} extends beyond bounds [0 .. %lu]", v33, "_oset_getObjectsRange", location, length, v29);
     }
 
     else
     {
       v18 = _os_log_pack_size();
-      v20 = v32 - ((MEMORY[0x1EEE9AC00](v18, v19) + 15) & 0xFFFFFFFFFFFFFFF0);
-      v21 = _os_log_pack_fill();
-      v22 = __os_log_helper_1_2_3_8_32_8_0_8_0(v21, "_oset_getObjectsRange", location, length);
-      v23 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: range {%lu, %lu} extends beyond bounds for empty ordered set", v22, "_oset_getObjectsRange", location, length);
+      v21 = &v35 - ((MEMORY[0x1EEE9AC00](v18, v19, v20) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v22 = _os_log_pack_fill(v21, v18, 0, &dword_1830E6000, "*** %s: range {%lu, %lu} extends beyond bounds for empty ordered set", v35, v36, v37);
+      v23 = __os_log_helper_1_2_3_8_32_8_0_8_0(v22, "_oset_getObjectsRange", location, length);
+      v24 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: range {%lu, %lu} extends beyond bounds for empty ordered set", v23, "_oset_getObjectsRange", location, length);
     }
 
-    v31 = [NSException exceptionWithName:@"NSRangeException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v23) osLogPack:0 size:v20, v18];
-    objc_exception_throw(v31);
+    v34 = [NSException exceptionWithName:@"NSRangeException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v24) osLogPack:0 size:v21, v18];
+    objc_exception_throw(v34);
   }
 
   if (!objects && length)
   {
-    v13 = _os_log_pack_size();
-    v15 = v32 - ((MEMORY[0x1EEE9AC00](v13, v14) + 15) & 0xFFFFFFFFFFFFFFF0);
-    v16 = _os_log_pack_fill();
+    v12 = _os_log_pack_size();
+    v15 = &v35 - ((MEMORY[0x1EEE9AC00](v12, v13, v14) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v16 = _os_log_pack_fill(v15, v12, 0, &dword_1830E6000, "*** %s: pointer to objects array is NULL but length is %lu", v35, v36);
     *v16 = 136315394;
     *(v16 + 4) = "_oset_getObjectsRange";
     *(v16 + 12) = 2048;
@@ -597,28 +582,27 @@ LABEL_3:
 
   if (length >> 61)
   {
-    v13 = _os_log_pack_size();
-    v15 = v32 - ((MEMORY[0x1EEE9AC00](v13, v24) + 15) & 0xFFFFFFFFFFFFFFF0);
-    v25 = _os_log_pack_fill();
-    *v25 = 136315394;
-    *(v25 + 4) = "_oset_getObjectsRange";
-    *(v25 + 12) = 2048;
-    *(v25 + 14) = length;
+    v12 = _os_log_pack_size();
+    v15 = &v35 - ((MEMORY[0x1EEE9AC00](v12, v25, v26) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v27 = _os_log_pack_fill(v15, v12, 0, &dword_1830E6000, "*** %s: count (%lu) of objects array is ridiculous", v35, v36);
+    *v27 = 136315394;
+    *(v27 + 4) = "_oset_getObjectsRange";
+    *(v27 + 12) = 2048;
+    *(v27 + 14) = length;
     v17 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: count (%lu) of objects array is ridiculous", "_oset_getObjectsRange", length);
 LABEL_16:
-    v26 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v17) osLogPack:0 size:v15, v13];
-    objc_exception_throw(v26);
+    v28 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v17) osLogPack:0 size:v15, v12];
+    objc_exception_throw(v28);
   }
 
   v11 = p_storage[1];
-  v12 = *MEMORY[0x1E69E9840];
 
   [v11 getObjects:objects range:{location, length}];
 }
 
 - (void)setObject:(id)object atIndex:(unint64_t)index
 {
-  v38[4] = *MEMORY[0x1E69E9840];
+  v39[4] = *MEMORY[0x1E69E9840];
   if (__cf_tsanWriteFunction)
   {
     __cf_tsanWriteFunction(self, v4, __CFTSANTagMutableOrderedSet);
@@ -644,14 +628,14 @@ LABEL_16:
 
   if (!object)
   {
-    v18 = _os_log_pack_size();
-    v20 = &v38[-1] - ((MEMORY[0x1EEE9AC00](v18, v19) + 15) & 0xFFFFFFFFFFFFFFF0);
-    v21 = _os_log_pack_fill();
-    *v21 = 136315138;
-    *(v21 + 4) = "[__NSOrderedSetM setObject:atIndex:]";
-    v22 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: object cannot be nil", "[__NSOrderedSetM setObject:atIndex:]");
-    v23 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v22) osLogPack:0 size:v20, v18];
-    objc_exception_throw(v23);
+    v16 = _os_log_pack_size();
+    v19 = &v39[-1] - ((MEMORY[0x1EEE9AC00](v16, v17, v18) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v20 = _os_log_pack_fill(v19, v16, 0, &dword_1830E6000, "*** %s: object cannot be nil", v38);
+    *v20 = 136315138;
+    *(v20 + 4) = "[__NSOrderedSetM setObject:atIndex:]";
+    v21 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: object cannot be nil", "[__NSOrderedSetM setObject:atIndex:]");
+    v22 = [NSException exceptionWithName:@"NSInvalidArgumentException" reason:_CFAutoreleasePoolAddObject(0 userInfo:v21) osLogPack:0 size:v19, v16];
+    objc_exception_throw(v22);
   }
 
   p_storage = &self->storage;
@@ -661,21 +645,21 @@ LABEL_16:
   {
     if (Count)
     {
-      v24 = _os_log_pack_size();
-      v32 = &v38[-1] - ((MEMORY[0x1EEE9AC00](v24, v31) + 15) & 0xFFFFFFFFFFFFFFF0);
-      v33 = _os_log_pack_fill();
-      v34 = v12 - 1;
-      v35 = __os_log_helper_1_2_3_8_32_8_0_8_0(v33, "[__NSOrderedSetM setObject:atIndex:]", index, v34);
-      v36 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: index %lu beyond bounds [0 .. %lu]", v35, "[__NSOrderedSetM setObject:atIndex:]", index, v34);
-      v29 = _CFAutoreleasePoolAddObject(0, v36);
-      v30 = v32;
+      v23 = _os_log_pack_size();
+      v33 = &v39[-1] - ((MEMORY[0x1EEE9AC00](v23, v31, v32) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v34 = _os_log_pack_fill(v33, v23, 0, &dword_1830E6000, "*** %s: index %lu beyond bounds [0 .. %lu]", v38, v39[0], v39[1]);
+      v35 = v12 - 1;
+      v36 = __os_log_helper_1_2_3_8_32_8_0_8_0(v34, "[__NSOrderedSetM setObject:atIndex:]", index, v35);
+      v37 = CFStringCreateWithFormat(&__kCFAllocatorSystemDefault, 0, @"*** %s: index %lu beyond bounds [0 .. %lu]", v36, "[__NSOrderedSetM setObject:atIndex:]", index, v35);
+      v29 = _CFAutoreleasePoolAddObject(0, v37);
+      v30 = v33;
     }
 
     else
     {
-      v24 = _os_log_pack_size();
-      v26 = &v38[-1] - ((MEMORY[0x1EEE9AC00](v24, v25) + 15) & 0xFFFFFFFFFFFFFFF0);
-      v27 = _os_log_pack_fill();
+      v23 = _os_log_pack_size();
+      v26 = &v39[-1] - ((MEMORY[0x1EEE9AC00](v23, v24, v25) + 15) & 0xFFFFFFFFFFFFFFF0);
+      v27 = _os_log_pack_fill(v26, v23, 0, &dword_1830E6000, "*** %s: index %lu beyond bounds for empty ordered set", v38, v39[0]);
       *v27 = 136315394;
       *(v27 + 4) = "[__NSOrderedSetM setObject:atIndex:]";
       *(v27 + 12) = 2048;
@@ -685,34 +669,30 @@ LABEL_16:
       v30 = v26;
     }
 
-    objc_exception_throw([NSException exceptionWithName:@"NSRangeException" reason:v29 userInfo:0 osLogPack:v30 size:v24]);
+    objc_exception_throw([NSException exceptionWithName:@"NSRangeException" reason:v29 userInfo:0 osLogPack:v30 size:v23]);
   }
 
-  if (Count != index)
+  if (Count == index)
   {
-    v15 = [(NSArray *)p_storage->array objectAtIndex:index];
-    v16 = v15;
-    if (v15 != object && [v15 isEqual:object] || (CFBasicHashFindBucket(p_storage->set, object, v38), !v38[3]))
+    if (CFBasicHashAddValue(p_storage->set, object, object))
     {
-      CFBasicHashRemoveValue(p_storage->set, v16);
+      array = p_storage->array;
+
+      [(NSMutableArray *)array insertObject:object atIndex:index];
+    }
+  }
+
+  else
+  {
+    v14 = [(NSArray *)p_storage->array objectAtIndex:index];
+    v15 = v14;
+    if (v14 != object && [v14 isEqual:object] || (CFBasicHashFindBucket(p_storage->set, object, v39), !v39[3]))
+    {
+      CFBasicHashRemoveValue(p_storage->set, v15);
       CFBasicHashAddValue(p_storage->set, object, object);
       [(NSMutableArray *)p_storage->array replaceObjectAtIndex:index withObject:object];
     }
-
-    goto LABEL_24;
   }
-
-  if (!CFBasicHashAddValue(p_storage->set, object, object))
-  {
-LABEL_24:
-    v17 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  array = p_storage->array;
-  v14 = *MEMORY[0x1E69E9840];
-
-  [(NSMutableArray *)array insertObject:object atIndex:index];
 }
 
 - (id)copyWithZone:(_NSZone *)zone

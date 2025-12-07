@@ -20,14 +20,14 @@
   {
     v8 = [(PIAdjustmentController *)[PISlomoAdjustmentController alloc] initWithAdjustment:equalCopy];
     memset(&v16, 0, sizeof(v16));
-    [(PISlomoAdjustmentController *)self startTime];
-    [(PISlomoAdjustmentController *)self endTime];
+    objc_msgSend_startTime(self);
+    objc_msgSend_endTime(self);
     CMTimeRangeFromTimeToTime(&v16, &start.start, &end);
     memset(&start, 0, sizeof(start));
     if (v8)
     {
-      [(PISlomoAdjustmentController *)v8 startTime];
-      [(PISlomoAdjustmentController *)v8 endTime];
+      objc_msgSend_startTime(v8);
+      objc_msgSend_endTime(v8);
     }
 
     else

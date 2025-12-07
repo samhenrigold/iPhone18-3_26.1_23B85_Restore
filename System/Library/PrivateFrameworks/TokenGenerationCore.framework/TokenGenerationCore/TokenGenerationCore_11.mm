@@ -1,2888 +1,3 @@
-uint64_t partial apply for closure #12 in Npy.makeArray<A>(type:)(int *a1)
-{
-  v2 = *(v1 + 24);
-  v3 = *a1;
-  v4 = *(v1 + 16);
-  return dispatch thunk of BinaryFloatingPoint.init(_:)();
-}
-
-uint64_t partial apply for closure #10 in Npy.makeArray<A>(type:)(__int16 *a1)
-{
-  v2 = *(v1 + 16);
-  v3 = *(v1 + 24);
-  v5 = *a1;
-  lazy protocol witness table accessor for type Float16 and conformance Float16();
-  return dispatch thunk of BinaryFloatingPoint.init<A>(_:)();
-}
-
-uint64_t partial apply for closure #8 in Npy.makeArray<A>(type:)(uint64_t *a1)
-{
-  v2 = *(v1 + 16);
-  v5 = *a1;
-  v3 = *(*(v1 + 24) + 16);
-  lazy protocol witness table accessor for type UInt64 and conformance UInt64();
-  return dispatch thunk of FloatingPoint.init<A>(_:)();
-}
-
-uint64_t partial apply for closure #6 in Npy.makeArray<A>(type:)(int *a1)
-{
-  v2 = *(v1 + 16);
-  v5 = *a1;
-  v3 = *(*(v1 + 24) + 16);
-  lazy protocol witness table accessor for type UInt32 and conformance UInt32();
-  return dispatch thunk of FloatingPoint.init<A>(_:)();
-}
-
-uint64_t partial apply for closure #4 in Npy.makeArray<A>(type:)(__int16 *a1)
-{
-  v2 = *(v1 + 16);
-  v5 = *a1;
-  v3 = *(*(v1 + 24) + 16);
-  lazy protocol witness table accessor for type UInt16 and conformance UInt16();
-  return dispatch thunk of FloatingPoint.init<A>(_:)();
-}
-
-uint64_t partial apply for closure #2 in Npy.makeArray<A>(type:)(char *a1)
-{
-  v2 = *(v1 + 16);
-  v5 = *a1;
-  v3 = *(*(v1 + 24) + 16);
-  lazy protocol witness table accessor for type UInt8 and conformance UInt8();
-  return dispatch thunk of FloatingPoint.init<A>(_:)();
-}
-
-unint64_t lazy protocol witness table accessor for type Npy.Header.DataType.Endianness and conformance Npy.Header.DataType.Endianness()
-{
-  result = lazy protocol witness table cache variable for type Npy.Header.DataType.Endianness and conformance Npy.Header.DataType.Endianness;
-  if (!lazy protocol witness table cache variable for type Npy.Header.DataType.Endianness and conformance Npy.Header.DataType.Endianness)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Npy.Header.DataType.Endianness and conformance Npy.Header.DataType.Endianness);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type Npy.Header.DataType.DType and conformance Npy.Header.DataType.DType()
-{
-  result = lazy protocol witness table cache variable for type Npy.Header.DataType.DType and conformance Npy.Header.DataType.DType;
-  if (!lazy protocol witness table cache variable for type Npy.Header.DataType.DType and conformance Npy.Header.DataType.DType)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Npy.Header.DataType.DType and conformance Npy.Header.DataType.DType);
-  }
-
-  return result;
-}
-
-uint64_t get_enum_tag_for_layout_string_10Foundation4DataV15_RepresentationO(uint64_t a1)
-{
-  v1 = *(a1 + 8) >> 62;
-  if (v1 == 3)
-  {
-    return (*a1 + 3);
-  }
-
-  else
-  {
-    return v1;
-  }
-}
-
-uint64_t getEnumTagSinglePayload for Npy.Header.DataType(unsigned __int16 *a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 < 0xFD)
-  {
-    goto LABEL_17;
-  }
-
-  if (a2 + 65283 <= 0xFFFEFFFF)
-  {
-    v2 = 2;
-  }
-
-  else
-  {
-    v2 = 4;
-  }
-
-  if (a2 + 65283 < 0xFF0000)
-  {
-    v3 = 1;
-  }
-
-  else
-  {
-    v3 = v2;
-  }
-
-  if (v3 == 4)
-  {
-    v4 = *(a1 + 1);
-    if (v4)
-    {
-      return (*a1 | (v4 << 16)) - 65283;
-    }
-  }
-
-  else
-  {
-    if (v3 == 2)
-    {
-      v4 = a1[1];
-      if (!a1[1])
-      {
-        goto LABEL_17;
-      }
-
-      return (*a1 | (v4 << 16)) - 65283;
-    }
-
-    v4 = *(a1 + 2);
-    if (*(a1 + 2))
-    {
-      return (*a1 | (v4 << 16)) - 65283;
-    }
-  }
-
-LABEL_17:
-  v6 = *a1;
-  v7 = v6 >= 4;
-  v8 = v6 - 4;
-  if (!v7)
-  {
-    v8 = -1;
-  }
-
-  return (v8 + 1);
-}
-
-_WORD *storeEnumTagSinglePayload for Npy.Header.DataType(_WORD *result, unsigned int a2, unsigned int a3)
-{
-  if (a3 + 65283 <= 0xFFFEFFFF)
-  {
-    v3 = 2;
-  }
-
-  else
-  {
-    v3 = 4;
-  }
-
-  if (a3 + 65283 < 0xFF0000)
-  {
-    v4 = 1;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  if (a3 < 0xFD)
-  {
-    v4 = 0;
-  }
-
-  if (a2 > 0xFC)
-  {
-    v5 = ((a2 - 253) >> 16) + 1;
-    *result = a2 - 253;
-    if (v4 > 1)
-    {
-      if (v4 == 2)
-      {
-        result[1] = v5;
-      }
-
-      else
-      {
-        *(result + 1) = v5;
-      }
-    }
-
-    else if (v4)
-    {
-      *(result + 2) = v5;
-    }
-
-    return result;
-  }
-
-  if (v4 > 1)
-  {
-    if (v4 != 2)
-    {
-      *(result + 1) = 0;
-      if (a2)
-      {
-        goto LABEL_20;
-      }
-
-      return result;
-    }
-
-    result[1] = 0;
-  }
-
-  else if (v4)
-  {
-    *(result + 2) = 0;
-    if (!a2)
-    {
-      return result;
-    }
-
-LABEL_20:
-    *result = a2 + 3;
-    return result;
-  }
-
-  if (a2)
-  {
-    goto LABEL_20;
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type UInt8 and conformance UInt8()
-{
-  result = lazy protocol witness table cache variable for type UInt8 and conformance UInt8;
-  if (!lazy protocol witness table cache variable for type UInt8 and conformance UInt8)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type UInt8 and conformance UInt8);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type UInt16 and conformance UInt16()
-{
-  result = lazy protocol witness table cache variable for type UInt16 and conformance UInt16;
-  if (!lazy protocol witness table cache variable for type UInt16 and conformance UInt16)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type UInt16 and conformance UInt16);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type UInt32 and conformance UInt32()
-{
-  result = lazy protocol witness table cache variable for type UInt32 and conformance UInt32;
-  if (!lazy protocol witness table cache variable for type UInt32 and conformance UInt32)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type UInt32 and conformance UInt32);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type UInt64 and conformance UInt64()
-{
-  result = lazy protocol witness table cache variable for type UInt64 and conformance UInt64;
-  if (!lazy protocol witness table cache variable for type UInt64 and conformance UInt64)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type UInt64 and conformance UInt64);
-  }
-
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type Float16 and conformance Float16()
-{
-  result = lazy protocol witness table cache variable for type Float16 and conformance Float16;
-  if (!lazy protocol witness table cache variable for type Float16 and conformance Float16)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Float16 and conformance Float16);
-  }
-
-  return result;
-}
-
-uint64_t specialized Data.InlineData.init(_:)(_BYTE *__src, _BYTE *a2)
-{
-  v11 = *MEMORY[0x1E69E9840];
-  v2 = a2 - __src;
-  if (__src)
-  {
-    v3 = a2 - __src;
-  }
-
-  else
-  {
-    v3 = 0;
-  }
-
-  if ((v3 & 0x8000000000000000) != 0)
-  {
-    __break(1u);
-LABEL_11:
-    __break(1u);
-  }
-
-  if (v3 > 0xFF)
-  {
-    goto LABEL_11;
-  }
-
-  result = 0;
-  __dst = 0;
-  v10 = v3;
-  v9 = 0;
-  v8 = 0;
-  if (__src && a2 != __src)
-  {
-    memcpy(&__dst, __src, v2);
-    result = __dst;
-  }
-
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-uint64_t specialized Data.LargeSlice.init(_:)(uint64_t a1, uint64_t a2)
-{
-  if (a1)
-  {
-    v2 = a2 - a1;
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = type metadata accessor for __DataStorage();
-  v4 = *(v3 + 48);
-  v5 = *(v3 + 52);
-  swift_allocObject();
-  result = __DataStorage.init(bytes:length:)();
-  if (v2 < 0)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    type metadata accessor for Data.RangeReference();
-    result = swift_allocObject();
-    *(result + 16) = 0;
-    *(result + 24) = v2;
-  }
-
-  return result;
-}
-
-uint64_t specialized Data.InlineSlice.init(_:)(uint64_t a1, uint64_t a2)
-{
-  if (a1)
-  {
-    v2 = a2 - a1;
-  }
-
-  else
-  {
-    v2 = 0;
-  }
-
-  v3 = type metadata accessor for __DataStorage();
-  v4 = *(v3 + 48);
-  v5 = *(v3 + 52);
-  swift_allocObject();
-  result = __DataStorage.init(bytes:length:)();
-  if (v2 < 0xFFFFFFFF80000000)
-  {
-    __break(1u);
-    goto LABEL_9;
-  }
-
-  if (v2 > 0x7FFFFFFF)
-  {
-LABEL_9:
-    __break(1u);
-    goto LABEL_10;
-  }
-
-  if ((v2 & 0x8000000000000000) == 0)
-  {
-    return v2 << 32;
-  }
-
-LABEL_10:
-  __break(1u);
-  return result;
-}
-
-uint64_t Overridable.wrappedValue.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v4 = *v2;
-  v5 = v2[3];
-  v6 = v2[4];
-  if (one-time initialization token for isInternalInstall != -1)
-  {
-    v9 = a1;
-    v10 = a2;
-    swift_once();
-    a1 = v9;
-    a2 = v10;
-  }
-
-  if (isInternalInstall)
-  {
-    return v5();
-  }
-
-  v8 = *(*(*(a1 + 16) - 8) + 56);
-
-  return v8(a2, 1, 1);
-}
-
-void one-time initialization function for isInternalInstall()
-{
-  v0 = MobileGestalt_get_current_device();
-  if (v0)
-  {
-    v1 = v0;
-    internalBuild = MobileGestalt_get_internalBuild();
-
-    isInternalInstall = internalBuild;
-  }
-
-  else
-  {
-    __break(1u);
-  }
-}
-
-uint64_t closure #1 in Overridable<A>.init(key:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, _BYTE *a4@<X8>)
-{
-  v6 = MEMORY[0x1AC57BF60](a2, a3);
-  v7 = [a1 valueForKey_];
-
-  if (v7)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v9 = 0u;
-    v10 = 0u;
-  }
-
-  v11[0] = v9;
-  v11[1] = v10;
-  if (!*(&v10 + 1))
-  {
-    result = outlined destroy of Any?(v11);
-    goto LABEL_8;
-  }
-
-  result = swift_dynamicCast();
-  if ((result & 1) == 0)
-  {
-LABEL_8:
-    *a4 = 2;
-  }
-
-  return result;
-}
-
-uint64_t closure #1 in Overridable<A>.init(key:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v6 = MEMORY[0x1AC57BF60](a2, a3);
-  v7 = [a1 URLForKey_];
-
-  if (v7)
-  {
-    static URL._unconditionallyBridgeFromObjectiveC(_:)();
-
-    v8 = 0;
-  }
-
-  else
-  {
-    v8 = 1;
-  }
-
-  v9 = type metadata accessor for URL();
-  v10 = *(*(v9 - 8) + 56);
-
-  return v10(a4, v8, 1, v9);
-}
-
-{
-  v6 = MEMORY[0x1AC57BF60](a2, a3);
-  v7 = [a1 valueForKey_];
-
-  if (v7)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v10 = 0u;
-    v11 = 0u;
-  }
-
-  v12[0] = v10;
-  v12[1] = v11;
-  if (*(&v11 + 1))
-  {
-    result = swift_dynamicCast();
-    if ((result & 1) == 0)
-    {
-      *a4 = 0;
-    }
-
-    v9 = result ^ 1;
-  }
-
-  else
-  {
-    result = outlined destroy of Any?(v12);
-    *a4 = 0;
-    v9 = 1;
-  }
-
-  *(a4 + 8) = v9;
-  return result;
-}
-
-{
-  v6 = MEMORY[0x1AC57BF60](a2, a3);
-  v7 = [a1 valueForKey_];
-
-  if (v7)
-  {
-    _bridgeAnyObjectToAny(_:)();
-    swift_unknownObjectRelease();
-  }
-
-  else
-  {
-    v10 = 0u;
-    v11 = 0u;
-  }
-
-  v12[0] = v10;
-  v12[1] = v11;
-  if (*(&v11 + 1))
-  {
-    result = swift_dynamicCast();
-    if ((result & 1) == 0)
-    {
-      *a4 = 0;
-    }
-
-    v9 = result ^ 1;
-  }
-
-  else
-  {
-    result = outlined destroy of Any?(v12);
-    *a4 = 0;
-    v9 = 1;
-  }
-
-  *(a4 + 4) = v9;
-  return result;
-}
-
-void closure #1 in Overridable<A>.init(key:)(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
-{
-  v6 = MEMORY[0x1AC57BF60](a2, a3);
-  v7 = [a1 stringForKey_];
-
-  if (v7)
-  {
-    v8 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v10 = v9;
-  }
-
-  else
-  {
-    v8 = 0;
-    v10 = 0;
-  }
-
-  *a4 = v8;
-  a4[1] = v10;
-}
-
-uint64_t outlined destroy of Any?(uint64_t a1)
-{
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sypSgMd, &_sypSgMR);
-  (*(*(v2 - 8) + 8))(a1, v2);
-  return a1;
-}
-
-void specialized MutableCollection<>.reverse()()
-{
-  v1 = *v0;
-  v2 = *(*v0 + 2);
-  if (v2)
-  {
-    v3 = v2 == 1;
-  }
-
-  else
-  {
-    v3 = 1;
-  }
-
-  if (v3)
-  {
-    return;
-  }
-
-  v4 = *v0;
-  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-  {
-LABEL_18:
-    v1 = specialized _ArrayBuffer._consumeAndCreateNew()(v1);
-  }
-
-  v5 = 0;
-  v2 += 3;
-  while (1)
-  {
-    v8 = v2 - 4;
-    if (v5 == v2 - 4)
-    {
-      goto LABEL_8;
-    }
-
-    v9 = *(v1 + 2);
-    if (v5 >= v9)
-    {
-      __break(1u);
-LABEL_17:
-      __break(1u);
-      goto LABEL_18;
-    }
-
-    if (v8 >= v9)
-    {
-      goto LABEL_17;
-    }
-
-    v10 = &v1[8 * v5];
-    v11 = *(v10 + 4);
-    *(v10 + 4) = *&v1[8 * v2];
-    v12 = *(v1 + 2);
-
-    if (v8 >= v12)
-    {
-      break;
-    }
-
-    v6 = *&v1[8 * v2];
-    *&v1[8 * v2] = v11;
-
-LABEL_8:
-    ++v5;
-    v7 = v2 - 5;
-    --v2;
-    if (v5 >= v7)
-    {
-      goto LABEL_14;
-    }
-  }
-
-  __break(1u);
-LABEL_14:
-  *v0 = v1;
-}
-
-{
-  v1 = *(*v0 + 16);
-  if (!v1)
-  {
-    return;
-  }
-
-  v2 = v1 - 1;
-  if (v1 == 1)
-  {
-    return;
-  }
-
-  v3 = *v0;
-  v18 = v0;
-  if (swift_isUniquelyReferenced_nonNull_native())
-  {
-    v4 = v3;
-  }
-
-  else
-  {
-LABEL_18:
-    v4 = specialized _ArrayBuffer._consumeAndCreateNew()(v3);
-  }
-
-  v5 = 0;
-  v6 = 32 * v1;
-  v7 = 1;
-  while (1)
-  {
-    if ((v7 - 1) == v2)
-    {
-      goto LABEL_7;
-    }
-
-    v11 = *(v4 + 2);
-    if (v7 - 1 >= v11)
-    {
-      __break(1u);
-LABEL_17:
-      __break(1u);
-      goto LABEL_18;
-    }
-
-    if (v2 >= v11)
-    {
-      goto LABEL_17;
-    }
-
-    v12 = &v4[v5];
-    v13 = *&v4[v5 + 32];
-    v19 = *&v4[v5 + 40];
-    v14 = *&v4[v5 + 56];
-    v1 = &v4[v6];
-    v15 = *&v4[v6 + 8];
-    v16 = *&v4[v6 + 16];
-    v17 = *&v4[v6 + 24];
-    *(v12 + 4) = *&v4[v6];
-    *(v12 + 5) = v15;
-    *(v12 + 6) = v16;
-    *(v12 + 7) = v17;
-    v20 = *(v4 + 2);
-
-    if (v2 >= v20)
-    {
-      break;
-    }
-
-    v3 = *(v1 + 1);
-    v8 = *(v1 + 2);
-    v9 = *(v1 + 3);
-    *&v4[v6] = v13;
-    *(v1 + 8) = v19;
-    *(v1 + 3) = v14;
-
-LABEL_7:
-    --v2;
-    v6 -= 32;
-    v5 += 32;
-    if (v7++ >= v2)
-    {
-      goto LABEL_14;
-    }
-  }
-
-  __break(1u);
-LABEL_14:
-  *v18 = v4;
-}
-
-{
-  v1 = type metadata accessor for Prompt.PromptFragment(0);
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  MEMORY[0x1EEE9AC00](v1 - 8);
-  v5 = &v17 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = *v0;
-  v7 = *(*v0 + 16);
-  if (!v7)
-  {
-    return;
-  }
-
-  v8 = v7 - 1;
-  if (v7 == 1)
-  {
-    return;
-  }
-
-  v9 = *v0;
-  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-  {
-LABEL_17:
-    v6 = specialized _ArrayBuffer._consumeAndCreateNew()(v6);
-  }
-
-  v10 = 1;
-  while (1)
-  {
-    v12 = v10 - 1;
-    if (v10 - 1 == v8)
-    {
-      goto LABEL_6;
-    }
-
-    v13 = v6[2];
-    if (v12 >= v13)
-    {
-      __break(1u);
-LABEL_16:
-      __break(1u);
-      goto LABEL_17;
-    }
-
-    v14 = v6 + ((*(v2 + 80) + 32) & ~*(v2 + 80));
-    v15 = *(v2 + 72);
-    v16 = &v14[v15 * v12];
-    outlined init with copy of Prompt.PromptFragment(v16, v5, type metadata accessor for Prompt.PromptFragment);
-    if (v8 >= v13)
-    {
-      goto LABEL_16;
-    }
-
-    outlined assign with copy of Prompt.PromptFragment(&v14[v15 * v8], v16);
-    if (v8 >= v6[2])
-    {
-      break;
-    }
-
-    outlined assign with take of Prompt.RenderedPromptFragment(v5, &v14[v15 * v8], type metadata accessor for Prompt.PromptFragment);
-LABEL_6:
-    if (v10++ >= --v8)
-    {
-      goto LABEL_13;
-    }
-  }
-
-  __break(1u);
-LABEL_13:
-  *v0 = v6;
-}
-
-uint64_t _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSi_SD4KeysVySis5UInt8V_GTt0g5(uint64_t a1)
-{
-  result = MEMORY[0x1AC57C380](*(a1 + 16), MEMORY[0x1E69E6530], MEMORY[0x1E69E6540]);
-  v3 = 0;
-  v11 = result;
-  v4 = 1 << *(a1 + 32);
-  v5 = -1;
-  if (v4 < 64)
-  {
-    v5 = ~(-1 << v4);
-  }
-
-  v6 = v5 & *(a1 + 64);
-  for (i = (v4 + 63) >> 6; v6; result = specialized Set._Variant.insert(_:)(&v10, *(*(a1 + 48) + ((v8 << 9) | (8 * v9)))))
-  {
-    v8 = v3;
-LABEL_9:
-    v9 = __clz(__rbit64(v6));
-    v6 &= v6 - 1;
-  }
-
-  while (1)
-  {
-    v8 = v3 + 1;
-    if (__OFADD__(v3, 1))
-    {
-      break;
-    }
-
-    if (v8 >= i)
-    {
-
-      return v11;
-    }
-
-    v6 = *(a1 + 64 + 8 * v8);
-    ++v3;
-    if (v6)
-    {
-      v3 = v8;
-      goto LABEL_9;
-    }
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSS_SD4KeysVyS2S_GTt0g5(uint64_t a1)
-{
-  result = MEMORY[0x1AC57C380](*(a1 + 16), MEMORY[0x1E69E6158], MEMORY[0x1E69E6168]);
-  v3 = 0;
-  v14 = result;
-  v4 = 1 << *(a1 + 32);
-  v5 = -1;
-  if (v4 < 64)
-  {
-    v5 = ~(-1 << v4);
-  }
-
-  v6 = v5 & *(a1 + 64);
-  for (i = (v4 + 63) >> 6; v6; result = )
-  {
-    v8 = v3;
-LABEL_9:
-    v9 = __clz(__rbit64(v6));
-    v6 &= v6 - 1;
-    v10 = (*(a1 + 48) + ((v8 << 10) | (16 * v9)));
-    v11 = *v10;
-    v12 = v10[1];
-
-    specialized Set._Variant.insert(_:)(&v13, v11, v12);
-  }
-
-  while (1)
-  {
-    v8 = v3 + 1;
-    if (__OFADD__(v3, 1))
-    {
-      break;
-    }
-
-    if (v8 >= i)
-    {
-
-      return v14;
-    }
-
-    v6 = *(a1 + 64 + 8 * v8);
-    ++v3;
-    if (v6)
-    {
-      v3 = v8;
-      goto LABEL_9;
-    }
-  }
-
-  __break(1u);
-  return result;
-}
-
-Swift::Int specialized MutableCollection<>.sort(by:)(void **a1)
-{
-  v2 = *a1;
-  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-  {
-    v2 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(v2);
-  }
-
-  v3 = v2[2];
-  v21[0] = (v2 + 4);
-  v21[1] = v3;
-  result = _minimumMergeRunLength(_:)(v3);
-  if (result >= v3)
-  {
-    if (v3 >= 2)
-    {
-      v8 = v2 + 6;
-      v9 = -1;
-      for (i = 1; i != v3; ++i)
-      {
-        v11 = v9;
-        v12 = v8;
-        do
-        {
-          v13 = v12[5];
-          if (v13 >= v12[1])
-          {
-            break;
-          }
-
-          v14 = v12[2];
-          v15 = v12[3];
-          v16 = v12[4];
-          v17 = *v12;
-          *(v12 + 1) = *(v12 - 1);
-          *(v12 + 2) = v17;
-          *(v12 - 2) = v14;
-          *(v12 - 1) = v15;
-          *v12 = v16;
-          v12[1] = v13;
-          v12 -= 4;
-        }
-
-        while (!__CFADD__(v11++, 1));
-        v8 += 4;
-        --v9;
-      }
-    }
-  }
-
-  else
-  {
-    v5 = result;
-    v6 = v3 >> 1;
-    if (v3 >= 2)
-    {
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS6symbol_Si8positionSi8prioritytMd, &_sSS6symbol_Si8positionSi8prioritytMR);
-      v7 = static Array._allocateBufferUninitialized(minimumCapacity:)();
-      *(v7 + 16) = v6;
-    }
-
-    else
-    {
-      v7 = MEMORY[0x1E69E7CC0];
-    }
-
-    v19[0] = v7 + 32;
-    v19[1] = v6;
-    specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(v19, v20, v21, v5);
-    *(v7 + 16) = 0;
-  }
-
-  *a1 = v2;
-  return result;
-}
-
-uint64_t Prompt.SpecialToken.init(identifier:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
-{
-  v6 = type metadata accessor for Prompt.SpecialToken(0);
-  v7 = v6[5];
-  v8 = type metadata accessor for Locale();
-  result = (*(*(v8 - 8) + 56))(&a3[v7], 1, 1, v8);
-  *a3 = a1;
-  *(a3 + 1) = a2;
-  v10 = &a3[v6[6]];
-  *v10 = 0;
-  *(v10 + 1) = 0;
-  a3[v6[7]] = 0;
-  return result;
-}
-
-size_t Prompt.renderPromptFragments(tokenTable:localizationOverrideMap:stopOnSpecialToken:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v134 = a3;
-  v143 = a1;
-  v5 = type metadata accessor for Prompt.Attachment(0);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v5 - 8);
-  v152 = &v111 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v125 = type metadata accessor for Prompt.RenderedSpecialToken(0);
-  v8 = *(*(v125 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v125);
-  v124 = &v111 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration6PromptV0aB4CoreE08RenderedC8FragmentOSgMd, &_s15TokenGeneration6PromptV0aB4CoreE08RenderedC8FragmentOSgMR);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v10 - 8);
-  v13 = &v111 - v12;
-  v14 = type metadata accessor for Prompt.RenderedPromptFragment(0);
-  v148 = *(v14 - 8);
-  v15 = *(v148 + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v156 = &v111 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v17);
-  v139 = (&v111 - v18);
-  MEMORY[0x1EEE9AC00](v19);
-  v123 = (&v111 - v20);
-  MEMORY[0x1EEE9AC00](v21);
-  v23 = &v111 - v22;
-  MEMORY[0x1EEE9AC00](v24);
-  v130 = &v111 - v25;
-  MEMORY[0x1EEE9AC00](v26);
-  v129 = &v111 - v27;
-  v132 = type metadata accessor for Locale();
-  v137 = *(v132 - 8);
-  v28 = *(v137 + 64);
-  MEMORY[0x1EEE9AC00](v132);
-  v122 = &v111 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v30 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v31 = *(*(v30 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v30 - 8);
-  v128 = &v111 - v32;
-  v127 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSg_ADtMd, &_s10Foundation6LocaleVSg_ADtMR);
-  v33 = *(*(v127 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v127);
-  v135 = &v111 - v34;
-  v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration6PromptV07SpecialA0VSgMd, &_s15TokenGeneration6PromptV07SpecialA0VSgMR);
-  v36 = *(*(v35 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v35 - 8);
-  v133 = &v111 - v37;
-  v142 = type metadata accessor for Prompt.SpecialToken(0);
-  v136 = *(v142 - 1);
-  v38 = *(v136 + 64);
-  MEMORY[0x1EEE9AC00](v142);
-  v138 = (&v111 - ((v39 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v40 = type metadata accessor for Prompt.Delimiter(0);
-  v41 = *(*(v40 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v40 - 8);
-  v140 = (&v111 - ((v42 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v147 = type metadata accessor for Prompt.PromptFragment(0);
-  v150 = *(v147 - 8);
-  v43 = *(v150 + 64);
-  MEMORY[0x1EEE9AC00](v147);
-  v149 = &v111 - ((v44 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v45 = *v3;
-  v151 = *(v3 + 8);
-  v144 = *(v3 + 24);
-  v145 = v45;
-  if (one-time initialization token for prompt != -1)
-  {
-    swift_once();
-  }
-
-  v46 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v46, static Log.prompt);
-
-  v47 = Logger.logObject.getter();
-  v48 = static os_log_type_t.debug.getter();
-
-  v49 = os_log_type_enabled(v47, v48);
-  v131 = v13;
-  v146 = v14;
-  v126 = v23;
-  if (v49)
-  {
-    v50 = swift_slowAlloc();
-    v51 = swift_slowAlloc();
-    v153 = v51;
-    *v50 = 136642819;
-    lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Prompt.SpecialToken and conformance Prompt.SpecialToken, type metadata accessor for Prompt.SpecialToken);
-    v52 = Dictionary.description.getter();
-    v54 = a2;
-    v55 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v52, v53, &v153);
-
-    *(v50 + 4) = v55;
-    a2 = v54;
-    _os_log_impl(&dword_1A8E85000, v47, v48, "Token table: %{sensitive}s", v50, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v51);
-    MEMORY[0x1AC57DBF0](v51, -1, -1);
-    MEMORY[0x1AC57DBF0](v50, -1, -1);
-  }
-
-  v56 = Logger.logObject.getter();
-  v57 = static os_log_type_t.debug.getter();
-
-  if (os_log_type_enabled(v56, v57))
-  {
-    v48 = swift_slowAlloc();
-    v58 = swift_slowAlloc();
-    v153 = v58;
-    *v48 = 136642819;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDyS2SGMd, &_sSDyS2SGMR);
-    lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Prompt.SpecialToken and conformance Prompt.SpecialToken, type metadata accessor for Prompt.SpecialToken);
-    v59 = Dictionary.description.getter();
-    v61 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v59, v60, &v153);
-
-    *(v48 + 4) = v61;
-    _os_log_impl(&dword_1A8E85000, v56, v57, "Localization override map: %{sensitive}s", v48, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v58);
-    MEMORY[0x1AC57DBF0](v58, -1, -1);
-    MEMORY[0x1AC57DBF0](v48, -1, -1);
-  }
-
-  v153 = v145;
-  v154 = v151;
-  v155 = v144;
-  v62 = v141;
-  *&v151 = Prompt.promptFragments()();
-  if (!v62)
-  {
-    v120 = a2;
-    v63 = *(v151 + 16);
-    if (v63)
-    {
-      v121 = 0;
-      LODWORD(v141) = 0;
-      v64 = 0;
-      v145 = v151 + ((*(v150 + 80) + 32) & ~*(v150 + 80));
-      v136 += 48;
-      v65 = (v137 + 48);
-      v116 = (v137 + 32);
-      v117 = (v137 + 8);
-      v119 = (v148 + 56);
-      v118 = (v148 + 48);
-      v144 = v63;
-      v137 = v63 - 1;
-      v48 = MEMORY[0x1E69E7CC0];
-      v66 = v149;
-      while (1)
-      {
-        while (1)
-        {
-          while (1)
-          {
-            if (v64 >= *(v151 + 16))
-            {
-              __break(1u);
-LABEL_77:
-
-              _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v140, type metadata accessor for Prompt.Delimiter);
-
-              return v48;
-            }
-
-            outlined init with copy of Prompt.PromptFragment(v145 + *(v150 + 72) * v64, v66, type metadata accessor for Prompt.PromptFragment);
-            EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-            if (EnumCaseMultiPayload != 2)
-            {
-              break;
-            }
-
-            v68 = v66;
-            v69 = v152;
-            _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v68, v152, type metadata accessor for Prompt.Attachment);
-            outlined init with copy of Prompt.PromptFragment(v69, v156, type metadata accessor for Prompt.AttachmentContent);
-            swift_storeEnumTagMultiPayload();
-            if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-            {
-              v48 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v48 + 16) + 1, 1, v48);
-            }
-
-            v71 = *(v48 + 16);
-            v70 = *(v48 + 24);
-            if (v71 >= v70 >> 1)
-            {
-              v48 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v70 > 1, v71 + 1, 1, v48);
-            }
-
-            ++v64;
-            _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v152, type metadata accessor for Prompt.Attachment);
-            *(v48 + 16) = v71 + 1;
-            _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v156, v48 + ((*(v148 + 80) + 32) & ~*(v148 + 80)) + *(v148 + 72) * v71, type metadata accessor for Prompt.RenderedPromptFragment);
-            v66 = v149;
-            if (v144 == v64)
-            {
-              goto LABEL_73;
-            }
-          }
-
-          if (EnumCaseMultiPayload)
-          {
-            break;
-          }
-
-          v73 = *v66;
-          v72 = v66[1];
-          if ((v141 & 1) == 0)
-          {
-            goto LABEL_23;
-          }
-
-          v74 = *(v48 + 16);
-          if (!v74)
-          {
-            goto LABEL_23;
-          }
-
-          v141 = v66[1];
-          v115 = v74;
-          v113 = (*(v148 + 80) + 32) & ~*(v148 + 80);
-          v114 = *(v148 + 72) * (v74 - 1);
-          v75 = v126;
-          outlined init with copy of Prompt.PromptFragment(v48 + v113 + v114, v126, type metadata accessor for Prompt.RenderedPromptFragment);
-          if (swift_getEnumCaseMultiPayload())
-          {
-            _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v75, type metadata accessor for Prompt.RenderedPromptFragment);
-            v72 = v141;
-LABEL_23:
-            v76 = v139;
-            *v139 = v73;
-            v76[1] = v72;
-            swift_storeEnumTagMultiPayload();
-            if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-            {
-              v48 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v48 + 16) + 1, 1, v48);
-            }
-
-            v78 = *(v48 + 16);
-            v77 = *(v48 + 24);
-            if (v78 >= v77 >> 1)
-            {
-              v48 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v77 > 1, v78 + 1, 1, v48);
-            }
-
-            *(v48 + 16) = v78 + 1;
-            _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v139, v48 + ((*(v148 + 80) + 32) & ~*(v148 + 80)) + *(v148 + 72) * v78, type metadata accessor for Prompt.RenderedPromptFragment);
-            v66 = v149;
-            goto LABEL_28;
-          }
-
-          v89 = *v75;
-          v112 = v75[1];
-          v153 = v89;
-          *&v154 = v112;
-
-          MEMORY[0x1AC57C120](v73, v141);
-
-          v90 = v154;
-          v91 = v123;
-          *v123 = v153;
-          v91[1] = v90;
-          swift_storeEnumTagMultiPayload();
-          result = swift_isUniquelyReferenced_nonNull_native();
-          if ((result & 1) == 0)
-          {
-            result = specialized _ArrayBuffer._consumeAndCreateNew()(v48);
-            v48 = result;
-          }
-
-          v66 = v149;
-          if (v115 > *(v48 + 16))
-          {
-            __break(1u);
-            return result;
-          }
-
-          outlined assign with take of Prompt.RenderedPromptFragment(v123, v48 + v113 + v114, type metadata accessor for Prompt.RenderedPromptFragment);
-LABEL_28:
-          if (v137 == v64)
-          {
-            goto LABEL_73;
-          }
-
-          LODWORD(v141) = 0;
-          ++v64;
-        }
-
-        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v66, v140, type metadata accessor for Prompt.Delimiter);
-        v79 = v133;
-        outlined init with copy of (String, Any)(v134, v133, &_s15TokenGeneration6PromptV07SpecialA0VSgMd, &_s15TokenGeneration6PromptV07SpecialA0VSgMR);
-        if ((*v136)(v79, 1, v142) == 1)
-        {
-          outlined destroy of [Regex2BNF.CharacterPredicate](v79, &_s15TokenGeneration6PromptV07SpecialA0VSgMd, &_s15TokenGeneration6PromptV07SpecialA0VSgMR);
-          goto LABEL_56;
-        }
-
-        v80 = v79;
-        v81 = v138;
-        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v80, v138, type metadata accessor for Prompt.SpecialToken);
-        if (*v140 == *v81 && v140[1] == v81[1] || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-        {
-          v115 = v142[5];
-          v141 = *(v127 + 48);
-          v82 = v135;
-          outlined init with copy of (String, Any)(v140 + v115, v135, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-          outlined init with copy of (String, Any)(v138 + v115, &v141[v82], &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-          v115 = *v65;
-          if ((v115)(v82, 1, v132) == 1)
-          {
-            v83 = v135;
-            v84 = (v115)(&v141[v135], 1, v132) == 1;
-            v85 = v83;
-            if (!v84)
-            {
-              goto LABEL_41;
-            }
-
-            outlined destroy of [Regex2BNF.CharacterPredicate](v83, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-          }
-
-          else
-          {
-            v86 = v135;
-            outlined init with copy of (String, Any)(v135, v128, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-            v87 = &v141[v86];
-            v88 = v132;
-            if ((v115)(v87, 1, v132) == 1)
-            {
-              (*v117)(v128, v88);
-              v85 = v135;
-LABEL_41:
-              outlined destroy of [Regex2BNF.CharacterPredicate](v85, &_s10Foundation6LocaleVSg_ADtMd, &_s10Foundation6LocaleVSg_ADtMR);
-              goto LABEL_55;
-            }
-
-            (*v116)(v122, &v141[v135], v88);
-            lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Locale and conformance Locale, MEMORY[0x1E6969770]);
-            LODWORD(v115) = dispatch thunk of static Equatable.== infix(_:_:)();
-            v141 = *v117;
-            (v141)(v122, v88);
-            (v141)(v128, v88);
-            outlined destroy of [Regex2BNF.CharacterPredicate](v135, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-            if ((v115 & 1) == 0)
-            {
-              goto LABEL_55;
-            }
-          }
-
-          v93 = v142[6];
-          v94 = (v140 + v93);
-          v95 = *(v140 + v93 + 8);
-          v96 = (v138 + v93);
-          v97 = v96[1];
-          if (v95)
-          {
-            if (v97 && (*v94 == *v96 && v95 == v97 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0))
-            {
-LABEL_54:
-              if (*(v140 + v142[7]) == *(v138 + v142[7]))
-              {
-
-                _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v138, type metadata accessor for Prompt.SpecialToken);
-                _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v140, type metadata accessor for Prompt.Delimiter);
-                return v48;
-              }
-            }
-          }
-
-          else if (!v97)
-          {
-            goto LABEL_54;
-          }
-        }
-
-LABEL_55:
-        _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v138, type metadata accessor for Prompt.SpecialToken);
-LABEL_56:
-        v98 = v140;
-        if (*(v140 + v142[7]))
-        {
-          _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v140, type metadata accessor for Prompt.Delimiter);
-          if (v137 == v64)
-          {
-            goto LABEL_73;
-          }
-
-          LODWORD(v141) = 1;
-          goto LABEL_72;
-        }
-
-        v99 = specialized _dictionaryUpCast<A, B, C, D>(_:)(v143);
-        v100 = v121;
-        v101 = Prompt.renderSpecialToken(delimiter:tokenTable:localizationOverrideMap:)(v98, v99, v120);
-        v141 = v102;
-        v121 = v100;
-        if (v100)
-        {
-          goto LABEL_77;
-        }
-
-        v103 = v101;
-
-        if (String.count.getter() <= 0)
-        {
-          v106 = v131;
-          v107 = v146;
-          (*v119)(v131, 1, 1, v146);
-        }
-
-        else
-        {
-          v104 = v124;
-          outlined init with copy of Prompt.PromptFragment(v140, &v124[*(v125 + 20)], type metadata accessor for Prompt.SpecialToken);
-          v105 = v141;
-          *v104 = v103;
-          v104[1] = v105;
-          v106 = v131;
-          _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v104, v131, type metadata accessor for Prompt.RenderedSpecialToken);
-          v107 = v146;
-          swift_storeEnumTagMultiPayload();
-          (*v119)(v106, 0, 1, v107);
-        }
-
-        if ((*v118)(v106, 1, v107) == 1)
-        {
-          _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v140, type metadata accessor for Prompt.Delimiter);
-          outlined destroy of [Regex2BNF.CharacterPredicate](v106, &_s15TokenGeneration6PromptV0aB4CoreE08RenderedC8FragmentOSgMd, &_s15TokenGeneration6PromptV0aB4CoreE08RenderedC8FragmentOSgMR);
-          v66 = v149;
-          if (v137 == v64)
-          {
-            goto LABEL_73;
-          }
-
-          LODWORD(v141) = 0;
-          ++v64;
-        }
-
-        else
-        {
-          v108 = v129;
-          _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v106, v129, type metadata accessor for Prompt.RenderedPromptFragment);
-          outlined init with copy of Prompt.PromptFragment(v108, v130, type metadata accessor for Prompt.RenderedPromptFragment);
-          if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-          {
-            v48 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v48 + 16) + 1, 1, v48);
-          }
-
-          v110 = *(v48 + 16);
-          v109 = *(v48 + 24);
-          if (v110 >= v109 >> 1)
-          {
-            v48 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v109 > 1, v110 + 1, 1, v48);
-          }
-
-          _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v129, type metadata accessor for Prompt.RenderedPromptFragment);
-          *(v48 + 16) = v110 + 1;
-          _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v130, v48 + ((*(v148 + 80) + 32) & ~*(v148 + 80)) + *(v148 + 72) * v110, type metadata accessor for Prompt.RenderedPromptFragment);
-          _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v140, type metadata accessor for Prompt.Delimiter);
-          if (v137 == v64)
-          {
-LABEL_73:
-
-            return v48;
-          }
-
-          LODWORD(v141) = 0;
-LABEL_72:
-          v66 = v149;
-          ++v64;
-        }
-      }
-    }
-
-    return MEMORY[0x1E69E7CC0];
-  }
-
-  return v48;
-}
-
-uint64_t _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_19TokenGenerationCore4JSONOTt1g5(uint64_t a1, uint64_t a2)
-{
-  if (a1 == a2)
-  {
-    return 1;
-  }
-
-  if (*(a1 + 16) != *(a2 + 16))
-  {
-    return 0;
-  }
-
-  v283 = a1;
-  v6 = 0;
-  v7 = a1 + 64;
-  v8 = 1 << *(a1 + 32);
-  v9 = -1;
-  if (v8 < 64)
-  {
-    v9 = ~(-1 << v8);
-  }
-
-  v10 = v9 & *(a1 + 64);
-  v11 = (v8 + 63) >> 6;
-  while (1)
-  {
-    if (v10)
-    {
-      v12 = __clz(__rbit64(v10));
-      v285 = (v10 - 1) & v10;
-      goto LABEL_13;
-    }
-
-    v13 = v6;
-    do
-    {
-      v6 = v13 + 1;
-      if (__OFADD__(v13, 1))
-      {
-        __break(1u);
-LABEL_210:
-        v175 = a1;
-        v176 = *&v3;
-        v181 = v10;
-        outlined copy of JSON(*&v3, v10, v5);
-        outlined copy of JSON(v175, v282, 2);
-        v177 = v175;
-        v178 = v282;
-        v179 = 2;
-        goto LABEL_213;
-      }
-
-      if (v6 >= v11)
-      {
-        return 1;
-      }
-
-      v14 = *(v7 + 8 * v6);
-      ++v13;
-    }
-
-    while (!v14);
-    v12 = __clz(__rbit64(v14));
-    v285 = (v14 - 1) & v14;
-LABEL_13:
-    v15 = v12 | (v6 << 6);
-    v16 = (*(a1 + 48) + 16 * v15);
-    v17 = *v16;
-    v18 = v16[1];
-    v19 = *(a1 + 56) + 24 * v15;
-    v20 = *v19;
-    v5 = *(v19 + 8);
-    v4 = *(v19 + 16);
-
-    v286 = v20;
-    outlined copy of JSON(v20, v5, v4);
-    v21 = v18 == 0;
-    if (!v18)
-    {
-      return v21;
-    }
-
-    v22 = specialized __RawDictionaryStorage.find<A>(_:)(v17, v18);
-    v3 = v23;
-
-    if ((LOBYTE(v3) & 1) == 0)
-    {
-      goto LABEL_251;
-    }
-
-    v24 = *(a2 + 56) + 24 * v22;
-    v25 = *v24;
-    v2 = *(v24 + 8);
-    v26 = *(v24 + 16);
-    if (v26 > 2)
-    {
-      break;
-    }
-
-    if (*(v24 + 16))
-    {
-      if (v26 == 1)
-      {
-        if (v4 != 1)
-        {
-          goto LABEL_250;
-        }
-
-        v3 = *&v286;
-        outlined consume of JSON(*v24, *(v24 + 8), 1);
-        outlined consume of JSON(v286, v5, 1);
-        a1 = v283;
-        v10 = v285;
-        if (*&v25 != *&v286)
-        {
-          return v21;
-        }
-
-        continue;
-      }
-
-      if (v4 == 2)
-      {
-        v4 = v286;
-        if (v25 != v286 || v2 != v5)
-        {
-          v33 = *v24;
-          v34 = *(v24 + 8);
-          v3 = COERCE_DOUBLE(_stringCompareWithSmolCheck(_:_:expecting:)());
-
-          outlined consume of JSON(v25, v2, 2);
-          v27 = v286;
-          v28 = v5;
-          v29 = 2;
-LABEL_39:
-          outlined consume of JSON(v27, v28, v29);
-          a1 = v283;
-          v10 = v285;
-          if ((LOBYTE(v3) & 1) == 0)
-          {
-            return v21;
-          }
-
-          continue;
-        }
-
-        v39 = *(v24 + 8);
-
-        outlined consume of JSON(v286, v5, 2);
-        v36 = v286;
-        v37 = v5;
-        v38 = 2;
-LABEL_51:
-        outlined consume of JSON(v36, v37, v38);
-        a1 = v283;
-        v10 = v285;
-        continue;
-      }
-
-      v172 = *(v24 + 8);
-LABEL_207:
-      v173 = *(v24 + 16);
-
-      LOBYTE(v26) = v173;
-      goto LABEL_250;
-    }
-
-    outlined consume of JSON(*v24, *(v24 + 8), 0);
-    if (v4)
-    {
-      goto LABEL_251;
-    }
-
-    v2 = v286;
-    outlined consume of JSON(v286, v5, 0);
-    a1 = v283;
-    v10 = v285;
-    if ((v25 ^ v286))
-    {
-      return v21;
-    }
-  }
-
-  if (v26 != 3)
-  {
-    if (v26 != 4)
-    {
-      *&v3 = v5 | v286;
-      outlined consume of JSON(v25, v2, 5);
-      if (v4 != 5 || *&v3 != 0)
-      {
-        goto LABEL_251;
-      }
-
-      v36 = 0;
-      v37 = 0;
-      v38 = 5;
-      goto LABEL_51;
-    }
-
-    if (v4 == 4)
-    {
-      outlined copy of JSON(*v24, *(v24 + 8), 4);
-      outlined copy of JSON(v25, v2, 4);
-      v4 = v286;
-      outlined copy of JSON(v286, v5, 4);
-      v3 = COERCE_DOUBLE(_sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_19TokenGenerationCore4JSONOTt1g5(v25, v286));
-      outlined consume of JSON(v286, v5, 4);
-      outlined consume of JSON(v25, v2, 4);
-      outlined consume of JSON(v25, v2, 4);
-      v27 = v286;
-      v28 = v5;
-      v29 = 4;
-      goto LABEL_39;
-    }
-
-    goto LABEL_205;
-  }
-
-  if (v4 != 3)
-  {
-LABEL_205:
-    v171 = *v24;
-    goto LABEL_207;
-  }
-
-  v30 = *(v25 + 16);
-  v4 = v286;
-  if (v30 != *(v286 + 16))
-  {
-    v174 = v26;
-
-    LOBYTE(v26) = v174;
-    LOBYTE(v4) = 3;
-    goto LABEL_250;
-  }
-
-  if (!v30)
-  {
-
-LABEL_49:
-    outlined consume of JSON(v31, v2, 3);
-    v36 = v286;
-    v37 = v5;
-    goto LABEL_50;
-  }
-
-  if (v25 == v286)
-  {
-
-    v31 = v286;
-    goto LABEL_49;
-  }
-
-  v266 = 3;
-  v280 = v25 + 32;
-  outlined copy of JSON(v25, v2, 3);
-  outlined copy of JSON(v25, v2, 3);
-  result = outlined copy of JSON(v286, v5, 3);
-  v41 = 0;
-  v276 = v2;
-  v277 = v25;
-  v278 = v30;
-  v279 = v5;
-  while (2)
-  {
-    if (v41 >= *(v25 + 16))
-    {
-      __break(1u);
-LABEL_255:
-      __break(1u);
-LABEL_256:
-      __break(1u);
-LABEL_257:
-      __break(1u);
-LABEL_258:
-      __break(1u);
-LABEL_259:
-      __break(1u);
-LABEL_260:
-      __break(1u);
-LABEL_261:
-      __break(1u);
-      return result;
-    }
-
-    if (v41 >= *(v4 + 16))
-    {
-      goto LABEL_255;
-    }
-
-    v44 = v280 + 24 * v41;
-    a1 = *v44;
-    v282 = *(v44 + 8);
-    v45 = *(v44 + 16);
-    v46 = v286 + 32 + 24 * v41;
-    v3 = *v46;
-    v10 = *(v46 + 8);
-    LODWORD(v5) = *(v46 + 16);
-    if (v45 <= 2)
-    {
-      if (v45)
-      {
-        if (v45 == 1)
-        {
-          if (v5 == 1)
-          {
-            v47 = *&a1;
-            v48 = *v46;
-            v49 = *(v46 + 8);
-            outlined consume of JSON(a1, v282, 1);
-            result = outlined consume of JSON(*&v3, v49, 1);
-            if (v47 != v3)
-            {
-              goto LABEL_249;
-            }
-
-            goto LABEL_54;
-          }
-
-          v192 = a1;
-          v181 = *(v46 + 8);
-          outlined copy of JSON(*v46, v181, *(v46 + 16));
-          v182 = v192;
-          v183 = v282;
-          v184 = 1;
-LABEL_216:
-          outlined consume of JSON(v182, v183, v184);
-          v190 = *&v3;
-LABEL_217:
-          outlined consume of JSON(v190, v181, v5);
-          goto LABEL_249;
-        }
-
-        if (v5 != 2)
-        {
-          goto LABEL_210;
-        }
-
-        if (a1 == *&v3 && v282 == v10)
-        {
-          v3 = *&v2;
-          v42 = a1;
-          outlined copy of JSON(a1, v282, 2);
-          outlined copy of JSON(v42, v282, 2);
-          outlined consume of JSON(v42, v282, 2);
-          v43 = v42;
-          *&v2 = v3;
-          result = outlined consume of JSON(v43, v282, 2);
-          v30 = v278;
-        }
-
-        else
-        {
-          v62 = *v46;
-          v3 = *&a1;
-          v63 = *(v46 + 8);
-          v64 = _stringCompareWithSmolCheck(_:_:expecting:)();
-          outlined copy of JSON(v62, v63, 2);
-          outlined copy of JSON(*&v3, v282, 2);
-          v25 = v277;
-          outlined consume of JSON(*&v3, v282, 2);
-          v65 = v63;
-          v2 = v276;
-          result = outlined consume of JSON(v62, v65, 2);
-          v30 = v278;
-          if ((v64 & 1) == 0)
-          {
-            goto LABEL_249;
-          }
-        }
-      }
-
-      else
-      {
-        if (*(v46 + 16))
-        {
-          v191 = a1;
-          v181 = *(v46 + 8);
-          outlined copy of JSON(*v46, v181, *(v46 + 16));
-          v182 = v191;
-          v183 = v282;
-          v184 = 0;
-          goto LABEL_216;
-        }
-
-        v55 = v2;
-        v56 = a1;
-        v57 = *(v46 + 8);
-        outlined consume of JSON(a1, v282, 0);
-        result = outlined consume of JSON(*&v3, v57, 0);
-        v58 = LOBYTE(v3) ^ v56;
-        v2 = v55;
-        v30 = v278;
-        if (v58)
-        {
-          goto LABEL_249;
-        }
-      }
-
-LABEL_54:
-      ++v41;
-      LOBYTE(v5) = v279;
-      if (v41 != v30)
-      {
-        continue;
-      }
-
-      outlined consume of JSON(v25, v2, 3);
-      outlined consume of JSON(v4, v279, 3);
-      outlined consume of JSON(v4, v279, 3);
-      v36 = v25;
-      v37 = v2;
-LABEL_50:
-      v38 = 3;
-      goto LABEL_51;
-    }
-
-    break;
-  }
-
-  v281 = a1;
-  if (v45 != 3)
-  {
-    if (v45 != 4)
-    {
-      if (v5 != 5 || (v10 | *&v3) != 0)
-      {
-        v180 = a1;
-        v181 = *(v46 + 8);
-        outlined copy of JSON(*&v3, v10, v5);
-        v182 = v180;
-        v183 = v282;
-        v184 = 5;
-        goto LABEL_216;
-      }
-
-      outlined consume of JSON(a1, v282, 5);
-      result = outlined consume of JSON(0, 0, 5);
-      goto LABEL_54;
-    }
-
-    if (v5 == 4)
-    {
-      v50 = *(v46 + 8);
-      outlined copy of JSON(*&v3, v10, 4);
-      v51 = *&v3;
-      v3 = *&v281;
-      outlined copy of JSON(v281, v282, 4);
-      outlined copy of JSON(v51, v50, 4);
-      outlined copy of JSON(v281, v282, 4);
-      v52 = _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_19TokenGenerationCore4JSONOTt1g5(v281, v51);
-      outlined consume of JSON(v281, v282, 4);
-      outlined consume of JSON(v51, v50, 4);
-      v53 = v51;
-      v30 = v278;
-      v54 = v50;
-      v2 = v276;
-      outlined consume of JSON(v53, v54, 4);
-      result = outlined consume of JSON(v281, v282, 4);
-      v25 = v277;
-      if ((v52 & 1) == 0)
-      {
-        goto LABEL_249;
-      }
-
-      goto LABEL_54;
-    }
-
-    v185 = *(v46 + 8);
-    outlined copy of JSON(*&v3, v10, v5);
-    outlined copy of JSON(v281, v282, 4);
-    outlined consume of JSON(v281, v282, 4);
-    v186 = *&v3;
-    v187 = v185;
-    v188 = v5;
-LABEL_219:
-    outlined consume of JSON(v186, v187, v188);
-    goto LABEL_248;
-  }
-
-  if (v5 != 3)
-  {
-    v189 = a1;
-    v176 = *v46;
-    v181 = *(v46 + 8);
-    outlined copy of JSON(*&v3, v10, v5);
-    outlined copy of JSON(v189, v282, 3);
-    v177 = v189;
-    v178 = v282;
-    v179 = 3;
-LABEL_213:
-    outlined consume of JSON(v177, v178, v179);
-    v190 = v176;
-    v25 = v277;
-    goto LABEL_217;
-  }
-
-  v59 = *(a1 + 16);
-  if (v59 != *(*&v3 + 16))
-  {
-    v193 = a1;
-    v194 = *(v46 + 8);
-    outlined copy of JSON(*&v3, v10, 3);
-    outlined copy of JSON(v193, v282, 3);
-    outlined consume of JSON(v193, v282, 3);
-    v186 = *&v3;
-    v187 = v194;
-    v188 = 3;
-    goto LABEL_219;
-  }
-
-  if (!v59)
-  {
-    v67 = *v46;
-    v3 = *&a1;
-    v68 = *(v46 + 8);
-    outlined copy of JSON(*v46, v10, 3);
-    outlined copy of JSON(*&v3, v282, 3);
-    outlined consume of JSON(*&v3, v282, 3);
-    v69 = v67;
-    v30 = v278;
-    v70 = v68;
-    v2 = v276;
-    result = outlined consume of JSON(v69, v70, 3);
-    v25 = v277;
-    goto LABEL_54;
-  }
-
-  if (a1 == *&v3)
-  {
-    v3 = *&a1;
-    v60 = *(v46 + 8);
-    outlined copy of JSON(a1, v10, 3);
-    outlined copy of JSON(*&v3, v282, 3);
-    outlined consume of JSON(*&v3, v282, 3);
-    result = outlined consume of JSON(*&v3, v60, 3);
-    v2 = v276;
-LABEL_76:
-    v25 = v277;
-    v30 = v278;
-    goto LABEL_54;
-  }
-
-  v271 = *&v3 + 32;
-  v272 = a1 + 32;
-  v71 = *(v46 + 8);
-  outlined copy of JSON(*&v3, v10, 3);
-  outlined copy of JSON(v281, v282, 3);
-  v275 = *&v3;
-  v252 = v71;
-  outlined copy of JSON(*&v3, v71, 3);
-  result = outlined copy of JSON(v281, v282, 3);
-  v3 = *&v281;
-  v72 = 0;
-  v2 = v276;
-  v270 = v59;
-  while (2)
-  {
-    if (v72 >= *(*&v3 + 16))
-    {
-      goto LABEL_256;
-    }
-
-    if (v72 >= *(v275 + 16))
-    {
-      goto LABEL_257;
-    }
-
-    v77 = v272 + 24 * v72;
-    v78 = *v77;
-    v79 = *(v77 + 8);
-    v80 = *(v77 + 16);
-    v81 = v271 + 24 * v72;
-    v82 = *v81;
-    v83 = *(v81 + 8);
-    v84 = *(v81 + 16);
-    if (v80 <= 2)
-    {
-      if (v80)
-      {
-        if (v80 == 1)
-        {
-          if (v84 == 1)
-          {
-            v85 = *&v78;
-            v86 = *v81;
-            v87 = *v81;
-            outlined consume of JSON(v78, v79, 1);
-            v88 = v87;
-            v59 = v270;
-            result = outlined consume of JSON(v88, v83, 1);
-            if (v85 != v86)
-            {
-              goto LABEL_247;
-            }
-
-            goto LABEL_93;
-          }
-
-          v201 = v78;
-          v202 = v79;
-          v197 = *v81;
-          outlined copy of JSON(*v81, *(v81 + 8), *(v81 + 16));
-          v198 = v201;
-          v199 = v202;
-          v200 = 1;
-LABEL_225:
-          outlined consume of JSON(v198, v199, v200);
-          v205 = v197;
-          v206 = v83;
-LABEL_226:
-          v213 = v84;
-          goto LABEL_246;
-        }
-
-        if (v84 != 2)
-        {
-          v211 = v78;
-          v212 = v79;
-          v197 = *v81;
-          outlined copy of JSON(*v81, *(v81 + 8), *(v81 + 16));
-          outlined copy of JSON(v211, v212, 2);
-          v198 = v211;
-          v199 = v212;
-          v200 = 2;
-          goto LABEL_225;
-        }
-
-        if (v78 != v82 || v79 != v83)
-        {
-          v73 = v78;
-          v74 = v79;
-          v75 = *v81;
-          v76 = *(v81 + 8);
-          v273 = _stringCompareWithSmolCheck(_:_:expecting:)();
-          outlined copy of JSON(v75, v83, 2);
-          outlined copy of JSON(v73, v74, 2);
-          outlined consume of JSON(v73, v74, 2);
-          result = outlined consume of JSON(v75, v83, 2);
-          v59 = v270;
-          if ((v273 & 1) == 0)
-          {
-            goto LABEL_247;
-          }
-
-          goto LABEL_93;
-        }
-
-        v100 = v78;
-        v101 = v79;
-        outlined copy of JSON(v78, v79, 2);
-        outlined copy of JSON(v100, v101, 2);
-        outlined consume of JSON(v100, v101, 2);
-        v96 = v100;
-        v97 = v101;
-        v98 = 2;
-LABEL_123:
-        result = outlined consume of JSON(v96, v97, v98);
-        v59 = v270;
-        goto LABEL_93;
-      }
-
-      if (*(v81 + 16))
-      {
-        v209 = v78;
-        v210 = v79;
-        v197 = *v81;
-        outlined copy of JSON(*v81, *(v81 + 8), *(v81 + 16));
-        v198 = v209;
-        v199 = v210;
-        v200 = 0;
-        goto LABEL_225;
-      }
-
-      v91 = v78;
-      v92 = *v81;
-      outlined consume of JSON(v78, v79, 0);
-      result = outlined consume of JSON(v92, v83, 0);
-      v93 = v92 ^ v91;
-      v59 = v270;
-      if (v93)
-      {
-        goto LABEL_247;
-      }
-
-LABEL_93:
-      ++v72;
-      v3 = *&v281;
-      if (v72 == v59)
-      {
-        outlined consume of JSON(v281, v282, 3);
-        outlined consume of JSON(v275, v252, 3);
-        v2 = v276;
-        outlined consume of JSON(v275, v252, 3);
-        result = outlined consume of JSON(v281, v282, 3);
-        v4 = v286;
-        goto LABEL_76;
-      }
-
-      continue;
-    }
-
-    break;
-  }
-
-  v274 = v78;
-  if (v80 != 3)
-  {
-    if (v80 == 4)
-    {
-      v89 = v79;
-      if (v84 != 4)
-      {
-        v203 = *(v81 + 8);
-        v204 = *v81;
-        outlined copy of JSON(v82, v203, v84);
-        outlined copy of JSON(v274, v89, 4);
-        outlined consume of JSON(v274, v89, 4);
-        v205 = v204;
-        v206 = v203;
-        goto LABEL_226;
-      }
-
-      v90 = *v81;
-      outlined copy of JSON(v82, v83, 4);
-      outlined copy of JSON(v274, v89, 4);
-      outlined copy of JSON(v90, v83, 4);
-      outlined copy of JSON(v274, v89, 4);
-      v268 = _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_19TokenGenerationCore4JSONOTt1g5(v274, v90);
-      outlined consume of JSON(v274, v89, 4);
-      outlined consume of JSON(v90, v83, 4);
-      outlined consume of JSON(v90, v83, 4);
-      v59 = v270;
-      result = outlined consume of JSON(v274, v89, 4);
-      if ((v268 & 1) == 0)
-      {
-        goto LABEL_247;
-      }
-
-      goto LABEL_93;
-    }
-
-    if (v84 != 5 || (v83 | v82) != 0)
-    {
-      v195 = v78;
-      v196 = v79;
-      v197 = *v81;
-      outlined copy of JSON(v82, v83, v84);
-      v198 = v195;
-      v199 = v196;
-      v200 = 5;
-      goto LABEL_225;
-    }
-
-    outlined consume of JSON(v78, v79, 5);
-    v103 = 0;
-    v104 = 0;
-    v105 = 5;
-LABEL_131:
-    result = outlined consume of JSON(v103, v104, v105);
-    goto LABEL_93;
-  }
-
-  if (v84 != 3)
-  {
-    v207 = v78;
-    v208 = v79;
-    v197 = *v81;
-    outlined copy of JSON(v82, v83, v84);
-    outlined copy of JSON(v207, v208, 3);
-    v198 = v207;
-    v199 = v208;
-    v200 = 3;
-    goto LABEL_225;
-  }
-
-  v94 = *(v78 + 16);
-  if (v94 != *(v82 + 16))
-  {
-    v214 = v78;
-    v215 = v79;
-    v216 = *v81;
-    outlined copy of JSON(v82, v83, 3);
-    outlined copy of JSON(v214, v215, 3);
-    outlined consume of JSON(v214, v215, 3);
-    v205 = v216;
-    v206 = v83;
-    goto LABEL_245;
-  }
-
-  if (!v94)
-  {
-    v106 = v78;
-    v107 = v79;
-    v108 = *v81;
-    outlined copy of JSON(v82, v83, 3);
-    outlined copy of JSON(v106, v107, 3);
-    v109 = v106;
-    v59 = v270;
-    outlined consume of JSON(v109, v107, 3);
-    v103 = v108;
-    v104 = v83;
-    v105 = 3;
-    goto LABEL_131;
-  }
-
-  v253 = v79;
-  if (v78 == v82)
-  {
-    v95 = v78;
-    outlined copy of JSON(v78, v83, 3);
-    outlined copy of JSON(v95, v253, 3);
-    outlined consume of JSON(v95, v253, 3);
-    v96 = v95;
-    v97 = v83;
-LABEL_115:
-    v98 = 3;
-    goto LABEL_123;
-  }
-
-  v261 = v82 + 32;
-  v262 = v78 + 32;
-  v110 = *v81;
-  outlined copy of JSON(v82, v83, 3);
-  outlined copy of JSON(v274, v253, 3);
-  v267 = v110;
-  v247 = v83;
-  outlined copy of JSON(v110, v83, 3);
-  result = outlined copy of JSON(v274, v253, 3);
-  v111 = v274;
-  v112 = 0;
-  v260 = v94;
-  while (2)
-  {
-    if (v112 >= *(v111 + 16))
-    {
-      goto LABEL_258;
-    }
-
-    if (v112 >= *(v267 + 16))
-    {
-      goto LABEL_259;
-    }
-
-    v117 = v262 + 24 * v112;
-    v119 = *v117;
-    v118 = *(v117 + 8);
-    v120 = *(v117 + 16);
-    v121 = v261 + 24 * v112;
-    v123 = *v121;
-    v122 = *(v121 + 8);
-    v124 = *(v121 + 16);
-    v269 = v112;
-    if (v120 > 2)
-    {
-      if (v120 != 3)
-      {
-        if (v120 == 4)
-        {
-          v125 = *v121;
-          v126 = v119;
-          v127 = *(v121 + 8);
-          v128 = v118;
-          if (v124 != 4)
-          {
-            v230 = *v121;
-            outlined copy of JSON(*&v125, v127, v124);
-            outlined copy of JSON(v126, v128, 4);
-            outlined consume of JSON(v126, v128, 4);
-            v231 = *&v230;
-            goto LABEL_235;
-          }
-
-          v129 = *v121;
-          outlined copy of JSON(*&v125, v127, 4);
-          outlined copy of JSON(v126, v128, 4);
-          outlined copy of JSON(*&v129, v127, 4);
-          outlined copy of JSON(v126, v128, 4);
-          v264 = _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_19TokenGenerationCore4JSONOTt1g5(v126, *&v129);
-          outlined consume of JSON(v126, v128, 4);
-          outlined consume of JSON(*&v129, v127, 4);
-          outlined consume of JSON(*&v129, v127, 4);
-          v130 = v126;
-          v131 = v128;
-          v132 = 4;
-          goto LABEL_162;
-        }
-
-        if (v124 != 5 || (v122 | v123) != 0)
-        {
-          v232 = v119;
-          v127 = *(v121 + 8);
-          v233 = v118;
-          outlined copy of JSON(v123, v127, v124);
-          v234 = v232;
-          v235 = v233;
-          v236 = 5;
-          goto LABEL_234;
-        }
-
-        outlined consume of JSON(v119, v118, 5);
-        v114 = 0;
-        v115 = 0;
-        v116 = 5;
-LABEL_134:
-        result = outlined consume of JSON(v114, v115, v116);
-        goto LABEL_135;
-      }
-
-      if (v124 != 3)
-      {
-        v224 = v119;
-        v127 = *(v121 + 8);
-        v225 = v118;
-        outlined copy of JSON(v123, v127, v124);
-        outlined copy of JSON(v224, v225, 3);
-        v234 = v224;
-        v235 = v225;
-        v236 = 3;
-        goto LABEL_234;
-      }
-
-      v133 = *(v119 + 16);
-      if (v133 != *(v123 + 16))
-      {
-        v241 = v119;
-        v242 = v122;
-        v243 = v118;
-        outlined copy of JSON(v123, v242, 3);
-        outlined copy of JSON(v241, v243, 3);
-        outlined consume of JSON(v241, v243, 3);
-        v231 = v123;
-        v239 = v242;
-LABEL_242:
-        v240 = 3;
-        goto LABEL_243;
-      }
-
-      v255 = *(v119 + 16);
-      if (!v133)
-      {
-        v143 = v123;
-        v144 = v123;
-        v145 = v119;
-        v136 = v122;
-        v146 = v118;
-        outlined copy of JSON(v143, v136, 3);
-        outlined copy of JSON(v145, v146, 3);
-        outlined consume of JSON(v145, v146, 3);
-        v114 = v144;
-        goto LABEL_171;
-      }
-
-      v248 = v118;
-      if (v119 == v123)
-      {
-        outlined copy of JSON(v119, v122, 3);
-        v134 = v119;
-        v135 = v119;
-        v136 = v122;
-        outlined copy of JSON(v134, v248, 3);
-        outlined consume of JSON(v135, v248, 3);
-        v114 = v135;
-LABEL_171:
-        v115 = v136;
-        v116 = 3;
-        goto LABEL_134;
-      }
-
-      outlined copy of JSON(v123, v122, 3);
-      v256 = v119;
-      outlined copy of JSON(v119, v248, 3);
-      v245 = v122;
-      outlined copy of JSON(v123, v122, 3);
-      result = outlined copy of JSON(v119, v248, 3);
-      v147 = 0;
-      v148 = (v123 + 48);
-      v149 = (v256 + 48);
-      v254 = v123;
-      while (1)
-      {
-        if (v147 >= *(v256 + 16))
-        {
-          goto LABEL_260;
-        }
-
-        if (v147 >= *(v123 + 16))
-        {
-          goto LABEL_261;
-        }
-
-        v156 = *(v149 - 2);
-        v155 = *(v149 - 1);
-        v157 = *v149;
-        v158 = *(v148 - 2);
-        v159 = *(v148 - 1);
-        v160 = *v148;
-        v263 = v148;
-        v265 = v149;
-        if (v157 > 2)
-        {
-          if (v157 == 3)
-          {
-            v259 = *(v149 - 1);
-            if (v160 != 3)
-            {
-              v220 = *(v148 - 2);
-              v221 = *v148;
-              v223 = *(v148 - 1);
-              outlined copy of JSON(v158, v159, v160);
-              v217 = v156;
-              v218 = v259;
-              v219 = v259;
-              v222 = 3;
-              goto LABEL_240;
-            }
-
-            v168 = *(v148 - 2);
-            v169 = v159;
-            v251 = v159;
-            outlined copy of JSON(v158, v159, 3);
-            outlined copy of JSON(v156, v259, 3);
-            outlined copy of JSON(v168, v169, 3);
-            outlined copy of JSON(v156, v259, 3);
-            v246 = _sSasSQRzlE2eeoiySbSayxG_ABtFZ19TokenGenerationCore4JSONO_Tt1g5(v156, v168);
-            outlined consume of JSON(v156, v259, 3);
-            outlined consume of JSON(v168, v251, 3);
-            outlined consume of JSON(v168, v251, 3);
-            v152 = v156;
-            v153 = v259;
-            v154 = 3;
-            goto LABEL_174;
-          }
-
-          if (v157 == 4)
-          {
-            v258 = *(v149 - 1);
-            if (v160 != 4)
-            {
-              v220 = *(v148 - 2);
-              v221 = *v148;
-              v223 = *(v148 - 1);
-              outlined copy of JSON(v158, v159, v160);
-              v217 = v156;
-              v218 = v258;
-              v219 = v258;
-              v222 = 4;
-              goto LABEL_240;
-            }
-
-            v164 = *(v148 - 2);
-            v165 = *(v148 - 1);
-            v250 = v159;
-            outlined copy of JSON(v158, v159, 4);
-            outlined copy of JSON(v156, v258, 4);
-            outlined copy of JSON(v164, v165, 4);
-            outlined copy of JSON(v156, v258, 4);
-            v246 = _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_19TokenGenerationCore4JSONOTt1g5(v156, v164);
-            outlined consume of JSON(v156, v258, 4);
-            outlined consume of JSON(v164, v250, 4);
-            outlined consume of JSON(v164, v250, 4);
-            v152 = v156;
-            v153 = v258;
-            v154 = 4;
-LABEL_174:
-            result = outlined consume of JSON(v152, v153, v154);
-            if ((v246 & 1) == 0)
-            {
-              goto LABEL_241;
-            }
-
-            goto LABEL_175;
-          }
-
-          if (v160 != 5 || v159 | v158)
-          {
-LABEL_228:
-            v217 = *(v148 - 2);
-            v218 = *(v149 - 1);
-            v219 = v159;
-            v220 = v158;
-            v221 = v160;
-            v222 = v160;
-            v223 = v159;
-LABEL_240:
-            outlined copy of JSON(v217, v219, v222);
-            outlined consume of JSON(v156, v218, v157);
-            outlined consume of JSON(v220, v223, v221);
-LABEL_241:
-            outlined consume of JSON(v256, v248, 3);
-            outlined consume of JSON(v254, v245, 3);
-            outlined consume of JSON(v254, v245, 3);
-            v231 = v256;
-            v239 = v248;
-            goto LABEL_242;
-          }
-
-          outlined consume of JSON(v156, v155, 5);
-          result = outlined consume of JSON(0, 0, 5);
-        }
-
-        else if (*v149)
-        {
-          if (v157 != 1)
-          {
-            if (v160 != 2)
-            {
-              v218 = *(v149 - 1);
-              v220 = v158;
-              v221 = v160;
-              v223 = v159;
-              outlined copy of JSON(v158, v159, v160);
-              v217 = v156;
-              v219 = v218;
-              v222 = 2;
-              goto LABEL_240;
-            }
-
-            if (v156 == v158 && v155 == v159)
-            {
-              v170 = *(v149 - 1);
-              outlined copy of JSON(v156, v155, 2);
-              outlined copy of JSON(v156, v170, 2);
-              outlined consume of JSON(v156, v170, 2);
-              result = outlined consume of JSON(v156, v170, 2);
-              goto LABEL_175;
-            }
-
-            v257 = *(v149 - 1);
-            v150 = *(v148 - 2);
-            v151 = *(v148 - 1);
-            v249 = v159;
-            v246 = _stringCompareWithSmolCheck(_:_:expecting:)();
-            outlined copy of JSON(v150, v151, 2);
-            outlined copy of JSON(v156, v257, 2);
-            outlined consume of JSON(v156, v257, 2);
-            v152 = v150;
-            v153 = v249;
-            v154 = 2;
-            goto LABEL_174;
-          }
-
-          if (v160 != 1)
-          {
-            goto LABEL_228;
-          }
-
-          v161 = *(v149 - 2);
-          v162 = *(v148 - 2);
-          v163 = *(v148 - 1);
-          outlined consume of JSON(v161, v155, 1);
-          result = outlined consume of JSON(v162, v163, 1);
-          if (*&v161 != *&v162)
-          {
-            goto LABEL_241;
-          }
-        }
-
-        else
-        {
-          if (*v148)
-          {
-            goto LABEL_228;
-          }
-
-          v166 = *(v148 - 2);
-          v167 = *(v148 - 1);
-          outlined consume of JSON(v156, v155, 0);
-          result = outlined consume of JSON(v166, v167, 0);
-          if ((v166 ^ v156))
-          {
-            goto LABEL_241;
-          }
-        }
-
-LABEL_175:
-        ++v147;
-        v148 = v263 + 24;
-        v149 = v265 + 24;
-        v123 = v254;
-        if (v255 == v147)
-        {
-          outlined consume of JSON(v256, v248, 3);
-          outlined consume of JSON(v254, v245, 3);
-          outlined consume of JSON(v254, v245, 3);
-          v114 = v256;
-          v115 = v248;
-          v116 = 3;
-          goto LABEL_134;
-        }
-      }
-    }
-
-    if (!v120)
-    {
-      if (*(v121 + 16))
-      {
-        v226 = v119;
-        v127 = *(v121 + 8);
-        v227 = v118;
-        outlined copy of JSON(v123, v127, v124);
-        v234 = v226;
-        v235 = v227;
-        v236 = 0;
-        goto LABEL_234;
-      }
-
-      outlined consume of JSON(v119, v118, 0);
-      result = outlined consume of JSON(v123, v122, 0);
-      if ((v123 ^ v119))
-      {
-        goto LABEL_244;
-      }
-
-      goto LABEL_135;
-    }
-
-    if (v120 == 1)
-    {
-      if (v124 != 1)
-      {
-        v228 = v119;
-        v127 = *(v121 + 8);
-        v229 = v118;
-        outlined copy of JSON(v123, v127, v124);
-        v234 = v228;
-        v235 = v229;
-        v236 = 1;
-        goto LABEL_234;
-      }
-
-      outlined consume of JSON(v119, v118, 1);
-      result = outlined consume of JSON(v123, v122, 1);
-      if (*&v119 != *&v123)
-      {
-        goto LABEL_244;
-      }
-
-LABEL_135:
-      v112 = v269 + 1;
-      v111 = v274;
-      if (v269 + 1 == v260)
-      {
-        outlined consume of JSON(v274, v253, 3);
-        outlined consume of JSON(v267, v247, 3);
-        outlined consume of JSON(v267, v247, 3);
-        v96 = v274;
-        v97 = v253;
-        goto LABEL_115;
-      }
-
-      continue;
-    }
-
-    break;
-  }
-
-  if (v124 == 2)
-  {
-    if (v119 != v123 || v118 != v122)
-    {
-      v138 = *v121;
-      v139 = v119;
-      v140 = *(v121 + 8);
-      v141 = v118;
-      v264 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      outlined copy of JSON(*&v138, v140, 2);
-      outlined copy of JSON(v139, v141, 2);
-      outlined consume of JSON(v139, v141, 2);
-      v130 = *&v138;
-      v131 = v140;
-      v132 = 2;
-LABEL_162:
-      result = outlined consume of JSON(v130, v131, v132);
-      if ((v264 & 1) == 0)
-      {
-        goto LABEL_244;
-      }
-
-      goto LABEL_135;
-    }
-
-    v113 = v118;
-    outlined copy of JSON(v119, v118, 2);
-    outlined copy of JSON(v119, v113, 2);
-    outlined consume of JSON(v119, v113, 2);
-    v114 = v119;
-    v115 = v113;
-    v116 = 2;
-    goto LABEL_134;
-  }
-
-  v237 = v119;
-  v127 = *(v121 + 8);
-  v238 = v118;
-  outlined copy of JSON(v123, v127, v124);
-  outlined copy of JSON(v237, v238, 2);
-  v234 = v237;
-  v235 = v238;
-  v236 = 2;
-LABEL_234:
-  outlined consume of JSON(v234, v235, v236);
-  v231 = v123;
-LABEL_235:
-  v239 = v127;
-  v240 = v124;
-LABEL_243:
-  outlined consume of JSON(v231, v239, v240);
-LABEL_244:
-  outlined consume of JSON(v274, v253, 3);
-  outlined consume of JSON(v267, v247, 3);
-  outlined consume of JSON(v267, v247, 3);
-  v205 = v274;
-  v206 = v253;
-LABEL_245:
-  v213 = 3;
-LABEL_246:
-  outlined consume of JSON(v205, v206, v213);
-LABEL_247:
-  outlined consume of JSON(v281, v282, 3);
-  outlined consume of JSON(v275, v252, 3);
-  outlined consume of JSON(v275, v252, 3);
-  outlined consume of JSON(v281, v282, 3);
-  v4 = v286;
-LABEL_248:
-  v25 = v277;
-LABEL_249:
-  v244 = v4;
-  LOBYTE(v4) = 3;
-  v5 = v279;
-  outlined consume of JSON(v244, v279, 3);
-  outlined consume of JSON(v25, v2, 3);
-  LOBYTE(v26) = v266;
-LABEL_250:
-  outlined consume of JSON(v25, v2, v26);
-LABEL_251:
-  outlined consume of JSON(v286, v5, v4);
-  return 0;
-}
-
 uint64_t _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_SSTt1g5(uint64_t result, uint64_t a2)
 {
   if (result == a2)
@@ -2982,30 +97,26 @@ uint64_t Prompt.Attachment.description.getter()
 {
   _StringGuts.grow(_:)(41);
 
-  strcpy(v8, "<<attachment:");
-  HIWORD(v8[1]) = -4864;
-  v1 = Prompt.AttachmentContent.description.getter();
-  MEMORY[0x1AC57C120](v1);
+  strcpy(v4, "<<attachment:");
+  v0 = Prompt.AttachmentContent.description.getter();
+  MEMORY[0x1AC57C120](v0);
 
   MEMORY[0x1AC57C120](0x6F697469736F7020, 0xEA00000000003A6ELL);
-  v2 = type metadata accessor for Prompt.Attachment(0);
-  v6 = *(v0 + *(v2 + 20));
-  v3 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x1AC57C120](v3);
+  type metadata accessor for Prompt.Attachment(0);
+  v1 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x1AC57C120](v1);
 
   MEMORY[0x1AC57C120](0x7469726F69727020, 0xEA00000000003A79);
-  v7 = *(v0 + *(v2 + 24));
-  v4 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x1AC57C120](v4);
+  v2 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x1AC57C120](v2);
 
   MEMORY[0x1AC57C120](15934, 0xE200000000000000);
-  return v8[0];
+  return v4[0];
 }
 
 uint64_t Prompt.SpecialToken.identifier.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
@@ -3019,11 +130,9 @@ uint64_t Prompt.SpecialToken.locale.setter(uint64_t a1)
 
 uint64_t Prompt.SpecialToken.instance.getter()
 {
-  v1 = (v0 + *(type metadata accessor for Prompt.SpecialToken(0) + 24));
-  v2 = *v1;
-  v3 = v1[1];
+  v1 = *(v0 + *(type metadata accessor for Prompt.SpecialToken(0) + 24));
 
-  return v2;
+  return v1;
 }
 
 uint64_t Prompt.SpecialToken.annotationOnly.setter(char a1)
@@ -3084,91 +193,89 @@ uint64_t Prompt.SpecialToken.description.getter()
 {
   v1 = type metadata accessor for Locale();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
   MEMORY[0x1EEE9AC00](v1);
-  v5 = &v21 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v6 - 8);
-  v9 = &v21 - v8;
-  v10 = type metadata accessor for Prompt.SpecialToken(0);
-  v11 = (v0 + v10[6]);
-  v12 = v11[1];
-  if (v12)
+  v4 = &v19 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = &v19 - v6;
+  v8 = type metadata accessor for Prompt.SpecialToken(0);
+  v9 = (v0 + v8[6]);
+  v10 = v9[1];
+  if (v10)
   {
-    v13 = *v11;
-    v23 = 45;
-    v24 = 0xE100000000000000;
+    v11 = *v9;
+    v21 = 45;
+    v22 = 0xE100000000000000;
 
-    MEMORY[0x1AC57C120](v13, v12);
+    MEMORY[0x1AC57C120](v11, v10);
 
-    v14 = v24;
-    v22 = v23;
+    v12 = v22;
+    v20 = v21;
   }
 
   else
   {
-    v22 = 0;
+    v20 = 0;
+    v12 = 0xE000000000000000;
+  }
+
+  outlined init with copy of (String, Any)(v0 + v8[5], v7, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  if ((*(v2 + 48))(v7, 1, v1) == 1)
+  {
+    v13 = 0;
     v14 = 0xE000000000000000;
   }
 
-  outlined init with copy of (String, Any)(v0 + v10[5], v9, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  if ((*(v2 + 48))(v9, 1, v1) == 1)
-  {
-    v15 = 0;
-    v16 = 0xE000000000000000;
-  }
-
   else
   {
-    (*(v2 + 32))(v5, v9, v1);
-    v23 = 0x656C61636F6C2820;
-    v24 = 0xEA0000000000203ALL;
-    lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Locale and conformance Locale, MEMORY[0x1E6969770]);
-    v17 = dispatch thunk of CustomStringConvertible.description.getter();
-    MEMORY[0x1AC57C120](v17);
+    (*(v2 + 32))(v4, v7, v1);
+    v21 = 0x656C61636F6C2820;
+    v22 = 0xEA0000000000203ALL;
+    lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Locale and conformance Locale, MEMORY[0x1E6969770], MEMORY[0x1E6969798]);
+    v15 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x1AC57C120](v15);
 
     MEMORY[0x1AC57C120](41, 0xE100000000000000);
-    v15 = v23;
-    v16 = v24;
-    (*(v2 + 8))(v5, v1);
+    v13 = v21;
+    v14 = v22;
+    (*(v2 + 8))(v4, v1);
   }
 
-  if (*(v0 + v10[7]))
+  if (*(v0 + v8[7]))
   {
-    v18 = 0xD000000000000011;
+    v16 = 0xD000000000000011;
   }
 
   else
   {
-    v18 = 0;
+    v16 = 0;
   }
 
-  if (*(v0 + v10[7]))
+  if (*(v0 + v8[7]))
   {
-    v19 = 0x80000001A8FDA2F0;
+    v17 = 0x80000001A8FDA2F0;
   }
 
   else
   {
-    v19 = 0xE000000000000000;
+    v17 = 0xE000000000000000;
   }
 
-  v23 = 0;
-  v24 = 0xE000000000000000;
+  v21 = 0;
+  v22 = 0xE000000000000000;
   _StringGuts.grow(_:)(18);
 
-  v23 = 0x3A6E656B6F743C3CLL;
-  v24 = 0xE800000000000000;
+  v21 = 0x3A6E656B6F743C3CLL;
+  v22 = 0xE800000000000000;
   MEMORY[0x1AC57C120](*v0, v0[1]);
-  MEMORY[0x1AC57C120](v22, v14);
+  MEMORY[0x1AC57C120](v20, v12);
 
-  MEMORY[0x1AC57C120](v15, v16);
+  MEMORY[0x1AC57C120](v13, v14);
 
-  MEMORY[0x1AC57C120](v18, v19);
+  MEMORY[0x1AC57C120](v16, v17);
 
   MEMORY[0x1AC57C120](15934, 0xE200000000000000);
-  return v23;
+  return v21;
 }
 
 uint64_t one-time initialization function for endPrompt()
@@ -3344,301 +451,289 @@ uint64_t one-time initialization function for cacheablePrefixTerminator()
 uint64_t one-time initialization function for instructions()
 {
   v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v1 = *(*(v0 - 8) + 64);
   MEMORY[0x1EEE9AC00](v0 - 8);
-  v3 = &v14 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v4);
-  v6 = &v14 - v5;
-  v7 = type metadata accessor for Prompt.SpecialToken(0);
-  __swift_allocate_value_buffer(v7, static Prompt.SpecialToken.Chat.instructions);
-  v8 = __swift_project_value_buffer(v7, static Prompt.SpecialToken.Chat.instructions);
-  v9 = type metadata accessor for Locale();
-  v10 = *(*(v9 - 8) + 56);
-  v10(v6, 1, 1, v9);
-  outlined init with copy of (String, Any)(v6, v3, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v11 = v7[5];
-  v10(&v8[v11], 1, 1, v9);
-  *v8 = 0xD000000000000010;
-  *(v8 + 1) = 0x80000001A8FDA310;
-  v12 = &v8[v7[6]];
-  *v12 = 0;
-  *(v12 + 1) = 0;
-  outlined assign with take of Locale?(v3, &v8[v11]);
-  v8[v7[7]] = 0;
-  return outlined destroy of [Regex2BNF.CharacterPredicate](v6, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  v2 = &v13 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v3);
+  v5 = &v13 - v4;
+  v6 = type metadata accessor for Prompt.SpecialToken(0);
+  __swift_allocate_value_buffer(v6, static Prompt.SpecialToken.Chat.instructions);
+  v7 = __swift_project_value_buffer(v6, static Prompt.SpecialToken.Chat.instructions);
+  v8 = type metadata accessor for Locale();
+  v9 = *(*(v8 - 8) + 56);
+  v9(v5, 1, 1, v8);
+  outlined init with copy of (String, Any)(v5, v2, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  v10 = v6[5];
+  v9(&v7[v10], 1, 1, v8);
+  *v7 = 0xD000000000000010;
+  *(v7 + 1) = 0x80000001A8FDA310;
+  v11 = &v7[v6[6]];
+  *v11 = 0;
+  *(v11 + 1) = 0;
+  outlined assign with take of Locale?(v2, &v7[v10]);
+  v7[v6[7]] = 0;
+  return outlined destroy of [Regex2BNF.CharacterPredicate](v5, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
 }
 
 uint64_t static Prompt.SpecialToken.Chat.instructions(locale:)@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = &v13 - v6;
-  outlined init with copy of (String, Any)(a1, &v13 - v6, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v8 = type metadata accessor for Prompt.SpecialToken(0);
-  v9 = v8[5];
-  v10 = type metadata accessor for Locale();
-  (*(*(v10 - 8) + 56))(&a2[v9], 1, 1, v10);
+  v6 = &v12 - v5;
+  outlined init with copy of (String, Any)(a1, &v12 - v5, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  v7 = type metadata accessor for Prompt.SpecialToken(0);
+  v8 = v7[5];
+  v9 = type metadata accessor for Locale();
+  (*(*(v9 - 8) + 56))(&a2[v8], 1, 1, v9);
   *a2 = 0xD000000000000010;
   *(a2 + 1) = 0x80000001A8FDA310;
-  v11 = &a2[v8[6]];
-  *v11 = 0;
-  *(v11 + 1) = 0;
-  result = outlined assign with take of Locale?(v7, &a2[v9]);
-  a2[v8[7]] = 0;
+  v10 = &a2[v7[6]];
+  *v10 = 0;
+  *(v10 + 1) = 0;
+  result = outlined assign with take of Locale?(v6, &a2[v8]);
+  a2[v7[7]] = 0;
   return result;
 }
 
 uint64_t one-time initialization function for response()
 {
   v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v1 = *(*(v0 - 8) + 64);
   MEMORY[0x1EEE9AC00](v0 - 8);
-  v3 = &v14 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v4);
-  v6 = &v14 - v5;
-  v7 = type metadata accessor for Prompt.SpecialToken(0);
-  __swift_allocate_value_buffer(v7, static Prompt.SpecialToken.Chat.response);
-  v8 = __swift_project_value_buffer(v7, static Prompt.SpecialToken.Chat.response);
-  v9 = type metadata accessor for Locale();
-  v10 = *(*(v9 - 8) + 56);
-  v10(v6, 1, 1, v9);
-  outlined init with copy of (String, Any)(v6, v3, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v11 = v7[5];
-  v10(&v8[v11], 1, 1, v9);
-  *v8 = 0xD000000000000013;
-  *(v8 + 1) = 0x80000001A8FDA330;
-  v12 = &v8[v7[6]];
-  *v12 = 0;
-  *(v12 + 1) = 0;
-  outlined assign with take of Locale?(v3, &v8[v11]);
-  v8[v7[7]] = 0;
-  return outlined destroy of [Regex2BNF.CharacterPredicate](v6, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  v2 = &v13 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v3);
+  v5 = &v13 - v4;
+  v6 = type metadata accessor for Prompt.SpecialToken(0);
+  __swift_allocate_value_buffer(v6, static Prompt.SpecialToken.Chat.response);
+  v7 = __swift_project_value_buffer(v6, static Prompt.SpecialToken.Chat.response);
+  v8 = type metadata accessor for Locale();
+  v9 = *(*(v8 - 8) + 56);
+  v9(v5, 1, 1, v8);
+  outlined init with copy of (String, Any)(v5, v2, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  v10 = v6[5];
+  v9(&v7[v10], 1, 1, v8);
+  *v7 = 0xD000000000000013;
+  *(v7 + 1) = 0x80000001A8FDA330;
+  v11 = &v7[v6[6]];
+  *v11 = 0;
+  *(v11 + 1) = 0;
+  outlined assign with take of Locale?(v2, &v7[v10]);
+  v7[v6[7]] = 0;
+  return outlined destroy of [Regex2BNF.CharacterPredicate](v5, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
 }
 
 uint64_t static Prompt.SpecialToken.Chat.response(locale:)@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = &v13 - v6;
-  outlined init with copy of (String, Any)(a1, &v13 - v6, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v8 = type metadata accessor for Prompt.SpecialToken(0);
-  v9 = v8[5];
-  v10 = type metadata accessor for Locale();
-  (*(*(v10 - 8) + 56))(&a2[v9], 1, 1, v10);
+  v6 = &v12 - v5;
+  outlined init with copy of (String, Any)(a1, &v12 - v5, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  v7 = type metadata accessor for Prompt.SpecialToken(0);
+  v8 = v7[5];
+  v9 = type metadata accessor for Locale();
+  (*(*(v9 - 8) + 56))(&a2[v8], 1, 1, v9);
   *a2 = 0xD000000000000013;
   *(a2 + 1) = 0x80000001A8FDA330;
-  v11 = &a2[v8[6]];
-  *v11 = 0;
-  *(v11 + 1) = 0;
-  result = outlined assign with take of Locale?(v7, &a2[v9]);
-  a2[v8[7]] = 0;
+  v10 = &a2[v7[6]];
+  *v10 = 0;
+  *(v10 + 1) = 0;
+  result = outlined assign with take of Locale?(v6, &a2[v8]);
+  a2[v7[7]] = 0;
   return result;
 }
 
 uint64_t one-time initialization function for user(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v11 = &v19 - v10;
-  v12 = type metadata accessor for Prompt.SpecialToken(0);
-  __swift_allocate_value_buffer(v12, a2);
-  v13 = __swift_project_value_buffer(v12, a2);
-  v14 = type metadata accessor for Locale();
-  v15 = *(*(v14 - 8) + 56);
-  v15(v11, 1, 1, v14);
-  outlined init with copy of (String, Any)(v11, v8, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v16 = v12[5];
-  v15(&v13[v16], 1, 1, v14);
-  *v13 = 0x6C6F722E74616863;
-  *(v13 + 1) = a3;
-  v17 = &v13[v12[6]];
-  *v17 = 0;
-  *(v17 + 1) = 0;
-  outlined assign with take of Locale?(v8, &v13[v16]);
-  v13[v12[7]] = 0;
-  return outlined destroy of [Regex2BNF.CharacterPredicate](v11, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  v7 = &v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = &v18 - v9;
+  v11 = type metadata accessor for Prompt.SpecialToken(0);
+  __swift_allocate_value_buffer(v11, a2);
+  v12 = __swift_project_value_buffer(v11, a2);
+  v13 = type metadata accessor for Locale();
+  v14 = *(*(v13 - 8) + 56);
+  v14(v10, 1, 1, v13);
+  outlined init with copy of (String, Any)(v10, v7, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  v15 = v11[5];
+  v14(&v12[v15], 1, 1, v13);
+  *v12 = 0x6C6F722E74616863;
+  *(v12 + 1) = a3;
+  v16 = &v12[v11[6]];
+  *v16 = 0;
+  *(v16 + 1) = 0;
+  outlined assign with take of Locale?(v7, &v12[v15]);
+  v12[v11[7]] = 0;
+  return outlined destroy of [Regex2BNF.CharacterPredicate](v10, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
 }
 
 uint64_t static Prompt.SpecialToken.Chat.user(locale:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char *a3@<X8>)
 {
   v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x1EEE9AC00](v6 - 8);
-  v9 = &v15 - v8;
-  outlined init with copy of (String, Any)(a1, &v15 - v8, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v10 = type metadata accessor for Prompt.SpecialToken(0);
-  v11 = v10[5];
-  v12 = type metadata accessor for Locale();
-  (*(*(v12 - 8) + 56))(&a3[v11], 1, 1, v12);
+  v8 = &v14 - v7;
+  outlined init with copy of (String, Any)(a1, &v14 - v7, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  v9 = type metadata accessor for Prompt.SpecialToken(0);
+  v10 = v9[5];
+  v11 = type metadata accessor for Locale();
+  (*(*(v11 - 8) + 56))(&a3[v10], 1, 1, v11);
   *a3 = 0x6C6F722E74616863;
   *(a3 + 1) = a2;
-  v13 = &a3[v10[6]];
-  *v13 = 0;
-  *(v13 + 1) = 0;
-  result = outlined assign with take of Locale?(v9, &a3[v11]);
-  a3[v10[7]] = 0;
+  v12 = &a3[v9[6]];
+  *v12 = 0;
+  *(v12 + 1) = 0;
+  result = outlined assign with take of Locale?(v8, &a3[v10]);
+  a3[v9[7]] = 0;
   return result;
 }
 
 uint64_t one-time initialization function for turnEnd()
 {
   v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v1 = *(*(v0 - 8) + 64);
-  v2 = MEMORY[0x1EEE9AC00](v0 - 8);
-  v4 = &v14 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v2);
-  v6 = &v14 - v5;
-  v7 = type metadata accessor for Prompt.SpecialToken(0);
-  __swift_allocate_value_buffer(v7, static Prompt.SpecialToken.Chat.turnEnd);
-  v8 = __swift_project_value_buffer(v7, static Prompt.SpecialToken.Chat.turnEnd);
-  v9 = type metadata accessor for Locale();
-  v10 = *(*(v9 - 8) + 56);
-  v10(v6, 1, 1, v9);
-  outlined init with copy of (String, Any)(v6, v4, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v11 = v7[5];
-  v10(&v8[v11], 1, 1, v9);
-  *v8 = 0xD000000000000016;
-  *(v8 + 1) = 0x80000001A8FDA350;
-  v12 = &v8[v7[6]];
-  *v12 = 0;
-  *(v12 + 1) = 0;
-  outlined assign with take of Locale?(v4, &v8[v11]);
-  v8[v7[7]] = 0;
-  return outlined destroy of [Regex2BNF.CharacterPredicate](v6, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  MEMORY[0x1EEE9AC00](v0 - 8);
+  v2 = &v13 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v3);
+  v5 = &v13 - v4;
+  v6 = type metadata accessor for Prompt.SpecialToken(0);
+  __swift_allocate_value_buffer(v6, static Prompt.SpecialToken.Chat.turnEnd);
+  v7 = __swift_project_value_buffer(v6, static Prompt.SpecialToken.Chat.turnEnd);
+  v8 = type metadata accessor for Locale();
+  v9 = *(*(v8 - 8) + 56);
+  v9(v5, 1, 1, v8);
+  outlined init with copy of (String, Any)(v5, v2, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  v10 = v6[5];
+  v9(&v7[v10], 1, 1, v8);
+  *v7 = 0xD000000000000016;
+  *(v7 + 1) = 0x80000001A8FDA350;
+  v11 = &v7[v6[6]];
+  *v11 = 0;
+  *(v11 + 1) = 0;
+  outlined assign with take of Locale?(v2, &v7[v10]);
+  v7[v6[7]] = 0;
+  return outlined destroy of [Regex2BNF.CharacterPredicate](v5, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
 }
 
 uint64_t static Prompt.SpecialToken.Chat.turnEnd(locale:)@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = &v13 - v6;
-  outlined init with copy of (String, Any)(a1, &v13 - v6, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v8 = type metadata accessor for Prompt.SpecialToken(0);
-  v9 = v8[5];
-  v10 = type metadata accessor for Locale();
-  (*(*(v10 - 8) + 56))(&a2[v9], 1, 1, v10);
+  v6 = &v12 - v5;
+  outlined init with copy of (String, Any)(a1, &v12 - v5, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  v7 = type metadata accessor for Prompt.SpecialToken(0);
+  v8 = v7[5];
+  v9 = type metadata accessor for Locale();
+  (*(*(v9 - 8) + 56))(&a2[v8], 1, 1, v9);
   *a2 = 0xD000000000000016;
   *(a2 + 1) = 0x80000001A8FDA350;
-  v11 = &a2[v8[6]];
-  *v11 = 0;
-  *(v11 + 1) = 0;
-  result = outlined assign with take of Locale?(v7, &a2[v9]);
-  a2[v8[7]] = 0;
+  v10 = &a2[v7[6]];
+  *v10 = 0;
+  *(v10 + 1) = 0;
+  result = outlined assign with take of Locale?(v6, &a2[v8]);
+  a2[v7[7]] = 0;
   return result;
 }
 
 uint64_t one-time initialization function for turnStart()
 {
   v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v1 = *(*(v0 - 8) + 64);
   MEMORY[0x1EEE9AC00](v0 - 8);
-  v3 = &v14 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v4);
-  v6 = &v14 - v5;
-  v7 = type metadata accessor for Prompt.SpecialToken(0);
-  __swift_allocate_value_buffer(v7, static Prompt.SpecialToken.Chat.turnStart);
-  v8 = __swift_project_value_buffer(v7, static Prompt.SpecialToken.Chat.turnStart);
-  v9 = type metadata accessor for Locale();
-  v10 = *(*(v9 - 8) + 56);
-  v10(v6, 1, 1, v9);
-  outlined init with copy of (String, Any)(v6, v3, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v11 = v7[5];
-  v10(&v8[v11], 1, 1, v9);
-  *v8 = 0xD000000000000018;
-  *(v8 + 1) = 0x80000001A8FDA370;
-  v12 = &v8[v7[6]];
-  *v12 = 0;
-  *(v12 + 1) = 0;
-  outlined assign with take of Locale?(v3, &v8[v11]);
-  v8[v7[7]] = 0;
-  return outlined destroy of [Regex2BNF.CharacterPredicate](v6, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  v2 = &v13 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v3);
+  v5 = &v13 - v4;
+  v6 = type metadata accessor for Prompt.SpecialToken(0);
+  __swift_allocate_value_buffer(v6, static Prompt.SpecialToken.Chat.turnStart);
+  v7 = __swift_project_value_buffer(v6, static Prompt.SpecialToken.Chat.turnStart);
+  v8 = type metadata accessor for Locale();
+  v9 = *(*(v8 - 8) + 56);
+  v9(v5, 1, 1, v8);
+  outlined init with copy of (String, Any)(v5, v2, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  v10 = v6[5];
+  v9(&v7[v10], 1, 1, v8);
+  *v7 = 0xD000000000000018;
+  *(v7 + 1) = 0x80000001A8FDA370;
+  v11 = &v7[v6[6]];
+  *v11 = 0;
+  *(v11 + 1) = 0;
+  outlined assign with take of Locale?(v2, &v7[v10]);
+  v7[v6[7]] = 0;
+  return outlined destroy of [Regex2BNF.CharacterPredicate](v5, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
 }
 
 uint64_t static Prompt.SpecialToken.Chat.turnStart(locale:)@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = &v13 - v6;
-  outlined init with copy of (String, Any)(a1, &v13 - v6, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v8 = type metadata accessor for Prompt.SpecialToken(0);
-  v9 = v8[5];
-  v10 = type metadata accessor for Locale();
-  (*(*(v10 - 8) + 56))(&a2[v9], 1, 1, v10);
+  v6 = &v12 - v5;
+  outlined init with copy of (String, Any)(a1, &v12 - v5, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  v7 = type metadata accessor for Prompt.SpecialToken(0);
+  v8 = v7[5];
+  v9 = type metadata accessor for Locale();
+  (*(*(v9 - 8) + 56))(&a2[v8], 1, 1, v9);
   *a2 = 0xD000000000000018;
   *(a2 + 1) = 0x80000001A8FDA370;
-  v11 = &a2[v8[6]];
-  *v11 = 0;
-  *(v11 + 1) = 0;
-  result = outlined assign with take of Locale?(v7, &a2[v9]);
-  a2[v8[7]] = 0;
+  v10 = &a2[v7[6]];
+  *v10 = 0;
+  *(v10 + 1) = 0;
+  result = outlined assign with take of Locale?(v6, &a2[v8]);
+  a2[v7[7]] = 0;
   return result;
 }
 
 uint64_t one-time initialization function for defaultInstructions()
 {
   v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v1 = *(*(v0 - 8) + 64);
   MEMORY[0x1EEE9AC00](v0 - 8);
-  v3 = &v14 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v4);
-  v6 = &v14 - v5;
-  v7 = type metadata accessor for Prompt.SpecialToken(0);
-  __swift_allocate_value_buffer(v7, static Prompt.SpecialToken.Chat.defaultInstructions);
-  v8 = __swift_project_value_buffer(v7, static Prompt.SpecialToken.Chat.defaultInstructions);
-  v9 = type metadata accessor for Locale();
-  v10 = *(*(v9 - 8) + 56);
-  v10(v6, 1, 1, v9);
-  outlined init with copy of (String, Any)(v6, v3, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v11 = v7[5];
-  v10(&v8[v11], 1, 1, v9);
-  *v8 = 0xD000000000000018;
-  *(v8 + 1) = 0x80000001A8FDA390;
-  v12 = &v8[v7[6]];
-  *v12 = 0;
-  *(v12 + 1) = 0;
-  outlined assign with take of Locale?(v3, &v8[v11]);
-  v8[v7[7]] = 0;
-  return outlined destroy of [Regex2BNF.CharacterPredicate](v6, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  v2 = &v13 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v3);
+  v5 = &v13 - v4;
+  v6 = type metadata accessor for Prompt.SpecialToken(0);
+  __swift_allocate_value_buffer(v6, static Prompt.SpecialToken.Chat.defaultInstructions);
+  v7 = __swift_project_value_buffer(v6, static Prompt.SpecialToken.Chat.defaultInstructions);
+  v8 = type metadata accessor for Locale();
+  v9 = *(*(v8 - 8) + 56);
+  v9(v5, 1, 1, v8);
+  outlined init with copy of (String, Any)(v5, v2, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  v10 = v6[5];
+  v9(&v7[v10], 1, 1, v8);
+  *v7 = 0xD000000000000018;
+  *(v7 + 1) = 0x80000001A8FDA390;
+  v11 = &v7[v6[6]];
+  *v11 = 0;
+  *(v11 + 1) = 0;
+  outlined assign with take of Locale?(v2, &v7[v10]);
+  v7[v6[7]] = 0;
+  return outlined destroy of [Regex2BNF.CharacterPredicate](v5, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
 }
 
 uint64_t static Prompt.SpecialToken.Chat.defaultInstructions(locale:)@<X0>(uint64_t a1@<X0>, char *a2@<X8>)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = &v13 - v6;
-  outlined init with copy of (String, Any)(a1, &v13 - v6, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v8 = type metadata accessor for Prompt.SpecialToken(0);
-  v9 = v8[5];
-  v10 = type metadata accessor for Locale();
-  (*(*(v10 - 8) + 56))(&a2[v9], 1, 1, v10);
+  v6 = &v12 - v5;
+  outlined init with copy of (String, Any)(a1, &v12 - v5, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  v7 = type metadata accessor for Prompt.SpecialToken(0);
+  v8 = v7[5];
+  v9 = type metadata accessor for Locale();
+  (*(*(v9 - 8) + 56))(&a2[v8], 1, 1, v9);
   *a2 = 0xD000000000000018;
   *(a2 + 1) = 0x80000001A8FDA390;
-  v11 = &a2[v8[6]];
-  *v11 = 0;
-  *(v11 + 1) = 0;
-  result = outlined assign with take of Locale?(v7, &a2[v9]);
-  a2[v8[7]] = 0;
+  v10 = &a2[v7[6]];
+  *v10 = 0;
+  *(v10 + 1) = 0;
+  result = outlined assign with take of Locale?(v6, &a2[v8]);
+  a2[v7[7]] = 0;
   return result;
 }
 
-uint64_t static Prompt.SpecialToken.endPrompt.getter@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t static Prompt.SpecialToken.endPrompt.getter@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a4@<X8>)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v5 = type metadata accessor for Prompt.SpecialToken(0);
-  v6 = __swift_project_value_buffer(v5, a2);
-  return outlined init with copy of Prompt.PromptFragment(v6, a3, type metadata accessor for Prompt.SpecialToken);
+  v6 = type metadata accessor for Prompt.SpecialToken(0);
+  v7 = __swift_project_value_buffer(v6, a2);
+  return outlined init with copy of Prompt.PromptFragment(v7, a4, type metadata accessor for Prompt.SpecialToken);
 }
 
 uint64_t static Prompt.SpecialToken.Chat.toolCall(id:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
@@ -3656,41 +751,35 @@ uint64_t static Prompt.SpecialToken.Chat.toolCall(id:)@<X0>(uint64_t a1@<X0>, ui
   *(a3 + v6[7]) = 0;
 }
 
-void Prompt.SpecialToken.hash(into:)()
+void Prompt.SpecialToken.hash(into:)(uint64_t a1)
 {
-  v1 = v0;
-  v2 = type metadata accessor for Locale();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x1EEE9AC00](v2);
-  v6 = &v16 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = v1;
+  v3 = type metadata accessor for Locale();
+  v4 = *(v3 - 8);
+  MEMORY[0x1EEE9AC00](v3);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = &v16 - v9;
-  v11 = *v1;
-  v12 = v1[1];
+  v9 = &v11 - v8;
   String.hash(into:)();
-  v13 = type metadata accessor for Prompt.SpecialToken(0);
-  outlined init with copy of (String, Any)(v1 + v13[5], v10, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  if ((*(v3 + 48))(v10, 1, v2) == 1)
+  v10 = type metadata accessor for Prompt.SpecialToken(0);
+  outlined init with copy of (String, Any)(v2 + v10[5], v9, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  if ((*(v4 + 48))(v9, 1, v3) == 1)
   {
     Hasher._combine(_:)(0);
   }
 
   else
   {
-    (*(v3 + 32))(v6, v10, v2);
+    (*(v4 + 32))(v6, v9, v3);
     Hasher._combine(_:)(1u);
-    lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Locale and conformance Locale, MEMORY[0x1E6969770]);
+    lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Locale and conformance Locale, MEMORY[0x1E6969770], MEMORY[0x1E6969780]);
     dispatch thunk of Hashable.hash(into:)();
-    (*(v3 + 8))(v6, v2);
+    (*(v4 + 8))(v6, v3);
   }
 
-  v14 = (v1 + v13[6]);
-  if (v14[1])
+  if (*(v2 + v10[6] + 8))
   {
-    v15 = *v14;
     Hasher._combine(_:)(1u);
     String.hash(into:)();
   }
@@ -3700,7 +789,7 @@ void Prompt.SpecialToken.hash(into:)()
     Hasher._combine(_:)(0);
   }
 
-  Hasher._combine(_:)(*(v1 + v13[7]));
+  Hasher._combine(_:)(*(v2 + v10[7]));
 }
 
 uint64_t Prompt.Delimiter.position.setter(uint64_t a1)
@@ -3730,59 +819,51 @@ uint64_t Prompt.Delimiter.description.getter()
 {
   _StringGuts.grow(_:)(36);
 
-  v1 = Prompt.SpecialToken.description.getter();
-  MEMORY[0x1AC57C120](v1);
+  v0 = Prompt.SpecialToken.description.getter();
+  MEMORY[0x1AC57C120](v0);
 
   MEMORY[0x1AC57C120](0x6F697469736F7020, 0xEA00000000003A6ELL);
-  v2 = type metadata accessor for Prompt.Delimiter(0);
-  v6 = *(v0 + *(v2 + 20));
-  v3 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x1AC57C120](v3);
+  type metadata accessor for Prompt.Delimiter(0);
+  v1 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x1AC57C120](v1);
 
   MEMORY[0x1AC57C120](0x7469726F69727020, 0xEA00000000003A79);
-  v7 = *(v0 + *(v2 + 24));
-  v4 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x1AC57C120](v4);
+  v2 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x1AC57C120](v2);
 
   MEMORY[0x1AC57C120](15934, 0xE200000000000000);
   return 0x3A6E656B6F743C3CLL;
 }
 
-uint64_t Prompt.Delimiter.hash(into:)()
+uint64_t Prompt.Delimiter.hash(into:)(uint64_t a1)
 {
-  v1 = v0;
-  v2 = type metadata accessor for Locale();
-  v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x1EEE9AC00](v2);
-  v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v2 = v1;
+  v3 = type metadata accessor for Locale();
+  v4 = *(v3 - 8);
+  MEMORY[0x1EEE9AC00](v3);
+  v6 = &v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = &v18 - v9;
-  v11 = *v1;
-  v12 = v1[1];
+  v9 = &v13 - v8;
   String.hash(into:)();
-  v13 = type metadata accessor for Prompt.SpecialToken(0);
-  outlined init with copy of (String, Any)(v1 + v13[5], v10, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  if ((*(v3 + 48))(v10, 1, v2) == 1)
+  v10 = type metadata accessor for Prompt.SpecialToken(0);
+  outlined init with copy of (String, Any)(v2 + v10[5], v9, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  if ((*(v4 + 48))(v9, 1, v3) == 1)
   {
     Hasher._combine(_:)(0);
   }
 
   else
   {
-    (*(v3 + 32))(v6, v10, v2);
+    (*(v4 + 32))(v6, v9, v3);
     Hasher._combine(_:)(1u);
-    lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Locale and conformance Locale, MEMORY[0x1E6969770]);
+    lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Locale and conformance Locale, MEMORY[0x1E6969770], MEMORY[0x1E6969780]);
     dispatch thunk of Hashable.hash(into:)();
-    (*(v3 + 8))(v6, v2);
+    (*(v4 + 8))(v6, v3);
   }
 
-  v14 = (v1 + v13[6]);
-  if (v14[1])
+  if (*(v2 + v10[6] + 8))
   {
-    v15 = *v14;
     Hasher._combine(_:)(1u);
     String.hash(into:)();
   }
@@ -3792,42 +873,36 @@ uint64_t Prompt.Delimiter.hash(into:)()
     Hasher._combine(_:)(0);
   }
 
-  Hasher._combine(_:)(*(v1 + v13[7]));
-  v16 = type metadata accessor for Prompt.Delimiter(0);
-  MEMORY[0x1AC57CB80](*(v1 + *(v16 + 20)));
-  return MEMORY[0x1AC57CB80](*(v1 + *(v16 + 24)));
+  Hasher._combine(_:)(*(v2 + v10[7]));
+  v11 = type metadata accessor for Prompt.Delimiter(0);
+  MEMORY[0x1AC57CB80](*(v2 + *(v11 + 20)));
+  return MEMORY[0x1AC57CB80](*(v2 + *(v11 + 24)));
 }
 
 uint64_t Prompt.ImageEmbeddingAttachment.Encoding.description.getter()
 {
   if (*v0)
   {
-    result = 0x363174616F6C66;
+    return 0x363174616F6C66;
   }
 
   else
   {
-    result = 0x38746E6975;
+    return 0x38746E6975;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t protocol witness for CustomStringConvertible.description.getter in conformance Prompt.ImageEmbeddingAttachment.Encoding()
 {
   if (*v0)
   {
-    result = 0x363174616F6C66;
+    return 0x363174616F6C66;
   }
 
   else
   {
-    result = 0x38746E6975;
+    return 0x38746E6975;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t Prompt.ImageEmbeddingAttachment.data.getter()
@@ -3842,38 +917,37 @@ uint64_t Prompt.ImageEmbeddingAttachment.description.getter()
   v1 = *v0;
   v2 = v0[1];
   v3 = v0[2];
-  v5 = v0[3];
   v4 = v0[4];
-  v6 = v0[5];
+  v5 = v0[5];
   _StringGuts.grow(_:)(60);
   MEMORY[0x1AC57C120](0x69646F636E653C3CLL, 0xEB000000003A676ELL);
   if (v1)
   {
-    v7 = 0x363174616F6C66;
+    v6 = 0x363174616F6C66;
   }
 
   else
   {
-    v7 = 0x38746E6975;
+    v6 = 0x38746E6975;
   }
 
   if (v1)
   {
-    v8 = 0xE700000000000000;
+    v7 = 0xE700000000000000;
   }
 
   else
   {
-    v8 = 0xE500000000000000;
+    v7 = 0xE500000000000000;
   }
 
-  MEMORY[0x1AC57C120](v7, v8);
+  MEMORY[0x1AC57C120](v6, v7);
 
   result = MEMORY[0x1AC57C120](0x635F65747962202CLL, 0xED00003A746E756FLL);
-  v10 = v3 >> 62;
+  v9 = v3 >> 62;
   if ((v3 >> 62) > 1)
   {
-    if (v10 != 2 || !__OFSUB__(*(v2 + 24), *(v2 + 16)))
+    if (v9 != 2 || !__OFSUB__(*(v2 + 24), *(v2 + 16)))
     {
       goto LABEL_15;
     }
@@ -3881,7 +955,7 @@ uint64_t Prompt.ImageEmbeddingAttachment.description.getter()
     __break(1u);
   }
 
-  else if (!v10)
+  else if (!v9)
   {
     goto LABEL_15;
   }
@@ -3889,15 +963,15 @@ uint64_t Prompt.ImageEmbeddingAttachment.description.getter()
   if (!__OFSUB__(HIDWORD(v2), v2))
   {
 LABEL_15:
+    v10 = dispatch thunk of CustomStringConvertible.description.getter();
+    MEMORY[0x1AC57C120](v10);
+
+    MEMORY[0x1AC57C120](0x5F6E656B6F74202CLL, 0xEE003A746E756F63);
     v11 = dispatch thunk of CustomStringConvertible.description.getter();
     MEMORY[0x1AC57C120](v11);
 
-    MEMORY[0x1AC57C120](0x5F6E656B6F74202CLL, 0xEE003A746E756F63);
-    v12 = dispatch thunk of CustomStringConvertible.description.getter();
-    MEMORY[0x1AC57C120](v12);
-
     MEMORY[0x1AC57C120](0x74616E676973202CLL, 0xEC0000003A657275);
-    MEMORY[0x1AC57C120](v4, v6);
+    MEMORY[0x1AC57C120](v4, v5);
     MEMORY[0x1AC57C120](15934, 0xE200000000000000);
     return 0;
   }
@@ -3917,16 +991,12 @@ _BYTE *Prompt.ImageEmbeddingAttachment.init(encoding:data:tokenCount:signature:)
   return result;
 }
 
-uint64_t Prompt.ImageEmbeddingAttachment.hash(into:)()
+uint64_t Prompt.ImageEmbeddingAttachment.hash(into:)(uint64_t a1)
 {
-  v1 = v0[1];
-  v2 = v0[2];
-  v3 = v0[3];
-  v4 = v0[4];
-  v5 = v0[5];
-  MEMORY[0x1AC57CB80](*v0);
+  v2 = *(v1 + 3);
+  MEMORY[0x1AC57CB80](*v1);
   Data.hash(into:)();
-  MEMORY[0x1AC57CB80](v3);
+  MEMORY[0x1AC57CB80](v2);
 
   return String.hash(into:)();
 }
@@ -3934,15 +1004,11 @@ uint64_t Prompt.ImageEmbeddingAttachment.hash(into:)()
 Swift::Int Prompt.ImageEmbeddingAttachment.hashValue.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  v5 = v0[4];
-  v6 = v0[5];
+  v2 = *(v0 + 3);
   Hasher.init(_seed:)();
   MEMORY[0x1AC57CB80](v1);
   Data.hash(into:)();
-  MEMORY[0x1AC57CB80](v4);
+  MEMORY[0x1AC57CB80](v2);
   String.hash(into:)();
   return Hasher._finalize()();
 }
@@ -3950,45 +1016,33 @@ Swift::Int Prompt.ImageEmbeddingAttachment.hashValue.getter()
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance Prompt.ImageEmbeddingAttachment()
 {
   v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  v5 = v0[4];
-  v6 = v0[5];
+  v2 = *(v0 + 3);
   Hasher.init(_seed:)();
   MEMORY[0x1AC57CB80](v1);
   Data.hash(into:)();
-  MEMORY[0x1AC57CB80](v4);
+  MEMORY[0x1AC57CB80](v2);
   String.hash(into:)();
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Prompt.ImageEmbeddingAttachment()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Prompt.ImageEmbeddingAttachment(uint64_t a1)
 {
-  v1 = v0[1];
-  v2 = v0[2];
-  v3 = v0[3];
-  v4 = v0[4];
-  v5 = v0[5];
-  MEMORY[0x1AC57CB80](*v0);
+  v2 = *(v1 + 3);
+  MEMORY[0x1AC57CB80](*v1);
   Data.hash(into:)();
-  MEMORY[0x1AC57CB80](v3);
+  MEMORY[0x1AC57CB80](v2);
 
   return String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Prompt.ImageEmbeddingAttachment()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Prompt.ImageEmbeddingAttachment(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  v5 = v0[4];
-  v6 = v0[5];
+  v2 = *v1;
+  v3 = *(v1 + 3);
   Hasher.init(_seed:)();
-  MEMORY[0x1AC57CB80](v1);
+  MEMORY[0x1AC57CB80](v2);
   Data.hash(into:)();
-  MEMORY[0x1AC57CB80](v4);
+  MEMORY[0x1AC57CB80](v3);
   String.hash(into:)();
   return Hasher._finalize()();
 }
@@ -4074,28 +1128,23 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Pro
 
 unint64_t Prompt.AttachmentContent.description.getter()
 {
-  *&v75 = type metadata accessor for Tool();
-  v1 = *(v75 - 8);
-  v2 = *(v1 + 64);
-  MEMORY[0x1EEE9AC00](v75);
-  v4 = v71 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = type metadata accessor for Prompt.ResponseFormat.SchemaDetails(0);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = (v71 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v9 = type metadata accessor for Prompt.ResponseFormat.Kind(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = (v71 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v13 = type metadata accessor for Prompt.ResponseFormat(0);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v13 - 8);
-  v16 = v71 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = type metadata accessor for Prompt.AttachmentContent(0);
-  v18 = *(*(v17 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v17);
-  v20 = v71 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of Prompt.PromptFragment(v0, v20, type metadata accessor for Prompt.AttachmentContent);
+  *&v68 = type metadata accessor for Tool();
+  v1 = *(v68 - 8);
+  MEMORY[0x1EEE9AC00](v68);
+  v3 = v64 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for Prompt.ResponseFormat.SchemaDetails(0);
+  MEMORY[0x1EEE9AC00](v4 - 8);
+  v6 = (v64 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v7 = type metadata accessor for Prompt.ResponseFormat.Kind(0);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = (v64 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v10 = type metadata accessor for Prompt.ResponseFormat(0);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v12 = v64 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = type metadata accessor for Prompt.AttachmentContent(0);
+  MEMORY[0x1EEE9AC00](v13);
+  v15 = v64 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Prompt.PromptFragment(v0, v15, type metadata accessor for Prompt.AttachmentContent);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload <= 2)
   {
@@ -4103,257 +1152,234 @@ unint64_t Prompt.AttachmentContent.description.getter()
     {
       if (EnumCaseMultiPayload != 1)
       {
-        v51 = *v20;
-        *v76 = 0;
-        *&v76[8] = 0xE000000000000000;
+        v46 = *v15;
+        *v69 = 0;
+        *&v69[8] = 0xE000000000000000;
         _StringGuts.grow(_:)(20);
 
-        *v76 = 0xD000000000000010;
-        *&v76[8] = 0x80000001A8FDA3F0;
-        v79 = v51;
-        v52 = Prompt.ImageSurfaceAttachment.description.getter();
-        MEMORY[0x1AC57C120](v52);
+        *v69 = 0xD000000000000010;
+        *&v69[8] = 0x80000001A8FDA3F0;
+        v72 = v46;
+        v47 = Prompt.ImageSurfaceAttachment.description.getter();
+        MEMORY[0x1AC57C120](v47);
 
         MEMORY[0x1AC57C120](15934, 0xE200000000000000);
 
-        return *v76;
+        return *v69;
       }
 
-      v27 = *v20;
-      v28 = *(v20 + 5);
-      *v76 = 0;
-      *&v76[8] = 0xE000000000000000;
-      v29 = *(v20 + 8);
-      v74 = *(v20 + 24);
-      v75 = v29;
+      v22 = *v15;
+      v23 = *(v15 + 5);
+      *v69 = 0;
+      *&v69[8] = 0xE000000000000000;
+      v24 = *(v15 + 8);
+      v67 = *(v15 + 24);
+      v68 = v24;
       _StringGuts.grow(_:)(22);
 
-      v79 = 0xD000000000000012;
-      v80 = 0x80000001A8FDA410;
-      v76[0] = v27;
-      v77 = v74;
-      *&v76[8] = v75;
-      v78 = v28;
-      v30 = Prompt.ImageEmbeddingAttachment.description.getter();
-      MEMORY[0x1AC57C120](v30);
+      v72 = 0xD000000000000012;
+      v73 = 0x80000001A8FDA410;
+      v69[0] = v22;
+      v70 = v67;
+      *&v69[8] = v68;
+      v71 = v23;
+      v25 = Prompt.ImageEmbeddingAttachment.description.getter();
+      MEMORY[0x1AC57C120](v25);
 
       MEMORY[0x1AC57C120](15934, 0xE200000000000000);
-      outlined consume of Data._Representation(v75, *(&v75 + 1));
+      outlined consume of Data._Representation(v68, *(&v68 + 1));
     }
 
     else
     {
-      v46 = *v20;
-      v47 = *(v20 + 1);
-      v48 = *(v20 + 2);
-      v79 = 0x3A6567616D693C3CLL;
-      v80 = 0xE800000000000000;
-      v76[0] = v46;
-      *&v76[8] = v47;
-      *&v76[16] = v48;
-      v49 = Prompt.ImageAttachment.description.getter();
-      MEMORY[0x1AC57C120](v49);
+      v41 = *v15;
+      v42 = *(v15 + 1);
+      v43 = *(v15 + 2);
+      v72 = 0x3A6567616D693C3CLL;
+      v73 = 0xE800000000000000;
+      v69[0] = v41;
+      *&v69[8] = v42;
+      *&v69[16] = v43;
+      v44 = Prompt.ImageAttachment.description.getter();
+      MEMORY[0x1AC57C120](v44);
 
       MEMORY[0x1AC57C120](15934, 0xE200000000000000);
-      outlined consume of Data._Representation(v47, v48);
+      outlined consume of Data._Representation(v42, v43);
     }
 
-    return v79;
+    return v72;
   }
 
   if (EnumCaseMultiPayload > 4)
   {
     if (EnumCaseMultiPayload == 5)
     {
-      v31 = *v20;
-      *v76 = 0;
-      *&v76[8] = 0xE000000000000000;
+      v26 = *v15;
+      *v69 = 0;
+      *&v69[8] = 0xE000000000000000;
       _StringGuts.grow(_:)(19);
 
-      *v76 = 0x6D65747379733C3CLL;
-      *&v76[8] = 0xEF3A736C6F6F745FLL;
-      v32 = *(v31 + 16);
-      if (v32)
+      *v69 = 0x6D65747379733C3CLL;
+      *&v69[8] = 0xEF3A736C6F6F745FLL;
+      v27 = *(v26 + 16);
+      if (v27)
       {
-        v79 = MEMORY[0x1E69E7CC0];
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v32, 0);
-        v33 = v79;
-        v35 = *(v1 + 16);
-        v34 = v1 + 16;
-        v36 = *(v34 + 64);
-        v71[1] = v31;
-        v37 = v31 + ((v36 + 32) & ~v36);
-        v72 = *(v34 + 56);
-        v73 = v35;
-        *&v74 = v34;
-        v38 = (v34 - 8);
+        v72 = MEMORY[0x1E69E7CC0];
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v27, 0);
+        v28 = v72;
+        v30 = *(v1 + 16);
+        v29 = v1 + 16;
+        v31 = *(v29 + 64);
+        v64[1] = v26;
+        v32 = v26 + ((v31 + 32) & ~v31);
+        v65 = *(v29 + 56);
+        v66 = v30;
+        *&v67 = v29;
+        v33 = (v29 - 8);
         do
         {
-          v39 = v75;
-          v73(v4, v37, v75);
-          v40 = Tool.name.getter();
-          v42 = v41;
-          (*v38)(v4, v39);
-          v79 = v33;
-          v44 = *(v33 + 16);
-          v43 = *(v33 + 24);
-          if (v44 >= v43 >> 1)
+          v34 = v68;
+          v66(v3, v32, v68);
+          v35 = Tool.name.getter();
+          v37 = v36;
+          (*v33)(v3, v34);
+          v72 = v28;
+          v39 = *(v28 + 16);
+          v38 = *(v28 + 24);
+          if (v39 >= v38 >> 1)
           {
-            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v43 > 1), v44 + 1, 1);
-            v33 = v79;
+            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v38 > 1), v39 + 1, 1);
+            v28 = v72;
           }
 
-          *(v33 + 16) = v44 + 1;
-          v45 = v33 + 16 * v44;
-          *(v45 + 32) = v40;
-          *(v45 + 40) = v42;
-          v37 += v72;
-          --v32;
+          *(v28 + 16) = v39 + 1;
+          v40 = v28 + 16 * v39;
+          *(v40 + 32) = v35;
+          *(v40 + 40) = v37;
+          v32 += v65;
+          --v27;
         }
 
-        while (v32);
+        while (v27);
       }
 
       else
       {
 
-        v33 = MEMORY[0x1E69E7CC0];
+        v28 = MEMORY[0x1E69E7CC0];
       }
 
-      v67 = MEMORY[0x1AC57C2C0](v33, MEMORY[0x1E69E6158]);
-      v69 = v68;
+      v60 = MEMORY[0x1AC57C2C0](v28, MEMORY[0x1E69E6158]);
+      v62 = v61;
     }
 
     else
     {
-      v57 = *v20;
-      *v76 = 0;
-      *&v76[8] = 0xE000000000000000;
+      v50 = *v15;
+      *v69 = 0;
+      *&v69[8] = 0xE000000000000000;
       _StringGuts.grow(_:)(17);
 
-      strcpy(v76, "<<tool_calls:");
-      *&v76[14] = -4864;
-      v58 = *(v57 + 16);
-      if (v58)
+      strcpy(v69, "<<tool_calls:");
+      *&v69[14] = -4864;
+      v51 = *(v50 + 16);
+      if (v51)
       {
-        v79 = MEMORY[0x1E69E7CC0];
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v58, 0);
-        v59 = v79;
-        v60 = (v57 + 40);
+        v72 = MEMORY[0x1E69E7CC0];
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v51, 0);
+        v52 = v72;
+        v53 = (v50 + 40);
         do
         {
-          v62 = *(v60 - 1);
-          v61 = *v60;
-          v79 = v59;
-          v63 = *(v59 + 16);
-          v64 = *(v59 + 24);
+          v55 = *(v53 - 1);
+          v54 = *v53;
+          v72 = v52;
+          v56 = *(v52 + 16);
+          v57 = *(v52 + 24);
 
-          if (v63 >= v64 >> 1)
+          if (v56 >= v57 >> 1)
           {
-            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v64 > 1), v63 + 1, 1);
-            v59 = v79;
+            specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v57 > 1), v56 + 1, 1);
+            v52 = v72;
           }
 
-          *(v59 + 16) = v63 + 1;
-          v65 = v59 + 16 * v63;
-          *(v65 + 32) = v62;
-          *(v65 + 40) = v61;
-          v60 += 8;
-          --v58;
+          *(v52 + 16) = v56 + 1;
+          v58 = v52 + 16 * v56;
+          *(v58 + 32) = v55;
+          *(v58 + 40) = v54;
+          v53 += 8;
+          --v51;
         }
 
-        while (v58);
+        while (v51);
       }
 
       else
       {
 
-        v59 = MEMORY[0x1E69E7CC0];
+        v52 = MEMORY[0x1E69E7CC0];
       }
 
-      v67 = MEMORY[0x1AC57C2C0](v59, MEMORY[0x1E69E6158]);
-      v69 = v70;
+      v60 = MEMORY[0x1AC57C2C0](v52, MEMORY[0x1E69E6158]);
+      v62 = v63;
     }
 
-    MEMORY[0x1AC57C120](v67, v69);
+    MEMORY[0x1AC57C120](v60, v62);
     goto LABEL_33;
   }
 
   if (EnumCaseMultiPayload == 3)
   {
-    v22 = *v20;
-    v23 = *(v20 + 1);
-    *v76 = 0;
-    *&v76[8] = 0xE000000000000000;
+    v17 = *v15;
+    v18 = *(v15 + 1);
+    *v69 = 0;
+    *&v69[8] = 0xE000000000000000;
     _StringGuts.grow(_:)(25);
 
-    *v76 = 0xD000000000000015;
-    *&v76[8] = 0x80000001A8FDA3D0;
-    v79 = v22;
-    v80 = v23;
+    *v69 = 0xD000000000000015;
+    *&v69[8] = 0x80000001A8FDA3D0;
+    v72 = v17;
+    v73 = v18;
     lazy protocol witness table accessor for type Prompt.PreprocessedImageAttachment and conformance Prompt.PreprocessedImageAttachment();
-    v24 = dispatch thunk of CustomStringConvertible.description.getter();
-    v26 = v25;
+    v19 = dispatch thunk of CustomStringConvertible.description.getter();
+    v21 = v20;
 
-    MEMORY[0x1AC57C120](v24, v26);
+    MEMORY[0x1AC57C120](v19, v21);
 LABEL_33:
 
     MEMORY[0x1AC57C120](15934, 0xE200000000000000);
-    return *v76;
+    return *v69;
   }
 
-  _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v20, v16, type metadata accessor for Prompt.ResponseFormat);
-  *v76 = 0;
-  *&v76[8] = 0xE000000000000000;
+  _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v15, v12, type metadata accessor for Prompt.ResponseFormat);
+  *v69 = 0;
+  *&v69[8] = 0xE000000000000000;
   _StringGuts.grow(_:)(22);
 
-  *v76 = 0xD000000000000012;
-  *&v76[8] = 0x80000001A8FDA3B0;
-  outlined init with copy of Prompt.PromptFragment(v16, v12, type metadata accessor for Prompt.ResponseFormat.Kind);
+  *v69 = 0xD000000000000012;
+  *&v69[8] = 0x80000001A8FDA3B0;
+  outlined init with copy of Prompt.PromptFragment(v12, v9, type metadata accessor for Prompt.ResponseFormat.Kind);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    v54 = *v12;
-    v53 = v12[1];
-    v55 = v12[3];
-    v56 = v12[5];
+    v49 = *v9;
+    v48 = v9[1];
   }
 
   else
   {
-    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v12, v8, type metadata accessor for Prompt.ResponseFormat.SchemaDetails);
-    v54 = *v8;
-    v53 = v8[1];
+    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v9, v6, type metadata accessor for Prompt.ResponseFormat.SchemaDetails);
+    v49 = *v6;
+    v48 = v6[1];
 
-    _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v8, type metadata accessor for Prompt.ResponseFormat.SchemaDetails);
+    _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v6, type metadata accessor for Prompt.ResponseFormat.SchemaDetails);
   }
 
-  MEMORY[0x1AC57C120](v54, v53);
+  MEMORY[0x1AC57C120](v49, v48);
 
   MEMORY[0x1AC57C120](15934, 0xE200000000000000);
-  v66 = *v76;
-  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v16, type metadata accessor for Prompt.ResponseFormat);
-  return v66;
-}
-
-uint64_t static Prompt.ImageAttachment.== infix(_:_:)(unsigned __int8 *a1, unsigned __int8 *a2)
-{
-  if (*a1 == *a2)
-  {
-    return specialized static Data.== infix(_:_:)(*(a1 + 1), *(a1 + 2), *(a2 + 1), *(a2 + 2));
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t static Prompt.ImageSurfaceAttachment.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  type metadata accessor for NSObject();
-  return static NSObject.== infix(_:_:)() & 1;
+  v59 = *v69;
+  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v12, type metadata accessor for Prompt.ResponseFormat);
+  return v59;
 }
 
 uint64_t static Prompt.PreprocessedImageAttachment.== infix(_:_:)(void *a1, void *a2)
@@ -4408,92 +1434,87 @@ void Prompt.AttachmentContent.hash(into:)(uint64_t a1)
 {
   v3 = type metadata accessor for Tool();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = v40 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for Prompt.ResponseFormat(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8 - 8);
-  v11 = v40 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for Prompt.AttachmentContent(0);
-  v13 = *(*(v12 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v15 = (v40 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
-  outlined init with copy of Prompt.PromptFragment(v1, v15, type metadata accessor for Prompt.AttachmentContent);
+  v6 = v35 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for Prompt.ResponseFormat(0);
+  MEMORY[0x1EEE9AC00](v7 - 8);
+  v9 = v35 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for Prompt.AttachmentContent(0);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = (v35 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
+  outlined init with copy of Prompt.PromptFragment(v1, v12, type metadata accessor for Prompt.AttachmentContent);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload <= 2)
   {
     if (!EnumCaseMultiPayload)
     {
-      v35 = *v15;
-      v36 = v15[1];
-      v37 = v15[2];
+      v30 = *v12;
+      v31 = v12[1];
+      v32 = v12[2];
       MEMORY[0x1AC57CB80](0);
-      MEMORY[0x1AC57CB80](v35);
+      MEMORY[0x1AC57CB80](v30);
       Data.hash(into:)();
-      outlined consume of Data._Representation(v36, v37);
+      outlined consume of Data._Representation(v31, v32);
       return;
     }
 
     if (EnumCaseMultiPayload != 1)
     {
-      v38 = *v15;
+      v33 = *v12;
       MEMORY[0x1AC57CB80](2);
       NSObject.hash(into:)();
 
       return;
     }
 
-    v21 = *v15;
-    v22 = v15[1];
-    v23 = v15[2];
-    v24 = v15[3];
-    v25 = v15[4];
-    v26 = v15[5];
+    v18 = *v12;
+    v19 = v12[1];
+    v20 = v12[2];
+    v21 = v12[3];
     MEMORY[0x1AC57CB80](1);
-    MEMORY[0x1AC57CB80](v21);
+    MEMORY[0x1AC57CB80](v18);
     Data.hash(into:)();
-    MEMORY[0x1AC57CB80](v24);
+    MEMORY[0x1AC57CB80](v21);
     String.hash(into:)();
-    outlined consume of Data._Representation(v22, v23);
+    outlined consume of Data._Representation(v19, v20);
   }
 
   else if (EnumCaseMultiPayload > 4)
   {
     if (EnumCaseMultiPayload == 5)
     {
-      v27 = *v15;
+      v22 = *v12;
       MEMORY[0x1AC57CB80](5);
-      MEMORY[0x1AC57CB80](v27[2]);
-      v28 = v27[2];
-      if (v28)
+      MEMORY[0x1AC57CB80](v22[2]);
+      v23 = v22[2];
+      if (v23)
       {
-        v31 = *(v4 + 16);
-        v29 = v4 + 16;
-        v30 = v31;
-        v32 = (*(v29 + 64) + 32) & ~*(v29 + 64);
-        v40[1] = v27;
-        v33 = v27 + v32;
-        v34 = *(v29 + 56);
+        v26 = *(v4 + 16);
+        v24 = v4 + 16;
+        v25 = v26;
+        v27 = (*(v24 + 64) + 32) & ~*(v24 + 64);
+        v35[1] = v22;
+        v28 = v22 + v27;
+        v29 = *(v24 + 56);
         do
         {
-          v30(v7, v33, v3);
-          lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Tool and conformance Tool, MEMORY[0x1E69A0DF0]);
+          v25(v6, v28, v3);
+          lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Tool and conformance Tool, MEMORY[0x1E69A0DF0], MEMORY[0x1E69A0DF8]);
           dispatch thunk of Hashable.hash(into:)();
-          (*(v29 - 8))(v7, v3);
-          v33 += v34;
-          --v28;
+          (*(v24 - 8))(v6, v3);
+          v28 += v29;
+          --v23;
         }
 
-        while (v28);
+        while (v23);
       }
     }
 
     else
     {
-      v39 = *v15;
+      v34 = *v12;
       MEMORY[0x1AC57CB80](6);
-      specialized Array<A>.hash(into:)(a1, v39);
+      specialized Array<A>.hash(into:)(a1, v34);
     }
   }
 
@@ -4501,30 +1522,30 @@ void Prompt.AttachmentContent.hash(into:)(uint64_t a1)
   {
     if (EnumCaseMultiPayload != 3)
     {
-      _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v15, v11, type metadata accessor for Prompt.ResponseFormat);
+      _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v12, v9, type metadata accessor for Prompt.ResponseFormat);
       MEMORY[0x1AC57CB80](4);
-      Prompt.ResponseFormat.Kind.hash(into:)();
-      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v11, type metadata accessor for Prompt.ResponseFormat);
+      Prompt.ResponseFormat.Kind.hash(into:)(a1);
+      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v9, type metadata accessor for Prompt.ResponseFormat);
       return;
     }
 
-    v17 = *v15;
-    v18 = v15[1];
+    v14 = *v12;
+    v15 = v12[1];
     MEMORY[0x1AC57CB80](3);
-    specialized Array<A>.hash(into:)(a1, v17);
-    MEMORY[0x1AC57CB80](*(v18 + 16));
-    v19 = *(v18 + 16);
-    if (v19)
+    specialized Array<A>.hash(into:)(a1, v14);
+    MEMORY[0x1AC57CB80](*(v15 + 16));
+    v16 = *(v15 + 16);
+    if (v16)
     {
-      v20 = 32;
+      v17 = 32;
       do
       {
-        MEMORY[0x1AC57CB80](*(v18 + v20));
-        v20 += 8;
-        --v19;
+        MEMORY[0x1AC57CB80](*(v15 + v17));
+        v17 += 8;
+        --v16;
       }
 
-      while (v19);
+      while (v16);
     }
   }
 }
@@ -4625,11 +1646,9 @@ LABEL_12:
   return result;
 }
 
-uint64_t Prompt.ImageAttachment.hash(into:)()
+uint64_t Prompt.ImageAttachment.hash(into:)(uint64_t a1)
 {
-  v1 = *(v0 + 1);
-  v2 = *(v0 + 2);
-  MEMORY[0x1AC57CB80](*v0);
+  MEMORY[0x1AC57CB80](*v1);
 
   return Data.hash(into:)();
 }
@@ -4637,8 +1656,6 @@ uint64_t Prompt.ImageAttachment.hash(into:)()
 Swift::Int Prompt.ImageAttachment.hashValue.getter()
 {
   v1 = *v0;
-  v2 = *(v0 + 1);
-  v3 = *(v0 + 2);
   Hasher.init(_seed:)();
   MEMORY[0x1AC57CB80](v1);
   Data.hash(into:)();
@@ -4648,50 +1665,30 @@ Swift::Int Prompt.ImageAttachment.hashValue.getter()
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance Prompt.ImageAttachment()
 {
   v1 = *v0;
-  v2 = *(v0 + 1);
-  v3 = *(v0 + 2);
   Hasher.init(_seed:)();
   MEMORY[0x1AC57CB80](v1);
   Data.hash(into:)();
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Prompt.ImageAttachment()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Prompt.ImageAttachment(uint64_t a1)
 {
-  v1 = *(v0 + 1);
-  v2 = *(v0 + 2);
-  MEMORY[0x1AC57CB80](*v0);
+  MEMORY[0x1AC57CB80](*v1);
 
   return Data.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Prompt.ImageAttachment()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Prompt.ImageAttachment(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 1);
-  v3 = *(v0 + 2);
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x1AC57CB80](v1);
+  MEMORY[0x1AC57CB80](v2);
   Data.hash(into:)();
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Prompt.ImageAttachment(unsigned __int8 *a1, unsigned __int8 *a2)
-{
-  if (*a1 == *a2)
-  {
-    return specialized static Data.== infix(_:_:)(*(a1 + 1), *(a1 + 2), *(a2 + 1), *(a2 + 2));
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
 uint64_t Prompt.PreprocessedImageAttachment.data.setter(uint64_t a1)
 {
-  v3 = *v1;
 
   *v1 = a1;
   return result;
@@ -4699,7 +1696,6 @@ uint64_t Prompt.PreprocessedImageAttachment.data.setter(uint64_t a1)
 
 uint64_t Prompt.PreprocessedImageAttachment.shape.setter(uint64_t a1)
 {
-  v3 = *(v1 + 8);
 
   *(v1 + 8) = a1;
   return result;
@@ -4758,25 +1754,25 @@ Swift::Int Prompt.PreprocessedImageAttachment.hashValue.getter()
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Prompt.PreprocessedImageAttachment()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Prompt.PreprocessedImageAttachment(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
+  v2 = *v1;
+  v3 = v1[1];
   Hasher.init(_seed:)();
-  specialized Array<A>.hash(into:)(v7, v1);
-  MEMORY[0x1AC57CB80](*(v2 + 16));
-  v3 = *(v2 + 16);
-  if (v3)
+  specialized Array<A>.hash(into:)(v8, v2);
+  MEMORY[0x1AC57CB80](*(v3 + 16));
+  v4 = *(v3 + 16);
+  if (v4)
   {
-    v4 = (v2 + 32);
+    v5 = (v3 + 32);
     do
     {
-      v5 = *v4++;
-      MEMORY[0x1AC57CB80](v5);
-      --v3;
+      v6 = *v5++;
+      MEMORY[0x1AC57CB80](v6);
+      --v4;
     }
 
-    while (v3);
+    while (v4);
   }
 
   return Hasher._finalize()();
@@ -4815,7 +1811,6 @@ uint64_t Prompt.ImageSurfaceAttachment.description.getter()
 
 Swift::Int Prompt.ImageSurfaceAttachment.hashValue.getter()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   NSObject.hash(into:)();
   return Hasher._finalize()();
@@ -4823,26 +1818,16 @@ Swift::Int Prompt.ImageSurfaceAttachment.hashValue.getter()
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance Prompt.ImageSurfaceAttachment()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   NSObject.hash(into:)();
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Prompt.ImageSurfaceAttachment()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Prompt.ImageSurfaceAttachment(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   NSObject.hash(into:)();
   return Hasher._finalize()();
-}
-
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Prompt.ImageSurfaceAttachment(uint64_t *a1, uint64_t *a2)
-{
-  v2 = *a1;
-  v3 = *a2;
-  type metadata accessor for NSObject();
-  return static NSObject.== infix(_:_:)() & 1;
 }
 
 uint64_t static Prompt.ResponseFormat.schema(name:description:schema:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, char *a6@<X8>)
@@ -4890,29 +1875,22 @@ void __swiftcall Prompt.ResponseFormat.GrammarDetails.init(name:description:gram
   retstr->grammar = grammar;
 }
 
-uint64_t Prompt.ResponseFormat.Kind.hash(into:)()
+uint64_t Prompt.ResponseFormat.Kind.hash(into:)(uint64_t a1)
 {
-  v1 = v0;
-  v2 = type metadata accessor for Prompt.ResponseFormat.SchemaDetails(0);
-  v3 = *(*(v2 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v2);
-  v5 = (&v21 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v2 = v1;
+  v3 = type metadata accessor for Prompt.ResponseFormat.SchemaDetails(0);
+  MEMORY[0x1EEE9AC00](v3);
+  v5 = &v11 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   v6 = type metadata accessor for Prompt.ResponseFormat.Kind(0);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v9 = (&v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
-  outlined init with copy of Prompt.PromptFragment(v1, v9, type metadata accessor for Prompt.ResponseFormat.Kind);
+  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of Prompt.PromptFragment(v2, v8, type metadata accessor for Prompt.ResponseFormat.Kind);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    v11 = *v9;
-    v10 = v9[1];
-    v13 = v9[2];
-    v12 = v9[3];
-    v15 = v9[4];
-    v14 = v9[5];
+    v9 = *(v8 + 3);
     MEMORY[0x1AC57CB80](1);
     String.hash(into:)();
-    if (v12)
+    if (v9)
     {
       Hasher._combine(_:)(1u);
       String.hash(into:)();
@@ -4928,14 +1906,11 @@ uint64_t Prompt.ResponseFormat.Kind.hash(into:)()
 
   else
   {
-    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v9, v5, type metadata accessor for Prompt.ResponseFormat.SchemaDetails);
+    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v8, v5, type metadata accessor for Prompt.ResponseFormat.SchemaDetails);
     MEMORY[0x1AC57CB80](0);
-    v16 = *v5;
-    v17 = v5[1];
     String.hash(into:)();
-    if (v5[3])
+    if (*(v5 + 3))
     {
-      v18 = v5[2];
       Hasher._combine(_:)(1u);
       String.hash(into:)();
     }
@@ -4945,9 +1920,8 @@ uint64_t Prompt.ResponseFormat.Kind.hash(into:)()
       Hasher._combine(_:)(0);
     }
 
-    v20 = *(v2 + 24);
     type metadata accessor for Schema();
-    lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Schema and conformance Schema, MEMORY[0x1E69A0E08]);
+    lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Schema and conformance Schema, MEMORY[0x1E69A0E08], MEMORY[0x1E69A0E10]);
     dispatch thunk of Hashable.hash(into:)();
     return _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v5, type metadata accessor for Prompt.ResponseFormat.SchemaDetails);
   }
@@ -4956,7 +1930,6 @@ uint64_t Prompt.ResponseFormat.Kind.hash(into:)()
 uint64_t Prompt.ResponseFormat.SchemaDetails.description.getter()
 {
   v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
 
   return v1;
 }
@@ -4970,14 +1943,11 @@ uint64_t Prompt.ResponseFormat.SchemaDetails.schema.getter@<X0>(uint64_t a1@<X8>
   return v5(a1, v1 + v3, v4);
 }
 
-uint64_t Prompt.ResponseFormat.SchemaDetails.hash(into:)()
+uint64_t Prompt.ResponseFormat.SchemaDetails.hash(into:)(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
   String.hash(into:)();
-  if (v0[3])
+  if (*(v1 + 24))
   {
-    v3 = v0[2];
     Hasher._combine(_:)(1u);
     String.hash(into:)();
   }
@@ -4987,21 +1957,18 @@ uint64_t Prompt.ResponseFormat.SchemaDetails.hash(into:)()
     Hasher._combine(_:)(0);
   }
 
-  v4 = *(type metadata accessor for Prompt.ResponseFormat.SchemaDetails(0) + 24);
+  type metadata accessor for Prompt.ResponseFormat.SchemaDetails(0);
   type metadata accessor for Schema();
-  lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Schema and conformance Schema, MEMORY[0x1E69A0E08]);
+  lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Schema and conformance Schema, MEMORY[0x1E69A0E08], MEMORY[0x1E69A0E10]);
   return dispatch thunk of Hashable.hash(into:)();
 }
 
 Swift::Int Prompt.ResponseFormat.SchemaDetails.hashValue.getter()
 {
   Hasher.init(_seed:)();
-  v1 = *v0;
-  v2 = v0[1];
   String.hash(into:)();
-  if (v0[3])
+  if (*(v0 + 24))
   {
-    v3 = v0[2];
     Hasher._combine(_:)(1u);
     String.hash(into:)();
   }
@@ -5011,22 +1978,19 @@ Swift::Int Prompt.ResponseFormat.SchemaDetails.hashValue.getter()
     Hasher._combine(_:)(0);
   }
 
-  v4 = *(type metadata accessor for Prompt.ResponseFormat.SchemaDetails(0) + 24);
+  type metadata accessor for Prompt.ResponseFormat.SchemaDetails(0);
   type metadata accessor for Schema();
-  lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Schema and conformance Schema, MEMORY[0x1E69A0E08]);
+  lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Schema and conformance Schema, MEMORY[0x1E69A0E08], MEMORY[0x1E69A0E10]);
   dispatch thunk of Hashable.hash(into:)();
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance Prompt.ResponseFormat.SchemaDetails(uint64_t a1)
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance Prompt.ResponseFormat.SchemaDetails()
 {
   Hasher.init(_seed:)();
-  v3 = *v1;
-  v4 = v1[1];
   String.hash(into:)();
-  if (v1[3])
+  if (*(v0 + 24))
   {
-    v5 = v1[2];
     Hasher._combine(_:)(1u);
     String.hash(into:)();
   }
@@ -5036,21 +2000,17 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Prompt.
     Hasher._combine(_:)(0);
   }
 
-  v6 = *(a1 + 24);
   type metadata accessor for Schema();
-  lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Schema and conformance Schema, MEMORY[0x1E69A0E08]);
+  lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Schema and conformance Schema, MEMORY[0x1E69A0E08], MEMORY[0x1E69A0E10]);
   dispatch thunk of Hashable.hash(into:)();
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Prompt.ResponseFormat.SchemaDetails(uint64_t a1, uint64_t a2)
+uint64_t protocol witness for Hashable.hash(into:) in conformance Prompt.ResponseFormat.SchemaDetails(uint64_t a1)
 {
-  v4 = *v2;
-  v5 = v2[1];
   String.hash(into:)();
-  if (v2[3])
+  if (*(v1 + 24))
   {
-    v6 = v2[2];
     Hasher._combine(_:)(1u);
     String.hash(into:)();
   }
@@ -5060,21 +2020,17 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance Prompt.Respons
     Hasher._combine(_:)(0);
   }
 
-  v7 = *(a2 + 24);
   type metadata accessor for Schema();
-  lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Schema and conformance Schema, MEMORY[0x1E69A0E08]);
+  lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Schema and conformance Schema, MEMORY[0x1E69A0E08], MEMORY[0x1E69A0E10]);
   return dispatch thunk of Hashable.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Prompt.ResponseFormat.SchemaDetails(uint64_t a1, uint64_t a2)
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Prompt.ResponseFormat.SchemaDetails(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  v4 = *v2;
-  v5 = v2[1];
   String.hash(into:)();
-  if (v2[3])
+  if (*(v1 + 24))
   {
-    v6 = v2[2];
     Hasher._combine(_:)(1u);
     String.hash(into:)();
   }
@@ -5084,9 +2040,8 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Pro
     Hasher._combine(_:)(0);
   }
 
-  v7 = *(a2 + 24);
   type metadata accessor for Schema();
-  lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Schema and conformance Schema, MEMORY[0x1E69A0E08]);
+  lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Schema and conformance Schema, MEMORY[0x1E69A0E08], MEMORY[0x1E69A0E10]);
   dispatch thunk of Hashable.hash(into:)();
   return Hasher._finalize()();
 }
@@ -5094,14 +2049,12 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Pro
 uint64_t Prompt.ResponseFormat.GrammarDetails.name.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
 
 uint64_t Prompt.ResponseFormat.GrammarDetails.name.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = v2[1];
 
   *v2 = a1;
   v2[1] = a2;
@@ -5111,14 +2064,12 @@ uint64_t Prompt.ResponseFormat.GrammarDetails.name.setter(uint64_t a1, uint64_t 
 uint64_t Prompt.ResponseFormat.GrammarDetails.description.getter()
 {
   v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
 
   return v1;
 }
 
 uint64_t Prompt.ResponseFormat.GrammarDetails.description.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 24);
 
   *(v2 + 16) = a1;
   *(v2 + 24) = a2;
@@ -5128,30 +2079,23 @@ uint64_t Prompt.ResponseFormat.GrammarDetails.description.setter(uint64_t a1, ui
 uint64_t Prompt.ResponseFormat.GrammarDetails.grammar.getter()
 {
   v1 = *(v0 + 32);
-  v2 = *(v0 + 40);
 
   return v1;
 }
 
 uint64_t Prompt.ResponseFormat.GrammarDetails.grammar.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
 
   *(v2 + 32) = a1;
   *(v2 + 40) = a2;
   return result;
 }
 
-uint64_t Prompt.ResponseFormat.GrammarDetails.hash(into:)()
+uint64_t Prompt.ResponseFormat.GrammarDetails.hash(into:)(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  v5 = v0[4];
-  v6 = v0[5];
+  v2 = *(v1 + 24);
   String.hash(into:)();
-  if (v4)
+  if (v2)
   {
     Hasher._combine(_:)(1u);
     String.hash(into:)();
@@ -5167,15 +2111,10 @@ uint64_t Prompt.ResponseFormat.GrammarDetails.hash(into:)()
 
 Swift::Int Prompt.ResponseFormat.GrammarDetails.hashValue.getter()
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  v5 = v0[4];
-  v6 = v0[5];
+  v1 = *(v0 + 24);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  if (v4)
+  if (v1)
   {
     Hasher._combine(_:)(1u);
     String.hash(into:)();
@@ -5192,15 +2131,10 @@ Swift::Int Prompt.ResponseFormat.GrammarDetails.hashValue.getter()
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance Prompt.ResponseFormat.GrammarDetails()
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  v5 = v0[4];
-  v6 = v0[5];
+  v1 = *(v0 + 24);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  if (v4)
+  if (v1)
   {
     Hasher._combine(_:)(1u);
     String.hash(into:)();
@@ -5215,16 +2149,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Prompt.
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Prompt.ResponseFormat.GrammarDetails()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Prompt.ResponseFormat.GrammarDetails(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  v5 = v0[4];
-  v6 = v0[5];
+  v2 = *(v1 + 24);
   String.hash(into:)();
-  if (v4)
+  if (v2)
   {
     Hasher._combine(_:)(1u);
     String.hash(into:)();
@@ -5238,17 +2167,12 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance Prompt.Respons
   return String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Prompt.ResponseFormat.GrammarDetails()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Prompt.ResponseFormat.GrammarDetails(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  v5 = v0[4];
-  v6 = v0[5];
+  v2 = *(v1 + 24);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  if (v4)
+  if (v2)
   {
     Hasher._combine(_:)(1u);
     String.hash(into:)();
@@ -5263,21 +2187,21 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Pro
   return Hasher._finalize()();
 }
 
-Swift::Int Prompt.SpecialToken.hashValue.getter(void (*a1)(_BYTE *))
+Swift::Int Prompt.SpecialToken.hashValue.getter(void (*a1)(void *))
 {
   Hasher.init(_seed:)();
   a1(v3);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance Prompt.SpecialToken(uint64_t a1, uint64_t a2, void (*a3)(_BYTE *))
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance Prompt.SpecialToken(uint64_t a1, uint64_t a2, void (*a3)(void *))
 {
   Hasher.init(_seed:)();
   a3(v5);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Prompt.SpecialToken(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(_BYTE *))
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Prompt.SpecialToken(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void *))
 {
   Hasher.init(_seed:)();
   a4(v6);
@@ -5286,35 +2210,33 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Pro
 
 uint64_t Prompt.ToolDefinitions.tools.setter(uint64_t a1)
 {
-  v3 = *v1;
 
   *v1 = a1;
   return result;
 }
 
-uint64_t Prompt.ToolDefinitions.hash(into:)()
+uint64_t Prompt.ToolDefinitions.hash(into:)(uint64_t a1)
 {
-  v1 = type metadata accessor for Tool();
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  v4 = MEMORY[0x1EEE9AC00](v1);
+  v2 = type metadata accessor for Tool();
+  v3 = *(v2 - 8);
+  v4 = MEMORY[0x1EEE9AC00](v2);
   v6 = &v15 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = *v0;
-  result = MEMORY[0x1AC57CB80](*(*v0 + 16), v4);
+  v7 = *v1;
+  result = MEMORY[0x1AC57CB80](*(*v1 + 16), v4);
   v9 = *(v7 + 16);
   if (v9)
   {
-    v12 = *(v2 + 16);
-    v10 = v2 + 16;
+    v12 = *(v3 + 16);
+    v10 = v3 + 16;
     v11 = v12;
     v13 = v7 + ((*(v10 + 64) + 32) & ~*(v10 + 64));
     v14 = *(v10 + 56);
     do
     {
-      v11(v6, v13, v1);
-      lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Tool and conformance Tool, MEMORY[0x1E69A0DF0]);
+      v11(v6, v13, v2);
+      lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Tool and conformance Tool, MEMORY[0x1E69A0DF0], MEMORY[0x1E69A0DF8]);
       dispatch thunk of Hashable.hash(into:)();
-      result = (*(v10 - 8))(v6, v1);
+      result = (*(v10 - 8))(v6, v2);
       v13 += v14;
       --v9;
     }
@@ -5329,31 +2251,30 @@ Swift::Int Prompt.ToolDefinitions.hashValue.getter()
 {
   v1 = type metadata accessor for Tool();
   v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
   MEMORY[0x1EEE9AC00](v1);
-  v5 = &v14 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = *v0;
+  v4 = &v13 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = *v0;
   Hasher.init(_seed:)();
-  MEMORY[0x1AC57CB80](*(v6 + 16));
-  v7 = *(v6 + 16);
-  if (v7)
+  MEMORY[0x1AC57CB80](*(v5 + 16));
+  v6 = *(v5 + 16);
+  if (v6)
   {
-    v10 = *(v2 + 16);
-    v8 = v2 + 16;
-    v9 = v10;
-    v11 = v6 + ((*(v8 + 64) + 32) & ~*(v8 + 64));
-    v12 = *(v8 + 56);
+    v9 = *(v2 + 16);
+    v7 = v2 + 16;
+    v8 = v9;
+    v10 = v5 + ((*(v7 + 64) + 32) & ~*(v7 + 64));
+    v11 = *(v7 + 56);
     do
     {
-      v9(v5, v11, v1);
-      lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Tool and conformance Tool, MEMORY[0x1E69A0DF0]);
+      v8(v4, v10, v1);
+      lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Tool and conformance Tool, MEMORY[0x1E69A0DF0], MEMORY[0x1E69A0DF8]);
       dispatch thunk of Hashable.hash(into:)();
-      (*(v8 - 8))(v5, v1);
-      v11 += v12;
-      --v7;
+      (*(v7 - 8))(v4, v1);
+      v10 += v11;
+      --v6;
     }
 
-    while (v7);
+    while (v6);
   }
 
   return Hasher._finalize()();
@@ -5361,17 +2282,17 @@ Swift::Int Prompt.ToolDefinitions.hashValue.getter()
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance Prompt.ToolDefinitions()
 {
-  v2 = *v0;
+  v2[9] = *v0;
   Hasher.init(_seed:)();
-  Prompt.ToolDefinitions.hash(into:)();
+  Prompt.ToolDefinitions.hash(into:)(v2);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Prompt.ToolDefinitions()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Prompt.ToolDefinitions(uint64_t a1)
 {
-  v2 = *v0;
+  v3[9] = *v1;
   Hasher.init(_seed:)();
-  Prompt.ToolDefinitions.hash(into:)();
+  Prompt.ToolDefinitions.hash(into:)(v3);
   return Hasher._finalize()();
 }
 
@@ -5397,49 +2318,46 @@ uint64_t Prompt.StringInterpolation.appendInterpolation(token:)(uint64_t a1)
 {
   v3 = type metadata accessor for Prompt.Delimiter(0);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v22 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v10 = &v22 - v9;
-  outlined init with copy of Prompt.PromptFragment(a1, &v22 - v9, type metadata accessor for Prompt.SpecialToken);
-  v11 = *v1;
-  v12 = v1[1];
-  v13 = String.count.getter();
-  v14 = v1[2];
-  v15 = v14[2];
-  v16 = *(v1[3] + 16);
-  v17 = __OFADD__(v15, v16);
-  v18 = v15 + v16;
-  if (v17)
+  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = &v19 - v8;
+  outlined init with copy of Prompt.PromptFragment(a1, &v19 - v8, type metadata accessor for Prompt.SpecialToken);
+  v10 = String.count.getter();
+  v11 = *(v1 + 16);
+  v12 = v11[2];
+  v13 = *(*(v1 + 24) + 16);
+  v14 = __OFADD__(v12, v13);
+  v15 = v12 + v13;
+  if (v14)
   {
     __break(1u);
   }
 
   else
   {
-    *&v10[*(v3 + 20)] = v13;
-    *&v10[*(v3 + 24)] = v18;
-    outlined init with copy of Prompt.PromptFragment(v10, v7, type metadata accessor for Prompt.Delimiter);
+    *&v9[*(v3 + 20)] = v10;
+    *&v9[*(v3 + 24)] = v15;
+    outlined init with copy of Prompt.PromptFragment(v9, v6, type metadata accessor for Prompt.Delimiter);
     if (swift_isUniquelyReferenced_nonNull_native())
     {
       goto LABEL_3;
     }
   }
 
-  v14 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v15 + 1, 1, v14);
+  v11 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v12 + 1, 1, v11);
 LABEL_3:
-  v20 = v14[2];
-  v19 = v14[3];
-  if (v20 >= v19 >> 1)
+  v17 = v11[2];
+  v16 = v11[3];
+  if (v17 >= v16 >> 1)
   {
-    v14 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v19 > 1, v20 + 1, 1, v14);
+    v11 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v16 > 1), v17 + 1, 1, v11);
   }
 
-  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v10, type metadata accessor for Prompt.Delimiter);
-  v14[2] = v20 + 1;
-  result = _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v7, v14 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v20, type metadata accessor for Prompt.Delimiter);
-  v1[2] = v14;
+  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v9, type metadata accessor for Prompt.Delimiter);
+  v11[2] = v17 + 1;
+  result = _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v6, v11 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v17, type metadata accessor for Prompt.Delimiter);
+  *(v1 + 16) = v11;
   return result;
 }
 
@@ -5456,247 +2374,22 @@ uint64_t Prompt.StringInterpolation.appendInterpolation(image:)(uint64_t a1)
 {
   v3 = type metadata accessor for Prompt.Attachment(0);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v25 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v10 = &v25 - v9;
-  v11 = *a1;
-  v13 = *(a1 + 8);
-  v12 = *(a1 + 16);
-  *v10 = v11;
-  *(v10 + 1) = v13;
-  *(v10 + 2) = v12;
+  v6 = &v22 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = &v22 - v8;
+  v10 = *a1;
+  v12 = *(a1 + 8);
+  v11 = *(a1 + 16);
+  *v9 = v10;
+  *(v9 + 1) = v12;
+  *(v9 + 2) = v11;
   type metadata accessor for Prompt.AttachmentContent(0);
   swift_storeEnumTagMultiPayload();
-  v14 = *v1;
-  v15 = v1[1];
-  outlined copy of Data._Representation(v13, v12);
-  v16 = String.count.getter();
-  v17 = v1[3];
-  v18 = *(v1[2] + 16);
-  v19 = v17[2];
-  v20 = __OFADD__(v18, v19);
-  v21 = v18 + v19;
-  if (v20)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    *&v10[*(v3 + 20)] = v16;
-    *&v10[*(v3 + 24)] = v21;
-    outlined init with copy of Prompt.PromptFragment(v10, v7, type metadata accessor for Prompt.Attachment);
-    if (swift_isUniquelyReferenced_nonNull_native())
-    {
-      goto LABEL_3;
-    }
-  }
-
-  v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v19 + 1, 1, v17);
-LABEL_3:
-  v23 = v17[2];
-  v22 = v17[3];
-  if (v23 >= v22 >> 1)
-  {
-    v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v22 > 1, v23 + 1, 1, v17);
-  }
-
-  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v10, type metadata accessor for Prompt.Attachment);
-  v17[2] = v23 + 1;
-  result = _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v7, v17 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v23, type metadata accessor for Prompt.Attachment);
-  v1[3] = v17;
-  return result;
-}
-
-Swift::Void __swiftcall Prompt.StringInterpolation.appendInterpolation(imageSurface:)(TokenGeneration::Prompt::ImageSurfaceAttachment imageSurface)
-{
-  isa = imageSurface.surface.super.isa;
-  v3 = type metadata accessor for Prompt.Attachment(0);
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v3);
-  v7 = &v23 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v10 = &v23 - v9;
-  v11 = *isa;
-  *(&v23 - v9) = *isa;
-  type metadata accessor for Prompt.AttachmentContent(0);
-  swift_storeEnumTagMultiPayload();
-  v12 = *v1;
-  v13 = v1[1];
-  v14 = v11;
-  v15 = String.count.getter();
-  v16 = v1[3];
-  v17 = *(v1[2] + 16);
-  v18 = v16[2];
-  v19 = __OFADD__(v17, v18);
-  v20 = v17 + v18;
-  if (v19)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    *&v10[*(v3 + 20)] = v15;
-    *&v10[*(v3 + 24)] = v20;
-    outlined init with copy of Prompt.PromptFragment(v10, v7, type metadata accessor for Prompt.Attachment);
-    if (swift_isUniquelyReferenced_nonNull_native())
-    {
-      goto LABEL_3;
-    }
-  }
-
-  v16 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v18 + 1, 1, v16);
-LABEL_3:
-  v22 = v16[2];
-  v21 = v16[3];
-  if (v22 >= v21 >> 1)
-  {
-    v16 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v21 > 1, v22 + 1, 1, v16);
-  }
-
-  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v10, type metadata accessor for Prompt.Attachment);
-  v16[2] = v22 + 1;
-  _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v7, v16 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v22, type metadata accessor for Prompt.Attachment);
-  v1[3] = v16;
-}
-
-uint64_t Prompt.StringInterpolation.appendInterpolation(imageEmbedding:)(char *a1)
-{
-  v3 = type metadata accessor for Prompt.Attachment(0);
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v3);
-  v7 = &v25 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v10 = &v25 - v9;
-  v11 = *(a1 + 1);
-  v12 = *(a1 + 4);
-  v13 = *(a1 + 5);
-  *v10 = *a1;
-  *(v10 + 1) = v11;
-  v25 = *(a1 + 1);
-  *(v10 + 1) = v25;
-  *(v10 + 4) = v12;
-  *(v10 + 5) = v13;
-  type metadata accessor for Prompt.AttachmentContent(0);
-  swift_storeEnumTagMultiPayload();
-  v14 = *v1;
-  v15 = v1[1];
-  outlined copy of Data._Representation(v11, v25);
-
-  v16 = String.count.getter();
-  v17 = v1[3];
-  v18 = *(v1[2] + 16);
-  v19 = v17[2];
-  v20 = __OFADD__(v18, v19);
-  v21 = v18 + v19;
-  if (v20)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    *&v10[*(v3 + 20)] = v16;
-    *&v10[*(v3 + 24)] = v21;
-    outlined init with copy of Prompt.PromptFragment(v10, v7, type metadata accessor for Prompt.Attachment);
-    if (swift_isUniquelyReferenced_nonNull_native())
-    {
-      goto LABEL_3;
-    }
-  }
-
-  v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v19 + 1, 1, v17);
-LABEL_3:
-  v23 = v17[2];
-  v22 = v17[3];
-  if (v23 >= v22 >> 1)
-  {
-    v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v22 > 1, v23 + 1, 1, v17);
-  }
-
-  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v10, type metadata accessor for Prompt.Attachment);
-  v17[2] = v23 + 1;
-  result = _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v7, v17 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v23, type metadata accessor for Prompt.Attachment);
-  v1[3] = v17;
-  return result;
-}
-
-uint64_t Prompt.StringInterpolation.appendInterpolation(preprocessedImage:)(uint64_t *a1)
-{
-  v3 = type metadata accessor for Prompt.Attachment(0);
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v3);
-  v7 = &v24 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v10 = (&v24 - v9);
-  v12 = *a1;
-  v11 = a1[1];
-  *v10 = v12;
-  v10[1] = v11;
-  type metadata accessor for Prompt.AttachmentContent(0);
-  swift_storeEnumTagMultiPayload();
-  v13 = *v1;
-  v14 = v1[1];
-
-  v15 = String.count.getter();
-  v16 = v1[3];
-  v17 = *(v1[2] + 16);
-  v18 = v16[2];
-  v19 = __OFADD__(v17, v18);
-  v20 = v17 + v18;
-  if (v19)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    *(v10 + *(v3 + 20)) = v15;
-    *(v10 + *(v3 + 24)) = v20;
-    outlined init with copy of Prompt.PromptFragment(v10, v7, type metadata accessor for Prompt.Attachment);
-    if (swift_isUniquelyReferenced_nonNull_native())
-    {
-      goto LABEL_3;
-    }
-  }
-
-  v16 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v18 + 1, 1, v16);
-LABEL_3:
-  v22 = v16[2];
-  v21 = v16[3];
-  if (v22 >= v21 >> 1)
-  {
-    v16 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v21 > 1, v22 + 1, 1, v16);
-  }
-
-  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v10, type metadata accessor for Prompt.Attachment);
-  v16[2] = v22 + 1;
-  result = _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v7, v16 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v22, type metadata accessor for Prompt.Attachment);
-  v1[3] = v16;
-  return result;
-}
-
-uint64_t Prompt.StringInterpolation.appendInterpolation(attachment:)(uint64_t a1)
-{
-  v3 = type metadata accessor for Prompt.Attachment(0);
-  v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v3);
-  v7 = &v22 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v8);
-  v10 = &v22 - v9;
-  outlined init with copy of Prompt.PromptFragment(a1, &v22 - v9, type metadata accessor for Prompt.AttachmentContent);
-  v11 = *v1;
-  v12 = v1[1];
+  outlined copy of Data._Representation(v12, v11);
   v13 = String.count.getter();
-  v14 = v1[3];
-  v15 = *(v1[2] + 16);
+  v14 = *(v1 + 24);
+  v15 = *(*(v1 + 16) + 16);
   v16 = v14[2];
   v17 = __OFADD__(v15, v16);
   v18 = v15 + v16;
@@ -5707,9 +2400,9 @@ uint64_t Prompt.StringInterpolation.appendInterpolation(attachment:)(uint64_t a1
 
   else
   {
-    *&v10[*(v3 + 20)] = v13;
-    *&v10[*(v3 + 24)] = v18;
-    outlined init with copy of Prompt.PromptFragment(v10, v7, type metadata accessor for Prompt.Attachment);
+    *&v9[*(v3 + 20)] = v13;
+    *&v9[*(v3 + 24)] = v18;
+    outlined init with copy of Prompt.PromptFragment(v9, v6, type metadata accessor for Prompt.Attachment);
     if (swift_isUniquelyReferenced_nonNull_native())
     {
       goto LABEL_3;
@@ -5722,13 +2415,223 @@ LABEL_3:
   v19 = v14[3];
   if (v20 >= v19 >> 1)
   {
-    v14 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v19 > 1, v20 + 1, 1, v14);
+    v14 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v19 > 1), v20 + 1, 1, v14);
   }
 
-  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v10, type metadata accessor for Prompt.Attachment);
+  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v9, type metadata accessor for Prompt.Attachment);
   v14[2] = v20 + 1;
-  result = _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v7, v14 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v20, type metadata accessor for Prompt.Attachment);
-  v1[3] = v14;
+  result = _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v6, v14 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v20, type metadata accessor for Prompt.Attachment);
+  *(v1 + 24) = v14;
+  return result;
+}
+
+Swift::Void __swiftcall Prompt.StringInterpolation.appendInterpolation(imageSurface:)(TokenGeneration::Prompt::ImageSurfaceAttachment imageSurface)
+{
+  isa = imageSurface.surface.super.isa;
+  v3 = type metadata accessor for Prompt.Attachment(0);
+  v4 = *(v3 - 8);
+  MEMORY[0x1EEE9AC00](v3);
+  v6 = &v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = &v20 - v8;
+  v10 = *isa;
+  *(&v20 - v8) = *isa;
+  type metadata accessor for Prompt.AttachmentContent(0);
+  swift_storeEnumTagMultiPayload();
+  v11 = v10;
+  v12 = String.count.getter();
+  v13 = *(v1 + 24);
+  v14 = *(*(v1 + 16) + 16);
+  v15 = v13[2];
+  v16 = __OFADD__(v14, v15);
+  v17 = v14 + v15;
+  if (v16)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    *&v9[*(v3 + 20)] = v12;
+    *&v9[*(v3 + 24)] = v17;
+    outlined init with copy of Prompt.PromptFragment(v9, v6, type metadata accessor for Prompt.Attachment);
+    if (swift_isUniquelyReferenced_nonNull_native())
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v13 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v15 + 1, 1, v13);
+LABEL_3:
+  v19 = v13[2];
+  v18 = v13[3];
+  if (v19 >= v18 >> 1)
+  {
+    v13 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v18 > 1), v19 + 1, 1, v13);
+  }
+
+  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v9, type metadata accessor for Prompt.Attachment);
+  v13[2] = v19 + 1;
+  _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v6, v13 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v19, type metadata accessor for Prompt.Attachment);
+  *(v1 + 24) = v13;
+}
+
+uint64_t Prompt.StringInterpolation.appendInterpolation(imageEmbedding:)(char *a1)
+{
+  v3 = type metadata accessor for Prompt.Attachment(0);
+  v4 = *(v3 - 8);
+  MEMORY[0x1EEE9AC00](v3);
+  v6 = &v22 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = &v22 - v8;
+  v10 = *(a1 + 1);
+  v11 = *(a1 + 4);
+  v12 = *(a1 + 5);
+  *v9 = *a1;
+  *(v9 + 1) = v10;
+  v22 = *(a1 + 1);
+  *(v9 + 1) = v22;
+  *(v9 + 4) = v11;
+  *(v9 + 5) = v12;
+  type metadata accessor for Prompt.AttachmentContent(0);
+  swift_storeEnumTagMultiPayload();
+  outlined copy of Data._Representation(v10, v22);
+
+  v13 = String.count.getter();
+  v14 = *(v1 + 24);
+  v15 = *(*(v1 + 16) + 16);
+  v16 = v14[2];
+  v17 = __OFADD__(v15, v16);
+  v18 = v15 + v16;
+  if (v17)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    *&v9[*(v3 + 20)] = v13;
+    *&v9[*(v3 + 24)] = v18;
+    outlined init with copy of Prompt.PromptFragment(v9, v6, type metadata accessor for Prompt.Attachment);
+    if (swift_isUniquelyReferenced_nonNull_native())
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v14 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v16 + 1, 1, v14);
+LABEL_3:
+  v20 = v14[2];
+  v19 = v14[3];
+  if (v20 >= v19 >> 1)
+  {
+    v14 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v19 > 1), v20 + 1, 1, v14);
+  }
+
+  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v9, type metadata accessor for Prompt.Attachment);
+  v14[2] = v20 + 1;
+  result = _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v6, v14 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v20, type metadata accessor for Prompt.Attachment);
+  *(v1 + 24) = v14;
+  return result;
+}
+
+uint64_t Prompt.StringInterpolation.appendInterpolation(preprocessedImage:)(uint64_t *a1)
+{
+  v3 = type metadata accessor for Prompt.Attachment(0);
+  v4 = *(v3 - 8);
+  MEMORY[0x1EEE9AC00](v3);
+  v6 = &v21 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = (&v21 - v8);
+  v11 = *a1;
+  v10 = a1[1];
+  *v9 = v11;
+  v9[1] = v10;
+  type metadata accessor for Prompt.AttachmentContent(0);
+  swift_storeEnumTagMultiPayload();
+
+  v12 = String.count.getter();
+  v13 = *(v1 + 24);
+  v14 = *(*(v1 + 16) + 16);
+  v15 = v13[2];
+  v16 = __OFADD__(v14, v15);
+  v17 = v14 + v15;
+  if (v16)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    *(v9 + *(v3 + 20)) = v12;
+    *(v9 + *(v3 + 24)) = v17;
+    outlined init with copy of Prompt.PromptFragment(v9, v6, type metadata accessor for Prompt.Attachment);
+    if (swift_isUniquelyReferenced_nonNull_native())
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v13 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v15 + 1, 1, v13);
+LABEL_3:
+  v19 = v13[2];
+  v18 = v13[3];
+  if (v19 >= v18 >> 1)
+  {
+    v13 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v18 > 1), v19 + 1, 1, v13);
+  }
+
+  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v9, type metadata accessor for Prompt.Attachment);
+  v13[2] = v19 + 1;
+  result = _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v6, v13 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v19, type metadata accessor for Prompt.Attachment);
+  *(v1 + 24) = v13;
+  return result;
+}
+
+uint64_t Prompt.StringInterpolation.appendInterpolation(attachment:)(uint64_t a1)
+{
+  v3 = type metadata accessor for Prompt.Attachment(0);
+  v4 = *(v3 - 8);
+  MEMORY[0x1EEE9AC00](v3);
+  v6 = &v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = &v19 - v8;
+  outlined init with copy of Prompt.PromptFragment(a1, &v19 - v8, type metadata accessor for Prompt.AttachmentContent);
+  v10 = String.count.getter();
+  v11 = *(v1 + 24);
+  v12 = *(*(v1 + 16) + 16);
+  v13 = v11[2];
+  v14 = __OFADD__(v12, v13);
+  v15 = v12 + v13;
+  if (v14)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    *&v9[*(v3 + 20)] = v10;
+    *&v9[*(v3 + 24)] = v15;
+    outlined init with copy of Prompt.PromptFragment(v9, v6, type metadata accessor for Prompt.Attachment);
+    if (swift_isUniquelyReferenced_nonNull_native())
+    {
+      goto LABEL_3;
+    }
+  }
+
+  v11 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v13 + 1, 1, v11);
+LABEL_3:
+  v17 = v11[2];
+  v16 = v11[3];
+  if (v17 >= v16 >> 1)
+  {
+    v11 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v16 > 1), v17 + 1, 1, v11);
+  }
+
+  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v9, type metadata accessor for Prompt.Attachment);
+  v11[2] = v17 + 1;
+  result = _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v6, v11 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v17, type metadata accessor for Prompt.Attachment);
+  *(v1 + 24) = v11;
   return result;
 }
 
@@ -5742,19 +2645,19 @@ uint64_t static Prompt.+= infix(_:_:)(void *a1, uint64_t a2, uint64_t a3)
   specialized static Prompt.+= infix(_:_:)(a1, v5);
 }
 
-uint64_t static Prompt.+ infix(_:_:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
+uint64_t static Prompt.+ infix(_:_:)@<X0>(void *a1@<X0>, uint64_t *a2@<X1>, void *a3@<X8>)
 {
   v4 = a1[1];
   v5 = a1[2];
   v6 = a1[3];
   v7 = *a2;
-  v8 = *(a2 + 24);
+  v8 = a2[3];
   *a3 = *a1;
   a3[1] = v4;
   a3[2] = v5;
   a3[3] = v6;
   v10 = v7;
-  v11 = *(a2 + 8);
+  v11 = *(a2 + 1);
   v12 = v8;
 
   return specialized static Prompt.+= infix(_:_:)(a3, &v10);
@@ -5781,14 +2684,12 @@ uint64_t static Prompt.+ infix(_:_:)@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint6
 uint64_t Prompt.string.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
 
 uint64_t Prompt.string.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = v2[1];
 
   *v2 = a1;
   v2[1] = a2;
@@ -5797,7 +2698,6 @@ uint64_t Prompt.string.setter(uint64_t a1, uint64_t a2)
 
 uint64_t Prompt.delimiters.setter(uint64_t a1)
 {
-  v3 = *(v1 + 16);
 
   *(v1 + 16) = a1;
   return result;
@@ -5805,7 +2705,6 @@ uint64_t Prompt.delimiters.setter(uint64_t a1)
 
 uint64_t Prompt.attachments.setter(uint64_t a1)
 {
-  v3 = *(v1 + 24);
 
   *(v1 + 24) = a1;
   return result;
@@ -5813,140 +2712,137 @@ uint64_t Prompt.attachments.setter(uint64_t a1)
 
 uint64_t Prompt.description.getter()
 {
-  v49 = type metadata accessor for Prompt.Attachment(0);
-  v1 = *(v49 - 8);
-  v2 = *(v1 + 64);
-  MEMORY[0x1EEE9AC00](v49);
-  v48 = &v43 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v47 = type metadata accessor for Prompt.Delimiter(0);
-  v4 = *(v47 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v47);
-  v7 = &v43 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = v0[1];
-  v9 = v0[2];
-  v10 = v0[3];
-  v51 = *v0;
-  v52 = v8;
-  v11 = *(v9 + 16);
-  if (v11)
+  v46 = type metadata accessor for Prompt.Attachment(0);
+  v1 = *(v46 - 8);
+  MEMORY[0x1EEE9AC00](v46);
+  v45 = &v40 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v44 = type metadata accessor for Prompt.Delimiter(0);
+  v3 = *(v44 - 8);
+  MEMORY[0x1EEE9AC00](v44);
+  v5 = &v40 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = v0[1];
+  v7 = v0[2];
+  v8 = v0[3];
+  v48 = *v0;
+  v49 = v6;
+  v9 = *(v7 + 16);
+  if (v9)
   {
-    v44 = v10;
-    v45 = v1;
-    v50[0] = MEMORY[0x1E69E7CC0];
+    v41 = v8;
+    v42 = v1;
+    v47[0] = MEMORY[0x1E69E7CC0];
 
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v11, 0);
-    v12 = v50[0];
-    v13 = v9 + ((*(v4 + 80) + 32) & ~*(v4 + 80));
-    v46 = *(v4 + 72);
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v9, 0);
+    v10 = v47[0];
+    v11 = v7 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
+    v43 = *(v3 + 72);
     do
     {
-      v14 = v12;
-      outlined init with copy of Prompt.PromptFragment(v13, v7, type metadata accessor for Prompt.Delimiter);
-      v15 = Prompt.SpecialToken.description.getter();
-      v17 = v16;
-      v18 = *&v7[*(v47 + 20)];
-      v19 = *&v7[*(v47 + 24)];
-      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v7, type metadata accessor for Prompt.Delimiter);
-      v12 = v14;
-      v50[0] = v14;
-      v20 = v14[2];
-      v21 = v12[3];
-      if (v20 >= v21 >> 1)
+      v12 = v10;
+      outlined init with copy of Prompt.PromptFragment(v11, v5, type metadata accessor for Prompt.Delimiter);
+      v13 = Prompt.SpecialToken.description.getter();
+      v15 = v14;
+      v16 = *&v5[*(v44 + 20)];
+      v17 = *&v5[*(v44 + 24)];
+      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v5, type metadata accessor for Prompt.Delimiter);
+      v10 = v12;
+      v47[0] = v12;
+      v18 = *(v12 + 16);
+      v19 = *(v10 + 24);
+      if (v18 >= v19 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v21 > 1), v20 + 1, 1);
-        v12 = v50[0];
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v19 > 1), v18 + 1, 1);
+        v10 = v47[0];
       }
 
-      v12[2] = v20 + 1;
-      v22 = &v12[4 * v20];
-      v22[4] = v15;
-      v22[5] = v17;
-      v22[6] = v18;
-      v22[7] = v19;
-      v13 += v46;
-      --v11;
+      *(v10 + 16) = v18 + 1;
+      v20 = (v10 + 32 * v18);
+      v20[4] = v13;
+      v20[5] = v15;
+      v20[6] = v16;
+      v20[7] = v17;
+      v11 += v43;
+      --v9;
     }
 
-    while (v11);
-    v10 = v44;
-    v1 = v45;
+    while (v9);
+    v8 = v41;
+    v1 = v42;
   }
 
   else
   {
 
-    v12 = MEMORY[0x1E69E7CC0];
+    v10 = MEMORY[0x1E69E7CC0];
   }
 
-  v23 = *(v10 + 16);
-  v24 = MEMORY[0x1E69E7CC0];
-  if (v23)
+  v21 = *(v8 + 16);
+  v22 = MEMORY[0x1E69E7CC0];
+  if (v21)
   {
-    v46 = v12;
-    v50[0] = MEMORY[0x1E69E7CC0];
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v23, 0);
-    v24 = v50[0];
-    v25 = v10 + ((*(v1 + 80) + 32) & ~*(v1 + 80));
-    v47 = *(v1 + 72);
+    v43 = v10;
+    v47[0] = MEMORY[0x1E69E7CC0];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v21, 0);
+    v22 = v47[0];
+    v23 = v8 + ((*(v1 + 80) + 32) & ~*(v1 + 80));
+    v44 = *(v1 + 72);
     do
     {
-      v26 = v48;
-      outlined init with copy of Prompt.PromptFragment(v25, v48, type metadata accessor for Prompt.Attachment);
-      v27 = *(v26 + *(v49 + 20));
-      v28 = *(v26 + *(v49 + 24));
-      v29 = Prompt.AttachmentContent.description.getter();
-      v31 = v30;
-      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v26, type metadata accessor for Prompt.Attachment);
-      v50[0] = v24;
-      v33 = v24[2];
-      v32 = v24[3];
-      if (v33 >= v32 >> 1)
+      v24 = v45;
+      outlined init with copy of Prompt.PromptFragment(v23, v45, type metadata accessor for Prompt.Attachment);
+      v25 = *(v24 + *(v46 + 20));
+      v26 = *(v24 + *(v46 + 24));
+      v27 = Prompt.AttachmentContent.description.getter();
+      v29 = v28;
+      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v24, type metadata accessor for Prompt.Attachment);
+      v47[0] = v22;
+      v31 = v22[2];
+      v30 = v22[3];
+      if (v31 >= v30 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v32 > 1), v33 + 1, 1);
-        v24 = v50[0];
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v30 > 1), v31 + 1, 1);
+        v22 = v47[0];
       }
 
-      v24[2] = v33 + 1;
-      v34 = &v24[4 * v33];
-      v34[4] = v29;
-      v34[5] = v31;
-      v34[6] = v27;
-      v34[7] = v28;
-      v25 += v47;
-      --v23;
+      v22[2] = v31 + 1;
+      v32 = &v22[4 * v31];
+      v32[4] = v27;
+      v32[5] = v29;
+      v32[6] = v25;
+      v32[7] = v26;
+      v23 += v44;
+      --v21;
     }
 
-    while (v23);
-    v12 = v46;
+    while (v21);
+    v10 = v43;
   }
 
-  v50[0] = v12;
-  specialized Array.append<A>(contentsOf:)(v24);
+  v47[0] = v10;
+  specialized Array.append<A>(contentsOf:)(v22);
 
-  specialized MutableCollection<>.sort(by:)(v50);
+  specialized MutableCollection<>.sort(by:)(v47);
 
-  v35 = v50[0];
-  v36 = v50[0][2];
-  if (v36)
+  v33 = v47[0];
+  v34 = *(v47[0] + 16);
+  if (v34)
   {
-    v37 = &v50[0][4 * v36 + 2];
-    v38 = MEMORY[0x1E69E6158];
-    while (v36 <= v35[2])
+    v35 = v47[0] + 32 * v34 + 16;
+    v36 = MEMORY[0x1E69E6158];
+    while (v34 <= *(v33 + 16))
     {
-      --v36;
-      v40 = *(v37 - 2);
-      v39 = *(v37 - 1);
-      v41 = *v37;
-      v37 -= 4;
+      --v34;
+      v38 = *(v35 - 16);
+      v37 = *(v35 - 8);
+      v35 -= 32;
 
       String.index(_:offsetBy:)();
-      v50[0] = v40;
-      v50[1] = v39;
+      v47[0] = v38;
+      v47[1] = v37;
       lazy protocol witness table accessor for type String and conformance String();
       String.insert<A>(contentsOf:at:)();
 
-      if (!v36)
+      if (!v34)
       {
         goto LABEL_18;
       }
@@ -5961,7 +2857,7 @@ uint64_t Prompt.description.getter()
   {
 LABEL_18:
 
-    return v51;
+    return v48;
   }
 
   return result;
@@ -6001,57 +2897,55 @@ TokenGeneration::Prompt __swiftcall Prompt.init(stringLiteral:)(Swift::String st
 
 Swift::String __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> Prompt.render(tokenTable:)(Swift::OpaquePointer tokenTable)
 {
-  v29 = type metadata accessor for Prompt.Delimiter(0);
-  v3 = *(v29 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x1EEE9AC00](v29);
-  v6 = &v22 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = v1[3];
-  v23 = *v1;
-  v24 = *(v1 + 1);
-  v25 = v7;
-  Prompt.finalizedPrompt()(&v26);
+  v27 = type metadata accessor for Prompt.Delimiter(0);
+  v3 = *(v27 - 8);
+  MEMORY[0x1EEE9AC00](v27);
+  v5 = &v20 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = v1[3];
+  v21 = *v1;
+  v22 = *(v1 + 1);
+  v23 = v6;
+  Prompt.finalizedPrompt()(&v24);
+  v8 = v24;
+  v7 = v25;
   v9 = v26;
-  v8 = v27;
-  v10 = v28;
 
-  v13 = *(v10 + 16);
-  if (v13)
+  v12 = *(v9 + 16);
+  if (v12)
   {
-    while (v13 <= *(v10 + 16))
+    while (v12 <= *(v9 + 16))
     {
-      --v13;
-      outlined init with copy of Prompt.PromptFragment(v10 + ((*(v3 + 80) + 32) & ~*(v3 + 80)) + *(v3 + 72) * v13, v6, type metadata accessor for Prompt.Delimiter);
-      if (!*(tokenTable._rawValue + 2) || (v14 = specialized __RawDictionaryStorage.find<A>(_:)(v6), (v15 & 1) == 0))
+      --v12;
+      outlined init with copy of Prompt.PromptFragment(v9 + ((*(v3 + 80) + 32) & ~*(v3 + 80)) + *(v3 + 72) * v12, v5, type metadata accessor for Prompt.Delimiter);
+      if (!*(tokenTable._rawValue + 2) || (v13 = specialized __RawDictionaryStorage.find<A>(_:)(v5), (v14 & 1) == 0))
       {
 
-        v8 = type metadata accessor for GenerationError();
-        lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type GenerationError and conformance GenerationError, type metadata accessor for GenerationError);
+        v7 = type metadata accessor for GenerationError(0);
+        lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type GenerationError and conformance GenerationError, type metadata accessor for GenerationError, &protocol conformance descriptor for GenerationError);
         swift_allocError();
-        v9 = v20;
-        outlined init with copy of Prompt.PromptFragment(v6, v20, type metadata accessor for Prompt.SpecialToken);
+        v8 = v18;
+        outlined init with copy of Prompt.PromptFragment(v5, v18, type metadata accessor for Prompt.SpecialToken);
         swift_storeEnumTagMultiPayload();
         swift_willThrow();
-        _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v6, type metadata accessor for Prompt.Delimiter);
+        _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v5, type metadata accessor for Prompt.Delimiter);
         goto LABEL_9;
       }
 
-      v16 = (*(tokenTable._rawValue + 7) + 16 * v14);
-      v17 = *v16;
-      v18 = v16[1];
-      v19 = *&v6[*(v29 + 20)];
+      v15 = (*(tokenTable._rawValue + 7) + 16 * v13);
+      v16 = *v15;
+      v17 = v15[1];
 
       String.index(_:offsetBy:)();
-      v23 = v17;
-      *&v24 = v18;
+      v21 = v16;
+      *&v22 = v17;
       lazy protocol witness table accessor for type String and conformance String();
       String.insert<A>(contentsOf:at:)();
-      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v6, type metadata accessor for Prompt.Delimiter);
+      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v5, type metadata accessor for Prompt.Delimiter);
 
-      if (!v13)
+      if (!v12)
       {
-        v9 = v26;
-        v8 = v27;
+        v8 = v24;
+        v7 = v25;
         goto LABEL_7;
       }
     }
@@ -6064,12 +2958,12 @@ Swift::String __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10
 LABEL_7:
 
 LABEL_9:
-    v11 = v9;
-    v12 = v8;
+    v10 = v8;
+    v11 = v7;
   }
 
-  result._object = v12;
-  result._countAndFlagsBits = v11;
+  result._object = v11;
+  result._countAndFlagsBits = v10;
   return result;
 }
 
@@ -6077,164 +2971,159 @@ uint64_t Prompt.finalizedPrompt()@<X0>(void *a1@<X8>)
 {
   v3 = type metadata accessor for Prompt.Delimiter(0);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v23 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = v1[1];
-  v10 = v1[2];
-  v9 = v1[3];
-  v24 = *v1;
-  v25 = v9;
-  v11 = *(v10 + 16);
-  if (v11)
+  v6 = &v21 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = v1[1];
+  v9 = v1[2];
+  v8 = v1[3];
+  v22 = *v1;
+  v23 = v8;
+  v10 = *(v9 + 16);
+  if (v10)
   {
-    v12 = 0;
-    v13 = MEMORY[0x1E69E7CC0];
-    while (v11 != v12)
+    v11 = 0;
+    v12 = MEMORY[0x1E69E7CC0];
+    while (v10 != v11)
     {
-      if (v12 >= *(v10 + 16))
+      if (v11 >= *(v9 + 16))
       {
         __break(1u);
         goto LABEL_11;
       }
 
-      outlined init with copy of Prompt.PromptFragment(v10 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v12++, v7, type metadata accessor for Prompt.Delimiter);
-      v14 = v7[*(type metadata accessor for Prompt.SpecialToken(0) + 28)];
-      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v7, type metadata accessor for Prompt.Delimiter);
-      if ((v14 & 1) == 0)
+      outlined init with copy of Prompt.PromptFragment(v9 + ((*(v4 + 80) + 32) & ~*(v4 + 80)) + *(v4 + 72) * v11++, v6, type metadata accessor for Prompt.Delimiter);
+      v13 = v6[*(type metadata accessor for Prompt.SpecialToken(0) + 28)];
+      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v6, type metadata accessor for Prompt.Delimiter);
+      if ((v13 & 1) == 0)
       {
-        v16 = v24;
-        v15 = v25;
+        v15 = v22;
+        v14 = v23;
         goto LABEL_9;
       }
     }
   }
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy15TokenGeneration6PromptV9DelimiterVGMd, &_ss23_ContiguousArrayStorageCy15TokenGeneration6PromptV9DelimiterVGMR);
-  v17 = *(v4 + 72);
-  v18 = (*(v4 + 80) + 32) & ~*(v4 + 80);
-  v13 = swift_allocObject();
-  *(v13 + 16) = xmmword_1A8FC9400;
-  v4 = v13 + v18;
+  v16 = (*(v4 + 80) + 32) & ~*(v4 + 80);
+  v12 = swift_allocObject();
+  *(v12 + 16) = xmmword_1A8FC9400;
+  v4 = v12 + v16;
   if (one-time initialization token for endPrompt != -1)
   {
 LABEL_11:
     swift_once();
   }
 
-  v19 = type metadata accessor for Prompt.SpecialToken(0);
-  v20 = __swift_project_value_buffer(v19, static Prompt.SpecialToken.endPrompt);
-  outlined init with copy of Prompt.PromptFragment(v20, v4, type metadata accessor for Prompt.SpecialToken);
-  v16 = v24;
+  v17 = type metadata accessor for Prompt.SpecialToken(0);
+  v18 = __swift_project_value_buffer(v17, static Prompt.SpecialToken.endPrompt);
+  outlined init with copy of Prompt.PromptFragment(v18, v4, type metadata accessor for Prompt.SpecialToken);
+  v15 = v22;
   *(v4 + *(v3 + 20)) = String.count.getter();
   *(v4 + *(v3 + 24)) = 0;
-  v15 = v25;
+  v14 = v23;
 LABEL_9:
-  v26 = v10;
+  v24 = v9;
 
-  specialized Array.append<A>(contentsOf:)(v13);
-  v21 = v26;
-  *a1 = v16;
-  a1[1] = v8;
-  a1[2] = v21;
-  a1[3] = v15;
+  specialized Array.append<A>(contentsOf:)(v12);
+  v19 = v24;
+  *a1 = v15;
+  a1[1] = v7;
+  a1[2] = v19;
+  a1[3] = v14;
 }
 
-size_t Prompt.renderPromptFragments(tokenTable:)(uint64_t a1)
+uint64_t Prompt.renderPromptFragments(tokenTable:)(uint64_t a1)
 {
-  v36 = a1;
+  v33 = a1;
   v2 = type metadata accessor for Prompt.RenderedSpecialToken(0);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x1EEE9AC00](v2 - 8);
-  v5 = (v34 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v6 = type metadata accessor for Prompt.RenderedPromptFragment(0);
-  v35 = *(v6 - 8);
-  v7 = *(v35 + 64);
-  MEMORY[0x1EEE9AC00](v6);
-  v9 = (v34 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v10);
-  v12 = v34 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration6PromptV07SpecialA0VSgMd, &_s15TokenGeneration6PromptV07SpecialA0VSgMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v13 - 8);
-  v16 = v34 - v15;
-  v17 = *(v1 + 24);
-  v37 = *v1;
-  v38 = *(v1 + 8);
-  v39 = v17;
-  v18 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC15TokenGeneration6PromptV07SpecialC0V_SDyS2SGTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-  v19 = type metadata accessor for Prompt.SpecialToken(0);
-  (*(*(v19 - 8) + 56))(v16, 1, 1, v19);
-  v20 = v40;
-  v21 = Prompt.renderPromptFragments(tokenTable:localizationOverrideMap:stopOnSpecialToken:)(v36, v18, v16);
-  outlined destroy of [Regex2BNF.CharacterPredicate](v16, &_s15TokenGeneration6PromptV07SpecialA0VSgMd, &_s15TokenGeneration6PromptV07SpecialA0VSgMR);
+  v4 = (v31 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v5 = type metadata accessor for Prompt.RenderedPromptFragment(0);
+  v32 = *(v5 - 8);
+  MEMORY[0x1EEE9AC00](v5);
+  v7 = (v31 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = v31 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration6PromptV07SpecialA0VSgMd, &_s15TokenGeneration6PromptV07SpecialA0VSgMR);
+  MEMORY[0x1EEE9AC00](v11 - 8);
+  v13 = v31 - v12;
+  v14 = *(v1 + 24);
+  v34 = *v1;
+  v35 = *(v1 + 8);
+  v36 = v14;
+  v15 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC15TokenGeneration6PromptV07SpecialC0V_SDyS2SGTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
+  v16 = type metadata accessor for Prompt.SpecialToken(0);
+  (*(*(v16 - 8) + 56))(v13, 1, 1, v16);
+  v17 = v37;
+  v18 = Prompt.renderPromptFragments(tokenTable:localizationOverrideMap:stopOnSpecialToken:)(v33, v15, v13);
+  outlined destroy of [Regex2BNF.CharacterPredicate](v13, &_s15TokenGeneration6PromptV07SpecialA0VSgMd, &_s15TokenGeneration6PromptV07SpecialA0VSgMR);
 
-  if (!v20)
+  if (!v17)
   {
-    v22 = v35;
-    v23 = *(v21 + 16);
-    if (v23)
+    v19 = v32;
+    v20 = *(v18 + 16);
+    if (v20)
     {
-      v34[1] = 0;
-      v37 = MEMORY[0x1E69E7CC0];
-      v24 = v21;
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v23, 0);
-      v21 = v37;
-      v25 = *(v22 + 80);
-      v34[0] = v24;
-      v26 = v24 + ((v25 + 32) & ~v25);
-      v35 = *(v22 + 72);
-      v36 = v6;
-      v40 = v5;
+      v31[1] = 0;
+      v34 = MEMORY[0x1E69E7CC0];
+      v21 = v18;
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v20, 0);
+      v18 = v34;
+      v22 = *(v19 + 80);
+      v31[0] = v21;
+      v23 = v21 + ((v22 + 32) & ~v22);
+      v32 = *(v19 + 72);
+      v33 = v5;
+      v37 = v4;
       do
       {
-        outlined init with copy of Prompt.PromptFragment(v26, v12, type metadata accessor for Prompt.RenderedPromptFragment);
-        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v12, v9, type metadata accessor for Prompt.RenderedPromptFragment);
+        outlined init with copy of Prompt.PromptFragment(v23, v10, type metadata accessor for Prompt.RenderedPromptFragment);
+        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v10, v7, type metadata accessor for Prompt.RenderedPromptFragment);
         EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
         if (EnumCaseMultiPayload)
         {
           if (EnumCaseMultiPayload == 1)
           {
-            _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v9, v5, type metadata accessor for Prompt.RenderedSpecialToken);
-            v28 = *v5;
-            v29 = v5[1];
+            _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v7, v4, type metadata accessor for Prompt.RenderedSpecialToken);
+            v25 = *v4;
+            v26 = v4[1];
 
-            _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v5, type metadata accessor for Prompt.RenderedSpecialToken);
+            _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v4, type metadata accessor for Prompt.RenderedSpecialToken);
           }
 
           else
           {
-            _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v9, type metadata accessor for Prompt.RenderedPromptFragment);
-            v28 = 0;
-            v29 = 0xE000000000000000;
+            _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v7, type metadata accessor for Prompt.RenderedPromptFragment);
+            v25 = 0;
+            v26 = 0xE000000000000000;
           }
         }
 
         else
         {
-          v28 = *v9;
-          v29 = v9[1];
+          v25 = *v7;
+          v26 = v7[1];
         }
 
-        v37 = v21;
-        v31 = *(v21 + 16);
-        v30 = *(v21 + 24);
-        if (v31 >= v30 >> 1)
+        v34 = v18;
+        v28 = *(v18 + 16);
+        v27 = *(v18 + 24);
+        if (v28 >= v27 >> 1)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v30 > 1), v31 + 1, 1);
-          v21 = v37;
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v27 > 1), v28 + 1, 1);
+          v18 = v34;
         }
 
-        *(v21 + 16) = v31 + 1;
-        v32 = v21 + 16 * v31;
-        *(v32 + 32) = v28;
-        *(v32 + 40) = v29;
-        v26 += v35;
-        --v23;
-        v5 = v40;
+        *(v18 + 16) = v28 + 1;
+        v29 = v18 + 16 * v28;
+        *(v29 + 32) = v25;
+        *(v29 + 40) = v26;
+        v23 += v32;
+        --v20;
+        v4 = v37;
       }
 
-      while (v23);
+      while (v20);
     }
 
     else
@@ -6244,104 +3133,101 @@ size_t Prompt.renderPromptFragments(tokenTable:)(uint64_t a1)
     }
   }
 
-  return v21;
+  return v18;
 }
 
-size_t Prompt.renderCacheablePromptPrefix(tokenTable:localizationOverrideMap:)(uint64_t a1, uint64_t a2)
+uint64_t Prompt.renderCacheablePromptPrefix(tokenTable:localizationOverrideMap:)(uint64_t a1, uint64_t a2)
 {
   v6 = type metadata accessor for Prompt.RenderedSpecialToken(0);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x1EEE9AC00](v6 - 8);
-  v37 = (v36 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v42 = type metadata accessor for Prompt.RenderedPromptFragment(0);
-  v9 = *(v42 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x1EEE9AC00](v42);
-  v12 = (v36 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v13);
-  v15 = v36 - v14;
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration6PromptV07SpecialA0VSgMd, &_s15TokenGeneration6PromptV07SpecialA0VSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v16 - 8);
-  v19 = v36 - v18;
-  v20 = *(v2 + 24);
-  v39 = *v2;
-  v40 = *(v2 + 8);
-  v41 = v20;
+  v34 = (v33 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v39 = type metadata accessor for Prompt.RenderedPromptFragment(0);
+  v8 = *(v39 - 8);
+  MEMORY[0x1EEE9AC00](v39);
+  v10 = (v33 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = v33 - v12;
+  v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration6PromptV07SpecialA0VSgMd, &_s15TokenGeneration6PromptV07SpecialA0VSgMR);
+  MEMORY[0x1EEE9AC00](v14 - 8);
+  v16 = v33 - v15;
+  v17 = *(v2 + 24);
+  v36 = *v2;
+  v37 = *(v2 + 8);
+  v38 = v17;
   if (one-time initialization token for cacheablePrefixTerminator != -1)
   {
     swift_once();
   }
 
-  v21 = type metadata accessor for Prompt.SpecialToken(0);
-  v22 = __swift_project_value_buffer(v21, static Prompt.SpecialToken.cacheablePrefixTerminator);
-  outlined init with copy of Prompt.PromptFragment(v22, v19, type metadata accessor for Prompt.SpecialToken);
-  (*(*(v21 - 8) + 56))(v19, 0, 1, v21);
-  v23 = Prompt.renderPromptFragments(tokenTable:localizationOverrideMap:stopOnSpecialToken:)(a1, a2, v19);
-  outlined destroy of [Regex2BNF.CharacterPredicate](v19, &_s15TokenGeneration6PromptV07SpecialA0VSgMd, &_s15TokenGeneration6PromptV07SpecialA0VSgMR);
+  v18 = type metadata accessor for Prompt.SpecialToken(0);
+  v19 = __swift_project_value_buffer(v18, static Prompt.SpecialToken.cacheablePrefixTerminator);
+  outlined init with copy of Prompt.PromptFragment(v19, v16, type metadata accessor for Prompt.SpecialToken);
+  (*(*(v18 - 8) + 56))(v16, 0, 1, v18);
+  v20 = Prompt.renderPromptFragments(tokenTable:localizationOverrideMap:stopOnSpecialToken:)(a1, a2, v16);
+  outlined destroy of [Regex2BNF.CharacterPredicate](v16, &_s15TokenGeneration6PromptV07SpecialA0VSgMd, &_s15TokenGeneration6PromptV07SpecialA0VSgMR);
   if (!v3)
   {
-    v36[1] = 0;
-    v24 = *(v23 + 16);
-    if (v24)
+    v33[1] = 0;
+    v21 = *(v20 + 16);
+    if (v21)
     {
-      v39 = MEMORY[0x1E69E7CC0];
-      v25 = v23;
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v24, 0);
-      v23 = v39;
-      v26 = *(v9 + 80);
-      v36[0] = v25;
-      v27 = v25 + ((v26 + 32) & ~v26);
-      v38 = *(v9 + 72);
+      v36 = MEMORY[0x1E69E7CC0];
+      v22 = v20;
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v21, 0);
+      v20 = v36;
+      v23 = *(v8 + 80);
+      v33[0] = v22;
+      v24 = v22 + ((v23 + 32) & ~v23);
+      v35 = *(v8 + 72);
       do
       {
-        outlined init with copy of Prompt.PromptFragment(v27, v15, type metadata accessor for Prompt.RenderedPromptFragment);
-        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v15, v12, type metadata accessor for Prompt.RenderedPromptFragment);
+        outlined init with copy of Prompt.PromptFragment(v24, v13, type metadata accessor for Prompt.RenderedPromptFragment);
+        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v13, v10, type metadata accessor for Prompt.RenderedPromptFragment);
         EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
         if (EnumCaseMultiPayload)
         {
           if (EnumCaseMultiPayload == 1)
           {
-            v29 = v37;
-            _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v12, v37, type metadata accessor for Prompt.RenderedSpecialToken);
-            v30 = *v29;
-            v31 = v29[1];
+            v26 = v34;
+            _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v10, v34, type metadata accessor for Prompt.RenderedSpecialToken);
+            v27 = *v26;
+            v28 = v26[1];
 
-            _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v29, type metadata accessor for Prompt.RenderedSpecialToken);
+            _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v26, type metadata accessor for Prompt.RenderedSpecialToken);
           }
 
           else
           {
-            _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v12, type metadata accessor for Prompt.RenderedPromptFragment);
-            v30 = 0;
-            v31 = 0xE000000000000000;
+            _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v10, type metadata accessor for Prompt.RenderedPromptFragment);
+            v27 = 0;
+            v28 = 0xE000000000000000;
           }
         }
 
         else
         {
-          v30 = *v12;
-          v31 = v12[1];
+          v27 = *v10;
+          v28 = v10[1];
         }
 
-        v39 = v23;
-        v33 = *(v23 + 16);
-        v32 = *(v23 + 24);
-        if (v33 >= v32 >> 1)
+        v36 = v20;
+        v30 = *(v20 + 16);
+        v29 = *(v20 + 24);
+        if (v30 >= v29 >> 1)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v32 > 1), v33 + 1, 1);
-          v23 = v39;
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v29 > 1), v30 + 1, 1);
+          v20 = v36;
         }
 
-        *(v23 + 16) = v33 + 1;
-        v34 = v23 + 16 * v33;
-        *(v34 + 32) = v30;
-        *(v34 + 40) = v31;
-        v27 += v38;
-        --v24;
+        *(v20 + 16) = v30 + 1;
+        v31 = v20 + 16 * v30;
+        *(v31 + 32) = v27;
+        *(v31 + 40) = v28;
+        v24 += v35;
+        --v21;
       }
 
-      while (v24);
+      while (v21);
     }
 
     else
@@ -6351,299 +3237,293 @@ size_t Prompt.renderCacheablePromptPrefix(tokenTable:localizationOverrideMap:)(u
     }
   }
 
-  return v23;
+  return v20;
 }
 
-uint64_t Prompt.promptFragments()()
+void *Prompt.promptFragments()()
 {
   v2 = v1;
   v3 = type metadata accessor for Prompt.PromptFragment(0);
   v4 = *(v3 - 8);
-  v152 = v3;
-  v153 = v4;
-  v5 = *(v4 + 64);
+  v146 = v3;
+  v147 = v4;
   MEMORY[0x1EEE9AC00](v3);
-  v134 = (&v129 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v7);
-  v147 = &v129 - v8;
-  MEMORY[0x1EEE9AC00](v9);
-  v146 = &v129 - v10;
-  MEMORY[0x1EEE9AC00](v11);
-  v145 = (&v129 - v12);
-  v138 = type metadata accessor for Prompt.Delimiter(0);
-  v13 = *(v138 - 8);
-  v14 = *(v13 + 64);
-  MEMORY[0x1EEE9AC00](v138);
-  v144 = &v129 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v16);
-  v140 = &v129 - v17;
-  v137 = type metadata accessor for Prompt.Attachment(0);
-  v136 = *(v137 - 8);
-  v18 = *(v136 + 64);
-  MEMORY[0x1EEE9AC00](v137);
-  v143 = &v129 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v20);
-  v139 = &v129 - v21;
-  v163 = type metadata accessor for Prompt.PromptMarker(0);
-  v22 = *(v163 - 8);
-  v23 = *(v22 + 64);
-  MEMORY[0x1EEE9AC00](v163);
-  v133 = &v129 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v128 = (&v123 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v6);
+  v141 = &v123 - v7;
+  MEMORY[0x1EEE9AC00](v8);
+  v140 = &v123 - v9;
+  MEMORY[0x1EEE9AC00](v10);
+  v139 = (&v123 - v11);
+  v132 = type metadata accessor for Prompt.Delimiter(0);
+  v12 = *(v132 - 8);
+  MEMORY[0x1EEE9AC00](v132);
+  v138 = &v123 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v14);
+  v134 = &v123 - v15;
+  v131 = type metadata accessor for Prompt.Attachment(0);
+  v130 = *(v131 - 8);
+  MEMORY[0x1EEE9AC00](v131);
+  v137 = &v123 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v17);
+  v133 = &v123 - v18;
+  v157 = type metadata accessor for Prompt.PromptMarker(0);
+  v19 = *(v157 - 8);
+  MEMORY[0x1EEE9AC00](v157);
+  v127 = &v123 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v21);
+  v124 = &v123 - v22;
+  MEMORY[0x1EEE9AC00](v23);
+  v129 = &v123 - v24;
   MEMORY[0x1EEE9AC00](v25);
-  v130 = &v129 - v26;
+  v136 = &v123 - v26;
   MEMORY[0x1EEE9AC00](v27);
-  v135 = &v129 - v28;
+  v143 = &v123 - v28;
   MEMORY[0x1EEE9AC00](v29);
-  v142 = &v129 - v30;
+  v149 = &v123 - v30;
   MEMORY[0x1EEE9AC00](v31);
-  v149 = &v129 - v32;
-  MEMORY[0x1EEE9AC00](v33);
-  v155 = &v129 - v34;
-  MEMORY[0x1EEE9AC00](v35);
-  v37 = &v129 - v36;
-  MEMORY[0x1EEE9AC00](v38);
-  v40 = &v129 - v39;
-  v41 = *(v0 + 24);
-  v156 = *v0;
-  v157 = *(v0 + 8);
-  v158 = v41;
-  Prompt.finalizedPrompt()(&v159);
-  v42 = v161;
-  v150 = v162;
-  v156 = MEMORY[0x1E69E7CC0];
-  v43 = HIBYTE(v160) & 0xF;
-  if ((v160 & 0x2000000000000000) == 0)
+  v33 = &v123 - v32;
+  MEMORY[0x1EEE9AC00](v34);
+  v36 = &v123 - v35;
+  v37 = *(v0 + 24);
+  v150 = *v0;
+  v151 = *(v0 + 8);
+  v152 = v37;
+  Prompt.finalizedPrompt()(&v153);
+  v38 = v155;
+  v144 = v156;
+  v150 = MEMORY[0x1E69E7CC0];
+  v39 = HIBYTE(v154) & 0xF;
+  if ((v154 & 0x2000000000000000) == 0)
   {
-    v43 = v159;
+    v39 = v153;
   }
 
-  v148 = v43;
-  v154 = v159;
-  v44 = 7;
-  if (((v160 >> 60) & ((v159 & 0x800000000000000) == 0)) != 0)
+  v142 = v39;
+  v148 = v153;
+  v40 = 7;
+  if (((v154 >> 60) & ((v153 & 0x800000000000000) == 0)) != 0)
   {
-    v44 = 11;
+    v40 = 11;
   }
 
-  v141 = v44;
-  v45 = *(v161 + 16);
-  v151 = v160;
-  if (v45)
+  v135 = v40;
+  v41 = *(v155 + 16);
+  v145 = v154;
+  if (v41)
   {
-    v132 = v2;
-    v46 = v161 + ((*(v13 + 80) + 32) & ~*(v13 + 80));
-    v47 = *(v13 + 72);
+    v126 = v2;
+    v42 = v155 + ((*(v12 + 80) + 32) & ~*(v12 + 80));
+    v43 = *(v12 + 72);
 
-    v131 = v42;
+    v125 = v38;
 
-    v48 = MEMORY[0x1E69E7CC0];
+    v44 = MEMORY[0x1E69E7CC0];
     do
     {
-      outlined init with copy of Prompt.PromptFragment(v46, v40, type metadata accessor for Prompt.Delimiter);
+      outlined init with copy of Prompt.PromptFragment(v42, v36, type metadata accessor for Prompt.Delimiter);
       swift_storeEnumTagMultiPayload();
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v48 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v48[2] + 1, 1, v48);
+        v44 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v44[2] + 1, 1, v44);
       }
 
-      v50 = v48[2];
-      v49 = v48[3];
-      if (v50 >= v49 >> 1)
+      v46 = v44[2];
+      v45 = v44[3];
+      if (v46 >= v45 >> 1)
       {
-        v48 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v49 > 1, v50 + 1, 1, v48);
+        v44 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v45 > 1), v46 + 1, 1, v44);
       }
 
-      v48[2] = v50 + 1;
-      _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v40, v48 + ((*(v22 + 80) + 32) & ~*(v22 + 80)) + *(v22 + 72) * v50, type metadata accessor for Prompt.PromptMarker);
-      v46 += v47;
-      --v45;
+      v44[2] = v46 + 1;
+      _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v36, v44 + ((*(v19 + 80) + 32) & ~*(v19 + 80)) + *(v19 + 72) * v46, type metadata accessor for Prompt.PromptMarker);
+      v42 += v43;
+      --v41;
     }
 
-    while (v45);
+    while (v41);
 
-    v2 = v132;
+    v2 = v126;
   }
 
   else
   {
 
-    v48 = MEMORY[0x1E69E7CC0];
+    v44 = MEMORY[0x1E69E7CC0];
   }
 
-  v51 = *(v150 + 16);
-  if (v51)
+  v47 = *(v144 + 16);
+  if (v47)
   {
-    v52 = v150 + ((*(v136 + 80) + 32) & ~*(v136 + 80));
-    v53 = *(v136 + 72);
+    v48 = v144 + ((*(v130 + 80) + 32) & ~*(v130 + 80));
+    v49 = *(v130 + 72);
     do
     {
-      outlined init with copy of Prompt.PromptFragment(v52, v37, type metadata accessor for Prompt.Attachment);
+      outlined init with copy of Prompt.PromptFragment(v48, v33, type metadata accessor for Prompt.Attachment);
       swift_storeEnumTagMultiPayload();
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v48 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v48[2] + 1, 1, v48);
+        v44 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v44[2] + 1, 1, v44);
       }
 
-      v55 = v48[2];
-      v54 = v48[3];
-      if (v55 >= v54 >> 1)
+      v51 = v44[2];
+      v50 = v44[3];
+      if (v51 >= v50 >> 1)
       {
-        v48 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v54 > 1, v55 + 1, 1, v48);
+        v44 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v50 > 1), v51 + 1, 1, v44);
       }
 
-      v48[2] = v55 + 1;
-      _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v37, v48 + ((*(v22 + 80) + 32) & ~*(v22 + 80)) + *(v22 + 72) * v55, type metadata accessor for Prompt.PromptMarker);
-      v52 += v53;
-      --v51;
+      v44[2] = v51 + 1;
+      _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v33, v44 + ((*(v19 + 80) + 32) & ~*(v19 + 80)) + *(v19 + 72) * v51, type metadata accessor for Prompt.PromptMarker);
+      v48 += v49;
+      --v47;
     }
 
-    while (v51);
+    while (v47);
   }
 
-  v150 = v141 | (v148 << 16);
+  v144 = v135 | (v142 << 16);
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
   {
 LABEL_70:
-    v48 = specialized _ArrayBuffer._consumeAndCreateNew()(v48);
+    v44 = specialized _ArrayBuffer._consumeAndCreateNew()(v44);
   }
 
-  v56 = v48[2];
-  v148 = v48 + ((*(v22 + 80) + 32) & ~*(v22 + 80));
-  v159 = v148;
-  v160 = v56;
-  specialized UnsafeMutableBufferPointer._stableSortImpl(by:)(&v159);
-  v136 = v2;
-  v141 = v48[2];
-  if (v141)
+  v52 = v44[2];
+  v142 = v44 + ((*(v19 + 80) + 32) & ~*(v19 + 80));
+  v153 = v142;
+  v154 = v52;
+  specialized UnsafeMutableBufferPointer._stableSortImpl(by:)(&v153);
+  v130 = v2;
+  v135 = v44[2];
+  if (v135)
   {
-    v57 = 0;
-    v58 = MEMORY[0x1E69E7CC0];
-    v59 = v150;
+    v53 = 0;
+    v54 = MEMORY[0x1E69E7CC0];
+    v55 = v144;
     while (1)
     {
-      if (v57 >= v48[2])
+      if (v53 >= v44[2])
       {
         __break(1u);
         goto LABEL_70;
       }
 
-      v61 = v155;
-      outlined init with copy of Prompt.PromptFragment(v148 + *(v22 + 72) * v57, v155, type metadata accessor for Prompt.PromptMarker);
-      v62 = v61;
-      v63 = v149;
-      outlined init with copy of Prompt.PromptFragment(v62, v149, type metadata accessor for Prompt.PromptMarker);
+      v57 = v149;
+      outlined init with copy of Prompt.PromptFragment(v142 + *(v19 + 72) * v53, v149, type metadata accessor for Prompt.PromptMarker);
+      v58 = v57;
+      v59 = v143;
+      outlined init with copy of Prompt.PromptFragment(v58, v143, type metadata accessor for Prompt.PromptMarker);
       if (swift_getEnumCaseMultiPayload() == 1)
       {
-        v64 = v63;
-        v65 = v140;
-        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v64, v140, type metadata accessor for Prompt.Delimiter);
-        v66 = *(v65 + *(v138 + 20));
-        v67 = type metadata accessor for Prompt.Delimiter;
+        v60 = v59;
+        v61 = v134;
+        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v60, v134, type metadata accessor for Prompt.Delimiter);
+        v62 = type metadata accessor for Prompt.Delimiter;
       }
 
       else
       {
-        v68 = v63;
-        v65 = v139;
-        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v68, v139, type metadata accessor for Prompt.Attachment);
-        v69 = *(v65 + *(v137 + 20));
-        v67 = type metadata accessor for Prompt.Attachment;
+        v63 = v59;
+        v61 = v133;
+        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v63, v133, type metadata accessor for Prompt.Attachment);
+        v62 = type metadata accessor for Prompt.Attachment;
       }
 
-      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v65, v67);
-      v70 = String.index(_:offsetBy:limitedBy:)();
-      if (v71)
+      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v61, v62);
+      v64 = String.index(_:offsetBy:limitedBy:)();
+      if (v65)
       {
         break;
       }
 
-      v2 = v70;
-      if (v70 >> 14 >= v59 >> 14)
+      v2 = v64;
+      if (v64 >> 14 >= v55 >> 14)
       {
-        v79 = v142;
+        v73 = v136;
       }
 
       else
       {
-        v72 = String.subscript.getter();
-        v73 = MEMORY[0x1AC57C040](v72);
-        v75 = v74;
+        v66 = String.subscript.getter();
+        v67 = MEMORY[0x1AC57C040](v66);
+        v69 = v68;
 
-        v76 = v145;
-        *v145 = v73;
-        v76[1] = v75;
+        v70 = v139;
+        *v139 = v67;
+        v70[1] = v69;
         swift_storeEnumTagMultiPayload();
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v58 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v58[2] + 1, 1, v58);
+          v54 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v54[2] + 1, 1, v54);
         }
 
-        v78 = v58[2];
-        v77 = v58[3];
-        v79 = v142;
-        if (v78 >= v77 >> 1)
+        v72 = v54[2];
+        v71 = v54[3];
+        v73 = v136;
+        if (v72 >= v71 >> 1)
         {
-          v58 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v77 > 1, v78 + 1, 1, v58);
+          v54 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v71 > 1), v72 + 1, 1, v54);
         }
 
-        v58[2] = v78 + 1;
-        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v145, v58 + ((*(v153 + 80) + 32) & ~*(v153 + 80)) + *(v153 + 72) * v78, type metadata accessor for Prompt.PromptFragment);
+        v54[2] = v72 + 1;
+        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v139, v54 + ((*(v147 + 80) + 32) & ~*(v147 + 80)) + *(v147 + 72) * v72, type metadata accessor for Prompt.PromptFragment);
       }
 
-      outlined init with copy of Prompt.PromptFragment(v155, v79, type metadata accessor for Prompt.PromptMarker);
+      outlined init with copy of Prompt.PromptFragment(v149, v73, type metadata accessor for Prompt.PromptMarker);
       if (swift_getEnumCaseMultiPayload() == 1)
       {
-        v80 = v144;
-        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v79, v144, type metadata accessor for Prompt.Delimiter);
-        outlined init with copy of Prompt.PromptFragment(v80, v146, type metadata accessor for Prompt.Delimiter);
+        v74 = v138;
+        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v73, v138, type metadata accessor for Prompt.Delimiter);
+        outlined init with copy of Prompt.PromptFragment(v74, v140, type metadata accessor for Prompt.Delimiter);
         swift_storeEnumTagMultiPayload();
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v58 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v58[2] + 1, 1, v58);
+          v54 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v54[2] + 1, 1, v54);
         }
 
-        v82 = v58[2];
-        v81 = v58[3];
-        v83 = v82 + 1;
-        if (v82 >= v81 >> 1)
+        v76 = v54[2];
+        v75 = v54[3];
+        v77 = v76 + 1;
+        if (v76 >= v75 >> 1)
         {
-          v58 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v81 > 1, v82 + 1, 1, v58);
+          v54 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v75 > 1), v76 + 1, 1, v54);
         }
 
-        _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v144, type metadata accessor for Prompt.Delimiter);
-        v60 = v146;
+        _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v138, type metadata accessor for Prompt.Delimiter);
+        v56 = v140;
       }
 
       else
       {
-        v84 = v143;
-        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v79, v143, type metadata accessor for Prompt.Attachment);
-        outlined init with copy of Prompt.PromptFragment(v84, v147, type metadata accessor for Prompt.Attachment);
+        v78 = v137;
+        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v73, v137, type metadata accessor for Prompt.Attachment);
+        outlined init with copy of Prompt.PromptFragment(v78, v141, type metadata accessor for Prompt.Attachment);
         swift_storeEnumTagMultiPayload();
         if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
         {
-          v58 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v58[2] + 1, 1, v58);
+          v54 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v54[2] + 1, 1, v54);
         }
 
-        v82 = v58[2];
-        v85 = v58[3];
-        v83 = v82 + 1;
-        if (v82 >= v85 >> 1)
+        v76 = v54[2];
+        v79 = v54[3];
+        v77 = v76 + 1;
+        if (v76 >= v79 >> 1)
         {
-          v58 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v85 > 1, v82 + 1, 1, v58);
+          v54 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v79 > 1), v76 + 1, 1, v54);
         }
 
-        _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v143, type metadata accessor for Prompt.Attachment);
-        v60 = v147;
+        _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v137, type metadata accessor for Prompt.Attachment);
+        v56 = v141;
       }
 
-      ++v57;
-      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v155, type metadata accessor for Prompt.PromptMarker);
-      v58[2] = v83;
-      _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v60, v58 + ((*(v153 + 80) + 32) & ~*(v153 + 80)) + *(v153 + 72) * v82, type metadata accessor for Prompt.PromptFragment);
-      v156 = v58;
-      v59 = v2;
-      if (v141 == v57)
+      ++v53;
+      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v149, type metadata accessor for Prompt.PromptMarker);
+      v54[2] = v77;
+      _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v56, v54 + ((*(v147 + 80) + 32) & ~*(v147 + 80)) + *(v147 + 72) * v76, type metadata accessor for Prompt.PromptFragment);
+      v150 = v54;
+      v55 = v2;
+      if (v135 == v53)
       {
         goto LABEL_49;
       }
@@ -6654,144 +3534,144 @@ LABEL_70:
       swift_once();
     }
 
-    v100 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v100, static Log.prompt);
-    v101 = v135;
-    outlined init with copy of Prompt.PromptFragment(v155, v135, type metadata accessor for Prompt.PromptMarker);
+    v94 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v94, static Log.prompt);
+    v95 = v129;
+    outlined init with copy of Prompt.PromptFragment(v149, v129, type metadata accessor for Prompt.PromptMarker);
     swift_bridgeObjectRetain_n();
-    v102 = Logger.logObject.getter();
-    v103 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v102, v103))
+    v96 = Logger.logObject.getter();
+    v97 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v96, v97))
     {
-      v104 = swift_slowAlloc();
-      v105 = swift_slowAlloc();
-      v159 = v105;
-      *v104 = 136315394;
-      v106 = v130;
-      outlined init with copy of Prompt.PromptFragment(v101, v130, type metadata accessor for Prompt.PromptMarker);
+      v98 = swift_slowAlloc();
+      v99 = swift_slowAlloc();
+      v153 = v99;
+      *v98 = 136315394;
+      v100 = v124;
+      outlined init with copy of Prompt.PromptFragment(v95, v124, type metadata accessor for Prompt.PromptMarker);
       if (swift_getEnumCaseMultiPayload() == 1)
       {
-        v107 = v140;
-        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v106, v140, type metadata accessor for Prompt.Delimiter);
-        v108 = Prompt.Delimiter.description.getter();
-        v110 = v109;
-        v111 = type metadata accessor for Prompt.Delimiter;
+        v101 = v134;
+        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v100, v134, type metadata accessor for Prompt.Delimiter);
+        v102 = Prompt.Delimiter.description.getter();
+        v104 = v103;
+        v105 = type metadata accessor for Prompt.Delimiter;
       }
 
       else
       {
-        v107 = v139;
-        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v106, v139, type metadata accessor for Prompt.Attachment);
-        v108 = Prompt.Attachment.description.getter();
-        v110 = v113;
-        v111 = type metadata accessor for Prompt.Attachment;
+        v101 = v133;
+        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v100, v133, type metadata accessor for Prompt.Attachment);
+        v102 = Prompt.Attachment.description.getter();
+        v104 = v107;
+        v105 = type metadata accessor for Prompt.Attachment;
       }
 
-      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v107, v111);
-      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v135, type metadata accessor for Prompt.PromptMarker);
-      v114 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v108, v110, &v159);
+      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v101, v105);
+      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v129, type metadata accessor for Prompt.PromptMarker);
+      v108 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v102, v104, &v153);
 
-      *(v104 + 4) = v114;
-      *(v104 + 12) = 2050;
-      v115 = String.count.getter();
+      *(v98 + 4) = v108;
+      *(v98 + 12) = 2050;
+      v109 = String.count.getter();
 
-      *(v104 + 14) = v115;
+      *(v98 + 14) = v109;
 
-      _os_log_impl(&dword_1A8E85000, v102, v103, "Failed to create prompt fragments since prompt marker %s position for prompt with string length %{public}ld is invalid", v104, 0x16u);
-      __swift_destroy_boxed_opaque_existential_0(v105);
-      MEMORY[0x1AC57DBF0](v105, -1, -1);
-      MEMORY[0x1AC57DBF0](v104, -1, -1);
+      _os_log_impl(&dword_1A8E85000, v96, v97, "Failed to create prompt fragments since prompt marker %s position for prompt with string length %{public}ld is invalid", v98, 0x16u);
+      __swift_destroy_boxed_opaque_existential_0(v99);
+      MEMORY[0x1AC57DBF0](v99, -1, -1);
+      MEMORY[0x1AC57DBF0](v98, -1, -1);
 
-      v112 = v133;
+      v106 = v127;
     }
 
     else
     {
 
       swift_bridgeObjectRelease_n();
-      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v101, type metadata accessor for Prompt.PromptMarker);
-      v112 = v133;
+      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v95, type metadata accessor for Prompt.PromptMarker);
+      v106 = v127;
     }
 
-    v116 = String.count.getter();
+    v110 = String.count.getter();
 
-    outlined init with copy of Prompt.PromptFragment(v155, v112, type metadata accessor for Prompt.PromptMarker);
+    outlined init with copy of Prompt.PromptFragment(v149, v106, type metadata accessor for Prompt.PromptMarker);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      v117 = v140;
-      _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v112, v140, type metadata accessor for Prompt.Delimiter);
-      type metadata accessor for GenerationError();
-      lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type GenerationError and conformance GenerationError, type metadata accessor for GenerationError);
+      v111 = v134;
+      _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v106, v134, type metadata accessor for Prompt.Delimiter);
+      type metadata accessor for GenerationError(0);
+      lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type GenerationError and conformance GenerationError, type metadata accessor for GenerationError, &protocol conformance descriptor for GenerationError);
       swift_allocError();
-      v119 = v118;
-      v120 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration6PromptV07SpecialA0V_Si13tokenPositionSi16promptStringSizetMd, &_s15TokenGeneration6PromptV07SpecialA0V_Si13tokenPositionSi16promptStringSizetMR);
-      v121 = *(v120 + 48);
-      v122 = *(v120 + 64);
-      outlined init with copy of Prompt.PromptFragment(v117, v119, type metadata accessor for Prompt.SpecialToken);
-      *(v119 + v121) = *(v117 + *(v138 + 20));
-      *(v119 + v122) = v116;
+      v113 = v112;
+      v114 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration6PromptV07SpecialA0V_Si13tokenPositionSi16promptStringSizetMd, &_s15TokenGeneration6PromptV07SpecialA0V_Si13tokenPositionSi16promptStringSizetMR);
+      v115 = *(v114 + 48);
+      v116 = *(v114 + 64);
+      outlined init with copy of Prompt.PromptFragment(v111, v113, type metadata accessor for Prompt.SpecialToken);
+      *(v113 + v115) = *(v111 + *(v132 + 20));
+      *(v113 + v116) = v110;
       swift_storeEnumTagMultiPayload();
       swift_willThrow();
-      v123 = type metadata accessor for Prompt.Delimiter;
-      v124 = v117;
+      v117 = type metadata accessor for Prompt.Delimiter;
+      v118 = v111;
     }
 
     else
     {
-      v125 = v139;
-      _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v112, v139, type metadata accessor for Prompt.Attachment);
-      type metadata accessor for GenerationError();
-      lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type GenerationError and conformance GenerationError, type metadata accessor for GenerationError);
+      v119 = v133;
+      _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v106, v133, type metadata accessor for Prompt.Attachment);
+      type metadata accessor for GenerationError(0);
+      lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type GenerationError and conformance GenerationError, type metadata accessor for GenerationError, &protocol conformance descriptor for GenerationError);
       swift_allocError();
-      v127 = v126;
-      v128 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration6PromptV10AttachmentV_Si16promptStringSizetMd, &_s15TokenGeneration6PromptV10AttachmentV_Si16promptStringSizetMR) + 48);
-      outlined init with copy of Prompt.PromptFragment(v125, v127, type metadata accessor for Prompt.Attachment);
-      *(v127 + v128) = v116;
+      v121 = v120;
+      v122 = *(__swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration6PromptV10AttachmentV_Si16promptStringSizetMd, &_s15TokenGeneration6PromptV10AttachmentV_Si16promptStringSizetMR) + 48);
+      outlined init with copy of Prompt.PromptFragment(v119, v121, type metadata accessor for Prompt.Attachment);
+      *(v121 + v122) = v110;
       swift_storeEnumTagMultiPayload();
       swift_willThrow();
-      v123 = type metadata accessor for Prompt.Attachment;
-      v124 = v125;
+      v117 = type metadata accessor for Prompt.Attachment;
+      v118 = v119;
     }
 
-    _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v124, v123);
-    return _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v155, type metadata accessor for Prompt.PromptMarker);
+    _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v118, v117);
+    return _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v149, type metadata accessor for Prompt.PromptMarker);
   }
 
   else
   {
-    v58 = MEMORY[0x1E69E7CC0];
-    v2 = v150;
+    v54 = MEMORY[0x1E69E7CC0];
+    v2 = v144;
 LABEL_49:
 
     if (v2 >= 0x4000)
     {
-      v86 = String.subscript.getter();
-      v88 = v87;
-      v90 = v89;
-      v92 = v91;
+      v80 = String.subscript.getter();
+      v82 = v81;
+      v84 = v83;
+      v86 = v85;
 
-      v93 = MEMORY[0x1AC57C040](v86, v88, v90, v92);
-      v95 = v94;
+      v87 = MEMORY[0x1AC57C040](v80, v82, v84, v86);
+      v89 = v88;
 
-      v96 = v134;
-      *v134 = v93;
-      *(v96 + 8) = v95;
+      v90 = v128;
+      *v128 = v87;
+      *(v90 + 8) = v89;
       swift_storeEnumTagMultiPayload();
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v58 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v58[2] + 1, 1, v58);
+        v54 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v54[2] + 1, 1, v54);
       }
 
-      v98 = v58[2];
-      v97 = v58[3];
-      if (v98 >= v97 >> 1)
+      v92 = v54[2];
+      v91 = v54[3];
+      if (v92 >= v91 >> 1)
       {
-        v58 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v97 > 1, v98 + 1, 1, v58);
+        v54 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v91 > 1), v92 + 1, 1, v54);
       }
 
-      v58[2] = v98 + 1;
-      _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v96, v58 + ((*(v153 + 80) + 32) & ~*(v153 + 80)) + *(v153 + 72) * v98, type metadata accessor for Prompt.PromptFragment);
-      v156 = v58;
+      v54[2] = v92 + 1;
+      _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v90, v54 + ((*(v147 + 80) + 32) & ~*(v147 + 80)) + *(v147 + 72) * v92, type metadata accessor for Prompt.PromptFragment);
+      v150 = v54;
     }
 
     else
@@ -6799,7 +3679,7 @@ LABEL_49:
     }
 
     specialized MutableCollection<>.reverse()();
-    return v156;
+    return v150;
   }
 }
 
@@ -6807,130 +3687,119 @@ uint64_t specialized _dictionaryUpCast<A, B, C, D>(_:)(uint64_t a1)
 {
   v2 = type metadata accessor for Locale();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x1EEE9AC00](v2);
-  v68 = &v65 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v6 - 8);
-  v79 = &v65 - v8;
-  v78 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration6PromptV07SpecialA0V3key_yp5valuetMd, &_s15TokenGeneration6PromptV07SpecialA0V3key_yp5valuetMR);
-  v9 = *(*(v78 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v78);
-  v77 = &v65 - v10;
-  v76 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration6PromptV07SpecialA0V_yptMd, &_s15TokenGeneration6PromptV07SpecialA0V_yptMR);
-  v11 = *(*(v76 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v76);
-  v75 = &v65 - v12;
-  v13 = type metadata accessor for Prompt.SpecialToken(0);
-  v73 = *(v13 - 8);
-  v14 = *(v73 + 64);
-  MEMORY[0x1EEE9AC00](v13);
-  v84 = (&v65 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v72 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration6PromptV07SpecialA0V3key_SS5valuetMd, &_s15TokenGeneration6PromptV07SpecialA0V3key_SS5valuetMR);
-  v16 = *(*(v72 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v72);
-  v71 = &v65 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v18);
-  v70 = &v65 - v19;
-  v81 = a1;
+  v57 = &v54 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v68 = &v54 - v6;
+  v67 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration6PromptV07SpecialA0V3key_yp5valuetMd, &_s15TokenGeneration6PromptV07SpecialA0V3key_yp5valuetMR);
+  MEMORY[0x1EEE9AC00](v67);
+  v66 = &v54 - v7;
+  v65 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration6PromptV07SpecialA0V_yptMd, &_s15TokenGeneration6PromptV07SpecialA0V_yptMR);
+  MEMORY[0x1EEE9AC00](v65);
+  v64 = &v54 - v8;
+  v9 = type metadata accessor for Prompt.SpecialToken(0);
+  v62 = *(v9 - 8);
+  MEMORY[0x1EEE9AC00](v9);
+  v73 = &v54 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v61 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration6PromptV07SpecialA0V3key_SS5valuetMd, &_s15TokenGeneration6PromptV07SpecialA0V3key_SS5valuetMR);
+  MEMORY[0x1EEE9AC00](v61);
+  v60 = &v54 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12);
+  v59 = &v54 - v13;
+  v70 = a1;
   if (*(a1 + 16))
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCy15TokenGeneration6PromptV07SpecialC0VypGMd, &_ss18_DictionaryStorageCy15TokenGeneration6PromptV07SpecialC0VypGMR);
-    v20 = static _DictionaryStorage.allocate(capacity:)();
+    v14 = static _DictionaryStorage.allocate(capacity:)();
   }
 
   else
   {
-    v20 = MEMORY[0x1E69E7CC8];
+    v14 = MEMORY[0x1E69E7CC8];
   }
 
-  v21 = v81 + 64;
-  v22 = 1 << *(v81 + 32);
-  if (v22 < 64)
+  v15 = v70 + 64;
+  v16 = 1 << *(v70 + 32);
+  if (v16 < 64)
   {
-    v23 = ~(-1 << v22);
+    v17 = ~(-1 << v16);
   }
 
   else
   {
-    v23 = -1;
+    v17 = -1;
   }
 
-  v24 = v23 & *(v81 + 64);
-  v25 = (v22 + 63) >> 6;
-  v69 = (v3 + 48);
-  v67 = (v3 + 32);
-  v66 = (v3 + 8);
-  v26 = v20 + 8;
+  v18 = v17 & *(v70 + 64);
+  v19 = (v16 + 63) >> 6;
+  v58 = (v3 + 48);
+  v56 = (v3 + 32);
+  v55 = (v3 + 8);
+  v20 = v14 + 8;
 
-  v28 = 0;
-  v83 = v20;
-  v80 = v2;
-  v74 = v13;
-  while (v24)
+  v22 = 0;
+  v72 = v14;
+  v69 = v2;
+  v63 = v9;
+  while (v18)
   {
 LABEL_15:
-    v31 = __clz(__rbit64(v24)) | (v28 << 6);
-    v32 = v81;
-    v33 = *(v81 + 48);
-    v82 = *(v73 + 72);
-    v34 = v70;
-    outlined init with copy of Prompt.PromptFragment(v33 + v82 * v31, v70, type metadata accessor for Prompt.SpecialToken);
-    v35 = (*(v32 + 56) + 16 * v31);
-    v36 = *v35;
-    v37 = v35[1];
-    v38 = v72;
-    v39 = (v34 + *(v72 + 48));
-    *v39 = v36;
-    v39[1] = v37;
-    v40 = v71;
-    outlined init with take of (key: Prompt.SpecialToken, value: String)(v34, v71);
-    v41 = (v40 + *(v38 + 48));
-    v42 = *(v78 + 48);
-    v43 = v40;
-    v44 = v77;
-    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v43, v77, type metadata accessor for Prompt.SpecialToken);
-    v45 = v41[1];
-    v85 = *v41;
-    v86 = v45;
+    v25 = __clz(__rbit64(v18)) | (v22 << 6);
+    v26 = v70;
+    v27 = *(v70 + 48);
+    v71 = *(v62 + 72);
+    v28 = v59;
+    outlined init with copy of Prompt.PromptFragment(v27 + v71 * v25, v59, type metadata accessor for Prompt.SpecialToken);
+    v29 = (*(v26 + 56) + 16 * v25);
+    v30 = *v29;
+    v31 = v29[1];
+    v32 = v61;
+    v33 = (v28 + *(v61 + 48));
+    *v33 = v30;
+    v33[1] = v31;
+    v34 = v60;
+    outlined init with take of (key: Prompt.SpecialToken, value: String)(v28, v60);
+    v35 = (v34 + *(v32 + 48));
+    v36 = *(v67 + 48);
+    v37 = v34;
+    v38 = v66;
+    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v37, v66, type metadata accessor for Prompt.SpecialToken);
+    v39 = v35[1];
+    v74 = *v35;
+    v75 = v39;
 
     swift_dynamicCast();
-    v46 = *(v76 + 48);
-    v47 = v75;
-    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v44, v75, type metadata accessor for Prompt.SpecialToken);
-    outlined init with take of Any((v44 + v42), (v47 + v46));
-    v48 = v84;
-    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v47, v84, type metadata accessor for Prompt.SpecialToken);
-    outlined init with take of Any((v47 + v46), v87);
-    v49 = v83[5];
+    v40 = *(v65 + 48);
+    v41 = v64;
+    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v38, v64, type metadata accessor for Prompt.SpecialToken);
+    outlined init with take of Any((v38 + v36), (v41 + v40));
+    v42 = v73;
+    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v41, v73, type metadata accessor for Prompt.SpecialToken);
+    outlined init with take of Any((v41 + v40), v76);
     Hasher.init(_seed:)();
-    v50 = *v48;
-    v51 = v48[1];
     String.hash(into:)();
-    v52 = v74;
-    v53 = v79;
-    outlined init with copy of (String, Any)(v48 + *(v74 + 20), v79, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-    v54 = v80;
-    if ((*v69)(v53, 1, v80) == 1)
+    v43 = v63;
+    v44 = v68;
+    outlined init with copy of (String, Any)(v42 + *(v63 + 20), v68, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+    v45 = v69;
+    if ((*v58)(v44, 1, v69) == 1)
     {
       Hasher._combine(_:)(0);
     }
 
     else
     {
-      v55 = v68;
-      (*v67)(v68, v53, v54);
+      v46 = v57;
+      (*v56)(v57, v44, v45);
       Hasher._combine(_:)(1u);
-      lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Locale and conformance Locale, MEMORY[0x1E6969770]);
+      lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Locale and conformance Locale, MEMORY[0x1E6969770], MEMORY[0x1E6969780]);
       dispatch thunk of Hashable.hash(into:)();
-      (*v66)(v55, v54);
+      (*v55)(v46, v45);
     }
 
-    v56 = (v84 + *(v52 + 24));
-    if (v56[1])
+    if (*(v73 + *(v43 + 24) + 8))
     {
-      v57 = *v56;
       Hasher._combine(_:)(1u);
       String.hash(into:)();
     }
@@ -6940,29 +3809,29 @@ LABEL_15:
       Hasher._combine(_:)(0);
     }
 
-    Hasher._combine(_:)(*(v84 + *(v52 + 28)));
+    Hasher._combine(_:)(*(v73 + *(v43 + 28)));
     result = Hasher._finalize()();
-    v20 = v83;
-    v58 = -1 << *(v83 + 32);
-    v59 = result & ~v58;
-    v60 = v59 >> 6;
-    if (((-1 << v59) & ~v26[v59 >> 6]) == 0)
+    v14 = v72;
+    v47 = -1 << *(v72 + 32);
+    v48 = result & ~v47;
+    v49 = v48 >> 6;
+    if (((-1 << v48) & ~v20[v48 >> 6]) == 0)
     {
-      v61 = 0;
-      v62 = (63 - v58) >> 6;
-      while (++v60 != v62 || (v61 & 1) == 0)
+      v50 = 0;
+      v51 = (63 - v47) >> 6;
+      while (++v49 != v51 || (v50 & 1) == 0)
       {
-        v63 = v60 == v62;
-        if (v60 == v62)
+        v52 = v49 == v51;
+        if (v49 == v51)
         {
-          v60 = 0;
+          v49 = 0;
         }
 
-        v61 |= v63;
-        v64 = v26[v60];
-        if (v64 != -1)
+        v50 |= v52;
+        v53 = v20[v49];
+        if (v53 != -1)
         {
-          v29 = __clz(__rbit64(~v64)) + (v60 << 6);
+          v23 = __clz(__rbit64(~v53)) + (v49 << 6);
           goto LABEL_9;
         }
       }
@@ -6970,34 +3839,34 @@ LABEL_15:
       goto LABEL_32;
     }
 
-    v29 = __clz(__rbit64((-1 << v59) & ~v26[v59 >> 6])) | v59 & 0x7FFFFFFFFFFFFFC0;
+    v23 = __clz(__rbit64((-1 << v48) & ~v20[v48 >> 6])) | v48 & 0x7FFFFFFFFFFFFFC0;
 LABEL_9:
-    v24 &= v24 - 1;
-    *(v26 + ((v29 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v29;
-    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v84, v20[6] + v29 * v82, type metadata accessor for Prompt.SpecialToken);
-    result = outlined init with take of Any(v87, (v20[7] + 32 * v29));
-    ++v20[2];
+    v18 &= v18 - 1;
+    *(v20 + ((v23 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v23;
+    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v73, v14[6] + v23 * v71, type metadata accessor for Prompt.SpecialToken);
+    result = outlined init with take of Any(v76, (v14[7] + 32 * v23));
+    ++v14[2];
   }
 
   while (1)
   {
-    v30 = v28 + 1;
-    if (__OFADD__(v28, 1))
+    v24 = v22 + 1;
+    if (__OFADD__(v22, 1))
     {
       break;
     }
 
-    if (v30 >= v25)
+    if (v24 >= v19)
     {
 
-      return v20;
+      return v14;
     }
 
-    v24 = *(v21 + 8 * v30);
-    ++v28;
-    if (v24)
+    v18 = *(v15 + 8 * v24);
+    ++v22;
+    if (v18)
     {
-      v28 = v30;
+      v22 = v24;
       goto LABEL_15;
     }
   }
@@ -7008,235 +3877,233 @@ LABEL_32:
   return result;
 }
 
-uint64_t Prompt.renderSpecialToken(delimiter:tokenTable:localizationOverrideMap:)(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t Prompt.renderSpecialToken(delimiter:tokenTable:localizationOverrideMap:)(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
-  v97 = a2;
+  v95 = a2;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v8 = &v89 - v7;
-  v9 = type metadata accessor for Prompt.SpecialToken(0);
-  v10 = *(*(v9 - 1) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v92 = (&v89 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v12);
-  v14 = (&v89 - v13);
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = (&v89 - v16);
-  v19 = *a1;
-  v18 = a1[1];
-  v21 = *(v20 + 20);
-  v22 = type metadata accessor for Locale();
-  (*(*(v22 - 8) + 56))(v17 + v21, 1, 1, v22);
-  v94 = v19;
-  v95 = v9;
-  *v17 = v19;
-  v17[1] = v18;
-  v23 = (v17 + v9[6]);
-  *v23 = 0;
-  v23[1] = 0;
-  *(v17 + v9[7]) = 0;
-  v24 = v9[5];
-  v98 = a1;
-  v25 = a1 + v24;
-  v26 = v8;
-  v27 = v97;
-  outlined init with copy of (String, Any)(v25, v26, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  v7 = &v87 - v6;
+  v8 = type metadata accessor for Prompt.SpecialToken(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v90 = (&v87 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = (&v87 - v11);
+  MEMORY[0x1EEE9AC00](v13);
+  v15 = (&v87 - v14);
+  v17 = *a1;
+  v16 = a1[1];
+  v19 = *(v18 + 20);
+  v20 = type metadata accessor for Locale();
+  (*(*(v20 - 8) + 56))(v15 + v19, 1, 1, v20);
+  v92 = v17;
+  v93 = v8;
+  *v15 = v17;
+  v15[1] = v16;
+  v21 = (v15 + v8[6]);
+  *v21 = 0;
+  v21[1] = 0;
+  *(v15 + v8[7]) = 0;
+  v22 = v8[5];
+  v96 = a1;
+  v23 = a1 + v22;
+  v24 = v7;
+  v25 = v95;
+  outlined init with copy of (String, Any)(v23, v24, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
 
-  v93 = v18;
+  v91 = v16;
 
-  v96 = a3;
-  v100 = v17;
-  v28 = specialized static Prompt.getLocalizationOverrideValue(from:token:locale:)(a3, v17, v26);
-  if (v29)
+  v94 = a3;
+  v98 = v15;
+  v26 = specialized static Prompt.getLocalizationOverrideValue(from:token:locale:)(a3, v15, v24);
+  if (v27)
   {
-    v30 = v28;
-    v31 = v29;
+    v28 = v26;
+    v29 = v27;
     if (one-time initialization token for prompt != -1)
     {
       swift_once();
     }
 
-    v32 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v32, static Log.prompt);
-    outlined init with copy of Prompt.PromptFragment(v100, v14, type metadata accessor for Prompt.SpecialToken);
+    v30 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v30, static Log.prompt);
+    outlined init with copy of Prompt.PromptFragment(v98, v12, type metadata accessor for Prompt.SpecialToken);
 
-    v33 = Logger.logObject.getter();
-    v34 = static os_log_type_t.debug.getter();
+    v31 = Logger.logObject.getter();
+    v32 = static os_log_type_t.debug.getter();
 
-    if (os_log_type_enabled(v33, v34))
+    if (os_log_type_enabled(v31, v32))
     {
-      v35 = swift_slowAlloc();
-      v90 = swift_slowAlloc();
-      *&v102 = v90;
-      *v35 = 136643075;
-      v91 = v26;
-      v37 = *v14;
-      v36 = v14[1];
+      v33 = swift_slowAlloc();
+      v88 = swift_slowAlloc();
+      *&v100 = v88;
+      *v33 = 136643075;
+      v89 = v24;
+      v35 = *v12;
+      v34 = v12[1];
 
-      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v14, type metadata accessor for Prompt.SpecialToken);
-      v38 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v37, v36, &v102);
-      v26 = v91;
+      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v12, type metadata accessor for Prompt.SpecialToken);
+      v36 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v35, v34, &v100);
+      v24 = v89;
 
-      *(v35 + 4) = v38;
-      *(v35 + 12) = 2085;
-      *(v35 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v30, v31, &v102);
-      _os_log_impl(&dword_1A8E85000, v33, v34, "Updating value of special token: %{sensitive}s to %{sensitive}s", v35, 0x16u);
-      v39 = v90;
+      *(v33 + 4) = v36;
+      *(v33 + 12) = 2085;
+      *(v33 + 14) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v28, v29, &v100);
+      _os_log_impl(&dword_1A8E85000, v31, v32, "Updating value of special token: %{sensitive}s to %{sensitive}s", v33, 0x16u);
+      v37 = v88;
       swift_arrayDestroy();
-      MEMORY[0x1AC57DBF0](v39, -1, -1);
-      MEMORY[0x1AC57DBF0](v35, -1, -1);
+      MEMORY[0x1AC57DBF0](v37, -1, -1);
+      MEMORY[0x1AC57DBF0](v33, -1, -1);
     }
 
     else
     {
 
-      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v14, type metadata accessor for Prompt.SpecialToken);
+      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v12, type metadata accessor for Prompt.SpecialToken);
     }
 
-    v103 = MEMORY[0x1E69E6158];
-    *&v102 = v30;
-    *(&v102 + 1) = v31;
-    outlined init with take of Any(&v102, v101);
+    v101 = MEMORY[0x1E69E6158];
+    *&v100 = v28;
+    *(&v100 + 1) = v29;
+    outlined init with take of Any(&v100, v99);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v104 = v27;
-    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v101, v100, isUniquelyReferenced_nonNull_native);
-    v27 = v104;
+    v102 = v25;
+    specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v99, v98, isUniquelyReferenced_nonNull_native);
+    v25 = v102;
   }
 
-  v41 = v99;
-  v42 = Prompt.renderSpecialToken(delimiter:tokenTable:)(v98, v27);
-  if (v41)
+  v39 = v97;
+  v40 = Prompt.renderSpecialToken(delimiter:tokenTable:)(v96, v25);
+  if (v39)
   {
-    outlined destroy of [Regex2BNF.CharacterPredicate](v26, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+    outlined destroy of [Regex2BNF.CharacterPredicate](v24, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
 
-    return _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v100, type metadata accessor for Prompt.SpecialToken);
+    return _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v98, type metadata accessor for Prompt.SpecialToken);
   }
 
-  v45 = v43;
-  v99 = v42;
+  v43 = v41;
+  v97 = v40;
 
   if (one-time initialization token for localeInstruction != -1)
   {
     swift_once();
   }
 
-  v46 = __swift_project_value_buffer(v95, static Prompt.SpecialToken.localeInstruction);
-  v47 = specialized static Prompt.getLocalizationOverrideValue(from:token:locale:)(v96, v46, v26);
-  if (v48)
+  v44 = __swift_project_value_buffer(v93, static Prompt.SpecialToken.localeInstruction);
+  v45 = specialized static Prompt.getLocalizationOverrideValue(from:token:locale:)(v94, v44, v24);
+  if (v46)
   {
-    v49 = v48;
-    v50 = v47;
+    v47 = v46;
+    v48 = v45;
     if (one-time initialization token for localeInstructionInjectionLocation != -1)
     {
       swift_once();
     }
 
-    v51 = __swift_project_value_buffer(v95, static Prompt.SpecialToken.localeInstructionInjectionLocation);
-    v52 = specialized static Prompt.getLocalizationOverrideValue(from:token:locale:)(v96, v51, v26);
-    v54 = v26;
-    if (v53)
+    v49 = __swift_project_value_buffer(v93, static Prompt.SpecialToken.localeInstructionInjectionLocation);
+    v50 = specialized static Prompt.getLocalizationOverrideValue(from:token:locale:)(v94, v49, v24);
+    v52 = v24;
+    if (v51)
     {
-      v55 = v53;
-      v91 = v54;
-      v98 = v52;
-      *&v102 = v52;
-      *(&v102 + 1) = v53;
-      *&v101[0] = 58;
-      *(&v101[0] + 1) = 0xE100000000000000;
+      v53 = v51;
+      v89 = v52;
+      v96 = v50;
+      *&v100 = v50;
+      *(&v100 + 1) = v51;
+      *&v99[0] = 58;
+      *(&v99[0] + 1) = 0xE100000000000000;
       lazy protocol witness table accessor for type String and conformance String();
-      v56 = StringProtocol.components<A>(separatedBy:)();
-      v57 = v56;
-      v58 = v56[2];
-      if (v58)
+      v54 = StringProtocol.components<A>(separatedBy:)();
+      v55 = v54;
+      v56 = v54[2];
+      if (v56)
       {
-        v59 = v45;
-        if ((v56[4] != v94 || v56[5] != v93) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+        v57 = v43;
+        if ((v54[4] != v92 || v54[5] != v91) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
         {
-          outlined destroy of [Regex2BNF.CharacterPredicate](v91, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+          outlined destroy of [Regex2BNF.CharacterPredicate](v89, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
 
-          _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v100, type metadata accessor for Prompt.SpecialToken);
-          return v99;
+          _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v98, type metadata accessor for Prompt.SpecialToken);
+          return v97;
         }
 
-        v60 = &v57[2 * v58 + 4];
-        v61 = *(v60 - 16);
-        v62 = *(v60 - 8);
+        v58 = &v55[2 * v56 + 4];
+        v59 = *(v58 - 16);
+        v60 = *(v58 - 8);
 
-        v63._countAndFlagsBits = v61;
-        v63._object = v62;
-        v64 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of Prompt.SpecialToken.LocaleInstructionPosition.init(rawValue:), v63);
+        v61._countAndFlagsBits = v59;
+        v61._object = v60;
+        v62 = _findStringSwitchCase(cases:string:)(&outlined read-only object #0 of Prompt.SpecialToken.LocaleInstructionPosition.init(rawValue:), v61);
 
-        if (v64 == 1)
+        if (v62 == 1)
         {
 
-          *&v102 = v99;
-          *(&v102 + 1) = v59;
+          *&v100 = v97;
+          *(&v100 + 1) = v57;
 
-          v65 = v50;
-          v66 = v49;
+          v63 = v48;
+          v64 = v47;
           goto LABEL_34;
         }
 
-        if (!v64)
+        if (!v62)
         {
 
-          *&v102 = v50;
-          *(&v102 + 1) = v49;
+          *&v100 = v48;
+          *(&v100 + 1) = v47;
 
-          v65 = v99;
-          v66 = v59;
+          v63 = v97;
+          v64 = v57;
 LABEL_34:
-          MEMORY[0x1AC57C120](v65, v66);
+          MEMORY[0x1AC57C120](v63, v64);
 
-          v75 = *(&v102 + 1);
-          v99 = v102;
+          v73 = *(&v100 + 1);
+          v97 = v100;
 
-          v76 = v92;
+          v74 = v90;
           if (one-time initialization token for prompt != -1)
           {
             swift_once();
           }
 
-          v77 = type metadata accessor for Logger();
-          __swift_project_value_buffer(v77, static Log.prompt);
-          outlined init with copy of Prompt.PromptFragment(v100, v76, type metadata accessor for Prompt.SpecialToken);
+          v75 = type metadata accessor for Logger();
+          __swift_project_value_buffer(v75, static Log.prompt);
+          outlined init with copy of Prompt.PromptFragment(v98, v74, type metadata accessor for Prompt.SpecialToken);
 
-          v78 = Logger.logObject.getter();
-          v79 = static os_log_type_t.debug.getter();
+          v76 = Logger.logObject.getter();
+          v77 = static os_log_type_t.debug.getter();
 
-          if (os_log_type_enabled(v78, v79))
+          if (os_log_type_enabled(v76, v77))
           {
-            v80 = swift_slowAlloc();
-            v81 = swift_slowAlloc();
-            *&v102 = v81;
-            *v80 = 136643075;
-            v82 = v75;
-            v83 = *v76;
-            v84 = v76[1];
+            v78 = swift_slowAlloc();
+            v79 = swift_slowAlloc();
+            *&v100 = v79;
+            *v78 = 136643075;
+            v80 = v73;
+            v81 = *v74;
+            v82 = v74[1];
 
-            _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v76, type metadata accessor for Prompt.SpecialToken);
-            v85 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v83, v84, &v102);
+            _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v74, type metadata accessor for Prompt.SpecialToken);
+            v83 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v81, v82, &v100);
 
-            *(v80 + 4) = v85;
-            *(v80 + 12) = 2085;
-            v86 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v99, v82, &v102);
+            *(v78 + 4) = v83;
+            *(v78 + 12) = 2085;
+            v84 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v97, v80, &v100);
 
-            *(v80 + 14) = v86;
-            _os_log_impl(&dword_1A8E85000, v78, v79, "Value of special token: %{sensitive}s after adding locale instruction: %{sensitive}s", v80, 0x16u);
+            *(v78 + 14) = v84;
+            _os_log_impl(&dword_1A8E85000, v76, v77, "Value of special token: %{sensitive}s after adding locale instruction: %{sensitive}s", v78, 0x16u);
             swift_arrayDestroy();
-            MEMORY[0x1AC57DBF0](v81, -1, -1);
-            MEMORY[0x1AC57DBF0](v80, -1, -1);
+            MEMORY[0x1AC57DBF0](v79, -1, -1);
+            MEMORY[0x1AC57DBF0](v78, -1, -1);
           }
 
           else
           {
 
-            _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v76, type metadata accessor for Prompt.SpecialToken);
+            _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v74, type metadata accessor for Prompt.SpecialToken);
           }
 
-          outlined destroy of [Regex2BNF.CharacterPredicate](v91, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-          v67 = v100;
+          outlined destroy of [Regex2BNF.CharacterPredicate](v89, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+          v65 = v98;
           goto LABEL_27;
         }
 
@@ -7245,22 +4112,22 @@ LABEL_34:
           swift_once();
         }
 
-        v87 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v87, static Log.prompt);
+        v85 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v85, static Log.prompt);
 
-        v69 = Logger.logObject.getter();
-        v70 = static os_log_type_t.error.getter();
+        v67 = Logger.logObject.getter();
+        v68 = static os_log_type_t.error.getter();
 
-        if (os_log_type_enabled(v69, v70))
+        if (os_log_type_enabled(v67, v68))
         {
-          v71 = swift_slowAlloc();
-          v72 = swift_slowAlloc();
-          *&v102 = v72;
-          *v71 = 136446210;
-          v88 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v98, v55, &v102);
+          v69 = swift_slowAlloc();
+          v70 = swift_slowAlloc();
+          *&v100 = v70;
+          *v69 = 136446210;
+          v86 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v96, v53, &v100);
 
-          *(v71 + 4) = v88;
-          v74 = "Invalid locale instruction injection location as position is not valid: %{public}s";
+          *(v69 + 4) = v86;
+          v72 = "Invalid locale instruction injection location as position is not valid: %{public}s";
           goto LABEL_45;
         }
       }
@@ -7273,80 +4140,79 @@ LABEL_34:
           swift_once();
         }
 
-        v68 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v68, static Log.prompt);
+        v66 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v66, static Log.prompt);
 
-        v69 = Logger.logObject.getter();
-        v70 = static os_log_type_t.error.getter();
+        v67 = Logger.logObject.getter();
+        v68 = static os_log_type_t.error.getter();
 
-        if (os_log_type_enabled(v69, v70))
+        if (os_log_type_enabled(v67, v68))
         {
-          v71 = swift_slowAlloc();
-          v72 = swift_slowAlloc();
-          *&v102 = v72;
-          *v71 = 136446210;
-          v73 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v98, v55, &v102);
+          v69 = swift_slowAlloc();
+          v70 = swift_slowAlloc();
+          *&v100 = v70;
+          *v69 = 136446210;
+          v71 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v96, v53, &v100);
 
-          *(v71 + 4) = v73;
-          v74 = "Invalid locale instruction injection location as token identifier not provided: %{public}s";
+          *(v69 + 4) = v71;
+          v72 = "Invalid locale instruction injection location as token identifier not provided: %{public}s";
 LABEL_45:
-          _os_log_impl(&dword_1A8E85000, v69, v70, v74, v71, 0xCu);
-          __swift_destroy_boxed_opaque_existential_0(v72);
-          MEMORY[0x1AC57DBF0](v72, -1, -1);
-          MEMORY[0x1AC57DBF0](v71, -1, -1);
+          _os_log_impl(&dword_1A8E85000, v67, v68, v72, v69, 0xCu);
+          __swift_destroy_boxed_opaque_existential_0(v70);
+          MEMORY[0x1AC57DBF0](v70, -1, -1);
+          MEMORY[0x1AC57DBF0](v69, -1, -1);
 LABEL_47:
 
-          type metadata accessor for GenerationError();
-          lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type GenerationError and conformance GenerationError, type metadata accessor for GenerationError);
+          type metadata accessor for GenerationError(0);
+          lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type GenerationError and conformance GenerationError, type metadata accessor for GenerationError, &protocol conformance descriptor for GenerationError);
           swift_allocError();
           swift_storeEnumTagMultiPayload();
           swift_willThrow();
-          outlined destroy of [Regex2BNF.CharacterPredicate](v91, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
-          return _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v100, type metadata accessor for Prompt.SpecialToken);
+          outlined destroy of [Regex2BNF.CharacterPredicate](v89, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+          return _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v98, type metadata accessor for Prompt.SpecialToken);
         }
       }
 
       goto LABEL_47;
     }
 
-    outlined destroy of [Regex2BNF.CharacterPredicate](v26, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+    outlined destroy of [Regex2BNF.CharacterPredicate](v24, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
   }
 
   else
   {
-    outlined destroy of [Regex2BNF.CharacterPredicate](v26, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+    outlined destroy of [Regex2BNF.CharacterPredicate](v24, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
   }
 
-  v67 = v100;
+  v65 = v98;
 LABEL_27:
-  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v67, type metadata accessor for Prompt.SpecialToken);
-  return v99;
+  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v65, type metadata accessor for Prompt.SpecialToken);
+  return v97;
 }
 
-uint64_t Prompt.renderSpecialToken(delimiter:tokenTable:)(uint64_t *a1, uint64_t a2)
+uint64_t Prompt.renderSpecialToken(delimiter:tokenTable:)(unint64_t *a1, uint64_t a2)
 {
   v4 = type metadata accessor for Prompt.SpecialToken(0);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v7 = v25 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = *a1;
-  v8 = a1[1];
-  v11 = *(v10 + 20);
-  v12 = type metadata accessor for Locale();
-  (*(*(v12 - 8) + 56))(&v7[v11], 1, 1, v12);
-  *v7 = v9;
-  *(v7 + 1) = v8;
-  v13 = &v7[*(v4 + 24)];
-  *v13 = 0;
-  *(v13 + 1) = 0;
-  v7[*(v4 + 28)] = 0;
-  if (v9 == 0x6C6F722E74616863 && v8 == 0xEE006C6F6F742E65 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+  v6 = v24 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = *a1;
+  v7 = a1[1];
+  v10 = *(v9 + 20);
+  v11 = type metadata accessor for Locale();
+  (*(*(v11 - 8) + 56))(&v6[v10], 1, 1, v11);
+  *v6 = v8;
+  *(v6 + 1) = v7;
+  v12 = &v6[*(v4 + 24)];
+  *v12 = 0;
+  *(v12 + 1) = 0;
+  v6[*(v4 + 28)] = 0;
+  if (__PAIR128__(v7, v8) == __PAIR128__(0xEE006C6F6F742E65, 0x6C6F722E74616863) || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
-    v14 = *(a2 + 16);
+    v13 = *(a2 + 16);
 
-    if (!v14 || (specialized __RawDictionaryStorage.find<A>(_:)(v7), (v15 & 1) == 0))
+    if (!v13 || (specialized __RawDictionaryStorage.find<A>(_:)(v6), (v14 & 1) == 0))
     {
-      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v7, type metadata accessor for Prompt.SpecialToken);
+      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v6, type metadata accessor for Prompt.SpecialToken);
       return 0xD000000000000012;
     }
   }
@@ -7355,46 +4221,46 @@ uint64_t Prompt.renderSpecialToken(delimiter:tokenTable:)(uint64_t *a1, uint64_t
   {
   }
 
-  if (*(a2 + 16) && (v17 = specialized __RawDictionaryStorage.find<A>(_:)(v7), (v18 & 1) != 0) && (outlined init with copy of Any(*(a2 + 56) + 32 * v17, v28), (swift_dynamicCast() & 1) != 0))
+  if (*(a2 + 16) && (v16 = specialized __RawDictionaryStorage.find<A>(_:)(v6), (v17 & 1) != 0) && (outlined init with copy of Any(*(a2 + 56) + 32 * v16, v27), (swift_dynamicCast() & 1) != 0))
   {
-    v28[0] = v26;
-    v28[1] = v27;
-    v26 = 0x7D7D64697B7BLL;
-    v27 = 0xE600000000000000;
-    v19 = (a1 + *(v4 + 24));
-    v20 = v19[1];
-    if (v20)
+    v27[0] = v25;
+    v27[1] = v26;
+    v25 = 0x7D7D64697B7BLL;
+    v26 = 0xE600000000000000;
+    v18 = (a1 + *(v4 + 24));
+    v19 = v18[1];
+    if (v19)
     {
-      v21 = *v19;
-      v22 = v20;
+      v20 = *v18;
+      v21 = v19;
     }
 
     else
     {
-      v21 = 0;
-      v22 = 0xE000000000000000;
+      v20 = 0;
+      v21 = 0xE000000000000000;
     }
 
-    v25[0] = v21;
-    v25[1] = v22;
+    v24[0] = v20;
+    v24[1] = v21;
     lazy protocol witness table accessor for type String and conformance String();
 
-    v24 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
+    v23 = StringProtocol.replacingOccurrences<A, B>(of:with:options:range:)();
 
-    _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v7, type metadata accessor for Prompt.SpecialToken);
+    _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v6, type metadata accessor for Prompt.SpecialToken);
 
-    return v24;
+    return v23;
   }
 
   else
   {
-    type metadata accessor for GenerationError();
-    lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type GenerationError and conformance GenerationError, type metadata accessor for GenerationError);
+    type metadata accessor for GenerationError(0);
+    lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type GenerationError and conformance GenerationError, type metadata accessor for GenerationError, &protocol conformance descriptor for GenerationError);
     swift_allocError();
-    outlined init with copy of Prompt.PromptFragment(a1, v23, type metadata accessor for Prompt.SpecialToken);
+    outlined init with copy of Prompt.PromptFragment(a1, v22, type metadata accessor for Prompt.SpecialToken);
     swift_storeEnumTagMultiPayload();
     swift_willThrow();
-    return _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v7, type metadata accessor for Prompt.SpecialToken);
+    return _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v6, type metadata accessor for Prompt.SpecialToken);
   }
 }
 
@@ -7406,194 +4272,189 @@ uint64_t closure #2 in static Prompt.getLocalizationOverrideValue(from:token:loc
   {
     v3 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCSS_Tt1g5(*(*a1 + 16), 0);
     v4 = specialized Sequence._copySequenceContents(initializing:)(&v15, v3 + 4, v2, v1);
+    v5 = v15;
 
-    outlined consume of Set<NonTerminalSymbol>.Iterator._Variant();
+    outlined consume of Set<NonTerminalSymbol>.Iterator._Variant(v5);
     if (v4 != v2)
     {
       __break(1u);
     }
   }
 
-  v5 = objc_opt_self();
+  v6 = objc_opt_self();
   isa = Array._bridgeToObjectiveC()().super.isa;
 
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySSGMd, &_ss23_ContiguousArrayStorageCySSGMR);
-  v7 = swift_allocObject();
-  *(v7 + 16) = xmmword_1A8FC9400;
-  *(v7 + 32) = Locale.identifier.getter();
-  *(v7 + 40) = v8;
-  v9 = Array._bridgeToObjectiveC()().super.isa;
+  v8 = swift_allocObject();
+  *(v8 + 16) = xmmword_1A8FC9400;
+  *(v8 + 32) = Locale.identifier.getter();
+  *(v8 + 40) = v9;
+  v10 = Array._bridgeToObjectiveC()().super.isa;
 
-  v10 = [v5 preferredLocalizationsFromArray:isa forPreferences:v9];
+  v11 = [v6 preferredLocalizationsFromArray:isa forPreferences:v10];
 
-  v11 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  if (v11[2])
+  v12 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  if (*(v12 + 16))
   {
-    v12 = v11[4];
-    v13 = v11[5];
+    v13 = *(v12 + 32);
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  return v12;
+  return v13;
 }
 
 BOOL closure #1 in Prompt.promptFragments()(uint64_t a1, uint64_t a2)
 {
-  v50 = a2;
+  v47 = a2;
   v3 = type metadata accessor for Prompt.Delimiter(0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v6 = &v47 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for Prompt.Attachment(0);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v7);
-  v10 = &v47 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = type metadata accessor for Prompt.PromptMarker(0);
-  v12 = *(*(v11 - 8) + 64);
+  v5 = &v44 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for Prompt.Attachment(0);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = &v44 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for Prompt.PromptMarker(0);
+  MEMORY[0x1EEE9AC00](v9);
+  v46 = &v44 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v11);
-  v49 = &v47 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v47 = &v47 - v15;
-  MEMORY[0x1EEE9AC00](v16);
-  v48 = &v47 - v17;
+  v44 = &v44 - v12;
+  MEMORY[0x1EEE9AC00](v13);
+  v45 = &v44 - v14;
+  MEMORY[0x1EEE9AC00](v15);
+  v17 = &v44 - v16;
   MEMORY[0x1EEE9AC00](v18);
-  v20 = &v47 - v19;
+  v20 = &v44 - v19;
   MEMORY[0x1EEE9AC00](v21);
-  v23 = &v47 - v22;
-  MEMORY[0x1EEE9AC00](v24);
-  v26 = &v47 - v25;
-  v51 = a1;
-  outlined init with copy of Prompt.PromptFragment(a1, &v47 - v25, type metadata accessor for Prompt.PromptMarker);
+  v23 = &v44 - v22;
+  v48 = a1;
+  outlined init with copy of Prompt.PromptFragment(a1, &v44 - v22, type metadata accessor for Prompt.PromptMarker);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-  v52 = v3;
+  v49 = v3;
   if (EnumCaseMultiPayload == 1)
   {
-    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v26, v6, type metadata accessor for Prompt.Delimiter);
-    v28 = *&v6[*(v3 + 20)];
-    v29 = type metadata accessor for Prompt.Delimiter;
-    v30 = v6;
+    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v23, v5, type metadata accessor for Prompt.Delimiter);
+    v25 = *&v5[*(v3 + 20)];
+    v26 = type metadata accessor for Prompt.Delimiter;
+    v27 = v5;
   }
 
   else
   {
-    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v26, v10, type metadata accessor for Prompt.Attachment);
-    v28 = *&v10[*(v7 + 20)];
-    v29 = type metadata accessor for Prompt.Attachment;
-    v30 = v10;
+    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v23, v8, type metadata accessor for Prompt.Attachment);
+    v25 = *&v8[*(v6 + 20)];
+    v26 = type metadata accessor for Prompt.Attachment;
+    v27 = v8;
   }
 
-  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v30, v29);
-  v31 = v50;
-  outlined init with copy of Prompt.PromptFragment(v50, v23, type metadata accessor for Prompt.PromptMarker);
+  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v27, v26);
+  v28 = v47;
+  outlined init with copy of Prompt.PromptFragment(v47, v20, type metadata accessor for Prompt.PromptMarker);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v23, v6, type metadata accessor for Prompt.Delimiter);
-    v32 = *&v6[*(v52 + 20)];
-    v33 = type metadata accessor for Prompt.Delimiter;
-    v34 = v6;
+    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v20, v5, type metadata accessor for Prompt.Delimiter);
+    v29 = *&v5[*(v49 + 20)];
+    v30 = type metadata accessor for Prompt.Delimiter;
+    v31 = v5;
   }
 
   else
   {
-    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v23, v10, type metadata accessor for Prompt.Attachment);
-    v32 = *&v10[*(v7 + 20)];
-    v33 = type metadata accessor for Prompt.Attachment;
-    v34 = v10;
+    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v20, v8, type metadata accessor for Prompt.Attachment);
+    v29 = *&v8[*(v6 + 20)];
+    v30 = type metadata accessor for Prompt.Attachment;
+    v31 = v8;
   }
 
-  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v34, v33);
-  if (v28 != v32)
+  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v31, v30);
+  if (v25 != v29)
   {
-    outlined init with copy of Prompt.PromptFragment(v31, v20, type metadata accessor for Prompt.PromptMarker);
+    outlined init with copy of Prompt.PromptFragment(v28, v17, type metadata accessor for Prompt.PromptMarker);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v20, v6, type metadata accessor for Prompt.Delimiter);
-      v38 = v52;
-      v37 = *&v6[*(v52 + 20)];
-      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v6, type metadata accessor for Prompt.Delimiter);
+      _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v17, v5, type metadata accessor for Prompt.Delimiter);
+      v35 = v49;
+      v34 = *&v5[*(v49 + 20)];
+      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v5, type metadata accessor for Prompt.Delimiter);
     }
 
     else
     {
-      _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v20, v10, type metadata accessor for Prompt.Attachment);
-      v37 = *&v10[*(v7 + 20)];
-      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v10, type metadata accessor for Prompt.Attachment);
-      v38 = v52;
+      _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v17, v8, type metadata accessor for Prompt.Attachment);
+      v34 = *&v8[*(v6 + 20)];
+      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v8, type metadata accessor for Prompt.Attachment);
+      v35 = v49;
     }
 
-    v41 = v48;
-    outlined init with copy of Prompt.PromptFragment(v51, v48, type metadata accessor for Prompt.PromptMarker);
+    v38 = v45;
+    outlined init with copy of Prompt.PromptFragment(v48, v45, type metadata accessor for Prompt.PromptMarker);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v41, v6, type metadata accessor for Prompt.Delimiter);
-      v40 = *(v38 + 20);
+      _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v38, v5, type metadata accessor for Prompt.Delimiter);
+      v37 = *(v35 + 20);
       goto LABEL_18;
     }
 
-    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v41, v10, type metadata accessor for Prompt.Attachment);
-    v45 = *(v7 + 20);
+    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v38, v8, type metadata accessor for Prompt.Attachment);
+    v42 = *(v6 + 20);
 LABEL_21:
-    v42 = *&v10[v45];
-    v43 = type metadata accessor for Prompt.Attachment;
-    v44 = v10;
+    v39 = *&v8[v42];
+    v40 = type metadata accessor for Prompt.Attachment;
+    v41 = v8;
     goto LABEL_22;
   }
 
-  v35 = v47;
-  outlined init with copy of Prompt.PromptFragment(v31, v47, type metadata accessor for Prompt.PromptMarker);
+  v32 = v44;
+  outlined init with copy of Prompt.PromptFragment(v28, v44, type metadata accessor for Prompt.PromptMarker);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v35, v6, type metadata accessor for Prompt.Delimiter);
-    v36 = v52;
-    v37 = *&v6[*(v52 + 24)];
-    _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v6, type metadata accessor for Prompt.Delimiter);
+    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v32, v5, type metadata accessor for Prompt.Delimiter);
+    v33 = v49;
+    v34 = *&v5[*(v49 + 24)];
+    _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v5, type metadata accessor for Prompt.Delimiter);
   }
 
   else
   {
-    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v35, v10, type metadata accessor for Prompt.Attachment);
-    v37 = *&v10[*(v7 + 24)];
-    _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v10, type metadata accessor for Prompt.Attachment);
-    v36 = v52;
+    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v32, v8, type metadata accessor for Prompt.Attachment);
+    v34 = *&v8[*(v6 + 24)];
+    _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v8, type metadata accessor for Prompt.Attachment);
+    v33 = v49;
   }
 
-  v39 = v49;
-  outlined init with copy of Prompt.PromptFragment(v51, v49, type metadata accessor for Prompt.PromptMarker);
+  v36 = v46;
+  outlined init with copy of Prompt.PromptFragment(v48, v46, type metadata accessor for Prompt.PromptMarker);
   if (swift_getEnumCaseMultiPayload() != 1)
   {
-    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v39, v10, type metadata accessor for Prompt.Attachment);
-    v45 = *(v7 + 24);
+    _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v36, v8, type metadata accessor for Prompt.Attachment);
+    v42 = *(v6 + 24);
     goto LABEL_21;
   }
 
-  _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v39, v6, type metadata accessor for Prompt.Delimiter);
-  v40 = *(v36 + 24);
+  _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v36, v5, type metadata accessor for Prompt.Delimiter);
+  v37 = *(v33 + 24);
 LABEL_18:
-  v42 = *&v6[v40];
-  v43 = type metadata accessor for Prompt.Delimiter;
-  v44 = v6;
+  v39 = *&v5[v37];
+  v40 = type metadata accessor for Prompt.Delimiter;
+  v41 = v5;
 LABEL_22:
-  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v44, v43);
-  return v37 < v42;
+  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v41, v40);
+  return v34 < v39;
 }
 
 Swift::Int __swiftcall Prompt.overestimatedTokenCount()()
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = String.count.getter();
-  v5 = *(v3 + 16);
+  v1 = *(v0 + 16);
+  v2 = String.count.getter();
+  v3 = *(v1 + 16);
 
-  v6 = String.Iterator.next()();
-  if (v6.value._object)
+  v4 = String.Iterator.next()();
+  if (v4.value._object)
   {
-    countAndFlagsBits = v6.value._countAndFlagsBits;
-    object = v6.value._object;
+    countAndFlagsBits = v4.value._countAndFlagsBits;
+    object = v4.value._object;
     while (1)
     {
       if (countAndFlagsBits == 2573 && object == 0xE200000000000000)
@@ -7609,15 +4470,15 @@ Swift::Int __swiftcall Prompt.overestimatedTokenCount()()
 
       if ((object & 0x2000000000000000) != 0)
       {
-        v11 = HIBYTE(object) & 0xF;
+        v9 = HIBYTE(object) & 0xF;
       }
 
       else
       {
-        v11 = countAndFlagsBits & 0xFFFFFFFFFFFFLL;
+        v9 = countAndFlagsBits & 0xFFFFFFFFFFFFLL;
       }
 
-      if (!v11)
+      if (!v9)
       {
         __break(1u);
 LABEL_37:
@@ -7629,28 +4490,28 @@ LABEL_38:
 
       if ((object & 0x1000000000000000) != 0)
       {
-        v16 = String.UnicodeScalarView._foreignIndex(after:)();
+        v14 = String.UnicodeScalarView._foreignIndex(after:)();
       }
 
       else
       {
         if ((object & 0x2000000000000000) != 0)
         {
-          v13 = countAndFlagsBits;
+          v11 = countAndFlagsBits;
         }
 
         else
         {
-          v12 = ((countAndFlagsBits & 0x1000000000000000) != 0 ? (object & 0xFFFFFFFFFFFFFFFLL) + 32 : _StringObject.sharedUTF8.getter());
-          v13 = *v12;
+          v10 = ((countAndFlagsBits & 0x1000000000000000) != 0 ? (object & 0xFFFFFFFFFFFFFFFLL) + 32 : _StringObject.sharedUTF8.getter());
+          v11 = *v10;
         }
 
-        v14 = v13;
-        v15 = (__clz(~v13) - 24) << 16;
-        v16 = v14 < 0 ? v15 : 65541;
+        v12 = v11;
+        v13 = (__clz(~v11) - 24) << 16;
+        v14 = v12 < 0 ? v13 : 65541;
       }
 
-      if (v16 >> 14 != 4 * v11)
+      if (v14 >> 14 != 4 * v9)
       {
         break;
       }
@@ -7672,18 +4533,18 @@ LABEL_38:
         goto LABEL_44;
       }
 
-      v17 = result;
+      v15 = result;
 
-      if ((v17 & 0xFFFFFF00) != 0)
+      if ((v15 & 0xFFFFFF00) != 0)
       {
         goto LABEL_37;
       }
 
 LABEL_5:
-      v9 = String.Iterator.next()();
-      countAndFlagsBits = v9.value._countAndFlagsBits;
-      object = v9.value._object;
-      if (!v9.value._object)
+      v7 = String.Iterator.next()();
+      countAndFlagsBits = v7.value._countAndFlagsBits;
+      object = v7.value._object;
+      if (!v7.value._object)
       {
         goto LABEL_30;
       }
@@ -7697,33 +4558,33 @@ LABEL_4:
 
 LABEL_30:
 
-  v18 = String.count.getter();
+  v16 = String.count.getter();
 
-  v19 = ceil(v4 / 3.0);
-  if ((*&v19 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
+  v17 = ceil(v2 / 3.0);
+  if ((*&v17 & 0x7FFFFFFFFFFFFFFFuLL) > 0x7FEFFFFFFFFFFFFFLL)
   {
     goto LABEL_38;
   }
 
-  if (v19 <= -9.22337204e18)
+  if (v17 <= -9.22337204e18)
   {
 LABEL_39:
     __break(1u);
     goto LABEL_40;
   }
 
-  if (v19 >= 9.22337204e18)
+  if (v17 >= 9.22337204e18)
   {
 LABEL_40:
     __break(1u);
     goto LABEL_41;
   }
 
-  v20 = v19 + v18;
-  if (!__OFADD__(v19, v18))
+  v18 = v17 + v16;
+  if (!__OFADD__(v17, v16))
   {
-    result = v20 + v5;
-    if (!__OFADD__(v20, v5))
+    result = v18 + v3;
+    if (!__OFADD__(v18, v3))
     {
       return result;
     }
@@ -7747,56 +4608,53 @@ uint64_t Prompt.StringInterpolation.appendInterpolation(if:token:)(uint64_t (*a1
   v4 = v3;
   v7 = type metadata accessor for Prompt.Delimiter(0);
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
   MEMORY[0x1EEE9AC00](v7);
-  v11 = &v27 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = MEMORY[0x1EEE9AC00](v12);
-  v15 = &v27 - v14;
-  result = a1(v13);
+  v10 = &v24 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = MEMORY[0x1EEE9AC00](v11);
+  v14 = &v24 - v13;
+  result = a1(v12);
   if ((result & 1) == 0)
   {
     return result;
   }
 
-  outlined init with copy of Prompt.PromptFragment(a3, v15, type metadata accessor for Prompt.SpecialToken);
-  v17 = *v3;
-  v18 = v3[1];
-  v19 = String.count.getter();
-  v20 = v3[2];
-  v21 = v20[2];
-  v22 = *(v4[3] + 16);
-  v23 = __OFADD__(v21, v22);
-  v24 = v21 + v22;
-  if (v23)
+  outlined init with copy of Prompt.PromptFragment(a3, v14, type metadata accessor for Prompt.SpecialToken);
+  v16 = String.count.getter();
+  v17 = *(v3 + 16);
+  v18 = v17[2];
+  v19 = *(*(v4 + 24) + 16);
+  v20 = __OFADD__(v18, v19);
+  v21 = v18 + v19;
+  if (v20)
   {
     __break(1u);
     goto LABEL_9;
   }
 
-  *&v15[*(v7 + 20)] = v19;
-  *&v15[*(v7 + 24)] = v24;
-  outlined init with copy of Prompt.PromptFragment(v15, v11, type metadata accessor for Prompt.Delimiter);
+  *&v14[*(v7 + 20)] = v16;
+  *&v14[*(v7 + 24)] = v21;
+  outlined init with copy of Prompt.PromptFragment(v14, v10, type metadata accessor for Prompt.Delimiter);
   if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
   {
 LABEL_9:
-    v20 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v21 + 1, 1, v20);
+    v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v18 + 1, 1, v17);
   }
 
-  v26 = v20[2];
-  v25 = v20[3];
-  if (v26 >= v25 >> 1)
+  v23 = v17[2];
+  v22 = v17[3];
+  if (v23 >= v22 >> 1)
   {
-    v20 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v25 > 1, v26 + 1, 1, v20);
+    v17 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v22 > 1), v23 + 1, 1, v17);
   }
 
-  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v15, type metadata accessor for Prompt.Delimiter);
-  v20[2] = v26 + 1;
-  result = _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v11, v20 + ((*(v8 + 80) + 32) & ~*(v8 + 80)) + *(v8 + 72) * v26, type metadata accessor for Prompt.Delimiter);
-  v4[2] = v20;
+  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v14, type metadata accessor for Prompt.Delimiter);
+  v17[2] = v23 + 1;
+  result = _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v10, v17 + ((*(v8 + 80) + 32) & ~*(v8 + 80)) + *(v8 + 72) * v23, type metadata accessor for Prompt.Delimiter);
+  *(v4 + 16) = v17;
   return result;
 }
 
-size_t protocol witness for StringInterpolationProtocol.init(literalCapacity:interpolationCount:) in conformance Prompt.StringInterpolation@<X0>(uint64_t a1@<X1>, void *a2@<X8>)
+void *protocol witness for StringInterpolationProtocol.init(literalCapacity:interpolationCount:) in conformance Prompt.StringInterpolation@<X0>(uint64_t a1@<X1>, void *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0xE000000000000000;
@@ -7809,17 +4667,9 @@ size_t protocol witness for StringInterpolationProtocol.init(literalCapacity:int
   return result;
 }
 
-void protocol witness for StringInterpolationProtocol.appendLiteral(_:) in conformance Prompt.StringInterpolation(uint64_t *a1)
-{
-  v2 = *a1;
-  v1 = a1[1];
-  JUMPOUT(0x1AC57C120);
-}
-
 uint64_t Prompt.Rendering.originalPrompt.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
@@ -7827,7 +4677,6 @@ uint64_t Prompt.Rendering.originalPrompt.getter()
 uint64_t Prompt.Rendering.renderedString.getter()
 {
   v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
 
   return v1;
 }
@@ -7835,7 +4684,6 @@ uint64_t Prompt.Rendering.renderedString.getter()
 uint64_t Prompt.Rendering.detokenizedString.getter()
 {
   v1 = *(v0 + 48);
-  v2 = *(v0 + 56);
 
   return v1;
 }
@@ -7917,24 +4765,40 @@ void __swiftcall Prompt.Rendering.init(source:segments:renderedString:originalPr
   retstr->detokenizedString.value._countAndFlagsBits = 0;
 }
 
+void __swiftcall Prompt.Rendering.init(source:segments:renderedString:originalPrompt:tokenIDs:userInfo:detokenizedString:)(TokenGeneration::Prompt::Rendering *__return_ptr retstr, TokenGeneration::Prompt::Rendering::Source source, Swift::OpaquePointer segments, Swift::String renderedString, Swift::String originalPrompt, Swift::OpaquePointer tokenIDs, Swift::OpaquePointer userInfo, Swift::String_optional detokenizedString)
+{
+  v8 = *(source.identifier._countAndFlagsBits + 16);
+  v9 = *(source.identifier._countAndFlagsBits + 24);
+  retstr->source.identifier = *source.identifier._countAndFlagsBits;
+  retstr->source.version._countAndFlagsBits = v8;
+  retstr->source.version._object = v9;
+  retstr->renderedString._countAndFlagsBits = source.version._countAndFlagsBits;
+  retstr->renderedString._object = source.version._object;
+  retstr->originalPrompt._countAndFlagsBits = segments._rawValue;
+  retstr->originalPrompt._object = renderedString._countAndFlagsBits;
+  retstr->segments._rawValue = source.identifier._object;
+  retstr->tokenIDs._rawValue = renderedString._object;
+  retstr->detokenizedString.value._object = tokenIDs._rawValue;
+  retstr->userInfo._rawValue = originalPrompt._countAndFlagsBits;
+  retstr->detokenizedString.value._countAndFlagsBits = originalPrompt._object;
+}
+
 uint64_t Prompt.Rendering.Source.version.getter()
 {
   v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
 
   return v1;
 }
 
 uint64_t Prompt.Rendering.Source.version.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 24);
 
   *(v2 + 16) = a1;
   *(v2 + 24) = a2;
   return result;
 }
 
-uint64_t static Prompt.Rendering.Source.== infix(_:_:)(void *a1, void *a2)
+uint64_t static Prompt.Rendering.Source.== infix(_:_:)(uint64_t *a1, void *a2)
 {
   v2 = a1[2];
   v3 = a1[3];
@@ -7958,12 +4822,8 @@ uint64_t static Prompt.Rendering.Source.== infix(_:_:)(void *a1, void *a2)
   return result;
 }
 
-uint64_t Prompt.Rendering.Source.hash(into:)()
+uint64_t Prompt.Rendering.Source.hash(into:)(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v4 = v0[2];
-  v3 = v0[3];
   String.hash(into:)();
 
   return String.hash(into:)();
@@ -7971,10 +4831,6 @@ uint64_t Prompt.Rendering.Source.hash(into:)()
 
 Swift::Int Prompt.Rendering.Source.hashValue.getter()
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v4 = v0[2];
-  v3 = v0[3];
   Hasher.init(_seed:)();
   String.hash(into:)();
   String.hash(into:)();
@@ -7983,40 +4839,28 @@ Swift::Int Prompt.Rendering.Source.hashValue.getter()
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance Prompt.Rendering.Source()
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v4 = v0[2];
-  v3 = v0[3];
   Hasher.init(_seed:)();
   String.hash(into:)();
   String.hash(into:)();
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance Prompt.Rendering.Source()
+uint64_t protocol witness for Hashable.hash(into:) in conformance Prompt.Rendering.Source(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v4 = v0[2];
-  v3 = v0[3];
   String.hash(into:)();
 
   return String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Prompt.Rendering.Source()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Prompt.Rendering.Source(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v4 = v0[2];
-  v3 = v0[3];
   Hasher.init(_seed:)();
   String.hash(into:)();
   String.hash(into:)();
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Prompt.Rendering.Source(void *a1, void *a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Prompt.Rendering.Source(uint64_t *a1, void *a2)
 {
   v2 = a1[2];
   v3 = a1[3];
@@ -8040,58 +4884,47 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Pro
   return result;
 }
 
-uint64_t Prompt.Rendering.hash(into:)(__int128 *a1)
+uint64_t Prompt.Rendering.hash(into:)(uint64_t a1)
 {
-  v3 = *v1;
-  v4 = v1[1];
-  v6 = v1[2];
-  v5 = v1[3];
-  v8 = v1[4];
-  v7 = v1[5];
-  v9 = v1[7];
-  v11 = v1[8];
-  v10 = v1[9];
-  v12 = v1[10];
-  v23 = v1[11];
-  v21 = v1[6];
-  v22 = v1[12];
+  v4 = v1[4];
+  v3 = v1[5];
+  v5 = v1[7];
+  v6 = v1[8];
   String.hash(into:)();
   String.hash(into:)();
-  MEMORY[0x1AC57CB80](*(v8 + 16));
-  v13 = *(v8 + 16);
-  if (v13)
+  MEMORY[0x1AC57CB80](*(v4 + 16));
+  v7 = *(v4 + 16);
+  if (v7)
   {
-    v14 = (v8 + 40);
+    v8 = v4 + 40;
     do
     {
-      v15 = *(v14 - 1);
-      v16 = *v14;
 
       String.hash(into:)();
 
-      v14 += 2;
-      --v13;
+      v8 += 16;
+      --v7;
     }
 
-    while (v13);
+    while (v7);
   }
 
-  MEMORY[0x1AC57CB80](*(v7 + 16));
-  v17 = *(v7 + 16);
-  if (v17)
+  MEMORY[0x1AC57CB80](*(v3 + 16));
+  v9 = *(v3 + 16);
+  if (v9)
   {
-    v18 = (v7 + 32);
+    v10 = (v3 + 32);
     do
     {
-      v19 = *v18++;
-      MEMORY[0x1AC57CB80](v19);
-      --v17;
+      v11 = *v10++;
+      MEMORY[0x1AC57CB80](v11);
+      --v9;
     }
 
-    while (v17);
+    while (v9);
   }
 
-  if (v9)
+  if (v5)
   {
     Hasher._combine(_:)(1u);
     String.hash(into:)();
@@ -8102,7 +4935,7 @@ uint64_t Prompt.Rendering.hash(into:)(__int128 *a1)
     Hasher._combine(_:)(0);
   }
 
-  specialized Dictionary<>.hash(into:)(a1, v11);
+  specialized Dictionary<>.hash(into:)(a1, v6);
   String.hash(into:)();
 
   return String.hash(into:)();
@@ -8122,14 +4955,14 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Prompt.
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Prompt.Rendering()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Prompt.Rendering(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  Prompt.Rendering.hash(into:)(v1);
+  Prompt.Rendering.hash(into:)(v2);
   return Hasher._finalize()();
 }
 
-uint64_t static Prompt.== infix(_:_:)(void *a1, void *a2)
+uint64_t static Prompt.== infix(_:_:)(uint64_t *a1, void *a2)
 {
   v2 = a1[2];
   v3 = a1[3];
@@ -8146,64 +4979,54 @@ uint64_t static Prompt.== infix(_:_:)(void *a1, void *a2)
 
 uint64_t Prompt.hash(into:)(uint64_t a1)
 {
-  v3 = *v1;
-  v4 = v1[1];
-  v6 = v1[2];
-  v5 = v1[3];
+  v4 = *(v1 + 16);
+  v3 = *(v1 + 24);
   String.hash(into:)();
-  specialized Array<A>.hash(into:)(a1, v6);
+  specialized Array<A>.hash(into:)(a1, v4);
 
-  return specialized Array<A>.hash(into:)(a1, v5);
+  return specialized Array<A>.hash(into:)(a1, v3);
 }
 
 Swift::Int Prompt.hashValue.getter()
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v4 = v0[2];
-  v3 = v0[3];
+  v2 = *(v0 + 16);
+  v1 = *(v0 + 24);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  specialized Array<A>.hash(into:)(v6, v4);
-  specialized Array<A>.hash(into:)(v6, v3);
+  specialized Array<A>.hash(into:)(v4, v2);
+  specialized Array<A>.hash(into:)(v4, v1);
   return Hasher._finalize()();
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance Prompt()
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v4 = v0[2];
-  v3 = v0[3];
+  v2 = *(v0 + 16);
+  v1 = *(v0 + 24);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  specialized Array<A>.hash(into:)(v6, v4);
-  specialized Array<A>.hash(into:)(v6, v3);
+  specialized Array<A>.hash(into:)(v4, v2);
+  specialized Array<A>.hash(into:)(v4, v1);
   return Hasher._finalize()();
 }
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance Prompt(uint64_t a1)
 {
-  v3 = *v1;
-  v4 = v1[1];
-  v6 = v1[2];
-  v5 = v1[3];
+  v4 = *(v1 + 16);
+  v3 = *(v1 + 24);
   String.hash(into:)();
-  specialized Array<A>.hash(into:)(a1, v6);
+  specialized Array<A>.hash(into:)(a1, v4);
 
-  return specialized Array<A>.hash(into:)(a1, v5);
+  return specialized Array<A>.hash(into:)(a1, v3);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Prompt()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Prompt(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v4 = v0[2];
-  v3 = v0[3];
+  v3 = *(v1 + 16);
+  v2 = *(v1 + 24);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  specialized Array<A>.hash(into:)(v6, v4);
-  specialized Array<A>.hash(into:)(v6, v3);
+  specialized Array<A>.hash(into:)(v5, v3);
+  specialized Array<A>.hash(into:)(v5, v2);
   return Hasher._finalize()();
 }
 
@@ -8217,7 +5040,7 @@ __n128 protocol witness for ExpressibleByStringInterpolation.init(stringInterpol
   return result;
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Prompt(void *a1, void *a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Prompt(uint64_t *a1, void *a2)
 {
   v2 = a1[2];
   v3 = a1[3];
@@ -8232,7 +5055,7 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Pro
   return _sSasSQRzlE2eeoiySbSayxG_ABtFZ15TokenGeneration6PromptV10AttachmentV_Tt1g5(v3, v4);
 }
 
-uint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
+unint64_t _StringGuts._slowEnsureMatchingEncoding(_:)(unint64_t a1, uint64_t a2, uint64_t a3)
 {
   v3 = a1;
   v4 = a1 >> 14;
@@ -8409,67 +5232,66 @@ LABEL_12:
 
 void specialized MutableCollection<>._insertionSort(within:sortedEnd:by:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  v35 = type metadata accessor for Prompt.PromptMarker(0);
-  v9 = *(*(v35 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v35);
-  v34 = &v27 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v13 = &v27 - v12;
-  MEMORY[0x1EEE9AC00](v14);
-  v17 = &v27 - v16;
-  v28 = a2;
+  v34 = type metadata accessor for Prompt.PromptMarker(0);
+  MEMORY[0x1EEE9AC00](v34);
+  v33 = &v26 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v26 - v11;
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v26 - v15;
+  v27 = a2;
   if (a3 != a2)
   {
-    v18 = *a4;
-    v19 = *(v15 + 72);
-    v20 = *a4 + v19 * (a3 - 1);
-    v21 = -v19;
-    v22 = a1 - a3;
-    v33 = v18;
-    v27 = v19;
-    v23 = v18 + v19 * a3;
+    v17 = *a4;
+    v18 = *(v14 + 72);
+    v19 = *a4 + v18 * (a3 - 1);
+    v20 = -v18;
+    v21 = a1 - a3;
+    v32 = v17;
+    v26 = v18;
+    v22 = v17 + v18 * a3;
 LABEL_4:
-    v31 = v20;
-    v32 = a3;
-    v29 = v23;
-    v30 = v22;
+    v30 = v19;
+    v31 = a3;
+    v28 = v22;
+    v29 = v21;
     while (1)
     {
-      outlined init with copy of Prompt.PromptFragment(v23, v17, type metadata accessor for Prompt.PromptMarker);
-      outlined init with copy of Prompt.PromptFragment(v20, v13, type metadata accessor for Prompt.PromptMarker);
-      v24 = closure #1 in Prompt.promptFragments()(v17, v13);
-      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v13, type metadata accessor for Prompt.PromptMarker);
-      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v17, type metadata accessor for Prompt.PromptMarker);
+      outlined init with copy of Prompt.PromptFragment(v22, v16, type metadata accessor for Prompt.PromptMarker);
+      outlined init with copy of Prompt.PromptFragment(v19, v12, type metadata accessor for Prompt.PromptMarker);
+      v23 = closure #1 in Prompt.promptFragments()(v16, v12);
+      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v12, type metadata accessor for Prompt.PromptMarker);
+      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v16, type metadata accessor for Prompt.PromptMarker);
       if (v4)
       {
         break;
       }
 
-      if (v24)
+      if (v23)
       {
-        if (!v33)
+        if (!v32)
         {
           __break(1u);
           return;
         }
 
-        v25 = v34;
-        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v23, v34, type metadata accessor for Prompt.PromptMarker);
+        v24 = v33;
+        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v22, v33, type metadata accessor for Prompt.PromptMarker);
         swift_arrayInitWithTakeFrontToBack();
-        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v25, v20, type metadata accessor for Prompt.PromptMarker);
-        v20 += v21;
-        v23 += v21;
-        if (!__CFADD__(v22++, 1))
+        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v24, v19, type metadata accessor for Prompt.PromptMarker);
+        v19 += v20;
+        v22 += v20;
+        if (!__CFADD__(v21++, 1))
         {
           continue;
         }
       }
 
-      a3 = v32 + 1;
-      v20 = v31 + v27;
-      v22 = v30 - 1;
-      v23 = v29 + v27;
-      if (v32 + 1 != v28)
+      a3 = v31 + 1;
+      v19 = v30 + v26;
+      v21 = v29 - 1;
+      v22 = v28 + v26;
+      if (v31 + 1 != v27)
       {
         goto LABEL_4;
       }
@@ -8481,49 +5303,48 @@ LABEL_4:
 
 {
   v8 = type metadata accessor for Prompt.Attachment(0);
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x1EEE9AC00](v8);
-  v39 = &v30 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v13 = &v30 - v12;
-  MEMORY[0x1EEE9AC00](v14);
-  v17 = &v30 - v16;
-  v32 = a2;
+  v38 = &v29 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v29 - v11;
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v29 - v15;
+  v31 = a2;
   if (a3 != a2)
   {
-    v18 = *a4;
-    v19 = *(v15 + 72);
-    v20 = *a4 + v19 * (a3 - 1);
-    v37 = -v19;
-    v38 = v18;
-    v21 = a1 - a3;
-    v31 = v19;
-    v22 = v18 + v19 * a3;
+    v17 = *a4;
+    v18 = *(v14 + 72);
+    v19 = *a4 + v18 * (a3 - 1);
+    v36 = -v18;
+    v37 = v17;
+    v20 = a1 - a3;
+    v30 = v18;
+    v21 = v17 + v18 * a3;
 LABEL_5:
-    v35 = v20;
-    v36 = a3;
-    v33 = v22;
-    v34 = v21;
+    v34 = v19;
+    v35 = a3;
+    v32 = v21;
+    v33 = v20;
     while (1)
     {
-      outlined init with copy of Prompt.Turn(v22, v17, type metadata accessor for Prompt.Attachment);
-      outlined init with copy of Prompt.Turn(v20, v13, type metadata accessor for Prompt.Attachment);
-      v23 = *(v8 + 24);
-      v24 = v8;
-      v25 = *&v17[v23];
-      v26 = *&v13[v23];
-      outlined destroy of Prompt.ResponseFormat(v13, type metadata accessor for Prompt.Attachment);
-      outlined destroy of Prompt.ResponseFormat(v17, type metadata accessor for Prompt.Attachment);
-      v27 = v25 < v26;
-      v8 = v24;
-      if (!v27)
+      outlined init with copy of Prompt.Turn(v21, v16, type metadata accessor for Prompt.Attachment);
+      outlined init with copy of Prompt.Turn(v19, v12, type metadata accessor for Prompt.Attachment);
+      v22 = *(v8 + 24);
+      v23 = v8;
+      v24 = *&v16[v22];
+      v25 = *&v12[v22];
+      outlined destroy of Prompt.ResponseFormat(v12, type metadata accessor for Prompt.Attachment);
+      outlined destroy of Prompt.ResponseFormat(v16, type metadata accessor for Prompt.Attachment);
+      v26 = v24 < v25;
+      v8 = v23;
+      if (!v26)
       {
 LABEL_4:
-        a3 = v36 + 1;
-        v20 = v35 + v31;
-        v21 = v34 - 1;
-        v22 = v33 + v31;
-        if (v36 + 1 == v32)
+        a3 = v35 + 1;
+        v19 = v34 + v30;
+        v20 = v33 - 1;
+        v21 = v32 + v30;
+        if (v35 + 1 == v31)
         {
           return;
         }
@@ -8531,18 +5352,18 @@ LABEL_4:
         goto LABEL_5;
       }
 
-      if (!v38)
+      if (!v37)
       {
         break;
       }
 
-      v28 = v39;
-      outlined init with take of Prompt.ResponseFormat(v22, v39, type metadata accessor for Prompt.Attachment);
+      v27 = v38;
+      outlined init with take of Prompt.ResponseFormat(v21, v38, type metadata accessor for Prompt.Attachment);
       swift_arrayInitWithTakeFrontToBack();
-      outlined init with take of Prompt.ResponseFormat(v28, v20, type metadata accessor for Prompt.Attachment);
-      v20 += v37;
-      v22 += v37;
-      if (__CFADD__(v21++, 1))
+      outlined init with take of Prompt.ResponseFormat(v27, v19, type metadata accessor for Prompt.Attachment);
+      v19 += v36;
+      v21 += v36;
+      if (__CFADD__(v20++, 1))
       {
         goto LABEL_4;
       }
@@ -8553,67 +5374,66 @@ LABEL_4:
 }
 
 {
-  v35 = type metadata accessor for Prompt.PromptMarker(0);
-  v9 = *(*(v35 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v35);
-  v34 = &v27 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v13 = &v27 - v12;
-  MEMORY[0x1EEE9AC00](v14);
-  v17 = &v27 - v16;
-  v28 = a2;
+  v34 = type metadata accessor for Prompt.PromptMarker(0);
+  MEMORY[0x1EEE9AC00](v34);
+  v33 = &v26 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v26 - v11;
+  MEMORY[0x1EEE9AC00](v13);
+  v16 = &v26 - v15;
+  v27 = a2;
   if (a3 != a2)
   {
-    v18 = *a4;
-    v19 = *(v15 + 72);
-    v20 = *a4 + v19 * (a3 - 1);
-    v21 = -v19;
-    v22 = a1 - a3;
-    v33 = v18;
-    v27 = v19;
-    v23 = v18 + v19 * a3;
+    v17 = *a4;
+    v18 = *(v14 + 72);
+    v19 = *a4 + v18 * (a3 - 1);
+    v20 = -v18;
+    v21 = a1 - a3;
+    v32 = v17;
+    v26 = v18;
+    v22 = v17 + v18 * a3;
 LABEL_4:
-    v31 = v20;
-    v32 = a3;
-    v29 = v23;
-    v30 = v22;
+    v30 = v19;
+    v31 = a3;
+    v28 = v22;
+    v29 = v21;
     while (1)
     {
-      _s15TokenGeneration6PromptV4TurnVWOcTm_0(v23, v17, type metadata accessor for Prompt.PromptMarker);
-      _s15TokenGeneration6PromptV4TurnVWOcTm_0(v20, v13, type metadata accessor for Prompt.PromptMarker);
-      v24 = closure #1 in Prompt.init(_:)(v17, v13);
-      outlined destroy of Prompt.Turn(v13, type metadata accessor for Prompt.PromptMarker);
-      outlined destroy of Prompt.Turn(v17, type metadata accessor for Prompt.PromptMarker);
+      _s15TokenGeneration6PromptV4TurnVWOcTm_0(v22, v16, type metadata accessor for Prompt.PromptMarker);
+      _s15TokenGeneration6PromptV4TurnVWOcTm_0(v19, v12, type metadata accessor for Prompt.PromptMarker);
+      v23 = closure #1 in Prompt.init(_:)(v16, v12);
+      outlined destroy of Prompt.Turn(v12, type metadata accessor for Prompt.PromptMarker);
+      outlined destroy of Prompt.Turn(v16, type metadata accessor for Prompt.PromptMarker);
       if (v4)
       {
         break;
       }
 
-      if (v24)
+      if (v23)
       {
-        if (!v33)
+        if (!v32)
         {
           __break(1u);
           return;
         }
 
-        v25 = v34;
-        _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v23, v34, type metadata accessor for Prompt.PromptMarker);
+        v24 = v33;
+        _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v22, v33, type metadata accessor for Prompt.PromptMarker);
         swift_arrayInitWithTakeFrontToBack();
-        _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v25, v20, type metadata accessor for Prompt.PromptMarker);
-        v20 += v21;
-        v23 += v21;
-        if (!__CFADD__(v22++, 1))
+        _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v24, v19, type metadata accessor for Prompt.PromptMarker);
+        v19 += v20;
+        v22 += v20;
+        if (!__CFADD__(v21++, 1))
         {
           continue;
         }
       }
 
-      a3 = v32 + 1;
-      v20 = v31 + v27;
-      v22 = v30 - 1;
-      v23 = v29 + v27;
-      if (v32 + 1 != v28)
+      a3 = v31 + 1;
+      v19 = v30 + v26;
+      v21 = v29 - 1;
+      v22 = v28 + v26;
+      if (v31 + 1 != v27)
       {
         goto LABEL_4;
       }
@@ -8623,216 +5443,213 @@ LABEL_4:
   }
 }
 
-void specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(unint64_t *a1, uint64_t a2, unint64_t a3, unint64_t a4)
+void specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(unint64_t *a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   v5 = v4;
-  v156 = a1;
-  v181 = type metadata accessor for Prompt.Delimiter(0);
-  v8 = *(*(v181 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v181);
-  v10 = &v151 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v180 = type metadata accessor for Prompt.Attachment(0);
-  v11 = *(*(v180 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v180);
-  v13 = &v151 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Prompt.PromptMarker(0);
-  v167 = *(v14 - 8);
-  v15 = *(v167 + 64);
+  v153 = a1;
+  v178 = type metadata accessor for Prompt.Delimiter(0);
+  MEMORY[0x1EEE9AC00](v178);
+  v9 = &v148 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v177 = type metadata accessor for Prompt.Attachment(0);
+  MEMORY[0x1EEE9AC00](v177);
+  v11 = &v148 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Prompt.PromptMarker(0);
+  v164 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v154 = &v148 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v14);
-  v157 = &v151 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v174 = &v148 - v15;
+  MEMORY[0x1EEE9AC00](v16);
   MEMORY[0x1EEE9AC00](v17);
-  v177 = &v151 - v18;
-  MEMORY[0x1EEE9AC00](v19);
+  MEMORY[0x1EEE9AC00](v18);
+  v171 = &v148 - v19;
   MEMORY[0x1EEE9AC00](v20);
-  MEMORY[0x1EEE9AC00](v21);
-  v174 = &v151 - v22;
-  MEMORY[0x1EEE9AC00](v23);
-  v173 = &v151 - v24;
+  v170 = &v148 - v21;
+  MEMORY[0x1EEE9AC00](v22);
+  v24 = &v148 - v23;
   MEMORY[0x1EEE9AC00](v25);
-  v27 = &v151 - v26;
-  MEMORY[0x1EEE9AC00](v28);
-  v178 = &v151 - v29;
-  MEMORY[0x1EEE9AC00](v30);
-  v183 = &v151 - v31;
+  v175 = &v148 - v26;
+  MEMORY[0x1EEE9AC00](v27);
+  v180 = &v148 - v28;
+  MEMORY[0x1EEE9AC00](v29);
+  v179 = &v148 - v30;
+  MEMORY[0x1EEE9AC00](v31);
   MEMORY[0x1EEE9AC00](v32);
-  v182 = &v151 - v33;
+  v151 = &v148 - v33;
   MEMORY[0x1EEE9AC00](v34);
-  MEMORY[0x1EEE9AC00](v35);
-  v154 = &v151 - v36;
+  v36 = &v148 - v35;
   MEMORY[0x1EEE9AC00](v37);
-  v39 = &v151 - v38;
-  MEMORY[0x1EEE9AC00](v40);
-  v169 = a3;
-  v45 = *(a3 + 8);
-  if (v45 >= 1)
+  v166 = a3;
+  v42 = *(a3 + 8);
+  if (v42 >= 1)
   {
-    v152 = &v151 - v41;
-    v153 = v39;
-    v163 = v44;
-    v46 = 0;
-    v47 = MEMORY[0x1E69E7CC0];
-    v155 = a4;
-    v171 = v43;
-    v172 = v42;
-    v179 = v27;
-    v151 = v14;
-    v162 = v13;
+    v149 = &v148 - v38;
+    v150 = v36;
+    v160 = v41;
+    v43 = 0;
+    v44 = MEMORY[0x1E69E7CC0];
+    v152 = a4;
+    v168 = v40;
+    v169 = v39;
+    v176 = v24;
+    v148 = v12;
+    v159 = v11;
     while (1)
     {
-      v48 = v46;
-      v49 = v46 + 1;
-      v160 = v47;
-      v159 = v48;
-      if (v49 >= v45)
+      v45 = v43;
+      v46 = v43 + 1;
+      v157 = v44;
+      v156 = v45;
+      if (v46 >= v42)
       {
-        v58 = v49;
+        v55 = v46;
         goto LABEL_27;
       }
 
-      v170 = v45;
-      v50 = *v169;
-      v51 = *(v167 + 72);
-      v52 = *v169 + v51 * v49;
-      a3 = v152;
-      outlined init with copy of Prompt.PromptFragment(v52, v152, type metadata accessor for Prompt.PromptMarker);
-      v175 = v50;
-      v53 = v50 + v51 * v159;
-      v54 = v153;
-      outlined init with copy of Prompt.PromptFragment(v53, v153, type metadata accessor for Prompt.PromptMarker);
-      LODWORD(v176) = closure #1 in Prompt.promptFragments()(a3, v54);
+      v167 = v42;
+      v47 = *v166;
+      v48 = *(v164 + 72);
+      v49 = *v166 + v48 * v46;
+      a3 = v149;
+      outlined init with copy of Prompt.PromptFragment(v49, v149, type metadata accessor for Prompt.PromptMarker);
+      v172 = v47;
+      v50 = v47 + v48 * v156;
+      v51 = v150;
+      outlined init with copy of Prompt.PromptFragment(v50, v150, type metadata accessor for Prompt.PromptMarker);
+      LODWORD(v173) = closure #1 in Prompt.promptFragments()(a3, v51);
       if (v5)
       {
-        _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v54, type metadata accessor for Prompt.PromptMarker);
+        _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v51, type metadata accessor for Prompt.PromptMarker);
         _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(a3, type metadata accessor for Prompt.PromptMarker);
         goto LABEL_135;
       }
 
-      v168 = 0;
-      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v54, type metadata accessor for Prompt.PromptMarker);
+      v165 = 0;
+      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v51, type metadata accessor for Prompt.PromptMarker);
       _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(a3, type metadata accessor for Prompt.PromptMarker);
-      v55 = v159 + 2;
-      v56 = v175 + v51 * (v159 + 2);
-      v57 = v154;
+      v52 = v156 + 2;
+      v53 = v172 + v48 * (v156 + 2);
+      v54 = v151;
       do
       {
-        v58 = v170;
-        if (v170 == v55)
+        v55 = v167;
+        if (v167 == v52)
         {
           goto LABEL_11;
         }
 
-        v59 = v10;
-        v60 = v51;
-        outlined init with copy of Prompt.PromptFragment(v56, v57, type metadata accessor for Prompt.PromptMarker);
-        v61 = v163;
-        outlined init with copy of Prompt.PromptFragment(v52, v163, type metadata accessor for Prompt.PromptMarker);
-        v62 = v168;
-        v63 = closure #1 in Prompt.promptFragments()(v57, v61);
-        v168 = v62;
-        if (v62)
+        v56 = v9;
+        v57 = v48;
+        outlined init with copy of Prompt.PromptFragment(v53, v54, type metadata accessor for Prompt.PromptMarker);
+        v58 = v160;
+        outlined init with copy of Prompt.PromptFragment(v49, v160, type metadata accessor for Prompt.PromptMarker);
+        v59 = v165;
+        v60 = closure #1 in Prompt.promptFragments()(v54, v58);
+        v165 = v59;
+        if (v59)
         {
-          _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v61, type metadata accessor for Prompt.PromptMarker);
-          _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v57, type metadata accessor for Prompt.PromptMarker);
+          _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v58, type metadata accessor for Prompt.PromptMarker);
+          _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v54, type metadata accessor for Prompt.PromptMarker);
 
           return;
         }
 
-        v64 = v63;
+        v61 = v60;
         a3 = type metadata accessor for Prompt.PromptMarker;
-        _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v61, type metadata accessor for Prompt.PromptMarker);
-        _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v57, type metadata accessor for Prompt.PromptMarker);
-        ++v55;
-        v51 = v60;
-        v56 += v60;
-        v52 += v60;
-        v10 = v59;
-        v13 = v162;
+        _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v58, type metadata accessor for Prompt.PromptMarker);
+        _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v54, type metadata accessor for Prompt.PromptMarker);
+        ++v52;
+        v48 = v57;
+        v53 += v57;
+        v49 += v57;
+        v9 = v56;
+        v11 = v159;
       }
 
-      while (((v176 ^ v64) & 1) == 0);
-      v58 = v55 - 1;
+      while (((v173 ^ v61) & 1) == 0);
+      v55 = v52 - 1;
 LABEL_11:
-      v5 = v168;
-      a4 = v155;
-      v48 = v159;
-      if ((v176 & 1) == 0)
+      v5 = v165;
+      a4 = v152;
+      v45 = v156;
+      if ((v173 & 1) == 0)
       {
         goto LABEL_25;
       }
 
-      if (v58 < v159)
+      if (v55 < v156)
       {
         goto LABEL_158;
       }
 
-      if (v159 >= v58)
+      if (v156 >= v55)
       {
 LABEL_25:
-        v27 = v179;
+        v24 = v176;
         goto LABEL_27;
       }
 
-      a3 = v51 * (v58 - 1);
-      v65 = v58 * v51;
-      v170 = v58;
-      v66 = v159;
-      v67 = v159 * v51;
+      a3 = v48 * (v55 - 1);
+      v62 = v55 * v48;
+      v167 = v55;
+      v63 = v156;
+      v64 = v156 * v48;
       do
       {
-        if (v66 != --v58)
+        if (v63 != --v55)
         {
-          v176 = v58;
-          v68 = *v169;
-          if (!*v169)
+          v173 = v55;
+          v65 = *v166;
+          if (!*v166)
           {
             goto LABEL_162;
           }
 
-          v175 = v68 + v67;
-          _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v68 + v67, v157, type metadata accessor for Prompt.PromptMarker);
-          if (v67 < a3 || v175 >= v68 + v65)
+          v172 = v65 + v64;
+          _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v65 + v64, v154, type metadata accessor for Prompt.PromptMarker);
+          if (v64 < a3 || v172 >= v65 + v62)
           {
             swift_arrayInitWithTakeFrontToBack();
           }
 
-          else if (v67 != a3)
+          else if (v64 != a3)
           {
             swift_arrayInitWithTakeBackToFront();
           }
 
-          _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v157, v68 + a3, type metadata accessor for Prompt.PromptMarker);
-          v48 = v159;
-          v58 = v176;
+          _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v154, v65 + a3, type metadata accessor for Prompt.PromptMarker);
+          v45 = v156;
+          v55 = v173;
         }
 
-        ++v66;
-        a3 -= v51;
-        v65 -= v51;
-        v67 += v51;
+        ++v63;
+        a3 -= v48;
+        v62 -= v48;
+        v64 += v48;
       }
 
-      while (v66 < v58);
-      v5 = v168;
-      a4 = v155;
-      v27 = v179;
-      v58 = v170;
+      while (v63 < v55);
+      v5 = v165;
+      a4 = v152;
+      v24 = v176;
+      v55 = v167;
 LABEL_27:
-      v69 = v169[1];
-      if (v58 >= v69)
+      v66 = v166[1];
+      if (v55 >= v66)
       {
         goto LABEL_36;
       }
 
-      if (__OFSUB__(v58, v48))
+      if (__OFSUB__(v55, v45))
       {
         goto LABEL_154;
       }
 
-      if (v58 - v48 >= a4)
+      if (v55 - v45 >= a4)
       {
 LABEL_36:
-        v71 = v58;
-        if (v58 < v48)
+        v68 = v55;
+        if (v55 < v45)
         {
           goto LABEL_153;
         }
@@ -8840,188 +5657,188 @@ LABEL_36:
         goto LABEL_37;
       }
 
-      if (__OFADD__(v48, a4))
+      if (__OFADD__(v45, a4))
       {
         break;
       }
 
-      if ((v48 + a4) >= v69)
+      if ((v45 + a4) >= v66)
       {
-        v70 = v169[1];
+        v67 = v166[1];
       }
 
       else
       {
-        v70 = v48 + a4;
+        v67 = v45 + a4;
       }
 
-      if (v70 < v48)
+      if (v67 < v45)
       {
         goto LABEL_157;
       }
 
-      if (v58 == v70)
+      if (v55 == v67)
       {
         goto LABEL_36;
       }
 
-      v168 = v5;
-      v116 = *v169;
-      v117 = *(v167 + 72);
-      v118 = *v169 + v117 * (v58 - 1);
-      v175 = -v117;
-      v176 = v116;
-      v119 = v48 - v58;
-      v158 = v117;
-      a4 = v116 + v58 * v117;
-      v161 = v70;
+      v165 = v5;
+      v113 = *v166;
+      v114 = *(v164 + 72);
+      v115 = *v166 + v114 * (v55 - 1);
+      v172 = -v114;
+      v173 = v113;
+      v116 = v45 - v55;
+      v155 = v114;
+      a4 = v113 + v55 * v114;
+      v158 = v67;
       while (2)
       {
-        v170 = v58;
-        v164 = a4;
-        v165 = v119;
-        v166 = v118;
-        v120 = v118;
+        v167 = v55;
+        v161 = a4;
+        v162 = v116;
+        v163 = v115;
+        v117 = v115;
         while (2)
         {
-          v121 = v182;
-          outlined init with copy of Prompt.PromptFragment(a4, v182, type metadata accessor for Prompt.PromptMarker);
-          outlined init with copy of Prompt.PromptFragment(v120, v183, type metadata accessor for Prompt.PromptMarker);
-          v122 = v178;
-          outlined init with copy of Prompt.PromptFragment(v121, v178, type metadata accessor for Prompt.PromptMarker);
+          v118 = v179;
+          outlined init with copy of Prompt.PromptFragment(a4, v179, type metadata accessor for Prompt.PromptMarker);
+          outlined init with copy of Prompt.PromptFragment(v117, v180, type metadata accessor for Prompt.PromptMarker);
+          v119 = v175;
+          outlined init with copy of Prompt.PromptFragment(v118, v175, type metadata accessor for Prompt.PromptMarker);
           if (swift_getEnumCaseMultiPayload() == 1)
           {
-            _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v122, v10, type metadata accessor for Prompt.Delimiter);
-            v123 = *&v10[*(v181 + 20)];
-            v124 = type metadata accessor for Prompt.Delimiter;
-            v125 = v10;
+            _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v119, v9, type metadata accessor for Prompt.Delimiter);
+            v120 = *&v9[*(v178 + 20)];
+            v121 = type metadata accessor for Prompt.Delimiter;
+            v122 = v9;
           }
 
           else
           {
-            _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v122, v13, type metadata accessor for Prompt.Attachment);
-            v123 = *&v13[*(v180 + 20)];
+            _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v119, v11, type metadata accessor for Prompt.Attachment);
+            v120 = *&v11[*(v177 + 20)];
+            v121 = type metadata accessor for Prompt.Attachment;
+            v122 = v11;
+          }
+
+          _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v122, v121);
+          outlined init with copy of Prompt.PromptFragment(v180, v24, type metadata accessor for Prompt.PromptMarker);
+          if (swift_getEnumCaseMultiPayload() == 1)
+          {
+            _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v24, v9, type metadata accessor for Prompt.Delimiter);
+            v123 = *&v9[*(v178 + 20)];
+            v124 = type metadata accessor for Prompt.Delimiter;
+            v125 = v9;
+          }
+
+          else
+          {
+            _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v24, v11, type metadata accessor for Prompt.Attachment);
+            v123 = *&v11[*(v177 + 20)];
             v124 = type metadata accessor for Prompt.Attachment;
-            v125 = v13;
+            v125 = v11;
           }
 
           _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v125, v124);
-          outlined init with copy of Prompt.PromptFragment(v183, v27, type metadata accessor for Prompt.PromptMarker);
-          if (swift_getEnumCaseMultiPayload() == 1)
+          if (v120 == v123)
           {
-            _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v27, v10, type metadata accessor for Prompt.Delimiter);
-            v126 = *&v10[*(v181 + 20)];
-            v127 = type metadata accessor for Prompt.Delimiter;
-            v128 = v10;
-          }
-
-          else
-          {
-            _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v27, v13, type metadata accessor for Prompt.Attachment);
-            v126 = *&v13[*(v180 + 20)];
-            v127 = type metadata accessor for Prompt.Attachment;
-            v128 = v13;
-          }
-
-          _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v128, v127);
-          if (v123 == v126)
-          {
-            v129 = v173;
-            outlined init with copy of Prompt.PromptFragment(v183, v173, type metadata accessor for Prompt.PromptMarker);
+            v126 = v170;
+            outlined init with copy of Prompt.PromptFragment(v180, v170, type metadata accessor for Prompt.PromptMarker);
             if (swift_getEnumCaseMultiPayload() == 1)
             {
-              _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v129, v10, type metadata accessor for Prompt.Delimiter);
-              v130 = *&v10[*(v181 + 24)];
-              v131 = type metadata accessor for Prompt.Delimiter;
-              v132 = v10;
+              _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v126, v9, type metadata accessor for Prompt.Delimiter);
+              v127 = *&v9[*(v178 + 24)];
+              v128 = type metadata accessor for Prompt.Delimiter;
+              v129 = v9;
             }
 
             else
             {
-              _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v129, v13, type metadata accessor for Prompt.Attachment);
-              v130 = *&v13[*(v180 + 24)];
-              v131 = type metadata accessor for Prompt.Attachment;
-              v132 = v13;
+              _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v126, v11, type metadata accessor for Prompt.Attachment);
+              v127 = *&v11[*(v177 + 24)];
+              v128 = type metadata accessor for Prompt.Attachment;
+              v129 = v11;
             }
 
-            _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v132, v131);
-            v136 = v171;
-            outlined init with copy of Prompt.PromptFragment(v182, v171, type metadata accessor for Prompt.PromptMarker);
+            _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v129, v128);
+            v133 = v168;
+            outlined init with copy of Prompt.PromptFragment(v179, v168, type metadata accessor for Prompt.PromptMarker);
             if (swift_getEnumCaseMultiPayload() == 1)
             {
-              _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v136, v10, type metadata accessor for Prompt.Delimiter);
-              v137 = *(v181 + 24);
+              _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v133, v9, type metadata accessor for Prompt.Delimiter);
+              v134 = *(v178 + 24);
               goto LABEL_108;
             }
 
-            _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v136, v13, type metadata accessor for Prompt.Attachment);
-            v142 = *(v180 + 24);
+            _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v133, v11, type metadata accessor for Prompt.Attachment);
+            v139 = *(v177 + 24);
 LABEL_111:
-            v139 = *&v13[v142];
-            v140 = type metadata accessor for Prompt.Attachment;
-            v141 = v13;
+            v136 = *&v11[v139];
+            v137 = type metadata accessor for Prompt.Attachment;
+            v138 = v11;
           }
 
           else
           {
-            v133 = v174;
-            outlined init with copy of Prompt.PromptFragment(v183, v174, type metadata accessor for Prompt.PromptMarker);
+            v130 = v171;
+            outlined init with copy of Prompt.PromptFragment(v180, v171, type metadata accessor for Prompt.PromptMarker);
             if (swift_getEnumCaseMultiPayload() == 1)
             {
-              _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v133, v10, type metadata accessor for Prompt.Delimiter);
-              v130 = *&v10[*(v181 + 20)];
-              v134 = type metadata accessor for Prompt.Delimiter;
-              v135 = v10;
+              _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v130, v9, type metadata accessor for Prompt.Delimiter);
+              v127 = *&v9[*(v178 + 20)];
+              v131 = type metadata accessor for Prompt.Delimiter;
+              v132 = v9;
             }
 
             else
             {
-              _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v133, v13, type metadata accessor for Prompt.Attachment);
-              v130 = *&v13[*(v180 + 20)];
-              v134 = type metadata accessor for Prompt.Attachment;
-              v135 = v13;
+              _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v130, v11, type metadata accessor for Prompt.Attachment);
+              v127 = *&v11[*(v177 + 20)];
+              v131 = type metadata accessor for Prompt.Attachment;
+              v132 = v11;
             }
 
-            _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v135, v134);
-            v138 = v172;
-            outlined init with copy of Prompt.PromptFragment(v182, v172, type metadata accessor for Prompt.PromptMarker);
+            _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v132, v131);
+            v135 = v169;
+            outlined init with copy of Prompt.PromptFragment(v179, v169, type metadata accessor for Prompt.PromptMarker);
             if (swift_getEnumCaseMultiPayload() != 1)
             {
-              _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v138, v13, type metadata accessor for Prompt.Attachment);
-              v142 = *(v180 + 20);
+              _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v135, v11, type metadata accessor for Prompt.Attachment);
+              v139 = *(v177 + 20);
               goto LABEL_111;
             }
 
-            _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v138, v10, type metadata accessor for Prompt.Delimiter);
-            v137 = *(v181 + 20);
+            _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v135, v9, type metadata accessor for Prompt.Delimiter);
+            v134 = *(v178 + 20);
 LABEL_108:
-            v139 = *&v10[v137];
-            v140 = type metadata accessor for Prompt.Delimiter;
-            v141 = v10;
+            v136 = *&v9[v134];
+            v137 = type metadata accessor for Prompt.Delimiter;
+            v138 = v9;
           }
 
-          _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v141, v140);
-          v143 = v130 < v139;
+          _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v138, v137);
+          v140 = v127 < v136;
           a3 = type metadata accessor for Prompt.PromptMarker;
-          _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v183, type metadata accessor for Prompt.PromptMarker);
-          _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v182, type metadata accessor for Prompt.PromptMarker);
-          if (v143)
+          _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v180, type metadata accessor for Prompt.PromptMarker);
+          _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v179, type metadata accessor for Prompt.PromptMarker);
+          if (v140)
           {
-            if (!v176)
+            if (!v173)
             {
               goto LABEL_159;
             }
 
             a3 = type metadata accessor for Prompt.PromptMarker;
-            v144 = v177;
-            _s15TokenGeneration6PromptV10AttachmentVWObTm_0(a4, v177, type metadata accessor for Prompt.PromptMarker);
+            v141 = v174;
+            _s15TokenGeneration6PromptV10AttachmentVWObTm_0(a4, v174, type metadata accessor for Prompt.PromptMarker);
             swift_arrayInitWithTakeFrontToBack();
-            _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v144, v120, type metadata accessor for Prompt.PromptMarker);
-            v120 += v175;
-            a4 += v175;
-            v145 = __CFADD__(v119++, 1);
-            v27 = v179;
-            if (v145)
+            _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v141, v117, type metadata accessor for Prompt.PromptMarker);
+            v117 += v172;
+            a4 += v172;
+            v142 = __CFADD__(v116++, 1);
+            v24 = v176;
+            if (v142)
             {
               goto LABEL_89;
             }
@@ -9032,14 +5849,14 @@ LABEL_108:
           break;
         }
 
-        v27 = v179;
+        v24 = v176;
 LABEL_89:
-        v58 = v170 + 1;
-        v118 = v166 + v158;
-        v119 = v165 - 1;
-        a4 = v164 + v158;
-        v71 = v161;
-        if (v170 + 1 != v161)
+        v55 = v167 + 1;
+        v115 = v163 + v155;
+        v116 = v162 - 1;
+        a4 = v161 + v155;
+        v68 = v158;
+        if (v167 + 1 != v158)
         {
           continue;
         }
@@ -9047,9 +5864,9 @@ LABEL_89:
         break;
       }
 
-      v5 = v168;
-      v48 = v159;
-      if (v161 < v159)
+      v5 = v165;
+      v45 = v156;
+      if (v158 < v156)
       {
         goto LABEL_153;
       }
@@ -9057,38 +5874,38 @@ LABEL_89:
 LABEL_37:
       if (swift_isUniquelyReferenced_nonNull_native())
       {
-        v47 = v160;
+        v44 = v157;
       }
 
       else
       {
-        v47 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v160 + 2) + 1, 1, v160);
+        v44 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v157 + 2) + 1, 1, v157);
       }
 
-      a3 = *(v47 + 2);
-      v72 = *(v47 + 3);
+      a3 = *(v44 + 2);
+      v69 = *(v44 + 3);
       a4 = a3 + 1;
-      if (a3 >= v72 >> 1)
+      if (a3 >= v69 >> 1)
       {
-        v47 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v72 > 1), a3 + 1, 1, v47);
+        v44 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v69 > 1), a3 + 1, 1, v44);
       }
 
-      *(v47 + 2) = a4;
-      v73 = &v47[16 * a3];
-      *(v73 + 4) = v48;
-      *(v73 + 5) = v71;
-      v176 = *v156;
-      if (!v176)
+      *(v44 + 2) = a4;
+      v70 = &v44[16 * a3];
+      *(v70 + 4) = v45;
+      *(v70 + 5) = v68;
+      v173 = *v153;
+      if (!v173)
       {
         goto LABEL_163;
       }
 
-      v161 = v71;
+      v158 = v68;
       if (a3)
       {
         while (1)
         {
-          v74 = a4 - 1;
+          v71 = a4 - 1;
           if (a4 >= 4)
           {
             break;
@@ -9096,48 +5913,48 @@ LABEL_37:
 
           if (a4 == 3)
           {
-            v75 = *(v47 + 4);
-            v76 = *(v47 + 5);
-            v85 = __OFSUB__(v76, v75);
-            v77 = v76 - v75;
-            v78 = v85;
+            v72 = *(v44 + 4);
+            v73 = *(v44 + 5);
+            v82 = __OFSUB__(v73, v72);
+            v74 = v73 - v72;
+            v75 = v82;
 LABEL_56:
-            if (v78)
+            if (v75)
             {
               goto LABEL_142;
             }
 
-            v91 = &v47[16 * a4];
-            v93 = *v91;
-            v92 = *(v91 + 1);
-            v94 = __OFSUB__(v92, v93);
-            v95 = v92 - v93;
-            v96 = v94;
-            if (v94)
+            v88 = &v44[16 * a4];
+            v90 = *v88;
+            v89 = *(v88 + 1);
+            v91 = __OFSUB__(v89, v90);
+            v92 = v89 - v90;
+            v93 = v91;
+            if (v91)
             {
               goto LABEL_145;
             }
 
-            v97 = &v47[16 * v74 + 32];
-            v99 = *v97;
-            v98 = *(v97 + 1);
-            v85 = __OFSUB__(v98, v99);
-            v100 = v98 - v99;
-            if (v85)
+            v94 = &v44[16 * v71 + 32];
+            v96 = *v94;
+            v95 = *(v94 + 1);
+            v82 = __OFSUB__(v95, v96);
+            v97 = v95 - v96;
+            if (v82)
             {
               goto LABEL_148;
             }
 
-            if (__OFADD__(v95, v100))
+            if (__OFADD__(v92, v97))
             {
               goto LABEL_149;
             }
 
-            if (v95 + v100 >= v77)
+            if (v92 + v97 >= v74)
             {
-              if (v77 < v100)
+              if (v74 < v97)
               {
-                v74 = a4 - 2;
+                v71 = a4 - 2;
               }
 
               goto LABEL_77;
@@ -9146,36 +5963,36 @@ LABEL_56:
             goto LABEL_70;
           }
 
-          v101 = &v47[16 * a4];
-          v103 = *v101;
-          v102 = *(v101 + 1);
-          v85 = __OFSUB__(v102, v103);
-          v95 = v102 - v103;
-          v96 = v85;
+          v98 = &v44[16 * a4];
+          v100 = *v98;
+          v99 = *(v98 + 1);
+          v82 = __OFSUB__(v99, v100);
+          v92 = v99 - v100;
+          v93 = v82;
 LABEL_70:
-          if (v96)
+          if (v93)
           {
             goto LABEL_144;
           }
 
-          v104 = &v47[16 * v74];
-          v106 = *(v104 + 4);
-          v105 = *(v104 + 5);
-          v85 = __OFSUB__(v105, v106);
-          v107 = v105 - v106;
-          if (v85)
+          v101 = &v44[16 * v71];
+          v103 = *(v101 + 4);
+          v102 = *(v101 + 5);
+          v82 = __OFSUB__(v102, v103);
+          v104 = v102 - v103;
+          if (v82)
           {
             goto LABEL_147;
           }
 
-          if (v107 < v95)
+          if (v104 < v92)
           {
             goto LABEL_3;
           }
 
 LABEL_77:
-          a3 = v74 - 1;
-          if (v74 - 1 >= a4)
+          a3 = v71 - 1;
+          if (v71 - 1 >= a4)
           {
             __break(1u);
 LABEL_138:
@@ -9213,110 +6030,110 @@ LABEL_153:
 LABEL_154:
             __break(1u);
 LABEL_155:
-            v146 = specialized _ArrayBuffer._consumeAndCreateNew()(a4);
+            v143 = specialized _ArrayBuffer._consumeAndCreateNew()(a4);
             goto LABEL_124;
           }
 
-          if (!*v169)
+          if (!*v166)
           {
             goto LABEL_160;
           }
 
-          v112 = v47;
-          a4 = *&v47[16 * a3 + 32];
-          v113 = *&v47[16 * v74 + 40];
-          specialized _merge<A>(low:mid:high:buffer:by:)(*v169 + *(v167 + 72) * a4, *v169 + *(v167 + 72) * *&v47[16 * v74 + 32], *v169 + *(v167 + 72) * v113, v176);
+          v109 = v44;
+          a4 = *&v44[16 * a3 + 32];
+          v110 = *&v44[16 * v71 + 40];
+          specialized _merge<A>(low:mid:high:buffer:by:)(*v166 + *(v164 + 72) * a4, *v166 + *(v164 + 72) * *&v44[16 * v71 + 32], *v166 + *(v164 + 72) * v110, v173);
           if (v5)
           {
             goto LABEL_135;
           }
 
-          if (v113 < a4)
+          if (v110 < a4)
           {
             goto LABEL_138;
           }
 
           if (swift_isUniquelyReferenced_nonNull_native())
           {
-            v114 = v112;
+            v111 = v109;
           }
 
           else
           {
-            v114 = specialized _ArrayBuffer._consumeAndCreateNew()(v112);
+            v111 = specialized _ArrayBuffer._consumeAndCreateNew()(v109);
           }
 
-          v27 = v179;
-          if (a3 >= *(v114 + 2))
+          v24 = v176;
+          if (a3 >= *(v111 + 2))
           {
             goto LABEL_139;
           }
 
-          v115 = &v114[16 * a3];
-          *(v115 + 4) = a4;
-          *(v115 + 5) = v113;
-          v184 = v114;
-          specialized Array.remove(at:)(v74);
-          v47 = v184;
-          a4 = *(v184 + 2);
+          v112 = &v111[16 * a3];
+          *(v112 + 4) = a4;
+          *(v112 + 5) = v110;
+          v181 = v111;
+          specialized Array.remove(at:)(v71);
+          v44 = v181;
+          a4 = *(v181 + 2);
           if (a4 <= 1)
           {
             goto LABEL_3;
           }
         }
 
-        v79 = &v47[16 * a4 + 32];
-        v80 = *(v79 - 64);
-        v81 = *(v79 - 56);
-        v85 = __OFSUB__(v81, v80);
-        v82 = v81 - v80;
-        if (v85)
+        v76 = &v44[16 * a4 + 32];
+        v77 = *(v76 - 64);
+        v78 = *(v76 - 56);
+        v82 = __OFSUB__(v78, v77);
+        v79 = v78 - v77;
+        if (v82)
         {
           goto LABEL_140;
         }
 
-        v84 = *(v79 - 48);
-        v83 = *(v79 - 40);
-        v85 = __OFSUB__(v83, v84);
-        v77 = v83 - v84;
-        v78 = v85;
-        if (v85)
+        v81 = *(v76 - 48);
+        v80 = *(v76 - 40);
+        v82 = __OFSUB__(v80, v81);
+        v74 = v80 - v81;
+        v75 = v82;
+        if (v82)
         {
           goto LABEL_141;
         }
 
-        v86 = &v47[16 * a4];
-        v88 = *v86;
-        v87 = *(v86 + 1);
-        v85 = __OFSUB__(v87, v88);
-        v89 = v87 - v88;
-        if (v85)
+        v83 = &v44[16 * a4];
+        v85 = *v83;
+        v84 = *(v83 + 1);
+        v82 = __OFSUB__(v84, v85);
+        v86 = v84 - v85;
+        if (v82)
         {
           goto LABEL_143;
         }
 
-        v85 = __OFADD__(v77, v89);
-        v90 = v77 + v89;
-        if (v85)
+        v82 = __OFADD__(v74, v86);
+        v87 = v74 + v86;
+        if (v82)
         {
           goto LABEL_146;
         }
 
-        if (v90 >= v82)
+        if (v87 >= v79)
         {
-          v108 = &v47[16 * v74 + 32];
-          v110 = *v108;
-          v109 = *(v108 + 1);
-          v85 = __OFSUB__(v109, v110);
-          v111 = v109 - v110;
-          if (v85)
+          v105 = &v44[16 * v71 + 32];
+          v107 = *v105;
+          v106 = *(v105 + 1);
+          v82 = __OFSUB__(v106, v107);
+          v108 = v106 - v107;
+          if (v82)
           {
             goto LABEL_152;
           }
 
-          if (v77 < v111)
+          if (v74 < v108)
           {
-            v74 = a4 - 2;
+            v71 = a4 - 2;
           }
 
           goto LABEL_77;
@@ -9326,10 +6143,10 @@ LABEL_155:
       }
 
 LABEL_3:
-      v45 = v169[1];
-      v46 = v161;
-      a4 = v155;
-      if (v161 >= v45)
+      v42 = v166[1];
+      v43 = v158;
+      a4 = v152;
+      if (v158 >= v42)
       {
         goto LABEL_121;
       }
@@ -9353,21 +6170,21 @@ LABEL_163:
     goto LABEL_164;
   }
 
-  v47 = MEMORY[0x1E69E7CC0];
+  v44 = MEMORY[0x1E69E7CC0];
 LABEL_121:
-  a3 = *v156;
-  if (*v156)
+  a3 = *v153;
+  if (*v153)
   {
-    a4 = v47;
+    a4 = v44;
     if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
       goto LABEL_155;
     }
 
-    v146 = a4;
+    v143 = a4;
 LABEL_124:
-    v184 = v146;
-    a4 = *(v146 + 2);
+    v181 = v143;
+    a4 = *(v143 + 2);
     if (a4 < 2)
     {
 LABEL_135:
@@ -9375,39 +6192,39 @@ LABEL_135:
       return;
     }
 
-    while (*v169)
+    while (*v166)
     {
-      v147 = *&v146[16 * a4];
-      v148 = v146;
-      v149 = *&v146[16 * a4 + 24];
-      specialized _merge<A>(low:mid:high:buffer:by:)(*v169 + *(v167 + 72) * v147, *v169 + *(v167 + 72) * *&v146[16 * a4 + 16], *v169 + *(v167 + 72) * v149, a3);
+      v144 = *&v143[16 * a4];
+      v145 = v143;
+      v146 = *&v143[16 * a4 + 24];
+      specialized _merge<A>(low:mid:high:buffer:by:)(*v166 + *(v164 + 72) * v144, *v166 + *(v164 + 72) * *&v143[16 * a4 + 16], *v166 + *(v164 + 72) * v146, a3);
       if (v5)
       {
         goto LABEL_135;
       }
 
-      if (v149 < v147)
+      if (v146 < v144)
       {
         goto LABEL_150;
       }
 
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v148 = specialized _ArrayBuffer._consumeAndCreateNew()(v148);
+        v145 = specialized _ArrayBuffer._consumeAndCreateNew()(v145);
       }
 
-      if (a4 - 2 >= *(v148 + 2))
+      if (a4 - 2 >= *(v145 + 2))
       {
         goto LABEL_151;
       }
 
-      v150 = &v148[16 * a4];
-      *v150 = v147;
-      *(v150 + 1) = v149;
-      v184 = v148;
+      v147 = &v145[16 * a4];
+      *v147 = v144;
+      *(v147 + 1) = v146;
+      v181 = v145;
       specialized Array.remove(at:)(a4 - 1);
-      v146 = v184;
-      a4 = *(v184 + 2);
+      v143 = v181;
+      a4 = *(v181 + 2);
       if (a4 <= 1)
       {
         goto LABEL_135;
@@ -9423,213 +6240,210 @@ LABEL_164:
 
 {
   v5 = v4;
-  v156 = a1;
-  v181 = type metadata accessor for Prompt.Delimiter(0);
-  v8 = *(*(v181 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v181);
-  v10 = &v151 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v180 = type metadata accessor for Prompt.Attachment(0);
-  v11 = *(*(v180 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v180);
-  v13 = &v151 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for Prompt.PromptMarker(0);
-  v167 = *(v14 - 8);
-  v15 = *(v167 + 64);
+  v153 = a1;
+  v178 = type metadata accessor for Prompt.Delimiter(0);
+  MEMORY[0x1EEE9AC00](v178);
+  v9 = &v148 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v177 = type metadata accessor for Prompt.Attachment(0);
+  MEMORY[0x1EEE9AC00](v177);
+  v11 = &v148 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for Prompt.PromptMarker(0);
+  v164 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v154 = &v148 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v14);
-  v157 = &v151 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v174 = &v148 - v15;
+  MEMORY[0x1EEE9AC00](v16);
   MEMORY[0x1EEE9AC00](v17);
-  v177 = &v151 - v18;
-  MEMORY[0x1EEE9AC00](v19);
+  MEMORY[0x1EEE9AC00](v18);
+  v171 = &v148 - v19;
   MEMORY[0x1EEE9AC00](v20);
-  MEMORY[0x1EEE9AC00](v21);
-  v174 = &v151 - v22;
-  MEMORY[0x1EEE9AC00](v23);
-  v173 = &v151 - v24;
+  v170 = &v148 - v21;
+  MEMORY[0x1EEE9AC00](v22);
+  v24 = &v148 - v23;
   MEMORY[0x1EEE9AC00](v25);
-  v27 = &v151 - v26;
-  MEMORY[0x1EEE9AC00](v28);
-  v178 = &v151 - v29;
-  MEMORY[0x1EEE9AC00](v30);
-  v183 = &v151 - v31;
+  v175 = &v148 - v26;
+  MEMORY[0x1EEE9AC00](v27);
+  v180 = &v148 - v28;
+  MEMORY[0x1EEE9AC00](v29);
+  v179 = &v148 - v30;
+  MEMORY[0x1EEE9AC00](v31);
   MEMORY[0x1EEE9AC00](v32);
-  v182 = &v151 - v33;
+  v151 = &v148 - v33;
   MEMORY[0x1EEE9AC00](v34);
-  MEMORY[0x1EEE9AC00](v35);
-  v154 = &v151 - v36;
+  v36 = &v148 - v35;
   MEMORY[0x1EEE9AC00](v37);
-  v39 = &v151 - v38;
-  MEMORY[0x1EEE9AC00](v40);
-  v169 = a3;
-  v45 = *(a3 + 8);
-  if (v45 >= 1)
+  v166 = a3;
+  v42 = *(a3 + 8);
+  if (v42 >= 1)
   {
-    v152 = &v151 - v41;
-    v153 = v39;
-    v163 = v44;
-    v46 = 0;
-    v47 = MEMORY[0x1E69E7CC0];
-    v155 = a4;
-    v171 = v43;
-    v172 = v42;
-    v179 = v27;
-    v151 = v14;
-    v162 = v13;
+    v149 = &v148 - v38;
+    v150 = v36;
+    v160 = v41;
+    v43 = 0;
+    v44 = MEMORY[0x1E69E7CC0];
+    v152 = a4;
+    v168 = v40;
+    v169 = v39;
+    v176 = v24;
+    v148 = v12;
+    v159 = v11;
     while (1)
     {
-      v48 = v46;
-      v49 = v46 + 1;
-      v160 = v47;
-      v159 = v48;
-      if (v49 >= v45)
+      v45 = v43;
+      v46 = v43 + 1;
+      v157 = v44;
+      v156 = v45;
+      if (v46 >= v42)
       {
-        v58 = v49;
+        v55 = v46;
         goto LABEL_27;
       }
 
-      v170 = v45;
-      v50 = *v169;
-      v51 = *(v167 + 72);
-      v52 = *v169 + v51 * v49;
-      a3 = v152;
-      _s15TokenGeneration6PromptV4TurnVWOcTm_0(v52, v152, type metadata accessor for Prompt.PromptMarker);
-      v175 = v50;
-      v53 = v50 + v51 * v159;
-      v54 = v153;
-      _s15TokenGeneration6PromptV4TurnVWOcTm_0(v53, v153, type metadata accessor for Prompt.PromptMarker);
-      LODWORD(v176) = closure #1 in Prompt.init(_:)(a3, v54);
+      v167 = v42;
+      v47 = *v166;
+      v48 = *(v164 + 72);
+      v49 = *v166 + v48 * v46;
+      a3 = v149;
+      _s15TokenGeneration6PromptV4TurnVWOcTm_0(v49, v149, type metadata accessor for Prompt.PromptMarker);
+      v172 = v47;
+      v50 = v47 + v48 * v156;
+      v51 = v150;
+      _s15TokenGeneration6PromptV4TurnVWOcTm_0(v50, v150, type metadata accessor for Prompt.PromptMarker);
+      LODWORD(v173) = closure #1 in Prompt.init(_:)(a3, v51);
       if (v5)
       {
-        outlined destroy of Prompt.Turn(v54, type metadata accessor for Prompt.PromptMarker);
+        outlined destroy of Prompt.Turn(v51, type metadata accessor for Prompt.PromptMarker);
         outlined destroy of Prompt.Turn(a3, type metadata accessor for Prompt.PromptMarker);
         goto LABEL_135;
       }
 
-      v168 = 0;
-      outlined destroy of Prompt.Turn(v54, type metadata accessor for Prompt.PromptMarker);
+      v165 = 0;
+      outlined destroy of Prompt.Turn(v51, type metadata accessor for Prompt.PromptMarker);
       outlined destroy of Prompt.Turn(a3, type metadata accessor for Prompt.PromptMarker);
-      v55 = v159 + 2;
-      v56 = v175 + v51 * (v159 + 2);
-      v57 = v154;
+      v52 = v156 + 2;
+      v53 = v172 + v48 * (v156 + 2);
+      v54 = v151;
       do
       {
-        v58 = v170;
-        if (v170 == v55)
+        v55 = v167;
+        if (v167 == v52)
         {
           goto LABEL_11;
         }
 
-        v59 = v10;
-        v60 = v51;
-        _s15TokenGeneration6PromptV4TurnVWOcTm_0(v56, v57, type metadata accessor for Prompt.PromptMarker);
-        v61 = v163;
-        _s15TokenGeneration6PromptV4TurnVWOcTm_0(v52, v163, type metadata accessor for Prompt.PromptMarker);
-        v62 = v168;
-        v63 = closure #1 in Prompt.init(_:)(v57, v61);
-        v168 = v62;
-        if (v62)
+        v56 = v9;
+        v57 = v48;
+        _s15TokenGeneration6PromptV4TurnVWOcTm_0(v53, v54, type metadata accessor for Prompt.PromptMarker);
+        v58 = v160;
+        _s15TokenGeneration6PromptV4TurnVWOcTm_0(v49, v160, type metadata accessor for Prompt.PromptMarker);
+        v59 = v165;
+        v60 = closure #1 in Prompt.init(_:)(v54, v58);
+        v165 = v59;
+        if (v59)
         {
-          outlined destroy of Prompt.Turn(v61, type metadata accessor for Prompt.PromptMarker);
-          outlined destroy of Prompt.Turn(v57, type metadata accessor for Prompt.PromptMarker);
+          outlined destroy of Prompt.Turn(v58, type metadata accessor for Prompt.PromptMarker);
+          outlined destroy of Prompt.Turn(v54, type metadata accessor for Prompt.PromptMarker);
 
           return;
         }
 
-        v64 = v63;
+        v61 = v60;
         a3 = type metadata accessor for Prompt.PromptMarker;
-        outlined destroy of Prompt.Turn(v61, type metadata accessor for Prompt.PromptMarker);
-        outlined destroy of Prompt.Turn(v57, type metadata accessor for Prompt.PromptMarker);
-        ++v55;
-        v51 = v60;
-        v56 += v60;
-        v52 += v60;
-        v10 = v59;
-        v13 = v162;
+        outlined destroy of Prompt.Turn(v58, type metadata accessor for Prompt.PromptMarker);
+        outlined destroy of Prompt.Turn(v54, type metadata accessor for Prompt.PromptMarker);
+        ++v52;
+        v48 = v57;
+        v53 += v57;
+        v49 += v57;
+        v9 = v56;
+        v11 = v159;
       }
 
-      while (((v176 ^ v64) & 1) == 0);
-      v58 = v55 - 1;
+      while (((v173 ^ v61) & 1) == 0);
+      v55 = v52 - 1;
 LABEL_11:
-      v5 = v168;
-      a4 = v155;
-      v48 = v159;
-      if ((v176 & 1) == 0)
+      v5 = v165;
+      a4 = v152;
+      v45 = v156;
+      if ((v173 & 1) == 0)
       {
         goto LABEL_25;
       }
 
-      if (v58 < v159)
+      if (v55 < v156)
       {
         goto LABEL_158;
       }
 
-      if (v159 >= v58)
+      if (v156 >= v55)
       {
 LABEL_25:
-        v27 = v179;
+        v24 = v176;
         goto LABEL_27;
       }
 
-      a3 = v51 * (v58 - 1);
-      v65 = v58 * v51;
-      v170 = v58;
-      v66 = v159;
-      v67 = v159 * v51;
+      a3 = v48 * (v55 - 1);
+      v62 = v55 * v48;
+      v167 = v55;
+      v63 = v156;
+      v64 = v156 * v48;
       do
       {
-        if (v66 != --v58)
+        if (v63 != --v55)
         {
-          v176 = v58;
-          v68 = *v169;
-          if (!*v169)
+          v173 = v55;
+          v65 = *v166;
+          if (!*v166)
           {
             goto LABEL_162;
           }
 
-          v175 = v68 + v67;
-          _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v68 + v67, v157, type metadata accessor for Prompt.PromptMarker);
-          if (v67 < a3 || v175 >= v68 + v65)
+          v172 = v65 + v64;
+          _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v65 + v64, v154, type metadata accessor for Prompt.PromptMarker);
+          if (v64 < a3 || v172 >= v65 + v62)
           {
             swift_arrayInitWithTakeFrontToBack();
           }
 
-          else if (v67 != a3)
+          else if (v64 != a3)
           {
             swift_arrayInitWithTakeBackToFront();
           }
 
-          _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v157, v68 + a3, type metadata accessor for Prompt.PromptMarker);
-          v48 = v159;
-          v58 = v176;
+          _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v154, v65 + a3, type metadata accessor for Prompt.PromptMarker);
+          v45 = v156;
+          v55 = v173;
         }
 
-        ++v66;
-        a3 -= v51;
-        v65 -= v51;
-        v67 += v51;
+        ++v63;
+        a3 -= v48;
+        v62 -= v48;
+        v64 += v48;
       }
 
-      while (v66 < v58);
-      v5 = v168;
-      a4 = v155;
-      v27 = v179;
-      v58 = v170;
+      while (v63 < v55);
+      v5 = v165;
+      a4 = v152;
+      v24 = v176;
+      v55 = v167;
 LABEL_27:
-      v69 = v169[1];
-      if (v58 >= v69)
+      v66 = v166[1];
+      if (v55 >= v66)
       {
         goto LABEL_36;
       }
 
-      if (__OFSUB__(v58, v48))
+      if (__OFSUB__(v55, v45))
       {
         goto LABEL_154;
       }
 
-      if (v58 - v48 >= a4)
+      if (v55 - v45 >= a4)
       {
 LABEL_36:
-        v71 = v58;
-        if (v58 < v48)
+        v68 = v55;
+        if (v55 < v45)
         {
           goto LABEL_153;
         }
@@ -9637,188 +6451,188 @@ LABEL_36:
         goto LABEL_37;
       }
 
-      if (__OFADD__(v48, a4))
+      if (__OFADD__(v45, a4))
       {
         break;
       }
 
-      if ((v48 + a4) >= v69)
+      if ((v45 + a4) >= v66)
       {
-        v70 = v169[1];
+        v67 = v166[1];
       }
 
       else
       {
-        v70 = v48 + a4;
+        v67 = v45 + a4;
       }
 
-      if (v70 < v48)
+      if (v67 < v45)
       {
         goto LABEL_157;
       }
 
-      if (v58 == v70)
+      if (v55 == v67)
       {
         goto LABEL_36;
       }
 
-      v168 = v5;
-      v116 = *v169;
-      v117 = *(v167 + 72);
-      v118 = *v169 + v117 * (v58 - 1);
-      v175 = -v117;
-      v176 = v116;
-      v119 = v48 - v58;
-      v158 = v117;
-      a4 = v116 + v58 * v117;
-      v161 = v70;
+      v165 = v5;
+      v113 = *v166;
+      v114 = *(v164 + 72);
+      v115 = *v166 + v114 * (v55 - 1);
+      v172 = -v114;
+      v173 = v113;
+      v116 = v45 - v55;
+      v155 = v114;
+      a4 = v113 + v55 * v114;
+      v158 = v67;
       while (2)
       {
-        v170 = v58;
-        v164 = a4;
-        v165 = v119;
-        v166 = v118;
-        v120 = v118;
+        v167 = v55;
+        v161 = a4;
+        v162 = v116;
+        v163 = v115;
+        v117 = v115;
         while (2)
         {
-          v121 = v182;
-          _s15TokenGeneration6PromptV4TurnVWOcTm_0(a4, v182, type metadata accessor for Prompt.PromptMarker);
-          _s15TokenGeneration6PromptV4TurnVWOcTm_0(v120, v183, type metadata accessor for Prompt.PromptMarker);
-          v122 = v178;
-          _s15TokenGeneration6PromptV4TurnVWOcTm_0(v121, v178, type metadata accessor for Prompt.PromptMarker);
+          v118 = v179;
+          _s15TokenGeneration6PromptV4TurnVWOcTm_0(a4, v179, type metadata accessor for Prompt.PromptMarker);
+          _s15TokenGeneration6PromptV4TurnVWOcTm_0(v117, v180, type metadata accessor for Prompt.PromptMarker);
+          v119 = v175;
+          _s15TokenGeneration6PromptV4TurnVWOcTm_0(v118, v175, type metadata accessor for Prompt.PromptMarker);
           if (swift_getEnumCaseMultiPayload() == 1)
           {
-            _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v122, v10, type metadata accessor for Prompt.Delimiter);
-            v123 = *&v10[*(v181 + 20)];
-            v124 = type metadata accessor for Prompt.Delimiter;
-            v125 = v10;
+            _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v119, v9, type metadata accessor for Prompt.Delimiter);
+            v120 = *&v9[*(v178 + 20)];
+            v121 = type metadata accessor for Prompt.Delimiter;
+            v122 = v9;
           }
 
           else
           {
-            _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v122, v13, type metadata accessor for Prompt.Attachment);
-            v123 = *&v13[*(v180 + 20)];
+            _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v119, v11, type metadata accessor for Prompt.Attachment);
+            v120 = *&v11[*(v177 + 20)];
+            v121 = type metadata accessor for Prompt.Attachment;
+            v122 = v11;
+          }
+
+          outlined destroy of Prompt.Turn(v122, v121);
+          _s15TokenGeneration6PromptV4TurnVWOcTm_0(v180, v24, type metadata accessor for Prompt.PromptMarker);
+          if (swift_getEnumCaseMultiPayload() == 1)
+          {
+            _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v24, v9, type metadata accessor for Prompt.Delimiter);
+            v123 = *&v9[*(v178 + 20)];
+            v124 = type metadata accessor for Prompt.Delimiter;
+            v125 = v9;
+          }
+
+          else
+          {
+            _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v24, v11, type metadata accessor for Prompt.Attachment);
+            v123 = *&v11[*(v177 + 20)];
             v124 = type metadata accessor for Prompt.Attachment;
-            v125 = v13;
+            v125 = v11;
           }
 
           outlined destroy of Prompt.Turn(v125, v124);
-          _s15TokenGeneration6PromptV4TurnVWOcTm_0(v183, v27, type metadata accessor for Prompt.PromptMarker);
-          if (swift_getEnumCaseMultiPayload() == 1)
+          if (v120 == v123)
           {
-            _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v27, v10, type metadata accessor for Prompt.Delimiter);
-            v126 = *&v10[*(v181 + 20)];
-            v127 = type metadata accessor for Prompt.Delimiter;
-            v128 = v10;
-          }
-
-          else
-          {
-            _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v27, v13, type metadata accessor for Prompt.Attachment);
-            v126 = *&v13[*(v180 + 20)];
-            v127 = type metadata accessor for Prompt.Attachment;
-            v128 = v13;
-          }
-
-          outlined destroy of Prompt.Turn(v128, v127);
-          if (v123 == v126)
-          {
-            v129 = v173;
-            _s15TokenGeneration6PromptV4TurnVWOcTm_0(v182, v173, type metadata accessor for Prompt.PromptMarker);
+            v126 = v170;
+            _s15TokenGeneration6PromptV4TurnVWOcTm_0(v179, v170, type metadata accessor for Prompt.PromptMarker);
             if (swift_getEnumCaseMultiPayload() == 1)
             {
-              _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v129, v10, type metadata accessor for Prompt.Delimiter);
-              v130 = *&v10[*(v181 + 24)];
-              v131 = type metadata accessor for Prompt.Delimiter;
-              v132 = v10;
+              _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v126, v9, type metadata accessor for Prompt.Delimiter);
+              v127 = *&v9[*(v178 + 24)];
+              v128 = type metadata accessor for Prompt.Delimiter;
+              v129 = v9;
             }
 
             else
             {
-              _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v129, v13, type metadata accessor for Prompt.Attachment);
-              v130 = *&v13[*(v180 + 24)];
-              v131 = type metadata accessor for Prompt.Attachment;
-              v132 = v13;
+              _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v126, v11, type metadata accessor for Prompt.Attachment);
+              v127 = *&v11[*(v177 + 24)];
+              v128 = type metadata accessor for Prompt.Attachment;
+              v129 = v11;
             }
 
-            outlined destroy of Prompt.Turn(v132, v131);
-            v136 = v171;
-            _s15TokenGeneration6PromptV4TurnVWOcTm_0(v183, v171, type metadata accessor for Prompt.PromptMarker);
+            outlined destroy of Prompt.Turn(v129, v128);
+            v133 = v168;
+            _s15TokenGeneration6PromptV4TurnVWOcTm_0(v180, v168, type metadata accessor for Prompt.PromptMarker);
             if (swift_getEnumCaseMultiPayload() == 1)
             {
-              _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v136, v10, type metadata accessor for Prompt.Delimiter);
-              v137 = *(v181 + 24);
+              _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v133, v9, type metadata accessor for Prompt.Delimiter);
+              v134 = *(v178 + 24);
               goto LABEL_108;
             }
 
-            _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v136, v13, type metadata accessor for Prompt.Attachment);
-            v142 = *(v180 + 24);
+            _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v133, v11, type metadata accessor for Prompt.Attachment);
+            v139 = *(v177 + 24);
 LABEL_111:
-            v139 = *&v13[v142];
-            v140 = type metadata accessor for Prompt.Attachment;
-            v141 = v13;
+            v136 = *&v11[v139];
+            v137 = type metadata accessor for Prompt.Attachment;
+            v138 = v11;
           }
 
           else
           {
-            v133 = v174;
-            _s15TokenGeneration6PromptV4TurnVWOcTm_0(v182, v174, type metadata accessor for Prompt.PromptMarker);
+            v130 = v171;
+            _s15TokenGeneration6PromptV4TurnVWOcTm_0(v179, v171, type metadata accessor for Prompt.PromptMarker);
             if (swift_getEnumCaseMultiPayload() == 1)
             {
-              _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v133, v10, type metadata accessor for Prompt.Delimiter);
-              v130 = *&v10[*(v181 + 20)];
-              v134 = type metadata accessor for Prompt.Delimiter;
-              v135 = v10;
+              _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v130, v9, type metadata accessor for Prompt.Delimiter);
+              v127 = *&v9[*(v178 + 20)];
+              v131 = type metadata accessor for Prompt.Delimiter;
+              v132 = v9;
             }
 
             else
             {
-              _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v133, v13, type metadata accessor for Prompt.Attachment);
-              v130 = *&v13[*(v180 + 20)];
-              v134 = type metadata accessor for Prompt.Attachment;
-              v135 = v13;
+              _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v130, v11, type metadata accessor for Prompt.Attachment);
+              v127 = *&v11[*(v177 + 20)];
+              v131 = type metadata accessor for Prompt.Attachment;
+              v132 = v11;
             }
 
-            outlined destroy of Prompt.Turn(v135, v134);
-            v138 = v172;
-            _s15TokenGeneration6PromptV4TurnVWOcTm_0(v183, v172, type metadata accessor for Prompt.PromptMarker);
+            outlined destroy of Prompt.Turn(v132, v131);
+            v135 = v169;
+            _s15TokenGeneration6PromptV4TurnVWOcTm_0(v180, v169, type metadata accessor for Prompt.PromptMarker);
             if (swift_getEnumCaseMultiPayload() != 1)
             {
-              _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v138, v13, type metadata accessor for Prompt.Attachment);
-              v142 = *(v180 + 20);
+              _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v135, v11, type metadata accessor for Prompt.Attachment);
+              v139 = *(v177 + 20);
               goto LABEL_111;
             }
 
-            _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v138, v10, type metadata accessor for Prompt.Delimiter);
-            v137 = *(v181 + 20);
+            _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v135, v9, type metadata accessor for Prompt.Delimiter);
+            v134 = *(v178 + 20);
 LABEL_108:
-            v139 = *&v10[v137];
-            v140 = type metadata accessor for Prompt.Delimiter;
-            v141 = v10;
+            v136 = *&v9[v134];
+            v137 = type metadata accessor for Prompt.Delimiter;
+            v138 = v9;
           }
 
-          outlined destroy of Prompt.Turn(v141, v140);
-          v143 = v130 < v139;
+          outlined destroy of Prompt.Turn(v138, v137);
+          v140 = v127 < v136;
           a3 = type metadata accessor for Prompt.PromptMarker;
-          outlined destroy of Prompt.Turn(v183, type metadata accessor for Prompt.PromptMarker);
-          outlined destroy of Prompt.Turn(v182, type metadata accessor for Prompt.PromptMarker);
-          if (v143)
+          outlined destroy of Prompt.Turn(v180, type metadata accessor for Prompt.PromptMarker);
+          outlined destroy of Prompt.Turn(v179, type metadata accessor for Prompt.PromptMarker);
+          if (v140)
           {
-            if (!v176)
+            if (!v173)
             {
               goto LABEL_159;
             }
 
             a3 = type metadata accessor for Prompt.PromptMarker;
-            v144 = v177;
-            _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(a4, v177, type metadata accessor for Prompt.PromptMarker);
+            v141 = v174;
+            _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(a4, v174, type metadata accessor for Prompt.PromptMarker);
             swift_arrayInitWithTakeFrontToBack();
-            _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v144, v120, type metadata accessor for Prompt.PromptMarker);
-            v120 += v175;
-            a4 += v175;
-            v145 = __CFADD__(v119++, 1);
-            v27 = v179;
-            if (v145)
+            _s15TokenGeneration6PromptV14ResponseFormatVWObTm_0(v141, v117, type metadata accessor for Prompt.PromptMarker);
+            v117 += v172;
+            a4 += v172;
+            v142 = __CFADD__(v116++, 1);
+            v24 = v176;
+            if (v142)
             {
               goto LABEL_89;
             }
@@ -9829,14 +6643,14 @@ LABEL_108:
           break;
         }
 
-        v27 = v179;
+        v24 = v176;
 LABEL_89:
-        v58 = v170 + 1;
-        v118 = v166 + v158;
-        v119 = v165 - 1;
-        a4 = v164 + v158;
-        v71 = v161;
-        if (v170 + 1 != v161)
+        v55 = v167 + 1;
+        v115 = v163 + v155;
+        v116 = v162 - 1;
+        a4 = v161 + v155;
+        v68 = v158;
+        if (v167 + 1 != v158)
         {
           continue;
         }
@@ -9844,9 +6658,9 @@ LABEL_89:
         break;
       }
 
-      v5 = v168;
-      v48 = v159;
-      if (v161 < v159)
+      v5 = v165;
+      v45 = v156;
+      if (v158 < v156)
       {
         goto LABEL_153;
       }
@@ -9854,38 +6668,38 @@ LABEL_89:
 LABEL_37:
       if (swift_isUniquelyReferenced_nonNull_native())
       {
-        v47 = v160;
+        v44 = v157;
       }
 
       else
       {
-        v47 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v160 + 2) + 1, 1, v160);
+        v44 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v157 + 2) + 1, 1, v157);
       }
 
-      a3 = *(v47 + 2);
-      v72 = *(v47 + 3);
+      a3 = *(v44 + 2);
+      v69 = *(v44 + 3);
       a4 = a3 + 1;
-      if (a3 >= v72 >> 1)
+      if (a3 >= v69 >> 1)
       {
-        v47 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v72 > 1), a3 + 1, 1, v47);
+        v44 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v69 > 1), a3 + 1, 1, v44);
       }
 
-      *(v47 + 2) = a4;
-      v73 = &v47[16 * a3];
-      *(v73 + 4) = v48;
-      *(v73 + 5) = v71;
-      v176 = *v156;
-      if (!v176)
+      *(v44 + 2) = a4;
+      v70 = &v44[16 * a3];
+      *(v70 + 4) = v45;
+      *(v70 + 5) = v68;
+      v173 = *v153;
+      if (!v173)
       {
         goto LABEL_163;
       }
 
-      v161 = v71;
+      v158 = v68;
       if (a3)
       {
         while (1)
         {
-          v74 = a4 - 1;
+          v71 = a4 - 1;
           if (a4 >= 4)
           {
             break;
@@ -9893,48 +6707,48 @@ LABEL_37:
 
           if (a4 == 3)
           {
-            v75 = *(v47 + 4);
-            v76 = *(v47 + 5);
-            v85 = __OFSUB__(v76, v75);
-            v77 = v76 - v75;
-            v78 = v85;
+            v72 = *(v44 + 4);
+            v73 = *(v44 + 5);
+            v82 = __OFSUB__(v73, v72);
+            v74 = v73 - v72;
+            v75 = v82;
 LABEL_56:
-            if (v78)
+            if (v75)
             {
               goto LABEL_142;
             }
 
-            v91 = &v47[16 * a4];
-            v93 = *v91;
-            v92 = *(v91 + 1);
-            v94 = __OFSUB__(v92, v93);
-            v95 = v92 - v93;
-            v96 = v94;
-            if (v94)
+            v88 = &v44[16 * a4];
+            v90 = *v88;
+            v89 = *(v88 + 1);
+            v91 = __OFSUB__(v89, v90);
+            v92 = v89 - v90;
+            v93 = v91;
+            if (v91)
             {
               goto LABEL_145;
             }
 
-            v97 = &v47[16 * v74 + 32];
-            v99 = *v97;
-            v98 = *(v97 + 1);
-            v85 = __OFSUB__(v98, v99);
-            v100 = v98 - v99;
-            if (v85)
+            v94 = &v44[16 * v71 + 32];
+            v96 = *v94;
+            v95 = *(v94 + 1);
+            v82 = __OFSUB__(v95, v96);
+            v97 = v95 - v96;
+            if (v82)
             {
               goto LABEL_148;
             }
 
-            if (__OFADD__(v95, v100))
+            if (__OFADD__(v92, v97))
             {
               goto LABEL_149;
             }
 
-            if (v95 + v100 >= v77)
+            if (v92 + v97 >= v74)
             {
-              if (v77 < v100)
+              if (v74 < v97)
               {
-                v74 = a4 - 2;
+                v71 = a4 - 2;
               }
 
               goto LABEL_77;
@@ -9943,36 +6757,36 @@ LABEL_56:
             goto LABEL_70;
           }
 
-          v101 = &v47[16 * a4];
-          v103 = *v101;
-          v102 = *(v101 + 1);
-          v85 = __OFSUB__(v102, v103);
-          v95 = v102 - v103;
-          v96 = v85;
+          v98 = &v44[16 * a4];
+          v100 = *v98;
+          v99 = *(v98 + 1);
+          v82 = __OFSUB__(v99, v100);
+          v92 = v99 - v100;
+          v93 = v82;
 LABEL_70:
-          if (v96)
+          if (v93)
           {
             goto LABEL_144;
           }
 
-          v104 = &v47[16 * v74];
-          v106 = *(v104 + 4);
-          v105 = *(v104 + 5);
-          v85 = __OFSUB__(v105, v106);
-          v107 = v105 - v106;
-          if (v85)
+          v101 = &v44[16 * v71];
+          v103 = *(v101 + 4);
+          v102 = *(v101 + 5);
+          v82 = __OFSUB__(v102, v103);
+          v104 = v102 - v103;
+          if (v82)
           {
             goto LABEL_147;
           }
 
-          if (v107 < v95)
+          if (v104 < v92)
           {
             goto LABEL_3;
           }
 
 LABEL_77:
-          a3 = v74 - 1;
-          if (v74 - 1 >= a4)
+          a3 = v71 - 1;
+          if (v71 - 1 >= a4)
           {
             __break(1u);
 LABEL_138:
@@ -10010,110 +6824,110 @@ LABEL_153:
 LABEL_154:
             __break(1u);
 LABEL_155:
-            v146 = specialized _ArrayBuffer._consumeAndCreateNew()(a4);
+            v143 = specialized _ArrayBuffer._consumeAndCreateNew()(a4);
             goto LABEL_124;
           }
 
-          if (!*v169)
+          if (!*v166)
           {
             goto LABEL_160;
           }
 
-          v112 = v47;
-          a4 = *&v47[16 * a3 + 32];
-          v113 = *&v47[16 * v74 + 40];
-          specialized _merge<A>(low:mid:high:buffer:by:)(*v169 + *(v167 + 72) * a4, *v169 + *(v167 + 72) * *&v47[16 * v74 + 32], *v169 + *(v167 + 72) * v113, v176);
+          v109 = v44;
+          a4 = *&v44[16 * a3 + 32];
+          v110 = *&v44[16 * v71 + 40];
+          specialized _merge<A>(low:mid:high:buffer:by:)(*v166 + *(v164 + 72) * a4, *v166 + *(v164 + 72) * *&v44[16 * v71 + 32], *v166 + *(v164 + 72) * v110, v173);
           if (v5)
           {
             goto LABEL_135;
           }
 
-          if (v113 < a4)
+          if (v110 < a4)
           {
             goto LABEL_138;
           }
 
           if (swift_isUniquelyReferenced_nonNull_native())
           {
-            v114 = v112;
+            v111 = v109;
           }
 
           else
           {
-            v114 = specialized _ArrayBuffer._consumeAndCreateNew()(v112);
+            v111 = specialized _ArrayBuffer._consumeAndCreateNew()(v109);
           }
 
-          v27 = v179;
-          if (a3 >= *(v114 + 2))
+          v24 = v176;
+          if (a3 >= *(v111 + 2))
           {
             goto LABEL_139;
           }
 
-          v115 = &v114[16 * a3];
-          *(v115 + 4) = a4;
-          *(v115 + 5) = v113;
-          v184 = v114;
-          specialized Array.remove(at:)(v74);
-          v47 = v184;
-          a4 = *(v184 + 2);
+          v112 = &v111[16 * a3];
+          *(v112 + 4) = a4;
+          *(v112 + 5) = v110;
+          v181 = v111;
+          specialized Array.remove(at:)(v71);
+          v44 = v181;
+          a4 = *(v181 + 2);
           if (a4 <= 1)
           {
             goto LABEL_3;
           }
         }
 
-        v79 = &v47[16 * a4 + 32];
-        v80 = *(v79 - 64);
-        v81 = *(v79 - 56);
-        v85 = __OFSUB__(v81, v80);
-        v82 = v81 - v80;
-        if (v85)
+        v76 = &v44[16 * a4 + 32];
+        v77 = *(v76 - 64);
+        v78 = *(v76 - 56);
+        v82 = __OFSUB__(v78, v77);
+        v79 = v78 - v77;
+        if (v82)
         {
           goto LABEL_140;
         }
 
-        v84 = *(v79 - 48);
-        v83 = *(v79 - 40);
-        v85 = __OFSUB__(v83, v84);
-        v77 = v83 - v84;
-        v78 = v85;
-        if (v85)
+        v81 = *(v76 - 48);
+        v80 = *(v76 - 40);
+        v82 = __OFSUB__(v80, v81);
+        v74 = v80 - v81;
+        v75 = v82;
+        if (v82)
         {
           goto LABEL_141;
         }
 
-        v86 = &v47[16 * a4];
-        v88 = *v86;
-        v87 = *(v86 + 1);
-        v85 = __OFSUB__(v87, v88);
-        v89 = v87 - v88;
-        if (v85)
+        v83 = &v44[16 * a4];
+        v85 = *v83;
+        v84 = *(v83 + 1);
+        v82 = __OFSUB__(v84, v85);
+        v86 = v84 - v85;
+        if (v82)
         {
           goto LABEL_143;
         }
 
-        v85 = __OFADD__(v77, v89);
-        v90 = v77 + v89;
-        if (v85)
+        v82 = __OFADD__(v74, v86);
+        v87 = v74 + v86;
+        if (v82)
         {
           goto LABEL_146;
         }
 
-        if (v90 >= v82)
+        if (v87 >= v79)
         {
-          v108 = &v47[16 * v74 + 32];
-          v110 = *v108;
-          v109 = *(v108 + 1);
-          v85 = __OFSUB__(v109, v110);
-          v111 = v109 - v110;
-          if (v85)
+          v105 = &v44[16 * v71 + 32];
+          v107 = *v105;
+          v106 = *(v105 + 1);
+          v82 = __OFSUB__(v106, v107);
+          v108 = v106 - v107;
+          if (v82)
           {
             goto LABEL_152;
           }
 
-          if (v77 < v111)
+          if (v74 < v108)
           {
-            v74 = a4 - 2;
+            v71 = a4 - 2;
           }
 
           goto LABEL_77;
@@ -10123,10 +6937,10 @@ LABEL_155:
       }
 
 LABEL_3:
-      v45 = v169[1];
-      v46 = v161;
-      a4 = v155;
-      if (v161 >= v45)
+      v42 = v166[1];
+      v43 = v158;
+      a4 = v152;
+      if (v158 >= v42)
       {
         goto LABEL_121;
       }
@@ -10150,21 +6964,21 @@ LABEL_163:
     goto LABEL_164;
   }
 
-  v47 = MEMORY[0x1E69E7CC0];
+  v44 = MEMORY[0x1E69E7CC0];
 LABEL_121:
-  a3 = *v156;
-  if (*v156)
+  a3 = *v153;
+  if (*v153)
   {
-    a4 = v47;
+    a4 = v44;
     if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
     {
       goto LABEL_155;
     }
 
-    v146 = a4;
+    v143 = a4;
 LABEL_124:
-    v184 = v146;
-    a4 = *(v146 + 2);
+    v181 = v143;
+    a4 = *(v143 + 2);
     if (a4 < 2)
     {
 LABEL_135:
@@ -10172,39 +6986,39 @@ LABEL_135:
       return;
     }
 
-    while (*v169)
+    while (*v166)
     {
-      v147 = *&v146[16 * a4];
-      v148 = v146;
-      v149 = *&v146[16 * a4 + 24];
-      specialized _merge<A>(low:mid:high:buffer:by:)(*v169 + *(v167 + 72) * v147, *v169 + *(v167 + 72) * *&v146[16 * a4 + 16], *v169 + *(v167 + 72) * v149, a3);
+      v144 = *&v143[16 * a4];
+      v145 = v143;
+      v146 = *&v143[16 * a4 + 24];
+      specialized _merge<A>(low:mid:high:buffer:by:)(*v166 + *(v164 + 72) * v144, *v166 + *(v164 + 72) * *&v143[16 * a4 + 16], *v166 + *(v164 + 72) * v146, a3);
       if (v5)
       {
         goto LABEL_135;
       }
 
-      if (v149 < v147)
+      if (v146 < v144)
       {
         goto LABEL_150;
       }
 
       if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
       {
-        v148 = specialized _ArrayBuffer._consumeAndCreateNew()(v148);
+        v145 = specialized _ArrayBuffer._consumeAndCreateNew()(v145);
       }
 
-      if (a4 - 2 >= *(v148 + 2))
+      if (a4 - 2 >= *(v145 + 2))
       {
         goto LABEL_151;
       }
 
-      v150 = &v148[16 * a4];
-      *v150 = v147;
-      *(v150 + 1) = v149;
-      v184 = v148;
+      v147 = &v145[16 * a4];
+      *v147 = v144;
+      *(v147 + 1) = v146;
+      v181 = v145;
       specialized Array.remove(at:)(a4 - 1);
-      v146 = v184;
-      a4 = *(v184 + 2);
+      v143 = v181;
+      a4 = *(v181 + 2);
       if (a4 <= 1)
       {
         goto LABEL_135;
@@ -10216,4 +7030,2830 @@ LABEL_135:
 
 LABEL_164:
   __break(1u);
+}
+
+void specialized _merge<A>(low:mid:high:buffer:by:)(unint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
+{
+  v63 = type metadata accessor for Prompt.PromptMarker(0);
+  MEMORY[0x1EEE9AC00](v63);
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = &v52 - v10;
+  MEMORY[0x1EEE9AC00](v12);
+  v14 = &v52 - v13;
+  MEMORY[0x1EEE9AC00](v15);
+  v18 = &v52 - v17;
+  v20 = *(v19 + 72);
+  if (!v20)
+  {
+    __break(1u);
+LABEL_64:
+    __break(1u);
+LABEL_65:
+    __break(1u);
+    return;
+  }
+
+  if (a2 - a1 == 0x8000000000000000 && v20 == -1)
+  {
+    goto LABEL_64;
+  }
+
+  v21 = a3 - a2;
+  if (a3 - a2 == 0x8000000000000000 && v20 == -1)
+  {
+    goto LABEL_65;
+  }
+
+  v22 = (a2 - a1) / v20;
+  v66 = a1;
+  v65 = a4;
+  v62 = v20;
+  if (v22 >= v21 / v20)
+  {
+    v25 = v21 / v20 * v20;
+    v58 = v16;
+    if (a4 < a2 || a2 + v25 <= a4)
+    {
+      swift_arrayInitWithTakeFrontToBack();
+      v26 = v11;
+    }
+
+    else
+    {
+      v26 = v11;
+      if (a4 != a2)
+      {
+        swift_arrayInitWithTakeBackToFront();
+      }
+    }
+
+    v35 = a4 + v25;
+    v36 = v4;
+    if (v25 >= 1)
+    {
+      v37 = -v62;
+      v38 = a4 + v25;
+      v55 = a4;
+      v56 = a1;
+      v54 = -v62;
+      do
+      {
+        v52 = v35;
+        v39 = a2 + v37;
+        v57 = a2;
+        while (1)
+        {
+          if (a2 <= a1)
+          {
+            v66 = a2;
+            v64 = v52;
+            goto LABEL_62;
+          }
+
+          v61 = a3;
+          v62 = v38;
+          v53 = v35;
+          v60 = (v38 + v37);
+          outlined init with copy of Prompt.PromptFragment(v38 + v37, v26, type metadata accessor for Prompt.PromptMarker);
+          v42 = v26;
+          v43 = v58;
+          outlined init with copy of Prompt.PromptFragment(v39, v58, type metadata accessor for Prompt.PromptMarker);
+          v44 = closure #1 in Prompt.promptFragments()(v42, v43);
+          if (v36)
+          {
+            _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v43, type metadata accessor for Prompt.PromptMarker);
+            _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v42, type metadata accessor for Prompt.PromptMarker);
+            v66 = v57;
+            v64 = v53;
+            goto LABEL_62;
+          }
+
+          v45 = v44;
+          v59 = 0;
+          v46 = v39;
+          v47 = v61;
+          v48 = v61 + v37;
+          _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v43, type metadata accessor for Prompt.PromptMarker);
+          _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v42, type metadata accessor for Prompt.PromptMarker);
+          v26 = v42;
+          if (v45)
+          {
+            break;
+          }
+
+          v49 = v60;
+          v35 = v60;
+          a3 = v47 + v37;
+          if (v47 < v62 || v48 >= v62)
+          {
+            v40 = v60;
+            swift_arrayInitWithTakeFrontToBack();
+            v35 = v40;
+            v39 = v46;
+            v36 = v59;
+          }
+
+          else
+          {
+            v50 = v47 == v62;
+            v39 = v46;
+            v36 = v59;
+            if (!v50)
+            {
+              v51 = v60;
+              swift_arrayInitWithTakeBackToFront();
+              v35 = v51;
+            }
+          }
+
+          v38 = v35;
+          a1 = v56;
+          v41 = v49 > v55;
+          v37 = v54;
+          a2 = v57;
+          if (!v41)
+          {
+            goto LABEL_58;
+          }
+        }
+
+        a3 = v47 + v37;
+        if (v47 < v57 || v48 >= v57)
+        {
+          a2 = v46;
+          swift_arrayInitWithTakeFrontToBack();
+          v36 = v59;
+          v37 = v54;
+        }
+
+        else
+        {
+          a2 = v46;
+          v36 = v59;
+          v37 = v54;
+          if (v47 != v57)
+          {
+            swift_arrayInitWithTakeBackToFront();
+          }
+        }
+
+        a1 = v56;
+        v38 = v62;
+        v35 = v53;
+      }
+
+      while (v62 > v55);
+    }
+
+LABEL_58:
+    v66 = a2;
+    v64 = v35;
+  }
+
+  else
+  {
+    v23 = v22 * v20;
+    if (a4 < a1 || a1 + v23 <= a4)
+    {
+      swift_arrayInitWithTakeFrontToBack();
+      v24 = v4;
+    }
+
+    else
+    {
+      v24 = v4;
+      if (a4 != a1)
+      {
+        swift_arrayInitWithTakeBackToFront();
+      }
+    }
+
+    v61 = a4 + v23;
+    v64 = a4 + v23;
+    if (v23 >= 1 && a2 < a3)
+    {
+      v28 = v62;
+      v59 = v18;
+      v60 = v14;
+      while (1)
+      {
+        v29 = a3;
+        outlined init with copy of Prompt.PromptFragment(a2, v18, type metadata accessor for Prompt.PromptMarker);
+        outlined init with copy of Prompt.PromptFragment(a4, v14, type metadata accessor for Prompt.PromptMarker);
+        v30 = closure #1 in Prompt.promptFragments()(v18, v14);
+        if (v24)
+        {
+          break;
+        }
+
+        v31 = v30;
+        v32 = v14;
+        v33 = a4;
+        _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v32, type metadata accessor for Prompt.PromptMarker);
+        _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v18, type metadata accessor for Prompt.PromptMarker);
+        if (v31)
+        {
+          v34 = a2 + v28;
+          if (a1 < a2 || a1 >= v34)
+          {
+            swift_arrayInitWithTakeFrontToBack();
+            a2 = v34;
+            a3 = v29;
+          }
+
+          else
+          {
+            a3 = v29;
+            if (a1 != a2)
+            {
+              swift_arrayInitWithTakeBackToFront();
+            }
+
+            a2 = v34;
+          }
+        }
+
+        else
+        {
+          a4 += v28;
+          if (a1 < v33 || a1 >= a4)
+          {
+            swift_arrayInitWithTakeFrontToBack();
+            a3 = v29;
+          }
+
+          else
+          {
+            a3 = v29;
+            if (a1 != v33)
+            {
+              swift_arrayInitWithTakeBackToFront();
+            }
+          }
+
+          v65 = v33 + v28;
+        }
+
+        v14 = v60;
+        v28 = v62;
+        a1 += v62;
+        v66 = a1;
+        v18 = v59;
+        if (a4 >= v61 || a2 >= a3)
+        {
+          goto LABEL_62;
+        }
+      }
+
+      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v14, type metadata accessor for Prompt.PromptMarker);
+      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v18, type metadata accessor for Prompt.PromptMarker);
+    }
+  }
+
+LABEL_62:
+  specialized $defer #1 <A>() in _merge<A>(low:mid:high:buffer:by:)(&v66, &v65, &v64);
+}
+
+{
+  v8 = type metadata accessor for Prompt.Attachment(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v50 = &v40 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v49 = &v40 - v11;
+  v13 = *(v12 + 72);
+  if (!v13)
+  {
+    __break(1u);
+LABEL_62:
+    __break(1u);
+LABEL_63:
+    __break(1u);
+    return;
+  }
+
+  if (a2 - a1 == 0x8000000000000000 && v13 == -1)
+  {
+    goto LABEL_62;
+  }
+
+  v14 = a3 - a2;
+  if (a3 - a2 == 0x8000000000000000 && v13 == -1)
+  {
+    goto LABEL_63;
+  }
+
+  v15 = (a2 - a1) / v13;
+  v53 = a1;
+  v52 = a4;
+  if (v15 >= v14 / v13)
+  {
+    v17 = v14 / v13 * v13;
+    if (a4 < a2 || a2 + v17 <= a4)
+    {
+      swift_arrayInitWithTakeFrontToBack();
+    }
+
+    else if (a4 != a2)
+    {
+      swift_arrayInitWithTakeBackToFront();
+    }
+
+    v25 = a4 + v17;
+    if (v17 >= 1)
+    {
+      v26 = -v13;
+      v27 = v25;
+      v44 = a4;
+      v45 = a1;
+      v48 = v8;
+      v43 = -v13;
+      do
+      {
+        v41 = v25;
+        v28 = a2;
+        v29 = a2 + v26;
+        v46 = a2;
+        v47 = a2 + v26;
+        while (1)
+        {
+          if (v28 <= a1)
+          {
+            v53 = v28;
+            v51 = v41;
+            goto LABEL_60;
+          }
+
+          v31 = a3;
+          v42 = v25;
+          a3 += v26;
+          v32 = v27 + v26;
+          v33 = v49;
+          outlined init with copy of Prompt.Turn(v27 + v26, v49, type metadata accessor for Prompt.Attachment);
+          v34 = v50;
+          outlined init with copy of Prompt.Turn(v29, v50, type metadata accessor for Prompt.Attachment);
+          v35 = *(v8 + 24);
+          v36 = *(v33 + v35);
+          v37 = *(v34 + v35);
+          outlined destroy of Prompt.ResponseFormat(v34, type metadata accessor for Prompt.Attachment);
+          outlined destroy of Prompt.ResponseFormat(v33, type metadata accessor for Prompt.Attachment);
+          if (v36 < v37)
+          {
+            break;
+          }
+
+          v25 = v32;
+          if (v31 < v27 || a3 >= v27)
+          {
+            v30 = v48;
+            swift_arrayInitWithTakeFrontToBack();
+            v29 = v47;
+            v8 = v30;
+            v26 = v43;
+          }
+
+          else
+          {
+            v29 = v47;
+            v8 = v48;
+            v26 = v43;
+            if (v31 != v27)
+            {
+              swift_arrayInitWithTakeBackToFront();
+            }
+          }
+
+          v27 = v32;
+          a1 = v45;
+          v28 = v46;
+          if (v32 <= v44)
+          {
+            a2 = v46;
+            goto LABEL_59;
+          }
+        }
+
+        v38 = v44;
+        if (v31 < v46 || a3 >= v46)
+        {
+          a2 = v47;
+          v8 = v48;
+          swift_arrayInitWithTakeFrontToBack();
+          v25 = v42;
+          v26 = v43;
+        }
+
+        else
+        {
+          v39 = v31 == v46;
+          a2 = v47;
+          v8 = v48;
+          v25 = v42;
+          v26 = v43;
+          if (!v39)
+          {
+            swift_arrayInitWithTakeBackToFront();
+          }
+        }
+
+        a1 = v45;
+      }
+
+      while (v27 > v38);
+    }
+
+LABEL_59:
+    v53 = a2;
+    v51 = v25;
+  }
+
+  else
+  {
+    v16 = v15 * v13;
+    if (a4 < a1 || a1 + v16 <= a4)
+    {
+      swift_arrayInitWithTakeFrontToBack();
+    }
+
+    else if (a4 != a1)
+    {
+      swift_arrayInitWithTakeBackToFront();
+    }
+
+    v47 = a4 + v16;
+    v51 = a4 + v16;
+    if (v16 >= 1 && a2 < a3)
+    {
+      v46 = a3;
+      v48 = v8;
+      do
+      {
+        v19 = v49;
+        outlined init with copy of Prompt.Turn(a2, v49, type metadata accessor for Prompt.Attachment);
+        v20 = v50;
+        outlined init with copy of Prompt.Turn(a4, v50, type metadata accessor for Prompt.Attachment);
+        v21 = *(v8 + 24);
+        v22 = *(v19 + v21);
+        v23 = *(v20 + v21);
+        outlined destroy of Prompt.ResponseFormat(v20, type metadata accessor for Prompt.Attachment);
+        outlined destroy of Prompt.ResponseFormat(v19, type metadata accessor for Prompt.Attachment);
+        if (v22 >= v23)
+        {
+          if (a1 < a4 || a1 >= a4 + v13)
+          {
+            v8 = v48;
+            swift_arrayInitWithTakeFrontToBack();
+            v24 = v46;
+          }
+
+          else
+          {
+            v24 = v46;
+            v8 = v48;
+            if (a1 != a4)
+            {
+              swift_arrayInitWithTakeBackToFront();
+            }
+          }
+
+          v52 = a4 + v13;
+          a4 += v13;
+        }
+
+        else if (a1 < a2 || a1 >= a2 + v13)
+        {
+          v8 = v48;
+          swift_arrayInitWithTakeFrontToBack();
+          a2 += v13;
+          v24 = v46;
+        }
+
+        else
+        {
+          v24 = v46;
+          v8 = v48;
+          if (a1 != a2)
+          {
+            swift_arrayInitWithTakeBackToFront();
+          }
+
+          a2 += v13;
+        }
+
+        a1 += v13;
+        v53 = a1;
+      }
+
+      while (a4 < v47 && a2 < v24);
+    }
+  }
+
+LABEL_60:
+  specialized $defer #1 <A>() in _merge<A>(low:mid:high:buffer:by:)(&v53, &v52, &v51);
+}
+
+{
+  v63 = type metadata accessor for Prompt.PromptMarker(0);
+  MEMORY[0x1EEE9AC00](v63);
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = &v52 - v10;
+  MEMORY[0x1EEE9AC00](v12);
+  v14 = &v52 - v13;
+  MEMORY[0x1EEE9AC00](v15);
+  v18 = &v52 - v17;
+  v20 = *(v19 + 72);
+  if (!v20)
+  {
+    __break(1u);
+LABEL_64:
+    __break(1u);
+LABEL_65:
+    __break(1u);
+    return;
+  }
+
+  if (a2 - a1 == 0x8000000000000000 && v20 == -1)
+  {
+    goto LABEL_64;
+  }
+
+  v21 = a3 - a2;
+  if (a3 - a2 == 0x8000000000000000 && v20 == -1)
+  {
+    goto LABEL_65;
+  }
+
+  v22 = (a2 - a1) / v20;
+  v66 = a1;
+  v65 = a4;
+  v62 = v20;
+  if (v22 >= v21 / v20)
+  {
+    v25 = v21 / v20 * v20;
+    v58 = v16;
+    if (a4 < a2 || a2 + v25 <= a4)
+    {
+      swift_arrayInitWithTakeFrontToBack();
+      v26 = v11;
+    }
+
+    else
+    {
+      v26 = v11;
+      if (a4 != a2)
+      {
+        swift_arrayInitWithTakeBackToFront();
+      }
+    }
+
+    v35 = a4 + v25;
+    v36 = v4;
+    if (v25 >= 1)
+    {
+      v37 = -v62;
+      v38 = a4 + v25;
+      v55 = a4;
+      v56 = a1;
+      v54 = -v62;
+      do
+      {
+        v52 = v35;
+        v39 = a2 + v37;
+        v57 = a2;
+        while (1)
+        {
+          if (a2 <= a1)
+          {
+            v66 = a2;
+            v64 = v52;
+            goto LABEL_62;
+          }
+
+          v61 = a3;
+          v62 = v38;
+          v53 = v35;
+          v60 = (v38 + v37);
+          _s15TokenGeneration6PromptV4TurnVWOcTm_0(v38 + v37, v26, type metadata accessor for Prompt.PromptMarker);
+          v42 = v26;
+          v43 = v58;
+          _s15TokenGeneration6PromptV4TurnVWOcTm_0(v39, v58, type metadata accessor for Prompt.PromptMarker);
+          v44 = closure #1 in Prompt.init(_:)(v42, v43);
+          if (v36)
+          {
+            outlined destroy of Prompt.Turn(v43, type metadata accessor for Prompt.PromptMarker);
+            outlined destroy of Prompt.Turn(v42, type metadata accessor for Prompt.PromptMarker);
+            v66 = v57;
+            v64 = v53;
+            goto LABEL_62;
+          }
+
+          v45 = v44;
+          v59 = 0;
+          v46 = v39;
+          v47 = v61;
+          v48 = v61 + v37;
+          outlined destroy of Prompt.Turn(v43, type metadata accessor for Prompt.PromptMarker);
+          outlined destroy of Prompt.Turn(v42, type metadata accessor for Prompt.PromptMarker);
+          v26 = v42;
+          if (v45)
+          {
+            break;
+          }
+
+          v49 = v60;
+          v35 = v60;
+          a3 = v47 + v37;
+          if (v47 < v62 || v48 >= v62)
+          {
+            v40 = v60;
+            swift_arrayInitWithTakeFrontToBack();
+            v35 = v40;
+            v39 = v46;
+            v36 = v59;
+          }
+
+          else
+          {
+            v50 = v47 == v62;
+            v39 = v46;
+            v36 = v59;
+            if (!v50)
+            {
+              v51 = v60;
+              swift_arrayInitWithTakeBackToFront();
+              v35 = v51;
+            }
+          }
+
+          v38 = v35;
+          a1 = v56;
+          v41 = v49 > v55;
+          v37 = v54;
+          a2 = v57;
+          if (!v41)
+          {
+            goto LABEL_58;
+          }
+        }
+
+        a3 = v47 + v37;
+        if (v47 < v57 || v48 >= v57)
+        {
+          a2 = v46;
+          swift_arrayInitWithTakeFrontToBack();
+          v36 = v59;
+          v37 = v54;
+        }
+
+        else
+        {
+          a2 = v46;
+          v36 = v59;
+          v37 = v54;
+          if (v47 != v57)
+          {
+            swift_arrayInitWithTakeBackToFront();
+          }
+        }
+
+        a1 = v56;
+        v38 = v62;
+        v35 = v53;
+      }
+
+      while (v62 > v55);
+    }
+
+LABEL_58:
+    v66 = a2;
+    v64 = v35;
+  }
+
+  else
+  {
+    v23 = v22 * v20;
+    if (a4 < a1 || a1 + v23 <= a4)
+    {
+      swift_arrayInitWithTakeFrontToBack();
+      v24 = v4;
+    }
+
+    else
+    {
+      v24 = v4;
+      if (a4 != a1)
+      {
+        swift_arrayInitWithTakeBackToFront();
+      }
+    }
+
+    v61 = a4 + v23;
+    v64 = a4 + v23;
+    if (v23 >= 1 && a2 < a3)
+    {
+      v28 = v62;
+      v59 = v18;
+      v60 = v14;
+      while (1)
+      {
+        v29 = a3;
+        _s15TokenGeneration6PromptV4TurnVWOcTm_0(a2, v18, type metadata accessor for Prompt.PromptMarker);
+        _s15TokenGeneration6PromptV4TurnVWOcTm_0(a4, v14, type metadata accessor for Prompt.PromptMarker);
+        v30 = closure #1 in Prompt.init(_:)(v18, v14);
+        if (v24)
+        {
+          break;
+        }
+
+        v31 = v30;
+        v32 = v14;
+        v33 = a4;
+        outlined destroy of Prompt.Turn(v32, type metadata accessor for Prompt.PromptMarker);
+        outlined destroy of Prompt.Turn(v18, type metadata accessor for Prompt.PromptMarker);
+        if (v31)
+        {
+          v34 = a2 + v28;
+          if (a1 < a2 || a1 >= v34)
+          {
+            swift_arrayInitWithTakeFrontToBack();
+            a2 = v34;
+            a3 = v29;
+          }
+
+          else
+          {
+            a3 = v29;
+            if (a1 != a2)
+            {
+              swift_arrayInitWithTakeBackToFront();
+            }
+
+            a2 = v34;
+          }
+        }
+
+        else
+        {
+          a4 += v28;
+          if (a1 < v33 || a1 >= a4)
+          {
+            swift_arrayInitWithTakeFrontToBack();
+            a3 = v29;
+          }
+
+          else
+          {
+            a3 = v29;
+            if (a1 != v33)
+            {
+              swift_arrayInitWithTakeBackToFront();
+            }
+          }
+
+          v65 = v33 + v28;
+        }
+
+        v14 = v60;
+        v28 = v62;
+        a1 += v62;
+        v66 = a1;
+        v18 = v59;
+        if (a4 >= v61 || a2 >= a3)
+        {
+          goto LABEL_62;
+        }
+      }
+
+      outlined destroy of Prompt.Turn(v14, type metadata accessor for Prompt.PromptMarker);
+      outlined destroy of Prompt.Turn(v18, type metadata accessor for Prompt.PromptMarker);
+    }
+  }
+
+LABEL_62:
+  specialized $defer #1 <A>() in _merge<A>(low:mid:high:buffer:by:)(&v66, &v65, &v64, type metadata accessor for Prompt.PromptMarker);
+}
+
+unint64_t *specialized _NativeDictionary.filter(_:)(uint64_t a1)
+{
+  v2 = a1;
+  v10[1] = *MEMORY[0x1E69E9840];
+  v3 = *(a1 + 32);
+  v4 = ((1 << v3) + 63) >> 6;
+  if ((v3 & 0x3Fu) <= 0xD)
+  {
+    goto LABEL_2;
+  }
+
+  if (swift_stdlib_isStackAllocationSafe())
+  {
+
+LABEL_2:
+    MEMORY[0x1EEE9AC00](a1);
+    v6 = v10 - ((v5 + 15) & 0x3FFFFFFFFFFFFFF0);
+    bzero(v6, v5);
+    result = specialized closure #1 in _NativeDictionary.filter(_:)(v6, v4, v2);
+    if (v1)
+    {
+      return swift_willThrow();
+    }
+
+    return result;
+  }
+
+  v8 = swift_slowAlloc();
+  v9 = _ss13_UnsafeBitsetV013withTemporaryB08capacity4bodyxSi_xABKXEtKlFZxABKXEfU_s17_NativeDictionaryVyS2SG_Tg506_ss17_gh46V6filteryAByxq_GSbx3key_q_5valuet_tKXEKFADs13_aB15VKXEfU_SS_SSTG5AHxq_Sbs5Error_pRi_zRi0_zRi__Ri0__r0_lyS2SIsgnndzo_Tf1nc_n157_s15TokenGeneration6PromptV28getLocalizationOverrideValue4from5token6localeSSSgSDyAC07SpecialA0VSDyS2SGG_AJ10Foundation6LocaleVSgtFZSbSS3key_SS5valuet_tXEfU_Tf1nnc_n(v8, v4, v2);
+  result = MEMORY[0x1AC57DBF0](v8, -1, -1);
+  if (!v1)
+  {
+    return v9;
+  }
+
+  return result;
+}
+
+unint64_t *specialized closure #1 in _NativeDictionary.filter(_:)(unint64_t *result, uint64_t a2, uint64_t a3)
+{
+  v4 = 0;
+  v5 = 0;
+  v6 = 1 << *(a3 + 32);
+  v7 = -1;
+  if (v6 < 64)
+  {
+    v7 = ~(-1 << v6);
+  }
+
+  v8 = v7 & *(a3 + 64);
+  v9 = (v6 + 63) >> 6;
+  while (v8)
+  {
+    v10 = __clz(__rbit64(v8));
+    v8 &= v8 - 1;
+    v11 = v10 | (v5 << 6);
+LABEL_11:
+    v14 = (*(a3 + 56) + 16 * v11);
+    v16 = *v14;
+    v15 = v14[1];
+    v17 = v16 & 0xFFFFFFFFFFFFLL;
+    if ((v15 & 0x2000000000000000) != 0)
+    {
+      v18 = HIBYTE(v15) & 0xF;
+    }
+
+    else
+    {
+      v18 = v17;
+    }
+
+    if (v18)
+    {
+      *(result + ((v11 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v11;
+      if (__OFADD__(v4++, 1))
+      {
+        __break(1u);
+        return specialized _NativeDictionary.extractDictionary(using:count:)(result, a2, v4, a3);
+      }
+    }
+  }
+
+  v12 = v5;
+  while (1)
+  {
+    v5 = v12 + 1;
+    if (__OFADD__(v12, 1))
+    {
+      break;
+    }
+
+    if (v5 >= v9)
+    {
+      return specialized _NativeDictionary.extractDictionary(using:count:)(result, a2, v4, a3);
+    }
+
+    v13 = *(a3 + 64 + 8 * v5);
+    ++v12;
+    if (v13)
+    {
+      v8 = (v13 - 1) & v13;
+      v11 = __clz(__rbit64(v13)) | (v5 << 6);
+      goto LABEL_11;
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+unint64_t *_ss13_UnsafeBitsetV013withTemporaryB08capacity4bodyxSi_xABKXEtKlFZxABKXEfU_s17_NativeDictionaryVyS2SG_Tg506_ss17_gh46V6filteryAByxq_GSbx3key_q_5valuet_tKXEKFADs13_aB15VKXEfU_SS_SSTG5AHxq_Sbs5Error_pRi_zRi0_zRi__Ri0__r0_lyS2SIsgnndzo_Tf1nc_n157_s15TokenGeneration6PromptV28getLocalizationOverrideValue4from5token6localeSSSgSDyAC07SpecialA0VSDyS2SGG_AJ10Foundation6LocaleVSgtFZSbSS3key_SS5valuet_tXEfU_Tf1nnc_n(unint64_t *result, uint64_t a2, uint64_t a3)
+{
+  if (a2 < 0)
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    if (a2)
+    {
+      v4 = result;
+      v5 = a2;
+      bzero(result, 8 * a2);
+      result = v4;
+      a2 = v5;
+    }
+
+    v6 = specialized closure #1 in _NativeDictionary.filter(_:)(result, a2, a3);
+
+    return v6;
+  }
+
+  return result;
+}
+
+Swift::Int specialized _NativeDictionary.extractDictionary(using:count:)(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (!a3)
+  {
+    return MEMORY[0x1E69E7CC8];
+  }
+
+  v4 = a4;
+  v5 = a3;
+  if (*(a4 + 16) == a3)
+  {
+
+    return v4;
+  }
+
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCyS2SGMd, &_ss18_DictionaryStorageCyS2SGMR);
+  result = static _DictionaryStorage.allocate(capacity:)();
+  v9 = result;
+  if (a2 < 1)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v10 = *a1;
+  }
+
+  v11 = 0;
+  v12 = result + 64;
+  v35 = v4;
+  while (v10)
+  {
+    v13 = __clz(__rbit64(v10));
+    v10 &= v10 - 1;
+LABEL_16:
+    v16 = 16 * (v13 | (v11 << 6));
+    v17 = *(v4 + 56);
+    v18 = (*(v4 + 48) + v16);
+    v19 = *v18;
+    v20 = v18[1];
+    v21 = (v17 + v16);
+    v22 = v21[1];
+    v36 = *v21;
+    Hasher.init(_seed:)();
+
+    String.hash(into:)();
+    result = Hasher._finalize()();
+    v23 = -1 << *(v9 + 32);
+    v24 = result & ~v23;
+    v25 = v24 >> 6;
+    if (((-1 << v24) & ~*(v12 + 8 * (v24 >> 6))) == 0)
+    {
+      v27 = 0;
+      v28 = (63 - v23) >> 6;
+      while (++v25 != v28 || (v27 & 1) == 0)
+      {
+        v29 = v25 == v28;
+        if (v25 == v28)
+        {
+          v25 = 0;
+        }
+
+        v27 |= v29;
+        v30 = *(v12 + 8 * v25);
+        if (v30 != -1)
+        {
+          v26 = __clz(__rbit64(~v30)) + (v25 << 6);
+          goto LABEL_26;
+        }
+      }
+
+      goto LABEL_31;
+    }
+
+    v26 = __clz(__rbit64((-1 << v24) & ~*(v12 + 8 * (v24 >> 6)))) | v24 & 0x7FFFFFFFFFFFFFC0;
+LABEL_26:
+    *(v12 + ((v26 >> 3) & 0x1FFFFFFFFFFFFFF8)) |= 1 << v26;
+    v31 = 16 * v26;
+    v32 = (*(v9 + 48) + v31);
+    *v32 = v19;
+    v32[1] = v20;
+    v33 = (*(v9 + 56) + v31);
+    *v33 = v36;
+    v33[1] = v22;
+    ++*(v9 + 16);
+    if (__OFSUB__(v5--, 1))
+    {
+      goto LABEL_32;
+    }
+
+    v4 = v35;
+    if (!v5)
+    {
+      return v9;
+    }
+  }
+
+  v14 = v11;
+  while (1)
+  {
+    v11 = v14 + 1;
+    if (__OFADD__(v14, 1))
+    {
+      break;
+    }
+
+    if (v11 >= a2)
+    {
+      return v9;
+    }
+
+    v15 = a1[v11];
+    ++v14;
+    if (v15)
+    {
+      v13 = __clz(__rbit64(v15));
+      v10 = (v15 - 1) & v15;
+      goto LABEL_16;
+    }
+  }
+
+  __break(1u);
+LABEL_31:
+  __break(1u);
+LABEL_32:
+  __break(1u);
+  return result;
+}
+
+unint64_t _StringGuts.validateScalarIndex(_:)(unint64_t result, unint64_t a2, unint64_t a3)
+{
+  v3 = (a2 >> 59) & 1;
+  if ((a3 & 0x1000000000000000) == 0)
+  {
+    LOBYTE(v3) = 1;
+  }
+
+  if ((result & 1) == 0 || (result & 0xC) == 4 << v3)
+  {
+    goto LABEL_9;
+  }
+
+  v4 = HIBYTE(a3) & 0xF;
+  if ((a3 & 0x2000000000000000) == 0)
+  {
+    v4 = a2 & 0xFFFFFFFFFFFFLL;
+  }
+
+  if (v4 <= result >> 16)
+  {
+    __break(1u);
+LABEL_9:
+    result = _StringGuts.validateSubscalarIndex(_:)(result, a2, a3);
+    if ((result & 1) == 0)
+    {
+      return result & 0xC | _StringGuts.scalarAlignSlow(_:)(result, a2, a3) & 0xFFFFFFFFFFFFFFF3 | 1;
+    }
+  }
+
+  return result;
+}
+
+unint64_t _StringGuts.validateSubscalarIndex(_:)(unint64_t result, unint64_t a2, unint64_t a3)
+{
+  v3 = (a2 >> 59) & 1;
+  if ((a3 & 0x1000000000000000) == 0)
+  {
+    LOBYTE(v3) = 1;
+  }
+
+  if ((result & 0xC) == 4 << v3)
+  {
+    v5 = a2;
+    v6 = a3;
+    result = _StringGuts._slowEnsureMatchingEncoding(_:)(result, a2, a3);
+    a2 = v5;
+    a3 = v6;
+  }
+
+  v4 = HIBYTE(a3) & 0xF;
+  if ((a3 & 0x2000000000000000) == 0)
+  {
+    v4 = a2 & 0xFFFFFFFFFFFFLL;
+  }
+
+  if (v4 <= result >> 16)
+  {
+    __break(1u);
+  }
+
+  return result;
+}
+
+unint64_t _StringGuts.scalarAlignSlow(_:)(unint64_t result, uint64_t a2, unint64_t a3)
+{
+  if ((result & 0xC000) != 0 || result < 0x10000)
+  {
+    result &= 0xFFFFFFFFFFFF0000;
+  }
+
+  else
+  {
+    v5 = result >> 16;
+    if ((a3 & 0x1000000000000000) == 0)
+    {
+      v13[2] = v3;
+      v13[3] = v4;
+      if ((a3 & 0x2000000000000000) != 0)
+      {
+        v13[0] = a2;
+        v13[1] = a3 & 0xFFFFFFFFFFFFFFLL;
+        if (v5 != (HIBYTE(a3) & 0xF) && (*(v13 + v5) & 0xC0) == 0x80)
+        {
+          do
+          {
+            v7 = v5 - 1;
+            v11 = *(&v12 + v5-- + 7) & 0xC0;
+          }
+
+          while (v11 == 128);
+          return v7 << 16;
+        }
+
+        goto LABEL_14;
+      }
+
+      if ((a2 & 0x1000000000000000) != 0)
+      {
+        v6 = (a3 & 0xFFFFFFFFFFFFFFFLL) + 32;
+        if (v5 == (a2 & 0xFFFFFFFFFFFFLL))
+        {
+          goto LABEL_14;
+        }
+      }
+
+      else
+      {
+        v12 = result >> 16;
+        v6 = _StringObject.sharedUTF8.getter();
+        v5 = v12;
+        if (v12 == v10)
+        {
+          goto LABEL_14;
+        }
+      }
+
+      if ((*(v6 + v5) & 0xC0) == 0x80)
+      {
+        do
+        {
+          v7 = v5 - 1;
+          v8 = *(v6 - 1 + v5--) & 0xC0;
+        }
+
+        while (v8 == 128);
+        return v7 << 16;
+      }
+
+LABEL_14:
+      v7 = v5;
+      return v7 << 16;
+    }
+
+    v9 = HIBYTE(a3) & 0xF;
+    if ((a3 & 0x2000000000000000) == 0)
+    {
+      v9 = a2 & 0xFFFFFFFFFFFFLL;
+    }
+
+    if (v5 != v9)
+    {
+
+      return MEMORY[0x1EEE6A340]();
+    }
+  }
+
+  return result;
+}
+
+BOOL specialized static Data.== infix(_:_:)(_BOOL8 result, unint64_t a2, uint64_t a3, unint64_t a4)
+{
+  v4 = a2 >> 62;
+  v5 = a4 >> 62;
+  if (a2 >> 62 == 3)
+  {
+    v6 = 0;
+    if (!result && a2 == 0xC000000000000000 && a4 >> 62 == 3)
+    {
+      v6 = 0;
+      if (!a3 && a4 == 0xC000000000000000)
+      {
+        return 1;
+      }
+    }
+
+    goto LABEL_14;
+  }
+
+  if (!v4)
+  {
+    v6 = BYTE6(a2);
+    goto LABEL_14;
+  }
+
+  if (v4 == 1)
+  {
+    LODWORD(v6) = HIDWORD(result) - result;
+    if (__OFSUB__(HIDWORD(result), result))
+    {
+LABEL_30:
+      __break(1u);
+      goto LABEL_31;
+    }
+
+    v6 = v6;
+LABEL_14:
+    if (v5 > 1)
+    {
+      if (v5 != 2)
+      {
+        return v6 == 0;
+      }
+
+      v11 = *(a3 + 16);
+      v10 = *(a3 + 24);
+      v9 = __OFSUB__(v10, v11);
+      v12 = v10 - v11;
+      if (!v9)
+      {
+        if (v6 != v12)
+        {
+          return 0;
+        }
+
+        goto LABEL_21;
+      }
+
+      __break(1u);
+    }
+
+    else
+    {
+      if (!v5)
+      {
+        if (v6 != BYTE6(a4))
+        {
+          return 0;
+        }
+
+LABEL_21:
+        if (v6 >= 1)
+        {
+          v13 = result;
+          outlined copy of Data._Representation(a3, a4);
+          return specialized Data.withUnsafeBytes<A>(_:)(v13, a2, a3, a4) & 1;
+        }
+
+        return 1;
+      }
+
+      if (!__OFSUB__(HIDWORD(a3), a3))
+      {
+        if (v6 != HIDWORD(a3) - a3)
+        {
+          return 0;
+        }
+
+        goto LABEL_21;
+      }
+    }
+
+    __break(1u);
+    goto LABEL_30;
+  }
+
+  v8 = *(result + 16);
+  v7 = *(result + 24);
+  v9 = __OFSUB__(v7, v8);
+  v6 = v7 - v8;
+  if (!v9)
+  {
+    goto LABEL_14;
+  }
+
+LABEL_31:
+  __break(1u);
+  return result;
+}
+
+uint64_t specialized static Prompt.ImageEmbeddingAttachment.== infix(_:_:)(void *a1, void *a2)
+{
+  if (*a1 != *a2)
+  {
+    return 0;
+  }
+
+  v4 = a1[4];
+  v3 = a1[5];
+  v6 = a2[4];
+  v5 = a2[5];
+  v7 = a2[3];
+  v8 = a1[3];
+  v9 = specialized static Data.== infix(_:_:)(a1[1], a1[2], a2[1], a2[2]);
+  result = 0;
+  if (v9 && v8 == v7)
+  {
+    if (v4 == v6 && v3 == v5)
+    {
+      return 1;
+    }
+
+    else
+    {
+
+      return _stringCompareWithSmolCheck(_:_:expecting:)();
+    }
+  }
+
+  return result;
+}
+
+uint64_t specialized static Prompt.ResponseFormat.SchemaDetails.== infix(_:_:)(uint64_t *a1, void *a2)
+{
+  v4 = *a1 == *a2 && a1[1] == a2[1];
+  if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  v5 = a1[3];
+  v6 = a2[3];
+  if (v5)
+  {
+    if (v6)
+    {
+      v7 = a1[2] == a2[2] && v5 == v6;
+      if (v7 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+      {
+        goto LABEL_13;
+      }
+    }
+
+    return 0;
+  }
+
+  if (v6)
+  {
+    return 0;
+  }
+
+LABEL_13:
+  v8 = *(type metadata accessor for Prompt.ResponseFormat.SchemaDetails(0) + 24);
+
+  return MEMORY[0x1EEE0AC58](a1 + v8, a2 + v8);
+}
+
+uint64_t specialized static Prompt.ResponseFormat.GrammarDetails.== infix(_:_:)(uint64_t *a1, void *a2)
+{
+  v2 = a1[2];
+  v4 = a1[3];
+  v3 = a1[4];
+  v5 = a1[5];
+  v7 = a2[2];
+  v6 = a2[3];
+  v8 = a2[4];
+  v9 = a2[5];
+  if ((*a1 != *a2 || a1[1] != a2[1]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  if (v4)
+  {
+    if (v6 && (v2 == v7 && v4 == v6 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0))
+    {
+      goto LABEL_9;
+    }
+
+    return 0;
+  }
+
+  if (v6)
+  {
+    return 0;
+  }
+
+LABEL_9:
+  if (v3 == v8 && v5 == v9)
+  {
+    return 1;
+  }
+
+  return _stringCompareWithSmolCheck(_:_:expecting:)();
+}
+
+uint64_t specialized static Prompt.ResponseFormat.Kind.== infix(_:_:)(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for Prompt.ResponseFormat.SchemaDetails(0);
+  MEMORY[0x1EEE9AC00](v4 - 8);
+  v6 = (&v31[-2] - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v7 = type metadata accessor for Prompt.ResponseFormat.Kind(0);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = (&v31[-2] - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = (&v31[-2] - v11);
+  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration6PromptV14ResponseFormatV4KindO_AGtMd, &_s15TokenGeneration6PromptV14ResponseFormatV4KindO_AGtMR);
+  MEMORY[0x1EEE9AC00](v13 - 8);
+  v15 = &v31[-2] - v14;
+  v17 = &v31[-2] + *(v16 + 56) - v14;
+  outlined init with copy of Prompt.PromptFragment(a1, &v31[-2] - v14, type metadata accessor for Prompt.ResponseFormat.Kind);
+  outlined init with copy of Prompt.PromptFragment(a2, v17, type metadata accessor for Prompt.ResponseFormat.Kind);
+  if (swift_getEnumCaseMultiPayload() == 1)
+  {
+    outlined init with copy of Prompt.PromptFragment(v15, v9, type metadata accessor for Prompt.ResponseFormat.Kind);
+    v18 = v9[1];
+    v19 = v9[3];
+    v20 = v9[5];
+    if (swift_getEnumCaseMultiPayload() == 1)
+    {
+      v21 = v9[4];
+      v22 = v9[2];
+      v23 = *v9;
+      v24 = *v17;
+      v25 = *(v17 + 1);
+      v26 = *(v17 + 2);
+      v27 = *(v17 + 5);
+      v34[0] = v23;
+      v34[1] = v18;
+      v34[2] = v22;
+      v34[3] = v19;
+      v34[4] = v21;
+      v34[5] = v20;
+      v31[0] = v24;
+      v31[1] = v25;
+      v31[2] = v26;
+      v30 = *(v17 + 24);
+      v32 = v30;
+      v33 = v27;
+      v28 = specialized static Prompt.ResponseFormat.GrammarDetails.== infix(_:_:)(v34, v31);
+
+LABEL_9:
+      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v15, type metadata accessor for Prompt.ResponseFormat.Kind);
+      return v28 & 1;
+    }
+  }
+
+  else
+  {
+    outlined init with copy of Prompt.PromptFragment(v15, v12, type metadata accessor for Prompt.ResponseFormat.Kind);
+    if (swift_getEnumCaseMultiPayload() != 1)
+    {
+      _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v17, v6, type metadata accessor for Prompt.ResponseFormat.SchemaDetails);
+      v28 = specialized static Prompt.ResponseFormat.SchemaDetails.== infix(_:_:)(v12, v6);
+      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v6, type metadata accessor for Prompt.ResponseFormat.SchemaDetails);
+      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v12, type metadata accessor for Prompt.ResponseFormat.SchemaDetails);
+      goto LABEL_9;
+    }
+
+    _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v12, type metadata accessor for Prompt.ResponseFormat.SchemaDetails);
+  }
+
+  outlined destroy of [Regex2BNF.CharacterPredicate](v15, &_s15TokenGeneration6PromptV14ResponseFormatV4KindO_AGtMd, &_s15TokenGeneration6PromptV14ResponseFormatV4KindO_AGtMR);
+  v28 = 0;
+  return v28 & 1;
+}
+
+BOOL specialized static Prompt.Rendering.== infix(_:_:)(uint64_t *a1, void *a2)
+{
+  v2 = a1[2];
+  v4 = a1[3];
+  v3 = a1[4];
+  v5 = a1[5];
+  v6 = a1[7];
+  v24 = a1[8];
+  v20 = a1[9];
+  v19 = a1[10];
+  v15 = a1[12];
+  v16 = a1[11];
+  v7 = a2[2];
+  v8 = a2[3];
+  v10 = a2[4];
+  v9 = a2[5];
+  v11 = a2[7];
+  v21 = a2[6];
+  v22 = a1[6];
+  v23 = a2[8];
+  v17 = a2[10];
+  v18 = a2[9];
+  v13 = a2[12];
+  v14 = a2[11];
+  if ((*a1 != *a2 || a1[1] != a2[1]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (v2 != v7 || v4 != v8) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZSS_Tt1g5(v3, v10) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZSi_Tt1g5(v5, v9) & 1) == 0)
+  {
+    return 0;
+  }
+
+  if (v6)
+  {
+    if (!v11 || (v22 != v21 || v6 != v11) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+    {
+      return 0;
+    }
+  }
+
+  else if (v11)
+  {
+    return 0;
+  }
+
+  return (_sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_SSTt1g5(v24, v23) & 1) != 0 && (v20 == v18 && v19 == v17 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0) && (v16 == v14 && v15 == v13 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0);
+}
+
+uint64_t specialized static Prompt.AttachmentContent.== infix(_:_:)(uint64_t a1, uint64_t a2)
+{
+  *&v61 = a2;
+  v3 = type metadata accessor for Prompt.ResponseFormat(0);
+  MEMORY[0x1EEE9AC00](v3 - 8);
+  v59 = &v59 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for Prompt.AttachmentContent(0);
+  MEMORY[0x1EEE9AC00](v5);
+  v7 = (&v59 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = (&v59 - v9);
+  MEMORY[0x1EEE9AC00](v11);
+  v60 = &v59 - v12;
+  MEMORY[0x1EEE9AC00](v13);
+  v15 = (&v59 - v14);
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = (&v59 - v17);
+  MEMORY[0x1EEE9AC00](v19);
+  v21 = &v59 - v20;
+  MEMORY[0x1EEE9AC00](v22);
+  v24 = &v59 - v23;
+  v25 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15TokenGeneration6PromptV17AttachmentContentO_AEtMd, &_s15TokenGeneration6PromptV17AttachmentContentO_AEtMR);
+  MEMORY[0x1EEE9AC00](v25 - 8);
+  v28 = &v59 + *(v27 + 56) - v26;
+  v29 = a1;
+  v30 = &v59 - v26;
+  outlined init with copy of Prompt.PromptFragment(v29, &v59 - v26, type metadata accessor for Prompt.AttachmentContent);
+  outlined init with copy of Prompt.PromptFragment(v61, v28, type metadata accessor for Prompt.AttachmentContent);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (EnumCaseMultiPayload <= 2)
+  {
+    if (EnumCaseMultiPayload)
+    {
+      if (EnumCaseMultiPayload == 1)
+      {
+        outlined init with copy of Prompt.PromptFragment(v30, v21, type metadata accessor for Prompt.AttachmentContent);
+        v38 = *(v21 + 1);
+        v37 = *(v21 + 2);
+        v39 = *(v21 + 5);
+        if (swift_getEnumCaseMultiPayload() == 1)
+        {
+          v40 = *v28;
+          v41 = *(v28 + 1);
+          v42 = *(v28 + 4);
+          v43 = *(v28 + 5);
+          LOBYTE(v66[0]) = *v21;
+          v66[1] = v38;
+          v66[2] = v37;
+          v67 = *(v21 + 24);
+          v68 = v39;
+          LOBYTE(v62[0]) = v40;
+          v62[1] = v41;
+          v61 = *(v28 + 1);
+          v63 = v61;
+          v64 = v42;
+          v65 = v43;
+          v44 = specialized static Prompt.ImageEmbeddingAttachment.== infix(_:_:)(v66, v62);
+          outlined consume of Data._Representation(v41, v61);
+
+          outlined consume of Data._Representation(v38, v37);
+LABEL_23:
+
+          goto LABEL_24;
+        }
+
+        outlined consume of Data._Representation(v38, v37);
+LABEL_28:
+
+        goto LABEL_29;
+      }
+
+      outlined init with copy of Prompt.PromptFragment(v30, v18, type metadata accessor for Prompt.AttachmentContent);
+      v48 = *v18;
+      if (swift_getEnumCaseMultiPayload() == 2)
+      {
+        v49 = *v28;
+        type metadata accessor for NSObject();
+        v44 = static NSObject.== infix(_:_:)();
+
+        goto LABEL_24;
+      }
+    }
+
+    else
+    {
+      outlined init with copy of Prompt.PromptFragment(v30, v24, type metadata accessor for Prompt.AttachmentContent);
+      v47 = *(v24 + 1);
+      v46 = *(v24 + 2);
+      if (!swift_getEnumCaseMultiPayload())
+      {
+        v55 = *v28;
+        v56 = *(v28 + 1);
+        v57 = *(v28 + 2);
+        if (*v24 == v55)
+        {
+          v58 = specialized static Data.== infix(_:_:)(v47, v46, v56, v57);
+          outlined consume of Data._Representation(v56, v57);
+          outlined consume of Data._Representation(v47, v46);
+          if (v58)
+          {
+            goto LABEL_37;
+          }
+        }
+
+        else
+        {
+          outlined consume of Data._Representation(v56, v57);
+          outlined consume of Data._Representation(v47, v46);
+        }
+
+        goto LABEL_38;
+      }
+
+      outlined consume of Data._Representation(v47, v46);
+    }
+
+LABEL_29:
+    outlined destroy of [Regex2BNF.CharacterPredicate](v30, &_s15TokenGeneration6PromptV17AttachmentContentO_AEtMd, &_s15TokenGeneration6PromptV17AttachmentContentO_AEtMR);
+LABEL_30:
+    v44 = 0;
+    return v44 & 1;
+  }
+
+  if (EnumCaseMultiPayload > 4)
+  {
+    if (EnumCaseMultiPayload == 5)
+    {
+      outlined init with copy of Prompt.PromptFragment(v30, v10, type metadata accessor for Prompt.AttachmentContent);
+      v45 = *v10;
+      if (swift_getEnumCaseMultiPayload() == 5)
+      {
+        v44 = _sSasSQRzlE2eeoiySbSayxG_ABtFZ29GenerativeFunctionsFoundation4ToolV_Tt1g5(v45, *v28);
+
+        goto LABEL_23;
+      }
+    }
+
+    else
+    {
+      outlined init with copy of Prompt.PromptFragment(v30, v7, type metadata accessor for Prompt.AttachmentContent);
+      v53 = *v7;
+      if (swift_getEnumCaseMultiPayload() == 6)
+      {
+        v44 = _sSasSQRzlE2eeoiySbSayxG_ABtFZ15TokenGeneration6PromptV8ToolCallV_Tt1g5(v53, *v28);
+
+        goto LABEL_23;
+      }
+    }
+
+    goto LABEL_28;
+  }
+
+  if (EnumCaseMultiPayload == 3)
+  {
+    outlined init with copy of Prompt.PromptFragment(v30, v15, type metadata accessor for Prompt.AttachmentContent);
+    v32 = *v15;
+    v33 = v15[1];
+    if (swift_getEnumCaseMultiPayload() == 3)
+    {
+      v34 = *v28;
+      v35 = *(v28 + 1);
+      if (_sSasSQRzlE2eeoiySbSayxG_ABtFZs7Float16V_Tt1g5(v32, v34))
+      {
+        v36 = _sSasSQRzlE2eeoiySbSayxG_ABtFZSi_Tt1g5(v33, v35);
+
+        if ((v36 & 1) == 0)
+        {
+          goto LABEL_38;
+        }
+
+LABEL_37:
+        _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v30, type metadata accessor for Prompt.AttachmentContent);
+        v44 = 1;
+        return v44 & 1;
+      }
+
+LABEL_38:
+      _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v30, type metadata accessor for Prompt.AttachmentContent);
+      goto LABEL_30;
+    }
+
+    goto LABEL_28;
+  }
+
+  v50 = v60;
+  outlined init with copy of Prompt.PromptFragment(v30, v60, type metadata accessor for Prompt.AttachmentContent);
+  if (swift_getEnumCaseMultiPayload() != 4)
+  {
+    _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v50, type metadata accessor for Prompt.ResponseFormat);
+    goto LABEL_29;
+  }
+
+  v51 = v28;
+  v52 = v59;
+  _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v51, v59, type metadata accessor for Prompt.ResponseFormat);
+  v44 = specialized static Prompt.ResponseFormat.Kind.== infix(_:_:)(v50, v52);
+  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v52, type metadata accessor for Prompt.ResponseFormat);
+  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v50, type metadata accessor for Prompt.ResponseFormat);
+LABEL_24:
+  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v30, type metadata accessor for Prompt.AttachmentContent);
+  return v44 & 1;
+}
+
+uint64_t specialized static Prompt.SpecialToken.== infix(_:_:)(void *a1, void *a2)
+{
+  v4 = type metadata accessor for Locale();
+  v5 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = &v29 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  MEMORY[0x1EEE9AC00](v8 - 8);
+  v10 = &v29 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSg_ADtMd, &_s10Foundation6LocaleVSg_ADtMR);
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v29 - v12;
+  if (*a1 != *a2 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  {
+    goto LABEL_9;
+  }
+
+  v29 = v7;
+  v30 = type metadata accessor for Prompt.SpecialToken(0);
+  v14 = *(v30 + 20);
+  v15 = *(v11 + 48);
+  outlined init with copy of (String, Any)(a1 + v14, v13, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  outlined init with copy of (String, Any)(a2 + v14, &v13[v15], &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  v16 = *(v5 + 48);
+  if (v16(v13, 1, v4) != 1)
+  {
+    outlined init with copy of (String, Any)(v13, v10, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+    if (v16(&v13[v15], 1, v4) != 1)
+    {
+      v19 = &v13[v15];
+      v20 = v29;
+      (*(v5 + 32))(v29, v19, v4);
+      lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Locale and conformance Locale, MEMORY[0x1E6969770], MEMORY[0x1E6969788]);
+      v21 = dispatch thunk of static Equatable.== infix(_:_:)();
+      v22 = *(v5 + 8);
+      v22(v20, v4);
+      v22(v10, v4);
+      outlined destroy of [Regex2BNF.CharacterPredicate](v13, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+      if ((v21 & 1) == 0)
+      {
+        goto LABEL_9;
+      }
+
+      goto LABEL_12;
+    }
+
+    (*(v5 + 8))(v10, v4);
+LABEL_8:
+    outlined destroy of [Regex2BNF.CharacterPredicate](v13, &_s10Foundation6LocaleVSg_ADtMd, &_s10Foundation6LocaleVSg_ADtMR);
+    goto LABEL_9;
+  }
+
+  if (v16(&v13[v15], 1, v4) != 1)
+  {
+    goto LABEL_8;
+  }
+
+  outlined destroy of [Regex2BNF.CharacterPredicate](v13, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+LABEL_12:
+  v23 = v30;
+  v24 = *(v30 + 24);
+  v25 = (a1 + v24);
+  v26 = *(a1 + v24 + 8);
+  v27 = (a2 + v24);
+  v28 = v27[1];
+  if (v26)
+  {
+    if (v28 && (*v25 == *v27 && v26 == v28 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0))
+    {
+      goto LABEL_19;
+    }
+  }
+
+  else if (!v28)
+  {
+LABEL_19:
+    v17 = *(a1 + *(v23 + 28)) ^ *(a2 + *(v23 + 28)) ^ 1;
+    return v17 & 1;
+  }
+
+LABEL_9:
+  v17 = 0;
+  return v17 & 1;
+}
+
+uint64_t outlined init with copy of Prompt.PromptFragment(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  v5 = a3(0);
+  (*(*(v5 - 8) + 16))(a2, a1, v5);
+  return a2;
+}
+
+uint64_t _s15TokenGeneration6PromptV10AttachmentVWObTm_0(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  v5 = a3(0);
+  (*(*(v5 - 8) + 32))(a2, a1, v5);
+  return a2;
+}
+
+uint64_t _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(uint64_t a1, uint64_t (*a2)(void))
+{
+  v3 = a2(0);
+  (*(*(v3 - 8) + 8))(a1, v3);
+  return a1;
+}
+
+uint64_t lazy protocol witness table accessor for type Locale and conformance Locale(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    a2(255);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t outlined assign with take of Locale?(uint64_t a1, uint64_t a2)
+{
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  (*(*(v4 - 8) + 40))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t outlined assign with take of Prompt.RenderedPromptFragment(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
+{
+  v5 = a3(0);
+  (*(*(v5 - 8) + 40))(a2, a1, v5);
+  return a2;
+}
+
+unint64_t lazy protocol witness table accessor for type Prompt.PreprocessedImageAttachment and conformance Prompt.PreprocessedImageAttachment()
+{
+  result = lazy protocol witness table cache variable for type Prompt.PreprocessedImageAttachment and conformance Prompt.PreprocessedImageAttachment;
+  if (!lazy protocol witness table cache variable for type Prompt.PreprocessedImageAttachment and conformance Prompt.PreprocessedImageAttachment)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Prompt.PreprocessedImageAttachment and conformance Prompt.PreprocessedImageAttachment);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type Prompt.PreprocessedImageAttachment and conformance Prompt.PreprocessedImageAttachment;
+  if (!lazy protocol witness table cache variable for type Prompt.PreprocessedImageAttachment and conformance Prompt.PreprocessedImageAttachment)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Prompt.PreprocessedImageAttachment and conformance Prompt.PreprocessedImageAttachment);
+  }
+
+  return result;
+}
+
+unint64_t type metadata accessor for NSObject()
+{
+  result = lazy cache variable for type metadata for NSObject;
+  if (!lazy cache variable for type metadata for NSObject)
+  {
+    objc_opt_self();
+    result = swift_getObjCClassMetadata();
+    atomic_store(result, &lazy cache variable for type metadata for NSObject);
+  }
+
+  return result;
+}
+
+uint64_t _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC19TokenGenerationCore4RuleV_SayAFGTt0g5Tf4g_n(uint64_t a1)
+{
+  v2 = *(a1 + 16);
+  v3 = lazy protocol witness table accessor for type Rule and conformance Rule();
+  result = MEMORY[0x1AC57C380](v2, &type metadata for Rule, v3);
+  v10 = result;
+  if (v2)
+  {
+    v5 = (a1 + 48);
+    do
+    {
+      v7 = *(v5 - 1);
+      v6 = *v5;
+      v8 = *(v5 - 2);
+
+      specialized Set._Variant.insert(_:)(&v9, v8, v7, v6);
+
+      v5 += 3;
+      --v2;
+    }
+
+    while (v2);
+    return v10;
+  }
+
+  return result;
+}
+
+uint64_t _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC19TokenGenerationCore4RuleV_s10ArraySliceVyAFGTt0g5Tf4gX_n(uint64_t result, uint64_t a2, unint64_t a3)
+{
+  v3 = a3 >> 1;
+  v4 = (a3 >> 1) - a2;
+  if (__OFSUB__(a3 >> 1, a2))
+  {
+LABEL_12:
+    __break(1u);
+    return result;
+  }
+
+  v6 = result;
+  v7 = lazy protocol witness table accessor for type Rule and conformance Rule();
+  result = MEMORY[0x1AC57C380](v4, &type metadata for Rule, v7);
+  v16 = result;
+  v8 = v3 - a2;
+  if (v3 != a2)
+  {
+    if (a2 <= v3)
+    {
+      v9 = v3;
+    }
+
+    else
+    {
+      v9 = a2;
+    }
+
+    v10 = v9 - a2;
+    v11 = (v6 + 24 * a2 + 8);
+    while (v10)
+    {
+      v13 = *v11;
+      v12 = v11[1];
+      v14 = *(v11 - 1);
+
+      specialized Set._Variant.insert(_:)(&v15, v14, v13, v12);
+
+      --v10;
+      v11 += 3;
+      if (!--v8)
+      {
+        return v16;
+      }
+    }
+
+    __break(1u);
+    goto LABEL_12;
+  }
+
+  return result;
+}
+
+uint64_t _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC19TokenGenerationCore17NonTerminalSymbolV_SayAFGTt0g5Tf4g_n(uint64_t a1)
+{
+  v2 = *(a1 + 16);
+  v3 = lazy protocol witness table accessor for type NonTerminalSymbol and conformance NonTerminalSymbol();
+  result = MEMORY[0x1AC57C380](v2, &type metadata for NonTerminalSymbol, v3);
+  v9 = result;
+  if (v2)
+  {
+    v5 = (a1 + 40);
+    do
+    {
+      v7 = *(v5 - 1);
+      v6 = *v5;
+
+      specialized Set._Variant.insert(_:)(&v8, v7, v6);
+
+      v5 += 2;
+      --v2;
+    }
+
+    while (v2);
+    return v9;
+  }
+
+  return result;
+}
+
+uint64_t _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC10Foundation12CharacterSetV_SayAFGTt0g5Tf4g_n(uint64_t a1)
+{
+  v2 = type metadata accessor for CharacterSet();
+  v3 = *(v2 - 8);
+  MEMORY[0x1EEE9AC00](v2);
+  v5 = &v17 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = &v17 - v7;
+  v9 = *(a1 + 16);
+  v10 = lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type CharacterSet and conformance CharacterSet, MEMORY[0x1E69680B8], MEMORY[0x1E69680C0]);
+  result = MEMORY[0x1AC57C380](v9, v2, v10);
+  v18 = result;
+  if (v9)
+  {
+    v14 = *(v3 + 16);
+    v12 = v3 + 16;
+    v13 = v14;
+    v15 = a1 + ((*(v12 + 64) + 32) & ~*(v12 + 64));
+    v16 = *(v12 + 56);
+    do
+    {
+      v13(v5, v15, v2);
+      specialized Set._Variant.insert(_:)(v8, v5);
+      (*(v12 - 8))(v8, v2);
+      v15 += v16;
+      --v9;
+    }
+
+    while (v9);
+    return v18;
+  }
+
+  return result;
+}
+
+uint64_t _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSJ_SaySJGTt0g5Tf4g_n(uint64_t a1)
+{
+  v2 = *(a1 + 16);
+  result = MEMORY[0x1AC57C380](v2, MEMORY[0x1E69E5EE0], MEMORY[0x1E69E5EE8]);
+  v8 = result;
+  if (v2)
+  {
+    v4 = (a1 + 40);
+    do
+    {
+      v6 = *(v4 - 1);
+      v5 = *v4;
+
+      specialized Set._Variant.insert(_:)(&v7, v6, v5);
+
+      v4 += 2;
+      --v2;
+    }
+
+    while (v2);
+    return v8;
+  }
+
+  return result;
+}
+
+uint64_t specialized static Prompt.getLocalizationOverrideValue(from:token:locale:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = type metadata accessor for Prompt.SpecialToken(0);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v8 = (&v37 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v11 = &v37 - v10;
+  v12 = type metadata accessor for Locale();
+  v13 = *(v12 - 8);
+  MEMORY[0x1EEE9AC00](v12);
+  v15 = &v37 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (*(a1 + 16))
+  {
+    specialized __RawDictionaryStorage.find<A>(_:)(a2);
+    if (v16)
+    {
+      outlined init with copy of (String, Any)(a3, v11, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+      if ((*(v13 + 48))(v11, 1, v12) == 1)
+      {
+        outlined destroy of [Regex2BNF.CharacterPredicate](v11, &_s10Foundation6LocaleVSgMd, &_s10Foundation6LocaleVSgMR);
+        if (one-time initialization token for prompt != -1)
+        {
+          swift_once();
+        }
+
+        v17 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v17, static Log.prompt);
+        outlined init with copy of Prompt.PromptFragment(a2, v8, type metadata accessor for Prompt.SpecialToken);
+        v18 = Logger.logObject.getter();
+        v19 = static os_log_type_t.debug.getter();
+        if (os_log_type_enabled(v18, v19))
+        {
+          v20 = swift_slowAlloc();
+          v21 = swift_slowAlloc();
+          v37 = v21;
+          *v20 = 136642819;
+          v22 = *v8;
+          v23 = v8[1];
+
+          _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v8, type metadata accessor for Prompt.SpecialToken);
+          v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v23, &v37);
+
+          *(v20 + 4) = v24;
+          _os_log_impl(&dword_1A8E85000, v18, v19, "Locale is not provided hence could not find localization override for special token: %{sensitive}s", v20, 0xCu);
+          __swift_destroy_boxed_opaque_existential_0(v21);
+          MEMORY[0x1AC57DBF0](v21, -1, -1);
+          MEMORY[0x1AC57DBF0](v20, -1, -1);
+        }
+
+        else
+        {
+
+          _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v8, type metadata accessor for Prompt.SpecialToken);
+        }
+      }
+
+      else
+      {
+        (*(v13 + 32))(v15, v11, v12);
+
+        v26 = specialized _NativeDictionary.filter(_:)(v25);
+
+        v38 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufCSS_SD4KeysVyS2S_GTt0g5(v27);
+        specialized Set._Variant.insert(_:)(&v37, 28261, 0xE200000000000000);
+
+        v28 = closure #2 in static Prompt.getLocalizationOverrideValue(from:token:locale:)(&v38);
+        v30 = v29;
+
+        if (!v30)
+        {
+          (*(v13 + 8))(v15, v12);
+
+          return v28;
+        }
+
+        if (v26[2])
+        {
+          v31 = specialized __RawDictionaryStorage.find<A>(_:)(v28, v30);
+          v33 = v32;
+
+          if (v33)
+          {
+            v34 = *(v26[7] + 16 * v31);
+            v35 = *(v13 + 8);
+
+            v35(v15, v12);
+
+            return v34;
+          }
+        }
+
+        else
+        {
+        }
+
+        (*(v13 + 8))(v15, v12);
+      }
+    }
+  }
+
+  return 0;
+}
+
+uint64_t specialized static Prompt.+= infix(_:_:)(void *a1, uint64_t *a2)
+{
+  v57 = type metadata accessor for Prompt.Attachment(0);
+  v4 = *(v57 - 8);
+  MEMORY[0x1EEE9AC00](v57);
+  v50 = v48 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v56 = v48 - v7;
+  v8 = type metadata accessor for Prompt.Delimiter(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = v48 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v12);
+  v14 = v48 - v13;
+  v15 = *a2;
+  v53 = a2[1];
+  v54 = v15;
+  v16 = a2[2];
+  v55 = a2[3];
+  result = String.count.getter();
+  v18 = a1 + 3;
+  v19 = a1 + 2;
+  v20 = *(a1[2] + 16);
+  v21 = *(a1[3] + 16);
+  v58 = v20 + v21;
+  v59 = result;
+  if (!__OFADD__(v20, v21))
+  {
+    v52 = a1;
+    v22 = *(v16 + 16);
+    v23 = MEMORY[0x1E69E7CC0];
+    v51 = v18;
+    if (v22)
+    {
+      v48[1] = v19;
+      v49 = v4;
+      v60 = MEMORY[0x1E69E7CC0];
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v22, 0);
+      v23 = v60;
+      v24 = (*(v9 + 80) + 32) & ~*(v9 + 80);
+      v25 = v16 + v24;
+      v26 = *(v9 + 72);
+      while (1)
+      {
+        outlined init with copy of Prompt.PromptFragment(v25, v11, type metadata accessor for Prompt.Delimiter);
+        result = outlined init with copy of Prompt.PromptFragment(v11, v14, type metadata accessor for Prompt.SpecialToken);
+        v27 = *&v11[*(v8 + 20)];
+        v28 = v27 + v59;
+        if (__OFADD__(v27, v59))
+        {
+          break;
+        }
+
+        v29 = *&v11[*(v8 + 24)];
+        result = _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v11, type metadata accessor for Prompt.Delimiter);
+        v30 = v29 + v58;
+        if (__OFADD__(v29, v58))
+        {
+          goto LABEL_19;
+        }
+
+        *&v14[*(v8 + 20)] = v28;
+        *&v14[*(v8 + 24)] = v30;
+        v60 = v23;
+        v32 = *(v23 + 16);
+        v31 = *(v23 + 24);
+        if (v32 >= v31 >> 1)
+        {
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v31 > 1), v32 + 1, 1);
+          v23 = v60;
+        }
+
+        *(v23 + 16) = v32 + 1;
+        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v14, v23 + v24 + v32 * v26, type metadata accessor for Prompt.Delimiter);
+        v25 += v26;
+        if (!--v22)
+        {
+          v4 = v49;
+          goto LABEL_10;
+        }
+      }
+
+      __break(1u);
+LABEL_19:
+      __break(1u);
+    }
+
+    else
+    {
+LABEL_10:
+      specialized Array.append<A>(contentsOf:)(v23);
+      v33 = v55;
+      v34 = v56;
+      v35 = *(v55 + 16);
+      v36 = MEMORY[0x1E69E7CC0];
+      v37 = v57;
+      if (!v35)
+      {
+LABEL_17:
+        specialized Array.append<A>(contentsOf:)(v36);
+        return MEMORY[0x1AC57C120](v54, v53);
+      }
+
+      v60 = MEMORY[0x1E69E7CC0];
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v35, 0);
+      v36 = v60;
+      v38 = (*(v4 + 80) + 32) & ~*(v4 + 80);
+      v39 = v33 + v38;
+      v40 = *(v4 + 72);
+      v41 = v50;
+      while (1)
+      {
+        outlined init with copy of Prompt.PromptFragment(v39, v41, type metadata accessor for Prompt.Attachment);
+        result = outlined init with copy of Prompt.PromptFragment(v41, v34, type metadata accessor for Prompt.AttachmentContent);
+        v42 = *(v41 + *(v37 + 20));
+        v43 = v42 + v59;
+        if (__OFADD__(v42, v59))
+        {
+          break;
+        }
+
+        v44 = *(v41 + *(v37 + 24));
+        result = _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v41, type metadata accessor for Prompt.Attachment);
+        v45 = v44 + v58;
+        if (__OFADD__(v44, v58))
+        {
+          goto LABEL_21;
+        }
+
+        *(v34 + *(v37 + 20)) = v43;
+        *(v34 + *(v37 + 24)) = v45;
+        v60 = v36;
+        v47 = *(v36 + 16);
+        v46 = *(v36 + 24);
+        if (v47 >= v46 >> 1)
+        {
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v46 > 1), v47 + 1, 1);
+          v36 = v60;
+        }
+
+        *(v36 + 16) = v47 + 1;
+        _s15TokenGeneration6PromptV10AttachmentVWObTm_0(v34, v36 + v38 + v47 * v40, type metadata accessor for Prompt.Attachment);
+        v39 += v40;
+        if (!--v35)
+        {
+          goto LABEL_17;
+        }
+      }
+    }
+
+    __break(1u);
+LABEL_21:
+    __break(1u);
+  }
+
+  __break(1u);
+  return result;
+}
+
+{
+  v3 = *a2;
+  v8[0] = 0;
+  v8[1] = 0xE000000000000000;
+  MEMORY[0x1AC57C060](0);
+  v4 = MEMORY[0x1E69E7CC0];
+  v8[2] = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 0, MEMORY[0x1E69E7CC0]);
+  v8[3] = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 0, v4);
+  v7 = v3;
+  v5.surface.super.isa = &v7;
+  Prompt.StringInterpolation.appendInterpolation(imageSurface:)(v5);
+  specialized static Prompt.+= infix(_:_:)(a1, v8);
+}
+
+uint64_t specialized static Prompt.+= infix(_:_:)(void *a1, uint64_t a2)
+{
+  v6[0] = 0;
+  v6[1] = 0xE000000000000000;
+  MEMORY[0x1AC57C060](0);
+  v4 = MEMORY[0x1E69E7CC0];
+  v6[2] = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 0, MEMORY[0x1E69E7CC0]);
+  v6[3] = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 0, v4);
+  Prompt.StringInterpolation.appendInterpolation(token:)(a2);
+  specialized static Prompt.+= infix(_:_:)(a1, v6);
+}
+
+{
+  v4 = type metadata accessor for Prompt.AttachmentContent(0);
+  v5 = MEMORY[0x1EEE9AC00](v4);
+  v7 = v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10[0] = 0;
+  v10[1] = 0xE000000000000000;
+  MEMORY[0x1AC57C060](0, v5);
+  v8 = MEMORY[0x1E69E7CC0];
+  v10[2] = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 0, MEMORY[0x1E69E7CC0]);
+  v10[3] = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 0, v8);
+  outlined init with copy of Prompt.PromptFragment(a2, v7, type metadata accessor for Prompt.ResponseFormat);
+  swift_storeEnumTagMultiPayload();
+  Prompt.StringInterpolation.appendInterpolation(attachment:)(v7);
+  _s15TokenGeneration6PromptV10AttachmentVWOhTm_0(v7, type metadata accessor for Prompt.AttachmentContent);
+  specialized static Prompt.+= infix(_:_:)(a1, v10);
+}
+
+uint64_t specialized static Prompt.+= infix(_:_:)(void *a1, char *a2)
+{
+  v3 = *a2;
+  v4 = *(a2 + 1);
+  v5 = *(a2 + 2);
+  v11[0] = 0;
+  v11[1] = 0xE000000000000000;
+  MEMORY[0x1AC57C060](0);
+  v6 = MEMORY[0x1E69E7CC0];
+  v11[2] = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 0, MEMORY[0x1E69E7CC0]);
+  v11[3] = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 0, v6);
+  v8[0] = v3;
+  v9 = v4;
+  v10 = v5;
+  Prompt.StringInterpolation.appendInterpolation(image:)(v8);
+  specialized static Prompt.+= infix(_:_:)(a1, v11);
+}
+
+{
+  v4 = *a2;
+  v5 = *(a2 + 5);
+  v13 = 0;
+  *&v14 = 0xE000000000000000;
+  MEMORY[0x1AC57C060](0);
+  v6 = MEMORY[0x1E69E7CC0];
+  *(&v14 + 1) = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 0, MEMORY[0x1E69E7CC0]);
+  v15 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 0, v6);
+  LOBYTE(v9) = v4;
+  v7 = *(a2 + 8);
+  v11 = *(a2 + 24);
+  v10 = v7;
+  v12 = v5;
+  Prompt.StringInterpolation.appendInterpolation(imageEmbedding:)(&v9);
+  v9 = v13;
+  v10 = v14;
+  *&v11 = v15;
+  specialized static Prompt.+= infix(_:_:)(a1, &v9);
+}
+
+uint64_t specialized static Prompt.+= infix(_:_:)(void *a1, __int128 *a2)
+{
+  v7[0] = 0;
+  v7[1] = 0xE000000000000000;
+  MEMORY[0x1AC57C060](0);
+  v4 = MEMORY[0x1E69E7CC0];
+  v7[2] = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 0, MEMORY[0x1E69E7CC0]);
+  v7[3] = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 0, v4);
+  v6 = *a2;
+  Prompt.StringInterpolation.appendInterpolation(preprocessedImage:)(&v6);
+  specialized static Prompt.+= infix(_:_:)(a1, v7);
+}
+
+unint64_t lazy protocol witness table accessor for type Prompt.ImageEmbeddingAttachment.Encoding and conformance Prompt.ImageEmbeddingAttachment.Encoding()
+{
+  result = lazy protocol witness table cache variable for type Prompt.ImageEmbeddingAttachment.Encoding and conformance Prompt.ImageEmbeddingAttachment.Encoding;
+  if (!lazy protocol witness table cache variable for type Prompt.ImageEmbeddingAttachment.Encoding and conformance Prompt.ImageEmbeddingAttachment.Encoding)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Prompt.ImageEmbeddingAttachment.Encoding and conformance Prompt.ImageEmbeddingAttachment.Encoding);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type Prompt.ImageEmbeddingAttachment and conformance Prompt.ImageEmbeddingAttachment()
+{
+  result = lazy protocol witness table cache variable for type Prompt.ImageEmbeddingAttachment and conformance Prompt.ImageEmbeddingAttachment;
+  if (!lazy protocol witness table cache variable for type Prompt.ImageEmbeddingAttachment and conformance Prompt.ImageEmbeddingAttachment)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Prompt.ImageEmbeddingAttachment and conformance Prompt.ImageEmbeddingAttachment);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type Prompt.ImageAttachment.Format and conformance Prompt.ImageAttachment.Format()
+{
+  result = lazy protocol witness table cache variable for type Prompt.ImageAttachment.Format and conformance Prompt.ImageAttachment.Format;
+  if (!lazy protocol witness table cache variable for type Prompt.ImageAttachment.Format and conformance Prompt.ImageAttachment.Format)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Prompt.ImageAttachment.Format and conformance Prompt.ImageAttachment.Format);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type Prompt.ImageAttachment and conformance Prompt.ImageAttachment()
+{
+  result = lazy protocol witness table cache variable for type Prompt.ImageAttachment and conformance Prompt.ImageAttachment;
+  if (!lazy protocol witness table cache variable for type Prompt.ImageAttachment and conformance Prompt.ImageAttachment)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Prompt.ImageAttachment and conformance Prompt.ImageAttachment);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type Prompt.ImageSurfaceAttachment and conformance Prompt.ImageSurfaceAttachment()
+{
+  result = lazy protocol witness table cache variable for type Prompt.ImageSurfaceAttachment and conformance Prompt.ImageSurfaceAttachment;
+  if (!lazy protocol witness table cache variable for type Prompt.ImageSurfaceAttachment and conformance Prompt.ImageSurfaceAttachment)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Prompt.ImageSurfaceAttachment and conformance Prompt.ImageSurfaceAttachment);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type Prompt.ResponseFormat.GrammarDetails and conformance Prompt.ResponseFormat.GrammarDetails()
+{
+  result = lazy protocol witness table cache variable for type Prompt.ResponseFormat.GrammarDetails and conformance Prompt.ResponseFormat.GrammarDetails;
+  if (!lazy protocol witness table cache variable for type Prompt.ResponseFormat.GrammarDetails and conformance Prompt.ResponseFormat.GrammarDetails)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Prompt.ResponseFormat.GrammarDetails and conformance Prompt.ResponseFormat.GrammarDetails);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type Prompt.ToolDefinitions and conformance Prompt.ToolDefinitions()
+{
+  result = lazy protocol witness table cache variable for type Prompt.ToolDefinitions and conformance Prompt.ToolDefinitions;
+  if (!lazy protocol witness table cache variable for type Prompt.ToolDefinitions and conformance Prompt.ToolDefinitions)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Prompt.ToolDefinitions and conformance Prompt.ToolDefinitions);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type Prompt.Rendering.Source and conformance Prompt.Rendering.Source()
+{
+  result = lazy protocol witness table cache variable for type Prompt.Rendering.Source and conformance Prompt.Rendering.Source;
+  if (!lazy protocol witness table cache variable for type Prompt.Rendering.Source and conformance Prompt.Rendering.Source)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Prompt.Rendering.Source and conformance Prompt.Rendering.Source);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type Prompt.Rendering and conformance Prompt.Rendering()
+{
+  result = lazy protocol witness table cache variable for type Prompt.Rendering and conformance Prompt.Rendering;
+  if (!lazy protocol witness table cache variable for type Prompt.Rendering and conformance Prompt.Rendering)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Prompt.Rendering and conformance Prompt.Rendering);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type Prompt and conformance Prompt()
+{
+  result = lazy protocol witness table cache variable for type Prompt and conformance Prompt;
+  if (!lazy protocol witness table cache variable for type Prompt and conformance Prompt)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Prompt and conformance Prompt);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type Prompt and conformance Prompt;
+  if (!lazy protocol witness table cache variable for type Prompt and conformance Prompt)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Prompt and conformance Prompt);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type Prompt and conformance Prompt;
+  if (!lazy protocol witness table cache variable for type Prompt and conformance Prompt)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Prompt and conformance Prompt);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type Prompt and conformance Prompt;
+  if (!lazy protocol witness table cache variable for type Prompt and conformance Prompt)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Prompt and conformance Prompt);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type Prompt.StringInterpolation and conformance Prompt.StringInterpolation()
+{
+  result = lazy protocol witness table cache variable for type Prompt.StringInterpolation and conformance Prompt.StringInterpolation;
+  if (!lazy protocol witness table cache variable for type Prompt.StringInterpolation and conformance Prompt.StringInterpolation)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type Prompt.StringInterpolation and conformance Prompt.StringInterpolation);
+  }
+
+  return result;
+}
+
+void type metadata completion function for Prompt.SpecialToken(uint64_t a1)
+{
+  type metadata accessor for Locale?(319);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for String?(319, &lazy cache variable for type metadata for String?, MEMORY[0x1E69E6158], MEMORY[0x1E69E6720]);
+    if (v2 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+void type metadata accessor for Locale?(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for Locale?)
+  {
+    type metadata accessor for Locale();
+    v1 = type metadata accessor for Optional();
+    if (!v2)
+    {
+      atomic_store(v1, &lazy cache variable for type metadata for Locale?);
+    }
+  }
+}
+
+uint64_t getEnumTagSinglePayload for Prompt.ImageEmbeddingAttachment(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 48))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 40);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for Prompt.ImageEmbeddingAttachment(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 40) = 0;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 48) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 40) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 48) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t __swift_get_extra_inhabitant_index_21Tm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void))
+{
+  v6 = (a4)(0, a2, a3);
+  v7 = *(*(v6 - 8) + 48);
+
+  return v7(a1, a2, v6);
+}
+
+uint64_t __swift_store_extra_inhabitant_index_22Tm(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
+{
+  v7 = (a5)(0, a2, a3, a4);
+  v8 = *(*(v7 - 8) + 56);
+
+  return v8(a1, a2, a2, v7);
+}
+
+uint64_t type metadata completion function for Prompt.Delimiter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(uint64_t, uint64_t, uint64_t))
+{
+  result = a4(319, a2, a3);
+  if (v5 <= 0x3F)
+  {
+    swift_cvw_initStructMetadataWithLayoutString();
+    return 0;
+  }
+
+  return result;
+}
+
+void type metadata completion function for Prompt.AttachmentContent(uint64_t a1)
+{
+  type metadata accessor for Prompt.ResponseFormat(319);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for String?(319, &lazy cache variable for type metadata for [Prompt.ToolCall], &type metadata for Prompt.ToolCall, MEMORY[0x1E69E62F8]);
+    if (v2 <= 0x3F)
+    {
+      swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
+    }
+  }
+}
+
+void type metadata accessor for String?(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t (*a4)(void, uint64_t))
+{
+  if (!*a2)
+  {
+    v5 = a4(0, a3);
+    if (!v6)
+    {
+      atomic_store(v5, a2);
+    }
+  }
+}
+
+uint64_t getEnumTagSinglePayload for Prompt.ImageAttachment(unsigned __int8 *a1, unsigned int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 >= 0xFF && a1[24])
+  {
+    return (*a1 + 255);
+  }
+
+  v3 = *a1;
+  v4 = v3 >= 2;
+  v5 = v3 - 2;
+  if (!v4)
+  {
+    v5 = -1;
+  }
+
+  return (v5 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for Prompt.ImageAttachment(uint64_t result, unsigned int a2, unsigned int a3)
+{
+  if (a2 > 0xFE)
+  {
+    *(result + 8) = 0;
+    *(result + 16) = 0;
+    *result = a2 - 255;
+    if (a3 >= 0xFF)
+    {
+      *(result + 24) = 1;
+    }
+  }
+
+  else
+  {
+    if (a3 >= 0xFF)
+    {
+      *(result + 24) = 0;
+    }
+
+    if (a2)
+    {
+      *result = a2 + 1;
+    }
+  }
+
+  return result;
+}
+
+uint64_t type metadata completion function for Prompt.ResponseFormat(uint64_t a1)
+{
+  result = type metadata accessor for Prompt.ResponseFormat.Kind(319);
+  if (v2 <= 0x3F)
+  {
+    swift_cvw_initStructMetadataWithLayoutString();
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t type metadata completion function for Prompt.ResponseFormat.Kind(uint64_t a1)
+{
+  result = type metadata accessor for Prompt.ResponseFormat.SchemaDetails(319);
+  if (v2 <= 0x3F)
+  {
+    swift_cvw_initEnumMetadataMultiPayloadWithLayoutString();
+    return 0;
+  }
+
+  return result;
 }

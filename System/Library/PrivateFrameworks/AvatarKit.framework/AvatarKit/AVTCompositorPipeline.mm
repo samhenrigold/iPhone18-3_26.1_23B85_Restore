@@ -7,7 +7,7 @@
 
 - (AVTCompositorPipeline)initWithFunction:(id)function
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   functionCopy = function;
   v75.receiver = self;
   v75.super_class = AVTCompositorPipeline;
@@ -21,95 +21,95 @@
 
     device = [functionCopy device];
     v6 = objc_alloc_init(MEMORY[0x1E6974038]);
-    [v6 setComputeFunction:functionCopy];
+    [v6 setComputeFunction:?];
     name = [functionCopy name];
-    [v6 setLabel:name];
+    [v6 setLabel:?];
 
     v73 = 0;
     v74 = 0;
     v55 = v6;
     v56 = device;
-    v8 = [device newComputePipelineStateWithDescriptor:v6 options:1 reflection:&v74 error:&v73];
-    v9 = v74;
-    v10 = v73;
+    v8 = [device newComputePipelineStateWithDescriptor:? options:? reflection:? error:?];
+    v9 = 0;
+    v10 = 0;
     pipelineState = v58->_pipelineState;
     v58->_pipelineState = v8;
 
     if (!v58->_pipelineState)
     {
-      v12 = avt_default_log();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = avt_default_log(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        [(AVTCompositorPipeline *)functionCopy initWithFunction:v10, v12];
+        [(AVTCompositorPipeline *)functionCopy initWithFunction:v10, v13];
       }
     }
 
     v53 = v10;
     v57 = functionCopy;
-    v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v14 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v69 = 0u;
     v70 = 0u;
     v71 = 0u;
     v72 = 0u;
     v54 = v9;
     arguments = [v9 arguments];
-    v15 = [arguments countByEnumeratingWithState:&v69 objects:v76 count:16];
-    v16 = v58;
-    if (v15)
+    v16 = [arguments countByEnumeratingWithState:? objects:? count:?];
+    v17 = v58;
+    if (v16)
     {
-      v17 = v15;
-      v18 = *v70;
+      v18 = v16;
+      v19 = *v70;
       v59 = arguments;
       do
       {
-        for (i = 0; i != v17; ++i)
+        for (i = 0; i != v18; i = (i + 1))
         {
-          if (*v70 != v18)
+          if (*v70 != v19)
           {
             objc_enumerationMutation(arguments);
           }
 
-          v20 = *(*(&v69 + 1) + 8 * i);
-          name2 = [v20 name];
-          v22 = [name2 isEqualToString:@"dst"];
+          v21 = *(*(&v69 + 1) + 8 * i);
+          name2 = [v21 name];
+          v23 = [name2 isEqualToString:?];
 
-          if (!v22)
+          if (!v23)
           {
-            name3 = [v20 name];
-            v24 = [name3 isEqualToString:@"builtin_skinColor"];
+            name3 = [v21 name];
+            v25 = [name3 isEqualToString:?];
 
-            if (v24)
+            if (v25)
             {
-              if ([v20 type])
+              if ([v21 type])
               {
                 [AVTCompositorPipeline initWithFunction:];
               }
 
-              if ([v20 bufferDataType] != 6)
+              if ([v21 bufferDataType] != 6)
               {
                 [AVTCompositorPipeline initWithFunction:];
               }
 
-              v16->_isAffectedBySkin = 1;
+              v17->_isAffectedBySkin = 1;
               v68[0] = MEMORY[0x1E69E9820];
               v68[1] = 3221225472;
               v68[2] = __42__AVTCompositorPipeline_initWithFunction___block_invoke;
               v68[3] = &unk_1E7F47C50;
-              v68[4] = v20;
-              v25 = v68;
+              v68[4] = v21;
+              v26 = v68;
 LABEL_23:
-              v28 = MEMORY[0x1BFB0EC20](v25);
-              [v13 addObject:v28];
+              v29 = MEMORY[0x1BFB0EC20](v26);
+              [v14 addObject:?];
 
               continue;
             }
 
-            name4 = [v20 name];
-            v27 = [name4 isEqualToString:@"builtin_mouthInside"];
+            name4 = [v21 name];
+            v28 = [name4 isEqualToString:?];
 
-            if (v27)
+            if (v28)
             {
-              if ([v20 type] != 2)
+              if ([v21 type] != 2)
               {
                 [AVTCompositorPipeline initWithFunction:];
               }
@@ -118,128 +118,62 @@ LABEL_23:
               v67[1] = 3221225472;
               v67[2] = __42__AVTCompositorPipeline_initWithFunction___block_invoke_2;
               v67[3] = &unk_1E7F47C50;
-              v67[4] = v20;
-              v25 = v67;
+              v67[4] = v21;
+              v26 = v67;
               goto LABEL_23;
             }
 
-            v29 = v13;
-            name5 = [v20 name];
-            v31 = [name5 componentsSeparatedByString:@"_"];
+            v30 = v14;
+            name5 = [v21 name];
+            v32 = [name5 componentsSeparatedByString:?];
 
-            v32 = [v31 count];
-            v33 = [v31 objectAtIndexedSubscript:0];
-            v34 = AVTComponentTypeFromString(v33);
+            v33 = [v32 count];
+            v34 = [v32 objectAtIndexedSubscript:?];
+            v35 = AVTComponentTypeFromString(v34);
 
-            if (v34 == 42)
+            if (v35 == 42)
             {
               [AVTCompositorPipeline initWithFunction:];
             }
 
-            v16->_affectingComponentsMask |= 1 << v34;
-            switch(v32)
+            v17->_affectingComponentsMask |= 1 << v35;
+            if (v33 == 3)
             {
-              case 3:
-                if ([v20 type] != 2)
+              if ([v21 type] != 2)
+              {
+                [AVTCompositorPipeline initWithFunction:];
+              }
+
+              v43 = [v32 objectAtIndexedSubscript:?];
+              if (([v43 isEqualToString:?] & 1) == 0)
+              {
+                [AVTCompositorPipeline initWithFunction:];
+              }
+
+              v44 = [v32 objectAtIndexedSubscript:?];
+              v60[0] = MEMORY[0x1E69E9820];
+              v60[1] = 3221225472;
+              v60[2] = __42__AVTCompositorPipeline_initWithFunction___block_invoke_6;
+              v60[3] = &unk_1E7F47CC8;
+              v62 = v21;
+              v63 = v35;
+              v61 = v44;
+              v45 = v44;
+              v46 = MEMORY[0x1BFB0EC20](v60);
+              v14 = v30;
+              [v30 addObject:?];
+            }
+
+            else
+            {
+              if (v33 != 2)
+              {
+                if (v33 != 1)
                 {
                   [AVTCompositorPipeline initWithFunction:];
                 }
 
-                v42 = [v31 objectAtIndexedSubscript:1];
-                if (([v42 isEqualToString:@"layer"] & 1) == 0)
-                {
-                  [AVTCompositorPipeline initWithFunction:];
-                }
-
-                v43 = [v31 objectAtIndexedSubscript:2];
-                v60[0] = MEMORY[0x1E69E9820];
-                v60[1] = 3221225472;
-                v60[2] = __42__AVTCompositorPipeline_initWithFunction___block_invoke_6;
-                v60[3] = &unk_1E7F47CC8;
-                v62 = v20;
-                v63 = v34;
-                v61 = v43;
-                v44 = v43;
-                v45 = MEMORY[0x1BFB0EC20](v60);
-                v13 = v29;
-                [v29 addObject:v45];
-
-                break;
-              case 2:
-                v36 = [v31 objectAtIndexedSubscript:1];
-                if ([v36 hasPrefix:@"color"])
-                {
-                  if ([v20 type])
-                  {
-                    [AVTCompositorPipeline initWithFunction:];
-                  }
-
-                  if ([v20 bufferDataType] != 6)
-                  {
-                    [AVTCompositorPipeline initWithFunction:];
-                  }
-
-                  v37 = [v36 substringFromIndex:{objc_msgSend(@"color", "length")}];
-                  integerValue = [v37 integerValue];
-
-                  v39 = [v31 objectAtIndexedSubscript:0];
-                  v40 = AVTPresetCategoryFromString(v39);
-
-                  if (v40 == 40)
-                  {
-                    [AVTCompositorPipeline initWithFunction:];
-                  }
-
-                  v41 = v65;
-                  v65[0] = MEMORY[0x1E69E9820];
-                  v65[1] = 3221225472;
-                  v65[2] = __42__AVTCompositorPipeline_initWithFunction___block_invoke_4;
-                  v65[3] = &unk_1E7F47CA0;
-                  v65[5] = v40;
-                  v65[6] = integerValue - 1;
-                }
-
-                else
-                {
-                  if (![v36 isEqualToString:@"uvRemapping"])
-                  {
-                    [AVTCompositorPipeline initWithFunction:];
-                  }
-
-                  if ([v20 type])
-                  {
-                    [AVTCompositorPipeline initWithFunction:];
-                  }
-
-                  if ([v20 bufferDataType] != 1)
-                  {
-                    [AVTCompositorPipeline initWithFunction:];
-                  }
-
-                  v46 = [v31 objectAtIndexedSubscript:0];
-                  v47 = AVTPresetCategoryFromString(v46);
-
-                  if (v47 == 40)
-                  {
-                    [AVTCompositorPipeline initWithFunction:];
-                  }
-
-                  v41 = v64;
-                  v64[0] = MEMORY[0x1E69E9820];
-                  v64[1] = 3221225472;
-                  v64[2] = __42__AVTCompositorPipeline_initWithFunction___block_invoke_5;
-                  v64[3] = &unk_1E7F47C78;
-                  v64[5] = v34;
-                }
-
-                v41[4] = v20;
-                v48 = MEMORY[0x1BFB0EC20]();
-                v13 = v29;
-                [v29 addObject:v48];
-
-                break;
-              case 1:
-                if ([v20 type] != 2)
+                if ([v21 type] != 2)
                 {
                   [AVTCompositorPipeline initWithFunction:];
                 }
@@ -248,49 +182,119 @@ LABEL_23:
                 v66[1] = 3221225472;
                 v66[2] = __42__AVTCompositorPipeline_initWithFunction___block_invoke_3;
                 v66[3] = &unk_1E7F47C78;
-                v66[4] = v20;
-                v66[5] = v34;
-                v35 = MEMORY[0x1BFB0EC20](v66);
-                v13 = v29;
-                [v29 addObject:v35];
+                v66[4] = v21;
+                v66[5] = v35;
+                v36 = MEMORY[0x1BFB0EC20](v66);
+                v14 = v30;
+                [v30 addObject:?];
 
                 goto LABEL_45;
-              default:
-                [AVTCompositorPipeline initWithFunction:];
+              }
+
+              v37 = [v32 objectAtIndexedSubscript:?];
+              if ([v37 hasPrefix:?])
+              {
+                if ([v21 type])
+                {
+                  [AVTCompositorPipeline initWithFunction:];
+                }
+
+                if ([v21 bufferDataType] != 6)
+                {
+                  [AVTCompositorPipeline initWithFunction:];
+                }
+
+                [@"color" length];
+                v38 = [v37 substringFromIndex:?];
+                integerValue = [v38 integerValue];
+
+                v40 = [v32 objectAtIndexedSubscript:?];
+                v41 = AVTPresetCategoryFromString(v40);
+
+                if (v41 == 40)
+                {
+                  [AVTCompositorPipeline initWithFunction:];
+                }
+
+                v42 = v65;
+                v65[0] = MEMORY[0x1E69E9820];
+                v65[1] = 3221225472;
+                v65[2] = __42__AVTCompositorPipeline_initWithFunction___block_invoke_4;
+                v65[3] = &unk_1E7F47CA0;
+                v65[5] = v41;
+                v65[6] = integerValue - 1;
+              }
+
+              else
+              {
+                if (![v37 isEqualToString:?])
+                {
+                  [AVTCompositorPipeline initWithFunction:];
+                }
+
+                if ([v21 type])
+                {
+                  [AVTCompositorPipeline initWithFunction:];
+                }
+
+                if ([v21 bufferDataType] != 1)
+                {
+                  [AVTCompositorPipeline initWithFunction:];
+                }
+
+                v47 = [v32 objectAtIndexedSubscript:?];
+                v48 = AVTPresetCategoryFromString(v47);
+
+                if (v48 == 40)
+                {
+                  [AVTCompositorPipeline initWithFunction:];
+                }
+
+                v42 = v64;
+                v64[0] = MEMORY[0x1E69E9820];
+                v64[1] = 3221225472;
+                v64[2] = __42__AVTCompositorPipeline_initWithFunction___block_invoke_5;
+                v64[3] = &unk_1E7F47C78;
+                v64[5] = v35;
+              }
+
+              v42[4] = v21;
+              v49 = MEMORY[0x1BFB0EC20]();
+              v14 = v30;
+              [v30 addObject:?];
             }
 
-            v16 = v58;
+            v17 = v58;
 LABEL_45:
 
             arguments = v59;
             continue;
           }
 
-          if ([v20 type] != 2)
+          if ([v21 type] != 2)
           {
             [AVTCompositorPipeline initWithFunction:];
           }
 
-          if ([v20 index])
+          if ([v21 index])
           {
             [AVTCompositorPipeline initWithFunction:];
           }
         }
 
-        v17 = [arguments countByEnumeratingWithState:&v69 objects:v76 count:16];
+        v18 = [arguments countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v17);
+      while (v18);
     }
 
-    v49 = [v13 copy];
-    bindings = v16->_bindings;
-    v16->_bindings = v49;
+    v50 = [v14 copy];
+    bindings = v17->_bindings;
+    v17->_bindings = v50;
 
     functionCopy = v57;
   }
 
-  v51 = *MEMORY[0x1E69E9840];
   return v58;
 }
 
@@ -298,11 +302,12 @@ void __42__AVTCompositorPipeline_initWithFunction___block_invoke(uint64_t a1, vo
 {
   v6 = a2;
   v7 = [a4 skinColor];
-  *&v9 = AVTGetColorComponents(v7, v8);
-  v10 = v9;
+  *&v8 = AVTGetColorComponents(v7);
+  v9 = v8;
 
-  v11 = v10;
-  [v6 setBytes:&v11 length:16 atIndex:{objc_msgSend(*(a1 + 32), "index")}];
+  v10 = v9;
+  [*(a1 + 32) index];
+  [v6 setBytes:? length:? atIndex:?];
 }
 
 void __42__AVTCompositorPipeline_initWithFunction___block_invoke_2(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
@@ -313,24 +318,17 @@ void __42__AVTCompositorPipeline_initWithFunction___block_invoke_2(uint64_t a1, 
   v11 = +[AVTResourceLocator sharedResourceLocator];
   v12 = [AVTResourceLocator pathForMemojiResource:v11 ofType:? inDirectory:? isDirectory:?];
 
-  v18 = 0;
-  v13 = [MEMORY[0x1E695DFF8] fileURLWithPath:v12 isDirectory:0];
-  v17 = 0;
-  v14 = [v9 cachedTextureWithURL:v13 token:&v17 didFallbackToDefaultTexture:&v18];
+  v13 = [MEMORY[0x1E695DFF8] fileURLWithPath:? isDirectory:?];
+  v14 = [v9 cachedTextureWithURL:? token:? didFallbackToDefaultTexture:?];
 
-  v15 = v17;
-  v16 = 0;
-  if ((v18 & 1) == 0)
+  v15 = 0;
+  if (v15)
   {
-    v16 = v14;
-    if (v15)
-    {
-      [v8 addObject:v15];
-      v16 = v14;
-    }
+    [v8 addObject:?];
   }
 
-  [v10 setTexture:v16 atIndex:{objc_msgSend(*(a1 + 32), "index")}];
+  [*(a1 + 32) index];
+  [v10 setTexture:? atIndex:?];
 }
 
 void __42__AVTCompositorPipeline_initWithFunction___block_invoke_3(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
@@ -338,70 +336,60 @@ void __42__AVTCompositorPipeline_initWithFunction___block_invoke_3(uint64_t a1, 
   v9 = a2;
   v10 = a3;
   v11 = a5;
-  v12 = [a4 componentInstanceForType:*(a1 + 40)];
+  v12 = [a4 componentInstanceForType:?];
   v13 = [v12 assetImage];
   if (v13)
   {
-    v19 = 0;
-    v14 = [MEMORY[0x1E695DFF8] fileURLWithPath:v13 isDirectory:0];
-    v18 = 0;
-    v15 = [v10 cachedTextureWithURL:v14 token:&v18 didFallbackToDefaultTexture:&v19];
-    v16 = v18;
+    v14 = [MEMORY[0x1E695DFF8] fileURLWithPath:? isDirectory:?];
+    v15 = [v10 cachedTextureWithURL:? token:? didFallbackToDefaultTexture:?];
+    v16 = 0;
 
-    v17 = 0;
-    if ((v19 & 1) == 0)
+    if (v16)
     {
-      v17 = v15;
-      if (v16)
-      {
-        [v11 addObject:v16];
-        v17 = v15;
-      }
+      [v11 addObject:?];
     }
 
-    [v9 setTexture:v17 atIndex:{objc_msgSend(*(a1 + 32), "index")}];
+    [*(a1 + 32) index];
+    [v9 setTexture:? atIndex:?];
   }
 
   else
   {
-    [v9 setTexture:0 atIndex:{objc_msgSend(*(a1 + 32), "index")}];
+    [*(a1 + 32) index];
+    [v9 setTexture:? atIndex:?];
   }
 }
 
 void __42__AVTCompositorPipeline_initWithFunction___block_invoke_4(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v6 = *(a1 + 40);
-  v7 = *(a1 + 48);
-  v8 = a2;
-  v9 = [a4 colorPresetForCategory:v6 colorIndex:v7];
-  v10 = [v9 baseColor];
-  *&v12 = AVTGetColorComponents(v10, v11);
-  v13 = v12;
+  v6 = a2;
+  v7 = [a4 colorPresetForCategory:? colorIndex:?];
+  v8 = [v7 baseColor];
+  AVTGetColorComponents(v8);
 
-  v14 = v13;
-  [v8 setBytes:&v14 length:16 atIndex:{objc_msgSend(*(a1 + 32), "index")}];
+  [*(a1 + 32) index];
+  [v6 setBytes:? length:? atIndex:?];
 }
 
 void __42__AVTCompositorPipeline_initWithFunction___block_invoke_5(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v6 = *(a1 + 40);
-  v7 = a2;
-  v8 = [a4 componentInstanceForType:v6];
-  v9 = v8;
-  v10 = 0u;
-  v11 = 0u;
-  if (v8)
+  v6 = a2;
+  v7 = [a4 componentInstanceForType:?];
+  v8 = 0u;
+  v9 = 0u;
+  if (v7)
   {
-    [v8 uvRemappingInfo];
+    [&v8 uvRemappingInfo];
   }
 
   else
   {
-    *(&v10 + 1) = 1065353216;
-    v11 = 0x3F80000000000000uLL;
+    *(&v8 + 1) = 1065353216;
+    v9 = 0x3F80000000000000uLL;
   }
 
-  [v7 setBytes:&v10 length:32 atIndex:{objc_msgSend(*(a1 + 32), "index", v10, v11)}];
+  [*(a1 + 32) index];
+  [v6 setBytes:? length:? atIndex:?];
 }
 
 void __42__AVTCompositorPipeline_initWithFunction___block_invoke_6(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
@@ -409,33 +397,27 @@ void __42__AVTCompositorPipeline_initWithFunction___block_invoke_6(uint64_t a1, 
   v9 = a2;
   v10 = a3;
   v11 = a5;
-  v12 = [a4 componentInstanceForType:*(a1 + 48)];
-  v13 = [v12 assetImageWithLayerNamed:*(a1 + 32)];
+  v12 = [a4 componentInstanceForType:?];
+  v13 = [v12 assetImageWithLayerNamed:?];
   if (v13)
   {
-    v19 = 0;
-    v14 = [MEMORY[0x1E695DFF8] fileURLWithPath:v13 isDirectory:0];
-    v18 = 0;
-    v15 = [v10 cachedTextureWithURL:v14 token:&v18 didFallbackToDefaultTexture:&v19];
-    v16 = v18;
+    v14 = [MEMORY[0x1E695DFF8] fileURLWithPath:? isDirectory:?];
+    v15 = [v10 cachedTextureWithURL:? token:? didFallbackToDefaultTexture:?];
+    v16 = 0;
 
-    v17 = 0;
-    if ((v19 & 1) == 0)
+    if (v16)
     {
-      v17 = v15;
-      if (v16)
-      {
-        [v11 addObject:v16];
-        v17 = v15;
-      }
+      [v11 addObject:?];
     }
 
-    [v9 setTexture:v17 atIndex:{objc_msgSend(*(a1 + 40), "index")}];
+    [*(a1 + 40) index];
+    [v9 setTexture:? atIndex:?];
   }
 
   else
   {
-    [v9 setTexture:0 atIndex:{objc_msgSend(*(a1 + 40), "index")}];
+    [*(a1 + 40) index];
+    [v9 setTexture:? atIndex:?];
   }
 }
 
@@ -485,106 +467,77 @@ void __42__AVTCompositorPipeline_initWithFunction___block_invoke_6(uint64_t a1, 
 
 void __165__AVTCompositorPipeline_compositeTexture_forMemoji_considerSkin_componentsToConsider_computeCommandHandler_blitCommandHandler_completionHandler_helper_helperTokens___block_invoke(uint64_t a1, void *a2)
 {
-  v40 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(*(a1 + 32) + 32) threadExecutionWidth];
   v5 = [*(*(a1 + 32) + 32) maxTotalThreadsPerThreadgroup];
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
   v6 = *(*(a1 + 32) + 24);
-  v7 = [v6 countByEnumeratingWithState:&v35 objects:v39 count:16];
+  v7 = [v6 countByEnumeratingWithState:? objects:? count:?];
   if (v7)
   {
     v8 = v7;
-    v9 = *v36;
+    v9 = MEMORY[0];
     do
     {
-      v10 = 0;
-      do
+      for (i = 0; i != v8; i = (i + 1))
       {
-        if (*v36 != v9)
+        if (MEMORY[0] != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(a1 + 40);
-        v12 = *(a1 + 48);
-        v13 = *(a1 + 56);
-        (*(*(*(&v35 + 1) + 8 * v10++) + 16))();
+        (*(*(8 * i) + 16))();
       }
 
-      while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v8 = [v6 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v8);
   }
 
-  [v3 setComputePipelineState:*(*(a1 + 32) + 32)];
-  [v3 setTexture:*(a1 + 64) atIndex:0];
-  v14 = [v3 device];
-  v16 = AVTMTLDeviceSupportsNonUniformThreadgroupSize(v14, v15);
+  [v3 setComputePipelineState:?];
+  [v3 setTexture:? atIndex:?];
+  v11 = [v3 device];
+  v12 = AVTMTLDeviceSupportsNonUniformThreadgroupSize(v11);
 
-  if (v16)
+  if (v12)
   {
-    v17 = v5 / v4;
-    v18 = [*(a1 + 64) width];
-    v19 = [*(a1 + 64) height];
-    v32 = v18;
-    v33 = v19;
-    v34 = 1;
-    v29 = v4;
-    v30 = v17;
-    v31 = 1;
-    [v3 dispatchThreads:&v32 threadsPerThreadgroup:&v29];
+    [v3 dispatchThreads:v4 threadsPerThreadgroup:{v5 / v4, 1, objc_msgSend(*(a1 + 64), "width"), objc_msgSend(*(a1 + 64), "height"), 1, 0}];
   }
 
   else
   {
-    v20 = [*(a1 + 64) width];
-    if (v4 >= v20)
+    v13 = [*(a1 + 64) width];
+    if (v4 >= v13)
     {
-      v21 = v20;
+      v14 = v13;
     }
 
     else
     {
-      v21 = v4;
+      v14 = v4;
     }
 
-    v22 = [*(a1 + 64) height];
-    if (v4 >= v22)
+    v15 = [*(a1 + 64) height];
+    if (v4 >= v15)
     {
-      v23 = v22;
+      v16 = v15;
     }
 
     else
     {
-      v23 = v4;
+      v16 = v4;
     }
 
     do
     {
-      v24 = v23;
-      v25 = v23 * v21;
-      v23 >>= 1;
+      v17 = v16;
+      v18 = v16 * v14;
+      v16 >>= 1;
     }
 
-    while (v25 > v5);
-    v26 = v21 + [*(a1 + 64) width] - 1;
-    v27 = *(a1 + 64);
-    v32 = v26 / v21;
-    v33 = (v24 + [v27 height] - 1) / v24;
-    v34 = 1;
-    v29 = v21;
-    v30 = v24;
-    v31 = 1;
-    [v3 dispatchThreadgroups:&v32 threadsPerThreadgroup:&v29];
+    while (v18 > v5);
+    [v3 dispatchThreadgroups:v14 threadsPerThreadgroup:{v17, 1, (objc_msgSend(*(a1 + 64), "width") + v14 - 1) / v14, (objc_msgSend(*(a1 + 64), "height") + v17 - 1) / v17, 1, 0}];
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 void __165__AVTCompositorPipeline_compositeTexture_forMemoji_considerSkin_componentsToConsider_computeCommandHandler_blitCommandHandler_completionHandler_helper_helperTokens___block_invoke_3(uint64_t a1, void *a2)
@@ -601,15 +554,13 @@ void __165__AVTCompositorPipeline_compositeTexture_forMemoji_considerSkin_compon
 
 - (void)initWithFunction:(NSObject *)a3 .cold.1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v5 = [a1 name];
-  v7 = 138412546;
-  v8 = v5;
-  v9 = 2112;
-  v10 = a2;
-  _os_log_error_impl(&dword_1BB472000, a3, OS_LOG_TYPE_ERROR, "Error: Error compiling '%@' kernel function: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 138412546;
+  v7 = v5;
+  v8 = 2112;
+  v9 = a2;
+  _os_log_error_impl(&dword_1BB472000, a3, OS_LOG_TYPE_ERROR, "Error: Error compiling '%@' kernel function: %@", &v6, 0x16u);
 }
 
 @end

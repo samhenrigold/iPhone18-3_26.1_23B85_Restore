@@ -103,7 +103,7 @@
   return v9;
 }
 
-void __43__CAMOverlayDiscreteFloatRange_description__block_invoke(uint64_t a1, void *a2, unint64_t a3, _BYTE *a4)
+void __43__CAMOverlayDiscreteFloatRange_description__block_invoke(uint64_t a1, void *a2, char *a3, _BYTE *a4)
 {
   v12 = a2;
   if (a3 < 2 || [*(*(a1 + 32) + 32) count] < 4)
@@ -439,7 +439,7 @@ void __43__CAMOverlayDiscreteFloatRange_description__block_invoke(uint64_t a1, v
   return v7;
 }
 
-uint64_t __59__CAMOverlayDiscreteFloatRange_indexOfValueClosestToValue___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__59__CAMOverlayDiscreteFloatRange_indexOfValueClosestToValue___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 doubleValue];
   v9 = vabdd_f64(v8, *(a1 + 48));

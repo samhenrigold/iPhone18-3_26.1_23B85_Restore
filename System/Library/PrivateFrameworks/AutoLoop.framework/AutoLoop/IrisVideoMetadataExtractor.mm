@@ -120,7 +120,7 @@
   v5 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:0];
   if (trackCopy)
   {
-    [trackCopy timeRange];
+    objc_msgSend_timeRange(trackCopy);
   }
 
   else
@@ -521,7 +521,7 @@ LABEL_60:
                 v68 = 0uLL;
                 if (v35)
                 {
-                  [v35 time];
+                  objc_msgSend_time(v35);
                 }
 
                 identifier = [v35 identifier];

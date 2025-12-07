@@ -91,7 +91,7 @@ __int16 *sub_2773DE4C4(__int16 *result, uint64_t a2, __int128 *a3, uint64_t a4, 
   return result;
 }
 
-uint64_t sub_2773DE580(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _WORD *a5, _OWORD *_X5, int a7)
+uint64_t sub_2773DE580(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _DWORD *a5, _OWORD *_X5, int a7)
 {
   if (((~a4 & 6) == 0) == ((a4 & 0x20) == 0) || ((~a4 & 9) == 0) == ((a4 & 0x40) == 0))
   {
@@ -102,13 +102,12 @@ uint64_t sub_2773DE580(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   v8 = a3[4];
   if ((a4 & 0x40) != 0)
   {
-    *&a5[2 * a7] = *(result + 2 * a7 * a2 - 4);
+    a5[a7] = *(result + 2 * a7 * a2 - 4);
   }
 
   if ((a4 & 4) == 0)
   {
-    *a5 = *(result + 60);
-    a5 += 2;
+    *a5++ = *(result + 60);
     _X5 = result;
     result += 2 * a2;
     --a7;
@@ -132,7 +131,7 @@ uint64_t sub_2773DE580(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
 
   v26 = vld1q_dup_f32(v15);
   *a5 = v24.i32[3];
-  v27 = (a5 + 2);
+  v27 = (a5 + 1);
   v28 = (result + 64);
   v29 = 2 * a2;
   v30 = ((__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32) + 1;
@@ -182,7 +181,7 @@ uint64_t sub_2773DE580(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   return result;
 }
 
-uint64_t sub_2773DE7B4(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, __int16 *a5, int16x8_t *_X5, int a7)
+uint64_t sub_2773DE7B4(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, int8x16_t *_X5, unsigned int a7)
 {
   if (((~a4 & 5) == 0) == ((a4 & 0x10) == 0) || ((~a4 & 0xA) == 0) == ((a4 & 0x80) == 0))
   {
@@ -210,7 +209,7 @@ uint64_t sub_2773DE7B4(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
 
   v8.i64[1] = v9;
   v13 = (__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32;
-  *&a5[2 * v13] = *(result + 2 * v13 * a2 + 60);
+  a5[v13] = *(result + 2 * v13 * a2 + 60);
   v14 = vdupq_n_s16(~a4);
   v15 = vandq_s8(v14, xmmword_27750D2A0);
   v16 = vandq_s8(v14, xmmword_27750D2B0);
@@ -267,7 +266,7 @@ uint64_t sub_2773DE7B4(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
     v11 = vld1q_dup_f32(v37++);
     --v32;
     v28 += v33;
-    *a5 = v19.i32[3];
+    *a5 = *&v19.i32[3];
     a5 = v37;
   }
 
@@ -312,7 +311,7 @@ uint16x8_t *sub_2773DEA00(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
     v28 = v20;
     v29 = v21;
     v30 = v22;
-    _X10 = result->i64 + v25;
+    _X10 = &result->i8[v25];
     v19 = *(result + 2 * a2);
     v20 = *(&result[1] + v25);
     v21 = *(&result[2] + v25);
@@ -338,7 +337,7 @@ uint16x8_t *sub_2773DEA00(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
   return result;
 }
 
-int16x8_t *sub_2773DEB8C(int16x8_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
+int8x16_t *sub_2773DEB8C(int8x16_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
 {
   v8.i64[0] = *a3;
   v8.i64[1] = a3[4];
@@ -386,7 +385,7 @@ int16x8_t *sub_2773DEB8C(int16x8_t *result, uint64_t a2, uint64_t *a3, unint64_t
   return result;
 }
 
-uint64_t sub_2773DED04(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _WORD *a5, _OWORD *_X5, int a7)
+uint64_t sub_2773DED04(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _DWORD *a5, _OWORD *_X5, int a7)
 {
   if (((~a4 & 6) == 0) == ((a4 & 0x20) == 0) || ((~a4 & 9) == 0) == ((a4 & 0x40) == 0))
   {
@@ -397,13 +396,12 @@ uint64_t sub_2773DED04(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   v8 = a3[4];
   if ((a4 & 0x40) != 0)
   {
-    *&a5[2 * a7] = *(result + 2 * a7 * a2 - 4);
+    a5[a7] = *(result + 2 * a7 * a2 - 4);
   }
 
   if ((a4 & 4) == 0)
   {
-    *a5 = *(result + 28);
-    a5 += 2;
+    *a5++ = *(result + 28);
     _X5 = result;
     result += 2 * a2;
     --a7;
@@ -423,7 +421,7 @@ uint64_t sub_2773DED04(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
 
   v22 = vld1q_dup_f32(v18);
   *a5 = v20.i32[3];
-  v23 = (a5 + 2);
+  v23 = (a5 + 1);
   v24 = 2 * a2;
   v25 = ((__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32) + 1;
   v26 = vceqzq_s16(vandq_s8(v9, xmmword_27750D2B0));
@@ -462,7 +460,7 @@ uint64_t sub_2773DED04(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   return result;
 }
 
-uint64_t sub_2773DEEB0(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, __int16 *a5, int8x16_t *_X5, int a7)
+uint64_t sub_2773DEEB0(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, int8x16_t *_X5, unsigned int a7)
 {
   if (((~a4 & 5) == 0) == ((a4 & 0x10) == 0) || ((~a4 & 0xA) == 0) == ((a4 & 0x80) == 0))
   {
@@ -490,7 +488,7 @@ uint64_t sub_2773DEEB0(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
 
   v8.i64[1] = v9;
   v13 = (__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32;
-  *&a5[2 * v13] = *(result + 2 * v13 * a2 + 28);
+  a5[v13] = *(result + 2 * v13 * a2 + 28);
   v14 = vdupq_n_s16(~a4);
   v15 = vandq_s8(v14, xmmword_27750D2A0);
   v16 = vandq_s8(v14, xmmword_27750D2B0);
@@ -531,7 +529,7 @@ uint64_t sub_2773DEEB0(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
     v11 = vld1q_dup_f32(v32++);
     --v27;
     result += v28;
-    *a5 = v34.i32[3];
+    *a5 = *&v34.i32[3];
     v17 = v35;
     v18 = v34;
     a5 = v32;
@@ -572,7 +570,7 @@ uint16x8_t *sub_2773DF06C(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
   {
     v23 = v17;
     v24 = v18;
-    _X10 = result->i64 + v20;
+    _X10 = &result->i8[v20];
     v17 = *(result + 2 * a2);
     v18 = *(&result[1] + v20);
     __asm { PRFM            #0, [X10,#0x20] }
@@ -591,7 +589,7 @@ uint16x8_t *sub_2773DF06C(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
   return result;
 }
 
-int16x8_t *sub_2773DF178(int16x8_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
+int8x16_t *sub_2773DF178(int8x16_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
 {
   v8.i64[0] = *a3;
   v8.i64[1] = a3[4];
@@ -629,7 +627,7 @@ int16x8_t *sub_2773DF178(int16x8_t *result, uint64_t a2, uint64_t *a3, unint64_t
   return result;
 }
 
-uint64_t sub_2773DF278(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _WORD *a5, _OWORD *_X5, int a7)
+uint64_t sub_2773DF278(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _DWORD *a5, _OWORD *_X5, int a7)
 {
   if (((~a4 & 6) == 0) == ((a4 & 0x20) == 0) || ((~a4 & 9) == 0) == ((a4 & 0x40) == 0))
   {
@@ -640,13 +638,12 @@ uint64_t sub_2773DF278(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   v8 = a3[4];
   if ((a4 & 0x40) != 0)
   {
-    *&a5[2 * a7] = *(result + 2 * a7 * a2 - 4);
+    a5[a7] = *(result + 2 * a7 * a2 - 4);
   }
 
   if ((a4 & 4) == 0)
   {
-    *a5 = *(result + 12);
-    a5 += 2;
+    *a5++ = *(result + 12);
     _X5 = result;
     result += 2 * a2;
     --a7;
@@ -663,7 +660,7 @@ uint64_t sub_2773DF278(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
 
   v19 = vld1q_dup_f32(v10);
   *a5 = HIDWORD(*result);
-  v20 = (a5 + 2);
+  v20 = (a5 + 1);
   v21 = 2 * a2;
   v22 = ((__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32) + 1;
   v23 = vceqzq_s16(vandq_s8(vdupq_n_s16(~a4), xmmword_27750D2C0));
@@ -694,7 +691,7 @@ uint64_t sub_2773DF278(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   return result;
 }
 
-uint64_t sub_2773DF3E4(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, __int16 *a5, unsigned __int16 *a6, int a7)
+uint64_t sub_2773DF3E4(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, int8x16_t *a6, unsigned int a7)
 {
   if (((~a4 & 5) == 0) == ((a4 & 0x10) == 0) || ((~a4 & 0xA) == 0) == ((a4 & 0x80) == 0))
   {
@@ -705,7 +702,7 @@ uint64_t sub_2773DF3E4(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
   v9 = a3[4];
   if ((a4 & 4) != 0)
   {
-    v12 = (a6 - 2);
+    v12 = &a6[-1].i32[3];
     v11 = vld1q_dup_f32(v12);
   }
 
@@ -722,9 +719,9 @@ uint64_t sub_2773DF3E4(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
 
   v8.i64[1] = v9;
   v13 = (__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32;
-  *&a5[2 * v13] = *(result + 2 * v13 * a2 + 12);
+  a5[v13] = *(result + 2 * v13 * a2 + 12);
   v15 = *a6;
-  _X5 = a6 + 8;
+  _X5 = a6 + 1;
   v16 = v15;
   __asm { PRFM            #0, [X5] }
 
@@ -752,7 +749,7 @@ uint64_t sub_2773DF3E4(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
     v11 = vld1q_dup_f32(v29++);
     --v26;
     result += v25;
-    *a5 = v23.i32[3];
+    *a5 = *&v23.i32[3];
     v16 = v23;
     v23 = v31;
     a5 = v29;
@@ -792,7 +789,7 @@ uint16x8_t *sub_2773DF560(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
   v23.i64[1] = 0xFF00FF00FF00FFLL;
   do
   {
-    _X11 = result[1].i64 + v21;
+    _X11 = &result[1].i8[v21];
     v25 = *(result + 2 * a2);
     __asm { PRFM            #0, [X11] }
 
@@ -932,7 +929,7 @@ __int16 *sub_2773DF770(__int16 *result, uint64_t a2, __int128 *a3, uint64_t a4, 
   return result;
 }
 
-uint64_t sub_2773DF960(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, _WORD *a5, _OWORD *a6, int a7)
+int8x16_t *sub_2773DF960(int8x16_t *a1, uint64_t a2, uint64_t *a3, int a4, _DWORD *a5, int8x16_t *a6, int a7)
 {
   if ((a4 & 4) != 0)
   {
@@ -958,15 +955,15 @@ uint64_t sub_2773DF960(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, _WORD *a5
   v16 = a4 & 0xFFFFFFAE | v15 & 0xFFFFFFBF | (((a4 & 8) != 0) << 6);
   sub_2773DFA20(a1, a2, a3, v14 & 0xFFFFFF7F | (((a4 & 8) != 0) << 7), a5, a6, a7);
 
-  return sub_2773DFA20(a1 + 128, a2, a3, v16, a5, a6 + 8, a7);
+  return sub_2773DFA20(a1 + 8, a2, a3, v16, a5, a6 + 8, a7);
 }
 
-uint64_t sub_2773DFA20(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _WORD *a5, _OWORD *_X5, int a7)
+int8x16_t *sub_2773DFA20(int8x16_t *result, uint64_t a2, uint64_t *a3, unsigned int a4, _DWORD *a5, int8x16_t *_X5, int a7)
 {
   if (((~a4 & 6) == 0) == ((a4 & 0x20) == 0) || ((~a4 & 9) == 0) == ((a4 & 0x40) == 0))
   {
 
-    return sub_2774AE6FC(result, a2, a3, a4, a5, _X5, a7);
+    return sub_2774AE6FC(result->i8, a2, a3, a4, a5, _X5, a7);
   }
 
   else
@@ -975,15 +972,14 @@ uint64_t sub_2773DFA20(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
     v9 = a3[4];
     if ((a4 & 0x40) != 0)
     {
-      *&a5[2 * a7] = *(result + 2 * a7 * a2 - 4);
+      a5[a7] = *(&result->i32[-1] + 2 * a7 * a2);
     }
 
     if ((a4 & 4) == 0)
     {
-      *a5 = *(result + 124);
-      a5 += 2;
+      *a5++ = result[7].i32[3];
       _X5 = result;
-      result += 2 * a2;
+      result = (result + 2 * a2);
       --a7;
     }
 
@@ -992,14 +988,14 @@ uint64_t sub_2773DFA20(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
     v11 = vandq_s8(v10, xmmword_27750D2A0);
     v12 = vtstq_s16(v10, xmmword_27750D2B0);
     v14 = *_X5;
-    v13 = *(_X5 + 1);
-    v16 = *(_X5 + 2);
-    v15 = *(_X5 + 3);
-    v18 = *(_X5 + 4);
-    v17 = *(_X5 + 5);
-    v19 = *(_X5 + 6);
-    v20 = *(_X5 + 7);
-    v21 = (_X5 + 8);
+    v13 = _X5[1];
+    v16 = _X5[2];
+    v15 = _X5[3];
+    v18 = _X5[4];
+    v17 = _X5[5];
+    v19 = _X5[6];
+    v20 = _X5[7];
+    i32 = _X5[8].i32;
     __asm
     {
       PRFM            #0, [X5,#0x80]
@@ -1007,23 +1003,23 @@ uint64_t sub_2773DFA20(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
     }
 
     v28 = *result;
-    v29 = *(result + 16);
-    v30 = *(result + 32);
-    v31 = *(result + 48);
-    v32 = result + 96;
-    v33 = *(result + 96);
-    v34 = *(result + 64);
-    v35 = *(result + 80);
-    v36 = *(result + 112);
+    v29 = result[1];
+    v30 = result[2];
+    v31 = result[3];
+    v32 = result + 6;
+    v33 = result[6];
+    v34 = result[4];
+    v35 = result[5];
+    v36 = result[7];
     __asm { PRFM            #0, [X0,#0x80] }
 
     v38 = 2 * a2;
     v39 = ((__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32) + 1;
     __asm { PRFM            #0, [X0,#0xC0] }
 
-    v41 = vld1q_dup_f32(v21);
+    v41 = vld1q_dup_f32(i32);
     *a5 = v36.i32[3];
-    v42 = (a5 + 2);
+    v42 = (a5 + 1);
     v43 = vceqzq_s16(v11);
     v44.i64[0] = 0xFE00FE00FE00FE00;
     v44.i64[1] = 0xFE00FE00FE00FE00;
@@ -1045,15 +1041,15 @@ uint64_t sub_2773DFA20(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
       v53 = vextq_s8(v14, v13, 4uLL);
       v13 = v29;
       v14 = v28;
-      _X12 = v32 + v38;
-      v28 = *(v32 + v38 - 96);
-      v29 = *(v32 + v38 - 80);
-      v30 = *(v32 + v38 - 64);
-      v31 = *(v32 + v38 - 48);
-      v34 = *(v32 + v38 - 32);
-      v35 = *(v32 + v38 - 16);
+      _X12 = v32->i64 + v38;
+      v28 = *(&v32[-6] + v38);
+      v29 = *(&v32[-5] + v38);
+      v30 = *(&v32[-4] + v38);
+      v31 = *(&v32[-3] + v38);
+      v34 = *(&v32[-2] + v38);
+      v35 = *(&v32[-1] + v38);
       v33 = *(v32 + 2 * a2);
-      v36 = *(v32 + v38 + 16);
+      v36 = *(&v32[1] + v38);
       __asm
       {
         PRFM            #0, [X12,#0x20]
@@ -1078,20 +1074,20 @@ uint64_t sub_2773DFA20(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
       *v42 = *&v36.i32[3];
       v72 = vqtbl1q_s8(v8, vaddq_s8(v63, xmmword_27750D230));
       v73 = vqmovn_high_s16(vqmovn_s16(vaddq_s16(vsubq_s16(vsubq_s16(vcgtq_u16(v46, v19), vcgtq_u16(v19, v46)), vcgtq_u16(v19, v69)), vcgtq_u16(v69, v19))), vaddq_s16(vsubq_s16(vsubq_s16(vcgtq_u16(v58, v47), vcgtq_u16(v47, v58)), vcgtq_u16(v47, v71)), vcgtq_u16(v71, v47)));
-      *(v32 - 96) = vbslq_s8(v43, vminq_s16(vmaxq_s16(vaddw_s8(v14, *v72.i8), 0), v44), v14);
-      *(v32 - 80) = vminq_s16(vmaxq_s16(vaddw_high_s8(v13, v72), 0), v44);
+      v32[-6] = vbslq_s8(v43, vminq_s16(vmaxq_s16(vaddw_s8(v14, *v72.i8), 0), v44), v14);
+      v32[-5] = vminq_s16(vmaxq_s16(vaddw_high_s8(v13, v72), 0), v44);
       v74 = vqtbl1q_s8(v8, vaddq_s8(v67, xmmword_27750D230));
-      *(v32 - 64) = vminq_s16(vmaxq_s16(vaddw_s8(v16, *v74.i8), 0), v44);
-      *(v32 - 48) = vminq_s16(vmaxq_s16(vaddw_high_s8(v15, v74), 0), v44);
+      v32[-4] = vminq_s16(vmaxq_s16(vaddw_s8(v16, *v74.i8), 0), v44);
+      v32[-3] = vminq_s16(vmaxq_s16(vaddw_high_s8(v15, v74), 0), v44);
       v75 = vqtbl1q_s8(v8, vaddq_s8(v70, xmmword_27750D230));
-      *(v32 - 32) = vminq_s16(vmaxq_s16(vaddw_s8(v18, *v75.i8), 0), v44);
-      *(v32 - 16) = vminq_s16(vmaxq_s16(vaddw_high_s8(v17, v75), 0), v44);
+      v32[-2] = vminq_s16(vmaxq_s16(vaddw_s8(v18, *v75.i8), 0), v44);
+      v32[-1] = vminq_s16(vmaxq_s16(vaddw_high_s8(v17, v75), 0), v44);
       v76 = vqtbl1q_s8(v8, vaddq_s8(v73, xmmword_27750D230));
       *v32 = vminq_s16(vmaxq_s16(vaddw_s8(v19, *v76.i8), 0), v44);
-      *(v32 + 16) = vbslq_s8(v12, v47, vminq_s16(vmaxq_s16(vaddw_high_s8(v47, v76), 0), v44));
-      v77 = (v32 + 32);
+      v32[1] = vbslq_s8(v12, v47, vminq_s16(vmaxq_s16(vaddw_high_s8(v47, v76), 0), v44));
+      v77 = v32[2].i32;
       --v39;
-      v32 += v38;
+      v32 = (v32 + v38);
       v42 = v45;
       v20 = v47;
       v41 = vld1q_dup_f32(v77);
@@ -1103,7 +1099,7 @@ uint64_t sub_2773DFA20(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   return result;
 }
 
-uint64_t sub_2773DFD9C(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, __int16 *a5, int16x8_t *a6, int a7)
+uint64_t sub_2773DFD9C(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, float *a5, int8x16_t *a6, unsigned int a7)
 {
   if ((a4 & 4) != 0)
   {
@@ -1132,7 +1128,7 @@ uint64_t sub_2773DFD9C(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, __int16 *
   return sub_2773DFE5C(a1 + 128, a2, a3, v16, a5, a6 + 8, a7);
 }
 
-uint64_t sub_2773DFE5C(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, __int16 *a5, int16x8_t *_X5, int a7)
+uint64_t sub_2773DFE5C(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, int8x16_t *_X5, unsigned int a7)
 {
   if (((~a4 & 5) == 0) == ((a4 & 0x10) == 0) || ((~a4 & 0xA) == 0) == ((a4 & 0x80) == 0))
   {
@@ -1163,7 +1159,7 @@ uint64_t sub_2773DFE5C(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
 
     v8.i64[1] = v9;
     v13 = (__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32;
-    *&a5[2 * v13] = *(result + 2 * v13 * a2 + 124);
+    a5[v13] = *(result + 2 * v13 * a2 + 124);
     v14 = vdupq_n_s16(~a4);
     v16 = *_X5;
     v15 = _X5[1];
@@ -1271,7 +1267,7 @@ uint64_t sub_2773DFE5C(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
       v11 = vld1q_dup_f32(v46++);
       --v43;
       v37 += v42;
-      *a5 = v23.i32[3];
+      *a5 = *&v23.i32[3];
       a5 = v46;
     }
 
@@ -1412,7 +1408,7 @@ uint64_t sub_2773E02A4(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   return result;
 }
 
-int16x8_t *sub_2773E0564(int16x8_t *a1, uint64_t a2, uint64_t *a3, int a4, float *a5, uint64_t a6, int a7)
+int8x16_t *sub_2773E0564(int8x16_t *a1, uint64_t a2, uint64_t *a3, int a4, float *a5, uint64_t a6, int a7)
 {
   if ((a4 & 4) != 0)
   {
@@ -1441,7 +1437,7 @@ int16x8_t *sub_2773E0564(int16x8_t *a1, uint64_t a2, uint64_t *a3, int a4, float
   return sub_2773E0614(a1 + 8, a2, a3, v15, a5, v16, a7);
 }
 
-int16x8_t *sub_2773E0614(int16x8_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
+int8x16_t *sub_2773E0614(int8x16_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
 {
   v7.i64[0] = *a3;
   v7.i64[1] = a3[4];
@@ -1602,7 +1598,7 @@ __int16 *sub_2773E09B0(__int16 *result, uint64_t a2, __int128 *a3, uint64_t a4, 
   return result;
 }
 
-uint64_t sub_2773E0A6C(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _WORD *a5, _OWORD *_X5, int a7)
+uint64_t sub_2773E0A6C(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _DWORD *a5, _OWORD *_X5, int a7)
 {
   if (((~a4 & 6) == 0) == ((a4 & 0x20) == 0) || ((~a4 & 9) == 0) == ((a4 & 0x40) == 0))
   {
@@ -1613,13 +1609,12 @@ uint64_t sub_2773E0A6C(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   v8 = a3[4];
   if ((a4 & 0x40) != 0)
   {
-    *&a5[2 * a7] = *(result + 2 * a7 * a2 - 4);
+    a5[a7] = *(result + 2 * a7 * a2 - 4);
   }
 
   if ((a4 & 4) == 0)
   {
-    *a5 = *(result + 60);
-    a5 += 2;
+    *a5++ = *(result + 60);
     _X5 = result;
     result += 2 * a2;
     --a7;
@@ -1643,7 +1638,7 @@ uint64_t sub_2773E0A6C(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
 
   v26 = vld1q_dup_f32(v15);
   *a5 = v24.i32[3];
-  v27 = (a5 + 2);
+  v27 = (a5 + 1);
   v28 = (result + 64);
   v29 = 2 * a2;
   v30 = ((__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32) + 1;
@@ -1693,7 +1688,7 @@ uint64_t sub_2773E0A6C(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   return result;
 }
 
-uint64_t sub_2773E0CA0(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, __int16 *a5, int16x8_t *_X5, int a7)
+uint64_t sub_2773E0CA0(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, int8x16_t *_X5, unsigned int a7)
 {
   if (((~a4 & 5) == 0) == ((a4 & 0x10) == 0) || ((~a4 & 0xA) == 0) == ((a4 & 0x80) == 0))
   {
@@ -1721,7 +1716,7 @@ uint64_t sub_2773E0CA0(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
 
   v8.i64[1] = v9;
   v13 = (__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32;
-  *&a5[2 * v13] = *(result + 2 * v13 * a2 + 60);
+  a5[v13] = *(result + 2 * v13 * a2 + 60);
   v14 = vdupq_n_s16(~a4);
   v15 = vandq_s8(v14, xmmword_27750D2A0);
   v16 = vandq_s8(v14, xmmword_27750D2B0);
@@ -1778,7 +1773,7 @@ uint64_t sub_2773E0CA0(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
     v11 = vld1q_dup_f32(v37++);
     --v32;
     v28 += v33;
-    *a5 = v19.i32[3];
+    *a5 = *&v19.i32[3];
     a5 = v37;
   }
 
@@ -1823,7 +1818,7 @@ uint16x8_t *sub_2773E0EEC(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
     v28 = v20;
     v29 = v21;
     v30 = v22;
-    _X10 = result->i64 + v25;
+    _X10 = &result->i8[v25];
     v19 = *(result + 2 * a2);
     v20 = *(&result[1] + v25);
     v21 = *(&result[2] + v25);
@@ -1849,7 +1844,7 @@ uint16x8_t *sub_2773E0EEC(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
   return result;
 }
 
-int16x8_t *sub_2773E1078(int16x8_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
+int8x16_t *sub_2773E1078(int8x16_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
 {
   v8.i64[0] = *a3;
   v8.i64[1] = a3[4];
@@ -1897,7 +1892,7 @@ int16x8_t *sub_2773E1078(int16x8_t *result, uint64_t a2, uint64_t *a3, unint64_t
   return result;
 }
 
-uint64_t sub_2773E11F0(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _WORD *a5, _OWORD *_X5, int a7)
+uint64_t sub_2773E11F0(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _DWORD *a5, _OWORD *_X5, int a7)
 {
   if (((~a4 & 6) == 0) == ((a4 & 0x20) == 0) || ((~a4 & 9) == 0) == ((a4 & 0x40) == 0))
   {
@@ -1908,13 +1903,12 @@ uint64_t sub_2773E11F0(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   v8 = a3[4];
   if ((a4 & 0x40) != 0)
   {
-    *&a5[2 * a7] = *(result + 2 * a7 * a2 - 4);
+    a5[a7] = *(result + 2 * a7 * a2 - 4);
   }
 
   if ((a4 & 4) == 0)
   {
-    *a5 = *(result + 28);
-    a5 += 2;
+    *a5++ = *(result + 28);
     _X5 = result;
     result += 2 * a2;
     --a7;
@@ -1934,7 +1928,7 @@ uint64_t sub_2773E11F0(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
 
   v22 = vld1q_dup_f32(v18);
   *a5 = v20.i32[3];
-  v23 = (a5 + 2);
+  v23 = (a5 + 1);
   v24 = 2 * a2;
   v25 = ((__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32) + 1;
   v26 = vceqzq_s16(vandq_s8(v9, xmmword_27750D2B0));
@@ -1973,7 +1967,7 @@ uint64_t sub_2773E11F0(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   return result;
 }
 
-uint64_t sub_2773E139C(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, __int16 *a5, int8x16_t *_X5, int a7)
+uint64_t sub_2773E139C(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, int8x16_t *_X5, unsigned int a7)
 {
   if (((~a4 & 5) == 0) == ((a4 & 0x10) == 0) || ((~a4 & 0xA) == 0) == ((a4 & 0x80) == 0))
   {
@@ -2001,7 +1995,7 @@ uint64_t sub_2773E139C(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
 
   v8.i64[1] = v9;
   v13 = (__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32;
-  *&a5[2 * v13] = *(result + 2 * v13 * a2 + 28);
+  a5[v13] = *(result + 2 * v13 * a2 + 28);
   v14 = vdupq_n_s16(~a4);
   v15 = vandq_s8(v14, xmmword_27750D2A0);
   v16 = vandq_s8(v14, xmmword_27750D2B0);
@@ -2042,7 +2036,7 @@ uint64_t sub_2773E139C(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
     v11 = vld1q_dup_f32(v32++);
     --v27;
     result += v28;
-    *a5 = v34.i32[3];
+    *a5 = *&v34.i32[3];
     v17 = v35;
     v18 = v34;
     a5 = v32;
@@ -2083,7 +2077,7 @@ uint16x8_t *sub_2773E1558(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
   {
     v23 = v17;
     v24 = v18;
-    _X10 = result->i64 + v20;
+    _X10 = &result->i8[v20];
     v17 = *(result + 2 * a2);
     v18 = *(&result[1] + v20);
     __asm { PRFM            #0, [X10,#0x20] }
@@ -2102,7 +2096,7 @@ uint16x8_t *sub_2773E1558(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
   return result;
 }
 
-int16x8_t *sub_2773E1664(int16x8_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
+int8x16_t *sub_2773E1664(int8x16_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
 {
   v8.i64[0] = *a3;
   v8.i64[1] = a3[4];
@@ -2140,7 +2134,7 @@ int16x8_t *sub_2773E1664(int16x8_t *result, uint64_t a2, uint64_t *a3, unint64_t
   return result;
 }
 
-uint64_t sub_2773E1764(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _WORD *a5, _OWORD *_X5, int a7)
+uint64_t sub_2773E1764(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _DWORD *a5, _OWORD *_X5, int a7)
 {
   if (((~a4 & 6) == 0) == ((a4 & 0x20) == 0) || ((~a4 & 9) == 0) == ((a4 & 0x40) == 0))
   {
@@ -2151,13 +2145,12 @@ uint64_t sub_2773E1764(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   v8 = a3[4];
   if ((a4 & 0x40) != 0)
   {
-    *&a5[2 * a7] = *(result + 2 * a7 * a2 - 4);
+    a5[a7] = *(result + 2 * a7 * a2 - 4);
   }
 
   if ((a4 & 4) == 0)
   {
-    *a5 = *(result + 12);
-    a5 += 2;
+    *a5++ = *(result + 12);
     _X5 = result;
     result += 2 * a2;
     --a7;
@@ -2174,7 +2167,7 @@ uint64_t sub_2773E1764(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
 
   v19 = vld1q_dup_f32(v10);
   *a5 = HIDWORD(*result);
-  v20 = (a5 + 2);
+  v20 = (a5 + 1);
   v21 = 2 * a2;
   v22 = ((__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32) + 1;
   v23 = vceqzq_s16(vandq_s8(vdupq_n_s16(~a4), xmmword_27750D2C0));
@@ -2205,7 +2198,7 @@ uint64_t sub_2773E1764(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   return result;
 }
 
-uint64_t sub_2773E18D0(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, __int16 *a5, unsigned __int16 *a6, int a7)
+uint64_t sub_2773E18D0(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, int8x16_t *a6, unsigned int a7)
 {
   if (((~a4 & 5) == 0) == ((a4 & 0x10) == 0) || ((~a4 & 0xA) == 0) == ((a4 & 0x80) == 0))
   {
@@ -2216,7 +2209,7 @@ uint64_t sub_2773E18D0(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
   v9 = a3[4];
   if ((a4 & 4) != 0)
   {
-    v12 = (a6 - 2);
+    v12 = &a6[-1].i32[3];
     v11 = vld1q_dup_f32(v12);
   }
 
@@ -2233,9 +2226,9 @@ uint64_t sub_2773E18D0(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
 
   v8.i64[1] = v9;
   v13 = (__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32;
-  *&a5[2 * v13] = *(result + 2 * v13 * a2 + 12);
+  a5[v13] = *(result + 2 * v13 * a2 + 12);
   v15 = *a6;
-  _X5 = a6 + 8;
+  _X5 = a6 + 1;
   v16 = v15;
   __asm { PRFM            #0, [X5] }
 
@@ -2263,7 +2256,7 @@ uint64_t sub_2773E18D0(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
     v11 = vld1q_dup_f32(v29++);
     --v26;
     result += v25;
-    *a5 = v23.i32[3];
+    *a5 = *&v23.i32[3];
     v16 = v23;
     v23 = v31;
     a5 = v29;
@@ -2303,7 +2296,7 @@ uint16x8_t *sub_2773E1A4C(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
   v23.i64[1] = 0xFE00FE00FE00FE00;
   do
   {
-    _X11 = result[1].i64 + v21;
+    _X11 = &result[1].i8[v21];
     v25 = *(result + 2 * a2);
     __asm { PRFM            #0, [X11] }
 
@@ -2443,7 +2436,7 @@ __int16 *sub_2773E1C5C(__int16 *result, uint64_t a2, __int128 *a3, uint64_t a4, 
   return result;
 }
 
-uint64_t sub_2773E1E4C(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, _WORD *a5, _OWORD *a6, int a7)
+int8x16_t *sub_2773E1E4C(int8x16_t *a1, uint64_t a2, uint64_t *a3, int a4, _DWORD *a5, int8x16_t *a6, int a7)
 {
   if ((a4 & 4) != 0)
   {
@@ -2469,15 +2462,15 @@ uint64_t sub_2773E1E4C(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, _WORD *a5
   v16 = a4 & 0xFFFFFFAE | v15 & 0xFFFFFFBF | (((a4 & 8) != 0) << 6);
   sub_2773E1F0C(a1, a2, a3, v14 & 0xFFFFFF7F | (((a4 & 8) != 0) << 7), a5, a6, a7);
 
-  return sub_2773E1F0C(a1 + 128, a2, a3, v16, a5, a6 + 8, a7);
+  return sub_2773E1F0C(a1 + 8, a2, a3, v16, a5, a6 + 8, a7);
 }
 
-uint64_t sub_2773E1F0C(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _WORD *a5, _OWORD *_X5, int a7)
+int8x16_t *sub_2773E1F0C(int8x16_t *result, uint64_t a2, uint64_t *a3, unsigned int a4, _DWORD *a5, int8x16_t *_X5, int a7)
 {
   if (((~a4 & 6) == 0) == ((a4 & 0x20) == 0) || ((~a4 & 9) == 0) == ((a4 & 0x40) == 0))
   {
 
-    return sub_2774ACC7C(result, a2, a3, a4, a5, _X5, a7);
+    return sub_2774ACC7C(result->i8, a2, a3, a4, a5, _X5, a7);
   }
 
   else
@@ -2486,15 +2479,14 @@ uint64_t sub_2773E1F0C(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
     v9 = a3[4];
     if ((a4 & 0x40) != 0)
     {
-      *&a5[2 * a7] = *(result + 2 * a7 * a2 - 4);
+      a5[a7] = *(&result->i32[-1] + 2 * a7 * a2);
     }
 
     if ((a4 & 4) == 0)
     {
-      *a5 = *(result + 124);
-      a5 += 2;
+      *a5++ = result[7].i32[3];
       _X5 = result;
-      result += 2 * a2;
+      result = (result + 2 * a2);
       --a7;
     }
 
@@ -2503,14 +2495,14 @@ uint64_t sub_2773E1F0C(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
     v11 = vandq_s8(v10, xmmword_27750D2A0);
     v12 = vtstq_s16(v10, xmmword_27750D2B0);
     v14 = *_X5;
-    v13 = *(_X5 + 1);
-    v16 = *(_X5 + 2);
-    v15 = *(_X5 + 3);
-    v18 = *(_X5 + 4);
-    v17 = *(_X5 + 5);
-    v19 = *(_X5 + 6);
-    v20 = *(_X5 + 7);
-    v21 = (_X5 + 8);
+    v13 = _X5[1];
+    v16 = _X5[2];
+    v15 = _X5[3];
+    v18 = _X5[4];
+    v17 = _X5[5];
+    v19 = _X5[6];
+    v20 = _X5[7];
+    i32 = _X5[8].i32;
     __asm
     {
       PRFM            #0, [X5,#0x80]
@@ -2518,23 +2510,23 @@ uint64_t sub_2773E1F0C(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
     }
 
     v28 = *result;
-    v29 = *(result + 16);
-    v30 = *(result + 32);
-    v31 = *(result + 48);
-    v32 = result + 96;
-    v33 = *(result + 96);
-    v34 = *(result + 64);
-    v35 = *(result + 80);
-    v36 = *(result + 112);
+    v29 = result[1];
+    v30 = result[2];
+    v31 = result[3];
+    v32 = result + 6;
+    v33 = result[6];
+    v34 = result[4];
+    v35 = result[5];
+    v36 = result[7];
     __asm { PRFM            #0, [X0,#0x80] }
 
     v38 = 2 * a2;
     v39 = ((__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32) + 1;
     __asm { PRFM            #0, [X0,#0xC0] }
 
-    v41 = vld1q_dup_f32(v21);
+    v41 = vld1q_dup_f32(i32);
     *a5 = v36.i32[3];
-    v42 = (a5 + 2);
+    v42 = (a5 + 1);
     v43 = vceqzq_s16(v11);
     v44.i64[0] = 0xFC00FC00FC00FC00;
     v44.i64[1] = 0xFC00FC00FC00FC00;
@@ -2556,15 +2548,15 @@ uint64_t sub_2773E1F0C(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
       v53 = vextq_s8(v14, v13, 4uLL);
       v13 = v29;
       v14 = v28;
-      _X12 = v32 + v38;
-      v28 = *(v32 + v38 - 96);
-      v29 = *(v32 + v38 - 80);
-      v30 = *(v32 + v38 - 64);
-      v31 = *(v32 + v38 - 48);
-      v34 = *(v32 + v38 - 32);
-      v35 = *(v32 + v38 - 16);
+      _X12 = v32->i64 + v38;
+      v28 = *(&v32[-6] + v38);
+      v29 = *(&v32[-5] + v38);
+      v30 = *(&v32[-4] + v38);
+      v31 = *(&v32[-3] + v38);
+      v34 = *(&v32[-2] + v38);
+      v35 = *(&v32[-1] + v38);
       v33 = *(v32 + 2 * a2);
-      v36 = *(v32 + v38 + 16);
+      v36 = *(&v32[1] + v38);
       __asm
       {
         PRFM            #0, [X12,#0x20]
@@ -2589,20 +2581,20 @@ uint64_t sub_2773E1F0C(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
       *v42 = *&v36.i32[3];
       v72 = vqtbl1q_s8(v8, vaddq_s8(v63, xmmword_27750D230));
       v73 = vqmovn_high_s16(vqmovn_s16(vaddq_s16(vsubq_s16(vsubq_s16(vcgtq_u16(v46, v19), vcgtq_u16(v19, v46)), vcgtq_u16(v19, v69)), vcgtq_u16(v69, v19))), vaddq_s16(vsubq_s16(vsubq_s16(vcgtq_u16(v58, v47), vcgtq_u16(v47, v58)), vcgtq_u16(v47, v71)), vcgtq_u16(v71, v47)));
-      *(v32 - 96) = vbslq_s8(v43, vminq_s16(vmaxq_s16(vaddw_s8(v14, *v72.i8), 0), v44), v14);
-      *(v32 - 80) = vminq_s16(vmaxq_s16(vaddw_high_s8(v13, v72), 0), v44);
+      v32[-6] = vbslq_s8(v43, vminq_s16(vmaxq_s16(vaddw_s8(v14, *v72.i8), 0), v44), v14);
+      v32[-5] = vminq_s16(vmaxq_s16(vaddw_high_s8(v13, v72), 0), v44);
       v74 = vqtbl1q_s8(v8, vaddq_s8(v67, xmmword_27750D230));
-      *(v32 - 64) = vminq_s16(vmaxq_s16(vaddw_s8(v16, *v74.i8), 0), v44);
-      *(v32 - 48) = vminq_s16(vmaxq_s16(vaddw_high_s8(v15, v74), 0), v44);
+      v32[-4] = vminq_s16(vmaxq_s16(vaddw_s8(v16, *v74.i8), 0), v44);
+      v32[-3] = vminq_s16(vmaxq_s16(vaddw_high_s8(v15, v74), 0), v44);
       v75 = vqtbl1q_s8(v8, vaddq_s8(v70, xmmword_27750D230));
-      *(v32 - 32) = vminq_s16(vmaxq_s16(vaddw_s8(v18, *v75.i8), 0), v44);
-      *(v32 - 16) = vminq_s16(vmaxq_s16(vaddw_high_s8(v17, v75), 0), v44);
+      v32[-2] = vminq_s16(vmaxq_s16(vaddw_s8(v18, *v75.i8), 0), v44);
+      v32[-1] = vminq_s16(vmaxq_s16(vaddw_high_s8(v17, v75), 0), v44);
       v76 = vqtbl1q_s8(v8, vaddq_s8(v73, xmmword_27750D230));
       *v32 = vminq_s16(vmaxq_s16(vaddw_s8(v19, *v76.i8), 0), v44);
-      *(v32 + 16) = vbslq_s8(v12, v47, vminq_s16(vmaxq_s16(vaddw_high_s8(v47, v76), 0), v44));
-      v77 = (v32 + 32);
+      v32[1] = vbslq_s8(v12, v47, vminq_s16(vmaxq_s16(vaddw_high_s8(v47, v76), 0), v44));
+      v77 = v32[2].i32;
       --v39;
-      v32 += v38;
+      v32 = (v32 + v38);
       v42 = v45;
       v20 = v47;
       v41 = vld1q_dup_f32(v77);
@@ -2614,7 +2606,7 @@ uint64_t sub_2773E1F0C(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   return result;
 }
 
-uint64_t sub_2773E2288(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, __int16 *a5, int16x8_t *a6, int a7)
+uint64_t sub_2773E2288(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, float *a5, int8x16_t *a6, unsigned int a7)
 {
   if ((a4 & 4) != 0)
   {
@@ -2643,7 +2635,7 @@ uint64_t sub_2773E2288(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, __int16 *
   return sub_2773E2348(a1 + 128, a2, a3, v16, a5, a6 + 8, a7);
 }
 
-uint64_t sub_2773E2348(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, __int16 *a5, int16x8_t *_X5, int a7)
+uint64_t sub_2773E2348(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, int8x16_t *_X5, unsigned int a7)
 {
   if (((~a4 & 5) == 0) == ((a4 & 0x10) == 0) || ((~a4 & 0xA) == 0) == ((a4 & 0x80) == 0))
   {
@@ -2674,7 +2666,7 @@ uint64_t sub_2773E2348(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
 
     v8.i64[1] = v9;
     v13 = (__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32;
-    *&a5[2 * v13] = *(result + 2 * v13 * a2 + 124);
+    a5[v13] = *(result + 2 * v13 * a2 + 124);
     v14 = vdupq_n_s16(~a4);
     v16 = *_X5;
     v15 = _X5[1];
@@ -2782,7 +2774,7 @@ uint64_t sub_2773E2348(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
       v11 = vld1q_dup_f32(v46++);
       --v43;
       v37 += v42;
-      *a5 = v23.i32[3];
+      *a5 = *&v23.i32[3];
       a5 = v46;
     }
 
@@ -2923,7 +2915,7 @@ uint64_t sub_2773E2790(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   return result;
 }
 
-int16x8_t *sub_2773E2A50(int16x8_t *a1, uint64_t a2, uint64_t *a3, int a4, float *a5, uint64_t a6, int a7)
+int8x16_t *sub_2773E2A50(int8x16_t *a1, uint64_t a2, uint64_t *a3, int a4, float *a5, uint64_t a6, int a7)
 {
   if ((a4 & 4) != 0)
   {
@@ -2952,7 +2944,7 @@ int16x8_t *sub_2773E2A50(int16x8_t *a1, uint64_t a2, uint64_t *a3, int a4, float
   return sub_2773E2B00(a1 + 8, a2, a3, v15, a5, v16, a7);
 }
 
-int16x8_t *sub_2773E2B00(int16x8_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
+int8x16_t *sub_2773E2B00(int8x16_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
 {
   v7.i64[0] = *a3;
   v7.i64[1] = a3[4];
@@ -3113,7 +3105,7 @@ __int16 *sub_2773E2E9C(__int16 *result, uint64_t a2, __int128 *a3, uint64_t a4, 
   return result;
 }
 
-uint64_t sub_2773E2F58(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _WORD *a5, _OWORD *_X5, int a7)
+uint64_t sub_2773E2F58(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _DWORD *a5, _OWORD *_X5, int a7)
 {
   if (((~a4 & 6) == 0) == ((a4 & 0x20) == 0) || ((~a4 & 9) == 0) == ((a4 & 0x40) == 0))
   {
@@ -3124,13 +3116,12 @@ uint64_t sub_2773E2F58(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   v8 = a3[4];
   if ((a4 & 0x40) != 0)
   {
-    *&a5[2 * a7] = *(result + 2 * a7 * a2 - 4);
+    a5[a7] = *(result + 2 * a7 * a2 - 4);
   }
 
   if ((a4 & 4) == 0)
   {
-    *a5 = *(result + 60);
-    a5 += 2;
+    *a5++ = *(result + 60);
     _X5 = result;
     result += 2 * a2;
     --a7;
@@ -3154,7 +3145,7 @@ uint64_t sub_2773E2F58(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
 
   v26 = vld1q_dup_f32(v15);
   *a5 = v24.i32[3];
-  v27 = (a5 + 2);
+  v27 = (a5 + 1);
   v28 = (result + 64);
   v29 = 2 * a2;
   v30 = ((__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32) + 1;
@@ -3204,7 +3195,7 @@ uint64_t sub_2773E2F58(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   return result;
 }
 
-uint64_t sub_2773E318C(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, __int16 *a5, int16x8_t *_X5, int a7)
+uint64_t sub_2773E318C(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, int8x16_t *_X5, unsigned int a7)
 {
   if (((~a4 & 5) == 0) == ((a4 & 0x10) == 0) || ((~a4 & 0xA) == 0) == ((a4 & 0x80) == 0))
   {
@@ -3232,7 +3223,7 @@ uint64_t sub_2773E318C(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
 
   v8.i64[1] = v9;
   v13 = (__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32;
-  *&a5[2 * v13] = *(result + 2 * v13 * a2 + 60);
+  a5[v13] = *(result + 2 * v13 * a2 + 60);
   v14 = vdupq_n_s16(~a4);
   v15 = vandq_s8(v14, xmmword_27750D2A0);
   v16 = vandq_s8(v14, xmmword_27750D2B0);
@@ -3289,7 +3280,7 @@ uint64_t sub_2773E318C(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
     v11 = vld1q_dup_f32(v37++);
     --v32;
     v28 += v33;
-    *a5 = v19.i32[3];
+    *a5 = *&v19.i32[3];
     a5 = v37;
   }
 
@@ -3334,7 +3325,7 @@ uint16x8_t *sub_2773E33D8(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
     v28 = v20;
     v29 = v21;
     v30 = v22;
-    _X10 = result->i64 + v25;
+    _X10 = &result->i8[v25];
     v19 = *(result + 2 * a2);
     v20 = *(&result[1] + v25);
     v21 = *(&result[2] + v25);
@@ -3360,7 +3351,7 @@ uint16x8_t *sub_2773E33D8(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
   return result;
 }
 
-int16x8_t *sub_2773E3564(int16x8_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
+int8x16_t *sub_2773E3564(int8x16_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
 {
   v8.i64[0] = *a3;
   v8.i64[1] = a3[4];
@@ -3408,7 +3399,7 @@ int16x8_t *sub_2773E3564(int16x8_t *result, uint64_t a2, uint64_t *a3, unint64_t
   return result;
 }
 
-uint64_t sub_2773E36DC(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _WORD *a5, _OWORD *_X5, int a7)
+uint64_t sub_2773E36DC(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _DWORD *a5, _OWORD *_X5, int a7)
 {
   if (((~a4 & 6) == 0) == ((a4 & 0x20) == 0) || ((~a4 & 9) == 0) == ((a4 & 0x40) == 0))
   {
@@ -3419,13 +3410,12 @@ uint64_t sub_2773E36DC(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   v8 = a3[4];
   if ((a4 & 0x40) != 0)
   {
-    *&a5[2 * a7] = *(result + 2 * a7 * a2 - 4);
+    a5[a7] = *(result + 2 * a7 * a2 - 4);
   }
 
   if ((a4 & 4) == 0)
   {
-    *a5 = *(result + 28);
-    a5 += 2;
+    *a5++ = *(result + 28);
     _X5 = result;
     result += 2 * a2;
     --a7;
@@ -3445,7 +3435,7 @@ uint64_t sub_2773E36DC(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
 
   v22 = vld1q_dup_f32(v18);
   *a5 = v20.i32[3];
-  v23 = (a5 + 2);
+  v23 = (a5 + 1);
   v24 = 2 * a2;
   v25 = ((__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32) + 1;
   v26 = vceqzq_s16(vandq_s8(v9, xmmword_27750D2B0));
@@ -3484,7 +3474,7 @@ uint64_t sub_2773E36DC(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   return result;
 }
 
-uint64_t sub_2773E3888(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, __int16 *a5, int8x16_t *_X5, int a7)
+uint64_t sub_2773E3888(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, int8x16_t *_X5, unsigned int a7)
 {
   if (((~a4 & 5) == 0) == ((a4 & 0x10) == 0) || ((~a4 & 0xA) == 0) == ((a4 & 0x80) == 0))
   {
@@ -3512,7 +3502,7 @@ uint64_t sub_2773E3888(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
 
   v8.i64[1] = v9;
   v13 = (__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32;
-  *&a5[2 * v13] = *(result + 2 * v13 * a2 + 28);
+  a5[v13] = *(result + 2 * v13 * a2 + 28);
   v14 = vdupq_n_s16(~a4);
   v15 = vandq_s8(v14, xmmword_27750D2A0);
   v16 = vandq_s8(v14, xmmword_27750D2B0);
@@ -3553,7 +3543,7 @@ uint64_t sub_2773E3888(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
     v11 = vld1q_dup_f32(v32++);
     --v27;
     result += v28;
-    *a5 = v34.i32[3];
+    *a5 = *&v34.i32[3];
     v17 = v35;
     v18 = v34;
     a5 = v32;
@@ -3594,7 +3584,7 @@ uint16x8_t *sub_2773E3A44(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
   {
     v23 = v17;
     v24 = v18;
-    _X10 = result->i64 + v20;
+    _X10 = &result->i8[v20];
     v17 = *(result + 2 * a2);
     v18 = *(&result[1] + v20);
     __asm { PRFM            #0, [X10,#0x20] }
@@ -3613,7 +3603,7 @@ uint16x8_t *sub_2773E3A44(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
   return result;
 }
 
-int16x8_t *sub_2773E3B50(int16x8_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
+int8x16_t *sub_2773E3B50(int8x16_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
 {
   v8.i64[0] = *a3;
   v8.i64[1] = a3[4];
@@ -3651,7 +3641,7 @@ int16x8_t *sub_2773E3B50(int16x8_t *result, uint64_t a2, uint64_t *a3, unint64_t
   return result;
 }
 
-uint64_t sub_2773E3C50(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _WORD *a5, _OWORD *_X5, int a7)
+uint64_t sub_2773E3C50(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _DWORD *a5, _OWORD *_X5, int a7)
 {
   if (((~a4 & 6) == 0) == ((a4 & 0x20) == 0) || ((~a4 & 9) == 0) == ((a4 & 0x40) == 0))
   {
@@ -3662,13 +3652,12 @@ uint64_t sub_2773E3C50(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   v8 = a3[4];
   if ((a4 & 0x40) != 0)
   {
-    *&a5[2 * a7] = *(result + 2 * a7 * a2 - 4);
+    a5[a7] = *(result + 2 * a7 * a2 - 4);
   }
 
   if ((a4 & 4) == 0)
   {
-    *a5 = *(result + 12);
-    a5 += 2;
+    *a5++ = *(result + 12);
     _X5 = result;
     result += 2 * a2;
     --a7;
@@ -3685,7 +3674,7 @@ uint64_t sub_2773E3C50(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
 
   v19 = vld1q_dup_f32(v10);
   *a5 = HIDWORD(*result);
-  v20 = (a5 + 2);
+  v20 = (a5 + 1);
   v21 = 2 * a2;
   v22 = ((__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32) + 1;
   v23 = vceqzq_s16(vandq_s8(vdupq_n_s16(~a4), xmmword_27750D2C0));
@@ -3716,7 +3705,7 @@ uint64_t sub_2773E3C50(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   return result;
 }
 
-uint64_t sub_2773E3DBC(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, __int16 *a5, unsigned __int16 *a6, int a7)
+uint64_t sub_2773E3DBC(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, int8x16_t *a6, unsigned int a7)
 {
   if (((~a4 & 5) == 0) == ((a4 & 0x10) == 0) || ((~a4 & 0xA) == 0) == ((a4 & 0x80) == 0))
   {
@@ -3727,7 +3716,7 @@ uint64_t sub_2773E3DBC(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
   v9 = a3[4];
   if ((a4 & 4) != 0)
   {
-    v12 = (a6 - 2);
+    v12 = &a6[-1].i32[3];
     v11 = vld1q_dup_f32(v12);
   }
 
@@ -3744,9 +3733,9 @@ uint64_t sub_2773E3DBC(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
 
   v8.i64[1] = v9;
   v13 = (__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32;
-  *&a5[2 * v13] = *(result + 2 * v13 * a2 + 12);
+  a5[v13] = *(result + 2 * v13 * a2 + 12);
   v15 = *a6;
-  _X5 = a6 + 8;
+  _X5 = a6 + 1;
   v16 = v15;
   __asm { PRFM            #0, [X5] }
 
@@ -3774,7 +3763,7 @@ uint64_t sub_2773E3DBC(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
     v11 = vld1q_dup_f32(v29++);
     --v26;
     result += v25;
-    *a5 = v23.i32[3];
+    *a5 = *&v23.i32[3];
     v16 = v23;
     v23 = v31;
     a5 = v29;
@@ -3814,7 +3803,7 @@ uint16x8_t *sub_2773E3F38(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
   v23.i64[1] = 0xFC00FC00FC00FC00;
   do
   {
-    _X11 = result[1].i64 + v21;
+    _X11 = &result[1].i8[v21];
     v25 = *(result + 2 * a2);
     __asm { PRFM            #0, [X11] }
 
@@ -3954,7 +3943,7 @@ __int16 *sub_2773E4148(__int16 *result, uint64_t a2, __int128 *a3, uint64_t a4, 
   return result;
 }
 
-uint64_t sub_2773E4338(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, _WORD *a5, _OWORD *a6, int a7)
+int8x16_t *sub_2773E4338(int8x16_t *a1, uint64_t a2, uint64_t *a3, int a4, _DWORD *a5, int8x16_t *a6, int a7)
 {
   if ((a4 & 4) != 0)
   {
@@ -3980,15 +3969,15 @@ uint64_t sub_2773E4338(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, _WORD *a5
   v16 = a4 & 0xFFFFFFAE | v15 & 0xFFFFFFBF | (((a4 & 8) != 0) << 6);
   sub_2773E43F8(a1, a2, a3, v14 & 0xFFFFFF7F | (((a4 & 8) != 0) << 7), a5, a6, a7);
 
-  return sub_2773E43F8(a1 + 128, a2, a3, v16, a5, a6 + 8, a7);
+  return sub_2773E43F8(a1 + 8, a2, a3, v16, a5, a6 + 8, a7);
 }
 
-uint64_t sub_2773E43F8(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _WORD *a5, _OWORD *_X5, int a7)
+int8x16_t *sub_2773E43F8(int8x16_t *result, uint64_t a2, uint64_t *a3, unsigned int a4, _DWORD *a5, int8x16_t *_X5, int a7)
 {
   if (((~a4 & 6) == 0) == ((a4 & 0x20) == 0) || ((~a4 & 9) == 0) == ((a4 & 0x40) == 0))
   {
 
-    return sub_2774AB1FC(result, a2, a3, a4, a5, _X5, a7);
+    return sub_2774AB1FC(result->i8, a2, a3, a4, a5, _X5, a7);
   }
 
   else
@@ -3997,15 +3986,14 @@ uint64_t sub_2773E43F8(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
     v9 = a3[4];
     if ((a4 & 0x40) != 0)
     {
-      *&a5[2 * a7] = *(result + 2 * a7 * a2 - 4);
+      a5[a7] = *(&result->i32[-1] + 2 * a7 * a2);
     }
 
     if ((a4 & 4) == 0)
     {
-      *a5 = *(result + 124);
-      a5 += 2;
+      *a5++ = result[7].i32[3];
       _X5 = result;
-      result += 2 * a2;
+      result = (result + 2 * a2);
       --a7;
     }
 
@@ -4014,14 +4002,14 @@ uint64_t sub_2773E43F8(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
     v11 = vandq_s8(v10, xmmword_27750D2A0);
     v12 = vtstq_s16(v10, xmmword_27750D2B0);
     v14 = *_X5;
-    v13 = *(_X5 + 1);
-    v16 = *(_X5 + 2);
-    v15 = *(_X5 + 3);
-    v18 = *(_X5 + 4);
-    v17 = *(_X5 + 5);
-    v19 = *(_X5 + 6);
-    v20 = *(_X5 + 7);
-    v21 = (_X5 + 8);
+    v13 = _X5[1];
+    v16 = _X5[2];
+    v15 = _X5[3];
+    v18 = _X5[4];
+    v17 = _X5[5];
+    v19 = _X5[6];
+    v20 = _X5[7];
+    i32 = _X5[8].i32;
     __asm
     {
       PRFM            #0, [X5,#0x80]
@@ -4029,23 +4017,23 @@ uint64_t sub_2773E43F8(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
     }
 
     v28 = *result;
-    v29 = *(result + 16);
-    v30 = *(result + 32);
-    v31 = *(result + 48);
-    v32 = result + 96;
-    v33 = *(result + 96);
-    v34 = *(result + 64);
-    v35 = *(result + 80);
-    v36 = *(result + 112);
+    v29 = result[1];
+    v30 = result[2];
+    v31 = result[3];
+    v32 = result + 6;
+    v33 = result[6];
+    v34 = result[4];
+    v35 = result[5];
+    v36 = result[7];
     __asm { PRFM            #0, [X0,#0x80] }
 
     v38 = 2 * a2;
     v39 = ((__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32) + 1;
     __asm { PRFM            #0, [X0,#0xC0] }
 
-    v41 = vld1q_dup_f32(v21);
+    v41 = vld1q_dup_f32(i32);
     *a5 = v36.i32[3];
-    v42 = (a5 + 2);
+    v42 = (a5 + 1);
     v43 = vceqzq_s16(v11);
     v44.i64[0] = 0xF800F800F800F800;
     v44.i64[1] = 0xF800F800F800F800;
@@ -4067,15 +4055,15 @@ uint64_t sub_2773E43F8(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
       v53 = vextq_s8(v14, v13, 4uLL);
       v13 = v29;
       v14 = v28;
-      _X12 = v32 + v38;
-      v28 = *(v32 + v38 - 96);
-      v29 = *(v32 + v38 - 80);
-      v30 = *(v32 + v38 - 64);
-      v31 = *(v32 + v38 - 48);
-      v34 = *(v32 + v38 - 32);
-      v35 = *(v32 + v38 - 16);
+      _X12 = v32->i64 + v38;
+      v28 = *(&v32[-6] + v38);
+      v29 = *(&v32[-5] + v38);
+      v30 = *(&v32[-4] + v38);
+      v31 = *(&v32[-3] + v38);
+      v34 = *(&v32[-2] + v38);
+      v35 = *(&v32[-1] + v38);
       v33 = *(v32 + 2 * a2);
-      v36 = *(v32 + v38 + 16);
+      v36 = *(&v32[1] + v38);
       __asm
       {
         PRFM            #0, [X12,#0x20]
@@ -4100,20 +4088,20 @@ uint64_t sub_2773E43F8(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
       *v42 = *&v36.i32[3];
       v72 = vqtbl1q_s8(v8, vaddq_s8(v63, xmmword_27750D230));
       v73 = vqmovn_high_s16(vqmovn_s16(vaddq_s16(vsubq_s16(vsubq_s16(vcgtq_u16(v46, v19), vcgtq_u16(v19, v46)), vcgtq_u16(v19, v69)), vcgtq_u16(v69, v19))), vaddq_s16(vsubq_s16(vsubq_s16(vcgtq_u16(v58, v47), vcgtq_u16(v47, v58)), vcgtq_u16(v47, v71)), vcgtq_u16(v71, v47)));
-      *(v32 - 96) = vbslq_s8(v43, vminq_s16(vmaxq_s16(vaddw_s8(v14, *v72.i8), 0), v44), v14);
-      *(v32 - 80) = vminq_s16(vmaxq_s16(vaddw_high_s8(v13, v72), 0), v44);
+      v32[-6] = vbslq_s8(v43, vminq_s16(vmaxq_s16(vaddw_s8(v14, *v72.i8), 0), v44), v14);
+      v32[-5] = vminq_s16(vmaxq_s16(vaddw_high_s8(v13, v72), 0), v44);
       v74 = vqtbl1q_s8(v8, vaddq_s8(v67, xmmword_27750D230));
-      *(v32 - 64) = vminq_s16(vmaxq_s16(vaddw_s8(v16, *v74.i8), 0), v44);
-      *(v32 - 48) = vminq_s16(vmaxq_s16(vaddw_high_s8(v15, v74), 0), v44);
+      v32[-4] = vminq_s16(vmaxq_s16(vaddw_s8(v16, *v74.i8), 0), v44);
+      v32[-3] = vminq_s16(vmaxq_s16(vaddw_high_s8(v15, v74), 0), v44);
       v75 = vqtbl1q_s8(v8, vaddq_s8(v70, xmmword_27750D230));
-      *(v32 - 32) = vminq_s16(vmaxq_s16(vaddw_s8(v18, *v75.i8), 0), v44);
-      *(v32 - 16) = vminq_s16(vmaxq_s16(vaddw_high_s8(v17, v75), 0), v44);
+      v32[-2] = vminq_s16(vmaxq_s16(vaddw_s8(v18, *v75.i8), 0), v44);
+      v32[-1] = vminq_s16(vmaxq_s16(vaddw_high_s8(v17, v75), 0), v44);
       v76 = vqtbl1q_s8(v8, vaddq_s8(v73, xmmword_27750D230));
       *v32 = vminq_s16(vmaxq_s16(vaddw_s8(v19, *v76.i8), 0), v44);
-      *(v32 + 16) = vbslq_s8(v12, v47, vminq_s16(vmaxq_s16(vaddw_high_s8(v47, v76), 0), v44));
-      v77 = (v32 + 32);
+      v32[1] = vbslq_s8(v12, v47, vminq_s16(vmaxq_s16(vaddw_high_s8(v47, v76), 0), v44));
+      v77 = v32[2].i32;
       --v39;
-      v32 += v38;
+      v32 = (v32 + v38);
       v42 = v45;
       v20 = v47;
       v41 = vld1q_dup_f32(v77);
@@ -4125,7 +4113,7 @@ uint64_t sub_2773E43F8(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   return result;
 }
 
-uint64_t sub_2773E4774(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, __int16 *a5, int16x8_t *a6, int a7)
+uint64_t sub_2773E4774(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, float *a5, int8x16_t *a6, unsigned int a7)
 {
   if ((a4 & 4) != 0)
   {
@@ -4154,7 +4142,7 @@ uint64_t sub_2773E4774(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, __int16 *
   return sub_2773E4834(a1 + 128, a2, a3, v16, a5, a6 + 8, a7);
 }
 
-uint64_t sub_2773E4834(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, __int16 *a5, int16x8_t *_X5, int a7)
+uint64_t sub_2773E4834(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, int8x16_t *_X5, unsigned int a7)
 {
   if (((~a4 & 5) == 0) == ((a4 & 0x10) == 0) || ((~a4 & 0xA) == 0) == ((a4 & 0x80) == 0))
   {
@@ -4185,7 +4173,7 @@ uint64_t sub_2773E4834(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
 
     v8.i64[1] = v9;
     v13 = (__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32;
-    *&a5[2 * v13] = *(result + 2 * v13 * a2 + 124);
+    a5[v13] = *(result + 2 * v13 * a2 + 124);
     v14 = vdupq_n_s16(~a4);
     v16 = *_X5;
     v15 = _X5[1];
@@ -4293,7 +4281,7 @@ uint64_t sub_2773E4834(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
       v11 = vld1q_dup_f32(v46++);
       --v43;
       v37 += v42;
-      *a5 = v23.i32[3];
+      *a5 = *&v23.i32[3];
       a5 = v46;
     }
 
@@ -4434,7 +4422,7 @@ uint64_t sub_2773E4C7C(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   return result;
 }
 
-int16x8_t *sub_2773E4F3C(int16x8_t *a1, uint64_t a2, uint64_t *a3, int a4, float *a5, uint64_t a6, int a7)
+int8x16_t *sub_2773E4F3C(int8x16_t *a1, uint64_t a2, uint64_t *a3, int a4, float *a5, uint64_t a6, int a7)
 {
   if ((a4 & 4) != 0)
   {
@@ -4463,7 +4451,7 @@ int16x8_t *sub_2773E4F3C(int16x8_t *a1, uint64_t a2, uint64_t *a3, int a4, float
   return sub_2773E4FEC(a1 + 8, a2, a3, v15, a5, v16, a7);
 }
 
-int16x8_t *sub_2773E4FEC(int16x8_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
+int8x16_t *sub_2773E4FEC(int8x16_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
 {
   v7.i64[0] = *a3;
   v7.i64[1] = a3[4];
@@ -4624,7 +4612,7 @@ __int16 *sub_2773E5388(__int16 *result, uint64_t a2, __int128 *a3, uint64_t a4, 
   return result;
 }
 
-uint64_t sub_2773E5444(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _WORD *a5, _OWORD *_X5, int a7)
+uint64_t sub_2773E5444(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _DWORD *a5, _OWORD *_X5, int a7)
 {
   if (((~a4 & 6) == 0) == ((a4 & 0x20) == 0) || ((~a4 & 9) == 0) == ((a4 & 0x40) == 0))
   {
@@ -4635,13 +4623,12 @@ uint64_t sub_2773E5444(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   v8 = a3[4];
   if ((a4 & 0x40) != 0)
   {
-    *&a5[2 * a7] = *(result + 2 * a7 * a2 - 4);
+    a5[a7] = *(result + 2 * a7 * a2 - 4);
   }
 
   if ((a4 & 4) == 0)
   {
-    *a5 = *(result + 60);
-    a5 += 2;
+    *a5++ = *(result + 60);
     _X5 = result;
     result += 2 * a2;
     --a7;
@@ -4665,7 +4652,7 @@ uint64_t sub_2773E5444(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
 
   v26 = vld1q_dup_f32(v15);
   *a5 = v24.i32[3];
-  v27 = (a5 + 2);
+  v27 = (a5 + 1);
   v28 = (result + 64);
   v29 = 2 * a2;
   v30 = ((__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32) + 1;
@@ -4715,7 +4702,7 @@ uint64_t sub_2773E5444(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   return result;
 }
 
-uint64_t sub_2773E5678(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, __int16 *a5, int16x8_t *_X5, int a7)
+uint64_t sub_2773E5678(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, int8x16_t *_X5, unsigned int a7)
 {
   if (((~a4 & 5) == 0) == ((a4 & 0x10) == 0) || ((~a4 & 0xA) == 0) == ((a4 & 0x80) == 0))
   {
@@ -4743,7 +4730,7 @@ uint64_t sub_2773E5678(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
 
   v8.i64[1] = v9;
   v13 = (__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32;
-  *&a5[2 * v13] = *(result + 2 * v13 * a2 + 60);
+  a5[v13] = *(result + 2 * v13 * a2 + 60);
   v14 = vdupq_n_s16(~a4);
   v15 = vandq_s8(v14, xmmword_27750D2A0);
   v16 = vandq_s8(v14, xmmword_27750D2B0);
@@ -4800,7 +4787,7 @@ uint64_t sub_2773E5678(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
     v11 = vld1q_dup_f32(v37++);
     --v32;
     v28 += v33;
-    *a5 = v19.i32[3];
+    *a5 = *&v19.i32[3];
     a5 = v37;
   }
 
@@ -4845,7 +4832,7 @@ uint16x8_t *sub_2773E58C4(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
     v28 = v20;
     v29 = v21;
     v30 = v22;
-    _X10 = result->i64 + v25;
+    _X10 = &result->i8[v25];
     v19 = *(result + 2 * a2);
     v20 = *(&result[1] + v25);
     v21 = *(&result[2] + v25);
@@ -4871,7 +4858,7 @@ uint16x8_t *sub_2773E58C4(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
   return result;
 }
 
-int16x8_t *sub_2773E5A50(int16x8_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
+int8x16_t *sub_2773E5A50(int8x16_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
 {
   v8.i64[0] = *a3;
   v8.i64[1] = a3[4];
@@ -4919,7 +4906,7 @@ int16x8_t *sub_2773E5A50(int16x8_t *result, uint64_t a2, uint64_t *a3, unint64_t
   return result;
 }
 
-uint64_t sub_2773E5BC8(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _WORD *a5, _OWORD *_X5, int a7)
+uint64_t sub_2773E5BC8(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _DWORD *a5, _OWORD *_X5, int a7)
 {
   if (((~a4 & 6) == 0) == ((a4 & 0x20) == 0) || ((~a4 & 9) == 0) == ((a4 & 0x40) == 0))
   {
@@ -4930,13 +4917,12 @@ uint64_t sub_2773E5BC8(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   v8 = a3[4];
   if ((a4 & 0x40) != 0)
   {
-    *&a5[2 * a7] = *(result + 2 * a7 * a2 - 4);
+    a5[a7] = *(result + 2 * a7 * a2 - 4);
   }
 
   if ((a4 & 4) == 0)
   {
-    *a5 = *(result + 28);
-    a5 += 2;
+    *a5++ = *(result + 28);
     _X5 = result;
     result += 2 * a2;
     --a7;
@@ -4956,7 +4942,7 @@ uint64_t sub_2773E5BC8(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
 
   v22 = vld1q_dup_f32(v18);
   *a5 = v20.i32[3];
-  v23 = (a5 + 2);
+  v23 = (a5 + 1);
   v24 = 2 * a2;
   v25 = ((__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32) + 1;
   v26 = vceqzq_s16(vandq_s8(v9, xmmword_27750D2B0));
@@ -4995,7 +4981,7 @@ uint64_t sub_2773E5BC8(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   return result;
 }
 
-uint64_t sub_2773E5D74(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, __int16 *a5, int8x16_t *_X5, int a7)
+uint64_t sub_2773E5D74(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, int8x16_t *_X5, unsigned int a7)
 {
   if (((~a4 & 5) == 0) == ((a4 & 0x10) == 0) || ((~a4 & 0xA) == 0) == ((a4 & 0x80) == 0))
   {
@@ -5023,7 +5009,7 @@ uint64_t sub_2773E5D74(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
 
   v8.i64[1] = v9;
   v13 = (__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32;
-  *&a5[2 * v13] = *(result + 2 * v13 * a2 + 28);
+  a5[v13] = *(result + 2 * v13 * a2 + 28);
   v14 = vdupq_n_s16(~a4);
   v15 = vandq_s8(v14, xmmword_27750D2A0);
   v16 = vandq_s8(v14, xmmword_27750D2B0);
@@ -5064,7 +5050,7 @@ uint64_t sub_2773E5D74(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
     v11 = vld1q_dup_f32(v32++);
     --v27;
     result += v28;
-    *a5 = v34.i32[3];
+    *a5 = *&v34.i32[3];
     v17 = v35;
     v18 = v34;
     a5 = v32;
@@ -5105,7 +5091,7 @@ uint16x8_t *sub_2773E5F30(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
   {
     v23 = v17;
     v24 = v18;
-    _X10 = result->i64 + v20;
+    _X10 = &result->i8[v20];
     v17 = *(result + 2 * a2);
     v18 = *(&result[1] + v20);
     __asm { PRFM            #0, [X10,#0x20] }
@@ -5124,7 +5110,7 @@ uint16x8_t *sub_2773E5F30(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
   return result;
 }
 
-int16x8_t *sub_2773E603C(int16x8_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
+int8x16_t *sub_2773E603C(int8x16_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
 {
   v8.i64[0] = *a3;
   v8.i64[1] = a3[4];
@@ -5162,7 +5148,7 @@ int16x8_t *sub_2773E603C(int16x8_t *result, uint64_t a2, uint64_t *a3, unint64_t
   return result;
 }
 
-uint64_t sub_2773E613C(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _WORD *a5, _OWORD *_X5, int a7)
+uint64_t sub_2773E613C(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _DWORD *a5, _OWORD *_X5, int a7)
 {
   if (((~a4 & 6) == 0) == ((a4 & 0x20) == 0) || ((~a4 & 9) == 0) == ((a4 & 0x40) == 0))
   {
@@ -5173,13 +5159,12 @@ uint64_t sub_2773E613C(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   v8 = a3[4];
   if ((a4 & 0x40) != 0)
   {
-    *&a5[2 * a7] = *(result + 2 * a7 * a2 - 4);
+    a5[a7] = *(result + 2 * a7 * a2 - 4);
   }
 
   if ((a4 & 4) == 0)
   {
-    *a5 = *(result + 12);
-    a5 += 2;
+    *a5++ = *(result + 12);
     _X5 = result;
     result += 2 * a2;
     --a7;
@@ -5196,7 +5181,7 @@ uint64_t sub_2773E613C(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
 
   v19 = vld1q_dup_f32(v10);
   *a5 = HIDWORD(*result);
-  v20 = (a5 + 2);
+  v20 = (a5 + 1);
   v21 = 2 * a2;
   v22 = ((__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32) + 1;
   v23 = vceqzq_s16(vandq_s8(vdupq_n_s16(~a4), xmmword_27750D2C0));
@@ -5227,7 +5212,7 @@ uint64_t sub_2773E613C(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   return result;
 }
 
-uint64_t sub_2773E62A8(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, __int16 *a5, unsigned __int16 *a6, int a7)
+uint64_t sub_2773E62A8(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, int8x16_t *a6, unsigned int a7)
 {
   if (((~a4 & 5) == 0) == ((a4 & 0x10) == 0) || ((~a4 & 0xA) == 0) == ((a4 & 0x80) == 0))
   {
@@ -5238,7 +5223,7 @@ uint64_t sub_2773E62A8(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
   v9 = a3[4];
   if ((a4 & 4) != 0)
   {
-    v12 = (a6 - 2);
+    v12 = &a6[-1].i32[3];
     v11 = vld1q_dup_f32(v12);
   }
 
@@ -5255,9 +5240,9 @@ uint64_t sub_2773E62A8(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
 
   v8.i64[1] = v9;
   v13 = (__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32;
-  *&a5[2 * v13] = *(result + 2 * v13 * a2 + 12);
+  a5[v13] = *(result + 2 * v13 * a2 + 12);
   v15 = *a6;
-  _X5 = a6 + 8;
+  _X5 = a6 + 1;
   v16 = v15;
   __asm { PRFM            #0, [X5] }
 
@@ -5285,7 +5270,7 @@ uint64_t sub_2773E62A8(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
     v11 = vld1q_dup_f32(v29++);
     --v26;
     result += v25;
-    *a5 = v23.i32[3];
+    *a5 = *&v23.i32[3];
     v16 = v23;
     v23 = v31;
     a5 = v29;
@@ -5325,7 +5310,7 @@ uint16x8_t *sub_2773E6424(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
   v23.i64[1] = 0xF800F800F800F800;
   do
   {
-    _X11 = result[1].i64 + v21;
+    _X11 = &result[1].i8[v21];
     v25 = *(result + 2 * a2);
     __asm { PRFM            #0, [X11] }
 
@@ -5465,7 +5450,7 @@ __int16 *sub_2773E6634(__int16 *result, uint64_t a2, __int128 *a3, uint64_t a4, 
   return result;
 }
 
-uint64_t sub_2773E6824(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, _WORD *a5, _OWORD *a6, int a7)
+int8x16_t *sub_2773E6824(int8x16_t *a1, uint64_t a2, uint64_t *a3, int a4, _DWORD *a5, int8x16_t *a6, int a7)
 {
   if ((a4 & 4) != 0)
   {
@@ -5491,15 +5476,15 @@ uint64_t sub_2773E6824(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, _WORD *a5
   v16 = a4 & 0xFFFFFFAE | v15 & 0xFFFFFFBF | (((a4 & 8) != 0) << 6);
   sub_2773E68E4(a1, a2, a3, v14 & 0xFFFFFF7F | (((a4 & 8) != 0) << 7), a5, a6, a7);
 
-  return sub_2773E68E4(a1 + 128, a2, a3, v16, a5, a6 + 8, a7);
+  return sub_2773E68E4(a1 + 8, a2, a3, v16, a5, a6 + 8, a7);
 }
 
-uint64_t sub_2773E68E4(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _WORD *a5, _OWORD *_X5, int a7)
+int8x16_t *sub_2773E68E4(int8x16_t *result, uint64_t a2, uint64_t *a3, unsigned int a4, _DWORD *a5, int8x16_t *_X5, int a7)
 {
   if (((~a4 & 6) == 0) == ((a4 & 0x20) == 0) || ((~a4 & 9) == 0) == ((a4 & 0x40) == 0))
   {
 
-    return sub_2774A977C(result, a2, a3, a4, a5, _X5, a7);
+    return sub_2774A977C(result->i8, a2, a3, a4, a5, _X5, a7);
   }
 
   else
@@ -5508,15 +5493,14 @@ uint64_t sub_2773E68E4(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
     v9 = a3[4];
     if ((a4 & 0x40) != 0)
     {
-      *&a5[2 * a7] = *(result + 2 * a7 * a2 - 4);
+      a5[a7] = *(&result->i32[-1] + 2 * a7 * a2);
     }
 
     if ((a4 & 4) == 0)
     {
-      *a5 = *(result + 124);
-      a5 += 2;
+      *a5++ = result[7].i32[3];
       _X5 = result;
-      result += 2 * a2;
+      result = (result + 2 * a2);
       --a7;
     }
 
@@ -5525,14 +5509,14 @@ uint64_t sub_2773E68E4(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
     v11 = vandq_s8(v10, xmmword_27750D2A0);
     v12 = vtstq_s16(v10, xmmword_27750D2B0);
     v14 = *_X5;
-    v13 = *(_X5 + 1);
-    v16 = *(_X5 + 2);
-    v15 = *(_X5 + 3);
-    v18 = *(_X5 + 4);
-    v17 = *(_X5 + 5);
-    v19 = *(_X5 + 6);
-    v20 = *(_X5 + 7);
-    v21 = (_X5 + 8);
+    v13 = _X5[1];
+    v16 = _X5[2];
+    v15 = _X5[3];
+    v18 = _X5[4];
+    v17 = _X5[5];
+    v19 = _X5[6];
+    v20 = _X5[7];
+    i32 = _X5[8].i32;
     __asm
     {
       PRFM            #0, [X5,#0x80]
@@ -5540,23 +5524,23 @@ uint64_t sub_2773E68E4(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
     }
 
     v28 = *result;
-    v29 = *(result + 16);
-    v30 = *(result + 32);
-    v31 = *(result + 48);
-    v32 = result + 96;
-    v33 = *(result + 96);
-    v34 = *(result + 64);
-    v35 = *(result + 80);
-    v36 = *(result + 112);
+    v29 = result[1];
+    v30 = result[2];
+    v31 = result[3];
+    v32 = result + 6;
+    v33 = result[6];
+    v34 = result[4];
+    v35 = result[5];
+    v36 = result[7];
     __asm { PRFM            #0, [X0,#0x80] }
 
     v38 = 2 * a2;
     v39 = ((__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32) + 1;
     __asm { PRFM            #0, [X0,#0xC0] }
 
-    v41 = vld1q_dup_f32(v21);
+    v41 = vld1q_dup_f32(i32);
     *a5 = v36.i32[3];
-    v42 = (a5 + 2);
+    v42 = (a5 + 1);
     v43 = vceqzq_s16(v11);
     v44.i64[0] = 0xF000F000F000F000;
     v44.i64[1] = 0xF000F000F000F000;
@@ -5578,15 +5562,15 @@ uint64_t sub_2773E68E4(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
       v53 = vextq_s8(v14, v13, 4uLL);
       v13 = v29;
       v14 = v28;
-      _X12 = v32 + v38;
-      v28 = *(v32 + v38 - 96);
-      v29 = *(v32 + v38 - 80);
-      v30 = *(v32 + v38 - 64);
-      v31 = *(v32 + v38 - 48);
-      v34 = *(v32 + v38 - 32);
-      v35 = *(v32 + v38 - 16);
+      _X12 = v32->i64 + v38;
+      v28 = *(&v32[-6] + v38);
+      v29 = *(&v32[-5] + v38);
+      v30 = *(&v32[-4] + v38);
+      v31 = *(&v32[-3] + v38);
+      v34 = *(&v32[-2] + v38);
+      v35 = *(&v32[-1] + v38);
       v33 = *(v32 + 2 * a2);
-      v36 = *(v32 + v38 + 16);
+      v36 = *(&v32[1] + v38);
       __asm
       {
         PRFM            #0, [X12,#0x20]
@@ -5611,20 +5595,20 @@ uint64_t sub_2773E68E4(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
       *v42 = *&v36.i32[3];
       v72 = vqtbl1q_s8(v8, vaddq_s8(v63, xmmword_27750D230));
       v73 = vqmovn_high_s16(vqmovn_s16(vaddq_s16(vsubq_s16(vsubq_s16(vcgtq_u16(v46, v19), vcgtq_u16(v19, v46)), vcgtq_u16(v19, v69)), vcgtq_u16(v69, v19))), vaddq_s16(vsubq_s16(vsubq_s16(vcgtq_u16(v58, v47), vcgtq_u16(v47, v58)), vcgtq_u16(v47, v71)), vcgtq_u16(v71, v47)));
-      *(v32 - 96) = vbslq_s8(v43, vminq_s16(vmaxq_s16(vaddw_s8(v14, *v72.i8), 0), v44), v14);
-      *(v32 - 80) = vminq_s16(vmaxq_s16(vaddw_high_s8(v13, v72), 0), v44);
+      v32[-6] = vbslq_s8(v43, vminq_s16(vmaxq_s16(vaddw_s8(v14, *v72.i8), 0), v44), v14);
+      v32[-5] = vminq_s16(vmaxq_s16(vaddw_high_s8(v13, v72), 0), v44);
       v74 = vqtbl1q_s8(v8, vaddq_s8(v67, xmmword_27750D230));
-      *(v32 - 64) = vminq_s16(vmaxq_s16(vaddw_s8(v16, *v74.i8), 0), v44);
-      *(v32 - 48) = vminq_s16(vmaxq_s16(vaddw_high_s8(v15, v74), 0), v44);
+      v32[-4] = vminq_s16(vmaxq_s16(vaddw_s8(v16, *v74.i8), 0), v44);
+      v32[-3] = vminq_s16(vmaxq_s16(vaddw_high_s8(v15, v74), 0), v44);
       v75 = vqtbl1q_s8(v8, vaddq_s8(v70, xmmword_27750D230));
-      *(v32 - 32) = vminq_s16(vmaxq_s16(vaddw_s8(v18, *v75.i8), 0), v44);
-      *(v32 - 16) = vminq_s16(vmaxq_s16(vaddw_high_s8(v17, v75), 0), v44);
+      v32[-2] = vminq_s16(vmaxq_s16(vaddw_s8(v18, *v75.i8), 0), v44);
+      v32[-1] = vminq_s16(vmaxq_s16(vaddw_high_s8(v17, v75), 0), v44);
       v76 = vqtbl1q_s8(v8, vaddq_s8(v73, xmmword_27750D230));
       *v32 = vminq_s16(vmaxq_s16(vaddw_s8(v19, *v76.i8), 0), v44);
-      *(v32 + 16) = vbslq_s8(v12, v47, vminq_s16(vmaxq_s16(vaddw_high_s8(v47, v76), 0), v44));
-      v77 = (v32 + 32);
+      v32[1] = vbslq_s8(v12, v47, vminq_s16(vmaxq_s16(vaddw_high_s8(v47, v76), 0), v44));
+      v77 = v32[2].i32;
       --v39;
-      v32 += v38;
+      v32 = (v32 + v38);
       v42 = v45;
       v20 = v47;
       v41 = vld1q_dup_f32(v77);
@@ -5636,7 +5620,7 @@ uint64_t sub_2773E68E4(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   return result;
 }
 
-uint64_t sub_2773E6C60(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, __int16 *a5, int16x8_t *a6, int a7)
+uint64_t sub_2773E6C60(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, float *a5, int8x16_t *a6, unsigned int a7)
 {
   if ((a4 & 4) != 0)
   {
@@ -5665,7 +5649,7 @@ uint64_t sub_2773E6C60(uint64_t a1, uint64_t a2, uint64_t *a3, int a4, __int16 *
   return sub_2773E6D20(a1 + 128, a2, a3, v16, a5, a6 + 8, a7);
 }
 
-uint64_t sub_2773E6D20(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, __int16 *a5, int16x8_t *_X5, int a7)
+uint64_t sub_2773E6D20(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, int8x16_t *_X5, unsigned int a7)
 {
   if (((~a4 & 5) == 0) == ((a4 & 0x10) == 0) || ((~a4 & 0xA) == 0) == ((a4 & 0x80) == 0))
   {
@@ -5696,7 +5680,7 @@ uint64_t sub_2773E6D20(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
 
     v8.i64[1] = v9;
     v13 = (__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32;
-    *&a5[2 * v13] = *(result + 2 * v13 * a2 + 124);
+    a5[v13] = *(result + 2 * v13 * a2 + 124);
     v14 = vdupq_n_s16(~a4);
     v16 = *_X5;
     v15 = _X5[1];
@@ -5804,7 +5788,7 @@ uint64_t sub_2773E6D20(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
       v11 = vld1q_dup_f32(v46++);
       --v43;
       v37 += v42;
-      *a5 = v23.i32[3];
+      *a5 = *&v23.i32[3];
       a5 = v46;
     }
 
@@ -5945,7 +5929,7 @@ uint64_t sub_2773E7168(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   return result;
 }
 
-int16x8_t *sub_2773E7428(int16x8_t *a1, uint64_t a2, uint64_t *a3, int a4, float *a5, uint64_t a6, int a7)
+int8x16_t *sub_2773E7428(int8x16_t *a1, uint64_t a2, uint64_t *a3, int a4, float *a5, uint64_t a6, int a7)
 {
   if ((a4 & 4) != 0)
   {
@@ -5974,7 +5958,7 @@ int16x8_t *sub_2773E7428(int16x8_t *a1, uint64_t a2, uint64_t *a3, int a4, float
   return sub_2773E74D8(a1 + 8, a2, a3, v15, a5, v16, a7);
 }
 
-int16x8_t *sub_2773E74D8(int16x8_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
+int8x16_t *sub_2773E74D8(int8x16_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
 {
   v7.i64[0] = *a3;
   v7.i64[1] = a3[4];
@@ -6135,7 +6119,7 @@ __int16 *sub_2773E7874(__int16 *result, uint64_t a2, __int128 *a3, uint64_t a4, 
   return result;
 }
 
-uint64_t sub_2773E7930(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _WORD *a5, _OWORD *_X5, int a7)
+uint64_t sub_2773E7930(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _DWORD *a5, _OWORD *_X5, int a7)
 {
   if (((~a4 & 6) == 0) == ((a4 & 0x20) == 0) || ((~a4 & 9) == 0) == ((a4 & 0x40) == 0))
   {
@@ -6146,13 +6130,12 @@ uint64_t sub_2773E7930(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   v8 = a3[4];
   if ((a4 & 0x40) != 0)
   {
-    *&a5[2 * a7] = *(result + 2 * a7 * a2 - 4);
+    a5[a7] = *(result + 2 * a7 * a2 - 4);
   }
 
   if ((a4 & 4) == 0)
   {
-    *a5 = *(result + 60);
-    a5 += 2;
+    *a5++ = *(result + 60);
     _X5 = result;
     result += 2 * a2;
     --a7;
@@ -6176,7 +6159,7 @@ uint64_t sub_2773E7930(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
 
   v26 = vld1q_dup_f32(v15);
   *a5 = v24.i32[3];
-  v27 = (a5 + 2);
+  v27 = (a5 + 1);
   v28 = (result + 64);
   v29 = 2 * a2;
   v30 = ((__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32) + 1;
@@ -6226,7 +6209,7 @@ uint64_t sub_2773E7930(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   return result;
 }
 
-uint64_t sub_2773E7B64(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, __int16 *a5, int16x8_t *_X5, int a7)
+uint64_t sub_2773E7B64(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, int8x16_t *_X5, unsigned int a7)
 {
   if (((~a4 & 5) == 0) == ((a4 & 0x10) == 0) || ((~a4 & 0xA) == 0) == ((a4 & 0x80) == 0))
   {
@@ -6254,7 +6237,7 @@ uint64_t sub_2773E7B64(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
 
   v8.i64[1] = v9;
   v13 = (__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32;
-  *&a5[2 * v13] = *(result + 2 * v13 * a2 + 60);
+  a5[v13] = *(result + 2 * v13 * a2 + 60);
   v14 = vdupq_n_s16(~a4);
   v15 = vandq_s8(v14, xmmword_27750D2A0);
   v16 = vandq_s8(v14, xmmword_27750D2B0);
@@ -6311,7 +6294,7 @@ uint64_t sub_2773E7B64(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
     v11 = vld1q_dup_f32(v37++);
     --v32;
     v28 += v33;
-    *a5 = v19.i32[3];
+    *a5 = *&v19.i32[3];
     a5 = v37;
   }
 
@@ -6356,7 +6339,7 @@ uint16x8_t *sub_2773E7DB0(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
     v28 = v20;
     v29 = v21;
     v30 = v22;
-    _X10 = result->i64 + v25;
+    _X10 = &result->i8[v25];
     v19 = *(result + 2 * a2);
     v20 = *(&result[1] + v25);
     v21 = *(&result[2] + v25);
@@ -6382,7 +6365,7 @@ uint16x8_t *sub_2773E7DB0(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
   return result;
 }
 
-int16x8_t *sub_2773E7F3C(int16x8_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
+int8x16_t *sub_2773E7F3C(int8x16_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
 {
   v8.i64[0] = *a3;
   v8.i64[1] = a3[4];
@@ -6430,7 +6413,7 @@ int16x8_t *sub_2773E7F3C(int16x8_t *result, uint64_t a2, uint64_t *a3, unint64_t
   return result;
 }
 
-uint64_t sub_2773E80B4(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _WORD *a5, _OWORD *_X5, int a7)
+uint64_t sub_2773E80B4(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _DWORD *a5, _OWORD *_X5, int a7)
 {
   if (((~a4 & 6) == 0) == ((a4 & 0x20) == 0) || ((~a4 & 9) == 0) == ((a4 & 0x40) == 0))
   {
@@ -6441,13 +6424,12 @@ uint64_t sub_2773E80B4(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   v8 = a3[4];
   if ((a4 & 0x40) != 0)
   {
-    *&a5[2 * a7] = *(result + 2 * a7 * a2 - 4);
+    a5[a7] = *(result + 2 * a7 * a2 - 4);
   }
 
   if ((a4 & 4) == 0)
   {
-    *a5 = *(result + 28);
-    a5 += 2;
+    *a5++ = *(result + 28);
     _X5 = result;
     result += 2 * a2;
     --a7;
@@ -6467,7 +6449,7 @@ uint64_t sub_2773E80B4(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
 
   v22 = vld1q_dup_f32(v18);
   *a5 = v20.i32[3];
-  v23 = (a5 + 2);
+  v23 = (a5 + 1);
   v24 = 2 * a2;
   v25 = ((__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32) + 1;
   v26 = vceqzq_s16(vandq_s8(v9, xmmword_27750D2B0));
@@ -6506,7 +6488,7 @@ uint64_t sub_2773E80B4(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   return result;
 }
 
-uint64_t sub_2773E8260(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, __int16 *a5, int8x16_t *_X5, int a7)
+uint64_t sub_2773E8260(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, int8x16_t *_X5, unsigned int a7)
 {
   if (((~a4 & 5) == 0) == ((a4 & 0x10) == 0) || ((~a4 & 0xA) == 0) == ((a4 & 0x80) == 0))
   {
@@ -6534,7 +6516,7 @@ uint64_t sub_2773E8260(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
 
   v8.i64[1] = v9;
   v13 = (__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32;
-  *&a5[2 * v13] = *(result + 2 * v13 * a2 + 28);
+  a5[v13] = *(result + 2 * v13 * a2 + 28);
   v14 = vdupq_n_s16(~a4);
   v15 = vandq_s8(v14, xmmword_27750D2A0);
   v16 = vandq_s8(v14, xmmword_27750D2B0);
@@ -6575,7 +6557,7 @@ uint64_t sub_2773E8260(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
     v11 = vld1q_dup_f32(v32++);
     --v27;
     result += v28;
-    *a5 = v34.i32[3];
+    *a5 = *&v34.i32[3];
     v17 = v35;
     v18 = v34;
     a5 = v32;
@@ -6616,7 +6598,7 @@ uint16x8_t *sub_2773E841C(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
   {
     v23 = v17;
     v24 = v18;
-    _X10 = result->i64 + v20;
+    _X10 = &result->i8[v20];
     v17 = *(result + 2 * a2);
     v18 = *(&result[1] + v20);
     __asm { PRFM            #0, [X10,#0x20] }
@@ -6635,7 +6617,7 @@ uint16x8_t *sub_2773E841C(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
   return result;
 }
 
-int16x8_t *sub_2773E8528(int16x8_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
+int8x16_t *sub_2773E8528(int8x16_t *result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, uint64_t a6, int a7)
 {
   v8.i64[0] = *a3;
   v8.i64[1] = a3[4];
@@ -6673,7 +6655,7 @@ int16x8_t *sub_2773E8528(int16x8_t *result, uint64_t a2, uint64_t *a3, unint64_t
   return result;
 }
 
-uint64_t sub_2773E8628(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _WORD *a5, _OWORD *_X5, int a7)
+uint64_t sub_2773E8628(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int a4, _DWORD *a5, _OWORD *_X5, int a7)
 {
   if (((~a4 & 6) == 0) == ((a4 & 0x20) == 0) || ((~a4 & 9) == 0) == ((a4 & 0x40) == 0))
   {
@@ -6684,13 +6666,12 @@ uint64_t sub_2773E8628(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   v8 = a3[4];
   if ((a4 & 0x40) != 0)
   {
-    *&a5[2 * a7] = *(result + 2 * a7 * a2 - 4);
+    a5[a7] = *(result + 2 * a7 * a2 - 4);
   }
 
   if ((a4 & 4) == 0)
   {
-    *a5 = *(result + 12);
-    a5 += 2;
+    *a5++ = *(result + 12);
     _X5 = result;
     result += 2 * a2;
     --a7;
@@ -6707,7 +6688,7 @@ uint64_t sub_2773E8628(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
 
   v19 = vld1q_dup_f32(v10);
   *a5 = HIDWORD(*result);
-  v20 = (a5 + 2);
+  v20 = (a5 + 1);
   v21 = 2 * a2;
   v22 = ((__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32) + 1;
   v23 = vceqzq_s16(vandq_s8(vdupq_n_s16(~a4), xmmword_27750D2C0));
@@ -6738,7 +6719,7 @@ uint64_t sub_2773E8628(uint64_t result, uint64_t a2, uint64_t *a3, unsigned int 
   return result;
 }
 
-uint64_t sub_2773E8794(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, __int16 *a5, unsigned __int16 *a6, int a7)
+uint64_t sub_2773E8794(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4, float *a5, int8x16_t *a6, unsigned int a7)
 {
   if (((~a4 & 5) == 0) == ((a4 & 0x10) == 0) || ((~a4 & 0xA) == 0) == ((a4 & 0x80) == 0))
   {
@@ -6749,7 +6730,7 @@ uint64_t sub_2773E8794(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
   v9 = a3[4];
   if ((a4 & 4) != 0)
   {
-    v12 = (a6 - 2);
+    v12 = &a6[-1].i32[3];
     v11 = vld1q_dup_f32(v12);
   }
 
@@ -6766,9 +6747,9 @@ uint64_t sub_2773E8794(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
 
   v8.i64[1] = v9;
   v13 = (__PAIR64__(a7, (a4 >> 3) & 1) - 1) >> 32;
-  *&a5[2 * v13] = *(result + 2 * v13 * a2 + 12);
+  a5[v13] = *(result + 2 * v13 * a2 + 12);
   v15 = *a6;
-  _X5 = a6 + 8;
+  _X5 = a6 + 1;
   v16 = v15;
   __asm { PRFM            #0, [X5] }
 
@@ -6796,7 +6777,7 @@ uint64_t sub_2773E8794(uint64_t result, uint64_t a2, uint64_t *a3, unint64_t a4,
     v11 = vld1q_dup_f32(v29++);
     --v26;
     result += v25;
-    *a5 = v23.i32[3];
+    *a5 = *&v23.i32[3];
     v16 = v23;
     v23 = v31;
     a5 = v29;
@@ -6836,7 +6817,7 @@ uint16x8_t *sub_2773E8910(uint16x8_t *result, uint64_t a2, uint64_t *a3, unsigne
   v23.i64[1] = 0xF000F000F000F000;
   do
   {
-    _X11 = result[1].i64 + v21;
+    _X11 = &result[1].i8[v21];
     v25 = *(result + 2 * a2);
     __asm { PRFM            #0, [X11] }
 
@@ -6883,22 +6864,22 @@ int8x16_t *sub_2773E89F8(int8x16_t *result, uint64_t a2, uint64_t *a3, unint64_t
   return result;
 }
 
-uint64_t sub_2773E8AB8(uint64_t a1, uint64_t a2)
+uint64_t sub_2773E8AB8(uint64_t a1, uint64_t a2, int a3)
 {
   memset(__p, 0, 24);
   memset(&__p[4], 0, 24);
-  v3 = sub_2773FB5F4(__p, a2);
-  if (!v3)
+  v4 = sub_2773FB5F4(__p, a2);
+  if (!v4)
   {
-    v4 = *(a2 + 16);
-    switch(v4)
+    v5 = *(a2 + 16);
+    switch(v5)
     {
       case '""':
         operator new();
       case '!':
         operator new();
       case ' ':
-        sub_2773EB894();
+        sub_2773EB894(&v7);
     }
 
     if (dword_280B9A880 >= 3)
@@ -6907,7 +6888,7 @@ uint64_t sub_2773E8AB8(uint64_t a1, uint64_t a2)
       syslog(27, "Passed NALU that isn't a parameter set!\n");
     }
 
-    v3 = 4294954385;
+    v4 = 4294954385;
   }
 
   if (__p[0])
@@ -6915,10 +6896,10 @@ uint64_t sub_2773E8AB8(uint64_t a1, uint64_t a2)
     operator delete(__p[0]);
   }
 
-  return v3;
+  return v4;
 }
 
-void sub_2773EB7B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p)
+void sub_2773EB7B0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *__p)
 {
   p_shared_weak_owners = &v17[67].__shared_weak_owners_;
   shared_weak_owners = v17[71].__shared_weak_owners_;
@@ -6946,7 +6927,7 @@ void sub_2773EB7B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   *p_shared_weak_owners = 0;
   if (v26)
   {
-    MEMORY[0x277CAD330](v26, 0x1000C8052888210);
+    MEMORY[0x277CAD330](v26, 0x1000C8052888210, a3, a4, a5, a6, a7, a8);
   }
 
   std::__shared_weak_count::~__shared_weak_count(v17);
@@ -7009,7 +6990,7 @@ void sub_2773EBA44(std::__shared_weak_count *a1)
   JUMPOUT(0x277CAD370);
 }
 
-void sub_2773EBAB8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void sub_2773EBAB8(void *result, const void *a2, uint64_t a3, uint64_t a4)
 {
   if (a4)
   {
@@ -7034,7 +7015,7 @@ void sub_2773EBB30(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void sub_2773EBB4C(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
+void sub_2773EBB4C(void *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7079,21 +7060,21 @@ void sub_2773EBC4C(uint64_t a1)
   sub_2773C5248();
 }
 
-void sub_2773EBC94(uint64_t a1)
+void sub_2773EBC94(void *a1)
 {
-  v4 = (a1 + 2072);
+  v4 = (a1 + 259);
   sub_2773EBD18(&v4);
-  v2 = *(a1 + 2000);
-  *(a1 + 2000) = 0;
+  v2 = a1[250];
+  a1[250] = 0;
   if (v2)
   {
     MEMORY[0x277CAD330](v2, 0x1000C8052888210);
   }
 
-  v3 = *(a1 + 320);
+  v3 = a1[40];
   if (v3)
   {
-    *(a1 + 328) = v3;
+    a1[41] = v3;
 
     operator delete(v3);
   }
@@ -7193,7 +7174,7 @@ void sub_2773EBF10(std::__shared_weak_count *a1)
   JUMPOUT(0x277CAD370);
 }
 
-uint64_t sub_2773EBFA4(uint64_t a1, unsigned __int8 *a2, unint64_t a3)
+uint64_t sub_2773EBFA4(uint64_t a1, char *a2, unint64_t a3)
 {
   *(a1 + 8) = a2;
   *(a1 + 24) = a3;
@@ -8497,7 +8478,7 @@ void sub_2773ED808(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_2773ED84C(uint64_t *a1, unint64_t a2)
+void sub_2773ED84C(char **a1, unint64_t a2)
 {
   v3 = *a1;
   v4 = a1[1];
@@ -8509,7 +8490,7 @@ void sub_2773ED84C(uint64_t *a1, unint64_t a2)
       return;
     }
 
-    v11 = v3 + 2 * a2;
+    v11 = (v3 + 2 * a2);
   }
 
   else
@@ -8520,7 +8501,7 @@ void sub_2773ED84C(uint64_t *a1, unint64_t a2)
     {
       if ((a2 & 0x8000000000000000) == 0)
       {
-        v8 = v7 - v3;
+        v8 = &v7[-v3];
         if (v8 <= a2)
         {
           v9 = a2;
@@ -8548,7 +8529,7 @@ void sub_2773ED84C(uint64_t *a1, unint64_t a2)
     }
 
     bzero(a1[1], 2 * v6);
-    v11 = v4 + 2 * v6;
+    v11 = &v4[2 * v6];
   }
 
   a1[1] = v11;
@@ -9147,7 +9128,7 @@ void sub_2773EE300(uint64_t a1, double *a2, double *a3)
   a3[3] = v6;
 }
 
-void sub_2773EE3FC(uint64_t *a1, unint64_t a2)
+void sub_2773EE3FC(char **a1, unint64_t a2)
 {
   v3 = *a1;
   v4 = a1[1];
@@ -9159,7 +9140,7 @@ void sub_2773EE3FC(uint64_t *a1, unint64_t a2)
       return;
     }
 
-    v11 = v3 + 2 * a2;
+    v11 = (v3 + 2 * a2);
   }
 
   else
@@ -9170,7 +9151,7 @@ void sub_2773EE3FC(uint64_t *a1, unint64_t a2)
     {
       if ((a2 & 0x8000000000000000) == 0)
       {
-        v8 = v7 - v3;
+        v8 = &v7[-v3];
         if (v8 <= a2)
         {
           v9 = a2;
@@ -9203,13 +9184,13 @@ void sub_2773EE3FC(uint64_t *a1, unint64_t a2)
     }
 
     bzero(a1[1], 2 * v6);
-    v11 = v4 + 2 * v6;
+    v11 = &v4[2 * v6];
   }
 
   a1[1] = v11;
 }
 
-void sub_2773EE524(uint64_t *a1, unint64_t a2)
+void sub_2773EE524(char **a1, unint64_t a2)
 {
   v3 = *a1;
   v4 = a1[1];
@@ -9221,7 +9202,7 @@ void sub_2773EE524(uint64_t *a1, unint64_t a2)
       return;
     }
 
-    v11 = v3 + 16 * a2;
+    v11 = (v3 + 16 * a2);
   }
 
   else
@@ -9232,7 +9213,7 @@ void sub_2773EE524(uint64_t *a1, unint64_t a2)
     {
       if (!(a2 >> 60))
       {
-        v8 = v7 - v3;
+        v8 = &v7[-v3];
         v9 = v8 >> 3;
         if (v8 >> 3 <= a2)
         {
@@ -9261,7 +9242,7 @@ void sub_2773EE524(uint64_t *a1, unint64_t a2)
     }
 
     bzero(a1[1], 16 * v6);
-    v11 = v4 + 16 * v6;
+    v11 = &v4[16 * v6];
   }
 
   a1[1] = v11;

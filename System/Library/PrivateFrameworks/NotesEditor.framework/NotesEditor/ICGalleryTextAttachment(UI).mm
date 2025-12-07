@@ -126,9 +126,9 @@ LABEL_17:
     [ICGalleryTextAttachment(UI) supportedPresentationSizes];
   }
 
-  v1 = supportedPresentationSizes_supportedSizes;
+  v2 = supportedPresentationSizes_supportedSizes;
 
-  return v1;
+  return v2;
 }
 
 @end

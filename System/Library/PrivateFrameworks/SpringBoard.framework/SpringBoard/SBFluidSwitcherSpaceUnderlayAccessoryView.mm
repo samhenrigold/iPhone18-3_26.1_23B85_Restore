@@ -683,7 +683,7 @@ void __93__SBFluidSwitcherSpaceUnderlayAccessoryView_setHeaderOpacity_updateMode
   {
     v7 = [objc_alloc(MEMORY[0x277D75B90]) initWithView:v6];
     v8 = [MEMORY[0x277D75860] effectWithPreview:v7];
-    [v6 frame];
+    objc_msgSend_frame(v6);
     v10 = v9;
     v12 = v11;
     v14 = v13;

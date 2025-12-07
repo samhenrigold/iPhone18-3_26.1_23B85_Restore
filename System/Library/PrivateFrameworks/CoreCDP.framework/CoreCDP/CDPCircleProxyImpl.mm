@@ -33,7 +33,6 @@
 - (unint64_t)combinedCircleStatus:(id *)status;
 - (void)_recoverOctagonUsingRecoveryKey:(id)key completion:(id)completion;
 - (void)didJoinCircleAfterRecovery:(id)recovery;
-- (void)hasNonViewAwarePeers;
 - (void)recoverOctagonUsingCustodianInfo:(id)info completion:(id)completion;
 - (void)reportFailure:(id)failure;
 - (void)reportSuccess;
@@ -50,18 +49,18 @@
 
   if (cliqueConfiguration)
   {
-    v6 = objc_alloc(MEMORY[0x1E697AA80]);
+    v7 = objc_alloc(MEMORY[0x1E697AA80]);
     cliqueConfiguration2 = [contextCopy cliqueConfiguration];
-    v8 = [v6 initWithContextData:cliqueConfiguration2];
-    self = [(CDPCircleProxyImpl *)self initWithContext:contextCopy clique:v8];
+    v9 = [v7 initWithContextData:cliqueConfiguration2];
+    self = [(CDPCircleProxyImpl *)self initWithContext:contextCopy clique:v9];
 
     selfCopy = self;
   }
 
   else
   {
-    v10 = _CDPLogSystem();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
+    v11 = _CDPLogSystem(v6);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       [CDPCircleProxyImpl initWithContext:];
     }
@@ -83,16 +82,16 @@
   {
     v20.receiver = self;
     v20.super_class = CDPCircleProxyImpl;
-    v10 = [(CDPCircleProxyImpl *)&v20 init];
-    p_isa = &v10->super.isa;
-    if (v10)
+    v11 = [(CDPCircleProxyImpl *)&v20 init];
+    p_isa = &v11->super.isa;
+    if (v11)
     {
-      objc_storeStrong(&v10->_cdpContext, context);
+      objc_storeStrong(&v11->_cdpContext, context);
       objc_storeStrong(p_isa + 1, clique);
     }
 
-    v12 = _CDPLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = _CDPLogSystem(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       appleID = [contextCopy appleID];
       dsid2 = [contextCopy dsid];
@@ -107,7 +106,7 @@
       v28 = dsid2;
       v29 = 2048;
       v30 = type;
-      _os_log_impl(&dword_1DED99000, v12, OS_LOG_TYPE_DEFAULT, "CDPCircleProxyImpl: appleID:%{mask.hash}@, dsid: %{mask.hash}@, type: %ld", buf, 0x34u);
+      _os_log_impl(&dword_1DED99000, v13, OS_LOG_TYPE_DEFAULT, "CDPCircleProxyImpl: appleID:%{mask.hash}@, dsid: %{mask.hash}@, type: %ld", buf, 0x34u);
     }
 
     self = p_isa;
@@ -116,8 +115,8 @@
 
   else
   {
-    v17 = _CDPLogSystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    v18 = _CDPLogSystem(v10);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
     {
       [CDPCircleProxyImpl initWithContext:clique:];
     }
@@ -125,7 +124,6 @@
     selfCopy = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -151,7 +149,7 @@
     v16 = 0;
     v7 = [(OTClique *)clique fetchCliqueStatus:v5 error:&v16];
     v8 = v16;
-    v9 = _CDPLogSystem();
+    v9 = _CDPLogSystem(v8);
     v10 = v9;
     if (v8)
     {
@@ -163,19 +161,19 @@
 
     else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = [MEMORY[0x1E696AD98] numberWithInteger:v7];
+      v13 = [MEMORY[0x1E696AD98] numberWithInteger:v7];
       *buf = 138412290;
-      v18 = v12;
+      v18 = v13;
       _os_log_impl(&dword_1DED99000, v10, OS_LOG_TYPE_DEFAULT, "Call to cachedCliqueStatus returned a status: %@", buf, 0xCu);
     }
 
     if (status)
     {
-      v13 = v8;
+      v14 = v8;
       *status = v8;
     }
 
-    v11 = [(CDPCircleProxyImpl *)self cdpStatusFromOT:v7];
+    v12 = [(CDPCircleProxyImpl *)self cdpStatusFromOT:v7];
   }
 
   else
@@ -185,140 +183,134 @@
     v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     if (!status)
     {
-      v11 = -1;
+      v12 = -1;
       goto LABEL_15;
     }
 
-    *status = _CDPStateError(-5003, v8);
-    v5 = _CDPLogSystem();
+    v11 = _CDPStateError(-5003, v8);
+    *status = v11;
+    v5 = _CDPLogSystem(v11);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [CDPCircleProxyImpl cachedCliqueStatus:status];
+      [CDPCircleProxyImpl cachedCliqueStatus:];
     }
 
-    v11 = -1;
+    v12 = -1;
   }
 
 LABEL_15:
-  v14 = *MEMORY[0x1E69E9840];
-  return v11;
+  return v12;
 }
 
 - (unint64_t)combinedCachedCircleStatus:(id *)status
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v5 = _CDPSignpostLogSystem();
+  v27 = *MEMORY[0x1E69E9840];
+  v5 = _CDPSignpostLogSystem(self);
   v6 = _CDPSignpostCreate(v5);
   v8 = v7;
 
-  v9 = _CDPSignpostLogSystem();
-  v10 = v9;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v10 = _CDPSignpostLogSystem(v9);
+  v11 = v10;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
-    LOWORD(v19) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DED99000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v6, "CachedCircleStatus", " enableTelemetry=YES ", &v19, 2u);
+    LOWORD(v21) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1DED99000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v6, "CachedCircleStatus", " enableTelemetry=YES ", &v21, 2u);
   }
 
-  v11 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v13 = _CDPSignpostLogSystem(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 134217984;
-    v20 = v6;
-    _os_log_impl(&dword_1DED99000, v11, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: CachedCircleStatus  enableTelemetry=YES ", &v19, 0xCu);
+    v21 = 134217984;
+    v22 = v6;
+    _os_log_impl(&dword_1DED99000, v13, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: CachedCircleStatus  enableTelemetry=YES ", &v21, 0xCu);
   }
 
-  v12 = [(CDPCircleProxyImpl *)self cachedCliqueStatus:status];
-  if (!+[CDPUtilities deferSOSFromSignIn]&& v12 == 1)
+  v14 = [(CDPCircleProxyImpl *)self cachedCliqueStatus:status];
+  if (!+[CDPUtilities deferSOSFromSignIn]&& v14 == 1)
   {
     if ([(CDPCircleProxyImpl *)self platformSupportsSOS])
     {
-      v12 = [(CDPCircleProxyImpl *)self cdpStatusFromSOS:[(CDPCircleProxyImpl *)self cachedSOSCircleStatus:status]];
+      v14 = [(CDPCircleProxyImpl *)self cdpStatusFromSOS:[(CDPCircleProxyImpl *)self cachedSOSCircleStatus:status]];
     }
 
     else
     {
-      v12 = 1;
+      v14 = 1;
     }
   }
 
   Nanoseconds = _CDPSignpostGetNanoseconds(v6, v8);
-  v14 = _CDPSignpostLogSystem();
-  v15 = v14;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+  v16 = _CDPSignpostLogSystem(Nanoseconds);
+  v17 = v16;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
   {
-    v19 = 67240192;
-    LODWORD(v20) = v12;
-    _os_signpost_emit_with_name_impl(&dword_1DED99000, v15, OS_SIGNPOST_INTERVAL_END, v6, "CachedCircleStatus", " status=%{public,signpost.telemetry:number1,name=status}d ", &v19, 8u);
+    v21 = 67240192;
+    LODWORD(v22) = v14;
+    _os_signpost_emit_with_name_impl(&dword_1DED99000, v17, OS_SIGNPOST_INTERVAL_END, v6, "CachedCircleStatus", " status=%{public,signpost.telemetry:number1,name=status}d ", &v21, 8u);
   }
 
-  v16 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v19 = _CDPSignpostLogSystem(v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 134218496;
-    v20 = v6;
-    v21 = 2048;
-    v22 = Nanoseconds / 1000000000.0;
-    v23 = 1026;
-    v24 = v12;
-    _os_log_impl(&dword_1DED99000, v16, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: CachedCircleStatus  status=%{public,signpost.telemetry:number1,name=status}d ", &v19, 0x1Cu);
+    v21 = 134218496;
+    v22 = v6;
+    v23 = 2048;
+    v24 = Nanoseconds / 1000000000.0;
+    v25 = 1026;
+    v26 = v14;
+    _os_log_impl(&dword_1DED99000, v19, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: CachedCircleStatus  status=%{public,signpost.telemetry:number1,name=status}d ", &v21, 0x1Cu);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-  return v12;
+  return v14;
 }
 
 - (int)cachedSOSCircleStatus:(id *)status
 {
   v13 = *MEMORY[0x1E69E9840];
-  if ([(CDPContext *)self->_cdpContext isBeneficiaryAccount])
+  isBeneficiaryAccount = [(CDPContext *)self->_cdpContext isBeneficiaryAccount];
+  if (isBeneficiaryAccount)
   {
-    v4 = _CDPLogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _CDPLogSystem(isBeneficiaryAccount);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       LOWORD(v10[0]) = 0;
-      _os_log_impl(&dword_1DED99000, v4, OS_LOG_TYPE_DEFAULT, "Beneficiary account detected. Faking cached SOS circle status.", v10, 2u);
+      _os_log_impl(&dword_1DED99000, v5, OS_LOG_TYPE_DEFAULT, "Beneficiary account detected. Faking cached SOS circle status.", v10, 2u);
     }
 
-    v5 = 0;
+    LODWORD(v6) = 0;
   }
 
   else
   {
     v10[0] = 0;
-    v6 = _CDPLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_1DED99000, v6, OS_LOG_TYPE_DEFAULT, "Checking circle status with SOSCCThisDeviceIsInCircle", buf, 2u);
-    }
-
-    v5 = SOSCCThisDeviceIsInCircle();
-    v7 = _CDPLogSystem();
+    v7 = _CDPLogSystem(isBeneficiaryAccount);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
+      *buf = 0;
+      _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "Checking circle status with SOSCCThisDeviceIsInCircle", buf, 2u);
+    }
+
+    v6 = SOSCCThisDeviceIsInCircle();
+    v8 = _CDPLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
       *buf = 67109120;
-      v12 = v5;
-      _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "Call to SOSCCThisDeviceIsInCircle returned a status: %d", buf, 8u);
+      v12 = v6;
+      _os_log_impl(&dword_1DED99000, v8, OS_LOG_TYPE_DEFAULT, "Call to SOSCCThisDeviceIsInCircle returned a status: %d", buf, 8u);
     }
 
     if (status)
     {
       *status = v10[0];
     }
-
-    else if (v10[0])
-    {
-      CFRelease(v10[0]);
-    }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-  return v5;
+  return v6;
 }
 
 - (unint64_t)combinedCircleStatus:(id *)status
 {
-  v5 = _CDPLogSystem();
+  v5 = _CDPLogSystem(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -326,16 +318,27 @@ LABEL_15:
   }
 
   v6 = [(CDPCircleProxyImpl *)self _authenticatedCliqueStatus:status];
-  if (+[CDPUtilities deferSOSFromSignIn]|| v6 || ![(CDPCircleProxyImpl *)self platformSupportsSOS])
+  if (+[CDPUtilities deferSOSFromSignIn])
   {
     return [(CDPCircleProxyImpl *)self cdpStatusFromOT:v6];
   }
 
-  v7 = _CDPLogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  if (v6)
   {
-    *v9 = 0;
-    _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "Checking SOS status.", v9, 2u);
+    return [(CDPCircleProxyImpl *)self cdpStatusFromOT:v6];
+  }
+
+  platformSupportsSOS = [(CDPCircleProxyImpl *)self platformSupportsSOS];
+  if (!platformSupportsSOS)
+  {
+    return [(CDPCircleProxyImpl *)self cdpStatusFromOT:v6];
+  }
+
+  v8 = _CDPLogSystem(platformSupportsSOS);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    *v10 = 0;
+    _os_log_impl(&dword_1DED99000, v8, OS_LOG_TYPE_DEFAULT, "Checking SOS status.", v10, 2u);
   }
 
   return [(CDPCircleProxyImpl *)self cdpStatusFromSOS:[(CDPCircleProxyImpl *)self _sos_circleStatus:status]];
@@ -344,7 +347,7 @@ LABEL_15:
 - (void)waitForUpdate
 {
   v15 = *MEMORY[0x1E69E9840];
-  v3 = _CDPLogSystem();
+  v3 = _CDPLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -354,13 +357,14 @@ LABEL_15:
     _os_log_impl(&dword_1DED99000, v3, OS_LOG_TYPE_DEFAULT, "%s (%d) called", buf, 0x12u);
   }
 
-  if ([(CDPContext *)self->_cdpContext isiCDPEligible])
+  isiCDPEligible = [(CDPContext *)self->_cdpContext isiCDPEligible];
+  if (isiCDPEligible)
   {
     clique = self->_clique;
     v12 = 0;
-    v5 = [(OTClique *)clique waitForOctagonUpgrade:&v12];
-    v6 = v12;
-    altDSID = _CDPLogSystem();
+    v6 = [(OTClique *)clique waitForOctagonUpgrade:&v12];
+    v7 = v12;
+    altDSID = _CDPLogSystem(v7);
     if (!os_log_type_enabled(altDSID, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_9:
@@ -369,73 +373,67 @@ LABEL_9:
     }
 
     *buf = 67109378;
-    *v14 = v5;
+    *v14 = v6;
     *&v14[4] = 2114;
-    *&v14[6] = v6;
-    v8 = "Clique waitForOctagonUpgrade %{BOOL}d with error %{public}@";
-    v9 = altDSID;
-    v10 = 18;
+    *&v14[6] = v7;
+    v9 = "Clique waitForOctagonUpgrade %{BOOL}d with error %{public}@";
+    v10 = altDSID;
+    v11 = 18;
 LABEL_8:
-    _os_log_impl(&dword_1DED99000, v9, OS_LOG_TYPE_DEFAULT, v8, buf, v10);
+    _os_log_impl(&dword_1DED99000, v10, OS_LOG_TYPE_DEFAULT, v9, buf, v11);
     goto LABEL_9;
   }
 
-  v6 = _CDPLogSystem();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _CDPLogSystem(isiCDPEligible);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     altDSID = [(CDPContext *)self->_cdpContext altDSID];
     *buf = 141558274;
     *v14 = 1752392040;
     *&v14[8] = 2112;
     *&v14[10] = altDSID;
-    v8 = "Account for %{mask.hash}@ is not eligible for iCDP, not calling waitForOctagonUpgrade";
-    v9 = v6;
-    v10 = 22;
+    v9 = "Account for %{mask.hash}@ is not eligible for iCDP, not calling waitForOctagonUpgrade";
+    v10 = v7;
+    v11 = 22;
     goto LABEL_8;
   }
 
 LABEL_10:
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportSuccess
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v3 = _CDPLogSystem();
+  v9 = *MEMORY[0x1E69E9840];
+  v3 = _CDPLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     clique = self->_clique;
-    v8 = 138412290;
-    v9 = clique;
-    _os_log_impl(&dword_1DED99000, v3, OS_LOG_TYPE_DEFAULT, "Reporting success for %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = clique;
+    _os_log_impl(&dword_1DED99000, v3, OS_LOG_TYPE_DEFAULT, "Reporting success for %@", &v7, 0xCu);
   }
 
   v5 = self->_clique;
   contextType = [(CDPCircleProxyImpl *)self contextType];
   [(OTClique *)v5 performedSuccessfulCDPStateMachineRun:contextType reply:&__block_literal_global];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)reportFailure:(id)failure
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   failureCopy = failure;
-  v5 = _CDPLogSystem();
+  v5 = _CDPLogSystem(failureCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     clique = self->_clique;
-    v10 = 138412290;
-    v11 = clique;
-    _os_log_impl(&dword_1DED99000, v5, OS_LOG_TYPE_DEFAULT, "Reporting failure for %@", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = clique;
+    _os_log_impl(&dword_1DED99000, v5, OS_LOG_TYPE_DEFAULT, "Reporting failure for %@", &v9, 0xCu);
   }
 
   v7 = self->_clique;
   contextType = [(CDPCircleProxyImpl *)self contextType];
   [(OTClique *)v7 performedFailureCDPStateMachineRun:contextType error:failureCopy reply:&__block_literal_global_25];
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)contextType
@@ -484,139 +482,138 @@ LABEL_10:
 
 - (int64_t)cliqueStatus:(id *)status
 {
-  v35[1] = *MEMORY[0x1E69E9840];
-  v5 = _CDPSignpostLogSystem();
+  v38[1] = *MEMORY[0x1E69E9840];
+  v5 = _CDPSignpostLogSystem(self);
   v6 = _CDPSignpostCreate(v5);
   v8 = v7;
 
-  v9 = _CDPSignpostLogSystem();
-  v10 = v9;
-  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v9))
+  v10 = _CDPSignpostLogSystem(v9);
+  v11 = v10;
+  if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DED99000, v10, OS_SIGNPOST_INTERVAL_BEGIN, v6, "CircleStatus", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1DED99000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v6, "CircleStatus", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v11 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v13 = _CDPSignpostLogSystem(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v29 = v6;
-    _os_log_impl(&dword_1DED99000, v11, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: CircleStatus  enableTelemetry=YES ", buf, 0xCu);
+    v32 = v6;
+    _os_log_impl(&dword_1DED99000, v13, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: CircleStatus  enableTelemetry=YES ", buf, 0xCu);
   }
 
   clique = self->_clique;
   if (clique)
   {
-    v13 = clique;
-    v14 = _CDPLogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = clique;
+    v16 = _CDPLogSystem(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v29 = v13;
-      _os_log_impl(&dword_1DED99000, v14, OS_LOG_TYPE_DEFAULT, "Checking clique status with fetchCliqueStatus from %@", buf, 0xCu);
+      v32 = v15;
+      _os_log_impl(&dword_1DED99000, v16, OS_LOG_TYPE_DEFAULT, "Checking clique status with fetchCliqueStatus from %@", buf, 0xCu);
     }
 
-    v27 = 0;
-    v15 = [v13 fetchCliqueStatus:&v27];
-    v16 = v27;
-    v17 = _CDPLogSystem();
-    v18 = v17;
-    if (v16)
+    v30 = 0;
+    v17 = [v15 fetchCliqueStatus:&v30];
+    v18 = v30;
+    v19 = _CDPLogSystem(v18);
+    v20 = v19;
+    if (v18)
     {
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         [CDPCircleProxyImpl cliqueStatus:];
       }
     }
 
-    else if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    else if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = [MEMORY[0x1E696AD98] numberWithInteger:v15];
+      v22 = [MEMORY[0x1E696AD98] numberWithInteger:v17];
       *buf = 138412290;
-      v29 = v19;
-      _os_log_impl(&dword_1DED99000, v18, OS_LOG_TYPE_DEFAULT, "Call to fetchCliqueStatus returned a status: %@", buf, 0xCu);
+      v32 = v22;
+      _os_log_impl(&dword_1DED99000, v20, OS_LOG_TYPE_DEFAULT, "Call to fetchCliqueStatus returned a status: %@", buf, 0xCu);
     }
 
     if (status)
     {
-      v20 = v16;
-      *status = v16;
+      v23 = v18;
+      *status = v18;
     }
 
     Nanoseconds = _CDPSignpostGetNanoseconds(v6, v8);
-    v22 = _CDPSignpostLogSystem();
-    v23 = v22;
-    if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+    v25 = _CDPSignpostLogSystem(Nanoseconds);
+    v26 = v25;
+    if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
     {
       *buf = 67240192;
-      LODWORD(v29) = v15;
-      _os_signpost_emit_with_name_impl(&dword_1DED99000, v23, OS_SIGNPOST_INTERVAL_END, v6, "CircleStatus", " status=%{public,signpost.telemetry:number1,name=status}d ", buf, 8u);
+      LODWORD(v32) = v17;
+      _os_signpost_emit_with_name_impl(&dword_1DED99000, v26, OS_SIGNPOST_INTERVAL_END, v6, "CircleStatus", " status=%{public,signpost.telemetry:number1,name=status}d ", buf, 8u);
     }
 
-    v24 = _CDPSignpostLogSystem();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v28 = _CDPSignpostLogSystem(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218496;
-      v29 = v6;
-      v30 = 2048;
-      v31 = Nanoseconds / 1000000000.0;
-      v32 = 1026;
-      v33 = v15;
-      _os_log_impl(&dword_1DED99000, v24, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: CircleStatus  status=%{public,signpost.telemetry:number1,name=status}d ", buf, 0x1Cu);
+      v32 = v6;
+      v33 = 2048;
+      v34 = Nanoseconds / 1000000000.0;
+      v35 = 1026;
+      v36 = v17;
+      _os_log_impl(&dword_1DED99000, v28, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: CircleStatus  status=%{public,signpost.telemetry:number1,name=status}d ", buf, 0x1Cu);
     }
   }
 
   else
   {
-    v34 = *MEMORY[0x1E696A578];
-    v35[0] = @"CDPContext was missing DSID when CircleProxyImpl was initialized. Its OTClique was not created.";
-    v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:&v34 count:1];
+    v37 = *MEMORY[0x1E696A578];
+    v38[0] = @"CDPContext was missing DSID when CircleProxyImpl was initialized. Its OTClique was not created.";
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:&v37 count:1];
     if (!status)
     {
-      v15 = -1;
+      v17 = -1;
       goto LABEL_27;
     }
 
-    *status = _CDPStateError(-5003, v16);
-    v13 = _CDPLogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v21 = _CDPStateError(-5003, v18);
+    *status = v21;
+    v15 = _CDPLogSystem(v21);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [CDPCircleProxyImpl cachedCliqueStatus:status];
+      [CDPCircleProxyImpl cachedCliqueStatus:];
     }
 
-    v15 = -1;
+    v17 = -1;
   }
 
 LABEL_27:
-  v25 = *MEMORY[0x1E69E9840];
-  return v15;
+  return v17;
 }
 
 - (int64_t)_authenticatedCliqueStatus:(id *)status
 {
-  v16 = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  v4 = [(CDPCircleProxyImpl *)self cliqueStatus:&v11];
-  v5 = v11;
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0;
+  v4 = [(CDPCircleProxyImpl *)self cliqueStatus:&v9];
+  v5 = v9;
   v6 = v5;
   if (status)
   {
-    v7 = v5;
+    v5 = v5;
     *status = v6;
   }
 
-  v8 = _CDPLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v7 = _CDPLogSystem(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v13 = v4;
-    v14 = 2112;
-    v15 = v6;
-    _os_log_impl(&dword_1DED99000, v8, OS_LOG_TYPE_DEFAULT, "Got authenticated clique status %lu with error: %@", buf, 0x16u);
+    v11 = v4;
+    v12 = 2112;
+    v13 = v6;
+    _os_log_impl(&dword_1DED99000, v7, OS_LOG_TYPE_DEFAULT, "Got authenticated clique status %lu with error: %@", buf, 0x16u);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -650,74 +647,73 @@ LABEL_27:
 
 - (int)_sos_circleStatus:(id *)status
 {
-  v25 = *MEMORY[0x1E69E9840];
-  if ([(CDPContext *)self->_cdpContext isBeneficiaryAccount])
+  v28 = *MEMORY[0x1E69E9840];
+  isBeneficiaryAccount = [(CDPContext *)self->_cdpContext isBeneficiaryAccount];
+  if (isBeneficiaryAccount)
   {
-    v5 = _CDPLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _CDPLogSystem(isBeneficiaryAccount);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v19) = 0;
-      _os_log_impl(&dword_1DED99000, v5, OS_LOG_TYPE_DEFAULT, "Beneficiary account detected. Faking non-cached SOS circle status.", &v19, 2u);
+      LOWORD(v22) = 0;
+      _os_log_impl(&dword_1DED99000, v6, OS_LOG_TYPE_DEFAULT, "Beneficiary account detected. Faking non-cached SOS circle status.", &v22, 2u);
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
   else
   {
-    v7 = _CDPSignpostLogSystem();
-    v8 = _CDPSignpostCreate(v7);
-    v10 = v9;
+    v8 = _CDPSignpostLogSystem(isBeneficiaryAccount);
+    v9 = _CDPSignpostCreate(v8);
+    v11 = v10;
 
-    v11 = _CDPSignpostLogSystem();
-    v12 = v11;
-    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v11))
+    v13 = _CDPSignpostLogSystem(v12);
+    v14 = v13;
+    if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
     {
-      LOWORD(v19) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1DED99000, v12, OS_SIGNPOST_INTERVAL_BEGIN, v8, "SOSCircleStatus", " enableTelemetry=YES ", &v19, 2u);
+      LOWORD(v22) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1DED99000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v9, "SOSCircleStatus", " enableTelemetry=YES ", &v22, 2u);
     }
 
-    v13 = _CDPSignpostLogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v16 = _CDPSignpostLogSystem(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 134217984;
-      v20 = v8;
-      _os_log_impl(&dword_1DED99000, v13, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: SOSCircleStatus  enableTelemetry=YES ", &v19, 0xCu);
+      v22 = 134217984;
+      v23 = v9;
+      _os_log_impl(&dword_1DED99000, v16, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: SOSCircleStatus  enableTelemetry=YES ", &v22, 0xCu);
     }
 
-    v6 = [(CDPCircleProxyImpl *)self nonCachedSOSCircleStatus:status];
-    Nanoseconds = _CDPSignpostGetNanoseconds(v8, v10);
-    v15 = _CDPSignpostLogSystem();
-    v16 = v15;
-    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v15))
+    v7 = [(CDPCircleProxyImpl *)self nonCachedSOSCircleStatus:status];
+    Nanoseconds = _CDPSignpostGetNanoseconds(v9, v11);
+    v18 = _CDPSignpostLogSystem(Nanoseconds);
+    v19 = v18;
+    if (v9 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
     {
-      v19 = 67240192;
-      LODWORD(v20) = v6;
-      _os_signpost_emit_with_name_impl(&dword_1DED99000, v16, OS_SIGNPOST_INTERVAL_END, v8, "SOSCircleStatus", " status=%{public,signpost.telemetry:number1,name=status}d ", &v19, 8u);
+      v22 = 67240192;
+      LODWORD(v23) = v7;
+      _os_signpost_emit_with_name_impl(&dword_1DED99000, v19, OS_SIGNPOST_INTERVAL_END, v9, "SOSCircleStatus", " status=%{public,signpost.telemetry:number1,name=status}d ", &v22, 8u);
     }
 
-    v5 = _CDPSignpostLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _CDPSignpostLogSystem(v20);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = 134218496;
-      v20 = v8;
-      v21 = 2048;
-      v22 = Nanoseconds / 1000000000.0;
-      v23 = 1026;
-      v24 = v6;
-      _os_log_impl(&dword_1DED99000, v5, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: SOSCircleStatus  status=%{public,signpost.telemetry:number1,name=status}d ", &v19, 0x1Cu);
+      v22 = 134218496;
+      v23 = v9;
+      v24 = 2048;
+      v25 = Nanoseconds / 1000000000.0;
+      v26 = 1026;
+      v27 = v7;
+      _os_log_impl(&dword_1DED99000, v6, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: SOSCircleStatus  status=%{public,signpost.telemetry:number1,name=status}d ", &v22, 0x1Cu);
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-  return v6;
+  return v7;
 }
 
 - (int)nonCachedSOSCircleStatus:(id *)status
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v9 = 0;
-  v4 = _CDPLogSystem();
+  v10 = *MEMORY[0x1E69E9840];
+  v4 = _CDPLogSystem(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -725,25 +721,19 @@ LABEL_27:
   }
 
   v5 = SOSCCThisDeviceIsInCircleNonCached();
-  v6 = _CDPLogSystem();
+  v6 = _CDPLogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v11 = v5;
+    v9 = v5;
     _os_log_impl(&dword_1DED99000, v6, OS_LOG_TYPE_DEFAULT, "Call to SOSCCThisDeviceIsInCircle returned a status: %d", buf, 8u);
   }
 
   if (status)
   {
-    *status = v9;
+    *status = 0;
   }
 
-  else if (v9)
-  {
-    CFRelease(v9);
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -758,7 +748,7 @@ LABEL_27:
 
 - (BOOL)waitForInitialSync:(id *)sync
 {
-  v5 = _CDPLogSystem();
+  v5 = _CDPLogSystem(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *v13 = 0;
@@ -786,84 +776,84 @@ LABEL_27:
 
 - (BOOL)synchronizeCircleViews
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v3 = _CDPSignpostLogSystem();
+  v27 = *MEMORY[0x1E69E9840];
+  v3 = _CDPSignpostLogSystem(self);
   v4 = _CDPSignpostCreate(v3);
   v6 = v5;
 
-  v7 = _CDPSignpostLogSystem();
-  v8 = v7;
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v7))
+  v8 = _CDPSignpostLogSystem(v7);
+  v9 = v8;
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DED99000, v8, OS_SIGNPOST_INTERVAL_BEGIN, v4, "SynchronizeCircleViews", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1DED99000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v4, "SynchronizeCircleViews", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v9 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v11 = _CDPSignpostLogSystem(v10);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    *v21 = v4;
-    _os_log_impl(&dword_1DED99000, v9, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: SynchronizeCircleViews  enableTelemetry=YES ", buf, 0xCu);
+    *v24 = v4;
+    _os_log_impl(&dword_1DED99000, v11, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: SynchronizeCircleViews  enableTelemetry=YES ", buf, 0xCu);
   }
 
-  if ([(CDPCircleProxyImpl *)self combinedCircleStatus:0]== 1)
+  v12 = [(CDPCircleProxyImpl *)self combinedCircleStatus:0];
+  if (v12 == 1)
   {
-    v19 = 0;
-    v10 = [(CDPCircleProxyImpl *)self waitForInitialSync:&v19];
-    v11 = v19;
-    v12 = _CDPLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v22 = 0;
+    v13 = [(CDPCircleProxyImpl *)self waitForInitialSync:&v22];
+    v14 = v22;
+    v15 = _CDPLogSystem(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109378;
-      *v21 = v10;
-      *&v21[4] = 2112;
-      *&v21[6] = v11;
-      _os_log_impl(&dword_1DED99000, v12, OS_LOG_TYPE_DEFAULT, "Finished calling waitForPriorityViewKeychainDataRecovery didSync=%i error=%@", buf, 0x12u);
+      *v24 = v13;
+      *&v24[4] = 2112;
+      *&v24[6] = v14;
+      _os_log_impl(&dword_1DED99000, v15, OS_LOG_TYPE_DEFAULT, "Finished calling waitForPriorityViewKeychainDataRecovery didSync=%i error=%@", buf, 0x12u);
     }
   }
 
   else
   {
-    v11 = _CDPLogSystem();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v14 = _CDPLogSystem(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1DED99000, v11, OS_LOG_TYPE_DEFAULT, "Skipping initial sync because we are not in a circle", buf, 2u);
+      _os_log_impl(&dword_1DED99000, v14, OS_LOG_TYPE_DEFAULT, "Skipping initial sync because we are not in a circle", buf, 2u);
     }
 
-    v10 = 1;
+    v13 = 1;
   }
 
   Nanoseconds = _CDPSignpostGetNanoseconds(v4, v6);
-  v14 = _CDPSignpostLogSystem();
-  v15 = v14;
-  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+  v17 = _CDPSignpostLogSystem(Nanoseconds);
+  v18 = v17;
+  if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
   {
     *buf = 67240192;
-    *v21 = v10;
-    _os_signpost_emit_with_name_impl(&dword_1DED99000, v15, OS_SIGNPOST_INTERVAL_END, v4, "SynchronizeCircleViews", " didSync=%{public,signpost.telemetry:number1,name=didSync}d ", buf, 8u);
+    *v24 = v13;
+    _os_signpost_emit_with_name_impl(&dword_1DED99000, v18, OS_SIGNPOST_INTERVAL_END, v4, "SynchronizeCircleViews", " didSync=%{public,signpost.telemetry:number1,name=didSync}d ", buf, 8u);
   }
 
-  v16 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v20 = _CDPSignpostLogSystem(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218496;
-    *v21 = v4;
-    *&v21[8] = 2048;
-    *&v21[10] = Nanoseconds / 1000000000.0;
-    v22 = 1026;
-    v23 = v10;
-    _os_log_impl(&dword_1DED99000, v16, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: SynchronizeCircleViews  didSync=%{public,signpost.telemetry:number1,name=didSync}d ", buf, 0x1Cu);
+    *v24 = v4;
+    *&v24[8] = 2048;
+    *&v24[10] = Nanoseconds / 1000000000.0;
+    v25 = 1026;
+    v26 = v13;
+    _os_log_impl(&dword_1DED99000, v20, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: SynchronizeCircleViews  didSync=%{public,signpost.telemetry:number1,name=didSync}d ", buf, 0x1Cu);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-  return v10;
+  return v13;
 }
 
 - (BOOL)removeThisDeviceFromCircle:(id *)circle
 {
-  v5 = _CDPLogSystem();
+  v5 = _CDPLogSystem(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -877,7 +867,7 @@ LABEL_27:
   v9 = v8;
   if (v7)
   {
-    v10 = _CDPLogSystem();
+    v10 = _CDPLogSystem(v8);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *v13 = 0;
@@ -889,10 +879,10 @@ LABEL_27:
   {
     v11 = v8;
     *circle = v9;
-    v10 = _CDPLogSystem();
+    v10 = _CDPLogSystem(v11);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [CDPCircleProxyImpl removeThisDeviceFromCircle:circle];
+      [CDPCircleProxyImpl removeThisDeviceFromCircle:];
     }
   }
 
@@ -901,123 +891,124 @@ LABEL_27:
 
 - (BOOL)requestToJoinCircle:(id *)circle
 {
-  v45 = *MEMORY[0x1E69E9840];
-  v38 = 0;
-  v5 = [(CDPCircleProxyImpl *)self cliqueStatus:&v38];
-  v6 = v38;
+  v50 = *MEMORY[0x1E69E9840];
+  v43 = 0;
+  v5 = [(CDPCircleProxyImpl *)self cliqueStatus:&v43];
+  v6 = v43;
+  v7 = v6;
   if (v6)
   {
-    v7 = _CDPLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _CDPLogSystem(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [CDPCircleProxyImpl requestToJoinCircle:];
     }
 
     if (circle)
     {
-      v8 = v6;
-      v9 = 0;
-      *circle = v6;
+      v9 = v7;
+      v10 = 0;
+      *circle = v7;
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
   }
 
   else if (v5 == 3)
   {
-    v10 = _CDPSignpostLogSystem();
-    v11 = _CDPSignpostCreate(v10);
-    v13 = v12;
+    v11 = _CDPSignpostLogSystem(0);
+    v12 = _CDPSignpostCreate(v11);
+    v14 = v13;
 
-    v14 = _CDPSignpostLogSystem();
-    v15 = v14;
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
+    v16 = _CDPSignpostLogSystem(v15);
+    v17 = v16;
+    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1DED99000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v11, "CliqueEstablish", " enableTelemetry=YES ", buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1DED99000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v12, "CliqueEstablish", " enableTelemetry=YES ", buf, 2u);
     }
 
-    v16 = _CDPSignpostLogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v19 = _CDPSignpostLogSystem(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v40 = v11;
-      _os_log_impl(&dword_1DED99000, v16, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: CliqueEstablish  enableTelemetry=YES ", buf, 0xCu);
+      v45 = v12;
+      _os_log_impl(&dword_1DED99000, v19, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: CliqueEstablish  enableTelemetry=YES ", buf, 0xCu);
     }
 
-    v17 = _CDPLogSystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v21 = _CDPLogSystem(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       [CDPCircleProxyImpl requestToJoinCircle:];
     }
 
-    v18 = objc_alloc_init(MEMORY[0x1E697AA88]);
+    v22 = objc_alloc_init(MEMORY[0x1E697AA88]);
     altDSID = [(CDPContext *)self->_cdpContext altDSID];
-    [v18 setAltDSID:altDSID];
+    [v22 setAltDSID:altDSID];
 
     telemetryFlowID = [(CDPContext *)self->_cdpContext telemetryFlowID];
-    [v18 setFlowID:telemetryFlowID];
+    [v22 setFlowID:telemetryFlowID];
 
     telemetryDeviceSessionID = [(CDPContext *)self->_cdpContext telemetryDeviceSessionID];
-    [v18 setDeviceSessionID:telemetryDeviceSessionID];
+    [v22 setDeviceSessionID:telemetryDeviceSessionID];
 
     clique = self->_clique;
-    v37 = 0;
-    [(OTClique *)clique establish:v18 error:&v37];
-    v23 = v37;
-    v24 = _CDPLogSystem();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v42 = 0;
+    [(OTClique *)clique establish:v22 error:&v42];
+    v27 = v42;
+    v28 = _CDPLogSystem(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
     {
       [CDPCircleProxyImpl requestToJoinCircle:];
     }
 
-    Nanoseconds = _CDPSignpostGetNanoseconds(v11, v13);
-    v26 = _CDPSignpostLogSystem();
-    v27 = v26;
-    if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+    Nanoseconds = _CDPSignpostGetNanoseconds(v12, v14);
+    v30 = _CDPSignpostLogSystem(Nanoseconds);
+    v31 = v30;
+    if (v12 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
     {
-      code = [v23 code];
+      code = [v27 code];
       *buf = 67240192;
-      LODWORD(v40) = code;
-      _os_signpost_emit_with_name_impl(&dword_1DED99000, v27, OS_SIGNPOST_INTERVAL_END, v11, "CliqueEstablish", " Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 8u);
+      LODWORD(v45) = code;
+      _os_signpost_emit_with_name_impl(&dword_1DED99000, v31, OS_SIGNPOST_INTERVAL_END, v12, "CliqueEstablish", " Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 8u);
     }
 
-    v29 = _CDPSignpostLogSystem();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+    v34 = _CDPSignpostLogSystem(v33);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      code2 = [v23 code];
+      code2 = [v27 code];
       *buf = 134218496;
-      v40 = v11;
-      v41 = 2048;
-      v42 = Nanoseconds / 1000000000.0;
-      v43 = 1026;
-      v44 = code2;
-      _os_log_impl(&dword_1DED99000, v29, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: CliqueEstablish  Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 0x1Cu);
+      v45 = v12;
+      v46 = 2048;
+      v47 = Nanoseconds / 1000000000.0;
+      v48 = 1026;
+      v49 = code2;
+      _os_log_impl(&dword_1DED99000, v34, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: CliqueEstablish  Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 0x1Cu);
     }
 
-    v9 = v23 == 0;
-    v31 = _CDPLogSystem();
-    v32 = v31;
-    if (v23)
+    v10 = v27 == 0;
+    v37 = _CDPLogSystem(v36);
+    v38 = v37;
+    if (v27)
     {
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         [CDPCircleProxyImpl requestToJoinCircle:];
       }
 
       if (circle)
       {
-        v33 = v23;
-        *circle = v23;
+        v39 = v27;
+        *circle = v27;
       }
     }
 
     else
     {
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
       {
         [CDPCircleProxyImpl requestToJoinCircle:];
       }
@@ -1026,22 +1017,21 @@ LABEL_27:
 
   else
   {
-    v34 = _CDPLogSystem();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+    v40 = _CDPLogSystem(0);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
     {
       [CDPCircleProxyImpl requestToJoinCircle:v5];
     }
 
-    v9 = 1;
+    v10 = 1;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
-  return v9;
+  return v10;
 }
 
 - (BOOL)requestToJoinCircleAfterRestore:(id *)restore
 {
-  v5 = _CDPLogSystem();
+  v5 = _CDPLogSystem(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [CDPCircleProxyImpl requestToJoinCircleAfterRestore:];
@@ -1103,98 +1093,99 @@ LABEL_27:
 - (BOOL)hasNonViewAwarePeers
 {
   clique = self->_clique;
-  v8 = 0;
-  v3 = [(OTClique *)clique copyViewUnawarePeerInfo:&v8];
-  v4 = v8;
+  v9 = 0;
+  v3 = [(OTClique *)clique copyViewUnawarePeerInfo:&v9];
+  v4 = v9;
+  v5 = v4;
   if (v4)
   {
-    v5 = _CDPLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _CDPLogSystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [CDPCircleProxyImpl hasNonViewAwarePeers];
     }
   }
 
-  v6 = [v3 count] != 0;
+  v7 = [v3 count] != 0;
 
-  return v6;
+  return v7;
 }
 
 - (BOOL)removeNonViewAwarePeers:(id *)peers
 {
   [(CDPCircleProxyImpl *)self registerCredentials];
   clique = self->_clique;
-  v18 = 0;
-  v6 = [(OTClique *)clique copyViewUnawarePeerInfo:&v18];
-  v7 = v18;
+  v17 = 0;
+  v6 = [(OTClique *)clique copyViewUnawarePeerInfo:&v17];
+  v7 = v17;
   v8 = v7;
   if (peers)
   {
-    v9 = v7;
+    v7 = v7;
     *peers = v8;
   }
 
   if (v6)
   {
-    v10 = self->_clique;
-    v17 = 0;
-    v11 = [(OTClique *)v10 removeFriendsInClique:v6 error:&v17];
-    v12 = v17;
-    v13 = _CDPLogSystem();
-    v14 = v13;
-    if (v11)
+    v9 = self->_clique;
+    v16 = 0;
+    v10 = [(OTClique *)v9 removeFriendsInClique:v6 error:&v16];
+    v11 = v16;
+    v12 = _CDPLogSystem(v11);
+    v13 = v12;
+    if (v10)
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
       {
         [CDPCircleProxyImpl removeNonViewAwarePeers:];
       }
     }
 
-    else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [CDPCircleProxyImpl removeNonViewAwarePeers:];
     }
 
     if (peers)
     {
-      v15 = v12;
-      *peers = v12;
+      v14 = v11;
+      *peers = v11;
     }
   }
 
   else
   {
-    v12 = _CDPLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v11 = _CDPLogSystem(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [CDPCircleProxyImpl removeNonViewAwarePeers:];
     }
 
-    LOBYTE(v11) = 0;
+    LOBYTE(v10) = 0;
   }
 
-  return v11;
+  return v10;
 }
 
 - (BOOL)_registerCredentialsOnlyIfNeeded:(BOOL)needed
 {
   neededCopy = needed;
-  v54 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   v5 = self->_cdpContext;
-  v6 = _CDPLogSystem();
+  v6 = _CDPLogSystem(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     appleID = [(CDPContext *)v5 appleID];
     dsid = [(CDPContext *)v5 dsid];
     *buf = 141559042;
     *&buf[4] = 1752392040;
-    v46 = 2112;
-    v47 = *&appleID;
-    v48 = 2160;
-    v49 = 1752392040;
-    v50 = 2112;
-    v51 = dsid;
-    v52 = 2048;
+    v52 = 2112;
+    v53 = *&appleID;
+    v54 = 2160;
+    v55 = 1752392040;
+    v56 = 2112;
+    v57 = dsid;
+    v58 = 2048;
     type = [(CDPContext *)v5 type];
     _os_log_impl(&dword_1DED99000, v6, OS_LOG_TYPE_DEFAULT, "_registerCredentialsOnlyIfNeeded: appleID:%{mask.hash}@, dsid: %{mask.hash}@, type: %ld", buf, 0x34u);
   }
@@ -1211,7 +1202,7 @@ LABEL_27:
   {
 
 LABEL_11:
-    v14 = _CDPLogSystem();
+    v14 = _CDPLogSystem(appleID2);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       [CDPCircleProxyImpl _registerCredentialsOnlyIfNeeded:];
@@ -1228,58 +1219,62 @@ LABEL_11:
     goto LABEL_11;
   }
 
-  if (neededCopy && [(CDPCircleProxyImpl *)self canAuthenticate])
+  if (neededCopy)
   {
-    v14 = _CDPLogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    appleID2 = [(CDPCircleProxyImpl *)self canAuthenticate];
+    if (appleID2)
     {
-      *buf = 0;
-      _os_log_impl(&dword_1DED99000, v14, OS_LOG_TYPE_DEFAULT, "Security indicated that no credential is needed nor did we force", buf, 2u);
-    }
+      v14 = _CDPLogSystem(appleID2);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_1DED99000, v14, OS_LOG_TYPE_DEFAULT, "Security indicated that no credential is needed nor did we force", buf, 2u);
+      }
 
 LABEL_13:
-    v15 = 0;
-    goto LABEL_14;
+      v15 = 0;
+      goto LABEL_14;
+    }
   }
 
-  v18 = _CDPLogSystem();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v17 = _CDPLogSystem(appleID2);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1DED99000, v18, OS_LOG_TYPE_DEFAULT, "Calling Clique setUserCredentialsAndDSID", buf, 2u);
+    _os_log_impl(&dword_1DED99000, v17, OS_LOG_TYPE_DEFAULT, "Calling Clique setUserCredentialsAndDSID", buf, 2u);
   }
 
   password2 = [(CDPContext *)v5 password];
-  v20 = [password2 dataUsingEncoding:4];
+  v19 = [password2 dataUsingEncoding:4];
 
-  v21 = _CDPSignpostLogSystem();
+  v21 = _CDPSignpostLogSystem(v20);
   v22 = _CDPSignpostCreate(v21);
   v24 = v23;
 
-  v25 = _CDPSignpostLogSystem();
-  v26 = v25;
-  if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v25))
+  v26 = _CDPSignpostLogSystem(v25);
+  v27 = v26;
+  if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1DED99000, v26, OS_SIGNPOST_INTERVAL_BEGIN, v22, "SetUserCredentialsAndDSID", " enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1DED99000, v27, OS_SIGNPOST_INTERVAL_BEGIN, v22, "SetUserCredentialsAndDSID", " enableTelemetry=YES ", buf, 2u);
   }
 
-  v27 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  v29 = _CDPSignpostLogSystem(v28);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
     *&buf[4] = v22;
-    _os_log_impl(&dword_1DED99000, v27, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: SetUserCredentialsAndDSID  enableTelemetry=YES ", buf, 0xCu);
+    _os_log_impl(&dword_1DED99000, v29, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: SetUserCredentialsAndDSID  enableTelemetry=YES ", buf, 0xCu);
   }
 
-  v44[1] = 0;
-  if (+[CDPUtilities deferSOSFromSignIn]&& SOSCCFetchCompatibilityMode())
+  v50[1] = 0;
+  if (+[CDPUtilities deferSOSFromSignIn]&& (v30 = SOSCCFetchCompatibilityMode(), v30))
   {
-    v28 = _CDPLogSystem();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v31 = _CDPLogSystem(v30);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1DED99000, v28, OS_LOG_TYPE_DEFAULT, "Calling SOSCCSetUserCredentialsAndDSID", buf, 2u);
+      _os_log_impl(&dword_1DED99000, v31, OS_LOG_TYPE_DEFAULT, "Calling SOSCCSetUserCredentialsAndDSID", buf, 2u);
     }
 
     *buf = 0;
@@ -1290,10 +1285,10 @@ LABEL_13:
 
     if ((v15 & 1) == 0)
     {
-      v31 = _CDPLogSystem();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v35 = _CDPLogSystem(v34);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
-        [CDPCircleProxyImpl _registerCredentialsOnlyIfNeeded:buf];
+        [CDPCircleProxyImpl _registerCredentialsOnlyIfNeeded:];
       }
     }
 
@@ -1305,18 +1300,18 @@ LABEL_13:
     clique = self->_clique;
     dsid4 = [(CDPContext *)v5 dsid];
     stringValue = [dsid4 stringValue];
-    v44[0] = 0;
-    v35 = [(OTClique *)clique setUserCredentialsAndDSID:stringValue password:v20 error:v44];
-    v14 = v44[0];
+    v50[0] = 0;
+    v39 = [(OTClique *)clique setUserCredentialsAndDSID:stringValue password:v19 error:v50];
+    v14 = v50[0];
 
-    v36 = _CDPLogSystem();
-    v37 = v36;
-    if (v35)
+    v41 = _CDPLogSystem(v40);
+    v42 = v41;
+    if (v39)
     {
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_1DED99000, v37, OS_LOG_TYPE_DEFAULT, "Credentials set through Clique setUserCredentialsAndDSID", buf, 2u);
+        _os_log_impl(&dword_1DED99000, v42, OS_LOG_TYPE_DEFAULT, "Credentials set through Clique setUserCredentialsAndDSID", buf, 2u);
       }
 
       v15 = 1;
@@ -1324,7 +1319,7 @@ LABEL_13:
 
     else
     {
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
         [CDPCircleProxyImpl _registerCredentialsOnlyIfNeeded:];
       }
@@ -1334,37 +1329,36 @@ LABEL_13:
   }
 
   Nanoseconds = _CDPSignpostGetNanoseconds(v22, v24);
-  v39 = _CDPSignpostLogSystem();
-  v40 = v39;
-  if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
+  v44 = _CDPSignpostLogSystem(Nanoseconds);
+  v45 = v44;
+  if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v44))
   {
     code = [v14 code];
     *buf = 67240192;
     *&buf[4] = code;
-    _os_signpost_emit_with_name_impl(&dword_1DED99000, v40, OS_SIGNPOST_INTERVAL_END, v22, "SetUserCredentialsAndDSID", " Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 8u);
+    _os_signpost_emit_with_name_impl(&dword_1DED99000, v45, OS_SIGNPOST_INTERVAL_END, v22, "SetUserCredentialsAndDSID", " Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 8u);
   }
 
-  v42 = _CDPSignpostLogSystem();
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+  v48 = _CDPSignpostLogSystem(v47);
+  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
   {
     code2 = [v14 code];
     *buf = 134218496;
     *&buf[4] = v22;
-    v46 = 2048;
-    v47 = Nanoseconds / 1000000000.0;
-    v48 = 1026;
-    LODWORD(v49) = code2;
-    _os_log_impl(&dword_1DED99000, v42, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: SetUserCredentialsAndDSID  Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 0x1Cu);
+    v52 = 2048;
+    v53 = Nanoseconds / 1000000000.0;
+    v54 = 1026;
+    LODWORD(v55) = code2;
+    _os_log_impl(&dword_1DED99000, v48, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: SetUserCredentialsAndDSID  Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 0x1Cu);
   }
 
 LABEL_14:
-  v16 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 - (BOOL)tryRegisteringCredentials
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v3 = self->_cdpContext;
   appleID = [(CDPContext *)v3 appleID];
   if (appleID)
@@ -1384,106 +1378,106 @@ LABEL_14:
         dsid2 = [(CDPContext *)v3 dsid];
         stringValue = [dsid2 stringValue];
 
-        v13 = _CDPSignpostLogSystem();
-        v14 = _CDPSignpostCreate(v13);
-        v16 = v15;
+        v14 = _CDPSignpostLogSystem(v13);
+        v15 = _CDPSignpostCreate(v14);
+        v17 = v16;
 
-        v17 = _CDPSignpostLogSystem();
-        v18 = v17;
-        if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
+        v19 = _CDPSignpostLogSystem(v18);
+        v20 = v19;
+        if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1DED99000, v18, OS_SIGNPOST_INTERVAL_BEGIN, v14, "TryUserCredentialsAndDSID", " enableTelemetry=YES ", buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1DED99000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v15, "TryUserCredentialsAndDSID", " enableTelemetry=YES ", buf, 2u);
         }
 
-        v19 = _CDPSignpostLogSystem();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v22 = _CDPSignpostLogSystem(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          *&buf[4] = v14;
-          _os_log_impl(&dword_1DED99000, v19, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: TryUserCredentialsAndDSID  enableTelemetry=YES ", buf, 0xCu);
+          *&buf[4] = v15;
+          _os_log_impl(&dword_1DED99000, v22, OS_LOG_TYPE_DEFAULT, "BEGIN [%lld]: TryUserCredentialsAndDSID  enableTelemetry=YES ", buf, 0xCu);
         }
 
-        v40 = 0;
+        v44 = 0;
         if (+[CDPUtilities deferSOSFromSignIn]&& SOSCCFetchCompatibilityMode())
         {
           *buf = 0;
           appleID2 = [(CDPContext *)v3 appleID];
           dsid3 = [(CDPContext *)v3 dsid];
           [dsid3 stringValue];
-          v22 = SOSCCTryUserCredentialsAndDSID();
+          v25 = SOSCCTryUserCredentialsAndDSID();
 
-          v23 = _CDPLogSystem();
-          v24 = v23;
-          if (v22)
+          v27 = _CDPLogSystem(v26);
+          v28 = v27;
+          if (v25)
           {
-            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
             {
-              *v39 = 0;
-              _os_log_impl(&dword_1DED99000, v24, OS_LOG_TYPE_DEFAULT, "Registered credentials through try attempt", v39, 2u);
+              *v43 = 0;
+              _os_log_impl(&dword_1DED99000, v28, OS_LOG_TYPE_DEFAULT, "Registered credentials through try attempt", v43, 2u);
             }
           }
 
-          else if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          else if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
-            [(CDPCircleProxyImpl *)buf tryRegisteringCredentials];
+            [CDPCircleProxyImpl tryRegisteringCredentials];
           }
 
-          v25 = 0;
+          v29 = 0;
         }
 
         else
         {
           clique = self->_clique;
-          v38 = 0;
-          v27 = [(OTClique *)clique tryUserCredentialsAndDSID:stringValue password:v10 error:&v38];
-          v25 = v38;
-          v28 = _CDPLogSystem();
-          v29 = v28;
-          if (v27)
+          v42 = 0;
+          v31 = [(OTClique *)clique tryUserCredentialsAndDSID:stringValue password:v10 error:&v42];
+          v29 = v42;
+          v32 = _CDPLogSystem(v29);
+          v33 = v32;
+          if (v31)
           {
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
-              _os_log_impl(&dword_1DED99000, v29, OS_LOG_TYPE_DEFAULT, "Registered credentials through OT tryUserCredentialsAndDSID", buf, 2u);
+              _os_log_impl(&dword_1DED99000, v33, OS_LOG_TYPE_DEFAULT, "Registered credentials through OT tryUserCredentialsAndDSID", buf, 2u);
             }
 
-            v22 = 1;
+            v25 = 1;
           }
 
           else
           {
-            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
             {
               [CDPCircleProxyImpl tryRegisteringCredentials];
             }
 
-            v22 = 0;
+            v25 = 0;
           }
         }
 
-        Nanoseconds = _CDPSignpostGetNanoseconds(v14, v16);
-        v31 = _CDPSignpostLogSystem();
-        v32 = v31;
-        if (v14 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v31))
+        Nanoseconds = _CDPSignpostGetNanoseconds(v15, v17);
+        v35 = _CDPSignpostLogSystem(Nanoseconds);
+        v36 = v35;
+        if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
         {
-          code = [v25 code];
+          code = [v29 code];
           *buf = 67240192;
           *&buf[4] = code;
-          _os_signpost_emit_with_name_impl(&dword_1DED99000, v32, OS_SIGNPOST_INTERVAL_END, v14, "TryUserCredentialsAndDSID", " Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 8u);
+          _os_signpost_emit_with_name_impl(&dword_1DED99000, v36, OS_SIGNPOST_INTERVAL_END, v15, "TryUserCredentialsAndDSID", " Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 8u);
         }
 
-        v34 = _CDPSignpostLogSystem();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+        v39 = _CDPSignpostLogSystem(v38);
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
         {
-          code2 = [v25 code];
+          code2 = [v29 code];
           *buf = 134218496;
-          *&buf[4] = v14;
-          v42 = 2048;
-          v43 = Nanoseconds / 1000000000.0;
-          v44 = 1026;
-          v45 = code2;
-          _os_log_impl(&dword_1DED99000, v34, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: TryUserCredentialsAndDSID  Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 0x1Cu);
+          *&buf[4] = v15;
+          v46 = 2048;
+          v47 = Nanoseconds / 1000000000.0;
+          v48 = 1026;
+          v49 = code2;
+          _os_log_impl(&dword_1DED99000, v39, OS_LOG_TYPE_DEFAULT, "END [%lld] %fs: TryUserCredentialsAndDSID  Error=%{public,signpost.telemetry:number1,name=Error}d ", buf, 0x1Cu);
         }
 
         goto LABEL_34;
@@ -1495,32 +1489,32 @@ LABEL_14:
     }
   }
 
-  v25 = _CDPLogSystem();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+  v29 = _CDPLogSystem(appleID);
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
   {
     [CDPCircleProxyImpl tryRegisteringCredentials];
   }
 
-  v22 = 0;
+  v25 = 0;
 LABEL_34:
 
-  v36 = *MEMORY[0x1E69E9840];
-  return v22;
+  return v25;
 }
 
 - (BOOL)canAuthenticate
 {
   accountUserKeyAvailable = [(OTClique *)self->_clique accountUserKeyAvailable];
+  v3 = accountUserKeyAvailable;
   if ((accountUserKeyAvailable & 1) == 0)
   {
-    v3 = _CDPLogSystem();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _CDPLogSystem(accountUserKeyAvailable);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       [CDPCircleProxyImpl canAuthenticate];
     }
   }
 
-  return accountUserKeyAvailable;
+  return v3;
 }
 
 - (id)pairingChannelInitiator
@@ -1595,7 +1589,7 @@ LABEL_34:
   v20 = 0;
   v15 = [(CDPCircleProxyImpl *)self _initializeRecoveryKeyWithInfo:infoCopy error:&v20];
   v16 = v20;
-  v17 = _CDPLogSystem();
+  v17 = _CDPLogSystem(v16);
   v18 = v17;
   if (v16)
   {
@@ -1654,7 +1648,7 @@ void __66__CDPCircleProxyImpl_recoverOctagonUsingCustodianInfo_completion___bloc
 - (id)_initializeRecoveryKeyWithInfo:(id)info error:(id *)error
 {
   infoCopy = info;
-  v6 = _CDPLogSystem();
+  v6 = _CDPLogSystem(infoCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [CDPCircleProxyImpl _initializeRecoveryKeyWithInfo:infoCopy error:?];
@@ -1672,7 +1666,7 @@ void __66__CDPCircleProxyImpl_recoverOctagonUsingCustodianInfo_completion___bloc
 + (unint64_t)syncingStatusForAltDSID:(id)d
 {
   dCopy = d;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(dCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [(CDPCircleProxyImpl *)dCopy syncingStatusForAltDSID:v4];
@@ -1680,13 +1674,14 @@ void __66__CDPCircleProxyImpl_recoverOctagonUsingCustodianInfo_completion___bloc
 
   v5 = [CDPContext contextForAccountWithAltDSID:dCopy];
   v6 = [[CDPCircleProxyImpl alloc] initWithContext:v5];
-  v11 = 0;
-  v7 = [(CDPCircleProxyImpl *)v6 combinedCircleStatus:&v11];
-  v8 = v11;
+  v12 = 0;
+  v7 = [(CDPCircleProxyImpl *)v6 combinedCircleStatus:&v12];
+  v8 = v12;
+  v9 = v8;
   if (v8)
   {
-    v9 = _CDPLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _CDPLogSystem(v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       +[CDPCircleProxyImpl syncingStatusForAltDSID:];
     }
@@ -1695,90 +1690,48 @@ void __66__CDPCircleProxyImpl_recoverOctagonUsingCustodianInfo_completion___bloc
   return v7;
 }
 
-- (void)cachedCliqueStatus:.cold.1()
+- (void)cachedCliqueStatus:.cold.2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Failed to retrieve cachedCliqueStatus: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)cachedCliqueStatus:(uint64_t *)a1 .cold.2(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_4_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v1, v2, "Circle status check failed with error: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Circle status check failed with error: %@", v2, v3, v4, v5);
 }
 
-- (void)cachedSOSCircleStatus:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)cachedSOSCircleStatus:.cold.1()
 {
-  OUTLINED_FUNCTION_4_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v1, v2, "Failed to check circle status: %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Failed to check circle status: %@", v2, v3, v4, v5);
 }
 
-- (void)cliqueStatus:.cold.1()
+- (void)removeThisDeviceFromCircle:.cold.1()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Failed to check circle status: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)removeThisDeviceFromCircle:(uint64_t *)a1 .cold.1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_4_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v1, v2, "Failed to remove self from circle - %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
-}
-
-- (void)requestToJoinCircle:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "CDPCircleProxyImpl requestToJoinCircle fetchCliqueStatus failed with error=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Failed to remove self from circle - %@", v2, v3, v4, v5);
 }
 
 - (void)requestToJoinCircle:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [MEMORY[0x1E696AD98] numberWithInteger:a1];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_1DED99000, v2, v3, "CDPCircleProxyImpl requestToJoinCircle cliqueStatus is %@. No need to establish a new clique.", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5(&dword_1DED99000, v2, v3, "CDPCircleProxyImpl requestToJoinCircle cliqueStatus is %@. No need to establish a new clique.", v4, v5, v6, v7);
 }
 
 - (void)requestToJoinCircle:.cold.3()
 {
-  v9 = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696AD98] numberWithInteger:3];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_1DED99000, v1, v2, "cliqueStatus is %@, Requesting to join circle with OT establish", v3, v4, v5, v6, v8);
-
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5(&dword_1DED99000, v1, v2, "cliqueStatus is %@, Requesting to join circle with OT establish", v3, v4, v5, v6);
 }
 
 - (void)requestToJoinCircle:.cold.4()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_5_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_debug_impl(&dword_1DED99000, v1, OS_LOG_TYPE_DEBUG, "CDPCircleProxyImpl requestToJoinCircle establish finished with success=%@, error=%@", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)requestToJoinCircle:.cold.5()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "CDPCircleProxyImpl requestToJoinCircle establish failed with error=%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_debug_impl(&dword_1DED99000, v1, OS_LOG_TYPE_DEBUG, "CDPCircleProxyImpl requestToJoinCircle establish finished with success=%@, error=%@", v2, 0x16u);
 }
 
 - (void)requestToJoinCircle:.cold.6()
@@ -1795,56 +1748,34 @@ void __66__CDPCircleProxyImpl_recoverOctagonUsingCustodianInfo_completion___bloc
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)hasNonViewAwarePeers
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Failed to check for non-view-aware peers with error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)removeNonViewAwarePeers:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
-  v4 = 2112;
-  v5 = v0;
-  _os_log_error_impl(&dword_1DED99000, v1, OS_LOG_TYPE_ERROR, "Failed to remove old peers from circle with error %@ (peers: %@)", v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 2112;
+  v4 = v0;
+  _os_log_error_impl(&dword_1DED99000, v1, OS_LOG_TYPE_ERROR, "Failed to remove old peers from circle with error %@ (peers: %@)", v2, 0x16u);
 }
 
 - (void)removeNonViewAwarePeers:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeNonViewAwarePeers:.cold.3()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-- (void)_registerCredentialsOnlyIfNeeded:.cold.1()
+- (void)_registerCredentialsOnlyIfNeeded:.cold.2()
 {
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Failed Clique setUserCredentialsAndDSID with error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_registerCredentialsOnlyIfNeeded:(uint64_t *)a1 .cold.2(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_4_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_5_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v1, v2, "Failed to call SOSCCSetUserCredentialsAndDSID with error %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Failed to call SOSCCSetUserCredentialsAndDSID with error %@", v2, v3, v4, v5);
 }
 
 - (void)_registerCredentialsOnlyIfNeeded:.cold.3()
@@ -1861,41 +1792,21 @@ void __66__CDPCircleProxyImpl_recoverOctagonUsingCustodianInfo_completion___bloc
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-- (void)recoverOctagonUsingCustodianInfo:completion:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "Failed to obtain custodian recovery key from security with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 - (void)_initializeRecoveryKeyWithInfo:(void *)a1 error:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 custodianUUID];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_1DED99000, v2, v3, "Obtaining recovery key from security for custodian recovery with UUID: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5(&dword_1DED99000, v2, v3, "Obtaining recovery key from security for custodian recovery with UUID: %@", v4, v5, v6, v7);
 }
 
 + (void)syncingStatusForAltDSID:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 141558274;
-  v4 = 1752392040;
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "CDPCircleProxyImpl: fetching OT Status for altDSID: %{mask.hash}@", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)syncingStatusForAltDSID:.cold.2()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_3(&dword_1DED99000, v0, v1, "CDPDFollowUpController: Error fetching OT Status: %@", v2, v3, v4, v5, v7);
   v6 = *MEMORY[0x1E69E9840];
+  v2 = 141558274;
+  v3 = 1752392040;
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "CDPCircleProxyImpl: fetching OT Status for altDSID: %{mask.hash}@", &v2, 0x16u);
 }
 
 @end

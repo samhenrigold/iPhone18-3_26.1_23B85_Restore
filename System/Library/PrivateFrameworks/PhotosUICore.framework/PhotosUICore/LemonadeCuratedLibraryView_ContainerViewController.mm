@@ -25,7 +25,7 @@
 - (void)viewDidLoad
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for LemonadeCuratedLibraryView.ContainerViewController();
+  v6.super_class = type metadata accessor for LemonadeCuratedLibraryView.ContainerViewController(self, a2);
   v2 = v6.receiver;
   [(LemonadeCuratedLibraryView_ContainerViewController *)&v6 viewDidLoad];
   view = [v2 view];
@@ -46,15 +46,16 @@
 
 - (void)viewIsAppearing:(BOOL)appearing
 {
+  appearingCopy = appearing;
   selfCopy = self;
-  sub_1A3EF06C0(appearing);
+  sub_1A3EF06C0(appearingCopy, selfCopy);
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
   appearCopy = appear;
   v5.receiver = self;
-  v5.super_class = type metadata accessor for LemonadeCuratedLibraryView.ContainerViewController();
+  v5.super_class = type metadata accessor for LemonadeCuratedLibraryView.ContainerViewController(self, a2);
   v4 = v5.receiver;
   [(LemonadeCuratedLibraryView_ContainerViewController *)&v5 viewDidAppear:appearCopy];
   sub_1A3EF2A74(1);
@@ -63,7 +64,7 @@
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_1A3EF0CB4();
+  sub_1A3EF0CB4(selfCopy, v2);
 }
 
 - (UINavigationItem)navigationItem
@@ -85,7 +86,7 @@
 - (void)updateScrollView
 {
   selfCopy = self;
-  sub_1A3EF3D2C();
+  sub_1A3EF3D2C(selfCopy);
 }
 
 - (void)updateBarItems
@@ -100,13 +101,13 @@
 - (void)updateResetCuratedLibraryView
 {
   selfCopy = self;
-  sub_1A3EF3F6C();
+  sub_1A3EF3F6C(selfCopy);
 }
 
 - (void)updateCuratedLibraryViewModel
 {
   selfCopy = self;
-  sub_1A3EF4594();
+  sub_1A3EF4594(selfCopy);
 }
 
 - (void)curatedLibraryViewDidUpdateBars:(id)bars
@@ -119,7 +120,7 @@
 - (void)curatedLibraryViewRequestImmediateUpdate:(id)update
 {
   selfCopy = self;
-  sub_1A3EF01D0();
+  sub_1A3EF01D0(v3);
 }
 
 - (CGRect)layout:(id)layout visibleRectForRequestedVisibleRect:(CGRect)rect
@@ -177,7 +178,7 @@
 {
   animationCopy = animation;
   selfCopy = self;
-  sub_1A3EF6D04();
+  sub_1A3EF6D04(selfCopy);
 }
 
 - (void)scrollViewControllerDidEndScrollingAnimation:(id)animation
@@ -186,10 +187,11 @@
   v5 = *(&self->super.super.super.isa + OBJC_IVAR___LemonadeCuratedLibraryView_ContainerViewController_isPerformingScrollAnimation);
   *(&self->super.super.super.isa + OBJC_IVAR___LemonadeCuratedLibraryView_ContainerViewController_isPerformingScrollAnimation) = 0;
   selfCopy = self;
+  v8 = selfCopy;
   if (v5 == 1)
   {
-    v6 = sub_1A3EF04D4();
-    (*(*v6 + 184))(*(&self->super.super.super.isa + v4));
+    v7 = sub_1A3EF04D4(selfCopy, selfCopy);
+    (*(*v7 + 184))(*(&self->super.super.super.isa + v4));
   }
 
   sub_1A3EF58D4(0);
@@ -203,8 +205,8 @@
   if (v4 == 1)
   {
     selfCopy = self;
-    v6 = sub_1A3EF04D4();
-    (*(*v6 + 184))(*(&self->super.super.super.isa + v3));
+    v7 = sub_1A3EF04D4(selfCopy, v6);
+    (*(*v7 + 184))(*(&self->super.super.super.isa + v3));
   }
 }
 

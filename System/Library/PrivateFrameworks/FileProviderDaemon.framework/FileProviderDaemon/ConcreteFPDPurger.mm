@@ -31,24 +31,23 @@
 {
   v4 = sub_1CF9E5A58();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = &v13[-((v7 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v7 = &v12[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
   sub_1CF9E59D8();
-  v9 = qword_1EDEA70E0;
+  v8 = qword_1EDEA70E0;
   selfCopy = self;
-  if (v9 != -1)
+  if (v8 != -1)
   {
     swift_once();
   }
 
-  v11 = fpfs_current_log();
-  MEMORY[0x1EEE9AC00](v11);
-  *&v13[-16] = selfCopy;
-  *&v13[-8] = v8;
-  sub_1CF741DE8(v12, "purgeAndWait(at:)", 17, 2, sub_1CF745824, &v13[-32]);
+  v10 = fpfs_current_log();
+  MEMORY[0x1EEE9AC00](v10);
+  *&v12[-16] = selfCopy;
+  *&v12[-8] = v7;
+  sub_1CF741DE8(v11, "purgeAndWait(at:)", 17, 2, sub_1CF745824, &v12[-32]);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 - (void)purgeAsyncAtUrl:(id)url

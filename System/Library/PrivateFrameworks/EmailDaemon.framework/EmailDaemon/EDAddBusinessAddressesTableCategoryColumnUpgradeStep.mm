@@ -33,7 +33,7 @@ void __59__EDAddBusinessAddressesTableCategoryColumnUpgradeStep_log__block_invok
 
 + (int)runWithConnection:(id)connection
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   if ([connectionCopy columnExists:@"address" inTable:@"business_categories" type:0])
   {
@@ -95,29 +95,29 @@ LABEL_14:
     _businessCategoriesTableSchema = [objc_alloc(MEMORY[0x1E699B948]) initWithResultColumn:@"business" table:@"business_categories"];
     [_businessCategoriesTableSchema addResultColumn:@"category"];
     *buf = 0;
-    v21 = buf;
-    v22 = 0x2020000000;
-    v23 = 1;
-    v17[0] = MEMORY[0x1E69E9820];
-    v17[1] = 3221225472;
-    v17[2] = __74__EDAddBusinessAddressesTableCategoryColumnUpgradeStep_runWithConnection___block_invoke;
-    v17[3] = &unk_1E8250178;
-    v19 = buf;
-    v18 = connectionCopy;
-    v16 = 0;
-    v9 = [v18 executeSelectStatement:_businessCategoriesTableSchema withBlock:v17 error:&v16];
-    v10 = v16;
+    v20 = buf;
+    v21 = 0x2020000000;
+    v22 = 1;
+    v16[0] = MEMORY[0x1E69E9820];
+    v16[1] = 3221225472;
+    v16[2] = __74__EDAddBusinessAddressesTableCategoryColumnUpgradeStep_runWithConnection___block_invoke;
+    v16[3] = &unk_1E8250178;
+    v18 = buf;
+    v17 = connectionCopy;
+    v15 = 0;
+    v9 = [v17 executeSelectStatement:_businessCategoriesTableSchema withBlock:v16 error:&v15];
+    v10 = v15;
     if (v9)
     {
       v11 = +[EDAddBusinessAddressesTableCategoryColumnUpgradeStep log];
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        *v24 = 134217984;
-        v25 = 0;
-        _os_log_impl(&dword_1C61EF000, v11, OS_LOG_TYPE_DEFAULT, "Successfully populated %lu rows in the business_addresses table.", v24, 0xCu);
+        *v23 = 134217984;
+        v24 = 0;
+        _os_log_impl(&dword_1C61EF000, v11, OS_LOG_TYPE_DEFAULT, "Successfully populated %lu rows in the business_addresses table.", v23, 0xCu);
       }
 
-      if (v21[24])
+      if (v20[24])
       {
         v5 = 0;
 LABEL_29:
@@ -133,7 +133,7 @@ LABEL_29:
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         ef_publicDescription = [v10 ef_publicDescription];
-        [(EDAddBusinessAddressesTableCategoryColumnUpgradeStep *)ef_publicDescription runWithConnection:v24, v12];
+        [(EDAddBusinessAddressesTableCategoryColumnUpgradeStep *)ef_publicDescription runWithConnection:v23, v12];
       }
     }
 
@@ -150,13 +150,12 @@ LABEL_29:
 
 LABEL_30:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 void __74__EDAddBusinessAddressesTableCategoryColumnUpgradeStep_runWithConnection___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 objectAtIndexedSubscript:0];
   v5 = [v4 numberValue];
@@ -174,9 +173,9 @@ void __74__EDAddBusinessAddressesTableCategoryColumnUpgradeStep_runWithConnectio
   if (*(v11 + 24) == 1)
   {
     v12 = *(a1 + 32);
-    v22 = 0;
-    v13 = [v12 executeUpdateStatement:v8 error:&v22];
-    v14 = v22;
+    v21 = 0;
+    v13 = [v12 executeUpdateStatement:v8 error:&v21];
+    v14 = v21;
     v11 = *(*(a1 + 40) + 8);
   }
 
@@ -195,9 +194,9 @@ void __74__EDAddBusinessAddressesTableCategoryColumnUpgradeStep_runWithConnectio
       v16 = [v5 longLongValue];
       v17 = [v7 integerValue];
       *buf = 134218240;
-      v24 = v16;
-      v25 = 2048;
-      v26 = v17;
+      v23 = v16;
+      v24 = 2048;
+      v25 = v17;
       _os_log_impl(&dword_1C61EF000, v15, OS_LOG_TYPE_DEFAULT, "Successfully updated category for business ID %lld to %ld", buf, 0x16u);
     }
   }
@@ -207,38 +206,34 @@ void __74__EDAddBusinessAddressesTableCategoryColumnUpgradeStep_runWithConnectio
     v15 = +[EDAddBusinessAddressesTableCategoryColumnUpgradeStep log];
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v19 = [v5 longLongValue];
-      v20 = [v7 integerValue];
-      v21 = [v14 ef_publicDescription];
+      v18 = [v5 longLongValue];
+      v19 = [v7 integerValue];
+      v20 = [v14 ef_publicDescription];
       *buf = 134218498;
-      v24 = v19;
-      v25 = 2048;
-      v26 = v20;
-      v27 = 2112;
-      v28 = v21;
+      v23 = v18;
+      v24 = 2048;
+      v25 = v19;
+      v26 = 2112;
+      v27 = v20;
       _os_log_error_impl(&dword_1C61EF000, v15, OS_LOG_TYPE_ERROR, "Failed to update category for business ID %lld to %ld due to error %@{public}", buf, 0x20u);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_businessCategoriesTableSchema
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v2 = objc_alloc(MEMORY[0x1E699B958]);
   v3 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"business" nullable:0];
-  v11[0] = v3;
+  v10[0] = v3;
   v4 = [MEMORY[0x1E699B8D0] integerColumnWithName:@"category" nullable:0];
-  v11[1] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+  v10[1] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
   v6 = [v2 initWithName:@"business_categories" rowIDType:1 columns:v5];
 
-  v10 = @"business";
-  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v10 count:1];
+  v9 = @"business";
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v9 count:1];
   [v6 addUniquenessConstraintForColumns:v7 conflictResolution:1];
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

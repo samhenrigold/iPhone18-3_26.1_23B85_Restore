@@ -14,7 +14,7 @@
   y = frame.origin.y;
   x = frame.origin.x;
   ObjectType = swift_getObjectType();
-  v9 = sub_10000C518(&qword_10092DE18);
+  v9 = sub_10000C518(&qword_10092DE18, qword_1007B2570);
   __chkstk_darwin(v9);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtension24MultiAppFallbackIconView_iconViews) = _swiftEmptyArrayStorage;
   sub_1007433C4();
@@ -32,7 +32,7 @@
 
 - (_TtC22SubscribePageExtension24MultiAppFallbackIconView)initWithCoder:(id)coder
 {
-  v4 = sub_10000C518(&qword_10092DE18);
+  v4 = sub_10000C518(&qword_10092DE18, qword_1007B2570);
   __chkstk_darwin(v4);
   *(&self->super.super.super.isa + OBJC_IVAR____TtC22SubscribePageExtension24MultiAppFallbackIconView_iconViews) = _swiftEmptyArrayStorage;
   sub_1007433C4();

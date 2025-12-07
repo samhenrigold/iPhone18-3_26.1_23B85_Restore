@@ -91,31 +91,31 @@ uint64_t __41__FSFBiomeFeatureStore_singletonInstance__block_invoke(uint64_t a1)
 
 - (BOOL)deleteAllStreams
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v3 = +[FSFUtils availableStreams];
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     v7 = 1;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 &= [(FSFBiomeFeatureStore *)self deleteStream:*(*(&v11 + 1) + 8 * i)];
+        v7 &= [(FSFBiomeFeatureStore *)self deleteStream:*(*(&v10 + 1) + 8 * i)];
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -126,7 +126,6 @@ uint64_t __41__FSFBiomeFeatureStore_singletonInstance__block_invoke(uint64_t a1)
     LOBYTE(v7) = 1;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v7;
 }
 

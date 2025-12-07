@@ -135,7 +135,7 @@
   return v18;
 }
 
-uint64_t __64__SKUIPanelView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
+void *__64__SKUIPanelView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) prefetchResourcesForViewElement:a2 reason:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = (*(*(*(a1 + 40) + 8) + 24) | result) & 1;
@@ -878,7 +878,7 @@ void __31__SKUIPanelView_layoutSubviews__block_invoke(uint64_t a1, void *a2)
   nameCopy = name;
   optionsCopy = options;
   v9 = [(NSMapTable *)self->_animators objectForKey:feature];
-  if ([v9 isDescendantOfView:self] && objc_msgSend(nameCopy, "isEqualToString:", 0x282809028))
+  if ([v9 isDescendantOfView:self] && objc_msgSend_isEqualToString_(nameCopy))
   {
     v10 = [[SKUIShakeAnimation alloc] initWithOptions:optionsCopy];
     objc_opt_class();
@@ -905,9 +905,9 @@ void __31__SKUIPanelView_layoutSubviews__block_invoke(uint64_t a1, void *a2)
   v12 = SKUIViewElementPlainColorWithStyle(styleCopy, tintColor);
 
   textAlignment = [styleCopy textAlignment];
-  v14 = [textCopy attributedStringWithDefaultFont:v10 foregroundColor:v12 textAlignment:SKUIViewElementNSTextAlignmentForIKElementAlignment(textAlignment)];
+  v15 = [textCopy attributedStringWithDefaultFont:v10 foregroundColor:v12 textAlignment:{SKUIViewElementNSTextAlignmentForIKElementAlignment(textAlignment, v14)}];
 
-  return v14;
+  return v15;
 }
 
 + (void)_enumerateChildrenOfViewElement:(id)element usingBlock:(id)block
@@ -974,15 +974,15 @@ void __60__SKUIPanelView__enumerateChildrenOfViewElement_usingBlock___block_invo
   maximumLength = [elementCopy maximumLength];
   if (maximumLength < 1)
   {
-    v7 = 0;
+    isEqualToString = 0;
   }
 
   else
   {
-    v7 = [textStyle isEqualToString:0x282808808];
+    isEqualToString = objc_msgSend_isEqualToString_(textStyle);
   }
 
-  return v7;
+  return isEqualToString;
 }
 
 + (UIEdgeInsets)_marginsForViewElement:(id)element index:(unint64_t)index width:(double)width context:(id)context
@@ -1084,6 +1084,36 @@ void __60__SKUIPanelView__enumerateChildrenOfViewElement_usingBlock___block_invo
   }
 
   return v4;
+}
+
+- (void)initWithFrame:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIPanelView initWithFrame:]";
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIPanelView prefetchResourcesForViewElement:reason:context:]";
+}
+
++ (void)preferredSizeForViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIPanelView preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIPanelView requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIPanelView sizeThatFitsWidth:viewElement:context:]";
 }
 
 @end

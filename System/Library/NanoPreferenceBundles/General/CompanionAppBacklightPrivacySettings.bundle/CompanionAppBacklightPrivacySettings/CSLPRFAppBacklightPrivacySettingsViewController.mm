@@ -7,6 +7,7 @@
 - (void)_cachePrivacyType;
 - (void)_loadSettings;
 - (void)settingsModel:(id)model didUpdateSettings:(id)settings;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CSLPRFAppBacklightPrivacySettingsViewController
@@ -58,6 +59,44 @@
   }
 
   return v2;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v16.receiver = self;
+  v16.super_class = CSLPRFAppBacklightPrivacySettingsViewController;
+  [(CSLPRFAppBacklightPrivacySettingsViewController *)&v16 viewWillAppear:appear];
+  v3 = [NSBundle bundleWithIdentifier:@"com.apple.Carousel.CompanionNotificationSettings"];
+  bundleURL = [v3 bundleURL];
+
+  v5 = [NSBundle bundleWithIdentifier:@"com.apple.Bridge"];
+  bundleURL2 = [v5 bundleURL];
+
+  if (bundleURL)
+  {
+    v7 = bundleURL2 == 0;
+  }
+
+  else
+  {
+    v7 = 1;
+  }
+
+  if (!v7)
+  {
+    v8 = [_NSLocalizedStringResource alloc];
+    v9 = +[NSLocale currentLocale];
+    v10 = [v8 initWithKey:@"NOTIFICATION_AOT_PRIVACY_TITLE" table:@"Notifications" locale:v9 bundleURL:bundleURL];
+
+    v11 = [_NSLocalizedStringResource alloc];
+    v12 = +[NSLocale currentLocale];
+    v13 = [v11 initWithKey:@"NOTIFICATIONS" table:@"Settings" locale:v12 bundleURL:bundleURL2];
+
+    v17 = v13;
+    v14 = [NSArray arrayWithObjects:&v17 count:1];
+    v15 = [NSURL URLWithString:@"bridge:root=NOTIFICATIONS_ID&path=NOTIFICATION_AOT_PRIVACY_ID"];
+    [BPSWatchSettingsNavigationDonation emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"NOTIFICATIONS_ID" title:v10 localizedNavigationComponents:v14 deepLink:v15];
+  }
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path

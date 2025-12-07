@@ -60,21 +60,21 @@ uint64_t __54__FCPuzzleThumbnailURLProtocol_resourceMapSerialQueue__block_invoke
 
 + (void)setupWithArticleDatabase:(id)database cacheDirectory:(id)directory
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   databaseCopy = database;
   directoryCopy = directory;
   if (!databaseCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"record field URL protocol requires a non-nil database"];
-    v16 = 136315906;
-    v17 = "+[FCPuzzleThumbnailURLProtocol setupWithArticleDatabase:cacheDirectory:]";
-    v18 = 2080;
-    v19 = "FCPuzzleThumbnailURLProtocol.m";
-    v20 = 1024;
-    v21 = 73;
-    v22 = 2114;
-    v23 = v14;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v16, 0x26u);
+    v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"record field URL protocol requires a non-nil database"];
+    v15 = 136315906;
+    v16 = "+[FCPuzzleThumbnailURLProtocol setupWithArticleDatabase:cacheDirectory:]";
+    v17 = 2080;
+    v18 = "FCPuzzleThumbnailURLProtocol.m";
+    v19 = 1024;
+    v20 = 73;
+    v21 = 2114;
+    v22 = v13;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v15, 0x26u);
   }
 
   WeakRetained = objc_loadWeakRetained(&qword_1EDB26A00);
@@ -85,16 +85,16 @@ uint64_t __54__FCPuzzleThumbnailURLProtocol_resourceMapSerialQueue__block_invoke
 
     if (!v10 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"record field URL protocol has already been setup"];
-      v16 = 136315906;
-      v17 = "+[FCPuzzleThumbnailURLProtocol setupWithArticleDatabase:cacheDirectory:]";
-      v18 = 2080;
-      v19 = "FCPuzzleThumbnailURLProtocol.m";
-      v20 = 1024;
-      v21 = 74;
-      v22 = 2114;
-      v23 = v15;
-      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v16, 0x26u);
+      v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"record field URL protocol has already been setup"];
+      v15 = 136315906;
+      v16 = "+[FCPuzzleThumbnailURLProtocol setupWithArticleDatabase:cacheDirectory:]";
+      v17 = 2080;
+      v18 = "FCPuzzleThumbnailURLProtocol.m";
+      v19 = 1024;
+      v20 = 74;
+      v21 = 2114;
+      v22 = v14;
+      _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v15, 0x26u);
     }
   }
 
@@ -104,7 +104,6 @@ uint64_t __54__FCPuzzleThumbnailURLProtocol_resourceMapSerialQueue__block_invoke
   qword_1EDB26A08 = v11;
 
   [MEMORY[0x1E695AC60] registerClass:self];
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 + (void)unregister
@@ -125,7 +124,7 @@ uint64_t __54__FCPuzzleThumbnailURLProtocol_resourceMapSerialQueue__block_invoke
 
 + (id)URLForResourceMapID:(id)d publishDate:(id)date difficulty:(id)difficulty
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   dCopy = d;
   dateCopy = date;
   difficultyCopy = difficulty;
@@ -136,15 +135,15 @@ uint64_t __54__FCPuzzleThumbnailURLProtocol_resourceMapSerialQueue__block_invoke
 
   else if (!NSClassFromString(&cfstr_Xctest.isa) && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v30 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't construct a URL without a database"];
+    v29 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"can't construct a URL without a database"];
     *buf = 136315906;
-    v32 = "+[FCPuzzleThumbnailURLProtocol URLForResourceMapID:publishDate:difficulty:]";
-    v33 = 2080;
-    v34 = "FCPuzzleThumbnailURLProtocol.m";
-    v35 = 1024;
-    v36 = 97;
-    v37 = 2114;
-    v38 = v30;
+    v31 = "+[FCPuzzleThumbnailURLProtocol URLForResourceMapID:publishDate:difficulty:]";
+    v32 = 2080;
+    v33 = "FCPuzzleThumbnailURLProtocol.m";
+    v34 = 1024;
+    v35 = 97;
+    v36 = 2114;
+    v37 = v29;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -190,8 +189,6 @@ uint64_t __54__FCPuzzleThumbnailURLProtocol_resourceMapSerialQueue__block_invoke
     v27 = 0;
   }
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return v27;
 }
 
@@ -231,20 +228,20 @@ uint64_t __54__FCPuzzleThumbnailURLProtocol_resourceMapSerialQueue__block_invoke
 
 - (void)startLoading
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   fetchOperation = [(FCPuzzleThumbnailURLProtocol *)self fetchOperation];
 
   if (fetchOperation && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"shouldn't have a fetch operation yet"];
+    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"shouldn't have a fetch operation yet"];
     *location = 136315906;
     *&location[4] = "[FCPuzzleThumbnailURLProtocol startLoading]";
-    v21 = 2080;
-    v22 = "FCPuzzleThumbnailURLProtocol.m";
-    v23 = 1024;
-    v24 = 154;
-    v25 = 2114;
-    v26 = v15;
+    v20 = 2080;
+    v21 = "FCPuzzleThumbnailURLProtocol.m";
+    v22 = 1024;
+    v23 = 154;
+    v24 = 2114;
+    v25 = v14;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", location, 0x26u);
   }
 
@@ -254,12 +251,12 @@ uint64_t __54__FCPuzzleThumbnailURLProtocol_resourceMapSerialQueue__block_invoke
   pathComponents = [v5 pathComponents];
   if ([pathComponents count] <= 3)
   {
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __44__FCPuzzleThumbnailURLProtocol_startLoading__block_invoke;
-    v19[3] = &unk_1E7C36EA0;
-    v19[4] = self;
-    __44__FCPuzzleThumbnailURLProtocol_startLoading__block_invoke(v19);
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __44__FCPuzzleThumbnailURLProtocol_startLoading__block_invoke;
+    v18[3] = &unk_1E7C36EA0;
+    v18[4] = self;
+    __44__FCPuzzleThumbnailURLProtocol_startLoading__block_invoke(v18);
   }
 
   else
@@ -281,22 +278,20 @@ uint64_t __54__FCPuzzleThumbnailURLProtocol_resourceMapSerialQueue__block_invoke
     }
 
     objc_initWeak(location, self);
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __44__FCPuzzleThumbnailURLProtocol_startLoading__block_invoke_2;
-    v16[3] = &unk_1E7C39C58;
-    objc_copyWeak(v18, location);
-    v16[4] = self;
-    v18[1] = integerValue;
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __44__FCPuzzleThumbnailURLProtocol_startLoading__block_invoke_2;
+    v15[3] = &unk_1E7C39C58;
+    objc_copyWeak(v17, location);
+    v15[4] = self;
+    v17[1] = integerValue;
     v13 = v12;
-    v17 = v13;
-    [(FCPuzzleThumbnailURLProtocol *)self _fetchResourceMapWithID:v7 completion:v16];
+    v16 = v13;
+    [(FCPuzzleThumbnailURLProtocol *)self _fetchResourceMapWithID:v7 completion:v15];
 
-    objc_destroyWeak(v18);
+    objc_destroyWeak(v17);
     objc_destroyWeak(location);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __44__FCPuzzleThumbnailURLProtocol_startLoading__block_invoke(uint64_t a1)
@@ -412,23 +407,23 @@ void __44__FCPuzzleThumbnailURLProtocol_startLoading__block_invoke_5(uint64_t a1
 
 void __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke(id *a1, void *a2)
 {
-  v39[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   aBlock[0] = MEMORY[0x1E69E9820];
   aBlock[1] = 3221225472;
   aBlock[2] = __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_2;
   aBlock[3] = &unk_1E7C39C80;
-  v36 = a1[6];
-  v24 = v3;
-  v37 = v24;
+  v35 = a1[6];
+  v23 = v3;
+  v36 = v23;
   v4 = _Block_copy(aBlock);
   v5 = [qword_1EDB26A08 URLByAppendingPathComponent:@"puzzle-resources"];
   v6 = v5;
   if (v5)
   {
     v7 = v5;
-    v23 = [a1[4] stringByAppendingFormat:@"_%lu", 1];
-    v8 = [v7 URLByAppendingPathComponent:v23];
+    v22 = [a1[4] stringByAppendingFormat:@"_%lu", 1];
+    v8 = [v7 URLByAppendingPathComponent:v22];
     v9 = [MEMORY[0x1E696AC08] defaultManager];
     v10 = [v8 path];
     v11 = [v9 fileExistsAtPath:v10];
@@ -448,70 +443,68 @@ void __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___blo
       [(FCCKContentFetchOperation *)v13 setDatabase:?];
 
       v15 = [objc_alloc(MEMORY[0x1E695BA70]) initWithRecordName:a1[4]];
-      v39[0] = v15;
-      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:1];
+      v38[0] = v15;
+      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:1];
       if (v13)
       {
         objc_setProperty_nonatomic_copy(v13, v16, v17, 384);
       }
 
-      v38 = @"asset";
-      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
+      v37 = @"asset";
+      v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
       if (v13)
       {
         objc_setProperty_nonatomic_copy(v13, v18, v19, 400);
       }
 
-      v31[0] = 0;
-      v31[1] = v31;
-      v31[2] = 0x3032000000;
-      v31[3] = __Block_byref_object_copy__13;
-      v31[4] = __Block_byref_object_dispose__13;
-      v32 = 0;
+      v30[0] = 0;
+      v30[1] = v30;
+      v30[2] = 0x3032000000;
+      v30[3] = __Block_byref_object_copy__13;
+      v30[4] = __Block_byref_object_dispose__13;
+      v31 = 0;
       newValue[0] = MEMORY[0x1E69E9820];
       newValue[1] = 3221225472;
       newValue[2] = __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_69;
       newValue[3] = &unk_1E7C39CA8;
-      newValue[4] = v31;
+      newValue[4] = v30;
       if (v13)
       {
         objc_setProperty_nonatomic_copy(v13, v20, newValue, 416);
       }
 
-      v25[0] = MEMORY[0x1E69E9820];
-      v25[1] = 3221225472;
-      v25[2] = __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_2_71;
-      v25[3] = &unk_1E7C39CF8;
-      objc_copyWeak(&v29, a1 + 7);
-      v27 = v4;
-      v28 = v31;
-      v25[4] = a1[5];
-      v26 = v8;
+      v24[0] = MEMORY[0x1E69E9820];
+      v24[1] = 3221225472;
+      v24[2] = __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_2_71;
+      v24[3] = &unk_1E7C39CF8;
+      objc_copyWeak(&v28, a1 + 7);
+      v26 = v4;
+      v27 = v30;
+      v24[4] = a1[5];
+      v25 = v8;
       if (v13)
       {
-        objc_setProperty_nonatomic_copy(v13, v21, v25, 424);
+        objc_setProperty_nonatomic_copy(v13, v21, v24, 424);
       }
 
       [a1[5] setFetchOperation:v13];
       [(FCOperation *)v13 start];
 
-      objc_destroyWeak(&v29);
-      _Block_object_dispose(v31, 8);
+      objc_destroyWeak(&v28);
+      _Block_object_dispose(v30, 8);
     }
   }
 
   else
   {
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_3;
-    v33[3] = &unk_1E7C379C8;
-    v34 = v4;
-    __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_3(v33);
-    v7 = v34;
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_3;
+    v32[3] = &unk_1E7C379C8;
+    v33 = v4;
+    __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_3(v32);
+    v7 = v33;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_2(uint64_t a1)
@@ -542,26 +535,26 @@ void __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___blo
 
     if (v8)
     {
-      v43[0] = MEMORY[0x1E69E9820];
-      v43[1] = 3221225472;
-      v43[2] = __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_4;
-      v43[3] = &unk_1E7C379C8;
-      v44 = *(a1 + 48);
-      __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_4(v43);
-      v9 = v44;
+      v42[0] = MEMORY[0x1E69E9820];
+      v42[1] = 3221225472;
+      v42[2] = __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_4;
+      v42[3] = &unk_1E7C379C8;
+      v43 = *(a1 + 48);
+      __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_4(v42);
+      v9 = v43;
     }
 
     else if (v3)
     {
-      v37 = MEMORY[0x1E69E9820];
-      v38 = 3221225472;
-      v39 = __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_5;
-      v40 = &unk_1E7C37778;
-      v42 = *(a1 + 48);
-      v41 = v3;
-      v42[2](v42, 0, v41);
+      v36 = MEMORY[0x1E69E9820];
+      v37 = 3221225472;
+      v38 = __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_5;
+      v39 = &unk_1E7C37778;
+      v41 = *(a1 + 48);
+      v40 = v3;
+      v41[2](v41, 0, v40);
 
-      v9 = v42;
+      v9 = v41;
     }
 
     else
@@ -612,70 +605,69 @@ void __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___blo
             if (v18)
             {
               v19 = [FCAssetDownloadOperation alloc];
-              v24 = objc_loadWeakRetained(&qword_1EDB26A00);
-              [v24 networkReachability];
-              v20 = v25 = v18;
-              v21 = *(a1 + 32);
-              v22 = [objc_opt_class() sharedURLRequestScheduler];
-              v23 = [(FCAssetDownloadOperation *)v19 initWithNetworkReachability:v20 URLRequestScheduler:v22];
+              v23 = objc_loadWeakRetained(&qword_1EDB26A00);
+              [v23 networkReachability];
+              v20 = v24 = v18;
+              v21 = [objc_opt_class() sharedURLRequestScheduler];
+              v22 = [(FCAssetDownloadOperation *)v19 initWithNetworkReachability:v20 URLRequestScheduler:v21];
 
-              v18 = v25;
-              [(FCAssetDownloadOperation *)v23 setURL:v25];
-              v26[0] = MEMORY[0x1E69E9820];
-              v26[1] = 3221225472;
-              v26[2] = __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_10;
-              v26[3] = &unk_1E7C39CD0;
-              v28 = *(a1 + 48);
-              v27 = *(a1 + 40);
-              [(FCAssetDownloadOperation *)v23 setFileDownloadCompletionHandler:v26];
-              [v6 setAssetOperation:v23];
-              [(FCOperation *)v23 start];
+              v18 = v24;
+              [(FCAssetDownloadOperation *)v22 setURL:v24];
+              v25[0] = MEMORY[0x1E69E9820];
+              v25[1] = 3221225472;
+              v25[2] = __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_10;
+              v25[3] = &unk_1E7C39CD0;
+              v27 = *(a1 + 48);
+              v26 = *(a1 + 40);
+              [(FCAssetDownloadOperation *)v22 setFileDownloadCompletionHandler:v25];
+              [v6 setAssetOperation:v22];
+              [(FCOperation *)v22 start];
             }
 
             else
             {
-              v29[0] = MEMORY[0x1E69E9820];
-              v29[1] = 3221225472;
-              v29[2] = __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_9;
-              v29[3] = &unk_1E7C379C8;
-              v30 = *(a1 + 48);
-              __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_9(v29);
-              v23 = v30;
+              v28[0] = MEMORY[0x1E69E9820];
+              v28[1] = 3221225472;
+              v28[2] = __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_9;
+              v28[3] = &unk_1E7C379C8;
+              v29 = *(a1 + 48);
+              __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_9(v28);
+              v22 = v29;
             }
           }
 
           else
           {
-            v31[0] = MEMORY[0x1E69E9820];
-            v31[1] = 3221225472;
-            v31[2] = __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_8;
-            v31[3] = &unk_1E7C379C8;
-            v32 = *(a1 + 48);
-            __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_8(v31);
-            v18 = v32;
+            v30[0] = MEMORY[0x1E69E9820];
+            v30[1] = 3221225472;
+            v30[2] = __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_8;
+            v30[3] = &unk_1E7C379C8;
+            v31 = *(a1 + 48);
+            __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_8(v30);
+            v18 = v31;
           }
         }
 
         else
         {
-          v33[0] = MEMORY[0x1E69E9820];
-          v33[1] = 3221225472;
-          v33[2] = __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_7;
-          v33[3] = &unk_1E7C379C8;
-          v34 = *(a1 + 48);
-          __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_7(v33);
-          v14 = v34;
+          v32[0] = MEMORY[0x1E69E9820];
+          v32[1] = 3221225472;
+          v32[2] = __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_7;
+          v32[3] = &unk_1E7C379C8;
+          v33 = *(a1 + 48);
+          __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_7(v32);
+          v14 = v33;
         }
       }
 
       else
       {
-        v35[0] = MEMORY[0x1E69E9820];
-        v35[1] = 3221225472;
-        v35[2] = __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_6;
-        v35[3] = &unk_1E7C379C8;
-        v36 = *(a1 + 48);
-        __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_6(v35);
+        v34[0] = MEMORY[0x1E69E9820];
+        v34[1] = 3221225472;
+        v34[2] = __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_6;
+        v34[3] = &unk_1E7C379C8;
+        v35 = *(a1 + 48);
+        __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_6(v34);
 
         v9 = 0;
       }
@@ -725,15 +717,15 @@ void __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___blo
   v9 = a4;
   if (v9)
   {
-    v21[1] = MEMORY[0x1E69E9820];
-    v21[2] = 3221225472;
-    v21[3] = __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_11;
-    v21[4] = &unk_1E7C37778;
-    v23 = *(a1 + 40);
-    v22 = v9;
-    v23[2](v23, 0, v22);
+    v20[1] = MEMORY[0x1E69E9820];
+    v20[2] = 3221225472;
+    v20[3] = __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___block_invoke_11;
+    v20[4] = &unk_1E7C37778;
+    v22 = *(a1 + 40);
+    v21 = v9;
+    v22[2](v22, 0, v21);
 
-    v10 = v23;
+    v10 = v22;
   }
 
   else
@@ -751,21 +743,20 @@ void __67__FCPuzzleThumbnailURLProtocol__fetchResourceMapWithID_completion___blo
 
     v14 = [v7 path];
     v15 = [*(a1 + 32) path];
-    v21[0] = 0;
-    v16 = [v10 transformAssetDataFromFilePath:v14 toFilePath:v15 error:v21];
-    v17 = v21[0];
+    v20[0] = 0;
+    v16 = [v10 transformAssetDataFromFilePath:v14 toFilePath:v15 error:v20];
+    v17 = v20[0];
 
     if (v16)
     {
-      v18 = *(a1 + 32);
       (*(*(a1 + 40) + 16))();
     }
 
     else
     {
-      v20 = *(a1 + 40);
-      v19 = v17;
-      v20[2](v20, 0, v19);
+      v19 = *(a1 + 40);
+      v18 = v17;
+      v19[2](v19, 0, v18);
     }
   }
 }

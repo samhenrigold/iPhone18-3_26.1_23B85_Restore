@@ -3,6 +3,7 @@
 + (id)buildSectionsWithSections:(id)sections queryContext:(id)context searchInAppInfo:(id)info renderState:(unint64_t)state;
 + (id)cachedValueForKey:(id)key cache:(id)cache computeHandler:(id)handler;
 + (id)findDistinctPathIdentifiersForSections:(id)sections;
++ (id)makeClearProactiveCategoryButtonItemWithCategory:(int)category shouldClearWholeSection:(BOOL)section result:(id)result;
 + (void)filterResultsFromSections:(id)sections queryContext:(id)context;
 + (void)injectRecentsOptionsIntoResult:(id)result;
 - (NSSet)bundleIdentifiersForHiddenSections;
@@ -42,7 +43,7 @@
 
 + (void)filterResultsFromSections:(id)sections queryContext:(id)context
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   sectionsCopy = sections;
   contextCopy = context;
   v8 = objc_opt_new();
@@ -57,51 +58,49 @@
   {
     metadataSpecialCasedAppEntityBundles = [self metadataSpecialCasedAppEntityBundles];
     [firstObject bundleIdentifier];
-    v15 = v25 = v8;
+    v15 = v24 = v8;
     v16 = [metadataSpecialCasedAppEntityBundles containsObject:v15];
 
-    v8 = v25;
+    v8 = v24;
     if ((v16 & 1) == 0)
     {
       appURL = [firstObject appURL];
       path = [appURL path];
 
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
       v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       resultSet = [firstObject2 resultSet];
-      v19 = [resultSet countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v19 = [resultSet countByEnumeratingWithState:&v25 objects:v29 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v27;
+        v21 = *v26;
         do
         {
           v22 = 0;
           do
           {
-            if (*v27 != v21)
+            if (*v26 != v21)
             {
               objc_enumerationMutation(resultSet);
             }
 
-            [v13 addObject:{*(*(&v26 + 1) + 8 * v22++), path}];
+            [v13 addObject:{*(*(&v25 + 1) + 8 * v22++), path}];
           }
 
           while (v20 != v22);
-          v20 = [resultSet countByEnumeratingWithState:&v26 objects:v30 count:16];
+          v20 = [resultSet countByEnumeratingWithState:&v25 objects:v29 count:16];
         }
 
         while (v20);
       }
 
       [firstObject2 setResults:v13];
-      v8 = v25;
+      v8 = v24;
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 + (id)buildSectionsWithSections:(id)sections queryContext:(id)context searchInAppInfo:(id)info renderState:(unint64_t)state
@@ -124,7 +123,7 @@
 
 + (Class)sectionBuilderClassForSection:(id)section withQueryContext:(id)context
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   sectionCopy = section;
   contextCopy = context;
   if (sectionBuilderClassForSection_withQueryContext__onceToken != -1)
@@ -132,34 +131,34 @@
     +[SPUISSectionBuilderHandler sectionBuilderClassForSection:withQueryContext:];
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v7 = sectionBuilderClassForSection_withQueryContext__supportedClasses;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v17;
 LABEL_5:
     v11 = 0;
     while (1)
     {
-      if (*v21 != v10)
+      if (*v17 != v10)
       {
         objc_enumerationMutation(v7);
       }
 
-      v12 = *(*(&v20 + 1) + 8 * v11);
-      if ([v12 supportsSection:sectionCopy queryContext:{contextCopy, v20}])
+      v12 = *(*(&v16 + 1) + 8 * v11);
+      if ([v12 supportsSection:sectionCopy queryContext:{contextCopy, v16}])
       {
         break;
       }
 
       if (v9 == ++v11)
       {
-        v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v9)
         {
           goto LABEL_5;
@@ -171,7 +170,7 @@ LABEL_5:
 
     if (v12)
     {
-      goto LABEL_16;
+      goto LABEL_14;
     }
   }
 
@@ -181,53 +180,94 @@ LABEL_11:
   }
 
   searchEntities = [contextCopy searchEntities];
-  v14 = [searchEntities count];
-  v15 = off_279D0AAC0;
-  if (v14)
-  {
-    v15 = off_279D0ABB8;
-  }
-
-  v16 = *v15;
+  objc_msgSend_count(searchEntities);
   v12 = objc_opt_class();
 
-LABEL_16:
-  v17 = v12;
+LABEL_14:
+  v14 = v12;
 
-  v18 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 void __77__SPUISSectionBuilderHandler_sectionBuilderClassForSection_withQueryContext___block_invoke()
 {
-  v3[17] = *MEMORY[0x277D85DE8];
-  v3[0] = objc_opt_class();
-  v3[1] = objc_opt_class();
-  v3[2] = objc_opt_class();
-  v3[3] = objc_opt_class();
-  v3[4] = objc_opt_class();
-  v3[5] = objc_opt_class();
-  v3[6] = objc_opt_class();
-  v3[7] = objc_opt_class();
-  v3[8] = objc_opt_class();
-  v3[9] = objc_opt_class();
-  v3[10] = objc_opt_class();
-  v3[11] = objc_opt_class();
-  v3[12] = objc_opt_class();
-  v3[13] = objc_opt_class();
-  v3[14] = objc_opt_class();
-  v3[15] = objc_opt_class();
-  v3[16] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:17];
+  v2[17] = *MEMORY[0x277D85DE8];
+  v2[0] = objc_opt_class();
+  v2[1] = objc_opt_class();
+  v2[2] = objc_opt_class();
+  v2[3] = objc_opt_class();
+  v2[4] = objc_opt_class();
+  v2[5] = objc_opt_class();
+  v2[6] = objc_opt_class();
+  v2[7] = objc_opt_class();
+  v2[8] = objc_opt_class();
+  v2[9] = objc_opt_class();
+  v2[10] = objc_opt_class();
+  v2[11] = objc_opt_class();
+  v2[12] = objc_opt_class();
+  v2[13] = objc_opt_class();
+  v2[14] = objc_opt_class();
+  v2[15] = objc_opt_class();
+  v2[16] = objc_opt_class();
+  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v2 count:17];
   v1 = sectionBuilderClassForSection_withQueryContext__supportedClasses;
   sectionBuilderClassForSection_withQueryContext__supportedClasses = v0;
+}
 
-  v2 = *MEMORY[0x277D85DE8];
++ (id)makeClearProactiveCategoryButtonItemWithCategory:(int)category shouldClearWholeSection:(BOOL)section result:(id)result
+{
+  if (category == 1)
+  {
+    sectionCopy = section;
+    result = [SPUISUtilities localizedStringForKey:@"CLEAR", section, result];
+    v7 = [SPUISUtilities localizedStringForKey:@"CLEAR_ALL_RECENTS"];
+    v8 = v7;
+    if (sectionCopy)
+    {
+      v9 = v7;
+    }
+
+    else
+    {
+      v9 = result;
+    }
+
+    v10 = v9;
+    if (sectionCopy)
+    {
+      v11 = objc_opt_new();
+      [v11 setSymbolName:@"xmark"];
+      [v11 setIsTemplate:1];
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+
+    v13 = objc_opt_new();
+    [v13 setCategory:1];
+    [v13 setShouldClearWholeSection:sectionCopy];
+    v12 = objc_opt_new();
+    objc_msgSend_setTitle_(v12);
+    [v12 setImage:v11];
+    [v12 setCommand:v13];
+    [v12 setIsDestructive:1];
+  }
+
+  else
+  {
+    v8 = 0;
+    result = 0;
+    v12 = 0;
+  }
+
+  return v12;
 }
 
 + (void)injectRecentsOptionsIntoResult:(id)result
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   resultCopy = result;
   if ([resultCopy shouldUseCompactDisplay] && (objc_msgSend(resultCopy, "compactCard"), (v5 = objc_claimAutoreleasedReturnValue()) != 0))
   {
@@ -258,8 +298,8 @@ void __77__SPUISSectionBuilderHandler_sectionBuilderClassForSection_withQueryCon
 
     else
     {
-      v21[0] = v11;
-      previewButtonItems2 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+      v20[0] = v11;
+      previewButtonItems2 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
       [firstObject setPreviewButtonItems:previewButtonItems2];
     }
 
@@ -273,13 +313,11 @@ void __77__SPUISSectionBuilderHandler_sectionBuilderClassForSection_withQueryCon
 
     else
     {
-      v20 = v12;
-      trailingSwipeButtonItems2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
+      v19 = v12;
+      trailingSwipeButtonItems2 = [MEMORY[0x277CBEA60] arrayWithObjects:&v19 count:1];
       [firstObject setTrailingSwipeButtonItems:trailingSwipeButtonItems2];
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (id)findDistinctPathIdentifiersForSections:(id)sections
@@ -291,7 +329,7 @@ void __77__SPUISSectionBuilderHandler_sectionBuilderClassForSection_withQueryCon
 
 - (void)insertDummySectionsIntoSections:(id)sections
 {
-  v32[3] = *MEMORY[0x277D85DE8];
+  v31[3] = *MEMORY[0x277D85DE8];
   sectionsCopy = sections;
   searchEntity = [(SPUISSectionBuilderHandler *)self searchEntity];
   if (([searchEntity isFolderSearch] & 1) == 0)
@@ -317,17 +355,17 @@ void __77__SPUISSectionBuilderHandler_sectionBuilderClassForSection_withQueryCon
     if (!searchEntity && !v11)
     {
       bundleIdentifiersForHiddenSections = [(SPUISSectionBuilderHandler *)self bundleIdentifiersForHiddenSections];
-      v13 = [bundleIdentifiersForHiddenSections count];
+      v13 = objc_msgSend_count(bundleIdentifiersForHiddenSections);
 
       if (v13)
       {
-        v14 = [sectionsCopy count] - (v10 != 0);
+        v14 = objc_msgSend_count(sectionsCopy) - (v10 != 0);
         v15 = [MEMORY[0x277D65848] mutableSectionWithBundleId:@"com.apple.other:show_more"];
         [sectionsCopy insertObject:v15 atIndex:v14];
       }
     }
 
-    v31 = v10;
+    v30 = v10;
     bundleIdentifier2 = [lastObject bundleIdentifier];
     v17 = [bundleIdentifier2 isEqualToString:@"com.apple.spotlight.related_search"];
 
@@ -341,12 +379,12 @@ void __77__SPUISSectionBuilderHandler_sectionBuilderClassForSection_withQueryCon
       v18 = 0;
     }
 
-    v19 = [sectionsCopy count];
-    v32[0] = @"com.apple.MobileAddressBook.SocialMedia";
-    v32[1] = @"com.apple.spotlight.contactInfo";
-    v32[2] = @"com.apple.searchd.searchThroughSuggestions";
-    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v32 count:3];
-    v21 = [v20 count];
+    v19 = objc_msgSend_count(sectionsCopy);
+    v31[0] = @"com.apple.MobileAddressBook.SocialMedia";
+    v31[1] = @"com.apple.spotlight.contactInfo";
+    v31[2] = @"com.apple.searchd.searchThroughSuggestions";
+    v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v31 count:3];
+    v21 = objc_msgSend_count(v20);
     v22 = (v21 - 1);
     if (v21 - 1 >= 0)
     {
@@ -377,25 +415,23 @@ void __77__SPUISSectionBuilderHandler_sectionBuilderClassForSection_withQueryCon
         v28 = 0;
       }
 
-      if ((v28 & 1) == 0 && !v31)
+      if ((v28 & 1) == 0 && !v30)
       {
         v29 = [MEMORY[0x277D65848] mutableSectionWithBundleId:@"com.apple.parsec.related_search"];
         [sectionsCopy addObject:v29];
       }
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (id)buildSections
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v3 = SPUISGeneralLog();
   v4 = os_signpost_id_generate(v3);
   v5 = v3;
   v6 = v5;
-  v47 = v4 - 1;
+  v46 = v4 - 1;
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
   {
     *buf = 0;
@@ -406,28 +442,28 @@ void __77__SPUISSectionBuilderHandler_sectionBuilderClassForSection_withQueryCon
   log = v6;
 
   v7 = objc_opt_new();
+  v57 = 0u;
   v58 = 0u;
   v59 = 0u;
   v60 = 0u;
-  v61 = 0u;
   sections = [(SPUISSectionBuilderHandler *)self sections];
-  v9 = [sections countByEnumeratingWithState:&v58 objects:v65 count:16];
+  v9 = [sections countByEnumeratingWithState:&v57 objects:v64 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v59;
+    v11 = *v58;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v59 != v11)
+        if (*v58 != v11)
         {
           objc_enumerationMutation(sections);
         }
 
-        v13 = *(*(&v58 + 1) + 8 * i);
+        v13 = *(*(&v57 + 1) + 8 * i);
         results = [v13 results];
-        v15 = [results count];
+        v15 = objc_msgSend_count(results);
 
         if (v15)
         {
@@ -435,7 +471,7 @@ void __77__SPUISSectionBuilderHandler_sectionBuilderClassForSection_withQueryCon
         }
       }
 
-      v10 = [sections countByEnumeratingWithState:&v58 objects:v65 count:16];
+      v10 = [sections countByEnumeratingWithState:&v57 objects:v64 count:16];
     }
 
     while (v10);
@@ -448,7 +484,7 @@ void __77__SPUISSectionBuilderHandler_sectionBuilderClassForSection_withQueryCon
   }
 
   contactEntity = [(SPUISSectionBuilderHandler *)self contactEntity];
-  v46 = contactEntity;
+  v45 = contactEntity;
   if (contactEntity)
   {
     v18 = contactEntity;
@@ -459,36 +495,36 @@ void __77__SPUISSectionBuilderHandler_sectionBuilderClassForSection_withQueryCon
     v23 = v21;
     v24 = [(SPUISContactResultBuilder *)v19 initWithResult:0 contactEntity:v22 contact:v21];
 
-    v48 = v24;
+    v47 = v24;
     [(SPUISResultBuilder *)v24 setQueryContext:queryContext];
   }
 
   else
   {
-    v48 = 0;
+    v47 = 0;
   }
 
-  v50 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v7, "count")}];
+  v49 = [MEMORY[0x277CBEB18] arrayWithCapacity:objc_msgSend_count(v7)];
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
   v25 = v7;
-  v53 = [v25 countByEnumeratingWithState:&v54 objects:v64 count:16];
-  if (v53)
+  v52 = [v25 countByEnumeratingWithState:&v53 objects:v63 count:16];
+  if (v52)
   {
-    v51 = *v55;
+    v50 = *v54;
     obj = v25;
     do
     {
-      for (j = 0; j != v53; ++j)
+      for (j = 0; j != v52; ++j)
       {
-        if (*v55 != v51)
+        if (*v54 != v50)
         {
           objc_enumerationMutation(obj);
         }
 
-        v27 = *(*(&v54 + 1) + 8 * j);
+        v27 = *(*(&v53 + 1) + 8 * j);
         v28 = [objc_opt_class() sectionBuilderClassForSection:v27 withQueryContext:queryContext];
         v29 = objc_opt_new();
         [v29 setQueryContext:queryContext];
@@ -500,7 +536,7 @@ void __77__SPUISSectionBuilderHandler_sectionBuilderClassForSection_withQueryCon
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v29 setContactResultBuilder:v48];
+          [v29 setContactResultBuilder:v47];
         }
 
         else
@@ -522,7 +558,7 @@ void __77__SPUISSectionBuilderHandler_sectionBuilderClassForSection_withQueryCon
         if (v33 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
         {
           *buf = 138412290;
-          v63 = v28;
+          v62 = v28;
           _os_signpost_emit_with_name_impl(&dword_26B882000, v35, OS_SIGNPOST_INTERVAL_BEGIN, v33, "SPUISSectionBuilder: buildSection", "%@", buf, 0xCu);
         }
 
@@ -532,67 +568,65 @@ void __77__SPUISSectionBuilderHandler_sectionBuilderClassForSection_withQueryCon
         if (v33 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
         {
           *buf = 138412290;
-          v63 = v28;
+          v62 = v28;
           _os_signpost_emit_with_name_impl(&dword_26B882000, v38, OS_SIGNPOST_INTERVAL_END, v33, "SPUISSectionBuilder: buildSection", "%@", buf, 0xCu);
         }
 
         results2 = [buildSection results];
-        v40 = [results2 count];
+        v40 = objc_msgSend_count(results2);
 
         if (v40)
         {
-          [v50 addObject:buildSection];
+          [v49 addObject:buildSection];
         }
       }
 
       v25 = obj;
-      v53 = [obj countByEnumeratingWithState:&v54 objects:v64 count:16];
+      v52 = [obj countByEnumeratingWithState:&v53 objects:v63 count:16];
     }
 
-    while (v53);
+    while (v52);
   }
 
   v41 = log;
   v42 = v41;
-  if (v47 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
+  if (v46 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
   {
     *buf = 138412290;
-    v63 = v25;
+    v62 = v25;
     _os_signpost_emit_with_name_impl(&dword_26B882000, v42, OS_SIGNPOST_INTERVAL_END, spid, "SPUISSectionBuilder, buildSections", "%@", buf, 0xCu);
   }
 
-  v43 = *MEMORY[0x277D85DE8];
-
-  return v50;
+  return v49;
 }
 
 - (NSSet)bundleIdentifiersForHiddenSections
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   bundleIdentifiersForHiddenSections = self->_bundleIdentifiersForHiddenSections;
   if (!bundleIdentifiersForHiddenSections)
   {
     v4 = objc_opt_new();
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     sections = [(SPUISSectionBuilderHandler *)self sections];
-    v6 = [sections countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v6 = [sections countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v16;
+      v8 = *v15;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v8)
+          if (*v15 != v8)
           {
             objc_enumerationMutation(sections);
           }
 
-          v10 = *(*(&v15 + 1) + 8 * i);
+          v10 = *(*(&v14 + 1) + 8 * i);
           if ([v10 isInitiallyHidden])
           {
             bundleIdentifier = [v10 bundleIdentifier];
@@ -600,7 +634,7 @@ void __77__SPUISSectionBuilderHandler_sectionBuilderClassForSection_withQueryCon
           }
         }
 
-        v7 = [sections countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [sections countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v7);
@@ -611,8 +645,6 @@ void __77__SPUISSectionBuilderHandler_sectionBuilderClassForSection_withQueryCon
 
     bundleIdentifiersForHiddenSections = self->_bundleIdentifiersForHiddenSections;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return bundleIdentifiersForHiddenSections;
 }

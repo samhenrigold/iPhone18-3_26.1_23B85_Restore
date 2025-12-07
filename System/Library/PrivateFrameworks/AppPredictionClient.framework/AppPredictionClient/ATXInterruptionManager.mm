@@ -82,7 +82,7 @@
     v9[4] = self;
     v9[5] = &v10;
     v3 = [v5 _pas_filteredArrayWithTest:v9];
-    v6 = __atxlog_handle_notification_management();
+    v6 = __atxlog_handle_notification_management(v3);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(v11 + 6);
@@ -142,7 +142,7 @@ uint64_t __56__ATXInterruptionManager_recommendedAllowedAppsForMode___block_invo
     v9[4] = self;
     v9[5] = &v10;
     v3 = [v5 _pas_filteredArrayWithTest:v9];
-    v6 = __atxlog_handle_notification_management();
+    v6 = __atxlog_handle_notification_management(v3);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(v11 + 6);
@@ -182,7 +182,7 @@ uint64_t __55__ATXInterruptionManager_recommendedDeniedAppsForMode___block_invok
 
 - (BOOL)appSatisfiesRelevanceCriteriaForAllowOrSilenceList:(id)list
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   listCopy = list;
   scoreMetadata = [listCopy scoreMetadata];
   featureVector = [scoreMetadata featureVector];
@@ -191,30 +191,30 @@ uint64_t __55__ATXInterruptionManager_recommendedDeniedAppsForMode___block_invok
   v7 = [v6 objectForKeyedSubscript:@"notificationsReceivedInLastTwoWeeks"];
 
   v8 = [featureVector objectForKeyedSubscript:@"correlationNumGlobalOccurrences"];
-  if ([v8 integerValue] >= 3 && objc_msgSend(v7, "integerValue") <= 1)
+  if ([v8 integerValue] >= 3 && (v9 = objc_msgSend(v7, "integerValue"), v9 <= 1))
   {
-    v10 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = __atxlog_handle_notification_management(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       identifier = [listCopy identifier];
-      v13 = 138412802;
-      v14 = identifier;
-      v15 = 2048;
-      v16 = 0x4008000000000000;
-      v17 = 2048;
-      v18 = 0x4000000000000000;
-      _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "Suppressing silence list sugggestion for app: %@ since it does not meet relevance criteria: globalAppLaunches.integerValue < %f / minimumNumberOfNotificationsReceivedInPastTwoWeeks >= %f", &v13, 0x20u);
+      v14 = 138412802;
+      v15 = identifier;
+      v16 = 2048;
+      v17 = 0x4008000000000000;
+      v18 = 2048;
+      v19 = 0x4000000000000000;
+      _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "Suppressing silence list sugggestion for app: %@ since it does not meet relevance criteria: globalAppLaunches.integerValue < %f / minimumNumberOfNotificationsReceivedInPastTwoWeeks >= %f", &v14, 0x20u);
     }
 
-    v9 = 0;
+    v10 = 0;
   }
 
   else
   {
-    v9 = 1;
+    v10 = 1;
   }
 
-  return v9;
+  return v10;
 }
 
 - (id)recommendedDeniedContactsForMode:(unint64_t)mode options:(unint64_t)options
@@ -233,7 +233,7 @@ uint64_t __55__ATXInterruptionManager_recommendedDeniedAppsForMode___block_invok
   v11[6] = a2;
   v11[4] = self;
   v7 = [v6 _pas_filteredArrayWithTest:v11];
-  v8 = __atxlog_handle_notification_management();
+  v8 = __atxlog_handle_notification_management(v7);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v9 = *(v13 + 6);
@@ -249,7 +249,7 @@ uint64_t __55__ATXInterruptionManager_recommendedDeniedAppsForMode___block_invok
 
 uint64_t __67__ATXInterruptionManager_recommendedDeniedContactsForMode_options___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 scoreMetadata];
   [v4 score];
@@ -259,21 +259,21 @@ uint64_t __67__ATXInterruptionManager_recommendedDeniedContactsForMode_options__
 
   if (v6 < v8)
   {
-    v9 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = __atxlog_handle_notification_management(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
-      v12 = NSStringFromSelector(*(a1 + 48));
-      v18 = 138412802;
-      v19 = v11;
-      v20 = 2112;
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
+      v13 = NSStringFromSelector(*(a1 + 48));
+      v20 = 138412802;
       v21 = v12;
       v22 = 2112;
-      v23 = v3;
-      v13 = "%@: %@ Filtering out contact (%@) because affinity score is below threshold";
+      v23 = v13;
+      v24 = 2112;
+      v25 = v3;
+      v14 = "%@: %@ Filtering out contact (%@) because affinity score is below threshold";
 LABEL_8:
-      _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, v13, &v18, 0x20u);
+      _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, v14, &v20, 0x20u);
 
       goto LABEL_9;
     }
@@ -281,36 +281,37 @@ LABEL_8:
     goto LABEL_9;
   }
 
-  v14 = *(*(*(a1 + 40) + 8) + 24);
-  if ([*(*(a1 + 32) + 32) interruptionManagerMaxContactSuggestionsForDenyList] <= v14)
+  v15 = *(*(*(a1 + 40) + 8) + 24);
+  v16 = [*(*(a1 + 32) + 32) interruptionManagerMaxContactSuggestionsForDenyList];
+  if (v16 <= v15)
   {
-    v9 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = __atxlog_handle_notification_management(v16);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = objc_opt_class();
-      v11 = NSStringFromClass(v16);
-      v12 = NSStringFromSelector(*(a1 + 48));
-      v18 = 138412802;
-      v19 = v11;
-      v20 = 2112;
+      v18 = objc_opt_class();
+      v12 = NSStringFromClass(v18);
+      v13 = NSStringFromSelector(*(a1 + 48));
+      v20 = 138412802;
       v21 = v12;
       v22 = 2112;
-      v23 = v3;
-      v13 = "%@: %@ Suggestion limit has been reached, filtering out contact: %@";
+      v23 = v13;
+      v24 = 2112;
+      v25 = v3;
+      v14 = "%@: %@ Suggestion limit has been reached, filtering out contact: %@";
       goto LABEL_8;
     }
 
 LABEL_9:
 
-    v15 = 0;
+    v17 = 0;
     goto LABEL_10;
   }
 
   ++*(*(*(a1 + 40) + 8) + 24);
-  v15 = 1;
+  v17 = 1;
 LABEL_10:
 
-  return v15;
+  return v17;
 }
 
 - (id)recommendedAllowedContactsForContactScores:(id)scores
@@ -392,7 +393,7 @@ void __66__ATXInterruptionManager_recommendedAllowedContactsForMode_reply___bloc
   else
   {
     v5 = [*(a1 + 32) recommendedAllowedContactsForContactScores:a2];
-    v6 = __atxlog_handle_notification_management();
+    v6 = __atxlog_handle_notification_management(v5);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = 134217984;
@@ -537,7 +538,7 @@ void __65__ATXInterruptionManager_recommendedDeniedContactsForMode_reply___block
     v12[6] = v8;
     v12[4] = v7;
     v9 = [v5 _pas_filteredArrayWithTest:v12];
-    v10 = __atxlog_handle_notification_management();
+    v10 = __atxlog_handle_notification_management(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       v11 = *(v14 + 6);
@@ -553,7 +554,7 @@ void __65__ATXInterruptionManager_recommendedDeniedContactsForMode_reply___block
 
 uint64_t __65__ATXInterruptionManager_recommendedDeniedContactsForMode_reply___block_invoke_2(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 scoreMetadata];
   [v4 score];
@@ -563,37 +564,37 @@ uint64_t __65__ATXInterruptionManager_recommendedDeniedContactsForMode_reply___b
 
   if (v6 < v8)
   {
-    v9 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = __atxlog_handle_notification_management(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
-      v12 = NSStringFromSelector(*(a1 + 48));
-      v16 = 138412802;
-      v17 = v11;
-      v18 = 2112;
-      v19 = v12;
-      v20 = 2112;
-      v21 = v3;
-      _os_log_impl(&dword_1BF549000, v9, OS_LOG_TYPE_DEFAULT, "%@: %@ filtering out contact (%@) because affinity score is below threshold.", &v16, 0x20u);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
+      v13 = NSStringFromSelector(*(a1 + 48));
+      v17 = 138412802;
+      v18 = v12;
+      v19 = 2112;
+      v20 = v13;
+      v21 = 2112;
+      v22 = v3;
+      _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "%@: %@ filtering out contact (%@) because affinity score is below threshold.", &v17, 0x20u);
     }
 
     goto LABEL_7;
   }
 
-  v13 = *(*(*(a1 + 40) + 8) + 24);
-  if ([*(*(a1 + 32) + 32) interruptionManagerMaxContactSuggestionsForDenyList] <= v13)
+  v14 = *(*(*(a1 + 40) + 8) + 24);
+  if ([*(*(a1 + 32) + 32) interruptionManagerMaxContactSuggestionsForDenyList] <= v14)
   {
 LABEL_7:
-    v14 = 0;
+    v15 = 0;
     goto LABEL_8;
   }
 
   ++*(*(*(a1 + 40) + 8) + 24);
-  v14 = 1;
+  v15 = 1;
 LABEL_8:
 
-  return v14;
+  return v15;
 }
 
 - (void)recommendedAndCandidateAllowedAppsForMode:(unint64_t)mode reply:(id)reply
@@ -637,8 +638,7 @@ void __74__ATXInterruptionManager_recommendedAndCandidateAllowedAppsForMode_repl
     v17 = *(a1 + 32);
     v7 = v6;
     v18 = v7;
-    [v5 enumerateObjectsUsingBlock:&v13];
-    v8 = __atxlog_handle_notification_management();
+    v8 = __atxlog_handle_notification_management([v5 enumerateObjectsUsingBlock:&v13]);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = [v7 recommendedApps];
@@ -672,8 +672,8 @@ void __74__ATXInterruptionManager_recommendedAndCandidateAllowedAppsForMode_repl
 
     if (v11 >= v12)
     {
-      v23 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v24 = __atxlog_handle_notification_management(v13);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
         __74__ATXInterruptionManager_recommendedAndCandidateAllowedAppsForMode_reply___block_invoke_2_cold_1(v7);
       }
@@ -683,26 +683,26 @@ void __74__ATXInterruptionManager_recommendedAndCandidateAllowedAppsForMode_repl
 
     else
     {
-      v13 = [v6 scoreMetadata];
-      [v13 score];
-      v15 = v14;
+      v14 = [v6 scoreMetadata];
+      [v14 score];
+      v16 = v15;
       [*(*v7 + 32) interruptionManagerThresholdForRecommendedAppSuggestionForAllowList];
-      v17 = v16;
+      v18 = v17;
 
-      if (v15 >= v17)
+      if (v16 >= v18)
       {
         [*(a1 + 40) addRecommendedApp:v6];
       }
 
       else
       {
-        v18 = [v6 scoreMetadata];
-        [v18 score];
-        v20 = v19;
+        v19 = [v6 scoreMetadata];
+        [v19 score];
+        v21 = v20;
         [*(*v7 + 32) interruptionManagerThresholdForCandidateAppSuggestionForAllowList];
-        v22 = v21;
+        v23 = v22;
 
-        if (v20 >= v22)
+        if (v21 >= v23)
         {
           [*(a1 + 40) addCandidateApp:v6];
         }
@@ -740,13 +740,14 @@ void __74__ATXInterruptionManager_recommendedAndCandidateAllowedAppsForMode_repl
 
 void __73__ATXInterruptionManager_recommendedAndCandidateDeniedAppsForMode_reply___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_notification_management(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __73__ATXInterruptionManager_recommendedAndCandidateDeniedAppsForMode_reply___block_invoke_cold_1();
     }
@@ -756,29 +757,28 @@ void __73__ATXInterruptionManager_recommendedAndCandidateDeniedAppsForMode_reply
 
   else
   {
-    v8 = objc_opt_new();
-    v15 = MEMORY[0x1E69E9820];
-    v16 = 3221225472;
-    v17 = __73__ATXInterruptionManager_recommendedAndCandidateDeniedAppsForMode_reply___block_invoke_41;
-    v18 = &unk_1E80C10A8;
-    v19 = *(a1 + 32);
-    v9 = v8;
-    v20 = v9;
-    [v5 enumerateObjectsUsingBlock:&v15];
-    v10 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v9 = objc_opt_new();
+    v16 = MEMORY[0x1E69E9820];
+    v17 = 3221225472;
+    v18 = __73__ATXInterruptionManager_recommendedAndCandidateDeniedAppsForMode_reply___block_invoke_41;
+    v19 = &unk_1E80C10A8;
+    v20 = *(a1 + 32);
+    v10 = v9;
+    v21 = v10;
+    v11 = __atxlog_handle_notification_management([v5 enumerateObjectsUsingBlock:&v16]);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = [v9 recommendedApps];
-      v12 = [v11 count];
-      v13 = [v9 candidateApps];
-      v14 = [v13 count];
+      v12 = [v10 recommendedApps];
+      v13 = [v12 count];
+      v14 = [v10 candidateApps];
+      v15 = [v14 count];
       *buf = 136315650;
-      v22 = "[ATXInterruptionManager recommendedAndCandidateDeniedAppsForMode:reply:]_block_invoke";
-      v23 = 2048;
-      v24 = v12;
-      v25 = 2048;
-      v26 = v14;
-      _os_log_impl(&dword_1BF549000, v10, OS_LOG_TYPE_DEFAULT, "%s: Returning %ld recommended apps and %ld candidate contacts", buf, 0x20u);
+      v23 = "[ATXInterruptionManager recommendedAndCandidateDeniedAppsForMode:reply:]_block_invoke";
+      v24 = 2048;
+      v25 = v13;
+      v26 = 2048;
+      v27 = v15;
+      _os_log_impl(&dword_1BF549000, v11, OS_LOG_TYPE_DEFAULT, "%s: Returning %ld recommended apps and %ld candidate contacts", buf, 0x20u);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -799,8 +799,8 @@ void __73__ATXInterruptionManager_recommendedAndCandidateDeniedAppsForMode_reply
 
     if (v11 >= v12)
     {
-      v23 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v24 = __atxlog_handle_notification_management(v13);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
       {
         __73__ATXInterruptionManager_recommendedAndCandidateDeniedAppsForMode_reply___block_invoke_41_cold_1(v7);
       }
@@ -810,26 +810,26 @@ void __73__ATXInterruptionManager_recommendedAndCandidateDeniedAppsForMode_reply
 
     else
     {
-      v13 = [v6 scoreMetadata];
-      [v13 score];
-      v15 = v14;
+      v14 = [v6 scoreMetadata];
+      [v14 score];
+      v16 = v15;
       [*(*v7 + 32) interruptionManagerThresholdForRecommendedAppSuggestionForDenyList];
-      v17 = v16;
+      v18 = v17;
 
-      if (v15 >= v17)
+      if (v16 >= v18)
       {
         [*(a1 + 40) addRecommendedApp:v6];
       }
 
       else
       {
-        v18 = [v6 scoreMetadata];
-        [v18 score];
-        v20 = v19;
+        v19 = [v6 scoreMetadata];
+        [v19 score];
+        v21 = v20;
         [*(*v7 + 32) interruptionManagerThresholdForCandidateAppSuggestionForDenyList];
-        v22 = v21;
+        v23 = v22;
 
-        if (v20 >= v22)
+        if (v21 >= v23)
         {
           [*(a1 + 40) addCandidateApp:v6];
         }
@@ -880,8 +880,7 @@ void __78__ATXInterruptionManager_recommendedAndCandidateAllowedContactsForMode_
     v8 = *(a1 + 32);
     v18 = v7;
     v19 = v8;
-    [v5 enumerateObjectsUsingBlock:&v14];
-    v9 = __atxlog_handle_notification_management();
+    v9 = __atxlog_handle_notification_management([v5 enumerateObjectsUsingBlock:&v14]);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [v7 recommendedContacts];
@@ -908,19 +907,19 @@ void __78__ATXInterruptionManager_recommendedAndCandidateAllowedContactsForMode_
 
   if (v7)
   {
-    v8 = [*(a1 + 32) recommendedContacts];
-    v9 = [v8 count];
-    v10 = [*(a1 + 32) candidateContacts];
-    v11 = [v10 count] + v9;
-    v12 = a1 + 40;
-    v13 = [*(*(a1 + 40) + 32) interruptionManagerMaxRecommendedAndCandidateContactSuggestionsForAllowList];
+    v9 = [*(a1 + 32) recommendedContacts];
+    v10 = [v9 count];
+    v11 = [*(a1 + 32) candidateContacts];
+    v12 = [v11 count] + v10;
+    v13 = a1 + 40;
+    v14 = [*(*(a1 + 40) + 32) interruptionManagerMaxRecommendedAndCandidateContactSuggestionsForAllowList];
 
-    if (v11 >= v13)
+    if (v12 >= v14)
     {
-      v25 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+      v27 = __atxlog_handle_notification_management(v15);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
-        __78__ATXInterruptionManager_recommendedAndCandidateAllowedContactsForMode_reply___block_invoke_2_cold_1(v12);
+        __78__ATXInterruptionManager_recommendedAndCandidateAllowedContactsForMode_reply___block_invoke_2_cold_1(v13);
       }
 
       *a4 = 1;
@@ -928,26 +927,26 @@ void __78__ATXInterruptionManager_recommendedAndCandidateAllowedContactsForMode_
 
     else
     {
-      v14 = [v6 scoreMetadata];
-      [v14 score];
-      v16 = v15;
-      [*(*v12 + 32) interruptionManagerThresholdForRecommendedContactSuggestionForAllowList];
+      v16 = [v6 scoreMetadata];
+      [v16 score];
       v18 = v17;
+      [*(*v13 + 32) interruptionManagerThresholdForRecommendedContactSuggestionForAllowList];
+      v20 = v19;
 
-      if (v16 >= v18)
+      if (v18 >= v20)
       {
         [*(a1 + 32) addRecommendedContact:v6];
       }
 
       else
       {
-        v19 = [v6 scoreMetadata];
-        [v19 score];
-        v21 = v20;
-        [*(*v12 + 32) interruptionManagerThresholdForCandidateContactSuggestionForAllowList];
+        v21 = [v6 scoreMetadata];
+        [v21 score];
         v23 = v22;
+        [*(*v13 + 32) interruptionManagerThresholdForCandidateContactSuggestionForAllowList];
+        v25 = v24;
 
-        if (v21 >= v23)
+        if (v23 >= v25)
         {
           [*(a1 + 32) addCandidateContact:v6];
         }
@@ -957,8 +956,8 @@ void __78__ATXInterruptionManager_recommendedAndCandidateAllowedContactsForMode_
 
   else
   {
-    v24 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v26 = __atxlog_handle_notification_management(v8);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
       __78__ATXInterruptionManager_recommendedAndCandidateAllowedContactsForMode_reply___block_invoke_2_cold_2();
     }
@@ -1007,8 +1006,7 @@ void __77__ATXInterruptionManager_recommendedAndCandidateDeniedContactsForMode_r
     v8 = *(a1 + 32);
     v18 = v7;
     v19 = v8;
-    [v5 enumerateObjectsUsingBlock:&v14];
-    v9 = __atxlog_handle_notification_management();
+    v9 = __atxlog_handle_notification_management([v5 enumerateObjectsUsingBlock:&v14]);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [v7 recommendedContacts];
@@ -1035,19 +1033,19 @@ void __77__ATXInterruptionManager_recommendedAndCandidateDeniedContactsForMode_r
 
   if (v7)
   {
-    v8 = [*(a1 + 32) recommendedContacts];
-    v9 = [v8 count];
-    v10 = [*(a1 + 32) candidateContacts];
-    v11 = [v10 count] + v9;
-    v12 = a1 + 40;
-    v13 = [*(*(a1 + 40) + 32) interruptionManagerMaxRecommendedAndCandidateContactSuggestionsForDenyList];
+    v9 = [*(a1 + 32) recommendedContacts];
+    v10 = [v9 count];
+    v11 = [*(a1 + 32) candidateContacts];
+    v12 = [v11 count] + v10;
+    v13 = a1 + 40;
+    v14 = [*(*(a1 + 40) + 32) interruptionManagerMaxRecommendedAndCandidateContactSuggestionsForDenyList];
 
-    if (v11 >= v13)
+    if (v12 >= v14)
     {
-      v25 = __atxlog_handle_notification_management();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+      v27 = __atxlog_handle_notification_management(v15);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
-        __77__ATXInterruptionManager_recommendedAndCandidateDeniedContactsForMode_reply___block_invoke_2_cold_1(v12);
+        __77__ATXInterruptionManager_recommendedAndCandidateDeniedContactsForMode_reply___block_invoke_2_cold_1(v13);
       }
 
       *a4 = 1;
@@ -1055,26 +1053,26 @@ void __77__ATXInterruptionManager_recommendedAndCandidateDeniedContactsForMode_r
 
     else
     {
-      v14 = [v6 scoreMetadata];
-      [v14 score];
-      v16 = v15;
-      [*(*v12 + 32) interruptionManagerThresholdForRecommendedContactSuggestionForDenyList];
+      v16 = [v6 scoreMetadata];
+      [v16 score];
       v18 = v17;
+      [*(*v13 + 32) interruptionManagerThresholdForRecommendedContactSuggestionForDenyList];
+      v20 = v19;
 
-      if (v16 >= v18)
+      if (v18 >= v20)
       {
         [*(a1 + 32) addRecommendedContact:v6];
       }
 
       else
       {
-        v19 = [v6 scoreMetadata];
-        [v19 score];
-        v21 = v20;
-        [*(*v12 + 32) interruptionManagerThresholdForCandidateContactSuggestionForDenyList];
+        v21 = [v6 scoreMetadata];
+        [v21 score];
         v23 = v22;
+        [*(*v13 + 32) interruptionManagerThresholdForCandidateContactSuggestionForDenyList];
+        v25 = v24;
 
-        if (v21 >= v23)
+        if (v23 >= v25)
         {
           [*(a1 + 32) addCandidateContact:v6];
         }
@@ -1084,8 +1082,8 @@ void __77__ATXInterruptionManager_recommendedAndCandidateDeniedContactsForMode_r
 
   else
   {
-    v24 = __atxlog_handle_notification_management();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+    v26 = __atxlog_handle_notification_management(v8);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
       __77__ATXInterruptionManager_recommendedAndCandidateDeniedContactsForMode_reply___block_invoke_2_cold_2();
     }
@@ -1095,8 +1093,9 @@ void __77__ATXInterruptionManager_recommendedAndCandidateDeniedContactsForMode_r
 void __74__ATXInterruptionManager_recommendedAndCandidateAllowedAppsForMode_reply___block_invoke_2_cold_1(uint64_t a1)
 {
   [OUTLINED_FUNCTION_2_1(a1) interruptionManagerMaxRecommendedAndCandidateAppSuggestionsForAllowList];
+  v7 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_1_7(&dword_1BF549000, v1, v2, "%s: Reached max count %ld for app suggestions, not suggesting any more.", v3, v4, v5, v6, 2u);
+  OUTLINED_FUNCTION_1_7(&dword_1BF549000, v1, v2, "%s: Reached max count %ld for app suggestions, not suggesting any more.", v3, v4, v5, v6, v7);
 }
 
 void __73__ATXInterruptionManager_recommendedAndCandidateDeniedAppsForMode_reply___block_invoke_cold_1()
@@ -1110,15 +1109,17 @@ void __73__ATXInterruptionManager_recommendedAndCandidateDeniedAppsForMode_reply
 void __73__ATXInterruptionManager_recommendedAndCandidateDeniedAppsForMode_reply___block_invoke_41_cold_1(uint64_t a1)
 {
   [OUTLINED_FUNCTION_2_1(a1) interruptionManagerMaxRecommendedAndCandidateAppSuggestionsForDenyList];
+  v7 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_1_7(&dword_1BF549000, v1, v2, "%s: Reached max count %ld for app suggestions, not suggesting any more.", v3, v4, v5, v6, 2u);
+  OUTLINED_FUNCTION_1_7(&dword_1BF549000, v1, v2, "%s: Reached max count %ld for app suggestions, not suggesting any more.", v3, v4, v5, v6, v7);
 }
 
 void __78__ATXInterruptionManager_recommendedAndCandidateAllowedContactsForMode_reply___block_invoke_2_cold_1(uint64_t a1)
 {
   [OUTLINED_FUNCTION_2_1(a1) interruptionManagerMaxRecommendedAndCandidateContactSuggestionsForAllowList];
+  v7 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_1_7(&dword_1BF549000, v1, v2, "%s: Reached max count %ld for contact suggestions, not suggesting any more.", v3, v4, v5, v6, 2u);
+  OUTLINED_FUNCTION_1_7(&dword_1BF549000, v1, v2, "%s: Reached max count %ld for contact suggestions, not suggesting any more.", v3, v4, v5, v6, v7);
 }
 
 void __78__ATXInterruptionManager_recommendedAndCandidateAllowedContactsForMode_reply___block_invoke_2_cold_2()
@@ -1132,8 +1133,9 @@ void __78__ATXInterruptionManager_recommendedAndCandidateAllowedContactsForMode_
 void __77__ATXInterruptionManager_recommendedAndCandidateDeniedContactsForMode_reply___block_invoke_2_cold_1(uint64_t a1)
 {
   [OUTLINED_FUNCTION_2_1(a1) interruptionManagerMaxRecommendedAndCandidateContactSuggestionsForDenyList];
+  v7 = 136315394;
   OUTLINED_FUNCTION_0_10();
-  OUTLINED_FUNCTION_1_7(&dword_1BF549000, v1, v2, "%s: Reached max count %ld for contact suggestions, not suggesting any more.", v3, v4, v5, v6, 2u);
+  OUTLINED_FUNCTION_1_7(&dword_1BF549000, v1, v2, "%s: Reached max count %ld for contact suggestions, not suggesting any more.", v3, v4, v5, v6, v7);
 }
 
 void __77__ATXInterruptionManager_recommendedAndCandidateDeniedContactsForMode_reply___block_invoke_2_cold_2()

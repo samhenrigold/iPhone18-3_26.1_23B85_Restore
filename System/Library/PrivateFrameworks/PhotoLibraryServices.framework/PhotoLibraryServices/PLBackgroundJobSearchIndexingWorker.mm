@@ -431,7 +431,7 @@ void __69__PLBackgroundJobSearchIndexingWorker__performWorkOnItem_completion___b
           libraryServicesManager3 = [v31 libraryServicesManager];
           wellKnownPhotoLibraryIdentifier2 = [libraryServicesManager3 wellKnownPhotoLibraryIdentifier];
           workItemsNeedingProcessing = [*(*(&buf + 1) + 40) workItemsNeedingProcessing];
-          v37 = [workItemsNeedingProcessing count];
+          v37 = objc_msgSend_count(workItemsNeedingProcessing);
           *v44 = 134218240;
           v45 = wellKnownPhotoLibraryIdentifier2;
           v46 = 2048;

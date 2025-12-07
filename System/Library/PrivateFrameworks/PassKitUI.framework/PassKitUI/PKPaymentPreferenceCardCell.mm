@@ -638,32 +638,34 @@ LABEL_27:
   if (self->_pass && self->_passSnapshotter)
   {
     PKPassFrontFaceContentSize();
-    PKFloatRoundToPixel();
+    v8.n128_f64[0] = v7.n128_f64[0] / v6 * 40.0;
+    PKFloatRoundToPixel(v8, v7);
     [(PKPaymentPreferenceCardCell *)self setSeparatorInset:0.0, 64.0, 0.0, 16.0];
     [(UIActivityIndicatorView *)self->_snapshotSpinner startAnimating];
     [(UIImageView *)self->_cardArtView setImage:0];
     passSnapshotter = self->_passSnapshotter;
     pass = self->_pass;
     PKPassFrontFaceContentSize();
-    PKFloatRoundToPixel();
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __49__PKPaymentPreferenceCardCell__updateCellContent__block_invoke;
-    v13[3] = &unk_1E801CF48;
-    v14 = v5;
-    v13[4] = self;
-    [(PKPassSnapshotter *)passSnapshotter snapshotWithPass:pass size:v13 completion:40.0, v8];
+    v13.n128_f64[0] = v12.n128_f64[0] / v11 * 40.0;
+    PKFloatRoundToPixel(v13, v12);
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __49__PKPaymentPreferenceCardCell__updateCellContent__block_invoke;
+    v19[3] = &unk_1E801CF48;
+    v20 = v5;
+    v19[4] = self;
+    [(PKPassSnapshotter *)passSnapshotter snapshotWithPass:pass size:v19 completion:40.0, v14];
   }
 
   else
   {
     [(UIImageView *)self->_cardArtView setImage:0];
-    v9 = *MEMORY[0x1E69DDCE0];
-    v10 = *(MEMORY[0x1E69DDCE0] + 8);
-    v11 = *(MEMORY[0x1E69DDCE0] + 16);
-    v12 = *(MEMORY[0x1E69DDCE0] + 24);
+    v15 = *MEMORY[0x1E69DDCE0];
+    v16 = *(MEMORY[0x1E69DDCE0] + 8);
+    v17 = *(MEMORY[0x1E69DDCE0] + 16);
+    v18 = *(MEMORY[0x1E69DDCE0] + 24);
 
-    [(PKPaymentPreferenceCardCell *)self setSeparatorInset:v9, v10, v11, v12];
+    [(PKPaymentPreferenceCardCell *)self setSeparatorInset:v15, v16, v17, v18];
   }
 }
 
@@ -681,10 +683,10 @@ void __49__PKPaymentPreferenceCardCell__updateCellContent__block_invoke(uint64_t
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __49__PKPaymentPreferenceCardCell__updateCellContent__block_invoke_2(uint64_t result)
+void *__49__PKPaymentPreferenceCardCell__updateCellContent__block_invoke_2(void *result)
 {
-  v7 = *(result + 32);
-  if (*(result + 48) != *(v7 + 1128))
+  v7 = result[4];
+  if (*(result + 12) != *(v7 + 1128))
   {
     return result;
   }
@@ -703,11 +705,11 @@ LABEL_8:
   }
 
   v9 = *(v7 + 1240);
-  v10 = *(result + 40);
+  v10 = result[5];
   if (*(v7 + 1133) != 1)
   {
     v13 = *(v7 + 1240);
-    v14 = *(v8 + 40);
+    v14 = v8[5];
     goto LABEL_8;
   }
 
@@ -716,7 +718,7 @@ LABEL_8:
   [v9 setImage:v12];
 
 LABEL_9:
-  v15 = *(*(v8 + 32) + 1088);
+  v15 = *(v8[4] + 1088);
 
   return [v15 stopAnimating];
 }
@@ -842,7 +844,7 @@ LABEL_9:
 
 - (void)_calculateAccessoryLayout
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   [(PKPaymentPreferenceCardCell *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -850,29 +852,29 @@ LABEL_9:
   subviews = [accessoryView subviews];
   if ([subviews count])
   {
-    v35 = 0u;
-    v36 = 0u;
-    v33 = 0u;
-    v34 = 0u;
+    v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     v9 = subviews;
-    v10 = [v9 countByEnumeratingWithState:&v33 objects:v38 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v44 objects:v49 count:16];
     v11 = 0.0;
     if (v10)
     {
       v12 = v10;
-      v13 = *v34;
+      v13 = *v45;
       v14 = 0.0;
       v15 = 0.0;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v34 != v13)
+          if (*v45 != v13)
           {
             objc_enumerationMutation(v9);
           }
 
-          [*(*(&v33 + 1) + 8 * i) sizeThatFits:{v4, v6}];
+          [*(*(&v44 + 1) + 8 * i) sizeThatFits:{v4, v6}];
           v14 = v14 + v18 + 8.0;
           if (v17 > v15)
           {
@@ -880,7 +882,7 @@ LABEL_9:
           }
         }
 
-        v12 = [v9 countByEnumeratingWithState:&v33 objects:v38 count:16];
+        v12 = [v9 countByEnumeratingWithState:&v44 objects:v49 count:16];
       }
 
       while (v12);
@@ -904,34 +906,43 @@ LABEL_9:
     remainder.size.width = v11;
     remainder.size.height = v15;
     memset(&slice, 0, sizeof(slice));
-    v27 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v30 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    v41 = 0u;
     v20 = v9;
-    v21 = [v20 countByEnumeratingWithState:&v27 objects:v37 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v38 objects:v48 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v28;
+      v23 = *v39;
+      v24 = *MEMORY[0x1E69BB7F8];
       do
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v28 != v23)
+          if (*v39 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v27 + 1) + 8 * j);
-          [v25 sizeThatFits:{v4, v6, v27}];
-          CGRectDivide(remainder, &slice, &remainder, v26, CGRectMaxXEdge);
-          PKSizeAlignedInRect();
-          [v25 setFrame:?];
+          v26 = *(*(&v38 + 1) + 8 * j);
+          [v26 sizeThatFits:{v4, v6, v38}];
+          v28 = *&v27;
+          v30 = v29;
+          CGRectDivide(remainder, &slice, &remainder, v27, CGRectMaxXEdge);
+          v31.n128_u64[0] = *&slice.origin.x;
+          v32.n128_u64[0] = *&slice.origin.y;
+          v33.n128_u64[0] = *&slice.size.width;
+          v34.n128_u64[0] = *&slice.size.height;
+          v35.n128_u64[0] = v28;
+          v36.n128_u64[0] = v30;
+          PKSizeAlignedInRect(v24, v35, v36, v31, v32, v33, v34, v37);
+          [v26 setFrame:?];
           CGRectDivide(remainder, &slice, &remainder, 8.0, CGRectMaxXEdge);
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v27 objects:v37 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v38 objects:v48 count:16];
       }
 
       while (v22);
@@ -1008,107 +1019,111 @@ LABEL_6:
 
 - (void)_setUpConstraints
 {
-  v56 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v59 = objc_alloc_init(MEMORY[0x1E695DF70]);
   PKPassFrontFaceContentSize();
-  PKFloatRoundToPixel();
-  v4 = v3;
+  v5.n128_f64[0] = v4.n128_f64[0] / v3 * 40.0;
+  PKFloatRoundToPixel(v5, v4);
+  v7 = v6;
   contentView = [(PKPaymentPreferenceCardCell *)self contentView];
   leadingAnchor = [(UIImageView *)self->_cardArtView leadingAnchor];
   leadingAnchor2 = [contentView leadingAnchor];
-  v8 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:16.0];
-  [v56 addObject:v8];
+  v11 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:16.0];
+  [v59 addObject:v11];
 
   heightAnchor = [(UIImageView *)self->_cardArtView heightAnchor];
-  v10 = [heightAnchor constraintEqualToConstant:v4];
-  [v56 addObject:v10];
+  v13 = [heightAnchor constraintEqualToConstant:v7];
+  [v59 addObject:v13];
 
   widthAnchor = [(UIImageView *)self->_cardArtView widthAnchor];
-  v12 = [widthAnchor constraintEqualToConstant:40.0];
-  [v56 addObject:v12];
+  v15 = [widthAnchor constraintEqualToConstant:40.0];
+  [v59 addObject:v15];
 
   topAnchor = [(UIImageView *)self->_cardArtView topAnchor];
   topAnchor2 = [contentView topAnchor];
-  v15 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2 constant:8.0];
-  [v56 addObject:v15];
+  v18 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2 constant:8.0];
+  [v59 addObject:v18];
 
   bottomAnchor = [(UIImageView *)self->_cardArtView bottomAnchor];
   bottomAnchor2 = [contentView bottomAnchor];
-  v18 = [bottomAnchor constraintLessThanOrEqualToAnchor:bottomAnchor2 constant:-8.0];
-  [v56 addObject:v18];
+  v21 = [bottomAnchor constraintLessThanOrEqualToAnchor:bottomAnchor2 constant:-8.0];
+  [v59 addObject:v21];
 
   centerYAnchor = [(UIImageView *)self->_cardArtView centerYAnchor];
   centerYAnchor2 = [contentView centerYAnchor];
-  v21 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2 constant:0.0];
+  v24 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2 constant:0.0];
 
-  LODWORD(v22) = 1132068864;
-  [v21 setPriority:v22];
-  [v56 addObject:v21];
+  LODWORD(v25) = 1132068864;
+  [v24 setPriority:v25];
+  [v59 addObject:v24];
   centerXAnchor = [(UIActivityIndicatorView *)self->_snapshotSpinner centerXAnchor];
   centerXAnchor2 = [(UIImageView *)self->_cardArtView centerXAnchor];
-  v25 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2 constant:0.0];
-  [v56 addObject:v25];
+  v28 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2 constant:0.0];
+  [v59 addObject:v28];
 
   centerYAnchor3 = [(UIActivityIndicatorView *)self->_snapshotSpinner centerYAnchor];
   centerYAnchor4 = [(UIImageView *)self->_cardArtView centerYAnchor];
-  v28 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4 constant:0.0];
-  [v56 addObject:v28];
+  v31 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4 constant:0.0];
+  [v59 addObject:v31];
 
-  LODWORD(v29) = 1148846080;
-  [(UILabel *)self->_displayLabel setContentHuggingPriority:1 forAxis:v29];
-  LODWORD(v30) = 1148846080;
-  [(UILabel *)self->_displayLabel setContentCompressionResistancePriority:1 forAxis:v30];
-  LODWORD(v31) = 1148846080;
-  [(UILabel *)self->_subtitleLabel setContentHuggingPriority:1 forAxis:v31];
   LODWORD(v32) = 1148846080;
-  [(UILabel *)self->_subtitleLabel setContentCompressionResistancePriority:1 forAxis:v32];
+  [(UILabel *)self->_displayLabel setContentHuggingPriority:1 forAxis:v32];
   LODWORD(v33) = 1148846080;
-  [(UILabel *)self->_additionalContextLabel setContentHuggingPriority:1 forAxis:v33];
+  [(UILabel *)self->_displayLabel setContentCompressionResistancePriority:1 forAxis:v33];
   LODWORD(v34) = 1148846080;
-  [(UILabel *)self->_additionalContextLabel setContentCompressionResistancePriority:1 forAxis:v34];
+  [(UILabel *)self->_subtitleLabel setContentHuggingPriority:1 forAxis:v34];
   LODWORD(v35) = 1148846080;
-  [(UIStackView *)self->_labelStackView setContentCompressionResistancePriority:1 forAxis:v35];
+  [(UILabel *)self->_subtitleLabel setContentCompressionResistancePriority:1 forAxis:v35];
   LODWORD(v36) = 1148846080;
-  [(UIStackView *)self->_labelStackView setContentHuggingPriority:1 forAxis:v36];
+  [(UILabel *)self->_additionalContextLabel setContentHuggingPriority:1 forAxis:v36];
+  LODWORD(v37) = 1148846080;
+  [(UILabel *)self->_additionalContextLabel setContentCompressionResistancePriority:1 forAxis:v37];
+  LODWORD(v38) = 1148846080;
+  [(UIStackView *)self->_labelStackView setContentCompressionResistancePriority:1 forAxis:v38];
+  LODWORD(v39) = 1148846080;
+  [(UIStackView *)self->_labelStackView setContentHuggingPriority:1 forAxis:v39];
   leadingAnchor3 = [(UIStackView *)self->_labelStackView leadingAnchor];
   trailingAnchor = [(UIImageView *)self->_cardArtView trailingAnchor];
-  v39 = [leadingAnchor3 constraintEqualToAnchor:trailingAnchor constant:8.0];
-  [v56 addObject:v39];
+  v42 = [leadingAnchor3 constraintEqualToAnchor:trailingAnchor constant:8.0];
+  [v59 addObject:v42];
 
   topAnchor3 = [(UIStackView *)self->_labelStackView topAnchor];
   topAnchor4 = [contentView topAnchor];
-  v42 = [topAnchor3 constraintGreaterThanOrEqualToAnchor:topAnchor4 constant:8.0];
-  [v56 addObject:v42];
+  v45 = [topAnchor3 constraintGreaterThanOrEqualToAnchor:topAnchor4 constant:8.0];
+  [v59 addObject:v45];
 
   bottomAnchor3 = [(UIStackView *)self->_labelStackView bottomAnchor];
   bottomAnchor4 = [contentView bottomAnchor];
-  v45 = [bottomAnchor3 constraintLessThanOrEqualToAnchor:bottomAnchor4 constant:-8.0];
-  [v56 addObject:v45];
+  v48 = [bottomAnchor3 constraintLessThanOrEqualToAnchor:bottomAnchor4 constant:-8.0];
+  [v59 addObject:v48];
 
   trailingAnchor2 = [(UIStackView *)self->_labelStackView trailingAnchor];
   trailingAnchor3 = [contentView trailingAnchor];
-  v48 = [trailingAnchor2 constraintLessThanOrEqualToAnchor:trailingAnchor3 constant:0.0];
-  [v56 addObject:v48];
+  v51 = [trailingAnchor2 constraintLessThanOrEqualToAnchor:trailingAnchor3 constant:0.0];
+  [v59 addObject:v51];
 
   centerYAnchor5 = [(UIStackView *)self->_labelStackView centerYAnchor];
   centerYAnchor6 = [contentView centerYAnchor];
-  v51 = [centerYAnchor5 constraintEqualToAnchor:centerYAnchor6 constant:0.0];
+  v54 = [centerYAnchor5 constraintEqualToAnchor:centerYAnchor6 constant:0.0];
 
-  LODWORD(v52) = 1132068864;
-  [v51 setPriority:v52];
-  [v56 addObject:v51];
-  heightAnchor2 = [contentView heightAnchor];
-  v54 = [heightAnchor2 constraintGreaterThanOrEqualToConstant:v4 + 16.0];
-
-  LODWORD(v55) = 1144750080;
+  LODWORD(v55) = 1132068864;
   [v54 setPriority:v55];
-  [v56 addObject:v54];
-  [MEMORY[0x1E696ACD8] activateConstraints:v56];
+  [v59 addObject:v54];
+  heightAnchor2 = [contentView heightAnchor];
+  v57 = [heightAnchor2 constraintGreaterThanOrEqualToConstant:v7 + 16.0];
+
+  LODWORD(v58) = 1144750080;
+  [v57 setPriority:v58];
+  [v59 addObject:v57];
+  [MEMORY[0x1E696ACD8] activateConstraints:v59];
 }
 
 + (double)textOffset
 {
   PKPassFrontFaceContentSize();
-  PKFloatRoundToPixel();
+  v4 = v3 / v2;
+  v5.n128_u64[0] = 0x4044000000000000;
+  v6.n128_f64[0] = v4 * 40.0;
+  PKFloatRoundToPixel(v6, v5);
   return 64.0;
 }
 

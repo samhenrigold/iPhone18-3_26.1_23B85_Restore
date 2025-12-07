@@ -124,7 +124,7 @@
 
 void __49__CLKComplicationTemplate_hasSubMinuteUpdateRate__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  v7 = [*(a1 + 32) valueForKey:a2];
+  v7 = [*(a1 + 32) valueForKey:{a2, a4}];
   if ([v7 updateFrequency] >= 2)
   {
     *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -134,7 +134,7 @@ void __49__CLKComplicationTemplate_hasSubMinuteUpdateRate__block_invoke(uint64_t
 
 void __49__CLKComplicationTemplate_hasSubMinuteUpdateRate__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  v7 = [*(a1 + 32) valueForKey:a2];
+  v7 = [*(a1 + 32) valueForKey:{a2, a4}];
   if ([v7 needsTimerUpdates])
   {
     *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -144,7 +144,7 @@ void __49__CLKComplicationTemplate_hasSubMinuteUpdateRate__block_invoke_2(uint64
 
 void __49__CLKComplicationTemplate_hasSubMinuteUpdateRate__block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  v7 = [*(a1 + 32) valueForKey:a2];
+  v7 = [*(a1 + 32) valueForKey:{a2, a4}];
   if ([v7 needsTimerUpdates])
   {
     *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -154,7 +154,7 @@ void __49__CLKComplicationTemplate_hasSubMinuteUpdateRate__block_invoke_3(uint64
 
 void __49__CLKComplicationTemplate_hasSubMinuteUpdateRate__block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  v7 = [*(a1 + 32) valueForKey:a2];
+  v7 = [*(a1 + 32) valueForKey:{a2, a4}];
   if ([v7 hasSubMinuteUpdateRate])
   {
     *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -600,7 +600,7 @@ LABEL_5:
 
 void __45__CLKComplicationTemplate_validateWithError___block_invoke_9(uint64_t a1, void *a2, double a3, double a4, double a5, double a6, double a7, uint64_t a8, uint64_t a9, _BYTE *a10, uint64_t a11, uint64_t a12, uint64_t a13, __int128 a14, uint64_t a15, uint64_t a16)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v23 = a2;
   if (([*(a1 + 32) _validateSwiftUIViewForKey:v23 withMaxSDKSize:*(a1 + 64) maxDeviceSize:a3 cornerRadius:a4 safeAreaInsets:a5 error:{a6, a7, a14, a15, a16}] & 1) == 0)
   {
@@ -608,10 +608,10 @@ void __45__CLKComplicationTemplate_validateWithError___block_invoke_9(uint64_t a
     *a10 = 1;
   }
 
-  if (*(*(*(a1 + 40) + 8) + 24) == 1 && ComplicationDisplayLibraryCore() && (([*(a1 + 32) renderForPreviews] & 1) != 0 || CLKIsBeingDebugged()))
+  if (*(*(*(a1 + 40) + 8) + 24) == 1 && ComplicationDisplayLibraryCore(0) && (([*(a1 + 32) renderForPreviews] & 1) != 0 || CLKIsBeingDebugged()))
   {
-    v24 = [*(a1 + 32) viewDataForSwiftUIViewKey:v23];
-    if (!v24)
+    v27 = [*(a1 + 32) viewDataForSwiftUIViewKey:v23];
+    if (!v27)
     {
 LABEL_22:
 
@@ -620,82 +620,82 @@ LABEL_22:
 
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v47 = 0x2050000000;
-    v25 = get_ClientRendererClass_softClass;
-    v48 = get_ClientRendererClass_softClass;
+    v50 = 0x2050000000;
+    v28 = get_ClientRendererClass_softClass;
+    v51 = get_ClientRendererClass_softClass;
     if (!get_ClientRendererClass_softClass)
     {
-      v41 = MEMORY[0x277D85DD0];
-      v42 = 3221225472;
-      v43 = __get_ClientRendererClass_block_invoke;
-      v44 = &unk_278A1E6A0;
+      v44 = MEMORY[0x277D85DD0];
+      v45 = 3221225472;
+      v46 = __get_ClientRendererClass_block_invoke;
+      v47 = &unk_278A1E6A0;
       p_buf = &buf;
-      __get_ClientRendererClass_block_invoke(&v41);
-      v25 = *(*(&buf + 1) + 24);
+      __get_ClientRendererClass_block_invoke(&v44, v24, v25, v26);
+      v28 = *(*(&buf + 1) + 24);
     }
 
-    v26 = v25;
+    v29 = v28;
     _Block_object_dispose(&buf, 8);
-    v27 = objc_alloc_init(v25);
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x2020000000;
+    v30 = objc_alloc_init(v28);
     v44 = 0;
-    v28 = 5;
+    v45 = &v44;
+    v46 = 0x2020000000;
+    v47 = 0;
+    v31 = 5;
     do
     {
-      v29 = +[CLKDevice currentDevice];
-      [v29 screenScale];
-      v40[0] = MEMORY[0x277D85DD0];
-      v40[1] = 3221225472;
-      v40[2] = __45__CLKComplicationTemplate_validateWithError___block_invoke_10;
-      v40[3] = &unk_278A1E978;
-      v40[4] = &v41;
-      [v27 renderWithViewData:v24 scale:v40 handler:?];
+      v32 = +[CLKDevice currentDevice];
+      [v32 screenScale];
+      v43[0] = MEMORY[0x277D85DD0];
+      v43[1] = 3221225472;
+      v43[2] = __45__CLKComplicationTemplate_validateWithError___block_invoke_10;
+      v43[3] = &unk_278A1E978;
+      v43[4] = &v44;
+      [v30 renderWithViewData:v27 scale:v43 handler:?];
 
-      --v28;
+      --v31;
     }
 
-    while (v28);
-    v30 = [*(a1 + 32) hasSubMinuteUpdateRate];
-    v31 = CLKLoggingObjectForDomain(1);
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    while (v31);
+    v33 = [*(a1 + 32) hasSubMinuteUpdateRate];
+    v34 = CLKLoggingObjectForDomain(1);
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
     {
-      v32 = *(v42 + 24);
+      v35 = *(v45 + 24);
       LODWORD(buf) = 134217984;
-      *(&buf + 4) = v32;
-      _os_log_impl(&dword_23702D000, v31, OS_LOG_TYPE_DEFAULT, "CLKComplicationTemplate: Complication took %gs to render", &buf, 0xCu);
+      *(&buf + 4) = v35;
+      _os_log_impl(&dword_23702D000, v34, OS_LOG_TYPE_DEFAULT, "CLKComplicationTemplate: Complication took %gs to render", &buf, 0xCu);
     }
 
-    v33 = *(v42 + 24);
-    if (v33 <= 0.0166666667 || v33 >= 0.0333333333)
+    v36 = *(v45 + 24);
+    if (v36 <= 0.0166666667 || v36 >= 0.0333333333)
     {
-      if (v33 >= 0.0333333333)
+      if (v36 >= 0.0333333333)
       {
-        v34 = MEMORY[0x277CCACA8];
-        v35 = objc_opt_class();
-        v36 = @"The '%@' view on %@ took more than two frames to render. This template will be removed from the timeline.";
+        v37 = MEMORY[0x277CCACA8];
+        v38 = objc_opt_class();
+        v39 = @"The '%@' view on %@ took more than two frames to render. This template will be removed from the timeline.";
         goto LABEL_20;
       }
     }
 
-    else if (v30)
+    else if (v33)
     {
-      v34 = MEMORY[0x277CCACA8];
-      v35 = objc_opt_class();
-      v36 = @"The '%@' view on %@ took more than one frame to render which is too long when using an auto-updating view. This template will be removed from the timeline.";
+      v37 = MEMORY[0x277CCACA8];
+      v38 = objc_opt_class();
+      v39 = @"The '%@' view on %@ took more than one frame to render which is too long when using an auto-updating view. This template will be removed from the timeline.";
 LABEL_20:
-      v37 = [v34 stringWithFormat:v36, v23, v35];
-      v38 = *(*(a1 + 48) + 8);
-      v39 = *(v38 + 40);
-      *(v38 + 40) = v37;
+      v40 = [v37 stringWithFormat:v39, v23, v38];
+      v41 = *(*(a1 + 48) + 8);
+      v42 = *(v41 + 40);
+      *(v41 + 40) = v40;
 
       *(*(*(a1 + 56) + 8) + 24) = 1;
       *(*(*(a1 + 40) + 8) + 24) = 0;
       *a10 = 1;
     }
 
-    _Block_object_dispose(&v41, 8);
+    _Block_object_dispose(&v44, 8);
 
     goto LABEL_22;
   }
@@ -1806,7 +1806,7 @@ void __43__CLKComplicationTemplate_encodeWithCoder___block_invoke_10(uint64_t a1
     v7 = CLKLoggingObjectForDomain(1);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __43__CLKComplicationTemplate_encodeWithCoder___block_invoke_10_cold_1();
+      __43__CLKComplicationTemplate_encodeWithCoder___block_invoke_10_cold_1(v4, v7);
     }
 
     [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"Property '%@' on %@ must be a valid subclass of CLKComplicationTemplate", v3, objc_opt_class()}];
@@ -1971,7 +1971,7 @@ void __43__CLKComplicationTemplate_encodeWithCoder___block_invoke_114(uint64_t a
       v42 = CLKLoggingObjectForDomain(1);
       if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
-        [(CLKComplicationTemplate *)(v40 + 5) initWithCoder:v42, v43, v44, v45, v46, v47, v48];
+        [(CLKComplicationTemplate *)v40 + 5 initWithCoder:v42, v43, v44, v45, v46, v47, v48];
       }
 
       v40[5] = 1;
@@ -3186,12 +3186,10 @@ void __47__CLKComplicationTemplate__setProvidersPaused___block_invoke_4(uint64_t
   return v3;
 }
 
-uint64_t __84__CLKComplicationTemplate_JSONSerialization__classesCompatibleWithJSONSerialization__block_invoke()
+uint64_t __84__CLKComplicationTemplate_JSONSerialization__classesCompatibleWithJSONSerialization__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v14 = MEMORY[0x277CBEB98];
-  v13 = objc_opt_class();
-  v0 = objc_opt_class();
-  v1 = objc_opt_class();
+  v16 = MEMORY[0x277CBEB98];
+  v15 = objc_opt_class();
   v2 = objc_opt_class();
   v3 = objc_opt_class();
   v4 = objc_opt_class();
@@ -3200,11 +3198,13 @@ uint64_t __84__CLKComplicationTemplate_JSONSerialization__classesCompatibleWithJ
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
-  v10 = [v14 setWithObjects:{v13, v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, objc_opt_class(), 0}];
-  v11 = classesCompatibleWithJSONSerialization_classesCompatibleWithJSONSerialization;
-  classesCompatibleWithJSONSerialization_classesCompatibleWithJSONSerialization = v10;
+  v10 = objc_opt_class();
+  v11 = objc_opt_class();
+  v12 = [v16 setWithObjects:{v15, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, objc_opt_class(), 0}];
+  v13 = classesCompatibleWithJSONSerialization_classesCompatibleWithJSONSerialization;
+  classesCompatibleWithJSONSerialization_classesCompatibleWithJSONSerialization = v12;
 
-  return MEMORY[0x2821F96F8](v10, v11);
+  return MEMORY[0x2821F96F8](v12, v13);
 }
 
 + (id)createJSONRepresentationFromDictionary:(id)dictionary bundlePath:(id)path purpose:(unint64_t)purpose
@@ -3241,7 +3241,7 @@ uint64_t __84__CLKComplicationTemplate_JSONSerialization__classesCompatibleWithJ
           v20 = CLKLoggingObjectForDomain(0);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            +[CLKComplicationTemplate(JSONSerialization) createJSONRepresentationFromDictionary:bundlePath:purpose:];
+            [CLKComplicationTemplate(JSONSerialization) createJSONRepresentationFromDictionary:v16 bundlePath:v20 purpose:?];
           }
 
           v19 = 0;
@@ -3450,7 +3450,7 @@ LABEL_17:
           v20 = CLKLoggingObjectForDomain(0);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            +[CLKComplicationTemplate(JSONSerialization) createJSONRepresentationFromDictionary:bundlePath:purpose:];
+            [CLKComplicationTemplate(JSONSerialization) createJSONRepresentationFromDictionary:v16 bundlePath:v20 purpose:?];
           }
 
           v19 = 0;
@@ -3513,7 +3513,7 @@ LABEL_13:
     v11 = CLKLoggingObjectForDomain(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      +[CLKComplicationTemplate(JSONSerialization) _jsonObjectRepresentationFromObject:bundlePath:purpose:];
+      [CLKComplicationTemplate(JSONSerialization) _jsonObjectRepresentationFromObject:objectCopy bundlePath:v11 purpose:?];
     }
   }
 
@@ -3619,12 +3619,19 @@ LABEL_12:
   _os_log_fault_impl(&dword_23702D000, a2, OS_LOG_TYPE_FAULT, "%@", &v3, 0xCu);
 }
 
-void __43__CLKComplicationTemplate_encodeWithCoder___block_invoke_10_cold_1()
+void __43__CLKComplicationTemplate_encodeWithCoder___block_invoke_10_cold_1(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   OUTLINED_FUNCTION_1();
-  v1 = v0;
-  OUTLINED_FUNCTION_0(&dword_23702D000, v2, v3, "Invalid embedded template class (%@)", v4, v5, v6, v7, v8);
+  v3 = v2;
+  OUTLINED_FUNCTION_0(&dword_23702D000, v4, v5, "Invalid embedded template class (%@)", v6, v7, v8, v9);
+}
+
+- (void)initWithCoder:(uint64_t)a3 .cold.1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_0_0(&dword_23702D000, a2, a3, "Invalid SDK version %ld - resetting to jupiter or later", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)complicationTemplateWithJSONObjectRepresentation:(void *)a1 bundle:(uint8_t *)buf purpose:(os_log_t)log .cold.1(void *a1, uint8_t *buf, os_log_t log)
@@ -3638,7 +3645,7 @@ void __43__CLKComplicationTemplate_encodeWithCoder___block_invoke_10_cold_1()
 {
   v1 = NSStringFromClass(a1);
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_23702D000, v2, v3, "Cannot encode class: %@ since it is not a supported type", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0(&dword_23702D000, v2, v3, "Cannot encode class: %@ since it is not a supported type", v4, v5, v6, v7);
 }
 
 @end

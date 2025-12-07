@@ -48,11 +48,6 @@
 - (void)_cleanSourceDirectoriesForStaleData;
 - (void)_cleanSourceDirectoryForSource:(id)source andClient:(id)client;
 - (void)_cleanStaleDataForSourceDirectory:(id)directory;
-- (void)_clientlessSourceDirectories;
-- (void)_diagnosticDeliveryDirectories;
-- (void)_diagnosticDeliveryParentDirectory;
-- (void)_metricDeliveryDirectories;
-- (void)_metricDeliveryParentDirectory;
 - (void)cleanStaleData;
 @end
 
@@ -209,43 +204,41 @@
 
 - (void)_cleanSourceDirectoriesForClient:(id)client
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   if (os_log_type_enabled(self->_logHandle, OS_LOG_TYPE_DEBUG))
   {
     [MXCleanUtil _cleanSourceDirectoriesForClient:];
   }
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
-  v5 = [&unk_286A1B9E8 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v5 = [&unk_286A1B9E8 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(&unk_286A1B9E8);
         }
 
-        [(MXCleanUtil *)self _cleanSourceDirectoryForSource:*(*(&v10 + 1) + 8 * v8++) andClient:clientCopy];
+        [(MXCleanUtil *)self _cleanSourceDirectoryForSource:*(*(&v9 + 1) + 8 * v8++) andClient:clientCopy];
       }
 
       while (v6 != v8);
-      v6 = [&unk_286A1B9E8 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [&unk_286A1B9E8 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanSourceDirectoryForSource:(id)source andClient:(id)client
@@ -325,12 +318,12 @@
 
 - (id)_subdirectoriesFromDirectory:(id)directory
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v22 = 0;
-  v6 = [defaultManager contentsOfDirectoryAtPath:directoryCopy error:&v22];
-  v7 = v22;
+  v21 = 0;
+  v6 = [defaultManager contentsOfDirectoryAtPath:directoryCopy error:&v21];
+  v7 = v21;
   if (v7)
   {
     if (os_log_type_enabled(self->_logHandle, OS_LOG_TYPE_ERROR))
@@ -344,41 +337,39 @@
   else
   {
     v8 = objc_opt_new();
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v9 = v6;
-    v10 = [v9 countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = [directoryCopy stringByAppendingPathComponent:*(*(&v18 + 1) + 8 * i)];
-          v17 = 0;
-          if ([defaultManager fileExistsAtPath:v14 isDirectory:&v17] && v17 == 1)
+          v14 = [directoryCopy stringByAppendingPathComponent:*(*(&v17 + 1) + 8 * i)];
+          v16 = 0;
+          if ([defaultManager fileExistsAtPath:v14 isDirectory:&v16] && v16 == 1)
           {
             [v8 addObject:v14];
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v17 objects:v22 count:16];
       }
 
       while (v11);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -413,12 +404,12 @@
 
 - (id)_filenamesFromDirectory:(id)directory
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v25 = 0;
-  v6 = [defaultManager contentsOfDirectoryAtPath:directoryCopy error:&v25];
-  v7 = v25;
+  v24 = 0;
+  v6 = [defaultManager contentsOfDirectoryAtPath:directoryCopy error:&v24];
+  v7 = v24;
   if (v7)
   {
     if (os_log_type_enabled(self->_logHandle, OS_LOG_TYPE_ERROR))
@@ -433,36 +424,36 @@
   {
     selfCopy = self;
     v8 = objc_opt_new();
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
-    v19 = v6;
+    v18 = v6;
     v9 = v6;
-    v10 = [v9 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v22;
+      v12 = *v21;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v22 != v12)
+          if (*v21 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v21 + 1) + 8 * i);
+          v14 = *(*(&v20 + 1) + 8 * i);
           v15 = [directoryCopy stringByAppendingPathComponent:v14];
-          v20 = 0;
-          if ([defaultManager fileExistsAtPath:v15 isDirectory:&v20] && (v20 & 1) == 0)
+          v19 = 0;
+          if ([defaultManager fileExistsAtPath:v15 isDirectory:&v19] && (v19 & 1) == 0)
           {
             [v8 addObject:v14];
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v11);
@@ -473,10 +464,8 @@
       [MXCleanUtil _filenamesFromDirectory:];
     }
 
-    v6 = v19;
+    v6 = v18;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -495,36 +484,36 @@
 
 - (id)_datesFromMetricFilenames:(id)filenames
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   filenamesCopy = filenames;
   v5 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = filenamesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(MXCleanUtil *)self _dateFromMetricFilename:*(*(&v14 + 1) + 8 * i), v14];
+        v11 = [(MXCleanUtil *)self _dateFromMetricFilename:*(*(&v13 + 1) + 8 * i), v13];
         if (v11)
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
@@ -534,8 +523,6 @@
   {
     [MXCleanUtil _datesFromMetricFilenames:];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -601,36 +588,36 @@
 
 - (id)_datesFromDiagnosticFilenames:(id)filenames
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   filenamesCopy = filenames;
   v5 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v6 = filenamesCopy;
-  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = [(MXCleanUtil *)self _dateFromDiagnosticFilename:*(*(&v14 + 1) + 8 * i), v14];
+        v11 = [(MXCleanUtil *)self _dateFromDiagnosticFilename:*(*(&v13 + 1) + 8 * i), v13];
         if (v11)
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
@@ -640,8 +627,6 @@
   {
     [MXCleanUtil _datesFromDiagnosticFilenames:];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -685,28 +670,28 @@
 
 - (id)_latestDateFromDates:(id)dates
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   datesCopy = dates;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v5 = [datesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [datesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(datesCopy);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if (!v7)
         {
           v7 = v10;
@@ -716,7 +701,7 @@
         v7 = [v10 laterDate:v7];
       }
 
-      v6 = [datesCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [datesCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
@@ -731,8 +716,6 @@
   {
     [MXCleanUtil _latestDateFromDates:];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -762,43 +745,41 @@
 
 - (void)_cleanClientlessSourceDirectoriesForStaleData
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   _clientlessSourceDirectories = [(MXCleanUtil *)self _clientlessSourceDirectories];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v4 = [_clientlessSourceDirectories countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [_clientlessSourceDirectories countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(_clientlessSourceDirectories);
         }
 
-        [(MXCleanUtil *)self _cleanStaleDataForSourceDirectory:*(*(&v9 + 1) + 8 * v7++)];
+        [(MXCleanUtil *)self _cleanStaleDataForSourceDirectory:*(*(&v8 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [_clientlessSourceDirectories countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [_clientlessSourceDirectories countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanStaleDataForSourceDirectory:(id)directory
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   if (os_log_type_enabled(self->_logHandle, OS_LOG_TYPE_DEBUG))
   {
@@ -806,25 +787,25 @@
   }
 
   v5 = [(MXCleanUtil *)self _filenamesFromDirectory:directoryCopy];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         if ([(MXCleanUtil *)self _isStaleSourceForFilename:v10])
         {
           v11 = [directoryCopy stringByAppendingPathComponent:v10];
@@ -832,13 +813,11 @@
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isStaleSourceForFilename:(id)filename
@@ -960,39 +939,39 @@
 
 - (id)_clientlessSourceDirectories
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   containerPath = [MEMORY[0x277D28708] containerPath];
   v4 = [&unk_286A1BA00 objectAtIndexedSubscript:2];
-  v21[0] = v4;
+  v20[0] = v4;
   v5 = [&unk_286A1BA18 objectAtIndexedSubscript:6];
-  v21[1] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+  v20[1] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
 
   v7 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v17;
+    v11 = *v16;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v17 != v11)
+        if (*v16 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = [containerPath stringByAppendingPathComponent:{*(*(&v16 + 1) + 8 * i), v16}];
+        v13 = [containerPath stringByAppendingPathComponent:{*(*(&v15 + 1) + 8 * i), v15}];
         [v7 addObject:v13];
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v10);
@@ -1003,85 +982,81 @@
     [MXCleanUtil _clientlessSourceDirectories];
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (void)_cleanClientfulSourceDirectoriesForStaleData
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   _clientfulSourceDirectories = [(MXCleanUtil *)self _clientfulSourceDirectories];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v4 = [_clientfulSourceDirectories countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [_clientfulSourceDirectories countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(_clientfulSourceDirectories);
         }
 
-        [(MXCleanUtil *)self _cleanStaleDataForSourceDirectory:*(*(&v9 + 1) + 8 * v7++)];
+        [(MXCleanUtil *)self _cleanStaleDataForSourceDirectory:*(*(&v8 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [_clientfulSourceDirectories countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [_clientfulSourceDirectories countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_clientfulSourceDirectories
 {
-  v23[3] = *MEMORY[0x277D85DE8];
+  v22[3] = *MEMORY[0x277D85DE8];
   containerPath = [MEMORY[0x277D28708] containerPath];
   v4 = [&unk_286A1BA30 objectAtIndexedSubscript:4];
-  v23[0] = v4;
+  v22[0] = v4;
   v5 = [&unk_286A1BA48 objectAtIndexedSubscript:3];
-  v23[1] = v5;
+  v22[1] = v5;
   v6 = [&unk_286A1BA60 objectAtIndexedSubscript:5];
-  v23[2] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:3];
+  v22[2] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:3];
 
   v8 = objc_opt_new();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [containerPath stringByAppendingPathComponent:{*(*(&v18 + 1) + 8 * i), v18}];
+        v14 = [containerPath stringByAppendingPathComponent:{*(*(&v17 + 1) + 8 * i), v17}];
         v15 = [(MXCleanUtil *)self _subdirectoriesFromDirectory:v14];
         [v8 addObjectsFromArray:v15];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
@@ -1091,8 +1066,6 @@
   {
     [MXCleanUtil _clientlessSourceDirectories];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -1115,355 +1088,145 @@
   }
 }
 
-- (void)_cleanDirectoriesForUninstalledClient:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "Client: %@ is not installed", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_cleanDeliveryDirectoriesForClient:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "Start clean delivery directory for client: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 - (void)_metricDeliveryDirectoryForClient:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_metricDeliveryParentDirectory
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "Metric Delivery directory: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_diagnosticDeliveryDirectoryForClient:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_diagnosticDeliveryParentDirectory
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "Diagnostics Delivery directory: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_cleanSourceDirectoriesForClient:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "Start clean Source directories for client: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanSourceDirectoryForSource:andClient:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanDirectory:.cold.1()
 {
   OUTLINED_FUNCTION_11();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = [OUTLINED_FUNCTION_10() description];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_7(&dword_258D6F000, v4, v5, "Error removing directory: %@ with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_258D6F000, v4, v5, "Error removing directory: %@ with error: %{public}@", v6, v7, v8, v9);
 }
 
 - (void)_sourceDirectoryForSource:andClient:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_metricDeliveryDirectories
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "Metric delivery directories: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_subdirectoriesFromDirectory:.cold.1()
 {
   OUTLINED_FUNCTION_11();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = [OUTLINED_FUNCTION_10() description];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_7(&dword_258D6F000, v4, v5, "Error searching contents of directory: %@ with error %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_cleanMetricDeliveryDirectoryForStaleDataForDirectory:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "Start clean Metric delivery for stale data for directory: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_258D6F000, v4, v5, "Error searching contents of directory: %@ with error %{public}@", v6, v7, v8, v9);
 }
 
 - (void)_isMetricDeliveryStaleForDirectory:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_filenamesFromDirectory:.cold.1()
 {
   OUTLINED_FUNCTION_11();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = [OUTLINED_FUNCTION_10() description];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_7(&dword_258D6F000, v4, v5, "Error searching contents of directory: %@ with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_258D6F000, v4, v5, "Error searching contents of directory: %@ with error: %{public}@", v6, v7, v8, v9);
 }
 
 - (void)_filenamesFromDirectory:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_lastFileDateFromMetricFilenames:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "last file date: %@ from metric filenames", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_datesFromMetricFilenames:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "dates: %@ from metric filenames", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_diagnosticDeliveryDirectories
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "Diagnostic delivery directories: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_cleanDiagnosticDeliveryDirectoryForStaleDataForDirectory:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "Start clean Diagnostic delivery for stale data for directory: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isDiagnosticDeliveryStaleForDirectory:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_lastFileDateFromDiagnosticFilenames:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "last file date: %@ from diagnostic filenames", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_datesFromDiagnosticFilenames:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "diagnostic filenames dates: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_dateFromDiagnosticFilename:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "diagnostic filename date: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_dateFromMetricFilename:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "metric filename date: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_dateFromDateString:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "Convert string to date: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_latestDateFromDates:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_isStaleForDate:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_cleanStaleDataForSourceDirectory:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "Start clean stale data for source directory: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isStaleSourceForFilename:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_6();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isMetricSourceFilename:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_6();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isStaleMetricSourceForFilename:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dateStringFromMetricSourceFilename:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_dateStringFromUnprefixedFilename:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "date string: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isDiagnosticSourceFilename:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_6();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_isStaleDiagnosticSourceForFilename:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_dateStringFromDiagnosticSourceFilename:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_clientlessSourceDirectories
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "Source Directories: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_cleanFileFromFilePath:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_5(&dword_258D6F000, v0, v1, "Remove item at path: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanFileFromFilePath:.cold.2()
 {
   OUTLINED_FUNCTION_11();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = v1;
   v3 = [OUTLINED_FUNCTION_10() description];
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_7(&dword_258D6F000, v4, v5, "Error clean file from path: %@ with error: %{public}@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_7(&dword_258D6F000, v4, v5, "Error clean file from path: %@ with error: %{public}@", v6, v7, v8, v9);
 }
 
 @end

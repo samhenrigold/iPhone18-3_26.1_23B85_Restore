@@ -12,15 +12,13 @@
 
 + (NSSet)allowedPayloadKeys
 {
-  v7[3] = *MEMORY[0x277D85DE8];
+  v6[3] = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277CBEB98];
-  v7[0] = @"Enabled";
-  v7[1] = @"AllowedMarketplaceApps";
-  v7[2] = @"DeniedMarketplaceApps";
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
+  v6[0] = @"Enabled";
+  v6[1] = @"AllowedMarketplaceApps";
+  v6[2] = @"DeniedMarketplaceApps";
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:3];
   v4 = [v2 setWithArray:v3];
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

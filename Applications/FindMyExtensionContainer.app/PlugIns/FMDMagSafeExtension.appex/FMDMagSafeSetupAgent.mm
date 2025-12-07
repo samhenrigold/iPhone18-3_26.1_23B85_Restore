@@ -24,29 +24,30 @@
 
 - (FMDMagSafeSetupAgent)init
 {
-  v7.receiver = self;
-  v7.super_class = FMDMagSafeSetupAgent;
-  v2 = [(FMDMagSafeSetupAgent *)&v7 init];
+  v8.receiver = self;
+  v8.super_class = FMDMagSafeSetupAgent;
+  v2 = [(FMDMagSafeSetupAgent *)&v8 init];
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_1000011D8();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_1000011D8(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "intitializing setupAgent", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "intitializing setupAgent", v7, 2u);
     }
 
-    v4 = dispatch_queue_create("FMDMagSafeSetupAgent", 0);
-    [(FMDMagSafeSetupAgent *)v2 setSerialQueue:v4];
+    v5 = dispatch_queue_create("FMDMagSafeSetupAgent", 0);
+    [(FMDMagSafeSetupAgent *)v3 setSerialQueue:v5];
   }
 
-  return v2;
+  return v3;
 }
 
 - (void)launchSetupModule:(id)module
 {
   moduleCopy = module;
-  v5 = sub_1000011D8();
+  v5 = sub_1000011D8(moduleCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 138412290;
@@ -100,7 +101,7 @@
 
 - (void)remoteAlertHandleDidDeactivate:(id)deactivate
 {
-  v4 = sub_1000011D8();
+  v4 = sub_1000011D8(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -120,7 +121,7 @@
 - (void)remoteAlertHandle:(id)handle didInvalidateWithError:(id)error
 {
   errorCopy = error;
-  v6 = sub_1000011D8();
+  v6 = sub_1000011D8(errorCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v9 = 138412290;

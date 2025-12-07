@@ -113,21 +113,22 @@
 {
   dictionaryCopy = dictionary;
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  isKindOfClass = objc_opt_isKindOfClass();
+  if ((isKindOfClass & 1) == 0)
   {
-    v5 = _FALogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _FALogSystem(isKindOfClass);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      [FASettingsPreset initWithDictionary:];
+      [FASettingsPreset initWithDictionary:?];
     }
   }
 
-  v6 = [dictionaryCopy objectForKeyedSubscript:@"identifier"];
-  v7 = [dictionaryCopy objectForKeyedSubscript:@"sources"];
-  v8 = v7;
-  if (v7)
+  v7 = [dictionaryCopy objectForKeyedSubscript:@"identifier"];
+  v8 = [dictionaryCopy objectForKeyedSubscript:@"sources"];
+  v9 = v8;
+  if (v8)
   {
-    array = v7;
+    array = v8;
   }
 
   else
@@ -135,15 +136,16 @@
     array = [MEMORY[0x1E695DEC8] array];
   }
 
-  v10 = array;
+  v11 = array;
 
-  v11 = [dictionaryCopy objectForKeyedSubscript:@"minAge"];
-  v12 = [dictionaryCopy objectForKeyedSubscript:@"maxAge"];
+  v12 = [dictionaryCopy objectForKeyedSubscript:@"minAge"];
+  v13 = [dictionaryCopy objectForKeyedSubscript:@"maxAge"];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  v14 = objc_opt_isKindOfClass();
+  if ((v14 & 1) == 0)
   {
-    v13 = _FALogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v18 = _FALogSystem(v14);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_29;
     }
@@ -152,10 +154,11 @@
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
+  v15 = objc_opt_isKindOfClass();
+  if ((v15 & 1) == 0)
   {
-    v13 = _FALogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v18 = _FALogSystem(v15);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_29;
     }
@@ -163,13 +166,14 @@
     goto LABEL_30;
   }
 
-  if (v11)
+  if (v12)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    v16 = objc_opt_isKindOfClass();
+    if ((v16 & 1) == 0)
     {
-      v13 = _FALogSystem();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v18 = _FALogSystem(v16);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_29;
       }
@@ -178,16 +182,17 @@
     }
   }
 
-  if (v12)
+  if (v13)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    v17 = objc_opt_isKindOfClass();
+    if ((v17 & 1) == 0)
     {
-      v13 = _FALogSystem();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v18 = _FALogSystem(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
 LABEL_29:
-        [FASettingsPreset initWithDictionary:];
+        [FASettingsPreset initWithDictionary:?];
       }
 
 LABEL_30:
@@ -196,32 +201,33 @@ LABEL_30:
     }
   }
 
-  v13 = [v10 fa_map:&__block_literal_global_13];
-  v14 = [v13 count];
-  if (v14 != [v10 count])
+  v18 = [v11 fa_map:&__block_literal_global_13];
+  v19 = [v18 count];
+  v20 = [v11 count];
+  if (v19 != v20)
   {
-    v19 = _FALogSystem();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v25 = _FALogSystem(v20);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      [FASettingsPreset initWithDictionary:];
+      [FASettingsPreset initWithDictionary:?];
     }
 
     goto LABEL_30;
   }
 
-  integerValue = [v11 integerValue];
-  integerValue2 = [v12 integerValue];
+  integerValue = [v12 integerValue];
+  integerValue2 = [v13 integerValue];
   if (integerValue2)
   {
-    v17 = integerValue2;
+    v23 = integerValue2;
   }
 
   else
   {
-    v17 = 0x7FFFFFFFFFFFFFFFLL;
+    v23 = 0x7FFFFFFFFFFFFFFFLL;
   }
 
-  self = [(FASettingsPreset *)self initWithIdentifier:v6 minAge:integerValue maxAge:v17 sources:v13];
+  self = [(FASettingsPreset *)self initWithIdentifier:v7 minAge:integerValue maxAge:v23 sources:v18];
   selfCopy = self;
 LABEL_31:
 
@@ -238,27 +244,27 @@ FASettingsPresetSource *__39__FASettingsPreset_initWithDictionary___block_invoke
 
 - (id)sourceWithIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_sources;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         identifier = [v9 identifier];
         v11 = [identifier isEqualToString:identifierCopy];
 
@@ -269,7 +275,7 @@ FASettingsPresetSource *__39__FASettingsPreset_initWithDictionary___block_invoke
         }
       }
 
-      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -280,8 +286,6 @@ FASettingsPresetSource *__39__FASettingsPreset_initWithDictionary___block_invoke
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -300,13 +304,11 @@ LABEL_11:
   return v10;
 }
 
-- (void)initWithDictionary:.cold.1()
+- (void)initWithDictionary:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   OUTLINED_FUNCTION_3();
-  OUTLINED_FUNCTION_0(&dword_1B70B0000, v0, v1, "Error decoding %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0(&dword_1B70B0000, v1, v2, "Error decoding %@", v3, v4, v5, v6);
 }
 
 @end

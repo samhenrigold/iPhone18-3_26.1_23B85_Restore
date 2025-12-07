@@ -14,21 +14,18 @@
 
 - (NSString)itemIdentifier
 {
-  v2 = *(self + OBJC_IVAR____TtC18Feedback_Assistant12FBATopicCell_itemIdentifier);
-  v3 = *(self + OBJC_IVAR____TtC18Feedback_Assistant12FBATopicCell_itemIdentifier + 8);
 
-  v4 = String._bridgeToObjectiveC()();
+  v2 = String._bridgeToObjectiveC()();
 
-  return v4;
+  return v2;
 }
 
 - (void)setItemIdentifier:(id)identifier
 {
   v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v5 = (self + OBJC_IVAR____TtC18Feedback_Assistant12FBATopicCell_itemIdentifier);
-  v6 = *(self + OBJC_IVAR____TtC18Feedback_Assistant12FBATopicCell_itemIdentifier + 8);
   *v5 = v4;
-  v5[1] = v7;
+  v5[1] = v6;
 }
 
 - (NSLayoutConstraint)topicToBottomOfView

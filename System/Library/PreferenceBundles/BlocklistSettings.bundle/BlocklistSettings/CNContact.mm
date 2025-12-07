@@ -254,7 +254,7 @@ LABEL_13:
 
   else
   {
-    v7 = PHDefaultLog();
+    v7 = PHDefaultLog(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_E778(numberCopy, v7);

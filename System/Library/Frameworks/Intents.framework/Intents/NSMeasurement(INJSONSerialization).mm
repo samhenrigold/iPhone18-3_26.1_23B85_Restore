@@ -7,7 +7,7 @@
 
 - (id)_intents_encodeWithJSONEncoder:()INJSONSerialization codableDescription:
 {
-  v133[2] = *MEMORY[0x1E69E9840];
+  v132[2] = *MEMORY[0x1E69E9840];
   unit = [self unit];
   meters = [MEMORY[0x1E696B058] meters];
   v4 = [unit isEqual:meters];
@@ -678,17 +678,15 @@
     }
   }
 
-  v133[0] = v5;
-  v132[0] = @"unit";
-  v132[1] = @"doubleValue";
+  v132[0] = v5;
+  v131[0] = @"unit";
+  v131[1] = @"doubleValue";
   v126 = MEMORY[0x1E696AD98];
   [self doubleValue];
   v127 = [v126 numberWithDouble:?];
-  v133[1] = v127;
-  v128 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v133 forKeys:v132 count:2];
+  v132[1] = v127;
+  v128 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v132 forKeys:v131 count:2];
   if_dictionaryWithNonEmptyValues = [v128 if_dictionaryWithNonEmptyValues];
-
-  v130 = *MEMORY[0x1E69E9840];
 
   return if_dictionaryWithNonEmptyValues;
 }

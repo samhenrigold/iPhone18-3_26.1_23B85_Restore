@@ -39,7 +39,7 @@
   v3 = objc_opt_class();
   if (v3)
   {
-    [v3 legibilityColorMatrix];
+    objc_msgSend_legibilityColorMatrix(v3);
   }
 
   else

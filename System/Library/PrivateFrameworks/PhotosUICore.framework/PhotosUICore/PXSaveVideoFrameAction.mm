@@ -120,7 +120,7 @@
   }
 }
 
-void __66__PXSaveVideoFrameAction__handleGeneratedImage_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void __66__PXSaveVideoFrameAction__handleGeneratedImage_completionHandler___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
   *(a1 + 32);
@@ -200,7 +200,7 @@ uint64_t __66__PXSaveVideoFrameAction__handleGeneratedImage_completionHandler___
   [generatorCopy setDynamicRangePolicy:*MEMORY[0x1E6987360]];
   [generatorCopy setAppliesPreferredTrackTransform:1];
   [generatorCopy setApertureMode:*MEMORY[0x1E6987350]];
-  [(PXSaveVideoFrameAction *)self time];
+  objc_msgSend_time(self);
   v13[0] = MEMORY[0x1E69E9820];
   v13[1] = 3221225472;
   v13[2] = __71__PXSaveVideoFrameAction__handleAssetImageGenerator_completionHandler___block_invoke_3;
@@ -213,7 +213,7 @@ uint64_t __66__PXSaveVideoFrameAction__handleGeneratedImage_completionHandler___
   [generatorCopy generateCGImageAsynchronouslyForTime:&v16 completionHandler:v13];
 }
 
-void __71__PXSaveVideoFrameAction__handleAssetImageGenerator_completionHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void __71__PXSaveVideoFrameAction__handleAssetImageGenerator_completionHandler___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
   *(a1 + 32);
@@ -272,7 +272,7 @@ uint64_t __71__PXSaveVideoFrameAction__handleAssetImageGenerator_completionHandl
   }
 }
 
-void __40__PXSaveVideoFrameAction_performAction___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void __40__PXSaveVideoFrameAction_performAction___block_invoke(uint64_t a1, char a2, void *a3)
 {
   v4 = a3;
   *(a1 + 32);
@@ -285,7 +285,7 @@ void __40__PXSaveVideoFrameAction_performAction___block_invoke_3(uint64_t a1, ui
   if (a2)
   {
     v5 = *(a1 + 32);
-    v6 = [MEMORY[0x1E6987E68] assetImageGeneratorWithAsset:a2];
+    v6 = [MEMORY[0x1E6987E68] assetImageGeneratorWithAsset:{a2, a4}];
     [v5 _handleAssetImageGenerator:? completionHandler:?];
   }
 

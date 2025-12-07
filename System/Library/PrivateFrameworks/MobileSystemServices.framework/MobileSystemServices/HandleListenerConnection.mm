@@ -3,11 +3,10 @@
 
 @implementation HandleListenerConnection
 
-uint64_t ___HandleListenerConnection_block_invoke(void *a1)
+uint64_t ___HandleListenerConnection_block_invoke(uint64_t a1)
 {
-  v2 = a1[6];
-  result = (*(*(a1[5] + 48) + 16))();
-  *(*(a1[4] + 8) + 24) = result;
+  result = (*(*(*(a1 + 40) + 48) + 16))();
+  *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
 }
 
@@ -50,7 +49,7 @@ void ___HandleListenerConnection_block_invoke_2(uint64_t a1, void *a2, uint64_t 
   else
   {
 
-    MOLogWrite(0, 3, "_HandleListenerConnection_block_invoke_2", @"ignoring unknown event type from client", v13, v14, v15, v16, a9);
+    MOLogWrite(0, 3, "_HandleListenerConnection_block_invoke_2", @"ignoring unknown event type from client", v13, v14, v15, v16);
   }
 }
 

@@ -9,7 +9,9 @@
 - (void)disableOnlyRemoteUnlock;
 - (void)enableOnlyRemoteUnlockWithPasscode:(id)passcode;
 - (void)peer:(id)peer didNotifyRemoteState:(id)state error:(id)error;
+- (void)peer:(id)peer didPairForUnlock:(BOOL)unlock error:(id)error;
 - (void)peer:(id)peer remoteDeviceRequestsRemoteAction:(int64_t)action type:(int64_t)type existingPasscode:(id)passcode completionHandler:(id)handler;
+- (void)peer:(id)peer remoteDeviceRequestsRemoteAction:(int64_t)action type:(int64_t)type existingPasscode:(id)passcode showAsReprompt:(BOOL)reprompt completionHandler:(id)handler;
 - (void)peerRemoteDeviceDidUnlock:(id)unlock;
 - (void)queryRemoteDeviceState:(id)state;
 - (void)requestRemoteDeviceRemoteAction:(int64_t)action type:(int64_t)type;
@@ -209,6 +211,44 @@ LABEL_14:
   [(NSMutableSet *)self->_connections removeObject:connectionCopy];
 }
 
+- (void)peer:(id)peer didPairForUnlock:(BOOL)unlock error:(id)error
+{
+  unlockCopy = unlock;
+  errorCopy = error;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v8 = [(NSMutableSet *)self->_connections copy];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v15;
+    do
+    {
+      v12 = 0;
+      do
+      {
+        if (*v15 != v11)
+        {
+          objc_enumerationMutation(v8);
+        }
+
+        remoteObjectProxy = [*(*(&v14 + 1) + 8 * v12) remoteObjectProxy];
+        [remoteObjectProxy didPairForUnlock:unlockCopy error:errorCopy];
+
+        v12 = v12 + 1;
+      }
+
+      while (v10 != v12);
+      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    }
+
+    while (v10);
+  }
+}
+
 - (void)peerRemoteDeviceDidUnlock:(id)unlock
 {
   v9 = 0u;
@@ -303,6 +343,31 @@ LABEL_14:
   v17 = handlerCopy;
   v15 = handlerCopy;
   [remoteObjectProxy requestRemoteAction:action type:type existingPasscode:passcodeCopy completion:v16];
+}
+
+- (void)peer:(id)peer remoteDeviceRequestsRemoteAction:(int64_t)action type:(int64_t)type existingPasscode:(id)passcode showAsReprompt:(BOOL)reprompt completionHandler:(id)handler
+{
+  repromptCopy = reprompt;
+  handlerCopy = handler;
+  passcodeCopy = passcode;
+  v15 = pu_log();
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 134218240;
+    actionCopy = action;
+    v22 = 1024;
+    v23 = repromptCopy;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Remote device requested passcode action %li (show as reprompt:%{BOOL}u)", buf, 0x12u);
+  }
+
+  remoteObjectProxy = [(NSXPCConnection *)self->_actionServerConnection remoteObjectProxy];
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_10000BF6C;
+  v18[3] = &unk_1000189F0;
+  v19 = handlerCopy;
+  v17 = handlerCopy;
+  [remoteObjectProxy requestRemoteAction:action type:type existingPasscode:passcodeCopy showAsReprompt:repromptCopy completion:v18];
 }
 
 - (void)checkIn

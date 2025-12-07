@@ -1,10 +1,32 @@
 @interface GDGeoHashVisitUtility
 - (GDGeoHashVisitUtility)initWithGeoHashStream:(id)stream;
+- (id)_rawGeoHashVisitEventPublisherFrom:(id)from to:(id)to maxEvents:(unint64_t)events lastN:(unint64_t)n reversed:(BOOL)reversed level:(int64_t)level;
 - (id)geoHashVisitEventPublisherFrom:(id)from to:(id)to level:(int64_t)level;
 - (id)lastGeoHashVisitEventAt:(id)at level:(int64_t)level;
 @end
 
 @implementation GDGeoHashVisitUtility
+
+- (id)_rawGeoHashVisitEventPublisherFrom:(id)from to:(id)to maxEvents:(unint64_t)events lastN:(unint64_t)n reversed:(BOOL)reversed level:(int64_t)level
+{
+  reversedCopy = reversed;
+  v14 = MEMORY[0x1E698F2D0];
+  toCopy = to;
+  fromCopy = from;
+  v17 = [v14 alloc];
+  started = objc_msgSend_initWithStartDate_endDate_maxEvents_lastN_reversed_(v17, v18, fromCopy, toCopy, events, n, reversedCopy);
+
+  v22 = objc_msgSend_publisherWithOptions_(self->_geoHashStream, v20, started, v21);
+  v25 = objc_msgSend_filterWithIsIncluded_(v22, v23, &unk_1F4415FB8, v24);
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = sub_1C4EF5050;
+  v30[3] = &unk_1E81EF990;
+  v30[4] = level;
+  v28 = objc_msgSend_mapWithTransform_(v25, v26, v30, v27);
+
+  return v28;
+}
 
 - (id)geoHashVisitEventPublisherFrom:(id)from to:(id)to level:(int64_t)level
 {

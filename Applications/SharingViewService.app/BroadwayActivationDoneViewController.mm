@@ -13,12 +13,12 @@
   {
     if (dword_1001BEFE8 != -1 || _LogCategory_Initialize())
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BEFE8, "[BroadwayActivationDoneViewController handleDoneButton:]", 30, "Done button");
     }
 
     if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BEFE8, "[BroadwayActivationDoneViewController handleDoneButton:]", 30, "Launching Wallet app");
     }
   }
 
@@ -30,7 +30,7 @@
   disappearCopy = disappear;
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationDoneViewController viewDidDisappear:]", 30, "Done ViewDidDisappear");
   }
 
   v5.receiver = self;
@@ -43,7 +43,7 @@
   appearCopy = appear;
   if (dword_1001BEFE8 <= 30 && (dword_1001BEFE8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEFE8, "[BroadwayActivationDoneViewController viewWillAppear:]", 30, "Done ViewWillAppear");
   }
 
   v19.receiver = self;

@@ -211,18 +211,14 @@ LABEL_13:
 
 - (void)setApplicationBundleIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  applicationBundleIdentifier = self->_applicationBundleIdentifier;
-  self->_applicationBundleIdentifier = v4;
+  self->_applicationBundleIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setVoiceShortcutIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  voiceShortcutIdentifier = self->_voiceShortcutIdentifier;
-  self->_voiceShortcutIdentifier = v4;
+  self->_voiceShortcutIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

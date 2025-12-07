@@ -14,11 +14,11 @@
 
 - (id)_dictionaryRepresentation
 {
-  v12[3] = *MEMORY[0x1E69E9840];
-  v11[0] = @"type";
+  v11[3] = *MEMORY[0x1E69E9840];
+  v10[0] = @"type";
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:self->_type];
-  v12[0] = v3;
-  v11[1] = @"validDuration";
+  v11[0] = v3;
+  v10[1] = @"validDuration";
   validDuration = self->_validDuration;
   null = validDuration;
   if (!validDuration)
@@ -26,8 +26,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[1] = null;
-  v11[2] = @"userActivity";
+  v11[1] = null;
+  v10[2] = @"userActivity";
   userActivity = self->_userActivity;
   null2 = userActivity;
   if (!userActivity)
@@ -35,8 +35,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v12[2] = null2;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v11[2] = null2;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
   if (userActivity)
   {
     if (validDuration)
@@ -55,7 +55,6 @@
   }
 
 LABEL_7:
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

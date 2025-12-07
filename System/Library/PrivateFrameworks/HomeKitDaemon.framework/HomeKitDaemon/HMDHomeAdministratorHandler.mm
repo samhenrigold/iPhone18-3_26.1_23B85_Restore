@@ -37,7 +37,7 @@
 
 - (void)addOperation:(id)operation
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   if (operationCopy)
   {
@@ -47,18 +47,16 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543618;
-      v11 = v8;
-      v12 = 2112;
-      v13 = operationCopy;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Adding operation: %@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v8;
+      v11 = 2112;
+      v12 = operationCopy;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Adding operation: %@", &v9, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
     [(NSOperationQueue *)selfCopy->_queue addOperation:operationCopy];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)operationForMessage:(id)message error:(id *)error
@@ -123,14 +121,14 @@ LABEL_14:
 
 - (void)sendMessage:(id)message completionHandler:(id)handler
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   handlerCopy = handler;
   if ([(HMDHomeAdministratorHandler *)self shouldRelayMessages])
   {
-    v19 = 0;
-    v8 = [(HMDHomeAdministratorHandler *)self operationForMessage:messageCopy error:&v19];
-    v9 = v19;
+    v18 = 0;
+    v8 = [(HMDHomeAdministratorHandler *)self operationForMessage:messageCopy error:&v18];
+    v9 = v18;
     if (v8)
     {
       [(HMDHomeAdministratorHandler *)self addOperation:v8];
@@ -145,9 +143,9 @@ LABEL_14:
       {
         v15 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v21 = v15;
-        v22 = 2112;
-        v23 = v9;
+        v20 = v15;
+        v21 = 2112;
+        v22 = v9;
         _os_log_impl(&dword_229538000, v14, OS_LOG_TYPE_ERROR, "%{public}@Failed to create home administrator configuration operation: %@", buf, 0x16u);
       }
 
@@ -173,8 +171,6 @@ LABEL_14:
       (*(v10 + 2))(v10, 0);
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldRelayMessages
@@ -228,7 +224,7 @@ LABEL_13:
 
 - (BOOL)shouldRelayMessage:(id)message
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if ([(HMDHomeAdministratorHandler *)self shouldRelayMessages])
   {
@@ -265,20 +261,20 @@ LABEL_13:
         v17 = HMFBooleanToString();
         [deviceHomeKitSetupSession hasFailedRelayAttempt];
         HMFBooleanToString();
-        v18 = v21 = v11;
+        v18 = v20 = v11;
         *buf = 138544386;
-        v23 = v14;
-        v24 = 2112;
-        v25 = shortDescription;
-        v26 = 2112;
-        v27 = clientName;
-        v28 = 2112;
-        v29 = v17;
-        v30 = 2112;
-        v31 = v18;
+        v22 = v14;
+        v23 = 2112;
+        v24 = shortDescription;
+        v25 = 2112;
+        v26 = clientName;
+        v27 = 2112;
+        v28 = v17;
+        v29 = 2112;
+        v30 = v18;
         _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Skip attempt to relay message %@ from client %@, firstResidentForHome=%@, hasFailedRelayAttempt=%@", buf, 0x34u);
 
-        v11 = v21;
+        v11 = v20;
       }
 
       objc_autoreleasePoolPop(v11);
@@ -291,7 +287,6 @@ LABEL_13:
     v10 = 0;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -407,14 +402,14 @@ LABEL_13:
 
     v19 = +[(HMDRemoteMessagePolicy *)HMDMutableRemoteMessagePolicy];
     [v19 setRoles:8];
-    v20 = [v19 copy];
+    v20 = objc_msgSend_copy(v19);
     [v18 addObject:v20];
 
     v21 = HMFCreateMessageBinding();
     [array addObject:v21];
   }
 
-  v22 = [array copy];
+  v22 = objc_msgSend_copy(array);
 
   objc_autoreleasePoolPop(v11);
 
@@ -546,10 +541,9 @@ BOOL __110__HMDHomeAdministratorHandler_messageBindingForMessageWithName_policie
 
 void __42__HMDHomeAdministratorHandler_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v8_251905;
-  logCategory__hmf_once_v8_251905 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v8_251905;
+  logCategory__hmf_once_v8_251905 = v0;
 }
 
 @end

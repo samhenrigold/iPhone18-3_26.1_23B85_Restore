@@ -5,7 +5,6 @@
 - (id)contactForIdentifiers:(id)identifiers;
 - (id)contactForMe;
 - (id)contactIDForHandle:(id)handle;
-- (void)contactForMe;
 - (void)fetchIDSStatusForHandle:(id)handle;
 - (void)idsStatusForHandle:(id)handle completion:(id)completion;
 @end
@@ -27,9 +26,10 @@
   v15 = 0;
   v9 = [v5 unifiedContactsMatchingPredicate:v6 keysToFetch:v8 error:&v15];
   v10 = v15;
+  v11 = v10;
   if (v10)
   {
-    firstObject = _AALogSystem();
+    firstObject = _AALogSystem(v10);
     if (os_log_type_enabled(firstObject, OS_LOG_TYPE_ERROR))
     {
       [AAContactsManager contactIDForHandle:];
@@ -50,8 +50,6 @@ LABEL_7:
 
   identifier = 0;
 LABEL_8:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return identifier;
 }
@@ -83,18 +81,17 @@ LABEL_8:
   v21 = 0;
   v15 = [v5 unifiedContactsMatchingPredicate:v6 keysToFetch:v14 error:&v21];
   v16 = v21;
+  v17 = v16;
   if (v16)
   {
-    v17 = _AALogSystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = _AALogSystem(v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [AAContactsManager contactForHandle:];
     }
   }
 
   firstObject = [v15 firstObject];
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }
@@ -131,10 +128,11 @@ LABEL_8:
     v22 = 0;
     v15 = [v21 unifiedContactsMatchingPredicate:v6 keysToFetch:v14 error:&v22];
     v16 = v22;
+    v17 = v16;
     if (v16)
     {
-      v17 = _AALogSystem();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = _AALogSystem(v16);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [AAContactsManager contactForHandle:];
       }
@@ -145,16 +143,14 @@ LABEL_8:
 
   else
   {
-    v16 = _AALogSystem();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v17 = _AALogSystem(0);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      [AAContactsManager contactForIdentifiers:v16];
+      [AAContactsManager contactForIdentifiers:v17];
     }
 
     firstObject2 = 0;
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return firstObject2;
 }
@@ -195,16 +191,15 @@ LABEL_8:
   v22 = 0;
   v12 = [v17 _crossPlatformUnifiedMeContactWithKeysToFetch:v11 error:&v22];
   v13 = v22;
+  v14 = v13;
   if (v13)
   {
-    v14 = _AALogSystem();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v15 = _AALogSystem(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [AAContactsManager contactForMe];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -281,30 +276,6 @@ void __45__AAContactsManager_fetchIDSStatusForHandle___block_invoke(uint64_t a1,
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-- (void)contactIDForHandle:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1B6F6A000, v0, v1, "Error fetching contact ID: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)contactForHandle:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1B6F6A000, v0, v1, "Error fetching contact: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)contactForMe
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_1B6F6A000, v0, v1, "Error fetching me card: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

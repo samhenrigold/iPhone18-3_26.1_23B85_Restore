@@ -1,6 +1,3653 @@
-void sub_18F6E9894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_18F6DECCC(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *__p)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  v36 = *(v34 - 184);
+  if (v36)
+  {
+    operator delete(v36);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void caulk::function_ref<caulk::expected<unsigned int,int> ()(ACAudioSpan &)>::empty_invoker()
+{
+  exception = __cxa_allocate_exception(8uLL);
+  *exception = MEMORY[0x1E69E5558] + 16;
+}
+
+uint64_t acv2::AudioConverterChain::description(acv2::AudioConverterChain *this, void *a2)
+{
+  std::ostringstream::basic_ostringstream[abi:ne200100](&v23);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, "AudioConverter ", 15);
+  v4 = MEMORY[0x193ADEE30](&v23, a2);
+  v5 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v4, " (", 2);
+  v6 = MEMORY[0x193ADEE30](v5, a2);
+  std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v6, "):\n", 3);
+  v7 = a2[44];
+  if (*v7 != 0x10000)
+  {
+    if (*v7)
+    {
+      if (!*v7)
+      {
+        goto LABEL_9;
+      }
+    }
+
+    else if (!v7[2])
+    {
+      goto LABEL_9;
+    }
+
+LABEL_8:
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, "  Input layout tag:  0x", 23);
+    *(&v23 + *(v23 - 24) + 8) = *(&v23 + *(v23 - 24) + 8) & 0xFFFFFFB5 | 8;
+    v9 = MEMORY[0x193ADEE60](&v23, *a2[44]);
+    *(v9 + *(*v9 - 24) + 8) = *(v9 + *(*v9 - 24) + 8) & 0xFFFFFFB5 | 2;
+    LOBYTE(__p[0]) = 10;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v9, __p, 1);
+    goto LABEL_9;
+  }
+
+  v8 = vcnt_s8(v7[1]);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.i32[0])
+  {
+    goto LABEL_8;
+  }
+
+LABEL_9:
+  v10 = a2[13];
+  for (i = a2[14]; v10 != i; v10 += 8)
+  {
+    (*(**v10 + 64))(__p);
+    if ((v22 & 0x80u) == 0)
+    {
+      v12 = __p;
+    }
+
+    else
+    {
+      v12 = __p[0];
+    }
+
+    if ((v22 & 0x80u) == 0)
+    {
+      v13 = v22;
+    }
+
+    else
+    {
+      v13 = __p[1];
+    }
+
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, v12, v13);
+    if (v22 < 0)
+    {
+      operator delete(__p[0]);
+    }
+  }
+
+  v14 = a2[47];
+  if (*v14 != 0x10000)
+  {
+    if (*v14)
+    {
+      if (!*v14)
+      {
+        goto LABEL_27;
+      }
+    }
+
+    else if (!v14[2])
+    {
+      goto LABEL_27;
+    }
+
+LABEL_26:
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(&v23, "  Output layout tag:  0x", 24);
+    *(&v23 + *(v23 - 24) + 8) = *(&v23 + *(v23 - 24) + 8) & 0xFFFFFFB5 | 8;
+    v16 = MEMORY[0x193ADEE60](&v23, *a2[47]);
+    *(v16 + *(*v16 - 24) + 8) = *(v16 + *(*v16 - 24) + 8) & 0xFFFFFFB5 | 2;
+    LOBYTE(__p[0]) = 10;
+    std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v16, __p, 1);
+    goto LABEL_27;
+  }
+
+  v15 = vcnt_s8(v14[1]);
+  v15.i16[0] = vaddlv_u8(v15);
+  if (v15.i32[0])
+  {
+    goto LABEL_26;
+  }
+
+LABEL_27:
+  if ((v30 & 0x10) != 0)
+  {
+    v18 = v29;
+    if (v29 < v26)
+    {
+      v29 = v26;
+      v18 = v26;
+    }
+
+    locale = v25[4].__locale_;
+  }
+
+  else
+  {
+    if ((v30 & 8) == 0)
+    {
+      v17 = 0;
+      *(this + 23) = 0;
+      goto LABEL_40;
+    }
+
+    locale = v25[1].__locale_;
+    v18 = v25[3].__locale_;
+  }
+
+  v17 = v18 - locale;
+  if ((v18 - locale) >= 0x7FFFFFFFFFFFFFF8)
+  {
+    std::string::__throw_length_error[abi:ne200100]();
+  }
+
+  if (v17 >= 0x17)
+  {
+    operator new();
+  }
+
+  *(this + 23) = v17;
+  if (v17)
+  {
+    memmove(this, locale, v17);
+  }
+
+LABEL_40:
+  *(this + v17) = 0;
+  v23 = *MEMORY[0x1E69E54E8];
+  *(&v23 + *(v23 - 24)) = *(MEMORY[0x1E69E54E8] + 24);
+  v24 = MEMORY[0x1E69E5548] + 16;
+  if (v28 < 0)
+  {
+    operator delete(v27);
+  }
+
+  v24 = MEMORY[0x1E69E5538] + 16;
+  std::locale::~locale(v25);
+  std::ostream::~ostream();
+  return MEMORY[0x193ADF120](&v31);
+}
+
+BOOL acv2::AudioConverterChain::ShouldAutomaticallyEnableSpatialRendering(uint64_t a1, unsigned int **a2)
+{
+  v2 = *(a1 + 344);
+  if (v2)
+  {
+    outSize = 0;
+    v5 = AudioCodecGetPropertyInfo(*(v2 + 168), 0x696D7264u, &outSize, 0) || outSize == 0;
+    if (!v5 && (*(a1 + 529) & 1) == 0)
+    {
+      v7 = 0;
+      v8 = **a2;
+      while ((AudioFormat_IsSupportedAUSpatialMixerOutputChannelLayout(AudioChannelLayout const*)::unsupportedLayouts[v7] ^ v8) >= 0x10000)
+      {
+        if (++v7 == 9)
+        {
+          return v8 + 0x10000 < 0xF0010000;
+        }
+      }
+    }
+  }
+
+  return 0;
+}
+
+void sub_18F6DF450(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_18F6DF508(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void sub_18F6DF6B8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t acv2::AudioConverterChain::GetOutputLayoutPriv(acv2::AudioConverterChain *this, std::vector<char> *a2, unsigned __int8 *a3)
+{
+  v4 = *(this + 43);
+  if (v4 && *(v4 + 204) == 1)
+  {
+    v5 = *(this + 43);
+
+    return acv2::CodecConverter::GetOutputLayout(v5, a2, a3);
+  }
+
+  v7 = *(this + 47);
+  if (*v7 == 0x10000)
+  {
+    v8 = vcnt_s8(*(v7 + 4));
+    v8.i16[0] = vaddlv_u8(v8);
+    if (v8.i32[0])
+    {
+      goto LABEL_11;
+    }
+
+    return 1718449215;
+  }
+
+  if (*v7)
+  {
+    if (*v7)
+    {
+      goto LABEL_11;
+    }
+
+    return 1718449215;
+  }
+
+  if (!*(v7 + 8))
+  {
+    return 1718449215;
+  }
+
+LABEL_11:
+  if ((this + 376) != a2)
+  {
+    std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a2, v7, *(this + 48), *(this + 48) - v7);
+  }
+
+  result = 0;
+  *a3 = 1;
+  return result;
+}
+
+uint64_t acv2::AudioConverterChain::GetInputLayoutPriv(acv2::AudioConverterChain *this, std::vector<char> *a2, unsigned __int8 *a3)
+{
+  v4 = *(this + 43);
+  if (v4 && *(v4 + 205) == 1)
+  {
+    v5 = *(this + 43);
+
+    return acv2::CodecConverter::GetInputLayout(v5, a2, a3);
+  }
+
+  v7 = *(this + 44);
+  if (*v7 == 0x10000)
+  {
+    v8 = vcnt_s8(*(v7 + 4));
+    v8.i16[0] = vaddlv_u8(v8);
+    if (v8.i32[0])
+    {
+      goto LABEL_11;
+    }
+
+    return 1718449215;
+  }
+
+  if (*v7)
+  {
+    if (*v7)
+    {
+      goto LABEL_11;
+    }
+
+    return 1718449215;
+  }
+
+  if (!*(v7 + 8))
+  {
+    return 1718449215;
+  }
+
+LABEL_11:
+  if ((this + 352) != a2)
+  {
+    std::vector<unsigned char>::__assign_with_size[abi:ne200100]<unsigned char *,unsigned char *>(a2, v7, *(this + 45), *(this + 45) - v7);
+  }
+
+  result = 0;
+  *a3 = 1;
+  return result;
+}
+
+void sub_18F6DFA08(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void acv2::AudioConverterChain::GetChainBuildSettings(acv2::AudioConverterChain *this, uint64_t a2)
+{
+  *this = 0;
+  *(this + 2) = 0;
+  *(this + 2) = 0;
+  *(this + 2) = 0u;
+  *(this + 72) = 0;
+  *(this + 10) = 0;
+  *(this + 88) = 0;
+  *(this + 12) = 0;
+  *(this + 16) = 0;
+  *(this + 23) = 0;
+  *(this + 3) = 0u;
+  *(this + 64) = 0;
+  *(this + 13) = 0;
+  *(this + 14) = 0;
+  *(this + 119) = 0;
+  LOBYTE(v2) = 0;
+  std::vector<char>::vector[abi:ne200100](this + 17, 32, &v2);
+}
+
+uint64_t acv2::AudioConverterChain::RebuildConverterChain(acv2::AudioConverterChain *this, const acv2::ChainBuildSettings *a2)
+{
+  {
+    operator new();
+  }
+
+  v4 = acv2::GlobalConverterRegistry(void)::sImpl;
+  os_unfair_recursive_lock_lock_with_options();
+  if (v4)
+  {
+    os_unfair_recursive_lock_unlock();
+  }
+
+  v5 = *(this + 3);
+  v12[2] = *(this + 2);
+  v12[3] = v5;
+  v12[4] = *(this + 4);
+  v6 = *(this + 1);
+  v12[0] = *this;
+  v12[1] = v6;
+  std::vector<std::unique_ptr<acv2::AudioConverterBase>>::clear[abi:ne200100](this + 13);
+  *(this + 38) = *(this + 37);
+  *(this + 41) = *(this + 40);
+  *(this + 43) = 0;
+  *(this + 55) = 0;
+  *(this + 53) = 0;
+  result = (*(**(this + 11) + 48))(*(this + 11), v12, a2, this, v4 + 40);
+  if (!result)
+  {
+    if (*(this + 13) == *(this + 14))
+    {
+      operator new();
+    }
+
+    v8 = *(this + 43);
+    if (v8)
+    {
+      v9 = (*(*v8 + 176))(v8);
+    }
+
+    else
+    {
+      v9 = 0;
+    }
+
+    v10 = (*(this + 17) > 1u) & (*(this + 13) >> 5);
+    v11 = *this != *(this + 5);
+    *(this + 80) = (*(this + 7) > 1u) & (*(this + 3) >> 5);
+    *(this + 81) = v10;
+    *(this + 82) = v11;
+    LODWORD(result) = acv2::AudioConverterChain::PostBuild(this);
+    if (v9)
+    {
+      return v9;
+    }
+
+    else
+    {
+      return result;
+    }
+  }
+
+  return result;
+}
+
+void sub_18F6DFEFC(_Unwind_Exception *a1)
+{
+  MEMORY[0x193ADF220](v1, 0x1080C4066A550C5);
+  _Unwind_Resume(a1);
+}
+
+void acv2::ChainBuildSettings::~ChainBuildSettings(acv2::ChainBuildSettings *this)
+{
+  v2 = *(this + 17);
+  if (v2)
+  {
+    *(this + 18) = v2;
+    operator delete(v2);
+  }
+
+  v3 = *(this + 12);
+  if (v3)
+  {
+    *(this + 13) = v3;
+    operator delete(v3);
+  }
+
+  v4 = *(this + 4);
+  if (v4)
+  {
+    *(this + 5) = v4;
+    operator delete(v4);
+  }
+}
+
+uint64_t acv2::AudioConverterChain::SetDownmixEnabled(acv2::AudioConverterChain *this, int a2)
+{
+  if (*(this + 417) != a2)
+  {
+    *(this + 417) = a2;
+    acv2::AudioConverterChain::GetChainBuildSettings(&v3, this);
+  }
+
+  return 0;
+}
+
+uint64_t acv2::AudioConverterChain::SetMixMap(acv2::AudioConverterChain *this, uint64_t a2, const float *a3)
+{
+  if (*(this + 417) == 1)
+  {
+    acv2::AudioConverterChain::GetChainBuildSettings(v4, this);
+  }
+
+  return 1869627199;
+}
+
+void sub_18F6E0144(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
+  acv2::ChainBuildSettings::~ChainBuildSettings(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t acv2::AudioConverterChain::SetChannelMap(acv2::AudioConverterChain *this, int *a2)
+{
+  if (*(this + 417))
+  {
+    return 1869627199;
+  }
+
+  v5 = *(this + 17);
+  v6 = malloc_type_malloc(4 * v5, 0x100004052888210uLL);
+  if (v5)
+  {
+    v7 = v6 == 0;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  if (v7)
+  {
+    exception = __cxa_allocate_exception(8uLL);
+    v14 = std::bad_alloc::bad_alloc(exception);
+  }
+
+  v8 = v6;
+  v16 = 4 * v5;
+  acv2::AudioConverterChain::GetProperty(this, 1667788144, &v16, v6);
+  if (v5)
+  {
+    if (*a2 != *v8)
+    {
+      goto LABEL_13;
+    }
+
+    v9 = 0;
+    do
+    {
+      if (v5 - 1 == v9)
+      {
+        goto LABEL_15;
+      }
+
+      v10 = a2[v9 + 1];
+      v11 = *(v8 + ++v9);
+    }
+
+    while (v10 == v11);
+    if (v9 < v5)
+    {
+LABEL_13:
+      *(this + 448) = 1;
+      acv2::AudioConverterChain::GetChainBuildSettings(v15, this);
+    }
+
+LABEL_15:
+    v2 = 0;
+    goto LABEL_17;
+  }
+
+  v2 = 0;
+  if (v8)
+  {
+LABEL_17:
+    free(v8);
+  }
+
+  return v2;
+}
+
+void sub_18F6E0354(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
   va_start(va, a3);
+  acv2::ChainBuildSettings::~ChainBuildSettings(va);
+  if (v3)
+  {
+    free(v3);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t acv2::AudioConverterChain::SetIOChannelLayout(acv2::AudioConverterChain *this, int a2, AudioChannelLayout *a3, UInt32 a4)
+{
+  v4 = 376;
+  if (a2)
+  {
+    v4 = 352;
+  }
+
+  v5 = (this + v4);
+  if (a2)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v6 = 40;
+  }
+
+  if (!a3 || !a4)
+  {
+    LOBYTE(v14) = 0;
+    std::vector<char>::vector[abi:ne200100](__p, 32, &v14);
+  }
+
+  result = 561211770;
+  if (a4 >= 0xC && 20 * a3->mNumberChannelDescriptions + 12 <= a4)
+  {
+    v14 = 0;
+    result = AudioFormatProperty_NumberOfChannelsForLayout(a3, &v14);
+    if (!result)
+    {
+      if (v14 != *(this + v6 + 28))
+      {
+        return 4294967246;
+      }
+
+      v12 = *(this + 43);
+      if (!v12)
+      {
+        goto LABEL_27;
+      }
+
+      if (a2)
+      {
+        if (*(v12 + 205) == 1)
+        {
+          acv2::CodecConverter::SetInputChannelLayout(*(this + 43), a3, v14);
+          return 0;
+        }
+
+LABEL_27:
+        CA::ChannelLayout::operator=(v5, a3);
+        return 0;
+      }
+
+      if (v14 != *(v12 + 84) || (result = acv2::CodecConverter::SetOutputChannelLayout(*(this + 43), a3, a4, v14), !result) || result == 561476212 || (*(v12 + 204) & 1) == 0)
+      {
+        CA::ChannelLayout::ChannelLayout(__p, a3);
+        ShouldAutomaticallyEnableSpatialRendering = acv2::AudioConverterChain::ShouldAutomaticallyEnableSpatialRendering(this, __p);
+        if (__p[0])
+        {
+          __p[1] = __p[0];
+          operator delete(__p[0]);
+        }
+
+        if (ShouldAutomaticallyEnableSpatialRendering)
+        {
+          *(this + 528) = 1;
+        }
+
+        goto LABEL_27;
+      }
+    }
+  }
+
+  return result;
+}
+
+void sub_18F6E0540(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t acv2::AudioConverterChain::SetDitherAlgorithm(acv2::AudioConverterChain *this, unsigned int a2, int8x8_t a3)
+{
+  if (*(this + 108) == a2)
+  {
+    return 0;
+  }
+
+  if (a2 - 1 < 3)
+  {
+    *(this + 108) = a2;
+    acv2::AudioConverterChain::GetChainBuildSettings(&v18, this);
+  }
+
+  v3 = 1718449215;
+  a3.i32[0] = bswap32(a2);
+  v5 = vzip1_s8(a3, a3);
+  v6.i64[0] = 0x1F0000001FLL;
+  v6.i64[1] = 0x1F0000001FLL;
+  v7.i64[0] = 0x5F0000005FLL;
+  v7.i64[1] = 0x5F0000005FLL;
+  v8 = vbsl_s8(vmovn_s32(vcgtq_u32(v7, vsraq_n_s32(v6, vshlq_n_s32(vmovl_u16(v5), 0x18uLL), 0x18uLL))), v5, 0x2E002E002E002ELL);
+  v20 = 4;
+  LODWORD(v18) = vuzp1_s8(v8, v5).u32[0];
+  BYTE4(v18) = 0;
+  v9 = strlen(&v18);
+  v10 = _os_log_pack_size();
+  v11 = v10 + 88;
+  message = caulk::deferred_logger::create_message(gAudioConverterDeferredLog, v9 + v10 + 88 + 1, 16);
+  if (message)
+  {
+    v13 = message;
+    v14 = _os_log_pack_fill(message + 40, v10, 0, &dword_18F5DF000, "dithering algorithm '%s' (%d) not supported", v18, v19);
+    v15 = v13 + v11;
+    v20 = 4;
+    LODWORD(v18) = vuzp1_s8(v8, v16).u32[0];
+    BYTE4(v18) = 0;
+    stpcpy(v15, &v18);
+    *v14 = 136315394;
+    *(v14 + 4) = v15;
+    *(v14 + 12) = 1024;
+    *(v14 + 14) = a2;
+    if (v20 < 0)
+    {
+      operator delete(v18);
+    }
+
+    caulk::concurrent::messenger::enqueue(*(gAudioConverterDeferredLog + 16), v13);
+  }
+
+  return v3;
+}
+
+void sub_18F6E072C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
+{
+  if (a14 < 0)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+CA::ChannelLayout *CA::ChannelLayout::ChannelLayout(CA::ChannelLayout *this, const AudioChannelLayout *a2)
+{
+  mNumberChannelDescriptions = a2->mNumberChannelDescriptions;
+  if (mNumberChannelDescriptions <= 1)
+  {
+    mNumberChannelDescriptions = 1;
+  }
+
+  v5 = std::vector<char>::vector[abi:ne200100](this, 20 * mNumberChannelDescriptions + 12);
+  memcpy(*v5, a2, 20 * a2->mNumberChannelDescriptions + 12);
+  return this;
+}
+
+std::vector<char> *CA::ChannelLayout::operator=(std::vector<char> *this, _DWORD *a2)
+{
+  v4 = a2[2];
+  if (v4 <= 1)
+  {
+    v5 = 1;
+  }
+
+  else
+  {
+    v5 = a2[2];
+  }
+
+  v6 = 20 * v5 + 12;
+  begin = this->__begin_;
+  v9 = (this->__end_ - begin);
+  if (v6 <= v9)
+  {
+    if (v6 < v9)
+    {
+      this->__end_ = &begin[v6];
+    }
+  }
+
+  else
+  {
+    std::vector<unsigned char>::__append(this, v6 - v9);
+    begin = this->__begin_;
+    v4 = a2[2];
+  }
+
+  memcpy(begin, a2, 20 * v4 + 12);
+  return this;
+}
+
+uint64_t *std::vector<char>::vector[abi:ne200100](uint64_t *a1, uint64_t a2)
+{
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  if (a2)
+  {
+    std::vector<unsigned char>::__vallocate[abi:ne200100](a1, a2);
+  }
+
+  return a1;
+}
+
+void sub_18F6E0898(_Unwind_Exception *exception_object)
+{
+  v3 = *v1;
+  if (*v1)
+  {
+    *(v1 + 8) = v3;
+    operator delete(v3);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::vector<float>::insert(void *a1, char *__src, unint64_t a3, char *a4, int16x4_t a5)
+{
+  if (a3)
+  {
+    v5 = a4;
+    v9 = a1[1];
+    v10 = a1[2];
+    if (a3 <= (v10 - v9) >> 2)
+    {
+      v15 = v9 - __src;
+      v16 = a1[1];
+      v17 = a3;
+      if (a3 <= (v9 - __src) >> 2)
+      {
+        goto LABEL_21;
+      }
+
+      v18 = 0;
+      v17 = v15 >> 2;
+      v19 = a3 - (v15 >> 2);
+      a5.i32[0] = *a4;
+      v20 = (4 * a3 - v15 - 4) >> 2;
+      v21 = (v20 + 4) & 0x7FFFFFFFFFFFFFFCLL;
+      v22 = vdupq_n_s64(v20);
+      v23 = v9 + 8;
+      do
+      {
+        v24 = vdupq_n_s64(v18);
+        v25 = vmovn_s64(vcgeq_u64(v22, vorrq_s8(v24, xmmword_18F9016C0)));
+        if (vuzp1_s16(v25, a5).u8[0])
+        {
+          *(v23 - 2) = a5.i32[0];
+        }
+
+        if (vuzp1_s16(v25, a5).i8[2])
+        {
+          *(v23 - 1) = a5.i32[0];
+        }
+
+        if (vuzp1_s16(a5, vmovn_s64(vcgeq_u64(v22, vorrq_s8(v24, xmmword_18F9016B0)))).i32[1])
+        {
+          *v23 = a5.i32[0];
+          v23[1] = a5.i32[0];
+        }
+
+        v18 += 4;
+        v23 += 4;
+      }
+
+      while (v21 != v18);
+      v16 = &v9[4 * v19];
+      a1[1] = v16;
+      if (v9 != __src)
+      {
+LABEL_21:
+        v26 = &__src[4 * a3];
+        v27 = &v16[-4 * a3];
+        v28 = v16;
+        if (v27 < v9)
+        {
+          v28 = v16;
+          do
+          {
+            v29 = *v27;
+            v27 += 4;
+            *v28 = v29;
+            v28 += 4;
+          }
+
+          while (v27 < v9);
+        }
+
+        a1[1] = v28;
+        if (v16 != v26)
+        {
+          memmove(&__src[4 * a3], __src, v16 - v26);
+        }
+
+        if (__src <= v5)
+        {
+          if (a1[1] <= v5)
+          {
+            v30 = 0;
+          }
+
+          else
+          {
+            v30 = a3;
+          }
+
+          v5 += v30;
+        }
+
+        v31 = 0;
+        a5.i32[0] = *v5;
+        v32 = vdupq_n_s64(v17 - 1);
+        v33 = __src + 8;
+        do
+        {
+          v34 = vdupq_n_s64(v31);
+          v35 = vmovn_s64(vcgeq_u64(v32, vorrq_s8(v34, xmmword_18F9016C0)));
+          if (vuzp1_s16(v35, a5).u8[0])
+          {
+            *(v33 - 2) = a5.i32[0];
+          }
+
+          if (vuzp1_s16(v35, a5).i8[2])
+          {
+            *(v33 - 1) = a5.i32[0];
+          }
+
+          if (vuzp1_s16(a5, vmovn_s64(vcgeq_u64(v32, vorrq_s8(v34, xmmword_18F9016B0)))).i32[1])
+          {
+            *v33 = a5.i32[0];
+            *(v33 + 1) = a5.i32[0];
+          }
+
+          v31 += 4;
+          v33 += 16;
+        }
+
+        while (((v17 + 3) & 0xFFFFFFFFFFFFFFFCLL) != v31);
+      }
+    }
+
+    else
+    {
+      v11 = *a1;
+      v12 = a3 + (&v9[-*a1] >> 2);
+      if (v12 >> 62)
+      {
+        std::vector<APAC::UI18>::__throw_length_error[abi:ne200100]();
+      }
+
+      v13 = v10 - v11;
+      if (v13 >> 1 > v12)
+      {
+        v12 = v13 >> 1;
+      }
+
+      if (v13 >= 0x7FFFFFFFFFFFFFFCLL)
+      {
+        v14 = 0x3FFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v14 = v12;
+      }
+
+      if (v14)
+      {
+        std::allocator<APAC::UI18>::allocate_at_least[abi:ne200100](v14);
+      }
+
+      v36 = 0;
+      v37 = 4 * ((__src - v11) >> 2);
+      a5.i32[0] = *a4;
+      v38 = (a3 + 0x3FFFFFFFFFFFFFFFLL) & 0x3FFFFFFFFFFFFFFFLL;
+      v39 = vdupq_n_s64(v38);
+      v40 = v38 - ((a3 + 0x3FFFFFFFFFFFFFFFLL) & 3) + 4;
+      v41 = (v37 + 8);
+      do
+      {
+        v42 = vdupq_n_s64(v36);
+        v43 = vmovn_s64(vcgeq_u64(v39, vorrq_s8(v42, xmmword_18F9016C0)));
+        if (vuzp1_s16(v43, a5).u8[0])
+        {
+          *(v41 - 2) = a5.i32[0];
+        }
+
+        if (vuzp1_s16(v43, a5).i8[2])
+        {
+          *(v41 - 1) = a5.i32[0];
+        }
+
+        if (vuzp1_s16(a5, vmovn_s64(vcgeq_u64(v39, vorrq_s8(v42, xmmword_18F9016B0)))).i32[1])
+        {
+          *v41 = a5.i32[0];
+          v41[1] = a5.i32[0];
+        }
+
+        v36 += 4;
+        v41 += 4;
+      }
+
+      while (v40 != v36);
+      v44 = (v37 + 4 * a3);
+      memcpy(v44, __src, a1[1] - __src);
+      v45 = *a1;
+      v46 = &v44[a1[1] - __src];
+      a1[1] = __src;
+      v47 = (__src - v45);
+      v48 = (v37 - (__src - v45));
+      memcpy(v48, v45, v47);
+      v49 = *a1;
+      *a1 = v48;
+      a1[1] = v46;
+      a1[2] = 0;
+      if (v49)
+      {
+
+        operator delete(v49);
+      }
+    }
+  }
+}
+
+uint64_t CA::ADMBuilder::Impl::parse_pack_format(CA::ADMBuilder::Impl *this, char *__s1, const unsigned __int8 **a3)
+{
+  if (!strcmp(__s1, "audioChannelFormatIDRef"))
+  {
+    operator new();
+  }
+
+  if (!strcmp(__s1, "audioPackFormatIDRef"))
+  {
+    operator new();
+  }
+
+  if (!strcmp(__s1, "encodePackFormatIDRef"))
+  {
+    operator new();
+  }
+
+  if (!strcmp(__s1, "decodePackFormatIDRef"))
+  {
+    operator new();
+  }
+
+  if (!strcmp(__s1, "inputPackFormatIDRef"))
+  {
+    operator new();
+  }
+
+  if (!strcmp(__s1, "outputPackFormatIDRef"))
+  {
+    operator new();
+  }
+
+  if (!strcmp(__s1, "absoluteDistance"))
+  {
+    operator new();
+  }
+
+  if (!strcmp(__s1, "normalization"))
+  {
+    operator new();
+  }
+
+  if (!strcmp(__s1, "nfcRefDist"))
+  {
+    operator new();
+  }
+
+  if (!strcmp(__s1, "screenRef"))
+  {
+    operator new();
+  }
+
+  return 1;
+}
+
+void ___ZN22AudioComponentMgr_Base36postRegistrationsChangedNotificationEv_block_invoke()
+{
+  v7 = *MEMORY[0x1E69E9840];
+  if (!gAudioComponentLogCategory)
+  {
+    operator new();
+  }
+
+  v0 = *gAudioComponentLogCategory;
+  if (os_log_type_enabled(*gAudioComponentLogCategory, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = 136315394;
+    v4 = "AudioComponentPluginMgr.mm";
+    v5 = 1024;
+    v6 = 1117;
+    _os_log_impl(&dword_18F5DF000, v0, OS_LOG_TYPE_DEFAULT, "%25s:%-5d component registrations changed", &v3, 0x12u);
+  }
+
+  LocalCenter = CFNotificationCenterGetLocalCenter();
+  CFNotificationCenterPostNotification(LocalCenter, @"com.apple.coreaudio.AudioComponentRegistrationsChanged", 0, 0, 1u);
+}
+
+uint64_t std::vector<std::shared_ptr<APComponent>>::erase[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v4 = *(a1 + 8);
+  if (a2 + 16 == v4)
+  {
+    v8 = a2;
+  }
+
+  else
+  {
+    v5 = a2;
+    do
+    {
+      v6 = *(v5 + 16);
+      *(v5 + 16) = 0;
+      *(v5 + 24) = 0;
+      v7 = *(v5 + 8);
+      *v5 = v6;
+      if (v7)
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+      }
+
+      v8 = v5 + 16;
+      v9 = v5 + 32;
+      v5 += 16;
+    }
+
+    while (v9 != v4);
+    v4 = *(a1 + 8);
+  }
+
+  while (v4 != v8)
+  {
+    v10 = *(v4 - 8);
+    if (v10)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    }
+
+    v4 -= 16;
+  }
+
+  *(a1 + 8) = v8;
+  return a2;
+}
+
+uint64_t std::__function::__func<AudioComponentMgr_RegistrarService::mergeServerRegistrations(AudioComponentVector &,BOOL,NSData *,NSArray *)::$_1,std::allocator<AudioComponentMgr_RegistrarService::mergeServerRegistrations(AudioComponentVector &,BOOL,NSData *,NSArray *)::$_1>,BOOL ()(APComponent &)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_1F03269F0;
+  a2[1] = v2;
+  return result;
+}
+
+__n128 std::__function::__func<AudioComponentMgr_RegistrarService::mergeServerRegistrations(AudioComponentVector &,BOOL,NSData *,NSArray *)::$_0,std::allocator<AudioComponentMgr_RegistrarService::mergeServerRegistrations(AudioComponentVector &,BOOL,NSData *,NSArray *)::$_0>,BOOL ()(APComponent &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F03269A8;
+  result = *(a1 + 8);
+  *(a2 + 8) = result;
+  return result;
+}
+
+void AudioComponentMgr_NSExtension::buildExtensionServiceComponentList(NSArray *a1@<X1>, uint64_t a2@<X8>)
+{
+  v18 = *MEMORY[0x1E69E9840];
+  v3 = a1;
+  *(a2 + 8) = 0;
+  *(a2 + 16) = 0;
+  *a2 = 0;
+  *(a2 + 24) = 1;
+  v4 = [AudioComponentMgr_NSExtension::sExtensionServiceBundle bundleIdentifier];
+  BundleWithIdentifier = CFBundleGetBundleWithIdentifier(v4);
+  v6 = BundleWithIdentifier;
+  if (BundleWithIdentifier)
+  {
+    CFRetain(BundleWithIdentifier);
+    v16 = v6;
+    v7 = CFBundleCopyExecutableArchitectures(v6);
+    v15 = v7;
+    if (!v7 || (v8 = CFGetTypeID(v7), v8 == CFArrayGetTypeID()))
+    {
+      v9 = v3;
+      v10 = v9;
+      if (v9)
+      {
+        CFRetain(v9);
+        cf = v10;
+        v11 = CFGetTypeID(v10);
+        if (v11 != CFArrayGetTypeID())
+        {
+          exception = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(exception, "Could not construct");
+        }
+      }
+
+      else
+      {
+        cf = 0;
+      }
+
+      v17 = 0;
+      operator new();
+    }
+
+    v13 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v13, "Could not construct");
+  }
+}
+
+void sub_18F6E15C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, char a12)
+{
+  __cxa_free_exception(v15);
+  applesauce::CF::ObjectRef<__CFArray const*>::~ObjectRef(&a9);
+
+  applesauce::CF::ArrayRef::~ArrayRef(&a10);
+  applesauce::CF::ObjectRef<__CFBundle *>::~ObjectRef(&a11);
+
+  std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](&a11);
+  _Unwind_Resume(a1);
+}
+
+const void **applesauce::CF::ObjectRef<__CFArray const*>::~ObjectRef(const void **a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  return a1;
+}
+
+uint64_t std::__function::__value_func<void ()(AudioComponentRegistrationInfo &)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+void applesauce::CF::ArrayRef::~ArrayRef(const void **this)
+{
+  v1 = *this;
+  if (v1)
+  {
+    CFRelease(v1);
+  }
+}
+
+{
+  v1 = *this;
+  if (v1)
+  {
+    CFRelease(v1);
+  }
+}
+
+const void **applesauce::CF::ObjectRef<__CFBundle *>::~ObjectRef(const void **a1)
+{
+  v2 = *a1;
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  return a1;
+}
+
+void std::__function::__func<AudioComponentMgr_NSExtension::buildExtensionServiceComponentList(NSArray *)::$_0,std::allocator<AudioComponentMgr_NSExtension::buildExtensionServiceComponentList(NSArray *)::$_0>,void ()(AudioComponentRegistrationInfo &)>::operator()(void *a1, uint64_t a2)
+{
+  v4 = [AudioComponentMgr_NSExtension::sExtensionServiceBundle bundlePath];
+  applesauce::CF::StringRef::from_get(&cf, v4);
+  APComponent_FromBundle_Loadable::create_shared(&v6, 70, &cf, a1[1], a1[2], a2);
+}
+
+void sub_18F6E1878(_Unwind_Exception *exception_object)
+{
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t std::__shared_ptr_pointer<APComponent_FromBundle_Loadable *,std::shared_ptr<APComponent_FromBundle_Loadable>::__shared_ptr_default_delete<APComponent_FromBundle_Loadable,APComponent_FromBundle_Loadable>,std::allocator<APComponent_FromBundle_Loadable>>::__on_zero_shared(uint64_t a1)
+{
+  result = *(a1 + 24);
+  if (result)
+  {
+    return (*(*result + 24))();
+  }
+
+  return result;
+}
+
+void std::__shared_ptr_pointer<APComponent_FromBundle_Loadable *,std::shared_ptr<APComponent_FromBundle_Loadable>::__shared_ptr_default_delete<APComponent_FromBundle_Loadable,APComponent_FromBundle_Loadable>,std::allocator<APComponent_FromBundle_Loadable>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
+{
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x193ADF220);
+}
+
+void *APComponent_FromBundle_Base::APComponent_FromBundle_Base(void *a1, int a2, const void **a3, const void **a4, uint64_t a5)
+{
+  v20 = *MEMORY[0x1E69E9840];
+  v9 = *(a5 + 20);
+  v10 = *(a5 + 32);
+  v19 = 0;
+  APComponent::APComponent(a1, 1, a2, a5, v9, (a5 + 24), v10, v18);
+  std::__function::__value_func<AudioComponentPlugInInterface * ()(AudioComponentDescription const*)>::~__value_func[abi:ne200100](v18);
+  *a1 = &unk_1F033C9C0;
+  v11 = *a3;
+  if (v11)
+  {
+    CFRetain(v11);
+  }
+
+  a1[20] = v11;
+  v12 = *a4;
+  if (v12)
+  {
+    CFRetain(v12);
+  }
+
+  a1[21] = v12;
+  v13 = *(a5 + 40);
+  if (v13)
+  {
+    CFRetain(*(a5 + 40));
+  }
+
+  a1[22] = v13;
+  v14 = *(a5 + 48);
+  if (v14)
+  {
+    CFRetain(*(a5 + 48));
+  }
+
+  a1[23] = v14;
+  v15 = a1[15];
+  v16 = *(a5 + 56);
+  a1[15] = v16;
+  if (v16)
+  {
+    CFRetain(v16);
+  }
+
+  if (v15)
+  {
+    CFRelease(v15);
+  }
+
+  return a1;
+}
+
+void sub_18F6E1C00(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
+{
+  if (a2)
+  {
+    __clang_call_terminate(exception_object);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+CFTypeRef APComponent_FromBundle_Base::architectures@<X0>(CFTypeRef this@<X0>, void *a2@<X8>)
+{
+  v3 = *(this + 21);
+  if (v3)
+  {
+    this = CFRetain(*(this + 21));
+  }
+
+  *a2 = v3;
+  return this;
+}
+
+void APComponent_FromBundle_Base::~APComponent_FromBundle_Base(APComponent *this)
+{
+  APComponent_FromBundle_Base::~APComponent_FromBundle_Base(this);
+
+  JUMPOUT(0x193ADF220);
+}
+
+{
+  *this = &unk_1F033C9C0;
+  v2 = *(this + 23);
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  v3 = *(this + 22);
+  if (v3)
+  {
+    CFRelease(v3);
+  }
+
+  v4 = *(this + 21);
+  if (v4)
+  {
+    CFRelease(v4);
+  }
+
+  v5 = *(this + 20);
+  if (v5)
+  {
+    CFRelease(v5);
+  }
+
+  APComponent::~APComponent(this);
+}
+
+__n128 std::__function::__func<AudioComponentMgr_NSExtension::buildExtensionServiceComponentList(NSArray *)::$_0,std::allocator<AudioComponentMgr_NSExtension::buildExtensionServiceComponentList(NSArray *)::$_0>,void ()(AudioComponentRegistrationInfo &)>::__clone(uint64_t a1, uint64_t a2)
+{
+  *a2 = &unk_1F0326A38;
+  result = *(a1 + 8);
+  *(a2 + 24) = *(a1 + 24);
+  *(a2 + 8) = result;
+  return result;
+}
+
+void ___ZN34AudioComponentMgr_RegistrarService18retrieveComponentsEbb_block_invoke(uint64_t a1, void *a2)
+{
+  v11 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  if (!gAudioComponentLogCategory)
+  {
+    operator new();
+  }
+
+  v3 = *gAudioComponentLogCategory;
+  if (os_log_type_enabled(*gAudioComponentLogCategory, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 136315650;
+    v6 = "AudioComponentPluginMgr.mm";
+    v7 = 1024;
+    v8 = 590;
+    v9 = 2112;
+    v10 = v2;
+    _os_log_impl(&dword_18F5DF000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d reg server remote proxy error %@", &v5, 0x1Cu);
+  }
+}
+
+void AudioComponentMgr_NSExtension::_prepareRemoveComponent(char **this, APComponent *a2)
+{
+  *(a2 + 72) = 1;
+  v4 = (*(*a2 + 64))(a2);
+  if (v4)
+  {
+    v5 = v4;
+    if (!*(v4 + 200))
+    {
+      return;
+    }
+
+    AudioComponentMgr_Base::_addComponent(this, (v4 + 200));
+    v6 = this + 1;
+    v7 = this[2];
+    v8 = this[3];
+    while (v7 != v8)
+    {
+      v9 = *v7;
+      v7 += 16;
+      *v6 = v9;
+      v6 = (v9 + 24);
+    }
+
+    *v6 = 0;
+    v10 = *(v5 + 208);
+    *(v5 + 200) = 0;
+    *(v5 + 208) = 0;
+    if (!v10)
+    {
+      return;
+    }
+
+    goto LABEL_12;
+  }
+
+  v11 = *(a2 + 18);
+  if (v11)
+  {
+    v12 = (*(*v11 + 64))(v11);
+    v13 = *(v12 + 208);
+    *(v12 + 200) = 0;
+    *(v12 + 208) = 0;
+    if (v13)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
+    }
+
+    v10 = *(a2 + 19);
+    *(a2 + 18) = 0;
+    *(a2 + 19) = 0;
+    if (v10)
+    {
+LABEL_12:
+
+      std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+    }
+  }
+}
+
+uint64_t AudioComponentMgr_RegistrarService::setComponentUserTags(AudioComponentMgr_RegistrarService *this, OpaqueAudioComponent *a2, const __CFArray *a3)
+{
+  if (!a2)
+  {
+    return 4294964296;
+  }
+
+  v4 = (**a2)(a2);
+  if (!v4)
+  {
+    return 4294964296;
+  }
+
+  v5 = dictionaryFromComponentDescription((v4 + 36), *(v4 + 56));
+  GlobalComponentPluginMgr(v8);
+  v6 = AudioComponentMgr_RegistrarService::syncPrefServerProxy(v8[1]);
+  [v6 setComponentUserTags:v5 tags:a3];
+
+  if (v8[0])
+  {
+    std::recursive_mutex::unlock(v8[0]);
+  }
+
+  return 0;
+}
+
+void sub_18F6E213C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, std::recursive_mutex *a9)
+{
+  if (a9)
+  {
+    std::recursive_mutex::unlock(a9);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+id AudioComponentMgr_RegistrarService::syncPrefServerProxy(AudioComponentMgr_RegistrarService *this)
+{
+  v2 = *(this + 13);
+  if (!v2)
+  {
+    assertXPCServiceReachable(&cfstr_ComAppleAudioA_8.isa);
+    v3 = [objc_alloc(MEMORY[0x1E696B0B8]) initWithMachServiceName:@"com.apple.audio.AudioComponentPrefs" options:4096];
+    v4 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F0354878];
+    [v3 setRemoteObjectInterface:v4];
+
+    v9[0] = MEMORY[0x1E69E9820];
+    v9[1] = 3221225472;
+    v9[2] = ___ZN34AudioComponentMgr_RegistrarService19syncPrefServerProxyEv_block_invoke;
+    v9[3] = &__block_descriptor_40_e5_v8__0l;
+    v9[4] = this;
+    [v3 setInterruptionHandler:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = ___ZN34AudioComponentMgr_RegistrarService19syncPrefServerProxyEv_block_invoke_2;
+    v8[3] = &__block_descriptor_40_e5_v8__0l;
+    v8[4] = this;
+    [v3 setInvalidationHandler:v8];
+    [v3 resume];
+    v5 = *(this + 13);
+    *(this + 13) = v3;
+
+    v2 = *(this + 13);
+  }
+
+  v6 = [v2 synchronousRemoteObjectProxyWithErrorHandler:&__block_literal_global_51];
+
+  return v6;
+}
+
+void ___ZN34AudioComponentMgr_RegistrarService19syncPrefServerProxyEv_block_invoke_3(uint64_t a1, void *a2)
+{
+  v11 = *MEMORY[0x1E69E9840];
+  v2 = a2;
+  if (!gAudioComponentLogCategory)
+  {
+    operator new();
+  }
+
+  v3 = *gAudioComponentLogCategory;
+  if (os_log_type_enabled(*gAudioComponentLogCategory, OS_LOG_TYPE_ERROR))
+  {
+    v5 = 136315650;
+    v6 = "AudioComponentPluginMgr.mm";
+    v7 = 1024;
+    v8 = 382;
+    v9 = 2112;
+    v10 = v2;
+    _os_log_impl(&dword_18F5DF000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d preference server proxy error: %@", &v5, 0x1Cu);
+  }
+}
+
+void AudioComponentMgr_RegistrarService::lostPrefServerConnection(AudioComponentMgr_RegistrarService *this, const char *a2)
+{
+  v11 = *MEMORY[0x1E69E9840];
+  if (!gAudioComponentLogCategory)
+  {
+    operator new();
+  }
+
+  v3 = *gAudioComponentLogCategory;
+  if (os_log_type_enabled(*gAudioComponentLogCategory, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = 136315650;
+    v6 = "AudioComponentPluginMgr.mm";
+    v7 = 1024;
+    v8 = 333;
+    v9 = 2080;
+    v10 = this;
+    _os_log_impl(&dword_18F5DF000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d preference server connection %s", &v5, 0x1Cu);
+  }
+}
+
+uint64_t std::__function::__func<void CASmartPreferences::AddHandler<long long>(__CFString const*,__CFString const*,long long (*)(void const*,BOOL &),std::function<void ()(long long)>)::{lambda(void const*)#1},std::allocator<void CASmartPreferences::AddHandler<long long>(__CFString const*,__CFString const*,long long (*)(void const*,BOOL &),std::function<void ()(long long)>)::{lambda(void const*)#1}>,BOOL ()(void const*)>::operator()(uint64_t a1, uint64_t *a2)
+{
+  v3 = *a2;
+  v8 = 0;
+  v4 = (*(a1 + 8))(v3, &v8);
+  v5 = 0;
+  if (v8 == 1)
+  {
+    v9 = v4;
+    v6 = *(a1 + 40);
+    if (!v6)
+    {
+      std::__throw_bad_function_call[abi:ne200100]();
+    }
+
+    (*(*v6 + 48))(v6, &v9);
+    v5 = v8;
+  }
+
+  return v5 & 1;
+}
+
+uint64_t std::__function::__func<void CASmartPreferences::AddHandler<long long>(__CFString const*,__CFString const*,long long (*)(void const*,BOOL &),std::function<void ()(long long)>)::{lambda(void const*)#1},std::allocator<void CASmartPreferences::AddHandler<long long>(__CFString const*,__CFString const*,long long (*)(void const*,BOOL &),std::function<void ()(long long)>)::{lambda(void const*)#1}>,BOOL ()(void const*)>::__clone(uint64_t a1, void *a2)
+{
+  v2 = *(a1 + 8);
+  *a2 = &unk_1F0336EC0;
+  a2[1] = v2;
+  return std::__function::__value_func<void ()(long long)>::__value_func[abi:ne200100]((a2 + 2), a1 + 16);
+}
+
+void std::__function::__func<void CASmartPreferences::AddHandler<long long>(__CFString const*,__CFString const*,long long (*)(void const*,BOOL &),std::function<void ()(long long)>)::{lambda(void const*)#1},std::allocator<void CASmartPreferences::AddHandler<long long>(__CFString const*,__CFString const*,long long (*)(void const*,BOOL &),std::function<void ()(long long)>)::{lambda(void const*)#1}>,BOOL ()(void const*)>::~__func(void *a1)
+{
+  *a1 = &unk_1F0336EC0;
+  std::__function::__value_func<void ()(long long)>::~__value_func[abi:ne200100]((a1 + 2));
+
+  JUMPOUT(0x193ADF220);
+}
+
+void *std::__function::__func<void CASmartPreferences::AddHandler<long long>(__CFString const*,__CFString const*,long long (*)(void const*,BOOL &),std::function<void ()(long long)>)::{lambda(void const*)#1},std::allocator<void CASmartPreferences::AddHandler<long long>(__CFString const*,__CFString const*,long long (*)(void const*,BOOL &),std::function<void ()(long long)>)::{lambda(void const*)#1}>,BOOL ()(void const*)>::~__func(void *a1)
+{
+  *a1 = &unk_1F0336EC0;
+  std::__function::__value_func<void ()(long long)>::~__value_func[abi:ne200100]((a1 + 2));
+  return a1;
+}
+
+id AudioComponentMgr_RegistrarService::copyComponentUserTags(AudioComponentMgr_RegistrarService *this, OpaqueAudioComponent *a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  v3 = (**a2)(a2);
+  if (!v3)
+  {
+    return 0;
+  }
+
+  v4 = dictionaryFromComponentDescription((v3 + 36), *(v3 + 56));
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy_;
+  v13 = __Block_byref_object_dispose_;
+  v14 = 0;
+  v5 = AudioComponentMgr_RegistrarService::syncPrefServerProxy(this);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = ___ZN34AudioComponentMgr_RegistrarService21copyComponentUserTagsEP20OpaqueAudioComponent_block_invoke;
+  v8[3] = &unk_1E72BA818;
+  v8[4] = &v9;
+  [v5 getComponentUserTags:v4 reply:v8];
+
+  v6 = v10[5];
+  _Block_object_dispose(&v9, 8);
+
+  return v6;
+}
+
+void sub_18F6E289C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+{
+  _Block_object_dispose(&a15, 8);
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
+{
+  *(result + 40) = *(a2 + 40);
+  *(a2 + 40) = 0;
+  return result;
+}
+
+void AudioComponentMgr_NSExtension::requestIcon(AudioComponentMgr_RegistrarService *a1, OpaqueAudioComponent *a2, uint64_t a3)
+{
+  if (a2)
+  {
+    v6 = (**a2)(a2);
+    if (v6)
+    {
+      v7 = v6;
+      aBlock[0] = MEMORY[0x1E69E9820];
+      aBlock[1] = 3221225472;
+      aBlock[2] = ___ZN29AudioComponentMgr_NSExtension11requestIconEP20OpaqueAudioComponentR13APIconRequest_block_invoke;
+      aBlock[3] = &__block_descriptor_40_e16_v16__0__NSData_8l;
+      aBlock[4] = a3;
+      v8 = _Block_copy(aBlock);
+      v9 = (*(*v7 + 64))(v7);
+      if (v9)
+      {
+        v10 = *(v9 + 160);
+        v11 = AudioComponentMgr_RegistrarService::syncPrefServerProxy(a1);
+        [v11 getExtensionIcon:v10 reply:v8];
+
+LABEL_17:
+        return;
+      }
+
+      v12 = (*(*v7 + 56))(v7);
+      if (v12)
+      {
+        v13 = *(v12 + 160);
+        if (v13)
+        {
+          CFRetain(*(v12 + 160));
+        }
+
+        v21[0] = v13;
+        v14 = AudioComponentMgr_RegistrarService::syncPrefServerProxy(a1);
+        [v14 getInterAppIcon:v13 reply:v8];
+
+        if (v13)
+        {
+          CFRelease(v13);
+        }
+
+        goto LABEL_17;
+      }
+
+      (*(*v7 + 48))(v7, a3);
+
+      v15 = *(a3 + 8);
+      if (v15)
+      {
+        return;
+      }
+    }
+  }
+
+  if (!Impl_AudioGetComponentInfo(a2, &v19, 0) && v19.componentManufacturer == 1634758764)
+  {
+    v22 = 0;
+    v23 = &v22;
+    v24 = 0x2020000000;
+    v16 = getCAUI_retrieveHostIconForAudioUnitSymbolLoc(void)::ptr;
+    v25 = getCAUI_retrieveHostIconForAudioUnitSymbolLoc(void)::ptr;
+    if (!getCAUI_retrieveHostIconForAudioUnitSymbolLoc(void)::ptr)
+    {
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = ___ZL45getCAUI_retrieveHostIconForAudioUnitSymbolLocv_block_invoke;
+      v21[3] = &unk_1E72C2B68;
+      v21[4] = &v22;
+      ___ZL45getCAUI_retrieveHostIconForAudioUnitSymbolLocv_block_invoke(v21);
+      v16 = v23[3];
+    }
+
+    _Block_object_dispose(&v22, 8);
+    if (!v16)
+    {
+      v17 = [MEMORY[0x1E696AAA8] currentHandler];
+      v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"UIImage *SOFT_CAUI_retrieveHostIconForAudioUnit(AudioComponent)"];
+      [v17 handleFailureInFunction:v18 file:@"AudioComponentPluginMgr.mm" lineNumber:917 description:{@"%s", dlerror()}];
+
+      __break(1u);
+      return;
+    }
+
+    v8 = v16(a2);
+    objc_storeStrong((a3 + 8), v8);
+    goto LABEL_17;
+  }
+}
+
+void ___ZN29AudioComponentMgr_NSExtension11requestIconEP20OpaqueAudioComponentR13APIconRequest_block_invoke(uint64_t a1, void *a2)
+{
+  v4 = a2;
+  v3 = [objc_alloc(NSClassFromString(&cfstr_Uiimage.isa)) initWithData:v4];
+  objc_storeStrong((*(a1 + 32) + 8), v3);
+}
+
+void *___ZL45getCAUI_retrieveHostIconForAudioUnitSymbolLocv_block_invoke(void *a1)
+{
+  v8 = *MEMORY[0x1E69E9840];
+  v5[0] = 0;
+  if (!CoreAudioKitLibraryCore(char **)::frameworkLibrary)
+  {
+    v5[1] = MEMORY[0x1E69E9820];
+    v5[2] = 3221225472;
+    v5[3] = ___ZL23CoreAudioKitLibraryCorePPc_block_invoke;
+    v5[4] = &__block_descriptor_40_e5_v8__0l;
+    v5[5] = v5;
+    v6 = xmmword_1E72BA858;
+    v7 = 0;
+    CoreAudioKitLibraryCore(char **)::frameworkLibrary = _sl_dlopen();
+  }
+
+  v2 = CoreAudioKitLibraryCore(char **)::frameworkLibrary;
+  if (!CoreAudioKitLibraryCore(char **)::frameworkLibrary)
+  {
+    a1 = [MEMORY[0x1E696AAA8] currentHandler];
+    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreAudioKitLibrary()"];
+    [a1 handleFailureInFunction:v2 file:@"AUAudioUnit_Internal.h" lineNumber:359 description:{@"%s", v5[0]}];
+
+    __break(1u);
+    goto LABEL_7;
+  }
+
+  v3 = v5[0];
+  if (v5[0])
+  {
+LABEL_7:
+    free(v3);
+  }
+
+  result = dlsym(v2, "CAUI_retrieveHostIconForAudioUnit");
+  *(*(a1[4] + 8) + 24) = result;
+  getCAUI_retrieveHostIconForAudioUnitSymbolLoc(void)::ptr = *(*(a1[4] + 8) + 24);
+  return result;
+}
+
+uint64_t ___ZL23CoreAudioKitLibraryCorePPc_block_invoke(uint64_t a1)
+{
+  result = _sl_dlopen();
+  CoreAudioKitLibraryCore(char **)::frameworkLibrary = result;
+  return result;
+}
+
+void AudioComponentMgr_RegistrarService::lostRegServerConnection(AudioComponentMgr_RegistrarService *this, const char *a2)
+{
+  v11 = *MEMORY[0x1E69E9840];
+  if (!gAudioComponentLogCategory)
+  {
+    operator new();
+  }
+
+  v3 = *gAudioComponentLogCategory;
+  if (os_log_type_enabled(*gAudioComponentLogCategory, OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = 136315650;
+    v6 = "AudioComponentPluginMgr.mm";
+    v7 = 1024;
+    v8 = 326;
+    v9 = 2080;
+    v10 = this;
+    _os_log_impl(&dword_18F5DF000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d registration server connection %s", &v5, 0x1Cu);
+  }
+}
+
+void AudioComponentMgr_NSExtension::~AudioComponentMgr_NSExtension(AudioComponentMgr_NSExtension *this)
+{
+  *this = &unk_1F0326898;
+  v2 = *(this + 19);
+  *(this + 19) = 0;
+
+  *this = &unk_1F03267F8;
+  v3 = (this + 112);
+  std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](&v3);
+
+  *this = &unk_1F0326770;
+  v3 = (this + 48);
+  std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](&v3);
+  *this = &unk_1F03265C8;
+  v3 = (this + 16);
+  std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](&v3);
+
+  JUMPOUT(0x193ADF220);
+}
+
+{
+  *this = &unk_1F0326898;
+  v2 = *(this + 19);
+  *(this + 19) = 0;
+
+  *this = &unk_1F03267F8;
+  v3 = (this + 112);
+  std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](&v3);
+
+  *this = &unk_1F0326770;
+  v3 = (this + 48);
+  std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](&v3);
+  *this = &unk_1F03265C8;
+  v3 = (this + 16);
+  std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](&v3);
+}
+
+void AudioComponentMgr_Base::requestIcon(uint64_t a1, uint64_t (***a2)(void))
+{
+  if (a2)
+  {
+    v2 = (**a2)(a2);
+    if (v2)
+    {
+      v3 = *(*v2 + 48);
+
+      v3();
+    }
+  }
+}
+
+void AudioComponentMgr_Base::~AudioComponentMgr_Base(AudioComponentMgr_Base *this)
+{
+  *this = &unk_1F03265C8;
+  v1 = (this + 16);
+  std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](&v1);
+
+  JUMPOUT(0x193ADF220);
+}
+
+{
+  *this = &unk_1F03265C8;
+  v1 = (this + 16);
+  std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](&v1);
+}
+
+void AudioComponentMgr_iOS::initPhase2(AudioComponentMgr_iOS *this)
+{
+  v1 = EmbeddedComponentManager::registerInternalAudioUnits(this);
+
+  EmbeddedComponentManager::registerInternalAudioCodecs(v1);
+}
+
+void AudioComponentMgr_iOS::~AudioComponentMgr_iOS(AudioComponentMgr_iOS *this)
+{
+  *this = &unk_1F0326770;
+  v2 = (this + 48);
+  std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](&v2);
+  *this = &unk_1F03265C8;
+  v2 = (this + 16);
+  std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](&v2);
+
+  JUMPOUT(0x193ADF220);
+}
+
+{
+  *this = &unk_1F0326770;
+  v2 = (this + 48);
+  std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](&v2);
+  *this = &unk_1F03265C8;
+  v2 = (this + 16);
+  std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](&v2);
+}
+
+double AudioComponentMgr_RegistrarService::buildExtensionServiceComponentList@<D0>(uint64_t a1@<X8>)
+{
+  result = 0.0;
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 24) = 1;
+  return result;
+}
+
+void AudioComponentMgr_RegistrarService::~AudioComponentMgr_RegistrarService(id *this)
+{
+  *this = &unk_1F03267F8;
+  v2 = this + 14;
+  std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](&v2);
+
+  *this = &unk_1F0326770;
+  v2 = this + 6;
+  std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](&v2);
+  *this = &unk_1F03265C8;
+  v2 = this + 2;
+  std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](&v2);
+
+  JUMPOUT(0x193ADF220);
+}
+
+{
+  *this = &unk_1F03267F8;
+  v2 = this + 14;
+  std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](&v2);
+
+  *this = &unk_1F0326770;
+  v2 = this + 6;
+  std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](&v2);
+  *this = &unk_1F03265C8;
+  v2 = this + 2;
+  std::vector<std::shared_ptr<CA::ADMPackFormat>>::__destroy_vector::operator()[abi:ne200100](&v2);
+}
+
+void ___ZN22AudioComponentMgr_BaseC2Ev_block_invoke()
+{
+  GlobalComponentPluginMgr(v1);
+  AudioComponentVector::showAll(&v1[1]->__m_.__opaque[8], "notify request");
+  v0 = v1[0];
+  if (v1[0])
+  {
+
+    std::recursive_mutex::unlock(v0);
+  }
+}
+
+void sub_18F6E3774(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, std::recursive_mutex *a9)
+{
+  if (a9)
+  {
+    std::recursive_mutex::unlock(a9);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void APComponent_InterApp::getIcon(uint64_t a1, uint64_t a2)
+{
+  v3 = IPCAUIcons::GetIconFromBundle(*(a1 + 160), a2);
+  objc_storeStrong((a2 + 8), v3);
+}
+
+void APComponent_InterApp::~APComponent_InterApp(APComponent *this)
+{
+  APComponent_InterApp::~APComponent_InterApp(this);
+
+  JUMPOUT(0x193ADF220);
+}
+
+{
+  *this = &unk_1F03266F0;
+  v2 = *(this + 20);
+  if (v2)
+  {
+    CFRelease(v2);
+  }
+
+  APComponent::~APComponent(this);
+}
+
+uint64_t AudioComponentMgr_NSExtension::setExtensionComponentList(AudioComponentMgr_NSExtension *this, NSString *a2, NSArray *a3)
+{
+  v5 = a2;
+  v6 = a3;
+  v12 = 0;
+  v13 = &v12;
+  v14 = 0x2020000000;
+  v15 = 560558179;
+  v7 = AudioComponentMgr_RegistrarService::syncPrefServerProxy(this);
+  v8 = *(this + 80);
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = ___ZN29AudioComponentMgr_NSExtension25setExtensionComponentListEP8NSStringP7NSArray_block_invoke;
+  v11[3] = &unk_1E72BA7F0;
+  v11[4] = &v12;
+  [v7 setExtensionComponentList:v5 linkedSDKRequiresEntitlement:v8 components:v6 reply:v11];
+
+  v9 = *(v13 + 6);
+  _Block_object_dispose(&v12, 8);
+
+  return v9;
+}
+
+void sub_18F6E3980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+id AudioComponentMgr_NSExtension::getExtensionComponentList(AudioComponentMgr_NSExtension *this, NSString *a2)
+{
+  v3 = a2;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x3032000000;
+  v12 = __Block_byref_object_copy_;
+  v13 = __Block_byref_object_dispose_;
+  v14 = 0;
+  v4 = AudioComponentMgr_RegistrarService::syncPrefServerProxy(this);
+  v5 = *(this + 80);
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = ___ZN29AudioComponentMgr_NSExtension25getExtensionComponentListEP8NSString_block_invoke;
+  v8[3] = &unk_1E72BA818;
+  v8[4] = &v9;
+  [v4 getExtensionComponentList:v3 linkedSDKRequiresEntitlement:v5 reply:v8];
+
+  v6 = v10[5];
+  _Block_object_dispose(&v9, 8);
+
+  return v6;
+}
+
+void sub_18F6E3AD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+{
+  _Block_object_dispose(&a15, 8);
+
+  _Unwind_Resume(a1);
+}
+
+void ___ZN29AudioComponentMgr_NSExtension23iconForInterAppBundleIDEPK10__CFStringR13APIconRequest_block_invoke(uint64_t a1, void *a2)
+{
+  v4 = a2;
+  v3 = [objc_alloc(NSClassFromString(&cfstr_Uiimage.isa)) initWithData:v4];
+  objc_storeStrong((*(a1 + 32) + 8), v3);
+}
+
+uint64_t AudioComponentCopyUserTags(uint64_t a1)
+{
+  GlobalComponentPluginMgr(&v4);
+  v2 = (*(*v5 + 56))(v5, a1);
+  if (v4)
+  {
+    std::recursive_mutex::unlock(v4);
+  }
+
+  return v2;
+}
+
+void sub_18F6E3C14(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, std::recursive_mutex *a9)
+{
+  if (a9)
+  {
+    std::recursive_mutex::unlock(a9);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t AudioComponentSetUserTags(uint64_t a1, uint64_t a2)
+{
+  GlobalComponentPluginMgr(&v6);
+  v4 = (*(*v7 + 64))(v7, a1, a2);
+  if (v6)
+  {
+    std::recursive_mutex::unlock(v6);
+  }
+
+  return v4;
+}
+
+void sub_18F6E3CA4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, std::recursive_mutex *a9)
+{
+  if (a9)
+  {
+    std::recursive_mutex::unlock(a9);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void std::__shared_ptr_pointer<APComponent *,std::shared_ptr<APComponent>::__shared_ptr_default_delete<APComponent,APComponent>,std::allocator<APComponent>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
+{
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x193ADF220);
+}
+
+uint64_t AudioComponentRelease(uint64_t (***a1)(void))
+{
+  if (!a1)
+  {
+    return 4294967246;
+  }
+
+  v1 = (**a1)(a1);
+  if (!v1)
+  {
+    return 4294964296;
+  }
+
+  v2 = v1;
+  GlobalComponentPluginMgr(&v9);
+  v3 = v10;
+  (*(*v10 + 104))(v10, v2);
+  AudioComponentVector::remove((v3 + 16), v2);
+  v4 = (v3 + 8);
+  v5 = *(v3 + 16);
+  v6 = *(v3 + 24);
+  while (v5 != v6)
+  {
+    v7 = *v5;
+    v5 += 2;
+    *v4 = v7;
+    v4 = (v7 + 24);
+  }
+
+  *v4 = 0;
+  dispatch_async(MEMORY[0x1E69E96A0], &__block_literal_global_82);
+  if (v9)
+  {
+    std::recursive_mutex::unlock(v9);
+  }
+
+  return 0;
+}
+
+void sub_18F6E3E5C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, std::recursive_mutex *a9)
+{
+  if (a9)
+  {
+    std::recursive_mutex::unlock(a9);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+IPCAUClient *IPCAUClient::IPCAUFactoryFunction(IPCAUClient *this, const AudioComponentDescription *a2)
+{
+  v2 = this;
+  v53 = *MEMORY[0x1E69E9840];
+  if (this)
+  {
+    v47 = CADeprecated::TSingleton<IPCAUClient>::instance();
+    os_unfair_recursive_lock_lock_with_options();
+    if (AppHasBackgroundAudioInfoPlistKey(char const*)::hasKey < 0)
+    {
+      AppHasBackgroundAudioInfoPlistKey(char const*)::hasKey = 0;
+      MainBundle = CFBundleGetMainBundle();
+      if (MainBundle && (ValueForInfoDictionaryKey = CFBundleGetValueForInfoDictionaryKey(MainBundle, @"UIBackgroundModes"), (v5 = ValueForInfoDictionaryKey) != 0) && (v6 = CFGetTypeID(ValueForInfoDictionaryKey), v6 == CFArrayGetTypeID()) && (v54.length = CFArrayGetCount(v5), v54.location = 0, CFArrayContainsValue(v5, v54, @"audio")))
+      {
+        AppHasBackgroundAudioInfoPlistKey(char const*)::hasKey = 1;
+      }
+
+      else if (!AppHasBackgroundAudioInfoPlistKey(char const*)::hasKey)
+      {
+LABEL_11:
+        if (kInterAppAudioScope)
+        {
+          v7 = *kInterAppAudioScope;
+          if (!*kInterAppAudioScope)
+          {
+            goto LABEL_66;
+          }
+        }
+
+        else
+        {
+          v7 = MEMORY[0x1E69E9C10];
+        }
+
+        if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        {
+          goto LABEL_66;
+        }
+
+        *buf = 136315650;
+        *&buf[4] = "IPCAURegistrar.mm";
+        *&buf[12] = 1024;
+        *&buf[14] = 1624;
+        *&buf[18] = 2080;
+        *&buf[20] = "AudioComponentInstanceNew";
+        _os_log_impl(&dword_18F5DF000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d %s: failing because app does not have 'audio' in its UIBackgroundModes", buf, 0x1Cu);
+        if (!AppHasBackgroundAudioInfoPlistKey(char const*)::hasKey)
+        {
+          goto LABEL_66;
+        }
+      }
+    }
+
+    else if (!AppHasBackgroundAudioInfoPlistKey(char const*)::hasKey)
+    {
+      goto LABEL_11;
+    }
+
+    v8 = v47 + 8;
+    v9 = (*(*(v47 + 8) + 16))(v47 + 8);
+    *(v47 + 144) = (*(v47 + 144) + 1);
+    if (v9)
+    {
+      (*(*v8 + 24))(v8);
+    }
+
+    v10 = 5;
+    v46 = 268435460;
+    while (1)
+    {
+      v11 = CADeprecated::TSingleton<AURegistrationServerConnection>::instance();
+      v12 = MEMORY[0x1EEE9AC50];
+      v13 = *(v11 + 48);
+      *&buf[32] = *v2;
+      *&buf[48] = *(v2 + 4);
+      v14 = *(v47 + 144);
+      *&buf[24] = *MEMORY[0x1E69E99E0];
+      LODWORD(v51) = v14;
+      reply_port = mig_get_reply_port();
+      *buf = 5395;
+      *&buf[8] = v13;
+      *&buf[12] = reply_port;
+      *&buf[16] = 0x15F9800000000;
+      if (v12)
+      {
+        voucher_mach_msg_set(buf);
+        v16 = *&buf[12];
+      }
+
+      else
+      {
+        v16 = reply_port;
+      }
+
+      v17 = mach_msg(buf, 275, 0x38u, 0x30u, v16, gMediaServerTimeout, 0);
+      v18 = v17;
+      if ((v17 - 268435458) <= 0xE && ((1 << (v17 - 2)) & 0x4003) != 0)
+      {
+        mig_put_reply_port(*&buf[12]);
+      }
+
+      else
+      {
+        if (!v17)
+        {
+          if (*&buf[20] == 71)
+          {
+            v18 = -308;
+          }
+
+          else if (*&buf[20] == 90108)
+          {
+            if ((*buf & 0x80000000) == 0)
+            {
+              if (*&buf[4] == 40)
+              {
+                if (!*&buf[8])
+                {
+                  v18 = *&buf[32];
+                  if (!*&buf[32])
+                  {
+                    v18 = *&buf[36];
+                    goto LABEL_52;
+                  }
+
+                  goto LABEL_45;
+                }
+              }
+
+              else if (*&buf[4] == 36)
+              {
+                if (*&buf[8])
+                {
+                  v19 = 1;
+                }
+
+                else
+                {
+                  v19 = *&buf[32] == 0;
+                }
+
+                if (v19)
+                {
+                  v18 = -300;
+                }
+
+                else
+                {
+                  v18 = *&buf[32];
+                }
+
+                goto LABEL_45;
+              }
+            }
+
+            v18 = -300;
+          }
+
+          else
+          {
+            v18 = -301;
+          }
+
+LABEL_45:
+          mach_msg_destroy(buf);
+          goto LABEL_46;
+        }
+
+        mig_dealloc_reply_port(*&buf[12]);
+      }
+
+      if (v18 == 268435460)
+      {
+        if ((*buf & 0x1F00) == 0x1100)
+        {
+          mach_port_deallocate(*MEMORY[0x1E69E9A60], *&buf[12]);
+        }
+
+        mach_msg_destroy(buf);
+        goto LABEL_59;
+      }
+
+LABEL_46:
+      if (v18 != 268435459)
+      {
+        if (!v18)
+        {
+LABEL_52:
+          if (kInterAppAudioScope)
+          {
+            v21 = *kInterAppAudioScope;
+            if (!*kInterAppAudioScope)
+            {
+              goto LABEL_72;
+            }
+          }
+
+          else
+          {
+            v21 = MEMORY[0x1E69E9C10];
+          }
+
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+          {
+            *buf = 136315650;
+            *&buf[4] = "IPCAUClient.cpp";
+            *&buf[12] = 1024;
+            *&buf[14] = 215;
+            *&buf[18] = 1024;
+            *&buf[20] = v18;
+            _os_log_impl(&dword_18F5DF000, v21, OS_LOG_TYPE_DEBUG, "%25s:%-5d CheckLaunch says mustWait: %d", buf, 0x18u);
+          }
+
+LABEL_72:
+          if (v18)
+          {
+            v48 = v47 + 8;
+            v26 = (*(*v8 + 16))(v8);
+            v49 = v26;
+            while (1)
+            {
+              v27 = *(v47 + 148);
+              if (v27)
+              {
+                break;
+              }
+
+              if ((*(*v8 + 64))(v8, 20000000000))
+              {
+                if (kInterAppAudioScope)
+                {
+                  v28 = *kInterAppAudioScope;
+                  if (!*kInterAppAudioScope)
+                  {
+                    goto LABEL_131;
+                  }
+                }
+
+                else
+                {
+                  v28 = MEMORY[0x1E69E9C10];
+                }
+
+                if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+                {
+                  goto LABEL_131;
+                }
+
+                *buf = 136315394;
+                *&buf[4] = "IPCAUClient.cpp";
+                *&buf[12] = 1024;
+                *&buf[14] = 224;
+                v31 = "%25s:%-5d Timed out waiting for app to launch";
+                goto LABEL_130;
+              }
+            }
+
+            if (v27 == 1)
+            {
+              if (kInterAppAudioScope)
+              {
+                v28 = *kInterAppAudioScope;
+                if (!*kInterAppAudioScope)
+                {
+LABEL_131:
+                  if (v26)
+                  {
+                    (*(*v8 + 24))(v8);
+                  }
+
+                  goto LABEL_66;
+                }
+              }
+
+              else
+              {
+                v28 = MEMORY[0x1E69E9C10];
+              }
+
+              if (!os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+              {
+                goto LABEL_131;
+              }
+
+              *buf = 136315394;
+              *&buf[4] = "IPCAUClient.cpp";
+              *&buf[12] = 1024;
+              *&buf[14] = 229;
+              v31 = "%25s:%-5d Failed to launch app";
+LABEL_130:
+              _os_log_impl(&dword_18F5DF000, v28, OS_LOG_TYPE_ERROR, v31, buf, 0x12u);
+              goto LABEL_131;
+            }
+
+            if (kInterAppAudioScope)
+            {
+              v30 = *kInterAppAudioScope;
+              if (!*kInterAppAudioScope)
+              {
+                goto LABEL_98;
+              }
+            }
+
+            else
+            {
+              v30 = MEMORY[0x1E69E9C10];
+            }
+
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+            {
+              *buf = 136315394;
+              *&buf[4] = "IPCAUClient.cpp";
+              *&buf[12] = 1024;
+              *&buf[14] = 233;
+              _os_log_impl(&dword_18F5DF000, v30, OS_LOG_TYPE_DEBUG, "%25s:%-5d App seems to be running after wait", buf, 0x12u);
+            }
+
+LABEL_98:
+            if (v26)
+            {
+              (*(*v8 + 24))(v8);
+            }
+          }
+
+          else
+          {
+            if (kInterAppAudioScope)
+            {
+              v29 = *kInterAppAudioScope;
+              if (!*kInterAppAudioScope)
+              {
+                goto LABEL_100;
+              }
+            }
+
+            else
+            {
+              v29 = MEMORY[0x1E69E9C10];
+            }
+
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+            {
+              *buf = 136315394;
+              *&buf[4] = "IPCAUClient.cpp";
+              *&buf[12] = 1024;
+              *&buf[14] = 235;
+              _os_log_impl(&dword_18F5DF000, v29, OS_LOG_TYPE_DEBUG, "%25s:%-5d App appears to be already running", buf, 0x12u);
+            }
+          }
+
+LABEL_100:
+          v32 = CADeprecated::TSingleton<AURegistrationServerConnection>::instance();
+          v33 = MEMORY[0x1EEE9AC50];
+          v34 = *(v32 + 48);
+          v52 = 0;
+          v51 = 0u;
+          memset(&buf[4], 0, 48);
+          *&buf[24] = *MEMORY[0x1E69E99E0];
+          *&buf[32] = *v2;
+          *&buf[48] = *(v2 + 4);
+          v35 = mig_get_reply_port();
+          *&buf[8] = v34;
+          *&buf[12] = v35;
+          *buf = 5395;
+          *&buf[16] = 0x15F9900000000;
+          if (v33)
+          {
+            voucher_mach_msg_set(buf);
+            v36 = *&buf[12];
+          }
+
+          else
+          {
+            v36 = v35;
+          }
+
+          v37 = mach_msg(buf, 275, 0x34u, 0x4Cu, v36, gMediaServerTimeout, 0);
+          v38 = v37;
+          if ((v37 - 268435458) <= 0xE && ((1 << (v37 - 2)) & 0x4003) != 0)
+          {
+            mig_put_reply_port(*&buf[12]);
+            goto LABEL_117;
+          }
+
+          if (!v37)
+          {
+            if (*&buf[20] == 90109 && (*buf & 0x80000000) != 0 && *&buf[24] == 1 && *&buf[4] == 68 && !*&buf[8] && *&buf[38] << 16 == 1114112)
+            {
+              v39 = *&buf[28];
+              v40 = *&buf[48];
+              if (*&buf[28] && v40 != getpid())
+              {
+                v41 = *(v47 + 256);
+                v42 = *(v47 + 264);
+                if (v41 != v42)
+                {
+                  v43 = 0;
+                  do
+                  {
+                    v45 = *v41++;
+                    v44 = v45;
+                    if (*(v45 + 48) == v39)
+                    {
+                      v43 = v44;
+                    }
+                  }
+
+                  while (v41 != v42);
+                  if (v43)
+                  {
+                    operator new();
+                  }
+                }
+
+                operator new();
+              }
+
+              goto LABEL_121;
+            }
+
+LABEL_120:
+            mach_msg_destroy(buf);
+            goto LABEL_121;
+          }
+
+          mig_dealloc_reply_port(*&buf[12]);
+LABEL_117:
+          if (v38 == 268435460)
+          {
+            if ((*buf & 0x1F00) == 0x1100)
+            {
+              mach_port_deallocate(*MEMORY[0x1E69E9A60], *&buf[12]);
+            }
+
+            goto LABEL_120;
+          }
+
+LABEL_121:
+          if (kInterAppAudioScope)
+          {
+            v2 = *kInterAppAudioScope;
+            if (!*kInterAppAudioScope)
+            {
+LABEL_67:
+              os_unfair_recursive_lock_unlock();
+              return v2;
+            }
+          }
+
+          else
+          {
+            v2 = MEMORY[0x1E69E9C10];
+          }
+
+          if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+          {
+            *buf = 136315394;
+            *&buf[4] = "IPCAUClient.cpp";
+            *&buf[12] = 1024;
+            *&buf[14] = 243;
+            v22 = "%25s:%-5d Host can't be node";
+            v23 = v2;
+            v24 = 18;
+            goto LABEL_65;
+          }
+
+LABEL_66:
+          v2 = 0;
+          goto LABEL_67;
+        }
+
+        v46 = v18;
+LABEL_59:
+        if (kInterAppAudioScope)
+        {
+          v2 = *kInterAppAudioScope;
+          if (!*kInterAppAudioScope)
+          {
+            goto LABEL_67;
+          }
+        }
+
+        else
+        {
+          v2 = MEMORY[0x1E69E9C10];
+        }
+
+        if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+        {
+          CAX4CCString::CAX4CCString(&v48, v46);
+          *buf = 136315650;
+          *&buf[4] = "IPCAUClient.cpp";
+          *&buf[12] = 1024;
+          *&buf[14] = 211;
+          *&buf[18] = 2080;
+          *&buf[20] = &v48;
+          v22 = "%25s:%-5d CheckLaunchAUServer failed (%s)";
+          v23 = v2;
+          v24 = 28;
+LABEL_65:
+          _os_log_impl(&dword_18F5DF000, v23, OS_LOG_TYPE_ERROR, v22, buf, v24);
+          goto LABEL_66;
+        }
+
+        goto LABEL_66;
+      }
+
+      sleep(1u);
+      v20 = CADeprecated::TSingleton<AURegistrationServerConnection>::instance();
+      AURegistrationServerConnection::Connect(v20);
+      if (!--v10)
+      {
+        v46 = 268435459;
+        goto LABEL_59;
+      }
+    }
+  }
+
+  return v2;
+}
+
+void sub_18F6E4A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
+{
+  MEMORY[0x193ADF220](v10, 0x10F1C40DC43F475, a3, a4, a5, a6, a7, a8);
+  os_unfair_recursive_lock_unlock();
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::__shared_ptr_pointer<APComponent_InterApp *,std::shared_ptr<APComponent_InterApp>::__shared_ptr_default_delete<APComponent_InterApp,APComponent_InterApp>,std::allocator<APComponent_InterApp>>::__on_zero_shared(uint64_t a1)
+{
+  result = *(a1 + 24);
+  if (result)
+  {
+    return (*(*result + 24))();
+  }
+
+  return result;
+}
+
+void std::__shared_ptr_pointer<APComponent_InterApp *,std::shared_ptr<APComponent_InterApp>::__shared_ptr_default_delete<APComponent_InterApp,APComponent_InterApp>,std::allocator<APComponent_InterApp>>::~__shared_ptr_pointer(std::__shared_weak_count *a1)
+{
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x193ADF220);
+}
+
+CFAbsoluteTime AudioComponentGetLastActiveTime(AudioComponent comp)
+{
+  v1 = 0.0;
+  if (!comp)
+  {
+    return v1;
+  }
+
+  v2 = (**comp)(comp);
+  if (!v2)
+  {
+    return v1;
+  }
+
+  v3 = (*(*v2 + 56))(v2);
+  if (!v3)
+  {
+    return v1;
+  }
+
+  v4 = v3;
+  valuePtr = 0.0;
+  if (!*(v3 + 160))
+  {
+    return v1;
+  }
+
+  Current = CFAbsoluteTimeGetCurrent();
+  v6 = APComponent_InterApp::GetLastActiveTime(void)::activeTimes;
+  if (Current <= 2.5 && APComponent_InterApp::GetLastActiveTime(void)::activeTimes)
+  {
+    goto LABEL_11;
+  }
+
+  if (APComponent_InterApp::GetLastActiveTime(void)::activeTimes)
+  {
+    CFRelease(APComponent_InterApp::GetLastActiveTime(void)::activeTimes);
+    APComponent_InterApp::GetLastActiveTime(void)::activeTimes = 0;
+  }
+
+  v7 = CFPreferencesCopyAppValue(@"InterAppProcessActiveTimes", @"com.apple.coreaudio");
+  APComponent_InterApp::GetLastActiveTime(void)::activeTimes = v7;
+  if (v7)
+  {
+    CFRetain(v7);
+    v6 = APComponent_InterApp::GetLastActiveTime(void)::activeTimes;
+LABEL_11:
+    Value = CFDictionaryGetValue(v6, *(v4 + 160));
+    if (Value)
+    {
+      CFNumberGetValue(Value, kCFNumberDoubleType, &valuePtr);
+      return valuePtr;
+    }
+  }
+
+  return v1;
+}
+
+uint64_t AudioComponentInstanceSetNoCanDo(uint64_t result, int a2)
+{
+  if (result)
+  {
+    result = (*(*result + 8))(result);
+    if (result)
+    {
+      result = APComponentInstance::selectorToMethodPtr(*(result + 8), *(result + 16), a2);
+      if (result)
+      {
+        *result = 0;
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t *std::unique_ptr<XOSTransactor>::reset[abi:ne200100](uint64_t *result, uint64_t a2)
+{
+  v2 = *result;
+  *result = a2;
+  if (v2)
+  {
+    XOSTransactor::endTransaction(v2);
+
+    JUMPOUT(0x193ADF220);
+  }
+
+  return result;
+}
+
+void AUOOPRenderingServerUser::~AUOOPRenderingServerUser(AUOOPRenderingServerUser *this)
+{
+  this->_vptr$CAPrint = &unk_1F0336398;
+  BaseOpaqueObject::destroyOpaqueRef(this);
+
+  BaseOpaqueObject::~BaseOpaqueObject(this);
+}
+
+{
+  AUOOPRenderingServerUser::~AUOOPRenderingServerUser(this);
+
+  JUMPOUT(0x193ADF220);
+}
+
+void std::vector<KVOAggregator::Record>::__base_destruct_at_end[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  for (i = *(a1 + 8); i != a2; i -= 32)
+  {
+
+    objc_destroyWeak((i - 24));
+  }
+
+  *(a1 + 8) = a2;
+}
+
+void ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorbEEEU13block_pointerFvDpT_ES9_i_block_invoke(uint64_t a1, void *a2)
+{
+  v5 = a2;
+  v3 = *(a1 + 32);
+  v4 = applesauce::dispatch::v1::queue::operator*(v3);
+  dispatch_source_cancel(v4);
+
+  (*(*(a1 + 40) + 16))();
+}
+
+void __destroy_helper_block_ea8_32c122_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorbEEEU13block_pointerFvDpT_ES9_iEUlS4_bE_(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  *(a1 + 32) = 0;
+
+  v3 = *(a1 + 32);
+}
+
+void *__copy_helper_block_ea8_32c122_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorbEEEU13block_pointerFvDpT_ES9_iEUlS4_bE_(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 32) = *(a2 + 32);
+  result = _Block_copy(*(a2 + 40));
+  *(a1 + 40) = result;
+  return result;
+}
+
+id caulk::xpc::reply_watchdog_factory::reply_with_timeout<NSError * {__strong},NSString * {__strong}>(caulk::xpc::reply_watchdog_factory *a1, void *a2)
+{
+  v3 = a2;
+  if ((*a1 & 1) == 0)
+  {
+    aBlock[0] = MEMORY[0x1E69E9820];
+    aBlock[1] = 3321888768;
+    aBlock[2] = ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP8NSStringEEEU13block_pointerFvDpT_ESC_i_block_invoke;
+    aBlock[3] = &__block_descriptor_48_ea8_32c143_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP8NSStringEEEU13block_pointerFvDpT_ESC_iEUlS4_S7_E__e30_v24__0__NSError_8__NSString_16l;
+    caulk::xpc::reply_watchdog_factory::make_timer(&v9, a1);
+    v4 = _Block_copy(v3);
+    v10 = v4;
+    v12 = v9;
+    v13 = _Block_copy(v4);
+    v5 = _Block_copy(aBlock);
+
+    v6 = v12;
+    v12 = 0;
+
+    v7 = v9;
+    v9 = 0;
+
+    v3 = v5;
+  }
+
+  return v3;
+}
+
+void ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP8NSStringEEEU13block_pointerFvDpT_ESC_i_block_invoke(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a3;
+  v8 = a2;
+  v6 = *(a1 + 32);
+  v7 = applesauce::dispatch::v1::queue::operator*(v6);
+  dispatch_source_cancel(v7);
+
+  (*(*(a1 + 40) + 16))();
+}
+
+void __destroy_helper_block_ea8_32c143_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP8NSStringEEEU13block_pointerFvDpT_ESC_iEUlS4_S7_E_(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  *(a1 + 32) = 0;
+
+  v3 = *(a1 + 32);
+}
+
+void *__copy_helper_block_ea8_32c143_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP8NSStringEEEU13block_pointerFvDpT_ESC_iEUlS4_S7_E_(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 32) = *(a2 + 32);
+  result = _Block_copy(*(a2 + 40));
+  *(a1 + 40) = result;
+  return result;
+}
+
+void sub_18F6E5BEC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
+{
+  objc_destroyWeak((v18 + 32));
+  objc_destroyWeak(&location);
+  objc_destroyWeak((v17 + 32));
+  objc_destroyWeak((v16 + 32));
+  objc_destroyWeak((v19 - 72));
+
+  _Unwind_Resume(a1);
+}
+
+void sub_18F6E5EAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+{
+  v13 = v11;
+
+  caulk::xpc::sync_message<objc_object  {objcproto33AUAudioUnitMessageChannelProtocol}* {__strong},NSDictionary * {__strong}>::~sync_message(&a9);
+  _Unwind_Resume(a1);
+}
+
+void *caulk::xpc::sync_message<objc_object  {objcproto33AUAudioUnitMessageChannelProtocol}* {__strong},NSDictionary * {__strong}>::sync_message(void *a1, void *a2)
+{
+  v5[4] = *MEMORY[0x1E69E9840];
+  v5[0] = &unk_1F032C448;
+  v5[1] = a1;
+  v5[3] = v5;
+  v3 = a2;
+  *a1 = v3;
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100]((a1 + 1), v5);
+
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v5);
+  a1[5] = 0;
+  a1[6] = 0;
+  return a1;
+}
+
+void sub_18F6E5FB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+id caulk::xpc::message<objc_object  {objcproto33AUAudioUnitMessageChannelProtocol}* {__strong},NSDictionary * {__strong}>::sync_proxy(void **a1)
+{
+  v8 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v7, (a1 + 1));
+  v2 = *a1;
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3321888768;
+  v5[2] = ___ZN5caulk3xpc7messageIU8__strongPU44objcproto33AUAudioUnitMessageChannelProtocol11objc_objectJU8__strongP12NSDictionaryEE10sync_proxyEv_block_invoke;
+  v5[3] = &__block_descriptor_64_ea8_32c75_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP12NSDictionaryEEEEEE_e17_v16__0__NSError_8l;
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v6, v7);
+  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v5];
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v6);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v7);
+
+  return v3;
+}
+
+void sub_18F6E60CC(_Unwind_Exception *a1)
+{
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v1 + 32);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v2 - 56);
+  _Unwind_Resume(a1);
+}
+
+id caulk::xpc::message<objc_object  {objcproto33AUAudioUnitMessageChannelProtocol}* {__strong},NSDictionary * {__strong}>::reply(uint64_t a1)
+{
+  v6 = *MEMORY[0x1E69E9840];
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v5, a1 + 8);
+  aBlock[0] = MEMORY[0x1E69E9820];
+  aBlock[1] = 3321888768;
+  aBlock[2] = ___ZN5caulk3xpc7messageIU8__strongPU44objcproto33AUAudioUnitMessageChannelProtocol11objc_objectJU8__strongP12NSDictionaryEE5replyEv_block_invoke;
+  aBlock[3] = &__block_descriptor_64_ea8_32c75_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP12NSDictionaryEEEEEE_e34_v24__0__NSError_8__NSDictionary_16l;
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v4, v5);
+  v1 = _Block_copy(aBlock);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v4);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v5);
+
+  return v1;
+}
+
+uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+id *caulk::xpc::sync_message<objc_object  {objcproto33AUAudioUnitMessageChannelProtocol}* {__strong},NSDictionary * {__strong}>::~sync_message(id *a1)
+{
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100]((a1 + 1));
+
+  return a1;
+}
+
+uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
+{
+  v3 = *(a2 + 24);
+  if (v3)
+  {
+    if (v3 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
+    }
+
+    else
+    {
+      *(a1 + 24) = (*(*v3 + 16))(v3);
+    }
+  }
+
+  else
+  {
+    *(a1 + 24) = 0;
+  }
+
+  return a1;
+}
+
+void ___ZN5caulk3xpc7messageIU8__strongPU44objcproto33AUAudioUnitMessageChannelProtocol11objc_objectJU8__strongP12NSDictionaryEE5replyEv_block_invoke(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a3;
+  std::function<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::operator()(a1 + 32, a2, &v5);
+}
+
+void std::function<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::operator()(uint64_t a1, void *a2, uint64_t a3)
+{
+  v6 = a2;
+  v5 = *(a1 + 24);
+  if (!v5)
+  {
+    std::__throw_bad_function_call[abi:ne200100]();
+  }
+
+  (*(*v5 + 48))(v5, &v6, a3);
+}
+
+void ___ZN5caulk3xpc7messageIU8__strongPU44objcproto33AUAudioUnitMessageChannelProtocol11objc_objectJU8__strongP12NSDictionaryEE10sync_proxyEv_block_invoke(uint64_t a1, void *a2)
+{
+  v2 = 0;
+  std::function<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::operator()(a1 + 32, a2, &v2);
+}
+
+void std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto33AUAudioUnitMessageChannelProtocol}* {__strong},NSDictionary * {__strong}>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<NSDictionary *> &&)#1},std::allocator<std::tuple<NSDictionary *> &>,void ()(NSError,std::tuple<NSDictionary *>)>::operator()(uint64_t a1, id *a2, id *a3)
+{
+  v5 = *a2;
+  v6 = *(a1 + 8);
+  v7 = *(v6 + 40);
+  *(v6 + 40) = v5;
+  v8 = v5;
+
+  objc_storeStrong((v6 + 48), *a3);
+}
+
+uint64_t std::__function::__func<caulk::xpc::sync_message<objc_object  {objcproto33AUAudioUnitMessageChannelProtocol}* {__strong},NSDictionary * {__strong}>::sync_message(NSXPCConnection *)::{lambda(NSError *,std::tuple<NSDictionary *> &&)#1},std::allocator<std::tuple<NSDictionary *> &>,void ()(NSError,std::tuple<NSDictionary *>)>::__clone(uint64_t result, void *a2)
+{
+  v2 = *(result + 8);
+  *a2 = &unk_1F032C448;
+  a2[1] = v2;
+  return result;
+}
+
+id caulk::strong<AURemoteMessageChannel>(id *a1)
+{
+  WeakRetained = objc_loadWeakRetained(a1);
+
+  return WeakRetained;
+}
+
+void sub_18F6E6788(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
+{
+  v12 = v11;
+
+  _Unwind_Resume(a1);
+}
+
+id caulk::xpc::reply_watchdog_factory::reply_with_timeout<NSError * {__strong},NSArray * {__strong}>(caulk::xpc::reply_watchdog_factory *a1, void *a2)
+{
+  v3 = a2;
+  if ((*a1 & 1) == 0)
+  {
+    aBlock[0] = MEMORY[0x1E69E9820];
+    aBlock[1] = 3321888768;
+    aBlock[2] = ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP7NSArrayEEEU13block_pointerFvDpT_ESC_i_block_invoke;
+    aBlock[3] = &__block_descriptor_48_ea8_32c142_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP7NSArrayEEEU13block_pointerFvDpT_ESC_iEUlS4_S7_E__e29_v24__0__NSError_8__NSArray_16l;
+    caulk::xpc::reply_watchdog_factory::make_timer(&v9, a1);
+    v4 = _Block_copy(v3);
+    v10 = v4;
+    v12 = v9;
+    v13 = _Block_copy(v4);
+    v5 = _Block_copy(aBlock);
+
+    v6 = v12;
+    v12 = 0;
+
+    v7 = v9;
+    v9 = 0;
+
+    v3 = v5;
+  }
+
+  return v3;
+}
+
+void ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP7NSArrayEEEU13block_pointerFvDpT_ESC_i_block_invoke(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a3;
+  v8 = a2;
+  v6 = *(a1 + 32);
+  v7 = applesauce::dispatch::v1::queue::operator*(v6);
+  dispatch_source_cancel(v7);
+
+  (*(*(a1 + 40) + 16))();
+}
+
+void __destroy_helper_block_ea8_32c142_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP7NSArrayEEEU13block_pointerFvDpT_ESC_iEUlS4_S7_E_(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  *(a1 + 32) = 0;
+
+  v3 = *(a1 + 32);
+}
+
+void *__copy_helper_block_ea8_32c142_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP7NSArrayEEEU13block_pointerFvDpT_ESC_iEUlS4_S7_E_(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 32) = *(a2 + 32);
+  result = _Block_copy(*(a2 + 40));
+  *(a1 + 40) = result;
+  return result;
+}
+
+void sub_18F6E6AA8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
+{
+  v11 = v10;
+
+  _Unwind_Resume(a1);
+}
+
+id caulk::xpc::reply_watchdog_factory::reply_with_timeout<NSError * {__strong}>(caulk::xpc::reply_watchdog_factory *a1, void *a2)
+{
+  v3 = a2;
+  if ((*a1 & 1) == 0)
+  {
+    aBlock[0] = MEMORY[0x1E69E9820];
+    aBlock[1] = 3321888768;
+    aBlock[2] = ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorEEEU13block_pointerFvDpT_ES9_i_block_invoke;
+    aBlock[3] = &__block_descriptor_48_ea8_32c120_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorEEEU13block_pointerFvDpT_ES9_iEUlS4_E__e17_v16__0__NSError_8l;
+    caulk::xpc::reply_watchdog_factory::make_timer(&v9, a1);
+    v4 = _Block_copy(v3);
+    v10 = v4;
+    v12 = v9;
+    v13 = _Block_copy(v4);
+    v5 = _Block_copy(aBlock);
+
+    v6 = v12;
+    v12 = 0;
+
+    v7 = v9;
+    v9 = 0;
+
+    v3 = v5;
+  }
+
+  return v3;
+}
+
+void ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorEEEU13block_pointerFvDpT_ES9_i_block_invoke(uint64_t a1, void *a2)
+{
+  v5 = a2;
+  v3 = *(a1 + 32);
+  v4 = applesauce::dispatch::v1::queue::operator*(v3);
+  dispatch_source_cancel(v4);
+
+  (*(*(a1 + 40) + 16))();
+}
+
+void __destroy_helper_block_ea8_32c120_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorEEEU13block_pointerFvDpT_ES9_iEUlS4_E_(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  *(a1 + 32) = 0;
+
+  v3 = *(a1 + 32);
+}
+
+void *__copy_helper_block_ea8_32c120_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorEEEU13block_pointerFvDpT_ES9_iEUlS4_E_(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 32) = *(a2 + 32);
+  result = _Block_copy(*(a2 + 40));
+  *(a1 + 40) = result;
+  return result;
+}
+
+void sub_18F6E6DAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
+{
+  v12 = v11;
+
+  _Unwind_Resume(a1);
+}
+
+void sub_18F6E6EE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
+{
+  objc_destroyWeak((v14 + 32));
+  objc_destroyWeak(&location);
+  _Unwind_Resume(a1);
+}
+
+void sub_18F6E7038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, ...)
+{
+  va_start(va, a15);
+  v19 = v17;
+
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(va);
+  _Unwind_Resume(a1);
+}
+
+void *caulk::xpc::message<objc_object  {objcproto23AUAudioUnitHostProtocol}* {__strong}>::message(void *a1, void *a2, uint64_t a3)
+{
+  v5 = a2;
+  *a1 = v5;
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_((a1 + 1), a3);
+
+  return a1;
+}
+
+uint64_t _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(uint64_t a1)
+{
+  v2 = *(a1 + 24);
+  if (v2 == a1)
+  {
+    (*(*v2 + 32))(v2);
+  }
+
+  else if (v2)
+  {
+    (*(*v2 + 40))(v2);
+  }
+
+  return a1;
+}
+
+id caulk::xpc::message<objc_object  {objcproto23AUAudioUnitHostProtocol}* {__strong}>::async_proxy(void **a1)
+{
+  v8 = *MEMORY[0x1E69E9840];
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v7, (a1 + 1));
+  v2 = *a1;
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3321888768;
+  v5[2] = ___ZN5caulk3xpc7messageIU8__strongPU34objcproto23AUAudioUnitHostProtocol11objc_objectJEE11async_proxyEv_block_invoke;
+  v5[3] = &__block_descriptor_64_ea8_32c50_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJEEEEEE_e17_v16__0__NSError_8l;
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v6, v7);
+  v3 = [v2 remoteObjectProxyWithErrorHandler:v5];
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v6);
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v7);
+
+  return v3;
+}
+
+void sub_18F6E7270(_Unwind_Exception *a1)
+{
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v1 + 32);
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v2 - 56);
+  _Unwind_Resume(a1);
+}
+
+uint64_t _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(uint64_t a1, uint64_t a2)
+{
+  v3 = *(a2 + 24);
+  if (v3)
+  {
+    if (v3 == a2)
+    {
+      *(a1 + 24) = a1;
+      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
+    }
+
+    else
+    {
+      *(a1 + 24) = (*(*v3 + 16))(v3);
+    }
+  }
+
+  else
+  {
+    *(a1 + 24) = 0;
+  }
+
+  return a1;
+}
+
+void _ZNKSt3__18functionIFvP7NSErrorONS_5tupleIJEEEEEclES2_S5_(uint64_t a1, void *a2, uint64_t a3)
+{
+  v6 = a2;
+  v5 = *(a1 + 24);
+  if (!v5)
+  {
+    std::__throw_bad_function_call[abi:ne200100]();
+  }
+
+  (*(*v5 + 48))(v5, &v6, a3);
+}
+
+void *_ZNKSt3__110__function6__funcIU8__strongU13block_pointerFvP7NSErrorONS_5tupleIJEEEENS_9allocatorIS9_EES7_E7__cloneEPNS0_6__baseIS7_EE(uint64_t a1, void *a2)
+{
+  *a2 = &unk_1F033F978;
+  result = _Block_copy(*(a1 + 8));
+  a2[1] = result;
+  return result;
+}
+
+void _ZNSt3__110__function6__funcIU8__strongU13block_pointerFvP7NSErrorONS_5tupleIJEEEENS_9allocatorIS9_EES7_ED0Ev(uint64_t a1)
+{
+
+  JUMPOUT(0x193ADF220);
+}
+
+void ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP12NSDictionaryIP8NSStringP11objc_objectEEEEU13block_pointerFvDpT_ESH_i_block_invoke(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a3;
+  v8 = a2;
+  v6 = *(a1 + 32);
+  v7 = applesauce::dispatch::v1::queue::operator*(v6);
+  dispatch_source_cancel(v7);
+
+  (*(*(a1 + 40) + 16))();
+}
+
+void __destroy_helper_block_ea8_32c174_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP12NSDictionaryIP8NSStringP11objc_objectEEEEU13block_pointerFvDpT_ESH_iEUlS4_SC_E_(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  *(a1 + 32) = 0;
+
+  v3 = *(a1 + 32);
+}
+
+void *__copy_helper_block_ea8_32c174_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP12NSDictionaryIP8NSStringP11objc_objectEEEEU13block_pointerFvDpT_ESH_iEUlS4_SC_E_(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 32) = *(a2 + 32);
+  result = _Block_copy(*(a2 + 40));
+  *(a1 + 40) = result;
+  return result;
+}
+
+void sub_18F6E7890(_Unwind_Exception *a1)
+{
+  v3 = v2;
+
+  _Unwind_Resume(a1);
+}
+
+void sub_18F6E7974(_Unwind_Exception *a1)
+{
+  v3 = v2;
+
+  _Unwind_Resume(a1);
+}
+
+void ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP7NSArrayIP17AUAudioUnitPresetEEEEU13block_pointerFvDpT_ESF_i_block_invoke(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a3;
+  v8 = a2;
+  v6 = *(a1 + 32);
+  v7 = applesauce::dispatch::v1::queue::operator*(v6);
+  dispatch_source_cancel(v7);
+
+  (*(*(a1 + 40) + 16))();
+}
+
+void __destroy_helper_block_ea8_32c164_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP7NSArrayIP17AUAudioUnitPresetEEEEU13block_pointerFvDpT_ESF_iEUlS4_SA_E_(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  *(a1 + 32) = 0;
+
+  v3 = *(a1 + 32);
+}
+
+void *__copy_helper_block_ea8_32c164_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP7NSArrayIP17AUAudioUnitPresetEEEEU13block_pointerFvDpT_ESF_iEUlS4_SA_E_(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 32) = *(a2 + 32);
+  result = _Block_copy(*(a2 + 40));
+  *(a1 + 40) = result;
+  return result;
+}
+
+void ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP18MIDICIProfileStateEEEU13block_pointerFvDpT_ESC_i_block_invoke(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a3;
+  v8 = a2;
+  v6 = *(a1 + 32);
+  v7 = applesauce::dispatch::v1::queue::operator*(v6);
+  dispatch_source_cancel(v7);
+
+  (*(*(a1 + 40) + 16))();
+}
+
+void __destroy_helper_block_ea8_32c154_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP18MIDICIProfileStateEEEU13block_pointerFvDpT_ESC_iEUlS4_S7_E_(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  *(a1 + 32) = 0;
+
+  v3 = *(a1 + 32);
+}
+
+void *__copy_helper_block_ea8_32c154_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP18MIDICIProfileStateEEEU13block_pointerFvDpT_ESC_iEUlS4_S7_E_(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 32) = *(a2 + 32);
+  result = _Block_copy(*(a2 + 40));
+  *(a1 + 40) = result;
+  return result;
+}
+
+void ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP10NSIndexSetEEEU13block_pointerFvDpT_ESC_i_block_invoke(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a3;
+  v8 = a2;
+  v6 = *(a1 + 32);
+  v7 = applesauce::dispatch::v1::queue::operator*(v6);
+  dispatch_source_cancel(v7);
+
+  (*(*(a1 + 40) + 16))();
+}
+
+void __destroy_helper_block_ea8_32c146_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP10NSIndexSetEEEU13block_pointerFvDpT_ESC_iEUlS4_S7_E_(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  *(a1 + 32) = 0;
+
+  v3 = *(a1 + 32);
+}
+
+void *__copy_helper_block_ea8_32c146_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP10NSIndexSetEEEU13block_pointerFvDpT_ESC_iEUlS4_S7_E_(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 32) = *(a2 + 32);
+  result = _Block_copy(*(a2 + 40));
+  *(a1 + 40) = result;
+  return result;
+}
+
+void sub_18F6E8724(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, ...)
+{
+  va_start(va, a21);
+
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(va);
+  _Unwind_Resume(a1);
+}
+
+void sub_18F6E89E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
+{
+  v12 = v11;
+
+  _Unwind_Resume(a1);
+}
+
+id caulk::xpc::reply_watchdog_factory::reply_with_timeout<NSError * {__strong},float>(caulk::xpc::reply_watchdog_factory *a1, void *a2)
+{
+  v3 = a2;
+  if ((*a1 & 1) == 0)
+  {
+    aBlock[0] = MEMORY[0x1E69E9820];
+    aBlock[1] = 3321888768;
+    aBlock[2] = ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorfEEEU13block_pointerFvDpT_ES9_i_block_invoke;
+    aBlock[3] = &__block_descriptor_48_ea8_32c122_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorfEEEU13block_pointerFvDpT_ES9_iEUlS4_fE__e20_v20__0__NSError_8f16l;
+    caulk::xpc::reply_watchdog_factory::make_timer(&v9, a1);
+    v4 = _Block_copy(v3);
+    v10 = v4;
+    v12 = v9;
+    v13 = _Block_copy(v4);
+    v5 = _Block_copy(aBlock);
+
+    v6 = v12;
+    v12 = 0;
+
+    v7 = v9;
+    v9 = 0;
+
+    v3 = v5;
+  }
+
+  return v3;
+}
+
+void ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorfEEEU13block_pointerFvDpT_ES9_i_block_invoke(uint64_t a1, void *a2, float a3)
+{
+  v7 = a2;
+  v5 = *(a1 + 32);
+  v6 = applesauce::dispatch::v1::queue::operator*(v5);
+  dispatch_source_cancel(v6);
+
+  (*(*(a1 + 40) + 16))(a3);
+}
+
+void __destroy_helper_block_ea8_32c122_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorfEEEU13block_pointerFvDpT_ES9_iEUlS4_fE_(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  *(a1 + 32) = 0;
+
+  v3 = *(a1 + 32);
+}
+
+void *__copy_helper_block_ea8_32c122_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorfEEEU13block_pointerFvDpT_ES9_iEUlS4_fE_(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 32) = *(a2 + 32);
+  result = _Block_copy(*(a2 + 40));
+  *(a1 + 40) = result;
+  return result;
+}
+
+void sub_18F6E8D3C(_Unwind_Exception *a1)
+{
+  v3 = v2;
+
+  _Unwind_Resume(a1);
+}
+
+void sub_18F6E90D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+
+  std::unique_ptr<-[AURemoteHost getParameter:sequenceNumber:reply:]::$_4>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP7NSArrayIP8NSNumberEEEEU13block_pointerFvDpT_ESF_i_block_invoke(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a3;
+  v8 = a2;
+  v6 = *(a1 + 32);
+  v7 = applesauce::dispatch::v1::queue::operator*(v6);
+  dispatch_source_cancel(v7);
+
+  (*(*(a1 + 40) + 16))();
+}
+
+void __destroy_helper_block_ea8_32c154_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP7NSArrayIP8NSNumberEEEEU13block_pointerFvDpT_ESF_iEUlS4_SA_E_(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  *(a1 + 32) = 0;
+
+  v3 = *(a1 + 32);
+}
+
+void *__copy_helper_block_ea8_32c154_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP7NSArrayIP8NSNumberEEEEU13block_pointerFvDpT_ESF_iEUlS4_SA_E_(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 32) = *(a2 + 32);
+  result = _Block_copy(*(a2 + 40));
+  *(a1 + 40) = result;
+  return result;
+}
+
+void ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP15AUParameterTreeEEEU13block_pointerFvDpT_ESC_i_block_invoke(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a3;
+  v8 = a2;
+  v6 = *(a1 + 32);
+  v7 = applesauce::dispatch::v1::queue::operator*(v6);
+  dispatch_source_cancel(v7);
+
+  (*(*(a1 + 40) + 16))();
+}
+
+void __destroy_helper_block_ea8_32c151_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP15AUParameterTreeEEEU13block_pointerFvDpT_ESC_iEUlS4_S7_E_(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  *(a1 + 32) = 0;
+
+  v3 = *(a1 + 32);
+}
+
+void *__copy_helper_block_ea8_32c151_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP15AUParameterTreeEEEU13block_pointerFvDpT_ESC_iEUlS4_S7_E_(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 32) = *(a2 + 32);
+  result = _Block_copy(*(a2 + 40));
+  *(a1 + 40) = result;
+  return result;
+}
+
+void sub_18F6E9894(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+{
+  va_start(va, a5);
 
   PropertyNotificationDeferrer::~PropertyNotificationDeferrer(va);
   _Unwind_Resume(a1);
@@ -44,7 +3691,7 @@ id PropertyNotificationDeferrer::changedProperties(id *this)
   return v3;
 }
 
-void sub_18F6E9AB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
+void sub_18F6E9AB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id a20)
 {
   _Block_object_dispose(&a15, 8);
 
@@ -62,9 +3709,9 @@ void PropertyNotificationDeferrer::~PropertyNotificationDeferrer(id *this)
   dispatch_sync(v2, block);
 }
 
-uint64_t ___ZN28PropertyNotificationDeferrerD2Ev_block_invoke(uint64_t result)
+void *___ZN28PropertyNotificationDeferrerD2Ev_block_invoke(void *result)
 {
-  v2 = *(result + 32);
+  v2 = result[4];
   if ((*(v2 + 8) & 1) == 0)
   {
     v3 = *v2;
@@ -101,10 +3748,7 @@ void ___ZN28PropertyNotificationDeferrer17changedPropertiesEv_block_invoke(uint6
 
     if (v6)
     {
-      v7 = [*v1 _fetchAndClearPendingChangedProperties];
-      v8 = *(*(a1 + 32) + 8);
-      v9 = *(v8 + 40);
-      *(v8 + 40) = v7;
+      *(*(*(a1 + 32) + 8) + 40) = [*v1 _fetchAndClearPendingChangedProperties];
 
       MEMORY[0x1EEE66BB8]();
     }
@@ -145,10 +3789,10 @@ void *__copy_helper_block_ea8_32c120_ZTSKZN5caulk3xpc22reply_watchdog_factory18r
   return result;
 }
 
-void sub_18F6EA118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_18F6EA118(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  v8 = v7;
+  va_start(va, a5);
+  v10 = v9;
 
   PropertyNotificationDeferrer::~PropertyNotificationDeferrer(va);
   _Unwind_Resume(a1);
@@ -456,12 +4100,12 @@ Record *KVOAggregator::find(KVOAggregator *this, NSObject *a2, NSString *a3, int
   return begin;
 }
 
-void sub_18F6EA8A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, ...)
+void sub_18F6EA8A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   std::__split_buffer<KVOAggregator::Record>::~__split_buffer(va);
 
-  objc_destroyWeak(v7);
+  objc_destroyWeak(v11);
   _Unwind_Resume(a1);
 }
 
@@ -568,10 +4212,10 @@ void KVOAggregator::addObserver(KVOAggregator *this, NSObject *a2, NSObject *a3,
   }
 }
 
-void sub_18F6EADC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_18F6EADC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
-  v8 = v7;
+  va_start(va, a5);
+  v10 = v9;
 
   PropertyNotificationDeferrer::~PropertyNotificationDeferrer(va);
   _Unwind_Resume(a1);
@@ -593,16 +4237,20 @@ id caulk::xpc::reply_watchdog_factory::reply_with_timeout<NSError * {__strong},o
     aBlock[1] = 3321888768;
     aBlock[2] = ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP11objc_objectEEEU13block_pointerFvDpT_ESC_i_block_invoke;
     aBlock[3] = &__block_descriptor_48_ea8_32c147_ZTSKZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorU8__strongP11objc_objectEEEU13block_pointerFvDpT_ESC_iEUlS4_S7_E__e20_v24__0__NSError_8_16l;
-    caulk::xpc::reply_watchdog_factory::make_timer(a1);
-    v8 = _Block_copy(v3);
-    v10 = v7;
-    v11 = _Block_copy(v8);
-    v4 = _Block_copy(aBlock);
+    caulk::xpc::reply_watchdog_factory::make_timer(&v9, a1);
+    v4 = _Block_copy(v3);
+    v10 = v4;
+    v12 = v9;
+    v13 = _Block_copy(v4);
+    v5 = _Block_copy(aBlock);
 
-    v5 = v10;
-    v10 = 0;
+    v6 = v12;
+    v12 = 0;
 
-    v3 = v4;
+    v7 = v9;
+    v9 = 0;
+
+    v3 = v5;
   }
 
   return v3;
@@ -779,29 +4427,29 @@ void *__copy_helper_block_ea8_32c151_ZTSKZN5caulk3xpc22reply_watchdog_factory18r
 
 id MarshalBusArray(AUAudioUnitBusArray *a1, unsigned int a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v16 = a1;
-  v18 = objc_opt_new();
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
+  v23 = *MEMORY[0x1E69E9840];
+  v15 = a1;
+  v17 = objc_opt_new();
   v20 = 0u;
-  obj = v16;
-  v3 = [(AUAudioUnitBusArray *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  obj = v15;
+  v3 = [(AUAudioUnitBusArray *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v3)
   {
     v4 = 0;
-    v5 = *v20;
+    v5 = *v19;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v20 != v5)
+        if (*v19 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v19 + 1) + 8 * i);
+        v7 = *(*(&v18 + 1) + 8 * i);
         v8 = objc_alloc_init(AUAudioUnitBus_XPC);
         v8->_scope = a2;
         v8->_element = v4;
@@ -823,20 +4471,18 @@ id MarshalBusArray(AUAudioUnitBusArray *a1, unsigned int a2)
           v8->_supportedChannelLayoutTags = v12;
         }
 
-        [v18 addObject:v8];
+        [v17 addObject:v8];
 
         ++v4;
       }
 
-      v3 = [(AUAudioUnitBusArray *)obj countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v3 = [(AUAudioUnitBusArray *)obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v3);
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
-  return v18;
+  return v17;
 }
 
 void ___ZN5caulk3xpc22reply_watchdog_factory18reply_with_timeoutIJU8__strongP7NSErrorbbU8__strongP7NSArrayS8_bbimmEEEU13block_pointerFvDpT_ESC_i_block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5, void *a6)
@@ -925,36 +4571,36 @@ id native_instruments_window_workaround(AudioComponentDescription const&)::$_0::
   return v14;
 }
 
-void sub_18F6EE09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_18F6EE09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   objc_destroyWeak(va);
 
-  objc_destroyWeak((v7 + 32));
-  objc_destroyWeak((v8 - 56));
+  objc_destroyWeak((v12 + 32));
+  objc_destroyWeak((v13 - 56));
   _Unwind_Resume(a1);
 }
 
-void sub_18F6EE1E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, ...)
+void sub_18F6EE1E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
 
   _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(va);
   _Unwind_Resume(a1);
 }
 
-void sub_18F6EE328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, ...)
+void sub_18F6EE328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
 
   _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(va);
   _Unwind_Resume(a1);
 }
 
-void sub_18F6EE4D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_18F6EE4D0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = AURemoteHost;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -982,9 +4628,9 @@ void KVOAggregator::removeAllObservations(KVOAggregator *this, NSObject *a2)
   std::vector<KVOAggregator::Record>::__base_destruct_at_end[abi:ne200100](this, begin);
 }
 
-void sub_18F6EE784(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_18F6EE784(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1012,58 +4658,54 @@ void sub_18F6EF33C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 Class ___ZL24getAUViewControllerClassv_block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v8[0] = 0;
+  v10 = *MEMORY[0x1E69E9840];
+  v7[0] = 0;
   if (!CoreAudioKitLibraryCore(char **)::frameworkLibrary)
   {
-    v8[1] = MEMORY[0x1E69E9820];
-    v8[2] = 3221225472;
-    v8[3] = ___ZL23CoreAudioKitLibraryCorePPc_block_invoke_1773;
-    v8[4] = &__block_descriptor_40_e5_v8__0l;
-    v8[5] = v8;
-    v9 = xmmword_1E72BA960;
-    v10 = 0;
+    v7[1] = MEMORY[0x1E69E9820];
+    v7[2] = 3221225472;
+    v7[3] = ___ZL23CoreAudioKitLibraryCorePPc_block_invoke_1773;
+    v7[4] = &__block_descriptor_40_e5_v8__0l;
+    v7[5] = v7;
+    v8 = xmmword_1E72BA960;
+    v9 = 0;
     CoreAudioKitLibraryCore(char **)::frameworkLibrary = _sl_dlopen();
   }
 
   if (!CoreAudioKitLibraryCore(char **)::frameworkLibrary)
   {
-    v4 = [MEMORY[0x1E696AAA8] currentHandler];
-    v5 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreAudioKitLibrary()"];
-    [v4 handleFailureInFunction:v5 file:@"AUAudioUnit_Internal.h" lineNumber:359 description:{@"%s", v8[0]}];
+    v3 = [MEMORY[0x1E696AAA8] currentHandler];
+    v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"void *CoreAudioKitLibrary()"];
+    [v3 handleFailureInFunction:v4 file:@"AUAudioUnit_Internal.h" lineNumber:359 description:{@"%s", v7[0]}];
 
     goto LABEL_10;
   }
 
-  if (v8[0])
+  if (v7[0])
   {
-    free(v8[0]);
+    free(v7[0]);
   }
 
   result = objc_getClass("AUViewController");
   *(*(*(a1 + 32) + 8) + 24) = result;
   if (!*(*(*(a1 + 32) + 8) + 24))
   {
-    v6 = [MEMORY[0x1E696AAA8] currentHandler];
-    v7 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getAUViewControllerClass()_block_invoke"];
-    [v6 handleFailureInFunction:v7 file:@"AUAudioUnit_Internal.h" lineNumber:360 description:{@"Unable to find class %s", "AUViewController"}];
+    v5 = [MEMORY[0x1E696AAA8] currentHandler];
+    v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"Class getAUViewControllerClass()_block_invoke"];
+    [v5 handleFailureInFunction:v6 file:@"AUAudioUnit_Internal.h" lineNumber:360 description:{@"Unable to find class %s", "AUViewController"}];
 
 LABEL_10:
     __break(1u);
   }
 
   getAUViewControllerClass(void)::softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t ___ZL23CoreAudioKitLibraryCorePPc_block_invoke_1773(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreAudioKitLibraryCore(char **)::frameworkLibrary = result;
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1171,7 +4813,7 @@ LABEL_16:
 
 uint64_t ExtAudioFile::WritePacketsFromCallback(ExtAudioFile *this, int (*inInputDataProcUserData)(OpaqueAudioConverter *, unsigned int *, AudioBufferList *, AudioStreamPacketDescription **, void *), void *a3)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   do
   {
     v5 = *(this + 22);
@@ -1205,15 +4847,15 @@ uint64_t ExtAudioFile::WritePacketsFromCallback(ExtAudioFile *this, int (*inInpu
     {
       if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
       {
-        CAX4CCString::CAX4CCString(v33, v10);
+        CAX4CCString::CAX4CCString(v32, v10);
         *buf = 136315906;
         *&buf[4] = "ExtAudioFile.cpp";
         *&buf[12] = 1024;
         *&buf[14] = 1695;
-        v35 = 2080;
-        v36 = v33;
-        v37 = 2080;
-        v38 = "convert audio packets (write)";
+        v34 = 2080;
+        v35 = v32;
+        v36 = 2080;
+        v37 = "convert audio packets (write)";
         _os_log_impl(&dword_18F5DF000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", buf, 0x26u);
       }
 
@@ -1253,27 +4895,27 @@ uint64_t ExtAudioFile::WritePacketsFromCallback(ExtAudioFile *this, int (*inInpu
 
     if (v19)
     {
-      v27 = *(this + 19);
+      v26 = *(this + 19);
       *buf = caulk::function_ref<int ()(AudioConverterAPI *)>::functor_invoker<AudioConverterReset::$_0>;
-      *&buf[8] = v33;
-      v28 = v19;
-      with_resolved(v27, buf);
+      *&buf[8] = v32;
+      v27 = v19;
+      with_resolved(v26, buf);
       if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
       {
-        CAX4CCString::CAX4CCString(v33, v28);
+        CAX4CCString::CAX4CCString(v32, v27);
         *buf = 136315906;
         *&buf[4] = "ExtAudioFile.cpp";
         *&buf[12] = 1024;
         *&buf[14] = 1726;
-        v35 = 2080;
-        v36 = v33;
-        v37 = 2080;
-        v38 = "write audio file";
+        v34 = 2080;
+        v35 = v32;
+        v36 = 2080;
+        v37 = "write audio file";
         _os_log_impl(&dword_18F5DF000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", buf, 0x26u);
       }
 
-      v29 = __cxa_allocate_exception(0x110uLL);
-      CAXException::CAXException(v29, "write audio file", v28);
+      v28 = __cxa_allocate_exception(0x110uLL);
+      CAXException::CAXException(v28, "write audio file", v27);
     }
 
     if (*(this + 416) == 1)
@@ -1312,23 +4954,22 @@ LABEL_28:
   while (!v10);
   if (v10 == 1852139886)
   {
-    v10 = 0;
+    return 0;
   }
 
-  else if (v10 == 1752656245)
+  if (v10 == 1752656245)
   {
     if (*(this + 328))
     {
-      v10 = 4294900737;
+      return 4294900737;
     }
 
     else
     {
-      v10 = 4294900736;
+      return 4294900736;
     }
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -1388,7 +5029,7 @@ LABEL_21:
       v11 = this[50];
       if (!v11)
       {
-        v11 = v5 - (outPropertyData->mPrimingFrames + outPropertyData->mRemainderFrames);
+        v11 = (v5 - (outPropertyData->mPrimingFrames + outPropertyData->mRemainderFrames));
 LABEL_28:
         result = 0;
         outPropertyData->mNumberValidFrames = v11;
@@ -1399,7 +5040,7 @@ LABEL_28:
       {
         if (v11 == -2)
         {
-          v11 = v8 - (outPropertyData->mPrimingFrames + outPropertyData->mRemainderFrames);
+          v11 = (v8 - (outPropertyData->mPrimingFrames + outPropertyData->mRemainderFrames));
         }
 
         goto LABEL_28;
@@ -1429,19 +5070,19 @@ LABEL_28:
   return result;
 }
 
-uint64_t ExtAudioFile::CopyEncoderCookieToFile(ExtAudioFile *this)
+uint64_t ExtAudioFile::CopyEncoderCookieToFile(ExtAudioFile *this, int a2)
 {
   v12[3] = *MEMORY[0x1E69E9840];
-  v2 = *(this + 37);
-  if (v2)
+  v3 = *(this + 37);
+  if (v3)
   {
-    MEMORY[0x193ADF1F0](v2, 0x1000C8077774924);
+    MEMORY[0x193ADF1F0](v3, 0x1000C8077774924);
   }
 
   v6 = 0;
   *(this + 37) = 0;
   *(this + 76) = 0;
-  v3 = *(this + 19);
+  v4 = *(this + 19);
   v9 = 1668114275;
   v7 = 0;
   *isWritable = &v6;
@@ -1450,7 +5091,7 @@ uint64_t ExtAudioFile::CopyEncoderCookieToFile(ExtAudioFile *this)
   v12[2] = &v7;
   *buf = caulk::function_ref<int ()(AudioConverterAPI *)>::functor_invoker<AudioConverterGetPropertyInfo::$_0>;
   v11 = v12;
-  result = with_resolved(v3, buf);
+  result = with_resolved(v4, buf);
   if (!result)
   {
     result = v6;
@@ -1460,7 +5101,6 @@ uint64_t ExtAudioFile::CopyEncoderCookieToFile(ExtAudioFile *this)
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1650,32 +5290,31 @@ uint64_t AT::RingBuffer::GetTimeBounds(AT::RingBuffer *this, uint64_t *a2, uint6
 
 uint64_t CheckRingBufferResult(std::error_code a1, int a2, const char *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v10 = a1;
+  v11 = *MEMORY[0x1E69E9840];
+  v9 = a1;
   if (a1.__val_)
   {
-    std::error_code::message(&v9, &v10);
-    if ((v9.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+    std::error_code::message(&v8, &v9);
+    if ((v8.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
-      v6 = &v9;
+      v5 = &v8;
     }
 
     else
     {
-      v6 = v9.__r_.__value_.__r.__words[0];
+      v5 = v8.__r_.__value_.__r.__words[0];
     }
 
-    snprintf(__str, 0x80uLL, "%s ring buffer error: %s", a3, v6);
-    if (SHIBYTE(v9.__r_.__value_.__r.__words[2]) < 0)
+    snprintf(__str, 0x80uLL, "%s ring buffer error: %s", a3, v5);
+    if (SHIBYTE(v8.__r_.__value_.__r.__words[2]) < 0)
     {
-      operator delete(v9.__r_.__value_.__l.__data_);
+      operator delete(v8.__r_.__value_.__l.__data_);
     }
 
     exception = __cxa_allocate_exception(0x110uLL);
     CAXException::CAXException(exception, __str, a2);
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return *&a1.__val_;
 }
 
@@ -1693,7 +5332,7 @@ void ___ZN25ExtAudioFileAsyncWriteMgr12RemoveClientEP12ExtAudioFile_block_invoke
   }
 }
 
-uint64_t ExtAudioFile::FileFormatChanged(ExtAudioFile *this, CFURLRef inFileRef, const AudioStreamBasicDescription *inFileType, AudioFileFlags inFlags)
+void ExtAudioFile::FileFormatChanged(ExtAudioFile *this, CFURLRef inFileRef, const AudioStreamBasicDescription *inFileType, AudioFileFlags inFlags, BOOL a5)
 {
   v53 = *MEMORY[0x1E69E9840];
   if ((*(this + 8) & 0xFFFFFFFE) != 2)
@@ -1716,30 +5355,30 @@ uint64_t ExtAudioFile::FileFormatChanged(ExtAudioFile *this, CFURLRef inFileRef,
     CAXException::CAXException(exception, "new file not prepared", -66565);
   }
 
-  v5 = inFileType;
+  v6 = inFileType;
   size = 0;
-  v8 = this + 168;
-  v9 = *(this + 184);
+  v9 = this + 168;
+  v10 = *(this + 184);
   *&buf.mSampleRate = *(this + 168);
-  *&buf.mBytesPerPacket = v9;
+  *&buf.mBytesPerPacket = v10;
   *&buf.mBitsPerChannel = *(this + 25);
-  v10 = *(this + 19);
-  if (v10)
+  v11 = *(this + 19);
+  if (v11)
   {
     size = 40;
-    v11 = *v8;
+    v12 = *v9;
     v46 = 1633906532;
     v47[0] = &size;
-    size_4 = v8;
+    size_4 = v9;
     *v48 = &v46;
     *&v48[8] = v47;
     *&v48[16] = &size_4;
     *&inFormat.mSampleRate = caulk::function_ref<int ()(AudioConverterAPI *)>::functor_invoker<AudioConverterGetProperty::$_0>;
     *&inFormat.mFormatID = v48;
-    v12 = with_resolved(v10, &inFormat);
-    if (v12)
+    v13 = with_resolved(v11, &inFormat);
+    if (v13)
     {
-      v32 = v12;
+      v32 = v13;
       if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
       {
         CAX4CCString::CAX4CCString(v48, v32);
@@ -1758,12 +5397,12 @@ uint64_t ExtAudioFile::FileFormatChanged(ExtAudioFile *this, CFURLRef inFileRef,
       CAXException::CAXException(v33, "get audio converter's output stream description", v32);
     }
 
-    if (*v8 == 0.0)
+    if (*v9 == 0.0)
     {
-      *v8 = v11;
+      *v9 = v12;
     }
 
-    v13 = *(this + 19);
+    v14 = *(this + 19);
     v46 = 1868786720;
     v47[0] = &size;
     size_4 = 0;
@@ -1772,29 +5411,29 @@ uint64_t ExtAudioFile::FileFormatChanged(ExtAudioFile *this, CFURLRef inFileRef,
     *&v48[16] = &size_4;
     *&inFormat.mSampleRate = caulk::function_ref<int ()(AudioConverterAPI *)>::functor_invoker<AudioConverterGetPropertyInfo::$_0>;
     *&inFormat.mFormatID = v48;
-    if (!with_resolved(v13, &inFormat) && size)
+    if (!with_resolved(v14, &inFormat) && size)
     {
-      v14 = malloc_type_malloc(size, 0x803CA496uLL);
-      if (!v14 && size)
+      v15 = malloc_type_malloc(size, 0x803CA496uLL);
+      if (!v15 && size)
       {
         v36 = __cxa_allocate_exception(8uLL);
         v37 = std::bad_alloc::bad_alloc(v36);
       }
 
-      v15 = *(this + 19);
+      v16 = *(this + 19);
       v46 = 1868786720;
       v47[0] = &size;
-      size_4 = v14;
+      size_4 = v15;
       *v48 = &v46;
       *&v48[8] = v47;
       *&v48[16] = &size_4;
       *&inFormat.mSampleRate = caulk::function_ref<int ()(AudioConverterAPI *)>::functor_invoker<AudioConverterGetProperty::$_0>;
       *&inFormat.mFormatID = v48;
-      v16 = with_resolved(v15, &inFormat);
-      if (v16)
+      v17 = with_resolved(v16, &inFormat);
+      if (v17)
       {
-        v38 = v16;
-        free(v14);
+        v38 = v17;
+        free(v15);
         if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
         {
           CAX4CCString::CAX4CCString(v48, v38);
@@ -1814,27 +5453,27 @@ uint64_t ExtAudioFile::FileFormatChanged(ExtAudioFile *this, CFURLRef inFileRef,
       }
 
       CAAudioChannelLayout::operator=();
-      free(v14);
+      free(v15);
     }
   }
 
   if (*(this + 8) == 2)
   {
-    v17 = *(v8 + 1);
-    *&inFormat.mSampleRate = *v8;
-    *&inFormat.mBytesPerPacket = v17;
-    *&inFormat.mBitsPerChannel = *(v8 + 4);
+    v18 = *(v9 + 1);
+    *&inFormat.mSampleRate = *v9;
+    *&inFormat.mBytesPerPacket = v18;
+    *&inFormat.mBitsPerChannel = *(v9 + 4);
     if (inFormat.mSampleRate == 0.0)
     {
       inFormat.mSampleRate = 44100.0;
     }
 
-    v18 = AudioFileCreateWithURL(inFileRef, v5, &inFormat, inFlags, this + 2);
-    if (v18)
+    v19 = AudioFileCreateWithURL(inFileRef, v6, &inFormat, inFlags, this + 2);
+    if (v19)
     {
       if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
       {
-        CAX4CCString::CAX4CCString(v47, v18);
+        CAX4CCString::CAX4CCString(v47, v19);
         *v48 = 136315906;
         *&v48[4] = "ExtAudioFile.cpp";
         *&v48[12] = 1024;
@@ -1847,23 +5486,23 @@ uint64_t ExtAudioFile::FileFormatChanged(ExtAudioFile *this, CFURLRef inFileRef,
       }
 
       v35 = __cxa_allocate_exception(0x110uLL);
-      CAXException::CAXException(v35, "create audio file", v18);
+      CAXException::CAXException(v35, "create audio file", v19);
     }
 
     *(this + 8) = 3;
     *(this + 28) = 1;
   }
 
-  else if (!CAStreamBasicDescription::IsEquivalent(v8, &buf, inFileType))
+  else if (!CAStreamBasicDescription::IsEquivalent(v9, &buf, inFileType, inFlags, a5))
   {
-    v19 = *v8;
-    if (*v8 == 0.0)
+    v20 = *v9;
+    if (*v9 == 0.0)
     {
-      v19 = *(this + 28);
-      *(this + 21) = v19;
+      v20 = *(this + 28);
+      *(this + 21) = v20;
     }
 
-    if (v19 == 0.0)
+    if (v20 == 0.0)
     {
       if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
       {
@@ -1883,12 +5522,12 @@ uint64_t ExtAudioFile::FileFormatChanged(ExtAudioFile *this, CFURLRef inFileRef,
       CAXException::CAXException(v41, "file's sample rate is 0", -66566);
     }
 
-    v20 = AudioFileSetProperty(*(this + 2), 0x64666D74u, 0x28u, v8);
-    if (v20)
+    v21 = AudioFileSetProperty(*(this + 2), 0x64666D74u, 0x28u, v9);
+    if (v21)
     {
       if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
       {
-        CAX4CCString::CAX4CCString(v48, v20);
+        CAX4CCString::CAX4CCString(v48, v21);
         LODWORD(inFormat.mSampleRate) = 136315906;
         *(&inFormat.mSampleRate + 4) = "ExtAudioFile.cpp";
         LOWORD(inFormat.mFormatFlags) = 1024;
@@ -1901,7 +5540,7 @@ uint64_t ExtAudioFile::FileFormatChanged(ExtAudioFile *this, CFURLRef inFileRef,
       }
 
       v42 = __cxa_allocate_exception(0x110uLL);
-      CAXException::CAXException(v42, "couldn't update file's data format", v20);
+      CAXException::CAXException(v42, "couldn't update file's data format", v21);
     }
   }
 
@@ -1909,9 +5548,9 @@ uint64_t ExtAudioFile::FileFormatChanged(ExtAudioFile *this, CFURLRef inFileRef,
   AudioFileSetProperty(*(this + 2), 0x64737A75u, 4u, &inPropertyData);
   if (*(this + 19))
   {
-    ExtAudioFile::CopyEncoderCookieToFile(this);
+    ExtAudioFile::CopyEncoderCookieToFile(this, 0);
     size = 4;
-    v21 = *(this + 19);
+    v22 = *(this + 19);
     v46 = 2020569203;
     v47[0] = &size;
     size_4 = this + 280;
@@ -1920,12 +5559,12 @@ uint64_t ExtAudioFile::FileFormatChanged(ExtAudioFile *this, CFURLRef inFileRef,
     *&v48[16] = &size_4;
     *&inFormat.mSampleRate = caulk::function_ref<int ()(AudioConverterAPI *)>::functor_invoker<AudioConverterGetProperty::$_0>;
     *&inFormat.mFormatID = v48;
-    v22 = with_resolved(v21, &inFormat);
-    if (v22)
+    v23 = with_resolved(v22, &inFormat);
+    if (v23)
     {
       if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
       {
-        CAX4CCString::CAX4CCString(v48, v22);
+        CAX4CCString::CAX4CCString(v48, v23);
         LODWORD(inFormat.mSampleRate) = 136315906;
         *(&inFormat.mSampleRate + 4) = "ExtAudioFile.cpp";
         LOWORD(inFormat.mFormatFlags) = 1024;
@@ -1938,12 +5577,12 @@ uint64_t ExtAudioFile::FileFormatChanged(ExtAudioFile *this, CFURLRef inFileRef,
       }
 
       v34 = __cxa_allocate_exception(0x110uLL);
-      CAXException::CAXException(v34, "get audio converter's maximum output packet size", v22);
+      CAXException::CAXException(v34, "get audio converter's maximum output packet size", v23);
     }
 
     if (*(this + 44) == 1634754915)
     {
-      v23 = *(this + 19);
+      v24 = *(this + 19);
       LODWORD(size_4) = 1634955366;
       v46 = 4;
       v47[0] = this + 288;
@@ -1952,12 +5591,12 @@ uint64_t ExtAudioFile::FileFormatChanged(ExtAudioFile *this, CFURLRef inFileRef,
       *&v48[16] = v47;
       *&inFormat.mSampleRate = caulk::function_ref<int ()(AudioConverterAPI *)>::functor_invoker<AudioConverterSetProperty::$_0>;
       *&inFormat.mFormatID = v48;
-      v24 = with_resolved(v23, &inFormat);
-      if (v24)
+      v25 = with_resolved(v24, &inFormat);
+      if (v25)
       {
         if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
         {
-          CAX4CCString::CAX4CCString(v48, v24);
+          CAX4CCString::CAX4CCString(v48, v25);
           LODWORD(inFormat.mSampleRate) = 136315906;
           *(&inFormat.mSampleRate + 4) = "ExtAudioFile.cpp";
           LOWORD(inFormat.mFormatFlags) = 1024;
@@ -1970,7 +5609,7 @@ uint64_t ExtAudioFile::FileFormatChanged(ExtAudioFile *this, CFURLRef inFileRef,
         }
 
         v40 = __cxa_allocate_exception(0x110uLL);
-        CAXException::CAXException(v40, "set default encoder ASP frequency", v24);
+        CAXException::CAXException(v40, "set default encoder ASP frequency", v25);
       }
     }
 
@@ -1982,42 +5621,40 @@ uint64_t ExtAudioFile::FileFormatChanged(ExtAudioFile *this, CFURLRef inFileRef,
     ExtAudioFile::InitFileMaxPacketSize(this);
   }
 
-  v26 = *(this + 33);
-  if (v26)
+  v28 = *(this + 33);
+  if (v28)
   {
-    if (CAAudioChannelLayout::NumberChannels((v26 + 16), v25))
+    if (CAAudioChannelLayout::NumberChannels((v28 + 16), v26))
     {
       LODWORD(inFormat.mSampleRate) = 0;
       if (!AudioFileGetPropertyInfo(*(this + 2), 0x636D6170u, 0, &inFormat))
       {
         if (LODWORD(inFormat.mSampleRate))
         {
-          v27 = *(this + 33);
-          if (v27)
+          v29 = *(this + 33);
+          if (v29)
           {
-            v28 = *(v27 + 12);
+            v30 = *(v29 + 12);
           }
 
           else
           {
-            v28 = 0;
+            v30 = 0;
           }
 
-          if (AudioFileSetProperty(*(this + 2), 0x636D6170u, v28, (v27 + 16)) && *MEMORY[0x1E69E5008])
+          if (AudioFileSetProperty(*(this + 2), 0x636D6170u, v30, (v29 + 16)) && *MEMORY[0x1E69E5008])
           {
-            (*MEMORY[0x1E69E5008])("could not set the file's channel layout");
+            v27 = (*MEMORY[0x1E69E5008])("could not set the file's channel layout");
           }
         }
       }
     }
   }
 
-  result = ExtAudioFile::UpdateInternals(this);
+  ExtAudioFile::UpdateInternals(this, v27);
   *(this + 6) = 0;
   *(this + 7) = 0;
   *(this + 8) = 0;
-  v30 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 BOOL CA::Implementation::EquivalentFormatFlags(CA::Implementation *this, const AudioStreamBasicDescription *a2, const AudioStreamBasicDescription *a3)
@@ -2206,9 +5843,9 @@ LABEL_45:
   return v17 == mFormatFlags;
 }
 
-uint64_t ExtAudioFile::SetConverterProperty(ExtAudioFile *this, int a2, int a3, void *a4, char a5)
+void ExtAudioFile::SetConverterProperty(ExtAudioFile *this, int a2, int a3, void *a4, char a5, double a6)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if (a2 == 1633906803)
   {
     if (!*a4)
@@ -2216,113 +5853,103 @@ uint64_t ExtAudioFile::SetConverterProperty(ExtAudioFile *this, int a2, int a3, 
       goto LABEL_11;
     }
 
-    v9 = *(this + 19);
-    v18 = a3;
-    v19 = 1633906803;
-    v17 = a4;
-    v25 = &v19;
-    v26 = &v18;
-    v27 = &v17;
+    v10 = *(this + 19);
+    v17 = a3;
+    v18 = 1633906803;
+    v16 = a4;
+    v24 = &v18;
+    v25 = &v17;
+    v26 = &v16;
     *buf = caulk::function_ref<int ()(AudioConverterAPI *)>::functor_invoker<AudioConverterSetProperty::$_0>;
-    *&buf[8] = &v25;
-    v10 = with_resolved(v9, buf);
+    *&buf[8] = &v24;
+    v11 = with_resolved(v10, buf);
   }
 
   else
   {
-    v11 = *(this + 19);
-    v18 = a3;
-    v19 = a2;
-    v17 = a4;
-    v25 = &v19;
-    v26 = &v18;
-    v27 = &v17;
+    v12 = *(this + 19);
+    v17 = a3;
+    v18 = a2;
+    v16 = a4;
+    v24 = &v18;
+    v25 = &v17;
+    v26 = &v16;
     *buf = caulk::function_ref<int ()(AudioConverterAPI *)>::functor_invoker<AudioConverterSetProperty::$_0>;
-    *&buf[8] = &v25;
-    v10 = with_resolved(v11, buf);
+    *&buf[8] = &v24;
+    v11 = with_resolved(v12, buf);
   }
 
-  if ((a5 & 1) == 0 && v10)
+  if ((a5 & 1) == 0 && v11)
   {
-    v15 = v10;
+    v14 = v11;
     if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
     {
-      CAX4CCString::CAX4CCString(&v25, v15);
+      CAX4CCString::CAX4CCString(&v24, v14);
       *buf = 136315906;
       *&buf[4] = "ExtAudioFile.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 766;
-      v21 = 2080;
-      v22 = &v25;
-      v23 = 2080;
-      v24 = "set audio converter property";
+      v20 = 2080;
+      v21 = &v24;
+      v22 = 2080;
+      v23 = "set audio converter property";
       _os_log_impl(&dword_18F5DF000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", buf, 0x26u);
     }
 
     exception = __cxa_allocate_exception(0x110uLL);
-    CAXException::CAXException(exception, "set audio converter property", v15);
+    CAXException::CAXException(exception, "set audio converter property", v14);
   }
 
-  if (a2 == 1634955366 && a4 && !v10)
+  if (a2 == 1634955366 && a4 && !v11)
   {
     *(this + 72) = *a4;
   }
 
 LABEL_11:
-  result = ExtAudioFile::UpdateInternals(this);
+  ExtAudioFile::UpdateInternals(this, a6);
   if (*(this + 8) == 3)
   {
-    v13 = *MEMORY[0x1E69E9840];
 
-    return ExtAudioFile::FileFormatChanged(this, 0, 0, 0);
+    ExtAudioFile::FileFormatChanged(this, 0, 0, 0, v13);
   }
-
-  else
-  {
-    v14 = *MEMORY[0x1E69E9840];
-  }
-
-  return result;
 }
 
 uint64_t ExtAudioFile::GetConverterConfig(ExtAudioFile *this)
 {
-  v16[3] = *MEMORY[0x1E69E9840];
-  v6 = 8;
-  v10 = 1633906803;
-  v9 = &v6;
-  v7 = 0;
-  v8 = &v7;
-  v16[0] = &v10;
-  v16[1] = &v9;
-  v16[2] = &v8;
+  v15[3] = *MEMORY[0x1E69E9840];
+  v5 = 8;
+  v9 = 1633906803;
+  v8 = &v5;
+  v6 = 0;
+  v7 = &v6;
+  v15[0] = &v9;
+  v15[1] = &v8;
+  v15[2] = &v7;
   *buf = caulk::function_ref<int ()(AudioConverterAPI *)>::functor_invoker<AudioConverterGetProperty::$_0>;
-  *&buf[8] = v16;
+  *&buf[8] = v15;
   v1 = with_resolved(this, buf);
   if (v1)
   {
-    v5 = v1;
+    v4 = v1;
     if (os_log_type_enabled(0, OS_LOG_TYPE_ERROR))
     {
-      CAX4CCString::CAX4CCString(v16, v5);
+      CAX4CCString::CAX4CCString(v15, v4);
       *buf = 136315906;
       *&buf[4] = "ExtAudioFile.cpp";
       *&buf[12] = 1024;
       *&buf[14] = 812;
-      v12 = 2080;
-      v13 = v16;
-      v14 = 2080;
-      v15 = "get converter property settings";
+      v11 = 2080;
+      v12 = v15;
+      v13 = 2080;
+      v14 = "get converter property settings";
       _os_log_impl(&dword_18F5DF000, 0, OS_LOG_TYPE_ERROR, "%25s:%-5d about to throw %s: %s", buf, 0x26u);
     }
 
     exception = __cxa_allocate_exception(0x110uLL);
-    CAXException::CAXException(exception, "get converter property settings", v5);
+    CAXException::CAXException(exception, "get converter property settings", v4);
   }
 
-  result = v7;
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  return v6;
 }
 
 caulk::thread *std::unique_ptr<caulk::thread>::reset[abi:ne200100](caulk::thread **a1, caulk::thread *a2)
@@ -2423,23 +6050,22 @@ void sub_18F6F25A4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 CFMutableDictionaryRef ExtAudioFile::GetInstrumentation(ExtAudioFile *this)
 {
   Mutable = CFDictionaryCreateMutable(0, 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  v9 = 256;
-  v2 = *(this + 53) / 24000000.0 * 1000.0 + 0.5;
+  v8 = 256;
   CACFDictionary::AddUInt32(&Mutable, @"ms in I/O");
-  v3 = *(this + 19);
-  if (v3)
+  v2 = *(this + 19);
+  if (v2)
   {
     cf = 0;
-    v6 = 8;
-    v14 = 610889316;
-    v13 = &v6;
+    v5 = 8;
+    v13 = 610889316;
+    v12 = &v5;
     p_cf = &cf;
-    v10[0] = &v14;
-    v10[1] = &v13;
-    v10[2] = &p_cf;
-    v11[0] = caulk::function_ref<int ()(AudioConverterAPI *)>::functor_invoker<AudioConverterGetProperty::$_0>;
-    v11[1] = v10;
-    with_resolved(v3, v11);
+    v9[0] = &v13;
+    v9[1] = &v12;
+    v9[2] = &p_cf;
+    v10[0] = caulk::function_ref<int ()(AudioConverterAPI *)>::functor_invoker<AudioConverterGetProperty::$_0>;
+    v10[1] = v9;
+    with_resolved(v2, v10);
     if (cf)
     {
       CACFDictionary::AddCFType(&Mutable, @"converter", cf);
@@ -2447,14 +6073,14 @@ CFMutableDictionaryRef ExtAudioFile::GetInstrumentation(ExtAudioFile *this)
     }
   }
 
-  v4 = Mutable;
+  v3 = Mutable;
   CACFDictionary::~CACFDictionary(&Mutable);
-  return v4;
+  return v3;
 }
 
-void sub_18F6F26F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_18F6F26F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   CACFDictionary::~CACFDictionary(va);
   _Unwind_Resume(a1);
 }
@@ -3002,7 +6628,7 @@ LABEL_14:
         if (v13 || (v14 = v12 - v6) == 0)
         {
           v2 = 0;
-          v48 = 149;
+          v47 = 149;
           goto LABEL_53;
         }
 
@@ -3023,42 +6649,41 @@ LABEL_14:
         v8 = *(a1 + 288);
         *(a1 + 264) = v8;
 LABEL_23:
-        v51[0] = v7;
-        StreamBuffer::Copy((*(a1 + 8) + 72), v51, v8);
-        v15 = v51[0];
+        v50[0] = v7;
+        StreamBuffer::Copy((*(a1 + 8) + 72), v50, v8);
+        v15 = v50[0];
         v16 = *(a1 + 256);
-        *(a1 + 264) += v51[0];
+        *(a1 + 264) += v50[0];
         v17 = v16 - v15;
         *(a1 + 256) = v17;
         if (v17)
         {
           v2 = 0;
-          v48 = 152;
+          v47 = 152;
           goto LABEL_53;
         }
 
         if (*(a1 + 40))
         {
           v18 = *(a1 + 304);
-          v19 = *(a1 + 288);
-          v20 = *(a1 + 8);
-          v21 = *(v20 + 16);
-          v21[14].i64[0] += v21[2].u32[3];
-          v22.i64[0] = vdupq_n_s64(1uLL).u64[0];
-          v22.i64[1] = v18;
-          v21[13] = vaddq_s64(v21[13], v22);
-          (*(v20 + 32))(*(v20 + 40));
+          v19 = *(a1 + 8);
+          v20 = *(v19 + 16);
+          v20[14].i64[0] += v20[2].u32[3];
+          v21.i64[0] = vdupq_n_s64(1uLL).u64[0];
+          v21.i64[1] = v18;
+          v20[13] = vaddq_s64(v20[13], v21);
+          (*(v19 + 32))(*(v19 + 40));
         }
 
         else
         {
-          v39 = *(a1 + 152);
-          v54.mStartOffset = 0;
-          CompressedPacketTable::operator[](v51, v39, *(a1 + 184));
-          v54.mDataByteSize = v53;
-          CompressedPacketTable::operator[](v51, v39, *(a1 + 184));
-          v54.mVariableFramesInPacket = v52;
-          AudioFileStreamWrapper::CallPacketsProc(*(a1 + 8), *(a1 + 304), 1u, *(a1 + 288), &v54, 1);
+          v38 = *(a1 + 152);
+          v53.mStartOffset = 0;
+          CompressedPacketTable::operator[](v50, v38, *(a1 + 184));
+          v53.mDataByteSize = v52;
+          CompressedPacketTable::operator[](v50, v38, *(a1 + 184));
+          v53.mVariableFramesInPacket = v51;
+          AudioFileStreamWrapper::CallPacketsProc(*(a1 + 8), *(a1 + 304), 1u, *(a1 + 288), &v53, 1);
         }
 
         i = *(a1 + 184) + 1;
@@ -3066,25 +6691,25 @@ LABEL_59:
         ;
       }
 
-      v23 = *(a1 + 184);
-      LODWORD(v54.mStartOffset) = 0;
-      v50 = v14;
+      v22 = *(a1 + 184);
+      LODWORD(v53.mStartOffset) = 0;
+      v49 = v14;
       if (((*(*a1 + 88))(a1) & 0x8000000000000000) == 0)
       {
-        v24 = v6 + v50;
-        v25 = *(a1 + 104);
-        if (v24 > (*(*a1 + 88))(a1) + v25)
+        v23 = v6 + v49;
+        v24 = *(a1 + 104);
+        if (v23 > (*(*a1 + 88))(a1) + v24)
         {
-          v26 = *(a1 + 104);
-          v50 = v26 - v6 + (*(*a1 + 88))(a1);
+          v25 = *(a1 + 104);
+          v49 = v25 - v6 + (*(*a1 + 88))(a1);
         }
       }
 
-      v27 = (*(*a1 + 208))(a1, v23, &v50, &v54);
-      if (v27)
+      v26 = (*(*a1 + 208))(a1, v22, &v49, &v53);
+      if (v26)
       {
-        v2 = v27;
-        if (v27 == 1685348671)
+        v2 = v26;
+        if (v26 == 1685348671)
         {
           *(a1 + 177) = 1;
           v2 = 1685348671;
@@ -3093,87 +6718,87 @@ LABEL_59:
         goto LABEL_52;
       }
 
-      mStartOffset = v54.mStartOffset;
-      if (!LODWORD(v54.mStartOffset))
+      mStartOffset = v53.mStartOffset;
+      if (!LODWORD(v53.mStartOffset))
       {
         goto LABEL_52;
       }
 
-      v29 = 0;
-      v30 = *(a1 + 8);
-      v31 = *(v30 + 88);
-      v32 = *(v30 + 96);
-      v33 = v31 + *(v30 + 80);
-      if (v32 >= v31 && v33 > v32 && v33 - v32 != 0)
+      v28 = 0;
+      v29 = *(a1 + 8);
+      v30 = *(v29 + 88);
+      v31 = *(v29 + 96);
+      v32 = v30 + *(v29 + 80);
+      if (v31 >= v30 && v32 > v31 && v32 - v31 != 0)
       {
-        v29 = (*(v30 + 72) + (v32 - v31));
+        v28 = (*(v29 + 72) + (v31 - v30));
       }
 
       if (!*(a1 + 40))
       {
-        if (*(a1 + 200) < LODWORD(v54.mStartOffset))
+        if (*(a1 + 200) < LODWORD(v53.mStartOffset))
         {
-          v40 = (1 << -__clz(LODWORD(v54.mStartOffset) - 1));
-          *(a1 + 200) = v40;
-          CADeprecated::CAAutoFree<AudioStreamPacketDescription>::reallocItems((a1 + 192), v40);
+          v39 = (1 << -__clz(LODWORD(v53.mStartOffset) - 1));
+          *(a1 + 200) = v39;
+          CADeprecated::CAAutoFree<AudioStreamPacketDescription>::reallocItems((a1 + 192), v39);
         }
 
-        v41 = *(a1 + 152);
-        if (v41)
+        v40 = *(a1 + 152);
+        if (v40)
         {
-          v42 = *(a1 + 184);
-          if (v42 > *(v41 + 24))
+          v41 = *(a1 + 184);
+          if (v41 > *(v40 + 24))
           {
             goto LABEL_52;
           }
 
-          CompressedPacketTable::operator[](v51, *(a1 + 152), v42);
-          if (LODWORD(v54.mStartOffset))
+          CompressedPacketTable::operator[](v50, *(a1 + 152), v41);
+          if (LODWORD(v53.mStartOffset))
           {
+            v42 = 0;
             v43 = 0;
-            v44 = 0;
-            v45 = *v51;
+            v44 = *v50;
             do
             {
-              CompressedPacketTable::operator[](v51, v41, v44 + *(a1 + 184));
-              *(*(a1 + 192) + v43 * 16) = *v51 - v45;
-              CompressedPacketTable::operator[](v51, v41, v44 + *(a1 + 184));
-              *(*(a1 + 192) + v43 * 16 + 12) = v53;
-              CompressedPacketTable::operator[](v51, v41, v44 + *(a1 + 184));
-              v46 = *(a1 + 192);
-              v46[v43].mVariableFramesInPacket = v52;
-              ++v44;
-              v47 = v54.mStartOffset;
+              CompressedPacketTable::operator[](v50, v40, v43 + *(a1 + 184));
+              *(*(a1 + 192) + v42 * 16) = *v50 - v44;
+              CompressedPacketTable::operator[](v50, v40, v43 + *(a1 + 184));
+              *(*(a1 + 192) + v42 * 16 + 12) = v52;
+              CompressedPacketTable::operator[](v50, v40, v43 + *(a1 + 184));
+              v45 = *(a1 + 192);
+              v45[v42].mVariableFramesInPacket = v51;
               ++v43;
+              v46 = v53.mStartOffset;
+              ++v42;
             }
 
-            while (v44 < LODWORD(v54.mStartOffset));
+            while (v43 < LODWORD(v53.mStartOffset));
           }
 
           else
           {
-            v47 = 0;
-            v46 = *(a1 + 192);
+            v46 = 0;
+            v45 = *(a1 + 192);
           }
 
-          AudioFileStreamWrapper::CallPacketsProc(*(a1 + 8), v50, v47, v29, v46, 1);
+          AudioFileStreamWrapper::CallPacketsProc(*(a1 + 8), v49, v46, v28, v45, 1);
           goto LABEL_58;
         }
 
-        mStartOffset = v54.mStartOffset;
-        v30 = *(a1 + 8);
+        mStartOffset = v53.mStartOffset;
+        v29 = *(a1 + 8);
       }
 
-      v36 = v50;
-      v37 = *(v30 + 16);
-      *(v37 + 224) += *(v37 + 44) * mStartOffset;
-      v38 = *(v37 + 216) + v36;
-      *(v37 + 208) += mStartOffset;
-      *(v37 + 216) = v38;
-      (*(v30 + 32))(*(v30 + 40));
+      v35 = v49;
+      v36 = *(v29 + 16);
+      *(v36 + 224) += *(v36 + 44) * mStartOffset;
+      v37 = *(v36 + 216) + v35;
+      *(v36 + 208) += mStartOffset;
+      *(v36 + 216) = v37;
+      (*(v29 + 32))(*(v29 + 40));
 LABEL_58:
-      *(*(a1 + 8) + 96) += v50;
-      i = *(a1 + 184) + LODWORD(v54.mStartOffset);
+      *(*(a1 + 8) + 96) += v49;
+      i = *(a1 + 184) + LODWORD(v53.mStartOffset);
       goto LABEL_59;
     }
   }
@@ -3181,17 +6806,17 @@ LABEL_58:
 LABEL_51:
   v2 = 0;
 LABEL_52:
-  v48 = -1;
+  v47 = -1;
 LABEL_53:
-  *(a1 + 236) = v48;
+  *(a1 + 236) = v47;
   return v2;
 }
 
-uint64_t AudioFileStreamObject::SetFormatList(AudioFileStreamObject *this, unsigned int a2, const AudioFormatListItem *a3)
+uint64_t AudioFileStreamObject::SetFormatList(const void **this, unsigned int a2, const AudioFormatListItem *a3)
 {
   v5 = a2 / 0x30uLL;
-  v6 = (this + 64);
-  if (0xAAAAAAAAAAAAAAABLL * ((*(this + 9) - *(this + 8)) >> 4) != v5)
+  v6 = this + 8;
+  if (0xAAAAAAAAAAAAAAABLL * ((this[9] - this[8]) >> 4) != v5)
   {
     std::vector<AudioFormatListItem>::resize(this + 8, a2 / 0x30uLL);
   }
@@ -3216,7 +6841,7 @@ uint64_t AudioFileStreamObject::SetFormatList(AudioFileStreamObject *this, unsig
   return 0;
 }
 
-void std::vector<AudioFormatListItem>::resize(uint64_t *a1, unint64_t a2)
+void std::vector<AudioFormatListItem>::resize(const void **a1, unint64_t a2)
 {
   v3 = *a1;
   v4 = a1[1];
@@ -3229,7 +6854,7 @@ void std::vector<AudioFormatListItem>::resize(uint64_t *a1, unint64_t a2)
       return;
     }
 
-    v11 = v3 + 48 * a2;
+    v11 = &v3[48 * a2];
   }
 
   else
@@ -3264,7 +6889,7 @@ void std::vector<AudioFormatListItem>::resize(uint64_t *a1, unint64_t a2)
 
     v12 = 48 * ((48 * v6 - 48) / 0x30) + 48;
     bzero(a1[1], v12);
-    v11 = v4 + v12;
+    v11 = &v4[v12];
   }
 
   a1[1] = v11;
@@ -3311,11 +6936,11 @@ void WAVEAudioStream::~WAVEAudioStream(WAVEAudioStream *this)
 
 uint64_t AudioFormatProperty_FormatName(AudioStreamBasicDescription *a1, const __CFString **a2)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   Copy = 0;
   v4 = *MEMORY[0x1E695E480];
   Mutable = CFStringCreateMutable(*MEMORY[0x1E695E480], 0);
-  v41 = &Copy;
+  v40 = &Copy;
   theString = Mutable;
   p_theString = &theString;
   v7 = sAudioToolboxBundle;
@@ -3490,26 +7115,26 @@ LABEL_150:
             mFormatFlags = a1->mFormatFlags;
             if (mFormatFlags)
             {
-              v39 = ThreadSafeCFCopyLocalizedStringFromTableInBundle(@"floating point", @"FormatNames", v7, v35);
-              CFStringAppend(theString, v39);
-              CFRelease(v39);
+              v38 = ThreadSafeCFCopyLocalizedStringFromTableInBundle(@"floating point", @"FormatNames", v7, v34);
+              CFStringAppend(theString, v38);
+              CFRelease(v38);
             }
 
             else
             {
               if ((mFormatFlags & 4) != 0)
               {
-                v37 = @"signed integer";
+                v36 = @"signed integer";
               }
 
               else
               {
-                v37 = @"unsigned integer";
+                v36 = @"unsigned integer";
               }
 
-              v38 = ThreadSafeCFCopyLocalizedStringFromTableInBundle(v37, @"FormatNames", v7, v35);
-              CFStringAppend(theString, v38);
-              CFRelease(v38);
+              v37 = ThreadSafeCFCopyLocalizedStringFromTableInBundle(v36, @"FormatNames", v7, v34);
+              CFStringAppend(theString, v37);
+              CFRelease(v37);
             }
           }
 
@@ -4263,16 +7888,15 @@ LABEL_266:
 
 LABEL_273:
   CACFReleaser<__CFString *>::~CACFReleaser(&p_theString);
-  CACFReleaser<__CFString const*>::~CACFReleaser(&v41);
-  v33 = *MEMORY[0x1E69E9840];
+  CACFReleaser<__CFString const*>::~CACFReleaser(&v40);
   return v14;
 }
 
-void sub_18F6F489C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_18F6F489C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, const void **);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, const void **);
   CACFReleaser<__CFString *>::~CACFReleaser(va);
   CACFReleaser<__CFString const*>::~CACFReleaser(va1);
   _Unwind_Resume(a1);
@@ -4302,7 +7926,7 @@ const void ***CACFReleaser<__CFString const*>::~CACFReleaser(const void ***a1)
 
 uint64_t AudioFormatProperty_ChannelName(AudioChannelDescription *a1, const __CFString **a2, uint64_t a3, const __CFString *a4)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   mChannelLabel = a1->mChannelLabel;
   v7 = sAudioToolboxBundle;
   if (sAudioToolboxBundle == -1)
@@ -4331,293 +7955,290 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  if (v8 != 0x10000)
+  if (v8 == 0x10000)
   {
-    result = 560360820;
-    if (mChannelLabel > 199)
+    v9 = *MEMORY[0x1E695E480];
+    Mutable = CFStringCreateMutable(*MEMORY[0x1E695E480], 0);
+    v12 = ThreadSafeCFCopyLocalizedStringFromTableInBundle(@"Discrete", @"AudioChannelLabels", v7, v11);
+    snprintf(__str, 0x10uLL, "-%u");
+LABEL_10:
+    CFStringAppendCString(Mutable, __str, 0x8000100u);
+    CFStringInsert(Mutable, 0, v12);
+    *a2 = CFStringCreateCopy(v9, Mutable);
+    CFRelease(Mutable);
+    CFRelease(v12);
+    return 0;
+  }
+
+  result = 560360820;
+  if (mChannelLabel > 199)
+  {
+    if (mChannelLabel > 206)
     {
-      if (mChannelLabel > 206)
+      if (mChannelLabel <= 303)
       {
-        if (mChannelLabel <= 303)
+        switch(mChannelLabel)
         {
-          switch(mChannelLabel)
-          {
-            case 207:
-              v20 = @"Y";
-              break;
-            case 301:
-              v20 = @"Headphones Left";
-              break;
-            case 302:
-              v20 = @"Headphones Right";
-              break;
-            default:
-              goto LABEL_87;
-          }
+          case 207:
+            v20 = @"Y";
+            break;
+          case 301:
+            v20 = @"Headphones Left";
+            break;
+          case 302:
+            v20 = @"Headphones Right";
+            break;
+          default:
+            return result;
         }
+      }
 
-        else if (mChannelLabel > 399)
+      else if (mChannelLabel > 399)
+      {
+        if (mChannelLabel == 400)
         {
-          if (mChannelLabel == 400)
-          {
-            v20 = @"Discrete";
-          }
-
-          else
-          {
-            if (mChannelLabel != 0x40000)
-            {
-              goto LABEL_87;
-            }
-
-            v20 = @"Object";
-          }
-        }
-
-        else if (mChannelLabel == 304)
-        {
-          v20 = @"Click Track";
+          v20 = @"Discrete";
         }
 
         else
         {
-          if (mChannelLabel != 305)
+          if (mChannelLabel != 0x40000)
           {
-            goto LABEL_87;
+            return result;
           }
 
-          v20 = @"Foreign Language";
+          v20 = @"Object";
         }
       }
 
-      else if (mChannelLabel <= 202)
+      else if (mChannelLabel == 304)
       {
-        if (mChannelLabel == 200)
-        {
-          v20 = @"Ambisonic W";
-        }
-
-        else if (mChannelLabel == 201)
-        {
-          v20 = @"Ambisonic X";
-        }
-
-        else
-        {
-          v20 = @"Ambisonic Y";
-        }
-      }
-
-      else if (mChannelLabel > 204)
-      {
-        if (mChannelLabel == 205)
-        {
-          v20 = @"Side";
-        }
-
-        else
-        {
-          v20 = @"X";
-        }
-      }
-
-      else if (mChannelLabel == 203)
-      {
-        v20 = @"Ambisonic Z";
+        v20 = @"Click Track";
       }
 
       else
       {
-        v20 = @"Mid";
+        if (mChannelLabel != 305)
+        {
+          return result;
+        }
+
+        v20 = @"Foreign Language";
+      }
+    }
+
+    else if (mChannelLabel <= 202)
+    {
+      if (mChannelLabel == 200)
+      {
+        v20 = @"Ambisonic W";
       }
 
-LABEL_85:
-      v17 = ThreadSafeCFCopyLocalizedStringFromTableInBundle(v20, @"AudioChannelLabels", v7, a4);
+      else if (mChannelLabel == 201)
+      {
+        v20 = @"Ambisonic X";
+      }
+
+      else
+      {
+        v20 = @"Ambisonic Y";
+      }
+    }
+
+    else if (mChannelLabel > 204)
+    {
+      if (mChannelLabel == 205)
+      {
+        v20 = @"Side";
+      }
+
+      else
+      {
+        v20 = @"X";
+      }
+    }
+
+    else if (mChannelLabel == 203)
+    {
+      v20 = @"Ambisonic Z";
     }
 
     else
     {
-      switch(mChannelLabel)
-      {
-        case -1:
-          v17 = ThreadSafeCFCopyLocalizedStringFromTableInBundle(@"Unknown", @"AudioChannelLabels", v7, a4);
-          mChannelFlags = a1->mChannelFlags;
-          if (!mChannelFlags)
-          {
-            break;
-          }
+      v20 = @"Mid";
+    }
 
-          if ((mChannelFlags & 2) != 0)
-          {
-            if ((mChannelFlags & 4) != 0)
-            {
-              v19 = @"%@ (%g\\U00B0, %g\\U00B0, %gm)";
-            }
+LABEL_85:
+    v17 = ThreadSafeCFCopyLocalizedStringFromTableInBundle(v20, @"AudioChannelLabels", v7, a4);
+  }
 
-            else
-            {
-              v19 = @"%@ (%g\\U00B0, %g\\U00B0, %g)";
-            }
+  else
+  {
+    switch(mChannelLabel)
+    {
+      case -1:
+        v17 = ThreadSafeCFCopyLocalizedStringFromTableInBundle(@"Unknown", @"AudioChannelLabels", v7, a4);
+        mChannelFlags = a1->mChannelFlags;
+        if (!mChannelFlags)
+        {
+          break;
+        }
+
+        if ((mChannelFlags & 2) != 0)
+        {
+          if ((mChannelFlags & 4) != 0)
+          {
+            v19 = @"%@ (%g\\U00B0, %g\\U00B0, %gm)";
           }
 
           else
           {
-            if ((mChannelFlags & 1) == 0)
-            {
-              break;
-            }
+            v19 = @"%@ (%g\\U00B0, %g\\U00B0, %g)";
+          }
+        }
 
-            if ((mChannelFlags & 4) != 0)
-            {
-              v19 = @"%@ (%gm, %gm, %gm)";
-            }
-
-            else
-            {
-              v19 = @"%@ (%g, %g, %g)";
-            }
+        else
+        {
+          if ((mChannelFlags & 1) == 0)
+          {
+            break;
           }
 
-          v22 = ThreadSafeCFCopyLocalizedStringFromTableInBundle(v19, @"AudioChannelLabels", v7, v16);
-          v23 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, v22, v17, a1->mCoordinates[0], a1->mCoordinates[1], a1->mCoordinates[2]);
-          CFRelease(v22);
-          CFRelease(v17);
-          v17 = v23;
-          break;
-        case 0:
-          v20 = @"Unused";
-          goto LABEL_85;
-        case 1:
-          v20 = @"Left";
-          goto LABEL_85;
-        case 2:
-          v20 = @"Right";
-          goto LABEL_85;
-        case 3:
-          v20 = @"Center";
-          goto LABEL_85;
-        case 4:
-          v20 = @"LFE Screen";
-          goto LABEL_85;
-        case 5:
-          v20 = @"Left Surround";
-          goto LABEL_85;
-        case 6:
-          v20 = @"Right Surround";
-          goto LABEL_85;
-        case 7:
-          v20 = @"Left Center";
-          goto LABEL_85;
-        case 8:
-          v20 = @"Right Center";
-          goto LABEL_85;
-        case 9:
-          v20 = @"Center Surround";
-          goto LABEL_85;
-        case 10:
-          v20 = @"Left Surround Direct";
-          goto LABEL_85;
-        case 11:
-          v20 = @"Right Surround Direct";
-          goto LABEL_85;
-        case 12:
-          v20 = @"Top Center Surround";
-          goto LABEL_85;
-        case 13:
-          v20 = @"Vertical Height Left";
-          goto LABEL_85;
-        case 14:
-          v20 = @"Vertical Height Center";
-          goto LABEL_85;
-        case 15:
-          v20 = @"Vertical Height Right";
-          goto LABEL_85;
-        case 16:
-          v20 = @"Top Back Left";
-          goto LABEL_85;
-        case 17:
-          v20 = @"Top Back Center";
-          goto LABEL_85;
-        case 18:
-          v20 = @"Top Back Right";
-          goto LABEL_85;
-        case 33:
-          v20 = @"Rear Surround Left";
-          goto LABEL_85;
-        case 34:
-          v20 = @"Rear Surround Right";
-          goto LABEL_85;
-        case 35:
-          v20 = @"Left Wide";
-          goto LABEL_85;
-        case 36:
-          v20 = @"Right Wide";
-          goto LABEL_85;
-        case 37:
-          v20 = @"LFE2";
-          goto LABEL_85;
-        case 38:
-          v20 = @"Left Total";
-          goto LABEL_85;
-        case 39:
-          v20 = @"Right Total";
-          goto LABEL_85;
-        case 40:
-          v20 = @"Hearing Impaired";
-          goto LABEL_85;
-        case 41:
-          v20 = @"Narration";
-          goto LABEL_85;
-        case 42:
-          v20 = @"Mono";
-          goto LABEL_85;
-        case 43:
-          v20 = @"Dialog Centric Mix";
-          goto LABEL_85;
-        case 44:
-          v20 = @"Center Surround Direct";
-          goto LABEL_85;
-        case 45:
-          v20 = @"Haptic";
-          goto LABEL_85;
-        case 49:
-          v20 = @"Left Top Middle";
-          goto LABEL_85;
-        case 51:
-          v20 = @"Right Top Middle";
-          goto LABEL_85;
-        case 52:
-          v20 = @"Left Top Rear";
-          goto LABEL_85;
-        case 53:
-          v20 = @"Center Top Rear";
-          goto LABEL_85;
-        case 54:
-          v20 = @"Right Top Rear";
-          goto LABEL_85;
-        default:
-          goto LABEL_87;
-      }
-    }
+          if ((mChannelFlags & 4) != 0)
+          {
+            v19 = @"%@ (%gm, %gm, %gm)";
+          }
 
-    result = 0;
-    *a2 = v17;
-    goto LABEL_87;
+          else
+          {
+            v19 = @"%@ (%g, %g, %g)";
+          }
+        }
+
+        v21 = ThreadSafeCFCopyLocalizedStringFromTableInBundle(v19, @"AudioChannelLabels", v7, v16);
+        v22 = CFStringCreateWithFormat(*MEMORY[0x1E695E480], 0, v21, v17, a1->mCoordinates[0], a1->mCoordinates[1], a1->mCoordinates[2]);
+        CFRelease(v21);
+        CFRelease(v17);
+        v17 = v22;
+        break;
+      case 0:
+        v20 = @"Unused";
+        goto LABEL_85;
+      case 1:
+        v20 = @"Left";
+        goto LABEL_85;
+      case 2:
+        v20 = @"Right";
+        goto LABEL_85;
+      case 3:
+        v20 = @"Center";
+        goto LABEL_85;
+      case 4:
+        v20 = @"LFE Screen";
+        goto LABEL_85;
+      case 5:
+        v20 = @"Left Surround";
+        goto LABEL_85;
+      case 6:
+        v20 = @"Right Surround";
+        goto LABEL_85;
+      case 7:
+        v20 = @"Left Center";
+        goto LABEL_85;
+      case 8:
+        v20 = @"Right Center";
+        goto LABEL_85;
+      case 9:
+        v20 = @"Center Surround";
+        goto LABEL_85;
+      case 10:
+        v20 = @"Left Surround Direct";
+        goto LABEL_85;
+      case 11:
+        v20 = @"Right Surround Direct";
+        goto LABEL_85;
+      case 12:
+        v20 = @"Top Center Surround";
+        goto LABEL_85;
+      case 13:
+        v20 = @"Vertical Height Left";
+        goto LABEL_85;
+      case 14:
+        v20 = @"Vertical Height Center";
+        goto LABEL_85;
+      case 15:
+        v20 = @"Vertical Height Right";
+        goto LABEL_85;
+      case 16:
+        v20 = @"Top Back Left";
+        goto LABEL_85;
+      case 17:
+        v20 = @"Top Back Center";
+        goto LABEL_85;
+      case 18:
+        v20 = @"Top Back Right";
+        goto LABEL_85;
+      case 33:
+        v20 = @"Rear Surround Left";
+        goto LABEL_85;
+      case 34:
+        v20 = @"Rear Surround Right";
+        goto LABEL_85;
+      case 35:
+        v20 = @"Left Wide";
+        goto LABEL_85;
+      case 36:
+        v20 = @"Right Wide";
+        goto LABEL_85;
+      case 37:
+        v20 = @"LFE2";
+        goto LABEL_85;
+      case 38:
+        v20 = @"Left Total";
+        goto LABEL_85;
+      case 39:
+        v20 = @"Right Total";
+        goto LABEL_85;
+      case 40:
+        v20 = @"Hearing Impaired";
+        goto LABEL_85;
+      case 41:
+        v20 = @"Narration";
+        goto LABEL_85;
+      case 42:
+        v20 = @"Mono";
+        goto LABEL_85;
+      case 43:
+        v20 = @"Dialog Centric Mix";
+        goto LABEL_85;
+      case 44:
+        v20 = @"Center Surround Direct";
+        goto LABEL_85;
+      case 45:
+        v20 = @"Haptic";
+        goto LABEL_85;
+      case 49:
+        v20 = @"Left Top Middle";
+        goto LABEL_85;
+      case 51:
+        v20 = @"Right Top Middle";
+        goto LABEL_85;
+      case 52:
+        v20 = @"Left Top Rear";
+        goto LABEL_85;
+      case 53:
+        v20 = @"Center Top Rear";
+        goto LABEL_85;
+      case 54:
+        v20 = @"Right Top Rear";
+        goto LABEL_85;
+      default:
+        return result;
+    }
   }
 
-  v9 = *MEMORY[0x1E695E480];
-  Mutable = CFStringCreateMutable(*MEMORY[0x1E695E480], 0);
-  v12 = ThreadSafeCFCopyLocalizedStringFromTableInBundle(@"Discrete", @"AudioChannelLabels", v7, v11);
-  snprintf(__str, 0x10uLL, "-%u");
-LABEL_10:
-  CFStringAppendCString(Mutable, __str, 0x8000100u);
-  CFStringInsert(Mutable, 0, v12);
-  *a2 = CFStringCreateCopy(v9, Mutable);
-  CFRelease(Mutable);
-  CFRelease(v12);
   result = 0;
-LABEL_87:
-  v21 = *MEMORY[0x1E69E9840];
+  *a2 = v17;
   return result;
 }
 
@@ -5694,7 +9315,7 @@ void sub_18F6F61BC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t AudioFormatProperty_ChannelLayoutNameFromDescriptions(const AudioChannelLayout *a1, const __CFString **a2, int a3)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   mNumberChannelDescriptions = a1->mNumberChannelDescriptions;
   if (mNumberChannelDescriptions)
   {
@@ -5718,27 +9339,27 @@ uint64_t AudioFormatProperty_ChannelLayoutNameFromDescriptions(const AudioChanne
 
     if ((mChannelDescriptions->mChannelLabel & 0xFFFF0000) == 0x10000)
     {
-      v22 = a1->mNumberChannelDescriptions;
-      v23 = a1->mChannelDescriptions;
-      v24 = mChannelDescriptions->mChannelLabel;
+      v21 = a1->mNumberChannelDescriptions;
+      v22 = a1->mChannelDescriptions;
+      v23 = mChannelDescriptions->mChannelLabel;
       while (1)
       {
-        v26 = v23->mChannelLabel;
-        ++v23;
-        v25 = v26;
-        if ((v26 & 0xFFFF0000) != 0x10000 || v24 != v25)
+        v25 = v22->mChannelLabel;
+        ++v22;
+        v24 = v25;
+        if ((v25 & 0xFFFF0000) != 0x10000 || v23 != v24)
         {
           break;
         }
 
-        ++v24;
-        if (!--v22)
+        ++v23;
+        if (!--v21)
         {
-          v27 = sAudioToolboxBundle;
+          v26 = sAudioToolboxBundle;
           if (sAudioToolboxBundle == -1)
           {
             pthread_once(&sOnce, InitGetAudioToolboxBundle);
-            v27 = sAudioToolboxBundle;
+            v26 = sAudioToolboxBundle;
           }
 
           v11 = *MEMORY[0x1E695E480];
@@ -5747,21 +9368,21 @@ uint64_t AudioFormatProperty_ChannelLayoutNameFromDescriptions(const AudioChanne
           CFStringAppendCString(Mutable, __str, 0x8000100u);
           if (a1->mNumberChannelDescriptions == 1)
           {
-            v29 = @"Channel";
+            v28 = @"Channel";
           }
 
           else
           {
-            v29 = @"Channels";
+            v28 = @"Channels";
           }
 
-          v30 = ThreadSafeCFCopyLocalizedStringFromTableInBundle(v29, @"AudioChannelLabels", v27, v28);
-          CFStringAppend(Mutable, v30);
-          CFRelease(v30);
+          v29 = ThreadSafeCFCopyLocalizedStringFromTableInBundle(v28, @"AudioChannelLabels", v26, v27);
+          CFStringAppend(Mutable, v29);
+          CFRelease(v29);
           CFStringAppendCString(Mutable, " (", 0x8000100u);
-          v32 = ThreadSafeCFCopyLocalizedStringFromTableInBundle(@"Discrete", @"AudioChannelLabels", v27, v31);
-          CFStringAppend(Mutable, v32);
-          CFRelease(v32);
+          v31 = ThreadSafeCFCopyLocalizedStringFromTableInBundle(@"Discrete", @"AudioChannelLabels", v26, v30);
+          CFStringAppend(Mutable, v31);
+          CFRelease(v31);
           if (a1->mNumberChannelDescriptions == 1)
           {
             snprintf(__str, 0x10uLL, " %u)");
@@ -5780,83 +9401,83 @@ uint64_t AudioFormatProperty_ChannelLayoutNameFromDescriptions(const AudioChanne
 
     if (a3)
     {
-      v33 = 0;
-      v34 = a1->mNumberChannelDescriptions;
+      v32 = 0;
+      v33 = a1->mNumberChannelDescriptions;
       do
       {
-        v36 = mChannelDescriptions->mChannelLabel;
+        v35 = mChannelDescriptions->mChannelLabel;
         ++mChannelDescriptions;
-        v35 = v36;
-        if (v36 == 37 || v35 == 4)
+        v34 = v35;
+        if (v35 == 37 || v34 == 4)
         {
-          ++v33;
+          ++v32;
         }
 
-        --v34;
+        --v33;
       }
 
-      while (v34);
-      snprintf(__str, 0x10uLL, "%u.%u", mNumberChannelDescriptions - v33, v33);
+      while (v33);
+      snprintf(__str, 0x10uLL, "%u.%u", mNumberChannelDescriptions - v32, v32);
       v19 = 0;
       *a2 = CFStringCreateWithCString(*MEMORY[0x1E695E480], __str, 0x8000100u);
     }
 
     else
     {
-      v38 = *MEMORY[0x1E695E480];
-      v39 = CFStringCreateMutable(*MEMORY[0x1E695E480], 0);
-      v42 = CFStringCreateMutable(v38, 0);
+      v37 = *MEMORY[0x1E695E480];
+      v38 = CFStringCreateMutable(*MEMORY[0x1E695E480], 0);
+      v41 = CFStringCreateMutable(v37, 0);
       if (a1->mNumberChannelDescriptions)
       {
+        v42 = 0;
         v43 = 0;
-        v44 = 0;
         while (1)
         {
-          if (v43)
+          if (v42)
           {
-            CFStringAppendCString(v39, " ", 0x8000100u);
+            CFStringAppendCString(v38, " ", 0x8000100u);
           }
 
           *__str = 0;
-          v45 = AudioFormatProperty_ChannelShortName(mChannelDescriptions->mChannelLabel, __str, v40, v41);
-          if (v45)
+          v44 = AudioFormatProperty_ChannelShortName(mChannelDescriptions->mChannelLabel, __str, v39, v40);
+          if (v44)
           {
             break;
           }
 
-          v46 = *__str;
-          CFStringAppend(v39, *__str);
-          CFRelease(v46);
+          v45 = *__str;
+          CFStringAppend(v38, *__str);
+          CFRelease(v45);
           if (mChannelDescriptions->mChannelLabel == 37 || mChannelDescriptions->mChannelLabel == 4)
           {
-            ++v44;
+            ++v43;
           }
 
-          ++v43;
+          ++v42;
           ++mChannelDescriptions;
-          if (v43 >= a1->mNumberChannelDescriptions)
+          if (v42 >= a1->mNumberChannelDescriptions)
           {
             goto LABEL_45;
           }
         }
 
-        v19 = v45;
+        v19 = v44;
       }
 
       else
       {
-        v44 = 0;
+        v43 = 0;
 LABEL_45:
-        CFStringAppendCString(v39, ")", 0x8000100u);
-        snprintf(__str, 0x10uLL, "%u.%u (", a1->mNumberChannelDescriptions - v44, v44);
-        CFStringAppendCString(v42, __str, 0x8000100u);
-        CFStringAppend(v42, v39);
+        CFStringAppendCString(v38, ")", 0x8000100u);
+        snprintf(__str, 0x10uLL, "%u.%u (", a1->mNumberChannelDescriptions - v43, v43);
+        CFStringAppendCString(v41, __str, 0x8000100u);
+        CFStringAppend(v41, v38);
         v19 = 0;
-        *a2 = CFStringCreateCopy(v38, v42);
+        *a2 = CFStringCreateCopy(v37, v41);
       }
 
-      CFRelease(v39);
-      CFRelease(v42);
+      CFRelease(v38);
+      CFRelease(v41);
     }
   }
 
@@ -5896,10 +9517,9 @@ LABEL_11:
     CFStringAppendCString(Mutable, v18, 0x8000100u);
     *a2 = CFStringCreateCopy(v11, Mutable);
     CFRelease(Mutable);
-    v19 = 0;
+    return 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -6815,2953 +10435,4 @@ LABEL_237:
   }
 
   return AudioFormatProperty_ChannelLayoutNameFromDescriptions(a1, a2, 1);
-}
-
-void sub_18F6F7554(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12)
-{
-  if (a12)
-  {
-    free(a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t AudioFormatProperty_AudibleProtectedContentCanBeAuthorized(uint64_t a1, _DWORD *a2)
-{
-  v4 = *(a1 + 8);
-  v18 = 0;
-  PropertyInfo = OpenCodecComponent(v4, &v18, 0x61646563u);
-  if (!PropertyInfo)
-  {
-    v6 = v18;
-    v17 = v18;
-    outSize = 0;
-    outWritable = 0;
-    PropertyInfo = AudioCodecGetPropertyInfo(v18, 0x61617468u, &outSize, &outWritable);
-    if (!PropertyInfo && outSize == 64)
-    {
-      v7 = *(a1 + 16);
-      v10[0] = *a1;
-      v10[1] = v7;
-      v8 = *(a1 + 40);
-      v11 = *(a1 + 32);
-      v12 = v8;
-      v13 = *(a1 + 48);
-      v14 = 0;
-      outSize = 64;
-      PropertyInfo = AudioCodecGetProperty(v6, 0x61617468u, &outSize, v10);
-      if (!PropertyInfo)
-      {
-        *a2 = v14;
-      }
-    }
-
-    AudioCodecAutoDisposer::~AudioCodecAutoDisposer(&v17);
-  }
-
-  return PropertyInfo;
-}
-
-uint64_t AMRAudioStream::GeneratePackets(uint64_t a1)
-{
-  result = 0;
-  v3 = *(a1 + 236);
-  v4 = -1;
-  if (v3 <= 155)
-  {
-    if (v3 == -1)
-    {
-      return result;
-    }
-
-    if (v3)
-    {
-      goto LABEL_73;
-    }
-  }
-
-  else
-  {
-    if (v3 == 252)
-    {
-      v5 = *(a1 + 256);
-      v6 = *(a1 + 264);
-      goto LABEL_70;
-    }
-
-    if (v3 == 247)
-    {
-      v7 = *(a1 + 256);
-      v8 = *(a1 + 264);
-      goto LABEL_64;
-    }
-
-    if (v3 != 156)
-    {
-      goto LABEL_73;
-    }
-  }
-
-LABEL_11:
-  v9 = *(a1 + 8);
-  v10 = *(v9 + 96);
-  while (1)
-  {
-    v11 = *(v9 + 88);
-    v12 = v11 + *(v9 + 80);
-    v13 = v12 - v10;
-    if (v10 < v11 || v12 <= v10 || v12 == v10)
-    {
-      result = 0;
-      v4 = 156;
-      goto LABEL_73;
-    }
-
-    *(a1 + 344) = 0;
-    v16 = v13 ? (*(v9 + 72) + (v10 - v11)) : 0;
-    v17 = 0;
-    v18 = 0;
-    v19 = 0;
-    *(a1 + 340) = 0;
-    v20 = (*(a1 + 404) ? &_AMR_WB_FRAMESIZE : &_AMR_NB_FRAMESIZE);
-    do
-    {
-      v21 = v20[(v16[v19] >> 3) & 0xF];
-      if (!v20[(v16[v19] >> 3) & 0xF])
-      {
-        goto LABEL_72;
-      }
-
-      if (v13 - v19 >= v21)
-      {
-        *(a1 + 344) = ++v18;
-      }
-
-      else
-      {
-        v17 = 1;
-        *(a1 + 340) = 1;
-        *(a1 + 332) = v19;
-        *(a1 + 336) = v21;
-      }
-
-      v19 += v21;
-    }
-
-    while (v19 < v13);
-    v22 = *(a1 + 408);
-    if (!v22)
-    {
-      __assert_rtn("GeneratePackets", "AMRAudioStream.cpp", 197, "mSmallPacketsPerLargePacket > 0");
-    }
-
-    v23 = v18 / v22;
-    *(a1 + 412) = v18 / v22;
-    *(a1 + 416) = v18 % v22;
-    *(a1 + 432) = 0;
-    if (v22 <= v18)
-    {
-      break;
-    }
-
-    *(v9 + 96) = v10;
-    v24 = (v9 + 96);
-    if (v17)
-    {
-      goto LABEL_53;
-    }
-
-LABEL_49:
-    if (*(a1 + 416))
-    {
-      goto LABEL_53;
-    }
-
-    if (!*(a1 + 344))
-    {
-      v10 = *(v9 + 88) + *(v9 + 80);
-      *v24 = v10;
-    }
-  }
-
-  if (*(a1 + 200) < v23)
-  {
-    v25 = (1 << -__clz(v23 - 1));
-    *(a1 + 200) = v25;
-    CADeprecated::CAAutoFree<AudioStreamPacketDescription>::reallocItems((a1 + 192), v25);
-    v23 = *(a1 + 412);
-  }
-
-  *(a1 + 420) = 0;
-  v26 = *(a1 + 192);
-  if (v23)
-  {
-    v27 = 0;
-    v28 = 0;
-    v29 = *(a1 + 408);
-    while (1)
-    {
-      v30 = &v26[v27];
-      v30->mStartOffset = v28;
-      v30->mVariableFramesInPacket = 0;
-      *(a1 + 424) = 0;
-      v31 = 0;
-      if (v29)
-      {
-        break;
-      }
-
-LABEL_46:
-      v30->mDataByteSize = v31;
-      *(a1 + 420) = ++v27;
-      if (v27 >= v23 || v28 >= v13)
-      {
-        goto LABEL_48;
-      }
-    }
-
-    if (*(a1 + 404))
-    {
-      v32 = &_AMR_WB_FRAMESIZE;
-    }
-
-    else
-    {
-      v32 = &_AMR_NB_FRAMESIZE;
-    }
-
-    v33 = 1;
-    while (1)
-    {
-      v34 = v32[(v16[v28] >> 3) & 0xF];
-      if (!v32[(v16[v28] >> 3) & 0xF])
-      {
-        break;
-      }
-
-      v31 += v34;
-      *(a1 + 428) = v31;
-      v28 += v34;
-      *(a1 + 432) += v34;
-      *(a1 + 424) = v33;
-      if (v33 < v29)
-      {
-        ++v33;
-        if (v28 < v13)
-        {
-          continue;
-        }
-      }
-
-      goto LABEL_46;
-    }
-
-LABEL_72:
-    *(a1 + 177) = 1;
-    result = 1685348671;
-    v4 = -1;
-    goto LABEL_73;
-  }
-
-LABEL_48:
-  AudioFileStreamWrapper::CallPacketsProc(*(a1 + 8), *(a1 + 432), v23, v16, v26, 1);
-  *(a1 + 184) += *(a1 + 412);
-  v9 = *(a1 + 8);
-  v35 = *(a1 + 340);
-  v24 = (v9 + 96);
-  v10 = *(v9 + 96) + *(a1 + 432);
-  *(v9 + 96) = v10;
-  if ((v35 & 1) == 0)
-  {
-    goto LABEL_49;
-  }
-
-LABEL_53:
-  if (*(a1 + 404))
-  {
-    v36 = 61;
-  }
-
-  else
-  {
-    v36 = 32;
-  }
-
-  v37 = (v36 * *(a1 + 408));
-  if (*(a1 + 284) < v37)
-  {
-    *(a1 + 284) = v37;
-    CADeprecated::CAAutoFree<unsigned char>::allocBytes((a1 + 288), v37, 0);
-  }
-
-  *(a1 + 440) = *(a1 + 288);
-  *(a1 + 448) = 0;
-  if (!*(a1 + 200))
-  {
-    *(a1 + 200) = 1;
-    CADeprecated::CAAutoFree<AudioStreamPacketDescription>::reallocItems((a1 + 192), 1);
-  }
-
-  v38 = 0;
-  v39 = 0;
-  v40 = *(a1 + 192);
-  *v40 = 0;
-  *(v40 + 8) = 0;
-  *(a1 + 424) = 0;
-  while (1)
-  {
-    if (v39 >= *(a1 + 408))
-    {
-      v51 = *(a1 + 192);
-      v51->mDataByteSize = v38;
-      AudioFileStreamWrapper::CallPacketsProc(*(a1 + 8), v38, 1u, *(a1 + 288), v51, 1);
-      ++*(a1 + 184);
-      goto LABEL_11;
-    }
-
-    v7 = 1;
-    *(a1 + 256) = 1;
-    v8 = (*(a1 + 440) + *(a1 + 448));
-    *(a1 + 264) = v8;
-LABEL_64:
-    v53 = v7;
-    StreamBuffer::Copy((*(a1 + 8) + 72), &v53, v8);
-    v41 = v53;
-    v42 = *(a1 + 256);
-    *(a1 + 264) += v53;
-    v43 = v42 - v41;
-    *(a1 + 256) = v43;
-    if (v43)
-    {
-      result = 0;
-      v4 = 247;
-      goto LABEL_73;
-    }
-
-    v44 = (*(a1 + 440) + *(a1 + 448));
-    if (*(a1 + 404))
-    {
-      v45 = &_AMR_WB_FRAMESIZE;
-    }
-
-    else
-    {
-      v45 = &_AMR_NB_FRAMESIZE;
-    }
-
-    v46 = v45[(*v44 >> 3) & 0xF];
-    *(a1 + 452) = v46;
-    if (!v46)
-    {
-      goto LABEL_72;
-    }
-
-    v5 = v46 - 1;
-    *(a1 + 256) = v5;
-    v6 = v44 + 1;
-    *(a1 + 264) = v44 + 1;
-LABEL_70:
-    v52 = v5;
-    StreamBuffer::Copy((*(a1 + 8) + 72), &v52, v6);
-    v47 = v52;
-    v48 = *(a1 + 256);
-    *(a1 + 264) += v52;
-    v49 = v48 - v47;
-    *(a1 + 256) = v49;
-    if (v49)
-    {
-      break;
-    }
-
-    v50 = *(a1 + 452);
-    v38 = *(a1 + 428) + v50;
-    *(a1 + 428) = v38;
-    *(a1 + 448) += v50;
-    v39 = *(a1 + 424) + 1;
-    *(a1 + 424) = v39;
-  }
-
-  result = 0;
-  v4 = 252;
-LABEL_73:
-  *(a1 + 236) = v4;
-  return result;
-}
-
-uint64_t AMRAudioStream::ParseHeader(uint64_t a1, uint64_t a2)
-{
-  v4 = a1 + 348;
-  v5 = *(a1 + 236);
-  if (v5 <= 57)
-  {
-    if (v5 == -1)
-    {
-      return 0;
-    }
-
-    if (v5)
-    {
-      goto LABEL_35;
-    }
-
-    v8 = *(a1 + 8);
-    v52 = 1;
-    if ((*(v8 + 104) & 1) == 0)
-    {
-      *(v8 + 104) = 1;
-      v9 = *(v8 + 24);
-      if (v9)
-      {
-        v9(*(v8 + 40), *(v8 + 8), 1717988724, &v52);
-      }
-    }
-
-    goto LABEL_11;
-  }
-
-  if (v5 == 58)
-  {
-LABEL_11:
-    v10 = *(a1 + 8);
-    v11 = *(v10 + 88);
-    v12 = *(v10 + 96);
-    v13 = v11 + *(v10 + 80);
-    if (v12 < v11 || v13 <= v12 || v13 - v12 == 0)
-    {
-      result = 0;
-      v17 = 58;
-      goto LABEL_37;
-    }
-
-    v18 = 6;
-    *(a1 + 256) = 6;
-    v19 = (a1 + 348);
-    *(a1 + 264) = a1 + 348;
-    goto LABEL_21;
-  }
-
-  if (v5 != 60)
-  {
-    if (v5 == 64)
-    {
-      v6 = *(a1 + 256);
-      v7 = *(a1 + 264);
-LABEL_27:
-      v52 = v6;
-      StreamBuffer::Copy((*(a1 + 8) + 72), &v52, v7);
-      v24 = v52;
-      v25 = *(a1 + 256);
-      *(a1 + 264) += v52;
-      v26 = v25 - v24;
-      *(a1 + 256) = v26;
-      if (!v26)
-      {
-        if (*v4 != *AMR_WBMagicNumber || *(v4 + 8) != AMR_WBMagicNumber[8])
-        {
-          *(a1 + 177) = 1;
-          *(a1 + 236) = -1;
-          return 1685348671;
-        }
-
-        *(a1 + 404) = 1;
-        goto LABEL_42;
-      }
-
-      result = 0;
-      v17 = 64;
-LABEL_37:
-      *(a1 + 236) = v17;
-      return result;
-    }
-
-LABEL_35:
-    result = 0;
-    v17 = -1;
-    goto LABEL_37;
-  }
-
-  v18 = *(a1 + 256);
-  v10 = *(a1 + 8);
-  v19 = *(a1 + 264);
-LABEL_21:
-  v52 = v18;
-  StreamBuffer::Copy((v10 + 72), &v52, v19);
-  v20 = v52;
-  v21 = *(a1 + 256);
-  *(a1 + 264) += v52;
-  v22 = v21 - v20;
-  *(a1 + 256) = v22;
-  if (v22)
-  {
-    result = 0;
-    v17 = 60;
-    goto LABEL_37;
-  }
-
-  if (*(a1 + 348) != AMRMagicNumber || *(a1 + 352) != word_1EAD0B364)
-  {
-    v6 = 3;
-    *(a1 + 256) = 3;
-    v7 = (a1 + 354);
-    *(a1 + 264) = a1 + 354;
-    goto LABEL_27;
-  }
-
-  if ((*(a1 + 404) & 1) == 0)
-  {
-    v28 = -127;
-    v29 = 1919770995;
-    v30 = 6;
-    goto LABEL_43;
-  }
-
-LABEL_42:
-  v28 = -125;
-  v29 = 1651990899;
-  v30 = 9;
-LABEL_43:
-  *(a1 + 104) = v30;
-  *(v4 + 9) = 0x616D72660C000000;
-  v31 = v4 + 9;
-  *(v31 + 8) = v29;
-  *(v31 + 12) = 0x61646E650A000000;
-  *(v31 + 20) = 0;
-  *(v31 + 22) = 0x726D616411000000;
-  *(v31 + 30) = 1819308129;
-  v32 = 1;
-  *(a1 + 391) = 1;
-  *(a1 + 392) = v28;
-  *(a1 + 394) = 256;
-  *(v31 + 39) = 0x8000000;
-  *(a1 + 128) = 47;
-  CADeprecated::CAAutoFree<unsigned char>::alloc((a1 + 120), 0x2FuLL, 0);
-  memcpy(*(a1 + 120), v31, *(a1 + 128));
-  *(a1 + 24) = 0u;
-  *(a1 + 40) = 0u;
-  *(a1 + 56) = 0;
-  v33 = *(a1 + 404) == 0;
-  if (*(a1 + 404))
-  {
-    v34 = 1935767394;
-  }
-
-  else
-  {
-    v34 = 1935764850;
-  }
-
-  *(a1 + 32) = v34;
-  v35 = 8000.0;
-  if (!v33)
-  {
-    v35 = 16000.0;
-  }
-
-  *(a1 + 24) = v35;
-  *(a1 + 52) = 1;
-  ioPropertyDataSize = 40;
-  AudioFormatGetProperty(0x666D7469u, 0x2Fu, *(a1 + 120), &ioPropertyDataSize, (a1 + 24));
-  v36 = *(a1 + 44);
-  if (*(a1 + 404))
-  {
-    v37 = 320;
-  }
-
-  else
-  {
-    v37 = 160;
-  }
-
-  *(a1 + 408) = v36 / v37;
-  if (v37 <= v36)
-  {
-    if (v36 / v37 < 0x10)
-    {
-      goto LABEL_55;
-    }
-
-    v32 = 15;
-  }
-
-  *(a1 + 408) = v32;
-LABEL_55:
-  (*(*a1 + 56))(a1, a1 + 24);
-  v38 = *(a1 + 8);
-  v52 = 1;
-  if ((*(v38 + 105) & 1) == 0)
-  {
-    *(v38 + 105) = 1;
-    v39 = *(v38 + 24);
-    if (v39)
-    {
-      v39(*(v38 + 40), *(v38 + 8), 1684434292, &v52);
-      v38 = *(a1 + 8);
-    }
-  }
-
-  v52 = 1;
-  v40 = *(v38 + 24);
-  if (v40)
-  {
-    v40(*(v38 + 40), *(v38 + 8), 1685022310, &v52);
-    v38 = *(a1 + 8);
-    v41 = *(v38 + 24);
-    v52 = 1;
-    *(v38 + 108) = 1;
-    if (v41)
-    {
-      v41(*(v38 + 40), *(v38 + 8), 1835493731, &v52);
-      v38 = *(a1 + 8);
-    }
-  }
-
-  else
-  {
-    v52 = 1;
-    *(v38 + 108) = 1;
-  }
-
-  v52 = 1;
-  if (!*(v38 + 112))
-  {
-    *(v38 + 112) = 1;
-    v42 = *(v38 + 24);
-    if (v42)
-    {
-      v42(*(v38 + 40), *(v38 + 8), 1919247481, &v52);
-      v38 = *(a1 + 8);
-    }
-  }
-
-  v43 = 0;
-  *a2 = a1;
-  *(a2 + 8) = AudioFileStreamObject::GeneratePackets;
-  *(a2 + 16) = 0;
-  v44 = *(v38 + 88);
-  v45 = *(v38 + 96);
-  v46 = v44 + *(v38 + 80);
-  v47 = v45 < v44 || v46 <= v45;
-  v48 = v47;
-  v49 = v46 - v45;
-  if (!v47 && v49)
-  {
-    v43 = *(v38 + 72) + (v45 - v44);
-  }
-
-  result = 0;
-  *(a2 + 32) = v43;
-  if (v48)
-  {
-    v50 = 0;
-  }
-
-  else
-  {
-    v50 = v49;
-  }
-
-  *(a2 + 24) = v50;
-  return result;
-}
-
-uint64_t AMRAudioStream::Flush(AMRAudioStream *this)
-{
-  if (*(this + 104))
-  {
-    v2 = *(this + 24);
-    v2->mStartOffset = 0;
-    v3 = *(this + 107);
-    v2->mVariableFramesInPacket = 0;
-    v2->mDataByteSize = v3;
-    AudioFileStreamWrapper::CallPacketsProc(*(this + 1), v3, 1u, *(this + 36), v2, 0);
-    *(this + 340) = 0;
-  }
-
-  return 0;
-}
-
-void AMRAudioStream::~AMRAudioStream(AMRAudioStream *this)
-{
-  AudioFileStreamObject::~AudioFileStreamObject(this);
-
-  JUMPOUT(0x193ADF220);
-}
-
-uint64_t AUOOPRenderingClient::NeverTimesOut(AUOOPRenderingClient *this)
-{
-  v1 = &unk_1EAD30000;
-  {
-    v1 = &unk_1EAD30000;
-    if (v3)
-    {
-      AUOOPRenderingClient::NeverTimesOut(void)::kNeverTimeout = AUOOPRenderingClient::NeverTimesOut(void)::$_0::operator()();
-      v1 = &unk_1EAD30000;
-    }
-  }
-
-  return v1[3576];
-}
-
-BOOL AUOOPRenderingClient::NeverTimesOut(void)::$_0::operator()()
-{
-  v9 = *MEMORY[0x1E69E9840];
-  v0 = getenv("IPCAU_NeverTimeout");
-  if (v0)
-  {
-    if (kInterAppAudioScope)
-    {
-      v1 = *kInterAppAudioScope;
-      if (!v1)
-      {
-        goto LABEL_9;
-      }
-    }
-
-    else
-    {
-      v1 = MEMORY[0x1E69E9C10];
-      v2 = MEMORY[0x1E69E9C10];
-    }
-
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
-    {
-      v5 = 136315394;
-      v6 = "AUOOPRenderingClient.mm";
-      v7 = 1024;
-      v8 = 50;
-      _os_log_impl(&dword_18F5DF000, v1, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Timeouts disabled!", &v5, 0x12u);
-    }
-  }
-
-LABEL_9:
-  result = v0 != 0;
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-unint64_t AUOOPSharedMemory::InitializationParams::requiredByteSize(AUOOPSharedMemory::InitializationParams *this)
-{
-  v2 = caulk::numeric::exceptional_add<unsigned long>(4 * *(this + 1) + 4316, 15);
-  v3 = *(this + 5);
-  v4 = v3 - 128;
-  v5 = (16 * v3) | 8;
-  if (v4 >= 0x1309)
-  {
-    v6 = 2056;
-  }
-
-  else
-  {
-    v6 = v5;
-  }
-
-  v7 = caulk::numeric::exceptional_add<unsigned long>(v6, 15);
-  v8 = *(this + 4);
-  audioipc::SharedAudioBuffers::extendASBDs(&v26, *this, *(this + 1));
-  if (!v8)
-  {
-    std::terminate();
-  }
-
-  v9 = v26;
-  v10 = v27;
-  if (v27 == v26)
-  {
-    v11 = 0;
-    if (v26)
-    {
-LABEL_22:
-      operator delete(v9);
-    }
-  }
-
-  else
-  {
-    v11 = 0;
-    v12 = v26;
-    do
-    {
-      if (*(v12 + 4) <= *(v12 + 10))
-      {
-        v13 = *(v12 + 10);
-      }
-
-      else
-      {
-        v13 = *(v12 + 4);
-      }
-
-      v14 = caulk::numeric::exceptional_mul<unsigned int>(v8, v13);
-      v15 = caulk::numeric::exceptional_add<unsigned long>(v14, 15);
-      if (HIDWORD(v15))
-      {
-        exception = __cxa_allocate_exception(8uLL);
-        *exception = &unk_1F033FDD0;
-      }
-
-      if ((*(v12 + 12) & 0x20) != 0)
-      {
-        v16 = *(v12 + 7);
-      }
-
-      else
-      {
-        v16 = 1;
-      }
-
-      v17 = caulk::numeric::exceptional_mul<unsigned int>(v15 & 0xFFFFFFF0, v16);
-      v11 = caulk::numeric::exceptional_add<unsigned long>(v11, v17);
-      if (!*(v12 + 6) || !*(v12 + 5))
-      {
-        v18 = caulk::numeric::exceptional_add<unsigned long>(16 * v8, 15);
-        v11 = caulk::numeric::exceptional_add<unsigned long>(v11, v18 & 0xFFFFFFFFFFFFFFF0);
-      }
-
-      ioPropertyDataSize = 4;
-      outPropertyData = 0;
-      if (!AudioFormatGetProperty(0x66646570u, 0x28u, v12, &ioPropertyDataSize, &outPropertyData) && outPropertyData)
-      {
-        v19 = caulk::numeric::exceptional_add<unsigned long>(16 * v8, 15);
-        v11 = caulk::numeric::exceptional_add<unsigned long>(v11, v19 & 0xFFFFFFFFFFFFFFF0);
-      }
-
-      v12 += 3;
-    }
-
-    while (v12 != v10);
-    if (v9)
-    {
-      goto LABEL_22;
-    }
-  }
-
-  v20 = *(this + 5);
-  v21 = v20 - 128;
-  v22 = (32 * v20) | 8;
-  if (v21 >= 0x1309)
-  {
-    v23 = 4104;
-  }
-
-  else
-  {
-    v23 = v22;
-  }
-
-  return (v7 & 0xFFFFFFFFFFFFFFF0) + (v2 & 0xFFFFFFFFFFFFFFF0) + v11 + (caulk::numeric::exceptional_add<unsigned long>(v23, 15) & 0xFFFFFFFFFFFFFFF0);
-}
-
-void sub_18F6F8418(_Unwind_Exception *exception_object)
-{
-  if (v1)
-  {
-    operator delete(v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::vector<audioipc::SharedAudioBuffers::Element>::__destroy_vector::operator()[abi:ne200100](void ***a1)
-{
-  v1 = *a1;
-  v2 = **a1;
-  if (v2)
-  {
-    v4 = v1[1];
-    v5 = **a1;
-    if (v4 != v2)
-    {
-      do
-      {
-        v4 -= 16;
-        std::__destroy_at[abi:ne200100]<audioipc::SharedAudioBuffers::Element,0>(v4);
-      }
-
-      while (v4 != v2);
-      v5 = **a1;
-    }
-
-    v1[1] = v2;
-
-    operator delete(v5);
-  }
-}
-
-uint64_t audioipc::rt_sender<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::~rt_sender(uint64_t a1)
-{
-  audioipc::rt_sender<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::stop(a1);
-  audioipc::eventlink_primitive::~eventlink_primitive((a1 + 56));
-  caulk::ipc::mapped_memory::reset(a1);
-  return a1;
-}
-
-uint64_t audioipc::rt_sender<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::stop(uint64_t result)
-{
-  v1 = atomic_load((result + 49));
-  if ((v1 & 1) == 0)
-  {
-    v2 = result;
-    v3 = atomic_load(*(result + 24));
-    if (v3 != 2)
-    {
-      atomic_store(1u, (result + 49));
-      atomic_store(2u, *(result + 24));
-      audioipc::eventlink_primitive::timed_wait_signal_or_error(*(result + 56), 0.02);
-      v4 = *(v2 + 56);
-
-      return os_eventlink_cancel();
-    }
-  }
-
-  return result;
-}
-
-void std::__destroy_at[abi:ne200100]<audioipc::SharedAudioBuffers::Element,0>(void *a1)
-{
-  v2 = a1[9];
-  if (v2)
-  {
-    a1[10] = v2;
-    operator delete(v2);
-  }
-
-  v3 = a1[6];
-  if (v3)
-  {
-    a1[7] = v3;
-
-    operator delete(v3);
-  }
-}
-
-void audioipc::log_and_throw(audioipc *this, const char *a2)
-{
-  v2 = a2;
-  v10 = *MEMORY[0x1E69E9840];
-  v4 = CADefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
-  {
-    v6 = 136315394;
-    v7 = this;
-    v8 = 1024;
-    v9 = v2;
-    _os_log_fault_impl(&dword_18F5DF000, v4, OS_LOG_TYPE_FAULT, "EXCEPTION: %s (%d)", &v6, 0x12u);
-  }
-
-  exception = __cxa_allocate_exception(0x10uLL);
-  std::runtime_error::runtime_error(exception, this);
-}
-
-void AUOOPSharedMemory::init2(uint64_t a1, AUOOPSharedMemory::InitializationParams *this, _DWORD *a3, unint64_t a4)
-{
-  if (a4 < AUOOPSharedMemory::InitializationParams::requiredByteSize(this))
-  {
-    goto LABEL_17;
-  }
-
-  v8 = a3 + a4;
-  *a1 = a3;
-  *a3 = 4096;
-  v9 = (a3 + (caulk::numeric::exceptional_add<unsigned long>(4 * *(this + 1) + 4316, 15) & 0xFFFFFFFFFFFFFFF0));
-  *(a1 + 8) = v9;
-  v10 = *(this + 5);
-  v11 = v10 - 128;
-  v12 = 16 * v10;
-  if (v11 >= 0x1309)
-  {
-    v12 = 2048;
-  }
-
-  *v9 = v12;
-  v13 = (v9 + (caulk::numeric::exceptional_add<unsigned long>(v12 | 8u, 15) & 0xFFFFFFFFFFFFFFF0));
-  *(a1 + 16) = v13;
-  v14 = *(this + 5);
-  v15 = v14 - 128;
-  v16 = 32 * v14;
-  if (v15 >= 0x1309)
-  {
-    v16 = 4096;
-  }
-
-  *v13 = v16;
-  v17 = v13 + (caulk::numeric::exceptional_add<unsigned long>(v16 | 8u, 15) & 0xFFFFFFFFFFFFFFF0);
-  if (v17 > v8)
-  {
-    goto LABEL_17;
-  }
-
-  if (*(a1 + 56) == 1)
-  {
-    outPropertyData[0] = (a1 + 24);
-    std::vector<audioipc::SharedAudioBuffers::Element>::__destroy_vector::operator()[abi:ne200100](outPropertyData);
-    *(a1 + 56) = 0;
-  }
-
-  v18 = *(this + 4);
-  audioipc::SharedAudioBuffers::extendASBDs(__p, *this, *(this + 1));
-  v19 = __p[0];
-  v20 = __p[1];
-  *(a1 + 32) = 0;
-  *(a1 + 40) = 0;
-  *(a1 + 24) = 0;
-  *(a1 + 48) = v18;
-  if (!v18 || (v17 & 0xF) != 0)
-  {
-LABEL_17:
-    std::terminate();
-  }
-
-  if (v20 != v19)
-  {
-    v21 = 0xAAAAAAAAAAAAAAABLL * ((v20 - v19) >> 4);
-    if (!(v21 >> 57))
-    {
-      outPropertyData[4] = (a1 + 24);
-      std::allocator<audioipc::SharedAudioBuffers::Element>::allocate_at_least[abi:ne200100](v21);
-    }
-
-    std::vector<APAC::UI18>::__throw_length_error[abi:ne200100]();
-  }
-
-  if (__p[0])
-  {
-    operator delete(__p[0]);
-  }
-
-  *(a1 + 56) = 1;
-}
-
-void sub_18F6F8AC0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18)
-{
-  std::vector<audioipc::SharedAudioBuffers::Element>::__destroy_vector::operator()[abi:ne200100](&a17);
-  if (__p)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void audioipc::SharedAudioBuffers::extendASBDs(__int128 **a1, uint64_t a2, uint64_t a3)
-{
-  *a1 = 0;
-  a1[1] = 0;
-  a1[2] = 0;
-  if (40 * a3)
-  {
-    v3 = a2;
-    v5 = 0;
-    v6 = a2 + 40 * a3;
-    do
-    {
-      v7 = *(v3 + 16);
-      v19 = *(v3 + 20);
-      v20 = *(v3 + 36);
-      if (!v7)
-      {
-        std::terminate();
-      }
-
-      v8 = a1[2];
-      if (v5 >= v8)
-      {
-        v9 = *a1;
-        v10 = v5 - *a1;
-        v11 = 0xAAAAAAAAAAAAAAABLL * (v10 >> 4) + 1;
-        if (v11 > 0x555555555555555)
-        {
-          std::vector<APAC::UI18>::__throw_length_error[abi:ne200100]();
-        }
-
-        v12 = 0xAAAAAAAAAAAAAAABLL * ((v8 - v9) >> 4);
-        if (2 * v12 > v11)
-        {
-          v11 = 2 * v12;
-        }
-
-        if (v12 >= 0x2AAAAAAAAAAAAAALL)
-        {
-          v13 = 0x555555555555555;
-        }
-
-        else
-        {
-          v13 = v11;
-        }
-
-        if (v13)
-        {
-          if (v13 <= 0x555555555555555)
-          {
-            operator new();
-          }
-
-          std::__throw_bad_array_new_length[abi:ne200100]();
-        }
-
-        v14 = 16 * (v10 >> 4);
-        *v14 = *v3;
-        *(v14 + 16) = v7;
-        *(v14 + 20) = v19;
-        *(v14 + 36) = v20;
-        *(v14 + 40) = 0;
-        if (v9 != v5)
-        {
-          v15 = v9;
-          v16 = (v14 - v10);
-          do
-          {
-            v17 = *v15;
-            v18 = v15[2];
-            v16[1] = v15[1];
-            v16[2] = v18;
-            *v16 = v17;
-            v16 += 3;
-            v15 += 3;
-          }
-
-          while (v15 != v5);
-        }
-
-        v5 = v14 + 48;
-        *a1 = (v14 - v10);
-        a1[1] = (v14 + 48);
-        a1[2] = 0;
-        if (v9)
-        {
-          operator delete(v9);
-        }
-      }
-
-      else
-      {
-        *v5 = *v3;
-        *(v5 + 16) = v7;
-        *(v5 + 20) = v19;
-        *(v5 + 36) = v20;
-        v5 += 48;
-      }
-
-      a1[1] = v5;
-      v3 += 40;
-    }
-
-    while (v3 != v6);
-  }
-}
-
-void sub_18F6F8CF4(_Unwind_Exception *exception_object)
-{
-  if (v2)
-  {
-    *(v1 + 8) = v2;
-    operator delete(v2);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t audioipc::SharedAudioBuffers::immutableBufferList(audioipc::SharedAudioBuffers *this, unsigned int a2, unsigned int a3)
-{
-  if (a2 >= ((*(this + 1) - *this) >> 7))
-  {
-    CAAssertRtn();
-LABEL_7:
-    std::terminate();
-  }
-
-  if (*(this + 6) < a3)
-  {
-    goto LABEL_7;
-  }
-
-  v3 = (*this + (a2 << 7));
-
-  return audioipc::SharedAudioBuffers::Element::immutableBufferList(v3, a3);
-}
-
-uint64_t audioipc::SharedAudioBuffers::Element::immutableBufferList(audioipc::SharedAudioBuffers::Element *this, unsigned int a2)
-{
-  v2 = *(this + 4);
-  if (v2 <= *(this + 10))
-  {
-    v2 = *(this + 10);
-  }
-
-  v3 = a2 * v2;
-  if ((v3 & 0xFFFFFFFF00000000) != 0)
-  {
-    v4 = 0;
-  }
-
-  else
-  {
-    v4 = v3 | 0x100000000;
-  }
-
-  if ((v4 & 0x100000000) != 0)
-  {
-    v7 = *(this + 6);
-    v6 = *(this + 7);
-    result = this + 48;
-    if (v7 + 8 != v6)
-    {
-      v8 = 0;
-      v9 = (v6 - v7 - 24) >> 4;
-      v10 = vdupq_n_s64(v9);
-      v11 = (v9 + 4) & 0x1FFFFFFFFFFFFFFCLL;
-      v12 = (v7 + 44);
-      do
-      {
-        v13 = vdupq_n_s64(v8);
-        v14 = vmovn_s64(vcgeq_u64(v10, vorrq_s8(v13, xmmword_18F9016C0)));
-        if (vuzp1_s16(v14, *v10.i8).u8[0])
-        {
-          *(v12 - 8) = v4;
-        }
-
-        if (vuzp1_s16(v14, *&v10).i8[2])
-        {
-          *(v12 - 4) = v4;
-        }
-
-        if (vuzp1_s16(*&v10, vmovn_s64(vcgeq_u64(v10, vorrq_s8(v13, xmmword_18F9016B0)))).i32[1])
-        {
-          *v12 = v4;
-          v12[4] = v4;
-        }
-
-        v8 += 4;
-        v12 += 16;
-      }
-
-      while (v11 != v8);
-    }
-  }
-
-  else
-  {
-    v15 = CAAssertRtn();
-    return AUOOPRenderingClient::copySharedOutput(v15, v16, v17, v18, v19);
-  }
-
-  return result;
-}
-
-UInt32 **AUOOPRenderingClient::copySharedOutput(AUOOPRenderingClient *this, unsigned int a2, AudioBufferList *a3, unsigned int a4, char a5)
-{
-  if ((a5 & 1) == 0)
-  {
-    a2 += *(this + 54);
-  }
-
-  result = audioipc::SharedAudioBuffers::immutableBufferList((this + 104), a2, a4);
-  v7 = **result;
-  if (a3->mNumberBuffers >= v7)
-  {
-    mNumberBuffers = v7;
-  }
-
-  else
-  {
-    mNumberBuffers = a3->mNumberBuffers;
-  }
-
-  if (mNumberBuffers)
-  {
-    v9 = (*result + 4);
-    p_mData = &a3->mBuffers[0].mData;
-    do
-    {
-      result = *p_mData;
-      if (*p_mData)
-      {
-        if (result != *v9)
-        {
-          result = memcpy(result, *v9, *(v9 - 1));
-        }
-      }
-
-      else
-      {
-        *p_mData = *v9;
-      }
-
-      v9 += 2;
-      p_mData += 2;
-      --mNumberBuffers;
-    }
-
-    while (mNumberBuffers);
-  }
-
-  return result;
-}
-
-uint64_t AUOOPRenderingClient::readMidiOut(uint64_t this, const AUOOPRenderClientUser *a2)
-{
-  v2 = *(this + 4);
-  if (v2 && a2->MIDIOutputEventBlock)
-  {
-    v4 = this;
-    v5 = 0;
-    v6 = 0;
-    v7 = this + 8;
-    v8 = this + 8 + v2;
-    do
-    {
-      v9 = (v7 + v5);
-      if (v6)
-      {
-        v10 = 0;
-        v11 = 0;
-        v12 = 1;
-        while (1)
-        {
-          if (v9 > v8)
-          {
-            goto LABEL_21;
-          }
-
-          v11 |= (*v9 & 0x7F) << v10;
-          if ((*v9 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v10 += 7;
-          ++v12;
-          ++v9;
-          if (v10 == 70)
-          {
-            v13 = 10;
-LABEL_18:
-            v5 += v13;
-            goto LABEL_21;
-          }
-        }
-
-        v13 = v12;
-        goto LABEL_18;
-      }
-
-      v14 = 0;
-      v15 = 0;
-      v16 = 1;
-      while (v9 <= v8)
-      {
-        v15 |= (*v9 & 0x7F) << v14;
-        if ((*v9 & 0x80) == 0)
-        {
-          v17 = v16;
-          goto LABEL_20;
-        }
-
-        v14 += 7;
-        ++v16;
-        ++v9;
-        if (v14 == 70)
-        {
-          v17 = 10;
-LABEL_20:
-          v5 += v17;
-          break;
-        }
-      }
-
-LABEL_21:
-      if (v7 + v5 + 1 <= v8)
-      {
-        v18 = *(v7 + v5++);
-      }
-
-      v19 = 0;
-      v20 = 0;
-      v21 = 0;
-      v22 = v7 + v5;
-      while (1)
-      {
-        v23 = (v22 + v20);
-        if (v22 + v20 > v8)
-        {
-          v21 = 0;
-          goto LABEL_31;
-        }
-
-        ++v20;
-        v24 = *v23;
-        v21 |= ((v24 & 0x7F) << v19);
-        if ((v24 & 0x80000000) == 0)
-        {
-          break;
-        }
-
-        v19 += 7;
-        if (v20 == 5)
-        {
-          goto LABEL_30;
-        }
-      }
-
-      v20 = v20;
-LABEL_30:
-      v5 += v20;
-LABEL_31:
-      if (v7 + v5 + v21 <= v8)
-      {
-        v5 += v21;
-        this = (*(a2->MIDIOutputEventBlock + 2))();
-      }
-
-      v6 = 1;
-    }
-
-    while (v5 < v2);
-    *(v4 + 4) = 0;
-  }
-
-  return this;
-}
-
-uint64_t AUOOPRenderingClient::readMidiEventListOut(uint64_t this, const AUOOPRenderClientUser *a2)
-{
-  v2 = *(this + 4);
-  if (v2 && a2->MIDIOutputEventListBlock)
-  {
-    v4 = this;
-    v5 = 0;
-    v6 = 0;
-    v7 = this + 8;
-    v8 = this + 8 + v2;
-    do
-    {
-      v9 = (v7 + v5);
-      if (v6)
-      {
-        v10 = 0;
-        v11 = 0;
-        v12 = 1;
-        while (1)
-        {
-          if (v9 > v8)
-          {
-            goto LABEL_21;
-          }
-
-          v11 |= (*v9 & 0x7F) << v10;
-          if ((*v9 & 0x80) == 0)
-          {
-            break;
-          }
-
-          v10 += 7;
-          ++v12;
-          ++v9;
-          if (v10 == 70)
-          {
-            v13 = 10;
-LABEL_18:
-            v5 += v13;
-            goto LABEL_21;
-          }
-        }
-
-        v13 = v12;
-        goto LABEL_18;
-      }
-
-      v14 = 0;
-      v15 = 0;
-      v16 = 1;
-      while (v9 <= v8)
-      {
-        v15 |= (*v9 & 0x7F) << v14;
-        if ((*v9 & 0x80) == 0)
-        {
-          v17 = v16;
-          goto LABEL_20;
-        }
-
-        v14 += 7;
-        ++v16;
-        ++v9;
-        if (v14 == 70)
-        {
-          v17 = 10;
-LABEL_20:
-          v5 += v17;
-          break;
-        }
-      }
-
-LABEL_21:
-      if (v7 + v5 + 1 <= v8)
-      {
-        v18 = *(v7 + v5++);
-      }
-
-      v19 = 0;
-      v20 = 0;
-      v21 = 0;
-      v22 = v7 + v5;
-      while (1)
-      {
-        v23 = (v22 + v20);
-        if (v22 + v20 > v8)
-        {
-          v21 = 0;
-          goto LABEL_31;
-        }
-
-        ++v20;
-        v24 = *v23;
-        v21 |= ((v24 & 0x7F) << v19);
-        if ((v24 & 0x80000000) == 0)
-        {
-          break;
-        }
-
-        v19 += 7;
-        if (v20 == 5)
-        {
-          goto LABEL_30;
-        }
-      }
-
-      v20 = v20;
-LABEL_30:
-      v5 += v20;
-LABEL_31:
-      v25 = v7 + v5;
-      if (v7 + v5 + v21 <= v8)
-      {
-        v26 = v5 - (v25 & 3);
-        v27 = v25 & 3;
-        v28 = v26 + 4;
-        if (!v27)
-        {
-          v28 = v5;
-        }
-
-        v29 = v7 + v28 + v21;
-        if (v29 <= v8)
-        {
-          v30 = 0;
-        }
-
-        else
-        {
-          v21 = 0;
-          v30 = v27 == 0;
-        }
-
-        v31 = v21 + v28;
-        if (!v30)
-        {
-          v5 = v21 + v28;
-        }
-
-        if (v29 <= v8)
-        {
-          this = (*(a2->MIDIOutputEventListBlock + 2))();
-          v5 = v31;
-        }
-      }
-
-      v6 = 1;
-    }
-
-    while (v5 < v2);
-    *(v4 + 4) = 0;
-  }
-
-  return this;
-}
-
-unint64_t AUOOPRenderingClient::copyEventsToSharedMemory(unint64_t this, AURenderEventAllocator *a2, double a3, int a4)
-{
-  v6 = this;
-  v7 = *(this + 80);
-  v8 = v7[1];
-  v9 = v7 + 8;
-  v10 = v7 + v8 + 8;
-  if (a2)
-  {
-    v11 = a2;
-    v12 = *v7 - v8;
-    do
-    {
-      v13 = AURenderEventAllocator::eventSize(v11, a2);
-      if (v12 >= v13)
-      {
-        goto LABEL_13;
-      }
-
-      v7[1] = v10 - v9;
-      v15 = *(v6 + 80);
-      this = audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::can_send(v6 + 8, v14);
-      v16 = HIDWORD(this);
-      if (this & 0x100000000) != 0 && (this)
-      {
-        *(v15 + 4104) = 4;
-        v17 = v6 + 8;
-        if (a3 <= 0.0)
-        {
-          this = audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::signal_wait(v17);
-        }
-
-        else
-        {
-          this = audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::signal_wait_with_timeout(v17, a3);
-        }
-
-        v16 = HIDWORD(this);
-      }
-
-      if (!v16 || (this & 1) == 0)
-      {
-        break;
-      }
-
-      v7[1] = 0;
-      v12 = *v7;
-      v10 = (v7 + 2);
-      if (*v7 >= v13)
-      {
-LABEL_13:
-        this = memcpy(v10, v11, v13);
-        v10 += v13;
-        v12 -= v13;
-      }
-
-      v11 = *v11;
-    }
-
-    while (v11);
-  }
-
-  v7[1] = v10 - v9;
-  if (a4 && v10 != v9)
-  {
-    v18 = *(v6 + 80);
-    this = audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::can_send(v6 + 8, a3);
-    if (HIDWORD(this) && (this & 1) != 0)
-    {
-      *(v18 + 4104) = 5;
-      v19 = v6 + 8;
-      if (a3 <= 0.0)
-      {
-        this = audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::signal_wait(v19);
-      }
-
-      else
-      {
-        this = audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::signal_wait_with_timeout(v19, a3);
-      }
-    }
-
-    v7[1] = 0;
-  }
-
-  return this;
-}
-
-uint64_t AUOOPRenderingClient::pullOneInput(AUOOPRenderingClient *this, unsigned int a2, const AudioTimeStamp *a3, uint64_t a4)
-{
-  v8 = *(this + 10);
-  v9 = *audioipc::SharedAudioBuffers::mutableBufferList((this + 104), a2, a4);
-  v10 = v8 + 4 * a2;
-  *(v10 + 4316) = 0;
-  result = *(this + 26);
-  if (result)
-  {
-    result = (*(result + 16))(result, v10 + 4316, a3, a4, a2, v9);
-    if (!result)
-    {
-      v12 = audioipc::SharedAudioBuffers::immutableBufferList((this + 104), a2, a4);
-      v13 = **v12;
-      if (v13 >= *v9)
-      {
-        v14 = *v9;
-      }
-
-      else
-      {
-        v14 = v13;
-      }
-
-      if (v14)
-      {
-        v15 = (v9 + 4);
-        v16 = (*v12 + 4);
-        do
-        {
-          if (*v16 != *v15)
-          {
-            memcpy(*v16, *v15, *(v15 - 1));
-          }
-
-          v15 += 2;
-          v16 += 2;
-          --v14;
-        }
-
-        while (v14);
-      }
-
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-unint64_t audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::can_send(uint64_t a1, double a2)
-{
-  v2 = atomic_load((a1 + 49));
-  v3 = *(a1 + 24);
-  if (v2)
-  {
-    v8 = 0;
-    v6 = 0;
-    atomic_store(2u, v3);
-LABEL_10:
-    LOBYTE(v7) = 1;
-    return v8 | (v6 << 8) | (v7 << 32);
-  }
-
-  v4 = atomic_load(v3);
-  if (v4 == 2)
-  {
-    goto LABEL_9;
-  }
-
-  v5 = atomic_load(*(a1 + 32));
-  if (v5 == 2)
-  {
-    goto LABEL_9;
-  }
-
-  if (*(a1 + 48))
-  {
-    v6 = 0;
-    LOBYTE(v7) = 1;
-    v8 = 1;
-    return v8 | (v6 << 8) | (v7 << 32);
-  }
-
-  if (atomic_load(*(a1 + 32)))
-  {
-LABEL_9:
-    v8 = 0;
-    v6 = 0;
-    goto LABEL_10;
-  }
-
-  v11 = audioipc::eventlink_primitive::timed_wait_or_error(*(a1 + 56), a2);
-  v6 = v11 >> 8;
-  v7 = HIDWORD(v11);
-  v8 = v11;
-  if ((v11 & 0x100000000) == 0)
-  {
-    v14 = v11;
-    v12 = HIDWORD(v11);
-    v13 = v11 >> 8;
-    audioipc::log_error("can_send draining", v11);
-    LOBYTE(v7) = v12;
-    v6 = v13;
-    v8 = v14;
-  }
-
-  return v8 | (v6 << 8) | (v7 << 32);
-}
-
-unint64_t audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::signal_wait_with_timeout(uint64_t a1, double a2)
-{
-  atomic_store(0, *(a1 + 24));
-  v3 = audioipc::eventlink_primitive::timed_wait_signal_or_error(*(a1 + 56), a2);
-  v4 = atomic_load((a1 + 49));
-  if (v4)
-  {
-    LOBYTE(v5) = 0;
-    v7 = 0;
-    atomic_store(2u, *(a1 + 24));
-  }
-
-  else
-  {
-    v5 = v3;
-    v6 = *(a1 + 24);
-    if (!HIDWORD(v3))
-    {
-      atomic_store(2u, v6);
-      audioipc::log_error("rt_sender::signal_wait_with_timeout", v3);
-      v8 = 0;
-      v7 = v5 & 0xFFFFFF00;
-      return v5 | v8 | v7;
-    }
-
-    v7 = 0;
-    atomic_store(1u, v6);
-    *(a1 + 48) = v3;
-  }
-
-  v8 = 0x100000000;
-  return v5 | v8 | v7;
-}
-
-uint64_t audioipc::ipc_node_base<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::signal_wait(uint64_t a1)
-{
-  atomic_store(0, *(a1 + 24));
-  v2 = audioipc::eventlink_primitive::wait_signal_or_error(*(a1 + 56));
-  v3 = atomic_load((a1 + 49));
-  if (v3)
-  {
-    v7 = 0;
-    v6 = 0;
-    atomic_store(2u, *(a1 + 24));
-  }
-
-  else
-  {
-    v4 = v2;
-    v5 = *(a1 + 24);
-    if (!HIDWORD(v2))
-    {
-      atomic_store(2u, v5);
-      audioipc::log_error("rt_sender::signal_wait", v2);
-      v8 = 0;
-      v6 = v4 & 0xFFFFFF00;
-      v7 = v4;
-      return v7 | v6 | v8;
-    }
-
-    v6 = 0;
-    v7 = 1;
-    atomic_store(1u, v5);
-    *(a1 + 48) = 1;
-  }
-
-  v8 = 0x100000000;
-  return v7 | v6 | v8;
-}
-
-void audioipc::log_error(audioipc *this, const char *a2)
-{
-  v2 = a2;
-  v10 = *MEMORY[0x1E69E9840];
-  v4 = CADefaultLog();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-  {
-    v6 = 136315394;
-    v7 = this;
-    v8 = 1024;
-    v9 = v2;
-    _os_log_error_impl(&dword_18F5DF000, v4, OS_LOG_TYPE_ERROR, "%s failed: %d", &v6, 0x12u);
-  }
-
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void *audioipc::SharedAudioBuffers::mutableBufferList(audioipc::SharedAudioBuffers *this, unsigned int a2, unsigned int a3)
-{
-  if (a2 >= ((*(this + 1) - *this) >> 7))
-  {
-    CAAssertRtn();
-LABEL_7:
-    std::terminate();
-  }
-
-  if (*(this + 6) < a3)
-  {
-    goto LABEL_7;
-  }
-
-  v3 = (*this + (a2 << 7));
-  v4 = audioipc::SharedAudioBuffers::Element::immutableBufferList(v3, a3);
-  v5 = v4[1];
-  v6 = (*v4 + 8);
-  if (v5 != v6)
-  {
-    memmove((*(v3 + 9) + 8), v6, v5 - v6);
-  }
-
-  return (v3 + 72);
-}
-
-uint64_t AURenderEventAllocator::eventSize(AURenderEventAllocator *this, const AURenderEvent *a2)
-{
-  v2 = *(this + 16);
-  if (v2 > 8)
-  {
-    if (v2 == 9)
-    {
-      return *(this + 9) + 21;
-    }
-
-    if (v2 == 10)
-    {
-      return MIDI::EventList::size((this + 20)) + 20;
-    }
-  }
-
-  else
-  {
-    if (v2 - 1 < 2)
-    {
-      return 48;
-    }
-
-    if (v2 == 8)
-    {
-      return 24;
-    }
-  }
-
-  return 0;
-}
-
-void EC3PacketParser::EC3PacketParser(EC3PacketParser *this, int a2, const void *__src, unsigned int a4)
-{
-  v12 = *MEMORY[0x1E69E9840];
-  *this = a2;
-  *(this + 2) = 0;
-  *(this + 1) = __src;
-  *(this + 4) = a4;
-  *(this + 20) = 0;
-  *(this + 8) = 0;
-  *(this + 18) = 0;
-  if ((a2 | 0x4000000) == 0x65632D33)
-  {
-    v5 = a2 == 1633889587 ? 10 : 12;
-    if (v5 <= a4)
-    {
-      v6 = 12;
-      if (a2 == 1633889587)
-      {
-        v6 = 10;
-      }
-
-      memcpy(__dst, __src, v6);
-      if (__dst[0] == 30475)
-      {
-        v8 = 4;
-        v9 = 20;
-        v7 = 1;
-        goto LABEL_12;
-      }
-
-      if (__dst[0] == 2935)
-      {
-        v7 = 0;
-        v8 = 20;
-        v9 = 4;
-LABEL_12:
-        *(this + v9) = 1;
-        *(this + v8) = v7;
-      }
-    }
-  }
-
-  v10 = *MEMORY[0x1E69E9840];
-}
-
-uint64_t EC3PacketParser::IsValid(EC3PacketParser *this)
-{
-  if (*(this + 4) != 1)
-  {
-    return 0;
-  }
-
-  if (*(this + 5))
-  {
-    return 1;
-  }
-
-  v3 = *(this + 1);
-  if (*this == 1633889587)
-  {
-    v4 = 10;
-  }
-
-  else
-  {
-    v4 = 12;
-  }
-
-  if (ParseAC3Header(v3, v4, (this + 24), this + 16, this + 17, 0, this + 18, 0))
-  {
-    return 0;
-  }
-
-  result = 1;
-  *(this + 5) = 1;
-  return result;
-}
-
-uint64_t EC3StreamParser::AssessPacket(int32x2_t *this, unsigned __int8 *a2, unsigned int a3, int a4, unsigned int *a5, BOOL *a6)
-{
-  v33 = *MEMORY[0x1E69E9840];
-  v7 = this->u8[0];
-  if (v7 == 1)
-  {
-    result = 0;
-LABEL_3:
-    *a6 = v7;
-    goto LABEL_6;
-  }
-
-  *v30 = 0;
-  v29 = 0;
-  memset(&v28, 0, sizeof(v28));
-  v27 = 0;
-  result = ParseAC3Header(a2, a3, &v28, 0, &v29, 0, &v27, 0);
-  if (!result)
-  {
-    result = GetAC3PacketIndex(a2, v30, &v30[1], v14);
-    if (!result)
-    {
-      if (a3 <= 0xB)
-      {
-        v32 = 0;
-        __dst = 0;
-      }
-
-      if (a3 >= 0xC)
-      {
-        v16 = 12;
-      }
-
-      else
-      {
-        v16 = a3;
-      }
-
-      memcpy(&__dst, a2, v16);
-      if (a4)
-      {
-        if (v30[1] - 1 > 1)
-        {
-          if (!v30[1])
-          {
-            std::vector<EC3Header>::push_back[abi:ne200100](&this[21], &__dst);
-            v23 = v29;
-            v24.i32[0] = 1;
-            v24.i32[1] = v29;
-            this[4] = vadd_s32(this[4], v24);
-            v25 = &this[2 * (this->i32[1] - 1)];
-            ++v25[5].i32[0];
-            v25[6].i32[0] += v23;
-          }
-
-          goto LABEL_26;
-        }
-
-        if (v30[0])
-        {
-          if (this->i32[1] != 8)
-          {
-            std::vector<EC3Header>::push_back[abi:ne200100](&this[21], &__dst);
-            v17 = this->u32[1];
-            this->i32[1] = v17 + 1;
-            v18.i32[0] = 1;
-            v18.i32[1] = v29;
-            this[4] = vadd_s32(this[4], v18);
-            v19 = &this[2 * v17];
-            v20 = 0x600 / v28.mFramesPerPacket;
-            v19[5] = __PAIR64__(v18.u32[1], 1);
-            v19[6].i32[0] = v18.i32[1];
-            v19[6].i32[1] = v20;
-            if (v20 > this[24].i32[0])
-            {
-              this[24].i32[0] = v20;
-            }
-
-            goto LABEL_26;
-          }
-
-LABEL_22:
-          result = 560226676;
-          goto LABEL_6;
-        }
-
-        v26 = this[24].i32[1] + 1;
-        if (v26 >= this[24].i32[0])
-        {
-          this->i8[0] = 1;
-        }
-
-        else
-        {
-          this[24].i32[1] = v26;
-        }
-      }
-
-      else
-      {
-        if (!v30[1])
-        {
-          goto LABEL_22;
-        }
-
-        std::vector<EC3Header>::push_back[abi:ne200100](&this[21], &__dst);
-        this->i32[1] = 1;
-        v21 = v29;
-        v22 = this[4].i32[1] + v29;
-        this[4].i32[0] = 1;
-        this[4].i32[1] = v22;
-        this[5].i32[0] = 1;
-        this[5].i32[1] = v21;
-        this[6].i32[0] = v21;
-      }
-
-LABEL_26:
-      result = 0;
-      *a5 = v29;
-      LOBYTE(v7) = this->i8[0];
-      goto LABEL_3;
-    }
-  }
-
-LABEL_6:
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-void std::vector<EC3Header>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
-{
-  v4 = *(a1 + 8);
-  v3 = *(a1 + 16);
-  if (v4 >= v3)
-  {
-    v7 = *a1;
-    v8 = v4 - *a1;
-    v9 = 0xAAAAAAAAAAAAAAABLL * (v8 >> 2) + 1;
-    if (v9 > 0x1555555555555555)
-    {
-      std::vector<APAC::UI18>::__throw_length_error[abi:ne200100]();
-    }
-
-    v10 = 0xAAAAAAAAAAAAAAABLL * ((v3 - v7) >> 2);
-    if (2 * v10 > v9)
-    {
-      v9 = 2 * v10;
-    }
-
-    if (v10 >= 0xAAAAAAAAAAAAAAALL)
-    {
-      v11 = 0x1555555555555555;
-    }
-
-    else
-    {
-      v11 = v9;
-    }
-
-    if (v11)
-    {
-      if (v11 <= 0x1555555555555555)
-      {
-        operator new();
-      }
-
-      std::__throw_bad_array_new_length[abi:ne200100]();
-    }
-
-    v12 = 4 * (v8 >> 2);
-    *v12 = *a2;
-    *(v12 + 8) = *(a2 + 2);
-    v6 = v12 + 12;
-    v13 = v12 - v8;
-    memcpy((v12 - v8), v7, v8);
-    *a1 = v13;
-    *(a1 + 8) = v6;
-    *(a1 + 16) = 0;
-    if (v7)
-    {
-      operator delete(v7);
-    }
-  }
-
-  else
-  {
-    v5 = *a2;
-    *(v4 + 8) = *(a2 + 2);
-    *v4 = v5;
-    v6 = v4 + 12;
-  }
-
-  *(a1 + 8) = v6;
-}
-
-Float64 EC3StreamParser::AssessPacketHeader(EC3StreamParser *this, const void *a2, unsigned int *a3, unsigned int *a4, BOOL *a5, AudioStreamBasicDescription *a6, unsigned int *a7, int *a8)
-{
-  v19 = 0;
-  memset(&v17, 0, sizeof(v17));
-  if (!ParseAC3Header(this, a2, &v17, 0, a3, 0, &v18, a7) && !GetAC3PacketIndex(this, &v19, a6, v12))
-  {
-    if (LODWORD(a6->mSampleRate))
-    {
-      v14 = v19 == 0;
-    }
-
-    else
-    {
-      v14 = 0;
-    }
-
-    v15 = v14;
-    *a4 = v15;
-    if (a5)
-    {
-      result = v17.mSampleRate;
-      v16 = *&v17.mBytesPerPacket;
-      *a5 = *&v17.mSampleRate;
-      *(a5 + 1) = v16;
-      *(a5 + 4) = *&v17.mBitsPerChannel;
-    }
-  }
-
-  return result;
-}
-
-uint64_t *std::vector<AudioFormatListItem>::resize(uint64_t *result, unint64_t a2, __int128 *a3)
-{
-  v4 = *result;
-  v3 = result[1];
-  v5 = v3 - *result;
-  v6 = 0xAAAAAAAAAAAAAAABLL * (v5 >> 4);
-  v7 = a2 - v6;
-  if (a2 <= v6)
-  {
-    if (a2 >= v6)
-    {
-      return result;
-    }
-
-    v12 = (v4 + 48 * a2);
-  }
-
-  else
-  {
-    v8 = result[2];
-    if (0xAAAAAAAAAAAAAAABLL * ((v8 - v3) >> 4) < v7)
-    {
-      if (a2 <= 0x555555555555555)
-      {
-        v9 = 0xAAAAAAAAAAAAAAABLL * ((v8 - v4) >> 4);
-        v10 = 0x5555555555555556 * ((v8 - v4) >> 4);
-        if (v10 <= a2)
-        {
-          v10 = a2;
-        }
-
-        if (v9 >= 0x2AAAAAAAAAAAAAALL)
-        {
-          v11 = 0x555555555555555;
-        }
-
-        else
-        {
-          v11 = v10;
-        }
-
-        std::allocator<AudioFormatListItem>::allocate_at_least[abi:ne200100](v11);
-      }
-
-      std::vector<APAC::UI18>::__throw_length_error[abi:ne200100]();
-    }
-
-    v12 = &v3[3 * v7];
-    v13 = 48 * a2 - 16 * (v5 >> 4);
-    do
-    {
-      v14 = *a3;
-      v15 = a3[2];
-      v3[1] = a3[1];
-      v3[2] = v15;
-      *v3 = v14;
-      v3 += 3;
-      v13 -= 48;
-    }
-
-    while (v13);
-  }
-
-  result[1] = v12;
-  return result;
-}
-
-uint64_t std::vector<AudioFormatListItem>::__init_with_size[abi:ne200100]<AudioFormatListItem*,AudioFormatListItem*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  if (a4)
-  {
-    std::vector<AudioFormatListItem>::__vallocate[abi:ne200100](result, a4);
-  }
-
-  return result;
-}
-
-void sub_18F6FA0CC(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void std::vector<AudioFormatListItem>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
-{
-  if (a2 < 0x555555555555556)
-  {
-    std::allocator<AudioFormatListItem>::allocate_at_least[abi:ne200100](a2);
-  }
-
-  std::vector<APAC::UI18>::__throw_length_error[abi:ne200100]();
-}
-
-void std::vector<std::unique_ptr<auoop::PipeSubPool>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
-{
-  v1 = *a1;
-  v2 = **a1;
-  if (v2)
-  {
-    v4 = v1[1];
-    v5 = **a1;
-    if (v4 != v2)
-    {
-      do
-      {
-        std::unique_ptr<auoop::PipeSubPool>::reset[abi:ne200100](--v4, 0);
-      }
-
-      while (v4 != v2);
-      v5 = **a1;
-    }
-
-    v1[1] = v2;
-
-    operator delete(v5);
-  }
-}
-
-uint64_t *std::unique_ptr<auoop::PipeSubPool>::reset[abi:ne200100](uint64_t *result, uint64_t a2)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    v5 = (v2 + 120);
-    std::vector<auoop::PipeSubPool::PipeSlot>::__destroy_vector::operator()[abi:ne200100](&v5);
-    MEMORY[0x193ADE990](v2 + 100);
-
-    v3 = *(v2 + 40);
-    if (v3)
-    {
-      *(v2 + 48) = v3;
-      operator delete(v3);
-    }
-
-    v4 = *(v2 + 16);
-    if (v4)
-    {
-      *(v2 + 24) = v4;
-      operator delete(v4);
-    }
-
-    JUMPOUT(0x193ADF220);
-  }
-
-  return result;
-}
-
-void std::vector<auoop::PipeSubPool::PipeSlot>::__destroy_vector::operator()[abi:ne200100](void ***a1)
-{
-  v1 = *a1;
-  v2 = **a1;
-  if (v2)
-  {
-    v4 = v1[1];
-    v5 = **a1;
-    if (v4 != v2)
-    {
-      do
-      {
-        v6 = v4 - 4;
-        std::unique_ptr<AUOOPRenderingClient>::reset[abi:ne200100](v4 - 3, 0);
-        v4 = v6;
-      }
-
-      while (v6 != v2);
-      v5 = **a1;
-    }
-
-    v1[1] = v2;
-
-    operator delete(v5);
-  }
-}
-
-uint64_t *std::unique_ptr<AUOOPRenderingClient>::reset[abi:ne200100](uint64_t *result, uint64_t a2)
-{
-  v2 = *result;
-  *result = a2;
-  if (v2)
-  {
-    if (*(v2 + 136) == 1)
-    {
-      v3 = (v2 + 104);
-      std::vector<audioipc::SharedAudioBuffers::Element>::__destroy_vector::operator()[abi:ne200100](&v3);
-    }
-
-    audioipc::rt_sender<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::~rt_sender(v2 + 8);
-
-    JUMPOUT(0x193ADF220);
-  }
-
-  return result;
-}
-
-void std::__shared_ptr_emplace<caulk::synchronized<auoop::RenderPipePool,std::recursive_mutex,caulk::empty_atomic_interface<auoop::RenderPipePool>>>::__on_zero_shared(uint64_t a1)
-{
-  if (*(a1 + 200) == 1)
-  {
-    auoop::WorkgroupPropagator::~WorkgroupPropagator((a1 + 128));
-    *(a1 + 200) = 0;
-  }
-
-  if (*(a1 + 200) == 1)
-  {
-    auoop::WorkgroupPropagator::~WorkgroupPropagator((a1 + 128));
-  }
-
-  v2 = (a1 + 104);
-  std::vector<std::unique_ptr<auoop::PipeSubPool>>::__destroy_vector::operator()[abi:ne200100](&v2);
-
-  std::recursive_mutex::~recursive_mutex((a1 + 24));
-}
-
-void std::__shared_ptr_emplace<caulk::synchronized<auoop::RenderPipePool,std::recursive_mutex,caulk::empty_atomic_interface<auoop::RenderPipePool>>>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
-{
-  a1->__vftable = &unk_1F03272A8;
-  std::__shared_weak_count::~__shared_weak_count(a1);
-
-  JUMPOUT(0x193ADF220);
-}
-
-void auoop::RenderPipeUser::~RenderPipeUser(auoop::RenderPipeUser *this)
-{
-  v41 = *MEMORY[0x1E69E9840];
-  v2 = *this;
-  if (!*this)
-  {
-    goto LABEL_39;
-  }
-
-  v3 = *v2;
-  std::recursive_mutex::lock(*v2);
-  [*&v3[2].__m_.__opaque[48] removeObject:*(this + 2)];
-  v4 = *this;
-  v5 = atomic_load(this + 64);
-  if (v5)
-  {
-    v6 = 0;
-  }
-
-  else
-  {
-    v6 = *(this + 2);
-  }
-
-  v31 = v6;
-  v32 = v6;
-  v7 = *(v4 + 23);
-  v8 = *(v4 + 22) - 1;
-  *(v4 + 22) = v8;
-  v9 = *(v4 + 24);
-  if (v9 >= v8)
-  {
-    v9 = v8;
-  }
-
-  if (v7 > v9)
-  {
-    v10 = auoop::PipeSubPool::acquirePipeSlot(v4, 0, 0);
-    if ((v11 & 1) == 0)
-    {
-      CAAssertRtn();
-    }
-
-    v12 = v10;
-    v13 = v32;
-    v14 = v12 + 8;
-    audioipc::rt_sender<(audioipc::ipcnode_options)0,audioipc::eventlink_primitive,caulk::ipc::mapped_memory>::stop(*(v12 + 8) + 8);
-    if (!v13)
-    {
-      goto LABEL_22;
-    }
-
-    if (kAUExtensionScope)
-    {
-      v15 = *kAUExtensionScope;
-      if (!v15)
-      {
-LABEL_17:
-        caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::sync_message(buf, v13);
-        v18 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::sync_proxy(buf);
-        v19 = *(*v14 + 144);
-        v20 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::reply(buf);
-        [v18 destroyRenderPipe:v19 reply:{v20, v31}];
-
-        v21 = v40;
-        if (v21)
-        {
-          v22 = *kAUExtensionScope;
-          v23 = applesauce::dispatch::v1::queue::operator*(*kAUExtensionScope);
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
-          {
-            v30 = [v21 description];
-            *v33 = 138412290;
-            v34 = v30;
-            _os_log_error_impl(&dword_18F5DF000, v22, OS_LOG_TYPE_ERROR, "Error in destroying pipe %@", v33, 0xCu);
-          }
-        }
-
-        _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(&buf[8]);
-LABEL_22:
-        std::unique_ptr<AUOOPRenderingClient>::reset[abi:ne200100]((v12 + 8), 0);
-
-        __dmb(0xBu);
-        atomic_store(0, v12);
-        v8 = *(v4 + 22);
-        --*(v4 + 23);
-        goto LABEL_23;
-      }
-    }
-
-    else
-    {
-      v15 = MEMORY[0x1E69E9C10];
-      v16 = MEMORY[0x1E69E9C10];
-    }
-
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-    {
-      v17 = *(*v14 + 144);
-      *buf = 136315650;
-      *&buf[4] = "AUOOPRenderPipePool.mm";
-      v36 = 1024;
-      v37 = 181;
-      v38 = 1024;
-      v39 = v17;
-      _os_log_impl(&dword_18F5DF000, v15, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Host destroying render pipe %d", buf, 0x18u);
-    }
-
-    goto LABEL_17;
-  }
-
-LABEL_23:
-  if (!v8)
-  {
-    v24 = *&v3[1].__m_.__opaque[8];
-    v25 = *&v3[1].__m_.__opaque[16];
-    if (v24 != v25)
-    {
-      while (*v24 != v4)
-      {
-        if (++v24 == v25)
-        {
-          v24 = *&v3[1].__m_.__opaque[16];
-          break;
-        }
-      }
-    }
-
-    if (v25 != v24)
-    {
-      v26 = v24 + 1;
-      if (v24 + 1 != v25)
-      {
-        do
-        {
-          v24 = v26;
-          v27 = v26 - 1;
-          v28 = *v26;
-          *v26++ = 0;
-          std::unique_ptr<auoop::PipeSubPool>::reset[abi:ne200100](v27, v28);
-        }
-
-        while (v26 != v25);
-        v25 = *&v3[1].__m_.__opaque[16];
-      }
-
-      while (v25 != v24)
-      {
-        std::unique_ptr<auoop::PipeSubPool>::reset[abi:ne200100](--v25, 0);
-      }
-
-      *&v3[1].__m_.__opaque[16] = v24;
-    }
-  }
-
-  if ((v5 & 1) == 0)
-  {
-  }
-
-  if (v3)
-  {
-    std::recursive_mutex::unlock(v3);
-  }
-
-LABEL_39:
-  v29 = *MEMORY[0x1E69E9840];
-}
-
-void sub_18F6FA7F4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, void *a10, uint64_t a11, uint64_t a12, id a13)
-{
-  if (a2)
-  {
-
-    caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::~sync_message(&a13);
-    if ((v13 & 1) == 0)
-    {
-    }
-
-    __clang_call_terminate(exception_object);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t auoop::PipeSubPool::acquirePipeSlot(auoop::PipeSubPool *this, unint64_t *a2, int a3)
-{
-  v6 = 561015152;
-LABEL_2:
-  while (!caulk::semaphore::timed_wait((this + 100), 1.0))
-  {
-    if (a3)
-    {
-      v7 = *(this + 24);
-      v8 = v7 >= 0 ? *(this + 24) : v7 + 3;
-      v9 = pthread_self();
-      v10 = *(this + 15);
-      v11 = *(this + 16);
-      if (v10 != v11)
-      {
-        v12 = 0;
-        while (1)
-        {
-          v13 = atomic_load(v10);
-          if (v13)
-          {
-            v14 = atomic_load((v10 + 24));
-            if (v9 == v14 && ++v12 == v8 >> 2)
-            {
-              return v6;
-            }
-          }
-
-          v10 += 32;
-          if (v10 == v11)
-          {
-            goto LABEL_2;
-          }
-        }
-      }
-    }
-  }
-
-  v15 = 1;
-  do
-  {
-LABEL_16:
-    v16 = v15;
-    v6 = *(this + 15);
-    v17 = *(this + 16);
-    v15 = 0;
-  }
-
-  while (v6 == v17);
-  while (1)
-  {
-    if (!*(v6 + 8) || ((a2 != 0) & v16) != 0 && *(v6 + 16) != *a2 || (atomic_exchange(v6, 1u) & 1) != 0)
-    {
-      goto LABEL_26;
-    }
-
-    *(v6 + 24) = pthread_self();
-    __dmb(9u);
-    if (*(v6 + 8))
-    {
-      break;
-    }
-
-LABEL_25:
-    atomic_store(0, v6);
-LABEL_26:
-    v6 += 32;
-    if (v6 == v17)
-    {
-      v15 = 0;
-      goto LABEL_16;
-    }
-  }
-
-  if (v16)
-  {
-    if (!a2)
-    {
-      return v6;
-    }
-
-    v18 = *(v6 + 16);
-    if (v18 == *a2)
-    {
-      goto LABEL_30;
-    }
-
-    goto LABEL_25;
-  }
-
-  if (!a2)
-  {
-    return v6;
-  }
-
-  v18 = *a2;
-LABEL_30:
-  *(v6 + 16) = v18;
-  return v6;
-}
-
-void *caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::sync_message(void *a1, void *a2)
-{
-  v5[4] = *MEMORY[0x1E69E9840];
-  v5[0] = &unk_1F032C5E0;
-  v5[1] = a1;
-  v5[3] = v5;
-  caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::message(a1, a2, v5);
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v5);
-  a1[5] = 0;
-  v3 = *MEMORY[0x1E69E9840];
-  return a1;
-}
-
-void sub_18F6FAA84(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(va);
-  _Unwind_Resume(a1);
-}
-
-id caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::sync_proxy(void **a1)
-{
-  v9 = *MEMORY[0x1E69E9840];
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v8, (a1 + 1));
-  v2 = *a1;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3321888768;
-  v6[2] = ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJEE10sync_proxyEv_block_invoke;
-  v6[3] = &__block_descriptor_64_ea8_32c50_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJEEEEEE_e17_v16__0__NSError_8l;
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v7, v8);
-  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v6];
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v7);
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v8);
-  v4 = *MEMORY[0x1E69E9840];
-
-  return v3;
-}
-
-void sub_18F6FAB84(_Unwind_Exception *a1)
-{
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v1 + 32);
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v2 - 56);
-  _Unwind_Resume(a1);
-}
-
-id caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::reply(uint64_t a1)
-{
-  v7 = *MEMORY[0x1E69E9840];
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v6, a1 + 8);
-  aBlock[0] = MEMORY[0x1E69E9820];
-  aBlock[1] = 3321888768;
-  aBlock[2] = ___ZN5caulk3xpc7messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJEE5replyEv_block_invoke;
-  aBlock[3] = &__block_descriptor_64_ea8_32c50_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJEEEEEE_e17_v16__0__NSError_8l;
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v5, v6);
-  v1 = _Block_copy(aBlock);
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v5);
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v6);
-  v2 = *MEMORY[0x1E69E9840];
-
-  return v1;
-}
-
-id *caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::~sync_message(id *a1)
-{
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev((a1 + 1));
-
-  return a1;
-}
-
-void *caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::message(void *a1, void *a2, uint64_t a3)
-{
-  v5 = a2;
-  *a1 = v5;
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_((a1 + 1), a3);
-
-  return a1;
-}
-
-uint64_t _ZNKSt3__110__function6__funcIZN5caulk3xpc12sync_messageIU8__strongPU33objcproto22AUAudioUnitXPCProtocol11objc_objectJEEC1EP15NSXPCConnectionEUlP7NSErrorONS_5tupleIJEEEE_NS_9allocatorISG_EEFvSC_SF_EE7__cloneEPNS0_6__baseISJ_EE(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F032C5E0;
-  a2[1] = v2;
-  return result;
-}
-
-void std::__function::__func<auoop::RenderPipePool::registerUser(AUOOPRenderClientUser const&,auoop::RenderPipeConfig const&)::$_1,std::allocator<auoop::RenderPipePool::registerUser(AUOOPRenderClientUser const&,auoop::RenderPipeConfig const&)::$_1>,void ()(applesauce::xpc::dict const&)>::operator()(uint64_t a1, id *a2)
-{
-  v23 = *MEMORY[0x1E69E9840];
-  v3 = **(a1 + 8);
-  std::recursive_mutex::lock(v3);
-  v4 = [*(v3 + 184) anyObject];
-  if (!v4)
-  {
-    *(v3 + 76) = 1;
-    goto LABEL_12;
-  }
-
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::sync_message(&v20, v4);
-  v5 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::sync_proxy(&v20);
-  v6 = *a2;
-  applesauce::dispatch::v1::queue::operator*(*a2);
-  objc_claimAutoreleasedReturnValue();
-  v7 = caulk::xpc::message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::reply(&v20);
-  [v5 updateWorkgroupMirror:v6 reply:v7];
-
-  v8 = v22;
-  if (v8)
-  {
-    if (kAUExtensionScope)
-    {
-      v9 = *kAUExtensionScope;
-      if (!v9)
-      {
-        goto LABEL_11;
-      }
-    }
-
-    else
-    {
-      v9 = MEMORY[0x1E69E9C10];
-      v10 = MEMORY[0x1E69E9C10];
-    }
-
-    v11 = v9;
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-    {
-      v12 = [v8 description];
-      v14 = 136315650;
-      v15 = "AUOOPRenderPipePool.mm";
-      v16 = 1024;
-      v17 = 144;
-      v18 = 2112;
-      v19 = v12;
-      _os_log_impl(&dword_18F5DF000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d error from workgroupsChanged: %@", &v14, 0x1Cu);
-    }
-  }
-
-LABEL_11:
-
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(&v21);
-LABEL_12:
-
-  v13 = *MEMORY[0x1E69E9840];
-
-  std::recursive_mutex::unlock(v3);
-}
-
-void sub_18F6FB038(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
-{
-  va_start(va, a5);
-
-  caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong}>::~sync_message(va);
-  std::recursive_mutex::unlock(v5);
-  _Unwind_Resume(a1);
-}
-
-uint64_t std::__function::__func<auoop::RenderPipePool::registerUser(AUOOPRenderClientUser const&,auoop::RenderPipeConfig const&)::$_1,std::allocator<auoop::RenderPipePool::registerUser(AUOOPRenderClientUser const&,auoop::RenderPipeConfig const&)::$_1>,void ()(applesauce::xpc::dict const&)>::__clone(uint64_t result, void *a2)
-{
-  v2 = *(result + 8);
-  *a2 = &unk_1F0327218;
-  a2[1] = v2;
-  return result;
-}
-
-id *caulk::xpc::sync_message<objc_object  {objcproto22AUAudioUnitXPCProtocol}* {__strong},unsigned int>::~sync_message(id *a1)
-{
-  std::__function::__value_func<void ()(NSError *,std::tuple<unsigned int> &&)>::~__value_func[abi:ne200100]((a1 + 1));
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<unsigned int> &&)>::~__value_func[abi:ne200100](uint64_t a1)
-{
-  v2 = *(a1 + 24);
-  if (v2 == a1)
-  {
-    (*(*v2 + 32))(v2);
-  }
-
-  else if (v2)
-  {
-    (*(*v2 + 40))(v2);
-  }
-
-  return a1;
-}
-
-uint64_t caulk::__expected_detail::base<std::unique_ptr<AUOOPRenderingClient>,NSError * {__strong}>::~base(uint64_t a1)
-{
-  if (*(a1 + 8) == 1)
-  {
-    std::unique_ptr<AUOOPRenderingClient>::reset[abi:ne200100](a1, 0);
-  }
-
-  else
-  {
-  }
-
-  return a1;
-}
-
-uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<unsigned int> &&)>::__value_func[abi:ne200100](uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 24);
-  if (v3)
-  {
-    if (v3 == a2)
-    {
-      *(a1 + 24) = a1;
-      (*(**(a2 + 24) + 24))(*(a2 + 24), a1);
-    }
-
-    else
-    {
-      *(a1 + 24) = (*(*v3 + 16))(v3);
-    }
-  }
-
-  else
-  {
-    *(a1 + 24) = 0;
-  }
-
-  return a1;
 }

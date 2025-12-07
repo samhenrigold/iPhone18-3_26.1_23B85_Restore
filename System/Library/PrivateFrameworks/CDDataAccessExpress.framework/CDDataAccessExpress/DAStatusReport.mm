@@ -241,7 +241,7 @@
 
 - (void)mergeStatusReport:(id)report
 {
-  v111 = *MEMORY[0x277D85DE8];
+  v110 = *MEMORY[0x277D85DE8];
   reportCopy = report;
   persistentUUID = [reportCopy persistentUUID];
   if (persistentUUID)
@@ -256,11 +256,11 @@
       v10 = DALoggingwithCategory(0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v107 = 138412546;
+        v106 = 138412546;
         selfCopy2 = self;
-        v109 = 2112;
-        v110 = reportCopy;
-        _os_log_impl(&dword_242505000, v10, OS_LOG_TYPE_ERROR, "Why are we combining status reports for different accounts? %@ vs. %@", &v107, 0x16u);
+        v108 = 2112;
+        v109 = reportCopy;
+        _os_log_impl(&dword_242505000, v10, OS_LOG_TYPE_ERROR, "Why are we combining status reports for different accounts? %@ vs. %@", &v106, 0x16u);
       }
     }
   }
@@ -291,11 +291,11 @@
       v20 = DALoggingwithCategory(0);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v107 = 138412546;
+        v106 = 138412546;
         selfCopy2 = self;
-        v109 = 2112;
-        v110 = reportCopy;
-        _os_log_impl(&dword_242505000, v20, OS_LOG_TYPE_ERROR, "Why are we combining status reports for different accounts? %@ vs. %@", &v107, 0x16u);
+        v108 = 2112;
+        v109 = reportCopy;
+        _os_log_impl(&dword_242505000, v20, OS_LOG_TYPE_ERROR, "Why are we combining status reports for different accounts? %@ vs. %@", &v106, 0x16u);
       }
     }
   }
@@ -501,9 +501,9 @@ LABEL_47:
       if (os_log_type_enabled(v86, OS_LOG_TYPE_INFO))
       {
         protocolVersion4 = [reportCopy protocolVersion];
-        v107 = 138412290;
+        v106 = 138412290;
         selfCopy2 = protocolVersion4;
-        _os_log_impl(&dword_242505000, v86, OS_LOG_TYPE_INFO, "Protocol version is updated to %@", &v107, 0xCu);
+        _os_log_impl(&dword_242505000, v86, OS_LOG_TYPE_INFO, "Protocol version is updated to %@", &v106, 0xCu);
       }
 
       protocolVersion5 = [reportCopy protocolVersion];
@@ -564,8 +564,6 @@ LABEL_47:
       [(DAStatusReport *)self setIsDelegate:isDelegate3];
     }
   }
-
-  v106 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

@@ -58,7 +58,7 @@ uint64_t __62__AVAssetWriterInputInterPassAnalysisHelper_startPassAnalysis__bloc
   v5 = *(a1 + 32);
   if (a2)
   {
-    v7 = [objc_msgSend(v5 "weakReferenceToAssetWriterInput")];
+    v7 = [objc_msgSend(v5 weakReferenceToAssetWriterInput];
     if (a3)
     {
       [*(*(a1 + 32) + 24) setCurrentPassDescription:a3];

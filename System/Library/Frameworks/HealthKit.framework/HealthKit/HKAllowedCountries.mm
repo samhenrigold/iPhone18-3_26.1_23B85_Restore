@@ -238,29 +238,31 @@ LABEL_18:
 
 - (HKAllowedCountries)initWithCoder:(id)coder
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeIntegerForKey:@"category"];
+  v7 = v5;
   if ((v5 - 1) >= 2)
   {
-    _HKInitializeLogging();
-    v7 = HKLogInfrastructure();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(v5, v6);
+    v11 = HKLogInfrastructure(v20, v21);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(HKAllowedCountries *)self initWithCoder:v5];
+      [(HKAllowedCountries *)self initWithCoder:v7];
     }
 
     goto LABEL_13;
   }
 
-  v6 = [coderCopy decodeIntegerForKey:@"remoteState"];
-  if ((v6 - 1) >= 5)
+  v8 = [coderCopy decodeIntegerForKey:@"remoteState"];
+  v10 = v8;
+  if ((v8 - 1) >= 5)
   {
-    _HKInitializeLogging();
-    v7 = HKLogInfrastructure();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(v8, v9);
+    v11 = HKLogInfrastructure(v22, v23);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      [(HKAllowedCountries *)self initWithCoder:v6];
+      [(HKAllowedCountries *)self initWithCoder:v10];
     }
 
 LABEL_13:
@@ -268,81 +270,81 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"version"];
-  v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"localCountrySet"];
-  v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"remoteCountrySet"];
-  if (v7 && v8)
+  v11 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"version"];
+  v12 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"localCountrySet"];
+  v13 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"remoteCountrySet"];
+  v15 = v13;
+  if (v11 && v12)
   {
-    self = [(HKAllowedCountries *)self _initWithCategory:v5 version:v7 localCountrySet:v8 remoteState:v6 remoteCountrySet:v9];
+    self = [(HKAllowedCountries *)self _initWithCategory:v7 version:v11 localCountrySet:v12 remoteState:v10 remoteCountrySet:v13];
     selfCopy = self;
   }
 
   else
   {
-    _HKInitializeLogging();
-    v10 = HKLogInfrastructure();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    _HKInitializeLogging(v13, v14);
+    v18 = HKLogInfrastructure(v16, v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v15 = 138543874;
-      v16 = objc_opt_class();
-      v17 = 2114;
-      v18 = v7;
-      v19 = 2114;
-      v20 = v8;
-      v14 = v16;
-      _os_log_error_impl(&dword_19197B000, v10, OS_LOG_TYPE_ERROR, "[%{public}@] Missing required fields: %{public}@ %{public}@", &v15, 0x20u);
+      v26 = 138543874;
+      v27 = objc_opt_class();
+      v28 = 2114;
+      v29 = v11;
+      v30 = 2114;
+      v31 = v12;
+      v25 = v27;
+      _os_log_error_impl(&dword_19197B000, v18, OS_LOG_TYPE_ERROR, "[%{public}@] Missing required fields: %{public}@ %{public}@", &v26, 0x20u);
     }
 
     selfCopy = 0;
   }
 
 LABEL_14:
-  v12 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (void)_initWithCategory:(void *)category version:(void *)version localCountrySet:(uint64_t)set remoteState:(void *)state remoteCountrySet:
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   categoryCopy = category;
   versionCopy = version;
   stateCopy = state;
   if (self)
   {
-    v26.receiver = self;
-    v26.super_class = HKAllowedCountries;
-    v14 = objc_msgSendSuper2(&v26, sel_init);
+    v28.receiver = self;
+    v28.super_class = HKAllowedCountries;
+    v14 = objc_msgSendSuper2(&v28, sel_init);
     self = v14;
     if (v14)
     {
       if (set != 5 || stateCopy)
       {
         v14[1] = a2;
-        v17 = [categoryCopy copy];
-        v18 = self[2];
-        self[2] = v17;
+        v20 = [categoryCopy copy];
+        v21 = self[2];
+        self[2] = v20;
 
-        v19 = [versionCopy copy];
-        v20 = self[3];
-        self[3] = v19;
+        v22 = [versionCopy copy];
+        v23 = self[3];
+        self[3] = v22;
 
         self[4] = set;
-        v21 = [stateCopy copy];
+        v24 = [stateCopy copy];
         selfCopy = self[5];
-        self[5] = v21;
+        self[5] = v24;
       }
 
       else
       {
-        _HKInitializeLogging();
-        v15 = HKLogInfrastructure();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+        _HKInitializeLogging(v14, v15);
+        v18 = HKLogInfrastructure(v16, v17);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
         {
-          v24 = objc_opt_class();
+          v26 = objc_opt_class();
           *buf = 138543362;
-          v28 = v24;
-          v25 = v24;
-          _os_log_error_impl(&dword_19197B000, v15, OS_LOG_TYPE_ERROR, "[%{public}@] activeRemoteCountries is required when remoteState is HKRemoteAllowedCountriesStateReady", buf, 0xCu);
+          v30 = v26;
+          v27 = v26;
+          _os_log_error_impl(&dword_19197B000, v18, OS_LOG_TYPE_ERROR, "[%{public}@] activeRemoteCountries is required when remoteState is HKRemoteAllowedCountriesStateReady", buf, 0xCu);
         }
 
         selfCopy = self;
@@ -351,7 +353,6 @@ LABEL_14:
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return self;
 }
 
@@ -373,28 +374,22 @@ LABEL_14:
 
 - (void)initWithCoder:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   v4 = MEMORY[0x1E696AD98];
   v5 = v3;
   v6 = [v4 numberWithInteger:a2];
   OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_1_5(&dword_19197B000, v7, v8, "[%{public}@] Unsupported category: %{public}@", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_19197B000, v7, v8, "[%{public}@] Unsupported category: %{public}@", v9, v10, v11, v12);
 }
 
 - (void)initWithCoder:(uint64_t)a1 .cold.2(uint64_t a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
   v4 = MEMORY[0x1E696AD98];
   v5 = v3;
   v6 = [v4 numberWithInteger:a2];
   OUTLINED_FUNCTION_0_13();
-  OUTLINED_FUNCTION_1_5(&dword_19197B000, v7, v8, "[%{public}@] Unsupported remote state: %{public}@", v9, v10, v11, v12, v14);
-
-  v13 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_5(&dword_19197B000, v7, v8, "[%{public}@] Unsupported remote state: %{public}@", v9, v10, v11, v12);
 }
 
 @end

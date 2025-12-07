@@ -59,7 +59,7 @@
     self->_proxTouchHandlingWindow = _createNewWindow;
   }
 
-  v5 = SBLogProximitySensor();
+  v5 = SBLogProximitySensor(self);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (!barCopy)
   {
@@ -114,17 +114,17 @@ LABEL_12:
     selfCopy = self;
     if (!self[4])
     {
-      v3 = SBLogCommon();
-      v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
+      v4 = SBLogCommon();
+      v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
 
-      if (v4)
+      if (v5)
       {
         NSLog(&cfstr_TryingToCreate.isa);
       }
     }
 
     self = [_SBProximityTouchHandlingWindow proximityTouchHandlingWindowWithScene:selfCopy[6] viewController:?];
-    v1 = vars8;
+    v2 = vars8;
   }
 
   return self;

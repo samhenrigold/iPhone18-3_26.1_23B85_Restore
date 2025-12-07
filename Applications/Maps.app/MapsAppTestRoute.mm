@@ -361,14 +361,14 @@
 - (void)_showDirectionSearchView:(id)view
 {
   v4 = +[NSNotificationCenter defaultCenter];
-  options = [(MapsAppTest *)self options];
-  v6 = [options objectForKeyedSubscript:@"transportType"];
+  v5 = objc_msgSend_options(self);
+  v6 = [v5 objectForKeyedSubscript:@"transportType"];
 
-  options2 = [(MapsAppTest *)self options];
-  v8 = options2;
+  v7 = objc_msgSend_options(self);
+  v8 = v7;
   if (v6)
   {
-    _mapstest_transportType = [options2 _mapstest_transportType];
+    _mapstest_transportType = [v7 _mapstest_transportType];
     v10 = 1;
     if (_mapstest_transportType > 3)
     {
@@ -413,7 +413,7 @@ LABEL_14:
     goto LABEL_19;
   }
 
-  v13 = [options2 objectForKeyedSubscript:@"mapType"];
+  v13 = [v7 objectForKeyedSubscript:@"mapType"];
 
   if ([v13 isEqualToString:@"transit"])
   {
@@ -428,13 +428,13 @@ LABEL_14:
   v8 = v13;
 LABEL_19:
 
-  options3 = [(MapsAppTest *)self options];
-  v16 = [options3 objectForKeyedSubscript:@"startAddr"];
+  v15 = objc_msgSend_options(self);
+  v16 = [v15 objectForKeyedSubscript:@"startAddr"];
 
   v17 = objc_alloc_init(SearchFieldItem);
   [(SearchFieldItem *)v17 setSearchString:v16];
-  options4 = [(MapsAppTest *)self options];
-  v19 = [options4 objectForKeyedSubscript:@"endAddr"];
+  v18 = objc_msgSend_options(self);
+  v19 = [v18 objectForKeyedSubscript:@"endAddr"];
 
   v20 = objc_alloc_init(SearchFieldItem);
   [(SearchFieldItem *)v20 setSearchString:v19];
@@ -555,7 +555,7 @@ LABEL_19:
 - (void)_requestRouteWithResolvedDestination:(id)destination
 {
   destinationCopy = destination;
-  options = [(MapsAppTest *)self options];
+  v5 = objc_msgSend_options(self);
   [(MapsAppTestRoute *)self registerGEOSubtestsForRouting];
   v6 = +[NSNotificationCenter defaultCenter];
   [v6 addObserver:self selector:"willResolveWaypointsForRouting:" name:@"MapsWaypointResolutionDidBeginNotification" object:0];
@@ -565,18 +565,18 @@ LABEL_19:
   block[1] = 3221225472;
   block[2] = sub_100587E68;
   block[3] = &unk_101661A40;
-  v11 = options;
+  v11 = v5;
   v12 = destinationCopy;
   selfCopy = self;
   v8 = destinationCopy;
-  v9 = options;
+  v9 = v5;
   dispatch_after(v7, &_dispatch_main_q, block);
 }
 
 - (BOOL)runTest
 {
-  options = [(MapsAppTest *)self options];
-  _mapstest_waypointStrings = [options _mapstest_waypointStrings];
+  v3 = objc_msgSend_options(self, a2);
+  _mapstest_waypointStrings = [v3 _mapstest_waypointStrings];
   if ([(MapsAppTest *)self isRunningOnCarPlay])
   {
     [(MapsAppTest *)self startedTest];
@@ -589,9 +589,9 @@ LABEL_19:
     testCoordinator = [(MapsAppTest *)self testCoordinator];
     [testCoordinator pptTestResetForLaunchURL];
 
-    -[MapsAppTest switchToMapType:](self, "switchToMapType:", [options _mapstest_mapType]);
-    options2 = [(MapsAppTest *)self options];
-    v8 = [options2 objectForKeyedSubscript:@"mapType"];
+    -[MapsAppTest switchToMapType:](self, "switchToMapType:", [v3 _mapstest_mapType]);
+    v7 = objc_msgSend_options(self);
+    v8 = [v7 objectForKeyedSubscript:@"mapType"];
 
     if ([v8 isEqualToString:@"transit"])
     {
@@ -605,9 +605,9 @@ LABEL_19:
   }
 
   [(MapsAppTestRoute *)self setTransportType:v5];
-  _mapstest_originString = [options _mapstest_originString];
+  _mapstest_originString = [v3 _mapstest_originString];
   isRunningOnCarPlay = [(MapsAppTest *)self isRunningOnCarPlay];
-  _mapstest_destinationString = [options _mapstest_destinationString];
+  _mapstest_destinationString = [v3 _mapstest_destinationString];
   v12 = _mapstest_destinationString;
   if (isRunningOnCarPlay)
   {
@@ -618,7 +618,7 @@ LABEL_19:
 
     else
     {
-      v13 = [options objectForKeyedSubscript:@"endAddr"];
+      v13 = [v3 objectForKeyedSubscript:@"endAddr"];
     }
 
     v14 = v13;

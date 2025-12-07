@@ -180,11 +180,11 @@ AMSUIWebBarButtonItemModel *__55__AMSUIWebNavigationBarModel_initWithJSObject_co
 
 - (NSString)description
 {
-  v28[5] = *MEMORY[0x1E69E9840];
-  v27[0] = @"backgroundStyle";
+  v27[5] = *MEMORY[0x1E69E9840];
+  v26[0] = @"backgroundStyle";
   v3 = [MEMORY[0x1E696AD98] numberWithInteger:{-[AMSUIWebNavigationBarModel backgroundStyle](self, "backgroundStyle")}];
-  v28[0] = v3;
-  v27[1] = @"hidesBackButton";
+  v27[0] = v3;
+  v26[1] = @"hidesBackButton";
   if ([(AMSUIWebNavigationBarModel *)self hidesBackButton])
   {
     v4 = @"true";
@@ -195,8 +195,8 @@ AMSUIWebBarButtonItemModel *__55__AMSUIWebNavigationBarModel_initWithJSObject_co
     v4 = @"false";
   }
 
-  v28[1] = v4;
-  v27[2] = @"includesLeftItems";
+  v27[1] = v4;
+  v26[2] = @"includesLeftItems";
   if ([(AMSUIWebNavigationBarModel *)self includesLeftItems])
   {
     v5 = @"true";
@@ -207,8 +207,8 @@ AMSUIWebBarButtonItemModel *__55__AMSUIWebNavigationBarModel_initWithJSObject_co
     v5 = @"false";
   }
 
-  v28[2] = v5;
-  v27[3] = @"includesRightItems";
+  v27[2] = v5;
+  v26[3] = @"includesRightItems";
   if ([(AMSUIWebNavigationBarModel *)self includesRightItems])
   {
     v6 = @"true";
@@ -219,11 +219,11 @@ AMSUIWebBarButtonItemModel *__55__AMSUIWebNavigationBarModel_initWithJSObject_co
     v6 = @"false";
   }
 
-  v28[3] = v6;
-  v27[4] = @"style";
+  v27[3] = v6;
+  v26[4] = @"style";
   v7 = [MEMORY[0x1E696AD98] numberWithInteger:{-[AMSUIWebNavigationBarModel style](self, "style")}];
-  v28[4] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:5];
+  v27[4] = v7;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:5];
   v9 = [v8 mutableCopy];
 
   accessoryBarButtonItemModel = [(AMSUIWebNavigationBarModel *)self accessoryBarButtonItemModel];
@@ -283,8 +283,6 @@ AMSUIWebBarButtonItemModel *__55__AMSUIWebNavigationBarModel_initWithJSObject_co
   }
 
   v24 = [v9 description];
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v24;
 }

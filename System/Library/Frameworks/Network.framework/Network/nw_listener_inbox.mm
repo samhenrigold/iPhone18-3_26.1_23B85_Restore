@@ -41,7 +41,7 @@
   v17 = "[nw_listener_inbox cancel]";
   v18 = 2114;
   selfCopy5 = self;
-  v4 = _os_log_send_and_compose_impl();
+  v4 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v3, 16, "%{public}s %{public}@ empty cancel", buf, 22);
 
   type = OS_LOG_TYPE_ERROR;
   v14 = 0;
@@ -186,7 +186,7 @@ LABEL_11:
   v10 = __nwlog_obj();
   *buf = 136446210;
   v22 = "[nw_listener_inbox initWithDelegate:]";
-  v11 = _os_log_send_and_compose_impl();
+  v11 = _os_log_send_and_compose_impl(2, 0, 0, 0, &dword_181A37000, v10, 16, "%{public}s [super init] failed", buf, 12);
 
   type = OS_LOG_TYPE_ERROR;
   v18 = 0;

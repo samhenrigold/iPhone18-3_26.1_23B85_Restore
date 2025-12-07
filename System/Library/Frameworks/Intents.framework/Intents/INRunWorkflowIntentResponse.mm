@@ -31,25 +31,25 @@
 
 - (id)_dictionaryRepresentation
 {
-  v30[8] = *MEMORY[0x1E69E9840];
-  v29[0] = @"code";
+  v29[8] = *MEMORY[0x1E69E9840];
+  v28[0] = @"code";
   code = [(INRunWorkflowIntentResponse *)self code];
-  v28 = code;
+  v27 = code;
   if (code < 0xA)
   {
     null = off_1E7286620[code];
-    v27 = null;
+    v26 = null;
   }
 
   else
   {
     null = [MEMORY[0x1E695DFB0] null];
-    v27 = 0;
+    v26 = 0;
   }
 
-  v25 = null;
-  v30[0] = null;
-  v29[1] = @"underlyingIntent";
+  v24 = null;
+  v29[0] = null;
+  v28[1] = @"underlyingIntent";
   underlyingIntent = [(INRunWorkflowIntentResponse *)self underlyingIntent];
   v6 = underlyingIntent;
   if (!underlyingIntent)
@@ -57,9 +57,9 @@
     underlyingIntent = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24 = underlyingIntent;
-  v30[1] = underlyingIntent;
-  v29[2] = @"underlyingIntentResponse";
+  v23 = underlyingIntent;
+  v29[1] = underlyingIntent;
+  v28[2] = @"underlyingIntentResponse";
   underlyingIntentResponse = [(INRunWorkflowIntentResponse *)self underlyingIntentResponse];
   v8 = underlyingIntentResponse;
   if (!underlyingIntentResponse)
@@ -67,9 +67,9 @@
     underlyingIntentResponse = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23 = underlyingIntentResponse;
-  v30[2] = underlyingIntentResponse;
-  v29[3] = @"utterance";
+  v22 = underlyingIntentResponse;
+  v29[2] = underlyingIntentResponse;
+  v28[3] = @"utterance";
   utterance = [(INRunWorkflowIntentResponse *)self utterance];
   v10 = utterance;
   if (!utterance)
@@ -77,9 +77,9 @@
     utterance = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = utterance;
-  v30[3] = utterance;
-  v29[4] = @"waitingForResume";
+  v21 = utterance;
+  v29[3] = utterance;
+  v28[4] = @"waitingForResume";
   waitingForResume = [(INRunWorkflowIntentResponse *)self waitingForResume];
   v12 = waitingForResume;
   if (!waitingForResume)
@@ -87,8 +87,8 @@
     waitingForResume = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[4] = waitingForResume;
-  v29[5] = @"continueRunning";
+  v29[4] = waitingForResume;
+  v28[5] = @"continueRunning";
   continueRunning = [(INRunWorkflowIntentResponse *)self continueRunning];
   null2 = continueRunning;
   if (!continueRunning)
@@ -96,8 +96,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[5] = null2;
-  v29[6] = @"steps";
+  v29[5] = null2;
+  v28[6] = @"steps";
   steps = [(INRunWorkflowIntentResponse *)self steps];
   null3 = steps;
   if (!steps)
@@ -105,8 +105,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[6] = null3;
-  v29[7] = @"requestsIntentExecution";
+  v29[6] = null3;
+  v28[7] = @"requestsIntentExecution";
   requestsIntentExecution = [(INRunWorkflowIntentResponse *)self requestsIntentExecution];
   null4 = requestsIntentExecution;
   if (!requestsIntentExecution)
@@ -114,8 +114,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30[7] = null4;
-  v26 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:8];
+  v29[7] = null4;
+  v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:8];
   if (!requestsIntentExecution)
   {
   }
@@ -144,13 +144,11 @@
   {
   }
 
-  if (v28 >= 0xA)
+  if (v27 >= 0xA)
   {
   }
 
-  v19 = *MEMORY[0x1E69E9840];
-
-  return v26;
+  return v25;
 }
 
 - (void)setRequestsIntentExecution:(id)execution
@@ -456,7 +454,7 @@
 
 - (INRunWorkflowIntentResponse)initWithCode:(int64_t)code userActivity:(id)activity
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   v7 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
@@ -474,21 +472,20 @@
 
     v10 = v9;
     *buf = 136315906;
-    v16 = "[INRunWorkflowIntentResponse initWithCode:userActivity:]";
-    v17 = 2048;
+    v15 = "[INRunWorkflowIntentResponse initWithCode:userActivity:]";
+    v16 = 2048;
     codeCopy = code;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = activityCopy;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = activityCopy;
     _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s code = %zd (%@), userActivity = %@", buf, 0x2Au);
   }
 
-  v14.receiver = self;
-  v14.super_class = INRunWorkflowIntentResponse;
-  v11 = [(INIntentResponse *)&v14 _initWithCode:code userActivity:activityCopy];
+  v13.receiver = self;
+  v13.super_class = INRunWorkflowIntentResponse;
+  v11 = [(INIntentResponse *)&v13 _initWithCode:code userActivity:activityCopy];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

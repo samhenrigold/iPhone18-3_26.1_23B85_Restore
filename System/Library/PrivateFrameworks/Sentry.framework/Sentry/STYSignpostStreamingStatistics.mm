@@ -153,249 +153,248 @@ void __46__STYSignpostStreamingStatistics_addSignpost___block_invoke(uint64_t a1
 
 - (void)_emitTelemetryLockedEndTime:(uint64_t)time
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v79 = *MEMORY[0x277D85DE8];
   if (time)
   {
     timeCopy = time;
-    v4 = a2 - *(time + 40);
     if (_MergedGlobals != -1)
     {
       dispatch_once(&_MergedGlobals, &__block_literal_global_557);
     }
 
-    v5 = __udivti3() / 1000000000.0;
-    if (*(timeCopy + 48) || v5 >= 60.0)
+    v4 = __udivti3() / 1000000000.0;
+    if (*(timeCopy + 48) || v4 >= 60.0)
     {
-      v74 = 0u;
-      v75 = 0u;
       v72 = 0u;
       v73 = 0u;
+      v70 = 0u;
+      v71 = 0u;
       obj = *(timeCopy + 16);
-      v51 = [obj countByEnumeratingWithState:&v72 objects:v80 count:16];
-      v9 = 0;
-      v10 = 0;
-      if (v51)
+      v49 = [obj countByEnumeratingWithState:&v70 objects:v78 count:16];
+      v7 = 0;
+      v8 = 0;
+      if (v49)
       {
-        v54 = 0;
-        v59 = 0;
-        v13 = 0;
-        v49 = *v73;
-        v14 = v5;
-        v50 = timeCopy;
+        v52 = 0;
+        v57 = 0;
+        v11 = 0;
+        v47 = *v71;
+        v12 = v4;
+        v48 = timeCopy;
         do
         {
-          v15 = 0;
+          v13 = 0;
           do
           {
-            if (*v73 != v49)
+            if (*v71 != v47)
             {
               objc_enumerationMutation(obj);
             }
 
-            v53 = v10;
-            v52 = v15;
-            v56 = *(*(&v72 + 1) + 8 * v15);
-            v57 = v9;
-            v16 = [*(timeCopy + 16) objectForKeyedSubscript:?];
+            v51 = v8;
+            v50 = v13;
+            v54 = *(*(&v70 + 1) + 8 * v13);
+            v55 = v7;
+            v14 = [*(timeCopy + 16) objectForKeyedSubscript:?];
+            v66 = 0u;
+            v67 = 0u;
             v68 = 0u;
             v69 = 0u;
-            v70 = 0u;
-            v71 = 0u;
-            v60 = v16;
-            v58 = [v16 countByEnumeratingWithState:&v68 objects:v79 count:16];
-            if (v58)
+            v58 = v14;
+            v56 = [v14 countByEnumeratingWithState:&v66 objects:v77 count:16];
+            if (v56)
             {
-              v55 = *v69;
+              v53 = *v67;
               do
               {
-                v17 = 0;
+                v15 = 0;
                 do
                 {
-                  if (*v69 != v55)
+                  if (*v67 != v53)
                   {
-                    objc_enumerationMutation(v60);
+                    objc_enumerationMutation(v58);
                   }
 
-                  v62 = v17;
-                  v63 = v13;
-                  v61 = *(*(&v68 + 1) + 8 * v17);
-                  v18 = [v60 objectForKeyedSubscript:?];
+                  v60 = v15;
+                  v61 = v11;
+                  v59 = *(*(&v66 + 1) + 8 * v15);
+                  v16 = [v58 objectForKeyedSubscript:?];
+                  v62 = 0u;
+                  v63 = 0u;
                   v64 = 0u;
                   v65 = 0u;
-                  v66 = 0u;
-                  v67 = 0u;
-                  v19 = [v18 countByEnumeratingWithState:&v64 objects:v78 count:16];
-                  if (v19)
+                  v17 = [v16 countByEnumeratingWithState:&v62 objects:v76 count:16];
+                  if (v17)
                   {
-                    v20 = v19;
+                    v18 = v17;
+                    v19 = 0;
+                    v20 = 0;
                     v21 = 0;
-                    v22 = 0;
-                    v23 = 0;
-                    v24 = *v65;
+                    v22 = *v63;
                     do
                     {
-                      for (i = 0; i != v20; ++i)
+                      for (i = 0; i != v18; ++i)
                       {
-                        if (*v65 != v24)
+                        if (*v63 != v22)
                         {
-                          objc_enumerationMutation(v18);
+                          objc_enumerationMutation(v16);
                         }
 
-                        v26 = *(*(&v64 + 1) + 8 * i);
-                        v27 = [v18 objectForKeyedSubscript:v26];
-                        unsignedLongLongValue = [v27 unsignedLongLongValue];
+                        v24 = *(*(&v62 + 1) + 8 * i);
+                        v25 = [v16 objectForKeyedSubscript:v24];
+                        unsignedLongLongValue = [v25 unsignedLongLongValue];
 
-                        if (v22 < unsignedLongLongValue)
+                        if (v20 < unsignedLongLongValue)
                         {
-                          v28 = v26;
+                          v26 = v24;
 
-                          v21 = v28;
-                          v22 = unsignedLongLongValue;
+                          v19 = v26;
+                          v20 = unsignedLongLongValue;
                         }
 
-                        v23 += unsignedLongLongValue;
+                        v21 += unsignedLongLongValue;
                       }
 
-                      v20 = [v18 countByEnumeratingWithState:&v64 objects:v78 count:16];
+                      v18 = [v16 countByEnumeratingWithState:&v62 objects:v76 count:16];
                     }
 
-                    while (v20);
+                    while (v18);
                   }
 
                   else
                   {
+                    v19 = 0;
+                    v20 = 0;
                     v21 = 0;
-                    v22 = 0;
-                    v23 = 0;
                   }
 
-                  v29 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@:%@", v56, v61];
-                  v30 = v29;
-                  if (v59 < v23)
+                  v27 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@:%@", v54, v59];
+                  v28 = v27;
+                  if (v57 < v21)
                   {
-                    unsignedLongLongValue = v29;
+                    unsignedLongLongValue = v27;
 
-                    v31 = v21;
-                    v57 = v31;
-                    v53 = v22;
-                    v54 = unsignedLongLongValue;
-                    v59 = v23;
+                    v29 = v19;
+                    v55 = v29;
+                    v51 = v20;
+                    v52 = unsignedLongLongValue;
+                    v57 = v21;
                   }
 
-                  v14 = v5;
-                  v32 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:7];
-                  [v32 setObject:v30 forKeyedSubscript:@"sc"];
-                  [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v23];
+                  v12 = v4;
+                  v30 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:7];
+                  [v30 setObject:v28 forKeyedSubscript:@"sc"];
+                  [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v21];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_9() setObject:? forKeyedSubscript:?];
 
-                  [MEMORY[0x277CCABB0] numberWithDouble:v23 / v5];
+                  [MEMORY[0x277CCABB0] numberWithDouble:v21 / v4];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_9() setObject:? forKeyedSubscript:?];
 
-                  [v32 setObject:v21 forKeyedSubscript:@"largest_signpost"];
-                  [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v22];
+                  [v30 setObject:v19 forKeyedSubscript:@"largest_signpost"];
+                  [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v20];
                   objc_claimAutoreleasedReturnValue();
                   [OUTLINED_FUNCTION_9() setObject:? forKeyedSubscript:?];
 
-                  v33 = [MEMORY[0x277CCABB0] numberWithDouble:v22 / v5];
-                  [v32 setObject:v33 forKeyedSubscript:@"largest_signpost_rate"];
+                  v31 = [MEMORY[0x277CCABB0] numberWithDouble:v20 / v4];
+                  [v30 setObject:v31 forKeyedSubscript:@"largest_signpost_rate"];
 
-                  v34 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v5];
-                  [v32 setObject:v34 forKeyedSubscript:@"duration"];
+                  v32 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v4];
+                  [v30 setObject:v32 forKeyedSubscript:@"duration"];
 
-                  v35 = +[STYFrameworkHelper sharedHelper];
-                  unsignedLongLongValue = [v35 logHandle];
+                  v33 = +[STYFrameworkHelper sharedHelper];
+                  unsignedLongLongValue = [v33 logHandle];
 
                   if (os_log_type_enabled(unsignedLongLongValue, OS_LOG_TYPE_INFO))
                   {
                     *buf = 138412290;
-                    v77 = v32;
+                    v75 = v30;
                     _os_log_impl(&dword_2656CE000, unsignedLongLongValue, OS_LOG_TYPE_INFO, "Emitting com.apple.Sentry.SignpostStreaming.SubsystemCategory telemetry %@", buf, 0xCu);
                   }
 
-                  v13 = v23 + v63;
+                  v11 = v21 + v61;
 
                   AnalyticsSendEvent();
-                  v17 = v62 + 1;
+                  v15 = v60 + 1;
                 }
 
-                while (v62 + 1 != v58);
-                v58 = [v60 countByEnumeratingWithState:&v68 objects:v79 count:16];
+                while (v60 + 1 != v56);
+                v56 = [v58 countByEnumeratingWithState:&v66 objects:v77 count:16];
               }
 
-              while (v58);
+              while (v56);
             }
 
-            v15 = v52 + 1;
-            timeCopy = v50;
-            v9 = v57;
-            v10 = v53;
+            v13 = v50 + 1;
+            timeCopy = v48;
+            v7 = v55;
+            v8 = v51;
           }
 
-          while (v52 + 1 != v51);
-          v51 = [obj countByEnumeratingWithState:&v72 objects:v80 count:16];
+          while (v50 + 1 != v49);
+          v49 = [obj countByEnumeratingWithState:&v70 objects:v78 count:16];
         }
 
-        while (v51);
-        v11 = v54;
-        v12 = v59;
+        while (v49);
+        v9 = v52;
+        v10 = v57;
       }
 
       else
       {
+        v9 = 0;
+        v10 = 0;
         v11 = 0;
-        v12 = 0;
-        v13 = 0;
-        v14 = v5;
+        v12 = v4;
       }
 
-      v36 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:9];
-      [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v13];
-      v38 = v37 = v13;
+      v34 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:9];
+      [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v11];
+      v36 = v35 = v11;
       [OUTLINED_FUNCTION_6() setObject:? forKeyedSubscript:?];
 
-      v39 = [MEMORY[0x277CCABB0] numberWithDouble:v37 / v5];
+      v37 = [MEMORY[0x277CCABB0] numberWithDouble:v35 / v4];
       [OUTLINED_FUNCTION_6() setObject:? forKeyedSubscript:?];
 
-      v40 = v11;
-      [v36 setObject:v11 forKeyedSubscript:@"largest_sc"];
-      v41 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v12];
+      v38 = v9;
+      [v34 setObject:v9 forKeyedSubscript:@"largest_sc"];
+      v39 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v10];
       [OUTLINED_FUNCTION_6() setObject:? forKeyedSubscript:?];
 
-      v42 = [MEMORY[0x277CCABB0] numberWithDouble:v12 / v5];
+      v40 = [MEMORY[0x277CCABB0] numberWithDouble:v10 / v4];
       [OUTLINED_FUNCTION_6() setObject:? forKeyedSubscript:?];
 
-      [v36 setObject:v9 forKeyedSubscript:@"largest_signpost"];
-      v43 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v10];
+      [v34 setObject:v7 forKeyedSubscript:@"largest_signpost"];
+      v41 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v8];
       [OUTLINED_FUNCTION_6() setObject:? forKeyedSubscript:?];
 
-      v44 = [MEMORY[0x277CCABB0] numberWithDouble:v10 / v5];
+      v42 = [MEMORY[0x277CCABB0] numberWithDouble:v8 / v4];
       [OUTLINED_FUNCTION_6() setObject:? forKeyedSubscript:?];
 
-      v45 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v14];
+      v43 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v12];
       [OUTLINED_FUNCTION_6() setObject:? forKeyedSubscript:?];
 
-      v46 = +[STYFrameworkHelper sharedHelper];
-      logHandle = [v46 logHandle];
+      v44 = +[STYFrameworkHelper sharedHelper];
+      logHandle = [v44 logHandle];
 
       if (os_log_type_enabled(logHandle, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v77 = v36;
+        v75 = v34;
         _os_log_impl(&dword_2656CE000, logHandle, OS_LOG_TYPE_INFO, "Emitting com.apple.Sentry.SignpostStreaming telemetry %@", buf, 0xCu);
       }
 
       AnalyticsSendEvent();
       [(STYSignpostStreamingStatistics *)timeCopy _resetLocked];
 
-      logHandle2 = v40;
+      logHandle2 = v38;
     }
 
     else
     {
-      v6 = +[STYFrameworkHelper sharedHelper];
-      logHandle2 = [v6 logHandle];
+      v5 = +[STYFrameworkHelper sharedHelper];
+      logHandle2 = [v5 logHandle];
 
       if (os_log_type_enabled(logHandle2, OS_LOG_TYPE_DEBUG))
       {
@@ -404,8 +403,6 @@ void __46__STYSignpostStreamingStatistics_addSignpost___block_invoke(uint64_t a1
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __38__STYSignpostStreamingStatistics_init__block_invoke_61(uint64_t a1)
@@ -429,11 +426,10 @@ void __38__STYSignpostStreamingStatistics_init__block_invoke_61(uint64_t a1)
     v3 = self[2];
     self[2] = v2;
 
-    v4 = self[3];
     dispatch_time(0, 21600000000000);
-    v5 = OUTLINED_FUNCTION_6();
+    v4 = OUTLINED_FUNCTION_6();
 
-    dispatch_source_set_timer(v5, v6, v7, v8);
+    dispatch_source_set_timer(v4, v5, v6, v7);
   }
 }
 

@@ -1,6 +1,7 @@
 @interface QRCodeOverlayViewControllerAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation QRCodeOverlayViewControllerAccessibility
@@ -30,6 +31,14 @@
   v8.receiver = self;
   v8.super_class = QRCodeOverlayViewControllerAccessibility;
   [(QRCodeOverlayViewControllerAccessibility *)&v8 _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = QRCodeOverlayViewControllerAccessibility;
+  [(QRCodeOverlayViewControllerAccessibility *)&v4 viewWillAppear:appear];
+  [(QRCodeOverlayViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 
 @end

@@ -6,11 +6,28 @@
 - (NEIPv4Route)initWithDestinationAddress:(NSString *)address subnetMask:(NSString *)subnetMask;
 - (id)copyLegacyDictionary;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initFromLegacyDictionary:(id)dictionary;
 - (void)encodeWithCoder:(id)coder;
 @end
 
 @implementation NEIPv4Route
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = [objc_alloc(MEMORY[0x1E696AD60]) initWithCapacity:0];
+  destinationAddress = [(NEIPv4Route *)self destinationAddress];
+  [v7 appendPrettyObject:destinationAddress withName:@"destinationAddress" andIndent:v5 options:options | 1];
+
+  destinationSubnetMask = [(NEIPv4Route *)self destinationSubnetMask];
+  [v7 appendPrettyObject:destinationSubnetMask withName:@"destinationSubnetMask" andIndent:v5 options:options];
+
+  gatewayAddress = [(NEIPv4Route *)self gatewayAddress];
+  [v7 appendPrettyObject:gatewayAddress withName:@"gatewayAddress" andIndent:v5 options:options | 1];
+
+  return v7;
+}
 
 - (id)initFromLegacyDictionary:(id)dictionary
 {
@@ -182,19 +199,19 @@ LABEL_9:
   v3 = +[NEIPv4Route defaultRoute];
   destinationAddress = [(NEIPv4Route *)self destinationAddress];
   destinationAddress2 = [v3 destinationAddress];
-  if ([destinationAddress isEqualToString:destinationAddress2])
+  if (objc_msgSend_isEqualToString_(destinationAddress))
   {
     destinationSubnetMask = [(NEIPv4Route *)self destinationSubnetMask];
     destinationSubnetMask2 = [v3 destinationSubnetMask];
-    v8 = [destinationSubnetMask isEqualToString:destinationSubnetMask2];
+    isEqualToString = objc_msgSend_isEqualToString_(destinationSubnetMask);
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 - (NEIPv4Route)initWithDestinationAddress:(NSString *)address subnetMask:(NSString *)subnetMask

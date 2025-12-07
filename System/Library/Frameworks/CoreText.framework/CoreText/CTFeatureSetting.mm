@@ -1,12 +1,12 @@
 @interface CTFeatureSetting
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToDictionary:(id)dictionary;
-- (BOOL)isEqualToFeatureSetting:(_BOOL8)result;
 - (CTFeatureSetting)initWithDictionary:(id)dictionary;
-- (uint64_t)selector;
-- (uint64_t)tag;
-- (uint64_t)type;
-- (uint64_t)value;
+- (id)selector;
+- (id)tag;
+- (id)type;
+- (id)value;
+- (uint64_t)isEqualToFeatureSetting:(uint64_t)result;
 - (unint64_t)hash;
 - (void)dealloc;
 - (void)initWithNormalizedDictionary:(void *)dictionary;
@@ -39,31 +39,31 @@
   return v6 + [v7 unsignedIntValue];
 }
 
-- (uint64_t)selector
+- (id)selector
 {
   if (result)
   {
-    return [*(result + 8) objectForKey:@"CTFeatureSelectorIdentifier"];
+    return [result[1] objectForKey:@"CTFeatureSelectorIdentifier"];
   }
 
   return result;
 }
 
-- (uint64_t)type
+- (id)type
 {
   if (result)
   {
-    return [*(result + 8) objectForKey:@"CTFeatureTypeIdentifier"];
+    return [result[1] objectForKey:@"CTFeatureTypeIdentifier"];
   }
 
   return result;
 }
 
-- (uint64_t)tag
+- (id)tag
 {
   if (result)
   {
-    return [*(result + 8) objectForKey:@"CTFeatureOpenTypeTag"];
+    return [result[1] objectForKey:@"CTFeatureOpenTypeTag"];
   }
 
   return result;
@@ -173,11 +173,11 @@ LABEL_7:
   return 0;
 }
 
-- (uint64_t)value
+- (id)value
 {
   if (result)
   {
-    return [*(result + 8) objectForKey:@"CTFeatureOpenTypeValue"];
+    return [result[1] objectForKey:@"CTFeatureOpenTypeValue"];
   }
 
   return result;
@@ -200,7 +200,7 @@ LABEL_7:
   }
 }
 
-- (BOOL)isEqualToFeatureSetting:(_BOOL8)result
+- (uint64_t)isEqualToFeatureSetting:(uint64_t)result
 {
   if (result)
   {

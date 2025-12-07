@@ -318,7 +318,7 @@ void ___VCCannedVideoCaptureSource_ConsumerThread_block_invoke(uint64_t a1)
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to initialize weak callback context", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to initialize weak callback context", v2, v3, v4, v5);
     }
   }
 }
@@ -332,7 +332,7 @@ void ___VCCannedVideoCaptureSource_ConsumerThread_block_invoke(uint64_t a1)
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Memory allocation for frameRingBuffer failed.", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Memory allocation for frameRingBuffer failed.", v2, v3, v4, v5);
     }
   }
 }
@@ -346,7 +346,7 @@ void ___VCCannedVideoCaptureSource_ConsumerThread_block_invoke(uint64_t a1)
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to initialize frame feeder", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to initialize frame feeder", v2, v3, v4, v5);
     }
   }
 }
@@ -360,7 +360,7 @@ void ___VCCannedVideoCaptureSource_ConsumerThread_block_invoke(uint64_t a1)
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to initialize self", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to initialize self", v2, v3, v4, v5);
     }
   }
 }
@@ -391,7 +391,7 @@ void ___VCCannedVideoCaptureSource_ConsumerThread_block_invoke(uint64_t a1)
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Already allocated context and callback", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Already allocated context and callback", v2, v3, v4, v5);
     }
   }
 }

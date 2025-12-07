@@ -4,11 +4,14 @@
 - (BOOL)callMethodForDaemonClient:(unsigned int)client clientMethodSelector:(unsigned int)selector scalarInputs:(const unint64_t *)inputs scalarInputCount:(unsigned int)count structInput:(const void *)input structInputSize:(unint64_t)size scalarOutputs:(unint64_t *)outputs scalarOutputCount:(unsigned int *)self0 error:(id *)self1;
 - (BOOL)closeDaemonClient:(int)client daemonClientID:(unsigned int)d error:(id *)error;
 - (BOOL)deregisterAsyncCallback;
+- (BOOL)deregisterProcess:(int)process error:(id *)error;
 - (BOOL)registerAsyncCallback;
 - (TSDDaemonService)init;
+- (int)registerProcess:(int)process withCallback:(id)callback error:(id *)error;
 - (unsigned)openDaemonClient:(int)client withRegistryEntryID:(unint64_t)d clientType:(unsigned int)type error:(id *)error;
 - (void)dealloc;
 - (void)finalizeNotifications;
+- (void)handleNotification:(int)notification clientID:(unsigned int)d result:(int)result withArgs:(unint64_t *)args ofCount:(unsigned int)count;
 @end
 
 @implementation TSDDaemonService
@@ -162,6 +165,64 @@ LABEL_19:
   self->_notificationPort = 0;
 }
 
+- (int)registerProcess:(int)process withCallback:(id)callback error:(id *)error
+{
+  v6 = *&process;
+  callbackCopy = callback;
+  v15[0] = 0;
+  v15[1] = v6;
+  v14 = 0;
+  v13[0] = 1;
+  if (([(IOKConnection *)self->_connection callMethodWithSelector:0 scalarInputs:v15 scalarInputCount:2 scalarOutputs:&v14 scalarOutputCount:v13 error:error]& 1) != 0)
+  {
+    if (v14)
+    {
+      v9 = 2;
+    }
+
+    else
+    {
+      v9 = 1;
+    }
+
+    v10 = [NSNumber numberWithUnsignedInt:v6];
+    os_unfair_lock_lock(&self->_processCallbacksLock);
+    v11 = objc_retainBlock(callbackCopy);
+    [(NSMutableDictionary *)self->_processCallbacks setObject:v11 forKeyedSubscript:v10];
+
+    os_unfair_lock_unlock(&self->_processCallbacksLock);
+  }
+
+  else
+  {
+    sub_10002B19C();
+    v9 = v13[1];
+  }
+
+  return v9;
+}
+
+- (BOOL)deregisterProcess:(int)process error:(id *)error
+{
+  v5 = *&process;
+  os_unfair_lock_lock(&self->_processCallbacksLock);
+  processCallbacks = self->_processCallbacks;
+  v8 = [NSNumber numberWithUnsignedInt:v5];
+  [(NSMutableDictionary *)processCallbacks removeObjectForKey:v8];
+
+  os_unfair_lock_unlock(&self->_processCallbacksLock);
+  v11 = 0;
+  v12[0] = 1;
+  v12[1] = v5;
+  v9 = [(IOKConnection *)self->_connection callMethodWithSelector:0 scalarInputs:v12 scalarInputCount:2 scalarOutputs:0 scalarOutputCount:&v11 error:error];
+  if ((v9 & 1) == 0)
+  {
+    sub_10002B258();
+  }
+
+  return v9;
+}
+
 - (unsigned)openDaemonClient:(int)client withRegistryEntryID:(unint64_t)d clientType:(unsigned int)type error:(id *)error
 {
   v15[0] = 4;
@@ -248,6 +309,36 @@ LABEL_19:
   }
 
   return v17;
+}
+
+- (void)handleNotification:(int)notification clientID:(unsigned int)d result:(int)result withArgs:(unint64_t *)args ofCount:(unsigned int)count
+{
+  v7 = *&count;
+  v9 = *&result;
+  v10 = *&d;
+  v11 = *&notification;
+  os_unfair_lock_lock(&self->_processCallbacksLock);
+  processCallbacks = self->_processCallbacks;
+  v14 = [NSNumber numberWithUnsignedInt:v11];
+  v15 = [(NSMutableDictionary *)processCallbacks objectForKey:v14];
+
+  os_unfair_lock_unlock(&self->_processCallbacksLock);
+  if (v15)
+  {
+    (v15)[2](v15, v10, v9, args, v7);
+  }
+
+  else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    v16 = [(NSMutableDictionary *)self->_processCallbacks count];
+    v17[0] = 67109632;
+    v17[1] = v11;
+    v18 = 1024;
+    v19 = v10;
+    v20 = 1024;
+    v21 = v16;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "TSDDaemonService NOT calling callback processID %u client %d process count %u\n", v17, 0x14u);
+  }
 }
 
 - (BOOL)registerAsyncCallback

@@ -37,15 +37,14 @@
 {
   v6 = sub_20DD63744();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_20DD63714();
   itemCopy = item;
   selfCopy = self;
-  LOBYTE(self) = _sSo27HFServiceActionItemProviderC4HomeE015isMatterServicebC0_14forAccessoryIDSbSo0abC0C_10Foundation4UUIDVtF_0(itemCopy);
+  LOBYTE(self) = _sSo27HFServiceActionItemProviderC4HomeE015isMatterServicebC0_14forAccessoryIDSbSo0abC0C_10Foundation4UUIDVtF_0(itemCopy, v9);
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
   return self & 1;
 }
 
@@ -103,17 +102,17 @@
   actionSet = [(HFServiceActionItemProvider *)self actionSet];
 
   v5 = objc_alloc(objc_opt_class());
-  home = [(HFServiceActionItemProvider *)self home];
+  v6 = objc_msgSend_home(self);
   if (actionSet)
   {
     actionSet2 = [(HFServiceActionItemProvider *)self actionSet];
-    v8 = [v5 initWithHome:home actionSet:actionSet2];
+    v8 = [v5 initWithHome:v6 actionSet:actionSet2];
   }
 
   else
   {
     actionSet2 = [(HFServiceActionItemProvider *)self actionSetBuilder];
-    v8 = [v5 initWithHome:home actionSetBuilder:actionSet2];
+    v8 = [v5 initWithHome:v6 actionSetBuilder:actionSet2];
   }
 
   v9 = v8;
@@ -138,7 +137,7 @@
 
 - (id)reloadItems
 {
-  v97 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   v3 = [HFMutableSetDiff alloc];
   actionItems = [(HFServiceActionItemProvider *)self actionItems];
   v5 = [(HFMutableSetDiff *)v3 initWithFromSet:actionItems];
@@ -148,29 +147,29 @@
   aBlock[2] = __42__HFServiceActionItemProvider_reloadItems__block_invoke;
   aBlock[3] = &unk_277E003B0;
   aBlock[4] = self;
-  v63 = v5;
-  v92 = v63;
-  v68 = _Block_copy(aBlock);
+  v61 = v5;
+  v90 = v61;
+  v66 = _Block_copy(aBlock);
+  v85 = 0u;
+  v86 = 0u;
   v87 = 0u;
   v88 = 0u;
-  v89 = 0u;
-  v90 = 0u;
   actionItems2 = [(HFServiceActionItemProvider *)self actionItems];
-  v7 = [actionItems2 countByEnumeratingWithState:&v87 objects:v96 count:16];
+  v7 = [actionItems2 countByEnumeratingWithState:&v85 objects:v94 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v88;
+    v9 = *v86;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v88 != v9)
+        if (*v86 != v9)
         {
           objc_enumerationMutation(actionItems2);
         }
 
-        v11 = *(*(&v87 + 1) + 8 * i);
+        v11 = *(*(&v85 + 1) + 8 * i);
         v12 = [MEMORY[0x277CBEB98] set];
         [v11 setActions:v12];
 
@@ -178,214 +177,211 @@
         [v11 setActionBuilders:v13];
       }
 
-      v8 = [actionItems2 countByEnumeratingWithState:&v87 objects:v96 count:16];
+      v8 = [actionItems2 countByEnumeratingWithState:&v85 objects:v94 count:16];
     }
 
     while (v8);
   }
 
-  v85 = 0u;
-  v86 = 0u;
   v83 = 0u;
   v84 = 0u;
+  v81 = 0u;
+  v82 = 0u;
   actionSet = [(HFServiceActionItemProvider *)self actionSet];
   actions = [actionSet actions];
 
-  v16 = [actions countByEnumeratingWithState:&v83 objects:v95 count:16];
+  v16 = [actions countByEnumeratingWithState:&v81 objects:v93 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v84;
-    v64 = v81;
-    v65 = v68 + 2;
+    v18 = *v82;
+    v62 = v79;
+    v63 = v66 + 2;
     v19 = 0x277CD1000uLL;
     do
     {
       v20 = 0;
-      v66 = v17;
+      v64 = v17;
       do
       {
-        if (*v84 != v18)
+        if (*v82 != v18)
         {
           objc_enumerationMutation(actions);
         }
 
-        v21 = *(*(&v83 + 1) + 8 * v20);
-        v22 = *(v19 + 3024);
+        v21 = *(*(&v81 + 1) + 8 * v20);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          additions = [(HFSetDiff *)v63 additions];
-          home = [(HFServiceActionItemProvider *)self home];
-          v25 = [(HFServiceActionItemProvider *)self _addOrUpdateActionItemWithMediaAction:v21 mediaActionBuilder:0 addedActionItems:additions home:home];
+          additions = [(HFSetDiff *)v61 additions];
+          v23 = objc_msgSend_home(self);
+          v24 = [(HFServiceActionItemProvider *)self _addOrUpdateActionItemWithMediaAction:v21 mediaActionBuilder:0 addedActionItems:additions home:v23];
 
-          v80[0] = MEMORY[0x277D85DD0];
-          v80[1] = 3221225472;
-          v81[0] = __42__HFServiceActionItemProvider_reloadItems__block_invoke_2;
-          v81[1] = &unk_277E003D8;
-          v82 = v68;
-          [v25 na_each:v80];
+          v78[0] = MEMORY[0x277D85DD0];
+          v78[1] = 3221225472;
+          v79[0] = __42__HFServiceActionItemProvider_reloadItems__block_invoke_2;
+          v79[1] = &unk_277E003D8;
+          v80 = v66;
+          [v24 na_each:v78];
         }
 
         else
         {
-          v26 = v18;
-          v27 = v19;
+          v25 = v18;
+          v26 = v19;
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
-          additions2 = [(HFSetDiff *)v63 additions];
-          home2 = [(HFServiceActionItemProvider *)self home];
+          additions2 = [(HFSetDiff *)v61 additions];
+          v29 = objc_msgSend_home(self);
           if (isKindOfClass)
           {
-            [(HFServiceActionItemProvider *)self _addOrUpdateMatterActionItemForAction:v21 actionBuilder:0 addedActionsItems:additions2 home:home2];
+            [(HFServiceActionItemProvider *)self _addOrUpdateMatterActionItemForAction:v21 actionBuilder:0 addedActionsItems:additions2 home:v29];
           }
 
           else
           {
-            [(HFServiceActionItemProvider *)self _addOrUpdateActionItemWithAction:v21 actionBuilder:0 addedActionItems:additions2 home:home2];
+            [(HFServiceActionItemProvider *)self _addOrUpdateActionItemWithAction:v21 actionBuilder:0 addedActionItems:additions2 home:v29];
           }
-          v25 = ;
+          v24 = ;
 
-          (v68[2])(v68, v25);
-          v19 = v27;
-          v18 = v26;
-          v17 = v66;
+          (v66[2])(v66, v24);
+          v19 = v26;
+          v18 = v25;
+          v17 = v64;
         }
 
         ++v20;
       }
 
       while (v17 != v20);
-      v17 = [actions countByEnumeratingWithState:&v83 objects:v95 count:16];
+      v17 = [actions countByEnumeratingWithState:&v81 objects:v93 count:16];
     }
 
     while (v17);
   }
 
-  v78 = 0u;
-  v79 = 0u;
   v76 = 0u;
   v77 = 0u;
+  v74 = 0u;
+  v75 = 0u;
   actionSetBuilder = [(HFServiceActionItemProvider *)self actionSetBuilder];
   actions2 = [actionSetBuilder actions];
 
   obj = actions2;
-  v33 = [actions2 countByEnumeratingWithState:&v76 objects:v94 count:16];
-  if (v33)
+  v32 = [actions2 countByEnumeratingWithState:&v74 objects:v92 count:16];
+  if (v32)
   {
-    v34 = v33;
-    v35 = *v77;
-    v65 = v74;
+    v33 = v32;
+    v34 = *v75;
+    v63 = v72;
     do
     {
-      for (j = 0; j != v34; ++j)
+      for (j = 0; j != v33; ++j)
       {
-        if (*v77 != v35)
+        if (*v75 != v34)
         {
           objc_enumerationMutation(obj);
         }
 
-        v37 = *(*(&v76 + 1) + 8 * j);
+        v36 = *(*(&v74 + 1) + 8 * j);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          additions3 = [(HFSetDiff *)v63 additions];
-          home3 = [(HFServiceActionItemProvider *)self home];
-          v40 = [(HFServiceActionItemProvider *)self _addOrUpdateActionItemWithMediaAction:0 mediaActionBuilder:v37 addedActionItems:additions3 home:home3];
+          additions3 = [(HFSetDiff *)v61 additions];
+          v38 = objc_msgSend_home(self);
+          v39 = [(HFServiceActionItemProvider *)self _addOrUpdateActionItemWithMediaAction:0 mediaActionBuilder:v36 addedActionItems:additions3 home:v38];
 
-          v73[0] = MEMORY[0x277D85DD0];
-          v73[1] = 3221225472;
-          v74[0] = __42__HFServiceActionItemProvider_reloadItems__block_invoke_3;
-          v74[1] = &unk_277E003D8;
-          v75 = v68;
-          [v40 na_each:v73];
+          v71[0] = MEMORY[0x277D85DD0];
+          v71[1] = 3221225472;
+          v72[0] = __42__HFServiceActionItemProvider_reloadItems__block_invoke_3;
+          v72[1] = &unk_277E003D8;
+          v73 = v66;
+          [v39 na_each:v71];
         }
 
         else
         {
           objc_opt_class();
-          v41 = objc_opt_isKindOfClass();
-          additions4 = [(HFSetDiff *)v63 additions];
-          home4 = [(HFServiceActionItemProvider *)self home];
-          if (v41)
+          v40 = objc_opt_isKindOfClass();
+          additions4 = [(HFSetDiff *)v61 additions];
+          v42 = objc_msgSend_home(self);
+          if (v40)
           {
-            [(HFServiceActionItemProvider *)self _addOrUpdateMatterActionItemForAction:0 actionBuilder:v37 addedActionsItems:additions4 home:home4];
+            [(HFServiceActionItemProvider *)self _addOrUpdateMatterActionItemForAction:0 actionBuilder:v36 addedActionsItems:additions4 home:v42];
           }
 
           else
           {
-            [(HFServiceActionItemProvider *)self _addOrUpdateActionItemWithAction:0 actionBuilder:v37 addedActionItems:additions4 home:home4];
+            [(HFServiceActionItemProvider *)self _addOrUpdateActionItemWithAction:0 actionBuilder:v36 addedActionItems:additions4 home:v42];
           }
-          v40 = ;
+          v39 = ;
 
-          (v68[2])(v68, v40);
+          (v66[2])(v66, v39);
         }
       }
 
-      v34 = [obj countByEnumeratingWithState:&v76 objects:v94 count:16];
+      v33 = [obj countByEnumeratingWithState:&v74 objects:v92 count:16];
     }
 
-    while (v34);
+    while (v33);
   }
 
-  v71 = 0u;
-  v72 = 0u;
   v69 = 0u;
   v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
   actionItems3 = [(HFServiceActionItemProvider *)self actionItems];
-  v45 = [actionItems3 countByEnumeratingWithState:&v69 objects:v93 count:16];
-  if (v45)
+  v44 = [actionItems3 countByEnumeratingWithState:&v67 objects:v91 count:16];
+  if (v44)
   {
-    v46 = v45;
-    v47 = *v70;
+    v45 = v44;
+    v46 = *v68;
     do
     {
-      for (k = 0; k != v46; ++k)
+      for (k = 0; k != v45; ++k)
       {
-        if (*v70 != v47)
+        if (*v68 != v46)
         {
           objc_enumerationMutation(actionItems3);
         }
 
-        v49 = *(*(&v69 + 1) + 8 * k);
-        actions3 = [v49 actions];
+        v48 = *(*(&v67 + 1) + 8 * k);
+        actions3 = [v48 actions];
         if ([actions3 count])
         {
         }
 
         else
         {
-          actionBuilders = [v49 actionBuilders];
-          v52 = [actionBuilders count];
+          actionBuilders = [v48 actionBuilders];
+          v51 = [actionBuilders count];
 
-          if (!v52)
+          if (!v51)
           {
-            [(HFMutableSetDiff *)v63 deleteObject:v49];
+            [(HFMutableSetDiff *)v61 deleteObject:v48];
           }
         }
       }
 
-      v46 = [actionItems3 countByEnumeratingWithState:&v69 objects:v93 count:16];
+      v45 = [actionItems3 countByEnumeratingWithState:&v67 objects:v91 count:16];
     }
 
-    while (v46);
+    while (v45);
   }
 
-  toSet = [(HFSetDiff *)v63 toSet];
-  v54 = [toSet mutableCopy];
-  [(HFServiceActionItemProvider *)self setActionItems:v54];
+  toSet = [(HFSetDiff *)v61 toSet];
+  v53 = [toSet mutableCopy];
+  [(HFServiceActionItemProvider *)self setActionItems:v53];
 
-  v55 = [HFItemProviderReloadResults alloc];
-  additions5 = [(HFSetDiff *)v63 additions];
-  deletions = [(HFSetDiff *)v63 deletions];
-  updates = [(HFSetDiff *)v63 updates];
-  v59 = [(HFItemProviderReloadResults *)v55 initWithAddedItems:additions5 removedItems:deletions existingItems:updates];
+  v54 = [HFItemProviderReloadResults alloc];
+  additions5 = [(HFSetDiff *)v61 additions];
+  deletions = [(HFSetDiff *)v61 deletions];
+  updates = [(HFSetDiff *)v61 updates];
+  v58 = [(HFItemProviderReloadResults *)v54 initWithAddedItems:additions5 removedItems:deletions existingItems:updates];
 
-  v60 = [MEMORY[0x277D2C900] futureWithResult:v59];
+  v59 = [MEMORY[0x277D2C900] futureWithResult:v58];
 
-  v61 = *MEMORY[0x277D85DE8];
-
-  return v60;
+  return v59;
 }
 
 void __42__HFServiceActionItemProvider_reloadItems__block_invoke(uint64_t a1, void *a2)
@@ -449,8 +445,8 @@ void __42__HFServiceActionItemProvider_reloadItems__block_invoke(uint64_t a1, vo
     [currentHandler handleFailureInMethod:a2 object:self file:@"HFServiceActionItemProvider.m" lineNumber:178 description:{@"Invalid parameter not satisfying: %@", @"home"}];
   }
 
-  service = [characteristicCopy service];
-  uniqueIdentifier = [service uniqueIdentifier];
+  v12 = objc_msgSend_service(characteristicCopy);
+  uniqueIdentifier = [v12 uniqueIdentifier];
 
   if (uniqueIdentifier)
   {
@@ -487,7 +483,7 @@ void __42__HFServiceActionItemProvider_reloadItems__block_invoke(uint64_t a1, vo
 
 - (id)_findServiceActionForIdentifier:(id)identifier addedActionItems:(id)items
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   itemsCopy = items;
   actionItems = [(HFServiceActionItemProvider *)self actionItems];
@@ -508,27 +504,27 @@ void __42__HFServiceActionItemProvider_reloadItems__block_invoke(uint64_t a1, vo
     [v9 unionSet:itemsCopy];
   }
 
-  v38 = itemsCopy;
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
+  v37 = itemsCopy;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   obj = v9;
-  v10 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
+  v10 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v49;
+    v12 = *v48;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v49 != v12)
+        if (*v48 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v48 + 1) + 8 * i);
+        v14 = *(*(&v47 + 1) + 8 * i);
         containingItem = [v14 containingItem];
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
@@ -555,7 +551,7 @@ void __42__HFServiceActionItemProvider_reloadItems__block_invoke(uint64_t a1, vo
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
+      v11 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
       if (v11)
       {
         continue;
@@ -566,12 +562,12 @@ void __42__HFServiceActionItemProvider_reloadItems__block_invoke(uint64_t a1, vo
   }
 
 LABEL_18:
-  v46 = 0u;
-  v47 = 0u;
-  v44 = 0u;
   v45 = 0u;
+  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
   v23 = obj;
-  v24 = [v23 countByEnumeratingWithState:&v44 objects:v52 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v43 objects:v51 count:16];
   if (!v24)
   {
 LABEL_29:
@@ -580,17 +576,17 @@ LABEL_29:
   }
 
   v25 = v24;
-  v26 = *v45;
+  v26 = *v44;
 LABEL_20:
   v27 = 0;
   while (1)
   {
-    if (*v45 != v26)
+    if (*v44 != v26)
     {
       objc_enumerationMutation(v23);
     }
 
-    v22 = *(*(&v44 + 1) + 8 * v27);
+    v22 = *(*(&v43 + 1) + 8 * v27);
     containingItem3 = [v22 containingItem];
     objc_opt_class();
     v29 = objc_opt_isKindOfClass();
@@ -609,7 +605,7 @@ LABEL_20:
 LABEL_27:
     if (v25 == ++v27)
     {
-      v25 = [v23 countByEnumeratingWithState:&v44 objects:v52 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v43 objects:v51 count:16];
       if (v25)
       {
         goto LABEL_20;
@@ -620,8 +616,8 @@ LABEL_27:
   }
 
   containingItem4 = [v22 containingItem];
-  service = [containingItem4 service];
-  uniqueIdentifier = [service uniqueIdentifier];
+  v31 = objc_msgSend_service(containingItem4);
+  uniqueIdentifier = [v31 uniqueIdentifier];
   v33 = [uniqueIdentifier isEqual:identifierCopy];
 
   if (!v33)
@@ -639,15 +635,14 @@ LABEL_32:
   }
 
 LABEL_33:
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __80__HFServiceActionItemProvider__findServiceActionForIdentifier_addedActionItems___block_invoke;
-  v42[3] = &unk_277E00400;
-  v43 = identifierCopy;
-  v22 = [v23 na_firstObjectPassingTest:v42];
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __80__HFServiceActionItemProvider__findServiceActionForIdentifier_addedActionItems___block_invoke;
+  v41[3] = &unk_277E00400;
+  v42 = identifierCopy;
+  v22 = [v23 na_firstObjectPassingTest:v41];
 
 LABEL_34:
-  v36 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -700,8 +695,8 @@ uint64_t __80__HFServiceActionItemProvider__findServiceActionForIdentifier_added
 - (id)_createActionItemForCharacteristic:(id)characteristic home:(id)home
 {
   homeCopy = home;
-  service = [characteristic service];
-  v8 = [homeCopy hf_serviceGroupsForService:service];
+  v7 = objc_msgSend_service(characteristic);
+  v8 = [homeCopy hf_serviceGroupsForService:v7];
   firstObject = [v8 firstObject];
 
   if (firstObject)
@@ -713,14 +708,14 @@ uint64_t __80__HFServiceActionItemProvider__findServiceActionForIdentifier_added
 
   else
   {
-    if (!service || ![service hf_isVisible])
+    if (!v7 || ![v7 hf_isVisible])
     {
       v13 = 0;
       goto LABEL_10;
     }
 
     valueSource = [(HFServiceActionItemProvider *)self valueSource];
-    v12 = [HFServiceItem serviceItemForService:service valueSource:valueSource];
+    v12 = [HFServiceItem serviceItemForService:v7 valueSource:valueSource];
   }
 
   v13 = v12;

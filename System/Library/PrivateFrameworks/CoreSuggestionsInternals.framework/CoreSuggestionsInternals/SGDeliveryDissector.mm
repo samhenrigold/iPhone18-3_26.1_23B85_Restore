@@ -15,7 +15,7 @@
   v4 = objc_opt_new();
   v9 = [enrichmentsCopy _pas_leftFoldWithInitialObject:v4 accumulate:&__block_literal_global_3823];
 
-  v5 = [v9 count];
+  v5 = objc_msgSend_count(v9);
   if (v5 >= 0xA)
   {
     v6 = 10;
@@ -74,18 +74,16 @@ id __45__SGDeliveryDissector__logUniqueEnrichments___block_invoke(uint64_t a1, v
 
 - (void)_logDeliverySenderForSenderDomain:(id)domain
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   domainCopy = domain;
   v4 = domainCopy;
   if (domainCopy && [domainCopy length])
   {
     v5 = [objc_alloc(MEMORY[0x277D05310]) initWithKey:@"com.apple.suggestions.deliveries.domain"];
-    v8[0] = v4;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+    v7[0] = v4;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
     [v5 record:v6];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dissectTextMessage:(id)message entity:(id)entity context:(id)context
@@ -108,7 +106,7 @@ id __45__SGDeliveryDissector__logUniqueEnrichments___block_invoke(uint64_t a1, v
 
   [entityCopy addEnrichments:v11];
   v12 = +[SGRTCLogging defaultLogger];
-  v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SGDelivery_ctTxtMsg_%lu", objc_msgSend(v11, "count")];
+  v13 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SGDelivery_ctTxtMsg_%lu", objc_msgSend_count(v11)];
   [v12 logAggregateSummaryForInteraction:v13];
 
   [(SGDeliveryDissector *)self _logUniqueEnrichments:v11];
@@ -134,7 +132,7 @@ id __45__SGDeliveryDissector__logUniqueEnrichments___block_invoke(uint64_t a1, v
 
   [entityCopy addEnrichments:v13];
   v14 = +[SGRTCLogging defaultLogger];
-  v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SGDelivery_ctEmlSub_%lu", objc_msgSend(v13, "count")];
+  v15 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SGDelivery_ctEmlSub_%lu", objc_msgSend_count(v13)];
   [v14 logAggregateSummaryForInteraction:v15];
 
   objc_autoreleasePoolPop(v10);
@@ -153,13 +151,13 @@ id __45__SGDeliveryDissector__logUniqueEnrichments___block_invoke(uint64_t a1, v
 
   [entityCopy addEnrichments:v19];
   v20 = +[SGRTCLogging defaultLogger];
-  v21 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SGDelivery_ctEmlBod_%lu", objc_msgSend(v19, "count")];
+  v21 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"SGDelivery_ctEmlBod_%lu", objc_msgSend_count(v19)];
   [v20 logAggregateSummaryForInteraction:v21];
 
   objc_autoreleasePoolPop(v16);
   v22 = objc_autoreleasePoolPush();
-  v23 = [v13 count];
-  if (v23 + [v19 count])
+  v23 = objc_msgSend_count(v13);
+  if (v23 + objc_msgSend_count(v19))
   {
     senderDomain = [messageCopy senderDomain];
 
@@ -183,7 +181,7 @@ id __45__SGDeliveryDissector__logUniqueEnrichments___block_invoke(uint64_t a1, v
   detectionsCopy = detections;
   entityCopy = entity;
   stringCopy = string;
-  if ([detectionsCopy count])
+  if (objc_msgSend_count(detectionsCopy))
   {
     v13[0] = MEMORY[0x277D85DD0];
     v13[1] = 3221225472;

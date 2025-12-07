@@ -25,7 +25,7 @@
       +[PLKLegibilityDescriptor performanceLegibilityDescriptorForStyle:options:];
     }
 
-    v5 = &performanceLegibilityDescriptorForStyle_options__legibilityDescriptorsNoVibrant;
+    v4 = &performanceLegibilityDescriptorForStyle_options__legibilityDescriptorsNoVibrant;
   }
 
   else
@@ -35,257 +35,98 @@
       +[PLKLegibilityDescriptor performanceLegibilityDescriptorForStyle:options:];
     }
 
-    v5 = &performanceLegibilityDescriptorForStyle_options__legibilityDescriptorsDefault;
+    v4 = &performanceLegibilityDescriptorForStyle_options__legibilityDescriptorsDefault;
   }
 
-  v6 = *v5;
-  v7 = v6;
-  if (style <= 1)
-  {
-    styleCopy = style;
-  }
+  v5 = *v4;
+  v6 = [v5 objectAtIndexedSubscript:?];
 
-  else
-  {
-    styleCopy = 0;
-  }
-
-  v9 = [v6 objectAtIndexedSubscript:styleCopy];
-
-  return v9;
+  return v6;
 }
 
 void __75__PLKLegibilityDescriptor_performanceLegibilityDescriptorForStyle_options___block_invoke()
 {
-  v20[3] = *MEMORY[0x277D85DE8];
   [MEMORY[0x277CBEBD0] plk_overridePerfDescriptorScale];
-  v1 = v0;
-  if (BSFloatIsZero())
-  {
-    v1 = 0.4;
-  }
+  BSFloatIsZero();
+  v0 = [MEMORY[0x277CBEB18] arrayWithCapacity:?];
+  v1 = [PLKShadowDescriptor shadowWithRadius:"shadowWithRadius:offset:alpha:strength:" offset:? alpha:? strength:?];
+  v14 = [PLKShadowDescriptor shadowWithRadius:"shadowWithRadius:offset:alpha:strength:" offset:v1 alpha:? strength:?];
+  v15 = [PLKShadowDescriptor shadowWithRadius:"shadowWithRadius:offset:alpha:strength:" offset:? alpha:? strength:?];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
 
-  v2 = [MEMORY[0x277CBEB18] arrayWithCapacity:2];
-  v3 = [PLKShadowDescriptor shadowWithRadius:8.0 offset:0.0 alpha:1.0 strength:0.76563, 0.400000006];
-  v4 = [PLKShadowDescriptor shadowWithRadius:4.0 offset:0.0 alpha:1.0 strength:0.58619, 0.400000006, v3];
-  v20[1] = v4;
-  v5 = [PLKShadowDescriptor shadowWithRadius:2.0 offset:0.0 alpha:1.0 strength:1.0, 0.400000006];
-  v20[2] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:3];
-
-  v7 = 0;
-  v8 = 1;
+  v3 = 0;
+  v4 = 1;
   do
   {
-    v9 = v8;
-    if (v7)
+    v5 = v4;
+    if (v3)
     {
-      v10 = [MEMORY[0x277D75348] blackColor];
-      v11 = 2;
+      [MEMORY[0x277D75348] blackColor];
     }
 
     else
     {
-      v10 = [MEMORY[0x277D75348] whiteColor];
-      v11 = 1;
+      [MEMORY[0x277D75348] whiteColor];
     }
+    v6 = ;
+    v7 = [(PLKLegibilityContentDescriptor *)PLKLegibilityForegroundContentDescriptor contentDescriptorForColor:?];
 
-    v12 = [(PLKLegibilityContentDescriptor *)PLKLegibilityForegroundContentDescriptor contentDescriptorForColor:v10];
+    v8 = [MEMORY[0x277D760A8] sharedInstanceForStyle:?];
+    v9 = [v8 shadowColor];
 
-    v13 = [MEMORY[0x277D760A8] sharedInstanceForStyle:v11];
-    v14 = [v13 shadowColor];
+    v10 = [PLKLegibilityBackgroundContentDescriptor contentDescriptorForColor:"contentDescriptorForColor:shadows:renderScale:" shadows:? renderScale:?];
+    v11 = [PLKLegibilityDescriptor initWithStyle:"initWithStyle:foregroundContentDescriptor:backgroundContentDescriptor:" foregroundContentDescriptor:? backgroundContentDescriptor:?];
+    [v0 addObject:?];
 
-    v15 = [PLKLegibilityBackgroundContentDescriptor contentDescriptorForColor:v14 shadows:v6 renderScale:v1];
-    v16 = [[PLKLegibilityDescriptor alloc] initWithStyle:v7 foregroundContentDescriptor:v12 backgroundContentDescriptor:v15];
-    [v2 addObject:v16];
-
-    v8 = 0;
-    v7 = 1;
+    v4 = 0;
+    v3 = 1;
   }
 
-  while ((v9 & 1) != 0);
-  v17 = [v2 copy];
-  v18 = performanceLegibilityDescriptorForStyle_options__legibilityDescriptorsNoVibrant;
-  performanceLegibilityDescriptorForStyle_options__legibilityDescriptorsNoVibrant = v17;
-
-  v19 = *MEMORY[0x277D85DE8];
+  while ((v5 & 1) != 0);
+  v12 = [v0 copy];
+  v13 = performanceLegibilityDescriptorForStyle_options__legibilityDescriptorsNoVibrant;
+  performanceLegibilityDescriptorForStyle_options__legibilityDescriptorsNoVibrant = v12;
 }
 
 void __75__PLKLegibilityDescriptor_performanceLegibilityDescriptorForStyle_options___block_invoke_2()
 {
-  v38[3] = *MEMORY[0x277D85DE8];
   [MEMORY[0x277CBEBD0] plk_overridePerfDescriptorScale];
-  v1 = v0;
-  if (BSFloatIsZero())
-  {
-    v1 = 0.4;
-  }
+  BSFloatIsZero();
+  v0 = [MEMORY[0x277CBEB18] arrayWithCapacity:?];
+  v11 = [PLKShadowDescriptor shadowWithRadius:"shadowWithRadius:offset:alpha:strength:" offset:? alpha:? strength:?];
+  v12 = [PLKShadowDescriptor shadowWithRadius:"shadowWithRadius:offset:alpha:strength:" offset:? alpha:? strength:?];
+  v13 = [PLKShadowDescriptor shadowWithRadius:"shadowWithRadius:offset:alpha:strength:" offset:? alpha:? strength:?];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
 
-  v2 = [MEMORY[0x277CBEB18] arrayWithCapacity:2];
-  v3 = [PLKShadowDescriptor shadowWithRadius:8.0 offset:0.0 alpha:1.0 strength:0.76563, 1.0];
-  v38[0] = v3;
-  v4 = [PLKShadowDescriptor shadowWithRadius:4.0 offset:0.0 alpha:1.0 strength:0.58619, 1.0];
-  v38[1] = v4;
-  v5 = [PLKShadowDescriptor shadowWithRadius:2.0 offset:0.0 alpha:1.0 strength:1.0, 1.0];
-  v38[2] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:3];
-
-  v7 = 0;
-  v8 = 1;
-  v29 = v1;
+  v2 = 0;
+  v3 = 1;
   do
   {
-    v9 = v8;
-    if (v7)
+    v4 = v3;
+    if (v2)
     {
-      v10 = [MEMORY[0x277D75348] blackColor];
-      v11 = [(PLKLegibilityContentDescriptor *)PLKLegibilityForegroundContentDescriptor contentDescriptorForColor:v10];
-
-      v33 = xmmword_21E5F3C90;
-      v34 = xmmword_21E5F3CA0;
-      v35 = xmmword_21E5F3CB0;
-      v36 = xmmword_21E5F3CC0;
-      v37 = xmmword_21E5F3CD0;
+      [MEMORY[0x277D75348] blackColor];
     }
 
     else
     {
-      if (v8)
-      {
-        v12 = 1.646;
-      }
-
-      else
-      {
-        v12 = 0.858;
-      }
-
-      if (v8)
-      {
-        v13 = -1.192;
-      }
-
-      else
-      {
-        v13 = -0.477;
-      }
-
-      if (v8)
-      {
-        v14 = -0.12;
-      }
-
-      else
-      {
-        v14 = -0.048;
-      }
-
-      if (v8)
-      {
-        v15 = 0.067;
-      }
-
-      else
-      {
-        v15 = 0.467;
-      }
-
-      if (v8)
-      {
-        v16 = -0.354;
-      }
-
-      else
-      {
-        v16 = -0.142;
-      }
-
-      if (v8)
-      {
-        v17 = 0.808;
-      }
-
-      else
-      {
-        v17 = 0.523;
-      }
-
-      if (v8)
-      {
-        v18 = 1.88;
-      }
-
-      else
-      {
-        v18 = 0.952;
-      }
-
-      v19 = -0.575;
-      if (v8)
-      {
-        v19 = 0.213;
-      }
-
-      v32 = v19;
-      v20 = 0.43;
-      if (v8)
-      {
-        v20 = 0.715;
-      }
-
-      v30 = v18;
-      v31 = v20;
-      if (v8)
-      {
-        v21 = 0.072;
-      }
-
-      else
-      {
-        v21 = -0.856;
-      }
-
-      if (v8)
-      {
-        v22 = -0.4;
-      }
-
-      else
-      {
-        v22 = 0.75;
-      }
-
-      v23 = [MEMORY[0x277D75348] whiteColor];
-      v11 = [(PLKLegibilityContentDescriptor *)PLKLegibilityForegroundContentDescriptor contentDescriptorForColor:v23];
-
-      *&v33 = __PAIR64__(LODWORD(v13), LODWORD(v12));
-      *(&v33 + 1) = LODWORD(v14);
-      *&v34 = __PAIR64__(LODWORD(v16), LODWORD(v15));
-      *(&v34 + 1) = __PAIR64__(LODWORD(v14), LODWORD(v17));
-      LODWORD(v35) = 0;
-      *(&v35 + 4) = __PAIR64__(LODWORD(v16), LODWORD(v15));
-      *(&v35 + 3) = v13;
-      *&v36 = LODWORD(v30);
-      *(&v36 + 1) = __PAIR64__(LODWORD(v32), LODWORD(v15));
-      *&v37 = __PAIR64__(LODWORD(v21), LODWORD(v31));
-      v1 = v29;
-      *(&v37 + 1) = LODWORD(v22);
+      [MEMORY[0x277D75348] whiteColor];
     }
+    v5 = ;
+    v6 = [(PLKLegibilityContentDescriptor *)PLKLegibilityForegroundContentDescriptor contentDescriptorForColor:?];
 
-    v24 = [PLKLegibilityBackgroundContentDescriptor contentDescriptorForVibrantColorMatrix:&v33 shadows:v6 renderScale:v1];
-    v25 = [[PLKLegibilityDescriptor alloc] initWithStyle:v7 foregroundContentDescriptor:v11 backgroundContentDescriptor:v24];
-    [v2 addObject:v25];
+    v7 = [PLKLegibilityBackgroundContentDescriptor contentDescriptorForVibrantColorMatrix:"contentDescriptorForVibrantColorMatrix:shadows:renderScale:" shadows:? renderScale:?];
+    v8 = [PLKLegibilityDescriptor initWithStyle:"initWithStyle:foregroundContentDescriptor:backgroundContentDescriptor:" foregroundContentDescriptor:? backgroundContentDescriptor:?];
+    [v0 addObject:?];
 
-    v8 = 0;
-    v7 = 1;
+    v3 = 0;
+    v2 = 1;
   }
 
-  while ((v9 & 1) != 0);
-  v26 = [v2 copy];
-  v27 = performanceLegibilityDescriptorForStyle_options__legibilityDescriptorsDefault;
-  performanceLegibilityDescriptorForStyle_options__legibilityDescriptorsDefault = v26;
-
-  v28 = *MEMORY[0x277D85DE8];
+  while ((v4 & 1) != 0);
+  v9 = [v0 copy];
+  v10 = performanceLegibilityDescriptorForStyle_options__legibilityDescriptorsDefault;
+  performanceLegibilityDescriptorForStyle_options__legibilityDescriptorsDefault = v9;
 }
 
 + (id)defaultLegibilityDescriptorForStyle:(unint64_t)style
@@ -300,31 +141,21 @@ void __75__PLKLegibilityDescriptor_performanceLegibilityDescriptorForStyle_optio
     dispatch_once(&defaultLegibilityDescriptorForStyle__onceToken, block);
   }
 
-  if (style <= 1)
-  {
-    styleCopy = style;
-  }
+  v3 = [defaultLegibilityDescriptorForStyle__legibilityDescriptors objectAtIndexedSubscript:?];
 
-  else
-  {
-    styleCopy = 0;
-  }
-
-  v5 = [defaultLegibilityDescriptorForStyle__legibilityDescriptors objectAtIndexedSubscript:styleCopy];
-
-  return v5;
+  return v3;
 }
 
 void __63__PLKLegibilityDescriptor_defaultLegibilityDescriptorForStyle___block_invoke(uint64_t a1)
 {
-  v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:2];
-  v2 = [[PLKLegibilityEnvironmentVariantContext alloc] initWithStyle:0];
-  v3 = [*(a1 + 32) legibilityDescriptorForEnvironmentContext:v2];
-  [v8 addObject:v3];
+  v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:?];
+  v2 = [[PLKLegibilityEnvironmentVariantContext alloc] initWithStyle:?];
+  v3 = [*(a1 + 32) legibilityDescriptorForEnvironmentContext:?];
+  [v8 addObject:?];
 
-  v4 = [[PLKLegibilityEnvironmentVariantContext alloc] initWithStyle:1];
-  v5 = [*(a1 + 32) legibilityDescriptorForEnvironmentContext:v4];
-  [v8 addObject:v5];
+  v4 = [[PLKLegibilityEnvironmentVariantContext alloc] initWithStyle:?];
+  v5 = [*(a1 + 32) legibilityDescriptorForEnvironmentContext:?];
+  [v8 addObject:?];
 
   v6 = [v8 copy];
   v7 = defaultLegibilityDescriptorForStyle__legibilityDescriptors;
@@ -333,7 +164,6 @@ void __63__PLKLegibilityDescriptor_defaultLegibilityDescriptorForStyle___block_i
 
 + (id)legibilityDescriptorForEnvironmentContext:(id)context
 {
-  v43[4] = *MEMORY[0x277D85DE8];
   contextCopy = context;
   style = [contextCopy style];
   if (style <= 1)
@@ -346,84 +176,52 @@ void __63__PLKLegibilityDescriptor_defaultLegibilityDescriptorForStyle___block_i
     v5 = 0;
   }
 
-  v6 = [PLKShadowDescriptor shadowWithRadius:16.0 offset:0.0 alpha:1.0, 0.76563];
-  v43[0] = v6;
-  v7 = [PLKShadowDescriptor shadowWithRadius:8.0 offset:0.0 alpha:1.0, 0.66993];
-  v43[1] = v7;
-  v8 = [PLKShadowDescriptor shadowWithRadius:4.0 offset:0.0 alpha:1.0, 0.58619];
-  v43[2] = v8;
-  v9 = [PLKShadowDescriptor shadowWithRadius:2.0 offset:0.0 alpha:1.0, 1.0];
-  v43[3] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:4];
+  v20 = [PLKShadowDescriptor shadowWithRadius:"shadowWithRadius:offset:alpha:" offset:? alpha:?];
+  v21 = [PLKShadowDescriptor shadowWithRadius:"shadowWithRadius:offset:alpha:" offset:? alpha:?];
+  v22 = [PLKShadowDescriptor shadowWithRadius:"shadowWithRadius:offset:alpha:" offset:? alpha:?];
+  v23 = [PLKShadowDescriptor shadowWithRadius:"shadowWithRadius:offset:alpha:" offset:? alpha:?];
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
 
   if (v5 == 1)
   {
-    v12 = 0xBF5B22D13EDC28F6;
-    v13 = 0x3F05E354BE116873;
-    v14 = 0.75;
-    v15 = -1119577178;
-    v16 = 1062970851;
     [contextCopy primaryColor];
   }
 
   else
   {
-    v12 = 0x3D9374BC3F370A3DLL;
-    v13 = 0x3F4ED917BEB53F7DLL;
-    v14 = -0.4;
-    v15 = -1107967345;
-    v16 = 1070772257;
     [contextCopy primaryColor];
   }
-  v17 = ;
+  v8 = ;
   secondaryColor = [contextCopy secondaryColor];
-  v19 = [PLKLegibilityForegroundContentDescriptor contentDescriptorForPrimaryColor:v17 secondaryColor:secondaryColor];
-  v32[0] = v16;
-  v32[1] = v30;
-  v32[2] = v15;
-  v32[3] = 0;
-  v32[4] = v31.i32[0];
-  v33 = v13;
-  v34 = v15;
-  v35 = 0;
-  v36 = vzip1_s32(v31, v13);
-  v37 = v30;
-  v38 = 0;
-  v39 = v31;
-  v40 = v12;
-  v41 = v14;
-  v42 = 0;
-  v20 = [PLKLegibilityBackgroundContentDescriptor contentDescriptorForVibrantColorMatrix:v32 shadows:v10];
-  v21 = [[PLKLegibilityDescriptor alloc] initWithStyle:v5 foregroundContentDescriptor:v19 backgroundContentDescriptor:v20];
-  primaryColor = v21->_primaryColor;
-  v21->_primaryColor = v17;
-  v23 = v17;
+  v10 = [PLKLegibilityForegroundContentDescriptor contentDescriptorForPrimaryColor:"contentDescriptorForPrimaryColor:secondaryColor:" secondaryColor:?];
+  v11 = [PLKLegibilityBackgroundContentDescriptor contentDescriptorForVibrantColorMatrix:"contentDescriptorForVibrantColorMatrix:shadows:" shadows:?];
+  v12 = [PLKLegibilityDescriptor initWithStyle:"initWithStyle:foregroundContentDescriptor:backgroundContentDescriptor:" foregroundContentDescriptor:? backgroundContentDescriptor:?];
+  primaryColor = v12->_primaryColor;
+  v12->_primaryColor = v8;
+  v14 = v8;
 
-  secondaryColor = v21->_secondaryColor;
-  v21->_secondaryColor = secondaryColor;
-  v25 = secondaryColor;
+  secondaryColor = v12->_secondaryColor;
+  v12->_secondaryColor = secondaryColor;
+  v16 = secondaryColor;
 
   backgroundColor = [contextCopy backgroundColor];
 
-  backgroundColor = v21->_backgroundColor;
-  v21->_backgroundColor = backgroundColor;
+  backgroundColor = v12->_backgroundColor;
+  v12->_backgroundColor = backgroundColor;
 
-  v28 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v12;
 }
 
 + (id)legibilityDescriptorForSettings:(id)settings strength:(double)strength
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   settingsCopy = settings;
   primaryColor = [settingsCopy primaryColor];
   secondaryColor = [settingsCopy secondaryColor];
-  v8 = [PLKLegibilityForegroundContentDescriptor contentDescriptorForPrimaryColor:primaryColor secondaryColor:secondaryColor];
+  v7 = [PLKLegibilityForegroundContentDescriptor contentDescriptorForPrimaryColor:"contentDescriptorForPrimaryColor:secondaryColor:" secondaryColor:?];
   [settingsCopy shadowRadius];
-  v10 = v9;
   shadowColor = [settingsCopy shadowColor];
-  v12 = shadowColor;
+  v9 = shadowColor;
   if (shadowColor)
   {
     blackColor = shadowColor;
@@ -434,88 +232,77 @@ void __63__PLKLegibilityDescriptor_defaultLegibilityDescriptorForStyle___block_i
     blackColor = [MEMORY[0x277D75348] blackColor];
   }
 
-  v14 = blackColor;
+  v11 = blackColor;
 
   [settingsCopy shadowAlpha];
-  strength = [PLKShadowDescriptor shadowWithRadius:v10 offset:0.0 alpha:0.0 strength:v15, strength];
-  v30[0] = strength;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
-  v18 = [PLKLegibilityBackgroundContentDescriptor contentDescriptorForColor:v14 shadows:v17 renderScale:0.200000003];
+  v12 = [PLKShadowDescriptor shadowWithRadius:"shadowWithRadius:offset:alpha:strength:" offset:? alpha:? strength:?];
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:v26];
+  v14 = [PLKLegibilityBackgroundContentDescriptor contentDescriptorForColor:"contentDescriptorForColor:shadows:renderScale:" shadows:? renderScale:?];
 
   style = [settingsCopy style];
   if (style > 2)
   {
-    v20 = 0;
+    v16 = 0;
   }
 
   else
   {
-    v20 = **(&unk_27835B6E8 + style);
+    v16 = **(&unk_27835B6E8 + style);
   }
 
-  [v18 setCompositingFilter:v20];
-  v21 = -[PLKLegibilityDescriptor initWithStyle:foregroundContentDescriptor:backgroundContentDescriptor:]([PLKLegibilityDescriptor alloc], "initWithStyle:foregroundContentDescriptor:backgroundContentDescriptor:", [settingsCopy style] == 2, v8, v18);
-  primaryColor = v21->_primaryColor;
-  v21->_primaryColor = primaryColor;
-  v23 = primaryColor;
+  [v14 setCompositingFilter:?];
+  v17 = [PLKLegibilityDescriptor alloc];
+  [settingsCopy style];
+  v18 = [PLKLegibilityDescriptor initWithStyle:v17 foregroundContentDescriptor:"initWithStyle:foregroundContentDescriptor:backgroundContentDescriptor:" backgroundContentDescriptor:?];
+  primaryColor = v18->_primaryColor;
+  v18->_primaryColor = primaryColor;
+  v20 = primaryColor;
 
-  secondaryColor = v21->_secondaryColor;
-  v21->_secondaryColor = secondaryColor;
-  v25 = secondaryColor;
+  secondaryColor = v18->_secondaryColor;
+  v18->_secondaryColor = secondaryColor;
+  v22 = secondaryColor;
 
-  backgroundColor = v21->_backgroundColor;
-  v21->_backgroundColor = v14;
-  v27 = v14;
+  backgroundColor = v18->_backgroundColor;
+  v18->_backgroundColor = v11;
+  v24 = v11;
 
-  v28 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v18;
 }
 
 + (id)legibilityDescriptorForUILegibilitySettings:(id)settings strength:(double)strength
 {
   settingsCopy = settings;
   primaryColor = [settingsCopy primaryColor];
-  v7 = [(PLKLegibilityContentDescriptor *)PLKLegibilityForegroundContentDescriptor contentDescriptorForColor:primaryColor];
+  v6 = [(PLKLegibilityContentDescriptor *)PLKLegibilityForegroundContentDescriptor contentDescriptorForColor:?];
 
-  v8 = [[PLKUILegibilitySettingsBackgroundContentDescriptor alloc] initWithLegibilitySettings:settingsCopy strength:strength];
-  v9 = [PLKLegibilityDescriptor alloc];
-  style = [settingsCopy style];
+  v7 = [PLKUILegibilitySettingsBackgroundContentDescriptor initWithLegibilitySettings:"initWithLegibilitySettings:strength:" strength:?];
+  v8 = [PLKLegibilityDescriptor alloc];
+  [settingsCopy style];
 
-  v11 = [(PLKLegibilityDescriptor *)v9 initWithStyle:style == 2 foregroundContentDescriptor:v7 backgroundContentDescriptor:v8];
+  v9 = [PLKLegibilityDescriptor initWithStyle:v8 foregroundContentDescriptor:"initWithStyle:foregroundContentDescriptor:backgroundContentDescriptor:" backgroundContentDescriptor:?];
 
-  return v11;
+  return v9;
 }
 
 - (id)effectiveUILegibilitySettings:(double *)settings
 {
-  style = [(PLKLegibilityDescriptor *)self style];
+  [(PLKLegibilityDescriptor *)self style];
   foreground = [(PLKLegibilityDescriptor *)self foreground];
   background = [(PLKLegibilityDescriptor *)self background];
-  v8 = background;
+  v7 = background;
   if (settings)
   {
     [background strength];
-    *settings = v9;
+    *settings = v8;
   }
 
-  if (style == 1)
-  {
-    v10 = 2;
-  }
-
-  else
-  {
-    v10 = 1;
-  }
-
-  v11 = objc_alloc(MEMORY[0x277D760A8]);
+  v9 = objc_alloc(MEMORY[0x277D760A8]);
   primaryColor = [foreground primaryColor];
   secondaryColor = [foreground secondaryColor];
-  contentColor = [v8 contentColor];
-  v15 = [v11 initWithStyle:v10 primaryColor:primaryColor secondaryColor:secondaryColor shadowColor:contentColor];
+  contentColor = [v7 contentColor];
+  v13 = [v9 initWithStyle:? primaryColor:? secondaryColor:? shadowColor:?];
 
-  return v15;
+  return v13;
 }
 
 - (PLKLegibilityDescriptor)initWithStyle:(unint64_t)style foregroundContentDescriptor:(id)descriptor backgroundContentDescriptor:(id)contentDescriptor
@@ -556,34 +343,27 @@ void __63__PLKLegibilityDescriptor_defaultLegibilityDescriptorForStyle___block_i
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v9 = 0;
-      goto LABEL_9;
+      goto LABEL_8;
     }
 
     legibilitySettings = [contentDescriptorCopy legibilitySettings];
-    v9 = [legibilitySettings style] == 2;
+    [legibilitySettings style];
   }
 
   else
   {
-    v10 = [contentDescriptorCopy valueForKey:@"_colorMatrixValue"];
-    legibilitySettings = v10;
-    if (v10)
+    legibilitySettings = [contentDescriptorCopy valueForKey:?];
+    if (legibilitySettings)
     {
-      [v10 CAColorMatrixValue];
-      v9 = fabsf(0.0 + -1.646) >= fabsf(0.0 + -0.858);
-    }
-
-    else
-    {
-      v9 = 0;
+      memset(v11, 0, sizeof(v11));
+      [v11 CAColorMatrixValue];
     }
   }
 
-LABEL_9:
-  v11 = [(PLKLegibilityDescriptor *)self initWithStyle:v9 foregroundContentDescriptor:descriptorCopy backgroundContentDescriptor:contentDescriptorCopy];
+LABEL_8:
+  v9 = [PLKLegibilityDescriptor initWithStyle:"initWithStyle:foregroundContentDescriptor:backgroundContentDescriptor:" foregroundContentDescriptor:? backgroundContentDescriptor:?];
 
-  return v11;
+  return v9;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -612,7 +392,7 @@ LABEL_9:
 
     if (v8)
     {
-      v9 = [(PLKLegibilityDescriptor *)self isEqualToLegibilityDescriptor:v8];
+      v9 = [(PLKLegibilityDescriptor *)self isEqualToLegibilityDescriptor:?];
     }
 
     else
@@ -638,35 +418,16 @@ LABEL_9:
     v12 = 1;
   }
 
+  else if (descriptorCopy && (v6 = -[PLKLegibilityDescriptor style](descriptorCopy, "style"), v6 == -[PLKLegibilityDescriptor style](self, "style")) && (-[PLKLegibilityDescriptor foreground](v5, "foreground"), v7 = objc_claimAutoreleasedReturnValue(), -[PLKLegibilityDescriptor foreground](self, "foreground"), v8 = objc_claimAutoreleasedReturnValue(), v9 = [v7 isEqual:?], v8, v7, v9))
+  {
+    background = [(PLKLegibilityDescriptor *)v5 background];
+    background2 = [(PLKLegibilityDescriptor *)self background];
+    v12 = [background isEqual:?];
+  }
+
   else
   {
-    if (!descriptorCopy)
-    {
-      goto LABEL_6;
-    }
-
-    style = [(PLKLegibilityDescriptor *)descriptorCopy style];
-    if (style != [(PLKLegibilityDescriptor *)self style])
-    {
-      goto LABEL_6;
-    }
-
-    foreground = [(PLKLegibilityDescriptor *)v5 foreground];
-    foreground2 = [(PLKLegibilityDescriptor *)self foreground];
-    v9 = [foreground isEqual:foreground2];
-
-    if (v9)
-    {
-      background = [(PLKLegibilityDescriptor *)v5 background];
-      background2 = [(PLKLegibilityDescriptor *)self background];
-      v12 = [background isEqual:background2];
-    }
-
-    else
-    {
-LABEL_6:
-      v12 = 0;
-    }
+    v12 = 0;
   }
 
   return v12;
@@ -682,7 +443,7 @@ LABEL_6:
 
 - (id)descriptionWithMultilinePrefix:(id)prefix
 {
-  v3 = [(PLKLegibilityDescriptor *)self descriptionBuilderWithMultilinePrefix:prefix];
+  v3 = [(PLKLegibilityDescriptor *)self descriptionBuilderWithMultilinePrefix:?];
   build = [v3 build];
 
   return build;
@@ -690,7 +451,7 @@ LABEL_6:
 
 - (id)descriptionBuilderWithMultilinePrefix:(id)prefix
 {
-  v4 = [MEMORY[0x277CF0C00] builderWithObject:self];
+  v4 = [MEMORY[0x277CF0C00] builderWithObject:?];
   style = self->_style;
   if (style)
   {
@@ -701,7 +462,7 @@ LABEL_6:
 
     else
     {
-      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unknown(%ld)", self->_style];
+      v6 = [MEMORY[0x277CCACA8] stringWithFormat:self->_style];
     }
   }
 
@@ -710,12 +471,12 @@ LABEL_6:
     v6 = @"LightContent";
   }
 
-  v7 = [v4 appendObject:v6 withName:@"style"];
-  v8 = [v4 appendObject:self->_primaryColor withName:@"primaryColor"];
-  v9 = [v4 appendObject:self->_secondaryColor withName:@"secondaryColor"];
-  v10 = [v4 appendObject:self->_backgroundColor withName:@"backgroundColor"];
-  v11 = [v4 appendObject:self->_foreground withName:@"foreground"];
-  v12 = [v4 appendObject:self->_background withName:@"background"];
+  v7 = [v4 appendObject:? withName:?];
+  v8 = [v4 appendObject:? withName:?];
+  v9 = [v4 appendObject:? withName:?];
+  v10 = [v4 appendObject:? withName:?];
+  v11 = [v4 appendObject:? withName:?];
+  v12 = [v4 appendObject:? withName:?];
 
   return v4;
 }

@@ -191,7 +191,7 @@ LABEL_9:
   }
 
   v10 = *MEMORY[0x1E695C360];
-  if ([v4 isEqualToString:*MEMORY[0x1E695C360]] && objc_msgSend(self, "isKeyAvailable:", v10))
+  if (objc_msgSend_isEqualToString_(v4) && [self isKeyAvailable:v10])
   {
     postalAddresses = [self postalAddresses];
     firstObject = [postalAddresses firstObject];
@@ -219,7 +219,7 @@ LABEL_36:
   }
 
   v18 = *MEMORY[0x1E695C208];
-  if ([v4 isEqualToString:*MEMORY[0x1E695C208]] && objc_msgSend(self, "isKeyAvailable:", v18))
+  if (objc_msgSend_isEqualToString_(v4) && [self isKeyAvailable:v18])
   {
     emailAddresses = [self emailAddresses];
     firstObject = [emailAddresses firstObject];
@@ -240,7 +240,7 @@ LABEL_36:
   }
 
   v20 = *MEMORY[0x1E695C330];
-  if ([v4 isEqualToString:*MEMORY[0x1E695C330]] && objc_msgSend(self, "isKeyAvailable:", v20))
+  if (objc_msgSend_isEqualToString_(v4) && [self isKeyAvailable:v20])
   {
     phoneNumbers = [self phoneNumbers];
     firstObject = [phoneNumbers firstObject];
@@ -445,9 +445,9 @@ LABEL_37:
       {
         pkFullName2 = [selfCopy pkFullName];
         pkFullName3 = [meCard pkFullName];
-        v4 = [pkFullName2 isEqualToString:pkFullName3];
+        isEqualToString = objc_msgSend_isEqualToString_(pkFullName2);
 
-        if (!v4)
+        if (!isEqualToString)
         {
           goto LABEL_30;
         }
@@ -525,7 +525,7 @@ LABEL_37:
                     if (v24)
                     {
 
-                      v4 = 1;
+                      isEqualToString = 1;
                       allKeys = v30;
                       v11 = v31;
                       goto LABEL_29;
@@ -554,7 +554,7 @@ LABEL_37:
 
           while (v16 != v14);
           v14 = [allKeys countByEnumeratingWithState:&v37 objects:v42 count:16];
-          v4 = 0;
+          isEqualToString = 0;
         }
 
         while (v14);
@@ -562,7 +562,7 @@ LABEL_37:
 
       else
       {
-        v4 = 0;
+        isEqualToString = 0;
       }
 
 LABEL_29:
@@ -570,10 +570,10 @@ LABEL_29:
       goto LABEL_30;
     }
 
-    v4 = 0;
+    isEqualToString = 0;
 LABEL_30:
 
-    return v4;
+    return isEqualToString;
   }
 
   return 1;
@@ -960,9 +960,9 @@ LABEL_23:
   if ([iSOCountryCode length] == 2)
   {
     uppercaseString = [iSOCountryCode uppercaseString];
-    v7 = [iSOCountryCode isEqualToString:uppercaseString];
+    isEqualToString = objc_msgSend_isEqualToString_(iSOCountryCode);
 
-    if (v7)
+    if (isEqualToString)
     {
       goto LABEL_7;
     }
@@ -1280,9 +1280,9 @@ LABEL_39:
       goto LABEL_40;
     }
 
-    v15 = [v12 isEqualToString:v13];
+    isEqualToString = objc_msgSend_isEqualToString_(v12);
 
-    if (!v15)
+    if (!isEqualToString)
     {
       goto LABEL_38;
     }
@@ -1305,7 +1305,7 @@ LABEL_39:
     goto LABEL_38;
   }
 
-  v21 = [v18 isEqualToString:v19];
+  v21 = objc_msgSend_isEqualToString_(v18);
 
   if ((v21 & 1) == 0)
   {

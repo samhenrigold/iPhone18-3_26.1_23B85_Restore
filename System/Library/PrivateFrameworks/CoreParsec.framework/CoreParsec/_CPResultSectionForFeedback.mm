@@ -208,35 +208,34 @@ LABEL_32:
 
 - (void)writeTo:(id)to
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   toCopy = to;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v5 = self->_results;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v26;
+    v8 = *v17;
     do
     {
       v9 = 0;
       do
       {
-        if (*v26 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
@@ -246,14 +245,12 @@ LABEL_32:
 
   if (identifier)
   {
-    identifier = self->_identifier;
     PBDataWriterWriteStringField();
   }
 
   [(_CPResultSectionForFeedback *)self rankingScore];
-  if (v13 != 0.0)
+  if (v11 != 0.0)
   {
-    rankingScore = self->_rankingScore;
     PBDataWriterWriteDoubleField();
   }
 
@@ -261,7 +258,6 @@ LABEL_32:
 
   if (fallbackResultSection)
   {
-    fallbackResultSection = self->_fallbackResultSection;
     PBDataWriterWriteDataField();
   }
 
@@ -269,25 +265,21 @@ LABEL_32:
 
   if (bundleIdentifier)
   {
-    bundleIdentifier = self->_bundleIdentifier;
     PBDataWriterWriteStringField();
   }
 
   if ([(_CPResultSectionForFeedback *)self knownBundleIdentifier])
   {
-    knownBundleIdentifier = self->_knownBundleIdentifier;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_CPResultSectionForFeedback *)self isInitiallyHidden])
   {
-    isInitiallyHidden = self->_isInitiallyHidden;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_CPResultSectionForFeedback *)self totalAvailableResults])
   {
-    totalAvailableResults = self->_totalAvailableResults;
     PBDataWriterWriteUint32Field();
   }
 
@@ -298,8 +290,6 @@ LABEL_32:
     titleButtonItem2 = [(_CPResultSectionForFeedback *)self titleButtonItem];
     PBDataWriterWriteSubmessage();
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (int)knownBundleIdentifier
@@ -367,9 +357,7 @@ LABEL_32:
 
 - (void)setResults:(id)results
 {
-  v4 = [results mutableCopy];
-  results = self->_results;
-  self->_results = v4;
+  self->_results = [results mutableCopy];
 
   MEMORY[0x1EEE66BB8]();
 }
@@ -385,11 +373,11 @@ LABEL_32:
 
 - (_CPResultSectionForFeedback)initWithFacade:(id)facade
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   facadeCopy = facade;
-  v32.receiver = self;
-  v32.super_class = _CPResultSectionForFeedback;
-  v5 = [(_CPResultSectionForFeedback *)&v32 init];
+  v31.receiver = self;
+  v31.super_class = _CPResultSectionForFeedback;
+  v5 = [(_CPResultSectionForFeedback *)&v31 init];
   if (!v5)
   {
     goto LABEL_378;
@@ -406,30 +394,30 @@ LABEL_32:
     v7 = 0;
   }
 
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   results2 = [facadeCopy results];
-  v9 = [results2 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v9 = [results2 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v29;
+    v11 = *v28;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v29 != v11)
+        if (*v28 != v11)
         {
           objc_enumerationMutation(results2);
         }
 
-        v13 = [[_CPSearchResultForFeedback alloc] initWithFacade:*(*(&v28 + 1) + 8 * i)];
+        v13 = [[_CPSearchResultForFeedback alloc] initWithFacade:*(*(&v27 + 1) + 8 * i)];
         [v7 addObject:v13];
       }
 
-      v10 = [results2 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v10 = [results2 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v10);
@@ -1907,7 +1895,6 @@ LABEL_375:
   v25 = v5;
 
 LABEL_378:
-  v26 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

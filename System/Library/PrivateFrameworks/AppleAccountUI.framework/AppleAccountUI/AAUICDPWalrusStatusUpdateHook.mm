@@ -99,7 +99,7 @@ LABEL_9:
   v6 = [action isEqualToString:@"walrus:disable"];
   if (!error && v6)
   {
-    v7 = _AAUILogSystem();
+    v7 = _AAUILogSystem(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *v12 = 0;
@@ -119,21 +119,22 @@ LABEL_9:
 void __73__AAUICDPWalrusStatusUpdateHook_postCompletionProcessingForAction_error___block_invoke(uint64_t a1, int a2, void *a3)
 {
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = _AAUILogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _AAUILogSystem(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __73__AAUICDPWalrusStatusUpdateHook_postCompletionProcessingForAction_error___block_invoke_cold_1(v4, v5);
+      __73__AAUICDPWalrusStatusUpdateHook_postCompletionProcessingForAction_error___block_invoke_cold_1(v5, v6);
     }
   }
 
   if (a2)
   {
-    v6 = _AAUILogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = _AAUILogSystem(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      __73__AAUICDPWalrusStatusUpdateHook_postCompletionProcessingForAction_error___block_invoke_cold_2(v6);
+      __73__AAUICDPWalrusStatusUpdateHook_postCompletionProcessingForAction_error___block_invoke_cold_2(v7);
     }
   }
 }

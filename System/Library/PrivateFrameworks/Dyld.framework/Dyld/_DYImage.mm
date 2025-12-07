@@ -2,6 +2,7 @@
 - (NSArray)segments;
 - (NSUUID)uuid;
 - (_DYImage)init;
+- (_DYImage)initWithInternal:(BOOL)internal;
 - (_DYSharedCache)sharedCache;
 - (unint64_t)address;
 - (unint64_t)pointerSize;
@@ -17,36 +18,43 @@
   sub_1AE4B82C4(data);
 }
 
+- (_DYImage)initWithInternal:(BOOL)internal
+{
+  *(&self->super.isa + OBJC_IVAR____DYImage____lazy_storage___segments) = 0;
+  *(&self->super.isa + OBJC_IVAR____DYImage_impl) = 0;
+  v4.receiver = self;
+  v4.super_class = _DYImage;
+  return [(_DYImage *)&v4 init];
+}
+
 - (NSUUID)uuid
 {
   v3 = type metadata accessor for Image.Info(0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x1EEE9AC00](v3 - 8);
-  v6 = &v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5DD4B8, "R3");
-  v8 = *(*(v7 - 8) + 64);
-  result = MEMORY[0x1EEE9AC00](v7 - 8);
-  v11 = &v18 - v10;
+  v5 = &v16 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EB5DD4B8, "R3");
+  result = MEMORY[0x1EEE9AC00](v6 - 8);
+  v9 = &v16 - v8;
   if (*(&self->super.isa + OBJC_IVAR____DYImage_impl))
   {
     selfCopy = self;
 
-    sub_1AE4B55F8(v6);
+    sub_1AE4B55F8(v5);
 
-    sub_1AE4BA820(v6, v11);
-    sub_1AE4BA56C(v6);
-    v13 = sub_1AE4EAB10();
-    v14 = *(v13 - 8);
-    v15 = (*(v14 + 48))(v11, 1, v13);
-    v16 = 0;
-    if (v15 != 1)
+    sub_1AE4BA820(v5, v9);
+    sub_1AE4BA56C(v5);
+    v11 = sub_1AE4EAB10();
+    v12 = *(v11 - 8);
+    v13 = (*(v12 + 48))(v9, 1, v11);
+    v14 = 0;
+    if (v13 != 1)
     {
-      v17 = sub_1AE4EAAD0();
-      (*(v14 + 8))(v11, v13);
-      v16 = v17;
+      v15 = sub_1AE4EAAD0();
+      (*(v12 + 8))(v9, v11);
+      v14 = v15;
     }
 
-    return v16;
+    return v14;
   }
 
   else
@@ -91,27 +99,26 @@
 - (unint64_t)preferredLoadAddress
 {
   v3 = type metadata accessor for Image.Info(0);
-  v4 = *(*(v3 - 8) + 64);
   result = MEMORY[0x1EEE9AC00](v3);
-  v7 = &v12 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (*(&self->super.isa + OBJC_IVAR____DYImage_impl))
   {
     selfCopy = self;
 
-    sub_1AE4B55F8(v7);
+    sub_1AE4B55F8(v6);
 
-    v9 = &v7[*(v3 + 28)];
-    v10 = *v9;
-    v11 = v9[8];
-    sub_1AE4BA56C(v7);
-    if (v11)
+    v8 = &v6[*(v3 + 28)];
+    v9 = *v8;
+    v10 = v8[8];
+    sub_1AE4BA56C(v6);
+    if (v10)
     {
       return 0;
     }
 
     else
     {
-      return v10;
+      return v9;
     }
   }
 

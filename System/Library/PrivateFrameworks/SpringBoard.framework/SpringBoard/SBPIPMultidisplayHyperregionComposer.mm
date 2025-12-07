@@ -152,7 +152,7 @@
   pipLastSteadySize = geometry->pipLastSteadySize;
   pipCurrentSize = geometry->pipCurrentSize;
   v23 = pipLastSteadySize;
-  [(SBPIPMultidisplayHyperregionComposer *)self _adjustGeometryContextIfNeeded:&pipCurrentSize forComposer:v8];
+  objc_msgSend__adjustGeometryContextIfNeeded_forComposer_(self);
   v32 = v45;
   v33 = v46;
   v34 = v47;
@@ -413,26 +413,7 @@ LABEL_25:
 
   if (WeakRetained)
   {
-    v11 = *&composer->stashedMinimumPadding.bottom;
-    v18[10] = *&composer->stashedMinimumPadding.top;
-    v18[11] = v11;
-    v18[12] = *&composer->offscreenCorners;
-    v12 = *&composer->edgeInsets.bottom;
-    v18[6] = *&composer->edgeInsets.top;
-    v18[7] = v12;
-    v13 = *&composer->minimumPadding.bottom;
-    v18[8] = *&composer->minimumPadding.top;
-    v18[9] = v13;
-    pipAnchorPointOffset = composer->pipAnchorPointOffset;
-    v18[2] = composer->pipStashedSize;
-    v18[3] = pipAnchorPointOffset;
-    size = composer->containerBounds.size;
-    v18[4] = composer->containerBounds.origin;
-    v18[5] = size;
-    pipLastSteadySize = composer->pipLastSteadySize;
-    v18[0] = composer->pipCurrentSize;
-    v18[1] = pipLastSteadySize;
-    [WeakRetained regionComposer:self transformGeometryContext:v18 toWindowScene:representedWindowScene];
+    objc_msgSend_regionComposer_transformGeometryContext_toWindowScene_(WeakRetained, *&composer->pipCurrentSize.width, *&composer->pipCurrentSize.height, *&composer->pipLastSteadySize.width, *&composer->pipLastSteadySize.height, *&composer->pipStashedSize.width, *&composer->pipStashedSize.height, *&composer->pipAnchorPointOffset.x, *&composer->pipAnchorPointOffset.y, *&composer->containerBounds.origin.x, *&composer->containerBounds.origin.y, *&composer->containerBounds.size.width, *&composer->containerBounds.size.height, *&composer->edgeInsets.top, *&composer->edgeInsets.left, *&composer->edgeInsets.bottom, *&composer->edgeInsets.right, *&composer->minimumPadding.top, *&composer->minimumPadding.left, *&composer->minimumPadding.bottom, *&composer->minimumPadding.right, *&composer->stashedMinimumPadding.top, *&composer->stashedMinimumPadding.bottom, *&composer->stashedMinimumPadding.right, composer->offscreenCorners, composer->orientation);
   }
 
   else
@@ -495,7 +476,7 @@ LABEL_25:
   pipLastSteadySize = geometry->pipLastSteadySize;
   pipCurrentSize = geometry->pipCurrentSize;
   v28 = pipLastSteadySize;
-  [(SBPIPMultidisplayHyperregionComposer *)self _adjustGeometryContextIfNeeded:&pipCurrentSize forComposer:v14];
+  objc_msgSend__adjustGeometryContextIfNeeded_forComposer_(self);
   v37 = v50;
   v38 = v51;
   v39 = v52;
@@ -561,7 +542,7 @@ LABEL_25:
   pipLastSteadySize = geometry->pipLastSteadySize;
   pipCurrentSize = geometry->pipCurrentSize;
   v32 = pipLastSteadySize;
-  [(SBPIPMultidisplayHyperregionComposer *)self _adjustGeometryContextIfNeeded:&pipCurrentSize forComposer:v14];
+  objc_msgSend__adjustGeometryContextIfNeeded_forComposer_(self);
   v41 = v54;
   v42 = v55;
   v43 = v56;

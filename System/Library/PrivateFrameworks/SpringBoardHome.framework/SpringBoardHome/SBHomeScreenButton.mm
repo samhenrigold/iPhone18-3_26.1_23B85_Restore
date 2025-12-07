@@ -97,7 +97,7 @@ LABEL_8:
   }
 
 LABEL_9:
-  [(SBHomeScreenButton *)self bounds];
+  objc_msgSend_bounds(self);
   [(SBHomeScreenMaterialView *)materialView setFrame:?];
 }
 

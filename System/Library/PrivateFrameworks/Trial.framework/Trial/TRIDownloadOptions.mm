@@ -4,6 +4,7 @@
 - (BOOL)isEqual:(id)equal;
 - (TRIDownloadOptions)initWithAllowsCellular:(BOOL)cellular discretionaryBehavior:(unint64_t)behavior;
 - (TRIDownloadOptions)initWithAllowsCellular:(BOOL)cellular discretionaryBehavior:(unint64_t)behavior activity:(id)activity;
+- (TRIDownloadOptions)initWithAllowsCellular:(BOOL)cellular discretionaryBehavior:(unint64_t)behavior boostPriority:(BOOL)priority;
 - (TRIDownloadOptions)initWithCoder:(id)coder;
 - (id)description;
 - (id)initFromPersistedBehavior:(id)behavior;
@@ -28,6 +29,15 @@
   }
 
   return result;
+}
+
+- (TRIDownloadOptions)initWithAllowsCellular:(BOOL)cellular discretionaryBehavior:(unint64_t)behavior boostPriority:(BOOL)priority
+{
+  priorityCopy = priority;
+  v6 = [(TRIDownloadOptions *)self initWithAllowsCellular:cellular discretionaryBehavior:behavior];
+  [(TRIDownloadOptions *)v6 setBoostPriority:priorityCopy];
+
+  return v6;
 }
 
 - (TRIDownloadOptions)initWithAllowsCellular:(BOOL)cellular discretionaryBehavior:(unint64_t)behavior activity:(id)activity

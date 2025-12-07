@@ -312,9 +312,9 @@ LABEL_7:
 - (_UIPlatterView)initWithDroppedItem:(id)item
 {
   itemCopy = item;
-  preview = [itemCopy preview];
+  v5 = objc_msgSend_preview(itemCopy);
   imageComponent = [itemCopy imageComponent];
-  v7 = preview;
+  v7 = v5;
   v8 = [[_UIPlatterView alloc] initWithDUIPreview:v7];
 
   v9 = imageComponent;
@@ -355,13 +355,13 @@ LABEL_7:
   [(_UIPlatterView *)v8 setStackRotation:?];
   [(_UIPlatterView *)v8 setLifted:1];
   -[_UIPlatterView setConstrainSize:](v8, "setConstrainSize:", [itemCopy constrainSize]);
-  preview2 = [itemCopy preview];
-  [preview2 stackAlpha];
+  v30 = objc_msgSend_preview(itemCopy);
+  [v30 stackAlpha];
   [(UIView *)v8 setAlpha:?];
 
   if (itemCopy)
   {
-    [itemCopy appliedTransform];
+    objc_msgSend_appliedTransform(itemCopy);
   }
 
   else
@@ -375,8 +375,8 @@ LABEL_7:
   v34[1] = v36;
   v34[2] = v37;
   [(_UIPlatterView *)v8 setAppliedTransform:v34];
-  preview3 = [itemCopy preview];
-  shadowProperties = [preview3 shadowProperties];
+  v31 = objc_msgSend_preview(itemCopy);
+  shadowProperties = [v31 shadowProperties];
   [(_UIPlatterView *)v8 setShadowProperties:shadowProperties];
 
   return v8;
@@ -406,13 +406,13 @@ LABEL_7:
 {
   if ([(_UIPlatterView *)self constrainSize])
   {
-    preview = [(_UIPlatterView *)self preview];
-    [preview croppedScaledSize];
+    v3 = objc_msgSend_preview(self);
+    [v3 croppedScaledSize];
     v5 = v4;
     v7 = v6;
 
-    preview2 = [(_UIPlatterView *)self preview];
-    [preview2 scaleFactor];
+    v8 = objc_msgSend_preview(self);
+    [v8 scaleFactor];
     v10 = 1.0 / v9;
 
     v11 = v5 * v10;
@@ -459,8 +459,8 @@ LABEL_7:
 
 - (CGPoint)initialBadgeLocation
 {
-  preview = [(_UIPlatterView *)self preview];
-  [preview initialBadgeLocation];
+  v2 = objc_msgSend_preview(self, a2);
+  [v2 initialBadgeLocation];
   v4 = v3;
   v6 = v5;
 
@@ -482,8 +482,8 @@ LABEL_7:
 
 - (CGPoint)contentOffset
 {
-  preview = [(_UIPlatterView *)self preview];
-  [preview contentOffset];
+  v2 = objc_msgSend_preview(self, a2);
+  [v2 contentOffset];
   v4 = v3;
   v6 = v5;
 
@@ -497,7 +497,7 @@ LABEL_7:
 - (void)setComponentView:(id)view
 {
   viewCopy = view;
-  if (([(UIView *)self->_componentView isEqual:?]& 1) == 0)
+  if ((objc_msgSend_isEqual_(self->_componentView) & 1) == 0)
   {
     [(UIView *)self->_componentView removeFromSuperview];
     if (viewCopy)
@@ -611,7 +611,7 @@ LABEL_5:
     memset(&v21, 0, sizeof(v21));
     if (v7)
     {
-      [(_UIDragPreviewShadowProperties *)v7 liftedTransform];
+      objc_msgSend_liftedTransform(v7);
       goto LABEL_6;
     }
   }
@@ -626,11 +626,11 @@ LABEL_5:
   *&v21.c = v8;
   *&v21.tx = v4[2];
 LABEL_6:
-  [(_UIPlatterView *)self appliedTransform];
+  objc_msgSend_appliedTransform(self);
   if (!CGAffineTransformIsIdentity(&v20))
   {
     memset(&v20, 0, sizeof(v20));
-    [(_UIPlatterView *)self appliedTransform];
+    objc_msgSend_appliedTransform(self);
     CGAffineTransformDecompose(&v20, &transform);
     memset(&transform, 0, sizeof(transform));
     CGAffineTransformMakeRotation(&transform, v20.d);
@@ -775,8 +775,8 @@ LABEL_8:
     return 1.0;
   }
 
-  preview = [(_UIPlatterView *)self preview];
-  [preview scaleFactor];
+  v3 = objc_msgSend_preview(self);
+  [v3 scaleFactor];
   v5 = v4;
 
   return v5;
@@ -816,8 +816,8 @@ LABEL_8:
     memset(&v24, 0, sizeof(v24));
     CGAffineTransformMakeScale(&v24, v15 / v18, v17 / v19);
     v20 = [[_UIPortalView alloc] initWithFrame:v11, v13, v15, v17];
-    preview = [(_UIPlatterView *)self preview];
-    -[_UIPortalView setHidesSourceView:](v20, "setHidesSourceView:", [preview hidesSourceView]);
+    v21 = objc_msgSend_preview(self);
+    -[_UIPortalView setHidesSourceView:](v20, "setHidesSourceView:", [v21 hidesSourceView]);
 
     [(_UIPortalView *)v20 setMatchesAlpha:0];
     [(_UIPortalView *)v20 setMatchesPosition:0];
@@ -825,8 +825,8 @@ LABEL_8:
     v23 = v24;
     [(UIView *)v20 setTransform:&v23];
     [(_UIPortalView *)v20 setSourceView:viewCopy];
-    preview2 = [(_UIPlatterView *)self preview];
-    -[_UIPortalView setAllowsHitTesting:](v20, "setAllowsHitTesting:", [preview2 previewMode] == 4);
+    v22 = objc_msgSend_preview(self);
+    -[_UIPortalView setAllowsHitTesting:](v20, "setAllowsHitTesting:", [v22 previewMode] == 4);
 
     [(_UIPortalView *)v20 setAllowsBackdropGroups:1];
     -[UIView _setFlipsHorizontalAxis:](v20, "_setFlipsHorizontalAxis:", [viewCopy _flipsHorizontalAxis]);
@@ -914,11 +914,11 @@ LABEL_8:
   *&retstr->m23 = v59;
   if ([(_UIPlatterView *)self isLifted])
   {
-    preview = [(_UIPlatterView *)self preview];
-    v7 = preview;
-    if (preview)
+    v6 = objc_msgSend_preview(self);
+    v7 = v6;
+    if (v6)
     {
-      [preview liftTransform];
+      objc_msgSend_liftTransform(v6);
     }
 
     else
@@ -980,31 +980,31 @@ LABEL_8:
   if (v25 != *MEMORY[0x1E695F060] || v24 != *(MEMORY[0x1E695F060] + 8))
   {
     constrainSize = [(_UIPlatterView *)self constrainSize];
-    preview2 = [(_UIPlatterView *)self preview];
-    v28 = preview2;
+    v27 = objc_msgSend_preview(self);
+    v28 = v27;
     if (constrainSize)
     {
-      [preview2 croppedScaledSize];
+      [v27 croppedScaledSize];
     }
 
     else
     {
-      [preview2 unscaledSize];
+      [v27 unscaledSize];
     }
 
     v31 = v29;
     v32 = v30;
 
-    preview3 = [(_UIPlatterView *)self preview];
-    v34 = preview3;
+    v33 = objc_msgSend_preview(self);
+    v34 = v33;
     v35 = 0.0;
     m14 = 0.0;
     m12 = 0.0;
     m13 = 0.0;
     m11 = 0.0;
-    if (preview3)
+    if (v33)
     {
-      [preview3 liftTransform];
+      objc_msgSend_liftTransform(v33, 0.0, 0.0, 0.0, 0.0);
       m11 = b.m11;
       m12 = b.m12;
       m13 = b.m13;
@@ -1014,14 +1014,14 @@ LABEL_8:
     v40 = v32 * m13 + v31 * m11;
     v41 = v32 * m14 + v31 * m12;
 
-    preview4 = [(_UIPlatterView *)self preview];
-    v43 = preview4;
+    v42 = objc_msgSend_preview(self);
+    v43 = v42;
     v44 = 0.0;
     v45 = 0.0;
     v46 = 0.0;
-    if (preview4)
+    if (v42)
     {
-      [preview4 liftTransform];
+      objc_msgSend_liftTransform(v42, 0.0, 0.0, 0.0);
       v46 = b.m11;
       v44 = b.m12;
       v45 = b.m13;
@@ -1084,11 +1084,11 @@ LABEL_8:
   v14 = v13;
   [(UIView *)self bounds];
   v16 = v15;
-  preview = [(_UIPlatterView *)self preview];
-  v18 = preview;
-  if (preview)
+  v17 = objc_msgSend_preview(self);
+  v18 = v17;
+  if (v17)
   {
-    [preview overrideStackTransform];
+    objc_msgSend_overrideStackTransform(v17);
   }
 
   else
@@ -1107,11 +1107,11 @@ LABEL_8:
   else
   {
     memset(&v94, 0, 48);
-    preview2 = [(_UIPlatterView *)self preview];
-    v23 = preview2;
-    if (preview2)
+    v22 = objc_msgSend_preview(self);
+    v23 = v22;
+    if (v22)
     {
-      [preview2 overrideStackTransform];
+      objc_msgSend_overrideStackTransform(v22);
     }
 
     else
@@ -1256,8 +1256,8 @@ LABEL_8:
   *&retstr->m23 = v62;
   if (self->_appliesOriginalRotation)
   {
-    preview3 = [(_UIPlatterView *)self preview];
-    [preview3 originalRotation];
+    v63 = objc_msgSend_preview(self);
+    [v63 originalRotation];
     v64 = *&retstr->m33;
     *&v94.m31 = *&retstr->m31;
     *&v94.m33 = v64;
@@ -1415,7 +1415,7 @@ LABEL_8:
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  v3 = [(_UIPlatterView *)self preview:fits.width];
+  v3 = objc_msgSend_preview(self, a2, fits.width, fits.height);
   [v3 unscaledSize];
   v5 = v4;
   v7 = v6;
@@ -1443,12 +1443,12 @@ LABEL_8:
   eventCopy = event;
   if ([(_UIPlatterView *)self constrainSize])
   {
-    preview = [(_UIPlatterView *)self preview];
-    [preview scaleFactor];
+    v8 = objc_msgSend_preview(self);
+    [v8 scaleFactor];
     v10 = 1.0 / v9;
 
-    preview2 = [(_UIPlatterView *)self preview];
-    [preview2 croppedScaledSize];
+    v11 = objc_msgSend_preview(self);
+    [v11 croppedScaledSize];
     v13 = v12;
     v15 = v14;
 
@@ -1516,7 +1516,7 @@ LABEL_8:
 {
   if (![(_UIPlatterView *)self transformAppliedExternally])
   {
-    [(_UIPlatterView *)self targetTransform];
+    objc_msgSend_targetTransform(self);
     v3[4] = v3[12];
     v3[5] = v3[13];
     v3[6] = v3[14];

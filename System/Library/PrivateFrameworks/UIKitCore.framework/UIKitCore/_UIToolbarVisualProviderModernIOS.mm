@@ -782,7 +782,7 @@ LABEL_20:
   v14 = 0;
   if ((_UIBarsUseDynamicType() & 1) == 0 && preferredContentSizeCategory)
   {
-    if ([preferredContentSizeCategory isEqualToString:@"UICTContentSizeCategoryL"])
+    if (objc_msgSend_isEqualToString_(preferredContentSizeCategory))
     {
       v14 = 0;
     }

@@ -1,913 +1,24 @@
-void PRM::Camera::StreamReader::getIOSurfaces(char **a1)
-{
-  v20 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "%s: Assertion failed for %s", "getIOSurfaces", "m_stream");
-  v1 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v1))
-  {
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_1(&dword_25EA3A000, v2, v3, "%s:%d %s: Assertion failed for %s", v4, v5, v6, v7, v17, v18, v19);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v8 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v8))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v9, v10, "%s() failed to flush buffers with error code: %d", v11, v12, v13, v14, v17, v18, v19);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v15 = OUTLINED_FUNCTION_0();
-  PRM::Camera::StreamReaderInstance::StreamReaderInstance(v15, v16);
-}
-
-void PRM::Camera::StreamReaderInstance::StreamReaderInstance(NSObject *a1, int a2)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
-  {
-    v5 = 136315394;
-    v6 = "StreamReaderInstance";
-    v7 = 1024;
-    v8 = a2;
-    _os_log_impl(&dword_25EA3A000, a1, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v5, 0x12u);
-  }
-
-  v4 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t PRM::Camera::StreamReaderInstance::acquireResources(char **a1)
-{
-  v20 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "%s: Assertion failed for %s", "acquireResources", "_reader");
-  v1 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v1))
-  {
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_1(&dword_25EA3A000, v2, v3, "%s:%d %s: Assertion failed for %s", v4, v5, v6, v7, v17, v18, v19);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v8 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v8))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v9, v10, "%s() failed to flush buffers with error code: %d", v11, v12, v13, v14, v17, v18, v19);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v15 = OUTLINED_FUNCTION_0();
-  return PRM::Camera::StreamReaderInstance::acquireResources(v15);
-}
-
-{
-  v20 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "%s: Assertion failed for %s", "acquireResources", "_capacity");
-  v1 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v1))
-  {
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_1(&dword_25EA3A000, v2, v3, "%s:%d %s: Assertion failed for %s", v4, v5, v6, v7, v17, v18, v19);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v8 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v8))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v9, v10, "%s() failed to flush buffers with error code: %d", v11, v12, v13, v14, v17, v18, v19);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v15 = OUTLINED_FUNCTION_0();
-  return PRM::Camera::StreamReaderInstance::acquireResources(v15);
-}
-
-{
-  v20 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "%s: Assertion failed for %s", "acquireResources", "this->sync_tag_arr");
-  v1 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v1))
-  {
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_1(&dword_25EA3A000, v2, v3, "%s:%d %s: Assertion failed for %s", v4, v5, v6, v7, v17, v18, v19);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v8 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v8))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v9, v10, "%s() failed to flush buffers with error code: %d", v11, v12, v13, v14, v17, v18, v19);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v15 = OUTLINED_FUNCTION_0();
-  return PRM::Camera::StreamReaderInstance::acquireResources(v15);
-}
-
-{
-  v20 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "%s: Assertion failed for %s", "acquireResources", "this->m_forwardedBuffersList");
-  v1 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v1))
-  {
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_1(&dword_25EA3A000, v2, v3, "%s:%d %s: Assertion failed for %s", v4, v5, v6, v7, v17, v18, v19);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v8 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v8))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v9, v10, "%s() failed to flush buffers with error code: %d", v11, v12, v13, v14, v17, v18, v19);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v15 = OUTLINED_FUNCTION_0();
-  return PRM::Camera::StreamReaderInstance::updateForwardBufferList(v15);
-}
-
-uint64_t PRM::Camera::StreamReaderInstance::updateForwardBufferList(char **a1)
-{
-  v20 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "%s: Assertion failed for %s", "updateForwardBufferList", "this->m_forwardedPBSAcquiredCountList");
-  v1 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v1))
-  {
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_1(&dword_25EA3A000, v2, v3, "%s:%d %s: Assertion failed for %s", v4, v5, v6, v7, v17, v18, v19);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v8 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v8))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v9, v10, "%s() failed to flush buffers with error code: %d", v11, v12, v13, v14, v17, v18, v19);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v15 = OUTLINED_FUNCTION_0();
-  return PRM::Camera::StreamReaderInstance::updateForwardBufferList(v15);
-}
-
-{
-  v20 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "%s: Assertion failed for %s", "updateForwardBufferList", "this->m_forwardedPSResourceList");
-  v1 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v1))
-  {
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_1(&dword_25EA3A000, v2, v3, "%s:%d %s: Assertion failed for %s", v4, v5, v6, v7, v17, v18, v19);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v8 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v8))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v9, v10, "%s() failed to flush buffers with error code: %d", v11, v12, v13, v14, v17, v18, v19);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v15 = OUTLINED_FUNCTION_0();
-  return PRM::Camera::StreamReaderInstance::updateForwardBufferList(v15);
-}
-
-{
-  v20 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "%s: Assertion failed for %s", "updateForwardBufferList", "this->m_forwardedBuffersList");
-  v1 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v1))
-  {
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_1(&dword_25EA3A000, v2, v3, "%s:%d %s: Assertion failed for %s", v4, v5, v6, v7, v17, v18, v19);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v8 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v8))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v9, v10, "%s() failed to flush buffers with error code: %d", v11, v12, v13, v14, v17, v18, v19);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v15 = OUTLINED_FUNCTION_0();
-  return PRM::Camera::StreamReaderInstance::updateForwardBufferList(v15);
-}
-
-{
-  v20 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "%s: Assertion failed for %s", "updateForwardBufferList", "_reader");
-  v1 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v1))
-  {
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_1(&dword_25EA3A000, v2, v3, "%s:%d %s: Assertion failed for %s", v4, v5, v6, v7, v17, v18, v19);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v8 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v8))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v9, v10, "%s() failed to flush buffers with error code: %d", v11, v12, v13, v14, v17, v18, v19);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v15 = OUTLINED_FUNCTION_0();
-  return PRM::Camera::StreamReaderInstance::getFreeForwardBufferListIndex(v15);
-}
-
-uint64_t PRM::Camera::StreamReaderInstance::getFreeForwardBufferListIndex(char **a1)
-{
-  v20 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "%s: Assertion failed for %s", "getFreeForwardBufferListIndex", "outIndex < this->m_maxForwardedBufferCount");
-  v1 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v1))
-  {
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_1(&dword_25EA3A000, v2, v3, "%s:%d %s: Assertion failed for %s", v4, v5, v6, v7, v17, v18, v19);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v8 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v8))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v9, v10, "%s() failed to flush buffers with error code: %d", v11, v12, v13, v14, v17, v18, v19);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v15 = OUTLINED_FUNCTION_0();
-  return PRM::Camera::StreamReaderInstance::releaseForwardBufferListIndex(v15);
-}
-
-uint64_t PRM::Camera::StreamReaderInstance::releaseForwardBufferListIndex(char **a1)
-{
-  v20 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "%s: Assertion failed for %s", "releaseForwardBufferListIndex", "index < this->m_maxForwardedBufferCount");
-  v1 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v1))
-  {
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_1(&dword_25EA3A000, v2, v3, "%s:%d %s: Assertion failed for %s", v4, v5, v6, v7, v17, v18, v19);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v8 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v8))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v9, v10, "%s() failed to flush buffers with error code: %d", v11, v12, v13, v14, v17, v18, v19);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v15 = OUTLINED_FUNCTION_0();
-  return PRM::Camera::StreamReaderInstance::releaseForwardBufferListIndex(v15);
-}
-
-{
-  v20 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "%s: Assertion failed for %s", "releaseForwardBufferListIndex", "in_use_indicies_bitarray_current & set_bit_mask");
-  v1 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v1))
-  {
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_1(&dword_25EA3A000, v2, v3, "%s:%d %s: Assertion failed for %s", v4, v5, v6, v7, v17, v18, v19);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v8 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v8))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v9, v10, "%s() failed to flush buffers with error code: %d", v11, v12, v13, v14, v17, v18, v19);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v15 = OUTLINED_FUNCTION_0();
-  return PRM::Camera::StreamWriterInstance::StreamWriterInstance(v15);
-}
-
-void PRM::Camera::StreamWriterInstance::StreamWriterInstance()
-{
-  OUTLINED_FUNCTION_2_4();
-  v0 = *MEMORY[0x277D85DE8];
-  if (OUTLINED_FUNCTION_3_4(v1))
-  {
-    OUTLINED_FUNCTION_2_2();
-    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v2, v3, "%s() failed to flush buffers with error code: %d", v4, v5, v6, v7, 2u);
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t PRM::Camera::StreamWriterInstance::acquireResources(char **a1)
-{
-  v15 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "%s: Assertion failed for %s", "acquireResources", "pbs_res");
-  v1 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
-  {
-    *buf = 136315906;
-    v8 = "acquireResources";
-    v9 = 1024;
-    v10 = 119;
-    v11 = 2080;
-    v12 = "acquireResources";
-    v13 = 2080;
-    v14 = "pbs_res";
-    _os_log_impl(&dword_25EA3A000, v1, OS_LOG_TYPE_FAULT, "%s:%d %s: Assertion failed for %s", buf, 0x26u);
-  }
-
-  v2 = OSLogFlushBuffers();
-  if (v2)
-  {
-    v3 = v2;
-    v4 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      v8 = "acquireResources";
-      v9 = 1024;
-      v10 = v3;
-      _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
-    }
-  }
-
-  else
-  {
-    usleep(0x1E8480u);
-  }
-
-  v5 = OUTLINED_FUNCTION_0();
-  return PRM::Camera::StreamWriterInstance::relinquishResources(v5);
-}
-
-uint64_t PRM::Camera::StreamWriterInstance::relinquishResources(char **a1)
-{
-  v17 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "%s: Assertion (%s). %s", "relinquishResources", "this->has_acquired_resource", "Tried to relinquish when no buffer was held");
-  v1 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
-  {
-    *buf = 136316162;
-    v8 = "relinquishResources";
-    v9 = 1024;
-    v10 = 131;
-    v11 = 2080;
-    v12 = "relinquishResources";
-    v13 = 2080;
-    v14 = "this->has_acquired_resource";
-    v15 = 2080;
-    v16 = "Tried to relinquish when no buffer was held";
-    _os_log_impl(&dword_25EA3A000, v1, OS_LOG_TYPE_FAULT, "%s:%d %s: Assertion (%s). %s", buf, 0x30u);
-  }
-
-  v2 = OSLogFlushBuffers();
-  if (v2)
-  {
-    v3 = v2;
-    v4 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      v8 = "relinquishResources";
-      v9 = 1024;
-      v10 = v3;
-      _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
-    }
-  }
-
-  else
-  {
-    usleep(0x1E8480u);
-  }
-
-  v5 = OUTLINED_FUNCTION_0();
-  return PRM::Camera::StreamWriterInstance::~StreamWriterInstance(v5);
-}
-
-void PRM::Camera::StreamWriterInstance::~StreamWriterInstance()
-{
-  OUTLINED_FUNCTION_2_4();
-  v0 = *MEMORY[0x277D85DE8];
-  if (OUTLINED_FUNCTION_3_4(v1))
-  {
-    OUTLINED_FUNCTION_2_2();
-    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v2, v3, "%s() failed to flush buffers with error code: %d", v4, v5, v6, v7, 2u);
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void PRMFastPathHIDReader::createReaderInstanceContext(uint64_t a1, uint8_t *buf, os_log_t log)
-{
-  *buf = 136315650;
-  *(buf + 4) = "createReaderInstanceContext";
-  *(buf + 6) = 1024;
-  *(buf + 14) = 71;
-  *(buf + 9) = 2080;
-  *(buf + 20) = a1;
-  _os_log_impl(&dword_25EA3A000, log, OS_LOG_TYPE_FAULT, "%s:%d Cannot create reader instance context for inactive PRMReader for key: %s", buf, 0x1Cu);
-}
-
-void PRMFastPathHIDReader::createReaderInstanceContext(int a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
-  {
-    v4 = 136315394;
-    v5 = "createReaderInstanceContext";
-    v6 = 1024;
-    v7 = a1;
-    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v4, 0x12u);
-  }
-
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void PRMFastPathHIDReaderInstance::~PRMFastPathHIDReaderInstance(NSObject *a1)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
-  {
-    OUTLINED_FUNCTION_2_2();
-    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v2, v3, "%s() failed to flush buffers with error code: %d", v4, v5, v6, v7, 2u);
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void PRMFastPathHIDReaderInstance::acquireResources(uint64_t a1, uint8_t *buf, os_log_t log)
-{
-  *buf = 136315650;
-  *(buf + 4) = "acquireResources";
-  *(buf + 6) = 1024;
-  *(buf + 14) = 127;
-  *(buf + 9) = 2080;
-  *(buf + 20) = a1;
-  _os_log_impl(&dword_25EA3A000, log, OS_LOG_TYPE_FAULT, "%s:%d Double acquire! Relinquish before acquiring again %s.", buf, 0x1Cu);
-}
-
-void PRMFastPathHIDReaderInstance::acquireResources()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
-  {
-    OUTLINED_FUNCTION_2_2();
-    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v1, v2, "%s() failed to flush buffers with error code: %d", v3, v4, v5, v6, 2u);
-  }
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void PRMIOSurfaceSharedEventWaiter::init(NSObject *a1)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
-  {
-    OUTLINED_FUNCTION_2_2();
-    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v2, v3, "%s() failed to flush buffers with error code: %d", v4, v5, v6, v7, 2u);
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-{
-  v9 = *MEMORY[0x277D85DE8];
-  if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
-  {
-    OUTLINED_FUNCTION_2_2();
-    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v2, v3, "%s() failed to flush buffers with error code: %d", v4, v5, v6, v7, 2u);
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void PRMPBSAneReader::init(uint64_t a1, uint8_t *buf, os_log_t log)
-{
-  *buf = 136315650;
-  *(buf + 4) = "init";
-  *(buf + 6) = 1024;
-  *(buf + 14) = 43;
-  *(buf + 9) = 2080;
-  *(buf + 20) = a1;
-  _os_log_impl(&dword_25EA3A000, log, OS_LOG_TYPE_FAULT, "%s:%d PRM ANE Reader (key %s) expects ANE chained stream!", buf, 0x1Cu);
-}
-
-void PRMPBSAneReader::init()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
-  {
-    OUTLINED_FUNCTION_2_2();
-    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v1, v2, "%s() failed to flush buffers with error code: %d", v3, v4, v5, v6, 2u);
-  }
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_2_4();
-  v1 = *MEMORY[0x277D85DE8];
-  if (OUTLINED_FUNCTION_3_4(v2))
-  {
-    OUTLINED_FUNCTION_2_2();
-    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v3, v4, "%s() failed to flush buffers with error code: %d", v5, v6, v7, v8, 2u);
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_2_4();
-  v1 = *MEMORY[0x277D85DE8];
-  if (OUTLINED_FUNCTION_3_4(v2))
-  {
-    OUTLINED_FUNCTION_2_2();
-    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v3, v4, "%s() failed to flush buffers with error code: %d", v5, v6, v7, v8, 2u);
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_2_4();
-  v1 = *MEMORY[0x277D85DE8];
-  if (OUTLINED_FUNCTION_3_4(v2))
-  {
-    OUTLINED_FUNCTION_2_2();
-    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v3, v4, "%s() failed to flush buffers with error code: %d", v5, v6, v7, v8, 2u);
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_2_4();
-  v1 = *MEMORY[0x277D85DE8];
-  if (OUTLINED_FUNCTION_3_4(v2))
-  {
-    OUTLINED_FUNCTION_2_2();
-    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v3, v4, "%s() failed to flush buffers with error code: %d", v5, v6, v7, v8, 2u);
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_2_4();
-  v1 = *MEMORY[0x277D85DE8];
-  if (OUTLINED_FUNCTION_3_4(v2))
-  {
-    OUTLINED_FUNCTION_2_2();
-    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v3, v4, "%s() failed to flush buffers with error code: %d", v5, v6, v7, v8, 2u);
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-{
-  OUTLINED_FUNCTION_2_4();
-  v1 = *MEMORY[0x277D85DE8];
-  if (OUTLINED_FUNCTION_3_4(v2))
-  {
-    OUTLINED_FUNCTION_2_2();
-    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v3, v4, "%s() failed to flush buffers with error code: %d", v5, v6, v7, v8, 2u);
-  }
-
-  v9 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t PRMPBSCameraReader::init(char **a1, PRMReader *this)
-{
-  v17 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  Key = PRMReader::getKey(this);
-  asprintf(a1, "PRM Camera Reader (key %s) expects camera stream!", Key);
-  v5 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
-  {
-    *buf = 136315650;
-    v12 = "init";
-    v13 = 1024;
-    v14 = 31;
-    v15 = 2080;
-    v16 = PRMReader::getKey(this);
-    _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_FAULT, "%s:%d PRM Camera Reader (key %s) expects camera stream!", buf, 0x1Cu);
-  }
-
-  v6 = OSLogFlushBuffers();
-  if (v6)
-  {
-    v7 = v6;
-    v8 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      v12 = "init";
-      v13 = 1024;
-      v14 = v7;
-      _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
-    }
-  }
-
-  else
-  {
-    usleep(0x1E8480u);
-  }
-
-  v9 = OUTLINED_FUNCTION_0();
-  return PRMPBSCameraReader::_populateClientResTypeJasperBuffer(v9);
-}
-
-uint64_t PRMPBSCameraReader::_populateClientResTypeJasperBuffer(char **a1)
-{
-  v11 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "Unsupported metadata type");
-  v1 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
-  {
-    v7 = 136315394;
-    v8 = "_populateClientResTypeJasperBuffer";
-    v9 = 1024;
-    v10 = 320;
-    _os_log_impl(&dword_25EA3A000, v1, OS_LOG_TYPE_FAULT, "%s:%d Unsupported metadata type", &v7, 0x12u);
-  }
-
-  v2 = OSLogFlushBuffers();
-  if (v2)
-  {
-    v3 = v2;
-    v4 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      v7 = 136315394;
-      v8 = "_populateClientResTypeJasperBuffer";
-      v9 = 1024;
-      v10 = v3;
-      _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v7, 0x12u);
-    }
-  }
-
-  else
-  {
-    usleep(0x1E8480u);
-  }
-
-  v5 = OUTLINED_FUNCTION_0();
-  return PRMPBSGenericReader::_populateClientResTypePixelBuffer(v5);
-}
-
-uint64_t PRMPBSGenericReader::_populateClientResTypePixelBuffer(char **a1)
-{
-  v19 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "Invalid option detected: %s", "this->metadata_type");
-  v1 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
-  {
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v2, v3, "%s:%d Invalid option detected: %s", v4, v5, v6, v7, v17, v18, 2u);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v8 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v9, v10, "%s() failed to flush buffers with error code: %d", v11, v12, v13, v14, v17, v18, 2u);
-    }
-  }
-
-  else
-  {
-    usleep(0x1E8480u);
-  }
-
-  v15 = OUTLINED_FUNCTION_0();
-  return PRMPBSGenericReader::_populateClientResTypeDataBuffer(v15);
-}
-
-uint64_t PRMPBSGenericReader::_populateClientResTypeDataBuffer(char **a1)
-{
-  v20 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "Invalid option detected: %s", "this->metadata_type");
-  v1 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
-  {
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v2, v3, "%s:%d Invalid option detected: %s", v4, v5, v6, v7, v18, v19, 2u);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v8 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v9, v10, "%s() failed to flush buffers with error code: %d", v11, v12, v13, v14, v18, v19, 2u);
-    }
-  }
-
-  else
-  {
-    usleep(0x1E8480u);
-  }
-
-  v15 = OUTLINED_FUNCTION_0();
-  return PRMPBSReader::init(v15, v16);
-}
-
-uint64_t PRMPBSReader::init(char **a1, PRMReader *a2)
-{
-  v4 = OUTLINED_FUNCTION_3_5(a2, a1, *MEMORY[0x277D85DE8]);
-  asprintf(a1, "Received an invalid class type for reader %s", v4);
-  v5 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
-  {
-    PRMReader::getKey(a2);
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_13_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Received an invalid class type for reader %s", v8, v9, v10, v11, v21, v22, v23);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v12 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v12))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v21, v22, v23);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v19 = OUTLINED_FUNCTION_0();
-  return PRMPBSReader::init(v19);
-}
-
-{
-  v4 = OUTLINED_FUNCTION_3_5(a2, a1, *MEMORY[0x277D85DE8]);
-  asprintf(a1, "Received an invalid class type for reader %s", v4);
-  v5 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
-  {
-    PRMReader::getKey(a2);
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_13_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Received an invalid class type for reader %s", v8, v9, v10, v11, v21, v22, v23);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v12 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v12))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v21, v22, v23);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v19 = OUTLINED_FUNCTION_0();
-  return PRMPBSReader::createReaderInstanceContext(v19);
-}
-
 uint64_t PRMPBSReader::createReaderInstanceContext(char **a1, PRMReader *a2)
 {
   v4 = OUTLINED_FUNCTION_3_5(a2, a1, *MEMORY[0x277D85DE8]);
-  asprintf(a1, "Cannot create reader instance context for inactive PRMReader for key: %s", v4);
-  v5 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v5 = asprintf(a1, "Cannot create reader instance context for inactive PRMReader for key: %s", v4);
+  v7 = __PSResourceManagerLogSharedInstance(v5, v6);
+  if (OUTLINED_FUNCTION_5(v7))
   {
     PRMReader::getKey(a2);
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_13_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Cannot create reader instance context for inactive PRMReader for key: %s", v8, v9, v10, v11, v21, v22, v23);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d Cannot create reader instance context for inactive PRMReader for key: %s", v10, v11, v12, v13, v26, v27);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v12 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v12))
+    v16 = __PSResourceManagerLogSharedInstance(v14, v15);
+    if (OUTLINED_FUNCTION_6(v16))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v21, v22, v23);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v17, v18, "%s() failed to flush buffers with error code: %d", v19, v20, v21, v22, v26, v27);
     }
   }
 
@@ -916,30 +27,31 @@ uint64_t PRMPBSReader::createReaderInstanceContext(char **a1, PRMReader *a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v19 = OUTLINED_FUNCTION_0();
-  return PRMPBSReader::deleteReaderInstanceContext(v19);
+  v23 = OUTLINED_FUNCTION_0();
+  return PRMPBSReader::deleteReaderInstanceContext(v23, v24);
 }
 
 uint64_t PRMPBSReader::deleteReaderInstanceContext(char **a1, PRMReader *a2)
 {
   v4 = OUTLINED_FUNCTION_3_5(a2, a1, *MEMORY[0x277D85DE8]);
-  asprintf(a1, "Cannot delete context if buffer group has already been destroyed for key: %s", v4);
-  v5 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v5 = asprintf(a1, "Cannot delete context if buffer group has already been destroyed for key: %s", v4);
+  v7 = __PSResourceManagerLogSharedInstance(v5, v6);
+  if (OUTLINED_FUNCTION_5(v7))
   {
     PRMReader::getKey(a2);
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_13_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Cannot delete context if buffer group has already been destroyed for key: %s", v8, v9, v10, v11, v21, v22, v23);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d Cannot delete context if buffer group has already been destroyed for key: %s", v10, v11, v12, v13, v26, v27);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v12 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v12))
+    v16 = __PSResourceManagerLogSharedInstance(v14, v15);
+    if (OUTLINED_FUNCTION_6(v16))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v21, v22, v23);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v17, v18, "%s() failed to flush buffers with error code: %d", v19, v20, v21, v22, v26, v27);
     }
   }
 
@@ -948,30 +60,31 @@ uint64_t PRMPBSReader::deleteReaderInstanceContext(char **a1, PRMReader *a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v19 = OUTLINED_FUNCTION_0();
-  return PRMPBSReader::_checkBeforeAcquire(v19);
+  v23 = OUTLINED_FUNCTION_0();
+  return PRMPBSReader::_checkBeforeAcquire(v23, v24);
 }
 
 uint64_t PRMPBSReader::_checkBeforeAcquire(char **a1, PRMReader *a2)
 {
   v4 = OUTLINED_FUNCTION_3_5(a2, a1, *MEMORY[0x277D85DE8]);
-  asprintf(a1, "Tried to use both frameID and seqNum for resource %s.", v4);
-  v5 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v5 = asprintf(a1, "Tried to use both frameID and seqNum for resource %s.", v4);
+  v7 = __PSResourceManagerLogSharedInstance(v5, v6);
+  if (OUTLINED_FUNCTION_5(v7))
   {
     PRMReader::getKey(a2);
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_13_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Tried to use both frameID and seqNum for resource %s.", v8, v9, v10, v11, v21, v22, v23);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d Tried to use both frameID and seqNum for resource %s.", v10, v11, v12, v13, v26, v27);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v12 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v12))
+    v16 = __PSResourceManagerLogSharedInstance(v14, v15);
+    if (OUTLINED_FUNCTION_6(v16))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v21, v22, v23);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v17, v18, "%s() failed to flush buffers with error code: %d", v19, v20, v21, v22, v26, v27);
     }
   }
 
@@ -980,29 +93,30 @@ uint64_t PRMPBSReader::_checkBeforeAcquire(char **a1, PRMReader *a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v19 = OUTLINED_FUNCTION_0();
-  return PRMPBSReader::_checkBeforeAcquire(v19);
+  v23 = OUTLINED_FUNCTION_0();
+  return PRMPBSReader::_checkBeforeAcquire(v23, v24);
 }
 
 {
   v4 = OUTLINED_FUNCTION_3_5(a2, a1, *MEMORY[0x277D85DE8]);
-  asprintf(a1, "Tried to use frameID for resource %s, but found an invalid frameID.", v4);
-  v5 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v5 = asprintf(a1, "Tried to use frameID for resource %s, but found an invalid frameID.", v4);
+  v7 = __PSResourceManagerLogSharedInstance(v5, v6);
+  if (OUTLINED_FUNCTION_5(v7))
   {
     PRMReader::getKey(a2);
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_13_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Tried to use frameID for resource %s, but found an invalid frameID.", v8, v9, v10, v11, v21, v22, v23);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d Tried to use frameID for resource %s, but found an invalid frameID.", v10, v11, v12, v13, v26, v27);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v12 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v12))
+    v16 = __PSResourceManagerLogSharedInstance(v14, v15);
+    if (OUTLINED_FUNCTION_6(v16))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v21, v22, v23);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v17, v18, "%s() failed to flush buffers with error code: %d", v19, v20, v21, v22, v26, v27);
     }
   }
 
@@ -1011,30 +125,31 @@ uint64_t PRMPBSReader::_checkBeforeAcquire(char **a1, PRMReader *a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v19 = OUTLINED_FUNCTION_0();
-  return PRMPBSReader::populateResources(v19);
+  v23 = OUTLINED_FUNCTION_0();
+  return PRMPBSReader::populateResources(v23, v24);
 }
 
 uint64_t PRMPBSReader::populateResources(char **a1, PRMReader *a2)
 {
   v4 = OUTLINED_FUNCTION_3_5(a2, a1, *MEMORY[0x277D85DE8]);
-  asprintf(a1, "Received an invalid class type for reader %s", v4);
-  v5 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v5 = asprintf(a1, "Received an invalid class type for reader %s", v4);
+  v7 = __PSResourceManagerLogSharedInstance(v5, v6);
+  if (OUTLINED_FUNCTION_5(v7))
   {
     PRMReader::getKey(a2);
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_13_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Received an invalid class type for reader %s", v8, v9, v10, v11, v21, v22, v23);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d Received an invalid class type for reader %s", v10, v11, v12, v13, v25, v26);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v12 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v12))
+    v16 = __PSResourceManagerLogSharedInstance(v14, v15);
+    if (OUTLINED_FUNCTION_6(v16))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v21, v22, v23);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v17, v18, "%s() failed to flush buffers with error code: %d", v19, v20, v21, v22, v25, v26);
     }
   }
 
@@ -1043,27 +158,36 @@ uint64_t PRMPBSReader::populateResources(char **a1, PRMReader *a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v19 = OUTLINED_FUNCTION_0();
-  return PRMPBSReader::_populateClientResTypeMTLBuffer(v19);
+  v23 = OUTLINED_FUNCTION_0();
+  return PRMPBSReader::_populateClientResTypeMTLBuffer(v23);
 }
 
 uint64_t PRMPBSReader::_populateClientResTypeMTLBuffer(char **a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "MTLBuffer type not yet implemented.");
-  v1 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v1))
+  v1 = asprintf(a1, "MTLBuffer type not yet implemented.");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v2, v3, "%s:%d MTLBuffer type not yet implemented.", v4, v5, v6, v7, 2u);
+    *v23 = 136315394;
+    *&v23[4] = "_populateClientResTypeMTLBuffer";
+    *&v23[12] = 1024;
+    *&v23[14] = 568;
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d MTLBuffer type not yet implemented.", v6, v7, v8, v9, *v23, *&v23[8], *&v23[16]);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v8 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v8))
+    v12 = v10;
+    v13 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v13))
     {
-      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v9, v10, "%s() failed to flush buffers with error code: %d", v11, v12, v13, v14, 2u);
+      *v22 = 136315394;
+      *&v22[4] = "_populateClientResTypeMTLBuffer";
+      *&v22[12] = 1024;
+      *&v22[14] = v12;
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, *v22, *&v22[8], *&v22[16]);
     }
   }
 
@@ -1072,27 +196,36 @@ uint64_t PRMPBSReader::_populateClientResTypeMTLBuffer(char **a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v15 = OUTLINED_FUNCTION_0();
-  return PRMPBSReader::_populateClientResTypeMTLTexture(v15);
+  v20 = OUTLINED_FUNCTION_0();
+  return PRMPBSReader::_populateClientResTypeMTLTexture(v20);
 }
 
 void PRMPBSReader::_populateClientResTypeMTLTexture(char **a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "MTLTexture type not yet implemented.");
-  v1 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v1))
+  v1 = asprintf(a1, "MTLTexture type not yet implemented.");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v2, v3, "%s:%d MTLTexture type not yet implemented.", v4, v5, v6, v7, 2u);
+    *v23 = 136315394;
+    *&v23[4] = "_populateClientResTypeMTLTexture";
+    *&v23[12] = 1024;
+    *&v23[14] = 580;
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d MTLTexture type not yet implemented.", v6, v7, v8, v9, *v23, *&v23[8], *&v23[16]);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v8 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v8))
+    v12 = v10;
+    v13 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v13))
     {
-      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v9, v10, "%s() failed to flush buffers with error code: %d", v11, v12, v13, v14, 2u);
+      *v22 = 136315394;
+      *&v22[4] = "_populateClientResTypeMTLTexture";
+      *&v22[12] = 1024;
+      *&v22[14] = v12;
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, *v22, *&v22[8], *&v22[16]);
     }
   }
 
@@ -1101,30 +234,31 @@ void PRMPBSReader::_populateClientResTypeMTLTexture(char **a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v15 = OUTLINED_FUNCTION_0();
-  PRMPBSReader::populatePBSValidity(v15, v16);
+  v20 = OUTLINED_FUNCTION_0();
+  PRMPBSReader::populatePBSValidity(v20, v21);
 }
 
 void PRMPBSReader::populatePBSValidity(char **a1, PRMReader *a2)
 {
   v4 = OUTLINED_FUNCTION_3_5(a2, a1, *MEMORY[0x277D85DE8]);
-  asprintf(a1, "Received an invalid class type for reader %s", v4);
-  v5 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v5 = asprintf(a1, "Received an invalid class type for reader %s", v4);
+  v7 = __PSResourceManagerLogSharedInstance(v5, v6);
+  if (OUTLINED_FUNCTION_5(v7))
   {
     PRMReader::getKey(a2);
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_13_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Received an invalid class type for reader %s", v8, v9, v10, v11, v19, v20, v21);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d Received an invalid class type for reader %s", v10, v11, v12, v13, v23, v24);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v12 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v12))
+    v16 = __PSResourceManagerLogSharedInstance(v14, v15);
+    if (OUTLINED_FUNCTION_6(v16))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v19, v20, v21);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v17, v18, "%s() failed to flush buffers with error code: %d", v19, v20, v21, v22, v23, v24);
     }
   }
 
@@ -1140,170 +274,55 @@ void PRMPBSReader::populatePBSValidity(char **a1, PRMReader *a2)
 void PRMPBSReaderInstance::PRMPBSReaderInstance()
 {
   OUTLINED_FUNCTION_2_4();
-  v0 = *MEMORY[0x277D85DE8];
-  if (OUTLINED_FUNCTION_3_4(v1))
+  if (OUTLINED_FUNCTION_3_4(v0))
   {
+    v7 = 136315394;
     OUTLINED_FUNCTION_2_2();
-    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v2, v3, "%s() failed to flush buffers with error code: %d", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v1, v2, "%s() failed to flush buffers with error code: %d", v3, v4, v5, v6, v7);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void PRMPBSReaderInstance::~PRMPBSReaderInstance()
 {
   OUTLINED_FUNCTION_2_4();
-  v0 = *MEMORY[0x277D85DE8];
-  if (OUTLINED_FUNCTION_3_4(v1))
+  if (OUTLINED_FUNCTION_3_4(v0))
   {
+    v7 = 136315394;
     OUTLINED_FUNCTION_2_2();
-    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v2, v3, "%s() failed to flush buffers with error code: %d", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v1, v2, "%s() failed to flush buffers with error code: %d", v3, v4, v5, v6, v7);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t PRMPBSReaderInstance::acquireResources(char **a1, PRMReaderInstance *this)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   Key = PRMReaderInstance::getKey(this);
-  asprintf(a1, "You cannot acquire a new buffer if you are already holding an old buffer! If you need to acquire multiple buffers at multiple instances in time, please create a new reader instance for key %s.", Key);
-  v5 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+  v5 = asprintf(a1, "You cannot acquire a new buffer if you are already holding an old buffer! If you need to acquire multiple buffers at multiple instances in time, please create a new reader instance for key %s.", Key);
+  v7 = __PSResourceManagerLogSharedInstance(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315650;
-    v14 = "acquireResources";
-    v15 = 1024;
-    v16 = 85;
-    v17 = 2080;
-    v18 = PRMReaderInstance::getKey(this);
-    _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_FAULT, "%s:%d You cannot acquire a new buffer if you are already holding an old buffer! If you need to acquire multiple buffers at multiple instances in time, please create a new reader instance for key %s.", buf, 0x1Cu);
-  }
-
-  v6 = OSLogFlushBuffers();
-  if (v6)
-  {
-    v7 = v6;
-    v8 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      v14 = "acquireResources";
-      v15 = 1024;
-      v16 = v7;
-      _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
-    }
-  }
-
-  else
-  {
-    usleep(0x1E8480u);
-  }
-
-  v9 = *a1;
-  v10 = abort_with_reason();
-  return PRMReader::init(v10, v11);
-}
-
-uint64_t PRMReader::init(char **a1, uint64_t a2)
-{
-  v17 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  v4 = (a2 + 24);
-  v5 = (a2 + 24);
-  if (*(a2 + 47) < 0)
-  {
-    v5 = *v4;
-  }
-
-  asprintf(a1, "Tried to init PRMReader for key %s that's already initialized", v5);
-  v6 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
-  {
-    if (*(a2 + 47) < 0)
-    {
-      v4 = *v4;
-    }
-
-    *buf = 136315650;
-    v12 = "init";
-    v13 = 1024;
-    v14 = 49;
-    v15 = 2080;
-    v16 = v4;
-    _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_FAULT, "%s:%d Tried to init PRMReader for key %s that's already initialized", buf, 0x1Cu);
-  }
-
-  v7 = OSLogFlushBuffers();
-  if (v7)
-  {
-    v8 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 136315394;
-      v12 = "init";
-      v13 = 1024;
-      v14 = v7;
-      _os_log_impl(&dword_25EA3A000, v8, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
-    }
-  }
-
-  else
-  {
-    usleep(0x1E8480u);
-  }
-
-  v9 = *a1;
-  result = abort_with_reason();
-  __break(1u);
-  return result;
-}
-
-uint64_t PRMReader::deinit(char **a1, uint64_t a2)
-{
-  v22 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  v4 = (a2 + 24);
-  v5 = (a2 + 24);
-  if (*(a2 + 47) < 0)
-  {
-    v5 = *v4;
-  }
-
-  asprintf(a1, "Tried to deinit PRMReader for key %s with nonzero (%d) refcount.", v5, *(a2 + 64));
-  v6 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
-  {
-    if (*(a2 + 47) < 0)
-    {
-      v4 = *v4;
-    }
-
-    v7 = *(a2 + 64);
-    *buf = 136315906;
-    v15 = "deinit";
-    v16 = 1024;
-    v17 = 68;
-    v18 = 2080;
-    v19 = v4;
-    v20 = 1024;
-    v21 = v7;
-    _os_log_impl(&dword_25EA3A000, v6, OS_LOG_TYPE_FAULT, "%s:%d Tried to deinit PRMReader for key %s with nonzero (%d) refcount.", buf, 0x22u);
+    v16 = "acquireResources";
+    v17 = 1024;
+    v18 = 85;
+    v19 = 2080;
+    v20 = PRMReaderInstance::getKey(this);
+    _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_FAULT, "%s:%d You cannot acquire a new buffer if you are already holding an old buffer! If you need to acquire multiple buffers at multiple instances in time, please create a new reader instance for key %s.", buf, 0x1Cu);
   }
 
   v8 = OSLogFlushBuffers();
   if (v8)
   {
-    v9 = v8;
-    v10 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v10 = v8;
+    v11 = __PSResourceManagerLogSharedInstance(v8, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v15 = "deinit";
-      v16 = 1024;
-      v17 = v9;
-      _os_log_impl(&dword_25EA3A000, v10, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v16 = "acquireResources";
+      v17 = 1024;
+      v18 = v10;
+      _os_log_impl(&dword_25EA3A000, v11, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -1312,57 +331,162 @@ uint64_t PRMReader::deinit(char **a1, uint64_t a2)
     usleep(0x1E8480u);
   }
 
-  v11 = *a1;
   v12 = abort_with_reason();
-  return PRMWriterInstance::PRMWriterInstance(v12);
+  return PRMReader::init(v12, v13);
+}
+
+uint64_t PRMReader::init(char **a1, uint64_t a2)
+{
+  v19 = *MEMORY[0x277D85DE8];
+  *a1 = 0;
+  v3 = (a2 + 24);
+  v4 = (a2 + 24);
+  if (*(a2 + 47) < 0)
+  {
+    v4 = *v3;
+  }
+
+  v5 = asprintf(a1, "Tried to init PRMReader for key %s that's already initialized", v4);
+  v7 = __PSResourceManagerLogSharedInstance(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+  {
+    if (*(a2 + 47) < 0)
+    {
+      v3 = *v3;
+    }
+
+    *buf = 136315650;
+    v14 = "init";
+    v15 = 1024;
+    v16 = 49;
+    v17 = 2080;
+    v18 = v3;
+    _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_FAULT, "%s:%d Tried to init PRMReader for key %s that's already initialized", buf, 0x1Cu);
+  }
+
+  v8 = OSLogFlushBuffers();
+  v10 = v8;
+  if (v8)
+  {
+    v11 = __PSResourceManagerLogSharedInstance(v8, v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v14 = "init";
+      v15 = 1024;
+      v16 = v10;
+      _os_log_impl(&dword_25EA3A000, v11, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+    }
+  }
+
+  else
+  {
+    usleep(0x1E8480u);
+  }
+
+  result = abort_with_reason();
+  __break(1u);
+  return result;
+}
+
+void PRMReader::deinit(char **a1, uint64_t a2)
+{
+  v21 = *MEMORY[0x277D85DE8];
+  *a1 = 0;
+  v3 = (a2 + 24);
+  v4 = (a2 + 24);
+  if (*(a2 + 47) < 0)
+  {
+    v4 = *v3;
+  }
+
+  v5 = asprintf(a1, "Tried to deinit PRMReader for key %s with nonzero (%d) refcount.", v4, *(a2 + 64));
+  v7 = __PSResourceManagerLogSharedInstance(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+  {
+    if (*(a2 + 47) < 0)
+    {
+      v3 = *v3;
+    }
+
+    v8 = *(a2 + 64);
+    *buf = 136315906;
+    v14 = "deinit";
+    v15 = 1024;
+    v16 = 68;
+    v17 = 2080;
+    v18 = v3;
+    v19 = 1024;
+    v20 = v8;
+    _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_FAULT, "%s:%d Tried to deinit PRMReader for key %s with nonzero (%d) refcount.", buf, 0x22u);
+  }
+
+  v9 = OSLogFlushBuffers();
+  if (v9)
+  {
+    v11 = v9;
+    v12 = __PSResourceManagerLogSharedInstance(v9, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136315394;
+      v14 = "deinit";
+      v15 = 1024;
+      v16 = v11;
+      _os_log_impl(&dword_25EA3A000, v12, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+    }
+  }
+
+  else
+  {
+    usleep(0x1E8480u);
+  }
+
+  abort_with_reason();
+  PRMWriterInstance::PRMWriterInstance();
 }
 
 void PRMWriterInstance::PRMWriterInstance()
 {
   OUTLINED_FUNCTION_2_4();
-  v0 = *MEMORY[0x277D85DE8];
-  if (OUTLINED_FUNCTION_3_4(v1))
+  if (OUTLINED_FUNCTION_3_4(v0))
   {
+    v7 = 136315394;
     OUTLINED_FUNCTION_2_2();
-    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v2, v3, "%s() failed to flush buffers with error code: %d", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v1, v2, "%s() failed to flush buffers with error code: %d", v3, v4, v5, v6, v7);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void PRMWriterInstance::initBuffers()
 {
   OUTLINED_FUNCTION_2_4();
-  v0 = *MEMORY[0x277D85DE8];
-  if (OUTLINED_FUNCTION_3_4(v1))
+  if (OUTLINED_FUNCTION_3_4(v0))
   {
+    v7 = 136315394;
     OUTLINED_FUNCTION_2_2();
-    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v2, v3, "%s() failed to flush buffers with error code: %d", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v1, v2, "%s() failed to flush buffers with error code: %d", v3, v4, v5, v6, v7);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t PRMWriterInstance::installBufferTypeSurface(void *a1, uint64_t a2)
+uint64_t PRMWriterInstance::installBufferTypeSurface(void *a1)
 {
-  v3 = OUTLINED_FUNCTION_19(a1, a2, *MEMORY[0x277D85DE8]);
-  asprintf(v3, "Creation mode was not defined for IOSurface type %s", v21);
-  v4 = __PSResourceManagerLogSharedInstance();
+  v1 = OUTLINED_FUNCTION_19(a1, *MEMORY[0x277D85DE8]);
+  v2 = asprintf(v1, "Creation mode was not defined for IOSurface type %s", v22);
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
   if (OUTLINED_FUNCTION_5(v4))
   {
-    v5 = *(a2 + 56);
     OUTLINED_FUNCTION_20_0();
     OUTLINED_FUNCTION_21();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Creation mode was not defined for IOSurface type %s", v8, v9, v10, v11, v22, v23, v24);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d Creation mode was not defined for IOSurface type %s", v7, v8, v9, v10, v23, v24);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v12 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v12))
+    v13 = __PSResourceManagerLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v22, v23, v24);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24);
     }
   }
 
@@ -1371,30 +495,30 @@ uint64_t PRMWriterInstance::installBufferTypeSurface(void *a1, uint64_t a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v19 = OUTLINED_FUNCTION_0();
-  return PRMWriterInstance::installBufferTypePixelBuffer(v19);
+  v20 = OUTLINED_FUNCTION_0();
+  return PRMWriterInstance::installBufferTypePixelBuffer(v20);
 }
 
-uint64_t PRMWriterInstance::installBufferTypePixelBuffer(void *a1, uint64_t a2)
+uint64_t PRMWriterInstance::installBufferTypePixelBuffer(void *a1)
 {
-  v3 = OUTLINED_FUNCTION_19(a1, a2, *MEMORY[0x277D85DE8]);
-  asprintf(v3, "Metadata IOSurface properties were not configured for: %s", v21);
-  v4 = __PSResourceManagerLogSharedInstance();
+  v1 = OUTLINED_FUNCTION_19(a1, *MEMORY[0x277D85DE8]);
+  v2 = asprintf(v1, "Metadata IOSurface properties were not configured for: %s", v22);
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
   if (OUTLINED_FUNCTION_5(v4))
   {
-    v5 = *(a2 + 56);
     OUTLINED_FUNCTION_20_0();
     OUTLINED_FUNCTION_21();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Metadata IOSurface properties were not configured for: %s", v8, v9, v10, v11, v22, v23, v24);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d Metadata IOSurface properties were not configured for: %s", v7, v8, v9, v10, v23, v24);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v12 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v12))
+    v13 = __PSResourceManagerLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v22, v23, v24);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24);
     }
   }
 
@@ -1403,29 +527,29 @@ uint64_t PRMWriterInstance::installBufferTypePixelBuffer(void *a1, uint64_t a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v19 = OUTLINED_FUNCTION_0();
-  return PRMWriterInstance::installBufferTypePixelBuffer(v19);
+  v20 = OUTLINED_FUNCTION_0();
+  return PRMWriterInstance::installBufferTypePixelBuffer(v20);
 }
 
 {
-  v3 = OUTLINED_FUNCTION_19(a1, a2, *MEMORY[0x277D85DE8]);
-  asprintf(v3, "Creation mode was not defined for CVPixelBuffer type %s", v21);
-  v4 = __PSResourceManagerLogSharedInstance();
+  v1 = OUTLINED_FUNCTION_19(a1, *MEMORY[0x277D85DE8]);
+  v2 = asprintf(v1, "Creation mode was not defined for CVPixelBuffer type %s", v22);
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
   if (OUTLINED_FUNCTION_5(v4))
   {
-    v5 = *(a2 + 56);
     OUTLINED_FUNCTION_20_0();
     OUTLINED_FUNCTION_21();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Creation mode was not defined for CVPixelBuffer type %s", v8, v9, v10, v11, v22, v23, v24);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d Creation mode was not defined for CVPixelBuffer type %s", v7, v8, v9, v10, v23, v24);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v12 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v12))
+    v13 = __PSResourceManagerLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v22, v23, v24);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24);
     }
   }
 
@@ -1434,30 +558,30 @@ uint64_t PRMWriterInstance::installBufferTypePixelBuffer(void *a1, uint64_t a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v19 = OUTLINED_FUNCTION_0();
-  return PRMWriterInstance::installBufferTypeDataBuffer(v19);
+  v20 = OUTLINED_FUNCTION_0();
+  return PRMWriterInstance::installBufferTypeDataBuffer(v20);
 }
 
-uint64_t PRMWriterInstance::installBufferTypeDataBuffer(void *a1, uint64_t a2)
+uint64_t PRMWriterInstance::installBufferTypeDataBuffer(void *a1)
 {
-  v3 = OUTLINED_FUNCTION_19(a1, a2, *MEMORY[0x277D85DE8]);
-  asprintf(v3, "Metadata IOSurface properties were not configured for: %s", v21);
-  v4 = __PSResourceManagerLogSharedInstance();
+  v1 = OUTLINED_FUNCTION_19(a1, *MEMORY[0x277D85DE8]);
+  v2 = asprintf(v1, "Metadata IOSurface properties were not configured for: %s", v22);
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
   if (OUTLINED_FUNCTION_5(v4))
   {
-    v5 = *(a2 + 56);
     OUTLINED_FUNCTION_20_0();
     OUTLINED_FUNCTION_21();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Metadata IOSurface properties were not configured for: %s", v8, v9, v10, v11, v22, v23, v24);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d Metadata IOSurface properties were not configured for: %s", v7, v8, v9, v10, v23, v24);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v12 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v12))
+    v13 = __PSResourceManagerLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v22, v23, v24);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24);
     }
   }
 
@@ -1466,29 +590,29 @@ uint64_t PRMWriterInstance::installBufferTypeDataBuffer(void *a1, uint64_t a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v19 = OUTLINED_FUNCTION_0();
-  return PRMWriterInstance::installBufferTypeDataBuffer(v19);
+  v20 = OUTLINED_FUNCTION_0();
+  return PRMWriterInstance::installBufferTypeDataBuffer(v20);
 }
 
 {
-  v3 = OUTLINED_FUNCTION_19(a1, a2, *MEMORY[0x277D85DE8]);
-  asprintf(v3, "Creation mode was not defined for CVDataBuffer type %s", v21);
-  v4 = __PSResourceManagerLogSharedInstance();
+  v1 = OUTLINED_FUNCTION_19(a1, *MEMORY[0x277D85DE8]);
+  v2 = asprintf(v1, "Creation mode was not defined for CVDataBuffer type %s", v22);
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
   if (OUTLINED_FUNCTION_5(v4))
   {
-    v5 = *(a2 + 56);
     OUTLINED_FUNCTION_20_0();
     OUTLINED_FUNCTION_21();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Creation mode was not defined for CVDataBuffer type %s", v8, v9, v10, v11, v22, v23, v24);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d Creation mode was not defined for CVDataBuffer type %s", v7, v8, v9, v10, v23, v24);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v12 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v12))
+    v13 = __PSResourceManagerLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v22, v23, v24);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24);
     }
   }
 
@@ -1497,30 +621,30 @@ uint64_t PRMWriterInstance::installBufferTypeDataBuffer(void *a1, uint64_t a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v19 = OUTLINED_FUNCTION_0();
-  return PRMWriterInstance::installBufferTypeJasperBuffer(v19);
+  v20 = OUTLINED_FUNCTION_0();
+  return PRMWriterInstance::installBufferTypeJasperBuffer(v20);
 }
 
-uint64_t PRMWriterInstance::installBufferTypeJasperBuffer(void *a1, uint64_t a2)
+uint64_t PRMWriterInstance::installBufferTypeJasperBuffer(void *a1)
 {
-  v3 = OUTLINED_FUNCTION_19(a1, a2, *MEMORY[0x277D85DE8]);
-  asprintf(v3, "Metadata IOSurface properties were not configured for: %s", v21);
-  v4 = __PSResourceManagerLogSharedInstance();
+  v1 = OUTLINED_FUNCTION_19(a1, *MEMORY[0x277D85DE8]);
+  v2 = asprintf(v1, "Metadata IOSurface properties were not configured for: %s", v22);
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
   if (OUTLINED_FUNCTION_5(v4))
   {
-    v5 = *(a2 + 56);
     OUTLINED_FUNCTION_20_0();
     OUTLINED_FUNCTION_21();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Metadata IOSurface properties were not configured for: %s", v8, v9, v10, v11, v22, v23, v24);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d Metadata IOSurface properties were not configured for: %s", v7, v8, v9, v10, v23, v24);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v12 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v12))
+    v13 = __PSResourceManagerLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v22, v23, v24);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24);
     }
   }
 
@@ -1529,29 +653,29 @@ uint64_t PRMWriterInstance::installBufferTypeJasperBuffer(void *a1, uint64_t a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v19 = OUTLINED_FUNCTION_0();
-  return PRMWriterInstance::installBufferTypeJasperBuffer(v19);
+  v20 = OUTLINED_FUNCTION_0();
+  return PRMWriterInstance::installBufferTypeJasperBuffer(v20);
 }
 
 {
-  v3 = OUTLINED_FUNCTION_19(a1, a2, *MEMORY[0x277D85DE8]);
-  asprintf(v3, "Creation mode was not defined for CVDataBuffer type %s", v21);
-  v4 = __PSResourceManagerLogSharedInstance();
+  v1 = OUTLINED_FUNCTION_19(a1, *MEMORY[0x277D85DE8]);
+  v2 = asprintf(v1, "Creation mode was not defined for CVDataBuffer type %s", v22);
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
   if (OUTLINED_FUNCTION_5(v4))
   {
-    v5 = *(a2 + 56);
     OUTLINED_FUNCTION_20_0();
     OUTLINED_FUNCTION_21();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Creation mode was not defined for CVDataBuffer type %s", v8, v9, v10, v11, v22, v23, v24);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d Creation mode was not defined for CVDataBuffer type %s", v7, v8, v9, v10, v23, v24);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v12 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v12))
+    v13 = __PSResourceManagerLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v22, v23, v24);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24);
     }
   }
 
@@ -1560,30 +684,30 @@ uint64_t PRMWriterInstance::installBufferTypeJasperBuffer(void *a1, uint64_t a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v19 = OUTLINED_FUNCTION_0();
-  return PRMWriterInstance::installBufferTypePearlBuffer(v19);
+  v20 = OUTLINED_FUNCTION_0();
+  return PRMWriterInstance::installBufferTypePearlBuffer(v20);
 }
 
-uint64_t PRMWriterInstance::installBufferTypePearlBuffer(void *a1, uint64_t a2)
+uint64_t PRMWriterInstance::installBufferTypePearlBuffer(void *a1)
 {
-  v3 = OUTLINED_FUNCTION_19(a1, a2, *MEMORY[0x277D85DE8]);
-  asprintf(v3, "Creation mode was not defined for Pearlbuffer type %s", v21);
-  v4 = __PSResourceManagerLogSharedInstance();
+  v1 = OUTLINED_FUNCTION_19(a1, *MEMORY[0x277D85DE8]);
+  v2 = asprintf(v1, "Creation mode was not defined for Pearlbuffer type %s", v22);
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
   if (OUTLINED_FUNCTION_5(v4))
   {
-    v5 = *(a2 + 56);
     OUTLINED_FUNCTION_20_0();
     OUTLINED_FUNCTION_21();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Creation mode was not defined for Pearlbuffer type %s", v8, v9, v10, v11, v22, v23, v24);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d Creation mode was not defined for Pearlbuffer type %s", v7, v8, v9, v10, v23, v24);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v12 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v12))
+    v13 = __PSResourceManagerLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v22, v23, v24);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24);
     }
   }
 
@@ -1592,29 +716,29 @@ uint64_t PRMWriterInstance::installBufferTypePearlBuffer(void *a1, uint64_t a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v19 = OUTLINED_FUNCTION_0();
-  return PRMWriterInstance::installBufferTypePearlBuffer(v19);
+  v20 = OUTLINED_FUNCTION_0();
+  return PRMWriterInstance::installBufferTypePearlBuffer(v20);
 }
 
 {
-  v3 = OUTLINED_FUNCTION_19(a1, a2, *MEMORY[0x277D85DE8]);
-  asprintf(v3, "Metadata IOSurface properties were not configured for: %s", v21);
-  v4 = __PSResourceManagerLogSharedInstance();
+  v1 = OUTLINED_FUNCTION_19(a1, *MEMORY[0x277D85DE8]);
+  v2 = asprintf(v1, "Metadata IOSurface properties were not configured for: %s", v22);
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
   if (OUTLINED_FUNCTION_5(v4))
   {
-    v5 = *(a2 + 56);
     OUTLINED_FUNCTION_20_0();
     OUTLINED_FUNCTION_21();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Metadata IOSurface properties were not configured for: %s", v8, v9, v10, v11, v22, v23, v24);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d Metadata IOSurface properties were not configured for: %s", v7, v8, v9, v10, v23, v24);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v12 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v12))
+    v13 = __PSResourceManagerLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v22, v23, v24);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24);
     }
   }
 
@@ -1623,29 +747,29 @@ uint64_t PRMWriterInstance::installBufferTypePearlBuffer(void *a1, uint64_t a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v19 = OUTLINED_FUNCTION_0();
-  return PRMWriterInstance::installBufferTypePearlBuffer(v19);
+  v20 = OUTLINED_FUNCTION_0();
+  return PRMWriterInstance::installBufferTypePearlBuffer(v20);
 }
 
 {
-  v3 = OUTLINED_FUNCTION_19(a1, a2, *MEMORY[0x277D85DE8]);
-  asprintf(v3, "Creation mode was not defined for Pearlbuffer type %s", v21);
-  v4 = __PSResourceManagerLogSharedInstance();
+  v1 = OUTLINED_FUNCTION_19(a1, *MEMORY[0x277D85DE8]);
+  v2 = asprintf(v1, "Creation mode was not defined for Pearlbuffer type %s", v23);
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
   if (OUTLINED_FUNCTION_5(v4))
   {
-    v5 = *(a2 + 56);
     OUTLINED_FUNCTION_20_0();
     OUTLINED_FUNCTION_21();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Creation mode was not defined for Pearlbuffer type %s", v8, v9, v10, v11, v22, v23, v24);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d Creation mode was not defined for Pearlbuffer type %s", v7, v8, v9, v10, v24, v25);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v12 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v12))
+    v13 = __PSResourceManagerLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v22, v23, v24);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v24, v25);
     }
   }
 
@@ -1654,29 +778,29 @@ uint64_t PRMWriterInstance::installBufferTypePearlBuffer(void *a1, uint64_t a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v19 = OUTLINED_FUNCTION_0();
-  return PRMWriterInstance::acquireResources(v19);
+  v20 = OUTLINED_FUNCTION_0();
+  return PRMWriterInstance::acquireResources(v20, v21);
 }
 
 uint64_t _iosurfaceAllocator(char **a1, int a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Failed to create CVPixelBuffer for resource with error code %d", a2);
-  v2 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_9(v2))
+  v2 = asprintf(a1, "Failed to create CVPixelBuffer for resource with error code %d", a2);
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
+  if (OUTLINED_FUNCTION_9(v4))
   {
     OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_2_1(&dword_25EA3A000, v3, v4, "%s:%d Failed to create CVPixelBuffer for resource with error code %d", v5, v6, v7, v8, v18, v19, v20);
+    OUTLINED_FUNCTION_2_1(&dword_25EA3A000, v5, v6, "%s:%d Failed to create CVPixelBuffer for resource with error code %d", v7, v8, v9, v10, v22, v23);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v9 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v13 = __PSResourceManagerLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v18, v19, v20);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23);
     }
   }
 
@@ -1685,27 +809,36 @@ uint64_t _iosurfaceAllocator(char **a1, int a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return _iosurfaceAllocator(v16);
+  v20 = OUTLINED_FUNCTION_0();
+  return _iosurfaceAllocator(v20);
 }
 
 uint64_t _iosurfaceAllocator(char **a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Failed to get IOSurface from CVPixelBuffer.");
-  v1 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v1))
+  v1 = asprintf(a1, "Failed to get IOSurface from CVPixelBuffer.");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v2, v3, "%s:%d Failed to get IOSurface from CVPixelBuffer.", v4, v5, v6, v7, 2u);
+    *v24 = 136315394;
+    *&v24[4] = "_iosurfaceAllocator";
+    *&v24[12] = 1024;
+    *&v24[14] = 110;
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Failed to get IOSurface from CVPixelBuffer.", v6, v7, v8, v9, *v24, *&v24[8], *&v24[16]);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v8 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v8))
+    v12 = v10;
+    v13 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v13))
     {
-      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v9, v10, "%s() failed to flush buffers with error code: %d", v11, v12, v13, v14, 2u);
+      *v23 = 136315394;
+      *&v23[4] = "_iosurfaceAllocator";
+      *&v23[12] = 1024;
+      *&v23[14] = v12;
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, *v23, *&v23[8], *&v23[16]);
     }
   }
 
@@ -1714,29 +847,29 @@ uint64_t _iosurfaceAllocator(char **a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v15 = OUTLINED_FUNCTION_0();
-  return _cvPixelBufferAllocator(v15, v16);
+  v20 = OUTLINED_FUNCTION_0();
+  return _cvPixelBufferAllocator(v20, v21);
 }
 
 uint64_t _cvPixelBufferAllocator(char **a1, int a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Failed to create CVPixelBuffer for resource with error code %d", a2);
-  v2 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_9(v2))
+  v2 = asprintf(a1, "Failed to create CVPixelBuffer for resource with error code %d", a2);
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
+  if (OUTLINED_FUNCTION_9(v4))
   {
     OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_2_1(&dword_25EA3A000, v3, v4, "%s:%d Failed to create CVPixelBuffer for resource with error code %d", v5, v6, v7, v8, v19, v20, v21);
+    OUTLINED_FUNCTION_2_1(&dword_25EA3A000, v5, v6, "%s:%d Failed to create CVPixelBuffer for resource with error code %d", v7, v8, v9, v10, v23, v24);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v9 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v13 = __PSResourceManagerLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v19, v20, v21);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24);
     }
   }
 
@@ -1745,28 +878,28 @@ uint64_t _cvPixelBufferAllocator(char **a1, int a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return _cvPixelBufferAllocator(v16, v17);
+  v20 = OUTLINED_FUNCTION_0();
+  return _cvPixelBufferAllocator(v20, v21);
 }
 
 {
-  v22 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "failed to increment category 1 use count for CV Pixel Buffer ret=%d", a2);
-  v2 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_9(v2))
+  v2 = asprintf(a1, "failed to increment category 1 use count for CV Pixel Buffer ret=%d", a2);
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
+  if (OUTLINED_FUNCTION_9(v4))
   {
     OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_2_1(&dword_25EA3A000, v3, v4, "%s:%d failed to increment category 1 use count for CV Pixel Buffer ret=%d", v5, v6, v7, v8, v19, v20, v21);
+    OUTLINED_FUNCTION_2_1(&dword_25EA3A000, v5, v6, "%s:%d failed to increment category 1 use count for CV Pixel Buffer ret=%d", v7, v8, v9, v10, v23, v24);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v9 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v13 = __PSResourceManagerLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v19, v20, v21);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24);
     }
   }
 
@@ -1775,29 +908,29 @@ uint64_t _cvPixelBufferAllocator(char **a1, int a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return _cvDataBufferAllocator(v16, v17);
+  v20 = OUTLINED_FUNCTION_0();
+  return _cvDataBufferAllocator(v20, v21);
 }
 
 uint64_t _cvDataBufferAllocator(char **a1, int a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Failed to create CVDataBuffer for resource with error code %d", a2);
-  v2 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_9(v2))
+  v2 = asprintf(a1, "Failed to create CVDataBuffer for resource with error code %d", a2);
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
+  if (OUTLINED_FUNCTION_9(v4))
   {
     OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_2_1(&dword_25EA3A000, v3, v4, "%s:%d Failed to create CVDataBuffer for resource with error code %d", v5, v6, v7, v8, v19, v20, v21);
+    OUTLINED_FUNCTION_2_1(&dword_25EA3A000, v5, v6, "%s:%d Failed to create CVDataBuffer for resource with error code %d", v7, v8, v9, v10, v23, v24);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v9 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v13 = __PSResourceManagerLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v19, v20, v21);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24);
     }
   }
 
@@ -1806,28 +939,28 @@ uint64_t _cvDataBufferAllocator(char **a1, int a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return _cvDataBufferAllocator(v16, v17);
+  v20 = OUTLINED_FUNCTION_0();
+  return _cvDataBufferAllocator(v20, v21);
 }
 
 {
-  v21 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "failed to increment category 1 use count for CV Data Buffer ret=%d", a2);
-  v2 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_9(v2))
+  v2 = asprintf(a1, "failed to increment category 1 use count for CV Data Buffer ret=%d", a2);
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
+  if (OUTLINED_FUNCTION_9(v4))
   {
     OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_2_1(&dword_25EA3A000, v3, v4, "%s:%d failed to increment category 1 use count for CV Data Buffer ret=%d", v5, v6, v7, v8, v18, v19, v20);
+    OUTLINED_FUNCTION_2_1(&dword_25EA3A000, v5, v6, "%s:%d failed to increment category 1 use count for CV Data Buffer ret=%d", v7, v8, v9, v10, v22, v23);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v9 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v13 = __PSResourceManagerLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v18, v19, v20);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23);
     }
   }
 
@@ -1836,27 +969,36 @@ uint64_t _cvDataBufferAllocator(char **a1, int a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return _cvDataBufferAllocator(v16);
+  v20 = OUTLINED_FUNCTION_0();
+  return _cvDataBufferAllocator(v20);
 }
 
-uint64_t _cvDataBufferAllocator(char **a1)
+void _cvDataBufferAllocator(char **a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Failed to allocate IOSurface for properties");
-  v1 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v1))
+  v1 = asprintf(a1, "Failed to allocate IOSurface for properties");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v2, v3, "%s:%d Failed to allocate IOSurface for properties", v4, v5, v6, v7, 2u);
+    *v22 = 136315394;
+    *&v22[4] = "_cvDataBufferAllocator";
+    *&v22[12] = 1024;
+    *&v22[14] = 212;
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Failed to allocate IOSurface for properties", v6, v7, v8, v9, *v22, *&v22[8], *&v22[16]);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v8 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v8))
+    v12 = v10;
+    v13 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v13))
     {
-      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v9, v10, "%s() failed to flush buffers with error code: %d", v11, v12, v13, v14, 2u);
+      *v21 = 136315394;
+      *&v21[4] = "_cvDataBufferAllocator";
+      *&v21[12] = 1024;
+      *&v21[14] = v12;
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, *v21, *&v21[8], *&v21[16]);
     }
   }
 
@@ -1865,37 +1007,37 @@ uint64_t _cvDataBufferAllocator(char **a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v15 = OUTLINED_FUNCTION_0();
-  return PSActionTaker::signalResourceAvailable(v15);
+  v20 = OUTLINED_FUNCTION_0();
+  PSActionTaker::signalResourceAvailable(v20);
 }
 
-uint64_t PSActionTaker::signalResourceAvailable(char **a1)
+void PSActionTaker::signalResourceAvailable(char **a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Tried to call a null resource callback");
-  v2 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  v1 = asprintf(a1, "Tried to call a null resource callback");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
-    v9 = 136315394;
-    v10 = "signalResourceAvailable";
-    v11 = 1024;
-    v12 = 44;
-    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_FAULT, "%s:%d Tried to call a null resource callback", &v9, 0x12u);
+    v10 = 136315394;
+    v11 = "signalResourceAvailable";
+    v12 = 1024;
+    v13 = 44;
+    _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_FAULT, "%s:%d Tried to call a null resource callback", &v10, 0x12u);
   }
 
-  v3 = OSLogFlushBuffers();
-  if (v3)
+  v4 = OSLogFlushBuffers();
+  if (v4)
   {
-    v4 = v3;
-    v5 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = v4;
+    v7 = __PSResourceManagerLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "signalResourceAvailable";
-      v11 = 1024;
-      v12 = v4;
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v9, 0x12u);
+      v10 = 136315394;
+      v11 = "signalResourceAvailable";
+      v12 = 1024;
+      v13 = v6;
+      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v10, 0x12u);
     }
   }
 
@@ -1904,54 +1046,52 @@ uint64_t PSActionTaker::signalResourceAvailable(char **a1)
     usleep(0x1E8480u);
   }
 
-  v6 = *a1;
-  v7 = abort_with_reason();
-  return PSActionTakerManager::~PSActionTakerManager(v7);
+  v8 = abort_with_reason();
+  PSActionTakerManager::~PSActionTakerManager(v8, v9);
 }
 
 void PSActionTakerManager::~PSActionTakerManager(NSObject *a1, int a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "~PSActionTakerManager";
-    v7 = 1024;
-    v8 = a2;
-    _os_log_impl(&dword_25EA3A000, a1, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v5, 0x12u);
+    v4 = 136315394;
+    v5 = "~PSActionTakerManager";
+    v6 = 1024;
+    v7 = a2;
+    _os_log_impl(&dword_25EA3A000, a1, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v4, 0x12u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t PSActionTakerManager::initializeActionTaker(char **a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "No free slots available to populate a new action taker (ie >%d action takers registered).", 64);
-  v2 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  v1 = asprintf(a1, "No free slots available to populate a new action taker (ie >%d action takers registered).", 64);
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315650;
-    v8 = "initializeActionTaker";
-    v9 = 1024;
-    v10 = 110;
+    v10 = "initializeActionTaker";
     v11 = 1024;
-    v12 = 64;
-    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_FAULT, "%s:%d No free slots available to populate a new action taker (ie >%d action takers registered).", buf, 0x18u);
+    v12 = 110;
+    v13 = 1024;
+    v14 = 64;
+    _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_FAULT, "%s:%d No free slots available to populate a new action taker (ie >%d action takers registered).", buf, 0x18u);
   }
 
-  v3 = OSLogFlushBuffers();
-  if (v3)
+  v4 = OSLogFlushBuffers();
+  v6 = v4;
+  if (v4)
   {
-    v4 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v7 = __PSResourceManagerLogSharedInstance(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v8 = "initializeActionTaker";
-      v9 = 1024;
-      v10 = v3;
-      _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v10 = "initializeActionTaker";
+      v11 = 1024;
+      v12 = v6;
+      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -1960,7 +1100,6 @@ uint64_t PSActionTakerManager::initializeActionTaker(char **a1)
     usleep(0x1E8480u);
   }
 
-  v5 = *a1;
   result = abort_with_reason();
   __break(1u);
   return result;
@@ -1968,23 +1107,23 @@ uint64_t PSActionTakerManager::initializeActionTaker(char **a1)
 
 void PSListenerThread::start(char **a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   Key = PRMReader::getKey(*(a2 + 16));
-  asprintf(a1, "No pthread creation opt was found for resource %s", Key);
-  v5 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+  v5 = asprintf(a1, "No pthread creation opt was found for resource %s", Key);
+  v7 = __PSResourceManagerLogSharedInstance(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
     PRMReader::getKey(*(a2 + 16));
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d No pthread creation opt was found for resource %s", v8, v9, v10, v11, v21, v22, 2u);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d No pthread creation opt was found for resource %s", v10, v11, v12, v13, v25, v26);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v12 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v16 = __PSResourceManagerLogSharedInstance(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v21, v22, 2u);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v17, v18, "%s() failed to flush buffers with error code: %d", v19, v20, v21, v22, v25, v26);
     }
   }
 
@@ -1993,29 +1132,29 @@ void PSListenerThread::start(char **a1, uint64_t a2)
     usleep(0x1E8480u);
   }
 
-  v19 = OUTLINED_FUNCTION_0();
-  _thread_workloop(v19, v20);
+  v23 = OUTLINED_FUNCTION_0();
+  _thread_workloop(v23, v24);
 }
 
 void _thread_workloop(char **a1, PRMReader **a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   Key = PRMReader::getKey(*a2);
-  asprintf(a1, "Could not find a frameid for resource %s", Key);
-  v5 = __PSResourceManagerLogSharedInstance();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+  v5 = asprintf(a1, "Could not find a frameid for resource %s", Key);
+  v7 = __PSResourceManagerLogSharedInstance(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
     PRMReader::getKey(*a2);
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v6, v7, "%s:%d Could not find a frameid for resource %s", v8, v9, v10, v11, v19, v20, 2u);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v8, v9, "%s:%d Could not find a frameid for resource %s", v10, v11, v12, v13, v23, v24);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v12 = __PSResourceManagerLogSharedInstance();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v16 = __PSResourceManagerLogSharedInstance(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v19, v20, 2u);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v17, v18, "%s() failed to flush buffers with error code: %d", v19, v20, v21, v22, v23, v24);
     }
   }
 
@@ -2028,48 +1167,2424 @@ void _thread_workloop(char **a1, PRMReader **a2)
   __PSResourceManagerLogSharedInstance_cold_1();
 }
 
-void PSResourceManager::PSResourceManager(NSObject *a1)
+uint64_t ps_prm_opts_create_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Failed to allocate memory.");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    OUTLINED_FUNCTION_2_2();
-    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v1, v2, "%s() failed to flush buffers with error code: %d", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Failed to allocate memory.", v6, v7, v8, v9);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_copy_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_copy_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Failed to allocate memory");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Failed to allocate memory", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_copy_cold_2(v19);
+}
+
+uint64_t ps_prm_opts_copy_cold_2()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_resource_key_cold_1();
+}
+
+uint64_t ps_prm_opts_set_resource_key_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_graph_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_graph_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_get_graph_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_get_graph_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_resource_class_cold_1();
+}
+
+uint64_t ps_prm_opts_set_resource_class_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_provider_type_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_provider_type_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_is_camera_stream_cold_1();
+}
+
+uint64_t ps_prm_opts_set_is_camera_stream_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_use_prm_camera_reader_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_use_prm_camera_reader_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_ariadne_id_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_ariadne_id_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_resource_available_callback_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_resource_available_callback_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_removal_callback_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_removal_callback_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_return_capacity_cold_1();
+}
+
+uint64_t ps_prm_opts_set_return_capacity_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_buffer_depth_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_buffer_depth_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_creation_mode_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_creation_mode_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_storage_mode_cold_1();
+}
+
+uint64_t ps_prm_opts_set_storage_mode_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_forwarding_count_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_forwarding_count_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_data_size_cold_1();
+}
+
+uint64_t ps_prm_opts_set_data_size_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_iosurface_width_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_iosurface_width_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_iosurface_height_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_iosurface_height_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_iosurface_pixelformat_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_iosurface_pixelformat_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_iosurface_properties_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_iosurface_properties_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_iosurface_allocator_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_iosurface_allocator_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_cvpixelbuffer_width_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_cvpixelbuffer_width_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_cvpixelbuffer_height_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_cvpixelbuffer_height_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_cvpixelbuffer_pixelformat_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_cvpixelbuffer_pixelformat_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_cvpixelbuffer_properties_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_cvpixelbuffer_properties_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_cvpixelbuffer_allocator_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_cvpixelbuffer_allocator_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_cvpixelbuffer_metadata_iosurface_properties_cold_1(v19, v20);
+}
+
+uint64_t ps_prm_opts_set_cvpixelbuffer_metadata_iosurface_properties_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_cvdatabuffer_width_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_cvdatabuffer_width_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_cvdatabuffer_height_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_cvdatabuffer_height_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_cvdatabuffer_pixelformat_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_cvdatabuffer_pixelformat_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_cvdatabuffer_allocator_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_cvdatabuffer_allocator_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_cvdatabuffer_metadata_iosurface_properties_cold_1(v19, v20);
+}
+
+uint64_t ps_prm_opts_set_cvdatabuffer_metadata_iosurface_properties_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_jasperbuffer_width_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_jasperbuffer_width_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_jasperbuffer_height_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_jasperbuffer_height_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_jasperbuffer_pixelformat_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_jasperbuffer_pixelformat_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_jasperbuffer_metadata_iosurface_properties_cold_1(v19, v20);
+}
+
+uint64_t ps_prm_opts_set_jasperbuffer_metadata_iosurface_properties_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_pearlbuffer_width_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_pearlbuffer_width_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_pearlbuffer_height_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_pearlbuffer_height_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_pearlbuffer_pixelformat_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_pearlbuffer_pixelformat_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_pearlbuffer_has_attachments_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_pearlbuffer_has_attachments_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_pearlbuffer_properties_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_pearlbuffer_properties_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_pearlbuffer_metadata_iosurface_properties_cold_1();
+}
+
+uint64_t ps_prm_opts_set_pearlbuffer_metadata_iosurface_properties_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_matting_params_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_matting_params_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_resource_avail_context_cold_1();
+}
+
+uint64_t ps_prm_opts_set_resource_avail_context_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_object_stream_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_object_stream_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_opaque_stream_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_opaque_stream_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_fastpath_stream_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_fastpath_stream_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_get_resource_key_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_get_resource_key_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_get_resource_class_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_get_resource_class_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_get_return_capacity_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_get_return_capacity_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_get_forwarding_count_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_get_forwarding_count_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  OUTLINED_FUNCTION_0();
+  return ps_prm_opts_get_writer_depth_cold_1();
+}
+
+uint64_t ps_prm_opts_get_writer_depth_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_resource_metadata_type_cold_1();
+}
+
+uint64_t ps_prm_opts_set_resource_metadata_type_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_get_resource_metadata_type_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_get_resource_metadata_type_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_get_reader_depth_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_get_reader_depth_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_ane_chained_stream_cold_1();
+}
+
+uint64_t ps_prm_opts_set_ane_chained_stream_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Resource is class is not ANE buffer");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Resource is class is not ANE buffer", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_ane_chained_stream_cold_2(v19);
+}
+
+uint64_t ps_prm_opts_set_ane_chained_stream_cold_2()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_camera_cvpixelbuffer_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_camera_cvpixelbuffer_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Resource class is not pixelbuffer");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Resource class is not pixelbuffer", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_camera_cvpixelbuffer_cold_2(v19);
+}
+
+uint64_t ps_prm_opts_set_camera_cvpixelbuffer_cold_2()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_camera_cvpixelbuffer_superframe_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_camera_cvpixelbuffer_superframe_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Resource class is not pixelbuffer");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Resource class is not pixelbuffer", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_camera_cvpixelbuffer_superframe_cold_2(v19);
+}
+
+uint64_t ps_prm_opts_set_camera_cvpixelbuffer_superframe_cold_2()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_camera_cvdatabuffer_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_camera_cvdatabuffer_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Resource class is not databuffer");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Resource class is not databuffer", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_camera_cvdatabuffer_cold_2(v19);
+}
+
+uint64_t ps_prm_opts_set_camera_cvdatabuffer_cold_2()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_camera_jasperbuffer_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_camera_jasperbuffer_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Resource class is not a jasper buffer");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Resource class is not a jasper buffer", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_camera_jasperbuffer_cold_2(v19);
+}
+
+uint64_t ps_prm_opts_set_camera_jasperbuffer_cold_2()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_camera_pearlbuffer_cold_1(v19);
+}
+
+uint64_t ps_prm_opts_set_camera_pearlbuffer_cold_1()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Resource class is not a jasper buffer");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Resource class is not a jasper buffer", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_prm_opts_set_camera_pearlbuffer_cold_2(v19);
+}
+
+void ps_prm_opts_set_camera_pearlbuffer_cold_2()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Opts is null");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Opts is null", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_5_0();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  PSResourceManager::PSResourceManager(v19);
+}
+
+void PSResourceManager::PSResourceManager(NSObject *a1)
+{
+  if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
+  {
+    v7 = 136315394;
+    OUTLINED_FUNCTION_2_2();
+    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v1, v2, "%s() failed to flush buffers with error code: %d", v3, v4, v5, v6, v7);
+  }
 }
 
 void PSResourceManager::createReaderInstance(NSObject *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
+    v7 = 136315394;
     OUTLINED_FUNCTION_2_2();
-    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v1, v2, "%s() failed to flush buffers with error code: %d", v3, v4, v5, v6, 2u);
+    OUTLINED_FUNCTION_1_4(&dword_25EA3A000, v1, v2, "%s() failed to flush buffers with error code: %d", v3, v4, v5, v6, v7);
+  }
+}
+
+uint64_t PSResourceManager::createReaderInstance()
+{
+  OUTLINED_FUNCTION_10();
+  v1 = v0;
+  *v0 = 0;
+  v2 = asprintf(v0, "Tried to create a new reader instance with null opts.");
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
+  if (OUTLINED_FUNCTION_5(v4))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v5, v6, "%s:%d Tried to create a new reader instance with null opts.", v7, v8, v9, v10);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
+  v11 = OSLogFlushBuffers();
+  if (v11)
+  {
+    v15 = __PSResourceManagerLogSharedInstance(v11, v12);
+    v13 = OUTLINED_FUNCTION_17_0(v15);
+    if (v13)
+    {
+      OUTLINED_FUNCTION_14();
+      OUTLINED_FUNCTION_3_3(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21);
+    }
+  }
+
+  else
+  {
+    v13 = OUTLINED_FUNCTION_7();
+  }
+
+  result = OUTLINED_FUNCTION_6_2(v13, v14, *v1);
+  __break(1u);
+  return result;
+}
+
+uint64_t PSResourceManager::deleteReaderInstance()
+{
+  OUTLINED_FUNCTION_10();
+  v1 = v0;
+  *v0 = 0;
+  v2 = asprintf(v0, "Tried to delete a null reader instance.");
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
+  if (OUTLINED_FUNCTION_5(v4))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v5, v6, "%s:%d Tried to delete a null reader instance.", v7, v8, v9, v10);
+  }
+
+  v11 = OSLogFlushBuffers();
+  if (v11)
+  {
+    v15 = __PSResourceManagerLogSharedInstance(v11, v12);
+    v13 = OUTLINED_FUNCTION_17_0(v15);
+    if (v13)
+    {
+      OUTLINED_FUNCTION_14();
+      OUTLINED_FUNCTION_3_3(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21);
+    }
+  }
+
+  else
+  {
+    v13 = OUTLINED_FUNCTION_7();
+  }
+
+  result = OUTLINED_FUNCTION_6_2(v13, v14, *v1);
+  __break(1u);
+  return result;
+}
+
+uint64_t PSResourceManager::createWriterInstance()
+{
+  OUTLINED_FUNCTION_10();
+  v1 = v0;
+  *v0 = 0;
+  v2 = asprintf(v0, "Tried to create a new writer instance with null opts.");
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
+  if (OUTLINED_FUNCTION_5(v4))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v5, v6, "%s:%d Tried to create a new writer instance with null opts.", v7, v8, v9, v10);
+  }
+
+  v11 = OSLogFlushBuffers();
+  if (v11)
+  {
+    v15 = __PSResourceManagerLogSharedInstance(v11, v12);
+    v13 = OUTLINED_FUNCTION_17_0(v15);
+    if (v13)
+    {
+      OUTLINED_FUNCTION_14();
+      OUTLINED_FUNCTION_3_3(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21);
+    }
+  }
+
+  else
+  {
+    v13 = OUTLINED_FUNCTION_7();
+  }
+
+  result = OUTLINED_FUNCTION_6_2(v13, v14, *v1);
+  __break(1u);
+  return result;
+}
+
+uint64_t PSResourceManager::deleteWriterInstance()
+{
+  OUTLINED_FUNCTION_10();
+  v1 = v0;
+  *v0 = 0;
+  v2 = asprintf(v0, "Tried to delete a null writer instance.");
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
+  if (OUTLINED_FUNCTION_5(v4))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v5, v6, "%s:%d Tried to delete a null writer instance.", v7, v8, v9, v10);
+  }
+
+  v11 = OSLogFlushBuffers();
+  if (v11)
+  {
+    v15 = __PSResourceManagerLogSharedInstance(v11, v12);
+    v13 = OUTLINED_FUNCTION_17_0(v15);
+    if (v13)
+    {
+      OUTLINED_FUNCTION_14();
+      OUTLINED_FUNCTION_3_3(&dword_25EA3A000, v16, v17, "%s() failed to flush buffers with error code: %d", v18, v19, v20, v21);
+    }
+  }
+
+  else
+  {
+    v13 = OUTLINED_FUNCTION_7();
+  }
+
+  result = OUTLINED_FUNCTION_6_2(v13, v14, *v1);
+  __break(1u);
+  return result;
 }
 
 uint64_t PSResourceManager::createActionTaker(char **a1, const char *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Could not find provider (writer) for key %s.", a2);
-  v2 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_9(v2))
+  v2 = asprintf(a1, "Could not find provider (writer) for key %s.", a2);
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
+  if (OUTLINED_FUNCTION_9(v4))
   {
-    OUTLINED_FUNCTION_3_6(&dword_25EA3A000, v3, v4, "%s:%d Could not find provider (writer) for key %s.", v5, v6, v7, v8, v19, v20, 2u);
+    OUTLINED_FUNCTION_3_6(&dword_25EA3A000, v5, v6, "%s:%d Could not find provider (writer) for key %s.", v7, v8, v9, v10, v23, v24);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v9 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v13 = __PSResourceManagerLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v19, v20, buf);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24);
     }
   }
 
@@ -2078,27 +3593,27 @@ uint64_t PSResourceManager::createActionTaker(char **a1, const char *a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return PSResourceManager::createActionTaker(v16, v17);
+  v20 = OUTLINED_FUNCTION_0();
+  return PSResourceManager::createActionTaker(v20, v21);
 }
 
 {
-  v22 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Could not find actionTakerManager for key %s.", a2);
-  v2 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_9(v2))
+  v2 = asprintf(a1, "Could not find actionTakerManager for key %s.", a2);
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
+  if (OUTLINED_FUNCTION_9(v4))
   {
-    OUTLINED_FUNCTION_3_6(&dword_25EA3A000, v3, v4, "%s:%d Could not find actionTakerManager for key %s.", v5, v6, v7, v8, v19, v20, 2u);
+    OUTLINED_FUNCTION_3_6(&dword_25EA3A000, v5, v6, "%s:%d Could not find actionTakerManager for key %s.", v7, v8, v9, v10, v23, v24);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v9 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v13 = __PSResourceManagerLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v19, v20, buf);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24);
     }
   }
 
@@ -2107,27 +3622,27 @@ uint64_t PSResourceManager::createActionTaker(char **a1, const char *a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return PSResourceManager::createActionTaker(v16, v17);
+  v20 = OUTLINED_FUNCTION_0();
+  return PSResourceManager::createActionTaker(v20, v21);
 }
 
 {
-  v22 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Could not find provider (listener thread) for key %s.", a2);
-  v2 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_9(v2))
+  v2 = asprintf(a1, "Could not find provider (listener thread) for key %s.", a2);
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
+  if (OUTLINED_FUNCTION_9(v4))
   {
-    OUTLINED_FUNCTION_3_6(&dword_25EA3A000, v3, v4, "%s:%d Could not find provider (listener thread) for key %s.", v5, v6, v7, v8, v19, v20, 2u);
+    OUTLINED_FUNCTION_3_6(&dword_25EA3A000, v5, v6, "%s:%d Could not find provider (listener thread) for key %s.", v7, v8, v9, v10, v23, v24);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v9 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v13 = __PSResourceManagerLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v19, v20, buf);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24);
     }
   }
 
@@ -2136,27 +3651,27 @@ uint64_t PSResourceManager::createActionTaker(char **a1, const char *a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return PSResourceManager::createActionTaker(v16, v17);
+  v20 = OUTLINED_FUNCTION_0();
+  return PSResourceManager::createActionTaker(v20, v21);
 }
 
 {
-  v21 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Could not find provider (reader) for key %s.", a2);
-  v2 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_9(v2))
+  v2 = asprintf(a1, "Could not find provider (reader) for key %s.", a2);
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
+  if (OUTLINED_FUNCTION_9(v4))
   {
-    OUTLINED_FUNCTION_3_6(&dword_25EA3A000, v3, v4, "%s:%d Could not find provider (reader) for key %s.", v5, v6, v7, v8, v18, v19, 2u);
+    OUTLINED_FUNCTION_3_6(&dword_25EA3A000, v5, v6, "%s:%d Could not find provider (reader) for key %s.", v7, v8, v9, v10, v22, v23);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v9 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v13 = __PSResourceManagerLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v18, v19, buf);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23);
     }
   }
 
@@ -2165,36 +3680,108 @@ uint64_t PSResourceManager::createActionTaker(char **a1, const char *a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return PSResourceManager::deleteActionTaker(v16);
+  v20 = OUTLINED_FUNCTION_0();
+  return PSResourceManager::deleteActionTaker(v20);
+}
+
+uint64_t PSResourceManager::deleteActionTaker()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "No actionTakerManager found for action taker.");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d No actionTakerManager found for action taker.", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_14();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  return PSResourceManager::deleteActionTaker(v19);
+}
+
+void PSResourceManager::deleteActionTaker()
+{
+  OUTLINED_FUNCTION_10();
+  *v0 = 0;
+  v1 = asprintf(v0, "Tried to delete a null action taker.");
+  v3 = __PSResourceManagerLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_14();
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Tried to delete a null action taker.", v6, v7, v8, v9);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v12 = __PSResourceManagerLogSharedInstance(v10, v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_14();
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  PSResourceManager::getIOSurfaces(v19, v20);
 }
 
 void PSResourceManager::getIOSurfaces(char **a1, const char *a2)
 {
   *a1 = 0;
   asprintf(a1, "%s: reader/writer instance nil for key (%s)", "getIOSurfaces", a2);
-  v3 = *a1;
   _os_crash();
   __break(1u);
 }
 
 uint64_t ps_prm_allocate_retained_nsobject_array_cold_1(char **a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "OOM!");
-  v2 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "OOM!");
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
+  if (OUTLINED_FUNCTION_5(v4))
   {
-    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v3, v4, "%s:%d OOM!", v5, v6, v7, v8, 2u);
+    *v25 = 136315394;
+    *&v25[4] = "ps_prm_allocate_retained_nsobject_array";
+    *&v25[12] = 1024;
+    *&v25[14] = 53;
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v5, v6, "%s:%d OOM!", v7, v8, v9, v10, *v25, *&v25[8], *&v25[16]);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v9 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v13 = v11;
+    v14 = __PSResourceManagerLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v14))
     {
-      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, 2u);
+      *v24 = 136315394;
+      *&v24[4] = "ps_prm_allocate_retained_nsobject_array";
+      *&v24[12] = 1024;
+      *&v24[14] = v13;
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v15, v16, "%s() failed to flush buffers with error code: %d", v17, v18, v19, v20, *v24, *&v24[8], *&v24[16]);
     }
   }
 
@@ -2203,32 +3790,32 @@ uint64_t ps_prm_allocate_retained_nsobject_array_cold_1(char **a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return ps_prm_allocate_retained_nsobject_array_cold_2(v16);
+  v21 = OUTLINED_FUNCTION_0();
+  return ps_prm_allocate_retained_nsobject_array_cold_2(v21, v22);
 }
 
 uint64_t ps_prm_allocate_retained_nsobject_array_cold_2(char **a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   v4 = [a2 key];
   asprintf(a1, "NSObject allocator returned nil for key %s", [v4 UTF8String]);
 
-  v5 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v7 = __PSResourceManagerLogSharedInstance(v5, v6);
+  if (OUTLINED_FUNCTION_5(v7))
   {
-    v6 = [a2 key];
-    [v6 UTF8String];
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d NSObject allocator returned nil for key %s", v9, v10, v11, v12, v22, v23, 2u);
+    v8 = [a2 key];
+    [v8 UTF8String];
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v9, v10, "%s:%d NSObject allocator returned nil for key %s", v11, v12, v13, v14, v27, v28);
   }
 
-  if (OSLogFlushBuffers())
+  v15 = OSLogFlushBuffers();
+  if (v15)
   {
-    v13 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
+    v17 = __PSResourceManagerLogSharedInstance(v15, v16);
+    if (OUTLINED_FUNCTION_6(v17))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23, buf);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v18, v19, "%s() failed to flush buffers with error code: %d", v20, v21, v22, v23, v27, v28);
     }
   }
 
@@ -2237,32 +3824,32 @@ uint64_t ps_prm_allocate_retained_nsobject_array_cold_2(char **a1, void *a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v20 = OUTLINED_FUNCTION_0();
-  return ps_prm_allocate_retained_nsobject_array_cold_3(v20);
+  v24 = OUTLINED_FUNCTION_0();
+  return ps_prm_allocate_retained_nsobject_array_cold_3(v24, v25);
 }
 
 uint64_t ps_prm_allocate_retained_nsobject_array_cold_3(char **a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   v4 = [a2 key];
   asprintf(a1, "No retainable allocator was specified for stream %s", [v4 UTF8String]);
 
-  v5 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v7 = __PSResourceManagerLogSharedInstance(v5, v6);
+  if (OUTLINED_FUNCTION_5(v7))
   {
-    v6 = [a2 key];
-    [v6 UTF8String];
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d No retainable allocator was specified for stream %s", v9, v10, v11, v12, v22, v23, 2u);
+    v8 = [a2 key];
+    [v8 UTF8String];
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v9, v10, "%s:%d No retainable allocator was specified for stream %s", v11, v12, v13, v14, v26, v27);
   }
 
-  if (OSLogFlushBuffers())
+  v15 = OSLogFlushBuffers();
+  if (v15)
   {
-    v13 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
+    v17 = __PSResourceManagerLogSharedInstance(v15, v16);
+    if (OUTLINED_FUNCTION_6(v17))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23, buf);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v18, v19, "%s() failed to flush buffers with error code: %d", v20, v21, v22, v23, v26, v27);
     }
   }
 
@@ -2271,27 +3858,36 @@ uint64_t ps_prm_allocate_retained_nsobject_array_cold_3(char **a1, void *a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v20 = OUTLINED_FUNCTION_0();
-  return ps_prm_allocate_opaque_array_cold_1(v20);
+  v24 = OUTLINED_FUNCTION_0();
+  return ps_prm_allocate_opaque_array_cold_1(v24);
 }
 
 uint64_t ps_prm_allocate_opaque_array_cold_1(char **a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "OOM!");
-  v2 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "OOM!");
+  v4 = __PSResourceManagerLogSharedInstance(v2, v3);
+  if (OUTLINED_FUNCTION_5(v4))
   {
-    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v3, v4, "%s:%d OOM!", v5, v6, v7, v8, 2u);
+    *v25 = 136315394;
+    *&v25[4] = "ps_prm_allocate_opaque_array";
+    *&v25[12] = 1024;
+    *&v25[14] = 104;
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v5, v6, "%s:%d OOM!", v7, v8, v9, v10, *v25, *&v25[8], *&v25[16]);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v9 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v13 = v11;
+    v14 = __PSResourceManagerLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v14))
     {
-      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, 2u);
+      *v24 = 136315394;
+      *&v24[4] = "ps_prm_allocate_opaque_array";
+      *&v24[12] = 1024;
+      *&v24[14] = v13;
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v15, v16, "%s() failed to flush buffers with error code: %d", v17, v18, v19, v20, *v24, *&v24[8], *&v24[16]);
     }
   }
 
@@ -2300,32 +3896,32 @@ uint64_t ps_prm_allocate_opaque_array_cold_1(char **a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return ps_prm_allocate_opaque_array_cold_2(v16);
+  v21 = OUTLINED_FUNCTION_0();
+  return ps_prm_allocate_opaque_array_cold_2(v21, v22);
 }
 
 uint64_t ps_prm_allocate_opaque_array_cold_2(char **a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   v4 = [a2 key];
   asprintf(a1, "Opaque allocator returned nil for key %s", [v4 UTF8String]);
 
-  v5 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v7 = __PSResourceManagerLogSharedInstance(v5, v6);
+  if (OUTLINED_FUNCTION_5(v7))
   {
-    v6 = [a2 key];
-    [v6 UTF8String];
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d Opaque allocator returned nil for key %s", v9, v10, v11, v12, v22, v23, 2u);
+    v8 = [a2 key];
+    [v8 UTF8String];
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v9, v10, "%s:%d Opaque allocator returned nil for key %s", v11, v12, v13, v14, v27, v28);
   }
 
-  if (OSLogFlushBuffers())
+  v15 = OSLogFlushBuffers();
+  if (v15)
   {
-    v13 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
+    v17 = __PSResourceManagerLogSharedInstance(v15, v16);
+    if (OUTLINED_FUNCTION_6(v17))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23, buf);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v18, v19, "%s() failed to flush buffers with error code: %d", v20, v21, v22, v23, v27, v28);
     }
   }
 
@@ -2334,32 +3930,32 @@ uint64_t ps_prm_allocate_opaque_array_cold_2(char **a1, void *a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v20 = OUTLINED_FUNCTION_0();
-  return ps_prm_allocate_opaque_array_cold_3(v20);
+  v24 = OUTLINED_FUNCTION_0();
+  return ps_prm_allocate_opaque_array_cold_3(v24, v25);
 }
 
 uint64_t ps_prm_allocate_opaque_array_cold_3(char **a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   v4 = [a2 key];
   asprintf(a1, "No allocator was specified for stream %s", [v4 UTF8String]);
 
-  v5 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v7 = __PSResourceManagerLogSharedInstance(v5, v6);
+  if (OUTLINED_FUNCTION_5(v7))
   {
-    v6 = [a2 key];
-    [v6 UTF8String];
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d No allocator was specified for stream %s", v9, v10, v11, v12, v22, v23, 2u);
+    v8 = [a2 key];
+    [v8 UTF8String];
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v9, v10, "%s:%d No allocator was specified for stream %s", v11, v12, v13, v14, v27, v28);
   }
 
-  if (OSLogFlushBuffers())
+  v15 = OSLogFlushBuffers();
+  if (v15)
   {
-    v13 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
+    v17 = __PSResourceManagerLogSharedInstance(v15, v16);
+    if (OUTLINED_FUNCTION_6(v17))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23, buf);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v18, v19, "%s() failed to flush buffers with error code: %d", v20, v21, v22, v23, v27, v28);
     }
   }
 
@@ -2368,32 +3964,32 @@ uint64_t ps_prm_allocate_opaque_array_cold_3(char **a1, void *a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v20 = OUTLINED_FUNCTION_0();
-  return ps_prm_deallocate_opaque_array_cold_1(v20);
+  v24 = OUTLINED_FUNCTION_0();
+  return ps_prm_deallocate_opaque_array_cold_1(v24, v25);
 }
 
 void ps_prm_deallocate_opaque_array_cold_1(char **a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
   *a1 = 0;
   v4 = [a2 key];
   asprintf(a1, "No deallocator found for stream %s", [v4 UTF8String]);
 
-  v5 = __PSResourceManagerLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v5))
+  v7 = __PSResourceManagerLogSharedInstance(v5, v6);
+  if (OUTLINED_FUNCTION_5(v7))
   {
-    v6 = [a2 key];
-    [v6 UTF8String];
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d No deallocator found for stream %s", v9, v10, v11, v12, v23, v24, 2u);
+    v8 = [a2 key];
+    [v8 UTF8String];
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v9, v10, "%s:%d No deallocator found for stream %s", v11, v12, v13, v14, v27, v28);
   }
 
-  if (OSLogFlushBuffers())
+  v15 = OSLogFlushBuffers();
+  if (v15)
   {
-    v13 = __PSResourceManagerLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v13))
+    v17 = __PSResourceManagerLogSharedInstance(v15, v16);
+    if (OUTLINED_FUNCTION_6(v17))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24, buf);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v18, v19, "%s() failed to flush buffers with error code: %d", v20, v21, v22, v23, v27, v28);
     }
   }
 
@@ -2402,18 +3998,18 @@ void ps_prm_deallocate_opaque_array_cold_1(char **a1, void *a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v20 = OUTLINED_FUNCTION_0();
-  ps_frame_history_writer_buffer_init(v20, v21, v22);
+  v24 = OUTLINED_FUNCTION_0();
+  ps_frame_history_writer_buffer_init(v24, v25, v26);
 }
 
 void ps_frame_history_writer_buffer_init(PSFrameHistoryBufferServiceClient *a1, void *a2, void *a3)
 {
-  v65 = a2;
+  v64 = a2;
   v5 = a3;
-  if (a1 && v65 && v5)
+  if (a1 && v64 && v5)
   {
     v6 = [v5 getContext];
-    if (ps_frame_history_buffer_service_allocate_buffer(a1, (v6 + 96), [v65 resolvedFrequency]))
+    if (ps_frame_history_buffer_service_allocate_buffer(a1, (v6 + 96), [v64 resolvedFrequency]))
     {
       v7 = ps_frame_history_graph_metadata_set_submission_timestamp(*(v6 + 96));
       [OUTLINED_FUNCTION_2_5(v7 v8];
@@ -2436,15 +4032,14 @@ void ps_frame_history_writer_buffer_init(PSFrameHistoryBufferServiceClient *a1, 
 
       v53 = [OUTLINED_FUNCTION_2_5(v45 v46];
       LODWORD(v41) = [v53 intValue];
-      v54 = [v65 offset];
+      v54 = [v64 offset];
       ps_frame_history_graph_metadata_set_stride_and_offset(v27, v41, [v54 intValue]);
 
-      v55 = *(v6 + 96);
-      v56 = [v5 output];
-      v57 = [v56 resourceKey];
-      [v57 UTF8String];
-      v58 = OUTLINED_FUNCTION_0_4();
-      ps_frame_history_graph_metadata_add_output(v58, v59, v60);
+      v55 = [v5 output];
+      v56 = [v55 resourceKey];
+      [v56 UTF8String];
+      v57 = OUTLINED_FUNCTION_0_4();
+      ps_frame_history_graph_metadata_add_output(v57, v58, v59);
 
       ps_frame_history_buffer_set_init_complete(*(v6 + 96));
     }
@@ -2458,12 +4053,12 @@ void ps_frame_history_writer_buffer_init(PSFrameHistoryBufferServiceClient *a1, 
 
 void ps_frame_history_reader_buffer_init(PSFrameHistoryBufferServiceClient *a1, void *a2, void *a3)
 {
-  v65 = a2;
+  v64 = a2;
   v5 = a3;
-  if (a1 && v65 && v5)
+  if (a1 && v64 && v5)
   {
     v6 = [v5 getContext];
-    if (ps_frame_history_buffer_service_allocate_buffer(a1, (v6 + 32), [v65 resolvedFrequency]))
+    if (ps_frame_history_buffer_service_allocate_buffer(a1, (v6 + 32), [v64 resolvedFrequency]))
     {
       v7 = ps_frame_history_graph_metadata_set_submission_timestamp(*(v6 + 32));
       [OUTLINED_FUNCTION_4_3(v7 v8];
@@ -2486,15 +4081,14 @@ void ps_frame_history_reader_buffer_init(PSFrameHistoryBufferServiceClient *a1, 
 
       v53 = [OUTLINED_FUNCTION_4_3(v45 v46];
       LODWORD(v41) = [v53 intValue];
-      v54 = [v65 offset];
+      v54 = [v64 offset];
       ps_frame_history_graph_metadata_set_stride_and_offset(v27, v41, [v54 intValue]);
 
-      v55 = *(v6 + 32);
-      v56 = [v5 input];
-      v57 = [v56 resourceKey];
-      [v57 UTF8String];
-      v58 = OUTLINED_FUNCTION_0_4();
-      ps_frame_history_graph_metadata_add_input(v58, v59, v60);
+      v55 = [v5 input];
+      v56 = [v55 resourceKey];
+      [v56 UTF8String];
+      v57 = OUTLINED_FUNCTION_0_4();
+      ps_frame_history_graph_metadata_add_input(v57, v58, v59);
 
       ps_frame_history_buffer_set_init_complete(*(v6 + 32));
     }
@@ -2508,7 +4102,7 @@ void ps_frame_history_reader_buffer_init(PSFrameHistoryBufferServiceClient *a1, 
 
 void ps_frame_history_graph_buffer_init(PSFrameHistoryBufferServiceClient *a1, uint64_t a2, void *a3)
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = v5;
   if (a1 && a2 && v5)
@@ -2516,144 +4110,142 @@ void ps_frame_history_graph_buffer_init(PSFrameHistoryBufferServiceClient *a1, u
     if (ps_frame_history_buffer_service_allocate_buffer(a1, (a2 + 6816), [v5 resolvedFrequency]))
     {
       ps_frame_history_graph_metadata_set_submission_timestamp(*(a2 + 6816));
-      v7 = *(a2 + 6816);
       [v6 resolvedDeadline];
-      v8 = OUTLINED_FUNCTION_1_5();
-      ps_frame_history_graph_metadata_set_deadline(v8, v9);
-      v10 = *(a2 + 6816);
+      v7 = OUTLINED_FUNCTION_1_5();
+      ps_frame_history_graph_metadata_set_deadline(v7, v8);
       [v6 resolvedFrequency];
-      v11 = OUTLINED_FUNCTION_1_5();
-      ps_frame_history_graph_metadata_set_frequency(v11, v12);
-      v13 = +[PSExecutionSessionWorkarounds sharedInstance];
-      v14 = [v6 name];
-      v15 = [MEMORY[0x277CCAC38] processInfo];
-      v16 = [v15 processName];
-      v17 = [v13 shortenedNameForGraph:v14 procName:v16];
+      v9 = OUTLINED_FUNCTION_1_5();
+      ps_frame_history_graph_metadata_set_frequency(v9, v10);
+      v11 = +[PSExecutionSessionWorkarounds sharedInstance];
+      v12 = [v6 name];
+      v13 = [MEMORY[0x277CCAC38] processInfo];
+      v14 = [v13 processName];
+      v15 = [v11 shortenedNameForGraph:v12 procName:v14];
 
-      v18 = *(a2 + 6816);
-      v50 = v17;
-      [v17 UTF8String];
-      v19 = OUTLINED_FUNCTION_3_7();
-      ps_frame_history_graph_metadata_set_graph_name(v19, v18, v20, 2);
-      v21 = *(a2 + 6816);
-      v22 = [v6 resolvedDomain];
-      v23 = [v22 key];
-      [v23 UTF8String];
-      v24 = OUTLINED_FUNCTION_3_7();
-      ps_frame_history_graph_metadata_set_domain(v24, v21, v25);
+      v16 = *(a2 + 6816);
+      v47 = v15;
+      [v15 UTF8String];
+      v17 = OUTLINED_FUNCTION_3_7();
+      ps_frame_history_graph_metadata_set_graph_name(v17, v16, v18, 2);
+      v19 = *(a2 + 6816);
+      v20 = [v6 resolvedDomain];
+      v21 = [v20 key];
+      [v21 UTF8String];
+      v22 = OUTLINED_FUNCTION_3_7();
+      ps_frame_history_graph_metadata_set_domain(v22, v19, v23);
 
-      v26 = *(a2 + 6816);
-      v27 = [v6 systemPulseStride];
-      LODWORD(v23) = [v27 intValue];
-      v28 = [v6 offset];
-      ps_frame_history_graph_metadata_set_stride_and_offset(v26, v23, [v28 intValue]);
+      v24 = *(a2 + 6816);
+      v25 = [v6 systemPulseStride];
+      LODWORD(v21) = [v25 intValue];
+      v26 = [v6 offset];
+      ps_frame_history_graph_metadata_set_stride_and_offset(v24, v21, [v26 intValue]);
 
-      v66 = 0u;
-      v67 = 0u;
+      v63 = 0u;
       v64 = 0u;
-      v65 = 0u;
-      v51 = v6;
+      v61 = 0u;
+      v62 = 0u;
+      v48 = v6;
       obj = [v6 tasks];
-      v54 = [obj countByEnumeratingWithState:&v64 objects:v70 count:16];
-      if (v54)
+      v51 = [obj countByEnumeratingWithState:&v61 objects:v67 count:16];
+      if (v51)
       {
-        v53 = *v65;
+        v50 = *v62;
         do
         {
-          v29 = 0;
+          v27 = 0;
           do
           {
-            if (*v65 != v53)
+            if (*v62 != v50)
             {
               objc_enumerationMutation(obj);
             }
 
-            v30 = *(*(&v64 + 1) + 8 * v29);
-            v60 = 0u;
-            v61 = 0u;
-            v62 = 0u;
-            v63 = 0u;
-            v55 = v30;
-            v31 = [v30 inputs];
-            v32 = [v31 countByEnumeratingWithState:&v60 objects:v69 count:16];
-            if (v32)
-            {
-              v33 = v32;
-              v34 = *v61;
-              do
-              {
-                v35 = 0;
-                do
-                {
-                  if (*v61 != v34)
-                  {
-                    objc_enumerationMutation(v31);
-                  }
-
-                  v36 = *(a2 + 6816);
-                  v37 = [*(*(&v60 + 1) + 8 * v35) resourceKey];
-                  [v37 UTF8String];
-                  v38 = OUTLINED_FUNCTION_3_7();
-                  ps_frame_history_graph_metadata_add_input(v38, v36, v39);
-
-                  ++v35;
-                }
-
-                while (v33 != v35);
-                v33 = [v31 countByEnumeratingWithState:&v60 objects:v69 count:16];
-              }
-
-              while (v33);
-            }
-
+            v28 = *(*(&v61 + 1) + 8 * v27);
+            v57 = 0u;
             v58 = 0u;
             v59 = 0u;
-            v56 = 0u;
-            v57 = 0u;
-            v40 = [v55 outputs];
-            v41 = [v40 countByEnumeratingWithState:&v56 objects:v68 count:16];
-            if (v41)
+            v60 = 0u;
+            v52 = v28;
+            v29 = [v28 inputs];
+            v30 = [v29 countByEnumeratingWithState:&v57 objects:v66 count:16];
+            if (v30)
             {
-              v42 = v41;
-              v43 = *v57;
+              v31 = v30;
+              v32 = *v58;
               do
               {
-                v44 = 0;
+                v33 = 0;
                 do
                 {
-                  if (*v57 != v43)
+                  if (*v58 != v32)
                   {
-                    objc_enumerationMutation(v40);
+                    objc_enumerationMutation(v29);
                   }
 
-                  v45 = *(a2 + 6816);
-                  v46 = [*(*(&v56 + 1) + 8 * v44) resourceKey];
-                  [v46 UTF8String];
-                  v47 = OUTLINED_FUNCTION_3_7();
-                  ps_frame_history_graph_metadata_add_output(v47, v45, v48);
+                  v34 = *(a2 + 6816);
+                  v35 = [*(*(&v57 + 1) + 8 * v33) resourceKey];
+                  [v35 UTF8String];
+                  v36 = OUTLINED_FUNCTION_3_7();
+                  ps_frame_history_graph_metadata_add_input(v36, v34, v37);
 
-                  ++v44;
+                  ++v33;
                 }
 
-                while (v42 != v44);
-                v42 = [v40 countByEnumeratingWithState:&v56 objects:v68 count:16];
+                while (v31 != v33);
+                v31 = [v29 countByEnumeratingWithState:&v57 objects:v66 count:16];
               }
 
-              while (v42);
+              while (v31);
             }
 
-            ++v29;
+            v55 = 0u;
+            v56 = 0u;
+            v53 = 0u;
+            v54 = 0u;
+            v38 = [v52 outputs];
+            v39 = [v38 countByEnumeratingWithState:&v53 objects:v65 count:16];
+            if (v39)
+            {
+              v40 = v39;
+              v41 = *v54;
+              do
+              {
+                v42 = 0;
+                do
+                {
+                  if (*v54 != v41)
+                  {
+                    objc_enumerationMutation(v38);
+                  }
+
+                  v43 = *(a2 + 6816);
+                  v44 = [*(*(&v53 + 1) + 8 * v42) resourceKey];
+                  [v44 UTF8String];
+                  v45 = OUTLINED_FUNCTION_3_7();
+                  ps_frame_history_graph_metadata_add_output(v45, v43, v46);
+
+                  ++v42;
+                }
+
+                while (v40 != v42);
+                v40 = [v38 countByEnumeratingWithState:&v53 objects:v65 count:16];
+              }
+
+              while (v40);
+            }
+
+            ++v27;
           }
 
-          while (v29 != v54);
-          v54 = [obj countByEnumeratingWithState:&v64 objects:v70 count:16];
+          while (v27 != v51);
+          v51 = [obj countByEnumeratingWithState:&v61 objects:v67 count:16];
         }
 
-        while (v54);
+        while (v51);
       }
 
       ps_frame_history_buffer_set_init_complete(*(a2 + 6816));
-      v6 = v51;
+      v6 = v48;
     }
 
     else
@@ -2661,8 +4253,6 @@ void ps_frame_history_graph_buffer_init(PSFrameHistoryBufferServiceClient *a1, u
       *(a2 + 6816) = 0;
     }
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 void ps_frame_history_notify_start_frame_data(unint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
@@ -2719,21 +4309,22 @@ uint64_t ps_gsm_gst_notify_complete_cold_1(uint64_t result)
 uint64_t ps_gsm_wait_on_sem_cold_1(void *a1, mach_error_t a2)
 {
   v4 = OUTLINED_FUNCTION_1_6(a1, a2);
-  asprintf(v2, "%s: semaphore_timedwait failed with code %d (%s)", "ps_gsm_wait_on_sem", v3, v4);
-  v5 = __PolarisGSMLogSharedInstance();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+  v5 = asprintf(v2, "%s: semaphore_timedwait failed with code %d (%s)", "ps_gsm_wait_on_sem", v3, v4);
+  v7 = __PolarisGSMLogSharedInstance(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
     mach_error_string(v3);
     OUTLINED_FUNCTION_4_4();
-    OUTLINED_FUNCTION_2_6(&dword_25EA3A000, v6, v7, "%s:%d %s: semaphore_timedwait failed with code %d (%s)", v8, v9, v10, v11, v21, v22, v23, v24, 2u);
+    OUTLINED_FUNCTION_2_6(&dword_25EA3A000, v8, v9, "%s:%d %s: semaphore_timedwait failed with code %d (%s)", v10, v11, v12, v13, v26, v27, v28, v29);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v12 = __PolarisGSMLogSharedInstance();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v16 = __PolarisGSMLogSharedInstance(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      OUTLINED_FUNCTION_23(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v21, v22, v23, v24, 2u);
+      OUTLINED_FUNCTION_23(&dword_25EA3A000, v17, v18, "%s() failed to flush buffers with error code: %d", v19, v20, v21, v22, v26, v27, v28, v29);
     }
   }
 
@@ -2742,28 +4333,29 @@ uint64_t ps_gsm_wait_on_sem_cold_1(void *a1, mach_error_t a2)
     usleep(0x1E8480u);
   }
 
-  v19 = OUTLINED_FUNCTION_0();
-  return ps_gsm_signal_sem_cold_1(v19);
+  v23 = OUTLINED_FUNCTION_0();
+  return ps_gsm_signal_sem_cold_1(v23, v24);
 }
 
 uint64_t ps_gsm_signal_sem_cold_1(void *a1, mach_error_t a2)
 {
   v4 = OUTLINED_FUNCTION_1_6(a1, a2);
-  asprintf(v2, "%s: semaphore_signal failed with code %d (%s)", "ps_gsm_signal_sem", v3, v4);
-  v5 = __PolarisGSMLogSharedInstance();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+  v5 = asprintf(v2, "%s: semaphore_signal failed with code %d (%s)", "ps_gsm_signal_sem", v3, v4);
+  v7 = __PolarisGSMLogSharedInstance(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
   {
     mach_error_string(v3);
     OUTLINED_FUNCTION_4_4();
-    OUTLINED_FUNCTION_2_6(&dword_25EA3A000, v6, v7, "%s:%d %s: semaphore_signal failed with code %d (%s)", v8, v9, v10, v11, v21, v22, v23, v24, 2u);
+    OUTLINED_FUNCTION_2_6(&dword_25EA3A000, v8, v9, "%s:%d %s: semaphore_signal failed with code %d (%s)", v10, v11, v12, v13, v26, v27, v28, v29);
   }
 
-  if (OSLogFlushBuffers())
+  v14 = OSLogFlushBuffers();
+  if (v14)
   {
-    v12 = __PolarisGSMLogSharedInstance();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v16 = __PolarisGSMLogSharedInstance(v14, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      OUTLINED_FUNCTION_23(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v21, v22, v23, v24, 2u);
+      OUTLINED_FUNCTION_23(&dword_25EA3A000, v17, v18, "%s() failed to flush buffers with error code: %d", v19, v20, v21, v22, v26, v27, v28, v29);
     }
   }
 
@@ -2772,27 +4364,28 @@ uint64_t ps_gsm_signal_sem_cold_1(void *a1, mach_error_t a2)
     usleep(0x1E8480u);
   }
 
-  v19 = OUTLINED_FUNCTION_0();
-  return ps_gsm_create_gst_internal_cold_1(v19);
+  v23 = OUTLINED_FUNCTION_0();
+  return ps_gsm_create_gst_internal_cold_1(v23, v24);
 }
 
 uint64_t ps_gsm_create_gst_internal_cold_1(char **a1, uint64_t a2)
 {
   *a1 = 0;
-  asprintf(a1, "%s NULL Shared Trigger for shared gst (%s) creation", (a2 + 16), "ps_gsm_create_gst_internal");
-  v2 = __PolarisGSMLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "%s NULL Shared Trigger for shared gst (%s) creation", (a2 + 16), "ps_gsm_create_gst_internal");
+  v4 = __PolarisGSMLogSharedInstance(v2, v3);
+  if (OUTLINED_FUNCTION_5(v4))
   {
-    OUTLINED_FUNCTION_1(&dword_25EA3A000, v3, v4, "%s:%d %s NULL Shared Trigger for shared gst (%s) creation", v5, v6, v7, v8, v19, v20, 2u);
+    OUTLINED_FUNCTION_1(&dword_25EA3A000, v5, v6, "%s:%d %s NULL Shared Trigger for shared gst (%s) creation", v7, v8, v9, v10, v23, v24);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v9 = __PolarisGSMLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v13 = __PolarisGSMLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v19, v20, buf);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24);
     }
   }
 
@@ -2801,27 +4394,28 @@ uint64_t ps_gsm_create_gst_internal_cold_1(char **a1, uint64_t a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return ps_gsm_gst_handle_source_death_cold_1(v16, v17);
+  v20 = OUTLINED_FUNCTION_0();
+  return ps_gsm_gst_handle_source_death_cold_1(v20, v21);
 }
 
 uint64_t ps_gsm_gst_handle_source_death_cold_1(char **a1, uint64_t a2)
 {
   *a1 = 0;
-  asprintf(a1, "Out of bounds assert error (%llu >= %llu)", a2, 1024);
-  v2 = __PSUtilitiesLogSharedInstance();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  v2 = asprintf(a1, "Out of bounds assert error (%llu >= %llu)", a2, 1024);
+  v4 = __PSUtilitiesLogSharedInstance(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_6_3(&dword_25EA3A000, v3, v4, "%s:%d Out of bounds assert error (%llu >= %llu)", v5, v6, v7, v8, v19, v20, 2u);
+    OUTLINED_FUNCTION_6_3(&dword_25EA3A000, v5, v6, "%s:%d Out of bounds assert error (%llu >= %llu)", v7, v8, v9, v10, v23, v24);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v9 = __PSUtilitiesLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v13 = __PSUtilitiesLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v19, v20, buf);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24);
     }
   }
 
@@ -2830,27 +4424,28 @@ uint64_t ps_gsm_gst_handle_source_death_cold_1(char **a1, uint64_t a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return ps_util_assert_less_than_equal_unsigned_cold_1(v16, v17);
+  v20 = OUTLINED_FUNCTION_0();
+  return ps_util_assert_less_than_equal_unsigned_cold_1(v20, v21);
 }
 
 uint64_t ps_util_assert_less_than_equal_unsigned_cold_1(char **a1, uint64_t a2)
 {
   *a1 = 0;
-  asprintf(a1, "Out of bounds assert error (%llu > %llu)", a2, 1024);
-  v2 = __PSUtilitiesLogSharedInstance();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  v2 = asprintf(a1, "Out of bounds assert error (%llu > %llu)", a2, 1024);
+  v4 = __PSUtilitiesLogSharedInstance(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_6_3(&dword_25EA3A000, v3, v4, "%s:%d Out of bounds assert error (%llu > %llu)", v5, v6, v7, v8, v18, v19, 2u);
+    OUTLINED_FUNCTION_6_3(&dword_25EA3A000, v5, v6, "%s:%d Out of bounds assert error (%llu > %llu)", v7, v8, v9, v10, v23, v24);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v9 = __PSUtilitiesLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v13 = __PSUtilitiesLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v18, v19, buf);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24);
     }
   }
 
@@ -2859,34 +4454,35 @@ uint64_t ps_util_assert_less_than_equal_unsigned_cold_1(char **a1, uint64_t a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return ps_gsm_request_waiter_sequenced_teardown_cold_1(v16);
+  v20 = OUTLINED_FUNCTION_0();
+  return ps_gsm_request_waiter_sequenced_teardown_cold_1(v20, v21);
 }
 
 uint64_t ps_gsm_request_waiter_sequenced_teardown_cold_1(char **a1, uint64_t a2)
 {
   *a1 = 0;
   v3 = a2 + 16;
-  asprintf(a1, "GST (%s) Sequenced Teardown not supported on shared trigger", (a2 + 16));
-  v4 = __PolarisGSMLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v4))
+  v4 = asprintf(a1, "GST (%s) Sequenced Teardown not supported on shared trigger", (a2 + 16));
+  v6 = __PolarisGSMLogSharedInstance(v4, v5);
+  if (OUTLINED_FUNCTION_5(v6))
   {
     *buf = 136315650;
-    v18 = "ps_gsm_request_waiter_sequenced_teardown";
-    v19 = 1024;
-    v20 = 391;
-    v21 = 2080;
-    v22 = v3;
+    v22 = "ps_gsm_request_waiter_sequenced_teardown";
+    v23 = 1024;
+    v24 = 391;
+    v25 = 2080;
+    v26 = v3;
     _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_FAULT, "%s:%d GST (%s) Sequenced Teardown not supported on shared trigger", buf, 0x1Cu);
   }
 
-  if (OSLogFlushBuffers())
+  v7 = OSLogFlushBuffers();
+  if (v7)
   {
-    v5 = __PolarisGSMLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v5))
+    v9 = __PolarisGSMLogSharedInstance(v7, v8);
+    if (OUTLINED_FUNCTION_6(v9))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v6, v7, "%s() failed to flush buffers with error code: %d", v8, v9, v10, v11, v15, v16, buf[0]);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v19, v20);
     }
   }
 
@@ -2895,35 +4491,36 @@ uint64_t ps_gsm_request_waiter_sequenced_teardown_cold_1(char **a1, uint64_t a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v12 = OUTLINED_FUNCTION_0();
-  return ps_gsm_gst_trigger_set_stride_cold_1(v12, v13);
+  v16 = OUTLINED_FUNCTION_0();
+  return ps_gsm_gst_trigger_set_stride_cold_1(v16, v17);
 }
 
 void ps_gsm_gst_trigger_set_stride_cold_1(char **a1, uint64_t a2)
 {
   *a1 = 0;
-  asprintf(a1, "Stride %llu does not fit within the allocated %d bits.", a2, 10);
-  v3 = __PolarisGSMLogSharedInstance();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
+  v3 = asprintf(a1, "Stride %llu does not fit within the allocated %d bits.", a2, 10);
+  v5 = __PolarisGSMLogSharedInstance(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315906;
-    v17 = "ps_gsm_gst_trigger_set_stride";
-    v18 = 1024;
-    v19 = 96;
-    v20 = 2048;
-    v21 = a2;
+    v21 = "ps_gsm_gst_trigger_set_stride";
     v22 = 1024;
-    v23 = 10;
-    _os_log_impl(&dword_25EA3A000, v3, OS_LOG_TYPE_FAULT, "%s:%d Stride %llu does not fit within the allocated %d bits.", buf, 0x22u);
+    v23 = 96;
+    v24 = 2048;
+    v25 = a2;
+    v26 = 1024;
+    v27 = 10;
+    _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_FAULT, "%s:%d Stride %llu does not fit within the allocated %d bits.", buf, 0x22u);
   }
 
-  if (OSLogFlushBuffers())
+  v6 = OSLogFlushBuffers();
+  if (v6)
   {
-    v4 = __PolarisGSMLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v4))
+    v8 = __PolarisGSMLogSharedInstance(v6, v7);
+    if (OUTLINED_FUNCTION_6(v8))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v5, v6, "%s() failed to flush buffers with error code: %d", v7, v8, v9, v10, v14, v15, buf[0]);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v9, v10, "%s() failed to flush buffers with error code: %d", v11, v12, v13, v14, v18, v19);
     }
   }
 
@@ -2932,11 +4529,11 @@ void ps_gsm_gst_trigger_set_stride_cold_1(char **a1, uint64_t a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v11 = OUTLINED_FUNCTION_0();
-  ps_gsm_wait_gst_cold_1(v11, v12, v13);
+  v15 = OUTLINED_FUNCTION_0();
+  ps_gsm_wait_gst_cold_1(v15, v16, v17);
 }
 
-void ps_gsm_wait_gst_cold_1(unint64_t *a1, int *a2, _BYTE *a3)
+void ps_gsm_wait_gst_cold_1(unint64_t *a1, unsigned int *a2, _BYTE *a3)
 {
   if (a1[598])
   {
@@ -2951,23 +4548,24 @@ void ps_gsm_wait_gst_cold_1(unint64_t *a1, int *a2, _BYTE *a3)
   *a3 = 1;
 }
 
-uint64_t ps_gsm_wait_gst_cold_3(char **a1, uint64_t a2)
+void ps_gsm_wait_gst_cold_3(char **a1, uint64_t a2)
 {
   *a1 = 0;
-  asprintf(a1, "%s called for gst (%s) belonging to shared trigger", "ps_gsm_wait_gst", (a2 + 16));
-  v2 = __PolarisGSMLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "%s called for gst (%s) belonging to shared trigger", "ps_gsm_wait_gst", (a2 + 16));
+  v4 = __PolarisGSMLogSharedInstance(v2, v3);
+  if (OUTLINED_FUNCTION_5(v4))
   {
-    OUTLINED_FUNCTION_1(&dword_25EA3A000, v3, v4, "%s:%d %s called for gst (%s) belonging to shared trigger", v5, v6, v7, v8, v19, v20, 2u);
+    OUTLINED_FUNCTION_1(&dword_25EA3A000, v5, v6, "%s:%d %s called for gst (%s) belonging to shared trigger", v7, v8, v9, v10, v22, v23);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v9 = __PolarisGSMLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v13 = __PolarisGSMLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v13))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v19, v20, buf);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23);
     }
   }
 
@@ -2976,35 +4574,36 @@ uint64_t ps_gsm_wait_gst_cold_3(char **a1, uint64_t a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return ps_gsm_gst_handle_death_cold_1(v16, v17);
+  v20 = OUTLINED_FUNCTION_0();
+  ps_gsm_gst_handle_death_cold_1(v20, v21);
 }
 
 void ps_gsm_gst_handle_death_cold_1(unsigned __int8 a1, char **a2)
 {
   *a2 = 0;
-  asprintf(a2, "%s: invalid storage_mode %d", "void ps_gsm_gst_handle_death(ps_gsm_t, ps_gsm_gst_t)", a1);
-  v4 = __PolarisGSMLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v4))
+  v4 = asprintf(a2, "%s: invalid storage_mode %d", "void ps_gsm_gst_handle_death(ps_gsm_t, ps_gsm_gst_t)", a1);
+  v6 = __PolarisGSMLogSharedInstance(v4, v5);
+  if (OUTLINED_FUNCTION_5(v6))
   {
     *buf = 136315906;
-    v15 = "ps_gsm_gst_handle_death";
-    v16 = 1024;
-    v17 = 1089;
-    v18 = 2080;
-    v19 = "void ps_gsm_gst_handle_death(ps_gsm_t, ps_gsm_gst_t)";
+    v19 = "ps_gsm_gst_handle_death";
     v20 = 1024;
-    v21 = a1;
+    v21 = 1089;
+    v22 = 2080;
+    v23 = "void ps_gsm_gst_handle_death(ps_gsm_t, ps_gsm_gst_t)";
+    v24 = 1024;
+    v25 = a1;
     _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_FAULT, "%s:%d %s: invalid storage_mode %d", buf, 0x22u);
   }
 
-  if (OSLogFlushBuffers())
+  v7 = OSLogFlushBuffers();
+  if (v7)
   {
-    v5 = __PolarisGSMLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v5))
+    v9 = __PolarisGSMLogSharedInstance(v7, v8);
+    if (OUTLINED_FUNCTION_6(v9))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v6, v7, "%s() failed to flush buffers with error code: %d", v8, v9, v10, v11, v12, v13, buf[0]);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v16, v17);
     }
   }
 
@@ -3020,21 +4619,22 @@ void ps_gsm_gst_handle_death_cold_1(unsigned __int8 a1, char **a2)
 uint64_t ps_gsm_shared_trigger_get_available_index_cold_1(char **a1, uint64_t a2)
 {
   *a1 = 0;
-  asprintf(a1, "Shared Trigger (%s) Exec Mask no longer has bit available to execute in single waiter architecture", (a2 + 2));
-  v2 = __PolarisGSMLogSharedInstance();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  v2 = asprintf(a1, "Shared Trigger (%s) Exec Mask no longer has bit available to execute in single waiter architecture", (a2 + 2));
+  v4 = __PolarisGSMLogSharedInstance(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v3, v4, "%s:%d Shared Trigger (%s) Exec Mask no longer has bit available to execute in single waiter architecture", v5, v6, v7, v8, v18, v19, v20);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d Shared Trigger (%s) Exec Mask no longer has bit available to execute in single waiter architecture", v7, v8, v9, v10, v23, v24);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v9 = __PolarisGSMLogSharedInstance();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v13 = __PolarisGSMLogSharedInstance(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       OUTLINED_FUNCTION_11();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v18, v19, v20);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v23, v24);
     }
   }
 
@@ -3043,28 +4643,29 @@ uint64_t ps_gsm_shared_trigger_get_available_index_cold_1(char **a1, uint64_t a2
     usleep(0x1E8480u);
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return ps_gsm_shared_trigger_get_available_index_cold_2(v16);
+  v20 = OUTLINED_FUNCTION_0();
+  return ps_gsm_shared_trigger_get_available_index_cold_2(v20, v21);
 }
 
-uint64_t ps_gsm_shared_trigger_get_available_index_cold_2(char **a1, uint64_t a2)
+void ps_gsm_shared_trigger_get_available_index_cold_2(char **a1, uint64_t a2)
 {
   *a1 = 0;
-  asprintf(a1, "Shared Trigger (%s) Cached Mask changed in single waiter architecture", (a2 + 2));
-  v2 = __PolarisGSMLogSharedInstance();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  v2 = asprintf(a1, "Shared Trigger (%s) Cached Mask changed in single waiter architecture", (a2 + 2));
+  v4 = __PolarisGSMLogSharedInstance(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v3, v4, "%s:%d Shared Trigger (%s) Cached Mask changed in single waiter architecture", v5, v6, v7, v8, v18, v19, v20);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d Shared Trigger (%s) Cached Mask changed in single waiter architecture", v7, v8, v9, v10, v22, v23);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v9 = __PolarisGSMLogSharedInstance();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v13 = __PolarisGSMLogSharedInstance(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       OUTLINED_FUNCTION_11();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v18, v19, v20);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v22, v23);
     }
   }
 
@@ -3073,28 +4674,29 @@ uint64_t ps_gsm_shared_trigger_get_available_index_cold_2(char **a1, uint64_t a2
     usleep(0x1E8480u);
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return ps_gsm_wait_shared_trigger_cold_1(v16);
+  v20 = OUTLINED_FUNCTION_0();
+  ps_gsm_wait_shared_trigger_cold_1(v20, v21);
 }
 
 void ps_gsm_wait_shared_trigger_cold_1(char **a1, uint64_t a2)
 {
   *a1 = 0;
-  asprintf(a1, "Exited shared trigger (%s) wait without a bit to execute", (a2 + 2));
-  v2 = __PolarisGSMLogSharedInstance();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  v2 = asprintf(a1, "Exited shared trigger (%s) wait without a bit to execute", (a2 + 2));
+  v4 = __PolarisGSMLogSharedInstance(v2, v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
     OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v3, v4, "%s:%d Exited shared trigger (%s) wait without a bit to execute", v5, v6, v7, v8, v17, v18, v19);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d Exited shared trigger (%s) wait without a bit to execute", v7, v8, v9, v10, v20, v21);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v9 = __PolarisGSMLogSharedInstance();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v13 = __PolarisGSMLogSharedInstance(v11, v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       OUTLINED_FUNCTION_11();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v17, v18, v19);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v14, v15, "%s() failed to flush buffers with error code: %d", v16, v17, v18, v19, v20, v21);
     }
   }
 
@@ -3103,16 +4705,16 @@ void ps_gsm_wait_shared_trigger_cold_1(char **a1, uint64_t a2)
     usleep(0x1E8480u);
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  ps_gsm_get_shared_trigger_cold_1(v16);
+  OUTLINED_FUNCTION_0();
+  ps_gsm_get_shared_trigger_cold_1();
 }
 
 void ps_util_assert_less_than_equal_unsigned_cold_1_0(char **a1, uint64_t a2)
 {
   *a1 = 0;
-  asprintf(a1, "Out of bounds assert error (%llu > %llu)", a2, 1024);
-  v4 = __PSUtilitiesLogSharedInstance();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v3 = asprintf(a1, "Out of bounds assert error (%llu > %llu)", a2, 1024);
+  v5 = __PSUtilitiesLogSharedInstance(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315906;
     v11 = "ps_util_assert_less_than_equal_unsigned";
@@ -3122,21 +4724,21 @@ void ps_util_assert_less_than_equal_unsigned_cold_1_0(char **a1, uint64_t a2)
     v15 = a2;
     v16 = 2048;
     v17 = 1024;
-    _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_FAULT, "%s:%d Out of bounds assert error (%llu > %llu)", buf, 0x26u);
+    _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_FAULT, "%s:%d Out of bounds assert error (%llu > %llu)", buf, 0x26u);
   }
 
-  v5 = OSLogFlushBuffers();
-  if (v5)
+  v6 = OSLogFlushBuffers();
+  if (v6)
   {
-    v6 = v5;
-    v7 = __PSUtilitiesLogSharedInstance();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = v6;
+    v9 = __PSUtilitiesLogSharedInstance(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       v11 = "ps_util_assert_less_than_equal_unsigned";
       v12 = 1024;
-      v13 = v6;
-      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v13 = v8;
+      _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -3145,9 +4747,8 @@ void ps_util_assert_less_than_equal_unsigned_cold_1_0(char **a1, uint64_t a2)
     usleep(0x1E8480u);
   }
 
-  v8 = *a1;
-  v9 = abort_with_reason();
-  ps_gsm_notify_cold_1(v9);
+  abort_with_reason();
+  ps_gsm_notify_cold_1();
 }
 
 _DWORD *_liveness_remove_node(_DWORD *result, int a2)
@@ -3211,79 +4812,86 @@ _DWORD *_liveness_remove_node(_DWORD *result, int a2)
   return result;
 }
 
-uint64_t ps_liveness_reset_deadline_if_needed(int a1, unint64_t a2)
+uint64_t ps_liveness_reset_deadline_if_needed(uint64_t a1, unint64_t a2)
 {
   v2 = 0;
-  v27 = *MEMORY[0x277D85DE8];
-  if (a1 < 0 && qword_27FD127D0)
+  v28 = *MEMORY[0x277D85DE8];
+  if ((a1 & 0x80000000) != 0 && qword_27FD127D0)
   {
     if (a1 != -1)
     {
       v3 = a1 & 0x7FFFFFF;
-      if ((a1 & 0x7FFFFFFu) >= *(qword_27FD127D0 + 32))
+      if ((a1 & 0x7FFFFFF) >= *(qword_27FD127D0 + 32))
       {
         snprintf(__str, 0x200uLL, "(%s) Node %x: out of range", "ps_liveness_reset_deadline_if_needed", a1);
-        if (qword_27FD127D0 && strlen(__str))
+        if (qword_27FD127D0)
         {
-          v13 = OUTLINED_FUNCTION_3_8();
-          OUTLINED_FUNCTION_2_7(v13, v14, v15, v16, v17, v18, v19, v20, v23, v24, 0, 0, v25, __str[0]);
-          ps_ringbuffer_close_allocation();
+          v13 = strlen(__str);
+          if (v13)
+          {
+            v15 = OUTLINED_FUNCTION_3_8(v13, v14);
+            OUTLINED_FUNCTION_2_7(v15, v16, v17, v18, v19, v20, v21, v22, v24, v25, 0, 0, v26);
+            ps_ringbuffer_close_allocation();
+          }
         }
       }
 
       else if (*(xmmword_27FD127E8 + 400 * v3 + 136) <= a2)
       {
         v2 = 1;
+        v4 = a1;
         ps_liveness_node_pause(a1, 1);
         _X0 = 0;
         _X1 = 0;
         __asm { CASPAL          X0, X1, X0, X1, [X9] }
 
         v12 = (xmmword_27FD127E8 + 400 * v3);
-        ps_liveness_node_set_deadlines(a1, v12[18], v12[19]);
+        ps_liveness_node_set_deadlines(v4, v12[18], v12[19]);
         v12[18] = 0;
         v12[19] = 0;
         v12[17] = -1;
         v12[46] = 3000000000;
-        ps_liveness_node_pause(a1, 0);
-        goto LABEL_11;
+        ps_liveness_node_pause(v4, 0);
+        return v2;
       }
     }
 
-    v2 = 0;
+    return 0;
   }
 
-LABEL_11:
-  v21 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 uint64_t ps_liveness_node_pause(int a1, int a2)
 {
   result = 0;
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if ((a1 & 0x80000000) == 0 || !qword_27FD127D0)
   {
-    goto LABEL_19;
+    return result;
   }
 
   if (a1 == -1)
   {
-    goto LABEL_18;
+    return 0;
   }
 
   v4 = a1 & 0x7FFFFFF;
   if ((a1 & 0x7FFFFFFu) >= *(qword_27FD127D0 + 32))
   {
     snprintf(__str, 0x200uLL, "(%s) Node %x: out of range", "ps_liveness_node_pause", a1);
-    if (qword_27FD127D0 && strlen(__str))
+    if (qword_27FD127D0)
     {
-      v20 = OUTLINED_FUNCTION_3_8();
-      OUTLINED_FUNCTION_2_7(v20, v21, v22, v23, v24, v25, v26, v27, v29, v30, 0, 0, v31, __str[0]);
-      ps_ringbuffer_close_allocation();
+      v20 = strlen(__str);
+      if (v20)
+      {
+        v22 = OUTLINED_FUNCTION_3_8(v20, v21);
+        OUTLINED_FUNCTION_2_7(v22, v23, v24, v25, v26, v27, v28, v29, v30, v31, 0, 0, v32);
+        ps_ringbuffer_close_allocation();
+      }
     }
 
-    goto LABEL_18;
+    return 0;
   }
 
   _X2 = 0;
@@ -3293,14 +4901,12 @@ uint64_t ps_liveness_node_pause(int a1, int a2)
   v11 = xmmword_27FD127E8 + 400 * v4;
   if (!a2 || _X2 == -1)
   {
-LABEL_18:
-    result = 0;
-    goto LABEL_19;
+    return 0;
   }
 
   if (v4 < *(qword_27FD127D0 + 32))
   {
-    OUTLINED_FUNCTION_1_7(qword_27FD127D0);
+    OUTLINED_FUNCTION_1_7();
     v13 = OUTLINED_FUNCTION_4_5(v12);
     do
     {
@@ -3314,39 +4920,36 @@ LABEL_18:
   }
 
   *(v11 + 184) = mach_absolute_time();
-  result = 1;
-LABEL_19:
-  v28 = *MEMORY[0x277D85DE8];
-  return result;
+  return 1;
 }
 
 uint64_t __ps_liveness_init_block_invoke_cold_1(char **a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Liveness: Failed to obtain an address from the serial data writer - cannot continue\n");
-  v2 = __PLSLogSharedInstance();
+  v1 = asprintf(a1, "Liveness: Failed to obtain an address from the serial data writer - cannot continue\n");
+  v2 = __PLSLogSharedInstance(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
-    v12 = 136315394;
-    v13 = "ps_liveness_init_block_invoke";
-    v14 = 1024;
-    v15 = 843;
-    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_FAULT, "%s:%d Liveness: Failed to obtain an address from the serial data writer - cannot continue\n", &v12, 0x12u);
+    v11 = 136315394;
+    v12 = "ps_liveness_init_block_invoke";
+    v13 = 1024;
+    v14 = 843;
+    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_FAULT, "%s:%d Liveness: Failed to obtain an address from the serial data writer - cannot continue\n", &v11, 0x12u);
   }
 
   v3 = OSLogFlushBuffers();
   if (v3)
   {
     v4 = v3;
-    v5 = __PLSLogSharedInstance();
+    v5 = __PLSLogSharedInstance(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315394;
-      v13 = "ps_liveness_init_block_invoke";
-      v14 = 1024;
-      v15 = v4;
-      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v12, 0x12u);
+      v11 = 136315394;
+      v12 = "ps_liveness_init_block_invoke";
+      v13 = 1024;
+      v14 = v4;
+      _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v11, 0x12u);
     }
   }
 
@@ -3355,43 +4958,40 @@ uint64_t __ps_liveness_init_block_invoke_cold_1(char **a1)
     usleep(0x1E8480u);
   }
 
-  v6 = *a1;
-  v7 = abort_with_reason();
-  return _liveness_cleanup_session_by_name_cold_1(v7, v8, v9, v10);
+  v6 = abort_with_reason();
+  return _liveness_cleanup_session_by_name_cold_1(v6, v7, v8, v9);
 }
 
-uint64_t _liveness_cleanup_session_by_name_cold_1(uint64_t a1, uint64_t *a2, uint64_t a3, int a4)
+uint64_t _liveness_cleanup_session_by_name_cold_1(uint64_t a1, void *a2, uint64_t a3, int a4)
 {
   if ((a1 & 0x7FFFFFF) < *(qword_27FD127D0 + 32))
   {
-    OUTLINED_FUNCTION_1_7(qword_27FD127D0);
-    v9 = (v8 + 16 * (a1 & 0x7FFFFFF));
-    v10 = *v9;
-    v11 = v9[1];
-    v12 = -1;
+    OUTLINED_FUNCTION_1_7();
+    v8 = (v7 + 16 * (a1 & 0x7FFFFFF));
+    v9 = *v8;
+    v10 = v8[1];
+    v11 = -1;
     do
     {
-      OUTLINED_FUNCTION_0_5(v10, v11, v12);
-      v16 = v16 && v14 == v13;
+      OUTLINED_FUNCTION_0_5(v9, v10, v11);
+      v15 = v15 && v13 == v12;
+      v9 = v13;
       v10 = v14;
-      v11 = v15;
     }
 
-    while (!v16);
+    while (!v15);
   }
 
-  v17 = ps_ringbuffer_allocate();
-  *v17 = a3;
-  *(v17 + 12) = *(xmmword_27FD127E8 + 400 * a1 + 116);
-  v18 = atomic_load((*(&xmmword_27FD127F8 + 1) + 4 * a1));
-  *(v17 + 16) = v18;
-  *(v17 + 8) = a4;
-  *(v17 + 20) = *(xmmword_27FD127E8 + 400 * a1 + 108);
+  v16 = ps_ringbuffer_allocate();
+  *v16 = a3;
+  *(v16 + 12) = *(xmmword_27FD127E8 + 400 * a1 + 116);
+  v17 = atomic_load((*(&xmmword_27FD127F8 + 1) + 4 * a1));
+  *(v16 + 16) = v17;
+  *(v16 + 8) = a4;
+  *(v16 + 20) = *(xmmword_27FD127E8 + 400 * a1 + 108);
   __strlcpy_chk();
   __strlcpy_chk();
-  strlcpy((v17 + 104), (xmmword_27FD127E8 + 400 * a1 + 88), 0x10uLL);
-  v19 = *a2;
-  v20 = a2[1];
+  strlcpy((v16 + 104), (xmmword_27FD127E8 + 400 * a1 + 88), 0x10uLL);
   return ps_ringbuffer_close_allocation();
 }
 
@@ -3399,7 +4999,7 @@ uint64_t ps_liveness_node_finalize_cold_1(unsigned int a1, uint64_t a2)
 {
   if (a1 < *(qword_27FD127D0 + 32))
   {
-    OUTLINED_FUNCTION_1_7(qword_27FD127D0);
+    OUTLINED_FUNCTION_1_7();
     v4 = OUTLINED_FUNCTION_4_5(v3);
     do
     {
@@ -3419,34 +5019,34 @@ uint64_t ps_liveness_node_finalize_cold_1(unsigned int a1, uint64_t a2)
 
 uint64_t ps_liveness_server_init_state_cold_1(char **a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Liveness: Failed to create serial data writer\n");
-  v2 = _polarisdLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "Liveness: Failed to create serial data writer\n");
+  v4 = _polarisdLogSharedInstance(v2, v3);
+  if (OUTLINED_FUNCTION_5(v4))
   {
-    v5 = *a1;
-    v13 = 136315650;
-    v14 = "ps_liveness_server_init_state";
-    v15 = 1024;
-    v16 = 856;
-    v17 = 2080;
-    v18 = v5;
-    OUTLINED_FUNCTION_1_8(&dword_25EA3A000, v3, v4, "%s:%d %s", &v13);
+    v7 = *a1;
+    v17 = 136315650;
+    v18 = "ps_liveness_server_init_state";
+    v19 = 1024;
+    v20 = 856;
+    v21 = 2080;
+    v22 = v7;
+    OUTLINED_FUNCTION_1_8(&dword_25EA3A000, v5, v6, "%s:%d %s", &v17);
   }
 
-  v6 = OSLogFlushBuffers();
-  if (v6)
+  v8 = OSLogFlushBuffers();
+  if (v8)
   {
-    v7 = v6;
-    v8 = _polarisdLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v8))
+    v10 = v8;
+    v11 = _polarisdLogSharedInstance(v8, v9);
+    if (OUTLINED_FUNCTION_6(v11))
     {
-      v13 = 136315394;
-      v14 = "ps_liveness_server_init_state";
-      v15 = 1024;
-      v16 = v7;
-      OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v9, v10, "%s() failed to flush buffers with error code: %d", &v13);
+      v17 = 136315394;
+      v18 = "ps_liveness_server_init_state";
+      v19 = 1024;
+      v20 = v10;
+      OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", &v17);
     }
   }
 
@@ -3455,124 +5055,166 @@ uint64_t ps_liveness_server_init_state_cold_1(char **a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v11 = OUTLINED_FUNCTION_0();
-  return ps_liveness_server_init_cold_1(v11);
+  v14 = OUTLINED_FUNCTION_0();
+  return ps_liveness_server_init_cold_1(v14, v15);
 }
 
 uint64_t ps_liveness_server_init_cold_1(char **a1, int a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Could not set attribute type compositor for graph:(%s) error:(%d)", liveness_workgroup_id, a2);
-  v3 = _polarisdLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v3))
-  {
-    v6 = *a1;
-    v14 = 136315650;
-    v15 = "_liveness_create_workgroup";
-    v16 = 1024;
-    v17 = 159;
-    v18 = 2080;
-    v19 = v6;
-    OUTLINED_FUNCTION_1_8(&dword_25EA3A000, v4, v5, "%s:%d %s", &v14);
-  }
-
-  v7 = OSLogFlushBuffers();
-  if (v7)
-  {
-    v8 = v7;
-    v9 = _polarisdLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
-    {
-      v14 = 136315394;
-      v15 = "_liveness_create_workgroup";
-      v16 = 1024;
-      v17 = v8;
-      OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", &v14);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v12 = OUTLINED_FUNCTION_0();
-  return ps_liveness_server_init_cold_2(v12);
-}
-
-uint64_t ps_liveness_server_init_cold_2(char **a1, int a2)
-{
-  v20 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "Could not create pthread for liveness with err:(%d)", a2);
-  v3 = _polarisdLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v3))
-  {
-    v6 = *a1;
-    v14 = 136315650;
-    v15 = "ps_liveness_server_init";
-    v16 = 1024;
-    v17 = 939;
-    v18 = 2080;
-    v19 = v6;
-    OUTLINED_FUNCTION_1_8(&dword_25EA3A000, v4, v5, "%s:%d %s", &v14);
-  }
-
-  v7 = OSLogFlushBuffers();
-  if (v7)
-  {
-    v8 = v7;
-    v9 = _polarisdLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
-    {
-      v14 = 136315394;
-      v15 = "ps_liveness_server_init";
-      v16 = 1024;
-      v17 = v8;
-      OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", &v14);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v12 = OUTLINED_FUNCTION_0();
-  return ps_liveness_server_init_cold_3(v12);
-}
-
-uint64_t ps_liveness_server_init_cold_3(char **a1)
-{
-  v22 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  v2 = __error();
-  v3 = strerror(*v2);
-  v4 = __error();
-  asprintf(a1, "Could not create liveness workgroup with (%s) (%d)", v3, *v4);
-  v5 = _polarisdLogSharedInstance();
+  v3 = asprintf(a1, "Could not set attribute type compositor for graph:(%s) error:(%d)", liveness_workgroup_id, a2);
+  v5 = _polarisdLogSharedInstance(v3, v4);
   if (OUTLINED_FUNCTION_5(v5))
   {
     v8 = *a1;
-    v16 = 136315650;
-    v17 = "_liveness_create_workgroup";
-    v18 = 1024;
-    v19 = 169;
-    v20 = 2080;
-    v21 = v8;
-    OUTLINED_FUNCTION_1_8(&dword_25EA3A000, v6, v7, "%s:%d %s", &v16);
+    v18 = 136315650;
+    v19 = "_liveness_create_workgroup";
+    v20 = 1024;
+    v21 = 159;
+    v22 = 2080;
+    v23 = v8;
+    OUTLINED_FUNCTION_1_8(&dword_25EA3A000, v6, v7, "%s:%d %s", &v18);
   }
 
   v9 = OSLogFlushBuffers();
   if (v9)
   {
-    v10 = v9;
-    v11 = _polarisdLogSharedInstance();
+    v11 = v9;
+    v12 = _polarisdLogSharedInstance(v9, v10);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      v18 = 136315394;
+      v19 = "_liveness_create_workgroup";
+      v20 = 1024;
+      v21 = v11;
+      OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", &v18);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v15 = OUTLINED_FUNCTION_0();
+  return ps_liveness_server_init_cold_2(v15, v16);
+}
+
+uint64_t ps_liveness_server_init_cold_2(char **a1, int a2)
+{
+  v23 = *MEMORY[0x277D85DE8];
+  *a1 = 0;
+  v3 = asprintf(a1, "Could not create pthread for liveness with err:(%d)", a2);
+  v5 = _polarisdLogSharedInstance(v3, v4);
+  if (OUTLINED_FUNCTION_5(v5))
+  {
+    v8 = *a1;
+    v17 = 136315650;
+    v18 = "ps_liveness_server_init";
+    v19 = 1024;
+    v20 = 939;
+    v21 = 2080;
+    v22 = v8;
+    OUTLINED_FUNCTION_1_8(&dword_25EA3A000, v6, v7, "%s:%d %s", &v17);
+  }
+
+  v9 = OSLogFlushBuffers();
+  if (v9)
+  {
+    v11 = v9;
+    v12 = _polarisdLogSharedInstance(v9, v10);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      v17 = 136315394;
+      v18 = "ps_liveness_server_init";
+      v19 = 1024;
+      v20 = v11;
+      OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", &v17);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v15 = OUTLINED_FUNCTION_0();
+  return ps_liveness_server_init_cold_3(v15);
+}
+
+uint64_t ps_liveness_server_init_cold_3(char **a1)
+{
+  v25 = *MEMORY[0x277D85DE8];
+  *a1 = 0;
+  v2 = __error();
+  v3 = strerror(*v2);
+  v4 = __error();
+  v5 = asprintf(a1, "Could not create liveness workgroup with (%s) (%d)", v3, *v4);
+  v7 = _polarisdLogSharedInstance(v5, v6);
+  if (OUTLINED_FUNCTION_5(v7))
+  {
+    v10 = *a1;
+    v19 = 136315650;
+    v20 = "_liveness_create_workgroup";
+    v21 = 1024;
+    v22 = 169;
+    v23 = 2080;
+    v24 = v10;
+    OUTLINED_FUNCTION_1_8(&dword_25EA3A000, v8, v9, "%s:%d %s", &v19);
+  }
+
+  v11 = OSLogFlushBuffers();
+  if (v11)
+  {
+    v13 = v11;
+    v14 = _polarisdLogSharedInstance(v11, v12);
+    if (OUTLINED_FUNCTION_6(v14))
+    {
+      v19 = 136315394;
+      v20 = "_liveness_create_workgroup";
+      v21 = 1024;
+      v22 = v13;
+      OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v15, v16, "%s() failed to flush buffers with error code: %d", &v19);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v17 = OUTLINED_FUNCTION_0();
+  return _liveness_watchdog_thread_cold_1(v17);
+}
+
+uint64_t _liveness_watchdog_thread_cold_1(char **a1)
+{
+  v22 = *MEMORY[0x277D85DE8];
+  *a1 = 0;
+  v2 = asprintf(a1, "Liveness: RT Watchdog annotation failed");
+  v4 = _polarisdLogSharedInstance(v2, v3);
+  if (OUTLINED_FUNCTION_5(v4))
+  {
+    v7 = *a1;
+    v16 = 136315650;
+    v17 = "_liveness_watchdog_thread";
+    v18 = 1024;
+    v19 = 630;
+    v20 = 2080;
+    v21 = v7;
+    OUTLINED_FUNCTION_1_8(&dword_25EA3A000, v5, v6, "%s:%d %s", &v16);
+  }
+
+  v8 = OSLogFlushBuffers();
+  if (v8)
+  {
+    v10 = v8;
+    v11 = _polarisdLogSharedInstance(v8, v9);
     if (OUTLINED_FUNCTION_6(v11))
     {
       v16 = 136315394;
-      v17 = "_liveness_create_workgroup";
+      v17 = "_liveness_watchdog_thread";
       v18 = 1024;
       v19 = v10;
       OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", &v16);
@@ -3585,81 +5227,39 @@ uint64_t ps_liveness_server_init_cold_3(char **a1)
   }
 
   v14 = OUTLINED_FUNCTION_0();
-  return _liveness_watchdog_thread_cold_1(v14);
-}
-
-uint64_t _liveness_watchdog_thread_cold_1(char **a1)
-{
-  v19 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "Liveness: RT Watchdog annotation failed");
-  v2 = _polarisdLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
-  {
-    v5 = *a1;
-    v13 = 136315650;
-    v14 = "_liveness_watchdog_thread";
-    v15 = 1024;
-    v16 = 630;
-    v17 = 2080;
-    v18 = v5;
-    OUTLINED_FUNCTION_1_8(&dword_25EA3A000, v3, v4, "%s:%d %s", &v13);
-  }
-
-  v6 = OSLogFlushBuffers();
-  if (v6)
-  {
-    v7 = v6;
-    v8 = _polarisdLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v8))
-    {
-      v13 = 136315394;
-      v14 = "_liveness_watchdog_thread";
-      v15 = 1024;
-      v16 = v7;
-      OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v9, v10, "%s() failed to flush buffers with error code: %d", &v13);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v11 = OUTLINED_FUNCTION_0();
-  return _liveness_watchdog_thread_cold_2(v11);
+  return _liveness_watchdog_thread_cold_2(v14);
 }
 
 void _liveness_watchdog_thread_cold_2(char **a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Could not align-alloc checkinTimes array");
-  v2 = _polarisdLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "Could not align-alloc checkinTimes array");
+  v4 = _polarisdLogSharedInstance(v2, v3);
+  if (OUTLINED_FUNCTION_5(v4))
   {
-    v5 = *a1;
-    v11 = 136315650;
-    v12 = "_liveness_watchdog_thread";
-    v13 = 1024;
-    v14 = 620;
-    v15 = 2080;
-    v16 = v5;
-    OUTLINED_FUNCTION_1_8(&dword_25EA3A000, v3, v4, "%s:%d %s", &v11);
+    v7 = *a1;
+    v14 = 136315650;
+    v15 = "_liveness_watchdog_thread";
+    v16 = 1024;
+    v17 = 620;
+    v18 = 2080;
+    v19 = v7;
+    OUTLINED_FUNCTION_1_8(&dword_25EA3A000, v5, v6, "%s:%d %s", &v14);
   }
 
-  v6 = OSLogFlushBuffers();
-  if (v6)
+  v8 = OSLogFlushBuffers();
+  if (v8)
   {
-    v7 = v6;
-    v8 = _polarisdLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v8))
+    v10 = v8;
+    v11 = _polarisdLogSharedInstance(v8, v9);
+    if (OUTLINED_FUNCTION_6(v11))
     {
-      v11 = 136315394;
-      v12 = "_liveness_watchdog_thread";
-      v13 = 1024;
-      v14 = v7;
-      OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v9, v10, "%s() failed to flush buffers with error code: %d", &v11);
+      v14 = 136315394;
+      v15 = "_liveness_watchdog_thread";
+      v16 = 1024;
+      v17 = v10;
+      OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", &v14);
     }
   }
 
@@ -3674,7 +5274,7 @@ void _liveness_watchdog_thread_cold_2(char **a1)
 
 CVPixelBufferRef cvpixBufferAllocator(uint64_t *a1)
 {
-  v112 = *MEMORY[0x277D85DE8];
+  v111 = *MEMORY[0x277D85DE8];
   pixelBufferOut = 0;
   v1 = *a1;
   v2 = a1[1];
@@ -3687,8 +5287,8 @@ CVPixelBufferRef cvpixBufferAllocator(uint64_t *a1)
   [CFDictionaryGetValue(v6 *MEMORY[0x277CC4ED8])];
   v8 = [CFDictionaryGetValue(v6 *MEMORY[0x277CC4ED0])];
   v9 = CFDictionaryGetValue(v6, *MEMORY[0x277CC4EF0]);
-  v108 = CFDictionaryGetValue(v6, *MEMORY[0x277CC4EE8]);
-  v106 = v9;
+  v107 = CFDictionaryGetValue(v6, *MEMORY[0x277CC4EE8]);
+  v105 = v9;
   if (v9)
   {
     v10 = [v9 unsignedIntValue];
@@ -3699,9 +5299,9 @@ CVPixelBufferRef cvpixBufferAllocator(uint64_t *a1)
     v10 = 1;
   }
 
-  if (v108)
+  if (v107)
   {
-    v11 = [v108 unsignedIntValue];
+    v11 = [v107 unsignedIntValue];
   }
 
   else
@@ -3720,7 +5320,7 @@ CVPixelBufferRef cvpixBufferAllocator(uint64_t *a1)
       v14 = v1;
       v15 = (v13 + 63) & 0xFFFFFFFFFFFFFFC0;
       v16 = v15 * v12;
-      v105 = v12;
+      v104 = v12;
       v17 = (v15 >> 1) * v12;
       CFDictionarySetValue(Mutable, *MEMORY[0x277CD2970], &unk_2870CAE90);
       v18 = *MEMORY[0x277CD2B88];
@@ -3736,7 +5336,7 @@ CVPixelBufferRef cvpixBufferAllocator(uint64_t *a1)
       v25 = OUTLINED_FUNCTION_5_4();
       CFDictionarySetValue(v25, v24, v26);
       v27 = *MEMORY[0x277CD2948];
-      v104 = v17;
+      v103 = v17;
       v28 = v16;
       [MEMORY[0x277CCABB0] numberWithUnsignedLong:v17 + v16];
       v29 = OUTLINED_FUNCTION_5_4();
@@ -3756,19 +5356,19 @@ CVPixelBufferRef cvpixBufferAllocator(uint64_t *a1)
       v34 = *MEMORY[0x277CD2B50];
       [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v14];
       v35 = OUTLINED_FUNCTION_3_9();
-      v103 = v34;
+      v102 = v34;
       CFDictionarySetValue(v35, v34, v36);
       v37 = *MEMORY[0x277CD2B18];
       [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v13];
       v38 = OUTLINED_FUNCTION_3_9();
-      v102 = v37;
+      v101 = v37;
       CFDictionarySetValue(v38, v37, v39);
       v40 = *MEMORY[0x277CD2A98];
       CFDictionarySetValue(v33, *MEMORY[0x277CD2A98], &unk_2870CAEA8);
       v41 = *MEMORY[0x277CD2AA0];
-      [MEMORY[0x277CCABB0] numberWithUnsignedLong:v105];
+      [MEMORY[0x277CCABB0] numberWithUnsignedLong:v104];
       v42 = OUTLINED_FUNCTION_3_9();
-      v100 = v41;
+      v99 = v41;
       CFDictionarySetValue(v42, v41, v43);
       v44 = *MEMORY[0x277CD2B40];
       [MEMORY[0x277CCABB0] numberWithUnsignedLong:v28];
@@ -3788,16 +5388,16 @@ CVPixelBufferRef cvpixBufferAllocator(uint64_t *a1)
       CFDictionarySetValue(v49, key, v50);
       [MEMORY[0x277CCABB0] numberWithUnsignedLong:(v14 + 1) >> 1];
       v51 = OUTLINED_FUNCTION_3_9();
-      CFDictionarySetValue(v51, v103, v52);
+      CFDictionarySetValue(v51, v102, v52);
       [MEMORY[0x277CCABB0] numberWithUnsignedLong:(v13 + 1) >> 1];
       v53 = OUTLINED_FUNCTION_3_9();
-      CFDictionarySetValue(v53, v102, v54);
+      CFDictionarySetValue(v53, v101, v54);
       CFDictionarySetValue(v48, v40, &unk_2870CAEC0);
-      [MEMORY[0x277CCABB0] numberWithUnsignedLong:v105];
+      [MEMORY[0x277CCABB0] numberWithUnsignedLong:v104];
       v55 = OUTLINED_FUNCTION_3_9();
-      CFDictionarySetValue(v55, v100, v56);
+      CFDictionarySetValue(v55, v99, v56);
       v57 = MEMORY[0x277CCABB0];
-      v58 = v104;
+      v58 = v103;
     }
 
     else
@@ -3836,15 +5436,15 @@ LABEL_16:
           v90 = CVPixelBufferCreateWithIOSurface(v4, v89, Mutable, &pixelBufferOut);
           if (v90)
           {
-            v96 = v90;
-            v97 = __PLSLogSharedInstance();
-            if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
+            v95 = v90;
+            v96 = __PLSLogSharedInstance(v90);
+            if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
             {
               *buf = 67109120;
-              v111 = v96;
-              v98 = "failed to create CV Pixel Buffer for resource ret=%d";
+              v110 = v95;
+              v97 = "failed to create CV Pixel Buffer for resource ret=%d";
 LABEL_30:
-              _os_log_impl(&dword_25EA3A000, v97, OS_LOG_TYPE_ERROR, v98, buf, 8u);
+              _os_log_impl(&dword_25EA3A000, v96, OS_LOG_TYPE_ERROR, v97, buf, 8u);
             }
           }
 
@@ -3861,13 +5461,13 @@ LABEL_20:
               goto LABEL_21;
             }
 
-            v99 = v91;
-            v97 = __PLSLogSharedInstance();
-            if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
+            v98 = v91;
+            v96 = __PLSLogSharedInstance(v91);
+            if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
             {
               *buf = 67109120;
-              v111 = v99;
-              v98 = "failed to increment category 1 use count for CV Pixel Buffer ret=%d";
+              v110 = v98;
+              v97 = "failed to increment category 1 use count for CV Pixel Buffer ret=%d";
               goto LABEL_30;
             }
           }
@@ -3924,37 +5524,36 @@ LABEL_21:
 
   v93 = pixelBufferOut;
 
-  v94 = *MEMORY[0x277D85DE8];
   return v93;
 }
 
 uint64_t ps_buffer_writer_init_cold_1(char **a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "OOM!!");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "OOM!!");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    v8 = 136315394;
-    v9 = "ps_buffer_writer_init";
-    v10 = 1024;
-    v11 = 257;
-    _os_log_impl(&dword_25EA3A000, v1, OS_LOG_TYPE_FAULT, "%s:%d OOM!!", &v8, 0x12u);
+    v9 = 136315394;
+    v10 = "ps_buffer_writer_init";
+    v11 = 1024;
+    v12 = 257;
+    _os_log_impl(&dword_25EA3A000, v1, OS_LOG_TYPE_FAULT, "%s:%d OOM!!", &v9, 0x12u);
   }
 
-  v3 = OSLogFlushBuffers();
-  if (v3)
+  v4 = OSLogFlushBuffers();
+  if (v4)
   {
-    v4 = v3;
-    v5 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v5))
+    v5 = v4;
+    v6 = __PLSLogSharedInstance(v4);
+    if (OUTLINED_FUNCTION_6(v6))
     {
-      v8 = 136315394;
-      v9 = "ps_buffer_writer_init";
-      v10 = 1024;
-      v11 = v4;
-      _os_log_impl(&dword_25EA3A000, v1, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v8, 0x12u);
+      v9 = 136315394;
+      v10 = "ps_buffer_writer_init";
+      v11 = 1024;
+      v12 = v5;
+      _os_log_impl(&dword_25EA3A000, v1, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v9, 0x12u);
     }
   }
 
@@ -3963,30 +5562,30 @@ uint64_t ps_buffer_writer_init_cold_1(char **a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v6 = OUTLINED_FUNCTION_0();
-  return ps_buffer_writer_create_resource_cold_1(v6);
+  v7 = OUTLINED_FUNCTION_0();
+  return ps_buffer_writer_create_resource_cold_1(v7);
 }
 
 uint64_t ps_buffer_writer_create_resource_cold_1(char **a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "(%s): Unsupported resource class to create resource", "ps_buffer_writer_create_resource");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "(%s): Unsupported resource class to create resource", "ps_buffer_writer_create_resource");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
     OUTLINED_FUNCTION_11();
     OUTLINED_FUNCTION_11_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v3, v4, "%s:%d (%s): Unsupported resource class to create resource", v5, v6, v7, v8, v19, v20, v21);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v4, v5, "%s:%d (%s): Unsupported resource class to create resource", v6, v7, v8, v9, v21, v22);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v11 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v19, v20, v21);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17, v21, v22);
     }
   }
 
@@ -3995,29 +5594,29 @@ uint64_t ps_buffer_writer_create_resource_cold_1(char **a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return ps_buffer_writer_create_resource_cold_2(v16, v17);
+  v18 = OUTLINED_FUNCTION_0();
+  return ps_buffer_writer_create_resource_cold_2(v18, v19);
 }
 
 uint64_t ps_buffer_writer_create_resource_cold_2(char **a1, const char *a2)
 {
-  v23 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Invalid metadata type passed into ps buffer writer create method for key: %s", a2);
-  v3 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v3))
+  v3 = asprintf(a1, "Invalid metadata type passed into ps buffer writer create method for key: %s", a2);
+  v4 = __PLSLogSharedInstance(v3);
+  if (OUTLINED_FUNCTION_5(v4))
   {
     OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v4, v5, "%s:%d Invalid metadata type passed into ps buffer writer create method for key: %s", v6, v7, v8, v9, v20, v21, v22);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d Invalid metadata type passed into ps buffer writer create method for key: %s", v7, v8, v9, v10, v22, v23);
   }
 
-  if (OSLogFlushBuffers())
+  v11 = OSLogFlushBuffers();
+  if (v11)
   {
-    v10 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v10))
+    v12 = __PLSLogSharedInstance(v11);
+    if (OUTLINED_FUNCTION_6(v12))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v11, v12, "%s() failed to flush buffers with error code: %d", v13, v14, v15, v16, v20, v21, v22);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v22, v23);
     }
   }
 
@@ -4026,29 +5625,441 @@ uint64_t ps_buffer_writer_create_resource_cold_2(char **a1, const char *a2)
     OUTLINED_FUNCTION_7();
   }
 
-  v17 = OUTLINED_FUNCTION_0();
-  return ps_buffer_writer_create_resource_cold_3(v17, v18);
+  v19 = OUTLINED_FUNCTION_0();
+  return ps_buffer_writer_create_resource_cold_3(v19, v20);
 }
 
 void ps_buffer_writer_create_resource_cold_3(char **a1, const char *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Unable to create GSM source for key %s", a2);
-  v3 = __PLSLogSharedInstance();
+  v3 = asprintf(a1, "Unable to create GSM source for key %s", a2);
+  v4 = __PLSLogSharedInstance(v3);
+  if (OUTLINED_FUNCTION_5(v4))
+  {
+    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d Unable to create GSM source for key %s", v7, v8, v9, v10, v20, v21);
+  }
+
+  v11 = OSLogFlushBuffers();
+  if (v11)
+  {
+    v12 = __PLSLogSharedInstance(v11);
+    if (OUTLINED_FUNCTION_6(v12))
+    {
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v13, v14, "%s() failed to flush buffers with error code: %d", v15, v16, v17, v18, v20, v21);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v19 = OUTLINED_FUNCTION_0();
+  cvdataBufferAllocator_cold_1_0(v19);
+}
+
+void cvdataBufferAllocator_cold_1_0(uint64_t a1)
+{
+  v1 = __PLSLogSharedInstance(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  {
+    *v2 = 0;
+    _os_log_impl(&dword_25EA3A000, v1, OS_LOG_TYPE_ERROR, "failed to allocate IO Surface for properties", v2, 2u);
+  }
+}
+
+void cvdataBufferAllocator_cold_2_0(uint64_t *a1, uint64_t *a2)
+{
+  v13 = *MEMORY[0x277D85DE8];
+  v4 = __PLSLogSharedInstance(a1);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  {
+    v5 = *a1;
+    v6 = *a2;
+    v7 = 136315650;
+    v8 = "cvdataBufferAllocator";
+    v9 = 2048;
+    v10 = v5;
+    v11 = 2048;
+    v12 = v6;
+    _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_ERROR, "integer overflow in computing allocSize in %s (width=%lu, height=%lu)", &v7, 0x20u);
+  }
+}
+
+uint64_t ps_buffer_writer_camerastream_install_bufferpool_cold_1(char **a1)
+{
+  *a1 = 0;
+  v2 = asprintf(a1, "(%s): Unsupported resource class to create resource", "ps_buffer_writer_camerastream_install_bufferpool");
+  v3 = __PLSLogSharedInstance(v2);
   if (OUTLINED_FUNCTION_5(v3))
   {
     OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v4, v5, "%s:%d Unable to create GSM source for key %s", v6, v7, v8, v9, v17, v18, v19);
+    OUTLINED_FUNCTION_11_0();
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v4, v5, "%s:%d (%s): Unsupported resource class to create resource", v6, v7, v8, v9, v20, v21);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v10 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v10))
+    v11 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v11, v12, "%s() failed to flush buffers with error code: %d", v13, v14, v15, v16, v17, v18, v19);
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17, v20, v21);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v18 = OUTLINED_FUNCTION_0();
+  return ps_buffer_writer_get_cam_stream_attr_cold_1(v18);
+}
+
+uint64_t ps_buffer_writer_get_cam_stream_attr_cold_1(char **a1)
+{
+  *a1 = 0;
+  v2 = asprintf(a1, "(%s): Cannot get attributes for invalid resource type.", "ps_buffer_writer_get_cam_stream_attr");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_11_0();
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v4, v5, "%s:%d (%s): Cannot get attributes for invalid resource type.", v6, v7, v8, v9, v20, v21);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v11 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
+    {
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17, v20, v21);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v18 = OUTLINED_FUNCTION_0();
+  return _publishCVPixelBuffer_cold_1(v18);
+}
+
+uint64_t _publishCVPixelBuffer_cold_1(char **a1)
+{
+  *a1 = 0;
+  v2 = asprintf(a1, "(%s): Serialize metadata failed. Aborting!", "_publishCVPixelBuffer");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_11_0();
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v4, v5, "%s:%d (%s): Serialize metadata failed. Aborting!", v6, v7, v8, v9, v20, v21);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v11 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
+    {
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17, v20, v21);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v18 = OUTLINED_FUNCTION_0();
+  return _publishCVDataBuffer_cold_1(v18);
+}
+
+uint64_t _publishCVDataBuffer_cold_1(char **a1)
+{
+  *a1 = 0;
+  v2 = asprintf(a1, "(%s): Serialize metadata failed. Aborting!", "_publishCVDataBuffer");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_11_0();
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v4, v5, "%s:%d (%s): Serialize metadata failed. Aborting!", v6, v7, v8, v9, v21, v22);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v11 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
+    {
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17, v21, v22);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v18 = OUTLINED_FUNCTION_0();
+  return ps_buffer_writer_publish_resource_cold_1(v18, v19);
+}
+
+uint64_t ps_buffer_writer_publish_resource_cold_1(char **a1, uint64_t a2)
+{
+  v4 = OUTLINED_FUNCTION_9_3(a1, *MEMORY[0x277D85DE8]);
+  v5 = asprintf(a1, "No metadata found for resource %s", v4);
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
+  {
+    ps_resource_get_key();
+    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d No metadata found for resource %s", v9, v10, v11, v12, v24, v25);
+  }
+
+  v13 = OSLogFlushBuffers();
+  if (v13)
+  {
+    v14 = __PLSLogSharedInstance(v13);
+    if (OUTLINED_FUNCTION_6(v14))
+    {
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v15, v16, "%s() failed to flush buffers with error code: %d", v17, v18, v19, v20, v24, v25);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v21 = OUTLINED_FUNCTION_0();
+  return ps_buffer_writer_publish_resource_cold_2(v21, v22);
+}
+
+uint64_t ps_buffer_writer_publish_resource_cold_2(char **a1, uint64_t a2)
+{
+  v4 = OUTLINED_FUNCTION_9_3(a1, *MEMORY[0x277D85DE8]);
+  v5 = asprintf(a1, "No metadata found for resource %s", v4);
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
+  {
+    ps_resource_get_key();
+    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d No metadata found for resource %s", v9, v10, v11, v12, v24, v25);
+  }
+
+  v13 = OSLogFlushBuffers();
+  if (v13)
+  {
+    v14 = __PLSLogSharedInstance(v13);
+    if (OUTLINED_FUNCTION_6(v14))
+    {
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v15, v16, "%s() failed to flush buffers with error code: %d", v17, v18, v19, v20, v24, v25);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v21 = OUTLINED_FUNCTION_0();
+  return ps_buffer_writer_publish_resource_cold_3(v21, v22);
+}
+
+uint64_t ps_buffer_writer_publish_resource_cold_3(char **a1, uint64_t a2)
+{
+  v4 = OUTLINED_FUNCTION_9_3(a1, *MEMORY[0x277D85DE8]);
+  v5 = asprintf(a1, "No metadata found for resource %s", v4);
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
+  {
+    ps_resource_get_key();
+    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d No metadata found for resource %s", v9, v10, v11, v12, v24, v25);
+  }
+
+  v13 = OSLogFlushBuffers();
+  if (v13)
+  {
+    v14 = __PLSLogSharedInstance(v13);
+    if (OUTLINED_FUNCTION_6(v14))
+    {
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v15, v16, "%s() failed to flush buffers with error code: %d", v17, v18, v19, v20, v24, v25);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v21 = OUTLINED_FUNCTION_0();
+  return ps_buffer_writer_publish_resource_cold_4(v21, v22);
+}
+
+uint64_t ps_buffer_writer_publish_resource_cold_4(char **a1, uint64_t a2)
+{
+  v4 = OUTLINED_FUNCTION_9_3(a1, *MEMORY[0x277D85DE8]);
+  v5 = asprintf(a1, "No metadata found for resource %s", v4);
+  v6 = __PLSLogSharedInstance(v5);
+  if (OUTLINED_FUNCTION_5(v6))
+  {
+    ps_resource_get_key();
+    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d No metadata found for resource %s", v9, v10, v11, v12, v23, v24);
+  }
+
+  v13 = OSLogFlushBuffers();
+  if (v13)
+  {
+    v14 = __PLSLogSharedInstance(v13);
+    if (OUTLINED_FUNCTION_6(v14))
+    {
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v15, v16, "%s() failed to flush buffers with error code: %d", v17, v18, v19, v20, v23, v24);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v21 = OUTLINED_FUNCTION_0();
+  return ps_buffer_writer_publish_resource_cold_5(v21);
+}
+
+uint64_t ps_buffer_writer_publish_resource_cold_5(char **a1)
+{
+  *a1 = 0;
+  v2 = asprintf(a1, "(%s): Unsupported resource type to publish. Aborting!", "ps_buffer_writer_publish_resource");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_11_0();
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v4, v5, "%s:%d (%s): Unsupported resource type to publish. Aborting!", v6, v7, v8, v9, v20, v21);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v11 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
+    {
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17, v20, v21);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v18 = OUTLINED_FUNCTION_0();
+  return ps_buffer_writer_publish_resource_cold_6(v18);
+}
+
+uint64_t ps_buffer_writer_publish_resource_cold_6(char **a1)
+{
+  *a1 = 0;
+  v2 = asprintf(a1, "(%s): Unsupported resource type to publish. Aborting!", "ps_buffer_writer_publish_resource");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_11_0();
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v4, v5, "%s:%d (%s): Unsupported resource type to publish. Aborting!", v6, v7, v8, v9, v20, v21);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v11 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
+    {
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17, v20, v21);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v18 = OUTLINED_FUNCTION_0();
+  return ps_buffer_writer_camerastream_attach_synctag_cold_1(v18);
+}
+
+uint64_t ps_buffer_writer_camerastream_attach_synctag_cold_1(char **a1)
+{
+  *a1 = 0;
+  v2 = asprintf(a1, "(%s): This method is currently unsupported for normal buffer writers. Aborting!", "ps_buffer_writer_camerastream_attach_synctag");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_11_0();
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v4, v5, "%s:%d (%s): This method is currently unsupported for normal buffer writers. Aborting!", v6, v7, v8, v9, v20, v21);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v11 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
+    {
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17, v20, v21);
+    }
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_7();
+  }
+
+  v18 = OUTLINED_FUNCTION_0();
+  return ps_buffer_writer_broadcast_resource_cold_1(v18);
+}
+
+void ps_buffer_writer_broadcast_resource_cold_1(char **a1)
+{
+  *a1 = 0;
+  v2 = asprintf(a1, "(%s): This method is currently unsupported for normal buffer writers. Aborting!", "ps_buffer_writer_broadcast_resource");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
+  {
+    OUTLINED_FUNCTION_11();
+    OUTLINED_FUNCTION_11_0();
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v4, v5, "%s:%d (%s): This method is currently unsupported for normal buffer writers. Aborting!", v6, v7, v8, v9, v18, v19);
+  }
+
+  v10 = OSLogFlushBuffers();
+  if (v10)
+  {
+    v11 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
+    {
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_2(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17, v18, v19);
     }
   }
 
@@ -4058,442 +6069,34 @@ void ps_buffer_writer_create_resource_cold_3(char **a1, const char *a2)
   }
 
   OUTLINED_FUNCTION_0();
-  cvdataBufferAllocator_cold_1_0();
-}
-
-void cvdataBufferAllocator_cold_1_0()
-{
-  v0 = __PLSLogSharedInstance();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
-  {
-    *v1 = 0;
-    _os_log_impl(&dword_25EA3A000, v0, OS_LOG_TYPE_ERROR, "failed to allocate IO Surface for properties", v1, 2u);
-  }
-}
-
-void cvdataBufferAllocator_cold_2_0(uint64_t *a1, uint64_t *a2)
-{
-  v14 = *MEMORY[0x277D85DE8];
-  v4 = __PLSLogSharedInstance();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-  {
-    v5 = *a1;
-    v6 = *a2;
-    v8 = 136315650;
-    v9 = "cvdataBufferAllocator";
-    v10 = 2048;
-    v11 = v5;
-    v12 = 2048;
-    v13 = v6;
-    _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_ERROR, "integer overflow in computing allocSize in %s (width=%lu, height=%lu)", &v8, 0x20u);
-  }
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-uint64_t ps_buffer_writer_camerastream_install_bufferpool_cold_1(char **a1)
-{
-  v21 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "(%s): Unsupported resource class to create resource", "ps_buffer_writer_camerastream_install_bufferpool");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
-  {
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_11_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v3, v4, "%s:%d (%s): Unsupported resource class to create resource", v5, v6, v7, v8, v18, v19, v20);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v18, v19, v20);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v16 = OUTLINED_FUNCTION_0();
-  return ps_buffer_writer_get_cam_stream_attr_cold_1(v16);
-}
-
-uint64_t ps_buffer_writer_get_cam_stream_attr_cold_1(char **a1)
-{
-  v21 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "(%s): Cannot get attributes for invalid resource type.", "ps_buffer_writer_get_cam_stream_attr");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
-  {
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_11_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v3, v4, "%s:%d (%s): Cannot get attributes for invalid resource type.", v5, v6, v7, v8, v18, v19, v20);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v18, v19, v20);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v16 = OUTLINED_FUNCTION_0();
-  return _publishCVPixelBuffer_cold_1(v16);
-}
-
-uint64_t _publishCVPixelBuffer_cold_1(char **a1)
-{
-  v21 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "(%s): Serialize metadata failed. Aborting!", "_publishCVPixelBuffer");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
-  {
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_11_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v3, v4, "%s:%d (%s): Serialize metadata failed. Aborting!", v5, v6, v7, v8, v18, v19, v20);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v18, v19, v20);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v16 = OUTLINED_FUNCTION_0();
-  return _publishCVDataBuffer_cold_1(v16);
-}
-
-uint64_t _publishCVDataBuffer_cold_1(char **a1)
-{
-  v21 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "(%s): Serialize metadata failed. Aborting!", "_publishCVDataBuffer");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
-  {
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_11_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v3, v4, "%s:%d (%s): Serialize metadata failed. Aborting!", v5, v6, v7, v8, v18, v19, v20);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v18, v19, v20);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v16 = OUTLINED_FUNCTION_0();
-  return ps_buffer_writer_publish_resource_cold_1(v16);
-}
-
-uint64_t ps_buffer_writer_publish_resource_cold_1(char **a1)
-{
-  v3 = OUTLINED_FUNCTION_9_3(a1, *MEMORY[0x277D85DE8]);
-  asprintf(a1, "No metadata found for resource %s", v3);
-  v4 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v4))
-  {
-    ps_resource_get_key();
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d No metadata found for resource %s", v7, v8, v9, v10, v20, v21, v22);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v11 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v11))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17, v20, v21, v22);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v18 = OUTLINED_FUNCTION_0();
-  return ps_buffer_writer_publish_resource_cold_2(v18);
-}
-
-uint64_t ps_buffer_writer_publish_resource_cold_2(char **a1)
-{
-  v3 = OUTLINED_FUNCTION_9_3(a1, *MEMORY[0x277D85DE8]);
-  asprintf(a1, "No metadata found for resource %s", v3);
-  v4 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v4))
-  {
-    ps_resource_get_key();
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d No metadata found for resource %s", v7, v8, v9, v10, v20, v21, v22);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v11 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v11))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17, v20, v21, v22);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v18 = OUTLINED_FUNCTION_0();
-  return ps_buffer_writer_publish_resource_cold_3(v18);
-}
-
-uint64_t ps_buffer_writer_publish_resource_cold_3(char **a1)
-{
-  v3 = OUTLINED_FUNCTION_9_3(a1, *MEMORY[0x277D85DE8]);
-  asprintf(a1, "No metadata found for resource %s", v3);
-  v4 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v4))
-  {
-    ps_resource_get_key();
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d No metadata found for resource %s", v7, v8, v9, v10, v20, v21, v22);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v11 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v11))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17, v20, v21, v22);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v18 = OUTLINED_FUNCTION_0();
-  return ps_buffer_writer_publish_resource_cold_4(v18);
-}
-
-uint64_t ps_buffer_writer_publish_resource_cold_4(char **a1)
-{
-  v3 = OUTLINED_FUNCTION_9_3(a1, *MEMORY[0x277D85DE8]);
-  asprintf(a1, "No metadata found for resource %s", v3);
-  v4 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v4))
-  {
-    ps_resource_get_key();
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d No metadata found for resource %s", v7, v8, v9, v10, v20, v21, v22);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v11 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v11))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17, v20, v21, v22);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v18 = OUTLINED_FUNCTION_0();
-  return ps_buffer_writer_publish_resource_cold_5(v18);
-}
-
-uint64_t ps_buffer_writer_publish_resource_cold_5(char **a1)
-{
-  v21 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "(%s): Unsupported resource type to publish. Aborting!", "ps_buffer_writer_publish_resource");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
-  {
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_11_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v3, v4, "%s:%d (%s): Unsupported resource type to publish. Aborting!", v5, v6, v7, v8, v18, v19, v20);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v18, v19, v20);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v16 = OUTLINED_FUNCTION_0();
-  return ps_buffer_writer_publish_resource_cold_6(v16);
-}
-
-uint64_t ps_buffer_writer_publish_resource_cold_6(char **a1)
-{
-  v21 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "(%s): Unsupported resource type to publish. Aborting!", "ps_buffer_writer_publish_resource");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
-  {
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_11_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v3, v4, "%s:%d (%s): Unsupported resource type to publish. Aborting!", v5, v6, v7, v8, v18, v19, v20);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v18, v19, v20);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v16 = OUTLINED_FUNCTION_0();
-  return ps_buffer_writer_camerastream_attach_synctag_cold_1(v16);
-}
-
-uint64_t ps_buffer_writer_camerastream_attach_synctag_cold_1(char **a1)
-{
-  v21 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "(%s): This method is currently unsupported for normal buffer writers. Aborting!", "ps_buffer_writer_camerastream_attach_synctag");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
-  {
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_11_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v3, v4, "%s:%d (%s): This method is currently unsupported for normal buffer writers. Aborting!", v5, v6, v7, v8, v18, v19, v20);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v18, v19, v20);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v16 = OUTLINED_FUNCTION_0();
-  return ps_buffer_writer_broadcast_resource_cold_1(v16);
-}
-
-uint64_t ps_buffer_writer_broadcast_resource_cold_1(char **a1)
-{
-  v21 = *MEMORY[0x277D85DE8];
-  *a1 = 0;
-  asprintf(a1, "(%s): This method is currently unsupported for normal buffer writers. Aborting!", "ps_buffer_writer_broadcast_resource");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
-  {
-    OUTLINED_FUNCTION_11();
-    OUTLINED_FUNCTION_11_0();
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v3, v4, "%s:%d (%s): This method is currently unsupported for normal buffer writers. Aborting!", v5, v6, v7, v8, v18, v19, v20);
-  }
-
-  if (OSLogFlushBuffers())
-  {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
-    {
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_2(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v18, v19, v20);
-    }
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_7();
-  }
-
-  v16 = OUTLINED_FUNCTION_0();
-  return +[(PSRCConstants *)v16];
+  +[PSRCConstants setUp];
 }
 
 uint64_t ps_synchronizer_init_cold_1(char **a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "%s: OOM!", "ps_synchronizer_init");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "%s: OOM!", "ps_synchronizer_init");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    v17 = "ps_synchronizer_init";
-    v18 = 1024;
-    v19 = 20;
-    v20 = 2080;
-    v21 = "ps_synchronizer_init";
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v3, v4, "%s:%d %s: OOM!", v5, v6, v7, v8, v14, v15, 2u);
+    *buf = 136315650;
+    v19 = "ps_synchronizer_init";
+    v20 = 1024;
+    v21 = 20;
+    v22 = 2080;
+    v23 = "ps_synchronizer_init";
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v4, v5, "%s:%d %s: OOM!", v6, v7, v8, v9, v16, v17);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v11 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", buf);
+      OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", buf);
     }
   }
 
@@ -4502,28 +6105,32 @@ uint64_t ps_synchronizer_init_cold_1(char **a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v12 = OUTLINED_FUNCTION_0();
-  return ps_synchronizer_register_writer_cold_1(v12);
+  v14 = OUTLINED_FUNCTION_0();
+  return ps_synchronizer_register_writer_cold_1(v14);
 }
 
 uint64_t ps_synchronizer_register_writer_cold_1(char **a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "OOM!");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "OOM!");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v3, v4, "%s:%d OOM!", v5, v6, v7, v8, 2u);
+    *v20 = 136315394;
+    *&v20[4] = "ps_synchronizer_register_writer";
+    *&v20[12] = 1024;
+    *&v20[14] = 85;
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d OOM!", v6, v7, v8, v9, *v20, *&v20[8], *&v20[16]);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v11 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
     {
       OUTLINED_FUNCTION_5_0();
-      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v18);
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17);
     }
   }
 
@@ -4532,28 +6139,32 @@ uint64_t ps_synchronizer_register_writer_cold_1(char **a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return ps_synchronizer_register_writer_cold_2(v16);
+  v18 = OUTLINED_FUNCTION_0();
+  return ps_synchronizer_register_writer_cold_2(v18);
 }
 
 uint64_t ps_synchronizer_register_writer_cold_2(char **a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "OOM!");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "OOM!");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v3, v4, "%s:%d OOM!", v5, v6, v7, v8, 2u);
+    *v20 = 136315394;
+    *&v20[4] = "ps_synchronizer_register_writer";
+    *&v20[12] = 1024;
+    *&v20[14] = 66;
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d OOM!", v6, v7, v8, v9, *v20, *&v20[8], *&v20[16]);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v11 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
     {
       OUTLINED_FUNCTION_5_0();
-      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v18);
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17);
     }
   }
 
@@ -4562,33 +6173,35 @@ uint64_t ps_synchronizer_register_writer_cold_2(char **a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return ps_synchronizer_register_writer_cold_3(v16);
+  v18 = OUTLINED_FUNCTION_0();
+  return ps_synchronizer_register_writer_cold_3(v18);
 }
 
 uint64_t ps_synchronizer_register_writer_cold_3(char **a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "%s: OOM!", "ps_synchronizer_register_writer");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "%s: OOM!", "ps_synchronizer_register_writer");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    v17 = "ps_synchronizer_register_writer";
-    v18 = 1024;
-    v19 = 55;
-    v20 = 2080;
-    v21 = "ps_synchronizer_register_writer";
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v3, v4, "%s:%d %s: OOM!", v5, v6, v7, v8, v14, v15, 2u);
+    *buf = 136315650;
+    v19 = "ps_synchronizer_register_writer";
+    v20 = 1024;
+    v21 = 55;
+    v22 = 2080;
+    v23 = "ps_synchronizer_register_writer";
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v4, v5, "%s:%d %s: OOM!", v6, v7, v8, v9, v16, v17);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v11 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", buf);
+      OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", buf);
     }
   }
 
@@ -4597,33 +6210,35 @@ uint64_t ps_synchronizer_register_writer_cold_3(char **a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v12 = OUTLINED_FUNCTION_0();
-  return ps_synchronizer_register_writer_cold_4(v12);
+  v14 = OUTLINED_FUNCTION_0();
+  return ps_synchronizer_register_writer_cold_4(v14);
 }
 
 uint64_t ps_synchronizer_register_writer_cold_4(char **a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "%s: Invalid buffer_writer", "ps_synchronizer_register_writer");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "%s: Invalid buffer_writer", "ps_synchronizer_register_writer");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    v17 = "ps_synchronizer_register_writer";
-    v18 = 1024;
-    v19 = 45;
-    v20 = 2080;
-    v21 = "ps_synchronizer_register_writer";
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v3, v4, "%s:%d %s: Invalid buffer_writer", v5, v6, v7, v8, v14, v15, 2u);
+    *buf = 136315650;
+    v19 = "ps_synchronizer_register_writer";
+    v20 = 1024;
+    v21 = 45;
+    v22 = 2080;
+    v23 = "ps_synchronizer_register_writer";
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v4, v5, "%s:%d %s: Invalid buffer_writer", v6, v7, v8, v9, v16, v17);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v11 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", buf);
+      OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", buf);
     }
   }
 
@@ -4632,33 +6247,35 @@ uint64_t ps_synchronizer_register_writer_cold_4(char **a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v12 = OUTLINED_FUNCTION_0();
-  return ps_synchronizer_register_writer_cold_5(v12);
+  v14 = OUTLINED_FUNCTION_0();
+  return ps_synchronizer_register_writer_cold_5(v14);
 }
 
 uint64_t ps_synchronizer_register_writer_cold_5(char **a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "%s: Invalid synchronizer", "ps_synchronizer_register_writer");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "%s: Invalid synchronizer", "ps_synchronizer_register_writer");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    v17 = "ps_synchronizer_register_writer";
-    v18 = 1024;
-    v19 = 41;
-    v20 = 2080;
-    v21 = "ps_synchronizer_register_writer";
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v3, v4, "%s:%d %s: Invalid synchronizer", v5, v6, v7, v8, v14, v15, 2u);
+    *buf = 136315650;
+    v19 = "ps_synchronizer_register_writer";
+    v20 = 1024;
+    v21 = 41;
+    v22 = 2080;
+    v23 = "ps_synchronizer_register_writer";
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v4, v5, "%s:%d %s: Invalid synchronizer", v6, v7, v8, v9, v16, v17);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v11 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", buf);
+      OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", buf);
     }
   }
 
@@ -4667,28 +6284,32 @@ uint64_t ps_synchronizer_register_writer_cold_5(char **a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v12 = OUTLINED_FUNCTION_0();
-  return ps_synchronizer_unregister_writer_cold_1(v12);
+  v14 = OUTLINED_FUNCTION_0();
+  return ps_synchronizer_unregister_writer_cold_1(v14);
 }
 
 uint64_t ps_synchronizer_unregister_writer_cold_1(char **a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Unregister called. But was never initialized");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "Unregister called. But was never initialized");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v3, v4, "%s:%d Unregister called. But was never initialized", v5, v6, v7, v8, 2u);
+    *v20 = 136315394;
+    *&v20[4] = "ps_synchronizer_unregister_writer";
+    *&v20[12] = 1024;
+    *&v20[14] = 107;
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Unregister called. But was never initialized", v6, v7, v8, v9, *v20, *&v20[8], *&v20[16]);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v11 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
     {
       OUTLINED_FUNCTION_5_0();
-      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v18);
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17);
     }
   }
 
@@ -4697,28 +6318,32 @@ uint64_t ps_synchronizer_unregister_writer_cold_1(char **a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return ps_synchronizer_unregister_writer_cold_2(v16);
+  v18 = OUTLINED_FUNCTION_0();
+  return ps_synchronizer_unregister_writer_cold_2(v18);
 }
 
 uint64_t ps_synchronizer_unregister_writer_cold_2(char **a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Something is wrong. Lock value is not valid");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "Something is wrong. Lock value is not valid");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v3, v4, "%s:%d Something is wrong. Lock value is not valid", v5, v6, v7, v8, 2u);
+    *v20 = 136315394;
+    *&v20[4] = "ps_synchronizer_unregister_writer";
+    *&v20[12] = 1024;
+    *&v20[14] = 111;
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Something is wrong. Lock value is not valid", v6, v7, v8, v9, *v20, *&v20[8], *&v20[16]);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v11 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
     {
       OUTLINED_FUNCTION_5_0();
-      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v18);
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17);
     }
   }
 
@@ -4727,33 +6352,35 @@ uint64_t ps_synchronizer_unregister_writer_cold_2(char **a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  return ps_synchronizer_unregister_writer_cold_3(v16);
+  v18 = OUTLINED_FUNCTION_0();
+  return ps_synchronizer_unregister_writer_cold_3(v18);
 }
 
 void ps_synchronizer_unregister_writer_cold_3(char **a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "%s: Invalid synchronizer", "ps_synchronizer_unregister_writer");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "%s: Invalid synchronizer", "ps_synchronizer_unregister_writer");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    v16 = "ps_synchronizer_unregister_writer";
-    v17 = 1024;
-    v18 = 99;
-    v19 = 2080;
-    v20 = "ps_synchronizer_unregister_writer";
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v3, v4, "%s:%d %s: Invalid synchronizer", v5, v6, v7, v8, v13, v14, 2u);
+    *buf = 136315650;
+    v18 = "ps_synchronizer_unregister_writer";
+    v19 = 1024;
+    v20 = 99;
+    v21 = 2080;
+    v22 = "ps_synchronizer_unregister_writer";
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v4, v5, "%s:%d %s: Invalid synchronizer", v6, v7, v8, v9, v15, v16);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v11 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
     {
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", buf);
+      OUTLINED_FUNCTION_3_0(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", buf);
     }
   }
 
@@ -4762,28 +6389,32 @@ void ps_synchronizer_unregister_writer_cold_3(char **a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v12 = OUTLINED_FUNCTION_0();
-  ps_synchronizer_check_time_and_broadcast_cold_1(v12);
+  v14 = OUTLINED_FUNCTION_0();
+  ps_synchronizer_check_time_and_broadcast_cold_1(v14);
 }
 
 void ps_synchronizer_check_time_and_broadcast_cold_1(char **a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Something is wrong. Lock value is not valid in broadcast");
-  v2 = __PLSLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "Something is wrong. Lock value is not valid in broadcast");
+  v3 = __PLSLogSharedInstance(v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v3, v4, "%s:%d Something is wrong. Lock value is not valid in broadcast", v5, v6, v7, v8, 2u);
+    *v18 = 136315394;
+    *&v18[4] = "ps_synchronizer_check_time_and_broadcast";
+    *&v18[12] = 1024;
+    *&v18[14] = 176;
+    OUTLINED_FUNCTION_1_0(&dword_25EA3A000, v4, v5, "%s:%d Something is wrong. Lock value is not valid in broadcast", v6, v7, v8, v9, *v18, *&v18[8], *&v18[16]);
   }
 
-  if (OSLogFlushBuffers())
+  v10 = OSLogFlushBuffers();
+  if (v10)
   {
-    v9 = __PLSLogSharedInstance();
-    if (OUTLINED_FUNCTION_6(v9))
+    v11 = __PLSLogSharedInstance(v10);
+    if (OUTLINED_FUNCTION_6(v11))
     {
       OUTLINED_FUNCTION_5_0();
-      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v10, v11, "%s() failed to flush buffers with error code: %d", v12, v13, v14, v15, v17);
+      OUTLINED_FUNCTION_2_0(&dword_25EA3A000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17);
     }
   }
 
@@ -4792,8 +6423,8 @@ void ps_synchronizer_check_time_and_broadcast_cold_1(char **a1)
     OUTLINED_FUNCTION_7();
   }
 
-  v16 = OUTLINED_FUNCTION_0();
-  [PSSystemGraphClientInterface serverRequestedResourcesWithStrides:v16];
+  OUTLINED_FUNCTION_0();
+  [PSSystemGraphClientInterface serverRequestedResourcesWithStrides:];
 }
 
 void PSSG::Client::flushRegisterDeregisterAcknowledgements()
@@ -4805,35 +6436,35 @@ void PSSG::Client::flushRegisterDeregisterAcknowledgements()
   __assert_rtn("flushRegisterDeregisterAcknowledgements", "PSSGClientProxy.cpp", 455, "mClientPendingDeRegisterAck == false");
 }
 
-uint64_t PSSG::ServerComms::deallocateOOLMemory(char **a1, int a2)
+void PSSG::ServerComms::deallocateOOLMemory(char **a1, int a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "Unknown mach msg descriptor type %#x\n", a2);
-  v4 = __PSSGLogSharedInstance();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v3 = asprintf(a1, "Unknown mach msg descriptor type %#x\n", a2);
+  v5 = __PSSGLogSharedInstance(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315650;
-    v12 = "deallocateOOLMemory";
-    v13 = 1024;
-    v14 = 529;
-    v15 = 1024;
-    v16 = a2;
-    _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_FAULT, "%s:%d Unknown mach msg descriptor type %#x\n", buf, 0x18u);
+    v13 = "deallocateOOLMemory";
+    v14 = 1024;
+    v15 = 529;
+    v16 = 1024;
+    v17 = a2;
+    _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_FAULT, "%s:%d Unknown mach msg descriptor type %#x\n", buf, 0x18u);
   }
 
-  v5 = OSLogFlushBuffers();
-  if (v5)
+  v6 = OSLogFlushBuffers();
+  if (v6)
   {
-    v6 = v5;
-    v7 = __PSSGLogSharedInstance();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = v6;
+    v9 = __PSSGLogSharedInstance(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v12 = "deallocateOOLMemory";
-      v13 = 1024;
-      v14 = v6;
-      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v13 = "deallocateOOLMemory";
+      v14 = 1024;
+      v15 = v8;
+      _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -4842,174 +6473,160 @@ uint64_t PSSG::ServerComms::deallocateOOLMemory(char **a1, int a2)
     usleep(0x1E8480u);
   }
 
-  v8 = *a1;
-  v9 = abort_with_reason();
-  return ___ZN4PSSGL16sys_graph_notifyEPvP14comms_cb_arg_t_block_invoke_cold_1(v9);
+  v10 = abort_with_reason();
+  ___ZN4PSSGL16sys_graph_notifyEPvP14comms_cb_arg_t_block_invoke_cold_1(v10, v11);
 }
 
 void ___ZN4PSSGL16sys_graph_notifyEPvP14comms_cb_arg_t_block_invoke_cold_1(NSObject *a1, int a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "sys_graph_notify_block_invoke";
-    v7 = 1024;
-    v8 = a2;
-    _os_log_impl(&dword_25EA3A000, a1, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v5, 0x12u);
+    v4 = 136315394;
+    v5 = "sys_graph_notify_block_invoke";
+    v6 = 1024;
+    v7 = a2;
+    _os_log_impl(&dword_25EA3A000, a1, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", &v4, 0x12u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void PSSH::SysProcessMonitor::handleProcessRegisterDispatched()
 {
   OUTLINED_FUNCTION_2_4();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_2_2();
     OUTLINED_FUNCTION_1_9();
     _os_log_impl(v1, v2, OS_LOG_TYPE_ERROR, v3, v4, 0x12u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void PSSH::SysProcessMonitor::handleProcessDiedDispatched()
 {
   OUTLINED_FUNCTION_2_4();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_2_2();
     OUTLINED_FUNCTION_1_9();
     _os_log_impl(v1, v2, OS_LOG_TYPE_INFO, v3, v4, 0x12u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_2_4();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
   {
     OUTLINED_FUNCTION_2_2();
     OUTLINED_FUNCTION_1_9();
     _os_log_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 0x12u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t PSSH::SysProcessMonitor::handleProcessDiedDispatched(NSObject *a1, char *a2, uint64_t *a3)
+uint64_t PSSH::SysProcessMonitor::handleProcessDiedDispatched(NSObject *a1, char *a2, void *a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   result = os_signpost_enabled(a1);
   if (result)
   {
-    if (*a2 < 0)
+    if (*a2 >= 0)
     {
-      v6 = *a3;
+      v7 = a3;
     }
 
-    result = _os_signpost_emit_unreliably_with_name_impl();
+    else
+    {
+      v7 = *a3;
+    }
+
+    *v8 = 136315394;
+    *&v8[4] = "handleProcessDiedDispatched";
+    *&v8[12] = 2080;
+    *&v8[14] = v7;
+    return _os_signpost_emit_unreliably_with_name_impl(&dword_25EA3A000, a1, 0, 0xEEEEB0B5B2B2EEEELL, "PSSH Log", "%s() process [%s] is not monitored. ignoring", *v8, *&v8[8]);
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void PSSH::SysProcessMonitor::handleSystemActionKillProcessDispatched()
 {
   OUTLINED_FUNCTION_2_4();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
   {
     OUTLINED_FUNCTION_2_2();
     OUTLINED_FUNCTION_1_9();
     _os_log_impl(v1, v2, OS_LOG_TYPE_INFO, v3, v4, 0x12u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 {
   OUTLINED_FUNCTION_2_4();
-  v6 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEBUG))
   {
     OUTLINED_FUNCTION_2_2();
     OUTLINED_FUNCTION_1_9();
     _os_log_impl(v1, v2, OS_LOG_TYPE_DEBUG, v3, v4, 0x12u);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void ps_system_action_handle_graph_hang_cold_1()
+void ps_system_action_handle_graph_hang_cold_1(uint64_t a1, uint64_t a2)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v0 = __PSSysHealthLogSharedInstance();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v5 = *MEMORY[0x277D85DE8];
+  v2 = __PSSysHealthLogSharedInstance(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
-    v2 = 136315138;
-    v3 = "ps_system_action_handle_graph_hang";
-    _os_log_impl(&dword_25EA3A000, v0, OS_LOG_TYPE_INFO, "%s() system action is paused. Ignoring.", &v2, 0xCu);
+    v3 = 136315138;
+    v4 = "ps_system_action_handle_graph_hang";
+    _os_log_impl(&dword_25EA3A000, v2, OS_LOG_TYPE_INFO, "%s() system action is paused. Ignoring.", &v3, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void ps_system_action_handle_graph_hang_cold_3(uint64_t a1, uint64_t *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v4 = __PSSysHealthLogSharedInstance();
+  v10 = *MEMORY[0x277D85DE8];
+  v4 = __PSSysHealthLogSharedInstance(a1, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     v5 = *a2;
-    v7 = 136315394;
-    v8 = a1;
-    v9 = 2048;
-    v10 = v5;
-    _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_DEBUG, "PolarisD SystemAction::Critical Graph [%s] is Hung for less than [%llu] (waitTimeBeforeKillMs), not taking any action for now", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = a1;
+    v8 = 2048;
+    v9 = v5;
+    _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_DEBUG, "PolarisD SystemAction::Critical Graph [%s] is Hung for less than [%llu] (waitTimeBeforeKillMs), not taking any action for now", &v6, 0x16u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t ps_system_action_trigger_panic(char **a1, const char *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "%s() panicMessage: [%s]", "ps_system_action_trigger_panic", a2);
-  v4 = __PSSysHealthLogSharedInstance();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v3 = asprintf(a1, "%s() panicMessage: [%s]", "ps_system_action_trigger_panic", a2);
+  v5 = __PSSysHealthLogSharedInstance(v3, v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315906;
-    v11 = "ps_system_action_trigger_panic";
-    v12 = 1024;
-    v13 = 188;
-    v14 = 2080;
-    v15 = "ps_system_action_trigger_panic";
-    v16 = 2080;
-    v17 = a2;
-    _os_log_impl(&dword_25EA3A000, v4, OS_LOG_TYPE_FAULT, "%s:%d %s() panicMessage: [%s]", buf, 0x26u);
+    v12 = "ps_system_action_trigger_panic";
+    v13 = 1024;
+    v14 = 188;
+    v15 = 2080;
+    v16 = "ps_system_action_trigger_panic";
+    v17 = 2080;
+    v18 = a2;
+    _os_log_impl(&dword_25EA3A000, v5, OS_LOG_TYPE_FAULT, "%s:%d %s() panicMessage: [%s]", buf, 0x26u);
   }
 
-  v5 = OSLogFlushBuffers();
-  if (v5)
+  v6 = OSLogFlushBuffers();
+  if (v6)
   {
-    v6 = v5;
-    v7 = __PSSysHealthLogSharedInstance();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = v6;
+    v9 = __PSSysHealthLogSharedInstance(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v11 = "ps_system_action_trigger_panic";
-      v12 = 1024;
-      v13 = v6;
-      _os_log_impl(&dword_25EA3A000, v7, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
+      v12 = "ps_system_action_trigger_panic";
+      v13 = 1024;
+      v14 = v8;
+      _os_log_impl(&dword_25EA3A000, v9, OS_LOG_TYPE_ERROR, "%s() failed to flush buffers with error code: %d", buf, 0x12u);
     }
   }
 
@@ -5018,7 +6635,6 @@ uint64_t ps_system_action_trigger_panic(char **a1, const char *a2)
     usleep(0x1E8480u);
   }
 
-  v8 = *a1;
   abort_with_reason();
   return ps_telemetry_is_enabled();
 }
@@ -5054,76 +6670,77 @@ uint64_t ps_telemetry_is_enabled()
 void ps_telemetry_init_reader_cold_1(void *a1, _xpc_rich_error_s *a2)
 {
   v3 = OUTLINED_FUNCTION_3_10(a1, a2);
-  asprintf(v2, "%s Encountered an error while connecting to sysgraph xpc service : error = %s", xmmword_27FD2B658, v3);
-  v4 = __PSTelemetryLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v4))
+  v4 = asprintf(v2, "%s Encountered an error while connecting to sysgraph xpc service : error = %s", xmmword_27FD2B658, v3);
+  v6 = __PSTelemetryLogSharedInstance(v4, v5);
+  if (OUTLINED_FUNCTION_5(v6))
   {
-    v14 = *v2;
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d %s", v7, v8, v9, v10, v12, v13, 2u);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d %s", v9, v10, v11, v12, v14, v15);
   }
 
-  v11 = OUTLINED_FUNCTION_0();
-  ps_telemetry_init_reader_cold_2(v11);
+  v13 = OUTLINED_FUNCTION_0();
+  ps_telemetry_init_reader_cold_2(v13);
 }
 
 void ps_telemetry_init_reader_cold_2(char **a1)
 {
   *a1 = 0;
-  asprintf(a1, "Received a NULL graph_reply from polarisd for graph addition for session %s", xmmword_27FD2B658);
-  v2 = __PSTelemetryLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v1 = asprintf(a1, "Received a NULL graph_reply from polarisd for graph addition for session %s", xmmword_27FD2B658);
+  v3 = __PSTelemetryLogSharedInstance(v1, v2);
+  if (OUTLINED_FUNCTION_5(v3))
   {
-    v12 = *a1;
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v3, v4, "%s:%d %s", v5, v6, v7, v8, v10, v11, 2u);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v4, v5, "%s:%d %s", v6, v7, v8, v9, v12, v13);
   }
 
-  v9 = OUTLINED_FUNCTION_0();
-  ps_telemetry_init_reader_cold_3(v9);
+  v10 = OUTLINED_FUNCTION_0();
+  ps_telemetry_init_reader_cold_3(v10, v11);
 }
 
 void ps_telemetry_init_reader_cold_3(void *a1, _xpc_rich_error_s *a2)
 {
   v3 = OUTLINED_FUNCTION_3_10(a1, a2);
-  asprintf(v2, "Did not a receive a reply from polarisd for graph addition for session %s! Error = %s", xmmword_27FD2B658, v3);
-  v4 = __PSTelemetryLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v4))
+  v4 = asprintf(v2, "Did not a receive a reply from polarisd for graph addition for session %s! Error = %s", xmmword_27FD2B658, v3);
+  v6 = __PSTelemetryLogSharedInstance(v4, v5);
+  if (OUTLINED_FUNCTION_5(v6))
   {
-    v14 = *v2;
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d %s", v7, v8, v9, v10, v12, v13, 2u);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d %s", v9, v10, v11, v12, v14, v15);
   }
 
-  v11 = OUTLINED_FUNCTION_0();
-  ps_telemetry_start_reader_cold_1(v11);
+  v13 = OUTLINED_FUNCTION_0();
+  ps_telemetry_start_reader_cold_1(v13);
 }
 
 void ps_telemetry_start_reader_cold_1(char **a1)
 {
   *a1 = 0;
-  asprintf(a1, "Failed to create telemetry pthread");
-  v2 = __PSTelemetryLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v2))
+  v2 = asprintf(a1, "Failed to create telemetry pthread");
+  v4 = __PSTelemetryLogSharedInstance(v2, v3);
+  if (OUTLINED_FUNCTION_5(v4))
   {
-    v10 = *a1;
-    OUTLINED_FUNCTION_4_6(&dword_25EA3A000, v3, v4, "%s:%d %s", v5, v6, v7, v8, 2u);
+    *v11 = 136315650;
+    *&v11[4] = "ps_telemetry_start_reader";
+    *&v11[12] = 1024;
+    *&v11[14] = 167;
+    *&v11[18] = 2080;
+    *&v11[20] = *a1;
+    OUTLINED_FUNCTION_4_6(&dword_25EA3A000, v5, v6, "%s:%d %s", v7, v8, v9, v10, *v11, *&v11[8], *&v11[16], *&v11[24]);
   }
 
-  v9 = OUTLINED_FUNCTION_0();
-  __ps_telemetry_start_reader_block_invoke_cold_1(v9);
+  OUTLINED_FUNCTION_0();
+  __ps_telemetry_start_reader_block_invoke_cold_1();
 }
 
 void remove_remote_gst_cold_1(void *a1, _xpc_rich_error_s *a2)
 {
   v3 = OUTLINED_FUNCTION_3_10(a1, a2);
-  asprintf(v2, "Could not send a message for gst removal for session %s! Error = %s", xmmword_27FD2B658, v3);
-  v4 = __PSTelemetryLogSharedInstance();
-  if (OUTLINED_FUNCTION_5(v4))
+  v4 = asprintf(v2, "Could not send a message for gst removal for session %s! Error = %s", xmmword_27FD2B658, v3);
+  v6 = __PSTelemetryLogSharedInstance(v4, v5);
+  if (OUTLINED_FUNCTION_5(v6))
   {
-    v14 = *v2;
-    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v5, v6, "%s:%d %s", v7, v8, v9, v10, v12, v13, 2u);
+    OUTLINED_FUNCTION_4_0(&dword_25EA3A000, v7, v8, "%s:%d %s", v9, v10, v11, v12, v13, v14);
   }
 
-  v11 = OUTLINED_FUNCTION_0();
-  __setup_xpc_connection_block_invoke_cold_1(v11);
+  OUTLINED_FUNCTION_0();
+  __setup_xpc_connection_block_invoke_cold_1();
 }
 
 uint64_t ps_telemetry_create_string_id(char *__s1)
@@ -5176,7 +6793,7 @@ LABEL_9:
 
 _BYTE *ps_telemetry_init_thread_cold_1()
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   result = threadState();
   if ((*result & 1) == 0)
   {
@@ -5187,25 +6804,24 @@ _BYTE *ps_telemetry_init_thread_cold_1()
     v3 = pthread_self();
     pthread_getname_np(v3, __s1, 0x40uLL);
     ps_telemetry_create_string_id(__s1);
-    v4 = threadNameID();
-    *v4 = v5;
-    LOBYTE(v5) = atomic_load(&ps_telemetry_writer_context[514] + 4);
-    if ((v5 & 1) == 0)
+    v7 = threadNameID(&threadNameID, v4, v5, v6);
+    *v7 = v9;
+    LOBYTE(v9) = atomic_load(&ps_telemetry_writer_context[514] + 4);
+    if ((v9 & 1) == 0)
     {
-      ps_telemetry_init_process();
+      ps_telemetry_init_process(v7, v8);
     }
 
     ps_telemetry_acquire_thread_buffer(*v2);
     result = buffer();
-    *result = v6;
-    if (v6)
+    *result = v10;
+    if (v10)
     {
       *(v1 + 1) = 0;
       *(v1 + 3) = 0;
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 

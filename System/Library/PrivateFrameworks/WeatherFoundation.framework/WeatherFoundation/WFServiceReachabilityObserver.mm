@@ -30,9 +30,11 @@
 
 uint64_t __47__WFServiceReachabilityObserver_sharedObserver__block_invoke()
 {
-  sharedObserver_defaultObserver_0 = [[WFServiceReachabilityObserver alloc] _init];
+  v0 = [[WFServiceReachabilityObserver alloc] _init];
+  v1 = sharedObserver_defaultObserver_0;
+  sharedObserver_defaultObserver_0 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)_init

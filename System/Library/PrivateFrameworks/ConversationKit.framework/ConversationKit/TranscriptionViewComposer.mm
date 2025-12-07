@@ -21,32 +21,35 @@
 
 - (id)composeWithCall:(id)call createTextField:(BOOL)field
 {
+  fieldCopy = field;
   callCopy = call;
   selfCopy = self;
-  TranscriptionViewComposer.compose(with:createTextField:)(call);
-  v9 = v8;
+  TranscriptionViewComposer.compose(with:createTextField:)(call, fieldCopy);
+  v10 = v9;
 
-  return v9;
+  return v10;
 }
 
 - (id)composeWithCall:(id)call createTextField:(BOOL)field liveReply:(BOOL)reply
 {
+  replyCopy = reply;
+  fieldCopy = field;
   callCopy = call;
   selfCopy = self;
-  TranscriptionViewComposer.compose(with:createTextField:liveReply:)(call);
-  v10 = v9;
+  TranscriptionViewComposer.compose(with:createTextField:liveReply:)(call, fieldCopy, replyCopy);
+  v12 = v11;
 
-  return v10;
+  return v12;
 }
 
 - (id)composeWithCall:(id)call createTextField:(BOOL)field liveReply:(BOOL)reply textFieldPadding:(double)padding
 {
   callCopy = call;
   selfCopy = self;
-  TranscriptionViewComposer.compose(with:createTextField:liveReply:textFieldPadding:)(call);
-  v11 = v10;
+  TranscriptionViewComposer.compose(with:createTextField:liveReply:textFieldPadding:)(call, field, reply, padding);
+  v14 = v13;
 
-  return v11;
+  return v14;
 }
 
 - (id)compose

@@ -54,11 +54,11 @@
   v21 = _Block_copy(v103);
   if (v16)
   {
-    [(_PXStoryVisualDiagnosticsCropRectsConfiguration *)v16 kenBurnsAnimationInfo];
+    objc_msgSend_kenBurnsAnimationInfo(v16);
     v100 = v92;
     v101 = v93;
     v102 = v94;
-    [(_PXStoryVisualDiagnosticsCropRectsConfiguration *)v16 kenBurnsAnimationInfo];
+    objc_msgSend_kenBurnsAnimationInfo(v16);
   }
 
   else
@@ -191,24 +191,24 @@ void __93__PXStoryVisualDiagnosticsProviderHelper_drawCropRectsForAsset_inRect_c
   [v19 drawTextInRect:v26 configuration:{x, y, width, height}];
 }
 
-void __93__PXStoryVisualDiagnosticsProviderHelper_drawCropRectsForAsset_inRect_context_configuration___block_invoke_4(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4, uint64_t a5, void *a6, void *a7)
+void __93__PXStoryVisualDiagnosticsProviderHelper_drawCropRectsForAsset_inRect_context_configuration___block_invoke_4(uint64_t a1, void *a2, void *a3, CGFloat a4, CGFloat a5, CGFloat a6, CGFloat a7)
 {
-  v13 = a6;
-  v12 = a7;
-  v15.origin.x = a1;
-  v15.origin.y = a2;
-  v15.size.width = a3;
-  v15.size.height = a4;
+  v13 = a2;
+  v12 = a3;
+  v15.origin.x = a4;
+  v15.origin.y = a5;
+  v15.size.width = a6;
+  v15.size.height = a7;
   if (!CGRectIsEmpty(v15))
   {
     PXRectDenormalize();
   }
 }
 
-void __93__PXStoryVisualDiagnosticsProviderHelper_drawCropRectsForAsset_inRect_context_configuration___block_invoke_5(uint64_t a1, uint64_t a2, void *a3, void *a4)
+void __93__PXStoryVisualDiagnosticsProviderHelper_drawCropRectsForAsset_inRect_context_configuration___block_invoke_5(uint64_t a1, __int128 *a2, void *a3, void *a4, double a5, CGFloat a6)
 {
-  v5 = a3;
-  v6 = a4;
+  v7 = a3;
+  v8 = a4;
   PXStoryRectIsNull();
 }
 
@@ -269,14 +269,14 @@ void __93__PXStoryVisualDiagnosticsProviderHelper_drawCropRectsForAsset_inRect_c
   contextCopy = context;
   if (timelineCopy)
   {
-    [timelineCopy timeRangeForSegmentWithIdentifier:identifier];
+    objc_msgSend_timeRangeForSegmentWithIdentifier_(timelineCopy);
   }
 
   [timelineCopy size];
   PXRectWithOriginAndSize();
 }
 
-void __94__PXStoryVisualDiagnosticsProviderHelper_drawSegmentOfTimeline_withIdentifier_inRect_context___block_invoke(uint64_t a1, uint64_t a2)
+void __94__PXStoryVisualDiagnosticsProviderHelper_drawSegmentOfTimeline_withIdentifier_inRect_context___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (a2 >= 1)
   {
@@ -361,9 +361,9 @@ void __94__PXStoryVisualDiagnosticsProviderHelper_drawSegmentOfTimeline_withIden
   CGContextRestoreGState(cGContext);
 }
 
-uint64_t __80__PXStoryVisualDiagnosticsProviderHelper_drawAsset_contentsRect_inRect_context___block_invoke(uint64_t result)
+double *__80__PXStoryVisualDiagnosticsProviderHelper_drawAsset_contentsRect_inRect_context___block_invoke(double *result, double a2)
 {
-  if ((*(*(*(result + 56) + 8) + 24) & 1) == 0)
+  if ((*(*(*(result + 7) + 8) + 24) & 1) == 0)
   {
     PXSizeScale();
   }

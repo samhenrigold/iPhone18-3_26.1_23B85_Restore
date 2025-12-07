@@ -55,7 +55,7 @@
 
 - (NSString)ef_publicDescription
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   groupList = [(ECEmailAddress *)self groupList];
   if (!groupList)
   {
@@ -94,29 +94,29 @@ LABEL_17:
   }
 
   v6 = [objc_alloc(MEMORY[0x277CCAB68]) initWithString:@"["];
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v7 = groupList;
-  v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v8)
   {
-    v9 = *v25;
+    v9 = *v24;
     v10 = 1;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v25 != v9)
+        if (*v24 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v24 + 1) + 8 * i);
+        v12 = *(*(&v23 + 1) + 8 * i);
         if ((v10 & 1) == 0)
         {
-          [v6 appendString:{@", ", v24}];
+          [v6 appendString:{@", ", v23}];
         }
 
         ef_publicDescription = [v12 ef_publicDescription];
@@ -125,7 +125,7 @@ LABEL_17:
         v10 = 0;
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v23 objects:v27 count:16];
       v10 = 0;
     }
 
@@ -134,8 +134,6 @@ LABEL_17:
 
   [v6 appendString:@"]"];
 LABEL_19:
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -150,29 +148,29 @@ LABEL_19:
 
 + (id)emailAddressesFromStrings:(id)strings invalidAddresses:(id *)addresses
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   stringsCopy = strings;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v7 = stringsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         v12 = [ECEmailAddress emailAddressWithString:v11];
         if (v12)
         {
@@ -185,7 +183,7 @@ LABEL_19:
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
@@ -196,8 +194,6 @@ LABEL_19:
     v13 = v5;
     *addresses = v5;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -378,20 +374,19 @@ LABEL_7:
 
 - (BOOL)respondsToSelector:(SEL)selector
 {
-  v7.receiver = self;
-  v7.super_class = ECEmailAddress;
-  if ([(ECEmailAddress *)&v7 respondsToSelector:?])
+  v5.receiver = self;
+  v5.super_class = ECEmailAddress;
+  if ([(ECEmailAddress *)&v5 respondsToSelector:?])
   {
-    v4 = 1;
+    v3 = 1;
   }
 
   else
   {
-    components = self->_components;
-    v4 = objc_opt_respondsToSelector();
+    v3 = objc_opt_respondsToSelector();
   }
 
-  return v4 & 1;
+  return v3 & 1;
 }
 
 id __27__ECEmailAddress_groupList__block_invoke(uint64_t a1, void *a2)

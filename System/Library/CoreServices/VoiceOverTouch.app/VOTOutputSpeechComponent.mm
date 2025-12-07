@@ -2913,7 +2913,7 @@ LABEL_108:
 
   else
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Could not make regex from pattern: %@. error: %@");
   }
 }
 

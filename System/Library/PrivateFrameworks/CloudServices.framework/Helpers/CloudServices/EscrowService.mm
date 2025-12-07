@@ -1,5 +1,6 @@
 @interface EscrowService
 + (BOOL)isFatalError:(id)error;
++ (id)certificateRequest:(id)request duplicate:(BOOL)duplicate error:(id *)error;
 + (id)createEscrowBlobWithCertificate:(id)certificate escrowRequest:(id)request error:(id *)error;
 + (id)doubleEnrollmentRecordFromPrimaryRecord:(id)record;
 - (BOOL)_invalidateEscrowCache:(id)cache error:(id *)error;
@@ -9,11 +10,17 @@
 - (id)_getBypassToken;
 - (id)fetchCachedCertificateWithRequest:(id)request error:(id *)error;
 - (id)keychainBaseQueryWithEnvironment:(id)environment andBaseURL:(id)l;
+- (void)_deleteRecordWithRequest:(id)request duplicate:(BOOL)duplicate completionBlock:(id)block;
+- (void)_fetchCertificatesWithRequest:(id)request duplicate:(BOOL)duplicate completionBlock:(id)block;
 - (void)_performDoubleRecoveryICDPWithRequest:(id)request primaryResponse:(id)response;
 - (void)_performDoubleRecoveryStingrayWithRequest:(id)request primaryResponse:(id)response;
 - (void)_performPostEnrollSilentRecoveryWithRequest:(id)request;
+- (void)_recoverActualRecordWithRequest:(id)request duplicate:(BOOL)duplicate completionBlock:(id)block;
+- (void)_recoverWithVersion:(int)version req:(id)req duplicate:(BOOL)duplicate sesWrapper:(id)wrapper srpInitResponse:(id)response reply:(id)reply;
 - (void)_removeBypassToken;
 - (void)_saveBypassToken:(id)token;
+- (void)_srpInitHelper:(id)helper duplicate:(BOOL)duplicate completionBlock:(id)block;
+- (void)_storeRecordWithRequest:(id)request duplicate:(BOOL)duplicate completionBlock:(id)block;
 - (void)changeSMSTargetWithRequest:(id)request completionBlock:(id)block;
 - (void)deleteRecordWithRequest:(id)request completionBlock:(id)block;
 - (void)fetchCertificatesAndDuplicateRequest:(id)request completionBlock:(id)block;
@@ -25,6 +32,7 @@
 - (void)recoverRecordWithRequest:(id)request completionBlock:(id)block;
 - (void)setPasswordMetadataWithRequest:(id)request response:(id)response ses:(id)ses;
 - (void)startSMSChallengeWithRequest:(id)request completionBlock:(id)block;
+- (void)storeRecordWithCertDataRequest:(id)request duplicate:(BOOL)duplicate completionBlock:(id)block;
 - (void)storeRecordWithRequest:(id)request completionBlock:(id)block;
 - (void)ttrForPCSDataMatchFailure:(id)failure;
 - (void)updateRecordMetadataWithRequest:(id)request completionBlock:(id)block;
@@ -165,6 +173,225 @@
   [(EscrowAccountInfoRequest *)v8 performRequestWithHandler:v11];
 }
 
++ (id)certificateRequest:(id)request duplicate:(BOOL)duplicate error:(id *)error
+{
+  duplicateCopy = duplicate;
+  requestCopy = request;
+  v8 = [(EscrowGenericRequest *)[EscrowCertificateRequest alloc] initWithRequest:requestCopy];
+  [(EscrowGenericRequest *)v8 setDuplicate:duplicateCopy];
+  altDSID = [(EscrowGenericRequest *)v8 altDSID];
+  iCloudEnv = [(EscrowGenericRequest *)v8 iCloudEnv];
+  v11 = iCloudEnv;
+  if (altDSID)
+  {
+    v12 = iCloudEnv == 0;
+  }
+
+  else
+  {
+    v12 = 1;
+  }
+
+  if (v12)
+  {
+    v13 = CloudServicesLog();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004D864();
+    }
+
+    if (!error)
+    {
+      goto LABEL_36;
+    }
+
+    v14 = kEscrowServiceErrorDomain;
+    v15 = @"Can't get account info";
+    v16 = 116;
+    goto LABEL_34;
+  }
+
+  if (duplicateCopy || ([requestCopy specifiedFederation], v17 = objc_claimAutoreleasedReturnValue(), v17, !v17))
+  {
+    v47 = requestCopy;
+    stingray = [(EscrowGenericRequest *)v8 stingray];
+    if (stingray)
+    {
+      v23 = 3;
+    }
+
+    else
+    {
+      v23 = 7;
+    }
+
+    if (stingray)
+    {
+      v24 = 2;
+    }
+
+    else
+    {
+      v24 = 6;
+    }
+
+    v25 = [CSCertOperations rootBaseVersionsForRootType:v24 altDSID:altDSID inEnvironment:v11 duplicate:duplicateCopy];
+    [(EscrowGenericRequest *)v8 setBaseRootCertVersions:v25];
+
+    baseRootCertVersions = [(EscrowGenericRequest *)v8 baseRootCertVersions];
+    v27 = [baseRootCertVersions count];
+
+    if (v27)
+    {
+      v28 = [CSCertOperations rootTrustedVersionsForRootType:v23 altDSID:altDSID inEnvironment:v11 duplicate:duplicateCopy];
+      [(EscrowGenericRequest *)v8 setTrustedRootCertVersions:v28];
+
+      trustedRootCertVersions = [(EscrowGenericRequest *)v8 trustedRootCertVersions];
+      v30 = [trustedRootCertVersions count];
+
+      requestCopy = v47;
+      if (v30)
+      {
+        goto LABEL_38;
+      }
+
+      v31 = CloudServicesLog();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      {
+        sub_10004D92C();
+      }
+
+      if (!error)
+      {
+        goto LABEL_36;
+      }
+
+      [CloudServicesError errorWithDomain:kEscrowServiceErrorDomain code:119 format:@"Can't get cert versions for root type %u in %@ environment", v23, v11];
+LABEL_35:
+      *error = v33 = 0;
+      goto LABEL_45;
+    }
+
+    v32 = CloudServicesLog();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004D994();
+    }
+
+    requestCopy = v47;
+    if (!error)
+    {
+      goto LABEL_36;
+    }
+
+    v14 = kEscrowServiceErrorDomain;
+    v45 = v24;
+    v46 = v11;
+    v15 = @"Can't get base cert versions for root type %u in %@ environment";
+    v16 = 118;
+LABEL_34:
+    [CloudServicesError errorWithDomain:v14 code:v16 format:v15, v45, v46];
+    goto LABEL_35;
+  }
+
+  specifiedFederation = [requestCopy specifiedFederation];
+  v19 = [CSCertOperations moveToFederationAllowed:specifiedFederation altDSID:altDSID];
+
+  if (v19)
+  {
+    v20 = CloudServicesLog();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004D8A0(requestCopy);
+    }
+
+    if (error)
+    {
+      v21 = v19;
+      *error = v19;
+    }
+
+LABEL_36:
+    v33 = 0;
+    goto LABEL_45;
+  }
+
+  specifiedFederation2 = [requestCopy specifiedFederation];
+  v51 = specifiedFederation2;
+  v35 = [NSArray arrayWithObjects:&v51 count:1];
+  [(EscrowGenericRequest *)v8 setBaseRootCertVersions:v35];
+
+  specifiedFederation3 = [requestCopy specifiedFederation];
+  v50 = specifiedFederation3;
+  v37 = [NSArray arrayWithObjects:&v50 count:1];
+  [(EscrowGenericRequest *)v8 setTrustedRootCertVersions:v37];
+
+LABEL_38:
+  v38 = CloudServicesLog();
+  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+  {
+    recordLabel = [(EscrowGenericRequest *)v8 recordLabel];
+    *buf = 138412290;
+    v49 = recordLabel;
+    _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "Requesting cert for label: %@", buf, 0xCu);
+  }
+
+  v40 = CloudServicesLog();
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+  {
+    baseRootCertVersions2 = [(EscrowGenericRequest *)v8 baseRootCertVersions];
+    *buf = 138412290;
+    v49 = baseRootCertVersions2;
+    _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Platform trust versions: %@", buf, 0xCu);
+  }
+
+  v42 = CloudServicesLog();
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+  {
+    trustedRootCertVersions2 = [(EscrowGenericRequest *)v8 trustedRootCertVersions];
+    *buf = 138412290;
+    v49 = trustedRootCertVersions2;
+    _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Requesting cert for versions: %@", buf, 0xCu);
+  }
+
+  v33 = v8;
+LABEL_45:
+
+  return v33;
+}
+
+- (void)_fetchCertificatesWithRequest:(id)request duplicate:(BOOL)duplicate completionBlock:(id)block
+{
+  duplicateCopy = duplicate;
+  blockCopy = block;
+  v14 = 0;
+  v8 = [EscrowService certificateRequest:request duplicate:duplicateCopy error:&v14];
+  v9 = v14;
+  if (v8)
+  {
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_100038914;
+    v11[3] = &unk_100075C90;
+    v13 = blockCopy;
+    v12 = v8;
+    [v12 performRequestWithHandler:v11];
+  }
+
+  else
+  {
+    v10 = CloudServicesLog();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v16 = v9;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Bailing on fetch certificates due to no cert request: %@", buf, 0xCu);
+    }
+
+    (*(blockCopy + 2))(blockCopy, 0, v9);
+  }
+}
+
 - (void)fetchCertificatesWithRequest:(id)request completionBlock:(id)block
 {
   v7[0] = _NSConcreteStackBlock;
@@ -180,55 +407,55 @@
 {
   requestCopy = request;
   blockCopy = block;
-  v38[0] = 0;
-  v38[1] = v38;
-  v38[2] = 0x3032000000;
-  v38[3] = sub_100038FDC;
-  v38[4] = sub_100038FEC;
-  v39 = 0;
-  v36[0] = 0;
-  v36[1] = v36;
-  v36[2] = 0x3032000000;
-  v36[3] = sub_100038FDC;
-  v36[4] = sub_100038FEC;
-  v37 = 0;
-  v34[0] = 0;
-  v34[1] = v34;
-  v34[2] = 0x3032000000;
-  v34[3] = sub_100038FDC;
-  v34[4] = sub_100038FEC;
-  v35 = 0;
-  v32[0] = 0;
-  v32[1] = v32;
-  v32[2] = 0x3032000000;
-  v32[3] = sub_100038FDC;
-  v32[4] = sub_100038FEC;
-  v33 = 0;
+  v37[0] = 0;
+  v37[1] = v37;
+  v37[2] = 0x3032000000;
+  v37[3] = sub_100038FDC;
+  v37[4] = sub_100038FEC;
+  v38 = 0;
+  v35[0] = 0;
+  v35[1] = v35;
+  v35[2] = 0x3032000000;
+  v35[3] = sub_100038FDC;
+  v35[4] = sub_100038FEC;
+  v36 = 0;
+  v33[0] = 0;
+  v33[1] = v33;
+  v33[2] = 0x3032000000;
+  v33[3] = sub_100038FDC;
+  v33[4] = sub_100038FEC;
+  v34 = 0;
+  v31[0] = 0;
+  v31[1] = v31;
+  v31[2] = 0x3032000000;
+  v31[3] = sub_100038FDC;
+  v31[4] = sub_100038FEC;
+  v32 = 0;
   activity_block[0] = _NSConcreteStackBlock;
   activity_block[1] = 3221225472;
   activity_block[2] = sub_100038FF4;
   activity_block[3] = &unk_100075D08;
   v8 = dispatch_group_create();
-  v27 = v8;
+  v26 = v8;
   selfCopy = self;
   v9 = requestCopy;
-  v29 = v9;
-  v30 = v38;
-  v31 = v36;
+  v28 = v9;
+  v29 = v37;
+  v30 = v35;
   _os_activity_initiate(&_mh_execute_header, "fetchCertificates", OS_ACTIVITY_FLAG_DEFAULT, activity_block);
 
   if ([v9 requiresDoubleEnrollment])
   {
-    v20[0] = _NSConcreteStackBlock;
-    v20[1] = 3221225472;
-    v20[2] = sub_100039140;
-    v20[3] = &unk_100075D08;
-    v21 = v8;
+    v19[0] = _NSConcreteStackBlock;
+    v19[1] = 3221225472;
+    v19[2] = sub_100039140;
+    v19[3] = &unk_100075D08;
+    v20 = v8;
     selfCopy2 = self;
-    v23 = v9;
-    v24 = v34;
-    v25 = v32;
-    _os_activity_initiate(&_mh_execute_header, "fetchCertificates (duplicate)", OS_ACTIVITY_FLAG_DEFAULT, v20);
+    v22 = v9;
+    v23 = v33;
+    v24 = v31;
+    _os_activity_initiate(&_mh_execute_header, "fetchCertificates (duplicate)", OS_ACTIVITY_FLAG_DEFAULT, v19);
   }
 
   queue = [v9 queue];
@@ -236,8 +463,8 @@
   if (!queue)
   {
     _os_assert_log();
-    v13 = _os_crash();
-    sub_10004DAF8(v13);
+    _os_crash();
+    sub_10004DAF8();
   }
 
   queue2 = [v9 queue];
@@ -245,19 +472,19 @@
   block[1] = 3221225472;
   block[2] = sub_1000392BC;
   block[3] = &unk_100075D30;
-  v17 = v36;
-  v18 = v34;
-  v19 = v32;
-  v15 = blockCopy;
-  v16 = v38;
+  v16 = v35;
+  v17 = v33;
+  v18 = v31;
+  v14 = blockCopy;
+  v15 = v37;
   v12 = blockCopy;
   dispatch_group_notify(v8, queue2, block);
 
-  _Block_object_dispose(v32, 8);
-  _Block_object_dispose(v34, 8);
+  _Block_object_dispose(v31, 8);
+  _Block_object_dispose(v33, 8);
 
-  _Block_object_dispose(v36, 8);
-  _Block_object_dispose(v38, 8);
+  _Block_object_dispose(v35, 8);
+  _Block_object_dispose(v37, 8);
 }
 
 - (id)keychainBaseQueryWithEnvironment:(id)environment andBaseURL:(id)l
@@ -625,6 +852,41 @@ LABEL_44:
   _Block_object_dispose(v45, 8);
 }
 
+- (void)_storeRecordWithRequest:(id)request duplicate:(BOOL)duplicate completionBlock:(id)block
+{
+  duplicateCopy = duplicate;
+  requestCopy = request;
+  blockCopy = block;
+  v18 = 0;
+  v10 = [EscrowService certificateRequest:requestCopy duplicate:duplicateCopy error:&v18];
+  v11 = v18;
+  if (v10)
+  {
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_10003A828;
+    v13[3] = &unk_100075DA8;
+    v16 = blockCopy;
+    v14 = requestCopy;
+    selfCopy = self;
+    v17 = duplicateCopy;
+    [v10 performRequestWithHandler:v13];
+  }
+
+  else
+  {
+    v12 = CloudServicesLog();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 138412290;
+      v20 = v11;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Bailing record store due to no cert request: %@", buf, 0xCu);
+    }
+
+    (*(blockCopy + 2))(blockCopy, 0, v11);
+  }
+}
+
 - (BOOL)_invalidateEscrowCache:(id)cache error:(id *)error
 {
   v5 = objc_alloc_init(OTConfigurationContext);
@@ -675,24 +937,191 @@ LABEL_44:
   return v7;
 }
 
+- (void)storeRecordWithCertDataRequest:(id)request duplicate:(BOOL)duplicate completionBlock:(id)block
+{
+  duplicateCopy = duplicate;
+  requestCopy = request;
+  blockCopy = block;
+  certData = [requestCopy certData];
+  if (certData)
+  {
+    if (duplicateCopy)
+    {
+      [requestCopy duplicateEncodedMetadata];
+    }
+
+    else
+    {
+      [requestCopy encodedMetadata];
+    }
+    v13 = ;
+    v14 = CloudServicesLog();
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    if (v13)
+    {
+      if (v15)
+      {
+        v16 = &stru_1000767A0;
+        if (duplicateCopy)
+        {
+          v16 = @" (duplicate)";
+        }
+
+        *buf = 138412290;
+        v42 = v16;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Creating an escrow update operation%@", buf, 0xCu);
+      }
+
+      v17 = &off_100074818;
+    }
+
+    else
+    {
+      if (v15)
+      {
+        v18 = &stru_1000767A0;
+        if (duplicateCopy)
+        {
+          v18 = @" (duplicate)";
+        }
+
+        *buf = 138412290;
+        v42 = v18;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Creating an escrow enrollment operation%@", buf, 0xCu);
+      }
+
+      v17 = off_100074810;
+    }
+
+    v19 = [objc_alloc(*v17) initWithRequest:requestCopy];
+    [v19 setDuplicate:duplicateCopy];
+    validateInput = [v19 validateInput];
+    v11 = validateInput;
+    if (!v19 || validateInput)
+    {
+      v27 = CloudServicesLog();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v42 = v11;
+        v28 = "Error creating or validating escrow request: %@";
+LABEL_30:
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, v28, buf, 0xCu);
+      }
+    }
+
+    else
+    {
+      prerecord = [requestCopy prerecord];
+
+      v22 = CloudServicesLog();
+      v23 = os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT);
+      if (prerecord)
+      {
+        if (v23)
+        {
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "EscrowService: Using provided prerecord", buf, 2u);
+        }
+
+        prerecord2 = [requestCopy prerecord];
+        v40 = 0;
+        v25 = [(EscrowService *)self processPrerecord:prerecord2 outerRequest:requestCopy escrowRequest:v19 error:&v40];
+        v11 = v40;
+
+        if (!v25 || (v26 = 0, v11))
+        {
+          v27 = CloudServicesLog();
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+          {
+            sub_10004DEF8();
+          }
+
+          goto LABEL_31;
+        }
+
+LABEL_36:
+        v31 = CloudServicesLog();
+        if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+        {
+          recordID = [v19 recordID];
+          *buf = 138412290;
+          v42 = recordID;
+          _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Attempting to store/update a escrow record: %@", buf, 0xCu);
+        }
+
+        v33[0] = _NSConcreteStackBlock;
+        v33[1] = 3221225472;
+        v33[2] = sub_10003B224;
+        v33[3] = &unk_100075DD0;
+        v38 = blockCopy;
+        v34 = requestCopy;
+        selfCopy = self;
+        v36 = v19;
+        v37 = certData;
+        [v36 performRequestWithHandler:v33];
+
+        v11 = v26;
+        goto LABEL_39;
+      }
+
+      if (v23)
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "EscrowService: Using provided escrow record contents", buf, 2u);
+      }
+
+      v39 = 0;
+      v29 = [EscrowService createEscrowBlobWithCertificate:certData escrowRequest:v19 error:&v39];
+      v11 = v39;
+      [v19 setBlob:v29];
+
+      blob = [v19 blob];
+
+      if (blob)
+      {
+        v26 = v11;
+        goto LABEL_36;
+      }
+
+      v27 = CloudServicesLog();
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v42 = v11;
+        v28 = "Failed to create escrow blob: %@";
+        goto LABEL_30;
+      }
+    }
+
+LABEL_31:
+
+    (*(blockCopy + 2))(blockCopy, 0, v11);
+LABEL_39:
+
+    goto LABEL_40;
+  }
+
+  v11 = [CloudServicesError errorWithDomain:kEscrowServiceErrorDomain code:126 format:@"Unexpected error with missing certificate"];
+  v12 = CloudServicesLog();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v42 = v11;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Certificate encoding error: %@", buf, 0xCu);
+  }
+
+  (*(blockCopy + 2))(blockCopy, 0, v11);
+LABEL_40:
+}
+
 - (BOOL)processPrerecord:(id)prerecord outerRequest:(id)request escrowRequest:(id)escrowRequest error:(id *)error
 {
   prerecordCopy = prerecord;
   escrowRequestCopy = escrowRequest;
   dsid = [prerecordCopy dsid];
-  if (!dsid)
+  if (!dsid || (v11 = dsid, [prerecordCopy dsid], v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(escrowRequestCopy, "dsid"), v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v12, "isEqualToString:", v13), v13, v12, v11, (v14 & 1) == 0))
   {
-    goto LABEL_7;
-  }
-
-  v11 = dsid;
-  dsid2 = [prerecordCopy dsid];
-  dsid3 = [escrowRequestCopy dsid];
-  v14 = [dsid2 isEqualToString:dsid3];
-
-  if ((v14 & 1) == 0)
-  {
-LABEL_7:
     v21 = CloudServicesLog();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
@@ -820,63 +1249,62 @@ LABEL_21:
 
   if (intValue == 1)
   {
-    v33[0] = 0xAAAAAAAAAAAAAAAALL;
-    v33[1] = 0xAAAAAAAAAAAAAAAALL;
-    v25 = [recordCopy objectForKeyedSubscript:@"DoubleEnrollmentPassword"];
-    v24 = [[NSUUID alloc] initWithUUIDString:v25];
-    [v24 getUUIDBytes:v33];
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
+    v32[0] = 0xAAAAAAAAAAAAAAAALL;
+    v32[1] = 0xAAAAAAAAAAAAAAAALL;
+    v24 = [recordCopy objectForKeyedSubscript:@"DoubleEnrollmentPassword"];
+    v23 = [[NSUUID alloc] initWithUUIDString:v24];
+    [v23 getUUIDBytes:v32];
     v29 = 0u;
-    v26 = recordCopy;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v25 = recordCopy;
     v7 = recordCopy;
-    v8 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v29;
+      v10 = *v28;
       v11 = &MKBGetDeviceConfigurations_ptr;
-      v27 = v7;
+      v26 = v7;
       do
       {
         for (i = 0; i != v9; i = i + 1)
         {
-          if (*v29 != v10)
+          if (*v28 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v13 = *(*(&v28 + 1) + 8 * i);
+          v13 = *(*(&v27 + 1) + 8 * i);
           v14 = [v7 objectForKeyedSubscript:v13];
-          v15 = v11[449];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v16 = v9;
-            v17 = v4;
-            v18 = v11;
-            v19 = [v14 length];
-            v20 = [[NSMutableData alloc] initWithCapacity:v19];
-            if (v19 >= 0x10)
+            v15 = v9;
+            v16 = v4;
+            v17 = v11;
+            v18 = [v14 length];
+            v19 = [[NSMutableData alloc] initWithCapacity:v18];
+            if (v18 >= 0x10)
             {
-              v21 = v19 >> 4;
+              v20 = v18 >> 4;
               do
               {
-                [v20 appendBytes:v33 length:16];
-                --v21;
+                [v19 appendBytes:v32 length:16];
+                --v20;
               }
 
-              while (v21);
+              while (v20);
             }
 
-            [v20 appendBytes:v33 length:v19 & 0xF];
-            v4 = v17;
-            [v17 setObject:v20 forKeyedSubscript:v13];
+            [v19 appendBytes:v32 length:v18 & 0xF];
+            v4 = v16;
+            [v16 setObject:v19 forKeyedSubscript:v13];
 
-            v11 = v18;
-            v9 = v16;
-            v7 = v27;
+            v11 = v17;
+            v9 = v15;
+            v7 = v26;
           }
 
           else
@@ -885,19 +1313,19 @@ LABEL_21:
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v9);
     }
 
-    recordCopy = v26;
+    recordCopy = v25;
   }
 
   else
   {
-    v22 = [recordCopy objectForKeyedSubscript:@"DoubleEnrollmentPassword"];
-    [v4 setObject:v22 forKeyedSubscript:@"DoubleEnrollmentPassword"];
+    v21 = [recordCopy objectForKeyedSubscript:@"DoubleEnrollmentPassword"];
+    [v4 setObject:v21 forKeyedSubscript:@"DoubleEnrollmentPassword"];
   }
 
   return v4;
@@ -1036,6 +1464,107 @@ LABEL_12:
   return v7;
 }
 
+- (void)_recoverWithVersion:(int)version req:(id)req duplicate:(BOOL)duplicate sesWrapper:(id)wrapper srpInitResponse:(id)response reply:(id)reply
+{
+  duplicateCopy = duplicate;
+  v12 = *&version;
+  reqCopy = req;
+  wrapperCopy = wrapper;
+  replyCopy = reply;
+  responseCopy = response;
+  v18 = CloudServicesLog();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 67109120;
+    LODWORD(v33) = v12;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "performing recovery request version %d", buf, 8u);
+  }
+
+  [wrapperCopy setReqVersion:v12];
+  srpData = [responseCopy srpData];
+
+  v31 = 0;
+  v20 = [wrapperCopy srpRecoveryBlobFromData:srpData error:&v31];
+  v21 = v31;
+
+  if (v21 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412290;
+    v33 = v21;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, "srpError: %@", buf, 0xCu);
+  }
+
+  if (v20)
+  {
+    v22 = [(EscrowGenericRequest *)[EscrowRecoveryRequest alloc] initWithRequest:reqCopy];
+    [(EscrowGenericRequest *)v22 setDuplicate:duplicateCopy];
+    [(EscrowGenericRequest *)v22 setBlob:v20];
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_10003C1F8;
+    v25[3] = &unk_100075DF8;
+    v25[4] = self;
+    v26 = v22;
+    v29 = replyCopy;
+    v27 = wrapperCopy;
+    v28 = reqCopy;
+    v30 = duplicateCopy;
+    v23 = v22;
+    [(EscrowRecoveryRequest *)v23 performRequestWithHandler:v25];
+  }
+
+  else
+  {
+    v23 = objc_alloc_init(NSMutableDictionary);
+    [(EscrowRecoveryRequest *)v23 setObject:@"Error authenticating" forKeyedSubscript:NSLocalizedDescriptionKey];
+    [(EscrowRecoveryRequest *)v23 setObject:v21 forKeyedSubscript:NSUnderlyingErrorKey];
+    v24 = [NSError errorWithDomain:kEscrowServiceErrorDomain code:99 userInfo:v23];
+    (*(replyCopy + 2))(replyCopy, 0, v24);
+  }
+}
+
+- (void)_srpInitHelper:(id)helper duplicate:(BOOL)duplicate completionBlock:(id)block
+{
+  duplicateCopy = duplicate;
+  blockCopy = block;
+  helperCopy = helper;
+  v9 = [(EscrowGenericRequest *)[EscrowSRPRequest alloc] initWithRequest:helperCopy];
+
+  v10 = [[CSSESWrapper alloc] initWithRequest:v9 reqVersion:0];
+  [(EscrowGenericRequest *)v9 setDuplicate:duplicateCopy];
+  if ([v10 validatePassphrasePresentOrPending])
+  {
+    srpInitBlob = [v10 srpInitBlob];
+    [(EscrowGenericRequest *)v9 setBlob:srpInitBlob];
+
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_10003C7BC;
+    v16[3] = &unk_100075E20;
+    v18 = blockCopy;
+    v17 = v10;
+    [(EscrowSRPRequest *)v9 performRequestWithHandler:v16];
+
+    v12 = v18;
+  }
+
+  else
+  {
+    v13 = CloudServicesLog();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      sub_10004E128();
+    }
+
+    v14 = kEscrowServiceErrorDomain;
+    v19 = NSLocalizedDescriptionKey;
+    v20 = @"No passphrase provided";
+    v12 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v15 = [NSError errorWithDomain:v14 code:128 userInfo:v12];
+    (*(blockCopy + 2))(blockCopy, 0, 0, v15);
+  }
+}
+
 - (void)setPasswordMetadataWithRequest:(id)request response:(id)response ses:(id)ses
 {
   responseCopy = response;
@@ -1068,6 +1597,22 @@ LABEL_12:
   }
 }
 
+- (void)_recoverActualRecordWithRequest:(id)request duplicate:(BOOL)duplicate completionBlock:(id)block
+{
+  duplicateCopy = duplicate;
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_10003CB44;
+  v10[3] = &unk_100075E48;
+  requestCopy = request;
+  blockCopy = block;
+  v10[4] = self;
+  v13 = duplicateCopy;
+  v8 = requestCopy;
+  v9 = blockCopy;
+  [(EscrowService *)self _srpInitHelper:v8 duplicate:duplicateCopy completionBlock:v10];
+}
+
 - (void)recoverRecordWithRequest:(id)request completionBlock:(id)block
 {
   requestCopy = request;
@@ -1077,16 +1622,16 @@ LABEL_12:
   [operationsLogger updateStoreWithEvent:v8];
 
   v10 = objc_retainBlock(blockCopy);
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_10003D6E4;
-  v22[3] = &unk_100075400;
-  v22[4] = self;
-  v23 = v8;
-  v24 = v10;
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_10003D6E4;
+  v23[3] = &unk_100075400;
+  v23[4] = self;
+  v24 = v8;
+  v25 = v10;
   v11 = v10;
   v12 = v8;
-  v13 = objc_retainBlock(v22);
+  v13 = objc_retainBlock(v23);
 
   v14 = CloudServicesLog();
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
@@ -1095,17 +1640,17 @@ LABEL_12:
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "dispatching to recover queue", buf, 2u);
   }
 
-  v15 = sub_10003D798();
+  v16 = sub_10003D798(v15);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10003D7DC;
   block[3] = &unk_100075E98;
   block[4] = self;
-  v19 = requestCopy;
-  v20 = v13;
-  v16 = v13;
-  v17 = requestCopy;
-  dispatch_async(v15, block);
+  v20 = requestCopy;
+  v21 = v13;
+  v17 = v13;
+  v18 = requestCopy;
+  dispatch_async(v16, block);
 }
 
 - (void)_performPostEnrollSilentRecoveryWithRequest:(id)request
@@ -1177,15 +1722,15 @@ LABEL_12:
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "dispatching to recover queue (double recovery)", buf, 2u);
     }
 
-    v13 = sub_10003D798();
+    v14 = sub_10003D798(v13);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10003DF40;
     block[3] = &unk_100074FD8;
     block[4] = self;
-    v15 = requestCopy;
-    v16 = responseCopy;
-    dispatch_async(v13, block);
+    v16 = requestCopy;
+    v17 = responseCopy;
+    dispatch_async(v14, block);
   }
 
   else
@@ -1209,17 +1754,17 @@ LABEL_12:
     _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "dispatching to recover queue (PCS double recovery)", buf, 2u);
   }
 
-  v9 = sub_10003D798();
+  v10 = sub_10003D798(v9);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10003E6DC;
   block[3] = &unk_100074FD8;
   block[4] = self;
-  v13 = requestCopy;
-  v14 = responseCopy;
-  v10 = responseCopy;
-  v11 = requestCopy;
-  dispatch_async(v9, block);
+  v14 = requestCopy;
+  v15 = responseCopy;
+  v11 = responseCopy;
+  v12 = requestCopy;
+  dispatch_async(v10, block);
 }
 
 - (void)ttrForPCSDataMatchFailure:(id)failure
@@ -1227,13 +1772,13 @@ LABEL_12:
   failureCopy = failure;
   if ((_os_feature_enabled_impl() & 1) == 0)
   {
-    v5 = CloudServicesLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = CloudServicesLog();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v6 = "PCS double TTR: skipping prompt/TTR due to DataMatchTTR feature flag";
+      v8 = "PCS double TTR: skipping prompt/TTR due to DataMatchTTR feature flag";
 LABEL_15:
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, v6, buf, 2u);
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, v8, buf, 2u);
     }
 
 LABEL_16:
@@ -1241,42 +1786,43 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  if (_os_feature_enabled_impl())
+  v4 = _os_feature_enabled_impl();
+  if (v4)
   {
-    v4 = CloudServicesLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = CloudServicesLog();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "PCS double TTR: forcing prompt/TTR due to feature flag", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "PCS double TTR: forcing prompt/TTR due to feature flag", buf, 2u);
     }
 
 LABEL_9:
-    if (sub_1000029CC())
+    if (sub_1000029CC(v4, v5))
     {
-      v7 = +[NSDate now];
+      v9 = +[NSDate now];
       if (qword_100084B08 != -1)
       {
         sub_10004E51C();
       }
 
-      v8 = qword_100084B10;
-      v9[0] = _NSConcreteStackBlock;
-      v9[1] = 3221225472;
-      v9[2] = sub_10003EF48;
-      v9[3] = &unk_100074F40;
-      v10 = v7;
-      v11 = failureCopy;
-      v5 = v7;
-      dispatch_async(v8, v9);
+      v10 = qword_100084B10;
+      v11[0] = _NSConcreteStackBlock;
+      v11[1] = 3221225472;
+      v11[2] = sub_10003EF48;
+      v11[3] = &unk_100074F40;
+      v12 = v9;
+      v13 = failureCopy;
+      v7 = v9;
+      dispatch_async(v10, v11);
 
       goto LABEL_16;
     }
 
-    v5 = CloudServicesLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = CloudServicesLog();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v6 = "PCS double TTR: not showing prompt; not on internal release";
+      v8 = "PCS double TTR: not showing prompt; not on internal release";
       goto LABEL_15;
     }
 
@@ -1393,6 +1939,36 @@ LABEL_17:
 
   _Block_object_dispose(v40, 8);
   _Block_object_dispose(v42, 8);
+}
+
+- (void)_deleteRecordWithRequest:(id)request duplicate:(BOOL)duplicate completionBlock:(id)block
+{
+  duplicateCopy = duplicate;
+  blockCopy = block;
+  requestCopy = request;
+  v10 = [(EscrowGenericRequest *)[EscrowDeleteRequest alloc] initWithRequest:requestCopy];
+
+  [(EscrowGenericRequest *)v10 setDuplicate:duplicateCopy];
+  [(EscrowService *)self _removeBypassToken];
+  v11 = CloudServicesLog();
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  {
+    recordID = [(EscrowGenericRequest *)v10 recordID];
+    *buf = 138412290;
+    v19 = recordID;
+    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Attempting to delete a escrow record: %@", buf, 0xCu);
+  }
+
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_10003FD98;
+  v15[3] = &unk_100075FD0;
+  v16 = v10;
+  v17 = blockCopy;
+  v15[4] = self;
+  v13 = v10;
+  v14 = blockCopy;
+  [(EscrowDeleteRequest *)v13 performRequestWithHandler:v15];
 }
 
 - (void)updateRecordMetadataWithRequest:(id)request completionBlock:(id)block

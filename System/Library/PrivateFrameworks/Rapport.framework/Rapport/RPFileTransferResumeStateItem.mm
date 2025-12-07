@@ -215,7 +215,7 @@
       [RPFileTransferResumeStateItem sourceFileItemUsable:usableCopy];
     }
 
-    goto LABEL_26;
+    goto LABEL_27;
   }
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -228,11 +228,11 @@
       [RPFileTransferResumeStateItem sourceFileItemUsable:usableCopy];
     }
 
-    goto LABEL_26;
+    goto LABEL_27;
   }
 
-  memset(&v12, 0, sizeof(v12));
-  if (stat([usableCopy UTF8String], &v12))
+  memset(&v13, 0, sizeof(v13));
+  if (stat([usableCopy UTF8String], &v13))
   {
     if (gLogCategory_RPFileTransferSession <= 30)
     {
@@ -241,7 +241,7 @@
         v8 = 0;
         if (!_LogCategory_Initialize())
         {
-          goto LABEL_27;
+          goto LABEL_28;
         }
       }
 
@@ -250,22 +250,23 @@
         v8 = 0;
       }
 
-      goto LABEL_25;
+      v9 = "Ignoring RPFileTransferResumeStateItem: stat() failed: '%s'";
+      goto LABEL_26;
     }
 
-LABEL_26:
+LABEL_27:
     v8 = 0;
-    goto LABEL_27;
+    goto LABEL_28;
   }
 
-  tv_sec = v12.st_mtimespec.tv_sec;
-  tv_nsec = v12.st_mtimespec.tv_nsec;
+  tv_sec = v13.st_mtimespec.tv_sec;
+  tv_nsec = v13.st_mtimespec.tv_nsec;
   if (tv_sec == [(RPFileTransferResumeStateItem *)self fileModTime]&& tv_nsec == [(RPFileTransferResumeStateItem *)self fileModTimeNsec])
   {
     if (gLogCategory_RPFileTransferSession > 30)
     {
       v8 = 1;
-      goto LABEL_27;
+      goto LABEL_28;
     }
 
     if (gLogCategory_RPFileTransferSession == -1)
@@ -273,7 +274,7 @@ LABEL_26:
       v8 = 1;
       if (!_LogCategory_Initialize())
       {
-        goto LABEL_27;
+        goto LABEL_28;
       }
     }
 
@@ -281,13 +282,15 @@ LABEL_26:
     {
       v8 = 1;
     }
+
+    v9 = "RPFileTransferResumeStateItem: source file is resumable: '%s'";
   }
 
   else
   {
     if (gLogCategory_RPFileTransferSession > 30)
     {
-      goto LABEL_26;
+      goto LABEL_27;
     }
 
     if (gLogCategory_RPFileTransferSession == -1)
@@ -295,7 +298,7 @@ LABEL_26:
       v8 = 0;
       if (!_LogCategory_Initialize())
       {
-        goto LABEL_27;
+        goto LABEL_28;
       }
     }
 
@@ -303,12 +306,13 @@ LABEL_26:
     {
       v8 = 0;
     }
+
+    v9 = "Ignoring RPFileTransferResumeStateItem: file modification time not matching: '%s'";
   }
 
-LABEL_25:
-  [usableCopy UTF8String];
-  LogPrintF();
-LABEL_27:
+LABEL_26:
+  LogPrintF(&gLogCategory_RPFileTransferSession, "-[RPFileTransferResumeStateItem sourceFileItemUsable:]", 30, v9, [usableCopy UTF8String]);
+LABEL_28:
 
   return v8;
 }
@@ -330,9 +334,7 @@ LABEL_27:
       [RPFileTransferResumeStateItem outputFileItemUsable:v6];
     }
 
-LABEL_5:
-    v10 = 0;
-    goto LABEL_6;
+    goto LABEL_5;
   }
 
   v12 = bytesWritten + fileOffset;
@@ -359,8 +361,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  memset(&v15, 0, sizeof(v15));
-  if (stat([v6 UTF8String], &v15))
+  memset(&v16, 0, sizeof(v16));
+  if (stat([v6 UTF8String], &v16))
   {
     if (gLogCategory_RPFileTransferSession <= 30 && (gLogCategory_RPFileTransferSession != -1 || _LogCategory_Initialize()))
     {
@@ -370,15 +372,27 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  if (v15.st_size < v12)
+  st_size = v16.st_size;
+  if (v16.st_size < v12)
   {
-    if (gLogCategory_RPFileTransferSession <= 30 && (gLogCategory_RPFileTransferSession != -1 || _LogCategory_Initialize()))
+    if (gLogCategory_RPFileTransferSession <= 30)
     {
-      [v6 UTF8String];
-      LogPrintF();
+      if (gLogCategory_RPFileTransferSession == -1)
+      {
+        if (!_LogCategory_Initialize())
+        {
+          goto LABEL_5;
+        }
+
+        st_size = v16.st_size;
+      }
+
+      LogPrintF(&gLogCategory_RPFileTransferSession, "-[RPFileTransferResumeStateItem outputFileItemUsable:]", 30, "Ignoring RPFileTransferResumeStateItem: file size = %ld bytes, expected %ld bytes: '%s'", st_size, v12, [v6 UTF8String]);
     }
 
-    goto LABEL_5;
+LABEL_5:
+    v10 = 0;
+    goto LABEL_6;
   }
 
   if (gLogCategory_RPFileTransferSession <= 30 && (gLogCategory_RPFileTransferSession != -1 || _LogCategory_Initialize()))

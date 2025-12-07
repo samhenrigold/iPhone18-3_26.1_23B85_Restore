@@ -1,4 +1,5 @@
 @interface UASharingAdvertiser
+- (BOOL)_advertisePayload:(id)payload force:(BOOL)force name:(id)name;
 - (BOOL)_advertisePayload:(id)payload force:(BOOL)force name:(id)name sfAdvertiser:(id)advertiser;
 - (BOOL)_updateAdvertisement;
 - (BOOL)active;
@@ -39,6 +40,7 @@
 - (void)scheduleIOPowerManagerUserIdleNotifications;
 - (void)setAdvertisableItems:(id)items;
 - (void)setPairedDevices:(id)devices;
+- (void)setShouldAdvertiseAutoPullActivityList:(BOOL)list;
 - (void)setUserIsCurrent:(BOOL)current;
 - (void)updateAdvertisingPowerAssertion:(double)assertion;
 @end
@@ -1033,6 +1035,178 @@ LABEL_38:
   }
 
   return advertiserCopy != 0;
+}
+
+- (BOOL)_advertisePayload:(id)payload force:(BOOL)force name:(id)name
+{
+  forceCopy = force;
+  payloadCopy = payload;
+  nameCopy = name;
+  dispatchQ = [(UASharingAdvertiser *)self dispatchQ];
+  dispatch_assert_queue_V2(dispatchQ);
+
+  if (payloadCopy)
+  {
+    if (forceCopy || (-[__CFString advertisementPayload](payloadCopy, "advertisementPayload"), v11 = objc_claimAutoreleasedReturnValue(), -[UASharingAdvertiser currentAdvertisementPayload](self, "currentAdvertisementPayload"), v12 = objc_claimAutoreleasedReturnValue(), [v12 advertisementPayload], v13 = objc_claimAutoreleasedReturnValue(), v14 = objc_msgSend(v11, "isEqual:", v13), v13, v12, v11, (v14 & 1) == 0))
+    {
+      v18 = sub_100001A30(0);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      {
+        currentAdvertisementPayload = [(UASharingAdvertiser *)self currentAdvertisementPayload];
+        v20 = currentAdvertisementPayload;
+        v21 = &stru_1000C67D0;
+        *buf = 138544130;
+        v51 = payloadCopy;
+        if (forceCopy)
+        {
+          v21 = @" FORCE";
+        }
+
+        v52 = 2114;
+        v53 = currentAdvertisementPayload;
+        v54 = 2114;
+        v55 = v21;
+        v56 = 2112;
+        v57 = nameCopy;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "ADVERTISING: %{public}@ (old=%{public}@)%{public}@ %@", buf, 0x2Au);
+      }
+
+      v34 = +[UAUserActivityDefaults sharedDefaults];
+      [v34 minimumTimeForAnAdvertisementToLive];
+      [(UASharingAdvertiser *)self updateAdvertisingPowerAssertion:?];
+
+      v46 = 0u;
+      v47 = 0u;
+      v44 = 0u;
+      v45 = 0u;
+      sfActivityAdvertisers = [(UASharingAdvertiser *)self sfActivityAdvertisers];
+      v35 = [sfActivityAdvertisers countByEnumeratingWithState:&v44 objects:v49 count:16];
+      v36 = v35;
+      if (v35)
+      {
+        v37 = *v45;
+        do
+        {
+          v38 = 0;
+          do
+          {
+            if (*v45 != v37)
+            {
+              objc_enumerationMutation(sfActivityAdvertisers);
+            }
+
+            [(UASharingAdvertiser *)self _advertisePayload:payloadCopy force:forceCopy name:nameCopy sfAdvertiser:*(*(&v44 + 1) + 8 * v38)];
+            v38 = v38 + 1;
+          }
+
+          while (v36 != v38);
+          v36 = [sfActivityAdvertisers countByEnumeratingWithState:&v44 objects:v49 count:16];
+        }
+
+        while (v36);
+      }
+
+      [(UASharingAdvertiser *)self setCurrentAdvertisementPayload:payloadCopy];
+      v15 = +[NSDate date];
+      [(UASharingAdvertiser *)self setLastAdvertismentTime:v15];
+      LOBYTE(sfActivityAdvertisers) = 1;
+    }
+
+    else
+    {
+      v15 = sub_100001A30(0);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      {
+        currentAdvertisementPayload2 = [(UASharingAdvertiser *)self currentAdvertisementPayload];
+        *buf = 138543618;
+        v51 = payloadCopy;
+        v52 = 2114;
+        v53 = currentAdvertisementPayload2;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "ADVERTISING: Matched current advertisement, so not updating(%{public}@ vs %{public}@)", buf, 0x16u);
+      }
+
+      LOBYTE(sfActivityAdvertisers) = 0;
+    }
+
+    validUntil = [(__CFString *)payloadCopy validUntil];
+    [validUntil timeIntervalSinceNow];
+    [(UASharingAdvertiser *)self scheduleAdvertisementUpdate:?];
+LABEL_39:
+
+    goto LABEL_40;
+  }
+
+  if (forceCopy || ([(UASharingAdvertiser *)self currentAdvertisementPayload], sfActivityAdvertisers = objc_claimAutoreleasedReturnValue(), sfActivityAdvertisers, sfActivityAdvertisers))
+  {
+    v22 = sub_100001A30(0);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    {
+      v23 = &stru_1000C67D0;
+      if (forceCopy)
+      {
+        v23 = @"FORCE";
+      }
+
+      *buf = 138543362;
+      v51 = v23;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "ADVERTISING: Changing advertisement to nil because it's been removed, %{public}@", buf, 0xCu);
+    }
+
+    currentAdvertisementPayload3 = [(UASharingAdvertiser *)self currentAdvertisementPayload];
+    if (currentAdvertisementPayload3)
+    {
+    }
+
+    currentAdvertisementPayload4 = [(UASharingAdvertiser *)self currentAdvertisementPayload];
+    v26 = currentAdvertisementPayload4 == 0;
+
+    if (!v26)
+    {
+      v27 = +[UAUserActivityDefaults sharedDefaults];
+      [v27 minimumTimeToLiveAfterRemovingAdvertisement];
+      [(UASharingAdvertiser *)self updateAdvertisingPowerAssertion:?];
+    }
+
+    v42 = 0u;
+    v43 = 0u;
+    v40 = 0u;
+    v41 = 0u;
+    sfActivityAdvertisers2 = [(UASharingAdvertiser *)self sfActivityAdvertisers];
+    v29 = [sfActivityAdvertisers2 countByEnumeratingWithState:&v40 objects:v48 count:16];
+    if (v29)
+    {
+      v30 = *v41;
+      do
+      {
+        for (i = 0; i != v29; i = i + 1)
+        {
+          if (*v41 != v30)
+          {
+            objc_enumerationMutation(sfActivityAdvertisers2);
+          }
+
+          [(UASharingAdvertiser *)self _advertisePayload:0 force:1 name:0 sfAdvertiser:*(*(&v40 + 1) + 8 * i)];
+        }
+
+        v29 = [sfActivityAdvertisers2 countByEnumeratingWithState:&v40 objects:v48 count:16];
+      }
+
+      while (v29);
+    }
+
+    currentAdvertisementPayload5 = [(UASharingAdvertiser *)self currentAdvertisementPayload];
+    [(UASharingAdvertiser *)self setLastAdvertisementPayload:currentAdvertisementPayload5];
+
+    [(UASharingAdvertiser *)self setCurrentAdvertisementPayload:0];
+    validUntil = +[NSDate date];
+    [(UASharingAdvertiser *)self setLastAdvertismentTime:validUntil];
+    LOBYTE(sfActivityAdvertisers) = 1;
+    goto LABEL_39;
+  }
+
+LABEL_40:
+
+  return sfActivityAdvertisers;
 }
 
 - (BOOL)advertiseItem:(id)item force:(BOOL)force
@@ -2147,6 +2321,22 @@ LABEL_36:
   objc_sync_exit(selfCopy);
 }
 
+- (void)setShouldAdvertiseAutoPullActivityList:(BOOL)list
+{
+  listCopy = list;
+  v5 = +[UAUserActivityDefaults sharedDefaults];
+  multiHandoffEnabled = [v5 multiHandoffEnabled];
+
+  if (multiHandoffEnabled)
+  {
+    v8.receiver = self;
+    v8.super_class = UASharingAdvertiser;
+    [(UAAdvertiser *)&v8 setShouldAdvertiseAutoPullActivityList:listCopy];
+    manager = [(UACornerActionManagerHandler *)self manager];
+    [manager scheduleUpdatingAdvertisableItems];
+  }
+}
+
 - (id)dataForMoreAppSuggestions
 {
   manager = [(UACornerActionManagerHandler *)self manager];
@@ -3175,7 +3365,7 @@ LABEL_102:
           activityType7 = [(SharingBTLEAdvertisementPayload *)v32 activityType];
           v140 = sub_1000620EC();
           v141 = [encodeAsData2 length];
-          v142 = sub_1000021AC(encodeAsData2, 0x28uLL);
+          v142 = sub_1000021AC(encodeAsData2, 40);
           *buf = 138544643;
           v194 = v136;
           v195 = 2114;

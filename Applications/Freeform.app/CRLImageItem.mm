@@ -231,7 +231,7 @@
 
 - (UTType)type
 {
-  v3 = sub_1005B981C(&unk_1019F8DB0);
+  v3 = sub_1005B981C(&unk_1019F8DB0, &unk_101471FC0);
   __chkstk_darwin(v3 - 8);
   v5 = &v13 - v4;
   selfCopy = self;
@@ -319,10 +319,11 @@
 - (CRLMaskInfo)maskInfo
 {
   selfCopy = self;
-  v3 = sub_100BBF54C();
+  sub_100BBF54C();
   v4 = v3;
+  v5 = v3;
 
-  return v3;
+  return v4;
 }
 
 - (void)setMaskInfo:(id)info
@@ -343,9 +344,10 @@
 - (BOOL)maskCanBeReset
 {
   selfCopy = self;
-  v3 = sub_100BB60A8();
+  sub_100BB60A8();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (BOOL)isBackgroundRemoved
@@ -358,7 +360,7 @@
     swift_beginAccess();
     selfCopy = self;
 
-    sub_1005B981C(&unk_101A2F5B0);
+    sub_1005B981C(&unk_101A2F5B0, &unk_101482F80);
     CRRegister.wrappedValue.getter();
     swift_endAccess();
 
@@ -430,17 +432,18 @@
 - (BOOL)maskMatchesImageGeometryWithIgnoreRoundedCorners:(BOOL)corners
 {
   selfCopy = self;
-  v5 = sub_100BB7BA4(corners);
+  sub_100BB7BA4(corners, v5);
+  v7 = v6;
 
-  return v5 & 1;
+  return v7 & 1;
 }
 
 - (CRLCanvasInfoGeometry)geometryWithMask
 {
   selfCopy = self;
-  v3 = sub_100BB7E00();
+  v4 = sub_100BB7E00(v3);
 
-  return v3;
+  return v4;
 }
 
 - (BOOL)isPDF
@@ -482,9 +485,9 @@
 - (BOOL)canAspectRatioLockBeChangedByUser
 {
   selfCopy = self;
-  v3 = sub_100BB8C1C();
+  v4 = sub_100BB8C1C(v3);
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 - (void)takePropertiesFromReplacedBoardItem:(id)item
@@ -512,21 +515,21 @@
 
 - (Class)layoutClass
 {
-  sub_100006370(0, &qword_101A13F90);
+  sub_100006370(0, &qword_101A13F90, off_10182F888);
 
   return swift_getObjCClassFromMetadata();
 }
 
 - (Class)repClass
 {
-  sub_100006370(0, &qword_101A13F88);
+  sub_100006370(0, &qword_101A13F88, off_10182F890);
 
   return swift_getObjCClassFromMetadata();
 }
 
 - (Class)editorClass
 {
-  sub_100006370(0, &qword_101A13F80);
+  sub_100006370(0, &qword_101A13F80, off_10182F878);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -537,7 +540,8 @@
   width = size.width;
   boardCopy = board;
   selfCopy = self;
-  sub_100BB9214(boardCopy, width, height);
+  v8.n128_f64[0] = width;
+  sub_100BB9214(boardCopy, v8, height);
 }
 
 + (void)adjustIncomingWithNewImageGeometry:(id)geometry newMaskGeometry:(id)maskGeometry newImageData:(id)data targetImageGeometry:(id)imageGeometry targetMaskGeometry:(id)targetMaskGeometry assetOwner:(id)owner
@@ -558,9 +562,9 @@
 - (float)roundedCornerAmount
 {
   selfCopy = self;
-  v3 = sub_100BB96E0();
+  v4 = sub_100BB96E0(v3);
 
-  return v3;
+  return v4;
 }
 
 - (id)commandToSetRoundedCornersEnabled:(BOOL)enabled
@@ -574,9 +578,10 @@
 - (id)maskInfoForCornerRadius:(float)radius
 {
   selfCopy = self;
-  v5 = sub_100BB9950(radius);
+  v5.n128_f32[0] = radius;
+  v6 = sub_100BB9950(v5);
 
-  return v5;
+  return v6;
 }
 
 - (BOOL)needsDownload
@@ -593,7 +598,8 @@
 
   else
   {
-    v6 = sub_1009B07F4();
+    sub_1009B07F4();
+    v6 = v7;
   }
 
   return v6 & 1;
@@ -609,13 +615,13 @@
 - (CGPoint)centerForReplacingWithNewItem
 {
   selfCopy = self;
-  v3 = sub_100BBAFAC();
-  v5 = v4;
+  v4 = sub_100BBAFAC(v3);
+  v6 = v5;
 
-  v6 = v3;
-  v7 = v5;
-  result.y = v7;
-  result.x = v6;
+  v7 = v4;
+  v8 = v6;
+  result.y = v8;
+  result.x = v7;
   return result;
 }
 
@@ -664,7 +670,6 @@
 
   else
   {
-    sub_1005B981C(&unk_1019F4D60);
     v7 = swift_allocObject();
     *(v7 + 16) = xmmword_101465920;
     *(v7 + 32) = selfCopy;

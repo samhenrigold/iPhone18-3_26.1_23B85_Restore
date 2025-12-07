@@ -141,7 +141,7 @@
 
 - (BOOL)_updateFormatterCacheIfNeeded_locked:(id)needed_locked unitsStyle:(int64_t)style
 {
-  if (self->_fmt && [(NSString *)self->_fmtLocaleIdent isEqualToString:needed_locked])
+  if (self->_fmt && (objc_msgSend_isEqualToString_(self->_fmtLocaleIdent, a2, needed_locked) & 1) != 0)
   {
     return 1;
   }
@@ -512,7 +512,7 @@ LABEL_89:
   return v24;
 }
 
-uint64_t __99__NSDateComponentsFormatter__canonicalizedDateComponents_withCalendar_usedUnits_withReferenceDate___block_invoke(uint64_t a1, uint64_t a2)
+void *__99__NSDateComponentsFormatter__canonicalizedDateComponents_withCalendar_usedUnits_withReferenceDate___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) valueForComponent:a2];
   *(*(a1 + 48) + 8 * *(*(*(a1 + 40) + 8) + 24)) = result;
@@ -1399,7 +1399,7 @@ LABEL_161:
   return v33;
 }
 
-uint64_t __68__NSDateComponentsFormatter_stringForObjectValue_withReferenceDate___block_invoke(uint64_t a1, uint64_t a2)
+void *__68__NSDateComponentsFormatter_stringForObjectValue_withReferenceDate___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) valueForComponent:a2];
   *(*(a1 + 48) + 8 * *(*(*(a1 + 40) + 8) + 24)) = result;
@@ -1407,7 +1407,7 @@ uint64_t __68__NSDateComponentsFormatter_stringForObjectValue_withReferenceDate_
   return result;
 }
 
-uint64_t __68__NSDateComponentsFormatter_stringForObjectValue_withReferenceDate___block_invoke_2(uint64_t a1, uint64_t a2)
+void *__68__NSDateComponentsFormatter_stringForObjectValue_withReferenceDate___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) valueForComponent:a2];
   if (result != 0x7FFFFFFFFFFFFFFFLL)

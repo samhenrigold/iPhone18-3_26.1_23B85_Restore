@@ -1,8 +1,10 @@
 @interface _INPBPrivateMediaIntentData
 - (BOOL)isEqual:(id)equal;
 - (_INPBPrivateMediaIntentData)initWithCoder:(id)coder;
+- (id)asrConfidenceLevelAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)nlConfidenceLevelAsString:(int)string;
 - (int)StringAsAsrConfidenceLevel:(id)level;
 - (int)StringAsNlConfidenceLevel:(id)level;
 - (unint64_t)hash;
@@ -689,13 +691,11 @@ LABEL_61:
   toCopy = to;
   if ([(_INPBPrivateMediaIntentData *)self hasAsrConfidenceLevel])
   {
-    asrConfidenceLevel = self->_asrConfidenceLevel;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPrivateMediaIntentData *)self hasAsrConfidenceScore])
   {
-    asrConfidenceScore = self->_asrConfidenceScore;
     PBDataWriterWriteFloatField();
   }
 
@@ -717,25 +717,21 @@ LABEL_61:
 
   if ([(_INPBPrivateMediaIntentData *)self hasIsAppAttributionRequired])
   {
-    isAppAttributionRequired = self->_isAppAttributionRequired;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBPrivateMediaIntentData *)self hasIsAppCorrection])
   {
-    isAppCorrection = self->_isAppCorrection;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBPrivateMediaIntentData *)self hasNlConfidenceLevel])
   {
-    nlConfidenceLevel = self->_nlConfidenceLevel;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPrivateMediaIntentData *)self hasNlConfidenceScore])
   {
-    nlConfidenceScore = self->_nlConfidenceScore;
     PBDataWriterWriteFloatField();
   }
 
@@ -765,19 +761,18 @@ LABEL_61:
 
   if ([(_INPBPrivateMediaIntentData *)self hasUseDialogMemoryForAttribution])
   {
-    useDialogMemoryForAttribution = self->_useDialogMemoryForAttribution;
     PBDataWriterWriteBOOLField();
   }
 
   wholeHouseAudioMetadata = [(_INPBPrivateMediaIntentData *)self wholeHouseAudioMetadata];
 
-  v22 = toCopy;
+  v15 = toCopy;
   if (wholeHouseAudioMetadata)
   {
     wholeHouseAudioMetadata2 = [(_INPBPrivateMediaIntentData *)self wholeHouseAudioMetadata];
     PBDataWriterWriteSubmessage();
 
-    v22 = toCopy;
+    v15 = toCopy;
   }
 }
 
@@ -837,6 +832,49 @@ LABEL_61:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)nlConfidenceLevelAsString:(int)string
+{
+  if (string > 19)
+  {
+    if (string == 20)
+    {
+      v4 = @"MEDIUM";
+    }
+
+    else
+    {
+      if (string != 30)
+      {
+LABEL_12:
+        v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"HIGH";
+    }
+  }
+
+  else
+  {
+    if (string)
+    {
+      if (string == 10)
+      {
+        v4 = @"LOW";
+
+        return v4;
+      }
+
+      goto LABEL_12;
+    }
+
+    v4 = @"UNKNOWN_CONFIDENCE_LEVEL";
   }
 
   return v4;
@@ -943,6 +981,49 @@ LABEL_61:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)asrConfidenceLevelAsString:(int)string
+{
+  if (string > 19)
+  {
+    if (string == 20)
+    {
+      v4 = @"MEDIUM";
+    }
+
+    else
+    {
+      if (string != 30)
+      {
+LABEL_12:
+        v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+      }
+
+      v4 = @"HIGH";
+    }
+  }
+
+  else
+  {
+    if (string)
+    {
+      if (string == 10)
+      {
+        v4 = @"LOW";
+
+        return v4;
+      }
+
+      goto LABEL_12;
+    }
+
+    v4 = @"UNKNOWN_CONFIDENCE_LEVEL";
   }
 
   return v4;

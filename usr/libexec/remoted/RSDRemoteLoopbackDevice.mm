@@ -61,21 +61,21 @@
 
 - (unsigned)interface_index
 {
-  result = _os_crash();
+  result = _os_crash("Not supported on loopback", a2);
   __break(1u);
   return result;
 }
 
 - (const)remote_address
 {
-  result = _os_crash();
+  result = _os_crash("Not supported on loopback", a2);
   __break(1u);
   return result;
 }
 
 - (const)local_address
 {
-  result = _os_crash();
+  result = _os_crash("Not supported on loopback", a2);
   __break(1u);
   return result;
 }

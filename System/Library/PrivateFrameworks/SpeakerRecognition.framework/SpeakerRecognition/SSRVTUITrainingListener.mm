@@ -8,7 +8,7 @@
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   listenerCopy = listener;
   connectionCopy = connection;
   v8 = MEMORY[0x277D015D8];
@@ -16,9 +16,9 @@
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v29 = "[SSRVTUITrainingListener listener:shouldAcceptNewConnection:]";
-    v30 = 2112;
-    v31 = connectionCopy;
+    v28 = "[SSRVTUITrainingListener listener:shouldAcceptNewConnection:]";
+    v29 = 2112;
+    v30 = connectionCopy;
     _os_log_impl(&dword_225E12000, v9, OS_LOG_TYPE_DEFAULT, "%s Got new connection on attending service: %@", buf, 0x16u);
   }
 
@@ -37,30 +37,30 @@
     block[2] = __62__SSRVTUITrainingListener_listener_shouldAcceptNewConnection___block_invoke;
     block[3] = &unk_278579350;
     v15 = connectionCopy;
-    v26 = v15;
+    v25 = v15;
     selfCopy = self;
     dispatch_sync(queue, block);
     objc_initWeak(buf, self);
     objc_initWeak(&location, v15);
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __62__SSRVTUITrainingListener_listener_shouldAcceptNewConnection___block_invoke_2;
-    v21[3] = &unk_2785785C0;
-    objc_copyWeak(&v22, buf);
-    objc_copyWeak(&v23, &location);
-    [(NSXPCListener *)v15 setInterruptionHandler:v21];
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __62__SSRVTUITrainingListener_listener_shouldAcceptNewConnection___block_invoke_2_4;
-    v18[3] = &unk_2785785C0;
-    objc_copyWeak(&v19, buf);
-    objc_copyWeak(&v20, &location);
-    [(NSXPCListener *)v15 setInvalidationHandler:v18];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __62__SSRVTUITrainingListener_listener_shouldAcceptNewConnection___block_invoke_2;
+    v20[3] = &unk_2785785C0;
+    objc_copyWeak(&v21, buf);
+    objc_copyWeak(&v22, &location);
+    [(NSXPCListener *)v15 setInterruptionHandler:v20];
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __62__SSRVTUITrainingListener_listener_shouldAcceptNewConnection___block_invoke_2_4;
+    v17[3] = &unk_2785785C0;
+    objc_copyWeak(&v18, buf);
+    objc_copyWeak(&v19, &location);
+    [(NSXPCListener *)v15 setInvalidationHandler:v17];
     [(NSXPCListener *)v15 resume];
-    objc_destroyWeak(&v20);
     objc_destroyWeak(&v19);
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&v22);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(&location);
     objc_destroyWeak(buf);
   }
@@ -71,14 +71,13 @@
     if (os_log_type_enabled(*v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v29 = "[SSRVTUITrainingListener listener:shouldAcceptNewConnection:]";
-      v30 = 2114;
-      v31 = listenerCopy;
+      v28 = "[SSRVTUITrainingListener listener:shouldAcceptNewConnection:]";
+      v29 = 2114;
+      v30 = listenerCopy;
       _os_log_error_impl(&dword_225E12000, v11, OS_LOG_TYPE_ERROR, "%s Invalid listener - %{public}@", buf, 0x16u);
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return listener == listenerCopy;
 }
 
@@ -108,7 +107,7 @@ uint64_t __62__SSRVTUITrainingListener_listener_shouldAcceptNewConnection___bloc
 
 void __62__SSRVTUITrainingListener_listener_shouldAcceptNewConnection___block_invoke_2(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
@@ -117,13 +116,13 @@ void __62__SSRVTUITrainingListener_listener_shouldAcceptNewConnection___block_in
     v5 = objc_loadWeakRetained((a1 + 40));
     v6 = v5;
     *buf = 136315906;
-    v15 = "[SSRVTUITrainingListener listener:shouldAcceptNewConnection:]_block_invoke_2";
-    v16 = 2114;
-    v17 = @"com.apple.siri.ssrvtuitrainingservice.xpc";
-    v18 = 2114;
-    v19 = v5;
-    v20 = 1026;
-    v21 = [v6 processIdentifier];
+    v14 = "[SSRVTUITrainingListener listener:shouldAcceptNewConnection:]_block_invoke_2";
+    v15 = 2114;
+    v16 = @"com.apple.siri.ssrvtuitrainingservice.xpc";
+    v17 = 2114;
+    v18 = v5;
+    v19 = 1026;
+    v20 = [v6 processIdentifier];
     _os_log_impl(&dword_225E12000, v4, OS_LOG_TYPE_DEFAULT, "%s [Service:%{public}@] Listener Interruption Handler: %{public}@, client PID: %{public}d)", buf, 0x26u);
   }
 
@@ -132,21 +131,19 @@ void __62__SSRVTUITrainingListener_listener_shouldAcceptNewConnection___block_in
   if (WeakRetained && v7)
   {
     v9 = [WeakRetained queue];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __62__SSRVTUITrainingListener_listener_shouldAcceptNewConnection___block_invoke_3;
-    v11[3] = &unk_278579350;
-    v12 = v8;
-    v13 = WeakRetained;
-    dispatch_async(v9, v11);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __62__SSRVTUITrainingListener_listener_shouldAcceptNewConnection___block_invoke_3;
+    v10[3] = &unk_278579350;
+    v11 = v8;
+    v12 = WeakRetained;
+    dispatch_async(v9, v10);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __62__SSRVTUITrainingListener_listener_shouldAcceptNewConnection___block_invoke_2_4(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
@@ -155,13 +152,13 @@ void __62__SSRVTUITrainingListener_listener_shouldAcceptNewConnection___block_in
     v5 = objc_loadWeakRetained((a1 + 40));
     v6 = v5;
     *buf = 136315906;
-    v13 = "[SSRVTUITrainingListener listener:shouldAcceptNewConnection:]_block_invoke_2";
-    v14 = 2114;
-    v15 = @"com.apple.siri.ssrvtuitrainingservice.xpc";
-    v16 = 2114;
-    v17 = v5;
-    v18 = 1026;
-    v19 = [v6 processIdentifier];
+    v12 = "[SSRVTUITrainingListener listener:shouldAcceptNewConnection:]_block_invoke_2";
+    v13 = 2114;
+    v14 = @"com.apple.siri.ssrvtuitrainingservice.xpc";
+    v15 = 2114;
+    v16 = v5;
+    v17 = 1026;
+    v18 = [v6 processIdentifier];
     _os_log_impl(&dword_225E12000, v4, OS_LOG_TYPE_DEFAULT, "%s [Service:%{public}@] Listener Invalidation Handler: %{public}@, client PID: %{public}d exited", buf, 0x26u);
   }
 
@@ -177,8 +174,6 @@ void __62__SSRVTUITrainingListener_listener_shouldAcceptNewConnection___block_in
     block[4] = WeakRetained;
     dispatch_async(v9, block);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __62__SSRVTUITrainingListener_listener_shouldAcceptNewConnection___block_invoke_5(uint64_t a1)
@@ -205,7 +200,7 @@ void __62__SSRVTUITrainingListener_listener_shouldAcceptNewConnection___block_in
 
 - (void)listen
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CCAE98]) initWithMachServiceName:@"com.apple.siri.ssrvtuitrainingservice.xpc"];
   listener = self->_listener;
   self->_listener = v3;
@@ -215,12 +210,10 @@ void __62__SSRVTUITrainingListener_listener_shouldAcceptNewConnection___block_in
   v5 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[SSRVTUITrainingListener listen]";
-    _os_log_impl(&dword_225E12000, v5, OS_LOG_TYPE_DEFAULT, "%s SSRVTUITrainingListener start listening", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[SSRVTUITrainingListener listen]";
+    _os_log_impl(&dword_225E12000, v5, OS_LOG_TYPE_DEFAULT, "%s SSRVTUITrainingListener start listening", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (SSRVTUITrainingListener)initWithMessageHandler:(id)handler

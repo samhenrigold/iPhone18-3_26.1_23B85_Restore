@@ -319,20 +319,24 @@
 - (void)setScrollInfo:(id)info
 {
   infoCopy = info;
+  v5 = infoCopy;
   if (self->_scrollInfo != infoCopy)
   {
-    v7 = infoCopy;
-    if (![(PXScrollInfo *)infoCopy isEqual:?])
+    v8 = infoCopy;
+    infoCopy = [infoCopy isEqual:?];
+    v5 = v8;
+    if ((infoCopy & 1) == 0)
     {
-      v5 = [(PXScrollInfo *)v7 copy];
+      v6 = [v8 copy];
       scrollInfo = self->_scrollInfo;
-      self->_scrollInfo = v5;
+      self->_scrollInfo = v6;
 
-      [(PXScrollViewController *)self applyScrollInfo:self->_scrollInfo];
+      infoCopy = [(PXScrollViewController *)self applyScrollInfo:self->_scrollInfo];
+      v5 = v8;
     }
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](infoCopy, v5);
 }
 
 - (void)setTransfersScrollToContainer:(BOOL)container

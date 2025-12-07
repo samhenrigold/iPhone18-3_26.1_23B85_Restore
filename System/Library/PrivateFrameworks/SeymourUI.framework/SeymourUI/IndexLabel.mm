@@ -30,7 +30,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_20B952400();
+  sub_20B952400(selfCopy);
 }
 
 - (void)textSizeUpdated:(id)updated

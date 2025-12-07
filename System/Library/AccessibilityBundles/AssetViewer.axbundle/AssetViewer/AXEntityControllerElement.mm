@@ -69,7 +69,7 @@
   return v6;
 }
 
-uint64_t __55__AXEntityControllerElement__accessibilityScrollStatus__block_invoke(uint64_t a1)
+void *__55__AXEntityControllerElement__accessibilityScrollStatus__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) accessibilityDistanceInMetersFromEntityController:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = v3;

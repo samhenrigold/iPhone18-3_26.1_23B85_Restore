@@ -36,18 +36,18 @@
 
 - (BOOL)runTest
 {
-  options = [(MapsAppTest *)self options];
+  v3 = objc_msgSend_options(self, a2);
   testCoordinator = [(MapsAppTest *)self testCoordinator];
   [testCoordinator pptTestResetForLaunchURL];
 
-  [options _mapstest_locationCoordinate2D];
+  [v3 _mapstest_locationCoordinate2D];
   v6 = v5;
   v8 = v7;
   [(MapsAppTest *)self registerGEOManifestSubtests];
   v9 = +[NSNotificationCenter defaultCenter];
   [v9 addObserver:self selector:"finishedTest" name:MapsButtonETAUpdatedNotification object:0];
 
-  -[MapsAppTest switchToMapType:](self, "switchToMapType:", [options _mapstest_mapTypeWithDefaultType:{-[MapsAppTestETA defaultMapType](self, "defaultMapType")}]);
+  -[MapsAppTest switchToMapType:](self, "switchToMapType:", [v3 _mapstest_mapTypeWithDefaultType:{-[MapsAppTestETA defaultMapType](self, "defaultMapType")}]);
   v10 = dispatch_time(0, 1000000000);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;

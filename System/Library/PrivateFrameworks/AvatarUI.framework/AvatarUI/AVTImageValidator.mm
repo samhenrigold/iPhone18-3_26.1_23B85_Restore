@@ -132,17 +132,17 @@
       goto LABEL_12;
     }
 
-    v8 = [MEMORY[0x1E698E338] errorWithCode:606 userInfo:0];
+    v7 = [MEMORY[0x1E698E338] errorWithCode:606 userInfo:0];
     LOBYTE(v6) = 0;
     goto LABEL_10;
   }
 
   v6 = objc_opt_class();
-  cGImage = [validCopy CGImage];
+  [validCopy CGImage];
   [validCopy size];
   if (v6)
   {
-    [v6 _calculateStatistics:cGImage withSize:?];
+    objc_msgSend__calculateStatistics_withSize_(v6);
     LOBYTE(v6) = 0.0 > 2.22044605e-16;
     if (!error)
     {
@@ -157,9 +157,9 @@
 
   if ((v6 & 1) == 0)
   {
-    v8 = [MEMORY[0x1E698E338] errorWithCode:605 userInfo:{0, 0.0}];
+    v7 = [MEMORY[0x1E698E338] errorWithCode:605 userInfo:{0, 0.0}];
 LABEL_10:
-    *error = v8;
+    *error = v7;
   }
 
 LABEL_12:

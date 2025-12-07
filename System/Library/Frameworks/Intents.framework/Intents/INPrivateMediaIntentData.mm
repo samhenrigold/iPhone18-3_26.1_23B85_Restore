@@ -14,68 +14,68 @@
 
 - (id)_dictionaryRepresentation
 {
-  v39[13] = *MEMORY[0x1E69E9840];
+  v38[13] = *MEMORY[0x1E69E9840];
   speakerIDInfo = self->_speakerIDInfo;
-  v37 = speakerIDInfo;
-  v38[0] = @"speakerIDInfo";
+  v36 = speakerIDInfo;
+  v37[0] = @"speakerIDInfo";
   if (!speakerIDInfo)
   {
     speakerIDInfo = [MEMORY[0x1E695DFB0] null];
   }
 
-  v30 = speakerIDInfo;
-  v39[0] = speakerIDInfo;
-  v38[1] = @"proxiedThirdPartyAppInfo";
+  v29 = speakerIDInfo;
+  v38[0] = speakerIDInfo;
+  v37[1] = @"proxiedThirdPartyAppInfo";
   proxiedThirdPartyAppInfo = self->_proxiedThirdPartyAppInfo;
-  v36 = proxiedThirdPartyAppInfo;
+  v35 = proxiedThirdPartyAppInfo;
   if (!proxiedThirdPartyAppInfo)
   {
     proxiedThirdPartyAppInfo = [MEMORY[0x1E695DFB0] null];
   }
 
-  v29 = proxiedThirdPartyAppInfo;
-  v39[1] = proxiedThirdPartyAppInfo;
-  v38[2] = @"isAppAttributionRequired";
+  v28 = proxiedThirdPartyAppInfo;
+  v38[1] = proxiedThirdPartyAppInfo;
+  v37[2] = @"isAppAttributionRequired";
   isAppAttributionRequired = self->_isAppAttributionRequired;
-  v35 = isAppAttributionRequired;
+  v34 = isAppAttributionRequired;
   if (!isAppAttributionRequired)
   {
     isAppAttributionRequired = [MEMORY[0x1E695DFB0] null];
   }
 
-  v28 = isAppAttributionRequired;
-  v39[2] = isAppAttributionRequired;
-  v38[3] = @"useDialogMemoryForAttribution";
+  v27 = isAppAttributionRequired;
+  v38[2] = isAppAttributionRequired;
+  v37[3] = @"useDialogMemoryForAttribution";
   useDialogMemoryForAttribution = self->_useDialogMemoryForAttribution;
-  v34 = useDialogMemoryForAttribution;
+  v33 = useDialogMemoryForAttribution;
   if (!useDialogMemoryForAttribution)
   {
     useDialogMemoryForAttribution = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27 = useDialogMemoryForAttribution;
-  v39[3] = useDialogMemoryForAttribution;
-  v38[4] = @"isAppCorrection";
+  v26 = useDialogMemoryForAttribution;
+  v38[3] = useDialogMemoryForAttribution;
+  v37[4] = @"isAppCorrection";
   isAppCorrection = self->_isAppCorrection;
-  v33 = isAppCorrection;
+  v32 = isAppCorrection;
   if (!isAppCorrection)
   {
     isAppCorrection = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26 = isAppCorrection;
-  v39[4] = isAppCorrection;
-  v38[5] = @"fallbackUsername";
+  v25 = isAppCorrection;
+  v38[4] = isAppCorrection;
+  v37[5] = @"fallbackUsername";
   fallbackUsername = self->_fallbackUsername;
-  v32 = fallbackUsername;
+  v31 = fallbackUsername;
   if (!fallbackUsername)
   {
     fallbackUsername = [MEMORY[0x1E695DFB0] null];
   }
 
-  v25 = fallbackUsername;
-  v39[5] = fallbackUsername;
-  v38[6] = @"wholeHouseAudioMetadata";
+  v24 = fallbackUsername;
+  v38[5] = fallbackUsername;
+  v37[6] = @"wholeHouseAudioMetadata";
   wholeHouseAudioMetadata = self->_wholeHouseAudioMetadata;
   null = wholeHouseAudioMetadata;
   if (!wholeHouseAudioMetadata)
@@ -83,9 +83,9 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24 = null;
-  v39[6] = null;
-  v38[7] = @"nlConfidenceScore";
+  v23 = null;
+  v38[6] = null;
+  v37[7] = @"nlConfidenceScore";
   nlConfidenceScore = self->_nlConfidenceScore;
   null2 = nlConfidenceScore;
   if (!nlConfidenceScore)
@@ -93,12 +93,12 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v23 = null2;
-  v39[7] = null2;
-  v38[8] = @"nlConfidenceLevel";
+  v22 = null2;
+  v38[7] = null2;
+  v37[8] = @"nlConfidenceLevel";
   v13 = [MEMORY[0x1E696AD98] numberWithInteger:self->_nlConfidenceLevel];
-  v39[8] = v13;
-  v38[9] = @"asrConfidenceScore";
+  v38[8] = v13;
+  v37[9] = @"asrConfidenceScore";
   asrConfidenceScore = self->_asrConfidenceScore;
   null3 = asrConfidenceScore;
   if (!asrConfidenceScore)
@@ -106,11 +106,11 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v39[9] = null3;
-  v38[10] = @"asrConfidenceLevel";
+  v38[9] = null3;
+  v37[10] = @"asrConfidenceLevel";
   v16 = [MEMORY[0x1E696AD98] numberWithInteger:self->_asrConfidenceLevel];
-  v39[10] = v16;
-  v38[11] = @"resolvedSharedUserID";
+  v38[10] = v16;
+  v37[11] = @"resolvedSharedUserID";
   resolvedSharedUserID = self->_resolvedSharedUserID;
   null4 = resolvedSharedUserID;
   if (!resolvedSharedUserID)
@@ -118,8 +118,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v39[11] = null4;
-  v38[12] = @"homeAutomationEntityProvider";
+  v38[11] = null4;
+  v37[12] = @"homeAutomationEntityProvider";
   homeAutomationEntityProvider = self->_homeAutomationEntityProvider;
   null5 = homeAutomationEntityProvider;
   if (!homeAutomationEntityProvider)
@@ -127,8 +127,8 @@
     null5 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v39[12] = null5;
-  v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:v38 count:13];
+  v38[12] = null5;
+  v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:13];
   if (homeAutomationEntityProvider)
   {
     if (resolvedSharedUserID)
@@ -169,6 +169,10 @@ LABEL_25:
   }
 
 LABEL_29:
+  if (!v31)
+  {
+  }
+
   if (!v32)
   {
   }
@@ -189,13 +193,7 @@ LABEL_29:
   {
   }
 
-  if (!v37)
-  {
-  }
-
-  v21 = *MEMORY[0x1E69E9840];
-
-  return v31;
+  return v30;
 }
 
 - (id)descriptionAtIndent:(unint64_t)indent
@@ -336,38 +334,50 @@ LABEL_29:
     {
       v5 = equalCopy;
       speakerIDInfo = self->_speakerIDInfo;
-      if (speakerIDInfo != v5->_speakerIDInfo && ![(INSpeakerIDInfo *)speakerIDInfo isEqual:?])
+      v17 = 0;
+      if (speakerIDInfo == v5->_speakerIDInfo || [(INSpeakerIDInfo *)speakerIDInfo isEqual:?])
       {
-        goto LABEL_30;
-      }
-
-      proxiedThirdPartyAppInfo = self->_proxiedThirdPartyAppInfo;
-      if (proxiedThirdPartyAppInfo != v5->_proxiedThirdPartyAppInfo && ![(INAppIdentifier *)proxiedThirdPartyAppInfo isEqual:?])
-      {
-        goto LABEL_30;
-      }
-
-      isAppAttributionRequired = self->_isAppAttributionRequired;
-      if (isAppAttributionRequired != v5->_isAppAttributionRequired && ![(NSNumber *)isAppAttributionRequired isEqual:?])
-      {
-        goto LABEL_30;
-      }
-
-      useDialogMemoryForAttribution = self->_useDialogMemoryForAttribution;
-      if (useDialogMemoryForAttribution != v5->_useDialogMemoryForAttribution && ![(NSNumber *)useDialogMemoryForAttribution isEqual:?])
-      {
-        goto LABEL_30;
-      }
-
-      if (((isAppCorrection = self->_isAppCorrection, isAppCorrection == v5->_isAppCorrection) || [(NSNumber *)isAppCorrection isEqual:?]) && ((fallbackUsername = self->_fallbackUsername, fallbackUsername == v5->_fallbackUsername) || [(NSString *)fallbackUsername isEqual:?]) && ((wholeHouseAudioMetadata = self->_wholeHouseAudioMetadata, wholeHouseAudioMetadata == v5->_wholeHouseAudioMetadata) || [(INWholeHouseAudioMetadata *)wholeHouseAudioMetadata isEqual:?]) && ((nlConfidenceScore = self->_nlConfidenceScore, nlConfidenceScore == v5->_nlConfidenceScore) || [(NSNumber *)nlConfidenceScore isEqual:?]) && self->_nlConfidenceLevel == v5->_nlConfidenceLevel && ((asrConfidenceScore = self->_asrConfidenceScore, asrConfidenceScore == v5->_asrConfidenceScore) || [(NSNumber *)asrConfidenceScore isEqual:?]) && self->_asrConfidenceLevel == v5->_asrConfidenceLevel && ((resolvedSharedUserID = self->_resolvedSharedUserID, resolvedSharedUserID == v5->_resolvedSharedUserID) || [(NSString *)resolvedSharedUserID isEqual:?]) && ((homeAutomationEntityProvider = self->_homeAutomationEntityProvider, homeAutomationEntityProvider == v5->_homeAutomationEntityProvider) || [(INHomeAutomationEntityProvider *)homeAutomationEntityProvider isEqual:?]))
-      {
-        v17 = 1;
-      }
-
-      else
-      {
-LABEL_30:
-        v17 = 0;
+        proxiedThirdPartyAppInfo = self->_proxiedThirdPartyAppInfo;
+        if (proxiedThirdPartyAppInfo == v5->_proxiedThirdPartyAppInfo || [(INAppIdentifier *)proxiedThirdPartyAppInfo isEqual:?])
+        {
+          isAppAttributionRequired = self->_isAppAttributionRequired;
+          if (isAppAttributionRequired == v5->_isAppAttributionRequired || [(NSNumber *)isAppAttributionRequired isEqual:?])
+          {
+            useDialogMemoryForAttribution = self->_useDialogMemoryForAttribution;
+            if (useDialogMemoryForAttribution == v5->_useDialogMemoryForAttribution || [(NSNumber *)useDialogMemoryForAttribution isEqual:?])
+            {
+              isAppCorrection = self->_isAppCorrection;
+              if (isAppCorrection == v5->_isAppCorrection || [(NSNumber *)isAppCorrection isEqual:?])
+              {
+                fallbackUsername = self->_fallbackUsername;
+                if (fallbackUsername == v5->_fallbackUsername || [(NSString *)fallbackUsername isEqual:?])
+                {
+                  wholeHouseAudioMetadata = self->_wholeHouseAudioMetadata;
+                  if (wholeHouseAudioMetadata == v5->_wholeHouseAudioMetadata || [(INWholeHouseAudioMetadata *)wholeHouseAudioMetadata isEqual:?])
+                  {
+                    nlConfidenceScore = self->_nlConfidenceScore;
+                    if ((nlConfidenceScore == v5->_nlConfidenceScore || [(NSNumber *)nlConfidenceScore isEqual:?]) && self->_nlConfidenceLevel == v5->_nlConfidenceLevel)
+                    {
+                      asrConfidenceScore = self->_asrConfidenceScore;
+                      if ((asrConfidenceScore == v5->_asrConfidenceScore || [(NSNumber *)asrConfidenceScore isEqual:?]) && self->_asrConfidenceLevel == v5->_asrConfidenceLevel)
+                      {
+                        resolvedSharedUserID = self->_resolvedSharedUserID;
+                        if (resolvedSharedUserID == v5->_resolvedSharedUserID || [(NSString *)resolvedSharedUserID isEqual:?])
+                        {
+                          homeAutomationEntityProvider = self->_homeAutomationEntityProvider;
+                          if (homeAutomationEntityProvider == v5->_homeAutomationEntityProvider || [(INHomeAutomationEntityProvider *)homeAutomationEntityProvider isEqual:?])
+                          {
+                            v17 = 1;
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
       }
     }
 

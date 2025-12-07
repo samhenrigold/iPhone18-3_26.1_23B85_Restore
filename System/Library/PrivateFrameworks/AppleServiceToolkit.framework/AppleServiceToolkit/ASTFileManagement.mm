@@ -32,7 +32,7 @@
 
 + (void)unprotectedFileHandleForFileURL:(NSObject *)a3 error:.cold.1(void *a1, uint64_t *a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = [a1 URLByDeletingLastPathComponent];
   v6 = v5;
   if (a2)
@@ -45,13 +45,11 @@
     v7 = 0;
   }
 
-  v9 = 138412546;
-  v10 = v5;
-  v11 = 2112;
-  v12 = v7;
-  _os_log_error_impl(&dword_240F3C000, a3, OS_LOG_TYPE_ERROR, "Could not create directory at URL: [%@]: %@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138412546;
+  v9 = v5;
+  v10 = 2112;
+  v11 = v7;
+  _os_log_error_impl(&dword_240F3C000, a3, OS_LOG_TYPE_ERROR, "Could not create directory at URL: [%@]: %@", &v8, 0x16u);
 }
 
 @end

@@ -121,39 +121,39 @@ LABEL_8:
 
 - (void)setOuterLabelProviders:(id)providers
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   providersCopy = providers;
   objc_storeStrong(&self->_outerLabelProviders, providers);
   if ([(NSArray *)self->_outerLabelProviders count])
   {
-    v14 = providersCopy;
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
+    v13 = providersCopy;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v6 = self->_outerLabelProviders;
-    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v7 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v17;
+      v9 = *v16;
 LABEL_4:
       v10 = 0;
       while (1)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        textProvider = [*(*(&v16 + 1) + 8 * v10) textProvider];
+        textProvider = [*(*(&v15 + 1) + 8 * v10) textProvider];
         [(CLKUICurvedColoringLabel *)self->_outerLabel setTextProvider:textProvider];
-        v15[0] = MEMORY[0x277D85DD0];
-        v15[1] = 3221225472;
-        v15[2] = __64__CDRichComplicationCornerGaugeTextView_setOuterLabelProviders___block_invoke;
-        v15[3] = &unk_278DF3558;
-        v15[4] = self;
-        [MEMORY[0x277D75D18] performWithoutAnimation:v15];
+        v14[0] = MEMORY[0x277D85DD0];
+        v14[1] = 3221225472;
+        v14[2] = __64__CDRichComplicationCornerGaugeTextView_setOuterLabelProviders___block_invoke;
+        v14[3] = &unk_278DF3558;
+        v14[4] = self;
+        [MEMORY[0x277D75D18] performWithoutAnimation:v14];
         isTextTruncated = [(CLKUICurvedColoringLabel *)self->_outerLabel isTextTruncated];
 
         if (!isTextTruncated)
@@ -163,7 +163,7 @@ LABEL_4:
 
         if (v8 == ++v10)
         {
-          v8 = [(NSArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v8 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
           if (v8)
           {
             goto LABEL_4;
@@ -174,7 +174,7 @@ LABEL_4:
       }
     }
 
-    providersCopy = v14;
+    providersCopy = v13;
   }
 
   else
@@ -182,8 +182,6 @@ LABEL_4:
     [(CLKUICurvedColoringLabel *)self->_outerLabel setImageView:0];
     [(CLKUICurvedColoringLabel *)self->_outerLabel setTextProvider:0];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 + (BOOL)handlesComplicationTemplate:(id)template

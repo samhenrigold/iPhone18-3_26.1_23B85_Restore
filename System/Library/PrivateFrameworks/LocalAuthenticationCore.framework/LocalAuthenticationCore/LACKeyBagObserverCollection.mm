@@ -26,18 +26,19 @@
 {
   v18 = *MEMORY[0x1E69E9840];
   updateCopy = update;
+  v7 = updateCopy;
   if (self->_lastPublishedState != state)
   {
-    v7 = LACLogKeybag();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = LACLogKeybag(updateCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = NSStringFromLACKeyBagState(self->_lastPublishedState);
-      v9 = NSStringFromLACKeyBagState(state);
+      v9 = NSStringFromLACKeyBagState(self->_lastPublishedState);
+      v10 = NSStringFromLACKeyBagState(state);
       *buf = 138412546;
-      v15 = v8;
+      v15 = v9;
       v16 = 2112;
-      v17 = v9;
-      _os_log_impl(&dword_1B0233000, v7, OS_LOG_TYPE_DEFAULT, "Keybag state changed from %@ to %@", buf, 0x16u);
+      v17 = v10;
+      _os_log_impl(&dword_1B0233000, v8, OS_LOG_TYPE_DEFAULT, "Keybag state changed from %@ to %@", buf, 0x16u);
     }
 
     self->_lastPublishedState = state;
@@ -46,11 +47,9 @@
     v12[1] = 3221225472;
     v12[2] = __62__LACKeyBagObserverCollection_publishKeybagStateUpdate_state___block_invoke;
     v12[3] = &unk_1E7A96038;
-    v13 = updateCopy;
+    v13 = v7;
     [(LACThreadSafeCollection *)observers forEach:v12];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __62__LACKeyBagObserverCollection_publishKeybagStateUpdate_state___block_invoke(uint64_t a1, void *a2)

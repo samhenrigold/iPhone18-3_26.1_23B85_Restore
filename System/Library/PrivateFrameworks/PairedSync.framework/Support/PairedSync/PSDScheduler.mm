@@ -321,15 +321,7 @@ LABEL_15:
   localizations = [v10 localizations];
   v13 = [NSArray arrayWithObject:v11];
   v14 = CFBundleCopyLocalizationsForPreferences(localizations, v13);
-  if (![(__CFArray *)v14 count])
-  {
-    goto LABEL_8;
-  }
-
-  v15 = [(__CFArray *)v14 objectAtIndex:0];
-  v16 = [v10 pathForResource:@"Localizable" ofType:@"strings" inDirectory:0 forLocalization:v15];
-
-  if (v16)
+  if (-[__CFArray count](v14, "count") && (-[__CFArray objectAtIndex:](v14, "objectAtIndex:", 0), v15 = objc_claimAutoreleasedReturnValue(), [v10 pathForResource:@"Localizable" ofType:@"strings" inDirectory:0 forLocalization:v15], v16 = objc_claimAutoreleasedReturnValue(), v15, v16))
   {
     v17 = [NSDictionary dictionaryWithContentsOfFile:v16];
     v18 = [v17 objectForKey:v9];
@@ -337,7 +329,6 @@ LABEL_15:
 
   else
   {
-LABEL_8:
     v18 = 0;
   }
 

@@ -41,24 +41,24 @@ uint64_t __105__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_out
     result = *(a1 + 40);
     if (result)
     {
-      return (*(result + 16))();
+      return (*(result + 16))(result, a2);
     }
   }
 
   return result;
 }
 
-uint64_t __105__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_outputData_errorData_launchHandler_reply___block_invoke_2(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+id *__105__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_outputData_errorData_launchHandler_reply___block_invoke_2(id *result, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = result;
   if (a3)
   {
-    result = [*(result + 32) appendData:?];
+    result = [result[4] appendData:?];
   }
 
   if (a4)
   {
-    v6 = *(v5 + 40);
+    v6 = v5[5];
 
     return [v6 appendData:a4];
   }
@@ -130,7 +130,7 @@ uint64_t __117__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_out
     result = *(a1 + 40);
     if (result)
     {
-      return (*(result + 16))();
+      return (*(result + 16))(result, a2);
     }
   }
 
@@ -139,20 +139,18 @@ uint64_t __117__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_out
 
 void *__117__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_outputFileHandle_errorFileHandle_launchHandler_reply___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v7 = *(a1 + 32);
-  if (v7)
+  v6 = *(a1 + 32);
+  if (v6)
   {
-    [v7 writeData:?];
+    [v6 writeData:a3];
   }
 
   result = *(a1 + 40);
   if (result)
   {
-    result = [result writeData:a4];
+    return [result writeData:a4];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -169,17 +167,17 @@ uint64_t __117__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_out
 
 void __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
-  v3 = read(*(a1 + 64), v9, 0x1000uLL);
+  v3 = read(*(a1 + 64), v8, 0x1000uLL);
   if (v3 >= 1)
   {
-    v4 = [MEMORY[0x277CBEA90] dataWithBytes:v9 length:v3];
+    v4 = [MEMORY[0x277CBEA90] dataWithBytes:v8 length:v3];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_2;
     block[3] = &unk_279ECD2A0;
-    v8 = *(a1 + 48);
+    v7 = *(a1 + 48);
     v5 = *(a1 + 32);
     block[4] = *(a1 + 40);
     block[5] = v4;
@@ -187,7 +185,6 @@ void __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlo
   }
 
   objc_autoreleasePoolPop(v2);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_2(void *a1)
@@ -214,17 +211,17 @@ void __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlo
 
 void __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_4(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
-  v3 = read(*(a1 + 64), v9, 0x1000uLL);
+  v3 = read(*(a1 + 64), v8, 0x1000uLL);
   if (v3 >= 1)
   {
-    v4 = [MEMORY[0x277CBEA90] dataWithBytes:v9 length:v3];
+    v4 = [MEMORY[0x277CBEA90] dataWithBytes:v8 length:v3];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_5;
     block[3] = &unk_279ECD2A0;
-    v8 = *(a1 + 48);
+    v7 = *(a1 + 48);
     v5 = *(a1 + 32);
     block[4] = *(a1 + 40);
     block[5] = v4;
@@ -232,7 +229,6 @@ void __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlo
   }
 
   objc_autoreleasePoolPop(v2);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_5(void *a1)
@@ -259,7 +255,7 @@ void __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlo
 
 void __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_7(uint64_t a1)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   [objc_msgSend(MEMORY[0x277CCAB98] "defaultCenter")];
   v2 = *(a1 + 32);
   block[0] = MEMORY[0x277D85DD0];
@@ -270,9 +266,9 @@ void __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlo
   dispatch_async(v2, block);
   if (*(*(*(a1 + 104) + 8) + 24) == 1)
   {
-    v17 = *MEMORY[0x277CCA470];
-    v18[0] = @"W5TimeoutErr";
-    v3 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.wifivelocity.error" code:3 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v18, &v17, 1)}];
+    v16 = *MEMORY[0x277CCA470];
+    v17[0] = @"W5TimeoutErr";
+    v3 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.wifivelocity.error" code:3 userInfo:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v17, &v16, 1)}];
   }
 
   else
@@ -281,9 +277,9 @@ void __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlo
     if (v4)
     {
       v5 = MEMORY[0x277CCA9B8];
-      v15 = *MEMORY[0x277CCA470];
-      v16 = @"terminationStatus";
-      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v16 forKeys:&v15 count:1];
+      v14 = *MEMORY[0x277CCA470];
+      v15 = @"terminationStatus";
+      v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v15 forKeys:&v14 count:1];
       v3 = [v5 errorWithDomain:*MEMORY[0x277CCA5B8] code:v4 userInfo:v6];
     }
 
@@ -295,25 +291,23 @@ void __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlo
 
   v7 = *(a1 + 32);
   v8 = *(a1 + 40);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_51;
-  v13[3] = &unk_279ECD368;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_51;
+  v12[3] = &unk_279ECD368;
   v9 = *(a1 + 56);
-  v13[4] = *(a1 + 48);
-  v13[5] = v3;
+  v12[4] = *(a1 + 48);
+  v12[5] = v3;
   v10 = *(a1 + 80);
-  v13[6] = v9;
-  v13[7] = v8;
+  v12[6] = v9;
+  v12[7] = v8;
   v11 = *(a1 + 112);
-  v13[8] = v10;
-  v13[9] = v11;
-  dispatch_async(v7, v13);
+  v12[8] = v10;
+  v12[9] = v11;
+  dispatch_async(v7, v12);
   dispatch_source_cancel(*(a1 + 64));
   dispatch_source_cancel(*(a1 + 72));
   dispatch_release(*(a1 + 32));
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_8(uint64_t a1)
@@ -326,7 +320,7 @@ void __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlo
 
 void __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_51(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   OSLog = W5GetOSLog();
   if (os_log_type_enabled(OSLog, OS_LOG_TYPE_DEFAULT))
@@ -344,23 +338,22 @@ void __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlo
 
     v6 = *(a1 + 32);
     v7 = [*(a1 + 48) componentsJoinedByString:@" "];
-    v12 = 136316674;
-    v13 = "+[NSTask(WiFiVelocity) runTaskWithLaunchPath:arguments:timeout:startBlock:updateBlock:endBlock:]_block_invoke";
-    v14 = 2080;
-    v15 = "W5TaskUtil.m";
-    v16 = 1024;
-    v17 = 451;
+    v10 = 136316674;
+    v11 = "+[NSTask(WiFiVelocity) runTaskWithLaunchPath:arguments:timeout:startBlock:updateBlock:endBlock:]_block_invoke";
+    v12 = 2080;
+    v13 = "W5TaskUtil.m";
+    v14 = 1024;
+    v15 = 451;
+    v16 = 2114;
+    v17 = v4;
     v18 = 2114;
-    v19 = v4;
+    v19 = v5;
     v20 = 2114;
-    v21 = v5;
+    v21 = v6;
     v22 = 2114;
-    v23 = v6;
-    v24 = 2114;
-    v25 = v7;
-    LODWORD(v11) = 68;
-    v10 = &v12;
-    _os_log_send_and_compose_impl();
+    v23 = v7;
+    v9 = 68;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, OSLog, 0, "[wifivelocity] %s (%s:%u) <%{public}@> END%{public}@ - '%{public}@ %{public}@'", &v10, v9);
   }
 
   v8 = *(a1 + 64);
@@ -369,16 +362,15 @@ void __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlo
     (*(v8 + 16))(v8, *(a1 + 56), *(a1 + 40));
   }
 
-  [+[W5ActivityManager sharedActivityManager](W5ActivityManager sharedActivityManager];
+  [+[W5ActivityManager sharedActivityManager](W5ActivityManager "sharedActivityManager")];
 
   *(*(*(a1 + 72) + 8) + 40) = 0;
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_62(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   [*(a1 + 32) launch];
   v3 = *(a1 + 64);
@@ -388,27 +380,26 @@ void __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlo
   block[3] = &unk_279ECD390;
   v4 = *(a1 + 32);
   block[4] = *(a1 + 40);
-  v12 = vextq_s8(*(a1 + 72), *(a1 + 72), 8uLL);
+  v11 = vextq_s8(*(a1 + 72), *(a1 + 72), 8uLL);
   v5 = *(a1 + 88);
-  v13 = v4;
-  v14 = v5;
+  v12 = v4;
+  v13 = v5;
   dispatch_async(v3, block);
   v6 = *(a1 + 112);
   if (v6 > 0.0)
   {
     v7 = dispatch_time(0, (v6 * 1000000000.0));
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_65;
-    v10[3] = &unk_279ECD3B8;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_65;
+    v9[3] = &unk_279ECD3B8;
     v8 = *(a1 + 104);
-    v10[4] = *(a1 + 32);
-    v10[5] = v8;
-    dispatch_after(v7, MEMORY[0x277D85CD0], v10);
+    v9[4] = *(a1 + 32);
+    v9[5] = v8;
+    dispatch_after(v7, MEMORY[0x277D85CD0], v9);
   }
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_63(uint64_t a1)
@@ -438,7 +429,8 @@ void __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlo
     v23 = v6;
     v24 = 2114;
     v25 = v7;
-    _os_log_send_and_compose_impl();
+    v9 = 68;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, OSLog, 0, "[wifivelocity] %s (%s:%u) <%{public}@> START (error=%{public}@) - '%{public}@ %{public}@'", &v12, v9);
   }
 
   v8 = *(a1 + 64);
@@ -448,35 +440,53 @@ void __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlo
   }
 
   objc_autoreleasePoolPop(v2);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_64(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   OSLog = W5GetOSLog();
   if (os_log_type_enabled(OSLog, OS_LOG_TYPE_DEFAULT))
   {
-    [*(a1 + 32) lastPathComponent];
+    v4 = [*(a1 + 32) lastPathComponent];
     if (*(a1 + 40))
     {
-      [MEMORY[0x277CCACA8] stringWithFormat:@" (error=%@)", *(a1 + 40)];
+      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@" (error=%@)", *(a1 + 40)];
+    }
+
+    else
+    {
+      v5 = &stru_288333B30;
     }
 
     v6 = *(a1 + 32);
-    [*(a1 + 48) componentsJoinedByString:@" "];
-    _os_log_send_and_compose_impl();
+    v7 = [*(a1 + 48) componentsJoinedByString:@" "];
+    v10 = 136316674;
+    v11 = "+[NSTask(WiFiVelocity) runTaskWithLaunchPath:arguments:timeout:startBlock:updateBlock:endBlock:]_block_invoke";
+    v12 = 2080;
+    v13 = "W5TaskUtil.m";
+    v14 = 1024;
+    v15 = 499;
+    v16 = 2114;
+    v17 = v4;
+    v18 = 2114;
+    v19 = v5;
+    v20 = 2114;
+    v21 = v6;
+    v22 = 2114;
+    v23 = v7;
+    v9 = 68;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, OSLog, 0, "[wifivelocity] %s (%s:%u) <%{public}@> START%{public}@ - '%{public}@ %{public}@'", &v10, v9);
   }
 
-  v4 = *(a1 + 64);
-  if (v4)
+  v8 = *(a1 + 64);
+  if (v8)
   {
-    (*(v4 + 16))(v4, *(a1 + 56), *(a1 + 40));
+    (*(v8 + 16))(v8, *(a1 + 56), *(a1 + 40));
   }
 
   objc_autoreleasePoolPop(v2);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_65(uint64_t a1)
@@ -489,30 +499,49 @@ uint64_t __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_star
 
 void __96__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_startBlock_updateBlock_endBlock___block_invoke_2_66(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   OSLog = W5GetOSLog();
   if (os_log_type_enabled(OSLog, OS_LOG_TYPE_DEFAULT))
   {
-    [*(a1 + 32) lastPathComponent];
+    v4 = [*(a1 + 32) lastPathComponent];
     if (*(a1 + 40))
     {
-      [MEMORY[0x277CCACA8] stringWithFormat:@" (error=%@)", *(a1 + 40)];
+      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@" (error=%@)", *(a1 + 40)];
+    }
+
+    else
+    {
+      v5 = &stru_288333B30;
     }
 
     v6 = *(a1 + 32);
-    [*(a1 + 48) componentsJoinedByString:@" "];
-    _os_log_send_and_compose_impl();
+    v7 = [*(a1 + 48) componentsJoinedByString:@" "];
+    v10 = 136316674;
+    v11 = "+[NSTask(WiFiVelocity) runTaskWithLaunchPath:arguments:timeout:startBlock:updateBlock:endBlock:]_block_invoke_2";
+    v12 = 2080;
+    v13 = "W5TaskUtil.m";
+    v14 = 1024;
+    v15 = 541;
+    v16 = 2114;
+    v17 = v4;
+    v18 = 2114;
+    v19 = v5;
+    v20 = 2114;
+    v21 = v6;
+    v22 = 2114;
+    v23 = v7;
+    v9 = 68;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, OSLog, 0, "[wifivelocity] %s (%s:%u) <%{public}@> START%{public}@ - '%{public}@ %{public}@'", &v10, v9);
   }
 
-  v4 = *(a1 + 64);
-  if (v4)
+  v8 = *(a1 + 64);
+  if (v8)
   {
-    (*(v4 + 16))(v4, *(a1 + 56), *(a1 + 40));
+    (*(v8 + 16))(v8, *(a1 + 56), *(a1 + 40));
   }
 
   objc_autoreleasePoolPop(v2);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 intptr_t __115__NSTask_WiFiVelocity__runTaskWithLaunchPath_arguments_timeout_outputData_errorData_launchHandler_didLaunch_error___block_invoke(void *a1, void *a2, char a3)

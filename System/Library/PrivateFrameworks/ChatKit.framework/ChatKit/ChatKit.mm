@@ -780,8 +780,9 @@ void sub_1000045DC(_Unwind_Exception *a1, int a2)
   _Unwind_Resume(a1);
 }
 
-void sub_10000481C(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15)
+void sub_10000481C(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
 {
+  va_start(va, a14);
   if (a2 == 1)
   {
     objc_begin_catch(exc_buf);
@@ -789,7 +790,7 @@ void sub_10000481C(_Unwind_Exception *exc_buf, int a2, int a3, int a4, int a5, i
     JUMPOUT(0x10000479CLL);
   }
 
-  _Block_object_dispose(&a15, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(exc_buf);
 }
 
@@ -802,10 +803,7 @@ uint64_t sub_10000485C(uint64_t result, uint64_t a2)
 
 uint64_t sub_100004874(uint64_t a1)
 {
-  v2 = [*(a1 + 32) deviceSalt];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) deviceSalt];
 
   return _objc_release_x1();
 }
@@ -920,20 +918,20 @@ void sub_100004E5C(void *a1, void *a2)
   }
 }
 
-void sub_100005194(uint64_t a1)
+void sub_100005194(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (IMOSLoggingEnabled())
   {
-    v2 = OSLogHandleForIMEventCategory();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v5 = OSLogHandleForIMEventCategory();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
-      *v4 = 0;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "Finished syncing ResponseKit data during PairedSync", v4, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Finished syncing ResponseKit data during PairedSync", v7, 2u);
     }
   }
 
-  v3 = [*(*(a1 + 32) + 16) activeSyncSession];
-  [v3 syncDidComplete];
+  v6 = [*(*(a1 + 32) + 16) activeSyncSession];
+  [v6 syncDidComplete];
 }
 
 id sub_100005C80()
@@ -963,20 +961,8 @@ id sub_100005D20(char a1)
     v8 = [v6 path];
     v9 = [v7 fileExistsAtPath:v8];
 
-    if (v9)
+    if ((v9 & 1) != 0 || (+[NSFileManager defaultManager](NSFileManager, "defaultManager"), v10 = objc_claimAutoreleasedReturnValue(), [v6 path], v11 = objc_claimAutoreleasedReturnValue(), v15 = 0, objc_msgSend(v10, "createDirectoryAtPath:withIntermediateDirectories:attributes:error:", v11, 1, 0, &v15), v12 = v15, v11, v10, !v12))
     {
-      goto LABEL_6;
-    }
-
-    v10 = +[NSFileManager defaultManager];
-    v11 = [v6 path];
-    v15 = 0;
-    [v10 createDirectoryAtPath:v11 withIntermediateDirectories:1 attributes:0 error:&v15];
-    v12 = v15;
-
-    if (!v12)
-    {
-LABEL_6:
       v13 = 0;
     }
 

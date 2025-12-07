@@ -52,7 +52,7 @@
   return v11;
 }
 
-uint64_t __70__WFFileLocationUtilities_isFileURL_withParentItems_insideFolderType___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__70__WFFileLocationUtilities_isFileURL_withParentItems_insideFolderType___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 folderType];
   if (result == *(a1 + 40))
@@ -198,7 +198,7 @@ uint64_t __70__WFFileLocationUtilities_isFileURL_withParentItems_insideFolderTyp
 
 + (id)cloudDocsURL
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (cloudDocsURL_onceToken != -1)
   {
     dispatch_once(&cloudDocsURL_onceToken, &__block_literal_global_6330);
@@ -207,22 +207,21 @@ uint64_t __70__WFFileLocationUtilities_isFileURL_withParentItems_insideFolderTyp
   v2 = getWFFilesLogObject();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v6 = 136315394;
-    v7 = "+[WFFileLocationUtilities cloudDocsURL]";
-    v8 = 2112;
-    v9 = cloudDocsURL_URL;
-    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_DEBUG, "%s Got cloud docs url %@", &v6, 0x16u);
+    v5 = 136315394;
+    v6 = "+[WFFileLocationUtilities cloudDocsURL]";
+    v7 = 2112;
+    v8 = cloudDocsURL_URL;
+    _os_log_impl(&dword_1CA256000, v2, OS_LOG_TYPE_DEBUG, "%s Got cloud docs url %@", &v5, 0x16u);
   }
 
   v3 = cloudDocsURL_URL;
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 void __39__WFFileLocationUtilities_cloudDocsURL__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = a3;
   if (!v4)
@@ -230,29 +229,27 @@ void __39__WFFileLocationUtilities_cloudDocsURL__block_invoke_2(uint64_t a1, voi
     v6 = getWFFilesLogObject();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "+[WFFileLocationUtilities cloudDocsURL]_block_invoke_2";
-      v11 = 2112;
-      v12 = v5;
-      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s Could not get url with error: %@", &v9, 0x16u);
+      v8 = 136315394;
+      v9 = "+[WFFileLocationUtilities cloudDocsURL]_block_invoke_2";
+      v10 = 2112;
+      v11 = v5;
+      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_ERROR, "%s Could not get url with error: %@", &v8, 0x16u);
     }
   }
 
   v7 = cloudDocsURL_URL;
   cloudDocsURL_URL = v4;
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (id)documentsURLForApplicationContainerBundleID:(id)d
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E69635F8];
   dCopy = d;
-  v11 = 0;
-  v5 = [[v3 alloc] initWithBundleIdentifier:dCopy allowPlaceholder:0 error:&v11];
+  v10 = 0;
+  v5 = [[v3 alloc] initWithBundleIdentifier:dCopy allowPlaceholder:0 error:&v10];
 
-  v6 = v11;
+  v6 = v10;
   if (v5)
   {
     dataContainerURL = [v5 dataContainerURL];
@@ -265,16 +262,14 @@ void __39__WFFileLocationUtilities_cloudDocsURL__block_invoke_2(uint64_t a1, voi
     if (os_log_type_enabled(dataContainerURL, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v13 = "+[WFFileLocationUtilities documentsURLForApplicationContainerBundleID:]";
-      v14 = 2112;
-      v15 = v6;
+      v12 = "+[WFFileLocationUtilities documentsURLForApplicationContainerBundleID:]";
+      v13 = 2112;
+      v14 = v6;
       _os_log_impl(&dword_1CA256000, dataContainerURL, OS_LOG_TYPE_ERROR, "%s Could not get application record with error: %@", buf, 0x16u);
     }
 
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -341,29 +336,29 @@ void __51__WFFileLocationUtilities_bundleIdentifierForItem___block_invoke(uint64
 
 + (id)rootItemForItem:(id)item
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   itemCopy = item;
-  v15 = 0;
-  v4 = [MEMORY[0x1E69673E8] providerDomainForItem:itemCopy error:&v15];
-  v5 = v15;
+  v14 = 0;
+  v4 = [MEMORY[0x1E69673E8] providerDomainForItem:itemCopy error:&v14];
+  v5 = v14;
   if (v4)
   {
     v6 = dispatch_semaphore_create(0);
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v17 = __Block_byref_object_copy__6342;
-    v18 = __Block_byref_object_dispose__6343;
-    v19 = 0;
+    v16 = __Block_byref_object_copy__6342;
+    v17 = __Block_byref_object_dispose__6343;
+    v18 = 0;
     defaultManager = [MEMORY[0x1E69673B0] defaultManager];
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __43__WFFileLocationUtilities_rootItemForItem___block_invoke;
-    v12[3] = &unk_1E8379CE8;
-    v14 = buf;
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __43__WFFileLocationUtilities_rootItemForItem___block_invoke;
+    v11[3] = &unk_1E8379CE8;
+    v13 = buf;
     v8 = v6;
-    v13 = v8;
-    [defaultManager fetchRootItemForProviderDomain:v4 completionHandler:v12];
+    v12 = v8;
+    [defaultManager fetchRootItemForProviderDomain:v4 completionHandler:v11];
 
     dispatch_semaphore_wait(v8, 0xFFFFFFFFFFFFFFFFLL);
     v9 = *(*&buf[8] + 40);
@@ -385,8 +380,6 @@ void __51__WFFileLocationUtilities_bundleIdentifierForItem___block_invoke(uint64
 
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -429,7 +422,7 @@ void __43__WFFileLocationUtilities_rootItemForItem___block_invoke(uint64_t a1, v
 
 void __46__WFFileLocationUtilities_parentItemsForItem___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (!v5)
@@ -437,11 +430,11 @@ void __46__WFFileLocationUtilities_parentItemsForItem___block_invoke(uint64_t a1
     v7 = getWFFilesLogObject();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315394;
-      v13 = "+[WFFileLocationUtilities parentItemsForItem:]_block_invoke";
-      v14 = 2112;
-      v15 = v6;
-      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_ERROR, "%s Could not fetch parent items due to error: %@", &v12, 0x16u);
+      v11 = 136315394;
+      v12 = "+[WFFileLocationUtilities parentItemsForItem:]_block_invoke";
+      v13 = 2112;
+      v14 = v6;
+      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_ERROR, "%s Could not fetch parent items due to error: %@", &v11, 0x16u);
     }
   }
 
@@ -451,47 +444,46 @@ void __46__WFFileLocationUtilities_parentItemsForItem___block_invoke(uint64_t a1
   v10 = v5;
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (id)fetchRootItemURLForDomainWithID:(id)d
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   dCopy = d;
   if (dCopy)
   {
     v4 = dispatch_semaphore_create(0);
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x3032000000;
-    v23 = __Block_byref_object_copy__6342;
-    v24 = __Block_byref_object_dispose__6343;
-    v25 = 0;
     v19 = 0;
-    v5 = [MEMORY[0x1E69673E8] providerDomainWithID:dCopy error:&v19];
-    v6 = v19;
+    v20 = &v19;
+    v21 = 0x3032000000;
+    v22 = __Block_byref_object_copy__6342;
+    v23 = __Block_byref_object_dispose__6343;
+    v24 = 0;
+    v18 = 0;
+    v5 = [MEMORY[0x1E69673E8] providerDomainWithID:dCopy error:&v18];
+    v6 = v18;
     if (v5)
     {
       defaultManager = [MEMORY[0x1E69673B0] defaultManager];
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __59__WFFileLocationUtilities_fetchRootItemURLForDomainWithID___block_invoke;
-      v15[3] = &unk_1E83745F8;
-      v16 = v5;
-      v18 = &v20;
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __59__WFFileLocationUtilities_fetchRootItemURLForDomainWithID___block_invoke;
+      v14[3] = &unk_1E83745F8;
+      v15 = v5;
+      v17 = &v19;
       v8 = v4;
-      v17 = v8;
-      [defaultManager fetchRootItemForProviderDomain:v16 completionHandler:v15];
+      v16 = v8;
+      [defaultManager fetchRootItemForProviderDomain:v15 completionHandler:v14];
 
       v9 = dispatch_time(0, 3000000000);
       dispatch_semaphore_wait(v8, v9);
-      v10 = v21[5];
+      v10 = v20[5];
       if (v10)
       {
         v11 = v10;
       }
 
-      v12 = v16;
+      v12 = v15;
     }
 
     else
@@ -500,18 +492,18 @@ void __46__WFFileLocationUtilities_parentItemsForItem___block_invoke(uint64_t a1
       if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315650;
-        v27 = "+[WFFileLocationUtilities fetchRootItemURLForDomainWithID:]";
-        v28 = 2112;
-        v29 = dCopy;
-        v30 = 2112;
-        v31 = v6;
+        v26 = "+[WFFileLocationUtilities fetchRootItemURLForDomainWithID:]";
+        v27 = 2112;
+        v28 = dCopy;
+        v29 = 2112;
+        v30 = v6;
         _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_FAULT, "%s Could not fetch provider domain: %@ with error: %@", buf, 0x20u);
       }
 
       v10 = 0;
     }
 
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v19, 8);
   }
 
   else
@@ -519,14 +511,12 @@ void __46__WFFileLocationUtilities_parentItemsForItem___block_invoke(uint64_t a1
     v10 = 0;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v10;
 }
 
 void __59__WFFileLocationUtilities_fetchRootItemURLForDomainWithID___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (!v5)
@@ -535,13 +525,13 @@ void __59__WFFileLocationUtilities_fetchRootItemURLForDomainWithID___block_invok
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = *(a1 + 32);
-      v13 = 136315650;
-      v14 = "+[WFFileLocationUtilities fetchRootItemURLForDomainWithID:]_block_invoke";
-      v15 = 2112;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v6;
-      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_ERROR, "%s Could not fetch root item for providerDomain: %@ error: %@", &v13, 0x20u);
+      v12 = 136315650;
+      v13 = "+[WFFileLocationUtilities fetchRootItemURLForDomainWithID:]_block_invoke";
+      v14 = 2112;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v6;
+      _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_ERROR, "%s Could not fetch root item for providerDomain: %@ error: %@", &v12, 0x20u);
     }
   }
 
@@ -551,7 +541,6 @@ void __59__WFFileLocationUtilities_fetchRootItemURLForDomainWithID___block_invok
   *(v10 + 40) = v9;
 
   dispatch_semaphore_signal(*(a1 + 40));
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (void)fetchItemWithIdentifier:(id)identifier domainIdentifier:(id)domainIdentifier completionHandler:(id)handler

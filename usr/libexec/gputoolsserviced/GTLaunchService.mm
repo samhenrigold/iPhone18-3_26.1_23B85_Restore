@@ -4,7 +4,9 @@
 - (BOOL)launchReplayServiceApp:(id)app error:(id *)error;
 - (BOOL)launchReplayServiceXPC:(id)c error:(id *)error;
 - (BOOL)resumeService:(unint64_t)service error:(id *)error;
+- (BOOL)resumeTaskForPid:(int)pid error:(id *)error;
 - (GTLaunchService)initWithServiceProvider:(id)provider;
+- (void)bringGuestAppToForeground:(int)foreground completionHandler:(id)handler;
 - (void)launchReplayerLocallyWithConfigurationEmbedded:(id)embedded competionHandler:(id)handler;
 - (void)processStateForService:(unint64_t)service completionHandler:(id)handler;
 - (void)symbolicatorForService:(unint64_t)service completionHandler:(id)handler;
@@ -336,6 +338,134 @@ LABEL_10:
   }
 
   return v10;
+}
+
+- (void)bringGuestAppToForeground:(int)foreground completionHandler:(id)handler
+{
+  v4 = *&foreground;
+  handlerCopy = handler;
+  v6 = gt_tagged_log(0x10u);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 67109120;
+    LODWORD(v21) = v4;
+    _os_log_debug_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "bringGuestAppToForeground:%d", buf, 8u);
+  }
+
+  v7 = [NSNumber numberWithInt:v4];
+  v8 = [RBSProcessPredicate predicateMatchingIdentifier:v7];
+
+  v19 = 0;
+  v9 = [RBSProcessHandle handleForPredicate:v8 error:&v19];
+  v10 = v19;
+  if (v9)
+  {
+    bundle = [v9 bundle];
+    identifier = [bundle identifier];
+
+    v13 = +[FBSOpenApplicationService serviceWithDefaultShellEndpoint];
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_10001FAF0;
+    v17[3] = &unk_100040FE0;
+    v18 = handlerCopy;
+    [v13 openApplication:identifier withOptions:0 completion:v17];
+  }
+
+  else
+  {
+    v14 = gt_tagged_log(0x10u);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      v15 = [v10 description];
+      uTF8String = [v15 UTF8String];
+      *buf = 136315138;
+      v21 = uTF8String;
+      _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Cannot bring app to foreground: error = %s", buf, 0xCu);
+    }
+
+    (*(handlerCopy + 2))(handlerCopy, 0, v10);
+  }
+}
+
+- (BOOL)resumeTaskForPid:(int)pid error:(id *)error
+{
+  v5 = *&pid;
+  v6 = gt_tagged_log(0x10u);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 67109120;
+    LODWORD(v24) = v5;
+    _os_log_debug_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "resumeTaskForPid:%d", buf, 8u);
+  }
+
+  if (v5 < 1)
+  {
+    return 0;
+  }
+
+  v7 = task_read_for_pid();
+  if (v7)
+  {
+    if (error)
+    {
+      v25 = NSLocalizedDescriptionKey;
+      v8 = [NSString stringWithFormat:@"failed to get task port for process %d: %s", v5, mach_error_string(v7)];
+      v26 = v8;
+      v9 = [NSDictionary dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+      *error = [NSError errorWithDomain:@"com.apple.gputools.LaunchService" code:4 userInfo:v9];
+
+      v10 = gt_tagged_log(0x10u);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        localizedDescription = [*error localizedDescription];
+        *buf = 138412290;
+        v24 = localizedDescription;
+        _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+      }
+    }
+
+    return 0;
+  }
+
+  v11 = task_resume(0);
+  if (v11)
+  {
+    v12 = v11;
+    v13 = [NSString stringWithFormat:@"failed resume task for process %d: %s", v5, mach_error_string(v11)];
+    v14 = gt_tagged_log(0x10u);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 138412290;
+      v24 = v13;
+      _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+    }
+
+    if (error)
+    {
+      v21 = NSLocalizedDescriptionKey;
+      v15 = [NSString stringWithFormat:@"failed resume task for process %d: %s", v5, mach_error_string(v12)];
+      v22 = v15;
+      v16 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+      *error = [NSError errorWithDomain:@"com.apple.gputools.LaunchService" code:5 userInfo:v16];
+
+      v17 = gt_tagged_log(0x10u);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      {
+        localizedDescription2 = [*error localizedDescription];
+        *buf = 138412290;
+        v24 = localizedDescription2;
+        _os_log_error_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "%@", buf, 0xCu);
+      }
+    }
+
+    mach_port_deallocate(mach_task_self_, 0);
+
+    return 0;
+  }
+
+  mach_port_deallocate(mach_task_self_, 0);
+  return 1;
 }
 
 - (void)launchReplayerLocallyWithConfigurationEmbedded:(id)embedded competionHandler:(id)handler

@@ -49,109 +49,109 @@
 
 + (BOOL)processWithInputs:(id)inputs arguments:(id)arguments output:(id)output error:(id *)error
 {
-  v161 = *MEMORY[0x1E69E9840];
-  v148 = 0;
-  v141 = [arguments objectForKeyedSubscript:@"model"];
-  v122 = [arguments objectForKeyedSubscript:@"headName"];
-  v120 = [objc_msgSend(objc_msgSend(objc_msgSend(v141 "modelDescription")];
-  v118 = [objc_msgSend(arguments objectForKeyedSubscript:{@"softmax", "BOOLValue"}];
-  v126 = objc_alloc_init(CIMLFeatureProvider);
-  v136 = [arguments objectForKeyedSubscript:@"inputWidths"];
-  v134 = [arguments objectForKeyedSubscript:@"inputHeights"];
-  v132 = [arguments objectForKeyedSubscript:@"inputChans"];
-  v130 = [arguments objectForKeyedSubscript:@"inputFormats"];
+  v163 = *MEMORY[0x1E69E9840];
+  v150 = 0;
+  v143 = [arguments objectForKeyedSubscript:@"model"];
+  v124 = [arguments objectForKeyedSubscript:@"headName"];
+  v122 = [objc_msgSend(objc_msgSend(objc_msgSend(v143 "modelDescription")];
+  v120 = [objc_msgSend(arguments objectForKeyedSubscript:{@"softmax", "BOOLValue"}];
+  v128 = objc_alloc_init(CIMLFeatureProvider);
+  v138 = [arguments objectForKeyedSubscript:@"inputWidths"];
+  v136 = [arguments objectForKeyedSubscript:@"inputHeights"];
+  v134 = [arguments objectForKeyedSubscript:@"inputChans"];
+  v132 = [arguments objectForKeyedSubscript:@"inputFormats"];
   v7 = [arguments objectForKeyedSubscript:@"inputNames"];
-  v144 = 0u;
-  v145 = 0u;
   v146 = 0u;
   v147 = 0u;
-  v140 = [v7 countByEnumeratingWithState:&v144 objects:v160 count:16];
-  if (v140)
+  v148 = 0u;
+  v149 = 0u;
+  v142 = [v7 countByEnumeratingWithState:&v146 objects:v162 count:16];
+  if (v142)
   {
-    v128 = *v145;
+    v130 = *v147;
     do
     {
-      for (i = 0; i != v140; ++i)
+      for (i = 0; i != v142; ++i)
       {
-        if (*v145 != v128)
+        if (*v147 != v130)
         {
           objc_enumerationMutation(v7);
         }
 
-        v9 = *(*(&v144 + 1) + 8 * i);
-        v10 = [objc_msgSend(objc_msgSend(objc_msgSend(v141 "modelDescription")];
-        v11 = [objc_msgSend(objc_msgSend(v141 "modelDescription")];
+        v9 = *(*(&v146 + 1) + 8 * i);
+        v10 = [objc_msgSend(objc_msgSend(objc_msgSend(v143 "modelDescription")];
+        v11 = [objc_msgSend(objc_msgSend(v143 "modelDescription")];
         v13 = v11 && (v12 = [objc_msgSend(v11 "multiArrayConstraint")], objc_msgSend(v12, "type") == 2) && objc_msgSend(objc_msgSend(objc_msgSend(v12, "enumeratedShapes"), "objectAtIndexedSubscript:", 0), "count") == 3;
         v14 = [v7 indexOfObject:v9];
         v15 = [inputs objectAtIndexedSubscript:v14];
-        v16 = [objc_msgSend(v136 objectAtIndexedSubscript:{v14), "unsignedLongValue"}];
-        v17 = [objc_msgSend(v134 objectAtIndexedSubscript:{v14), "unsignedLongValue"}];
-        v18 = [objc_msgSend(v132 objectAtIndexedSubscript:{v14), "intValue"}];
-        v19 = [objc_msgSend(v130 objectAtIndexedSubscript:{v14), "unsignedLongValue"}];
+        v16 = [objc_msgSend(v138 objectAtIndexedSubscript:{v14), "unsignedLongValue"}];
+        v17 = [objc_msgSend(v136 objectAtIndexedSubscript:{v14), "unsignedLongValue"}];
+        v18 = [objc_msgSend(v134 objectAtIndexedSubscript:{v14), "intValue"}];
+        v19 = [objc_msgSend(v132 objectAtIndexedSubscript:{v14), "unsignedLongValue"}];
         if (v10 == 5)
         {
           v21 = copyProcessorInput(v15, 0x4C303068u);
           if (v13)
           {
-            v159[0] = [MEMORY[0x1E696AD98] numberWithInt:v18];
-            v159[1] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v17];
-            v159[2] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v16];
-            v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v159 count:3];
+            v161[0] = [MEMORY[0x1E696AD98] numberWithInt:v18];
+            v161[1] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v17];
+            v161[2] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v16];
+            v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v161 count:3];
           }
 
           else
           {
-            v158[0] = &unk_1F1081A70;
-            v158[1] = [MEMORY[0x1E696AD98] numberWithInt:v18];
-            v158[2] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v17];
-            v158[3] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v16];
-            v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v158 count:4];
+            v160[0] = &unk_1F1081A70;
+            v160[1] = [MEMORY[0x1E696AD98] numberWithInt:v18];
+            v160[2] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v17];
+            v160[3] = [MEMORY[0x1E696AD98] numberWithUnsignedLong:v16];
+            v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v160 count:4];
           }
 
           v23 = [objc_alloc(getMLMultiArrayClass()) initWithPixelBuffer:v21 shape:v22];
           CFRelease(v21);
-          [(CIMLFeatureProvider *)v126 addOject:v23 forName:v9];
+          [(CIMLFeatureProvider *)v128 addOject:v23 forName:v9];
         }
 
         else if (v10 == 4)
         {
           v20 = copyProcessorInput(v15, v19);
-          [(CIMLFeatureProvider *)v126 addOject:v20 forName:v9];
+          [(CIMLFeatureProvider *)v128 addOject:v20 forName:v9];
           CFRelease(v20);
         }
       }
 
-      v140 = [v7 countByEnumeratingWithState:&v144 objects:v160 count:16];
+      v142 = [v7 countByEnumeratingWithState:&v146 objects:v162 count:16];
     }
 
-    while (v140);
+    while (v142);
   }
 
-  if (v120 == 4 && (shapeForLayer(v141, v122, 1), v25 = v24, v27 = v26, [output region], v163.origin.x = 0.0, v163.origin.y = 0.0, v163.size.width = v25, v163.size.height = v27, CGRectEqualToRect(v162, v163)) && ((v28 = objc_msgSend(objc_msgSend(objc_msgSend(v141, "modelDescription"), "outputDescriptionsByName"), "objectForKey:", v122)) == 0 ? (v29 = 0) : (v29 = objc_msgSend(objc_msgSend(v28, "imageConstraint"), "pixelFormatType")), (v30 = objc_msgSend(output, "pixelBuffer"), (v31 = v30) != 0) && CVPixelBufferGetPixelFormatType(v30) == v29))
+  if (v122 == 4 && (shapeForLayer(v143, v124, 1), v25 = v24, v27 = v26, [output region], v165.origin.x = 0.0, v165.origin.y = 0.0, v165.size.width = v25, v165.size.height = v27, CGRectEqualToRect(v164, v165)) && ((v28 = objc_msgSend(objc_msgSend(objc_msgSend(v143, "modelDescription"), "outputDescriptionsByName"), "objectForKey:", v124)) == 0 ? (v29 = 0) : (v29 = objc_msgSend(objc_msgSend(v28, "imageConstraint"), "pixelFormatType")), (v30 = objc_msgSend(output, "pixelBuffer"), (v31 = v30) != 0) && CVPixelBufferGetPixelFormatType(v30) == v29))
   {
-    v150 = 0;
-    v151 = &v150;
-    v152 = 0x3052000000;
-    v153 = __Block_byref_object_copy__2;
+    v152 = 0;
+    v153 = &v152;
+    v154 = 0x3052000000;
+    v155 = __Block_byref_object_copy__2;
     v32 = getMLPredictionOptionsClass(void)::softClass;
-    v154 = __Block_byref_object_dispose__2;
-    v155 = getMLPredictionOptionsClass(void)::softClass;
+    v156 = __Block_byref_object_dispose__2;
+    v157 = getMLPredictionOptionsClass(void)::softClass;
     if (!getMLPredictionOptionsClass(void)::softClass)
     {
-      v149[0] = MEMORY[0x1E69E9820];
-      v149[1] = 3221225472;
-      v149[2] = ___ZL27getMLPredictionOptionsClassv_block_invoke;
-      v149[3] = &unk_1E75C1E10;
-      v149[4] = &v150;
-      ___ZL27getMLPredictionOptionsClassv_block_invoke(v149);
-      v32 = v151[5];
+      v151[0] = MEMORY[0x1E69E9820];
+      v151[1] = 3221225472;
+      v151[2] = ___ZL27getMLPredictionOptionsClassv_block_invoke;
+      v151[3] = &unk_1E75C1E10;
+      v151[4] = &v152;
+      ___ZL27getMLPredictionOptionsClassv_block_invoke(v151);
+      v32 = v153[5];
     }
 
-    _Block_object_dispose(&v150, 8);
+    _Block_object_dispose(&v152, 8);
     v33 = objc_alloc_init(v32);
-    v156 = v122;
-    v157 = v31;
-    [v33 setOutputBackings:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v157, &v156, 1)}];
+    v158 = v124;
+    v159 = v31;
+    [v33 setOutputBackings:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObjects:forKeys:count:", &v159, &v158, 1)}];
   }
 
   else
@@ -159,9 +159,9 @@
     v33 = 0;
   }
 
-  v34 = [v141 predictionFromFeatures:v126 options:v33 error:&v148];
+  v34 = [v143 predictionFromFeatures:v128 options:v33 error:&v150];
 
-  if (v148)
+  if (v150)
   {
     _ZF = 1;
   }
@@ -171,226 +171,226 @@
     _ZF = v34 == 0;
   }
 
-  v36 = !_ZF;
+  v38 = !_ZF;
   if (_ZF)
   {
-    if (error && v148)
+    if (error && v150)
     {
-      *error = v148;
+      *error = v150;
     }
 
-    v38 = ci_logger_api();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v40 = ci_logger_api(v35, v36);
+    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
-      [CICoreMLProcessor processWithInputs:v38 arguments:? output:? error:?];
+      [CICoreMLProcessor processWithInputs:v40 arguments:? output:? error:?];
     }
   }
 
   else
   {
-    v37 = [v34 featureValueForName:v122];
-    if ([v37 type] == 4)
+    v39 = [v34 featureValueForName:v124];
+    if ([v39 type] == 4)
     {
-      [v37 imageBufferValue];
+      [v39 imageBufferValue];
     }
 
-    else if ([v37 type] == 5)
+    else if ([v39 type] == 5)
     {
-      multiArrayValue = [v37 multiArrayValue];
-      if ((([multiArrayValue dataType] == 65600) & v118) == 1)
+      multiArrayValue = [v39 multiArrayValue];
+      if ((([multiArrayValue dataType] == 65600) & v120) == 1)
       {
         dataPointer = [multiArrayValue dataPointer];
         shape = [multiArrayValue shape];
-        v41 = [shape count];
-        v142 = [objc_msgSend(shape objectAtIndexedSubscript:{v41 - 3), "intValue"}];
-        v131 = [objc_msgSend(shape objectAtIndexedSubscript:{v41 - 2), "intValue"}];
-        v42 = [objc_msgSend(shape objectAtIndexedSubscript:{v41 - 1), "intValue"}];
+        v43 = [shape count];
+        v144 = [objc_msgSend(shape objectAtIndexedSubscript:{v43 - 3), "intValue"}];
+        v133 = [objc_msgSend(shape objectAtIndexedSubscript:{v43 - 2), "intValue"}];
+        v44 = [objc_msgSend(shape objectAtIndexedSubscript:{v43 - 1), "intValue"}];
         baseAddress = [output baseAddress];
         bytesPerRow = [output bytesPerRow];
         [output region];
-        v45 = v44;
         v47 = v46;
         v49 = v48;
         v51 = v50;
-        v52 = [objc_msgSend(objc_msgSend(multiArrayValue "strides")];
-        v53 = [objc_msgSend(objc_msgSend(multiArrayValue "strides")];
+        v53 = v52;
         v54 = [objc_msgSend(objc_msgSend(multiArrayValue "strides")];
+        v55 = [objc_msgSend(objc_msgSend(multiArrayValue "strides")];
+        v56 = [objc_msgSend(objc_msgSend(multiArrayValue "strides")];
         [output region];
-        v56 = v55;
+        v58 = v57;
         bytesPerRow2 = [output bytesPerRow];
         [output region];
-        bzero([output baseAddress], bytesPerRow2 * (v56 - 1) + 2 * v58);
-        v133 = malloc_type_calloc(v42 * v131, 4uLL, 0x100004052888210uLL);
-        v127 = v36;
-        v137 = 8 * v53;
-        v59 = 8 * v54;
-        v60 = 8 * v52;
-        if (v131 >= 1)
+        bzero([output baseAddress], bytesPerRow2 * (v58 - 1) + 2 * v60);
+        v135 = malloc_type_calloc(v44 * v133, 4uLL, 0x100004052888210uLL);
+        v129 = v38;
+        v139 = 8 * v55;
+        v61 = 8 * v56;
+        v62 = 8 * v54;
+        if (v133 >= 1)
         {
-          v121 = v54;
-          v125 = bytesPerRow;
-          v61 = 0;
-          v62 = v42;
-          v139 = dataPointer;
-          v135 = v42;
+          v123 = v56;
+          v127 = bytesPerRow;
+          v63 = 0;
+          v64 = v44;
+          v141 = dataPointer;
+          v137 = v44;
           do
           {
-            if (v42 >= 1)
+            if (v44 >= 1)
             {
-              v63 = 0;
-              v64 = v139;
-              v65 = &v133[v61 * v131];
+              v65 = 0;
+              v66 = v141;
+              v67 = &v135[v63 * v133];
               do
               {
-                if (v142 >= 1)
+                if (v144 >= 1)
                 {
-                  v66 = *&v65[4 * v63];
-                  v67 = v64;
-                  v68 = v142;
+                  v68 = *&v67[4 * v65];
+                  v69 = v66;
+                  v70 = v144;
                   do
                   {
-                    v69 = exp(*v67);
-                    v66 = v66 + v69;
-                    v67 = (v67 + v60);
-                    --v68;
+                    v71 = exp(*v69);
+                    v68 = v68 + v71;
+                    v69 = (v69 + v62);
+                    --v70;
                   }
 
-                  while (v68);
-                  *&v65[4 * v63] = v66;
+                  while (v70);
+                  *&v67[4 * v65] = v68;
                 }
 
-                ++v63;
-                v64 = (v64 + v59);
+                ++v65;
+                v66 = (v66 + v61);
               }
 
-              while (v63 != v62);
+              while (v65 != v64);
             }
 
-            ++v61;
-            v139 += v137;
-            v42 = v135;
+            ++v63;
+            v141 += v139;
+            v44 = v137;
           }
 
-          while (v61 != v131);
-          v70 = 0;
-          v71 = v133;
-          bytesPerRow = v125;
-          v54 = v121;
+          while (v63 != v133);
+          v72 = 0;
+          v73 = v135;
+          bytesPerRow = v127;
+          v56 = v123;
           do
           {
-            v72 = v71;
-            v73 = v62;
-            if (v135 >= 1)
+            v74 = v73;
+            v75 = v64;
+            if (v137 >= 1)
             {
               do
               {
-                *v72 = 1.0 / *v72;
-                ++v72;
-                --v73;
+                *v74 = 1.0 / *v74;
+                ++v74;
+                --v75;
               }
 
-              while (v73);
+              while (v75);
             }
 
-            ++v70;
-            v71 += v131;
+            ++v72;
+            v73 += v133;
           }
 
-          while (v70 != v131);
+          while (v72 != v133);
         }
 
-        if (v51 > 0.0)
+        if (v53 > 0.0)
         {
-          v74 = 0;
-          v143 = v47;
-          v75 = v45;
-          v76 = 2 * (bytesPerRow >> 1);
-          v77 = &v133[v75];
-          v78 = dataPointer + 8 * v54 * v75;
-          v79 = baseAddress;
+          v76 = 0;
+          v145 = v49;
+          v77 = v47;
+          v78 = 2 * (bytesPerRow >> 1);
+          v79 = &v135[v77];
+          v80 = dataPointer + 8 * v56 * v77;
+          v81 = baseAddress;
           do
           {
-            if (v49 > 0.0)
+            if (v51 > 0.0)
             {
-              v80 = 0;
-              v81 = v79;
-              v82 = (v74 + v143) % v131;
-              v83 = &v77[4 * v82 * v131];
-              v84 = (v78 + v137 * v82 + v60 * ((v74 + v143) / v131));
+              v82 = 0;
+              v83 = v81;
+              v84 = (v76 + v145) % v133;
+              v85 = &v79[4 * v84 * v133];
+              v86 = (v80 + v139 * v84 + v62 * ((v76 + v145) / v133));
               do
               {
-                v85 = exp(*v84);
-                v79 = v81;
-                _D0 = v85 * *&v83[4 * v80];
+                v87 = exp(*v86);
+                v81 = v83;
+                _D0 = v87 * *&v85[4 * v82];
                 __asm { FCVT            H0, D0 }
 
-                *(v81 + 2 * v80++) = LOWORD(_D0);
-                v84 = (v84 + v59);
+                *(v83 + 2 * v82++) = LOWORD(_D0);
+                v86 = (v86 + v61);
               }
 
-              while (v49 > v80);
+              while (v51 > v82);
             }
 
-            ++v74;
-            v79 += v76;
+            ++v76;
+            v81 += v78;
           }
 
-          while (v51 > v74);
+          while (v53 > v76);
         }
 
-        free(v133);
-        return v127;
+        free(v135);
+        return v129;
       }
 
       else if ([multiArrayValue dataType] == 65600)
       {
         dataPointer2 = [multiArrayValue dataPointer];
         shape2 = [multiArrayValue shape];
-        v92 = [shape2 count];
-        v93 = [objc_msgSend(shape2 objectAtIndexedSubscript:{v92 - 2), "intValue"}];
+        v94 = [shape2 count];
+        v95 = [objc_msgSend(shape2 objectAtIndexedSubscript:{v94 - 2), "intValue"}];
         baseAddress2 = [output baseAddress];
         bytesPerRow3 = [output bytesPerRow];
         [output region];
-        v97 = v96;
         v99 = v98;
         v101 = v100;
         v103 = v102;
-        v104 = [objc_msgSend(objc_msgSend(multiArrayValue "strides")];
-        v105 = [objc_msgSend(objc_msgSend(multiArrayValue "strides")];
+        v105 = v104;
         v106 = [objc_msgSend(objc_msgSend(multiArrayValue "strides")];
+        v107 = [objc_msgSend(objc_msgSend(multiArrayValue "strides")];
+        v108 = [objc_msgSend(objc_msgSend(multiArrayValue "strides")];
         [output region];
-        v108 = v107;
+        v110 = v109;
         bytesPerRow4 = [output bytesPerRow];
         [output region];
-        bzero([output baseAddress], bytesPerRow4 * (v108 - 1) + 2 * v110);
-        if (v103 > 0.0)
+        bzero([output baseAddress], bytesPerRow4 * (v110 - 1) + 2 * v112);
+        if (v105 > 0.0)
         {
-          v111 = 0;
+          v113 = 0;
           do
           {
-            if (v101 > 0.0)
+            if (v103 > 0.0)
             {
-              v112 = (dataPointer2 + 8 * v106 * v97 + 8 * v105 * ((v111 + v99) % v93) + 8 * v104 * ((v111 + v99) / v93));
-              v113 = 1;
-              v114 = baseAddress2;
+              v114 = (dataPointer2 + 8 * v108 * v99 + 8 * v107 * ((v113 + v101) % v95) + 8 * v106 * ((v113 + v101) / v95));
+              v115 = 1;
+              v116 = baseAddress2;
               do
               {
-                _D0 = *v112;
+                _D0 = *v114;
                 __asm { FCVT            H0, D0 }
 
-                *v114++ = _D0;
-                v116 = v113++;
-                v112 += v106;
+                *v116++ = _D0;
+                v118 = v115++;
+                v114 += v108;
               }
 
-              while (v101 > v116);
+              while (v103 > v118);
             }
 
-            ++v111;
+            ++v113;
             baseAddress2 += 2 * (bytesPerRow3 >> 1);
           }
 
-          while (v103 > v111);
+          while (v105 > v113);
         }
       }
 
@@ -406,7 +406,7 @@
     }
   }
 
-  return v36;
+  return v38;
 }
 
 + (int)formatForInputAtIndex:(int)index arguments:(id)arguments

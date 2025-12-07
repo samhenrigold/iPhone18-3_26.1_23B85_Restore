@@ -10,9 +10,9 @@
 
 - (id)minYValue
 {
-  v0 = sub_1C3D20A84();
+  v1 = sub_1C3D20A84();
 
-  return v0;
+  return v1;
 }
 
 - (_TtC8HealthUI28HealthChartsSeriesChartPoint)init

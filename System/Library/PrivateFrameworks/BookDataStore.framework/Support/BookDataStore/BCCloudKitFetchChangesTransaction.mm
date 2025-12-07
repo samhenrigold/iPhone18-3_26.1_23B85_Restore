@@ -29,13 +29,13 @@
 
   if (verboseLoggingEnabled)
   {
-    v7 = sub_10000DB80();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_10000DB80(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       entityName = [(BCCloudKitTransaction *)self entityName];
       *buf = 138412290;
-      v17 = entityName;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "\\BCCloudKitFetchChangesTransaction - Signaling Database to fetch changes for %@\\"", buf, 0xCu);
+      v19 = entityName;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "\\BCCloudKitFetchChangesTransaction - Signaling Database to fetch changes for %@\", buf, 0xCu);
     }
   }
 
@@ -44,28 +44,28 @@
 
   if (privateCloudDatabaseController)
   {
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100044B28;
-    v14[3] = &unk_100240CF8;
-    v15 = completionCopy;
-    [privateCloudDatabaseController fetchChangesWithCompletion:v14];
-    v11 = v15;
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_100044B28;
+    v16[3] = &unk_100240CF8;
+    v17 = completionCopy;
+    [privateCloudDatabaseController fetchChangesWithCompletion:v16];
+    v13 = v17;
   }
 
   else
   {
-    v12 = sub_100002660();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v14 = sub_100002660(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      sub_1001C0610(v12);
+      sub_1001C0610(v14);
     }
 
-    v13 = objc_retainBlock(completionCopy);
-    v11 = v13;
-    if (v13)
+    v15 = objc_retainBlock(completionCopy);
+    v13 = v15;
+    if (v15)
     {
-      (*(v13 + 2))(v13);
+      (*(v15 + 2))(v15);
     }
   }
 }

@@ -12,7 +12,7 @@
   v5 = sub_10076341C();
   (*(*(v5 - 8) + 56))(self + v4, 1, 1, v5);
   v6 = OBJC_IVAR____TtC20ProductPageExtension29SmallLockupCollectionViewCell_lockupView;
-  *(&self->super.super.super.super.super.isa + v6) = [objc_allocWithZone(type metadata accessor for SmallLockupView()) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
+  *(&self->super.super.super.super.super.isa + v6) = [objc_allocWithZone(type metadata accessor for SmallLockupView(0)) initWithFrame:{0.0, 0.0, 0.0, 0.0}];
   *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC20ProductPageExtension29SmallLockupCollectionViewCell_separatorView) = 0;
   v7 = OBJC_IVAR____TtC20ProductPageExtension29SmallLockupCollectionViewCell_separator;
   v8 = sub_10076E21C();

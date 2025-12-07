@@ -94,38 +94,38 @@ void __apsession_Invalidate_block_invoke(uint64_t a1)
     }
 
     FigSimpleMutexUnlock();
-    v17 = *(v4 + 7);
-    if (v17)
-    {
-      CFRelease(v17);
-      *(v4 + 7) = 0;
-    }
-
-    v18 = *(v4 + 8);
-    if (v18)
-    {
-      CFRelease(v18);
-      *(v4 + 8) = 0;
-    }
-
-    v19 = *(v4 + 28);
+    v19 = *(v4 + 7);
     if (v19)
     {
       CFRelease(v19);
-      *(v4 + 28) = 0;
+      *(v4 + 7) = 0;
     }
 
-    v20 = *(v4 + 29);
+    v20 = *(v4 + 8);
     if (v20)
     {
       CFRelease(v20);
+      *(v4 + 8) = 0;
+    }
+
+    v21 = *(v4 + 28);
+    if (v21)
+    {
+      CFRelease(v21);
+      *(v4 + 28) = 0;
+    }
+
+    v22 = *(v4 + 29);
+    if (v22)
+    {
+      CFRelease(v22);
       *(v4 + 29) = 0;
     }
 
-    v21 = *(v4 + 26);
-    if (v21)
+    v23 = *(v4 + 26);
+    if (v23)
     {
-      APPWDKeyExchangeSenderSessionInvalidate(v21);
+      APPWDKeyExchangeSenderSessionInvalidate(v23, v17, v18);
       CFRelease(*(v4 + 26));
       *(v4 + 26) = 0;
     }

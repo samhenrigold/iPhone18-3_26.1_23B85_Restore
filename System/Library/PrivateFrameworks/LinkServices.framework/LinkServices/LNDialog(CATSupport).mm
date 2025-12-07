@@ -14,33 +14,28 @@
 
 - (void)defaultCATOptions
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x2020000000;
   v0 = getCATDisableLoggingSymbolLoc_ptr;
-  v8 = getCATDisableLoggingSymbolLoc_ptr;
+  v7 = getCATDisableLoggingSymbolLoc_ptr;
   if (!getCATDisableLoggingSymbolLoc_ptr)
   {
-    v4[0] = MEMORY[0x1E69E9820];
-    v4[1] = 3221225472;
-    v4[2] = __getCATDisableLoggingSymbolLoc_block_invoke;
-    v4[3] = &unk_1E74B26D0;
-    v4[4] = &v5;
-    __getCATDisableLoggingSymbolLoc_block_invoke(v4);
-    v0 = v6[3];
+    v3[0] = MEMORY[0x1E69E9820];
+    v3[1] = 3221225472;
+    v3[2] = __getCATDisableLoggingSymbolLoc_block_invoke;
+    v3[3] = &unk_1E74B26D0;
+    v3[4] = &v4;
+    __getCATDisableLoggingSymbolLoc_block_invoke(v3);
+    v0 = v5[3];
   }
 
-  _Block_object_dispose(&v5, 8);
-  if (v0)
-  {
-    v1 = *v0;
-  }
-
-  else
+  _Block_object_dispose(&v4, 8);
+  if (!v0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v3 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"int getCATDisableLogging(void)"];
-    [currentHandler handleFailureInFunction:v3 file:@"LNDialog+CATSupport.m" lineNumber:14 description:{@"%s", dlerror()}];
+    v2 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"int getCATDisableLogging(void)"];
+    [currentHandler handleFailureInFunction:v2 file:@"LNDialog+CATSupport.m" lineNumber:14 description:{@"%s", dlerror()}];
 
     __break(1u);
   }

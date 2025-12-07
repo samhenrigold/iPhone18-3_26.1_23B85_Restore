@@ -22,17 +22,17 @@
 
   if (gLogCategory_CoreRCDevice <= 10 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    [CoreIRDeviceClient sendCommand:error:];
+    [CoreIRDeviceClient sendCommand:v7 error:?];
   }
 
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = __40__CoreIRDeviceClient_sendCommand_error___block_invoke;
-  v9[3] = &unk_278EA2910;
-  v9[4] = manager;
-  v9[5] = command;
-  v9[6] = self;
-  return CoreRCWaitForAsyncOperation(error, v9);
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __40__CoreIRDeviceClient_sendCommand_error___block_invoke;
+  v10[3] = &unk_278EA2910;
+  v10[4] = manager;
+  v10[5] = command;
+  v10[6] = self;
+  return CoreRCWaitForAsyncOperation(error, v10);
 }
 
 - (BOOL)clearAllStoredCommands:(id *)commands
@@ -45,16 +45,16 @@
 
   if (gLogCategory_CoreRCDevice <= 10 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    [CoreIRDeviceClient clearAllStoredCommands:];
+    [(CoreIRDeviceClient *)self clearAllStoredCommands:v5];
   }
 
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __45__CoreIRDeviceClient_clearAllStoredCommands___block_invoke;
-  v7[3] = &unk_278EA32B8;
-  v7[4] = manager;
-  v7[5] = self;
-  return CoreRCWaitForAsyncOperation(commands, v7);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __45__CoreIRDeviceClient_clearAllStoredCommands___block_invoke;
+  v8[3] = &unk_278EA32B8;
+  v8[4] = manager;
+  v8[5] = self;
+  return CoreRCWaitForAsyncOperation(commands, v8);
 }
 
 uint64_t __45__CoreIRDeviceClient_clearAllStoredCommands___block_invoke(uint64_t a1, uint64_t a2)
@@ -91,20 +91,20 @@ uint64_t __45__CoreIRDeviceClient_clearAllStoredCommands___block_invoke_2(uint64
 
   if (gLogCategory_CoreRCDevice <= 50 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    [CoreIRDeviceClient setCommand:target:forButtonCombination:delay:error:];
+    [CoreIRDeviceClient setCommand:v13 target:? forButtonCombination:? delay:? error:?];
   }
 
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __73__CoreIRDeviceClient_setCommand_target_forButtonCombination_delay_error___block_invoke;
-  v15[3] = &unk_278EA32E0;
-  v15[7] = combination;
-  v15[8] = command;
-  v15[4] = manager;
-  v15[5] = target;
-  v15[6] = self;
-  *&v15[9] = delay;
-  return CoreRCWaitForAsyncOperation(error, v15);
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __73__CoreIRDeviceClient_setCommand_target_forButtonCombination_delay_error___block_invoke;
+  v16[3] = &unk_278EA32E0;
+  v16[7] = combination;
+  v16[8] = command;
+  v16[4] = manager;
+  v16[5] = target;
+  v16[6] = self;
+  *&v16[9] = delay;
+  return CoreRCWaitForAsyncOperation(error, v16);
 }
 
 uint64_t __73__CoreIRDeviceClient_setCommand_target_forButtonCombination_delay_error___block_invoke(double *a1, uint64_t a2)
@@ -139,7 +139,7 @@ uint64_t __73__CoreIRDeviceClient_setCommand_target_forButtonCombination_delay_e
 {
   if (gLogCategory_CoreRCDevice <= 50 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    [CoreIRDeviceClient enableButtonCombination:delay:error:];
+    [CoreIRDeviceClient enableButtonCombination:a2 delay:? error:?];
   }
 
   return [(CoreIRDeviceClient *)self changeButtonCombination:combination delay:1 enabled:error error:delay];
@@ -149,7 +149,7 @@ uint64_t __73__CoreIRDeviceClient_setCommand_target_forButtonCombination_delay_e
 {
   if (gLogCategory_CoreRCDevice <= 50 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    [CoreIRDeviceClient disableButtonCombination:delay:error:];
+    [CoreIRDeviceClient disableButtonCombination:a2 delay:? error:?];
   }
 
   return [(CoreIRDeviceClient *)self changeButtonCombination:combination delay:0 enabled:error error:delay];
@@ -218,7 +218,7 @@ uint64_t __66__CoreIRDeviceClient_changeButtonCombination_delay_enabled_error___
 
   if (gLogCategory_CoreRCXPC <= 50 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCXPC, "[CoreIRDeviceClient startLearningSessionWithReason:error:]", 50, "CoreIRDevice startLearningSessionWithReason: %d\n", reason);
   }
 
   v12[0] = MEMORY[0x277D85DD0];
@@ -286,7 +286,7 @@ uint64_t __59__CoreIRDeviceClient_startLearningSessionWithReason_error___block_i
 
   if (gLogCategory_CoreRCXPC <= 50 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
-    [CoreIRDeviceClient updateMappingWithSession:error:];
+    [CoreIRDeviceClient updateMappingWithSession:session error:?];
   }
 
   v9[0] = MEMORY[0x277D85DD0];
@@ -334,25 +334,25 @@ uint64_t __53__CoreIRDeviceClient_updateMappingWithSession_error___block_invoke_
 
   if (gLogCategory_CoreRCDevice <= 50 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    objc_opt_class();
-    LogPrintF();
+    v9 = objc_opt_class();
+    LogPrintF(&gLogCategory_CoreRCDevice, "[CoreIRDeviceClient setOSDName:error:]", 50, "%@ %@ setOSDName:%@\n", v9, self, name);
   }
 
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __39__CoreIRDeviceClient_setOSDName_error___block_invoke;
-  v13[3] = &unk_278EA2910;
-  v13[4] = manager;
-  v13[5] = name;
-  v13[6] = self;
-  v9 = CoreRCWaitForAsyncOperation(error, v13);
-  if (v9)
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __39__CoreIRDeviceClient_setOSDName_error___block_invoke;
+  v14[3] = &unk_278EA2910;
+  v14[4] = manager;
+  v14[5] = name;
+  v14[6] = self;
+  v10 = CoreRCWaitForAsyncOperation(error, v14);
+  if (v10)
   {
     OUTLINED_FUNCTION_0_6();
-    LOBYTE(v9) = objc_msgSendSuper2(v10, v11);
+    LOBYTE(v10) = objc_msgSendSuper2(v11, v12);
   }
 
-  return v9;
+  return v10;
 }
 
 - (uint64_t)sendCommand:error:.cold.1()
@@ -371,7 +371,7 @@ uint64_t __53__CoreIRDeviceClient_updateMappingWithSession_error___block_invoke_
   return [v1 handleFailureInMethod:v0 object:? file:? lineNumber:? description:?];
 }
 
-uint64_t __45__CoreIRDeviceClient_clearAllStoredCommands___block_invoke_2_cold_1(uint64_t *a1, const char *a2)
+void *__45__CoreIRDeviceClient_clearAllStoredCommands___block_invoke_2_cold_1(void *a1, const char *a2)
 {
   result = OUTLINED_FUNCTION_2_5(MEMORY[0x277CCA9B8], a2, *MEMORY[0x277CCA590]);
   *a1 = result;

@@ -285,7 +285,7 @@ LABEL_32:
     v6 = +[NSDecimalNumber notANumber];
     if (v6)
     {
-      [(NSDecimalNumber *)v6 decimalValue];
+      objc_msgSend_decimalValue(v6);
     }
 
     else

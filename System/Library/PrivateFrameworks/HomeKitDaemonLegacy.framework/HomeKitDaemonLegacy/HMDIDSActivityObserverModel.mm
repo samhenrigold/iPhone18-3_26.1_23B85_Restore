@@ -31,15 +31,13 @@
 
 void __44__HMDIDSActivityObserverModel_hmbProperties__block_invoke()
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"pushToken";
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"pushToken";
   v0 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v5[0] = v0;
-  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+  v4[0] = v0;
+  v1 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
   v2 = hmbProperties_properties_184651;
   hmbProperties_properties_184651 = v1;
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 + (id)sentinelParentUUID

@@ -8,6 +8,8 @@
 - (void)showConfirmationAlert;
 - (void)updatedIconGraph:(id)graph;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CSLUILayoutViewController
@@ -130,6 +132,40 @@
     tabBar2 = [tabBarController2 tabBar];
     [tabBar2 setScrollEdgeAppearance:v25];
   }
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v15.receiver = self;
+  v15.super_class = CSLUILayoutViewController;
+  [(CSLUILayoutViewController *)&v15 viewWillAppear:appear];
+  v3 = [_NSLocalizedStringResource alloc];
+  v4 = +[NSLocale currentLocale];
+  v5 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v5 bundleURL];
+  v7 = [v3 initWithKey:@"APP_VIEW_ARRANGEMENT_LABEL" table:@"CarouselAppViewChoice" locale:v4 bundleURL:bundleURL];
+
+  v8 = [_NSLocalizedStringResource alloc];
+  v9 = +[NSLocale currentLocale];
+  v10 = [NSBundle bundleWithIdentifier:@"com.apple.Bridge"];
+  bundleURL2 = [v10 bundleURL];
+  v12 = [v8 initWithKey:@"APP_VIEW" table:@"Settings" locale:v9 bundleURL:bundleURL2];
+
+  v16 = v12;
+  v13 = [NSArray arrayWithObjects:&v16 count:1];
+  v14 = [NSURL URLWithString:@"bridge:root=APP_VIEW_ID&path=APP_ARRANGEMENT_ID"];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForSystemSettingWithIconSpecifierIdentifier:@"APP_VIEW_ID" title:v7 localizedNavigationComponents:v13 deepLink:v14];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v7.receiver = self;
+  v7.super_class = CSLUILayoutViewController;
+  [(CSLUILayoutViewController *)&v7 viewWillDisappear:disappear];
+  navigationController = [(CSLUILayoutViewController *)self navigationController];
+  tabBarController = [navigationController tabBarController];
+  tabBar = [tabBarController tabBar];
+  [tabBar setScrollEdgeAppearance:0];
 }
 
 - (void)updatedIconGraph:(id)graph

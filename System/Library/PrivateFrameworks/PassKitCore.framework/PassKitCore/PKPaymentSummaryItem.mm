@@ -115,8 +115,8 @@ LABEL_16:
   [(PKProtobufPaymentSummaryItem *)v3 setCustomPrecisionAmount:v6];
 
   amount3 = [(PKPaymentSummaryItem *)self amount];
-  v8 = PKProtoSupportProtoDecimalNumberFromDecimalNumber(amount3);
-  [(PKProtobufPaymentSummaryItem *)v3 setDecimalAmount:v8];
+  v9 = PKProtoSupportProtoDecimalNumberFromDecimalNumber(amount3, v8);
+  [(PKProtobufPaymentSummaryItem *)v3 setDecimalAmount:v9];
 
   label = [(PKPaymentSummaryItem *)self label];
   [(PKProtobufPaymentSummaryItem *)v3 setLabel:label];
@@ -299,8 +299,8 @@ LABEL_14:
 
   thresholdAmount2 = [itemCopy thresholdAmount];
 
-  v8 = PKProtoSupportProtoDecimalNumberFromDecimalNumber(thresholdAmount2);
-  [(PKProtobufAutomaticReloadPaymentSummaryItem *)v4 setThresholdDecimalAmount:v8];
+  v9 = PKProtoSupportProtoDecimalNumberFromDecimalNumber(thresholdAmount2, v8);
+  [(PKProtobufAutomaticReloadPaymentSummaryItem *)v4 setThresholdDecimalAmount:v9];
 
   return v4;
 }
@@ -457,9 +457,9 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    v10 = [(NSString *)v7 isEqualToString:v8];
+    isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-    if (!v10)
+    if (!isEqualToString)
     {
       goto LABEL_12;
     }
@@ -535,7 +535,7 @@ LABEL_13:
     v6->_label = v10;
 
     v12 = [dictionaryCopy PKStringForKey:@"type"];
-    if ([v12 isEqualToString:@"Pending"])
+    if (objc_msgSend_isEqualToString_(v12))
     {
       v6->_type = 1;
     }

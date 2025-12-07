@@ -19,7 +19,7 @@
   *(&self->super.isa + OBJC_IVAR____TtC12SiriSharedUI31SiriSharedUISuggestionsProvider_emittedRequestLink) = 0;
   *(&self->super.isa + OBJC_IVAR____TtC12SiriSharedUI31SiriSharedUISuggestionsProvider_cachedAutoCompletionsFacade) = 0;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for SiriSharedUISuggestionsProvider();
+  v7.super_class = type metadata accessor for SiriSharedUISuggestionsProvider(0);
   return [(SiriSharedUISuggestionsProvider *)&v7 init];
 }
 

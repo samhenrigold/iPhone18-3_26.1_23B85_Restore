@@ -53,7 +53,7 @@
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUBonjourAdvertiser _updateTXTDictionary]", 0x1Eu, "Update TXT: %##@\n", v8, v9, v10, v11, self->_txtDictionary);
+      LogPrintF(ucat, "[CUBonjourAdvertiser _updateTXTDictionary]", 30, "Update TXT: %##@\n", v8, v9, v10, v11, self->_txtDictionary);
     }
 
 LABEL_9:
@@ -82,7 +82,7 @@ LABEL_9:
       v22 = self->_ucat;
     }
 
-    LogPrintF(v22, "[CUBonjourAdvertiser _updateTXTDictionary]", 0x3Cu, "### Set TXT record failed: %#m\n", v17, v18, v19, v20, v21);
+    LogPrintF(v22, "[CUBonjourAdvertiser _updateTXTDictionary]", 60, "### Set TXT record failed: %#m\n", v17, v18, v19, v20, v21);
 LABEL_14:
     TXTRecordDeallocate(v29 + 2);
     _Block_object_dispose(&v28, 8);
@@ -102,7 +102,7 @@ LABEL_14:
       v13 = self->_ucat;
     }
 
-    LogPrintF(v13, "[CUBonjourAdvertiser _updateTXTDictionary]", 0x1Eu, "Update TXT: <none>\n", v2, v3, v4, v5, v25);
+    LogPrintF(v13, "[CUBonjourAdvertiser _updateTXTDictionary]", 30, "Update TXT: <none>\n", v2, v3, v4, v5, v25);
   }
 
 LABEL_16:
@@ -145,7 +145,7 @@ void __43__CUBonjourAdvertiser__updateTXTDictionary__block_invoke(uint64_t a1, v
         v31 = *(*(a1 + 32) + 32);
       }
 
-      LogPrintF(v31, "[CUBonjourAdvertiser _updateTXTDictionary]_block_invoke", 0x3Cu, "### TXT item '%@', '%@' value too long\n", v8, v9, v10, v11, v33);
+      LogPrintF(v31, "[CUBonjourAdvertiser _updateTXTDictionary]_block_invoke", 60, "### TXT item '%@', '%@' value too long\n", v8, v9, v10, v11, v33);
       goto LABEL_24;
     }
 
@@ -157,7 +157,7 @@ void __43__CUBonjourAdvertiser__updateTXTDictionary__block_invoke(uint64_t a1, v
         if (*v16 != -1)
         {
 LABEL_6:
-          LogPrintF(v16, "[CUBonjourAdvertiser _updateTXTDictionary]_block_invoke", 0x3Cu, "### Set TXT item '%@', '%@' failed: %#m\n", v12, v13, v14, v15, v33);
+          LogPrintF(v16, "[CUBonjourAdvertiser _updateTXTDictionary]_block_invoke", 60, "### Set TXT item '%@', '%@' failed: %#m\n", v12, v13, v14, v15, v33);
           goto LABEL_24;
         }
 
@@ -190,7 +190,7 @@ LABEL_6:
             v21 = *(*(a1 + 32) + 32);
           }
 
-          LogPrintF(v21, "[CUBonjourAdvertiser _updateTXTDictionary]_block_invoke", 0x3Cu, "### Set TXT item '%@', true failed: %#m\n", v17, v18, v19, v20, v33);
+          LogPrintF(v21, "[CUBonjourAdvertiser _updateTXTDictionary]_block_invoke", 60, "### Set TXT item '%@', true failed: %#m\n", v17, v18, v19, v20, v33);
         }
       }
     }
@@ -216,7 +216,7 @@ LABEL_6:
           v32 = *(*(a1 + 32) + 32);
         }
 
-        LogPrintF(v32, "[CUBonjourAdvertiser _updateTXTDictionary]_block_invoke", 0x3Cu, "### TXT item '%@', unsupported value '%@'\n", v22, v23, v24, v25, v33);
+        LogPrintF(v32, "[CUBonjourAdvertiser _updateTXTDictionary]_block_invoke", 60, "### TXT item '%@', unsupported value '%@'\n", v22, v23, v24, v25, v33);
         goto LABEL_24;
       }
 
@@ -235,7 +235,7 @@ LABEL_6:
             v30 = *(*(a1 + 32) + 32);
           }
 
-          LogPrintF(v30, "[CUBonjourAdvertiser _updateTXTDictionary]_block_invoke", 0x3Cu, "### Set TXT item '%@', null failed: %#m\n", v26, v27, v28, v29, v33);
+          LogPrintF(v30, "[CUBonjourAdvertiser _updateTXTDictionary]_block_invoke", 60, "### Set TXT item '%@', null failed: %#m\n", v26, v27, v28, v29, v33);
         }
       }
     }
@@ -282,7 +282,7 @@ LABEL_24:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUBonjourAdvertiser _updateLocked]", 0x3Cu, "### Set domain '%@' failed: %#m\n", v5, v6, v7, v8, self->_domain);
+    LogPrintF(ucat, "[CUBonjourAdvertiser _updateLocked]", 60, "### Set domain '%@' failed: %#m\n", v5, v6, v7, v8, self->_domain);
 LABEL_10:
     self->_domainChanged = 0;
     advertiseFlagsChanged = 1;
@@ -405,7 +405,7 @@ LABEL_6:
       v11 = *(v10 + 32);
     }
 
-    LogPrintF(v11, "[CUBonjourAdvertiser invalidate]_block_invoke", 0x1Eu, "Invalidate\n", a5, a6, a7, a8, v14);
+    LogPrintF(v11, "[CUBonjourAdvertiser invalidate]_block_invoke", 30, "Invalidate\n", a5, a6, a7, a8, v14);
     v10 = *(a1 + 32);
     goto LABEL_6;
   }
@@ -461,7 +461,7 @@ void __48__CUBonjourAdvertiser__activateSafeInvokeBlock___block_invoke(uint64_t 
       ucat = self->_ucat;
     }
 
-    LogPrintF_safe(ucat, "[CUBonjourAdvertiser _activateLocked]", 0x1Eu, "Activate name=%@, service=%@, domain=%@, port=%d, ifname=%@, ifindex=%u, flags=0x%llX", v2, v3, v4, v5, self->_name);
+    LogPrintF_safe(ucat, "[CUBonjourAdvertiser _activateLocked]", 30, "Activate name=%@, service=%@, domain=%@, port=%d, ifname=%@, ifindex=%u, flags=0x%llX", v2, v3, v4, v5, self->_name);
   }
 
 LABEL_7:
@@ -485,7 +485,7 @@ LABEL_7:
       v15 = self->_ucat;
     }
 
-    LogPrintF(v15, "[CUBonjourAdvertiser _activateLocked]", 0x3Cu, "### Create advertiser failed: %#m\n", v10, v11, v12, v13, v14);
+    LogPrintF(v15, "[CUBonjourAdvertiser _activateLocked]", 60, "### Create advertiser failed: %#m\n", v10, v11, v12, v13, v14);
     return;
   }
 

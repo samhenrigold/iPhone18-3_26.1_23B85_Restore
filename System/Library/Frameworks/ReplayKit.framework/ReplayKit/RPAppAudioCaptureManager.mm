@@ -1,4 +1,5 @@
 @interface RPAppAudioCaptureManager
++ ($966F72C73C657EC8069F9357E961626F)audioCaptureConfigForSystemRecording:(BOOL)recording processID:(int)d contextID:(id)iD;
 + (AudioStreamBasicDescription)audioStreamBasicDescriptionWithStereo:(SEL)stereo;
 + (AudioStreamBasicDescription)descriptionForHQLR;
 - (BOOL)handleStartAudioQueueFailed:(int)failed didFailHandler:(id)handler;
@@ -68,11 +69,11 @@
     v5 = *(v2 + 2);
     *(v2 + 2) = 0;
 
-    [RPAppAudioCaptureManager audioStreamBasicDescriptionWithStereo:1];
+    objc_msgSend_audioStreamBasicDescriptionWithStereo_(RPAppAudioCaptureManager);
     *(v2 + 56) = v7;
     *(v2 + 72) = v8;
     *(v2 + 11) = v9;
-    +[RPAppAudioCaptureManager descriptionForHQLR];
+    objc_msgSend_descriptionForHQLR(RPAppAudioCaptureManager);
     *(v2 + 6) = v7;
     *(v2 + 7) = v8;
     *(v2 + 16) = v9;
@@ -135,13 +136,13 @@ LABEL_6:
 
 void __74__RPAppAudioCaptureManager_startWithConfig_outputHandler_didStartHandler___block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v31 = "[RPAppAudioCaptureManager startWithConfig:outputHandler:didStartHandler:]_block_invoke";
-    v32 = 1024;
-    v33 = 292;
+    v30 = "[RPAppAudioCaptureManager startWithConfig:outputHandler:didStartHandler:]_block_invoke";
+    v31 = 1024;
+    v32 = 292;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", buf, 0x12u);
   }
 
@@ -179,9 +180,9 @@ void __74__RPAppAudioCaptureManager_startWithConfig_outputHandler_didStartHandle
     if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v31 = "[RPAppAudioCaptureManager startWithConfig:outputHandler:didStartHandler:]_block_invoke";
-      v32 = 1024;
-      v33 = 314;
+      v30 = "[RPAppAudioCaptureManager startWithConfig:outputHandler:didStartHandler:]_block_invoke";
+      v31 = 1024;
+      v32 = 314;
       _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Created Audio Queue Input", buf, 0x12u);
     }
 
@@ -204,9 +205,9 @@ void __74__RPAppAudioCaptureManager_startWithConfig_outputHandler_didStartHandle
           if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136446466;
-            v31 = "[RPAppAudioCaptureManager startWithConfig:outputHandler:didStartHandler:]_block_invoke";
-            v32 = 1024;
-            v33 = 327;
+            v30 = "[RPAppAudioCaptureManager startWithConfig:outputHandler:didStartHandler:]_block_invoke";
+            v31 = 1024;
+            v32 = 327;
             _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Successfully set Audio Queue Process Tap", buf, 0x12u);
           }
 
@@ -231,9 +232,9 @@ LABEL_14:
                 if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136446466;
-                  v31 = "[RPAppAudioCaptureManager startWithConfig:outputHandler:didStartHandler:]_block_invoke";
-                  v32 = 1024;
-                  v33 = 359;
+                  v30 = "[RPAppAudioCaptureManager startWithConfig:outputHandler:didStartHandler:]_block_invoke";
+                  v31 = 1024;
+                  v32 = 359;
                   _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d AudioQueueStart retry after can not start yet error", buf, 0x12u);
                 }
 
@@ -246,9 +247,9 @@ LABEL_14:
                 if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136446466;
-                  v31 = "[RPAppAudioCaptureManager startWithConfig:outputHandler:didStartHandler:]_block_invoke";
-                  v32 = 1024;
-                  v33 = 367;
+                  v30 = "[RPAppAudioCaptureManager startWithConfig:outputHandler:didStartHandler:]_block_invoke";
+                  v31 = 1024;
+                  v32 = 367;
                   _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Successfully started Audio Queue Recording", buf, 0x12u);
                 }
 
@@ -260,12 +261,12 @@ LABEL_14:
             }
           }
 
-          goto LABEL_41;
+          return;
         }
 
 LABEL_40:
 
-        goto LABEL_41;
+        return;
       }
     }
 
@@ -275,7 +276,7 @@ LABEL_40:
 
     if (__RPLogLevel <= 2 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      __74__RPAppAudioCaptureManager_startWithConfig_outputHandler_didStartHandler___block_invoke_cold_1((a1 + 32));
+      __74__RPAppAudioCaptureManager_startWithConfig_outputHandler_didStartHandler___block_invoke_cold_1();
     }
 
     v26 = *(a1 + 48);
@@ -285,28 +286,23 @@ LABEL_40:
     v25 = 0;
     goto LABEL_40;
   }
-
-LABEL_41:
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __45__RPAppAudioCaptureManager_resumeWithConfig___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2 && __RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v3 = [MEMORY[0x277CCA9B8] _rpUserErrorForCode:-5833 userInfo:0];
-    v5 = 136446722;
-    v6 = "[RPAppAudioCaptureManager resumeWithConfig:]_block_invoke";
-    v7 = 1024;
-    v8 = 385;
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Error: %@", &v5, 0x1Cu);
+    v4 = 136446722;
+    v5 = "[RPAppAudioCaptureManager resumeWithConfig:]_block_invoke";
+    v6 = 1024;
+    v7 = 385;
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Error: %@", &v4, 0x1Cu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
@@ -322,13 +318,13 @@ void __45__RPAppAudioCaptureManager_resumeWithConfig___block_invoke(uint64_t a1,
 
 void __32__RPAppAudioCaptureManager_stop__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v14 = "[RPAppAudioCaptureManager stop]_block_invoke";
-    v15 = 1024;
-    v16 = 392;
+    v13 = "[RPAppAudioCaptureManager stop]_block_invoke";
+    v14 = 1024;
+    v15 = 392;
     _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", buf, 0x12u);
   }
 
@@ -356,9 +352,9 @@ void __32__RPAppAudioCaptureManager_stop__block_invoke(uint64_t a1)
         if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446466;
-          v14 = "[RPAppAudioCaptureManager stop]_block_invoke";
-          v15 = 1024;
-          v16 = 407;
+          v13 = "[RPAppAudioCaptureManager stop]_block_invoke";
+          v14 = 1024;
+          v15 = 407;
           _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Audio Queue successfully stopped", buf, 0x12u);
         }
 
@@ -383,11 +379,11 @@ void __32__RPAppAudioCaptureManager_stop__block_invoke(uint64_t a1)
             if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
             {
               *buf = 136446722;
-              v14 = "[RPAppAudioCaptureManager stop]_block_invoke";
-              v15 = 1024;
-              v16 = 414;
-              v17 = 1024;
-              v18 = v10;
+              v13 = "[RPAppAudioCaptureManager stop]_block_invoke";
+              v14 = 1024;
+              v15 = 414;
+              v16 = 1024;
+              v17 = v10;
               _os_log_error_impl(&dword_23A863000, v7, OS_LOG_TYPE_ERROR, " [ERROR] %{public}s:%d AudioQueueFreeBuffer error: %i", buf, 0x18u);
             }
           }
@@ -407,9 +403,9 @@ void __32__RPAppAudioCaptureManager_stop__block_invoke(uint64_t a1)
         else if (__RPLogLevel <= 1 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446466;
-          v14 = "[RPAppAudioCaptureManager stop]_block_invoke";
-          v15 = 1024;
-          v16 = 420;
+          v13 = "[RPAppAudioCaptureManager stop]_block_invoke";
+          v14 = 1024;
+          v15 = 420;
           _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Audio Queue has been disposed", buf, 0x12u);
         }
       }
@@ -423,8 +419,16 @@ void __32__RPAppAudioCaptureManager_stop__block_invoke(uint64_t a1)
 
   v11 = *(v4 + 48);
   *(v4 + 48) = 0;
+}
 
-  v12 = *MEMORY[0x277D85DE8];
++ ($966F72C73C657EC8069F9357E961626F)audioCaptureConfigForSystemRecording:(BOOL)recording processID:(int)d contextID:(id)iD
+{
+  v5 = *&d << 32;
+  v6 = 0;
+  result.var2 = v6;
+  result.var0 = v5;
+  result.var1 = HIDWORD(v5);
+  return result;
 }
 
 - (id)newAudioTapForAudioCaptureConfig:(id)config
@@ -513,108 +517,83 @@ LABEL_21:
 
 - (void)handleStartAudioQueueFailed:didFailHandler:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __74__RPAppAudioCaptureManager_startWithConfig_outputHandler_didStartHandler___block_invoke_cold_1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __32__RPAppAudioCaptureManager_stop__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __32__RPAppAudioCaptureManager_stop__block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)newAudioTapForAudioCaptureConfig:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 2 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v5, v6, v7, v8, v9, 0x12u);
+    _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
   }
 
   *a2 = 0;
   *a1 = 0;
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)newAudioTapForAudioCaptureConfig:(void *)a3 .cold.2(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 2 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v7, v8, v9, v10, v11, 0x12u);
+    _os_log_error_impl(v6, v7, v8, v9, v10, 0x12u);
   }
 
   *a3 = 0;
   *a2 = a1;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)newAudioTapForAudioCaptureConfig:.cold.3()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     OUTLINED_FUNCTION_0();
-    v2 = 474;
-    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Returning nil audio tap for none type", v1, 0x12u);
+    v1 = 474;
+    _os_log_impl(&dword_23A863000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d Returning nil audio tap for none type", v0, 0x12u);
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 - (void)newAudioTapForAudioCaptureConfig:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)newAudioTapForAudioCaptureConfig:(void *)a1 .cold.5(void *a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
   if (__RPLogLevel <= 2 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_2();
-    _os_log_error_impl(v5, v6, v7, v8, v9, 0x12u);
+    _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
   }
 
   *a2 = 0;
   *a1 = 0;
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

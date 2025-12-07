@@ -205,26 +205,26 @@
 {
   encoderCopy = encoder;
   [encoderCopy setLabel:@"Magma Encoder"];
-  v34 = 0uLL;
+  v35 = 0uLL;
   v5 = *&self->_width;
   v6.i64[0] = v5;
   v6.i64[1] = SHIDWORD(v5);
-  v35 = vcvtq_f64_s64(v6);
-  v36 = xmmword_12230;
-  [encoderCopy setViewport:&v34];
+  v36 = vcvtq_f64_s64(v6);
+  v37 = xmmword_12230;
+  [encoderCopy setViewport:&v35];
   [encoderCopy setCullMode:0];
   if (LOBYTE(self->_springStiffness) == 1)
   {
-    NTKMagmaGetTuningWithDefault(@"MagmaBackgroundFactor", 0.7);
+    NTKMagmaGetTuningWithDefault();
   }
 
-  v36 = 0uLL;
+  v37 = 0uLL;
   v7 = *&self->_backgroundBottomColor[8];
-  v34 = *&self->_backgroundTopColor[8];
-  v35 = v7;
-  *&v36 = self->_tritiumFraction;
+  v35 = *&self->_backgroundTopColor[8];
+  v36 = v7;
+  *&v37 = self->_tritiumFraction;
   [encoderCopy setRenderPipelineState:self->_backgroundRenderPipelineState];
-  [encoderCopy setFragmentBytes:&v34 length:48 atIndex:0];
+  [encoderCopy setFragmentBytes:&v35 length:48 atIndex:0];
   [encoderCopy setFragmentTexture:self->_backgroundTexture atIndex:1];
   vertices = [(NTKMagmaMesh *)self->_backgroundMesh vertices];
   v8Vertices = [vertices vertices];
@@ -245,15 +245,15 @@
     }
 
     v15 = self->_width / self->_height;
-    v32 = backgroundTextureAlpha;
-    v33 = v15;
-    *&v36 = 0;
+    v33 = backgroundTextureAlpha;
+    v34 = v15;
+    *&v37 = 0;
     v16 = *&self->_timeOutlineColor[8];
-    v34 = *&self->_timeFillColor[8];
-    v35 = v16;
-    *(&v36 + 1) = self->_springsWidth;
+    v35 = *&self->_timeFillColor[8];
+    v36 = v16;
+    *(&v37 + 1) = self->_springsWidth;
     [encoderCopy setRenderPipelineState:self->_foregroundRenderPipelineState];
-    [encoderCopy setVertexBytes:&v32 length:8 atIndex:1];
+    [encoderCopy setVertexBytes:&v33 length:8 atIndex:1];
     vertices2 = [(NTKMagmaMesh *)self->_timeMesh vertices];
     v17Vertices = [vertices2 vertices];
     [encoderCopy setVertexBuffer:v17Vertices offset:0 atIndex:0];
@@ -262,7 +262,7 @@
     [encoderCopy setFragmentTexture:self->_primaryTexture atIndex:0];
     [encoderCopy setFragmentTexture:self->_tritiumTimeTexture atIndex:1];
     [encoderCopy setFragmentTexture:self->_backgroundTexture atIndex:2];
-    [encoderCopy setFragmentBytes:&v34 length:48 atIndex:0];
+    [encoderCopy setFragmentBytes:&v35 length:48 atIndex:0];
     indices3 = [(NTKMagmaMesh *)self->_timeMesh indices];
     indexCt2 = [indices3 indexCt];
     indices4 = [(NTKMagmaMesh *)self->_timeMesh indices];
@@ -276,64 +276,66 @@
     if (LOBYTE(self->_springStiffness) == 1)
     {
       v24 = self->_backgroundTextureAlpha;
-      v23 = NTKMagmaGetTuningWithDefault(@"MagmaBackgroundFactor", 0.35) * v24;
+      NTKMagmaGetTuningWithDefault();
+      v23 = v25 * v24;
     }
 
-    v25 = self->_width / self->_height;
-    v32 = v23;
-    v33 = v25;
+    v26 = self->_width / self->_height;
+    v33 = v23;
+    v34 = v26;
+    v37 = 0uLL;
+    v35 = *&self->_logoColor[8];
     v36 = 0uLL;
-    v34 = *&self->_logoColor[8];
-    v35 = 0uLL;
     [encoderCopy setRenderPipelineState:self->_foregroundRenderPipelineState];
-    [encoderCopy setVertexBytes:&v32 length:8 atIndex:1];
+    [encoderCopy setVertexBytes:&v33 length:8 atIndex:1];
     vertices3 = [(NTKMagmaMesh *)self->_logoMesh vertices];
-    v26Vertices = [vertices3 vertices];
-    [encoderCopy setVertexBuffer:v26Vertices offset:0 atIndex:0];
+    v27Vertices = [vertices3 vertices];
+    [encoderCopy setVertexBuffer:v27Vertices offset:0 atIndex:0];
 
     [encoderCopy setVertexTexture:self->_springOffsetTexture atIndex:2];
     [encoderCopy setFragmentTexture:self->_swooshTexture atIndex:0];
-    [encoderCopy setFragmentBytes:&v34 length:48 atIndex:0];
+    [encoderCopy setFragmentBytes:&v35 length:48 atIndex:0];
     [encoderCopy setFragmentTexture:self->_backgroundTexture atIndex:2];
     indices5 = [(NTKMagmaMesh *)self->_logoMesh indices];
     indexCt3 = [indices5 indexCt];
     indices6 = [(NTKMagmaMesh *)self->_logoMesh indices];
-    v30Indices = [indices6 indices];
-    [encoderCopy drawIndexedPrimitives:3 indexCount:indexCt3 indexType:0 indexBuffer:v30Indices indexBufferOffset:0];
+    v31Indices = [indices6 indices];
+    [encoderCopy drawIndexedPrimitives:3 indexCount:indexCt3 indexType:0 indexBuffer:v31Indices indexBufferOffset:0];
   }
 }
 
 - (id)_binaryArchives
 {
-  if (_os_feature_enabled_impl())
+  v3 = _os_feature_enabled_impl();
+  if (v3)
   {
-    v3 = sub_44B4();
-    v4 = [v3 URLForResource:@"magma" withExtension:@"metallib"];
+    v4 = sub_44B4(v3);
+    v5 = [v4 URLForResource:@"magma" withExtension:@"metallib"];
 
-    v5 = objc_opt_new();
-    [v5 setUrl:v4];
+    v6 = objc_opt_new();
+    [v6 setUrl:v5];
     device = self->_device;
-    v11 = 0;
-    v7 = [(MTLDevice *)device newBinaryArchiveWithDescriptor:v5 error:&v11];
-    v8 = v11;
-    if (v7)
+    v12 = 0;
+    v8 = [(MTLDevice *)device newBinaryArchiveWithDescriptor:v6 error:&v12];
+    v9 = v12;
+    if (v8)
     {
-      v12 = v7;
-      v9 = [NSArray arrayWithObjects:&v12 count:1];
+      v13 = v8;
+      v10 = [NSArray arrayWithObjects:&v13 count:1];
     }
 
     else
     {
-      v9 = &__NSArray0__struct;
+      v10 = &__NSArray0__struct;
     }
   }
 
   else
   {
-    v9 = &__NSArray0__struct;
+    v10 = &__NSArray0__struct;
   }
 
-  return v9;
+  return v10;
 }
 
 - (id)_setupBackgroundRenderPipelineWithBinaryArchives:(id)archives
@@ -729,7 +731,7 @@
 - (void)_loadCollisionTexture
 {
   v3 = [NSString stringWithFormat:@"correctionMap-%ih", self->_height];
-  v4 = sub_44B4();
+  v4 = sub_44B4(v3);
   v5 = [v4 pathForResource:v3 ofType:@"blob"];
 
   if (v5)
@@ -1142,13 +1144,16 @@ LABEL_10:
 - (void)_unsafe_updateSimInput
 {
   contents = [(MTLBuffer *)self->_simInput contents];
-  TuningWithDefault = NTKMagmaGetTuningWithDefault(@"MagmaStiffness", 50.0);
-  contents[641] = TuningWithDefault;
-  contents[642] = sqrtf(TuningWithDefault);
-  v5 = NTKMagmaGetTuningWithDefault(@"MagmaDamping", 0.283);
-  contents[643] = v5;
-  v6 = NTKMagmaGetTuningWithDefault(@"MagmaRestorative", 10.0);
-  contents[644] = v6;
+  NTKMagmaGetTuningWithDefault();
+  *&v4 = v4;
+  contents[641] = *&v4;
+  contents[642] = sqrtf(*&v4);
+  NTKMagmaGetTuningWithDefault();
+  *&v5 = v5;
+  contents[643] = *&v5;
+  NTKMagmaGetTuningWithDefault();
+  *&v6 = v6;
+  contents[644] = *&v6;
   *(contents + 162) = *self->_fixedBounds;
 }
 

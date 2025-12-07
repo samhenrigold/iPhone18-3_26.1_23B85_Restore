@@ -1,7 +1,10 @@
 @interface SKUIDynamicMenuBarViewElement
 + (Class)_shelfMenuBarViewElementClass;
 + (Class)_titlesMenuBarViewElementClass;
++ (void)_shelfMenuBarViewElementClass;
++ (void)_titlesMenuBarViewElementClass;
 - (BOOL)isDynamicContainer;
+- (void)isDynamicContainer;
 @end
 
 @implementation SKUIDynamicMenuBarViewElement
@@ -59,6 +62,24 @@
   v10 = objc_opt_class();
 
   return v10;
+}
+
+- (void)isDynamicContainer
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIDynamicMenuBarViewElement isDynamicContainer]";
+}
+
++ (void)_titlesMenuBarViewElementClass
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIDynamicMenuBarViewElement _titlesMenuBarViewElementClass]";
+}
+
++ (void)_shelfMenuBarViewElementClass
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIDynamicMenuBarViewElement _shelfMenuBarViewElementClass]";
 }
 
 @end

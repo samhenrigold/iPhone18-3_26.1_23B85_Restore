@@ -10,28 +10,27 @@
   v14 = *MEMORY[0x277D85DE8];
   number = [self number];
   active = CPPhoneNumberCopyActiveCountryCode();
-  v3 = active;
-  v4 = 0;
+  v4 = active;
+  v5 = 0;
   if (number && active)
   {
-    v4 = TPSLocalizedPhoneNumberString(number, active);
+    active = TPSLocalizedPhoneNumberString(number, active);
+    v5 = active;
   }
 
-  v5 = TPSLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = TPSLog(active, v3);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412802;
-    v9 = v4;
+    v9 = v5;
     v10 = 2112;
     v11 = number;
     v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_21B8E9000, v5, OS_LOG_TYPE_DEFAULT, "Telephone number was localized to %@ using digits %@ and ISO country code %@.", &v8, 0x20u);
+    v13 = v4;
+    _os_log_impl(&dword_21B8E9000, v6, OS_LOG_TYPE_DEFAULT, "Telephone number was localized to %@ using digits %@ and ISO country code %@.", &v8, 0x20u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-
-  return v4;
+  return v5;
 }
 
 - (id)tps_normalizedNumber
@@ -39,28 +38,27 @@
   v14 = *MEMORY[0x277D85DE8];
   number = [self number];
   active = CPPhoneNumberCopyActiveCountryCode();
-  v3 = active;
-  v4 = 0;
+  v4 = active;
+  v5 = 0;
   if (number && active)
   {
-    v4 = TPSNormalizedPhoneNumberString(number, active);
+    active = TPSNormalizedPhoneNumberString(number, active);
+    v5 = active;
   }
 
-  v5 = TPSLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = TPSLog(active, v3);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412802;
-    v9 = v4;
+    v9 = v5;
     v10 = 2112;
     v11 = number;
     v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_21B8E9000, v5, OS_LOG_TYPE_DEFAULT, "Telephone number was normalized to %@ using digits %@ and ISO country code %@.", &v8, 0x20u);
+    v13 = v4;
+    _os_log_impl(&dword_21B8E9000, v6, OS_LOG_TYPE_DEFAULT, "Telephone number was normalized to %@ using digits %@ and ISO country code %@.", &v8, 0x20u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-
-  return v4;
+  return v5;
 }
 
 @end

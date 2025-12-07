@@ -50,92 +50,87 @@
   v21 = a2;
   eventCopy = event;
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v19 = eventCopy;
-    -[NSMutableDictionary setObject:forKey:](selfCopy->_alsEvents, "setObject:forKey:", eventCopy, [eventCopy serviceRegistryID]);
-    context = objc_autoreleasePoolPush();
-    v18 = [(NSMutableDictionary *)selfCopy->_alsEvents keysSortedByValueUsingComparator:&__block_literal_global_6];
+    return eventCopy;
+  }
+
+  v19 = eventCopy;
+  -[NSMutableDictionary setObject:forKey:](selfCopy->_alsEvents, "setObject:forKey:", eventCopy, [eventCopy serviceRegistryID]);
+  context = objc_autoreleasePoolPush();
+  v18 = [(NSMutableDictionary *)selfCopy->_alsEvents keysSortedByValueUsingComparator:&__block_literal_global_6];
+  if (selfCopy->super._logHandle)
+  {
+    logHandle = selfCopy->super._logHandle;
+  }
+
+  else
+  {
+    if (_COREBRIGHTNESS_LOG_DEFAULT)
+    {
+      inited = _COREBRIGHTNESS_LOG_DEFAULT;
+    }
+
+    else
+    {
+      inited = init_default_corebrightness_log();
+    }
+
+    logHandle = inited;
+  }
+
+  v17 = logHandle;
+  v16 = OS_LOG_TYPE_DEBUG;
+  if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
+  {
+    __os_log_helper_16_2_1_8_64(v24, selfCopy->_alsEvents);
+    _os_log_debug_impl(&dword_1DE8E5000, v17, v16, "ALS events %@", v24, 0xCu);
+  }
+
+  v15 = -[NSMutableDictionary objectForKey:](selfCopy->_alsEvents, "objectForKey:", [v18 objectAtIndexedSubscript:0]);
+  if (v15 && (([v15 obstructed] & 1) == 0 || (objc_msgSend(eventCopy, "firstALSSample") & 1) != 0))
+  {
+    v23 = v15;
+    v14 = 1;
+  }
+
+  else
+  {
     if (selfCopy->super._logHandle)
     {
-      logHandle = selfCopy->super._logHandle;
+      v7 = selfCopy->super._logHandle;
     }
 
     else
     {
       if (_COREBRIGHTNESS_LOG_DEFAULT)
       {
-        inited = _COREBRIGHTNESS_LOG_DEFAULT;
+        v6 = _COREBRIGHTNESS_LOG_DEFAULT;
       }
 
       else
       {
-        inited = init_default_corebrightness_log();
+        v6 = init_default_corebrightness_log();
       }
 
-      logHandle = inited;
+      v7 = v6;
     }
 
-    v17 = logHandle;
-    v16 = OS_LOG_TYPE_DEBUG;
-    if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
+    v13 = v7;
+    v12 = 2;
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      __os_log_helper_16_2_1_8_64(v24, selfCopy->_alsEvents);
-      _os_log_debug_impl(&dword_1DE8E5000, v17, v16, "ALS events %@", v24, 0xCu);
+      v4 = v13;
+      v5 = v12;
+      __os_log_helper_16_0_0(v11);
+      _os_log_debug_impl(&dword_1DE8E5000, v4, v5, "Brightest ALS event was not found", v11, 2u);
     }
 
-    v15 = -[NSMutableDictionary objectForKey:](selfCopy->_alsEvents, "objectForKey:", [v18 objectAtIndexedSubscript:0]);
-    if (v15 && (([v15 obstructed] & 1) == 0 || (objc_msgSend(eventCopy, "firstALSSample") & 1) != 0))
-    {
-      v23 = v15;
-      v14 = 1;
-    }
-
-    else
-    {
-      if (selfCopy->super._logHandle)
-      {
-        v7 = selfCopy->super._logHandle;
-      }
-
-      else
-      {
-        if (_COREBRIGHTNESS_LOG_DEFAULT)
-        {
-          v6 = _COREBRIGHTNESS_LOG_DEFAULT;
-        }
-
-        else
-        {
-          v6 = init_default_corebrightness_log();
-        }
-
-        v7 = v6;
-      }
-
-      v13 = v7;
-      v12 = 2;
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
-      {
-        v4 = v13;
-        v5 = v12;
-        __os_log_helper_16_0_0(v11);
-        _os_log_debug_impl(&dword_1DE8E5000, v4, v5, "Brightest ALS event was not found", v11, 2u);
-      }
-
-      v23 = 0;
-      v14 = 1;
-    }
-
-    objc_autoreleasePoolPop(context);
+    v23 = 0;
+    v14 = 1;
   }
 
-  else
-  {
-    v23 = eventCopy;
-  }
-
-  *MEMORY[0x1E69E9840];
+  objc_autoreleasePoolPop(context);
   return v23;
 }
 
@@ -174,8 +169,6 @@
 
     [(NSMutableDictionary *)self->_alsEvents removeObjectForKey:RegistryID];
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setProperty:(id)property forKey:(id)key
@@ -239,11 +232,10 @@
       [(NSMutableDictionary *)self->_alsEvents removeAllObjects];
     }
 
-    v8 = 1;
+    return 1;
   }
 
-  *MEMORY[0x1E69E9840];
-  return v8 & 1;
+  return v8;
 }
 
 @end

@@ -40,21 +40,21 @@
 
 - (AALocalContactInfo)initWithHandle:(id)handle contact:(id)contact
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   contactCopy = contact;
-  v8 = _AALogSystem();
+  v8 = _AALogSystem(contactCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     givenName = [contactCopy givenName];
     familyName = [contactCopy familyName];
-    v20 = 138740483;
-    v21 = givenName;
-    v22 = 2117;
-    v23 = familyName;
-    v24 = 2112;
-    v25 = handleCopy;
-    _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "Local contact First name :%{sensitive}@  lastname: %{sensitive}@ handle %@", &v20, 0x20u);
+    v19 = 138740483;
+    v20 = givenName;
+    v21 = 2117;
+    v22 = familyName;
+    v23 = 2112;
+    v24 = handleCopy;
+    _os_log_impl(&dword_1B6F6A000, v8, OS_LOG_TYPE_DEFAULT, "Local contact First name :%{sensitive}@  lastname: %{sensitive}@ handle %@", &v19, 0x20u);
   }
 
   givenName2 = [contactCopy givenName];
@@ -72,7 +72,6 @@
     v13->_imageDataFull = imageData;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

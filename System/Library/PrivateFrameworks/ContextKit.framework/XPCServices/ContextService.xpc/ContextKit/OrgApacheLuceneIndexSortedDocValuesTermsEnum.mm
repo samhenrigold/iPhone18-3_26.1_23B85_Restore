@@ -25,7 +25,7 @@
     self->currentOrd_ = ~v6;
     if ([(OrgApacheLuceneIndexSortedDocValues *)self->values_ getValueCount]== ~v6)
     {
-      v8 = &OrgApacheLuceneIndexTermsEnum_SeekStatusEnum_values_;
+      v8 = OrgApacheLuceneIndexTermsEnum_SeekStatusEnum_values_;
       if (atomic_load_explicit(OrgApacheLuceneIndexTermsEnum_SeekStatusEnum__initialized, memory_order_acquire))
       {
         return *v8;

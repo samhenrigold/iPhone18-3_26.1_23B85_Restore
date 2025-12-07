@@ -60,7 +60,7 @@ void __74__DCCertificateGenerator_generateEncryptedCertificateChainWithCompletio
 
 - (void)generateCertificateChainWithCompletion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   if ([(DCCertificateGenerator *)self isVirtualMachine])
   {
@@ -102,9 +102,9 @@ void __74__DCCertificateGenerator_generateEncryptedCertificateChainWithCompletio
       }
 
       *buf = 136315394;
-      v18 = v11;
-      v19 = 1024;
-      v20 = 98;
+      v17 = v11;
+      v18 = 1024;
+      v19 = 98;
       _os_log_impl(&dword_2488FB000, v5, OS_LOG_TYPE_DEBUG, "%25s:%-5d Attempting to generate certificate chain on VM, using host identity.", buf, 0x12u);
     }
 
@@ -116,17 +116,15 @@ void __74__DCCertificateGenerator_generateEncryptedCertificateChainWithCompletio
   else
   {
     v13 = +[DCCryptoUtilities identityCertificateOptions];
-    v16 = completionCopy;
+    v15 = completionCopy;
     v14 = completionCopy;
     DeviceIdentityIssueClientCertificateWithCompletion();
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __65__DCCertificateGenerator_generateCertificateChainWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -172,13 +170,13 @@ void __65__DCCertificateGenerator_generateCertificateChainWithCompletion___block
       }
 
       v17 = [v9 localizedDescription];
-      v31 = 136315650;
-      v32 = v16;
-      v33 = 1024;
-      v34 = 103;
-      v35 = 2112;
-      v36 = v17;
-      _os_log_impl(&dword_2488FB000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d Failed to create host signature. { error=%@ }", &v31, 0x1Cu);
+      v30 = 136315650;
+      v31 = v16;
+      v32 = 1024;
+      v33 = 103;
+      v34 = 2112;
+      v35 = v17;
+      _os_log_impl(&dword_2488FB000, v10, OS_LOG_TYPE_DEBUG, "%25s:%-5d Failed to create host signature. { error=%@ }", &v30, 0x1Cu);
     }
   }
 
@@ -223,15 +221,15 @@ void __65__DCCertificateGenerator_generateCertificateChainWithCompletion___block
         v23 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/DeviceCheckInternal/Source/Core/Crypto/DCCertificateGenerator.m";
       }
 
-      v31 = 136315906;
-      v32 = v23;
-      v33 = 1024;
-      v34 = 107;
-      v35 = 2048;
-      v36 = [v7 length];
-      v37 = 2048;
-      v38 = [v8 count];
-      _os_log_impl(&dword_2488FB000, v18, OS_LOG_TYPE_DEBUG, "%25s:%-5d Created signature using host identity. { signatureLength=%lu, certificateCount=%lu }", &v31, 0x26u);
+      v30 = 136315906;
+      v31 = v23;
+      v32 = 1024;
+      v33 = 107;
+      v34 = 2048;
+      v35 = [v7 length];
+      v36 = 2048;
+      v37 = [v8 count];
+      _os_log_impl(&dword_2488FB000, v18, OS_LOG_TYPE_DEBUG, "%25s:%-5d Created signature using host identity. { signatureLength=%lu, certificateCount=%lu }", &v30, 0x26u);
     }
 
     if (v7 && v8)
@@ -275,23 +273,21 @@ void __65__DCCertificateGenerator_generateCertificateChainWithCompletion___block
           v29 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/DeviceCheckInternal/Source/Core/Crypto/DCCertificateGenerator.m";
         }
 
-        v31 = 136315394;
-        v32 = v29;
-        v33 = 1024;
-        v34 = 110;
-        _os_log_impl(&dword_2488FB000, v24, OS_LOG_TYPE_DEBUG, "%25s:%-5d Creating PEM certificate chain.", &v31, 0x12u);
+        v30 = 136315394;
+        v31 = v29;
+        v32 = 1024;
+        v33 = 110;
+        _os_log_impl(&dword_2488FB000, v24, OS_LOG_TYPE_DEBUG, "%25s:%-5d Creating PEM certificate chain.", &v30, 0x12u);
       }
 
       [*(a1 + 32) createPEMCertificateChainFrom:v8 completion:*(a1 + 40)];
     }
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __65__DCCertificateGenerator_generateCertificateChainWithCompletion___block_invoke_6(uint64_t a1, const void *a2, void *a3, void *a4)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   if (v8)
@@ -336,13 +332,13 @@ void __65__DCCertificateGenerator_generateCertificateChainWithCompletion___block
       }
 
       v16 = [v8 localizedDescription];
-      v24 = 136315650;
-      v25 = v15;
-      v26 = 1024;
-      v27 = 120;
-      v28 = 2112;
-      v29 = v16;
-      _os_log_impl(&dword_2488FB000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to fetch client certificate. { error=%@ }", &v24, 0x1Cu);
+      v23 = 136315650;
+      v24 = v15;
+      v25 = 1024;
+      v26 = 120;
+      v27 = 2112;
+      v28 = v16;
+      _os_log_impl(&dword_2488FB000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to fetch client certificate. { error=%@ }", &v23, 0x1Cu);
     }
 
     (*(*(a1 + 40) + 16))();
@@ -389,11 +385,11 @@ void __65__DCCertificateGenerator_generateCertificateChainWithCompletion___block
         v22 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/DeviceCheckInternal/Source/Core/Crypto/DCCertificateGenerator.m";
       }
 
-      v24 = 136315394;
-      v25 = v22;
-      v26 = 1024;
-      v27 = 125;
-      _os_log_impl(&dword_2488FB000, v17, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Certificate issued, processing.", &v24, 0x12u);
+      v23 = 136315394;
+      v24 = v22;
+      v25 = 1024;
+      v26 = 125;
+      _os_log_impl(&dword_2488FB000, v17, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Certificate issued, processing.", &v23, 0x12u);
     }
 
     [*(a1 + 32) createPEMCertificateChainFrom:v7 completion:*(a1 + 40)];
@@ -402,13 +398,11 @@ void __65__DCCertificateGenerator_generateCertificateChainWithCompletion___block
       CFRelease(a2);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createPEMCertificateChainFrom:(id)from completion:(id)completion
 {
-  v117 = *MEMORY[0x277D85DE8];
+  v116 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   completionCopy = completion;
   date = [MEMORY[0x277CBEAA8] date];
@@ -421,7 +415,7 @@ void __65__DCCertificateGenerator_generateCertificateChainWithCompletion___block
     goto LABEL_103;
   }
 
-  v95 = date;
+  v94 = date;
   if ([fromCopy count] > 3)
   {
     v40 = 0;
@@ -430,13 +424,13 @@ void __65__DCCertificateGenerator_generateCertificateChainWithCompletion___block
   }
 
   selfCopy = self;
-  v94 = completionCopy;
+  v93 = completionCopy;
   v11 = 0;
   v12 = 0;
   v13 = 0;
   v14 = 0;
-  v96 = fromCopy;
-  v97 = *MEMORY[0x277CCA450];
+  v95 = fromCopy;
+  v96 = *MEMORY[0x277CCA450];
   v15 = 1;
   while (1)
   {
@@ -450,19 +444,19 @@ void __65__DCCertificateGenerator_generateCertificateChainWithCompletion___block
     }
 
     v19 = SecCertificateCopyData(v18);
-    v115 = 0u;
-    v116 = 0u;
     v114 = 0u;
+    v115 = 0u;
+    v113 = 0u;
     memset(__str, 0, sizeof(__str));
-    v111 = 0u;
-    v112 = 0u;
-    v109 = 0u;
     v110 = 0u;
+    v111 = 0u;
+    v108 = 0u;
+    v109 = 0u;
     *__src = 0u;
-    v98 = v12;
+    v97 = v12;
     if (v19)
     {
-      v99 = v11;
+      v98 = v11;
       v20 = objc_autoreleasePoolPush();
       v21 = [(__CFData *)v19 base64EncodedDataWithOptions:1];
       v22 = [v21 length];
@@ -486,15 +480,15 @@ void __65__DCCertificateGenerator_generateCertificateChainWithCompletion___block
             objc_autoreleasePoolPop(v20);
             v31 = 0;
             v22 = 0;
-            fromCopy = v96;
-            v11 = v99;
+            fromCopy = v95;
+            v11 = v98;
             goto LABEL_16;
           }
 
           v36 = MEMORY[0x277CCA9B8];
-          v106 = v97;
-          v107 = @"Failed to create pem data.";
-          v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v107 forKeys:&v106 count:1];
+          v105 = v96;
+          v106 = @"Failed to create pem data.";
+          v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
           v22 = [v36 errorWithDomain:@"com.apple.devicecheck.cryptoerror" code:0 userInfo:v37];
 
           free(v27);
@@ -503,25 +497,25 @@ void __65__DCCertificateGenerator_generateCertificateChainWithCompletion___block
         else
         {
           v34 = MEMORY[0x277CCA9B8];
-          v106 = v97;
-          v107 = @"Failed to allocate buffer.";
-          v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v107 forKeys:&v106 count:1];
+          v105 = v96;
+          v106 = @"Failed to allocate buffer.";
+          v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
           v22 = [v34 errorWithDomain:@"com.apple.devicecheck.cryptoerror" code:0 userInfo:v35];
         }
 
-        fromCopy = v96;
+        fromCopy = v95;
       }
 
       objc_autoreleasePoolPop(v20);
-      v11 = v99;
+      v11 = v98;
     }
 
     else
     {
       v32 = MEMORY[0x277CCA9B8];
-      v106 = v97;
-      v107 = @"Invalid inputs.";
-      v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v107 forKeys:&v106 count:1];
+      v105 = v96;
+      v106 = @"Invalid inputs.";
+      v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
       v22 = [v32 errorWithDomain:@"com.apple.devicecheck.cryptoerror" code:0 userInfo:v33];
     }
 
@@ -586,9 +580,9 @@ LABEL_16:
       v55 = fromCopy;
 
       v56 = MEMORY[0x277CCA9B8];
-      v104 = v97;
-      v105 = @"Failed to create PEM data from certificate";
-      v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v105 forKeys:&v104 count:1];
+      v103 = v96;
+      v104 = @"Failed to create PEM data from certificate";
+      v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v104 forKeys:&v103 count:1];
       v40 = [v56 errorWithDomain:@"com.apple.devicecheck.cryptoerror" code:0 userInfo:v57];
 
       goto LABEL_54;
@@ -598,15 +592,15 @@ LABEL_16:
     {
       v55 = fromCopy;
       v58 = MEMORY[0x277CCA9B8];
-      v102 = v97;
-      v103 = @"Failed to create PEM data from cert.";
-      v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v103 forKeys:&v102 count:1];
+      v101 = v96;
+      v102 = @"Failed to create PEM data from cert.";
+      v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
       v40 = [v58 errorWithDomain:@"com.apple.devicecheck.cryptoerror" code:0 userInfo:v57];
 LABEL_54:
 
       fromCopy = v55;
       v10 = &DCInternalLogSystem_log;
-      v12 = v98;
+      v12 = v97;
       goto LABEL_55;
     }
 
@@ -686,7 +680,7 @@ LABEL_54:
 LABEL_55:
   if ([fromCopy count] != 3)
   {
-    completionCopy = v94;
+    completionCopy = v93;
     if (DCInternalLogSystem_onceToken_6 != -1)
     {
       __65__DCCertificateGenerator_generateCertificateChainWithCompletion___block_invoke_cold_3();
@@ -733,10 +727,10 @@ LABEL_55:
       _os_log_impl(&dword_2488FB000, v67, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Using device timestamp.", __str, 0x12u);
     }
 
-    date = v95;
+    date = v94;
     if ((v12 & 1) == 0)
     {
-      date = v95;
+      date = v94;
       goto LABEL_102;
     }
 
@@ -746,17 +740,17 @@ LABEL_55:
   v59 = [fromCopy objectAtIndexedSubscript:2];
   v60 = [(DCCertificateGenerator *)selfCopy isNSDate:v59];
 
-  completionCopy = v94;
+  completionCopy = v93;
   if (!v60)
   {
     v82 = MEMORY[0x277CCA9B8];
-    v100 = v97;
-    v101 = @"Expected date field, failing.";
-    v83 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
+    v99 = v96;
+    v100 = @"Expected date field, failing.";
+    v83 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v100 forKeys:&v99 count:1];
     v84 = [v82 errorWithDomain:@"com.apple.devicecheck.cryptoerror" code:0 userInfo:v83];
 
     v40 = v84;
-    date = v95;
+    date = v94;
     v10 = &DCInternalLogSystem_log;
     goto LABEL_102;
   }
@@ -926,19 +920,17 @@ LABEL_103:
   v80 = [date copy];
   completionCopy[2](completionCopy, 0, v80);
 LABEL_117:
-
-  v92 = *MEMORY[0x277D85DE8];
 }
 
 - (id)parseDERCertificatesFromChain:(id)chain
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   chainCopy = chain;
-  memset(v36, 0, sizeof(v36));
-  v27 = 0;
+  memset(v35, 0, sizeof(v35));
+  v26 = 0;
   bytes = [chainCopy bytes];
-  v5 = CTParseCertificateSet(bytes, bytes + [chainCopy length], v36, 3, &v27);
-  if (v5 || !v27)
+  v5 = CTParseCertificateSet(bytes, bytes + [chainCopy length], v35, 3, &v26);
+  if (v5 || !v26)
   {
     if (DCInternalLogSystem_onceToken_6 != -1)
     {
@@ -980,13 +972,13 @@ LABEL_117:
       }
 
       *buf = 136315906;
-      v29 = v18;
-      v30 = 1024;
-      v31 = 218;
-      v32 = 1024;
-      v33 = v5;
-      v34 = 2048;
-      v35 = v27;
+      v28 = v18;
+      v29 = 1024;
+      v30 = 218;
+      v31 = 1024;
+      v32 = v5;
+      v33 = 2048;
+      v34 = v26;
       _os_log_impl(&dword_2488FB000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to parse certificate set. rc=%d, numCerts=%zu", buf, 0x22u);
     }
   }
@@ -994,8 +986,8 @@ LABEL_117:
   else
   {
     v6 = objc_alloc(MEMORY[0x277CBEB18]);
-    v7 = [v6 initWithCapacity:v27];
-    if (!v27)
+    v7 = [v6 initWithCapacity:v26];
+    if (!v26)
     {
       goto LABEL_37;
     }
@@ -1004,7 +996,7 @@ LABEL_117:
     v9 = 0;
     while (1)
     {
-      v10 = &v36[v8];
+      v10 = &v35[v8];
       if (!*v10 || !v10[1])
       {
         break;
@@ -1014,7 +1006,7 @@ LABEL_117:
       [v7 setObject:v11 atIndexedSubscript:v8];
 
       v8 = ++v9;
-      if (v27 <= v9)
+      if (v26 <= v9)
       {
         goto LABEL_37;
       }
@@ -1060,9 +1052,9 @@ LABEL_117:
       }
 
       *buf = 136315394;
-      v29 = v24;
-      v30 = 1024;
-      v31 = 227;
+      v28 = v24;
+      v29 = 1024;
+      v30 = 227;
       _os_log_impl(&dword_2488FB000, v19, OS_LOG_TYPE_ERROR, "%25s:%-5d Invalid certificate data.", buf, 0x12u);
     }
   }
@@ -1070,14 +1062,12 @@ LABEL_117:
   v7 = 0;
 LABEL_37:
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v7;
 }
 
 - (id)encryptData:(id)data serverSyncedDate:(id)date error:(id *)error
 {
-  v133 = *MEMORY[0x277D85DE8];
+  v131 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   dateCopy = date;
   if (DCInternalLogSystem_onceToken_6 != -1)
@@ -1133,15 +1123,15 @@ LABEL_37:
   v18 = [clientAppID dataUsingEncoding:4];
 
   v19 = [v18 length];
-  v118 = v18;
+  v116 = v18;
   bytes = [v18 bytes];
   v21 = [dataCopy length];
-  v119 = dataCopy;
+  v117 = dataCopy;
   bytes2 = [dataCopy bytes];
-  v122 = 0;
-  v123 = 0;
+  v120 = 0;
   v121 = 0;
-  v115 = ccaes_gcm_encrypt_mode();
+  v119 = 0;
+  v113 = ccaes_gcm_encrypt_mode();
   memset(buf, 0, 44);
   v23 = malloc_type_calloc(1uLL, v21 + v19 + 235, 0x55A5F7ECuLL);
   v24 = v23;
@@ -1152,7 +1142,7 @@ LABEL_37:
       __65__DCCertificateGenerator_generateCertificateChainWithCompletion___block_invoke_cold_3();
     }
 
-    v50 = v118;
+    v50 = v116;
     v51 = DCInternalLogSystem_log_6;
     if (os_log_type_enabled(DCInternalLogSystem_log_6, OS_LOG_TYPE_ERROR))
     {
@@ -1187,27 +1177,27 @@ LABEL_37:
         v56 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/DeviceCheckInternal/Source/Core/Crypto/DCCertificateGenerator.m";
       }
 
-      *v124 = 136315394;
-      v125 = v56;
-      v126 = 1024;
-      v127 = 265;
-      _os_log_impl(&dword_2488FB000, v51, OS_LOG_TYPE_ERROR, "%25s:%-5d out_data_to_send is NULL!\n", v124, 0x12u);
+      *v122 = 136315394;
+      v123 = v56;
+      v124 = 1024;
+      v125 = 265;
+      _os_log_impl(&dword_2488FB000, v51, OS_LOG_TYPE_ERROR, "%25s:%-5d out_data_to_send is NULL!\n", v122, 0x12u);
     }
 
     v30 = 0;
     goto LABEL_56;
   }
 
-  v113 = v21 + v19;
+  v111 = v21 + v19;
   *(v23 + 150) = v21 + v19 + 81;
   *v23 = 2;
   publicKey = [(DCCertificateGenerator *)self publicKey];
-  v116 = dateCopy;
+  v114 = dateCopy;
   bytes3 = [publicKey bytes];
   publicKey2 = [(DCCertificateGenerator *)self publicKey];
   v28 = [publicKey2 length];
   v29 = bytes3;
-  dateCopy = v116;
+  dateCopy = v114;
   memcpy(v24 + 5, v29, v28);
 
   v30 = malloc_type_calloc(1uLL, *(v24 + 150), 0x1C337A73uLL);
@@ -1215,7 +1205,7 @@ LABEL_37:
   memcpy(v30 + 81, bytes2, v21);
   *(v30 + 77) = v19;
   memcpy(&v30[v21 + 81], bytes, v19);
-  [v116 timeIntervalSince1970];
+  [v114 timeIntervalSince1970];
   *(v30 + 65) = v31;
   if (DCInternalLogSystem_onceToken_6 != -1)
   {
@@ -1257,16 +1247,16 @@ LABEL_37:
     }
 
     v38 = *(v30 + 65);
-    *v124 = 136315650;
-    v125 = v37;
-    v126 = 1024;
-    v127 = 283;
-    v128 = 2048;
-    v129 = v38;
-    _os_log_impl(&dword_2488FB000, v32, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Token timestamp: %f", v124, 0x1Cu);
+    *v122 = 136315650;
+    v123 = v37;
+    v124 = 1024;
+    v125 = 283;
+    v126 = 2048;
+    v127 = v38;
+    _os_log_impl(&dword_2488FB000, v32, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Token timestamp: %f", v122, 0x1Cu);
   }
 
-  v39 = aks_ref_key_create([(DCCertificateGenerator *)self keybagHandle], 11, 4u, 0, 0, &v123);
+  v39 = aks_ref_key_create([(DCCertificateGenerator *)self keybagHandle], 11, 4u, 0, 0, &v121);
   if (v39)
   {
     v40 = v39;
@@ -1312,29 +1302,29 @@ LABEL_37:
       v46 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/DeviceCheckInternal/Source/Core/Crypto/DCCertificateGenerator.m";
     }
 
-    *v124 = 136315650;
-    v125 = v46;
+    *v122 = 136315650;
+    v123 = v46;
+    v124 = 1024;
+    v125 = 288;
     v126 = 1024;
-    v127 = 288;
-    v128 = 1024;
-    LODWORD(v129) = v40;
+    LODWORD(v127) = v40;
     v47 = "%25s:%-5d Failed to create ECDH key: %d\n";
     v48 = v41;
     v49 = OS_LOG_TYPE_DEFAULT;
     goto LABEL_105;
   }
 
-  v120 = 0;
-  public_key = aks_ref_key_get_public_key(v123, &v120);
-  if (v120 != 65)
+  v118 = 0;
+  public_key = aks_ref_key_get_public_key(v121, &v118);
+  if (v118 != 65)
   {
     if (DCInternalLogSystem_onceToken_6 != -1)
     {
       __65__DCCertificateGenerator_generateCertificateChainWithCompletion___block_invoke_cold_3();
     }
 
-    v50 = v118;
-    dataCopy = v119;
+    v50 = v116;
+    dataCopy = v117;
     v79 = DCInternalLogSystem_log_6;
     if (os_log_type_enabled(DCInternalLogSystem_log_6, OS_LOG_TYPE_ERROR))
     {
@@ -1369,15 +1359,15 @@ LABEL_37:
         v84 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/DeviceCheckInternal/Source/Core/Crypto/DCCertificateGenerator.m";
       }
 
-      *v124 = 136315906;
-      v125 = v84;
-      v126 = 1024;
-      v127 = 296;
+      *v122 = 136315906;
+      v123 = v84;
+      v124 = 1024;
+      v125 = 296;
+      v126 = 2048;
+      v127 = 65;
       v128 = 2048;
-      v129 = 65;
-      v130 = 2048;
-      v131 = v120;
-      _os_log_impl(&dword_2488FB000, v79, OS_LOG_TYPE_ERROR, "%25s:%-5d Unexpected pubkey size. expected %ld got %ld\n", v124, 0x26u);
+      v129 = v118;
+      _os_log_impl(&dword_2488FB000, v79, OS_LOG_TYPE_ERROR, "%25s:%-5d Unexpected pubkey size. expected %ld got %ld\n", v122, 0x26u);
     }
 
 LABEL_56:
@@ -1408,12 +1398,12 @@ LABEL_56:
   }
 
   putchar(10);
-  v66 = v123;
+  v66 = v121;
   publicKey3 = [(DCCertificateGenerator *)self publicKey];
   bytes4 = [publicKey3 bytes];
   publicKey4 = [(DCCertificateGenerator *)self publicKey];
   v70 = [publicKey4 length];
-  v72 = aks_ref_key_compute_key(v66, 0, 0, bytes4, v70, &v122, &v121, v71, v108, v109, v110, v111, v112, v113, v115, v116, v118, v119, v120, v121, v122, v123);
+  v72 = aks_ref_key_compute_key(v66, 0, 0, bytes4, v70, &v120, &v119, v71, v106, v107, v108, v109, v110, v111, v113, v114, v116, v117, v118, v119, v120, v121);
 
   if (v72)
   {
@@ -1422,7 +1412,7 @@ LABEL_56:
       __65__DCCertificateGenerator_generateCertificateChainWithCompletion___block_invoke_cold_3();
     }
 
-    dateCopy = v117;
+    dateCopy = v115;
     v73 = DCInternalLogSystem_log_6;
     if (!os_log_type_enabled(DCInternalLogSystem_log_6, OS_LOG_TYPE_ERROR))
     {
@@ -1460,18 +1450,18 @@ LABEL_56:
       v78 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/DeviceCheckInternal/Source/Core/Crypto/DCCertificateGenerator.m";
     }
 
-    *v124 = 136315650;
-    v125 = v78;
+    *v122 = 136315650;
+    v123 = v78;
+    v124 = 1024;
+    v125 = 307;
     v126 = 1024;
-    v127 = 307;
-    v128 = 1024;
-    LODWORD(v129) = v72;
+    LODWORD(v127) = v72;
     v47 = "%25s:%-5d Failed to perform ECDH with server pubkey: %d\n";
     goto LABEL_104;
   }
 
-  v85 = v122;
-  v86 = v121 - 2;
+  v85 = v120;
+  v86 = v119 - 2;
   printf("%-25.25s = ", "ECDH shared key");
   if (v86)
   {
@@ -1491,7 +1481,7 @@ LABEL_56:
   if (v89)
   {
     v90 = v89;
-    dateCopy = v117;
+    dateCopy = v115;
     if (DCInternalLogSystem_onceToken_6 != -1)
     {
       __65__DCCertificateGenerator_generateCertificateChainWithCompletion___block_invoke_cold_3();
@@ -1534,90 +1524,89 @@ LABEL_56:
       v95 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/DeviceCheckInternal/Source/Core/Crypto/DCCertificateGenerator.m";
     }
 
-    *v124 = 136315650;
-    v125 = v95;
+    *v122 = 136315650;
+    v123 = v95;
+    v124 = 1024;
+    v125 = 319;
     v126 = 1024;
-    v127 = 319;
-    v128 = 1024;
-    LODWORD(v129) = v90;
+    LODWORD(v127) = v90;
     v47 = "%25s:%-5d Failed to perform HKDF with shared key: %d\n";
 LABEL_104:
     v48 = v73;
     v49 = OS_LOG_TYPE_ERROR;
 LABEL_105:
-    _os_log_impl(&dword_2488FB000, v48, v49, v47, v124, 0x18u);
+    _os_log_impl(&dword_2488FB000, v48, v49, v47, v122, 0x18u);
     goto LABEL_106;
   }
 
   hex("HKDF derived key");
   hex("HKDF derived iv");
-  v98 = *(v24 + 150);
-  v99 = ccgcm_one_shot();
-  dateCopy = v117;
-  if (!v99)
+  v97 = ccgcm_one_shot();
+  dateCopy = v115;
+  if (!v97)
   {
     hex("tag");
     fprintf(*MEMORY[0x277D85DF8], "encrypted_data_len: %d\n", *(v24 + 150));
-    v57 = [MEMORY[0x277CBEA90] dataWithBytes:v24 length:v114 + 235];
-    v107 = DCInternalLogSystem();
-    _DCLogDebugBinary(v107, v57);
+    v57 = [MEMORY[0x277CBEA90] dataWithBytes:v24 length:v112 + 235];
+    v105 = DCInternalLogSystem(v57);
+    _DCLogDebugBinary(v105, v57);
 
     goto LABEL_107;
   }
 
-  v100 = v99;
-  v101 = DCInternalLogSystem();
-  if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
+  v98 = v97;
+  v99 = DCInternalLogSystem(v97);
+  if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
   {
-    v102 = 0;
-    v103 = 0;
-    v104 = 47;
+    v100 = 0;
+    v101 = 0;
+    v102 = 47;
     do
     {
-      v105 = &aLibraryCachesC_6[v102];
-      if (v104 == 47)
+      v103 = &aLibraryCachesC_6[v100];
+      if (v102 == 47)
       {
-        v103 = &aLibraryCachesC_6[v102];
+        v101 = &aLibraryCachesC_6[v100];
       }
 
-      v104 = v105[1];
-      if (!v105[1])
+      v102 = v103[1];
+      if (!v103[1])
       {
         break;
       }
 
-      v14 = v102++ >= 0xFFF;
+      v14 = v100++ >= 0xFFF;
     }
 
     while (!v14);
-    if (v103)
+    if (v101)
     {
-      v106 = v103 + 1;
+      v104 = v101 + 1;
     }
 
     else
     {
-      v106 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/DeviceCheckInternal/Source/Core/Crypto/DCCertificateGenerator.m";
+      v104 = "/Library/Caches/com.apple.xbs/Sources/TwoBit/DeviceCheckInternal/Source/Core/Crypto/DCCertificateGenerator.m";
     }
 
-    *v124 = 136315650;
-    v125 = v106;
+    *v122 = 136315650;
+    v123 = v104;
+    v124 = 1024;
+    v125 = 334;
     v126 = 1024;
-    v127 = 334;
-    v128 = 1024;
-    LODWORD(v129) = v100;
-    _os_log_impl(&dword_2488FB000, v101, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to perform AES-GSM encryption with shared key: %d\n", v124, 0x18u);
+    LODWORD(v127) = v98;
+    _os_log_impl(&dword_2488FB000, v99, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to perform AES-GSM encryption with shared key: %d\n", v122, 0x18u);
   }
 
 LABEL_106:
   v57 = 0;
 LABEL_107:
-  v50 = v118;
-  dataCopy = v119;
+  v50 = v116;
+  dataCopy = v117;
 LABEL_108:
-  if (v123)
+  if (v121)
   {
-    aks_ref_key_free(&v123);
+    aks_ref_key_free(&v121);
   }
 
   if (v24)
@@ -1630,12 +1619,10 @@ LABEL_108:
     free(v30);
   }
 
-  if (v122)
+  if (v120)
   {
-    free(v122);
+    free(v120);
   }
-
-  v96 = *MEMORY[0x277D85DE8];
 
   return v57;
 }

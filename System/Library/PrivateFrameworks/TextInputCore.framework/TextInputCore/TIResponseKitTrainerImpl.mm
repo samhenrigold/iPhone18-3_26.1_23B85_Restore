@@ -24,60 +24,59 @@ void __75__TIResponseKitTrainerImpl_performTrainingForClient_withCompletionHandl
 
   v5 = [MEMORY[0x277CBEBC0] fileURLWithPath:v4];
   v6 = [MEMORY[0x277CBEBC0] fileURLWithPath:@"/var/mobile/Library/ResponseKit"];
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__2734;
-  v37 = __Block_byref_object_dispose__2735;
-  v38 = 0;
-  v31[0] = 0;
-  v31[1] = v31;
-  v31[2] = 0x2020000000;
   v32 = 0;
-  v27 = 0;
-  v28 = &v27;
-  v29 = 0x2020000000;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__2734;
+  v36 = __Block_byref_object_dispose__2735;
+  v37 = 0;
+  v30[0] = 0;
+  v30[1] = v30;
+  v30[2] = 0x2020000000;
+  v31 = 0;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x2020000000;
   v7 = [MEMORY[0x277CCAA00] defaultManager];
-  v8 = v34;
-  obj = v34[5];
+  v8 = v33;
+  obj = v33[5];
   v9 = [v7 createDirectoryAtURL:v5 withIntermediateDirectories:1 attributes:0 error:&obj];
   objc_storeStrong(v8 + 5, obj);
 
-  v30 = v9;
-  if (v28[3])
+  v29 = v9;
+  if (v27[3])
   {
-    v19 = MEMORY[0x277D85DD0];
-    v20 = 3221225472;
-    v21 = __75__TIResponseKitTrainerImpl_performTrainingForClient_withCompletionHandler___block_invoke_45;
-    v22 = &unk_2787337C0;
-    v23 = *(a1 + 32);
-    v24 = v5;
-    v25 = v31;
+    v18 = MEMORY[0x277D85DD0];
+    v19 = 3221225472;
+    v20 = __75__TIResponseKitTrainerImpl_performTrainingForClient_withCompletionHandler___block_invoke_45;
+    v21 = &unk_2787337C0;
+    v22 = *(a1 + 32);
+    v23 = v5;
+    v24 = v30;
     TIDispatchSync();
     v10 = +[TILanguageModelOfflineLearningAgent sharedLearningAgent];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __75__TIResponseKitTrainerImpl_performTrainingForClient_withCompletionHandler___block_invoke_2;
-    v12[3] = &unk_27872F9F0;
-    v16 = v31;
-    v17 = &v27;
-    v12[4] = *(a1 + 40);
-    v13 = v24;
-    v14 = v6;
-    v18 = &v33;
-    v15 = *(a1 + 48);
-    [v10 performTaskInBackground:v12];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __75__TIResponseKitTrainerImpl_performTrainingForClient_withCompletionHandler___block_invoke_2;
+    v11[3] = &unk_27872F9F0;
+    v15 = v30;
+    v16 = &v26;
+    v11[4] = *(a1 + 40);
+    v12 = v23;
+    v13 = v6;
+    v17 = &v32;
+    v14 = *(a1 + 48);
+    [v10 performTaskInBackground:v11];
   }
 
   else
   {
-    v11 = v34[5];
     (*(*(a1 + 48) + 16))();
   }
 
-  _Block_object_dispose(&v27, 8);
-  _Block_object_dispose(v31, 8);
-  _Block_object_dispose(&v33, 8);
+  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(v30, 8);
+  _Block_object_dispose(&v32, 8);
 }
 
 void __75__TIResponseKitTrainerImpl_performTrainingForClient_withCompletionHandler___block_invoke_45(void *a1)
@@ -104,17 +103,16 @@ uint64_t __75__TIResponseKitTrainerImpl_performTrainingForClient_withCompletionH
     *(*(a1[9] + 8) + 24) = v6;
   }
 
-  v7 = *(*(a1[10] + 8) + 40);
   return (*(a1[7] + 16))();
 }
 
 - (BOOL)moveLanguageModelBundlesFromTemporaryDirectory:(id)directory toDestination:(id)destination error:(id *)error
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   destinationCopy = destination;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v39 = destinationCopy;
+  v38 = destinationCopy;
   path = [destinationCopy path];
   v10 = [defaultManager fileExistsAtPath:path];
 
@@ -127,32 +125,32 @@ uint64_t __75__TIResponseKitTrainerImpl_performTrainingForClient_withCompletionH
     if (v15)
     {
       v16 = [MEMORY[0x277CCAC30] predicateWithFormat:@"pathExtension='lm'"];
-      v37 = v15;
+      v36 = v15;
       v17 = [v15 filteredArrayUsingPredicate:v16];
 
-      v43 = 0u;
-      v44 = 0u;
-      v41 = 0u;
       v42 = 0u;
+      v43 = 0u;
+      v40 = 0u;
+      v41 = 0u;
       v18 = v17;
-      v19 = [v18 countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v40 objects:v44 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v42;
+        v21 = *v41;
         obj = v18;
         while (2)
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v42 != v21)
+            if (*v41 != v21)
             {
               objc_enumerationMutation(obj);
             }
 
-            v23 = *(*(&v41 + 1) + 8 * i);
+            v23 = *(*(&v40 + 1) + 8 * i);
             v24 = [directoryCopy URLByAppendingPathComponent:v23];
-            v25 = [v39 URLByAppendingPathComponent:v23];
+            v25 = [v38 URLByAppendingPathComponent:v23];
             defaultManager3 = [MEMORY[0x277CCAA00] defaultManager];
             path3 = [v25 path];
             v28 = [defaultManager3 fileExistsAtPath:path3];
@@ -183,7 +181,7 @@ LABEL_18:
           }
 
           v18 = obj;
-          v20 = [obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+          v20 = [obj countByEnumeratingWithState:&v40 objects:v44 count:16];
           if (v20)
           {
             continue;
@@ -197,7 +195,7 @@ LABEL_18:
       v34 = [defaultManager6 removeItemAtURL:directoryCopy error:error];
 LABEL_19:
 
-      v15 = v37;
+      v15 = v36;
     }
 
     else
@@ -211,7 +209,6 @@ LABEL_19:
     v34 = 0;
   }
 
-  v35 = *MEMORY[0x277D85DE8];
   return v34;
 }
 
@@ -245,9 +242,11 @@ LABEL_19:
 
 uint64_t __41__TIResponseKitTrainerImpl_sharedTrainer__block_invoke()
 {
-  sharedTrainer_instance = [[TIResponseKitTrainerImpl alloc] _init];
+  v0 = [[TIResponseKitTrainerImpl alloc] _init];
+  v1 = sharedTrainer_instance;
+  sharedTrainer_instance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

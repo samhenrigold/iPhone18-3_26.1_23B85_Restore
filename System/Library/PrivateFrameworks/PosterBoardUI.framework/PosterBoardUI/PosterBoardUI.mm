@@ -1,6 +1,6 @@
-uint64_t NSStringFromPRUISwitcherLayoutMode()
+uint64_t NSStringFromPRUISwitcherLayoutMode(uint64_t a1)
 {
-  v0 = modeFromPRUISwitcherLayoutMode();
+  v1 = modeFromPRUISwitcherLayoutMode();
 
-  return MEMORY[0x28219FC78](v0);
+  return MEMORY[0x28219FC78](v1);
 }

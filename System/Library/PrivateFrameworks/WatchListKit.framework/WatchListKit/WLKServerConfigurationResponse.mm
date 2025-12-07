@@ -570,22 +570,20 @@ LABEL_22:
 
 - (id)description
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
-  v12.receiver = self;
-  v12.super_class = WLKServerConfigurationResponse;
-  v4 = [(WLKServerConfigurationResponse *)&v12 description];
+  v11.receiver = self;
+  v11.super_class = WLKServerConfigurationResponse;
+  v4 = [(WLKServerConfigurationResponse *)&v11 description];
   expirationDate = self->_expirationDate;
   environmentHash = self->_environmentHash;
-  v13[0] = @"expiration";
-  v13[1] = @"environment hash";
-  v14[0] = expirationDate;
+  v12[0] = @"expiration";
+  v12[1] = @"environment hash";
+  v13[0] = expirationDate;
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:environmentHash];
-  v14[1] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v13[1] = v7;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
   v9 = [v3 stringWithFormat:@"%@ %@", v4, v8];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -654,28 +652,28 @@ LABEL_22:
 
 - (id)_requiredRequestKVPMap:(id)map
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   mapCopy = map;
   [(WLKServerConfigurationResponse *)self _routes];
+  v65 = 0u;
   v66 = 0u;
   v67 = 0u;
-  v68 = 0u;
-  v4 = v69 = 0u;
-  v5 = [v4 countByEnumeratingWithState:&v66 objects:v72 count:16];
+  v4 = v68 = 0u;
+  v5 = [v4 countByEnumeratingWithState:&v65 objects:v71 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v67;
+    v7 = *v66;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v67 != v7)
+        if (*v66 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v66 + 1) + 8 * i);
+        v9 = *(*(&v65 + 1) + 8 * i);
         v10 = [v4 objectForKeyedSubscript:v9];
         v11 = [v10 wlk_stringForKey:@"url"];
 
@@ -687,7 +685,7 @@ LABEL_22:
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v66 objects:v72 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v65 objects:v71 count:16];
       if (v6)
       {
         continue;
@@ -699,30 +697,30 @@ LABEL_22:
 
   selfCopy = self;
 
-  v51 = v4;
-  v52 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v50 = v4;
+  v51 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v61 = 0u;
   v62 = 0u;
   v63 = 0u;
   v64 = 0u;
-  v65 = 0u;
   v12 = v4;
   v13 = mapCopy;
-  v54 = v12;
-  v56 = [v12 countByEnumeratingWithState:&v62 objects:v71 count:16];
-  if (v56)
+  v53 = v12;
+  v55 = [v12 countByEnumeratingWithState:&v61 objects:v70 count:16];
+  if (v55)
   {
-    v14 = *v63;
+    v14 = *v62;
     v15 = @"url";
     do
     {
-      for (j = 0; j != v56; ++j)
+      for (j = 0; j != v55; ++j)
       {
-        if (*v63 != v14)
+        if (*v62 != v14)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v62 + 1) + 8 * j);
+        v17 = *(*(&v61 + 1) + 8 * j);
         v18 = [v12 objectForKeyedSubscript:v17];
         v19 = [v18 wlk_stringForKey:v15];
 
@@ -741,35 +739,35 @@ LABEL_22:
             v13 = mapCopy;
             if (v26)
             {
-              [v52 addObject:v17];
+              [v51 addObject:v17];
             }
           }
 
-          v12 = v54;
+          v12 = v53;
           v14 = v23;
           v15 = v22;
         }
       }
 
-      v56 = [v12 countByEnumeratingWithState:&v62 objects:v71 count:16];
+      v55 = [v12 countByEnumeratingWithState:&v61 objects:v70 count:16];
     }
 
-    while (v56);
+    while (v55);
   }
 
-  v60 = 0u;
-  v61 = 0u;
-  v58 = 0u;
   v59 = 0u;
-  v11 = v52;
-  v27 = [v11 countByEnumeratingWithState:&v58 objects:v70 count:16];
+  v60 = 0u;
+  v57 = 0u;
+  v58 = 0u;
+  v11 = v51;
+  v27 = [v11 countByEnumeratingWithState:&v57 objects:v69 count:16];
   if (!v27)
   {
     v29 = 0;
     v45 = 0;
     v42 = v11;
     self = selfCopy;
-    v4 = v51;
+    v4 = v50;
 LABEL_38:
 
     v11 = v42;
@@ -778,18 +776,18 @@ LABEL_38:
 
   v28 = v27;
   v29 = 0;
-  v53 = *v59;
+  v52 = *v58;
   while (2)
   {
-    v57 = v29;
+    v56 = v29;
     for (k = 0; k != v28; ++k)
     {
-      if (*v59 != v53)
+      if (*v58 != v52)
       {
         objc_enumerationMutation(v11);
       }
 
-      v31 = *(*(&v58 + 1) + 8 * k);
+      v31 = *(*(&v57 + 1) + 8 * k);
       v32 = [v12 objectForKeyedSubscript:v31];
       v33 = [v32 wlk_stringForKey:@"url"];
 
@@ -803,7 +801,7 @@ LABEL_38:
       {
         v29 = v31;
 
-        v12 = v54;
+        v12 = v53;
         v13 = mapCopy;
         goto LABEL_35;
       }
@@ -813,15 +811,15 @@ LABEL_38:
       {
         v40 = v31;
 
-        v57 = v40;
+        v56 = v40;
       }
 
-      v12 = v54;
+      v12 = v53;
       v13 = mapCopy;
     }
 
-    v28 = [v11 countByEnumeratingWithState:&v58 objects:v70 count:16];
-    v29 = v57;
+    v28 = [v11 countByEnumeratingWithState:&v57 objects:v69 count:16];
+    v29 = v56;
     if (v28)
     {
       continue;
@@ -836,7 +834,7 @@ LABEL_35:
   {
     v41 = [v12 objectForKeyedSubscript:v29];
     self = selfCopy;
-    v4 = v51;
+    v4 = v50;
 LABEL_37:
     v42 = v11;
     v11 = [v41 wlk_stringForKey:@"requiredParamsType"];
@@ -851,7 +849,7 @@ LABEL_37:
 
   v45 = 0;
   self = selfCopy;
-  v4 = v51;
+  v4 = v50;
 LABEL_39:
 
   if (!v45)
@@ -863,8 +861,6 @@ LABEL_39:
 
     v13 = mapCopy;
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 
   return v45;
 }

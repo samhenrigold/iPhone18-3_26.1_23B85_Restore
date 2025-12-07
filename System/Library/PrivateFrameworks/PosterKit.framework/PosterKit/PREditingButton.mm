@@ -57,10 +57,10 @@
 
 - (void)layoutSubviews
 {
-  v100[3] = *MEMORY[0x1E69E9840];
-  v98.receiver = self;
-  v98.super_class = PREditingButton;
-  [(PREditingButton *)&v98 layoutSubviews];
+  v101[3] = *MEMORY[0x1E69E9840];
+  v99.receiver = self;
+  v99.super_class = PREditingButton;
+  [(PREditingButton *)&v99 layoutSubviews];
   configuration = [(PREditingButton *)self configuration];
   [configuration contentInsets];
   v5 = v4;
@@ -87,7 +87,7 @@ LABEL_25:
       [(UIView *)backgroundView setFrame:v16, v18, v20, v22];
       layer = [(UIView *)self->_backgroundView layer];
       [(UIView *)self->_backgroundView bounds];
-      [layer setCornerRadius:CGRectGetHeight(v101) * 0.5];
+      [layer setCornerRadius:CGRectGetHeight(v102) * 0.5];
 
       whiteTintView = self->_whiteTintView;
       if (whiteTintView)
@@ -96,37 +96,37 @@ LABEL_25:
         [(UIView *)whiteTintView setFrame:?];
         layer2 = [(UIView *)self->_whiteTintView layer];
         [(UIView *)self->_backgroundView bounds];
-        [layer2 setCornerRadius:CGRectGetHeight(v102) * 0.5];
+        [layer2 setCornerRadius:CGRectGetHeight(v103) * 0.5];
 
         layer3 = [(UIView *)self->_whiteTintView layer];
         [layer3 setCornerCurve:*MEMORY[0x1E69796E8]];
       }
 
-      v85 = self->_backgroundView;
-      [(UIView *)v85 center];
-      v87 = v86;
-      v89 = v88;
+      v86 = self->_backgroundView;
+      [(UIView *)v86 center];
+      v88 = v87;
+      v90 = v89;
       superview = [(UIView *)self->_backgroundView superview];
-      [(UIView *)v85 convertPoint:superview fromView:v87, v89];
-      v92 = v91;
-      v94 = v93;
+      [(UIView *)v86 convertPoint:superview fromView:v88, v90];
+      v93 = v92;
+      v95 = v94;
 
       contentImageView = self->_contentImageView;
       if (contentImageView)
       {
-        [(UIImageView *)contentImageView setCenter:v92, v94];
+        [(UIImageView *)contentImageView setCenter:v93, v95];
       }
 
-      v96 = *(&self->super.super.super.super.super.isa + *(v27 + 2916));
-      if (v96)
-      {
-        [v96 setCenter:{v92, v94}];
-      }
-
-      v97 = *(&self->super.super.super.super.super.isa + *(v28 + 2920));
+      v97 = *(&self->super.super.super.super.super.isa + *(v27 + 2916));
       if (v97)
       {
-        [v97 setCenter:{v92, v94}];
+        [v97 setCenter:{v93, v95}];
+      }
+
+      v98 = *(&self->super.super.super.super.super.isa + *(v28 + 2920));
+      if (v98)
+      {
+        [v98 setCenter:{v93, v95}];
       }
 
       [(PREditingButton *)self _configureLegibilityShadowView];
@@ -159,39 +159,39 @@ LABEL_25:
       [(PREditingButton *)self _applyGlassBackgroundToView:self->_backgroundView forStyle:v24];
       if (v24 == 7)
       {
-        v61 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v30, v31, v32, v33}];
-        v62 = self->_whiteTintView;
-        self->_whiteTintView = v61;
+        v62 = [objc_alloc(MEMORY[0x1E69DD250]) initWithFrame:{v30, v31, v32, v33}];
+        v63 = self->_whiteTintView;
+        self->_whiteTintView = v62;
 
         [(UIView *)self->_whiteTintView setUserInteractionEnabled:0];
-        v63 = self->_whiteTintView;
+        v64 = self->_whiteTintView;
         whiteColor2 = [MEMORY[0x1E69DC888] whiteColor];
-        [(UIView *)v63 setBackgroundColor:whiteColor2];
+        [(UIView *)v64 setBackgroundColor:whiteColor2];
 
         [(UIView *)self->_whiteTintView setAlpha:0.42];
         [(UIView *)self->_backgroundView addSubview:self->_whiteTintView];
         defaultContentImage = [(PREditingButton *)self defaultContentImage];
-        v66 = [defaultContentImage imageWithRenderingMode:2];
-        v67 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v66];
+        v67 = [defaultContentImage imageWithRenderingMode:2];
+        v68 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v67];
         colorBurnImageView = self->_colorBurnImageView;
-        self->_colorBurnImageView = v67;
+        self->_colorBurnImageView = v68;
 
-        v69 = self->_colorBurnImageView;
-        v70 = [MEMORY[0x1E69DC888] colorWithWhite:0.3 alpha:1.0];
-        [(UIImageView *)v69 setTintColor:v70];
+        v70 = self->_colorBurnImageView;
+        v71 = [MEMORY[0x1E69DC888] colorWithWhite:0.3 alpha:1.0];
+        [(UIImageView *)v70 setTintColor:v71];
 
         layer6 = [(UIImageView *)self->_colorBurnImageView layer];
         [layer6 setCompositingFilter:@"colorBurnBlendMode"];
 
         [(UIImageView *)self->_colorBurnImageView setUserInteractionEnabled:0];
         [(UIView *)self->_backgroundView addSubview:self->_colorBurnImageView];
-        v72 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v66];
+        v73 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:v67];
         plusDImageView = self->_plusDImageView;
-        self->_plusDImageView = v72;
+        self->_plusDImageView = v73;
 
-        v74 = self->_plusDImageView;
+        v75 = self->_plusDImageView;
         blackColor = [MEMORY[0x1E69DC888] blackColor];
-        [(UIImageView *)v74 setTintColor:blackColor];
+        [(UIImageView *)v75 setTintColor:blackColor];
 
         v28 = 0x1EB33B000;
         [(UIImageView *)self->_plusDImageView setAlpha:0.3];
@@ -211,9 +211,9 @@ LABEL_23:
       defaultContentImage2 = [(PREditingButton *)self defaultContentImage];
       defaultContentImage = [defaultContentImage2 imageWithRenderingMode:2];
 
-      v79 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:defaultContentImage];
-      v80 = self->_contentImageView;
-      self->_contentImageView = v79;
+      v80 = [objc_alloc(MEMORY[0x1E69DCAE0]) initWithImage:defaultContentImage];
+      v81 = self->_contentImageView;
+      self->_contentImageView = v80;
 
       [(UIImageView *)self->_contentImageView setTintColor:whiteColor];
       [(UIView *)self->_backgroundView addSubview:self->_contentImageView];
@@ -263,41 +263,41 @@ LABEL_22:
       }
 
       v42 = [MEMORY[0x1E69DD1B8] traitCollectionWithUserInterfaceStyle:0];
-      v99[0] = v42;
-      v100[0] = @"editingButtonLight";
+      v100[0] = v42;
+      v101[0] = @"editingButtonLight";
       v43 = [MEMORY[0x1E69DD1B8] traitCollectionWithUserInterfaceStyle:1];
-      v99[1] = v43;
-      v100[1] = @"editingButtonLight";
+      v100[1] = v43;
+      v101[1] = @"editingButtonLight";
       v44 = [MEMORY[0x1E69DD1B8] traitCollectionWithUserInterfaceStyle:2];
-      v99[2] = v44;
-      v100[2] = @"editingButtonDark";
-      v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v100 forKeys:v99 count:3];
+      v100[2] = v44;
+      v101[2] = @"editingButtonDark";
+      v45 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v101 forKeys:v100 count:3];
 
       v46 = MEMORY[0x1E69AE158];
-      v47 = PRBundle();
-      v48 = [v46 materialViewWithRecipeNamesByTraitCollection:v45 inBundle:v47 options:0 initialWeighting:0 scaleAdjustment:traitCollection compatibleWithTraitCollection:1.0];
+      v48 = PRBundle(v47);
+      v49 = [v46 materialViewWithRecipeNamesByTraitCollection:v45 inBundle:v48 options:0 initialWeighting:0 scaleAdjustment:traitCollection compatibleWithTraitCollection:1.0];
       materialBackgroundView = self->_materialBackgroundView;
-      self->_materialBackgroundView = v48;
+      self->_materialBackgroundView = v49;
 
-      v50 = self->_materialBackgroundView;
-      v51 = objc_opt_self();
-      v52 = NSStringFromClass(v51);
-      [(MTMaterialView *)v50 setGroupNameBase:v52];
+      v51 = self->_materialBackgroundView;
+      v52 = objc_opt_self();
+      v53 = NSStringFromClass(v52);
+      [(MTMaterialView *)v51 setGroupNameBase:v53];
 
       layer8 = [(MTMaterialView *)self->_materialBackgroundView layer];
       [layer8 setCornerCurve:*MEMORY[0x1E69796E8]];
 
-      v54 = [PREditingButtonMaterialView alloc];
-      v55 = self->_materialBackgroundView;
+      v55 = [PREditingButtonMaterialView alloc];
+      v56 = self->_materialBackgroundView;
       defaultContentImage3 = [(PREditingButton *)self defaultContentImage];
-      v57 = [(PREditingButtonMaterialView *)v54 initWithFrame:v55 backgroundView:defaultContentImage3 foregroundImage:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
-      v58 = self->_materialView;
-      self->_materialView = v57;
+      v58 = [(PREditingButtonMaterialView *)v55 initWithFrame:v56 backgroundView:defaultContentImage3 foregroundImage:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
+      v59 = self->_materialView;
+      self->_materialView = v58;
 
       [(PREditingButtonMaterialView *)self->_materialView setUserInteractionEnabled:0];
-      v59 = self->_materialView;
+      v60 = self->_materialView;
       [(PREditingButton *)self backgroundInsets];
-      [(PREditingButtonMaterialView *)v59 setBackgroundInsets:?];
+      [(PREditingButtonMaterialView *)v60 setBackgroundInsets:?];
       [(PREditingButton *)self addSubview:self->_materialView];
 
       materialView = self->_materialView;
@@ -456,7 +456,7 @@ uint64_t __30__PREditingButton_setEnabled___block_invoke(uint64_t a1)
     }
   }
 
-  v7 = PRLogCommon();
+  v7 = PRLogCommon(viewCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 134217984;

@@ -26,16 +26,16 @@
 
 - (MTCoreDuetMonitor)initWithAlarmStorage:(id)storage
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   storageCopy = storage;
-  v21.receiver = self;
-  v21.super_class = MTCoreDuetMonitor;
-  v6 = [(MTCoreDuetMonitor *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = MTCoreDuetMonitor;
+  v6 = [(MTCoreDuetMonitor *)&v20 init];
   v7 = MTLogForCategory(3);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v23 = v6;
+    v22 = v6;
     _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "Initializing %{public}@", buf, 0xCu);
   }
 
@@ -65,20 +65,16 @@
     v6->_knowledgeStore = knowledgeStore;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 - (void)handleSystemReady
 {
-  v9 = *MEMORY[0x1E69E9840];
   alarmStorage = [self alarmStorage];
   alarms = [alarmStorage alarms];
   [alarms count];
   OUTLINED_FUNCTION_1_5();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)source:(id)source didAddAlarms:(id)alarms
@@ -121,29 +117,29 @@
 
 - (void)source:(id)source didSnoozeAlarm:(id)alarm snoozeAction:(unint64_t)action
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   v8 = MTLogForCategory(3);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:action];
-    v13 = 138543874;
+    v11 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:action];
+    v12 = 138543874;
     selfCopy2 = self;
-    v15 = 2114;
-    v16 = alarmCopy;
-    v17 = 2114;
-    v18 = v12;
-    _os_log_debug_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEBUG, "[Triggers] %{public}@ didSnoozeAlarm: %{public}@, snoozeAction: %{public}@", &v13, 0x20u);
+    v14 = 2114;
+    v15 = alarmCopy;
+    v16 = 2114;
+    v17 = v11;
+    _os_log_debug_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEBUG, "[Triggers] %{public}@ didSnoozeAlarm: %{public}@, snoozeAction: %{public}@", &v12, 0x20u);
   }
 
   v9 = MTLogForCategory(3);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v13 = 138543618;
+    v12 = 138543618;
     selfCopy2 = self;
-    v15 = 2114;
-    v16 = alarmCopy;
-    _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_INFO, "[Triggers] %{public}@ Telling context store and knowledge store that alarm (%{public}@) has snoozed", &v13, 0x16u);
+    v14 = 2114;
+    v15 = alarmCopy;
+    _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_INFO, "[Triggers] %{public}@ Telling context store and knowledge store that alarm (%{public}@) has snoozed", &v12, 0x16u);
   }
 
   if (action == 1)
@@ -159,35 +155,33 @@
   [(MTCoreDuetMonitor *)self updateStateForAlarm:alarmCopy alarmEvent:v10];
   [(MTCoreDuetMonitor *)self writeAlarmToKnowledgeStore:alarmCopy alarmEvent:v10];
   [(MTCoreDuetMonitor *)self writeAlarmEventToBiome:alarmCopy ofType:2];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)source:(id)source didDismissAlarm:(id)alarm dismissAction:(unint64_t)action
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   v8 = MTLogForCategory(3);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:action];
-    v14 = 138543874;
+    v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:action];
+    v13 = 138543874;
     selfCopy2 = self;
-    v16 = 2114;
-    v17 = alarmCopy;
-    v18 = 2114;
-    v19 = v13;
-    _os_log_debug_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEBUG, "[Triggers] %{public}@ didDismissAlarm: %{public}@, dismissAction: %{public}@", &v14, 0x20u);
+    v15 = 2114;
+    v16 = alarmCopy;
+    v17 = 2114;
+    v18 = v12;
+    _os_log_debug_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEBUG, "[Triggers] %{public}@ didDismissAlarm: %{public}@, dismissAction: %{public}@", &v13, 0x20u);
   }
 
   v9 = MTLogForCategory(3);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v14 = 138543618;
+    v13 = 138543618;
     selfCopy2 = self;
-    v16 = 2114;
-    v17 = alarmCopy;
-    _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_INFO, "[Triggers] %{public}@ Telling context store and knowledge store that alarm (%{public}@) has been dismissed", &v14, 0x16u);
+    v15 = 2114;
+    v16 = alarmCopy;
+    _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_INFO, "[Triggers] %{public}@ Telling context store and knowledge store that alarm (%{public}@) has been dismissed", &v13, 0x16u);
   }
 
   if (action < 0xC && ((0xCE7u >> action) & 1) != 0)
@@ -206,35 +200,33 @@
       [MTCoreDuetMonitor source:action didDismissAlarm:? dismissAction:?];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)source:(id)source didFireAlarm:(id)alarm triggerType:(unint64_t)type
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   alarmCopy = alarm;
   v8 = MTLogForCategory(3);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:type];
-    v14 = 138543874;
+    v12 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:type];
+    v13 = 138543874;
     selfCopy2 = self;
-    v16 = 2114;
-    v17 = alarmCopy;
-    v18 = 2114;
-    v19 = v13;
-    _os_log_debug_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEBUG, "[Triggers] %{public}@ didFireAlarm: %{public}@, triggerType: %{public}@", &v14, 0x20u);
+    v15 = 2114;
+    v16 = alarmCopy;
+    v17 = 2114;
+    v18 = v12;
+    _os_log_debug_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_DEBUG, "[Triggers] %{public}@ didFireAlarm: %{public}@, triggerType: %{public}@", &v13, 0x20u);
   }
 
   v9 = MTLogForCategory(3);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
-    v14 = 138543618;
+    v13 = 138543618;
     selfCopy2 = self;
-    v16 = 2114;
-    v17 = alarmCopy;
-    _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_INFO, "[Triggers] %{public}@ Telling context store and knowledge store that alarm (%{public}@) has fired", &v14, 0x16u);
+    v15 = 2114;
+    v16 = alarmCopy;
+    _os_log_impl(&dword_1B1F9F000, v9, OS_LOG_TYPE_INFO, "[Triggers] %{public}@ Telling context store and knowledge store that alarm (%{public}@) has fired", &v13, 0x16u);
   }
 
   if (type >= 6)
@@ -253,8 +245,6 @@
     [(MTCoreDuetMonitor *)self writeAlarmToKnowledgeStore:alarmCopy alarmEvent:v10];
     [(MTCoreDuetMonitor *)self writeAlarmEventToBiome:alarmCopy ofType:0];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)source:(id)source didRemoveAlarms:(id)alarms
@@ -279,28 +269,28 @@
 
 uint64_t __44__MTCoreDuetMonitor_source_didRemoveAlarms___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v15;
+    v5 = *v14;
     do
     {
       v6 = 0;
       do
       {
-        if (*v15 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v14 + 1) + 8 * v6);
+        v7 = *(*(&v13 + 1) + 8 * v6);
         v8 = [*(a1 + 40) alarmStatesByAlarmID];
         v9 = [v7 alarmID];
         [v8 removeObjectForKey:v9];
@@ -314,15 +304,13 @@ uint64_t __44__MTCoreDuetMonitor_source_didRemoveAlarms___block_invoke(uint64_t 
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
   }
 
-  result = [*(a1 + 40) _queue_writeCurrentStateToContextStore];
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) _queue_writeCurrentStateToContextStore];
 }
 
 - (void)updateStateForAlarm:(id)alarm alarmEvent:(unint64_t)event
@@ -370,27 +358,27 @@ uint64_t __52__MTCoreDuetMonitor_updateStateForAlarm_alarmEvent___block_invoke(u
 
 uint64_t __39__MTCoreDuetMonitor_updateAlarmCaches___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v17;
+    v5 = *v16;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v17 != v5)
+        if (*v16 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v16 + 1) + 8 * i);
+        v7 = *(*(&v15 + 1) + 8 * i);
         v8 = *(*(a1 + 40) + 24);
         v9 = [v7 copy];
         v10 = [v7 alarmID];
@@ -402,15 +390,13 @@ uint64_t __39__MTCoreDuetMonitor_updateAlarmCaches___block_invoke(uint64_t a1)
         [v12 setObject:v11 forKeyedSubscript:v13];
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v4);
   }
 
-  result = [*(a1 + 40) _queue_writeCurrentStateToContextStore];
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) _queue_writeCurrentStateToContextStore];
 }
 
 - (void)updateLastModifiedDateForAlarms:(id)alarms
@@ -429,27 +415,27 @@ uint64_t __39__MTCoreDuetMonitor_updateAlarmCaches___block_invoke(uint64_t a1)
 
 uint64_t __53__MTCoreDuetMonitor_updateLastModifiedDateForAlarms___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = *(a1 + 32);
-  v3 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v3 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v21;
+    v5 = *v20;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v21 != v5)
+        if (*v20 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v20 + 1) + 8 * i);
+        v7 = *(*(&v19 + 1) + 8 * i);
         v8 = [*(a1 + 40) alarmStatesByAlarmID];
         v9 = [v7 alarmID];
         v10 = [v8 objectForKeyedSubscript:v9];
@@ -475,15 +461,13 @@ uint64_t __53__MTCoreDuetMonitor_updateLastModifiedDateForAlarms___block_invoke(
         [v15 setObject:v11 forKeyedSubscript:v16];
       }
 
-      v4 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v4);
   }
 
-  result = [*(a1 + 40) _queue_writeCurrentStateToContextStore];
-  v18 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 40) _queue_writeCurrentStateToContextStore];
 }
 
 - (void)updateStateForNextAlarm:(id)alarm
@@ -514,7 +498,7 @@ uint64_t __53__MTCoreDuetMonitor_updateLastModifiedDateForAlarms___block_invoke(
 
 - (void)_queue_writeNextAlarmStateToContextStore:(id)store
 {
-  v21[3] = *MEMORY[0x1E69E9840];
+  v20[3] = *MEMORY[0x1E69E9840];
   storeCopy = store;
   serialQueue = [(MTCoreDuetMonitor *)self serialQueue];
   dispatch_assert_queue_V2(serialQueue);
@@ -524,11 +508,11 @@ uint64_t __53__MTCoreDuetMonitor_updateLastModifiedDateForAlarms___block_invoke(
   {
     v7 = storeCopy;
     alarmIDKey = [MEMORY[0x1E6997A68] alarmIDKey];
-    v20[0] = alarmIDKey;
+    v19[0] = alarmIDKey;
     alarmID = [v7 alarmID];
-    v21[0] = alarmID;
+    v20[0] = alarmID;
     modifiedDateKey = [MEMORY[0x1E6997A68] modifiedDateKey];
-    v20[1] = modifiedDateKey;
+    v19[1] = modifiedDateKey;
     lastModifiedDate = [v7 lastModifiedDate];
     distantPast = lastModifiedDate;
     if (!lastModifiedDate)
@@ -536,9 +520,9 @@ uint64_t __53__MTCoreDuetMonitor_updateLastModifiedDateForAlarms___block_invoke(
       distantPast = [MEMORY[0x1E695DF00] distantPast];
     }
 
-    v21[1] = distantPast;
+    v20[1] = distantPast;
     expectedFireDateKey = [MEMORY[0x1E6997A68] expectedFireDateKey];
-    v20[2] = expectedFireDateKey;
+    v19[2] = expectedFireDateKey;
     nextFireDate = [v7 nextFireDate];
     distantFuture = nextFireDate;
     if (!nextFireDate)
@@ -546,8 +530,8 @@ uint64_t __53__MTCoreDuetMonitor_updateLastModifiedDateForAlarms___block_invoke(
       distantFuture = [MEMORY[0x1E695DF00] distantFuture];
     }
 
-    v21[2] = distantFuture;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:v20 count:3];
+    v20[2] = distantFuture;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:v19 count:3];
     if (!nextFireDate)
     {
     }
@@ -567,8 +551,6 @@ uint64_t __53__MTCoreDuetMonitor_updateLastModifiedDateForAlarms___block_invoke(
   keyPathForNextAlarm = [*(v6 + 2664) keyPathForNextAlarm];
   userContext = [MEMORY[0x1E6997A60] userContext];
   [userContext setObject:v15 forKeyedSubscript:keyPathForNextAlarm];
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)writeAlarmToKnowledgeStore:(id)store alarmEvent:(unint64_t)event
@@ -631,7 +613,7 @@ void __59__MTCoreDuetMonitor_writeAlarmToKnowledgeStore_alarmEvent___block_invok
 
 - (void)_queue_writeAlarmToKnowledgeStore:(id)store category:(id)category
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   categoryCopy = category;
   storeCopy = store;
   serialQueue = [(MTCoreDuetMonitor *)self serialQueue];
@@ -644,11 +626,11 @@ void __59__MTCoreDuetMonitor_writeAlarmToKnowledgeStore_alarmEvent___block_invok
   v12 = [MEMORY[0x1E6997960] eventWithStream:alarmStream startDate:v9 endDate:v9 value:categoryCopy metadata:v11];
 
   knowledgeStore = [(MTCoreDuetMonitor *)self knowledgeStore];
-  v19[0] = v12;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
-  v18 = 0;
-  [knowledgeStore saveObjects:v14 error:&v18];
-  v15 = v18;
+  v18[0] = v12;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+  v17 = 0;
+  [knowledgeStore saveObjects:v14 error:&v17];
+  v15 = v17;
 
   if (v15)
   {
@@ -658,8 +640,6 @@ void __59__MTCoreDuetMonitor_writeAlarmToKnowledgeStore_alarmEvent___block_invok
       [MTCoreDuetMonitor _queue_writeAlarmToKnowledgeStore:category:];
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (id)metadataForAlarm:(id)alarm
@@ -698,28 +678,28 @@ void __59__MTCoreDuetMonitor_writeAlarmToKnowledgeStore_alarmEvent___block_invok
 
 void __53__MTCoreDuetMonitor_writeAlarmUpdatedEventForAlarms___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v2 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v27;
+    v4 = *v26;
     do
     {
       v5 = 0;
       do
       {
-        if (*v27 != v4)
+        if (*v26 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v26 + 1) + 8 * v5);
+        v6 = *(*(&v25 + 1) + 8 * v5);
         v7 = *(*(a1 + 40) + 24);
         v8 = [v6 alarmID];
         v9 = [v7 objectForKey:v8];
@@ -729,7 +709,7 @@ void __53__MTCoreDuetMonitor_writeAlarmUpdatedEventForAlarms___block_invoke(uint
           v10 = MTLogForCategory(3);
           if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
-            __53__MTCoreDuetMonitor_writeAlarmUpdatedEventForAlarms___block_invoke_cold_1(&v24, v25, v10);
+            __53__MTCoreDuetMonitor_writeAlarmUpdatedEventForAlarms___block_invoke_cold_1(&v23, v24, v10);
           }
 
 LABEL_20:
@@ -752,7 +732,7 @@ LABEL_20:
           {
             v14 = [v6 alarmID];
             *buf = 138412290;
-            v31 = v14;
+            v30 = v14;
             _os_log_impl(&dword_1B1F9F000, v13, OS_LOG_TYPE_INFO, "[Triggers writeAlarmUpdatedEventForAlarms] set isEnableDisableModification for alarm %@", buf, 0xCu);
           }
         }
@@ -764,7 +744,7 @@ LABEL_20:
           {
             v16 = [v6 alarmID];
             *buf = 138412290;
-            v31 = v16;
+            v30 = v16;
             _os_log_impl(&dword_1B1F9F000, v15, OS_LOG_TYPE_INFO, "[Triggers writeAlarmUpdatedEventForAlarms] set isTimeDifferenceModification for alarm %@", buf, 0xCu);
           }
 
@@ -796,14 +776,12 @@ LABEL_24:
       }
 
       while (v3 != v5);
-      v21 = [obj countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v21 = [obj countByEnumeratingWithState:&v25 objects:v31 count:16];
       v3 = v21;
     }
 
     while (v21);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)writeAlarmEventToBiome:(id)biome ofType:(unint64_t)type
@@ -832,33 +810,33 @@ LABEL_24:
 
 - (void)writeAlarmEventsToBiome:(id)biome ofType:(unint64_t)type
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   biomeCopy = biome;
   if (+[MTDeviceListener hasBeenUnlockedSinceBoot])
   {
     alarmStream = [MEMORY[0x1E698F350] alarmStream];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    v18 = biomeCopy;
+    v17 = biomeCopy;
     v7 = biomeCopy;
-    v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v19;
       do
       {
         v11 = 0;
         do
         {
-          if (*v20 != v10)
+          if (*v19 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v19 + 1) + 8 * v11);
+          v12 = *(*(&v18 + 1) + 8 * v11);
           v13 = objc_alloc(MEMORY[0x1E698F248]);
           alarmID = [v12 alarmID];
           v15 = [v13 initWithEventType:type alarmID:alarmID isSleepAlarm:{objc_msgSend(v12, "isSleepAlarm")}];
@@ -870,13 +848,13 @@ LABEL_24:
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v9);
     }
 
-    biomeCopy = v18;
+    biomeCopy = v17;
   }
 
   else
@@ -887,70 +865,29 @@ LABEL_24:
       [MTCoreDuetMonitor writeAlarmEventToBiome:type ofType:?];
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
-}
-
-- (void)source:didAddAlarms:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_6(&dword_1B1F9F000, v0, v1, "[Triggers] %{public}@ didAddAlarms: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)source:didUpdateAlarms:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_6(&dword_1B1F9F000, v0, v1, "[Triggers] %{public}@ didUpdateAlarms: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)source:didChangeNextAlarm:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_6(&dword_1B1F9F000, v0, v1, "[Triggers] %{public}@ didChangeNextAlarm: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)source:(uint64_t)a1 didDismissAlarm:(uint64_t)a2 dismissAction:.cold.1(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a2];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_5();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)source:(uint64_t)a1 didFireAlarm:(uint64_t)a2 triggerType:.cold.1(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a2];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_5();
   _os_log_debug_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)source:didRemoveAlarms:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_6(&dword_1B1F9F000, v0, v1, "[Triggers] %{public}@ didRemoveAlarms: %{public}@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_queue_writeAlarmToKnowledgeStore:category:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_1B1F9F000, v0, OS_LOG_TYPE_ERROR, "%{public}@ could not save objects to knowledge store with error: %{public}@", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B1F9F000, v0, OS_LOG_TYPE_ERROR, "%{public}@ could not save objects to knowledge store with error: %{public}@", v1, 0x16u);
 }
 
 void __53__MTCoreDuetMonitor_writeAlarmUpdatedEventForAlarms___block_invoke_cold_1(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -962,12 +899,9 @@ void __53__MTCoreDuetMonitor_writeAlarmUpdatedEventForAlarms___block_invoke_cold
 
 - (void)writeAlarmEventToBiome:(uint64_t)a1 ofType:.cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a1];
+  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a1];
   OUTLINED_FUNCTION_1_5();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

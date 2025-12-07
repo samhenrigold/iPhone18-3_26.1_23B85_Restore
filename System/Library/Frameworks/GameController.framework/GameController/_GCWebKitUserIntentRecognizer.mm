@@ -7,12 +7,12 @@
 
 - (_GCWebKitUserIntentRecognizer)initWithPhysicalInputProfile:(id)profile thumbstickUserIntentHandler:(id)handler slidingWindowTotalDuration:(double)duration slidingWindowSegmentDuration:(double)segmentDuration deadzone:(double)deadzone sensitivity:(int)sensitivity
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   profileCopy = profile;
   handlerCopy = handler;
-  v29.receiver = self;
-  v29.super_class = _GCWebKitUserIntentRecognizer;
-  v16 = [(_GCWebKitUserIntentRecognizer *)&v29 init];
+  v31.receiver = self;
+  v31.super_class = _GCWebKitUserIntentRecognizer;
+  v16 = [(_GCWebKitUserIntentRecognizer *)&v31 init];
   v17 = v16;
   if (v16)
   {
@@ -29,57 +29,57 @@
     v17->_slidingWindowSegmentDuration = segmentDuration;
     v17->_deadzoneSquared = deadzone * deadzone;
     v17->_distanceThreshold = ((1.0 / sensitivity) * 6.0);
-    if (gc_isInternalBuild())
+    isInternalBuild = gc_isInternalBuild(v22, v23);
+    if (isInternalBuild)
     {
-      v24 = getGCLogger();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      v26 = getGCLogger(isInternalBuild);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         slidingWindowTotalDuration = v17->_slidingWindowTotalDuration;
         slidingWindowSegmentDuration = v17->_slidingWindowSegmentDuration;
         deadzoneSquared = v17->_deadzoneSquared;
         distanceThreshold = v17->_distanceThreshold;
         *buf = 138413314;
-        v31 = profileCopy;
-        v32 = 2048;
-        v33 = slidingWindowTotalDuration;
+        v33 = profileCopy;
         v34 = 2048;
-        v35 = slidingWindowSegmentDuration;
+        v35 = slidingWindowTotalDuration;
         v36 = 2048;
-        v37 = deadzoneSquared;
-        v38 = 1024;
-        v39 = distanceThreshold;
-        _os_log_impl(&dword_1D2CD5000, v24, OS_LOG_TYPE_INFO, "Registering _GCWebKitUserIntentRecognizer for %@\n\tslidingWindowTotalDuration = %f\n\tslidingWindowSegmentDuration = %f\n\tdeadzoneSquared = %f\n\tdistanceThreshold = %d", buf, 0x30u);
+        v37 = slidingWindowSegmentDuration;
+        v38 = 2048;
+        v39 = deadzoneSquared;
+        v40 = 1024;
+        v41 = distanceThreshold;
+        _os_log_impl(&dword_1D2CD5000, v26, OS_LOG_TYPE_INFO, "Registering _GCWebKitUserIntentRecognizer for %@\n\tslidingWindowTotalDuration = %f\n\tslidingWindowSegmentDuration = %f\n\tdeadzoneSquared = %f\n\tdistanceThreshold = %d", buf, 0x30u);
       }
     }
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 - (void)processChangedElements:(id)elements atTimestamp:(unint64_t)timestamp
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
+  v62 = 0u;
   v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
   obj = elements;
-  v58 = [obj countByEnumeratingWithState:&v63 objects:v67 count:16];
-  if (v58)
+  v57 = [obj countByEnumeratingWithState:&v62 objects:v66 count:16];
+  if (v57)
   {
-    v57 = *v64;
+    v56 = *v63;
     do
     {
       v5 = 0;
       do
       {
-        if (*v64 != v57)
+        if (*v63 != v56)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v63 + 1) + 8 * v5);
+        v6 = *(*(&v62 + 1) + 8 * v5);
         primaryAlias = [v6 primaryAlias];
         if ([primaryAlias isEqualToString:@"Left Thumbstick"])
         {
@@ -237,12 +237,12 @@
             block[1] = 3221225472;
             block[2] = __68___GCWebKitUserIntentRecognizer_processChangedElements_atTimestamp___block_invoke;
             block[3] = &unk_1E8419C38;
-            objc_copyWeak(&v61, &location);
+            objc_copyWeak(&v60, &location);
             block[4] = v10;
-            v60 = v19;
+            v59 = v19;
             dispatch_async(handlerQueue, block);
 
-            objc_destroyWeak(&v61);
+            objc_destroyWeak(&v60);
             objc_destroyWeak(&location);
           }
         }
@@ -251,14 +251,12 @@ LABEL_46:
         ++v5;
       }
 
-      while (v5 != v58);
-      v58 = [obj countByEnumeratingWithState:&v63 objects:v67 count:16];
+      while (v5 != v57);
+      v57 = [obj countByEnumeratingWithState:&v62 objects:v66 count:16];
     }
 
-    while (v58);
+    while (v57);
   }
-
-  v54 = *MEMORY[0x1E69E9840];
 }
 
 @end

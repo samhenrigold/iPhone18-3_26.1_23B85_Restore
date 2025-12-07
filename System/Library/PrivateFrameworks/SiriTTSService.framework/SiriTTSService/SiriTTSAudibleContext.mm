@@ -29,7 +29,7 @@
 {
   coderCopy = coder;
   selfCopy = self;
-  sub_1B1AD5EE4(coderCopy);
+  sub_1B1AD5EE4(coderCopy, selfCopy, v5, v6, v7, v8, v9, v10);
 }
 
 - (id)didStartSpeaking

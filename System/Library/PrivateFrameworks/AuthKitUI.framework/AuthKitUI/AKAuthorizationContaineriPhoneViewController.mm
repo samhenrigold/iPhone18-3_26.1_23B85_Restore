@@ -70,7 +70,6 @@
   v2 = MEMORY[0x277CCAAD0];
   constraints = [(AKAuthorizationContaineriPhoneViewController *)self constraints];
   [v2 deactivateConstraints:?];
-  MEMORY[0x277D82BD8](constraints);
   v5[0] = [(AKAuthorizationContainerViewController *)selfCopy rootViewController];
   if (v5[0])
   {
@@ -85,7 +84,7 @@
 
 - (void)updateConstraintsForRootView:(id)view
 {
-  v46[5] = *MEMORY[0x277D85DE8];
+  v48[5] = *MEMORY[0x277D85DE8];
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
@@ -93,81 +92,81 @@
   array = [MEMORY[0x277CBEB18] array];
   view = [(AKAuthorizationContaineriPhoneViewController *)selfCopy view];
   window = [view window];
+  v42 = 0;
   v40 = 0;
-  v38 = 0;
-  v37 = 1;
+  v39 = 1;
   if ([window interfaceOrientation] != 4)
   {
     view2 = [(AKAuthorizationContaineriPhoneViewController *)selfCopy view];
-    v40 = 1;
+    v42 = 1;
     window2 = [view2 window];
-    v38 = 1;
-    v37 = [window2 interfaceOrientation] == 3;
+    v40 = 1;
+    v39 = [window2 interfaceOrientation] == 3;
   }
 
-  if (v38)
+  if (v40)
   {
     MEMORY[0x277D82BD8](window2);
   }
 
-  if (v40)
+  if (v42)
   {
     MEMORY[0x277D82BD8](view2);
   }
 
   MEMORY[0x277D82BD8](window);
-  MEMORY[0x277D82BD8](view);
-  if (v37)
+  *&v3 = MEMORY[0x277D82BD8](view).n128_u64[0];
+  if (v39)
   {
     leadingAnchor = [location[0] leadingAnchor];
     view3 = [(AKAuthorizationContaineriPhoneViewController *)selfCopy view];
     leadingAnchor2 = [view3 leadingAnchor];
     view4 = [(AKAuthorizationContaineriPhoneViewController *)selfCopy view];
     [view4 frame];
-    v30 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:v3 / 4.0];
-    v46[0] = v30;
+    v32 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2 constant:v4 / 4.0];
+    v48[0] = v32;
     trailingAnchor = [location[0] trailingAnchor];
     view5 = [(AKAuthorizationContaineriPhoneViewController *)selfCopy view];
     trailingAnchor2 = [view5 trailingAnchor];
     view6 = [(AKAuthorizationContaineriPhoneViewController *)selfCopy view];
     [view6 frame];
-    v25 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-v4 / 4.0];
-    v46[1] = v25;
+    v27 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2 constant:-v5 / 4.0];
+    v48[1] = v27;
     bottomAnchor = [location[0] bottomAnchor];
     view7 = [(AKAuthorizationContaineriPhoneViewController *)selfCopy view];
     bottomAnchor2 = [view7 bottomAnchor];
-    v21 = [bottomAnchor constraintEqualToAnchor:?];
-    v46[2] = v21;
+    v23 = [bottomAnchor constraintEqualToAnchor:?];
+    v48[2] = v23;
     topAnchor = [location[0] topAnchor];
     view8 = [(AKAuthorizationContaineriPhoneViewController *)selfCopy view];
     topAnchor2 = [view8 topAnchor];
     view9 = [(AKAuthorizationContaineriPhoneViewController *)selfCopy view];
     [view9 frame];
-    v16 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2 constant:v5 / 6.0];
-    v46[3] = v16;
-    v46[4] = selfCopy->_rootViewHeightConstraint;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:5];
+    v18 = [topAnchor constraintGreaterThanOrEqualToAnchor:topAnchor2 constant:v6 / 6.0];
+    v48[3] = v18;
+    v48[4] = selfCopy->_rootViewHeightConstraint;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:5];
     [array addObjectsFromArray:?];
-    MEMORY[0x277D82BD8](v15);
-    MEMORY[0x277D82BD8](v16);
+    MEMORY[0x277D82BD8](v17);
+    MEMORY[0x277D82BD8](v18);
     MEMORY[0x277D82BD8](view9);
     MEMORY[0x277D82BD8](topAnchor2);
     MEMORY[0x277D82BD8](view8);
     MEMORY[0x277D82BD8](topAnchor);
-    MEMORY[0x277D82BD8](v21);
+    MEMORY[0x277D82BD8](v23);
     MEMORY[0x277D82BD8](bottomAnchor2);
     MEMORY[0x277D82BD8](view7);
     MEMORY[0x277D82BD8](bottomAnchor);
-    MEMORY[0x277D82BD8](v25);
+    MEMORY[0x277D82BD8](v27);
     MEMORY[0x277D82BD8](view6);
     MEMORY[0x277D82BD8](trailingAnchor2);
     MEMORY[0x277D82BD8](view5);
     MEMORY[0x277D82BD8](trailingAnchor);
-    MEMORY[0x277D82BD8](v30);
+    MEMORY[0x277D82BD8](v32);
     MEMORY[0x277D82BD8](view4);
     MEMORY[0x277D82BD8](leadingAnchor2);
     MEMORY[0x277D82BD8](view3);
-    MEMORY[0x277D82BD8](leadingAnchor);
+    v7 = MEMORY[0x277D82BD8](leadingAnchor).n128_u64[0];
   }
 
   else
@@ -175,123 +174,121 @@
     leadingAnchor3 = [location[0] leadingAnchor];
     view10 = [(AKAuthorizationContaineriPhoneViewController *)selfCopy view];
     leadingAnchor4 = [view10 leadingAnchor];
-    v11 = [leadingAnchor3 constraintEqualToAnchor:?];
-    v45[0] = v11;
+    v13 = [leadingAnchor3 constraintEqualToAnchor:?];
+    v47[0] = v13;
     trailingAnchor3 = [location[0] trailingAnchor];
     view11 = [(AKAuthorizationContaineriPhoneViewController *)selfCopy view];
     trailingAnchor4 = [view11 trailingAnchor];
-    v7 = [trailingAnchor3 constraintEqualToAnchor:?];
-    v45[1] = v7;
-    v45[2] = selfCopy->_rootViewTopConstraint;
-    v45[3] = selfCopy->_rootViewHeightConstraint;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:4];
+    v9 = [trailingAnchor3 constraintEqualToAnchor:?];
+    v47[1] = v9;
+    v47[2] = selfCopy->_rootViewTopConstraint;
+    v47[3] = selfCopy->_rootViewHeightConstraint;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:4];
     [array addObjectsFromArray:?];
-    MEMORY[0x277D82BD8](v6);
-    MEMORY[0x277D82BD8](v7);
+    MEMORY[0x277D82BD8](v8);
+    MEMORY[0x277D82BD8](v9);
     MEMORY[0x277D82BD8](trailingAnchor4);
     MEMORY[0x277D82BD8](view11);
     MEMORY[0x277D82BD8](trailingAnchor3);
-    MEMORY[0x277D82BD8](v11);
+    MEMORY[0x277D82BD8](v13);
     MEMORY[0x277D82BD8](leadingAnchor4);
     MEMORY[0x277D82BD8](view10);
-    MEMORY[0x277D82BD8](leadingAnchor3);
+    v7 = MEMORY[0x277D82BD8](leadingAnchor3).n128_u64[0];
   }
 
-  [MEMORY[0x277CCAAD0] activateConstraints:array];
+  [MEMORY[0x277CCAAD0] activateConstraints:{array, *&v7}];
   [(AKAuthorizationContaineriPhoneViewController *)selfCopy setConstraints:array];
   objc_storeStrong(&array, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)viewDidLoad
 {
   selfCopy = self;
-  v30 = a2;
-  v29.receiver = self;
-  v29.super_class = AKAuthorizationContaineriPhoneViewController;
-  [(AKAuthorizationContaineriPhoneViewController *)&v29 viewDidLoad];
+  v36 = a2;
+  v35.receiver = self;
+  v35.super_class = AKAuthorizationContaineriPhoneViewController;
+  [(AKAuthorizationContaineriPhoneViewController *)&v35 viewDidLoad];
   view = [(AKAuthorizationContaineriPhoneViewController *)selfCopy view];
   [view addGestureRecognizer:selfCopy->_tapGestureRecognizer];
-  MEMORY[0x277D82BD8](view);
+  *&v2 = MEMORY[0x277D82BD8](view).n128_u64[0];
   view2 = [(AKAuthorizationContaineriPhoneViewController *)selfCopy view];
   [view2 setOpaque:0];
-  MEMORY[0x277D82BD8](view2);
-  v27 = 0;
-  v25 = 0;
+  v33 = 0;
+  v31 = 0;
   _isRapportLogin = 0;
   if (+[AKAuthorizationAppearance shouldShowBlurBackground])
   {
     presentationContext = [(AKAuthorizationContainerViewController *)selfCopy presentationContext];
-    v27 = 1;
+    v33 = 1;
     credentialRequestContext = [(AKAuthorizationPresentationContext *)presentationContext credentialRequestContext];
-    v25 = 1;
+    v31 = 1;
     _isRapportLogin = [credentialRequestContext _isRapportLogin];
   }
 
-  if (v25)
+  if (v31)
   {
     MEMORY[0x277D82BD8](credentialRequestContext);
   }
 
-  if (v27)
+  if (v33)
   {
     MEMORY[0x277D82BD8](presentationContext);
   }
 
   if (_isRapportLogin)
   {
-    v2 = [objc_alloc(MEMORY[0x277D75D68]) initWithEffect:0];
+    v3 = [objc_alloc(MEMORY[0x277D75D68]) initWithEffect:0];
     blurBackgroundView = selfCopy->_blurBackgroundView;
-    selfCopy->_blurBackgroundView = v2;
-    MEMORY[0x277D82BD8](blurBackgroundView);
-    v17 = selfCopy->_blurBackgroundView;
+    selfCopy->_blurBackgroundView = v3;
+    *&v5 = MEMORY[0x277D82BD8](blurBackgroundView).n128_u64[0];
+    v23 = selfCopy->_blurBackgroundView;
     view3 = [(AKAuthorizationContaineriPhoneViewController *)selfCopy view];
     [view3 frame];
-    v24[1] = v4;
-    v24[2] = v5;
-    v24[3] = v6;
-    v24[4] = v7;
-    [(UIVisualEffectView *)v17 setFrame:*&v4, *&v5, *&v6, *&v7];
-    MEMORY[0x277D82BD8](view3);
-    [(UIVisualEffectView *)selfCopy->_blurBackgroundView setAutoresizingMask:18];
+    v30[1] = v6;
+    v30[2] = v7;
+    v30[3] = v8;
+    v30[4] = v9;
+    [(UIVisualEffectView *)v23 setFrame:*&v6, *&v7, *&v8, *&v9];
+    *&v10 = MEMORY[0x277D82BD8](view3).n128_u64[0];
+    [(UIVisualEffectView *)selfCopy->_blurBackgroundView setAutoresizingMask:18, v10];
     view4 = [(AKAuthorizationContaineriPhoneViewController *)selfCopy view];
     [view4 insertSubview:selfCopy->_blurBackgroundView atIndex:0];
     MEMORY[0x277D82BD8](view4);
   }
 
-  v24[0] = [(AKAuthorizationContainerViewController *)selfCopy rootViewController];
-  if (v24[0])
+  v30[0] = [(AKAuthorizationContainerViewController *)selfCopy rootViewController];
+  if (v30[0])
   {
-    [v24[0] willMoveToParentViewController:selfCopy];
-    [(AKAuthorizationContaineriPhoneViewController *)selfCopy addChildViewController:v24[0]];
-    view5 = [v24[0] view];
+    [v30[0] willMoveToParentViewController:selfCopy];
+    [(AKAuthorizationContaineriPhoneViewController *)selfCopy addChildViewController:v30[0]];
+    view5 = [v30[0] view];
     [view5 setTranslatesAutoresizingMaskIntoConstraints:0];
     view6 = [(AKAuthorizationContaineriPhoneViewController *)selfCopy view];
     [view6 addSubview:view5];
-    MEMORY[0x277D82BD8](view6);
-    [v24[0] didMoveToParentViewController:selfCopy];
+    *&v11 = MEMORY[0x277D82BD8](view6).n128_u64[0];
+    [v30[0] didMoveToParentViewController:{selfCopy, v11}];
     topAnchor = [view5 topAnchor];
     view7 = [(AKAuthorizationContaineriPhoneViewController *)selfCopy view];
     topAnchor2 = [view7 topAnchor];
-    v8 = [topAnchor constraintEqualToAnchor:?];
+    v12 = [topAnchor constraintEqualToAnchor:?];
     rootViewTopConstraint = selfCopy->_rootViewTopConstraint;
-    selfCopy->_rootViewTopConstraint = v8;
+    selfCopy->_rootViewTopConstraint = v12;
     MEMORY[0x277D82BD8](rootViewTopConstraint);
     MEMORY[0x277D82BD8](topAnchor2);
     MEMORY[0x277D82BD8](view7);
-    MEMORY[0x277D82BD8](topAnchor);
+    *&v14 = MEMORY[0x277D82BD8](topAnchor).n128_u64[0];
     heightAnchor = [view5 heightAnchor];
-    v10 = [heightAnchor constraintEqualToConstant:0.0];
+    v15 = [heightAnchor constraintEqualToConstant:0.0];
     rootViewHeightConstraint = selfCopy->_rootViewHeightConstraint;
-    selfCopy->_rootViewHeightConstraint = v10;
+    selfCopy->_rootViewHeightConstraint = v15;
     MEMORY[0x277D82BD8](rootViewHeightConstraint);
-    MEMORY[0x277D82BD8](heightAnchor);
-    [(AKAuthorizationContaineriPhoneViewController *)selfCopy updateConstraintsForRootView:view5];
+    *&v17 = MEMORY[0x277D82BD8](heightAnchor).n128_u64[0];
+    [(AKAuthorizationContaineriPhoneViewController *)selfCopy updateConstraintsForRootView:view5, v17];
     objc_storeStrong(&view5, 0);
   }
 
-  objc_storeStrong(v24, 0);
+  objc_storeStrong(v30, 0);
 }
 
 - (void)viewWillAppear:(BOOL)appear
@@ -308,7 +305,6 @@
     clearColor = [MEMORY[0x277D75348] clearColor];
     [view setBackgroundColor:?];
     MEMORY[0x277D82BD8](clearColor);
-    MEMORY[0x277D82BD8](view);
     if (+[AKAuthorizationAppearance shouldShowBlurBackground])
     {
       transitionCoordinator = [(AKAuthorizationContaineriPhoneViewController *)selfCopy transitionCoordinator];

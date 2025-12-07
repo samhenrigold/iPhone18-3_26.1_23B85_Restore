@@ -2,7 +2,6 @@
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToDownloadJobIdentifier:(id)identifier;
 - (BRCDownloadJobIdentifier)initWithDBRowID:(unint64_t)d etag:(id)etag kind:(int)kind;
-- (NSString)description;
 @end
 
 @implementation BRCDownloadJobIdentifier
@@ -22,14 +21,6 @@
   }
 
   return v11;
-}
-
-- (NSString)description
-{
-  itemDBRowID = self->_itemDBRowID;
-  etag = self->_etag;
-  kind = self->_kind;
-  return [MEMORY[0x277CCACA8] stringWithFormat:@"%lld-%@-%s", itemDBRowID, etag, BRCPrettyPrintEnum()];
 }
 
 - (BOOL)isEqualToDownloadJobIdentifier:(id)identifier

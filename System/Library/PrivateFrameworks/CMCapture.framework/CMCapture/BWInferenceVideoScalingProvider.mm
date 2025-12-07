@@ -7,9 +7,9 @@
 - (id)preventionReasonWithSampleBuffer:(opaqueCMSampleBuffer *)buffer executionTime:(id *)time;
 - (int)executeOnSampleBuffer:(opaqueCMSampleBuffer *)buffer usingStorage:(id)storage withExecutionTime:(id *)time completionHandler:(id)handler;
 - (int)prepareForExecution;
-- (uint64_t)_configureCustomFiltersForScalingFromSourceWidth:(unint64_t)width sourceHeight:(unint64_t)height destinationWidth:(unint64_t)destinationWidth destinationHeight:(int)destinationHeight pixelFormat:;
-- (uint64_t)prepareForExecution;
+- (void)_configureCustomFiltersForScalingFromSourceWidth:(unint64_t)width sourceHeight:(unint64_t)height destinationWidth:(unint64_t)destinationWidth destinationHeight:(int)destinationHeight pixelFormat:;
 - (void)dealloc;
+- (void)prepareForExecution;
 - (void)propagateInferenceResultsToInferenceDictionary:(id)dictionary usingStorage:(id)storage inputSampleBuffer:(opaqueCMSampleBuffer *)buffer propagationSampleBuffer:(opaqueCMSampleBuffer *)sampleBuffer;
 - (void)setCustomInferenceIdentifier:(id)identifier;
 @end
@@ -213,7 +213,7 @@
   return v5;
 }
 
-- (uint64_t)_configureCustomFiltersForScalingFromSourceWidth:(unint64_t)width sourceHeight:(unint64_t)height destinationWidth:(unint64_t)destinationWidth destinationHeight:(int)destinationHeight pixelFormat:
+- (void)_configureCustomFiltersForScalingFromSourceWidth:(unint64_t)width sourceHeight:(unint64_t)height destinationWidth:(unint64_t)destinationWidth destinationHeight:(int)destinationHeight pixelFormat:
 {
   if (!result)
   {
@@ -261,9 +261,9 @@ LABEL_6:
 
   v17 = destinationWidthCopy / widthCopy;
   v18 = height / a2;
-  if (v17 != *(v11 + 80) || v18 != *(v11 + 76))
+  if (v17 != *(v11 + 20) || v18 != *(v11 + 19))
   {
-    v19 = *(v11 + 72);
+    v19 = *(v11 + 18);
     if (v19 >= 3)
     {
       v20 = 3;
@@ -276,9 +276,9 @@ LABEL_6:
 
     LODWORD(v12) = 1.0;
     LODWORD(v13) = 1.0;
-    result = [*(v11 + 64) setCustomFilter:v20 alignment:2 sourceWidth:a2 sourceHeight:v12 destinationWidth:v13 destinationHeight:? luma_param:? chroma_param:?];
-    *(v11 + 76) = v18;
-    *(v11 + 80) = v17;
+    result = [*(v11 + 8) setCustomFilter:v20 alignment:2 sourceWidth:a2 sourceHeight:v12 destinationWidth:v13 destinationHeight:? luma_param:? chroma_param:?];
+    *(v11 + 19) = v18;
+    *(v11 + 20) = v17;
   }
 
   return result;
@@ -331,31 +331,31 @@ LABEL_6:
         goto LABEL_89;
       }
 
-      *&v210[0] = 0;
-      *&v208[0].decodeTimeStamp.timescale = 0u;
-      *&v208[0].presentationTimeStamp.epoch = 0u;
-      *&v208[0].presentationTimeStamp.value = 0u;
-      *&v208[0].duration.value = *MEMORY[0x1E6960C70];
-      pixelBuffer_8 = *&v208[0].duration.timescale;
-      v208[0].duration.epoch = *(MEMORY[0x1E6960C70] + 16);
-      CMSampleBufferGetPresentationTimeStamp(&v208[0].presentationTimeStamp, buffer);
-      v208[0].decodeTimeStamp = v208[0].duration;
-      CMSampleBufferCreate(*MEMORY[0x1E695E480], 0, 1u, 0, 0, 0, 0, 1, v208, 0, 0, v210);
-      CMSetAttachments(*&v210[0], [storage inputSampleBufferAttachments], 1u);
+      *&v209[0] = 0;
+      *&v207[0].decodeTimeStamp.timescale = 0u;
+      *&v207[0].presentationTimeStamp.epoch = 0u;
+      *&v207[0].presentationTimeStamp.value = 0u;
+      *&v207[0].duration.value = *MEMORY[0x1E6960C70];
+      pixelBuffer_8 = *&v207[0].duration.timescale;
+      v207[0].duration.epoch = *(MEMORY[0x1E6960C70] + 16);
+      CMSampleBufferGetPresentationTimeStamp(&v207[0].presentationTimeStamp, buffer);
+      v207[0].decodeTimeStamp = v207[0].duration;
+      CMSampleBufferCreate(*MEMORY[0x1E695E480], 0, 1u, 0, 0, 0, 0, 1, v207, 0, 0, v209);
+      CMSetAttachments(*&v209[0], [storage inputSampleBufferAttachments], 1u);
       cropDescriptor = [v16 cropDescriptor];
-      [cropDescriptor rectForSampleBuffer:*&v210[0]];
+      [cropDescriptor rectForSampleBuffer:*&v209[0]];
       OUTLINED_FUNCTION_3_11();
-      if (*&v210[0])
+      if (*&v209[0])
       {
-        CFRelease(*&v210[0]);
+        CFRelease(*&v209[0]);
       }
     }
 
     v137 = v21;
     v28 = Width;
     r1_8 = Height;
-    v212.origin.x = OUTLINED_FUNCTION_2_19();
-    if (!CGRectIsNull(v212))
+    v211.origin.x = OUTLINED_FUNCTION_2_19();
+    if (!CGRectIsNull(v211))
     {
       derivedFromRequirement = self->_derivedFromRequirement;
       if (derivedFromRequirement)
@@ -418,12 +418,12 @@ LABEL_21:
                 if (v41 || (v41 = [v168 objectForKeyedSubscript:*off_1E798A5B0]) != 0)
                 {
                   intValue = [v41 intValue];
-                  v211 = 0;
-                  v43 = FigCaptureRotationDegreesAndMirroringFromExifOrientation(intValue, &v211);
+                  v210 = 0;
+                  v43 = FigCaptureRotationDegreesAndMirroringFromExifOrientation(intValue, &v210);
                   v44 = v43;
                   HIDWORD(v149) = 0;
                   LODWORD(videoFormat) = 0;
-                  if (v211)
+                  if (v210)
                   {
                     HIDWORD(v149) = 0;
                     LODWORD(videoFormat) = 1;
@@ -434,16 +434,16 @@ LABEL_21:
                     }
                   }
 
-                  v213.origin.x = OUTLINED_FUNCTION_2_19();
-                  if (!CGRectIsNull(v213))
+                  v212.origin.x = OUTLINED_FUNCTION_2_19();
+                  if (!CGRectIsNull(v212))
                   {
-                    memset(v208, 0, 48);
-                    FigCaptureExifOrientationGetAffineTransform(intValue, 0x100000001uLL, v208);
-                    v210[0] = *&v208[0].duration.value;
-                    v210[1] = *&v208[0].duration.epoch;
-                    v210[2] = *&v208[0].presentationTimeStamp.timescale;
-                    v214.origin.x = OUTLINED_FUNCTION_2_19();
-                    CGRectApplyAffineTransform(v214, v45);
+                    memset(v207, 0, 48);
+                    FigCaptureExifOrientationGetAffineTransform(intValue, 0x100000001uLL, v207);
+                    v209[0] = *&v207[0].duration.value;
+                    v209[1] = *&v207[0].duration.epoch;
+                    v209[2] = *&v207[0].presentationTimeStamp.timescale;
+                    v213.origin.x = OUTLINED_FUNCTION_2_19();
+                    CGRectApplyAffineTransform(v213, v45);
                     OUTLINED_FUNCTION_3_11();
                   }
 
@@ -536,8 +536,8 @@ LABEL_36:
                   }
 
                   v65 = *(MEMORY[0x1E695F058] + 16);
-                  v209.origin = *MEMORY[0x1E695F058];
-                  v209.size = v65;
+                  v208.origin = *MEMORY[0x1E695F058];
+                  v208.size = v65;
                   CGRectIfPresent = FigCFDictionaryGetCGRectIfPresent();
                   v67 = v160;
                   if (!CGRectIfPresent)
@@ -558,20 +558,20 @@ LABEL_36:
                     v73 = v28;
                     v71 = r1_8;
                     v74 = r1_8;
-                    if (CGRectContainsRect(*&v68, v209))
+                    if (CGRectContainsRect(*&v68, v208))
                     {
-                      y = v209.origin.y;
-                      r1a = v209.origin.x;
-                      v71 = v209.size.height;
-                      v28 = v209.size.width;
+                      y = v208.origin.y;
+                      r1a = v208.origin.x;
+                      v71 = v208.size.height;
+                      v28 = v208.size.width;
                     }
                   }
 
-                  v215.origin.x = v48;
-                  v215.origin.y = v52;
-                  v215.size.width = v56;
-                  v215.size.height = v60;
-                  if (CGRectIsNull(v215))
+                  v214.origin.x = v48;
+                  v214.origin.y = v52;
+                  v214.size.width = v56;
+                  v214.size.height = v60;
+                  if (CGRectIsNull(v214))
                   {
                     v76 = *&v156;
                     v75 = *&v158;
@@ -583,15 +583,15 @@ LABEL_36:
 
                   else
                   {
-                    v222.origin.x = round(v70 * v48);
-                    v222.origin.y = round(r1_8 * v52);
-                    v222.size.width = round(v70 * (v56 + v48)) - v222.origin.x;
-                    v222.size.height = round(r1_8 * (v60 + v52)) - v222.origin.y;
-                    v216.origin.x = r1a;
-                    v216.origin.y = y;
-                    v216.size.width = v28;
-                    v216.size.height = v71;
-                    CGRectIntersection(v216, v222);
+                    v221.origin.x = round(v70 * v48);
+                    v221.origin.y = round(r1_8 * v52);
+                    v221.size.width = round(v70 * (v56 + v48)) - v221.origin.x;
+                    v221.size.height = round(r1_8 * (v60 + v52)) - v221.origin.y;
+                    v215.origin.x = r1a;
+                    v215.origin.y = y;
+                    v215.size.width = v28;
+                    v215.size.height = v71;
+                    CGRectIntersection(v215, v221);
                     OUTLINED_FUNCTION_5_18();
                     v76 = *&v156;
                     v75 = *&v158;
@@ -612,8 +612,8 @@ LABEL_36:
                   {
                     v79 = OUTLINED_FUNCTION_1();
                     FigCaptureMetadataUtilitiesRectByCroppingRectToAspectRatio(v79, v80, v81, v82, v83);
-                    v217.origin.x = OUTLINED_FUNCTION_1();
-                    CGRectIntersection(v217, v223);
+                    v216.origin.x = OUTLINED_FUNCTION_1();
+                    CGRectIntersection(v216, v222);
                     OUTLINED_FUNCTION_5_18();
                   }
 
@@ -627,11 +627,11 @@ LABEL_74:
 
                   else
                   {
-                    v218.origin.x = OUTLINED_FUNCTION_1();
-                    round(CGRectGetMidX(v218) + v85 * -0.5);
-                    v219.origin.x = OUTLINED_FUNCTION_0_20();
-                    v219.size.height = v71;
-                    CGRectGetMaxX(v219);
+                    v217.origin.x = OUTLINED_FUNCTION_1();
+                    round(CGRectGetMidX(v217) + v85 * -0.5);
+                    v218.origin.x = OUTLINED_FUNCTION_0_20();
+                    v218.size.height = v71;
+                    CGRectGetMaxX(v218);
                     v86 = CVPixelBufferGetWidth(pixelBuffer);
                     OUTLINED_FUNCTION_4_19(v86);
                     if (!(v34 ^ v88 | v87))
@@ -649,12 +649,12 @@ LABEL_74:
 
                   else
                   {
+                    v219.origin.x = OUTLINED_FUNCTION_0_20();
+                    v219.size.height = v71;
+                    round(CGRectGetMidY(v219) + v90 * -0.5);
                     v220.origin.x = OUTLINED_FUNCTION_0_20();
-                    v220.size.height = v71;
-                    round(CGRectGetMidY(v220) + v90 * -0.5);
-                    v221.origin.x = OUTLINED_FUNCTION_0_20();
-                    v221.size.height = v90;
-                    CGRectGetMaxY(v221);
+                    v220.size.height = v90;
+                    CGRectGetMaxY(v220);
                     v91 = CVPixelBufferGetHeight(pixelBuffer);
                     OUTLINED_FUNCTION_4_19(v91);
                     if (!(v34 ^ v88 | v87))
@@ -732,17 +732,17 @@ LABEL_90:
                   {
                     if (v98)
                     {
-                      bzero(v208, 0x620uLL);
-                      [(FigM2MController *)self->_scalerController copyHistogram:v208];
+                      bzero(v207, 0x620uLL);
+                      [(FigM2MController *)self->_scalerController copyHistogram:v207];
                       v109 = objc_alloc(MEMORY[0x1E695DEF0]);
-                      v110 = [v109 initWithBytes:&v208[0].duration.value + 4 length:4 * (3 * LODWORD(v208[0].duration.value))];
+                      v110 = [v109 initWithBytes:&v207[0].duration.value + 4 length:4 * (3 * LODWORD(v207[0].duration.value))];
                       CMSetAttachment(v12, @"InferenceHistogramData", v110, 1u);
 
                       clearHistorgramMode = [(FigM2MController *)self->_scalerController clearHistorgramMode];
                     }
 
                     outputRequirements = self->_outputRequirements;
-                    v112 = OUTLINED_FUNCTION_6_11(clearHistorgramMode, v102, v103, v104, v105, v106, v107, v108, sampleTimingArray, v127, sampleSizeArray, v131, v133, v135, v137, v139, v141, v143, v145, v147, v149, videoFormat, v154, v156, v158, v160, pixelBuffer, pixelBuffer_8, v166, v168, *&r1a, *&r1_8, r1_16, r1_24, v179, v181, v183, v185, v187, v189, v191, v193, v195, v197, v199, v201, v203, v205, 0);
+                    v112 = OUTLINED_FUNCTION_6_11(clearHistorgramMode, v102, v103, v104, v105, v106, v107, v108, sampleTimingArray, v127, sampleSizeArray, v131, v133, v135, v137, v139, v141, v143, v145, v147, v149, videoFormat, v154, v156, v158, v160, pixelBuffer, pixelBuffer_8, v166, v168, *&r1a, *&r1_8, r1_16, r1_24, v179, v181, v183, v185, v187, v189, v191, v193, v195, v197, v199, v201, v203, v205);
                     if (v112)
                     {
                       v113 = v112;
@@ -760,7 +760,7 @@ LABEL_90:
                           v117 = [storage setPixelBuffer:v12 forRequirement:*(8 * i)];
                         }
 
-                        v113 = OUTLINED_FUNCTION_6_11(v117, v118, v119, v120, v121, v122, v123, v124, sampleTimingArraya, v128, sampleSizeArraya, v132, v134, v136, v138, v140, v142, v144, v146, v148, v150, v152, v155, v157, v159, v161, pixelBuffera, pixelBuffer_8a, v167, v169, r1b, r1_8a, r1_16a, r1_24a, v180, v182, v184, v186, v188, v190, v192, v194, v196, v198, v200, v202, v204, v206, v207);
+                        v113 = OUTLINED_FUNCTION_6_11(v117, v118, v119, v120, v121, v122, v123, v124, sampleTimingArraya, v128, sampleSizeArraya, v132, v134, v136, v138, v140, v142, v144, v146, v148, v150, v152, v155, v157, v159, v161, pixelBuffera, pixelBuffer_8a, v167, v169, r1b, r1_8a, r1_16a, r1_24a, v180, v182, v184, v186, v188, v190, v192, v194, v196, v198, v200, v202, v204, v206);
                       }
 
                       while (v113);
@@ -820,7 +820,7 @@ LABEL_91:
   return v92;
 }
 
-- (uint64_t)prepareForExecution
+- (void)prepareForExecution
 {
   if ([self deviceOriented])
   {

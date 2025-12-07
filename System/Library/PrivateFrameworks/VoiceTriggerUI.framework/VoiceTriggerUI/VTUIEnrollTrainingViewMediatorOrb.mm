@@ -1,6 +1,7 @@
 @interface VTUIEnrollTrainingViewMediatorOrb
 - (VTUIEnrollTrainingViewMediatorOrb)initWithTrainingView:(id)view;
 - (void)addTargetToRadarExitButton:(id)button action:(SEL)action forControlEvents:(unint64_t)events;
+- (void)animateSuccessfulStep:(BOOL)step completion:(id)completion;
 - (void)animateToListeningState;
 - (void)animateToOff;
 - (void)hideInstructions;
@@ -49,6 +50,24 @@
   enrollTrainingView = self->_enrollTrainingView;
 
   [(VTUIEnrollTrainingView *)enrollTrainingView setCheckMarkViewHidden:0];
+}
+
+- (void)animateSuccessfulStep:(BOOL)step completion:(id)completion
+{
+  stepCopy = step;
+  v12 = *MEMORY[0x277D85DE8];
+  completionCopy = completion;
+  v7 = *MEMORY[0x277CEF0E8];
+  if (os_log_type_enabled(*MEMORY[0x277CEF0E8], OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = 136315394;
+    v9 = "[VTUIEnrollTrainingViewMediatorOrb animateSuccessfulStep:completion:]";
+    v10 = 1024;
+    v11 = stepCopy;
+    _os_log_impl(&dword_2728BC000, v7, OS_LOG_TYPE_DEFAULT, "%s Animate. For Success: %d", &v8, 0x12u);
+  }
+
+  [(VTUIEnrollTrainingView *)self->_enrollTrainingView startCheckMarkAnimation:stepCopy completion:completionCopy];
 }
 
 - (void)hideTrainingView:(BOOL)view

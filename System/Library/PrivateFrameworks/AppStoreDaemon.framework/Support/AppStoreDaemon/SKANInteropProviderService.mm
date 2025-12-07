@@ -30,7 +30,7 @@
 
 - (void)getImpressionsForApp:(NSNumber *)app completionHandler:(id)handler
 {
-  v7 = sub_100085D40(&qword_10059C3E0);
+  v7 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -57,7 +57,7 @@
 
 - (void)storeSkannerEvents:(NSData *)events advertisedItemID:(NSNumber *)d completionHandler:(id)handler
 {
-  v9 = sub_100085D40(&qword_10059C3E0);
+  v9 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);
@@ -86,7 +86,7 @@
 
 - (void)storePostbacks:(NSData *)postbacks completionHandler:(id)handler
 {
-  v7 = sub_100085D40(&qword_10059C3E0);
+  v7 = sub_100085D40(&qword_10059C3E0, &qword_1004344C0);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);

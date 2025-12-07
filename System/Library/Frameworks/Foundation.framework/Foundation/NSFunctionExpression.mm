@@ -808,30 +808,30 @@ LABEL_38:
 
 - (id)expressionValueWithObject:(id)object context:(id)context
 {
-  v146 = *MEMORY[0x1E69E9840];
+  v147 = *MEMORY[0x1E69E9840];
   if (![(NSFunctionExpression *)self _allowsEvaluation])
   {
     objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"This expression has evaluation disabled" userInfo:0]);
   }
 
-  *&v136[1] = 0;
+  *&v137[1] = 0;
   v7 = objc_autoreleasePoolPush();
   arguments = [(NSFunctionExpression *)self arguments];
-  v134 = [arguments count];
+  v135 = [arguments count];
   selector = [(NSFunctionExpression *)self selector];
   expressionFlags = self->super._expressionFlags;
-  *v136 = (*&expressionFlags & 2) != 0;
-  v133 = selector;
+  *v137 = (*&expressionFlags & 2) != 0;
+  v134 = selector;
   if (selector)
   {
     Name = sel_getName(selector);
     objc_opt_self();
     if ((_CFPredicatePolicyData_getFlags() & 8) != 0)
     {
-      [(NSFunctionExpression *)self isSelectorAllowed:v133];
+      [(NSFunctionExpression *)self isSelectorAllowed:v134];
     }
 
-    if ((*&self->super._expressionFlags & 4) == 0 && [_NSPredicateUtilities _predicateEnforceRestrictionsOnSelector:v133 withOperand:[(NSFunctionExpression *)self operand] isKVC:v136 forComponentName:@"NSFunctionExpression"])
+    if ((*&self->super._expressionFlags & 4) == 0 && [_NSPredicateUtilities _predicateEnforceRestrictionsOnSelector:v134 withOperand:[(NSFunctionExpression *)self operand] isKVC:v137 forComponentName:@"NSFunctionExpression"])
     {
       +[_NSPredicateUtilities _predicateSecurityAction];
     }
@@ -842,17 +842,17 @@ LABEL_38:
     Name = 0;
   }
 
-  v130 = [[_NSPerformanceMeter alloc] initWithTarget:self, 0];
+  v131 = [[_NSPerformanceMeter alloc] initWithTarget:self, 0];
   v12 = [-[NSFunctionExpression operand](self "operand")];
   v13 = v12;
   if (v12)
   {
     v14 = v12;
-    v132 = v13;
-    LODWORD(v131) = object_isClass(v13);
-    if (v131)
+    v133 = v13;
+    LODWORD(v132) = object_isClass(v13);
+    if (v132)
     {
-      v15 = class_getName(v132);
+      v15 = class_getName(v133);
       if (strncmp("_NSPredicateUtilities", v15, 0x15uLL))
       {
         objc_opt_self();
@@ -860,7 +860,7 @@ LABEL_38:
         if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
         {
           *buf = 138543362;
-          *&buf[4] = v132;
+          *&buf[4] = v133;
           _os_log_fault_impl(&dword_18075C000, v16, OS_LOG_TYPE_FAULT, "NSPredicate: Using NSFunctionExpression on a Class '%{public}@' is deprecated and will be removed in a future release.  NSFunctionExpression should operate on instances.", buf, 0xCu);
         }
 
@@ -876,121 +876,122 @@ LABEL_38:
       }
     }
 
-    if ([_NSPredicateUtilities _predicateEnforceRestrictionsOnTarget:v132 forComponentName:@"NSFunctionExpression"])
+    if ([_NSPredicateUtilities _predicateEnforceRestrictionsOnTarget:v133 forComponentName:@"NSFunctionExpression"])
     {
       +[_NSPredicateUtilities _predicateSecurityAction];
     }
 
-    if (v134 >> 60)
+    if (v135 >> 60)
     {
-      v117 = CFStringCreateWithFormat(0, 0, @"*** attempt to create a temporary id buffer which is too large or with a negative count (%lu) -- possibly data is corrupt", v134);
-      v118 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:v117 userInfo:0];
-      CFRelease(v117);
-      objc_exception_throw(v118);
+      v118 = CFStringCreateWithFormat(0, 0, @"*** attempt to create a temporary id buffer which is too large or with a negative count (%lu) -- possibly data is corrupt", v135);
+      v119 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:v118 userInfo:0];
+      CFRelease(v118);
+      objc_exception_throw(v119);
     }
 
-    if (v134 <= 1)
+    if (v135 <= 1)
     {
       v17 = 1;
     }
 
     else
     {
-      v17 = v134;
+      v17 = v135;
     }
 
     MEMORY[0x1EEE9AC00](v17);
-    v19 = &v122 - v18;
+    v19 = &v123 - v18;
     v20 = 0;
-    v135 = 0;
+    v136 = 0;
     if (v21 >= 0x101)
     {
       v20 = _CFCreateArrayStorage();
     }
 
-    v126 = &v122;
-    v127 = v7;
-    v123 = expressionFlags;
-    v124 = Name;
-    *&v125 = v19;
-    v128 = v20;
-    if (v134 < 0x101)
+    v127 = &v123;
+    v128 = v7;
+    v124 = expressionFlags;
+    v125 = Name;
+    *&v126 = v19;
+    v129 = v20;
+    if (v135 < 0x101)
     {
       v20 = v19;
     }
 
-    v129 = v20;
-    v141 = 0u;
+    v130 = v20;
     v142 = 0u;
-    v139 = 0u;
+    v143 = 0u;
     v140 = 0u;
-    v22 = [arguments countByEnumeratingWithState:&v139 objects:v138 count:16];
+    v141 = 0u;
+    v22 = [arguments countByEnumeratingWithState:&v140 objects:v139 count:16];
     if (v22)
     {
-      v23 = *v140;
-      v24 = v129;
+      v23 = *v141;
+      v24 = v130;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v140 != v23)
+          if (*v141 != v23)
           {
             objc_enumerationMutation(arguments);
           }
 
-          v26 = [*(*(&v139 + 1) + 8 * i) expressionValueWithObject:object context:context];
+          v26 = [*(*(&v140 + 1) + 8 * i) expressionValueWithObject:object context:context];
           v27 = v26;
           *v24 = v26;
           v24 += 8;
         }
 
-        v22 = [arguments countByEnumeratingWithState:&v139 objects:v138 count:16];
+        v22 = [arguments countByEnumeratingWithState:&v140 objects:v139 count:16];
       }
 
       while (v22);
     }
 
-    if (v136[0] == 1 && v134 && (*&self->super._expressionFlags & 8) == 0)
+    if (v137[0] == 1 && v135 && (*&self->super._expressionFlags & 8) == 0)
     {
-      v28 = v129;
-      v29 = *v129;
+      v28 = v130;
+      v29 = *v130;
+      p_superclass = NSSimpleRegularExpressionCheckingResult.superclass;
       operand = [(NSFunctionExpression *)self operand];
-      v31 = v132;
+      v32 = v133;
       if ([_NSPredicateUtilities _predicateEnforceRestrictionsOnKeyPath:v29 withOperand:operand forComponentName:@"NSFunctionExpression"])
       {
         +[_NSPredicateUtilities _predicateSecurityAction];
       }
 
-      v32 = [v29 componentsSeparatedByString:@"."];
-      if (![v32 count])
+      v33 = [v29 componentsSeparatedByString:@"."];
+      if (![v33 count])
       {
-        v38 = 0;
+        v39 = 0;
         goto LABEL_56;
       }
 
-      v33 = NSSelectorFromString([v32 objectAtIndexedSubscript:0]);
-      v34 = sel_getName(v33);
-      if (v131)
+      v34 = NSSelectorFromString([v33 objectAtIndexedSubscript:0]);
+      v35 = sel_getName(v34);
+      if (v132)
       {
-        ClassMethod = class_getClassMethod(v31, v33);
-        Property = class_getProperty(v31, v34);
-        InstanceVariable = class_getInstanceVariable(v31, v34);
+        ClassMethod = class_getClassMethod(v32, v34);
+        Property = class_getProperty(v32, v35);
+        InstanceVariable = class_getInstanceVariable(v32, v35);
       }
 
       else
       {
-        Class = object_getClass(v31);
-        ClassMethod = class_getInstanceMethod(Class, v33);
-        Property = class_getProperty(Class, v34);
-        InstanceVariable = class_getInstanceVariable(Class, v34);
+        Class = object_getClass(v32);
+        ClassMethod = class_getInstanceMethod(Class, v34);
+        Property = class_getProperty(Class, v35);
+        InstanceVariable = class_getInstanceVariable(Class, v35);
       }
 
-      v39 = ClassMethod != 0;
-      v38 = InstanceVariable != 0;
+      v40 = ClassMethod != 0;
+      v39 = InstanceVariable != 0;
       if (!Property)
       {
 LABEL_53:
-        if (!v39)
+        if (!v40)
         {
           goto LABEL_57;
         }
@@ -1002,29 +1003,30 @@ LABEL_53:
     else
     {
       v29 = 0;
-      v38 = 0;
-      v28 = v129;
-      v31 = v132;
-      if (!v133)
-      {
-        v39 = 0;
-        goto LABEL_57;
-      }
-
       v39 = 0;
-      if (v136[0])
+      p_superclass = (NSSimpleRegularExpressionCheckingResult + 8);
+      v28 = v130;
+      v32 = v133;
+      if (!v134)
+      {
+        v40 = 0;
+        goto LABEL_57;
+      }
+
+      v40 = 0;
+      if (v137[0])
       {
         goto LABEL_57;
       }
 
-      v40 = v124;
-      if (v131)
+      v41 = v125;
+      if (v132)
       {
-        v39 = class_getClassMethod(v132, v133) != 0;
-        v41 = class_getProperty(v31, v40);
+        v40 = class_getClassMethod(v133, v134) != 0;
+        v42 = class_getProperty(v32, v41);
         v29 = 0;
-        v38 = class_getInstanceVariable(v31, v40) != 0;
-        if (!v41)
+        v39 = class_getInstanceVariable(v32, v41) != 0;
+        if (!v42)
         {
           goto LABEL_53;
         }
@@ -1032,179 +1034,179 @@ LABEL_53:
 
       else
       {
-        v43 = object_getClass(v132);
-        v39 = class_getInstanceMethod(v43, v133) != 0;
-        v44 = class_getProperty(v43, v40);
+        v44 = object_getClass(v133);
+        v40 = class_getInstanceMethod(v44, v134) != 0;
+        v45 = class_getProperty(v44, v41);
         v29 = 0;
-        v38 = class_getInstanceVariable(v43, v40) != 0;
-        if (!v44)
+        v39 = class_getInstanceVariable(v44, v41) != 0;
+        if (!v45)
         {
           goto LABEL_53;
         }
       }
     }
 
-    v38 |= 2u;
-    if (v39)
+    v39 |= 2u;
+    if (v40)
     {
 LABEL_54:
-      v39 = 4;
+      v40 = 4;
       goto LABEL_57;
     }
 
 LABEL_56:
-    v39 = 0;
+    v40 = 0;
 LABEL_57:
-    v45 = object_getClass(v31);
-    v129 = class_getName(v45);
-    if (v131)
+    v46 = object_getClass(v32);
+    v130 = class_getName(v46);
+    if (v132)
     {
-      InstanceMethod = class_getClassMethod(v45, v133);
+      InstanceMethod = class_getClassMethod(v46, v134);
     }
 
     else
     {
-      InstanceMethod = class_getInstanceMethod(v45, v133);
+      InstanceMethod = class_getInstanceMethod(v46, v134);
     }
 
-    v47 = InstanceMethod;
-    v131 = v29;
+    v48 = InstanceMethod;
+    v132 = v29;
     if (InstanceMethod)
     {
       NumberOfArguments = method_getNumberOfArguments(InstanceMethod);
-      if ((&v134->isa + 2) != NumberOfArguments)
+      if ((&v135->isa + 2) != NumberOfArguments)
       {
         objc_opt_self();
         if ((_CFPredicatePolicyData_getFlags() & 8) != 0)
         {
           objc_opt_self();
-          v50 = _NSOSLog();
-          if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
+          v51 = _NSOSLog();
+          if (os_log_type_enabled(v51, OS_LOG_TYPE_FAULT))
           {
             *buf = 0;
-            _os_log_fault_impl(&dword_18075C000, v50, OS_LOG_TYPE_FAULT, "NSPredicate: NSFunctionExpression incorrect number of arguments passed to method", buf, 2u);
+            _os_log_fault_impl(&dword_18075C000, v51, OS_LOG_TYPE_FAULT, "NSPredicate: NSFunctionExpression incorrect number of arguments passed to method", buf, 2u);
           }
 
-          +[_NSPredicateUtilities _predicateSecurityAction];
+          +[(_NSPredicateUtilities *)(p_superclass];
         }
       }
 
-      if (v134)
+      if (v135)
       {
-        v51 = 0;
-        *&v49 = 138412546;
-        v122 = v49;
-        v52 = 1;
+        v52 = 0;
+        *&v50 = 138412546;
+        v123 = v50;
+        v53 = 1;
         while (1)
         {
-          BYTE4(v137) = 0;
-          LODWORD(v137) = 0;
-          method_getArgumentType(v47, v52 + 1, &v137, 4uLL);
-          v53 = v137;
-          if (v137 - 78 <= 0x24 && ((1 << (v137 - 78)) & 0x1300000113) != 0)
+          BYTE4(v138) = 0;
+          LODWORD(v138) = 0;
+          method_getArgumentType(v48, v53 + 1, &v138, 4uLL);
+          v54 = v138;
+          if (v138 - 78 <= 0x24 && ((1 << (v138 - 78)) & 0x1300000113) != 0)
           {
-            v53 = BYTE1(v137);
+            v54 = BYTE1(v138);
           }
 
-          if (v53 == 35)
+          if (v54 == 35)
           {
             break;
           }
 
-          if (v53 != 64)
+          if (v54 != 64)
           {
             objc_opt_self();
-            v55 = _NSOSLog();
-            if (os_log_type_enabled(v55, OS_LOG_TYPE_FAULT))
+            v56 = _NSOSLog();
+            if (os_log_type_enabled(v56, OS_LOG_TYPE_FAULT))
             {
-              v59 = @"<unknown>";
-              if (v133)
+              v60 = @"<unknown>";
+              if (v134)
               {
-                v59 = NSStringFromSelector(v133);
+                v60 = NSStringFromSelector(v134);
               }
 
-              *buf = v122;
-              *&buf[4] = v59;
+              *buf = v123;
+              *&buf[4] = v60;
               *&buf[12] = 2080;
-              *&buf[14] = &v137;
-              _os_log_fault_impl(&dword_18075C000, v55, OS_LOG_TYPE_FAULT, "NSPredicate: Using NSFunctionExpression with selector '%@' and parameter encoding '%s' is forbidden", buf, 0x16u);
+              *&buf[14] = &v138;
+              _os_log_fault_impl(&dword_18075C000, v56, OS_LOG_TYPE_FAULT, "NSPredicate: Using NSFunctionExpression with selector '%@' and parameter encoding '%s' is forbidden", buf, 0x16u);
             }
 
 LABEL_80:
-            +[_NSPredicateUtilities _predicateSecurityAction];
+            +[(_NSPredicateUtilities *)(p_superclass];
           }
 
 LABEL_81:
-          v51 = v52;
-          if (v134 <= v52++)
+          v52 = v53;
+          if (v135 <= v53++)
           {
             goto LABEL_89;
           }
         }
 
-        v56 = v28[v51];
-        if (([v56 isNSData] & 1) == 0 && !objc_msgSend(v56, "isNSString"))
+        v57 = v28[v52];
+        if (([v57 isNSData] & 1) == 0 && !objc_msgSend(v57, "isNSString"))
         {
           goto LABEL_81;
         }
 
         objc_opt_self();
-        v57 = _NSOSLog();
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_FAULT))
+        v58 = _NSOSLog();
+        if (os_log_type_enabled(v58, OS_LOG_TYPE_FAULT))
         {
-          v60 = @"<unknown>";
-          if (v133)
+          v61 = @"<unknown>";
+          if (v134)
           {
-            v60 = NSStringFromSelector(v133);
+            v61 = NSStringFromSelector(v134);
           }
 
-          *buf = v122;
-          *&buf[4] = v60;
+          *buf = v123;
+          *&buf[4] = v61;
           *&buf[12] = 2080;
-          *&buf[14] = &v137;
-          _os_log_fault_impl(&dword_18075C000, v57, OS_LOG_TYPE_FAULT, "NSPredicate: Invalid argument passed to NSFunctionExpression with selector '%@' and parameter encoding '%s' expecting pointer", buf, 0x16u);
+          *&buf[14] = &v138;
+          _os_log_fault_impl(&dword_18075C000, v58, OS_LOG_TYPE_FAULT, "NSPredicate: Invalid argument passed to NSFunctionExpression with selector '%@' and parameter encoding '%s' expecting pointer", buf, 0x16u);
         }
 
         goto LABEL_80;
       }
 
 LABEL_89:
-      BYTE4(v137) = 0;
-      LODWORD(v137) = 0;
-      method_getReturnType(v47, &v137, 4uLL);
-      v31 = v132;
-      v61 = v137;
-      v62 = v137 - 78;
-      if (v62 <= 0x24 && ((1 << v62) & 0x1300000113) != 0)
+      BYTE4(v138) = 0;
+      LODWORD(v138) = 0;
+      method_getReturnType(v48, &v138, 4uLL);
+      v32 = v133;
+      v62 = v138;
+      v63 = v138 - 78;
+      if (v63 <= 0x24 && ((1 << v63) & 0x1300000113) != 0)
       {
-        v61 = BYTE1(v137);
+        v62 = BYTE1(v138);
       }
 
-      if (v61 != 35 && v61 != 64)
+      if (v62 != 35 && v62 != 64)
       {
         objc_opt_self();
-        v63 = _NSOSLog();
-        if (os_log_type_enabled(v63, OS_LOG_TYPE_FAULT))
+        v64 = _NSOSLog();
+        if (os_log_type_enabled(v64, OS_LOG_TYPE_FAULT))
         {
-          if (v133)
+          if (v134)
           {
-            v115 = NSStringFromSelector(v133);
+            v116 = NSStringFromSelector(v134);
           }
 
           else
           {
-            v115 = @"<unknown>";
+            v116 = @"<unknown>";
           }
 
           *buf = 138412546;
-          *&buf[4] = v115;
+          *&buf[4] = v116;
           *&buf[12] = 2080;
-          *&buf[14] = &v137;
-          _os_log_fault_impl(&dword_18075C000, v63, OS_LOG_TYPE_FAULT, "NSPredicate: Using NSFunctionExpression with selector '%@' and return type '%s' is forbidden", buf, 0x16u);
+          *&buf[14] = &v138;
+          _os_log_fault_impl(&dword_18075C000, v64, OS_LOG_TYPE_FAULT, "NSPredicate: Using NSFunctionExpression with selector '%@' and return type '%s' is forbidden", buf, 0x16u);
         }
 
 LABEL_102:
-        +[_NSPredicateUtilities _predicateSecurityAction];
+        +[(_NSPredicateUtilities *)(p_superclass];
       }
     }
 
@@ -1213,19 +1215,19 @@ LABEL_102:
       objc_opt_self();
       if ((_CFPredicatePolicyData_getFlags() & 8) != 0)
       {
-        if (v45)
+        if (v46)
         {
-          v64 = class_getName(v45);
-          if (strcmp(v64, "OCPartialMockObject"))
+          v65 = class_getName(v46);
+          if (strcmp(v65, "OCPartialMockObject"))
           {
-            if (strcmp(v64, "OCMockObject"))
+            if (strcmp(v65, "OCMockObject"))
             {
               objc_opt_self();
-              v65 = _NSOSLog();
-              if (os_log_type_enabled(v65, OS_LOG_TYPE_FAULT))
+              v66 = _NSOSLog();
+              if (os_log_type_enabled(v66, OS_LOG_TYPE_FAULT))
               {
                 *buf = 0;
-                _os_log_fault_impl(&dword_18075C000, v65, OS_LOG_TYPE_FAULT, "NSPredicate: NSFunctionExpression unable to find method", buf, 2u);
+                _os_log_fault_impl(&dword_18075C000, v66, OS_LOG_TYPE_FAULT, "NSPredicate: NSFunctionExpression unable to find method", buf, 2u);
               }
 
               goto LABEL_102;
@@ -1235,23 +1237,23 @@ LABEL_102:
       }
     }
 
-    if (v134 > 4)
+    if (v135 > 4)
     {
-      if (v134 <= 6)
+      if (v135 <= 6)
       {
-        if (v134 == 5)
+        if (v135 == 5)
         {
-          v133 = [v31 v133];
+          v134 = [v32 v134];
         }
 
         else
         {
-          v133 = [v31 v133];
+          v134 = [v32 v134];
         }
 
 LABEL_124:
-        *&v136[1] = v133;
-        if (!v133)
+        *&v137[1] = v134;
+        if (!v134)
         {
           goto LABEL_165;
         }
@@ -1259,56 +1261,56 @@ LABEL_124:
         goto LABEL_125;
       }
 
-      if (v134 == 7)
+      if (v135 == 7)
       {
-        v133 = [v31 v133];
+        v134 = [v32 v134];
         goto LABEL_124;
       }
 
-      if (v134 == 8)
+      if (v135 == 8)
       {
-        v133 = [v31 v133];
+        v134 = [v32 v134];
         goto LABEL_124;
       }
 
-      if (v134 == 9)
+      if (v135 == 9)
       {
-        v133 = [v31 v133];
+        v134 = [v32 v134];
         goto LABEL_124;
       }
     }
 
     else
     {
-      if (v134 > 1)
+      if (v135 > 1)
       {
-        if (v134 == 2)
+        if (v135 == 2)
         {
-          v133 = [v31 v133];
+          v134 = [v32 v134];
         }
 
-        else if (v134 == 3)
+        else if (v135 == 3)
         {
-          v133 = [v31 v133];
+          v134 = [v32 v134];
         }
 
         else
         {
-          v133 = [v31 v133];
+          v134 = [v32 v134];
         }
 
         goto LABEL_124;
       }
 
-      if (!v134)
+      if (!v135)
       {
-        v133 = [v31 v133];
+        v134 = [v32 v134];
         goto LABEL_124;
       }
 
-      if (v134 == 1)
+      if (v135 == 1)
       {
-        v133 = [v31 v133];
+        v134 = [v32 v134];
         goto LABEL_124;
       }
     }
@@ -1317,131 +1319,131 @@ LABEL_124:
     if ((_CFPredicatePolicyData_getFlags() & 8) != 0)
     {
       objc_opt_self();
-      v69 = _NSOSLog();
-      if (os_log_type_enabled(v69, OS_LOG_TYPE_FAULT))
+      v70 = _NSOSLog();
+      if (os_log_type_enabled(v70, OS_LOG_TYPE_FAULT))
       {
         *buf = 0;
-        _os_log_fault_impl(&dword_18075C000, v69, OS_LOG_TYPE_FAULT, "NSPredicate: NSFunctionExpression no longer allows arbitrarily long parameter lists", buf, 2u);
+        _os_log_fault_impl(&dword_18075C000, v70, OS_LOG_TYPE_FAULT, "NSPredicate: NSFunctionExpression no longer allows arbitrarily long parameter lists", buf, 2u);
       }
 
-      +[_NSPredicateUtilities _predicateSecurityAction];
+      +[(_NSPredicateUtilities *)(p_superclass];
     }
 
-    v70 = [(objc_class *)v31 methodSignatureForSelector:v133, v122, *(&v122 + 1)];
-    if (!v70)
+    v71 = [(objc_class *)v32 methodSignatureForSelector:v134, v123, *(&v123 + 1)];
+    if (!v71)
     {
-      v119 = MEMORY[0x1E695DF30];
-      if (v133)
+      v120 = MEMORY[0x1E695DF30];
+      if (v134)
       {
-        v120 = NSStringFromSelector(v133);
+        v121 = NSStringFromSelector(v134);
       }
 
       else
       {
-        v120 = @"<unknown>";
+        v121 = @"<unknown>";
       }
 
-      v132 = [NSString stringWithFormat:@"NSPredicateFunctionMissingSignature: can't find selector (%@) on %@", v120, v132];
-      objc_exception_throw([v119 exceptionWithName:*MEMORY[0x1E695D930] reason:v132 userInfo:0]);
+      v133 = [NSString stringWithFormat:@"NSPredicateFunctionMissingSignature: can't find selector (%@) on %@", v121, v133];
+      objc_exception_throw([v120 exceptionWithName:*MEMORY[0x1E695D930] reason:v133 userInfo:0]);
     }
 
-    v71 = [MEMORY[0x1E695DF50] invocationWithMethodSignature:v70];
-    v72 = v71;
-    if (!v71)
+    v72 = [MEMORY[0x1E695DF50] invocationWithMethodSignature:v71];
+    v73 = v72;
+    if (!v72)
     {
       objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"NSPredicateFunctionBadInvocation: can't make invocation" userInfo:0]);
     }
 
-    [v71 setSelector:v133];
-    [v72 setTarget:v31];
-    numberOfArguments = [v70 numberOfArguments];
-    if (numberOfArguments != v134)
+    [v72 setSelector:v134];
+    [v73 setTarget:v32];
+    numberOfArguments = [v71 numberOfArguments];
+    if (numberOfArguments != v135)
     {
       objc_opt_self();
       if ((_CFPredicatePolicyData_getFlags() & 8) != 0)
       {
         objc_opt_self();
-        v75 = _NSOSLog();
-        if (os_log_type_enabled(v75, OS_LOG_TYPE_FAULT))
+        v76 = _NSOSLog();
+        if (os_log_type_enabled(v76, OS_LOG_TYPE_FAULT))
         {
-          if (v133)
+          if (v134)
           {
-            v116 = NSStringFromSelector(v133);
+            v117 = NSStringFromSelector(v134);
           }
 
           else
           {
-            v116 = @"<unknown>";
+            v117 = @"<unknown>";
           }
 
           *buf = 138412290;
-          *&buf[4] = v116;
-          _os_log_fault_impl(&dword_18075C000, v75, OS_LOG_TYPE_FAULT, "NSPredicate: Using NSFunctionExpression with selector '%@' passed the incorrect number of arguments", buf, 0xCu);
+          *&buf[4] = v117;
+          _os_log_fault_impl(&dword_18075C000, v76, OS_LOG_TYPE_FAULT, "NSPredicate: Using NSFunctionExpression with selector '%@' passed the incorrect number of arguments", buf, 0xCu);
         }
 
-        +[_NSPredicateUtilities _predicateSecurityAction];
+        +[(_NSPredicateUtilities *)(p_superclass];
       }
     }
 
-    LODWORD(v132) = v39;
-    v76 = 2;
-    *&v74 = 138412546;
-    v125 = v74;
-    v78 = v133;
-    v77 = v134;
+    LODWORD(v133) = v40;
+    v77 = 2;
+    *&v75 = 138412546;
+    v126 = v75;
+    v79 = v134;
+    v78 = v135;
     do
     {
-      v79 = v28;
-      v137 = *v28;
-      v80 = [v70 getArgumentTypeAtIndex:v76];
-      v81 = v80;
-      if (v80)
+      v80 = v28;
+      v138 = *v28;
+      v81 = [v71 getArgumentTypeAtIndex:v77];
+      v82 = v81;
+      if (v81)
       {
-        if (strlen(v80) >= 2)
+        if (strlen(v81) >= 2)
         {
-          v82 = *v81;
-          if (v82 == 94 || v82 == 64 && v81[1] == 63)
+          v83 = *v82;
+          if (v83 == 94 || v83 == 64 && v82[1] == 63)
           {
             objc_opt_self();
             if ((_CFPredicatePolicyData_getFlags() & 8) != 0)
             {
               objc_opt_self();
-              v83 = _NSOSLog();
-              if (os_log_type_enabled(v83, OS_LOG_TYPE_FAULT))
+              v84 = _NSOSLog();
+              if (os_log_type_enabled(v84, OS_LOG_TYPE_FAULT))
               {
-                v86 = @"<unknown>";
-                if (v78)
+                v87 = @"<unknown>";
+                if (v79)
                 {
-                  v86 = NSStringFromSelector(v78);
+                  v87 = NSStringFromSelector(v79);
                 }
 
-                *buf = v125;
-                *&buf[4] = v86;
+                *buf = v126;
+                *&buf[4] = v87;
                 *&buf[12] = 2080;
-                *&buf[14] = v81;
-                _os_log_fault_impl(&dword_18075C000, v83, OS_LOG_TYPE_FAULT, "NSPredicate: Using NSFunctionExpression with selector '%@' and parameter encoding '%s' is forbidden", buf, 0x16u);
+                *&buf[14] = v82;
+                _os_log_fault_impl(&dword_18075C000, v84, OS_LOG_TYPE_FAULT, "NSPredicate: Using NSFunctionExpression with selector '%@' and parameter encoding '%s' is forbidden", buf, 0x16u);
               }
 
               +[_NSPredicateUtilities _predicateSecurityAction];
             }
 
-            if (([v137 isNSData] & 1) != 0 || objc_msgSend(v137, "isNSString"))
+            if (([v138 isNSData] & 1) != 0 || objc_msgSend(v138, "isNSString"))
             {
               objc_opt_self();
-              v84 = _NSOSLog();
-              if (os_log_type_enabled(v84, OS_LOG_TYPE_FAULT))
+              v85 = _NSOSLog();
+              if (os_log_type_enabled(v85, OS_LOG_TYPE_FAULT))
               {
-                v85 = @"<unknown>";
-                if (v78)
+                v86 = @"<unknown>";
+                if (v79)
                 {
-                  v85 = NSStringFromSelector(v78);
+                  v86 = NSStringFromSelector(v79);
                 }
 
-                *buf = v125;
-                *&buf[4] = v85;
+                *buf = v126;
+                *&buf[4] = v86;
                 *&buf[12] = 2080;
-                *&buf[14] = v81;
-                _os_log_fault_impl(&dword_18075C000, v84, OS_LOG_TYPE_FAULT, "NSPredicate: Invalid argument passed to NSFunctionExpression with selector '%@' and parameter encoding '%s' expecting pointer", buf, 0x16u);
+                *&buf[14] = v82;
+                _os_log_fault_impl(&dword_18075C000, v85, OS_LOG_TYPE_FAULT, "NSPredicate: Invalid argument passed to NSFunctionExpression with selector '%@' and parameter encoding '%s' expecting pointer", buf, 0x16u);
               }
 
               +[_NSPredicateUtilities _predicateSecurityAction];
@@ -1450,32 +1452,33 @@ LABEL_124:
         }
       }
 
-      [v72 setArgument:&v137 atIndex:v76++];
-      v28 = v79 + 1;
-      v77 = (v77 - 1);
+      [v73 setArgument:&v138 atIndex:v77++];
+      v28 = v80 + 1;
+      v78 = (v78 - 1);
     }
 
-    while (v77);
-    [v72 invoke];
-    v39 = v132;
-    if ([v70 methodReturnLength])
+    while (v78);
+    [v73 invoke];
+    p_superclass = NSSimpleRegularExpressionCheckingResult.superclass;
+    v40 = v133;
+    if ([v71 methodReturnLength])
     {
-      [v72 getReturnValue:&v136[1]];
+      [v73 getReturnValue:&v137[1]];
     }
 
-    if (!*&v136[1])
+    if (!*&v137[1])
     {
 LABEL_165:
-      v87 = *&v136[1];
-      if (*&v136[1])
+      v88 = *&v137[1];
+      if (*&v137[1])
       {
-        v88 = object_getClass(*&v136[1]);
-        v89 = class_getName(v88);
+        v89 = object_getClass(*&v137[1]);
+        v90 = class_getName(v89);
       }
 
       else
       {
-        v89 = 0;
+        v90 = 0;
       }
 
       objc_opt_self();
@@ -1484,133 +1487,133 @@ LABEL_165:
         goto LABEL_233;
       }
 
-      v90 = v39 | v38;
+      v91 = v40 | v39;
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getNSFESignpostLog_block_invoke;
-      v144 = &__block_descriptor_48_e5_v8__0l;
-      *&v145 = "com.apple.Foundation.NSPredAllowListing";
-      *(&v145 + 1) = "NSFEEvent";
+      v145 = &__block_descriptor_48_e5_v8__0l;
+      *&v146 = "com.apple.Foundation.NSPredAllowListing";
+      *(&v146 + 1) = "NSFEEvent";
       if (qword_1EA821EC0 != -1)
       {
         dispatch_once(&qword_1EA821EC0, buf);
       }
 
-      v134 = qword_1EA821EB8;
-      v122 = [NSNumber numberWithChar:v39 | v38, v122];
+      v135 = qword_1EA821EB8;
+      v123 = [NSNumber numberWithChar:v40 | v39, v123];
       if (!os_variant_has_internal_diagnostics())
       {
         goto LABEL_233;
       }
 
-      if (v89)
+      if (v90)
       {
-        v92 = wrapInCheapMutableString(v89);
-        if (v92)
+        v93 = wrapInCheapMutableString(v90);
+        if (v93)
         {
           objc_opt_self();
-          v93 = 0;
-          v94 = [*(_CFPredicatePolicyData() + 48) objectForKey:v92] == 0;
+          v94 = 0;
+          v95 = [*(_CFPredicatePolicyData() + 48) objectForKey:v93] == 0;
 LABEL_177:
-          v95 = 0;
-          if (v129 && !v94)
+          v96 = 0;
+          if (v130 && !v95)
           {
-            v95 = wrapInCheapMutableString(v129);
+            v96 = wrapInCheapMutableString(v130);
           }
 
-          v96 = !v94;
-          if (v124)
+          v97 = !v95;
+          if (v125)
           {
-            v97 = !v94;
+            v98 = !v95;
           }
 
           else
           {
-            v97 = 0;
+            v98 = 0;
           }
 
-          if (v97)
+          if (v98)
           {
-            v100 = wrapInCheapMutableString(v124);
-            v101 = v100;
-            v98 = v95 != 0;
-            if (v95)
+            v101 = wrapInCheapMutableString(v125);
+            v102 = v101;
+            v99 = v96 != 0;
+            if (v96)
             {
-              v102 = v96;
+              v103 = v97;
             }
 
             else
             {
-              v102 = 0;
+              v103 = 0;
             }
 
-            v103 = v100 != 0;
-            if (v102 == 1 && v100)
+            v104 = v101 != 0;
+            if (v103 == 1 && v101)
             {
-              if (!isSelectorAllowed(v95, v100, &off_1EEF56C60))
+              if (!isSelectorAllowed(v96, v101, &off_1EEF56C60))
               {
-                v99 = [v101 hash];
-                if (!v131)
+                v100 = [v102 hash];
+                if (!v132)
                 {
 LABEL_211:
-                  v99 ^= [v95 hash];
+                  v100 ^= [v96 hash];
 LABEL_212:
-                  if ((v93 & 1) == 0)
+                  if ((v94 & 1) == 0)
                   {
-                    v99 ^= [v92 hash];
+                    v100 ^= [v93 hash];
                   }
 
-                  v106 = [NSNumber numberWithUnsignedLong:v99];
+                  v107 = [NSNumber numberWithUnsignedLong:v100];
                   os_unfair_lock_lock(&_MergedGlobals_29);
-                  v107 = qword_1EA821EC8;
+                  v108 = qword_1EA821EC8;
                   if (!qword_1EA821EC8)
                   {
-                    v107 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:33];
-                    qword_1EA821EC8 = v107;
+                    v108 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:33];
+                    qword_1EA821EC8 = v108;
                   }
 
-                  v108 = [v107 containsObject:v106];
-                  if ((v108 & 1) == 0)
+                  v109 = [v108 containsObject:v107];
+                  if ((v109 & 1) == 0)
                   {
-                    [qword_1EA821EC8 addObject:v106];
+                    [qword_1EA821EC8 addObject:v107];
                     if ([qword_1EA821EC8 count] >= 0x21)
                     {
                       [qword_1EA821EC8 removeObjectAtIndex:0];
                     }
                   }
 
-                  v105 = v108 ^ 1;
+                  v106 = v109 ^ 1;
                   os_unfair_lock_unlock(&_MergedGlobals_29);
                   goto LABEL_220;
                 }
 
 LABEL_206:
-                v99 ^= [v131 hash];
+                v100 ^= [v132 hash];
                 goto LABEL_211;
               }
 
-              v98 = 1;
-              v103 = 1;
+              v99 = 1;
+              v104 = 1;
             }
           }
 
           else
           {
-            v98 = v95 != 0;
-            if (v94)
+            v99 = v96 != 0;
+            if (v95)
             {
-              if (v131)
+              if (v132)
               {
-                v99 = [v131 hash];
+                v100 = [v132 hash];
               }
 
               else
               {
-                v99 = 0;
+                v100 = 0;
               }
 
-              v101 = 0;
-              if (!v95)
+              v102 = 0;
+              if (!v96)
               {
                 goto LABEL_212;
               }
@@ -1618,133 +1621,133 @@ LABEL_206:
               goto LABEL_211;
             }
 
-            v101 = 0;
-            v103 = 0;
+            v102 = 0;
+            v104 = 0;
           }
 
-          v105 = 0;
-          if (!v131 || !v98 || (*&v123 & 2) == 0)
+          v106 = 0;
+          if (!v132 || !v99 || (*&v124 & 2) == 0)
           {
 LABEL_220:
 
-            if (v105)
+            if (v106)
             {
-              if ((*&v123 & 2) != 0)
+              if ((*&v124 & 2) != 0)
               {
-                v109 = [v131 lengthOfBytesUsingEncoding:4];
-                v110 = malloc_type_malloc(v109 + 1, 0x514827A7uLL);
-                if (v110)
+                v110 = [v132 lengthOfBytesUsingEncoding:4];
+                v111 = malloc_type_malloc(v110 + 1, 0x514827A7uLL);
+                if (v111)
                 {
-                  if ([v131 getCString:v110 maxLength:v109 + 1 encoding:4] && os_signpost_enabled(v134))
+                  if ([v132 getCString:v111 maxLength:v110 + 1 encoding:4] && os_signpost_enabled(v135))
                   {
-                    v111 = "";
+                    v112 = "";
                     *buf = 136316162;
-                    if (v89)
+                    if (v90)
                     {
-                      v111 = v89;
+                      v112 = v90;
                     }
 
-                    *&buf[4] = v124;
+                    *&buf[4] = v125;
                     *&buf[12] = 2080;
-                    *&buf[14] = v110;
+                    *&buf[14] = v111;
                     *&buf[22] = 2080;
-                    v144 = v129;
-                    LOWORD(v145) = 2080;
-                    *(&v145 + 2) = v111;
-                    WORD5(v145) = 1024;
-                    HIDWORD(v145) = v90;
-                    _os_signpost_emit_with_name_impl(&dword_18075C000, v134, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "KVCFun", "%s|%s|%s|%s|%hhu", buf, 0x30u);
+                    v145 = v130;
+                    LOWORD(v146) = 2080;
+                    *(&v146 + 2) = v112;
+                    WORD5(v146) = 1024;
+                    HIDWORD(v146) = v91;
+                    _os_signpost_emit_with_name_impl(&dword_18075C000, v135, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "KVCFun", "%s|%s|%s|%s|%hhu", buf, 0x30u);
                   }
 
-                  free(v110);
+                  free(v111);
                 }
               }
 
-              else if (os_signpost_enabled(v134))
+              else if (os_signpost_enabled(v135))
               {
-                v112 = "";
+                v113 = "";
                 *buf = 136315906;
-                if (v89)
+                if (v90)
                 {
-                  v112 = v89;
+                  v113 = v90;
                 }
 
-                *&buf[4] = v124;
+                *&buf[4] = v125;
                 *&buf[12] = 2080;
-                *&buf[14] = v129;
+                *&buf[14] = v130;
                 *&buf[22] = 2080;
-                v144 = v112;
-                LOWORD(v145) = 1024;
-                *(&v145 + 2) = v90;
-                _os_signpost_emit_with_name_impl(&dword_18075C000, v134, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "BannedSel", "%s|%s|%s|%hhu", buf, 0x26u);
+                v145 = v113;
+                LOWORD(v146) = 1024;
+                *(&v146 + 2) = v91;
+                _os_signpost_emit_with_name_impl(&dword_18075C000, v135, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "BannedSel", "%s|%s|%s|%hhu", buf, 0x26u);
               }
             }
 
 LABEL_233:
-            free(v128);
-            v113 = v127;
-            v114 = v130;
-            if (v130)
+            free(v129);
+            v114 = v128;
+            v115 = v131;
+            if (v131)
             {
-              [(_NSPerformanceMeter *)v130 invalidate];
+              [(_NSPerformanceMeter *)v131 invalidate];
             }
 
-            objc_autoreleasePoolPop(v113);
-            return *&v136[1];
+            objc_autoreleasePoolPop(v114);
+            return *&v137[1];
           }
 
-          if (isSelectorAllowed(v95, v131, v122))
+          if (isSelectorAllowed(v96, v132, v123))
           {
-            v105 = 0;
+            v106 = 0;
             goto LABEL_220;
           }
 
-          if (!v103)
+          if (!v104)
           {
-            v99 = [v131 hash];
+            v100 = [v132 hash];
             goto LABEL_211;
           }
 
-          v99 = [v101 hash];
+          v100 = [v102 hash];
           goto LABEL_206;
         }
       }
 
       else
       {
-        v92 = 0;
+        v93 = 0;
       }
 
-      v94 = 0;
-      v93 = 1;
+      v95 = 0;
+      v94 = 1;
       goto LABEL_177;
     }
 
 LABEL_125:
     objc_opt_self();
-    if ((_CFPredicatePolicyData_getFlags() & 8) != 0 && !object_isClass(*&v136[1]))
+    if ((_CFPredicatePolicyData_getFlags() & 8) != 0 && !object_isClass(*&v137[1]))
     {
-      v67 = object_getClass(*&v136[1]);
-      if (!object_isClass(v67))
+      v68 = object_getClass(*&v137[1]);
+      if (!object_isClass(v68))
       {
         objc_opt_self();
-        v68 = _NSOSLog();
-        if (os_log_type_enabled(v68, OS_LOG_TYPE_FAULT))
+        v69 = _NSOSLog();
+        if (os_log_type_enabled(v69, OS_LOG_TYPE_FAULT))
         {
           *buf = 0;
-          _os_log_fault_impl(&dword_18075C000, v68, OS_LOG_TYPE_FAULT, "NSPredicate: NSFunctionExpression must return an object", buf, 2u);
+          _os_log_fault_impl(&dword_18075C000, v69, OS_LOG_TYPE_FAULT, "NSPredicate: NSFunctionExpression must return an object", buf, 2u);
         }
 
-        +[_NSPredicateUtilities _predicateSecurityAction];
+        +[(_NSPredicateUtilities *)(p_superclass];
       }
     }
 
     goto LABEL_165;
   }
 
-  if (v130)
+  if (v131)
   {
-    [(_NSPerformanceMeter *)v130 invalidate];
+    [(_NSPerformanceMeter *)v131 invalidate];
   }
 
   objc_autoreleasePoolPop(v7);

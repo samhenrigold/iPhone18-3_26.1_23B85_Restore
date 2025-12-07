@@ -269,7 +269,7 @@ LABEL_23:
       v24 = layer;
       if (layer)
       {
-        [layer affineTransform];
+        objc_msgSend_affineTransform(layer);
       }
 
       else
@@ -291,7 +291,7 @@ LABEL_23:
       v24 = layer3;
       if (layer3)
       {
-        [layer3 affineTransform];
+        objc_msgSend_affineTransform(layer3);
       }
 
       else
@@ -341,47 +341,47 @@ LABEL_53:
 
 - (void)applyTransformForExternalCamera
 {
-  memset(&v26, 0, sizeof(v26));
+  memset(&v25, 0, sizeof(v25));
   if ([(NSNumber *)self->_currentRotation isEqualToNumber:&off_31FA8])
   {
     v3 = *&CGAffineTransformIdentity.c;
-    *&v25.a = *&CGAffineTransformIdentity.a;
-    *&v25.c = v3;
-    *&v25.tx = *&CGAffineTransformIdentity.tx;
-    CGAffineTransformRotate(&v26, &v25, -1.57079633);
+    *&v24.a = *&CGAffineTransformIdentity.a;
+    *&v24.c = v3;
+    *&v24.tx = *&CGAffineTransformIdentity.tx;
+    CGAffineTransformRotate(&v25, &v24, -1.57079633);
     mirrorType = self->_mirrorType;
     if (mirrorType == 2)
     {
-      v25 = v26;
-      CGAffineTransformScale(&v23, &v25, -1.0, -1.0);
+      v24 = v25;
+      CGAffineTransformScale(&v22, &v24, -1.0, -1.0);
       layer = [(RPCCUIVideoView *)self layer];
       v6 = layer;
-      *&v25.a = *&v23.a;
-      *&v25.c = *&v23.c;
-      v7 = *&v23.tx;
+      *&v24.a = *&v22.a;
+      *&v24.c = *&v22.c;
+      v7 = *&v22.tx;
     }
 
     else
     {
-      v25 = v26;
+      v24 = v25;
       if (mirrorType == 1)
       {
-        CGAffineTransformScale(&v24, &v25, 1.0, 1.0);
+        CGAffineTransformScale(&v23, &v24, 1.0, 1.0);
         layer = [(RPCCUIVideoView *)self layer];
         v6 = layer;
-        *&v25.a = *&v24.a;
-        *&v25.c = *&v24.c;
-        v7 = *&v24.tx;
+        *&v24.a = *&v23.a;
+        *&v24.c = *&v23.c;
+        v7 = *&v23.tx;
       }
 
       else
       {
-        CGAffineTransformScale(&v22, &v25, -1.0, 1.0);
+        CGAffineTransformScale(&v21, &v24, -1.0, 1.0);
         layer = [(RPCCUIVideoView *)self layer];
         v6 = layer;
-        *&v25.a = *&v22.a;
-        *&v25.c = *&v22.c;
-        v7 = *&v22.tx;
+        *&v24.a = *&v21.a;
+        *&v24.c = *&v21.c;
+        v7 = *&v21.tx;
       }
     }
   }
@@ -389,10 +389,10 @@ LABEL_53:
   else if ([(NSNumber *)self->_currentRotation isEqualToNumber:&off_31FD8])
   {
     v8 = *&CGAffineTransformIdentity.c;
-    *&v25.a = *&CGAffineTransformIdentity.a;
-    *&v25.c = v8;
-    *&v25.tx = *&CGAffineTransformIdentity.tx;
-    CGAffineTransformRotate(&v26, &v25, 3.14159265);
+    *&v24.a = *&CGAffineTransformIdentity.a;
+    *&v24.c = v8;
+    *&v24.tx = *&CGAffineTransformIdentity.tx;
+    CGAffineTransformRotate(&v25, &v24, 3.14159265);
     v9 = self->_mirrorType;
     if (v9)
     {
@@ -401,113 +401,112 @@ LABEL_53:
         return;
       }
 
-      v25 = v26;
-      CGAffineTransformScale(&v21, &v25, 1.0, 1.0);
+      v24 = v25;
+      CGAffineTransformScale(&v20, &v24, 1.0, 1.0);
       layer = [(RPCCUIVideoView *)self layer];
       v6 = layer;
-      *&v25.a = *&v21.a;
-      *&v25.c = *&v21.c;
-      v7 = *&v21.tx;
+      *&v24.a = *&v20.a;
+      *&v24.c = *&v20.c;
+      v7 = *&v20.tx;
     }
 
     else
     {
-      v25 = v26;
-      CGAffineTransformScale(&v20, &v25, -1.0, 1.0);
+      v24 = v25;
+      CGAffineTransformScale(&v19, &v24, -1.0, 1.0);
       layer = [(RPCCUIVideoView *)self layer];
       v6 = layer;
-      *&v25.a = *&v20.a;
-      *&v25.c = *&v20.c;
-      v7 = *&v20.tx;
+      *&v24.a = *&v19.a;
+      *&v24.c = *&v19.c;
+      v7 = *&v19.tx;
     }
   }
 
   else
   {
     v10 = [(NSNumber *)self->_currentRotation isEqualToNumber:&off_31FC0];
-    v11 = *&CGAffineTransformIdentity.a;
-    v12 = *&CGAffineTransformIdentity.c;
+    v11 = *&CGAffineTransformIdentity.c;
     if (v10)
     {
-      *&v25.a = *&CGAffineTransformIdentity.a;
-      *&v25.c = v12;
-      *&v25.tx = *&CGAffineTransformIdentity.tx;
-      CGAffineTransformRotate(&v26, &v25, 1.57079633);
-      v13 = self->_mirrorType;
-      if (v13 == 2)
+      *&v24.a = *&CGAffineTransformIdentity.a;
+      *&v24.c = v11;
+      *&v24.tx = *&CGAffineTransformIdentity.tx;
+      CGAffineTransformRotate(&v25, &v24, 1.57079633);
+      v12 = self->_mirrorType;
+      if (v12 == 2)
       {
-        v25 = v26;
-        CGAffineTransformScale(&v18, &v25, -1.0, -1.0);
+        v24 = v25;
+        CGAffineTransformScale(&v17, &v24, -1.0, -1.0);
         layer = [(RPCCUIVideoView *)self layer];
         v6 = layer;
-        *&v25.a = *&v18.a;
-        *&v25.c = *&v18.c;
-        v7 = *&v18.tx;
+        *&v24.a = *&v17.a;
+        *&v24.c = *&v17.c;
+        v7 = *&v17.tx;
       }
 
       else
       {
-        v25 = v26;
-        if (v13 == 1)
+        v24 = v25;
+        if (v12 == 1)
         {
-          CGAffineTransformScale(&v19, &v25, 1.0, 1.0);
+          CGAffineTransformScale(&v18, &v24, 1.0, 1.0);
           layer = [(RPCCUIVideoView *)self layer];
           v6 = layer;
-          *&v25.a = *&v19.a;
-          *&v25.c = *&v19.c;
-          v7 = *&v19.tx;
+          *&v24.a = *&v18.a;
+          *&v24.c = *&v18.c;
+          v7 = *&v18.tx;
         }
 
         else
         {
-          CGAffineTransformScale(&v17, &v25, -1.0, 1.0);
+          CGAffineTransformScale(&v16, &v24, -1.0, 1.0);
           layer = [(RPCCUIVideoView *)self layer];
           v6 = layer;
-          *&v25.a = *&v17.a;
-          *&v25.c = *&v17.c;
-          v7 = *&v17.tx;
+          *&v24.a = *&v16.a;
+          *&v24.c = *&v16.c;
+          v7 = *&v16.tx;
         }
       }
     }
 
     else
     {
-      *&v25.a = *&CGAffineTransformIdentity.a;
-      *&v25.c = v12;
-      *&v25.tx = *&CGAffineTransformIdentity.tx;
-      CGAffineTransformRotate(&v26, &v25, 0.0);
-      v14 = self->_mirrorType;
-      if (v14)
+      *&v24.a = *&CGAffineTransformIdentity.a;
+      *&v24.c = v11;
+      *&v24.tx = *&CGAffineTransformIdentity.tx;
+      CGAffineTransformRotate(&v25, &v24, 0.0);
+      v13 = self->_mirrorType;
+      if (v13)
       {
-        if (v14 != 1)
+        if (v13 != 1)
         {
           return;
         }
 
-        v25 = v26;
-        CGAffineTransformScale(&v16, &v25, -1.0, -1.0);
+        v24 = v25;
+        CGAffineTransformScale(&v15, &v24, -1.0, -1.0);
         layer = [(RPCCUIVideoView *)self layer];
         v6 = layer;
-        *&v25.a = *&v16.a;
-        *&v25.c = *&v16.c;
-        v7 = *&v16.tx;
+        *&v24.a = *&v15.a;
+        *&v24.c = *&v15.c;
+        v7 = *&v15.tx;
       }
 
       else
       {
-        v25 = v26;
-        CGAffineTransformScale(&v15, &v25, -1.0, 1.0);
+        v24 = v25;
+        CGAffineTransformScale(&v14, &v24, -1.0, 1.0);
         layer = [(RPCCUIVideoView *)self layer];
         v6 = layer;
-        *&v25.a = *&v15.a;
-        *&v25.c = *&v15.c;
-        v7 = *&v15.tx;
+        *&v24.a = *&v14.a;
+        *&v24.c = *&v14.c;
+        v7 = *&v14.tx;
       }
     }
   }
 
-  *&v25.tx = v7;
-  [layer setAffineTransform:&v25];
+  *&v24.tx = v7;
+  [layer setAffineTransform:&v24];
 }
 
 - (void)applyTransformWithOrientation

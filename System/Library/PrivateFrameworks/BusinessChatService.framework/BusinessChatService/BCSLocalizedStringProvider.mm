@@ -22,9 +22,11 @@
 
 uint64_t __44__BCSLocalizedStringProvider_sharedInstance__block_invoke()
 {
-  _MergedGlobals_40 = objc_alloc_init(BCSLocalizedStringProvider);
+  v0 = objc_alloc_init(BCSLocalizedStringProvider);
+  v1 = _MergedGlobals_40;
+  _MergedGlobals_40 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)willOpenAtSameDaySingularWithFormattedTime:(id)time

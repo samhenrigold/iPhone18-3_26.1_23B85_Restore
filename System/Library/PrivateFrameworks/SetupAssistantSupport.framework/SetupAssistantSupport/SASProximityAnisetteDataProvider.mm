@@ -1,5 +1,6 @@
 @interface SASProximityAnisetteDataProvider
 - (void)eraseAnisetteWithCompletion:(id)completion;
+- (void)fetchAnisetteDataAndProvisionIfNecessary:(BOOL)necessary withCompletion:(id)completion;
 - (void)legacyAnisetteDataForDSID:(id)d withCompletion:(id)completion;
 - (void)provisionAnisetteWithCompletion:(id)completion;
 - (void)syncAnisetteWithSIMData:(id)data completion:(id)completion;
@@ -49,6 +50,23 @@
   if (completionCopy)
   {
     completionCopy[2](completionCopy, [(SASProximityAnisetteRequestAction *)v4 success], 0);
+  }
+}
+
+- (void)fetchAnisetteDataAndProvisionIfNecessary:(BOOL)necessary withCompletion:(id)completion
+{
+  necessaryCopy = necessary;
+  completionCopy = completion;
+  v6 = objc_alloc_init(SASProximityAnisetteRequestAction);
+  [(SASProximityAnisetteRequestAction *)v6 setRequest:3];
+  [(SASProximityAnisetteRequestAction *)v6 setShouldProvision:necessaryCopy];
+  session = [(SASProximityAnisetteDataProvider *)self session];
+  v8 = [session sendAction:v6];
+
+  if (completionCopy)
+  {
+    anisetteData = [(SASProximityAnisetteRequestAction *)v6 anisetteData];
+    completionCopy[2](completionCopy, anisetteData, 0);
   }
 }
 

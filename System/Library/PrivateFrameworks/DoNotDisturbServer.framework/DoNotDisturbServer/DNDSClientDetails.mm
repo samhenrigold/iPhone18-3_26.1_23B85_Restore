@@ -44,7 +44,7 @@
 
 + (id)_detailsForClientIdentifier:(id)identifier bundleInfoDictionary:(id)dictionary
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy bs_safeDictionaryForKey:@"DNDModeAssertionServiceOptions"];
@@ -80,11 +80,11 @@
     v9 = [v15 bs_filter:&__block_literal_global_29];
   }
 
-  v34 = identifierCopy;
+  v33 = identifierCopy;
   if (![v9 count])
   {
-    v36[0] = identifierCopy;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
+    v35[0] = identifierCopy;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:1];
 
     v9 = v16;
   }
@@ -108,11 +108,9 @@
   v27 = [v8 bs_safeNumberForKey:@"DNDForceAssertionStatusUpdate"];
   bOOLValue6 = [v27 BOOLValue];
 
-  BYTE1(v32) = bOOLValue6;
-  LOBYTE(v32) = bOOLValue5;
-  v29 = [[self alloc] initWithClientIdentifier:v34 identifiers:v9 resolutionContextAssumingDeviceUILocked:bOOLValue userInteractionClient:bOOLValue2 persistentAssertionClient:bOOLValue3 syncSuppressedClient:bOOLValue4 iOS14SyncSuppressedClient:v32 forcesAssertionStatusUpdate:?];
-
-  v30 = *MEMORY[0x277D85DE8];
+  BYTE1(v31) = bOOLValue6;
+  LOBYTE(v31) = bOOLValue5;
+  v29 = [[self alloc] initWithClientIdentifier:v33 identifiers:v9 resolutionContextAssumingDeviceUILocked:bOOLValue userInteractionClient:bOOLValue2 persistentAssertionClient:bOOLValue3 syncSuppressedClient:bOOLValue4 iOS14SyncSuppressedClient:v31 forcesAssertionStatusUpdate:?];
 
   return v29;
 }

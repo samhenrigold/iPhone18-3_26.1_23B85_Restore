@@ -8,7 +8,6 @@
 - (BOOL)disposeWithError:(id *)error;
 - (BOOL)purgeContentsWithError:(id *)error;
 - (id)_initWithExistingFsRepPath:(char *)path identifier:(id)identifier;
-- (id)description;
 - (void)dealloc;
 - (void)disposeWithoutDeleting;
 @end
@@ -154,12 +153,11 @@
     {
       v17 = *error;
       *buf = 138412546;
-      v21 = pathCopy;
-      v22 = 2112;
-      v23 = v17;
+      v20 = pathCopy;
+      v21 = 2112;
+      v22 = v17;
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "=tmpdir= could not find mount point for %@: %@", buf, 0x16u);
-      v19 = *error;
-      _MBLog();
+      _MBLog(@"E ", "=tmpdir= could not find mount point for %@: %@", pathCopy, *error);
     }
 
     v15 = 0;
@@ -232,7 +230,7 @@
         v25 = 2112;
         v26 = v14;
         _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "=tmpdir= %@ failed to create new contents directory: %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "=tmpdir= %@ failed to create new contents directory: %@", self, v14);
       }
 
       if (error)
@@ -261,7 +259,7 @@
       v25 = 2112;
       v26 = v11;
       _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "=tmpdir= %@ failed to move contents aside to purge: %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "=tmpdir= %@ failed to move contents aside to purge: %@", self, v11);
     }
 
     if (error)
@@ -306,7 +304,7 @@
       v18 = 2112;
       v19 = v12;
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "=tmpdir= failed to delete %@: %@", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"E ", "=tmpdir= failed to delete %@: %@", self, v12);
     }
 
     if (error)
@@ -355,7 +353,7 @@
       *buf = 138412290;
       selfCopy = self;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_ERROR, "=tmpdir= %@ was not disposed before dealloc", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "=tmpdir= %@ was not disposed before dealloc", self);
     }
   }
 
@@ -364,14 +362,6 @@
   v4.receiver = self;
   v4.super_class = MBTemporaryDirectory;
   [(MBTemporaryDirectory *)&v4 dealloc];
-}
-
-- (id)description
-{
-  v3 = objc_opt_class();
-  Name = class_getName(v3);
-  identifier = self->_identifier;
-  return [NSString stringWithFormat:@"<%s: %@, path: %s>", Name, identifier, self->_fsRepPath];
 }
 
 @end

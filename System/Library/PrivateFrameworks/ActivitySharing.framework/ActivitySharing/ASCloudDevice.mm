@@ -20,75 +20,75 @@
   if (v5)
   {
     valuesByKey2 = [recordCopy valuesByKey];
-    v7 = [valuesByKey2 objectForKeyedSubscript:@"DeviceOSVersionNumber"];
+    v9 = [valuesByKey2 objectForKeyedSubscript:@"DeviceOSVersionNumber"];
 
-    if (v7)
+    if (v9)
     {
       valuesByKey3 = [recordCopy valuesByKey];
-      v9 = [valuesByKey3 objectForKeyedSubscript:@"DeviceOSType"];
+      v13 = [valuesByKey3 objectForKeyedSubscript:@"DeviceOSType"];
 
-      if (v9)
+      if (v13)
       {
         modificationDate = [recordCopy modificationDate];
         if (modificationDate)
         {
-          v11 = [ASCloudDevice alloc];
+          v18 = [ASCloudDevice alloc];
           recordID = [recordCopy recordID];
           recordName = [recordID recordName];
-          v14 = [(ASCloudDevice *)v11 initWithBuildNumber:v5 deviceType:v9 identifier:recordName modificationDate:modificationDate osVersion:v7];
+          v21 = [(ASCloudDevice *)v18 initWithBuildNumber:v5 deviceType:v13 identifier:recordName modificationDate:modificationDate osVersion:v9];
         }
 
         else
         {
-          ASLoggingInitialize();
+          ASLoggingInitialize(0, v16);
           if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
           {
             +[ASCloudDevice(CloudKitCodingSupport) cloudDeviceWithRecord:];
           }
 
-          v14 = 0;
+          v21 = 0;
         }
       }
 
       else
       {
-        ASLoggingInitialize();
-        v17 = ASLogCloudKit;
+        ASLoggingInitialize(v14, v15);
+        v24 = ASLogCloudKit;
         if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
         {
-          [ASCloudDevice(CloudKitCodingSupport) cloudDeviceWithRecord:v17];
+          [ASCloudDevice(CloudKitCodingSupport) cloudDeviceWithRecord:v24];
         }
 
-        v14 = 0;
+        v21 = 0;
       }
     }
 
     else
     {
-      ASLoggingInitialize();
-      v16 = ASLogCloudKit;
+      ASLoggingInitialize(v10, v11);
+      v23 = ASLogCloudKit;
       if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
       {
-        [ASCloudDevice(CloudKitCodingSupport) cloudDeviceWithRecord:v16];
+        [ASCloudDevice(CloudKitCodingSupport) cloudDeviceWithRecord:v23];
       }
 
-      v14 = 0;
+      v21 = 0;
     }
   }
 
   else
   {
-    ASLoggingInitialize();
-    v15 = ASLogCloudKit;
+    ASLoggingInitialize(v6, v7);
+    v22 = ASLogCloudKit;
     if (os_log_type_enabled(ASLogCloudKit, OS_LOG_TYPE_ERROR))
     {
-      [ASCloudDevice(CloudKitCodingSupport) cloudDeviceWithRecord:v15];
+      [ASCloudDevice(CloudKitCodingSupport) cloudDeviceWithRecord:v22];
     }
 
-    v14 = 0;
+    v21 = 0;
   }
 
-  return v14;
+  return v21;
 }
 
 - (ASCloudDevice)initWithBuildNumber:(id)number deviceType:(id)type identifier:(id)identifier modificationDate:(id)date osVersion:(id)version
@@ -170,20 +170,19 @@
 
 - (id)dictionaryRepresentation
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v7[0] = @"buildNumber";
-  v7[1] = @"deviceType";
+  v10 = *MEMORY[0x277D85DE8];
+  v6[0] = @"buildNumber";
+  v6[1] = @"deviceType";
   deviceType = self->_deviceType;
-  v8[0] = self->_buildNumber;
-  v8[1] = deviceType;
+  v7[0] = self->_buildNumber;
+  v7[1] = deviceType;
   v3 = *&self->_identifier;
-  v7[2] = @"identifier";
-  v7[3] = @"modificationDate";
-  v9 = v3;
-  v7[4] = @"osVersion";
+  v6[2] = @"identifier";
+  v6[3] = @"modificationDate";
+  v8 = v3;
+  v6[4] = @"osVersion";
   osVersion = self->_osVersion;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:5];
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:5];
 
   return v4;
 }
